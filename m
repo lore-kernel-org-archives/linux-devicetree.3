@@ -1,164 +1,157 @@
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011058.outbound.protection.outlook.com [40.107.130.58])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A61B4B7A21;
-	Thu,  1 Oct 2026 13:58:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.58
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790863123; cv=fail; b=VySjIchWchpbFPUvAkeQLgxPtOS+IPPu+cOWE9JdDDD6CyfYV9z5bIZglrdso5bjQSgZsgEtPJ7Fhr7kPjM/WQNlmRY+ScYZFddoLwc0De2XocZkjTd4HDBVYbMB+48IFQWAnK8sL34DwXSs8yqWM22o8pohyHnvTCP3Eyid8Sw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790863123; c=relaxed/simple;
-	bh=SUa3tpL3ftw3WF9SfOauI6A64G/B4cTc1PJvjAD2euA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=BuQrH3I0ZCMCma56CRMyLI1sOF7YGbKszJ5ynVvekomWIKsvd4Vc6ZiyREG5/VEwzXrs9vOu8srrAoq8lkOPpWFsVTow82gb8YDtz7Hy2W3U34/fFOZ0kpsIvj05U4NGIoWcba64r8iFwyqRC7KNUU9CfitDb34QfYEsYEgV+t8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com; spf=pass smtp.mailfrom=axis.com; dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b=Nhb7RfSg; arc=fail smtp.client-ip=40.107.130.58
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axis.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0A9E37A831
+	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 14:04:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790863470; cv=none; b=vAXF5v83q7MRv7FWZrAItAq/9CN8r5HlO02wPkvgUxxaiu2EO6QU92snjfPsaOjKwWbLnbms6Z0Wdy2eXfMJYrubWIbfjD2IgYpuf87I191/dE/iVz5UC/n78JYkJAQRdfy9GK23SfLDz3UqQUMAxXoBiPlJTbYtAuJYKg1qmOQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790863470; c=relaxed/simple;
+	bh=3Bi1MpIhmapHJU0CKcWH2mwMMmICXvWAf6OasHa8+WA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=bfvmQBCKGA/HqpbdgVVCrGY4z5Bie09M33m6QC846VAITfktx91Q8hCDJSk2IJ2kW+F/sgUzTS9/Dbr3XSHih6Bxv45SvKJkF1iYY8MVdInkG3vX7TfBmixVMxqOcJBD/UPVDC8gBbvdbPm/6Cxc46DQt4zXyVSEwZk6GNspvGE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZCAcA0Fv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b="Nhb7RfSg"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QWOy1dQeKtu2oY4lRBndyEzypOlFckt20qtuclua6FarTzirLjVEOuEAfWS6Lk2r1kea3br64HkZFoYH4OrROKWuzgGguXN6Ha33KICYEkolpP8Q1pdWl7ufRDWeTPjQBX8IEu2C9YvfyI+JuJFugKC5vNw7bUbDJF7LPLInNhGf/fB+1XmfT6EENPpN53JNowcv7K2urgWMEeenS6VD+bnbDnytPpDeboqRgK0ISlbYoeVwMcuvQcGLy/zlypX7q/ntzUKxapnIWtdRnDjQSMrgltQncwB/gj1/UcGadTxwJYF5uRJ/1aM3Belhb44beZBDq3DXCgsDqNmLC46nHQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=JKL3flqqEI01+/YtCHb9LcZA7I7LVIgTPZEO3xL8vhY=;
- b=ZovZSUhckdI4SYigTwjUxDA+7Y90a69lSu/HKg4UGQlqWwd0kxXVpmq9+9exP4ZaWDDE4Xdzr4fI5gXbls+nCb8Fxy05PIN/RRwb3dOKCLHpS6KV3xP4PZ57xhk9pukOedSFgEfJDNviqRLHNKU5b+7Sw6Ni+z7y5cXRmTJOg7V0oKPxr6AqqsrJbHAOrZjRE5cZiRLdGuSNQAfOmDGhUQNcRaV69BN/ZPRULi90wkOMIJ1Vy2YO3UoBKevqp4UFp/BxEUvWLn6ifgBALsWzcKATHYj72p+cPIqI5jg95ChFloCIu9KkAoWb9e7SxV0GR4nw1Z6qbrZlgdTwtABbrQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=axis.com; dmarc=pass action=none header.from=axis.com;
- dkim=pass header.d=axis.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=JKL3flqqEI01+/YtCHb9LcZA7I7LVIgTPZEO3xL8vhY=;
- b=Nhb7RfSgSXPc82wfcRsnOi58hZO7lDOuNVktUBaHNt92YSp9Sv2xekW1YbR+b7OOijfIXqcFpqQ6KfBSGtNxbgqwfffvbdj/tlDyRnebetBDkopPoa2+6wFHg9a2AMwpdhE+35yE3DDdNjrorkI9fyWF/J3ZszgUG1uL5dtxZjU=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=axis.com;
-Received: from GV2PPFBD14D17F4.eurprd02.prod.outlook.com
- (2603:10a6:158:401::5df) by GV2PR02MB8697.eurprd02.prod.outlook.com
- (2603:10a6:150:78::22) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Thu, 1 Oct
- 2026 13:58:31 +0000
-Received: from GV2PPFBD14D17F4.eurprd02.prod.outlook.com
- ([fe80::9ac:6f90:5998:69d6]) by GV2PPFBD14D17F4.eurprd02.prod.outlook.com
- ([fe80::9ac:6f90:5998:69d6%5]) with mapi id 15.21.0472.016; Thu, 1 Oct 2026
- 13:58:31 +0000
-Date: Thu, 1 Oct 2026 15:58:29 +0200
-From: Henrik Grimler <henrik.grimler@axis.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Jesper Nilsson <jesper.nilsson@axis.com>,
-	Lars Persson <lars.persson@axis.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Richard Cochran <richardcochran@gmail.com>,
-	linux-arm-kernel@axis.com, kernel@axis.com,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org, Henrik Grimler <henrik@grimler.se>
-Subject: Re: [PATCH 1/7] ARM: dts: axis: artpec6: avoid _ in node names
-Message-ID: <20261001135829.GA981103@pc67698-2615.sto.se.axis.com>
-References: <20260928-b4-artpec6-cleanup-v1-0-e3b75e10acc6@axis.com>
- <20260928-b4-artpec6-cleanup-v1-1-e3b75e10acc6@axis.com>
- <3caea146-74ab-42d2-ad9f-d36d1adedc03@kernel.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3caea146-74ab-42d2-ad9f-d36d1adedc03@kernel.org>
-X-ClientProxiedBy: MM0P280CA0101.SWEP280.PROD.OUTLOOK.COM
- (2603:10a6:190:9::27) To GV2PPFBD14D17F4.eurprd02.prod.outlook.com
- (2603:10a6:158:401::5df)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZCAcA0Fv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1710C1F000FF;
+	Thu,  1 Oct 2026 14:04:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790863469;
+	bh=DrCvDtDAOQAX/WemgQtMHKuNeUUWlAk7aSIWmrWHY+w=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZCAcA0FvtNhauCwwUW/AEQrJSuOnupgnzPqUh0mxDCb/AisNVhR/R/Fe3Yy/7Krxq
+	 3uV4ux67PLYkq6P66gzPTvUvzVPBTS3dCzseW26ZAeTNigmahWGIoetPbe8uMkGn1N
+	 GyYksGIdhzikwAKdRT5lJz9ylhjTUwqaWV+rsDfcYHnDFcqRilu79JFRfIocvMm+Tn
+	 Gj3gNhl+4Aw2wmQbCb+p+0O0WCzJj3lFio4QDVoykQx20tmGzVHnrG3MdFzdI3xov3
+	 8uzHXuA9TQ5jOwdsND69bsMMjyNJLlpMJ8MzLgeSd8fr/Uh7GoAzaP7cam83TeNZhI
+	 BHPnNy0NmeAtA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 2/2] arm64: dts: rockchip: add ALIENTEK QuarkPi-CA2
+Reply-To: sashiko-reviews@lists.linux.dev
+To: BG9OXA <bg9oxa@163.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <179086266668.29834.5300530518863942845@163.com>
+References: <179086264917.29834.5543033479795788817@163.com>
+ <179086266668.29834.5300530518863942845@163.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 01 Oct 2026 14:04:28 +0000
+Message-Id: <20261001140429.1710C1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PPFBD14D17F4:EE_|GV2PR02MB8697:EE_
-X-MS-Office365-Filtering-Correlation-Id: 05a0f2a1-e77b-4465-417c-08df1fc41328
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|376014|1800799024|22082099003|18002099003|11063799006|10067099003|56012099006|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	jK+o5XhrM4nIZQS0X3m1CX95RySI9Gz++5vjygQoAzc/vVgE0VaaqIywAddM4lbf6ms5gcbHTUP/54Um18UXJck1hNMKSxBoEIJxDWLzVDAJVixa9YOpb/e/2EluogQFD2BRFvKdZHSIbYeIEHyq2v7rnSRkV+oV9E0LuplsFR2fB70Yh9C8Ww5gCoFaSIPXAUzVwUq3p5iRhjHIv8V1doNd0199KUf0ApIm+dTKde+cNknD1TFQzRX0pecqXt+U1adnaCcxeZx96rayV++5sykRyCcaKmHNn2DWL3FCiELzanGB0rA7ZAlkwQB+PGsrVBWjS5QBhNiV70hX7HmxNGT4OQYJ8AJgrfsZFUnflKgloFFSLbydvR4OPnuvX78V1LFKH2XD/CjL7eQd42XRpBEwSX24kxuiCL88Jp//dGerJ6Y8Z6z+71i9w1Py2xqt8IxH0DSwqL7Z8/xtuQBjp+9SgSirMQXbAQQ7vPGBT28pBH62TQ3rUOq89QJ9CqnmvLdIjN37RxPjbvN8zObDUZSMG372y19LbuxkcIPvnlKED3dhbQAt9peFKGtSZKxT1v7fb1RYFDAygRsEOKtNHPUOz7JodIRNpWldPqSrmnEc/RjfMu9D1ezZAru37UBaHQbxheAXClqt+33JPLrudtBy+xCjop2RznlTzk5Nj28=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PPFBD14D17F4.eurprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(1800799024)(22082099003)(18002099003)(11063799006)(10067099003)(56012099006)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?T36plO6/iaEEC8HrTrKI2N2UVodKLEGRNKTJfWrGIUZ0RtzEUAdUK62YnOFM?=
- =?us-ascii?Q?21/hYGJJHhSWOfxXUmDTUZ+VgMsipRR3qZ++3qgRMgMx3mArH+E7EtBxlncf?=
- =?us-ascii?Q?u6d/Vz6aJNWGNnDjFXH/UaoT8OSmD+APBwtFolf0EQByTqYE+iW84SqHlimv?=
- =?us-ascii?Q?J8JikY1yaq2uPOOmaDxoSwBKYkL96C0LFLWkZKGqrOWee2wkOPqsGRq9G98r?=
- =?us-ascii?Q?L3o+9YibzIZkDdnP7h91nKNvRaB2Z35PcPxiGWaxAra5GOJah0HNwwJpa5ML?=
- =?us-ascii?Q?VD3wEqjMKx54kubAIqQ57zZ5TgGYiUitxKW7L8VfLKx9vGAexqBbujR189h9?=
- =?us-ascii?Q?OycnFN8zrI1yb/5Vb8obLIXKn3V0QlTGr4nvqg3/N6kVWaflJpoT0S5Ow0Ef?=
- =?us-ascii?Q?cgivq+LJctCIx53nRtzggWA1JkvhiGy2O/t2UF0SDGgY9DN/agfTgwsj1/Ja?=
- =?us-ascii?Q?YsMIZPUQvC0w2+HXxtIJJiRluiYpLkJKrGfmA/FIEfwpNkV1tmzk0UHPGPlK?=
- =?us-ascii?Q?0WjY9nnEbKDTjWcejCLKZHdE8MdfAs5oS4X7ZJbJzGj3hC5SFkSJfbma5Mq6?=
- =?us-ascii?Q?RIS4rolVa/mqF38uOFW8fjYK0GYA97GJNUGE1UN+l8Xdh9CsYAQpAe9nOi7k?=
- =?us-ascii?Q?WHMyHSURJipba4FLgjrKG94OVNWHcWy4f1Drt+7kSX2PKFAa2kZSeaSaFjG5?=
- =?us-ascii?Q?rXj6y/vkcGiSb3NEuqRsIK4Eq1SEOEwcOGHEqngfcwWLXsgh30ZvbzmqsQ8e?=
- =?us-ascii?Q?nBbSm0SyPjzZn7XyY1yZuVaog6I6bTeoY7ZsmLu9hPccRyeq1j9vro0bi/7g?=
- =?us-ascii?Q?nUqzyDnJeDCgtz+CA3lQdJbZoDhxNWdW8K4TUR6Npvhq29e9MQP1c8lEx5L9?=
- =?us-ascii?Q?NLs3Bo8bgNwr0l+4vQPyUY0AUtibqUUnhq/W9k7F54JLPBNsAnE+sDjdL1Pm?=
- =?us-ascii?Q?FR/G7ymRol4Zima98lo8mBaVG3LvNEnfLPzpkJxRZTUO1WO3kwDxE/b7CVG+?=
- =?us-ascii?Q?sLY7ggjYLTKWasUCMnXL0SNAYFbb7kmrfzKH5X/65ELX13Nfl9rrH9kk5XPO?=
- =?us-ascii?Q?djymStz+smJbrBOVwFvCK3a2Kn7I+nAB/kdISK2X5dgyP/ngmEyoq2P3Cnzr?=
- =?us-ascii?Q?IBnUTUTArZ5lVkdzrJRX2bpVRW1AldYSKu7dTNTZokJjgQLYuUB237tE4xdY?=
- =?us-ascii?Q?fgEcRNy2eAUGH5t/Esy84Kx367L+oE0qt7QRXoYJ2d2TvE8Li/g+OB1g1Kr6?=
- =?us-ascii?Q?jXIbkDrSrGCMqzU2KjnyQKU6fRn9f31S+gGNlicsCtcfekPExGfCsR1V49Le?=
- =?us-ascii?Q?xpMWYBEtFinVJ0yfKS6Gq35kIdMazESvNMceGQC+4ierg62Y+hAH7h56Cf2t?=
- =?us-ascii?Q?HHILKI1a7HU2iQHLOhIW9XzwNYBAFnmDMDp/odVflzE5k9QZYq3KWiDzyAbD?=
- =?us-ascii?Q?XBpOK5vU5GpstphnvbEopyvRK1eDkPIow99EF2E3bOaxJaTukdL9qcl1ySdZ?=
- =?us-ascii?Q?pad3KBS04VkmPws1rwOg17HbldtvK7ZoQpJeqVxR4aIxIi44hCi7bM+f/V5r?=
- =?us-ascii?Q?IPIJ+/A5IMHhdvhdlEeaA635fAsuFqOYjzqFVuwaq8NWoz9jXla5hmR4VEoA?=
- =?us-ascii?Q?2MUkGaBS8LFgNm8H7UkMN0+k1AE53rBrrP6g8QakDflVf2NqM4/tOxRYWopn?=
- =?us-ascii?Q?xeI2xZ4eafyySQ0/aLHsGlHKgF03z9iKhpQhMNiYqIqPQbm9Dlh+xNM4iLfa?=
- =?us-ascii?Q?SO2/cfFJYw=3D=3D?=
-X-OriginatorOrg: axis.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 05a0f2a1-e77b-4465-417c-08df1fc41328
-X-MS-Exchange-CrossTenant-AuthSource: GV2PPFBD14D17F4.eurprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 13:58:30.9062
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 78703d3c-b907-432f-b066-88f7af9ca3af
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ZJ6amsd7bHtiskv+U7rac9G9XVAKnByYF5HtTkMs3b8mBFy1sjmB1VEWzlpXGlaZLjzOg4ejHg6ZhDzeQdKH9g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR02MB8697
 
-Hi Krzysztof,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] dts: type-c dual data-role contradicts usb controller host mode
+- [Medium] dts: parallel dapm routing bypasses headphone amplifier
+--
 
-On Wed, Sep 30, 2026 at 07:24:43AM +0200, Krzysztof Kozlowski wrote:
-> On 28/09/2026 14:04, Henrik Grimler wrote:
-> > Node names should preferably not use _, use - instead. Fixes
-> > dt-check-style strict mode warnings:
-> > 
-> >   axis/artpec6.dtsi:91: [node-name] node name "ext_clk" is using discouraged style
-> >   axis/artpec6.dtsi:97: [node-name] node name "eth_phy_ref_clk" is using discouraged style
-> >   axis/artpec6.dtsi:189: [node-name] node name "pcie_ep" is using discouraged style
-> > 
-> > Signed-off-by: Henrik Grimler <henrik.grimler@axis.com>
-> > ---
-> >  arch/arm/boot/dts/axis/artpec6.dtsi | 6 +++---
-> >  1 file changed, 3 insertions(+), 3 deletions(-)
-> > 
-> > diff --git a/arch/arm/boot/dts/axis/artpec6.dtsi b/arch/arm/boot/dts/axis/artpec6.dtsi
-> > index 037157e6c5ee..ce642dcc754e 100644
-> > --- a/arch/arm/boot/dts/axis/artpec6.dtsi
-> > +++ b/arch/arm/boot/dts/axis/artpec6.dtsi
-> > @@ -88,13 +88,13 @@ scu@faf00000 {
-> >  	};
-> >  
-> >  	/* Main external clock driving CPU and peripherals */
-> > -	ext_clk: ext_clk {
-> > +	ext_clk: ext-clk {
-> 
-> This will change the name of the clock. Did you verify that it is fine?
+commit 9f35004d471e8daa3f6d6ace7fb6441749b6b25d
+Author: BG9OXA <bg9oxa@163.com>
 
-Good point, the clkctrl driver does not get the clk by this name, and I
-have verified on the artpec6-devboard that it can still accesses the
-clock without issues. Will add this information to the commit message.
+arm64: dts: rockchip: add ALIENTEK QuarkPi-CA2
 
-Best regards,
-Henrik Grimler
+This commit adds the device tree for the RK3588S-based ALIENTEK QuarkPi-CA2
+board. It configures memory, networking, video outputs, and USB interfaces.
 
-> Best regards,
-> Krzysztof
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-quarkpi-ca2.dts b/arch/=
+arm64/boot/dts/rockchip/rk3588s-quarkpi-ca2.dts
+> new file mode 100644
+> index 0000000000000..d9d679d99266f
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/rockchip/rk3588s-quarkpi-ca2.dts
+
+[ ... ]
+
+> +	husb311: typec-port@4e {
+> +		compatible =3D "hynetek,husb311", "richtek,rt1711h";
+> +		reg =3D <0x4e>;
+> +		interrupt-parent =3D <&gpio1>;
+> +		interrupts =3D <RK_PA4 IRQ_TYPE_LEVEL_LOW>;
+> +		pinctrl-names =3D "default";
+> +		pinctrl-0 =3D <&usbc0_int>;
+> +		vbus-supply =3D <&vbus5v0_typec>;
+> +
+> +		usb_con: connector {
+> +			compatible =3D "usb-c-connector";
+> +			label =3D "USB-C";
+> +			power-role =3D "dual";
+> +			data-role =3D "dual";
+
+[Severity: Medium]
+Does this type-C connector configuration contradict the USB controller mode?
+
+This connector advertises dual data-role capability to the Type-C subsystem,
+which might negotiate device mode with a connected partner. However, looking
+at usb_host0_xhci later in this file, the underlying controller is hardcoded
+to host mode (dr_mode =3D "host") and lacks a usb-role-switch property.
+
+If device mode is negotiated here, will this cause the USB link to fail
+completely since the controller cannot switch modes?
+
+> +			try-power-role =3D "sink";
+> +			source-pdos =3D <0x401912c>;
+> +			sink-pdos =3D <0x4019064>;
+
+[ ... ]
+
+> +	analog_sound: analog-sound {
+> +		compatible =3D "simple-audio-card";
+> +		pinctrl-names =3D "default";
+> +		pinctrl-0 =3D <&hp_det &hp_con>;
+> +		simple-audio-card,name =3D "QuarkPi-CA2 ES8388";
+> +		simple-audio-card,format =3D "i2s";
+> +		simple-audio-card,bitclock-master =3D <&sound_cpu>;
+> +		simple-audio-card,frame-master =3D <&sound_cpu>;
+> +		simple-audio-card,mclk-fs =3D <256>;
+> +		simple-audio-card,aux-devs =3D <&hp_amp>;
+> +		simple-audio-card,hp-det-gpios =3D <&gpio1 RK_PC4 GPIO_ACTIVE_HIGH>;
+> +		simple-audio-card,pin-switches =3D "Headphones";
+> +		simple-audio-card,widgets =3D
+> +			"Headphone", "Headphones",
+> +			"Microphone", "Headset Mic",
+> +			"Microphone", "Main Mic";
+> +		simple-audio-card,routing =3D
+> +			"Headphones", "LOUT1",
+> +			"Headphones", "ROUT1",
+
+[Severity: Medium]
+Does this DAPM audio graph routing logically bypass the headphone amplifier?
+
+This configuration connects the raw codec output (LOUT1/ROUT1) directly to
+Headphones, simultaneously with the headphone amplifier's output (Headphone
+Power OUTL/OUTR) on the lines immediately following this.
+
+Will this contradictory parallel routing allow the DAPM subsystem to bypass
+the amplifier entirely during playback, potentially leaving the amplifier
+powered off and resulting in no or faint audio?
+
+> +			"Headphones", "Headphone Power OUTL",
+> +			"Headphones", "Headphone Power OUTR",
+> +			"Headphone Power INL", "LOUT1",
+> +			"Headphone Power INR", "ROUT1",
+> +			"LINPUT1", "Headset Mic",
+
+[ ... ]
+
+> +&usb_host0_xhci {
+> +	dr_mode =3D "host";
+> +	status =3D "okay";
+
+[Severity: Medium]
+As mentioned above for the usb_con node, the USB controller is forced into
+host-only mode here and lacks a usb-role-switch property. Does this need
+to support dual-role to match the connector's data-role capability?
+
+> +
+> +	ports {
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <0>;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/179086266302.29834.=
+11881496781543805639@163.com?part=3D2
