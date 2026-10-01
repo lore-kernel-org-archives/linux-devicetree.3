@@ -1,85 +1,85 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCEC335A38C
-	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 02:35:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD707316905
+	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 02:45:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790822107; cv=none; b=FNW2fCNsFrXQ9pJC0vB+VJizVFIm1YGYui1GhvJCRSeG4NH3Mv28zuAR+BCN/g3B6JfcGTPJZ5qPoo9ZnpnCwRy1wsvYdc3irrMg+o6aCC+KxS/kJ08agkBNBR/zeEkPwCEwLNjqRXwpJycQbEZ7rgIVu1PsOzFns9Fs9d8c9zU=
+	t=1790822722; cv=none; b=kSamXuyI8ghf+xNGGWCKhknVl42725xl9p5atMelFBsubdjlHgtlPp73i9kDreA3S1vGoPoMBmrKr8KNlYnVJhO1cC4ucZ8JgWUEI6Iu4KKcPQmsl175m6en4Ml4RTiBx6e5HDWbKtkudXLAtNbbc0Og0MQvONiE9H76agjna/0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790822107; c=relaxed/simple;
-	bh=+QoZPkyzGKNe2aEV12Su2uMmYhE94FAo/6zYxDaBkEg=;
+	s=arc-20240116; t=1790822722; c=relaxed/simple;
+	bh=4Z28J42zOLgCoMkeHrJK4IrIytpp6EaS+jVzgXfDY6Y=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nlhRvayxOHgUPs2ofuK65qEe+Z4cBEidYQ8kWIqcQwD4AbbbGfFEhTj6ZQrZZ2DAukxGC6mMCeYIOqbzF8bgvptp0mxEMp3cQiI0kaMxLzwuB++8UCpM3GpwMsbmjkiyDnGi863XC9LI4AJkoC2dJDCOSGDz+J2GXiDDWpgORXc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=nRdP1ylR; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IlUUKXH4; arc=none smtp.client-ip=205.220.180.131
+	 Content-Type:Content-Disposition:In-Reply-To; b=R6N/Gapjw+NlyW5MpnKUjygLn1/wJ3fceKY4gWPJo4bxYvEKtCJxvXHVEh2sAsoXSe8CqBOOdf5N7lJLXQzk1sS97GYcVvkI8llO4p2DWawovmGfTFuYNZzuIwHI+L4WZ3w+fpjQSZUNFdN8kS4E5NT4krzLynZ3Mh6BsKKeBS8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GTKFzCum; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=i+Rf/P0v; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="nRdP1ylR";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IlUUKXH4"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6910jpJ41140908
-	for <devicetree@vger.kernel.org>; Thu, 1 Oct 2026 02:35:04 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GTKFzCum";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="i+Rf/P0v"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6910jgRJ719357
+	for <devicetree@vger.kernel.org>; Thu, 1 Oct 2026 02:45:19 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=htg6wDlN38DdW2E5SbXi6aX/
-	Ov2gAq5Dj5yDzZtrY9k=; b=nRdP1ylRLq0X7V6uMTE9XSHIb39aoFGl4thT7L09
-	5TKyYdzUGslF0cJk1ADxYz8m3ZOQcpAdCFyR3dCLW3jHUrgkQp0lRVUaFYq5LPz0
-	xiLGxETO9TPuHn8vFlA7qA84RzNXVxHbSOHuKp76GedFCk+3NxgrZ6H5V5n5Yb3p
-	SSbia/uot3oaHbXkpX6MhjrHkje+3huqFJU3X62WW6FzrTPIZgzsAvgjATMlXx/P
-	+wHYZ3SuWq71CgGK4V9xGnZN5uHBB5m5aChAB5IrXIHFxjFXGmFb59WGH79Ob6Pg
-	DBygFE1kA3tOeq+gmQIf8pMKJQ3DNoNfpljc+CPVqMqFGQ==
+	:references:subject:to; s=qcppdkim1; bh=9Ol1nfVGYFnGbDrY614OUc6R
+	zJCOeVGBluvM0xZNXmY=; b=GTKFzCumBRrV0y2mly2vCB8Wm3knCgVMjMKC1chI
+	3HjBPCmkOUXrwHOgqprIOPtCkcuAPIGrO4aBvBbGa8rye88d55aNEVM5JABsLXII
+	3NWVfSfKEJ9xlzorppNGZGyjMXBcYaxNyDoURKDLRUq/44+ZsLBdPATNTKvoVKEQ
+	4CbfLRQmc7byRS/NnhEoT2nqjwJ0JDzXR0kUIix+96G3CKja/DVRFGfi8zaUre/G
+	5e0kzWWrF7XcR+oVC+7xp2HwgxJLK199EENhm4iQp7c8Ihbn1ZvUDFYKDl21mtRm
+	WJh1P4tZgW8IBizwxhs1dIuK+51P8OpQmnAmhKDO+X3z9w==
 Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h10bkbsx7-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h188ssds1-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 02:35:04 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-339628f2bbaso708200eec.1
-        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 19:35:04 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 02:45:19 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-3426f4acfbaso736945eec.2
+        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 19:45:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790822103; x=1791426903; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1790822719; x=1791427519; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=htg6wDlN38DdW2E5SbXi6aX/Ov2gAq5Dj5yDzZtrY9k=;
-        b=IlUUKXH4mDNlueaNa71x7cS8ZGCaipmEhUv+7i7dIX7OCPu8wBoP2e9/x3y3NNewL8
-         LlTebwPP0xy0qR5Pl/r7lHb/slvqCF3dhK4QuaJjr7jqUNdzhxm2baIVFz3iFkbEGsHB
-         1Y2pXWot0wcvs0eETPfH5SOAqKHCO7fVHQL/5r5zPabckb0o92pwLELbJ7eOFjf019XE
-         23bmGQIEKLTixbBJqMndoQh+asS22VpZXP+yBGJuWg78cGvFfCKPsU5ymXCZzmM1Hop1
-         ehXJE1hnhhFsoMTd1ZPcz8OwH0yAwL4tHrEAFST0TpBERn6F48yWtWKBlU0Fxj2hNHBg
-         EBbQ==
+        bh=9Ol1nfVGYFnGbDrY614OUc6RzJCOeVGBluvM0xZNXmY=;
+        b=i+Rf/P0vtaQlZzgqW1wvhG3uYP6jXwfm/krqxOZEITfLbAixvauLeOzt52mZyXrXLR
+         07sRPvqWYtemCDcbTUCH0tsfow+QofD2olVIkK1ezte/J8kHTcINi5Vmb/IE5FnQX82L
+         Zt+vFcBO4aeHqvmjLU6NMijpZiJejpRVJg+FgJzLfzI/uH/Xm/tnV9xP09Ynqk7YBamd
+         /9OiZ2siiUKvTtMjIu4+5Qg/fLLcTcdtUil7tXq+91F71i2jAm2x4GkvpxPrrokxU0LS
+         7e97VVguHHvdEjYIu97ZS20iQwsVTZkNmzZK1Ah23H3iP28N9FgIzObjzwtKbzrQdgkJ
+         oA5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790822103; x=1791426903;
+        d=1e100.net; s=20260707; t=1790822719; x=1791427519;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=htg6wDlN38DdW2E5SbXi6aX/Ov2gAq5Dj5yDzZtrY9k=;
-        b=YOwx+SfvAhnTcRTzu9BYS9myW2i1fIGZIdhHzR4+5b0832QGcF6X9jzY+wZSiy7jrP
-         IYaJJAXk9yxuZO0L3YVg5X4FMBmWn/LjXXIQxM65GlMyO3gescBm30UJAwPD4+t6e9d3
-         CIPE8h+Ti/ulT6rxtENHTbyA/OuaIs1ZB5Y2ZVTaMCZztpRzf51jX/lBxq55tIumUIpS
-         b37q/S/zBFM8OK1VHvvyOzsz/ahW+PAPnmGEHnac+JLzaT4KPFqyDfv+q1VtMpQ0xp7p
-         flBC0xPevR2ttSWiLLfryz/iLPt39n0fLEiEl9v/eKDdT1Bz1+ck+S9yaZWRZDLkFGQT
-         839g==
-X-Forwarded-Encrypted: i=1; AKwUvBy7JHckpJ2sJn5/h+qnLyHNKtJjAVX5gsVMTkBU4aTrpb5nCWMaph/U0w+gb3qLVRKEo+0uXszE4G+P@vger.kernel.org
-X-Gm-Message-State: AFuF++n/avSQ1MZoD+bCjuyQ1jKL3/YiHPnpJ0LmZqnTHYrJ2M+n8gst
-	D5nsWeisJs5ldHkLZ8WzBsxjjBH56Z6drQcarl39DxFWi1WKzGRP6DJ2j03oD231GpIIuS3C9qt
-	1HlEvBHmLWkTuztqyMA7krMfl/pagkubNCEAXA7WA/UbZDiw3t9wvKfFty0xIT8Y1SJOAXUbY
-X-Gm-Gg: AYBFou0xiaIoivCQMzv4GQkLCPLH4ChZm6NernbDenSXv5fMSFImqAfpfe+s4wUbCAX
-	hRSEvx76UK82goH4CIexFSYWEYa0eeAuS5/IVgoGdlHkUTFYJjnGuuPOyDCqqSVPhX/0WaACjpO
-	jARV4dymaqG+LXKeSu5FsDwUQCoOKMJtFPg20oi1T/VYwe6ld6KVu5y3xYK407UmkyCc4XaXXom
-	WGUip5++QPs6sSyZ24WMJnOc6ovXDQhW5cg3bzLCCwQ8s81mvHpctNKunZhZ8HRffqN7nvzmSXp
-	KoprQCpJbLu+mh343mogT9O1dxJ0OJzNJtBdARhQDnrhqTUmg7OHRVi7TmCTl+gqM+D/AJhr6PX
-	dG3tqbyDNig01sVo8Kwrj2DavKMxWMR20Hi+s+G/RSkDPglow9PTMn8XN8UEjXYXXK+UOmGl//y
-	NUVoPHldYr7UnwCjPUl08=
-X-Received: by 2002:a05:7300:b54b:b0:343:fdea:9a0 with SMTP id 5a478bee46e88-34cdd9900bfmr6742035eec.2.1790822103304;
-        Wed, 30 Sep 2026 19:35:03 -0700 (PDT)
-X-Received: by 2002:a05:7300:b54b:b0:343:fdea:9a0 with SMTP id 5a478bee46e88-34cdd9900bfmr6741984eec.2.1790822102643;
-        Wed, 30 Sep 2026 19:35:02 -0700 (PDT)
+        bh=9Ol1nfVGYFnGbDrY614OUc6RzJCOeVGBluvM0xZNXmY=;
+        b=0TtZ480Q1EU3G5ViEZkE6GWq95iEpQqVNXKR+2KxDk+W3bGTt272K8u3+35OwMd5d/
+         iQq8eiA7KA9CvbbJNDuh9ryL4q4o/7oN7RYTwg/tDHQCLX0xjnHSQaF8Wkgo2S/RLpkH
+         Gei0BBl5NWqvS7WM9Gk+bGQgdOn/bjQrVCfrv5aLypkWCP5AGxXjpjv1cxUs3vDFe9UZ
+         G88+g7liHBDatKvSTFTTtiM6xHld9imh0jyCRL1khLcqIwcq0HFnhfczrIX18Zd8USpD
+         ZsiY0xEyLDvbl+boW+G9h7cOu+6e+GZ4UEOOc/sHhYaiWUq/4KbCeREs2x7nZrWv8kbB
+         LeEw==
+X-Forwarded-Encrypted: i=1; AKwUvBwSfW3KEkSg7R/Okz3032y6JIEgVXN8kapswKNcwE3neoQKDZkEcgfiGmvLiyH2ucy61sog3eTpStBK@vger.kernel.org
+X-Gm-Message-State: AFq9FYIX6k1ptaxCo1ZvVSAPidT9KYNRJG/8rBO/Phmbb2cqxKjgw1a+
+	S5BFoe33Cp7KSQ8tFIeRhoTDq7TlhM+hEV4ZxOmgfp618XhkmeaYsWnk+rjVNr/7hZaV/E423aB
+	JA9axSeaHamzCrVJAPouSDWmj/6FA8hQhQ0HJ6X2V9ALITnzj+QDUooqtonYm/sBt
+X-Gm-Gg: AYBFou0O4O0UmIFVveI+1qfi7Z4enIyvDzEMndKew7Q/ezZuB2EPK0Gc2oI47hj5gZi
+	7c6+6DNKeMoOIdJHi4qykxMKwzaaCGU1j6JyVlfB/U92ejGmNxQ1AAsndX7AQPPNKS3t5TUofZK
+	XcCkq8QGCfXH1C0pGixL+Thls5Km9jv5tKZmKd2WSpCK8iIsaX5X/eLCQzMcpv3Cc78Q0GNZwym
+	R0EeHavoUE/zMxDDt1StUzr8/F5z+KAHAS4ihM3Xu2kEXhZU3PIgwvFSmkbXPSNSqlokFMEvNEU
+	PrqXsgWxRCguL54xRUulAZ8TUkvhJpTEEwyFWILSWN349Vw2LDVdd1VACp6mlxwUapWyJ9b64QG
+	rfEtlTSEvTIzinuBsx2CGSarB02SLEFJlOqWp2FA+f4aqlY7+u7tkhlZCHxQhODQDIBfIAtruMn
+	DwMfrLy5rmoTg9xm3gEfo=
+X-Received: by 2002:a05:693c:41d0:10b0:34c:15b5:b4e7 with SMTP id 5a478bee46e88-34cdbcd280emr6207109eec.2.1790822718536;
+        Wed, 30 Sep 2026 19:45:18 -0700 (PDT)
+X-Received: by 2002:a05:693c:41d0:10b0:34c:15b5:b4e7 with SMTP id 5a478bee46e88-34cdbcd280emr6207045eec.2.1790822717785;
+        Wed, 30 Sep 2026 19:45:17 -0700 (PDT)
 Received: from hu-vishsain-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14df3bb4a2fsm2427281c88.8.2026.09.30.19.34.54
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-34db4c1ef93sm3065432eec.28.2026.09.30.19.45.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 19:35:01 -0700 (PDT)
-Date: Thu, 1 Oct 2026 08:04:51 +0530
+        Wed, 30 Sep 2026 19:45:17 -0700 (PDT)
+Date: Thu, 1 Oct 2026 08:15:07 +0530
 From: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
 To: Philipp Zabel <p.zabel@pengutronix.de>
 Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
@@ -103,11 +103,10 @@ Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
         venkata.valluru@oss.qualcomm.com,
         Jessica Zhang <jesszhan0024@gmail.com>
 Subject: Re: [PATCH v9 2/2] drm/bridge: add support for lontium lt9211c bridge
-Message-ID: <ar3Gy4F1Ym3KNuaV@hu-vishsain-blr.qualcomm.com>
+Message-ID: <ar3JM7CHzLZgT4xB@hu-vishsain-blr.qualcomm.com>
 References: <20260924-add-lt9211c-bridge-v9-0-d78b39677a61@oss.qualcomm.com>
  <20260924-add-lt9211c-bridge-v9-2-d78b39677a61@oss.qualcomm.com>
  <61aa851b26f9aa85a3ec1dc4bc8f46d7f1fbd24e.camel@pengutronix.de>
- <d924369a2f907aa796d7eba692001593ef1e6d0d.camel@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -116,108 +115,92 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <d924369a2f907aa796d7eba692001593ef1e6d0d.camel@pengutronix.de>
-X-Proofpoint-GUID: R83fccFUww-2k6wBYXUNt3wuhfcmWkH3
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDAxMCBTYWx0ZWRfX7xWEVWrfhHHv
- ohrebiWsRAslKOzRh6TtjE4GlRBOaXC+KEb3phKzUo88E+VGV+LLUxSBAKPQGngugR7naKWazuC
- dC0zj0dasmnNrvNqIbUFgw0Xiq5FhNSKdtZ/6vX7YTZBcpfb4OK0Hk/Fn4D5PkVD8T8pZk5woVE
- U8zGWbt7SVoiaZKg+QajS5LnvjqUhOcBfdE+apPRxrIpSP7sFn0wdKp/EZsQLPe/rx8K2GaGxfJ
- a6BK0bRhKsSI+5/Bq3OCir7qGY4XGthEuQ+978sKPCkQ7wSfZeG8Dl97onVPi/+RW3SQdShbv05
- rSaa3I3XwrCY9/7JPWhUFV/WjPfbKgNOLHP5ZMRIRWrKBwHOoDIo8hycsGotRVuSNribmsoGlJA
- SWErCq9eVKw3LSqA0S34/hqA/xrEAJ+q7jYranOWHKSjYAu7E9z6QSJW96HIYaTEnGWLVfJWJmH
- arl1WyNzKL4t+5A71wA==
-X-Authority-Analysis: v=2.4 cv=MZn5KJ/f c=1 sm=1 tr=0 ts=6abdc6d8 cx=c_pps
+In-Reply-To: <61aa851b26f9aa85a3ec1dc4bc8f46d7f1fbd24e.camel@pengutronix.de>
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDAxMCBTYWx0ZWRfX6laOVsSMz5F+
+ f96DLMWOo/qXtYodW4Dz7ZlgTwOnTaFIdKwca1IwV8o7ft0m38xx3TKd4h8Iufs2QK7Ad5b46Pv
+ 6BN0yLr0+Iqr2LHG/efZSHUp0omRAKg=
+X-Authority-Analysis: v=2.4 cv=OozaWC/t c=1 sm=1 tr=0 ts=6abdc93f cx=c_pps
  a=cFYjgdjTJScbgFmBucgdfQ==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
  a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=EUspDBNiAAAA:8 a=jvwfOezYHQUHBwXlzkIA:9 a=CjuIK1q_8ugA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=10iAqneoWiIgQKNWSb8A:9 a=CjuIK1q_8ugA:10
  a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDAxMCBTYWx0ZWRfX+vbRTQTluoBD
- RBIEXNZhVAE2Q8yU4flq18YD4glphbV+wMEbdt2//4W4WiwaYIS4B3Z2vDXGJH+RMLba78LpufA
- /9DvSInWrAjh2F0cRGh5/TbfJJUcDVM=
-X-Proofpoint-ORIG-GUID: R83fccFUww-2k6wBYXUNt3wuhfcmWkH3
+X-Proofpoint-ORIG-GUID: PIJ0Ptlv9g9bawuzKVmm1doBUZ1dQcD3
+X-Proofpoint-GUID: PIJ0Ptlv9g9bawuzKVmm1doBUZ1dQcD3
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDAxMCBTYWx0ZWRfX0h93pEOozbBR
+ MJstjHzEumFH5v/jCLTKuxm1Rzz5C6zpmg5B/3YWHBX5jvNHMsuyKw4e3tNpUwoFPnNKzKKkWox
+ k8aPAsrvrS1Rm4368Erw0pHNwOlZ+9UBFmw2zZdfRYNtigLH9xlxbnidAaVzRRjABYqSd/PvwGV
+ 4KhCgyczx9BR5uz6Y1dua4PdnNRL4c+MxHTlJWiVTEWqtUy2h5pzVxORL9FBObOqREgg8LZ4p1H
+ ROFK/9odqdQIwKwrKzI68OPIgjeOEoHM0bJ24JpA4BkZ3nKExJBQAo/xJXMawvwqcyI/HR+QHqv
+ GPIqhirKCMMYCxLpcjcZe0FaZWUvXX0Jbww6hGUIQm0T9Phkrt2s4zvBTVi79ZWWBxb5SMw+gB3
+ pAUas37uE+89E3ElEQc0P0MfX0Ep9H4/dhLO+db1dhbKQQ9T3XvPFnlMEOqYL82vnCFmUKEK/KS
+ KhdeARSuGyvsHXhV+YA==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-01_01,2026-09-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 spamscore=0 suspectscore=0
- priorityscore=1501 bulkscore=0 clxscore=1015 impostorscore=0 adultscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ clxscore=1015 malwarescore=0 lowpriorityscore=0 impostorscore=0
+ priorityscore=1501 suspectscore=0 bulkscore=0 adultscore=0 phishscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
  definitions=main-2610010010
 
-On Mon, Sep 28, 2026 at 12:13:42PM +0200, Philipp Zabel wrote:
-> On Fr, 2026-09-25 at 15:23 +0200, Philipp Zabel wrote:
-> > On Do, 2026-09-24 at 21:29 +0530, vishnu.saini@oss.qualcomm.com wrote:
-> > > From: Yi Zhang <zhanyi@qti.qualcomm.com>
-> > > 
-> > > LT9211C is a Single/Dual-Link DSI/LVDS or Single DPI input to
-> > > Single-Link/Dual-Link DSI/LVDS or Single DPI output bridge chip.
-> > > Extend the existing lontium-lt9211 driver to support DSI-to-LVDS
-> > > bridge configuration by detecting and handling both LT9211 and LT9211C
-> > > variants from a single driver.
-> > > 
-> > > Chip detection in lt9211_read_chipid() is extended to identify the
-> > > LT9211C by its distinct chip ID registers, and cross-checked against
-> > > the chip type requested by the DT compatible string to catch a
-> > > mismatched board/compatible combination.
-> > > 
-> > > Add LT9211C-specific regmap support and use lt9211_chip_data with
-> > > i2c_get_match_data() to provide per-chip configuration.
-> > > 
-> > > Five new functions implement the LT9211C DSI-to-LVDS initialisation
-> > > sequence: lt9211c_configure_rx(), lt9211c_autodetect_rx(),
-> > > lt9211c_configure_timing(), lt9211c_configure_plls() and
-> > > lt9211c_configure_tx().
-> > > 
-> > > Defer the remaining LT9211C initialization to a work item scheduled
-> > > from atomic_enable(), since RX auto-detection requires an active DSI
-> > > stream.
+On Fri, Sep 25, 2026 at 03:23:28PM +0200, Philipp Zabel wrote:
+> On Do, 2026-09-24 at 21:29 +0530, vishnu.saini@oss.qualcomm.com wrote:
+> > From: Yi Zhang <zhanyi@qti.qualcomm.com>
 > > 
-> > This is still wrong, and I don't understand why you need it.
+> > LT9211C is a Single/Dual-Link DSI/LVDS or Single DPI input to
+> > Single-Link/Dual-Link DSI/LVDS or Single DPI output bridge chip.
+> > Extend the existing lontium-lt9211 driver to support DSI-to-LVDS
+> > bridge configuration by detecting and handling both LT9211 and LT9211C
+> > variants from a single driver.
 > > 
-> > All scheduling initialization as a work item should allow is for
-> > downstream bridges and/or panels to be atomic_enabled while
-> > lt9211_work_func() is waiting for a vblank interrupt.
-> > They expect the LVDS signal to be active at this point. If LVDS is
-> > enabled at some unknown later point in time by the work item, any
-> > startup timing requirements the panel might have can not be applied
-> > correctly.
+> > Chip detection in lt9211_read_chipid() is extended to identify the
+> > LT9211C by its distinct chip ID registers, and cross-checked against
+> > the chip type requested by the DT compatible string to catch a
+> > mismatched board/compatible combination.
 > > 
-> > Also, deferring initialization as a work item shouldn't have any
-> > influence on the upstream DSI signal. That should already be active
-> > when lt9211c atomic_enable is called. Could it be that there is a bug
-> > in your display controller or DSI bridge driver that causes the DSI
-> > signal to still not be completely active at this point?
+> > Add LT9211C-specific regmap support and use lt9211_chip_data with
+> > i2c_get_match_data() to provide per-chip configuration.
 > > 
-> > > Signed-off-by: Yi Zhang <zhanyi@qti.qualcomm.com>
-> > > Signed-off-by: Nilesh Laad <nilesh.laad@oss.qualcomm.com>
-> > > Signed-off-by: Gopi Botlagunta <venkata.botlagunta@oss.qualcomm.com>
-> > > Signed-off-by: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
-> > > Tested-by: Philipp Zabel <p.zabel@pengutronix.de>
+> > Five new functions implement the LT9211C DSI-to-LVDS initialisation
+> > sequence: lt9211c_configure_rx(), lt9211c_autodetect_rx(),
+> > lt9211c_configure_timing(), lt9211c_configure_plls() and
+> > lt9211c_configure_tx().
 > > 
-> > I have not tested this version (yet).
+> > Defer the remaining LT9211C initialization to a work item scheduled
+> > from atomic_enable(), since RX auto-detection requires an active DSI
+> > stream.
 > 
-> I have now retested this on RK3576 - both as-is and with the
-> "drm/bridge: lt9211: drop delayed work" patch I just sent.
-Thank you i will see how atomic_enable is handled in RK3576
-   
-> I still think we have to figure out why the DSI signal doesn't appear
-> to be streaming as it should when lt9211_atomic_enable is called in
-> your setup.
+> This is still wrong, and I don't understand why you need it.
+> 
+> All scheduling initialization as a work item should allow is for
+> downstream bridges and/or panels to be atomic_enabled while
+> lt9211_work_func() is waiting for a vblank interrupt.
+> They expect the LVDS signal to be active at this point. If LVDS is
+> enabled at some unknown later point in time by the work item, any
+> startup timing requirements the panel might have can not be applied
+> correctly.
 
-> When enabling the lt9211c synchronously, is there any error?
-> Is just the Sot/RX: debug output incorrect?
-Yes, few details were mentioned in our v6 discussion.
-droping delayed work is not working as expected. lt9211_autodetect_rx failed to read the format,
-Tried increasing the delay upto 3s before reading the format buf, did not help:
+Sorry for late, delayed work is now called at first vblank irq itself. I think it will
+not miss the initial few frames. But i will check more on DSI host side.
+ 
+> Also, deferring initialization as a work item shouldn't have any
+> influence on the upstream DSI signal. That should already be active
+> when lt9211c atomic_enable is called. Could it be that there is a bug
+> in your display controller or DSI bridge driver that causes the DSI
+> signal to still not be completely active at this point?
 
-With synchronous approach,
-i defined a dummy drm hook, hw_enable_timing which is called after enabling the timing engine in drm/msm dsi host driver, and it starts working (bridge configuration was synchronously but in this dummy drm hook). So to remove delayed work, changes required in dsi host driver. Shall i defer bridge level atomic_enable callback from drm/msm/dsi host till timing engine is enabled?
+yes there is some issue in msm/dsi host driver as DSI signal is not active at atomic_enable
 
-> Which display controller / DSI bridge drivers are used to send the DSI
-> signal?
-I used drm/msm/dsi host driver on qcom lemans/kodiak/monaco evk platforms.
-
+> > Signed-off-by: Yi Zhang <zhanyi@qti.qualcomm.com>
+> > Signed-off-by: Nilesh Laad <nilesh.laad@oss.qualcomm.com>
+> > Signed-off-by: Gopi Botlagunta <venkata.botlagunta@oss.qualcomm.com>
+> > Signed-off-by: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
+> > Tested-by: Philipp Zabel <p.zabel@pengutronix.de>
+> 
+> I have not tested this version (yet).
+Ok, i will remove in next revision.
+> 
 > regards
 > Philipp
