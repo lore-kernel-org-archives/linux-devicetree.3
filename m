@@ -1,118 +1,85 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EC824B7A46
-	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 13:38:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DFE4237646C;
+	Thu,  1 Oct 2026 13:41:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790861915; cv=none; b=SpxU3GEgKio2yElD68qiVZ4rBFY0YSCCjq8e9nDtWnjxjT3aY0NzMe/beqC4UdrARcK6vjFrURZil3q8stdcLgzOvgw97UtDsbcgx1vXm2/3Cts1ZLp2H725VfOpo51hYfbV5AGqtl3bg9BKTlkSMQ6JRePU8o10fbWWiKRIp5E=
+	t=1790862075; cv=none; b=IRedCjzZ6UYbCzjK8En3sxNQNYdo3VkR9Cf+Vz65C03SglWbEP4ew68qUOqatfO9wgOlQDfgAt2MZje2vT5FjMcGF40EebqpBPhLVxn+AHhqSopKhiJU7oXmRFKEJVye6U/UT8vByEkGQuTQT6zmYsXsoRzTHJZ5TdoF01kRUnM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790861915; c=relaxed/simple;
-	bh=My2udZLosf9NWE0Yjc7mRws+VGoNPLFVXbfz7wdZw84=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=X4xOSsam6pH24KksfXEwqYfwPwuh2mddQZDcAjj0xY6NoC+sa8KpzJQaQA8RDgp2tEaDzmVufXbKG/9nOGtsmrYRlGsYJ91Y0mOuK/HrpKOdM1Up3Tj6flPflnywMIfCibS9oscySr6HuTEfIXil+Qa9QzH10T0R1L2fVEOMcA4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GOiKmToy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790862075; c=relaxed/simple;
+	bh=d7AaXtrsxUp4jy1qMsWbSpDXTjmvvtJXht/l2mnYE44=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BTg0WWi9p9kURMf+B2CrGG/iM0oQuGNE00qRypPj3ywmXJ/A3x1z5nKOiiHpLN2+QyXycvu9IcLqhzn6O9wJGL3PWnAeZC7jTzSgVNV0+PNEJy0Shw8QlAfIK2U7IrnO7y8CsP9uF18iu97l+XHj5MagB0JpG1g+MpLu+oSg7b8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=nGYfB0WA; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GOiKmToy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E0DE1F000FF;
-	Thu,  1 Oct 2026 13:38:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790861914;
-	bh=mX3Kgq0uypRN33yih1E4IhTEp6dwxpwgfCl2vPnHp1k=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=GOiKmToyn/cmVoVr0pt5AnGbvLQKVLahZ/mS9QnQlfcgyXW5NuYoRNxfdr5I/Msnm
-	 edzfoC5TWQ0TdniHUPY/+o29UtfsXTJHFr6AwEP4YPHO9WtDr216u2AqBwL4PQn4sA
-	 K7rl3t0g1Gb8gWsBuXT+8s/brLvFDxo6n57NEomzx5mxATB10vwHqYqYva5Vkhg3rM
-	 mcAVB2xIkNWVkB/QPQIEJJzOPWuNE6FOx/xOzgJJaOuyABt03+M9kEVN+XSB+3yFLA
-	 AaJ77LTIFDJrOiG6cBQWFj4Wu61dqbX67CHwrgePBSdGaYKPoEuaosGgVc0d/E2dTr
-	 AmRa23JCM9aqQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/3] phy: tegra: Add support for Tegra238 XUSB pad
- controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jon Hunter" <jonathanh@nvidia.com>
-Cc: olteanv@gmail.com, conor+dt@kernel.org, devicetree@vger.kernel.org, neil.armstrong@linaro.org, linux-phy@lists.infradead.org, vkoul@kernel.org, robh@kernel.org
-In-Reply-To: <20261001-tegra-phy-v2-3-3e453b1fb271@nvidia.com>
-References: <20261001-tegra-phy-v2-0-3e453b1fb271@nvidia.com>
- <20261001-tegra-phy-v2-3-3e453b1fb271@nvidia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 01 Oct 2026 13:38:33 +0000
-Message-Id: <20261001133833.9E0DE1F000FF@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="nGYfB0WA"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id ED0A0497;
+	Thu,  1 Oct 2026 06:41:09 -0700 (PDT)
+Received: from localhost (unknown [10.2.196.114])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id EBA2F3F86F;
+	Thu,  1 Oct 2026 06:41:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1790862073; bh=d7AaXtrsxUp4jy1qMsWbSpDXTjmvvtJXht/l2mnYE44=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=nGYfB0WAVtfZWvTeCQBWksyS91YtQ74lEIFWQ8sNun2ofaLMUMp8hQ9WNyqVP4h5k
+	 s81P3n4nALu5TwlI41Qnyk0ALTMXhfUoIiJy8VP1f9jQ8FM51EyeDcjXarn7ilnFmj
+	 tkI5lITjC1x2l5boC/2HxI4CGJI/iLTwjpCWAAMA=
+Date: Thu, 1 Oct 2026 14:41:10 +0100
+From: Leo Yan <leo.yan@arm.com>
+To: Rob Herring <robh@kernel.org>
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Mike Leach <mike.leach@arm.com>,
+	James Clark <james.clark@linaro.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Leo Yan <leo.yan@linux.dev>, coresight@lists.linaro.org,
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: arm: coresight: Allow funnel clocks
+Message-ID: <20261001134110.GM14479@e132581.arm.com>
+References: <20260921232834.3138571-1-robh@kernel.org>
+ <20261001100455.GL14479@e132581.arm.com>
+ <20261001120444.GA1048975-robh@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261001120444.GA1048975-robh@kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Low] phy: tegra: missing Makefile entry causes link failure for TEGRA_238
-- [Low] phy: tegra: missing declarations cause compiler warnings
---
+On Thu, Oct 01, 2026 at 07:04:44AM -0500, Rob Herring wrote:
 
-commit 7c86bdb1c8a3759375a713aae859eac18c35bda9
-Author: Jon Hunter <jonathanh@nvidia.com>
+[...]
 
-phy: tegra: Add support for Tegra238 XUSB pad controller
+> > The question is that a static funnel does not need to program any
+> > registers, so in theory it should only need atclk as the module's core
+> > clock, but not the APB programming clock (apb_pclk).
+> >
+> > Maybe I did not get this right when I initially enabled the static
+> > funnel in hi3660-coresight.dtsi. We should probably remove pclk from the
+> > static funnel node.
+> 
+> Yes. I suppose in theory it has some clock, but if pclk needed to be 
+> enabled, it is shared with all the other coresight components and 
+> enabled anyways. And there's no atclk defined, so 'clocks' can just 
+> be removed. Can you send a patch to do that, and I'll drop this one.
 
-This commit adds support for the Tegra238 XUSB pad controller by populating
-the specific SoC data. It drops compile-time guards around Tegra186 port ops
-and Tegra194 supplies to reuse them for Tegra238.
+Sure, I will prepare a patch for hi3660-coresight.dtsi.
 
-> diff --git a/drivers/phy/tegra/xusb.c b/drivers/phy/tegra/xusb.c
-> index 0635f0d82c963..89ce9ac873006 100644
-> --- a/drivers/phy/tegra/xusb.c
-> +++ b/drivers/phy/tegra/xusb.c
-[ ... ]
-> @@ -78,6 +78,12 @@ static const struct of_device_id tegra_xusb_padctl_of_=
-match[] =3D {
->  		.data =3D &tegra234_xusb_padctl_soc,
->  	},
->  #endif
-> +#if defined(CONFIG_ARCH_TEGRA_238_SOC)
-> +	{
-> +		.compatible =3D "nvidia,tegra238-xusb-padctl",
-> +		.data =3D &tegra238_xusb_padctl_soc,
-> +	},
-> +#endif
+> zynq7000 is even more of a mess I just noticed...
 
-[Severity: Low]
-Will this result in a link failure if a kernel is configured with only
-CONFIG_ARCH_TEGRA_238_SOC enabled?
+Agreed. It should bind to "arm,coresight-dynamic-funnel" instead.
 
-The tegra238_xusb_padctl_soc structure is defined in xusb-tegra186.c, but it
-does not appear that drivers/phy/tegra/Makefile was updated to compile
-xusb-tegra186.o when CONFIG_ARCH_TEGRA_238_SOC is set. If the other Tegra S=
-oCs
-are disabled, the object file might be omitted, leaving this symbol undefin=
-ed
-during linking.
+However, I'm afraid the "dbg_trc" and "dbg_apb" clocks are never touched
+by either the CoreSight driver or the AMBA driver after switching to the
+dynamic funnel.  These clocks should therefore be removed from all
+CoreSight nodes.
 
-> diff --git a/drivers/phy/tegra/xusb.h b/drivers/phy/tegra/xusb.h
-> index d8d799d9e7522..b9de4f3b57815 100644
-> --- a/drivers/phy/tegra/xusb.h
-> +++ b/drivers/phy/tegra/xusb.h
-[ ... ]
-> @@ -514,6 +514,9 @@ extern const struct tegra_xusb_padctl_soc tegra194_xu=
-sb_padctl_soc;
->  #if defined(CONFIG_ARCH_TEGRA_234_SOC)
->  extern const struct tegra_xusb_padctl_soc tegra234_xusb_padctl_soc;
->  #endif
-> +#if defined(CONFIG_ARCH_TEGRA_238_SOC)
-> +extern const struct tegra_xusb_padctl_soc tegra238_xusb_padctl_soc;
-> +#endif
-
-[Severity: Low]
-Could this cause a -Wmissing-declarations warning when building
-xusb-tegra186.c with CONFIG_ARCH_TEGRA_238_SOC disabled?
-
-Since tegra238_xusb_padctl_soc is now defined and exported unconditionally =
-in
-xusb-tegra186.c, hiding its extern declaration behind this config guard will
-leave the exported symbol without a visible prototype whenever the C file is
-compiled for other SoCs.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261001-tegra-phy-=
-v2-0-3e453b1fb271@nvidia.com?part=3D3
+Thanks,
+Leo
