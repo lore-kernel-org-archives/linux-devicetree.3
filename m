@@ -1,285 +1,1391 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C3A12BE65B;
-	Thu,  1 Oct 2026 02:27:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28F7639A4B3;
+	Thu,  1 Oct 2026 02:30:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790821625; cv=none; b=ut9dSWwh2RETc5nhbzih1xAVTBRir5On0H7Tb4oKjhAhxzveb5aHx7wIW2bHMKWb2NQDLbpYghVKNFtNQixmRrFoFZgcNRjJ/jhDs1IFCp1YhZolLEfAGk0ykCi9ixUeTa/nP4XXcZFbaCs1xPueBUAtEs/oYtAvr8iG4wSSrco=
+	t=1790821814; cv=none; b=K+UoshzY1HstB6qVUsS91fSC/vVKyDVllFtqmIvmAXksHbuJVt8l9vv4RcNA5daagf6HDJau4U3sQMxniLn2DxjD0pja/V6GsTxIOFTYFRYf4e/TFWIsk59OHSuWRWhCaz0H9tDAUH5wzl6EPZDs0eGDrtVDsUpf1tANSxTzT10=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790821625; c=relaxed/simple;
-	bh=wjEkSfPLR5AbPObzHHsx6514bU5eP4k2N1CzrD7zrGs=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=BuDfbb4eRdJq4kUmCquSRfe/qF/7cGLZXjxRsFWI1oVGK7qHieBFp9tKJmqRV5NTdWG0LoJuVIz8boQO835EV9JGOgXlguLraO/xeJdRVUpv0gL9PkGHhDYbe++wZINvaS80QGeY5EEdjXXOiaqDwVW01h/Utj3j2q8klZauAZY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i/30DzZZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790821814; c=relaxed/simple;
+	bh=DWecKTVbDUCubzE3pSsGu2eb1U2rm7+/GmcbG1PMAOE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dx8zq6+EeZuDhkGXIyGrBIdSd5ZCn65CAER4lHY7wAQrzqLgWXSiaFg9t9/KOsYN6SboSGOJVWditXImUaEV1aFB4l+kgmu2ZoSsYXUVdjB780kNgvHsp6ckB0NoAteaKSXhmI4CfvLDsgv5HNnFwPWoqS+7ZO+LUO5lhU6eD6Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XPSuu3Sb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i/30DzZZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73EFF1F000FF;
-	Thu,  1 Oct 2026 02:27:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XPSuu3Sb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42A061F00899;
+	Thu,  1 Oct 2026 02:30:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790821623;
-	bh=ZvkHyD4TCH8rfhvs9kb8V6R7w1GZj0ldIFzhzfiF1AQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=i/30DzZZsi4iIuCAeGxl+vHlCLG1kbQguVhkc+wf6tQGzv0wHM9q4TZdORlk+BN+6
-	 /W0JNpuIfVIbj1EBGLPDHL9YHOFHIb4nshnqQ1iSoh6bmPOsjABoYhZFSPC6RvTDq1
-	 5UBtsMXl/w/rusAF4sQFgiFshZf2fwqWiPi4YxlnZTuVg908UicX3GyBJea4J7WGhP
-	 qDHBNQp28TN3tOVG9bbn04p6W+rDuIyTcXMcByRFp4hTjnVhIKW2L4O1kScqVAL4Y6
-	 lg8HNK9zq236CJ4aW5X0nlEroFZLOHZ1tVdC1aMw7GEupm609AzfED/GTZBZUToLGN
-	 WtTDCbWuGQKKw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 2/2] dmaengine: atcdmac300: Add driver for Andes
- ATCDMAC300 DMA controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "CL Wang" <cl634@andestech.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, dmaengine@vger.kernel.org, robh@kernel.org, vkoul@kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20261001014503.786490-3-cl634@andestech.com>
-References: <20261001014503.786490-1-cl634@andestech.com>
- <20261001014503.786490-3-cl634@andestech.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 01 Oct 2026 02:27:02 +0000
-Message-Id: <20261001022703.73EFF1F000FF@smtp.kernel.org>
+	s=k20260515; t=1790821811;
+	bh=rV6Oj1nirry4dKaCPF/nby+TJ6q25wtlylGvUwxEcaQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XPSuu3SbmoLL9N4raJ63TbS+gckfqjY6lvKq8x7uiaQfqWU2cPxOpZklfm+NGDHzN
+	 laiNR8iHaCyB8HM31YDf3xilnhy02+yzh6FQlhsa6+507vxnAKRSFOS8BpBaTjCywR
+	 C5gDg1vL4kVCCCzd8GpycrKXvZ+V+kUr/cPP/ySfKENUKnuVGUUvJ8fboR2aSpMOi8
+	 BXbwmGMAuo7CnGvhONQSFqoj3h3QE1n8JMXaDz2joGPCedMqB6l948PpWNBnVUdCyE
+	 3BOY4pZEkAHo5oFqJZszKNqAKJ1Y2d5NftcwckRtLiZ+r8DlpwxHZaWjLiK/T9r7dY
+	 uG1Tk39r2jCXg==
+Date: Wed, 30 Sep 2026 21:30:07 -0500
+From: Bjorn Andersson <andersson@kernel.org>
+To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Abel Vesa <abelvesa@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Dmitry Baryshkov <lumag@kernel.org>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v4 2/3] arm64: dts: qcom: Add Lenovo ThinkPad T14s Gen 7
+Message-ID: <ar3FdCEat0ispX1F@zenbook>
+References: <20260929221821.505551-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20260929221821.505551-3-srinivas.kandagatla@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260929221821.505551-3-srinivas.kandagatla@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 11 potential issue=
-(s) to consider:
-- [High] dmaengine: atcdmac300: missing interrupt enable flags in channel c=
-ontrol
-- [High] dmaengine: atcdmac300: start unissued pending transfers in atcdmac=
-_resume()
-- [High] dmaengine: atcdmac300: integer overflow of cyclic period variable
-- [High] dmaengine: atcdmac300: missing status clearing in atcdmac_terminat=
-e_all()
-- [High] dmaengine: atcdmac300: fail to reset chan_used flag during suspend
-- [High] dmaengine: atcdmac300: unhandled pending interrupt causes IRQ storm
-- [Medium] dmaengine: atcdmac300: ignore client transfer flags in atcdmac_p=
-rep_dma_memcpy()
-- [Medium] dmaengine: atcdmac300: memory leak of unsubmitted descriptors
-- [Medium] dmaengine: atcdmac300: integer truncation of len in atcdmac_prep=
-_dma_memcpy()
-- [Medium] dmaengine: atcdmac300: integer truncation of sizes in atcdmac_pr=
-ep_dma_cyclic()
-- [Medium] dmaengine: atcdmac300: missing args_count check in atcdmac_dma_x=
-late_handler()
---
+On Tue, Sep 29, 2026 at 11:18:20PM +0100, Srinivas Kandagatla wrote:
+> Introduce a device tree for the Mahua-based Lenovo ThinkPad T14s Gen 7,
+> a Snapdragon X2 Elite laptop.  It follows the Qualcomm Glymur reference
+> design used by mahua-crd.
+> 
 
-commit 0b5c5b75d701997e0656ae1d35e0499a595165ad
-Author: CL Wang <cl634@andestech.com>
+I already merged v3, so please check the delta and submit any
+incremental fixes.
 
-dmaengine: atcdmac300: Add driver for Andes ATCDMAC300 DMA controller
+> Currently working:
+> - Display (internal eDP panel)
+> - Audio playback and capture (2x WSA8845 speakers on swr0, DMICs via
+>   the VA macro)
+> - DisplayPort audio on the two USB-C DP outputs (DP0/DP1)
+> - USB-C (host + charging on both ports)
+> - Wi-Fi (WCN7850 on PCIe4), Bluetooth (over uart14)
+> - NVMe on PCIe5
+> - HID-over-I2C touchpad, keyboard and TrackPoint on i2c0
+> - Lid switch
+> - Internal USB2 camera on usb_hs (via PTN3222 redriver)
+> - Goodix fingerprint reader on usb_2
+> - WWAN wiring is included but remains untested due to lack of access
+>   to such a SKU.
+> 
+> Assisted-by: Claude:claude-opus-4-7
 
-This patch adds support for the Andes ATCDMAC300 DMA controller.
-The ATCDMAC300 is a memory-to-memory and peripheral DMA controller
-that provides scatter-gather, cyclic, and slave transfer capabilities.
+Now in the future this should be:
 
+Assisted-by: LLM
+
+Regards,
+Bjorn
+
+> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+> ---
+>  arch/arm64/boot/dts/qcom/Makefile             |    1 +
+>  .../mahua-lenovo-thinkpad-t14s-gen7-lcd.dts   | 1277 +++++++++++++++++
+>  2 files changed, 1278 insertions(+)
+>  create mode 100644 arch/arm64/boot/dts/qcom/mahua-lenovo-thinkpad-t14s-gen7-lcd.dts
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+> index 7ee7b98994c2..a9e372e0285a 100644
+> --- a/arch/arm64/boot/dts/qcom/Makefile
+> +++ b/arch/arm64/boot/dts/qcom/Makefile
+> @@ -62,6 +62,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= lemans-evk-el2.dtb
+>  lemans-evk-ifp-mezzanine-dtbs	:= lemans-evk.dtb lemans-evk-ifp-mezzanine.dtbo
+>  dtb-$(CONFIG_ARCH_QCOM)	+= lemans-evk-ifp-mezzanine.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)	+= mahua-crd.dtb
+> +dtb-$(CONFIG_ARCH_QCOM)	+= mahua-lenovo-thinkpad-t14s-gen7-lcd.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)	+= milos-fairphone-fp6.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)	+= milos-nothing-asteroids.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)	+= monaco-arduino-monza.dtb
+> diff --git a/arch/arm64/boot/dts/qcom/mahua-lenovo-thinkpad-t14s-gen7-lcd.dts b/arch/arm64/boot/dts/qcom/mahua-lenovo-thinkpad-t14s-gen7-lcd.dts
+> new file mode 100644
+> index 000000000000..b3c6559df964
 > --- /dev/null
-> +++ b/drivers/dma/atcdmac300.c
-> @@ -0,0 +1,1759 @@
-[ ... ]
-> +static void atcdmac_start_transfer(struct atcdmac_chan *dmac_chan,
-> +				   struct atcdmac_desc *first_desc)
-> +{
-> +	struct atcdmac_dmac *dmac =3D dmac_chan->dma_dev;
-> +	struct regmap *reg =3D dmac_chan->regmap;
-> +	unsigned long flags;
+> +++ b/arch/arm64/boot/dts/qcom/mahua-lenovo-thinkpad-t14s-gen7-lcd.dts
+> @@ -0,0 +1,1277 @@
+> +// SPDX-License-Identifier: BSD-3-Clause
+> +/*
+> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
+> + */
+> +/dts-v1/;
 > +
-> +	raw_spin_lock_irqsave(&dmac->lock, flags);
-> +	dmac->owned_chan |=3D BIT(dmac_chan->chan_id);
-> +	raw_spin_unlock_irqrestore(&dmac->lock, flags);
+> +#include "mahua.dtsi"
 > +
-> +	regmap_write(reg, REG_CH_CTL_OFF, first_desc->regs.ctrl);
-
-[Severity: High]
-Since INT_TC_MASK, INT_ERR_MASK, and INT_ABT_MASK are missing from the ctrl
-bitmask written here (and constructed in functions like
-atcdmac_build_slave_desc()), won't the hardware fail to assert interrupts
-upon completion, error, or abort? This appears to cause silent transfer
-timeouts.
-
-[ ... ]
-> +static void atcdmac_advance_work(struct atcdmac_chan *dmac_chan)
-> +{
-[ ... ]
-> +	if (dma_desc->cyclic) {
-> +		if (!stop)
-> +			atcdmac_start_next_trans(dmac_chan);
-[ ... ]
-> +	} else {
-> +		if (list_is_singular(&dmac_chan->active_list)) {
-[ ... ]
-> +		if (!stop)
-> +			atcdmac_start_next_trans(dmac_chan);
-
-[Severity: High]
-If stop_mask is active during atcdmac_suspend(), this code skips calling
-atcdmac_start_next_trans(), which bypasses the internal reset of chan_used
-back to 0. Does this leave chan_used permanently stuck at 1?
-
-[ ... ]
-> +static int atcdmac_terminate_all(struct dma_chan *chan)
-> +{
-[ ... ]
-> +	spin_lock_irqsave(&dmac_chan->lock, flags);
-> +	atcdmac_abort_chan(dmac_chan);
-> +	atcdmac_enable_chan(dmac_chan, 0);
-> +	list_splice_init(&dmac_chan->queue_list,  &list);
-> +	list_splice_init(&dmac_chan->active_list, &list);
-> +	dmac_chan->chan_used =3D 0;
-> +	spin_unlock_irqrestore(&dmac_chan->lock, flags);
-
-[Severity: High]
-Does this code fail to clear the software state dmac_chan->status before
-dropping the lock? If an asynchronous abort interrupt fires as the channel
-is terminated, the threaded handler may process a stale ATCDMAC_STA_TC bit.
-If a client immediately queues and issues a new transfer, could
-atcdmac_advance_work() prematurely complete it?
-
-[ ... ]
-> +static void atcdmac_free_chan_resources(struct dma_chan *chan)
-> +{
-[ ... ]
-> +	atcdmac_terminate_all(chan);
+> +#include "pmcx0102.dtsi"
+> +#include "pmh0101.dtsi"
+> +#include "pmh0104-glymur.dtsi"
+> +#include "pmh0110-glymur.dtsi"
+> +#include "pmk8850.dtsi"
+> +#include "smb2370.dtsi"
 > +
-> +	/*
-> +	 * Give up ownership only after the abort raised by the termination
-> +	 * above has been serviced.  Dropping the bit first would mask that
-> +	 * status out of the acknowledge and leave the interrupt asserted.
-> +	 */
-> +	atcdmac_synchronize(chan);
+> +#include <dt-bindings/input/gpio-keys.h>
+> +#include <dt-bindings/input/input.h>
+> +#include <dt-bindings/leds/common.h>
+> +#include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
 > +
-> +	raw_spin_lock_irq(&dmac->lock);
-> +	dmac->owned_chan &=3D ~BIT(dmac_chan->chan_id);
-> +	raw_spin_unlock_irq(&dmac->lock);
-
-[Severity: High]
-Since atcdmac_synchronize() only flushes executing handlers and not pending
-hardware interrupts, does clearing owned_chan immediately afterward mask
-out a pending ABORT interrupt in the top-half handler? It seems this would
-leave the level-triggered interrupt line permanently asserted, causing an
-IRQ storm.
-
+> +/* PMICs tied to Glymur's cluster2 are absent on Mahua. */
+> +/delete-node/ &pmcx0102_d_e0;
+> +/delete-node/ &pmcx0102_d0_thermal;
+> +/delete-node/ &pmh0104_i_e0;
+> +/delete-node/ &pmh0104_i0_thermal;
+> +/delete-node/ &pmh0104_j_e0;
+> +/delete-node/ &pmh0104_j0_thermal;
 > +
-> +	spin_lock_irqsave(&dmac_chan->lock, flags);
-> +	list_for_each_entry_safe(desc,
-> +				 desc_next,
-> +				 &dmac_chan->free_list,
-> +				 desc_node) {
-> +		list_del(&desc->desc_node);
-> +		dma_pool_free(dmac->dma_desc_pool, desc, desc->txd.phys);
-> +	}
-
-[Severity: Medium]
-In the cleanup loop above, unsubmitted descriptors that were allocated but
-never submitted via dmaengine_submit() are unlinked from tracking lists.
-Will these unsubmitted descriptors leak since this loop only reclaims from
-free_list?
-
-[ ... ]
-> +static struct dma_async_tx_descriptor *
-> +atcdmac_prep_dma_memcpy(struct dma_chan *chan,
-> +			dma_addr_t dst,
-> +			dma_addr_t src,
-> +			size_t len,
-> +			unsigned long flags)
-> +{
-[ ... ]
-> +	desc =3D atcdmac_build_desc(dmac_chan, src, dst, ctrl,
-> +				  len >> src_width);
-
-[Severity: Medium]
-When len is a 64-bit size_t value exceeding 4GB, does shifting it by
-src_width and passing it as a 32-bit unsigned int to atcdmac_build_desc()
-cause silent integer truncation, resulting in a partial transfer?
-
-> +	if (!desc)
-> +		goto err_desc_get;
+> +/ {
+> +	model = "Lenovo ThinkPad T14s Gen 7 (LCD)";
+> +	compatible = "lenovo,thinkpad-t14s-gen7-lcd", "lenovo,thinkpad-t14s-gen7",
+> +		     "qcom,mahua";
 > +
-> +	return &desc->txd;
-
-[Severity: Medium]
-Is there a missing assignment for the client transfer flags? The flags
-parameter is never assigned to desc->txd.flags, which ignores client
-intents like DMA_PREP_INTERRUPT or DMA_CTRL_REUSE.
-
-[ ... ]
-> +static struct dma_async_tx_descriptor *
-> +atcdmac_prep_dma_cyclic(struct dma_chan *chan,
-> +			dma_addr_t buf_addr,
-> +			size_t buf_len,
-> +			size_t period_len,
-> +			enum dma_transfer_direction direction,
-> +			unsigned long flags)
-> +{
-[ ... ]
-> +	unsigned int period;
-[ ... ]
-> +	for (period =3D 0; period < buf_len; period +=3D period_len) {
-> +		struct atcdmac_desc *desc;
-> +		dma_addr_t mem =3D buf_addr + period;
-> +		unsigned int len =3D min_t(unsigned int, period_len,
-> +					 buf_len - period);
-
-[Severity: High]
-Since buf_len is a 64-bit size_t, does using a 32-bit unsigned int period
-cause an integer overflow for buffer lengths exceeding 4GB? This appears
-to create an infinite loop of descriptor allocations until the pool is
-exhausted.
-
-[Severity: Medium]
-Does the use of min_t(unsigned int, period_len, buf_len - period) silently
-truncate 64-bit size_t sizes over 4GB, programming a malformed transfer
-size?
-
-[ ... ]
-> +static struct dma_chan *atcdmac_dma_xlate_handler(struct of_phandle_args=
- *dmac,
-> +						  struct of_dma *of_dma)
-> +{
-> +	struct platform_device *dmac_pdev;
-> +	struct atcdmac_chan *dmac_chan;
-> +	struct dma_chan *chan;
-> +	dma_cap_mask_t mask;
+> +	aliases {
+> +		i2c0 = &i2c0;
+> +		i2c5 = &i2c5;
 > +
-> +	if (dmac->args[0] > FIELD_MAX(SRC_REQ_SEL_MASK)) {
-
-[Severity: Medium]
-Does this code access dmac->args[0] without first verifying
-dmac->args_count? If #dma-cells =3D <0>, this may read uninitialized or
-out-of-bounds memory.
-
-[ ... ]
-> +static int atcdmac_resume(struct device *dev)
-> +{
-[ ... ]
-> +	list_for_each_entry_safe(chan,
-> +				 chan_next,
-> +				 &dmac->dma_device.channels,
-> +				 device_node) {
-> +		dmac_chan =3D atcdmac_chan_to_dmac_chan(chan);
-> +		spin_lock_irqsave(&dmac_chan->lock, flags);
-> +		if (!list_empty(&dmac_chan->active_list) ||
-> +		    !list_empty(&dmac_chan->queue_list))
-> +			atcdmac_start_next_trans(dmac_chan);
-> +		spin_unlock_irqrestore(&dmac_chan->lock, flags);
-> +	}
-
-[Severity: High]
-If a client has queued descriptors but not yet called
-dma_async_issue_pending() (leaving chan_used =3D=3D 0), does unconditionally
-starting the next transaction from queue_list violate the API contract by
-starting pending transfers prematurely?
-
-[Severity: High]
-Additionally, if both active_list and queue_list are empty, this bypasses
-atcdmac_start_next_trans(). Coupled with the issue in
-atcdmac_advance_work() above, does this solidify the leaked chan_used =3D=
-=3D 1
-state from suspend, permanently locking out the channel?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261001014503.7864=
-90-1-cl634@andestech.com?part=3D2
+> +		serial0 = &uart21;
+> +		serial1 = &uart14;
+> +	};
+> +
+> +	chosen {
+> +		stdout-path = "serial0:115200n8";
+> +	};
+> +
+> +	clocks {
+> +		xo_board: xo-board {
+> +			compatible = "fixed-clock";
+> +			clock-frequency = <38400000>;
+> +			#clock-cells = <0>;
+> +		};
+> +
+> +		sleep_clk: sleep-clk {
+> +			compatible = "fixed-clock";
+> +			clock-frequency = <32000>;
+> +			#clock-cells = <0>;
+> +		};
+> +	};
+> +
+> +	backlight: backlight {
+> +		compatible = "gpio-backlight";
+> +		gpios = <&tlmm 18 GPIO_ACTIVE_HIGH>;
+> +
+> +		pinctrl-0 = <&edp_bl_en>;
+> +		pinctrl-names = "default";
+> +	};
+> +
+> +	gpio-keys {
+> +		compatible = "gpio-keys";
+> +
+> +		pinctrl-0 = <&hall_int_n_default>;
+> +		pinctrl-names = "default";
+> +
+> +		switch-lid {
+> +			label = "lid";
+> +			gpios = <&tlmm 92 GPIO_ACTIVE_LOW>;
+> +			linux,input-type = <EV_SW>;
+> +			linux,code = <SW_LID>;
+> +			wakeup-source;
+> +			wakeup-event-action = <EV_ACT_DEASSERTED>;
+> +		};
+> +	};
+> +
+> +	pmic-glink {
+> +		compatible = "qcom,glymur-pmic-glink",
+> +			     "qcom,pmic-glink";
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
+> +
+> +		/* Left-side USB-C port */
+> +		connector@0 {
+> +			compatible = "usb-c-connector";
+> +			reg = <0>;
+> +			power-role = "dual";
+> +			data-role = "dual";
+> +
+> +			ports {
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +
+> +				port@0 {
+> +					reg = <0>;
+> +
+> +					pmic_glink_hs_in: endpoint {
+> +						remote-endpoint = <&usb_0_dwc3_hs>;
+> +					};
+> +				};
+> +
+> +				port@1 {
+> +					reg = <1>;
+> +
+> +					pmic_glink_ss_in: endpoint {
+> +						remote-endpoint = <&usb_0_qmpphy_out>;
+> +					};
+> +				};
+> +			};
+> +		};
+> +
+> +		/* Right-side USB-C port */
+> +		connector@1 {
+> +			compatible = "usb-c-connector";
+> +			reg = <1>;
+> +			power-role = "dual";
+> +			data-role = "dual";
+> +
+> +			ports {
+> +				#address-cells = <1>;
+> +				#size-cells = <0>;
+> +
+> +				port@0 {
+> +					reg = <0>;
+> +
+> +					pmic_glink_hs_in1: endpoint {
+> +						remote-endpoint = <&usb_1_dwc3_hs>;
+> +					};
+> +				};
+> +
+> +				port@1 {
+> +					reg = <1>;
+> +
+> +					pmic_glink_ss_in1: endpoint {
+> +						remote-endpoint = <&usb_1_qmpphy_out>;
+> +					};
+> +				};
+> +			};
+> +		};
+> +	};
+> +
+> +	vreg_edp_3p3: regulator-edp-3p3 {
+> +		compatible = "regulator-fixed";
+> +
+> +		regulator-name = "VREG_EDP_3P3";
+> +		regulator-min-microvolt = <3300000>;
+> +		regulator-max-microvolt = <3300000>;
+> +
+> +		gpio = <&tlmm 70 GPIO_ACTIVE_HIGH>;
+> +		enable-active-high;
+> +
+> +		pinctrl-0 = <&edp_reg_en>;
+> +		pinctrl-names = "default";
+> +
+> +		regulator-boot-on;
+> +	};
+> +
+> +	vreg_edp_bl: regulator-edp-bl {
+> +		compatible = "regulator-fixed";
+> +
+> +		regulator-name = "VREG_EDP_BL";
+> +		regulator-min-microvolt = <3600000>;
+> +		regulator-max-microvolt = <3600000>;
+> +
+> +		gpio = <&tlmm 19 GPIO_ACTIVE_HIGH>;
+> +		enable-active-high;
+> +
+> +		pinctrl-0 = <&edp_bl_reg_en>;
+> +		pinctrl-names = "default";
+> +
+> +		regulator-boot-on;
+> +		regulator-always-on;
+> +	};
+> +
+> +	vreg_misc_3p3: regulator-misc-3p3 {
+> +		compatible = "regulator-fixed";
+> +
+> +		regulator-name = "VREG_MISC_3P3";
+> +		regulator-min-microvolt = <3300000>;
+> +		regulator-max-microvolt = <3300000>;
+> +
+> +		gpio = <&pmh0110_f_e0_gpios 6 GPIO_ACTIVE_HIGH>;
+> +		enable-active-high;
+> +
+> +		pinctrl-0 = <&misc_3p3_reg_en>;
+> +		pinctrl-names = "default";
+> +
+> +		regulator-boot-on;
+> +		regulator-always-on;
+> +	};
+> +
+> +	vreg_nvme: regulator-nvme {
+> +		compatible = "regulator-fixed";
+> +
+> +		regulator-name = "VREG_NVME_3P3";
+> +		regulator-min-microvolt = <3300000>;
+> +		regulator-max-microvolt = <3300000>;
+> +
+> +		gpio = <&pmh0101_gpios 14 GPIO_ACTIVE_HIGH>;
+> +		enable-active-high;
+> +
+> +		pinctrl-0 = <&nvme_reg_en>;
+> +		pinctrl-names = "default";
+> +
+> +		regulator-boot-on;
+> +	};
+> +
+> +	vreg_wcn_0p95: regulator-wcn-0p95 {
+> +		compatible = "regulator-fixed";
+> +
+> +		regulator-name = "VREG_WCN_0P95";
+> +		regulator-min-microvolt = <950000>;
+> +		regulator-max-microvolt = <950000>;
+> +
+> +		vin-supply = <&vreg_wcn_3p3>;
+> +	};
+> +
+> +	vreg_wcn_3p3: regulator-wcn-3p3 {
+> +		compatible = "regulator-fixed";
+> +
+> +		regulator-name = "VREG_WCN_3P3";
+> +		regulator-min-microvolt = <3300000>;
+> +		regulator-max-microvolt = <3300000>;
+> +
+> +		gpio = <&tlmm 94 GPIO_ACTIVE_HIGH>;
+> +		enable-active-high;
+> +
+> +		pinctrl-0 = <&wcn_sw_en>;
+> +		pinctrl-names = "default";
+> +
+> +		regulator-boot-on;
+> +	};
+> +
+> +	vreg_wwan: regulator-wwan {
+> +		compatible = "regulator-fixed";
+> +
+> +		regulator-name = "VREG_WWAN_3P3";
+> +		regulator-min-microvolt = <3300000>;
+> +		regulator-max-microvolt = <3300000>;
+> +
+> +		gpio = <&tlmm 246 GPIO_ACTIVE_HIGH>;
+> +		enable-active-high;
+> +
+> +		pinctrl-0 = <&wwan_reg_en>;
+> +		pinctrl-names = "default";
+> +	};
+> +
+> +	reserved-memory {
+> +		linux,cma {
+> +			compatible = "shared-dma-pool";
+> +			size = <0x0 0x10000000>;
+> +			reusable;
+> +			linux,cma-default;
+> +		};
+> +	};
+> +
+> +	sound {
+> +		compatible = "qcom,glymur-sndcard";
+> +		model = "Lenovo-ThinkPad-T14s-Gen-7";
+> +		audio-routing = "SpkrLeft IN", "WSA WSA_SPK1 OUT",
+> +				"SpkrRight IN", "WSA WSA_SPK2 OUT",
+> +				"VA DMIC0", "vdd-micb",
+> +				"VA DMIC1", "vdd-micb";
+> +
+> +		wsa-dai-link {
+> +			link-name = "WSA Playback";
+> +
+> +			cpu {
+> +				sound-dai = <&q6apmbedai WSA_CODEC_DMA_RX_0>;
+> +			};
+> +
+> +			codec {
+> +				sound-dai = <&left_spkr>, <&right_spkr>,
+> +					    <&swr0 0>, <&lpass_wsamacro 0>;
+> +			};
+> +
+> +			platform {
+> +				sound-dai = <&q6apm>;
+> +			};
+> +		};
+> +
+> +		va-dai-link {
+> +			link-name = "VA Capture";
+> +
+> +			cpu {
+> +				sound-dai = <&q6apmbedai VA_CODEC_DMA_TX_0>;
+> +			};
+> +
+> +			codec {
+> +				sound-dai = <&lpass_vamacro 0>;
+> +			};
+> +
+> +			platform {
+> +				sound-dai = <&q6apm>;
+> +			};
+> +		};
+> +
+> +		displayport-0-dai-link {
+> +			link-name = "DisplayPort0 Playback";
+> +
+> +			cpu {
+> +				sound-dai = <&q6apmbedai DISPLAY_PORT_RX_0>;
+> +			};
+> +
+> +			codec {
+> +				sound-dai = <&mdss_dp0>;
+> +			};
+> +
+> +			platform {
+> +				sound-dai = <&q6apm>;
+> +			};
+> +		};
+> +
+> +		displayport-1-dai-link {
+> +			link-name = "DisplayPort1 Playback";
+> +
+> +			cpu {
+> +				sound-dai = <&q6apmbedai DISPLAY_PORT_RX_1>;
+> +			};
+> +
+> +			codec {
+> +				sound-dai = <&mdss_dp1>;
+> +			};
+> +
+> +			platform {
+> +				sound-dai = <&q6apm>;
+> +			};
+> +		};
+> +
+> +	};
+> +
+> +	wcn7850-pmu {
+> +		compatible = "qcom,wcn7850-pmu";
+> +
+> +		vdd-supply = <&vreg_wcn_0p95>;
+> +		vddio-supply = <&vreg_l15b_e0_1p8>;
+> +		vddaon-supply = <&vreg_l15b_e0_1p8>;
+> +		vdddig-supply = <&vreg_l15b_e0_1p8>;
+> +		vddrfa1p2-supply = <&vreg_l15b_e0_1p8>;
+> +		vddrfa1p8-supply = <&vreg_l15b_e0_1p8>;
+> +
+> +		wlan-enable-gpios = <&tlmm 117 GPIO_ACTIVE_HIGH>;
+> +		bt-enable-gpios = <&tlmm 116 GPIO_ACTIVE_HIGH>;
+> +
+> +		pinctrl-0 = <&wcn_wlan_bt_en>;
+> +		pinctrl-names = "default";
+> +
+> +		regulators {
+> +			vreg_pmu_rfa_cmn: ldo0 {
+> +				regulator-name = "vreg_pmu_rfa_cmn";
+> +			};
+> +
+> +			vreg_pmu_aon_0p59: ldo1 {
+> +				regulator-name = "vreg_pmu_aon_0p59";
+> +			};
+> +
+> +			vreg_pmu_wlcx_0p8: ldo2 {
+> +				regulator-name = "vreg_pmu_wlcx_0p8";
+> +			};
+> +
+> +			vreg_pmu_wlmx_0p85: ldo3 {
+> +				regulator-name = "vreg_pmu_wlmx_0p85";
+> +			};
+> +
+> +			vreg_pmu_btcmx_0p85: ldo4 {
+> +				regulator-name = "vreg_pmu_btcmx_0p85";
+> +			};
+> +
+> +			vreg_pmu_rfa_0p8: ldo5 {
+> +				regulator-name = "vreg_pmu_rfa_0p8";
+> +			};
+> +
+> +			vreg_pmu_rfa_1p2: ldo6 {
+> +				regulator-name = "vreg_pmu_rfa_1p2";
+> +			};
+> +
+> +			vreg_pmu_rfa_1p8: ldo7 {
+> +				regulator-name = "vreg_pmu_rfa_1p8";
+> +			};
+> +
+> +			vreg_pmu_pcie_0p9: ldo8 {
+> +				regulator-name = "vreg_pmu_pcie_0p9";
+> +			};
+> +
+> +			vreg_pmu_pcie_1p8: ldo9 {
+> +				regulator-name = "vreg_pmu_pcie_1p8";
+> +			};
+> +		};
+> +	};
+> +};
+> +
+> +&apps_rsc {
+> +	regulators-0 {
+> +		compatible = "qcom,pmh0101-rpmh-regulators";
+> +		qcom,pmic-id = "B_E0";
+> +
+> +		vreg_bob1_e0: bob1 {
+> +			regulator-name = "vreg_bob1_e0";
+> +			regulator-min-microvolt = <2200000>;
+> +			regulator-max-microvolt = <4224000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_AUTO>;
+> +		};
+> +
+> +		vreg_bob2_e0: bob2 {
+> +			regulator-name = "vreg_bob2_e0";
+> +			regulator-min-microvolt = <2540000>;
+> +			regulator-max-microvolt = <3600000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_AUTO>;
+> +		};
+> +
+> +		vreg_l1b_e0_1p8: ldo1 {
+> +			regulator-name = "vreg_l1b_e0_1p8";
+> +			regulator-min-microvolt = <1800000>;
+> +			regulator-max-microvolt = <1800000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l2b_e0_2p9: ldo2 {
+> +			regulator-name = "vreg_l2b_e0_2p9";
+> +			regulator-min-microvolt = <2904000>;
+> +			regulator-max-microvolt = <2904000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l7b_e0_2p79: ldo7 {
+> +			regulator-name = "vreg_l7b_e0_2p79";
+> +			regulator-min-microvolt = <2790000>;
+> +			regulator-max-microvolt = <2792000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l8b_e0_3p3: ldo8 {
+> +			regulator-name = "vreg_l8b_e0_3p3";
+> +			regulator-min-microvolt = <1504000>;
+> +			regulator-max-microvolt = <3304000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l9b_e0_2p9: ldo9 {
+> +			regulator-name = "vreg_l9b_e0_2p9";
+> +			regulator-min-microvolt = <2704000>;
+> +			regulator-max-microvolt = <2960000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l10b_e0_1p8: ldo10 {
+> +			regulator-name = "vreg_l10b_e0_1p8";
+> +			regulator-min-microvolt = <1800000>;
+> +			regulator-max-microvolt = <1800000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l11b_e0_1p2: ldo11 {
+> +			regulator-name = "vreg_l11b_e0_1p2";
+> +			regulator-min-microvolt = <1200000>;
+> +			regulator-max-microvolt = <1200000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l12b_e0_1p2: ldo12 {
+> +			regulator-name = "vreg_l12b_e0_1p2";
+> +			regulator-min-microvolt = <1144000>;
+> +			regulator-max-microvolt = <1200000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l15b_e0_1p8: ldo15 {
+> +			regulator-name = "vreg_l15b_e0_1p8";
+> +			regulator-min-microvolt = <1800000>;
+> +			regulator-max-microvolt = <1800000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +			regulator-always-on;
+> +		};
+> +
+> +		vreg_l17b_e0_2p4: ldo17 {
+> +			regulator-name = "vreg_l17b_e0_2p4";
+> +			regulator-min-microvolt = <2400000>;
+> +			regulator-max-microvolt = <2700000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l18b_e0_1p2: ldo18 {
+> +			regulator-name = "vreg_l18b_e0_1p2";
+> +			regulator-min-microvolt = <1200000>;
+> +			regulator-max-microvolt = <1200000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +			regulator-always-on;
+> +		};
+> +	};
+> +
+> +	regulators-1 {
+> +		compatible = "qcom,pmcx0102-rpmh-regulators";
+> +		qcom,pmic-id = "C_E1";
+> +
+> +		vreg_l1c_e1_0p82: ldo1 {
+> +			regulator-name = "vreg_l1c_e1_0p82";
+> +			regulator-min-microvolt = <832000>;
+> +			regulator-max-microvolt = <832000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l2c_e1_1p14: ldo2 {
+> +			regulator-name = "vreg_l2c_e1_1p14";
+> +			regulator-min-microvolt = <1144000>;
+> +			regulator-max-microvolt = <1144000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l3c_e1_0p89: ldo3 {
+> +			regulator-name = "vreg_l3c_e1_0p89";
+> +			regulator-min-microvolt = <890000>;
+> +			regulator-max-microvolt = <980000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l4c_e1_0p72: ldo4 {
+> +			regulator-name = "vreg_l4c_e1_0p72";
+> +			regulator-min-microvolt = <720000>;
+> +			regulator-max-microvolt = <720000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +	};
+> +
+> +	regulators-2 {
+> +		compatible = "qcom,pmh0110-rpmh-regulators";
+> +		qcom,pmic-id = "F_E0";
+> +
+> +		vreg_s7f_e0_1p32: smps7 {
+> +			regulator-name = "vreg_s7f_e0_1p32";
+> +			regulator-min-microvolt = <1320000>;
+> +			regulator-max-microvolt = <1352000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_s8f_e0_0p95: smps8 {
+> +			regulator-name = "vreg_s8f_e0_0p95";
+> +			regulator-min-microvolt = <952000>;
+> +			regulator-max-microvolt = <1200000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_s9f_e0_1p9: smps9 {
+> +			regulator-name = "vreg_s9f_e0_1p9";
+> +			regulator-min-microvolt = <1900000>;
+> +			regulator-max-microvolt = <2000000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l2f_e0_0p94: ldo2 {
+> +			regulator-name = "vreg_l2f_e0_0p94";
+> +			regulator-min-microvolt = <936000>;
+> +			regulator-max-microvolt = <936000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l3f_e0_0p91: ldo3 {
+> +			regulator-name = "vreg_l3f_e0_0p91";
+> +			regulator-min-microvolt = <912000>;
+> +			regulator-max-microvolt = <912000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l4f_e0_0p3: ldo4 {
+> +			regulator-name = "vreg_l4f_e0_0p3";
+> +			regulator-min-microvolt = <1080000>;
+> +			regulator-max-microvolt = <1200000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +	};
+> +
+> +	regulators-3 {
+> +		compatible = "qcom,pmh0110-rpmh-regulators";
+> +		qcom,pmic-id = "F_E1";
+> +
+> +		vreg_s7f_e1_0p3: smps7 {
+> +			regulator-name = "vreg_s7f_e1_0p3";
+> +			regulator-min-microvolt = <300000>;
+> +			regulator-max-microvolt = <1200000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l1f_e1_0p88: ldo1 {
+> +			regulator-name = "vreg_l1f_e1_0p88";
+> +			regulator-min-microvolt = <880000>;
+> +			regulator-max-microvolt = <880000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l2f_e1_0p9: ldo2 {
+> +			regulator-name = "vreg_l2f_e1_0p9";
+> +			regulator-min-microvolt = <904000>;
+> +			regulator-max-microvolt = <904000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l4f_e1_1p2: ldo4 {
+> +			regulator-name = "vreg_l4f_e1_1p2";
+> +			regulator-min-microvolt = <1200000>;
+> +			regulator-max-microvolt = <1200000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +	};
+> +
+> +	regulators-4 {
+> +		compatible = "qcom,pmh0110-rpmh-regulators";
+> +		qcom,pmic-id = "H_E0";
+> +
+> +		vreg_l1h_e0_0p94: ldo1 {
+> +			regulator-name = "vreg_l1h_e0_0p94";
+> +			regulator-min-microvolt = <936000>;
+> +			regulator-max-microvolt = <936000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l2h_e0_0p72: ldo2 {
+> +			regulator-name = "vreg_l2h_e0_0p72";
+> +			regulator-min-microvolt = <832000>;
+> +			regulator-max-microvolt = <832000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l3h_e0_0p32: ldo3 {
+> +			regulator-name = "vreg_l3h_e0_0p32";
+> +			regulator-min-microvolt = <320000>;
+> +			regulator-max-microvolt = <2000000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +
+> +		vreg_l4h_e0_1p2: ldo4 {
+> +			regulator-name = "vreg_l4h_e0_1p2";
+> +			regulator-min-microvolt = <1080000>;
+> +			regulator-max-microvolt = <1320000>;
+> +			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
+> +		};
+> +	};
+> +};
+> +
+> +/* GPU/GMU not fully functional yet on this platform. */
+> +&gmu {
+> +	status = "disabled";
+> +};
+> +
+> +&gpu {
+> +	status = "disabled";
+> +};
+> +
+> +&i2c0 {
+> +	clock-frequency = <400000>;
+> +
+> +	status = "okay";
+> +
+> +	touchpad@2c {
+> +		compatible = "hid-over-i2c";
+> +		reg = <0x2c>;
+> +
+> +		hid-descr-addr = <0x20>;
+> +		interrupts-extended = <&tlmm 3 IRQ_TYPE_LEVEL_LOW>;
+> +
+> +		vdd-supply = <&vreg_misc_3p3>;
+> +		vddl-supply = <&vreg_l15b_e0_1p8>;
+> +
+> +		pinctrl-0 = <&tpad_default>;
+> +		pinctrl-names = "default";
+> +
+> +		wakeup-source;
+> +	};
+> +
+> +	keyboard@3a {
+> +		compatible = "hid-over-i2c";
+> +		reg = <0x3a>;
+> +
+> +		hid-descr-addr = <0x1>;
+> +		interrupts-extended = <&tlmm 67 IRQ_TYPE_LEVEL_LOW>;
+> +
+> +		vdd-supply = <&vreg_misc_3p3>;
+> +		vddl-supply = <&vreg_l15b_e0_1p8>;
+> +
+> +		pinctrl-0 = <&kybd_default>;
+> +		pinctrl-names = "default";
+> +
+> +		wakeup-source;
+> +	};
+> +};
+> +
+> +&i2c5 {
+> +	clock-frequency = <400000>;
+> +
+> +	status = "okay";
+> +
+> +	ptn3222_0: redriver@43 {
+> +		compatible = "nxp,ptn3222";
+> +		reg = <0x43>;
+> +
+> +		reset-gpios = <&tlmm 8 GPIO_ACTIVE_LOW>;
+> +
+> +		vdd3v3-supply = <&vreg_l8b_e0_3p3>;
+> +		vdd1v8-supply = <&vreg_l15b_e0_1p8>;
+> +
+> +		#phy-cells = <0>;
+> +	};
+> +
+> +	ptn3222_1: redriver@4b {
+> +		compatible = "nxp,ptn3222";
+> +		reg = <0x4b>;
+> +
+> +		reset-gpios = <&tlmm 184 GPIO_ACTIVE_LOW>;
+> +
+> +		vdd3v3-supply = <&vreg_l8b_e0_3p3>;
+> +		vdd1v8-supply = <&vreg_l15b_e0_1p8>;
+> +
+> +		#phy-cells = <0>;
+> +	};
+> +
+> +	ptn3222_cam: redriver@47 {
+> +		compatible = "nxp,ptn3222";
+> +		reg = <0x47>;
+> +
+> +		reset-gpios = <&tlmm 9 GPIO_ACTIVE_LOW>;
+> +
+> +		vdd3v3-supply = <&vreg_l8b_e0_3p3>;
+> +		vdd1v8-supply = <&vreg_l15b_e0_1p8>;
+> +
+> +		#phy-cells = <0>;
+> +	};
+> +
+> +	ptn3222_fpr: redriver@4f {
+> +		compatible = "nxp,ptn3222";
+> +		reg = <0x4f>;
+> +
+> +		reset-gpios = <&tlmm 40 GPIO_ACTIVE_LOW>;
+> +
+> +		vdd3v3-supply = <&vreg_l8b_e0_3p3>;
+> +		vdd1v8-supply = <&vreg_l15b_e0_1p8>;
+> +
+> +		#phy-cells = <0>;
+> +	};
+> +};
+> +
+> +&lpass_vamacro {
+> +	pinctrl-0 = <&dmic01_default>;
+> +	pinctrl-names = "default";
+> +	qcom,dmic-sample-rate = <4800000>;
+> +	vdd-micb-supply = <&vreg_l1b_e0_1p8>;
+> +};
+> +
+> +&mdss {
+> +	status = "okay";
+> +};
+> +
+> +&mdss_dp0 {
+> +	status = "okay";
+> +};
+> +
+> +&mdss_dp0_out {
+> +	link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000 8100000000>;
+> +};
+> +
+> +&mdss_dp1 {
+> +	status = "okay";
+> +};
+> +
+> +&mdss_dp1_out {
+> +	link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000 8100000000>;
+> +};
+> +
+> +&mdss_dp3 {
+> +	/delete-property/ #sound-dai-cells;
+> +
+> +	pinctrl-0 = <&edp0_hpd_default>;
+> +	pinctrl-names = "default";
+> +
+> +	status = "okay";
+> +
+> +	aux-bus {
+> +		panel {
+> +			compatible = "edp-panel";
+> +			power-supply = <&vreg_edp_3p3>;
+> +			backlight = <&backlight>;
+> +
+> +			port {
+> +				edp_panel_in: endpoint {
+> +					remote-endpoint = <&mdss_dp3_out>;
+> +				};
+> +			};
+> +		};
+> +	};
+> +};
+> +
+> +&mdss_dp3_out {
+> +	data-lanes = <0 1 2 3>;
+> +	link-frequencies = /bits/ 64 <1620000000 2700000000 5400000000 8100000000>;
+> +
+> +	remote-endpoint = <&edp_panel_in>;
+> +};
+> +
+> +&mdss_dp3_phy {
+> +	vdda-phy-supply = <&vreg_l2f_e1_0p9>;
+> +	vdda-pll-supply = <&vreg_l4f_e1_1p2>;
+> +
+> +	status = "okay";
+> +};
+> +
+> +/* PCIe4: on-board WLAN (WCN7850) */
+> +&pcie4 {
+> +	pinctrl-0 = <&pcie4_default>;
+> +	pinctrl-names = "default";
+> +
+> +	status = "okay";
+> +};
+> +
+> +&pcie4_phy {
+> +	vdda-phy-supply = <&vreg_l1c_e1_0p82>;
+> +	vdda-pll-supply = <&vreg_l4f_e1_1p2>;
+> +
+> +	status = "okay";
+> +};
+> +
+> +&pcie4_port0 {
+> +	reset-gpios = <&tlmm 146 GPIO_ACTIVE_LOW>;
+> +	wake-gpios = <&tlmm 148 GPIO_ACTIVE_LOW>;
+> +
+> +	wifi@0 {
+> +		compatible = "pci17cb,1107";
+> +		reg = <0x10000 0x0 0x0 0x0 0x0>;
+> +
+> +		vddaon-supply = <&vreg_pmu_aon_0p59>;
+> +		vddwlcx-supply = <&vreg_pmu_wlcx_0p8>;
+> +		vddwlmx-supply = <&vreg_pmu_wlmx_0p85>;
+> +		vddrfacmn-supply = <&vreg_pmu_rfa_cmn>;
+> +		vddrfa0p8-supply = <&vreg_pmu_rfa_0p8>;
+> +		vddrfa1p2-supply = <&vreg_pmu_rfa_1p2>;
+> +		vddrfa1p8-supply = <&vreg_pmu_rfa_1p8>;
+> +		vddpcie0p9-supply = <&vreg_pmu_pcie_0p9>;
+> +		vddpcie1p8-supply = <&vreg_pmu_pcie_1p8>;
+> +	};
+> +};
+> +
+> +/* PCIe5: primary M.2 2280 NVMe */
+> +&pcie5 {
+> +	vddpe-3v3-supply = <&vreg_nvme>;
+> +
+> +	pinctrl-0 = <&pcie5_default>;
+> +	pinctrl-names = "default";
+> +
+> +	status = "okay";
+> +};
+> +
+> +&pcie5_phy {
+> +	vdda-phy-supply = <&vreg_l2f_e0_0p94>;
+> +	vdda-pll-supply = <&vreg_l4h_e0_1p2>;
+> +
+> +	status = "okay";
+> +};
+> +
+> +&pcie5_port0 {
+> +	reset-gpios = <&tlmm 152 GPIO_ACTIVE_LOW>;
+> +	wake-gpios = <&tlmm 154 GPIO_ACTIVE_LOW>;
+> +};
+> +
+> +/* PCIe6: optional WWAN M.2 3042 */
+> +&pcie6 {
+> +	vddpe-3v3-supply = <&vreg_wwan>;
+> +
+> +	pinctrl-0 = <&pcie6_default>;
+> +	pinctrl-names = "default";
+> +
+> +	status = "okay";
+> +};
+> +
+> +&pcie6_phy {
+> +	vdda-phy-supply = <&vreg_l1c_e1_0p82>;
+> +	vdda-pll-supply = <&vreg_l4f_e1_1p2>;
+> +
+> +	status = "okay";
+> +};
+> +
+> +&pcie6_port0 {
+> +	reset-gpios = <&tlmm 149 GPIO_ACTIVE_LOW>;
+> +	wake-gpios = <&tlmm 151 GPIO_ACTIVE_LOW>;
+> +};
+> +
+> +&pmh0101_gpios {
+> +	nvme_reg_en: nvme-reg-en-state {
+> +		pins = "gpio14";
+> +		function = "normal";
+> +		bias-disable;
+> +	};
+> +};
+> +
+> +&pmh0110_f_e0_gpios {
+> +	misc_3p3_reg_en: misc-3p3-reg-en-state {
+> +		pins = "gpio6";
+> +		function = "normal";
+> +		bias-disable;
+> +		input-disable;
+> +		output-enable;
+> +		drive-push-pull;
+> +		power-source = <1>; /* 1.8 V */
+> +		qcom,drive-strength = <PMIC_GPIO_STRENGTH_LOW>;
+> +	};
+> +};
+> +
+> +&pmk8850_rtc {
+> +	qcom,no-alarm;
+> +};
+> +
+> +&remoteproc_adsp {
+> +	firmware-name = "qcom/glymur/LENOVO/22A8/qcadsp8480.mbn",
+> +			"qcom/glymur/LENOVO/22A8/adsp_dtbs.elf";
+> +
+> +	status = "okay";
+> +};
+> +
+> +&remoteproc_cdsp {
+> +	firmware-name = "qcom/glymur/LENOVO/22A8/qccdsp8480.mbn",
+> +			"qcom/glymur/LENOVO/22A8/cdsp_dtbs.elf";
+> +
+> +	status = "okay";
+> +};
+> +
+> +&swr0 {
+> +	status = "okay";
+> +
+> +	/* WSA8845, Left */
+> +	left_spkr: speaker@0,0 {
+> +		compatible = "sdw20217020400";
+> +		reg = <0 0>;
+> +		reset-gpios = <&lpass_tlmm 12 GPIO_ACTIVE_LOW>;
+> +		#sound-dai-cells = <0>;
+> +		sound-name-prefix = "SpkrLeft";
+> +		vdd-1p8-supply = <&vreg_l15b_e0_1p8>;
+> +		vdd-io-supply = <&vreg_l18b_e0_1p2>;
+> +		qcom,port-mapping = <1 2 3 7 12 14>;
+> +	};
+> +
+> +	/* WSA8845, Right */
+> +	right_spkr: speaker@0,1 {
+> +		compatible = "sdw20217020400";
+> +		reg = <0 1>;
+> +		reset-gpios = <&lpass_tlmm 12 GPIO_ACTIVE_LOW>;
+> +		#sound-dai-cells = <0>;
+> +		sound-name-prefix = "SpkrRight";
+> +		vdd-1p8-supply = <&vreg_l15b_e0_1p8>;
+> +		vdd-io-supply = <&vreg_l18b_e0_1p2>;
+> +		qcom,port-mapping = <4 5 6 7 13 15>;
+> +	};
+> +};
+> +
+> +&smb2370_j_e2_eusb2_repeater {
+> +	vdd18-supply = <&vreg_l15b_e0_1p8>;
+> +	vdd3-supply = <&vreg_l7b_e0_2p79>;
+> +};
+> +
+> +&smb2370_k_e2_eusb2_repeater {
+> +	vdd18-supply = <&vreg_l15b_e0_1p8>;
+> +	vdd3-supply = <&vreg_l7b_e0_2p79>;
+> +};
+> +
+> +&tcsr {
+> +	vdda-qrefrpt0-0p9-supply = <&vreg_l2f_e1_0p9>;
+> +	vdda-qrefrpt1-0p9-supply = <&vreg_l2f_e1_0p9>;
+> +	vdda-qrefrpt2-0p9-supply = <&vreg_l2f_e1_0p9>;
+> +	vdda-qrefrpt3-0p9-supply = <&vreg_l2h_e0_0p72>;
+> +	vdda-qrefrpt4-0p9-supply = <&vreg_l2h_e0_0p72>;
+> +	vdda-qrefrpt5-0p9-supply = <&vreg_l2h_e0_0p72>;
+> +	vdda-qrefrx0-0p9-supply = <&vreg_l2f_e1_0p9>;
+> +	vdda-qrefrx1-0p9-supply = <&vreg_l2f_e1_0p9>;
+> +	vdda-qrefrx2-0p9-supply = <&vreg_l2f_e1_0p9>;
+> +	vdda-qrefrx3-0p9-supply = <&vreg_l2h_e0_0p72>;
+> +	vdda-qrefrx4-0p9-supply = <&vreg_l2h_e0_0p72>;
+> +	vdda-qrefrx5-0p9-supply = <&vreg_l3f_e0_0p91>;
+> +	vdda-qreftx0-0p9-supply = <&vreg_l3f_e0_0p91>;
+> +	vdda-qreftx0-1p2-supply = <&vreg_l4h_e0_1p2>;
+> +	vdda-qreftx1-0p9-supply = <&vreg_l1f_e1_0p88>;
+> +	vdda-refgen3-0p9-supply = <&vreg_l2f_e0_0p94>;
+> +	vdda-refgen3-1p2-supply = <&vreg_l4h_e0_1p2>;
+> +	vdda-refgen4-0p9-supply = <&vreg_l1f_e1_0p88>;
+> +	vdda-refgen4-1p2-supply = <&vreg_l4f_e1_1p2>;
+> +};
+> +
+> +&tlmm {
+> +	gpio-reserved-ranges = <4 4>,   /* EC TZ Secure I3C */
+> +			       <10 2>,  /* OOB UART */
+> +			       <27 1>,  /* TZ trigger  */
+> +			       <44 4>,  /* TPM */
+> +			       <139 1>; /* TZ trigger */
+> +
+> +	edp_bl_en: edp-bl-en-state {
+> +		pins = "gpio18";
+> +		function = "gpio";
+> +		drive-strength = <2>;
+> +		bias-disable;
+> +	};
+> +
+> +	edp_bl_reg_en: edp-bl-reg-en-state {
+> +		pins = "gpio19";
+> +		function = "gpio";
+> +		drive-strength = <2>;
+> +		bias-disable;
+> +	};
+> +
+> +	edp_reg_en: edp-reg-en-state {
+> +		pins = "gpio70";
+> +		function = "gpio";
+> +		drive-strength = <16>;
+> +		bias-disable;
+> +	};
+> +
+> +	edp0_hpd_default: edp0-hpd-default-state {
+> +		pins = "gpio119";
+> +		function = "edp0_hot";
+> +		bias-disable;
+> +	};
+> +
+> +	hall_int_n_default: hall-int-n-state {
+> +		pins = "gpio92";
+> +		function = "gpio";
+> +		bias-disable;
+> +	};
+> +
+> +	kybd_default: kybd-default-state {
+> +		pins = "gpio67";
+> +		function = "gpio";
+> +		bias-disable;
+> +	};
+> +
+> +	pcie4_default: pcie4-default-state {
+> +		clkreq-n-pins {
+> +			pins = "gpio147";
+> +			function = "pcie4_clk_req_n";
+> +			drive-strength = <2>;
+> +			bias-pull-up;
+> +		};
+> +
+> +		perst-n-pins {
+> +			pins = "gpio146";
+> +			function = "gpio";
+> +			drive-strength = <2>;
+> +			bias-disable;
+> +		};
+> +
+> +		wake-n-pins {
+> +			pins = "gpio148";
+> +			function = "gpio";
+> +			drive-strength = <2>;
+> +			bias-pull-up;
+> +		};
+> +	};
+> +
+> +	pcie5_default: pcie5-default-state {
+> +		clkreq-n-pins {
+> +			pins = "gpio153";
+> +			function = "pcie5_clk_req_n";
+> +			drive-strength = <2>;
+> +			bias-pull-up;
+> +		};
+> +
+> +		perst-n-pins {
+> +			pins = "gpio152";
+> +			function = "gpio";
+> +			drive-strength = <2>;
+> +			bias-disable;
+> +		};
+> +
+> +		wake-n-pins {
+> +			pins = "gpio154";
+> +			function = "gpio";
+> +			drive-strength = <2>;
+> +			bias-pull-up;
+> +		};
+> +	};
+> +
+> +	pcie6_default: pcie6-default-state {
+> +		clkreq-n-pins {
+> +			pins = "gpio150";
+> +			function = "pcie6_clk_req_n";
+> +			drive-strength = <2>;
+> +			bias-pull-up;
+> +		};
+> +
+> +		perst-n-pins {
+> +			pins = "gpio149";
+> +			function = "gpio";
+> +			drive-strength = <2>;
+> +			bias-disable;
+> +		};
+> +
+> +		wake-n-pins {
+> +			pins = "gpio151";
+> +			function = "gpio";
+> +			drive-strength = <2>;
+> +			bias-pull-up;
+> +		};
+> +	};
+> +
+> +	tpad_default: tpad-default-state {
+> +		pins = "gpio3";
+> +		function = "gpio";
+> +		bias-disable;
+> +	};
+> +
+> +	wcn_wlan_bt_en: wcn-wlan-bt-en-state {
+> +		pins = "gpio116", "gpio117";
+> +		function = "gpio";
+> +		drive-strength = <2>;
+> +		bias-disable;
+> +	};
+> +
+> +	wcn_sw_en: wcn-sw-en-state {
+> +		pins = "gpio94";
+> +		function = "gpio";
+> +		drive-strength = <2>;
+> +		bias-disable;
+> +	};
+> +
+> +	wwan_reg_en: wwan-reg-en-state {
+> +		pins = "gpio246";
+> +		function = "gpio";
+> +		drive-strength = <2>;
+> +		bias-disable;
+> +	};
+> +};
+> +
+> +&uart14 {
+> +	status = "okay";
+> +
+> +	bluetooth {
+> +		compatible = "qcom,wcn7850-bt";
+> +		max-speed = <3200000>;
+> +
+> +		vddaon-supply = <&vreg_pmu_aon_0p59>;
+> +		vddwlcx-supply = <&vreg_pmu_wlcx_0p8>;
+> +		vddwlmx-supply = <&vreg_pmu_wlmx_0p85>;
+> +		vddrfacmn-supply = <&vreg_pmu_rfa_cmn>;
+> +		vddrfa0p8-supply = <&vreg_pmu_rfa_0p8>;
+> +		vddrfa1p2-supply = <&vreg_pmu_rfa_1p2>;
+> +		vddrfa1p8-supply = <&vreg_pmu_rfa_1p8>;
+> +	};
+> +};
+> +
+> +&usb_0 {
+> +	status = "okay";
+> +};
+> +
+> +&usb_0_dwc3_hs {
+> +	remote-endpoint = <&pmic_glink_hs_in>;
+> +};
+> +
+> +&usb_0_hsphy {
+> +	vdd-supply = <&vreg_l3f_e0_0p91>;
+> +	vdda12-supply = <&vreg_l4h_e0_1p2>;
+> +
+> +	phys = <&smb2370_j_e2_eusb2_repeater>;
+> +
+> +	status = "okay";
+> +};
+> +
+> +&usb_0_qmpphy {
+> +	vdda-phy-supply = <&vreg_l3f_e0_0p91>;
+> +	vdda-pll-supply = <&vreg_l4h_e0_1p2>;
+> +	refgen-supply = <&vreg_l2f_e0_0p94>;
+> +
+> +	status = "okay";
+> +};
+> +
+> +&usb_0_qmpphy_out {
+> +	remote-endpoint = <&pmic_glink_ss_in>;
+> +};
+> +
+> +&usb_1 {
+> +	status = "okay";
+> +};
+> +
+> +&usb_1_dwc3_hs {
+> +	remote-endpoint = <&pmic_glink_hs_in1>;
+> +};
+> +
+> +&usb_1_hsphy {
+> +	vdd-supply = <&vreg_l3f_e0_0p91>;
+> +	vdda12-supply = <&vreg_l4h_e0_1p2>;
+> +
+> +	phys = <&smb2370_k_e2_eusb2_repeater>;
+> +
+> +	status = "okay";
+> +};
+> +
+> +&usb_1_qmpphy {
+> +	vdda-phy-supply = <&vreg_l1h_e0_0p94>;
+> +	vdda-pll-supply = <&vreg_l4h_e0_1p2>;
+> +	refgen-supply = <&vreg_l2f_e0_0p94>;
+> +
+> +	status = "okay";
+> +};
+> +
+> +&usb_1_qmpphy_out {
+> +	remote-endpoint = <&pmic_glink_ss_in1>;
+> +};
+> +
+> +&usb_mp {
+> +	status = "okay";
+> +};
+> +
+> +&usb_mp_hsphy0 {
+> +	vdd-supply = <&vreg_l2h_e0_0p72>;
+> +	vdda12-supply = <&vreg_l4h_e0_1p2>;
+> +
+> +	phys = <&ptn3222_0>;
+> +
+> +	status = "okay";
+> +};
+> +
+> +&usb_mp_hsphy1 {
+> +	vdd-supply = <&vreg_l2h_e0_0p72>;
+> +	vdda12-supply = <&vreg_l4h_e0_1p2>;
+> +
+> +	phys = <&ptn3222_1>;
+> +
+> +	status = "okay";
+> +};
+> +
+> +&usb_mp_qmpphy0 {
+> +	vdda-phy-supply = <&vreg_l2h_e0_0p72>;
+> +	vdda-pll-supply = <&vreg_l4h_e0_1p2>;
+> +	refgen-supply = <&vreg_l4f_e1_1p2>;
+> +
+> +	status = "okay";
+> +};
+> +
+> +&usb_mp_qmpphy1 {
+> +	vdda-phy-supply = <&vreg_l2h_e0_0p72>;
+> +	vdda-pll-supply = <&vreg_l4h_e0_1p2>;
+> +	refgen-supply = <&vreg_l4f_e1_1p2>;
+> +
+> +	status = "okay";
+> +};
+> +
+> +&usb_hs {
+> +	dr_mode = "host";
+> +
+> +	status = "okay";
+> +};
+> +
+> +&usb_hs_phy {
+> +	vdd-supply = <&vreg_l2h_e0_0p72>;
+> +	vdda12-supply = <&vreg_l4h_e0_1p2>;
+> +
+> +	phys = <&ptn3222_cam>;
+> +
+> +	status = "okay";
+> +};
+> +
+> +&usb_2 {
+> +	dr_mode = "host";
+> +	maximum-speed = "high-speed";
+> +
+> +	/delete-property/ usb-role-switch;
+> +	phys = <&usb_2_hsphy>;
+> +	phy-names = "usb2-phy";
+> +
+> +	status = "okay";
+> +};
+> +
+> +&usb_2_hsphy {
+> +	vdd-supply = <&vreg_l4c_e1_0p72>;
+> +	vdda12-supply = <&vreg_l4f_e1_1p2>;
+> +
+> +	phys = <&ptn3222_fpr>;
+> +
+> +	status = "okay";
+> +};
+> -- 
+> 2.53.0
+> 
