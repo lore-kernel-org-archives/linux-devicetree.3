@@ -1,107 +1,157 @@
-Received: from mail-vs2-f42.google.com (mail-vs2-f42.google.com [74.125.227.42])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED42C40EB9C
-	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 16:08:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54C0B39FCDC
+	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 16:11:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790870933; cv=none; b=CmTGQibSPOiBWxOqkRD5wGdLDMJGx91sHXkSBGCXRi6BVr8NLWPzRdzoCdTLoF9YJhV+yvoaAsS32xGGmDImWgLTDoPUAktFVTcRDNidlPwgz8Y+sSJ7X5dbAr/+qWLgtWnSjR1GyAnPbyt8/YB5EGAcHqNPlavghuCNOK2JSDw=
+	t=1790871092; cv=none; b=lqLNj98nt6om8661UY2hQ8G+tc//qgNbpyAtAZH4yQrZ4ZenxTyihfpnzkAxAuHDW7ISBh4qJRmX9BtzK4m7TPHaOQotsZ5wblMmLXQxS5a7Un2s87f4LXT6nRH1q95EOVpBc0pRTlMkztWTCjb4W7c/vyr3DtQXSftQD0TFbEo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790870933; c=relaxed/simple;
-	bh=km+eyEF9ejWZCj63DVMQwjL7mTG62fzWukGv9EvlEqA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JoQEHsuWNR2GEExnJiP8rV1g4sFmdz/pS3MJeW1dEmwhw1rHlThBfG6UhkR7LnM5B3IyTZaQ1eMwJ+IEabFUvzE8O277YTUa18tuJzzI/tatVdiPasMVZeVuv1h1VkJ3vC9i7xxJW18mOe/fsQpQ29TGfFingNh9srdJB0qqLJ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Bmpsblx5; arc=none smtp.client-ip=74.125.227.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1790871092; c=relaxed/simple;
+	bh=XStV42dN90oncuZkgZa2fQZPOmDsXrGunS+USmh79ms=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=J/tvZquS2y1d5MQRRAwi1xf/Zwe4MiDJVbtNk347M0/VMYtmYWQKPnvC0xzWEOxmA92b/TYYAmN2y5KasmF5K5VZp29x++01nEG2rAyOZKiIm1MYUfgYQWZhfOrsxuJPPche2wnEQhaEb+oHbbzCKLSJXDmtFkyCky6xiKnvA98=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hjTMtZyP; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Bmpsblx5"
-Received: by mail-vs2-f42.google.com with SMTP id 71dfb90a1353d-5c67e5059f8so2122806e0c.1
-        for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 09:08:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hjTMtZyP"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ff9642c57so14782225e9.0
+        for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 09:11:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1790870931; x=1791475731; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1790871089; x=1791475889; darn=vger.kernel.org;
+        h=content-type:content-transfer-encoding:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Otf9/knLO98bfm0267xs+E0698DkiFYH19su1j8Mlag=;
-        b=Bmpsblx5D32+gHLu1pzSb+Gzdxr8n7tpxIni0ti0OKuo/U7n5PhIJNLAXHMsKYlSCN
-         kq0R4JphsaL6Nzlh7j2NcYfFlw1t5CKrD4RHjAY0P8At9nYhE34aUOI4y/24ssVEkZ2G
-         12mF9gvV/78VV6PZ4BU3vHQ1CIZrURoXaCq1h2ziIsFwbfydPh4E7JZypz2v/2GxKyjA
-         t4jxjt6JMZJve4ZejUHthPy+K6tEAFmHE6ROs2jLVGrQ0P8xYe9FH0vSmCwWf97rQ9ol
-         e2c8xY99Vq/Yj4yVNMUxK4U9CNtzbBsb9gJqg84a+DYdmjcNXTa89xrMoe4yVZDmzt3H
-         PrlQ==
+        bh=VIZGQQshvUma/6DcqkuS/JxSHm+uvQgTCEKSqUG/nes=;
+        b=hjTMtZyPNrC9AiOfpgjwX5Hlf01tXJjC5l7KEa7AxrapcBvRkT26upJdJyj8Zwo6bo
+         qw5t13nWSeWwqy6ew4W+HH9GbrhHBiczBml81YpgMTCS9pfBo5IIcV/NKO/EL+4EAHDf
+         OU/OVxj+eguKad1Qoto7RrIMH5YKv/e5+gWOiwh9a/zr6eBv7780jJQ7BECEHLa0HkgO
+         MaMOWc6kE7UqWE4+y4xnVdA3KAvZTbW33WjJ8TMNzZ9lvPCcGVDzP2BZlKqFN9NcOWUm
+         RH5Ba9+YE0OlYYY0m1V0QQRJiTnRYVa2Z/eGtUQ5W7fVY3bHTeTTxjLvW/sfrK9Ukg98
+         5n9Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790870931; x=1791475731;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1790871089; x=1791475889;
+        h=content-type:content-transfer-encoding:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Otf9/knLO98bfm0267xs+E0698DkiFYH19su1j8Mlag=;
-        b=ZxbBIXzNjL9Ddy8SXt5+6M8wk6Su7Sm/2Mu2uWMbqn4FHAJPkUNscc5chxlbtMyRd7
-         dFn8SmrYrEg21TP/BIPefPrHVksZkW0gkEY4TPrdqG3BGXAjiT05raoCBI8AbL+Sxl+k
-         MJTQQC+NkFLg0qbKwWxXCJAUprpMG1KIXjmrM5PdZK1kqJe2WtUvdu8xsKFf+fCkSSzG
-         L9WpnRzY44tvar9PZbOe2Y7sRsK+TGsSuo7mbdA3B+ellNs/SpHzkU0ryuDsB4INX+CJ
-         HuYunXiEVlaSo2emboqPYRQxUtgd8m30uMIof9RLzWaJ1z8KrB4RmKq2faOMQs3WsDUE
-         0ytQ==
-X-Gm-Message-State: AFq9FYIAxTObH8U5OwiHqp4+hWpC6nSSHN0MtBci6ocgL4KFMTsdRP7+
-	Ofo7tfurOZVikwURlqPiUQmThcvOx+Jyi/OPupMLotygUPux5UQfRTTdwbScBtOlSFs=
-X-Gm-Gg: AYBFou2xpElO52zm3VAXEV/gG3hhLTif/ECmaGd4Dl1y2VdE8NQ7BXgTVcpzo5ylwHg
-	g9YyHMKoQIFiDOVPhjhSuPVHnw5hUa4uRksGVaCQtTUZYgIHYT8uzrwtMgsgY4eKmOs216nvyrE
-	MvWgCWMbLVROjx2ZO8IgwfmFxOaf9l0ER6oQ0yCDnsG5GutwlwCEqjVBgmL+7OQupQSeYYfLE8o
-	Y81yQD4VmTg1QapuH4mF5bNHOQO9JmKPB+NpXQ8X6713mK7lIjiuTlKxwqLuecRhNs0cdnRrdk/
-	C4tv+rvjVCUDFtjKNTHKAjwnnS5buz+8erlXyTKGuhXKrsqJuAFNQ+PFlMryK3TkS89M1N1OVNA
-	wj+ilO1l8EdE/9NoPyKIf4EjT+LV+b0WnnjxfopLhC8IE/m5MRVgpwmdKl4PpFn/PEXQq+SWPYz
-	mbDad/diQf7WNjQFc3YUtU2qeEj/Ijvc/92cgVJQMN6DEyPn2feIj9RksgxSSBv9vxlStUNBJ0z
-	WUKerCuI90qOaWylO1ccsJ4AaRWdrLP
-X-Received: by 2002:a05:6122:551:b0:5d4:1193:73d3 with SMTP id 71dfb90a1353d-5d67c10673fmr1731771e0c.14.1790870930920;
-        Thu, 01 Oct 2026 09:08:50 -0700 (PDT)
-Received: from hiagonb ([2804:14c:4c5:8bf0::ffae])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5da61f8fedesm170893e0c.9.2026.10.01.09.08.46
+        bh=VIZGQQshvUma/6DcqkuS/JxSHm+uvQgTCEKSqUG/nes=;
+        b=A21/LgJt0EyQOM4+60iS7QIL/XXUPOK4YEoLQ6hNpKaL1IQQrawJm5BrEZI41RdHs9
+         Yv1rpxFxYO9WT1s57VebEI7BP4szM3QzztzuOHGUCoEbO5fYvMHTJ8rs16R1ECPcuJgY
+         LqDt8IXiP0AokKj/hvSZF8Xl9eyHexrFwu7oKGIxtr/GKawqFcsNBKETrgp5/euV7ygj
+         bWAMrGe5AWs+6EdQob0g6n6qvaQSxmQmWoZcpqDzbSrRmiL1we2oDN0+SAwfyDcSRO33
+         BfMg7o/Y1XqpwGD8mun4KTL5b4AhbHZsRMxuFCstrOHjKlYSJ0VnN44Q1yE5aXz/rd2A
+         HI4w==
+X-Forwarded-Encrypted: i=1; AKwUvBz7GoD3V64AtbFavTnQ+PnEzGZorSOjNkU4UcEwLoTKddAwIGD3FFqkAzvu9Mzr0U2xCfDW3RcwtMGh@vger.kernel.org
+X-Gm-Message-State: AFuF++lvacgQ9H/88kZgbJ2mGAPw4HFIL94fGuWt0tOF7M6GEgx0hQBL
+	3ItiYEApChL2JDHkWx6LxLpZNo25sa350bn49/KG9Z/itN6X2w/pGxUj
+X-Gm-Gg: AYBFou2vEXPQu0SLASN99cZ+scsZGbFP5wNoN3r331JuhvRPZcW1nu/znUi83DNAJOw
+	fbKkUUvttwo7B7yAu7SG+PQHcqdHY6f7CBMsRH7EzZ7bzu1waGMsHN6nTVNRQUZU1ZTYLlhfiqr
+	ma5ftv1Ra3xvb0gvRMTX9gSZCcoLPkVhlaYZRU5UunvBFf06nziGFb6LezwkGDxcydrN8xwT4Fl
+	iIlTE6enaoUZEA4WacEpVORgclt2o54W2rT/0DpuqhMR5wThtl4/0ilkESBcJ8KwxYpZuGFjg58
+	KaFkTDhzm6bUuPb4RwG9Kil3vwX+rGgfdQfdxIuYguHqhkEe33cXJOD1VDzqdYQOX0aRoCbRq5b
+	pzQ/ReFko4o/9x2oqSTQuYmzGjS40nuYRKmoxthgCvmbAZKt5jqjb4Je1ZaDO6RCm7abZpUFMiJ
+	h5S+gvH8wCLGQ+p50gAlFIWg+Xq3D49vts52jbKiS/KJoiGI6iKefsezv1SodrVQH118e9+Yf5h
+	auFPq1q2S8Hl9lHAiWgpE6YA2YSmg+ZZoFyu6DZsenZdcDWLmzLIAvRaR2yZMhksd2OaashTFA0
+	dyV7UgNLId+mOSdIhKCTSX1KkI141hB2qWdEKsaa6RnhtozKDGz3it3We6cmFR9R57hIDygEDDa
+	H8ATI91oTL6pDJoXJQfc9z5Q+1IJSjUz28qp2cSFgBm4kRSCRjv+ReDFYqjsjxzKvTgjI+zCnX5
+	7HOa0EXNAhgwYr2dSQBF1KAYsm
+X-Received: by 2002:a05:600c:354a:b0:4a0:ec5:46d9 with SMTP id 5b1f17b1804b1-4a027447475mr3271805e9.0.1790871087229;
+        Thu, 01 Oct 2026 09:11:27 -0700 (PDT)
+Received: from jernej-laptop.localnet (95-143-149-57.dynamic.telemach.net. [95.143.149.57])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b0db6de18sm3629464f8f.44.2026.10.01.09.11.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 09:08:50 -0700 (PDT)
-Date: Thu, 1 Oct 2026 13:08:44 -0300
-From: Hiago De Franco <hfranco@baylibre.com>
-To: Andrei Lalaev <andrey.lalaev@gmail.com>
-Cc: devicetree@vger.kernel.org, sophgo@lists.linux.dev, 
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Chen Wang <chen.wang@linux.dev>, Inochi Amaoto <inochiama@gmail.com>, 
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
-Subject: Re: [PATCH] riscv: dts: sophgo: cv1800b-milkv-duo: enable ethernet
-Message-ID: <ar6E4bQAKonCW3st@hiagonb>
-References: <20260930-milkv-duo-ethernet-v1-1-428ff137f5d3@baylibre.com>
- <20261001151447.12076-1-andrey.lalaev@gmail.com>
+        Thu, 01 Oct 2026 09:11:26 -0700 (PDT)
+From: Jernej =?UTF-8?B?xaBrcmFiZWM=?= <jernej.skrabec@gmail.com>
+To: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, wens@kernel.org,
+ samuel@sholland.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
+ linux-kernel@vger.kernel.org, Aleksander Jan Bajkowski <olek2@wp.pl>
+Cc: Aleksander Jan Bajkowski <olek2@wp.pl>
+Subject:
+ Re: [PATCH v2] arm64: dts: allwiner: h5: OrangePi PC2: add ethernet LEDs
+Date: Thu, 01 Oct 2026 18:11:25 +0200
+Message-ID: <mSzGX1AcQ6yrkdDVueDg2Q@gmail.com>
+In-Reply-To: <20260927200820.795348-1-olek2@wp.pl>
+References: <20260927200820.795348-1-olek2@wp.pl>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001151447.12076-1-andrey.lalaev@gmail.com>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-Hi Andrei,
+Hi,
 
-On Thu, Oct 01, 2026 at 05:14:47PM +0200, Andrei Lalaev wrote:
-> Hi Hiago,
-> 
-> Please take a look at the patch [1] and the discussion.
+you mispelled "allwinner:" in subject.
 
-Thanks for letting me know, I missed this patch. Do you happen to know
-if any overlay was sent? I was not able to find one.
+Dne nedelja, 27. september 2026 ob 21:38:18 Srednjeevropski poletni =C4=8Da=
+s je Aleksander Jan Bajkowski napisal(a):
+> This patch adds support for Ethernet LEDs. Keep the default LED settings.
 
-If none was sent, I am happy to send one. Sorry for all the noise here.
+Reword message. "This patch" should be removed. Check other commits for exa=
+mples.
 
-> 
-> Thank you!
-> 
-> 1 - https://lore.kernel.org/sophgo/20260803163323.74414-1-chenyou910331@gmail.com/
-> 
-> Best regards,
-> Andrei Lalaev
+Other than that, it looks ok.
 
 Best regards,
--- 
-Hiago
+Jernej
+
+>=20
+> Signed-off-by: Aleksander Jan Bajkowski <olek2@wp.pl>
+> ---
+> Changes iv v2:
+> - add defaullt-state property. Previously, the LEDs were dark by default.
+> ---
+>  .../dts/allwinner/sun50i-h5-orangepi-pc2.dts  | 22 +++++++++++++++++++
+>  1 file changed, 22 insertions(+)
+>=20
+> diff --git a/arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-pc2.dts b/a=
+rch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-pc2.dts
+> index 6e57ee19e799..c23315994799 100644
+> --- a/arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-pc2.dts
+> +++ b/arch/arm64/boot/dts/allwinner/sun50i-h5-orangepi-pc2.dts
+> @@ -7,6 +7,7 @@
+> =20
+>  #include <dt-bindings/gpio/gpio.h>
+>  #include <dt-bindings/input/input.h>
+> +#include <dt-bindings/leds/common.h>
+>  #include <dt-bindings/pinctrl/sun4i-a10.h>
+> =20
+>  / {
+> @@ -132,6 +133,27 @@ &external_mdio {
+>  	ext_rgmii_phy: ethernet-phy@1 {
+>  		compatible =3D "ethernet-phy-ieee802.3-c22";
+>  		reg =3D <1>;
+> +
+> +		leds {
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+> +
+> +			led@0 {
+> +				reg =3D <0>;
+> +				color =3D <LED_COLOR_ID_GREEN>;
+> +				function =3D LED_FUNCTION_LAN;
+> +				linux,default-trigger =3D "netdev";
+> +				default-state =3D "keep";
+> +			};
+> +
+> +			led@1 {
+> +				reg =3D <1>;
+> +				color =3D <LED_COLOR_ID_AMBER>;
+> +				function =3D LED_FUNCTION_LAN;
+> +				linux,default-trigger =3D "netdev";
+> +				default-state =3D "keep";
+> +			};
+> +		};
+>  	};
+>  };
+> =20
+>=20
+
+
+
+
