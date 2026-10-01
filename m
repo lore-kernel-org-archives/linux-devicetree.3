@@ -1,168 +1,220 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 671234BD363
-	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 09:21:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D3F04AA1EC
+	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 09:26:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790846491; cv=none; b=QqQgDvn3Ikrf49uar72pvd0rHXN8MrHr9DFI9UjFk25u38sNRhqBB6J2zqGEm5qG7oqgDyLfJXHUiTF0PKXXedyK/Rd709ryEgD101JDiy2i6M2hJGdju5+FT2WvO8oaZ5p5gyAdCu8is8j0bh9szqU1+WJR8dFysm0xVlMEIxs=
+	t=1790846789; cv=none; b=cG+bLyWQlVgtvcO7GnKoLIPWjKptFuvfslEoex0Xa2KUJHf24D+zFLPLHTM9n7uSLn50Uko3TpRZObB+MGWL9bCRAfHNuNmDekfCKR0nHA07oWqDEFZscJfdwvWWESqtNHR8C6m1SVKUi+LeyEl/wm0EwmtT4yD29POGZLoK6dc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790846491; c=relaxed/simple;
-	bh=/gbOxSOrolLkmQgvxHnI2ULujiAh+pgAvB0yGV93klo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JQ4WQIa+towpKxooGFOTFADv3F6At1xNHGqbg3v8AI5r2DtuRX6emiyczxWs1w0u2I2pBqupy/dQMIw7IIxOMfFN1lxJUIgLcD3IC+I9R7ucoEVBBSUa5xYLtWF3rjczZxPPLoLQm0HtbXYY8DdOScBlNrdcdBczvSRX3YtriAA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Ah8Kps6h; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MvLjCq0p; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790846789; c=relaxed/simple;
+	bh=gxkd5ADGco8WORCJ9ZROJotuNItN2kQi077MODuDBoE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=O43irBD87zT2l5YYysSOu5ZFAsyMuFaldUwoM+IqxD29xSxD9gnPiNi+Sx79geFyaMyUGU41/phcbM4+zh7FGwN2WOQ6eed5HvKARBMRydE3Tbl5DDHbHYRcr5gXbtZTbKYNMqEoVcgrUCecqY9gfHZlpFkn+Bl0luQyjN6QGy0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HRXqkcH3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ah8Kps6h";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MvLjCq0p"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6916xgCn962581
-	for <devicetree@vger.kernel.org>; Thu, 1 Oct 2026 09:21:27 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	hlj1RSurk6tC0HLKwc5LugbIH1Gsp5iZA1JLGbZPNMU=; b=Ah8Kps6hIMgy36Mz
-	2GaDcpjEkzmYoQkO6c/D0J1q74DtVmnJ189WwybqoHyCcLZPXKnwHQWYN6UhIJ04
-	AvnbfTX33JdNxSLe7xR2BdcfQDlRM+dStFB/hM7IOfAcrF9K8IJkRLc4YZpjNprs
-	WkeqUZxZKpjfZeHBMkMPop4N/t4HrfxiEDEll2OtWNIevlPyowWSwkOlVPXr7Wu5
-	2Ei1kadE8vcj9SP0QrmUa67UYTAnkNf57cwCgjb7IeJEczNCmPuIDO1nZfPVj/5V
-	4cqhpJ9MErcw+8cGeSs79kdHwRvEyX66Rv0GjPNWFE/cN9sfytdB/IThgbcGz+1k
-	am5B7g==
-Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h16wcuac8-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 09:21:27 +0000 (GMT)
-Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93c6abcc2ffso45044985a.2
-        for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 02:21:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790846486; x=1791451286; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hlj1RSurk6tC0HLKwc5LugbIH1Gsp5iZA1JLGbZPNMU=;
-        b=MvLjCq0p7knYMiy0vOG7WT9Kq4F/I0iWK/RzhsxKYQ8v7PrO/9f0DhMIiv2bZgECS7
-         atcsQEEbK66UuuNS/necaai+AfhJTEPkYsK1DRS7GSec5Zz21vE1aC/KM/knnK2stNcs
-         YZJYdgnbPA30naZaFNHyU8hwxx724er92xszDqGSQhSsPUn2nazF1H0gl5dLufGe/L7U
-         gPdhgr2BNgoMrQH7v6y/bZC3T+L5VaQ3fIC+KEicSSsHsM9T+wE6O++odzSaisDnl3o4
-         W6uoi/1zrOJ5MrIjGMh7bcq+x+MGYgZrGmTi5JnheZgMMVTkiKgenemp+AYosL+P6nm+
-         ZeVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790846486; x=1791451286;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hlj1RSurk6tC0HLKwc5LugbIH1Gsp5iZA1JLGbZPNMU=;
-        b=1Ka36eAwWOwz/XNosWcCVTHI5RZimvTQ9O09lIiZDhPd9gMtOrT6bdfPu5lGYS8Mtu
-         SpzfcVnNIpYVAAkbjNTFpGEDexWoGfdg2yrfcFsMxebOyvbZlNe0yuwl7BrLl4Iywk/j
-         SIxaF2rDF8OXiPzgVZwZj7w5U9Nryt9bpZLUtveKXnHRvvy40XZ1SQZRSG82DVDGA9oe
-         izjzE1r+ciiDa1qXnGzu1tDd6Isghawx/Q39pedSS3AEgK9lM/XrFQugtiAL1UJFzStM
-         1YM/TZwdkEPO31pEc2FwcQ64aJgjQPhZZx6zxMw5kikO4ff5tX/HXCC8PJA6R8aS2c9P
-         9Gwg==
-X-Forwarded-Encrypted: i=1; AKwUvBytkAsXHy5cZov/CCXn/CQ/3fULN6YkiBn0INCNaeCdCgS27+zcvP51CuDO/X82nORu8PkNaPNwYY5a@vger.kernel.org
-X-Gm-Message-State: AFuF++ksLkMUx1FDflpBldAKFeTkoeyoHoFnFYzp16fVihfaoG+H4UTG
-	gDlIs6Q5mgux5/t2/ApiE9QIYO/hbBKw1ZQx1aNG49mV+a//ZWRavTmCwAYvbwBmMHKrVl17pIb
-	ANqw1yC6qwHONaOZuDthEhG55x1MONShacUhabstS+WTgnhbyjHUW9hPvdaRhyJ0p
-X-Gm-Gg: AYBFou2TCBObzfuxD/Cra9uGRN3UyTVFf3fL3btFqdAD2QegIaMQeg7+OLcxXvwqczw
-	i6oJ5F8d1Tegvlai/DEBiybl5Rvconwj06E91pYy+O3HCCMzZTzqk+iyfSMy7qiB1mOm98YOS97
-	rT1oCincl4/dsWshVaS+sKAEx8hsjIu2lQ9dFypoaoxTOFSvi+LchdjwQrpYxnwcIVDwQoB9JZ5
-	mXVHgk2INVDaUhz30z4DQqflsfs/WYkeHsDIAkwm2QR1MryxLbSBYlLH14ZU48npDjSWt126BH1
-	R9Ymhs5oEH/Xd945FQSN5/4h611K2FmHduufpl2/TONx18rnL+bfFSb6pGZ1YTFCTkvNbfjdaSm
-	IVyLKttEN1ouoMJEOBZPgng==
-X-Received: by 2002:a05:620a:6506:b0:936:2f59:dfe4 with SMTP id af79cd13be357-93ca9418c15mr693566785a.0.1790846486439;
-        Thu, 01 Oct 2026 02:21:26 -0700 (PDT)
-X-Received: by 2002:a05:620a:6506:b0:936:2f59:dfe4 with SMTP id af79cd13be357-93ca9418c15mr693562285a.0.1790846485939;
-        Thu, 01 Oct 2026 02:21:25 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e31dd9fbfsm117573566b.71.2026.10.01.02.21.23
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 01 Oct 2026 02:21:25 -0700 (PDT)
-Message-ID: <9fbbbb0c-372c-4e60-88c8-13c11a4c3599@oss.qualcomm.com>
-Date: Thu, 1 Oct 2026 11:21:22 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HRXqkcH3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F0ED1F000FF;
+	Thu,  1 Oct 2026 09:26:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790846786;
+	bh=RYva8VTghF+NlXh2CGEylJZ4g9s9RngXCDzi8X4Gt8w=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=HRXqkcH3C36MeFDQnt75V1kgTe/WX4Zbaq0YbBiwzntbiXCbRss4wVi7yVLEBiIs3
+	 f37pIKtwWQNvvbb5ukhKH7Rpo4Gm8RV/zIvSeUhhjh+nLgjMA2rrPD3eb8PSWEQBQz
+	 a91vLn1VsGU2OvLuXv8hGpIaYtzZHWaiKCxoedNty0fRgUQBuI6CQuqX/eKh5Pcrmf
+	 +pkRd4apOy1cFB6KFSUImZ/cDqkdYIxFLBxU03K+UCYpTu9c/CY0vEgvAi10O/dGCn
+	 qEyXQsIWSm8tmlf799svgr8HES46ZQAGdRaCkHinao2sgk4dF54p/CYqBBaFpCWoDV
+	 Y8+e9YO6Tq95g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] iio: imu: Add driver for the ADI ADIS16607
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Radu Sabau" <radu.sabau@analog.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20261001-adis16607-v1-2-9c89cee35d56@analog.com>
+References: <20261001-adis16607-v1-0-9c89cee35d56@analog.com>
+ <20261001-adis16607-v1-2-9c89cee35d56@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 01 Oct 2026 09:26:26 +0000
+Message-Id: <20261001092626.9F0ED1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/3] MSM8917/MSM8937/MSM8953 fix prng
-To: =?UTF-8?B?QmFybmFiw6FzIEN6w6ltw6Fu?= <barnabas.czeman@mainlining.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Stephan Gerhold <stephan.gerhold@linaro.org>,
-        =?UTF-8?Q?Otto_Pfl=C3=BCger?= <otto.pflueger@abscue.de>,
-        Dang Huynh <danct12@riseup.net>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Luca Weiss <luca@lucaweiss.eu>,
-        Vladimir Lypak <vladimir.lypak@gmail.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20261001-prng-fix-v1-0-72f924527465@mainlining.org>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261001-prng-fix-v1-0-72f924527465@mainlining.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDAzNyBTYWx0ZWRfXyMvzyZ+Inrww
- 16WRrNzh+nxJafSy8UT4LQ16o2ZhWEz/xZMkTnI02hk9wETbLeemxvW2XP2uWjLZwm6b6YlSaeX
- WlzKjoiGXpNrA/17bf//1768YfaCamscbHm4fvwkqmqPGFaQvy6q87LWroo/4lGpdEa0ucZ+37J
- scPwpWhAZTKIN3d2CydtVHmd0v6G2isGj8Zshlyc34qvatsgfJnSht+Bl/ozgzYcmntyFhCNsjL
- y7gU9skAEIShoelv37E3YFU+g5RRili9DZnOVJwhmaqIJABDE5rtFNHoXSoj9Ekk4SnHX80602o
- P4W/GGJghMwU1hzg/Ni/OS2OBT3HMNSRpc3S3a4uYH/JY0CXTQmqjAQs9VMQLBevRHbzCBU5/t9
- UWnxG+/3TvOVOWWHYhYpa0dUpswSvoUNVxQksdVc5N4GWeuXjySttna6N9HHUtiMopUxFBn/lrU
- 1I41C0ZJliLRA72353w==
-X-Proofpoint-GUID: -daWkDM9VE93nYN3TBsSqRFDgDSlMb3y
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDAzNyBTYWx0ZWRfX52KzpTQqlN2Q
- 4iMLhofqYegoW4iWXKQ+gJvDfvZPjeksahMRP0ApVqeWJXnD6UdZzU11ym4816IE5UuKjYdlDvg
- uB6bpnod860iF6gxgYCwm+Oc5w99A4M=
-X-Authority-Analysis: v=2.4 cv=S51MU4sP c=1 sm=1 tr=0 ts=6abe2617 cx=c_pps
- a=HLyN3IcIa5EE8TELMZ618Q==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=OuZLqq7tAAAA:8 a=EUspDBNiAAAA:8 a=OBZ-G_CF7z2MtCSAfMkA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=zZCYzV9kfG8A:10 a=bTQJ7kPSJx9SKPbeHEYW:22
- a=AKGiAy9iJ-JzxKVHQNES:22
-X-Proofpoint-ORIG-GUID: -daWkDM9VE93nYN3TBsSqRFDgDSlMb3y
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-01_03,2026-09-21_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 priorityscore=1501 clxscore=1015 impostorscore=0
- lowpriorityscore=0 spamscore=0 adultscore=0 bulkscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610010037
 
-On 10/1/26 7:51 AM, Barnabás Czémán wrote:
-> On MSM8917/MSM8937/MSM8953 HW QRNG is configured by TZ.
-> qcom-rng driver will not have access to the configuration registers.
-> Change the compatible to qcom,prng-ee for skip the initialization sequence.
-> 
-> Compatbile changes are fixing this issue:
-> Call trace:
->  qcom_rng_init+0x6c/0xe8 [qcom_rng] (P)
->  crypto_create_tfm_node+0x154/0x198
->  crypto_alloc_tfm_node+0xa4/0x1b4
->  crypto_alloc_rng+0x34/0x48
->  rng_bind+0x60/0xa8 [algif_rng]
->  alg_bind+0x15c/0x1f4 [af_alg]
->  __arm64_sys_bind+0xb8/0x120
->  invoke_syscall+0x6c/0x11c
->  el0_svc_common+0x98/0xe8
->  do_el0_svc+0x2c/0x3c
->  el0_svc+0x40/0x9c
->  el0t_64_sync_handler+0x88/0x134
->  el0t_64_sync+0x1a0/0x1a4
-> 
-> Signed-off-by: Barnabás Czémán <barnabas.czeman@mainlining.org>
-> ---
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] iio: imu: adis16607: out-of-bounds read when timestamp channel is =
+enabled
+- [Medium] iio: imu: adis16607: missing implementation for ADIS16607-1 vari=
+ant
+- [Medium] iio: imu: adis16607: incorrect sign for temperature channel
+- [Medium] iio: imu: adis16607: interrupt storm in FIFO mode due to DR_GPIO=
+ configuration
+--
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+commit 3e574b431c0ea32c1a98ab8b0aa4b4a2110aea1a
+Author: Radu Sabau <radu.sabau@analog.com>
 
-Konrad
+iio: imu: Add driver for the ADI ADIS16607
+
+The ADIS16607 is a Precision MEMS IMU from Analog Devices featuring
+triaxial gyroscope, triaxial accelerometer, delta angle, delta velocity,
+and temperature channels. The device communicates over SPI Half-Duplex,
+requiring custom read and write ops that differ from the standard ADIS
+library protocol.
+
+> diff --git a/drivers/iio/imu/adis16607.c b/drivers/iio/imu/adis16607.c
+> new file mode 100644
+> index 0000000000000..da9665aff8188
+> --- /dev/null
+> +++ b/drivers/iio/imu/adis16607.c
+> @@ -0,0 +1,1513 @@
+[ ... ]
+> +static const u8 adis16607_burst_offsets[] =3D {
+> +	[ADIS16607_SCAN_ACCEL_X] =3D 0,
+> +	[ADIS16607_SCAN_ACCEL_Y] =3D 4,
+> +	[ADIS16607_SCAN_ACCEL_Z] =3D 8,
+> +	[ADIS16607_SCAN_GYRO_X] =3D 12,
+> +	[ADIS16607_SCAN_GYRO_Y] =3D 16,
+> +	[ADIS16607_SCAN_GYRO_Z] =3D 20,
+> +	[ADIS16607_SCAN_DELTVEL_X] =3D 24,
+> +	[ADIS16607_SCAN_DELTVEL_Y] =3D 28,
+> +	[ADIS16607_SCAN_DELTVEL_Z] =3D 32,
+> +	[ADIS16607_SCAN_DELTANG_X] =3D 36,
+> +	[ADIS16607_SCAN_DELTANG_Y] =3D 40,
+> +	[ADIS16607_SCAN_DELTANG_Z] =3D 44,
+> +	[ADIS16607_SCAN_TEMP] =3D 48,
+> +};
+
+[ ... ]
+
+> +static irqreturn_t adis16607_trigger_handler(int irq, void *p)
+> +{
+[ ... ]
+> +	for_each_set_bit(bit, indio_dev->active_scan_mask, indio_dev->masklengt=
+h) {
+> +		u8 burst_off =3D adis16607_burst_offsets[bit];
+
+[Severity: High]
+Does this code perform an out-of-bounds read when the IIO timestamp channel
+(scan_index 13) is enabled?
+
+The adis16607_burst_offsets array only has 13 elements (indices 0 through 1=
+2).
+
+[ ... ]
+
+> +static void adis16607_fifo_push_sample(struct iio_dev *indio_dev,
+> +				       u8 *fifo_data, s64 timestamp)
+> +{
+[ ... ]
+> +	for_each_set_bit(bit, indio_dev->active_scan_mask, indio_dev->masklengt=
+h) {
+> +		u8 burst_off =3D adis16607_burst_offsets[bit];
+> +
+> +		if (bit =3D=3D ADIS16607_SCAN_TEMP) {
+> +			/* TEMP is 16-bit */
+> +			put_unaligned_be16(get_unaligned_be16(&fifo_data[burst_off]),
+> +					   &st->data[offset]);
+> +			offset +=3D 2;
+> +		} else {
+> +			/* All other channels are 24-bit stored as 32-bit */
+> +			msw =3D get_unaligned_be16(&fifo_data[burst_off]);
+> +			lsw =3D get_unaligned_be16(&fifo_data[burst_off + 2]);
+
+[Severity: High]
+Is it possible for this to leak kernel stack memory or cause a crash?
+
+If the timestamp channel is enabled, the garbage burst_off value is used to
+read out-of-bounds from the fifo_data array on the kernel stack.
+
+[ ... ]
+
+> +static irqreturn_t adis16607_trigger_handler_with_fifo(int irq, void *p)
+> +{
+[ ... ]
+> +	/* Check if FIFO threshold is met */
+> +	ret =3D __adis_read_reg_16(&st->adis, ADIS16607_REG_DIAG_STAT, &diag_st=
+at);
+> +	if (ret)
+> +		goto unlock;
+> +
+> +	if (!(diag_stat & ADIS16607_FIFO_THR_MET_MASK))
+> +		goto unlock;
+
+[Severity: Medium]
+Will the CPU be forced to process and discard an interrupt storm here?
+
+[ ... ]
+
+> +static int adis16607_initial_startup(struct adis16607 *st)
+> +{
+[ ... ]
+> +	ret =3D __adis_write_reg_16(adis, ADIS16607_REG_USER_GPIO_CFG,
+> +				  FIELD_PREP(ADIS16607_DR_GPIO_MASK, 1) |
+> +				  (gpio ? FIELD_PREP(ADIS16607_RESET_GPIO_MASK, 1) : 0));
+
+[Severity: Medium]
+The interrupt pin appears hardcoded to fire on Data Ready (8000 times per
+second), even when FIFO mode is enabled.
+
+Does this defeat the performance benefits of the hardware FIFO?
+
+[ ... ]
+
+> +#define ADIS16607_TEMP_CHANNEL() { \
+> +	.type =3D IIO_TEMP, \
+> +	.indexed =3D 1, \
+> +	.channel =3D 0, \
+> +	.info_mask_separate =3D BIT(IIO_CHAN_INFO_RAW) | \
+> +			      BIT(IIO_CHAN_INFO_SCALE) | \
+> +			      BIT(IIO_CHAN_INFO_OFFSET), \
+> +	.info_mask_shared_by_all =3D BIT(IIO_CHAN_INFO_SAMP_FREQ), \
+> +	.address =3D ADIS16607_REG_TEMP, \
+> +	.scan_index =3D ADIS16607_SCAN_TEMP, \
+> +	.scan_type =3D { \
+> +		.sign =3D 'u', \
+> +		.realbits =3D 16, \
+> +		.storagebits =3D 16, \
+> +		.endianness =3D IIO_BE, \
+> +	}, \
+> +}
+
+[Severity: Medium]
+Can this sign type corrupt temperature calculations when the temperature is
+below 25=C2=B0C?
+
+Since the sensor uses an offset of 5000 where 0 raw counts equals 25=C2=B0C,
+temperatures below 25=C2=B0C will produce negative raw values. Using an uns=
+igned
+type will cause these negative values to underflow into large positive
+numbers.
+
+[ ... ]
+
+> +static const struct spi_device_id adis16607_id[] =3D {
+> +	{ "adis16607-2", (kernel_ulong_t)&adis16607_2_chip_info },
+> +	{ "adis16607-3", (kernel_ulong_t)&adis16607_3_chip_info },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(spi, adis16607_id);
+> +
+> +static const struct of_device_id adis16607_of_match[] =3D {
+> +	{ .compatible =3D "adi,adis16607-2", .data =3D &adis16607_2_chip_info },
+> +	{ .compatible =3D "adi,adis16607-3", .data =3D &adis16607_3_chip_info },
+> +	{ }
+> +};
+
+[Severity: Medium]
+Is the ADIS16607-1 variant missing from the device ID tables?
+
+The commit message indicates support for three variants including ADIS16607=
+-1,
+but it cannot be probed since it is missing here.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261001-adis16607-=
+v1-0-9c89cee35d56@analog.com?part=3D2
