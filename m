@@ -1,107 +1,183 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26CAF5304C0
-	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 15:20:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790868028; cv=none; b=NuGpI3AH88s/Aqp5NAZgEpSoZscasdLjNFak6Gt7evNgvr6kwpxcU3k/J7mTAq9eFSSVNh/X9StxojMJIv1VLMKAygri4j0hiNePc4wbsuYLQowtUrU457hbPkXFnDzl92XJhziMYxoA7SKAzI0sJ9l3KsZWlwKA8s7XtApajYw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790868028; c=relaxed/simple;
-	bh=E5uqCEB6S7rg4EkviTlvStaFlOweUuigJhyy4ZwZ+rc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=hX8MF2ETMJLXWbN2o0Y85arY4U77BnN2/rnEg53GyGTi9vowDKRb1QAFom51fKnSnaXrRfn8oH9HRZA1f39cDS7xdJzwZwk9m12rEAfDpOhSW37CZ2LK/zFEhwMSIg/9zAB5uPhVLS8G/F7dGorsAWqB1YZIAgw6zwBCHtGFmMg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gLb+0LxP; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5648A526AB2;
+	Thu,  1 Oct 2026 15:24:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790868267; cv=pass; b=WcFvBkB3ndX3LITNd29JXwaFRvBkYxyM9k/roK5ggPp5eI1NyzDYdHUWcbdPrNZnpEzwOzTjDV4BuE2yyka8BegEwQuves7TjAQd3WvvQi2gY0K3Ay2F4+pRNUVDrtSJ+/YRT3k/r4UnToB257pEM+l7YJE3V83D3yPA6qbQvE8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790868267; c=relaxed/simple;
+	bh=1eFiP54451WXXSImvkn64wyF5tkIYonC92hhp7gZjjk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MUkWTtJ0njiScsrmmVNsjRsL0juNncr7noT9g2Hnw9a7C8mnrRb0hJ0DQu/i4RTkiI1NFj0x5NKnNH8M2MaX7n7jG1OzKiW6YaRDB32wsblpgmV89v4ndFXa2jN1VmMr1Kqi2OdQ704xyJyOHu5HsjvW8hnxu+rL1yNPZOFoc6E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=michael.riesch@collabora.com header.b=kZkmnO/E; arc=pass smtp.client-ip=136.143.188.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gLb+0LxP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A60C1F00899;
-	Thu,  1 Oct 2026 15:20:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790868026;
-	bh=qnV3AXf7COvE7UFSs5xfqesFLfDgwIvKrs/BzK/toPo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gLb+0LxPNjZnlSJdcharxnVfDSvaO07HdbJDMlvOWPs2uhvF3dgpUsb7SSM3pu/Tn
-	 MtUQxIDllo+u42TEGBiVvBkQhMgDgGqLUhL6+Q7r2zJowh7c6jWlxTJZzzkZMeKeuY
-	 Y3g4AFbM/giJShtZEwNVX8xrwkNAUXqFv53ymMX3ZywcboFDkAAxyEbFgHJOPo0xUQ
-	 o0CbU9dm3TU3krw1VXoKVwOJa3MYbfit8esBQKTEjluFb7PbYBuTommVc4Yr7PtlMb
-	 2EGXaD5oRJD/yUNy3ZE8Zn5rP1NSnodO8NFMMwBlF1/THpdmzRWT01btJXVAbD5rmV
-	 aUquwMFiUunnw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/5] arm64: dts: qcom: ipq5332: add the IMEM node
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Kathiravan Thirumoorthy" <kathiravan.thirumoorthy@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20261001-imem_restart_reason-v1-3-79f516906010@oss.qualcomm.com>
-References: <20261001-imem_restart_reason-v1-0-79f516906010@oss.qualcomm.com>
- <20261001-imem_restart_reason-v1-3-79f516906010@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 01 Oct 2026 15:20:26 +0000
-Message-Id: <20261001152026.7A60C1F00899@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=michael.riesch@collabora.com header.b="kZkmnO/E"
+ARC-Seal: i=1; a=rsa-sha256; t=1790868249; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=LMZrb6afw3oTGtMbidMarR4ZugTRd9/Di361HWsDlGRonWw3O0uNRxEmQN6IpwmACv45Cs65Sa8IEgIifjt0Po36UnwZOgsQb050Qkq4VAQx/J7MpO4ph/Eq0mnWAzrBOcJWJkZ0xpYe6GBAJdnsUS278dnCCTyCbI8Rzzg3JfI=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1790868249; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=4N1vT/oJ/8DhtT1QnOcUoxN7apPGAdAxRz++doaHaNM=; 
+	b=Zl7zcH4ikkOo6DgnF81jSNvxruHlKQ2lgYBaRZbiY0W8eiLXL1HViVnJgm92YzulCRZKQAF0nOOutiURxbpWWRiRpD9MeSwkZEU7YSmiF+28S9Or3Rg57GTLjjFZAY4b0Bxai3bS2SG51Rd2GDIRw876tcYqsCqZtIHLaJ+WRjg=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=michael.riesch@collabora.com;
+	dmarc=pass header.from=<michael.riesch@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790868249;
+	s=zohomail; d=collabora.com; i=michael.riesch@collabora.com;
+	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
+	bh=4N1vT/oJ/8DhtT1QnOcUoxN7apPGAdAxRz++doaHaNM=;
+	b=kZkmnO/E7PHbg9+/1rlpapaUnes2Lq0Zc4BJm+bzEi7E2kypViTOAtXsaewLunPe
+	XLFyvPiSqPjIjxRuQ1ya0KStuFptK8Hi78oAvwx3k64ZHIlMOhnY534YI73hV2rN9BV
+	y8AvcTS5nfNXeY69pyAG3VTEjXbD9SGbZmzC3LKI=
+Received: by smtp.zohomail.com with SMTPS id 1790868247200454.79215717342186;
+	Thu, 1 Oct 2026 08:24:07 -0700 (PDT)
+Message-ID: <ead1a8dd-5cac-4fa4-bde5-ef0fadfd70e1@collabora.com>
+Date: Thu, 1 Oct 2026 17:24:03 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/5] media: rockchip: rkcif: add a register index for
+ the MIPI capture size
+To: Amin Gattout <amin.gattout@gmail.com>,
+ Mehdi Djait <mehdi.djait@linux.intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260921-vicap-rk3576-v2-0-0a4582e20c72@gmail.com>
+ <20260921-vicap-rk3576-v2-2-0a4582e20c72@gmail.com>
+Content-Language: en-US
+From: Michael Riesch <michael.riesch@collabora.com>
+In-Reply-To: <20260921-vicap-rk3576-v2-2-0a4582e20c72@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ZohoMailClient: External
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] dts: mmio-sram maps inaccessible memory into genalloc pool
---
+Hi Amin,
 
-commit 9c529a16f97d21ecf65fd333c3ade51834ef2084
-Author: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+Thanks for the patch!
 
-arm64: dts: qcom: ipq5332: add the IMEM node
+On 9/21/26 17:29, Amin Gattout wrote:
+> The RK3568 and RK3588 variants configure the MIPI capture size in the
+> ID_CTRL1 register. The RK3576 has a dedicated ID_SET_SIZE register
+> instead.
+> 
+> Add a register index for the capture size and write it through that
+> index, in preparation for the RK3576 support. The RK3568 and RK3588
+> mark the index as unsupported, so the write is a no operation for them
+> and their behavior is unchanged.
+> 
+> Signed-off-by: Amin Gattout <amin.gattout@gmail.com>
 
-This commit adds the IMEM node to the ipq5332 device tree to extract debugg=
-ing
-information. It defines an 80KB IMEM region, noting that only the initial 4=
-KB
-is accessible by all masters in the SoC.
+Reviewed-by: Michael Riesch <michael.riesch@collabora.com>
 
-> diff --git a/arch/arm64/boot/dts/qcom/ipq5332.dtsi b/arch/arm64/boot/dts/=
-qcom/ipq5332.dtsi
-> --- a/arch/arm64/boot/dts/qcom/ipq5332.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/ipq5332.dtsi
-> @@ -493,6 +493,13 @@ qpic_nand: spi@79b0000 {
->  			status =3D "disabled";
->  		};
-> =20
-> +		sram@8600000 {
-> +			compatible =3D "qcom,ipq5332-imem", "mmio-sram";
-> +			reg =3D <0x08600000 0x14000>;
+Best regards,
+Michael
 
-[Severity: High]
-Will this map the inaccessible 76KB of memory into the generic allocator po=
-ol?
+> ---
+>  drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c | 10 ++++++++++
+>  drivers/media/platform/rockchip/rkcif/rkcif-regs.h         |  1 +
+>  2 files changed, 11 insertions(+)
+> 
+> diff --git a/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c b/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c
+> index bc9518f8db50..e0acb9049ca1 100644
+> --- a/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c
+> +++ b/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c
+> @@ -438,6 +438,7 @@ const struct rkcif_mipi_match_data rkcif_rk3568_vicap_mipi_match_data = {
+>  			[RKCIF_MIPI_FRAME1_VLW_Y] = 0x38,
+>  			[RKCIF_MIPI_FRAME1_VLW_UV] = 0x40,
+>  			[RKCIF_MIPI_CROP_START] = 0xbc,
+> +			[RKCIF_MIPI_SET_SIZE] = RKCIF_REGISTER_NOTSUPPORTED,
+>  		},
+>  		[RKCIF_ID1] = {
+>  			[RKCIF_MIPI_CTRL0] = 0x08,
+> @@ -451,6 +452,7 @@ const struct rkcif_mipi_match_data rkcif_rk3568_vicap_mipi_match_data = {
+>  			[RKCIF_MIPI_FRAME1_VLW_Y] = 0x58,
+>  			[RKCIF_MIPI_FRAME1_VLW_UV] = 0x60,
+>  			[RKCIF_MIPI_CROP_START] = 0xc0,
+> +			[RKCIF_MIPI_SET_SIZE] = RKCIF_REGISTER_NOTSUPPORTED,
+>  		},
+>  		[RKCIF_ID2] = {
+>  			[RKCIF_MIPI_CTRL0] = 0x10,
+> @@ -464,6 +466,7 @@ const struct rkcif_mipi_match_data rkcif_rk3568_vicap_mipi_match_data = {
+>  			[RKCIF_MIPI_FRAME1_VLW_Y] = 0x78,
+>  			[RKCIF_MIPI_FRAME1_VLW_UV] = 0x80,
+>  			[RKCIF_MIPI_CROP_START] = 0xc4,
+> +			[RKCIF_MIPI_SET_SIZE] = RKCIF_REGISTER_NOTSUPPORTED,
+>  		},
+>  		[RKCIF_ID3] = {
+>  			[RKCIF_MIPI_CTRL0] = 0x18,
+> @@ -477,6 +480,7 @@ const struct rkcif_mipi_match_data rkcif_rk3568_vicap_mipi_match_data = {
+>  			[RKCIF_MIPI_FRAME1_VLW_Y] = 0x98,
+>  			[RKCIF_MIPI_FRAME1_VLW_UV] = 0xa0,
+>  			[RKCIF_MIPI_CROP_START] = 0xc8,
+> +			[RKCIF_MIPI_SET_SIZE] = RKCIF_REGISTER_NOTSUPPORTED,
+>  		},
+>  	},
+>  	.blocks = {
+> @@ -549,6 +553,7 @@ const struct rkcif_mipi_match_data rkcif_rk3588_vicap_mipi_match_data = {
+>  			[RKCIF_MIPI_FRAME1_VLW_Y] = RKCIF_REGISTER_NOTSUPPORTED,
+>  			[RKCIF_MIPI_FRAME1_VLW_UV] = RKCIF_REGISTER_NOTSUPPORTED,
+>  			[RKCIF_MIPI_CROP_START] = 0x8c,
+> +			[RKCIF_MIPI_SET_SIZE] = RKCIF_REGISTER_NOTSUPPORTED,
+>  		},
+>  		[RKCIF_ID1] = {
+>  			[RKCIF_MIPI_CTRL0] = 0x08,
+> @@ -562,6 +567,7 @@ const struct rkcif_mipi_match_data rkcif_rk3588_vicap_mipi_match_data = {
+>  			[RKCIF_MIPI_FRAME1_VLW_Y] = RKCIF_REGISTER_NOTSUPPORTED,
+>  			[RKCIF_MIPI_FRAME1_VLW_UV] = RKCIF_REGISTER_NOTSUPPORTED,
+>  			[RKCIF_MIPI_CROP_START] = 0x90,
+> +			[RKCIF_MIPI_SET_SIZE] = RKCIF_REGISTER_NOTSUPPORTED,
+>  		},
+>  		[RKCIF_ID2] = {
+>  			[RKCIF_MIPI_CTRL0] = 0x10,
+> @@ -575,6 +581,7 @@ const struct rkcif_mipi_match_data rkcif_rk3588_vicap_mipi_match_data = {
+>  			[RKCIF_MIPI_FRAME1_VLW_Y] = RKCIF_REGISTER_NOTSUPPORTED,
+>  			[RKCIF_MIPI_FRAME1_VLW_UV] = RKCIF_REGISTER_NOTSUPPORTED,
+>  			[RKCIF_MIPI_CROP_START] = 0x94,
+> +			[RKCIF_MIPI_SET_SIZE] = RKCIF_REGISTER_NOTSUPPORTED,
+>  		},
+>  		[RKCIF_ID3] = {
+>  			[RKCIF_MIPI_CTRL0] = 0x18,
+> @@ -588,6 +595,7 @@ const struct rkcif_mipi_match_data rkcif_rk3588_vicap_mipi_match_data = {
+>  			[RKCIF_MIPI_FRAME1_VLW_Y] = RKCIF_REGISTER_NOTSUPPORTED,
+>  			[RKCIF_MIPI_FRAME1_VLW_UV] = RKCIF_REGISTER_NOTSUPPORTED,
+>  			[RKCIF_MIPI_CROP_START] = 0x98,
+> +			[RKCIF_MIPI_SET_SIZE] = RKCIF_REGISTER_NOTSUPPORTED,
+>  		},
+>  	},
+>  	.blocks = {
+> @@ -759,6 +767,8 @@ static int rkcif_mipi_start_streaming(struct rkcif_stream *stream)
+>  	rkcif_mipi_stream_write(stream, RKCIF_MIPI_FRAME0_VLW_UV, vlw);
+>  	rkcif_mipi_stream_write(stream, RKCIF_MIPI_FRAME1_VLW_UV, vlw);
+>  	rkcif_mipi_stream_write(stream, RKCIF_MIPI_CROP_START, 0x0);
+> +	rkcif_mipi_stream_write(stream, RKCIF_MIPI_SET_SIZE,
+> +				RKCIF_XY_COORD(width, height));
+>  	rkcif_mipi_stream_write(stream, RKCIF_MIPI_CTRL1, ctrl1);
+>  	rkcif_mipi_stream_write(stream, RKCIF_MIPI_CTRL0, ctrl0);
+>  
+> diff --git a/drivers/media/platform/rockchip/rkcif/rkcif-regs.h b/drivers/media/platform/rockchip/rkcif/rkcif-regs.h
+> index 3cf7ee19de30..0460e963b154 100644
+> --- a/drivers/media/platform/rockchip/rkcif/rkcif-regs.h
+> +++ b/drivers/media/platform/rockchip/rkcif/rkcif-regs.h
+> @@ -147,6 +147,7 @@ enum rkcif_mipi_id_register_index {
+>  	RKCIF_MIPI_FRAME1_VLW_Y,
+>  	RKCIF_MIPI_FRAME1_VLW_UV,
+>  	RKCIF_MIPI_CROP_START,
+> +	RKCIF_MIPI_SET_SIZE,
+>  	RKCIF_MIPI_ID_REGISTER_MAX
+>  };
+>  
+> 
 
-The commit message notes that only the initial 4KB is accessible, but the
-defined region is 80KB (0x14000). Because this node uses the mmio-sram
-compatible, the generic sram driver will unconditionally ioremap the full
-region and add all unreserved memory into the kernel's genalloc pool:
-
-drivers/misc/sram.c:sram_reserve_regions()
-    ret =3D gen_pool_add_virt(sram->pool,
-            (unsigned long)sram->virt_base + cur_start,
-            res->start + cur_start, cur_size, -1);
-
-If a driver dynamically requests SRAM, or if speculative hardware accesses
-occur across the mapped device memory, could this trigger a fatal synchrono=
-us
-external abort (SError) and system panic?
-
-Would it be better to either restrict the reg property size to the accessib=
-le
-4KB (0x1000) or add a driver quirk to explicitly avoid mapping the inaccess=
-ible
-regions?
-
-> +
-> +			no-memory-wc;
-> +		};
-> +
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261001-imem_resta=
-rt_reason-v1-0-79f516906010@oss.qualcomm.com?part=3D3
