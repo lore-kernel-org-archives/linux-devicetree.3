@@ -1,147 +1,145 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B63B423BD02;
-	Thu,  1 Oct 2026 09:06:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 192333FA5E7;
+	Thu,  1 Oct 2026 09:06:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790845590; cv=none; b=h8PyKWinxpQdAl83uGdMBUl0oMhEg4prSeAcD2lQOtd8pkKQd7lUylxaGj1YDD0P63NLaOLwytHE98OBN3Nxlm3UXZyDZZ5fr3s6mSxFz61ipvXuGQHNzzJw5qyHWAuZKC+AosJr3aFhrslDwpnPhLEv6wGZAv3lFNt9UXkqqwQ=
+	t=1790845599; cv=none; b=tVHB1CKmkTyTRmOl32kfGZkjZGFD9Cqg145P+/rIMrPN5/Igjrjd0w2d8HtXyWvmoGChyBmvHjfBwmvedMNSkJQx3ctwv99r1o6u6I/mVdokKdbpU0MbxPB4Ikawf59VpqEWYvN1wcrcF/PDJPhVLtpc0818g3toA/7nqiPn2uw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790845590; c=relaxed/simple;
-	bh=yJowZr7imZPJLXx+riHv97OPnbhou2rzCPOx6YJdjhA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Lvfvq4e06FrOGI7jo15sjmdbTkmHs3Dq18BzViTus056Ffpf58Rtuz/J5thCcZ1+nLraeM8Jf17twYfBhG+SsUN0fTH6axq60cB+MOuvFBB+XyoGn8vOXT41Gzrk+3cU9qvXa+t2uftuTwTbTf34yuMOdPnAJqq6hHcmV4H/jT4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oUMS20/N; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790845599; c=relaxed/simple;
+	bh=+qiaIi0klqwiUS05wp5tbRPSt4Wfl/UgsGcrKTL7yWc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=g0I7vj2B0rjU8NY+N7jZokerwla7uNIVOBu4Bx4E0HRedU7NC+bBhlUehEVF5p5tz/efk/wOA0uFIiIzWH4QEcmydHeQuVmmspZSX/whOZATZXAvueoUtEshTSv6mH13WOiHML94VCkCfLxKKO7jgljvndUk5Jsz+zCXkPNqm2U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ir9ANkaC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oUMS20/N"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 696321F000FF;
-	Thu,  1 Oct 2026 09:06:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ir9ANkaC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 832AD1F000FF;
+	Thu,  1 Oct 2026 09:06:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790845589;
-	bh=V28/n0y8m1uAKc0ztfIGGgXOq/CEuFmzIcn2u0ST4H8=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=oUMS20/NGz92pkS8lJxdSwArHn86VGhbKltdMFdUi7A3ngMzt9fD2qKVXUEiHq/p5
-	 xyM4uWRcAwNGZr1H50GY6P9EKUBILsubkXOmpAI9GA+2aNS4jZz/dFiaWIHGfznOR7
-	 T4xEgW0txgK+n8aLpi5nNUtF5HW0fP9QS3iOUHmtjfvLLcZ6qU3Uy+VBYf28spEJwY
-	 j0NqrwSvmnzMiXeb5qBOAXQXO3FZvb5ZCz7EkKL+S0HA4bIKv35nIvq3DG5KGnh93e
-	 Tgj60uL34Bt6u0pMpzrAX9UyUWGtUMn0BTm+m50QKQhgWeCLAQSCX1smgo5MTBT+Lk
-	 +ThbnlrpnsaGg==
-Message-ID: <d7bef9eb-144d-4476-b6bd-d4b14ec1059c@kernel.org>
-Date: Thu, 1 Oct 2026 11:06:21 +0200
+	s=k20260515; t=1790845598;
+	bh=EgdrKZaT7WpKG4/pMr22P462E25bJ5Vof6QHb6zfCos=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ir9ANkaCkIcXG+mrxvtSPENCyg8/XTD2MkXcOd1HkGYWXvNlIUgte1q13xLc5tFPi
+	 u4qjLtVsYxy0QbJMBB6nwiZOvrWCbB9a4kkOwr7y+J2jwE1/+oYGtu8X857C7DhlRm
+	 NJQTW4zj5ywS+qGFSmr+0n1OvajaRUSepZIkBRBOWi7M0IQe98fErOLU8DAplUARRt
+	 Pt8bDWLw6Wjfjm8WcqHS7WT5Fghd7/PnRf4bQwiI93y4DiCuSODZElcFe5o8JQjlId
+	 VrQvLdnSclpHfSHtyOnAmUhyryFdIcf7WJca9tBZmQ9lXBTiJidkZXEx0RDegHwBNz
+	 BLxtkzR1HmW0A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v11 11/19] dmaengine: ti: k3-udma: move inclusion of
+ k3-udma-private.c to k3-udma-common.c
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sai Sree Kartheek Adivi" <s-adivi@ti.com>
+Cc: vkoul@kernel.org, Frank.Li@kernel.org, dmaengine@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20261001084105.1692228-12-s-adivi@ti.com>
+References: <20261001084105.1692228-1-s-adivi@ti.com>
+ <20261001084105.1692228-12-s-adivi@ti.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 01 Oct 2026 09:06:37 +0000
+Message-Id: <20261001090637.832AD1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 00/16] arm64: dts: exynos: Format with dtfmt
-To: Waqar Hameed <waqar.hameed@axis.com>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: Peter Griffin <peter.griffin@linaro.org>,
- =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
- Tudor Ambarus <tudor.ambarus@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>,
- Sam Protsenko <semen.protsenko@linaro.org>,
- Ivaylo Ivanov <ivo.ivanov.ivanov1@gmail.com>, kernel@axis.com,
- linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <cover.1790629313.git.waqar.hameed@axis.com>
- <ba1939f5-c528-42b8-971a-4b16998c37f9@kernel.org>
- <pndy0chstai.a.out@axis.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <pndy0chstai.a.out@axis.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 01/10/2026 10:45, Waqar Hameed wrote:
-> On Tue, Sep 29, 2026 at 07:43 +0200 Krzysztof Kozlowski <krzk@kernel.org> wrote:
-> 
->> On 29/09/2026 00:38, Waqar Hameed wrote:
->>> I was looking through the notes for the last Devicetree microconference
->>> at Linux Plumbers (LPC) 2025 [1], and realized that the tool I have been
->>> working on might be of interest here: dtfmt - a Devicetree Source
->>> formatter [2].
->>>
->>> dtfmt uses a parser with lexical grammar (tree-sitter) directly ported
->>
->> We do not use dtfmt. 
-> 
-> Not sure what you mean here. We couldn't have used dtfmt since it didn't
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] mm: UAF in of_xudma_dev_get() due to dereference after put_device()
+- [High] mm: UAF in xudma_dev_put() due to devm_ unbind race
+- [Medium] Commit message claims 'No functional changes intended' but adds =
+features
+--
 
-I mixed it up with dt-tools from Axel.
+commit d7ff936b088ca2c00890bff99f72a6c55660576f
+Author: Sai Sree Kartheek Adivi <s-adivi@ti.com>
 
+dmaengine: ti: k3-udma: move inclusion of k3-udma-private.c to k3-udma-comm=
+on.c
 
-> exist until I published it? Are you maybe referring to "formatters" as
-> in general?
-> 
-> I'm not going to argue _why_ formatters (for Devicetree Source) are good
-> thing to have, Konrad Dybcio did a very good job of that during his
-> presentation [1].
-> 
->> I think you missed entire recent work and recent
->> commits, where `git log` would point you.
->>
->> https://lore.kernel.org/all/20260911-b4-dts-samsung-cleanup-strict-continued-v1-0-9aa55051c42b@oss.qualcomm.com/
-> 
-> I did a `git pull` on `master` and started from there. Nevertheless,
+Relocate the #include directive for k3-udma-private.c to k3-udma-common.c
+to share code between UDMA variants and prepare for variant-specific
+implementations.
 
-master from Linus? That's missing entire development for this cycle. The
-easiest is to work on recent linux-next.
+>     No functional changes intended.
 
-> maybe it was good to "miss it" and do the "double work" here, to show
-> what dtfmt caught that previous work missed.
-> 
-> Let me know if you want me to run it on `arch/arm/boot/dts/samsung` to
-> show some more examples. Or even better, you could play with it yourself
+[Severity: Medium]
+The commit message explicitly asserts "No functional changes intended", but=
+ the
+patch actively introduces functional module pinning logic (try_module_get).
+Could the commit message be updated to accurately reflect these lifecycle
+changes?
 
-Sure, I left arm/samsung for the community to deal with, just note that
-Henrik Grimler mentioned in IRC he was working on that.
+> diff --git a/drivers/dma/ti/k3-udma-private.c b/drivers/dma/ti/k3-udma-pr=
+ivate.c
+> index 44c097fff5ee6..d2501e074bcfb 100644
+> --- a/drivers/dma/ti/k3-udma-private.c
+> +++ b/drivers/dma/ti/k3-udma-private.c
+> @@ -54,10 +54,26 @@ struct udma_dev *of_xudma_dev_get(struct device_node =
+*np, const char *property)
+>  		return ERR_PTR(-EPROBE_DEFER);
+>  	}
+> =20
+> +	/*
+> +	 * Callers keep using ud (via function pointers stored in it, e.g.
+> +	 * ud->psil_pair) after this call returns, bypassing the dmaengine
+> +	 * core's own try_module_get() protection. Pin the owning driver's
+> +	 * module here so it can't be unloaded out from under a live glue
+> +	 * client; xudma_dev_put() releases it.
+> +	 */
+> +	if (!try_module_get(ud->ddev.owner))
 
-Best regards,
-Krzysztof
+[Severity: High]
+Does this code introduce a use-after-free race?
+
+Earlier in of_xudma_dev_get(), put_device(&pdev->dev) is called, which drops
+the reference to the platform device:
+
+	ud =3D platform_get_drvdata(pdev);
+	put_device(&pdev->dev);
+	if (!ud) {
+		pr_debug("UDMA has not been probed\n");
+		return ERR_PTR(-EPROBE_DEFER);
+	}
+
+Immediately after this, the new code executes try_module_get(ud->ddev.owner=
+).
+
+If a concurrent device unbind (e.g., via sysfs) occurs in this tight window,
+the devres-managed ud object can be freed. The subsequent access to
+ud->ddev.owner dereferences the freed pointer.
+
+Should put_device() be called after we are done accessing ud?
+
+> +		return ERR_PTR(-ENODEV);
+> +
+>  	return ud;
+>  }
+>  EXPORT_SYMBOL(of_xudma_dev_get);
+> =20
+> +void xudma_dev_put(struct udma_dev *ud)
+> +{
+> +	module_put(ud->ddev.owner);
+
+[Severity: High]
+Can this dereference a freed pointer upon device unbind?
+
+The ud pointer is implicitly managed by devres. When of_xudma_dev_get() ret=
+urns
+it to the client, it explicitly drops the device reference without establis=
+hing
+a device link. The module pinning added here does not prevent sysfs device
+unbinding.
+
+If the UDMA device is unbound, devres frees ud. Later, when the client clea=
+ns
+up, it calls this new xudma_dev_put(), which dereferences the already-freed
+ud->ddev.owner.
+
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261001084105.1692=
+228-1-s-adivi@ti.com?part=3D11
