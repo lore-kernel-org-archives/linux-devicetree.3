@@ -1,348 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC93D4949E0;
-	Thu,  1 Oct 2026 16:56:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DF5249E142
+	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 16:57:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790873788; cv=none; b=N6eWWPlg6aT4hqN0iZYUmKCEHR1pD+INKyqblsvZmhlqDCyR7BIza1ucdTtb2CUbNdOPAyVyJ8vsvV32fXBCuJpwDKIhxv/pBVtXtQmOrEufj0o1ZKRvffLUIXQKGAhQUbKbmwl+29/x4oU3pLROd36pSCDGWmAceq5QpMENh3Q=
+	t=1790873834; cv=none; b=GiUglfKeo/cPjKGX0bmYbUwNUQrxV/BrvFG7I3ya5vkkYTQ9m8vl1v2wAC0e1O6xq9ykmpSUVL8GOY18FM88aNj4KJaskANs4YpO9d3Syc43nFVSjUzZhFWZqcxjCA0XkgE/XmSF5LriYL0FaR1dnGeu09PrcaSTzp2ekimZePA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790873788; c=relaxed/simple;
-	bh=XZs+OjUq8Qpi5yTikP3J4NzLgAxgZQOZ2rAk6yNAXsk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=emA3R6myLLCWzdkjH/GEmEIGDK54iCPIIEQ/NCk+8HFtN34qeVyHfD1E6l6TC+IG/dmr3HzpzfTqcBMOLz25ByH2wUnETrHcn5A1bnBI5qsvhlh0Ehoxmj++9waHGS/HwTUs+hUE7BXiZrHvDos0B6zzDe+2W9qDaKsW1nALIls=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R2uU6Xw+; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1790873834; c=relaxed/simple;
+	bh=T0sTwhNjA7urD/dDmrUooY66jFkiBVRt4kMtyxZutVM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TEL5pS4RbWcDociJalfal3WzECMiKdJFDkarxkyZJTbxnIw0IuHmB+SJRawxwg1w1B0Mysl0eLW9fbU4yKIuOzJ9IG5ERJwI7eOMXF2fmsr06AtGkcgaiHJ9h2yyIA3Guv8Ll7atbGrNibEuRORuWd8Gxt41eYT//aIBfoU20U4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dgJmCbKn; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R2uU6Xw+"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 7F6F7C4AF18;
-	Thu,  1 Oct 2026 16:56:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790873788;
-	bh=XZs+OjUq8Qpi5yTikP3J4NzLgAxgZQOZ2rAk6yNAXsk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=R2uU6Xw+xCfIbF5sL5YlRmrUf9JdJtFgt/am0N9EfzTwxjtBiO6M3PmJw/1ixpPO4
-	 AnL9j/AdoWKhLwzJJU11R2MwMrAfrjzxzE2T8zWY2X4MxypqjDO6qi6z9+/wrmQapE
-	 qPTmKQz8MhZ80WVJsPXrW4Q2vHgFDcOirQpaIZ3tvHrfsY692mvIcgduSuy+jbEcBn
-	 xwU4FP84bSD6tf5p65lhT/eyY9FDZhS6y+Tr+FJ93GsI99l5X/kemvolAsdlu0TKZl
-	 +9Pe/cFVKGpVDWImvkoj0ZvozGaqpNguJJ0XarHCj2JwEIJUuxPNzdShXkb5CV7meL
-	 I3nMKpU4P5Wbg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 61C17CA5FD4;
-	Thu,  1 Oct 2026 16:56:28 +0000 (UTC)
-From: Ronald Claveau via B4 Relay <devnull+linux-kernel-dev.aliel.fr@kernel.org>
-Date: Thu, 01 Oct 2026 18:55:36 +0200
-Subject: [PATCH v4 3/3] arm64: dts: amlogic: a1-c3-s4-t7: Add bus clock to
- PWM controller nodes
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dgJmCbKn"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e79a408deso42865445e9.2
+        for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 09:57:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790873830; x=1791478630; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=AYoMqQ8ZvtqawNNIbF0bmVuGXHmouMQegpP9uov8hrk=;
+        b=dgJmCbKn2J7tFK5YLxXRPxlTlkCXKnApq2d/sXYXbESRjlJRVpYK1eKy788j5HiuKh
+         YOZHLzntfMb0sKROQBfdpFcFROEtARvKP2TqpPhq1bsTfJck1YED8afDqHQ/roumwg0W
+         c4neKJYG7x1acgUn988kapZMHOAyrAJ5iOhMHOnma8PFOmFeLOf5vUPhdcxTWeP4KEZH
+         NpcRgQsNpo7kHuTziFs6IcLplTc1VTynAOHUXK0hO2TdXHnkTYj4baUbGa2yNbyjH8kg
+         Je6p67hgIMYV1AGF1cMdQk4Zpmpsq7QLIw+XHUzuvzRuumHf3icp0rnxdz5v/x6zWgdr
+         RWSg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790873830; x=1791478630;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=AYoMqQ8ZvtqawNNIbF0bmVuGXHmouMQegpP9uov8hrk=;
+        b=FB1pFJVKxkLQpZMT+Tab8H6l2GFbfHe7/oDK27RpGOe1IVfHrH05o0ZldP3ChTCVpq
+         Y5Totpd9MhcrXdERqggDanH1VNHVfsM/DOIN2X03WOCDWKuQXXlMbTu2pPEkLkrbrxCZ
+         NkEUF0YhTMUwtDg1MkKxoX8CCMeubq5S5sfe4/2+oh4myGG4mwxDfpaW16vxMsCIT8rA
+         rizVH4LFK/HiinWFEaJ3DhT1qynBzKNryxs3eYTdNwaI2VQdD8tj+l8T8zuuHtzeGdLo
+         KabhxZclYj0WyQ4/g7MQyOPGf3etsZaLEQJx9zQTnPKw0GY4MXBxQLUy57X9wZ6lSq2F
+         hWsw==
+X-Gm-Message-State: AFuF++mfI7hxk9vRdLErpe0Mb2lyMJb2f32DoHAuPLSbZkNcQZvhlly2
+	wNd+n7HGUiNJ/H/ddePVLv7/WrbIE8CSs6dGH0y21zo6syChVonYKD+r
+X-Gm-Gg: AYBFou03p4PD0BENvf8xzBnU1SEyjTyegBgJoKBPTekP0pHaoCDOJI45wgR4jPcMQFV
+	TjanfbMc8JwYrzq0hsE7LGXoS8xMHqd8S764EEY+sR+44BUSI3EyG0DEC+vymFSzU53TjUrSKkv
+	fwWRxeudWy93mH8Qbs7HtmHLVWpwR0xv//lgGQSVU9cjdtfrAcUAqIuupeNI0a24EfXO5ym0ZLm
+	m4pb4G/ZO+UuBNcy4m4Bol923XysN7efUcjyVKBBOiSBi5VwxkxWWgRtWHU30R/WEw6ZC/tKGWD
+	RBu52V+k0YsiyurqfSkW8daQO8hXteMhI78uBLrVsoDujQZDT1saPMxDPYPbeoTIpLy71siyvmv
+	7t6EI92K11V0TTdmqx9FdXxCx70KlPE09doAmN0ve1jo9VtRDDvusQsi7MqLG711RJsJ7dUs1rI
+	x7Fe7JXsSUizu6V6SZFldRjYByD0TiX+x0MhFKdej8IpL/ImZ1xPyRyvI9U4wywcdfiC/YFio=
+X-Received: by 2002:a05:600c:6995:b0:4a0:159b:d283 with SMTP id 5b1f17b1804b1-4a0275857a7mr3761895e9.30.1790873830150;
+        Thu, 01 Oct 2026 09:57:10 -0700 (PDT)
+Received: from [10.2.0.2] ([159.26.109.51])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a027906a11sm2044415e9.12.2026.10.01.09.57.08
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 01 Oct 2026 09:57:09 -0700 (PDT)
+Message-ID: <e5f84c5e-e281-45af-8d25-62bbf585c94e@gmail.com>
+Date: Thu, 1 Oct 2026 18:57:08 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] riscv: dts: sophgo: cv1800b-milkv-duo: enable ethernet
+To: Hiago De Franco <hfranco@baylibre.com>
+Cc: devicetree@vger.kernel.org, sophgo@lists.linux.dev,
+ linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Chen Wang <chen.wang@linux.dev>,
+ Inochi Amaoto <inochiama@gmail.com>, Paul Walmsley <pjw@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Alexandre Ghiti <alex@ghiti.fr>
+References: <20260930-milkv-duo-ethernet-v1-1-428ff137f5d3@baylibre.com>
+ <20261001151447.12076-1-andrey.lalaev@gmail.com> <ar6E4bQAKonCW3st@hiagonb>
+Content-Language: en-GB
+From: Andrei Lalaev <andrey.lalaev@gmail.com>
+In-Reply-To: <ar6E4bQAKonCW3st@hiagonb>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261001-add-t7-sys-pwm-clk-v4-3-8ed2b1e0cdfe@aliel.fr>
-References: <20261001-add-t7-sys-pwm-clk-v4-0-8ed2b1e0cdfe@aliel.fr>
-In-Reply-To: <20261001-add-t7-sys-pwm-clk-v4-0-8ed2b1e0cdfe@aliel.fr>
-To: =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: linux-pwm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-amlogic@lists.infradead.org, 
- Ronald Claveau <linux-kernel-dev@aliel.fr>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=10307;
- i=linux-kernel-dev@aliel.fr; h=from:subject:message-id;
- bh=0noFD4QaLLZlEqbQPJmnIuc/5yYJNcuXmbeBKVxdegY=;
- b=owGbwMvMwCWm1SvKXP3cUInxtFoSQ9a+CdutD7Q6Pzq7s+L5l+Z916enJt3jtyj0M3jnffF7+
- r4OQWOmjlIWBjEuBlkxRZb+uZYn3l0+eubrHvUUmDmsTCBDGLg4BWAimhIM/0w/zX55Ku7Z3pzf
- +srntZZsW8r5+w3Pms22hS+Zunv6Ns5hZGg6WlPkpSKyY0bH5PBAE5mn53RnaFhwrGU5kLiuVEV
- ajhEA
-X-Developer-Key: i=linux-kernel-dev@aliel.fr; a=openpgp;
- fpr=DFD863F61375BF917F0012173953305EF1D0EC3E
-X-Endpoint-Received: by B4 Relay for linux-kernel-dev@aliel.fr/default with
- auth_id=744
-X-Original-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
-Reply-To: linux-kernel-dev@aliel.fr
 
-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Hi Hiago,
 
-Describe the system clock of each PWM controller as a third clock,
-and add the clock-names property expected by the updated binding:
-"channel-a", "channel-b" and "bus".
+On 01.10.26 18:08, Hiago De Franco wrote:
+> Hi Andrei,
+> 
+> On Thu, Oct 01, 2026 at 05:14:47PM +0200, Andrei Lalaev wrote:
+>> Hi Hiago,
+>>
+>> Please take a look at the patch [1] and the discussion.
+> 
+> Thanks for letting me know, I missed this patch. Do you happen to know
+> if any overlay was sent? I was not able to find one.
 
-Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
----
- arch/arm64/boot/dts/amlogic/amlogic-c3.dtsi | 28 +++++++++++++++++++++-------
- arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi | 28 +++++++++++++++++++++-------
- arch/arm64/boot/dts/amlogic/meson-a1.dtsi   | 12 +++++++++---
- arch/arm64/boot/dts/amlogic/meson-s4.dtsi   | 20 +++++++++++++++-----
- 4 files changed, 66 insertions(+), 22 deletions(-)
+I haven't seen it, so I guess no.
 
-diff --git a/arch/arm64/boot/dts/amlogic/amlogic-c3.dtsi b/arch/arm64/boot/dts/amlogic/amlogic-c3.dtsi
-index 4e6757a57fb9a..2de68d2a2fb53 100644
---- a/arch/arm64/boot/dts/amlogic/amlogic-c3.dtsi
-+++ b/arch/arm64/boot/dts/amlogic/amlogic-c3.dtsi
-@@ -824,7 +824,9 @@ pwm_mn: pwm@54000 {
- 					     "amlogic,meson-s4-pwm";
- 				reg = <0x0 0x54000 0x0 0x24>;
- 				clocks = <&clkc_periphs CLKID_PWM_M>,
--					 <&clkc_periphs CLKID_PWM_N>;
-+					 <&clkc_periphs CLKID_PWM_N>,
-+					 <&clkc_periphs CLKID_SYS_PWM_MN>;
-+				clock-names = "channel-a", "channel-b", "bus";
- 				#pwm-cells = <3>;
- 				status = "disabled";
- 			};
-@@ -843,7 +845,9 @@ pwm_ab: pwm@58000 {
- 					     "amlogic,meson-s4-pwm";
- 				reg = <0x0 0x58000 0x0 0x24>;
- 				clocks = <&clkc_periphs CLKID_PWM_A>,
--					 <&clkc_periphs CLKID_PWM_B>;
-+					 <&clkc_periphs CLKID_PWM_B>,
-+					 <&clkc_periphs CLKID_SYS_PWM_AB>;
-+				clock-names = "channel-a", "channel-b", "bus";
- 				#pwm-cells = <3>;
- 				status = "disabled";
- 			};
-@@ -853,7 +857,9 @@ pwm_cd: pwm@5a000 {
- 					     "amlogic,meson-s4-pwm";
- 				reg = <0x0 0x5a000 0x0 0x24>;
- 				clocks = <&clkc_periphs CLKID_PWM_C>,
--					 <&clkc_periphs CLKID_PWM_D>;
-+					 <&clkc_periphs CLKID_PWM_D>,
-+					 <&clkc_periphs CLKID_SYS_PWM_CD>;
-+				clock-names = "channel-a", "channel-b", "bus";
- 				#pwm-cells = <3>;
- 				status = "disabled";
- 			};
-@@ -863,7 +869,9 @@ pwm_ef: pwm@5c000 {
- 					     "amlogic,meson-s4-pwm";
- 				reg = <0x0 0x5c000 0x0 0x24>;
- 				clocks = <&clkc_periphs CLKID_PWM_E>,
--					 <&clkc_periphs CLKID_PWM_F>;
-+					 <&clkc_periphs CLKID_PWM_F>,
-+					 <&clkc_periphs CLKID_SYS_PWM_EF>;
-+				clock-names = "channel-a", "channel-b", "bus";
- 				#pwm-cells = <3>;
- 				status = "disabled";
- 			};
-@@ -873,7 +881,9 @@ pwm_gh: pwm@5e000 {
- 					     "amlogic,meson-s4-pwm";
- 				reg = <0x0 0x5e000 0x0 0x24>;
- 				clocks = <&clkc_periphs CLKID_PWM_G>,
--					 <&clkc_periphs CLKID_PWM_H>;
-+					 <&clkc_periphs CLKID_PWM_H>,
-+					 <&clkc_periphs CLKID_SYS_PWM_GH>;
-+				clock-names = "channel-a", "channel-b", "bus";
- 				#pwm-cells = <3>;
- 				status = "disabled";
- 			};
-@@ -883,7 +893,9 @@ pwm_ij: pwm@60000 {
- 					     "amlogic,meson-s4-pwm";
- 				reg = <0x0 0x60000 0x0 0x24>;
- 				clocks = <&clkc_periphs CLKID_PWM_I>,
--					 <&clkc_periphs CLKID_PWM_J>;
-+					 <&clkc_periphs CLKID_PWM_J>,
-+					 <&clkc_periphs CLKID_SYS_PWM_IJ>;
-+				clock-names = "channel-a", "channel-b", "bus";
- 				#pwm-cells = <3>;
- 				status = "disabled";
- 			};
-@@ -893,7 +905,9 @@ pwm_kl: pwm@62000 {
- 					     "amlogic,meson-s4-pwm";
- 				reg = <0x0 0x62000 0x0 0x24>;
- 				clocks = <&clkc_periphs CLKID_PWM_K>,
--					 <&clkc_periphs CLKID_PWM_L>;
-+					 <&clkc_periphs CLKID_PWM_L>,
-+					 <&clkc_periphs CLKID_SYS_PWM_KL>;
-+				clock-names = "channel-a", "channel-b", "bus";
- 				#pwm-cells = <3>;
- 				status = "disabled";
- 			};
-diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
-index 8f3f1c0579a0f..92fd7e6e6a84f 100644
---- a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
-+++ b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
-@@ -692,7 +692,9 @@ pwm_ao_ef: pwm@30000 {
- 				compatible = "amlogic,t7-pwm", "amlogic,meson-s4-pwm";
- 				reg = <0x0 0x30000 0x0 0x24>;
- 				clocks = <&clkc_periphs CLKID_PWM_AO_E>,
--					 <&clkc_periphs CLKID_PWM_AO_F>;
-+					 <&clkc_periphs CLKID_PWM_AO_F>,
-+					 <&clkc_periphs CLKID_SYS_PWM_AO_EF>;
-+				clock-names = "channel-a", "channel-b", "bus";
- 				#pwm-cells = <3>;
- 				status = "disabled";
- 			};
-@@ -701,7 +703,9 @@ pwm_ao_gh: pwm@32000 {
- 				compatible = "amlogic,t7-pwm", "amlogic,meson-s4-pwm";
- 				reg = <0x0 0x32000 0x0 0x24>;
- 				clocks = <&clkc_periphs CLKID_PWM_AO_G>,
--					 <&clkc_periphs CLKID_PWM_AO_H>;
-+					 <&clkc_periphs CLKID_PWM_AO_H>,
-+					 <&clkc_periphs CLKID_SYS_PWM_AO_GH>;
-+				clock-names = "channel-a", "channel-b", "bus";
- 				#pwm-cells = <3>;
- 				status = "disabled";
- 			};
-@@ -715,7 +719,9 @@ pwm_ab: pwm@58000 {
- 				compatible = "amlogic,t7-pwm", "amlogic,meson-s4-pwm";
- 				reg = <0x0 0x58000 0x0 0x24>;
- 				clocks = <&clkc_periphs CLKID_PWM_A>,
--					 <&clkc_periphs CLKID_PWM_B>;
-+					 <&clkc_periphs CLKID_PWM_B>,
-+					 <&clkc_periphs CLKID_SYS_PWM_AB>;
-+				clock-names = "channel-a", "channel-b", "bus";
- 				#pwm-cells = <3>;
- 				status = "disabled";
- 			};
-@@ -724,7 +730,9 @@ pwm_cd: pwm@5a000 {
- 				compatible = "amlogic,t7-pwm", "amlogic,meson-s4-pwm";
- 				reg = <0x0 0x5a000 0x0 0x24>;
- 				clocks = <&clkc_periphs CLKID_PWM_C>,
--					 <&clkc_periphs CLKID_PWM_D>;
-+					 <&clkc_periphs CLKID_PWM_D>,
-+					 <&clkc_periphs CLKID_SYS_PWM_CD>;
-+				clock-names = "channel-a", "channel-b", "bus";
- 				#pwm-cells = <3>;
- 				status = "disabled";
- 			};
-@@ -733,7 +741,9 @@ pwm_ef: pwm@5c000 {
- 				compatible = "amlogic,t7-pwm", "amlogic,meson-s4-pwm";
- 				reg = <0x0 0x5c000 0x0 0x24>;
- 				clocks = <&clkc_periphs CLKID_PWM_E>,
--					 <&clkc_periphs CLKID_PWM_F>;
-+					 <&clkc_periphs CLKID_PWM_F>,
-+					 <&clkc_periphs CLKID_SYS_PWM_EF>;
-+				clock-names = "channel-a", "channel-b", "bus";
- 				#pwm-cells = <3>;
- 				status = "disabled";
- 			};
-@@ -742,7 +752,9 @@ pwm_ao_ab: pwm@5e000 {
- 				compatible = "amlogic,t7-pwm", "amlogic,meson-s4-pwm";
- 				reg = <0x0 0x5e000 0x0 0x24>;
- 				clocks = <&clkc_periphs CLKID_PWM_AO_A>,
--					 <&clkc_periphs CLKID_PWM_AO_B>;
-+					 <&clkc_periphs CLKID_PWM_AO_B>,
-+					 <&clkc_periphs CLKID_SYS_PWM_AO_AB>;
-+				clock-names = "channel-a", "channel-b", "bus";
- 				#pwm-cells = <3>;
- 				status = "disabled";
- 			};
-@@ -751,7 +763,9 @@ pwm_ao_cd: pwm@60000 {
- 				compatible = "amlogic,t7-pwm", "amlogic,meson-s4-pwm";
- 				reg = <0x0 0x60000 0x0 0x24>;
- 				clocks = <&clkc_periphs CLKID_PWM_AO_C>,
--					 <&clkc_periphs CLKID_PWM_AO_D>;
-+					 <&clkc_periphs CLKID_PWM_AO_D>,
-+					 <&clkc_periphs CLKID_SYS_PWM_AO_CD>;
-+				clock-names = "channel-a", "channel-b", "bus";
- 				#pwm-cells = <3>;
- 				status = "disabled";
- 			};
-diff --git a/arch/arm64/boot/dts/amlogic/meson-a1.dtsi b/arch/arm64/boot/dts/amlogic/meson-a1.dtsi
-index 6f6a6145cba12..a224cbc959e45 100644
---- a/arch/arm64/boot/dts/amlogic/meson-a1.dtsi
-+++ b/arch/arm64/boot/dts/amlogic/meson-a1.dtsi
-@@ -544,7 +544,9 @@ pwm_ab: pwm@2400 {
- 				reg = <0x0 0x2400 0x0 0x24>;
- 				#pwm-cells = <3>;
- 				clocks = <&clkc_periphs CLKID_PWM_A>,
--					 <&clkc_periphs CLKID_PWM_B>;
-+					 <&clkc_periphs CLKID_PWM_B>,
-+					 <&clkc_periphs CLKID_PWM_AB>;
-+				clock-names = "channel-a", "channel-b", "bus";
- 				power-domains = <&pwrc PWRC_I2C_ID>;
- 				status = "disabled";
- 			};
-@@ -555,7 +557,9 @@ pwm_cd: pwm@2800 {
- 				reg = <0x0 0x2800 0x0 0x24>;
- 				#pwm-cells = <3>;
- 				clocks = <&clkc_periphs CLKID_PWM_C>,
--					 <&clkc_periphs CLKID_PWM_D>;
-+					 <&clkc_periphs CLKID_PWM_D>,
-+					 <&clkc_periphs CLKID_PWM_CD>;
-+				clock-names = "channel-a", "channel-b", "bus";
- 				power-domains = <&pwrc PWRC_I2C_ID>;
- 				status = "disabled";
- 			};
-@@ -655,7 +659,9 @@ pwm_ef: pwm@5400 {
- 				reg = <0x0 0x5400 0x0 0x24>;
- 				#pwm-cells = <3>;
- 				clocks = <&clkc_periphs CLKID_PWM_E>,
--					 <&clkc_periphs CLKID_PWM_F>;
-+					 <&clkc_periphs CLKID_PWM_F>,
-+					 <&clkc_periphs CLKID_PWM_EF>;
-+				clock-names = "channel-a", "channel-b", "bus";
- 				power-domains = <&pwrc PWRC_I2C_ID>;
- 				status = "disabled";
- 			};
-diff --git a/arch/arm64/boot/dts/amlogic/meson-s4.dtsi b/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
-index 2a6fbd5308362..537e269642905 100644
---- a/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
-+++ b/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
-@@ -685,7 +685,9 @@ pwm_ab: pwm@58000 {
- 				compatible = "amlogic,meson-s4-pwm";
- 				reg = <0x0 0x58000 0x0 0x24>;
- 				clocks = <&clkc_periphs CLKID_PWM_A>,
--					 <&clkc_periphs CLKID_PWM_B>;
-+					 <&clkc_periphs CLKID_PWM_B>,
-+					 <&clkc_periphs CLKID_PWM_AB>;
-+				clock-names = "channel-a", "channel-b", "bus";
- 				#pwm-cells = <3>;
- 				status = "disabled";
- 			};
-@@ -694,7 +696,9 @@ pwm_cd: pwm@5a000 {
- 				compatible = "amlogic,meson-s4-pwm";
- 				reg = <0x0 0x5a000 0x0 0x24>;
- 				clocks = <&clkc_periphs CLKID_PWM_C>,
--					 <&clkc_periphs CLKID_PWM_D>;
-+					 <&clkc_periphs CLKID_PWM_D>,
-+					 <&clkc_periphs CLKID_PWM_CD>;
-+				clock-names = "channel-a", "channel-b", "bus";
- 				#pwm-cells = <3>;
- 				status = "disabled";
- 			};
-@@ -703,7 +707,9 @@ pwm_ef: pwm@5c000 {
- 				compatible = "amlogic,meson-s4-pwm";
- 				reg = <0x0 0x5c000 0x0 0x24>;
- 				clocks = <&clkc_periphs CLKID_PWM_E>,
--					 <&clkc_periphs CLKID_PWM_F>;
-+					 <&clkc_periphs CLKID_PWM_F>,
-+					 <&clkc_periphs CLKID_PWM_EF>;
-+				clock-names = "channel-a", "channel-b", "bus";
- 				#pwm-cells = <3>;
- 				status = "disabled";
- 			};
-@@ -712,7 +718,9 @@ pwm_gh: pwm@5e000 {
- 				compatible = "amlogic,meson-s4-pwm";
- 				reg = <0x0 0x5e000 0x0 0x24>;
- 				clocks = <&clkc_periphs CLKID_PWM_G>,
--					 <&clkc_periphs CLKID_PWM_H>;
-+					 <&clkc_periphs CLKID_PWM_H>,
-+					 <&clkc_periphs CLKID_PWM_GH>;
-+				clock-names = "channel-a", "channel-b", "bus";
- 				#pwm-cells = <3>;
- 				status = "disabled";
- 			};
-@@ -721,7 +729,9 @@ pwm_ij: pwm@60000 {
- 				compatible = "amlogic,meson-s4-pwm";
- 				reg = <0x0 0x60000 0x0 0x24>;
- 				clocks = <&clkc_periphs CLKID_PWM_I>,
--					 <&clkc_periphs CLKID_PWM_J>;
-+					 <&clkc_periphs CLKID_PWM_J>,
-+					 <&clkc_periphs CLKID_PWM_IJ>;
-+				clock-names = "channel-a", "channel-b", "bus";
- 				#pwm-cells = <3>;
- 				status = "disabled";
- 			};
+> If none was sent, I am happy to send one. Sorry for all the noise here.
+>>>> Thank you!
+>>
+>> 1 - https://lore.kernel.org/sophgo/20260803163323.74414-1-chenyou910331@gmail.com/
+>>
+>> Best regards,
+>> Andrei Lalaev
+> 
+> Best regards,
+
 
 -- 
-2.49.0
-
-
+Best regards,
+Andrei Lalaev
