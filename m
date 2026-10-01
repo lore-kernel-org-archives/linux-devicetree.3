@@ -1,81 +1,83 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1D4C2882DE
-	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 05:23:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02E53435EEA
+	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 05:23:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790832208; cv=none; b=X02Ncvr1R7V/tW4yktn6udwLWtWnT/j3+dA3jSQf3F4SCT5eeVmiUmSlmCZKLtsDnvWBgu0178k+UAC3G1T+O98LbLqsYyCrcxqmmpbk+kYKZ04HaRKpKyGf7TYX24yifAZQezav4TDr4gdI0PgGTS/Y8TC7/U9xI0kMiv+mlZk=
+	t=1790832217; cv=none; b=J53RwoebWq74kEj0AQayXDXlst7lx97rRTzFWnzfO8jRrPn8Br9bj4VanyiBwB2g0mNTQ39EZudCjQAuewhBsgIjq+RZfG6e1gIQUfBIlzhg3WDAymwm9NwIeNW2BCf46kQcLKuskg+vHqlLoaH0hkkCRy6QbM/5UBPfAH7gn5w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790832208; c=relaxed/simple;
-	bh=WICCUBitUB85OCh21FIUAUOYOI2jyJs7GHEq8ouBpf4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=l4HOs+EldpGOFDi5gGsxhXmBK3T2tvsI2ALiTEC7mkT5wyMUdt3QyBq8M05LaMH3rtSV1eWTnOX39c5Xy2vOVBasd3rez8MjukZE3HxpZvGWbTKsP/U6yDP1wK38koG8Cxhj4RkErGYDgXVlCm370k/rvVkRiRRPYDspsaFwlrU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mZM73UNI; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PARnEubV; arc=none smtp.client-ip=205.220.180.131
+	s=arc-20240116; t=1790832217; c=relaxed/simple;
+	bh=a7AiH9yPvN1A0yGeVDvmwiPG+fZZyNs8urMXRbNjYbw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=PK5Vb3B0oWNVMtEL/igw2oSoDiSOzWhi279CBGD0kiaddGLytHgUPFjKTgjv0kWpqU6JzaFiJYp1TJ8Xt8qilInRFvd6SzZSrv+vmowjSQhMXsm3642COaX9CMEGYlJgGB7LnbtWROIV7pJfWUH7AL//b6pBuecAQh8J8Qf6rkA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=j7vI8qUQ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Ue7tNSlu; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mZM73UNI";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PARnEubV"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6913gFkF542093
-	for <devicetree@vger.kernel.org>; Thu, 1 Oct 2026 05:23:25 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="j7vI8qUQ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Ue7tNSlu"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6913h2xQ1090587
+	for <devicetree@vger.kernel.org>; Thu, 1 Oct 2026 05:23:35 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=wRMZ5C+W4s3WBTEwnJCNbG5XG3HtxGnpkSf
-	0y0USG3E=; b=mZM73UNI311C0UnbbwbOBngeN9+DmwbCj103ngjjqzmtlUWFg94
-	JYBnCpzaLT3q43NB6AdCgB2AoLKcLEzED60viLnvkvRTY7hAXcL+k/aalZC5VshI
-	P4Fr4XnMNE1iywZmRt6DBOMXAUloph0W3PfuzqD1lUQpQ7v4k/bWue4PkfImEqOC
-	agAanG7EpMXqzRSpcqBDkjGIKRsD7ut7HBoR75hMpXbPsyLGBiH7jE4NtNacYtJS
-	kJfFDBWcS/lbxYv2d64mUA3uWLLAI9HDg9IdLHDXSyBWXq0flHg+wJwgSzkZvX6/
-	WJBQOPLT7P14/FOx9jRmpjYdCt3ce7qzdeg==
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=8XxsVc+GOQv
+	zjVbH+p+BI5Iwe40BXy5jVCydFd15eKE=; b=j7vI8qUQEtd9b2ruCBCEx42+akU
+	jHkO5xfDE+CR1wvDL8mVMiL2TnaXqXry0yzK7GtF62kJfDsXheiM/VJidAel3Iar
+	r4vOX1nzNQsSZHhNY4JEKEmIixSzHYsuWrm+EqW8IyDQ9spF8y9IPmS4QIffFX6k
+	YMxg3ox4yV7PmZPCYTUs0WfF9UezRqceAlOHz+zGZkvrlgTjKfuTTp5bpXOQX9CH
+	DVegnez8WnmLG79PKMctD8+gTdTqSg+i0jcqYgxDyMhr/ABTvUHDInhfj+qWOS51
+	mkFzy3ryHKhBSSTsukJHAhAMrhxfvtG4r/I3dfwFlZ+9VMUsuTvlZJUZBXQ==
 Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h16wctca3-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h188ssw2b-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 05:23:25 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2df5a65671eso6090765ad.1
-        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 22:23:25 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 05:23:34 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2e2e0bc619fso14525495ad.0
+        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 22:23:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790832204; x=1791437004; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wRMZ5C+W4s3WBTEwnJCNbG5XG3HtxGnpkSf0y0USG3E=;
-        b=PARnEubVycN5wZg2T8hmLD/+zKq/d3gqZDwDum2TwD9cvqQIXKVqW4vSSCi6wDODue
-         jSZto17pUG1AeE1Xlp6V7JzsFF8mJA9Qp0N0k1cwK9y5naTQEtoU8Ronbfigj2GA8Afk
-         zhrIJ7LdZg9FJ2QetWi4eTdF+rRcr/kCuK734astGzLxjP0mBS2wgMWlNR6DHUQIQ1Yx
-         X283bH6pEKGM/UExuJncHkKDzCOuSS7Eo4mB9mL2TIaOXGxwvPtgxnQYrar4EZFxAwXo
-         /AV28BtgIDAR5AVEzuqlyRqzO/zwaE+uUoYc2/WfKPsbeRTIQBA88RnreSwJVUCmfqIy
-         z9uw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790832204; x=1791437004;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=oss.qualcomm.com; s=google; t=1790832213; x=1791437013; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=wRMZ5C+W4s3WBTEwnJCNbG5XG3HtxGnpkSf0y0USG3E=;
-        b=pWNX3xb6vmUZA2Vo+iWrPauJFX74hLxgN97s6EPKvp1MsGKRd3J2EktFFX1KKY4AKL
-         RXWO44IUsbzbuCekwVk50LKGiFp0NBoh4dwSLszqRiyubtHEs6MRWYctwpOFqQ79M/bt
-         F6qb1RTn+ifHTu6b2I2kLfpL3kdMiJAtx35yU7VW0/BdgKOrNg+ZKN3HxAZ9E/8bhA36
-         7T3gMwpo6FhQQ1cHvqV6b1FPH4vPN0fWSBbilI6Utdj7oImqodqmjlgk+YfwmsO07hVL
-         x/3vxGY5hHALS+RHR7i9x64wDM9uIyS3hy5vgMPIdIe171yTLIY2ZXnW7yPWvW2L2OcV
-         wVPw==
-X-Forwarded-Encrypted: i=1; AKwUvByQobfZcTSETKmfvFsrlgiDvrDhPjcT8oPM5278p4tTJ9INOnaTqYnxLHuZcPUCzh3gpH9jVmNLWMQN@vger.kernel.org
-X-Gm-Message-State: AFq9FYIgMJApbYgv8RRQPVjnb2Ao+lqs9NgwTh63AfLVBysctfnqS49u
-	yrZu7HEn1j8qxD6Ya6E/sVQ8PMGAm9kplhccjwk8Eeb6KOB3tbYZUsUzhxv2mEh/aiYEjBEWOme
-	n/c3QrXXYyxZDHbIPj6NSnXrfWJ2B2orUsfz6PSDaUZsMNyNAkpap2UutzzdwF1Kv
-X-Gm-Gg: AYBFou1iJ4i1IKbnByAfQ7IZ9+Pr90IwFj8xD3A1ZMA7TcmZa52yoYpo5dpWM3OgYNG
-	j6eFlHHvstvB/0mA5pIiEQYdazeJbkTFVsrSf55d2zn9SYURNtAtOpuPp25hWd1l9Jj9VLx+y6J
-	IPzuxOTdpzxPitaocHlD1oZGRlEW988oysi6PIyHkQsRmUf55x3ruof3Asc0ft4AjBXlVfFQBF5
-	SH1U6ezqGokqregDo6Rd6IEIQwzgDDKV4AKh4XCxwZvnIW27nlJnYqP+K5tUE2wKV6NQmP1dU9C
-	orz6YR/3J65IT0FAHHKbhIK6AkF/gCA2VS87KZraLwHQFQS/XsDRiJbeLZVCiE4KXdznzxLEP9c
-	UpM3W/tMi04aa++hQJmc6o60XMqHDiQIIIkmK9bMn3UoF6Y6RodNG5xncdBNnMRGfH5if1ymWTM
-	aekPl7XTqhEFOLE71mGcKvjMhd
-X-Received: by 2002:a17:903:3201:b0:2dd:86a3:232d with SMTP id d9443c01a7336-2e3000ecbebmr9988315ad.8.1790832204344;
-        Wed, 30 Sep 2026 22:23:24 -0700 (PDT)
-X-Received: by 2002:a17:903:3201:b0:2dd:86a3:232d with SMTP id d9443c01a7336-2e3000ecbebmr9988055ad.8.1790832203727;
-        Wed, 30 Sep 2026 22:23:23 -0700 (PDT)
+        bh=8XxsVc+GOQvzjVbH+p+BI5Iwe40BXy5jVCydFd15eKE=;
+        b=Ue7tNSlu/onmCMIRX2B6+l+hTeeg+egt8sG56nivbWbs/0+6b3wkpAvxRDoKZwExh+
+         +KHHaBKHaDFIWhk/mKi2r5LKspUm54zbhpycECv625iyyRHi16mveW9OGCwlj4r1EvL1
+         Nl/Rz0aeNvUP4FLihKY6595Vy4y08fY0MidprNzS1Ik+LBcM7yUmyRKvLvCt2sCCmLuA
+         vbSDkt7ehriquiTyCN8OcxomladeSyFwkdSyk3jcOUK1XLv0dsUHOrxFp3Hnia3Y2eb3
+         opHZPjqQF4uzWX0gDtSFx67/Hh6yh35lGXirVkkAT9L9EK7sgPpOPZlu+dLC1yfLQ1s/
+         DYgw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790832213; x=1791437013;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8XxsVc+GOQvzjVbH+p+BI5Iwe40BXy5jVCydFd15eKE=;
+        b=DuGbZUN5nH/BXtdzHFGAhdoiXGZ3SXfUfRvI0dT8PhL76G2tvH2OXQHf7FfUH4M4cE
+         2Kc/jwTYWrMrQz4/MhPxWBGJfCLe6gKHxZl+QHgKOoYMz6UVFON1e1q003sU+J97RSfb
+         05eBXMgMaqK5/fQi+XDUHUgnq1pQGX5j5FYJ+uIR/7FBYiQ6ydwopXKan3dRY8TF7mex
+         yEN2UviB6hKs7tshDTHsqMuft2Jnoz6qHWmQjOsxw9j6gm1lpQvvTEWPSKrun6wD/Rbh
+         bPGjqwlZih7DA8IE2sYU5G5qasq4WN8iRBSgeX9oag324frbNXO/W+6GdhUOcOb6WTaI
+         SOHw==
+X-Forwarded-Encrypted: i=1; AKwUvBya5ZTcSdkmizpb4V2YqizQZNiViHEXNL7bR9nna6Vm1CZSiDryPHHrwxM7K8AX0aQr048IsxmqajS1@vger.kernel.org
+X-Gm-Message-State: AFq9FYI/z5gekRZ8t2P0iJkGkYEdRtbq48Q/BVgXk/Ir+JLHp7wsN59K
+	l7sTRgSWfC0TowX68/dWPIMpBs4irvHwo4GFKdpe9vDEDLMkV2POUiB6+Snz+msDyipk8Abc93m
+	y/4ISnNxXl0dRnL9sqj1pkirUfnMAhj2ncfW7IEMlYwAuqjPobKOsemQeXfVF0jf8
+X-Gm-Gg: AYBFou0khoun4l6zxBxqVZA2zbty572t4Qsc/dRQKCxe9iLA0Nl1qIEUwW6y0U9e30X
+	27WsgnAox+rVLQsKmsHIRyrycbVIyKkP22VABSmS1V/mwwBNBH8ye2YLXeKA3Lcp54UrEZL8jNn
+	QTf4+Om949E8ZDtjOA5ov/iZ2vF9hgc0S9g0XYqqJif9XVPmwoUValQp7rWfcQA5kylXzXjxkJi
+	PhuV6fzz5ZXJOZbhH2dqfdkyOlvJUSbpULSO3ZbcHx3pT4GjCUa1dIvIZLGcMkHLuPi4Sgc5K/e
+	znCLwAEzYuUESE0cRfx/TK/ayXkqgDUREVf5YBnzn1YHiCZLWowlwPAX/wywPOnSSLxb7W6MT6T
+	MwXPeuOllp+sDeIZ2B3JGTPDR8LA2UU3oUfAShTtVNlzCzxa7LSAOZbGQizRTKjnKnhxiOSLjtu
+	qa3j7fqF/TUi14vBL3KRVEIA7U
+X-Received: by 2002:a17:902:ccc4:b0:2e2:d39f:182f with SMTP id d9443c01a7336-2e2e4b35351mr25899475ad.28.1790832212377;
+        Wed, 30 Sep 2026 22:23:32 -0700 (PDT)
+X-Received: by 2002:a17:902:ccc4:b0:2e2:d39f:182f with SMTP id d9443c01a7336-2e2e4b35351mr25899145ad.28.1790832211858;
+        Wed, 30 Sep 2026 22:23:31 -0700 (PDT)
 Received: from hu-mchitale-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.googlemail.com with ESMTPSA id d9443c01a7336-2e300b851b9sm5152715ad.78.2026.09.30.22.23.16
+        by smtp.googlemail.com with ESMTPSA id d9443c01a7336-2e300b851b9sm5152715ad.78.2026.09.30.22.23.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 22:23:23 -0700 (PDT)
+        Wed, 30 Sep 2026 22:23:31 -0700 (PDT)
 From: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
         Conor Dooley <conor+dt@kernel.org>,
@@ -83,9 +85,9 @@ To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
         Greg KH <gregkh@linuxfoundation.org>,
         Alexander Shishkin <alexander.shishkin@linux.intel.com>,
         Ian Rogers <irogers@google.com>
-Cc: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>,
-        Alexandre Ghiti <alex@ghiti.fr>, Peter Zijlstra <peterz@infradead.org>,
-        Ingo Molnar <mingo@redhat.com>, Namhyung Kim <namhyung@kernel.org>,
+Cc: Anup Patel <anup.patel@oss.qualcomm.com>, Alexandre Ghiti <alex@ghiti.fr>,
+        Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+        Namhyung Kim <namhyung@kernel.org>,
         Mark Rutland <mark.rutland@arm.com>, Jiri Olsa <jolsa@kernel.org>,
         Adrian Hunter <adrian.hunter@intel.com>,
         Mayuresh Chitale <mchitale@gmail.com>,
@@ -93,11 +95,14 @@ Cc: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>,
         Andrew Jones <andrew.jones@oss.qualcomm.com>,
         Sunil V L <sunilvl@oss.qualcomm.com>, linux-riscv@lists.infradead.org,
         devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>,
         Zane Leung <liangzhen@linux.spacemit.com>
-Subject: [PATCH v6 00/14] Linux RISC-V trace framework and drivers
-Date: Thu,  1 Oct 2026 10:52:11 +0530
-Message-ID: <20261001052243.3042627-1-mayuresh.chitale@oss.qualcomm.com>
+Subject: [PATCH v6 01/14] dt-bindings: Add RISC-V trace component bindings
+Date: Thu,  1 Oct 2026 10:52:12 +0530
+Message-ID: <20261001052243.3042627-2-mayuresh.chitale@oss.qualcomm.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261001052243.3042627-1-mayuresh.chitale@oss.qualcomm.com>
+References: <20261001052243.3042627-1-mayuresh.chitale@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -105,216 +110,178 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDAyMSBTYWx0ZWRfX8PiXvLcDw08X
- LCvzSgmAfg4dCJenHGAPrc4j8oxGvOntc4lbXAxojuH6Y+ir/Db+LqCKUUhE1ZZ6AOkS1Ama8Lm
- l4JFX1kbD+V48Xz+q5x6zLClkMvphdtNyTMarKIGHh+4e7SGRJKAX84HH+ya7Iy6lrxVP/zovx9
- CxcN2HtNOwZ3v9GaIQnCMZ5pJncVyiu2FfoEHSl4RAS0UiHxImDWZNMLmeYtjRMz0mqtlRID7ZQ
- VXZMzP2bXotb/iQMp7OKc0d6tTAlyeASaVpe0UDFAT4qUaU0rNmbCRHWtNQQQoM1K41tIgeBkKe
- SqnxZ3ldwA6dqpIRdaSjkYG6TMgWxfE6DRLEUg5HwtNPYD1FPtKYLzGT3FkPspWClQaTxwg8ynT
- cGO6OPkdC6tkfVmanmIUFsBvcPOGXwybPnvxjD2i7XEWKIAEoroWA7z2xzWmJAjnFFKvkgd6AOI
- I5A6sbq6xJPzwsTtvLw==
-X-Proofpoint-GUID: Jypo3oxBCc1-5QVUBSKNPr_Cbo09afJX
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDAyMSBTYWx0ZWRfX0b0+L5ljQj9U
- eYKZhPLvOMPIcCT/YHg5EypiW+Ll6d3ITaichnG9egh3EaXxqGK1rpUYgWJF+WmzmOfd+tJERPH
- tjeeFcMsFZCsSKLq7pCFJxg7aIsnNJs=
-X-Authority-Analysis: v=2.4 cv=S51MU4sP c=1 sm=1 tr=0 ts=6abdee4d cx=c_pps
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDAyMSBTYWx0ZWRfX10weUt7ZQgOD
+ 1sUag2sKwwLhdlCVZ5wORK5aABy+uYy3AYl6WJc88xOEBcgMsozQyVHkvuqvVuQOo2J+vRiYGhY
+ QRCBmTDznnR2OzXCvNn+ksUl2hg9Ov8=
+X-Authority-Analysis: v=2.4 cv=OozaWC/t c=1 sm=1 tr=0 ts=6abdee56 cx=c_pps
  a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
  a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=V1jnuoLLAAAA:20
- a=NEAV23lmAAAA:8 a=p0WdMEafAAAA:8 a=141_r4vzzXyHVjRiWNIA:9
- a=GvdueXVYPmCkWapjIL-Q:22 a=bA3UWDv6hWIuX7UZL3qL:22
-X-Proofpoint-ORIG-GUID: Jypo3oxBCc1-5QVUBSKNPr_Cbo09afJX
+ a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=gEfo2CItAAAA:8
+ a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=W-_n0kkjAAAA:8 a=f9mqD-BOXdQ1R_-L-AkA:9
+ a=GvdueXVYPmCkWapjIL-Q:22 a=sptkURWiP4Gy88Gu7hUp:22 a=qeNa2pbTr82C0GpJEZFS:22
+X-Proofpoint-ORIG-GUID: ajOKnktfJImkYKPkzUWnXyBfyF93I7-V
+X-Proofpoint-GUID: ajOKnktfJImkYKPkzUWnXyBfyF93I7-V
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDAyMSBTYWx0ZWRfXwGGjqBMV1dRw
+ 1nfgQ6YqZiV/Uedlvm4/GHofXMdA0ZWR+kaTw8k8DonaVrZXQoIKz98y4uiNXzXTCIE6LnMbqWg
+ Gp2uBr/lzorD4biS0EZKfLGFIzP9BhWnJmasC+zj9gljcQp6FEgFowTLMpXLY1gu22VkZnpopCR
+ G3O2825/64EebbP/751ztgl/WYmmTmSldE2+UA2Zvy6/iZFfGjekVo1soohm3Kscr0MCUac2yIX
+ 4RoOqf4nvJ114jfwNDx6LcOOTigrRhNNwBXk85PoBa0OZIsp+Ah4lN4/gjJ5QWBr8DA8rAd9i3X
+ Qc3ekbYpjsYzlXbYW1db+U7wUyO8gyA2UkGqLhCTbU6/QCBE1TIQNBaMiQMikjjZPSCo+VwXgOO
+ ZVaTSnHxDdbjmOxR9VRhvNaTLzyhm70L2elEDk5D4/kCobtahG9/KW3uJVRpffXXWV8etfeJwpC
+ nTUuJx9eWvtlFb5HPNg==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-01_02,2026-09-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 priorityscore=1501 clxscore=1015 impostorscore=0
- lowpriorityscore=0 spamscore=0 adultscore=0 bulkscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610010021
+ clxscore=1015 malwarescore=0 lowpriorityscore=0 impostorscore=0
+ priorityscore=1501 suspectscore=0 bulkscore=0 adultscore=0 phishscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2610010021
 
-This series adds 'gtrace' which is an architecture-neutral hardware trace
-framework with RISC-V E-trace as its first backend. The 'gtrace' core framework
-has the minimal shared plumbing (component registration, path create/destroy,
-path start/stop, etc) and the RISC-V trace drivers are its first consumer.
-It should be possible for the required ARM components to be adapted to the same
-framework in a future.
+From: Anup Patel <anup.patel@oss.qualcomm.com>
 
-This series also adds initial support for RISC-V trace compnent drivers.
-The RISC-V trace v1.0 specification is already ratified and can be found at:
-https://github.com/riscv-non-isa/e-trace-encap/releases/tag/v1.0.0-ratified
-https://github.com/riscv-non-isa/tg-nexus-trace/releases/tag/1.0_Ratified
+Add device tree bindings for the memory mapped RISC-V trace components
+which support both the RISC-V efficient trace (E-trace) protocol and
+the RISC-V Nexus-based trace (N-trace) protocol.
 
-The RISC-V trace component drivers are designed to be agnostic to the
-underlying trace protocol hence both RISC-V E-trace and RISC-V N-trace should
-work fine. The discovery of trace protocl parameters are left to user-space
-trace decoder.
+The RISC-V trace components are defined by the RISC-V trace control
+interface specification.
 
-In the future, there will be subsequent series adding:
-1) Sysfs support
-2) ACPI support
-3) More trace drivers (such as funnel, ATB, etc)
-4) Support for upcoming self-hosted trace specification
-5) Arm component support under the gtrace framework
-6) ... and more ...
-
-These patches can also be found in the riscv_trace_support_v6 branch at:
-https://github.com/mdchitale/linux.git
-
-To test the patches, we need QEMU virt machine with RISC-V trace support
-which can be found in rv-etrace branch at:
-https://gitlab.com/danielhb/qemu.git
-
-To capture gtrace data using perf on QEMU virt machine do the following:
-1) Launch QEMU virt machine
-   $ qemu-system-riscv64 -nographic -M virt -smp 2 -bios fw_dynamic.bin \
-     -kernel Image -append "root=/dev/vda rw console=ttyS0 earlycon=sbi" \
-     -drive file=rootfs.img,id=disk1,if=none,format=raw \
-     -device virtio-blk-device,drive=disk1
-2) Run perf record to capture gtrace data
-   $ perf record --all-cpus -e gtrace/event=0x1/ <command>
-3) The step2 would create a perf.data file which has the gtrace data.
-   Now run perf report -D and look for PERF_RECORD_AUXTRACE event
-   section(s) which point(s) to the actual gtrace data offset.
-
-Changes since v5:
- - Moved the DT connection parsing into the gtrace core as gtrace-of.c.
- - Added start_count and a lock to the core's private component data
-   to serialize start/stop/copyto_auxbuf operations. Dropped
-   perf_buf_lock.
- - Added handling of partially enabled path by disabling all enabled
-   components
- - Added cycle detection when walking the trace component graph
- - Added trace source ID configuration in the encoder driver
- - Added trace format (E-Trace/N-Trace) selection via the platform driver
-   compatible string. It is used by encoder and perf drivers to set it
-   into hardware and perf data header respectively
- - Modified the ramsink buffer setup to read back the trRamStart and
-   trRamLimit registers, and program the sync frequency, memory format
-   and stop-on-wrap settings at start time
- - Improved error handling and added path owner in the perf driver
- - Fixed several issues reported by sashiko-bot but some of its findings
-   are deferred to a later version.
-
-Changes since v4:
- - Introduced a new architecture-neutral 'gtrace' (Generic Trace) framework
-   and moved the RISC-V trace drivers on top of it instead of a RISC-V-only
-   'rvtrace' core.
- - Added new PATCH3 "gtrace: Add RISC-V platform driver for the gtrace
-   framework" to split out the RISC-V platform/DT code from the core
-   framework patch.
- - Moved all rvtrace driver sources from drivers/hwtracing/rvtrace/ to
-   drivers/hwtracing/gtrace/, with single Kconfig, Makefile using
- - Made the perf driver (previously rvtrace-perf.c) architecture-neutral
-   and moved it into the gtrace framework as gtrace-perf.c; PMU name
-   changed from "rvtrace" to "gtrace"
- - Added new PATCH8 "perf: Add gtrace AUX buffer trace format type" to
-   define PERF_AUX_FLAG_GTRACE_FORMAT_ETRACE which is used in later patches.
- - copyto_auxbuf() and gtrace_path_copyto_auxbuf() now take an output
-   parameter so the AUX data format can be reported by the sink
-   driver by setting PERF_AUX_FLAG_GTRACE_FORMAT_ETRACE.
- - Renamed the generic side of the perf tools support from rvtrace* to
-   gtrace*. perf.data ABI is unchanged.
- - Fixed gtrace ramsink start/stop to call gtrace_enable_component()/
-   gtrace_disable_component() to remove duplication with code in
-   gtrace-core.c
- - Updated the MAINTAINERS patch to refer to gtrace framework instead of
-   rvtrace
-
-Changes since v3:
- - Rebased on Linux-7.1-rc1
- - Use kzalloc_obj() in-place of kzalloc() in PATCH2, PATCH3 and PATCH9
- - Improved PATCH7 to save the previous WP value
-
-Changes since v2:
- - Rebased on Linux-7.0-rc1
- - Addressed Rob's comments on DT bindings in PATCH1
- - Addressed ref-count related issues in rvtrace_of_parse_outconns()
-   of PATCH2
- - Made RVtrace framework more generic by avoiding implicit access
-   to component registers in PATCH2
- - More improvements in trRamStart/Limit/WP programming and other
-   improvments in PATCH7
- - Removed RVTRACE_BUF_LEN from PATCH9
- - Removed redundant page_size from PATCH10
- - Renamed found_etm in PATCH10
- - Removed rvtrace_recording_init() declaration from header in PATCH11
-
-Changes since v1:
- - Rebased on Linux-6.18-rc3
- - Addressed Rob's comments in dt-bindings added by PATCH1
- - Get reference of conn->dest_fwnode and add missing break in
-   rvtrace_of_parse_outconns() of rvtrace-platform drivers added
-   by PATCH2
- - Added new inline function rvtrace_comp_is_empty() in PATCH2
-   and used it in rvtrace_encoder_stop() added by PATCH5
- - Fixed trRamWPLow usage in PATCH7
- - Determine RAM sink buffer size based on component implementation
-   ID and reduce default RAM sink buffer size to 1MB
- - Add new PATCH8 to enable DMA_RESTRICTED_POOL in RISC-V defconfig
-   so that implementations with RAM sink address restrictions can
-   be handled.
-
-Anup Patel (7):
-  dt-bindings: Add RISC-V trace component bindings
-  hwtracing: gtrace: Initial implementation of gtrace framework
-  gtrace: Add RISC-V platform driver for the gtrace framework
-  gtrace: Add functions to create/destroy a trace component path
-  gtrace: Add function to copy into perf AUX buffer
-  riscv: Enable DMA_RESTRICTED_POOL in defconfig
-  MAINTAINERS: Add entry for RISC-V trace framework
-
-Mayuresh Chitale (7):
-  gtrace: Add functions to start/stop tracing on a component path
-  gtrace: Add RISC-V Trace encoder driver
-  perf: Add gtrace AUX buffer trace format type
-  gtrace: Add RISC-V Trace ramsink driver
-  gtrace: Add perf driver for tracing using perf tool
-  perf tools: Add RISC-V trace PMU record capabilities
-  perf tools: Initial support for gtrace decoder
-
- .../bindings/riscv/riscv,trace-component.yaml | 120 +++
- MAINTAINERS                                   |  11 +
- arch/riscv/configs/defconfig                  |   1 +
- drivers/Makefile                              |   1 +
- drivers/hwtracing/Kconfig                     |   2 +
- drivers/hwtracing/gtrace/Kconfig              |  59 ++
- drivers/hwtracing/gtrace/Makefile             |   9 +
- drivers/hwtracing/gtrace/gtrace-core.c        | 858 ++++++++++++++++++
- drivers/hwtracing/gtrace/gtrace-of.c          | 126 +++
- drivers/hwtracing/gtrace/gtrace-perf.c        | 390 ++++++++
- drivers/hwtracing/gtrace/rvtrace-encoder.c    | 236 +++++
- drivers/hwtracing/gtrace/rvtrace-platform.c   | 186 ++++
- drivers/hwtracing/gtrace/rvtrace-ramsink.c    | 357 ++++++++
- drivers/hwtracing/gtrace/rvtrace.h            | 121 +++
- include/linux/gtrace.h                        | 332 +++++++
- include/uapi/linux/perf_event.h               |   5 +
- tools/include/uapi/linux/perf_event.h         |   5 +
- tools/perf/arch/riscv/util/Build              |   1 +
- tools/perf/arch/riscv/util/auxtrace.c         | 221 +++++
- tools/perf/util/Build                         |   1 +
- tools/perf/util/auxtrace.c                    |   4 +
- tools/perf/util/auxtrace.h                    |   1 +
- tools/perf/util/gtrace-decoder.c              |  95 ++
- tools/perf/util/gtrace.h                      |  18 +
- 24 files changed, 3160 insertions(+)
+Signed-off-by: Anup Patel <anup.patel@oss.qualcomm.com>
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
+---
+ .../bindings/riscv/riscv,trace-component.yaml | 120 ++++++++++++++++++
+ 1 file changed, 120 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/riscv/riscv,trace-component.yaml
- create mode 100644 drivers/hwtracing/gtrace/Kconfig
- create mode 100644 drivers/hwtracing/gtrace/Makefile
- create mode 100644 drivers/hwtracing/gtrace/gtrace-core.c
- create mode 100644 drivers/hwtracing/gtrace/gtrace-of.c
- create mode 100644 drivers/hwtracing/gtrace/gtrace-perf.c
- create mode 100644 drivers/hwtracing/gtrace/rvtrace-encoder.c
- create mode 100644 drivers/hwtracing/gtrace/rvtrace-platform.c
- create mode 100644 drivers/hwtracing/gtrace/rvtrace-ramsink.c
- create mode 100644 drivers/hwtracing/gtrace/rvtrace.h
- create mode 100644 include/linux/gtrace.h
- create mode 100644 tools/perf/arch/riscv/util/auxtrace.c
- create mode 100644 tools/perf/util/gtrace-decoder.c
- create mode 100644 tools/perf/util/gtrace.h
 
-
-base-commit: 551c722f40809618230001baccf219193e22fc5a
+diff --git a/Documentation/devicetree/bindings/riscv/riscv,trace-component.yaml b/Documentation/devicetree/bindings/riscv/riscv,trace-component.yaml
+new file mode 100644
+index 000000000000..bb519bc4a163
+--- /dev/null
++++ b/Documentation/devicetree/bindings/riscv/riscv,trace-component.yaml
+@@ -0,0 +1,120 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/riscv/riscv,trace-component.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: RISC-V Trace Component
++
++maintainers:
++  - Anup Patel <anup@brainfault.org>
++
++description:
++  The RISC-V trace control interface specification standard memory mapped
++  components (or devices) which support both the RISC-V efficient trace
++  (E-trace) protocol and the RISC-V Nexus-based trace (N-trace) protocol.
++  The RISC-V trace components have implementation specific directed acyclic
++  graph style interdependency where output of one component serves as input
++  to another component and certain components (such as funnel) can take inputs
++  from multiple components. The type and version of a RISC-V trace component
++  can be discovered from it's IMPL memory mapped register hence component
++  specific compatible strings are not needed.
++
++properties:
++  compatible:
++    items:
++      - enum:
++          - qemu,trace-component
++      - const: riscv,trace-component
++
++  reg:
++    maxItems: 1
++
++  cpus:
++    maxItems: 1
++    description:
++      phandle to the cpu to which the RISC-V trace component is bound.
++
++  in-ports:
++    $ref: /schemas/graph.yaml#/properties/ports
++    patternProperties:
++      '^port(@[0-7])?$':
++        description: Input connections from RISC-V trace component
++        $ref: /schemas/graph.yaml#/properties/port
++
++  out-ports:
++    $ref: /schemas/graph.yaml#/properties/ports
++    patternProperties:
++      '^port(@[0-7])?$':
++        description: Output connections from RISC-V trace component
++        $ref: /schemas/graph.yaml#/properties/port
++
++required:
++  - compatible
++  - reg
++
++anyOf:
++  - required: [ in-ports ]
++  - required: [ out-ports ]
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    // Example 1 (Per-hart encoder and ramsink components):
++
++    trace@c000000 {
++      compatible = "qemu,trace-component", "riscv,trace-component";
++      reg = <0xc000000 0x1000>;
++      cpus = <&CPU0>;
++
++      out-ports {
++        port {
++          CPU0_ENCODER_OUTPUT: endpoint {
++            remote-endpoint = <&CPU0_RAMSINK_INPUT>;
++          };
++        };
++      };
++    };
++
++    trace@c001000 {
++      compatible = "qemu,trace-component", "riscv,trace-component";
++      reg = <0xc001000 0x1000>;
++      cpus = <&CPU0>;
++
++      in-ports {
++        port {
++          CPU0_RAMSINK_INPUT: endpoint {
++          };
++        };
++      };
++    };
++
++    trace@c002000 {
++      compatible = "qemu,trace-component", "riscv,trace-component";
++      reg = <0xc002000 0x1000>;
++      cpus = <&CPU1>;
++
++      out-ports {
++        port {
++          CPU1_ENCODER_OUTPUT: endpoint {
++            remote-endpoint = <&CPU1_RAMSINK_INPUT>;
++          };
++        };
++      };
++    };
++
++    trace@c003000 {
++      compatible = "qemu,trace-component", "riscv,trace-component";
++      reg = <0xc003000 0x1000>;
++      cpus = <&CPU1>;
++
++      in-ports {
++        port {
++          CPU1_RAMSINK_INPUT: endpoint {
++          };
++        };
++      };
++    };
++
++...
 -- 
 2.43.0
 
