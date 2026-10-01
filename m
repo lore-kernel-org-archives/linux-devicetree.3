@@ -1,65 +1,65 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9337847607B
-	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 19:58:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E5EE490C00
+	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 19:58:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790884736; cv=none; b=cwqqa3uA6t5FXKNxcH/mvBU6XEtQONfVX7kcTgEKG40nP8tq4mCAV7tiAVy7a4Ev0mxJiiT4n89Ja1ZfyMLq2EC0vxiJsSupdTYAcHLjsO/fr7EUygL78I8ZLmS0U5FQVUsMowi0Q2zbC//BRsH9FMejCnJJDI4msNeEYRlHVGE=
+	t=1790884740; cv=none; b=RVwHYuLaKMxSV2SzWpln2Vli2u7XX9KCxn/1rQ/Csfw6HbRo0uJL5bOIItdg/6f1tAOe7oBKh6/Nj8T/V2jgnivdTZlRDLIx9znekjNSuaOkfowgbbxL3LEsQHrzxkzDImR86V93WxIcJEUapat4schfoVlLSu5UNXNTZ6qy89g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790884736; c=relaxed/simple;
-	bh=lsZA0e/b5sbxRypRHbpgPYpst0BDN0tACu0nxjitEDo=;
+	s=arc-20240116; t=1790884740; c=relaxed/simple;
+	bh=S6qMh34KvLbIjfGfRDQ/vaEK1EGhvlMVKSGZLXlQONs=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=UTidAiQiB9n1dwKsXD0d7bPu2Bb4umyy12sk/hTb8ZJTxVaZFAbRCn0eeUAvWueb9qxwCcCv+QxmGXB408/ah9AOJ+Jb+xZDusWiBeXNaY4JQ+7b95Jpv8JAJf7/OeZR8Pa/nv75nGo4l1TVYr8klVofwsu+1NiEbhFKNyRoaBk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MW9NG43D; arc=none smtp.client-ip=74.125.225.140
+	 MIME-Version:Content-Type; b=SSRIzP1LyTXCXw86jI4htpV4jL1kTaKPzix9DHH5+PlfgJspbnuAc3kyktWebvBNiph0kHRR46oAOK89WrLSx/Kl+0RSLkUTtLgA8AoSoHW6P3K/GhsQhduTc51b/0KgQVwgA8MSpVO5MMb2FZSboIkeL6tub6g9LpcGEQltwLs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iKvSOoxw; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MW9NG43D"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccf3ca626so43128555e9.0
-        for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 12:58:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iKvSOoxw"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912d3920so52312295e9.1
+        for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 12:58:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790884733; x=1791489533; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790884735; x=1791489535; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=NZQM6qPjUipP3twsEWuLikKTTxPNmXURRnws6p/YBzA=;
-        b=MW9NG43DFNo6qZ4lnwguXoSMpr5jJL8BFlH35NVvTjZti+bf45nbUleWV3TdeeY2lV
-         BzMGeW6gVtPiJyOj6nq2W1oA+lqBXE2rUhYBdqysIiGE3HPVUyPL7e7+PAM9KP49Ns0l
-         myONMDkxccoPAirj/9p9Odq2HJvRPGAuk4243wcZiRg+3WT2Wpq+0wqbru/Mjy9s2hdE
-         /r/6RKbKaF+YzYIs6JA/UfKOp9LQipgtz2f8LONNq6UiH3x/y0GpCQMTfFNwNeaVXmmj
-         9nL1HwlfVmQJDQP/pV8TaeGiJFi7waxrSSTE+ygN0hdWE/MJ3KW15wOZrX9U/VSO9mH7
-         /siQ==
+        bh=1937oKfIRQVCPoNo84DTw0NidOzq8BgSFZcKFKTUzSM=;
+        b=iKvSOoxwhJzdPbnheneehnMScjWTgrS7azEtcoIqarfb5SgcDfs7e705ZdwYF4FD3Z
+         aeTOo0zre6ySTnkuAV7thJqxJ6rCMU0t4AodS/1r12XkDiofxDWmLVpKDumCuFf5K7vG
+         rbXI021QiUUCl8J+5twDgDBkDclH7AwWHHDf7Jb6axOuLfES2tSwDPzELAhYG/e1yCiB
+         sEseKVz5pD1moH+r6C/ol7YMrzopgzcjEHy/I2Ec+ojTmY+mCKtOZiHisgnbZyy5393i
+         SxsTm6J7Kc9XbEMAbcGzN8N1adSQIPflztOOXgTSTh3UtXEG5OrZOxRNI/drr+QqReCQ
+         iPuw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790884733; x=1791489533;
+        d=1e100.net; s=20260707; t=1790884735; x=1791489535;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=NZQM6qPjUipP3twsEWuLikKTTxPNmXURRnws6p/YBzA=;
-        b=quLj4+RDT2wFy3tU5JydSLLEGWYQub34VarRzsDPm977EdOY/Jfu02hxf/mviuTrVq
-         J1x91JY/qcOBdZxFWNidNEmoRdrtK5VD7AQwQUCII27iu1Oy34+EHYVnGJDp2pD2ogas
-         f0C8g/XlUNWMK4w7vueMmTUoLtafKoOtMLUuj9zOBZmi0qy+5ZHugkA3MBGjXwnzyHZp
-         sEJpH6Q1lYNzFCIE2XgqRHErksYYYc1O8K/gevD+abOR6v+hbGq8qRyLhyj0yG4/zcnY
-         5+vORC+hvHAXBq/5akC8MsG6/IP4iTdIXM82oU8N0Lh+qYCcH/DVQI/jk4y5iJCoRwxY
-         w9Bw==
-X-Forwarded-Encrypted: i=1; AKwUvBxE8noxjST+LyV6ZVeQLZqe4/BoEYomtFL00DPSWFGYFU6YHE7EKJS6b7W7AG14XNS/WIoxh1hi2y93@vger.kernel.org
-X-Gm-Message-State: AFuF++lwfeSkEt1eeqYqEex5W0dmL6FixUPCBQ9tqXv9EmdejkExqr2H
-	kTGd6NInWY1Xhy8n2vsG3Ja2sOWkFTpNz238EFJhOmswtoeHw4RbiKSk
-X-Gm-Gg: AYBFou30aBBiQMyZr/9XM2fKJkVDnotf+HF9//svOs8nJHm5/9THWC5VOvfnQ8mwAeq
-	SEdObtVZHlEgOv2E6pbR1dsNJlQcz0EuAnv9fbhVMDXqJ6upmRxd7NQ2Rm9baGkl7znedLQEZL/
-	kVUMkdb3+Sy9oX8SI1o6L/QKRkE3vLcPioV3jaIMIUPL1v/vXkFCayMU9s2hJs2ncAfE940WeDj
-	x90vjZ/iLiPhd28i82aki76XqaY2ShELcewpwGCpJBQIMHeo6NndgVqaHE2gtmFCdXYjHqDgDKf
-	3x8XWcFFKqA91qUgDoUwpVo7c3tLxIM7398wmYVhRJd5COdhfnpQHEsjmuRnyhdi3oGthKcDJsL
-	VLAjI0/pmL/FgA5fel0BNb9+O1sa2vX+oEgBx18VnyBy9QXB8Y36xLigzYaVtdpN6kShNd1oIJg
-	bnNslY8SXddmvon+t/0JaqxpokTs1E/+z56Qicp8OKCMc0sughyOnhbABV7ABttE8tGHviGmlt6
-	uNfYzVIjux/xoP4TYdvWKTR1w==
-X-Received: by 2002:a05:600c:3490:b0:4a0:1b14:e845 with SMTP id 5b1f17b1804b1-4a0274d1600mr11350325e9.2.1790884732686;
-        Thu, 01 Oct 2026 12:58:52 -0700 (PDT)
+        bh=1937oKfIRQVCPoNo84DTw0NidOzq8BgSFZcKFKTUzSM=;
+        b=2lHzrNIHD3dTyY770bAXQzjjvPi3TM8WzzjOqBSXvAi/HPT9Y64aOzfNF3/qs5prS/
+         2fMnVJRVZyXH3apVXtiNITVh7E/EBGUpibaqX+Z80T+pmSLMbiVxlD75G0JRmeAi53js
+         UwAk5Lc/4Pcl02Yq1iYUZK8ATu9zNYKtmI9azWWcse8W48pWRaGwo5d//mu1TMo05gMx
+         qi8lxFmbDwbUG+I/AWXFXjXjgrxI57D/N9wTZgd9AvJjFTtMzuY108o7sRBO7FhBOR3a
+         5Dazkmkf79AjpVAstzF72yaDZK6+yuhkQ2LA9DT1/ynaljLGGXiQ6WYD3k5H2yMxyqkR
+         EGQA==
+X-Forwarded-Encrypted: i=1; AKwUvBwqa6IzEhCQaIDemrXtdzb84v7mxx8ElQfa9zVfRqC4KeZ/1tDVmNvBIXkPmJXp6XTgAJjgsDurUa9g@vger.kernel.org
+X-Gm-Message-State: AFuF++mOk8EorKiHXTdKHhF4KlEBz8g0GrGNGtstvs/WiLuvB49dKR+p
+	2dLjdbJoMviArGVu5TL0EIOPXws5klKygVVqmrxbFLSx9jSXnqH5/NYC
+X-Gm-Gg: AYBFou02l1bwg5xI4NJ5UP7gucKNF7Ip32LJS4oOSmxdYzpTVL1Y9mnT8FgBZpMFEYP
+	W3WtnAJrST5Xv35w9KYEhDNRok0MqrJNWb+ikRr8/+KuygmAA/X3TOs1F13jK1/42Y584SVyTyd
+	uRJHqe9GgzGIhSB9V12DmHTlWDxK+UMCBzn8kMI3uUyOtBOOHGSfRSuXkn2tpQzg3NMwuUEcKE4
+	WlzhAKmHZJieOTeUE9P5B2VHHCdbFv0fU77EFBR44jmkfk3rWhFpn31l7Hsk4QArK0K2Wx7E6DW
+	OUyOrjnT6Isd9m66Vo3mBnSUhtmIv4mmhG3OxnZwhIqT0VOQhT2i1toVQZChw24JtFt3qK8m7V1
+	5a/HNWf3IZgGLxXfaiRo7Es4YQBgvBUuP6giYSEhUFWk95LmhnNBbBMf9DLMOO7yyXvd2rNy+Tm
+	CdH6b8UbIkUSX3OzBbXcMuZNapobiWM5sE6FwGtmRa0jBUdvWzcJ88Dotz7O5NfREcdJehTCuM6
+	6/lZBOB+GsLafXB31ozXrusag==
+X-Received: by 2002:a05:600c:46ca:b0:49c:edd8:ba35 with SMTP id 5b1f17b1804b1-4a027590091mr11675715e9.6.1790884734605;
+        Thu, 01 Oct 2026 12:58:54 -0700 (PDT)
 Received: from ingenieria31.oficinasStQ.local ([79.112.15.218])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0276f92d9sm15031045e9.4.2026.10.01.12.58.51
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0276f92d9sm15031045e9.4.2026.10.01.12.58.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 12:58:52 -0700 (PDT)
+        Thu, 01 Oct 2026 12:58:54 -0700 (PDT)
 From: =?UTF-8?q?M=C3=A0xim=20Pedraza=20Padilla?= <maximpedraza@gmail.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 	Maxime Ripard <mripard@kernel.org>,
@@ -85,9 +85,9 @@ Cc: Francesco Valla <francesco@valla.it>,
 	linux-doc@vger.kernel.org,
 	linux-embedded@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH RFC v4 01/13] drm/clients: Kconfig: indent DRM_CLIENT_DEFAULT with tabs
-Date: Thu,  1 Oct 2026 21:58:35 +0200
-Message-Id: <20261001195847.141192-2-maximpedraza@gmail.com>
+Subject: [PATCH RFC v4 02/13] efi: bgrt: export the BGRT table and image size
+Date: Thu,  1 Oct 2026 21:58:36 +0200
+Message-Id: <20261001195847.141192-3-maximpedraza@gmail.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20261001195847.141192-1-maximpedraza@gmail.com>
 References: <20261001195847.141192-1-maximpedraza@gmail.com>
@@ -100,38 +100,39 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-The body of DRM_CLIENT_DEFAULT is indented with spaces, unlike every
-other entry in the file. Use tabs, so that the next client added to the
-list does not have to pick one or the other.
+The DRM splash client reads the boot graphics the firmware left behind
+through bgrt_tab and bgrt_image_size. Built as part of drm_client_lib,
+which can be a module, it then fails to link:
 
-No functional change.
+  ERROR: modpost: drivers/gpu/drm/clients/drm_client_lib.ko: symbol 'bgrt_tab' undefined!
+  ERROR: modpost: drivers/gpu/drm/clients/drm_client_lib.ko: symbol 'bgrt_image_size' undefined!
 
+Export both. They are filled in once, early in boot, and only read
+after that.
+
+Reported-by: Mario Limonciello <mario.limonciello@amd.com>
+Closes: https://lore.kernel.org/dri-devel/5d7067de-97b7-4232-9cf6-e4b978696482@amd.com/
 Assisted-by: Claude:claude-opus-5-5
 Signed-off-by: Màxim Pedraza Padilla <maximpedraza@gmail.com>
 ---
- drivers/gpu/drm/clients/Kconfig | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ drivers/firmware/efi/efi-bgrt.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/gpu/drm/clients/Kconfig b/drivers/gpu/drm/clients/Kconfig
-index 6096c623d9d5..8d8bc37ec9f2 100644
---- a/drivers/gpu/drm/clients/Kconfig
-+++ b/drivers/gpu/drm/clients/Kconfig
-@@ -114,10 +114,10 @@ config DRM_CLIENT_DEFAULT_LOG
- endchoice
+diff --git a/drivers/firmware/efi/efi-bgrt.c b/drivers/firmware/efi/efi-bgrt.c
+index 1da451582812..746a8fb3a337 100644
+--- a/drivers/firmware/efi/efi-bgrt.c
++++ b/drivers/firmware/efi/efi-bgrt.c
+@@ -17,7 +17,10 @@
+ #include <linux/efi-bgrt.h>
  
- config DRM_CLIENT_DEFAULT
--       string
--       depends on DRM_CLIENT
--       default "fbdev" if DRM_CLIENT_DEFAULT_FBDEV
--       default "log" if DRM_CLIENT_DEFAULT_LOG
--       default ""
-+	string
-+	depends on DRM_CLIENT
-+	default "fbdev" if DRM_CLIENT_DEFAULT_FBDEV
-+	default "log" if DRM_CLIENT_DEFAULT_LOG
-+	default ""
+ struct acpi_table_bgrt bgrt_tab;
++EXPORT_SYMBOL_GPL(bgrt_tab);
++
+ size_t bgrt_image_size;
++EXPORT_SYMBOL_GPL(bgrt_image_size);
  
- endmenu
+ struct bmp_header {
+ 	u16 id;
 -- 
 2.39.5
 
