@@ -1,139 +1,117 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 579353B27CF
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E76723B8945
 	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 12:23:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790857413; cv=none; b=mFwHXjanWbrsjFHvNdduBko/RLsSmXFl+OJ0Lv40D2ORN4C4aqYrJZeN7GoRBu0pMBq7sDFLulKewRvWgmPjAq15pEkmPnNJKQJJNzHdmRe7B43VeRXdw7btIGRtkpxjxpilHLDwLKswnxz7Xqyrylc5fm4K/g/lR2l/pzCzzTw=
+	t=1790857414; cv=none; b=iZy+An3GGKKdNEozcI5meAU1tF84tbgxWafB/QnQVehJU7lo9VdZaH2CzWfJn2uj5lXd2FWBAcaasN8GC86DgTWUqwyMxYB/NJQJv6u3MR+aB+sJPXTrEeMlJ+8WK/CfoA7YOBVpU6wY+ykmDpf/oaVAKPxIoSQ25ro552khMIo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790857413; c=relaxed/simple;
-	bh=RWbJok8DZ/LlLhmSDtiEGczuRXjlNmKI5/MXEFydqhg=;
+	s=arc-20240116; t=1790857414; c=relaxed/simple;
+	bh=ERgwMoDd+SgpXk/AL8RS8MJYa67Y+4D16G2XzX3PMMs=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=nVuMMtkFnY03uJDkbKF26c05O6pJbpoJHqxVqMhUpXIMJOQp6+kS1qnhW4zDo4Q9o5HRMeB4pA7GrenR1hAES7ZC44FNK2iDG5dLzM7sauJGcz0Z2/Tapdd0rtxIv326kY+jrAKzsVL+aeUjGaEmNxUdlg7eyAvk/mL63UcTBus=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UmamVssK; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=N/RjNyA1ukVyVn2KnVmoR5KAaAQPmSmscAAvtmv6hX73xjahjik5vwBHbtVDnRtCIKcSeeS/CNIz/XFTVF6aaTy2cSuQLgfK8OEva+BvHvJhcLjJFdSndii2DGuYdX1c9TIn73djX2QOBuKyaKx9s2VkpejbUgUKzj3YDOvyZ8I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yk067toA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UmamVssK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B69DE1F00898;
-	Thu,  1 Oct 2026 12:23:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yk067toA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8351D1F00899;
+	Thu,  1 Oct 2026 12:23:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1790857412;
-	bh=5yNviBJx/GY4Xp0NmfCbqGp6BvpVfSUgYvJlqai4SPg=;
+	bh=K9UuISO+CxhZ55DPSW8SaOfS8npyFgFLqUpXajdG/rk=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=UmamVssK4aWsOnBKY2e7WCluiMCV0NKa2+y195MbsJR5U4Bp8iqEX3t1xz99JClxa
-	 TS7nZDPFUpeauIzs2mVH0Suf1TAghMlaes+IaJmMjoyU3VlHXo18myFV8m8g2nNoPD
-	 my9T1AfAzrekupZQKr5Ky+Txdd7WAbn0KxwrVhYc2iFZSgNP4znZNRQpXxN6ZFhYI5
-	 O3P1k7TqIOrWouIniFGPeybuuEavQM0PgK8ZXDtBFkia3Ghje51UXXe9i0uybsvhTy
-	 oVvOr4EP/vdHoe8vHP1Cy0H3kR4WS5GahUtl0obuxAlcN+7I4d8C2quQB8elebXKkt
-	 1sKCLCmBWXVrg==
+	b=Yk067toAb+d3IrVPCHgNvJR2rmKItho05fmluOsavcmUR03vHsfgcQ6ohjb5maqfR
+	 ppHge2LRz6lmjy3WpyeGZZA6fVs238HHxnzadOHmi9FrE3ayZGLGKXGXMFmScLZiAY
+	 Wu0AQuu+mkm6MwUuHdcjZNQ9GtRT2ss+3H32jMRwz5eT446EbsEg7zvsLmrOinxuzX
+	 3Tw01+mQRsTgr0PuApgxBsCVafMYonVueeNbcTjz7+Nxwg7Oh86SIB8ITqWEQcGQqt
+	 wAxfNo9KrLOmH3IQzLZMxoaHU4SamcK8pNl72rDmDdNUS79GqO0dUdl++kMfCyZamK
+	 rYvF7SLmpSHnw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/5] dt-bindings: net: maxlinear: add MxL86211C MDIO I/O
- regulator
+Subject: Re: [PATCH 2/5] net: phy: mxl-gpy: add MxL86211C MDIO I/O regulator
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Robert Marko" <robert.marko@sartura.hr>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260930122305.293686-1-robert.marko@sartura.hr>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260930122305.293686-2-robert.marko@sartura.hr>
 References: <20260930122305.293686-1-robert.marko@sartura.hr>
+ <20260930122305.293686-2-robert.marko@sartura.hr>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 01 Oct 2026 12:23:31 +0000
-Message-Id: <20261001122331.B69DE1F00898@smtp.kernel.org>
+Date: Thu, 01 Oct 2026 12:23:32 +0000
+Message-Id: <20261001122332.8351D1F00899@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] dt-bindings: net: maxlinear: PHY incorrectly modeled as regulato=
-r provider instead of consumer
-- [Medium] dt-bindings: net: maxlinear: missing 'vddp-supply' definition br=
-eaks dt-schema validation
-- [Low] dt-bindings: net: maxlinear: schema property 'mdio-regulator' lacks=
- top-level definition
+- [High] phy: mxl-gpy: MDIO voltage configuration is lost upon PHY hard res=
+et
 --
 
-commit 03684e9eca992ab6bfa5c8f894e3de06a76d36a7
+commit 438b87726bd21719eabd6b5d16a0da13d7bc0f33
 Author: Robert Marko <robert.marko@sartura.hr>
 
-dt-bindings: net: maxlinear: add MxL86211C MDIO I/O regulator
-   =20
-Document the MDIO I/O voltage regulator exposed by the MxL86211C PHY.
-The regulator configures the MDIO, MDC, and MDINT pad voltage between 1.8 V
-and 3.3 V.
+net: phy: mxl-gpy: add MxL86211C MDIO I/O regulator
 
-> diff --git a/Documentation/devicetree/bindings/net/maxlinear,gpy2xx.yaml =
-b/Documentation/devicetree/bindings/net/maxlinear,gpy2xx.yaml
-> index 8a3713abd1ca9..0645e885f1747 100644
-> --- a/Documentation/devicetree/bindings/net/maxlinear,gpy2xx.yaml
-> +++ b/Documentation/devicetree/bindings/net/maxlinear,gpy2xx.yaml
-> @@ -12,6 +12,29 @@ maintainers:
-> =20
->  allOf:
->    - $ref: ethernet-phy.yaml#
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: ethernet-phy-idc133.5400
-> +      required:
-> +        - compatible
+This commit models the MxL86211C MDIO I/O voltage setting as a regulator. It
+registers a regulator during probe to configure the MDIO pads for 1.8V or
+3.3V signaling based on board requirements.
+
+> diff --git a/drivers/net/phy/mxl-gpy.c b/drivers/net/phy/mxl-gpy.c
+> --- a/drivers/net/phy/mxl-gpy.c
+> +++ b/drivers/net/phy/mxl-gpy.c
+
+[ ... ]
+
+> @@ -390,6 +396,72 @@ static int gpy_probe(struct phy_device *phydev)
+
+[ ... ]
+
+> +static int mxl86211c_probe(struct phy_device *phydev)
+> +{
+> +	struct device *dev =3D &phydev->mdio.dev;
+> +	struct regulator_config config =3D { };
+> +	struct regulator_dev *rdev;
+> +	int ret;
 > +
-> +    then:
-> +      properties:
-> +        mdio-regulator:
+> +	ret =3D gpy_probe(phydev);
+> +	if (ret)
+> +		return ret;
+> +
+> +	config.dev =3D dev;
+> +	config.driver_data =3D phydev;
+> +
+> +	rdev =3D devm_regulator_register(dev, &mxl86211c_mdio_desc, &config);
 
-[Severity: Low]
-Is it standard practice to define properties exclusively inside the allOf
-conditional branch?
+[Severity: High]
+Does the initialization and reset recovery path (such as the config_init
+callback) need a way to restore the MDIO voltage regulator state?
 
-Standard dt-schema convention requires all properties to be explicitly defi=
-ned
-in the top-level properties block, using conditional blocks only to apply
-restrictions or to disallow the property for specific compatibles.
+When the MAC driver or PHY framework toggles the PHY reset GPIO (for exampl=
+e,
+during interface up/down or suspend/resume), the PHY's internal registers a=
+re
+cleared. The phy_init_hw() function will then call the PHY's config_init
+callback.
 
-> +          type: object
-> +          description: |
-> +            Initial data for the MxL86211C MDIO I/O voltage regulator. S=
-et
-> +            this to 1.8 V or 3.3 V to configure the MDIO, MDC, and MDINT
-> +            pad voltage. The board must supply the VDDP pin at the selec=
-ted
-> +            voltage.
-> +          $ref: /schemas/regulator/regulator.yaml#
+Because the voltage is applied by the regulator framework's constraint
+evaluation exactly once here during probe, the regulator core is unaware
+of the hardware reset and does not re-apply the voltage.
 
-[Severity: Medium]
-Does this misrepresent the physical hardware topology by modeling the PHY
-as a regulator provider?
+If the board uses 1.8V, the PHY falling back to 3.3V MDIO signaling after
+reset could cause a mismatch, leading to unreliable MDIO communication and
+making the PHY inaccessible.
 
-Since the documentation states "The board must supply the VDDP pin", the PHY
-is a power consumer. In Device Tree, an external hardware supply must be
-modeled as a consumer property (e.g., vddp-supply). Modeling this as an
-mdio-regulator provider node referencing regulator.yaml appears to be
-an architectural abuse of the framework.
-
-Shouldn't the PHY driver read this supply via regulator_get_voltage() to
-configure its registers instead of registering a dummy regulator provider?
-
-[Severity: Medium]
-Will valid device trees that accurately model the VDDP hardware supply fail
-dt_binding_check validation?
-
-The documentation explicitly mandates that the board must supply the VDDP p=
-in,
-meaning a correct hardware description requires a vddp-supply property.
-However, the schema contains unevaluatedProperties: false but omits the
-definition of vddp-supply.
-
-Since neither this schema nor ethernet-phy.yaml implicitly allows vddp-supp=
-ly,
-won't this cause validation errors for users who correctly model the physic=
-al
-hardware?
-
-> +          unevaluatedProperties: false
+> +	if (IS_ERR(rdev)) {
+> +		phydev_err(phydev, "failed to register MDIO regulator\n");
+> +		return PTR_ERR(rdev);
+> +	}
+> +
+> +	return 0;
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260930122305.2936=
-86-1-robert.marko@sartura.hr?part=3D1
+86-1-robert.marko@sartura.hr?part=3D2
