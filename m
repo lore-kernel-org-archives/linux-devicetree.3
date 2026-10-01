@@ -1,231 +1,76 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3625251A15D
-	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 19:59:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55345223DE5;
+	Thu,  1 Oct 2026 20:01:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790884759; cv=none; b=pnMzIIfBau5R7uDww+dkd+P2+lJiAY8bXVA3MtuTrIWOHf9CE1Je5Peq1htxf0rxNoHIj+QUlj5eod7RcXoTOIoS6sgoZUxhCiL0rEHMVsRyKYBHVdhuYVu9FOH/GB6VyC8HgayKjlrOGJXVIgz8nOVGqJ79BrqVzOIINzFSEfk=
+	t=1790884903; cv=none; b=A9VZTF03VAbnahOTcy0/hcuhQntMEiB7KbTReIBQWaCRmgoXclxkW8Lo+0viOu49Sdgf2R/mN5PQGWal407AbeswDgUfbm1FeturFKn8BUwyO/hFB27uHbGduTXXjTX/VWTSO3qNJSdHz//RCihaMrQDI2UrzJJgBY9OUEZx/74=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790884759; c=relaxed/simple;
-	bh=hkVriyjexyRCyWOKDMY74VraG7CnbvsOGSfP7W1sENo=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=r8fbuhMsdXvM5uHxXoKux0AJ8fAVKpOWTdqT5MjSFTrmmp/GxKqT4ZcWjYt5UswvOPj/8mEywiINfbruR7BnO1baToZi6534GIZ42oysxEYJcC1NTjYbuMl0h9NT9bIVC4pAlg5WbTZiHW09svhba8bpPjliXFbn/ZixQdob4aw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=emYWmFtB; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790884903; c=relaxed/simple;
+	bh=ggxNSpP3Hn1LcPdUV/KR2cbbD88ahegm5TbfX0Ae29g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=J+NtFdm/sF1mNn3ma5Fr9q9u63jkuUSREVSQS2zB9SeRkArZ9npRxipfb5UtxwievQ80IeKmzO3njdnDjjzGj2knoExPkKlAeNHCyFrWkCOCMxRJZrhj0tnEm1MX8iBM36SrykNxw0OMy14fHFY9F8QaMpIdlaStD+a11gD1byU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bkh6s/5R; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="emYWmFtB"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49fe8bf173aso37022065e9.3
-        for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 12:59:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790884755; x=1791489555; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6RrSkqTXqNdvcO9If5wraMvoT6iTfXjvMrsjx83kGx8=;
-        b=emYWmFtBiAsdML9tt3GpMVS7cD0qM0beXQzDQ+ppklBK2r9g1G/JANk5UwuMRq9bzM
-         gj3rLA0uSuSh9wN7TjxIxXS3Zr0+usasBwT+a0+bI4BsEs6rxt5FQ3usdUBxPrdTt91E
-         7j838En1AtqfA7+trTC0cSBWpve0Q5zCEWYeXHLeBBYXEOhnn09fb77ofwpgT/O87iz/
-         vH6r7QrmNLSRsNUtIdFLirW13Wex25Ak8nDJGeU7ZjoYcU7WhS/JopQKH4jEn79nvYx+
-         6lmoQiFKgLPmEJMSW19jtmmu6dQEQr6XwQKEIsFSvj3byA59p9yOcHo0bTkR59FVtfTg
-         L/oA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790884755; x=1791489555;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6RrSkqTXqNdvcO9If5wraMvoT6iTfXjvMrsjx83kGx8=;
-        b=sGCCvYsf6fi76nWUq2SIA+okcM+NsrnQzLKMXY1UBdVx/zZ3RMA7z4CDbCvxP5rLM/
-         IahGZ7LY8TN5Lf3kN/WgvJAaeAbKCrNGeg1UOI+07teQwGzjolW/2dOFMnmteD3w8iMS
-         cUWsZ4vTxbwr+C9hYIdQhiQmcF6nOVy0snJGiNJ/MQdZlG99THs1WFzSkgCKDhNZxBwf
-         Wq8jtTTwKal7cG05wRQflmrBgJtteAq1uk7F/kgHBkq7frOyu6sDk7IrqSQ1Hvz/aABc
-         9jLT1F2AAQjiq5l9k8tGS8Gxp/85E6L8xg2V+A1XvhmvVzRyf08RdjhooSaNkEc7AsOO
-         sAwQ==
-X-Forwarded-Encrypted: i=1; AKwUvBybUcB4KpcDlEn0Cv0IQzp512D/Sr8B9t97tEpv9AOxV/Cuxq00lXl8lI86EKM/J6VDBUvo47c4MRPj@vger.kernel.org
-X-Gm-Message-State: AFuF++ngLw6vFz5/sRdKV1TcpcIGvbb/gfCwBl/lYULn84JttRrcuXxW
-	0lYA4H3UxPccumWIjKZq+eg4hHXyTbs4JXDzOUitOk1bNDlXcik9J3qu
-X-Gm-Gg: AYBFou02bEhWIC5Hm5DYskJZdepfkQcbeVJ2l380qqJsfoDBPCECpJ+35BugRyrXoq9
-	s7aXEjqBhvpwWZi7/sK9CN4bk65lzKW/PIoorrDdkXq2eEqj8q9c3c1Wbs0j/9ZzDParpfh8wm9
-	BOVHz6b3g0B3ILi9DbDzajl4TGtaKpFhvjbvFZHtfXKOHzGD4uV+qOl4X91vpGQPIPKEgBpzdbp
-	TZ5AYLhNtLKuFS8VL+w3+g2fv0mi8wjOGs1MnIL/QiZN7dR/NZK5M2kKTZs/6mpIjQCF+RWz1TK
-	CUFavNe8gJtp13/oiJ0BU5a53ikmst5kVBDUp19gJA72CJRPlKwfQvI7SrqMGrSxBprTTKYZoUr
-	T5c8pbLlQanDxQE6hmUqaDXnzSYg5m8DquNmgZ0HEO8lpvOs1xl6Xn49F47mkvsqwlTsR5Lzk6o
-	Jt2VR+OEebCZA146Q0j7zX8u0KIwWWTXKz4croxXVZbyIK97ZRDxGKpNmUyWFQ3yztZx4/h0HnZ
-	fuLNQEbE+PINVdX9NhDzNLpIg==
-X-Received: by 2002:a05:600c:6d1:b0:4a0:1d3d:502d with SMTP id 5b1f17b1804b1-4a02755f856mr8018525e9.10.1790884755180;
-        Thu, 01 Oct 2026 12:59:15 -0700 (PDT)
-Received: from ingenieria31.oficinasStQ.local ([79.112.15.218])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0276f92d9sm15031045e9.4.2026.10.01.12.59.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 12:59:14 -0700 (PDT)
-From: =?UTF-8?q?M=C3=A0xim=20Pedraza=20Padilla?= <maximpedraza@gmail.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bkh6s/5R"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F05FD1F00893;
+	Thu,  1 Oct 2026 20:01:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790884895;
+	bh=2rQ3MjhUL67IRerVEtD/pq8p5QhM7sDP0ixSOCswnuo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bkh6s/5RELFUQKTJE6EOYDIR8GmI1OaKrtIbrs1kxEzBuGuRuWsGgtXLbOnkgHvjb
+	 UFbehAuDPTc4r7ld5CnZgDfwfVl77CyX2ffEa5nYM3mM0vcR/lOV2QPEQxS2f6u0RY
+	 /9PMsjwzTGFbyO6scHsD98F2CM2eGGrf//m3YMSJ+crQwcbK6SVE/Z5jiXuLJthrjp
+	 f40VP6h0I/eiZYYGRdxaP4h5d2ZMTu0kiNMI7xYPQPYpI78R66HS4tUwRBVYlOhrXm
+	 joxzt9hIi7DJ6XwwZvhYY156MvPcbSGphOggOHHw0ggZGdBsHX5y1A+twmKz4eINVP
+	 ikveMW4UiOuEQ==
+Date: Thu, 1 Oct 2026 15:01:33 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Kendall Willis <k-willis@ti.com>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>
-Cc: Francesco Valla <francesco@valla.it>,
-	Mario Limonciello <mario.limonciello@amd.com>,
-	Javier Martinez Canillas <javierm@redhat.com>,
-	Jocelyn Falempe <jfalempe@redhat.com>,
-	Sam Ravnborg <sam@ravnborg.org>,
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-efi@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-embedded@vger.kernel.org,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>, msp@baylibre.com,
+	s-tripathi1@ti.com, vishalm@ti.com, linux-input@vger.kernel.org,
+	a-kaur@ti.com, s-kochidanadu@ti.com, devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH RFC v4 13/13] drm/client: splash: document the image sources and parameters
-Date: Thu,  1 Oct 2026 21:58:47 +0200
-Message-Id: <20261001195847.141192-14-maximpedraza@gmail.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20261001195847.141192-1-maximpedraza@gmail.com>
-References: <20261001195847.141192-1-maximpedraza@gmail.com>
+Subject: Re: [PATCH v3 1/2] dt-bindings: input: gpio-keys: add pinctrl states
+Message-ID: <179088489296.1749674.5492156640851777675.robh@kernel.org>
+References: <20261001-upstream-gpio-wakeup-v3-0-6f3bcde367a3@ti.com>
+ <20261001-upstream-gpio-wakeup-v3-1-6f3bcde367a3@ti.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261001-upstream-gpio-wakeup-v3-1-6f3bcde367a3@ti.com>
 
-The overview only said that the client draws a colour or an image. By
-now the image can come from four places in a set order, be placed and
-turned, and every part of that can be overridden from the command line,
-each parameter for its own part only. Write it down: the sources and
-their order, the image format, placement and rotation, the background,
-every parameter with its format, and what a parameter given alone
-keeps from the image source.
 
-Also note that the splash rules out fbdev emulation on the same device,
-and that a bootloader that loads no image into a reserved region has to
-clear it, since the region can keep the previous image across a reset
-and even a short power cycle.
+On Thu, 01 Oct 2026 10:50:33 -0500, Kendall Willis wrote:
+> Document pinctrl properties on the gpio-keys device node. The default
+> pinctrl state describes the default pin configuration. The wakeup state
+> configures pins to be able to wakeup the system from suspend if GPIO is a
+> wakeup source.
+> 
+> The pinctrl sleep state is not defined here despite being used to configure
+> pins for system suspend to save power. It is not defined since no
+> gpio-key device tree nodes utilize it. If the sleep state was added, a
+> device could use both the wakeup state and sleep state. The sleep state
+> would be entered upon suspend when wakeup is disabled for the device,
+> whereas the wakeup state would be entered upon suspend if wakeup is enabled
+> for the device. For now only the wakeup state is defined since it is
+> used specifically to enable pin configurations that can wakeup the
+> system from suspend.
+> 
+> Signed-off-by: Kendall Willis <k-willis@ti.com>
+> ---
+>  Documentation/devicetree/bindings/input/gpio-keys.yaml | 16 ++++++++++++++++
+>  1 file changed, 16 insertions(+)
+> 
 
-Pull the overview into Documentation/gpu/drm-client.rst, which covers
-the in-kernel clients, so that it is published.
-
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Màxim Pedraza Padilla <maximpedraza@gmail.com>
----
- Documentation/gpu/drm-client.rst     |  6 +++
- drivers/gpu/drm/clients/drm_splash.c | 78 +++++++++++++++++++++++++++-
- 2 files changed, 83 insertions(+), 1 deletion(-)
-
-diff --git a/Documentation/gpu/drm-client.rst b/Documentation/gpu/drm-client.rst
-index cbcfe30de777..a58d6440d9f2 100644
---- a/Documentation/gpu/drm-client.rst
-+++ b/Documentation/gpu/drm-client.rst
-@@ -16,3 +16,9 @@ Kernel clients
- 
- .. kernel-doc:: drivers/gpu/drm/drm_client_event.c
-    :export:
-+
-+Splash client
-+=============
-+
-+.. kernel-doc:: drivers/gpu/drm/clients/drm_splash.c
-+   :doc: overview
-diff --git a/drivers/gpu/drm/clients/drm_splash.c b/drivers/gpu/drm/clients/drm_splash.c
-index 8d056edfee56..85083337870c 100644
---- a/drivers/gpu/drm/clients/drm_splash.c
-+++ b/drivers/gpu/drm/clients/drm_splash.c
-@@ -37,7 +37,83 @@
-  * DOC: overview
-  *
-  * This is a simple graphic bootsplash, able to display either a plain color or
-- * a static image.
-+ * a static image. It draws once the display driver has registered, and stays
-+ * until userspace takes the display over.
-+ *
-+ * It is selected with ``drm_client_lib.active=splash`` or
-+ * CONFIG_DRM_CLIENT_DEFAULT_SPLASH. A device has a single in-kernel client, so
-+ * with the splash there is no fbdev emulation: no ``/dev/fb0`` and no
-+ * framebuffer console.
-+ *
-+ * Image sources
-+ * -------------
-+ *
-+ * The image is a BMP with a 40 byte BITMAPINFOHEADER, 24 bits per pixel and no
-+ * compression. It comes from the first of these that provides one:
-+ *
-+ * 1. a BMP loaded as firmware and named on the command line with
-+ *    ``drm_client_lib.splash_bmp=``; ``splash_bmp=none`` asks for no image at
-+ *    all, and a named file that is missing gives no image rather than falling
-+ *    back to the sources below;
-+ * 2. a "boot-logo" node under ``/chosen`` in the device tree, carrying the BMP
-+ *    itself or pointing at a reserved memory region the bootloader loaded it
-+ *    into (see Documentation/devicetree/bindings/display/boot-logo.yaml);
-+ * 3. the EFI BGRT, the image the firmware showed;
-+ * 4. ``drm_splash.bmp`` loaded as firmware, for instance built into the kernel
-+ *    with CONFIG_EXTRA_FIRMWARE.
-+ *
-+ * With none of them, only the background is drawn.
-+ *
-+ * A reserved memory region keeps its contents across a reset, and may even
-+ * across a short power cycle, so a bootloader that loads no image there has
-+ * to clear it: the kernel cannot tell a stale image from a fresh one.
-+ *
-+ * Placement
-+ * ---------
-+ *
-+ * The image is placed at a position in screen pixels, where -1 centres it on
-+ * that axis, and an offset is added afterwards; the result is clamped so that
-+ * the whole image stays on screen. A rotation of 90, 180 or 270 degrees
-+ * counter clockwise turns the image and not the screen: position and offset
-+ * stay in screen pixels, and a quarter turn only swaps how much room the image
-+ * takes up.
-+ *
-+ * A device tree image is placed and turned as its node says. A BGRT image is
-+ * placed at the table offsets and turned as its orientation bits say, the
-+ * offsets then being given on the upright screen. Any other image is centred
-+ * and upright.
-+ *
-+ * Background
-+ * ----------
-+ *
-+ * The rest of the screen is filled with the node's "background-color" for a
-+ * device tree image, and with CONFIG_DRM_CLIENT_SPLASH_BACKGROUND_COLOR
-+ * otherwise.
-+ *
-+ * Command line
-+ * ------------
-+ *
-+ * What the command line gives wins over every source, each parameter only for
-+ * what it says, and only when it is given:
-+ *
-+ * ``drm_client_lib.splash_bmp=NAME``
-+ *   BMP to load as firmware, or ``none`` for no image.
-+ * ``drm_client_lib.splash_color=0xRRGGBB``
-+ *   background color, whatever the image.
-+ * ``drm_client_lib.splash_pos=X,Y``
-+ *   position; ``-1,-1`` centres, ``-1,183`` centres horizontally only.
-+ * ``drm_client_lib.splash_offset=DX,DY``
-+ *   offset added to the position, for instance ``0,80``.
-+ * ``drm_client_lib.splash_rotation=DEGREES``
-+ *   0, 90, 180 or 270, counter clockwise.
-+ *
-+ * Positions take both values, or are ignored with a warning. Since each
-+ * parameter only replaces its own part, the rest keeps coming from the image
-+ * source: ``splash_offset=`` alone moves the image from where the source puts
-+ * it, centred for a BMP loaded as firmware, and ``splash_pos=`` alone keeps a
-+ * device tree node's "logo-offset". Give both to place the image exactly. A
-+ * BGRT image placed from the command line is placed in screen pixels like any
-+ * other: the table offsets are then not used.
-  */
- 
- /*
--- 
-2.39.5
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
