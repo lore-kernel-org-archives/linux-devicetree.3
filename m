@@ -1,137 +1,135 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DAA1489FA5
-	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 16:52:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF0CE1F1534;
+	Thu,  1 Oct 2026 16:56:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790873540; cv=none; b=bGL32vXMf/VChKQQAH4EM/Z6fS81NkdMwuHvpEpXJTuIXRHd6jA+O/O7MestESbxZ5M6gsSPbQXTqmTIYVb2gfrZUZ+nH9VfdYnLmDkW2AOTenfuU9N3GVQo9qOXA2fpHgBMps2Sf7LUgxJGmIrGhGZ+i0sd4/2wlFmS+OzVvOw=
+	t=1790873788; cv=none; b=UdBkXBEyQrr1Vp4McV2vPBOhga7+BjOTsVeJcG24wxd14+Ky8eANL+rY84klpuvpB/2S+xaqfjJ8Zcg2fZchtqwzazElC6Z9i2+OPuINcCzUVN17Kjqw6QrhnXCFPUpzyqSEh1Y8d4BMZss8MmenIniulnULOM/bq8dnu7jGaD4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790873540; c=relaxed/simple;
-	bh=YGepmHEEE28SCic71nixtmEJDhkQEownVeSMq//+6dc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BK//VRPN1yNoUCq4I7PLTnUFI5fyfZnZuf3FuzSPv5qXtVNYyuDqUR7R5qIlxuaq0uPj6tmUKjo5N4PY5uFBayFrJyJKJV4X95wHuDfL4t84D65jvOZYDg7x3vGBfwAJwUupNP9WqkHw1SfbXurdAmil/FOybZ5dkz2aiZRI9O4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RzmLlBSY; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790873788; c=relaxed/simple;
+	bh=9wSbdKsSPZMztqWcv2eAGWGwTSf1fvmTTyMWoLMeghw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=O+bJfqSDU4rMcToXeXZfc5CAkC2EDvKg3DGfWVqCb7xu746CR3AncF5Ne2fNkRcqtCmZAx+EVWuHbnqbUX0xEdv3QVHKl3hkphS5hOhHwfMzVFfrYaE4F4Lhm93ya3c5cDuRsZGkXv2qy1fxCtdPXP0zq3YGTno56E7D17Wixug=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J7N5ewHq; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RzmLlBSY"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49fff72474fso31493305e9.3
-        for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 09:52:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790873529; x=1791478329; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2Xb6lAl/hZdRjzKQnD3UKmfHUlfFp2Vv7i6DL97ttMs=;
-        b=RzmLlBSYbAbRVdIOZlIqBWbf3F7NB1jZEzGvpDlNn5Dto02cD++MorCI6FPBDQW5wN
-         uU/1fjq3zsJcXWNfx5ZxrymXWREOcmv+Owud/1cTYsNMAlnYITKpLUjSds/eoN0F94Z6
-         FaBPMzFVuPflDIkTNlEZ3xDPvJAAgygcAIrbIYlDDcubag7AsknmrzISX5aAxYtvyFtS
-         JF+zGiw4BIaIXUD8sAEzI52tU9+vn9lCmlooVmZ85SA+pY7j2hDc9TyCLUuCYHp5EX+u
-         3zHdZ+7H4+fJmrA65a91UiuPluVNQfL+6mZmXH0RcpbM1HlZIQoyYLkGJdRwAGxff/CF
-         Ivrg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790873529; x=1791478329;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=2Xb6lAl/hZdRjzKQnD3UKmfHUlfFp2Vv7i6DL97ttMs=;
-        b=jjen5S4zTw1Q7y4k50eKU9BGnatmqxID0Qh1dZMLK7wM7GMaN7O3lz8VxjOPja9R5w
-         gacShkLjJWvlDnCsbaAv6aOKLHzlwbzaoi1F8NJkVfDuWIn1WFJ97iJRnYTDvR7KCzov
-         U/f1FRSTHmkOHXKan4IZOPhQGJdHKjC7owmVytGIfqRFQu4qsH6uiCccUAqxxPowu7Pt
-         n8+CWoQktsGv8dMh/M0Xt3qoxzytCNTOako4Z5dx/k8WTb0luGTNqQIu9d/z7g2AAcMu
-         B0zhtJxZDpVj3/j8JCsxy/UAAmCZO3SlCvzqTn+MXfertwT6VGgnD00wLT5QIG+0T+lL
-         4+ig==
-X-Forwarded-Encrypted: i=1; AKwUvBzrvm1feKdagKDslQ0dN0gSjvqfrHQD0qPfFqhAIL51WazFrXvH7fsPa+n66qWEfvVDjGe4b642fmkx@vger.kernel.org
-X-Gm-Message-State: AFuF++lRsM+ANM48NB6AY00FoXMn10Ff42UykPcWeLNfBJ5Qk6vkw5q4
-	g+vz9WlBX0xsaNCfN6a0X7NlRAMdOckcFIPDZYlGU1DiIrnME5Lia8xm
-X-Gm-Gg: AYBFou1u6Ktm2O8KtD68uPbZLT2Tht+sDlBPsluExM3j/jG8mR5kuQM/NLa14L0dkmg
-	9HsVGjt7e3g4gqJEKd3DEb0ldnZUGOHocd6csLdSnhQ/wmynzzlH90JuXFc9NY67ZYlquObVAcH
-	hvv+np0g3Tz8DzsuqFJOy/8R/wFTN57vCxWBPW8oD4ocUeOP8y6zkrLQ+4yb/r+N/VyLlsyJmQU
-	Jj2SGITHFdyZsVFhqP4B7w90UMqp4Gh1G4BqTrBkDTDg4pVxILEg8OPuNF3yetwSjyMCxTgg3r4
-	yxxbLGVfOJn0rnecfsBHNPaOr8P0RyFbT7+YNrB9wLMJihRnC+JjYFOKwARO4BLwXo1gyPZt0PP
-	6jsm0p3aEHKnTvlcaJu6fERTGBeG1038zV2VNTAmGgLVnpXCRX02dfGKOcT64mHZ9l5Nshh24QK
-	olu84BbArnuakYn9uRYAaaGwq6pqTA9FJZmD7RYF6JZxD8kQBqC7aySPzu8rhRfzR1yicBorR6F
-	9fKo0FVV26N2D1oDxclK+byKavf6OOwUQe00RtvfH1G1JUc5GR3w4Qr8KRJBcqbMNSxXmW3fnmT
-	whlrEnsX
-X-Received: by 2002:a05:600c:3e07:b0:49f:fe39:5bc8 with SMTP id 5b1f17b1804b1-4a027585dfemr4054005e9.12.1790873529179;
-        Thu, 01 Oct 2026 09:52:09 -0700 (PDT)
-Received: from iku.Home ([2a06:5906:61b:2d00:1be5:ad57:d5e0:f854])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a027ae146csm480985e9.11.2026.10.01.09.52.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 09:52:08 -0700 (PDT)
-From: Prabhakar <prabhakar.csengg@gmail.com>
-X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>
-Cc: linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	linux-watchdog@vger.kernel.org,
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH v8 3/7] watchdog: rzv2h: Drop WDTRCR_RSTIRQS define
-Date: Thu,  1 Oct 2026 17:51:57 +0100
-Message-ID: <20261001165201.763882-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261001165201.763882-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20261001165201.763882-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J7N5ewHq"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 617DDC4AF12;
+	Thu,  1 Oct 2026 16:56:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790873788;
+	bh=9wSbdKsSPZMztqWcv2eAGWGwTSf1fvmTTyMWoLMeghw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=J7N5ewHqP34SogezsdYJCVEAx9f45U2xwrAo9NAh1onfXEULgJjUX5GBXD04E11ZB
+	 seBVu+fz/fOdSyKoFXN/LCWG5gRYQBwdT00KVs80CZ/tZzPVyqEjMUB24wuVoOKXdJ
+	 zdTgXCK2C+b9wwlHRusujXOIvBIc0XqRB6iQFj8/pcuQzPLx0ICnoTmDxm/0Jrdw0C
+	 ftjUgFPU4N/M8t3vgZJub4261249KjNyLudg+Am5WC1uKVqDz0nXg4jVR9ueC4zqFq
+	 2svR8nBSMcXhRDT8jjEAQG9zXeZUBSLOxVJ+Zye1NTBlVOvgy/zHib8Pc3wLilh4/p
+	 GrTE9R7Bbk3+g==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3FA03CA5FCF;
+	Thu,  1 Oct 2026 16:56:28 +0000 (UTC)
+From: Ronald Claveau via B4 Relay <devnull+linux-kernel-dev.aliel.fr@kernel.org>
+Date: Thu, 01 Oct 2026 18:55:34 +0200
+Subject: [PATCH v4 1/3] dt-bindings: pwm: amlogic: Add bus clock for S4
+ like
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261001-add-t7-sys-pwm-clk-v4-1-8ed2b1e0cdfe@aliel.fr>
+References: <20261001-add-t7-sys-pwm-clk-v4-0-8ed2b1e0cdfe@aliel.fr>
+In-Reply-To: <20261001-add-t7-sys-pwm-clk-v4-0-8ed2b1e0cdfe@aliel.fr>
+To: =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: linux-pwm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-amlogic@lists.infradead.org, 
+ Ronald Claveau <linux-kernel-dev@aliel.fr>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1948;
+ i=linux-kernel-dev@aliel.fr; h=from:subject:message-id;
+ bh=DajmJPOZU5T3SXCz0k6CFapeDP4KwjcTSjnqHfrN4Go=;
+ b=owGbwMvMwCWm1SvKXP3cUInxtFoSQ9a+CRuS50VNubVQaV/S0nmPQ48emvfa5HK8UtD/tZknJ
+ 357vs8huKOUhUGMi0FWTJGlf67liXeXj575ukc9BWYOKxPIEAYuTgGYiDwfI8PCX4eY90VMeeA+
+ +8DTCYv88v5FTmnY/uj3g6KZzwvDv7PpMTJc+7nr2vpanoZ0qcebeza1mPEkBMbZGEV+rt8rqP0
+ +4QUzAA==
+X-Developer-Key: i=linux-kernel-dev@aliel.fr; a=openpgp;
+ fpr=DFD863F61375BF917F0012173953305EF1D0EC3E
+X-Endpoint-Received: by B4 Relay for linux-kernel-dev@aliel.fr/default with
+ auth_id=744
+X-Original-From: Ronald Claveau <linux-kernel-dev@aliel.fr>
+Reply-To: linux-kernel-dev@aliel.fr
 
-From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+From: Ronald Claveau <linux-kernel-dev@aliel.fr>
 
-WDTRCR_RSTIRQS is unused, so drop it.
+The T7, A1, C3, and S4 PWM controllers have a bus system clock in
+addition to the two input clocks of channels A and B.
 
-Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+The channel clocks are acquired by index in the pwm driver,
+where the bus clock is fetched by name, with optional get
+which is silent when not provided.
+
+Require clock-names and minimum 3 items for S4, and devices
+which fallback to S4, where the PWM devices do not work
+without all 3 clocks.
+
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
 ---
-v7->v8:
-- No change
+ Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
-v6->v7:
-- No change
-
-v5->v6:
-- No change
-
-v4->v5:
-- No change
-
-v2->v3:
-- Updated commit message to reflect the change in v3.
----
- drivers/watchdog/rzv2h_wdt.c | 2 --
- 1 file changed, 2 deletions(-)
-
-diff --git a/drivers/watchdog/rzv2h_wdt.c b/drivers/watchdog/rzv2h_wdt.c
-index f247e42d54f5..4beaac44d027 100644
---- a/drivers/watchdog/rzv2h_wdt.c
-+++ b/drivers/watchdog/rzv2h_wdt.c
-@@ -40,8 +40,6 @@
- #define WDTCR_RPSS_25		0x00
- #define WDTCR_RPSS_100		0x3000
+diff --git a/Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml b/Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml
+index c337d85da40f1..6d01adcfe897f 100644
+--- a/Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml
++++ b/Documentation/devicetree/bindings/pwm/pwm-amlogic.yaml
+@@ -62,7 +62,7 @@ properties:
  
--#define WDTRCR_RSTIRQS		BIT(7)
--
- #define WDTDCR_WDTSTOPCTRL	BIT(0)
+   clock-names:
+     minItems: 1
+-    maxItems: 2
++    maxItems: 3
  
- #define WDT_DEFAULT_TIMEOUT	60U
+   power-domains:
+     maxItems: 1
+@@ -143,9 +143,15 @@ allOf:
+           items:
+             - description: input clock of PWM channel A
+             - description: input clock of PWM channel B
+-        clock-names: false
++            - description: Bus clock, gates register access to the PWM controller
++        clock-names:
++          items:
++            - const: channel-a
++            - const: channel-b
++            - const: bus
+       required:
+         - clocks
++        - clock-names
+ 
+   - if:
+       properties:
+@@ -179,6 +185,7 @@ examples:
+     pwm@1000 {
+       compatible = "amlogic,meson-s4-pwm";
+       reg = <0x1000 0x10>;
+-      clocks = <&pwm_src_a>, <&pwm_src_b>;
++      clocks = <&pwm_src_a>, <&pwm_src_b>, <&pwm_src_bus>;
++      clock-names = "channel-a", "channel-b", "bus";
+       #pwm-cells = <3>;
+     };
+
 -- 
-2.55.0
+2.49.0
+
 
