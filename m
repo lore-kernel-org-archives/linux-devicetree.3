@@ -1,90 +1,142 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51EEE4B95BA;
-	Thu,  1 Oct 2026 12:52:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD2073655CD;
+	Thu,  1 Oct 2026 12:53:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790859139; cv=none; b=W3vrnJVBy9tyiXy0IMWGa/xC0EFfYo2Xa+7n9Qp1kevRCKUhE2E1PqLrQZy6AVLSTKbVW+DdRdpApLzVbr2Aimp7bv10McXpSucBqnvQ9fZlUdC6xyXu9YyTUmjeSQTqgLB+ALcHnB6LWkdFR0R/zwsdwapH3VJwc9KV5nos1YA=
+	t=1790859186; cv=none; b=ANCt+t9oQV6M5Qq6SjS2b3n8J5i9RdpENbTHYJky0YkRfIPJJwMFiwRyIQW++UUV5368GANsF61MkRZL6bCnu1obijScmxHDg9/PXk6cT98wrj6NFNOL/ICjYKuezOp4whKfg/ETLFoq6EtdAbGLhdrBnf0RIj9O2qnozGS5OYY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790859139; c=relaxed/simple;
-	bh=wzwl3gw5e+db5oZR4+r5voy+RDCC4J5Putz8q+zjj7c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eJ1/5uFKqrly3P6vCPG0lfN737p3GSN7zppJoLgTjkZuvJUIuayYOXXa/uB2TrPQac2tRhMoOJFbo5OaRaNMeIAziONOMhFzjwCN/tXYv3HP3ha1SnatqQWT19Hgf2ZGx82CpiiAkeNU26JDVnZSfb0Z+8tVCp4f90o9dcqObok=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=K2poqIT9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790859186; c=relaxed/simple;
+	bh=MKZglIRW+KpCg0FTYxB6LSBb+cWPkHrRpBHNiXLgbRY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Hwm47lwXxPiko/gPE9872MadhvCDaQuk5W25HMAmtfJiMJKsGAZn051NFX6Rpbzyf/c2xBujk40GNo1E3CjyPFZD+vfV2eWXJNe3g6JaMyzFS69OoeWgcULh4bPKgEGhbIsUrD04m/jeKGmm+qjSH1M5z2L7BT4vfgqoOFGZMNU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=feb/ERcK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="K2poqIT9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B5D3E1F000FF;
-	Thu,  1 Oct 2026 12:52:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790859135;
-	bh=tec5FQuLPRbdVVuUIDCytMknbBana/Hua8s4K23aD0c=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=K2poqIT9ceZq6Ra4TaTezpspNG6viPMERp45zFObidAykvZxZAxoOQIIzK3ssGp/Q
-	 CcwazjuaWGcA0ukfuqOP8DNdB4JdI9P43/U/uh6t4wGs5l1U5D3VfcJsaZHbxjZUgv
-	 I1xPQL6NDREljq3owZtVIHgwzvv9UWf6XJUC1uWY=
-Date: Thu, 1 Oct 2026 14:52:09 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: longzhao@ambarella.com
-Cc: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Michael Walle <mwalle@kernel.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Long Zhao <zl020895@163.com>,
-	Lee Jones <lee@kernel.org>, mfd@lists.linux.dev,
-	devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
-	linux-gpio@vger.kernel.org, linux-serial@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v9 13/15] serial: 8250_dw: add Ambarella CV75 quirks
-Message-ID: <2026100140-overbite-mundane-fc79@gregkh>
-References: <20261001-cv75-v5-v9-0-486cc289a4b8@ambarella.com>
- <20261001-cv75-v5-v9-13-486cc289a4b8@ambarella.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="feb/ERcK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10E001F000FF;
+	Thu,  1 Oct 2026 12:53:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790859184;
+	bh=wEdikNaUhfzH4ln9GA5Ebh/DMz1IjUEWakQ+5s9lWMc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=feb/ERcK+Rx/y5E4aK7wiB2gVguyv7wxJ69i7Vi6e+coj4wcaYg6aH522G/7xJ8iq
+	 0ygAhXVT4oeGi/ou4yO3eeLtBIr8vAwACnBrprSUwYJm9Qo4HZkw3rzkCkno837Iaf
+	 OjSKkmQtsQzFGZT0OHAiASzEE7FkxQVsZzcdP+6XR9Rb+WX6LuZmQXY7IEx1V66leo
+	 ZxkLacR/MVZnzryZUYMdmHRvT0QYqoq2sOzSIzf7nQ6yt9N5D67D/StJODswGRko4f
+	 UpZuCUTgWxqeTrzwI1oWwJTi1n9Mo3OzjjFQZvkcyeeIXCytDwv6ROhGm8InhZyAX8
+	 XH/1+TqWshN8g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/3] Input - aw8695: Add driver for AW8695 haptics
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Griffin Kroah-Hartman" <griffin.kroah@fairphone.com>
+Cc: conor+dt@kernel.org, dmitry.torokhov@gmail.com, robh@kernel.org, devicetree@vger.kernel.org, linux-input@vger.kernel.org
+In-Reply-To: <20261001-aw8695_haptic_fp4_driver-v2-2-1bd38b1943de@fairphone.com>
+References: <20261001-aw8695_haptic_fp4_driver-v2-0-1bd38b1943de@fairphone.com>
+ <20261001-aw8695_haptic_fp4_driver-v2-2-1bd38b1943de@fairphone.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 01 Oct 2026 12:53:03 +0000
+Message-Id: <20261001125304.10E001F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261001-cv75-v5-v9-13-486cc289a4b8@ambarella.com>
 
-On Thu, Oct 01, 2026 at 08:41:02PM +0800, Long Zhao via B4 Relay wrote:
-> From: Long Zhao <longzhao@ambarella.com>
-> 
-> The Ambarella CV75 UART is Ambarella IP, not a Synopsys DesignWare
-> licensed block. At the register level it is close enough to DW APB UART
-> that a full custom UART driver is unnecessary: reuse 8250_dw with a
-> small platform quirk.
-> 
-> Quirks:
-> - keep IER ETOI (bit 5) set for RX timeout behaviour
-> - skip set_rate; baud clock is managed outside the UART block
-> 
-> Reviewed-by: Linus Walleij <linusw@kernel.org>
-> Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-> Signed-off-by: Long Zhao <longzhao@ambarella.com>
-> ---
->  drivers/tty/serial/8250/8250_dw.c | 32 ++++++++++++++++++++++++++++++++
->  1 file changed, 32 insertions(+)
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] input: aw8695: request IRQ before hardware is initialized
+- [Medium] input: aw8695: race between haptic work and device suspend
+--
 
-When you submit lots of different subsystem patches all in one series,
-it's hard, if not impossible, for subsystem maintainers to take them :(
+commit e001ac586c0b070dafa130dff509a98526cd1941
+Author: Luca Weiss <luca.weiss@fairphone.com>
 
-thanks,
+Input - aw8695: Add driver for AW8695 haptics
 
-greg k-h
+Add a driver for interfacing with the Awinic AW8695 LRA Haptic Driver.
+The chip supports multiple modes of which only RAM mode is implemented,
+allowing playback of a basic sine wave.
+
+> diff --git a/drivers/input/misc/aw8695.c b/drivers/input/misc/aw8695.c
+> new file mode 100644
+> index 0000000000000..507c3081f3b81
+> --- /dev/null
+> +++ b/drivers/input/misc/aw8695.c
+
+[ ... ]
+
+> +	err =3D devm_request_threaded_irq(dev, client->irq, NULL, aw8695_irq,
+> +		IRQF_ONESHOT, NULL, haptics);
+> +	if (err)
+> +		return dev_err_probe(dev, err, "Failed to request interrupt\n");
+> +
+> +	INIT_WORK(&haptics->play_work, aw8695_haptics_play_work);
+> +
+> +	haptics->input_dev->name =3D "aw8695";
+> +	haptics->input_dev->close =3D aw8695_close;
+> +
+> +	input_set_drvdata(haptics->input_dev, haptics);
+> +	input_set_capability(haptics->input_dev, EV_FF, FF_RUMBLE);
+> +
+> +	err =3D input_ff_create_memless(haptics->input_dev, NULL,
+> +				      aw8695_haptics_play);
+> +	if (err)
+> +		return dev_err_probe(dev, err, "Failed to create FF dev\n");
+> +
+> +	err =3D aw8695_init(haptics);
+> +	if (err)
+> +		return dev_err_probe(dev, err, "Failed to init aw8695\n");
+
+[Severity: Medium]
+Could this request and enable the interrupt before the hardware is brought =
+out
+of reset and configured?
+
+If the IRQ line is floating or asserted by the device before reset, the
+interrupt could fire immediately. Since the hardware isn't initialized yet,
+the unhandled I2C read failures in the interrupt handler might fail to clear
+the interrupt, leading to an interrupt storm and the kernel disabling the I=
+RQ
+line.
+
+Should this be moved after aw8695_init() and aw8695_ram_init() to ensure the
+chip is prepared?
+
+[ ... ]
+
+> +static int aw8695_suspend(struct device *dev)
+> +{
+> +	struct aw8695_data *haptics =3D dev_get_drvdata(dev);
+> +
+> +	if (haptics->suspend)
+> +		return 0;
+> +
+> +	aw8695_stop(haptics);
+> +	haptics->suspend =3D true;
+> +	return 0;
+> +}
+
+[Severity: Medium]
+Could this leave a race condition window open where the background worker c=
+an
+reactivate the hardware?
+
+If a haptic effect schedules play_work, and the system suspends before the
+work completes, they could race:
+
+1. aw8695_haptics_play_work() reads haptics->suspend as false, but is
+   preempted.
+2. aw8695_suspend() executes, calls aw8695_stop(), sets
+   haptics->suspend =3D true, and the underlying I2C adapter suspends.
+3. The work thread resumes and calls aw8695_play_sine().
+
+This would perform I2C writes on a suspended bus, potentially leading to bus
+errors or timeouts.
+
+Should this call cancel_work_sync(&haptics->play_work) before returning?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261001-aw8695_hap=
+tic_fp4_driver-v2-0-1bd38b1943de@fairphone.com?part=3D2
