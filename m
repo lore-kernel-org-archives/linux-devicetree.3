@@ -1,359 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCBA6476681;
-	Thu,  1 Oct 2026 06:38:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7624547059;
+	Thu,  1 Oct 2026 06:46:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790836722; cv=none; b=TIiOLeioTbxWRu/AcE3vbpZaaozqt5wnZ+pR0lCfNdfOhuTJlVTV7GuLVZ/0xuFAe2sA5KxBiUrW7BWKkcOQsuY83/MMPBc3VLDbhL+7LlMih0m8hl4FDC4bIqgzIkm1gu/SPdDMyKPbwj8ZxlwtdvrR5FdoELXLlAnsFzlag3Q=
+	t=1790837177; cv=none; b=Hoy6QE1fAj30wWj5ZZyW8TTO+T+EDLoGbOt6zwt5P8yptiVDPKoX10B17WTfzXshBZVEFjnqUKl11arDz+yU6UMhWPntk5D2C+raz/XP+dcWRmKPvsKMhbGpPc9TzLn/m4/ileRwO45KPVL1f7uKzZ5SAUOsjG7nWpU3wMy7NuE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790836722; c=relaxed/simple;
-	bh=3k/73FIdIwGTod8JjsQ2zvTvDeVnic2sR46jaRefYq8=;
+	s=arc-20240116; t=1790837177; c=relaxed/simple;
+	bh=9XG3NnyEazFzFaeMLAgpuysfjEoeCrXwje5Lonk2mF0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eD6I5hcOo1Q0u5iBj3JrRPljQM6CTsB2gjKhdLYEEwofTCirMVR/eCEPj8TpPvbuAYLfPjgteBEtHF2kVN3whG58W+GKbJcxFJFKlwR/vCDPYsDfCT6E0D3dpEHpV84zhXghozkanp7oL34T89APVIIE5QUZ7eygqnA4FS+akUs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oEIjM5PT; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=DwLwg0IsX1nb5NgpHerDAcuCeW8DKOM/djnfoPRKeyUR75Mql6yyuTk59ZgdbxvlvhRNQiM/N33eQS9+BO0y17qGt4DZNvCR0IPc7pFd8+MxRgG3Yvshw08WsKpJWv3Nuk6GLH9ZWBEoDsxm5KCi7VbIg/cmiswBJCCCn4M1/rw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WoOGl8vu; arc=none smtp.client-ip=198.175.65.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oEIjM5PT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F7C71F000FF;
-	Thu,  1 Oct 2026 06:38:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790836720;
-	bh=d6btj38+HsO2qMSEPqeG6CeLl60eJfnkitB1H/EBGZI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oEIjM5PTLkJ4ToifqiB2FHwVY1aYXxfoIn9c8BxMIh6PSPsUzH+VYScrg0+nFak9Y
-	 +at8puaF5ohKGYCBgxnwE/s/zMJZ9RH4sSTpR0/y0YWF7hWgRPi52wsZIa0urs4wxK
-	 5wWXM8zrJOa3gvdmRhIcfCNkClxQtPfgEMLS5snhgbcQSUnj9qd3Q79Vm6PK9P9599
-	 6LeAYGKZTzloo7A2NtMwzli3XYHWbIsgAzLvpAJauovmfRfaZZfy44JAV5Vj2a1ooo
-	 rBGsC9xArNwgotAX4eSAtwEsIk36ArnSYcPdM1y0XH7cSZj74Byg2p90Fsa5WDSIZP
-	 /Pm75Em4u0eLQ==
-Date: Thu, 1 Oct 2026 08:38:36 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Benjamin Tissoires <bentiss@kernel.org>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
-	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
-	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
-	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Luca Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve <aesteve@redhat.com>, 
-	Dave Stevenson <dave.stevenson@raspberrypi.com>, Javier Martinez Canillas <javierm@redhat.com>, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	bpf@vger.kernel.org, llvm@lists.linux.dev, linux-rpi-kernel@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
-Message-ID: <ar3_tJdoim6in8u0@houat>
-References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
- <6b80cb97-6706-412a-b013-9423f6f75153@linaro.org>
- <arqhwHiVf00j94J7@beelink>
- <0259fe4b-3118-4ab0-9b62-55101bfd7f33@linaro.org>
- <arrAqg5n87INTHE6@beelink>
- <674314b4-6b80-4b3a-ac15-eefd31cea607@linaro.org>
- <artpBMeM13Dd0lLy@houat>
- <fb7ed8ab-8aea-4731-a5e5-c9476d8bfd38@linaro.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WoOGl8vu"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790837175; x=1822373175;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=9XG3NnyEazFzFaeMLAgpuysfjEoeCrXwje5Lonk2mF0=;
+  b=WoOGl8vutGralDs2cBiF2J/OqLkmt+qdofw5BBP6dMNalxEGipZYSwq4
+   d1q1rzUzY6T1QkuUNYpzWZWpwznSgtFj0BzHVCxa7tHUPnTElMxwAO2lU
+   qqHbpH93AKVmp6dCkSllv05e6okLhnhC31CZfMhga2trthbJkMPn7ztOI
+   JSRGl2iOZTk+KfqEKWGz6aiaXiQuYJjwXAhxmj3ZNtbp7D8voyRBWX4yP
+   CRD5Hxp7Bc3PHg0GDznpnZMK7ehOpbTmcnBV8X+LEtcaXY+89gYf8KaHK
+   Tox4/ogwvQ/yDhg5bJ7KcuyVCGCFSbcSOyZvjYBfjykw4Ie/+j62HLvt6
+   g==;
+X-CSE-ConnectionGUID: nou0bfUuSvqb9iHq7Vw3Jw==
+X-CSE-MsgGUID: PoNt8qEGQq69LVDwBhHMAA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11921"; a="90620666"
+X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
+   d="scan'208";a="90620666"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 23:46:13 -0700
+X-CSE-ConnectionGUID: JHix8IX1Tt6emvYTEQkXyA==
+X-CSE-MsgGUID: UQaPFTEcTMyu7O+xhq3DTw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
+   d="scan'208";a="283970288"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.7])
+  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 23:46:11 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 21A45121B95;
+	Thu, 01 Oct 2026 09:46:08 +0300 (EEST)
+Date: Thu, 1 Oct 2026 09:46:08 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Cc: Philippe Baetens <philippebaetens@gmail.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	Jai Luthra <jai.luthra@ideasonboard.com>,
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 2/2] media: i2c: mira016: Add driver for Mira016
+Message-ID: <ar4BsDNOkcusy4Qz@kekkonen.localdomain>
+References: <20260930-mira016-v5-0-499a34ab8204@ideasonboard.com>
+ <20260930-mira016-v5-2-499a34ab8204@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
-	protocol="application/pgp-signature"; boundary="glslsrnv4uyo4fso"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <fb7ed8ab-8aea-4731-a5e5-c9476d8bfd38@linaro.org>
+In-Reply-To: <20260930-mira016-v5-2-499a34ab8204@ideasonboard.com>
 
+Hi Jacopo,
 
---glslsrnv4uyo4fso
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
-MIME-Version: 1.0
+On Wed, Sep 30, 2026 at 12:51:20PM +0200, Jacopo Mondi wrote:
+> Add driver for the ams OSRAM Mira016 sensor.
+> 
+> Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+> +static int mira016_parse_endpoint(struct device *dev, struct mira016 *mira016)
+> +{
+> +	struct fwnode_handle *endpoint __free(fwnode_handle) = NULL;
+> +	struct v4l2_fwnode_endpoint ep_cfg = {
+> +		.bus_type = V4L2_MBUS_CSI2_DPHY
+> +	};
+> +	int ret;
+> +
+> +	endpoint = fwnode_graph_get_endpoint_by_id(dev_fwnode(dev), 0, 0, 0);
+> +	if (!endpoint)
+> +		return -ENODEV;
+> +
+> +	ret = v4l2_fwnode_endpoint_alloc_parse(endpoint, &ep_cfg);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/*
+> +	 * Link frequencies: the driver supports a single link frequency,
+> +	 * no need to check bitmap after this call.
+> +	 */
+> +	ret = v4l2_link_freq_to_bitmap(dev, ep_cfg.link_frequencies,
+> +				       ep_cfg.nr_of_link_frequencies,
+> +				       mira016_link_freqs,
+> +				       ARRAY_SIZE(mira016_link_freqs),
+> +				       &mira016->link_freq_bitmap);
+> +	if (ret) {
+> +		v4l2_fwnode_endpoint_free(&ep_cfg);
 
-On Wed, Sep 30, 2026 at 03:36:36PM +0200, Neil Armstrong wrote:
-> On 9/29/26 09:41, Maxime Ripard wrote:
-> > On Mon, Sep 28, 2026 at 10:36:18PM +0200, Neil Armstrong wrote:
-> > > On 9/28/26 21:48, Benjamin Tissoires wrote:
-> > > > On Sep 28 2026, Neil Armstrong wrote:
-> > > > > On 9/28/26 19:24, Benjamin Tissoires wrote:
-> > > > > > On Sep 28 2026, Neil Armstrong wrote:
-> > > > > > > Hi,
-> > > > > > >=20
-> > > > > > > On 9/28/26 18:22, Maxime Ripard wrote:
-> > > > > > > > Hi,
-> > > > > > > >=20
-> > > > > > > > Panels in general, and MIPI-DSI panels in particular, are p=
-retty
-> > > > > > > > difficult to support and require pretty much a panel driver=
- for each
-> > > > > > > > panel produced. Most of them are pretty simple, and require=
- an opaque
-> > > > > > > > initialization sequence that is usually poorly documented.
-> > > > > > > >=20
-> > > > > > > > This creates a tension between OEMs and distros because OEM=
-s will
-> > > > > > > > typically get a new panel to react to a sourcing issue duri=
-ng
-> > > > > > > > production, and thus need some swift turnaround between get=
-ting their
-> > > > > > > > new panel and it being operational in the OS. Distributions=
- on the other
-> > > > > > > > hand can take years to ship a kernel with that new panel dr=
-iver.
-> > > > > > > >=20
-> > > > > > > > To solve this, I followed the example of HID-BPF and wrote =
-a panel
-> > > > > > > > driver that will rely on BPF programs to perform the panel
-> > > > > > > > initialization. That way, we can ship the programs separate=
-ly from the
-> > > > > > > > kernel, and with a different lifecycle. If this driver is a=
-ccepted, the
-> > > > > > > > plan is to have a userspace component started by udev to id=
-entify and
-> > > > > > > > load the right BPF program for the panels found on the devi=
-ce.
-> > > > > > >=20
-> > > > > > > This is kind of late for serious applications except if we ma=
-nage to
-> > > > > > > solve the bootloader to Linux display engine transition.
-> > > > > > >=20
-> > > > > > > >=20
-> > > > > > > > This driver is fully functional and works with both 5" and =
-7" Touch
-> > > > > > > > Display 2 panels for the RaspberryPi. However, it breaks aw=
-ay from the
-> > > > > > > > typical panel driver in multiple ways:
-> > > > > > > >=20
-> > > > > > > > - BPF programs can only be loaded by userspace. This leaves=
- us with two
-> > > > > > > >       choices:
-> > > > > > > >=20
-> > > > > > > >       * We prevent the driver from loading until the script=
- itself is
-> > > > > > > >         loaded. This has the side effect of preventing any =
-other output to
-> > > > > > > >         be used until the initramfs is ran at the earliest,=
- and possibly
-> > > > > > > >         ever if the loader isn't installed for example.
-> > > > > > >=20
-> > > > > > > This adds a dependency on user-space behavior and if somehow =
-the
-> > > > > > > initramfs doesn't load for a reason we won't have a way to di=
-splay
-> > > > > > > an error.
-> > > > > > >=20
-> > > > > > > >=20
-> > > > > > > >       * Or we probe the driver all the time, but only repor=
-t it as connected
-> > > > > > > >         once a program has been registered. This is somewha=
-t unconventional,
-> > > > > > > >         but allows the other outputs to be functional, *and=
-* allows the user
-> > > > > > > >         to force the output if their panel doesn't require =
-any
-> > > > > > > >         initialization or during debugging. I chose this so=
-lution.
-> > > > > > >=20
-> > > > > > > Both options are not really great...
-> > > > > > >=20
-> > > > > > > >=20
-> > > > > > > > - It's not a panel driver, but a bridge one, which is also =
-pretty
-> > > > > > > >       unconventional. This is required because panel driver=
-s don't have
-> > > > > > > >       access to a detect callback that is required for the =
-above, but I also
-> > > > > > > >       think that the recent work from Luca blurs the line f=
-rom panels and
-> > > > > > > >       bridges and we'll end up going that road anyway.
-> > > > > > >=20
-> > > > > > > On this point, DDIC _are_ bridges, but in the current panel A=
-PI we blur the line between
-> > > > > > > the panel and the DDIC. So being a bridge is fine, but in a g=
-eneral way we lack
-> > > > > > > a proper way to describe the display/panel/monitor independen=
-tly of the DDIC.
-> > > > > > >=20
-> > > > > > > At first glance it's a nice driver, but moving the timings in=
-to a blob moves something
-> > > > > > > into possible proprietary binaries with possible closed licen=
-ce and distribution
-> > > > > > > restriction so it's a downgrade for the same of bringing up a=
- panel faster.
-> > > > > >=20
-> > > > > > Quick answer on this, because I had the very same questions reg=
-arding
-> > > > > > HID-BPF:
-> > > > > > - in BPF, you can require (and by default it does) that only GPL
-> > > > > > 	compatible BPF programs are loaded, closing the argument of "c=
-losed
-> > > > > > 	licence and distribution restriction"
-> > > > > > - also, a BPF program can be disassembled much easier than a bi=
-nary
-> > > > > > 	blob, and I remember Alexei showing me an example where you ge=
-t almost
-> > > > > > 	the source code from the BPF object in just one pass.
-> > > > >=20
-> > > > > Right, it "solve" one of my question, but doesn't really solve th=
-e issue
-> > > > > of vendors providing "GPL" bpf programs with source available "so=
-mewhere".
-> > > > >=20
-> > > > > Another big issue is the API, I don't want to keep the current AP=
-I as-is,
-> > > > > we plan to support more advanced panel features and use try to us=
-e the
-> > > > > atomic states to support rate switching for example, and I'm not =
-confident
-> > > > > it's a good idea since there's no "simple" and "forever valid" API
-> > > > > to initialize panels...
-> > > > >=20
-> > > >=20
-> > > > That's exactly where BPF shines. The simple rule of thumb is: there=
- is
-> > > > no API stability guaranteed. Basically, thanks to the verifier and =
-CORE
-> > > > (Compile Once Run Everywhere), you don't need to keep the API stabl=
-e and
-> > > > available forever. There are multiple ways of dealing with it, but =
-the
-> > > > gist is that if a BPF is trying to load an "old" API, it will be
-> > > > rejected by the verifier.
-> > > >=20
-> > > > Then it's a matter of being nice enough in the kernel and provide w=
-ays
-> > > > to deal with those.
-> > > >=20
-> > > > To give you a few examples:
-> > > >=20
-> > > > - in HID-BPF, in userspace, we keep old versions of APIs in separate
-> > > > 	compiled objects. Each is incremented (by 10 so we have a little b=
-it
-> > > > 	of room in the middle). Then the loader tries first
-> > > > 	0020-device-with-new-api.bpf.o, and if it fails, it tries
-> > > > 	0010-device-with-old-api.bpf.o
-> > > >=20
-> > > > 	I'm not saying we should do the same here, but that's one idea
-> > > >=20
-> > > > - recently, a BPF commit broke the ABI of a function while removing
-> > > > 	implicits: bpf_wq_set_callback_impl() was replaced by
-> > > > 	bpf_wq_set_callback() with a different number of arguments. I simp=
-ly
-> > > > 	had to add a new function in my header which basically does:
-> > > >=20
-> > > > 	static inline int
-> > > > 	hid_bpf_wq_set_callback(struct bpf_wq *wq,
-> > > > 	                        int (*callback_fn)(void *, int *, void *),
-> > > > 	                        unsigned int flags)
-> > > > 	{
-> > > >         if (bpf_ksym_exists(bpf_wq_set_callback))
-> > > >                 return bpf_wq_set_callback(wq, callback_fn, flags);
-> > > >         if (bpf_ksym_exists(bpf_wq_set_callback_impl))
-> > > >                 return bpf_wq_set_callback_impl(wq, callback_fn, fl=
-ags, NULL);
-> > > >     }
-> > > >=20
-> > > >     And then I changed the bpf.c to use hid_bpf_wq_set_callback() a=
-nd the
-> > > >     bpf is compatible with both APIs
-> > > >=20
-> > > > - with CORE, struct fields are relocated on the fly when you load t=
-he BPF
-> > > >     So for instance, if my BPF only accesses fields .name, .phys an=
-d .id
-> > > >     in the BPF, I can define:
-> > > >     struct hid_device {
-> > > >       char                       name[128];
-> > > >       char                       phys[64];
-> > > >       unsigned int               id;
-> > > >     }
-> > > >=20
-> > > >     Then when loading the bpf, the verifier replaces all offset to =
-the
-> > > >     ones actually used by the running kernel, and the program loads
-> > > >     transparently, even if you add fields before/after or change the
-> > > >     fields order in the kernel.
-> > > >=20
-> > > > Changing the mindset is the hardest part of it. But once you are ma=
-king
-> > > > the shift, it's actually much better to work with. It doesn't mean =
-you
-> > > > can go yolo. You still need to be careful in your choices knowing t=
-he
-> > > > impact on your users. But the API at version 0 is not frozen and you
-> > > > don't need to maintain it forever, especially if you control the lo=
-ader
-> > > > and the headers used to compile the BPFs.
-> > >=20
-> > > It's really impressive, but there's no way this would become the de-f=
-acto
-> > > way to program the panels
-> >=20
-> > Nobody said it would? And like I said in my previous mail, I actually
-> > expect us to keep merging panel drivers. Do I think it should become the
-> > go-to solution for simple panels? yes. But we can always make
-> > exceptions, and for more complex panels we should totally do a more
-> > complex driver. Like HID has been doing.
-> >=20
-> > > and if the motivation is to make it simpler this implementation
-> > > requires adding bindings and bpf programs which that are the same as
-> > > native panel drivers, but won't be able to work until user-space
-> > > starts and will require to be in initramfs or rootfs to have
-> > > functional display.
-> > >=20
-> > > Not sure to understand what are the positive features here except
-> > > isolating the panel code in a safe bpf program (is this really needed
-> > > ?).
-> >=20
-> >  From the cover letter:
-> >=20
-> > """
-> > Panels in general, and MIPI-DSI panels in particular, are pretty
-> > difficult to support and require pretty much a panel driver for each
-> > panel produced. Most of them are pretty simple, and require an opaque
-> > initialization sequence that is usually poorly documented.
-> >=20
-> > This creates a tension between OEMs and distros because OEMs will
-> > typically get a new panel to react to a sourcing issue during
-> > production, and thus need some swift turnaround between getting their
-> > new panel and it being operational in the OS. Distributions on the other
-> > hand can take years to ship a kernel with that new panel driver.
-> >=20
-> > To solve this, I followed the example of HID-BPF and wrote a panel
-> > driver that will rely on BPF programs to perform the panel
-> > initialization. That way, we can ship the programs separately from the
-> > kernel, and with a different lifecycle.
-> > """
-> >=20
-> > You can disagree with the solution, that's fair, we can also discuss on
-> > how to solve this problem, but I'd appreciate it if you weren't claiming
-> > it's all useless.
->=20
-> I did read the cover-letter and I got the arguments from Benjamin, and
-> while in theory it could indeed solve the issue described, in reality
-> it won't for the reasons I exposed.
->=20
-> And since it's basically allowing to accept out-of-tree downstream
-> driver instead of upstreaming, I'm kind against TBH.
+I recall commenting about this at in least three occasions earlier.
 
-I'm confused, is it something we do not allow today?
+Also applies to the other driver.
 
-Maxime
+> +		return ret;
+> +	}
+> +
+> +	/* TODO: Implement D-PHY configuration to support continuous clock. */
+> +	if (!(ep_cfg.bus.mipi_csi2.flags & V4L2_MBUS_CSI2_NONCONTINUOUS_CLOCK)) {
+> +		dev_err(dev, "Continuous clock is not supported\n");
+> +		v4l2_fwnode_endpoint_free(&ep_cfg);
+> +		return -EINVAL;
+> +	}
+> +
+> +	mira016->bus_config = ep_cfg.bus.mipi_csi2.flags;
+> +
+> +	v4l2_fwnode_endpoint_free(&ep_cfg);
+> +
+> +	return 0;
+> +}
 
---glslsrnv4uyo4fso
-Content-Type: application/pgp-signature; name="signature.asc"
+-- 
+Regards,
 
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCar3/5QAKCRAnX84Zoj2+
-diapAX9Dph3QM+TSAN18B+4v0ve7mNDvhVEz+4CbyQ2u9RlIykyUTfKtE3QeKLhD
-Lx5rdRkBgL8PslbTANcIb2FTYpECCxtqcDcicFkkgRrB3KuIap0FkvbwwHwi2Wja
-/DZlWJOpCw==
-=DFoF
------END PGP SIGNATURE-----
-
---glslsrnv4uyo4fso--
+Sakari Ailus
