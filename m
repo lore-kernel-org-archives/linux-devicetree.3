@@ -1,108 +1,209 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B76651614B;
-	Thu,  1 Oct 2026 17:03:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B41CF5187F3
+	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 17:40:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790874210; cv=none; b=ZzsFcdwCzB43rfsDFxX8Q2nqKIaGnJjkmXHTBJEIo0QGlh2lUus7jq/ZBz8x0tB3dgrg0ewMwZlrv/KazL82OXvbAHGhooCWy3/l4HXwtfZLDJpiXpQC7ERrLflmxva1Je9WP0LFEIevEz7F75oKOrMcGUVlut/aVEVVrOX00FE=
+	t=1790876417; cv=none; b=WxM8xNUuIyVtbBM8Jb5tFhMSf2KjYRW/Mc2+Qpc3JCOfqTdxA3iIzapDUw7BLHd+2kNHgPkhQO7VWFjLuHpty23KEgnAPkb5VL1dyNKc31lRKjo7/liid74tJOa9Io+mQhGnU8QTzXT7Enn0O08G7w5YMe8dYePb+jEt+wFq3nA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790874210; c=relaxed/simple;
-	bh=EX9W5RH7bDkLX7Yf39fu1DvtbQ2nox1FjQReRMWn7TU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IlCtrlp7Hfd1c4KlW7GBQLfhJG8Q0i3vLvdAiU/jWPPn+7b9BIu01V6w9cdOxphbml6LrcrWLPI1idDA1/SVqxcKbQNYvPwtIpCCu7B3/esn0KMXbrCwmgdM9iDQ3dIy4iPhxkY7kKmKsyGOLefG7InNIkupaX1/JeBkotcwPXc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OS3trrN5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790876417; c=relaxed/simple;
+	bh=xL7yFhdpHiit2/cFQTs8EvD+0Z6SV64HywflMVMopa8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=HCKWbZUQvuSg/US4jM1gUmCkah41q9kmvijmQb0AonKcBfEzEYZIU7hjg5cEhjss20P+zJrNAkEdNaVlR7Fp7rPM3ut3/5n4k8AFwJUzppTS8GCkwcIXvDffRzpt85EwZ9MOxa10GxKhyXSYI5MfCy5SkdxUfgOO4pASWuZkcHc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MdMKRX/H; arc=none smtp.client-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OS3trrN5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 957F21F00898;
-	Thu,  1 Oct 2026 17:03:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790874197;
-	bh=EX9W5RH7bDkLX7Yf39fu1DvtbQ2nox1FjQReRMWn7TU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=OS3trrN5b8W9fLou1Z12+BrRokT3+5lHTvluXexWclVL7xq2EcnSBAPW32lYJeQdO
-	 zghxHKTCh/sDQIDqYKZDwhOWD3y9DaYG2sYqxTYBgRLRASEpGfQsJXocSa8t2hsWyy
-	 G+p1PUH8k95nCe3AtV5co1nCAqR8B0EdZQmc/azcwbFJuWIW3FIRW5amhVP9TwmmS+
-	 iPFv+bmaeTfkG7xjr6sGD57gRTB2fGyt7l8Xw2+AUPmJn+8nQQXRzlP5ED8SKJAKT5
-	 KwhTlWo/W3qc06kx8DaYNFt1SMW5ZG+Dp0T4aw4ND2VuohGzUh7gcnf+P5759FkQPz
-	 M4XhExyAsOeQw==
-Date: Thu, 1 Oct 2026 19:03:13 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Benjamin Tissoires <bentiss@kernel.org>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Nathan Chancellor <nathan@kernel.org>, Nick Desaulniers <ndesaulniers@google.com>, 
-	Bill Wendling <morbo@google.com>, Justin Stitt <justinstitt@google.com>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
-	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
-	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Luca Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve <aesteve@redhat.com>, 
-	Dave Stevenson <dave.stevenson@raspberrypi.com>, Javier Martinez Canillas <javierm@redhat.com>, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	bpf@vger.kernel.org, llvm@lists.linux.dev, linux-rpi-kernel@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
-Message-ID: <ar6RSRd99jbTdYOR@houat>
-References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
- <6b80cb97-6706-412a-b013-9423f6f75153@linaro.org>
- <arqhwHiVf00j94J7@beelink>
- <0259fe4b-3118-4ab0-9b62-55101bfd7f33@linaro.org>
- <arrAqg5n87INTHE6@beelink>
- <674314b4-6b80-4b3a-ac15-eefd31cea607@linaro.org>
- <artpBMeM13Dd0lLy@houat>
- <fb7ed8ab-8aea-4731-a5e5-c9476d8bfd38@linaro.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MdMKRX/H"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48b0d19cf7eso286396f8f.1
+        for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 10:40:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790876409; x=1791481209; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:subject:cc:to:from:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=AIcovKn9vKJekcvLwo/O2wEmH8Zef+9GdrR6OoMLQaA=;
+        b=MdMKRX/Hrj1fy5d+MnTHCp9rTagb5dID10Ih7cpeNrK1Rnnw6f5fzaVhmPy154Cw/8
+         GFUbu916ehVduBFOLQ7T3OjzQ7XtAKWTM9+gbQf/9znFxO2axzPWurHSMs8FGr7hPZdC
+         k+zc5dxxmWKf9zGHdzBEDpqYKDIbYP3IjQBwnxRet6BgG5eDOF27D346O+Xhymeao/Hs
+         wO2vBR5LSwquBdTBH7CZ8/5tKTa7EsVgtNJ7zZMIjTf0BZcmbM96suvjLwKdAx4fvpoF
+         Az7c3RX43SeHShZfKxlWCZj2NLWbwWyDCm6U5KtGkwd4zD0ZJYbjjOEi2KX8DiYNxPh9
+         JaUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790876409; x=1791481209;
+        h=content-type:mime-version:message-id:date:subject:cc:to:from
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=AIcovKn9vKJekcvLwo/O2wEmH8Zef+9GdrR6OoMLQaA=;
+        b=m7+aI0AqxvFPaKZOWMO+t/ZbOYIEV4gnka/PHXlLfVEcO/m3UeEymGY/uUiTYMfY8I
+         BVDjIg+pxK/3wQv4xjuqzZOwf9BRp+3zqPr5RoKdpgcLvbQ+6RZY8iSugy/QU4KEEJxY
+         HrGWqC6pYhtWK6snpHShcJHBXUeETX5jb4YdmKwWpMk+TQJFetTXvO//4CiOVmkkEdXG
+         xQt39loy6Chj2H0ZgPP4Q0zNwFGM0hdGTUMpVudDyJSxRIf+E/h6odbN4fcDPhRO9GWU
+         qsbzAxjJoPA1tPzckOfGHDkrXUl5TlxN33pG2FCe2JhomThY4eRTq1vGQv1K18LC1xM4
+         rbqA==
+X-Forwarded-Encrypted: i=1; AKwUvByPolfe90I4/bhWWZxZ+ToR9LzB4C+IEryRqmZ5BWfRXcOF/xzBuL0PbHoWf+U5BFAlXt9wGtcSmgTj@vger.kernel.org
+X-Gm-Message-State: AFq9FYKhQn0jHkYTBHGgYoVwtg7tc03cXMwdKEaO1uI7w1nzSqCfpM6V
+	hn69YYPP2GuQ3dOD5gHfTuhabSy92renrmlzTNJo8bvHefd7GQGUuNoI
+X-Gm-Gg: AYBFou3TTxZEhweuUkux+7qjNFKSCWtMZroS6CqetBtO2crnXcNZs0GWifAefg4PraR
+	7wIxBb0r57QXBYm/S5HONg2XfJcXi2NZT+RZMJDtnufthG0jDl8VGaUNHxXmOd8tGp5hJsTwgsw
+	Ela8OAUxM65WAGQbSCN7ukF/iYiqWUZu2CHunyV8xnMlefDmthg4iTqJcgFx/cQMHmBgx8huqVd
+	vwtYrRotYQG4OO/wVELf3t3fpM5iJJpf1Ctz+JR2CU++kwe6GdQb+9kI+d2z6ZFOTpSU9dKNThg
+	DXKWou5+B8Z4rTHZkR1A7WP8VlIG0Zceuiobw24LYKWcNYRayx8RJPc0syOEgwQyuuX9mPSiDOS
+	4mhnQa20jkTK4D3UAA0v6HChwI9D7lYOhAGaaFMJeC02COnnZaCS+mYRovtBoXSd/MMwh31RI4n
+	YFYw+ZT481KjA7BGsy7tofyxDKLZ4jsoN0Q2g3ceyAdqP0RZGoRmkCBnkp1mu8FrE1wQ==
+X-Received: by 2002:a05:6000:491b:b0:488:8913:e64c with SMTP id ffacd0b85a97d-48b067bc3b3mr7204758f8f.18.1790876408779;
+        Thu, 01 Oct 2026 10:40:08 -0700 (PDT)
+Received: from strix.localnet ([197.250.96.176])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b0690d284sm7098316f8f.17.2026.10.01.10.40.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 10:40:07 -0700 (PDT)
+From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
+To: linux-clk@vger.kernel.org
+Cc: Brian Masney <bmasney+clk@redhat.com>, Conor Dooley <conor+dt@kernel.org>,
+ devicetree@vger.kernel.org, Jerome Brunet <jbrunet+clk@baylibre.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-phy@lists.infradead.org, Manivannan Sadhasivam <mani@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Rob Herring <robh@kernel.org>,
+ Stephen Boyd <sboyd@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ mturquette@baylibre.com
+Subject: [GIT PULL] clk: zte: zx297520v3 clock bindings and driver (v2)
+Date: Thu, 01 Oct 2026 20:39:27 +0300
+Message-ID: <hUBEMGo3TGyVsIj5LaphmQ@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
-	protocol="application/pgp-signature"; boundary="ddbx65bfv53pj3da"
-Content-Disposition: inline
-In-Reply-To: <fb7ed8ab-8aea-4731-a5e5-c9476d8bfd38@linaro.org>
+Content-Type: multipart/signed; boundary="nextPartts1z5F9iR2ap04uw5rhYqQ";
+ micalg="pgp-sha256"; protocol="application/pgp-signature"
 
-
---ddbx65bfv53pj3da
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
+--nextPartts1z5F9iR2ap04uw5rhYqQ
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
+From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
+To: linux-clk@vger.kernel.org
+Subject: [GIT PULL] clk: zte: zx297520v3 clock bindings and driver (v2)
+Date: Thu, 01 Oct 2026 20:39:27 +0300
+Message-ID: <hUBEMGo3TGyVsIj5LaphmQ@gmail.com>
 MIME-Version: 1.0
 
-Hi Neil,
+Hi,
 
-Stripping the rest of the discussion that hasn't been great...
+This pull request contains the device tree bindings and clock driver for
+ZTE zx297520v3 boards. It contains the next step in adding support for
+zx297520v3 boards: Documenting clock and reset manager hardware and
+adding drivers for its PLLs and clock tree. This is v2 of the pull
+request, based on v7.3-rc1 rather than clk-next.
 
-On Wed, Sep 30, 2026 at 03:36:36PM +0200, Neil Armstrong wrote:
-> But I'm open to discussion, and I'll talk about display Panel in
-> XDC today, Plumbers and ELC next week so I hope we'll find time to
-> discuss about this in person!
+The patches have been reviewed and carry appropriate R-B tags by
+Krzysztof Kozlowski (bindings) and Brian Masney (clk driver).
 
-First off, I'm sorry things got that heated, and for turning the heat
-up. I definitely overreacted there, and for that I apologize as well.
+The PR does not contain the MFD, reset and device tree patches. They
+will be submitted to the MFD, reset and soc trees respectively. The
+clock driver compiles without them, but won't be instantiated without
+the MFD parent.
 
-I really like working with you in general, our relationship goes back
-quite a while, and it deserved better. So let's indeed meet at Plumbers
-to clear the air, and hopefully patch things up.
+The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
 
-And maybe discuss these patches, but that part can wait.
+  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
 
-Maxime
+are available in the Git repository at:
 
---ddbx65bfv53pj3da
+  https://gitlab.com/stefandoesinger/zx297520-kernel.git tags/v2-zx29-clk-f=
+or-7.4
+
+for you to fetch changes up to 75e4151c9e157d84c8c6c365893ecf33d221bca5:
+
+  clk: zte: Introduce a driver for zx297520v3 LSP clocks (2026-10-01 20:20:=
+43 +0300)
+
+=2D---------------------------------------------------------------
+clk: zte: Add clock drivers for zx297520v3 SoC
+
+This tag contains the device tree bindings and clock driver for ZTE
+zx297520v3 boards. It contains the next step in adding support for
+zx297520v3 boards: Documenting clock and reset manager hardware and
+adding drivers for its PLLs and clock tree.
+
+The PR does not contain the MFD, reset and device tree patches. They
+will be submitted to the MFD, reset and soc trees respectively. The
+clock driver compiles without them, but won't be instantiated without
+the MFD parent.
+
+=2D---------------------------------------------------------------
+Stefan D=C3=B6singer (9):
+      dt-bindings: clk: zte: Add zx297520v3 top clock and reset controller
+      dt-bindings: clk: zte: Add zx297520v3 matrix clock and reset controll=
+er
+      dt-bindings: clk: zte: Add zx297520v3 LSP clock and reset controller
+      clk: zte: Add Clock registration infrastructure
+      clk: zte: Add regmap-based clocks
+      clk: zte: Add zx PLL support infrastructure
+      clk: zte: Introduce a driver for zx297520v3 top clocks
+      clk: zte: Introduce a driver for zx297520v3 matrix clocks
+      clk: zte: Introduce a driver for zx297520v3 LSP clocks
+
+ .../bindings/clock/zte,zx297520v3-lspcrm.yaml      |  101 ++
+ .../bindings/clock/zte,zx297520v3-matrixcrm.yaml   |   98 ++
+ .../bindings/clock/zte,zx297520v3-topcrm.yaml      |  122 ++
+ MAINTAINERS                                        |    7 +
+ drivers/clk/Kconfig                                |    1 +
+ drivers/clk/Makefile                               |    1 +
+ drivers/clk/zte/Kconfig                            |   28 +
+ drivers/clk/zte/Makefile                           |    6 +
+ drivers/clk/zte/clk-regmap.c                       |  237 +++
+ drivers/clk/zte/clk-zx.c                           |  192 +++
+ drivers/clk/zte/clk-zx.h                           |  137 ++
+ drivers/clk/zte/clk-zx297520v3.c                   | 1657 ++++++++++++++++=
+++++
+ drivers/clk/zte/pll-zx.c                           |  576 +++++++
+ include/dt-bindings/clock/zte,zx297520v3-clk.h     |  154 ++
+ include/dt-bindings/phy/zte,zx297520v3-topcrm.h    |   12 +
+ include/dt-bindings/reset/zte,zx297520v3-reset.h   |   62 +
+ 16 files changed, 3391 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/clock/zte,zx297520v3-=
+lspcrm.yaml
+ create mode 100644 Documentation/devicetree/bindings/clock/zte,zx297520v3-=
+matrixcrm.yaml
+ create mode 100644 Documentation/devicetree/bindings/clock/zte,zx297520v3-=
+topcrm.yaml
+ create mode 100644 drivers/clk/zte/Kconfig
+ create mode 100644 drivers/clk/zte/Makefile
+ create mode 100644 drivers/clk/zte/clk-regmap.c
+ create mode 100644 drivers/clk/zte/clk-zx.c
+ create mode 100644 drivers/clk/zte/clk-zx.h
+ create mode 100644 drivers/clk/zte/clk-zx297520v3.c
+ create mode 100644 drivers/clk/zte/pll-zx.c
+ create mode 100644 include/dt-bindings/clock/zte,zx297520v3-clk.h
+ create mode 100644 include/dt-bindings/phy/zte,zx297520v3-topcrm.h
+ create mode 100644 include/dt-bindings/reset/zte,zx297520v3-reset.h
+
+--nextPartts1z5F9iR2ap04uw5rhYqQ
 Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
 
 -----BEGIN PGP SIGNATURE-----
 
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCar6STQAKCRAnX84Zoj2+
-dspTAXwMWHCEjivmSoqKAtnrOVOnY++dhvP2+IzSZvOQ+QVbR38foJ0sc702HamI
-EP4rCl8BgKU1nXSjeAmaqM/chc9mDBRhTiWgmCSdnMOcoBacQUClBAXumDOiQitP
-K30m9foI+A==
-=fjZs
+iQJPBAABCAA5FiEEQxb0tqoFWyeVMl1sPRO8yFRPGiIFAmq+ms8bFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMiwyAAoJED0TvMhUTxoimP4P/AlDoLf0Z0G4fKmz8YN+
+uuz5P2zDF96YqNAGoSBR8m3DW+j+BYbR0VFUtMk88UCqrWC1zFxKqkVNBVTZlxfe
+n6zBcPQ6ROY9kcVAbgjDL1e2nQgqdBQlaIJgZl0X/pxICu4sm922MQHygNWTSsNI
+TrtpvC1BSx1PWIAZXlXV4cUxfRBNv/MUER7Qjfh5qHfVlyA8PuRe4FeOHsHSbBre
+x56NucU+9IJfFRA5NLml97GYkxoSSR3WSvtB+O/g2oL70ASgBBH8LjBn/HZlUg8s
+AEAr9ptju+ZizC7GqZpkKe09RMqlBX8dD7o/k4frkodXlhBQdohAoW0Lky13k/ge
+W6y2JKNpFS9nthDRpXcrdDju9VGoHyzLIzuCKnZRkt6XhUbERc08wkMpaYpnn6md
+t3fhbVOorMFlUC8IXE609RBE308Wzlx/EX17EBwmhVNVMV34OGQNIecVk4esrE2s
+M5oKJuTQgVGdQ6sM/ZCR/e95B1rmaHU2Y3eC0+e0+kS98Enj5ykk3R4wVrhGwl6Y
+9ckevWzJnPLmYWoP2lRlstOa4T9UFk/0jPOT4PkXCgMluG8vRVczcEez45n3uiZc
+fe+re0gfkc7/zRJ8QI4JPQR884aY4tIQu/Ma8L11UjyWxer5qMR8PCVEGLqy9PTy
+8YV8gwDXL+x/vbleLCfi/JAr
+=86gf
 -----END PGP SIGNATURE-----
 
---ddbx65bfv53pj3da--
+--nextPartts1z5F9iR2ap04uw5rhYqQ--
+
+
+
