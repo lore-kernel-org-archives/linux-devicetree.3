@@ -1,220 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010041.outbound.protection.outlook.com [52.101.84.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D3F04AA1EC
-	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 09:26:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790846789; cv=none; b=cG+bLyWQlVgtvcO7GnKoLIPWjKptFuvfslEoex0Xa2KUJHf24D+zFLPLHTM9n7uSLn50Uko3TpRZObB+MGWL9bCRAfHNuNmDekfCKR0nHA07oWqDEFZscJfdwvWWESqtNHR8C6m1SVKUi+LeyEl/wm0EwmtT4yD29POGZLoK6dc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790846789; c=relaxed/simple;
-	bh=gxkd5ADGco8WORCJ9ZROJotuNItN2kQi077MODuDBoE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=O43irBD87zT2l5YYysSOu5ZFAsyMuFaldUwoM+IqxD29xSxD9gnPiNi+Sx79geFyaMyUGU41/phcbM4+zh7FGwN2WOQ6eed5HvKARBMRydE3Tbl5DDHbHYRcr5gXbtZTbKYNMqEoVcgrUCecqY9gfHZlpFkn+Bl0luQyjN6QGy0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HRXqkcH3; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 640904E06D0;
+	Thu,  1 Oct 2026 09:28:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790846906; cv=fail; b=hWwN2jzGcYe5WkipM6zkq8DoOnY4AOYJAJ9MFLpJgEEkIexEiuN31AwhwYcHeu1y8hdjp24xp9XK2H3ZtGW4pVs6zbX8a2lzjldZA+8UKTE+o/IMai6ubKSSQDFzSmAFOgJsb5ubZNnvZl8zS2N2sGiARV8FhBml6XxedMrJHcs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790846906; c=relaxed/simple;
+	bh=/4PZQZBlIQ2bvKMIhv4JfMnAg27tcH3GiMzR7dO/72Y=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=t+oZZhWdpaQsWndLsTiuXT+yECRurt0K4DunvG/TAucH+2slQtwup8rOMD8yjg4xOu9GAwe33oH9JYeBgyMl1f6rJnqfAe5Ngf/cn+48j1+3DoIsRt4vBqb/xJmjiX72lxBMLjl1UajPGXswU/pVcoADZHuio6GOY6keQtP41Ko=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=Oy+swnze; arc=fail smtp.client-ip=52.101.84.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HRXqkcH3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F0ED1F000FF;
-	Thu,  1 Oct 2026 09:26:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790846786;
-	bh=RYva8VTghF+NlXh2CGEylJZ4g9s9RngXCDzi8X4Gt8w=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=HRXqkcH3C36MeFDQnt75V1kgTe/WX4Zbaq0YbBiwzntbiXCbRss4wVi7yVLEBiIs3
-	 f37pIKtwWQNvvbb5ukhKH7Rpo4Gm8RV/zIvSeUhhjh+nLgjMA2rrPD3eb8PSWEQBQz
-	 a91vLn1VsGU2OvLuXv8hGpIaYtzZHWaiKCxoedNty0fRgUQBuI6CQuqX/eKh5Pcrmf
-	 +pkRd4apOy1cFB6KFSUImZ/cDqkdYIxFLBxU03K+UCYpTu9c/CY0vEgvAi10O/dGCn
-	 qEyXQsIWSm8tmlf799svgr8HES46ZQAGdRaCkHinao2sgk4dF54p/CYqBBaFpCWoDV
-	 Y8+e9YO6Tq95g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] iio: imu: Add driver for the ADI ADIS16607
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Radu Sabau" <radu.sabau@analog.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20261001-adis16607-v1-2-9c89cee35d56@analog.com>
-References: <20261001-adis16607-v1-0-9c89cee35d56@analog.com>
- <20261001-adis16607-v1-2-9c89cee35d56@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 01 Oct 2026 09:26:26 +0000
-Message-Id: <20261001092626.9F0ED1F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="Oy+swnze"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=iYcHNQpJa/8k0ZTCr+NSz/fnCVXpnvQfAOpA/i0IgA+37+B9hfwaoZ+MX+ukBYojcTJ1zaHTRFuandf7lUJXxSt/C5XFqlL1XQrzK/3PK5dGRvxMjDyXIwArXmUhH0DXOQTTWzg7t+woeyUywYVMd5Xp161f68aZGpKg8xppMEnApHfXfEs2EDqGl4E8qpwKIPV/GzIEw1FXSDgPIW19c8jx/z+Zf6H05ZdpkG9ZCjTmU9gUhFoe8hSmkCmeWtptKm2ruWypFAGOAG1t1nN6AzZNOYONRKE1qHfGnLZAAqo4uNj0ySHVj8d9O9ZHqhU/XrZp/8fHtiU0mr+e5wAw+w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=e0pbtMue4Z4XAvmgNjBYp1/dhnFAUvlmedr5oK8tT1E=;
+ b=l+oCYIti0I0fEyCb79L9xlWE/V1t/Ii/YT3SWP4Vh8aJi/vz4+G0DcB9JpuuenwYDWGnhio66VvZNLpXIgvgaFgafcgHaCpjlmWbIXyLpXq2XscpGWrutDoxCZtCdTqg+Te1KhBkFBVlkoxcYEpSnlS7dfe8bEIkM8DK3BlCDEGq/OtwG9NNDnKJLCAPuqgCU/ztswnP7fSkmJsLZUmjx8x3zQOMwqxlVHH9/MHlYWULTlFQUFOGhaaUl/qMbuyzGE8yqdeB3vvllmvS3tl6IXs1MvMxhqS5rukgtQjDTWgPnovjzfwoAR7Rv35+9rjkVVP4EPjYYASVbwWbNSSCpg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.60) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=e0pbtMue4Z4XAvmgNjBYp1/dhnFAUvlmedr5oK8tT1E=;
+ b=Oy+swnzeWpNv7c3V75Qf9+qNdqkzRXPYTrU4saEBlOxMwiv1zZcgOsy4kRBywPrMm5pw9BSIx/dHqvXS8MlC5+tGNH5NIzrrTVScwiLoT1X+EhZU5xLd35SPffhT8dQAJQ6eFvOy/Dm2dxvvuuEgqiJjhUirBhIuCrsFWLu3KBOtz/hIqby9URF+P1Cx2kj/KfzzLPDVX4ChAfEnGofsTarlkWISH4yO244psUJqXCz/KgDkg+gNPVQ5RI74N5ECe1efplEQVpgh9k39onio3eyFlhplHBJXVWvrCW0xJ5kPYhHX4oeczab1kenQfOum2dcZtmjqjkp47AYJrd4csw==
+Received: from GVX0EPF0005F6C7.SWEP280.PROD.OUTLOOK.COM
+ (2603:10a6:158:401::650) by PRAPR10MB5276.EURPRD10.PROD.OUTLOOK.COM
+ (2603:10a6:102:296::11) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Thu, 1 Oct
+ 2026 09:28:14 +0000
+Received: from CPH1EPF0000051E.eurprd04.prod.outlook.com (2603:10a6:388::1a9)
+ by GVX0EPF0005F6C7.outlook.office365.com (2603:10a6:158:401::650) with
+ Microsoft SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id
+ 15.21.382.15 via Frontend Transport; Thu, 1 Oct 2026 09:28:14 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
+ is 164.130.1.60) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.60; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.60) by
+ CPH1EPF0000051E.mail.protection.outlook.com (10.167.241.233) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Thu, 1 Oct 2026 09:28:14 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
+ (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Thu, 1 Oct
+ 2026 11:34:07 +0200
+Received: from [10.48.86.79] (10.48.86.79) by STKDAG1NODE2.st.com
+ (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Thu, 1 Oct
+ 2026 11:28:12 +0200
+Message-ID: <d4591002-e290-406e-b720-03d610d77e7c@foss.st.com>
+Date: Thu, 1 Oct 2026 11:28:11 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 1/2] dt-bindings: arm: stm32: Document
+ st,stm32mp23/25-syscfg subnodes and cells
+To: Rob Herring <robh@kernel.org>, Marek Vasut <marex@nabladev.com>
+CC: <linux-arm-kernel@lists.infradead.org>, <fabrice.gasnier@foss.st.com>,
+	Christophe Roullier <christophe.roullier@foss.st.com>, Conor Dooley
+	<conor+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, "Maxime
+ Coquelin" <mcoquelin.stm32@gmail.com>, Raphael Gallais-Pou
+	<raphael.gallais-pou@foss.st.com>, Yannick Fertre
+	<yannick.fertre@foss.st.com>, <devicetree@vger.kernel.org>,
+	<kernel@dh-electronics.com>, <linux-kernel@vger.kernel.org>,
+	<linux-stm32@st-md-mailman.stormreply.com>
+References: <20260902124018.606544-1-marex@nabladev.com>
+ <CAL_JsqKDniU3VYaOuF-OA2_JmOaKEtdOtxGAtyJfFCLnT=LjSw@mail.gmail.com>
+Content-Language: en-US
+From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
+In-Reply-To: <CAL_JsqKDniU3VYaOuF-OA2_JmOaKEtdOtxGAtyJfFCLnT=LjSw@mail.gmail.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CPH1EPF0000051E:EE_|PRAPR10MB5276:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8139a2ab-5fde-4f98-82c6-08df1f9e517b
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|376014|36860700016|7416014|82310400026|1800799024|4143699003|10067099003|11063799006|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	1Ot32KlaPRyiPzbVJhazrfBl1GUq0+MSniK8sokSC4qpgdHbvhPbW5rUD11/srdOgvo1S+7bcwgvaAe7II7U3e9Eh5w51uXjkN9NRbUyfWdUjCZke89gaGp72LlRWWCktJ0OCe3RBc2nLcUfw+0d4Yku9ajDzonpnJpkBFn20MjObInpd5S1omjH1Kh2M3YHSOBCJqr0XJEvLidMpQFB1r58YPsVCY4yBYpaqZhFP1ptb3cvPPkl6H6n51erzxbDcDGgKduGz55pMSFVjFOxbnrxC2VY6Ux+ZrRmploLyav0ffiX0042DgmK3JeEPGECiq4j5Zk2XMic05Pot4JwzcIlyHKCfgZPjOXdkk6Vfq5dBCk/lX+u2dfnMiJr8DLYn0DypI6MclqDGkWg+FJkKxA/6M+FP5Tad7bKOu6YcO/5h99lQXef1KtmBU77hBnI4ZNZnSOaHHl+c4nACaAnRelHLdp2oSIl2liz7RwTuz3dWSnO1L0KkW53ejxMuENGqqy3rjaq8fqluiAN3OlOaUxRpzzNMCJqxTvZtT6e/W17vOGDvkaWKaY8UPKbu540xEk9OduNS/1IHOQVqBL8qcL7r6XhdVEm+5bVLo3TSxB2zevmheCc7O57YZ96jqw3zRpqtZPA0o2whay/MGFttFIm5fmbRI8P/kZZuam15+BYNtHYIRwkofgUF498TRILVIDatR8Wb3N9ZLrFo54z3Q==
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(376014)(36860700016)(7416014)(82310400026)(1800799024)(4143699003)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	eWMX+G/IOJB4tAfKbGsd+Mdol9GwpMGVXWIC+q0KDrnoKFvq+7OA5BCWNeERYeV6WUyh9hRpcSZIyw0TVbrq7PEC9Op5tH67S+oF0Z4RVIokGRgiVt0SnvqhvLrzwnfWETuKm/1Tk30iviNs7fm8fJaUEGIHOpCRKmNKbF4U4IgIv7/RuhJ+k3RRkTi+Y1BR3BJ+6DzHjUtYd0KHntLCgBRyMrD3+w24+cT5zaeBOCpzRrITHs5VOrIuLUSNr+DHV/KHpMfvkExHK7timfAA4HkfGBiAEygB08JWzMCZhvR595wOMOhTYg1AzDCWNDn8RQnbQ6eKQnNwoNaGaxpReRRVIc/2PdjD7XjS43aeYzae8onJ45qgVDtq46uKTv4uSZDrtVnzT+KmeHC22PH+QrzyB8gugbZRFxLNc7EmKhEVKmyxFNQ6zBQ7q6ez6XNb
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 09:28:14.1388
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8139a2ab-5fde-4f98-82c6-08df1f9e517b
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CPH1EPF0000051E.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PRAPR10MB5276
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] iio: imu: adis16607: out-of-bounds read when timestamp channel is =
-enabled
-- [Medium] iio: imu: adis16607: missing implementation for ADIS16607-1 vari=
-ant
-- [Medium] iio: imu: adis16607: incorrect sign for temperature channel
-- [Medium] iio: imu: adis16607: interrupt storm in FIFO mode due to DR_GPIO=
- configuration
---
+Hi
 
-commit 3e574b431c0ea32c1a98ab8b0aa4b4a2110aea1a
-Author: Radu Sabau <radu.sabau@analog.com>
+On 9/29/26 23:55, Rob Herring wrote:
+> On Wed, Sep 2, 2026 at 7:40 AM Marek Vasut <marex@nabladev.com> wrote:
+>>
+>> The st,stm32mp23-syscfg and st,stm32mp25-syscfg can have subnodes, which
+>> represent the USB 2.0 FEMTO-PHY. Document subnodes pattern properties and
+>> address/size cells.
+> 
+> ST folks,
+> 
+> Can you please pick this up. It is introducing warnings due to .dts
+> changes you already picked up:
+> 
+>        8 syscon@44230000 (st,stm32mp25-syscfg): '#address-cells',
+> '#size-cells', 'phy@2400', 'phy@2800' do not match any of the regexes:
+> '^pinctrl-[0-9]+$'
+>        2 syscon@44230000 (st,stm32mp23-syscfg): '#address-cells',
+> '#size-cells', 'phy@2400', 'phy@2800' do not match any of the regexes:
+> '^pinctrl-[0-9]+$'
+> 
+> 
+> Rob
 
-iio: imu: Add driver for the ADI ADIS16607
+Patch applied on stm32-next.
 
-The ADIS16607 is a Precision MEMS IMU from Analog Devices featuring
-triaxial gyroscope, triaxial accelerometer, delta angle, delta velocity,
-and temperature channels. The device communicates over SPI Half-Duplex,
-requiring custom read and write ops that differ from the standard ADIS
-library protocol.
-
-> diff --git a/drivers/iio/imu/adis16607.c b/drivers/iio/imu/adis16607.c
-> new file mode 100644
-> index 0000000000000..da9665aff8188
-> --- /dev/null
-> +++ b/drivers/iio/imu/adis16607.c
-> @@ -0,0 +1,1513 @@
-[ ... ]
-> +static const u8 adis16607_burst_offsets[] =3D {
-> +	[ADIS16607_SCAN_ACCEL_X] =3D 0,
-> +	[ADIS16607_SCAN_ACCEL_Y] =3D 4,
-> +	[ADIS16607_SCAN_ACCEL_Z] =3D 8,
-> +	[ADIS16607_SCAN_GYRO_X] =3D 12,
-> +	[ADIS16607_SCAN_GYRO_Y] =3D 16,
-> +	[ADIS16607_SCAN_GYRO_Z] =3D 20,
-> +	[ADIS16607_SCAN_DELTVEL_X] =3D 24,
-> +	[ADIS16607_SCAN_DELTVEL_Y] =3D 28,
-> +	[ADIS16607_SCAN_DELTVEL_Z] =3D 32,
-> +	[ADIS16607_SCAN_DELTANG_X] =3D 36,
-> +	[ADIS16607_SCAN_DELTANG_Y] =3D 40,
-> +	[ADIS16607_SCAN_DELTANG_Z] =3D 44,
-> +	[ADIS16607_SCAN_TEMP] =3D 48,
-> +};
-
-[ ... ]
-
-> +static irqreturn_t adis16607_trigger_handler(int irq, void *p)
-> +{
-[ ... ]
-> +	for_each_set_bit(bit, indio_dev->active_scan_mask, indio_dev->masklengt=
-h) {
-> +		u8 burst_off =3D adis16607_burst_offsets[bit];
-
-[Severity: High]
-Does this code perform an out-of-bounds read when the IIO timestamp channel
-(scan_index 13) is enabled?
-
-The adis16607_burst_offsets array only has 13 elements (indices 0 through 1=
-2).
-
-[ ... ]
-
-> +static void adis16607_fifo_push_sample(struct iio_dev *indio_dev,
-> +				       u8 *fifo_data, s64 timestamp)
-> +{
-[ ... ]
-> +	for_each_set_bit(bit, indio_dev->active_scan_mask, indio_dev->masklengt=
-h) {
-> +		u8 burst_off =3D adis16607_burst_offsets[bit];
-> +
-> +		if (bit =3D=3D ADIS16607_SCAN_TEMP) {
-> +			/* TEMP is 16-bit */
-> +			put_unaligned_be16(get_unaligned_be16(&fifo_data[burst_off]),
-> +					   &st->data[offset]);
-> +			offset +=3D 2;
-> +		} else {
-> +			/* All other channels are 24-bit stored as 32-bit */
-> +			msw =3D get_unaligned_be16(&fifo_data[burst_off]);
-> +			lsw =3D get_unaligned_be16(&fifo_data[burst_off + 2]);
-
-[Severity: High]
-Is it possible for this to leak kernel stack memory or cause a crash?
-
-If the timestamp channel is enabled, the garbage burst_off value is used to
-read out-of-bounds from the fifo_data array on the kernel stack.
-
-[ ... ]
-
-> +static irqreturn_t adis16607_trigger_handler_with_fifo(int irq, void *p)
-> +{
-[ ... ]
-> +	/* Check if FIFO threshold is met */
-> +	ret =3D __adis_read_reg_16(&st->adis, ADIS16607_REG_DIAG_STAT, &diag_st=
-at);
-> +	if (ret)
-> +		goto unlock;
-> +
-> +	if (!(diag_stat & ADIS16607_FIFO_THR_MET_MASK))
-> +		goto unlock;
-
-[Severity: Medium]
-Will the CPU be forced to process and discard an interrupt storm here?
-
-[ ... ]
-
-> +static int adis16607_initial_startup(struct adis16607 *st)
-> +{
-[ ... ]
-> +	ret =3D __adis_write_reg_16(adis, ADIS16607_REG_USER_GPIO_CFG,
-> +				  FIELD_PREP(ADIS16607_DR_GPIO_MASK, 1) |
-> +				  (gpio ? FIELD_PREP(ADIS16607_RESET_GPIO_MASK, 1) : 0));
-
-[Severity: Medium]
-The interrupt pin appears hardcoded to fire on Data Ready (8000 times per
-second), even when FIFO mode is enabled.
-
-Does this defeat the performance benefits of the hardware FIFO?
-
-[ ... ]
-
-> +#define ADIS16607_TEMP_CHANNEL() { \
-> +	.type =3D IIO_TEMP, \
-> +	.indexed =3D 1, \
-> +	.channel =3D 0, \
-> +	.info_mask_separate =3D BIT(IIO_CHAN_INFO_RAW) | \
-> +			      BIT(IIO_CHAN_INFO_SCALE) | \
-> +			      BIT(IIO_CHAN_INFO_OFFSET), \
-> +	.info_mask_shared_by_all =3D BIT(IIO_CHAN_INFO_SAMP_FREQ), \
-> +	.address =3D ADIS16607_REG_TEMP, \
-> +	.scan_index =3D ADIS16607_SCAN_TEMP, \
-> +	.scan_type =3D { \
-> +		.sign =3D 'u', \
-> +		.realbits =3D 16, \
-> +		.storagebits =3D 16, \
-> +		.endianness =3D IIO_BE, \
-> +	}, \
-> +}
-
-[Severity: Medium]
-Can this sign type corrupt temperature calculations when the temperature is
-below 25=C2=B0C?
-
-Since the sensor uses an offset of 5000 where 0 raw counts equals 25=C2=B0C,
-temperatures below 25=C2=B0C will produce negative raw values. Using an uns=
-igned
-type will cause these negative values to underflow into large positive
-numbers.
-
-[ ... ]
-
-> +static const struct spi_device_id adis16607_id[] =3D {
-> +	{ "adis16607-2", (kernel_ulong_t)&adis16607_2_chip_info },
-> +	{ "adis16607-3", (kernel_ulong_t)&adis16607_3_chip_info },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(spi, adis16607_id);
-> +
-> +static const struct of_device_id adis16607_of_match[] =3D {
-> +	{ .compatible =3D "adi,adis16607-2", .data =3D &adis16607_2_chip_info },
-> +	{ .compatible =3D "adi,adis16607-3", .data =3D &adis16607_3_chip_info },
-> +	{ }
-> +};
-
-[Severity: Medium]
-Is the ADIS16607-1 variant missing from the device ID tables?
-
-The commit message indicates support for three variants including ADIS16607=
--1,
-but it cannot be probed since it is missing here.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261001-adis16607-=
-v1-0-9c89cee35d56@analog.com?part=3D2
+Regards
+Alex
