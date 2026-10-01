@@ -1,156 +1,69 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B2F54195A6
-	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 13:16:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB68949E151
+	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 13:17:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790860624; cv=none; b=qElotmqJg34uaV8Vf3HuRPQd1+qY32Q3VRFDdEB7vOJUzlwDdzaqMzm5ACsUCuMZ6Tura125ALVC6dg8ElLfEGW72gHUCswog5u/dzVBBpc8xjHopD325lJGLJk3CTatrMNqM9SrBU6/Pjn3l8XIGm3p5kkcSQIN38Oh9CQn7Sg=
+	t=1790860626; cv=none; b=W8Q2KCHROuvt3TyoaLJ/FFYy4R0GkV2Hb0wKb6oRPjuxvJyn0HxMMmiIwsTntx4MyrGHO1f/i/EHwYOPLLmDMMYLydhzXb2rRhGmJJ5hT2B/ZePiLD65zMfsSlzIOFOpVjWTPoFbJCrU1EID+5Ufki9/c3HuAvlbTYZtri7fRSQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790860624; c=relaxed/simple;
-	bh=MYlCafhIV2WrFB0BZir373okk3XZq80r99MvluwlBUM=;
-	h=From:To:Cc:Subject:Date:Message-ID; b=RxkkkeGlUud5UmG+YPWYQQoETARB+XGIZ7t0ywiW5NXkpfHSOChHLDYHqbed6O16T5xgCR8LKoT/xcb6OLdkjf0+30hRobReMJ2rfX0tJ1RoDkJQYm702v089U0Ojj41EZOoNxKwOuSCmSMt2pSUgQkQj/0/N1STT4r5aPSi4kM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=FULTK5Hl; arc=none smtp.client-ip=220.197.31.2
+	s=arc-20240116; t=1790860626; c=relaxed/simple;
+	bh=ZifscX9ECT0mS9cXZ5DR6c3DldNnefWRukZDDhcXf1M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References; b=FvVncfex9U0RJ4Uo0BlkRzp7dO08+FxQAmdJhZ2fqiExCFCmI9vMB4RCrZOIHPI4J3mxiK+Dvuwg4W14PYtkAtzITY7V3ABZWr3NYExoGpYwjY1gH19I1DbBHbxQJ+ZMYeP4snDS5r4cef/WNKG3oOKh7BAPVWJb4wPhT3IhEw8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=FrsVBA0g; arc=none smtp.client-ip=117.135.210.2
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="FULTK5Hl"
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="FrsVBA0g"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID; bh=6f0/9t1/hAO0xXp
-	NxF8cq+WlgMeZNGxzR43oPfG3WdM=; b=FULTK5HlpQQFSTwRFo1Niux7YBXbmEY
-	xep3XlW8DDfLgFcUYGUQ4VdS0bLIj5uZgKxqJilLRo6z5QoIWWaplc6IB7bziug1
-	ASOi2yCcGNkBxu0J4C2OBLVe/azniDJP/TkLDGf8PjWT1cRGUGdxxnOWIrBxF6R1
-	bW4rFByraEto=
+	s=s110527; h=From:To:Subject:Date:Message-ID; bh=UkHYuan1PuG6FE1
+	cRuk2LF2qvnvHGpPzEYvnaNQadyY=; b=FrsVBA0gCoKz7TA8FSAH7LP0UDw3sFl
+	QzheViYsRhEga+rRNuK96MEw03nLRJi4Z+OUWHkkZOjLt0Z7Ee6gcTJFn7LTvDld
+	RU3DRBqA9R4/6krw7NwOfBp05tlicziGu4jxW3AFUVaeFroCqSpttJzp4xD7vQJb
+	9iBuY2jS7ovk=
 From: BG9OXA <bg9oxa@163.com>
 To: linux-rockchip@lists.infradead.org
 Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, Heiko Stuebner <heiko@sntech.de>
-Subject: [PATCH v3 0/2] arm64: dts: rockchip: add ALIENTEK QuarkPi-CA2
-Date: Thu, 01 Oct 2026 21:16:33 +0800
-Message-ID: <179086059377.25869.266865258704141387@163.com>
-X-CM-TRANSID:_____wDX_zwxXb5q97_IBw--.9753S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW3GF4ktFy8AF1UJr1fJw4ruFg_yoW7trW8pF
-	Z8X3y3Kr4kKr1xuw1IkF1UCrWSvF4fJay5WF1qq34ayw45Gr1ftF1Sk3ZIqa47C34SgFyj
-	vF4jg3y7GF4DZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07Us2-OUUUUU=
-X-CM-SenderInfo: lejz05rd6rljoofrz/xtbC3RKtG2q+XTKLlAAA3d
+Subject: [PATCH v3 1/2] dt-bindings: arm: rockchip: add ALIENTEK QuarkPi-CA2
+Date: Thu, 01 Oct 2026 21:16:37 +0800
+Message-ID: <179086059727.25869.4898747284365209003@163.com>
+In-Reply-To: <179086058377.25869.5809349568462938314@163.com>
+References: <179086058377.25869.5809349568462938314@163.com>
+X-CM-TRANSID:PygvCgB3zkU1Xb5qiV53CQ--.61784S2
+X-Coremail-Antispam: 1Uf129KBjvdXoW7XryfJrWxWFWktFyxAF1DKFg_yoWfurbEka
+	4xuF15uFWrXFyFgw45Aan7GFyjqw47Krn7A3WUAF18A34vkws3KFZ5t342kFyxur43urn3
+	CFs5JryxXFnxGjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUvcSsGvfC2KfnxnUUI43ZEXa7IUjVyI5UUUUU==
+X-CM-SenderInfo: lejz05rd6rljoofrz/xtbC+hWuHGq+XTWqegAA3x
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Hi all,
+Document the ALIENTEK QuarkPi-CA2, an RK3588S based single board computer.
 
-This short series adds support for the ALIENTEK QuarkPi-CA2, an RK3588S
-based single board computer.
+Signed-off-by: BG9OXA <bg9oxa@163.com>
+---
+ Documentation/devicetree/bindings/arm/rockchip.yaml | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-Board summary:
- - Rockchip RK3588S (4x Cortex-A76 + 4x Cortex-A55), LPDDR4x
- - eMMC, microSD slot, M.2 socket (PCIe 2.0 x1)
- - Gigabit Ethernet, USB 3.0 Type-A, USB 2.0 Type-A ports and a USB-C
-   port (USB 2.0/3.0 plus DisplayPort altmode, two DP lanes)
- - HDMI output, three MIPI CSI and two MIPI DSI connectors
- - ES8388 analog codec with 3.5 mm jack, HUSB311 USB-C PD controller
- - 40-pin header, RK806 PMIC, IR receiver
- - No SPI-NOR; the vendor bootloader reads extlinux.conf from the SD/eMMC
-   boot partition
-
-Patch 1 documents the board in the Rockchip platform bindings, patch 2
-adds the device tree itself (plus its Makefile entry).  The "alientek"
-vendor prefix is already present in vendor-prefixes.yaml, so no vendor
-prefix change is needed.
-
-Tested on hardware: boot from SD and eMMC, gigabit Ethernet, the USB 2.0
-ports, the USB 3.0 Type-A port (UAS storage device, 5000 Mbps link,
-309 MB/s), USB-C DisplayPort altmode, HDMI video and audio, ES8388 analog
-playback, the ADC keys, the IR receiver, the PWM fan and ramoops.  The M.2
-socket is described following the vendor design; no suitable device was
-available here to exercise that link.  dtbs_check is clean for both patches.
-
-Notes worth the reviewer's attention:
-
- * The codec is clocked through I2S0_8CH_MCLKOUT_TO_IO rather than the
-   internal I2S0_8CH_MCLKOUT mux that the other boards reference.  On
-   RK3588 the MCLK-to-IO routing is a gate in SYS_GRF SOC_CON6 which the
-   bootloader leaves closed, so nothing drives MCLK out to the codec;
-   pointing "clocks" at the _TO_IO clock makes the codec driver open that
-   gate at probe, while "assigned-clocks" stays on the internal mux to
-   keep the 12.288 MHz rate.  Verified on hardware: i2s0_8ch_mclkout_to_io
-   is enabled with the codec (1-0011) as its consumer, and playback works.
-
- * The codec compatible list is "everest,es8388", "everest,es8328", as
-   documented in everest,es8328.yaml and as used by the other boards with
-   this part.  The standalone ES8323 driver cannot instantiate a card on
-   this board at all, which is how the fitted part was confirmed.
-
- * Analog capture from the 3.5 mm TRRS jack (headset microphone) does not
-   work yet: the capture stream returns a constant idle pattern (0xFFFF)
-   although the analog bypass path works, and the DAPM routes and the ALSA
-   controls look correct.  This looks like the same ES8328 capture problem
-   that has been reported for other boards, so I kept it out of this
-   series.
-
- * The USB 3.0 Type-A port is wired to usb_host2_xhci through combphy2_psu;
-   both are enabled here, as in the vendor BSP.  combphy2_psu is free on
-   this board because the M.2 socket uses pcie2x1l2 (combphy0_ps).
-
- * The board has three MIPI CSI and two MIPI DSI connectors, but no camera
-   or panel is described here: those are plug-in modules.  Enabling the
-   CSI-2 receiver without a sensor attached makes the driver fail to find
-   its endpoint at probe (verified on hardware), so, as in the vendor
-   tree, camera and panel descriptions belong in overlays.
-
- * GbE: phy-mode is "rgmii" and the RGMII delay is applied on the MAC side
-   (tx_delay), matching the other boards in mainline that use the same
-   YT8531 PHY.  Tested for 900 seconds at full rate in both directions
-   (922 Mbit/s, zero retransmissions) and with 1000-packet pings; the MAC
-   error counters stay at zero.
-
-This is my first patch to the Rockchip platform.  I am a Chinese amateur
-electronics hobbyist (amateur radio callsign BG9OXA) working on this board
-in my spare time, so please point out anything that does not follow the
-expected style.
-
-Changes in v3:
-- Rebase onto current mainline and re-run dtbs_check.
-- Drop the explanatory device tree comments, as requested.  The rationale
-  that was in them is in this cover letter instead; the compiled .dtb is
-  unchanged by that cleanup (verified byte-for-byte).
-- Use phy-mode = "rgmii" with the RGMII delay applied on the MAC side
-  instead of "rgmii-rxid", as pointed out by Andrew Lunn: phy-mode
-  describes the PCB wiring, and only one side should add the delay.
-- Rename the fixed regulators that used a different naming scheme so that
-  all of them follow the same style, and use generic node names.
-- Drop two redundant "status = \"okay\"" properties (rga3_core0 and
-  rga3_core1 are already enabled in rk3588-base.dtsi).
-- Add the missing "enable-active-high" to the Type-C VBUS regulator.
-- Use the binding-documented codec compatible pair and drop the
-  "clock-names" property, which everest,es8328.yaml does not allow; the
-  codec node now passes dtbs_check.
-- Drop the phy-supply of u2phy0_otg, the USB 2.0 PHY of the USB-C OTG
-  port.  That rail is the Type-C VBUS and is already owned by the TCPC;
-  while the PHY held it enabled as well, VBUS was powered from boot, the
-  TCPM state machine never saw a VBUS-off event, and the port could not
-  finish a source attach, so DisplayPort altmode never came up (the
-  monitor had power but no picture).  Verified on hardware: the port now
-  attaches at boot and the monitor gets a picture.
-- Add the LED color so the work LED is exposed as "green:heartbeat".
-- Drop the camera sensor and its regulator: camera modules are plug-in
-  devices, and enabling the CSI-2 receiver without a sensor attached makes
-  the driver fail to find its endpoint at probe.  Following the vendor
-  tree, camera and panel descriptions belong in overlays.
-
-
-BG9OXA (2):
-  dt-bindings: arm: rockchip: add ALIENTEK QuarkPi-CA2
-  arm64: dts: rockchip: add ALIENTEK QuarkPi-CA2
-
- .../devicetree/bindings/arm/rockchip.yaml     |    5 +
- arch/arm64/boot/dts/rockchip/Makefile         |    1 +
- .../boot/dts/rockchip/rk3588s-quarkpi-ca2.dts | 1149 +++++++++++++++++
- 3 files changed, 1155 insertions(+)
- create mode 100644 arch/arm64/boot/dts/rockchip/rk3588s-quarkpi-ca2.dts
-
+diff --git a/Documentation/devicetree/bindings/arm/rockchip.yaml b/Documentation/devicetree/bindings/arm/rockchip.yaml
+index a799bb843..a3191bb90 100644
+--- a/Documentation/devicetree/bindings/arm/rockchip.yaml
++++ b/Documentation/devicetree/bindings/arm/rockchip.yaml
+@@ -182,6 +182,11 @@ properties:
+           - const: alientek,clrv1126f
+           - const: rockchip,rv1126
+ 
++      - description: Alientek QuarkPi-CA2 board
++        items:
++          - const: alientek,quarkpi-ca2
++          - const: rockchip,rk3588s
++
+       - description: Edgeble Neural Compute Module 2(Neu2) SoM based boards
+         items:
+           - const: edgeble,neural-compute-module-2-io   # Edgeble Neural Compute Module 2 IO Board
 -- 
 2.47.3
 
