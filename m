@@ -1,70 +1,69 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EF643F4DCA
-	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 11:44:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 784C64477E7
+	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 11:44:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790855073; cv=none; b=Ta3JMOgbsqqwnVZDk3qlUGohVj2cmtuwFzojNbSZ6A4Pbsd6BLBe56R65axYM8gy7Gy/gUCq44Kb/HpuZmUVYdMfd7joqkg7Qp9ih+04ATW48TfLeiJiEHXciFjSAUPWTn3EsgdKaMWjB4owGdcTaVHRg4Pb+u0td584g5gQzV8=
+	t=1790855076; cv=none; b=izIXwac0rB2tp7PRpM1upR2dbBfXZdT5dWYGl31OLvSXdHiNipeZAT1JjnUHA62HbAtbIULr618PLM7bLBUt719yXLORhn4KqhMH9uKsu0bpbtBMVyCIhkNLyRPNFIqDYUY7YFlacUOBoahe4YJEIaIN6ATHgqRzo89GAsdH8sk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790855073; c=relaxed/simple;
-	bh=t59HA6ckivCe/4YnKmDvJmeL7B0/skKgvWKi9ud/Zg8=;
+	s=arc-20240116; t=1790855076; c=relaxed/simple;
+	bh=NcGqYo1OnwdYAKNH7EPXqJzl68E/NOHlN8Xd5sliOkQ=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=AjTuswIVBD0rh2eaPkO+6POZh5ZgJ9qvI0nFUXtMBowIq6jm3amDsIcaL+/p5s+r8RRxAyu8Z+dN5+L2nRKbTcfrP5fdqFjMLTUs6hMDDX2n6MnK1lDrkZzGx8ojDydJRbHc2WK5d5JqupbaUi0mx+7/CT7BrYU3J35FEyq/Zj4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YuQ6c9Wk; arc=none smtp.client-ip=74.125.225.99
+	 In-Reply-To:To:Cc; b=pNiIuSSuhD0EmN+yEJpzS2mNWuH/j8ObrKbwBI9ZGyNb36MFTkLjVzlOCNW8gbFG1d8dWE3VPlqb9FoVglT8MpL2xOiQGyt6iH84bEADy9h9/yTQxp0ddZjBzSzPIJG/PAxZRiuaRQ+JYlHW15LC4U50ZGSxV/t1lb96CcSNaMQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VkjwfUDY; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YuQ6c9Wk"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48b05fdb2f9so907016f8f.0
-        for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 04:44:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VkjwfUDY"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-4a003bd18e5so24306265e9.0
+        for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 04:44:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790855058; x=1791459858; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790855061; x=1791459861; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=HmnXElFSJd4KcBqGRqP1X7uyQN8BRiiAkPdqtLDtOZY=;
-        b=YuQ6c9Wkfszs5kBKe3E3ne2Hz7SVDCls8buFtHdFVhgvkQ6nko0JelkQU7LoSwNQ+S
-         HYzUROJUT9UIH547ebuT/1O/MgEdrvDruwpd9xHHNOcAx8EK4kD3P5Ck/oEjNBmBBBG9
-         AdfJhNZJb8VW+U0fYU1hoVo7RcxU3Zpg5QOaryd079HUvrlYEkeNJzSPa80WjbjueMsQ
-         X5QLg0P1WDdxWHUVpcpCME5R2CQXP2vO1P6r29oWXT1ApQdlX37X7+ZORUskVCL5pl+8
-         oNfwKwm/c5cRv7y/iqNFnnWvb7Vy09Ut4B9jeG4nqlI/3LZMAOp9B2l6y2ELRRftNhhC
-         e0nw==
+        bh=+Hv7iEv8847rRd+Yspj++pyIEYShjXqQiTuC8kxfzTw=;
+        b=VkjwfUDY4mviEFa1/6tqM1VPIlNQ0+9DUq1TGZ16R0w2z2EMEyi2tueDzZA6O9Chft
+         zJSqMTTw+xz6uS0Hiz/mawYJ9pzjDR6HNHKxJbjbuXB57b0O4rxz2kk5J6t3m0Uhgkjj
+         nd7XTcjJ3tDKPWN1U9/TzEat6sak0g3NgH78FDtpyqtykQdqUo+ElxtYSV8rFdGVZydx
+         WVfkEDfr0qafkmzWMI5HRda3uAs+J5k+3kVQIBvCG1KuYANCHBbaOTrt1SYVbCWqyEY8
+         VlS0JKx1VuDljiBrH0FPowfuBJLdI5vK3bn/TcVpTFhCgFiMd8E4nhu15u+E7PDXetd4
+         MJIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790855058; x=1791459858;
+        d=1e100.net; s=20260707; t=1790855061; x=1791459861;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=HmnXElFSJd4KcBqGRqP1X7uyQN8BRiiAkPdqtLDtOZY=;
-        b=NXtLN37MJm7i9aEwa+iKbtX/a1gCa54SWXX3mFhkOc784ZmbLB6gq0MbSuPMiFgpT4
-         jHFQ53lSeeGGiJ4nwxE2Qiy067LaOWsea8k2QCgOu6CcUwpkzNxrvfJvC0wphai1ctBf
-         C2ZgPv51mqrIcQZk5omIByMbqSiobRY5TOwvqhH3foaCMEvA/zRvtrx30fb6D0H7xM3f
-         3Xj59bwnl6UzvGP4SkzpH6Lc91XxZh8084mcAYXAHpBqLgueUqXPzMmyP6d9OasQqOrk
-         YbaEZ8bzclSHEH4ixDJkwZOWv/wg2I2LtBJhYf9VJexWSn7FPlmkqdOIH3Hd6hbc6jt7
-         PGcQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy/MgmHHm4EcvWdZtBzjX7uEHdAZBa/QAaAEmbsN4J0WnkpFUOLp2GUZu+o+gSeOcphNj7br/ch6/1O@vger.kernel.org
-X-Gm-Message-State: AFq9FYIOx9dshldTrJ3YxmdEDy67wxUD8DYKCFiucUf1+HqgYNYlBrnE
-	WIffA2fO+asnZ37CQexCKvWybU1btTsbtqvDk3veUSQWkaEBd4zZ8r5O
-X-Gm-Gg: AYBFou3fLxTlJHl6pUPNq9PROdXDrMLRSYl1K034loZdg9Q3KeKj/W708YvChYeIxYC
-	UGLCuORu/rm4fNkv+j0A4FkJ41ZUIXyBhhLnVewHl7wGd0KF2bp8ehH8xkzzOly7Fq6Ny8XTl9v
-	CMjOwXbjpJ4Jr/2woerRX0/d6B95fWJsCNqi6bjq2P9UXfZJ7I8iN5p6w7RAUVeObhkSWEK8vJE
-	d30Wy4kaedMOfQMeV77VVWPCbkXWzrBAVrQJRMK5r3vS3EzgvC7ORScVCo4nrFtgMHSJ4EATV1F
-	MhecbwS+AFNnq4jdTHo+Kz2zG/bMHPyalfkFL2yaGs1ozjzgVzzqyWqkQFNdGqqofk41zUSyrlZ
-	RlbxGsqg88nDYH6fOB6HXiRxBGtMoEGEpEMoP3qHwIOAb45cmdjlURnmr/H9Nx/Nvcv13r7uEDV
-	gKvdPEikoBafuuK9VlMZbrxnlnzFcyAYU0gg+z72TT9U4o5uMEvN92G9Mc6qQxHkb4uXgCFnogc
-	lcCscmcZ7jUcg4Pli3MaKSEQe0ewk0dvipIx/6plnf3Kf8rz6EX4c0wpEIG8mmO+eJuMskZ91DV
-	KY4B14Pj
-X-Received: by 2002:a05:6000:230a:b0:48b:515:f94 with SMTP id ffacd0b85a97d-48b05151156mr5639332f8f.51.1790855057900;
-        Thu, 01 Oct 2026 04:44:17 -0700 (PDT)
+        bh=+Hv7iEv8847rRd+Yspj++pyIEYShjXqQiTuC8kxfzTw=;
+        b=fkHjaU6NTTsLgroI3luTta+P5TzNmEeJ3MKj9I5ogqaAonQ1tbLvA63LntrQFVAvEu
+         HjGopSJ9ZTFRq2ykFI6JhdXT8+DjvEFejpgpWo6il0qtgzReFqwB/yYD2l5cHXZ3XYl9
+         R2AAOBQWn0oZvHDebIPwqGoUx4Sa/UaPVrr4P3LW4K0rzyGsyu1vA5iOUaV7R6rBAf2x
+         Ueb+lWbtD960ExUD9MktFeNEmiHuf4t1pOZTcn7StZpC2bqpToFoaArPg77JakOF4wNW
+         cBAW0E5qklBOemiux6gYz1CzWMBmYolcLBxNyftLWBrd0/uF2knzAUREQI4iVxuxa2js
+         8mjQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwd3XhW9Jm3Cf0JOuiIh3fLucIZSN+tDX8qgpHUuz/gDJFD6t6cEer6FG7zcwR0kF++urYuM4jc1+Xn@vger.kernel.org
+X-Gm-Message-State: AFuF++kOyw+tzdgdBSL2HKZAw/4NVDysDiA66JI2eCoQJWR/jMF5GxQD
+	ssn9euAuGDXvFVHTXvYUiVW2mee69+vCizrCvwU8D/QjNM53V6tB1bgG
+X-Gm-Gg: AYBFou00h5sJrBbwu3crL6eNn3v/qjl0+SPSJNdji2l+G3LhxULjS8OFzAZfwuEL5B+
+	LdUzANce/AObvDcrRC2kOmETq+GPmpSMAOGmV3p1rwzRt3USPe8U+iX4cAGoOWJdKLb6oFMWIEV
+	s86SUpN90xOZarnwAoZninBMFiRXEgYgv0xDZZTP2w6O73EA5El5mbexO0f2F/cmng1Jl/G02Hl
+	U/5dQZYxvnbmHRxULiE/zVIvqak7nGAmVUCxFiJP6YqLzZjHFO7VLaL+9l0/43P/k2F+ZVFVIuV
+	4Fju8uPa91sPipJHXytdfz1G+IyV1PZCVO1XfuGQt8dMgda1SYN86j0liYa2/lp40l6+oS0dl30
+	v+aPm0laAjXHcohrCuOZzytreisRYpTocrjm6wnpkkhZd0m48GekatuHtvun/EfhId2iJ6b9G9J
+	xMu0I5qvkl6Js2DEyrJtMBBVmyMsJrKqBm9vrCaGhpz9oFlSJJLgmRvh6yhIUTWMXdSJUOofaoX
+	Pi2VGx6si7T1KBd6grLnvE1eGBs0Z5GTnIThUk13lcaX5m+C3WQEvEh8elyRzrd16dklJB/Gg==
+X-Received: by 2002:a05:600d:6414:10b0:4a0:1b14:ce81 with SMTP id 5b1f17b1804b1-4a01b14cf1dmr54994265e9.3.1790855060652;
+        Thu, 01 Oct 2026 04:44:20 -0700 (PDT)
 Received: from ernest.hoecke-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b1035eff8sm1243705f8f.7.2026.10.01.04.44.17
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b1035eff8sm1243705f8f.7.2026.10.01.04.44.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 04:44:17 -0700 (PDT)
+        Thu, 01 Oct 2026 04:44:20 -0700 (PDT)
 From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-Date: Thu, 01 Oct 2026 13:44:11 +0200
-Subject: [PATCH v2 3/6] dt-bindings: connector: Add Toradex camera
- connector
+Date: Thu, 01 Oct 2026 13:44:14 +0200
+Subject: [PATCH v2 6/6] arm64: dts: freescale: imx8mp-verdin: Add mezzanine
+ OV5640 overlays
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -73,7 +72,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261001-verdin-imx8mp-hmp-camera-ready-v2-3-7d1343ecd3ec@toradex.com>
+Message-Id: <20261001-verdin-imx8mp-hmp-camera-ready-v2-6-7d1343ecd3ec@toradex.com>
 References: <20261001-verdin-imx8mp-hmp-camera-ready-v2-0-7d1343ecd3ec@toradex.com>
 In-Reply-To: <20261001-verdin-imx8mp-hmp-camera-ready-v2-0-7d1343ecd3ec@toradex.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -91,109 +90,303 @@ X-Mailer: b4 0.13.0
 
 From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
 
-Toradex boards route the sideband signals of their 24-pin camera
-connectors to different GPIO controllers. Camera overlays which name
-those controllers directly must therefore be duplicated for each host
-board.
+The Verdin iMX8M Plus exposes its second MIPI CSI-2 interface through the
+Verdin iMX8M Plus Mezzanine. Add overlays for using a Toradex OV5640 camera
+on this interface.
 
-Describe reset, power-down, detection and power-control as
-connector-local GPIO functions. This lets an accessory overlay remain
-independent of the host wiring. MIPI CSI-2, I2C, clocks and supplies
-remain described separately because the GPIO nexus does not abstract
-them.
+The mezzanine can route the camera control signals through two jumper
+configurations. Describe each configuration as a GPIO nexus mapping so the
+camera description remains independent of the physical routing.
 
+The default positions share the native CSI_1 GPIOs and are intended for a
+single camera. The alternate positions permit simultaneous native and
+mezzanine cameras, but conflict with the Atmel MXT touchscreen GPIO.
+
+The current camera set uses a 27 MHz on-board oscillator. The legacy camera
+module uses 24 MHz, so provide variants for both.
+
+Link: https://developer.toradex.com/hardware/verdin-som-family/add-ons/verdin-imx8m-plus-mezzanine/
+Link: https://developer.toradex.com/hardware/accessories/cameras/csi-camera-module-5mp-ov5640-arducam
+Link: https://developer.toradex.com/hardware/legacy-products/other/csi-camera-module-5mp-ov5640/
 Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
 ---
- .../connector/toradex,camera-connector.yaml        | 81 ++++++++++++++++++++++
- 1 file changed, 81 insertions(+)
+ arch/arm64/boot/dts/freescale/Makefile             | 19 ++++++
+ ...-verdin-mezzanine-ov5640-24mhz-alt-jumpers.dtso | 19 ++++++
+ ...din-mezzanine-ov5640-24mhz-default-jumpers.dtso | 18 +++++
+ ...imx8mp-verdin-mezzanine-ov5640-alt-jumpers.dtso | 38 +++++++++++
+ ...mp-verdin-mezzanine-ov5640-default-jumpers.dtso | 42 ++++++++++++
+ .../freescale/imx8mp-verdin-mezzanine-ov5640.dtsi  | 78 ++++++++++++++++++++++
+ 6 files changed, 214 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/connector/toradex,camera-connector.yaml b/Documentation/devicetree/bindings/connector/toradex,camera-connector.yaml
+diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
+index d2422f1d692a..3d2cbdac22bb 100644
+--- a/arch/arm64/boot/dts/freescale/Makefile
++++ b/arch/arm64/boot/dts/freescale/Makefile
+@@ -738,6 +738,10 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mp-venice-gw75xx-2x.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-venice-gw82xx-2x.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-dev-nau8822-btl.dtbo
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-dsi-to-hdmi.dtbo
++dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-mezzanine-ov5640-24mhz-alt-jumpers.dtbo
++dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-mezzanine-ov5640-24mhz-default-jumpers.dtbo
++dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-mezzanine-ov5640-alt-jumpers.dtbo
++dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-mezzanine-ov5640-default-jumpers.dtbo
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-nonwifi-dahlia-dsi-to-hdmi.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-nonwifi-dahlia-panel-cap-touch-10inch-dsi.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-nonwifi-dahlia.dtb
+@@ -756,6 +760,11 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-dahlia-dsi-to-hdmi.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-dahlia-panel-cap-touch-10inch-dsi.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-dahlia.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-dev-dsi-to-hdmi.dtb
++dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-dev-dual-ov5640.dtb
++dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-dev-mezzanine-ov5640-24mhz-alt-jumpers.dtb
++dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-dev-mezzanine-ov5640-24mhz-default-jumpers.dtb
++dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-dev-mezzanine-ov5640-alt-jumpers.dtb
++dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-dev-mezzanine-ov5640-default-jumpers.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-dev-nau8822-btl.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-dev-ov5640-24mhz.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-verdin-wifi-dev-ov5640.dtb
+@@ -777,6 +786,16 @@ imx8mp-verdin-wifi-dahlia-dsi-to-hdmi-dtbs := imx8mp-verdin-wifi-dahlia.dtb imx8
+ imx8mp-verdin-wifi-dahlia-panel-cap-touch-10inch-dsi-dtbs := imx8mp-verdin-wifi-dahlia.dtb \
+ 	imx8mp-verdin-panel-cap-touch-10inch-dsi.dtbo
+ imx8mp-verdin-wifi-dev-dsi-to-hdmi-dtbs := imx8mp-verdin-wifi-dev.dtb imx8mp-verdin-dsi-to-hdmi.dtbo
++imx8mp-verdin-wifi-dev-dual-ov5640-dtbs := imx8mp-verdin-wifi-dev.dtb imx8m-verdin-ov5640.dtbo \
++	imx8mp-verdin-mezzanine-ov5640-alt-jumpers.dtbo
++imx8mp-verdin-wifi-dev-mezzanine-ov5640-24mhz-alt-jumpers-dtbs := imx8mp-verdin-wifi-dev.dtb \
++	imx8mp-verdin-mezzanine-ov5640-24mhz-alt-jumpers.dtbo
++imx8mp-verdin-wifi-dev-mezzanine-ov5640-24mhz-default-jumpers-dtbs := imx8mp-verdin-wifi-dev.dtb \
++	imx8mp-verdin-mezzanine-ov5640-24mhz-default-jumpers.dtbo
++imx8mp-verdin-wifi-dev-mezzanine-ov5640-alt-jumpers-dtbs := imx8mp-verdin-wifi-dev.dtb \
++	imx8mp-verdin-mezzanine-ov5640-alt-jumpers.dtbo
++imx8mp-verdin-wifi-dev-mezzanine-ov5640-default-jumpers-dtbs := imx8mp-verdin-wifi-dev.dtb \
++	imx8mp-verdin-mezzanine-ov5640-default-jumpers.dtbo
+ imx8mp-verdin-wifi-dev-nau8822-btl-dtbs := imx8mp-verdin-wifi-dev.dtb imx8mp-verdin-dev-nau8822-btl.dtbo
+ imx8mp-verdin-wifi-dev-ov5640-24mhz-dtbs := imx8mp-verdin-wifi-dev.dtb imx8m-verdin-ov5640-24mhz.dtbo
+ imx8mp-verdin-wifi-dev-ov5640-dtbs := imx8mp-verdin-wifi-dev.dtb imx8m-verdin-ov5640.dtbo
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-verdin-mezzanine-ov5640-24mhz-alt-jumpers.dtso b/arch/arm64/boot/dts/freescale/imx8mp-verdin-mezzanine-ov5640-24mhz-alt-jumpers.dtso
 new file mode 100644
-index 000000000000..27fee3defde7
+index 000000000000..9579ad2f2235
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/connector/toradex,camera-connector.yaml
-@@ -0,0 +1,81 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/connector/toradex,camera-connector.yaml#
-+$schema: http://devicetree.org/meta-schemas/base.yaml#
++++ b/arch/arm64/boot/dts/freescale/imx8mp-verdin-mezzanine-ov5640-24mhz-alt-jumpers.dtso
+@@ -0,0 +1,19 @@
++// SPDX-License-Identifier: GPL-2.0-only OR MIT
++/*
++ * Copyright (c) Toradex
++ *
++ * Toradex CSI Camera Module 5MP OV5640 on the Verdin iMX8M Plus Mezzanine with
++ * alternate GPIO jumper positions.
++ *
++ * https://developer.toradex.com/hardware/legacy-products/other/csi-camera-module-5mp-ov5640/
++ * https://developer.toradex.com/hardware/verdin-som-family/add-ons/verdin-imx8m-plus-mezzanine/
++ */
 +
-+title: Toradex camera connector GPIO nexus
++/dts-v1/;
++/plugin/;
 +
-+maintainers:
-+  - Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-+  - Toradex Linux BSP Team <linux-bsp@toradex.com>
++#include "imx8mp-verdin-mezzanine-ov5640-alt-jumpers.dtso"
 +
-+description: |
-+  Toradex carrier boards share a common 24-pin, 0.5 mm pitch FFC/FPC camera
-+  connector carrying MIPI CSI-2, I2C, clock, power, and sideband GPIO signals.
-+  This binding describes the sideband signals as a GPIO nexus. The other
-+  connector resources remain described by the surrounding board device tree.
++&clk_ov5640_mezz_osc {
++	clock-frequency = <24000000>;
++};
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-verdin-mezzanine-ov5640-24mhz-default-jumpers.dtso b/arch/arm64/boot/dts/freescale/imx8mp-verdin-mezzanine-ov5640-24mhz-default-jumpers.dtso
+new file mode 100644
+index 000000000000..2079f9ead22d
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx8mp-verdin-mezzanine-ov5640-24mhz-default-jumpers.dtso
+@@ -0,0 +1,18 @@
++// SPDX-License-Identifier: GPL-2.0-only OR MIT
++/*
++ * Copyright (c) Toradex
++ *
++ * Toradex CSI Camera Module 5MP OV5640 on the Verdin iMX8M Plus Mezzanine.
++ *
++ * https://developer.toradex.com/hardware/legacy-products/other/csi-camera-module-5mp-ov5640/
++ * https://developer.toradex.com/hardware/verdin-som-family/add-ons/verdin-imx8m-plus-mezzanine/
++ */
 +
-+  The nexus exposes connector-local GPIO function numbers to camera overlays
-+  and maps the functions wired by a carrier board to their GPIO controllers.
-+  GPIO specifiers contain a function number followed by standard GPIO flags.
-+  A board may omit functions which it does not wire.
++/dts-v1/;
++/plugin/;
 +
-+  The function numbers are:
-+    - 0: Camera reset, connector pin 11
-+    - 1: Camera power-down, connector pin 22
-+    - 2: Camera identification, connector pin 23
-+    - 3: Camera power control, connector pin 24
++#include "imx8mp-verdin-mezzanine-ov5640-default-jumpers.dtso"
 +
-+properties:
-+  compatible:
-+    const: toradex,camera-connector
++&clk_ov5640_mezz_osc {
++	clock-frequency = <24000000>;
++};
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-verdin-mezzanine-ov5640-alt-jumpers.dtso b/arch/arm64/boot/dts/freescale/imx8mp-verdin-mezzanine-ov5640-alt-jumpers.dtso
+new file mode 100644
+index 000000000000..9f2372227a8d
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx8mp-verdin-mezzanine-ov5640-alt-jumpers.dtso
+@@ -0,0 +1,38 @@
++// SPDX-License-Identifier: GPL-2.0-only OR MIT
++/*
++ * Copyright (c) Toradex
++ *
++ * Toradex CSI Camera Set 5MP OV5640 on the Verdin iMX8M Plus Mezzanine with
++ * alternate GPIO jumper positions.
++ * These positions support two cameras but share Verdin GPIO_2 with the Atmel
++ * MXT touchscreen.
++ *
++ * https://developer.toradex.com/hardware/accessories/cameras/csi-camera-module-5mp-ov5640-arducam
++ * https://developer.toradex.com/hardware/verdin-som-family/add-ons/verdin-imx8m-plus-mezzanine/
++ */
 +
-+  "#gpio-cells":
-+    const: 2
++/dts-v1/;
++/plugin/;
 +
-+  gpio-map:
-+    minItems: 1
-+    maxItems: 4
++#include "imx8mp-verdin-mezzanine-ov5640.dtsi"
 +
-+  gpio-map-mask:
-+    items:
-+      - const: 0xffffffff
-+      - const: 0
++&{/} {
++	verdin_mezz_camera_connector: camera-connector-1 {
++		compatible = "toradex,camera-connector";
++		#gpio-cells = <2>;
++		/*
++		 * CSI_2_GPIO_0_RST (pin 11) - JP5 1-2 - Verdin GPIO_1
++		 * CSI_2_GPIO_1     (pin 22) - JP6 1-2 - Verdin GPIO_2
++		 * CSI_2_GPIO_3     (pin 24) - JP8 1-2 - Verdin GPIO_4
++		 */
++		gpio-map = <0 0 &gpio1 0 GPIO_ACTIVE_HIGH>,
++			   <1 0 &gpio1 1 GPIO_ACTIVE_HIGH>,
++			   <3 0 &gpio1 6 GPIO_ACTIVE_HIGH>;
++		gpio-map-mask = <0xffffffff 0x0>;
++		gpio-map-pass-thru = <0x0 0xffffffff>;
++	};
++};
 +
-+  gpio-map-pass-thru:
-+    items:
-+      - const: 0
-+      - const: 0xffffffff
++&clk_ov5640_mezz_osc {
++	clock-frequency = <27000000>;
++};
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-verdin-mezzanine-ov5640-default-jumpers.dtso b/arch/arm64/boot/dts/freescale/imx8mp-verdin-mezzanine-ov5640-default-jumpers.dtso
+new file mode 100644
+index 000000000000..801beb8f48a6
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx8mp-verdin-mezzanine-ov5640-default-jumpers.dtso
+@@ -0,0 +1,42 @@
++// SPDX-License-Identifier: GPL-2.0-only OR MIT
++/*
++ * Copyright (c) Toradex
++ *
++ * Toradex CSI Camera Set 5MP OV5640 on the Verdin iMX8M Plus Mezzanine.
++ * The default jumper positions share GPIOs with the Verdin CSI_1 interface
++ * and do not support using both camera connectors at the same time.
++ *
++ * https://developer.toradex.com/hardware/accessories/cameras/csi-camera-module-5mp-ov5640-arducam
++ * https://developer.toradex.com/hardware/verdin-som-family/add-ons/verdin-imx8m-plus-mezzanine/
++ */
 +
-+required:
-+  - compatible
-+  - "#gpio-cells"
-+  - gpio-map
-+  - gpio-map-mask
-+  - gpio-map-pass-thru
++/dts-v1/;
++/plugin/;
 +
-+additionalProperties: false
++#include "imx8mp-verdin-mezzanine-ov5640.dtsi"
 +
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
++&{/} {
++	verdin_mezz_camera_connector: camera-connector-1 {
++		compatible = "toradex,camera-connector";
++		#gpio-cells = <2>;
++		/*
++		 * CSI_2_GPIO_0_RST (pin 11) - JP5 2-3 - Verdin GPIO_5_CSI
++		 * CSI_2_GPIO_1     (pin 22) - JP6 2-3 - Verdin GPIO_6_CSI
++		 * CSI_2_GPIO_3     (pin 24) - JP8 2-3 - Verdin GPIO_8_CSI
++		 */
++		gpio-map = <0 0 &gpio1 7 GPIO_ACTIVE_HIGH>,
++			   <1 0 &gpio1 8 GPIO_ACTIVE_HIGH>,
++			   <3 0 &gpio4 1 GPIO_ACTIVE_HIGH>;
++		gpio-map-mask = <0xffffffff 0x0>;
++		gpio-map-pass-thru = <0x0 0xffffffff>;
++	};
++};
 +
-+    camera-connector {
-+        compatible = "toradex,camera-connector";
-+        #gpio-cells = <2>;
-+        /*
-+         * 0: Camera reset, connector pin 11
-+         * 1: Camera power-down, connector pin 22
-+         * 2: Camera identification, connector pin 23
-+         * 3: Camera power control, connector pin 24
-+         */
-+        gpio-map = <0 0 &gpio1 0 GPIO_ACTIVE_HIGH>,
-+                   <1 0 &gpio1 1 GPIO_ACTIVE_HIGH>,
-+                   <2 0 &gpio1 2 GPIO_ACTIVE_HIGH>,
-+                   <3 0 &gpio1 3 GPIO_ACTIVE_HIGH>;
-+        gpio-map-mask = <0xffffffff 0x0>;
-+        gpio-map-pass-thru = <0x0 0xffffffff>;
-+    };
++&clk_ov5640_mezz_osc {
++	clock-frequency = <27000000>;
++};
 +
-+...
++&ov5640_mezz {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_gpio5>, <&pinctrl_gpio6>;
++};
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-verdin-mezzanine-ov5640.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-verdin-mezzanine-ov5640.dtsi
+new file mode 100644
+index 000000000000..3902ba62fb91
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx8mp-verdin-mezzanine-ov5640.dtsi
+@@ -0,0 +1,78 @@
++// SPDX-License-Identifier: GPL-2.0-only OR MIT
++/*
++ * Copyright (c) Toradex
++ *
++ * Common device tree include for Toradex OV5640 CSI camera on the Verdin
++ * iMX8M Plus Mezzanine.
++ */
++
++#include <dt-bindings/gpio/gpio.h>
++
++/ {
++	compatible = "toradex,verdin-imx8mp";
++};
++
++&{/} {
++	clk_ov5640_mezz_osc: ov5640-mezzanine-xclk {
++		compatible = "fixed-clock";
++		#clock-cells = <0>;
++	};
++
++	reg_verdin_mezz_csi: regulator-mezzanine-csi {
++		compatible = "regulator-fixed";
++		gpios = <&verdin_mezz_camera_connector 3 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++		regulator-name = "V_CSI_MEZZ";
++		startup-delay-us = <5000>;
++	};
++};
++
++&isi_0 {
++	status = "okay";
++};
++
++/* Verdin I2C_2_DSI (Mezzanine JP3 and JP4 in position 2-3) */
++&i2c2 {
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	status = "okay";
++
++	ov5640_mezz: camera@3c {
++		compatible = "ovti,ov5640";
++		reg = <0x3c>;
++		clocks = <&clk_ov5640_mezz_osc>;
++		clock-names = "xclk";
++		AVDD-supply = <&reg_verdin_mezz_csi>;
++		DOVDD-supply = <&reg_verdin_mezz_csi>;
++		DVDD-supply = <&reg_verdin_mezz_csi>;
++		powerdown-gpios = <&verdin_mezz_camera_connector 1 GPIO_ACTIVE_HIGH>;
++		reset-gpios = <&verdin_mezz_camera_connector 0 GPIO_ACTIVE_LOW>;
++
++		port {
++			ov5640_mezz_to_mipi_csi_1: endpoint {
++				clock-lanes = <0>;
++				data-lanes = <1 2>;
++				remote-endpoint = <&mipi_csi_1_in>;
++			};
++		};
++	};
++};
++
++&mipi_csi_1 {
++	status = "okay";
++
++	ports {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		port@0 {
++			reg = <0>;
++
++			mipi_csi_1_in: endpoint {
++				data-lanes = <1 2>;
++				remote-endpoint = <&ov5640_mezz_to_mipi_csi_1>;
++			};
++		};
++	};
++};
 
 -- 
 2.43.0
