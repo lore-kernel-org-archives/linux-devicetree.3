@@ -1,337 +1,167 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 799BA4DD3B7;
-	Thu,  1 Oct 2026 09:54:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98D174052B3
+	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 09:56:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790848477; cv=none; b=hDFgUki4IMhY0EPtsC5+J9z/Feb88KZcbqLWgEci2L11WJ7X9GRdBVtdvqoBCiqomF6N33koFLpEIr1f3q/s5p6OAUdrC8tDnmrJPE+7W1hcvBEVL9r+uT21uZnMF5Sq6H4kgeILKvNFGH7g3sGYmi/L9Cdwk2eQEnnL3CylhVg=
+	t=1790848562; cv=none; b=ZZKppsc2A8qT/C0kDpzJwY05SweNReAjqLuyiimuMgsWGPUVZAAa5tK5tHU2rcwAuVM1hSYPj2zm7jLKNpcozP50FJ5jq0dY7NxKG8C5NIre51NX78QiL6Zt8Z6HskLLHgIZpHd7K4E3iRtsvFrI+ohRtY3VEBiA37QSD8RjnAk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790848477; c=relaxed/simple;
-	bh=w4yov9Ff71ryWV5xJGvWEQTtp1KQopRMVXzLk06hrR8=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=h+UnWv8PWxugpZrNCmWTdkyUrayqJ/4BWN42obyxgCQxxjShCw9IcROh5uTk2HhxQuwuC5xKAd4Ux00rEE8BJ6X1AcvHymkJqwi0XW1OBjM5FqgBQ1XKCxUXwBWBxJ88WJpTh4V/RKvUkesTG+dSdGnsotYww+PATN1+F4s6EIs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bY4beBLZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790848562; c=relaxed/simple;
+	bh=wdCmTU8p62hPrCu7nvMz3ehGADNp+2kO8cXkIPggcsY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=t1JDzXxedPALUI/z8iDNijuwc0npHRt561dVHveRaCW0d9kfl4+Mh6OL0ubdvHVF32NQh6GXqXdfGkLogdw3MYM6IqAmFpFLjNUO8pGwVl+c5Q3qVev6erFXyIKwlE/la72vWPIcRHlwV+oz0tYC6Ndq5ANns0PIH9FRyV/I5iw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RNDOguyE; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=DNz1s9gT; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bY4beBLZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 134641F000FF;
-	Thu,  1 Oct 2026 09:54:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790848475;
-	bh=KVXS9LbNYq3rlQ3b9dDNQPLyxSOXC6oYEzY48bSFdSc=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=bY4beBLZRM0vRu+pPTh/230O6fC9SRk9Ry64PZe31OLX8dtBGrssA2VONaxkcCQzj
-	 FuTC/jj/u0Hm9wPzfNZ+neS8f/ETrjjW2F9FpjvdP5wpaAHq7qCtrlW7qLerrPNahD
-	 gQyQ04zFvAbgtCquuLu/7gMAFwDDIIrPOq4H1vKyBCfVlC0bhDbk9ffIumnQwZhXx/
-	 2Cl1LS4Ma3w50XJjdd1Iq/Dmye7nEndowjw8bn8DPnmP/ikVpD+ZLkaEGEo/MbeCE6
-	 LOnIoiOucoNMwbq+yo8VjeSOIjs2mTRT2QpGNAjUquQR+dVwhqeMVVJd4qhGxPnswM
-	 iuVI4B4zgI6oA==
-Subject: Re: [PATCH net-next v22 3/3] net: phy: Add driver for Motorcomm Quad
- 2.5GbE phy
-From: netdev-bot+sashiko@kernel.org
-To: kyle.switch@motor-comm.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, andrew@lunn.ch, hkallweit1@gmail.com,
- linux@armlinux.org.uk, Frank.Sae@motor-comm.com, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- ming.xu@motor-comm.com, xiaolin.xu@motor-comm.com,
- jianmin.wang@motor-comm.com
-Date: Thu, 01 Oct 2026 09:54:33 +0000
-Message-ID: <179084847364.434549.6613353375292448395@kernel.org>
-In-Reply-To: <20260929095430.508657-4-kyle.switch@motor-comm.com>
-References: <20260929095430.508657-4-kyle.switch@motor-comm.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RNDOguyE";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DNz1s9gT"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6916xfIF1933325
+	for <devicetree@vger.kernel.org>; Thu, 1 Oct 2026 09:55:59 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=OmdWzDgQaJhw28/RsHEB8YAe
+	ng3ivItati6H6co2/Pk=; b=RNDOguyEAiXYC0PxI/DoQfl0KQvRqFpSBIKN80Jd
+	kwdlj6p3VhX1JHLBtw82NWqKvTzlVSk6EXtTAShw1Yy+CMB2Ufq1ccYLIJJyCGju
+	ryonpVEPCeSKlKvrFEbcEJTf2/JrLSwfKNH43ZvyZIHjhhVuejMKtgJGi2FHnqU2
+	DRQMBXVYVKt0pB6fR4BKpu/F7F77v/lyWK9zMRPw7598L/0KFKJI5gr+1t3ZdMBl
+	1J5h+UKIQfRO36Whe1vx3imJmH7TgjAvEeiusx2+zf32xTrs4kFFI8bUtI9mO/T0
+	8SuN2ishHHm82MrDgz/MAiVbtMgmT9hXDq2mfOCprWJjxA==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h1jcfrtfe-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 09:55:58 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93caf7856ffso281657985a.3
+        for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 02:55:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790848558; x=1791453358; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=OmdWzDgQaJhw28/RsHEB8YAeng3ivItati6H6co2/Pk=;
+        b=DNz1s9gT7HnOtFlXXazGa/0jjnApzscB8zaPbKLEyWkOJHZsCliDhV/1GB6co49R1X
+         1cFu6gGnl5mfBcQWjxpE5rsG0tPQW0xhr0YzKuiu4L9FLrDivbBbP0wXtn8Ng+fa57vQ
+         is1dRloCf2wuUErW5zxY74edjqg05UlTIzsECvn+dwf1mO9PwjAZzQ9yhKtbWnWXUrdO
+         njXOSERES9AYa2F4Z49P80uRqCUdm7Ovl7TwfBuaHGUwIc/PotJddwwWKkCWK1Qj2Q6i
+         e2HErcqCiWhtnt4w6J/KansrRRu4puPi2Cjb3B3tUDihf1PYSWosCUHZy588X/S6eiNp
+         G1sg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790848558; x=1791453358;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OmdWzDgQaJhw28/RsHEB8YAeng3ivItati6H6co2/Pk=;
+        b=wBynu9dDdvGKIxbq5Hr44yBgL7A5oTyCPj3BUzCTVNNoeQPK0I7N9/pgUCmTxB11QA
+         JDSKlqTAEwOBrD4zZrydw+mD+tgd8g8jZP1lzDeB/N4PQucRReb0N5ZZCXyig1ivC7Wx
+         FU9mi7Y2IsVfZQRFgn6u6D+bEtmm6i4j+BLmwnGWpVaQaAyLeafRHJC2TiXQkyy+S015
+         aBbuN1KwSmryW+l7+lmhUSoXwQygLQ6w0frZcvd0ooV3LmojW6QbBf8LrsJA0W+IwdJ7
+         YRb+gm8HTZZk/oU9bcQNBiKORSWo2ia3O9XggY+ORAiruSssgh+Jigf4JHdk76jO6N9E
+         fWRw==
+X-Forwarded-Encrypted: i=1; AKwUvBxk+IEk20W8c8/fpjQvjlJCIig3hwHu7ISdgILtyZkOU8pXzrxyT85HyUwhaTIgnPG907foKdTxDqs3@vger.kernel.org
+X-Gm-Message-State: AFuF++kzZ0FjbgfbMgNrRFnXMUF2fij8+1urQrsZreKLRrTbMooccLhD
+	AvzOJIp7ghuOGeVpP5arme7OipnYtvr1UZ/6oFQCx0YenxFLfs80p/wqtlAu35ZGqm1NMWwJx6i
+	iqHhM+fEqeGYsdQWPgUuGWg0Td+2wqymNl8fyfSGF1+1+f3tpgc8ozMqBbbH6LjF/
+X-Gm-Gg: AYBFou3k6YyANxubbGpl0oWWB04Xfnk5c1uNlUU37sgHYlOyWMIDSV/dXDAd4zgnJ1G
+	7VnZO4ztx7bOS5IDy7102HWY3DedqJx300FgAbJ1qglKdtpL2tOwnzdLQi4WVsdixNFepipjtXD
+	aSFOepRsOfi8WuTLSZVZhoFxdbED8+rOF/ZfJLU7/fdYTHt5Yt+y8JRDFacCIITf4lPm1GZRcZU
+	eC6WC+6PVOEnL5oJXCZfDE4Mnfy7Gp6DVRMVfDeJEDV83buvli89zWb4/LZkbWxpSRYHehgIiGp
+	T2nrLJ7UlH1UxELiWED8iPIONjLGNgmEWBCPVl9yAEWOPEErUJLn9EQSHJe/LhBNdMJou6vGXAo
+	t7NzWQo5G8WMYCFd9mbhJl7emMU+YmzIEL78OITErKpfzD5ik5KdyDy60PAV+UTE7qnmFOgeM6q
+	aZnUt0VInOKzr8
+X-Received: by 2002:a05:620a:370a:b0:93c:b47b:26f with SMTP id af79cd13be357-93cb47b0cd1mr495778785a.49.1790848557909;
+        Thu, 01 Oct 2026 02:55:57 -0700 (PDT)
+X-Received: by 2002:a05:620a:370a:b0:93c:b47b:26f with SMTP id af79cd13be357-93cb47b0cd1mr495776285a.49.1790848557435;
+        Thu, 01 Oct 2026 02:55:57 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ba42fbb999sm603556e87.62.2026.10.01.02.55.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 02:55:56 -0700 (PDT)
+Date: Thu, 1 Oct 2026 12:55:53 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Arpit Saini <arpit.saini@oss.qualcomm.com>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org,
+        linux-kernel@vger.kernel.org,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        devicetree@vger.kernel.org, rajeevny@qti.qualcomm.com
+Subject: Re: [PATCH 1/2] dt-bindings: display: panel: add optional wled-supply
+Message-ID: <cebrka4ya7u32ntiya42yx4txa3uryf5k2di234zm4enz3a6vy@xhily6qqmevo>
+References: <20260929-wled-supply-series-v1-0-75d0a83b4b00@oss.qualcomm.com>
+ <20260929-wled-supply-series-v1-1-75d0a83b4b00@oss.qualcomm.com>
+ <20261001-private-wooden-chachalaca-51aa57@quoll>
+ <997cefa0-384c-466f-b318-077939946768@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <997cefa0-384c-466f-b318-077939946768@kernel.org>
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDAzOSBTYWx0ZWRfX8F/Egqfuc+bE
+ QN9ySPgc1q3WPdY39rOODSyzfmfMZcUqvX6uu8i80fCqpGcAxPFcsNgjeEancZ78qul29ayFNRY
+ 8qpL0fiymL9bE+UJa9qsO8mGAGgL7U8=
+X-Proofpoint-GUID: iGn8vzwVlvZfdvMFHEwsjA2N_QPamaVA
+X-Authority-Analysis: v=2.4 cv=b4YncdGx c=1 sm=1 tr=0 ts=6abe2e2e cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=rj3IgQrshAo4T4ftDsUA:9
+ a=CjuIK1q_8ugA:10 a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-ORIG-GUID: iGn8vzwVlvZfdvMFHEwsjA2N_QPamaVA
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDAzOSBTYWx0ZWRfXzM3bvqro6ufm
+ h4WdoxmsYwmh7fcNw4LYd6CbKJ27l+JqqHgOj3xCbAo0Lf3swPSalMFdQJP796QpxwjqEOqyhMH
+ UG9zRUlJjJzFSkeIek9RS5RMKW7a//NQahvEFmylstdotKkXgOWCHnj+sbpmQz7eOgh2B8f90pO
+ NlXANGVoEoUvzJt5pOTE6jfh9K1AKRQ//ShbNK4D2xpWKSCYqTBla+cdsZ61ja9I+D8QFVPl/h2
+ Sxya7oE47sa4SJK58GbOiEvFuHisAMlzYBf7GdaIHQBnm05KPOoFmL3ySn+MF5IRMLYMWcYyPys
+ 2PlsrRBWYkOVxH8nsjKlZc6Z42PehAhV4EiF1gasPmHFGeMJN4KYAyOrFGTrkqKVNVzMyc6dDrV
+ C2PT7eRnhaWLN4o75GgdA9DZlorhYVYuJzZ4cClaLmAX1sRQTh8x6ZDGN1hO/3PQAYSzBik94KV
+ TVuucW3u52+adf7qGnQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-01_03,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 lowpriorityscore=0 spamscore=0 suspectscore=0 malwarescore=0
+ priorityscore=1501 bulkscore=0 impostorscore=0 clxscore=1015 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610010039
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider.
+On Thu, Oct 01, 2026 at 08:57:52AM +0200, Krzysztof Kozlowski wrote:
+> On 01/10/2026 08:55, Krzysztof Kozlowski wrote:
+> > On Tue, Sep 29, 2026 at 06:42:20PM +0530, Arpit Saini wrote:
+> >> Some boards drive the ILI7807S panel's backlight from an external
+> >> WLED driver whose enable input is wired to a GPIO, typically modeled
+> >> as a fixed regulator (e.g. vreg_wled).
+> > 
+> > You describe something else. What's fixed regulator should not matter
+> > here. Which pin is it in ILI7807S?
+> > 
+> > It seems you just want to represent GPIO with a regulator. This is just
+> > confusing and typical downstream workaround.
+> 
+> What's more, you basically REVERT the review YOU RECEIVED in v1. Really,
+> just sneak the same stuff 3 months after like the review never happened.
+> 
+> NAK
 
-Critical: 0 · High: 0 · Medium: 2 · Low: 2
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] In drivers/net/phy/motorcomm.c, yt8824_read_status_paged()
-  clears phydev->speed and phydev->duplex to UNKNOWN whenever the link…
-- [Medium] yt8824_read_status_paged() only calls genphy_c45_read_lpa()
-  when `phydev->autoneg == AUTONEG_ENABLE && phydev->autoneg_complete`.
-- [Low] yt8824_probe() calls phy_package_probe_once(), and
-  __phy_package_set_once() does `!test_and_set_bit()`, so the shared…
-- [Low] In yt8824_config_aneg(), the comment says ADV2_5G is advertised
-  'when 2.5G is explicitly forced', and the condition has a…
-
---
-
-net: phy: Add driver for Motorcomm Quad 2.5GbE phy
-
-This adds support for the Motorcomm YT8824 quad-port 2.5G PHY to the
-existing motorcomm driver. It uses the phy_package helpers for the shared
-top extended register space, and a package-wide mutex to serialize UTP and
-SerDes register space switching. The package mode comes from the
-"motorcomm,package-mode" DT property.
-
-> diff --git a/drivers/net/phy/motorcomm.c b/drivers/net/phy/motorcomm.c
-> index 90a4f86f2758b..11672fb25020b 100644
-> --- a/drivers/net/phy/motorcomm.c
-> +++ b/drivers/net/phy/motorcomm.c
-
-[ ... ]
-
-> @@ -3104,6 +4230,461 @@ static int yt8821_resume(struct phy_device *phydev)
->  	return yt8821_modify_utp_fiber_bmcr(phydev, BMCR_PDOWN, 0);
->  }
->  
-
-[ ... ]
-
-> +static int yt8824_read_status_paged(struct phy_device *phydev)
-> +{
-> +	int ret;
-> +	int val;
-> +
-> +	ret = phy8824_page_write_with_lock(phydev, YT8824_RSSR_UTP_SPACE);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	ret = genphy_read_status(phydev);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	if (phydev->autoneg == AUTONEG_ENABLE && phydev->autoneg_complete) {
-> +		ret = genphy_c45_read_lpa(phydev);
-> +		if (ret < 0)
-> +			return ret;
-> +	}
-
-[Severity: Medium]
-Can ETHTOOL_LINK_MODE_2500baseT_Full_BIT stay set in
-phydev->lp_advertising after a 2.5G link partner goes away?
-
-If autoneg has not completed (link loss, or renegotiation in progress),
-genphy_read_status()->genphy_read_lpa() clears only the C22 and 1000BASE-T
-bits:
-
-drivers/net/phy/phy_device.c:genphy_read_lpa() {
-    ...
-	if (phydev->autoneg == AUTONEG_ENABLE) {
-		if (!phydev->autoneg_complete) {
-			mii_stat1000_mod_linkmode_lpa_t(phydev->lp_advertising,
-							0);
-			mii_lpa_mod_linkmode_lpa_t(phydev->lp_advertising, 0);
-			return 0;
-    ...
-}
-
-Only the !MDIO_AN_STAT1_COMPLETE branch of genphy_c45_read_lpa() clears
-the 2.5G link partner bit:
-
-	if (!(val & MDIO_AN_STAT1_COMPLETE)) {
-		...
-		mii_10gbt_stat_mod_linkmode_lpa_t(phydev->lp_advertising, 0);
-
-The autoneg_complete gate here means that branch never runs. So ethtool
-would keep showing 2500baseT/Full in the link partner advertisement until
-the next negotiation completes. yt8821_read_status() has the same gate,
-and this code copies it.
-
-> +
-> +	if (!phydev->link) {
-> +		phydev->speed = SPEED_UNKNOWN;
-> +		phydev->duplex = DUPLEX_UNKNOWN;
-
-[Severity: Medium]
-Does this throw away the forced speed and duplex when autoneg is disabled?
-
-With autoneg off, genphy_read_status()->genphy_read_status_fixed() has
-just loaded the forced speed and duplex from BMCR. Whenever the link is
-down, this block overwrites them with SPEED_UNKNOWN and DUPLEX_UNKNOWN.
-
-On the next restart (ip link set down/up, or phy_start() on resume), the
-path looks like this:
-
-_phy_start_aneg()
-  phy_sanitize_settings()
-    phy_caps_lookup(SPEED_UNKNOWN, DUPLEX_UNKNOWN, supported, false)
-      /* no match, falls back to 'last', the slowest capability */
-  yt8824_config_aneg()
-    __genphy_config_aneg()
-      genphy_setup_forced()
-
-BMCR then gets the slowest supported mode, normally 10 Mb/s half duplex.
-It no longer matches what was requested with, for example,
-"ethtool -s ethX autoneg off speed 100 duplex full".
-
-The PHY_HALTED handling in _phy_state_machine() avoids this by resetting
-speed and duplex only when autoneg is enabled:
-
-	case PHY_HALTED:
-		if (phydev->link) {
-			if (phydev->autoneg == AUTONEG_ENABLE) {
-				phydev->speed = SPEED_UNKNOWN;
-				phydev->duplex = DUPLEX_UNKNOWN;
-			}
-
-Should this block be limited to AUTONEG_ENABLE as well?
-
-> +		if (phydev->autoneg == AUTONEG_ENABLE)
-> +			phy_resolve_aneg_pause(phydev);
-> +		return 0;
-> +	}
-
-[ ... ]
-
-> +static int yt8824_config_aneg(struct phy_device *phydev)
-> +{
-> +	struct yt8824_shared_priv *priv = phy_package_get_priv(phydev);
-> +	int phy_ctrl = 0;
-> +	int ret;
-> +
-> +	mutex_lock(&priv->shared_lock);
-> +	ret = phy8824_page_write_with_lock(phydev, YT8824_RSSR_UTP_SPACE);
-> +	if (ret < 0)
-> +		goto err;
-> +
-> +	/*
-> +	 * Only advertise 2.5G when autoneg is enabled, or when 2.5G is
-> +	 * explicitly forced.  When a different speed is forced, clear
-> +	 * ADV2_5G so a 2.5G-capable link partner cannot negotiate 2.5G.
-> +	 * __genphy_config_aneg() only rewrites the
-> +	 * clause 22 registers on the forced-speed path, so it will not
-> +	 * clear this bit.
-> +	 */
-> +	if ((phydev->autoneg == AUTONEG_ENABLE ||
-> +	     phydev->speed == SPEED_2500) &&
-> +	    linkmode_test_bit(ETHTOOL_LINK_MODE_2500baseT_Full_BIT,
-> +			      phydev->advertising))
-> +		phy_ctrl = MDIO_AN_10GBT_CTRL_ADV2_5G;
-
-[Severity: Low]
-Is the phydev->speed == SPEED_2500 part of this condition reachable?
-
-phy_ethtool_ksettings_set() rejects AUTONEG_DISABLE for any speed other
-than 10, 100 or 1000:
-
-	if (autoneg == AUTONEG_DISABLE &&
-	    ((speed != SPEED_1000 &&
-	      speed != SPEED_100 &&
-	      speed != SPEED_10) ||
-
-phylink_ethtool_ksettings_set() goes through the same helper. The comment
-about 2.5G being "explicitly forced" therefore describes a case the driver
-cannot currently reach.
-
-If it were reachable, the C45 advertisement would come from
-phydev->advertising. The forced C22 advertisement in __genphy_config_aneg()
-comes from phy_caps_lookup(speed, duplex, supported) instead, so the two
-halves would use different sources.
-
-Could the condition and the comment cover only the autoneg case?
-
-> +
-> +	ret = phy_modify_mmd_changed(phydev, MDIO_MMD_AN, MDIO_AN_10GBT_CTRL,
-> +				     MDIO_AN_10GBT_CTRL_ADV2_5G, phy_ctrl);
-
-[ ... ]
-
-> +static int yt8824_phy_package_probe_once(struct phy_device *phydev)
-> +{
-> +	struct yt8824_shared_priv *priv = phy_package_get_priv(phydev);
-> +	struct device_node *np = phy_package_get_node(phydev);
-> +	const char *mode;
-> +
-> +	if (!priv || !np) {
-> +		phydev_err(phydev, "%s: missing shared priv or DT node\n",
-> +			   __func__);
-> +		return -EINVAL;
-> +	}
-> +	/* Initialise shared lock for YT8824 */
-> +	mutex_init(&priv->shared_lock);
-> +	priv->package_mode = PHY_INTERFACE_MODE_INTERNAL;
-> +	if (!of_property_read_string(np, "motorcomm,package-mode",
-> +				     &mode)) {
-
-[ ... ]
-
-> +	} else {
-> +		phydev_err(phydev, "missing package-mode in PHY package node.\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	return 0;
-> +}
-
-[ ... ]
-
-> +static int yt8824_probe(struct phy_device *phydev)
-> +{
-> +	struct device *dev = &phydev->mdio.dev;
-> +	struct yt8824_shared_priv *shared_priv;
-> +	int ret;
-> +
-> +	ret = devm_of_phy_package_join(dev, phydev, sizeof(*shared_priv));
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Ensure other PHY probes wait for shared mutex initialization. */
-> +	phy_package_lock(phydev);
-> +	if (phy_package_probe_once(phydev)) {
-> +		ret = yt8824_phy_package_probe_once(phydev);
-> +		if (ret) {
-> +			phy_package_unlock(phydev);
-> +			return ret;
-> +		}
-> +	}
-> +	phy_package_unlock(phydev);
-
-[Severity: Low]
-What happens to sibling PHYs in the package when
-yt8824_phy_package_probe_once() fails?
-
-phy_package_probe_once() ends up in __phy_package_set_once(), which does
-!test_and_set_bit(). The once-bit is therefore set before the DT property
-is validated. On -EINVAL the bit is not cleared, and the failure is not
-recorded in the shared priv.
-
-devm_of_phy_package_join() runs outside the package lock. A sibling that
-joined earlier (async probing, or overlapping manual binds) keeps the
-shared object alive:
-
-PHY A                                 PHY B
-devm_of_phy_package_join()            devm_of_phy_package_join()
-phy_package_lock()
-phy_package_probe_once() -> true
-yt8824_phy_package_probe_once()
-  package_mode = INTERNAL
-  return -EINVAL
-phy_package_unlock()
-                                      phy_package_lock()
-                                      phy_package_probe_once() -> false
-                                      phy_package_unlock()
-                                      return 0
-
-PHY B then binds with the PHY_INTERFACE_MODE_INTERNAL default that was
-written before the property check. Its config_init runs the internal-mode
-sequence on a package whose DT was already rejected.
-
-With the default synchronous probing, the failed probe's devres unwind
-drops the refcount to zero first. This only shows up with async probing.
-
-Could the first probe's result be stored in yt8824_shared_priv so that
-later joiners also fail?
-
-As a side note, the !priv || !np check can't trigger, because
-of_phy_package_join() always sets both.
+After discussing this offline with Krzysztof. It's not a supply (my
+fault), it's an LCD driver. So, the best way to handle your displaycard
+seems to add a gpio-backlight, reference it from the panel and then in
+the driver check for the backlight's max_brightness level. If it's 1,
+then you have to send extra DCS commands to control PWM. If it's
+higher, use normal backlight class controls.
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260929095430.508657-1-kyle.switch%40motor-comm.com
+With best wishes
+Dmitry
