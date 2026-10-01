@@ -1,125 +1,243 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 403FF3F6C3D
-	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 05:28:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790832481; cv=none; b=LcKogNlIa/tyAYgN1ZGF3nkiq6Xmafozp6ltqk/QFWLQYZrTYMZXjNDJSSW5fTJUEYXx4VBcPCR+THXAoD6xbt9oAs/qJlXYFL5sC1RgCteECCki+vJDVNIOaE9bLYxSO6i3GTqIcQ2mOWvzp8uax4Oai4tZ3uLIzfeGB0z4BcM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790832481; c=relaxed/simple;
-	bh=Spt+UFjBXJhc44j8DHEYV1c+HqSHqqXAG/TyMRpCf5A=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=WyUN3udBSYzUTTYCyjMEJUauHeKPVC1/HBep1tdXO9lt9x6UkdE62eWXaf82w1qIikLSizo8GPdX+fcBDWbF+ZDJP6fWNP7+IKjwIjKNAmJ0zfivxR9V4xCon1bG4KXGFcf+VJbXLC3PwVy+vKj4+oNc0N8MI54FxowBWIprZPs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BoBehnhv; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1BD03BFAD9
+	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 05:29:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790832553; cv=pass; b=mTTmvymZBzCrcUedLms1sm38flM/7/18HqVGVLGuZ0JG4hocpf1AMKvpVTKXXkyIxR6LwI8i4lyvan7zX1AC1pqCz8G1L2G179WARrkIYRPOtFjvkzgWJdKcbBA7CYI5yhrDdyH2b2l0FJmyUt7RKJPNnGgB8ig6TCBVWtzSeQ0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790832553; c=relaxed/simple;
+	bh=iyH4XmChuCIrSHjq17pUFOv3IOKIb+u7oFkVPS6lsQM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Content-Type; b=OomDUpbzv7zYiN4k6reXK9e8ZunQmbCujqxIRlqVO7Y+MlxdkQw/jQ3YtBmyTBrMr5rHzaV5/mnWOJJC39IycbFhrO7n1F3bKRhzg3tmBP54BFBIUIyABxFQzBkQMroMFedhQtCDnS2zttrzmolfM0qBLGnxhheOGmZh+cChHJw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=osDYJEBd; arc=pass smtp.client-ip=74.125.228.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BoBehnhv"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49b912d822dso44968625e9.2
-        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 22:28:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="osDYJEBd"
+Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c2a8b9acbc6so936407966b.0
+        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 22:29:11 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790832550; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HG1AqK32hHBt/2zw/VoGX9utPNDiAJFgXqvwkjv8uUIVm/KsKuITazVLrDHyvo/J39
+         0hfQsAtw4IUyDJr64pQXRWofrBFX19Qlfyb9mXfi3w9BbkNv09KpMB9xbeJX6xoc5Khl
+         U3S0O6iYFPEGI83hoQZ9Yvm9IR2crG2S3oo6l7qmIHrf85l9RxKz3FEESD3ulhEND2jn
+         i1pGNzY8v494qNn8gL7o4tMo9SGaJ8RB5A7JRKwVeN1W331KvbHRk2+C+jQQFWoOsXKo
+         wbBpulS7K5TjWfMxz4Qh2rX4UZd07GIa0SLFRimqQK7bQahA1xiJDQHbmwtUaCNc29bV
+         aPvw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=to:subject:message-id:date:from:in-reply-to:references:mime-version
+         :dkim-signature;
+        bh=XGarxBDiXUXvFqBOUfn28UY9mkYR4GFN16+AwUpnjOA=;
+        fh=RhQ/xLuOqzdbAOuqGTPUaN6rJqpxot4h//2Y/DXXhWU=;
+        b=q9O7GcL6hLUTLA4QYcgtEg+/6gKqLCu6RM4m6dcUOfJjIurHPoJESIILph88/cIBGo
+         GSEojyQSpRqwLqDew4Er2iyrGOzfWtqEk0mNimhhwW+ouyknWlHVYahGGJYp1uB+1xb6
+         wowl0C/IrpJZUNR0RKigLoL3QUHxIb436bJPY7eeHXyIQXAjGzWlkUyV+rZeR7ZT3E4Z
+         azmbMNPm3emDXFEiaax0H3lQJvKy/lKY7S7wklv8zNTKPi2Fo/Dv1q1i2mKFYv5mtfvw
+         UVxdS5jnm1J/7Nk/1tPHP6qqu4l2B+ufMO6rfPX8KuClXW9g78qUE/afLacnuCE2TCl3
+         xLBQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790832478; x=1791437278; darn=vger.kernel.org;
-        h=content-type:mime-version:content-transfer-encoding:message-id:date
-         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IVL0YicU6s4vWnH0QGlqg5VqXOz3HA74QxakKY7UMwI=;
-        b=BoBehnhvGnEwe6RqurJZxA57cvqIitsXMR5OWAilkmb9oVO/eR5GfMmbMMBwSv+GjZ
-         AOy0N8/96rqwMgfGj9j7VmQLeII+N43MfI01JqOVjpXbABlpfAnEAIdWZiFzQ/+/C5Wj
-         R3ak1GI0Ea/uBnAHw0NaVEmyWRSv92OzezGB9tu4R5Hw7ayYgKJwaWO5OXw5++Zcc84m
-         3n9wNkKGXZX4yQduFkfim/DqxvC5f0LEeSXunHsijZA/CW4AKd7yVNdDPVSmjj1hqvDT
-         aXE+O8HbKD8FLmceXY1y7QXaj24yGiIdXNpEwLmZ/abtDoE2igfwbPS1hgRvRaUrw0tC
-         TT0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790832478; x=1791437278;
-        h=content-type:mime-version:content-transfer-encoding:message-id:date
-         :references:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1790832550; x=1791437350; darn=vger.kernel.org;
+        h=content-type:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=IVL0YicU6s4vWnH0QGlqg5VqXOz3HA74QxakKY7UMwI=;
-        b=qdEmRBQNE6QT1Nr7Pvi3cocAJV0OB6SPmmuQLiGLEQzv8eIRk68pHHA4xLpS37dduh
-         M9+OM8EBtvoxPCOmvCi/gyB1rA9Oxi+Sg5rP/1TDw0XWKgPkspJBRRl9WM60+bfyY3a1
-         hnnh38czg0Opc5QCrs2V2dq4kFgMOKJeNUiPAt1ywzmricuzPdKNFdr22ZH8hB7yBnO8
-         BkLo8T8gHGRti1DBxOkGMJkfKAiacb5NbS4cOh2uKf9ng9Ah0i5oJyj3pmbBPzJOWofg
-         3KYRhdI48imj9YG37tytyqaDhybxc7gX+x6Hq5QX3XEDqa6ADQJN8itFOtbrefmdKVAH
-         Djhw==
-X-Forwarded-Encrypted: i=1; AKwUvBx2urhjqefvvjiZFeDI0AwlT3YeB34o81vRBNZSg9pp0F+cuQepMKnonxXABM5TvMyAihJGpkSW3GOn@vger.kernel.org
-X-Gm-Message-State: AFuF++lEzy8H/ymAUBfQXT4DW4fSJ1X5GBVqr9AcBTeftl5NUnnvSfQT
-	Ig0qy9EOYcUButVxIcbdqM4ASxTab3eHoEBAwlPGlddSqv6LCzUl/QxQ
-X-Gm-Gg: AYBFou3yy055oAibSzplEqTREkBooFdUEXDTM02VJbAer1/Zn5N34X4G36/XN16bKkC
-	7EYoVM7IXj0hUya0p2M7Ri6WOdwAt+GgI3pYWuNUo1ALWCsUCoKbeCA5x0NMFTuBe0G1/gYM5nm
-	Odia/9HyeSmSZ5xQdarlTLSCTDsZ2ZXlIKS1BJcaTFMkZ7rXCr7pF5TzRKgNm00GAVtxN6TaeYN
-	xuDS0JXh8l0oPclioK+FeOxAkaDPXZthyeMklbllv1eZO6uRSYdzJYynJ1oud72J78ad8On1CiK
-	M7GZC04KB4iVN46v8Dmsm/sQm3CsihECzIJSJn/x5Mpigairtr9fCsdiqo267WDDREpJOOII6o3
-	JqCWLJY0WRFaHOdpnh8kgIOskLBudQ73jNRjzuo3B/MDBuanrpMVgKuRqIa5qsnVilUz36QF/aN
-	YXx5j41qn6ghloni7HfiSARX5cRk7MaGEj9MnCjEd6PT7Wt0pkjoVqkdlMYhGW/OTCA1VciXPgr
-	HrvXiMg9LNeArIGmrYWt5bIWRw734CV6wSPQoYoEPk=
-X-Received: by 2002:a05:600c:4687:b0:4a0:3a3:33e2 with SMTP id 5b1f17b1804b1-4a01adde08dmr57434805e9.5.1790832478268;
-        Wed, 30 Sep 2026 22:27:58 -0700 (PDT)
-Received: from [127.0.1.1] ([92.241.26.38])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01f979c05sm64944975e9.3.2026.09.30.22.27.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 22:27:57 -0700 (PDT)
-From: Fil Dunsky <filipp.dunsky@gmail.com>
-To: Jason Li <jason.li@cortina-access.com>
-Cc: Arnd Bergmann <arnd@arndb.de>, Linus Walleij <linusw@kernel.org>,
- Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Jiri Slaby <jirislaby@kernel.org>, Russell King <linux@armlinux.org.uk>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Drew Fustini <fustini@kernel.org>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
- "linux-arm-kernel@lists.infradead.org" <linux-arm-kernel@lists.infradead.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-serial@vger.kernel.org" <linux-serial@vger.kernel.org>
-Subject:
- RE: [PATCH RFC 07/10] tty: serial: Add Cortina Systems CS75xx UART driver
-In-Reply-To: <SEZPR01MB4208B8B4A5A7F48F7FFE0C9FA28A2@SEZPR01MB4208.apcprd01.prod.exchangelabs.com>
-References: <20260930-b4-cs75xx-v1-0-4617c4463529@gmail.com>
- <20260930-b4-cs75xx-v1-7-4617c4463529@gmail.com>
- <CAD++jLkzcf7gJB82XT3-xb4jLujtWSNz1kT2r1-4N54rRfRNMA@mail.gmail.com>
- <1d81c2ef-7a5b-4306-83d2-ff96b0eb6a06@app.fastmail.com>
- <179076749140.3134070.3869742286743401078@gmail.com> <SEZPR01MB42087271C56AD1C7E926AF35A28A2@SEZPR01MB4208.apcprd01.prod.exchangelabs.com>
- <179082517588.138645.14615134489246049313@gmail.com> <SEZPR01MB4208B8B4A5A7F48F7FFE0C9FA28A2@SEZPR01MB4208.apcprd01.prod.exchangelabs.com>
-Date: Thu, 01 Oct 2026 08:26:39 +0300
-Message-ID: <179083239972.193541.4791387611943615705@gmail.com>
-Content-Transfer-Encoding: 8bit
+        bh=XGarxBDiXUXvFqBOUfn28UY9mkYR4GFN16+AwUpnjOA=;
+        b=osDYJEBdSquqTH4ZFXpMUHX2XBr3nOEgG1h8rZyrujLdLCVNRxl9RPOdGTRH9DmyPz
+         l3ITIkRVULsPCqWaADStaEPoZoUY442sUyEh3MUoEBZ/dlPpdiXKf+PbY3N6dFOwtzsi
+         jPtKhfP1YbdErbdskHmZkFDbE5BYOfsL8/ZZT8Vw0X8SXZ7qJkuq6/b9s7L3r7qWdmPT
+         90aS+lptcxezM5U/C4ni4Cl8hoxNfY/UXpJodKYKzlLhXyyKKth82yeJH4K25tZKUlqD
+         TtssVuIXRsIAP4l5SrN4Gah2XAuVCE75YbjpqamLDpXjtDj27m2fjwmHm5teYeGFEf26
+         MOrw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790832550; x=1791437350;
+        h=content-type:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XGarxBDiXUXvFqBOUfn28UY9mkYR4GFN16+AwUpnjOA=;
+        b=Tc3HDxRuoEAo+6mjtL534Qw1vzQzM5uXU5IEeaYjRXCxGjLy0Gy6o14LpDI8mnMhGq
+         swmDadWJowheuQvx0V7Hx+R+iUtl8hJNsKw08w2pWn4dKZjmWFqFMF8WDwmbExC1wqqH
+         q11FfjRBI3KtYGv1sY7bawEJlsfR/THF+rVSswxeDzTHofrqJ06EdoJMH+EKjzkNsTam
+         oBxhJJ/6YTL46DUr3s3V9OpRdSlEoYji9OI291PaoDqwRS7lhXXvHbo7fRd5Gc7RREPP
+         2TSp47Vv/msKHf2A4XsKcj6TB1RtijaXNftPwmMd2WkDHN+t6gACj2digEYmRVoeFHCJ
+         Omxw==
+X-Forwarded-Encrypted: i=1; AKwUvByJByL7A4+PpvdqemBBt/qwaGfpZ9JS2vOykBE6wypz/ma9qMNsd37Z+OrWb53C/ZvU4Dfy/c4NplIJ@vger.kernel.org
+X-Gm-Message-State: AFq9FYJQO0KLiTgBxU9WSlu9Ij2orsEnCB7BdaTJd2Tg0tMHmsoKFkho
+	40piRizJOv4XuYjs9B1U9652LjG0fNxrTFesTF4JF6IKSquRIVCgsBRi6IiFhXIQGMsiR0LxUOc
+	DCtOaSqTIaNSv86Rt8FYjm8JXJQdN/Xg=
+X-Gm-Gg: AYBFou2F00x9dXrdFqEy7SfoVgDtbaPkqNb82oisbmvzMBltoP2LU8RD5zels7c0W5I
+	CfuO7jWQrWakS2ayooCSFvrYrmZPorcN9W+N0lMuiizCRPIjzbCRsUXFk3IoB+A+csLQWr9CD3p
+	EioMTclzVYOpz17FU3+tjV64oOS+o8XI+08oPFN5eHveamel0VEoi8CUKwmSZ8LtO8D6o4HVUeG
+	y3MLhzkL7wNihSMXJAep45wzZjcd9hAR2HuPl4LmsRP1uzak1COAoFdzaJ5Xbm9+xAGLrMj6Vi7
+	d1oC2nSVFFINopfOAucUYqGZU5LoGyROeu8PzTLieL4X8U5YsrG1LBqDL8H8oyQ+OQ==
+X-Received: by 2002:a05:6402:1906:b0:6ac:73f8:2e5a with SMTP id
+ 4fb4d7f45d1cf-6ae199853d6mr2960704a12.41.1790832549463; Wed, 30 Sep 2026
+ 22:29:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; format="fixed"
+References: <20260923211816.89954-1-lsa.uz@pm.me> <20260923211816.89954-2-lsa.uz@pm.me>
+ <CAKNG7X8CTnp2UNYEKOt6r==WdP2v7oxW0nUZ_MANtCCgpghP+A@mail.gmail.com>
+In-Reply-To: <CAKNG7X8CTnp2UNYEKOt6r==WdP2v7oxW0nUZ_MANtCCgpghP+A@mail.gmail.com>
+From: Andre Gilerson <andre.gilerson@gmail.com>
+Date: Thu, 1 Oct 2026 07:28:57 +0200
+X-Gm-Features: AclHuK-VbD2xvscLLOhBugu82UCpNYQ2zHUF3TP2o0zojNR6k3K4mn-rv3V3V-A
+Message-ID: <CAKNG7X9NkbXSnWGR4-79akJ7WiVeGa7D0mC=p1Pz2gTFO4npZw@mail.gmail.com>
+Subject: Fwd: [PATCH v7 1/3] dt-bindings: media: Add Sony IMX681
+To: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Thu, Oct 01, 2026 at 05:14:59AM +0000, Jason Li wrote:
-> We agree with the approach of using a single UART driver since the
-> CS75xx and CA series share the same UART hardware implementation.
-> For the Device Tree compatible strings, we would prefer using the
-> "cortina-access" vendor prefix for the CA SoCs (e.g.
-> "cortina-access,<soc>-uart").
-> We do not have concerns with using a neutral driver name such as
-> cortina-uart. However, for DT bindings and related documentation
-> describing the CA devices, we would prefer the wording "Cortina
-> Access" to distinguish them from the legacy Cortina/Marvell branded
-> devices.
+Hi everybody,
 
-Thanks, that works for me. So for v2:
+sorry for the late reponse, I was away on holiday. I was originally
+working on the IMX681 driver as part of my efforts for running linux
+of the surface 11 pro intel. Thanks for Sergey to bringing this to
+mainline. As Krzysztof asked on v3: I am fine with being listed as a
+maintainer here, but i would include Sergey as a Maintainer as well,
+since he contributed as much work by now.
 
-- drivers/tty/serial/cortina-uart.c, SERIAL_CORTINA,
-  SERIAL_CORTINA_CONSOLE;
-- the CS75xx parts keep the existing "cortina" prefix
-  ("cortina,cs7542-uart"), the CA parts get "cortina-access,<soc>-uart"
-  when they are added;
-- the binding and the Kconfig help name both families, as "Cortina
-  Systems CS75xx" and "Cortina Access CAxxxx".
-
-Arnd, this also answers the prefix question from patch 4 for me: I
-would leave the CS75xx compatibles and the dts directory on "cortina"
-then, and use "cortina-access" only for the parts that Cortina Access
-made. Please shout if you or the DT maintainers see it differently.
+Acked-by: Andre Gilerson <andre.gilerson@gmail.com>
 
 Thanks,
-Fil
+Andre
 
+PS. sorry for the doubling the email, the first one was rejected due
+to HTML formatting
+
+On Wed, 23 Sept 2026 at 23:18, Sergey Lebedev <lsa.uz@pm.me> wrote:
+>
+> The Sony IMX681 is a CMOS image sensor used as the user-facing camera on
+> several Microsoft Surface devices. It operates from analog 2.8 V, digital
+> 1.05 V and interface 1.8 V supplies, is programmable over I2C, and outputs
+> 10-bit Bayer data over a two-lane MIPI CSI-2 D-PHY interface.
+>
+> Signed-off-by: Sergey Lebedev <lsa.uz@pm.me>
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> ---
+>  .../bindings/media/i2c/sony,imx681.yaml       | 107 ++++++++++++++++++
+>  1 file changed, 107 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/media/i2c/sony,imx681.yaml
+>
+> diff --git a/Documentation/devicetree/bindings/media/i2c/sony,imx681.yaml b/Documentation/devicetree/bindings/media/i2c/sony,imx681.yaml
+> new file mode 100644
+> index 00000000000..6d2e4ddcee9
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/media/i2c/sony,imx681.yaml
+> @@ -0,0 +1,107 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/media/i2c/sony,imx681.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Sony IMX681 CMOS Image Sensor
+> +
+> +maintainers:
+> +  - Andre Gilerson <andre.gilerson@gmail.com>
+> +
+> +description:
+> +  The Sony IMX681 is a CMOS active pixel image sensor with a square pixel
+> +  array, used as the user-facing camera on several Microsoft Surface devices.
+> +  It operates from analog 2.8 V, digital 1.05 V and interface 1.8 V supplies,
+> +  is programmable over I2C, and outputs 10-bit Bayer data over a two-lane
+> +  MIPI CSI-2 D-PHY interface.
+> +
+> +allOf:
+> +  - $ref: /schemas/media/video-interface-devices.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: sony,imx681
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    description: Input clock (19.2 MHz)
+> +    maxItems: 1
+> +
+> +  avdd-supply:
+> +    description: Analog power supply (2.8 V)
+> +
+> +  dvdd-supply:
+> +    description: Digital power supply (1.05 V)
+> +
+> +  dovdd-supply:
+> +    description: Interface power supply (1.8 V)
+> +
+> +  reset-gpios:
+> +    description: Sensor reset (XCLR) GPIO, active low
+> +    maxItems: 1
+> +
+> +  port:
+> +    $ref: /schemas/graph.yaml#/$defs/port-base
+> +    unevaluatedProperties: false
+> +
+> +    properties:
+> +      endpoint:
+> +        $ref: /schemas/media/video-interfaces.yaml#
+> +        unevaluatedProperties: false
+> +
+> +        properties:
+> +          data-lanes:
+> +            items:
+> +              - const: 1
+> +              - const: 2
+> +
+> +        required:
+> +          - data-lanes
+> +          - link-frequencies
+> +
+> +    required:
+> +      - endpoint
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - avdd-supply
+> +  - dvdd-supply
+> +  - dovdd-supply
+> +  - port
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/gpio/gpio.h>
+> +
+> +    i2c {
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +
+> +        camera-sensor@10 {
+> +            compatible = "sony,imx681";
+> +            reg = <0x10>;
+> +            clocks = <&clock_cam>;
+> +            avdd-supply = <&vcc2v8_cam>;
+> +            dvdd-supply = <&vcc1v05_cam>;
+> +            dovdd-supply = <&vcc1v8_cam>;
+> +            reset-gpios = <&gpio 4 GPIO_ACTIVE_LOW>;
+> +            orientation = <0>;
+> +            rotation = <0>;
+> +
+> +            port {
+> +                imx681_ep: endpoint {
+> +                    data-lanes = <1 2>;
+> +                    link-frequencies = /bits/ 64 <969600000>;
+> +                    remote-endpoint = <&csi_in>;
+> +                };
+> +            };
+> +        };
+> +    };
+> +...
+> --
+> 2.54.0 (Apple Git-157)
+>
+>
