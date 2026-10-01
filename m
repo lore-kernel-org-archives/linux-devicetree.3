@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 010EF4908AC;
-	Thu,  1 Oct 2026 08:34:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37D8A43DEB8
+	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 08:36:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790843642; cv=none; b=qJSlmFVnkNIO/0ZX1pBTl36txmnfADS5BEy8C/knyptTIuE52gNTuI86To72DZQ2mh+6HD6HXVt2tUO1y1sUAJPewC0B6mpnnnS1iltA00Em2KxGF9HJQPiVYvPPPk01JyehKe8dWchnMQ8wV/aj8i3p6q4/Ou2BphFqbLVYNow=
+	t=1790843784; cv=none; b=j39pRfA+rQyhy3yelfS1rysSjsZmnvo7WLAhctec70wLrqlAxV/wBFn56UnmDax0lhqU7KT7DPlxxNY32RrpCfkzDUVTfByCT+6ToEAwHi7I2dU3OjjQn8S6U5h7c1x1D6o0RSBNfyFPFIwmJzGidQMVaZlV04v1VYOcZcx5p6c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790843642; c=relaxed/simple;
-	bh=y9jUgVbYeeynPwWsmZrk3B+I9zZclwaMUbelyHDp4sA=;
+	s=arc-20240116; t=1790843784; c=relaxed/simple;
+	bh=fGuVxrprWjEsO2IHXCEdPOIQeZch2PX6ouisv0zeaII=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=NVTPwuprkvBo/oRZ+src556QGuW536YLtuSssMXVdAYLk6H/lIwftnTB4ItgQ0XKDDd1TsCNJRJXC5BxLG0mgbSYVuDGdVJP09RIIrUGXDDN6FUaYiNp5yykgfDtx8nTVvy3Y2TpBIKn6qfJtbo3EItXGD5AaXIeCzcZ2epeG+4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hCQ/5+Js; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=tkHhpihJLHOUJxXtwLJPWtUj48z2F7anENhC7t4trK/xVLaMuhAWL2IclZYxyPiIeZfWpsT2CjGB2D2nauOiTjeGw5k67ABeMq7sivcCtIFrxru1SR8MOl+27Z9XekRLEfWzwAt0+syCGlIrCZsLU9dD3ay/IpioYzoFHRaFXsI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NlsdJRyD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hCQ/5+Js"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B69411F000FF;
-	Thu,  1 Oct 2026 08:33:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NlsdJRyD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C31B61F00898;
+	Thu,  1 Oct 2026 08:36:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790843640;
-	bh=5+cdwiD3eCkQyUYa5ri7RsiBtsgtzMxedchp/Eo4UUI=;
+	s=k20260515; t=1790843783;
+	bh=5GQd7YtkqleScBXHUSzsRLijCfeJL4BL9lnsmUzazdc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hCQ/5+Js7tHbMFqAC5cI8Dp1jZlusD4ZPNMVzJMK4GPBxCVSe0V8RpaakDzWKz9uC
-	 aBvjldaicI35wkRrqlbD1L7AA79K1t39iwA7YOfK6DHhWU8KDKlYPqh6dfqP+DVj0f
-	 sPqa4fTFEGNjqQB46S9lNWDt51piT4OnWc8y6f6yA6Cf0BXodCCv+AUA73Rt5yinqC
-	 e7LjiARrMAoh16Xg5k5zcfZnz5kANO+/rdTQ16g9BSWY6fYjk1Dw19NaNVwTiKkDfU
-	 8IvQRTMmDfXEDHdSgPjA/pH7Fmz+epXlKdckYLrh4AkoJOjOFVgUdjfSqGwmZ9rAKo
-	 emoeVgmcEGEdg==
+	b=NlsdJRyDRHqMfC0CGm2fPR2tFNPOaAMrygzR7cRkb7fZUJfMPFaZO7AD344l2lDTl
+	 3OMlnbw0pgY43oxEtmMbDQqrbPXbFB+1t+6aPTd8H8QUsAADBxdbO8UjCfo3FYjBap
+	 Vl1Y3tHwE6IjqDIxTdnD0vVK6o3aAj0IsrjW+6QPpTb0RPuVAMDZWb/BaqWVJXcJAV
+	 sJ+Zx86DvdtsX5aL+8Nu1lZiKbV/kx4uhDdAar80Ubs1bNVzcah8YaYrn2ZQ5BKayh
+	 OXIFXJKqDILJSLsogMsSnAEmC9a2Tzoaq9BQQBYEklBlpMxLWHE4KIPQHXgJyobaLO
+	 XdminKdGklT2A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v13 14/24] scsi: ufs: mediatek: Use the common PHY
- framework
+Subject: Re: [PATCH v7 2/4] clocksource/drivers: Add support for the Renesas
+ RZ/N1 timers
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Louis-Alexis Eyraud" <louisalexis.eyraud@collabora.com>
-Cc: devicetree@vger.kernel.org, linux-phy@lists.infradead.org, olteanv@gmail.com, robh@kernel.org, neil.armstrong@linaro.org, conor+dt@kernel.org, vkoul@kernel.org, linux-scsi@vger.kernel.org
-In-Reply-To: <20261001-mt8196-ufs-v13-14-60854adab6d9@collabora.com>
-References: <20261001-mt8196-ufs-v13-0-60854adab6d9@collabora.com>
- <20261001-mt8196-ufs-v13-14-60854adab6d9@collabora.com>
+To: =?utf-8?b?SGVydmUgQ29kaW5hIChTY2huZWlkZXIgRWxlY3RyaWMp?= <herve.codina@bootlin.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org
+In-Reply-To: <20261001082225.125956-3-herve.codina@bootlin.com>
+References: <20261001082225.125956-1-herve.codina@bootlin.com>
+ <20261001082225.125956-3-herve.codina@bootlin.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 01 Oct 2026 08:33:59 +0000
-Message-Id: <20261001083359.B69411F000FF@smtp.kernel.org>
+Date: Thu, 01 Oct 2026 08:36:22 +0000
+Message-Id: <20261001083622.C31B61F00898@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,101 +47,70 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] ufs: PM state mismatch on PHY power off failure in suspend
-- [Medium] ufs: MTCMOS power leak on PHY power on failure in resume
+- [High] time: rzn1: missing bitwise inversion of down-counter breaks timek=
+eeping
+- [Medium] time: rzn1: low clocksource rating prevents selection of high-re=
+s timer
 --
 
-commit 9793309b55b85fbb5631e6f681c0c84e2da2dd42
-Author: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+commit 0212f7a729b347a614f1987ed20d902b4286e999
+Author: Herve Codina (Schneider Electric) <herve.codina@bootlin.com>
 
-scsi: ufs: mediatek: Use the common PHY framework
+clocksource/drivers: Add support for the Renesas RZ/N1 timers
 
-This commit switches the Mediatek UFS driver to use the common PHY framework
-instead of manually parsing the OF tree for the PHY node. It updates the
-initialization, resume, and suspend paths to power the PHY on and off using
-the framework's APIs.
+This commit introduces a new clocksource driver for the Renesas RZ/N1 SoCs
+timer block. It provides support for the 8 available timers (6 16-bit and
+2 32-bit timers) to be used as clock events, clocksource, and sched_clock.
 
-> diff --git a/drivers/ufs/host/ufs-mediatek.c b/drivers/ufs/host/ufs-media=
-tek.c
-> index e4b41de4de3a2..6d5687f5e7558 100644
-> --- a/drivers/ufs/host/ufs-mediatek.c
-> +++ b/drivers/ufs/host/ufs-mediatek.c
-
+> diff --git a/drivers/clocksource/timer-rzn1.c b/drivers/clocksource/timer=
+-rzn1.c
+> new file mode 100644
+> index 0000000000000..25ebebff3c639
+> --- /dev/null
+> +++ b/drivers/clocksource/timer-rzn1.c
 [ ... ]
-
-> @@ -2502,9 +2447,8 @@ static int ufs_mtk_system_resume(struct device *dev)
->  static int ufs_mtk_runtime_suspend(struct device *dev)
->  {
->  	struct ufs_hba *hba =3D dev_get_drvdata(dev);
-> -	struct ufs_mtk_host *host =3D ufshcd_get_variant(hba);
->  	struct arm_smccc_res res;
-> -	int ret =3D 0;
-> +	int ret;
-> =20
->  	ret =3D ufshcd_runtime_suspend(dev);
->  	if (ret)
-> @@ -2515,8 +2459,11 @@ static int ufs_mtk_runtime_suspend(struct device *=
-dev)
->  	if (ufs_mtk_is_rtff_mtcmos(hba))
->  		ufs_mtk_mtcmos_ctrl(false, res);
-> =20
-> -	if (host->phy_dev)
-> -		pm_runtime_put_sync(host->phy_dev);
-> +	ret =3D ufs_mtk_mphy_power_on(hba, false);
-> +	if (ret) {
-> +		dev_err(dev, "Failed to power off PHY: %pe\n", ERR_PTR(ret));
-> +		return ret;
+> +static u64 notrace rzn1_sched_read(void)
+> +{
+> +	return readl_relaxed(rzn1_sched_clock->base + RZN1_TIMER_CURRENT_COUNT_=
+REG);
+> +}
+> +
+> +static u64 rzn1_clksrc_read(struct clocksource *cs)
+> +{
+> +	return readl_relaxed(rzn1_sched_clock->base + RZN1_TIMER_CURRENT_COUNT_=
+REG);
+> +}
 
 [Severity: High]
-Does returning the error directly here leave the PM state mismatched?
+The RZ/N1 timer is a down-counter (it uses a LOAD_COUNT register and counts
+down to 0), but the sched_clock and clocksource subsystems require
+monotonically increasing counter values.
 
-If ufs_mtk_mphy_power_on() fails, this returns early without rolling back t=
-he
-already suspended UFS hardware (suspended via ufshcd_runtime_suspend()
-earlier in this function).
+Will returning the raw down-counter value cause the delta between consecuti=
+ve
+reads to be negative, underflowing into a massive positive time jump? This
+breaks core timekeeping, scheduling, and RCU.
 
-The PM core may mark the device as RPM_ACTIVE because the callback failed,
-despite the hardware physically being suspended. Could this cause subsequent
-I/O to assume the device is active and hang?
+Does this require bitwise inversion of the read value (e.g.,
+~readl_relaxed(...)) to return an increasing counter?
 
-> +	}
-> =20
->  	return 0;
->  }
-> @@ -2524,14 +2471,17 @@ static int ufs_mtk_runtime_suspend(struct device =
-*dev)
->  static int ufs_mtk_runtime_resume(struct device *dev)
->  {
->  	struct ufs_hba *hba =3D dev_get_drvdata(dev);
-> -	struct ufs_mtk_host *host =3D ufshcd_get_variant(hba);
->  	struct arm_smccc_res res;
-> +	int ret;
-> =20
->  	if (ufs_mtk_is_rtff_mtcmos(hba))
->  		ufs_mtk_mtcmos_ctrl(true, res);
-> =20
-> -	if (host->phy_dev)
-> -		pm_runtime_get_sync(host->phy_dev);
-> +	ret =3D ufs_mtk_mphy_power_on(hba, true);
-> +	if (ret) {
-> +		dev_err(dev, "Failed to power on PHY: %pe\n", ERR_PTR(ret));
-> +		return ret;
+> +static struct clocksource rzn1_clocksource =3D {
+> +	.name =3D "rzn1_timer_clocksource",
+> +	.rating =3D 200,
+> +	.flags =3D CLOCK_SOURCE_IS_CONTINUOUS,
+> +	.read =3D rzn1_clksrc_read,
+> +};
 
 [Severity: Medium]
-Can this leak the MTCMOS power state if ufs_mtk_mphy_power_on() fails?
+The 32-bit RZ/N1 timer has a higher resolution (25 MHz) than the ARM arch
+timer (6.25 MHz), but the standard ARM arch timer has a rating of 400.
 
-If ufs_mtk_mphy_power_on() fails, the function returns early without rolling
-back the MTCMOS power state that was just enabled via
-ufs_mtk_mtcmos_ctrl(true, res).
+Will statically defining this clocksource's rating as 200 prevent it from
+being selected over the lower-resolution ARM arch timer?
 
-Does this leave the MTCMOS domain powered on indefinitely after a failed
-resume attempt?
-
-> +	}
-> =20
->  	ufs_mtk_dev_vreg_set_lpm(hba, false);
->
+(Note that the clock event device correctly receives a rating of 460 in
+rzn1_timer_clkevt_init_ced() for this exact reason.)
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261001-mt8196-ufs=
--v13-0-60854adab6d9@collabora.com?part=3D14
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261001082225.1259=
+56-1-herve.codina@bootlin.com?part=3D2
