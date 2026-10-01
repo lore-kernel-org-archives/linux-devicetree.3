@@ -1,532 +1,285 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80059381AF1
-	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 02:24:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C3A12BE65B;
+	Thu,  1 Oct 2026 02:27:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790821497; cv=none; b=oPdDTBgXrWEbaJc60kMf33gC1QOrAgzbVY17bOPtvGJx0A7tHwkssL4K6uvvR/AUJs4oEPSOdIESrgfOhzr3OM1xG8NneJ0L8mTIKsPinAj4ICtExGA3CFj1+bth7p1SiLh9iFd/7XkmuBIfW+5osC/UfdV2lYN0IxK1mcq6rDo=
+	t=1790821625; cv=none; b=ut9dSWwh2RETc5nhbzih1xAVTBRir5On0H7Tb4oKjhAhxzveb5aHx7wIW2bHMKWb2NQDLbpYghVKNFtNQixmRrFoFZgcNRjJ/jhDs1IFCp1YhZolLEfAGk0ykCi9ixUeTa/nP4XXcZFbaCs1xPueBUAtEs/oYtAvr8iG4wSSrco=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790821497; c=relaxed/simple;
-	bh=iu0X4mDo4HWEYn0iToi6ZMNOaxHbVyJejjaCuucm7rc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ImnTm6hvvoHgPlkvoaNhWj99aoavMPIK6HAVVaTKJ8HdeA+wNDWjeDDMLjSfs50b1w9Zk7hKxYE4TF4K8w1nyrfjR/kiZ17JIC6eo24T7L9gcvGNmmbNtOudXeua85IMqJNyBmbohC0821yN5OYwT1DgBTld0SFt/HresgoStEU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GsvPBpR5; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790821625; c=relaxed/simple;
+	bh=wjEkSfPLR5AbPObzHHsx6514bU5eP4k2N1CzrD7zrGs=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=BuDfbb4eRdJq4kUmCquSRfe/qF/7cGLZXjxRsFWI1oVGK7qHieBFp9tKJmqRV5NTdWG0LoJuVIz8boQO835EV9JGOgXlguLraO/xeJdRVUpv0gL9PkGHhDYbe++wZINvaS80QGeY5EEdjXXOiaqDwVW01h/Utj3j2q8klZauAZY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i/30DzZZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GsvPBpR5"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4d04d740cso2296693a12.0
-        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 19:24:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790821495; x=1791426295; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zxg0mQeibUEA7aHAxfrcW/DbAaTwXdm7MXT8cX4qy1Y=;
-        b=GsvPBpR5k/iGHTKT7L4lt26tfqwaDTY3Qw+JSWbfy8E09KyNN5LIyUBeHIo6qYhCfp
-         nkGt0OEtS5cyPSSgjoExzuNV3A6N70EuTKq30FwRNaRg4+5GICsF1cdcc/NA7rFvdKLc
-         SROBoPN63daK4Yf63mNvikX4JoWtiG14S7g/+2zkRVNHgFxFH+YwKRXM/ERQBLLQoyBF
-         S4CDCSRNOEDcL3IAK3hqoYydiQlQGxOOKlEi+FfIPUjubvVoDyFkbVbf00lUfdDIivzZ
-         85Nv8QL/qrABFZTjFWNr/k6IVawCcER3oMr+brwmKNvlrqI7JWrF0B3sDZnLYKIqYd0G
-         eT5Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790821495; x=1791426295;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zxg0mQeibUEA7aHAxfrcW/DbAaTwXdm7MXT8cX4qy1Y=;
-        b=TzZfEx+ho77Gse8TFfTH4Ju7QLdk5cuuZ8uhpRUFYg6VcMKQN/JeUfdfcDwSOA8zRy
-         TF+fopOxPzXCFmO04hMcQqWALT9vxhE6Fw8YuL9dHEM2B4wreHmyXohdGX2pJiN6C0cb
-         xDUAgaHygvo+jxyrq0JGRecA1n1mMwh4AfKZ++2e6aTj1IxX+IK+I/myhfplxCwrISZI
-         FRqE5V1hsxwUCeCnWRuXLfwYolbg1sJ/KE1N80RUgDulQPGbw0/HTzDEo2Wj3fF04Ts0
-         IrSdxs5cLJu6lXl5LwhiNm34jmaiOaTSSuvDPoJNt6VDikY2VnUNldihCU/DP2A5KLop
-         vHVA==
-X-Gm-Message-State: AFq9FYJoHZzVQ4hKgJpathrW/WXjZ1M2HsMaV5Pcc20QjY9ZgHDwdHae
-	I9/amgLg64V5jj/DiHzxfCHogDHEy/BFuVbFrciqTykLFOFdd/BU0Xmt
-X-Gm-Gg: AYBFou2wbgZFJlqpQJaXDR11rpqp5lXwHRGAb4CLtMPp4HTw5q+BnQDEMN2EgmGKGyx
-	1mNDu3EsCGKcboNLzFH2eNIpNFqaszfCZeFCOqPc7z2pXw/znQOnzsv8viePWxaUFI1hG0XLIny
-	6gdZ/BRwEURM8GlYgSym08Vg4CEn7PV1Te+8ridjCIyn4RSS1xhPo64wKH06iBmky3ULPsbnpFf
-	WBSPs1VbTRk/fML85Zc8UOja+BZCU9C8uPSbaCR5bHY1y+MTejSMy8u0G6RnpdjuOWG01CBQdDv
-	r9nJeqBezunjaEm8jduuFHaRhd1UYXCtKfI4THuHDQKjYZXg5qvJa0m0iL0zeuM1jY3yYWoETiy
-	ABJS/i2mz2pkMxMQY86c9Uk0CbGA03g7fwEQCzv1jDav+f1nnUj0BHkr7uVsAr093bzPhGeTkYb
-	Wu+GPF3CatYoBqIAiffj6EPQAg3SC+imBVOgJoLqMhGf6hW06wPMnDuy6lqt2d3w==
-X-Received: by 2002:a17:90b:5808:b0:39e:6c69:f470 with SMTP id 98e67ed59e1d1-3a4d18abe8bmr2771770a91.47.1790821494738;
-        Wed, 30 Sep 2026 19:24:54 -0700 (PDT)
-Received: from archlinux ([212.192.12.80])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4f43a12c9sm2153230a91.2.2026.09.30.19.24.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 19:24:54 -0700 (PDT)
-From: Mikhail Kalashnikov <iuncuim@gmail.com>
-To: Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>
-Cc: devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-sunxi@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Andre Przywara <andre.przywara@arm.com>
-Subject: [PATCH v2 4/4] arm64: dts: allwinner: add Teclast P85T tablet
-Date: Thu,  1 Oct 2026 10:24:15 +0800
-Message-ID: <20261001022415.913959-5-iuncuim@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261001022415.913959-1-iuncuim@gmail.com>
-References: <20261001022415.913959-1-iuncuim@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i/30DzZZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73EFF1F000FF;
+	Thu,  1 Oct 2026 02:27:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790821623;
+	bh=ZvkHyD4TCH8rfhvs9kb8V6R7w1GZj0ldIFzhzfiF1AQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=i/30DzZZsi4iIuCAeGxl+vHlCLG1kbQguVhkc+wf6tQGzv0wHM9q4TZdORlk+BN+6
+	 /W0JNpuIfVIbj1EBGLPDHL9YHOFHIb4nshnqQ1iSoh6bmPOsjABoYhZFSPC6RvTDq1
+	 5UBtsMXl/w/rusAF4sQFgiFshZf2fwqWiPi4YxlnZTuVg908UicX3GyBJea4J7WGhP
+	 qDHBNQp28TN3tOVG9bbn04p6W+rDuIyTcXMcByRFp4hTjnVhIKW2L4O1kScqVAL4Y6
+	 lg8HNK9zq236CJ4aW5X0nlEroFZLOHZ1tVdC1aMw7GEupm609AzfED/GTZBZUToLGN
+	 WtTDCbWuGQKKw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 2/2] dmaengine: atcdmac300: Add driver for Andes
+ ATCDMAC300 DMA controller
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "CL Wang" <cl634@andestech.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, dmaengine@vger.kernel.org, robh@kernel.org, vkoul@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20261001014503.786490-3-cl634@andestech.com>
+References: <20261001014503.786490-1-cl634@andestech.com>
+ <20261001014503.786490-3-cl634@andestech.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 01 Oct 2026 02:27:02 +0000
+Message-Id: <20261001022703.73EFF1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The Teclast P85T is an 8-inch tablet that was announced in 2023
-based on the Allwinner A523 (sun55i) SoC.
+Thank you for your contribution! Sashiko AI review found 11 potential issue=
+(s) to consider:
+- [High] dmaengine: atcdmac300: missing interrupt enable flags in channel c=
+ontrol
+- [High] dmaengine: atcdmac300: start unissued pending transfers in atcdmac=
+_resume()
+- [High] dmaengine: atcdmac300: integer overflow of cyclic period variable
+- [High] dmaengine: atcdmac300: missing status clearing in atcdmac_terminat=
+e_all()
+- [High] dmaengine: atcdmac300: fail to reset chan_used flag during suspend
+- [High] dmaengine: atcdmac300: unhandled pending interrupt causes IRQ storm
+- [Medium] dmaengine: atcdmac300: ignore client transfer flags in atcdmac_p=
+rep_dma_memcpy()
+- [Medium] dmaengine: atcdmac300: memory leak of unsubmitted descriptors
+- [Medium] dmaengine: atcdmac300: integer truncation of len in atcdmac_prep=
+_dma_memcpy()
+- [Medium] dmaengine: atcdmac300: integer truncation of sizes in atcdmac_pr=
+ep_dma_cyclic()
+- [Medium] dmaengine: atcdmac300: missing args_count check in atcdmac_dma_x=
+late_handler()
+--
 
-Hardware summary:
-  - Allwinner A523, 8x Cortex-A55 (2 clusters)
-  - 4 GiB LPDDR3 DRAM
-  - 64 GiB eMMC
-  - microSD card slot
-  - AXP717 and AXP323 PMICs
-  - USB-C port wired to the USB2 OTG controller
-  - combined WiFi and Bluetooth module based on AIC8800 (SDIO+UART)
-  - 800x1280 MIPI-DSI panel (no mainline binding yet)
-  - Silead GSL1680 touchscreen
-  - MiraMEMS DA280 accelerometer
-  - AXP717 battery/charger
-  - USB-C OTG port (also for charging)
-  - secure boot, but takes any key
+commit 0b5c5b75d701997e0656ae1d35e0499a595165ad
+Author: CL Wang <cl634@andestech.com>
 
-This initial submission enables only what mainline supports today:
-both PMICs, battery/charger, GPU (Panfrost), eMMC, SD card,
-SDIO WiFi (can be used with out of tree driver), USB device (without
-otg function), UART0 console, UART1 Bluetooth, I2C0 touchscreen, I2C1
-accelerometer and the RTC with the external 32 kHz oscillator.
+dmaengine: atcdmac300: Add driver for Andes ATCDMAC300 DMA controller
 
-Display (DE/TCON/DSI), PWM backlight, audio codec, camera (CSI/VIN)
-and LRADC keys are deliberately left out, as those blocks don't have a
-binding yet.
+This patch adds support for the Andes ATCDMAC300 DMA controller.
+The ATCDMAC300 is a memory-to-memory and peripheral DMA controller
+that provides scatter-gather, cyclic, and slave transfer capabilities.
 
-The tablet uses secure boot, so it needs a signed TOC0 wrapped image to
-boot, but it has no key hash burnt into the efuses, so it accepts an
-image signed with any key. U-Boot support in progress.
+> --- /dev/null
+> +++ b/drivers/dma/atcdmac300.c
+> @@ -0,0 +1,1759 @@
+[ ... ]
+> +static void atcdmac_start_transfer(struct atcdmac_chan *dmac_chan,
+> +				   struct atcdmac_desc *first_desc)
+> +{
+> +	struct atcdmac_dmac *dmac =3D dmac_chan->dma_dev;
+> +	struct regmap *reg =3D dmac_chan->regmap;
+> +	unsigned long flags;
+> +
+> +	raw_spin_lock_irqsave(&dmac->lock, flags);
+> +	dmac->owned_chan |=3D BIT(dmac_chan->chan_id);
+> +	raw_spin_unlock_irqrestore(&dmac->lock, flags);
+> +
+> +	regmap_write(reg, REG_CH_CTL_OFF, first_desc->regs.ctrl);
 
-Later, a tablet with an Allwinner A537 processor and 3 GB of DRAM was
-released under the same name. This version is not supported by mainline.
+[Severity: High]
+Since INT_TC_MASK, INT_ERR_MASK, and INT_ABT_MASK are missing from the ctrl
+bitmask written here (and constructed in functions like
+atcdmac_build_slave_desc()), won't the hardware fail to assert interrupts
+upon completion, error, or abort? This appears to cause silent transfer
+timeouts.
 
-Assisted-by: OpenCode:DeepSeek-V4.1-Flash
-Signed-off-by: Mikhail Kalashnikov <iuncuim@gmail.com>
----
- arch/arm64/boot/dts/allwinner/Makefile        |   1 +
- .../allwinner/sun55i-a523-teclast-p85t.dts    | 386 ++++++++++++++++++
- 2 files changed, 387 insertions(+)
- create mode 100644 arch/arm64/boot/dts/allwinner/sun55i-a523-teclast-p85t.dts
+[ ... ]
+> +static void atcdmac_advance_work(struct atcdmac_chan *dmac_chan)
+> +{
+[ ... ]
+> +	if (dma_desc->cyclic) {
+> +		if (!stop)
+> +			atcdmac_start_next_trans(dmac_chan);
+[ ... ]
+> +	} else {
+> +		if (list_is_singular(&dmac_chan->active_list)) {
+[ ... ]
+> +		if (!stop)
+> +			atcdmac_start_next_trans(dmac_chan);
 
-diff --git a/arch/arm64/boot/dts/allwinner/Makefile b/arch/arm64/boot/dts/allwinner/Makefile
-index aa21f58a4..7025ba959 100644
---- a/arch/arm64/boot/dts/allwinner/Makefile
-+++ b/arch/arm64/boot/dts/allwinner/Makefile
-@@ -63,6 +63,7 @@ dtb-$(CONFIG_ARCH_SUNXI) += sun50i-h700-anbernic-rg35xx-2024.dtb
- dtb-$(CONFIG_ARCH_SUNXI) += sun50i-h700-anbernic-rg35xx-h.dtb
- dtb-$(CONFIG_ARCH_SUNXI) += sun50i-h700-anbernic-rg35xx-plus.dtb
- dtb-$(CONFIG_ARCH_SUNXI) += sun50i-h700-anbernic-rg35xx-sp.dtb
-+dtb-$(CONFIG_ARCH_SUNXI) += sun55i-a523-teclast-p85t.dtb
- dtb-$(CONFIG_ARCH_SUNXI) += sun55i-a527-cubie-a5e.dtb
- dtb-$(CONFIG_ARCH_SUNXI) += sun55i-h728-x96qpro+.dtb
- dtb-$(CONFIG_ARCH_SUNXI) += sun55i-t527-avaota-a1.dtb
-diff --git a/arch/arm64/boot/dts/allwinner/sun55i-a523-teclast-p85t.dts b/arch/arm64/boot/dts/allwinner/sun55i-a523-teclast-p85t.dts
-new file mode 100644
-index 000000000..d144f81d8
---- /dev/null
-+++ b/arch/arm64/boot/dts/allwinner/sun55i-a523-teclast-p85t.dts
-@@ -0,0 +1,386 @@
-+// SPDX-License-Identifier: (GPL-2.0-only OR MIT)
-+/*
-+ * Copyright (C) 2026 Mikhail Kalashnikov <iuncuim@gmail.com>
-+ */
-+
-+/dts-v1/;
-+
-+#include "sun55i-a523.dtsi"
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/interrupt-controller/irq.h>
-+
-+/ {
-+	model = "Teclast P85T";
-+	compatible = "teclast,p85t", "allwinner,sun55i-a523";
-+	chassis-type = "tablet";
-+
-+	aliases {
-+		serial0 = &uart0;
-+	};
-+
-+	battery: battery {
-+		compatible = "simple-battery";
-+		constant-charge-current-max-microamp = <800000>;
-+		voltage-max-design-microvolt = <4400000>;
-+		charge-full-design-microamp-hours = <5000000>;
-+		energy-full-design-microwatt-hours = <19250000>;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	ext_osc32k: ext-osc32k-clk {
-+		#clock-cells = <0>;
-+		compatible = "fixed-clock";
-+		clock-frequency = <32768>;
-+		clock-output-names = "ext_osc32k";
-+	};
-+
-+	reg_vcc5v: vcc5v {
-+		/* board wide 5V supply from the USB-C connector */
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc-5v";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		regulator-always-on;
-+	};
-+
-+	reg_vmmc1: vmmc1 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "vcc-wifi";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+		vin-supply = <&reg_aldo3>;
-+		gpio = <&r_pio 0 7 GPIO_ACTIVE_HIGH>;	/* PL7 */
-+		enable-active-high;
-+	};
-+
-+	wifi_pwrseq: pwrseq {
-+		compatible = "mmc-pwrseq-simple";
-+		reset-gpios = <&r_pio 1 1 GPIO_ACTIVE_LOW>; /* PM1 */
-+		post-power-on-delay-ms = <200>;
-+	};
-+};
-+
-+&gpu {
-+	mali-supply = <&reg_dcdc2>;
-+	status = "okay";
-+};
-+
-+&i2c0 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c0_pins>;
-+	clock-frequency = <400000>;
-+	status = "okay";
-+
-+	touchscreen@40 {
-+		compatible = "silead,gsl1680";
-+		reg = <0x40>;
-+		interrupt-parent = <&pio>;
-+		interrupts = <7 9 IRQ_TYPE_EDGE_FALLING>; /* PH9 */
-+		power-gpios = <&pio 7 10 GPIO_ACTIVE_HIGH>; /* PH10 */
-+		touchscreen-size-x = <1786>;
-+		touchscreen-size-y = <1128>;
-+		touchscreen-inverted-y;
-+		touchscreen-swapped-x-y;
-+		silead,max-fingers = <5>;
-+		avdd-supply = <&reg_cldo2>;
-+	};
-+};
-+
-+&i2c1 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c1_pins>;
-+	status = "okay";
-+
-+	accelerometer@26 {
-+		compatible = "miramems,da280";
-+		reg = <0x26>;
-+		interrupt-parent = <&pio>;
-+		interrupts = <7 11 IRQ_TYPE_LEVEL_LOW>; /* PH11 */
-+	};
-+};
-+
-+&mmc0 {
-+	vmmc-supply = <&reg_cldo3>;
-+	cd-gpios = <&pio 5 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>; /* PF6 */
-+	bus-width = <4>;
-+	status = "okay";
-+};
-+
-+&mmc1 {
-+	vmmc-supply = <&reg_vmmc1>;
-+	vqmmc-supply = <&reg_bldo1>;
-+	mmc-pwrseq = <&wifi_pwrseq>;
-+	bus-width = <4>;
-+	non-removable;
-+	status = "okay";
-+
-+	wifi@1 {
-+		reg = <1>;
-+		interrupt-parent = <&r_pio>;
-+		interrupts = <1 0 IRQ_TYPE_LEVEL_LOW>; /* PM0 */
-+		interrupt-names = "host-wake";
-+	};
-+};
-+
-+&mmc2 {
-+	vmmc-supply = <&reg_cldo3>;
-+	vqmmc-supply = <&reg_cldo1>;
-+	bus-width = <8>;
-+	non-removable;
-+	cap-mmc-hw-reset;
-+	mmc-ddr-1_8v;
-+	mmc-hs200-1_8v;
-+	status = "okay";
-+};
-+
-+&pio {
-+	vcc-pc-supply = <&reg_cldo1>;
-+	vcc-pf-supply = <&reg_cldo3>;
-+	vcc-pg-supply = <&reg_bldo1>;
-+};
-+
-+&r_i2c0 {
-+	status = "okay";
-+
-+	axp717: pmic@34 {
-+		compatible = "x-powers,axp717";
-+		reg = <0x34>;
-+		interrupt-controller;
-+		#interrupt-cells = <1>;
-+		interrupt-parent = <&nmi_intc>;
-+		interrupts = <0 IRQ_TYPE_LEVEL_LOW>;
-+
-+		vin1-supply = <&reg_vcc5v>;
-+		vin2-supply = <&reg_vcc5v>;
-+		vin3-supply = <&reg_vcc5v>;
-+		vin4-supply = <&reg_vcc5v>;
-+		aldoin-supply = <&reg_vcc5v>;
-+		bldoin-supply = <&reg_vcc5v>;
-+		cldoin-supply = <&reg_vcc5v>;
-+
-+		axp717_adc: adc {
-+			compatible = "x-powers,axp717-adc";
-+			#io-channel-cells = <1>;
-+		};
-+
-+		battery-power {
-+			compatible = "x-powers,axp717-battery-power-supply";
-+			monitored-battery = <&battery>;
-+		};
-+
-+		regulators {
-+			/* Supplies the "little" cluster (1.0(?) GHz cores) */
-+			reg_dcdc1: dcdc1 {
-+				regulator-always-on;
-+				regulator-min-microvolt = <900000>;
-+				regulator-max-microvolt = <1160000>;
-+				regulator-name = "vdd-cpul";
-+			};
-+
-+			reg_dcdc2: dcdc2 {
-+				regulator-always-on;
-+				regulator-min-microvolt = <920000>;
-+				regulator-max-microvolt = <920000>;
-+				regulator-name = "vdd-gpu-sys";
-+			};
-+
-+			reg_dcdc3: dcdc3 {
-+				regulator-always-on;
-+				regulator-min-microvolt = <1260000>;
-+				regulator-max-microvolt = <1260000>;
-+				regulator-name = "vdd-dram";
-+			};
-+
-+			reg_aldo1: aldo1 {
-+				/* camera sensor AVDD */
-+				regulator-min-microvolt = <2800000>;
-+				regulator-max-microvolt = <2800000>;
-+				regulator-name = "avdd-csi";
-+			};
-+
-+			reg_aldo2: aldo2 {
-+				/* camera sensor IOVDD */
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-name = "iovdd-csi";
-+			};
-+
-+			reg_aldo3: aldo3 {
-+				/*
-+				 * supplies the I2C pins for this PMIC
-+				 * and the WiFi module
-+				 */
-+				regulator-always-on;
-+				regulator-min-microvolt = <3300000>;
-+				regulator-max-microvolt = <3300000>;
-+				regulator-name = "vcc-pl-pm";
-+			};
-+
-+			reg_aldo4: aldo4 {
-+				regulator-always-on;
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-name = "vcc-pll-dxco-avcc";
-+			};
-+
-+			reg_bldo1: bldo1 {
-+				/* WiFi module 1.8V */
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-name = "vcc-wifi-1v8";
-+			};
-+
-+			reg_bldo2: bldo2 {
-+				regulator-always-on;
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-name = "vcc-dram-1v8";
-+			};
-+
-+			reg_bldo3: bldo3 {
-+				/* camera sensor DVDD/cameravdd */
-+				regulator-min-microvolt = <2800000>;
-+				regulator-max-microvolt = <2800000>;
-+				regulator-name = "vcc-csi";
-+			};
-+
-+			reg_bldo4: bldo4 {
-+				/* camera sensor DVDD */
-+				regulator-min-microvolt = <1200000>;
-+				regulator-max-microvolt = <1200000>;
-+				regulator-name = "dvdd-csi";
-+			};
-+
-+			reg_cldo1: cldo1 {
-+				/* codec CPVIN, SD/eMMC 1.8V IO */
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <1800000>;
-+				regulator-name = "vcc-codec-mmc";
-+			};
-+
-+			reg_cldo2: cldo2 {
-+				/* touch panel supply */
-+				regulator-min-microvolt = <3300000>;
-+				regulator-max-microvolt = <3300000>;
-+				regulator-name = "vcc-ctp";
-+			};
-+
-+			reg_cldo3: cldo3 {
-+				/* SD/eMMC VMMC, codec VDD, UART0, g-sensor */
-+				regulator-always-on;
-+				regulator-min-microvolt = <3300000>;
-+				regulator-max-microvolt = <3300000>;
-+				regulator-name = "vcc-io-mmc";
-+			};
-+
-+			reg_cldo4: cldo4 {
-+				/* LCD panel supply */
-+				regulator-min-microvolt = <3300000>;
-+				regulator-max-microvolt = <3300000>;
-+				regulator-name = "vcc-lcd";
-+			};
-+
-+			reg_cpusldo: cpusldo {
-+				/* supplies the management core */
-+				regulator-always-on;
-+				regulator-min-microvolt = <900000>;
-+				regulator-max-microvolt = <900000>;
-+				regulator-name = "vdd-cpus";
-+			};
-+		};
-+
-+		usb-power {
-+			compatible = "x-powers,axp717-usb-power-supply";
-+			input-current-limit-microamp = <1750000>;
-+		};
-+	};
-+
-+	axp323: pmic@36 {
-+		compatible = "x-powers,axp323";
-+		reg = <0x36>;
-+		#interrupt-cells = <1>;
-+		interrupt-controller;
-+		interrupt-parent = <&nmi_intc>;
-+		interrupts = <0 IRQ_TYPE_LEVEL_LOW>;
-+
-+		vin1-supply = <&reg_vcc5v>;
-+		vin2-supply = <&reg_vcc5v>;
-+		vin3-supply = <&reg_vcc5v>;
-+
-+		regulators {
-+			/*
-+			 * ALDO1 (1.8V) and DLDO1 (3.3V) have no consumers,
-+			 * although BSP enables them; the board works fine
-+			 * with both rails disabled.
-+			 */
-+
-+			/* Supplies the "big" cluster (1.8 GHz cores) */
-+			reg_dcdc1_323: dcdc1 {
-+				regulator-always-on;
-+				regulator-min-microvolt = <900000>;
-+				regulator-max-microvolt = <1160000>;
-+				regulator-name = "vdd-cpub";
-+			};
-+
-+			/* DCDC2 is polyphased with DCDC1 */
-+
-+			/* Some RISC-V management core related voltage */
-+			reg_dcdc3_323: dcdc3 {
-+				regulator-always-on;
-+				regulator-min-microvolt = <900000>;
-+				regulator-max-microvolt = <900000>;
-+				regulator-name = "vdd-dnr";
-+			};
-+		};
-+	};
-+};
-+
-+&r_pio {
-+/*
-+ * Specifying the supply would create a circular dependency.
-+ *
-+ *	vcc-pl-supply = <&reg_aldo3>;
-+ */
-+	vcc-pm-supply = <&reg_aldo3>;
-+};
-+
-+&rtc {
-+	clocks = <&r_ccu CLK_BUS_R_RTC>, <&osc24M>,
-+		 <&r_ccu CLK_R_AHB>, <&ext_osc32k>;
-+	clock-names = "bus", "hosc", "ahb", "ext-osc32k";
-+	assigned-clocks = <&rtc CLK_OSC32K>;
-+	assigned-clock-rates = <32768>;
-+};
-+
-+&uart0 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&uart0_pb_pins>;
-+	status = "okay";
-+};
-+
-+&uart1 {
-+	/* Bluetooth HCI, 4-wire with RTS/CTS */
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&uart1_pins>, <&uart1_rts_cts_pins>;
-+	uart-has-rtscts;
-+	status = "okay";
-+};
-+
-+&usb_otg {
-+	/*
-+	 * The USB-C port is the primary power supply; VBUS control is not
-+	 * wired in mainline (AXP717 has no drivevbus), so the port can only
-+	 * act as a USB device powered from the host side.
-+	 */
-+	dr_mode = "peripheral";
-+	status = "okay";
-+};
-+
-+&usbphy {
-+	usb0_vbus_det-gpios = <&pio 7 13 GPIO_ACTIVE_HIGH>;	/* PH13 */
-+	status = "okay";
-+};
--- 
-2.55.0
+[Severity: High]
+If stop_mask is active during atcdmac_suspend(), this code skips calling
+atcdmac_start_next_trans(), which bypasses the internal reset of chan_used
+back to 0. Does this leave chan_used permanently stuck at 1?
 
+[ ... ]
+> +static int atcdmac_terminate_all(struct dma_chan *chan)
+> +{
+[ ... ]
+> +	spin_lock_irqsave(&dmac_chan->lock, flags);
+> +	atcdmac_abort_chan(dmac_chan);
+> +	atcdmac_enable_chan(dmac_chan, 0);
+> +	list_splice_init(&dmac_chan->queue_list,  &list);
+> +	list_splice_init(&dmac_chan->active_list, &list);
+> +	dmac_chan->chan_used =3D 0;
+> +	spin_unlock_irqrestore(&dmac_chan->lock, flags);
+
+[Severity: High]
+Does this code fail to clear the software state dmac_chan->status before
+dropping the lock? If an asynchronous abort interrupt fires as the channel
+is terminated, the threaded handler may process a stale ATCDMAC_STA_TC bit.
+If a client immediately queues and issues a new transfer, could
+atcdmac_advance_work() prematurely complete it?
+
+[ ... ]
+> +static void atcdmac_free_chan_resources(struct dma_chan *chan)
+> +{
+[ ... ]
+> +	atcdmac_terminate_all(chan);
+> +
+> +	/*
+> +	 * Give up ownership only after the abort raised by the termination
+> +	 * above has been serviced.  Dropping the bit first would mask that
+> +	 * status out of the acknowledge and leave the interrupt asserted.
+> +	 */
+> +	atcdmac_synchronize(chan);
+> +
+> +	raw_spin_lock_irq(&dmac->lock);
+> +	dmac->owned_chan &=3D ~BIT(dmac_chan->chan_id);
+> +	raw_spin_unlock_irq(&dmac->lock);
+
+[Severity: High]
+Since atcdmac_synchronize() only flushes executing handlers and not pending
+hardware interrupts, does clearing owned_chan immediately afterward mask
+out a pending ABORT interrupt in the top-half handler? It seems this would
+leave the level-triggered interrupt line permanently asserted, causing an
+IRQ storm.
+
+> +
+> +	spin_lock_irqsave(&dmac_chan->lock, flags);
+> +	list_for_each_entry_safe(desc,
+> +				 desc_next,
+> +				 &dmac_chan->free_list,
+> +				 desc_node) {
+> +		list_del(&desc->desc_node);
+> +		dma_pool_free(dmac->dma_desc_pool, desc, desc->txd.phys);
+> +	}
+
+[Severity: Medium]
+In the cleanup loop above, unsubmitted descriptors that were allocated but
+never submitted via dmaengine_submit() are unlinked from tracking lists.
+Will these unsubmitted descriptors leak since this loop only reclaims from
+free_list?
+
+[ ... ]
+> +static struct dma_async_tx_descriptor *
+> +atcdmac_prep_dma_memcpy(struct dma_chan *chan,
+> +			dma_addr_t dst,
+> +			dma_addr_t src,
+> +			size_t len,
+> +			unsigned long flags)
+> +{
+[ ... ]
+> +	desc =3D atcdmac_build_desc(dmac_chan, src, dst, ctrl,
+> +				  len >> src_width);
+
+[Severity: Medium]
+When len is a 64-bit size_t value exceeding 4GB, does shifting it by
+src_width and passing it as a 32-bit unsigned int to atcdmac_build_desc()
+cause silent integer truncation, resulting in a partial transfer?
+
+> +	if (!desc)
+> +		goto err_desc_get;
+> +
+> +	return &desc->txd;
+
+[Severity: Medium]
+Is there a missing assignment for the client transfer flags? The flags
+parameter is never assigned to desc->txd.flags, which ignores client
+intents like DMA_PREP_INTERRUPT or DMA_CTRL_REUSE.
+
+[ ... ]
+> +static struct dma_async_tx_descriptor *
+> +atcdmac_prep_dma_cyclic(struct dma_chan *chan,
+> +			dma_addr_t buf_addr,
+> +			size_t buf_len,
+> +			size_t period_len,
+> +			enum dma_transfer_direction direction,
+> +			unsigned long flags)
+> +{
+[ ... ]
+> +	unsigned int period;
+[ ... ]
+> +	for (period =3D 0; period < buf_len; period +=3D period_len) {
+> +		struct atcdmac_desc *desc;
+> +		dma_addr_t mem =3D buf_addr + period;
+> +		unsigned int len =3D min_t(unsigned int, period_len,
+> +					 buf_len - period);
+
+[Severity: High]
+Since buf_len is a 64-bit size_t, does using a 32-bit unsigned int period
+cause an integer overflow for buffer lengths exceeding 4GB? This appears
+to create an infinite loop of descriptor allocations until the pool is
+exhausted.
+
+[Severity: Medium]
+Does the use of min_t(unsigned int, period_len, buf_len - period) silently
+truncate 64-bit size_t sizes over 4GB, programming a malformed transfer
+size?
+
+[ ... ]
+> +static struct dma_chan *atcdmac_dma_xlate_handler(struct of_phandle_args=
+ *dmac,
+> +						  struct of_dma *of_dma)
+> +{
+> +	struct platform_device *dmac_pdev;
+> +	struct atcdmac_chan *dmac_chan;
+> +	struct dma_chan *chan;
+> +	dma_cap_mask_t mask;
+> +
+> +	if (dmac->args[0] > FIELD_MAX(SRC_REQ_SEL_MASK)) {
+
+[Severity: Medium]
+Does this code access dmac->args[0] without first verifying
+dmac->args_count? If #dma-cells =3D <0>, this may read uninitialized or
+out-of-bounds memory.
+
+[ ... ]
+> +static int atcdmac_resume(struct device *dev)
+> +{
+[ ... ]
+> +	list_for_each_entry_safe(chan,
+> +				 chan_next,
+> +				 &dmac->dma_device.channels,
+> +				 device_node) {
+> +		dmac_chan =3D atcdmac_chan_to_dmac_chan(chan);
+> +		spin_lock_irqsave(&dmac_chan->lock, flags);
+> +		if (!list_empty(&dmac_chan->active_list) ||
+> +		    !list_empty(&dmac_chan->queue_list))
+> +			atcdmac_start_next_trans(dmac_chan);
+> +		spin_unlock_irqrestore(&dmac_chan->lock, flags);
+> +	}
+
+[Severity: High]
+If a client has queued descriptors but not yet called
+dma_async_issue_pending() (leaving chan_used =3D=3D 0), does unconditionally
+starting the next transaction from queue_list violate the API contract by
+starting pending transfers prematurely?
+
+[Severity: High]
+Additionally, if both active_list and queue_list are empty, this bypasses
+atcdmac_start_next_trans(). Coupled with the issue in
+atcdmac_advance_work() above, does this solidify the leaked chan_used =3D=
+=3D 1
+state from suspend, permanently locking out the channel?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261001014503.7864=
+90-1-cl634@andestech.com?part=3D2
