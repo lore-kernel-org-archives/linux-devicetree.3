@@ -1,134 +1,223 @@
-Received: from mail-pz2-f38.google.com (mail-pz2-f38.google.com [74.125.228.38])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A043A368D79
-	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 02:30:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.38
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCEC335A38C
+	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 02:35:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790821856; cv=none; b=ReQwKZaxzmrWt16xNkF9Hiwci/PhZHPMmMtt6lcyg7f++DlnB+Qhmb+M/cH+DXv3dgsT9+M/exRxVHPjp6gaSZSu8PM46brZCrhwNrZts9I/b0DB9Wdbrw/k2nuTquCEMgJaqF0eqSp8KEirNGSXnAPa3V8vg1Lch+m3yAUpcOI=
+	t=1790822107; cv=none; b=FNW2fCNsFrXQ9pJC0vB+VJizVFIm1YGYui1GhvJCRSeG4NH3Mv28zuAR+BCN/g3B6JfcGTPJZ5qPoo9ZnpnCwRy1wsvYdc3irrMg+o6aCC+KxS/kJ08agkBNBR/zeEkPwCEwLNjqRXwpJycQbEZ7rgIVu1PsOzFns9Fs9d8c9zU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790821856; c=relaxed/simple;
-	bh=Qzj5pGzraqskHEzdoWlcKw/mKFLKYJh0TTlOiEgA/6M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UdEkKPuvFX0GaG+13HoDX67YQzb3j8I0ZejzMy4QxJ+GhQoA3cJFGwU7xvxJFCBsMxRIACCDmXgXMvEafmExTYVEk6KRegqwzuNtu/30+z/EMfGEJ1wWv+rnvHSv5+1iQOJuh/BT3e4stdhDqhFqRn1dUJxi6lAEI4r8E16OlFc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Qby4BiQT; arc=none smtp.client-ip=74.125.228.38
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790822107; c=relaxed/simple;
+	bh=+QoZPkyzGKNe2aEV12Su2uMmYhE94FAo/6zYxDaBkEg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nlhRvayxOHgUPs2ofuK65qEe+Z4cBEidYQ8kWIqcQwD4AbbbGfFEhTj6ZQrZZ2DAukxGC6mMCeYIOqbzF8bgvptp0mxEMp3cQiI0kaMxLzwuB++8UCpM3GpwMsbmjkiyDnGi863XC9LI4AJkoC2dJDCOSGDz+J2GXiDDWpgORXc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=nRdP1ylR; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IlUUKXH4; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Qby4BiQT"
-Received: by mail-pz2-f38.google.com with SMTP id d2e1a72fcca58-88582e2153eso1942771b3a.2
-        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 19:30:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="nRdP1ylR";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IlUUKXH4"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6910jpJ41140908
+	for <devicetree@vger.kernel.org>; Thu, 1 Oct 2026 02:35:04 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=htg6wDlN38DdW2E5SbXi6aX/
+	Ov2gAq5Dj5yDzZtrY9k=; b=nRdP1ylRLq0X7V6uMTE9XSHIb39aoFGl4thT7L09
+	5TKyYdzUGslF0cJk1ADxYz8m3ZOQcpAdCFyR3dCLW3jHUrgkQp0lRVUaFYq5LPz0
+	xiLGxETO9TPuHn8vFlA7qA84RzNXVxHbSOHuKp76GedFCk+3NxgrZ6H5V5n5Yb3p
+	SSbia/uot3oaHbXkpX6MhjrHkje+3huqFJU3X62WW6FzrTPIZgzsAvgjATMlXx/P
+	+wHYZ3SuWq71CgGK4V9xGnZN5uHBB5m5aChAB5IrXIHFxjFXGmFb59WGH79Ob6Pg
+	DBygFE1kA3tOeq+gmQIf8pMKJQ3DNoNfpljc+CPVqMqFGQ==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h10bkbsx7-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 02:35:04 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-339628f2bbaso708200eec.1
+        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 19:35:04 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790821855; x=1791426655; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dLV+YqotDLXxDawySKCdSBP/LHKYRIWzAMZ3fLidsa4=;
-        b=Qby4BiQT9tPQQTpVxXwizyaaVK/VcS5/G40GAIGWiwcUGCOadxP7uCzZF5eBEGkGOC
-         g7hyxhDm+5R550sn3B03f4PIX7xTbhxP1wA+cv/PIZ7zv+bbuhbCRSZHb2wkvbOZZiS2
-         orCrUL0DgAcfBJTRV3byzPDGgonlOXKwTOfaHMLrALFaE7hM9Mq5sguOWfdJEdHP0Pgt
-         QABnYp5QGrwSFgKvyNa3BFFA+O7uKw6pFLF5BixYrv3evomPUvu1LwwuJ9y0bf3700XT
-         1gjsfOps1DcRVXxtXT4f+lp/3VzHguo94fjrJfJvV/yJZgo8vb/se4eMQ1A3dpYsIdlH
-         5rKA==
+        d=oss.qualcomm.com; s=google; t=1790822103; x=1791426903; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=htg6wDlN38DdW2E5SbXi6aX/Ov2gAq5Dj5yDzZtrY9k=;
+        b=IlUUKXH4mDNlueaNa71x7cS8ZGCaipmEhUv+7i7dIX7OCPu8wBoP2e9/x3y3NNewL8
+         LlTebwPP0xy0qR5Pl/r7lHb/slvqCF3dhK4QuaJjr7jqUNdzhxm2baIVFz3iFkbEGsHB
+         1Y2pXWot0wcvs0eETPfH5SOAqKHCO7fVHQL/5r5zPabckb0o92pwLELbJ7eOFjf019XE
+         23bmGQIEKLTixbBJqMndoQh+asS22VpZXP+yBGJuWg78cGvFfCKPsU5ymXCZzmM1Hop1
+         ehXJE1hnhhFsoMTd1ZPcz8OwH0yAwL4tHrEAFST0TpBERn6F48yWtWKBlU0Fxj2hNHBg
+         EBbQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790821855; x=1791426655;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=dLV+YqotDLXxDawySKCdSBP/LHKYRIWzAMZ3fLidsa4=;
-        b=TrdSSHQBDN+abIeQetIQr8ySQ9oUmt1MEYWjT8AJfYE39bFPgLdS5eoP6w0vwwjEsn
-         7KGE1sYsgc56y2rzAEPDub+PtXgLL2SoSvofGE1UEVtpUmkwsTIkbEswsR0oXFElzglK
-         vVUiWU0ThOA6b8myxpYG4sasyy0h/7tcA2iBKgSwJJFBFpwp46Gd4RALv3Ew+rXABCL8
-         d065VVzbQ6gXAsZHrdVPEHtVCZsjZ9XpM58CDTZzLaZSMlgYqMfI2rYwiFBA3Yt+vM9V
-         BQDqYawSQ00uoSpVE08c+HoKpHWoSMCR0n9S6mIr4jcjUejxEAvGlKKVJ10I3zmBTs/k
-         06dw==
-X-Forwarded-Encrypted: i=1; AKwUvBwQv7JpNVD4NHslmzE1wqoHWANjIlvA7xLpBmE8wIQfq1kZz48IT90DfwTA+YVuJ7S4CYlnOBziY1mM@vger.kernel.org
-X-Gm-Message-State: AFuF++kuNUxWgulKktUkFi3j3RWRL0OP7PR1APb/iyKtSmT+nSILAEDa
-	pWqWeW9Pagy/dV74EDPv7uqUoZ+86hr05kjBVFOBhBV+ayvtcKkwmMqv
-X-Gm-Gg: AYBFou0rWKBKlMQJRlrKXcQURn+DTc47JRBuOg6YtzBtm+GwKXQx0Guz06EDyeY5zak
-	RpykOTRgsen19bria3ZTJOs2KC8+hXXxcfFDVFnPgJDZBK3IsJNVmIs/XMDiRSpt7WcgDhr4gk/
-	LLkSv2IfKlqPMgiN1dXq8O8wX1XQV7ka0qykMGRlF4xRF601ZJf1lEPXLqLt94I2H7pnTqVsd7u
-	qom3vBU086FbYCBWwAGlq5e//a7ej7EXMwiNWWcTAQAbAVY+X8dBPeTkHVnSmeMkF4bQ0LIsSav
-	stxVxdEhW1OpkDAZFQvnq5BCn/yj35TbOdhHetYCSKKFai0nImxtFZCk+Zq+ExOb5j1TIwgsLh/
-	WYjRQKt1JA0sdn/LX/lCovM2DBQPNZh/8e7JFCSgUxTDhBjBFp+iSCW9Xhz0f/Pkn73+ov+zK9X
-	lr/f65m1OHnfpX6iPlJ84Sh+GwLlGRMI/U/l5GSGUk9hu65u1Sww==
-X-Received: by 2002:a05:6a20:260a:b0:3cc:ebeb:3efe with SMTP id adf61e73a8af0-3de9e02b82emr2903360637.9.1790821854823;
-        Wed, 30 Sep 2026 19:30:54 -0700 (PDT)
-Received: from [192.168.101.188] ([2605:e440:15::152])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc7e539b583sm676858a12.2.2026.09.30.19.30.44
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 30 Sep 2026 19:30:54 -0700 (PDT)
-Message-ID: <36bac55b-c7e9-40e3-b376-fb8d163fcd40@gmail.com>
-Date: Thu, 1 Oct 2026 10:30:41 +0800
+        d=1e100.net; s=20260707; t=1790822103; x=1791426903;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=htg6wDlN38DdW2E5SbXi6aX/Ov2gAq5Dj5yDzZtrY9k=;
+        b=YOwx+SfvAhnTcRTzu9BYS9myW2i1fIGZIdhHzR4+5b0832QGcF6X9jzY+wZSiy7jrP
+         IYaJJAXk9yxuZO0L3YVg5X4FMBmWn/LjXXIQxM65GlMyO3gescBm30UJAwPD4+t6e9d3
+         CIPE8h+Ti/ulT6rxtENHTbyA/OuaIs1ZB5Y2ZVTaMCZztpRzf51jX/lBxq55tIumUIpS
+         b37q/S/zBFM8OK1VHvvyOzsz/ahW+PAPnmGEHnac+JLzaT4KPFqyDfv+q1VtMpQ0xp7p
+         flBC0xPevR2ttSWiLLfryz/iLPt39n0fLEiEl9v/eKDdT1Bz1+ck+S9yaZWRZDLkFGQT
+         839g==
+X-Forwarded-Encrypted: i=1; AKwUvBy7JHckpJ2sJn5/h+qnLyHNKtJjAVX5gsVMTkBU4aTrpb5nCWMaph/U0w+gb3qLVRKEo+0uXszE4G+P@vger.kernel.org
+X-Gm-Message-State: AFuF++n/avSQ1MZoD+bCjuyQ1jKL3/YiHPnpJ0LmZqnTHYrJ2M+n8gst
+	D5nsWeisJs5ldHkLZ8WzBsxjjBH56Z6drQcarl39DxFWi1WKzGRP6DJ2j03oD231GpIIuS3C9qt
+	1HlEvBHmLWkTuztqyMA7krMfl/pagkubNCEAXA7WA/UbZDiw3t9wvKfFty0xIT8Y1SJOAXUbY
+X-Gm-Gg: AYBFou0xiaIoivCQMzv4GQkLCPLH4ChZm6NernbDenSXv5fMSFImqAfpfe+s4wUbCAX
+	hRSEvx76UK82goH4CIexFSYWEYa0eeAuS5/IVgoGdlHkUTFYJjnGuuPOyDCqqSVPhX/0WaACjpO
+	jARV4dymaqG+LXKeSu5FsDwUQCoOKMJtFPg20oi1T/VYwe6ld6KVu5y3xYK407UmkyCc4XaXXom
+	WGUip5++QPs6sSyZ24WMJnOc6ovXDQhW5cg3bzLCCwQ8s81mvHpctNKunZhZ8HRffqN7nvzmSXp
+	KoprQCpJbLu+mh343mogT9O1dxJ0OJzNJtBdARhQDnrhqTUmg7OHRVi7TmCTl+gqM+D/AJhr6PX
+	dG3tqbyDNig01sVo8Kwrj2DavKMxWMR20Hi+s+G/RSkDPglow9PTMn8XN8UEjXYXXK+UOmGl//y
+	NUVoPHldYr7UnwCjPUl08=
+X-Received: by 2002:a05:7300:b54b:b0:343:fdea:9a0 with SMTP id 5a478bee46e88-34cdd9900bfmr6742035eec.2.1790822103304;
+        Wed, 30 Sep 2026 19:35:03 -0700 (PDT)
+X-Received: by 2002:a05:7300:b54b:b0:343:fdea:9a0 with SMTP id 5a478bee46e88-34cdd9900bfmr6741984eec.2.1790822102643;
+        Wed, 30 Sep 2026 19:35:02 -0700 (PDT)
+Received: from hu-vishsain-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14df3bb4a2fsm2427281c88.8.2026.09.30.19.34.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 19:35:01 -0700 (PDT)
+Date: Thu, 1 Oct 2026 08:04:51 +0530
+From: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
+To: Philipp Zabel <p.zabel@pengutronix.de>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Robert Foss <rfoss@kernel.org>,
+        Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+        Jonas Karlman <jonas@kwiboo.se>,
+        Jernej Skrabec <jernej.skrabec@gmail.com>,
+        Luca Ceresoli <luca.ceresoli@bootlin.com>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>,
+        dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Yi Zhang <zhanyi@qti.qualcomm.com>,
+        Nilesh Laad <nilesh.laad@oss.qualcomm.com>,
+        Gopi Botlagunta <venkata.botlagunta@oss.qualcomm.com>,
+        venkata.valluru@oss.qualcomm.com,
+        Jessica Zhang <jesszhan0024@gmail.com>
+Subject: Re: [PATCH v9 2/2] drm/bridge: add support for lontium lt9211c bridge
+Message-ID: <ar3Gy4F1Ym3KNuaV@hu-vishsain-blr.qualcomm.com>
+References: <20260924-add-lt9211c-bridge-v9-0-d78b39677a61@oss.qualcomm.com>
+ <20260924-add-lt9211c-bridge-v9-2-d78b39677a61@oss.qualcomm.com>
+ <61aa851b26f9aa85a3ec1dc4bc8f46d7f1fbd24e.camel@pengutronix.de>
+ <d924369a2f907aa796d7eba692001593ef1e6d0d.camel@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 1/5] dt-bindings: thermal: sun8i: Add A523 THS0/1
- controllers
-To: Rob Herring <robh@kernel.org>
-Cc: Vasily Khoruzhick <anarsoul@gmail.com>, Yangtao Li
- <tiny.windzz@gmail.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Lukasz Luba <lukasz.luba@arm.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
- Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, linux-pm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org,
- Philipp Zabel <p.zabel@pengutronix.de>,
- =?UTF-8?Q?Juan_Manuel_L=C3=B3pez_Carrillo?=
- <juanmanuellopezcarrillo@gmail.com>, Andre Przywara <andre.przywara@arm.com>
-References: <20260913145527.18148-1-iuncuim@gmail.com>
- <20260913145527.18148-2-iuncuim@gmail.com>
- <20260924151758.GA75925-robh@kernel.org>
-Content-Language: en-US
-From: Mikhail Kalashnikov <iuncuim@gmail.com>
-In-Reply-To: <20260924151758.GA75925-robh@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <d924369a2f907aa796d7eba692001593ef1e6d0d.camel@pengutronix.de>
+X-Proofpoint-GUID: R83fccFUww-2k6wBYXUNt3wuhfcmWkH3
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDAxMCBTYWx0ZWRfX7xWEVWrfhHHv
+ ohrebiWsRAslKOzRh6TtjE4GlRBOaXC+KEb3phKzUo88E+VGV+LLUxSBAKPQGngugR7naKWazuC
+ dC0zj0dasmnNrvNqIbUFgw0Xiq5FhNSKdtZ/6vX7YTZBcpfb4OK0Hk/Fn4D5PkVD8T8pZk5woVE
+ U8zGWbt7SVoiaZKg+QajS5LnvjqUhOcBfdE+apPRxrIpSP7sFn0wdKp/EZsQLPe/rx8K2GaGxfJ
+ a6BK0bRhKsSI+5/Bq3OCir7qGY4XGthEuQ+978sKPCkQ7wSfZeG8Dl97onVPi/+RW3SQdShbv05
+ rSaa3I3XwrCY9/7JPWhUFV/WjPfbKgNOLHP5ZMRIRWrKBwHOoDIo8hycsGotRVuSNribmsoGlJA
+ SWErCq9eVKw3LSqA0S34/hqA/xrEAJ+q7jYranOWHKSjYAu7E9z6QSJW96HIYaTEnGWLVfJWJmH
+ arl1WyNzKL4t+5A71wA==
+X-Authority-Analysis: v=2.4 cv=MZn5KJ/f c=1 sm=1 tr=0 ts=6abdc6d8 cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=EUspDBNiAAAA:8 a=jvwfOezYHQUHBwXlzkIA:9 a=CjuIK1q_8ugA:10
+ a=scEy_gLbYbu1JhEsrz4S:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDAxMCBTYWx0ZWRfX+vbRTQTluoBD
+ RBIEXNZhVAE2Q8yU4flq18YD4glphbV+wMEbdt2//4W4WiwaYIS4B3Z2vDXGJH+RMLba78LpufA
+ /9DvSInWrAjh2F0cRGh5/TbfJJUcDVM=
+X-Proofpoint-ORIG-GUID: R83fccFUww-2k6wBYXUNt3wuhfcmWkH3
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-01_01,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 spamscore=0 suspectscore=0
+ priorityscore=1501 bulkscore=0 clxscore=1015 impostorscore=0 adultscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2610010010
 
-On 9/24/26 23:17, Rob Herring wrote:
-> On Sun, Sep 13, 2026 at 10:55:23PM +0800, Mikhail Kalashnikov wrote:
->> From: Mikhail Kalashnikov <iuncuim@gmail.com>
->>
->> Add dt-bindings description of the thermal sensors in the A523 processor.
->>
->> The calibration data for both thermal controllers (THS0, THS1) is split
->> across two nvmem cells at different offsets, requiring the two cells
->> to be read and merged. To maintain backward compatibility, the name of
->> the old cell remains "calibration" and the new cell is named
->> "calibration-second-part".
->>
->> Signed-off-by: Mikhail Kalashnikov <iuncuim@gmail.com>
->> ---
->>   .../thermal/allwinner,sun8i-a83t-ths.yaml     | 34 +++++++++++++++++--
->>   1 file changed, 31 insertions(+), 3 deletions(-)
->>
->> diff --git a/Documentation/devicetree/bindings/thermal/allwinner,sun8i-a83t-ths.yaml b/Documentation/devicetree/bindings/thermal/allwinner,sun8i-a83t-ths.yaml
->> index 3e61689f6..792081af5 100644
->> --- a/Documentation/devicetree/bindings/thermal/allwinner,sun8i-a83t-ths.yaml
->> +++ b/Documentation/devicetree/bindings/thermal/allwinner,sun8i-a83t-ths.yaml
->> @@ -24,6 +24,8 @@ properties:
->>         - allwinner,sun50i-h5-ths
->>         - allwinner,sun50i-h6-ths
->>         - allwinner,sun50i-h616-ths
->> +      - allwinner,sun55i-a523-ths0
->> +      - allwinner,sun55i-a523-ths1
+On Mon, Sep 28, 2026 at 12:13:42PM +0200, Philipp Zabel wrote:
+> On Fr, 2026-09-25 at 15:23 +0200, Philipp Zabel wrote:
+> > On Do, 2026-09-24 at 21:29 +0530, vishnu.saini@oss.qualcomm.com wrote:
+> > > From: Yi Zhang <zhanyi@qti.qualcomm.com>
+> > > 
+> > > LT9211C is a Single/Dual-Link DSI/LVDS or Single DPI input to
+> > > Single-Link/Dual-Link DSI/LVDS or Single DPI output bridge chip.
+> > > Extend the existing lontium-lt9211 driver to support DSI-to-LVDS
+> > > bridge configuration by detecting and handling both LT9211 and LT9211C
+> > > variants from a single driver.
+> > > 
+> > > Chip detection in lt9211_read_chipid() is extended to identify the
+> > > LT9211C by its distinct chip ID registers, and cross-checked against
+> > > the chip type requested by the DT compatible string to catch a
+> > > mismatched board/compatible combination.
+> > > 
+> > > Add LT9211C-specific regmap support and use lt9211_chip_data with
+> > > i2c_get_match_data() to provide per-chip configuration.
+> > > 
+> > > Five new functions implement the LT9211C DSI-to-LVDS initialisation
+> > > sequence: lt9211c_configure_rx(), lt9211c_autodetect_rx(),
+> > > lt9211c_configure_timing(), lt9211c_configure_plls() and
+> > > lt9211c_configure_tx().
+> > > 
+> > > Defer the remaining LT9211C initialization to a work item scheduled
+> > > from atomic_enable(), since RX auto-detection requires an active DSI
+> > > stream.
+> > 
+> > This is still wrong, and I don't understand why you need it.
+> > 
+> > All scheduling initialization as a work item should allow is for
+> > downstream bridges and/or panels to be atomic_enabled while
+> > lt9211_work_func() is waiting for a vblank interrupt.
+> > They expect the LVDS signal to be active at this point. If LVDS is
+> > enabled at some unknown later point in time by the work item, any
+> > startup timing requirements the panel might have can not be applied
+> > correctly.
+> > 
+> > Also, deferring initialization as a work item shouldn't have any
+> > influence on the upstream DSI signal. That should already be active
+> > when lt9211c atomic_enable is called. Could it be that there is a bug
+> > in your display controller or DSI bridge driver that causes the DSI
+> > signal to still not be completely active at this point?
+> > 
+> > > Signed-off-by: Yi Zhang <zhanyi@qti.qualcomm.com>
+> > > Signed-off-by: Nilesh Laad <nilesh.laad@oss.qualcomm.com>
+> > > Signed-off-by: Gopi Botlagunta <venkata.botlagunta@oss.qualcomm.com>
+> > > Signed-off-by: Vishnu Saini <vishnu.saini@oss.qualcomm.com>
+> > > Tested-by: Philipp Zabel <p.zabel@pengutronix.de>
+> > 
+> > I have not tested this version (yet).
 > 
-> Why the 2 compatibles? What's the difference between them?
-> 
-> Surely this has been asked already, but nothing *in this patch* answers
-> it.
-English isn't my native language, and I don't quite understand what 
-you're asking. It would be better if you just said, “I'd like the commit 
-message (or somewhere else) explaining why two compatible string are 
-required.”
-Thank you.>
-> Rob
+> I have now retested this on RK3576 - both as-is and with the
+> "drm/bridge: lt9211: drop delayed work" patch I just sent.
+Thank you i will see how atomic_enable is handled in RK3576
+   
+> I still think we have to figure out why the DSI signal doesn't appear
+> to be streaming as it should when lt9211_atomic_enable is called in
+> your setup.
 
+> When enabling the lt9211c synchronously, is there any error?
+> Is just the Sot/RX: debug output incorrect?
+Yes, few details were mentioned in our v6 discussion.
+droping delayed work is not working as expected. lt9211_autodetect_rx failed to read the format,
+Tried increasing the delay upto 3s before reading the format buf, did not help:
+
+With synchronous approach,
+i defined a dummy drm hook, hw_enable_timing which is called after enabling the timing engine in drm/msm dsi host driver, and it starts working (bridge configuration was synchronously but in this dummy drm hook). So to remove delayed work, changes required in dsi host driver. Shall i defer bridge level atomic_enable callback from drm/msm/dsi host till timing engine is enabled?
+
+> Which display controller / DSI bridge drivers are used to send the DSI
+> signal?
+I used drm/msm/dsi host driver on qcom lemans/kodiak/monaco evk platforms.
+
+> regards
+> Philipp
