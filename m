@@ -1,211 +1,103 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7283C442135;
-	Thu,  1 Oct 2026 10:58:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90764471244;
+	Thu,  1 Oct 2026 11:00:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790852299; cv=none; b=OWekzRvYzr+mdsA0TKpwFIo7BL1zYiNUNZm/lA3Bimx+fiETS6opRuQJBptdyHA5OPTVAhaiZxHU0LjM5/jjexKE8dzH6tOTsM7CAZJp/PLJAlq6i5p5Xx79jCv7doMrrVjj5LNY5k1RN1lKKS0wYL2/Nq88gK5eJaqreiPXM6Q=
+	t=1790852411; cv=none; b=cqM7eJvgOsY2qrwd4WJ96dvtqxvsJVZbcdZTuHLe9IFCeeP5mfvc7jXi5HE3L9ZPj0tXfCsed0jxw8Xmx25z5Tryhb7HG/H/bbrWZ1pFWDkVofRqzjn1ufHxdHBjfW58EURl2QqIrjoraqQJb0k8W6OOAcbBk9lgRYs0xcGzOUY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790852299; c=relaxed/simple;
-	bh=RqRxynyai8pcaz/HuEMQJirMhdcOCbstIy/jm0yIGmU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Nq2u5zluRs8+jumuqxcyD8lVWxZli9Yd88mLQk/x3vyjD2YEhupQ0GxlBPyWc+H4+NmHmNchEK9FNFLIfQbXUrFRzYvjy9jAX5grHqyapowWV0qaiKWV881VtrHF9jpUmm1s9TTWBFhoWMbuwmI+8zb1iZssm3b6L54nOI6/3lM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=fTSDu/Kq; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1790852411; c=relaxed/simple;
+	bh=tatj4hme3XHnJIospVnqX6kATrBX2wfAeUpeTN3WLqM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=bRdliGS4tCg1XJCzILLtAlf/KqDt0lhLfOia/uxXwzIWYL0SCO1g9uFHCghWUErl9uwV9rd58tvHzU6oIqwHxb+VAutlOdpWOi0akpyM20RuG7OMVxFfI/61Y1Z4iHf7olkdwkD5bVpZoQeOPHuecogDPihGA+1oKMnv0xI23t8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kuEOmMoV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="fTSDu/Kq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790852297; x=1822388297;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=RqRxynyai8pcaz/HuEMQJirMhdcOCbstIy/jm0yIGmU=;
-  b=fTSDu/KqITgK47qA2Dumtty5pW2+paMNXE8P0ArCo+KIiM6W33FhZCwN
-   Os+Q02XIdZ7redmzjGX7N/d2p0H+rKq4W9k3aN6i8Y5EB/0lxYiHTOlM0
-   O64YkLq0wG0XZWsC5c0hujqDa5okszvnEj8poZKXmZkFO9DWhMZ4WZbMy
-   T+zkOUMZliesh9QwwCatLSmWXPywTRUHD4NyW97QSwn8yl2SBBct8t2xd
-   eTMXTZHmBCEHBOVnZ49gWH3tQASIhKHXxiej073GO8abl+pjyeqHLnQ/I
-   5JcltEFw/S/0oeJcM6sU2GPXty6EMMrEYqTjS1UyJ91bLTqvRDPrQepXX
-   w==;
-X-CSE-ConnectionGUID: CiIf6tHcTF2xND/MB1Q3Lw==
-X-CSE-MsgGUID: xsP18LmvQHSTBE5HH26BiQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11921"; a="91702417"
-X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
-   d="scan'208";a="91702417"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 03:58:15 -0700
-X-CSE-ConnectionGUID: keXulf5wSTCfmwb1+qeL+w==
-X-CSE-MsgGUID: lWw6cLGCSrGK4wTFXYhUKw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
-   d="scan'208";a="276007649"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.7])
-  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 01 Oct 2026 03:58:13 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 3FA01121BA0;
-	Thu, 01 Oct 2026 13:58:10 +0300 (EEST)
-Date: Thu, 1 Oct 2026 13:58:10 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Cc: Philippe Baetens <philippebaetens@gmail.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Kieran Bingham <kieran.bingham@ideasonboard.com>,
-	Jai Luthra <jai.luthra@ideasonboard.com>,
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 2/2] media: i2c: mira016: Add driver for Mira016
-Message-ID: <ar48wuZ5ExmCXyY7@kekkonen.localdomain>
-References: <20260930-mira016-v5-0-499a34ab8204@ideasonboard.com>
- <20260930-mira016-v5-2-499a34ab8204@ideasonboard.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kuEOmMoV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 712101F000FF;
+	Thu,  1 Oct 2026 11:00:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790852407;
+	bh=7R0n7aR3t/s3IPaoeTNmWosZm1MdlcZoSF8jHiksjpY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=kuEOmMoV+Mm5NoP1q9k9JjnjiehUeF6GVSRryLK79BmCdyvYWXzt/RFceHpYiZLXq
+	 ha6/59KeiD0sQLkTZUF6ao5KhXF0xOSv6T2n7/hSqJkogfE6xn6NLMYsEoQvlZJtMk
+	 i+xgPag2ZSD/7pjo72iCyTda1zal7w+U1skKOcmgDQkSGbjeWnKs0ZLv1IcEuhgxO9
+	 YhRTNWLLEWv6pT56ZO5YBZ0Lu+5eG4EEtY+SpvCWofe9syUoiGyaYB/9QW5rMw1ua3
+	 LaJNG+4p1uR4sWGeT3a/Bixbbv/lwrMkzdawWEWUStcxQaDciNDxQsm4dWg8vfMqBD
+	 g/gki8xFos/Qw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/4] Input: hynitron-cst816x: release gesture keys
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Daniel Golle" <daniel@makrotopia.org>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, dmitry.torokhov@gmail.com, linux-input@vger.kernel.org, robh@kernel.org
+In-Reply-To: <6f87a6c44555a0abb5d7f677250c28aacb230fbc.1790851590.git.daniel@makrotopia.org>
+References: <cover.1790851590.git.daniel@makrotopia.org>
+ <6f87a6c44555a0abb5d7f677250c28aacb230fbc.1790851590.git.daniel@makrotopia.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 01 Oct 2026 11:00:06 +0000
+Message-Id: <20261001110007.712101F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260930-mira016-v5-2-499a34ab8204@ideasonboard.com>
 
-Hi Jacopo,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] input: OOB read in cst816x_release_keys() due to unvalidated DT =
+keycodes
+--
 
-One more small issue...
+commit cb8390c95078c2f0098d2be4f937c758b29ad76d
+Author: Daniel Golle <daniel@makrotopia.org>
 
-On Wed, Sep 30, 2026 at 12:51:20PM +0200, Jacopo Mondi wrote:
+Input: hynitron-cst816x: release gesture keys
 
-...
+The gesture key is reported with the value of the touch flag, so it stays
+pressed once the controller stops reporting the gesture code while the
+finger is still down. This commit reports the press on its own and releases
+the keys the input core still holds down when the first report without a
+gesture code arrives.
 
-> +static int mira016_probe(struct i2c_client *client)
+> diff --git a/drivers/input/touchscreen/hynitron-cst816x.c b/drivers/input=
+/touchscreen/hynitron-cst816x.c
+> index 865c5a767ba01..e2093518e8af1 100644
+> --- a/drivers/input/touchscreen/hynitron-cst816x.c
+> +++ b/drivers/input/touchscreen/hynitron-cst816x.c
+[ ... ]
+> @@ -168,6 +168,18 @@ static void cst816x_reset(struct cst816x_priv *priv)
+>  	msleep(100);
+>  }
+> =20
+> +static void cst816x_release_keys(struct cst816x_priv *priv)
 > +{
-> +	struct device *dev = &client->dev;
-> +	struct mira016 *mira016;
-> +	int ret;
+> +	unsigned int i;
 > +
-> +	mira016 = devm_kzalloc(&client->dev, sizeof(*mira016), GFP_KERNEL);
-> +	if (!mira016)
-> +		return -ENOMEM;
-> +
-> +	mira016->dev = &client->dev;
-> +
-> +	ret = mira016_parse_endpoint(dev, mira016);
-> +	if (ret)
-> +		return ret;
-> +
-> +	v4l2_i2c_subdev_init(&mira016->sd, client, &mira016_subdev_ops);
-> +
-> +	mira016->regmap = devm_cci_regmap_init_i2c(client, 16);
-> +	if (IS_ERR(mira016->regmap))
-> +		return dev_err_probe(dev, PTR_ERR(mira016->regmap),
-> +				     "failed to initialize CCI\n");
-> +
-> +	mira016->xclk = devm_v4l2_sensor_clk_get(dev, NULL);
-> +	if (IS_ERR(mira016->xclk))
-> +		return dev_err_probe(dev, PTR_ERR(mira016->xclk),
-> +				     "failed to get xclk\n");
-> +
-> +	mira016->xclk_freq = clk_get_rate(mira016->xclk);
-> +	if (mira016_validate_xclk_freq(mira016)) {
-> +		dev_err(dev, "xclk frequency not supported: %d Hz\n",
-> +			mira016->xclk_freq);
-> +		return -EINVAL;
-> +	}
-> +
-> +	ret = mira016_get_regulators(mira016);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to get regulators\n");
-> +
-> +	mira016->reset_gpio = devm_gpiod_get_optional(dev, "reset",
-> +						      GPIOD_OUT_HIGH);
-> +	if (IS_ERR(mira016->reset_gpio))
-> +		return dev_err_probe(dev, PTR_ERR(mira016->reset_gpio),
-> +				     "failed to get reset gpio\n");
-> +
-> +	/*
-> +	 * Calculate the PLL configuration based on the link frequency
-> +	 * selected by .dts and compute the sensor timing bases.
-> +	 *
-> +	 * Initialize row_length to a value matching the default format for
-> +	 * exposure and frame time limits calculations.
-> +	 */
-> +	mira016_pll_calc(mira016);
-> +	mira016_timings_calc(mira016);
-> +	mira016->timings.row_length = 1262;
-> +
-> +	ret = mira016_power_on(dev);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* Enable runtime PM and power on the device */
-> +	pm_runtime_set_active(dev);
-> +	pm_runtime_enable(dev);
-> +
-> +	ret = mira016_identify_module(mira016);
-> +	if (ret)
-> +		goto error_power_off;
-> +
-> +	ret = mira016_init_controls(mira016);
-> +	if (ret)
-> +		goto error_power_off;
-> +
-> +	/* Initialize subdev */
-> +	mira016->sd.internal_ops = &mira016_internal_ops;
-> +	mira016->sd.flags |= V4L2_SUBDEV_FL_HAS_DEVNODE;
-> +	mira016->sd.entity.function = MEDIA_ENT_F_CAM_SENSOR;
-> +
-> +	/* Initialize source pads */
-> +	mira016->pad.flags = MEDIA_PAD_FL_SOURCE;
-> +
-> +	ret = media_entity_pads_init(&mira016->sd.entity, 1, &mira016->pad);
-> +	if (ret) {
-> +		dev_err_probe(dev, ret, "failed to init entity pads\n");
-> +		goto error_handler_free;
-> +	}
-> +
-> +	mira016->sd.state_lock = mira016->ctrl_handler.lock;
-> +	ret = v4l2_subdev_init_finalize(&mira016->sd);
-> +	if (ret < 0) {
-> +		dev_err_probe(dev, ret, "subdev init error\n");
-> +		goto error_media_entity;
-> +	}
-> +
-> +	ret = v4l2_async_register_subdev_sensor(&mira016->sd);
-> +	if (ret < 0) {
-> +		dev_err_probe(dev, ret,
-> +			      "failed to register sensor sub-device\n");
-> +		goto error_subdev_cleanup;
-> +	}
-> +
-> +	pm_runtime_set_autosuspend_delay(dev, 1000);
-> +	pm_runtime_use_autosuspend(dev);
-> +	pm_runtime_idle(dev);
-> +
-> +	return 0;
-> +
-> +error_subdev_cleanup:
-> +	v4l2_subdev_cleanup(&mira016->sd);
-> +error_media_entity:
-> +	media_entity_cleanup(&mira016->sd.entity);
-> +error_handler_free:
-> +	v4l2_ctrl_handler_free(mira016->sd.ctrl_handler);
-> +error_power_off:
-> +	pm_runtime_disable(dev);
-> +	if (!pm_runtime_status_suspended(&client->dev))
-> +		mira016_power_off(dev);
-> +	pm_runtime_set_suspended(dev);
+> +	for (i =3D 0; i < priv->keycodemax; i++) {
+> +		if (!test_bit(priv->keycode[i], priv->input->key))
 
-These two come in pairs effectively. The sensor has been powered on earlier
-and not powered off, so you can omit the suspended check above.
+[Severity: Medium]
+Can this read out of bounds on the priv->input->key bitmap?
 
-> +	return ret;
+If a keycode provided in the device tree property exceeds KEY_MAX,
+input_set_capability() safely ignores it during registration, but the
+invalid large value remains in the priv->keycode array.
+
+When cst816x_release_keys() iterates over this array, it directly calls
+test_bit(priv->keycode[i], priv->input->key). Since test_bit() doesn't
+perform bounds checking like the input core's event handlers do, passing
+an oversized keycode could result in a memory read past the end of the
+bitmap structure during touch interrupts.
+
+> +			continue;
+> +
+> +		input_report_key(priv->input, priv->keycode[i], 0);
+> +	}
 > +}
+> +
 
--- 
-Regards,
-
-Sakari Ailus
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/d18629ede3f2fd5a08d=
+0cbdaf82f4254e89500ed.1790851590.git.daniel@makrotopia.org?part=3D3
