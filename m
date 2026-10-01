@@ -1,50 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC73537756B;
-	Thu,  1 Oct 2026 00:40:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8664A37B032
+	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 00:43:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790815236; cv=none; b=hg2jJmsT5WX+cVYMqPphCbXMYC7pOezRVCnbbF4iKaWyJ0ZRry1QBkYVaUtievmjIgZcK0V5pCwHrPlmkXCUhSGRE7yxwmdqRzSkelxZxC5wdPbXkfTapWaQ7aNoGpZMpIn3Qrr7Ls3LsT55JwPd2NV0vOSk0f2A2RETeUY7FhQ=
+	t=1790815418; cv=none; b=rCY1c03K3QrvLLS2e08Y4pZjrYvzI9Iup8umVJI5cwtq4NssgI7rGDCcM4edIS+r7y8kQ8F1fj4tOdX90CtMSdOipJSmeCr4It90MAYAqhZOhdCGZonrPwn++y2qayM30cbwnyF7q1r0VXrhiaO24TbLyQ3q4kTrrytSlLiI7K4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790815236; c=relaxed/simple;
-	bh=UI9BLBTThba/tbipQa2Pd4i365kNErFb2j0bR+1KJHk=;
+	s=arc-20240116; t=1790815418; c=relaxed/simple;
+	bh=cyLUkHDw0rOteiZ0d9G56/3XyJ40Ceebpxn64MLmNd4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BwCUGuJAWB3LG9XZmjxGf9V1hRwtYcnYhmZZMf83tsKpiitBMF5heEKi1CZO4BIoNHAPGOBFSworoNOmum3u7TfZAiZNgV9Nj7vr6t6ipPXHKiIQX5OFBN9mPdYxYKhNviwA7PaBLYvpS66ehb0WrXSNwdfVc5ZQa6urTFxxijE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jl6bcv+M; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=FJQkTZ4pjJ7QhVuBhyHuW/vQ/+mkVZBWdTlmE6Cia4ecpTNgvH49u3U7vqLW+gXuOoFKDTlt/qGgyjb3IiCZ/A9oMdkQMRgOj+/ewYkCA+c4Yjk4G4aiX1Xcj317UEPKhsDBTr1CCVLHDGH7+LC/IrSgaQ2X+31nifMULsPP+mc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZtKAsRXL; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FV4EBIIb; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jl6bcv+M"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8501B1F000FF;
-	Thu,  1 Oct 2026 00:40:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790815231;
-	bh=fGIgfHHyq+/K2lVOR8B8BSXPb5iv0tNgGC8KPp0J+Rw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Jl6bcv+MS+vKEci9m+7ZjgmLmmXrz56RooqDFDnUXXY5gsoy0sAkrVS2WcfyXX0pA
-	 rnXoRUwxrm6OCDUz3tIJGnmyyx3HPa31AfKH75V1GYpEaJl5ADVA2HAYYqbLfUPmcg
-	 Q9tqkSeWmAlNCqmax9+XHbRh6BIrPXVpMb19sa2YH4LT57n9RVNnYmt5xAXD+xLxF7
-	 +QpFdrKQVGUSilRHXvlVY129IcC3vQSgvYBal8zHEP5SitOCzOQhPbAGf99ELCX2M3
-	 OM/8IPVY8g+ptMzP6wT6aEDTqXGVHpt405DEJqtAA/Z34WW3a2lbBOEt7g3jFo194p
-	 ZzsaWRMH2Uh6A==
-Date: Wed, 30 Sep 2026 19:40:17 -0500
-From: Bjorn Andersson <andersson@kernel.org>
-To: Rob Herring <robh@kernel.org>
-Cc: Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Taniya Das <taniya.das@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>, 
-	Jingyi Wang <jingyi.wang@oss.qualcomm.com>, Ajit Pandey <quic_ajipan@quicinc.com>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Imran Shaik <quic_imrashai@quicinc.com>, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
-	Tengfei Fan <tengfei.fan@oss.qualcomm.com>, Abel Vesa <abel.vesa@oss.qualcomm.com>, 
-	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH v5 00/42] clk: qcom: Tie CX power domains to GCCs
-Message-ID: <ar2n-yjFdOwmK_wz@zenbook>
-References: <20260924-qcom-tie-cx-to-gcc-v5-0-38732033e5b5@oss.qualcomm.com>
- <179035461215.1296652.13047689320991053383.b4-ty@b4>
- <CAL_JsqKVYyMR=_+eJ3YO-7yj_sFKx3hknNxdm3_5yYJmGMwbyA@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZtKAsRXL";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FV4EBIIb"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68UHf6xG1110137
+	for <devicetree@vger.kernel.org>; Thu, 1 Oct 2026 00:43:33 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	6/YjcEN7BDbe1iCeqE6MfpaqcpTrbhOInw48Y0omQ9g=; b=ZtKAsRXLvhfaowk1
+	fl3P+MjUdwjsYT4zBYuV/SxekN9B1MluKLMDWrvZ+r6vzuC+1orOZyObIK1CDr5d
+	AyKdwi8vMclA+1J50tXc6w/Oo1g2Cu1xwmLQ5RoF9pi/7br20bv4EpOPykSmK61n
+	cC8JXgZtEY9W0oEcbLPq040v2kCM0YtrTl6K9ImJFAWa+xj2Ug/7cWg/fbAHYNAx
+	50WjiyR/6tDT9Ee9W9HjbYiRCIDeAtu+ZrdGNh2oiTq19hjtdzqGfkHws2dSeCaK
+	wtD2xrCDPHI399ocLKuBqimXyqsoLJBys3EOBM3tFlR0itWO9w3xp2o8eWf3cPFr
+	IgrBRg==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h0yh83rck-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 00:43:32 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93a0c7126e7so1052949185a.2
+        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 17:43:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1790815412; x=1791420212; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6/YjcEN7BDbe1iCeqE6MfpaqcpTrbhOInw48Y0omQ9g=;
+        b=FV4EBIIbmEvwe/l1iZYqqzd18kK1xVImnmFot0HsWihyiAWZW3q2JWF/FvI80E47Nj
+         J8fhtNdi1zzW8PQRv9GBLZkhOJxHuWtrLTMOdvvRWEga7rlLzaLoPrXDKnBXSV/UAv2q
+         HyyFUGI/3mxIWrE5CuqVwjd5U9eN3fh3b2cggc427jOxQmsr28+b6ZAGVbJqhe+cgk27
+         H1g4/nKBDP2pb7TTLdhd+gQZnk650W9Zd4LGaomkM7cZpyiVRa52N0Db1M572/OfTvVC
+         D/ejzxW865hk+eJlO3GsPfW2tZ5thJ7UPx8fKWHADHP3PQAPPyd/gSG7M0G6pZf9qB9x
+         vLZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790815412; x=1791420212;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=6/YjcEN7BDbe1iCeqE6MfpaqcpTrbhOInw48Y0omQ9g=;
+        b=CuGAqYkyzVgl4PyAUnpZVYclqk602f0nbaRxV76SePN1dFvUyLQcX5wilWiqRrxtzT
+         WlepzmypjGDydQDwBxO6TGF9vInha+tw87DNAVGJTjxJhPORZ/E2LQYIbt5tJPDmHXte
+         Fgn/0nW1+AlkCfReSoraAfj3F7U+KNDp2SfWuHDzRoiqErilt09yRoT7Fbkk+D3Bj5Fg
+         ar9BDnptVSDybfcJvkgbCUYcPy5e0FxUxI8KaR0vWItp6fKadJsER+QTe2yIXbs0z4GC
+         4aaQDSaq+hFvrw5a4iIi4o9UUWsT+VpyVxlHvNX6R3sGlM7TKmYyZ6eptU+76acTocAw
+         LABw==
+X-Forwarded-Encrypted: i=1; AKwUvBz+849gsjZEM1DLGgU3NyqcaE17ucEdGF0RM1+i3h4XwtneedC7oHZt+ThE03jxpbLPnG3QVc/IAT4N@vger.kernel.org
+X-Gm-Message-State: AFuF++lr9BvPrw7BN/93h+HBjiHgojQaOj0g6juTbF+7qD/mDWu+KUsL
+	7zIaT42YmnMGCdTG7B8XOb8/Z739eXRT/6giBRiXMqovo9u7KJBhqJf0w+t+yLq2d90NEyzknoY
+	AddHEVqzl63WCH/GlT1uLqEH0csCuhuB55oVFrN3HhD06fgDsjh83gDrX/9gu+PkG
+X-Gm-Gg: AYBFou3ZEsU/xrMs6wxNuRxB4y6IPCZvc46oxM++Crn48h1CSYR2rTCzy4hyCLNP8xW
+	yYodYR0LyGTbbJ+9SirTTcAUYSVPDvwrmonqj5XscpCahVdlBAVbC1qKnGfgjuA/qbhN2BaZreZ
+	ZRCLY8PCRCp5+tgX0DpPzTBKBFp1uCSA6I+5Vk+ajaMdSAxGjdphtaPnM8HyHp7sLRffl0YeCsK
+	tWFFsn5dhafao9ftET8kcLeLI3DDXHOqZPsimqoHS/3Jd/IwLR0j4ZFMdUgA6hEYDzVZF9Ykbl8
+	cfkIsPQjG479gwyNFFb7b9KSzjDSHkqZ6gHZYzOVDnz5X7GSEzh2tXTHYFSmLWnN+AK+D2e/1tR
+	I8A8FRcxvlu4KHkDwzpouBmSkXBGQUZCCQZVWJtGlQ6EcK9FyqVPUD2wRodd/Vq8NyV+xSMKAFs
+	pCAk3mcdibMMTQ
+X-Received: by 2002:a05:620a:8906:b0:939:de6c:cb45 with SMTP id af79cd13be357-93ca980e5ccmr626387685a.47.1790815411551;
+        Wed, 30 Sep 2026 17:43:31 -0700 (PDT)
+X-Received: by 2002:a05:620a:8906:b0:939:de6c:cb45 with SMTP id af79cd13be357-93ca980e5ccmr626381885a.47.1790815410920;
+        Wed, 30 Sep 2026 17:43:30 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5ba42fbf047sm332884e87.76.2026.09.30.17.43.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 17:43:29 -0700 (PDT)
+Date: Thu, 1 Oct 2026 03:43:28 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Linus Walleij <linusw@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+        Jun Nie <jun.nie@linaro.org>, Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v5 5/6] dt-bindings: display: Add Synaptics R63455 panel
+ support
+Message-ID: <d3xs3kzc2wg5lkouaemdicrbtsoquff6bvmnlmuxwh4kspfs2d@b77l43axr6a4>
+References: <20260727-sm8650-7-1-bonded-dsi-v5-0-c042266b9eeb@linaro.org>
+ <20260727-sm8650-7-1-bonded-dsi-v5-5-c042266b9eeb@linaro.org>
+ <20260727-spotted-winged-mantis-7aa1ce@quoll>
+ <CAD++jLkX0m6_GJd4Pd1Ko4tghta4AXQ5ALZpLe_x-3xxqu1Cvw@mail.gmail.com>
+ <668e83d0-a017-4f59-bc76-bf6c9a80b5ba@kernel.org>
+ <CAD++jLkyEPY5cFg_pHb71yG52iLwS9tQDpcHu=TTBknQMeFctw@mail.gmail.com>
+ <bc3e618f-2e7a-4439-9466-8cd9695242e5@linaro.org>
+ <2lcpzwh7fxecpffnakpnp5lecrm3e6u64ztat7cd75nuxofxa2@clj27bzgjy3r>
+ <4d053234-06d8-4268-b60a-2fccc78da654@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -54,128 +118,95 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAL_JsqKVYyMR=_+eJ3YO-7yj_sFKx3hknNxdm3_5yYJmGMwbyA@mail.gmail.com>
+In-Reply-To: <4d053234-06d8-4268-b60a-2fccc78da654@linaro.org>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDAwMSBTYWx0ZWRfXw358BYQSbFUF
+ HNLeTLB913U2DsgRlogH9as5nvuQk5bZdyUjOEb4FKGRbV3zQKJbwTKXKd8B1M5GECzENkHd9a3
+ dhsePM3npDHjdc3ljD8YPHrUrRu/1Jjvn1bT7rE27iHb6uUeKDUSEgTNXyIG9DXxb474/iE8VMP
+ MK4noITB0VVjf48QI3GXJDxqBM9cJco7Tx9tjvZswM/jyiLSdFjjtKyLNzezJs2OnkQB/f/k2wU
+ Do0RkN7QrSQGvK4XRqxMbYImVzk3EG/fjCJlaAoWVjLOJUXf/oaneK7oDogoAr8iDF/3hRpYSJs
+ Xa/SV1d9fs842/jGw0Ms6hQ6aCcbxEp/rKqYT1FW5LNPjqs+L9elDpa+25fdHZ8nVyutOddBhMc
+ SjnXgXzUv5xYVCuh2FDmGba6WTiJ2/tp2jFYlonpY+dXRLw2Vs1nGlzz+L4SXTvefvz7a0ko1+f
+ ChXOWTellVUUEBST+nQ==
+X-Proofpoint-ORIG-GUID: _bxJNWhNSW0pVgm_aWmg4MPQ-yLDWipM
+X-Authority-Analysis: v=2.4 cv=NedzRGD4 c=1 sm=1 tr=0 ts=6abdacb4 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=vnREMb7VAAAA:8
+ a=VwQbUJbxAAAA:8 a=T0OYp5YwtksmxRz7AhAA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-GUID: _bxJNWhNSW0pVgm_aWmg4MPQ-yLDWipM
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDAwMSBTYWx0ZWRfX2G4RQV9f5IvV
+ DKcu9bcxieT2eFCrBvzFSPbYlDRC99BN1bxyeyEeVlfuJgrwamr6Q8ga2hB6rBSXXZvr36evNsV
+ vUVMkH9EFqvVLX/1O+vyT65ESVed2nA=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-30_04,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 clxscore=1015 lowpriorityscore=0 priorityscore=1501
+ suspectscore=0 adultscore=0 bulkscore=0 spamscore=0 phishscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2610010001
 
-On Tue, Sep 29, 2026 at 04:50:53PM -0500, Rob Herring wrote:
-> On Fri, Sep 25, 2026 at 11:43 AM Bjorn Andersson <andersson@kernel.org> wrote:
-> >
-> >
-> > On Thu, 24 Sep 2026 13:39:16 +0300, Abel Vesa wrote:
-> > > Tie the CX power domain to GCC clock controllers for SDM670,
-> > > SM8150, SM8250, SM8350, SM8450, SM8550, SM8650, SM8750, SM6350,
-> > > SM4450, QCS8300, SDX75, SAR2130P, SC7180, SC7280, SA8775P,
-> > > X1E80100, Eliza, Kaanapali, and QCS615.
-> > >
-> > > Enable runtime PM for GCC providers without critical clocks, allowing CX to
-> > > power down when their consumers release clocks and GDSCs.
-> > >
-> > > [...]
-> >
-> > Applied, thanks!
-> >
-> > [01/42] dt-bindings: clock: qcom: gcc-sdm845: Require CX power domain
-> >         commit: 55388f587b3301dffdb30074d00f069d80d29341
-> > [02/42] dt-bindings: clock: qcom: gcc-sm8150: Add CX power domain
-> >         commit: 80d35f528a46b5f1e9777ce83de48fd9efa7c422
-> > [03/42] dt-bindings: clock: qcom: gcc-sm8250: Add CX power domain
-> >         commit: 98e936c9d46a25b4eceacf907fe5d87b3999040e
-> > [04/42] dt-bindings: clock: qcom: gcc-sm8350: Add CX power domain
-> >         commit: 534af057998b59a4813fd2eba524f2f523f356d6
-> > [05/42] dt-bindings: clock: qcom: gcc-sm8450: Add CX power domain
-> >         commit: 4de0860a340888fd2582681facbceda71b375617
-> > [06/42] dt-bindings: clock: qcom: qcs615-gcc: Add CX power domain
-> >         commit: 779dd957c4c8a7d7d0fd8ac03caa27fe6db23514
-> > [07/42] dt-bindings: clock: qcom: sm8550-gcc: Add CX power domain
-> >         commit: 5a577a480dd3d764cc2f55a112efc92d59ad59ec
-> > [08/42] dt-bindings: clock: qcom: sm8650-gcc: Add CX power domain
-> >         commit: 76615e10462c425f926e50dce52e9d23bb2f9428
-> > [09/42] dt-bindings: clock: qcom: sm8750-gcc: Add CX power domain
-> >         commit: f9c74b6ed57922b1fdb1ed6835665e06b5ba01a5
-> > [10/42] dt-bindings: clock: qcom: sm4450-gcc: Add CX power domain
-> >         commit: df3faa0e74e433304f9a6f33d3ac4d3376fcdc06
-> > [11/42] dt-bindings: clock: qcom: gcc-sm6350: Add CX power domain
-> >         commit: 3d4f3414300bba79d517585ac10181e285ca6be3
-> > [12/42] dt-bindings: clock: qcom: qcs8300-gcc: Add CX power domain
-> >         commit: fcf1810fede27777f9b708a9cef431bcac1d8e38
-> > [13/42] dt-bindings: clock: qcom: sdx75-gcc: Add CX power domain
-> >         commit: 6df1fd0bfa649c0f13abd026a01dbed5f1727fea
-> > [14/42] clk: qcom: gcc-eliza: Tie the CX power domain to controller
-> >         commit: 4eb8f2ad36888e5b29aa0a5e7e0bc60e382312ea
-> > [15/42] clk: qcom: gcc-kaanapali: Tie the CX power domain to controller
-> >         commit: 18c75784e4a9db5ed8cf6818a29ec0ac15ea2c8b
-> > [16/42] clk: qcom: gcc-qcs8300: Tie the CX power domain to controller
-> >         commit: 2d948e428c77b8764fe96537c70e5500b29f9c4e
-> > [17/42] clk: qcom: gcc-sa8775p: Tie the CX power domain to controller
-> >         commit: eed0a644a28a39d9da91a10d51b8f3247302a533
-> > [18/42] clk: qcom: gcc-sar2130p: Tie the CX power domain to controller
-> >         commit: 40537977a0ff9a6a1bcc489863e5656914b1ac53
-> > [19/42] clk: qcom: gcc-sc7280: Tie the CX power domain to controller
-> >         commit: 503de100eb2823519b82d759ead69ee377289a9e
-> > [20/42] clk: qcom: gcc-sdx75: Tie the CX power domain to controller
-> >         commit: 563b9aceb53ea15f2ada9417809d1d9e9a2c1fd1
-> > [21/42] clk: qcom: gcc-sm4450: Tie the CX power domain to controller
-> >         commit: 9965e30e827665e2fc9f0b3271733feaee809d48
-> > [22/42] clk: qcom: gcc-sm8350: Tie the CX power domain to controller
-> >         commit: 4572e9c0c4d48447d22a25037cbd2fbfda74a8c2
-> > [23/42] clk: qcom: gcc-sm8450: Tie the CX power domain to controller
-> >         commit: 6742c3ce04e5d52f718e4b562d0a1d817e1d76db
-> > [24/42] clk: qcom: gcc-sm8550: Tie the CX power domain to controller
-> >         commit: fe2a50974f4a0c78a68931f156d99e0479a4f00a
-> > [25/42] clk: qcom: gcc-sm8650: Tie the CX power domain to controller
-> >         commit: e4e6177235c6e0342357c48497d6b1a546c0ae57
-> > [26/42] clk: qcom: gcc-sm8750: Tie the CX power domain to controller
-> >         commit: f593d28a9193f1b5a96eb69bc5eb4dda2eaebebf
-> > [27/42] clk: qcom: gcc-x1e80100: Tie the CX power domain to controller
-> >         commit: 965dd2be7d35b2474251ee60d44addb257c9c85f
+On Wed, Sep 30, 2026 at 09:18:55PM +0200, Neil Armstrong wrote:
+> On 9/30/26 21:04, Dmitry Baryshkov wrote:
+> > On Wed, Sep 30, 2026 at 06:43:47PM +0200, Neil Armstrong wrote:
+> > > On 9/30/26 09:44, Linus Walleij wrote:
+> > > > On Tue, Sep 29, 2026 at 3:35 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
+> > > > 
+> > > > > This entire binding seems like stitching two devices together, which
+> > > > > might be fine (I don't even remember this stuff... two months old) or
+> > > > > might be artificial grouping of separate devices.
+> > > > 
+> > > > I think that's a good point and fair pushback.
+> > > > 
+> > > > Neil and Jun talk about it yesterday at XDC (1:15 into the stream):
+> > > > https://www.youtube.com/watch?v=6tNGW8PoSzw
+> > > > 
+> > > > The current binding does not reflect the physical topology of the
+> > > > actual device, and the bindings need improvements. I have a feeling
+> > > > there is one display controller with two physical panels.
+> > > 
+> > > No there's really 2 controller and 2 separate panels, but they are not
+> > > classic panel, they are a pair of panels+lens which are in front of
+> > > the eyes which forms a single "image" for the brain, so they are
+> > > technically a single display and requires to be hard synchronized.
+> > 
+> > Yes. However this approach makes it impossible to share the code between
+> > the double-panel drivers and single-panel drivers. I think, that the
+> > panel driver should still reference a single glass+DDIC, while letting
+> > the DSI host driver to handle the bifurcation.
 > 
-> Pretty sure this has introduced a bunch of warnings for qcom. Where's
-> the .dts changes?
+> Yes, and no, it must really be considered as a "single panel driven by 2 identical controllers",
+> and even this is really purely software implementation issue.
+
+[...]
+
+
+> > > Describing both panels into separate nodes would only be possible
+> > > if we described a "VR display complex" nodes linked to both panels
+> > > but this would probably be solved by actually describing the "display"
+> > > linked to a DDIC controller and is out of subject for this serie,
+> > > and can be added later when we properly define things.
+> > 
+> > I like the VR complex idea. In the end, you have two modes which you
+> > most likely might want to support:
+> > - L+R, having double-width CRTC scanning over a double-width framebuffer
+> > - Mx2, having a single-width CRTC and a single-width framebuffer
+> >    displaying the same picture to both eyes. I can imaging that knowing
+> >    about L+R might be an explicit opt-in feature of the DRM interface.
+> > 
 > 
-
-My bad. I test every dts change against the current bindings in
-linux-next, but not the other way around - so I failed to spot the
-introduced warnings.
-
-> We've really got to stop merging binding changes that introduce
-> warnings to existing .dts files.
+> This makes no sense to support both modes, and this will never be used,
+> and anyway this is purely software implementation.
 > 
+> We're defining bindings here, describing the real reality, not hypothetical
+> situation that will never happen.
 
-Warnings we can fix, the possible regressions in backwards compatibility
-is a bigger concern to me. So that's another pass I need to figure out
-how to incorporate in my workflow.
+Let's ignore software issues. On the hardware side, you have two
+distinct DSI panels, each having its own set of controls, own DSI link
+and own backlight control. 
 
-Regards,
-Bjorn
-
->      14 clock-controller@100000 (qcom,sm8550-gcc): 'power-domains' is
-> a required property
->      12 syscon@9a10000 (syscon): compatible: ['syscon'] is too short
->      11 clock-controller@100000 (qcom,gcc-sm8250): 'power-domains' is
-> a required property
->       9 clock-controller@100000 (qcom,qcs8300-gcc): 'power-domains' is
-> a required property
->       8 clock-controller@100000 (qcom,sm8650-gcc): 'power-domains' is
-> a required property
->       8 clock-controller@100000 (qcom,qcs615-gcc): 'power-domains' is
-> a required property
->       6 clock-controller@100000 (qcom,gcc-sm8150): 'power-domains' is
-> a required property
->       5 clock-controller@100000 (qcom,gcc-sm8450): 'power-domains' is
-> a required property
->       5 clock-controller@100000 (qcom,gcc-sm8350): 'power-domains' is
-> a required property
->       2 clock-controller@100000 (qcom,sm8750-gcc): 'power-domains' is
-> a required property
->       2 clock-controller@100000 (qcom,kaanapali-gcc): 'power-domains'
-> is a required property
->       2 clock-controller@100000 (qcom,gcc-sm6350): 'power-domains' is
-> a required property
->       2 clock-controller@100000 (qcom,gcc-sdm670): 'power-domains' is
-> a required property
->       1 clock-controller@80000 (qcom,sdx75-gcc): 'power-domains' is a
-> required property
->       1 clock-controller@100000 (qcom,sm4450-gcc): 'power-domains' is
-> a required property
-> 
-> 
-> Rob
+-- 
+With best wishes
+Dmitry
