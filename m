@@ -1,83 +1,83 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FA2A3A8755
-	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 05:24:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 658213546FF
+	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 05:24:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790832264; cv=none; b=oPpoV4OURYXASDnP2h+m0bT4jBqXxxVY4nrEcxUxIiowQdoK9DQtnJYupMcljwJ3Guwq1BNOIZP3oXRnhuFp6vMbGK3b1ykXtl+Z2XFW9kyAW3Rr73KG5VDxa8+sXLCB0aib7Cg25vpZ2AqGbHtK+MRrhqOdtNVF1c9wD0MenrQ=
+	t=1790832271; cv=none; b=UI5IcrschQ3qm4Uexl1z7flaigeMq4O6rURpEvMRCsc+jBKN2b/y1EbqdPkQQrFYBowGrK9XEzjyDlv7USHaZYqxShHgx/XNeJLapxgmlO5E9qTUrlg78Ev7PbeC0J0nmu0IbW1zQM7poS7xbr5RUUkr3du2NuWjsMiwGZh/s1M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790832264; c=relaxed/simple;
-	bh=euMqrjs3Ok1RQstrE3go1uxqpq1aFvLm8cFQF/ngnzY=;
+	s=arc-20240116; t=1790832271; c=relaxed/simple;
+	bh=49xFSVZEPbXgZTcuGJ9R8PyRDarMnGzCnfFE/tYT9SY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JdJzL1zlfI7wuO4LkCOF6ufPHNNqJ9PWiwg2iq4XK7rjPKuImJKQdBCrdHRPHwAfAUlF4mrqHa8cDzKspirqPBEGiv2XecKjYRIJnGLvln0KD2/x1Sm8D3r0EwPX7ad6C8VGu42CnrYh1RC2NGO7MFX35mQactHafw1ple7qqUo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mAgcg8bt; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ODXTofwF; arc=none smtp.client-ip=205.220.180.131
+	 MIME-Version; b=fH/eEDBKwHuoKMmVug+cM4UV8J8M+DC6bW+IX1qUHh9EMkXms4TIRY8Ri1YiFkWH+FV/FywJHy6+HPsnF2dt6kM1T09Cb8Lq4K/OsTkzUA0jYbDmifnQzCAhZZQQMs4Gmr6J3gLcRI65++CXJsKTWpK6c4Wmxr2ttTF2LloqM/g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MuGXSLwf; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hxdddbL9; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mAgcg8bt";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ODXTofwF"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6913h2xf1090587
-	for <devicetree@vger.kernel.org>; Thu, 1 Oct 2026 05:24:22 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MuGXSLwf";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hxdddbL9"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6915GL2Q1953389
+	for <devicetree@vger.kernel.org>; Thu, 1 Oct 2026 05:24:29 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=AsfNws2Wxi6
-	oDbK2RrL2JLATMl8Lm+Wmiu7rIwOVrBI=; b=mAgcg8btd9GAMeC33eHJTLWPvT7
-	8ScBZdWEZqje0FxgWLuvKL5XYJkrWL4TUNgMxU7mcP9FjsD8WL6CgOAFFQE7Ihio
-	rb5h/QJ0eivFmYph935XH3qYd5UlwCVabC1K9m19ANzqYZilXkIkYW3j65rut5hC
-	ioedY3qiX/TqWNd+BK2aanlLZ1h347KCpFfwP+7Q6E4Gmp0iPPJM+rI5zuHwc1DH
-	0/3yxuD2hxv6LOfoDZO09jKHrJgL+4s7YS/hJpdFxQe1RZyVP4Ek7dty66HzsLN0
-	YqSJoTmA/dyoM0esjK42YGg7e7KMQkNr9KSEJ/LzXjIREMetlEkVWp5bCxQ==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h188ssw8s-1
+	:mime-version:references:subject:to; s=qcppdkim1; bh=HZjVRtF8Ja3
+	Eebp0/BccuPRRLSdbeb1VPoYbtbjst2g=; b=MuGXSLwfMJan8tpwaJeqJ7exgtH
+	17939RC9gawl2BdnmnSXxzNkD7BZ79HMf6btYMKtNMm7QS4EkSG8xkwQwETWT9/b
+	ppmKu9gXgRcfohdUFGSmuG6KmsBFQCog1wVTm1uEq6ghQGPP3n2AfTUttCbRmD2Q
+	NyWVOBfp806/QxGOyMOyE+oQ9qrCierf6JW/QPCKQgMkhUzQgg8WV51NAUreCNRa
+	r1kkyMLD3sdbBkVhGICyUDF0qXP/ZNlYi8dgiOpGo0xlfmzVQgYsiy4qQbMUDqGw
+	0KqgrKYJwtdGRvMI84Zom/u8EvD1R/U833v/XKpQlXIit415H5ueS9YjDRQ==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h1h7nr1d7-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 05:24:21 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2d55d8cd938so94003985ad.1
-        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 22:24:21 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 05:24:29 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2df5a65671eso6101965ad.1
+        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 22:24:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790832261; x=1791437061; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1790832268; x=1791437068; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=AsfNws2Wxi6oDbK2RrL2JLATMl8Lm+Wmiu7rIwOVrBI=;
-        b=ODXTofwFcf0m1teZuXs4nIlRP5rVDX39HuJOvh8GFPjC8hJcjSp3CFZ/+KHwRV7nlV
-         w/6wjDubPDcNg2LLQWfqULd7Tt6kzru3lv/J5TyYv1qikjzI9PUEzfb9ahEtQnFpq4g8
-         9vquaHRZ6/YawvIDWUR2tsZUkeCufGKsWORxNGmkEXw9Njlx8IvP3u8Cj7t6ZgFeYy6f
-         OrCiKGTNo+kibXz5GzuZ86lbZHPTzfyWe464poBFQtA/AWl7F6XnYrXB5Vlw9PgpBR2K
-         qGAfGpd1ROAzUCqS+wkYRN8la+LJEUg3gmmxR1Rqf4wf+vv4hjGhxS4Lyymw4Xs5roi7
-         tgCw==
+        bh=HZjVRtF8Ja3Eebp0/BccuPRRLSdbeb1VPoYbtbjst2g=;
+        b=hxdddbL9gdtWvaeQnwbKpfpETMHlJw8K9IYxFqOEE3rPyHWJVaw2LRgYqdzvRuLjAQ
+         mA+nFtDTqjpUjIJiyCQXVJc2zppELL5Kz2lLGl6Q5qMVvrmTNsBwXbX/MuEeoSj78OGE
+         hx9EpSGK0GxuPlvHVIt+HpuhlSyqm8JRKAsIVGgG/4/Qy/gW9q1h6iF2cAskDksgcHQv
+         CZWqzCEFBTdmGuZmZDlb968zPukimGNnkcXjFsWq+zQFmrnpf2QFh9x6Dn77U+oXqRYn
+         LUqIzfWpGz+1IcArXbZMaLKB+8l4mnhhFXiMgS1Ys3QNjPI6vVbftg268SH/hNCIoCAs
+         4LCg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790832261; x=1791437061;
+        d=1e100.net; s=20260707; t=1790832268; x=1791437068;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AsfNws2Wxi6oDbK2RrL2JLATMl8Lm+Wmiu7rIwOVrBI=;
-        b=twNdORmXnvMzIfdXcQGTMVN7i9Fqig1aJ/I0PuJS/BXjeDflc5yq/lJhZwRuXOeuC4
-         21uhjtvedE1EvxyI63Z9D1NGZQC4W4DH/AJ6pL6IeQIzrQwKwdt2aaMLI4Uv7u3/pRwV
-         KrytDDXqrokPdxQTAmiknPqkVm/nvXLf38OuvwdnHUbK/M1QJ56mNhdZneNCd5YP+kuT
-         E8H8B4gHhF5U4lKPdoEzQrgP8wJ/Pnpve1BrAws/dCuoMRgRkX8Mf35scxIUUlAMXBJ/
-         UXZwP/5uIZQax9+H3Q4V8fs9yYDzaKofaL4SyAP7EUJjtRdlU9VZESCATer/lIIpcMxY
-         dxwQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy/uOwlSBxpiTO06Vzhi/Q5c+EYKlljhS67UsmJeEC8h29eAbQG2RLFUyPWb+ZETZgXDbpDeBbzTWcH@vger.kernel.org
-X-Gm-Message-State: AFq9FYI7gwrDHrKOeuR9Z+MdTCb+S9+ef69M+mlTQlaJRceRHeVEsjxP
-	4izbZnbPtm/XuYR/lmhkXh5Vnzjohe1HLdZ++yZIGeKt+9R+TWJTnYScXAIbURgGPrVeMLZV4ca
-	FntDbG7XNPBixdVvP1ETdFpBSIdeJWf3PMtLDo5sD1E1QRodlNWInUV5iU0qL8A/y
-X-Gm-Gg: AYBFou32vQg4H2Nd5Iqcrb+GwyobmUEW/mp8rU6VkgVKLO4FmqsxBlfGdMEpJubLWLX
-	jAz0g/WoVC0z8okyzyeA/LqHJP2retona/D90GQih+81TBIJ4tgFa7vNjZmSYpXM9NQMWBNRcmu
-	QtFbYWI0PkCO5lPyk07A1amMDXiQX7CtrqZCjLMX1A1drhk4dVl3GuqbXiunCAT1kTqCr7VlXOO
-	1MUt70NWOL3vYnJRmZJpv2pXhr43yXaLZTU/i2oKQ8Dwel9m5AxhdrzZd9iUDb4dhyMZxWspvFa
-	ATWwDaWeLC2scuw4rqkKdSFKcrUwONzDJDZmn6HPAJ9N4PXOkcB/nl0WC5haohjvaiRj0XstfJj
-	vRl4bPtWEWUcZLSTVJ85bgvM27eugLIZO8Fbge/NVHNHyQVGlrl5uiPGoxrckZFBhexStxPPRtc
-	4kLAza5PW3M+/bXOm/h1DWYoLM
-X-Received: by 2002:a17:903:234a:b0:2dd:c132:dc01 with SMTP id d9443c01a7336-2e2e49fe5c6mr25551735ad.46.1790832260440;
-        Wed, 30 Sep 2026 22:24:20 -0700 (PDT)
-X-Received: by 2002:a17:903:234a:b0:2dd:c132:dc01 with SMTP id d9443c01a7336-2e2e49fe5c6mr25551455ad.46.1790832259877;
-        Wed, 30 Sep 2026 22:24:19 -0700 (PDT)
+        bh=HZjVRtF8Ja3Eebp0/BccuPRRLSdbeb1VPoYbtbjst2g=;
+        b=woie9ytCvxRXly3DpITKpwm27ijJmNo7OtMZbm/t3FQmjeu++X65+7lnno7avKfd2G
+         I76p2VOWy2cihSKVl6K/8iteWMGY9gJRYZ8qWb81w1sGXbsc40nC6kOZ+ZH4RbnLCKuP
+         4YDH/ZTAh0MG2TGA7kc1W7jVbiMgxXHprYj6UT4OxCQPKcfPqMmugkDndnKd7FZCX61h
+         k11XPWPeMMXvoT7cBbORvrLc5DCnib2sYrXFT6hbc52m1kJG7OrZ4UuVHyAcDZxIMo1X
+         KYRDrAevvrPwDTC4b8tHXNcXMEgUG3Qvl4/nWHx+3LzzxdOZencRFInDvo3xCqslUKHt
+         36iQ==
+X-Forwarded-Encrypted: i=1; AKwUvByDi89wd6jE9G1gCn2xgrkth8ZJ+Tn/oev3iruIDaIH2LhNP+1tU3s0c10dDNUmg7TVXTLROfVlPYmd@vger.kernel.org
+X-Gm-Message-State: AFq9FYLaf6t1R0sXmuvGP3GDYApYfvudssKvIXhQn2xSRGegLr5I0mKR
+	qjpiY9JD7wC+MsGw2uyvPmECidX/F42d+HlRL3ejDFKdaTuFOnsVIEEB2bQ6l3HcCT2Sf4+TZ22
+	n5IDNAB24yiqzUAq/cV5cBLgY8vSKTqrv6C6SdeMK3/MgQiHhEnlZELCKCBlD6Kpq
+X-Gm-Gg: AYBFou3RiYdf37njEODlieCcYOnfA6tE23vS3GEe2hM6qPQOfxkwR5ldHz6bkVOTmLE
+	8CdObH9el5a9RWipz3UoHXNWs6uv6+IoeyG1suQdaEfyjGCH65N7v+wXIQFlVdYmCYXE22iSDGv
+	jr2eFRrvWEJdoyyb5U1qJ12+yvhieDbYj1R5ipIUZdB7xHf21xq/rzhILRwRjHHn+3IlmHvq5H1
+	a06CXVtwiIwpFRS/bxpGHm8/ixQjFcmtI1mnTgf7Hjm9D3BUt+POjg0GBhocxDTIFRA6rqsrJ/e
+	JDGYSBmTfhKMn/pnhd+PzekFX2HnLz3fSUG6viXH/BaVnBTzTStW3OqZ7B1TL7EJYIpZlQqTxYq
+	OtqmzoBYlTroQJKdq5WrbqaDV0wLL/B/e+PKI3hw4Or/qudoN7YzsPlhbxug0PhHZYQ1RwfyPTM
+	SzWU8zkGV4MDUW3Lk3wU2Cjb56
+X-Received: by 2002:a17:903:2407:b0:2df:9489:83f7 with SMTP id d9443c01a7336-2e3004226bbmr9535455ad.40.1790832268070;
+        Wed, 30 Sep 2026 22:24:28 -0700 (PDT)
+X-Received: by 2002:a17:903:2407:b0:2df:9489:83f7 with SMTP id d9443c01a7336-2e3004226bbmr9535315ad.40.1790832267519;
+        Wed, 30 Sep 2026 22:24:27 -0700 (PDT)
 Received: from hu-mchitale-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.googlemail.com with ESMTPSA id d9443c01a7336-2e300b851b9sm5152715ad.78.2026.09.30.22.24.12
+        by smtp.googlemail.com with ESMTPSA id d9443c01a7336-2e300b851b9sm5152715ad.78.2026.09.30.22.24.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 22:24:19 -0700 (PDT)
+        Wed, 30 Sep 2026 22:24:27 -0700 (PDT)
 From: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
         Conor Dooley <conor+dt@kernel.org>,
@@ -85,9 +85,9 @@ To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
         Greg KH <gregkh@linuxfoundation.org>,
         Alexander Shishkin <alexander.shishkin@linux.intel.com>,
         Ian Rogers <irogers@google.com>
-Cc: Anup Patel <anup.patel@oss.qualcomm.com>, Alexandre Ghiti <alex@ghiti.fr>,
-        Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
-        Namhyung Kim <namhyung@kernel.org>,
+Cc: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>,
+        Alexandre Ghiti <alex@ghiti.fr>, Peter Zijlstra <peterz@infradead.org>,
+        Ingo Molnar <mingo@redhat.com>, Namhyung Kim <namhyung@kernel.org>,
         Mark Rutland <mark.rutland@arm.com>, Jiri Olsa <jolsa@kernel.org>,
         Adrian Hunter <adrian.hunter@intel.com>,
         Mayuresh Chitale <mchitale@gmail.com>,
@@ -95,11 +95,10 @@ Cc: Anup Patel <anup.patel@oss.qualcomm.com>, Alexandre Ghiti <alex@ghiti.fr>,
         Andrew Jones <andrew.jones@oss.qualcomm.com>,
         Sunil V L <sunilvl@oss.qualcomm.com>, linux-riscv@lists.infradead.org,
         devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>,
         Zane Leung <liangzhen@linux.spacemit.com>
-Subject: [PATCH v6 07/14] gtrace: Add function to copy into perf AUX buffer
-Date: Thu,  1 Oct 2026 10:52:18 +0530
-Message-ID: <20261001052243.3042627-8-mayuresh.chitale@oss.qualcomm.com>
+Subject: [PATCH v6 08/14] perf: Add gtrace AUX buffer trace format type
+Date: Thu,  1 Oct 2026 10:52:19 +0530
+Message-ID: <20261001052243.3042627-9-mayuresh.chitale@oss.qualcomm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261001052243.3042627-1-mayuresh.chitale@oss.qualcomm.com>
 References: <20261001052243.3042627-1-mayuresh.chitale@oss.qualcomm.com>
@@ -110,146 +109,76 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDAyMSBTYWx0ZWRfX/WNI91bivVEy
- M7R7gmakqr0hT31XA2H/2fVqvOwL4mVPAN1rJIHLkEc0Mw2REHLAhPN4GxKKOWnVdwwSfVZxkQN
- GFf4xGjCJET8ryMKe2XMTX1fenmNtUw=
-X-Authority-Analysis: v=2.4 cv=OozaWC/t c=1 sm=1 tr=0 ts=6abdee85 cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+X-Authority-Analysis: v=2.4 cv=OI6yTiaB c=1 sm=1 tr=0 ts=6abdee8d cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
  a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8
- a=TflMzYLVq8MTiglY7lUA:9 a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-ORIG-GUID: LzEOUATUYWAzk47zEetETyMlbUTAVOwC
-X-Proofpoint-GUID: LzEOUATUYWAzk47zEetETyMlbUTAVOwC
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDAyMSBTYWx0ZWRfX7L13galQNl4J
- aK8ZAeAKLHi/pmisGuWUFxXA2QEVVcYENJX4XQHeC3dyvLphVSq+M5xp9j3nFwryOaqPLM1ZmHS
- K/5hAVmrMQFZcidT7XeZ9SBkLkuuWuA5hQBAVGumbW3uNgMOtB77jc/F6sjjR6sOQwrj4SjAYoH
- +0SRCFmq63hfVIjtxYPupftpX1uf7+GxVk6Y0gR+s5CuNdc4kBwlJa06BwCEJgpIagm9C0nmRmZ
- gtmTh9WvUrvN+RjIkThWF8RZre4NUU0nIeazB5A84SJrs0dRNExMjbKeDzemWXjBmUcVgoNpUcZ
- rm/CmEpdggduebrGTuUtSojxzHFGVpSsBwLd0jwQk+SSq5/He4UVZaU8AxSlJ+/z5FN2OocCYBP
- Ca5Dt0KAP03xqjDCOxT4RaBbZ1+ejpXY3e97RgjzwGkKTB+bKwnOvE9Jpe3JlWqqzgHD78Kmo01
- UuAH5lUNti+B9rbtjWg==
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8
+ a=EjOQMhZftjg6WCmXgxIA:9 a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDAyMSBTYWx0ZWRfX7Asz/twJz2Eo
+ UFsk/hnaJJkxNMRPbymI+XpEX4ofWTRhCqwOClYbwvMxnGk9IgS6ZOosZjiAoNMiR60U8lG+Mp6
+ z7VpsI13K3rFxr5mZTNI39Lv83jQE74=
+X-Proofpoint-ORIG-GUID: F69juobJ1NDYozM-SIH3CvkMLkxKqY9N
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDAyMSBTYWx0ZWRfX41cnYjl7W8p5
+ npspVj9LLeweoPR8E+O6UUyThaa7H0XeM4v/nzDqik1AlqE3AO0AVCdvLqmo+Ohrf8mLEy+/cln
+ zra4DG9aP9ohQiQ22Hx7BI3pfEl8pv2xod25oXnrKI0nc83zYmod91Q2q3Dv/N3Sz6knh67hr0h
+ Q54ZP4xlHwPFaSfdi5BkSHd9DOTGUOuDHojuvimPXLOMUZjgzO5qnoZ2B/8AP/T4gQcYlO9vDl6
+ RB7SosQAeFNOSahys0Alnq+CTpgYJ1dpaEvSgDD5oAJfg6iLKaYrtvhwki/uJT39wCwykNPNHkI
+ /GWx1adxRMlumFy/aWFeJsI+gmTndfEftnolFod3p48dYc0hEl3UpF7TFH8dnNNbpTep3e4fAmr
+ mqt68iHDsiHuR4DWY7VvUxuD0BQB7WVP7gyUeEQ1yu9kp6mIWpuOyuQcSA3IUwiNCzJ+Sj/JBUN
+ 3Q2bPhE5cHnR4a3+csA==
+X-Proofpoint-GUID: F69juobJ1NDYozM-SIH3CvkMLkxKqY9N
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-01_02,2026-09-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 malwarescore=0 lowpriorityscore=0 impostorscore=0
- priorityscore=1501 suspectscore=0 bulkscore=0 adultscore=0 phishscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2610010021
+ priorityscore=1501 lowpriorityscore=0 phishscore=0 adultscore=0 clxscore=1015
+ suspectscore=0 bulkscore=0 spamscore=0 malwarescore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610010021
 
-From: Anup Patel <anup.patel@oss.qualcomm.com>
+The gtrace PMU can host trace components of different architectures and
+trace protocols, so the recorded AUX data needs to carry its format as
+well. Define PERF_AUX_FLAG_GTRACE_FORMAT_ETRACE for the RISC-V E-trace
+format which the perf tool can use to decode the payload.
 
-The RISC-V trace ramsink will need a mechanism to copy trace data
-into the perf AUX buffer. Add gtrace_path_copyto_auxbuf() function
-and corresponding trace driver callback copyto_auxbuf() for this
-purpose.
-
-Signed-off-by: Anup Patel <anup.patel@oss.qualcomm.com>
-Co-developed-by: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
 Signed-off-by: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
 ---
- drivers/hwtracing/gtrace/gtrace-core.c | 41 ++++++++++++++++++++++++++
- include/linux/gtrace.h                 | 24 +++++++++++++++
- 2 files changed, 65 insertions(+)
+ include/uapi/linux/perf_event.h       | 5 +++++
+ tools/include/uapi/linux/perf_event.h | 5 +++++
+ 2 files changed, 10 insertions(+)
 
-diff --git a/drivers/hwtracing/gtrace/gtrace-core.c b/drivers/hwtracing/gtrace/gtrace-core.c
-index d7f1df90aa31..acbeb3df2135 100644
---- a/drivers/hwtracing/gtrace/gtrace-core.c
-+++ b/drivers/hwtracing/gtrace/gtrace-core.c
-@@ -715,6 +715,47 @@ int gtrace_path_stop(struct gtrace_path *path)
- }
- EXPORT_SYMBOL_GPL(gtrace_path_stop);
+diff --git a/include/uapi/linux/perf_event.h b/include/uapi/linux/perf_event.h
+index fd10aa8d697f..2ac00a409a04 100644
+--- a/include/uapi/linux/perf_event.h
++++ b/include/uapi/linux/perf_event.h
+@@ -1311,6 +1311,11 @@ enum perf_callchain_context {
+ #define PERF_AUX_FLAG_CORESIGHT_FORMAT_CORESIGHT 0x0000 /* Default for backward compatibility */
+ #define PERF_AUX_FLAG_CORESIGHT_FORMAT_RAW	 0x0100 /* Raw format of the source */
  
-+int gtrace_path_copyto_auxbuf(struct gtrace_path *path,
-+			      struct gtrace_perf_auxbuf *buf,
-+			      size_t *bytes_copied, u64 *format)
-+{
-+	struct gtrace_comp_priv *sink = to_gtrace_comp_priv(gtrace_path_sink(path));
-+	const struct gtrace_driver *gtdrv;
-+	struct gtrace_component *comp;
-+	struct gtrace_path_node *node;
-+	int ret = -EOPNOTSUPP;
-+	unsigned long flags;
++/* gtrace PMU AUX buffer formats */
++#define PERF_AUX_FLAG_GTRACE_FORMAT_UNKNOWN	 0x0000
++#define PERF_AUX_FLAG_GTRACE_FORMAT_ETRACE	 0x0100 /* RISC-V E-trace format */
++#define PERF_AUX_FLAG_GTRACE_FORMAT_NTRACE	 0x0200 /* RISC-V N-Trace format */
 +
-+	/*
-+	 * Copy only after every path using the sink has stopped; otherwise the
-+	 * hardware may overwrite data being copied, or the same data may be copied
-+	 * to aux buffer twice. The last path to stop does the copy. Holding the
-+	 * sink's lock also stops another path from starting the sink before copy
-+	 * completes.
-+	 */
-+	raw_spin_lock_irqsave(&sink->lock, flags);
-+	if (sink->start_count) {
-+		*bytes_copied = 0;
-+		ret = 0;
-+		goto out;
-+	}
-+
-+	list_for_each_entry(node, &path->comp_list, head) {
-+		comp = node->comp;
-+		gtdrv = to_gtrace_driver(comp->dev.driver);
-+		if (!gtdrv || !gtdrv->copyto_auxbuf)
-+			continue;
-+
-+		*bytes_copied = gtdrv->copyto_auxbuf(comp, buf, format);
-+		ret = 0;
-+		break;
-+	}
-+out:
-+	raw_spin_unlock_irqrestore(&sink->lock, flags);
-+	return ret;
-+}
-+EXPORT_SYMBOL_GPL(gtrace_path_copyto_auxbuf);
-+
- struct gtrace_path *gtrace_create_path(struct gtrace_component *source,
- 				       struct gtrace_component *sink,
- 				       enum gtrace_component_mode mode)
-diff --git a/include/linux/gtrace.h b/include/linux/gtrace.h
-index a4b99c87d250..ed0e751faa91 100644
---- a/include/linux/gtrace.h
-+++ b/include/linux/gtrace.h
-@@ -266,9 +266,30 @@ void gtrace_destroy_path(struct gtrace_path *path);
- int gtrace_path_start(struct gtrace_path *path);
- int gtrace_path_stop(struct gtrace_path *path);
+ #define PERF_FLAG_FD_NO_GROUP			(1UL << 0)
+ #define PERF_FLAG_FD_OUTPUT			(1UL << 1)
+ #define PERF_FLAG_PID_CGROUP			(1UL << 2) /* pid=cgroup ID, per-CPU mode only */
+diff --git a/tools/include/uapi/linux/perf_event.h b/tools/include/uapi/linux/perf_event.h
+index fd10aa8d697f..2ac00a409a04 100644
+--- a/tools/include/uapi/linux/perf_event.h
++++ b/tools/include/uapi/linux/perf_event.h
+@@ -1311,6 +1311,11 @@ enum perf_callchain_context {
+ #define PERF_AUX_FLAG_CORESIGHT_FORMAT_CORESIGHT 0x0000 /* Default for backward compatibility */
+ #define PERF_AUX_FLAG_CORESIGHT_FORMAT_RAW	 0x0100 /* Raw format of the source */
  
-+/**
-+ * struct gtrace_perf_auxbuf - Representation of the perf AUX buffer.
-+ * @length:   Size of the AUX buffer.
-+ * @nr_pages: Number of pages of the AUX buffer.
-+ * @base:     Start address of AUX buffer.
-+ * @pos:      Position in the AUX buffer to commit traced data.
-+ */
-+struct gtrace_perf_auxbuf {
-+	size_t length;
-+	int nr_pages;
-+	void *base;
-+	long pos;
-+};
++/* gtrace PMU AUX buffer formats */
++#define PERF_AUX_FLAG_GTRACE_FORMAT_UNKNOWN	 0x0000
++#define PERF_AUX_FLAG_GTRACE_FORMAT_ETRACE	 0x0100 /* RISC-V E-trace format */
++#define PERF_AUX_FLAG_GTRACE_FORMAT_NTRACE	 0x0200 /* RISC-V N-Trace format */
 +
-+int gtrace_path_copyto_auxbuf(struct gtrace_path *path,
-+			      struct gtrace_perf_auxbuf *buf,
-+			      size_t *bytes_copied, u64 *format);
-+
- /**
-  * struct gtrace_driver - Representation of a trace driver.
-  * @id_table:      Table to match components handled by the driver.
-+ * @copyto_auxbuf: Callback to copy data into perf AUX buffer. The driver
-+ *                 reports the PMU specific trace format of the copied data
-+ *                 via @format (see PERF_AUX_FLAG_PMU_FORMAT_TYPE_MASK).
-  * @start:         Callback to start tracing.
-  * @stop:          Callback to stop tracing.
-  * @probe:         Driver probe() function.
-@@ -279,6 +300,9 @@ int gtrace_path_stop(struct gtrace_path *path);
-  */
- struct gtrace_driver {
- 	const struct gtrace_component_id *id_table;
-+	size_t			(*copyto_auxbuf)(struct gtrace_component *comp,
-+						 struct gtrace_perf_auxbuf *buf,
-+						 u64 *format);
- 	int			(*start)(struct gtrace_component *comp);
- 	int			(*stop)(struct gtrace_component *comp);
- 	int			(*probe)(struct gtrace_component *comp);
+ #define PERF_FLAG_FD_NO_GROUP			(1UL << 0)
+ #define PERF_FLAG_FD_OUTPUT			(1UL << 1)
+ #define PERF_FLAG_PID_CGROUP			(1UL << 2) /* pid=cgroup ID, per-CPU mode only */
 -- 
 2.43.0
 
