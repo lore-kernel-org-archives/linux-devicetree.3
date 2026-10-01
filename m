@@ -1,122 +1,107 @@
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 386E351EDED;
-	Thu,  1 Oct 2026 15:27:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790868447; cv=pass; b=JVhP0JQ09dcsyJFaSfH0TsC4dX+zjYuLxcKV/vZqBNLRnExFthUwdegYK0py9zCncDHoye9kDjYylJ6Er7Z0xBVv9lMNRVw3UI8ts8yz3zoqeg9Fb8zCfHKlNiQ3pq5y0OoxYSvvRgYlBGnnYlihLjSeues+C/VU2vuX5Lxu6W4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790868447; c=relaxed/simple;
-	bh=Lb3B+QIkAuqfmQFi5DKoD7+46Su1sNR1QoB/e875MGo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BXIV4OLMky+1YShA55VpL/vjtbvhdL7F1VQHZdrzxukGU6xFKOjb7KDfS/nL35oadThjg9H5bQNDdsOLUZbisnrfR7iHeeb3N9DRbPH5PRH1l7MFFq0kxQINsOWoMkEtxglWw3iK8W/m3TABW9zhNofamTdoRD/689CP74npDMI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=michael.riesch@collabora.com header.b=XhVKvi1l; arc=pass smtp.client-ip=136.143.188.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF2ED221FB6
+	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 15:28:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790868499; cv=none; b=DrDwFvt6Yq0xxEnzVpCSG/gkat98cdMVfjsTUJw0sFtfZjzteEJQMo5uw+/bOtE+8V5I2QrinnSXhwBIxfPdQGVY/WXNhhpCnoCpiVh2efM6J66GKwFnF1pc2/JQIu+XKzxw67sXb6QW//2nRgDo3AsD+ob3OwH2blRghVJwm4c=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790868499; c=relaxed/simple;
+	bh=bdGCU2QkWOLdoyQDggJ4mc3eMkpqQNjzpJQ2pZ3KTiQ=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=W5PlwGtTLKKOjMWOTTXIKbWN9+hjb8RX2ZjavBCJlXz9UPabP/wvuuoORT+VpS+g3AgbEhzXSUGeqNH+ruKUsWgu97SveIKfmHRDz+h82MPl2kVcAGJiHrIclvYE1gNt2co7Jfd/uh0XltZKw8SgDRXrXAOfaXAA6G13yl+BQlI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eK9DYP6H; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=michael.riesch@collabora.com header.b="XhVKvi1l"
-ARC-Seal: i=1; a=rsa-sha256; t=1790868435; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=OEnktabidCH9CwBPTu/794mxiylq6seBdkVzuoNw4O3w/cQD7zxqe45kD0cGduAv9gMdSYNyFtnMcRN6G/jV5URr9cdYKnOIx37GkbSLH8ZmKQQlstExJYoVXCW7fJ4o04d1WlXqnbfalD2GXRIwUgxjzSdouwEmtNeHhKKjWlY=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1790868435; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=9MIFyjTdbFkPYvjiJxno57DESpuh1XxTRuPIy1Ls4Nw=; 
-	b=WhlpOvDuJ7OQBbLdZMw8ob73KbnIj723v/yk2oiX/vT1ArFZA9rhHoyb+gemGPupTA2Bhh7FwddnGjDlOIskGGDynKKD+bpxRUSMUXEmVMXVn6ZeaQT4n47zMuNHdbI6vDiOfISew9uxRMvlwrP46P0z+Woe9s0cfJtebIF5tW4=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=michael.riesch@collabora.com;
-	dmarc=pass header.from=<michael.riesch@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790868435;
-	s=zohomail; d=collabora.com; i=michael.riesch@collabora.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=9MIFyjTdbFkPYvjiJxno57DESpuh1XxTRuPIy1Ls4Nw=;
-	b=XhVKvi1lH9IVaLXIsJRPQ2pm+0agplaqRt+lVAWiFnlozCosrivxrEdQ0Y+PxZqH
-	mlNpB3s1JK+YpOr5RdZ5xauQqsJDFYeXecPBoZwVArhkX/glsWKE525oPJPRbL4iNSt
-	FW+tNa4HC826FNHUZl1JjfEaofgO8OH7WMI+730M=
-Received: by smtp.zohomail.com with SMTPS id 1790868433697191.01182532554424;
-	Thu, 1 Oct 2026 08:27:13 -0700 (PDT)
-Message-ID: <00deefd9-9e03-4375-bb1f-b41e8f04e43a@collabora.com>
-Date: Thu, 1 Oct 2026 17:27:10 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eK9DYP6H"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 275E61F00898;
+	Thu,  1 Oct 2026 15:28:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790868497;
+	bh=krzDkuEu/POPTKqFY5S4CUkWO+EHdeGqvd1jS5HLZMM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=eK9DYP6HY5/IAivcfL5IaIvRqdzrnZa7da6ENgdi80zHii/msQeSV++uCQaf1iW3a
+	 yFj/Y4ZK7Hz++is6ixtqD2f2qCE0xzEmsifF2AZ5rYpUkeFAxcxidtyOMLUSErH4pg
+	 vwoCW9cz4RSyCl2WsqNC0kF7M0Qk/TJGUU5nVnHErdwr2rQZZ875ELHO21S5KHQRVz
+	 BngkB6MhgjfOIxv0GHnQKCf5U1lmeysZmOjXNfc0KRZTxHdlPbfhYHdJXRRfPOcxQ4
+	 EYyeANVepxljxgopgtZ7Hmt4Jl1t90fLbDpgfMK27bxwq4WeB9S3is931BgTqJ+OlP
+	 aaB4/V9UAaWwg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 1/6] media: iris: wait for vpu NoC to enter low power
+ during power off
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Vikash Garodia" <vikash.garodia@oss.qualcomm.com>
+Cc: media-ci@linuxtv.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261001-kaanapali-iris-v4-1-642f9ac5e699@oss.qualcomm.com>
+References: <20261001-kaanapali-iris-v4-0-642f9ac5e699@oss.qualcomm.com>
+ <20261001-kaanapali-iris-v4-1-642f9ac5e699@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 01 Oct 2026 15:28:16 +0000
+Message-Id: <20261001152817.275E61F00898@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/5] media: rockchip: rkcif: add a callback for the
- MIPI ID_CTRL1 register
-To: Amin Gattout <amin.gattout@gmail.com>,
- Mehdi Djait <mehdi.djait@linux.intel.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260921-vicap-rk3576-v2-0-0a4582e20c72@gmail.com>
- <20260921-vicap-rk3576-v2-3-0a4582e20c72@gmail.com>
-Content-Language: en-US
-From: Michael Riesch <michael.riesch@collabora.com>
-In-Reply-To: <20260921-vicap-rk3576-v2-3-0a4582e20c72@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
 
-Hi Amin,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] media: iris: unhandled timeout on VPU NoC LPI status poll
+- [Low] media: iris: magic number used instead of NOC_LPI_STATUS_DONE
+--
 
-Thanks for the patch!
+commit ad8593fbbb8fd303ff77853725986ef7bd6d05a9
+Author: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
 
-On 9/21/26 17:29, Amin Gattout wrote:
-> The contents of the MIPI ID_CTRL1 register differ between variants. The
-> RK3568 and RK3588 hold the capture size there, while the RK3576 uses it
-> for the virtual channel and data type filter.
-> 
-> Let each variant provide a callback that builds the register value, in
-> preparation for the RK3576 support. Variants that do not provide one
-> keep writing the capture size, so their behavior is unchanged.
-> 
-> Signed-off-by: Amin Gattout <amin.gattout@gmail.com>
+    media: iris: wait for vpu NoC to enter low power during power off
+   =20
+    The recommended hardware sequence requires software to wait for vpu NoC
+    to enter in low power mode and then deassert the low power idle (LPI)
+    control. Add the missing LPI status poll and move the LPI control
+    deassertion after the hardware acks LPI mode. This avoids any pending
+    transactions on vpu NoC before shutting it down.
 
-Reviewed-by: Michael Riesch <michael.riesch@collabora.com>
+> diff --git a/drivers/media/platform/qcom/iris/iris_vpu4x.c b/drivers/medi=
+a/platform/qcom/iris/iris_vpu4x.c
+> index 02e100a4045fc..32a161c8d534a 100644
+> --- a/drivers/media/platform/qcom/iris/iris_vpu4x.c
+> +++ b/drivers/media/platform/qcom/iris/iris_vpu4x.c
+> @@ -316,6 +316,10 @@ static void iris_vpu4x_power_off_hardware(struct iri=
+s_core *core)
+>  	if (!handshake_done && handshake_busy)
+>  		dev_err(core->dev, "LPI handshake timeout\n");
+> =20
+> +	readl_poll_timeout(core->reg_base + AON_WRAPPER_MVP_NOC_LPI_STATUS,
+> +			   value, value & BIT(0), 200, 2000);
 
-Best regards,
-Michael
+[Severity: Low]
+This isn't a bug, but could NOC_LPI_STATUS_DONE be used here instead of the
+magic number BIT(0) to remain consistent with the rest of the function?
 
-> ---
->  drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c | 5 ++++-
->  drivers/media/platform/rockchip/rkcif/rkcif-common.h       | 2 ++
->  2 files changed, 6 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c b/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c
-> index e0acb9049ca1..432f47a1fc23 100644
-> --- a/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c
-> +++ b/drivers/media/platform/rockchip/rkcif/rkcif-capture-mipi.c
-> @@ -749,7 +749,10 @@ static int rkcif_mipi_start_streaming(struct rkcif_stream *stream)
->  	if (match_data->mipi_ctrl0)
->  		ctrl0 = match_data->mipi_ctrl0(stream, active_out_fmt);
->  
-> -	ctrl1 = RKCIF_XY_COORD(width, height);
-> +	if (match_data->mipi_ctrl1)
-> +		ctrl1 = match_data->mipi_ctrl1(stream, active_out_fmt);
-> +	else
-> +		ctrl1 = RKCIF_XY_COORD(width, height);
->  
->  	int_mask |= RKCIF_MIPI_INT_FRAME0_END(stream->id);
->  	int_mask |= RKCIF_MIPI_INT_FRAME1_END(stream->id);
-> diff --git a/drivers/media/platform/rockchip/rkcif/rkcif-common.h b/drivers/media/platform/rockchip/rkcif/rkcif-common.h
-> index 4d9211ba9bda..f83c8099b78e 100644
-> --- a/drivers/media/platform/rockchip/rkcif/rkcif-common.h
-> +++ b/drivers/media/platform/rockchip/rkcif/rkcif-common.h
-> @@ -207,6 +207,8 @@ struct rkcif_mipi_match_data {
->  	unsigned int regs_id[RKCIF_ID_MAX][RKCIF_MIPI_ID_REGISTER_MAX];
->  	u32 (*mipi_ctrl0)(struct rkcif_stream *stream,
->  			  const struct rkcif_output_fmt *active_out_fmt);
-> +	u32 (*mipi_ctrl1)(struct rkcif_stream *stream,
-> +			  const struct rkcif_output_fmt *active_out_fmt);
->  	struct {
->  		unsigned int offset;
->  	} blocks[RKCIF_MIPI_MAX - RKCIF_MIPI_BASE];
-> 
+[Severity: Medium]
+Is it intentional to discard the return value of readl_poll_timeout() here?
 
+If the poll times out, the code silently proceeds to deassert LPI control a=
+nd
+reset the NoC, which could lead to hardware stalls from pending transaction=
+s.
+
+Additionally, if the preceding do-while loop times out, LPI_CONTROL is left
+at 0x0. This appears to guarantee the new poll will unconditionally fail and
+wait the full 2000 microseconds.=20
+
+Could this return value be assigned to 'ret' and handled similarly to the
+other polling loops in this function?
+
+> +	writel(0x0, core->reg_base + AON_WRAPPER_MVP_NOC_LPI_CONTROL);
+> +
+>  	writel(MVP_NOC_RESET_REQ_MASK, core->reg_base + AON_WRAPPER_MVP_NOC_RES=
+ET_REQ);
+>  	ret =3D readl_poll_timeout(core->reg_base + AON_WRAPPER_MVP_NOC_RESET_A=
+CK,
+>  				 value, value & MVP_NOC_RESET_REQ_MASK, 200, 2000);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261001-kaanapali-=
+iris-v4-0-642f9ac5e699@oss.qualcomm.com?part=3D1
