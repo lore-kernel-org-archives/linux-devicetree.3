@@ -1,188 +1,146 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010035.outbound.protection.outlook.com [52.101.228.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FB2E4A3F0C;
-	Thu,  1 Oct 2026 07:53:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790841228; cv=none; b=lYAmzd7ICG6cJWShiV3lwXOvVKVyK/o7DxvKeZ06Ez4j15QUyIvjbXB+92zqoCSQYsgdx1yz5yFDufLX8YlvIKSAeH4XrxVDLWOnQob4aSx9pwP/FKOimI6X6QvQspB7RLBy7uzahUcVtVm5nJ0aWaGoXn2gPUtRNluwBrbOP1U=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790841228; c=relaxed/simple;
-	bh=wfzv0GqtffRUcKu0nitIUU9FvQealI4fDUBxFclPL/0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=lB482qzUIEswhwge9wsKCmx8UJ76ylVVTT/ICQpSE6JLteUz/hqOTyguxqXPyFcGz/YnkPOZZ/zua8dxuAe0s9c6PKcqEB0lhNHgT+POsT22+Rt2bWO8pjxBY7xdtMkFksIM61RSgnYC9B7N3OXi5pQ5Ev4w9IeVhn3NyaD5O28=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z5lxvI4J; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EE67495ACA;
+	Thu,  1 Oct 2026 07:57:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.35
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790841480; cv=fail; b=Fx5mBixNQLqxda2ESIXMywvLjtUauVz4BKICxH/dJnqEG08Q48euYOlXd7XpGKrJfzNHZDKd6OvK9ZJ86Y8oZft4uOl6l/7dJzaI5wAyndrNLePwjgr9bXgS5LUNFBWr+rJo0Alj7rn4+o/SYuF1AIEoVt4xl4A+eLEe62MxKho=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790841480; c=relaxed/simple;
+	bh=mt4jHPhDTEST1+SXBcXWiF3IcMuiiIr/pqAxPN2IdSg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=LGV6zu0GS8XgDTffZV+J2GQ0WIdykDTkBXWrp7itMY2THQ5dwNqWpNdRyHlA8zkNmW5Z4BAl+WSMOh3RqEu+NPTJEuSTcmG9dz4vCcb1ZpThLZJNVVnCBN/V4FCinfp0lRmapnp0/x45K4ayy29esejNvrDd7+7VUMiDU6qbGic=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=jRXpzbkx; arc=fail smtp.client-ip=52.101.228.35
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z5lxvI4J"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id C9E2EC4AF4D;
-	Thu,  1 Oct 2026 07:53:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1790841227;
-	bh=wfzv0GqtffRUcKu0nitIUU9FvQealI4fDUBxFclPL/0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Z5lxvI4Jfhf9LJ0NYtci1+79QQRM/TNgkbjKB6pXoMFLzoLNxaw+ldgkFwVYc3Z9d
-	 jjrheUQXWft3dZoIUulwI9OwvTOf7jM9LVAG+B6rRCw9kNfW3RkRAsQKs0VTM4aXnD
-	 mZhMCfKkjaiwpXKrQU9OP5fizDS0I3ArSlwybgr05VlQGG4T1xp3Cfne7At6ghqpEB
-	 YBIT1e72crL0dbUy/2su1baXJOs6VevQ5v1XNkYWQvAbDZiL7Nz/uRreQ2KOIw52Oy
-	 /gl3zcEzDp70u4krsvPImyHL7ohE03x8vHT83lMxfYRMt33cF6Cuu7zDC0tcdbS4bS
-	 Pveu3om/aEFTQ==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B6668CA5FA5;
-	Thu,  1 Oct 2026 07:53:47 +0000 (UTC)
-From: George Moussalem via B4 Relay <devnull+george.moussalem.outlook.com@kernel.org>
-Date: Thu, 01 Oct 2026 11:53:51 +0400
-Subject: [PATCH v4 8/8] arm64: dts: qcom: ipq9574: Flatten usb controller
- node
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="jRXpzbkx"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=vAwPswxWUaMEHDeXSp0u5tgJpsBkKzrUEQ/a0YFrlPq28LUZ+o37PaFxnNSQm9nN1W1sA5SMOv85BGyVtHu2aJrwsA1OVxmcr/SYVOAXhQxf9ACDTseX7MVZHp6DM9lZU3gvuMtTxjbFVZ1/HuOfyYyha9cMPk0F6F7B9zztTSUoUnLJWgzrDl21qYeQTV8F4jF2m6RX93OrN8ArsofNtr5S0Aad9GL8HGGVO1QPIveTD+NRyCn4d1p3/ZKuCRE4w6cTBhwEsOm2XrF+9AtbEC11IHdzVgIe5iTZq6ZVobiQxFZ2jC9udoImi1r1mof+XI5vH1DNYZiZSXBg9lNLSA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=VeQy+t+ofuMi5tEjx2bfMmBuDjovr0V3JJgFko6VQ2E=;
+ b=KA6rIsLSB7CmGGJfOJ7Q3WMMhMpbTekbqewMHIe6sMosmkMKQczJTq1uwNmH9x3imBC4Ntnf+G8EmjrdWyEQIomIrMAlVVN+7xt0i8WDPqtJ6jPFFTngS3WguUvB+YJ+h5GNndnSzz+xDKfXNNTLRyV931e8E8ufWS4tUlLvnTsXUaGojCHu0KXGF9oKIT/K9LPXnEF8bU3jfMffzHm937bUtk9c2Evt7tK5vJWPAJufWjrDLLJzxfBjFkg+8FwGef0ughDipuFAC1Lhgp3gZB/5TCkrpbG/Yb863tMNxn9guC269VsCRyAJhhfOac7QaLXO/OPSlL2s2XG9IWk9vg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 8.62.32.50) smtp.rcpttodomain=bp.renesas.com smtp.mailfrom=bp.renesas.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=bp.renesas.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=VeQy+t+ofuMi5tEjx2bfMmBuDjovr0V3JJgFko6VQ2E=;
+ b=jRXpzbkxIG7apn9T6k9vXCGNSYfR5r8+HG2sTEGwb7gVKcY9yL21tRTK9P/FNvLFztip2mqccii9m+B/l9FXTmuW/6gYkVS9JHvikD/SBa+ZdMEoaw449XImKe3teMzIplM7AmMn2lcRy/UAg0P4bGpETysLPLPflXrx4aOP/EY=
+Received: from TY4P286CA0044.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:36e::15)
+ by TY6PR01MB17916.jpnprd01.prod.outlook.com (2603:1096:405:349::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Thu, 1 Oct
+ 2026 07:57:54 +0000
+Received: from TYO1EPF00005021.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:36e:cafe::54) by TY4P286CA0044.outlook.office365.com
+ (2603:1096:405:36e::15) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.16 via Frontend Transport; Thu, 1
+ Oct 2026 07:57:54 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 8.62.32.50) smtp.mailfrom=bp.renesas.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=bp.renesas.com;
+Received-SPF: Pass (protection.outlook.com: domain of bp.renesas.com
+ designates 8.62.32.50 as permitted sender) receiver=protection.outlook.com;
+ client-ip=8.62.32.50; helo=ejcrelay004p.adwin.renesas.com; pr=E
+Received: from ejcrelay004p.adwin.renesas.com (8.62.32.50) by
+ TYO1EPF00005021.mail.protection.outlook.com (10.167.240.6) with Microsoft
+ SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.14
+ via Frontend Transport; Thu, 1 Oct 2026 07:57:54 +0000
+Received: from biju-VirtualBox.adwin.renesas.com (unknown [10.226.93.25])
+	by ejcrelay004p.adwin.renesas.com (Postfix) with ESMTP id 7064C3000253;
+	Thu,  1 Oct 2026 16:57:50 +0900 (JST)
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: Marc Kleine-Budde <mkl@pengutronix.de>,
+	Vincent Mailhol <mailhol@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>
+Cc: Biju Das <biju.das.jz@bp.renesas.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	linux-can@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	Chris Paterson <Chris.Paterson2@renesas.com>,
+	Biju Das <biju.das@bp.renesas.com>,
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH v4 0/3] Add support for Renesas RZ/G3L CANFD
+Date: Thu,  1 Oct 2026 08:57:36 +0100
+Message-ID: <20261001075742.21961-1-biju.das.jz@bp.renesas.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261001-ipq-flatten-usb-v4-8-486a4d5ede30@outlook.com>
-References: <20261001-ipq-flatten-usb-v4-0-486a4d5ede30@outlook.com>
-In-Reply-To: <20261001-ipq-flatten-usb-v4-0-486a4d5ede30@outlook.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Wesley Cheng <quic_wcheng@quicinc.com>, 
- Thinh Nguyen <Thinh.Nguyen@synopsys.com>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>, 
- Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>, 
- George Moussalem <george.moussalem@outlook.com>, 
- Abel Vesa <abel.vesa@oss.qualcomm.com>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790841224; l=3497;
- i=george.moussalem@outlook.com; s=20250321; h=from:subject:message-id;
- bh=ucCSCJLM3gwrUrksnvID3hZqnjd/cUHQ0F1NihiTB4s=;
- b=r12iJl/TNEBN8kmCbcMeV2xJFX839qpMTZn0BmXYoXJ/bxWNjw5/fta0gYq0PmLXFrsGjQajt
- bfY9S2ij/DmACBzEjTXhkwscE1eNrfZsbgB9hDhbuZEgzOwqPKIJcLC
-X-Developer-Key: i=george.moussalem@outlook.com; a=ed25519;
- pk=/PuRTSI9iYiHwcc6Nrde8qF4ZDhJBlUgpHdhsIjnqIk=
-X-Endpoint-Received: by B4 Relay for george.moussalem@outlook.com/20250321
- with auth_id=364
-X-Original-From: George Moussalem <george.moussalem@outlook.com>
-Reply-To: george.moussalem@outlook.com
+Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TYO1EPF00005021:EE_|TY6PR01MB17916:EE_
+Content-Type: text/plain
+X-MS-Office365-Filtering-Correlation-Id: 490177f7-1166-4ac3-6a98-08df1f91b32d
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|82310400026|376014|36860700016|7416014|23010399003|13003099007|10067099003|11063799006|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	ZKucPzj1qeKgTek93Ohx0k42zPE3Cj61f1rO+O5m9JOj84DT4BW6QG8/MRSaUnDxb6bN2bx4wKcoVpxexSzLEqdJvRRPRxAgdD/yd6TO5vPlHlSoN/gUjO+sv/EoX84yQRE9yW1gLGwPeW+ChIiNpW2d8srnQwv2uMi/mCSGyLpoJBAO3Fbdjw3C2kvTaEKwdfbu8yAe2/43+2cORA+ODuRs3nPZJ9kMBukoNP0uJ+ec7vIhCfHYtfbs/u2Pvmg3rsLjm0SBM/LGyQlo43+bqWEYXvarXy0GA9VmTt+W0rfSUjm/n19QajhY6Zuq0etiTlkT/N3T/I7rFCH+WIvUD515mSOAqWor37nDZ8xMi7u6ks/AAykKWS8tzq+7x2EnS5Ju8fAy2vXN8a+fUU9gH80X+3FjLJiqaFgblAK/4n0AenOZbc7deZqNOqikpM8VH1O+GpAoMoUiiSu3PZCVUAFbbRJ714DQKo+nDtB8yPsYuY+w6/eQjg9W8ECdGVUumHftYfotmyRloSsaEE3wfB//CNK0Gig6d3uvviX0NaRFZ6FkdPziKzPTGsg0RaSklWiEpa9ERleKl/1oYCZc8U1pxTpcK2wRiaPRS26qKKqfd5HlYjAMD+N+c6BxGO21tQMB/y+b3zg/Vr9B3IRicvBEz7cCYuDctD70Ffk4IX0=
+X-Forefront-Antispam-Report:
+	CIP:8.62.32.50;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ejcrelay004p.adwin.renesas.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(376014)(36860700016)(7416014)(23010399003)(13003099007)(10067099003)(11063799006)(56012099006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	173+uxy7LnTLKNU+94twQwHRS9WKQBCH3IjyTIMupmdVzCo/esp3/mQdIFOMUK0DS5x+iQzY8BvG1IgHp9QalO7F+nOg/1ndAgY7vOO8ocXy8kya7P2ClEKXoZPws3MH9ouK7Hq0yR5brX2p1LcfxnldFBkPqtcpT7ITSjzS+5p8kj5RWDSXFm01Duy0oqDlXqFZhM9Li+AYqY4t4HqDzoi13hjLfQP8d7LbrpwpGvwIBpqzC5TuWg0l9maj9zgPFl9RK4wBTQ8A2msEiNJoCQQcIwoKKrztnRkEYLJ/VmVIxZ4M5aLaVjdRsOLv0FXeTuS91uFvu9CbYEBf4m8rfWbH0KLkeFgEup0Xu+X1oxnfIJEwNfaQ09iLBCCAOGy/HQZdIN10YGdCXipHQzcU5mRtQZd8VnEubCphldNT6wYlSc+nPCBODVvqqxgMK6LA
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 07:57:54.6222
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 490177f7-1166-4ac3-6a98-08df1f91b32d
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=53d82571-da19-47e4-9cb4-625a166a4a2a;Ip=[8.62.32.50];Helo=[ejcrelay004p.adwin.renesas.com]
+X-MS-Exchange-CrossTenant-AuthSource: TYO1EPF00005021.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY6PR01MB17916
 
-From: George Moussalem <george.moussalem@outlook.com>
+Add support for Renesas RZ/G3L CANFD.
+The RZ/G3L CANFD IP has 3 channels and 11 interrupts compared to 2 channels
+and 8 interrupts that of RZ/G3S. RZ/G3L has 288 buffers compared to 192
+buffers on RZ/G3S SoC.
 
-Flatten usb controller nodes and update to using latest bindings and
-flattened driver approach.
+This patch series depend upon [1]
+[1] https://lore.kernel.org/all/20261001060825.53335-2-krzysztof.kozlowski@oss.qualcomm.com/T/#u
 
-In addition, swap interrupts for dp_hs_phy_irq and dm_hs_phy_irq as
-per order in updated binding.
+v3->v4:
+ * Dropped maxItems from interrupts,interrupt-names and resets.
+ * Collected tags.
+v2->v3:
+ * Collected tags.
+ * Added check against RCANFD_NUM_CHANNELS, to avoid overrunning the
+   fixed-size rcar_canfd_global.ch[] and transceivers[] arrays.
+ * Fixed typo 198->192 buffers in commit description.
+v1->v2:
+ * Added support for deriving max_channels from the device tree.
+ * Dropped clock patch as it is accepted.
+ * Dropped devicetree patches, will send it later.
+ * Updated commit description
+ * Dropped RZ/G3S fallback as there are lot of differences.
 
-Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: George Moussalem <george.moussalem@outlook.com>
----
- arch/arm64/boot/dts/qcom/ipq9574-rdp-common.dtsi |  6 +--
- arch/arm64/boot/dts/qcom/ipq9574.dtsi            | 48 +++++++++++-------------
- 2 files changed, 23 insertions(+), 31 deletions(-)
+Biju Das (3):
+  dt-bindings: can: renesas,rcar-canfd: Document RZ/G3L SoC
+  can: rcar_canfd: Derive max_channels from the device tree
+  can: rcar_canfd: Add support for Renesas RZ/G3L
 
-diff --git a/arch/arm64/boot/dts/qcom/ipq9574-rdp-common.dtsi b/arch/arm64/boot/dts/qcom/ipq9574-rdp-common.dtsi
-index 86138529ba77..68616590815b 100644
---- a/arch/arm64/boot/dts/qcom/ipq9574-rdp-common.dtsi
-+++ b/arch/arm64/boot/dts/qcom/ipq9574-rdp-common.dtsi
-@@ -254,10 +254,6 @@ flash@0 {
- 	};
- };
- 
--&usb_0_dwc3 {
--	dr_mode = "host";
--};
--
- &usb_0_qmpphy {
- 	vdda-pll-supply = <&mp5496_l5>;
- 	vdda-phy-supply = <&regulator_fixed_0p925>;
-@@ -274,6 +270,8 @@ &usb_0_qusbphy {
- };
- 
- &usb3 {
-+	dr_mode = "host";
-+
- 	status = "okay";
- };
- 
-diff --git a/arch/arm64/boot/dts/qcom/ipq9574.dtsi b/arch/arm64/boot/dts/qcom/ipq9574.dtsi
-index 771a59585645..abb7a8391b46 100644
---- a/arch/arm64/boot/dts/qcom/ipq9574.dtsi
-+++ b/arch/arm64/boot/dts/qcom/ipq9574.dtsi
-@@ -757,12 +757,9 @@ usb_0_qmpphy: phy@7d000 {
- 			status = "disabled";
- 		};
- 
--		usb3: usb@8af8800 {
--			compatible = "qcom,ipq9574-dwc3", "qcom,dwc3";
--			reg = <0x08af8800 0x400>;
--			#address-cells = <1>;
--			#size-cells = <1>;
--			ranges;
-+		usb3: usb@8a00000 {
-+			compatible = "qcom,ipq9574-dwc3", "qcom,snps-dwc3";
-+			reg = <0x08a00000 0xfc100>;
- 
- 			clocks = <&gcc GCC_SNOC_USB_CLK>,
- 				 <&gcc GCC_USB0_MASTER_CLK>,
-@@ -781,32 +778,29 @@ usb3: usb@8af8800 {
- 			assigned-clock-rates = <200000000>,
- 					       <24000000>;
- 
--			interrupts-extended = <&intc GIC_SPI 134 IRQ_TYPE_LEVEL_HIGH>,
-+			interrupts-extended = <&intc GIC_SPI 140 IRQ_TYPE_LEVEL_HIGH>,
-+					      <&intc GIC_SPI 134 IRQ_TYPE_LEVEL_HIGH>,
- 					      <&intc GIC_SPI 136 IRQ_TYPE_LEVEL_HIGH>,
--					      <&intc GIC_SPI 111 IRQ_TYPE_LEVEL_HIGH>,
--					      <&intc GIC_SPI 112 IRQ_TYPE_LEVEL_HIGH>;
--			interrupt-names = "pwr_event",
-+					      <&intc GIC_SPI 112 IRQ_TYPE_LEVEL_HIGH>,
-+					      <&intc GIC_SPI 111 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "dwc_usb3",
-+					  "pwr_event",
- 					  "qusb2_phy",
--					  "dm_hs_phy_irq",
--					  "dp_hs_phy_irq";
-+					  "dp_hs_phy_irq",
-+					  "dm_hs_phy_irq";
- 
- 			resets = <&gcc GCC_USB_BCR>;
--			status = "disabled";
- 
--			usb_0_dwc3: usb@8a00000 {
--				compatible = "snps,dwc3";
--				reg = <0x8a00000 0xcd00>;
--				clocks = <&gcc GCC_USB0_MOCK_UTMI_CLK>;
--				clock-names = "ref";
--				interrupts = <GIC_SPI 140 IRQ_TYPE_LEVEL_HIGH>;
--				phys = <&usb_0_qusbphy>, <&usb_0_qmpphy>;
--				phy-names = "usb2-phy", "usb3-phy";
--				tx-fifo-resize;
--				snps,is-utmi-l1-suspend;
--				snps,hird-threshold = /bits/ 8 <0x0>;
--				snps,dis_u2_susphy_quirk;
--				snps,dis_u3_susphy_quirk;
--			};
-+			phys = <&usb_0_qusbphy>, <&usb_0_qmpphy>;
-+			phy-names = "usb2-phy", "usb3-phy";
-+
-+			tx-fifo-resize;
-+			snps,is-utmi-l1-suspend;
-+			snps,hird-threshold = /bits/ 8 <0x0>;
-+			snps,dis_u2_susphy_quirk;
-+			snps,dis_u3_susphy_quirk;
-+
-+			status = "disabled";
- 		};
- 
- 		intc: interrupt-controller@b000000 {
+ .../bindings/net/can/renesas,rcar-canfd.yaml  | 24 ++++++++++-
+ drivers/net/can/rcar/rcar_canfd.c             | 40 +++++++++----------
+ 2 files changed, 43 insertions(+), 21 deletions(-)
 
 -- 
-2.53.0
-
+2.43.0
 
