@@ -1,196 +1,191 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8BB54AF9C5
-	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 13:18:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48ACD38331C
+	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 13:27:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790860723; cv=none; b=hXaVdudVmyTUNFDm3mMu+5Dlt3ZC9toO/zFoUAgyU4JBvsGdhm6bYNz7Hp249FBTqBTkIWKfYNDeaVssNYqk8kNI05szuuVGoWD01miKkcgxbZng/p1wqeq4GOpBtHd2ruLsor6aDHZ2m2dgD+wmJYj+BvEUN1aCJ7csbljTlqw=
+	t=1790861266; cv=none; b=j0vxz98WWRIaU4Smnv7cTl/+9feuPvBzdH8bzg/gHNdAKgCsJ2QvYHuXTR8Pn9a4Vszi+sAtyJcwI0dIUPYNgWdw6c3SyiDMoC+1vssFf9hw059/cX6vqS5ep2lvOdkTybSQd+vreL2Ok7EGnmqVZmgmrkr7Nhk1V6cNTj31Yb0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790860723; c=relaxed/simple;
-	bh=sFkXBSnLk+vZbRKQdCAmvra4Fypns8vJgfKHZ9ztqDQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=C5o9XUFMIhUKzt9hVioVazcqI6rtu00Aj4agPn+VLGSamZxgxgXd8i16+0l0dgSoVPhUoHiM3EtFfCVWySd21sJzJVNaq8zVs11GPlfpYLJvCdntHMCk4nxOECqGnsX1XPrK+8OWtP9YRa499KB+WM/yb05XFPICS9PSwjbXKa0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NSCrTMuc; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790861266; c=relaxed/simple;
+	bh=KwFb7Bzf2oJHL/u2nvrT273U5BTIwWtmn+TyzderBs4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Vo6H2hsowJl7HEJkcKWj/DEZRpgavHuJjbKcgeHmF53sd8E3DgV/Nm4vplskR7lFFw1YXqdElaSODCHvjOACQMpfviQYWyMDequNC+xFkVee4kUMepZ0gKHUvkGjmA0vP7XyQ8OOpVpst/UYn8kaB0YIHIjcjNzVkzRVdMrC30s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=jBuEvdLy; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NSCrTMuc"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccc09d65so3898340a91.3
-        for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 06:18:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="jBuEvdLy"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6b885ef8so38794105e9.1
+        for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 06:27:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790860720; x=1791465520; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DIgme/hli59wBCI5OwyN88StS5WzrGGP4qMfY50DT24=;
-        b=NSCrTMucKye39BuqMlLMOaWpl/1zFQenbpy7dRUVpFyfddArSjZw1rTQS9I5ungoA8
-         uj5smN2tuEwC405VqXFqtKRqkCh15HwfZWO4urPdmbfACdclOjWK/EKTeat3KHusVNdX
-         X9m5GxFOLvPXIaZGUgtEn+HElgwQBWMqKU0QeHdfMRdLm7JF3xfCTW66PLDeMTE563Bh
-         Gn0PoOjr7cVbjMDpwFGD2eFR22/OmC/vQT4e5I1skxk3PsMig4js5tBfCxlnorpSiK2A
-         Suaki5gPNF20TvOQgXMrwVkM+D2lyqtZPEJswXItocnxnnkbfvS8dwVOC+qQZAyzIIbR
-         MHMA==
+        d=linaro.org; s=google; t=1790861262; x=1791466062; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=m2LslndYS37sl4b5GSkI0Sg/gLuqHVi110FMtZhTLq0=;
+        b=jBuEvdLyOMXFULtK88it6Jq6WcVgcYCe10WcDmDCh/4PHUUGFuNt/Isonjn3beVcPv
+         0dXBEDlidpHwD5jyCW0GbItXdjIxMXFjdUI5RrvgTP5pRp33YFE5VZcY4GtzcIu9P/9c
+         la1anN5f+uPR9OC2Av/pgV7sG2jZmZNLSiaYg4sdVg+l1WTYkE7P00oksD2ebrAGM4zY
+         XaAzEECKDpKoNtDPFJBLwPO2A6pyclZb/C53hSdOXMCytgMpSxKOYPzUe0DhfNuAW3mU
+         amSPA2V180j6LVweuGwYre73FstRzz1HqbJ4qIdPffwhNtxyEyRmq0X04MXwAgBFGBOt
+         riIg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790860720; x=1791465520;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DIgme/hli59wBCI5OwyN88StS5WzrGGP4qMfY50DT24=;
-        b=f+GQJsylOt/VlHUjlQ+O1YrxFAKC9G1baDNstjBGHbWjlSuSD5C+GbPO6B57eIAEnw
-         xW0yYOES5d8dTMAIdOz2Iia2+kqwp5qhfa3S0H22txAbsrgUlyz8wdEhUHiqCNPfR7Cy
-         qDEMcj7dNep2nc8gMmrlT4Vgvcd8yjNZEEj98MAOeXN9xcWTV10hYYh8CCYEnPk6zckg
-         quOZsbIymAD+QGN+H0FLjn8+Is638St0ORKCbNBVi1A/qzA5ktt4DFwl6L9DMDlalhJm
-         xsPgzMN6RgmKj8xlQbM5AD/KMU4p0gBjtLEx03fsZwTuAk1MPriLegDTkBK+OCJIlffR
-         ZD0Q==
-X-Forwarded-Encrypted: i=1; AKwUvBw7XP97yX9FE8BmzaqtJAQSg/lk3iZih8X5dFn5v7gukL+Ar+qPASdlQOPc3EN4fAwvOrp5AIXeSqPJ@vger.kernel.org
-X-Gm-Message-State: AFq9FYKNPUouDWzIJtdozxVElg1QR5xUAYhlyRGiWFN+7Ixz2LaJ34By
-	9nALGF3UC/aVv4Joqxod4XnvLQczD3jABGc4Hpm6T/kLNOnjzZuwQ7ui
-X-Gm-Gg: AYBFou33I5Gt25YjnbGOUasdMk9osQ9bbDLgHoC6/OYND3YoCLwXT8eVAYUuZ5QWNgX
-	9LZzC7Xd+kKSjjE12oQE61pYrxmYUgUkwCAgINfRH4iUx3BU056b3zHYGtAOgE1LJ7sylSq6cpJ
-	jONbLSTu6chv0QJJszh+ulOWG1QdKS3EXkbXf/tKZi0NnWjAK+0lQfVsXrK8Ts2+UwUk9X4VZqS
-	Oxnl+L+D/0UaoK6aH4MucwHqaB3ToXiZyAfFLm+wxg8fQQLgc6l7ZFHtNZXp1sIW/wSjBYpxdzO
-	dPbm+IRANaxcTj/n/c7RKqr9qK8DRJc/XFzSfIbXUF+gkT5cNQ+wpI0IogMIcwwInzclmhmOqG3
-	BaVZZgZ89oYCVPz5itXDK6iyywq7hI5pzFhUIKInfDwmJl5+S5VyfhRP5l7d1wy4mrlx8wTeD3O
-	YRtGEjGaXQ40xP45sNack+ipXKD/VVCFDGnidkdPKbbWk/bmiGM1HCA8Hy+6ng6NFkHOrYxc3+I
-	+85010mJskbCW7xJjFPqMyAK0jlavPB9yMlDEbNR6X4HcbzjwE8rpGQcHF9i62077m4/h4=
-X-Received: by 2002:a17:90b:2b4f:b0:3a4:bda6:16d0 with SMTP id 98e67ed59e1d1-3a4fb2ba95bmr1983848a91.55.1790860719369;
-        Thu, 01 Oct 2026 06:18:39 -0700 (PDT)
-Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4f46bb550sm5016692a91.5.2026.10.01.06.18.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 06:18:38 -0700 (PDT)
-From: Chi-Wen Weng <cwweng.linux@gmail.com>
-To: broonie@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: linux-arm-kernel@lists.infradead.org,
-	linux-spi@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	cwweng@nuvoton.com,
-	cwweng.linux@gmail.com
-Subject: [PATCH v2 3/3] spi: ma35d1-qspi: Add GPIO chip select support
-Date: Thu,  1 Oct 2026 21:18:18 +0800
-Message-Id: <20261001131818.110028-4-cwweng.linux@gmail.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261001131818.110028-1-cwweng.linux@gmail.com>
-References: <20261001131818.110028-1-cwweng.linux@gmail.com>
+        d=1e100.net; s=20260707; t=1790861262; x=1791466062;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=m2LslndYS37sl4b5GSkI0Sg/gLuqHVi110FMtZhTLq0=;
+        b=XaFsOvljnwV/z5QPIpYza8Ws1CINhOH7L/iFRZlentOwEUyYs0uHgVCVUUDdr8bSN4
+         vvfj0CUteoBZ9QU2fRwoleimHFpiEPZ0bIsCsQ9hpz9q2tFMNsArLRhbQtyB+eK/bQdo
+         E3XUC4VV+7s1rTyiXMZa2flYHAOR0GjSUUna1+3rWLMt6wMyG6x+rxxBNbb0D83No5B9
+         k3XJep28X7ebeysd8JboqkVZdWaHmogp7jF8BjuXxRVAhrUkBmJ7zOOvFq9vQOvcXjp8
+         HsCArVB4QMI0eDbr2vtB1wyXhEBfLOCesMF+ps0gE4mXBOigKNfe6hfKYjsgluZKyWrh
+         IWww==
+X-Forwarded-Encrypted: i=1; AKwUvBx3Yp1hTtNl+ktXdCOqu+vanyaW4GST+/yQAYlZtqoqEdDNtZEGUSmKV1WtYC8YFeMIp6OvcLMO5HsA@vger.kernel.org
+X-Gm-Message-State: AFuF++lgrq5ldfa4Bb0h6XfqSxmyrvIC5Wp2a0QqCip2OQGDsp4u7Lwg
+	U7KUX6zlgIvhNkWRztrIYW2xElemDc+bJ0ACvONVlNs4NGj1v6qHDi2tBcj+lbjNTwY=
+X-Gm-Gg: AYBFou0gLWj+ElPYWqC0NYvKiXhnuwbA2DgZwZJvW4epCXAkviMCZeW1FBTAIvol+1e
+	hGXqmVmN/M4sPiPZKKCVxJ/2j8mwiRVqP4LwLVLMFqxfCGpSaMYwHat0XCnQewbXsn4xgDVqi0J
+	OPMGc00pIidpuzAqrcKNDMZuTlIf6xmkKtS5QdmoEKDHtpHkmHmQiRGKA5RGOfLO4lQAwSsvaIb
+	+xOhp0reqvw8XlFK8PPqYC3fSMeZpTDy9bQp3GFaJuGPV7Zt5JFpWPo1k+JMHswtIhgj15plDD5
+	BW5zAWVnVq/Zbh5nIn/rW7o4Ts4aBUzJMgNlb14wlfdqFgx5GKX33PhRy8NQbYzPjEuvYF90gJv
+	aGGg1nZtiB6nIPf/waNrccCVyG1D4UE+45daiRT/bOQizpxOu/cZynZBiWKLVV4ka5CdkgcqGrV
+	FPbgIenseyY7bVV/pFIHMIZPSvvFmTkoYpEkV18rXSVKNxz408fbslWGjgf6pzH9NxYD40ZI6mL
+	S/FDSqZ
+X-Received: by 2002:a05:600c:4704:b0:49f:e427:e88f with SMTP id 5b1f17b1804b1-4a01b00f659mr74999905e9.21.1790861262268;
+        Thu, 01 Oct 2026 06:27:42 -0700 (PDT)
+Received: from [10.11.12.111] ([79.115.63.240])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b068ff64asm5360563f8f.10.2026.10.01.06.27.41
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 01 Oct 2026 06:27:41 -0700 (PDT)
+Message-ID: <8e305a3a-c30d-4862-9da4-8c763b9f88a0@linaro.org>
+Date: Thu, 1 Oct 2026 16:27:37 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] arm64: dts: exynos850: Add ACPM firmware node
+To: Alexey Klimov <alexey.klimov@linaro.org>,
+ Sam Protsenko <semen.protsenko@linaro.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Peter Griffin <peter.griffin@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>
+Cc: Thomas Turner <tturner@lineageos.org>, linux-samsung-soc@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Juan Yescas <jyescas@google.com>,
+ =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>
+References: <20260929-exynos850-acpm-node-cpufreq-v1-0-5a86c1d404b8@linaro.org>
+ <20260929-exynos850-acpm-node-cpufreq-v1-1-5a86c1d404b8@linaro.org>
+ <7b5dded4-c475-40dd-b5c4-5086bab4162e@linaro.org>
+ <DLSMQGCHNINR.ZPYVN1SR0GM2@linaro.org>
+Content-Language: en-US
+From: Tudor Ambarus <tudor.ambarus@linaro.org>
+In-Reply-To: <DLSMQGCHNINR.ZPYVN1SR0GM2@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Chi-Wen Weng <cwweng@nuvoton.com>
 
-The generic SPI controller binding allows GPIO-based chip selects, but
-the MA35D1 QSPI driver does not currently enable the SPI core's GPIO
-descriptor handling.
 
-Enable GPIO chip-select support and specify that the controller provides
-two native chip selects. Add a setup callback to reject active-high
-polarity only for native chip selects, while allowing GPIO chip selects
-to use the polarity handled by the GPIO subsystem.
+On 9/30/26 2:54 PM, Alexey Klimov wrote:
+> Hi Tudor,
+> 
+> On Tue Sep 29, 2026 at 10:02 AM BST, Tudor Ambarus wrote:
+>> Hi, Alexey,
+>> On 9/29/26 6:10 AM, Alexey Klimov wrote:
+>>> Add the ACPM firmware node with cpucl0 and cpucl1 clocks. ACPM firmware
+>>> protocol provides interface for all client drivers to actually use
+>>> features exposed by the APM co-processor.
+>>>
+>>> Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
+>>> ---
+>>>  arch/arm64/boot/dts/exynos/exynos850.dtsi | 13 +++++++++++++
+>>>  1 file changed, 13 insertions(+)
+>>>
+>>> diff --git a/arch/arm64/boot/dts/exynos/exynos850.dtsi b/arch/arm64/boot/dts/exynos/exynos850.dtsi
+>>> index 8a4771899a8e..91c6cee8f483 100644
+>>> --- a/arch/arm64/boot/dts/exynos/exynos850.dtsi
+>>> +++ b/arch/arm64/boot/dts/exynos/exynos850.dtsi
+>>> @@ -11,6 +11,7 @@
+>>>   */
+>>>  
+>>>  #include <dt-bindings/clock/exynos850.h>
+>>> +#include <dt-bindings/clock/samsung,exynos850-acpm.h>
+>>>  #include <dt-bindings/interrupt-controller/arm-gic.h>
+>>>  #include <dt-bindings/soc/samsung,exynos-usi.h>
+>>>  
+>>> @@ -170,6 +171,18 @@ timer: timer {
+>>>  		     <GIC_PPI 10 (GIC_CPU_MASK_SIMPLE(8) | IRQ_TYPE_LEVEL_LOW)>;
+>>>  	};
+>>>  
+>>> +	firmware {
+>>> +		acpm_ipc: power-management {
+>>> +			compatible = "samsung,exynos850-acpm-ipc";
+>>> +			mboxes = <&ap2apm_mailbox>;
+>>> +			shmem = <&apm_sram>;
+>>> +			clocks = <&cmu_cpucl0 CLK_FOUT_CPUCL0_PLL>,
+>>> +				 <&cmu_cpucl1 CLK_FOUT_CPUCL1_PLL>;
+>>
+>> Why do you describe these clocks?
+> 
+>>> +			clock-names = "cpucl0", "cpucl1";
+> 
+> To link these clocks with ACPM clocks from this list:
+> (file drivers/clk/samsung/clk-acpm.c)
+> 
+> static const struct acpm_clk_variant exynos850_acpm_clks[] = {
+> 	ACPM_CLK("mif"),
+> 	ACPM_CLK("int"),
+> 	ACPM_CLK("cpucl0"),
+> 	ACPM_CLK("cpucl1"),
+> 	ACPM_CLK("g3d"),
+> 	ACPM_CLK("aud"),
+> 	ACPM_CLK("cam"),
+> 	ACPM_CLK("disp"),
+> 	ACPM_CLK("cp"),
+> };
+> 
+> Eventually to have some sensible/working ->recalc_rate() for ACPM
+> cpucl{0,1} clocks.
+> 
+> Which is needed, for instance, for cpufreq_dt because it registers with:
+> 
+> static struct cpufreq_driver dt_cpufreq_driver = {
+>         .flags = CPUFREQ_NEED_INITIAL_FREQ_CHECK |
+>                  CPUFREQ_IS_COOLING_DEV,
+> 
+> Don't know if it answers the question (if I understood it correctly)?
+> 
 
-This keeps the binding capable of describing valid board wiring while
-preserving the active-low limitation of the controller's native chip
-selects.
+Thanks, Alexey. I see now that clk-acpm.c uses pdata.fw_name on the
+parent (acpm_ipc) DT node to link the ACPM clocks to the CMU PLLs for
+->recalc_rate(). Could you please clarify a few things in the commit
+message (and below):
 
-Signed-off-by: Chi-Wen Weng <cwweng@nuvoton.com>
----
- drivers/spi/spi-ma35d1-qspi.c | 39 ++++++++++++++++++++++++++++++-----
- 1 file changed, 34 insertions(+), 5 deletions(-)
+1. Physically, CLK_FOUT_CPUCL{0,1}_PLL are not input clocks feeding the
+   APM hardware, they are the PLLs that ACPM reconfigures behind the
+   scenes. Meanwhile, acpm_clk_register() sets num_parents = 1 and
+   pdata.fw_name = name for all 9 clocks in exynos850_acpm_clks[].
+   Since the DT node only lists "cpucl0" and "cpucl1", won't the other
+   7 ACPM clocks (mif, int, g3d, aud, cam, disp, cp) remain permanently
+   orphaned in CCF with rate = 0?
 
-diff --git a/drivers/spi/spi-ma35d1-qspi.c b/drivers/spi/spi-ma35d1-qspi.c
-index 30e3239f777d..0644bb2990b8 100644
---- a/drivers/spi/spi-ma35d1-qspi.c
-+++ b/drivers/spi/spi-ma35d1-qspi.c
-@@ -62,7 +62,7 @@
- #define NUVOTON_QSPI_STATUS_RXEMPTY_MASK	BIT(8) /* Receive FIFO Empty */
- #define NUVOTON_QSPI_STATUS_BUSY_MASK	BIT(0) /* Busy Status */
- 
--#define NUVOTON_QSPI_MAX_NUM_CS		2
-+#define NUVOTON_QSPI_MAX_NATIVE_CS	2
- #define NUVOTON_QSPI_DEFAULT_NUM_CS	2
- #define NUVOTON_QSPI_DEFAULT_BPW	8
- /* Bound PIO operations to avoid long atomic polling loops. */
-@@ -442,13 +442,35 @@ static void nuvoton_qspi_set_cs_level(struct nuvoton_qspi *qspi,
- 	spin_unlock_irqrestore(&qspi->ssctl_lock, flags);
- }
- 
-+static int nuvoton_qspi_setup(struct spi_device *spi)
-+{
-+	unsigned int cs = spi_get_chipselect(spi, 0);
-+
-+	if (spi_get_csgpiod(spi, 0))
-+		return 0;
-+
-+	if (cs >= NUVOTON_QSPI_MAX_NATIVE_CS) {
-+		dev_err(&spi->dev, "invalid native chip select %u\n", cs);
-+		return -EINVAL;
-+	}
-+
-+	if (spi->mode & SPI_CS_HIGH) {
-+		dev_err(&spi->dev,
-+			"active-high native chip select is not supported\n");
-+		return -EINVAL;
-+	}
-+
-+	return 0;
-+}
-+
- static void nuvoton_qspi_set_cs(struct spi_device *spi, bool level)
- {
- 	struct nuvoton_qspi *qspi = spi_controller_get_devdata(spi->controller);
- 
- 	/*
--	 * The SPI core passes the physical CS level to ->set_cs(). This
--	 * initial driver only supports active-low native chip selects.
-+	 * GPIO chip selects are handled by the SPI core. For native chip
-+	 * selects, the core passes the physical CS level to ->set_cs().
-+	 * Native chip selects are active low.
- 	 */
- 	nuvoton_qspi_set_cs_level(qspi, spi_get_chipselect(spi, 0), !level);
- }
-@@ -457,7 +479,11 @@ static void nuvoton_qspi_mem_set_cs(struct spi_device *spi, bool assert)
- {
- 	struct nuvoton_qspi *qspi = spi_controller_get_devdata(spi->controller);
- 
--	/* The direct spi-mem path passes a logical assertion state. */
-+	/*
-+	 * Direct spi-mem operations are only executed for native chip
-+	 * selects. GPIO chip selects use the regular SPI fallback path.
-+	 * This helper takes a logical assertion state.
-+	 */
- 	nuvoton_qspi_set_cs_level(qspi, spi_get_chipselect(spi, 0), assert);
- }
- 
-@@ -638,18 +664,21 @@ static int nuvoton_qspi_probe(struct platform_device *pdev)
- 		goto err_assert;
- 	}
- 
--	if (!num_cs || num_cs > NUVOTON_QSPI_MAX_NUM_CS) {
-+	if (!num_cs || num_cs > NUVOTON_QSPI_MAX_NATIVE_CS) {
- 		ret = dev_err_probe(dev, -EINVAL, "invalid num-cs %u\n",
- 				     num_cs);
- 		goto err_assert;
- 	}
- 
- 	ctlr->num_chipselect = num_cs;
-+	ctlr->max_native_cs = NUVOTON_QSPI_MAX_NATIVE_CS;
-+	ctlr->use_gpio_descriptors = true;
- 	ctlr->max_transfer_size = nuvoton_qspi_max_transfer_size;
- 	ctlr->max_message_size = nuvoton_qspi_max_message_size;
- 	ctlr->mem_ops = &nuvoton_qspi_mem_ops;
- 	ctlr->mem_caps = &nuvoton_qspi_mem_caps;
- 	ctlr->dtr_caps = true;
-+	ctlr->setup = nuvoton_qspi_setup;
- 	ctlr->set_cs = nuvoton_qspi_set_cs;
- 	ctlr->transfer_one = nuvoton_qspi_transfer_one;
- 	ctlr->bits_per_word_mask = SPI_BPW_MASK(8);
--- 
-2.25.1
+2. Does bypass_acpm_exynos850_get_rate() actually return the updated rate
+   after clk_set_rate()? When ACPM changes the PLL frequency via IPC,
+   CCF is unaware that the parent clock (fout_cpucl0_pll) changed in
+   hardware. Even with CLK_GET_RATE_NOCACHE on the ACPM clock,
+   __clk_recalc_rates() only reads the cached core->parent->rate without
+   calling ->recalc_rate() on the parent itself. Won't parent_rate remain
+   stuck at the initial boot frequency?
 
+3. In drivers/clk/samsung/clk-exynos850.c, cpucl0_cmu_info and
+   cpucl1_cmu_info still set `.manual_plls = true`.
+   Does that conflict with ACPM firmware managing the CPU PLLs?
+
+Cheers,
+ta
