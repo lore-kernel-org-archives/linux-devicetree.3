@@ -1,54 +1,73 @@
-Received: from Atcsqr.andestech.com (atcsqr.andestech.com [220.128.198.184])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f14.google.com (mail-pj2-f14.google.com [74.125.227.142])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A9BA35C1A6;
-	Thu,  1 Oct 2026 02:12:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.128.198.184
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8974B35A395
+	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 02:24:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.142
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790820743; cv=none; b=rHVG5rxYLPu08ZvdnDQXp+pNypbVONAh83de6Q8at0iapB5cotQK6xAi63lx/DtoyAuRbU8ViLX23gJzRliFlZsj0uCzLtjZ0JpHEQWpYvtXbAOLArKWQoSSlvBIGKVDNpxtlAFnahGYBtFUwdRe7GzwFt6EAuwtH8inYxbTVq4=
+	t=1790821471; cv=none; b=X5N2u+4wtbc4wL4/q2mheTxvZHmmCxEq6QjxTdjevxGjFvNk6uDNuSWNy/GU1To8m+ussGup+BOzujHXvAFoTZQTu16Hu/OnE+5ZUE2n4UcfDr9bBKzExR4UY2X78KcR01qyHbGSZRm8GY/JbKNhEWLvdgtVpeC6u6uhB99ifP8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790820743; c=relaxed/simple;
-	bh=0paWo37tIwXwNgKO9+QqBch1+DRgfGnkuF/C5gAnmkk=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=IosCnNvHH/GETsPkog/55g+wm+c6wWu8Pz0uNK6ztqhKgTECVNR2Pugafgx8z/8QDTJDsOq/aaZ+BnYDUpjve6ZRI01+9ERNGZd++PbPagEOLR5vq7JaVp6ECfCW9oYsiHvjFBzEFUMsljhSkSSdy1az5sjcP1EQYpJQUQsOo14=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andestech.com; spf=pass smtp.mailfrom=andestech.com; arc=none smtp.client-ip=220.128.198.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andestech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=andestech.com
-Received: from Atcsqr.andestech.com (localhost [127.0.0.2] (may be forged))
-	by Atcsqr.andestech.com with ESMTP id 6911ju5V061971;
-	Thu, 1 Oct 2026 09:45:56 +0800 (+08)
-	(envelope-from cl634@andestech.com)
-Received: from mail.andestech.com (atcpcs55.andestech.com [10.0.1.155])
-	by Atcsqr.andestech.com with ESMTPS id 6911jUSF061775
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 1 Oct 2026 09:45:30 +0800 (+08)
-	(envelope-from cl634@andestech.com)
-Received: from ATCPCS34.andestech.com (10.0.1.134) by atcpcs55.andestech.com
- (10.0.1.155) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.2.2562.43; Thu, 1 Oct
- 2026 09:45:30 +0800
-Received: from swlinux02.andestech.com (10.0.15.183) by ATCPCS34.andestech.com
- (10.0.1.134) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Thu, 1 Oct
- 2026 09:45:30 +0800
-From: CL Wang <cl634@andestech.com>
-To: Vinod Koul <vkoul@kernel.org>, Rob Herring <robh@kernel.org>,
-        "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-CC: Frank Li <Frank.Li@kernel.org>, Kees Cook <kees@kernel.org>,
-        "Gustavo A .
- R . Silva" <gustavoars@kernel.org>,
-        <tim609@andestech.com>, <cl634@andestech.com>,
-        <dmaengine@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-hardening@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        Conor Dooley <conor.dooley@microchip.com>
-Subject: [PATCH v8 1/2] dt-bindings: dmaengine: Add support for ATCDMAC300 DMA engine
-Date: Thu, 1 Oct 2026 09:45:02 +0800
-Message-ID: <20261001014503.786490-2-cl634@andestech.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261001014503.786490-1-cl634@andestech.com>
-References: <20261001014503.786490-1-cl634@andestech.com>
+	s=arc-20240116; t=1790821471; c=relaxed/simple;
+	bh=/6YE8tCBr0BJ9oADX1bZOmyuq86t5AUN3+v6O1cc6Lg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jDqUVwFoREojjB6D5bPh08tiWyH8OCCnSNnD7xcpmyvC0OZLWn6zD/DEdwSczj5r9PgOSfB5/wdwBgZhHqZjGUOGjZPKzVUq5T1froWLrU2sSIJV4fwpIDYEYZ0Lhr2C88YzUWkzoI5ThIfRPyjbF8bNW2GVGUIC+X/nsP3PKYg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eCqYEG71; arc=none smtp.client-ip=74.125.227.142
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eCqYEG71"
+Received: by mail-pj2-f14.google.com with SMTP id d9443c01a7336-2d747f05ffcso28507275ad.0
+        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 19:24:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790821470; x=1791426270; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=JBj760CSPEhTHdB5J8bb+wCBarK2SuYvXC2QB16HtCA=;
+        b=eCqYEG71HmNBY5WpgwuIx5/Fyuv26RRHZNJuqe68dyVmnFHlZTIUEVzqDzYUqcthvD
+         lI1b+M41dpIFMsK1VuCBknPErVl8IlxQOlmbizaPWQGTH1lAZRD8SdBzl8b9mBhaS5la
+         euiLRGRDmb8ruyau8/9SJoh49TSIKwchN8UVaMUhqX7/aJboN0lvNlIKGpHbH8CCCoO9
+         KLlKx/qH+mmBnnc2bzlMvWGh/k6JpBpnl7uv58y+LS1LWqG1KgUstVPkR7JVIhvPL0lA
+         +5TixfSoyKpmsCaUNzwxA+uXCcycGVe/iGYyi1DKKbf7ZXuqERWCy4jRnZnv8ob+S3f9
+         aWjA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790821470; x=1791426270;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JBj760CSPEhTHdB5J8bb+wCBarK2SuYvXC2QB16HtCA=;
+        b=dunG0Sky6RIbVB2O0BcNKPbAzmvQ+VBOy/UyPXRpfQZYHlOpzLjJ2958tfiDKMACiO
+         mbP3qPd9Jg5YEY9lrfl2Fw09s/JOjTCpy6L9xqhuBwiebAmISadid0y5BhEXNerWV8jd
+         XnBb5mNv7aboW5Dq1wq7LSp3zfT8fMANVXZ5Zz+RCPjMMzBQwoL/RfZpWDCW0Ws3LmCt
+         H1VvtuMj0xfzlsqI1tWcIgPNHzNNR5Wqe6hUhPtxcgY+/VfOTdOg6vUKnyFXjSIEW2zA
+         CyvBxfmCW6X+HPAyyNUSfLvKiHmE1UqKTsZI1a5iyOtJYry2XBW3tDgTHVboR3adO7/q
+         OTPg==
+X-Gm-Message-State: AFq9FYLRlTTIH3RlLVhDcBNAlN7Hluw3KuELTiGNX8JUyKkICKyWQDgH
+	UUMbopBK1xgHGYedGAXXDwAUsseh5u84o2XMKs6fxq9PtYw+rzV49upF
+X-Gm-Gg: AYBFou1kQ2n36chzxWqQO5r/dcCpYqGcsdlKeeYuhPjihwLXWbdr2oITQGFKNDom+on
+	H04fdBMvtMQhffuligVHykIn4FIhfYLuRH43A/Pq8cgBzcd8cS5z4dJyG2TxmdeR7AY9c9PYpyq
+	8qxZF8N6RecRzQ63dDa8uGIX9aF8SDQrSDKW+HRRJyZh6RdZJ2GkieL2u4V4fk7tMyoeo6nUW+8
+	pyaTEQwunPx2vbLBOe+pYJ0hhvNQV0Zgt/v87sXPbw/aonkp0X0XGgsZZPdMI25Z77jK1uhXko4
+	KBwaS7kxndZhtci5EUhS++dvEGps5/1brJr9QF4WU4L6z8I9Kp2ca7XpjQnNzxHbtWXUYlhviZT
+	9zxWNHxzEiTIkXbcV/NZWrZpG2K/uqe3e2qPOcPmWA9dswAb0wB1LFiVTZq6K2ec8I60J0AVfbq
+	DcsWPNqcYwfhum8wTC1XqPCbgcrTLkMSctM43AbqkZYMCKinFLcrHLHM5lNxLqOA==
+X-Received: by 2002:a17:90b:28c4:b0:3a4:8c41:fab6 with SMTP id 98e67ed59e1d1-3a4d18bde23mr2612397a91.46.1790821469669;
+        Wed, 30 Sep 2026 19:24:29 -0700 (PDT)
+Received: from archlinux ([212.192.12.80])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4f43a12c9sm2153230a91.2.2026.09.30.19.24.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 19:24:29 -0700 (PDT)
+From: Mikhail Kalashnikov <iuncuim@gmail.com>
+To: Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>
+Cc: devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	Andre Przywara <andre.przywara@arm.com>
+Subject: [PATCH v2 0/4] arm64: dts: allwinner: add Teclast P85T (A523) support
+Date: Thu,  1 Oct 2026 10:24:11 +0800
+Message-ID: <20261001022415.913959-1-iuncuim@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -56,120 +75,76 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: ATCPCS33.andestech.com (10.0.1.100) To
- ATCPCS34.andestech.com (10.0.1.134)
-X-DKIM-Results: atcpcs55.andestech.com; dkim=none;
-X-DNSRBL: 
-X-SPAM-SOURCE-CHECK: pass
-X-MAIL:Atcsqr.andestech.com 6911ju5V061971
 
-Document devicetree bindings for Andes ATCDMAC300 DMA engine
+This series adds initial support for the Teclast P85T, an 8-inch tablet
+based on the Allwinner A523 (sun55i) SoC.
 
-ATCDMAC300 is the IP name, which is embedded in AndesCore-based
-platforms or SoCs such as AE350 and Qilai.
+This initial submission enables only what has a binding today.
+Display (DE/TCON/DSI), PWM backlight, audio codec, camera (CSI/VIN)
+and LRADC keys are deliberately left out, as those blocks is not ready
+yet. They will be sent separately.
 
-Signed-off-by: CL Wang <cl634@andestech.com>
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Patches 1 and 2 overlap with Andre's series
+https://lore.kernel.org/linux-sunxi/20260914210115.28151-1-andre.przywara@arm.com/T/#ma8a2554315eccbccdb15ee7ac212a4d0afb45a5c
+They are included for compatibility and differ only in the full company
+name in the description.
 
----
-  Changes for v7:
-    - Rebase onto the current dmaengine/next; no changes from v6
+Touchscreen operation requires firmware extracted from the Android
+firmware; the file will be added to a public repository later.
 
-  Changes for v6:
-    - Rebase onto dmaengine/next; no changes from v5
+The touchscreen values below were obtained experimentally via evtest
+and may be inaccurate:
+  touchscreen-size-x = <1786>;
+  touchscreen-size-y = <1128>;
 
-  Changes for v5:
-    - No changes from v4
+With the values below the touchscreen and display coordinates match:
+  touchscreen-inverted-y;
+  touchscreen-swapped-x-y;
 
-  Changes for v4:
-    - Use items list format with descriptions for reg property
-      as suggested by Conor Dooley
+The battery values are taken from the battery label
+(5000 mAh, 4.4 V max charge) and the Android DTB
+(pmu_runtime_chgcur = <0x320>, i.e. 800 mA safe charge current).
 
-  Changes for v3:
-    - Rename DT binding file from andestech,qilai-dma.yaml to
-      andestech,ae350-dma.yaml.
-    - Deprecate IP-core-based compatible usage and align with
-      SoC/platform-based strings.
-    - Dropped Acked-by tag from Conor Dooley due to the above change.
----
- .../bindings/dma/andestech,ae350-dma.yaml     | 67 +++++++++++++++++++
- 1 file changed, 67 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/dma/andestech,ae350-dma.yaml
+U-Boot support requires an LPDDR3 driver for the A523, which will be
+sent a bit later.
 
-diff --git a/Documentation/devicetree/bindings/dma/andestech,ae350-dma.yaml b/Documentation/devicetree/bindings/dma/andestech,ae350-dma.yaml
-new file mode 100644
-index 000000000000..f040a2bf7d4b
---- /dev/null
-+++ b/Documentation/devicetree/bindings/dma/andestech,ae350-dma.yaml
-@@ -0,0 +1,67 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/dma/andestech,ae350-dma.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Andes ATCDMAC300 DMA Controller
-+
-+maintainers:
-+  - CL Wang <cl634@andestech.com>
-+
-+allOf:
-+  - $ref: dma-controller.yaml#
-+
-+properties:
-+  compatible:
-+    oneOf:
-+      - items:
-+          - enum:
-+              - andestech,qilai-dma
-+          - const: andestech,ae350-dma
-+      - const: andestech,ae350-dma
-+
-+  reg:
-+    minItems: 1
-+    items:
-+      - description: DMA controller register range
-+      - description: cache control in IOCP controller
-+
-+  reg-names:
-+    minItems: 1
-+    items:
-+      - const: dma
-+      - const: iocp
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  "#dma-cells":
-+    const: 1
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - "#dma-cells"
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+
-+    soc {
-+        #address-cells = <2>;
-+        #size-cells = <2>;
-+
-+        dma-controller@f0c00000 {
-+            compatible = "andestech,ae350-dma";
-+            reg = <0x0 0xf0c00000 0x0 0x1000>,
-+                  <0x0 0xe8000000 0x0 0x10>;
-+            reg-names = "dma", "iocp";
-+            interrupts = <10 IRQ_TYPE_LEVEL_HIGH>;
-+            #dma-cells = <1>;
-+        };
-+    };
-+...
+A ready-to-use image with working display, audio and touchscreen can be
+found on the Manjaro forum. Patches will be added as other contributors
+add their parts.
+
+Changes since v1 [1]:
+  - Added Reviewed-by from Andre Przywara for patch 3;
+  - Replaced the dummy 1.8V pio-18 regulator with the real PMIC rails;
+  - Dropped reg_dcdc4: no consumers, the kernel would turn it off;
+  - Dropped AXP323 aldo1/dldo1: no consumers - the board is verified
+    to work with both rails disabled;
+  - Renamed bldo2 to "vcc-dram-1v8" (needs to be kept always-on).
+  - Renamed cldo1 from "vcc-codec-sd" to "vcc-codec-mmc";
+  - Described AXP323 dcdc3 as the RISC-V management core supply, like
+    on the other A523 boards;
+  - USB: removed the inbound 5V rail from usb0_vbus-supply and dropped
+    ehci0/ohci0; the port is works like peripheral-only, using
+    usb0_vbus_det-gpios for VBUS sensing;
+  - Dropped the iio-hwmon node due to invalid values;
+  - Commit message wording: those blocks "don't have a binding yet".
+
+[1] https://lore.kernel.org/linux-sunxi/20260918165414.1129076-1-iuncuim@gmail.com/
+
+Based on 7.3-rc3.
+
+Mikhail Kalashnikov (4):
+  dt-bindings: vendor-prefixes: Add vendor prefix for Teclast
+  dt-bindings: arm: sunxi: Add Teclast P85T tablet
+  arm64: dts: allwinner: sun55i-a523: add I2C0 and I2C1 pin groups
+  arm64: dts: allwinner: add Teclast P85T tablet
+
+ .../devicetree/bindings/arm/sunxi.yaml        |   5 +
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ arch/arm64/boot/dts/allwinner/Makefile        |   1 +
+ .../allwinner/sun55i-a523-teclast-p85t.dts    | 386 ++++++++++++++++++
+ .../arm64/boot/dts/allwinner/sun55i-a523.dtsi |  18 +
+ 5 files changed, 412 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/allwinner/sun55i-a523-teclast-p85t.dts
+
 -- 
-2.34.1
-
+2.55.0
