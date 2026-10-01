@@ -1,165 +1,134 @@
-Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011010.outbound.protection.outlook.com [40.107.130.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f32.google.com (mail-ed2-f32.google.com [74.125.228.96])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7DCB30F55F;
-	Thu,  1 Oct 2026 09:28:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 518C83F4854
+	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 09:35:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.96
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790846946; cv=fail; b=MwB4XRPkTnwbp3B0leXUWsIIE/FiQs+LuP0ppiXmzLuVUeSuOlE5hTv4F6jZch6/FUIbklEnXx0wUVhhpRwS1NkGOZXvBk/2t33mssqeHmCzJ6ktaY6WlAw8XUo1L/dCmKr3noYgwJpSOxK3ZkDNrQCLypMG6l/5QCroEbU7RAI=
+	t=1790847314; cv=pass; b=CD0ChkwrbN8uYDN7C/g1tdPOooJqnPd5Mxp8RukOTV9igUHtNvn5nVa121h93guvDQ0D6ynQShQi2jx+faKCeNvBNt/RbJZAEHZ0lsZKTbqXO3Cm/MzP37TluxKnBGIqbpBluWB85dyhRqHdvqh5HKZhflIySG4Df1k7/0z2cBU=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790846946; c=relaxed/simple;
-	bh=QpVnpb3UajSLLis5Vd1DT4CBiyY3XKN+Q73wPnzvtXQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=l0uoDsFlgAv7Ctsz45JyNhfjJLg9ncRDcYh4MmauH43NtFotbdDGOOA2JblsXWeJvR6tAZjmQH7zP4QV5tigs5tf+SmwHmoDjDTODkWUuV/1MyxIAIdzZQB+Wgh1J1qW1d+Us3JOw+4GSAWPaEL2k1JvzcPh0S+cgkVwmYTmGa4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=G77csBIQ; arc=fail smtp.client-ip=40.107.130.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	s=arc-20240116; t=1790847314; c=relaxed/simple;
+	bh=pGCU+YkLRfAjqDH/u84zLx49H7YX5I4bzZSwZUj/YFg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=HsHXkcRMQ8qq+PboYQqWE/1ts7XanrnLwbPL9EpYx0LuS0YCg6VMkKc0v5AsKn7D9/1xhVcW2tDfmCvE9HoePEkN6UVJejdGVL8eIqYq9+IKwAYRd6S5CKtnTZ7BwkfCDlSuGkYXMY8iMPMU2HcVqIFuh1z73q52HsgajJEFxg8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Sd7T1gK8; arc=pass smtp.client-ip=74.125.228.96
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="G77csBIQ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gFPHwb4GoiUH0+GUxNL1Pxuf7nGv4x11Xn858b5UWjDALXhKry8kyCCMDxNkEIcyLUUA9dRek8jsTngWB940DF0/iHFl7eTsSqxyW10egJUtEcGIZITRe2nqAg/mu336OKn60XFMV4eVd5aPp49j3KRU0e7WMrLQDUeSGqUADV9Y4YDGtlO7bJdiSu5Yq8yIfBKKEY9KsddmyB0ICJ7y3jYLAigoogCHXNUQIBp/WfOQAOvNoroYKEu+z2TvbyNToc6cJy8nVjTj9l6el1JB550Ka84OBoAicTs6rARkCJYttkId8TOIajPDNw18XQ0jC7/EgWtmM13K/Xz15dPzoA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=KDwqwe4w4b1vh/KIrXzbS/hev+xsYZGVcTHXwi0FFII=;
- b=cHFhH16UGO2rme//3MHYct/yq9efd90+Z8aNXZiMvl0xKw2oovacPYHHSi3zcCxO5H6cRJBcCCioVCIO6uu5xAaXslO2l7PNm+bfCv7hGTeOiJQ1XnN29tUSda6AS3N58sN5ntaCoYG/6zn8/KFZjWAHZMhKMA57qMXIbPZ/NmR44Swb4wzhD2XkbRUv9J60Sg9WwLLhUu+GzmdElXGRoo2bY2ekdxkwCumado3c2JBCUSBpQlUt5ATU1wzrJQeZUlkD8+FtHL2AZbv8spGHy0G8TpfDNBLEU8X70b70VCCqz0lvzCJSC9sshJVxwO2G8u/LnW91y2hVNywLuYXMzQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=nabladev.com smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=KDwqwe4w4b1vh/KIrXzbS/hev+xsYZGVcTHXwi0FFII=;
- b=G77csBIQ2gOV1NrkwJ+/1RJv+OWYnOlQ3gCY/9KINcxMhD84JQ+Q5YeVYM4Y99ikaPDvBlkGdoiYpeHz06iWzOeMvSwlHzdlZzTEP3N4QDDRRRqUX/M1Wc4cnzkV0zzl7PMz+hxJXckYDx6HjBcCSNscPjLmEETDNNd39wfakjipm2Z3jKFFeJnnEvKNVW3lYrNN6Ik5/VzFglM+uYBQjk9k6kH2ZmfX3Pi1FIdyMPfFEqyP3lTtK8xDCID2zNXss1WPSYgwNB+B792KYCEmU67aaoDzIe5LgiN0YoaarwGK1ZXIm1MMovtUPHhkoMsvx3r5qYcbE77ltcuV6YJDjg==
-Received: from AS4P191CA0008.EURP191.PROD.OUTLOOK.COM (2603:10a6:20b:5d5::19)
- by VI1PR10MB3166.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:803:12e::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.24; Thu, 1 Oct
- 2026 09:28:52 +0000
-Received: from CPH1EPF00000519.eurprd04.prod.outlook.com
- (2603:10a6:20b:5d5:cafe::7c) by AS4P191CA0008.outlook.office365.com
- (2603:10a6:20b:5d5::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.17 via Frontend Transport; Thu, 1
- Oct 2026 09:28:52 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=fail (sender IP
- is 164.130.1.60) smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- CPH1EPF00000519.mail.protection.outlook.com (10.167.241.228) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.472.14 via Frontend Transport; Thu, 1 Oct 2026 09:28:52 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Thu, 1 Oct
- 2026 11:34:46 +0200
-Received: from [10.48.86.79] (10.48.86.79) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Thu, 1 Oct
- 2026 11:28:50 +0200
-Message-ID: <22b18ea2-b2b1-4ed7-bddf-2fcd8e3348c0@foss.st.com>
-Date: Thu, 1 Oct 2026 11:28:50 +0200
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Sd7T1gK8"
+Received: by mail-ed2-f32.google.com with SMTP id 4fb4d7f45d1cf-6af7d702c76so584100a12.1
+        for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 02:35:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790847311; cv=none;
+        d=google.com; s=arc-20260327;
+        b=OAjt1FMBOVNnP/yivzAqfoc0gIIXggm2IM6uH2hMPqUAwcW6jaf1zkYiPMecAy0XDA
+         yayIjJxnLUIGIG5TnZIUhyIfIrqUAGRRJfIrhw45c9uWHidBm1S0RYsuCi15M/fccNwP
+         +4OdimCVmwyGZRCNuHpb0oNoo/E7orte9zVjBGx2hf8W4YdjG4ao0OUHBYfVW9gEFtyf
+         POPiccXkfHpcU5Z2HrA+faG/njwnZE8ngdXj9JRAez55FrNDScJjou1bqwq1KUEtRUHc
+         WinqJX4mnXjyqF2cBtg0rPURCiigspbleJV1QgxDdzXueWaQM+GOyECsjLrnuMVP+oel
+         ek+w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=vYNfNqLHkMdvHAs749vvVhbZflan3bjWqgzofQ0smdo=;
+        fh=5MwwDn0jjkaj4sTiN7szK4b/V5W/hPVpZub2hDaBMYc=;
+        b=p80n+gaZKR7KqY31+pPxgRQqjMy4NnoF71KQ4nR3olvZNDH0fhNkCi+hJhyBvdI2lY
+         u4Pg/shoB42EwdwVA2izSFpyQhzav5DrOFJmxG96bqrYI+FCi9lfkS1RnvDQubvgIgi0
+         hUvch38Ra5FU7orPBPYK+Anuf7MnhM6WcLjrMqHyfqCFIu8p+pcYkTDSlY8enfOO/jHF
+         wUMmWD+9uEHaiucN5eM9BAlyr/SST7hFOER7IeuTkP3alxHEJAcUqKA/kJPNZpXS3SVZ
+         5F91/SipkCC/x2L2TElJUwf3J9GyE+yAtRct3iwke9NqSbsjaSiO3CMuUd3pIQlGYWSY
+         yjTw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790847311; x=1791452111; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=vYNfNqLHkMdvHAs749vvVhbZflan3bjWqgzofQ0smdo=;
+        b=Sd7T1gK87cHX73HpDC9wTDcnlwIIaXy5PqhY4c2sGOrCxmMdIx4rOvNbQn2CPEUDXu
+         gwE5IOMkEGtbfx4XkZim4q2TUpTZQzoRC0B8ZdmA4Z24Ix/KenG3YoHIwx3MAYaFmO+J
+         79eeOg7h9GHcm7IBIO1976lnq7QaaGro4G/ZEN/lpW0nvoYkF2YSu6jykQ7q4J7jIiB1
+         KUth2sGQZKhZykdCjBFqkO/n/FTtlLPZsXzSGeqcQDlrhypqqbLgQX5IgfO1V+Pgaqkn
+         Xd/rvmey5JbFXViUf+xiL9oe/0gDfyB2176JFotDsBCjn5ZgciXTBQmJ0DUTHucGgPPo
+         +rAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790847311; x=1791452111;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vYNfNqLHkMdvHAs749vvVhbZflan3bjWqgzofQ0smdo=;
+        b=gWwdqINnk1cT/QgPS3HskXXaRn1+MELW83NoJgJySn/zLG3lZ4UDVBBpZIow13MRmF
+         Ano0eBczBayxsuffw/53iDFZdGKrYDOgDQ2VW8gpUuhuE2p5xEzDSXpTBJbydgY4YFPb
+         EsW58a6uXpR4u0FYxei3rVpWZDIwOGv614iBbew1htffXXzxBGPfm0q0dUlFRY7RfNh8
+         xa6BDLqypZ8Inhjg9+ks4deXi9Az/kCJfx1qMUzAByp53Mhu9HVCmDYMmDIKsaDco1jt
+         n6OSiJbcswbvy+LKJ+KlZDoI4Rec2qMqhbFdOXHV72AP+dkfBQ9Su61J2rKl1Wr4mLZp
+         BkXQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwRW/MuXRaNQAq05QclsAPQpnGJmre1k+pudzzlHF6NxGqpsn/dnqQAlWDEc+DbIdAQTcshb+Br6fLg@vger.kernel.org
+X-Gm-Message-State: AFq9FYKzQei05P2H6TTfZa74TaDYp45qZk3s/auG+dEEx07lO8KC7M7L
+	n3vxWllf758k0C1OcjHCjl0d2q0ziHDam0j+e8jDiMetOltvrWXQStETtBFM4ahRP0dNNcNUKAY
+	w3jxEI35g/BhzXToIyUNyJvThTGLA3H+eCy/gQY6x7A==
+X-Gm-Gg: AYBFou3/hgDdFhy1F9X4Xa8Tz4iE0/ZDunptoYkQ5/g/pN8XsLg2VGB/ilL2fFhwPMb
+	3mj95AFY4rsG4nmZ+lRDEbz1LZw/XToVkdEx22Gy2vZWbrQUdyS18SkTN1D+WX52qJOHuAQIsYI
+	dcorHtWHDDqKrKpG/mTpYys/rL0l9FVY2d24oCX6iQVAFcOC5ii/ix6KqSGo7gWs/HLp/AW0ULP
+	9F7pk/4ZIw3cJr6T+PnP8VSjQb+nDLTusWo81ODt7JgUGXkoztc4VnrwFfT0vR0dEpjjLkdTejw
+	WYXKr9Zq8xnwWiVbRHxKpdnOGSN6kKFxujYBsQF5wLM1HRBZ87jVqdnGQiZxCJxHUzlGkgz/ne6
+	BfOrAPtVoMcFIvA==
+X-Received: by 2002:a05:6402:c4e:b0:6aa:490e:5506 with SMTP id
+ 4fb4d7f45d1cf-6ae1996fd65mr3129163a12.39.1790847311405; Thu, 01 Oct 2026
+ 02:35:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 2/2] soc: st: Add STM32MP2 SYSCFG driver
-To: Marek Vasut <marex@nabladev.com>, <linux-arm-kernel@lists.infradead.org>
-CC: <fabrice.gasnier@foss.st.com>, Christophe Roullier
-	<christophe.roullier@foss.st.com>, Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Maxime Coquelin
-	<mcoquelin.stm32@gmail.com>, Raphael Gallais-Pou
-	<raphael.gallais-pou@foss.st.com>, Rob Herring <robh@kernel.org>, "Yannick
- Fertre" <yannick.fertre@foss.st.com>, <devicetree@vger.kernel.org>,
-	<kernel@dh-electronics.com>, <linux-kernel@vger.kernel.org>,
-	<linux-stm32@st-md-mailman.stormreply.com>
-References: <20260902124018.606544-1-marex@nabladev.com>
- <20260902124018.606544-2-marex@nabladev.com>
-Content-Language: en-US
-From: Alexandre TORGUE <alexandre.torgue@foss.st.com>
-In-Reply-To: <20260902124018.606544-2-marex@nabladev.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CPH1EPF00000519:EE_|VI1PR10MB3166:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0dbf8e33-69f9-426f-c4f4-08df1f9e6852
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|7416014|1800799024|36860700016|23010399003|376014|22082099003|18002099003|4143699003|56012099006|10067099003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	2QTy9WOS+vfr9dU8Ypi/xaaCfnRko2xbOqAMS/yh8n2ApY9whSG5PSm8gB/VLqaFceg0T0WxMebIs/qOhBerBQB7tShpog9bXsDQF0Y8yMTo5onr8f3ncMmvdqX/nDuSWOxy4iAT1AtngFTckqcfdiNLiPaPHlo3UW/tgfjT1m4uDcbneXJJOAD1nbQEis7G42MCkE3OnGS1d0vZPYHnnbtaqIwTjXjz2lCEBj7xPz6Melt2HtNafS8nBuMLX4yqc/BL9KkCURZAsPgzpHScv7lTlMn+jdsBw51v7yUbaqHKSFo8We9tiXNvkwQuNs8cxbeMIMnKHjzr7iGbUU1rb83DLpoPcHfKMkHvksGeYLHtnsteDYYByX8/OKUUhKTpqVghkSW8pooZn3MYAod2Qop9dAfJbJHRXkm4+3+2TCA6Y7npKmGCv8lQoOu1pMvCR0IHMuQxpv6i6gdKB5aTcBNAkrCSuvfwDrfhHRaC+heQ+mxyaNqN+cCQSSEIRwnFtbKVh+RKhmG7wTzCgcsSdxuUo93/fm+5vhbNCzefMTSs7cNWd3ZxqwOF6kOCQlwXko1R8i60seoaOoadWWlmhFv7bw71iLLMDPr5uMXZCCK+hFSOmfWFF31aYBEik79twtdgnSBkQ8HKPiZ8M0+PVShvuazGEqy4Np0Cl0tuFbXSX44wGy+pKlMhxzRsFW2P2lAhYDB9URnqTaDujfKoYw==
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(7416014)(1800799024)(36860700016)(23010399003)(376014)(22082099003)(18002099003)(4143699003)(56012099006)(10067099003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	ORx5TWN2SoFXgX2i5koTvm245R3ab07HVQ0Ag90v2BjRBEwTuxCLJAV2eT3N984oSupTfqcukN+4Ea2aHk8kZrVAJLAH9K2CMjxloPqLw/L3/HYQyqin/D9cy4Zp+WPkcdaz10d5umEWKwKtwaMv0hVayE1CwBP13gQ2hiBUQi0w8Mldf3ZYCZsAkoLd3CcHy5RlENucY6DbdqyCt4GLDKxZvKq4Xc7fs02NNoy/ZARaod206DFTPaTStD/zIgI8qwn4FiGRYh2XDtqHdj58IaD32Or1SZcZRkoJk0fzyIAzbo5nGsGFF6rDO8cZOTjw5UanZe8Q2QUGsXGBlA0uby260alzAdL9TW+XajWolAaNEXmhVm2q8RNeWKHz46k0ecgmlE9jeHWTil64AUQbYJE030fPv9yUN2iT4S2hrhftW6KLDFwFCIo4FfpD0LR9
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Oct 2026 09:28:52.4462
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0dbf8e33-69f9-426f-c4f4-08df1f9e6852
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CPH1EPF00000519.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR10MB3166
+References: <20260929-pixel10-initial-dts-fixup-v1-1-b304868cc3e8@linaro.org>
+ <CAD=FV=VAiHf0-9sPvgGKji4j47rL38Ja3S2yiEfztubgZqBpjw@mail.gmail.com> <e58235f1-2c9a-461e-8231-8729eb3e9c46@kernel.org>
+In-Reply-To: <e58235f1-2c9a-461e-8231-8729eb3e9c46@kernel.org>
+From: Peter Griffin <peter.griffin@linaro.org>
+Date: Thu, 1 Oct 2026 10:34:58 +0100
+X-Gm-Features: AclHuK_YpgKbBYxkFtRgH6bLpQ_dPXQcVCNkRBcwgfpIDgIy_RrFnu-Dzk9rMWU
+Message-ID: <CADrjBPoppW+tAY3QXgawcCx7nvvSvWkQDKbP9R4r_4zAU3vWGg@mail.gmail.com>
+Subject: Re: [PATCH] arm64: dts: google: lga: fixup #size-cells DT warning
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Doug Anderson <dianders@chromium.org>, =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+	Tudor Ambarus <tudor.ambarus@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Brian Norris <briannorris@chromium.org>, Juan Yescas <jyescas@google.com>, 
+	linux-arm-kernel@lists.infradead.org, linux-samsung-soc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	kernel-team@android.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi
+On Wed, 30 Sept 2026 at 06:22, Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>
+> On 29/09/2026 17:47, Doug Anderson wrote:
+> > Hi,
+> >
+> > On Tue, Sep 29, 2026 at 4:11=E2=80=AFAM Peter Griffin <peter.griffin@li=
+naro.org> wrote:
+> >>
+> >> Fix newly introduced DT warnings:
+> >> Warning (avoid_unnecessary_addr_size): /soc@0/interrupt-controller@588=
+0000:
+> >> unnecessary #address-cells/#size-cells without "ranges", "dma-ranges" =
+or
+> >> child "reg" or "ranges" property
+> >>
+> >> Fixes: 80f23487d554c7 ("arm64: dts: google: Add initial dts for franke=
+l/blazer/mustang")
+> >
+> > Is the above git hash correct? In linuxnext, I see:
+>
+> Yeah:
+>
+>         WARNING: Unknown commit id '80f23487d554c7', maybe rebased or not=
+ pulled?
+>
+> I'll fix both when applied
 
-On 9/2/26 14:39, Marek Vasut wrote:
-> Add trivial SYSCFG driver for ST STM32MP25xx, which binds drivers
-> to its subnodes. This is currently used to bind USB PHY drivers to
-> subnodes described in the SYSCFG DT node.
-> 
-> Acked-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-> Tested-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-> Signed-off-by: Marek Vasut <marex@nabladev.com>
-> ---
-> Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>
-> Cc: Christophe Roullier <christophe.roullier@foss.st.com>
-> Cc: Conor Dooley <conor+dt@kernel.org>
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Marek Vasut <marex@nabladev.com>
-> Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>
-> Cc: Raphael Gallais-Pou <raphael.gallais-pou@foss.st.com>
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: Yannick Fertre <yannick.fertre@foss.st.com>
-> Cc: devicetree@vger.kernel.org
-> Cc: kernel@dh-electronics.com
-> Cc: linux-arm-kernel@lists.infradead.org
-> Cc: linux-kernel@vger.kernel.org
-> Cc: linux-stm32@st-md-mailman.stormreply.com
-> ---
-> V4: New patch
-> V5: No change
-> V6: - Fix up the SPDX-License-Identifier
->      - Add AB/TB from Fabrice
-> ---
->   drivers/soc/Kconfig              |  1 +
->   drivers/soc/Makefile             |  1 +
->   drivers/soc/st/Kconfig           | 12 ++++++++++++
->   drivers/soc/st/Makefile          |  1 +
->   drivers/soc/st/stm32mp2-syscfg.c | 33 ++++++++++++++++++++++++++++++++
->   5 files changed, 48 insertions(+)
->   create mode 100644 drivers/soc/st/Kconfig
->   create mode 100644 drivers/soc/st/Makefile
->   create mode 100644 drivers/soc/st/stm32mp2-syscfg.c
-> 
+Thanks Krzysztof and also Doug for noticing.
 
-applied on stm32-next.
-
-Regards.
-
-Alex
-
+Peter
