@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08094439909
-	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 05:36:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62B183815D8
+	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 05:38:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790832990; cv=none; b=W6uS0S7x7tIpXElBfz3siFKw1Ebn0sn2rntXL4wwf9ej9SQ83kvLIyaafF0f8cNkrT4zU1/+ZaNJABkZqsoymak5+hGXqdllRGdBSJqkf8T/dGjqId7Htv7cGDq4KUKuU2Bx+UHbc1dROZDb8zfYKD6VV4l4NPGLqgSPJlcfq+w=
+	t=1790833081; cv=none; b=NsAMb3MBQmemIbSVzLFiUKppjxWWY03PUNTeT1NB0bq4uyli/4S+tSXJwDox3wappv0ATf50NkDJ0WCkesPyh/pRjTPytdLGjTqk6mnRVNaHsXjdWgzGoHHuYIUMc5pSKqAdnZELlmBCKjRJfnACwgL/BVn1vuKlNMbARTzHjXA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790832990; c=relaxed/simple;
-	bh=OIMEkS7etsBf1RlVc3/TX5M6OXSDHPB68nw5aYM3d8s=;
+	s=arc-20240116; t=1790833081; c=relaxed/simple;
+	bh=34qEvQhFDUo2lcaSFoCqDOwhs264dNmS+V7SNp5ls64=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Ss2iDW7tllGUI0txaPHvsrm9G6tftQLzTA4P7SP6Z42+hBGqqOwnE3P5HSAMEv/gY6ANao8cEzoEyvJy1dAmSa9SaUk27k+4GLx8o1+lPnOMuGswz6usNWGwdYEEOV7T+IE/ytybtTqRfw5a6lBGclhJYalg7GieVbr6/ZvKt5E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=avBCxICv; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Xr+ZA8ELSofgb87IIwCBbA5uE6RZUZyFmNws9dyXbOpJO2U3HZSX9Q3s8hy5kEXoBQNgCnL6oo2DOVU63AG4DsET8xeHzDhWZlYKPCJ2SATYS3L6vndmqQg0peO26PlhdtF9GrtA4JgA8DAncqhX/TS/YZRgWIEe4BXKYzyyVNE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z0OAOV2O; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="avBCxICv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9ECE81F008A0;
-	Thu,  1 Oct 2026 05:36:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z0OAOV2O"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D3771F000FF;
+	Thu,  1 Oct 2026 05:38:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790832988;
-	bh=hhIDVOl5uNGmlVjYOPma57OI1TOz3klHjfgv172BEIw=;
+	s=k20260515; t=1790833080;
+	bh=H5xwXYHt3MKpD3RFGUHQS5fLFY6lbWy6NkZyegqPuhk=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=avBCxICvmuMlA8bv4tT8BTrz4+IkdCbJWveG99tl9D2eLd2X8cuJNc7zS5okopFMx
-	 CAhJ/9Fhmmi4RrvkIQxLXiBoHpTU9xvHdUYVKCiJ6tXQYWNrl54rLl09vuytoE4VpQ
-	 HvAkqvIgpm5RTUCCHvILMwBK4Fw77XO02jSPYjJyKmoyJDMLqQzgCnBKdrdzUpPj4M
-	 +KYCrwjrGH+cABDmbrte95aPUK9qG+IkxevWlqnEyHEqVfaJZQDs2nsDFrJy4xDyWg
-	 XLPgYByAJB3SWaG4D8aige1Iok6Re3wSNVKTdtk6bhp8zm+a2U3eW0ZLKnxZPaZeP3
-	 pVmtt3IAgk4+g==
+	b=Z0OAOV2O/rQfFC6dne8Q1+WPs1kUtpeBXJZPQqSkhacSIudiHTiTsFsWjU18vwvaC
+	 xmMG586RwCcXluK46aMtB37TLJSr+LfwaP68JEAKQmU+RWGjXbPRuOlTPNd2TgNNIP
+	 HHo/KiVDe3vSwjGVleGRg0+xG35NZsQLZ0nSJv7QKlkZ9+TAcZ4vkp956wnPYAqkFQ
+	 3h9n51KhFo5eZXAMdaU6uHIW6XNFCXikjEJ12CVMLhodGVwbccKYRGSE1+AwTahyBz
+	 IKQYdsOlHdZ60Gt/XsUs2yePnYwSX8GpkVNhgK/qijYK7EML7v4lRgJK34LEJNsBkn
+	 wMxMVY/2RNBfw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 03/14] gtrace: Add RISC-V platform driver for the
+Subject: Re: [PATCH v6 02/14] hwtracing: gtrace: Initial implementation of
  gtrace framework
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Mayuresh Chitale" <mayuresh.chitale@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20261001052243.3042627-4-mayuresh.chitale@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261001052243.3042627-3-mayuresh.chitale@oss.qualcomm.com>
 References: <20261001052243.3042627-1-mayuresh.chitale@oss.qualcomm.com>
- <20261001052243.3042627-4-mayuresh.chitale@oss.qualcomm.com>
+ <20261001052243.3042627-3-mayuresh.chitale@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 01 Oct 2026 05:36:28 +0000
-Message-Id: <20261001053628.9ECE81F008A0@smtp.kernel.org>
+Date: Thu, 01 Oct 2026 05:37:59 +0000
+Message-Id: <20261001053800.0D3771F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,186 +47,201 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 6 potential issue(=
 s) to consider:
-- [High] of: use-after-free of device node in rvtrace_platform_probe()
-- [High] core: use-after-free hazard in rvtrace_platform_remove() during un=
-registration
-- [Medium] of: memory leak of rep_node and rdev_node in gtrace_of_parse_out=
-conns()
-- [Medium] of: fwnode handle leak on -EPROBE_DEFER error path in gtrace_of_=
-parse_outconns()
-- [Medium] of: fwnode handle references leaked on rvtrace_platform_probe() =
-error paths
-- [Medium] module: missing MODULE_DEVICE_TABLE prevents automatic driver lo=
-ading
+- [High] gtrace: Use-After-Free due to missing reference counting in lookup=
+ functions
+- [High] gtrace: Topological Use-After-Free due to dangling dest_comp point=
+er
+- [Medium] gtrace: Resource leak and UAF in per-CPU bound component handling
+- [Medium] gtrace: gtrace_match_id() fails to match hardware components wit=
+h version 0
+- [Medium] gtrace: Null pointer dereference in gtrace_match_device()
+- [Low] gtrace: Silent connection drop in gtrace_setup_inconn()
 --
 
-commit 70aceab46d8019c787fc4aee6cb3f8a0b2772885
+commit c892ee2c4bffce2e20b5a0429f11f8530ff96b44
 Author: Anup Patel <anup.patel@oss.qualcomm.com>
+Subject: hwtracing: gtrace: Initial implementation of gtrace framework
 
-gtrace: Add RISC-V platform driver for the gtrace framework
+This commit implements a generic, architecture-neutral tracing framework
+where trace components form a graph-like topology. It includes the core bus,
+registration helpers, and a mechanism for polling component registers.
 
-The RISC-V trace components defined by the RISC-V Trace Control Interface
-Specification are memory mapped devices which are organized in a
-graph-like topology and described in the device tree.
-
-Add the RISC-V platform driver for the gtrace framework. The driver
-parses the RISC-V component topology from the device tree, discovers the
-type and version of each component from its IMPL register, provides the
-RISC-V register level control ops and registers each component with the
-gtrace core.
-
-> diff --git a/drivers/hwtracing/gtrace/gtrace-of.c b/drivers/hwtracing/gtr=
-ace/gtrace-of.c
+> diff --git a/drivers/hwtracing/gtrace/gtrace-core.c b/drivers/hwtracing/g=
+trace/gtrace-core.c
 > new file mode 100644
 > --- /dev/null
-> +++ b/drivers/hwtracing/gtrace/gtrace-of.c
+> +++ b/drivers/hwtracing/gtrace/gtrace-core.c
 [ ... ]
-> +		conn->dest_port =3D rep.port;
-> +		conn->dest_fwnode =3D of_fwnode_handle(rdev_node);
-> +		fwnode_handle_get(conn->dest_fwnode);
-> +		conn->dest_comp =3D gtrace_find_by_fwnode(conn->dest_fwnode);
-> +		if (!conn->dest_comp) {
-> +			ret =3D -EPROBE_DEFER;
-> +			of_node_put(ep_node);
-> +			of_node_put(rep_node);
-> +			of_node_put(rdev_node);
-> +			break;
+> +const struct gtrace_component_id *gtrace_match_id(struct gtrace_componen=
+t *comp,
+> +						  const struct gtrace_component_id *ids)
+> +{
+> +	const struct gtrace_component_id *id;
+> +
+> +	for (id =3D ids; id->version; id++) {
 
 [Severity: Medium]
-Does this error path leak the conn->dest_fwnode reference?
+Is it possible for a valid hardware component to have a version of 0? If an
+architecture provides a hardware component with a 0 version identifier,
+would this loop terminate prematurely and silently fail to probe the hardwa=
+re?
 
-The fwnode reference count was incremented by fwnode_handle_get(), but the
-newly allocated conn has not yet been placed into the pdata->outconns array.
-Consequently, the error cleanup loop at the done label skips this connectio=
-n.
+Also, could the `ids` pointer be NULL here if a driver registers without
+providing an `id_table`? Dereferencing it unconditionally might cause a
+kernel panic if the framework does not strictly enforce `id_table` presence
+during registration.
 
-> +		}
+> +		if (comp->id.type !=3D id->type)
+> +			continue;
 > +
-> +		pdata->outconns[i] =3D conn;
-> +		i++;
-
-[Severity: Medium]
-Does the success path of this endpoint parsing loop leak the device node
-references?
-
-The of_graph_get_remote_endpoint() and of_graph_get_port_parent() calls
-acquire references to device nodes. On the success path, these references
-are never released with of_node_put() before advancing to the next iteratio=
-n.
-
+> +		return id;
 > +	}
 > +
-> +done:
-> +	if (ret) {
-> +		for (i =3D 0; i < pdata->nr_outconns && pdata->outconns; i++) {
-> +			conn =3D pdata->outconns[i];
-> +			if (conn && conn->dest_fwnode)
-> +				fwnode_handle_put(conn->dest_fwnode);
-> +		}
-> +	}
-> +	of_node_put(parent);
-> +	return ret;
+> +	return NULL;
 > +}
-> +EXPORT_SYMBOL_GPL(gtrace_of_parse_outconns);
+> +EXPORT_SYMBOL_GPL(gtrace_match_id);
+> +
+> +static int gtrace_match_device(struct device *dev, const struct device_d=
+river *drv)
+> +{
+> +	const struct gtrace_driver *gtdrv =3D to_gtrace_driver(drv);
+> +	struct gtrace_component *comp =3D to_gtrace_component(dev);
+> +
+> +	return gtrace_match_id(comp, gtdrv->id_table) ? 1 : 0;
+
+[Severity: Medium]
+Is it guaranteed that `gtdrv->id_table` is non-NULL before passing it to
+gtrace_match_id()? If a driver does not provide an `id_table`, does this
+lead to a NULL pointer dereference inside gtrace_match_id()?
+
+> +}
 [ ... ]
-> diff --git a/drivers/hwtracing/gtrace/rvtrace-platform.c b/drivers/hwtrac=
-ing/gtrace/rvtrace-platform.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/hwtracing/gtrace/rvtrace-platform.c
-[ ... ]
-> +	pdata->bound_cpu =3D -1;
-> +	node =3D of_parse_phandle(dev_of_node(dev), "cpus", 0);
-> +	if (node) {
-> +		ret =3D of_cpu_node_to_id(node);
-> +		of_node_put(node);
-> +		if (ret < 0)
-> +			return dev_err_probe(dev, ret, "failed to get CPU id for %pOF\n", nod=
-e);
+> +static int gtrace_match_fwnode(struct device *dev, void *data)
+> +{
+> +	struct gtrace_component *comp =3D to_gtrace_component(dev);
+> +	struct gtrace_fwnode_match_data *d =3D data;
+> +
+> +	if (device_match_fwnode(&comp->dev, d->fwnode)) {
+> +		d->match =3D comp;
 
 [Severity: High]
-Does this code trigger a use-after-free on the device node?
+Does assigning the matched component here without calling get_device() leave
+the object lifecycle unprotected? Could callers of gtrace_find_by_fwnode()
+end up dereferencing a freed pointer if the target component is concurrently
+unregistered and freed?
 
-The node reference is explicitly released via of_node_put() before it is
-passed to dev_err_probe(), where the %pOF specifier will dereference the
-now-freed node pointer to extract its name.
-
-> +		pdata->bound_cpu =3D ret;
+> +		return 1;
 > +	}
 > +
-> +	/* Default control poll timeout */
-> +	pdata->control_poll_timeout_usecs =3D 10;
-> +
-> +	ret =3D gtrace_of_parse_outconns(pdata);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to parse output connections\n");
-> +
-> +	ret =3D gtrace_of_parse_inconns(pdata);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to parse input connections\n");
-> +
-> +	/* Reset the component before it is registered with the gtrace core. */
-> +	ret =3D rvtrace_hw_reset(pdata);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to reset component\n");
-
-[Severity: Medium]
-Do these error paths leak the fwnode references stored in the outconns arra=
-y?
-
-The earlier call to gtrace_of_parse_outconns() allocates and acquires fwnode
-references, storing them in pdata->outconns. If a subsequent call fails, the
-probe function immediately returns an error. Because devm does not
-automatically release fwnode references, and the custom teardown logic in
-rvtrace_platform_remove() is bypassed on probe failure, these references
-appear to be lost.
-
-> +
-> +	impl =3D gtrace_read32(pdata, RVTRACE_COMPONENT_IMPL_OFFSET);
+> +	return 0;
+> +}
 [ ... ]
-> +static void rvtrace_platform_remove(struct platform_device *pdev)
+> +struct gtrace_component *gtrace_cpu_source(unsigned int cpu)
 > +{
-> +	struct gtrace_component *comp =3D platform_get_drvdata(pdev);
+> +	if (!cpu_present(cpu))
+> +		return NULL;
+> +
+> +	return per_cpu(gtrace_cpu_source_comp, cpu);
+
+[Severity: High]
+Like the fwnode lookup above, does returning a raw pointer here without
+reference counting or locking create a use-after-free window? If the
+component is concurrently unregistered via gtrace_unregister_component()
+while the caller is still using the pointer, could this result in memory
+corruption?
+
+> +}
+> +EXPORT_SYMBOL_GPL(gtrace_cpu_source);
+[ ... ]
+> +static int gtrace_setup_inconn(struct device *dev, void *data)
+> +{
+> +	struct gtrace_component *comp =3D to_gtrace_component(dev);
 > +	struct gtrace_platform_data *pdata =3D comp->pdata;
-> +	struct gtrace_connection *conn;
+> +	struct gtrace_connection *conn =3D data;
 > +	int i;
 > +
-> +	for (i =3D 0; i < pdata->nr_outconns; i++) {
-> +		conn =3D pdata->outconns[i];
-> +		if (conn && conn->dest_fwnode)
-> +			fwnode_handle_put(conn->dest_fwnode);
+> +	if (device_match_fwnode(&comp->dev, conn->dest_fwnode)) {
+> +		for (i =3D 0; i < pdata->nr_inconns; i++) {
+> +			if (pdata->inconns[i])
+> +				continue;
+> +			pdata->inconns[i] =3D conn;
+> +			return 1;
+> +		}
 > +	}
 > +
-> +	gtrace_unregister_component(comp);
+> +	return 0;
 
-[Severity: High]
-Does this sequence introduce a use-after-free hazard during unregistration?
-
-The fwnode references are prematurely dropped before unregistering the
-component. However, gtrace_unregister_component() relies on these pointers
-internally during its teardown process, matching the fwnode device elements.
-If the prior fwnode_handle_put() was the final reference, the memory is
-freed, and the subsequent match access is a use-after-free.
+[Severity: Low]
+If the destination array is fully populated and we exhaust the loop, should
+this return a negative error code instead of 0? Returning 0 appears to hide
+the connection failure and silently drops the input connection when a
+matching destination is found but saturated.
 
 > +}
-> +
-> +static const struct of_device_id rvtrace_platform_match[] =3D {
-> +	{ .compatible =3D "riscv,trace-component", .data =3D (void *)GTRACE_FOR=
-MAT_ETRACE },
-> +	{}
-> +};
+[ ... ]
+> +struct gtrace_component *gtrace_register_component(struct gtrace_compone=
+nt_id *id,
+> +						   const char *name,
+> +						   struct gtrace_platform_data *pdata)
+> +{
+[ ... ]
+> +	if (comp->pdata->bound_cpu >=3D 0) {
+> +		gtrace_get_component(comp);
+> +		per_cpu(gtrace_cpu_source_comp, comp->pdata->bound_cpu) =3D comp;
 
 [Severity: Medium]
-Is MODULE_DEVICE_TABLE(of, rvtrace_platform_match) missing here?
+What happens if multiple components are mistakenly mapped to the same CPU?
+Does unconditionally overwriting the per-CPU variable here leak the referen=
+ce
+count of the previously stored component?
 
-Without it, the driver fails to export the necessary modaliases to userspac=
-e,
-preventing the driver from loading automatically when its hardware matches
-are present in modular builds.
+> +	}
+> +
+> +	mutex_unlock(&gtrace_mutex);
+> +
+> +	return comp;
+> +
+> +err_out_unlock:
+> +	mutex_unlock(&gtrace_mutex);
+> +err_out:
+> +	return ERR_PTR(ret);
+> +}
+> +EXPORT_SYMBOL_GPL(gtrace_register_component);
+> +
+> +void gtrace_unregister_component(struct gtrace_component *comp)
+> +{
+> +	struct gtrace_component *c;
+> +
+> +	mutex_lock(&gtrace_mutex);
+> +
+> +	if (comp->pdata->bound_cpu >=3D 0) {
+> +		c =3D per_cpu(gtrace_cpu_source_comp, comp->pdata->bound_cpu);
+> +		per_cpu(gtrace_cpu_source_comp, comp->pdata->bound_cpu) =3D NULL;
+> +		gtrace_put_component(c);
+
+[Severity: Medium]
+Does fetching and putting whatever is currently in the per-CPU variable
+without verifying it matches `comp` risk dropping the reference on the wrong
+component? If the per-CPU pointer was overwritten by a second component,
+does this prematurely free the second one while the first one is being
+unregistered?
+
+> +	}
+> +
+> +	gtrace_cleanup_inconns_from_outconns(comp);
+> +	device_unregister(&comp->dev);
+
+[Severity: High]
+Does this sequence unregister the component without clearing the pointers
+pointing to it from its source components' outconns arrays? When a trace
+path is later constructed and walks the source's outconns, would it
+dereference the freed dest_comp and cause a topological use-after-free?
 
 > +
-> +static struct platform_driver rvtrace_platform_driver =3D {
+> +	mutex_unlock(&gtrace_mutex);
+> +}
+> +EXPORT_SYMBOL_GPL(gtrace_unregister_component);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261001052243.3042=
-627-1-mayuresh.chitale@oss.qualcomm.com?part=3D3
+627-1-mayuresh.chitale@oss.qualcomm.com?part=3D2
