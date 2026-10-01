@@ -1,85 +1,176 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E0033EDAC1
-	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 13:50:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB0B3516161;
+	Thu,  1 Oct 2026 13:51:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790862651; cv=none; b=s0NlYz20EE4jY/mWRqQF3JlQuw5A6wEP1+v6d3rkO8mOEt0uTXiBd7ncnPXP1XhdunTNyLApOLZbWHsfG1EfiAQEU3yslqZev9Y9SRzG0+WK7plTGt4uZOTurvsLjB/kiOMYJZVWb9/RYM247dgZTbIjqyduDVf1eTSW/LYrVAY=
+	t=1790862696; cv=none; b=TOGNPDH+phuOdqEyGH+7WK4hHFOewSJ6ep7tN9Sq1T3MdSpXBu7jkQ4hZCzudVheNubYixu8gMoGDgNsrZftDl+OvLwNxt/dLIyxeUg+DQrRa6ViVHy04xUE5Y2SEQXJWcBG0Y9mBFzdxoXO5YW3lYzaR+1WjG95GZhe8B5VXFE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790862651; c=relaxed/simple;
-	bh=Knd0rt3x+e7A9wmzopxg7HPEccwfRXMbgg+YSQOFeY0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=jdhgwyaYpwtGFzEh3AsffuftECFKgDt9zHAoeo3o1KAoByRXMzDap236w7evN3uKqp+fMl4olea14t7QVl+AJx8I6hz7ymXicJ0ywupfPynGQBBuYNTC9wNdvEuROtIfG85WK3EXBmxplptJHj3UU8bsspRVw6cPjv8Rhtzx+lw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KqV9v02X; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790862696; c=relaxed/simple;
+	bh=+sMG5dpOY7jRtme6nj50BlVr0zcHQuwIbLM3mhoTd4s=;
+	h=From:To:Cc:Subject:Date:Message-ID; b=izbwby20xN8xhlU7KggLDj1XFNjyA6cHLnYxfjmLsyuGbYsst2k72SmyQEeqYrRByBr9oQLI+fDRHUSde3AeMi1Spo658AO5yaMRHXCtVeHTDHUO+fLqpJmtNlLzWIvqoe1imD6xRVYK4Jf6/OA+DUM8nwt36VoG9bV4XwBWGeA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=kdtx+6iZ; arc=none smtp.client-ip=220.197.31.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KqV9v02X"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D945E1F000FF;
-	Thu,  1 Oct 2026 13:50:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790862650;
-	bh=H1OiAZ2pMVFI6JJmXS/SbIKSt2AMq8Ca7RXgTwIrDAE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KqV9v02XPjSn0KQzkFajtYGk8jlWHWLHR6o1W0K3zAejIrF9O127CT2wfctooKF1Y
-	 Ap0sNFfGSQW0V1zgqbJrtVgD5y+cnY5zRk9q0k8MFmZimuXBWcVnCjtAqH1XDyqoWt
-	 dJ3aGCnHGLDuwhOZVci/X/CmsOZKcuIfgXoDrpKhTr6tWfLuALlT2PNS49RkutYlNG
-	 8VREHbRBFnIW5AO0crua2ba5+hQQRtnwkD1rOIau3sbz2rYM7/riImKSXuNHYCbOQz
-	 shd3APx6FUo4Cp4Dj/3qlYfdG3393zMkvwf3q8miqC6sBnsYSe/VVtcapkT9IwoWjk
-	 yi1FmJVc1V/wA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 1/2] arm64: dts: qcom: shikra: Add Iris video codec
- node
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vikash Garodia" <vikash.garodia@oss.qualcomm.com>
-Cc: media-ci@linuxtv.org, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20261001-shikra_vpu-v6-1-37143dc1bb9d@oss.qualcomm.com>
-References: <20261001-shikra_vpu-v6-0-37143dc1bb9d@oss.qualcomm.com>
- <20261001-shikra_vpu-v6-1-37143dc1bb9d@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 01 Oct 2026 13:50:49 +0000
-Message-Id: <20261001135049.D945E1F000FF@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="kdtx+6iZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID; bh=6vmdlekG85p5Xf9
+	tRb0RaW6F7FKN3fI82Fpqe1I5ja4=; b=kdtx+6iZGe6/MrEzoIWiyNEEWgtCX++
+	dp6APPfNOXByh2Aowz2zH+Q5Bia/jC8nl/gdhRUTL1K1q6DGGBM5bt9/V7PuaUft
+	D8SAqM+v9waW1lm/5Ax99ziotKeY7Wsc/IGWcvK4SchK1QhsT7mxfHJaOceOYnBs
+	ThPRB6+NSpVU=
+From: BG9OXA <bg9oxa@163.com>
+To: linux-rockchip@lists.infradead.org
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Heiko Stuebner <heiko@sntech.de>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Subject: [PATCH v4 0/2] arm64: dts: rockchip: add ALIENTEK QuarkPi-CA2
+Date: Thu, 01 Oct 2026 21:50:59 +0800
+Message-ID: <179086265917.29834.8120199704469908241@163.com>
+X-CM-TRANSID:_____wD3H5NDZb5q71IsBw--.40675S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3GF4ktFy8AF1UJr1fJw4ruFg_yoWxtr1UpF
+	Z8Xw43tr4DGr1xuw4IkF4UArWFvF4fJay5WF1qq34jyay5WF1ftFnak3Z0qa47CwnagFyj
+	vF4j9ay8Ga1DZFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UPPEhUUUUU=
+X-CM-SenderInfo: lejz05rd6rljoofrz/xtbC+QOzIWq+ZUP86AAA3O
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] dt-bindings: missing qcom,shikra-venus compatible string in schema
---
+Hi all,
 
-commit 72de37a6e4a3d11559749c7b3aae80f415758b83
-Author: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+Apologies for the extra round: v3 was sent before I had read all of the
+review mail, so it only carried part of the fixes.  The remaining points
+from Krzysztof's review are in this version now.  Sorry for the churn, and
+thanks for the reviews.
 
-arm64: dts: qcom: shikra: Add Iris video codec node
+This short series adds support for the ALIENTEK QuarkPi-CA2, an RK3588S
+based single board computer.
 
-This commit adds the Iris video codec device tree node for the Shikra
-platform. It describes the Iris-based video decoder/encoder block, allowing
-the media driver to probe and initialize the hardware.
+Board summary:
+ - Rockchip RK3588S (4x Cortex-A76 + 4x Cortex-A55), LPDDR4x
+ - eMMC, microSD slot, M.2 socket (PCIe 2.0 x1)
+ - Gigabit Ethernet, USB 3.0 Type-A, USB 2.0 Type-A ports and a USB-C
+   port (USB 2.0/3.0 plus DisplayPort altmode, two DP lanes)
+ - HDMI output, three MIPI CSI and two MIPI DSI connectors
+ - ES8388 analog codec with 3.5 mm jack, HUSB311 USB-C PD controller
+ - 40-pin header, RK806 PMIC, IR receiver
+ - No SPI-NOR; the vendor bootloader reads extlinux.conf from the SD/eMMC
+   boot partition
 
-> diff --git a/arch/arm64/boot/dts/qcom/shikra.dtsi b/arch/arm64/boot/dts/q=
-com/shikra.dtsi
-> index 9823c591b02b1..d2e4db4025dcc 100644
-> --- a/arch/arm64/boot/dts/qcom/shikra.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/shikra.dtsi
-[ ... ]
-> @@ -2809,6 +2809,67 @@ adreno_smmu: iommu@59a0000 {
->  			power-domains =3D <&gpucc GPU_CX_GDSC>;
->  		};
-> =20
-> +		iris: video-codec@5a00000 {
-> +			compatible =3D "qcom,shikra-venus", "qcom,qcm2290-venus";
+Patch 1 documents the board in the Rockchip platform bindings, patch 2
+adds the device tree itself (plus its Makefile entry).  The "alientek"
+vendor prefix is already present in vendor-prefixes.yaml, so no vendor
+prefix change is needed.
 
-[Severity: Low]
-Is this new "qcom,shikra-venus" compatible string documented in the
-dt-bindings schema?
+Tested on hardware: boot from SD and eMMC, gigabit Ethernet, the USB 2.0
+ports, the USB 3.0 Type-A port (UAS storage device, 5000 Mbps link,
+309 MB/s), USB-C DisplayPort altmode, HDMI video and audio, ES8388 analog
+playback, the ADC keys, the IR receiver, the PWM fan and ramoops.  The M.2
+socket is described following the vendor design; no suitable device was
+available here to exercise that link.  dtbs_check is clean for both patches.
 
-It appears to be missing from the corresponding dt-bindings schema (such as
-qcom,qcm2290-venus.yaml). This will cause validation failures during
-`make dtbs_check`.
+Notes worth the reviewer's attention:
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261001-shikra_vpu=
--v6-0-37143dc1bb9d@oss.qualcomm.com?part=3D1
+ * The codec is clocked through I2S0_8CH_MCLKOUT_TO_IO rather than the
+   internal I2S0_8CH_MCLKOUT mux that the other boards reference.  On
+   RK3588 the MCLK-to-IO routing is a gate in SYS_GRF SOC_CON6 which the
+   bootloader leaves closed, so nothing drives MCLK out to the codec;
+   pointing "clocks" at the _TO_IO clock makes the codec driver open that
+   gate at probe, while "assigned-clocks" stays on the internal mux to
+   keep the 12.288 MHz rate.  Verified on hardware: i2s0_8ch_mclkout_to_io
+   is enabled with the codec (1-0011) as its consumer, and playback works.
+
+ * The codec compatible list is "everest,es8388", "everest,es8328", as
+   documented in everest,es8328.yaml and as used by the other boards with
+   this part.  The standalone ES8323 driver cannot instantiate a card on
+   this board at all, which is how the fitted part was confirmed.
+
+ * Analog capture from the 3.5 mm TRRS jack (headset microphone) does not
+   work yet: the capture stream returns a constant idle pattern (0xFFFF)
+   although the analog bypass path works, and the DAPM routes and the ALSA
+   controls look correct.  This looks like the same ES8328 capture problem
+   that has been reported for other boards, so I kept it out of this
+   series.
+
+ * The USB 3.0 Type-A port is wired to usb_host2_xhci through combphy2_psu;
+   both are enabled here, as in the vendor BSP.  combphy2_psu is free on
+   this board because the M.2 socket uses pcie2x1l2 (combphy0_ps).
+
+ * The board has three MIPI CSI and two MIPI DSI connectors, but no camera
+   or panel is described here: those are plug-in modules.  Enabling the
+   CSI-2 receiver without a sensor attached makes the driver fail to find
+   its endpoint at probe (verified on hardware), so, as in the vendor
+   tree, camera and panel descriptions belong in overlays.
+
+ * GbE: phy-mode is "rgmii" and the RGMII delay is applied on the MAC side
+   (tx_delay), matching the other boards in mainline that use the same
+   YT8531 PHY.  Tested for 900 seconds at full rate in both directions
+   (922 Mbit/s, zero retransmissions) and with 1000-packet pings; the MAC
+   error counters stay at zero.
+
+This is my first patch to the Rockchip platform.  I am a Chinese amateur
+electronics hobbyist (amateur radio callsign BG9OXA) working on this board
+in my spare time, so please point out anything that does not follow the
+expected style.
+
+Changes in v4:
+- Add the missing blank line between the include block and the root node.
+- Fix the node indentation in a few places.  That cleanup is whitespace only;
+  the compiled .dtb is unchanged by it (verified byte-for-byte).
+- Rename the Type-C controller node to the generic name "typec-port", as the
+  other boards using this part do, and drop its redundant status property.
+- Give the fixed regulator nodes the "regulator-" name prefix, as the other
+  boards do; the labels are unchanged, so no reference is affected.
+- Route the Type-C SuperSpeed lanes through the USBDP PHY, as the other
+  RK3588 boards do, so that the PHY does the orientation muxing.
+- Feed the headphone amplifier from one codec output pair only; that is what
+  the other ES8388 boards do.
+- Cc the people and lists reported by scripts/get_maintainer.pl.
+- Link to v3: https://lists.infradead.org/pipermail/linux-rockchip/2026-October/077611.html
+
+Changes in v3:
+- Rebase onto current mainline and re-run dtbs_check.
+- Drop the explanatory device tree comments, as requested.  The rationale
+  that was in them is in this cover letter instead; the compiled .dtb is
+  unchanged by that cleanup (verified byte-for-byte).
+- Use phy-mode = "rgmii" with the RGMII delay applied on the MAC side
+  instead of "rgmii-rxid", as pointed out by Andrew Lunn: phy-mode
+  describes the PCB wiring, and only one side should add the delay.
+- Rename the fixed regulators that used a different naming scheme so that
+  all of them follow the same style, and use generic node names.
+- Drop two redundant "status = \"okay\"" properties (rga3_core0 and
+  rga3_core1 are already enabled in rk3588-base.dtsi).
+- Add the missing "enable-active-high" to the Type-C VBUS regulator.
+- Use the binding-documented codec compatible pair and drop the
+  "clock-names" property, which everest,es8328.yaml does not allow; the
+  codec node now passes dtbs_check.
+- Drop the phy-supply of u2phy0_otg, the USB 2.0 PHY of the USB-C OTG
+  port.  That rail is the Type-C VBUS and is already owned by the TCPC;
+  while the PHY held it enabled as well, VBUS was powered from boot, the
+  TCPM state machine never saw a VBUS-off event, and the port could not
+  finish a source attach, so DisplayPort altmode never came up (the
+  monitor had power but no picture).  Verified on hardware: the port now
+  attaches at boot and the monitor gets a picture.
+- Add the LED color so the work LED is exposed as "green:heartbeat".
+- Drop the camera sensor and its regulator: camera modules are plug-in
+  devices, and enabling the CSI-2 receiver without a sensor attached makes
+  the driver fail to find its endpoint at probe.  Following the vendor
+  tree, camera and panel descriptions belong in overlays.
+
+
+BG9OXA (2):
+  dt-bindings: arm: rockchip: add ALIENTEK QuarkPi-CA2
+  arm64: dts: rockchip: add ALIENTEK QuarkPi-CA2
+
+ .../devicetree/bindings/arm/rockchip.yaml     |    5 +
+ arch/arm64/boot/dts/rockchip/Makefile         |    1 +
+ .../boot/dts/rockchip/rk3588s-quarkpi-ca2.dts | 1157 +++++++++++++++++
+ 3 files changed, 1163 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/rockchip/rk3588s-quarkpi-ca2.dts
+
+-- 
+2.47.3
+
