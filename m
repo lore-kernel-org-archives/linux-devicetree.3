@@ -1,100 +1,163 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f177.google.com (mail-vk1-f177.google.com [209.85.221.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 050262F7EF3;
-	Thu,  1 Oct 2026 01:12:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62CA9379C5D
+	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 01:27:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790817164; cv=none; b=pr332Xk8i6y3S7JtLc1xYxt2qLV0Nmtf+TGweuD7xAf8bv4rlaWxlLgm7sVhJ9Y/aJaHTh0AgPlP9sGO6Dh+s5TpljuIEk+iHIzpNrxIGasYrl3rkA9jYBbYhB2+XKMRKnalFFGmpiyceSrJd6ywo+yLtcX6zpkwZ0BiYiBfAoM=
+	t=1790818055; cv=none; b=o8FTESyGNTcE6AiKSYtfZZQxbvCoE8j7x6ELZUwtj75AbzNpFYWcDjIvfr2p/4xRDsb41+92LjJD16y8bWXnQO2jd5GpvmsoMKAKE2GTqSnaIu9moMQA+jn6pgNUqabRqXkMZMJ7tJRwrwWY0G9h0mKy0yWUCrkw/iMf3e8f6g4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790817164; c=relaxed/simple;
-	bh=IPlLuP1Jfv/shZSUodew6ZvCNc2dBputZy09P4vmYaM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bBSHsheBAAfrVxOQ7ofKzudwDm+f8PkLu34Es2u/iJ+wrYYaXaUKz3n5weqVCy+hbQLYy5u5arCOx9Z0pGcxBGiu3WXw22pnxj6slHW25SuP9SrzWKKF1bgT197MGxwH7qFmBXI6wCWXAL/wItb2jgJTvgrSGH8Gp43as15anh4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nM6RGH2v; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790818055; c=relaxed/simple;
+	bh=lnDe9unyJFbdpHrGquGQ4OrAPZiUzsxp5zW2uX63dLs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=Ap2xQPwTDhtrRaF4Kc7WYvYiuvrJK7K3liw19o8aJVeF0rd2M4K3ihIqmCpo5A4zjVe43ahbyRqwI+CaDKLK/XzfEOYOhdvWDXcAa7NquTPI10JyEOdwTdbFt9YDLuvSLjuAMDBnv6jhXCWBTyTmnOFOv5TZ3zyEYtvejArWtW4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=CD/FbvMs; arc=none smtp.client-ip=209.85.221.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nM6RGH2v"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E42F71F000FF;
-	Thu,  1 Oct 2026 01:12:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790817161;
-	bh=acsKLoL715zw971OMSfoId5cJwr49Nq1L5jIBYkpQCQ=;
-	h=From:To:Cc:Subject:Date;
-	b=nM6RGH2vwmTbwEmc10UCR5TMq+4WNGGj7M05aBTv4oByfBZTWitBqvq04JEkawpY7
-	 3Qvl9qmdRiJDCWXxPs/zdeRiDEZTIJO/jJ041/I/XOvOtV36sDttLhT5RULskbQMyd
-	 w5rm4xHd2Gb90L/L3f1cfZp6SSS/Tt18jOqTt2J2Nc3OcKL/8/S8V4r59RecFNZ0gP
-	 EJ+HiljYDteOdTGaS/S5cCCbUe8HR26lGK5u5oS0QYbwCHfWnj5IjgNjeVTZaeyzfN
-	 oTN20rE355CWL7GpX+LJdr1/Lpxaaza7WQehyzuXUrdXVYjLHWZFXq0eIJa832g6o4
-	 G9rNZLfCY5MOQ==
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>
-Cc: devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH] arm64: dts: freescale: Drop undocumented "hardware" root node properties
-Date: Wed, 30 Sep 2026 20:12:31 -0500
-Message-ID: <20261001011233.1306251-1-robh@kernel.org>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="CD/FbvMs"
+Received: by mail-vk1-f177.google.com with SMTP id 71dfb90a1353d-5d082395235so210255e0c.0
+        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 18:27:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1790818050; x=1791422850; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Nf26PtyZyqNQ8F/dA4/jfbxWwkqjE7SC80bfURzMGRo=;
+        b=CD/FbvMsfd2RvTU/nWI4HVvNkAYvc6GSHt5BKBvrPFnJdadDNZQwvKMYaz6/FgDW6q
+         XpTYnDFZQzZ4pzUuHbUMTEP9QzeDXeM4a230FC8hHnYOK6XaOuIUokxZjMUuHkctxMPd
+         q/6MLxDwLUbSp/tvgIDrf664OsJiKbslcFExt3Zpt+jqhPeuvzEhhPEVoMN+/We4a9Zq
+         TUGY406LHt92BpOpL5SDifMbbQUFwlz+w5JFOrvcO+CcAVn0EdWQh5iEXQC7HIjm74Ak
+         k5I00t9flRHWcqFkrjpwTdeDdFb6nE6vaUTeK4LguGX1rpW4G9H5z6h2T7cVM+E/j+FK
+         OdGQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790818050; x=1791422850;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=Nf26PtyZyqNQ8F/dA4/jfbxWwkqjE7SC80bfURzMGRo=;
+        b=KsxX/6O01QA+Y8YD3U9lywntFdKLM/S9v2Cze5LvMqbHeNHd0YPo8/TWUf7imspFQV
+         GPDFLLgPXEse5g9DpxaoQp0teePQaj8ceJbQORNUCy2prr7W72vbmoLt2cQwfivYxTrT
+         kb2T3xhSRysn3U3cjA+xkCfx8xbXR0VVUqjVgap+BgBDQwe5RoWsnE8YItEHcSF37l+5
+         bWPadXIfEbrvfimjw1t2YIpDVs2FXSd9/kmBvAc28jst3dLVkG9jYQRXBzVfCH+AOTV3
+         WgZqyNxxqKvmMHwhobTKwWgN5FprX/lgr6tyEAb5ZkYqTk9MVnSm6QXEbo/LLMwciEuS
+         yTtA==
+X-Gm-Message-State: AFq9FYIAtfzXcVeMeHjDE83VIDPr4AyA8qjGu3fVqY6ih8QblmShmk6R
+	KpDqsXtUPxX1pR0JmdCRNLVKIqCX0hEyBbZ2Kq9hNVAIqD3jyOL3OgHypPlBpv2gSmw=
+X-Gm-Gg: AYBFou2CUyGjowqxQ8tcfXUCdfD5YqLyrpAyVXI3Nv90N2ELOLLCSP1cR9X0Ell68hI
+	zExCT1yWha6PdpBYjLfuqDyUYvww34WZWSHexOd33KG2gQ1tfg0fyzf9iW387wEh1nO4oY7gGXU
+	6hqJLoqXX1zgvIquT+m4TEalLh6Ql1tfWXDu+mPQjKrwk1uua1zDevCuY2hvtiBMUuwDBWZU4pg
+	fGjsh3uOdtnIiHbfaTF/FVKzIY6YmQ059YojbvFvYTEkyx7PLhl6fWWjIdWbqLsfti4aNCXwvtI
+	5aGIKQWYkI+fNERoboSyQJJtiK/Q1XXl64V/Z0y4DsOMy5FthIo62Ov8YLswMvtq1vDmc6inXKp
+	ykncg0JakUAR9XaRwqr+9g2Bo4OXMcBfLcUmm6ABu8GHUznCw41DYIau4bm5ripsYD6cjeZfRUn
+	w/iMhKoHCh2f/Z1F7jRq4JU91dx88ftuWzYPs2H0Jtsk/9cOniXSkMSDqV09roxpFz/R6bCKHpO
+	Padh1jLBlNVHIu274ZiYxP3pbnnkyJkeATHRnl7Uz/0BdD/
+X-Received: by 2002:a05:6122:e41:b0:5ce:cdfd:89c6 with SMTP id 71dfb90a1353d-5d7b414cd85mr351702e0c.10.1790818050509;
+        Wed, 30 Sep 2026 18:27:30 -0700 (PDT)
+Received: from [127.0.1.1] ([2804:14c:4c5:9534::ddab])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5d7fa498de7sm1536275e0c.4.2026.09.30.18.27.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 18:27:29 -0700 (PDT)
+From: Hiago De Franco <hfranco@baylibre.com>
+Date: Wed, 30 Sep 2026 22:26:40 -0300
+Subject: [PATCH] riscv: dts: sophgo: cv1800b-milkv-duo: enable ethernet
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260930-milkv-duo-ethernet-v1-1-428ff137f5d3@baylibre.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMyw6CMBBG4Vchs3aSyqUEX8W4EOYXxkshbSEkh
+ He34vJbnLNRgFcEumQbeSwadHQJ51NG3XB3PVglmXKTW9MUhj/6fi0s88iIA7xDZCt1IVZMVbY
+ NpXDyeOh6TK+3v8PcPtHF34n2/QujMlumdgAAAA==
+X-Change-ID: 20260930-milkv-duo-ethernet-6d73d6d054b9
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Chen Wang <chen.wang@linux.dev>, 
+ Inochi Amaoto <inochiama@gmail.com>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>
+Cc: devicetree@vger.kernel.org, sophgo@lists.linux.dev, 
+ linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
+X-Mailer: b4 0.16.0
 
-The "hardware" property in the root node on some NXP i.MX8 boards is not
-documented. We already have both compatible and model property to
-describe the platform.
+The CV1800B SoC has a DWMAC controller connected to an internal 10/100
+Ethernet PHY. Both the MAC (gmac0) and the MDIO multiplexer used to
+reach the internal PHY are already described in cv180x.dtsi, but are
+disabled by default.
 
-Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+Enable gmac0 and the MDIO multiplexer to make ethernet work.
+
+Tested on a Milk-V Duo (CV1800B) with its IO base board. The link comes
+up at 100Mbps/Full and the interface gets an address via DHCP.
+
+Signed-off-by: Hiago De Franco <hfranco@baylibre.com>
 ---
- .../boot/dts/freescale/imx8mm-tx8m-1610-moduline-iv-306-d.dts    | 1 -
- .../boot/dts/freescale/imx8mm-tx8m-1610-moduline-mini-111.dts    | 1 -
- .../boot/dts/freescale/imx8mp-tx8p-ml81-moduline-display-106.dts | 1 -
- 3 files changed, 3 deletions(-)
+Hi,
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8mm-tx8m-1610-moduline-iv-306-d.dts b/arch/arm64/boot/dts/freescale/imx8mm-tx8m-1610-moduline-iv-306-d.dts
-index 6cc04aa90f21..d15297a42d8f 100644
---- a/arch/arm64/boot/dts/freescale/imx8mm-tx8m-1610-moduline-iv-306-d.dts
-+++ b/arch/arm64/boot/dts/freescale/imx8mm-tx8m-1610-moduline-iv-306-d.dts
-@@ -12,7 +12,6 @@
- / {
- 	chassis-type = "embedded";
- 	compatible = "gocontroll,moduline-iv-306-d", "karo,tx8m-1610", "fsl,imx8mm";
--	hardware = "Moduline IV V3.06-D";
- 	model = "GOcontroll Moduline IV";
+This was tested on MilkV Duo 64M (CV1800B) with the IO board, to use the
+ethernet connector. Log:
+
+root@milkv-duo:~# ip a
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq qlen 1000
+    link/ether e2:b0:30:2c:e8:16 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.0.74/24 brd 192.168.0.255 scope global eth0
+       valid_lft forever preferred_lft forever
+root@milkv-duo:~# dmesg | grep stmmaceth
+[    0.583766] stmmaceth 4070000.ethernet: IRQ eth_wake_irq not found
+[    0.590691] stmmaceth 4070000.ethernet: IRQ sfty not found
+[    0.597211] stmmaceth 4070000.ethernet: Hash table entries set to unexpected value 0
+[    0.607833] stmmaceth 4070000.ethernet: User ID: 0x10, Synopsys ID: 0x37
+[    0.615538] stmmaceth 4070000.ethernet:     DWMAC1000
+[    0.620820] stmmaceth 4070000.ethernet: DMA HW capability register supported
+[    0.628360] stmmaceth 4070000.ethernet: Active PHY interface: RMII (4)
+[    0.635356] stmmaceth 4070000.ethernet: RX Checksum Offload Engine supported
+[    0.642881] stmmaceth 4070000.ethernet: COE Type 2
+[    0.648072] stmmaceth 4070000.ethernet: TX Checksum insertion supported
+[    0.655153] stmmaceth 4070000.ethernet: Normal descriptors
+[    0.661063] stmmaceth 4070000.ethernet: Ring mode enabled
+[    0.666880] stmmaceth 4070000.ethernet: Enable RX Mitigation via HW Watchdog Timer
+[    0.675084] stmmaceth 4070000.ethernet: device MAC address e2:b0:30:2c:e8:16
+[   14.965810] stmmaceth 4070000.ethernet eth0: Register MEM_TYPE_PAGE_POOL RxQ-0
+[   14.986562] stmmaceth 4070000.ethernet eth0: PHY [mdio_mux-0.0:01] driver [Generic PHY] (irq=POLL)
+[   15.050700] stmmaceth 4070000.ethernet eth0: No Safety Features support found
+[   15.092635] stmmaceth 4070000.ethernet eth0: IEEE 1588-2002 Timestamp supported
+[   15.114625] stmmaceth 4070000.ethernet eth0: configuring for phy/internal link mode
+[   17.193586] stmmaceth 4070000.ethernet eth0: Link is Up - 100Mbps/Full - flow control rx/tx
+---
+ arch/riscv/boot/dts/sophgo/cv1800b-milkv-duo.dts | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/arch/riscv/boot/dts/sophgo/cv1800b-milkv-duo.dts b/arch/riscv/boot/dts/sophgo/cv1800b-milkv-duo.dts
+index 0e6d79e6e3a4..6fcd1d1f451f 100644
+--- a/arch/riscv/boot/dts/sophgo/cv1800b-milkv-duo.dts
++++ b/arch/riscv/boot/dts/sophgo/cv1800b-milkv-duo.dts
+@@ -35,6 +35,14 @@ coprocessor_rtos: region@83f40000 {
+ 	};
+ };
  
- 	aliases {
-diff --git a/arch/arm64/boot/dts/freescale/imx8mm-tx8m-1610-moduline-mini-111.dts b/arch/arm64/boot/dts/freescale/imx8mm-tx8m-1610-moduline-mini-111.dts
-index 39b7d9077e8e..9148ea7c6609 100644
---- a/arch/arm64/boot/dts/freescale/imx8mm-tx8m-1610-moduline-mini-111.dts
-+++ b/arch/arm64/boot/dts/freescale/imx8mm-tx8m-1610-moduline-mini-111.dts
-@@ -12,7 +12,6 @@
- / {
- 	chassis-type = "embedded";
- 	compatible = "gocontroll,moduline-mini-111", "karo,tx8m-1610", "fsl,imx8mm";
--	hardware = "Moduline Mini V1.11";
- 	model = "GOcontroll Moduline Mini";
- 
- 	aliases {
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-tx8p-ml81-moduline-display-106.dts b/arch/arm64/boot/dts/freescale/imx8mp-tx8p-ml81-moduline-display-106.dts
-index 87b20b856458..206992ff9640 100644
---- a/arch/arm64/boot/dts/freescale/imx8mp-tx8p-ml81-moduline-display-106.dts
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-tx8p-ml81-moduline-display-106.dts
-@@ -11,7 +11,6 @@
- / {
- 	compatible = "gocontroll,moduline-display-106", "karo,tx8p-ml81", "fsl,imx8mp";
- 	chassis-type = "embedded";
--	hardware = "Moduline Display V1.06";
- 	model = "GOcontroll Moduline Display baseboard";
- 
- 	aliases {
--- 
-2.53.0
++&gmac0 {
++	status = "okay";
++};
++
++&mdio {
++	status = "okay";
++};
++
+ &osc {
+ 	clock-frequency = <25000000>;
+ };
+
+---
+base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+change-id: 20260930-milkv-duo-ethernet-6d73d6d054b9
+
+Best regards,
+--  
+Hiago
 
