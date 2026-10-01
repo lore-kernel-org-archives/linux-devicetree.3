@@ -1,97 +1,108 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EE8223EAA6;
-	Thu,  1 Oct 2026 06:51:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4942A547059;
+	Thu,  1 Oct 2026 06:55:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790837514; cv=none; b=Xmg1AP9st1nx+x40rpsTaJaRR3EBlffiBdSYfBipq/q8iyKRKsaPLHc3C0dGhX+7mngz3gb3tE63ZEMPj1uGiAzNZMzPw/cco3YoRSrCVWI7s75X1ENxBb9XDhv7hvvHNXOTFvVL3D/cj8WqvZrk893QyuGT4QDt7154OXEVuhw=
+	t=1790837754; cv=none; b=UpvetYoS/dk6g2h/CoY5AJ8mbWfZZnpyL72uuyrLY4j9FQWYGR11it9o8docfO10pSz6thpMALQ0oYgNiA8S7k5ylhZ66ex9+tthAA2npqHGuRqqNV5NJhAQllqZiPM2JVPfN46pdf2qoLtx0gtqqfZb9PwswYRzfXtnCTMCxdM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790837514; c=relaxed/simple;
-	bh=4jlcjapDOxvIbbY38pcv3++vEbGgPzl7//TuX7zWk3g=;
+	s=arc-20240116; t=1790837754; c=relaxed/simple;
+	bh=QoLNnGt1QfuA1ANyUEKP/0a+XKjsESBZmtSKcHLf3Ac=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nAyDpwMRRW1PXHtQKLh3osufsFmfOcnDTDi4DYYmrtCN2Jlbno/xB8iAkT3V9KAtbldaVdbycdP/Lc7iXCNzf+/lzlRpc8e1NZOfGXcHNcudl1EHCEYywAt2k0KDN0XH2QXJlIpJ5oTQaAYkfLb5Y/pGKC9MzNX5hRpLFCKuUrE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ORPk3AbI; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=MJaRzDwqCWIM+m2414x5IyBQb3n4I1hPMowdei8Pr/tb6YHs+rbhTJez233yJhs9f81Cf2OAmDrp2K2egi7cuGuWnk+0KoamuaVxptu2PLZnWa8HPwQC/onuwsP9Dovv99KRT3yPGxjenzt53X2KrPZ6qAg7kTH2tot0nvVh+Vc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hhANQ7SV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ORPk3AbI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790837512; x=1822373512;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=4jlcjapDOxvIbbY38pcv3++vEbGgPzl7//TuX7zWk3g=;
-  b=ORPk3AbIIMytC94jviNrzvtzebyhvRLEvRwxdOyQgxpa2uOG+bzgnA4a
-   5qxn6gtmO0PFj/Le9Y8sADmb1Ja3hn6177xQVLaNQIfmNnISdpOL+9QmE
-   imIPq9FX2bO6TMmL8nReGoKMOzUj45NDrp8xhi9WYuSODF5gv8ISwwsUJ
-   POXcCQy8iz64Xxxq+v8uMICQ4wSOgDRE1/oWz+8XL6dmLk44IoQfbSA0h
-   1ezLxahFWpDLtljM90lhBAhAgfKOok6lqPDbjQKCqWDJWUnhqV0MJZcM0
-   3Z5cYFlGftp65Y8WeEb7EoBaBomLjBq6ApaRe/DUeA5MpxjPQXTA4prev
-   A==;
-X-CSE-ConnectionGUID: EIhMQvmETcirbxZ227edQQ==
-X-CSE-MsgGUID: o5FJ5u8IQoesHb6tpZ8qVg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11921"; a="117115987"
-X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
-   d="scan'208";a="117115987"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 23:51:52 -0700
-X-CSE-ConnectionGUID: JyyaM/RBTeKfatLVb1LzSA==
-X-CSE-MsgGUID: 8VfPLW2qRje+T1jINlcVNQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
-   d="scan'208";a="275951739"
-Received: from smoticic-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.7])
-  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 23:51:49 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 8E0B9121B95;
-	Thu, 01 Oct 2026 09:51:46 +0300 (EEST)
-Date: Thu, 1 Oct 2026 09:51:46 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Cc: Tarang Raval <tarang.raval@siliconsignals.io>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Kieran Bingham <kieran.bingham@ideasonboard.com>,
-	"jai.luthra" <jai.luthra@ideasonboard.com>,
-	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	Philippe Baetens <philippebaetens@gmail.com>
-Subject: Re: [PATCH v5 2/2] media: i2c: mira016: Add driver for Mira016
-Message-ID: <ar4DAkCABRYLHWth@kekkonen.localdomain>
-References: <20260930-mira016-v5-0-499a34ab8204@ideasonboard.com>
- <20260930-mira016-v5-2-499a34ab8204@ideasonboard.com>
- <PN3P287MB1829832B0C6C42441B18D9D18B8B2@PN3P287MB1829.INDP287.PROD.OUTLOOK.COM>
- <ar03QZc3wVMKy8F8@zed>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hhANQ7SV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98CD01F000FF;
+	Thu,  1 Oct 2026 06:55:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790837752;
+	bh=p4Ts2/n0F4w6WOA2qsy7F0lIPhEi3nzuiwcrYnsLlSQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hhANQ7SVoq0le0p9KfJ3llwvejnoX2UI4LZBbxtgz7Ur+VNrdHTzE6AGlMBQH8E6O
+	 +Exw8YX9KaS0OurzuUIU7huBrw7o+NhnsVzqk5CKPjqJXk2K2l3KV8GG50nD/SCnpj
+	 Iq/KhikYuRPceOvfqv32nVK1NEcymcJBEMNN/v/FwIoQnL+tUBPi+v8N4IPYlpeWah
+	 i89FmLeo/JxUzWQZXc8liLJDHUGEHu1M9k5fC07PJTaTvAWFCrcbKKVB6SxHSK9J5o
+	 BmqF1nbAR1jE64OEhn4rFr427PYJecyX4uKj2JUNbrGP5+0F6lFlJ260kEGNjM+zUU
+	 R0ObaT7Ina3uw==
+Date: Thu, 1 Oct 2026 08:55:48 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Arpit Saini <arpit.saini@oss.qualcomm.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+	Jessica Zhang <jesszhan0024@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, devicetree@vger.kernel.org, rajeevny@qti.qualcomm.com
+Subject: Re: [PATCH 1/2] dt-bindings: display: panel: add optional wled-supply
+Message-ID: <20261001-private-wooden-chachalaca-51aa57@quoll>
+References: <20260929-wled-supply-series-v1-0-75d0a83b4b00@oss.qualcomm.com>
+ <20260929-wled-supply-series-v1-1-75d0a83b4b00@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <ar03QZc3wVMKy8F8@zed>
+In-Reply-To: <20260929-wled-supply-series-v1-1-75d0a83b4b00@oss.qualcomm.com>
 
-Hi Jacopo,
+On Tue, Sep 29, 2026 at 06:42:20PM +0530, Arpit Saini wrote:
+> Some boards drive the ILI7807S panel's backlight from an external
+> WLED driver whose enable input is wired to a GPIO, typically modeled
+> as a fixed regulator (e.g. vreg_wled).
 
-On Wed, Sep 30, 2026 at 06:34:12PM +0200, Jacopo Mondi wrote:
-> > Like for the above array 0xe000 register.
+You describe something else. What's fixed regulator should not matter
+here. Which pin is it in ILI7807S?
+
+It seems you just want to represent GPIO with a regulator. This is just
+confusing and typical downstream workaround.
+
 > 
-> 0xe000 is repeated multiple times because it's the register that
-> selects which bank to write to (there are 2 registers banks on this
-> sensor)
+> Document the optional wled-supply property for the ILI7807S panel
+> binding. When present, the supply can be used to control the enable
+> input of the external WLED driver.
+> 
+> Platforms without an external WLED enable supply can omit this
+> property and continue to use the existing backlight handling.
+> 
+> Fixes: 447a76a99e24 ("dt-bindings: display: panel: add Ilitek ILI7807S panel controller")
+> Signed-off-by: Arpit Saini <arpit.saini@oss.qualcomm.com>
+> ---
+>  .../devicetree/bindings/display/panel/ilitek,ili7807s.yaml   | 12 ++++++++++++
+>  1 file changed, 12 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/display/panel/ilitek,ili7807s.yaml b/Documentation/devicetree/bindings/display/panel/ilitek,ili7807s.yaml
+> index ba8c5bbf8ffc..8d56b74a962a 100644
+> --- a/Documentation/devicetree/bindings/display/panel/ilitek,ili7807s.yaml
+> +++ b/Documentation/devicetree/bindings/display/panel/ilitek,ili7807s.yaml
+> @@ -34,6 +34,10 @@ properties:
+>      description: Negative LCD bias supply (AVEE), typically -5.5V
+>        (range -6.3V to -4.5V)
+>  
+> +  wled-supply:
+> +    description: Optional Supply for the WLED driver that provides the
+> +      panel backlight
+> +
+>  required:
+>    - compatible
+>    - reg
+> @@ -49,6 +53,13 @@ examples:
+>    - |
+>      #include <dt-bindings/gpio/gpio.h>
+>  
+> +    vreg_wled: regulator-wled {
+> +        compatible = "regulator-fixed";
+> +        regulator-name = "vreg_wled";
+> +        gpio = <&tlmm 91 GPIO_ACTIVE_HIGH>;
+> +        enable-active-high;
+> +    };
 
-If you have pages, you should use regmap's page support. See e.g.
-<URL:https://lore.kernel.org/linux-media/20261001061250.37734-1-sakari.ailus@linux.intel.com/T/#u>.
+Irrelevant here
 
-There are probably other such examples, too.
+Best regards,
+Krzysztof
 
--- 
-Regards,
-
-Sakari Ailus
