@@ -1,142 +1,77 @@
-Received: from cp2.siel.si (cp2.siel.si [46.19.12.180])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FAF73793B4;
-	Thu,  1 Oct 2026 06:00:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.19.12.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0441E4570C3;
+	Thu,  1 Oct 2026 06:04:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790834439; cv=none; b=mA8webArp2XKzn2oMmogj2NKCKdyA9/CPdoTh3EiiokqLhmiiVF/wvQ2gW016KOwk/RH/Au/G50LyTDR8ojpNRdi8lZFWITrD+/Z0iNJl17NUUUvdjfm09/nzmcB0ASc4dYsbFx0+s5aopjLCU9QngkFoFxm7WyAp8OFwXzNuf4=
+	t=1790834654; cv=none; b=kQyb/oMw9mGcGxVDpKSfai1TBcuz48JZzE3eTWbv0d0zvao2g3dpMvFsIPQAzYSj3cQWSw9pEEqKkhA7rOPl95tjB/ai54vyfqP1N26zQImA7VGOXmcatsAiiXhqjBJrwDvzt60UozatONFiULU0h1HOzpA4P3VjRQUJqM2VbhA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790834439; c=relaxed/simple;
-	bh=fTBzghfiQ6G266t0RzcRm9TGNS3+YrZKvd4H+bWPwxg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VBcbwSGWPespc84WzF+jqp8ia7BRZa1/9hTgAhLBCDSgpCVokHqu3G9NSqqPKRKOaI6JZAtmI7g6RIvy814zOluNt0vfzERrkhe98PkviwwJL899DX3MvCx5onR5chNWasP26JOykSHguBNcezG6l7r9b1PEPIUyLVJxjhpOdP0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=norik.com; spf=pass smtp.mailfrom=norik.com; arc=none smtp.client-ip=46.19.12.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=norik.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=norik.com
-Received: from 89-212-21-243.static.t-2.net ([89.212.21.243]:54566 helo=[192.168.69.116])
-	by cp2.siel.si with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.100.1)
-	(envelope-from <primoz.fiser@norik.com>)
-	id 1xC9qQ-00000001W8y-0Rgz;
-	Thu, 01 Oct 2026 08:00:34 +0200
-Message-ID: <37eb1b08-0430-48d0-bac9-88a4a1d8db8c@norik.com>
-Date: Thu, 1 Oct 2026 08:00:32 +0200
+	s=arc-20240116; t=1790834654; c=relaxed/simple;
+	bh=Z63aULE6eiAK27ZE4Ys5OoEJkjpDtqvWAJuGm1hmsjo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cNDMq8rQ1dXvjPn3XOuawjzGGyG8Ko/TL93PO6Rs2UMfeOQttz12zXtPQZ/XlSllnwe0z/L75AtVw/BBUCq/1Kto8MmaM4fNWiFP5rg0nrlfNTJRGoeKj1kWGGWy1IyrqWB2/dMYEF2kd2c/pfnJd5NVZY4pRDZdyT1c34qAgZc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oFCtMkgU; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oFCtMkgU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2083E1F000FF;
+	Thu,  1 Oct 2026 06:04:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790834643;
+	bh=IEblyWJLZ++17Riml7gmK5vXX58wHwqOT3xHv1rBg/g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=oFCtMkgUXpJjrJt6HtEIOH6yFjmkS/UsPmsVMnHgkx9Ad1D2MQV1VcsZSJiv0wuZn
+	 7wvu3sK98GxRa/SsVEi4ZJqwmaFF4UCkd5SLRnizIgwpTXVAVNXvZwcR5Kl1Gh+CJg
+	 XMTUbr0HjIrl8DrGGImJVFxUVh4y0nO003uVo5D2kfUXxr4llc/YGYDysMQ21DFC+b
+	 YQ1PE0q0oaaCBibZYZ+QmXZn9E79skccydHU+ZQBGrjNPT9BYC+Bre74koVQvauGqd
+	 /Woog6NVVjP814WSdyse+ObRtDbzulyqfQ4rsE4n3Xiff+IbNMLLi65OyPW5AU1qlg
+	 PqbNnJfLOM0KA==
+Date: Thu, 1 Oct 2026 08:03:58 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Biju Das <biju.das.jz@bp.renesas.com>
+Cc: Marc Kleine-Budde <mkl@pengutronix.de>, 
+	Vincent Mailhol <mailhol@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, linux-can@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, Chris Paterson <Chris.Paterson2@renesas.com>, 
+	Biju Das <biju.das@bp.renesas.com>, Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH v3 1/3] dt-bindings: can: renesas,rcar-canfd: Document
+ RZ/G3L SoC
+Message-ID: <20261001-chubby-tomato-vulture-e1a69c@quoll>
+References: <20260925082134.146015-1-biju.das.jz@bp.renesas.com>
+ <20260925082134.146015-2-biju.das.jz@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] ARM: dts: imx6: phycore-som: Convert to generic PHY
- reset binding
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, devicetree@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, upstream@lists.phytec.de
-References: <20260930102532.2262700-1-primoz.fiser@norik.com>
- <20260930102532.2262700-4-primoz.fiser@norik.com>
- <ar0vxTCkxOg00jhn@SMW015318>
-Content-Language: en-US
-From: Primoz Fiser <primoz.fiser@norik.com>
-Autocrypt: addr=primoz.fiser@norik.com; keydata=
- xjMEZrROOxYJKwYBBAHaRw8BAQdAADVOb5tiLVTUAC9nu/FUl4gj/+4fDLqbc3mk0Vz8riTN
- JVByaW1veiBGaXNlciA8cHJpbW96LmZpc2VyQG5vcmlrLmNvbT7CiQQTFggAMRYhBK2YFSAH
- ExsBZLCwJGoLbQEHbnBPBQJmtE47AhsDBAsJCAcFFQgJCgsFFgIDAQAACgkQagttAQducE+T
- gAD+K4fKlIuvH75fAFwGYG/HT3F9mN64majvqJqvp3gTB9YBAL12gu+cm11m9JMyOyN0l6Os
- jStsQFghPkzBSDWSDN0NzjgEZrROPBIKKwYBBAGXVQEFAQEHQP2xtEOhbgA+rfzvvcFkV1zK
- 6ym3/c/OUQObCp50BocdAwEIB8J4BBgWCAAgFiEErZgVIAcTGwFksLAkagttAQducE8FAma0
- TjwCGwwACgkQagttAQducE8ucAD9F1sXtQD4iA7Qu+SwNUAp/9x7Cqr37CSb2p6hbRmPJP8B
- AMYR91JYlFmOJ+ScPhQ8/MgFO+V6pa7K2ebk5xYqsCgA
-Organization: Norik systems d.o.o.
-In-Reply-To: <ar0vxTCkxOg00jhn@SMW015318>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - cp2.siel.si
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - norik.com
-X-Get-Message-Sender-Via: cp2.siel.si: authenticated_id: primoz.fiser@norik.com
-X-Authenticated-Sender: cp2.siel.si: primoz.fiser@norik.com
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260925082134.146015-2-biju.das.jz@bp.renesas.com>
 
-Hi Frank,
+On Fri, Sep 25, 2026 at 09:21:28AM +0100, Biju Das wrote:
+> +    then:
+> +      properties:
+> +        interrupts:
+> +          minItems: 11
+> +          maxItems: 11
+> +
+> +        interrupt-names:
+> +          minItems: 11
+> +          maxItems: 11
+> +
+> +        resets:
+> +          minItems: 2
+> +          maxItems: 2
 
-On 9/30/26 17:50, Frank Li wrote:
-> On Wed, Sep 30, 2026 at 12:25:31PM +0200, Primoz Fiser wrote:
->> The phy-reset-gpios property on the FEC node is deprecated by the
->> Documentation/devicetree/bindings/net/fsl,fec.yaml in favour of the
->> generic reset binding on the PHY node itself, described by the
->> Documentation/devicetree/bindings/net/ethernet-phy.yaml.
->>
->> Move the reset GPIO from &fec to the ethphy child node as reset-gpios.
-> 
-> This movement may impact back compatiblity. Any other user use
-> phy-reset-gpios under $fec?
+Drop maxItems
 
-Yeah, good point.
+I'll fix existing code.
 
-I was tempted to convert due to checkpatch warning.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-Since it's a legacy board, lets keep phy-reset-gpios as is due to
-potential backward compatibility and other unforeseen implications.
-
-I will drop this patch in v2 and convert patch #4 to phy-reset-duration.
-
-BR,
-
-Primoz
-
-> 
-> Frank
-> 
->>
->> Signed-off-by: Primoz Fiser <primoz.fiser@norik.com>
->> ---
->>  arch/arm/boot/dts/nxp/imx/imx6qdl-phytec-phycore-som.dtsi | 2 +-
->>  1 file changed, 1 insertion(+), 1 deletion(-)
->>
->> diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-phytec-phycore-som.dtsi b/arch/arm/boot/dts/nxp/imx/imx6qdl-phytec-phycore-som.dtsi
->> index 9070388eecb0..88eabc7af6b7 100644
->> --- a/arch/arm/boot/dts/nxp/imx/imx6qdl-phytec-phycore-som.dtsi
->> +++ b/arch/arm/boot/dts/nxp/imx/imx6qdl-phytec-phycore-som.dtsi
->> @@ -56,7 +56,6 @@ &fec {
->>  	phy-handle = <&ethphy>;
->>  	phy-mode = "rgmii";
->>  	phy-supply = <&vdd_eth_io>;
->> -	phy-reset-gpios = <&gpio1 14 GPIO_ACTIVE_LOW>;
->>  	status = "disabled";
->>
->>  	mdio {
->> @@ -65,6 +64,7 @@ mdio {
->>
->>  		ethphy: ethernet-phy@3 {
->>  			reg = <3>;
->> +			reset-gpios = <&gpio1 14 GPIO_ACTIVE_LOW>;
->>  			txc-skew-ps = <1680>;
->>  			rxc-skew-ps = <1860>;
->>  		};
->> --
->> 2.34.1
->>
->>
-
--- 
-Primoz Fiser
-phone: +386-41-390-545
-email: primoz.fiser@norik.com
---
-Norik systems d.o.o.
-Your embedded software partner
-Slovenia, EU
-phone: +386-41-540-545
-email: info@norik.com
+Best regards,
+Krzysztof
 
