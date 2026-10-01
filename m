@@ -1,65 +1,65 @@
 Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5529149B444
-	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 19:59:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D1B6524B0A
+	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 19:59:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790884758; cv=none; b=ANiFde9PLG5QPJR0b4D2DtKwlkxttnCM9m9ZGme2acJzbGfTgqSIMVtH/FEHPcJGuLdi4LLTSoSnFZcwHRX/6gy2cG1bmwWiAd0UyJbdA06VHzDLT3/YdDNHYpUreyyox/LaJUalh9NJ7N80bogjrCluCijD2wXaNdA/PySAstU=
+	t=1790884759; cv=none; b=i4RuTbhV7UFHYa7exJG/Owbm/qfZegbqB7xzMTK0EuGyE7S9I47KwgXJldK8cWpSQXpjP7nlOVMTwJKll70luQm/BUIkdV2scCIYyTiJK4u1d5VcmELl4bftWC8/UBuJxGYpYv3fZ7S6wwtt5Zouu+BjtRqSfkwAbSH+xQC/z5U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790884758; c=relaxed/simple;
-	bh=qG8UzuDcZ64WrR4bdPr+wECAUBeSYE1XoeEczL4GqnU=;
+	s=arc-20240116; t=1790884759; c=relaxed/simple;
+	bh=fqsAT0gnn8nmeSlM5dfnSLl08Nl7yXWB2/hOgalQUd4=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=NOfnsgVHYtT40e3cep+t+VxiVTK3IkyhQBfg1CITYDmyQBMIFCOY4TCUAmwDvsRFon3ujHRsJTlkmZ+YdoP/H9Vou5qKlVii7Uip0w9t8bKEIuHq0/kDKP9p8Xt+eLpFDixBgiv8qXydwYplk5ONQoqyQ5n+4z2mJ5WpgwnBJDA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hF6hjJ1Q; arc=none smtp.client-ip=74.125.225.140
+	 MIME-Version:Content-Type; b=IiDK9KC8OcFYlJ21UQNP1x+h7tpsTjdkTp4n1evELPKYm/4uuWgNsJSGxK+6g4cfKLB9yD0ybcEKZe4H3NPScdZCo003xV/UdZFwC0qvQIaemzQ/HYQNo/A3zNSDj8I8mvPKCgeabBmv4KRBy7QTGcgXCHxCqtZ5MkCnaFOxbvQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IH+s3q04; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hF6hjJ1Q"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ff9621c5dso43262605e9.0
-        for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 12:59:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IH+s3q04"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e69b9e16aso71437695e9.1
+        for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 12:59:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790884752; x=1791489552; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790884753; x=1791489553; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=XVc+fU/zcPUru0u/1bv2Cu0U8wgH+3PGO04gz/Rcw/g=;
-        b=hF6hjJ1QQ1jq110jwclgCbvcLgwfI3gdFXB/J+ndOa6dwoi8vp6K/K5Qjb0VAx1Zvs
-         Uh35xxvNMmprmr4FjMfcL1W9sZAvovkpoQjmhLA58vnOXiV5wC+2+8KrII/7KdP55sFJ
-         yA3LN5LIGxSUL3lufZ8MUIivHSSHGHyWcYHtdAFrqCfOwrKYfdl8kgximPDIh0UVgMKr
-         T2QwLDPWFxFtVxEWnkoqiPOVqJZJKbv5JCx3G4OpYiOKq93mIuLV9h4e199esYC+pCNa
-         85HkXRrgb1hAbnPJ8TeSnzZwiCRILaax+98rC3liq8A+285q7as42bFTBPUII2dhEVeA
-         KxmA==
+        bh=zbITdMUccTT2KlXzKQz+gNu0sop+52B+M5+6ha6eO9E=;
+        b=IH+s3q04LWns4GU2PXBPjabTobi/1X3/eIoVQz86EDSZO8zK7Fk1Ee3aEiKTuST6w+
+         53HrkhI1iJBQIhMViKyI3+/XRA5XB64YJqxaHP0yaRm+xSrx9APPOmD6SPzrgqIR00+R
+         WWcJ3+J3O9qTvHhiH5BVAhYJ+Ga29Firgsdp08PxlludY5tIg9qRFQdhFg4429K6SvxT
+         YinnpJhHSvepuWTEZZZQyNWb1DYtRZWAhOA2FkaIGyTeKjAKoG1xvRMK5m7tDyIV+vgq
+         kSGn6cYvOl2V7wTiKGM2Kd9UWcmxpDN0TQ4qNBrUMO/PF+ewN3BliYmi6L3V80nU8jy8
+         lvOw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790884752; x=1791489552;
+        d=1e100.net; s=20260707; t=1790884753; x=1791489553;
         h=content-transfer-encoding:content-type:mime-version:references
          :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=XVc+fU/zcPUru0u/1bv2Cu0U8wgH+3PGO04gz/Rcw/g=;
-        b=eFSoLVPJ6mZ3Jz7qwv6ss9s2BmlUFoZNNmM8zPsPTcHbuBunoFPGTzf09LTYt4Xjul
-         FEV/L4pajJyAwoTJeAKq66bKUW2JUPlp1Qgrf3LOc7/dmCOos47JwIsC5jgpBFdniNlt
-         FdYyfges6eAnrZ6zOTs0KTymAqlzkaSzm+2QGGe8Vj+S4w7vNEawycSC1/YhhCDsw7kT
-         51aHjshGN5ev27mrriv8JA2Mp/GWvGC7s7SiuvRCKi3RgaKJwLXFwv1fEVX0CoFKgeTW
-         o24sOHdZcu+l69KecAvIwnZ0DcFe6FzCBMr71dZPVG36MTBcxUDmSUT7fQuc8u7Irtak
-         Xuew==
-X-Forwarded-Encrypted: i=1; AKwUvByLP7IyXZllQ8FOBxhRhkPDW5n8pY3G6xhZlhsJgKzjp61bCxwLbh3bH+T4/stBTmMIdUGCfCzb7KiA@vger.kernel.org
-X-Gm-Message-State: AFuF++lXcLqlH1h6W2YPjuPHYu+CCwNt+Ch3J4EijzZ+F3SU4zu9rjbV
-	E6kd5FkgCMfGi7jVt5cg/Hf/J+K7cQTBkBbMTwDXSmp4dSjgF1ang8QD
-X-Gm-Gg: AYBFou2mU24b8+3VpcaxTRXbYLb/Eiqt6etOiy5E0HOglLWH50Ex8gf6sglgqXPQbN/
-	iJNFjkmVIJ1utw4R7bQm6J3onwDtJ/XbHOzfuA6wy5MBzqZsgwiCF7q4qoKzKQbAgu3UDYnumFZ
-	5g/ZbQ+mUXAe37OZwYL6CjyoZHgfLNNpbjEg7zpOYwMIqKvavOhBd3wtAG9TQ7buAvdo8CfAmTo
-	MWiPhtw1pcbEDfrioVTC2NBPXPX+G0BTqmVoxlxULYGD4+rUSSCn//wejBtRCBmi3IGQqFqgBdw
-	nf4oqNgf/+2CxLTq4MVe5Uuasuf2AJoLou6RocdS0DQzR1mh0yh9LvklyNnai79l9OBgf3nqxgs
-	cqnhwhO7bAbq1Saqiqw3xHV0ZiNDLNxu6H8OU2okvO9H65DfRRhvfJ1EKwTdjKpArI+qZAfYN3h
-	J71EitdbU0C2NlNsquKYTFdDaGvzkzJAP6GzUDj0MiWgu0nFW0zXFsi63JDUKfOSdG+DSDJu/Mn
-	RuwX5xP7mzQ/l1RUjaq8U8yWe9i54zlrEFY
-X-Received: by 2002:a05:600c:3b01:b0:49f:ce72:e930 with SMTP id 5b1f17b1804b1-4a02758eed8mr12271135e9.34.1790884751563;
-        Thu, 01 Oct 2026 12:59:11 -0700 (PDT)
+        bh=zbITdMUccTT2KlXzKQz+gNu0sop+52B+M5+6ha6eO9E=;
+        b=uz8WVylXcLMlMgXNAUlon2hASRNWFaqHiZpkfYav/B9JMz9VRGTdMfeQt2DBvMfbhr
+         Qw4kM2lQ6VoJ+buMxUnWN7KklEioyFujPfIinOJrG+C7Xyrq/LrWSUNtmQT733DymNXv
+         aORvxWS3g6NE2sKhKDPxLq2iEkvmNlML3fNjY+ln4BOFIZlF6S1ji95zR53nc4gOUGy+
+         m6pIADeI9P+fmY36agfp9ZNVZs3C9qFdtc1xaLsywjCbND6aq7OP7MF1Ps2jIS2FYaDe
+         E+2mzpmbWj3b5mnezvymtYEGA3+7GcE5KPN3NOb604N2Sr9j2yWGyGzC217KDOxNYdtF
+         BY4Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwvCz9oUBRrvOpeHjc9wqRNMf6ExVOYcwlFRkHdMPb1lbPP1UbTFqkCSsYywInnD/cJhzBrPPA5YrQh@vger.kernel.org
+X-Gm-Message-State: AFuF++mPMnsh2EV5OfJhmxRvLJBWfMH6Ju8nOxN73vb7xMMkkflVGx4s
+	jICliRCW4Q1MUuLLrV5raI4SfQ3EIUtMjr7fWeZfBNd+OtVpwaWAM8aQ
+X-Gm-Gg: AYBFou1pVKNir3tRKFKksEJ4Ur5ubUT3GpdPb0iBk2/VavXURG9Khhm0ZqA1A2o9D/Q
+	o1NTD195hhKk/M3CqrxxBgUpmcruIs6PYmBmJXR+7luj5hQQ/StjbcTTzRe5w6iIREXl23SuWWO
+	daoo77XgAC1TrKzhnCJyoGbPRhcJg7Vyh96d35SutojsYpGlfUzC9MrSMHqygAxEWWJY5Wq2eHW
+	GX4MXEcowO8fNZfIyrWTf+MR6yo+yKztY/SMEWxiUSK7RYnk2Lz8OdzRviWzDzxu6wUR49F5s13
+	Yip2vW/Pqng2nudQ7ZdzJt88/QATMuMzeyrqsjGVF4HCF10cBGNalQLS4q2uZyHWhxWan56oQdF
+	rSMVOau95y+IiAEkOdgo78nDSok7h9c+3d/NNfZNaLm6omWTMoLWI+ruCMZxiW8q7Wtd93PgdS1
+	jRFHlQMoQVLc53lhc+n3x/4i9x2v1Dt5nU0sPT7m5iembvlRyfoG60B86nAyJyJu275+GLTFo4b
+	JGgoun79TTPa5YxippslouPbbxO+dXT3zv8
+X-Received: by 2002:a05:600c:1551:b0:49d:1fa8:b266 with SMTP id 5b1f17b1804b1-4a0275a229bmr12069975e9.26.1790884753386;
+        Thu, 01 Oct 2026 12:59:13 -0700 (PDT)
 Received: from ingenieria31.oficinasStQ.local ([79.112.15.218])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0276f92d9sm15031045e9.4.2026.10.01.12.59.09
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0276f92d9sm15031045e9.4.2026.10.01.12.59.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 12:59:11 -0700 (PDT)
+        Thu, 01 Oct 2026 12:59:13 -0700 (PDT)
 From: =?UTF-8?q?M=C3=A0xim=20Pedraza=20Padilla?= <maximpedraza@gmail.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
 	Maxime Ripard <mripard@kernel.org>,
@@ -85,9 +85,9 @@ Cc: Francesco Valla <francesco@valla.it>,
 	linux-doc@vger.kernel.org,
 	linux-embedded@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH RFC v4 11/13] drm/client: splash: turn the BGRT image on panels mounted turned
-Date: Thu,  1 Oct 2026 21:58:45 +0200
-Message-Id: <20261001195847.141192-12-maximpedraza@gmail.com>
+Subject: [PATCH RFC v4 12/13] drm/client: splash: prefer what the command line asks for
+Date: Thu,  1 Oct 2026 21:58:46 +0200
+Message-Id: <20261001195847.141192-13-maximpedraza@gmail.com>
 X-Mailer: git-send-email 2.39.5
 In-Reply-To: <20261001195847.141192-1-maximpedraza@gmail.com>
 References: <20261001195847.141192-1-maximpedraza@gmail.com>
@@ -100,160 +100,352 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Since ACPI 6.2, bits 1-2 of the BGRT status tell that the firmware
-image is not pre-rotated and how far it has to be turned to show
-upright on a panel mounted turned. The client skipped such images
-altogether, so tablets and 2-in-1s with a portrait panel got no splash.
+A logo or a colour given on the kernel command line was asked for this
+very boot: a bootloader that picks the product variant from an EEPROM
+and passes it along, a developer, or a production line that turns the
+screen red when a test fails. The device tree, the BGRT and the kernel's
+defaults describe what the board or the build normally wants. Let the
+command line win, as console= wins over stdout-path.
 
-Turn the image as the bits say. The values count 90 degree steps
-counter clockwise, as Plymouth, the main user of the BGRT, applies
-them, and as DRM_MODE_ROTATE_* count, which is what they become.
+Each parameter wins for what it says, and only when it is given, so
+none has a default of its own:
 
-The offsets need more care. For such an image the firmware gives them
-on the upright screen, while the client draws into the buffer as it is
-scanned out, which on a panel mounted turned is the upright screen
-turned the other way. Check them and apply the efifb sanity check in
-the upright frame, then move the image's rectangle into the buffer's
-frame. An image without the bits is drawn at its offsets as before:
-the buffer is the frame the firmware drew it in, so a pre-rotated image
-needs none of the guessing userspace has to do for it.
+- drm_client_lib.splash_bmp names a BMP to load as firmware, preferred
+  over the device tree and the BGRT. Without it the order is unchanged:
+  device tree, BGRT, then "drm_splash.bmp" loaded as firmware. An empty
+  value counts as not given. A file that is named but missing gives no
+  image rather than falling back, since it is what was asked for.
+
+- drm_client_lib.splash_bmp=none asks for no image at all: only the
+  background is drawn, whatever the other sources have.
+
+- drm_client_lib.splash_pos=X,Y, splash_offset=DX,DY and
+  splash_rotation=0|90|180|270 place and turn the image with the same
+  meaning as the device tree properties, whatever the image's source.
+  A BMP loaded as firmware has no other way to be placed or turned, and
+  for the others they let a placement be tried without rebuilding a
+  device tree. Positions take both values or are ignored with a
+  warning. When they place a BGRT image, it is placed in screen pixels
+  like any other, and neither the table offsets nor the efifb sanity
+  check apply.
+
+- drm_client_lib.splash_color sets the background whatever the image.
+  Without it the colour comes from the source that supplied the image,
+  a device tree node's "background-color", and otherwise from
+  CONFIG_DRM_CLIENT_SPLASH_BACKGROUND_COLOR. A device tree colour is not
+  used around an image named on the command line: it belongs to another
+  image.
 
 Assisted-by: Claude:claude-opus-5-5
 Signed-off-by: Màxim Pedraza Padilla <maximpedraza@gmail.com>
 ---
- drivers/gpu/drm/clients/drm_splash.c | 77 ++++++++++++++++++++++++----
- 1 file changed, 66 insertions(+), 11 deletions(-)
+ drivers/gpu/drm/clients/Kconfig      |  20 ++--
+ drivers/gpu/drm/clients/drm_splash.c | 171 +++++++++++++++++++++------
+ 2 files changed, 142 insertions(+), 49 deletions(-)
 
+diff --git a/drivers/gpu/drm/clients/Kconfig b/drivers/gpu/drm/clients/Kconfig
+index f471019bab87..2a374bea370b 100644
+--- a/drivers/gpu/drm/clients/Kconfig
++++ b/drivers/gpu/drm/clients/Kconfig
+@@ -105,11 +105,9 @@ config DRM_CLIENT_SPLASH_BACKGROUND_COLOR
+ 	help
+ 	  The default splash background color, in RGB888 format.
+ 
+-	  The background color comes from the same place as the image. A
+-	  device tree image can carry its own, and the drm_client_lib.splash_color
+-	  kernel command line parameter sets it for a BMP loaded as firmware,
+-	  or for the whole screen when there is no image. This color is used
+-	  otherwise, and always with the BGRT image, which carries none.
++	  The drm_client_lib.splash_color kernel command line parameter, when
++	  given, is used whatever the image. Otherwise a device tree image can
++	  carry its own color, and this one is used for everything else.
+ 
+ config DRM_CLIENT_SPLASH_SRC_DT
+ 	bool "Device tree as splash source"
+@@ -123,8 +121,9 @@ config DRM_CLIENT_SPLASH_SRC_DT
+ 	  show a different logo on each board or product, chosen by the
+ 	  device tree it boots with.
+ 
+-	  When present, the device tree image is preferred over the other
+-	  sources.
++	  When present, the device tree image is preferred over the BGRT and
++	  over the default BMP loaded as firmware. A BMP named on the kernel
++	  command line is preferred over it.
+ 
+ config DRM_CLIENT_SPLASH_SRC_BGRT
+ 	bool "EFI BGRT as splash source"
+@@ -150,9 +149,10 @@ config DRM_CLIENT_SPLASH_SRC_BMP
+ 
+ 	  The image will be loaded using the firmware loading facility the
+ 	  kernel provides; it shall use 24 bits per pixel and shall not be
+-	  compressed. The name of the file can be set through the
+-	  drm_client_lib.splash_bmp command line parameter, with the default
+-	  being 'drm_splash.bmp'.
++	  compressed. A file named through the drm_client_lib.splash_bmp
++	  command line parameter is preferred over any other image source;
++	  otherwise 'drm_splash.bmp' is used when neither the device tree nor
++	  the BGRT provides an image.
+ 
+ config DRM_CLIENT_SPLASH_BMP_SUPPORT
+ 	bool
 diff --git a/drivers/gpu/drm/clients/drm_splash.c b/drivers/gpu/drm/clients/drm_splash.c
-index 30ba6573424e..34f3c3910be1 100644
+index 34f3c3910be1..8d056edfee56 100644
 --- a/drivers/gpu/drm/clients/drm_splash.c
 +++ b/drivers/gpu/drm/clients/drm_splash.c
-@@ -388,14 +388,14 @@ static bool drm_splash_bgrt_available(struct drm_splash *splash)
- 		return false;
- 	}
+@@ -40,18 +40,90 @@
+  * a static image.
+  */
  
--	if (bgrt_tab.status & ACPI_BGRT_ORIENTATION_OFFSET) {
--		drm_info(client->dev, "splash: BGRT rotation bits set, skipping");
--		return false;
--	}
--
- 	return true;
- }
- 
-+static inline u8 drm_splash_bgrt_get_status(void)
-+{
-+	return bgrt_tab.status;
-+}
-+
- static inline unsigned int drm_splash_bgrt_get_xoffset(void)
- {
- 	return bgrt_tab.image_offset_x;
-@@ -445,6 +445,11 @@ static inline unsigned int drm_splash_bgrt_get_yoffset(void)
- 	return 0;
- }
- 
-+static inline u8 drm_splash_bgrt_get_status(void)
-+{
-+	return 0;
-+}
-+
- static inline int drm_splash_bgrt_load(struct drm_splash *splash,
- 				       const u8 **data, size_t *size)
- {
-@@ -452,6 +457,26 @@ static inline int drm_splash_bgrt_load(struct drm_splash *splash,
- }
- #endif // CONFIG_DRM_CLIENT_SPLASH_SRC_BGRT
- 
+-static unsigned int splash_color = CONFIG_DRM_CLIENT_SPLASH_BACKGROUND_COLOR;
+-module_param(splash_color, uint, 0400);
 +/*
-+ * Since ACPI 6.2, bits 1-2 of the BGRT status say that the image is not
-+ * pre-rotated for a panel mounted turned, and by how much it has to be
-+ * turned to show upright on it: 0, 90, 180 or 270 degrees, which firmware
-+ * and userspace (Plymouth) apply counter clockwise, as DRM counts them.
++ * What is given on the command line wins over the device tree and the
++ * firmware tables, and each parameter only for what it says. Neither has a
++ * value of its own until it is given: -1 and NULL mean "not given".
 + */
-+static unsigned int drm_splash_bgrt_rotation(void)
++static int splash_color = -1;
++module_param(splash_color, int, 0400);
+ MODULE_PARM_DESC(splash_color,
+-		 "Background color (RGB888) around the BMP loaded as firmware, or of the whole screen with no image");
++		 "Background color as 0xRRGGBB, preferred over any other");
++
++static int splash_pos[2];
++static unsigned int splash_pos_n;
++module_param_array(splash_pos, int, &splash_pos_n, 0400);
++MODULE_PARM_DESC(splash_pos,
++		 "Image position as X,Y in screen pixels, -1 centres that axis");
++
++static int splash_offset[2];
++static unsigned int splash_offset_n;
++module_param_array(splash_offset, int, &splash_offset_n, 0400);
++MODULE_PARM_DESC(splash_offset,
++		 "Displacement as DX,DY in screen pixels, added after placing");
++
++static int splash_rotation = -1;
++module_param(splash_rotation, int, 0400);
++MODULE_PARM_DESC(splash_rotation,
++		 "Image rotation in degrees counter clockwise: 0, 90, 180 or 270");
+ 
+ #if IS_ENABLED(CONFIG_DRM_CLIENT_SPLASH_SRC_BMP)
+ #define DEFAULT_SPLASH_BMP "drm_splash.bmp"
+-static char *splash_bmp = DEFAULT_SPLASH_BMP;
++static char *splash_bmp;
+ module_param(splash_bmp, charp, 0400);
+-MODULE_PARM_DESC(splash_bmp, "Name of splash image (default: \"" DEFAULT_SPLASH_BMP "\")");
++MODULE_PARM_DESC(splash_bmp,
++		 "BMP to load as firmware, preferred over any other image");
++
++/* Given on the command line, and not empty */
++static bool drm_splash_bmp_given(void)
 +{
-+	switch ((drm_splash_bgrt_get_status() & ACPI_BGRT_ORIENTATION_OFFSET) >> 1) {
-+	case 1:
-+		return DRM_MODE_ROTATE_90;
-+	case 2:
-+		return DRM_MODE_ROTATE_180;
-+	case 3:
-+		return DRM_MODE_ROTATE_270;
-+	default:
-+		return DRM_MODE_ROTATE_0;
-+	}
++	return splash_bmp && *splash_bmp;
 +}
 +
- static u32 drm_splash_find_usable_format(struct drm_plane *plane,
- 					 u32 preferred_format)
++/* "none" asks for no image at all, whatever the other sources have */
++static bool drm_splash_bmp_none(void)
++{
++	return drm_splash_bmp_given() && !strcmp(splash_bmp, "none");
++}
++
++static const char *drm_splash_bmp_name(void)
++{
++	return drm_splash_bmp_given() ? splash_bmp : DEFAULT_SPLASH_BMP;
++}
++#else
++static inline bool drm_splash_bmp_given(void)
++{
++	return false;
++}
++
++static inline bool drm_splash_bmp_none(void)
++{
++	return false;
++}
+ #endif // CONFIG_DRM_CLIENT_SPLASH_SRC_BMP
+ 
++/* Degrees counter clockwise, as for panels, and as DRM counts them */
++static bool drm_splash_rotation_from_degrees(u32 degrees,
++					     unsigned int *rotation)
++{
++	switch (degrees) {
++	case 0:
++		*rotation = DRM_MODE_ROTATE_0;
++		return true;
++	case 90:
++		*rotation = DRM_MODE_ROTATE_90;
++		return true;
++	case 180:
++		*rotation = DRM_MODE_ROTATE_180;
++		return true;
++	case 270:
++		*rotation = DRM_MODE_ROTATE_270;
++		return true;
++	}
++
++	return false;
++}
++
+ #define BMP_FILE_MAGIC_ID 0x4d42
+ 
+ /* BMP header structures copied from drivers/video/fbdev/efifb.c */
+@@ -132,6 +204,8 @@ struct drm_splash {
+ 	s32 off_x, off_y;
+ 	/* One of DRM_MODE_ROTATE_*: turns the image, not the screen */
+ 	unsigned int rotation;
++	/* Placed from the command line, in screen pixels, whatever the source */
++	bool place_cmdline;
+ 	/* RGB888, from the same place as the image */
+ 	u32 bg_color;
+ };
+@@ -210,10 +284,11 @@ static int drm_splash_fw_request_bmp(struct drm_splash *splash)
  {
-@@ -709,11 +734,21 @@ static int drm_splash_bmp_to_scanout(struct drm_splash *splash,
+ 	struct drm_client_dev *client = &splash->client;
+ 
+-	drm_info(client->dev, "splash: request %s as firmware", splash_bmp);
++	drm_info(client->dev, "splash: request %s as firmware",
++		 drm_splash_bmp_name());
+ 
+ 	return request_firmware_nowait(THIS_MODULE, FW_ACTION_UEVENT,
+-				       splash_bmp, client->dev->dev, GFP_KERNEL,
++				       drm_splash_bmp_name(), client->dev->dev, GFP_KERNEL,
+ 				       splash, drm_splash_fw_callback);
+ }
+ #else
+@@ -272,11 +347,9 @@ static void drm_splash_dt_props(struct drm_splash *splash,
+ {
+ 	u32 val[2];
+ 
+-	/* The colour travels with the image, or it is the kernel's default */
++	/* The colour travels with the image */
+ 	if (!of_property_read_u32(np, "background-color", &val[0]))
+ 		splash->bg_color = val[0] & 0xffffff;
+-	else
+-		splash->bg_color = CONFIG_DRM_CLIENT_SPLASH_BACKGROUND_COLOR;
+ 
+ 	if (!of_property_read_u32_array(np, "logo-position", val, 2)) {
+ 		splash->pos_x = (s32)val[0];
+@@ -288,27 +361,10 @@ static void drm_splash_dt_props(struct drm_splash *splash,
+ 		splash->off_y = (s32)val[1];
  	}
  
- 	if (splash->src == DRM_SPLASH_SRC_BGRT) {
--		x_pad = drm_splash_bgrt_get_xoffset();
--		y_pad = drm_splash_bgrt_get_yoffset();
--
--		if ((x_pad + bmp_width) > scanout->width ||
--		    (y_pad + bmp_height) > scanout->height) {
-+		/*
-+		 * The BGRT offsets place the upright image on the upright
-+		 * screen, which for a panel mounted turned is not the frame
-+		 * the buffer is scanned out in. Work in that frame, then move
-+		 * the image's rectangle into the buffer's.
-+		 */
-+		bool quarter = splash->rotation &
-+			       (DRM_MODE_ROTATE_90 | DRM_MODE_ROTATE_270);
-+		unsigned int lw = quarter ? scanout->height : scanout->width;
-+		unsigned int lh = quarter ? scanout->width : scanout->height;
-+		unsigned int xo = drm_splash_bgrt_get_xoffset();
-+		unsigned int yo = drm_splash_bgrt_get_yoffset();
-+
-+		if (xo > lw || bmp_width > lw - xo ||
-+		    yo > lh || bmp_height > lh - yo) {
- 			drm_err(client->dev, "splash: BGRT image would overflow");
- 			return -EINVAL;
- 		}
-@@ -730,11 +765,30 @@ static int drm_splash_bmp_to_scanout(struct drm_splash *splash,
- 		 * the display looking quite bad.
- 		 */
+-	/* Degrees counter clockwise, as for panels, and as DRM counts them */
+-	if (!of_property_read_u32(np, "rotation", &val[0])) {
+-		switch (val[0]) {
+-		case 0:
+-			splash->rotation = DRM_MODE_ROTATE_0;
+-			break;
+-		case 90:
+-			splash->rotation = DRM_MODE_ROTATE_90;
+-			break;
+-		case 180:
+-			splash->rotation = DRM_MODE_ROTATE_180;
+-			break;
+-		case 270:
+-			splash->rotation = DRM_MODE_ROTATE_270;
+-			break;
+-		default:
+-			drm_warn(splash->client.dev,
+-				 "splash: %pOF: unsupported rotation %u",
+-				 np, val[0]);
+-		}
+-	}
++	if (!of_property_read_u32(np, "rotation", &val[0]) &&
++	    !drm_splash_rotation_from_degrees(val[0], &splash->rotation))
++		drm_warn(splash->client.dev,
++			 "splash: %pOF: unsupported rotation %u", np, val[0]);
+ }
  
--		if (x_pad != (scanout->width - bmp_width) / 2) {
-+		if (xo != (lw - bmp_width) / 2) {
- 			drm_err(client->dev, "splash: BGRT sanity check failed");
- 			return -EINVAL;
- 		}
- #endif
+ static int drm_splash_dt_load(struct drm_splash *splash, const u8 **data,
+@@ -733,7 +789,7 @@ static int drm_splash_bmp_to_scanout(struct drm_splash *splash,
+ 		return -EINVAL;
+ 	}
+ 
+-	if (splash->src == DRM_SPLASH_SRC_BGRT) {
++	if (splash->src == DRM_SPLASH_SRC_BGRT && !splash->place_cmdline) {
+ 		/*
+ 		 * The BGRT offsets place the upright image on the upright
+ 		 * screen, which for a panel mounted turned is not the frame
+@@ -858,10 +914,53 @@ static int drm_splash_image_load(struct drm_splash *splash, const u8 **img_data,
+  * is whatever the firmware shows, and the BMP loaded as firmware is the
+  * fallback. With none of them, only the background colour is drawn.
+  */
++/*
++ * What the command line gives wins whatever the image and its source, each
++ * parameter for what it says. Positions come in pairs: half of one is
++ * ignored rather than guessed.
++ */
++static void drm_splash_cmdline_overrides(struct drm_splash *splash)
++{
++	struct drm_device *dev = splash->client.dev;
 +
-+		switch (splash->rotation) {
-+		case DRM_MODE_ROTATE_90:
-+			x_pad = yo;
-+			y_pad = lw - xo - bmp_width;
-+			break;
-+		case DRM_MODE_ROTATE_180:
-+			x_pad = lw - xo - bmp_width;
-+			y_pad = lh - yo - bmp_height;
-+			break;
-+		case DRM_MODE_ROTATE_270:
-+			x_pad = lh - yo - bmp_height;
-+			y_pad = xo;
-+			break;
-+		default:
-+			x_pad = xo;
-+			y_pad = yo;
-+			break;
-+		}
- 	} else {
- 		x_pad = drm_splash_place_axis(splash->pos_x, splash->off_x,
- 					      scanout->width, img_w);
-@@ -818,6 +872,7 @@ static enum drm_splash_source drm_splash_pick_source(struct drm_splash *splash)
- 	/* The BGRT carries no colour: firmware splashes sit on black */
++	if (splash_color >= 0)
++		splash->bg_color = splash_color & 0xffffff;
++
++	if (splash_pos_n == 2) {
++		splash->pos_x = splash_pos[0];
++		splash->pos_y = splash_pos[1];
++		splash->place_cmdline = true;
++	} else if (splash_pos_n) {
++		drm_warn(dev, "splash: splash_pos needs X,Y, ignored");
++	}
++
++	if (splash_offset_n == 2) {
++		splash->off_x = splash_offset[0];
++		splash->off_y = splash_offset[1];
++		splash->place_cmdline = true;
++	} else if (splash_offset_n) {
++		drm_warn(dev, "splash: splash_offset needs DX,DY, ignored");
++	}
++
++	if (splash_rotation >= 0 &&
++	    !drm_splash_rotation_from_degrees(splash_rotation, &splash->rotation))
++		drm_warn(dev, "splash: unsupported splash_rotation %d, ignored",
++			 splash_rotation);
++}
++
+ static enum drm_splash_source drm_splash_pick_source(struct drm_splash *splash)
+ {
+ 	struct device_node *np;
+ 
++	/* Unless the source says otherwise, the kernel's default colour */
++	splash->bg_color = CONFIG_DRM_CLIENT_SPLASH_BACKGROUND_COLOR;
++
++	/* A BMP named on the command line was asked for this very boot */
++	if (drm_splash_bmp_none())
++		return DRM_SPLASH_SRC_NONE;
++	if (drm_splash_bmp_given())
++		return DRM_SPLASH_SRC_BMP;
++
+ 	np = drm_splash_dt_node(splash);
+ 	if (np) {
+ 		drm_splash_dt_props(splash, np);
+@@ -869,18 +968,11 @@ static enum drm_splash_source drm_splash_pick_source(struct drm_splash *splash)
+ 		return DRM_SPLASH_SRC_DT;
+ 	}
+ 
+-	/* The BGRT carries no colour: firmware splashes sit on black */
  	if (drm_splash_bgrt_available(splash)) {
- 		splash->bg_color = CONFIG_DRM_CLIENT_SPLASH_BACKGROUND_COLOR;
-+		splash->rotation = drm_splash_bgrt_rotation();
+-		splash->bg_color = CONFIG_DRM_CLIENT_SPLASH_BACKGROUND_COLOR;
+ 		splash->rotation = drm_splash_bgrt_rotation();
  		return DRM_SPLASH_SRC_BGRT;
  	}
  
+-	/*
+-	 * The BMP loaded as firmware is named on the command line, and so is
+-	 * its colour, which also covers the screen when there is no image.
+-	 */
+-	splash->bg_color = splash_color & 0xffffff;
+ 	if (IS_ENABLED(CONFIG_DRM_CLIENT_SPLASH_SRC_BMP))
+ 		return DRM_SPLASH_SRC_BMP;
+ 
+@@ -1181,6 +1273,7 @@ static int drm_splash_client_hotplug(struct drm_client_dev *client)
+ 	splash->thread = thread;
+ 
+ 	splash->src = drm_splash_pick_source(splash);
++	drm_splash_cmdline_overrides(splash);
+ 
+ 	/* The BMP loaded as firmware is the only source that arrives later */
+ 	if (splash->src == DRM_SPLASH_SRC_BMP) {
 -- 
 2.39.5
 
