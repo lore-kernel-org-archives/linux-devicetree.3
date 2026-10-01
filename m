@@ -1,52 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 774013FC5B5;
-	Thu,  1 Oct 2026 18:48:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F34C3C9EF1;
+	Thu,  1 Oct 2026 18:54:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790880499; cv=none; b=b1XOp7a6Hg9PxYOTHaYsm6tA5x6HpiBIs/TAP6QptbIYKDQX9tTwswRUGsfFJZFI9Uds4K34kVke5UBaIfJFQkAPNF8KFEOdRNRkm9QT+Yw4GBaCGKAi+mJV6gDbRGw4T+Gc/ok0ptNEUQzi73+YfG6GXA2FDbn5mxDOOnVIyR4=
+	t=1790880865; cv=none; b=H5hcAB6xQDp5j/qeGmoWmIV/9ndfzbf6XfPeF774QWu0DtDUNMT9wcBTBXfl3vlfVgfJMmSfyOED6ZNGuxfMgR0+0QirB0Fav8WZKSf0oxg/iRl88fnAmmdJ79/eBWp4xLzOTU4KQyuKUnbWyt6kkPnW9lycnZnhp0mHYi/RDP0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790880499; c=relaxed/simple;
-	bh=5V6pvK6dxCq55Oezy8kgCrovlwXfSwfl9gvKaos4TJw=;
+	s=arc-20240116; t=1790880865; c=relaxed/simple;
+	bh=69o43wfr+QLg2F3lA+uFscKI55zMh9gT3BQMW7eAumY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=X9iyW8vohuhfGV0QTrcHoPdfjOYux9i40o+JtYXcyP3UXgdYhw5zOcfyF89ZwcMFSkIBGq4mXRAFd/pFpVArVk72e2Iv5p1EJMjQDLna7TPhGfGbmT4xJevZ5mv0tEpQXkAC9Hy7VjDdkS9iCA1iAV8Y5y2k2wwSPV3nhtBH4/Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bZ20jGkZ; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=p+DqRQ/0yVBdrugFUCdCriStvfRij4N7Zyt6v3jdLjoRekpJvW90Bgc+F1WZJ4te/iupYdxnKy1IEMfTE2R40GEF6xyqmMfXLyecJVtxdIiSu4Bs7mHHL2rD0q8j0ipFV2kAhxWu/eSV5dqOzG1eDCwkK4XsnyhC5w5xQYi1wAk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lip+n3ES; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bZ20jGkZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FE421F000FF;
-	Thu,  1 Oct 2026 18:48:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lip+n3ES"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34E561F000FF;
+	Thu,  1 Oct 2026 18:54:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790880488;
-	bh=9Lm+M8MVG2/j/DA3KhX8RKq6lO3WVRmuquhIWhMi/v0=;
+	s=k20260515; t=1790880864;
+	bh=hfmq75qq7pM3N6QAQNJXj/7OMVJK/9s/qcVq3SzkxRg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bZ20jGkZHznyMIEhpnnAzGW75hk1BQkMfu2cHp8YVOazEL1VlT527GDs4WDbtbh0y
-	 eGsUW5cf5fqfMkoMHPq99wXm8NeWgVNJLPLfto+SxMgFKAkSelYwRn6APWGRrtqVKv
-	 FoJMqu74pwXtGjkMyKOpWCs7Q+wLQPz9AHqfOEKXerCKngzwF+Py90HMmcph5rkuwk
-	 iwhtbxnDmi1L0Xe5kRi56YUJFvUuGumbgWu5E9828OST4/7rKLRgfF/Xb6+8uUBusj
-	 BODm+oo3H2rR/NrOKMBBIqECSWBO787ePM4ojDUCGEgchV+mRsvJH+fz9CajwXRCSq
-	 xOPc6tQVWB1bA==
-Date: Thu, 1 Oct 2026 19:48:03 +0100
+	b=lip+n3ES2zGOY+WIvdK/ZKoOhKbuu7V+epqLUQThSRQhSqTo/EFOS0aFGKJsZboEr
+	 VbcnjNuZmumhJhDJZu+D6HqJ2GrOgV+cYZjs/n2bnxOOvjuKtz6LZ8mJD20UEr8Hgj
+	 efWCIm0QHbOIPsFHlrfXGt0Q8HUwoCARUr6QDaUQelbj2eqs1Tx9WXfeOF/V2mFSnn
+	 BOHAfw+U+aO9xiCuO9oVOCPWPcveiDZVDNGtKc3N7iE790X3vv7sqbpfNOevPBF+YG
+	 cFN2b4nydSuPSgjCXvAwdfEQk2IO8cMQkZPvj1rjysBCyUG0EvIb9dpbEiNyIO2j+A
+	 SuEYdVb+805fA==
+Date: Thu, 1 Oct 2026 19:54:19 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Fil Dunsky <filipp.dunsky@gmail.com>
-Cc: Arnd Bergmann <arnd@arndb.de>, Linus Walleij <linusw@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Drew Fustini <fustini@kernel.org>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org
-Subject: Re: [PATCH RFC 06/10] dt-bindings: serial: Add Cortina Systems
- CS7542 UART
-Message-ID: <20261001-depose-jawed-f58674109fe7@spud>
-References: <20260930-b4-cs75xx-v1-0-4617c4463529@gmail.com>
- <20260930-b4-cs75xx-v1-6-4617c4463529@gmail.com>
+To: Adam Azuddin <azuddinadam@gmail.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	neil.armstrong@linaro.org, maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org, tzimmermann@suse.de, jesszhan0024@gmail.com,
+	airlied@gmail.com, simona@ffwll.ch, andersson@kernel.org,
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] dt-bindings: display: panel: Add RAiO RA8875
+ display controller
+Message-ID: <20261001-relight-unexposed-1a3d7dd8bfed@spud>
+References: <20261001144128.2336301-1-azuddinadam@gmail.com>
+ <20261001144128.2336301-2-azuddinadam@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -54,106 +47,150 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="1lectGXiRA3UGBbo"
+	protocol="application/pgp-signature"; boundary="F5HQPdkis+8FesSJ"
 Content-Disposition: inline
-In-Reply-To: <20260930-b4-cs75xx-v1-6-4617c4463529@gmail.com>
+In-Reply-To: <20261001144128.2336301-2-azuddinadam@gmail.com>
 
---1lectGXiRA3UGBbo
+--F5HQPdkis+8FesSJ
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 30, 2026 at 10:00:05AM +0300, Fil Dunsky wrote:
-> Add the binding for the UART found in the Cortina Systems CS75xx
-> (Goldengate G2) SoCs such as the CS7542.
+On Thu, Oct 01, 2026 at 10:41:25PM +0800, Adam Azuddin wrote:
+> The binding is for SPI-connected RA8875 TFT display controller by RAiO
+> Technology Inc. It supports display resolutions of up to 800x480.
 >=20
-> Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
+> Assisted-by: LLM
+> Signed-off-by: Adam Azuddin <azuddinadam@gmail.com>
 > ---
->  .../bindings/serial/cortina,cs7542-uart.yaml       | 50 ++++++++++++++++=
-++++++
->  1 file changed, 50 insertions(+)
+>  .../bindings/display/panel/raio,ra8875.yaml   | 77 +++++++++++++++++++
+>  .../devicetree/bindings/vendor-prefixes.yaml  |  2 +
+>  2 files changed, 79 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/display/panel/raio,=
+ra8875.yaml
 >=20
-> diff --git a/Documentation/devicetree/bindings/serial/cortina,cs7542-uart=
-=2Eyaml b/Documentation/devicetree/bindings/serial/cortina,cs7542-uart.yaml
+> diff --git a/Documentation/devicetree/bindings/display/panel/raio,ra8875.=
+yaml b/Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml
 > new file mode 100644
-> index 00000000000..2f8bda97ff8
+> index 000000000000..4283de927b13
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/serial/cortina,cs7542-uart.yaml
-> @@ -0,0 +1,50 @@
+> +++ b/Documentation/devicetree/bindings/display/panel/raio,ra8875.yaml
+> @@ -0,0 +1,77 @@
 > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
 > +%YAML 1.2
 > +---
-> +$id: http://devicetree.org/schemas/serial/cortina,cs7542-uart.yaml#
+> +$id: http://devicetree.org/schemas/display/panel/raio,ra8875.yaml#
 > +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +title: Cortina Systems CS7542 UART
+> +title: RAiO RA8875 Display Controller
 > +
 > +maintainers:
-> +  - Fil Dunsky <filipp.dunsky@gmail.com>
+> +  - Adam Azuddin <azuddinadam@gmail.com>
 > +
 > +description:
-> +  The UART found in the Cortina Systems CS75xx (Goldengate G2) SoCs. It =
-has
+> +  The RA8875 is a TFT LCD controller for panels up to 800x480 pixels.
+> +  It can be connected to the controller via 8080/6800 parallel interface,
+> +  SPI or I2C. This binding describes the SPI-connected device.
 
-Different SoCs need specific compatibles.
-They can fall back to the cs7542.
+This binding describes all three, or at least it should describe both
+i2c and spi in the current state. I have no idea what the parallel
+interfaces look like in dt, but if what you've got covers spi it should
+also cover i2c. Probably remove this last sentence.
 pw-bot: changes-requested
 
-Thanks,
-Conor.
-
-> +  transmit and receive FIFOs and a 24-bit baud rate divider running from=
- the
-> +  peripheral (APB) clock.
 > +
 > +allOf:
-> +  - $ref: serial.yaml#
+> +  - $ref: panel-common.yaml#
+> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
 > +
 > +properties:
 > +  compatible:
-> +    const: cortina,cs7542-uart
+> +    const: raio,ra8875
 > +
 > +  reg:
 > +    maxItems: 1
 > +
-> +  interrupts:
-> +    maxItems: 1
+> +  vdd-supply:
+> +    description:
+> +      3.3 V supply for the IO pins, the oscillator IO pins, the ADC pins
+> +      and the internal LDO. The 1.8 V core rail is generated internally.
 > +
-> +  clocks:
+> +  reset-gpios:
+> +    description:
+> +      GPIO connected to the active-low RST# pin. Optional, since the boa=
+rd
+> +      may instead use an RC reset circuit.
 > +    maxItems: 1
 > +
 > +required:
 > +  - compatible
 > +  - reg
-> +  - interrupts
-> +  - clocks
+> +  - display-timings
+> +  - vdd-supply
 > +
 > +unevaluatedProperties: false
 > +
 > +examples:
 > +  - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/gpio/gpio.h>
 > +
-> +    serial@f0070110 {
-> +        compatible =3D "cortina,cs7542-uart";
-> +        reg =3D <0xf0070110 0x30>;
-> +        interrupts =3D <GIC_SPI 6 IRQ_TYPE_LEVEL_HIGH>;
-> +        clocks =3D <&apb_clk>;
+> +    spi {
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <0>;
+> +
+> +        panel: display@0 {
+
+Drop the unused panel label if there's a respin.
+
+> +            compatible =3D "raio,ra8875";
+> +            reg =3D <0>;
+> +            spi-max-frequency =3D <16000000>;
+> +            vdd-supply =3D <&vcc_3v3>;
+> +            reset-gpios =3D <&gpio 25 GPIO_ACTIVE_LOW>;
+> +
+> +            display-timings {
+> +                native-mode =3D <&timing0>;
+> +                timing0: timing0 {
+> +                    clock-frequency =3D <25000000>;
+> +                    hactive =3D <800>;
+> +                    vactive =3D <480>;
+> +                    hfront-porch =3D <40>;
+> +                    hsync-len =3D <40>;
+> +                    hback-porch =3D <40>;
+> +                    vfront-porch =3D <10>;
+> +                    vsync-len =3D <10>;
+> +                    vback-porch =3D <20>;
+> +                };
+> +            };
+> +        };
 > +    };
->=20
+> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Doc=
+umentation/devicetree/bindings/vendor-prefixes.yaml
+> index ba2002969373..99d5113fb035 100644
+> --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> @@ -1395,6 +1395,8 @@ patternProperties:
+>      description: Radxa
+>    "^raidsonic,.*":
+>      description: RaidSonic Technology GmbH
+> +  "^raio,.*":
+> +    description: RAiO Technology Inc.
+>    "^ralink,.*":
+>      description: Mediatek/Ralink Technology Corp.
+>    "^ramtron,.*":
 > --=20
-> 2.53.0
+> 2.55.0
 >=20
 
---1lectGXiRA3UGBbo
+--F5HQPdkis+8FesSJ
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCar6q4wAKCRB4tDGHoIJi
-0hm0AP94GGT1ED51TBPnDueYYfZC+gGoGhnv3U8yJmaowoaOkAD/Q0gGutHzijrB
-16kj6FFFZcyk14oFJy5rp8uSc9d1vQo=
-=IU4d
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCar6sWgAKCRB4tDGHoIJi
+0tlTAQDXk4yhZi+jjWc4ZFnEhrat/Y8R5eIoMO8zhFPeP72ZsAD+JIHCPyObxBvT
+zGrm/1Ypl043IOov0j84BXTAViaYzw4=
+=YHhz
 -----END PGP SIGNATURE-----
 
---1lectGXiRA3UGBbo--
+--F5HQPdkis+8FesSJ--
