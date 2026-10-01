@@ -1,69 +1,69 @@
-Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D075D4BCAA9
-	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 08:43:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B92D84AF68E
+	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 08:43:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790844202; cv=none; b=MBpUs69Z9xntcJp9024BuLicorXSAQ6kP6+HtCtfJe5jyPn5Bsfi/vsQfJFFGC3HQKUx8PrZPXVyqyQru4eUikwfH2o2W3HAG9y11JvSMgTVwxpQzPleDdqkKnfp0UH5CJhblk78gsSOHtPhpdhGiy/H199OsbkxUSUjszM5oTM=
+	t=1790844203; cv=none; b=b2sNiP+Nt42+frZFd3kk5DLqzDx7IDY3YwWEn4jZf/dGSUQKcB3ZhRf7eb8TZs8puQiDsVlKM8gOiQ/jbhUxVxavqUqtOSu76Fqrmg0IOgnCwDslH3v25wAcK3oEV0XoZ0hIBw/Y4GSCOI2MfPrzkUsn7UpOl63El1os5elZrGY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790844202; c=relaxed/simple;
-	bh=nWTgMoW7Alfvw4HC5D4yHSnYtdfCYBNHKKsHkW8vWn4=;
+	s=arc-20240116; t=1790844203; c=relaxed/simple;
+	bh=wnUhyrYWheq78/htTGSabO8i37WkHuTnJpbuds4kcNg=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ix7qwCVwVpeQExVTAxamX1NPPrVfB5p/YKt3MhGt7nTwdMv6WBNtvkgMIh4Z/uWAlu33PVWVIXwZtSpxt4UpEdnw0p+N6/tNpsCmThCwoP7ncjShY9qyTV8vcqqlJ8TJI3VJ7AyzAHjRHhcwMnM0hTMkXDy97CTfpEA1Ojlt5F8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qGOFa2I6; arc=none smtp.client-ip=74.125.225.98
+	 In-Reply-To:To:Cc; b=nWT4sYtFLCr/N9Dh/XjldQvoaVY6UMQKdnJLRIRySkQKH16dWtONxf52mZ6/nnBboMr5HHdG/pHl2K/ePRDxAkYLKUuWr+dw6gO/j6gO4qDni3SP5Mgb7imyyPIoge4+b6zo29FQpGdyTflgb/2cAIqaG3YtlcSBhttiV9HPOvc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lIJ0yD51; arc=none smtp.client-ip=74.125.225.99
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qGOFa2I6"
-Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48b01c4f4daso1155310f8f.1
-        for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 01:43:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lIJ0yD51"
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48b05fdb2f9so744754f8f.0
+        for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 01:43:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790844197; x=1791448997; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790844199; x=1791448999; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=gM4qEroTkI7GU8BzlqWFaTCiRRGSMw1n4u6I+iUHzPo=;
-        b=qGOFa2I6j0UbTpZ+26SLtwWxpAki1cTfHjbqrmfm+//k3I+0XI+XrgZFXYtdgCQVWj
-         mEOkG0NseFbDOkX4O9NJ2dYax8Uy2dL4GU/5dZUSMgvZFYpowoCELEXjz4mBS0BqthsO
-         0oue2sx0L7ErG7BZ1fYDvzO9ZhdpFzVWrXQsSQtedcDOu+FOiKeVkTNxgOtEHwDOzvdO
-         X/qn1HM168Xk3T0U9jD+UeRkgE73O4A5zIyPDL9U9yOpXg9/+76MpvJGlV4DoTK7gqRI
-         ikmo5YjIJNyQ+V2TcEINyvWzI/yzar44UhR52e+Birl0/cwcpMXTAhc5ZyqOkeDyr1pu
-         ai7g==
+        bh=5CmcYL0XK1JJEyDbPwadIyEyX0pGtm4tcAMQK4meqBo=;
+        b=lIJ0yD51e2wXFKTvJ9pUp3xgI601PmuIlxfHXiQRZCwZTxhURNnupgNlqEuh0Xfm/R
+         LA6dYw4Da5XI4T/zLleevCIc7H6IaPPpV6ptYUfqpa0bobWEHnMc9ifAZOsWxzfa5OXX
+         bSZKK+z/cdYnMVJuaNN9BpaPR6DU0fINqvtvbO2bqrHdBwwYhG/+reM7ne7RO2Ebl2Ev
+         LMtijL44x2YuSWgJSv5zQCrKaLcifzlp2LmU0aQfKFisRIw3gR9cWvb90tzDb7XiHAG6
+         VOSBEEYJDpU9HeWyTpCB66e+xMEBogqiAmCz/WZOmap65GcA4/hynG9PKLokD/DyyTz8
+         0AxA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790844197; x=1791448997;
+        d=1e100.net; s=20260707; t=1790844199; x=1791448999;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=gM4qEroTkI7GU8BzlqWFaTCiRRGSMw1n4u6I+iUHzPo=;
-        b=kfN7kUgq6Fv9mQnyTuKkM6m6hQ+Ngo4wLA5bNiU9TtJrYgCIuFt20hCxjsB5d7xrWH
-         fqZKqJwT61IqYrSP99T9AOAPGomcLe3iXUzl+Pv7zeQYWwN6IOj6PSRJudIbnOVUv4cl
-         KVMLosIW4b7PpYDMXqg3tnfCcL2OdB7BCy+xxUJyWaw89ypjEwx3LKFCtP1+anU1rwZH
-         4Idb/Yar+E1hq4ysp3+BVb6yTcTiYu86TLIk26N06v5HbsXl19TzcTSKToh12K+GR2R5
-         o8PDdINk3eMdMMI2yCt4xTWjd/7/9c2qaXdd0WqtSeIGR5GJHbFKD0zbFpAndPWsjItF
-         jKBw==
-X-Forwarded-Encrypted: i=1; AKwUvBygktsKOazOh2qhbg/8qIceDZdyg02zZ7MkOFLlU1fN5vrYNTtHkW65hkJ+76eX2NwSlsF6FpbQCZXl@vger.kernel.org
-X-Gm-Message-State: AFuF++kvIf4irTgHZLVyGIOMOZxp6RlLi859HO+zIDl3hJqIEHIXu6zt
-	bOPzyYOpAG0X+lI7m7Xpe5I8BDYhdLhnzy5mA8M3AU2XL7YhsxiDDnmm
-X-Gm-Gg: AYBFou0FC+lJfeznezJp+WIeenHcQUfAQyLvDX5hS/i+EfLh3APHq8LZGj2LVK3IyUZ
-	THBvkK6bF7qlGongnYLk4YFbiCfubW8+x1wGMA2Xd/Aak9aWpEPHCiHT7KvgGP+QyKWtSpXer3B
-	Z88N6Rjo2YBATcp0b+xRrekja83PHOiJohE/t5MPyr0SQ0yoOI6SEihG0PgV0dQI4EWaOTSsVVN
-	/IlqeadtEAa9B7Fp2IlhWmmC+UTJ/sR7umMDJRi86dzqzAKhDSsxs3ZretXzkKrU0/b+qb7jv9W
-	O1OYxCjqGXNUOw3GIJx+k3/3jy2Ws7egUtskWHaB1Quoker6WAJzDoPznZkXF+hLVvuoNoR4s2M
-	qG+AFNq1sVMU9Elea68tYB/i+mmCz53GMkwaTR4+WFh5vhYbg8yL9luMZvrWYDeNCrl9r4PpFHJ
-	dc3my5YVKTZoKPVCTtQPz1eQrYDr587grkjGLIA6E2fYu8sZb1fvut6JGl879+A3/T7mRmFEvqe
-	hHfEUUF6fcLz8AeH8HbPX/o6KqCCorNWc7Dpo6zHthF1BC3JIYrVsgaLSq5dDfm+noVePoylw==
-X-Received: by 2002:a05:600c:46c8:b0:4a0:f0a:976a with SMTP id 5b1f17b1804b1-4a01ade9bd2mr64054025e9.13.1790844196791;
-        Thu, 01 Oct 2026 01:43:16 -0700 (PDT)
+        bh=5CmcYL0XK1JJEyDbPwadIyEyX0pGtm4tcAMQK4meqBo=;
+        b=KTH/PnrPRVMPOHZPP2CPQ2VS4lG4tyFxFvn1YtivsHxgUnJx467vkGDtsNYs+v808i
+         9apq0SuBO4tcelqm5HCv3cJwhUi7r7JzwGHAHJSBw0aBnS1IO16E89/2vrzJCJ/uaR3D
+         7wpbSLP0wuYcp1eMiJeGLzXaU8BFS52qONbeF0qwyz/5IaE6ycqLEsO4OS1rSN5WjywV
+         KKJNmtRecgcmZJUFpDPJGGQdRE75OGDtWsFOdWh1Zr+A4lixzTkxyTEV4ztFhmg3fypj
+         iwLNguHBMd/eIj61kYRhluaWY9Bp7A4AwYqz4bnyQ/cFAVXUUR+5T1yNHx3v0teYhQNS
+         g6XA==
+X-Forwarded-Encrypted: i=1; AKwUvBxzgm9WfU2kT+XcoE7J8c/MCOOpeENaNrMgHAPjzxnqW1MLvfbHKCh9x6FOQkHuXEjsu4Jwvgr0NhkD@vger.kernel.org
+X-Gm-Message-State: AFuF++l6phquFRiFUQcZ3htlymjxXF03AWnfBkJnZHTUA36Ra9Z10HTG
+	Tv1OAp+UDZQTJWDzGGqe5l5VyjPBHWbD2vj1dDIBWml288wHKQSlWrye
+X-Gm-Gg: AYBFou2J8i+cKuBtQQwKqldERhvvLuJPI86qyoM+DWpR4o6+OS4JopKXh+1/3Qh3kxO
+	XTeQrxgEn2HcTbjotiN7Ap8kNtPQvZ91ZLA4eFZXHeuYTDiJPaLWKKscLaOri+mEXXeljsa8ThM
+	ORemW+aG/0+YT2lmi+yUi/wTyf7Hk0ROk6p3BTB8uOAWSjthFH3LjNHfvQE5RO35J7UN4kvrqis
+	BV20zNhe25l/dveeWjdVUvIDHsXbOhPxJloXOomKPRDS8RgbVrktKK8ieUrPpyUJ/1KZH0JeieL
+	Isd6DhTJAlERT32xy//QXA4sliGJm/Azn4PTYuLMj0ui8rLR0FGzASNN0d4Qo0qfiis1JFnJGfD
+	G3Oooi+u7wTAWg7wvnDTKnSD0NPEyE2Ne2mi4JRZXZx3d713JovAAmaoFlNHgYDn2vRtOLdfVXa
+	dqCy5G5p53DQJRuJ65DZMTLoP7/t3yDYxpPiNlcmt2RcyflEbppXlh42WH6qTrHgK6WlsypSJp2
+	Ii2bQ9OeYb/S4mWHfpwaLTwlzIZvgghKFMRP5BK8PEPGlg9rl2z9SXLrBBd0izsvuE+x27xHw==
+X-Received: by 2002:a05:600c:3b1a:b0:49f:c451:b4ab with SMTP id 5b1f17b1804b1-4a01b12b310mr67078895e9.29.1790844198541;
+        Thu, 01 Oct 2026 01:43:18 -0700 (PDT)
 Received: from ernest.hoecke-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01f949709sm78177885e9.12.2026.10.01.01.43.15
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01f949709sm78177885e9.12.2026.10.01.01.43.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 01:43:16 -0700 (PDT)
+        Thu, 01 Oct 2026 01:43:18 -0700 (PDT)
 From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-Date: Thu, 01 Oct 2026 10:43:10 +0200
-Subject: [PATCH 1/3] arm64: dts: freescale: imx8-apalis: Add NAU8822 Bridge
- Tied Load
+Date: Thu, 01 Oct 2026 10:43:12 +0200
+Subject: [PATCH 3/3] arm64: dts: freescale: imx8x-colibri: Add Cortex-M4
+ UART overlay
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -72,7 +72,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261001-v1-apalis-colibri-imx8-dtsos-v1-1-21881dc324c1@toradex.com>
+Message-Id: <20261001-v1-apalis-colibri-imx8-dtsos-v1-3-21881dc324c1@toradex.com>
 References: <20261001-v1-apalis-colibri-imx8-dtsos-v1-0-21881dc324c1@toradex.com>
 In-Reply-To: <20261001-v1-apalis-colibri-imx8-dtsos-v1-0-21881dc324c1@toradex.com>
 To: Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
@@ -87,66 +87,66 @@ X-Mailer: b4 0.13.0
 
 From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
 
-The NAU8822 on the Apalis Evaluation Board V1.2 can combine its two
-loudspeaker outputs into a Bridge Tied Load output. Add an overlay to
-select this mode when using the board with the Apalis iMX8.
+Reserve the Cortex-M4 UART and its LPCG clock provider for firmware.
+The UART is already disabled in the base tree, but its clock provider
+can still probe and participate in Linux clock and power management.
+Mark both devices "reserved" rather than "disabled", as they remain
+operational but are owned by the Cortex-M4 firmware. Firmware must
+configure the UART and its pads for the intended MCU application.
 
-The overlay is also combined with the Apalis iMX8QM V1.1 on Evaluation
-Board V1.2 device tree to provide a ready-to-use DTB. The codec and its
-routing are already described by the carrier device tree.
+Add a combination with Colibri iMX8QXP on Evaluation Board V3 to
+validate the ownership changes against a supported base.
 
-The overlay supports both Apalis iMX8QP and iMX8QM modules.
+The overlay supports both Colibri iMX8DX and iMX8QXP modules.
 
 Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
 ---
- arch/arm64/boot/dts/freescale/Makefile                    |  6 ++++++
- .../dts/freescale/imx8-apalis-eval-v1.2-nau8822-btl.dtso  | 15 +++++++++++++++
- 2 files changed, 21 insertions(+)
+ arch/arm64/boot/dts/freescale/Makefile                 |  5 +++++
+ .../boot/dts/freescale/imx8x-colibri-uart-m4.dtso      | 18 ++++++++++++++++++
+ 2 files changed, 23 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
-index 9971b34f7301..2732b223eb3d 100644
+index 2732b223eb3d..61dbab287a35 100644
 --- a/arch/arm64/boot/dts/freescale/Makefile
 +++ b/arch/arm64/boot/dts/freescale/Makefile
-@@ -801,13 +801,19 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mq-zii-ultra-zest.dtb
- imx8mq-tqma8mq-mba8mx-lvds-tm070jvhg33-dtbs += imx8mq-tqma8mq-mba8mx.dtb imx8mq-tqma8mq-mba8mx-lvds-tm070jvhg33.dtbo
- dtb-$(CONFIG_ARCH_MXC) += imx8mq-tqma8mq-mba8mx-lvds-tm070jvhg33.dtb
+@@ -832,9 +832,14 @@ dtb-$(CONFIG_ARCH_MXC) += imx8qp-apalis-v1.1-ixora-v1.2.dtb
  
-+dtb-$(CONFIG_ARCH_MXC) += imx8-apalis-eval-v1.2-nau8822-btl.dtbo
- dtb-$(CONFIG_ARCH_MXC) += imx8qm-apalis-eval.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8qm-apalis-eval-v1.2.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8qm-apalis-ixora-v1.1.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8qm-apalis-v1.1-eval.dtb
-+dtb-$(CONFIG_ARCH_MXC) += imx8qm-apalis-v1.1-eval-v1.2-nau8822-btl.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8qm-apalis-v1.1-eval-v1.2.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8qm-apalis-v1.1-ixora-v1.1.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8qm-apalis-v1.1-ixora-v1.2.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8qxp-ai_ml.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8qxp-colibri-aster.dtb
++dtb-$(CONFIG_ARCH_MXC) += imx8qxp-colibri-eval-v3-uart-m4.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8qxp-colibri-eval-v3.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8qxp-colibri-iris.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8qxp-colibri-iris-v2.dtb
++dtb-$(CONFIG_ARCH_MXC) += imx8x-colibri-uart-m4.dtbo
 +
-+imx8qm-apalis-v1.1-eval-v1.2-nau8822-btl-dtbs := imx8qm-apalis-v1.1-eval-v1.2.dtb \
-+	imx8-apalis-eval-v1.2-nau8822-btl.dtbo
++imx8qxp-colibri-eval-v3-uart-m4-dtbs := imx8qxp-colibri-eval-v3.dtb imx8x-colibri-uart-m4.dtbo
 +
- dtb-$(CONFIG_ARCH_MXC) += imx8qm-mek.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8qm-tqma8qm-mba8x.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8qm-var-som-symphony.dtb
-diff --git a/arch/arm64/boot/dts/freescale/imx8-apalis-eval-v1.2-nau8822-btl.dtso b/arch/arm64/boot/dts/freescale/imx8-apalis-eval-v1.2-nau8822-btl.dtso
+ dtb-$(CONFIG_ARCH_MXC) += imx8qxp-mek.dtb
+ 
+ imx8qxp-mek-pcie-ep-dtbs += imx8qxp-mek.dtb imx-pcie0-ep.dtbo
+diff --git a/arch/arm64/boot/dts/freescale/imx8x-colibri-uart-m4.dtso b/arch/arm64/boot/dts/freescale/imx8x-colibri-uart-m4.dtso
 new file mode 100644
-index 000000000000..b2f9c43d29cd
+index 000000000000..c43be136a46d
 --- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx8-apalis-eval-v1.2-nau8822-btl.dtso
-@@ -0,0 +1,15 @@
++++ b/arch/arm64/boot/dts/freescale/imx8x-colibri-uart-m4.dtso
+@@ -0,0 +1,18 @@
 +// SPDX-License-Identifier: GPL-2.0-only OR MIT
 +/*
 + * Copyright (c) Toradex
 + *
-+ * Enable Bridge Tied Load (BTL) speaker mode on the Apalis Evaluation
-+ * Board V1.2, combining the two loudspeaker outputs for higher output
-+ * power.
++ * Colibri iMX8X Cortex-M4 UART, reserved for firmware and not used by Linux
 + */
 +
 +/dts-v1/;
 +/plugin/;
 +
-+&nau8822_1a {
-+	nuvoton,spk-btl;
++/* Cortex-M4 UART */
++&cm40_lpuart {
++	status = "reserved";
++};
++
++&cm40_uart_lpcg {
++	status = "reserved";
 +};
 
 -- 
