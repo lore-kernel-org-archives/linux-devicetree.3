@@ -1,169 +1,97 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0167A377018;
-	Thu,  1 Oct 2026 06:50:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EE8223EAA6;
+	Thu,  1 Oct 2026 06:51:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790837445; cv=none; b=pJ0MewdUdWTDLgl0qtPSSF2021vFYp18aWM+vbZMVsha7XPHNR7ppJUl9Ce1babzdROArW1VITadA5C+u2eHyWe70mIJd7+igpu0SQYAGGFdCeT170swzjvFjhcpesRdiwWtioM+j/P/pEuavwS2Da1aiktjDRhYQTP686SFv3Y=
+	t=1790837514; cv=none; b=Xmg1AP9st1nx+x40rpsTaJaRR3EBlffiBdSYfBipq/q8iyKRKsaPLHc3C0dGhX+7mngz3gb3tE63ZEMPj1uGiAzNZMzPw/cco3YoRSrCVWI7s75X1ENxBb9XDhv7hvvHNXOTFvVL3D/cj8WqvZrk893QyuGT4QDt7154OXEVuhw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790837445; c=relaxed/simple;
-	bh=WrUdE2khAdlf1/MsWrHbA7qdAiwyidVJ+i8uJKDW1Wk=;
+	s=arc-20240116; t=1790837514; c=relaxed/simple;
+	bh=4jlcjapDOxvIbbY38pcv3++vEbGgPzl7//TuX7zWk3g=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tKmo09oZwkBjr0t0N2EXRtJzS4MxL9t0hl51h1MGdsIpfMnByqIx+XV5vEEOGsrr0U5iUujTCcpJUI46xW4xtCJIHL6vw+cNHcfKXZ5x7aVN7SLECrdpFkGRhej7uBOm1lnBhgOKVZjx/jabac/YhDn4s6lL9FOYe2PZyur8MAs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q/e1gTPS; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=nAyDpwMRRW1PXHtQKLh3osufsFmfOcnDTDi4DYYmrtCN2Jlbno/xB8iAkT3V9KAtbldaVdbycdP/Lc7iXCNzf+/lzlRpc8e1NZOfGXcHNcudl1EHCEYywAt2k0KDN0XH2QXJlIpJ5oTQaAYkfLb5Y/pGKC9MzNX5hRpLFCKuUrE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ORPk3AbI; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q/e1gTPS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 020551F000FF;
-	Thu,  1 Oct 2026 06:50:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790837443;
-	bh=WrUdE2khAdlf1/MsWrHbA7qdAiwyidVJ+i8uJKDW1Wk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Q/e1gTPSrCSD68j7AaM7kzhCj2ouy4/v4QCOpa4HPL95utDNjJDwaZcZ5yGt5FqHT
-	 dD9PdDvoB5wopVPaRUq1UAeYloJJeguRywdsCqjCiiKB5cxWI4vPLwYkY7+3LZtATD
-	 KmVg3PbwmG1y5oDsWEQPpIJPN2OQb+UI+VrOfR3kxc8KHogXvmB8fJraf4V0sqQ2Oz
-	 vAgJ6b627+BtkKxmUT/wjiJH6AUNYmTPfdyuQSm0oPlybPjUoP725ioqJLOgWUMbq7
-	 tEA/EsJoAied51k1DcbyvxC6A3+5Qr44rstP7rVsk6lSHACIUtf8vJgXinZravVGlZ
-	 cvLpKC2jfGAfg==
-Date: Thu, 1 Oct 2026 08:50:40 +0200
-From: Maxime Ripard <mripard@kernel.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Javier Martinez Canillas <javierm@redhat.com>, 
-	Benjamin Tissoires <bentiss@kernel.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>, 
-	Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>, 
-	Justin Stitt <justinstitt@google.com>, Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, Andrzej Hajda <andrzej.hajda@intel.com>, 
-	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
-	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Luca Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve <aesteve@redhat.com>, 
-	Dave Stevenson <dave.stevenson@raspberrypi.com>, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, bpf@vger.kernel.org, llvm@lists.linux.dev, 
-	linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
-Message-ID: <ar4CRTMQGs5_nGKY@houat>
-References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
- <6b80cb97-6706-412a-b013-9423f6f75153@linaro.org>
- <arqhwHiVf00j94J7@beelink>
- <0259fe4b-3118-4ab0-9b62-55101bfd7f33@linaro.org>
- <arrAqg5n87INTHE6@beelink>
- <674314b4-6b80-4b3a-ac15-eefd31cea607@linaro.org>
- <artpBMeM13Dd0lLy@houat>
- <xlv1wls4ebjq.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
- <828c9108-2db1-45a6-9301-19159a094301@linaro.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ORPk3AbI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1790837512; x=1822373512;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=4jlcjapDOxvIbbY38pcv3++vEbGgPzl7//TuX7zWk3g=;
+  b=ORPk3AbIIMytC94jviNrzvtzebyhvRLEvRwxdOyQgxpa2uOG+bzgnA4a
+   5qxn6gtmO0PFj/Le9Y8sADmb1Ja3hn6177xQVLaNQIfmNnISdpOL+9QmE
+   imIPq9FX2bO6TMmL8nReGoKMOzUj45NDrp8xhi9WYuSODF5gv8ISwwsUJ
+   POXcCQy8iz64Xxxq+v8uMICQ4wSOgDRE1/oWz+8XL6dmLk44IoQfbSA0h
+   1ezLxahFWpDLtljM90lhBAhAgfKOok6lqPDbjQKCqWDJWUnhqV0MJZcM0
+   3Z5cYFlGftp65Y8WeEb7EoBaBomLjBq6ApaRe/DUeA5MpxjPQXTA4prev
+   A==;
+X-CSE-ConnectionGUID: EIhMQvmETcirbxZ227edQQ==
+X-CSE-MsgGUID: o5FJ5u8IQoesHb6tpZ8qVg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11921"; a="117115987"
+X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
+   d="scan'208";a="117115987"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 23:51:52 -0700
+X-CSE-ConnectionGUID: JyyaM/RBTeKfatLVb1LzSA==
+X-CSE-MsgGUID: 8VfPLW2qRje+T1jINlcVNQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,134,1787036400"; 
+   d="scan'208";a="275951739"
+Received: from smoticic-mobl1.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.7])
+  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 30 Sep 2026 23:51:49 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with SMTP id 8E0B9121B95;
+	Thu, 01 Oct 2026 09:51:46 +0300 (EEST)
+Date: Thu, 1 Oct 2026 09:51:46 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Cc: Tarang Raval <tarang.raval@siliconsignals.io>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Kieran Bingham <kieran.bingham@ideasonboard.com>,
+	"jai.luthra" <jai.luthra@ideasonboard.com>,
+	"linux-media@vger.kernel.org" <linux-media@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	Philippe Baetens <philippebaetens@gmail.com>
+Subject: Re: [PATCH v5 2/2] media: i2c: mira016: Add driver for Mira016
+Message-ID: <ar4DAkCABRYLHWth@kekkonen.localdomain>
+References: <20260930-mira016-v5-0-499a34ab8204@ideasonboard.com>
+ <20260930-mira016-v5-2-499a34ab8204@ideasonboard.com>
+ <PN3P287MB1829832B0C6C42441B18D9D18B8B2@PN3P287MB1829.INDP287.PROD.OUTLOOK.COM>
+ <ar03QZc3wVMKy8F8@zed>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha384;
-	protocol="application/pgp-signature"; boundary="kw273bz54geum3wd"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <828c9108-2db1-45a6-9301-19159a094301@linaro.org>
+In-Reply-To: <ar03QZc3wVMKy8F8@zed>
 
+Hi Jacopo,
 
---kw273bz54geum3wd
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
-MIME-Version: 1.0
+On Wed, Sep 30, 2026 at 06:34:12PM +0200, Jacopo Mondi wrote:
+> > Like for the above array 0xe000 register.
+> 
+> 0xe000 is repeated multiple times because it's the register that
+> selects which bank to write to (there are 2 registers banks on this
+> sensor)
 
-On Wed, Sep 30, 2026 at 03:37:58PM +0200, Neil Armstrong wrote:
-> On 9/29/26 09:55, Javier Martinez Canillas wrote:
-> > Maxime Ripard <mripard@kernel.org> writes:
-> >=20
-> > > On Mon, Sep 28, 2026 at 10:36:18PM +0200, Neil Armstrong wrote:
-> > > > On 9/28/26 21:48, Benjamin Tissoires wrote:
-> > > > > On Sep 28 2026, Neil Armstrong wrote:
-> > > > > > On 9/28/26 19:24, Benjamin Tissoires wrote:
-> > > > > > > On Sep 28 2026, Neil Armstrong wrote:
-> > > > > > > > Hi,
-> > > > > > > >=20
-> > > > > > > > On 9/28/26 18:22, Maxime Ripard wrote:
-> > > > > > > > > Hi,
-> > > > > > > > >=20
-> > > > > > > > > Panels in general, and MIPI-DSI panels in particular, are=
- pretty
-> > > > > > > > > difficult to support and require pretty much a panel driv=
-er for each
-> > > > > > > > > panel produced. Most of them are pretty simple, and requi=
-re an opaque
-> > > > > > > > > initialization sequence that is usually poorly documented.
-> > > > > > > > >=20
-> > > > > > > > > This creates a tension between OEMs and distros because O=
-EMs will
-> > > > > > > > > typically get a new panel to react to a sourcing issue du=
-ring
-> > > > > > > > > production, and thus need some swift turnaround between g=
-etting their
-> > > > > > > > > new panel and it being operational in the OS. Distributio=
-ns on the other
-> > > > > > > > > hand can take years to ship a kernel with that new panel =
-driver.
-> > > > > > > > >=20
-> > > > > > > > > To solve this, I followed the example of HID-BPF and wrot=
-e a panel
-> > > > > > > > > driver that will rely on BPF programs to perform the panel
-> > > > > > > > > initialization. That way, we can ship the programs separa=
-tely from the
-> > > > > > > > > kernel, and with a different lifecycle. If this driver is=
- accepted, the
-> > > > > > > > > plan is to have a userspace component started by udev to =
-identify and
-> > > > > > > > > load the right BPF program for the panels found on the de=
-vice.
-> > > > > > > >=20
-> > > > > > > > This is kind of late for serious applications except if we =
-manage to
-> > > > > > > > solve the bootloader to Linux display engine transition.
-> > > > > > > >=20
-> >=20
-> > Besides what Maxime already mentioned (that most general purpose Linux =
-distributions
-> > built the drivers as modules anyways), it doesn't have to be mutually e=
-xclusive.
-> >=20
-> > A simple panel could be supported using this BPF-based driver and then =
-a panel driver
-> > added to the kernel, if is found that some applications need to have it=
- built-in and
-> > earlier in the boot path.
-> >=20
-> > I don't see why this would be any different than HDI-BPF or other BPF-b=
-ased infra,
-> > such as sched_ext.
->
-> I don't want to add a supplementary maintenance burden for the sake of us=
-ing a cool
-> technology which has serious drawbacks and dependencies on user-space eve=
-n if looks
-> really cool.
+If you have pages, you should use regmap's page support. See e.g.
+<URL:https://lore.kernel.org/linux-media/20261001061250.37734-1-sakari.ailus@linux.intel.com/T/#u>.
 
-Spoiler alert: v2 won't. I've got the in-kernel loader to work and thus
-you can have a built-in panel driver that works without user-space
-intervention. So this is not a topic of discussion anymore.
+There are probably other such examples, too.
 
-Maxime
+-- 
+Regards,
 
-
-will work
-
---kw273bz54geum3wd
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iJUEABMJAB0WIQTkHFbLp4ejekA/qfgnX84Zoj2+dgUCar4CvwAKCRAnX84Zoj2+
-dvcSAX49Wfvd2Nx91Qlv77RICWSMxTGFolQVADy53gvu7ebfWo/lEDg2wmMLUV5U
-MkA52hMBgIONoBjDpHdMNV7byAvh44CSyrq8DcktEoCEF8a0dOoxQJ5lKBLZgdH2
-o+5/ElvokQ==
-=5iv0
------END PGP SIGNATURE-----
-
---kw273bz54geum3wd--
+Sakari Ailus
