@@ -1,83 +1,83 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3BF6389104
-	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 05:24:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FA2A3A8755
+	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 05:24:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790832256; cv=none; b=fxwyUsnmrvPr/9UReqmpm43PCYlxWdNP7rHCgOjmGvkqHshegtH6OQXzFnT3sMj0C3PgiFMh10U3A6Qf4vyvBknv3LhUe/6eAGYfYenDbtd0R2vQP5CcMQ2G4KfTuZazw8fsh8hnT7TEFz/TxvGq6W3pTcRUKBF+palUHWbLN1w=
+	t=1790832264; cv=none; b=oPpoV4OURYXASDnP2h+m0bT4jBqXxxVY4nrEcxUxIiowQdoK9DQtnJYupMcljwJ3Guwq1BNOIZP3oXRnhuFp6vMbGK3b1ykXtl+Z2XFW9kyAW3Rr73KG5VDxa8+sXLCB0aib7Cg25vpZ2AqGbHtK+MRrhqOdtNVF1c9wD0MenrQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790832256; c=relaxed/simple;
-	bh=Q+q5qYIGBH9LNrhxtkpmmt+fKkkvbj3C/340Im6n2Jc=;
+	s=arc-20240116; t=1790832264; c=relaxed/simple;
+	bh=euMqrjs3Ok1RQstrE3go1uxqpq1aFvLm8cFQF/ngnzY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GZE6ncHdGSWyU9h0noKkiSfVQKFQo4sA2jolKoF0ZBzSpohkEIuz/pXf0ArbbXBJ/7zm8kyZNeSDED3OIGXIoBX1QUP+4i6qZGmVmiZtnN2GeJJTi+jjaEimyACUNrIHmP3SJLPi4f761GHVwyjxtYqnkcMaAz3qWMRSteFpX0k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=nNJ+Ml7C; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BP2vCkMp; arc=none smtp.client-ip=205.220.180.131
+	 MIME-Version; b=JdJzL1zlfI7wuO4LkCOF6ufPHNNqJ9PWiwg2iq4XK7rjPKuImJKQdBCrdHRPHwAfAUlF4mrqHa8cDzKspirqPBEGiv2XecKjYRIJnGLvln0KD2/x1Sm8D3r0EwPX7ad6C8VGu42CnrYh1RC2NGO7MFX35mQactHafw1ple7qqUo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mAgcg8bt; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ODXTofwF; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="nNJ+Ml7C";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BP2vCkMp"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6915GOPb1953994
-	for <devicetree@vger.kernel.org>; Thu, 1 Oct 2026 05:24:13 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mAgcg8bt";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ODXTofwF"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6913h2xf1090587
+	for <devicetree@vger.kernel.org>; Thu, 1 Oct 2026 05:24:22 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=UJsoYpln4rp
-	3bxbmaJGZ/nVdjN6gyf3d7uD8cu5HYN8=; b=nNJ+Ml7CqLpej59JnzWd5Elg6eM
-	gpBn8iHxVxvlG43XYjLFbkvyi6dtdiBVoNzxa/NZ7DHDysShpw9gYciCSdAY7ZPk
-	oj0Ilzk/fzrDgdikD7NgUjzXprWcQs+5frB28zI79YxVPVxjN4k1lM6HpdGIbczC
-	YxBo/kwsU1X8hj443uYaB4Z/Oo/td5R0GlRYH6nBfHh5bcfEaTtNn3gS2lMbBvPJ
-	NL2+w3jh7keXutvJpxlBAXSKx1gZwiSO63rS7olOVSsDLqzaNv/39Me2f0oUg1bb
-	pfhDCvrQJJ/GKoyNmmix+qhSS27nknrbiDSqQTr8wq6im0lLbJ060nMfi9Q==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h1h7nr1bj-1
+	:mime-version:references:subject:to; s=qcppdkim1; bh=AsfNws2Wxi6
+	oDbK2RrL2JLATMl8Lm+Wmiu7rIwOVrBI=; b=mAgcg8btd9GAMeC33eHJTLWPvT7
+	8ScBZdWEZqje0FxgWLuvKL5XYJkrWL4TUNgMxU7mcP9FjsD8WL6CgOAFFQE7Ihio
+	rb5h/QJ0eivFmYph935XH3qYd5UlwCVabC1K9m19ANzqYZilXkIkYW3j65rut5hC
+	ioedY3qiX/TqWNd+BK2aanlLZ1h347KCpFfwP+7Q6E4Gmp0iPPJM+rI5zuHwc1DH
+	0/3yxuD2hxv6LOfoDZO09jKHrJgL+4s7YS/hJpdFxQe1RZyVP4Ek7dty66HzsLN0
+	YqSJoTmA/dyoM0esjK42YGg7e7KMQkNr9KSEJ/LzXjIREMetlEkVWp5bCxQ==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h188ssw8s-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 05:24:13 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2e2ebeaa0a4so10013865ad.1
-        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 22:24:13 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 05:24:21 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2d55d8cd938so94003985ad.1
+        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 22:24:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790832252; x=1791437052; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1790832261; x=1791437061; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=UJsoYpln4rp3bxbmaJGZ/nVdjN6gyf3d7uD8cu5HYN8=;
-        b=BP2vCkMp5JAkBOCQQKEqCo+cjfFhzUVXGsdDPsgI2Qupdo06/KGK722Q611ayjlowU
-         OIYUgmAxSi9xpbKFWfEMM50Z47nfDICXJFEIZoZGa05NRKeF3w1+EanTKHYEP7FBrDeB
-         DAcMY684XgndL/mSpHf55jO9+u1TTH09j88wtaZJxJYJJaGZ7FTAp9SuKzLk5ULXruTz
-         TkxNw9Hfwulx9/kL7AAq0+/dfN9YVjFngSt7Q2QV7mMbRyscPka0SiJ188lBfBl/3You
-         ihDgOcbf6etVMbdUaiQHfpzhAbeE737alGUJrbQvfQmP0Ej9HFUTxT4Tk57yKIosMADV
-         2tEA==
+        bh=AsfNws2Wxi6oDbK2RrL2JLATMl8Lm+Wmiu7rIwOVrBI=;
+        b=ODXTofwFcf0m1teZuXs4nIlRP5rVDX39HuJOvh8GFPjC8hJcjSp3CFZ/+KHwRV7nlV
+         w/6wjDubPDcNg2LLQWfqULd7Tt6kzru3lv/J5TyYv1qikjzI9PUEzfb9ahEtQnFpq4g8
+         9vquaHRZ6/YawvIDWUR2tsZUkeCufGKsWORxNGmkEXw9Njlx8IvP3u8Cj7t6ZgFeYy6f
+         OrCiKGTNo+kibXz5GzuZ86lbZHPTzfyWe464poBFQtA/AWl7F6XnYrXB5Vlw9PgpBR2K
+         qGAfGpd1ROAzUCqS+wkYRN8la+LJEUg3gmmxR1Rqf4wf+vv4hjGhxS4Lyymw4Xs5roi7
+         tgCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790832252; x=1791437052;
+        d=1e100.net; s=20260707; t=1790832261; x=1791437061;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UJsoYpln4rp3bxbmaJGZ/nVdjN6gyf3d7uD8cu5HYN8=;
-        b=tdZxsHwsCFJDibvOxMmpEcrMqGmt10ckBb8JFWWH3tmd6Jnuh17BpHsKBx6JgAUiiR
-         saqJsjOQKEAmg/0meJ9RUG47aFTJ2vMR53iYG74pOTuUXP8Ku2uL6L0LbjVXs1d0aFp0
-         JZ1VWGgTxoK0wKyc1Ftze2PIXysglTwBwDm3PuDIwpgFnLUg7P1FHyx6SDt6uY9WekPH
-         bd5sAX2eAQ57XyM04/e2ErBYF+y607WunCG1P9Mz0mj9W+j/OE6dgVph9N0L7JDuiaSH
-         yfCkEC/uzgd14P/vxOyhkULwvMGn/L5Qcnj4mcCfxBtw4YqoXUGHYhMe33u3zPk0rUOV
-         KSHA==
-X-Forwarded-Encrypted: i=1; AKwUvByy627CBbTZaziMx9VsRlaE+8r3ehsraxTbdD0MBMv92CX7w77Az02HvG8BsXvqxAZHn6Fz1mVXgQ/f@vger.kernel.org
-X-Gm-Message-State: AFq9FYL7lxWe561ZFrgVn94rDTXR953aJXkutxNO7vvjP00S2gk67JHX
-	Va1cE1Xxqxj41MgMneyta9M0JX374hhpwK4t0TFXGU9Vru+sq0eyK4kGvmxS4V7tmG+rkAa4Dyv
-	o/yN3TKLBnoQAHpIfVSE+MYlfd9pszKV1S0aJbZMYnu21rV5Ne2SyjjRNd9ks6QzR
-X-Gm-Gg: AYBFou0V7LP7xrBzRlgTZN55pAfycuh5WceYYLvHZEArZgyyzb7CgxIkMZmOFieOyp7
-	6+L39q3ELIJVwL1mGh2ICpAdgiUgIb0HMvS/ARBmfWjCNc3JTEbyOtqbDpPa+oHhWHp7C4xQ8uO
-	R/9m7ooH58d8f/CJVemyjohZ1Sldg6lHaCsBwQD0zYZdnraXSd7uQZlyBF11873Ilkt6hkRVEHG
-	V5b+t4fIBe/bxMICckOgq0+eJnXFRGXmStiQQqHsVJQ4ZgT61n6/J7qV+0ouFVD9+UPSsxS+Nv8
-	dAbKYRzcBqDXYfpDu3G7VpecQReksOhM6LUbPxNPvZqdNSq9W5H0QkMNw21UgonI/cSfQs1f8HS
-	Tc0HuCD2K4t3RwECMez480WpboH5CkFO0Txfw3KpKSlcBRLD5e71ytY3LxMa1DIiXMBh82pWIuO
-	rFQWZmCJ9N1ok3lCK2+Zb/ZyEH
-X-Received: by 2002:a17:903:388e:b0:2dd:ad74:ac28 with SMTP id d9443c01a7336-2e2e4a1cfc1mr31696765ad.26.1790832252363;
-        Wed, 30 Sep 2026 22:24:12 -0700 (PDT)
-X-Received: by 2002:a17:903:388e:b0:2dd:ad74:ac28 with SMTP id d9443c01a7336-2e2e4a1cfc1mr31696475ad.26.1790832251863;
-        Wed, 30 Sep 2026 22:24:11 -0700 (PDT)
+        bh=AsfNws2Wxi6oDbK2RrL2JLATMl8Lm+Wmiu7rIwOVrBI=;
+        b=twNdORmXnvMzIfdXcQGTMVN7i9Fqig1aJ/I0PuJS/BXjeDflc5yq/lJhZwRuXOeuC4
+         21uhjtvedE1EvxyI63Z9D1NGZQC4W4DH/AJ6pL6IeQIzrQwKwdt2aaMLI4Uv7u3/pRwV
+         KrytDDXqrokPdxQTAmiknPqkVm/nvXLf38OuvwdnHUbK/M1QJ56mNhdZneNCd5YP+kuT
+         E8H8B4gHhF5U4lKPdoEzQrgP8wJ/Pnpve1BrAws/dCuoMRgRkX8Mf35scxIUUlAMXBJ/
+         UXZwP/5uIZQax9+H3Q4V8fs9yYDzaKofaL4SyAP7EUJjtRdlU9VZESCATer/lIIpcMxY
+         dxwQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy/uOwlSBxpiTO06Vzhi/Q5c+EYKlljhS67UsmJeEC8h29eAbQG2RLFUyPWb+ZETZgXDbpDeBbzTWcH@vger.kernel.org
+X-Gm-Message-State: AFq9FYI7gwrDHrKOeuR9Z+MdTCb+S9+ef69M+mlTQlaJRceRHeVEsjxP
+	4izbZnbPtm/XuYR/lmhkXh5Vnzjohe1HLdZ++yZIGeKt+9R+TWJTnYScXAIbURgGPrVeMLZV4ca
+	FntDbG7XNPBixdVvP1ETdFpBSIdeJWf3PMtLDo5sD1E1QRodlNWInUV5iU0qL8A/y
+X-Gm-Gg: AYBFou32vQg4H2Nd5Iqcrb+GwyobmUEW/mp8rU6VkgVKLO4FmqsxBlfGdMEpJubLWLX
+	jAz0g/WoVC0z8okyzyeA/LqHJP2retona/D90GQih+81TBIJ4tgFa7vNjZmSYpXM9NQMWBNRcmu
+	QtFbYWI0PkCO5lPyk07A1amMDXiQX7CtrqZCjLMX1A1drhk4dVl3GuqbXiunCAT1kTqCr7VlXOO
+	1MUt70NWOL3vYnJRmZJpv2pXhr43yXaLZTU/i2oKQ8Dwel9m5AxhdrzZd9iUDb4dhyMZxWspvFa
+	ATWwDaWeLC2scuw4rqkKdSFKcrUwONzDJDZmn6HPAJ9N4PXOkcB/nl0WC5haohjvaiRj0XstfJj
+	vRl4bPtWEWUcZLSTVJ85bgvM27eugLIZO8Fbge/NVHNHyQVGlrl5uiPGoxrckZFBhexStxPPRtc
+	4kLAza5PW3M+/bXOm/h1DWYoLM
+X-Received: by 2002:a17:903:234a:b0:2dd:c132:dc01 with SMTP id d9443c01a7336-2e2e49fe5c6mr25551735ad.46.1790832260440;
+        Wed, 30 Sep 2026 22:24:20 -0700 (PDT)
+X-Received: by 2002:a17:903:234a:b0:2dd:c132:dc01 with SMTP id d9443c01a7336-2e2e49fe5c6mr25551455ad.46.1790832259877;
+        Wed, 30 Sep 2026 22:24:19 -0700 (PDT)
 Received: from hu-mchitale-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.googlemail.com with ESMTPSA id d9443c01a7336-2e300b851b9sm5152715ad.78.2026.09.30.22.24.04
+        by smtp.googlemail.com with ESMTPSA id d9443c01a7336-2e300b851b9sm5152715ad.78.2026.09.30.22.24.12
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 30 Sep 2026 22:24:11 -0700 (PDT)
+        Wed, 30 Sep 2026 22:24:19 -0700 (PDT)
 From: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
         Conor Dooley <conor+dt@kernel.org>,
@@ -85,9 +85,9 @@ To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
         Greg KH <gregkh@linuxfoundation.org>,
         Alexander Shishkin <alexander.shishkin@linux.intel.com>,
         Ian Rogers <irogers@google.com>
-Cc: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>,
-        Alexandre Ghiti <alex@ghiti.fr>, Peter Zijlstra <peterz@infradead.org>,
-        Ingo Molnar <mingo@redhat.com>, Namhyung Kim <namhyung@kernel.org>,
+Cc: Anup Patel <anup.patel@oss.qualcomm.com>, Alexandre Ghiti <alex@ghiti.fr>,
+        Peter Zijlstra <peterz@infradead.org>, Ingo Molnar <mingo@redhat.com>,
+        Namhyung Kim <namhyung@kernel.org>,
         Mark Rutland <mark.rutland@arm.com>, Jiri Olsa <jolsa@kernel.org>,
         Adrian Hunter <adrian.hunter@intel.com>,
         Mayuresh Chitale <mchitale@gmail.com>,
@@ -95,11 +95,11 @@ Cc: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>,
         Andrew Jones <andrew.jones@oss.qualcomm.com>,
         Sunil V L <sunilvl@oss.qualcomm.com>, linux-riscv@lists.infradead.org,
         devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Anup Patel <anup.patel@oss.qualcomm.com>,
+        Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>,
         Zane Leung <liangzhen@linux.spacemit.com>
-Subject: [PATCH v6 06/14] gtrace: Add RISC-V Trace encoder driver
-Date: Thu,  1 Oct 2026 10:52:17 +0530
-Message-ID: <20261001052243.3042627-7-mayuresh.chitale@oss.qualcomm.com>
+Subject: [PATCH v6 07/14] gtrace: Add function to copy into perf AUX buffer
+Date: Thu,  1 Oct 2026 10:52:18 +0530
+Message-ID: <20261001052243.3042627-8-mayuresh.chitale@oss.qualcomm.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261001052243.3042627-1-mayuresh.chitale@oss.qualcomm.com>
 References: <20261001052243.3042627-1-mayuresh.chitale@oss.qualcomm.com>
@@ -110,318 +110,146 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=OI6yTiaB c=1 sm=1 tr=0 ts=6abdee7d cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDAyMSBTYWx0ZWRfX/WNI91bivVEy
+ M7R7gmakqr0hT31XA2H/2fVqvOwL4mVPAN1rJIHLkEc0Mw2REHLAhPN4GxKKOWnVdwwSfVZxkQN
+ GFf4xGjCJET8ryMKe2XMTX1fenmNtUw=
+X-Authority-Analysis: v=2.4 cv=OozaWC/t c=1 sm=1 tr=0 ts=6abdee85 cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
  a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8
- a=aa8L5a3Xh2TisPCN470A:9 a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAxMDAyMSBTYWx0ZWRfX4uRTYiToJQyr
- x806F592TUMaZnwv9I2hewvjaHVPTVzJsYrdWKnGMbg1YQEmUf0CJvNiMcjzSQJt+0LYvoR6GSv
- 5yc9sQ7U0mr+9QsbtjWbVlm5Ud0SJRw=
-X-Proofpoint-ORIG-GUID: TC8h3kBnKl_IsIt1JpPZWO0ggxhBeyC8
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDAyMSBTYWx0ZWRfX385UV3ZvwlA1
- 9fATjH/Uqug+WibzoAfabJcPnfJDM/BjB3W9sg/2j723iDuD7MFIxKIS2NNjpPiZ+InpABn9YEC
- EtF7jbHRJ5rk4Vax5nQ5BQ6cAx4mjSONXzmOoGL1jsJp4nqqWYEge0Q8Asp4TefOZK4DL9LXUs+
- LYvFJkpnE47GDtwpuTqf6buyPzKXyHg5mKnRBT3SjXQ2IOKdo09X1/owHhviwsvzhB4sdRvfjGi
- PFC3af6EbS8T5+BqiqOG8U8PKk010LF+iedDatM8Qgg0f+BXmEpIGvMYoMo7uIu0aW0wKeXaSgR
- T/DpDjCkE9xIoLrkO1ETLkikra+/QD2IWlopVGtYnIe29cf+t9XmC7C9GOuRLrvWgqdM1uqw/bI
- LebuL/clPoknNQq21bWty+uCidlRZO6jik+bLqpbqFoLsPPTnXC308hr8CtLPTZAj0oN8ObRxaZ
- r+XVgPsyR3JZeANWq0Q==
-X-Proofpoint-GUID: TC8h3kBnKl_IsIt1JpPZWO0ggxhBeyC8
+ a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8
+ a=TflMzYLVq8MTiglY7lUA:9 a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-ORIG-GUID: LzEOUATUYWAzk47zEetETyMlbUTAVOwC
+X-Proofpoint-GUID: LzEOUATUYWAzk47zEetETyMlbUTAVOwC
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAxMDAyMSBTYWx0ZWRfX7L13galQNl4J
+ aK8ZAeAKLHi/pmisGuWUFxXA2QEVVcYENJX4XQHeC3dyvLphVSq+M5xp9j3nFwryOaqPLM1ZmHS
+ K/5hAVmrMQFZcidT7XeZ9SBkLkuuWuA5hQBAVGumbW3uNgMOtB77jc/F6sjjR6sOQwrj4SjAYoH
+ +0SRCFmq63hfVIjtxYPupftpX1uf7+GxVk6Y0gR+s5CuNdc4kBwlJa06BwCEJgpIagm9C0nmRmZ
+ gtmTh9WvUrvN+RjIkThWF8RZre4NUU0nIeazB5A84SJrs0dRNExMjbKeDzemWXjBmUcVgoNpUcZ
+ rm/CmEpdggduebrGTuUtSojxzHFGVpSsBwLd0jwQk+SSq5/He4UVZaU8AxSlJ+/z5FN2OocCYBP
+ Ca5Dt0KAP03xqjDCOxT4RaBbZ1+ejpXY3e97RgjzwGkKTB+bKwnOvE9Jpe3JlWqqzgHD78Kmo01
+ UuAH5lUNti+B9rbtjWg==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-01_02,2026-09-21_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 lowpriorityscore=0 phishscore=0 adultscore=0 clxscore=1015
- suspectscore=0 bulkscore=0 spamscore=0 malwarescore=0 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610010021
+ clxscore=1015 malwarescore=0 lowpriorityscore=0 impostorscore=0
+ priorityscore=1501 suspectscore=0 bulkscore=0 adultscore=0 phishscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2610010021
 
-Add initial implementation of RISC-V E-Trace encoder driver. The encoder
-is defined in the RISC-V Trace Control Interface specification.
+From: Anup Patel <anup.patel@oss.qualcomm.com>
 
-Co-developed-by: Anup Patel <anup.patel@oss.qualcomm.com>
+The RISC-V trace ramsink will need a mechanism to copy trace data
+into the perf AUX buffer. Add gtrace_path_copyto_auxbuf() function
+and corresponding trace driver callback copyto_auxbuf() for this
+purpose.
+
 Signed-off-by: Anup Patel <anup.patel@oss.qualcomm.com>
+Co-developed-by: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
 Signed-off-by: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
 ---
- drivers/hwtracing/gtrace/Kconfig           |  13 ++
- drivers/hwtracing/gtrace/Makefile          |   1 +
- drivers/hwtracing/gtrace/rvtrace-encoder.c | 236 +++++++++++++++++++++
- 3 files changed, 250 insertions(+)
- create mode 100644 drivers/hwtracing/gtrace/rvtrace-encoder.c
+ drivers/hwtracing/gtrace/gtrace-core.c | 41 ++++++++++++++++++++++++++
+ include/linux/gtrace.h                 | 24 +++++++++++++++
+ 2 files changed, 65 insertions(+)
 
-diff --git a/drivers/hwtracing/gtrace/Kconfig b/drivers/hwtracing/gtrace/Kconfig
-index 04986f216549..e3a621b59913 100644
---- a/drivers/hwtracing/gtrace/Kconfig
-+++ b/drivers/hwtracing/gtrace/Kconfig
-@@ -28,3 +28,16 @@ config RVTRACE
+diff --git a/drivers/hwtracing/gtrace/gtrace-core.c b/drivers/hwtracing/gtrace/gtrace-core.c
+index d7f1df90aa31..acbeb3df2135 100644
+--- a/drivers/hwtracing/gtrace/gtrace-core.c
++++ b/drivers/hwtracing/gtrace/gtrace-core.c
+@@ -715,6 +715,47 @@ int gtrace_path_stop(struct gtrace_path *path)
+ }
+ EXPORT_SYMBOL_GPL(gtrace_path_stop);
  
- 	  To compile this driver as a module, choose M here: the module
- 	  will be called rvtrace.
-+
-+config RVTRACE_ENCODER
-+	tristate "RISC-V Trace Encoder driver"
-+	depends on RVTRACE
-+	default y
-+	help
-+	  This driver provides support for the RISC-V trace encoder component
-+	  which is defined by the RISC-V Trace Control Interface specification.
-+	  The encoder is bound to a CPU and generates the trace data for that
-+	  CPU.
-+
-+	  To compile this driver as a module, choose M here: the module
-+	  will be called rvtrace-encoder.
-diff --git a/drivers/hwtracing/gtrace/Makefile b/drivers/hwtracing/gtrace/Makefile
-index 20f67a78b8ab..2660fcaa332b 100644
---- a/drivers/hwtracing/gtrace/Makefile
-+++ b/drivers/hwtracing/gtrace/Makefile
-@@ -5,3 +5,4 @@ gtrace-y := gtrace-core.o
- gtrace-$(CONFIG_OF) += gtrace-of.o
- 
- obj-$(CONFIG_RVTRACE) += rvtrace-platform.o
-+obj-$(CONFIG_RVTRACE_ENCODER) += rvtrace-encoder.o
-diff --git a/drivers/hwtracing/gtrace/rvtrace-encoder.c b/drivers/hwtracing/gtrace/rvtrace-encoder.c
-new file mode 100644
-index 000000000000..1f06b1a2b412
---- /dev/null
-+++ b/drivers/hwtracing/gtrace/rvtrace-encoder.c
-@@ -0,0 +1,236 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (c) 2026 Qualcomm Technologies, Inc.
-+ */
-+
-+#include <linux/cpumask.h>
-+#include <linux/device.h>
-+#include <linux/gtrace.h>
-+#include <linux/log2.h>
-+#include <linux/minmax.h>
-+#include <linux/slab.h>
-+#include <linux/types.h>
-+#include "rvtrace.h"
-+
-+#define RVTRACE_COMPONENT_CTRL_ITRACE_SHIFT	2
-+#define RVTRACE_COMPONENT_CTRL_INSTMODE_MASK	0x7
-+#define RVTRACE_COMPONENT_CTRL_INSTMODE_SHIFT	4
-+#define RVTRACE_COMPONENT_CTRL_INSTMODE_OPIT	0x6
-+#define RVTRACE_COMPONENT_CTRL_INHIBITSRC_SHIFT	15
-+#define RVTRACE_COMPONENT_CTRL_FORMAT_MASK	0x7
-+#define RVTRACE_COMPONENT_CTRL_FORMAT_SHIFT	24
-+#define RVTRACE_COMPONENT_CTRL_FORMAT_ETRACE	0x0
-+#define RVTRACE_COMPONENT_CTRL_FORMAT_NTRACE	0x1
-+
-+#define RVTRACE_ENCODER_INSTFEAT_OFFSET		0x8
-+#define RVTRACE_ENCODER_INSTFEAT_SRCID_MASK	0xfff
-+#define RVTRACE_ENCODER_INSTFEAT_SRCID_SHIFT	16
-+#define RVTRACE_ENCODER_INSTFEAT_SRCBITS_MASK	0xf
-+#define RVTRACE_ENCODER_INSTFEAT_SRCBITS_SHIFT	28
-+#define RVTRACE_ENCODER_INSTFEAT_SRCBITS_MAX	12
-+
-+struct rvtrace_encoder_priv {
-+	u32 srcbits;
-+};
-+
-+/*
-+ * Set the srcid and clear trTeInhibitSrc bit so that the emitted trace messages carry
-+ * the source id
-+ */
-+static void rvtrace_encoder_set_srcid(struct gtrace_platform_data *pdata, u32 srcbits)
++int gtrace_path_copyto_auxbuf(struct gtrace_path *path,
++			      struct gtrace_perf_auxbuf *buf,
++			      size_t *bytes_copied, u64 *format)
 +{
-+	u32 val;
++	struct gtrace_comp_priv *sink = to_gtrace_comp_priv(gtrace_path_sink(path));
++	const struct gtrace_driver *gtdrv;
++	struct gtrace_component *comp;
++	struct gtrace_path_node *node;
++	int ret = -EOPNOTSUPP;
++	unsigned long flags;
 +
-+	val = gtrace_read32(pdata, RVTRACE_ENCODER_INSTFEAT_OFFSET);
-+	val &= ~(RVTRACE_ENCODER_INSTFEAT_SRCID_MASK << RVTRACE_ENCODER_INSTFEAT_SRCID_SHIFT);
-+	val &= ~(RVTRACE_ENCODER_INSTFEAT_SRCBITS_MASK << RVTRACE_ENCODER_INSTFEAT_SRCBITS_SHIFT);
-+	val |= pdata->bound_cpu << RVTRACE_ENCODER_INSTFEAT_SRCID_SHIFT;
-+	val |= srcbits << RVTRACE_ENCODER_INSTFEAT_SRCBITS_SHIFT;
-+	gtrace_write32(pdata, val, RVTRACE_ENCODER_INSTFEAT_OFFSET);
++	/*
++	 * Copy only after every path using the sink has stopped; otherwise the
++	 * hardware may overwrite data being copied, or the same data may be copied
++	 * to aux buffer twice. The last path to stop does the copy. Holding the
++	 * sink's lock also stops another path from starting the sink before copy
++	 * completes.
++	 */
++	raw_spin_lock_irqsave(&sink->lock, flags);
++	if (sink->start_count) {
++		*bytes_copied = 0;
++		ret = 0;
++		goto out;
++	}
 +
-+	val = gtrace_read32(pdata, RVTRACE_COMPONENT_CTRL_OFFSET);
-+	val &= ~BIT(RVTRACE_COMPONENT_CTRL_INHIBITSRC_SHIFT);
-+	gtrace_write32(pdata, val, RVTRACE_COMPONENT_CTRL_OFFSET);
-+}
++	list_for_each_entry(node, &path->comp_list, head) {
++		comp = node->comp;
++		gtdrv = to_gtrace_driver(comp->dev.driver);
++		if (!gtdrv || !gtdrv->copyto_auxbuf)
++			continue;
 +
-+/* Set requested trace format and return 0 if hardware supports that format */
-+static int rvtrace_encoder_set_format(struct gtrace_platform_data *pdata)
-+{
-+	u32 val, fmt;
-+
-+	switch (pdata->format) {
-+	case GTRACE_FORMAT_ETRACE:
-+		fmt = RVTRACE_COMPONENT_CTRL_FORMAT_ETRACE;
++		*bytes_copied = gtdrv->copyto_auxbuf(comp, buf, format);
++		ret = 0;
 +		break;
-+	case GTRACE_FORMAT_NTRACE:
-+		fmt = RVTRACE_COMPONENT_CTRL_FORMAT_NTRACE;
-+		break;
-+	default:
-+		return -EINVAL;
 +	}
-+
-+	val = gtrace_read32(pdata, RVTRACE_COMPONENT_CTRL_OFFSET);
-+	val &= ~(RVTRACE_COMPONENT_CTRL_FORMAT_MASK << RVTRACE_COMPONENT_CTRL_FORMAT_SHIFT);
-+	val |= fmt << RVTRACE_COMPONENT_CTRL_FORMAT_SHIFT;
-+	gtrace_write32(pdata, val, RVTRACE_COMPONENT_CTRL_OFFSET);
-+
-+	val = gtrace_read32(pdata, RVTRACE_COMPONENT_CTRL_OFFSET);
-+	val = (val >> RVTRACE_COMPONENT_CTRL_FORMAT_SHIFT) & RVTRACE_COMPONENT_CTRL_FORMAT_MASK;
-+	return val == fmt ? 0 : -EOPNOTSUPP;
-+}
-+
-+static int rvtrace_encoder_probe(struct gtrace_component *comp)
-+{
-+	struct gtrace_platform_data *pdata = comp->pdata;
-+	struct rvtrace_encoder_priv *priv;
-+	u32 val, hw_srcbits, srcbits;
-+	int ret;
-+
-+	if (pdata->bound_cpu < 0) {
-+		dev_err(&comp->dev, "cpu property missing. Please fix firmware.\n");
-+		return -EINVAL;
-+	}
-+
-+	priv = devm_kzalloc(&comp->dev, sizeof(*priv), GFP_KERNEL);
-+	if (!priv)
-+		return -ENOMEM;
-+
-+	ret = rvtrace_encoder_set_format(pdata);
-+	if (ret) {
-+		dev_err(&comp->dev, "failed to set format %d\n", pdata->format);
-+		return ret;
-+	}
-+
-+	/* Check if trTeInhibitSrc is hardwired to 1 */
-+	val = gtrace_read32(pdata, RVTRACE_COMPONENT_CTRL_OFFSET);
-+	val &= ~BIT(RVTRACE_COMPONENT_CTRL_INHIBITSRC_SHIFT);
-+	gtrace_write32(pdata, val, RVTRACE_COMPONENT_CTRL_OFFSET);
-+	val = gtrace_read32(pdata, RVTRACE_COMPONENT_CTRL_OFFSET);
-+	if (!(val & BIT(RVTRACE_COMPONENT_CTRL_INHIBITSRC_SHIFT))) {
-+		/* Probe how many bits can trTeSrcID span in the emitted Trace messages */
-+		val = gtrace_read32(pdata, RVTRACE_ENCODER_INSTFEAT_OFFSET);
-+		val |= (RVTRACE_ENCODER_INSTFEAT_SRCBITS_MASK <<
-+			RVTRACE_ENCODER_INSTFEAT_SRCBITS_SHIFT);
-+		gtrace_write32(pdata, val, RVTRACE_ENCODER_INSTFEAT_OFFSET);
-+		val = gtrace_read32(pdata, RVTRACE_ENCODER_INSTFEAT_OFFSET);
-+		hw_srcbits = (val >> RVTRACE_ENCODER_INSTFEAT_SRCBITS_SHIFT) &
-+			     RVTRACE_ENCODER_INSTFEAT_SRCBITS_MASK;
-+		/* Determine if there are sufficient bits to hold max cpus */
-+		hw_srcbits = min_t(u32, hw_srcbits, RVTRACE_ENCODER_INSTFEAT_SRCBITS_MAX);
-+		srcbits = min_t(u32, hw_srcbits, order_base_2(nr_cpu_ids));
-+		if (srcbits && pdata->bound_cpu < BIT(srcbits)) {
-+			rvtrace_encoder_set_srcid(pdata, srcbits);
-+			priv->srcbits = srcbits;
-+		}
-+	}
-+	if (!priv->srcbits) {
-+		dev_warn(&comp->dev, "cpu %d trace will not carry source id\n",
-+			 pdata->bound_cpu);
-+		val = gtrace_read32(pdata, RVTRACE_COMPONENT_CTRL_OFFSET);
-+		val |= BIT(RVTRACE_COMPONENT_CTRL_INHIBITSRC_SHIFT);
-+		gtrace_write32(pdata, val, RVTRACE_COMPONENT_CTRL_OFFSET);
-+	}
-+	dev_set_drvdata(&comp->dev, priv);
-+	return 0;
-+}
-+
-+static int rvtrace_encoder_start(struct gtrace_component *comp)
-+{
-+	struct rvtrace_encoder_priv *priv = dev_get_drvdata(&comp->dev);
-+	struct gtrace_platform_data *pdata = comp->pdata;
-+	int ret;
-+	u32 val;
-+
-+	if (priv->srcbits)
-+		rvtrace_encoder_set_srcid(pdata, priv->srcbits);
-+
-+	ret = rvtrace_encoder_set_format(pdata);
-+	if (ret) {
-+		dev_err(&comp->dev, "failed to set format %d\n", pdata->format);
-+		return ret;
-+	}
-+
-+	ret = gtrace_enable_component(comp);
-+	if (ret) {
-+		dev_err(&comp->dev, "failed to enable encoder.\n");
-+		return ret;
-+	}
-+
-+	/* set mode */
-+	val = gtrace_read32(pdata, RVTRACE_COMPONENT_CTRL_OFFSET);
-+	val &= ~(RVTRACE_COMPONENT_CTRL_INSTMODE_MASK << RVTRACE_COMPONENT_CTRL_INSTMODE_SHIFT);
-+	val |= (RVTRACE_COMPONENT_CTRL_INSTMODE_OPIT << RVTRACE_COMPONENT_CTRL_INSTMODE_SHIFT);
-+	gtrace_write32(pdata, val, RVTRACE_COMPONENT_CTRL_OFFSET);
-+
-+	val = gtrace_read32(pdata, RVTRACE_COMPONENT_CTRL_OFFSET);
-+	val |= BIT(RVTRACE_COMPONENT_CTRL_ITRACE_SHIFT);
-+	gtrace_write32(pdata, val, RVTRACE_COMPONENT_CTRL_OFFSET);
-+	ret = gtrace_poll_bit(pdata, RVTRACE_COMPONENT_CTRL_OFFSET,
-+			      RVTRACE_COMPONENT_CTRL_ITRACE_SHIFT, 1,
-+			      pdata->control_poll_timeout_usecs);
-+	if (ret) {
-+		dev_err(&comp->dev, "failed to enable tracing.\n");
-+		val = gtrace_read32(pdata, RVTRACE_COMPONENT_CTRL_OFFSET);
-+		val &= ~BIT(RVTRACE_COMPONENT_CTRL_ITRACE_SHIFT);
-+		gtrace_write32(pdata, val, RVTRACE_COMPONENT_CTRL_OFFSET);
-+		gtrace_disable_component(comp);
-+	}
-+
++out:
++	raw_spin_unlock_irqrestore(&sink->lock, flags);
 +	return ret;
 +}
++EXPORT_SYMBOL_GPL(gtrace_path_copyto_auxbuf);
 +
-+static int rvtrace_encoder_stop(struct gtrace_component *comp)
-+{
-+	struct gtrace_platform_data *pdata = comp->pdata;
-+	int ret, err;
-+	u32 val;
-+
-+	val = gtrace_read32(pdata, RVTRACE_COMPONENT_CTRL_OFFSET);
-+	val &= ~BIT(RVTRACE_COMPONENT_CTRL_ITRACE_SHIFT);
-+	gtrace_write32(pdata, val, RVTRACE_COMPONENT_CTRL_OFFSET);
-+	ret = gtrace_poll_bit(pdata, RVTRACE_COMPONENT_CTRL_OFFSET,
-+			      RVTRACE_COMPONENT_CTRL_ITRACE_SHIFT, 0,
-+			      pdata->control_poll_timeout_usecs);
-+	if (ret)
-+		dev_err(&comp->dev, "failed to stop tracing.\n");
-+
-+	err = gtrace_disable_component(comp);
-+	if (err)
-+		dev_err(&comp->dev, "failed to disable encoder.\n");
-+
-+	return ret ?: err;
-+}
-+
-+static const struct gtrace_component_id rvtrace_encoder_ids[] = {
-+	{ .type = GTRACE_RVTRACE_ENCODER,
-+	  .version = rvtrace_component_mkversion(1, 0), },
-+	{},
+ struct gtrace_path *gtrace_create_path(struct gtrace_component *source,
+ 				       struct gtrace_component *sink,
+ 				       enum gtrace_component_mode mode)
+diff --git a/include/linux/gtrace.h b/include/linux/gtrace.h
+index a4b99c87d250..ed0e751faa91 100644
+--- a/include/linux/gtrace.h
++++ b/include/linux/gtrace.h
+@@ -266,9 +266,30 @@ void gtrace_destroy_path(struct gtrace_path *path);
+ int gtrace_path_start(struct gtrace_path *path);
+ int gtrace_path_stop(struct gtrace_path *path);
+ 
++/**
++ * struct gtrace_perf_auxbuf - Representation of the perf AUX buffer.
++ * @length:   Size of the AUX buffer.
++ * @nr_pages: Number of pages of the AUX buffer.
++ * @base:     Start address of AUX buffer.
++ * @pos:      Position in the AUX buffer to commit traced data.
++ */
++struct gtrace_perf_auxbuf {
++	size_t length;
++	int nr_pages;
++	void *base;
++	long pos;
 +};
 +
-+static struct gtrace_driver rvtrace_encoder_driver = {
-+	.id_table = rvtrace_encoder_ids,
-+	.probe = rvtrace_encoder_probe,
-+	.start = rvtrace_encoder_start,
-+	.stop = rvtrace_encoder_stop,
-+	.driver = {
-+		.name = "rvtrace-encoder",
-+	},
-+};
++int gtrace_path_copyto_auxbuf(struct gtrace_path *path,
++			      struct gtrace_perf_auxbuf *buf,
++			      size_t *bytes_copied, u64 *format);
 +
-+static int __init rvtrace_encoder_init(void)
-+{
-+	return gtrace_register_driver(&rvtrace_encoder_driver);
-+}
-+
-+static void __exit rvtrace_encoder_exit(void)
-+{
-+	gtrace_unregister_driver(&rvtrace_encoder_driver);
-+}
-+
-+module_init(rvtrace_encoder_init);
-+module_exit(rvtrace_encoder_exit);
-+
-+/* Module information */
-+MODULE_AUTHOR("Mayuresh Chitale");
-+MODULE_DESCRIPTION("RISC-V Trace Encoder Driver");
-+MODULE_LICENSE("GPL");
+ /**
+  * struct gtrace_driver - Representation of a trace driver.
+  * @id_table:      Table to match components handled by the driver.
++ * @copyto_auxbuf: Callback to copy data into perf AUX buffer. The driver
++ *                 reports the PMU specific trace format of the copied data
++ *                 via @format (see PERF_AUX_FLAG_PMU_FORMAT_TYPE_MASK).
+  * @start:         Callback to start tracing.
+  * @stop:          Callback to stop tracing.
+  * @probe:         Driver probe() function.
+@@ -279,6 +300,9 @@ int gtrace_path_stop(struct gtrace_path *path);
+  */
+ struct gtrace_driver {
+ 	const struct gtrace_component_id *id_table;
++	size_t			(*copyto_auxbuf)(struct gtrace_component *comp,
++						 struct gtrace_perf_auxbuf *buf,
++						 u64 *format);
+ 	int			(*start)(struct gtrace_component *comp);
+ 	int			(*stop)(struct gtrace_component *comp);
+ 	int			(*probe)(struct gtrace_component *comp);
 -- 
 2.43.0
 
