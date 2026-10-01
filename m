@@ -1,128 +1,156 @@
-Received: from sender5-op-o12.zoho.com (sender5-op-o12.zoho.com [165.173.182.12])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66436488203;
-	Thu,  1 Oct 2026 13:13:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790860429; cv=pass; b=Zed8+KIpjvajXRMUra4npz9S3Nn/D3Y6BpoIdvnvILE1eK+dCFkBG0S+3bnGS4/1oHjMMHOirTGyrDP+IEp+xr+4y/zb7rJO4YzC3no7gWnxPbgLA/QKR7AgBRNYQZ9ULToJMcZoYSm6nRj5Gta1k0AzfQXmQT2p+x54OKSuuUQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790860429; c=relaxed/simple;
-	bh=yb9TIGDgeZFCPu4ArY1ZqKK0e4HMHQgLsozLDps0YOQ=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=OnAAy2dCEjguXlOBgevm+vX1ystDcxLXSIVaylFRsRrU/BxIUbkNfhbpwsT4V359uGNaMTv/SO8xA6fAFrgBHJrZP2OClB7W4Da0gRV0t1qCidD/HTsNPziy0cT9+0pHJQpbwSY0GlNzwY+5uizIabyXANVb2fY6FqWjGrcV2CI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=louisalexis.eyraud@collabora.com header.b=a85NZ1qL; arc=pass smtp.client-ip=165.173.182.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B2F54195A6
+	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 13:16:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790860624; cv=none; b=qElotmqJg34uaV8Vf3HuRPQd1+qY32Q3VRFDdEB7vOJUzlwDdzaqMzm5ACsUCuMZ6Tura125ALVC6dg8ElLfEGW72gHUCswog5u/dzVBBpc8xjHopD325lJGLJk3CTatrMNqM9SrBU6/Pjn3l8XIGm3p5kkcSQIN38Oh9CQn7Sg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790860624; c=relaxed/simple;
+	bh=MYlCafhIV2WrFB0BZir373okk3XZq80r99MvluwlBUM=;
+	h=From:To:Cc:Subject:Date:Message-ID; b=RxkkkeGlUud5UmG+YPWYQQoETARB+XGIZ7t0ywiW5NXkpfHSOChHLDYHqbed6O16T5xgCR8LKoT/xcb6OLdkjf0+30hRobReMJ2rfX0tJ1RoDkJQYm702v089U0Ojj41EZOoNxKwOuSCmSMt2pSUgQkQj/0/N1STT4r5aPSi4kM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=FULTK5Hl; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=louisalexis.eyraud@collabora.com header.b="a85NZ1qL"
-ARC-Seal: i=1; a=rsa-sha256; t=1790860388; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=bawph5s96Kai3wqlDMEC60ATyaNTKtJTHa0WO+6hfiOMm6Z4LC5gBkaYQsJ8vUb4OcuQY0q66/qYABrRwZItYGkYKf0FYu8ZssmmWs7qx6c2FWGZq4nBArYevF3fnU9HGoIOERlEkbWKh2AO4kgeIjAl0Qd6C6nNUbzofz8F6AQ=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1790860388; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=yb9TIGDgeZFCPu4ArY1ZqKK0e4HMHQgLsozLDps0YOQ=; 
-	b=MXWI2QAx4o+nUgmIxyzuFOZLecMWCyIYAGgZnidZ1toI4t793Hk0clikWrmVf5dYsZJlbK3eFZVWXUeAelbSY/ffvfBDKdlf9ilmuv8lhd4kVuVl6x3mzg+NzyNzH0FIisF4ak+gWy5sgqcw124Ogu/CnctCZnTFhkH8SA9rehE=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=louisalexis.eyraud@collabora.com;
-	dmarc=pass header.from=<louisalexis.eyraud@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1790860388;
-	s=zohomail; d=collabora.com; i=louisalexis.eyraud@collabora.com;
-	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
-	bh=yb9TIGDgeZFCPu4ArY1ZqKK0e4HMHQgLsozLDps0YOQ=;
-	b=a85NZ1qLDVPYiYMxWxaLgRqOmu87ciHLp0gysp+DDKvlqXXaRlL5iXwzDPMV1yci
-	MNKcJvfJxCQhsqVM5wDwlg1IxICuhW9pXL8//s4w/SrlE4b+8TvkPS88pH49mtFpDoV
-	O/YqR9Ez+PnW+S7mhSRNqmTZ5Qki9d/+sIgMGdDE=
-Received: by smtp.zohomail.com with SMTPS id 1790860388058520.321937422743;
-	Thu, 1 Oct 2026 06:13:08 -0700 (PDT)
-Message-ID: <edfe9ef6680fd5de35de0c021302381e63d9e3de.camel@collabora.com>
-Subject: Re: [PATCH net-next v2 1/7] dt-bindings: net: mediatek-dwmac: add
- support for MT8189 SoC
-From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>,  Eric Dumazet <edumazet@google.com>, Jakub Kicinski
- <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley	
- <conor+dt@kernel.org>, Richard Cochran <richardcochran@gmail.com>, Matthias
- Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno	
- <angelogioacchino.delregno@collabora.com>, Biao Huang
- <biao.huang@mediatek.com>,  Maxime Chevallier
- <maxime.chevallier@bootlin.com>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Alexandre Torgue	
- <alexandre.torgue@foss.st.com>, kernel@collabora.com,
- netdev@vger.kernel.org, 	devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, 	linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org, 
-	linux-stm32@st-md-mailman.stormreply.com
-Date: Thu, 01 Oct 2026 15:13:01 +0200
-In-Reply-To: <20260929-shrewd-rampant-shark-98e87e@quoll>
-References: <20260924-dwmac-mediatek-mt8189-v2-0-430bd74d5ef9@collabora.com>
-	 <20260924-dwmac-mediatek-mt8189-v2-1-430bd74d5ef9@collabora.com>
-	 <20260929-shrewd-rampant-shark-98e87e@quoll>
-Organization: Collabora Ltd
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="FULTK5Hl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID; bh=6f0/9t1/hAO0xXp
+	NxF8cq+WlgMeZNGxzR43oPfG3WdM=; b=FULTK5HlpQQFSTwRFo1Niux7YBXbmEY
+	xep3XlW8DDfLgFcUYGUQ4VdS0bLIj5uZgKxqJilLRo6z5QoIWWaplc6IB7bziug1
+	ASOi2yCcGNkBxu0J4C2OBLVe/azniDJP/TkLDGf8PjWT1cRGUGdxxnOWIrBxF6R1
+	bW4rFByraEto=
+From: BG9OXA <bg9oxa@163.com>
+To: linux-rockchip@lists.infradead.org
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, Heiko Stuebner <heiko@sntech.de>
+Subject: [PATCH v3 0/2] arm64: dts: rockchip: add ALIENTEK QuarkPi-CA2
+Date: Thu, 01 Oct 2026 21:16:33 +0800
+Message-ID: <179086059377.25869.266865258704141387@163.com>
+X-CM-TRANSID:_____wDX_zwxXb5q97_IBw--.9753S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3GF4ktFy8AF1UJr1fJw4ruFg_yoW7trW8pF
+	Z8X3y3Kr4kKr1xuw1IkF1UCrWSvF4fJay5WF1qq34ayw45Gr1ftF1Sk3ZIqa47C34SgFyj
+	vF4jg3y7GF4DZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07Us2-OUUUUU=
+X-CM-SenderInfo: lejz05rd6rljoofrz/xtbC3RKtG2q+XTKLlAAA3d
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-ZohoMailClient: External
 
-Hi Krzysztof,
+Hi all,
 
-On Tue, 2026-09-29 at 09:36 +0200, Krzysztof Kozlowski wrote:
-> On Thu, Sep 24, 2026 at 09:23:24AM +0200, Louis-Alexis Eyraud wrote:
-> > +=C2=A0 - if:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 properties:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 compatible:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 contains:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 enu=
-m:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
-=A0=C2=A0 - mediatek,mt8189-gmac
-> > +=C2=A0=C2=A0=C2=A0 then:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 properties:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 clocks:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 items:
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - d=
-escription: MAC Main clock
-> > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 - d=
-escription: PTP clock
->=20
-> snps,dwmac schema expects the second clock to be the pclk. Why is it
-> missing? This should be explained in the commit msg.
->=20
-> Best regards,
-> Krzysztof
->=20
-Indeed, there is something incorrect.
+This short series adds support for the ALIENTEK QuarkPi-CA2, an RK3588S
+based single board computer.
 
-I looked again at the MT8189 datasheets and there does not seem to have
-specific peripheral clock for Ethernet MAC in the SoC clock list. The
-paragraph related to clocks also lists the mac main and ptp reference
-clocks as the ones to turn on. There is also another RMII reference
-clock, only needed for RMII case, but I removed from mt8189 clock list
-in the bindings after v1 review ([1]).
+Board summary:
+ - Rockchip RK3588S (4x Cortex-A76 + 4x Cortex-A55), LPDDR4x
+ - eMMC, microSD slot, M.2 socket (PCIe 2.0 x1)
+ - Gigabit Ethernet, USB 3.0 Type-A, USB 2.0 Type-A ports and a USB-C
+   port (USB 2.0/3.0 plus DisplayPort altmode, two DP lanes)
+ - HDMI output, three MIPI CSI and two MIPI DSI connectors
+ - ES8388 analog codec with 3.5 mm jack, HUSB311 USB-C PD controller
+ - 40-pin header, RK806 PMIC, IR receiver
+ - No SPI-NOR; the vendor bootloader reads extlinux.conf from the SD/eMMC
+   boot partition
 
-But at the same time, the Ethernet MAC block diagram, present in the
-datasheets, shows this IP is interconnected to the rest of SoC with AXI
-and APB interfaces (and in MT8188 datasheet too).
-There is no APB related clock that is specific to the IP in MT8189,
-contrary to MT8188 or MT819. But since it is on an APB bus (likely
-shared between multiple IPs), then there is a bus clock for peripheral
-access. Describing the IP having it makes sense (and for AXI too).
+Patch 1 documents the board in the Rockchip platform bindings, patch 2
+adds the device tree itself (plus its Makefile entry).  The "alientek"
+vendor prefix is already present in vendor-prefixes.yaml, so no vendor
+prefix change is needed.
 
-So, in order to resolve this issue, would it be OK that I rework the
-MT8189 clock list to add "axi" and "apb" clocks and reword the commit
-message with additional details on clocks?
+Tested on hardware: boot from SD and eMMC, gigabit Ethernet, the USB 2.0
+ports, the USB 3.0 Type-A port (UAS storage device, 5000 Mbps link,
+309 MB/s), USB-C DisplayPort altmode, HDMI video and audio, ES8388 analog
+playback, the ADC keys, the IR receiver, the PWM fan and ramoops.  The M.2
+socket is described following the vendor design; no suitable device was
+available here to exercise that link.  dtbs_check is clean for both patches.
 
-[1]:
-https://lore.kernel.org/all/b810b9cd-8f5e-4c9d-8496-908aae55dac1@lunn.ch/
+Notes worth the reviewer's attention:
 
-Best regards,
-Louis-Alexis
+ * The codec is clocked through I2S0_8CH_MCLKOUT_TO_IO rather than the
+   internal I2S0_8CH_MCLKOUT mux that the other boards reference.  On
+   RK3588 the MCLK-to-IO routing is a gate in SYS_GRF SOC_CON6 which the
+   bootloader leaves closed, so nothing drives MCLK out to the codec;
+   pointing "clocks" at the _TO_IO clock makes the codec driver open that
+   gate at probe, while "assigned-clocks" stays on the internal mux to
+   keep the 12.288 MHz rate.  Verified on hardware: i2s0_8ch_mclkout_to_io
+   is enabled with the codec (1-0011) as its consumer, and playback works.
+
+ * The codec compatible list is "everest,es8388", "everest,es8328", as
+   documented in everest,es8328.yaml and as used by the other boards with
+   this part.  The standalone ES8323 driver cannot instantiate a card on
+   this board at all, which is how the fitted part was confirmed.
+
+ * Analog capture from the 3.5 mm TRRS jack (headset microphone) does not
+   work yet: the capture stream returns a constant idle pattern (0xFFFF)
+   although the analog bypass path works, and the DAPM routes and the ALSA
+   controls look correct.  This looks like the same ES8328 capture problem
+   that has been reported for other boards, so I kept it out of this
+   series.
+
+ * The USB 3.0 Type-A port is wired to usb_host2_xhci through combphy2_psu;
+   both are enabled here, as in the vendor BSP.  combphy2_psu is free on
+   this board because the M.2 socket uses pcie2x1l2 (combphy0_ps).
+
+ * The board has three MIPI CSI and two MIPI DSI connectors, but no camera
+   or panel is described here: those are plug-in modules.  Enabling the
+   CSI-2 receiver without a sensor attached makes the driver fail to find
+   its endpoint at probe (verified on hardware), so, as in the vendor
+   tree, camera and panel descriptions belong in overlays.
+
+ * GbE: phy-mode is "rgmii" and the RGMII delay is applied on the MAC side
+   (tx_delay), matching the other boards in mainline that use the same
+   YT8531 PHY.  Tested for 900 seconds at full rate in both directions
+   (922 Mbit/s, zero retransmissions) and with 1000-packet pings; the MAC
+   error counters stay at zero.
+
+This is my first patch to the Rockchip platform.  I am a Chinese amateur
+electronics hobbyist (amateur radio callsign BG9OXA) working on this board
+in my spare time, so please point out anything that does not follow the
+expected style.
+
+Changes in v3:
+- Rebase onto current mainline and re-run dtbs_check.
+- Drop the explanatory device tree comments, as requested.  The rationale
+  that was in them is in this cover letter instead; the compiled .dtb is
+  unchanged by that cleanup (verified byte-for-byte).
+- Use phy-mode = "rgmii" with the RGMII delay applied on the MAC side
+  instead of "rgmii-rxid", as pointed out by Andrew Lunn: phy-mode
+  describes the PCB wiring, and only one side should add the delay.
+- Rename the fixed regulators that used a different naming scheme so that
+  all of them follow the same style, and use generic node names.
+- Drop two redundant "status = \"okay\"" properties (rga3_core0 and
+  rga3_core1 are already enabled in rk3588-base.dtsi).
+- Add the missing "enable-active-high" to the Type-C VBUS regulator.
+- Use the binding-documented codec compatible pair and drop the
+  "clock-names" property, which everest,es8328.yaml does not allow; the
+  codec node now passes dtbs_check.
+- Drop the phy-supply of u2phy0_otg, the USB 2.0 PHY of the USB-C OTG
+  port.  That rail is the Type-C VBUS and is already owned by the TCPC;
+  while the PHY held it enabled as well, VBUS was powered from boot, the
+  TCPM state machine never saw a VBUS-off event, and the port could not
+  finish a source attach, so DisplayPort altmode never came up (the
+  monitor had power but no picture).  Verified on hardware: the port now
+  attaches at boot and the monitor gets a picture.
+- Add the LED color so the work LED is exposed as "green:heartbeat".
+- Drop the camera sensor and its regulator: camera modules are plug-in
+  devices, and enabling the CSI-2 receiver without a sensor attached makes
+  the driver fail to find its endpoint at probe.  Following the vendor
+  tree, camera and panel descriptions belong in overlays.
+
+
+BG9OXA (2):
+  dt-bindings: arm: rockchip: add ALIENTEK QuarkPi-CA2
+  arm64: dts: rockchip: add ALIENTEK QuarkPi-CA2
+
+ .../devicetree/bindings/arm/rockchip.yaml     |    5 +
+ arch/arm64/boot/dts/rockchip/Makefile         |    1 +
+ .../boot/dts/rockchip/rk3588s-quarkpi-ca2.dts | 1149 +++++++++++++++++
+ 3 files changed, 1155 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/rockchip/rk3588s-quarkpi-ca2.dts
+
+-- 
+2.47.3
+
