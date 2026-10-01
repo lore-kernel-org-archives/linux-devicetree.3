@@ -1,170 +1,110 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f38.google.com (mail-pj2-f38.google.com [74.125.227.166])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C001553A897;
-	Thu,  1 Oct 2026 22:39:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4CB5457E70
+	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 22:45:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790894370; cv=none; b=qF1/uapqG4xzaaz74TOPbKV0vvTq7MjDVRnT7SW2sM1+qpzw19ag37kB5jTk0Kstj6sVGnCG0I9WTDyr0W1JTy9PV3dbsJ08nbIvn7FxcDTnn/W5fM4jTbmSHeb/LTCW/dHSd6A/EVCAT9QrKsg71YnSG1Bn+X1ADGfkLy1FVNU=
+	t=1790894753; cv=none; b=vEV7IAO1BGNlEHsLWyiVdUW0KWrOs43WbI9/B4lm8k/noSNGnuloiI5NPxki5Q7YQs7RkwDmuSfRlQHa2H0mv/JbO0X7JZY81XSEEGP0GWShXsC7PhzBZaASU3y42/6EkAnGHcD0XjkQ8ZEe3xss94e0p/r+/OPTFcyf4DGFMfk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790894370; c=relaxed/simple;
-	bh=k2ve9LUY268MZQ1u8RQTTwA9UBykr9y3Q6hKUz/3Hq4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=CrvvgwTSCw2Woe4j3ARtO2iLJX4k3CMz7HSPuCOQGB7f8flPN8lDTNgbIToFAqlLC2d59isNTX96fFO2qQcIdz/cSoGE1tkSWMQDfIAzL0/yXjaf4hJJGcIWgngivlNxzLIls43mtNQFB7Athumc7cH2yjuIoawDPtaIUWSfnGA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=pl8FVpK8; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=wlIzbNP0; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1790894753; c=relaxed/simple;
+	bh=iyOloBZlQg/MDR1GswDFmzHuvue+1j2j/aHCDmB5nFw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WGcrmS5Y/x7jWyLNykctKi3ODnAJUPo7Qn5cXSZ2aeUxijHRUQuk6E4ntNZrMnKP3aBf0KmviOmlp6SxQir+kZPAmCi3YS4FRz7r9JBSE+tvZ/GVJYiBq+Nyodiy4QdYIEV3ftOg2xt9JzYHFvbIhGs7QqE/05ONkY7aCvat1Po=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aeF0yUdq; arc=none smtp.client-ip=74.125.227.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="pl8FVpK8";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="wlIzbNP0"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=To:Message-Id:Subject:Date:From; t=1790894353; bh=qH8qtAvJt6QBAaVW7+RemNL
-	LbkyXjP6yIK8kxrITcAE=; b=pl8FVpK8NleKwQaoR7eoQxDkNpWpJzYNwX2fTSB7Uv59y/2CAf
-	9C+4xTMxjrr6FHoK352uySyaufZ/5ERnkOaRo/+Pin3NnJRsRebgVp2g0Bxq624VNKjo49bUba/
-	cMkvaWJwAP1SL4d6jT78B/JlH6vlgFoE+xmAVpqdONSZ0XkYHKXQ1CdW0La07lzg3n8Fo0cgqIs
-	ns11gjsJoA7VqTckkgQLGILc+QVS+86O0Rg6uX9CLeOozy4JjhxLD0k0B5aYBcEGPx4wGrJrlL7
-	shIi/o8/xcC9LkXMIOxTTC4ChC4rtvGId+c9pcWQPOtpD/4pMDFyn3FpFsAZkHZU74w==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=To:Message-Id:Subject:Date:From; t=1790894353; bh=qH8qtAvJt6QBAaVW7+RemNL
-	LbkyXjP6yIK8kxrITcAE=; b=wlIzbNP0VypHJVk4EtJmjR0hJcnYOSbMK30vtlT604kSaILw3O
-	/ayz630/emtOsHq4kQ1PJIE1Wdcgtg+XMFDA==;
-From: =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>
-Date: Fri, 02 Oct 2026 00:38:34 +0200
-Subject: [PATCH v3 6/7] remoteproc: qcom_q6v5_mss: Add SDM632 MSS
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aeF0yUdq"
+Received: by mail-pj2-f38.google.com with SMTP id 98e67ed59e1d1-3a4bbc51755so365296a91.1
+        for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 15:45:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790894750; x=1791499550; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=T4uVz4BtQRRTWyCl0InjTyP+HuCQAABpXvCRfXa1uFA=;
+        b=aeF0yUdq62zFUiqUopKLxv/6g24uwHkL0+dm+ZZBZVzofn1SlzwpNamXysaZse8o7g
+         y/rqograQMJs1xvHsHZFbf/dLQU5oljYHFQTAIvIb1vFiKmxh3cxjq9XeXLYdEUqrloZ
+         plBB8AJrVSzh0bgpQ6lYq4Atg/129Z4ujSBFLSUJvY+u7zStpzsn9VunpGZwfwjhzbIi
+         69E/WXqVExCbUfyUfO0s0tZL6EK4BEmIaI8npY4iXwMXMW4QWGKW6Bt9hx/q0lI/nU+3
+         CWFjfEIniKGeZZlvHxLDnYHZaUp6VeBZtFsWCDpi54fro7BwK8HnGKaXMzzvAM1/QTnS
+         zSSw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790894750; x=1791499550;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=T4uVz4BtQRRTWyCl0InjTyP+HuCQAABpXvCRfXa1uFA=;
+        b=GzN8RoGZxQ6Q0Gh6dftn7tUPU+V547zF17GvFlbB3uqaxkcJCryWDvw5HeAHsF9mfg
+         PXMVttBz9JlWuDNWCZWcAyIO1TuKw04N2o7wAnK4Zn5exE3ndiKLYSog0JV+JPP0jDiM
+         HS7xxxQc8Kq9p3cKRn18aHy+sTj9CXq53LcDafKU3jTY+mD05rSeEoQt2B4mE77Baj41
+         aZgPparA7cUcqxjgnGG/R4vRwkHwURfQ8HqPVH2sjY/sRKdEp4TB4CEpqa2ZgO/u2h5r
+         x4CoAvkRHwsL4qOnOIS9BSUpqC3EVFv5WLCcahpdRFmkAGZxhEG//v2RuAOeThKSBeNr
+         vWnQ==
+X-Forwarded-Encrypted: i=1; AKwUvByfuZxoA2yF8D+skvjr8bpxye+OYu8SzUji/Yfl/gM8Xych2PlFXvSt+Ox6fAWN4F6kvxymbRsef+Rv@vger.kernel.org
+X-Gm-Message-State: AFq9FYIN8FFojxQQx9NgJMZHsC6eOJZqcnM3wlaMhFEdwWylW+6r0ikF
+	d1DDvVIwxiu5uDGFj5YuZYq0zsHiqbWValTtjN9vN6ufYHrV9FzmwfZM
+X-Gm-Gg: AYBFou2SSy6ggUdDxFKUO3LoBfZS+c09XCOyM3Yzscrkqi1EKfhugiFWzn7uyMmhE/c
+	rqo3QL7k0qN0vGljKqNjloZPVF7i+WAJeyKGmvdA+1vhuzZRUBTxG5iLsBZu3heu3+JKf+GuIjz
+	Mm0e1LQ+yL0rgjL9ihFUg4dPKlyLuRE0nDCxlcqwfVH8HUJ5lS2ZmylwQxRp/KVSBHm1czsJMCu
+	ousX+zO9zyBiNxQ0ETN5vtVpWTzu4Xg0T+jb1Z0ORjfWzxor1JHTh/tZA3qnDwDb+dU0Y8cdxdk
+	e7kWf9cSBx8Qnn9y3qwuWhfr+FhRXqLPmq3XKpJXpggAuofIskudPosIydnJyLHml440qNTfbSs
+	KiIkmo4YD/oZTzeOQAEtE6MwCxtz0Bg6lwe8Gbhwe3tw9fwXCvaC7nrdqcFHz7PAIOEkdlxQFT1
+	pzgjkTy9T1BoYZqt4ZCbJLaf2HJ0iib+wdEL8H8ewIgY0y0JoW2ZdyQHQoECmyNlRQbtEhr9k69
+	nTN51s=
+X-Received: by 2002:a17:90b:4b0d:b0:3a4:9fcd:6189 with SMTP id 98e67ed59e1d1-3a6ce69ac99mr1528647a91.2.1790894750283;
+        Thu, 01 Oct 2026 15:45:50 -0700 (PDT)
+Received: from marchy ([2405:3800:8e5:44e3:ee8e:77ff:fed4:d18b])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a6ccc92646sm1146396a91.1.2026.10.01.15.45.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 15:45:49 -0700 (PDT)
+Date: Fri, 2 Oct 2026 06:45:47 +0800
+From: Adam Azuddin <azuddinadam@gmail.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	neil.armstrong@linaro.org, maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org, tzimmermann@suse.de, jesszhan0024@gmail.com,
+	airlied@gmail.com, simona@ffwll.ch, andersson@kernel.org,
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] dt-bindings: display: panel: Add RAiO RA8875
+ display controller
+Message-ID: <ar7im3iTb_UF8VxU@marchy>
+References: <20261001144128.2336301-1-azuddinadam@gmail.com>
+ <20261001144128.2336301-2-azuddinadam@gmail.com>
+ <20261001-relight-unexposed-1a3d7dd8bfed@spud>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261002-sdm632-rpmpd-v3-6-95c47d0f26cf@mainlining.org>
-References: <20261002-sdm632-rpmpd-v3-0-95c47d0f26cf@mainlining.org>
-In-Reply-To: <20261002-sdm632-rpmpd-v3-0-95c47d0f26cf@mainlining.org>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Mathieu Poirier <mathieu.poirier@linaro.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Stephan Gerhold <stephan@gerhold.net>, Ulf Hansson <ulfh@kernel.org>, 
- Abel Vesa <abelvesa@kernel.org>, Ulf Hansson <ulfh@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
- linux-remoteproc@vger.kernel.org, 
- =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790894346; l=3313;
- i=barnabas.czeman@mainlining.org; s=20240730; h=from:subject:message-id;
- bh=k2ve9LUY268MZQ1u8RQTTwA9UBykr9y3Q6hKUz/3Hq4=;
- b=QA2ybEKXnMS4IouRyfOhlylms5jU/Ev4lQ6zvFnS9KLDj04s3Jlaom7B/OCn/S0mvsIssVBsJ
- 2sxtSv4Gw7aAme0V2mwIqWCAp/UdeOc2R9IvDUPracupcyf7SsPI4RT
-X-Developer-Key: i=barnabas.czeman@mainlining.org; a=ed25519;
- pk=TWUSIGgwW/Sn4xnX25nw+lszj1AT/A3bzkahn7EhOFc=
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261001-relight-unexposed-1a3d7dd8bfed@spud>
 
-Add support for SDM632 mss, it is very similar to MSM8953 mss only
-difference SDM632 is using mss-supply as pm domain.
+On Thu, Oct 01, 2026 at 07:54:19PM +0100, Conor Dooley wrote:
+> On Thu, Oct 01, 2026 at 10:41:25PM +0800, Adam Azuddin wrote:
+> > +description:
+> > +  The RA8875 is a TFT LCD controller for panels up to 800x480 pixels.
+> > +  It can be connected to the controller via 8080/6800 parallel interface,
+> > +  SPI or I2C. This binding describes the SPI-connected device.
+> 
+> This binding describes all three, or at least it should describe both
+> i2c and spi in the current state. I have no idea what the parallel
+> interfaces look like in dt, but if what you've got covers spi it should
+> also cover i2c. Probably remove this last sentence.
+> pw-bot: changes-requested
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Barnabás Czémán <barnabas.czeman@mainlining.org>
----
- drivers/remoteproc/qcom_q6v5_mss.c | 47 ++++++++++++++++++++++++++++++++++++--
- 1 file changed, 45 insertions(+), 2 deletions(-)
+Understood, I'll drop that last sentence.
 
-diff --git a/drivers/remoteproc/qcom_q6v5_mss.c b/drivers/remoteproc/qcom_q6v5_mss.c
-index 8f6312213e1a..79510cbfcb8f 100644
---- a/drivers/remoteproc/qcom_q6v5_mss.c
-+++ b/drivers/remoteproc/qcom_q6v5_mss.c
-@@ -273,6 +273,7 @@ enum {
- 	MSS_MSM8998,
- 	MSS_SC7180,
- 	MSS_SC7280,
-+	MSS_SDM632,
- 	MSS_SDM660,
- 	MSS_SDM845,
- };
-@@ -762,6 +763,7 @@ static int q6v5proc_reset(struct q6v5 *qproc)
- 		   qproc->version == MSS_MSM8953 ||
- 		   qproc->version == MSS_MSM8996 ||
- 		   qproc->version == MSS_MSM8998 ||
-+		   qproc->version == MSS_SDM632 ||
- 		   qproc->version == MSS_SDM660) {
- 
- 		/* Override the ACC value if required */
-@@ -772,7 +774,8 @@ static int q6v5proc_reset(struct q6v5 *qproc)
- 			writel(QDSP6SS_ACC_OVERRIDE_VAL_9607,
- 			       qproc->reg_base + QDSP6SS_STRAP_ACC);
- 		else if (qproc->version != MSS_MSM8909 &&
--			 qproc->version != MSS_MSM8953)
-+			 qproc->version != MSS_MSM8953 &&
-+			 qproc->version != MSS_SDM632)
- 			writel(QDSP6SS_ACC_OVERRIDE_VAL,
- 			       qproc->reg_base + QDSP6SS_STRAP_ACC);
- 
-@@ -832,7 +835,8 @@ static int q6v5proc_reset(struct q6v5 *qproc)
- 			/* Turn on L1, L2, ETB and JU memories 1 at a time */
- 			if (qproc->version == MSS_MSM8940 ||
- 			    qproc->version == MSS_MSM8953 ||
--			    qproc->version == MSS_MSM8996) {
-+			    qproc->version == MSS_MSM8996 ||
-+			    qproc->version == MSS_SDM632) {
- 				mem_pwr_ctl = QDSP6SS_MEM_PWR_CTL;
- 				i = 19;
- 				reverse = 0;
-@@ -2316,6 +2320,44 @@ static const struct rproc_hexagon_res sc7280_mss = {
- 	.ssctl_id = 0x12,
- };
- 
-+static const struct rproc_hexagon_res sdm632_mss = {
-+	.hexagon_mba_image = "mba.mbn",
-+	.proxy_supply = (struct qcom_mss_reg_res[]) {
-+		{
-+			.supply = "pll",
-+			.uA = 100000,
-+		},
-+		{}
-+	},
-+	.proxy_clk_names = (char*[]){
-+		"xo",
-+		NULL
-+	},
-+	.active_clk_names = (char*[]){
-+		"iface",
-+		"bus",
-+		"mem",
-+		NULL
-+	},
-+	.proxy_pd_names = (char*[]) {
-+		"cx",
-+		"mx",
-+		"mss",
-+		NULL
-+	},
-+	.need_mem_protection = false,
-+	.need_pas_mem_setup = true,
-+	.has_alt_reset = false,
-+	.has_mba_logs = false,
-+	.has_spare_reg = false,
-+	.has_qaccept_regs = false,
-+	.has_ext_bhs_reg = false,
-+	.has_ext_cntl_regs = false,
-+	.has_vq6 = false,
-+	.version = MSS_SDM632,
-+	.ssctl_id = 0x12,
-+};
-+
- static const struct rproc_hexagon_res sdm660_mss = {
- 	.hexagon_mba_image = "mba.mbn",
- 	.proxy_clk_names = (char*[]){
-@@ -2923,6 +2965,7 @@ static const struct of_device_id q6v5_of_match[] = {
- 	{ .compatible = "qcom,msm8998-mss-pil", .data = &msm8998_mss },
- 	{ .compatible = "qcom,sc7180-mss-pil", .data = &sc7180_mss },
- 	{ .compatible = "qcom,sc7280-mss-pil", .data = &sc7280_mss },
-+	{ .compatible = "qcom,sdm632-mss-pil", .data = &sdm632_mss},
- 	{ .compatible = "qcom,sdm660-mss-pil", .data = &sdm660_mss },
- 	{ .compatible = "qcom,sdm845-mss-pil", .data = &sdm845_mss },
- 	{ },
+> > +        panel: display@0 {
+> 
+> Drop the unused panel label if there's a respin.
 
--- 
-2.56.0
+Will do.
 
+Thanks for the review,
+Adam
