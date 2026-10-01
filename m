@@ -1,157 +1,97 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F067236E466
-	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 05:42:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9A2743DA53
+	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 05:43:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790833339; cv=none; b=EyXfPL2AUpDIYkV2tw9qLx8yP2oxx18h/ht1EhC8fLxYEAGM1MVSi7FAEFiJsLhSzMw3D/PJVfmFpC6AQ/iHFXlxSmyAuvrUZgTysb83fU6I5HPsIxD9GL5w+zZHWPQEj1utSgxFIBbmX65eH6zFLJ1l/2O6h0snHzrM3yqh9wA=
+	t=1790833420; cv=none; b=gDqP9fBPeCs8Orm8hFu1lq2KcnG8edyBDU9lTbjZ8UxEm3KvRJPwHMQcR4aFeAJds9ltG3xzaf8S7sjOba3Zk9I/3GBpmhNNtt2iz35mzGvpH8hsktf67QEMfw/uL2nudb64NbIEmXusemj9KNIkyY4H7Bl/lVWJs24CX0iZfvQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790833339; c=relaxed/simple;
-	bh=/ep0j2ArAOb7+WDonbUmcpEfI8QYtUd7j4OCqVQW8gI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=TJ+LzoKmNDGZEAyuyOtn8B5ehpZHWKxiLWhvIRLcLAVc/dwJmyABD/F88ADMwnK6UxXNGR5+9HE8ejv4m0syGYUFnIA/T0zig2Wf5I3p8uv6jTyHbBbrMnw+E2PdhmZraPrL+mt3CxHRkEDnYTpf9QcCzgag/PZ3ZHxrpJXwkgk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ow7YJZj/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790833420; c=relaxed/simple;
+	bh=rcxUxarvckFEbzwc+77lGqnMQwy+i+2zfogoe1pGPuk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DesbyWaLhsQ+qKOKr4ISq4y5XJAuQ9sNCpHTG46/rA+9TM1KRAONhIzUJSfqBNxvDq+ZNPtEJv/A5DgIhIT2pPSRYBqtv5Qnxc7lO8NnCOiw4WD45xxUbIECZa+ZLjx2HwyIbR8ftXEoNV8ha91JUUaURXsuC6b6aYCqPoYsyRo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=ih0YrXAC; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ow7YJZj/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6250F1F000FF;
-	Thu,  1 Oct 2026 05:42:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790833337;
-	bh=gCCW1EAUFDunloTrPpmWw1dHTloIhv0+UpCaTLiI/Zc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ow7YJZj/FINL+24495G317/vNhEcdJ6tQl6Drkgr2cgh0yib/dDl0VF2H2WLAlRxE
-	 1FlFl5GHUBENXjx8EpOqh+IcTpKcgobWyjrenEzn3gVCXYwjtsDHolEeZVX2Q1G/7E
-	 kbd1GgCwKN+Q/Yr4uIH0IK+D+RJyKpu5qLFf4rI1WvZmzzcdEg48gvahhqlj3GtL5e
-	 vIv0A5lpnC8gFk/xmzqJBajrA7v4s9EHKxcJrMIzlRStgsqrBbC2g19CS2WDuF4FfD
-	 6GGt3by6dUCJjvJ5dlq/zbZz+iwfh0UtVs8e8hVeTg23kbA1zxnh4qNRu/HySkp9Au
-	 wH7BTyXkCNdDg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 09/14] gtrace: Add RISC-V Trace ramsink driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mayuresh Chitale" <mayuresh.chitale@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20261001052243.3042627-10-mayuresh.chitale@oss.qualcomm.com>
-References: <20261001052243.3042627-1-mayuresh.chitale@oss.qualcomm.com>
- <20261001052243.3042627-10-mayuresh.chitale@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 01 Oct 2026 05:42:16 +0000
-Message-Id: <20261001054217.6250F1F000FF@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="ih0YrXAC"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747ee1f9bso29365085ad.3
+        for <devicetree@vger.kernel.org>; Wed, 30 Sep 2026 22:43:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1790833418; x=1791438218; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=zgvrIEOpw88VrEORT9HbHbyuQrZfBbC4ttbFKpwgFuw=;
+        b=ih0YrXAClCgFBCn9SASE45n0KaQdTZ8sJoUMQOnUf8WH3BD1LIfrruRykCRU1vYoeO
+         +JIpWL81LBuL/fJHeNPsCvUMiL+CyjIGo2FipCNL00ln5x9BKDkDNI67yglabz31gfAG
+         13ut3ETxcZHXx2pJII9NFqw7+srZD48spPcXg=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790833418; x=1791438218;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zgvrIEOpw88VrEORT9HbHbyuQrZfBbC4ttbFKpwgFuw=;
+        b=itnSj3IyebT4/04Yh7Q+cFW9gA3ke83J0+VfL65wJRX1K4qqipspxTq3TIxM7HSo5o
+         X7Pe0Mx/b3QrDcUjDZdv96oPg5KlsIlhSwZPmNgaKdNpxHAmhBPvyFlKY1u8d4mCMiW9
+         ux9dYKJ9C9kP3cdeV9e+fC1R1bzsHzFdR4xWbfnUgBYn0BaEuUTCRscif5spUdYjdgHa
+         oYg7oYTCm2Nr2jC85Vtq+yOl/8Ql4Ru0Z+FevonnFKkFf9PjPX0r8XQNb89dxHnEUnJ5
+         TYB8eIYgBcTS6GNORg/5n/CDyn4I9l/geUiEKtBD60qS/XFW631/2/4/rXMOJcl5VZ8G
+         8uZw==
+X-Forwarded-Encrypted: i=1; AKwUvByAeE6o+eyz2a/J+4G4Tm1YE6hXUNhhsNrCY510vikLSFNLgJdzUGu6VeZLjpdOuzKFQ7XXYKk8UZwy@vger.kernel.org
+X-Gm-Message-State: AFuF++mOkHZwqIjraFMu12EoElrZN1rRtbxaMkXOclCaH/IA/odkRk9V
+	z7Oop9nd1oDzd0lnQEuebz5fFIhDVIN2ZDi1LLxE+zDyueh/Mg7ULUV685YWZvBOBw==
+X-Gm-Gg: AYBFou3dkTtEBAw89LpO+Xgthm8IOLPVt4Kh3CKIsSzWbVFh9cXoT6PjA2ZaLLVPiU1
+	4IAF/5DOuaUcr1NT3Jr6NTOMORLCWFS95sMbmLWdsJWJTTe9hQm8AFVrIxXRnqxU9ep0zgB20lF
+	wIJSGBFfqUUvvrLiyuxGcEPGDLVUdbL3OpztnYLS+B/sBq3ywEw1dM3Lbi2qvd0q15chbudqqhz
+	2yVcBvXBq4W2dE7tyhEWcu+y3EVJyRAAEGj0/g2dIbDRWtoGruq9/t2JQEdjuPPTqB+0uGNGvMO
+	ccHjgm4AvWt6rsX3cZKrVDtjpJPwY8BMZXX3Ux2txKNEwu0HXqPKSGtGl34WU9XeE7b9VXPD58p
+	IhCk2xLeF0D8wftE/XcuVZhp0NzyrQAaWXkFj/qURIhsoRFcFG//De9TsXn/jBcYFEOPQfMz9tY
+	uPry01/j+6+HJh28Xrl5gu7ZoPCYnYgKEbLSVrjdWEHAJXVmCH/wUHmuggmTkbBM8mJzNd2+/fL
+	VqzM0IkRgc+2qwXyske45aAdOvdKAR4DOZBL21kTLS265TOWw==
+X-Received: by 2002:a17:903:3503:b0:2e1:24ec:df50 with SMTP id d9443c01a7336-2e2e499e1c7mr26745355ad.21.1790833418058;
+        Wed, 30 Sep 2026 22:43:38 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2031:6:d042:b5fa:ebeb:ace6])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e30cc14cbbsm1942765ad.37.2026.09.30.22.43.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 30 Sep 2026 22:43:37 -0700 (PDT)
+Date: Thu, 1 Oct 2026 14:43:32 +0900
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: Georgi Djakov <georgi.djakov@oss.qualcomm.com>
+Cc: andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org, 
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, minchan@kernel.org, 
+	senozhatsky@chromium.org, axboe@kernel.dk, rostedt@goodmis.org, mhiramat@kernel.org, 
+	mathieu.desnoyers@efficios.com, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-block@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+	djakov@kernel.org
+Subject: Re: [PATCH 4/6] zram: Add QPaCE zcomp backend
+Message-ID: <ar3yt8Kl3WUV93lP@google.com>
+References: <20260930145215.3380977-1-georgi.djakov@oss.qualcomm.com>
+ <20260930145215.3380977-5-georgi.djakov@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260930145215.3380977-5-georgi.djakov@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] gtrace: DMA use-after-free on driver unbind while tracing
-- [Medium] gtrace: out-of-bounds read if hardware write pointer exceeds lim=
-it
---
+On (26/09/30 07:52), Georgi Djakov wrote:
+[..]
+> @@ -80,10 +87,10 @@ static const struct zcomp_ops *lookup_backend_ops(const char *comp)
+>  
+>  	while (backends[i]) {
+>  		if (sysfs_streq(comp, backends[i]->name))
+> -			break;
+> +			return backends[i];
+>  		i++;
+>  	}
+> -	return backends[i];
+> +	return NULL;
+>  }
 
-commit 727d829afd136c7c3871f88297ecd560269b3dbd
-Author: Mayuresh Chitale <mayuresh.chitale@oss.qualcomm.com>
-
-gtrace: Add RISC-V Trace ramsink driver
-
-This commit adds the initial implementation of the RISC-V E-Trace ramsink
-driver. The ramsink stores trace data generated by upstream components into
-a system memory buffer.
-
-> diff --git a/drivers/hwtracing/gtrace/rvtrace-ramsink.c b/drivers/hwtraci=
-ng/gtrace/rvtrace-ramsink.c
-> new file mode 100644
-> index 0000000000000..67b6779aaceec
-> --- /dev/null
-> +++ b/drivers/hwtracing/gtrace/rvtrace-ramsink.c
-
-[ ... ]
-
-> +static size_t rvtrace_ramsink_copyto_auxbuf(struct gtrace_component *com=
-p,
-> +					    struct gtrace_perf_auxbuf *buf,
-> +					    u64 *format)
-> +{
-> +	struct rvtrace_ramsink_priv *priv =3D dev_get_drvdata(&comp->dev);
-> +	struct trace_buf src, dst;
-> +	size_t bytes =3D 0;
-> +	bool wrap;
-> +	u64 wp;
-> +
-> +	dst.base =3D buf->base;
-> +	dst.len =3D buf->length;
-> +	dst.cur =3D buf->pos;
-> +	src.base =3D priv->va;
-> +	src.len =3D priv->size;
-> +	*format =3D PERF_AUX_FLAG_GTRACE_FORMAT_ETRACE;
-> +	wp =3D rvtrace_ramsink_read_pair(comp->pdata, RVTRACE_RAMSINK_WPLOW_OFF=
-);
-> +	wrap =3D wp & RVTRACE_RAMSINK_WPLOW_WRAP;
-> +	wp &=3D ~RVTRACE_RAMSINK_WPLOW_WRAP;
-> +
-> +	if (wrap) {
-> +		rvtrace_ramsink_write_pair(comp->pdata, priv->start, RVTRACE_RAMSINK_W=
-PLOW_OFF);
-> +		src.cur =3D wp - priv->start;
-> +		priv->prev_wp =3D priv->start;
-> +		/*
-> +		 * There is no way to tell if trRamWp wrapped around more than once. A=
-s a
-> +		 * result priv->prev_wp can't be used and the entire buffer must be co=
-pied
-> +		 * even though some data might be duplicated.
-> +		 */
-> +		bytes =3D priv->size;
-> +	} else {
-> +		src.cur =3D  priv->prev_wp - priv->start;
-> +		bytes =3D wp - priv->prev_wp;
-> +		priv->prev_wp =3D wp;
-> +	}
-
-[Severity: Medium]
-Does this code safely handle anomalous hardware behavior? If the hardware
-write pointer (wp) read directly from RVTRACE_RAMSINK_WPLOW_OFF exceeds the
-configured priv->end limit, it seems src.cur could underflow or exceed the
-buffer length (priv->size).
-
-Without bounds checking on the offset returned by hardware, could this
-cause the subsequent memcpy in tbuf_to_pbuf_copy to read out-of-bounds
-kernel memory and leak it into the userspace perf ring buffer?
-
-> +
-> +	tbuf_to_pbuf_copy(&src, &dst, bytes);
-> +	dev_dbg(&comp->dev, "Copied %zu bytes\n", bytes);
-> +	return bytes;
-> +}
-
-[ ... ]
-
-> +static void rvtrace_ramsink_cleanup(struct gtrace_component *comp)
-> +{
-> +	struct rvtrace_ramsink_priv *priv =3D dev_get_drvdata(&comp->dev);
-> +
-> +	dma_free_coherent(comp->pdata->dev, priv->alloc_size, priv->alloc_va, p=
-riv->alloc_start);
-> +}
-
-[ ... ]
-
-> +static void rvtrace_ramsink_remove(struct gtrace_component *comp)
-> +{
-> +	rvtrace_ramsink_cleanup(comp);
-> +}
-
-[Severity: High]
-Can unbinding this driver while tracing is active lead to a DMA
-use-after-free?
-
-rvtrace_ramsink_remove calls rvtrace_ramsink_cleanup which immediately
-frees the DMA memory via dma_free_coherent. If the hardware isn't
-explicitly halted via gtrace_disable_component first, the hardware might
-continue writing trace data to the freed memory pages.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261001052243.3042=
-627-1-mayuresh.chitale@oss.qualcomm.com?part=3D9
+This hunk looks unrelated to the patch in question.
