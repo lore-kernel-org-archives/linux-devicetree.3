@@ -1,219 +1,179 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C26185372C3
-	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 21:10:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF4EF49BD6D;
+	Thu,  1 Oct 2026 21:12:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790889053; cv=none; b=sx9sLU74G+jqMkIlV1P4kX10SqSp9O0WXOT/Wz9fVRZ2k2DevuP/KsMbWH8njCO3ERt0kRurNR9tn6Iuwdo7NvWh0Lj0Djl89Op6JPbMpYofStm38+T4U/jLAMkS/BpkZXUx4xQaitZAwaYx0NtXSOV5BUaHsfHrwp7IfZRciww=
+	t=1790889162; cv=none; b=n0sAwm0gzUC5FUWfuiBFsoVir6Jp15rlmKRiYKZ0L3mOgODUFdF641eXUeNw1aK81/8ZUGpGdIpouwQo/3XMsrFGHIrNYCMERECIKY2QFlFJ3n9VgA4HlDqVt+jis+B0U2T8uevXuv/sXhb6s33i4hRjJU41iXxZAPS6jjpO3M0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790889053; c=relaxed/simple;
-	bh=092/HcEilVmakxy5W8wqV0dSID2JMH7R03jCCFy4RxM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=sRh+yyd7TZ2mYvteBm4iA41O11d6EAJnB/SHCQqO5J2W8p2Nx9I4b9LCfPuPi0Ko29pJvpDUk/gXXMiJPV0KwK3V6LZksxwsYK9lSisHoRB8gESWwCo3MORptzvN/ntCT3vh2uDPWPb7gL/HVFjs5lmyfU+IjgB31NG7sxaKKso=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ddwwBZ84; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790889162; c=relaxed/simple;
+	bh=RDlxXsIVmSOW9EvSGpxVY3V9f1QX8L/coartXlMr17o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WMJ7vihRLJo2a2TgALJ43rDP4sLfbWM+IxgLEspIk8lcZoHaiolAiXaID5WuUKjwzDnFL7IyCi3F+XE0czEdwBvmFxkQepASvUCWxMx5RhzL7xUeXrjhkuoHQqno7qmQH+lvFUQ1NF1yfYIIwV19C0Iv7R7y1Dqq1IY5dr95a1s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XNv4T5Ze; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ddwwBZ84"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E0231F0089B
-	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 21:10:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XNv4T5Ze"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98A931F000FF;
+	Thu,  1 Oct 2026 21:12:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790889051;
-	bh=Cv/AHEsBbnYG0BEg3b4FxMz/rNctK75WTcep6/1Bhe4=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=ddwwBZ84yvtt1R2029E/eH4Z+7yntVZy5kecE9fWb7IL/X16zEkvTHQm2s0UHtQcX
-	 Ns3orOrmaydJVkrCWEDl6C806roFrNuPim6F6ENsrWrS7t56jLiQE9VU/lUKpmXFl7
-	 khh93F5bLaJv8wQY13t6bODnKGs5sXQPlUYw6Xo9X/ffULFOENIxyxCtAi3upzuMeb
-	 Ve57/0L90zvXbqCoRR/SvxUZhkXP3Laankhc3W7eAMoQ3YOXShX/MYw8oblcX6CtGr
-	 1NFg6hxgZx/asuCWf+DC13XBQjof4Bvh5Y6nOceYYZYVnHHiuKcIGbDd8sug65MmCx
-	 rpEiVfol3riDw==
-Received: by mail-lr2-f35.google.com with SMTP id 38308e7fff4ca-3a64d20990fso68050811fa.1
-        for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 14:10:51 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzg+fdACdXmm8TW4AYGc8lPo1/FMjb4fvfUbNLnzdLeQ5q2fI7FxW3MS+WdRLZui0flbIxyiPQHkaUX@vger.kernel.org
-X-Gm-Message-State: AFq9FYJQQykiBR8QXqKTYSe/sj5cUrS6e7WF0y/KYUEVfUKj2Rt9M9IO
-	V8AIKLGjqGXOtYleTCSb03M9Pwxa2Fy+k4Pl98bbgISxQaV26w6VNUX9BWbYsUvv7pnRl/VD0Mt
-	AiXCNC/Zl7Fn0OvZKVVpcj0ch6nVJGRA=
-X-Received: by 2002:a05:651c:1987:b0:3a5:b187:c7a3 with SMTP id
- 38308e7fff4ca-3a87f7d8b35mr1130761fa.2.1790889049900; Thu, 01 Oct 2026
- 14:10:49 -0700 (PDT)
+	s=k20260515; t=1790889159;
+	bh=yUe8foPO/YGnw6igCq/IGQXtyjmk4q2ZsCnNJOWDHC8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XNv4T5ZetRF09dzG85bpGSDwZTvnZa/nRqbYsEeE9NBYClRVU21lmlJBRZrqX03Xy
+	 /ehL+UDNqWZLA7aDzyHTIlsDzWvS4o1eU/n+fMpXMgMmp19AvzC0nfdz9V3ujGvhUT
+	 KdhQzzDhZEkh6DDy/zdkh/EppA1/enHlEFcFb76aA004hMTJycE3l/axV6XdcoFpjF
+	 ro7XLrFCO3Etsi5drAqHGudFDqR9aEDcaEPW8Uy/5FvJR5GVG0iBHc9zWrtNyogqiP
+	 gzmKh37kXNFgx2gPM6o+dWfxWPg8BkSmCVD8poI9q+55Wi7wQ1Nz7DsRzL+swKILQM
+	 uEXNiAGYXca+w==
+Date: Thu, 1 Oct 2026 22:12:34 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Frank Li <Frank.li@oss.nxp.com>
+Cc: CL Wang <cl634@andestech.com>, Vinod Koul <vkoul@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	"Gustavo A . R . Silva" <gustavoars@kernel.org>,
+	tim609@andestech.com, dmaengine@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-hardening@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: Re: [PATCH v8 1/2] dt-bindings: dmaengine: Add support for
+ ATCDMAC300 DMA engine
+Message-ID: <20261001-outdoors-gainfully-ff7902568cfd@spud>
+References: <20261001014503.786490-1-cl634@andestech.com>
+ <20261001014503.786490-2-cl634@andestech.com>
+ <ar67FuFDeVQe0-wp@lizhi-Precision-Tower-5810>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260930092020.1047221-1-y-abhilashchandra@ti.com> <20260930092020.1047221-2-y-abhilashchandra@ti.com>
-In-Reply-To: <20260930092020.1047221-2-y-abhilashchandra@ti.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 1 Oct 2026 23:10:34 +0200
-X-Gmail-Original-Message-ID: <CAD++jLnok0bz9kXiW=O8+4fPBYvm9nG-AA-8CopDpc-DBvBiJA@mail.gmail.com>
-X-Gm-Features: AclHuK_xn_-CKnIZzt8Aiza52a34qEVHcG5dNEDn3VR0fTXp_jLDfo12LQfvZZ0
-Message-ID: <CAD++jLnok0bz9kXiW=O8+4fPBYvm9nG-AA-8CopDpc-DBvBiJA@mail.gmail.com>
-Subject: Re: [PATCH 1/3] dt-bindings: pinctrl: Add TI TDA54 pin controller
-To: Yemike Abhilash Chandra <y-abhilashchandra@ti.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, nm@ti.com, 
-	vigneshr@ti.com, kristo@kernel.org, brgl@kernel.org, 
-	linux-gpio@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, afd@ti.com, 
-	u-kumar1@ti.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="IjTKwb2qVh0/lgHk"
+Content-Disposition: inline
+In-Reply-To: <ar67FuFDeVQe0-wp@lizhi-Precision-Tower-5810>
+
+--IjTKwb2qVh0/lgHk
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Hi Yemike,
+On Thu, Oct 01, 2026 at 03:57:10PM -0400, Frank Li wrote:
+> On Thu, Oct 01, 2026 at 09:45:02AM +0800, CL Wang wrote:
+> > Document devicetree bindings for Andes ATCDMAC300 DMA engine
+> >
+> > ATCDMAC300 is the IP name, which is embedded in AndesCore-based
+> > platforms or SoCs such as AE350 and Qilai.
+> >
+> > Signed-off-by: CL Wang <cl634@andestech.com>
+> > Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> >
+> > ---
+> >   Changes for v7:
+> >     - Rebase onto the current dmaengine/next; no changes from v6
+> >
+> >   Changes for v6:
+> >     - Rebase onto dmaengine/next; no changes from v5
+> >
+> >   Changes for v5:
+> >     - No changes from v4
+> >
+> >   Changes for v4:
+> >     - Use items list format with descriptions for reg property
+> >       as suggested by Conor Dooley
+> >
+> >   Changes for v3:
+> >     - Rename DT binding file from andestech,qilai-dma.yaml to
+> >       andestech,ae350-dma.yaml.
+> >     - Deprecate IP-core-based compatible usage and align with
+> >       SoC/platform-based strings.
+> >     - Dropped Acked-by tag from Conor Dooley due to the above change.
+> > ---
+> >  .../bindings/dma/andestech,ae350-dma.yaml     | 67 +++++++++++++++++++
+> >  1 file changed, 67 insertions(+)
+> >  create mode 100644 Documentation/devicetree/bindings/dma/andestech,ae3=
+50-dma.yaml
+> >
+> > diff --git a/Documentation/devicetree/bindings/dma/andestech,ae350-dma.=
+yaml b/Documentation/devicetree/bindings/dma/andestech,ae350-dma.yaml
+> > new file mode 100644
+> > index 000000000000..f040a2bf7d4b
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/dma/andestech,ae350-dma.yaml
+> > @@ -0,0 +1,67 @@
+> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/dma/andestech,ae350-dma.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: Andes ATCDMAC300 DMA Controller
+> > +
+> > +maintainers:
+> > +  - CL Wang <cl634@andestech.com>
+> > +
+> > +allOf:
+> > +  - $ref: dma-controller.yaml#
+> > +
+> > +properties:
+> > +  compatible:
+> > +    oneOf:
+> > +      - items:
+> > +          - enum:
+> > +              - andestech,qilai-dma
+> > +          - const: andestech,ae350-dma
+> > +      - const: andestech,ae350-dma
+> > +
+> > +  reg:
+> > +    minItems: 1
+> > +    items:
+> > +      - description: DMA controller register range
+> > +      - description: cache control in IOCP controller
+> > +
+> > +  reg-names:
+> > +    minItems: 1
+> > +    items:
+> > +      - const: dma
+> > +      - const: iocp
+> > +
+> > +  interrupts:
+> > +    maxItems: 1
+> > +
+> > +  "#dma-cells":
+> > +    const: 1
+> > +
+> > +required:
+> > +  - compatible
+> > +  - reg
+> > +  - interrupts
+> > +  - "#dma-cells"
+> > +
+> > +additionalProperties: false
+>=20
+> According to Documentation/devicetree/bindings/writing-bindings.rst
+> ref to other yaml(ref: dma-controller.yaml)
+>=20
+> should use
+> unevaluatedProperties: false
 
-thanks for your patch!
+It's fine to use additionalProperties: false though, and is correct to
+do IMO when the other properties being imported do not apply.
 
-On Wed, Sep 30, 2026 at 11:21=E2=80=AFAM Yemike Abhilash Chandra
-<y-abhilashchandra@ti.com> wrote:
+Thanks,
+Conor.
 
-> +      ti,debounce-select:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        enum: [0, 1, 2, 3, 4, 5, 6]
-> +        description:
-> +          Selects which DBOUNCE_CFGn period register in the control modu=
-le
-> +          drives the debounce filter for this pad. 0 disables debouncing=
-,
-> +          1 to 6 select DBOUNCE_CFG1 to DBOUNCE_CFG6.
+--IjTKwb2qVh0/lgHk
+Content-Type: application/pgp-signature; name=signature.asc
 
-What's wrong with the existing input-debounce property?
+-----BEGIN PGP SIGNATURE-----
 
-  input-debounce:
-    $ref: /schemas/types.yaml#/definitions/uint32-array
-    description: Takes the debounce time in usec as argument or 0 to disabl=
-e
-      debouncing
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCar7MwgAKCRB4tDGHoIJi
+0qwzAQCFN1rL6Q89xuOcVB30GAlyjF1xcv6VODIfxy2W2V8g/QD6A+L/HEGbzpfM
+jccMAdR6FCwY3WPK/AP9GDxJC2tQgwk=
+=XlD3
+-----END PGP SIGNATURE-----
 
-Just translate usec:s into your custom format in the code, problem solved.
-
-> +      ti,virt-gpio-instance:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        enum: [0, 1, 2, 3, 4, 5, 6, 7]
-> +        description:
-> +          Selects which virtual GPIO instance controls this pad, allowin=
-g
-> +          protection between multiple virtual views of the GPIO control
-> +          registers. Has no effect unless the pad is muxed to GPIO mode
-> +          (muxmode 7).
-
-Wow crazy stuff. OK keep it :D
-
-> +      ti,wakeup:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        enum: [0, 1, 2, 3]
-> +        description: |
-> +          Wakeup event configuration for this pad.
-> +          0 - wakeup disabled
-> +          1 - wakeup triggered by any change of the pin input value
-> +          2 - wakeup triggered by a low value on the pin
-> +          3 - wakeup triggered by a high value on the pin
-
-I just have the feeling this should be a generic property. It seems so usef=
-ul.
-
-Can you just add this as wakeup-mode =3D <custom value> in
-Documentation/devicetree/bindings/pinctrl/pincfg-node.yaml
-
-> +      ti,retention-bias:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        enum: [0, 1, 2]
-> +        description: |
-> +          Enables the internal I/O pullup/pulldown resistor when pin ent=
-ers
-> +          TDA54 I/O retention mode, and configures the I/O pull resistor
-> +          direction.
-> +          0 - OFF mode pad pull resistor disable
-> +          1 - Select OFF mode pulldown resistor
-> +          2 - Select OFF mode pullup resistor
-
-Use names inspired by the generic config types and flags instead
-of enums.
-
-ti,retention-bias-disable;
-ti,retention-bias-pull-down;
-ti,retention-bias-pull-up;
-
-> +      ti,retention-offmode:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        enum: [0, 1]
-> +        description: |
-> +          I/O behaviour when retention mode is active.
-> +          0 - I/O maintains its previous state
-> +          1 - I/O state is forced to the OFF mode value
-
-Behaviour of *what*?
-
-The driver stage?
-
-I suspect you should make two bool flags
-ti,retention-output-hold;
-ti,retention-output-disable;
-
-> +      ti,retention-output:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        enum: [0, 1, 2]
-> +        description: |
-> +          Output driver behaviour while the pad is in retention mode.
-> +          0 - output driver disabled
-> +          1 - output driver enabled, pad driven low
-> +          2 - output driver enabled, pad driven high
-
-Make three flags:
-ti,retention-output-disable;
-ti,retention-output-low;
-ti,retention-output-high;
-
-> +      ti,retention-force:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        enum: [0, 1]
-> +        description: |
-> +          I/O retention controls.
-> +          0 - gated by the Device Manager logic
-> +          1 - forced active, overriding the Device Manager gating logic
-
-This is clearly a bool flag. It should contain device-manager as that
-magic entity is involved.
-
-ti,retention-device-manager-enable;
-ti,retention-device-manager-forced-active;
-
-Both seems to be related to the device manager whatever that is.
-
-> +      ti,isolation-bypass:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        enum: [0, 1]
-> +        description: |
-> +          I/O isolation for this pad.
-> +          0 - isolation preserved
-> +          1 - isolation bypassed
-
-What does this even mean electronically speaking? Explain in a description:
-statement.
-
-ti,isolation-preserve;
-ti.isolation-bypass-enable;
-
-perhaps?
-
-Some of the retention settings seem *very* generic, c.f. this
-from include/dt-bindings/pinctrl/nomadik.h that has been
-around forever:
-
-#define SLPM_DISABLED           0
-#define SLPM_ENABLED            1
-#define SLPM_INPUT_NOPULL       0
-#define SLPM_INPUT_PULLUP       1
-#define SLPM_INPUT_PULLDOWN     2
-#define SLPM_DIR_INPUT          3
-#define SLPM_OUTPUT_LOW         0
-#define SLPM_OUTPUT_HIGH        1
-#define SLPM_DIR_OUTPUT         2
-#define SLPM_WAKEUP_DISABLE     0
-#define SLPM_WAKEUP_ENABLE      1
-
-SLPM means "sleep mode", yeah pretty much retention...
-
-I think the corresponding retention settings for things that are really
-quite generic should just be added to the generic pin config bindings.
-
-Yours,
-Linus Walleij
+--IjTKwb2qVh0/lgHk--
