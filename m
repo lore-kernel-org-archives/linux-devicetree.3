@@ -1,103 +1,162 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CD72A4D37AF;
-	Thu,  1 Oct 2026 10:05:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E11474D6C4A;
+	Thu,  1 Oct 2026 10:07:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790849105; cv=none; b=sWYGn/A4rRx/WZ+6yHiJGGVvDmRqPlp4pbIXzdGpYGdg5/KVaWn0yIm4iO/7RjFEZR3G4fXub0/VJeHbwEhHMCJ34LSAKNOJortte0kkkr0TjN/Ohp8kDnEDIPZopefMakzM5Dvp5SbUiLhzeUAnqI498Pir07ORy4nOxNIbSZc=
+	t=1790849251; cv=none; b=C1UPayifUbRsB64ZGugS40H260C/Q05t4vZ7G5CYlW5b1dk44F77MYmoDpscAr0oK0RazpLH7MeDiouSu/5v+xIAYVzSlRCotNBulN8qcZPwGD7TdQtkTqVSwe7xMf+FogmKK4bRC/tDb82AFqS43uvvqwT+2OxvI06BOAOzACI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790849105; c=relaxed/simple;
-	bh=EsKLwztTkRBxwN/w4nnn25vqOweKjPOVm31gLdIJuPs=;
+	s=arc-20240116; t=1790849251; c=relaxed/simple;
+	bh=CBFSA9BeY4t6/i9+jFeJRK4DM5K/GyNwSJwe+3JRIxA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cI2Pu/+E1QyfYxJ6F/Kcje8OpKws/ZCCw2wKVwtr7UB7JDkJlz7CB14YdtgO/G+Dc4dibPxk2ETlaoqQBCN5lf2rCWR7IONik33quVHqGEfGnbBUtnn2lqmi9t4S6hPC+ScgBjv0Ml33ccmuj8Qw1fKKXKn8gmLICZdNvTEMgnU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=SPgdssak; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=W9hqfRPZqrTkk3Gn/WRJyAZtv22pHhXs/eEDgCVv2yE37MefzWo4C1Iy16ClCru+ROPiTr0M6B8dxXmQ35PvXbYhm78AqzmM4QtZYWay7qFReV+JA5s+VA2n0KnBzYzpQ+2bTEXT6Rs4nDzsifTunLeyQ/VFdBHrjna8wipEhHc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=tlMWDHl6; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="SPgdssak"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 777C6497;
-	Thu,  1 Oct 2026 03:04:54 -0700 (PDT)
-Received: from localhost (unknown [10.2.196.114])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 752623F85F;
-	Thu,  1 Oct 2026 03:04:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790849097; bh=EsKLwztTkRBxwN/w4nnn25vqOweKjPOVm31gLdIJuPs=;
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="tlMWDHl6"
+Received: from ideasonboard.com (93-46-82-201.ip106.fastwebnet.it [93.46.82.201])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 9B484593;
+	Thu,  1 Oct 2026 12:05:26 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1790849126;
+	bh=CBFSA9BeY4t6/i9+jFeJRK4DM5K/GyNwSJwe+3JRIxA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=SPgdssakxaI/nLFm5XI+lkSSH4zrG9Udn9VZ8Ii2J/gmGEnwcN9Avh7pCIeaYGtn+
-	 psD4muIFAfZuUPwSaS/mXqLk7UxaO90VIXZA0lrpl0NC4FeFmvA98CiJeGJogiAPXG
-	 Ik6DKBFJGELumlqz+i3AwfvmMuMLAxe28ZvGHrts=
-Date: Thu, 1 Oct 2026 11:04:55 +0100
-From: Leo Yan <leo.yan@arm.com>
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Mike Leach <mike.leach@arm.com>,
-	James Clark <james.clark@linaro.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Leo Yan <leo.yan@linux.dev>, coresight@lists.linaro.org,
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+	b=tlMWDHl64vujWZeEzx2c+11pprDphiIHT1/qMUDnEHDfOUdKHdSdgXKHv7e6d0FMu
+	 6YXoWh3f4J1ApDGReTSbpwoiIkUTdEVV+RZ0u+hB+up5N8xUzFn01kSCoc2ELh9qOF
+	 Pu1lt31Rn4Hfw8waTVftuooSHeAVcOi76atTt8hU=
+Date: Thu, 1 Oct 2026 12:07:16 +0200
+From: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Philippe Baetens <philippebaetens@gmail.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+	Jai Luthra <jai.luthra@ideasonboard.com>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: arm: coresight: Allow funnel clocks
-Message-ID: <20261001100455.GL14479@e132581.arm.com>
-References: <20260921232834.3138571-1-robh@kernel.org>
+Subject: Re: [PATCH v5 2/2] media: i2c: mira016: Add driver for Mira016
+Message-ID: <ar4ve6qfiOVQc1Kd@zed>
+References: <20260930-mira016-v5-0-499a34ab8204@ideasonboard.com>
+ <20260930-mira016-v5-2-499a34ab8204@ideasonboard.com>
+ <ar4BsDNOkcusy4Qz@kekkonen.localdomain>
+ <ar4IKQHYzprZ3CPv@zed>
+ <ar4RQ2OnP20BOhC7@kekkonen.localdomain>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260921232834.3138571-1-robh@kernel.org>
+In-Reply-To: <ar4RQ2OnP20BOhC7@kekkonen.localdomain>
 
-Hi Rob,
-
-On Mon, Sep 21, 2026 at 06:28:33PM -0500, Rob Herring (Arm) wrote:
-> Some static funnel nodes have APB and AT clocks. Allow one or two
-> clocks and the apb_pclk and atclk clock-names entries.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+On Thu, Oct 01, 2026 at 10:52:35AM +0300, Sakari Ailus wrote:
+> Hi Jacopo,
 >
-> ---
->  .../bindings/arm/arm,coresight-static-funnel.yaml      | 10 ++++++++++
->  1 file changed, 10 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/arm/arm,coresight-static-funnel.yaml b/Documentation/devicetree/bindings/arm/arm,coresight-static-funnel.yaml
-> index 9598a3d0a95b..4a3d08f9568c 100644
-> --- a/Documentation/devicetree/bindings/arm/arm,coresight-static-funnel.yaml
-> +++ b/Documentation/devicetree/bindings/arm/arm,coresight-static-funnel.yaml
-> @@ -30,6 +30,16 @@ properties:
->    power-domains:
->      maxItems: 1
->  
-> +  clocks:
-> +    minItems: 1
-> +    maxItems: 2
-> +
-> +  clock-names:
-> +    minItems: 1
-> +    items:
-> +      - const: apb_pclk
-> +      - const: atclk
+> On Thu, Oct 01, 2026 at 09:19:02AM +0200, Jacopo Mondi wrote:
+> > Hi Sakari
+> >
+> > On Thu, Oct 01, 2026 at 09:46:08AM +0300, Sakari Ailus wrote:
+> > > Hi Jacopo,
+> > >
+> > > On Wed, Sep 30, 2026 at 12:51:20PM +0200, Jacopo Mondi wrote:
+> > > > Add driver for the ams OSRAM Mira016 sensor.
+> > > >
+> > > > Signed-off-by: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+> > > > +static int mira016_parse_endpoint(struct device *dev, struct mira016 *mira016)
+> > > > +{
+> > > > +	struct fwnode_handle *endpoint __free(fwnode_handle) = NULL;
+> > > > +	struct v4l2_fwnode_endpoint ep_cfg = {
+> > > > +		.bus_type = V4L2_MBUS_CSI2_DPHY
+> > > > +	};
+> > > > +	int ret;
+> > > > +
+> > > > +	endpoint = fwnode_graph_get_endpoint_by_id(dev_fwnode(dev), 0, 0, 0);
+> > > > +	if (!endpoint)
+> > > > +		return -ENODEV;
+> > > > +
+> > > > +	ret = v4l2_fwnode_endpoint_alloc_parse(endpoint, &ep_cfg);
+> > > > +	if (ret)
+> > > > +		return ret;
+> > > > +
+> > > > +	/*
+> > > > +	 * Link frequencies: the driver supports a single link frequency,
+> > > > +	 * no need to check bitmap after this call.
+> > > > +	 */
+> > > > +	ret = v4l2_link_freq_to_bitmap(dev, ep_cfg.link_frequencies,
+> > > > +				       ep_cfg.nr_of_link_frequencies,
+> > > > +				       mira016_link_freqs,
+> > > > +				       ARRAY_SIZE(mira016_link_freqs),
+> > > > +				       &mira016->link_freq_bitmap);
+> > > > +	if (ret) {
+> > > > +		v4l2_fwnode_endpoint_free(&ep_cfg);
+> > >
+> > > I recall commenting about this at in least three occasions earlier.
+> >
+> > And, again, I have replied twice to your comment without receiving a
+> > response: https://lore.kernel.org/linux-media/arPJ_-yKVMXE-Gav@zed/
+> >
+> > I'll repeat here anyway: do not mix cleanups and gotos. In this case
+> > it's harmless, but why contradict the usage notes to avoid typing out
+> > v4l2_fwnode_endpoint_free() 2 times ?
+>
+> It's not about typing but correct error handling. It's much easier to miss
+> unwinding whatever needs to be unwound in multiple places when you're not
+> using goto's.
+>
+> In other words, the pattern you're following is bad, please stop using it.
+>
 
-The question is that a static funnel does not need to program any
-registers, so in theory it should only need atclk as the module's core
-clock, but not the APB programming clock (apb_pclk).
+You seem to be missing my main point, and if you think it's not
+correct please tell me why instead of keep repeating the same thing
+over and over.
 
-Maybe I did not get this right when I initially enabled the static
-funnel in hi3660-coresight.dtsi. We should probably remove pclk from the
-static funnel node.
+This routine uses cleanups because of
 
-  clocks:
-    minItems: 0
-    maxItems: 1
+	struct fwnode_handle *endpoint __free(fwnode_handle) = NULL;
 
-  clock-names:
-    minItems: 0
-    items:
-      - const: atclk
+functions using cleanups shall not use gotos
 
-Thanks,
-Leo
+from cleanup.h
+
+ * Lastly, given that the benefit of cleanup helpers is removal of
+ * "goto", and that the "goto" statement can jump between scopes, the
+ * expectation is that usage of "goto" and cleanup helpers is never
+ * mixed in the same function. I.e. for a given routine, convert all
+ * resources that need a "goto" cleanup to scope-based cleanup, or
+ * convert none of them.
+
+As said, in this case is harmless, but given that this function might
+be extended I wouldn't introduce a goto now to later having to care if
+it gets in the way of the cleanup path or not.
+
+
+
+> >
+> > >
+> > > Also applies to the other driver.
+> > >
+> > > > +		return ret;
+> > > > +	}
+> > > > +
+> > > > +	/* TODO: Implement D-PHY configuration to support continuous clock. */
+> > > > +	if (!(ep_cfg.bus.mipi_csi2.flags & V4L2_MBUS_CSI2_NONCONTINUOUS_CLOCK)) {
+> > > > +		dev_err(dev, "Continuous clock is not supported\n");
+> > > > +		v4l2_fwnode_endpoint_free(&ep_cfg);
+> > > > +		return -EINVAL;
+> > > > +	}
+> > > > +
+> > > > +	mira016->bus_config = ep_cfg.bus.mipi_csi2.flags;
+> > > > +
+> > > > +	v4l2_fwnode_endpoint_free(&ep_cfg);
+> > > > +
+> > > > +	return 0;
+> > > > +}
+> > >
+>
+> --
+> Kind regards,
+>
+> Sakari Ailus
