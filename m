@@ -1,78 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2005B49B458;
-	Thu,  1 Oct 2026 08:51:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B1B34AA3E2
+	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 08:52:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790844714; cv=none; b=Rsm9U72e1KzkgchdTZMfqepoB18qPtc6zTYZVnSN5RcWb4sC0em8uBVD+XaO3Ha92T6ZsoRJmh2sZauS+u5Cw61aTLdfA86a+jjvhDgwIHpsV6ZJPONlvCuB4igd068/R2LOdjRQSJ7ge7WOqO3nI+03OEcV9EF5wukr8grHrug=
+	t=1790844776; cv=none; b=NG3rK2nMFGk3CPlwwhMcJ2a7kMkDGPiOmZeuXmKihphhPpmTutlJunjxw5JcesV4NyHEb73BhSykYiVrrQcjJIILavaMp+NpqHkHA2nBNoYyfMpcNhsLaXUXUlkYheViaaRA3jpT4a1jjFWMdzKyNBzpFVFya1NsvfQwASlqE6w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790844714; c=relaxed/simple;
-	bh=20vxqPyJSRRLu9b2ZvPPeoQxUC6/G86+1VrsPASW06w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Vowfcz1wauQ220iEL961Gwo8kXM3qy1T+sbuQ5WZBH9sQ2uf10/aKZDO6wbT2zS19vUNW/ofB8oHrm0lBxF+qfYY0NaK9YeJQ78Ata0PN+2FCN3GsuIQgBq9tH2VlZM0ozooEgq87g17ZaNSXqWGbQqKeoCK0X6d+aMaH/H3GHs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hy5Uwf3w; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790844776; c=relaxed/simple;
+	bh=Y9yhMCMPK9PruBiJ6LLN0jqdCuRUWCX6MRlxm3UxClk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gB/EweBa/lMSX3ihRUmELQfpeSHOy+PB4vnyYdZhW1mbBx4OXbP5TE1WIO3N5WYop5RN2OBe6J9hiOAjHmWYMkE9IPmAvbrUWM6Y+MVLhznqKNCXxf/nEWFHbxuTitOdfIbO/IGi550tWraZjHrSmbaeW7WySoamLzPW2wZbHQ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wendy.sh; spf=pass smtp.mailfrom=wendy.sh; dkim=pass (2048-bit key) header.d=wendy-sh.20251104.gappssmtp.com header.i=@wendy-sh.20251104.gappssmtp.com header.b=hZUvRIol; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=wendy.sh
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wendy.sh
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hy5Uwf3w"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 956A71F000FF;
-	Thu,  1 Oct 2026 08:51:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790844712;
-	bh=VFmHqNJs/e1nltgkWcvpQVUCOuSiRU8X8wD2+ugwFhM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hy5Uwf3wsXCio6yGPrRvZv8pybyLhRqoMs1tNdqOeN1NjlIC14rRiy9LavVIb+JKI
-	 JN4bV8SLHisoNwmUHW0ZKP2n4E263WohbH2SnAaUlzluhXKGKnpXGr5xT7suXtH6IP
-	 mf+1TNsRhKz1r/7vUkeOdpe0SZ0SEIZxFiyAg974agEG/P88v3W79FsWOOZWx6iN+w
-	 87WrcIStEwG8UKNSPhLs1tXTptaN6JrxcrAclzF6OM95C1FE1TcUdXJxnel/b3kiPR
-	 32gx+P3ChP2Y2efc9IY832ly+arLxJrS3RD77M6hHZ5rW+wJehNXtLGQ3i7sZybBU0
-	 Qok+C0I/R3wGg==
-Date: Thu, 1 Oct 2026 10:51:48 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Georgi Djakov <georgi.djakov@oss.qualcomm.com>
-Cc: andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, minchan@kernel.org, 
-	senozhatsky@chromium.org, axboe@kernel.dk, rostedt@goodmis.org, mhiramat@kernel.org, 
-	mathieu.desnoyers@efficios.com, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-block@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
-	djakov@kernel.org
-Subject: Re: [PATCH 4/6] zram: Add QPaCE zcomp backend
-Message-ID: <20261001-dramatic-hasty-pug-68ebfd@quoll>
-References: <20260930145215.3380977-1-georgi.djakov@oss.qualcomm.com>
- <20260930145215.3380977-5-georgi.djakov@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=wendy-sh.20251104.gappssmtp.com header.i=@wendy-sh.20251104.gappssmtp.com header.b="hZUvRIol"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ccf3ca626so38367665e9.0
+        for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 01:52:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=wendy-sh.20251104.gappssmtp.com; s=20251104; t=1790844772; x=1791449572; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZoHLp2qEvUU4qcQZHZqw/kSI80wjja3vkqgsp5gvpnQ=;
+        b=hZUvRIolB3i9n9hDbgaKj22rKmXPO5fsvbNjVF8kgAJKEt9GW5VnqpciHJkxVjiemz
+         hn+yxCqgccnfcy1/MzkQjpfQI6uNdgeNskLHMUvhHlmujvlui2vpgb2oOoRWv7A4Y3Zc
+         5E5W+G4fod5Ncy30PaEM4uVg9NZgAUawn/etf6HMmo6zSWsdMHS1lEryL5v8ZY7tBjtm
+         AVVgayOZ9mi9dIJUwvmEjgi947qOH4cfoue6J8Do73+zjFJNScTBBW+wlUMZqpMl6b5i
+         kAsjCdWxJ6NGx0I0ElB8KmJPQJgeP9a91cxwqsyqE44R6xjTDrS9yLEbJqmdkKqe6KwA
+         H9Tg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790844772; x=1791449572;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZoHLp2qEvUU4qcQZHZqw/kSI80wjja3vkqgsp5gvpnQ=;
+        b=Hm7piJuHQte3Q6IjLScsSgUWx+Al5FAGQhb74NIo3E8Jtn1wy8zjiyBSSmoOTk1VHW
+         HKqeQQ95mEcbKH/iwgNAkKMtHbX7T3vPTGdU4dpT7Ta0xUAhUZhscaO/qyPN6G/L6xV6
+         Sn9HKQqqc/NMjDyEzNBpjVIsK7JPmBZr4HxgCVy+acF+Wkgej4JuikekfMzGmtPr5dzw
+         OWNQUpajrM4twqJ+vYM8DyHDaGFDaWwotTaU3xAY+7/e5IUyGeLOqCdAKKXo3EaOzeP/
+         UKdvpDhRzk3wrR+1p2yyVGhz5tq8xyR7DmAcFCJpDtZFcsc3rD9bfUxSFQKHBK9HqoBD
+         NGQA==
+X-Forwarded-Encrypted: i=1; AKwUvByNR0sStAFjUR0t7OIYRR3gWL72h+R8nsTLSyroRcuqWfEuPGcecijsSA8XGwEw09b9xnhPfvx7SMbW@vger.kernel.org
+X-Gm-Message-State: AFuF++kg+hD9QTabXmvuF6yLUrOEcvJM2WT+nWS/eAzVklP+bJPXS4qY
+	CCcZ4IUrBUrLe0WYqdPM1/iRH/L+i5ShT+FyKnlxSGZJsOkZ3hmu/yBNzswJJvVtAlk=
+X-Gm-Gg: AYBFou1BVozo7Lkg7psoiiPAA9T1RbO4PlIZ9VC/zwdp5Z4AS+hP7QEMgAI6IsMEQ5d
+	2Eb7sHM+sfgAL2yBjSUOnuaK5LXrxZVCremrvFPKM1X8VniABDlAz3wJIo8oDm8Oki/tE1H14dh
+	mgUJdNtVv12RH3XZ6hdWoKdMmo9NLvbIJtD9STOKIA02jamAmivG7zdBOZL1wNnA5hoGzaROZbx
+	oW+/PI+yCoKGjF7uOlpeOs4VGYVS/el2lhERSXLv6GSjKzY6OJMCx6mzqf/ECVlW+IdRqnU/aQ1
+	JNBudaHuk12rhzbIDfrJfr6ONKhZXutB5Woj4DNR00rhQvO5e+fVbXI67djGi/cLYrl8eW5/J+U
+	klSB53P8BpUNODiKzEcLrrrBw1QVzSiVI8Bhe6Ja8xa/Rwu/ywzxG7rRt0SC2jKLJmdG7ARBPms
+	PY40V5qRe7bRaGW3nqDy0xTak+9TI4niqTWALAhbXjCWbpYLCmb9TqTawX4xk/1V1DXT1kfzM02
+	OdqfTY=
+X-Received: by 2002:a05:600c:4745:b0:4a0:1e3a:411a with SMTP id 5b1f17b1804b1-4a01e3a417emr39422725e9.1.1790844771644;
+        Thu, 01 Oct 2026 01:52:51 -0700 (PDT)
+Received: from bke.ddns.sjp.renault.br ([5.2.196.22])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a01f979f4fsm55556345e9.4.2026.10.01.01.52.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 01:52:51 -0700 (PDT)
+From: Benjamin Kelenyi <benjamin@wendy.sh>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>,
+	Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Christopher Obbard <chris.obbard@oss.qualcomm.com>,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Benjamin Kelenyi <benjamin@wendy.sh>
+Subject: [PATCH] arm64: dts: qcom: agatti: Make the ADSP remote heap no-map
+Date: Thu,  1 Oct 2026 11:52:47 +0300
+Message-ID: <20261001085247.1897991-1-benjamin@wendy.sh>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260930145215.3380977-5-georgi.djakov@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 30, 2026 at 07:52:13AM -0700, Georgi Djakov wrote:
-> Add a zcomp backend for the Qualcomm Page Compression Engine (QPaCE) so
-> zram can expose qpace-lz4 as a selectable compression algorithm when the
-> QPaCE driver is available.
-> 
-> Compress and decompress operations are handled via the QPaCE urgent
-> synchronous path: each request DMA-maps the source and destination
-> buffers, issues a blocking hardware command, and returns the result size.
-> 
-> Signed-off-by: Georgi Djakov <georgi.djakov@oss.qualcomm.com>
-> ---
->  drivers/block/zram/Kconfig         |  11 +++
->  drivers/block/zram/Makefile        |   1 +
->  drivers/block/zram/backend_qpace.c | 134 +++++++++++++++++++++++++++++
+The ADSP remote heap is declared as a reusable CMA pool. The ADSP has no
+IOMMU, so fastrpc hands the whole region to the DSP with
+qcom_scm_assign_mem() when it probes, while CMA keeps lending the pool's
+pages to movable allocations. Once memory runs low the kernel touches a
+page the DSP now owns, and the board resets without an oops.
 
-So entire qpace should go here, no? Why did you create this entire layer
-of indirection, singleton management under drivers/soc?
+On an Arduino UNO Q (QRB2210, 4 GB), writing and reading back 3.5 GB
+through the page cache resets the board within seconds. With fastrpc
+blacklisted, or with the heap declared no-map, the same test passes
+repeatedly.
 
->  drivers/block/zram/backend_qpace.h |  13 +++
->  drivers/block/zram/zcomp.c         |  11 ++-
->  5 files changed, 168 insertions(+), 2 deletions(-)
->  create mode 100644 drivers/block/zram/backend_qpace.c
->  create mode 100644 drivers/block/zram/backend_qpace.h
+Declare the heap no-map, so the kernel never uses it, as the other
+platforms' remote heaps are.
 
-Best regards,
-Krzysztof
+Fixes: 3fbf3b85bf86 ("arm64: dts: qcom: agatti: Add memory-region for audio PD")
+Link: https://lore.kernel.org/all/20260908070331.2189A1F00A3A@smtp.kernel.org/
+Signed-off-by: Benjamin Kelenyi <benjamin@wendy.sh>
+---
+ arch/arm64/boot/dts/qcom/agatti.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/agatti.dtsi b/arch/arm64/boot/dts/qcom/agatti.dtsi
+index d9f4cbf..3ff97ea 100644
+--- a/arch/arm64/boot/dts/qcom/agatti.dtsi
++++ b/arch/arm64/boot/dts/qcom/agatti.dtsi
+@@ -385,7 +385,7 @@
+ 		adsp_rpc_remote_heap_mem: adsp-rpc-remote-heap {
+ 			compatible = "shared-dma-pool";
+ 			alloc-ranges = <0x0 0x0 0x1 0x0>;
+-			reusable;
++			no-map;
+ 			alignment = <0x0 0x400000>;
+ 			size = <0x0 0x800000>;
+ 		};
+-- 
+2.43.0
 
