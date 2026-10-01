@@ -1,104 +1,183 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10CB13A6B6C;
-	Thu,  1 Oct 2026 16:02:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F31C3C0613;
+	Thu,  1 Oct 2026 16:03:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790870523; cv=none; b=GeKzrPAwMj/7qDgEFkD0f4Dnn44yht7ghpiNF29EXaNUJmkJq297F+mx7HBLO0nevogBQeSVPV9c08scy0zCflQPoaZ6PDehtgAkO/YrNmUcKDQWFQFDg7O9fpu24pVe4DijkjFdWur9mJRjGIDVQcfo//RPVHOp2mJIFks/y60=
+	t=1790870610; cv=none; b=rlbIE/5Ka0bw+701eLrLKx4nbN8RGVIZAOomoAzRiN9TAAgLN1Y7JzxRbSqUS8jGMeTs9FwQnDaxvoiuLAebEwuQFKO53Xg9uN5MZX58HHyCXTTGsvRrMc/5ACw+006rgntEO0honRBnzLS1G0Ak17DqGEkplETMQbnx2nEQgnM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790870523; c=relaxed/simple;
-	bh=MZ6uAo/jM/BKKzyAedUlZugCxd4f3AttOUdyJqzUvmI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Ch2UmzWvHcmgLR1Gx8iX3KIaQJZjoGek1LgndOhT+OoUP2iYY0OE2gpm7HbTxnUchx4nDef712/p/BO8X3SxmEp9APJE8OlRFcR2zE3pA7+q1XS6EYUXiN2Ow7y+atRPwDy+3TLGas5T8rhCqub75bZywfzxoILQryKUKV3+K00=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pyi4rC8c; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790870610; c=relaxed/simple;
+	bh=nskYxzRXvoYDqQVGluvdNkiOtftZA5IrMEvhzK+9snQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KaMQqZ13ftueYf6sdiDe/rNBQjT1ZDYlapfBEa7O8lAjIrDN/8BmQIu8iSNWgxj50dtFbMgLwHCp9J8+Goos8iAVPQll3DGZgiEknCPNGlgR2KrlAO6ghqcBBaFI1Wr0KowmqM1wWCcrDYxQLeHUIYu6Kh62Un0vx++QTkI48HI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K/WOfh/6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pyi4rC8c"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F53D1F00898;
-	Thu,  1 Oct 2026 16:02:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K/WOfh/6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3D301F000FF;
+	Thu,  1 Oct 2026 16:03:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790870521;
-	bh=vCGXuhHmdwWl6D2vxQNlJ9dSK5DWMJDkuH9n1qMUJsU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Pyi4rC8cAB1YlkAiGAT8JR8g8zhjo3PYTKwryy9lfXtNDnzHqrIau2yajdmM28c51
-	 nTPuNy5g2ockwmbUgJLZOyjtgVpGu4RUFo8BZHPuAzhHdCRQiub311VbSKYaWCkGsX
-	 K8sRsoIHEgRXgISqDCKuzzI3Yz+dYQqBiY8DaJvamUCgmH9lM3HWb3+lm2TGozwV1p
-	 859bKBu+HbWSop7nxJDRqbPT6ahPt/Kz81euaK0tzSV4XnC+WhG+0XMTmy/MewBgqB
-	 GBSWImC1fb5dK1lmIoPX3tkfEoUOPjaUMlgzr8M8Ys7vKGOxlDOUek2jNpPg1kTcun
-	 XcX70rnyotmrg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] Input: gpio-keys - support wakeup pinctrl state
- on suspend
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Kendall Willis" <k-willis@ti.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, linux-input@vger.kernel.org, dmitry.torokhov@gmail.com
-In-Reply-To: <20261001-upstream-gpio-wakeup-v3-2-6f3bcde367a3@ti.com>
-References: <20261001-upstream-gpio-wakeup-v3-0-6f3bcde367a3@ti.com>
- <20261001-upstream-gpio-wakeup-v3-2-6f3bcde367a3@ti.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 01 Oct 2026 16:02:00 +0000
-Message-Id: <20261001160201.4F53D1F00898@smtp.kernel.org>
+	s=k20260515; t=1790870609;
+	bh=OSUIn2vvgZY9nja7L+v/qJsWqMEJTAmZepfV/Nzm4+g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=K/WOfh/6qDstRLC9ZRaNs7cNIQQwjOtWjnTQtkFB6PNQpgptrztf0vSZh4DTnZump
+	 ufgp5zI8dj1FfYTNwcct0yW+pbJ1cnXRsx64fvIJT7k/mTHFbB7QbfmdWqlgA2okEj
+	 MqOQaSGg/aeB4V2gt+drRL1DnXmxFWq04iX9rTbWvptKsLY/gt1wHPRSKfeVtnuziW
+	 ICrWJnbBeXEXGsj90XEOLMUTGz++GUwx2BKWLFPOO3CIMQdxaXRTsMjkVK05zO/J+W
+	 hMhw3abDTOyagZDekqC93G3fX0z6NIHa5uJorfvpgC75831IR/qGvdzjKV+I6P0zg9
+	 xksO8IEdJu0iw==
+Date: Thu, 1 Oct 2026 11:03:27 -0500
+From: Rob Herring <robh@kernel.org>
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nick Desaulniers <ndesaulniers@google.com>,
+	Bill Wendling <morbo@google.com>,
+	Justin Stitt <justinstitt@google.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Robert Foss <rfoss@kernel.org>,
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+	Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Albert Esteve <aesteve@redhat.com>,
+	Dave Stevenson <dave.stevenson@raspberrypi.com>,
+	Javier Martinez Canillas <javierm@redhat.com>,
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
+	llvm@lists.linux.dev, linux-rpi-kernel@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	Benjamin Tissoires <bentiss@kernel.org>
+Subject: Re: [PATCH 1/6] dt-bindings: display: Add panel-mipi-dsi-bpf generic
+ panel binding
+Message-ID: <20261001160327.GA512699-robh@kernel.org>
+References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
+ <20260928-drm-mipi-dsi-panel-ebpf-v1-1-5244926aace4@kernel.org>
+ <20260928204059.GA515872-robh@kernel.org>
+ <artyl8fD3zzng8Uh@houat>
+ <20260929222822.GA2933878-robh@kernel.org>
+ <ary8IdL9zVXfS2fA@houat>
+ <CAL_JsqJCoWQmdBKEbekXb5LeLn1KcMiP2iG30r+npssJSZB5LA@mail.gmail.com>
+ <ar4HOuO-vox9VIKZ@houat>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <ar4HOuO-vox9VIKZ@houat>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] input: gpio-keys: silent masking of pinctrl resource acquisition=
- errors
---
+On Thu, Oct 01, 2026 at 09:22:48AM +0200, Maxime Ripard wrote:
+> On Wed, Sep 30, 2026 at 02:07:39PM -0500, Rob Herring wrote:
+> > On Wed, Sep 30, 2026 at 3:04 AM Maxime Ripard <mripard@kernel.org> wrote:
+> > >
+> > > On Tue, Sep 29, 2026 at 05:28:22PM -0500, Rob Herring wrote:
+> > > > On Tue, Sep 29, 2026 at 10:39:24AM +0200, Maxime Ripard wrote:
+> > > > > On Mon, Sep 28, 2026 at 03:40:59PM -0500, Rob Herring wrote:
+> > > > > > On Mon, Sep 28, 2026 at 06:22:01PM +0200, Maxime Ripard wrote:
+> > > > > > > Most MIPI-DSI panel drivers follow an identical pattern: acquire
+> > > > > > > regulators and GPIOs, perform a reset pulse with specific timing,
+> > > > > > > send a vendor-supplied sequence of DSI commands, then enable the
+> > > > > > > display. The only truly panel-specific part is the init sequence
+> > > > > > > and power-on/off timing.
+> > 
+> > [snip a bunch of irrelevant shit]
+> > 
+> > > > > So, let's phrase this differently: what's different about the
+> > > > > description than panel-mipi-dsi-spi, or any other binding already in
+> > > > > tree?
+> > > >
+> > > > There's all of 3 panels supported. Compared to all the other panels we
+> > > > have, hardly the rule over the exception. You can always fine "bad"
+> > > > examples or exceptions.
+> > > >
+> > > > That one defines a single supply. Any other MIPI SPI panel with
+> > > > different supplies or GPIO controls probably has its own binding. Trying
+> > > > to parameterize that in DT doesn't work. We've rejected trying to do
+> > > > that in DT over and over. What's your story here for that?
+> > >
+> > > Sigh... Look, I really don't care about an argument DT maintainers use
+> > > at their discretion for this. We both know full well that it's been and
+> > > still is inconsistenly applied, and you also know that it's not like
+> > > I've been playing the DT game since pretty much the beginning (on ARM
+> > > anyway). So it's not like I don't want to make it work, I do. But what I
+> > > care about is enabling that driver to work.
+> > >
+> > > I reused exactly the same binding than the last major binding that was
+> > > merged for panels, and support about the same number of panels. I guess
+> > > that was a mistake, so sorry for that.
+> > >
+> > > I'm fine with reworking the binding any way you want as long as it still
+> > > allows for the same use-case, but I would have hoped for a better
+> > > feedback on how to do so than "oh what a huge pile of shit this is".
+> > 
+> > When you can answer my question above rather than make up shit I
+> > didn't say, maybe I'll reply again on this thread. Otherwise I'm done
+> > here. I don't need this abuse for the thankless job of DT
+> > maintainership.
+> 
+> It's been the whole tone of the reviews, so I'm sorry if you were caught
+> in the crossfire and you didn't mean that. And I'm sorry it made your DT
+> maintainership work harder than it already is.
+> 
+> I do mean what I said before though. I have no problem changing the
+> binding the way you want, but I need to know what to change in the first
+> place, otherwise it's really no better than a NAK, or we're bound to
+> have the same exchange for the v2, and I'd rather not.
+> 
+> I indeed missed your question, but now I'm not sure I understand what
+> you mean by "paremeterize that in DT"? The supplies in the binding are
+> an aggregate of all the possible supplies a panel can take. They are not
+> a wildcard, but they all have their own semantics that are used by
+> panels right now.
 
-commit f85782ff9c9eb4bfa803e47eea6427b48cb93f09
-Author: Kendall Willis <k-willis@ti.com>
+I read a bit more of the series and understand it a bit better now.
 
-Input: gpio-keys - support wakeup pinctrl state on suspend
+> I don't expect any new supply to be introduced, unless there's a major
+> panel technology change such as the one we had with the introduction of
+> OLED.
+> 
+> Would you prefer to reduce the number of supplies to the minimum we need
+> right now, and extend it as needed?
 
-This commit adds support for selecting a wakeup pinctrl state during suspend
-to RAM on TI K3 AM62 devices. It retrieves the pinctrl state using
-devm_pinctrl_get() and looks up the wakeup state if the device is enabled.
+No. You've defined some arbitrary list of supply names not just in the 
+binding, but in the kernel. I think both are a mistake. Can't the BPF 
+prog define the supply names and pass those to the kernel? Then when you 
+have a panel with 'foo' and 'bar' supplies, you don't need a kernel 
+change or some remapping to the existing set of names. The only real 
+exception we have there is if it's a single supply, just use 
+'power-supply'. It's the same issue with GPIOs, but there's generally 
+less variability with them.
 
-> diff --git a/drivers/input/keyboard/gpio_keys.c b/drivers/input/keyboard/=
-gpio_keys.c
-> --- a/drivers/input/keyboard/gpio_keys.c
-> +++ b/drivers/input/keyboard/gpio_keys.c
+The whole point of requiring specific compatibles and not doing "generic 
+bindings" is that's the only way the OS implementation can evolve 
+without changing the DT. You can have a specific driver or a generic 
+driver or a generic driver using BPF and which one can change over time 
+if needed, but from a DT perspective we don't care.
 
-[ ... ]
+So first, make this BPF stuff work with any existing panels (or some 
+defined set). I'm not saying convert everything, only that you could. 
+Otherwise you've failed the test of if the driver implementation 
+changes, does the binding have to change.
 
-> @@ -884,6 +887,15 @@ static int gpio_keys_probe(struct platform_device *p=
-dev)
->  	platform_set_drvdata(pdev, ddata);
->  	input_set_drvdata(input, ddata);
-> =20
-> +	ddata->pinctrl =3D devm_pinctrl_get(dev);
-> +	if (IS_ERR(ddata->pinctrl)) {
-> +		error =3D PTR_ERR(ddata->pinctrl);
-> +		if (error =3D=3D -EPROBE_DEFER)
-> +			return error;
+After that, the remaining problem is only how do you make it 
+work with unknown panels (only unknown to the kernel as any new panel 
+still needs a binding). There's 2 ways we can solve that. Either make 
+the kernel be able to bind to a generic driver without a compatible 
+match or have a fallback compatible. The former could be done by 
+userspace (though I saw gregkh added a taint for userspace bind 
+recently) or we could somehow make the kernel bind to any DSI child 
+devices without a match.
 
-[Severity: Medium]
-Does this code intentionally swallow all error codes from devm_pinctrl_get()
-other than -EPROBE_DEFER?
-
-If devm_pinctrl_get() fails for other reasons, such as a memory allocation
-failure (-ENOMEM) or an invalid device tree configuration (-EINVAL), the
-error is silently ignored. This allows the driver to probe successfully but
-with silently broken wakeup functionality.=20
-
-Should the error be returned for all failure cases to avoid masking resource
-acquisition failures?
-
-> +	} else if (ddata->pinctrl) {
-> +		ddata->pinctrl_wakeup =3D pinctrl_lookup_state(ddata->pinctrl, "wakeup=
-");
-> +	}
-> +
->  	input->name =3D pdata->name ? : pdev->name;
->  	input->phys =3D "gpio-keys/input0";
->  	input->dev.parent =3D dev;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261001-upstream-g=
-pio-wakeup-v3-0-6f3bcde367a3@ti.com?part=3D2
+Rob
