@@ -1,142 +1,196 @@
-Received: from mail-ed2-f31.google.com (mail-ed2-f31.google.com [74.125.228.95])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2C074A64D3
-	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 13:18:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8BB54AF9C5
+	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 13:18:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790860722; cv=none; b=n5nUMMAaSNLNZo5PzXzqt7kcNAHy/kBYrVOfh8BkpJvfihYH3fftEQDo0P3qQGy7FZOOzUNoNqDhZGQfKnl9CeepJIS7KZhoOrb7AcyrxYjn5arD7MLoIQotzfvU5xaVRhSzAOOlpNFRQU84fgyGBLj0HKfheTtQEYiCpkFIEOo=
+	t=1790860723; cv=none; b=hXaVdudVmyTUNFDm3mMu+5Dlt3ZC9toO/zFoUAgyU4JBvsGdhm6bYNz7Hp249FBTqBTkIWKfYNDeaVssNYqk8kNI05szuuVGoWD01miKkcgxbZng/p1wqeq4GOpBtHd2ruLsor6aDHZ2m2dgD+wmJYj+BvEUN1aCJ7csbljTlqw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790860722; c=relaxed/simple;
-	bh=9WLH9+Lg9mafi3RlCnOSyDHhnDNxTttruE8nd/FvIYs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gjaMu1Qg5/g+cKQMOOcFAdZFH8dSviqwzNg+sp4CMWPLHl2fgGykeJ2F9Kv8Ytr6um72NgmpA3Faph9u+mHjG0+x6VdYdaNBylUaVY5WElNVTWjONnTVmb3Fwqo0DuCHFeqQhoN11ofRP8Qcn375mTw7USQSPJ4QKqv3V8jrfiQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=gcClFamQ; arc=none smtp.client-ip=74.125.228.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	s=arc-20240116; t=1790860723; c=relaxed/simple;
+	bh=sFkXBSnLk+vZbRKQdCAmvra4Fypns8vJgfKHZ9ztqDQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=C5o9XUFMIhUKzt9hVioVazcqI6rtu00Aj4agPn+VLGSamZxgxgXd8i16+0l0dgSoVPhUoHiM3EtFfCVWySd21sJzJVNaq8zVs11GPlfpYLJvCdntHMCk4nxOECqGnsX1XPrK+8OWtP9YRa499KB+WM/yb05XFPICS9PSwjbXKa0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NSCrTMuc; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="gcClFamQ"
-Received: by mail-ed2-f31.google.com with SMTP id 4fb4d7f45d1cf-6ae19319854so2729384a12.3
-        for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 06:18:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NSCrTMuc"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccc09d65so3898340a91.3
+        for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 06:18:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1790860718; x=1791465518; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=w6Ys2U4rK4qRXJ88N00bl2NDAdA3PBqSlYtGtuTGakU=;
-        b=gcClFamQwz+VOcaK6akNnTDo/TVzuT+OtMWmQIJRSlmi5p8sfWlQHMjFXGXlqHsbe8
-         DD5qryVa4+sebOC8NKjT8GtlmbxEhvxkWXaUIH4/wvQPHaCwiBAIHLwGXsjAd696qqa9
-         11f8ovWq513ibBbyTZgWPQmx9D08GSG7xAbKDLIdD3fL3q6hYgFFiihaYA9X5+LFji/h
-         mknEjQldYVOHidYWmEG5psHUkBW29uHJ0v4KBDw3t5irPAnPZsBQqnzRNbxlG9UPKi+w
-         atbTKB1rv6NKQdQFnaHL/Ue0lisdLRI14dGRfRJDQG3uKxz0/gKTviv6jL/HI/VuUnDe
-         g3bw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790860718; x=1791465518;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1790860720; x=1791465520; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=w6Ys2U4rK4qRXJ88N00bl2NDAdA3PBqSlYtGtuTGakU=;
-        b=uquIA5H/3RBlx1rF4jAObesOEYmPFa0LXduzDWy++3/lhoZ0/bPFrDzjeWa962rWo6
-         hguPHoeeXvkO/Gh5d9Uaogod+MDyRFnk/NsSXj7aw637HXVfn+4NYAOgRpsYqcN9GJnH
-         pk0ZpCRCpcSXoH2lMPnGjBeQF5oxcvsDVn4mlVy6m9zRhFxZR1ECiJivTvoPZb4ZcE0E
-         DuiMuju6TerqS5Q+ukIDrmS5yd7Dcwr4txQQ6y+b8U1FX1vY8uaZ68GooKl10GWiz30E
-         ocaIUJN97KFA5xBFT/EH6I3XEhWb6PvO1a0RH4vjKyCBpFiSgwakYC6LQVwz4q+wIK92
-         hLSg==
-X-Forwarded-Encrypted: i=1; AKwUvBy7jhqzRHU8Bp3JnEMRVPHTVUMiBuGwqT8AgoTa/dbtAjzT7QSjZW/icM69NM7wVaSVJw1ssAgN7vsi@vger.kernel.org
-X-Gm-Message-State: AFq9FYJxyXN9EJd0zHccwBcb9z+py8ttpHXq/s1MYuAuUVrgl+J0qRd0
-	cLigV4UeagNJuoYw1OXmwfbNkk09qZcybwb5PPRWVIlu3Uhb8pkUtsVKFaJrTGq/CjM=
-X-Gm-Gg: AYBFou0vROvK94fM+Mx6Eiu8BhA5FDCXlQzdQDsV1/piIJewKDl+91kd2GTdxnuoNXT
-	ED2QURmwXkhfg5+bDYb/F+JDN8OyT5VeHBNgxROVUHPiqoUNpoNPL7TC4nL7tBpTSZRtl0209HJ
-	MDS2nvAbhet99UmH4wA8JfBaDSLx5v2+CCift+ZIYx0WW5qmOYtD9oPDvP5ztpZseXE5PpkArh6
-	DgpXw3p5IAK3LXNUJGNjj5nnTHQfyx4ZUmCs07drhQ6UK7V4B1ufGbpm5K++0S/pAb1hCXG6i3F
-	zty1Ulm5RARIPfUHd2K/GbLSDjqiBb81xNpYKIXaLxrfU2BeWAnMPkMgYQY+xbT6hpyM165iYhH
-	9PJJ3QLBs8+V9y7fdh7jw1OYeiYhKoirnOGykyiErpQ3gSdCp9utgkJ4PZepQwfoWlr2iffqG99
-	pWQ7BGGPEQ0aqpUakt5jI6MKViSYavSp+gNKXF1+/DEXwL9+oS6QeFnDw5346bJa7BtsgEzjgYA
-	1SmWpObYbADCZbsqMvksYcR950AvipZxpKotADk8c93slXVITFOl7eWyw==
-X-Received: by 2002:a05:6402:2794:b0:6ac:ae52:8b75 with SMTP id 4fb4d7f45d1cf-6ae19978a4fmr3453730a12.44.1790860676581;
-        Thu, 01 Oct 2026 06:17:56 -0700 (PDT)
-Received: from [172.16.220.225] (144-178-202-138.static.ef-service.nl. [144.178.202.138])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6ae5ca63130sm1146160a12.20.2026.10.01.06.17.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 01 Oct 2026 06:17:56 -0700 (PDT)
-Message-ID: <16efc0e1-8986-418c-87ba-9bf1ca4e4088@fairphone.com>
-Date: Thu, 1 Oct 2026 15:17:55 +0200
+        bh=DIgme/hli59wBCI5OwyN88StS5WzrGGP4qMfY50DT24=;
+        b=NSCrTMucKye39BuqMlLMOaWpl/1zFQenbpy7dRUVpFyfddArSjZw1rTQS9I5ungoA8
+         uj5smN2tuEwC405VqXFqtKRqkCh15HwfZWO4urPdmbfACdclOjWK/EKTeat3KHusVNdX
+         X9m5GxFOLvPXIaZGUgtEn+HElgwQBWMqKU0QeHdfMRdLm7JF3xfCTW66PLDeMTE563Bh
+         Gn0PoOjr7cVbjMDpwFGD2eFR22/OmC/vQT4e5I1skxk3PsMig4js5tBfCxlnorpSiK2A
+         Suaki5gPNF20TvOQgXMrwVkM+D2lyqtZPEJswXItocnxnnkbfvS8dwVOC+qQZAyzIIbR
+         MHMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790860720; x=1791465520;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DIgme/hli59wBCI5OwyN88StS5WzrGGP4qMfY50DT24=;
+        b=f+GQJsylOt/VlHUjlQ+O1YrxFAKC9G1baDNstjBGHbWjlSuSD5C+GbPO6B57eIAEnw
+         xW0yYOES5d8dTMAIdOz2Iia2+kqwp5qhfa3S0H22txAbsrgUlyz8wdEhUHiqCNPfR7Cy
+         qDEMcj7dNep2nc8gMmrlT4Vgvcd8yjNZEEj98MAOeXN9xcWTV10hYYh8CCYEnPk6zckg
+         quOZsbIymAD+QGN+H0FLjn8+Is638St0ORKCbNBVi1A/qzA5ktt4DFwl6L9DMDlalhJm
+         xsPgzMN6RgmKj8xlQbM5AD/KMU4p0gBjtLEx03fsZwTuAk1MPriLegDTkBK+OCJIlffR
+         ZD0Q==
+X-Forwarded-Encrypted: i=1; AKwUvBw7XP97yX9FE8BmzaqtJAQSg/lk3iZih8X5dFn5v7gukL+Ar+qPASdlQOPc3EN4fAwvOrp5AIXeSqPJ@vger.kernel.org
+X-Gm-Message-State: AFq9FYKNPUouDWzIJtdozxVElg1QR5xUAYhlyRGiWFN+7Ixz2LaJ34By
+	9nALGF3UC/aVv4Joqxod4XnvLQczD3jABGc4Hpm6T/kLNOnjzZuwQ7ui
+X-Gm-Gg: AYBFou33I5Gt25YjnbGOUasdMk9osQ9bbDLgHoC6/OYND3YoCLwXT8eVAYUuZ5QWNgX
+	9LZzC7Xd+kKSjjE12oQE61pYrxmYUgUkwCAgINfRH4iUx3BU056b3zHYGtAOgE1LJ7sylSq6cpJ
+	jONbLSTu6chv0QJJszh+ulOWG1QdKS3EXkbXf/tKZi0NnWjAK+0lQfVsXrK8Ts2+UwUk9X4VZqS
+	Oxnl+L+D/0UaoK6aH4MucwHqaB3ToXiZyAfFLm+wxg8fQQLgc6l7ZFHtNZXp1sIW/wSjBYpxdzO
+	dPbm+IRANaxcTj/n/c7RKqr9qK8DRJc/XFzSfIbXUF+gkT5cNQ+wpI0IogMIcwwInzclmhmOqG3
+	BaVZZgZ89oYCVPz5itXDK6iyywq7hI5pzFhUIKInfDwmJl5+S5VyfhRP5l7d1wy4mrlx8wTeD3O
+	YRtGEjGaXQ40xP45sNack+ipXKD/VVCFDGnidkdPKbbWk/bmiGM1HCA8Hy+6ng6NFkHOrYxc3+I
+	+85010mJskbCW7xJjFPqMyAK0jlavPB9yMlDEbNR6X4HcbzjwE8rpGQcHF9i62077m4/h4=
+X-Received: by 2002:a17:90b:2b4f:b0:3a4:bda6:16d0 with SMTP id 98e67ed59e1d1-3a4fb2ba95bmr1983848a91.55.1790860719369;
+        Thu, 01 Oct 2026 06:18:39 -0700 (PDT)
+Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4f46bb550sm5016692a91.5.2026.10.01.06.18.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 06:18:38 -0700 (PDT)
+From: Chi-Wen Weng <cwweng.linux@gmail.com>
+To: broonie@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: linux-arm-kernel@lists.infradead.org,
+	linux-spi@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	cwweng@nuvoton.com,
+	cwweng.linux@gmail.com
+Subject: [PATCH v2 3/3] spi: ma35d1-qspi: Add GPIO chip select support
+Date: Thu,  1 Oct 2026 21:18:18 +0800
+Message-Id: <20261001131818.110028-4-cwweng.linux@gmail.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20261001131818.110028-1-cwweng.linux@gmail.com>
+References: <20261001131818.110028-1-cwweng.linux@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] dt-bindings: media: i2c: dw9800: Redocument
- DW9800K
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Apitzsch?=
- <git@apitzsch.eu>, Luca Weiss <luca.weiss@fairphone.com>,
- Daniel Scally <dan.scally@ideasonboard.com>,
- Sakari Ailus <sakari.ailus@linux.intel.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org
-References: <20260914-b4-dw9800k_cleanup-v2-0-6553273aaa33@fairphone.com>
- <20260914-b4-dw9800k_cleanup-v2-1-6553273aaa33@fairphone.com>
- <20260916-meek-qualified-penguin-fd8cea@quoll>
-Content-Language: en-US
-From: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
-In-Reply-To: <20260916-meek-qualified-penguin-fd8cea@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/16/26 11:06, Krzysztof Kozlowski wrote:
-> On Mon, Sep 14, 2026 at 12:25:56PM +0200, Griffin Kroah-Hartman wrote:
->> The DW9800K's properties are too different to justify sharing the same
->> bindings file as the dw9719, Create a separate bindings documentation
->> for the Dongwoon Anatech DW9800K with it's updated properties.
->>
->> More specifically:
->>
->> The DW9800K did not share the SAC1 and SAC6 modes
->> that the DW9719 used.
->>
->> The DW9800K does not actually have a register that matches the property
->> description of vcm-prescale, instead the description of the clock-presc
->> in the DW9768 is much more applicable to the functionality required
->> according to the DW9800K datasheet.
-> 
-> I don't get why it does not match. You have exactly the same first part
-> of the description, look:
-> 
-There is no inherent difference between the two property names, the 
-values that the previous binding was using was completely incorrect with 
-the hardware.
+From: Chi-Wen Weng <cwweng@nuvoton.com>
 
-The reason for this discrepancy in the first place was us guessing which 
-properties that this driver would need based on the datasheets we had 
-for older dongwoon devices.
+The generic SPI controller binding allows GPIO-based chip selects, but
+the MA35D1 QSPI driver does not currently enable the SPI core's GPIO
+descriptor handling.
 
-> dw9719:
->    Indication of VCM switching frequency dividing rate select
-> 
-> Your code:
->    Indication of VCM internal clock dividing rate select,
-> 
-> Both are dividing the VCM clock rate, no?
-> 
-clock-presc is used in a different dongwoon binding (dw9768) which more 
-accurately matches the function of the hardware, So we concluded that it 
-was a more appropriate name.
-either way, the values we were using with this property was completely 
-incorrect, so it had to be changed either way.
+Enable GPIO chip-select support and specify that the controller provides
+two native chip selects. Add a setup callback to reject active-high
+polarity only for native chip selects, while allowing GPIO chip selects
+to use the polarity handled by the GPIO subsystem.
 
-If you'd really prefer us use the older property name we can change it.
+This keeps the binding capable of describing valid board wiring while
+preserving the active-low limitation of the controller's native chip
+selects.
 
-> Best regards,
-> Krzysztof
-> 
-many thanks,
-Griffin
+Signed-off-by: Chi-Wen Weng <cwweng@nuvoton.com>
+---
+ drivers/spi/spi-ma35d1-qspi.c | 39 ++++++++++++++++++++++++++++++-----
+ 1 file changed, 34 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/spi/spi-ma35d1-qspi.c b/drivers/spi/spi-ma35d1-qspi.c
+index 30e3239f777d..0644bb2990b8 100644
+--- a/drivers/spi/spi-ma35d1-qspi.c
++++ b/drivers/spi/spi-ma35d1-qspi.c
+@@ -62,7 +62,7 @@
+ #define NUVOTON_QSPI_STATUS_RXEMPTY_MASK	BIT(8) /* Receive FIFO Empty */
+ #define NUVOTON_QSPI_STATUS_BUSY_MASK	BIT(0) /* Busy Status */
+ 
+-#define NUVOTON_QSPI_MAX_NUM_CS		2
++#define NUVOTON_QSPI_MAX_NATIVE_CS	2
+ #define NUVOTON_QSPI_DEFAULT_NUM_CS	2
+ #define NUVOTON_QSPI_DEFAULT_BPW	8
+ /* Bound PIO operations to avoid long atomic polling loops. */
+@@ -442,13 +442,35 @@ static void nuvoton_qspi_set_cs_level(struct nuvoton_qspi *qspi,
+ 	spin_unlock_irqrestore(&qspi->ssctl_lock, flags);
+ }
+ 
++static int nuvoton_qspi_setup(struct spi_device *spi)
++{
++	unsigned int cs = spi_get_chipselect(spi, 0);
++
++	if (spi_get_csgpiod(spi, 0))
++		return 0;
++
++	if (cs >= NUVOTON_QSPI_MAX_NATIVE_CS) {
++		dev_err(&spi->dev, "invalid native chip select %u\n", cs);
++		return -EINVAL;
++	}
++
++	if (spi->mode & SPI_CS_HIGH) {
++		dev_err(&spi->dev,
++			"active-high native chip select is not supported\n");
++		return -EINVAL;
++	}
++
++	return 0;
++}
++
+ static void nuvoton_qspi_set_cs(struct spi_device *spi, bool level)
+ {
+ 	struct nuvoton_qspi *qspi = spi_controller_get_devdata(spi->controller);
+ 
+ 	/*
+-	 * The SPI core passes the physical CS level to ->set_cs(). This
+-	 * initial driver only supports active-low native chip selects.
++	 * GPIO chip selects are handled by the SPI core. For native chip
++	 * selects, the core passes the physical CS level to ->set_cs().
++	 * Native chip selects are active low.
+ 	 */
+ 	nuvoton_qspi_set_cs_level(qspi, spi_get_chipselect(spi, 0), !level);
+ }
+@@ -457,7 +479,11 @@ static void nuvoton_qspi_mem_set_cs(struct spi_device *spi, bool assert)
+ {
+ 	struct nuvoton_qspi *qspi = spi_controller_get_devdata(spi->controller);
+ 
+-	/* The direct spi-mem path passes a logical assertion state. */
++	/*
++	 * Direct spi-mem operations are only executed for native chip
++	 * selects. GPIO chip selects use the regular SPI fallback path.
++	 * This helper takes a logical assertion state.
++	 */
+ 	nuvoton_qspi_set_cs_level(qspi, spi_get_chipselect(spi, 0), assert);
+ }
+ 
+@@ -638,18 +664,21 @@ static int nuvoton_qspi_probe(struct platform_device *pdev)
+ 		goto err_assert;
+ 	}
+ 
+-	if (!num_cs || num_cs > NUVOTON_QSPI_MAX_NUM_CS) {
++	if (!num_cs || num_cs > NUVOTON_QSPI_MAX_NATIVE_CS) {
+ 		ret = dev_err_probe(dev, -EINVAL, "invalid num-cs %u\n",
+ 				     num_cs);
+ 		goto err_assert;
+ 	}
+ 
+ 	ctlr->num_chipselect = num_cs;
++	ctlr->max_native_cs = NUVOTON_QSPI_MAX_NATIVE_CS;
++	ctlr->use_gpio_descriptors = true;
+ 	ctlr->max_transfer_size = nuvoton_qspi_max_transfer_size;
+ 	ctlr->max_message_size = nuvoton_qspi_max_message_size;
+ 	ctlr->mem_ops = &nuvoton_qspi_mem_ops;
+ 	ctlr->mem_caps = &nuvoton_qspi_mem_caps;
+ 	ctlr->dtr_caps = true;
++	ctlr->setup = nuvoton_qspi_setup;
+ 	ctlr->set_cs = nuvoton_qspi_set_cs;
+ 	ctlr->transfer_one = nuvoton_qspi_transfer_one;
+ 	ctlr->bits_per_word_mask = SPI_BPW_MASK(8);
+-- 
+2.25.1
+
