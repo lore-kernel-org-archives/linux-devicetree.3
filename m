@@ -1,111 +1,78 @@
-Received: from chaosmail.tech (chaosmail.tech [77.81.229.115])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20FD354705C;
-	Thu,  1 Oct 2026 20:27:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.81.229.115
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E196470E99
+	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 20:32:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790886435; cv=none; b=jztmQD8Sl4Q7tI95Ya8GcPyhU+V+xiGeynAqzfX8fBK2fCJVTgOWS63PIuwwwEX/gbDv3smoXrSHgNJftHNh7V3MFZjNkygZduG+7MePRgVb6FbGDAukgSQ98dLVKam3CWBt99TzT5dSE2pAulC0l15rLO6L3EKO+Hpidcjedcg=
+	t=1790886748; cv=none; b=IV+1Q9cBkUXEeYR+vJ2d/mu/92Xs0WbGcMiHQF41GHvufsDA1wtlvbRN7dKUIjNvZKlHhPtEPX+C5h3iT2l9owlVhno/q0qt0ASSKP7PbO02EUjokGEs/WAfl4U8tunNZKteqwYrdxUMWiOoHt7atS7q5TFcHvhPzMSaoSWbz0o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790886435; c=relaxed/simple;
-	bh=FY6nUFUsg5ykRDaCyNCZU21elpZrnVLRtGzYwII8m2U=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=YW/UORRBRqg4+6+L6nHTjeLN5Li0j4sjWTQxhIvagFA/eNfHhg0QW7IX79B/un+A6A1AOkjP/rYt5y3XRot9aw0k3KErHFivg/KkNBLlrBdrPmLH329jUWG3DCxOHE9Et3q5d6YhJLg8xnqsy3cnuoB+DTt4sgnTez3bVh2JTo4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech; spf=pass smtp.mailfrom=chaosmail.tech; dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b=bxgHFkrs; arc=none smtp.client-ip=77.81.229.115
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chaosmail.tech
+	s=arc-20240116; t=1790886748; c=relaxed/simple;
+	bh=qcLz5VIqrPLxxts4VNciRIChNErXev7IuXl2T9sRc74=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Eb3dwJCemkm6kBdxZR2DuBQq1y/C4gsXUBzPseYJE8rMYntvUAwvP8mNUgvz3cSg08azcA3zkYjMdL0DmyUsSF96JvenLY0DVy/Q3Syy26ScLe529oHszcOGoHvWAW+5gU4Fq2HSJ3JccQMqKk1Moz5zD1rSEgbZ4rG0AWIRLE8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JtAcjmb4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b="bxgHFkrs"
-Received: by chaosmail.tech (Postfix) id 30E551C93A5;
-	Thu, 01 Oct 2026 20:27:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chaosmail.tech;
-	s=mail; t=1790886425;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wVHbMMgwTRdvhl3Xmvr04M/6W1HqFA3Q/iNZoN90xm8=;
-	b=bxgHFkrsXJtqQYohE23KtPAJfGpqy1sbKRWSmlOpuYev8Jf8T/g4IqQt/UyPPnwmB83XaQ
-	/OOrpSJo1mJ6JvolQf4XTk2ehNweQfc/YMIkuJLLYpmTvXpUf9HaxavvAYaFGylwjThwtp
-	lH4X89ELXHOmPB+jGtvgZGgGdmdeMWs=
-From: Sasha Finkelstein <k@chaosmail.tech>
-Date: Thu, 01 Oct 2026 22:27:00 +0200
-Subject: [PATCH v10 5/6] spmi: apple: lock around FIFOs
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JtAcjmb4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19FF91F0089A
+	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 20:32:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790886747;
+	bh=qcLz5VIqrPLxxts4VNciRIChNErXev7IuXl2T9sRc74=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=JtAcjmb49+9CVJKKEKK72AUjiANdqcGzX2MyKefsSjb3idsWueBWake18fQhfv+Ai
+	 7/HGaw6z/l17lppNHZUzLHNDaVA0Le7pliiWzs6eID4bzAUrk693H3muNWG2nSuwxE
+	 8gUDAvtEC8QiyQ8rKVrT8T0st+ZtH5ccJ5hXwJi1XLqTpjaXaB4LD17BFIIoy/JM25
+	 9n9unR3EOj8sIhaqx1ql7NLYBRl/K+Vy2gUDti0x5zcdPdbit/gOezlSf44Qn0hlWF
+	 58UspUPrIgJqol0cvVs8KoLKL7Fiswt9akIMA1ydEays924kiPFib7sLx/qEhcSvmT
+	 3kF8NnRtWu4zg==
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5ba44044ff8so1439502e87.3
+        for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 13:32:27 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxaXS3qi4laDZjNY8mQbTtsLdohMwwrs0GXrLRqbbX5ec3UDBRukxQhqE6cFDShI3xagZeJPeX/HRxB@vger.kernel.org
+X-Gm-Message-State: AFq9FYLpFVglh8G10ADeCwcMCsq/gkbx+gvr/P0VsiOuCUh4rrNhGNZh
+	P4y8NYBsXgdeZkyfEzPjYixRQKXxNJIoWDGd+ZPll/yy5NIxRRmp79zWRBnAilufSpIxoxyqUAZ
+	5yRiotvHoq0OQQV5wZuQ98+3wmNpNx8U=
+X-Received: by 2002:a05:6512:3052:b0:5b8:edbd:60a4 with SMTP id
+ 2adb3069b0e04-5bb9bb145c3mr112291e87.43.1790886745879; Thu, 01 Oct 2026
+ 13:32:25 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261001-t603x-spmi-v10-5-ff815c66c73f@chaosmail.tech>
-References: <20261001-t603x-spmi-v10-0-ff815c66c73f@chaosmail.tech>
-In-Reply-To: <20261001-t603x-spmi-v10-0-ff815c66c73f@chaosmail.tech>
-To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
- Neal Gompa <neal@gompa.dev>, Stephen Boyd <sboyd@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- Sasha Finkelstein <k@chaosmail.tech>, Alba Mendez <me@alba.sh>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790886421; l=1392;
- i=k@chaosmail.tech; s=20241124; h=from:subject:message-id;
- bh=/okjDmX4WP5ORuj7W0YBcJBa1hZOvGWaK9RmHtLYrOM=;
- b=oRiJgN4EvPZw7X6K1kim0dyp9pQyFMBIYVj/DtasNG2c5J2+DIRsY1SuZNdnSMGuHovUtkfRy
- NfDPhoyLoKqCN9LGXnFj8k2alpeP+/Cjtup96DjmPZgdkwGVONWa6s+
-X-Developer-Key: i=k@chaosmail.tech; a=ed25519;
- pk=aSkp1PdZ+eF4jpMO6oLvz/YfT5XkBUneWwyhQrOgmsU=
+References: <20260929194035.496244-1-marex@nabladev.com> <20260929194035.496244-3-marex@nabladev.com>
+In-Reply-To: <20260929194035.496244-3-marex@nabladev.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 1 Oct 2026 22:32:11 +0200
+X-Gmail-Original-Message-ID: <CAD++jLkCT=hHQnrxqX8K1_d-ige-LTR2SeCa1ETqE=2gr602zw@mail.gmail.com>
+X-Gm-Features: AclHuK_BwtELP-F-5UZURmutq3weQqdSW_tv9x3rIhlaIFQbzeU0e-SvQ-dDFrs
+Message-ID: <CAD++jLkCT=hHQnrxqX8K1_d-ige-LTR2SeCa1ETqE=2gr602zw@mail.gmail.com>
+Subject: Re: [PATCH 3/5] arm64: dts: st: Reuse sdmmc1_*_pins_a pinmux
+To: Marek Vasut <marex@nabladev.com>
+Cc: linux-arm-kernel@lists.infradead.org, 
+	Alexandre Torgue <alexandre.torgue@foss.st.com>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>, 
+	devicetree@vger.kernel.org, kernel@dh-electronics.com, 
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-stm32@st-md-mailman.stormreply.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Alba Mendez <me@alba.sh>
+On Tue, Sep 29, 2026 at 9:41=E2=80=AFPM Marek Vasut <marex@nabladev.com> wr=
+ote:
 
-The driver was missing locking around register interactions.
+> It is perfectly possible to use sdmmc1_*_pins_a on the DH electronics
+> STM32MP23xx/STM32MP25xx DHCOS SoM, the only difference is the slew rate.
+> Reuse sdmmc1_*_pins_a with updated slew rate on board level.
+>
+> Fixes: 9b584c92f94f ("arm64: dts: st: Add support for DH electronics STM3=
+2MP23xx/STM32MP25xx DHCOS SoM and Breakout Board and DHSBC")
+> Signed-off-by: Marek Vasut <marex@nabladev.com>
 
-Signed-off-by: Alba Mendez <me@alba.sh>
-Reviewed-by: Janne Grunau <j@jannau.net>
-Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
----
- drivers/spmi/spmi-apple-controller.c | 5 +++++
- 1 file changed, 5 insertions(+)
+That's neat.
 
-diff --git a/drivers/spmi/spmi-apple-controller.c b/drivers/spmi/spmi-apple-controller.c
-index 9843dc871d6c..fabccd25aa0d 100644
---- a/drivers/spmi/spmi-apple-controller.c
-+++ b/drivers/spmi/spmi-apple-controller.c
-@@ -16,6 +16,7 @@
- #include <linux/io.h>
- #include <linux/iopoll.h>
- #include <linux/module.h>
-+#include <linux/mutex.h>
- #include <linux/platform_device.h>
- #include <linux/spmi.h>
- 
-@@ -39,6 +40,7 @@
- 
- struct apple_spmi {
- 	void __iomem *regs;
-+	struct mutex fifo_lock;
- 	bool prev_fail;
- };
- 
-@@ -78,6 +80,8 @@ static int spmi_raw_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid, u16 param,
- 	size_t i = 0, j;
- 	int ret;
- 
-+	guard(mutex)(&spmi->fifo_lock);
-+
- 	if (spmi->prev_fail) {
- 		writel(SPMI_ACT_FIFO_FLUSH, spmi->regs + SPMI_ACT_REG);
- 		spmi->prev_fail = false;
-@@ -195,6 +199,7 @@ static int apple_spmi_probe(struct platform_device *pdev)
- 		return -ENOMEM;
- 
- 	spmi = spmi_controller_get_drvdata(ctrl);
-+	mutex_init(&spmi->fifo_lock);
- 
- 	spmi->regs = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(spmi->regs))
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
--- 
-2.55.0
-
+Yours,
+Linus Walleij
