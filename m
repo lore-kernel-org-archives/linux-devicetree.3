@@ -1,167 +1,191 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C68964FC344
-	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 13:02:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65EE9496D47
+	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 13:05:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790859742; cv=none; b=RqJPtQtkjlOvp4q9LSDACUQYWfaRWUEIa1/yQGW4nPdRYiHIXVntZDa6o5ZckMO2B20t4hennQmOC6FYlSTZ2o/5PjrHMRHggcxfzmuvzzEPFswudW9Z6OeBqToCFaJDVlFxCiHh8IrJHbidWKzzwPL4iNkoc0Be57UbMi1ADTs=
+	t=1790859913; cv=none; b=VcIYNKT9ThhZ44zFM4/lRf1/jo4gnmK9QednGB+x18S8+qlJaNL+/Y8rUKUQCrRd9kFysKFjR5KoLClFjRAZUKS3dFLa7WNZOwQa18zfrVeMrnoVR4Z9i9bQBYbYkvlSYAnS+NLC8vOGMUs2FiCuwak6M1Lp02yX3SigFGi3SrQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790859742; c=relaxed/simple;
-	bh=uB3M5jhLStvKxEixDqmeyTwelK0qIeNwNu47lsyjOSU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QOnUyg2OrCXuuvuxAOfvu/LAiu4JGa1FwfNsm64jrckdu+h25CPFq0kFhh71IwNDDGI8BDajw8InSY1Zm4Uaw8+trXhSm5ve/YNVA5MkA8deY5OUjwYctGcyL3KJCgDlkPezgg4D5y1ScdIcM7Cm/d3cnMwOGFy6Pe1b35XyQJA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=RmHAS6eQ; arc=none smtp.client-ip=74.125.225.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
+	s=arc-20240116; t=1790859913; c=relaxed/simple;
+	bh=x5T0C+y2aOb8FLWxsbdzSnvL2ruHAmT1NJyZ1UHJ2mU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=AwGSht1anpeyFoQxSZ20msN1hoHI7eS63v1lm6U/dpBsCv630G2SlmgoofQtf9jT4Yk1Uj9cbANFPQM06XTtcUpkAbv5LwG45BorlcLZx42wrDF+6LL39pnf8FUpT9GOH4883hf2gjO+9F3LPBJCkbLK1CEZJM9XFoXkIKbvNbc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GHOxTVDR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="RmHAS6eQ"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-482f63546c5so5754770f8f.2
-        for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 06:02:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=lex.la; s=google; t=1790859739; x=1791464539; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BuBDExO74epIRwSfRIAR1akFv1FLKuzGN3ASIp3+PmI=;
-        b=RmHAS6eQcyoANScauS3xH2fbpnoY+GueCutTXiM7G0knhyQZNR+BjSzej9QuU1h1h4
-         yhcvlHSTGjg4eNgs7gIWX+ppGtemkpIU8OnokNmc311ZKwlgDkNwZLIUJ3KYH6J5DGf+
-         xeBpsmRlY5NKdok6Xs19iVcIyoO5I8SBJCTYo2aPbNGEbzcN3Ym3O7bHW3oCWpfNlEGe
-         BDo9e3Wv4S02npyTWXvcEoBYDadArTKiiEytDo3oPTBIKPxErUki2xXCvvVyitsAUCpR
-         YwHo0tLicfPkN2E5PIBSsJyDElwBA+yJYsySAxWxUXOhtcIjW6BCoVnhkafbzXl2N4U/
-         hdyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790859739; x=1791464539;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BuBDExO74epIRwSfRIAR1akFv1FLKuzGN3ASIp3+PmI=;
-        b=pj5L4CjcrhhxuqpvU99LBdEHbDUy9A1TNu3M+yL2M24Fvtnm2k7Ot272Q6Zx2y/F95
-         mCAfIqR2wuqK2VKr9Ku4of8sa+X3EodJk0cDhxM3z1FuApBLhs/juQw/+Mw7ZsmxaLND
-         RLgp9/qwDbCnSjUS6Vmiqv3ihUvV9MLgJ8iV7BNXVsV4JoD04mk7xlZZYBeYD7kc1DDb
-         EWpIsr3WtebhWsUzg8DwLh9KmKnVHw1nnyuJDeC6AmnEX7lDGZklAofhL0G5tT0XKuJX
-         uFlnyqvAFyer5cJu9i60U/wqSmkaX8FgdnGRwHXvKgQ8nfod155FusvTWwZoO4QiUwho
-         sH8w==
-X-Forwarded-Encrypted: i=1; AKwUvBzZyTc01cjEyXTLlN9y8pDzTqc/mel40vTPb7Boy0XSjzb69TkFQsMVui3rGvnPMgK9UK3wCg0qO+9V@vger.kernel.org
-X-Gm-Message-State: AFq9FYLSU44fpqmGLOzbN1lgNKmDZ6TpHJazdG47zeXNwhfZka+KOCYH
-	HOpYLpPbyTt2C2zXGpstcBNGUBusFSOR1NXEcBr02V8ETuFT9DAdze12nmC03DbRYpg=
-X-Gm-Gg: AYBFou04X4fZOLSkvoIFZfdjAjjLB7NngTIwAqkY5jCOD41Yl6iZF+3Xmcd3gEPdUAQ
-	jO3pwDAkeeMEJNAG/8F0nl0E4vGCHSiBBFJ6Inywltvhrvkj1dN7zvrxd0ZnigoZdLR1CPlkhuH
-	/Wcz2BJUhv7+jm/l3lKkB9AfRhOtgO0OL27nKjmh4ArJDX7cLTn//LINMZ38cae6bSMiGalvtQl
-	h4WLw5RW8Zm/3avTaLHnjz+AUeHs26uadnX1p+puukaUhRA5JZwrUNaFbufScgI0X57BQIPIB6f
-	BgvKIITYkBVV/4JafriaNKhERwWcivNPzqQAAa/jjAH1SDhPLuQugD6JtGiDcqNUJvgb1ummSxr
-	ZdFd7qSIiq/5TXuwhU5TgnWqB6uKwScFMIahMNtXmGWa05PUZCuunSz2sJHIc/7OtpAJss+uFIO
-	wLVLK6Qfuj9FvFVB5CDjcJatWiaUFXFTHlmw7uTM/ndGgOLAA84A==
-X-Received: by 2002:a05:6000:29c3:b0:48b:10af:f85a with SMTP id ffacd0b85a97d-48b10b000e3mr1098553f8f.42.1790859738771;
-        Thu, 01 Oct 2026 06:02:18 -0700 (PDT)
-Received: from remote-01 ([84.17.55.224])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b06a2cd0fsm5568155f8f.30.2026.10.01.06.02.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 06:02:18 -0700 (PDT)
-From: Aleksei Sviridkin <f@lex.la>
-To: Russell King <linux@armlinux.org.uk>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	netdev@vger.kernel.org
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Conor Dooley <conor@kernel.org>,
-	Florian Fainelli <f.fainelli@gmail.com>,
-	"Chester A. Unal" <chester.a.unal@arinc9.com>,
-	Daniel Golle <daniel@makrotopia.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Subject: [PATCH net-next v5 3/3] net: dsa: let user ports wait for a PHY that probes late
-Date: Thu,  1 Oct 2026 16:02:08 +0300
-Message-ID: <20261001130208.105558-4-f@lex.la>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261001130208.105558-1-f@lex.la>
-References: <20261001130208.105558-1-f@lex.la>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GHOxTVDR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C511F1F000FF;
+	Thu,  1 Oct 2026 13:05:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790859912;
+	bh=4Otrfy2BGJrk1BFs6/wlyPOvL77XF74ZSgxZz0beUYI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=GHOxTVDRqfm/sgs64c52kU2PWSLq1tuuJV61lG6pHceYB/QP50uOWkH4EaOcYTaPh
+	 Py85hWlo7CVMT9Ebf8qtOZbWkIKz1zO+g6h40pncBPzRuvm+eB7cz1RMkicrqpYmHj
+	 V/IDvm4HAmsxOVPxu/uGmZYrV/PPTwqLr2om1OJ273KdgQnQnLMKIfWIEe+S3uoeQg
+	 y5+cNvpA1hGMEV0LOTITsGDrYxPYxqgFRCI/jf3+AQ54VBx8nbdXIpp3VCMP2R8bth
+	 +17mBKCGBwmxYVrZWUsz1WdEKozmAWS0TY+UwGZEyqZMKRlDO9brvx0TWo8vbsWFiv
+	 gvXlgQojEI2uQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 4/4] regulator: qcom-rpmh: Add debounce delay before
+ disabling regulator
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jishnu Prakash" <jishnu.prakash@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20261001-regulator-off-on-delay-v4-4-258ba9612da8@oss.qualcomm.com>
+References: <20261001-regulator-off-on-delay-v4-0-258ba9612da8@oss.qualcomm.com>
+ <20261001-regulator-off-on-delay-v4-4-258ba9612da8@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 01 Oct 2026 13:05:11 +0000
+Message-Id: <20261001130511.C511F1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-A user port connects its PHY once, when the switch sets up its ports.
-If that PHY needs firmware from the host and its driver is a module not
-loaded yet, the port gets no working PHY for the rest of the uptime.
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] regulator: qcom-rpmh: Use-After-Free due to devres LIFO ordering
+- [High] regulator: qcom-rpmh: Data race in worker thread bypassing regulat=
+or_lock
+- [High] regulator: qcom-rpmh: NULL pointer dereference if delayed disable =
+fires before init completes
+- [Medium] regulator: qcom-rpmh: State desynchronization on driver removal =
+drops pending disable
+--
 
-Let a switch driver opt its user ports in to phylink waiting for such a
-PHY, and opt in mt7530. Until the PHY attaches, .port_enable sees a NULL
-phy, so the opt-in is per driver: qca8k dereferences that argument, and
-gswip programs the PHY address from it at open, so a late attach leaves
-it wrong until the next open. mt7530 does not use it. Shared ports are
-left out.
+commit b0211424f1ad79c3af4f67d5c03d4546a1bd442e
+Author: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
 
-Found on a Keenetic KN-1012 (MT7981B with an MT7531 switch), where the
-EN8811H behind lan4 has its driver on the root filesystem and lan4 was
-lost for the uptime.
+regulator: qcom-rpmh: Add debounce delay before disabling regulator
 
-Assisted-by: LLM
-Signed-off-by: Aleksei Sviridkin <f@lex.la>
----
-New in v5.
+This commit adds a debounce delay to the Qualcomm RPMh regulator driver to
+prevent rapid disable/enable cycles. It introduces a delayed work item that
+defers sending disable requests to the hardware. A devres action is also
+added to cancel the delayed work upon driver removal.
 
- drivers/net/dsa/mt7530.c | 1 +
- include/net/dsa.h        | 5 +++++
- net/dsa/user.c           | 1 +
- 3 files changed, 7 insertions(+)
+> diff --git a/drivers/regulator/qcom-rpmh-regulator.c b/drivers/regulator/=
+qcom-rpmh-regulator.c
+> --- a/drivers/regulator/qcom-rpmh-regulator.c
+> +++ b/drivers/regulator/qcom-rpmh-regulator.c
 
-diff --git a/drivers/net/dsa/mt7530.c b/drivers/net/dsa/mt7530.c
-index 7781a63b4e6f..e4c155605e27 100644
---- a/drivers/net/dsa/mt7530.c
-+++ b/drivers/net/dsa/mt7530.c
-@@ -3548,6 +3548,7 @@ mt7530_probe_common(struct mt7530_priv *priv)
- 	priv->ds->priv = priv;
- 	priv->ds->ops = &mt7530_switch_ops;
- 	priv->ds->phylink_mac_ops = &mt753x_phylink_mac_ops;
-+	priv->ds->phy_may_probe_late = true;
- 	mutex_init(&priv->reg_mutex);
- 	spin_lock_init(&priv->stats_lock);
- 	INIT_DELAYED_WORK(&priv->stats_work, mt7530_stats_poll);
-diff --git a/include/net/dsa.h b/include/net/dsa.h
-index 5d12191b6f6f..f7e78c3a123d 100644
---- a/include/net/dsa.h
-+++ b/include/net/dsa.h
-@@ -455,6 +455,11 @@ struct dsa_switch {
- 	 */
- 	u32			dscp_prio_mapping_is_global:1;
- 
-+	/* Drivers whose .port_enable copes with a NULL phy may set this to
-+	 * let user ports wait for a PHY that needs host firmware.
-+	 */
-+	u32			phy_may_probe_late:1;
-+
- 	/* Listener for switch fabric events */
- 	struct notifier_block	nb;
- 
-diff --git a/net/dsa/user.c b/net/dsa/user.c
-index 041f9060c8ef..41075bb74193 100644
---- a/net/dsa/user.c
-+++ b/net/dsa/user.c
-@@ -2661,6 +2661,7 @@ static int dsa_user_phy_setup(struct net_device *user_dev)
- 
- 	dp->pl_config.dev = &user_dev->dev;
- 	dp->pl_config.type = PHYLINK_NETDEV;
-+	dp->pl_config.phy_may_probe_late = ds->phy_may_probe_late;
- 
- 	/* The get_fixed_state callback takes precedence over polling the
- 	 * link GPIO in PHYLINK (see phylink_get_fixed_state).  Only set
--- 
-2.53.0
+[ ... ]
 
+> @@ -347 +347,54 @@ static int rpmh_regulator_set_enable_state(struct regu=
+lator_dev *rdev,
+>  	return ret;
+>  }
+> =20
+> +static void rpmh_delayed_off_work(struct work_struct *work)
+> +{
+> +	struct rpmh_vreg *vreg =3D container_of(work,
+> +					struct rpmh_vreg, delayed_off_work.work);
+> +
+> +	if (!_rpmh_regulator_set_enable_state(vreg, vreg->rdev, false))
+
+[Severity: High]
+Does this worker thread modify the hardware state without holding the
+regulator core lock?
+
+The core consumer APIs execute under the regulator_lock. Running
+_rpmh_regulator_set_enable_state() here asynchronously might cause a data
+race on shared structures like vreg->enabled and vreg->voltage_selector if a
+consumer calls regulator_set_voltage() concurrently.
+
+> +		vreg->last_off =3D ktime_get_boottime();
+> +}
+
+[ ... ]
+
+>  static int rpmh_regulator_disable(struct regulator_dev *rdev)
+>  {
+> +	struct rpmh_vreg *vreg =3D rdev_get_drvdata(rdev);
+> +
+> +	if (vreg->debounce_delay) {
+> +		queue_delayed_work(system_percpu_wq, &vreg->delayed_off_work,
+> +				   usecs_to_jiffies(vreg->debounce_delay));
+> +		return 0;
+> +	}
+
+[Severity: High]
+Can this lead to a use-after-free during driver teardown?
+
+When the driver unbinds, devres destroys resources in LIFO order.
+The custom devres action rpmh_regulator_cancel_delayed_off_work runs first,
+canceling the delayed work. Then devm_regulator_release() runs, which calls
+regulator_unregister().
+
+If regulator_unregister() flushes pending core disables, it invokes
+rpmh_regulator_disable() which re-queues the delayed work here. After devres
+finishes freeing vreg, the newly queued work would execute and dereference
+the freed memory.
+
+> +
+>  	return rpmh_regulator_set_enable_state(rdev, false);
+>  }
+
+[ ... ]
+
+> @@ -551 +551,13 @@ static const struct regulator_ops rpmh_regulator_xob_o=
+ps =3D {
+>  	.is_enabled		=3D rpmh_regulator_is_enabled,
+>  };
+> =20
+> +static void rpmh_regulator_cancel_delayed_off_work(void *data)
+> +{
+> +	struct rpmh_vreg *vreg =3D data;
+> +
+> +	cancel_delayed_work_sync(&vreg->delayed_off_work);
+> +}
+
+[Severity: Medium]
+Does cancelling the work here without syncing the hardware state leave the
+regulator permanently enabled if a disable request was pending?
+
+The regulator core would consider it disabled, leading to leaked power and
+incorrect hardware state.
+
+> +
+>  /**
+>   * rpmh_regulator_init_vreg() - initialize all attributes of an rpmh-reg=
+ulator
+
+[ ... ]
+
+> @@ -677 +677,14 @@ static int rpmh_regulator_init_vreg(struct rpmh_vreg *=
+vreg, struct device *dev,
+>  			node, ret);
+>  		return ret;
+>  	}
+> +	vreg->rdev =3D rdev;
+
+[Severity: High]
+Could vreg->rdev be NULL if the delayed disable worker fires too early?
+
+The regulator is exposed to consumers as soon as devm_regulator_register()
+returns. If a fast consumer probes, sets a voltage, and immediately disables
+the regulator before vreg->rdev is assigned here, the delayed off worker
+might execute with vreg->rdev set to NULL.
+
+This would cause a NULL pointer dereference when
+_rpmh_regulator_set_enable_state() attempts to set the voltage and passes
+the NULL rdev to rdev_get_drvdata().
+
+> +
+> +	if (vreg->debounce_delay) {
+> +		ret =3D devm_add_action_or_reset(dev, rpmh_regulator_cancel_delayed_of=
+f_work,
+> +					       vreg);
+> +		if (ret)
+> +			return ret;
+> +	}
+> =20
+>  	dev_dbg(dev, "%pOFn regulator registered for RPMh resource %s @ 0x%05X\=
+n",
+>  		node, rpmh_resource_name, vreg->addr);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261001-regulator-=
+off-on-delay-v4-0-258ba9612da8@oss.qualcomm.com?part=3D4
