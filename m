@@ -1,170 +1,81 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5B7930D3EE;
-	Thu,  1 Oct 2026 19:23:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3614479882;
+	Thu,  1 Oct 2026 19:34:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790882630; cv=none; b=RcLuIaGx4G0DfoDdgSBrByrmZf0+wJ/wXBHBR+pV1EZtjPcnuIGYNhZ8Q8M5GAoZTX4WdExlKio9eA8LW5EySb+E2M9VxIBBS6WuWT4vG23Va1eVT6j/XYkK0aNY6VlQZvoQa+sxZ5rTMDMhYNGK8TF6yRhrtCHHxA4xM9/g/Ks=
+	t=1790883248; cv=none; b=G1+CVLF7LQfW2XA8gDuQnhzMQxr2OKLY753zaxM86r0iBmbtvyxw0Pb7d/v+A/IZgMUdi+Zz5RUi6kEpc1D+kDnhF42h5VLIVYS2OCuVY10ph6/7nHFBZniNuKZuZnd9Oc8kO2PEmNgWjrg0smWWo1zafQ8uDpiHXch3njvropY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790882630; c=relaxed/simple;
-	bh=Tks4T00wY/0cYXgQCakamJZGXMBj1YtGMI94RjqR3Vs=;
+	s=arc-20240116; t=1790883248; c=relaxed/simple;
+	bh=UF8WRepyCBKLbDw4qgevs+6UXitMtEzJDpj5WTJkqWE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=F9g6K+gvkaG5wd+0Go2X2x0FHbqpL+Qd2t34sR6hOkz3niKgAIeiGj9uGKszPGwPVnsJyC9YoTFvp0yCoamCj17THm79Eg2pmfq0XlBvn4mJlEfxGMGQAds/e35UK1kVsanQy6wxiJbLPd6dIANvwyjmuZPm8JgUjVwx/9bz41Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fY1V5cH1; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=AnneaXv0Y9gaauA2iAPJx2vSow4dtTg9FHpBi1+R8uoV2YGxH1a/KRnQYgcxRZljN9k7qon97Hxy6ldUzQPLGyw36iN8P295A5ok6dk4wfLL8UA3Fh399TxDeFizVIjGn2xLSeUjJlHGMac2oCOFrtlqWUWSahZNoNVNcpgSkao=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YXMgunGh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fY1V5cH1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 504511F000FF;
-	Thu,  1 Oct 2026 19:23:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YXMgunGh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E91761F000FF;
+	Thu,  1 Oct 2026 19:34:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790882628;
-	bh=Rpnkv8sjp18UMvlu0bszxjEN781OkuOaq6ugdu+OZEM=;
+	s=k20260515; t=1790883247;
+	bh=XS99Gu5jVlETiHxHAwkhjbPk/afdzbNu3ftUMxADtWU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fY1V5cH1JLiLTot6M/QR5x9Z67RjCTDyu9UEu5ze3oJFHI4vMHHgva5vxSOLb2mmj
-	 D03ZXFpoPdcmas4irXiyv+uhjtaSZkG5wySv9VOIncBFZ/2casOgi6aIr1RgfIa1Kx
-	 YKVo11pY8r8//bBs/I8Gfxzx1oK0UmbjuM99UMa4RsJvv39yikja+Jda9JmhIwRGNl
-	 mJbkg4idXCXMkWflnCNf6qfiwUWXQK+5EtP/8eSWJ1YKcaYx3urELmJuZRP/0pquAs
-	 c1P39wEjLmUMvVJd9gn2EM/dg9Br3QQLcmiOvZn+9xOLp4572zx5DcgXRhMpKCAXpM
-	 4q6QIueiIyT5g==
-Date: Thu, 1 Oct 2026 20:23:41 +0100
-From: Conor Dooley <conor@kernel.org>
-To: longzhao@ambarella.com
-Cc: Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Michael Walle <mwalle@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Long Zhao <zl020895@163.com>,
-	Lee Jones <lee@kernel.org>, mfd@lists.linux.dev,
-	devicetree@vger.kernel.org, linux-clk@vger.kernel.org,
-	linux-gpio@vger.kernel.org, linux-serial@vger.kernel.org,
+	b=YXMgunGheOvK5G7JMEFUEg0V3pFyJIW/7csXMwIB0cqtuVfRVEmQa3kK7m6Yqyu4v
+	 TS/WR7Cf2uksj7hXtOS8ywSYgdVRnswJX6xqYNeffTZ1t2GkaQ2dF1wJ00QbmuqdNk
+	 s+JZjS4Xk4fY98PcNiqlbs8NEPdadt1xYcYkAalGqgguV4GNJLN3+ZNp0TfeW/lD+j
+	 uOzbktdj5zzYIDbjFn4STujDpdvt7TXlmaQJPRK9QM1bcu2ywrKCI071e7BK1jXqYq
+	 kO1cTI3yOiy507a504xrAjuKWvJGMSFhUeAe46O4ylh3R7s+l78LvMilQWEAu1vUno
+	 w1A+ZQvG13n4g==
+Date: Thu, 1 Oct 2026 12:34:04 -0700
+From: Drew Fustini <fustini@kernel.org>
+To: Han Gao <gaohan@iscas.ac.cn>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Jisheng Zhang <jszhang@kernel.org>, Guo Ren <guoren@kernel.org>,
+	Fu Wei <wefu@redhat.com>, Han Gao <rabenda.cn@gmail.com>,
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v9 04/15] dt-bindings: gpio: pl061: add Ambarella CV75
- variant
-Message-ID: <20261001-attempt-savior-5d4a0eed4320@spud>
-References: <20261001-cv75-v5-v9-0-486cc289a4b8@ambarella.com>
- <20261001-cv75-v5-v9-4-486cc289a4b8@ambarella.com>
+Subject: Re: [PATCH v2 1/4] dt-bindings: riscv: thead: add Milk-V Meles
+Message-ID: <ar61rDeXPKDOd8T5@x1gen8.tail89d63.ts.net>
+References: <20261001-rv-meles-v2-0-c61052262f84@iscas.ac.cn>
+ <20261001-rv-meles-v2-1-c61052262f84@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="HWgF0jKgF/ClaY3B"
-Content-Disposition: inline
-In-Reply-To: <20261001-cv75-v5-v9-4-486cc289a4b8@ambarella.com>
-
---HWgF0jKgF/ClaY3B
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20261001-rv-meles-v2-1-c61052262f84@iscas.ac.cn>
 
-On Thu, Oct 01, 2026 at 08:40:53PM +0800, Long Zhao via B4 Relay wrote:
-> From: Long Zhao <longzhao@ambarella.com>
->=20
-> The CV75 GPIO banks sit on the AMBA PrimeCell bus but are not
-> register-compatible with the ARM PL061. Each bank is 32-bit and 32
-> lines, with extra mask/enable registers, so arm,pl061 must not be used
-> as a fallback compatible.
-
-What has this got in common with the pl061 beyond using the PrimeCell
-bus? Current reason for putting them together is a bit tenuous to me.
-
-Cheers,
-Conor.
-
->=20
-> The AMBA core matches the PL061 driver by PrimeCell ID, not by the DT
-> compatible string. These blocks do not implement the standard PL061 ID
-> (0x00041061) in the ID registers, so arm,primecell-periphid is required
-> and is fixed to 0x000e8061; the driver uses that ID to select the
-> Ambarella layout. gpio-ranges is required because each bank is a slice
-> of the SoC pinctrl pin space.
->=20
-> Signed-off-by: Long Zhao <longzhao@ambarella.com>
+On Thu, Oct 01, 2026 at 03:44:10PM +0800, Han Gao wrote:
+> Document the Milk-V Meles board compatible with the TH1520 fallback.
+> 
+> Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
 > ---
->  .../devicetree/bindings/gpio/pl061-gpio.yaml       | 25 ++++++++++++++++=
-+++---
->  1 file changed, 22 insertions(+), 3 deletions(-)
->=20
-> diff --git a/Documentation/devicetree/bindings/gpio/pl061-gpio.yaml b/Doc=
-umentation/devicetree/bindings/gpio/pl061-gpio.yaml
-> index 4d970e55104b..c22dd8a1d2c1 100644
-> --- a/Documentation/devicetree/bindings/gpio/pl061-gpio.yaml
-> +++ b/Documentation/devicetree/bindings/gpio/pl061-gpio.yaml
-> @@ -15,7 +15,9 @@ select:
->    properties:
->      compatible:
->        contains:
-> -        const: arm,pl061
-> +        enum:
-> +          - arm,pl061
-> +          - ambarella,cv75-gpio
->    required:
->      - compatible
-> =20
-> @@ -25,7 +27,9 @@ properties:
-> =20
+>  Documentation/devicetree/bindings/riscv/thead.yaml | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/riscv/thead.yaml b/Documentation/devicetree/bindings/riscv/thead.yaml
+> index 301912dcd290e60f816d380152591106de9415b4..e8170915f4d6d63fbc10a0e6863ea7d5000e3643 100644
+> --- a/Documentation/devicetree/bindings/riscv/thead.yaml
+> +++ b/Documentation/devicetree/bindings/riscv/thead.yaml
+> @@ -17,9 +17,11 @@ properties:
+>      const: '/'
 >    compatible:
->      items:
-> -      - const: arm,pl061
-> +      - enum:
-> +          - ambarella,cv75-gpio
-> +          - arm,pl061
->        - const: arm,primecell
-> =20
->    reg:
-> @@ -64,6 +68,21 @@ required:
->    - "#gpio-cells"
->    - gpio-controller
-> =20
-> -additionalProperties: false
-> +allOf:
-> +  - $ref: /schemas/arm/primecell.yaml#
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: ambarella,cv75-gpio
-> +    then:
-> +      properties:
-> +        arm,primecell-periphid:
-> +          const: 0x000e8061
-> +      required:
-> +        - arm,primecell-periphid
-> +        - gpio-ranges
-> +
-> +unevaluatedProperties: false
-> =20
->  ...
->=20
-> --=20
-> 2.34.1
->=20
->=20
+>      oneOf:
+> -      - description: BeagleV Ahead single board computer
+> +      - description: TH1520 single board computers
+>          items:
+> -          - const: beagle,beaglev-ahead
+> +          - enum:
+> +              - beagle,beaglev-ahead
+> +              - milkv,meles
+>            - const: thead,th1520
 
---HWgF0jKgF/ClaY3B
-Content-Type: application/pgp-signature; name=signature.asc
+Thanks for making the change.
 
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCar6zPQAKCRB4tDGHoIJi
-0sbWAQC2gJITIvi3oeB7VNQ7l+eQKH46qmQnUasw4hIdQq9aKQEA1pUhCnsQx5St
-9qZrXpVm5HYjxjulbTmRwuxs88NSPQA=
-=Eo/9
------END PGP SIGNATURE-----
-
---HWgF0jKgF/ClaY3B--
+Reviewed-by: Drew Fustini <fustini@kernel.org>
