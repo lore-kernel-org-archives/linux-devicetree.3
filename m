@@ -1,319 +1,269 @@
-Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D8CB531611
-	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 14:52:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3447A525A7B
+	for <devicetree@vger.kernel.org>; Thu,  1 Oct 2026 14:53:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790866342; cv=none; b=NicOkdEyO9nSj54iduZ4JeQcg2Z4/egF1nLfIicIVHpZn82fGwuIvDYxrTV793aSoe4LlvjgpkBieKWd2o3jabOJUwfOFznjAKCqig4tjiFRLHAkH6DwZ9vPsXcUup0THGGxJkzUjf2M8fgOscgiGCkqLDkXjNYg3rP4ZYpIAyE=
+	t=1790866438; cv=none; b=WKVAT0NJsYpPgq/CgLBqI5nJAuRf28t7swNpjMp4n1GwAxHMCVUukIBXpjKBHMubTpJwj9o/cxQaEchabfKuAEnV2ZN4zXm0D/GbuHLPX0brDkCTXlTzB7pIN5IOWI4IBHHC/R5dqEK4paFepZSlr7+3zpaD3iavQiqDdqConV0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790866342; c=relaxed/simple;
-	bh=ESgsFLbZFCngXPnPQ9A3da33dc+1DUeB4zAsWCYNKNw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IfoHvMiWGFosbTToEYJvPuj0q8Mdop5vgHJZrbh4qbYW9fAR/eIZdVDCWbYhn8ZeO+2opHgfJRT334imJq9ks/Dma19G7gDVamur1TZAV9GNtuhFEdLWZwCwYGfC0P7coMqw1dfCVIIikaFjLHzHVasyvLxg/XPt24NNxfO+Eu8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=zatw/jEl; arc=none smtp.client-ip=74.125.229.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1790866438; c=relaxed/simple;
+	bh=wooSrpQWQPkmzp44Slpj89128JSJ4V//OwLKgfxNUPY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ZCP1jdYLoR7nkEE3wQlhhiDLfWB0hvfHl4hJSiu8OdiavqiyEUMIcsPjwbtrQ4UelZW20sQ0BIpK5NlwFs7YE1yLdzp19IUtvpn1b30/QOqEPbRrlYznTNEL0jCxQsvGgzC3Wsgib4shrxsiuw781f4ZqZxpnlM5fbyzrD1677c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XJPZMuNP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="zatw/jEl"
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8d04b1077so660095e87.3
-        for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 07:52:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790866337; x=1791471137; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TibT46ElKEehSA4Hf9Ywkj/kE0y7Gum3tdai3aG95FE=;
-        b=zatw/jElET02YulDtQXJj3VBiwjZ3voEQOVusD7Ga+gwiQRZeF502OeUsGof836RRn
-         F7VxVGp5gVy16S18MVK90M+8CMDNa4h3zkzuoi2p7PsTFbCgape9c9TqWWIqT5CpDJ98
-         wsmxe698Fu6vHviAsFtvvIj+pF5ZGyvJQNbBBzpCZ50JJGAnjsDm1nuP/zoluf5A9Iwr
-         nIdpV6KjaN7J4rqV1fRCeUN8R9ksHqM45KR5aszdAEqmfwPl0j1JlsrUD3JpSpHjAQ2+
-         WhNrToP8AoCFf8KY4PEzrDSe4XggD1DYBa2opyS3dhnEiwOpLSexNLZwKqH7wMmGtUhO
-         eHuA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790866337; x=1791471137;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TibT46ElKEehSA4Hf9Ywkj/kE0y7Gum3tdai3aG95FE=;
-        b=kkB8MxaB8KLVGE1ggXQAo/7p0u2iRl4V1k/QW/RxIpQbKD5E0W+rB+OpLe0oOMWvxg
-         F8kliirKz6+nCNz1DrH3VoQ4+chJbbZTBOTvukkDELy6Bi2LarTOWvpkKYUWOV6Fxaqx
-         6i2dPJAoYh3s2nC5w4UeWFh3wq6ASu9nsLB2AaXSvhAU8DwgPdbdYdMFQXXiTvdttNjU
-         UXPB0tGfnovtY8LXw+rUzS+3+BRXQDH/VzyTVirJvSMO4/u0aH3/np/toJCoOVg/POyX
-         fCpRgGrZhOGDCqQAbJbr8gvJH6LbbXyCjBTZ4F/cYR5q6rV66EEC/p1/CUCAs3lEzvxt
-         KodQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzpJvqVOgHPuog7BZGVlrv00jWM4taq5ayt8JkstP4ibNQx5JWVhnJn4KmIP80EVeQfoDfbztD2r1UE@vger.kernel.org
-X-Gm-Message-State: AFq9FYJi4RlJX66Rp74+tW5eWUFjkgsMpzWDRjZbNMd+5BphRZBr8vyu
-	QDRJPBnMD65phc0mG9gK8o/My7+iJ/j1HDWg7LbtPLapS5KRKXoa5lDziLo5igrOzGE=
-X-Gm-Gg: AYBFou1bHptRJGxjw3f5tMFecGRcBWUbydenhCX3XUgLZSGW0cBnOfO30hHsNPJOkBU
-	BZ+e3dmaPWzHqntXAN1QCA89/ip8CNZ31fxMl3SsJbKJIvEFPRhn3+EiFPKnCjhJCfYFrAcL3gk
-	R3rs3J/3GsQhn7he+TGpLe/+JeRKrw07ul2bQgMzgI4tPpVSL2Rf4hHSZXwmuDF8FdkMynyO1nN
-	ZrbemWV0MqsyeTmARHQgF6pVsm2c7hpZwlWXVlCFR53KW18Sr1D3hwc3zjz0UqELNhUr9jN3Wkg
-	mIsg3Kcm9CmOfH63mGkbBHH6NzPEtkcPnMV4NKX9Brqqs3+XhFEXvT8qIe7UbV9B35VleLhe+ew
-	s9Gzgtv8A2sbpHsZDdLAT7KtuBNX7OIpcmbUY2i/Aw9Fhi43bBtgh3uk9ABzdty1mZVYcZUelo8
-	bQhfXQ+2I5Wl8BWryY8KxWlrLSpYJpqQzRoyi+GaQUtlPZBGjfbwF9Ba0xKl1h4zuOH2AZQbyGT
-	hr2Q0yU8oGE29oZXv+/RABbTKZClf+FJ6r4J1Y=
-X-Received: by 2002:a05:6512:3182:b0:5b8:f5e2:cd78 with SMTP id 2adb3069b0e04-5ba405fdda9mr2402132e87.5.1790866337079;
-        Thu, 01 Oct 2026 07:52:17 -0700 (PDT)
-Received: from thyme (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bb7bf18a67sm8957e87.79.2026.10.01.07.52.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 01 Oct 2026 07:52:16 -0700 (PDT)
-From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: [PATCH] arm64: dts: qcom: sm8650-valve-deckard: Add initial support of camera sensors
-Date: Thu,  1 Oct 2026 17:52:06 +0300
-Message-ID: <20261001145206.2442665-1-vladimir.zapolskiy@linaro.org>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XJPZMuNP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 864931F000FF;
+	Thu,  1 Oct 2026 14:53:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790866436;
+	bh=K+k0KTpImTHjGNQ5pEHvbpyt5gjGcPLpxBcaQl2cc+A=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=XJPZMuNPTnL4pF3OU0/mQyMpw0f1su1RlL20IDqy67WUBAPsHHapDNx7ebqx1PNaL
+	 VPP+TIlRCq/dqy3sgHHh9kZm1DGCFQtsVvvFFMPzvLw6oKEgzbyLNkctaGmK3TOa6s
+	 F5psIsCIsMMGpmnCr9ZV9ITDBheuI6DpvuRZ3yPWkCR7/zNFjyrZP8n2q6DRfMH8Gq
+	 PtXqIAkjCL261eiXJmSSFNo/0KryrGb175B3+lQ3vp9altYaZdPvG+FjKWysOgzY3T
+	 tkR796iSoR0LVzCIBNKZqsnyWgJkCvOnHWjgWESYEt6/KzyrOjITtt9cJsT0Jr5nCD
+	 XvG1DaJ6WGeMA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/2] drm/tiny: Add RAiO RA8875 display controller
+ driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Adam Azuddin" <azuddinadam@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20261001144128.2336301-3-azuddinadam@gmail.com>
+References: <20261001144128.2336301-1-azuddinadam@gmail.com>
+ <20261001144128.2336301-3-azuddinadam@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 01 Oct 2026 14:53:56 +0000
+Message-Id: <20261001145356.864931F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Add initial support of camera sensors on Valve "Steam Frame" device.
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
+- [High] drm/tiny: ra8875: sleeping functions called in atomic context
+- [High] drm/tiny: ra8875: out-of-bounds DMA read due to double len increme=
+nt
+- [High] drm/tiny: ra8875: heap buffer overflow in ra8875_clear_screen
+- [Medium] drm/tiny: ra8875: unsafe DMA from unaligned struct members
+- [Low] drm/tiny: ra8875: spurious "Shadow map is null" error on plane disa=
+ble
+- [Low] drm/tiny: ra8875: missing error check on ra8875_write_pixels
+--
 
-The change enables CAMSS and adds description of
-- a pair of OmniVision OV6211 monochrome eyetracking camera sensors,
-- a pair of OmniVision OG01A1B monochrome front camera sensors.
+commit a60dff365b1d365d54b1d95db3b3bdf06cf4d8be
+Author: Adam Azuddin <azuddinadam@gmail.com>
 
-There is another pair of OmniVision OG0VE10 camera sensors found on
-the device, its description requires a combo mode feature support in
-the SM8650 CAMSS CSIPHY driver.
+drm/tiny: Add RAiO RA8875 display controller driver
 
-Signed-off-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
----
- .../boot/dts/qcom/sm8650-valve-deckard.dts    | 203 ++++++++++++++++++
- 1 file changed, 203 insertions(+)
+This commit adds a DRM tiny driver for the RAiO RA8875 SPI-connected TFT
+display controller. It supports display resolutions up to 800x480 and uses
+the GEM shmem helper for buffer management.
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8650-valve-deckard.dts b/arch/arm64/boot/dts/qcom/sm8650-valve-deckard.dts
-index d25a09e162dd..3b2503c3c541 100644
---- a/arch/arm64/boot/dts/qcom/sm8650-valve-deckard.dts
-+++ b/arch/arm64/boot/dts/qcom/sm8650-valve-deckard.dts
-@@ -95,6 +95,66 @@ vph_pwr: regulator-vph-pwr {
- 		regulator-boot-on;
- 	};
- 
-+	vreg_cam_eyetracking_1p8: regulator-cam-eyetracking {
-+		compatible = "regulator-fixed";
-+		regulator-name = "cam_eyetracking_1p8";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+
-+		gpio = <&tlmm 74 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+
-+		vin-supply = <&vreg_l5m_1p8>;
-+	};
-+
-+	vreg_cam_front_left_1p2: regulator-cam-front-left-1p2 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "cam_front_left_1p2";
-+		regulator-min-microvolt = <1200000>;
-+		regulator-max-microvolt = <1200000>;
-+
-+		gpio = <&tlmm 37 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+
-+		vin-supply = <&vreg_l2n_1p2>;
-+	};
-+
-+	vreg_cam_front_left_1p8: regulator-cam-front-left-1p8 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "cam_front_left_1p8";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+
-+		gpio = <&tlmm 36 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+
-+		vin-supply = <&vreg_l5n_1p8>;
-+	};
-+
-+	vreg_cam_front_right_1p2: regulator-cam-front-right-1p2 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "cam_front_right_1p2";
-+		regulator-min-microvolt = <1200000>;
-+		regulator-max-microvolt = <1200000>;
-+
-+		gpio = <&tlmm 37 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+
-+		vin-supply = <&vreg_l2m_1p2>;
-+	};
-+
-+	vreg_cam_front_right_1p8: regulator-cam-front-right-1p8 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "cam_front_right_1p8";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+
-+		gpio = <&tlmm 36 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+
-+		vin-supply = <&vreg_l5m_1p8>;
-+	};
-+
- 	reserved-memory {
- 		#address-cells = <2>;
- 		#size-cells = <2>;
-@@ -675,6 +735,149 @@ vreg_l6n_2p8: ldo6 {
- 	};
- };
- 
-+&camss {
-+	vdd-csiphy01-0p9-supply = <&vreg_l2i_0p88>;
-+	vdd-csiphy01-1p2-supply = <&vreg_l3i_1p2>;
-+	vdd-csiphy24-0p9-supply = <&vreg_l2i_0p88>;
-+	vdd-csiphy24-1p2-supply = <&vreg_l3i_1p2>;
-+
-+	status = "okay";
-+
-+	ports {
-+		port@0 {
-+			csiphy0_ep: endpoint {
-+				data-lanes = <0 1>;
-+				remote-endpoint = <&cam_front_left>;
-+			};
-+		};
-+
-+		port@1 {
-+			csiphy1_ep: endpoint {
-+				data-lanes = <0 1>;
-+				remote-endpoint = <&cam_front_right>;
-+			};
-+		};
-+
-+		port@2 {
-+			csiphy2_ep: endpoint {
-+				data-lanes = <0>;
-+				remote-endpoint = <&cam_eyetracking_left>;
-+			};
-+		};
-+
-+		port@4 {
-+			csiphy4_ep: endpoint {
-+				data-lanes = <0>;
-+				remote-endpoint = <&cam_eyetracking_right>;
-+			};
-+		};
-+	};
-+};
-+
-+&cci0 {
-+	status = "okay";
-+};
-+
-+&cci0_i2c1 {
-+	sensor@60 {
-+		compatible = "ovti,ov6211";
-+		reg = <0x60>;
-+		clocks = <&camcc CAM_CC_MCLK4_CLK>;
-+		assigned-clocks = <&camcc CAM_CC_MCLK4_CLK>;
-+		assigned-clock-rates = <24000000>;
-+		pinctrl-0 = <&cam4_default>, <&cam4_sleep>;
-+		pinctrl-names = "default", "sleep";
-+		reset-gpios = <&tlmm 195 GPIO_ACTIVE_LOW>;
-+		avdd-supply = <&vreg_l6n_2p8>;
-+		dovdd-supply = <&vreg_cam_eyetracking_1p8>;
-+		dvdd-supply = <&vreg_l1n_1p1>;
-+
-+		port {
-+			cam_eyetracking_left: endpoint {
-+				link-frequencies = /bits/ 64 <480000000>;
-+				remote-endpoint = <&csiphy2_ep>;
-+			};
-+		};
-+	};
-+};
-+
-+&cci1 {
-+	status = "okay";
-+};
-+
-+&cci1_i2c0 {
-+	sensor@60 {
-+		compatible = "ovti,ov6211";
-+		reg = <0x60>;
-+		clocks = <&camcc CAM_CC_MCLK2_CLK>;
-+		assigned-clocks = <&camcc CAM_CC_MCLK2_CLK>;
-+		assigned-clock-rates = <24000000>;
-+		pinctrl-0 = <&cam2_default>, <&cam2_sleep>;
-+		pinctrl-names = "default", "sleep";
-+		reset-gpios = <&tlmm 3 GPIO_ACTIVE_LOW>;
-+		avdd-supply = <&vreg_l6m_2p8>;
-+		dovdd-supply = <&vreg_cam_eyetracking_1p8>;
-+		dvdd-supply = <&vreg_l1m_1p1>;
-+
-+		port {
-+			cam_eyetracking_right: endpoint {
-+				link-frequencies = /bits/ 64 <480000000>;
-+				remote-endpoint = <&csiphy4_ep>;
-+			};
-+		};
-+	};
-+};
-+
-+&cci2 {
-+	status = "okay";
-+};
-+
-+&cci2_i2c0 {
-+	sensor@36 {
-+		compatible = "ovti,og01a1b";
-+		reg = <0x36>;
-+		clocks = <&camcc CAM_CC_MCLK0_CLK>;
-+		assigned-clocks = <&camcc CAM_CC_MCLK0_CLK>;
-+		assigned-clock-rates = <19200000>;
-+		reset-gpios = <&pm8550vs_e_gpios 4 GPIO_ACTIVE_LOW>;
-+		pinctrl-0 = <&cam0_default>, <&cam0_sleep>;
-+		pinctrl-names = "default", "sleep";
-+		avdd-supply = <&vreg_l3m_2p8>;
-+		dovdd-supply = <&vreg_cam_front_right_1p8>;
-+		dvdd-supply = <&vreg_cam_front_right_1p2>;
-+
-+		port {
-+			cam_front_right: endpoint {
-+				data-lanes = <0 1>;
-+				link-frequencies = /bits/ 64 <500000000>;
-+				remote-endpoint = <&csiphy1_ep>;
-+			};
-+		};
-+	};
-+
-+	sensor@60 {
-+		compatible = "ovti,og01a1b";
-+		reg = <0x60>;
-+		clocks = <&camcc CAM_CC_MCLK1_CLK>;
-+		assigned-clocks = <&camcc CAM_CC_MCLK1_CLK>;
-+		assigned-clock-rates = <19200000>;
-+		reset-gpios = <&pm8550vs_e_gpios 6 GPIO_ACTIVE_LOW>;
-+		pinctrl-0 = <&cam1_default>, <&cam1_sleep>;
-+		pinctrl-names = "default", "sleep";
-+		avdd-supply = <&vreg_l3n_2p8>;
-+		dovdd-supply = <&vreg_cam_front_left_1p8>;
-+		dvdd-supply = <&vreg_cam_front_left_1p2>;
-+
-+		port {
-+			cam_front_left: endpoint {
-+				data-lanes = <0 1>;
-+				link-frequencies = /bits/ 64 <500000000>;
-+				remote-endpoint = <&csiphy0_ep>;
-+			};
-+		};
-+	};
-+};
-+
- &dispcc {
- 	status = "disabled";
- };
--- 
-2.53.0
+> diff --git a/drivers/gpu/drm/tiny/ra8875.c b/drivers/gpu/drm/tiny/ra8875.c
+> new file mode 100644
+> index 0000000000000..d990d052e9477
+> --- /dev/null
+> +++ b/drivers/gpu/drm/tiny/ra8875.c
+> @@ -0,0 +1,713 @@
 
+[ ... ]
+
+> +struct ra8875_device {
+> +	struct drm_device drm;
+> +	struct spi_device *spi;
+> +	struct gpio_desc *rst_gpio;
+> +	struct drm_crtc crtc;
+> +	struct drm_plane plane;
+> +	struct drm_encoder encoder;
+> +	struct drm_connector connector;
+> +	struct drm_display_mode mode;
+> +	u8 cmd_buf[RA8875_CMD_DATA_BUF_SIZE];
+> +	u8 data_buf[RA8875_CMD_DATA_BUF_SIZE];
+
+[Severity: Medium]
+Is it safe to use these inline arrays for DMA?=20
+
+According to kernel DMA rules, buffers mapped for DMA must not share a
+cacheline with other variables. Concurrent CPU accesses to adjacent members
+in the structure (such as userspace reading mode properties) during an
+ongoing SPI DMA transfer might cause cacheline bouncing and silent data
+corruption. Should these arrays have cacheline alignment attributes or be
+allocated separately?
+
+> +	u8 *txbuf;
+> +};
+
+[ ... ]
+
+> +static int ra8875_write_pixels(struct ra8875_device *ra8875, size_t len)
+> +{
+> +	int ret;
+> +
+> +	ra8875->cmd_buf[0] =3D RA8875_CMDWRITE;
+> +	ra8875->cmd_buf[1] =3D RA8875_MRWC;
+> +	ret =3D spi_write(ra8875->spi, ra8875->cmd_buf, 2);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return spi_write(ra8875->spi, ra8875->txbuf, 1 + len);
+
+[Severity: High]
+Does this length calculation cause an out-of-bounds DMA read?=20
+
+The callers (ra8875_clear_screen() and ra8875_fb_dirty()) already account
+for the 1-byte command header when calculating the len argument. For exampl=
+e,
+they pass '1 + rows * width * 2'. This double-addition appears to cause the
+requested SPI transfer size to be 1 byte larger than intended, which can
+exceed the fixed heap allocation of txbuf.
+
+> +}
+> +
+> +static int ra8875_hw_init(struct ra8875_device *ra8875,
+> +			  struct drm_display_mode *mode)
+> +{
+> +	u8 hdwr, hndr, hstr, hpwr, vpwr;
+> +	u16 vdhr, vndr, vstr;
+> +	int ret;
+> +
+> +	if (ra8875->rst_gpio) {
+> +		gpiod_set_value_cansleep(ra8875->rst_gpio, 1);
+> +		usleep_range(1000, 1200);
+> +		gpiod_set_value_cansleep(ra8875->rst_gpio, 0);
+> +		msleep(RA8875_RESET_WAIT_MS);
+> +	}
+
+[Severity: High]
+Can these sleeping functions be called safely here?=20
+
+This hardware initialization routine is invoked by ra8875_crtc_atomic_enabl=
+e(),
+which runs in atomic context. Calling msleep(), usleep_range(), or=20
+gpiod_set_value_cansleep() in an atomic context causes kernel warnings and
+potential deadlocks. Note that synchronous spi_write() is also used through=
+out
+these atomic callbacks, which similarly sleeps.
+
+[ ... ]
+
+> +static int ra8875_clear_screen(struct ra8875_device *ra8875,
+> +			       struct drm_display_mode *mode)
+> +{
+> +	int width =3D mode->hdisplay;
+> +	int height =3D mode->vdisplay;
+> +	int y, rows, ret;
+> +	u8 *txbuf =3D ra8875->txbuf;
+> +	int rows_per_chunk =3D RA8875_TXBUF_ROWS;
+
+[ ... ]
+
+> +	ret =3D ra8875_write_reg(ra8875, RA8875_CURV1, 0);
+> +	if (ret)
+> +		return ret;
+> +
+> +	memset(txbuf, 0, 1 + rows_per_chunk * width * 2);
+
+[Severity: High]
+Does this risk a heap buffer overflow?=20
+
+The width parameter is derived from mode->hdisplay. Since ra8875_mode_valid=
+()
+does not restrict the maximum width, a maliciously large hdisplay (e.g., 16=
+00)
+could cause this memset to exceed the fixed txbuf allocation bounds and cor=
+rupt
+kernel memory.
+
+> +	txbuf[0] =3D RA8875_DATAWRITE;
+> +
+> +	for (y =3D 0; y < height; y +=3D rows) {
+> +		rows =3D min(rows_per_chunk, height - y);
+> +		ra8875_write_pixels(ra8875, 1 + rows * width * 2);
+> +	}
+> +
+> +	return 0;
+> +}
+
+[ ... ]
+
+> +static void ra8875_fb_dirty(struct ra8875_device *ra8875, struct iosys_m=
+ap *src,
+> +			    struct drm_framebuffer *fb, struct drm_rect *rect)
+> +{
+
+[ ... ]
+
+> +	for (int y =3D rect->y1; y < rect->y2; y +=3D rows) {
+> +		struct drm_rect chunk;
+> +
+> +		rows =3D min(RA8875_TXBUF_ROWS, rect->y2 - y);
+> +		chunk =3D DRM_RECT_INIT(rect->x1, y, width, rows);
+> +
+> +		iosys_map_set_vaddr(&dst, ra8875->txbuf + 1);
+> +		drm_fb_swab(&dst, NULL, src, fb, &chunk, false, &fmtcnv_state);
+> +
+> +		ra8875_write_pixels(ra8875, 1 + rows * width * 2);
+
+[Severity: Low]
+Is it intentional that the integer return value of ra8875_write_pixels()
+is ignored here?=20
+
+If an SPI bus error occurs, the driver will blindly continue to iterate and
+attempt to write subsequent chunks, hiding the failure from the kernel log.
+
+> +	}
+> +
+> +	drm_format_conv_state_release(&fmtcnv_state);
+> +	return;
+
+[ ... ]
+
+> +static void ra8875_plane_atomic_update(struct drm_plane *plane, struct d=
+rm_atomic_commit *state)
+> +{
+> +	struct ra8875_device *ra8875 =3D container_of(plane->dev, struct ra8875=
+_device, drm);
+> +	struct drm_plane_state *old_plane_state =3D drm_atomic_get_old_plane_st=
+ate(state, plane);
+> +	struct drm_plane_state *plane_state =3D drm_atomic_get_new_plane_state(=
+state, plane);
+> +	struct drm_shadow_plane_state *shadow_plane_state =3D to_drm_shadow_pla=
+ne_state(plane_state);
+> +	struct drm_framebuffer *fb =3D plane_state->fb;
+> +	struct drm_rect rect;
+> +	struct iosys_map *map =3D &shadow_plane_state->data[0];
+> +	int idx;
+> +
+> +	if (!drm_dev_enter(&ra8875->drm, &idx))
+> +		return;
+> +
+> +	if (iosys_map_is_null(map)) {
+> +		drm_err(&ra8875->drm, "Shadow map is null\n");
+
+[Severity: Low]
+Will this unconditionally log a spurious error for standard plane disable
+operations?=20
+
+Since the driver does not implement the atomic_disable hook, the core falls
+back to calling atomic_update() with a NULL framebuffer when disabling the
+plane.=20
+
+> +		goto exit;
+> +	}
+> +	if (drm_atomic_helper_damage_merged(old_plane_state, plane_state, &rect=
+))
+> +		ra8875_fb_dirty(ra8875, map, fb, &rect);
+> +exit:
+> +	drm_dev_exit(idx);
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261001144128.2336=
+301-1-azuddinadam@gmail.com?part=3D2
