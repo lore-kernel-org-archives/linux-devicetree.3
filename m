@@ -1,68 +1,69 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E771443319
-	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 07:56:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BC67442382
+	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 07:56:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790927807; cv=none; b=TOKrLdqOpY2QTdM/QY1sCg07GzuIVxGZdmW+iWpiB58J3KQP/6SIpcw3Kckq/TqEBnmb3edU40Py/kxkhNad3mPtY2TnHL0o9PmevStzmsGx5Lb/cM7zu7GL6m/xemKCgmUYCAceoNql/ZvlSEtOB1NgHKpefz6Gi2Plw2c9sHk=
+	t=1790927808; cv=none; b=jr5YdzmOjjzANptAmUFLlDsKNi7amZCoE056OC7LN/AXkwhBXDqE+vPxTVrOSNdZmYyDcFYJR7fqjGXg4fH64ft7g3W1dNi/H7BySGBiXvey2EwA+XZiv7US2IGW4ea4qV7dosusAP7mgFxb8B09SJ4A+y+X18qGoPNImM02qRA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790927807; c=relaxed/simple;
-	bh=JeNxMWZO1rRtu4rbEuExcXII9g7Ou5O4PhCtCbJm5wE=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=fOzkqN5Smq1W/DVgJBkihUKlbnfLmZmKkmbNn5hHZHKXfieFLW5Zk1DGZqpvrYbSgEmR8JRzoWLY2U+tgv0CZ3TRCkkcEXKFeG3thABrbRq9znBzJyBb+DccHvnN/UD6WzkivouRvHsjfh02NIcIwO0Cm1zc3Na9FbZfIdpoOn0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nVCGDKH+; arc=none smtp.client-ip=74.125.225.141
+	s=arc-20240116; t=1790927808; c=relaxed/simple;
+	bh=15KlGrAuHqAXKMBwWOYYGuttAHdXhkehH+S3oNKzL54=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=UBCRiqnhqKLUzd+wZJUa/qJm/x6GyKbkU2nxu6SC0XbBFzesNzSzbL0uUQFzkQsA/XcyAuMv4cqe6hHUciNvDdSOzu4pQ5ZwXmIJHM63e8Cf39moRfInWp3pp750/fs+spPxirJf/QLoYkIxS2WvirRUvrStuBu06DYfAGHsL60=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VGsPslTV; arc=none smtp.client-ip=74.125.225.98
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nVCGDKH+"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e79a408deso46022135e9.2
-        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 00:56:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VGsPslTV"
+Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48af9f88c95so1160099f8f.0
+        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 00:56:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790927803; x=1791532603; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=DK6t/sZOXlOI0flttlBEPNoSoc64x5EacC7Gj68MXFk=;
-        b=nVCGDKH++4zynt+jwFogLJZ9FM08uXsVC5pCcnKS58yDho/EI4cuvwMcLUUnBGj+y9
-         R/T8uH9W/QE0zUh2fuMVqx+YmG/6glnHt6+JMqzo5ENntZ/Hlht5TroxWtmSZX9c8wkG
-         PcEDwuRqCmprVjAjL4V0KMNAGdie55StqOI5sBIldYcwOCczMuS97pRNsL22FU5mgK4q
-         FMz2l/YVhOGYscbRJ7UJ30EmFzhlBd9AL7uTWxrQ8tudJpb62mxSv3r4KPRpW4sVmj9U
-         r+kpjLv/rGl+elLECkP6df+UC2wrKVnzIBzGObtQmoDH88FDpsqExIvsXTQkUULXYcDV
-         FgPg==
+        d=gmail.com; s=20251104; t=1790927804; x=1791532604; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=C6LcBsrn3qmklfWXf6wHISNXjWe9EOmsJSpM+lvYuXY=;
+        b=VGsPslTV3Afh1h0Yq9muE9y5bOidItdzut32Row73AR5Ntg5TNqN4wtOgt9QQW1d8O
+         rXqzWffChHwAKRsBednMUhd1miZWPWW95UhbEbTZBEyxs1BD61UtPRS5OxK/9zNgfocy
+         fCVb5kOAG/dAfwLylcm9hKAv1uigZElzyAD2Vyc8NZ+nlQFoGR65nyeQw7CpTW/CRD74
+         VUNajZ8RofEFuLROcBkuybhTUB8tKD3mjS6LoWAmizwdCdd4Y/PmbdilOwAIvkEUTwY4
+         iHdK0FWT8/n3jCnAf7wrhc3bJUMnQNoD11xvylveNN2dbDhHJS/PW1FWPZSmfwg3Eq/X
+         RQZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790927803; x=1791532603;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=DK6t/sZOXlOI0flttlBEPNoSoc64x5EacC7Gj68MXFk=;
-        b=z/hcBbS4+yaG93jz9PC19TiPfiYjq4bQIXyDQuDtbYQCUJ+yRzikPqh85cv9GZsoDc
-         XcPtNoKXRuRYKKI/UoAx/5zVx4NIBQ8Xrh8g6eGi/OnU8VSE0HPmml58T0lz0Diizn4/
-         WrNrOJeMckvGHr3Tpfj3coyLO63d3aJKBB6Vh5mm2nVcHBGps97GkZEZ0n/p04+BOjWH
-         Gzf0XHjXMfFciidh2Onsub/s2fHvhQ1wiHOPJdjAI5kFqad/gVKHhEEWhkF1l/kmKKyQ
-         w/diHkoUsq37+lftKWWlKVGYSIHZrjy9Y8iHXF4xBAelCn5tqwNq+H2kZ8Io+8TntKsw
-         JtDw==
-X-Forwarded-Encrypted: i=1; AKwUvByrmCXwBTTeUmdkG4zoSd5IPrAzFSbYydCWkNhwjIlAGP9KvlPThezK55KG+twDDmSGk/6ugG3fdC/f@vger.kernel.org
-X-Gm-Message-State: AFuF++mPqrNmhDaoWJ1ABdcbgej0OI0TVjlXCrxkLRzQwl2CqLOPd4Z+
-	mLrS45nPl0cV8cH4+JvchNpu5UpohltQ6Nz6FefWpBn14F1oYWhL7kmO
-X-Gm-Gg: AYBFou3LF9bJNALJVPO3/SH9DxhZIDyYS5SEomiSLc9yEVBdb4NNFVYniS31oI/+WTN
-	KH1gGFWtMxK0MydhvtlNV9FphMDdyKuE2LSZey+HJfhjeSalopFqGd1OgsJ59DS9UL6c4l+XQii
-	o6T0LxHssM5YfiQRKliD0TEyW4e1SDo21n/WjogYxt5mE85jGFx6GyYqXXULvwAA9pXC1IWjXYK
-	7L6zJZv7MKoMi+302CL77y2iFGaIeZM6l92JHzXSKGdhwFxLGtzulbfuOdAR1UNEhd6Wo7TKEhZ
-	iqw3RKZmzxRW+fmY8/EqKPYmZst4Lyl7+ywMjKi7l7T0ihD/Ua8+K7YnH0NnjJqVNCdZvVUm6gZ
-	GNCGeT8RW8geCfZT2hmVRNdbONGRJSr2kuksAjT5gHgThQXBEU2qawdYFz6v8CMubxYo41y2+Me
-	P64UnBHNXW+ICjpTJFSS8EgILK0gi/mkUwS1f1Vb8qr/uv2WkXXoYIUJksilYniHwHdfIDKLLiN
-	uzBguloxCB3TxtRiIKx1jDuJohquk4Cn1bpFjnFercQimEtD4UEaho9CZyaAklKZbr0+HwApQ==
-X-Received: by 2002:a05:600c:8b2f:b0:4a0:e45:e8d6 with SMTP id 5b1f17b1804b1-4a027559b0emr30989015e9.13.1790927802784;
-        Fri, 02 Oct 2026 00:56:42 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790927804; x=1791532604;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=C6LcBsrn3qmklfWXf6wHISNXjWe9EOmsJSpM+lvYuXY=;
+        b=o5cGSBsQYGwVlzNnlk6b0//XWJcFrQFQh027HwNLGzJF0ZkcUK5wA+Y8XVfeVNbN6/
+         Et8evsnBQ63fz3RRkDVgDebJrIc/aeVnrIlr8kaFokl9UXcKsaWmfhUxj64WzviSTFkL
+         Tev0o9LyVxDMcW+Xc7+UM20wlvW+xtqAh3lIeDdr1aj2VQ2DEWBPkhl4KzixW8Z3CWKc
+         QWpUukF3EGCNN1KXjQh6JXZRaf9c9YkdOQMG++S6hNMvQ2cSDavG6p/7sg0bcpo77upW
+         o9P/Gs0wuwxIjAG+MI53TVqpFZ33K4039Iu9l3EutdtMcCpJqR4xk36YoTlCZstKNhgj
+         biCA==
+X-Forwarded-Encrypted: i=1; AKwUvByt88gtIJEx96Ft3STsF6QAvTWYfv1ijzAuyL887XHqxs9CLphhHuS4EyWHkQUqdQZlcIsqFZzViY1f@vger.kernel.org
+X-Gm-Message-State: AFuF++mYUA/11fLaJ4Rw7a2ng2bpMphNTJpR9MSAnCwdaFO4hg+Auoj3
+	VDQsBdSOI8M4s7x25b80DPXqMkZuWxUIgEokMV2BFWGHQ98oWLaFdA7n
+X-Gm-Gg: AYBFou1mkyiTtIPuK19tIKkDcpfg2pdXlplNOeLbEt2a9SgaF68vEy5vGy/q0bkictC
+	rh8xZmBceVF5lYvxPImbP/uxsMT/zDpMnb+NJ2F02cC38+ZI9B06kA6cQYC6q2CvNj2KbnpCYcY
+	iYmssDpmcAdC4c0eip5D5Pg5qPWh7+P+u/IERyT4cBqmI//JNR0jeLlHWiNRFDe0PP1Idc+bsPF
+	TFnO7fBFi3bV8qfVLnJSPoREFL1zXZAWrLrWpefb3dB5dsZS9E8+trx0TV7iZK2Cg99CgQyiBM3
+	4Fr+wVN1Eq3hYz/wt8m/e+kzbcA9LA3hP7aaxdo/c8WzGnVSLT6D+2liwbHAlTj73vcFeK2a+Bd
+	beAzyOnvtiuiNQSIipg7Lj4hyQ+fI0TubwLwRHDb8fJ6UDJjng4yVVlr+9yycHxbyWzFmlc4c6P
+	GDiduYwNi308RCHy5VgNC5s0lZoZuKAqU1TxrinN+MxNGJSywxWUCmy3G9XOI+TFcddkyreIokg
+	Qur4bPybCZ5H7utvsgHRR7G0miiYawegbS8IvwnqDMl/tJNrAfD+I2zl+rqyMSY/pciZSDBlg==
+X-Received: by 2002:a05:600c:c102:b0:49c:e37e:4389 with SMTP id 5b1f17b1804b1-4a027534963mr27502755e9.4.1790927803714;
+        Fri, 02 Oct 2026 00:56:43 -0700 (PDT)
 Received: from ernest.hoecke-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0280be5dfsm63635305e9.7.2026.10.02.00.56.41
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0280be5dfsm63635305e9.7.2026.10.02.00.56.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 00:56:42 -0700 (PDT)
+        Fri, 02 Oct 2026 00:56:43 -0700 (PDT)
 From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-Subject: [PATCH 0/5] arm64: dts: freescale: Add SMARC iMX8MP display
- overlays
-Date: Fri, 02 Oct 2026 09:56:36 +0200
-Message-Id: <20261002-smarc-imx8mp-display-submit-v1-0-f578c63fb676@toradex.com>
+Date: Fri, 02 Oct 2026 09:56:37 +0200
+Subject: [PATCH 1/5] arm64: dts: freescale: imx8mp-toradex-smarc: Add DSI
+ to HDMI adapter overlay
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -71,9 +72,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIALRjv2oC/x3MwQqEIBAA0F+JOe+AKYTtr0QH07EGshVndymif
- 086vss7QagwCbybEwr9WfizVbSvBvzitpmQQzVopTvVG4WSXPHIabcpY2DJqztQflPiLxrXaqt
- 7EyJ5qEMuFHl/9mG8rhtBB9uObQAAAA==
+Message-Id: <20261002-smarc-imx8mp-display-submit-v1-1-f578c63fb676@toradex.com>
+References: <20261002-smarc-imx8mp-display-submit-v1-0-f578c63fb676@toradex.com>
+In-Reply-To: <20261002-smarc-imx8mp-display-submit-v1-0-f578c63fb676@toradex.com>
 To: Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
  Pengutronix Kernel Team <kernel@pengutronix.de>, 
  Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>, 
@@ -84,45 +85,153 @@ Cc: imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
  Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
 X-Mailer: b4 0.13.0
 
-This series adds device tree overlays for display accessories on the
-Toradex SMARC iMX8MP with the Toradex SMARC Development Board.
+From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
 
-This brings SMARC iMX8MP display support in line with the corresponding
-Verdin overlays and makes the same Toradex accessories available with
-the mainline kernel.
+Add a device tree overlay for the Toradex DSI to HDMI Adapter, an
+accessory that connects to the Toradex SMARC Development Board DSI
+connector and provides a full-size HDMI Type-A output. The adapter is
+based on the Lontium LT8912B DSI-to-HDMI bridge.
 
-The series adds support for:
-- DSI-to-HDMI adapter based on the Lontium LT8912B bridge
-- Toradex Capacitive Touch Display 7" and 10.1" DSI variants
-- Toradex Capacitive Touch Display 10.1" LVDS
+The overlay is also combined with the SMARC Development Board device
+tree to provide a ready-to-use DTB.
 
-The Makefile entries build the standalone overlays as DTBOs and add
-ready-to-use composed DTBs for the SMARC Development Board.
-
-The DSI-to-HDMI adapter, 10.1" DSI and 10.1" LVDS overlays were
-run-tested on SMARC iMX8MP with the SMARC Development Board.
-
+Link: https://developer.toradex.com/hardware/accessories/add-ons/dsi-hdmi-adapter
 Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
 ---
-Ernest Van Hoecke (5):
-      arm64: dts: freescale: imx8mp-toradex-smarc: Add DSI to HDMI adapter overlay
-      arm64: dts: freescale: imx8mp-toradex-smarc: Add Toradex Capacitive Touch Display 10.1" DSI
-      arm64: dts: freescale: imx8mp-toradex-smarc: Add on-carrier 3.3V regulator
-      arm64: dts: freescale: imx8mp-toradex-smarc: Add Toradex Capacitive Touch Display 10.1" LVDS
-      arm64: dts: freescale: imx8mp-toradex-smarc: Add Toradex Capacitive Touch Display 7" DSI
+ arch/arm64/boot/dts/freescale/Makefile             |   4 +
+ .../imx8mp-toradex-smarc-dsi-to-hdmi.dtso          | 103 +++++++++++++++++++++
+ 2 files changed, 107 insertions(+)
 
- arch/arm64/boot/dts/freescale/Makefile             |  16 +++
- ...x-smarc-adapter-panel-cap-touch-10inch-dsi.dtso | 123 ++++++++++++++++++++
- ...ex-smarc-adapter-panel-cap-touch-7inch-dsi.dtso | 124 +++++++++++++++++++++
- .../dts/freescale/imx8mp-toradex-smarc-dev.dts     |   7 ++
- .../imx8mp-toradex-smarc-dsi-to-hdmi.dtso          | 103 +++++++++++++++++
- ...-toradex-smarc-panel-cap-touch-10inch-lvds.dtso |  80 +++++++++++++
- 6 files changed, 453 insertions(+)
----
-base-commit: e7a7fb1dc235053369094c3f8afdf67fefd67983
-change-id: 20260930-smarc-imx8mp-display-submit-3a128293dfec
+diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
+index a80cccf34eb5..b5519fb36b5b 100644
+--- a/arch/arm64/boot/dts/freescale/Makefile
++++ b/arch/arm64/boot/dts/freescale/Makefile
+@@ -709,11 +709,15 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-bd500.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-hdmi.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-tian-g07017.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-jutouch-jt101tm023.dtb
++dtb-$(CONFIG_ARCH_MXC) += imx8mp-toradex-smarc-dev-dsi-to-hdmi.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-toradex-smarc-dev.dtb
++dtb-$(CONFIG_ARCH_MXC) += imx8mp-toradex-smarc-dsi-to-hdmi.dtbo
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-tqma8mpql-mba8mpxl.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-tqma8mpql-mba8mp-ras314.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx8mp-tqma8mpqs-mb-smarc-2.dtb
+ 
++imx8mp-toradex-smarc-dev-dsi-to-hdmi-dtbs := imx8mp-toradex-smarc-dev.dtb imx8mp-toradex-smarc-dsi-to-hdmi.dtbo
++
+ imx8mp-tx8p-ml81-moduline-display-106-av101hdt-a10-dtbs += imx8mp-tx8p-ml81-moduline-display-106.dtb \
+ 	imx8mp-tx8p-ml81-moduline-display-106-av101hdt-a10.dtbo
+ imx8mp-tx8p-ml81-moduline-display-106-av123z7m-n17-dtbs += imx8mp-tx8p-ml81-moduline-display-106.dtb \
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-toradex-smarc-dsi-to-hdmi.dtso b/arch/arm64/boot/dts/freescale/imx8mp-toradex-smarc-dsi-to-hdmi.dtso
+new file mode 100644
+index 000000000000..270cf567ace1
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx8mp-toradex-smarc-dsi-to-hdmi.dtso
+@@ -0,0 +1,103 @@
++// SPDX-License-Identifier: GPL-2.0-only OR MIT
++/*
++ * Copyright (c) Toradex
++ *
++ * Toradex DSI to HDMI Adapter connected via Toradex SMARC Development
++ * Board DSI connector J44. Open J95 to select the carrier DSI route.
++ *
++ * https://developer.toradex.com/hardware/accessories/add-ons/dsi-hdmi-adapter
++ * https://www.toradex.com/accessories/verdin-dsi-to-hdmi-adapter
++ */
++
++/dts-v1/;
++/plugin/;
++
++#include <dt-bindings/gpio/gpio.h>
++
++#include "imx8mp-pinfunc.h"
++
++&{/} {
++	dsi-hdmi-connector {
++		compatible = "hdmi-connector";
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_hdmi_hpd>;
++		/* I2C on DSI Connector Pins 52/54 */
++		ddc-i2c-bus = <&i2c_dsi_1>;
++		/* SMARC LCD1_BKLT_PWM (SMARC S122) - HPD */
++		hpd-gpios = <&gpio5 5 GPIO_ACTIVE_HIGH>;
++		type = "a";
++
++		port {
++			dsi_hdmi_connector_in: endpoint {
++				remote-endpoint = <&dsi_hdmi_bridge_out>;
++			};
++		};
++	};
++};
++
++/* I2C on DSI Connector Pins 4/6 */
++&i2c_dsi_0 {
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	hdmi-bridge@48 {
++		compatible = "lontium,lt8912b";
++		reg = <0x48>;
++		/* SMARC LCD1_BKLT_EN (SMARC S107) */
++		reset-gpios = <&som_gpio_expander 7 GPIO_ACTIVE_LOW>;
++		vcchdmipll-supply = <&reg_carrier_1p8v>;
++		vcchdmitx-supply = <&reg_carrier_1p8v>;
++		vcclvdspll-supply = <&reg_carrier_1p8v>;
++		vcclvdstx-supply = <&reg_carrier_1p8v>;
++		vccmipirx-supply = <&reg_carrier_1p8v>;
++		vccsysclk-supply = <&reg_carrier_1p8v>;
++		vdd-supply = <&reg_carrier_1p8v>;
++
++		ports {
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			port@0 {
++				reg = <0>;
++
++				dsi_hdmi_bridge_in: endpoint {
++					data-lanes = <1 2 3 4>;
++					remote-endpoint = <&mipi_dsi_out>;
++				};
++			};
++
++			port@1 {
++				reg = <1>;
++
++				dsi_hdmi_bridge_out: endpoint {
++					remote-endpoint = <&dsi_hdmi_connector_in>;
++				};
++			};
++		};
++	};
++};
++
++&lcdif1 {
++	status = "okay";
++};
++
++&mipi_dsi {
++	samsung,esc-clock-frequency = <16000000>;
++
++	status = "okay";
++};
++
++&mipi_dsi_out {
++	remote-endpoint = <&dsi_hdmi_bridge_in>;
++};
++
++/* SMARC LCD1_BKLT_PWM (SMARC S122) repurposed as HDMI HPD GPIO */
++&pwm1 {
++	status = "disabled";
++};
++
++&iomuxc {
++	pinctrl_hdmi_hpd: hdmihpdgpiogrp {
++		fsl,pins = <MX8MP_IOMUXC_SPDIF_EXT_CLK__GPIO5_IO05	0x104>; /* SMARC S122 - LCD1_BKLT_PWM */
++	};
++};
 
-Best regards,
 -- 
-Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+2.43.0
 
