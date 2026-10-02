@@ -1,215 +1,154 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E199245C6FB
-	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 09:04:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39D043112BD;
+	Fri,  2 Oct 2026 09:08:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790931876; cv=none; b=MubWReVyQRYt6t3c+Lp6Dbz/QYGt5H5nBkDxmHaFL05f6JuUqk2wCThg8KjmwI3KAkMTsAkQEITbVnXnxrR5V+wkFA4L9hp+cMvRLPOypPjUM9P9VMaNJDdiAdCZIjC9uZo17lewCdUrJdhfcNLSTglcRGgCTsH625FMMmiWkvU=
+	t=1790932096; cv=none; b=SHQ3533s2zevUnhPcP9FZME1CllHr44oQZM7RdR5e//pP24vEhQjWWyP4e7p6J1mITXzGxSD3ZBNvtUMFEQs1BCiMldAj69G62V2icNBkHqlysZIR8+JJoe/irE2eBrc3HNKM66DWDxdrSg4QK6gHRRNGb/8TdSxTaHehlfMuRQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790931876; c=relaxed/simple;
-	bh=tY9Wy2XAqCoXDTllUI2mZDj2RZgUx8/BhiDsHcHrl5o=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=oTfzbxGJDSlMD9nsfqhKlhyyons9L/zdNE0aMC+mKVVg9c1HuyqNGNbu+eoSq9CSqZFZkh8KCECVpn2dEGMTklXqEb1hpshKzBSxE3pijDjm8otiHA+YlITjNELXw1fneGGBDdb+t1EdHGjLy0r+YURfI88cScIJABT3LHFDdLA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=KAnj1HCx; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=OzPagW21; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790932096; c=relaxed/simple;
+	bh=tXMfc1n+5iPcVl/5WaHRbFYbN4YDZ+VOl0gnQomBwiI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RPIkyX/nWfn9ebd9H3BAWwVdjUvZ6ZRjyICh3YBU9i1YAapWBaGapdhKmR/e1EyMNt3EuCZ9XST4cDo3VZky3gErfzTlqat74xJeK8+O+qNDveFDoCajU84xcz4kuG6vBSzl962OyXLFYHEc71bohNUuN4OrhoFY4kuV1iqWPi4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c6Kcvms/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="KAnj1HCx";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="OzPagW21"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790931873;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=OAmOlflbJV02//t0PYsWYtP2AS3mBRNwN6t9PgpiJVo=;
-	b=KAnj1HCxnkEkRYdl0O4l+7z31/Bm+Z+yt5BZxSBFKB73Ho8ykSUG8cGn4lu/MUvuLNpnKb
-	SMTtatkfcE3w8qpwyh9fr/3Ad3VMkwP9Xjlk1f7HG+qnhIhiN3HpUVfaxGKaE8mBkZ2zhO
-	UWs4fxvAWzAnsvhRVWDDtBbUDDHHZCY=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-14-xU1L1NPnMc2gWA-guHBPAQ-1; Fri, 02 Oct 2026 05:04:32 -0400
-X-MC-Unique: xU1L1NPnMc2gWA-guHBPAQ-1
-X-Mimecast-MFC-AGG-ID: xU1L1NPnMc2gWA-guHBPAQ_1790931871
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-4a021b1b561so11729045e9.1
-        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 02:04:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790931871; x=1791536671; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=OAmOlflbJV02//t0PYsWYtP2AS3mBRNwN6t9PgpiJVo=;
-        b=OzPagW21QK8pYljyy6Nt6rAsVvP9mzEJ5rdAvFpiwwC8UpltOn5VktdD9LwwyUhqwf
-         xofgqeV0/7Fj7LT1096MQyWsUGvpmmXvdXwVAsau/0MnzHnjfmgBwOD+bXb9Cudbh/TO
-         do5vwNm5HGST8Qg8aVxUjWbMPLTCQ4qO6d5NoL/+ioMDWW2gKotpGLHMvuT5egmEWDPH
-         nl6zitsO+VgwvJya330BmxXMWrImq9VxZ7NMUhGoAyhs3V2Cqu7UBk7NIfEmlDBjZiK5
-         PjDUyDyrI5onHnh/tHLR/2sV6ZVXdi5Z4oyC3f8+s5Vg3VKCMYxLl/4clOX+45/t9EPm
-         +O0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790931871; x=1791536671;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=OAmOlflbJV02//t0PYsWYtP2AS3mBRNwN6t9PgpiJVo=;
-        b=WD9z5QVuvaa3KJ5fFaAXiiqRdU47HaFgfWPH8xGYcGAfttvbIyI0FE26bIXf5yFunN
-         kJRKMhzBe8uICWKFZx4sIFW5RUP8nEb4GVlqrivi9c9tKiPypCCNVZD6NtqpCUPcAepl
-         81D6AlOXaOz0yMksumTR0tPZB5fezh9AiKOcLoKbHUxA3wx+E7gYPF+LfpIyW6BEZNLe
-         hvz/40skYYYSpAODnlTfg7+4VTsB6j8j/imyBUFC7ZJ/GBlkFIx7lcBiNprmcCd+hxcZ
-         K87zVAJI+s2IH8+YJWdZT3mw7ojbaJWiryZuSalggMTyxdYr8aGrLNs/6rO8HS+LqYPN
-         l7kQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxXnpm/BWRZtVClskF0Z0SkU1pqJyO5tvLJhM6kN6uPhbI6K5itutsYhdsWf59eVMEPxv/tDo3LGXul@vger.kernel.org
-X-Gm-Message-State: AFuF++nAIHZGJbepkOBZWvfGyvwPnSblAxlBF03wnWxtN7wp44f0VozM
-	eHSZTPjTUTq7TaZ5bw40JR5jSrFVxybHybhj1S2n+wmFDC5l/V+RPrzHvlrpMAE80xD8ZWcAmHa
-	BO/M5deiWbTo4xJ1gMU0UWf+MHs61aQRniNUwj7JoCff9vZxz7jeX7HE+2mMo384=
-X-Gm-Gg: AYBFou0YGHsELiQTiylwfP0kS/p/Tr003HaQBeYnm+X9bUB+69yIhR8gk+eaC0tiH8R
-	9yYVPIg6ETk0Sybxbyyj2BnrXUo/F7X5VOeJxXyaof2wdeS4M+iXLZE4NEi6U7jVpckqzYAZA1V
-	1C/VZhLVNjXRV4NsGvzb2PanJsDC7I0dUIlgeF+7XBTNZsgAo7aQyfwRhsCJcZNk+bE1UmzqaFC
-	+CI2n2m5afz5t4RIX+Mv1diQjHu+JFUSZJI1ElOgqvCQCSY0hpPVJwzTpTVArSuGfDAk3nzmGPp
-	EHZp1GBb5X6rNJbN6L5Zzs51NoAbal40oPvexay6gpXzCiGVrPV8TBKgVwhVEqXQ+4DMXlaGahX
-	bgF24w5MdE3+a0a4wTs8fTqjiOJtUQK5aCjl33ZxxAVrDVTgALEQZTiorCmXB0a4aRw==
-X-Received: by 2002:a05:600c:4e42:b0:49e:6050:9fbe with SMTP id 5b1f17b1804b1-4a027586525mr39355115e9.15.1790931871160;
-        Fri, 02 Oct 2026 02:04:31 -0700 (PDT)
-X-Received: by 2002:a05:600c:4e42:b0:49e:6050:9fbe with SMTP id 5b1f17b1804b1-4a027586525mr39354405e9.15.1790931870651;
-        Fri, 02 Oct 2026 02:04:30 -0700 (PDT)
-Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a027f2a4c4sm67197175e9.2.2026.10.02.02.04.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 02:04:29 -0700 (PDT)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>, Maxime Ripard
- <mripard@kernel.org>
-Cc: Benjamin Tissoires <bentiss@kernel.org>, Jessica Zhang
- <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>, Nick
- Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>,
- Justin Stitt <justinstitt@google.com>, Florian Fainelli
- <florian.fainelli@broadcom.com>, Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Andrzej Hajda
- <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, Laurent
- Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
- <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca
- Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve <aesteve@redhat.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org, llvm@lists.linux.dev,
- linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
-In-Reply-To: <a92aa0bb-d50f-4b67-a645-942090d4fe79@linaro.org>
-References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
- <6b80cb97-6706-412a-b013-9423f6f75153@linaro.org>
- <arqhwHiVf00j94J7@beelink>
- <0259fe4b-3118-4ab0-9b62-55101bfd7f33@linaro.org>
- <arrAqg5n87INTHE6@beelink>
- <674314b4-6b80-4b3a-ac15-eefd31cea607@linaro.org> <artpBMeM13Dd0lLy@houat>
- <xlv1wls4ebjq.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
- <828c9108-2db1-45a6-9301-19159a094301@linaro.org> <ar4CRTMQGs5_nGKY@houat>
- <2bd17843-4a65-49b0-9e10-7b73afb206b6@linaro.org>
- <xlv1cxtsft8e.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
- <a92aa0bb-d50f-4b67-a645-942090d4fe79@linaro.org>
-Date: Fri, 02 Oct 2026 11:04:28 +0200
-Message-ID: <xlv1a4owfp7n.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c6Kcvms/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 789D81F000FF;
+	Fri,  2 Oct 2026 09:08:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790932094;
+	bh=qYND9I0bLkoV1OIOcHctWDuYZniuT1XFMISc8X1RTAk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=c6Kcvms/zBEDquaJ9aYbjQKOrSRY+a9W/CiTq3XW0ZL8dwXyChYUTb7vZQJc8wIDg
+	 uR98qdUBCwKUFXTlRDk/Z0R6FAv87jKt3emcG5kQAj1u0WQE5Y1CCkDY8uxo6JwzK/
+	 GkaFfas904rt+JR8GfDctVKu0YV1Hi3KZBozvzMi8oAy2tgM797zV36Nf6xcsU+tNA
+	 b5EWDfnFR/99C+5A/unLr+2T3FujwljHiCBpy283Bk9CqIeAPYEyk2J1xqVDCR2HGs
+	 7+3pZY1aNZBWIGEdVPlR8jnSiIUCKDvJA1/WkBzByGyAeGlYtSpckimsXzy4bBrIuF
+	 +6MF0xsLL7txQ==
+Message-ID: <aeed36b9-2609-4312-86d3-b4ddca9148ee@kernel.org>
+Date: Fri, 2 Oct 2026 11:08:06 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] dt-bindings: media: i2c: dw9800: Redocument
+ DW9800K
+To: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Apitzsch?=
+ <git@apitzsch.eu>, Luca Weiss <luca.weiss@fairphone.com>,
+ Daniel Scally <dan.scally@ideasonboard.com>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org
+References: <20260914-b4-dw9800k_cleanup-v2-0-6553273aaa33@fairphone.com>
+ <20260914-b4-dw9800k_cleanup-v2-1-6553273aaa33@fairphone.com>
+ <20260916-meek-qualified-penguin-fd8cea@quoll>
+ <16efc0e1-8986-418c-87ba-9bf1ca4e4088@fairphone.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <16efc0e1-8986-418c-87ba-9bf1ca4e4088@fairphone.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-
-Hello Neil,
-
-Neil Armstrong <neil.armstrong@linaro.org> writes:
-
-> On 10/2/26 09:37, Javier Martinez Canillas wrote:
->> Neil Armstrong <neil.armstrong@linaro.org> writes:
->> 
->> Hello Neil,
->> 
->>> On 10/1/26 08:50, Maxime Ripard wrote:
->> 
->> [...]
->> 
->>>>>
->>>>> I don't want to add a supplementary maintenance burden for the sake of using a cool
->>>>> technology which has serious drawbacks and dependencies on user-space even if looks
->>>>> really cool.
->>>>
->>>> Spoiler alert: v2 won't. I've got the in-kernel loader to work and thus
->>>> you can have a built-in panel driver that works without user-space
->>>> intervention. So this is not a topic of discussion anymore.
+On 01/10/2026 15:17, Griffin Kroah-Hartman wrote:
+> On 9/16/26 11:06, Krzysztof Kozlowski wrote:
+>> On Mon, Sep 14, 2026 at 12:25:56PM +0200, Griffin Kroah-Hartman wrote:
+>>> The DW9800K's properties are too different to justify sharing the same
+>>> bindings file as the dw9719, Create a separate bindings documentation
+>>> for the Dongwoon Anatech DW9800K with it's updated properties.
 >>>
->>> It will still have users-space dependency, meaning the BPF files will need to
->>> exist in the fs when drivers probes.
+>>> More specifically:
 >>>
->> 
->> It doesn't have to AFAIU. The BPF programs could be built into the kernel
->> image, just like firmware binaries could be built-in as well.
->
-> Right so my main question still is: what does it solve exactly ?
->
-> All the descriptions I saw so far is that it simply moves
-> the panel C code to a BPF code with no other additions.
->
-> I still don't have a clear view of what is precisely solves.
->
-> It adds some complexity to load those BPF driver, adds some
-> maintenance complexities since with every API change we will
-> need validate BPF still works in addition to C (and maybe one day Rust).
->
+>>> The DW9800K did not share the SAC1 and SAC6 modes
+>>> that the DW9719 used.
+>>>
+>>> The DW9800K does not actually have a register that matches the property
+>>> description of vcm-prescale, instead the description of the clock-presc
+>>> in the DW9768 is much more applicable to the functionality required
+>>> according to the DW9800K datasheet.
+>>
+>> I don't get why it does not match. You have exactly the same first part
+>> of the description, look:
+>>
+> There is no inherent difference between the two property names, the 
+> values that the previous binding was using was completely incorrect with 
+> the hardware.
+> 
+> The reason for this discrepancy in the first place was us guessing which 
+> properties that this driver would need based on the datasheets we had 
+> for older dongwoon devices.
+> 
+>> dw9719:
+>>    Indication of VCM switching frequency dividing rate select
+>>
+>> Your code:
+>>    Indication of VCM internal clock dividing rate select,
+>>
+>> Both are dividing the VCM clock rate, no?
+>>
+> clock-presc is used in a different dongwoon binding (dw9768) which more 
+> accurately matches the function of the hardware, So we concluded that it 
+> was a more appropriate name.
+> either way, the values we were using with this property was completely 
+> incorrect, so it had to be changed either way.
+> 
+> If you'd really prefer us use the older property name we can change it.
+> 
 
-https://www.kernel.org/doc/Documentation/bpf/bpf_design_QA.rst doc makes
-it clear that BPF programs can't expect the in-kernel API to be stable,
-so you as mantainer don't have constraints due the panel API being used
-by BPF programs.
+So the property describes the same thing? Then use the same property
+name and type. Otherwise I really do not get how two same descriptions
+can be different and one "is much more applicable".
 
-In other words, this shouldn't cause additional burden to you (other than
-the code in drm/panel/bpf/, but that is also true for any panel driver).
-
-> As the maintainer of the panels, merging a bunch of new panels at each
-> releases and helping migrating to newer and modern way to interact
-> with panels, I think I have the right to express my interrogations.
->
-
-Absolutely.
-
-> I'm clearly not the oldest kernel contributor & maintainer around here,
-> but the main interrogation I have when submitting, reviewing and
-> merging is : does it really solve something efficiently.
->
-
-It does. As mentioned, this could make it easier to have some panels
-working with an existing kernel without any modifications (or out-of-tree
-modules). I wouldn't say to prototype it, because as Maxime said, it could
-even be a proper support. But you get the idea.
-
-So just like sched_ext can be used to extend the scheduler (and some of
-those extensions might even end in some of the scheduling classes once
-are found to be generally useful), this driver could be used to quickly
-add support for new panels.
-
-> I don't want people to be frustrated by my review and question,
-> but I feel I'm allowed to say I'm not convinced about this solution.
->
-
-Yes, of course. From a bystander, I think making assumptions or taking
-a decision prior to understanding the use case is what might had caused
-frustration. But as Maxime said, it would be helpful to have these
-discussions in person next week at LPC.
-
-I'll also be there, I'm looking forward to meet you in person.
-
-> Neil
->
-
--- 
 Best regards,
-
-Javier Martinez Canillas
-Core Platforms
-Red Hat
-
+Krzysztof
