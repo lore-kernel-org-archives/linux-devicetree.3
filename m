@@ -1,98 +1,137 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f15.google.com (mail-vs2-f15.google.com [74.125.227.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92B5C47D936;
-	Fri,  2 Oct 2026 09:53:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 016E73B101C
+	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 09:54:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.15
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790934832; cv=none; b=N8xraShGCodFkHbmfSCODM3rRNrvm2BIQ5PctZxJ09WHOBhVojOEliA8oC0rwzS7wNCNNDzfTFLjWNg+837hZlw5zDIWPEtXn/qz+GIVoLFvl5S/VDSJjfyvfJG5ovJZ0HHTm/FWily5BebtboHGSxtqf4wOgzptUTZoctoEFKk=
+	t=1790934894; cv=none; b=Q3bZTfk8SnkAmANeE4jzjOPfxAyNZZeYkqM2EtXnJb77Lfs2r6iZlqfOxtv1cmsxG2hm2O3gDlN7oI28u5qekUKJwx7Djlp6+ZCb1WAAW5kNEr+WSdfBxy744y2/BLVdVa3Xfq/NiNK6ltCuTx31shbBbD9R+JoigvAoevGEb9o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790934832; c=relaxed/simple;
-	bh=iW92QJbYkT2c+9COJjq6j+FezNFEwORGgQahLMmFk7Y=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=d4OU9/Pk+Tvc40zgJIotYAwHN/h2mmDcN0d9rTd7rPCBTHjcvhEP5SDhHALcN/XyjzHdwkNHXvFkG8xxe2YA7Jq954U3fktOc1Pb29SWD4vRAfabQfL+WG3OVOoeSY7w+zFSZh4jj4E025Y8XFIqDqi8Coeg0z9kQUF9fA/4IOc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=EvsHsEq9; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Wg8tyNQn; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="EvsHsEq9";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Wg8tyNQn"
-From: Gregor Herburger <gregor.herburger@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1790934827;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=d55epoljK1Tf/mPwC6cgkqeJkTdDg/qv/INdlRtkfDk=;
-	b=EvsHsEq9XUSkjFm4stZT2uh+iiUgMy/WOJLSfNTBZfwaNYuqMVQ0FjfiCoc2BvkgfzU3Mh
-	RmIZrTGI4DXv5uxy/VWce06B4ggzgajk4QgApq4fQZR/MEPw5NmyDSH3VGf+6NwahJlkDC
-	41DBYwxs98QEwkpU/FoWsV372t2jTuprCOX1vVkb3TBOumaw+vJsBYOzqwKNXhysYlTvhm
-	ebSL8XzJPgosXvocZPQmkvcLwWxsYNaimwxp5LrELdjfYhbuWkWdP9pf3O4YpcQdfFvaOO
-	gUdDEZyUS3y9Qd1hX5L9S0SUY1xEFpBQ82HDR8b6sLQ/yDq31QtdiBBdZmxTTA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1790934827;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=d55epoljK1Tf/mPwC6cgkqeJkTdDg/qv/INdlRtkfDk=;
-	b=Wg8tyNQncTxu0h+vVmHhN0EPWWR7elH3z/RekukHPzX0tam4OBhP4BllfMVCJ9rYkN9U79
-	r9rwudAbBPwz3ADA==
-Date: Fri, 02 Oct 2026 11:53:44 +0200
-Subject: [PATCH v5 5/5] arm: dts: broadcom: bcm2835: Add reboot modes to
- firmware node
+	s=arc-20240116; t=1790934894; c=relaxed/simple;
+	bh=GzAnx2xBXfEPO5tzd00AnUoKCvkCiQ5XrGLMnwGIK18=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Q8xDSvnqMFybDFUq6oL0u4+8FunrePboGvXWNPRZGua1LTDbdbqzoBTYBXxxHqZSWKb6ygmCdc6kNSQrsUQ7lfxz5vDQrXqva8ntDKGW1t1ZKg5nJni5y6PSQz0HLGyw9fyoVwKnUd39bDjqzmbDPCpg84ZZv8IMLv/bdE59tUE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.227.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vs2-f15.google.com with SMTP id 71dfb90a1353d-5c981b0d59cso5260028e0c.3
+        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 02:54:52 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790934892; x=1791539692;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Z0fxwGjBjqcCfabEbDLAIlWYoRpsrY3klbqZYJ/Lvy0=;
+        b=g+f/IEUleytSUtZDSUCSqcqnt8KsVAzxauPMpIhuDInqEfmTaZpofh2L1H85wxuiac
+         p+2/nq1V8Q9bimRLGug7gmkj8P0e1MdNHnF1mxmJOh20wBDVCPER0HAj8EXN9RYHpaGK
+         1OIJDXAdUxMvy5d0Rx0jHT6VBM3bRE20cLAlb5Pd6gwydpoOOSk5ZrFgBE12UHxFiaYR
+         DnyzHyQX+s4+sGaO302p5CbDqU5QYuQkdpksCDO4IV27X7Hgjenx5+ASQPQ4lZP/STZB
+         enKfCqa8vgVHrY2b1HdKscdmEmNi47Sa2gxqN3F0SuhSizEuF59kR2RQCKjbhLhRGRLq
+         YiYA==
+X-Forwarded-Encrypted: i=1; AKwUvBwsKgvlp+KwO7+eAP7IgNzAdbHsGcBYbEaeq8f7x78/a2Byn2ThicMPfu20dmmMhk9w8JGduQgW+75l@vger.kernel.org
+X-Gm-Message-State: AFq9FYKWh9xkBDMo7VmdggBMDOrE4gjyzxx3l4dVkKLLExKCbXWqSwIC
+	Nmsdbip0LQ7kKjkHR5diq+hJlwXc+uBo7yvkybpR8GZS+/vv/7Nj4mHGFm3cfixt
+X-Gm-Gg: AYBFou1rAiVTsgCWUBTRBasntuigGxMiYeiYImt/10RTasc8U8Cbei5qqC2ihb41xpy
+	95GmjtVCM/h89DWASmIFcM2AExwUkzHXTEMxgAbm3OJE+TIvYpwDmT83vQNV2heYGRyy6QTj6AD
+	k2bAwKcUhXEyNVQnkVmnf38fRG67OmdsvCqX/yNwV8SYfQCmrJbcX9kUZ++O6CBzSu/Xdvq1VIc
+	vlXc2O0x2X1deFHF4hFiYK4k/AtQyIXpqFETBMOYaxNM+NU7y265BGRLpdQPa+6+aSRvGdpGdlS
+	BzFH3mHcvdurSn+ItekxO9jOTRPAHkOMPeBSVs2RHYFIJp5MT3trcKxzRkL6ZK/tsX0X8x35Drj
+	0voJyFI+AwANJtzfv20hRDCiX5vQ5h2cgyInPIRv7omwvlbMo1k2u5Ejze/Ix//ZVZLO/FqFtAP
+	Vis3LQ56k+c0FQhJfKloy4aGReOWXJ2F9n3GcpCb2ihbvoCY99e1KvK1r6IZVmlMDlgXLIpXKgz
+	HcgCS0zfG2WN2TsCCEsf9Zr0qtr1DaqXGUj
+X-Received: by 2002:a05:6122:da2:b0:5c9:c60e:3a3f with SMTP id 71dfb90a1353d-5dab3263ba5mr686611e0c.23.1790934891630;
+        Fri, 02 Oct 2026 02:54:51 -0700 (PDT)
+Received: from mail-vs2-f15.google.com (mail-vs2-f15.google.com. [74.125.227.15])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5da61f8fedesm2817650e0c.9.2026.10.02.02.54.50
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 02 Oct 2026 02:54:50 -0700 (PDT)
+Received: by mail-vs2-f15.google.com with SMTP id 71dfb90a1353d-5c981b0d59cso5260011e0c.3
+        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 02:54:50 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxEhiuqGcxZRCJ8shC391AKZ2yfqV8llh1pQ+gkEjgYKzPlt494cyKRMnOC6X6boHwvXJ9PhD+GjvR/@vger.kernel.org
+X-Received: by 2002:a05:6102:162c:b0:7b5:6bb2:53a3 with SMTP id
+ ada2fe7eead31-7c0f498afacmr661636137.10.1790934890369; Fri, 02 Oct 2026
+ 02:54:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261002-rpi-tryboot-v5-5-6294c131e583@linutronix.de>
-References: <20261002-rpi-tryboot-v5-0-6294c131e583@linutronix.de>
-In-Reply-To: <20261002-rpi-tryboot-v5-0-6294c131e583@linutronix.de>
-To: Florian Fainelli <florian.fainelli@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Eric Anholt <eric@anholt.net>, 
- Stefan Wahren <wahrenst@gmx.net>
-Cc: linux-rpi-kernel@lists.infradead.org, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, 
- Gregor Herburger <gregor.herburger@linutronix.de>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790934824; l=821;
- i=gregor.herburger@linutronix.de; s=20260226; h=from:subject:message-id;
- bh=iW92QJbYkT2c+9COJjq6j+FezNFEwORGgQahLMmFk7Y=;
- b=N7qN0q1+miZ9NzOF4jRW6TJREIdVWvBWce7XD2CCmx9GNUyAMZi8MQSCK2CblFE3V23SMmenc
- PegD78X8mMfDbolbE8uK80PoQ2CUZTAthksEO971aDUlt7y72At1YDt
-X-Developer-Key: i=gregor.herburger@linutronix.de; a=ed25519;
- pk=u72Lv7+/lS5CC1hmSrb17lv/6CK7HBh4Lvz77PHA5LM=
+References: <20260928-rzg2-sr-boards-v10-0-91752ea39cbc@solid-run.com> <20260928-rzg2-sr-boards-v10-4-91752ea39cbc@solid-run.com>
+In-Reply-To: <20260928-rzg2-sr-boards-v10-4-91752ea39cbc@solid-run.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Fri, 2 Oct 2026 11:54:38 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXZMcdpgmZ8r3khF2er_ZNLsHJOXULbPmWj8ikCyeigew@mail.gmail.com>
+X-Gm-Features: AclHuK95-pOI_InJ83kxtHngxLL78Cpy4C0cuDPVuyEs-ntx9z4X1Kg0cbn21cw
+Message-ID: <CAMuHMdXZMcdpgmZ8r3khF2er_ZNLsHJOXULbPmWj8ikCyeigew@mail.gmail.com>
+Subject: Re: [PATCH v10 04/11] arm64: dts: renesas: add support for solidrun
+ rzg2l som and hb-iiot evb
+To: Josua Mayer <josua@solid-run.com>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Benjamin Bara <benjamin.bara@skidata.com>, 
+	Linus Walleij <linusw@kernel.org>, Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
+	Jon Nettleton <jon@solid-run.com>, Mikhail Anikin <mikhail.anikin@solid-run.com>, 
+	Yazan Shhady <yazan.shhady@solid-run.com>, linux-renesas-soc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-usb@vger.kernel.org, linux-gpio@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-The Raspberry Pi firmware driver allows the tryboot reboot mode. Add
-this mode and normal boot mode to the node.
+Hi Josua,
 
-Signed-off-by: Gregor Herburger <gregor.herburger@linutronix.de>
----
- arch/arm/boot/dts/broadcom/bcm2835-rpi.dtsi | 2 ++
- 1 file changed, 2 insertions(+)
+On Mon, 28 Sept 2026 at 19:34, Josua Mayer <josua@solid-run.com> wrote:
+> Add support for the SolidRun RZ/G2L SoM [1] on HummingBoard IIoT [2].
+>
+> The SoM features:
+> - 2x 1Gbps Ethernet with PHY
+> - eMMC
+> - 1/2GB DDR
+> - WiFi + Bluetooth
+> - SDHI Mux switching between eMMC and Carrier Board
+>
+> The HummingBoard IIoT features:
+> - 3x USB-2.0 Type A connector
+> - 2x 1Gbps RJ45 Ethernet
+> - USB Type-C Console Port
+> - microSD connector
+> - RTC with backup battery
+> - RGB Status LED
+> - 1x M.2 B-Key connector with USB-2.0 + SIM card holder
+> - 1x DSI Display Connector
+> - GPIO header
+> - 2x RS232/RS485 ports (configurable)
+> - 2x CAN
+>
+> Descriptions for eMMC, microSD and RS485 are provided as overlays due to
+> their dependency on configurable mux states.
+>
+> [1] https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/rz-g2l-som/
+> [2] https://www.solid-run.com/embedded-industrial-iot/renesas-rz-family/hummingboard-rz-series-sbcs/hummingboard-rz-g2l-iot-sbc/
+>
+> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> Signed-off-by: Josua Mayer <josua@solid-run.com>
 
-diff --git a/arch/arm/boot/dts/broadcom/bcm2835-rpi.dtsi b/arch/arm/boot/dts/broadcom/bcm2835-rpi.dtsi
-index 46c91468f4c54..174b13b8facbb 100644
---- a/arch/arm/boot/dts/broadcom/bcm2835-rpi.dtsi
-+++ b/arch/arm/boot/dts/broadcom/bcm2835-rpi.dtsi
-@@ -5,6 +5,8 @@ firmware {
- 		firmware: rpi-firmware {
- 			compatible = "raspberrypi,bcm2835-firmware", "simple-mfd";
- 			mboxes = <&mailbox>;
-+			mode-normal = <0>;
-+			mode-tryboot = <1>;
- 
- 			firmware_clocks: clocks {
- 				compatible = "raspberrypi,firmware-clocks";
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/renesas/rzg2l-sr-som.dtsi
+
+> +       sdhi0_4bit_pins: sdhi0-4bit {
+> +               sd0_ctrl_dat03 {
+
+> +               sd0_dat47 {
+
+Node names should not use underscores.  I  will replace them by
+dashes.
+
+> +       };
+
+Gr{oetje,eeting}s,
+
+                        Geert
 
 -- 
-2.47.3
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
