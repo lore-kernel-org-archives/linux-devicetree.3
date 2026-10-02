@@ -1,110 +1,127 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C611A42E43E
-	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 07:45:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1838412276
+	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 07:48:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790927129; cv=none; b=e24q8nxpgB2CCeYpxpdnMMVl/3to12tyXdjvvVF7gQToeRL+ZK1chlfHzEcnm0qU2Y0QxYgoj+hXaKINHNB637Qg8u/gWNBaha9rAGlvntUNpEW4ONuK9Hrcg7QZ6l9uhpkWZBWJbdyrEDOdw5wiFzTXvxEcmJlatDoofPeP7qA=
+	t=1790927311; cv=none; b=KPTPyAb0E0vIFheZlWxmwtQAoIKkAmyijgLjSeHXMyIdku1RIelvXUzSBQT+h6LPY5mNnFeBV8MVNYKCzmV95t0SmC/lIk8TGtvtOlAxwSivDvtJpkToCaiicorZ4j/0b+R4I/KvyRPmjJeo3RaV0HapP73T3D57eYkDw0exTmI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790927129; c=relaxed/simple;
-	bh=VxAFUhl8JDPZUyOTuk8XIlOz7AqK4lBsD6qFrsqfLkY=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=u02K/wBlsBs1EaDARUcaPoBhr0A4xknXBU5lp8rKy6wAlSp1T+Isxl/eJj3TmYifIZ4UV/C12IsuztxEmiwC/bhVvIB2dRxBYTy3NMQ4leNsIo4DrelwPCWzDiEMl9KUu9ppqgu9QL49aW9JsfMOrG0DU5ZVDK6keeOkuf1e27E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KwWcNgs1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790927311; c=relaxed/simple;
+	bh=XzG3l1W0BtphUrvrRi+H9un8Xrl3W5tYO+TPzQWZE6s=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=uCYRMQa44iq7xXQ12N6xef8g7YZO+opcI2DYSP1u9fQMlpeKzJIE3Q7vjBfsmjdLmKtsVpZrV8/ivc5vFamYZH1kEPSqZia+xLznjD3mIcjb3i6pxDzzUisb2mr3XU1oqsVJE12ZQFI2Pvorec3fn9V8AqcES9gVK5Zdegl0X0I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.net; spf=pass smtp.mailfrom=posteo.net; dkim=pass (2048-bit key) header.d=posteo.net header.i=@posteo.net header.b=LkNO0LWf; arc=none smtp.client-ip=185.67.36.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KwWcNgs1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E82831F000FF;
-	Fri,  2 Oct 2026 07:45:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790927127;
-	bh=4pEj+dUpf/d2gtpJtogfdsGqq/vlK1UHl2zJvGkpm1o=;
-	h=Date:From:To:Cc:In-Reply-To:References:Subject;
-	b=KwWcNgs1MZlqMxkfT7IHQb0OgwD7uDuXfJyzPT4PoK4aierCb6akK8Ud86GORFDv3
-	 AeYTaWRJgaBprMblb4+8OSzCbmnQ561UFRCL3BwGU7ArdYgcmIMbGZv1UzGyVTvCSw
-	 BrH+8oQjNu5w6+x/NEtjGj4V0CYfvNi4Vt86NFe3RAesC8vfcabSS9YUnTgvWpqsk2
-	 o8kuO+P0ujBJtxcH9HgVYb9EeNa9mMTgEP6HQWZJbAKaPSjnnA6wUPGfTx3pl8/8d0
-	 heq3BkcD0Qsc3A3fIGSl81fovsXvgC8EhbdaLI0Fexpnk1Qd+HSAZ/xQLs87/HaJcH
-	 9VDQQjACNzo/Q==
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 7A137198003A;
-	Fri,  2 Oct 2026 03:45:24 -0400 (EDT)
-Received: from ams-imap-11 ([10.64.2.31])
-  by ams-compute-02.internal (MEProxy); Fri, 02 Oct 2026 03:45:24 -0400
-X-ME-Sender: <xms:EGG_ao84nIIcq10xNEojAybswkNjRDuAzPK8g6y_Rj5MoNxZJpy7tQ>
-    <xme:EGG_arhit_jhYrvz4lnSPkVlz5C8Asx6LO543nX1kWA_1IKbVF6SLW4QXURGNcUa-
-    k-3q_2kVg5zdRpAEMZQJNHm0EK4SUqo1CH5DiqfUSkq79ckJJTLpqw>
-X-ME-Proxy-Cause: dmFkZTFkqu6HjImMUOMNeLbIKN4w3bg+6B0rzZnczP8X0ylnRs3MLgSfzeIYu2qbH5cZyb
-    Bj2VyJyRPgPRhfGQlY39HXL7G139EP4EEHUdh6l0Wn/QcimQNWGpIfWt0UVWH8zMP3lpUK
-    ez4LbVUVyWIVviWYqBYHlq52/gyKTF3eLd8kAHoe57a33p1LGn/X2FOWjFlJwUcemBor42
-    98Xdk38Cz5LQNNpdGbXYydUjePzoVC3jh8U0zuLFnGUbawTFYuqSJhXrmBy0dzbJ5fZWb0
-    AYAmbrf37DCnOWWlbazYPOIAVF6hSk+Cr3xdlzu25u60XCf4KhonTC8aDsttKBDIU9eWNV
-    6NBwXYn2LePslm7eStEvf7j8T2HoHe+jyGr0dMFdudBfNrW2m5et70K9/TySyUNCHfnh9l
-    oDReYD/YaAiHgseIOKpZa4ZP+801FbfiyYJ9zUdf6czikkKhFs653ByIszbuS4ETrl7HN+
-    PdZS7TqLxGd8h+G/VHuZtH0QapgTSkSZTrxZRay+kzyBHZa2D8wG0v34DXGAxBJ02iRiR1
-    Ygni2Cn4Hh3rjPoNtvH+d7ShdYI+XwrYIh0JczBkDqZTA+YZedtSE1VE9p5U0p132ynreQ
-    EtlhGEJThFxig5pIWYbAoOTgFMJGI+zDGkyECUs7IQEbByXM7uJyoMNyZTNQ
-X-ME-Proxy: <xmx:FGG_ajvuPZ5K4_AqhIkpf-74NH61GqjnXP4xFGh1gSVyabhuQePjLw>
-    <xmx:FGG_amIMKGB6H_D1DSzkpQc2r9irEeWGZDA311vbL2tG18yucdVBjw>
-    <xmx:FGG_aqMChE_8fMwucIVB6rlbURvBoZjNDTbPvIjcnt2jSUmDjX2AQg>
-    <xmx:FGG_aiCHRpeqZUpVgt9iXRpCWpnFOng0CZAvLkn9mkgDToG8eSu_iQ>
-    <xmx:FGG_aqWlWhyfWUpXSGhONnXV9US1aaqGAdj6cS4J_QbLOQf4jq968mMH>
-Feedback-ID: ice86485a:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id C7008F80084; Fri,  2 Oct 2026 03:45:20 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=posteo.net header.i=@posteo.net header.b="LkNO0LWf"
+Received: from submission (posteo.de [185.67.36.169]) 
+	by mout02.posteo.de (Postfix) with ESMTPS id 2BD91240101
+	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 09:48:22 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.net;
+	s=1984.8680eb; t=1790927302;
+	bh=TDtD1RuEvO0usfXj2x7thtiRxuzLJn150R30ry9M7hc=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Transfer-Encoding:From;
+	b=LkNO0LWfhS3/tZymvtKqSFt3Ttbdc5qZUXCH9BnuTQpxYKANnCe4R1xRX4+WwJy9p
+	 JoeE5JOd8wQyqL6MMHzy4o6IUlMkqVM4Iw3LdSKBD0IJLRNTcwxJhtT97Pzj/RdEvS
+	 +E6TmAQkQsPu7KMRWnNkjWmTuaOEDBJTilM+JxqufApE85NDMe8LhlRuV5y5DZLgrE
+	 6F7eBVg+gq9o6m+y+KPPzeYbvPss83zO4dR0Ms5kcewTaiRbH3AV05F1/PD9BLEQYL
+	 RESPuZWCkTBFw3hIUHLY/hw/55HVyDARYIUmztqgXjKAgPLhfCqQv1P28h8aC6x130
+	 vHSqQHE03j6zA==
+Received: from customer (localhost [127.0.0.1])
+	by submission (posteo.de) with ESMTPSA id 4hx19Y3Xh3z6twQ;
+	Fri,  2 Oct 2026 09:48:17 +0200 (CEST)
+Date: Fri, 02 Oct 2026 07:48:21 +0000
+From: Wilken Gottwalt <wilken.gottwalt@posteo.net>
+To: Conor Dooley <conor.dooley@microchip.com>
+Cc: Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>, Bjorn Andersson
+ <andersson@kernel.org>, Baolin Wang <baolin.wang@linux.alibaba.com>, Rob
+ Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
+ Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, Jernej
+ Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert
+ Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Philipp Zabel
+ <p.zabel@pengutronix.de>, Andre Przywara <andre.przywara@arm.com>, Bastian
+ Germann <bage@debian.org>, <linux-remoteproc@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+ <linux-sunxi@lists.linux.dev>, <linux-riscv@lists.infradead.org>,
+ <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 3/3] riscv: dts: allwinner: d1-t113: Add the hardware
+ spinlock
+Message-ID: <20261002094816.64349979@posteo.net>
+In-Reply-To: <20261002-matted-tux-5b4059bc305a@wendy>
+References: <20260927025626.69614-1-tien.nguyenminh@embeddedlinux.blog>
+	<20260927025626.69614-4-tien.nguyenminh@embeddedlinux.blog>
+	<20260927132707.5f484946@posteo.net>
+	<20260930130221.129529-1-tien.nguyenminh@embeddedlinux.blog>
+	<20260930160541.040ccc0e@posteo.net>
+	<20261002-matted-tux-5b4059bc305a@wendy>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Fri, 02 Oct 2026 09:44:59 +0200
-From: "Ard Biesheuvel" <ardb@kernel.org>
-To: =?UTF-8?Q?M=C3=A0xim_Pedraza_Padilla?= <maximpedraza@gmail.com>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
- "Maxime Ripard" <mripard@kernel.org>,
- "Thomas Zimmermann" <tzimmermann@suse.de>,
- "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
- "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>, "Jonathan Corbet" <corbet@lwn.net>
-Cc: "Francesco Valla" <francesco@valla.it>,
- "Mario Limonciello" <mario.limonciello@amd.com>,
- "Javier Martinez Canillas" <javierm@redhat.com>,
- "Jocelyn Falempe" <jfalempe@redhat.com>, "Sam Ravnborg" <sam@ravnborg.org>,
- "Ilias Apalodimas" <ilias.apalodimas@linaro.org>,
- "Shuah Khan" <skhan@linuxfoundation.org>,
- "Randy Dunlap" <rdunlap@infradead.org>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-efi@vger.kernel.org,
- linux-doc@vger.kernel.org, linux-embedded@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Message-Id: <001eb42a-ec22-474a-83c6-371f1f4b2b8c@app.fastmail.com>
-In-Reply-To: <20261001195847.141192-3-maximpedraza@gmail.com>
-References: <20261001195847.141192-1-maximpedraza@gmail.com>
- <20261001195847.141192-3-maximpedraza@gmail.com>
-Subject: Re: [PATCH RFC v4 02/13] efi: bgrt: export the BGRT table and image size
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Fri, 2 Oct 2026 08:32:51 +0100
+Conor Dooley <conor.dooley@microchip.com> wrote:
 
+> On Wed, Sep 30, 2026 at 02:05:47PM +0000, Wilken Gottwalt wrote:
+> > On Wed, 30 Sep 2026 20:02:21 +0700
+> > Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog> wrote:
+> > 
+> > > Hi Wilken,
+> > > 
+> > > > Wouldn't it make more sense to add the "allwinner,sun20i-d1-hwspinlock" line to
+> > > > the driver in the sun6i_hwspinlock_ids struct, drop
+> > > > "allwinner,sun6i-a31-hwspinlock" here in the D1 device tree and update the yaml
+> > > > file accordingly?
+> > > 
+> > > Thanks for looking at it. Bjorn hasn't replied yet, so I looked a bit
+> > > more at the naming. I'd like to keep the A31 fallback: it's the usual
+> > > pattern, other blocks in this dtsi do the same (timer, I2S, LED
+> > > controller), and Conor already acked the binding in 2/3. If Bjorn
+> > > prefers a driver entry instead, I'm fine to change it.
+> > 
+> > Yeah, Conor was a bit quick to act here, such things happen often with patchsets
+> > made out of documentation/devicetrees and code. Though, the get clock and resets
+> > patch is fine. The driver could use some modernization.
+> 
+> I dunno, was I too quick to act? The patched looked correct to me, since
+> it was using a fallback to a device that it appears to be compatible
+> with. Had the series done what you're suggesting, my review feedback
+> would have been to tell the Tien to add a fallback.
 
-On Thu, 1 Oct 2026, at 21:58, M=C3=A0xim Pedraza Padilla wrote:
-> The DRM splash client reads the boot graphics the firmware left behind
-> through bgrt_tab and bgrt_image_size. Built as part of drm_client_lib,
-> which can be a module, it then fails to link:
->
->   ERROR: modpost: drivers/gpu/drm/clients/drm_client_lib.ko: symbol=20
-> 'bgrt_tab' undefined!
->   ERROR: modpost: drivers/gpu/drm/clients/drm_client_lib.ko: symbol=20
-> 'bgrt_image_size' undefined!
->
-> Export both. They are filled in once, early in boot, and only read
-> after that.
->
+I'm just not sure how to actually do it right, because so many SoCs include that
+feature. That is why I asked how you would do it having more insight as a
+subsystem maintainer. It just looks incomplete to me. In the past I actually
+verified it working with H2, H2+ and H3, none of them being
+"allwinner,sun6i-a31-hwspinlock".
 
-Mind making these __ro_after_init while at it? Conceptually, they
-already are and should be annotated as such for robustness. This
-becomes more important once we expose them to modules.
-
-Acked-by: Ard Biesheuvel <ardb@kernel.org>
-
+> > > Bjorn, what do you think? Just stay with the "allwinner,sun6i-a31-hwspinlock"
+> > > string or add all the possible combinations like
+> > > "allwinner,sun8i-h2-plus-hwspinlock" or "allwinner,sun8i-a83t-hwspinlock".
+> > > I mean, it is just a naming game and there are 10+ SoCs supporting this
+> > > spinlock register file
+> 
+> All devices compatible with the a31 should use the a31 as a fallback.
+> 
+> > 
+> > > > Oh, and I may be able to test it against the D1, I own a Sipeed Nezha.
+> > > 
+> > > That would be great. You don't need FreeRTOS for it: I tested with a
+> > > small Linux module that takes each lock and checks the status
+> > > register. I can clean it up for the single-core D1 and send it.
+> > 
+> > Uhm, the Linux-only test doesn't work as a hwspinlock test, it misses the entire
+> > point of the primitive. A hwspinlock arbitrates between two independent agents,
+> > in this case, Linux running on the C906 core and FreeRTOS running on the HiFi
+> > DSP, both sharing the same memory bus and other hardware. If Linux is the only
+> > one who ever takes the locks, it is simultaneously writer and reader of the status
+> > register, so the test cannot fail even for a broken (or fake) implementation. That
+> > would basically test nothing at all, well, maybe it would be some kind of bring-up
+> > test, but overall quite useless.
