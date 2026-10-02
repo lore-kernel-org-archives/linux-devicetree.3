@@ -1,119 +1,100 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A733C495046;
-	Fri,  2 Oct 2026 13:04:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E6784968F0
+	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 13:11:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790946304; cv=none; b=d7zLFn/5UrDkiqrKsEO4Ms0VUjyVF1uzUsFGCPtQPqqJ5TFc9Xo8glYfW8MsP4LGWQK46Jp1C6czKwq5EOhvvjOuDvRRAfyjBYnRx7pugHyTE9jFX0MzldtaSEFz6Kuo+LRccdRMFqHlXY0wNsmy5K+tzhG4EeUmf05bI61Fg3A=
+	t=1790946718; cv=none; b=cmjsoGfVM+FJHFGfr+8DXUzQIlOZnnEWRN/94IUCQ7T8fHnSKlYU+vxfk0p6UG8u7SO2nbVwD9DUNTXVzIuiVh7UGg/byEsBDZ6DmOIl5kQPp/SUTzNxVjYt0TSztZ6OlW5yLqk1CNx9AvOFcRIvXXAWCfMy969Bu6RjzT9Cs/Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790946304; c=relaxed/simple;
-	bh=289DZ6JiRG+M4wMsk8erbXXe25eqe8qAT+bL1cCZqaM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FqftxOogQSVhdM63wR7i6tIqnOsgdkwXziGzYY4YwWVQ9XsIPTBanWab4dVkZ4Y1dGQan3J6k//JH1LJomtbwHlEG6JiEQZ5uWScjn4DiIehqY5rxqn/VCi+233T/U1MiWGvIXQ0rlcYFBo1MErNuBaZTzKrBcPcGjOUDsPvJcs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YzC04hWq; arc=none smtp.client-ip=198.175.65.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790946718; c=relaxed/simple;
+	bh=ITBkdrlm1x9MdPIWZ80K3saUREXZTgQLN+i8We/nPXI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=mbTYChRhjZZPeFYU2KRm3PlVDqQof/JOyFI0OdGeegjJWJ8wALQDfOWps+CQ4WelTDX08vKipq7j9QSp6Q9Gxq7eQBNF78R0/Xfi6GD94TNEHKmJLFoRKuUX5diPZQMJxr4Af5qVtYK+BD8v10eEaouBUmBLQHDLfC6i6Kljp7w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JgGLm7ad; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YzC04hWq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790946301; x=1822482301;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=289DZ6JiRG+M4wMsk8erbXXe25eqe8qAT+bL1cCZqaM=;
-  b=YzC04hWqeeHilyBwuT/HjbvzCIRN3AnOd9ShVzBJQ9mExk7FRem19rrO
-   ljkf3VxzJBmOauyvN5+DuQoN6eSMENqUsRUb9MIaLUtiot5xNQCZoEyQx
-   6bv+prqSGVMoS3xlnXCuN5kQeMs542R2SmRcrhbGoxgqelE3vpMfb5gru
-   /zl481q78wVSCNBql6oxGtAzGOzUjWQOji7U17rSX8jgc6UU5vS4acQmf
-   tBZbN4VjPRq2pYWpXF6+diYv6FkyM9xBgfYArAcVWYTSdeN6mBH0J2aVo
-   mrUMPJztFspa4yq/D/XhC5LuvuqPi3mZuCffuJyKNSNRsn1Ga0MD81q8U
-   Q==;
-X-CSE-ConnectionGUID: MA5cNl8aTEaqvs9jxkqezQ==
-X-CSE-MsgGUID: XujY7mepR1qQbXETzH5lFw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="90922518"
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="90922518"
-Received: from orviesa006.jf.intel.com ([10.64.159.146])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 06:04:57 -0700
-X-CSE-ConnectionGUID: rb/GzBuUScCWhsV+JwVDFg==
-X-CSE-MsgGUID: EnD0veMoTZ+hlXsCWG1SLQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="274051669"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.188])
-  by orviesa006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 06:04:54 -0700
-Date: Fri, 2 Oct 2026 16:04:51 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Kanak Shilledar <kanak.shilledar@axis.com>
-Cc: Henrik Grimler <henrik.grimler@axis.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
-	Joshua Crofts <joshua.crofts1@gmail.com>,
-	Marcelo Schmitt <marcelo.schmitt1@gmail.com>,
-	Chris Morgan <macromorgan@hotmail.com>, kernel@axis.com,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 4/6] iio: imu: inv_icm42607: Add support for
- ICM-42370-P
-Message-ID: <ar-r80gJSb3U-MwB@ashevche-desk.local>
-References: <20261002-b4-inv_icm42370p-v5-0-c65281b745c9@axis.com>
- <20261002-b4-inv_icm42370p-v5-4-c65281b745c9@axis.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JgGLm7ad"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 316A11F00893;
+	Fri,  2 Oct 2026 13:11:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790946710;
+	bh=PRg1yjC1JPzi2gLhZiOyQddBjuiFRv8ikds9AOSYny8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=JgGLm7ad/ZFZd+9wrKRUaadNjIojWPnPbokHHaHGv7QG2amJOnChLMMrZe+z/M1hA
+	 fSi+YE34P7AAAoj5Ng41XQGed8OnvKV+98hWDbH4ALu0wvy+bmdKG69cJbz1L2AtVu
+	 5NJZIbVY+6BFqaOb2++UwQM3TVADncDZfdakmlwnYFhfEW2C/hp0gaS2GtosWah7Eo
+	 1vzqSSGIqjqpOvEjedr3j3pPCPpc+FawcZchloJpLucZUdXAKUy5MUAdMATQdq4cie
+	 ij3UflU+/ccxMlQxFfTcmNWAyqTFnZogmLO1rwlyazn1rtEe7Nqs690TD7XhGVy8Mw
+	 Ti7kqmyWDc0JQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/5] arm64: dts: qcom: ipq9574: add the IMEM node
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Kathiravan Thirumoorthy" <kathiravan.thirumoorthy@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20261002-imem_restart_reason-v2-2-61703c6362e3@oss.qualcomm.com>
+References: <20261002-imem_restart_reason-v2-0-61703c6362e3@oss.qualcomm.com>
+ <20261002-imem_restart_reason-v2-2-61703c6362e3@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 02 Oct 2026 13:11:49 +0000
+Message-Id: <20261002131150.316A11F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261002-b4-inv_icm42370p-v5-4-c65281b745c9@axis.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Fri, Oct 02, 2026 at 01:54:28PM +0200, Kanak Shilledar wrote:
-> Add support for the Invensense ICM-42370-P MEMS MotionTracking 3-axis
-> accelerometer with built-in temperature sensor. This device is almost
-> identical to the existing Invensense ICM-42607-P IMU, but lacks
-> gyroscope. The device supports I2C, SPI and I3C. Implement only I2C
-> support for now, and provide support for raw sensor reads via sysfs.
-> There is also a built-in temperature sensor but it can not be turned off
-> similar to the ICM-42607.
-> 
-> While at it, change so dev_err_probe() is returned
-> when the WHO_AM_I read fails.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] dts: IMEM reg size exposes inaccessible memory to genalloc
+--
 
-...
+commit d2b7d5d7c89f0f7e2ce2ebd4070ca10c86d37283
+Author: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
 
->  	}, {
->  		.name = "icm42607p",
->  		.driver_data = (kernel_ulong_t)&inv_icm42607p_hw_data,
-> +	}, {
-> +		.name = "icm42370p",
-> +		.driver_data = (kernel_ulong_t)&inv_icm42370p_hw_data,
->  	},
->  	{ }
+arm64: dts: qcom: ipq9574: add the IMEM node
 
-...
+This commit adds the IMEM node to the device tree to extract debugging
+information. The commit message notes the region is 32KB overall, but
+only the initial 4KB is accessible by all masters in the SoC.
 
->  	}, {
->  		.compatible = "invensense,icm42607p",
->  		.data = &inv_icm42607p_hw_data,
-> +	}, {
-> +		.compatible = "invensense,icm42370p",
-> +		.data = &inv_icm42370p_hw_data,
->  	},
->  	{ }
+> diff --git a/arch/arm64/boot/dts/qcom/ipq9574.dtsi b/arch/arm64/boot/dts/=
+qcom/ipq9574.dtsi
+> index 771a595856459..f7cc6f274ca91 100644
+> --- a/arch/arm64/boot/dts/qcom/ipq9574.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/ipq9574.dtsi
 
-Keep the ID tables ordered by name/compatible.
+[ ... ]
 
--- 
-With Best Regards,
-Andy Shevchenko
+> @@ -757,6 +757,13 @@ usb_0_qmpphy: phy@7d000 {
+>  			status =3D "disabled";
+>  		};
+> =20
+> +		sram@8600000 {
+> +			compatible =3D "qcom,ipq9574-imem", "mmio-sram";
+> +			reg =3D <0x08600000 0x8000>;
 
+[Severity: Medium]
+Does this reg property expose inaccessible memory to the generic SRAM pool?
 
+The commit message states that only the initial 4KB of this 32KB region
+is accessible. However, because the node uses the mmio-sram compatible
+string, sram_probe() in drivers/misc/sram.c will automatically add all
+unreserved regions within the full 32KB (0x8000) space to the kernel's
+generic SRAM pool via gen_pool_add_virt().
+
+If any driver allocates from this pool and attempts to access the upper
+28KB, could it trigger a fatal Synchronous External Abort (SError) due to
+the hardware protections on the inaccessible region?
+
+Is there a way to describe only the accessible 4KB portion in the reg
+property, or mark the inaccessible portion as reserved, so the allocator
+state remains safe?
+
+> +
+> +			no-memory-wc;
+> +		};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261002-imem_resta=
+rt_reason-v2-0-61703c6362e3@oss.qualcomm.com?part=3D2
