@@ -1,80 +1,81 @@
-Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15FF9476041
-	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 09:16:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A7D147F3CC
+	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 09:16:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790932589; cv=none; b=ifwUIKlkXR753gbpU3GIAGQ31PgbX1bJAiJBKeSoOjTrehtiYN9rX8M1upB9UgD1Pa4bVfYNhCC9xcDYFu0yO72v5wTxfbqs6+qxD3Xro3evfoGmAxbWJocka0351CGCSCdW6FG/hohLNvxxdLa/ksvn1d5YZSoIEVvwCRoVd3I=
+	t=1790932593; cv=none; b=Mr+VbnzugklLz2HAx4UvZrTdVlXQuxcy3ox+HCUfEx9V48yxtjTnhGLi9jnhIu2mKNqyf3k410ud/sj1jebi/TQzEF61FN5bP8agoKxuGTQ+gzyR8ywQrjWAYpz1AetgH46JVBDeDprd0Ffbyu2wUbACP0MEfURv5cwlyCHAH+Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790932589; c=relaxed/simple;
-	bh=EFIxTrGIKdq/qFkxBC6zc23RI5jzNrCAhz/xxGasyhM=;
+	s=arc-20240116; t=1790932593; c=relaxed/simple;
+	bh=+nntUQFMA9ECBC0mOxhUiGIwsa46qGwVCDJJZvNWfwo=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=jLpqsyTsYSet2HYZmwa4mvkpz0DFtJRLq256Pv5jrSYsFpbu4cqMXOEVXDxQkKj8gVcJzrQpom9K7RVGh3NmQb2qVsF1CR+xh+DGhVG6sLVlCj0M+JXxABtEtt6TQTqmhDhMhhFtu5i1mb2BwyseNrDHX54uns7UFhk/zz7LyQk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=rkWnD4sm; arc=none smtp.client-ip=74.125.225.98
+	 MIME-Version:Content-Type; b=BtGmqvhWMv/yDruZqamIR21htuypFTCCf2VeM980nlaguI/UkmMinHUqDEI2p2poC6oGts6aYAzGpXZO3nMTmFmYrSBh2tIqmPg8GxnDh609bDvRtT8qAX/AQ0xA2cQMnhraujnlR2z0eh52QVZLjT7Gx897W4QIb/rOynN8hNA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=nWjlzvb3; arc=none smtp.client-ip=209.85.128.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="rkWnD4sm"
-Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48b017a3be3so2290415f8f.2
-        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 02:16:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="nWjlzvb3"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a006d3fe83so23369525e9.0
+        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 02:16:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790932585; x=1791537385; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1790932590; x=1791537390; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:date:message-id
          :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=iG1cG8IPx/QY/i9xckK9bOVlJmPgmj7TzAkhOyUJ5z0=;
-        b=rkWnD4smH+6mf3cNxC7Bo2YWn/QSVRewf5scpnDY+x3AB1q7LSv62pRF3653AXG+/h
-         rH1YIeAs/vrYUwb1abdpLUbQr1IsC4EN4vvIKR0JRmky5p3krnDURjbd4o4GugvJf6uT
-         dILW+iuwjZP5r26QHDjkrbmF9m6VGXeU2yMhIXHayDf/opoKZ7jY+YYyjX7srViB0we+
-         WSDt7mHxeAoz5HoELiql0Bwr19+F3b2tXZ1eGf4oMF6HMdPmsoJ6u/naaAMY9TFHVP6q
-         0Fac3KweMBH/2gry3eEUDNIwqDnp9t+IUXTcJMWZnpUEq0CRF59EPFj4/DsudkqghHS9
-         XeTA==
+        bh=Es1ESAl2Bi9P2/UjIit9xvYINnvS6VIXIVgcZvDxiCM=;
+        b=nWjlzvb3VsqllWhdfOhaZ3GMPTTzB9YXUlVvG8xCW42TbMt91pjuUUVXQJvaAEpAn9
+         CXK3+P78xG51gFdcOuMC3pn4LfYwHuM63GH1Sjc+OufE445feiuZ8oqfMaIdw3qXZT7D
+         z1JQd10Owwjz0bbm8t1HRK6ZCE6i2KnWx43R74ZiQ0Qvuh4DaPaWu/zKlwE1KO9ltgcA
+         G+Xg2OIpxkZY7+CqAc6CQAd8HCTRW5zAb4Al2G8l9phn8uO9yGEhkPOxobZknzuc0V76
+         y0i6aE/l5L7VXxMTfzbCaOR2J+97fKaa0HCQYq0NFzWNJH/Na6+h/bWtKM3J+QpYagtA
+         6FZw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790932585; x=1791537385;
+        d=1e100.net; s=20260707; t=1790932590; x=1791537390;
         h=content-transfer-encoding:content-type:mime-version:date:message-id
          :subject:references:in-reply-to:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=iG1cG8IPx/QY/i9xckK9bOVlJmPgmj7TzAkhOyUJ5z0=;
-        b=wVrGVW5kcsosVXo2s7Z6AY5PCI1gvdnXwIYLGkaQ/xYcnNaxSELOrjG7BbNzX4wWj+
-         bjsd2+aeizfOOYE9c58Uh7/TyyacktbLvk+7YGnjom0xGwgIdoMeG9FQB3O6dEpCKAfw
-         FSCwdxgLt+o5OTEWV1fw8moBvMkNz0kurtoqc17zXxl9bvScphUoqGk+C/5ZXYrolJMA
-         hsmbeu7x0g7hOLV15c/j34RqHuFdC0JnFPbV115uKikQklmPb1ev5p6cEBCrHmTFZFfL
-         SMX7jIKl7ZzB85AYbRBgqKJa1FJPo9U6485sfgHOSmYVYiCYJQ//3KSZW0gM5uFo8YWH
-         YqSQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxdoB6HZPhfKKcKYre4qhQIenuuvzSLO00upnGpI42UgrbJ+cndoVw5vifWj1XztkIWG8nJ2VObNEBT@vger.kernel.org
-X-Gm-Message-State: AFq9FYKMMU3ZEiu0UYyPFYijRBZT3h0y2rnQH6EIy/FViGqr8/CqfwrF
-	32e2VYDcLnYxfCzMXo3tFOtlFtdtATh22xIMAxgb7npaik/IJkNipmxDTILdSSOmt8o=
-X-Gm-Gg: AYBFou1d24mVrweEJwl0MzWGTlfutY0ACm6BueLUeuK3UDIjkgB1aXQG861uD1g+sI+
-	G4eZjjcVPapoipnjX2vnOd73/agDmWZLfy3zHY3vC0SyniXng1wlzwPjNb1Kz6qloAx9ZstZXS1
-	XjBmJhAuZWQ5q3w5F5QW3Y/c1nEB8bY58GgksNRsb7fZT1btUgI4478Rj4/raU1mhJlp5HTe/op
-	l7JeYZuz1SRU5JbgbsX8k4mgIi3mU90RL1+FFVKtH0VSckDaVEUM971rUrYOelq17sA2ILOeMbB
-	jNLZ8eLRE3S0lqiTIH1V/g9RvGI9hnggTKnMAbZixQu74EcBkOD0KZSe8JsRfVow0Lis2gfk1Hh
-	y4CAAyzsjq68/Mm9Y6teAJHgCuOoN7Yf103eUflvDvwB7tzt7t3+fQ0Fv4VIoVYabKmcg4VB8TI
-	u5kz3lB5cCaOncm5UkmM1fIPPc13RSPJOry625FuHOY4vhY54eer8LeOodPwe5v+ECg8zQVPOTM
-	y2+ZorRpwfaqV16/4E=
-X-Received: by 2002:a05:6000:310a:b0:487:1ac0:32af with SMTP id ffacd0b85a97d-48b1275b416mr3767187f8f.51.1790932585085;
-        Fri, 02 Oct 2026 02:16:25 -0700 (PDT)
+        bh=Es1ESAl2Bi9P2/UjIit9xvYINnvS6VIXIVgcZvDxiCM=;
+        b=d9rKSv8XFwvpa0DsEyiTVrWBCnUTRNKVmjrke8ow+2MSUT1d7svVaB5bA/IDMxD8pC
+         aLORNHgRHfnsXYgCqmffOKumqzaAg1P7BBOyzq0lOf5GmevhMfa1ZvVjt6zYfCN3Jh0z
+         7aLZtvgQI4/yUWZ3u6pLG2Dnj44ZF0QwnXkVWbO38/00jBy+NC/X+/FATGejkfsKsueG
+         2bC2FlihjQOBvJkaTZDXoaQkqtH8NGzNbwa+nxKqKNbhWtuSSJNFYWqZKPqF7uCCjLQG
+         Pgh6J3I7IvRD2HFSub9vgxAvuH4GGBPDqPkRV8GoLJJQ5+SCS9MsZw21nxPxLhZnEiVG
+         1Y1A==
+X-Forwarded-Encrypted: i=1; AKwUvBwDo7wKooNiqp7u8XCMFeSjW7Xl/Wu9ri0QP/DvTZWXs2JpFRRwzAYdvZjI+6J4zasLFM8smtP4f/zl@vger.kernel.org
+X-Gm-Message-State: AFuF++ndK7QsUxveKNjHsCktaGYR0rktZrqz5MsLHQFwxJgvem2/dtyg
+	l0+0v1wqvn6x+wjM7PMDDtm3N0ztKvdNtWreQ/x7HUHTqh0LwzJJpW7tRQpRPyeBS6I=
+X-Gm-Gg: AYBFou2L0VmEVgFMaHKKAcRB9tyMHNlMGPgKVFUlIUtnsXK0gIdprrb1DOcNHW63F65
+	yctWUdsvGx3YGxYBcvHODID21e+7mWKaBzJ3kgOfpja7zh0MLn7zjO/86OiAU72PzgWq1AruHTE
+	MqEB9lIm7sNtmgkMOo4L6dDHjL2imF5nuMo7OAf3VTEyr/5UzeTVTgbJsw0oSP3A4vbTHc/foHv
+	ISQZNDDqIQ/1hUhlfws1egAcMVYLON8dpvc5pUuXXeilmZ+LR64KcU+CDLqvvopLzjgKVKfepUG
+	54ntVq2mj3TEbCkT2enZ6/EbNyXCLRGYpURtmAhUezQYcWIFJqhxfLSHYbbDVUKEEdMxAQFNTza
+	J5dsmXVxKZ9/VscdADhW8ZzZr6sVpObmyxHxWZvtjxFSRMDtEEKOfPpg2GEgYYu66tFze9cizhV
+	igOpXbpT8kYt4YWEkCBu7oo9thiynW/XLzSCyGTBnCzDnZagBqZZd6zL7X90+PbA8wR4FxZROJ7
+	AH8UZj/kt+8naZ9sKY=
+X-Received: by 2002:a05:600c:5888:b0:49f:d742:97ea with SMTP id 5b1f17b1804b1-4a01eab3237mr86257095e9.0.1790932589833;
+        Fri, 02 Oct 2026 02:16:29 -0700 (PDT)
 Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b382f9ad6sm4461292f8f.40.2026.10.02.02.16.24
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b382f9ad6sm4461292f8f.40.2026.10.02.02.16.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 02:16:24 -0700 (PDT)
+        Fri, 02 Oct 2026 02:16:29 -0700 (PDT)
 From: Neil Armstrong <neil.armstrong@linaro.org>
 To: Jessica Zhang <jesszhan0024@gmail.com>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Aaron Kling <webgeek1234@gmail.com>
+ Conor Dooley <conor+dt@kernel.org>, Alexander Koskovich <akoskovich@pm.me>
 Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, 
  Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-In-Reply-To: <20260925-rp6-panel-v2-0-19c425e523de@gmail.com>
-References: <20260925-rp6-panel-v2-0-19c425e523de@gmail.com>
-Subject: Re: [PATCH v2 0/4] drm/panel: Support Retroid Pocket 6 panel
-Message-Id: <179093258419.2282096.16342679843740464292.b4-ty@b4>
-Date: Fri, 02 Oct 2026 11:16:24 +0200
+In-Reply-To: <20261001-asteroids-panel-support-v4-1-fb228194ad91@pm.me>
+References: <20261001-asteroids-panel-support-v4-1-fb228194ad91@pm.me>
+Subject: Re: [PATCH v4 1/2] dt-bindings: display: panel: Document Raydium
+ RM69220 DDIC
+Message-Id: <179093258899.2282096.1855528319289622159.b4-ty@b4>
+Date: Fri, 02 Oct 2026 11:16:28 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -87,28 +88,14 @@ X-Mailer: b4 0.15.1
 
 Hi,
 
-On Fri, 25 Sep 2026 02:08:18 -0500, Aaron Kling wrote:
-> This panel uses a Visionox VTDR6130 DDIC. There is an existing driver
-> for this ddic, however it is currently hardcoded for a panel used on
-> several Qualcomm devkits. This series sets up the driver to support
-> multiple panels, then adds the RP6 panel. It also adds support for
-> rotation as the RP6 panel is mounted sideways.
-> 
-> This depends on the Retroid Pocket dt series [0] for the vendor prefix
-> patch. That series depends on the AYN dt series [1] to apply cleanly.
-> 
-> [...]
+On Fri, 02 Oct 2026 01:51:41 +0000, Alexander Koskovich wrote:
+> Document the Raydium RM69220 DDIC and the BOE BF068MWM-TD0 6.77"
+> 1080x2392 AMOLED display panel used in the Nothing Phone (3a).
 
 Thanks, Applied to https://gitlab.freedesktop.org/drm/misc/kernel.git (drm-misc-next)
 
-[1/4] dt-bindings: display: visionox,vtdr6130: Add Retroid Pocket 6 panel
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/4cfc23733f15d75a787bcb370c6739cd954e74d5
-[2/4] drm/panel: visionox-vtdr6130: Add panel orientation support
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/0de9104a85cb6efb624e6afacfc252855fdde8b0
-[3/4] drm/panel: visionox-vtdr6130: Modularize panel config
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/628e7bff43c7ee3234a309fc58741eeecf2477eb
-[4/4] drm/panel: visionox-vtdr6130: Add Retroid Pocket 6 panel
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/74b7c75f7d442cc00fa759c22f746abaa70f264f
+[1/2] dt-bindings: display: panel: Document Raydium RM69220 DDIC
+      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/dfb7ce7880264ec69579db6c309c00f6c788256a
 
 -- 
 Neil
