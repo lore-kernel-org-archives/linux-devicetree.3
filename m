@@ -1,64 +1,64 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C360B476CE8
-	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 10:24:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA33547A888
+	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 10:24:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790936670; cv=none; b=eD/3RyErapPs7ARQ1qUi6CbVTX3bN6mvhz5FOKbYNbVwvWPwP479YuRXoM8G6zipCnKRbilZgHRgShLZYruSRDsRfjHIZ5NOH93hz7baec6kHn7z7fvG/50tOlRu6JPNIOX9X+Wk99xyamqKEd8e4NSepCuhxMHBiWbUNUv9c4s=
+	t=1790936671; cv=none; b=FC6l2m3LFdYvtFPvHMHBLg0yoor0PE8fldcLus9auATednwI7DEhq5bQ7f7qJaqgmxLK/+bGLOQ5SfNMncLJnye8bO9rw0U7fkWTe2IUv8+Kvs96lZ2T4WzkfTxr+fA6UqOKuC/DJchK04wDtk5P204l2UqIEYhjXl9jccFstr4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790936670; c=relaxed/simple;
-	bh=Us9uA+o3L80aiz1Lsm/FOAO3LtCeQ/QLKlf9cXy1zjg=;
+	s=arc-20240116; t=1790936671; c=relaxed/simple;
+	bh=w7OmkhtpQbSbKhpjB/7ILodpiKMPLVSfjJ/LipsnHA8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dfty+4/DdFgK6olcPx0ApfovnwGEPfIdYyp/h1VoH/tsTlkbnW0VeHDyGzvsRzqCk+G3lMzHQfeERIjJbwDw3LxrJuHva7Vv4FJ5Df0jQr9CSQJGEtBiirHpCJuwirh0+Kun1sIKv34NsLowyKY9+FtHDmKsA49te0tZWBg5gCQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bL27yZjI; arc=none smtp.client-ip=74.125.225.140
+	 MIME-Version; b=N5fTGGDP3cvuaC96urpmluQsYqmHW8iRH75HshF3ueJoCr4q2JgH1xHNDczohm0cYKIJHC86Q9on9bOHMTSKAUQysldcG9eUpTkFD4V7kU1GFf8+z3Nih/WwXGbTypdm6aC4Kaf/fiilpotsPTAX1c2Qo8PR2uEGCp8dg3EAlw4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Hv6sdqxB; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bL27yZjI"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e6598dd44so47191225e9.1
-        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 03:24:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Hv6sdqxB"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6598dd44so47191405e9.1
+        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 03:24:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790936667; x=1791541467; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1790936668; x=1791541468; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=l4SU93rxO9iU4XoD2a1LOc1G1KTUpeIL9BwetV79aAo=;
-        b=bL27yZjIq6ktGNW6we4rpiJ5GzwmCampPSlLfIevJzjtUm5y5q2wdN/X1M4xjVgREg
-         N70eTZ3EwVkBwx7TCX5y8X8IOcdpC4Znh5m3QyIUj93yPdV385TPxXQ0NcrHaE1UYT7f
-         PHxvd/w0jYEg3Npp2MQVQ62GsxLipN+lb3TSaXJNS1diZHgqMMkrZVWYKhEMLLG9iUkZ
-         OgIJ+X/yEmpfQExH5BCOSDIBCanVCZJYlKGrUdVS6sO/8FVJczojZScPycpb8+hZvTvN
-         j9zv8k6MsGjrX6fT1snCEZKrmNR4KdCK7s+47dIWs4tCIAFdYqYFfSxSpIl+5hhqWAOf
-         aM6Q==
+        bh=wXvq0gg0+t23z7kZpF5ZlYYsh93CZVLrZlTbiFH00UI=;
+        b=Hv6sdqxBYyi3ca7KJUSLMr0OOfVoTCke+p/FViViAuksUE97O77KIOPiiOuE7pBlxy
+         whAmCU8iiJPCrLvCubO2cX53uxz+msvZdCV0VtdoYdx6QwvoS5yn5AB8poa11RHKUc2S
+         EoWdpldwd5xWzlEbd6Y9LwJHRfTR16tO8g7tholiuFUaRgX+yVOEg8176KHdLNp2UoG/
+         1cc0C5IQpHq/1CYIqlO2rG1mUKgOfq3bDAB5RuD2/klTNXkppB17R+XCko3ELY0AD6BB
+         vj8Piz3XQxiXgaBH2Vvk7cGpDp/psOlDrC1EZXf+9CMQhzIfuvOiKvnQw8JxfJ996Y0N
+         SG4w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790936667; x=1791541467;
+        d=1e100.net; s=20260707; t=1790936668; x=1791541468;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=l4SU93rxO9iU4XoD2a1LOc1G1KTUpeIL9BwetV79aAo=;
-        b=TNy5vktRDUpUhxNJMGhX3ln1MEI3LJw0rypOchaf+3JszoddwbTs9+IVf/3itdq8BI
-         3Zx55EOS/fsgC4anob1sQaM1JyaLnU7pHHStiBuQ5KflvGILjyrG/HBluaUYseZCINiq
-         fl+JcrTp39eCQfftT8aTn68EB+RA8oSLxZ2DBrmhNwrkwviYHjv+UZRyzPne0SDy+NjX
-         R6dGsgeDaCa5DAdcCq51I99p0ztQVx9V/wvCH9BzN3wor9Em3zXWNt+pjQq5zvXUXeZy
-         P0EaLMiMVkfzI4YTaoUc93hzP0JvFqRbbqQzV6lU3IdjENM/nuWRaK/LQ+IUuBCNRQkx
-         KCNA==
-X-Forwarded-Encrypted: i=1; AKwUvBxT2BGfwZYvxdmp/SCfsyZneL3XKiRvBQBrFChA+0YDxV2DY32rjyapOMUZTfofwxn+UPEWyfFMhLoH@vger.kernel.org
-X-Gm-Message-State: AFuF++ki4wWuIiXacZE/G6AeZE2l0S8IkSlivv2S9/6u7tmawLQ/sy77
-	3yk6tvjoFSF0gibN7QtSWpeR1/+krgrt0Fss8iszhR0A+hoOOvGwyxwDgsBUrClyTkk=
-X-Gm-Gg: AYBFou39sIauUVg5uqzMdUNPP4XilHCiHHMsjZ6u2iS2n88/L7Uc+ghUIeG99m7W1cD
-	S3m02Y3wErB1Y43tfd8+7EHKUYeJzjdwVCcO07wd5n3wsTzdilPJM0Fpw/RhsAA6Omg2wC7mPWL
-	fMbDvi4JQwBo1L54T8VQiTbAsOP2hcVK8EqlrA3E5+7VKxnm0VlXEHHU6uOxA26TkgDSxnVpvqQ
-	YFBW8O55y++ffuA7M1hvnSEt0YgbXY85x5b2UdiyXkFuKvb+nxFby4DZr18bBnOxX4U1onwAz9w
-	b01Mrjy+ZHtPQnL7ndT9d68GiCwJXwFsFzznldH7+E52DFaJRkyv45lRM4aDMa6PCekgTbyiGlb
-	uonQ773nsPoxNnXTDlroTVJVCQvneYtQB7BSgKsG0kYEppnm7+jIdpuirJL55INvj3IKVhvtcKa
-	1Z/5x41nEgVWnkc7OlAaBBfiQxxW8EN+NaBEQ/v9FnWHuF8GToJ3XApLgWjsLgGitpm0++CUDQY
-	HM6ZcFP9yoQ6ShmlEdQZoZMiuzb4/IixGJ0y5rPQ9IkwQ==
-X-Received: by 2002:a05:600c:608a:b0:49f:bcce:13f5 with SMTP id 5b1f17b1804b1-4a02758e6e1mr38928735e9.24.1790936666932;
-        Fri, 02 Oct 2026 03:24:26 -0700 (PDT)
+        bh=wXvq0gg0+t23z7kZpF5ZlYYsh93CZVLrZlTbiFH00UI=;
+        b=DRKhPuOCXV6DjiFKQzsVHAzFHT6Fn7x1OF2tCjSJcfMymkASRWly7n2Cyt8hzLq7ay
+         7Wvye8v1D1ejPc3qff0M0lbJjq5XanZ5KE/mbiZIgSt3DyFi1RvXbpBq8rKY/2GlXVFN
+         iTnIYWIPEuiRujKLZZ1mAp2Nh3qOpuq19gaE80UBWZ8KHWiWpueu7Wn5minwJdfv8x9R
+         3TYEMI5xRiuA3SFvcETDDr5IbpO9h+hS5RrDFtdYE+r7q1Lf2MPmeXy3gISQKdJopg+H
+         ocwHoJtYcsu3G/NyfQ1Nlps0xXQDo+gIBhgcOplOpmIbcyyCGXSuFPs/JxBjruq6Jtfd
+         Fjkw==
+X-Forwarded-Encrypted: i=1; AKwUvByw4v1vFZEjsX/qHMgcBI6DVC+PeSD5FT37EM9v+OSrTx80+c1Oqt8RMbLENJ6kxbi4A77pKOD6FDTm@vger.kernel.org
+X-Gm-Message-State: AFuF++kv5PJcERBsQUNw1XN/hQaaDMAEjlv3HlkT3nQkS0qd/i4vIR9E
+	NdJdGCF4fnHW2FFxZmlXjbR/dzpkVwUxwgc7hLEWn1FvsxObXy8F94/9
+X-Gm-Gg: AYBFou37hv8ZB2Gkn4Bx4j8kHbKkJbIRT/ukl/xZJmp55+y6i5mEYd5ibAERcQqvxJc
+	XG/HRZwHTcOq42fMQTxdg+DnfpF3+zz9ReoIsOTyqXzykLBUK6sglNOt1e3BiDrbbxCfCZpxZVz
+	WlFvD7WN/ab80q5FzA3RIII0BLbXyGolXrSLFUqoFgirK7p81pSa0GqsQ3tyG1/QM+ClF6CzDIL
+	Mb7erizx7++vkbOzHGn6ArrU/JC0PRV4Jo6UmrUpsBKr7E/ePvjzldRCyyjWK+ab1cXGdo09rlG
+	c8X+k17w+pJ1+79VTXSkUz4JzrCXhUSPKeMJaBnJ3L/pugElouF8I0aZ2o9S+4BbgrSG5IYN1lq
+	OtMiwS3+3LxxVGk1TQvrTXPrfWT3ZqjetT+eFtzoEXsGH7huYB4vfNJgZ+Arn3QMue066ryS6Pe
+	QoxCgGFCxqhXkcEmnguwkAe/oDRKo1br33AJ7cMwf988RlSwESeHZyT8mrqY/MpCZyK7JnvJiCp
+	q7hWe9Cj9hsEgK8sHgNNulvbi9pLVt+KNMzEN+T9MjY7A==
+X-Received: by 2002:a05:600c:1546:b0:4a0:1c43:3c04 with SMTP id 5b1f17b1804b1-4a02756e5edmr41676685e9.13.1790936667497;
+        Fri, 02 Oct 2026 03:24:27 -0700 (PDT)
 Received: from zeus.localdomain (212.71.14.70.adsl.dyn.edpnet.net. [212.71.14.70])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a027735be1sm99557875e9.11.2026.10.02.03.24.26
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a027735be1sm99557875e9.11.2026.10.02.03.24.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 03:24:26 -0700 (PDT)
+        Fri, 02 Oct 2026 03:24:27 -0700 (PDT)
 From: Sander Speetjens <sander.speetjens@gmail.com>
 To: Alexandre Belloni <alexandre.belloni@bootlin.com>
 Cc: Rob Herring <robh@kernel.org>,
@@ -73,10 +73,11 @@ Cc: Rob Herring <robh@kernel.org>,
 	linux-arm-kernel@lists.infradead.org,
 	sander.speetjens@gmail.com,
 	pbrobinson@gmail.com,
+	Conor Dooley <conor.dooley@microchip.com>,
 	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v10 1/3] dt-bindings: rtc: Add missing type to trickle-voltage-millivolt
-Date: Fri,  2 Oct 2026 12:24:17 +0200
-Message-ID: <20261002102419.830595-2-sander.speetjens@gmail.com>
+Subject: [PATCH v10 2/3] dt-bindings: rtc: Add property for Raspberry Pi 5 RTC
+Date: Fri,  2 Oct 2026 12:24:18 +0200
+Message-ID: <20261002102419.830595-3-sander.speetjens@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261002102419.830595-1-sander.speetjens@gmail.com>
 References: <20261002102419.830595-1-sander.speetjens@gmail.com>
@@ -88,32 +89,73 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The trickle-voltage-millivolt property had no associated type.
--millivolt is not a default property unit suffix, so the schema does
-not automatically infer uint32. Explicitly reference the uint32
-definition so the type is correctly declared.
+The Raspberry Pi 5 has a built-in RTC that can be battery-backed
+via the VBAT pin. When a rechargeable coin cell is used, the
+hardware requires a trickle-charge voltage to keep the battery
+topped up.
 
-Suggested-by: Rob Herring <robh@kernel.org>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Expose the trickle-voltage-millivolt DT property so the driver can
+program the correct charge voltage for board specific configurations with
+the attached battery.
+
+The property is added to the existing raspberrypi,bcm2835-firmware
+binding (rather than creating a new RTC node) because the RTC is
+accessed exclusively through the firmware mailbox interface.
+We only $ref the individual property from rtc.yaml and do not
+reference the full schema, because the firmware node name does not
+match the $nodename pattern required by rtc.yaml.
+
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Signed-off-by: Sander Speetjens <sander.speetjens@gmail.com>
 ---
 V9 -> V10: No changes
 
- Documentation/devicetree/bindings/rtc/rtc.yaml | 1 +
- 1 file changed, 1 insertion(+)
+V8 -> V9: No changes
 
-diff --git a/Documentation/devicetree/bindings/rtc/rtc.yaml b/Documentation/devicetree/bindings/rtc/rtc.yaml
-index efb66df82782..e46d50b1063e 100644
---- a/Documentation/devicetree/bindings/rtc/rtc.yaml
-+++ b/Documentation/devicetree/bindings/rtc/rtc.yaml
-@@ -51,6 +51,7 @@ properties:
-       if trickle charger should be enabled.
+V7 -> V8: No changes
+
+V6 -> V7: No changes
+
+V5 -> V6: No changes
+
+V4 -> V5: As discussed with Conor Dooley, the reff to uint32 is removed
+and a PR is made on dt-schema adding millivolt to property-units.yaml
+
+V3 -> V4: Add a reff to uint32
+
+V2 -> V3: Fixed the firmware property naming
+
+V1 -> V2: As discussed with Krzysztof Kozlowski, this property is folded into
+the existing raspberrypi,bcm2835-firmware properties.
+
+ .../bindings/arm/bcm/raspberrypi,bcm2835-firmware.yaml      | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/arm/bcm/raspberrypi,bcm2835-firmware.yaml b/Documentation/devicetree/bindings/arm/bcm/raspberrypi,bcm2835-firmware.yaml
+index 983ea80eaec9..dc71fd57834e 100644
+--- a/Documentation/devicetree/bindings/arm/bcm/raspberrypi,bcm2835-firmware.yaml
++++ b/Documentation/devicetree/bindings/arm/bcm/raspberrypi,bcm2835-firmware.yaml
+@@ -133,6 +133,11 @@ properties:
+     required:
+       - compatible
  
-   trickle-voltage-millivolt:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-     description:
-       Selected voltage for trickle charger. Should be given
-       if trickle charger should be enabled and the trickle voltage is different
++  trickle-voltage-millivolt:
++    $ref: /schemas/rtc/rtc.yaml#/properties/trickle-voltage-millivolt
++    minimum: 1300
++    maximum: 5000
++
+ required:
+   - compatible
+   - mboxes
+@@ -144,6 +149,7 @@ examples:
+     firmware {
+         compatible = "raspberrypi,bcm2835-firmware", "simple-mfd";
+         mboxes = <&mailbox>;
++        trickle-voltage-millivolt = <3300>;
+ 
+         firmware_clocks: clocks {
+             compatible = "raspberrypi,firmware-clocks";
 -- 
 2.55.0
 
