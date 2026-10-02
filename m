@@ -1,68 +1,68 @@
-Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com [209.85.219.48])
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D1053BADA7
-	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 19:18:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57B8B3E073D
+	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 19:29:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790968720; cv=none; b=baSs9esEMOekHzV7VnwET9FHYDG/U2QJ01jIO6Vej50PsZOJW4WVB1CAEtdt9FD+xSmx6feMIUtuFk8cbNRO2kb45lvvn3g3vKm5JXCq2IIkMJrtBAxVfWb6RagD3qAy9sGCUhR/bfrRko+/Fbzl0Zh0dsj7cjYtFM3GTfNu7Qk=
+	t=1790969398; cv=none; b=u8aPbOxNpwrhqACcCr7e3g9hZSvbTafc6K8iwEKlMXPBlfFcR/TqGVE2+P1KNheKC7IL9mpmHeHsmXZWfggjH0n7VyN7Z2W8XkW8jqgZQ4oMGQUtTyf8Tn+cICXP+atyuNwpzq2IqvVLEsWfhzDZQBmyzcNsVSpMsbENU/j+KNE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790968720; c=relaxed/simple;
-	bh=jsedZLxYBjeRK5DRFBlUwUDOw3C1t+5s3b7lh0/hqDA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kxnYa05nyDB0xzaSdvrYM4XTt6M2vrX7UGqmZ+xFwqfQWYcs83dK2WWyaqli5mPOe89GWMKWRmYamc1sczgOFwbr2uCJDOxXv5zvk1cwOq0sPpFuScReCLfXWRsvVuZT070R+6bRDuKRFAoewjUKQFNmwE6iYmMFVgV6lB6XN0c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=eghDmcSR; arc=none smtp.client-ip=209.85.219.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	s=arc-20240116; t=1790969398; c=relaxed/simple;
+	bh=gYX5tGbv5Wzep53IGVNll4lhze1F8DYjm44G83CG9KA=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=Zv0MLW7dnPbv2bUwRPB98fuYUbmdxiWroRlroTy6slICUGS6CqqmfZyW9fzH3mP37elU4YXUikHeHeykJ63JizL9pNb+PqlO3QWt+iuFbB0YDEtCTRf+UNosLy03kJSTctDgclmMbT8X7Bf2BwnUbmWfweTZHLZkIORxW78CRbI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Lr9mzQX1; arc=none smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="eghDmcSR"
-Received: by mail-qv1-f48.google.com with SMTP id 6a1803df08f44-91791ec1b83so544266d6.1
-        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 12:18:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Lr9mzQX1"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48441a2ba1bso941681f8f.1
+        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 12:29:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1790968717; x=1791573517; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=K2WGxmgiqbuVWGrMMN7M+HLRy0CqkeslBWbdjt3ajek=;
-        b=eghDmcSRsR6MOItEQd6AKVUmnUtisYNWkhZU9z5cL/DTj8jualhQcRwk33Y9a6UdOp
-         tvXhwTjgyzCx0fzgVXbzdFi5tecJ4g8j+Ch603SxboaDbbIBjWtQ94+hOLawY0Oepn6M
-         gE0DHnHjVDcGbpp1TuPQ32XLwMZKMlVEoFpPMmU3jr2BN3Cj5zSXZLeDt8BGe5XqD3ch
-         Eoeo//GZIU3j9xx4jYjKhOYCPnzOaXAPM+mHc+fWtMxgQkQiHOG/i5By/Xl4OSS8EZhJ
-         FnvaUi62c8p7ZGrWmAb5hpds+Zmkg+wkBfOHxZy/EtLcFLEvNCGBtGIUDAGso76DNv6w
-         gPIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790968717; x=1791573517;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=linaro.org; s=google; t=1790969389; x=1791574189; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=K2WGxmgiqbuVWGrMMN7M+HLRy0CqkeslBWbdjt3ajek=;
-        b=lGBiPn62ED+HxGmbFO39IIDfE0IdtebZ15TNt2xIZwQCaG+ZkYxN0xlNERQBnIfGgX
-         vkZZn75MPBVsFD9DRcdcgDrqXEaKw+G6EdUp0N5KeUpQoYOSnWr3+FjuLUj9CIuhkD3b
-         AK9Bh/VJhcsI9Mh9yNbCT2SSLltW7It0mWI18bOaCbmq/EiCIHXuUC4GqwiCHCoJ8M7g
-         8c1F1G+mZabqC0E2o2G0xxxUoIYJqS+503VWAhwqOl7skL0X0bEt7zuZWN+ifqd62nU+
-         2BIhL/A08DfchGVUdhm5fA2CYbFSREGcx/NbMei1Xp6QcqiO8iE2VkeMxVkQm5dNNeXl
-         /aIg==
-X-Forwarded-Encrypted: i=1; AKwUvBz9hflNPoc6mfsmj7XGWWgqyAyGYABp68KbiqRDpP2nwYw6lM88ZODdaeCre2y1Tm97XYY4sDm06ymV@vger.kernel.org
-X-Gm-Message-State: AFq9FYJX7as5r5vV/EUJUMCUuvGEUafrWq03G8GcTInaLNnRGSAqEBPS
-	lJosBejqwQ1Gadb72TkX5pBDeY+3tY/M4G+Tii3W94KhowotYVo1TGj0I7kY63bWkOY=
-X-Gm-Gg: AYBFou2euM/ybm8orUoMtm966zvqsTIAJjr0gnUnfZpZfYNiW6pf4LaHm3dcwPvpDgr
-	SnMPlQZLGP9ImUjpApTmstD+FtaNvi/R5orlt9+BV1KTZ6NbEz8GkYC7LDknIAxUFP8oSs0S1vE
-	Vb7qVFE3CtMuBSdlP3FEorpKJI3OLNoF1/uDdHytXuWp7nDaEBig6PYjrwML8X5V5pS2Hvw/ANG
-	/c3VdmXzwCj0celg6vKPndB5pGPFYGpKkSZEYoJAB749p2ptu1/5jgbbwxVwHq8mZsbZnJ9nxEh
-	IRIsvvNpwqApMCe+WZUS90Malgq/XV7dq1/+5MmIBB3MRhDD8MYFi+KLORWn6HLv0mTxxOSmLRq
-	RIhREPeAXSWcKV0lC5/f78SWsYKN4koAGMs593oDlihzboQnqPGHiZ9Pn0e+nBL5+8EtK8ZnJdl
-	jFnIw+AopzZCqVdIZ8SiLY8DfyjTFrVbFhD+r7lN9hdQcE+T5c7BhW0Sglie5T1iif9a4BJjP5x
-	dYAKiFxZyQ=
-X-Received: by 2002:a05:6214:3019:b0:917:a92a:fd59 with SMTP id 6a1803df08f44-9195d1da497mr5054326d6.37.1790968717042;
-        Fri, 02 Oct 2026 12:18:37 -0700 (PDT)
-Received: from [172.22.22.28] ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-917e0b67167sm27020566d6.21.2026.10.02.12.18.35
+        bh=cztgwljGD8oX4kZgQ1gsJ1QSEaSYmGWQ7py1olDlbuE=;
+        b=Lr9mzQX15dgg6gdyNByNl+Equil13ZCaDpqXO87nWZIqpDQARe7vJi/FrMqUTD6BFt
+         dJ2d050iZqEaulwK2sJiCyHIxpPLtaeZuzGIazDaXKjQlaxCh2DiKYZ+WOQKYcMqPwv4
+         /w/bP5izw773klXkfMdqI7R4ZQIlTXpslF3FvunVwxwNrTnOVPTR3fLF34gtyyBZKrlC
+         p65lqy4Q3fkOZbtznw/MivsRhfrM7Oy2Lz5pbbkm15uMjrc7oXt1UW/Sj+1nCTv7qlCL
+         GhUYjVGXn0t1IHE2ML2S9UagfumpJFokkKrz4Rx5gkFogoVMRlD/NWE5Dk6AZxBJ3sWd
+         Lcjg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790969389; x=1791574189;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cztgwljGD8oX4kZgQ1gsJ1QSEaSYmGWQ7py1olDlbuE=;
+        b=I9brou4Qbx6Om5MSvVSyI1rV0uJZKFATkV8szMU/EEjxLmOg2azj0BHxugtZPXvDBP
+         Z+65pg3HR71PhbX2Zyw5JzX9bCMH8nDyCCZWJC92l6cpZt06hbgI/wg57gEEqXdGLPdS
+         1MO66IJ1FQhnh59zM0nOXDAF6S5Q1114hacuAkARXorBx8kEclE/yxB3clvraD3q8izo
+         q7G6nq2w64LjcpJyCyeZh42hOYOMMRbBE1Wm87wFKOlXvSWx4YHG26cm0aTkNSAOseh+
+         ELh1GBmzsEizYdRr4bZhWCA+is1tnTimjrmMxV1NTpXSFjhKKSafr2lRJz1QfTkqRYTO
+         Vh4Q==
+X-Forwarded-Encrypted: i=1; AKwUvByBJYql3HwbjJn4YOgeUW01QDRtf1G643ChnbyfyF00oKJtDKPvN5MxCfID2PGESsQfsYScED3rqbwM@vger.kernel.org
+X-Gm-Message-State: AFq9FYIUF+FM8bx+d3663MKggaEWZnpqKMgrGDaZcg4fNiTIOB0/H090
+	j+xJ9X0Nh5/84ecyYiNyQmnSNrzsl+xFjbhFipFwGDECLxyEoXwV05oBQFKqrvHVqWs=
+X-Gm-Gg: AYBFou1QOcn2MerB//EN4+BaXz0wp2NmJTPgfFmyx/LjUVgWGwDVuWVhiYhcazl6IgE
+	L//D9DMoQjR8UTpYshNjVjL6IZjhbT14e5QwC+pnngcqLhkv/VllUTe/10if2/nli2hodpB8XmS
+	9EgEcjWRS6Lioj1pb5SB+Mghv4BxpHjeGjh3QocjtKI+YOFd3HTSTdXmVstJ0RAg/rbuioIAEKu
+	vmBPaLGRS8f+RUbVtYmNkID8EIPPGfNAx9MrCbigRf85aJzhBuC0pv2GKE0tHh42QMKCleCqahc
+	zLB5N3sFc9dvrM9/Mk83YwIKeP2juJDEI03NgA4uYOTdDap1XpXZAKJDciV7roMGNZE/IhVPvmX
+	/hl9qLoKeNvKqJ+AIdajm1Feg4yGKLdQdhsAPdixnXgvhbr+tDuTSHmG+mLLDJyNGcNBq7gmAEL
+	XFuhTmC2ne5TppK34QRUzpo3yxPvCKDvIYs1GqVbLY3Wq78toCqq8NtwjXL7cGusJ31cYUL/oix
+	rgGJbA3JnxehMH9kX6DAy4EWapy4dGRzH4kWZ3kZ3RpvbdDvr0=
+X-Received: by 2002:a5d:5d13:0:b0:488:75e4:f5b6 with SMTP id ffacd0b85a97d-48c4801c1aemr625756f8f.54.1790969389014;
+        Fri, 02 Oct 2026 12:29:49 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:2f62:6d3:721b:8c9e? ([2a01:e0a:106d:1080:2f62:6d3:721b:8c9e])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b380facfesm8184812f8f.23.2026.10.02.12.29.47
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 02 Oct 2026 12:18:36 -0700 (PDT)
-Message-ID: <6cad75b3-c4fb-486f-82a2-6613c4dffe32@riscstar.com>
-Date: Fri, 2 Oct 2026 14:18:34 -0500
+        Fri, 02 Oct 2026 12:29:48 -0700 (PDT)
+Message-ID: <23235204-8e5f-4fa7-a900-66acfcfc593a@linaro.org>
+Date: Fri, 2 Oct 2026 21:29:47 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,100 +70,112 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 0/5] PCI/pwrctrl: tc9563: Introduce support for
- embedded GPIO controller
-To: Bjorn Helgaas <helgaas@kernel.org>,
- Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
- Linus Walleij <linusw@kernel.org>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
- Bartosz Golaszewski <brgl@kernel.org>, Konrad Dybcio
- <konradybcio@kernel.org>, Michael Walle <mwalle@kernel.org>,
- Daniel Thompson <daniel@riscstar.com>,
- Sushrut Shree Trivedi <sushrut.trivedi@oss.qualcomm.com>,
- linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Abel Vesa <abel.vesa@oss.qualcomm.com>
-References: <20261002175405.GA189401@bhelgaas>
-Content-Language: en-US
-From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <20261002175405.GA189401@bhelgaas>
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v2 1/2] arm64: dts: amlogic: meson-sm1-odroid-hc4: mux the
+ SPI NOR HOLD# and WP# pins
+To: iav@iav.lv, Kevin Hilman <khilman@baylibre.com>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Christian Hewitt <christianshewitt@gmail.com>, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20261002-hc4-spi-nor-v2-0-8366a4f91049@iav.lv>
+ <20261002-hc4-spi-nor-v2-1-8366a4f91049@iav.lv>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20261002-hc4-spi-nor-v2-1-8366a4f91049@iav.lv>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 10/2/26 12:54 PM, Bjorn Helgaas wrote:
-> [cc->to: Bjorn A for arm64 DTS, Linus, Bart for immutable branch question]
+On 10/2/26 20:36, Igor Velkov via B4 Relay wrote:
+> From: Igor Velkov <iav@iav.lv>
 > 
-> On Wed, Sep 23, 2026 at 03:43:50PM -0500, Bjorn Helgaas wrote:
->> On Wed, Sep 09, 2026 at 04:55:52PM +0200, Lorenzo Bianconi wrote:
->>> The TC9563 embeds a GPIO controller currently used for per-port reset
->>> signals.
->>> Add a driver for the GPIO controller embedded in the Toshiba TC9563 PCIe
->>> switch providing 37 GPIO lines. The controller is registered as an auxiliary
->>> device by the TC9563 power controller driver and accessed through the same
->>> i2c device.
->>> Please note this series is based on pwrctrl upstream branch.
->> ...
+> The SPI NOR flash uses six lines, but nor_pins covers only four: data,
+> clock and chip select. Nothing claims HOLD# (BOOT_3) and WP# (BOOT_7),
+> so they keep the boot ROM setting. After a boot from SPI they are in
+> the nor function and the flash works. After a boot from SD with the
+> button under the board, they stay eMMC data lines pulled low, and
+> spi-nor reports "unrecognized JEDEC id bytes: 00 00 00 00 00 00".
 > 
->>> ---
->>> Alex Elder (1):
->>>        gpio: tc9563: Add support for the embedded GPIO controller
->>>
->>> Lorenzo Bianconi (4):
->>>        dt-bindings: PCI: toshiba,tc9563: Document embedded GPIO controller
->>>        PCI/pwrctrl: tc9563: Add GPIO auxiliary device support
->>>        PCI/pwrctrl: tc9563: Switch per-port reset to GPIO descriptor API
->>>        arm64: dts: qcom: qcs6490-rb3gen2: Enable TC9563 embedded GPIO controller
->>>
->>>   .../devicetree/bindings/pci/toshiba,tc9563.yaml    |  14 +-
->>>   arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts       |   7 +-
->>>   drivers/gpio/Kconfig                               |  11 ++
->>>   drivers/gpio/Makefile                              |   1 +
->>>   drivers/gpio/gpio-tc9563.c                         |  99 +++++++++++++
->>>   drivers/pci/pwrctrl/Kconfig                        |   1 +
->>>   drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c           | 165 +++++++++++++++++++--
->>>   include/linux/soc/qcom/tc9563.h                    |  19 +++
->>>   8 files changed, 300 insertions(+), 17 deletions(-)
->>> ---
->>> base-commit: 028f86457e822ab9de5b0d6d23efddc1b8b54ae1
->>> change-id: 20260731-pci-tc9563-aux-66a29d438f60
->>
->> Applied on pci/pwrctrl for v7.4, thank you!
+> Add them as a separate group in meson-g12-common.dtsi rather than to
+> nor_pins: whether HOLD# and WP# reach the SoC depends on the board. The
+> HC4 has eMMC disabled and takes both groups.
 > 
-> I had applied the arch/arm64 DTS change:
+> Tested on ODROID-HC4: with BOOT_3 and BOOT_7 set back to eMMC with
+> pull-down and spifc rebound, the flash fails as above without this
+> patch and probes as a 16 MiB mtd0 with it.
 > 
->    arm64: dts: qcom: qcs6490-rb3gen2: Enable TC9563 embedded GPIO controller
+> Fixes: 7178f340e929 ("arm64: dts: meson-sm1-odroid-hc4: add spifc node to ODROID-HC4")
+> Assisted-by: LLM
+> Signed-off-by: Igor Velkov <iav@iav.lv>
+> ---
+>   arch/arm64/boot/dts/amlogic/meson-g12-common.dtsi    | 9 +++++++++
+>   arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts | 2 +-
+>   2 files changed, 10 insertions(+), 1 deletion(-)
 > 
-> on pci/pwrctrl, but I think that was a mistake because that should be
-> handled by Bjorn Andersson instead.
+> diff --git a/arch/arm64/boot/dts/amlogic/meson-g12-common.dtsi b/arch/arm64/boot/dts/amlogic/meson-g12-common.dtsi
+> index 00609d2da674..3135566df880 100644
+> --- a/arch/arm64/boot/dts/amlogic/meson-g12-common.dtsi
+> +++ b/arch/arm64/boot/dts/amlogic/meson-g12-common.dtsi
+> @@ -615,6 +615,15 @@ mux {
+>   						};
+>   					};
+>   
+> +					nor_hold_wp_pins: nor-hold-wp {
+> +						mux {
+> +							groups = "nor_hold",
+> +							       "nor_wp";
+> +							function = "nor";
+> +							bias-disable;
+> +						};
+> +					};
+> +
+>   					pdm_din0_a_pins: pdm-din0-a {
+>   						mux {
+>   							groups = "pdm_din0_a";
+> diff --git a/arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts b/arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts
+> index 3ece30a0a1ff..c4b93d6619f2 100644
+> --- a/arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts
+> +++ b/arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts
+> @@ -126,7 +126,7 @@ &sd_emmc_c {
+>   
+>   &spifc {
+>   	status = "okay";
+> -	pinctrl-0 = <&nor_pins>;
+> +	pinctrl-0 = <&nor_pins>, <&nor_hold_wp_pins>;
+>   	pinctrl-names = "default";
+>   
+>   	flash@0 {
+> 
 
-I'm only responding to this to provide slightly more explanation
-about what you want to do.  Resetting pci/pwrctrl has no effect
-on me.
-> What I would *like* to do is rework the pci/pwrctrl branch to drop
-> patch 5/5 (the arch/arm64 DTS change) and reorder the Alex's new gpio
-> driver first so it's not in the middle of the tc9563 DT and driver
-> updates:
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-Currently, the dt-bindings commit is before the gpio commit (and
-followed by the two pwrctrl commits).  You want to reorder the
-first two, as below.
-
-					-Alex
-
->    gpio: tc9563: Add support for the embedded GPIO controller
->    dt-bindings: PCI: toshiba,tc9563: Document embedded GPIO controller
->    PCI/pwrctrl: tc9563: Add GPIO auxiliary device support
->    PCI/pwrctrl: tc9563: Switch per-port reset to GPIO descriptor API
-> 
-> But I don't want to break anybody who assumed pci/pwrctrl was
-> immutable and pulled it in already, e.g., to the GPIO tree.  Would
-> this rework break anybody?
+Thanks,
+Neil
