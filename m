@@ -1,256 +1,173 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B65E04FDA7E;
-	Fri,  2 Oct 2026 21:14:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B56C31D366
+	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 21:47:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790975670; cv=none; b=HBKZUsIiQiT4ppAtsdDnwOJ9Yms50vcI0UArlYlDIClyNEBLrv+2mqIFycVVf0WrFeU/qSd/vU6XhhvGSMesBp8b3PhFXu+kWI1Y9ecl99nTMcb/9dxYex/78QxYNmEL+Un8SUa/7c5EUqf3jlHiWJEp6Wq8ZXLjPCEgBNKBfEM=
+	t=1790977667; cv=none; b=nfKSrxcMgFGmzXpUwGE8DMqjp+54SeLvpjSRbzvSZGDcYE+/UKNbBwwWn3h1cQZ9wergzwrr0OLsrM7FOXoBE0loZ72pgxWOhT33FmaMn+WF6e4dBIZAPUwQ3llcGgCiRyCi49gyP3rnoT/m+0YnxV5cRDcDIw4RZzMv4naTd6o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790975670; c=relaxed/simple;
-	bh=+jv31ccIhOb8FrXhXWahI2VF/WjBW/tpQ4MtIQMg45M=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=CQA6BTaKfGbQ1gqkzsWxfsbOgEI+aK2XUSb7Vmxh5XNa8G2KQmgBA3/Bz0C767Vt2kNgdCFdRT7jmGltRalWFSl6mY5O362wb81rpKnfPU0TCyoSk9stXDtPkbpurWiGWysX923WfLRKq0EmD7vwvWhWlUBRmAqYeXMNsrsW2f8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ul9T1K0M; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790977667; c=relaxed/simple;
+	bh=xeDv0Ie3avteIVWsPN2r7WYBC3lpTV89mwbd7+lu07I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RKIriaY6eH6I1WFBSACsNR3g81SAbW8jmTCpoXPBV5Z74iFp6LDp4dEPrpJEF9gbOBn28tylt+YeqAN/oXeSXHo/0zqBp3uERE2Z2TCpH3hfQj+rz2IxsvCdqzbelSOXZkiNjvtejGR0gG2klB6WbFcVfp1JGOkL2WUThyELpuA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Wt2GedY0; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Q2a8KqAV; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ul9T1K0M"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1713A1F00899;
-	Fri,  2 Oct 2026 21:14:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790975668;
-	bh=DC/qKm6b/6853KuyCaBbJha6FdHLb8zcxHwijeIilGc=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Ul9T1K0MoAoeWKYm1iO9f4SqGWmP01CeCq7Gpz38tKQmczSQRH0qEYyNKdOP/6yU9
-	 DbQnbzbqzDMn2jWehKB8VTtS5GQoN6j1iFkndLDjzB4l3G+f8qteHlFIFaOU7szpyQ
-	 MCrSRbNzaxijbpgzPwZQkZkgLRvaTpMqxCNlWKQTm9c2Ms+SWna/JlGCstGP23PQnt
-	 eVEz3V6HN4cUrpwCbVbK5JcEi2j5yJW/I+2JQ/4sIR9YZJa1A1vkzCqkDpkLlujV7G
-	 8iKroEQXm9jjqcA+wa3KEdDNCGvuy+M3dl8S5K/aE1p4gZ3FaiS8suESzAFhX5Iqgp
-	 fszcM0+lkLzvw==
-Subject: Re: [PATCH net-next v13 9/9] net: dsa: lan9645x: add port statistics
-From: netdev-bot+sashiko@kernel.org
-To: jensemil.schulzostergaard@microchip.com
-Cc: UNGLinuxDriver@microchip.com, andrew@lunn.ch, olteanv@gmail.com,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- woojung.huh@microchip.com, linux@armlinux.org.uk,
- Steen.Hegelund@microchip.com, daniel.machon@microchip.com,
- geert+renesas@glider.be, magnus.damm@gmail.com, linux-kernel@vger.kernel.org,
- netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org
-Date: Fri, 02 Oct 2026 21:14:26 +0000
-Message-ID: <179097566660.434549.17651613804901292493@kernel.org>
-In-Reply-To:
- <20260929-dsa_lan9645x_switch_driver_base-v13-9-827c2d3617f2@microchip.com>
-References:
- <20260929-dsa_lan9645x_switch_driver_base-v13-9-827c2d3617f2@microchip.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Wt2GedY0";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Q2a8KqAV"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790977664;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=G9GZFvY+OivcXtxJyc9Ua27iVVl5yXvMnk0Q8270BFo=;
+	b=Wt2GedY0mNvaegwdUOefcjVptXLbWQ7C8t/y8yWlAUWeT60olCQYibcQsceSgTn2gCOMoB
+	LPzyPRLOKUWg9cLJMHhhnovdWnGZcCxgVlMni7Bhg1w1iKUh3lGjTJUuOk5YzXEdfCvGU1
+	/lQKTpxXLbeUvaj6ZzXR/nCbK6DFnRQ=
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-136-WKrizaX8O42FjE4TINpvzw-1; Fri, 02 Oct 2026 17:47:43 -0400
+X-MC-Unique: WKrizaX8O42FjE4TINpvzw-1
+X-Mimecast-MFC-AGG-ID: WKrizaX8O42FjE4TINpvzw_1790977663
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-939c30aa9a0so4271285a.0
+        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 14:47:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1790977663; x=1791582463; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=G9GZFvY+OivcXtxJyc9Ua27iVVl5yXvMnk0Q8270BFo=;
+        b=Q2a8KqAVRS5igPv9uv9qBbs4MDUCmpVUfRAoFx/Yv91Wvi6Jv3QvZ8YXOcMt7BEhbi
+         lhn8SSEK9f/BjIBoiOevw/tCgPPD18FiLzKEpZuJJDuE78xjA0eoL7WjNZvgbeDiLGuG
+         z3RLse9I4geKbSA2UxiyhkcumqKaYX3EXE4nTDRv/Ez5Fci8AUAoJ4wYAhjprvi4ABdi
+         srnfJE95aiNgP/IigNuNEqO8bvz8hfmBQRGd7kpkaxFvtlVzLD0yQtII/Bw8iIEy0g92
+         adhJLcrlcEgwHEOVl6JOBW70nY9/uoSFHj6KnNnjLjfbDN6KMa9+q+/JnnrzZt6NCNAK
+         v3XA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790977663; x=1791582463;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=G9GZFvY+OivcXtxJyc9Ua27iVVl5yXvMnk0Q8270BFo=;
+        b=cC20fwaLe9jWm3lmNabL+EDdts5sKJwJUkoAp1Nnf1FDCyOqtzo7x9mMx8kawhoDYN
+         j8pJche0ysiOa6uDgVadAwQ97t/IoedPYksi8xCoxvIZGNyXqlqwiqx9uSNRCtz92kJI
+         BsUuBIik8NpXS9VRgI/xsNwicScx/AshPPHpM1V5Boc3ljPwzK8ArBv9I8weyHIrCKGp
+         aLWCXXn/2dI2kzqZ5+d7FSS5vVycFFIGprzK9+p/+9cBFFINz7+VsUbAMRiucHRRzMry
+         rnH7FA1S5gCNvLknbsnp0RyMRbrwMEmBCiJ1uXBf/HfLaKE2MA1fnIYeylsZdhLAeai1
+         v0qg==
+X-Forwarded-Encrypted: i=1; AKwUvBz5M0EWGUrm161NmkYZTx4/sOukZ2hDsDlHl3oE4DUeFaaE5IRpkMXoEwbKr6zjY5k1ubPKjJZNpZZN@vger.kernel.org
+X-Gm-Message-State: AFuF++ntPEc2SzBmIyrR/YCniWXIq33qIRZ9kVjX08J4tULu+Y41bqjD
+	vIw5AsADdUHABgKaD10td4eeVkaVdSdIXsMQ8D1vt5lEROB2whUqYVkklyEUsOhXuhRI8e5eXpB
+	vfBLKhWG8dYx2vINJURTEqcx/x1WEulj/IECSGLQrzTAA6NfVFIeofBbZ0dzK8kc=
+X-Gm-Gg: AYBFou2BzMYgacJUT8lDLx4q67/5YtHtrInnsIghYR4BfZOVnCjz1eybJebe6IrlDzD
+	qEIAISBmp1h6pB6TlkbfVSWAm9rFcV8HPo97boMN5ncamdZJHdRD9BBJWehhX52GARJMaLLEMxJ
+	hRhixShbuoVd8mG3yNDYB0D6XCPFKymkFyUNflVk6zd8hrN6BvAV+VoW7Ztx0Hzj3s2KeUS2HLQ
+	gnikDNVCpZNEIC3Rgw2dHYfTnRjynoUyvAaZY9aV2ewVdIExc8DANJVCM+t2J12VDgXHUGaTZbh
+	98eZakS9YyBKFnFs26vNM4m36tlhusO20s9H3TGGvfM8VUC7cgpdTu5YLngd/euaSk9sPmuNNZo
+	QcOu5YQ==
+X-Received: by 2002:a05:620a:700c:b0:939:fd0e:9fd7 with SMTP id af79cd13be357-93e510819ccmr112760685a.43.1790977662690;
+        Fri, 02 Oct 2026 14:47:42 -0700 (PDT)
+X-Received: by 2002:a05:620a:700c:b0:939:fd0e:9fd7 with SMTP id af79cd13be357-93e510819ccmr112754785a.43.1790977661924;
+        Fri, 02 Oct 2026 14:47:41 -0700 (PDT)
+Received: from redhat.com ([69.43.42.202])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93e4e96acebsm97276885a.21.2026.10.02.14.47.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 14:47:40 -0700 (PDT)
+Date: Fri, 2 Oct 2026 17:47:38 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: Changhuang Liang <changhuang.liang@starfivetech.com>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Emil Renner Berthing <kernel@esmil.dk>, Kees Cook <kees@kernel.org>,
+	"Gustavo A . R . Silva" <gustavoars@kernel.org>,
+	Richard Cochran <richardcochran@gmail.com>,
+	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+	linux-hardening@vger.kernel.org, netdev@vger.kernel.org,
+	Hal Feng <hal.feng@starfivetech.com>
+Subject: Re: [PATCH v5 00/23] Add basic clocks and resets for JHB100 SoC
+Message-ID: <asAmejPowNLKnmto@redhat.com>
+References: <20260930124317.5648-1-changhuang.liang@starfivetech.com>
+ <20260930-grafting-undertake-ff3e01060284@spud>
+ <ar_4NBLHrq2W7_vc@redhat.com>
+ <20261002-amigo-joyfully-6894bdfa17e3@spud>
+ <20261002-doorbell-recycler-f386e3b8d5a4@spud>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261002-doorbell-recycler-f386e3b8d5a4@spud>
+User-Agent: Mutt/2.4.2 (2026-08-30)
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider.
+Hi Conor,
 
-Critical: 0 · High: 0 · Medium: 3 · Low: 1
+On Fri, Oct 02, 2026 at 09:26:34PM +0100, Conor Dooley wrote:
+> > btw, will you be at LPC or OSSEU?
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Yes, I'll be at LPC. I'm giving a clk talk the second day, so you can
+find me there if we don't cross paths before then.
 
-- [Medium] lan9645x_stats_get_sset_count() returns -EOPNOTSUPP (-95) for
-  every string set other than ETH_SS_STATS.
-- [Medium] lan9645x_stats_get_stats64() counts bad frames in rx_packets.
-- [Medium] The eMAC and pMAC FRAG counters are handled inconsistently.
-- [Low] The commit message says 'The eMAC and pMAC counter sources are
-  decoded, but only the aggregate source is reachable for now'.
+> ... As I went about aligning more ducks, I recalled that the syscon/pll
+> series also depends on some of the binding header files in this series.
+> 
+> I've made another tag with an additional binding that you'll need to
+> apply the clock patches in this series:
+> https://lore.kernel.org/all/20260828095608.19955-2-changhuang.liang@starfivetech.com/
+> 
+> This tag will actually appear in linux-next as of the next iteration,
+> because the socinfo driver I will definitely submit as 7.4 material.
+> 
+> Thanks,
+> Conor.
+> 
+> The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
+> 
+>   Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
+> 
+> are available in the Git repository at:
+> 
+>   https://git.kernel.org/pub/scm/linux/kernel/git/conor/linux.git/ clk-starfive-jhb100-plus-soc-header
+> 
+> for you to fetch changes up to c4a545d3e428e9600d670fa8a08098b7bc82d5ec:
+> 
+>   dt-bindings: soc: starfive: Add StarFive JHB100 syscon modules (2026-10-02 21:17:31 +0100)
+> 
+> ----------------------------------------------------------------
+> jhb100 clock binding + syscon binding shared tag
+> 
+> This is a second shared tag for the Starfive jhb100 clock bindings, between
+> the riscv soc tree and clock tree.
+> 
+> Signed-off-by: Conor Dooley <conor.dooley@microchip.com>
+> 
+> ----------------------------------------------------------------
+> Changhuang Liang (8):
+>       dt-bindings: clock: Add StarFive JHB100 System-0 clock and reset generator
+>       dt-bindings: clock: Add StarFive JHB100 System-1 clock and reset generator
+>       dt-bindings: clock: Add StarFive JHB100 System-2 clock and reset generator
+>       dt-bindings: clock: Add StarFive JHB100 Peripheral-0 clock and reset generator
+>       dt-bindings: clock: Add StarFive JHB100 Peripheral-1 clock and reset generator
+>       dt-bindings: clock: Add StarFive JHB100 Peripheral-2 clock and reset generator
+>       dt-bindings: clock: Add StarFive JHB100 Peripheral-3 clock and reset generator
+>       dt-bindings: soc: starfive: Add StarFive JHB100 syscon modules
 
---
+Pulled into clk-next.
 
-net: dsa: lan9645x: add port statistics
+Brian
 
-This adds port counter support to the lan9645x DSA driver. The 32 bit
-hardware counters are copied into 64 bit software counters by a poller
-that runs every three seconds. They are reported through ethtool -S, the
-standard ethtool statistics groups and ndo_get_stats64.
-
-> The eMAC and pMAC counter sources are decoded, but only the aggregate
-> source is reachable for now, until MAC merge support is added.
-
-[Severity: Low]
-Is this sentence still accurate? None of these read the ->src field of the
-structure they fill in:
-
-  lan9645x_stats_get_eth_mac_stats()
-  lan9645x_stats_get_rmon_stats()
-  lan9645x_stats_get_pause_stats()
-  lan9645x_stats_get_eth_phy_stats()
-  lan9645x_stats_get_eth_ctrl_stats()
-
-All of them always return the eMAC plus pMAC sum.
-
-The v12 changelog says "Drop the unreachable mac merge related code", so
-the per-source decoding seems to have been removed. This has no runtime
-effect today, because without .get_mm ethtool only allows the aggregate
-source.
-
-Could the message say instead that the pMAC counters are summed into the
-aggregate, and that per-source reporting is not implemented yet?
-
-> diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_stats.c b/drivers/net/dsa/microchip/lan9645x/lan9645x_stats.c
-> new file mode 100644
-> index 0000000000000..1253f77489931
-> --- /dev/null
-> +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_stats.c
-> @@ -0,0 +1,856 @@
-
-[ ... ]
-
-> +int lan9645x_stats_get_sset_count(struct lan9645x *lan9645x, int port, int sset)
-> +{
-> +	if (sset != ETH_SS_STATS)
-> +		return -EOPNOTSUPP;
-
-[Severity: Medium]
-Can this negative return value corrupt the sset counts that the conduit
-netdev reports? DSA replaces the conduit's get_sset_count with
-dsa_conduit_get_sset_count(). For every sset, that function calls:
-
-net/dsa/conduit.c:dsa_conduit_append_port_sset_count() {
-	if (ds->ops->get_sset_count)
-		*count += ds->ops->get_sset_count(ds, port, sset);
-}
-
-Nothing checks for a negative value. For ETH_SS_TEST, ETH_SS_PRIV_FLAGS
-and ETH_SS_PHY_STATS, the conduit therefore reports its own count minus
-95.
-
-If the conduit has fewer than 95 entries, the count is negative. Then
-ethtool -t, the netlink priv-flags path and ETHTOOL_GSTRINGS on the
-conduit fail with a bogus errno. The conduit's self-tests and private
-flags also drop out of ethtool -i and the netlink strset reply.
-
-If the conduit has 95 or more entries, the result is zero or a smaller
-positive value. ethtool_self_test(), ethtool_get_phy_stats_ethtool() and
-strset_prepare_set() size their buffers from that value, but the
-conduit's own callbacks still write their full number of entries. No real
-NIC has that many entries, so this part is theoretical.
-
-Most other DSA drivers (hellcreek, lan9303, gswip, mt7530, qca8k, a5psw,
-vsc73xx, and others) return 0 for unsupported ssets. Should this return 0
-as well?
-
-> +
-> +	return ARRAY_SIZE(lan9645x_port_ethtool_stats);
-> +}
-
-[ ... ]
-
-> +	r->undersize_pkts = c[SCNT_RX_SHORT] +
-> +			    c[SCNT_RX_PMAC_SHORT];
-> +	r->oversize_pkts = c[SCNT_RX_LONG] +
-> +			   c[SCNT_RX_PMAC_LONG];
-> +	/* SCNT_RX_FRAG counts frames received after the port is paused, and
-> +	 * increments when pause frames arrive from the link partner.
-> +	 * It counts neither undersize frames nor errors, so it is left out here
-> +	 * and out of rx_packets, unlike lan966x which adds it to rx_errors.
-> +	 * SCNT_RX_PMAC_FRAG does count number of runt frames with invalid CRC.
-> +	 */
-> +	r->fragments = c[SCNT_RX_PMAC_FRAG];
-
-[Severity: Medium]
-Can fragments be non-zero without MAC merge support? The pMAC receives no
-traffic until MAC merge is supported, so RMON fragments always reads 0 in
-lan9645x_stats_get_rmon_stats(). That includes the case where runts with
-a bad CRC arrive on the eMAC.
-
-Documentation/networking/statistics.rst says drivers should leave fields
-they do not report at ETHTOOL_STAT_NOT_SET, not overwrite them with 0. If
-no accurate eMAC fragment count exists, would it be better to leave
-fragments unset?
-
-The two MACs are also treated differently in lan9645x_stats_get_stats64().
-rx_packets includes c[SCNT_RX_PMAC_FRAG] but not c[SCNT_RX_FRAG]. As a
-result, a bad-CRC runt is counted in rx_packets only when the pMAC
-receives it.
-
-Does the hardware really use different meanings for the counters at
-offset 0x5 and offset 0x35, which is the same position in the pMAC block?
-If not, could both MACs be handled the same way?
-
-[ ... ]
-
-> +void lan9645x_stats_get_stats64(struct lan9645x *lan9645x, int port,
-> +				struct rtnl_link_stats64 *stats)
-> +{
-
-[ ... ]
-
-> +	stats->rx_packets = c[SCNT_RX_SHORT] +
-> +			    c[SCNT_RX_JABBER] +
-> +			    c[SCNT_RX_SZ_64] +
-> +			    c[SCNT_RX_SZ_65_127] +
-> +			    c[SCNT_RX_SZ_128_255] +
-> +			    c[SCNT_RX_SZ_256_511] +
-> +			    c[SCNT_RX_SZ_512_1023] +
-> +			    c[SCNT_RX_SZ_1024_1526] +
-> +			    c[SCNT_RX_SZ_JUMBO] +
-> +			    c[SCNT_RX_LONG] +
-
-[Severity: Medium]
-Should rx_packets include SCNT_RX_SHORT, SCNT_RX_JABBER and SCNT_RX_LONG,
-and their pMAC equivalents? The same function counts all of them in
-rx_errors below, and counts JABBER and LONG in rx_length_errors too.
-
-include/uapi/linux/if_link.h describes rx_packets as "Number of good
-packets received by the interface".
-
-The SZ_* buckets also include frames with a bad FCS. The v5 changelog
-says: "remove rx_crc, rx_symbol_err from rx_packets, as they are already
-counted in SZ_* buckets".
-
-So when a link partner sends a runt, jabber, oversized or bad-FCS frame,
-it shows up in both rx_packets and rx_errors. ocelot and lan966x use a
-similar formula.
-
-Would the RX_UC, RX_MC and RX_BC good frame counters, which already feed
-FramesReceivedOK, be a better source here?
-
-> +			    c[SCNT_RX_PMAC_SHORT] +
-> +			    c[SCNT_RX_PMAC_FRAG] +
-> +			    c[SCNT_RX_PMAC_JABBER] +
-> +			    c[SCNT_RX_PMAC_SZ_64] +
-> +			    c[SCNT_RX_PMAC_SZ_65_127] +
-> +			    c[SCNT_RX_PMAC_SZ_128_255] +
-> +			    c[SCNT_RX_PMAC_SZ_256_511] +
-> +			    c[SCNT_RX_PMAC_SZ_512_1023] +
-> +			    c[SCNT_RX_PMAC_SZ_1024_1526] +
-> +			    c[SCNT_RX_PMAC_SZ_JUMBO] +
-> +			    c[SCNT_RX_PMAC_LONG];
-> +
-> +	stats->multicast = c[SCNT_RX_MC] + c[SCNT_RX_PMAC_MC];
-> +
-> +	stats->rx_errors = c[SCNT_RX_SHORT] +
-> +			   c[SCNT_RX_JABBER] +
-> +			   c[SCNT_RX_CRC] +
-> +			   c[SCNT_RX_LONG] +
-> +			   c[SCNT_RX_PMAC_SHORT] +
-> +			   c[SCNT_RX_PMAC_JABBER] +
-> +			   c[SCNT_RX_PMAC_CRC] +
-> +			   c[SCNT_RX_PMAC_LONG];
-> +
-> +	stats->rx_length_errors = c[SCNT_RX_JABBER] +
-> +				  c[SCNT_RX_LONG] +
-> +				  c[SCNT_RX_PMAC_JABBER] +
-> +				  c[SCNT_RX_PMAC_LONG];
-
-[ ... ]
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260929-dsa_lan9645x_switch_driver_base-v13-0-827c2d3617f2%40microchip.com
