@@ -1,117 +1,82 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0BE44734EB;
-	Fri,  2 Oct 2026 10:37:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B2D6475357;
+	Fri,  2 Oct 2026 10:38:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790937424; cv=none; b=eApBD1UH0YyOCmv4FTrfpfgS19cKN4Lg0npM0Qb347p/gULMGsRqLTtUMlV2WhougCW4FDLVrzcrO42zZD6dTgwXIvSAmm3qQiCs9UJFLIID9jliIxfupLmu+nNrG+O+bHL+6o8GXnLz590lUAik0W3nKEtIZ9aALVJFwxn7eXg=
+	t=1790937490; cv=none; b=OIDN5xXTZYK785ROkfLDVyQC4/6DBfhipF2BeDwY6E2V/Omp+YaO6tz5B4TJKAIAcoctK3Ht9rK61zk04YGOBy4QW2IckScnzOQNMEDWVhdAEiN84PBpLMbePGqTj4JtN4xLBBgoOn2Hqt55DeKxNonwBsNWeIPP/36OlXRVMfA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790937424; c=relaxed/simple;
-	bh=t9HUS8dgRngcPnHSlHaiT9nMgFjuRyJyM+/B0JP9MGc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=CcngfLm5V0vzVJSJxs79ERo15HHccQKsHPmZDSbpNvZnDI6tgNu/7DkZbKfBEPonUy5XTJ8Ud0fuT/FZaBO9Pq1tSUdwl14VUbZQiUtC8sxm7gqsV4EDzHxY10MCfOwk4BjWgo432OJ61XAhex5btETWMimTp+COJ8doHBqWw5I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VX22rPqJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790937490; c=relaxed/simple;
+	bh=a9KqHjlXIi87l3g4eMps3Q4mZeuFVvhrhNz2fQWUFXI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AQcexwwN2NImK9TWqWEbGa2RgvSDYPWgpk9pP7ohip6EsGdo/DKyQF/vUrdUApXfSQDrYL6M0koQzz93W5ve6f4I2EURz6/djsFNZtyLimmFowMoPROBVi2ohy+Q1m4pVrjOiQASpYkDFFLyAc+wD8eJSfmoeInxp32+IcQyix8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=i+6jxtT4; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VX22rPqJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78D251F000FF;
-	Fri,  2 Oct 2026 10:37:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790937422;
-	bh=QB6AKeRsJJZhDZ0vSyfhKmV0pdhzr2GIn40B1PbnYHc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=VX22rPqJd8A0XwAn6c/ab45hIvUG/ddf6ya89qNGiD5sNqC2OyR/DjcDv6ujaf0xv
-	 TjKy3mJrBHtV53d3D8Oy46Zxc9ugrnZiHrwgLAwC59ubaxIlg/Sgs7dPTxLFdEpQRO
-	 a7Ydd62VH6WIKOcjc563sD3L2twXqNobWyL7Y3MBBfglUva6ECSO50IfEwRAyqISqF
-	 haP/aHKIhMaSq/fyQF9FuzPQ+M1/sw5njBzEw6dP9IXwq1sUuRF2LKtvdZacOzxRx+
-	 In6Q74exOaJNkSW8LnRfTAtNAWkVwr6aLtxUY0OhXpAbGB9FeGlfP1GXUAT9n0+kBk
-	 e+rC2VzPK9gCQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 3/3] rtc: Add Raspberry Pi 5 RTC driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sander Speetjens" <sander.speetjens@gmail.com>
-Cc: "Alexandre Belloni" <alexandre.belloni@bootlin.com>, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, linux-rtc@vger.kernel.org
-In-Reply-To: <20261002102419.830595-4-sander.speetjens@gmail.com>
-References: <20261002102419.830595-1-sander.speetjens@gmail.com>
- <20261002102419.830595-4-sander.speetjens@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 02 Oct 2026 10:37:02 +0000
-Message-Id: <20261002103702.78D251F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="i+6jxtT4"
+Received: from francesco-nb.. (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
+	by mail11.truemail.it (Postfix) with ESMTPA id 0C14D20476;
+	Fri,  2 Oct 2026 12:38:04 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1790937484;
+	bh=L6WKkXHoPT8Ngp0RSnEnTRpILsIWU0p7WgHa7MALkFk=; h=From:To:Subject;
+	b=i+6jxtT4udfRa2RQQYwk5xppBrpPF3Ih8iAcTEqDcES4A31i0leM1CKx5avodBXOA
+	 5YhkbMsisuMAkZPCJAA0IKXD5dttRhYM3jUzRj1cGXVVMjcVFQWDNl9dc3rgXGHAJL
+	 r9kVX9tAkykFaOmWo8GyuGHBKcgFJStOD+s4p4EKVrcLzFhjklz1rb3dw/HfJEtkIw
+	 k6rs9toZm7jTWAt4WZeCCtebnDA4n6v4pGkE67NQOGg+DGiC/aMvylEz6DT0hT1Fnq
+	 fvvTRf0P3mf5VV7a9UceI2cYQf6iqKhyVLC9OqZ9nh+lWUnSCbd61PXphFQTvrpNo+
+	 AXV4I41rA0W1A==
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>
+Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v1 0/3] arm64: dts: freescale: imx95-toradex: fix vdev buffer reserved memory node name
+Date: Fri,  2 Oct 2026 12:37:53 +0200
+Message-ID: <20261002103757.70065-1-francesco@dolcini.it>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] kernel panic due to passing ERR_PTR to platform_device_unregister
---
+From: Francesco Dolcini <francesco.dolcini@toradex.com>
 
-commit 871d9696731b8e115094c715d59226e0d29be3d2
-Author: Sander Speetjens <sander.speetjens@gmail.com>
+The imx_rproc driver uses node names to identify reserved memory regions.
+It checks for "vdev0buffer" to skip mapping and "vdev" prefix to filter
+vdev regions.
 
-rtc: Add Raspberry Pi 5 RTC driver
+Rename the reserved memory nodes to use the expected names so the driver
+can correctly identify and handle each region.
 
-This commit adds support for the Raspberry Pi 5 RTC by registering a new
-platform device through the existing BCM2835 firmware driver.
+Same as commit 5cae743b988d ("arm64: dts: imx95-15x15-frdm: fix reserved
+memory node names for remoteproc").
 
-> diff --git a/drivers/firmware/raspberrypi.c b/drivers/firmware/raspberryp=
-i.c
-> --- a/drivers/firmware/raspberrypi.c
-> +++ b/drivers/firmware/raspberrypi.c
-> @@ -231,6 +232,26 @@ static void rpi_register_clk_driver(struct device *d=
-ev)
-[ ... ]
-> +static void rpi_register_rtc_driver(struct device *dev)
-> +{
-> +	struct device_node *firmware;
-> +
-> +	// Check if our model of Raspberry Pi board is from the 5th gen
-> +	// as the RTC is only present on that model.
-> +	if (!of_machine_is_compatible("brcm,bcm2712"))
-> +		return;
-> +
-> +	firmware =3D of_get_compatible_child(dev->of_node,
-> +					   "raspberrypi,firmware-rtc");
-> +	if (firmware) {
-> +		of_node_put(firmware);
-> +		return;
-> +	}
-> +
-> +	rpi_rtc =3D platform_device_register_data(dev, "raspberrypi-rtc",
-> +						-1, NULL, 0);
-> +}
+Francesco Dolcini (3):
+  arm64: dts: freescale: imx95-verdin: fix vdev buffer reserved memory
+    node name
+  arm64: dts: freescale: imx95-toradex-smarc: fix vdev buffer reserved
+    memory node name
+  arm64: dts: freescale: imx95-aquila: fix vdev buffer reserved memory
+    node name
 
-[Severity: High]
-If platform_device_register_data() fails (for example, due to an out of
-memory condition), it returns an ERR_PTR. Is it safe to store this error
-pointer directly in the global rpi_rtc variable without an IS_ERR() check?
+ arch/arm64/boot/dts/freescale/imx95-aquila.dtsi        | 4 ++--
+ arch/arm64/boot/dts/freescale/imx95-toradex-smarc.dtsi | 4 ++--
+ arch/arm64/boot/dts/freescale/imx95-verdin.dtsi        | 4 ++--
+ 3 files changed, 6 insertions(+), 6 deletions(-)
 
-[ ... ]
+-- 
+2.47.3
 
-> @@ -327,6 +349,8 @@ static void rpi_firmware_remove(struct platform_devic=
-e *pdev)
->  	rpi_hwmon =3D NULL;
->  	platform_device_unregister(rpi_clk);
->  	rpi_clk =3D NULL;
-> +	platform_device_unregister(rpi_rtc);
-> +	rpi_rtc =3D NULL;
-
-[Severity: High]
-Can this cause a kernel panic during unbind or module removal?
-
-If platform_device_register_data() previously failed and returned an
-ERR_PTR, rpi_firmware_probe() still returns 0 (success) so the firmware
-driver binds successfully. Later, when rpi_firmware_remove() is called,
-platform_device_unregister() is invoked on rpi_rtc.
-
-While platform_device_unregister() safely ignores NULL pointers, it
-attempts to dereference ERR_PTRs, which would lead to an invalid memory
-access. Does this path need a check to ensure rpi_rtc is valid before
-unregistering?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261002102419.8305=
-95-1-sander.speetjens@gmail.com?part=3D3
