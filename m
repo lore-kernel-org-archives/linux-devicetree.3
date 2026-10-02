@@ -1,72 +1,71 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010054.outbound.protection.outlook.com [52.101.84.54])
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013059.outbound.protection.outlook.com [52.101.72.59])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55D134AD4B5;
-	Fri,  2 Oct 2026 13:43:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13321499F0D;
+	Fri,  2 Oct 2026 13:44:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.59
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790948641; cv=fail; b=QrTNx3Zdn6nasrqGclsZClsK2tYxmz6o9aDXG9ziij1DW0Zf2zGSVZ6nK1NAfO0tVqNNje1pqTLGGjhaWzbc16SWyE6Afg+QM0TGLvIaS6V/UYIaPY9OvEcUIWcM9/xxzFlkIzhdgthXSE9Hdyh5mrIX4rdPXXkUoXLqblf3ITQ=
+	t=1790948646; cv=fail; b=YT5CcABoGnmMvaIQFjug/1Uo2PVR2HIsnwTW+F5+6EE+mJQFgbriWogIbU65oB8zky7QWgC9Tf/R7VQBgsY6gkKXo5hmiPuv6RJcjEHOj1c9q0wsE3AXKw/99uwD6zTRDmCJMra5jaBXWHvaTjhGvyRxy0wHQyi2N6c0KuKGrc0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790948641; c=relaxed/simple;
-	bh=yGoXnU6dpHuWFmeKb+g8CH+o1wV6cAYQCbN80Dsrops=;
+	s=arc-20240116; t=1790948646; c=relaxed/simple;
+	bh=6/qMDtxbwokBmXcOsei0n6gsomodPiQXqjGUYrLXWsU=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=uzOwYDurz1wB79vSQJHJuaWHFXAG1c5YhqlpMEyVw0IRUWWaNxkIY0C/EsLI2t0vQmj7QyI20Cu0oqqc2IUyIG+z0O8nUbUisZQLi7oUceM3J5SR0qc2fIg5ky7Q8ZTssPry2WMBW8yrj35dLcViQiXF/raloKroJ7HKO4ECOfI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com; spf=pass smtp.mailfrom=axis.com; dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b=WRvshvsM; arc=fail smtp.client-ip=52.101.84.54
+	 In-Reply-To:To:CC; b=IYvCXBDPyTOig9WW6azlMJxSnqTyEVCzqL0sbq3uCnueUHN0dI8Q3Q7npyb+jbWxAJW7+bGJLlQhZrTVb6A7+ewJkiYZ/QlKobyxGvrJrbMai68wC77KY1pD7UQ61aR9yaek2SpZouD6NSBelAwnmsk+99KGxKr74hs1imEvq8U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com; spf=pass smtp.mailfrom=axis.com; dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b=LazbPZs4; arc=fail smtp.client-ip=52.101.72.59
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b="WRvshvsM"
+	dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b="LazbPZs4"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=cRjBzMloBtHmXPqbAl7VOjwlIilrwlV2WbM7o7jorMaOP0sVmbqQxK2QVOaWijws1y0qnpclLQFtBNdCayJeLGF+pl2omXTbfyd9ai1DR4cCGeSK31NoxoA6p6vMaUAZGHpaxSdgATShzAAvBKwsOD63XgyRzUmOxqwabPTXxmggwt0Y5Zwexz8J4H1SiJdaDsVRgVY71JStvrQ1knf+GbqvdkvCW/cBJ02bAO0/wAPcNspZWRiITI6fKfWvHvxTBJoWTJo/ZPwO3eoj2fWHGqKdIWnakz4mA0+n8RboUcuk1az5jTE2QZJYY+6Qc5JAEidCfyvA83kSrk9PfufU3w==
+ b=LdUOn5Tn1ho99mmMZrPNjmMx0f3zJZ2wPvA/LNXMi2CWlE8Y05gYP2UMrdQ4aWgMPKnY5aIP1txd0hNyJbS5cGj7c9S7A7UEiINfTbo7Nlapt9CTaa91xv4b4+yKrDYlbjlbcOjmveOYBr8FO53TlxE40EbsbpwYDKz4BfJRbtAVrvSFLbTPOULs82zFqbw0AobS+AKmFTC/tIQzBCnqTlUZZzdZ/Oon/sCNGdbasAK1ezXDgSeBqMdQS0dc8IvP+kjB9lhJhoV/vKZz7pr4v2qKzmo/a8GbK45n9VvZo23RfEiOqi3beDD09z4HaeO1+jpoaV9Jdif4l0Q1zH1F8A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TdU3OGTDSkpdKuvVrmRqbuMtjUdr6614nI2kT7EGXSA=;
- b=fXfrKxB/HjlZzbI6HdPPIHgYYi8Crx5m99th51h4GW4B47e90UHlbSS+JWBbSbUM0K5cjZj2ns3XeqYdi+z2irX2CnRwcdz56wMUV5Qc0XfK30KCmkvAwZjB3cpWgoxD7xd1FgmqfI5sUdna+J9JZpka+7bPuJAnfKsXQnnCHdeBdBleB3JwXh6iKYOms2F9dT3aygwO+gtyofzElZP8bzsUcOD2OZ3AcbNSv4TwF+BF4UMyibVovwyLxvvWGSaBDM/WbVkjF81VOAQX3wSDb46uq9T/AhvD0fYKyckzimVT+92Ih2ls8Ea2Gq0psa+NWdyRT4ZXg3qRPiF71iNBWg==
+ bh=hycESPHhD+6X7WyaYvoi85CWJHJEGRHA5g1m39bWUhI=;
+ b=lZnsfGh7mDP7FSjYBIqXGvRPSxhGApW9btnjKBwv/21ykQqB54a6Ud34W2F/Vr6u9X3VmH9i33K0QVvOuFM64CM0dAIt+HMXc9fRNxpZFWb2AWqRq8HRloX8hl3J5GIZb2TUfoL4r33/jwOyrtygFK1AKPkY5auGE8XrAw0x0CF2tpUoBcZ9ypKB7TmAnNDoJJwje2iOtKM/nuOl9QtGG8zmcP1Ms7QQzcxD2dpeHfZ0qeZY2vTphQih9ekVPiPZvOy5bBaRStu+5rsxKMnTMcX5RInOys3GceZd4mYdja733CxmcCWac66p9iLgZJYWdHUr7hlGnehAd8GH8tCHzg==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  195.60.68.100) smtp.rcpttodomain=dabbelt.com smtp.mailfrom=axis.com;
  dmarc=pass (p=none sp=none pct=100) action=none header.from=axis.com;
  dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TdU3OGTDSkpdKuvVrmRqbuMtjUdr6614nI2kT7EGXSA=;
- b=WRvshvsMUmnk6vIUWR+1j/Ix05fNyxEs0KUnXXbY7wHWAwK44e0MqlzyIqaZ9SNf0j24qhKIQNmeexMMVol9OMr6JqgbhP2g6pVVXnNwpJH2skfv35MzEeVX/aFoENunzeBE3zRnqZ8KD5PLV90VJ5HERuF0GK0Otq046TMS8Wc=
-Received: from OS6P279CA0164.NORP279.PROD.OUTLOOK.COM (2603:10a6:e10:39::17)
- by DBAPR02MB6037.eurprd02.prod.outlook.com (2603:10a6:10:180::19) with
+ bh=hycESPHhD+6X7WyaYvoi85CWJHJEGRHA5g1m39bWUhI=;
+ b=LazbPZs4f4fRsRypFdXRsSRKdyrdcODO7WxkChrnSLfE4m0ELJ3GFzZDClQPT5lKXHE76s6Iq8IkFd3QTWD9XpeQrG0Bdyo9zYeopLnwCsMnegEmGRjQYj25r4OiWjNF2j9chonQo0khUdlRm/4DeUY54mqrwyrm4BwfOgFArYI=
+Received: from MM0P280CA0080.SWEP280.PROD.OUTLOOK.COM (2603:10a6:190:8::22) by
+ GV4PR02MB11441.eurprd02.prod.outlook.com (2603:10a6:150:29e::9) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Fri, 2 Oct
  2026 13:43:52 +0000
-Received: from CPH1EPF0000051F.eurprd04.prod.outlook.com
- (2603:10a6:e10:39:cafe::63) by OS6P279CA0164.outlook.office365.com
- (2603:10a6:e10:39::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.19 via Frontend Transport; Fri, 2
- Oct 2026 13:43:51 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 195.60.68.100) smtp.mailfrom=axis.com; dkim=none (message not signed)
+Received: from CPH1EPF0000051D.eurprd04.prod.outlook.com
+ (2603:10a6:190:8:cafe::11) by MM0P280CA0080.outlook.office365.com
+ (2603:10a6:190:8::22) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.18 via Frontend Transport; Fri, 2
+ Oct 2026 13:43:52 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 195.60.68.100)
+ smtp.mailfrom=axis.com; dkim=none (message not signed)
  header.d=none;dmarc=pass action=none header.from=axis.com;
 Received-SPF: Pass (protection.outlook.com: domain of axis.com designates
  195.60.68.100 as permitted sender) receiver=protection.outlook.com;
  client-ip=195.60.68.100; helo=mail.axis.com; pr=C
 Received: from mail.axis.com (195.60.68.100) by
- CPH1EPF0000051F.mail.protection.outlook.com (10.167.241.234) with Microsoft
+ CPH1EPF0000051D.mail.protection.outlook.com (10.167.241.232) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
  15.21.472.14 via Frontend Transport; Fri, 2 Oct 2026 13:43:51 +0000
-Received: from se-mail10w.axis.com (10.20.40.10) by se-mail11w.axis.com
- (10.20.40.11) with Microsoft SMTP Server (version=TLS1_2,
+Received: from se-mail11w.axis.com (10.20.40.11) by se-mail10w.axis.com
+ (10.20.40.10) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.39; Fri, 2 Oct
  2026 15:43:51 +0200
-Received: from se-intmail01x.se.axis.com (10.4.0.28) by se-mail10w.axis.com
- (10.20.40.10) with Microsoft SMTP Server id 15.2.1748.39 via Frontend
+Received: from se-intmail02x.se.axis.com (10.4.0.28) by se-mail11w.axis.com
+ (10.20.40.11) with Microsoft SMTP Server id 15.2.1748.39 via Frontend
  Transport; Fri, 2 Oct 2026 15:43:51 +0200
 Received: from pc66231-2602.sto.se.axis.com (pc66231-2602.sto.se.axis.com [10.133.4.42])
-	by se-intmail01x.se.axis.com (Postfix) with ESMTP id 26AA34AC7;
+	by se-intmail02x.se.axis.com (Postfix) with ESMTP id 1EED42A1F;
 	Fri,  2 Oct 2026 15:43:51 +0200 (CEST)
 Received: by pc66231-2602.sto.se.axis.com (Postfix, from userid 21940)
-	id 0F9B6305CE1C; Fri,  2 Oct 2026 15:43:51 +0200 (CEST)
+	id 0CEF6305CE80; Fri,  2 Oct 2026 15:43:51 +0200 (CEST)
 From: Kanak Shilledar <kanak.shilledar@axis.com>
-Date: Fri, 2 Oct 2026 15:43:36 +0200
-Subject: [PATCH 4/4] riscv: dts: thead: th1520-lichee-pi-4a: Cleanup with
- dt-check-style
+Date: Fri, 2 Oct 2026 15:43:34 +0200
+Subject: [PATCH 2/4] riscv: dts: thead: th1520: Cleanup with dt-check-style
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -75,7 +74,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20261002-fix-dts-th1520-v1-4-9a8810091d47@axis.com>
+Message-ID: <20261002-fix-dts-th1520-v1-2-9a8810091d47@axis.com>
 References: <20261002-fix-dts-th1520-v1-0-9a8810091d47@axis.com>
 In-Reply-To: <20261002-fix-dts-th1520-v1-0-9a8810091d47@axis.com>
 To: Drew Fustini <fustini@kernel.org>, Guo Ren <guoren@kernel.org>, Fu Wei
@@ -86,226 +85,522 @@ To: Drew Fustini <fustini@kernel.org>, Guo Ren <guoren@kernel.org>, Fu Wei
 CC: <linux-riscv@lists.infradead.org>, <devicetree@vger.kernel.org>,
 	<linux-kernel@vger.kernel.org>, Kanak Shilledar <kanak.shilledar@axis.com>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4427;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=13553;
  i=kanak.shilledar@axis.com; h=from:subject:message-id;
- bh=yGoXnU6dpHuWFmeKb+g8CH+o1wV6cAYQCbN80Dsrops=;
- b=owGbwMvMwCV2JPnG7+2HZqUznlZLYsjav1Vs8+fkCWK6982axRwvKe8/ab9nwfXvh+RZ3P6uX
- BB+9nz1gY4SFgYxLgZZMUWWc0bbo/cn/9OdI+10CWYOKxPIEAYuTgGYSIAAw19hv2vn3m81O/tb
- bW6GN1tGe+rso0nH+NiFj3Y4pYisfsvO8E13xt/S572qnIcW63mf8Qtf2bDSafqx31vvvq//5rd
- Dhw8A
+ bh=6/qMDtxbwokBmXcOsei0n6gsomodPiQXqjGUYrLXWsU=;
+ b=owGbwMvMwCV2JPnG7+2HZqUznlZLYsjav1Vs3mKB9LVrD086n3Kl8lfeWf2jJbJ7Vl7kbtp/t
+ fFo1ZLZ6ztKWRjEuBhkxRRZzhltj96f/E93jrTTJZg5rEwgQxi4OAVgIp6FjAz7lrKveR82aTLv
+ o4niD/yW/67iroptUbr4SWvutQtKZVcmMzI8s3txsI7/jmR/Qm1ggOzjao+mrR/+Zm8uffjx/CK
+ G6yv4AQ==
 X-Developer-Key: i=kanak.shilledar@axis.com; a=openpgp;
  fpr=CDB0F1C8EAD5B522C7B3A77928221FF065DB55F9
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CPH1EPF0000051F:EE_|DBAPR02MB6037:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5738cab0-37e4-4eb3-1650-08df208b31d6
+X-MS-TrafficTypeDiagnostic: CPH1EPF0000051D:EE_|GV4PR02MB11441:EE_
+X-MS-Office365-Filtering-Correlation-Id: 292a8c95-7a06-4c28-02c5-08df208b3191
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|1800799024|7416014|376014|82310400026|36860700016|921020|10067099003|56012099006|11063799006|22082099003|18002099003;
+	BCL:0;ARA:13230040|82310400026|376014|7416014|23010399003|36860700016|1800799024|10067099003|56012099006|11063799006|921020|18002099003|22082099003;
 X-Microsoft-Antispam-Message-Info:
-	hCQP3xRE4nglJhQl/71w/gneXN644LWnnXqFQQucTtc3jEMEyk88o6q24h2H3Bf57JDDerCOZXehyQw4Yc3lIuA1BkyC5Lv8E2NuEnTNIvSbNokZTT18P8W6sE1tz8s0t4fngRz9Cj5G/ioIOJebRXMLU344ehJYBdZ1dExCyeA0DVctfTajfW+iddfMM2wHXonRnEB+XMNuwFk66ksKMIaVtm0y+Mzxz2hXfQ9UhR+Q5Bk++oV6HJLGxRQiZwdOkhZXPW4x8j9r8ZejhccsqbrHTX48NtmIHEr4fX7J3BiB3Q8ZXlQvxrxmqBf4/RPCBtvfqsZP/Er+/rOKR5UZwlYv/R/5uiO6GDN+J+vEmvDPLs/tvyxUM0PYfquT7w4+ZbRbwEstKrYis7XVib0k+W0d6v8gmfGrX5N7v+vlVb6x2vaAGvVbk2E6IAaRQMQZ4uhUcmvuHSJCdfXARUSB5bJCb7zgi940ieigI3LplKBCnq7E+jO4bCj7TJkbxQScPX1CPIO6aDC81rz929JwTmXQSP2Dqqdjt0B/65EKdhfYRHZyT5+ECaIpyQhXl1srxOgm99CPYPTpbAe8mhXWd1ukyGJsqSi8QzOQcB8uS/t2Xu6CdJAwwxYpPsbzETnYiM9n9w2gwVhJ+TAkvVjSn0xYOitFH6anmIaf+bnQS55tY5rINfwvDgyM1uwBb9gRb5VkPLQVH/r0pxUaJIWAhWLDt9vaZlcMqYEkLhajnXBjqqPkqZxSM3lo7GXlhMYs
+	RBnNkStagRuzJ9/KXUfz8dngptp0ctm8YdEiriUOpKpLErGRsPROdZaXmkQRhTsYS4G6vuLaXTPs+u2Vho3fktr9y1fjiSyUzp/Ru8Sn6aX6hqnzTeBxo4HjnGeF/mzmnlkqqW7XOAWO5EmO5neYvBfZaXxwHEweDKrBdHZKdOj009mIXeUXU/pRzswg+wUGIhJDLDtNzJBFpk5Rp/Fhsznm+eCPeG9UkGxBlvBbCLy3BzH6ZZjSpJRyMiH77ABJf8KURGyURFGwwinyL4/OpK0co0tAz7Bj7oVzTfi7oiqRytTJWjot1SV+fyYONCPlT/D7ZHGnnpx0yeXiwVUykDxDSjNPBIEeZTcA2h3GoyFxt35UJ1BHqKueC8qbFoFwonS4vU0cgqL8tlIcCxtxT9ksbEoeaepxlBdffLLtvozuruThiOpFPWTcgaINEWiPwK9dcdE7Z2peVvP9yF0bG1TxDaYltqglSsEFc2xlfvVihIY/cs52UM5Q0/35bkLrK/WuElT4a2E8p8llDqr5KOPPGMtPNmxAjPi9jUSs2D4JDJq/qjDQsPP06oMGxh2u6cSEiRYaAVUK3wQPdaVWXL0GD/b9AUixYwzKptdn+uX1pFwQNKMz2rylRni+iZXeocA+jgd4apZ9yuMhv43Z2naNRcdckIxJCcTMAYJmyFCth2ouMenWBa/zZrYz3UUNIE30bNNpRZ5WWyeuV/FQTBaiCy2NTNbhxVMQucsS1dz6JXbPL9x/w13xy70LaWPb
 X-Forefront-Antispam-Report:
-	CIP:195.60.68.100;CTRY:SE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.axis.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(1800799024)(7416014)(376014)(82310400026)(36860700016)(921020)(10067099003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+	CIP:195.60.68.100;CTRY:SE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.axis.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(7416014)(23010399003)(36860700016)(1800799024)(10067099003)(56012099006)(11063799006)(921020)(18002099003)(22082099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	PyelJu5Go78kANc3PFtzQhHDzmyZvUGDm4m0OuEfAXKq14Ii87x5xQflaHJ+qcZgif/alkPjVJcMS9ilOIgGGkgeOgOS1hL/muBCwtCbFpkglszXfU/rCk//5K0G+HSQbxrd4oI9YZ/fE2pOk9ZxQGWtGhXWtXxSsKLKBNcVMkJkEqzJyYjNXVthXrPhFa9yjfcECwy7oFFAjJ0Advt7WPlKnJW/TFhb0eK1DtUX7Lx75YVJhudmSChY0/K6jEHTV1klPlTEqG+++gBM6waV5r8U30qshpNjseq9SChkldLLUujOYCs/8rd59OGC+jkARH2z3vApOuB3Xx01F4ITAEUKpxwSphHh08bOJjOFSL2j+SYx5gXBgAd4ymqopzsJaeIA2Nh68v4ktsRRXxM/CB04OYuaMy3LO+oXNtqUBjLO0uVC9HQbOLo0k5kgi00R
+	ZpZob5yWpvog1ZvYMNbd8UfuHUh/6JWRyTDJ8gh0vKG545d63CW6NscVxIWpN3/UX7vh50hgyYzXoQPIEGxZgDPvuNUzg/XhWe4UNaOOa64Scxt+ycvx5dk3Oh2vDuInnAtpzE/IQQRp/fRCBVjrHeUe8d/XiZpdqwUMxQzeEXY8l4jfxeyhfxUvkp1J1A8Be0kZ+lFsqX7y5gsYaAWO6GUAn0qPvDyfgnKn4g4lLGDEPu1dpS24zZ2zgsoQGfAafX7yd2iqjSWc5Ne9mrusW2LzCwHNebLU7YE68TblDyGDt8ULxuBEVakASybiEL2GdfkllmTyFmZt8YyTeXCCxRFpI9KMwn648gwICjQ9AQo8DRoRd/VV9svkq2xlpnzrlMIdzd+qFJwIMaOnNklBArf0ZLmKdAbgGMbdAJoRkMPK9Xd26ruWbmVQptl3ona2
 X-OriginatorOrg: axis.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 13:43:51.8361
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 13:43:51.3879
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5738cab0-37e4-4eb3-1650-08df208b31d6
+X-MS-Exchange-CrossTenant-Network-Message-Id: 292a8c95-7a06-4c28-02c5-08df208b3191
 X-MS-Exchange-CrossTenant-Id: 78703d3c-b907-432f-b066-88f7af9ca3af
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=78703d3c-b907-432f-b066-88f7af9ca3af;Ip=[195.60.68.100];Helo=[mail.axis.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	CPH1EPF0000051F.eurprd04.prod.outlook.com
+	CPH1EPF0000051D.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBAPR02MB6037
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV4PR02MB11441
 
-Fix warnings thrown by krzk's recent updates to the dt-check-style
-tool when run with strict mode. Fix the following warnings:
+Fix warnings related to "property-order" and "required-blank-lines"
+reported from krzk's recent updates to dt-check-style tool. Leave
+out reordering of the nodes as it creates a very bit diff. After this
+patch only the following warnings remain which can be fixed in future
+work:
 
-	thead/th1520-lichee-pi-4a.dts:161: [property-order] property 'pinctrl-names' must be placed after 'pinctrl-0'
-	thead/th1520-lichee-pi-4a.dts:163: [required-blank-lines] "status" must be preceded by a blank line
-	thead/th1520-lichee-pi-4a.dts:217: [child-name-order] child node 'rx-pins' out of name order
+	thead/th1520.dtsi:221: [child-name-order] child node 'oscillator' out of name order
+	thead/th1520.dtsi:227: [child-name-order] child node '32k-oscillator' out of name order
+	thead/th1520.dtsi:248: [property-name] property name "snps,wr_osr_lmt" is using discouraged style
+	thead/th1520.dtsi:249: [property-name] property name "snps,rd_osr_lmt" is using discouraged style
+	thead/th1520.dtsi:253: [child-name-order] child node 'aon' out of name order
 
-After this patch, there are no more warnings thrown. Fix these
-warnings to make the file more readable and maintainable along with
-that to make it more compliant with the devicetree specifications.
+Fix these warnings to make the file more readable and maintainable
+along with that to make it more compliant with the devicetree
+specifications.
 
 Signed-off-by: Kanak Shilledar <kanak.shilledar@axis.com>
 ---
- arch/riscv/boot/dts/thead/th1520-lichee-pi-4a.dts | 90 ++++++++++++-----------
- 1 file changed, 47 insertions(+), 43 deletions(-)
+ arch/riscv/boot/dts/thead/th1520.dtsi | 108 ++++++++++++++++++++++------------
+ 1 file changed, 69 insertions(+), 39 deletions(-)
 
-diff --git a/arch/riscv/boot/dts/thead/th1520-lichee-pi-4a.dts b/arch/riscv/boot/dts/thead/th1520-lichee-pi-4a.dts
-index 1eb575aa9a74f..5908b21d558d4 100644
---- a/arch/riscv/boot/dts/thead/th1520-lichee-pi-4a.dts
-+++ b/arch/riscv/boot/dts/thead/th1520-lichee-pi-4a.dts
-@@ -41,10 +41,13 @@ hdmi_con_in: endpoint {
+diff --git a/arch/riscv/boot/dts/thead/th1520.dtsi b/arch/riscv/boot/dts/thead/th1520.dtsi
+index b01a94785d870..aa6572b4af559 100644
+--- a/arch/riscv/boot/dts/thead/th1520.dtsi
++++ b/arch/riscv/boot/dts/thead/th1520.dtsi
+@@ -20,15 +20,8 @@ cpus: cpus {
+ 		timebase-frequency = <3000000>;
+ 
+ 		c910_0: cpu@0 {
+-			compatible = "thead,c910", "riscv";
+ 			device_type = "cpu";
+-			riscv,isa = "rv64imafdc";
+-			riscv,isa-base = "rv64i";
+-			riscv,isa-extensions = "i", "m", "a", "f", "d", "c",
+-					       "ziccrse", "zicntr", "zicsr",
+-					       "zifencei", "zihpm", "zfh",
+-					       "xtheadvector";
+-			thead,vlenb = <16>;
++			compatible = "thead,c910", "riscv";
+ 			reg = <0>;
+ 			i-cache-block-size = <64>;
+ 			i-cache-size = <65536>;
+@@ -38,6 +31,13 @@ c910_0: cpu@0 {
+ 			d-cache-sets = <512>;
+ 			next-level-cache = <&l2_cache>;
+ 			mmu-type = "riscv,sv39";
++			riscv,isa = "rv64imafdc";
++			riscv,isa-base = "rv64i";
++			riscv,isa-extensions = "i", "m", "a", "f", "d", "c",
++					       "ziccrse", "zicntr", "zicsr",
++					       "zifencei", "zihpm", "zfh",
++					       "xtheadvector";
++			thead,vlenb = <16>;
+ 
+ 			cpu0_intc: interrupt-controller {
+ 				compatible = "riscv,cpu-intc";
+@@ -47,15 +47,8 @@ cpu0_intc: interrupt-controller {
  		};
- 	};
  
--	wifi_pwrseq: wifi-pwrseq {
--		compatible = "mmc-pwrseq-simple";
--		reset-gpios = <&ioexp2 4 GPIO_ACTIVE_LOW>;
--		post-power-on-delay-ms = <200>;
-+	fan: pwm-fan {
-+		compatible = "pwm-fan";
-+		pinctrl-0 = <&fan_pins>;
-+		pinctrl-names = "default";
-+		#cooling-cells = <2>;
-+		pwms = <&pwm 1 10000000 0>;
-+		cooling-levels = <0 66 196 255>;
- 	};
+ 		c910_1: cpu@1 {
+-			compatible = "thead,c910", "riscv";
+ 			device_type = "cpu";
+-			riscv,isa = "rv64imafdc";
+-			riscv,isa-base = "rv64i";
+-			riscv,isa-extensions = "i", "m", "a", "f", "d", "c",
+-					       "ziccrse", "zicntr", "zicsr",
+-					       "zifencei", "zihpm", "zfh",
+-					       "xtheadvector";
+-			thead,vlenb = <16>;
++			compatible = "thead,c910", "riscv";
+ 			reg = <1>;
+ 			i-cache-block-size = <64>;
+ 			i-cache-size = <65536>;
+@@ -65,6 +58,13 @@ c910_1: cpu@1 {
+ 			d-cache-sets = <512>;
+ 			next-level-cache = <&l2_cache>;
+ 			mmu-type = "riscv,sv39";
++			riscv,isa = "rv64imafdc";
++			riscv,isa-base = "rv64i";
++			riscv,isa-extensions = "i", "m", "a", "f", "d", "c",
++					       "ziccrse", "zicntr", "zicsr",
++					       "zifencei", "zihpm", "zfh",
++					       "xtheadvector";
++			thead,vlenb = <16>;
  
- 	thermal-zones {
-@@ -53,6 +56,23 @@ cpu-thermal {
- 			polling-delay-passive = <1000>;
- 			thermal-sensors = <&pvt 0>;
- 
-+			cooling-maps {
-+				map-active-0 {
-+					cooling-device = <&fan 1 1>;
-+					trip = <&fan_config0>;
-+				};
-+
-+				map-active-1 {
-+					cooling-device = <&fan 2 2>;
-+					trip = <&fan_config1>;
-+				};
-+
-+				map-active-2 {
-+					cooling-device = <&fan 3 3>;
-+					trip = <&fan_config2>;
-+				};
-+			};
-+
- 			trips {
- 				fan_config0: fan-trip0 {
- 					temperature = <39000>;
-@@ -72,35 +92,14 @@ fan_config2: fan-trip2 {
- 					type = "active";
- 				};
- 			};
--
--			cooling-maps {
--				map-active-0 {
--					cooling-device = <&fan 1 1>;
--					trip = <&fan_config0>;
--				};
--
--				map-active-1 {
--					cooling-device = <&fan 2 2>;
--					trip = <&fan_config1>;
--				};
--
--				map-active-2 {
--					cooling-device = <&fan 3 3>;
--					trip = <&fan_config2>;
--				};
--			};
+ 			cpu1_intc: interrupt-controller {
+ 				compatible = "riscv,cpu-intc";
+@@ -74,15 +74,8 @@ cpu1_intc: interrupt-controller {
  		};
- 	};
  
--	fan: pwm-fan {
--		pinctrl-names = "default";
--		pinctrl-0 = <&fan_pins>;
--		compatible = "pwm-fan";
--		#cooling-cells = <2>;
--		pwms = <&pwm 1 10000000 0>;
--		cooling-levels = <0 66 196 255>;
-+	wifi_pwrseq: wifi-pwrseq {
-+		compatible = "mmc-pwrseq-simple";
-+		reset-gpios = <&ioexp2 4 GPIO_ACTIVE_LOW>;
-+		post-power-on-delay-ms = <200>;
- 	};
--
- };
+ 		c910_2: cpu@2 {
+-			compatible = "thead,c910", "riscv";
+ 			device_type = "cpu";
+-			riscv,isa = "rv64imafdc";
+-			riscv,isa-base = "rv64i";
+-			riscv,isa-extensions = "i", "m", "a", "f", "d", "c",
+-					       "ziccrse", "zicntr", "zicsr",
+-					       "zifencei", "zihpm", "zfh",
+-					       "xtheadvector";
+-			thead,vlenb = <16>;
++			compatible = "thead,c910", "riscv";
+ 			reg = <2>;
+ 			i-cache-block-size = <64>;
+ 			i-cache-size = <65536>;
+@@ -92,6 +85,13 @@ c910_2: cpu@2 {
+ 			d-cache-sets = <512>;
+ 			next-level-cache = <&l2_cache>;
+ 			mmu-type = "riscv,sv39";
++			riscv,isa = "rv64imafdc";
++			riscv,isa-base = "rv64i";
++			riscv,isa-extensions = "i", "m", "a", "f", "d", "c",
++					       "ziccrse", "zicntr", "zicsr",
++					       "zifencei", "zihpm", "zfh",
++					       "xtheadvector";
++			thead,vlenb = <16>;
  
- &dpu {
-@@ -119,8 +118,9 @@ hdmi_out_con: endpoint {
- 
- &i2c0 {
- 	clock-frequency = <400000>;
--	pinctrl-names = "default";
- 	pinctrl-0 = <&i2c0_pins>;
-+	pinctrl-names = "default";
-+
- 	status = "okay";
- 
- 	ioexp1: gpio@18 {
-@@ -136,8 +136,9 @@ ioexp1: gpio@18 {
- 
- &i2c1 {
- 	clock-frequency = <400000>;
--	pinctrl-names = "default";
- 	pinctrl-0 = <&i2c1_pins>;
-+	pinctrl-names = "default";
-+
- 	status = "okay";
- 
- 	ioexp2: gpio@18 {
-@@ -158,8 +159,9 @@ ioexp2: gpio@18 {
- 
- &i2c3 {
- 	clock-frequency = <400000>;
--	pinctrl-names = "default";
- 	pinctrl-0 = <&i2c3_pins>;
-+	pinctrl-names = "default";
-+
- 	status = "okay";
- 
- 	ioexp3: gpio@18 {
-@@ -204,16 +206,6 @@ i2c-pins {
- 	};
- 
- 	uart0_pins: uart0-0 {
--		tx-pins {
--			pins = "UART0_TXD";
--			function = "uart";
--			bias-disable;
--			drive-strength = <3>;
--			input-disable;
--			input-schmitt-disable;
--			slew-rate = <0>;
--		};
--
- 		rx-pins {
- 			pins = "UART0_RXD";
- 			function = "uart";
-@@ -223,6 +215,16 @@ rx-pins {
- 			input-schmitt-enable;
- 			slew-rate = <0>;
+ 			cpu2_intc: interrupt-controller {
+ 				compatible = "riscv,cpu-intc";
+@@ -101,15 +101,8 @@ cpu2_intc: interrupt-controller {
  		};
-+
-+		tx-pins {
-+			pins = "UART0_TXD";
-+			function = "uart";
-+			bias-disable;
-+			drive-strength = <3>;
-+			input-disable;
-+			input-schmitt-disable;
-+			slew-rate = <0>;
-+		};
- 	};
- };
  
-@@ -261,11 +263,13 @@ &sdio1 {
- 	keep-power-in-suspend;
- 	mmc-pwrseq = <&wifi_pwrseq>;
- 	non-removable;
-+
- 	status = "okay";
- };
+ 		c910_3: cpu@3 {
+-			compatible = "thead,c910", "riscv";
+ 			device_type = "cpu";
+-			riscv,isa = "rv64imafdc";
+-			riscv,isa-base = "rv64i";
+-			riscv,isa-extensions = "i", "m", "a", "f", "d", "c",
+-					       "ziccrse", "zicntr", "zicsr",
+-					       "zifencei", "zihpm", "zfh",
+-					       "xtheadvector";
+-			thead,vlenb = <16>;
++			compatible = "thead,c910", "riscv";
+ 			reg = <3>;
+ 			i-cache-block-size = <64>;
+ 			i-cache-size = <65536>;
+@@ -119,6 +112,13 @@ c910_3: cpu@3 {
+ 			d-cache-sets = <512>;
+ 			next-level-cache = <&l2_cache>;
+ 			mmu-type = "riscv,sv39";
++			riscv,isa = "rv64imafdc";
++			riscv,isa-base = "rv64i";
++			riscv,isa-extensions = "i", "m", "a", "f", "d", "c",
++					       "ziccrse", "zicntr", "zicsr",
++					       "zifencei", "zihpm", "zfh",
++					       "xtheadvector";
++			thead,vlenb = <16>;
  
- &uart0 {
--	pinctrl-names = "default";
- 	pinctrl-0 = <&uart0_pins>;
-+	pinctrl-names = "default";
+ 			cpu3_intc: interrupt-controller {
+ 				compatible = "riscv,cpu-intc";
+@@ -261,11 +261,11 @@ aon: aon {
+ 
+ 	soc {
+ 		compatible = "simple-bus";
++		ranges;
+ 		interrupt-parent = <&plic>;
+ 		#address-cells = <2>;
+ 		#size-cells = <2>;
+ 		dma-noncoherent;
+-		ranges;
+ 
+ 		plic: interrupt-controller@ffd8000000 {
+ 			compatible = "thead,th1520-plic", "thead,c900-plic";
+@@ -302,6 +302,7 @@ spi0: spi@ffe700c000 {
+ 			clocks = <&clk CLK_SPI>;
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
 +
- 	status = "okay";
- };
+ 			status = "disabled";
+ 		};
+ 
+@@ -313,6 +314,7 @@ uart0: serial@ffe7014000 {
+ 			clock-names = "baudclk", "apb_pclk";
+ 			reg-shift = <2>;
+ 			reg-io-width = <4>;
++
+ 			status = "disabled";
+ 		};
+ 
+@@ -330,6 +332,7 @@ gmac1: ethernet@ffe7060000 {
+ 			snps,multicast-filter-bins = <64>;
+ 			snps,perfect-filter-entries = <32>;
+ 			snps,axi-config = <&stmmac_axi_config>;
++
+ 			status = "disabled";
+ 
+ 			mdio1: mdio {
+@@ -353,6 +356,7 @@ gmac0: ethernet@ffe7070000 {
+ 			snps,multicast-filter-bins = <64>;
+ 			snps,perfect-filter-entries = <32>;
+ 			snps,axi-config = <&stmmac_axi_config>;
++
+ 			status = "disabled";
+ 
+ 			mdio0: mdio {
+@@ -368,6 +372,7 @@ emmc: mmc@ffe7080000 {
+ 			interrupts = <62 IRQ_TYPE_LEVEL_HIGH>;
+ 			clocks = <&clk CLK_EMMC_SDIO>;
+ 			clock-names = "core";
++
+ 			status = "disabled";
+ 		};
+ 
+@@ -377,6 +382,7 @@ sdio0: mmc@ffe7090000 {
+ 			interrupts = <64 IRQ_TYPE_LEVEL_HIGH>;
+ 			clocks = <&clk CLK_EMMC_SDIO>;
+ 			clock-names = "core";
++
+ 			status = "disabled";
+ 		};
+ 
+@@ -386,6 +392,7 @@ sdio1: mmc@ffe70a0000 {
+ 			interrupts = <71 IRQ_TYPE_LEVEL_HIGH>;
+ 			clocks = <&clk CLK_EMMC_SDIO>;
+ 			clock-names = "core";
++
+ 			status = "disabled";
+ 		};
+ 
+@@ -397,6 +404,7 @@ uart1: serial@ffe7f00000 {
+ 			clock-names = "baudclk", "apb_pclk";
+ 			reg-shift = <2>;
+ 			reg-io-width = <4>;
++
+ 			status = "disabled";
+ 		};
+ 
+@@ -408,6 +416,7 @@ uart3: serial@ffe7f04000 {
+ 			clock-names = "baudclk", "apb_pclk";
+ 			reg-shift = <2>;
+ 			reg-io-width = <4>;
++
+ 			status = "disabled";
+ 		};
+ 
+@@ -418,6 +427,7 @@ i2c0: i2c@ffe7f20000 {
+ 			clocks = <&clk CLK_I2C0>;
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
++
+ 			status = "disabled";
+ 		};
+ 
+@@ -428,6 +438,7 @@ i2c1: i2c@ffe7f24000 {
+ 			clocks = <&clk CLK_I2C1>;
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
++
+ 			status = "disabled";
+ 		};
+ 
+@@ -438,6 +449,7 @@ i2c4: i2c@ffe7f28000 {
+ 			clocks = <&clk CLK_I2C4>;
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
++
+ 			status = "disabled";
+ 		};
+ 
+@@ -451,11 +463,11 @@ gpio@ffe7f34000 {
+ 
+ 			gpio2: gpio-controller@0 {
+ 				compatible = "snps,dw-apb-gpio-port";
++				reg = <0>;
+ 				gpio-controller;
+ 				#gpio-cells = <2>;
+ 				ngpios = <32>;
+ 				gpio-ranges = <&padctrl0_apsys 0 0 32>;
+-				reg = <0>;
+ 				interrupt-controller;
+ 				#interrupt-cells = <2>;
+ 				interrupts = <58 IRQ_TYPE_LEVEL_HIGH>;
+@@ -472,11 +484,11 @@ gpio@ffe7f38000 {
+ 
+ 			gpio3: gpio-controller@0 {
+ 				compatible = "snps,dw-apb-gpio-port";
++				reg = <0>;
+ 				gpio-controller;
+ 				#gpio-cells = <2>;
+ 				ngpios = <23>;
+ 				gpio-ranges = <&padctrl0_apsys 0 32 23>;
+-				reg = <0>;
+ 				interrupt-controller;
+ 				#interrupt-cells = <2>;
+ 				interrupts = <59 IRQ_TYPE_LEVEL_HIGH>;
+@@ -500,11 +512,11 @@ gpio@ffec005000 {
+ 
+ 			gpio0: gpio-controller@0 {
+ 				compatible = "snps,dw-apb-gpio-port";
++				reg = <0>;
+ 				gpio-controller;
+ 				#gpio-cells = <2>;
+ 				ngpios = <32>;
+ 				gpio-ranges = <&padctrl1_apsys 0 0 32>;
+-				reg = <0>;
+ 				interrupt-controller;
+ 				#interrupt-cells = <2>;
+ 				interrupts = <56 IRQ_TYPE_LEVEL_HIGH>;
+@@ -521,11 +533,11 @@ gpio@ffec006000 {
+ 
+ 			gpio1: gpio-controller@0 {
+ 				compatible = "snps,dw-apb-gpio-port";
++				reg = <0>;
+ 				gpio-controller;
+ 				#gpio-cells = <2>;
+ 				ngpios = <31>;
+ 				gpio-ranges = <&padctrl1_apsys 0 32 31>;
+-				reg = <0>;
+ 				interrupt-controller;
+ 				#interrupt-cells = <2>;
+ 				interrupts = <57 IRQ_TYPE_LEVEL_HIGH>;
+@@ -546,6 +558,7 @@ i2c2: i2c@ffec00c000 {
+ 			clocks = <&clk CLK_I2C2>;
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
++
+ 			status = "disabled";
+ 		};
+ 
+@@ -557,6 +570,7 @@ uart2: serial@ffec010000 {
+ 			clock-names = "baudclk", "apb_pclk";
+ 			reg-shift = <2>;
+ 			reg-io-width = <4>;
++
+ 			status = "disabled";
+ 		};
+ 
+@@ -567,6 +581,7 @@ i2c3: i2c@ffec014000 {
+ 			clocks = <&clk CLK_I2C3>;
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
++
+ 			status = "disabled";
+ 		};
+ 
+@@ -648,6 +663,7 @@ hdmi: hdmi@ffef540000 {
+ 			resets = <&rst TH1520_RESET_ID_HDMI>,
+ 				 <&rst TH1520_RESET_ID_HDMI_APB>;
+ 			reset-names = "main", "apb";
++
+ 			status = "disabled";
+ 
+ 			ports {
+@@ -682,6 +698,7 @@ dpu: display@ffef600000 {
+ 				 <&rst TH1520_RESET_ID_DPU_AXI>,
+ 				 <&rst TH1520_RESET_ID_DPU_AHB>;
+ 			reset-names = "core", "axi", "ahb";
++
+ 			status = "disabled";
+ 
+ 			ports {
+@@ -714,6 +731,7 @@ dmac0: dma-controller@ffefc00000 {
+ 			snps,dma-masters = <1>;
+ 			snps,data-width = <4>;
+ 			snps,axi-max-burst-len = <16>;
++
+ 			status = "disabled";
+ 		};
+ 
+@@ -723,6 +741,7 @@ timer0: timer@ffefc32000 {
+ 			clocks = <&clk CLK_PERI_APB_PCLK>;
+ 			clock-names = "timer";
+ 			interrupts = <16 IRQ_TYPE_LEVEL_HIGH>;
++
+ 			status = "disabled";
+ 		};
+ 
+@@ -732,6 +751,7 @@ timer1: timer@ffefc32014 {
+ 			clocks = <&clk CLK_PERI_APB_PCLK>;
+ 			clock-names = "timer";
+ 			interrupts = <17 IRQ_TYPE_LEVEL_HIGH>;
++
+ 			status = "disabled";
+ 		};
+ 
+@@ -741,6 +761,7 @@ timer2: timer@ffefc32028 {
+ 			clocks = <&clk CLK_PERI_APB_PCLK>;
+ 			clock-names = "timer";
+ 			interrupts = <18 IRQ_TYPE_LEVEL_HIGH>;
++
+ 			status = "disabled";
+ 		};
+ 
+@@ -750,6 +771,7 @@ timer3: timer@ffefc3203c {
+ 			clocks = <&clk CLK_PERI_APB_PCLK>;
+ 			clock-names = "timer";
+ 			interrupts = <19 IRQ_TYPE_LEVEL_HIGH>;
++
+ 			status = "disabled";
+ 		};
+ 
+@@ -761,6 +783,7 @@ uart4: serial@fff7f08000 {
+ 			clock-names = "baudclk", "apb_pclk";
+ 			reg-shift = <2>;
+ 			reg-io-width = <4>;
++
+ 			status = "disabled";
+ 		};
+ 
+@@ -772,6 +795,7 @@ uart5: serial@fff7f0c000 {
+ 			clock-names = "baudclk", "apb_pclk";
+ 			reg-shift = <2>;
+ 			reg-io-width = <4>;
++
+ 			status = "disabled";
+ 		};
+ 
+@@ -782,6 +806,7 @@ i2c5: i2c@fff7f2c000 {
+ 			clocks = <&clk CLK_I2C5>;
+ 			#address-cells = <1>;
+ 			#size-cells = <0>;
++
+ 			status = "disabled";
+ 		};
+ 
+@@ -791,6 +816,7 @@ timer4: timer@ffffc33000 {
+ 			clocks = <&clk CLK_PERI_APB_PCLK>;
+ 			clock-names = "timer";
+ 			interrupts = <20 IRQ_TYPE_LEVEL_HIGH>;
++
+ 			status = "disabled";
+ 		};
+ 
+@@ -800,6 +826,7 @@ timer5: timer@ffffc33014 {
+ 			clocks = <&clk CLK_PERI_APB_PCLK>;
+ 			clock-names = "timer";
+ 			interrupts = <21 IRQ_TYPE_LEVEL_HIGH>;
++
+ 			status = "disabled";
+ 		};
+ 
+@@ -809,6 +836,7 @@ timer6: timer@ffffc33028 {
+ 			clocks = <&clk CLK_PERI_APB_PCLK>;
+ 			clock-names = "timer";
+ 			interrupts = <22 IRQ_TYPE_LEVEL_HIGH>;
++
+ 			status = "disabled";
+ 		};
+ 
+@@ -818,6 +846,7 @@ timer7: timer@ffffc3303c {
+ 			clocks = <&clk CLK_PERI_APB_PCLK>;
+ 			clock-names = "timer";
+ 			interrupts = <23 IRQ_TYPE_LEVEL_HIGH>;
++
+ 			status = "disabled";
+ 		};
+ 
+@@ -845,11 +874,11 @@ gpio@fffff41000 {
+ 
+ 			aogpio: gpio-controller@0 {
+ 				compatible = "snps,dw-apb-gpio-port";
++				reg = <0>;
+ 				gpio-controller;
+ 				#gpio-cells = <2>;
+ 				ngpios = <16>;
+ 				gpio-ranges = <&padctrl_aosys 0 9 16>;
+-				reg = <0>;
+ 				interrupt-controller;
+ 				#interrupt-cells = <2>;
+ 				interrupts = <76 IRQ_TYPE_LEVEL_HIGH>;
+@@ -860,6 +889,7 @@ rst_ao: reset-controller@fffff44000 {
+ 			compatible = "thead,th1520-reset-ao";
+ 			reg = <0xff 0xfff44000 0x0 0x2000>;
+ 			#reset-cells = <1>;
++
+ 			status = "reserved";
+ 		};
+ 
+@@ -893,11 +923,11 @@ gpio@fffff52000 {
+ 
+ 			gpio4: gpio-controller@0 {
+ 				compatible = "snps,dw-apb-gpio-port";
++				reg = <0>;
+ 				gpio-controller;
+ 				#gpio-cells = <2>;
+ 				ngpios = <23>;
+ 				gpio-ranges = <&padctrl_aosys 0 25 22>, <&padctrl_aosys 22 7 1>;
+-				reg = <0>;
+ 				interrupt-controller;
+ 				#interrupt-cells = <2>;
+ 				interrupts = <55 IRQ_TYPE_LEVEL_HIGH>;
 
 -- 
 2.43.0
