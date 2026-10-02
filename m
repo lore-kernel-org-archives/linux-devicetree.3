@@ -1,167 +1,151 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74AEA36D9FE
-	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 18:52:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790967124; cv=none; b=tDPell1NqdMkAeVkfPwBng5qrW6bU2r04e223ojAHupCgwQjIpeouXXAivmjbdL2+gn3c/xAT3r8fdXUx/MlzNvY0OlN2e4+vN3QvCmGKOUpIODufeo83pD8E6e5OSNNfJQSCD/2yClsIfgs8mEUGH75TxTQmymR5u797QWqFt8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790967124; c=relaxed/simple;
-	bh=DHchWNZ1wELl9N/w6lEvEhX4ovGIqMkBB+Mj5IaftOY=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=a3mVq8N4O30aiLDwM5x+IohTTRCZf8semVDIxEAoYgf5y3CJpueSnE9JGUSt9dbcC0GbRw22g85ZgeEBYaBnIfd5161MFWp52tSWZbnJff5maGr+9Oi3yVPo3i0HNANMhsO6PzDV7/1YTqRKCmisg/qcyXZ2ZKUPytHUw5HjlG8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=KpwvNA6y; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=UjDTpSw/; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B65073A901F
+	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 18:55:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.141
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790967352; cv=pass; b=HxIGm4fdNasN7e7MjdADCL2QMrqd7R7tZuBP8WkBuKZhjBuoXwBSzqxyCy/4Z0OpPGB3XuqO4ifQUNNQ7y1FAgiXbXFq1aJBIqI/IvN1LWG9A3h3sCChPK2MWle5NiZgJwUcfN88JPvv0kPCWnMY9nhwMbCpHnUEgz0U3BMe0Dc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790967352; c=relaxed/simple;
+	bh=OR38zRZFAFpy4mOZaFXDsm6BWL0amMVzyna9ToNEKKc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=LVv8k+ANrPJhv/Tpl+knMZpaa1S3gBbUWQpPeDXjC5+8+qrlU2yd9DZ5Sn0b1kbfa3NM/oNvz5un/TZFrXnlGmAHJVjdLm3xlCQ0l+rIkytOmguMw+tFxDM3sdlcxGUh6R1KS6Q3H85fhU5DXqLFCVHHEPYTR0P345GpFXSyves=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ixtdxi2e; arc=pass smtp.client-ip=74.125.224.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="KpwvNA6y";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="UjDTpSw/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790967121;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=8ZbusdJQDLU9CqEcp+iezpSfVMrYKCe1NKRzE9U8ZfQ=;
-	b=KpwvNA6yyHps7fBy23Jiy6/hPp/Nzm3EqGCQYLs6FY/iUkxwaRokU50jEp5EmLK7kVu6TO
-	3MgGuRovlVpDX7/V+QMNsfYQn6JHFJZFDKF8qIboU2x6yyrkY1Wm01rmN7V2qZcckiM0Qs
-	2HVwjkWml7cSg0/IjClbNvSwioib3SY=
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-640-l2j7ieW_PDmEfKHOpj7hXQ-1; Fri, 02 Oct 2026 14:52:00 -0400
-X-MC-Unique: l2j7ieW_PDmEfKHOpj7hXQ-1
-X-Mimecast-MFC-AGG-ID: l2j7ieW_PDmEfKHOpj7hXQ_1790967120
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93cc5f70c8dso166803385a.3
-        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 11:52:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ixtdxi2e"
+Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66e4ab20f4bso459140d50.0
+        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 11:55:50 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790967350; cv=none;
+        d=google.com; s=arc-20260327;
+        b=VzveE6Mag2SyFwbUOxTgXMzxD88wWZYquKEipo3sWnj/r60V2J9XEVt5NnxomdMdu4
+         FsrzmrVAcI+nCIZszT9m+Hx3TNLAIQ6hWO8uGvBYDS5BVYUJK4qIqsrhVXtIeW67+zqz
+         OIduzi6dLmHlVyrjfPXvOzKwY0IYhEYTBgcLnCE+NwUOuFk5vBd3KB9TyK8Fo+rKovtJ
+         BdQNS9jSO+/bmxh5NOPs9+taRmG35tur3zDpGPHp+7xSov1agU2Q20hDK3CEK+pYbb+H
+         BprNUFnNXfpXVqatsHNApSrTy6KI9p7gTuuEioC0Cbvxv/Hh3w7TR7DNhZy15yyUuTJo
+         kCuA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=9S5eAE312pd6HZl9cjvi/BgiTHAVYy5cEZ8AWzWw5xo=;
+        fh=aLvq7k0qmO9fDmmDicLtWN13iflTucIsiEHimplTDL0=;
+        b=egr0XSG7eaf8TKNSAg8+/PiHz4pwnEupTmchYuTwg+fGR7juphS5UMN1btQLwcJQmU
+         ++xPQu/fA4eYB19d5SBptXb/Yfs9t7FWh6AurF/OP0h/A3tEKG8oHyoC25ygCI56SEkv
+         KR7OUviJKdD2Jw4RRY0pblUeTHDFvMPywMWewco3Ji1a6mL42HO1D9LkWBt2LPq8hEXf
+         FInMxjcwe7T9RCSRVzN+/AEWuKd2/ALNIrbZ5nQLxCFs8ib8JnDdXVSo0cJElzsJZi24
+         ksDHD+kW7eXp1GBn5Fl+u0LHa2a2H1BvXRr0guje0P66l0b7F2gUttykcjZ5QkDA9u16
+         DScw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790967120; x=1791571920; darn=vger.kernel.org;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=8ZbusdJQDLU9CqEcp+iezpSfVMrYKCe1NKRzE9U8ZfQ=;
-        b=UjDTpSw/X7ws2i650ZZTBkLxi+6XcdlopPZI3rAIW1C/mPXcKr49O2KAZJwrG/wYnt
-         L7KlvO8ERtLs30th+GARDp/dF3x/4fNTfPo32hymHWd6m5oFHLuCJV1QrUxs/JHiAPMH
-         7xT71lAT5IHSeenbPTG/TVbacbHzxtch1wFIsUcGuAPsU9qLML7UlHBtrdGEXGVnUawi
-         j/R6ynK7JZXJMEizbfqWgayPW4ngnhRJA4zzvvEE8Gv/tNi5uOVT++kU7jZFatskavm3
-         bUL7Rx4ZANrIS779EB91feCvYwhFu6jmkgxKL/W5ptBUJ57AL8WXI2bAvdzDZtjYo/WZ
-         Rkzg==
+        d=gmail.com; s=20251104; t=1790967350; x=1791572150; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9S5eAE312pd6HZl9cjvi/BgiTHAVYy5cEZ8AWzWw5xo=;
+        b=ixtdxi2epUtKkuXGhSUNb8u7gi3ElY1KdTNYlhK+kZJUHuWz1ZvjK34YDV6lujj/Up
+         GSLFC0IAjjq4Ixdmv7MqjzUtqTK8oyDqJzOvg89I/oikJqNofFCRxql+FNBq1lhsUNfr
+         Mx63HpGg0Hnnvy6xYrQPmImodN190UZSNgdMUu+EGiBAXkkLW511auUv0DD7tU6M6u16
+         uinBUCCSShX9Gkz95Fvx78wvnLoVxtU3eT+GzXvOT6BeoOte2+CunvbWjSgteAMhe1US
+         JnopbvRys2LTPbnL8H2ZeXp7OeRuTQSQihOV1IeiHnNFglSX2LX2xTNqu+WAgPxxh2cq
+         Z3zw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790967120; x=1791571920;
-        h=message-id:date:references:in-reply-to:cc:to:from:subject
-         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1790967350; x=1791572150;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=8ZbusdJQDLU9CqEcp+iezpSfVMrYKCe1NKRzE9U8ZfQ=;
-        b=YbC0fE8IntlolC2Yq6BKoy8RFcapmobHSs9z0qe7PKyX5IR+C9UR8R07+Hwssjc1Rx
-         k+9BfGXwKF3grKjey1rPwsIGjsOHFsji/fG0WudWK9iK0g4YzRt8MX4FdDi2dGLs8Tjg
-         NuuHWwuddebbkRWvXoEdJXijBV98gab1ZPJozL1vTiwI/OqFdMRytpR7frYx9lEicDJZ
-         OsUK5DD2Qb5kPQ+1InJhGqdnNONgpiEN3X3bqbKFHNGr+CBm9eMO8N1fpDym4K32Z/xe
-         LJGY517dCSg+0xJxUuYsWf3uYE2UeXeEGi2+dwzExIF4b5NgkrW/Wk30zX+LnSTmi+qL
-         TWbA==
-X-Forwarded-Encrypted: i=1; AKwUvBxv79YfWUkwdKiNxrEeiJPxUfEWGwK7bOQzgy/momuD/kxPPNEikbv/Kz4+ViXYew0lxaf83Pvv41Fs@vger.kernel.org
-X-Gm-Message-State: AFuF++nflpwKRP3muvaazqRcNXuhtXqP8DQpeIHJQp4oPH32Y8rf2GGB
-	v1VxqbHpR8aBEE1N70DrKF8aGI7S9TDPQPysUsgG+aeo7FjHacB3EeQNkfxWYzjxjGkf1kKniK+
-	0aUwMp//KA/RM+NPF3CD26kf3epXyxInN4hXN+ApKpsvIVwol+IUlW8eIJh+8GGU=
-X-Gm-Gg: AYBFou3O9GB1SIm+WeoDoxAXbG+/jkavKLlhCH2BMaGecc3/JErBvrwiibW6m2rpG0L
-	Sg8UCdI8nF2H+OMPvsl/4S0RlGswiGCHTU50Uq9IArGnxsDt/yaEEbH2V+YKU9tdBjDJ/7/sgiM
-	zMruL8xNTlV1jOaCgQqdxP7eLF1a4dT8Oqh5N0djrGGqyTtGzcrjqlEC71A5wu9aToc1wPwWQeA
-	EalWCoMFyhXMDoP6vC2BuWyCHdTIZq4TX7uWmzOqHlntKMiXmIMRuoQCSB7ggwxnCzbCzYqgPYV
-	1ofKEBFq8R6+iRtl0c2c6IAE2MSQ8R1TVqkV1n84o5B5CfkFrDD7NKgPLW4HXl/rOKIWEpaE29F
-	5Zv/yer0wACvCfg==
-X-Received: by 2002:a05:620a:1707:b0:93c:ab7d:af7 with SMTP id af79cd13be357-93e510eda88mr48340585a.54.1790967119646;
-        Fri, 02 Oct 2026 11:51:59 -0700 (PDT)
-X-Received: by 2002:a05:620a:1707:b0:93c:ab7d:af7 with SMTP id af79cd13be357-93e510eda88mr48333485a.54.1790967118935;
-        Fri, 02 Oct 2026 11:51:58 -0700 (PDT)
-Received: from bmasney-x1.rmtuswv.csb ([2600:382:7723:4eba:66b1:961f:1a2d:af55])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93cca03a1bbsm290352485a.1.2026.10.02.11.51.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 11:51:58 -0700 (PDT)
+        bh=9S5eAE312pd6HZl9cjvi/BgiTHAVYy5cEZ8AWzWw5xo=;
+        b=WaXwVNnvixLQiEhP0L1sECSxxKwz4ct+QYI0TvM+qbIfHoDCHh6hYR/aKJQfHPLg/a
+         hcRYyBU9Gze1GA0ToQwPJ5HqjSSkok1vHD8qnaWkQvSkxotO1mDSEq/PXEUGzsUUGnWx
+         mlkLEtH0I91sqTbVng26QWOU8HnzDCxk2H+wTx119qzVvRkPO9+CBPH4H4SjKMp2684G
+         zEJZ4L6VVHLq9YOGa8yxBl0hfZaGHiiGkqsEkF0msLYSW03ssvaPGd20pljZJWD0OzmC
+         dq/QSFSrQKjj7Lon0izMH7eb98XCjb/0/GzoB1ICHT6xqJUiXLHD1X4YZt99S+W54Hm6
+         QTnQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzsOHLka3KhPgBGgH94K1eK+vOHLMGhOD/e0L0NT62a2uAnZKZyM6e/8+WBW9fDzdRsvE6SRvtd+QBG@vger.kernel.org
+X-Gm-Message-State: AFq9FYKz62R/yptd7JU+xRkTk4vP7Vy67Ki019EQKzvs+ZfvCJWhzXp/
+	KlkyxZterX33pkvVHaMR2Gp/0/sCUqyU/sFHP5sk8dlfymxLAUPq+FUlNDp455oXopWwXqhWufa
+	VanHHb7fPwaHuefuOELF7Ot+tKESeV/Q=
+X-Gm-Gg: AYBFou2DZlbuNfP+kE6bwxrXrfF9Eff1ph5xNH4yQX5Jm2sDVDE4VkMRkUjevtBjuIG
+	G2EUvUzDi+/+HJaZJFdwRnVkPmmMO4w6IDkKX1130YaHNixxRA5C/M2K5HqFupgl3L/1HOed+UH
+	dK14fD5Ab8VRh7HQl87zg8EfnKU0vog/MBgQNAa5QCraDpgf7GtPvm4rLPEzNx6RDD5GrOs1yIY
+	sHlKkycnzhbUs1OI1rWpIWKwC/EA3ooKNginXj94QpvxlW3WxgWe67jsOPOy+DLFAbKvL55KIvX
+	2Merxt2ZBlj4HnYGrMLJSGLNJ2Lv2yTXdTFaziAfl2TYbsoGWG2vunvn
+X-Received: by 2002:a05:690e:1243:b0:677:b7e7:f68 with SMTP id
+ 956f58d0204a3-677b7e71be5mr813923d50.108.1790967349727; Fri, 02 Oct 2026
+ 11:55:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v5 12/23] clk: starfive: Introduce idiv ops for
- inverted divider clocks
-From: Brian Masney <bmasney@redhat.com>
-To: Changhuang Liang <changhuang.liang@starfivetech.com>
-Cc: Michael Turquette <mturquette@baylibre.com>, 
- Brian Masney <bmasney@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, Emil Renner Berthing <kernel@esmil.dk>, 
- Kees Cook <kees@kernel.org>, 
- "Gustavo A . R . Silva" <gustavoars@kernel.org>, 
- Richard Cochran <richardcochran@gmail.com>, linux-clk@vger.kernel.org, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-riscv@lists.infradead.org, linux-hardening@vger.kernel.org, 
- netdev@vger.kernel.org, Hal Feng <hal.feng@starfivetech.com>
-In-Reply-To: <20260930124317.5648-13-changhuang.liang@starfivetech.com>
-References: <20260930124317.5648-1-changhuang.liang@starfivetech.com>
- <20260930124317.5648-13-changhuang.liang@starfivetech.com>
-Date: Fri, 02 Oct 2026 14:51:13 -0400
-Message-Id: <179096707366.821688.7143884804671628088.b4-review@b4>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1581; i=bmasney@redhat.com;
- s=20250903; h=from:subject:message-id;
- bh=DHchWNZ1wELl9N/w6lEvEhX4ovGIqMkBB+Mj5IaftOY=;
- b=owGbwMvMwCW2/dJd9di6A+2Mp9WSGLL2/7W9zLXuyMqzenaif56235iYH37vy6njq2S21Ouo+
- +7y2HUxvaOUhUGMi0FWTJFlSa5RQUTqKtt7dzRZYOawMoEMYeDiFICJdK5hZOiut5vCynTqZcHe
- S+F3wxhvO356uFlMyslMe9Iri3Oa/ikM/2MWlG1+tWHSu7i1E1iyY9Z/9z/fdPbqy3Oxs2tXT/8
- VOYsRAA==
-X-Developer-Key: i=bmasney@redhat.com; a=openpgp;
- fpr=A46D32705865AA3DDEDC2904B7D2DD275D7EC087
+References: <20260918-04-k3-pm-support-v1-0-0acd2b36b96f@kernel.org> <20260918-04-k3-pm-support-v1-2-0acd2b36b96f@kernel.org>
+In-Reply-To: <20260918-04-k3-pm-support-v1-2-0acd2b36b96f@kernel.org>
+From: Iker Pedrosa <ikerpedrosam@gmail.com>
+Date: Fri, 2 Oct 2026 20:54:00 +0200
+X-Gm-Features: AclHuK9ruP21ynPDiadHS4oYScZ4A0eIuHPpImnDhttohXSuBO4BfsPMVhy9WRo
+Message-ID: <CABdCQ=OUTASG8JDBqnJAPJ5aTDUC-BQzCVcw0r=cxrb8CPUO2A@mail.gmail.com>
+Subject: Re: [PATCH 2/3] pmdomain: spacemit: Add power domain driver
+To: Yixun Lan <dlan@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
+	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	linux-pm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Changhuang,
+El vie, 18 sept 2026 a las 7:49, Yixun Lan (<dlan@kernel.org>) escribi=C3=
+=B3:
+> [...]
+> diff --git a/drivers/pmdomain/spacemit/pm_domains.c b/drivers/pmdomain/sp=
+acemit/pm_domains.c
+> new file mode 100644
+> index 000000000000..d563e4e4e232
+> --- /dev/null
+> +++ b/drivers/pmdomain/spacemit/pm_domains.c
+> [...]
+> +static struct spacemit_pmu *gpmu;
 
-> Some StarFive clocks only advertise the divider and invert capabilities
-> (via JH71X0_CLK_INVERT, without ENABLE). Add the JH71X0_IDIV() macro
-> to declare such clocks, and jh71x0_clk_idiv_ops, which combines the
-> divider rate operations with get_phase/set_phase.
-> 
-> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
->
-> diff --git a/drivers/clk/starfive/clk-starfive-jh71x0.c b/drivers/clk/starfive/clk-starfive-jh71x0.c
-> index bb7706ede1a6..1f98f1f8f0a5 100644
-> --- a/drivers/clk/starfive/clk-starfive-jh71x0.c
-> +++ b/drivers/clk/starfive/clk-starfive-jh71x0.c
-> @@ -302,6 +302,15 @@ static const struct clk_ops jh71x0_clk_inv_ops = {
->  	.debug_init = jh71x0_clk_debug_init,
->  };
->  
-> +static const struct clk_ops jh71x0_clk_idiv_ops = {
-> +	.get_phase = jh71x0_clk_get_phase,
-> +	.set_phase = jh71x0_clk_set_phase,
-> +	.recalc_rate = jh71x0_clk_recalc_rate,
-> +	.determine_rate = jh71x0_clk_determine_rate,
-> +	.set_rate = jh71x0_clk_set_rate,
-> +	.debug_init = jh71x0_clk_debug_init,
-> +};
+Would it make sense to embed the 'struct spacemit_pmu' pointer directly int=
+o
+'struct spacemit_pm_domain'? Other generic Power Domain drivers (Rockchip,
+QCOM, Renesas) use this pattern to keep domain callbacks self-contained and
+ready for multi-instance SoCs
+
+> [...]
+> +static int spacemit_pd_power_on(struct generic_pm_domain *domain)
+> +{
+> [...]
+> + regmap_read(gpmu->regmap, APMU_POWER_STATUS_REG, &val);
+
+Please check the return value of regmap_read()
+
+> [...]
+> + if (ret < 0) {
+> + dev_err(&domain->dev, "power-off domain: %d, error\n", spd->pm_index);
+
+Typo: should this say "power-on domain" since this is inside
+spacemit_pd_power_on()?
+
+> [...]
+> +static bool spacemit_pm_get_state(struct spacemit_pmu *pmu,
+> +  struct spacemit_pm_domain *pd)
+> +{
+> + const struct spacemit_pm_domain_param *p =3D pd->param;
+> + u32 reg, bit;
 > +
->  const struct clk_ops *starfive_jh71x0_clk_ops(u32 max)
->  {
->  	if (max & JH71X0_CLK_DIV_MASK) {
-> @@ -312,6 +321,9 @@ const struct clk_ops *starfive_jh71x0_clk_ops(u32 max)
->  		}
->  		if (max & JH71X0_CLK_ENABLE)
->  			return &jh71x0_clk_gdiv_ops;
-> +		else if (max & JH71X0_CLK_INVERT)
-> +			return &jh71x0_clk_idiv_ops;
-> +
->  		if (max == JH71X0_CLK_FRAC_MAX)
->  			return &jh71x0_clk_fdiv_ops;
+> + regmap_read(pmu->regmap, APMU_POWER_STATUS_REG, &reg);
 
-else if so that it's with the block above.
+Please check the return value here as well
 
-Brian
+> + bit =3D p->use_hw ? BIT(pd->param->bit_hw_pwr_stat) :
+> +  BIT(pd->param->bit_pwr_stat);
 
--- 
-Brian Masney <bmasney@redhat.com>
-
+Since 'p' is initialized to 'pd->param' above, you can use 'p->bit_hw_pwr_s=
+tat'
+and 'p->bit_pwr_stat' directly here
