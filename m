@@ -1,132 +1,97 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FF5E477985;
-	Fri,  2 Oct 2026 09:14:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51689477298;
+	Fri,  2 Oct 2026 09:14:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790932483; cv=none; b=DC2r8fSdUgXILIY9wvU3XtBQnqaYFNfhUvDzVB6pupsi79WCqVWTcYIjVDNANr3PCy//AN9imASKtXZGI+u/RK3H0IObDJM6T+Tik1c3H5AUgZpCF/hGGVbR1Hd8XqABpwFdUYdkOIiQ//gzjT3438RM6YhrdIpGPZR/QZyFTOs=
+	t=1790932485; cv=none; b=TOB+kgzER3h0Sp50sgWrfvtdQRle1WBIgXMBceaqy4htvwEZyll6WY4EKbXnemAJSlAm6iWNHwqhmY1v8ChfA5FWRs0lmZpReJrRpMYrgX05OKJrkqcjkw2fIpDiHY2SENVJj76smQo55sqhB6dWfHcOSTDcU2UHRdPp2ul8NHE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790932483; c=relaxed/simple;
-	bh=arE3bIx4izYzzUsgp/nOazm2aKz2snIDumZdwWtZNDQ=;
+	s=arc-20240116; t=1790932485; c=relaxed/simple;
+	bh=uuc6pKrAEKYY3FvWFjxKLukIlh0MWtxgEufqW9A1wrI=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=eQNW35NHXQUnFXbWtmPflucTaiGGMPjGPRdfwEXwXl5xDvOutN9mwxQuznP0R3ciBRd+2bMNIAiiRFmoxuEhKZHdz+iG5yfVBH71O5iiQhyZQ9Hareelf74EFagM4dbUo3K2v9o5+wq13zY6g40PLgKNdd6bhjPXsSxGF89vmIU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D9mcGmwm; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=o4Y2cPydzkqW38kd7DFoNwb6mKigyJAFpZLN3mjOcbZNz88f+IRjq290E0zR0qGkESDpfIr6nerUdi3vDsnkLMX08KZgSo8rR3vjqAXoTyxhxrFN7yyGzbyRx3o41/OqbPWye/K6OE7/IFJhzwxatbLTPNrQPIDbNeg/f0vUufA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BiqL4JgZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D9mcGmwm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26F141F00893;
-	Fri,  2 Oct 2026 09:14:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BiqL4JgZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6DF91F000FF;
+	Fri,  2 Oct 2026 09:14:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790932482;
-	bh=mOECSzxHQz9Lipt0dBVVD3VuBEw/de8e5f4LjGSMrqg=;
+	s=k20260515; t=1790932484;
+	bh=8NBmc7gHD8IREiMfCsGpwuAj20F8qkNTUXnFe5yI9H8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=D9mcGmwmA9BERJf2VZ2AbCKENVFiOwuE5RURIP1iMVP0m9a+aAoHNbZ98e3D6Eq+o
-	 Cla3g+SVINb/foaxXt9AeQKXsujXXr44w8sDwUuuJbFmRlcsxG0RDQacA+XNZbY7I/
-	 P/ZvYvb88GVVBd5LmJ2Dl6lRpP0CJdlc9YdaqaARLsW9Ex4DCfybCyJme2iyQ0vkOg
-	 m5X71QU8ju1eH0LCVIDrJ+0/vLpvCoytZZvufS3pR4MGiNVUcIZ2VTUGoK0JDhj4Gq
-	 KKNtbyW4m/PO2mE93HncwSez2z8E+Tl8l1N1o1KoJsKv3RTCMiE9Xop4noXHJhRFUp
-	 V91SFQ4rnHEyw==
+	b=BiqL4JgZ8ETIr+E/+pA46bL5ZlsXKA1tmO/UxY7H/cn8VnX3saa9kltyH97OSHw6f
+	 5z2YWt6O1t60sIzMU7dox2c8PTEenoKEVeO6p4nSOqNIt5Yxh4JAvCi86YmtSXMReu
+	 jcu56WprU9LdIfAtjl0uCBVFnDMwVmUCLtkdDRqBRkk02szrRQnvpjgGILAp0mfV1P
+	 ZBBtqDAp1S96/11KNVHrZvHDVxIRvj5kBUYRVEWtQ6JXJgSMfHEVqMzbp7RPfdkQyS
+	 CqzapdkBJAiLvT15BiScS282CGXc8XBOOaMQYWLQKwXA77fTKlJxg9Pqc1bEx2sF71
+	 visHPs1M8Y6dQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/3] dt-bindings: mfd: as3722: Convert to json-schema
+Subject: Re: [PATCH v15 09/11] clk: realtek: Add RTD1625-CRT clock
+ controller driver
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Thierry Reding" <thierry.reding@kernel.org>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, mfd@lists.linux.dev, robh@kernel.org, lee@kernel.org
-In-Reply-To: <20261002-as3722-bindings-v3-1-21c179b72a95@nvidia.com>
-References: <20261002-as3722-bindings-v3-0-21c179b72a95@nvidia.com>
- <20261002-as3722-bindings-v3-1-21c179b72a95@nvidia.com>
+To: "Yu-Chun Lin" <eleanor.lin@realtek.com>
+Cc: conor+dt@kernel.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20261002074331.3066919-10-eleanor.lin@realtek.com>
+References: <20261002074331.3066919-1-eleanor.lin@realtek.com>
+ <20261002074331.3066919-10-eleanor.lin@realtek.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 02 Oct 2026 09:14:40 +0000
-Message-Id: <20261002091441.26F141F00893@smtp.kernel.org>
+Date: Fri, 02 Oct 2026 09:14:43 +0000
+Message-Id: <20261002091443.E6DF91F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] dt-bindings: as3722: regex pattern for pinmux nodes rejects exis=
-ting hyphens
-- [Low] dt-bindings: as3722: ams,enable-tracking missing restriction to ldo3
+- [Medium] clk: realtek: incorrect bitmask FREQ_MNO_MASK truncates O field =
+for VODMA PLL
 --
 
-commit d71712428dc3759a032b4331de89438e39e0ee5b
-Author: Thierry Reding <treding@nvidia.com>
+commit 0728493fca904449d29102f41b0c4a133dfc60a6
+Author: Cheng-Yu Lee <cylee12@realtek.com>
 
-dt-bindings: mfd: as3722: Convert to json-schema
-   =20
-Convert the AMS AS3722 PMIC bindings from the free-form text format to
-json-schema.
+clk: realtek: Add RTD1625-CRT clock controller driver
 
-> diff --git a/Documentation/devicetree/bindings/mfd/ams,as3722.yaml b/Docu=
-mentation/devicetree/bindings/mfd/ams,as3722.yaml
+This commit introduces support for the Realtek RTD1625-CRT clock controller,
+adding various clock sources, multiplexers, and gates. It also defines
+frequency tables and masks for the PLLs used by the device.
+
+> diff --git a/drivers/clk/realtek/clk-rtd1625-crt.c b/drivers/clk/realtek/=
+clk-rtd1625-crt.c
 > new file mode 100644
-> index 0000000000000..51910042c6216
+> index 0000000000000..b25717eb6301b
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/mfd/ams,as3722.yaml
+> +++ b/drivers/clk/realtek/clk-rtd1625-crt.c
+> @@ -0,0 +1,822 @@
 
 [ ... ]
 
-> @@ -0,0 +1,293 @@
-
-[ ... ]
-
-> +  pinmux:
-> +    description:
-> +      Device has 8 GPIO pins which can be configured as GPIO as well as =
-the
-> +      special IO functions.
+> +#define FREQ_NF_MASK     0x7ffff
+> +#define FREQ_NF(_r, _nf) {.rate =3D _r, .val =3D (_nf),}
 > +
-> +    type: object
-> +    additionalProperties: false
-> +
-> +    patternProperties:
-> +      "^gpio[0-7_]+$":
+> +/* PLL VODMA: M (11:4) / N (13:12) / O (19:17) */
+> +#define FREQ_MNO_MASK            0x63ff0
 
 [Severity: Medium]
-Will this strict regex exclude the hyphen character and cause validation to
-fail for existing in-tree device trees?
+Does this mask inadvertently exclude bit 19?
 
-Existing device trees like arch/arm/boot/dts/nvidia/tegra124-apalis.dtsi use
-hyphens in their node names, such as gpio0-1-3-4-5-6. Because these valid
-names contain hyphens, do they fail to match the pattern, fall through to
-additionalProperties: false, and trigger a schema violation error?
+The comment documents the O field as covering bits 19:17, but the value
+0x63ff0 (which covers bits 18:17, 13:12, and 11:4) leaves bit 19 unset.
 
-[ ... ]
+If a bootloader configures the hardware with an O divider that requires
+bit 19 to be set, would this cause the driver to incorrectly mask out that
+bit, resulting in an incorrect frequency calculation during initialization?
+It appears the mask should be 0xe3ff0 to fully cover the O field.
 
-> +    patternProperties:
-> +      "^(sd[0-6]|ldo[0-7]|ldo9|ldo10|ldo11)$":
-> +        description:
-> +          These sub-nodes must be named after one of the regulators foun=
-d on
-> +          the AS3277. Each sub-node should contain the constraints and
-> +          initialization information for that regulator.
+> +#define FREQ_MNO(_r, _m, _n, _o) { .rate =3D (_r), .val =3D ((_m) << 4) =
+| \
+> +				 ((_n) << 12) | ((_o) << 17), }
 > +
-> +        $ref: /schemas/regulator/regulator.yaml#
-> +        unevaluatedProperties: false
-> +        type: object
-> +
-> +        properties:
-
-[ ... ]
-
-> +          ams,enable-tracking:
-> +            description: Enable tracking with SD1, only supported by LDO=
-3.
-> +
-> +            $ref: /schemas/types.yaml#/definitions/flag
-
-[Severity: Low]
-Is the ams,enable-tracking property missing a restriction to ldo3?
-
-The text description explicitly states it is only supported by LDO3, but it
-appears to be allowed for all regulators matching the parent pattern. Witho=
-ut
-an allOf/if-then constraint to restrict its application strictly to the ldo3
-node, users could mistakenly apply ams,enable-tracking to unsupported
-regulators.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261002-as3722-bin=
-dings-v3-0-21c179b72a95@nvidia.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261002074331.3066=
+919-1-eleanor.lin@realtek.com?part=3D9
