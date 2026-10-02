@@ -1,95 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f32.google.com (mail-ed2-f32.google.com [74.125.228.96])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 092ED472072;
-	Fri,  2 Oct 2026 11:19:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790939969; cv=none; b=JrJdwVqDcSrhKbLunj6rq2PsnihKz683fIhk/0X3ZYa5dc7BHgr14oswHxmv8nl0ws0b6KWuToULBtSybSSQGwxWJW5YY02e0Yvqlyibj7f/E1207J6X1mx4pLjKEIRxbh5rxpcMYRW3PRObbZ2BMMotCflhLZK3sO9dlUiYEv4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790939969; c=relaxed/simple;
-	bh=lviCT27rqn9fA11DK5jBpnHz/dnpBP11DxOVf3ldaK8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ie9BT19q6Bk5Dg0ZF3S+uvfrlp/rrh17Nhj/m2CbjARI5EdGvryb8To4xNe5SgIDazpfxjXuKkyW1gBsBwP2a28k4liWZySbt9aojp66z2KzPK8N5t0CRn8jfnKvvVObqwP6HKCOUECtVJPCcIBZhB4MM5As5eAdftC3q0b7QWs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A5+kComB; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D38C488223
+	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 11:25:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.96
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790940305; cv=pass; b=QU7YOaP3y6duv9/3aY0sgq1jDwuH8vMbojeDD3iSgAq5Y1TUR+jkj9Eg480ig3coXP58u5f94fgD+uHOzlLeE3e39DxjpnhzvoFbr06rV9zdYnaUDJvlGAaWJS07wNFfk2v+zN/bEis/fJQzhlE/VZr083tlmioBaA7acIlkV78=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790940305; c=relaxed/simple;
+	bh=keMbtcyNVQxdC0ctP+ZhAmBIOPGSUadXPIE/fKO00rU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=HAe90jbHV4fgXpen5vZwB0tA6qiiR9PbW8r8r3ASpaP1L0K0mTPph38eXH1tMit4D/NgpCQwg8YHX24HvMfKYWIcDpboU6tMV/qfihP1R3onF9OEHhS5q1I3kWDYnPEH9gRJUcr2xdt1nT4ZLa4N3tnb0Su4+2maJ3i7h8qKq0Y=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=efqCTgDg; arc=pass smtp.client-ip=74.125.228.96
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A5+kComB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95A391F000FF;
-	Fri,  2 Oct 2026 11:19:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790939967;
-	bh=zaPxFWn5phk1poNRE58QojD0V2a1+4RKn/uvTqNxibg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=A5+kComBFwibwIBdu4/nl2+6XPwpM13HBqbAX5eu91k/JApiaNiENgKducsCrVGQ/
-	 TqI0pz3lugDEksMOSO6awWNy5cC/BTvrAgMjaXbVYX77f37UxF9nURhIFSjjm52pNs
-	 phPOEse/wMmmtcdiXKTEJeDIJsOVIxdRGw0OmQss4KKU4tgAKxYYvxFfvLErjCAUjF
-	 oroUCb0m3nCdTgDByBbi4OzqYFUA1JlOfoHoK/UFGd8ZPJ8GUouYUtEaq4qPMxweTy
-	 daf8ZbSaZR6kLL4GZptyD5OOPAJ9VBemjQyqCeC5IsYWuEJcXIfP1gIcq1rygfDB6l
-	 8+kKXK8nVjoYQ==
-From: Yixun Lan <dlan@kernel.org>
-To: Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Inochi Amaoto <inochiama@outlook.com>,
-	Radu Rendec <radu@rendec.net>,
-	Paul Walmsley <pjw@kernel.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Anup Patel <anup@brainfault.org>,
-	Guodong Xu <docular.xu@gmail.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Junhui Liu <junhui.liu@pigmoral.tech>
-Cc: Yixun Lan <dlan@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Bo Gan <ganboing@gmail.com>
-Subject: Re: [PATCH v3 0/6] spacemit: k3: Replace bad CLINT node with ACLINT nodes
-Date: Fri,  2 Oct 2026 11:19:15 +0000
-Message-ID: <179093990819.1237110.17149048431287759426.b4-ty@b4>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20260918-k3-aclint-v3-0-cf4fd4050e14@pigmoral.tech>
-References: <20260918-k3-aclint-v3-0-cf4fd4050e14@pigmoral.tech>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="efqCTgDg"
+Received: by mail-ed2-f32.google.com with SMTP id 4fb4d7f45d1cf-6acae8342d2so1671686a12.3
+        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 04:25:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790940300; cv=none;
+        d=google.com; s=arc-20260327;
+        b=cJgQfEKq5m0k36Lxid+EITCc7K4CLKekf0b0sOPlJ5Ou6xY4AWmZgMexBVQGP6sVqL
+         Pan6bjCy2VPGjL6ZGReHu5KkXhFjMVbu/iIladb/Vjx2L+D9fb8o3/b56E7TIkA7P9ex
+         DfTZaDwxppZh5ZZuoQ9vU++Daobd0bxW4aWKArYxAVIksxYlY/0/QFsShk8Xtge1ZiZY
+         Hl1XNxHCB8Gi+TjeR51sMoW6rbMgpIGZU7g7CJZvsQH0Q+dpQnAQoa6luQvPeBVDxCcM
+         5cuQKlgKSnC1fdSiUka8sfi9J8SSaZ5xs7ZamXPFu/6wGqHXhIdw/6IXSBTWOw89f559
+         vF/A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=keMbtcyNVQxdC0ctP+ZhAmBIOPGSUadXPIE/fKO00rU=;
+        fh=Ri8cRa80DQhRRZxixS/IlQc4EMaKQgS5DrTj7Yp6mtg=;
+        b=aJz9lb7xVRDWI8vhtAM+AsZXuVAxzxRqvqgtTrfdHvCwJ7rG5+vpVwPsQ12atNbUMz
+         4G8B70v4nMti1SmNP0odqM6pSjsFN+2z1+6nSOMKfcqsvILSuzHdhRxuSn6ZbxN+PbB0
+         wT6Zk26QMxwWep6r+OLD+oGPEXFQEL0k96tWUR+j3Hl/bZNSpH2T+/9JM3mp3FSi6QAM
+         e+Na/qEo7zi9uRXIHOXfytTFQPRseyktQrKfxgBPc2DTgA4EdVRzW21FewJrS7uGU81N
+         85d/mE/B1tiBR8gCRwWTjhCtIxrVXguv/iiWGWJzQjPNFKNedwQcdazavENGXSafGl6c
+         w+NA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790940300; x=1791545100; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=keMbtcyNVQxdC0ctP+ZhAmBIOPGSUadXPIE/fKO00rU=;
+        b=efqCTgDg+rP7HorfXfAh2CddbMB3IpZ3nM2eASkyu88plQ/Icbem6nxQxZ8g8Nmis/
+         O3bQuprgqMODpxzcmS+8Q06gJB5ALqDCKv/W8YlhhtPv1FimY7f/u1b4Lrj3401BQa9J
+         y4uJB4tof9Axdt9wD6bD4ORqh6EsUjBvfU5Y1AenE60iB8ri7iibPNnrozPrTVEKQqdk
+         4dPbKKBkT507HvuE7BeJDisxLIiIOxm71GCWLYFu141ESNal2XIbkd3U9p5tplw3VrEa
+         Ni5lghwXSK7j0aOP4lbsgVBoOxDLiYb02QfpiK/K03IlSQUYsH6m4FKD3IWN/oSvXIaN
+         keyQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790940300; x=1791545100;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=keMbtcyNVQxdC0ctP+ZhAmBIOPGSUadXPIE/fKO00rU=;
+        b=dnGxddaIphkjr0eXmYxA8i3FJmsHrhexh24IfPW+mv9Grr1jnT4uGzDhZk1rujQaDD
+         ZTp8asebnDr9kOo5wjlyvReyPONLSUVvcd26H90e54dnY9gO61i2p2OnyRNhkUm8s1Lp
+         aOv0ACyPHoxxKNNWYNxxj6hf8PkRKk6GnTkZ1VsPJPkNQJZ79T92Ep3Ew18pp6Jvm8O3
+         5Tn9JIsO49iNpQEg9XKXIa7yFFgkuz7GSh1GCPIqGPTF9xOy+i5iJI3rUEb66PxaLqZa
+         e4RTuy6y11t4dBOLdFN2KeOo3+5ak5QgfA/BidfesI5eYSMk8FmSCEVWsMkF+wXvXaCf
+         DdRQ==
+X-Forwarded-Encrypted: i=1; AKwUvBze72XnRgP7CVcZ1O2j+cQCTOQ3N6CZiL0DPRmzacAd+C5w3pOVZL4hDPKHwcfkXxs3hvjuDRjhOlrw@vger.kernel.org
+X-Gm-Message-State: AFq9FYLWD//6nQMMAt7nYLfRdV9EucDBhUtcyGJPQWHcIuPWS7WXN9uj
+	Tul5Cx+A+gvGLwYLZI1DBXWYwZNUvazDWTl6xzlAe2napZkfJxubbhXM7w/vgV6Vc0gqCgruaOZ
+	GTE+++jvb7pYDVmzxPUFMLKo0vKmfjnhCUT9mhYYH4A==
+X-Gm-Gg: AYBFou1Z9rPX7JwZSvM5n7Vm4HoZ9niIBKHKCeELUQHS6eXIMdjpehj3bgw+Oh/L194
+	BhD70B+uMu4G9gU/DFWzGq7nikwSJm/n6OByeAGuF8AeLrpgLACmTxrgkABRyB/JgZ7+jmyZjpS
+	UTtY/EE9hcZZm/wXcHewR5e3/0DSxMXqVfQqindyHl/thLBNFwK81k6yh10hONosGrMW2uilpKY
+	SQqKK0F8luhhllGRNSuN9qF/L2qncmMnFcqu5GN6RvT+5ZAPPn7GIhcB+CW9AOt3TLtKXBVT6nB
+	6For7oPq5GPVh73KKITR/eJ10ZhUucBY6DUN85SGULv+fFl5trIHDXoY6sMKbDQON+oYeu7ev5z
+	thCWm9s4VrugMB346+V13JkjH
+X-Received: by 2002:a05:6402:13cd:b0:6ac:8dce:5a86 with SMTP id
+ 4fb4d7f45d1cf-6af9e322b6cmr1463693a12.23.1790940300400; Fri, 02 Oct 2026
+ 04:25:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+References: <CGME20260927150938epcas5p33b7d0495f8d9a8e84bf5f09c66e757fb@epcas5p3.samsung.com>
+ <20260927152738.3673504-1-alim.akhtar@samsung.com>
+In-Reply-To: <20260927152738.3673504-1-alim.akhtar@samsung.com>
+From: Peter Griffin <peter.griffin@linaro.org>
+Date: Fri, 2 Oct 2026 12:24:46 +0100
+X-Gm-Features: AclHuK9DpXDu6p9otQ-T72J8vLpAXoibGWPs5vMvpbKJgOwvaV2nsGKYn1-NIrU
+Message-ID: <CADrjBPpG1nJ0Dg1jXhqLoR_dnRP+N+=QbYeyW8GJV4Xr=od1CQ@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: watchdog: Add Exynos8855 watchdog
+ compatible string
+To: Alim Akhtar <alim.akhtar@samsung.com>
+Cc: krzk@kernel.org, robh@kernel.org, conor+dt@kernel.org, linusw@kernel.org, 
+	linux-samsung-soc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-watchdog@vger.kernel.org, 
+	linux@roeck-us.net, hajun.sung@samsung.com, wim@linux-watchdog.org
+Content-Type: text/plain; charset="UTF-8"
 
+On Sun, 27 Sept 2026 at 16:09, Alim Akhtar <alim.akhtar@samsung.com> wrote:
+>
+> Add the 'samsung,exynos8855-wdt' compatible string to the Samsung
+> watchdog device tree binding documentation. The Exynos8855 watchdog
+> nodes use two clocks (bus clock and source clock), require
+> samsung,cluster-index and samsung,syscon-phandle properties, similar
+> to Exynos850 watchdog implementation.
+>
+> Signed-off-by: Alim Akhtar <alim.akhtar@samsung.com>
+> ---
 
-On Fri, 18 Sep 2026 00:29:32 +0800, Junhui Liu wrote:
-> When testing OpenSBI with the upstream Device Tree, the CLINT controller
-> failed to function properly with the irqchip.riscv_imsic_noipi boot
-> parameter:
-> 
->   Platform IPI Device         : aclint-mswi
->   Platform Timer Device       : aclint-mtimer @ 24000000Hz
-> 
-> [...]
+With Krzysztof's feedback addressed
 
-Applied, thanks!
-
-[1/6] dt-bindings: timer: thead,c900-aclint-mtimer: Add SpacemiT K3
-      https://git.kernel.org/pub/scm/linux/kernel/git/spacemit/linux.git/commit/?id=73329198cdc273008bd273b0c5ad4c65251cb49e
-[2/6] dt-bindings: interrupt-controller: thead,c900-aclint-mswi: Add SpacemiT K3
-      https://git.kernel.org/pub/scm/linux/kernel/git/spacemit/linux.git/commit/?id=c9bae665035f345ca050e98d6f4d6830c3d74f84
-[3/6] dt-bindings: interrupt-controller: thead,c900-aclint-sswi: Add SpacemiT K3
-      https://git.kernel.org/pub/scm/linux/kernel/git/spacemit/linux.git/commit/?id=08257b5b3d38b3e19b61b807850f5a637fd1421b
-[4/6] dt-bindings: timer: sifive,clint: Remove spacemit,k3-clint
-      https://git.kernel.org/pub/scm/linux/kernel/git/spacemit/linux.git/commit/?id=5397ba147c28427d3728812dec999fdab0f53619
-[5/6] irqchip/aclint-sswi: Add support for SpacemiT K3
-      https://git.kernel.org/pub/scm/linux/kernel/git/spacemit/linux.git/commit/?id=b424b3b0ab920a25c23fbd7d226a0174b38d0de7
-[6/6] riscv: dts: spacemit: k3: Replace incorrect CLINT node with ACLINT nodes
-      https://git.kernel.org/pub/scm/linux/kernel/git/spacemit/linux.git/commit/?id=cc6371a7f5195387584e56054f3af671ff7354dc
-
-Best regards,
--- 
-Yixun Lan <dlan@kernel.org>
+Reviewed-by: Peter Griffin <peter.griffin@linaro.org>
