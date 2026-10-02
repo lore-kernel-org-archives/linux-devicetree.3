@@ -1,137 +1,217 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47440443C13;
-	Fri,  2 Oct 2026 08:21:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 757754483A6
+	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 08:22:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790929294; cv=none; b=UW1AUm0dZ8tbdnRqnmaURPz3AmhY6xl6LCQuUdnv5SbeZ/E4C432EipTfs1UQnhIeA699jLIMkJLHowPL7Z4q+83QEimYzdpz0wbVQ8n8+zL0CUjkTwHFQJxfQhnO/+YcCNYf/Jx9whpmUeXHTA81JiyKQyx0vZFbCFnZFIWP5o=
+	t=1790929359; cv=none; b=HUfgxwfBQlJW0cpgzbNdYkSqF808hH5d+UzBGIuG6ZxEt27vHsuDaP7yAPqPBuyyCelXSDj4o8RruIjLRd4FsDUgDASZ4mcidzWYE9DJbNVVZOE6SQ9S2/NJvxqGJl+Rj+joec6IbJAMbcxCAXIddAleNXBrUYjFDTvqHkvNN3A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790929294; c=relaxed/simple;
-	bh=sBePC58/1nGIQTG/U0OECcc/vsriPHIVEWXQtkPb018=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=N5K3AnjoPg3rr1ohbCvz0geua8DSLbeyJjhME6rCbdBXw36mxX9uDXG37DbwRKWNchftF8J+KqnMlV5185vYAHQtxMVHzljh5lDO9WstL+rRmDN/3rVch3OCpOOoA++BRzx9mMyZJ8NKnzidC55lZj8ysLZ86Er/yodS/iw8k6I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a1Jo48x3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790929359; c=relaxed/simple;
+	bh=uhpArYY+OICqmmGKPczNWZg6Ob6IRiHXPfmlrAbRq5w=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=mJUhSLxecO9gHfmhqJXSXaBSJfEx6QVRmQuUSbs+XMj5ZqR04IdWH7yg65NYWJGkouwiT9uzDF+ewdfdhsj3DvzxyeH4590ce8DPMphkfljUorOnbbZ4FcRsr+eoIjVjVw6qXlgy0fwMEqBeWExluOC2Uu+MF5BJsLBDs0n7zQ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=FEzE+j3P; arc=none smtp.client-ip=74.125.225.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a1Jo48x3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A4171F000FF;
-	Fri,  2 Oct 2026 08:21:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790929292;
-	bh=7eeSp1C4/hTG60Jp34wAdK2R8RaYhjX2x/k5gS4VDsA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=a1Jo48x3eK+3CwWMOkAhjll5meQzqEbqaTwc40gmqkzpON3plc8y9sWMEvUGQQDZy
-	 H7B4D/eQz/4NDRF9QY+QzwFwaQJJ8LTz7+Y+p0Ns3BkQrVG/Ofy+idki3yGS/of7lr
-	 lNaDNnbIx+yKGiZcS8ndFsYLmctBNf/QO/egtWxamOU5htqTOMlJqqpuR9tJbyovf3
-	 ueWQJJFfle4C1oXjaW0ohBsvMqUr8vvPMuH7a3vaS8hXsOwk3QJ36KdasThxxCnhHP
-	 KcrwugeZdIX8AIQk5KeuzjsLyrh5Rq4vqFerfQaMSVC4+Ze0yQ0EPdB8PutgJ8LhFI
-	 Bz7Eqvygmqp6Q==
-Date: Fri, 2 Oct 2026 10:21:30 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Manikanta Maddireddy <mmaddireddy@nvidia.com>
-Cc: Jonathan Hunter <jonathanh@nvidia.com>, 
-	Prathamesh Shete <pshete@nvidia.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
-	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v1 0/2] Enable PCIe WAKE# as a system wake source on
- Tegra234
-Message-ID: <ar9pfNZstgn9pPXK@orome>
-References: <20260907113134.2543273-1-mmaddireddy@nvidia.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="FEzE+j3P"
+Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48b01c4f4daso2085161f8f.1
+        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 01:22:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790929354; x=1791534154; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oXhQxjCZPJkDL/0F5UFiLvNFCGp+omiCYVv4WP26NK8=;
+        b=FEzE+j3PmddHzuUTsmIbmnkCgoQg7g1V+mHcpXZ1WAVtQeXKZ6NxoZ2MYAH85x6yuE
+         XxRuvR30T8x8RBz9foPYXWW/zgakVxqR98gFqbGMfGo8Z9yp4WO2MEH7Zn2ibLhnAPva
+         p3xjiPD7PDbcfo0u6Dw4cHthFU46p26ZWbqodmqemcdDiOKYCFTm6nbYnXx7AeLdYS1k
+         f2RSu9l9Nir2g0QX2WoX89jYLmsBZRvrwa12anYFTD7a/HR0Nx2yDtx3TzmaOC3Bz40y
+         Fop2DyG6EGYuGAflUncLlB7TuOIA/Gw4wCd2I7QM6VKvMcANSy/O8XNZvwu3u1AGTfVH
+         8E1w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790929354; x=1791534154;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oXhQxjCZPJkDL/0F5UFiLvNFCGp+omiCYVv4WP26NK8=;
+        b=PO9ortj6JBQRwywCReO9lkSzyJyWCZjMpGBWz91l7KGiKFUYVXRyHoiLRpPy6+b9Vf
+         Wr9IHO9prVV0Fx8wDef2dTW6eNuh8cmskFNHx3LMaMoNm7OZupmBMI+3Zaul9LRcsaSz
+         LQFXx0PCbG8cL+q0+7sxjT2oDHI/FnXj+u8mC+lWnYFAIfs7AUail25MYux3zWYm467z
+         uVMNXQGakqk8fSewJGnxIhFplubpNYR3ojzpy5ORtKdDbnai/fzwU9BFixz6Qg2P1HET
+         uydT4tZ4mHwknBcV1iR1PmMxCKmqCZAtVfmXd+1Swml52kt/RBhHgKcKpyEnSKrVm+o5
+         aCZQ==
+X-Forwarded-Encrypted: i=1; AKwUvBypEy4yJ3VWzve/9IOvyapJ1d9D4p7Xoppi0YqpP4bc/18StZoGZgB3MtnaIL4puxDumtoIy+8ebT7K@vger.kernel.org
+X-Gm-Message-State: AFuF++ni5USEGX1AybPDxZEkVeAhiz33XEgUu4A09dclHMumkUp5qK1U
+	4D+Wk9deO7oBAEj6HbCz+0vbdjVIzmbkXUqPa2dHU9JX+b4i7eJ+4G6ZmCm0FY1A9eQ=
+X-Gm-Gg: AYBFou3MSn6+dzAguylC924fqzwdlxEVPhXUPhfrbV87kD89wXnvuYy2rox9IgT21G9
+	/tM32S13HVnwsn1l1blVRvSSQjPoOCkIX/RlrNNJFTMBqbkFooxfSWAkxh7HJnwOjrKR9q5lsBU
+	4k0lsiBT7yToTNO4Mc1Z2XKjjo0l7e3ufyi/QhQy/wqd82t0OTWRVY3GC6e8Ze9F2LsRVl7MVAN
+	smweqC34wN5BPtnR5RvTDU1szH3jAvvDhdybPMjY8HsJvz/lZRl90QrH9Kqp/cPqWK7LBhVAYHh
+	bhRs1LPLWOkq2+I+q8Gi2HGAywMo2YbkB4wUoOJOFWF1x+xqsZ9YjwycYksSTGoDDh/H2/fuBXs
+	DO6bLKCi9M/GWuBSpyRT+oQI/jVjDer08s0H6fjDrhinxcu6e0Purqg7Onhi+cfBnn/0hjA+gTR
+	HYW5Gc7NOH6WDYIh7LXnpuQ3YHfFwFAAxLj9H5/r095DNzywkP1NHMPnYjQX+Ck2TP98KLU2VB/
+	TBqhzL1TCfsZ8iV8cg7Ff+EXRmyq3gw6n03AdMN8jqbch0tKz/shQ==
+X-Received: by 2002:a05:600c:37cd:b0:49d:1840:4fd2 with SMTP id 5b1f17b1804b1-4a0275a1d84mr37767835e9.23.1790929353841;
+        Fri, 02 Oct 2026 01:22:33 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:2f62:6d3:721b:8c9e? ([2a01:e0a:106d:1080:2f62:6d3:721b:8c9e])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a027f2a4c4sm63997895e9.2.2026.10.02.01.22.32
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 02 Oct 2026 01:22:33 -0700 (PDT)
+Message-ID: <54da53e6-66db-4357-a00d-da27fb936117@linaro.org>
+Date: Fri, 2 Oct 2026 10:22:32 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="6gn3v7gdvmn6udrx"
-Content-Disposition: inline
-In-Reply-To: <20260907113134.2543273-1-mmaddireddy@nvidia.com>
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 1/2] dt-bindings: display: panel: add optional wled-supply
+To: Arpit Saini <arpit.saini@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Jessica Zhang <jesszhan0024@gmail.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ devicetree@vger.kernel.org, rajeevny@qti.qualcomm.com
+References: <20260929-wled-supply-series-v1-0-75d0a83b4b00@oss.qualcomm.com>
+ <20260929-wled-supply-series-v1-1-75d0a83b4b00@oss.qualcomm.com>
+ <20261001-private-wooden-chachalaca-51aa57@quoll>
+ <997cefa0-384c-466f-b318-077939946768@kernel.org>
+ <cebrka4ya7u32ntiya42yx4txa3uryf5k2di234zm4enz3a6vy@xhily6qqmevo>
+ <1cd249d8-0a26-45e4-8263-dd4a120fc89e@oss.qualcomm.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <1cd249d8-0a26-45e4-8263-dd4a120fc89e@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+
+On 10/1/26 20:09, Arpit Saini wrote:
+> 
+> 
+> On 10/1/2026 3:25 PM, Dmitry Baryshkov wrote:
+>> On Thu, Oct 01, 2026 at 08:57:52AM +0200, Krzysztof Kozlowski wrote:
+>>> On 01/10/2026 08:55, Krzysztof Kozlowski wrote:
+>>>> On Tue, Sep 29, 2026 at 06:42:20PM +0530, Arpit Saini wrote:
+>>>>> Some boards drive the ILI7807S panel's backlight from an external
+>>>>> WLED driver whose enable input is wired to a GPIO, typically modeled
+>>>>> as a fixed regulator (e.g. vreg_wled).
+>>>>
+>>>> You describe something else. What's fixed regulator should not matter
+>>>> here. Which pin is it in ILI7807S?
+>>>>
+>>>> It seems you just want to represent GPIO with a regulator. This is just
+>>>> confusing and typical downstream workaround.
+>>>
+>>> What's more, you basically REVERT the review YOU RECEIVED in v1. Really,
+>>> just sneak the same stuff 3 months after like the review never happened.
+>>>
+>>> NAK
+>>
+>> After discussing this offline with Krzysztof. It's not a supply (my
+>> fault), it's an LCD driver. So, the best way to handle your displaycard
+>> seems to add a gpio-backlight, reference it from the panel and then in
+>> the driver check for the backlight's max_brightness level. If it's 1,
+>> then you have to send extra DCS commands to control PWM. If it's
+>> higher, use normal backlight class controls.
+>>
+> 
+> Hi Dmitry, Krzysztof
+> 
+> I have a few clarifying questions regarding the proposed approach. Please let me know if I've misunderstood anything.
+>   
+>    panel_backlight: backlight {
+>        compatible = "gpio-backlight";
+>        gpios = <&tlmm 91 GPIO_ACTIVE_HIGH>;
+>        default-on;
+>    };
+> 
+> 1) Adding gpio-backlight and check for max_brightness level if its 1,
+> 
+>     If we model LCD_BKLT_EN using gpio-backlight, the backlight device effectively exposes only on/off control (max_brightness = 1),
+>     we can't support the full range of brightness i.e 0 to 16383 (0x3FFF)
+> 
+> 2) Adding gpio-backlight and based upon max_brightness level of 1 , are you suggesting to register another
+>     backlight device that can actually drive DCS brightness. In that case we can actually have the MIPI DCS controlled brightness
+> 
+>     If so, wouldn't that result in two backlight devices associated with the same panel:
+> 
+>      gpio-backlight device for enable/disable
+>      panel backlight device for DCS brightness control
+>   
+>     Is that the expected design?
+
+It's a great question because there's a large variety of how backlight is
+implemented, and some panels can drive a PWM to an actually backlight controller
+which uses external pwm. In this case we should model the backlight IC as
+backlight driver with only 1 or 0 capability and use the DCS to program
+the PWM.
+
+So it leads exactly to your issue. So perhaps one way would be to either:
+- call into the gpio-backlight from the DCS callback, we may need to fix some locking issues
+- add way to "link" backlight devices so the backlight value can be propagated
 
 
---6gn3v7gdvmn6udrx
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v1 0/2] Enable PCIe WAKE# as a system wake source on
- Tegra234
-MIME-Version: 1.0
+In any case the problem remains that both backlight devices will be exposed
+to userspace, which we don't want. So additional changes will be needed.
 
-On Mon, Sep 07, 2026 at 05:01:32PM +0530, Manikanta Maddireddy wrote:
-> The P3768 carrier board used by Jetson Orin NX and Orin Nano routes the
-> PCIe WAKE# signal to Tegra234 main GPIO L.2. Nothing in the kernel
-> currently describes that signal, so a suspended system cannot be woken
-> by a PCIe endpoint.
->=20
-> This series wires it up in two steps.
->=20
-> Patch 1 adds the PMC wake event mapping for GPIO L.2. This is the piece
-> that lets the GPIO interrupt be armed as a system wake source during
-> suspend, rather than being treated as an ordinary interrupt that is
-> masked along with the rest of the GPIO controller.
->=20
-> Patch 2 describes the signal in device tree, on the root port of the C8
-> controller. C8 is the controller with the onboard Ethernet NIC on this
-> carrier, so describing WAKE# there is what makes wake-on-LAN usable.
-> The property is consumed by the generic PCI core in
-> pci_configure_of_wake_gpio(), which looks it up on the OF node of the
-> PCI device itself, so no controller driver change is needed.
->=20
-> The two patches touch different subsystems but are only useful together,
-> so they are posted as one series. Patch 2 depends on patch 1 to have any
-> effect.
->=20
-> Testing:
->=20
->   - Verification:
->     - Verified suspend-to-RAM functionality with no spurious pending
->       wake sources observed.
->     - Verified wake up through GPIO L.2 using an Ethernet magic packet.
->     - Verified the reported wake source after resume.
->     - Verified that regular Ethernet traffic does not trigger an
->       unintended wake-up.
->     - Confirmed Ethernet connectivity and normal network operation
->       after resume.
->     - Repeated multiple suspend/resume cycles to verify consistent
->       behavior.
->   - make ARCH=3Darm64 CHECK_DTBS=3Dy is clean for the two affected boards,
->     tegra234-p3768-0000+p3767-0000 and -0005, with dtschema 2026.6.
->   - checkpatch --strict reports no issues on either patch.
->=20
-> Note: the series is based on the linux-next 20260817 snapshot rather
-> than a maintainer tree; see the base-commit trailer below. Happy to
-> rebase onto whichever tree you prefer.
->=20
-> Manikanta Maddireddy (2):
->   soc/tegra: pmc: Add PCIe wake event for Tegra234
->   arm64: tegra: Add PCIe wake GPIO for Jetson Orin NX/Nano
->=20
->  .../boot/dts/nvidia/tegra234-p3768-0000+p3767.dtsi     | 10 ++++++++++
->  drivers/soc/tegra/pmc.c                                |  1 +
->  2 files changed, 11 insertions(+)
+> 
+> 3) I previously tried modeling LCD_BKLT_EN using pinctrl states (panel_bl_en / panel_bl_suspend)
+>     for the enable GPIO itself. However, Dmitry suggested modeling it as a regulator instead:
+> 
+>     Link : https://lore.kernel.org/all/qkhgg5x67sijiialucvzac275zhpjrtt47a4udjpyzmgvilut5@dcrslq3ai7mc/
+> 
+> 4) Modeled optional regulator wled-supply: a regulator that only gates the external backlight driver chip's power/enable,
+>     with DCS remaining the sole brightness path in this current patch , the panel-himax-hx83121a.c does exactly the same.
+>     
+>     Would this can be the preferred modeling for such panels?
+> 
+> Please refer to this Hardware diagram I explained earlier ,
+> Link : https://lore.kernel.org/all/bade420c-aeb8-4bdd-b0cf-3ade17b21c18@oss.qualcomm.com/
+> 
+> 
+> Please let me know your suggestions.
+> 
+> Thanks,
+> Arpit
+> 
+> 
+>     
+> 
+>    
 
-Both patches applied, thanks.
-
-Thierry
-
---6gn3v7gdvmn6udrx
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmq/aYcACgkQ3SOs138+
-s6FvNRAAhLIRO5DxfJQ6+4ddNyH5Bm2Rq6FcGZwFcUTz2Sx8Fhwv4eqkypaeD/lQ
-DnTxudWMLRJexm0ByQOYO1VGWLG903f1kSgzC+pdyfkLt5WuS5oXXn7OLBh85nFU
-lavG5luMTRjZJ7Cj5b3Go6fL+HLDZUW5rk8bl1RQbUmQRxnMOllHRpBBGDtIHm1R
-pwk741DWD2rIqYkLw9L5RVmuSmeKEHEmiU+OxO+nWQGF1CH20K7/Hc3WavcHnMQf
-7L+YXryvpe30LG1e3IXft0x2ruwEtlD369XZU1rDNNRvMeCUCzx04CpsVNODHXcI
-pAJg3PyL+1iR15UuisUc0yDjToIp8q+NAOlSJBpb7AG5d+GLz50uFeb/GLQVA+/n
-GDFec+i+JOe13EEu+liehZzN0viQpyRZX2i7aJ7l9NadGSKms0wN6nFnvn3AS0Qi
-WK8g/CIuB3hOTfIIreIWYu2zwJZKUYog6tqZgsr1T/IUWpcWOeaqpz+1EBr0mAyZ
-BtUrkDYKJNrcWQxpgRMkxVuXbfwJyLd0ErqwTDEPNRQRNLK2JntLYU8g05TIhk80
-PxrGZclM/jLQx5pSr617dmVSAVC5wXe7oNQVmKY+AfJiqNjOTHzsuxqOl6Kj/+ah
-PTfUz2Yvhhwfm00IL1NsSWo3jTSoPknr6+E0GJLzlbek4r7Ua8o=
-=M3Rn
------END PGP SIGNATURE-----
-
---6gn3v7gdvmn6udrx--
