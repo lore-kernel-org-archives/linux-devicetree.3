@@ -1,120 +1,131 @@
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 262D746F498;
-	Fri,  2 Oct 2026 09:44:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73FD1470E8C
+	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 09:45:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790934301; cv=none; b=DPHL7ylBLjJ/mk287LdRp81djvZLnXeasqq1IS3I5wv7fa6tmIn9Yqiam/9MaBZYeh9nJM/2rTg3BdCtIObbrrRH/JRmCgNk0WefKFAlBNJshAo1XdwK6z+l1RYjDLr0+7FAHmREPe8991Ay3oAFYEgkbTEaOxmC9P/SeXNTGX0=
+	t=1790934338; cv=none; b=O9uXvPJinTfRXwAjZKU7Y+GHapeRdabRH2LBfCtni9T5e/tRXKFPp6uUbKi+zUNs83+8kSc1qqSfg4YFwCnMKkxAPS5DcagEZd5Fq2/Lv/y4TQirmEJEJzX2ddRyfYFFL5STlITvPubEeo2xB71pvo54lgS//8zCGglp4JPd6jg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790934301; c=relaxed/simple;
-	bh=4of8sWxprnt9S/BW3WWLJvAo0dudddC8g87jOW2r9Pc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=HGcRrZHKGdlNZPWSlBHUXHWYQZ0LeTrmEfRCKDkeDWZAIf5GRUIDxb6VeSqrJNhyaqr/qvrgfn2nHc/XTaBWsGFuobRTPht8FJS+eX/KeHJ1R1p1dHcxb3OTYvFxpnE8l3q5AlKvu2IoeTVEvhYftO9WrIq89JGTOqVDzSguquc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=Isjivyed; arc=none smtp.client-ip=188.40.3.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+	s=arc-20240116; t=1790934338; c=relaxed/simple;
+	bh=55BYKoYYSwy3bCN53a4FvbioXpDXA5/IUe+AN+5f4KU=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=BiE89m56xS8u2AWADzQ0WCibmlE1QFN2b0hcc8iyAAnlmOon8M08bsFFQ6Ck5qjhJqRhfWbt9XAU/dWdIeN89t4br2G8/qAKoASTiocP2MLGN04Zx0LcVYJ0J9guYBZ5GQ4JpOOE24zDNH5c6xKmBLyzlzRfVq0JkEIfySmCI0Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=d/arz8r3; arc=none smtp.client-ip=74.125.225.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="Isjivyed"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ew.tq-group.com; s=default2602; h=Content-Type:Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=liOd2sCFDhODfd60RF9lAvSvZGgNsQRWBBUInqpCsH8=; b=Isjivyed81TOzDJkWA28MJwL3h
-	IHOIct94MrgGwCS+4AdLXRLOQdJKUrzNkuRb26xcgPALsyIYS5ZtTlmIzzFzFjFHmurVWPEupfath
-	m5x5gTzQe9cfMFsQUlSy3sgzQXLF7HhLmHKa5OXtYLajNDQL66fwHv3ALLcfSfdhFO7x8zNWePW32
-	MKsKvJMrolxH54pEAiYiymaFi6ekIU79SquVaV5y5CMaYYhj03Vhnd+Wva9H3fE8I3VWc9v8DAVFU
-	F1SERbnu5ShDm9MkDAbTvvtUHCdYm/i8YoooyLCMIO/ETJzv0cAXHE3/2D4hAiT63eD1rndjgnhPr
-	C1/NXlnA==;
-Received: from sslproxy06.your-server.de ([78.46.172.3])
-	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1xCZp2-00016B-1E;
-	Fri, 02 Oct 2026 11:44:56 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy06.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1xCZp2-00095u-0k;
-	Fri, 02 Oct 2026 11:44:56 +0200
-From: Alexander Stein <alexander.stein@ew.tq-group.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: Frank.Li@kernel.org, robh@kernel.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org, imx@lists.linux.dev
-Subject: Re: [PATCH 2/8] ARM: dts: imx6ul: Add LVDS DT overlay for TQMa6ULxL
-Date: Fri, 02 Oct 2026 11:44:55 +0200
-Message-ID: <4993405.mvXUDI8C0e@steina-w>
-Organization: TQ-Systems GmbH
-In-Reply-To: <20261002091447.0E8F51F00899@smtp.kernel.org>
-References:
- <20261002081417.2092471-1-alexander.stein@ew.tq-group.com>
- <20261002081417.2092471-3-alexander.stein@ew.tq-group.com>
- <20261002091447.0E8F51F00899@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="d/arz8r3"
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-4887840c529so2547659f8f.1
+        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 02:45:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790934335; x=1791539135; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=4vlDO63aq9Dc8BRT5ULZafGgVo4ARHfMSrbb3S7Yx7Y=;
+        b=d/arz8r3rWoHiNvZARzxTVa0btIO6dPQFba/bM5kLh/2nMlnFPE7QnoGn5+ncGiVmY
+         sybUxnlU6fB1QVyIJ+qDA6RI2+uFra5jeZjfCgLdWyKDopce/ANmFXO8Q8Ng0sVRGEpP
+         RUqFsOEDHCBBd0xtGbJK1PMuzZ1fl1lXxN7hWJhTN5bYIyg0VPHdi5vf9Jb5LahWlWT9
+         qN3lM4S+k0WpBmVWVocVAdaqUnV9+86qb+mfxAarOaALq0s3+zNRnOf+rm7caUB/zMDz
+         PVB+twMPu06CsYFibuOqpDMSh4k46ZH+m4ZnmQaIkpn7rMQs9+I4J8oK5FNGQ2WeXmQV
+         CsaA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790934335; x=1791539135;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=4vlDO63aq9Dc8BRT5ULZafGgVo4ARHfMSrbb3S7Yx7Y=;
+        b=ZE1jauZjOx6Y/vQ2V20Sd//L930BhCmpPTfQzpX4wG/v0ns3dBxuYelbHC9sRH8YxZ
+         yzy9sDQz526AAwLSSNIo+a/HgJAGOt/UDkjOh5Ow2XYN/PP2lnrYiwdU0QSCOZJJs94Q
+         jZPutnetUDNArOdLVdSVgO43xuvoRkiu924uNcYaM0Iy/4hK4Mh4KvUIIKWbN+lZVGdD
+         YyXyaQLyVkq4tt32RYoyon8e1ekEARaTXZr/VuMds5FFVlakVnJgJdxGhaNBvCKUOJtk
+         RavAr1uldmASQXnmVw8dGNO/h1dBkiAVNOj+TZ2+EdTe5oKf5v0j4ICCfRgveGdhJ7WP
+         x26A==
+X-Forwarded-Encrypted: i=1; AKwUvBxmOvgDR3djp2PnLnuCX78pQdag3XQ/1VbGEqLxY+zcwbItQtFp3V6pfKaiolSbXbGIxpp1TTR9dPFr@vger.kernel.org
+X-Gm-Message-State: AFuF++m7q1Nd/PqKNE9pPwsasSlNe2uKVlIMZqclcpoxAs5pqMiQikk7
+	iLT89f/otGG8c/U03gqdp95G+wgFlLn6uVsFX3Y4oa4J5pGs1rIeQJecX+vZtaEYYHl1s8BGwd2
+	q1X2/
+X-Gm-Gg: AYBFou2nKzE1bFbI2FJOtWZATp1FqexnfRlAEoWDVfRJOp0DZYpUurbDmmfuJVKBRFM
+	7eJ4QILLmKEvHcykRW4QFO+g0hN6uK8uyFKnebg/aAESZ37y1QLaa7reNMPXnsPh2OoeqaPqxxU
+	vYe1titozT2OhuNOEY59+7+wyGmwxIBuuFaaTILIagSOK1OxEYOmL+0Ck09zWClrKmokTS8yAjq
+	O23iqfQ2gdyzU50BygpWo+j6lw/NrUEJfsG1MQr/394T9JxBJV17o6r2PKugL4AvJFMFuTAaANn
+	IXnf40Ue+BK8FVp70/k5q3MrT1WE8oxiEbdS4QMruj9GFq6nBhj+QyizBENbsnWgIXyZVn6oAd4
+	AVGYOPn7czpU9No6uFCvZwN3ozks3henZkcejXukHBeJTywcBrF8Bi0O1izMlXXNL28wiicy6gh
+	kcj5yoi4dmQQSRml/atB8VnNcjeSygynnaIdh/7CYq5pe9jTsPt3PDR5GNysHMj3mLGkpbnR87y
+	4gvfiJxkVwbKVX506Y=
+X-Received: by 2002:a05:600c:1e24:b0:49f:ffa2:1c72 with SMTP id 5b1f17b1804b1-4a0275507d7mr36036905e9.11.1790934334415;
+        Fri, 02 Oct 2026 02:45:34 -0700 (PDT)
+Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0280c8bb0sm72705635e9.11.2026.10.02.02.45.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 02:45:33 -0700 (PDT)
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: [PATCH 0/3] arm64: dts: qcom: sm8650-valve-deckard: Add watchdog
+ support
+Date: Fri, 02 Oct 2026 11:45:27 +0200
+Message-Id: <20261002-topic-sm8650-deckard-watchdog-v1-0-7d7f7d71d88a@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="iso-8859-1"
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28141/Fri Oct  2 08:26:12 2026)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIADd9v2oC/yXMwQ6CMAwA0F8hPdtkFEHirxgPo+ugGhnZppIQ/
+ t2px3d5GySJKgnO1QZRXpo0zAX1oQKe7DwKqisGMtTVxhDmsChjevRda9AJ3210+LaZJxdGPHn
+ qmyNTS42HcixRvK6//3L9Oz2Hm3D+prDvHwPx47CBAAAA
+X-Change-ID: 20261002-topic-sm8650-deckard-watchdog-7f2834c2523f
+To: Wim Van Sebroeck <wim@linux-watchdog.org>, 
+ Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Rajendra Nayak <quic_rjendra@quicinc.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-watchdog@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Neil Armstrong <neil.armstrong@linaro.org>
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=958;
+ i=neil.armstrong@linaro.org; h=from:subject:message-id;
+ bh=55BYKoYYSwy3bCN53a4FvbioXpDXA5/IUe+AN+5f4KU=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBqv307ZhyTljFslPnOLKjXwAqzsLcS6c755ca19e71
+ dDewOMeJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCar99OwAKCRB33NvayMhJ0QvyD/
+ 0YXCXjr5+/rzunnDbbBQiAWyZikxJgT6WkKCAdoJD2BGR9PEtC5z5PtthkQYC3xKcfcgWSzfzVWFeq
+ y1xm6w05yJ2giOyZTzYcjho1HkUcafw2FTuTUn/eKeQpjl0BzRlXLkO7+ExNqMQZyee95O7F/oxmf7
+ BpDHKRU9flpmmNzJIB9ajxStRZz0cN/fegPGMi5vDYgquZBiPmu1YFWKhz0p0XLq6h8bYts0N1WOLg
+ pmomyqKY0o/t2rqX9JOP0hu8i1+yY5xhPCdrxFgD8ZfCQwAmQ4u9Nh4qLjqNqu+v1256Sf54QSdlHF
+ U80lLGJVDY10PJxzC1FKM1kuaJFMUBbaa35FmrzufINqSOOu9uTcBj+YmovSYdQGc1tYaUoMV23G32
+ K9v5jYijDaHh4Ca0TeEms5Mt2fWep/3j8We9WWV06vm8DwtmjzvTY/7JSkrluJhYNw3pyu9l2bd+WW
+ aqwHSPXiQHIVIiO3ZMSDqZnq5R+yKcCDPWd8dCUSjFrcpW7MzSzXE1xYc8QuoRWJGhCFSC/wElOo1T
+ 7zAWGF6Ms1UAaWXgoSJ8xMUmdQp+5JE++SKYNnAn0guYlcdxsl3GEZfeqDpaTAdxzJo+ezYMYmzA0R
+ 1lj1i/T0LM134Q7jlM7UfEsLF6J2YW+rx+bZtmlN98Hbj0zzMLWPmjZ9dgog==
+X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
+ fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 
-Am Freitag, 2. Oktober 2026, 11:14:46 CEST schrieb sashiko-bot@kernel.org:
-> Thank you for your contribution! Sashiko AI review found 1 potential issu=
-e(s) to consider:
-> - [High] kbuild: wrong base DTB for imx6ul-tqma6ul2l-mba6ulx-lvds-tm070jv=
-hg33
-> --
->=20
-> commit 008daca5167f9a5874f9d9c4e80bdfc8d57fb2cc
-> Author: Alexander Stein <alexander.stein@ew.tq-group.com>
->=20
-> ARM: dts: imx6ul: Add LVDS DT overlay for TQMa6ULxL
->=20
-> This commit adds the LVDS DT overlay for the TQMa6ULxL board, reusing
-> the overlay file from the TQMa6ULx board.
->=20
-> > diff --git a/arch/arm/boot/dts/nxp/imx/Makefile b/arch/arm/boot/dts/nxp=
-/imx/Makefile
-> > index ea0799ba1893e..734d40b8d389c 100644
-> > --- a/arch/arm/boot/dts/nxp/imx/Makefile
-> > +++ b/arch/arm/boot/dts/nxp/imx/Makefile
-> > @@ -421,8 +421,10 @@ dtb-$(CONFIG_SOC_IMX6UL) +=3D \
-> >  	imx6ulz-bsh-smm-m2.dtb
-> > =20
-> >  imx6ul-tqma6ul2-mba6ulx-lvds-tm070jvhg33-dtbs +=3D imx6ul-tqma6ul2-mba=
-6ulx.dtb imx6ul-tqma6ul2-mba6ulx-lvds-tm070jvhg33.dtbo
-> > +imx6ul-tqma6ul2l-mba6ulx-lvds-tm070jvhg33-dtbs +=3D imx6ul-tqma6ul2-mb=
-a6ulx.dtb imx6ul-tqma6ul2-mba6ulx-lvds-tm070jvhg33.dtbo
->=20
-> [Severity: High]
-> Should this use imx6ul-tqma6ul2l-mba6ulx.dtb as the base instead of
-> imx6ul-tqma6ul2-mba6ulx.dtb?
->=20
-> Using the non-L variant base DTB here for the TQMa6ULxL board might boot
-> the board with incorrect hardware definitions.
+This series adds Qualcomm SM8650 watchdog support for the Deckard
+platform by updating both the binding and the SM8650 devicetree.
 
-That is correct and will be fixed in v2.
+The watchdog is marked as reserved by default since most boards
+uses the Gunhyah Hypervisor which owns the watchdog.
 
-Best regards
-Alexander
+Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+---
+Neil Armstrong (3):
+      dt-bindings: watchdog: qcom-wdt: Document SM8650 watchdog
+      arm64: dts: qcom: sm8650: Add watchdog node
+      arm64: dts: qcom: sm8650-valve-deckard: enable the watchdog
 
-> > =20
-> >  dtb-$(CONFIG_SOC_IMX6UL) +=3D 	imx6ul-tqma6ul2-mba6ulx-lvds-tm070jvhg3=
-3.dtb
-> > +dtb-$(CONFIG_SOC_IMX6UL) +=3D 	imx6ul-tqma6ul2l-mba6ulx-lvds-tm070jvhg=
-33.dtb
->=20
->=20
+ Documentation/devicetree/bindings/watchdog/qcom-wdt.yaml | 1 +
+ arch/arm64/boot/dts/qcom/sm8650-valve-deckard.dts        | 4 ++++
+ arch/arm64/boot/dts/qcom/sm8650.dtsi                     | 8 ++++++++
+ 3 files changed, 13 insertions(+)
+---
+base-commit: 9f24d789f03b22941b905ded43cb5ff8eea9ce62
+change-id: 20261002-topic-sm8650-deckard-watchdog-7f2834c2523f
 
-
-=2D-=20
-TQ-Systems GmbH | M=FChlstra=DFe 2, Gut Delling | 82229 Seefeld, Germany
-Amtsgericht M=FCnchen, HRB 105018
-Gesch=E4ftsf=FChrer: Detlef Schneider, R=FCdiger Stahl, Stefan Schneider
-http://www.tq-group.com/
-
+Best regards,
+--  
+Neil Armstrong <neil.armstrong@linaro.org>
 
