@@ -1,45 +1,47 @@
 Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D1EE4477F7;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87DC21DF98F;
 	Fri,  2 Oct 2026 09:53:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790934828; cv=none; b=SuYfCxOlphoV7Bt9cqViaYAvmg/MXqJPQETqg8mlnwEHFHQYeDzVfHh0ug5X7Zp1O/syy88KV4dVB4P58Kx5dkjJ+UaUAytORsX1jg+9pwh++ThNtu14z7P4vYkLV61svWos3gOxz9iOxrY6cTwASJxI104l4nFXOMO9ywG+heE=
+	t=1790934829; cv=none; b=jfwneEqoprALaOx/XrENByAxdyVQI+o298H/CH44kTrjKfR45RHCFc7kKciMa0nyLHyAIklnij7/jr6vDBR76wGbSzgxSw3fOTsZGG9r2s1IWxuPqw/nDgmgLZjatqyEVqQRxgfIDS1et2vHWp+Mgjn2eAmLjmqJudHZaUrbLQY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790934828; c=relaxed/simple;
-	bh=ommQaz+996XWxGAdGpfsl57SPv5twf2rtNuOL2c7ogM=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=tGYTGkNzOPkiVGxr2X5GsB2O2dmlNDgJyIe7uSm/QfAaWYt6tDQBacp2o8j5qsjsPQzdPQxoNGeLUaKKb3FW6oqY5TdaIbaL7pHRvvmHCczqCyryCHc+U0LITyaw29EuME41m6DlW4W2QgQxvR7qLm2M7CvKEZUPpGfkH6RAJlQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=DxWKWsQ6; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=u1cvQAru; arc=none smtp.client-ip=193.142.43.55
+	s=arc-20240116; t=1790934829; c=relaxed/simple;
+	bh=JjU0NmyrHjQlVYmu58rWFIQi9wV0Yk0e9whJMEcZGqg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=i7Y1ZicMF3W1sVJQF4mn1TgIyH3my6JJwrotZthMSrAIHnGXp3KOQq/ugFZD5t0KrYFtBIPypmxlvujvprL+saS8/PxKxgQPzUs62PakrpzSy5Om6CZ8x/lWqI6dpKlM/EmUW4mN19qIzK4fQ7CsB9DmiqoE5sREpYV339OSgtk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=Iudq0wFl; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=sqfFJqUr; arc=none smtp.client-ip=193.142.43.55
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="DxWKWsQ6";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="u1cvQAru"
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="Iudq0wFl";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="sqfFJqUr"
 From: Gregor Herburger <gregor.herburger@linutronix.de>
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
 	s=2020; t=1790934825;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=wh9xWcUPndi1IraSPg61IdZ5HAFfOo8+nBKdXLgcsYk=;
-	b=DxWKWsQ6L1TcEcByD1j6oiyQQPGrGC50fu92G26ti3WDS836Q0VK6eprzZy5Q3uDWtu4rw
-	u1xWBizUN2pwpK1IrFuRquvy7sL3BxYvipWRnnAv1K7TvGZvRV7FWO1McfSIpZYarW9GOO
-	9oPIj+VCVHABI0Xt5rl0U5nThgMnYrp2b5Mxztjo9hP1jWLfeRjkj4xaJXjA0FKuVj51Bu
-	A+90k7MkYfPJUR9B4RIq48EIkyytD5qK1RZv2Gi9EFGHsuxkviQq1r4fGIDAtE7Iuif86u
-	WbsyvgQuviSxgsqBmXcxJqGvdpfsPvqfbuS1oOYxWibNEsT2E+ZVr2vhl0ImtA==
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=D1PdO7b96oZEBitMdoxZM/am5g9LcgR3z7wz5ec3PhU=;
+	b=Iudq0wFlSeorZOVhuPps0LDnDaLlc2hRg089pjyIwdtt/bSl0p5D3226e3PkMk8pD6Jiyg
+	FzBnA9gT09YKba53JNVfvJRE8hUhMKCFmdCupHSq6/4nSqjj8qwRkHzp/6L7VyU1EjQtoV
+	ssK43cgn3AFQtQAVtbAaqgyLLBJIsjUohXna1Ti5D7FG7NCl3VfTSJMgpu4Qru6JkprmwO
+	Pt6HvL0D/Q3S7J9GQidmwUEswDdlj6P7Hfej7ePKh85Eu0lOq+OaCkG51OKLGiQ+/Ob5rG
+	C5GLuf6/zKJgMLk2yar9kV1lgaY97sTnD4WZhBdKmksZPZA6GUUZK4x/a/usHg==
 DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
 	s=2020e; t=1790934825;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=wh9xWcUPndi1IraSPg61IdZ5HAFfOo8+nBKdXLgcsYk=;
-	b=u1cvQAruZhuRQPiIGv/EM6X43zOPbRL2hkwWQgQseWl0Ol0qPf80PdXDVtlJoCvQ4MOZAa
-	MZjw69RgJE/hyEBw==
-Subject: [PATCH v5 0/5] firmware: raspberrypi: Add support for the tryboot
- mode
-Date: Fri, 02 Oct 2026 11:53:39 +0200
-Message-Id: <20261002-rpi-tryboot-v5-0-6294c131e583@linutronix.de>
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=D1PdO7b96oZEBitMdoxZM/am5g9LcgR3z7wz5ec3PhU=;
+	b=sqfFJqUrzT0t5rDhB3jBJGQpTblG8/5IaIgiNlSRiWU0pAYm/fWJpPp7fSU3gcFP8Lgkv1
+	KUlNTxG/kBQvoLAw==
+Date: Fri, 02 Oct 2026 11:53:40 +0200
+Subject: [PATCH v5 1/5] firmware: raspberrypi: reorder
+ rpi_firmware_property_tag enum
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,12 +50,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIACN/v2oC/23NQW7DIBCF4atErEuFBwKmq96j6sLA0ExVmQiIl
- Sjy3WMcVanVLJ803z9XVjATFva2u7KMExVK4zL2LzvmD8P4hZzCshkI0EKD5PlIvOaLS6lyBRa
- 8BScMGLaIY8ZI57X28Xnf5eS+0deWaBcHKjXly/pu6trdb1lvylPHBVdWuM4rr6wR7z80nmpOI
- 51fA7JWn+CPl2LrYfFR9wGC18MA5pmXD2+E2XrZfBh6iGgwGP3Mq4e3Qm29Wj1i7/xexvjv/zz
- PNz7g0+l8AQAA
-X-Change-ID: 20260623-rpi-tryboot-4292c92b0727
+Message-Id: <20261002-rpi-tryboot-v5-1-6294c131e583@linutronix.de>
+References: <20261002-rpi-tryboot-v5-0-6294c131e583@linutronix.de>
+In-Reply-To: <20261002-rpi-tryboot-v5-0-6294c131e583@linutronix.de>
 To: Florian Fainelli <florian.fainelli@broadcom.com>, 
  Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
  Ray Jui <rjui@broadcom.com>, Scott Branden <sbranden@broadcom.com>, 
@@ -63,66 +62,93 @@ To: Florian Fainelli <florian.fainelli@broadcom.com>,
 Cc: linux-rpi-kernel@lists.infradead.org, 
  linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
  devicetree@vger.kernel.org, 
- Gregor Herburger <gregor.herburger@linutronix.de>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790934824; l=2259;
+ Gregor Herburger <gregor.herburger@linutronix.de>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790934824; l=4658;
  i=gregor.herburger@linutronix.de; s=20260226; h=from:subject:message-id;
- bh=ommQaz+996XWxGAdGpfsl57SPv5twf2rtNuOL2c7ogM=;
- b=b/2QVIcc7mFLdMeZX3+sGemj49mgaowYSfkGK9YQhk178XMi43yy1CH18O8QlkrSa2sfSbAqZ
- PtAy/WVTpIFBWge0EJhKaD9iY1K1hRdpYmjvqcTqOKw5YrjfuO2hZ1y
+ bh=JjU0NmyrHjQlVYmu58rWFIQi9wV0Yk0e9whJMEcZGqg=;
+ b=RC0tN9GekLIkFYGQb4arxQBFjjYCC2Sl+IQbHS9n5+OdAZfNDKf9tz2UiXJ4DXWDkLt0j28MW
+ hVfNzI9+ilbCNMBpDfs04sOtc9a6+0T2IdjbISHHDuB/EAGzVNrDYOd
 X-Developer-Key: i=gregor.herburger@linutronix.de; a=ed25519;
  pk=u72Lv7+/lS5CC1hmSrb17lv/6CK7HBh4Lvz77PHA5LM=
 
-This adds support for the tryboot mode on Raspberry Pis. As there is no
-documentation other than the downstream implementation [0] the
-implementation is based on this.
+The enum was once ordered by tag values. The later added tags were added
+in a different order. Reorder the tags again.
 
-Tested on Raspberry Pi 4 and Raspberry Pi 5.
+No functional change intended.
 
-[0] https://github.com/raspberrypi/linux/commit/eb56da0c1925c07e8929ce4c9fe8aeafa7cb8c7b
-
+Signed-off-by: Gregor Herburger <gregor.herburger@linutronix.de>
 ---
-Changes in v5:
-- Added patch to add reboot mode to Raspberry Pi 1-4 devicetrees.
-- Rebase onto v7.3-rc5
-- Link to v4: https://patch.msgid.link/20260904-rpi-tryboot-v4-0-fdee8bc53ff7@linutronix.de
+ include/soc/bcm2835/raspberrypi-firmware.h | 20 ++++++++++----------
+ 1 file changed, 10 insertions(+), 10 deletions(-)
 
-Changes in v4:
-- fix use-after-free error by moving devm_add_action_or_reset before devm_add_action_or_reset 
-- Rebase onto v7.3-rc1
-- Link to v3: https://patch.msgid.link/20260707-rpi-tryboot-v3-0-fda82fe7ed76@linutronix.de
+diff --git a/include/soc/bcm2835/raspberrypi-firmware.h b/include/soc/bcm2835/raspberrypi-firmware.h
+index 975bef529854a..8ad1cdbf5e9f5 100644
+--- a/include/soc/bcm2835/raspberrypi-firmware.h
++++ b/include/soc/bcm2835/raspberrypi-firmware.h
+@@ -72,26 +72,26 @@ enum rpi_firmware_property_tag {
+ 	RPI_FIRMWARE_GET_EDID_BLOCK =                         0x00030020,
+ 	RPI_FIRMWARE_GET_CUSTOMER_OTP =                       0x00030021,
+ 	RPI_FIRMWARE_GET_DOMAIN_STATE =                       0x00030030,
++	RPI_FIRMWARE_GET_GPIO_STATE =                         0x00030041,
++	RPI_FIRMWARE_GET_GPIO_CONFIG =                        0x00030043,
++	RPI_FIRMWARE_GET_PERIPH_REG =                         0x00030045,
+ 	RPI_FIRMWARE_GET_THROTTLED =                          0x00030046,
+ 	RPI_FIRMWARE_GET_CLOCK_MEASURED =                     0x00030047,
+ 	RPI_FIRMWARE_NOTIFY_REBOOT =                          0x00030048,
++	RPI_FIRMWARE_GET_POE_HAT_VAL =                        0x00030049,
++	RPI_FIRMWARE_SET_POE_HAT_VAL =                        0x00030050,
++	RPI_FIRMWARE_NOTIFY_XHCI_RESET =                      0x00030058,
++	RPI_FIRMWARE_NOTIFY_DISPLAY_DONE =                    0x00030066,
+ 	RPI_FIRMWARE_SET_CLOCK_STATE =                        0x00038001,
+ 	RPI_FIRMWARE_SET_CLOCK_RATE =                         0x00038002,
+ 	RPI_FIRMWARE_SET_VOLTAGE =                            0x00038003,
+ 	RPI_FIRMWARE_SET_TURBO =                              0x00038009,
+ 	RPI_FIRMWARE_SET_CUSTOMER_OTP =                       0x00038021,
+ 	RPI_FIRMWARE_SET_DOMAIN_STATE =                       0x00038030,
+-	RPI_FIRMWARE_GET_GPIO_STATE =                         0x00030041,
+ 	RPI_FIRMWARE_SET_GPIO_STATE =                         0x00038041,
+ 	RPI_FIRMWARE_SET_SDHOST_CLOCK =                       0x00038042,
+-	RPI_FIRMWARE_GET_GPIO_CONFIG =                        0x00030043,
+ 	RPI_FIRMWARE_SET_GPIO_CONFIG =                        0x00038043,
+-	RPI_FIRMWARE_GET_PERIPH_REG =                         0x00030045,
+ 	RPI_FIRMWARE_SET_PERIPH_REG =                         0x00038045,
+-	RPI_FIRMWARE_GET_POE_HAT_VAL =                        0x00030049,
+-	RPI_FIRMWARE_SET_POE_HAT_VAL =                        0x00030050,
+-	RPI_FIRMWARE_NOTIFY_XHCI_RESET =                      0x00030058,
+-	RPI_FIRMWARE_NOTIFY_DISPLAY_DONE =                    0x00030066,
+ 
+ 	/* Dispmanx TAGS */
+ 	RPI_FIRMWARE_FRAMEBUFFER_ALLOCATE =                   0x00040001,
+@@ -107,7 +107,6 @@ enum rpi_firmware_property_tag {
+ 	RPI_FIRMWARE_FRAMEBUFFER_GET_PALETTE =                0x0004000b,
+ 	RPI_FIRMWARE_FRAMEBUFFER_GET_TOUCHBUF =               0x0004000f,
+ 	RPI_FIRMWARE_FRAMEBUFFER_GET_GPIOVIRTBUF =            0x00040010,
+-	RPI_FIRMWARE_FRAMEBUFFER_RELEASE =                    0x00048001,
+ 	RPI_FIRMWARE_FRAMEBUFFER_TEST_PHYSICAL_WIDTH_HEIGHT = 0x00044003,
+ 	RPI_FIRMWARE_FRAMEBUFFER_TEST_VIRTUAL_WIDTH_HEIGHT =  0x00044004,
+ 	RPI_FIRMWARE_FRAMEBUFFER_TEST_DEPTH =                 0x00044005,
+@@ -117,6 +116,7 @@ enum rpi_firmware_property_tag {
+ 	RPI_FIRMWARE_FRAMEBUFFER_TEST_OVERSCAN =              0x0004400a,
+ 	RPI_FIRMWARE_FRAMEBUFFER_TEST_PALETTE =               0x0004400b,
+ 	RPI_FIRMWARE_FRAMEBUFFER_TEST_VSYNC =                 0x0004400e,
++	RPI_FIRMWARE_FRAMEBUFFER_RELEASE =                    0x00048001,
+ 	RPI_FIRMWARE_FRAMEBUFFER_SET_PHYSICAL_WIDTH_HEIGHT =  0x00048003,
+ 	RPI_FIRMWARE_FRAMEBUFFER_SET_VIRTUAL_WIDTH_HEIGHT =   0x00048004,
+ 	RPI_FIRMWARE_FRAMEBUFFER_SET_DEPTH =                  0x00048005,
+@@ -125,10 +125,10 @@ enum rpi_firmware_property_tag {
+ 	RPI_FIRMWARE_FRAMEBUFFER_SET_VIRTUAL_OFFSET =         0x00048009,
+ 	RPI_FIRMWARE_FRAMEBUFFER_SET_OVERSCAN =               0x0004800a,
+ 	RPI_FIRMWARE_FRAMEBUFFER_SET_PALETTE =                0x0004800b,
+-	RPI_FIRMWARE_FRAMEBUFFER_SET_TOUCHBUF =               0x0004801f,
+-	RPI_FIRMWARE_FRAMEBUFFER_SET_GPIOVIRTBUF =            0x00048020,
+ 	RPI_FIRMWARE_FRAMEBUFFER_SET_VSYNC =                  0x0004800e,
+ 	RPI_FIRMWARE_FRAMEBUFFER_SET_BACKLIGHT =              0x0004800f,
++	RPI_FIRMWARE_FRAMEBUFFER_SET_TOUCHBUF =               0x0004801f,
++	RPI_FIRMWARE_FRAMEBUFFER_SET_GPIOVIRTBUF =            0x00048020,
+ 
+ 	RPI_FIRMWARE_VCHIQ_INIT =                             0x00048010,
+ 
 
-Changes in v3:
-- fix use-after-free error by using devm_add_action_or_reset
-- ensure endianness of magic byte
-- refactor reboot mode registration into separate function
-- Link to v2: https://patch.msgid.link/20260630-rpi-tryboot-v2-0-f68d2dc6aa27@linutronix.de
-
-Changes in v2:
-- Remove unnecessary reboot_mode_unregister().
-- dt-binding: restrict to mode-{normal,tryboot} and only allow 32bit value.
-- Link to v1: https://patch.msgid.link/20260626-rpi-tryboot-v1-0-490b1c4c4970@linutronix.de
-
----
-Gregor Herburger (5):
-      firmware: raspberrypi: reorder rpi_firmware_property_tag enum
-      dt-bindings: raspberrypi,bcm2835-firmware: Include 'reboot-mode.yaml'
-      firmware: raspberrypi: Add reboot mode support
-      arm64: dts: broadcom: bcm2712: Add reboot modes to firmware node
-      arm: dts: broadcom: bcm2835: Add reboot modes to firmware node
-
- .../arm/bcm/raspberrypi,bcm2835-firmware.yaml      |  9 +++++
- arch/arm/boot/dts/broadcom/bcm2835-rpi.dtsi        |  2 ++
- .../boot/dts/broadcom/bcm2712-rpi-5-b-base.dtsi    |  2 ++
- drivers/firmware/Kconfig                           |  2 ++
- drivers/firmware/raspberrypi.c                     | 40 +++++++++++++++++++---
- include/soc/bcm2835/raspberrypi-firmware.h         | 22 ++++++------
- 6 files changed, 62 insertions(+), 15 deletions(-)
----
-base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
-change-id: 20260623-rpi-tryboot-4292c92b0727
-
-Best regards,
---  
-Gregor Herburger <gregor.herburger@linutronix.de>
+-- 
+2.47.3
 
