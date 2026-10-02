@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 676874746C0
-	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 09:14:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 322B04746AE
+	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 09:14:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790932446; cv=none; b=teboo2HsaT+rLgjaPZI23dhgESTXLAInKEIEgcBMSyTEHDpk6oVJ65qPuCis6XXB047c5V+1e6cVkpbikzUMXiqZSovbSUgcHD3k71OJ3siyHEAwZ5KXKfixWUgCuFm4HahSBI43lGieU/BPbN29aZ0cBPfbqv01am9dUUlBooU=
+	t=1790932447; cv=none; b=BiXHOSjjFW5F7SCdK3US2xZZxngMMBlUQ81X6uVhhrg/Lqjk6+nn2nkG2Lxyrrv8jU3V/JV8qcJbzKXE9B7w+X7QydPqVn3GDjUdA7OvEj9yK7Ii8d5LN6PTuHLNwZLWM10696SwoSFqN7cfkQbjMHPousmEj/LJgk09EIiedLY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790932446; c=relaxed/simple;
-	bh=k/oq9bwrJyr+UaJzEVKocOuIHXbn1Q6EM4arnudYBdw=;
+	s=arc-20240116; t=1790932447; c=relaxed/simple;
+	bh=YNk+jar+Jtg/BWbUoc2u8LKT+VuMmFo4F+QZgHpGoS0=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=uC6oOmnbmmDpkSUHFxJjJc2bIia6v/pPjIi3TL65C6YNwXf+61BnElqmbxEjTNZql/eB58XYEL/1cZFk1fJvnl6uXlw+Tbs8g61GYmOQ3M5sy3ORlDJci2MyR+/hO4xodyxNLDWhtlr/rerp8HjLpyECMFOrmMp8ifaSRu/Kgto=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kks97HtJ; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=b/m9kHKO0j4rRF62QcTjEJtCICl6yzfpSSwvDfI7P1XCBSFV0YJs1NtqjTwqmHazYFA9wqUNU+fwsspX13YUVefBJn8DfOFP4PeGFdHVLmSrPzo98nPm6weHxGN0IgM1LIVdCEZ+eV5VOXfPCVc6GH/XhzzFOHDUverU0c1qLf4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jqan8cn+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kks97HtJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E7F71F000FF;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jqan8cn+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD7881F00893;
 	Fri,  2 Oct 2026 09:14:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790932445;
-	bh=IDwvADygzO/piEfVq+mb2SqgH2VH5ZqDy7MquVbCfJQ=;
+	s=k20260515; t=1790932446;
+	bh=yWgZUjUbipe+bAv/bGFp4JDbx1qmmDuHbh8ZsYgYjJE=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kks97HtJgzuiWZrXve/jIcgSTsLgrRMJ2SUsNmPOAsafmaQAf61FpHdCIcNG1uS0P
-	 zligexkElkvmKDRQCKFy8yVWVhrgYzGCv5IgOyHyAJicuKjmhkP6LcWAS0OssxvIIh
-	 z4JqablViFCaG7WCoYQcnLaICacEkrGXww0WJDnIFYOtf5eqhtYxFQXnn7qvMrIt5/
-	 btDqwWUAMhz0JAcyjBokYzmLqH0/AFAcnHU4Z8uPAChWhYFHTpLN2vGC4UktSJ2eTj
-	 hSXVcEHMHW5+Tuk5TXNJnTNpUvl2OmcCtatiRhaAUXSc4yhunFeC5KqpnVKsxo/rlV
-	 kiwnncBolYYvw==
+	b=Jqan8cn+FiYNjKiMAZROmKKokL6sqEY8y9dmmW2vcL4WbajP+4J07yfnj0o0YgMYl
+	 Adk8S702fBBdJ+mS06nxN+w7w7VzuXdBxXaHZSR1tmi4F5fHnEmMd6rRvaDkmjZQ/Z
+	 kB5wfKQydLdyakeDjiArxzpkQbnmLTgVfqJc24bxepiz0ULMJcwi1PRllilfEkFWtd
+	 0ti2Xm3vkXlfvRwAoQ4HnN8s/FOUMf5TAOuOxnfaXArTt++F70/FkZqGIb54MsDNEq
+	 j2uwKKxdI4bPAAuc/wPu8rxkIzFE0U3pPThGfkStFSyELuPM2gWpENlIhxo9ei4Pk2
+	 muWQHcT3R+eNg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 4/7] remoteproc: qcom_q6v5_mss: Use mss as regulator
- for MSM8953
+Subject: Re: [PATCH v3 5/7] dt-bindings: remoteproc: qcom,msm8916-mss-pil:
+ Add SDM632
 Reply-To: sashiko-reviews@lists.linux.dev
 To: =?utf-8?b?QmFybmFiw6FzIEN6w6ltw6Fu?= <barnabas.czeman@mainlining.org>
 Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20261002-sdm632-rpmpd-v3-4-95c47d0f26cf@mainlining.org>
+In-Reply-To: <20261002-sdm632-rpmpd-v3-5-95c47d0f26cf@mainlining.org>
 References: <20261002-sdm632-rpmpd-v3-0-95c47d0f26cf@mainlining.org>
- <20261002-sdm632-rpmpd-v3-4-95c47d0f26cf@mainlining.org>
+ <20261002-sdm632-rpmpd-v3-5-95c47d0f26cf@mainlining.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 02 Oct 2026 09:14:04 +0000
-Message-Id: <20261002091405.0E7F71F000FF@smtp.kernel.org>
+Date: Fri, 02 Oct 2026 09:14:05 +0000
+Message-Id: <20261002091405.CD7881F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,91 +47,70 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] remoteproc: qcom_q6v5_mss: universal probe failure on MSM8953 due =
-to missing mss-supply
+- [High] dt-bindings: remoteproc: msm8953 device trees lack newly required =
+mss-supply
 --
 
-commit 726993c6f2fb948fb92664f68a46c91f069ed760
+commit 9361957c0df3f4f2db804dba4f7e53e9096f9d42
 Author: Barnab=C3=A1s Cz=C3=A9m=C3=A1n <barnabas.czeman@mainlining.org>
 
-remoteproc: qcom_q6v5_mss: Use mss as regulator for MSM8953
+dt-bindings: remoteproc: qcom,msm8916-mss-pil: Add SDM632
 
-The commit modifies the MSM8953 MSS configuration to use an "mss" regulator
-rather than a power domain. The device tree definition is updated to remove
-the power domain, and the driver is updated to expect the new active supply.
+This commit updates the dt-bindings for the MSM8916 MSS PIL to include
+SDM632. It adjusts the schemas because SDM632 is similar to MSM8953 but
+uses a power domain for the mss-supply instead of a regulator.
 
-> diff --git a/arch/arm64/boot/dts/qcom/msm8953.dtsi b/arch/arm64/boot/dts/=
-qcom/msm8953.dtsi
-> index 753167c3f8619..c7dc08858d542 100644
-> --- a/arch/arm64/boot/dts/qcom/msm8953.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/msm8953.dtsi
-> @@ -1451,9 +1451,8 @@ mpss: remoteproc@4080000 {
->  					  "handover", "stop-ack";
-> =20
->  			power-domains =3D <&rpmpd MSM8953_VDDCX>,
-> -					<&rpmpd MSM8953_VDDMX>,
-> -					<&rpmpd MSM8953_VDDMD>;
-> -			power-domain-names =3D "cx", "mx","mss";
-> +					<&rpmpd MSM8953_VDDMX>;
-> +			power-domain-names =3D "cx", "mx";
-
-[Severity: High]
-The old power domain is removed but the required mss-supply replacement to =
-power
-the MSS hardware is missing.
-
-Is it expected that mss-supply is missing here?
-
-Without mss-supply in the device tree, devm_regulator_get(dev, "mss") will
-return either -ENODEV or a dummy regulator.
-
-> =20
->  			clocks =3D <&gcc GCC_MSS_CFG_AHB_CLK>,
->  				 <&gcc GCC_MSS_Q6_BIMC_AXI_CLK>,
+> diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,msm8916-ms=
+s-pil.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,msm8916-mss-=
+pil.yaml
+> index 4049157dd83d7..049191cad5f83 100644
+> --- a/Documentation/devicetree/bindings/remoteproc/qcom,msm8916-mss-pil.y=
+aml
+> +++ b/Documentation/devicetree/bindings/remoteproc/qcom,msm8916-mss-pil.y=
+aml
 
 [ ... ]
 
-> diff --git a/drivers/remoteproc/qcom_q6v5_mss.c b/drivers/remoteproc/qcom=
-_q6v5_mss.c
-> index 2f71ed2feff69..8f6312213e1ab 100644
-> --- a/drivers/remoteproc/qcom_q6v5_mss.c
-> +++ b/drivers/remoteproc/qcom_q6v5_mss.c
-> @@ -2728,6 +2728,14 @@ static const struct rproc_hexagon_res msm8953_mss =
-=3D {
->  		},
->  		{}
->  	},
-> +	.active_supply =3D (struct qcom_mss_reg_res[]) {
-> +		{
-> +			.supply =3D "mss",
-> +			.uV =3D 1050000,
-> +			.uA =3D 100000,
-> +		},
+> @@ -287,6 +289,7 @@ allOf:
+>                - qcom,msm8917-mss-pil
+>                - qcom,msm8937-mss-pil
+>                - qcom,msm8940-mss-pil
+> +              - qcom,msm8953-mss-pil
+>                - qcom,msm8974-mss-pil
+>      then:
+>        required:
+>          - mss-supply
 
 [Severity: High]
-This makes the "mss" regulator mandatory and strictly requires a specific
-voltage to be set.
+Does making mss-supply a required property for msm8953 break existing
+device trees?
 
-Since a dummy regulator lacks voltage-setting operations, an unconditional =
-call
-to regulator_set_voltage() in q6v5_regulator_enable() will return -EINVAL,
-causing the driver to unconditionally fail to probe:
+Looking at existing in-tree device trees for msm8953, such as
+arch/arm64/boot/dts/qcom/msm8953.dtsi, the mpss node uses the compatible
+string but does not provide an mss-supply property:
 
-drivers/remoteproc/qcom_q6v5_mss.c:q6v5_regulator_enable() {
-    ...
-			ret =3D regulator_set_voltage(regs[i].reg,
-					regs[i].uV, INT_MAX);
-			if (ret) {
-    ...
-}
+		mpss: remoteproc@4080000 {
+			compatible =3D "qcom,msm8953-mss-pil";
+			...
+			power-domains =3D <&rpmpd MSM8953_VDDCX>,
+					<&rpmpd MSM8953_VDDMX>;
+			power-domain-names =3D "cx", "mx";
 
-Could this cause the modem driver to fail probing, making the modem unusable
-on all MSM8953 devices (and SDM632 devices due to later patches in the seri=
-es)?
+Earlier patches in this series removed the MSM8953_VDDMD power domain and
+updated the driver to request an mss regulator, but the mss-supply
+property was not actually added to the msm8953 device tree nodes.
 
-> +		{}
-> +	},
+Because the property is missing from the device tree nodes, merging this
+series will cause schema validation to fail for all msm8953 boards.
+
+Furthermore, at runtime, the qcom_q6v5_mss driver will silently receive a
+dummy regulator for mss. Since the actual hardware regulator is never
+enabled, will this cause the modem to silently fail to boot on msm8953
+devices?
+
+This issue does not appear to be resolved by any subsequent patches in the
+series.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261002-sdm632-rpm=
-pd-v3-0-95c47d0f26cf@mainlining.org?part=3D4
+pd-v3-0-95c47d0f26cf@mainlining.org?part=3D5
