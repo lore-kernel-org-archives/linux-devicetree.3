@@ -1,69 +1,69 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73FD1470E8C
-	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 09:45:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77EB5476060
+	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 09:45:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790934338; cv=none; b=O9uXvPJinTfRXwAjZKU7Y+GHapeRdabRH2LBfCtni9T5e/tRXKFPp6uUbKi+zUNs83+8kSc1qqSfg4YFwCnMKkxAPS5DcagEZd5Fq2/Lv/y4TQirmEJEJzX2ddRyfYFFL5STlITvPubEeo2xB71pvo54lgS//8zCGglp4JPd6jg=
+	t=1790934339; cv=none; b=EBiBZb5c6lMsITt7hp632ato64sCKT8lxeDxC3It+BBQOfHxwjD46+O6RgL/jD5CZhCg7D/GTFteYHwsu9YyCo4enqoL0mLVRMUr5PQCy6VS4eqAPX6f1KZfOevZtgcOI8tez1u5gZSE21jIET6KaM5jaKjcNx4mqCqwaw/rkS4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790934338; c=relaxed/simple;
-	bh=55BYKoYYSwy3bCN53a4FvbioXpDXA5/IUe+AN+5f4KU=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=BiE89m56xS8u2AWADzQ0WCibmlE1QFN2b0hcc8iyAAnlmOon8M08bsFFQ6Ck5qjhJqRhfWbt9XAU/dWdIeN89t4br2G8/qAKoASTiocP2MLGN04Zx0LcVYJ0J9guYBZ5GQ4JpOOE24zDNH5c6xKmBLyzlzRfVq0JkEIfySmCI0Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=d/arz8r3; arc=none smtp.client-ip=74.125.225.99
+	s=arc-20240116; t=1790934339; c=relaxed/simple;
+	bh=k0vf9IJe5mr2xZ4za2J/iwlEqUm4UT3e4X4gEPnokc4=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Qocgsz9vZd30pw5vSr9HtzYPuo9AJ4w3jhlav/u4XO2AOPANRoJyxDREPVU5G5Y3hThBMCBnIC8pviF4YYr8jt5MlCDFkCqV+mBJqf4KBd5d2kt1N7yyamgBOOJQxQrJNkotep78inVTstagDfcboKCpg+Vln9gwlEQ9ARkXFo8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=TCFjZQmv; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="d/arz8r3"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-4887840c529so2547659f8f.1
-        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 02:45:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="TCFjZQmv"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ff9621c5dso47194605e9.0
+        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 02:45:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=linaro.org; s=google; t=1790934335; x=1791539135; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=4vlDO63aq9Dc8BRT5ULZafGgVo4ARHfMSrbb3S7Yx7Y=;
-        b=d/arz8r3rWoHiNvZARzxTVa0btIO6dPQFba/bM5kLh/2nMlnFPE7QnoGn5+ncGiVmY
-         sybUxnlU6fB1QVyIJ+qDA6RI2+uFra5jeZjfCgLdWyKDopce/ANmFXO8Q8Ng0sVRGEpP
-         RUqFsOEDHCBBd0xtGbJK1PMuzZ1fl1lXxN7hWJhTN5bYIyg0VPHdi5vf9Jb5LahWlWT9
-         qN3lM4S+k0WpBmVWVocVAdaqUnV9+86qb+mfxAarOaALq0s3+zNRnOf+rm7caUB/zMDz
-         PVB+twMPu06CsYFibuOqpDMSh4k46ZH+m4ZnmQaIkpn7rMQs9+I4J8oK5FNGQ2WeXmQV
-         CsaA==
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Whs608MpQHn0fcanZf9ChaNVLNdoG4FAnM1K+j26AR8=;
+        b=TCFjZQmvRCZ0Ac3ECygeznRIGOnnIp7bn2P/4uVqZEKe9K+atDHW9uRtG+oKvEed78
+         jzVsiyObjXzmZpBox2DvTqEEvphnqOGm7fdo2BWWwbIzTToAeHV3Xk2LbR+XGXj6nrrl
+         uUs/jY/UmENn7JVFZi3bIZm18V0iiKcFWZh8XVFwi0Nt+trAhY7yPD71QoFwu7fw2HPj
+         f5/GAq6A9s2Ji43qQLVFGcxCkTITfm4SI5gVzQD4w8RsdtTkQIpKM6PgRj2v33/ZKitZ
+         frgUD1MVoHxQNyPshcc0ou/jVebRJiLWf9PL5nwaH2rJydQ+fqACKJ+JzJatHRTjGiHT
+         HTyg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1790934335; x=1791539135;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=4vlDO63aq9Dc8BRT5ULZafGgVo4ARHfMSrbb3S7Yx7Y=;
-        b=ZE1jauZjOx6Y/vQ2V20Sd//L930BhCmpPTfQzpX4wG/v0ns3dBxuYelbHC9sRH8YxZ
-         yzy9sDQz526AAwLSSNIo+a/HgJAGOt/UDkjOh5Ow2XYN/PP2lnrYiwdU0QSCOZJJs94Q
-         jZPutnetUDNArOdLVdSVgO43xuvoRkiu924uNcYaM0Iy/4hK4Mh4KvUIIKWbN+lZVGdD
-         YyXyaQLyVkq4tt32RYoyon8e1ekEARaTXZr/VuMds5FFVlakVnJgJdxGhaNBvCKUOJtk
-         RavAr1uldmASQXnmVw8dGNO/h1dBkiAVNOj+TZ2+EdTe5oKf5v0j4ICCfRgveGdhJ7WP
-         x26A==
-X-Forwarded-Encrypted: i=1; AKwUvBxmOvgDR3djp2PnLnuCX78pQdag3XQ/1VbGEqLxY+zcwbItQtFp3V6pfKaiolSbXbGIxpp1TTR9dPFr@vger.kernel.org
-X-Gm-Message-State: AFuF++m7q1Nd/PqKNE9pPwsasSlNe2uKVlIMZqclcpoxAs5pqMiQikk7
-	iLT89f/otGG8c/U03gqdp95G+wgFlLn6uVsFX3Y4oa4J5pGs1rIeQJecX+vZtaEYYHl1s8BGwd2
-	q1X2/
-X-Gm-Gg: AYBFou2nKzE1bFbI2FJOtWZATp1FqexnfRlAEoWDVfRJOp0DZYpUurbDmmfuJVKBRFM
-	7eJ4QILLmKEvHcykRW4QFO+g0hN6uK8uyFKnebg/aAESZ37y1QLaa7reNMPXnsPh2OoeqaPqxxU
-	vYe1titozT2OhuNOEY59+7+wyGmwxIBuuFaaTILIagSOK1OxEYOmL+0Ck09zWClrKmokTS8yAjq
-	O23iqfQ2gdyzU50BygpWo+j6lw/NrUEJfsG1MQr/394T9JxBJV17o6r2PKugL4AvJFMFuTAaANn
-	IXnf40Ue+BK8FVp70/k5q3MrT1WE8oxiEbdS4QMruj9GFq6nBhj+QyizBENbsnWgIXyZVn6oAd4
-	AVGYOPn7czpU9No6uFCvZwN3ozks3henZkcejXukHBeJTywcBrF8Bi0O1izMlXXNL28wiicy6gh
-	kcj5yoi4dmQQSRml/atB8VnNcjeSygynnaIdh/7CYq5pe9jTsPt3PDR5GNysHMj3mLGkpbnR87y
-	4gvfiJxkVwbKVX506Y=
-X-Received: by 2002:a05:600c:1e24:b0:49f:ffa2:1c72 with SMTP id 5b1f17b1804b1-4a0275507d7mr36036905e9.11.1790934334415;
-        Fri, 02 Oct 2026 02:45:34 -0700 (PDT)
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Whs608MpQHn0fcanZf9ChaNVLNdoG4FAnM1K+j26AR8=;
+        b=bt4qbijKVOQuQyvWmL64J3S6tDJZGciJu5jLcgm8TzRyyOEbMN+xTSfw7VoFosT6zt
+         pQjEeAldtkraDMOof4A++9HhmdpSrxGjnbaP6P+6rJxc6en0g0FL6fXOVfZBVIXpa4XH
+         btrOLgWWPvJSb8OmNAP5w/y+8RM3HdLxAHFr2G5KMyGk0LbWhcFjRKWLmO8NDHdBjURd
+         5YssGXv4KhH/KPejvceGF6/GwRbdg39rW+OuvLVxt4ebhiXMkbKMO1v6FzLwpkMTkFiv
+         DupEU14KN45wYLYx1iexDmIMRA1v4F56kXVBY+hr+f0PSdfiXnUoHqmM9DXTrXGnXnwR
+         iUIw==
+X-Forwarded-Encrypted: i=1; AKwUvByYEsVc8Wocd0JC18hThK9x7ISN41UX2msIyDZD8DkM9+geIKpsndcntFgPFskUCEGu3k9qvYs5t6Oj@vger.kernel.org
+X-Gm-Message-State: AFuF++kYsmAC+GZBvfl24Y3jNxbq4Y8q4N0ZmZraK3meK/yTS31pxB7n
+	Lezqqh6tfWENxlZPKeZ3fqu6gidw3++GwfW2KTNYQd5QgFE1jrwS/EyCsOUfVz+fnlI=
+X-Gm-Gg: AYBFou2jBHbTOZsuHOFrKNmekxZ1h5i+V3eLFt7HOEfm4o6Qd9lsNnvwTKl8lubjUke
+	NajNUZWC3J6sw7Br4fBw/V7deJl3pO2Hnkq31Uc5xo1jL9oHXd5/BnTTihMrStsz2FwUiK/bcLF
+	HhYzGTI+OQIF/tcwsT4KJou7UDm5JttPqUXE9fqtvp3MJeZctYxZpibgonx3kGSNr2rBkhAaMZ+
+	tPX6TxQPWYoOhh22GnXBBazR13FiQiWe5r5JLOP70HzQNWjiU20GHOEpt7bOnfdzgzFGOCw1apD
+	ClzVdGSZkOUHy1NQtpktmvaV9//3Jnvr3Jt/T1Hl/jJNjxJB254cVLC2GMpI0l3oI2Eiil7IJUN
+	mlSj+wxf/RZJZgL4pDYZhRLgE0qOvjql1MACj4miQd0aCm9sgVEInIJWG1f3B1ItwrEsCZxEEox
+	EKAWSREp1Y22I7+HHHWtrSS9TtvtvKW25DiT05TGlkbMCc6/e284rI8jcZi48EL+XT56IKRtGtM
+	jRgVZHpU6TPqa7kiks=
+X-Received: by 2002:a05:600c:a10b:b0:4a0:1c94:7042 with SMTP id 5b1f17b1804b1-4a027542267mr31818345e9.8.1790934335444;
+        Fri, 02 Oct 2026 02:45:35 -0700 (PDT)
 Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0280c8bb0sm72705635e9.11.2026.10.02.02.45.33
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0280c8bb0sm72705635e9.11.2026.10.02.02.45.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 02:45:33 -0700 (PDT)
+        Fri, 02 Oct 2026 02:45:34 -0700 (PDT)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: [PATCH 0/3] arm64: dts: qcom: sm8650-valve-deckard: Add watchdog
- support
-Date: Fri, 02 Oct 2026 11:45:27 +0200
-Message-Id: <20261002-topic-sm8650-deckard-watchdog-v1-0-7d7f7d71d88a@linaro.org>
+Date: Fri, 02 Oct 2026 11:45:28 +0200
+Subject: [PATCH 1/3] dt-bindings: watchdog: qcom-wdt: Document SM8650
+ watchdog
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -72,10 +72,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIADd9v2oC/yXMwQ6CMAwA0F8hPdtkFEHirxgPo+ugGhnZppIQ/
- t2px3d5GySJKgnO1QZRXpo0zAX1oQKe7DwKqisGMtTVxhDmsChjevRda9AJ3210+LaZJxdGPHn
- qmyNTS42HcixRvK6//3L9Oz2Hm3D+prDvHwPx47CBAAAA
-X-Change-ID: 20261002-topic-sm8650-deckard-watchdog-7f2834c2523f
+Message-Id: <20261002-topic-sm8650-deckard-watchdog-v1-1-7d7f7d71d88a@linaro.org>
+References: <20261002-topic-sm8650-deckard-watchdog-v1-0-7d7f7d71d88a@linaro.org>
+In-Reply-To: <20261002-topic-sm8650-deckard-watchdog-v1-0-7d7f7d71d88a@linaro.org>
 To: Wim Van Sebroeck <wim@linux-watchdog.org>, 
  Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -87,45 +86,43 @@ Cc: linux-arm-msm@vger.kernel.org, linux-watchdog@vger.kernel.org,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Neil Armstrong <neil.armstrong@linaro.org>
 X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=958;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=838;
  i=neil.armstrong@linaro.org; h=from:subject:message-id;
- bh=55BYKoYYSwy3bCN53a4FvbioXpDXA5/IUe+AN+5f4KU=;
- b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBqv307ZhyTljFslPnOLKjXwAqzsLcS6c755ca19e71
- dDewOMeJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCar99OwAKCRB33NvayMhJ0QvyD/
- 0YXCXjr5+/rzunnDbbBQiAWyZikxJgT6WkKCAdoJD2BGR9PEtC5z5PtthkQYC3xKcfcgWSzfzVWFeq
- y1xm6w05yJ2giOyZTzYcjho1HkUcafw2FTuTUn/eKeQpjl0BzRlXLkO7+ExNqMQZyee95O7F/oxmf7
- BpDHKRU9flpmmNzJIB9ajxStRZz0cN/fegPGMi5vDYgquZBiPmu1YFWKhz0p0XLq6h8bYts0N1WOLg
- pmomyqKY0o/t2rqX9JOP0hu8i1+yY5xhPCdrxFgD8ZfCQwAmQ4u9Nh4qLjqNqu+v1256Sf54QSdlHF
- U80lLGJVDY10PJxzC1FKM1kuaJFMUBbaa35FmrzufINqSOOu9uTcBj+YmovSYdQGc1tYaUoMV23G32
- K9v5jYijDaHh4Ca0TeEms5Mt2fWep/3j8We9WWV06vm8DwtmjzvTY/7JSkrluJhYNw3pyu9l2bd+WW
- aqwHSPXiQHIVIiO3ZMSDqZnq5R+yKcCDPWd8dCUSjFrcpW7MzSzXE1xYc8QuoRWJGhCFSC/wElOo1T
- 7zAWGF6Ms1UAaWXgoSJ8xMUmdQp+5JE++SKYNnAn0guYlcdxsl3GEZfeqDpaTAdxzJo+ezYMYmzA0R
- 1lj1i/T0LM134Q7jlM7UfEsLF6J2YW+rx+bZtmlN98Hbj0zzMLWPmjZ9dgog==
+ bh=k0vf9IJe5mr2xZ4za2J/iwlEqUm4UT3e4X4gEPnokc4=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBqv307o/zudbjHuKF52tsKRiGR41jSsZ9EofxSYEwF
+ u/xRq/SJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCar99OwAKCRB33NvayMhJ0RGTEA
+ CSXVLhNJEeYoozS8xgfYmrDj3hHsVBLpx4GKI5vRjOQ9brQbqDsuGZFB0I5ZmzGnSTD2igOgP/UYAL
+ WWfZbaHz1ZEqsJtAwkybzyZ5FVU6+KHdMjigaScGB7Pn4PwGsfe8ZVIiHO1OA/1CutAxdwxkz7C0z2
+ QMt/zlnNVSHzb6H9Okg0BPOAaPM5ZjwzBkliVk2E/n2WB/VNVNkuY/0Pw0k3YbiACwiRfjayKy+9Ug
+ OkeYhdi/OkLSsTx0kItUuMbB6v0yH1vwKBeS/Fol4kd9I0cq8EOX4ezKuIBT8H2v5rKyJbgvrisD2G
+ Y7sFhEXb2f37kfoQZEIDqYi4sK3LtDPdeAg6Qx04lTPnEuUnPAXYNrhuLoMUX/OwggRo8WxTDbu89W
+ MmAC2WGh2M1eG8cTTS6VImknxL0+AcgiTaBJRpj+WDMUpMmH7pF2yY3Twqjc90jVgKExJfPdBAYx1m
+ Fk8P4DVcy7i1ZMehyFwZ7++3ajmuOGuZLSxI4TGranCJDCDLyJ1zp6PhAzmlZSBSlXUNVss0h4u03l
+ B9hBdn9rvRzMFHqSVlozPelFM9dQgXbNitIKBhLrrOH/novqCMWWOCVy/rG+0Ktk2nB+tuPAGQ5g8b
+ srnX3VvChZH02a+1glJ+98c3rmKIUywD2R2SnCbv4fo3WwEZV931zBs+m5LA==
 X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
  fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 
-This series adds Qualcomm SM8650 watchdog support for the Deckard
-platform by updating both the binding and the SM8650 devicetree.
-
-The watchdog is marked as reserved by default since most boards
-uses the Gunhyah Hypervisor which owns the watchdog.
+Add the SM8650 compatible string to Qualcomm watchdog binding.
 
 Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 ---
-Neil Armstrong (3):
-      dt-bindings: watchdog: qcom-wdt: Document SM8650 watchdog
-      arm64: dts: qcom: sm8650: Add watchdog node
-      arm64: dts: qcom: sm8650-valve-deckard: enable the watchdog
-
  Documentation/devicetree/bindings/watchdog/qcom-wdt.yaml | 1 +
- arch/arm64/boot/dts/qcom/sm8650-valve-deckard.dts        | 4 ++++
- arch/arm64/boot/dts/qcom/sm8650.dtsi                     | 8 ++++++++
- 3 files changed, 13 insertions(+)
----
-base-commit: 9f24d789f03b22941b905ded43cb5ff8eea9ce62
-change-id: 20261002-topic-sm8650-deckard-watchdog-7f2834c2523f
+ 1 file changed, 1 insertion(+)
 
-Best regards,
---  
-Neil Armstrong <neil.armstrong@linaro.org>
+diff --git a/Documentation/devicetree/bindings/watchdog/qcom-wdt.yaml b/Documentation/devicetree/bindings/watchdog/qcom-wdt.yaml
+index 4ff61102e407..31f9dd24c29f 100644
+--- a/Documentation/devicetree/bindings/watchdog/qcom-wdt.yaml
++++ b/Documentation/devicetree/bindings/watchdog/qcom-wdt.yaml
+@@ -50,6 +50,7 @@ properties:
+               - qcom,apss-wdt-sm6350
+               - qcom,apss-wdt-sm8150
+               - qcom,apss-wdt-sm8250
++              - qcom,apss-wdt-sm8650
+               - qcom,apss-wdt-x1e80100
+           - const: qcom,kpss-wdt
+       - const: qcom,kpss-wdt
+
+-- 
+2.34.1
 
