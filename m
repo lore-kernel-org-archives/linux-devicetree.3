@@ -1,132 +1,115 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2389C31D72E;
-	Fri,  2 Oct 2026 06:16:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAA322E8DE3;
+	Fri,  2 Oct 2026 06:27:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790921842; cv=none; b=T8ptfVl76sUyybjNSpYPcdGOxqYkxwJOhWJ/xShAvsI2Q9odj5CA1r3cXVaWBVOgm9qwj3WstZDh0n/thA/KvDvuIrI+l4aI/6uzNc0tA4rvDZog7ug8kDJpgH/7Upp372/CweZ0MSGadW56czkPyvbCVBOFh4LhLPw0T0pJHT8=
+	t=1790922479; cv=none; b=Djtpw0SODeq6c52BixC2fhfhgQl/WZ45/jBXn/RbuYDoiAru58vJ1ZWQAtgRH7HU5JLT0+zRznKgaO+RA2f8JfE1nk/JvKLf6oo6P8yNcuWpmTNT9SL1/Tr7wEur3zkrpVggVDWPT4RCxvIo1Y5U60Mq0MSMl0NzidGmOiqp6rk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790921842; c=relaxed/simple;
-	bh=AeAbliq0jIjbFeMmcYDWqBHXCoF/g9GmMVhpk3xrVxE=;
+	s=arc-20240116; t=1790922479; c=relaxed/simple;
+	bh=tBgt/DCMYCMSup6pPHTLX/YjKgXdjVSe+7aRSR4FT/8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=P9Vk8NclHoKqM6UR8m8atJMN4SYzjAJexc1MPCCo1yynQkEFLQlHLbsi0umTZ7bOsYtiobCiOkVGl9X86o7yltm3dndwpOOiBARC1OCpjHh1CgZLBVqp5hefNporaGGWM1N9kNzJvmdBshYKb4+oLyjVf7+VGvOVCy27PyBsWrw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=dqma6TCI; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=H3dFh3Haaynme1StxTcSC7M+dq5FhUF5nprWc/JhcVkTzZ8g/IMukcmKDN0wNQhIBHxew09lMN/BggmNREv4ppHByHzeoCkY6XwVFei9u9Bn+IiKo75QiIURXu2eeCOypTzGRuDQ0L38aAIhLSAE13QFRC+otyfAe+zlulTYWGU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kj0nE/ky; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="dqma6TCI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6BB21F000FF;
-	Fri,  2 Oct 2026 06:16:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1790921813;
-	bh=u/9gAXcvZw+wzTRHcyd2C2q/kOrZa5hf8+Yk0jX/Uwk=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kj0nE/ky"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B07C1F00893;
+	Fri,  2 Oct 2026 06:27:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790922477;
+	bh=P5VwjfKYVSDYAYJM9q7TEEVakSHWBpFYqmQbJbCfhOg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dqma6TCI0pQcbuM/AiwwahnDVha432Qz9O0PwaPS+FrXo6gfbm6mcA6PPhQnST/hF
-	 dZAvahul+BTnvNK7LMPRcdd339AQdg7WOWlxSa2I9Tw8AdKM92RJJX80Sqi7kYJPq6
-	 tUEx20BLVzKpuzrvTDzLwzedN0ACt1+XfoDP4rpQ=
-Date: Fri, 2 Oct 2026 08:16:47 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Alex Elder <elder@riscstar.com>
-Cc: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, arnd@arndb.de,
-	bhelgaas@google.com, abelvesa@kernel.org, daniel@riscstar.com,
-	mohd.anwar@oss.qualcomm.com, lorenzo.bianconi@oss.qualcomm.com,
-	devicetree@vger.kernel.org, linux-pci@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 3/3] arm64: dts: qcom: qcs6490-rb3gen2: add endpoint
- buses
-Message-ID: <2026100234-chaos-density-47c4@gregkh>
-References: <20260918152659.413268-1-elder@riscstar.com>
- <20260918152659.413268-4-elder@riscstar.com>
- <2026100159-retold-could-3468@gregkh>
- <9c426950-b3f3-42fd-b31d-f14085a7d2d1@riscstar.com>
+	b=kj0nE/ky6wliTggjFUkJLVrez1VLVBXnwWc3ztijEm2gWCvzZv+8yPiFZ9lCvedZE
+	 Z36EU8D14bjn6OET0SHMqirnZCxGCn04hqEiBPJ0tnQwPu8xSBTpZdUj67JyD8TgrD
+	 RUIq6cc2kDaKZLLJjycixpZXst37r5AJKzQwfFUpFtaphGU0yh3W1KN2qDPtqlHuK0
+	 ZpZuxQKbU/WRw/SrWD0S8NDm4cMSwxrX8+2xsYxv0iIO40DJZrjinzHIQfuBiIeDTT
+	 /YuamlGrn9Qs+v1sCnk5+yuILqZBAQ9Q7NJdbk47AHnp9Yqt+wrzzb5XFUpn/VX8l4
+	 bVHnjrhEzWhsg==
+Date: Fri, 2 Oct 2026 08:27:53 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Beleswar Padhi <b-padhi@ti.com>
+Cc: nm@ti.com, kristo@kernel.org, ssantosh@kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, afd@ti.com, u-kumar1@ti.com, 
+	vigneshr@ti.com, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
+Subject: Re: [PATCH 1/6] dt-bindings: arm: keystone: ti,sci: Update nodename
+ pattern
+Message-ID: <20261002-rugged-nondescript-cheetah-8caa9b@quoll>
+References: <20260930194131.117129-1-b-padhi@ti.com>
+ <20260930194131.117129-2-b-padhi@ti.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <9c426950-b3f3-42fd-b31d-f14085a7d2d1@riscstar.com>
+In-Reply-To: <20260930194131.117129-2-b-padhi@ti.com>
 
-On Thu, Oct 01, 2026 at 02:19:14PM -0500, Alex Elder wrote:
-> On 10/1/26 7:06 AM, Greg KH wrote:
-> > On Fri, Sep 18, 2026 at 10:26:58AM -0500, Alex Elder wrote:
-> > > The TC9564 SoC incorporates a PCIe switch, which is connected via
-> > > the second PCI segment (0001) on the RB3gen2 platform.  The third
-> > > downstream port of that switch (pcie@3,0) has an embedded PCIe
-> > > endpoint that implements two PCIe functions.
-> > > 
-> > > The SoC implements other peripherals, and they will be accessed via
-> > > PCI endpoint bus.  Define the devicetree nodes representing these
-> > > buses, including the mapping of each BAR's address range to its
-> > > local address space.
-> > > 
-> > > The endpoint's ranges property must be defined, but it will be
-> > > updated dynamically to include all BARs.  As a result of this update,
-> > > the parent address portion of each range will reflect the specific
-> > > address assigned to the BAR.
-> > > 
-> > > Co-developed-by: Daniel Thompson <daniel@riscstar.com>
-> > > Signed-off-by: Daniel Thompson <daniel@riscstar.com>
-> > > Signed-off-by: Alex Elder <elder@riscstar.com>
-> > > ---
-> > >   arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts | 30 ++++++++++++++++++++
-> > >   1 file changed, 30 insertions(+)
-> > > 
-> > > diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-> > > index 3bb5fca8e2b13..5b7f5292a8864 100644
-> > > --- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-> > > +++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts
-> > > @@ -955,11 +955,41 @@ pcie@3,0 {
-> > >   			bus-range = <0x5 0xff>;
-> > >   			dev@0,0 {
-> > > +				compatible = "pci1179,0220";
-> > >   				reg = <0x50000 0x0 0x0 0x0 0x0>;
-> > > +				#address-cells = <3>;
-> > > +				#size-cells = <2>;
-> > > +				/* Ranges will be updated dynamically */
-> > > +				ranges = <0x0 0x0 0x0  0x83050000 0x0 0x0  0x0 0x4000>,
-> > > +					 <0x2 0x0 0x0  0x83050000 0x0 0x4000  0x0 0x80000>,
-> > > +					 <0x4 0x0 0x0  0x83050000 0x0 0x84000  0x0 0x200000>;
-> > > +
-> > > +				pci-ep-bus@4 {
-> > > +					compatible = "simple-bus";
-> > > +					#address-cells = <1>;
-> > > +					#size-cells = <1>;
-> > > +					/* Map 0x0-0x1fffff to BAR 4 */
-> > > +					ranges = <0x0  0x4 0x0 0x0  0x200000>;
-> > > +				};
-> > >   			};
-> > >   			dev@0,1 {
-> > > +				compatible = "pci1179,0220";
-> > >   				reg = <0x50100 0x0 0x0 0x0 0x0>;
-> > > +				#address-cells = <3>;
-> > > +				#size-cells = <2>;
-> > > +				/* Ranges will be updated dynamically */
-> > > +				ranges = <0x0 0x0 0x0  0x83050100 0x0 0x0  0x0 0x4000>,
-> > > +					 <0x2 0x0 0x0  0x83050100 0x0 0x4000  0x0 0x80000>,
-> > > +					 <0x4 0x0 0x0  0x83050100 0x0 0x84000  0x0 0x200000>;
-> > > +
-> > > +				pci-ep-bus@4 {
-> > > +					compatible = "simple-bus";
-> > > +					#address-cells = <1>;
-> > > +					#size-cells = <1>;
-> > > +					/* Map 0x0-0x1fffff to BAR 4 */
-> > > +					ranges = <0x0  0x4 0x0 0x0  0x200000>;
-> > > +				};
-> > >   			};
-> > >   		};
-> > >   	};
-> > > -- 
-> > > 2.53.0
-> > > 
-> > 
-> > This doesn't apply to the char-misc-testing branch :(
+On Thu, Oct 01, 2026 at 01:11:26AM +0530, Beleswar Padhi wrote:
+> The $nodename pattern for TI-SCI controllers mandates specifying a unit
+> address, which in turn requires a 'reg' property. This 'reg' is only
+> used to describe an optional memory-mapped debug-messages region.
 > 
-> Sorry about that.  It does apply to to the for-next branch for
-> Qualcomm, so this should probably get merged through that path.
-> 
-> https://lore.kernel.org/lkml/20260918152659.413268-1-elder@riscstar.com/
+> Some controllers may not implement this debug region, so it has no 'reg'
 
-I suggest sending it to whoever maintains that tree.
+Which ones?
+
+> and unit address. Therefore, relax the $nodename pattern to allow the
+> unit address to be omitted for such controllers. Keep the unit address
+> mandatory for the existing ti,k2g-sci and ti,am654-sci controllers.
+> 
+> Signed-off-by: Beleswar Padhi <b-padhi@ti.com>
+> ---
+> Note: This patch is independent can be applied directly.
+> 
+> Cc: Nishanth Menon <nm@ti.com>
+> Cc: Tero Kristo <kristo@kernel.org>
+> Cc: Santosh Shilimkar <ssantosh@kernel.org>
+> Cc: Rob Herring <robh@kernel.org>
+> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> Cc: Conor Dooley <conor+dt@kernel.org>
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: devicetree@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> 
+>  .../devicetree/bindings/arm/keystone/ti,sci.yaml  | 15 ++++++++++++++-
+>  1 file changed, 14 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/arm/keystone/ti,sci.yaml b/Documentation/devicetree/bindings/arm/keystone/ti,sci.yaml
+> index 25a2b42105e54..67acce8a559a1 100644
+> --- a/Documentation/devicetree/bindings/arm/keystone/ti,sci.yaml
+> +++ b/Documentation/devicetree/bindings/arm/keystone/ti,sci.yaml
+> @@ -30,7 +30,7 @@ description: |
+>  
+>  properties:
+>    $nodename:
+> -    pattern: "^system-controller@[0-9a-f]+$"
+> +    pattern: "^system-controller(@[0-9a-f]+)?$"
+>  
+>    compatible:
+>      oneOf:
+> @@ -84,6 +84,19 @@ required:
+>    - mbox-names
+>    - mboxes
+>  
+> +allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - ti,k2g-sci
+> +              - ti,am654-sci
+> +    then:
+> +      properties:
+> +        $nodename:
+> +          pattern: "^system-controller@[0-9a-f]+$"
+
+Drop, not worth complexity.
+
+Best regards,
+Krzysztof
+
