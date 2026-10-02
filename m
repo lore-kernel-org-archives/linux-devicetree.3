@@ -1,195 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5513F47127C
-	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 13:31:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 702A8495AF0
+	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 13:32:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790947861; cv=none; b=iwLXJlND+k+01HEY+L0RRilj1yaELc0JzvE+vLasmjiIzb6NAp1HsVuHolZ3YzT7JRWTO0OoOnhRPNms8FXp5x9S1m278P3xPv6GR0M4G88YL0goxZ7o/OpElw9XE40Nl6DWWZF3NrAbnrRyqj39VunTkIzqJvs32w5SRvV+BQU=
+	t=1790947939; cv=none; b=bnLXPaRkekJw1pMCVNea9NcrEolzoXLT76/hUBvhgQWC4dmj/WCSH9/+z0/DaLhhJepIfchIeHq5yONw2v1E3FyvgtYpayozIQFbAa+Sfz5iwVWuWkzSFazshkt3uU3AqufNymCoq2seoVGvVpQ8kp3KtNiX5vNYXwlqSzfpyXU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790947861; c=relaxed/simple;
-	bh=wQZASrm/f1N5BLfOUw2JFHihCFRl7Nbs/i914LiJ3xI=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fgvHr9jzKd6eH+y7Po67phDcP1QRf9FH16qKETEAfyQhserqRl94rZe46qk2eqjiTYPsk8d3lSPxnELSbHFM9m+bkH59PJkJ3dQ4Md2g4E3ymunL102LoAqf8CIrQEjeb+qenaRIt/PuSqyIOwbV5Gl7/euqwIwleqGzMGui/Cs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c08MIF6T; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790947939; c=relaxed/simple;
+	bh=yI1sJ8u7HcWbY3EwhSNFIbq0rewYn6Kj2tCz78IACdw=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=rKk8yo1IQgM+2X7NGSNjSMScjzLFs5NOeovF8YVkq+nd8IA5lacFheSYC6FManz9ekR/RrkRtKgzFnrorjSq+xf3wgut5rQWmO00rtdKYRY7yKXW6EMDu5pj1uEVSYjCfO4GvigvHlv0RQbSKjLEyYIttgoIacH1ZIV65H94sHo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P3ef5zNc; arc=none smtp.client-ip=74.125.225.98
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c08MIF6T"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3C571F0089B
-	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 13:30:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790947860;
-	bh=sE8bXXV2aYl7I0eHUtl6v66dSznCvnKz176VEoS4MxE=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=c08MIF6TFp30XoozLY7hPI62jW6F4+6WRpgGc2EtmTP+G4FwJQVXYA/eGHiXdPDvw
-	 PFdVCsOa/uGQ1MT0aLyDNlZImI/l0vr4SnlEApZXHOvkx2lahiHpGecTGwvILw7Oco
-	 +KB7mdwVnROvDiqP7l+wEFso8/6SJCodlQvs027oUr/pthm9oWwrIK4RscxB77l2Ot
-	 KAiZ1jGEy8NOKqSSZZVLs+ecAO3afa5565KAiyHSGeWOBHseDy8THd0kDgn32c+JTe
-	 iRSXH9OqMboU/QkNoNu1UNRK7aBpkBhGY+UeA/I6UkvWr4Q/EUNL2k+r8pigRgYbV2
-	 kO+du45rxPing==
-Received: by mail-lr2-f34.google.com with SMTP id 38308e7fff4ca-3a770b3ee1aso28917761fa.0
-        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 06:30:59 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByrzpy5uiWoNaewJhuwuQvB/Sb6XuT8kVOlTAiovbzaXz3Gr5danLwsrZHDmbZCoBrUKyArHJUV908K@vger.kernel.org
-X-Gm-Message-State: AFq9FYKKTXHL2gxQuPC80nikmCTyBmkk9U5iiG1Kf+HcgBWt+Zwnyl8K
-	IJPyv90tmkMRzhu8FkrkrlLU3fNKfFRHXlkHvZ3fWIIB/N7Q9mX+yHQ0S/YZyRma/dWvGB5Zwue
-	AG5D+Sz4xZc9GppV+HceQF6QcLvM01bX9OgJlf2qZjg==
-X-Received: by 2002:a2e:9fc6:0:b0:3a6:10d4:61c4 with SMTP id
- 38308e7fff4ca-3a887813cd1mr7252281fa.28.1790947858689; Fri, 02 Oct 2026
- 06:30:58 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 2 Oct 2026 16:30:57 +0300
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Fri, 2 Oct 2026 16:30:57 +0300
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260928-arm-psci-system_reset2-vendor-reboots-v26-6-b24e2348e8e1@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P3ef5zNc"
+Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48b017a3be3so2529307f8f.2
+        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 06:32:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790947937; x=1791552737; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=hiRYKmHSzO5SlWk5Pf1admdJHvzaYFkX+u45NJi6WK0=;
+        b=P3ef5zNcyI2VaRuZOFC1B+8ABT+u9XeIwtZlqHV+MpBdiBSo5mwKdIR4lm5FqFOj3T
+         oPTTf4+BLl5xi3DC9ctP1mxDTqTMz81evjwiorF4kbphyhIOTLBOKERqob3j7+iWHQZg
+         cxOJFmc7epzU5yQxCc+I69otPMotJGebxGKyp12t5au9rQETojQoeLAZg47FcbPWJ++y
+         X1CmQO/5mAU+DewZcTaUkSuQX6nEn2NZEMrSOy5PFkDCE4AD1Wo+ezqvRTYQMYVfTAg5
+         cmdTuoSTbZqiuYyVzUGCiGRjuFwkykj4J/WVIPSSqu4kERvQ63jf4E8m3vtUE+ySyKcv
+         0Mrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790947937; x=1791552737;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=hiRYKmHSzO5SlWk5Pf1admdJHvzaYFkX+u45NJi6WK0=;
+        b=cSmooPVu2EnW+8rBe29YTVemURiqhjTFY33Pm0FFye2ySBWlDmM6tLAZSTmsrXrtri
+         4b7H9WJ8d6oSiB5HpDlnOTq6jIlt7vIUQADdn1UMABud1Ua8WeMcjEDJYTMxzMkm5mZQ
+         rXk2Bl7DJOGy1539NNBKQ7ANiYUzioPbBLalTaUkObrfDriuNdcOn4qvxS193oVhnHSK
+         Z9E6VQ1a8NHNxCrgljl74xfaPSrU8ZAJXsyOjXKVSJdjcWO74IBx3cvujKFKjY4bSauk
+         Kv9HaWvLX+gBThTsRoN4YDU0mX2S4xvdKZDwegqB+dXUpqr3swwaOkD2NeHLOIwDELsY
+         Ccbw==
+X-Gm-Message-State: AFq9FYJ03quucDMYJ/hlQydmRf35x/lrBT4e24ApLJuxlDqKU05n8wU9
+	yNGaz+uMs2SNpUS2qEXwLP+UAztGewKUvywPOpclW3QF+TIqCQhDVCK/
+X-Gm-Gg: AYBFou1aV4nbQMMZGx+uvamzBTe8dM7hlkLZ3omMfa4AZGUo45YP9BdteNcN/YOeaPN
+	tCrln/RISJ2pMKfrV5V6WOMZ85s8/tqwOZgLWMS+TbgaYxXN/7O/BxZMAsvb5QD3hPO41KwvH2w
+	VvG5iQWmfN3I7NEFbvxcWj8vYtVEAW2i/PT4mRDIDWk1W6bAT3c7nGYVDHq0/n1KIyhNBjL+S76
+	appAUcXNi279oic2FBQOnDhfwQ3FUvNo3+fjC/kQJ4MMCNX0u+ElVyNWbLJZsMm9AodBLOdRh1M
+	cPulpVPrXJlEeD9lGmXSvjdOFUXtBUji0j+kMund0SFjTHOUAz7Mv5WvQtxstk33A9NvnRSvfIY
+	TPeuRAYBiVgR6zD7EtE/O91aRg0B0H6XssHxR6K+ANzVBqFwJuNl7312j+DYCLKx69PNqejFQ0S
+	lahkPr/lGTSi493/nq8TnJA5aotAS/jYwFGmwo+E+TrlWD+zFRAQjcfhYoa+j+w0Exvytys42wK
+	ajwTjqPIr8P6YBXWhiLsiydln0/HpUgq7/bU0dFBywqIedNjqTomeM2GpO0lDCX1p5E7bI24iUH
+	h7+qrerU
+X-Received: by 2002:a05:6000:4308:b0:48a:fdde:5241 with SMTP id ffacd0b85a97d-48b12749eaamr5834965f8f.31.1790947936568;
+        Fri, 02 Oct 2026 06:32:16 -0700 (PDT)
+Received: from ernest.hoecke-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b382f9bc0sm5809855f8f.41.2026.10.02.06.32.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 06:32:16 -0700 (PDT)
+From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
+Subject: [PATCH 0/2] arm64: dts: freescale: imx8mp-toradex-smarc: Add
+ OV5640 overlays
+Date: Fri, 02 Oct 2026 15:31:29 +0200
+Message-Id: <20261002-v1-smarc-imx8mp-cameras-v1-0-a0e89182c625@toradex.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260928-arm-psci-system_reset2-vendor-reboots-v26-0-b24e2348e8e1@oss.qualcomm.com>
- <20260928-arm-psci-system_reset2-vendor-reboots-v26-6-b24e2348e8e1@oss.qualcomm.com>
-Date: Fri, 2 Oct 2026 16:30:57 +0300
-X-Gmail-Original-Message-ID: <CAMRc=MdSfBvZF4UJm=eBBD-GAJD7oFw3e+6UJeoXgidoPGzm-w@mail.gmail.com>
-X-Gm-Features: AclHuK9NRrBpOxbdKY64qOqdzxHen1rX4zRRIEbqfUSn0FJYeFcgfvAtIpYZWTI
-Message-ID: <CAMRc=MdSfBvZF4UJm=eBBD-GAJD7oFw3e+6UJeoXgidoPGzm-w@mail.gmail.com>
-Subject: Re: [PATCH v26 06/10] power: reset: Add psci-reboot-mode driver
-To: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
-Cc: Florian Fainelli <florian.fainelli@broadcom.com>, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
-	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>, Andre Draszik <andre.draszik@linaro.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>, linux-pm@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	Srinivas Kandagatla <srini@kernel.org>, Ulf Hansson <ulf.hansson@oss.qualcomm.com>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Arnd Bergmann <arnd@arndb.de>, 
-	Bjorn Andersson <andersson@kernel.org>, Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Souvik Chakravarty <Souvik.Chakravarty@arm.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, Mark Rutland <mark.rutland@arm.com>, 
-	Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	John Stultz <john.stultz@linaro.org>, Moritz Fischer <moritz.fischer@ettus.com>, 
-	"Rafael J. Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
-	Christian Loehle <christian.loehle@arm.com>, Lee Jones <lee@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
-	Pavan Kondeti <pavan.kondeti@oss.qualcomm.com>, Abel Vesa <abelvesa@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Sudeep Holla <sudeep.holla@kernel.org>, Andy Yan <andyshrk@163.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIADGyv2oC/x3MMQqAMAxA0atIZgNtkSJeRRxiGzVDVRIQQby7x
+ fEN/z9grMIGQ/OA8iUmx17h2wbSRvvKKLkaggvROxfw8miFNKGUuy8nJiqsZNjPMXaZgsvUQa1
+ P5UXu/zxO7/sBEtjHR2kAAAA=
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+X-Mailer: b4 0.13.0
 
-On Mon, 28 Sep 2026 08:09:18 +0200, Shivendra Pratap
-<shivendra.pratap@oss.qualcomm.com> said:
-> PSCI supports different types of resets like SYSTEM_RESET, SYSTEM_RESET2
-> ARCH WARM reset and SYSTEM_RESET2 vendor-specific resets. Currently
-> there is no common driver that handles all supported psci resets at one
-> place. Additionally, there is no common mechanism to issue the supported
-> psci resets from userspace.
->
-> Add psci-reboot-mode as an auxiliary device created by the psci-devices
-> driver. Define two types of PSCI resets, predefined-resets and
-> vendor-specific resets. Predefined-resets are defined by psci driver
-> and vendor-specific resets are defined by SoC vendors, under the
-> psci:reboot-mode node of SoC device tree.
->
-> Register the driver with the reboot-mode framework to interface these
-> resets to userspace. When userspace initiates a supported command, pass
-> the reset arguments to the PSCI driver to enable command-based reset.
->
-> This change allows userspace to issue supported PSCI reset commands
-> using the standard reboot system calls while enabling SoC vendors to
-> define their specific resets for PSCI.
->
-> Suggested-by: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-> Suggested-by: Lee Jones <lee@kernel.org>
-> Suggested-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> Signed-off-by: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
-> ---
->  MAINTAINERS                            |   1 +
->  drivers/firmware/psci/psci-devices.c   |   4 ++
->  drivers/power/reset/Kconfig            |  11 ++++
->  drivers/power/reset/Makefile           |   1 +
->  drivers/power/reset/psci-reboot-mode.c | 104 +++++++++++++++++++++++++++++++++
->  5 files changed, 121 insertions(+)
->
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 70a11f2ff61d..1007d5cd2e13 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -22058,6 +22058,7 @@ L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
->  S:	Maintained
->  F:	Documentation/devicetree/bindings/arm/psci.yaml
->  F:	drivers/firmware/psci/
-> +F:	drivers/power/reset/psci-reboot-mode.c
->  F:	include/linux/psci.h
->  F:	include/uapi/linux/psci.h
->
-> diff --git a/drivers/firmware/psci/psci-devices.c b/drivers/firmware/psci/psci-devices.c
-> index d23befc490ed..04f24b8d9943 100644
-> --- a/drivers/firmware/psci/psci-devices.c
-> +++ b/drivers/firmware/psci/psci-devices.c
-> @@ -20,6 +20,10 @@ static const struct arm_psci_device_info arm_psci_devices[] = {
->  	{
->  		.name = "psci-cpuidle-domain",
->  	},
-> +	{
-> +		.name = "psci-reboot-mode",
-> +		.of_node_name = "reboot-mode",
-> +	},
->  };
->
->  static void arm_psci_auxiliary_device_release(struct device *dev)
-> diff --git a/drivers/power/reset/Kconfig b/drivers/power/reset/Kconfig
-> index bce996bbef28..f165a41d40ed 100644
-> --- a/drivers/power/reset/Kconfig
-> +++ b/drivers/power/reset/Kconfig
-> @@ -360,6 +360,17 @@ config NVMEM_REBOOT_MODE
->  	  then the bootloader can read it and take different
->  	  action according to the mode.
->
-> +config PSCI_REBOOT_MODE
-> +	bool "PSCI reboot mode driver"
-> +	depends on ARM_PSCI_DEVICES
-> +	select AUXILIARY_BUS
-> +	select REBOOT_MODE
-> +	help
-> +	  Say y here to enable the PSCI reboot mode driver. The driver
-> +	  registers with the reboot-mode framework to configure PSCI
-> +	  reset commands, which are executed by the PSCI driver during
-> +	  psci_sys_reset().
-> +
->  config POWER_MLXBF
->  	tristate "Mellanox BlueField power handling driver"
->  	depends on (GPIO_MLXBF2 || GPIO_MLXBF3) && ACPI
-> diff --git a/drivers/power/reset/Makefile b/drivers/power/reset/Makefile
-> index e31cab4ba78e..45d8aaaffaa1 100644
-> --- a/drivers/power/reset/Makefile
-> +++ b/drivers/power/reset/Makefile
-> @@ -41,5 +41,6 @@ obj-$(CONFIG_REBOOT_MODE) += reboot-mode.o
->  obj-$(CONFIG_SYSCON_REBOOT_MODE) += syscon-reboot-mode.o
->  obj-$(CONFIG_POWER_RESET_SC27XX) += sc27xx-poweroff.o
->  obj-$(CONFIG_NVMEM_REBOOT_MODE) += nvmem-reboot-mode.o
-> +obj-$(CONFIG_PSCI_REBOOT_MODE) += psci-reboot-mode.o
->  obj-$(CONFIG_POWER_MLXBF) += pwr-mlxbf.o
->  obj-$(CONFIG_POWER_RESET_QEMU_VIRT_CTRL) += qemu-virt-ctrl.o
-> diff --git a/drivers/power/reset/psci-reboot-mode.c b/drivers/power/reset/psci-reboot-mode.c
-> new file mode 100644
-> index 000000000000..bf2dd6626feb
-> --- /dev/null
-> +++ b/drivers/power/reset/psci-reboot-mode.c
-> @@ -0,0 +1,104 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + */
-> +
-> +#include <linux/array_size.h>
-> +#include <linux/auxiliary_bus.h>
-> +#include <linux/device.h>
-> +#include <linux/errno.h>
-> +#include <linux/init.h>
-> +#include <linux/kconfig.h>
+Add OV5640 camera overlays for the Toradex SMARC iMX8MP SoM and its
+development carrier board.
 
-Huh?
+This series requires support for the toradex,camera-connector binding:
+https://lore.kernel.org/imx/20261001-verdin-imx8mp-hmp-camera-ready-v2-3-7d1343ecd3ec@toradex.com/#t
 
-With that removed:
+It also requires the following patch because it relies on the on-carrier
+3v3 regulator:
+https://lore.kernel.org/all/20261002-smarc-imx8mp-display-submit-v1-3-f578c63fb676@toradex.com/
 
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+---
+Ernest Van Hoecke (2):
+      arm64: dts: freescale: imx8mp-toradex-smarc: Add camera connector nexus
+      arm64: dts: freescale: imx8mp-toradex-smarc: Add OV5640 overlays
+
+ arch/arm64/boot/dts/freescale/Makefile             | 16 +++++
+ .../imx8mp-toradex-smarc-csi0-ov5640-24mhz.dtso    | 15 +++++
+ .../imx8mp-toradex-smarc-csi0-ov5640.dtso          | 75 ++++++++++++++++++++++
+ .../imx8mp-toradex-smarc-csi1-ov5640-24mhz.dtso    | 15 +++++
+ .../imx8mp-toradex-smarc-csi1-ov5640.dtso          | 75 ++++++++++++++++++++++
+ .../dts/freescale/imx8mp-toradex-smarc-dev.dts     | 26 ++++++++
+ .../boot/dts/freescale/imx8mp-toradex-smarc.dtsi   | 10 ++-
+ 7 files changed, 230 insertions(+), 2 deletions(-)
+---
+base-commit: a1f0ec0d615b3287faa88cf9b8b8a125e2b6e470
+change-id: 20261002-v1-smarc-imx8mp-cameras-8b664da20da4
+
+Best regards,
+-- 
+Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+
