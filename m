@@ -1,133 +1,128 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 148364078D2
-	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 10:55:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B84A7481FC2
+	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 10:57:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790938516; cv=none; b=TxspwVEtTjZIZYT0LJq6G6UGXPj6BIOUoY7aH7GZYGhKjr28UH/pOu/O4FrclZRDgCEMVbq1er4Vr13/errpjQ0e9DQrr00UkPqmmqYmrwWDpzjk+7X0407uHJPA6Go9nRTGBsaY07I4bhKmlymz/i7gnWwSF97OvYmOfhDV7K0=
+	t=1790938675; cv=none; b=X8O02aKx00lv5246WzJAMBh3rzmrz3KF3vCde5iEk6AUTV+WPcJhmBIoAjNPFVP7y0EMebog/9sCOtExsTfE6czYuz/djC4bATSVVEiQFfpBbseIeiriofNGkUvC4XriONDvk1oC7w830SwH98/p6kHw9LOO+AWua1BtrUW3QNM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790938516; c=relaxed/simple;
-	bh=NBFxXv/w9qb9ZiUDQB7yQ9JAo3v5y7OY/UaXSQc2sGg=;
+	s=arc-20240116; t=1790938675; c=relaxed/simple;
+	bh=fggGxnLLIgzKoy/ITkTQbMvzIEjrr29FXWOLkckC3WA=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=B5qt9h9jJ3wafX8j/wcuyJ9HLs+1iDK+6Dspb/EeyL15nfP80LEY9M3kNz9nA574Kbqtpj6V7umBxJYjdkT8yT3IsJztN3Elo4qfyAY4+3a4uos/jxPI9qwY/uSOeWZY6g9TEMEp1/ryAYrB7qqHXwec2H2/+7jUsxuA9v46u5g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yx+xE/59; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=pSQx9QmmlSOqHCL34rJD2whHX/I/8++Z+U3TBbP4q6rJMqWWN3it9o6WGDmPU+yXODFG/xInldgK2j2z/KNBGkeXdUlZnDbihmKzt5hbisno24f/eH346me01FCSxpzJgSz1LxlcJFyQK3pHFKvnzG4kCJWJpXtbhppHmWJAmrg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SPMnWNNi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yx+xE/59"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D178F1F000FF;
-	Fri,  2 Oct 2026 10:55:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SPMnWNNi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 740BD1F000FF;
+	Fri,  2 Oct 2026 10:57:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790938514;
-	bh=5mA0SzhrrYvioVqKWx9zhBuOLagXA+7azSgqb6DIq3E=;
+	s=k20260515; t=1790938671;
+	bh=46j3zL/GAwjgkS2u6e2fNWoksILBli89czJgmrIUcM4=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Yx+xE/59kEqc741RQNoNRp9jEgq21opiAcuO9I/hYxlP/QODVt9/Xt913cA8nOIkJ
-	 HFdwPvCt2QuE7zAO9MRdEI0N5wIz/VGeJ6I0qvc63hhg0VzX9EbCdGSVXXPEd5XF0Y
-	 ARMUYG1OierQp7vAiPxW/orT3x+cKrVeDHbYGNiRHuFb+Z7B6e+5PET/FHe20n6CwJ
-	 e7aYtI8HO8Q/8pxXGJU/4zLaTrTHibqHw1pz7B9TOELoNhrFogRm5PIETcYRUW9pY2
-	 QxFWLRE3J00JXcJxCVqpZSx8pNaxD6BkxiR3/b6E4B1cVG42H/EX/OKTlNqtIqmiBK
-	 +LMAh3caANCfw==
+	b=SPMnWNNitb/zEEKDXZHMPJ8TznLVmNGVqvtsKe8TOF9uAE6k//Bfhq6LSvPeGWyqK
+	 6nlEielRFFvTMoCa4vzxcFbWTHfV7H1swm5Y5cVmtYfE5BA4Uw3qoLiyqaRtnTxtcU
+	 9PTlNhc6X2acaL3Zpc7XvhcxpNgnlmYrQ2vPu9W1ZOdaG4xYoMfnFBF+x1Ekc9ttet
+	 Kzy3yYmze2Rht2bNPiz0yVbvvSIePueWIguhA+MXHfBLlH4cePPikqQs7NvSfcZzo1
+	 PocYCk7uwsJQrNls5Tx3ggqiUgXFANuiILaxv2zsTZymavsijYaAeVHck9ZzSpkoPS
+	 v/Wepe8qDKphw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/6] dt-bindings: thermal: thermal-zones: add
- hardware-binning trip properties
+Subject: Re: [PATCH 4/6] thermal: qcom: tsens: add hardware-bin trip-point
+ filtering
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Gaurav Kohli" <gaurav.kohli@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261002-thermal_bin-v1-1-5a29be7e8ec5@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20261002-thermal_bin-v1-4-5a29be7e8ec5@oss.qualcomm.com>
 References: <20261002-thermal_bin-v1-0-5a29be7e8ec5@oss.qualcomm.com>
- <20261002-thermal_bin-v1-1-5a29be7e8ec5@oss.qualcomm.com>
+ <20261002-thermal_bin-v1-4-5a29be7e8ec5@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 02 Oct 2026 10:55:13 +0000
-Message-Id: <20261002105513.D178F1F000FF@smtp.kernel.org>
+Date: Fri, 02 Oct 2026 10:57:51 +0000
+Message-Id: <20261002105751.740BD1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] dt-bindings: thermal: backward compatibility broken by oneOf tempe=
-rature exclusivity
-- [Medium] dt-bindings: thermal: ambiguous temperature selection for overla=
-pping hw masks
-- [Low] dt-bindings: thermal: missing min/max constraints on temperature-bin
+- [Medium] thermal/tsens: tsens_probe swallows -EPROBE_DEFER permanently di=
+sabling hw-bin
+- [Low] kconfig: QCOM_TSENS selects THERMAL_BIN without THERMAL_OF dependen=
+cy
 --
 
-commit b87ec3c80f04fa5778f69e6acbc48a25d9b23994
+commit 8bed8cb744b82aeda728860cd801b8d298e30e15
 Author: Amit Kucheria <amit.kucheria@oss.qualcomm.com>
 
-dt-bindings: thermal: thermal-zones: add hardware-binning trip properties
+thermal: qcom: tsens: add hardware-bin trip-point filtering
 
-This commit adds new optional device tree properties, `temperature-bin` and
-`thermal-hw-bin`, to allow specifying different thermal trip temperatures
-based on hardware revisions encoded in fuses. It aims to support SoC SKUs
-with different thermal characteristics.
+This commit introduces hardware-bin trip-point filtering for TSENS sensors
+on Qualcomm SoCs. It adds a struct tsens_hw_bin_desc to read manufacturing
+bins from nvmem cells, synthesizing these into hw-version bitfields that
+the thermal core can use to filter supported hardware bins.
 
-> diff --git a/Documentation/devicetree/bindings/thermal/thermal-zones.yaml=
- b/Documentation/devicetree/bindings/thermal/thermal-zones.yaml
-> index 999ad40a20d5c..cbe72c2ef87c0 100644
-> --- a/Documentation/devicetree/bindings/thermal/thermal-zones.yaml
-> +++ b/Documentation/devicetree/bindings/thermal/thermal-zones.yaml
-> @@ -152,6 +152,51 @@ patternProperties:
-[ ... ]
-> +            temperature-bin:
-> +              $ref: /schemas/types.yaml#/definitions/int32-array
-> +              description: |
-> +                An array of integers expressing trip temperatures in
+> diff --git a/drivers/thermal/qcom/Kconfig b/drivers/thermal/qcom/Kconfig
+> index a8cf7e2582010..6aab493333121 100644
+> --- a/drivers/thermal/qcom/Kconfig
+> +++ b/drivers/thermal/qcom/Kconfig
+> @@ -3,6 +3,7 @@ config QCOM_TSENS
+>  	tristate "Qualcomm TSENS Temperature Alarm"
+>  	depends on NVMEM_QCOM_QFPROM
+>  	depends on ARCH_QCOM || COMPILE_TEST
+> +	select THERMAL_BIN
 
 [Severity: Low]
-The original `temperature` property enforces logical bounding constraints
-(such as minimum and maximum). This new `temperature-bin` array lacks the
-corresponding `items` minimum and maximum constraints, which might allow
-invalid or physically impossible temperature values to pass validation.
+Does selecting THERMAL_BIN here without inheriting a dependency on THERMAL_=
+OF
+cause an unmet direct dependency warning?
 
-Should we add `items` constraints here to enforce valid temperature ranges?
+If the kernel is configured with COMPILE_TEST enabled but OF/THERMAL_OF
+disabled, this select forces THERMAL_BIN on, violating its explicit
+dependency on THERMAL_OF. This can lead to build failures under WERROR.
+
+>  	help
+>  	  This enables the thermal sysfs driver for the TSENS device. It shows
 
 [ ... ]
-> +            thermal-hw-bin:
-> +              $ref: /schemas/types.yaml#/definitions/uint32-matrix
-> +              description: |
-> +                Optional bitmask(s) describing the hardware revisions for
+
+> diff --git a/drivers/thermal/qcom/tsens.c b/drivers/thermal/qcom/tsens.c
+> index b5ec70201e2f3..26ba63da7163f 100644
+> --- a/drivers/thermal/qcom/tsens.c
+> +++ b/drivers/thermal/qcom/tsens.c
+
 [ ... ]
-> +                When used together with 'temperature-bin', the number of
-> +                sub-groups must equal the number of entries in
-> +                'temperature-bin'.
+
+> @@ -1425,6 +1602,12 @@ static int tsens_probe(struct platform_device *pde=
+v)
+>  	priv->feat =3D data->feat;
+>  	priv->fields =3D data->fields;
+> =20
+> +	ret =3D tsens_populate_hw_bin_info(priv, data);
+> +	if (ret)
+> +		dev_warn(&pdev->dev,
+> +			 "thermal-bin failed to read FUSE data (%d): trips with temperature-b=
+in will use first entry\n",
+> +			 ret);
 
 [Severity: Medium]
-The binding specifies how a sub-group matches, but it doesn't specify a
-precedence rule if multiple bitmask sub-groups evaluate to true at the same
-time.
+Does catching all errors here permanently disable hardware binning if the
+nvmem provider is not yet ready?
 
-If a hardware revision sets multiple fuse bits and matches overlapping
-masks, which entry in `temperature-bin` is selected?
+If the nvmem provider (qfprom) probes after tsens,
+nvmem_cell_read_variable_le_u32() in tsens_populate_hw_bin_info() will
+return -EPROBE_DEFER. By logging a warning and continuing instead of
+returning the error to the driver core, the probe completes and the
+fallback state with default trip points becomes permanent.
 
-Could we add a clear precedence rule here, such as the first matching
-sub-group taking precedence, to avoid inconsistent thermal configurations?
+Should this explicitly check for and propagate -EPROBE_DEFER?
 
-[ ... ]
-> @@ -179,8 +224,14 @@ patternProperties:
-[ ... ]
-> +          oneOf:
-> +            - required:
-> +                - temperature
-> +            - required:
-> +                - temperature-bin
-
-[Severity: High]
-This `oneOf` requirement strictly forbids the presence of both `temperature`
-and `temperature-bin`.
-
-If a device tree is updated to use `temperature-bin`, the author is forced
-to remove `temperature`. When an older kernel (which only understands
-`temperature`) boots with this updated device tree, it will fail to parse
-the thermal trip point completely. Missing trip points result in a complete
-loss of thermal protection, which can lead to hardware damage from
-overheating.
-
-Should we allow `temperature` as a fallback property for older OSes by
-using `anyOf` instead of `oneOf`?
+> +
+>  	platform_set_drvdata(pdev, priv);
+> =20
+>  	device_init_wakeup(dev, !data->no_irq_wake);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261002-thermal_bi=
-n-v1-0-5a29be7e8ec5@oss.qualcomm.com?part=3D1
+n-v1-0-5a29be7e8ec5@oss.qualcomm.com?part=3D4
