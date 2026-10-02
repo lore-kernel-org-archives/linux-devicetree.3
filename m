@@ -1,69 +1,41 @@
-Received: from mail-ej2-f41.google.com (mail-ej2-f41.google.com [74.125.228.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C65DC4C224C
-	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 14:49:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E6362D0C92;
+	Fri,  2 Oct 2026 15:01:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790952604; cv=none; b=KvWBCEmxKix0fiIRxjIeIweH46EYCNdppAMtuzS4JkivIVtpCT/gEdk02uZi84ZjzGgSh0xisbPHcWeWNEcFTV3VOGT/tQ5w5s07tg6WRJ2bmXWJe8G3NlWbd491eR1+iIT/4SqTU3Vy2f6hdAAyeijlAKo6W0quIc9LXaWEu3M=
+	t=1790953292; cv=none; b=mro8h0WsNEwZ1O34r8ezQevp8w+SAeZDSTzfv0UmgqcTecrg9trrcWidDDgTwGhoLWikks5bokJVXvjTE2uLdLceWOkoBoSVVmmbodnYH5tuP5NCUzBVG9oEmiPCXpEgxIsdXZGEtIrOjs6JKjBRgrJbptfpcvHumxlStgQpddI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790952604; c=relaxed/simple;
-	bh=KsRR3Q6/pxPTL+LOpQhlv999N3C0D2jsPRy7RKoQGk4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=CpTvhVpP8ocNHOn99ks7aDVj/K9VFSZFOCTvEquR2hpV4W3/J9J0EnzHB8IdYU4opIu9Fl4cnD8W+YvWrPPU0ndveHJQBCD7oyUc6bED4cuJ1n7h5eso/w1Hb3zJjKXhADG8mkW1iX3P+EaHGsLs4Yj47hLpuf+dfhok3HLXPV4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=QoWFJtJ7; arc=none smtp.client-ip=74.125.228.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	s=arc-20240116; t=1790953292; c=relaxed/simple;
+	bh=/Wtjhe4uwyrblLurTTWWRRXZVozjZeQrVRrNjPCH3J4=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=oEdfZbSlPFxVRKsJVYW7TJrjbLeVAn+GY4nrP38VKcp0buCd/lBzwkXPTR19VcK8bCEctjg8dFVTqCjEWTET86kcNOx6yH/uCN3HvxotM8bii07GzXn72C5OolyLuCDGQ7bCTboH0w2v34QKINPh9VhPkyzO+1TfvBYZjsJqqfw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=d6IPFMo5; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="QoWFJtJ7"
-Received: by mail-ej2-f41.google.com with SMTP id a640c23a62f3a-c2e32f913c3so19759066b.1
-        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 07:49:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1790952594; x=1791557394; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=azHVxl5Zr31CbdI5TNnzZtKhiO2dgRAGT9lgdHF1uxw=;
-        b=QoWFJtJ7DADvRhIvCRMxgtMiYgqRaF0ZUCVCahEPv0wqLXdEu47rK9cK74yLvxt1O/
-         Hy5Fbb5pt/6kaIJftFGfhP/E7Gi6WsjH6vdc2V3v4StJb0K6pLVuCcGk7/4ee19YS4xv
-         qLT3PjhSRqrx5wMfgs27B7SR+tObNEZYTBooJyoJV4sE5Pcj7WrMUHT8aUJiOhOeY2aE
-         3+B3xkdrha3/1LBcDsdguzj1OjOfcDcv4uak68TUrL19JhjGpps6Ng7eLQTAjpbRIVKp
-         OlGdbTaCvg/APBzy/f2Q7OrJG8KLeL1akaCaenqrtnlgU5cTJvCBGi/CJs/MvuAv13w1
-         5knA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790952594; x=1791557394;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=azHVxl5Zr31CbdI5TNnzZtKhiO2dgRAGT9lgdHF1uxw=;
-        b=VT9DBPmB2mNgUWU95lvA7ii72QBhquGR0AoA1TbujLCKKO63AP2U46C6N9PXU8Lz8k
-         6WSfPcpubWtw7bDbIqSmazJrR+xrJ0klPLMWMgp4qi7lrFN3SGU20xLM4Xeqyts/sXNf
-         Ypct+bRy/ZQj0ESoY9i/ImFCXwoTBLE9N4lHxfjSpJBNVcn+mssEJE1hRdMe+VEwPUiv
-         CiZurYC+RXCB0/T47hnO24fvIU1QGUH0UfvhAzrlnNM5sRsrxajQXHdr2SqAipTKwacU
-         l/N0EuaCfAt4K8vm1xqwcYpEMuqhPbXQ2kSM/drimkUaQucMCAidJ/xw2jwMmgQeg0Lr
-         jb6Q==
-X-Forwarded-Encrypted: i=1; AKwUvBx0jm3Ad6mxJKQoItmOQZftNMj5cvf9Oi47puQ89GXmMmWASGVccQe06QheHrG45bE7xKKB1adQKAij@vger.kernel.org
-X-Gm-Message-State: AFuF++nskgi++oqGkysJHYiENd/L0Slgy1c8E613MSoprGhr5q9ibpoL
-	80lkFQGGpeTMroC+RF/yQXEBoKbDLrfg2ax/7chKOGlBfmPhJLdz5972dw6Lmj1BvxQ=
-X-Gm-Gg: AYBFou1vK0I4zE4/kmpiBcsAV9QXbFemFtzi1LEwql2XiwRE4+M965fHlKWEyK0iTfu
-	kxr1xjQ0BNQr8iatHCug1PGOIoSolOufAGP94py4JikcQOvHO0NfVvZP4pIvxIJ21CkKmcNFhDt
-	LYJwtIaMRNJTbrAeTlZANnhiukU5BTRGChKA9/ttyCVcn3xCz2W/PbYAz9MVTxvnL9TDcl13REd
-	rikhnBSVcTrtlJD90TeX2wdbv5dp9pByogMK6vDChDfMVQAjn30tYAjS8AY2jZSCYeg1aP4CxR/
-	ZpSwQ9W0UWd3+/ZwbaI5NJdtvZpR2oFufkm33MGNxguvc0p7WWYVBPoVCGelmkD6qTZ7iwG9jUc
-	kiFSGRQpl58VMQGk3bJNCScEMoX+pHbaQao726f5RV8RQtdnL6w0QkqobE2xX8yIr6MNr+1MnKi
-	d8T8q0CUxeznu71SaNp0+2TQSShrlRME+tongjhn3RfqwdthAt41435Z5qMkHsQPp2glI+tETak
-	XBRpR2u2f833kg1x0GnORqnKZO0csvuGn7FjFihiWydTc8VMvPv
-X-Received: by 2002:a17:907:9403:b0:c2a:f8e2:4233 with SMTP id a640c23a62f3a-c2e4af31f56mr209928066b.19.1790952593938;
-        Fri, 02 Oct 2026 07:49:53 -0700 (PDT)
-Received: from [172.16.240.104] (144-178-202-142.static.ef-service.nl. [144.178.202.142])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e4cfa656bsm94539066b.74.2026.10.02.07.49.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 07:49:53 -0700 (PDT)
-From: Luca Weiss <luca.weiss@fairphone.com>
-Date: Fri, 02 Oct 2026 16:49:50 +0200
-Subject: [PATCH 1/2] dt-bindings: display: panel: himax,hx83112a: Tighten
- compatible matching
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="d6IPFMo5"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 9FEDD1A10EA;
+	Fri,  2 Oct 2026 15:01:22 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 6FD2D603DC;
+	Fri,  2 Oct 2026 15:01:22 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 31B98103281F4;
+	Fri,  2 Oct 2026 17:01:11 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1790953279; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=t9aBlN3dQdjhZj/Rg/p1QzqBO0eCn4FFiX6tAiOVuJc=;
+	b=d6IPFMo5IR7moUJPvHQ6n79+ZOMUDmwEeNcWP7mM9oybwLI6ObRQZDWz4vpm6Q4XNxfpQA
+	VF38AdcBTkf+muokbDAlrfP/zLy5ZtZT81s0sXS5tZZEmew5rYgGUd/8SApes4nfSAe5EE
+	st+Wgd+cfAIzAAb0Yy4oGl3CVKOnqEe5JLFXcfz0zKcL3Ep5QU/srNkhOLfEVqDGkHmyOO
+	ek0qBDLt+f2zpVQi9ReNunm8vablr1ASUXo4NfccDnKlP3bJY5n24VhooCwg18i2aTY9Ou
+	0VXAXQg2F4vI/bB90YTmYfcMaRwK0yAf0c+VT6qHSYigezAPIrzuy1kXhNiWkw==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+Subject: [PATCH v7 0/7] clk: nuvoton: ma35d1: Fix mux parenting and
+ peripheral clock rates
+Date: Fri, 02 Oct 2026 17:01:04 +0200
+Message-Id: <20261002-perso-ma35d1-upstream-clk-v7-0-cbd991fa6270@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -72,51 +44,120 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261002-hx83112-compatible-contains-v1-1-d558635ab7fc@fairphone.com>
-References: <20261002-hx83112-compatible-contains-v1-0-d558635ab7fc@fairphone.com>
-In-Reply-To: <20261002-hx83112-compatible-contains-v1-0-d558635ab7fc@fairphone.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>, 
- Jessica Zhang <jesszhan0024@gmail.com>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Luca Weiss <luca@lucaweiss.eu>
-Cc: ~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Luca Weiss <luca.weiss@fairphone.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1790952592; l=810;
- i=luca.weiss@fairphone.com; s=20250611; h=from:subject:message-id;
- bh=KsRR3Q6/pxPTL+LOpQhlv999N3C0D2jsPRy7RKoQGk4=;
- b=d1WlKoOFC109aIkEZsjUlraQFJKKd8F3U5nRRs1tjiGq40q6Pq3YfqVmFt5pLUIkq+oIHMRia
- 4hFq1w3iyYqAdDwXY5xfl9gr0XD50R9ZuRDHegvB59n4o2aUr+lAUDW
-X-Developer-Key: i=luca.weiss@fairphone.com; a=ed25519;
- pk=O1aw+AAust5lEmgrNJ1Bs7PTY0fEsJm+mdkjExA69q8=
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43Qz07EIBAG8FfZcBYDTPnnyfcwHoAOLnG3NFAbz
+ abvLl0P1jRpPH6TzG++zI1ULAkreTrdSME51ZSHFvTDiYSzG96Qpr5lIphQzHCgI5aa6dWB7Dn
+ 9GOtU0F1puLxTJYMLMXBnlCdtfywY0+fdfnlt+ZzqlMvX/dQs1+mPaoU9UGdJGVVGAqAFidg9+
+ 5ynSxoeQ76S1Z35r3XccOaUU9QGJSquBbq9Jba9+JElWi/BbOxBOOMZ21uwteSRBc2K0TvUyAR
+ zZm91/7a61QJltWw/szzuLbWxgB1ZqlmdsaARVbDe/7WWZfkGKMgNFEACAAA=
+X-Change-ID: 20260813-perso-ma35d1-upstream-clk-65cacfc1a86b
+To: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Richard Cochran <richardcochran@gmail.com>, 
+ Arnd Bergmann <arnd@arndb.de>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Andrew Jeffery <andrew@codeconstruct.com.au>, 
+ Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
+ Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
+ Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Steam Lin <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org, 
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
+ openbmc@lists.ozlabs.org, Miquel Raynal <miquel.raynal@bootlin.com>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 
-The compatible was defined too wide, we just want "djn,9a-3r063-1102b"
-and nothing else.
+I am in possession of an MA35D1 NuMaker board. The SPI controller has
+been contributed, but at this stage it does not work with the current
+clock driver.
 
-Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
+The clock controller registers its muxes with .fw_name parent data,
+which requires every internal clock name to be declared in the DT. As
+the DT does not declare them, all parent lookups fail: muxes end up
+registered as root clocks and most peripherals read a zero rate.
+
+This conversion exposed a first issue with the WDT/WWDT parents which
+were actually missing in the clock driver. I am not using these clocks
+myself but it is worth fixing.
+
+The second round of reviews raised another problem with the
+crystals. HXT and LXT are external crystal oscillators wired on the
+board, while HIRC and LIRC are on-chip RC oscillators. HXT was described
+whereas LXT was not. The series now also takes the two crystal inputs
+from the DT: they get documented in the bindings, described in the
+boards and looked up by the driver (with a fallback for backward
+compatibility).
+
+Finally, I was still unsatisfied by the clock tree because there were
+too many root clocks. Many "gates" were wrongly set aside from the
+downstream clocks they would gate, and SYSPLL was simply not parented at
+all (?).
+
+The clock tree now looks much more accurate.
+
+Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 ---
- Documentation/devicetree/bindings/display/panel/himax,hx83112a.yaml | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+Changes in v7:
+- Avoid opencoding core helpers, replace them with existing helpers
+  (mentioned by Jerome)
+- Rebased on top of clk-next since the first patches have been applied
+- Link to v6: https://lore.kernel.org/r/20260930-perso-ma35d1-upstream-clk-v6-0-48937ee6c9bb@bootlin.com
 
-diff --git a/Documentation/devicetree/bindings/display/panel/himax,hx83112a.yaml b/Documentation/devicetree/bindings/display/panel/himax,hx83112a.yaml
-index 2c60d0cd704e..3dd9b25ff13f 100644
---- a/Documentation/devicetree/bindings/display/panel/himax,hx83112a.yaml
-+++ b/Documentation/devicetree/bindings/display/panel/himax,hx83112a.yaml
-@@ -18,8 +18,7 @@ allOf:
- 
- properties:
-   compatible:
--    contains:
--      const: djn,9a-3r063-1102b
-+    const: djn,9a-3r063-1102b
- 
-   reg:
-     maxItems: 1
+Changes in v6:
+- Drop the clock output names entirely, they are not relevant.
+- Error out when the crystal providers defer probing.
+- Make sure gates are correctly parented.
+- Make sure SYSPLL is parented.
+- Link to v5: https://lore.kernel.org/r/20260929-perso-ma35d1-upstream-clk-v5-0-68533e935ee4@bootlin.com
 
+Changes in v5:
+- Fix the bindings wrt HXT and LXT.
+- Fix the DT descriptions of HXT and LXT.
+- Collect tags.
+- Link to v4: https://lore.kernel.org/r/20260925-perso-ma35d1-upstream-clk-v4-0-f3697553391f@bootlin.com
+
+Changes in v4:
+- I forgot to bump the clock counter in the driver after adding the two
+  new clocks in the bindings. Sashiko will keep complaining about the
+  incoherency though. Since binding and driver changes should be kept
+  separated, I cannot do both at the same time.
+- Link to v3: https://lore.kernel.org/r/20260925-perso-ma35d1-upstream-clk-v3-0-ffbae7e020a8@bootlin.com
+
+Changes in v3:
+- Drop the number of clocks from the binding, set it in the driver only
+- Split the binding/driver patches completely
+- Link to v2: https://lore.kernel.org/r/20260921-perso-ma35d1-upstream-clk-v2-0-209fd32a8b00@bootlin.com
+
+Changes in v2:
+- New patch 1/3: register the missing WDT/WWDT parent clocks
+- New patch 3/3: harden the code
+- Link to v1: https://lore.kernel.org/r/20260813-perso-ma35d1-upstream-clk-v1-1-e78e5e6172ea@bootlin.com
+
+---
+Miquel Raynal (7):
+      clk: nuvoton: ma35d1: Use clk_hw pointers as mux parents
+      clk: nuvoton: ma35d1: Avoid possible error pointer dereferencing
+      clk: nuvoton: ma35d1: Retrieve HXT/LXT from DT when possible
+      clk: nuvoton: ma35d1: Reparent the gates correctly
+      clk: nuvoton: ma35d1: Reparent SYSPLL correctly
+      arm64: dts: nuvoton: ma35d1: Drop HXT clock output name
+      arm64: dts: nuvoton: ma35d1: Add LXT crystal and clock-names
+
+ arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts |   7 +-
+ arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts |   7 +-
+ arch/arm64/boot/dts/nuvoton/ma35d1.dtsi         |   3 +-
+ drivers/clk/nuvoton/clk-ma35d1-divider.c        |   3 +
+ drivers/clk/nuvoton/clk-ma35d1-pll.c            |   3 +
+ drivers/clk/nuvoton/clk-ma35d1.c                | 707 ++++++++----------------
+ 6 files changed, 264 insertions(+), 466 deletions(-)
+---
+base-commit: 6b78cda327cc2dbcd0e60f411ae014997a684b55
+change-id: 20260813-perso-ma35d1-upstream-clk-65cacfc1a86b
+
+Best regards,
 -- 
-2.56.0
+Miquel Raynal <miquel.raynal@bootlin.com>
 
