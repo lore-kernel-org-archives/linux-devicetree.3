@@ -1,80 +1,82 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F180B3DBD44
-	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 19:44:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DA3C4052A3
+	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 19:44:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790970292; cv=none; b=ICNTyX2ziF5SHYl4Hz8qLY1F3+OPq7XkIM9/Q0r7AGK8J8OscAeThnqZRb1U5AlaBQKvJS0ZF/u7LGJNkTL5srXH7AJ0Oa/8vEPzkBgKtNQJipSRd3FgP9y2AiKZzhom/AU8CQDTJR/z8edlcXA7+JEM3KHcXrsDBKd/r6mU8GI=
+	t=1790970292; cv=none; b=WOLDV/9Kk/C1EAALPbR1V1M0VNU8meLNAcpyLXWFLDgUA1nl/GdWep8Iad25B5JcZGGnJOg1A6nYChxqgCWun8q5edUXSoFWkhf5kkh/VfeWoEi1e39XkO7FcXdoMDuyJqVWcqg21svLHiJ9wza4apXTyyZfWlHEgRh6L10TVII=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790970292; c=relaxed/simple;
-	bh=zz+RclWqsBHriP60gs2OKPtSQkQLmQXJLfyVb5BowtQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=D5mz1xhx7zAf+WV4LmKCFuwfbWYrrPRW3iBt0cUXAAFp+OJlbJGbJV5j2HbZT2y2gcDxMP8CY4P7euxk3OnArjc514fhifvwAg/VNYmmWk/T/6Bm40wsLhVNg9FembS5A4vRNAjq1NXYZOWWwn7bNE082GXbl7LclDiREsXToZk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QTGuX8L0; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=E1w38gLZ; arc=none smtp.client-ip=205.220.180.131
+	bh=m8Wj8IlJfxl/EXgWl7NbfBEc9ZIDALWBiNEWVbi1Ge4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=SaQwXtNG6co+YdqUjuNHL3oTX2trAcAPJ6h69Ch7fdzb0Xs9SSOqU2XSx4guIpuXqj5nrWyhjSUNlm2eNNgJYCDXXwKdepn6OrQa2LkqeKIkpSohvhftKX0/syVrANd0g6mur+spM/WFX0dO9BQq4OmjVL/rjQRa1GSTkoo5UiY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QlZZkxyd; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AqjhWoon; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QTGuX8L0";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="E1w38gLZ"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 692IXs311320283
-	for <devicetree@vger.kernel.org>; Fri, 2 Oct 2026 19:44:49 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QlZZkxyd";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AqjhWoon"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 692H69dM671109
+	for <devicetree@vger.kernel.org>; Fri, 2 Oct 2026 19:44:50 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=sVFnUaPuNHjd50COa3GrnnxVhvIYQTPbzvF
-	59R3fnTM=; b=QTGuX8L0weP3R+aTs1uRkInD6b3CE/DvlY6sjv5rI7iT8ZUZD4J
-	vU5YOEPHWFo7SxMcq+ZpRESotH+ilzfuHcKiMoVZh6EMmyfmm7vvH8cuDJ9TfVyJ
-	fBjkAOxonakARLpDFG+3tw1N5maDNKA8IN+0hlYxV89vFdTrGl+A85r1m405uxHa
-	jvfE6Bu7JcikNyiBPLHQEUGio48fSjDJNMmuFNxasBUTeeD9IJ7DdADaWnnRrUS0
-	ltDHb2I8nU9D9SZLUT/Pb0wpCrMrqw3QjO2fXRhDKCnMW5tyMiT4LAewwsvy7Z93
-	j8v64i26E6/QgfqKPFKLXi6/ri3Za0Vaw7w==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h2j0kr776-1
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=fQ52WWB9Hex
+	EMSne5zIc3znfc+jm5KTCEGMpm+1JmaA=; b=QlZZkxyduIXjC4S3dqAhHARPYcR
+	4CcwwhNxQzyw5ngwky/h0j9BSy5uEjlYb1n0VoPAixqk+OEcEWLRcujtUJVIctYo
+	TL6h0WgFsUo8Rh4gxwQFldhqis6xTIUMXuIPr/aQQYlcPrPKTdSMni7B9W//8LK6
+	Vphwo5OmeAUFq4Zuw/LwUJINhZVsdP89Zc8LycWrssICC6sP+jFDMOUj5FZTcIPn
+	Yo43s6MOOK32s9iwfqMXEWTUnuapL+OMpJPbguTT5euoPcPz2ObX/qg3Oq7cwqPn
+	Jdcu/Eje/W4YBZIoPC5lMaEAmOnPVWBUAncEaolTc8+eyf05jBRa/hsc78Q==
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h1vxectsq-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 19:44:48 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-9308eafb465so1936747385a.2
-        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 12:44:48 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 19:44:50 +0000 (GMT)
+Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-917a438816dso4152736d6.3
+        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 12:44:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790970288; x=1791575088; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=sVFnUaPuNHjd50COa3GrnnxVhvIYQTPbzvF59R3fnTM=;
-        b=E1w38gLZQJVpRhJmflzUeCNqxV+aX7aDAoibxLq7ICzD8P8MKAvRlfLMV7Rl86lbfH
-         v4p7+VIgpy3THXm6qlwnSlX66KQofVAK99aj+8IfiloO3RoZ2TId6RY0pfAbeBdkr3D3
-         SqWfGeBSC+8mC3G9RF/gqFMXmmviBXq7S3lmI4C+M5VbXJPxilGaU6gCf8BGprm7cfTU
-         rxiazKBvcZjaQ3lCq/hL1lcoeKtHpPM5Rn5wQTdgVe39wZFkkvCK3KozoVNoJnsCGC1Q
-         nCjmBhqsApPEaasIkFbfHV4tfSann8yVlNlX0m35awy6tPO38b5u/f8JGQ+uND/X6t4t
-         j3mw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790970288; x=1791575088;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=oss.qualcomm.com; s=google; t=1790970289; x=1791575089; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=sVFnUaPuNHjd50COa3GrnnxVhvIYQTPbzvF59R3fnTM=;
-        b=yyf8r1Xj54Z7ARKGMl7EINsOjbuaQYvmu1MUn1NcEcujmujYVFx2la09kLicHqJVjd
-         oEq9LgH4ATr/PBcWJenBav8ClCt9mrOfMsYyFX1uczd7Bxqje4UlBsmYbOI5BzC6lkI9
-         +eLdOr/ELRIawHnaBDXlWEPrHC1Vtbt9xkUHZkY2nWYzuUWQP22yHmt2k6QO5s1UW04z
-         Doowhkk6ZpWaWFOBEhm1oTUarwQUyP9N4ZXDsv5d8JHM5WdP+PgF7JM2HdFlSIAQbzD9
-         RNMv6hcsQhjatGJWipJ+5/vL/9vZXLKrU3YDA+LzDNclhZSXYY7uj8KLO8WAvbY7V3oj
-         1LfA==
-X-Forwarded-Encrypted: i=1; AKwUvBzwwMuUey7hqXlvS9wxT8NjMXu85nOD7MrS6c0Ki+H6xc/PqRGQaF9qDOlTTDIqbjjivQl8E15lH/sU@vger.kernel.org
-X-Gm-Message-State: AFuF++kxSIqUoSh6yXMJ+ZxcrZO/hWqZxLj7XZRbaR+GpryAlEG7tuzO
-	nCXcX5GjXos2EMKJ1V7zWzsLHT8/9tYH72z53Sl7+/vsFa5fjA4FDliAInRiQ2Uf3RDIbMGCRr+
-	Nl9j4cy7goHQCyXHHBFAhVj6iDHdisIKZt3FUIYc8zKTMYm1lX8IKfQuPC5JI8q6E
-X-Gm-Gg: AYBFou3Y10VX5yrxeuymzGiLWT9hvwIitax8coUN9uY/HTlUpK4efWQK0KkQVW6jyug
-	hFWmG0ovtsxzXifpzRS6DYmY7sh/Tm4Y30n5IhoWsTPycT6tBlEP20n36iDb5Q86lbacWmKKghV
-	xWKrN66HTZ3pCDZSJPeDXyQ5ZPufQtpjZ9FoTRt49hmdpxTCnm1KK9QJUE7JUXBZKlAp8UxFdqh
-	jCOxoFTH78LdzKfaRVR6bZTTM+t34bEF+uFo2j/7AYpoFAYUiGs/Zv/tTLshep1nmNk+qd63BsP
-	41icc1OtKGS8q2EzKjNwTR/vc7GM48e8H6KnseZnPWr10+kqScyT/cYuHwfeJcbPxZ0HZzWsWFO
-	6pszCdoACS9qc
-X-Received: by 2002:a05:620a:6f04:b0:93c:c96c:a592 with SMTP id af79cd13be357-93cf17329a8mr663083885a.36.1790970287981;
-        Fri, 02 Oct 2026 12:44:47 -0700 (PDT)
-X-Received: by 2002:a05:620a:6f04:b0:93c:c96c:a592 with SMTP id af79cd13be357-93cf17329a8mr663077985a.36.1790970287421;
-        Fri, 02 Oct 2026 12:44:47 -0700 (PDT)
+        bh=fQ52WWB9HexEMSne5zIc3znfc+jm5KTCEGMpm+1JmaA=;
+        b=AqjhWoonBcm6kCvDYYj+urtbuBEH3U67MaxO1dajWSPian+LzF6pzMBpnbGfbRLy17
+         tNQSON6x9WKq7oDw1CgmNvSjL1NKFFAQMfYjl3ZWKOy5a16x+gnRHgX7peJXflh3BwmU
+         +AGaO8nTjaxUR6l3gmfBoq68tc5Tw1T+6tzcxaN8s6x/hDMctzkn/gJq7sBOBMyuuufn
+         Q6J/pgNLlTTfYDNbKh76r/2CY9P1X7AGIjve2VHs8jlhDyJF4neWKlR8/jWwdtCJKt1w
+         L2iJytttcbhEACgbEYE6qNcskVumTwwX56IqnXxqLD1IkGIktJDuwaZOVnHAMnupMPuj
+         qttg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790970289; x=1791575089;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fQ52WWB9HexEMSne5zIc3znfc+jm5KTCEGMpm+1JmaA=;
+        b=iKQ+tF8UPTNTWDx8L2EqsQ/oA6ErmU7W5y6kZqDt1pnAttm9x2pBRTVRpkGwIEWwlk
+         N77MNBCzsMZF9r3CVLQMSqiMo7v1p+ufvAulUhYWYCTsWpcRYP/tC7SUwv2pRTbZjH48
+         c2GztS9/Xt+YJZJB6ctagvTl5dcuexpNY5PJI6Q39tl4DpzWuJK9haWpHkPKM9sYL7+1
+         6C60SQ6oBjhNTip44k3Aw1qjajZNUU0Yt+cT0XdPehdlCaYXSJXps3LG2pTQwHQB+9gq
+         oUJq/zNgO6QR/JXjoIUHnJUrocryHXWyYViAEC0y7vFtL8TLJmi3JMAtBZAuLcGi/6ku
+         C3+w==
+X-Forwarded-Encrypted: i=1; AKwUvBywdwi/wNNkf4wJ9dDAoyh4GlgzEAiA/xksEIraSjlUmFU7Rostg2LHQX2oLC3OO2u69QBvdfRX/vbE@vger.kernel.org
+X-Gm-Message-State: AFuF++kv3ZjvQLO8w7ywh/Ssz0FS7PviIty2N8vQUkKLdjIGM+BevP32
+	lkQaQ5kN8aOjvUAGsNdvtePEyzHiPv41TA12KCnHySoRiyL7JgXarDntWqficEV0L/7a3JgW9r5
+	P8ts0lC6709pcC2Wi8+QCBdyMkOCdXpB4ZNVXdlbE2llYwIsyx2VfeCwbN+6DDJSu
+X-Gm-Gg: AYBFou1oUWUY5h5mZlQHSVGIcny90yhlXMuHewMa8WmYiPupHn1tVOqRoGCLzghT/u7
+	O9KBkUpDEOPObDaVLMQBALAl5MdKew9hZGsfvMTaabTO1+Ihb34RlJ45jEf10HHBd2OQH9xZ6C9
+	QmOtNzPs/0M9pbzI9YSA/CfGj50686S/ZOlkQ0iMB6K4RQQYw26K0Vm26srY7IQ5ZlgGPRglC3D
+	9ejfI9E5w89iydbok1VEZAIGBafFBMte1kEXVb4Fa1ELCQdUPwP4H5FjlVW0AhWI+f9KEln0oH3
+	s3bJf+pIy4VCD4BPoNwsyDDhQ9NUydJSd8u6uSVtVM18W1Dd+k/UiSaXyTf1RBzarvaZYPlnuLl
+	ZlJA7mjnaKRCj
+X-Received: by 2002:a05:620a:4006:b0:93c:7948:6e84 with SMTP id af79cd13be357-93e5109951emr82359685a.52.1790970289299;
+        Fri, 02 Oct 2026 12:44:49 -0700 (PDT)
+X-Received: by 2002:a05:620a:4006:b0:93c:7948:6e84 with SMTP id af79cd13be357-93e5109951emr82354385a.52.1790970288805;
+        Fri, 02 Oct 2026 12:44:48 -0700 (PDT)
 Received: from debian ([5.133.47.210])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a03ff3cab2sm37791495e9.2.2026.10.02.12.44.46
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a03ff3cab2sm37791495e9.2.2026.10.02.12.44.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 12:44:46 -0700 (PDT)
+        Fri, 02 Oct 2026 12:44:48 -0700 (PDT)
 From: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
 To: andersson@kernel.org, sboyd@kernel.org, bmasney+clk@redhat.com,
         jbrunet+clk@baylibre.com, robh@kernel.org, krzk+dt@kernel.org,
@@ -84,10 +86,12 @@ Cc: abel.vesa@oss.qualcomm.com, abelvesa@kernel.org,
         linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
         devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
         Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
-Subject: [PATCH v3 0/4] clk: qcom: Add LPASS clock controllers for Glymur
-Date: Fri,  2 Oct 2026 20:44:31 +0100
-Message-ID: <20261002194436.1275056-1-srinivas.kandagatla@oss.qualcomm.com>
+Subject: [PATCH v3 1/4] dt-bindings: clock: Add LPASS AUDIOCC reset controller for Glymur
+Date: Fri,  2 Oct 2026 20:44:32 +0100
+Message-ID: <20261002194436.1275056-2-srinivas.kandagatla@oss.qualcomm.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261002194436.1275056-1-srinivas.kandagatla@oss.qualcomm.com>
+References: <20261002194436.1275056-1-srinivas.kandagatla@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -95,78 +99,103 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDA3OCBTYWx0ZWRfXxO5gXa1p/Moa
- i2zwZdO89Usr7fVYrNEBgJM438DLwF2C7eUIGMQPbuggwqQjiKqLodqW3elZmUWNYIvBW2m14KE
- aEEL5gx1toIKMkZFseIBI31c1iU/ZZjOLvpf9Dj8PuCYhmtNace1SLIqwzMbAj2Rd8CWp7So4Ez
- osx1mnIok7gSiMKBMj4g8y/y5FgZzXfWqNcHAMG11JqYgXoe3+LAP0l/xexZBa1gMGBHvaplik7
- jemhgE/QxoQV8T0aaQpg3seyQCG5m5wZTpj8LO8uH633rh/8ZvC2vC+kTnwSLWBtSByYQJlL3gz
- O0M7OMoQBOEqvf/bopefpDDUej6xJ4DASKIZrS7uUM5JrwuojGUhJllndpTkmxJR/hialkXxE3W
- pp/9BPI5cuYZRWG3vYn8dtzQcXuWyoCjPZ7zflKZb9IeQNBpT54CTRIH+keeqI/L4kvGOdYdqCP
- 0t2pV4LDgp9/A4KTlug==
-X-Proofpoint-GUID: jURKixzo_PBtE-rnPuEgrUWd1M4Nfcqg
-X-Authority-Analysis: v=2.4 cv=Z8B5j3RA c=1 sm=1 tr=0 ts=6ac009b0 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
+X-Authority-Analysis: v=2.4 cv=fdc4WEQF c=1 sm=1 tr=0 ts=6ac009b2 cx=c_pps
+ a=UgVkIMxJMSkC9lv97toC5g==:117 a=ZsC4DHZuhs/kKio7QBcDoQ==:17
  a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=tj6v_WFbzlxhzRuvkX0A:9 a=PEH46H7Ffwr30OY-TuGO:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAyMDA3OCBTYWx0ZWRfX2m4fkepScEms
- cd51lDfqJaPtdYxkpdrhC70kcGEIjDfGQ6g5GB8zNC7b173RS9YmQspCDVJvbKO2tjfJHAKL7So
- LVl+MLpCf4LzgBVxtPu9OwO2+YU6b54=
-X-Proofpoint-ORIG-GUID: jURKixzo_PBtE-rnPuEgrUWd1M4Nfcqg
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=gEfo2CItAAAA:8
+ a=EUspDBNiAAAA:8 a=KKAkSRfTAAAA:8 a=peyyOT9P35Ab0jvJzsIA:9
+ a=1HOtulTD9v-eNWfpl4qZ:22 a=sptkURWiP4Gy88Gu7hUp:22 a=cvBusfyB2V15izCimMoJ:22
+X-Proofpoint-GUID: ODmezYZTwS07epue6tOx2xdBBsQG3njX
+X-Proofpoint-ORIG-GUID: ODmezYZTwS07epue6tOx2xdBBsQG3njX
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDA3OCBTYWx0ZWRfX4Uo6WsiYgw59
+ 1VM1t1QRPiZLLKa0X9ySANoLf8Qa72r5yKKXBYaUzSYFqOihJ3+XkurupVT8k8YPyuNJb/4fFdM
+ 7MLOHoxXDHorIU7xLXyCyqiiI4STPbqzNbdz2FuD0tmCdqFkqf5nwDmcSMao0KhYggJMlG4MLN0
+ +vtYJtaaR31KSM/Pd4TwA8N9VZ8N7vbVwWJD9lXSQOMLAjWbNduECCFwnJLTBmYIvhaZi3hPSe8
+ xMlAFoupa0vP1mlDwqQymRSczCR8DWEYzOBBlvneoB9eNSjvi3pWfbBAXy+Pk+Snhx1bNipy2WX
+ iRDOtKGLp/8MCNOvmh/A5VrYT6blE0/0ehcXnFP/u/AjlovAWycEwKt8shqR5PmEMHxJ8r3vio+
+ l90aojrHnc0dWK7FCKpZy6oBqW38Qv1uRLyQwVDSVv7m3TpNK/UDAPXYoBTAMTroRvjZIauZhaz
+ 9SKCwgoNp5OrxcjxPzA==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAyMDA3OCBTYWx0ZWRfX5FH2xA5HC8ng
+ niGqh0tgSyTXYtal2vzxOL8NMDWgt1VmxYMQNgUVSquDJI5HCIAbHgneRzhH5vU746C+4K7nTmX
+ aL6jkQWUOeMKzIf0p74woXcBpDZ3Mtg=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-02_05,2026-10-02_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 priorityscore=1501 spamscore=0 impostorscore=0
- phishscore=0 clxscore=1015 lowpriorityscore=0 suspectscore=0 bulkscore=0
+ malwarescore=0 phishscore=0 impostorscore=0 bulkscore=0 clxscore=1015
+ priorityscore=1501 suspectscore=0 adultscore=0 spamscore=0 lowpriorityscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610020078
 
-This series adds the two LPASS clock controllers found on Glymur:
-LPASS AUDIOCC (SoundWire RX and WSA1..4 resets) and LPASSCC (the TX
-SoundWire reset). Q6DSP owns most LPASS clocks via Q6PRM, so only
-resets are exposed here -- enough for the LPASS audio macros and the
-SoundWire compute-mode controller to leave reset.
+The LPASS (Low Power Audio Subsystem) Audio clock controller on Glymur
+provides reset support for the SoundWire RX and WSA1..4 masters when
+LPASS is under the control of Q6DSP.
 
 The programming model is a near-exact match for the existing SC8280XP
-controllers, so patches 1 and 2 extend qcom,sc8280xp-lpasscc.yaml with
-the two Glymur compatibles instead of creating a new YAML file (per
-Krzysztof's v1 review).
+LPASS AUDIOCC, so add the qcom,glymur-lpassaudiocc compatible to the
+existing qcom,sc8280xp-lpasscc.yaml rather than creating a new file,
+and add a Glymur reset-ID header for the clients.
 
-Changes in v3:
-- 1/4, 2/4: extend the existing qcom,sc8280xp-lpasscc.yaml with the
-            Glymur compatibles rather than adding a new YAML file;
-            drop qcom,glymur-lpasscc.yaml; update title / description
-            / See-also (Krzysztof, v1).
-- 3/4: bump max_register to 0x3020 to cover the WSA3 / WSA4 reset
-       offsets at 0x300c / 0x301c (Konrad, sashiko-bot).
-- 3/4, 4/4: pick up Reviewed-by from Taniya and Konrad.
-
-Changes in v2:
-- 3/4: drop <linux/mod_devicetable.h> and <linux/of.h>, switch probe
-       to device_get_match_data(), lower-case reset offsets (Taniya).
-- 3/4, 4/4: pick up Reviewed-by from Abel.
-
-v2: https://lore.kernel.org/all/20260925084635.112399-1-srinivas.kandagatla@oss.qualcomm.com
-v1: https://lore.kernel.org/all/20260922184425.56114-1-srinivas.kandagatla@oss.qualcomm.com
-
-Srinivas Kandagatla (4):
-  dt-bindings: clock: Add LPASS AUDIOCC reset controller for Glymur
-  dt-bindings: clock: Add LPASSCC reset controller for Glymur
-  clk: qcom: Add lpass audio clock controller driver for Glymur
-  clk: qcom: Add lpass clock controller driver for Glymur
-
- .../bindings/clock/qcom,sc8280xp-lpasscc.yaml |  7 +-
- drivers/clk/qcom/Kconfig                      | 11 +++
- drivers/clk/qcom/Makefile                     |  1 +
- drivers/clk/qcom/lpasscc-glymur.c             | 89 +++++++++++++++++++
- .../dt-bindings/clock/qcom,glymur-lpasscc.h   | 19 ++++
- 5 files changed, 125 insertions(+), 2 deletions(-)
- create mode 100644 drivers/clk/qcom/lpasscc-glymur.c
+Signed-off-by: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+---
+ .../bindings/clock/qcom,sc8280xp-lpasscc.yaml    |  6 ++++--
+ include/dt-bindings/clock/qcom,glymur-lpasscc.h  | 16 ++++++++++++++++
+ 2 files changed, 20 insertions(+), 2 deletions(-)
  create mode 100644 include/dt-bindings/clock/qcom,glymur-lpasscc.h
 
-
-base-commit: 9f24d789f03b22941b905ded43cb5ff8eea9ce62
+diff --git a/Documentation/devicetree/bindings/clock/qcom,sc8280xp-lpasscc.yaml b/Documentation/devicetree/bindings/clock/qcom,sc8280xp-lpasscc.yaml
+index f235b4e24cc7..a25e043ab894 100644
+--- a/Documentation/devicetree/bindings/clock/qcom,sc8280xp-lpasscc.yaml
++++ b/Documentation/devicetree/bindings/clock/qcom,sc8280xp-lpasscc.yaml
+@@ -4,22 +4,24 @@
+ $id: http://devicetree.org/schemas/clock/qcom,sc8280xp-lpasscc.yaml#
+ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ 
+-title: Qualcomm LPASS Core & Audio Clock Controller on SC8280XP
++title: Qualcomm LPASS Core & Audio Clock Controller on SC8280XP and Glymur
+ 
+ maintainers:
+   - Srinivas Kandagatla <srinivas.kandagatla@linaro.org>
+ 
+ description: |
+   Qualcomm LPASS core and audio clock control module provides the clocks,
+-  and reset on SC8280XP.
++  and reset on SC8280XP and Glymur.
+ 
+   See also:
+     include/dt-bindings/clock/qcom,lpasscc-sc8280xp.h
++    include/dt-bindings/clock/qcom,glymur-lpasscc.h
+ 
+ properties:
+   compatible:
+     oneOf:
+       - enum:
++          - qcom,glymur-lpassaudiocc
+           - qcom,sc8280xp-lpassaudiocc
+           - qcom,sc8280xp-lpasscc
+       - items:
+diff --git a/include/dt-bindings/clock/qcom,glymur-lpasscc.h b/include/dt-bindings/clock/qcom,glymur-lpasscc.h
+new file mode 100644
+index 000000000000..3006b12e385e
+--- /dev/null
++++ b/include/dt-bindings/clock/qcom,glymur-lpasscc.h
+@@ -0,0 +1,16 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ */
++
++#ifndef _DT_BINDINGS_CLK_QCOM_LPASSCC_GLYMUR_H
++#define _DT_BINDINGS_CLK_QCOM_LPASSCC_GLYMUR_H
++
++/* LPASS AUDIO CC CSR */
++#define LPASS_AUDIO_SWR_RX_CGCR				0
++#define LPASS_AUDIO_SWR_WSA1_CGCR			1
++#define LPASS_AUDIO_SWR_WSA2_CGCR			2
++#define LPASS_AUDIO_SWR_WSA3_CGCR			3
++#define LPASS_AUDIO_SWR_WSA4_CGCR			4
++
++#endif
 -- 
 2.53.0
 
