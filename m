@@ -1,173 +1,250 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A43A42874F8
-	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 00:51:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790902319; cv=none; b=dQql4FKJ/sf+ZHzKu7DQrEBqmODMLFMyK9fn+lIWtGqXNsuFTVMX3VDwCVOxssBiOnt4ZEUdAF0W0Q45uLundBZQU5SFVZ/jgHmA6c2k497/SL7Rka79wFHAV8EU/E+eLLHzZAoElW8Rmwjb6QmVlw+v6qR6lgZMZqbSaiEhK/w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790902319; c=relaxed/simple;
-	bh=VlSoJ6brjDXIgaoyHEKlbvSBwJ52Zx7FYjVS3+K0iZA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZeD7S/LckiIVsl2uO6991rtY4WHMAHq71HmDVTv+0j2XS0ANWcFI+mGbXDa73hwUIO/kGlQYQVcYEM29mNzBTp1s9wKoUepoKeLhWSTZUQeWSZo3zP2cBbaF5fu/+yTOvGM05yAQeOceJH80cVqUN6TsVStLxR/wsP88i3QCFUI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UEgXyvj2; arc=none smtp.client-ip=209.85.216.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 771B41BC2A;
+	Fri,  2 Oct 2026 01:02:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790902933; cv=fail; b=eBCykINh+tEGj70W2XmBdrUugTNfABh53e9AUoCtwwaRvDVvF69vAyUGebYKRnTqKKesSlYApz7rkwUiQkOAynfY4abOVvkD9sXaVgforpsQ+42ubNeQBVGtvTDhxCevZtkEDjYWMIsqi+eWefBMnnIsdHVZ8kN/iR+ObRJhJv8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790902933; c=relaxed/simple;
+	bh=sQ5CehN+Blk10n2TerQJuNpf0R4zMaKsLh/c2nceSLQ=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=MuIXqGqkWiTDppWAOr1BFOP/R3Z9Lii/Tbv0YrheqpokRrtN5KMcKKPXUjg5J9RwJ7Si5n3GmpzFGBOJLtiYjRMdpfz7vdai892PeAsBxT06EVCMNzL83efY9aHgQ+QOalCzoose8Olww8VweyyQDnyDIMteBEU0WYRzVL+4H6M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=SRJypOYF; dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b=bUHYKD8j; arc=fail smtp.client-ip=148.163.150.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UEgXyvj2"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-3a02551822eso657242a91.1
-        for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 17:51:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="SRJypOYF";
+	dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b="bUHYKD8j"
+Received: from pps.filterd (m0380145.ppops.net [127.0.0.1])
+	by m0380145.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 691NFjVj2972220;
+	Thu, 1 Oct 2026 20:01:43 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	proofpoint-05-2026; bh=pGbDLYk0weJhNHI6OkbXtbDdjgSiobmM/ifRw33zY
+	Cs=; b=SRJypOYFAMZhPtti7KfaK5hf+EzC6pCqodNuEvOW82q3KpqReeOGGNuLL
+	fkCZwHgfQeoksnM9xXKXsVCfdMl4U+aSSHRi9enzZxMINt3RuQ6VQGPkOYMITbo3
+	jsWEsUfNBTP7OMQ+l9Xj+8EZYjPSu3uBWjj7cQRmd91ke2kGISEWubAKZKKrrw+V
+	eedkQ1lGhF4T4HwPrE7J2/u2yowgTSfiwh4VGIqLbtAKZnAPLTRX0g8Csf+5wlQn
+	93Cv0POvC836PoZak01Zns7sq9mEsZFP0PuqkvJ3wO6X4WZBgerqkODJ0Yex3HT1
+	2tYxH3fdyJUIPOtFZ4ItsXgcQmtlg==
+Received: from bl2pr02cu003.outbound.protection.outlook.com (mail-eastusazon11011063.outbound.protection.outlook.com [52.101.52.63])
+	by m0380145.ppops.net (PPS) with ESMTPS id 4h1kqynyk4-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Thu, 01 Oct 2026 20:01:43 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=sia3HWVe4v/lBo7+Owb5lyKCvFUk6g7uA88KaqLVf1f07NA3XIyEV9A+s73nrZgTcO5Qn/jOVGmUeaf0OlmlMny8kzKauMbBWH+bOxGunc6YfRGkNclfeP/0rlIt8Krkhm67UmDwqLwtWiAZJSBBMkGuJFgVasHhqtzUXveGqfycWjhiuOKXPzbsacPw47bAfOKBIMJWeP33+y0qTu1ELFOwHfbtyoDFzG3mmEHn+HaMbBlNpLB3giJrIRa/RmEhRutTLQcX/OKQMroaVk9g2E5w8JuFzNOfcmiwB3tNK1TdeIOquWhK5JT5ZSOSypYewbPsIILjqtzBvP4eJwuHyA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=pGbDLYk0weJhNHI6OkbXtbDdjgSiobmM/ifRw33zYCs=;
+ b=G+CY/BbYy3E6qL1rObYw5sTPRybEDYGi1t55Wt2x2aHNyzmF1sBhXR7QBiahicREu9IpzzxI+jaYACqugxEVeqwZmBnUpAOhOdlBYtEdc0BiaUGK50OLo6tVJD3qU/hSHo5Epgpb/S/ngogvUzxxPnml0R5wVK18d1+0djRGjWHQJ1b6gnUlD7hcy1Y+gtCKVe/xcxH+X+nygPdkSfkVU06ni/fYr4ATF1fh8CJrE91P09UxTtjVzjLz3Wsc46OTq+uqe1spoIJOCRT1oQEOFEzmy2qTnnRVUaMacBTUVVOJrlnaeLoqVW1+CV3cl4qP19SxQSQ7z5r8kODxX99grQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.195) smtp.rcpttodomain=variscite.com smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790902316; x=1791507116; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YCKENVm5zZAs5I0wb3FVyMlwp/4yjLtmzmHk6dKFgqw=;
-        b=UEgXyvj2vv36yw0RvNych4ghTozPphheK928g6dYDH2XIgOmPduYu1KPaXTTWEpdMj
-         ed/VO2ZSGCfpaEuNMyGI488IR2c9BLOaUroXrmhj/Xbn98tlcRtzJd7+7UQ4THUUfn/f
-         DkY2VLz8JMCCgLI4xRbvDcrUERucj0yCFQXz9y+pu/geXpAeL4ZVZTJgPVTX1Ldew3ga
-         5xbNTjUZomEzL8DniZP50zml5qaW0mky1TQnBOVt+mip84bQaofBT97ut5oxSc2UoLVw
-         l5boZEAZiDbnLU85h1/DOi3zXWUGM1xJkeR2oXZ0/CYs5JwfKn+10Clr/inlsJZ8i7jm
-         /XHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790902316; x=1791507116;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=YCKENVm5zZAs5I0wb3FVyMlwp/4yjLtmzmHk6dKFgqw=;
-        b=Ul6RjbPvoTH02oGNhrIwS0ZYSuNlop5d3dgrlgmGUz1dMyK08Muc73TSIuHXBhEYEU
-         IrgGPCJnJgxnusBvmPtYoq6BtIP0IoCtNFz9LXMs+jD/MLPg/KR+9hPqb0Setu/EX6tN
-         DcyWph01CQ1D9ga03YZcdj1ChZoF9WruSpSuA0VH7Ngpk6P9C3NOFj4EcyU1hihIr1H8
-         eJFYOb3y9yh9qb+jjolFJvP820GSM1g7G+D+nRNXQg2TEbEvxki/f/2Gl/EwU5GCTd1d
-         r+MF31UVGjoNYMQ2a2rrNdHLLBfpJGfVgeTRjGAAE/Pq6VK6IURnjuQg/P/aeG4+NNij
-         B5Ug==
-X-Forwarded-Encrypted: i=1; AKwUvBz7HEG9vS2FovUBPuSCeahS7rCzk/1wNDahzefKOQoS2mnGiL0xCGvmwQVldiamZaOhMn+zgnyMW4DG@vger.kernel.org
-X-Gm-Message-State: AFq9FYK6FyxL08ralvwHrr1TEOlLqBtIC9uusMoflEN2c/JLLoWfOQY8
-	/jI7Awuw1bIkOIxFeHODmZYqg7Re4fHEuGTQLK055deq2DkMyGmflmah
-X-Gm-Gg: AYBFou3kdWBA9HGfVepBlTeynB6GXEtofaHkyk/VCzLMSbkGa0MYzG7lgq6v+/j7jC+
-	UzfhkTVuWLRErrc+eSD6a3XBnYgg+weWUu9W5jaNcThzvYEIWMJAtGpaeIrLCdsQr3nvt88gqfQ
-	V33m9EyycX02C5wGQNIPZDnDNE+V0TwjXWHWUenYFel8LyoGHUdlhZexrciwfr3++/2iLYvGCSI
-	N7uuI9/As75dj7AW+DJyGWADp51o29edibhJ9gmPtXlmVd55wm8nfV3dMaXwwRTmyc/lkJAYPN/
-	JsROIqrkuKirfbitNt5F4b7l2SC3eFqGgr5Tfcpq4j4sdtLFmkY+e8nu5xMAr3niXkU6WUTdjk1
-	L6TqSkinPpoKskU7lkCNBTujXib4x67GuOqhPHDf+CYxDyKj4ovUqgPWvEUtl9DSHy93yS4R91E
-	mDocQW7tYshpXFbVo/kHIk+YyUisQ/izVppGVc9l3oATSjDQNAaYB03DtJEDUmD3GiEtQ8n7ufb
-	zXwlNWdU6aUkVknGWisIXdL+QzWyQyk/w1bHg8DPTdGMwY4JBY=
-X-Received: by 2002:a17:90b:54c6:b0:3a4:9416:a2f8 with SMTP id 98e67ed59e1d1-3a4f32d90c9mr3036036a91.9.1790902315935;
-        Thu, 01 Oct 2026 17:51:55 -0700 (PDT)
-Received: from [172.19.1.42] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc9f73557f2sm268666a12.8.2026.10.01.17.51.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 01 Oct 2026 17:51:55 -0700 (PDT)
-Message-ID: <5fe2ad09-428f-4559-99b0-07042412b980@gmail.com>
-Date: Fri, 2 Oct 2026 08:51:53 +0800
+ d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=pGbDLYk0weJhNHI6OkbXtbDdjgSiobmM/ifRw33zYCs=;
+ b=bUHYKD8jVTBBFbcb83Dfmqcy8ZbwgPWHUCQu8zTZSRWSK/gOYPBgu/J5FDvIJvkNN6GSyWJboya4AP51X8r4zXrcyfnRsd78kA5PTKNZv3kOU4CtRupsPs8gTdzXJrIN5D11v7l1/2Q+aeiQfBotjlQKOs4xi8UY6PiwuSbCHPs=
+Received: from BN9P223CA0011.NAMP223.PROD.OUTLOOK.COM (2603:10b6:408:10b::16)
+ by PH8PR10MB6648.namprd10.prod.outlook.com (2603:10b6:510:220::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Fri, 2 Oct
+ 2026 01:01:38 +0000
+Received: from BN2PEPF00004FBF.namprd04.prod.outlook.com
+ (2603:10b6:408:10b:cafe::33) by BN9P223CA0011.outlook.office365.com
+ (2603:10b6:408:10b::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.16 via Frontend Transport; Fri, 2
+ Oct 2026 01:01:38 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 198.47.21.195) smtp.mailfrom=ti.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
+Received: from flwvzet201.ext.ti.com (198.47.21.195) by
+ BN2PEPF00004FBF.mail.protection.outlook.com (10.167.243.185) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Fri, 2 Oct 2026 01:01:37 +0000
+Received: from DFLE211.ent.ti.com (10.64.6.69) by flwvzet201.ext.ti.com
+ (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 1 Oct
+ 2026 20:00:50 -0500
+Received: from DFLE215.ent.ti.com (10.64.6.73) by DFLE211.ent.ti.com
+ (10.64.6.69) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Thu, 1 Oct
+ 2026 20:00:50 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE215.ent.ti.com
+ (10.64.6.73) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Thu, 1 Oct 2026 20:00:50 -0500
+Received: from localhost (uda0133052.dhcp.ti.com [128.247.81.232] (may be forged))
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 69210oUN2991788;
+	Thu, 1 Oct 2026 20:00:50 -0500
+From: Nishanth Menon <nm@ti.com>
+To: Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Nathan Chancellor <nathan@kernel.org>,
+        Nick Desaulniers <nick.desaulniers+lkml@gmail.com>,
+        Bill Wendling
+	<morbo@google.com>,
+        Justin Stitt <justinstitt@google.com>, Judith Mendez
+	<jm@ti.com>,
+        Daniel Schultz <d.schultz@phytec.de>, Andrew Davis <afd@ti.com>,
+        Siddharth Vadapalli <s-vadapalli@ti.com>,
+        Paresh Bhagat <p-bhagat@ti.com>, Bryan Brattlof <bb@ti.com>,
+        Jai Luthra <jai.luthra@ideasonboard.com>,
+        "Devarsh Thakkar" <devarsht@ti.com>, Beleswar Padhi <b-padhi@ti.com>,
+        Francesco Dolcini <francesco.dolcini@toradex.com>,
+        Stefano Radaelli
+	<stefano.radaelli21@gmail.com>,
+        Nick Desaulniers <ndesaulniers@google.com>,
+        "Markus Schneider-Pargmann (TI)" <msp@baylibre.com>
+CC: Nishanth Menon <nm@ti.com>, Vishal Mahaveer <vishalm@ti.com>,
+        Kevin Hilman
+	<khilman@baylibre.com>,
+        Sebin Francis <sebin.francis@ti.com>,
+        Kendall Willis
+	<k-willis@ti.com>, Akashdeep Kaur <a-kaur@ti.com>,
+        <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <llvm@lists.linux.dev>,
+        Hari Nagalla
+	<hnagalla@ti.com>,
+        Stefano Radaelli <stefano.r@variscite.com>
+Subject: Re: [PATCH v9 0/9] arm64: dts: ti: Split wkup R5F memory region for IO+DDR resume
+Date: Thu, 1 Oct 2026 20:00:48 -0500
+Message-ID: <179090282701.586197.11991528462742940397.b4-ty@b4>
+X-Mailer: git-send-email 2.47.0
+In-Reply-To: <20260918-topic-am62a-ioddr-dt-v6-19-v9-0-40972ef1f663@baylibre.com>
+References: <20260918-topic-am62a-ioddr-dt-v6-19-v9-0-40972ef1f663@baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/3] spi: ma35d1-qspi: Add GPIO chip select support
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
- Mark Brown <broonie@kernel.org>
-References: <20261001131818.110028-1-cwweng.linux@gmail.com>
- <20261001131818.110028-4-cwweng.linux@gmail.com>
- <20261001134613.16C861F000FF@smtp.kernel.org>
-Content-Language: en-US
-From: Chi-Wen Weng <cwweng.linux@gmail.com>
-In-Reply-To: <20261001134613.16C861F000FF@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN2PEPF00004FBF:EE_|PH8PR10MB6648:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0df93144-a4b0-4336-31b9-08df2020b61a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|36860700016|1800799024|376014|82310400026|7416014|10067099003|5023799004|921020|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	TRxRUlfc9w8o4//invUEMc+OSd/J6501nSaf8+gWpTAyZcSRuxn1Hqv+xidP3iCMc2exKmfzSFsy8g2Rmv0dhC9pH4HmBMWbSPQjqAaFzO3st0RI5fel6EwrS4HeTu2VgMtTNzN6shdLOXtfbdwXPnyWA7wU66A/9Gaei9ZgPIr2Hb/zW3aiAqW2hl7p/tXScpWsy9kM4y/rFxC6V7FBaYBWbVKwZX04kJaXZ7G0OY0sMmVmTNXie6cqo0e0H/N5xeEy/vVPXqrQGvChDSUyp7rCt8Ocxowy9oviEIqq660BE8t4qWXDmsh3uTy4bIeZQu9wVMeLPJZIviYRAJAto9t/cZxev1y3INDMQi1YDCoZKyf3cd0sVyHD+LHaj6fV2eap6n4GhXIwIOREGBY0nj1IADZJZbtSyAtILC+wjOwWEd3opq8CZtp65KL0htMWY+YJeCn4P2tvJY3w4FoSlaXhLfgLNTxD/2qEuDU4fn3Ca1hzfOMZfhmmtk4BeAbCfeHKsyEU5avi1bRR7HaKCOIzTRh85t3i8eOBzrw5v5kBkQzdmzDC5oetLRB66epZZ3Xq7CzQpyqtOBd5KP6GM0hDRXUlrFpoE4/FrHwNNbVGxbMbJb4FYJ7PDPoyHfjs2EUI57yibH+iQCtlaPE24FeQOnBF5eKAu1jW+bCr1k6DB/kVQTVQ6+7aD89NIJuIOEQu6uVOwYhencJxaxcvUg==
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(1800799024)(376014)(82310400026)(7416014)(10067099003)(5023799004)(921020)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	d+zt/6xi+Uyypj8u7lqbIywbYLVhDrcd/gUpdgKKlmfldDvGEPe/1DOSKdNiHmj3kUkOnAS9900ULlFjwgtB1oTv8FNXB+uqtRWLN71+B2er9CwvmZzh68OLwtBrGuYS14sTWasS2vst9w2jWL/rml2ObCBjwhVUhtoK1Lb1oD+irb0sSVm2nWwBz6UpuQklfokiMyvozdJqFTiLjQw1VdczJg3sh+cVjHzNHOWHKpYdeob5dTqFZC9yTTZq3w4eUDnAVCq7nS+scExwAP8XDmwe/aWmbgDFT4ODIIgaGAhOCo6iRvPHsuhmsc7kBAc2XtlENxTeM7PcOM/PSpazYBeJ0dYS0lFmavi6E5r4yl92mbLdO5F/whYElG3GqgFWJnq9mAyVDp4OVAQD5mxxIDZUS3LpWZwKrcTAzJksKX/ItgbQF+X5r9gIh9IxDD1O
+X-Exchange-RoutingPolicyChecked:
+	TNAdI9JarBV6Qvaq/WvzITg0t5OlDKNhS3F3VTbyX3UQBYogq1tL9MugeenJqjSirKPWmvKccAuIGtlwds4xFsylLEkUgHhlCYBJmIMMNonM5wfnahksQTml6GsbN2hNONpZ6zuNl6YYurNpFmYdSSsGsDYRpWeQB9OW028nDg1Lj6qG4Dnyj0LRggaPmF75Olp9WQEOwp+DSzV/cKKVIi1kxqfLM8WEIiZBXiIFRbrdLsEfY8UP8zDpx+5/RH7QAlaAf2IdI1+J7S29X47pK5JLdRl+hex0pN8ORdcr6P7+rttwGHyI6UraLL9bou2gsVxfmV9sl66enhZVH9Gnww==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 01:01:37.2126
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0df93144-a4b0-4336-31b9-08df2020b61a
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN2PEPF00004FBF.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR10MB6648
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAyMDAwMyBTYWx0ZWRfX3fjBeO1hsxUY
+ Ana6XAJ0plNprT7hV7sbfZRC/miGHnuXU0w8Jwg6t+plDIncwg7ubdfA5bSOfGz1nwyMZ46lKv6
+ 7qq83hEcFFBNarJjXwBhvCFOwMjVhI8=
+X-Authority-Analysis: v=2.4 cv=a6alZkSF c=1 sm=1 tr=0 ts=6abf0277 cx=c_pps
+ a=/mfax+0MUk3zis5Hx41TAA==:117 a=tJyPKKxUohctrY4NYmUjkA==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=AlMIdn_sM9wA:10 a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22
+ a=gO1vWkAQAl3rybz1DQOp:22 a=VwQbUJbxAAAA:8 a=sozttTNsAAAA:8
+ a=8fnee6O-n0vwEk54MJ8A:9 a=QEXdDO2ut3YA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDAwMyBTYWx0ZWRfXx80k0nbEspLZ
+ gwiCYYQHX2UqitiRePwJUchcaMCVO7xjVFxLrR5i6FPD2Rng5rPX3/sPsqcTaw6CLub3Bcr921t
+ vscXOajkUnAG1BO6qfVCAI6Hzw7JvCn5fhuPg4phnwnSp5Jbh5FJhJxDc+Ski8KcZvxn0H2cRye
+ SM4n0Ttjk7HMZOjaubYWQEU069L2I0086wtMkv/M9jy9cm/uOAveb4IAP5BMef1/qjZAUVgmdRv
+ dSNMNsd8JhHbMZvQERjXvq9dyPx6OpBTmuModSfIeJBz2QuaHWam9mzyuxaLNOujbAUaVuU6OgR
+ rTff0ly85Zj3xVeapcs3DauM/xd5qw7F8smehstAtkQkzGZD6zi/sbXcMAfB+vfvD+4VoNmVdBs
+ iESWecHYl3GcxtY1J0e4DyR1GhHOwDtapc4HRDlBt00YsULd7jbkSf01ZXjFfy5IaY4GLa+W1H4
+ YQss81G5SfFHwJcWrRA==
+X-Proofpoint-ORIG-GUID: O_YW5RT0jzbhl1fzAxcvp-dLb9D5JNlg
+X-Proofpoint-GUID: O_YW5RT0jzbhl1fzAxcvp-dLb9D5JNlg
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-01_05,2026-10-01_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 clxscore=1015 spamscore=0 suspectscore=0 bulkscore=0
+ malwarescore=0 priorityscore=1501 impostorscore=0 lowpriorityscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2610020003
 
+Hi Markus Schneider-Pargmann (TI),
 
-
-sashiko-bot@kernel.org 於 2026/10/1 下午 09:46 寫道:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] spi: incorrect validation of total chip selects limits GPIO expansion
-> --
+On Fri, 18 Sep 2026 11:17:44 +0200, Markus Schneider-Pargmann (TI) wrote:
+> Split the firmware memory region in more specific parts so it is better
+> described where which information is stored. Specifically the LPM metadata
+> region is important as bootloader software like U-Boot has to know where
+> that data is to be able to read that data and resume from RAM.
 > 
-> commit bf74299215867df971e01913ae533377b76db610
-> Author: Chi-Wen Weng <cwweng@nuvoton.com>
+> The bindings are already applied. The remaining patches use the new
+> layout for the platforms that are capable to support IO+DDR. For IO+DDR
+> the new layout is necessary as it defines the location of the LPM
+> metadata.
 > 
->      spi: ma35d1-qspi: Add GPIO chip select support
->      
->      The generic SPI controller binding allows GPIO-based chip selects, but
->      the MA35D1 QSPI driver does not currently enable the SPI core's GPIO
->      descriptor handling. This patch enables GPIO chip-select support and
->      specifies that the controller provides two native chip selects.
-> 
->> diff --git a/drivers/spi/spi-ma35d1-qspi.c b/drivers/spi/spi-ma35d1-qspi.c
->> index 30e3239f777d6..0644bb2990b8c 100644
->> --- a/drivers/spi/spi-ma35d1-qspi.c
->> +++ b/drivers/spi/spi-ma35d1-qspi.c
-> [ ... ]
->> @@ -638,18 +664,21 @@ static int nuvoton_qspi_probe(struct platform_device *pdev)
->>   		goto err_assert;
->>   	}
->>   
->> -	if (!num_cs || num_cs > NUVOTON_QSPI_MAX_NUM_CS) {
->> +	if (!num_cs || num_cs > NUVOTON_QSPI_MAX_NATIVE_CS) {
-> 
-> [Severity: Medium]
-> Does this validation check incorrectly apply the native chip select limit to the
-> total number of chip selects?
-> 
-> If the Devicetree specifies a num-cs greater than 2 to declare additional
-> GPIO-backed chip selects, it appears this check will cause nuvoton_qspi_probe()
-> to fail unconditionally, preventing the use of the new GPIO expansion feature.
-> 
->>   		ret = dev_err_probe(dev, -EINVAL, "invalid num-cs %u\n",
->>   				     num_cs);
->>   		goto err_assert;
->>   	}
->>   
->>   	ctlr->num_chipselect = num_cs;
->> +	ctlr->max_native_cs = NUVOTON_QSPI_MAX_NATIVE_CS;
->> +	ctlr->use_gpio_descriptors = true;
-> 
+> [...]
 
-Hi,
+I have applied the following to branch ti-k3-dts-next on [1].
+Thank you!
 
-Thanks for the review.
+[1/9] arm64: dts: ti: k3-am62a-phycore-som: Fix wkup R5F memory region size
+      commit: 3690b591d07a2e8863eb96e2aff740da47b8de03
+[2/9] arm64: dts: ti: k3-am62d2-evm: Fix wkup R5F memory region size
+      commit: 5dd0e5b9d5f67276ff291f30da9bf5a17a46c48e
+[3/9] arm64: dts: ti: k3-am62a7-sk: Fix wkup R5F memory region size
+      commit: 8d36eb58c06b867f29a8df2f39f7fe6718c726af
+[4/9] arm64: dts: ti: k3-am62p-verdin: Fix wkup R5F memory region size
+      commit: 70c9859fcca8dd964a588a0642aed3bd71bc1dcd
+[5/9] arm64: dts: ti: k3-am62p5-sk: Fix wkup R5F memory region size
+      commit: 93cfb76923603ccaec3720dec065a7874458e67d
+[6/9] arm64: dts: ti: var-som-am62p: Fix wkup R5F memory region size
+      commit: c9b15cd49b3fbd54f3382655b4e898921a7adb4e
+[7/9] arm64: dts: ti: k3-am62a: Split r5f memory region
+      commit: 13aea49af974352c2a6a96608bbaa3ed3030706c
+[8/9] arm64: dts: ti: k3-am62p: Split r5f memory region
+      commit: 46b7261c2bad842e8b9a25106c132bb8ae83d634
+[9/9] arm64: dts: ti: Add wkup R5F nodes to pre-ram bootphase
+      commit: 0d14dd104de66eff1500dec9e80d72c4ab82b608
 
-I don't think this check prevents additional GPIO chip selects.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent up the chain during
+the next merge window (or sooner if it is a relevant bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-For the MA35D1 binding, `num-cs` is limited to the two native hardware
-chip selects:
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-     num-cs:
-       minimum: 1
-       maximum: 2
-       default: 2
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-Additional chip selects are described by entries in `cs-gpios`, rather
-than by increasing `num-cs` beyond two.
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-Since the driver sets:
-
-     ctlr->max_native_cs = NUVOTON_QSPI_MAX_NATIVE_CS;
-     ctlr->use_gpio_descriptors = true;
-
-the SPI core handles the GPIO chip-select expansion when the controller
-is registered. The number of usable chip-select slots is expanded
-according to the number of `cs-gpios` entries.
-
-For example, with two native chip selects and two additional GPIO chip
-selects, `num-cs` remains 2 while `cs-gpios` contains four entries. The
-SPI core then expands `ctlr->num_chipselect` to 4.
-
-`max_native_cs` only limits native chip-select indices. GPIO-backed chip
-selects beyond that native limit are still valid.
-
-Therefore a DT with `num-cs > 2` is not valid for this controller
-binding, while valid configurations using additional GPIO chip selects
-continue to work through the SPI core.
-
-Thanks,
-Chi-Wen
-
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/ti/linux.git
+-- 
+Regards,
+Nishanth Menon
+Key (0xDDB5849D1736249D) / Fingerprint: F8A2 8693 54EB 8232 17A3  1A34 DDB5 849D 1736 249D
+https://ti.com/opensource
 
