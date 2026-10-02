@@ -1,58 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD37539FCB4;
-	Fri,  2 Oct 2026 17:54:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8C713C1D76
+	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 17:57:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790963655; cv=none; b=f1+aFCF1t3RnQtTUiw+fd5xE41vuCi8duVw3yjIxjN1eZCT4fWj5PJDB5ocIyFtcUt2uU1eHN4y0qR57iBdi2/Xc7GjVL6g6BzT0pDvrnav81A/pqsTTwkVZBS2k1HCSMEJf91PCjOEfnMzXZx7DZEQfOQzvTsRfqhwTN26Bh/w=
+	t=1790963875; cv=none; b=uaYj/elyI3HYD/gKRvItVCZ3GzQ2/6tVGgMmqCqzq8yBA2S2hGOeSu5iM+QUkeKJN6lOvhZcVWUL33aG5f58mXazjHrTUnsDNy730ScuHWlq4i4B4UshqtqMGTbHsg/S0MMNjZYUjnKRXmojN3OppH6Uc99ZFstiLAsO3OoHJu4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790963655; c=relaxed/simple;
-	bh=8DwmR3QPWq2aIx1EENnXmgaGS7X8c2DZC2/tGoJZFLs=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=t64KeI9vHEorhusKlsbidegDQh8bpIjTOKKGjm/S64k6mKZFnfTo5Ts/QVBOF2uaFoyQbmHCLzEPPcNzF0gWNAyXlnwJ+PjZfHsZsOt7ABOPZ4b9AchGyfzfaBp7Y1DjeGfTYiZKGn0I8QZ6Tpydst0xdPqnOJoWbNIeoQSd9TM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OaQX0v6k; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790963875; c=relaxed/simple;
+	bh=Zo/IJELH6ai7E1VCqk8pVwwOBxDGzIxLI79k6nC4IdY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=J0o/XwPc4YffvwKiumPSdpsXRye8gU18b9f28lC5i0ibWyBi6eSskCUMWUeyLfS9VI1kTpXoV+wHmSZUu8EmI7rYT4tnL+Dn5ZqFns0kzv2iVUg9ByZucCNA4WsRfD6r4aufqVOD7KJ9eJqMMCOYXY3JF7gwB7zIIzX8qu4c/6U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=ZVLWSCyO; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=ZQuag8sR; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OaQX0v6k"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B69651F000FF;
-	Fri,  2 Oct 2026 17:54:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790963647;
-	bh=lJQ9Gplsx3lzpZf7hARcJLh1Lg+Xkv5pYVo4U6+hpjE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=OaQX0v6kxIrXswgXLZqXC0lUrFRhkiHIogk34PDzu5nFOj00eKMJYn06NUCD9B5AG
-	 Jps6tCNjtzs5B4OO8V4Eu91DDQjlJl1wILQVuxzv+z3EZamIhcEbtThmCcUH6EU2bU
-	 quXtkuydqXaRov9s0DYAvzRH3TtbGUmtM65U/llbRl15iJnzVTFOzc1tGWhC5l/ENS
-	 ELi5Inl6wc7JPLbqaujVovKLZ6mBLX0hp3+M26gbjhixwybqvQNCFItpJIPuYeIGkA
-	 /aOf0XGxQup/sExsOGmAbwkOcNg7rEz4JHIYewH9YsK+7zdpFR7FH400vx9HdAzGnb
-	 83pE/6r5+VW1Q==
-Date: Fri, 2 Oct 2026 12:54:05 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Linus Walleij <linusw@kernel.org>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="ZVLWSCyO";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="ZQuag8sR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790963871;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YRmfniRYY3gDZtpbulPtdSLopqAgCcIdSXqyEPuAkSA=;
+	b=ZVLWSCyOMZYM4xQeejfTvNkawDgetUWv9+MDLvrEqW9jDdyR3MXd/T+7Qf6y0a8rTy6YG+
+	wIa3aS+ZQuqXUDvP4G2TNiY3QRE1FuYPmBfzTjCZ3+dWVaY6pGodwq4XZYwgGbfLmKuFKi
+	1IlcN/btCkNpJHt9CWAIof8+1Crdy+c=
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+ [209.85.160.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-653-Mg08iMD8O7yUbTxx9-RWPQ-1; Fri, 02 Oct 2026 13:57:49 -0400
+X-MC-Unique: Mg08iMD8O7yUbTxx9-RWPQ-1
+X-Mimecast-MFC-AGG-ID: Mg08iMD8O7yUbTxx9-RWPQ_1790963869
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-5338c59f90dso4742671cf.1
+        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 10:57:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1790963869; x=1791568669; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=YRmfniRYY3gDZtpbulPtdSLopqAgCcIdSXqyEPuAkSA=;
+        b=ZQuag8sRzDDsKyHc9I/zOZbbtK293iziA/f7qxB/6UDZ8Iy1ad2ssCPoKhDKEJf322
+         JAHHgrAnUHZ9wBCQGZMKjtQlFAOVGkWDfg2+fKkdaFx7rCpvsv/q58tcov30QNhu4uXr
+         +MXZykA+d3xvYdmz4ol0502Y2kEXLaPtZpID3lOum9P3lZIO90Ao8/u6N4VkVmHOTDxo
+         PxOHj0sApVYGmIyKo0ddJFFRkf7m+Ko61sWv44t0ZbRBC7fZowC2zjW9B9/8ig7h9QIZ
+         RZFmyvKPgYNXbtA4Sa2SKW6o7XTGxgVwEY2gr2DNxFAGK4MtDgzDpk7kqxUASdeDBDx9
+         OvmQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790963869; x=1791568669;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=YRmfniRYY3gDZtpbulPtdSLopqAgCcIdSXqyEPuAkSA=;
+        b=VjsWeCUhLAuySzmOZy6fWlmq+AdbnqHBjuhh2fVeZroK4Q1A2GfTPs/Vz2PYXJBtSz
+         If2v035Yrlow9lf/nyXxIWkChWYPWQbAnvPr1VexB/DwtegPQIUrb5XRGxbBU4qccQzW
+         /dHi2O4m9tS4IE0OeXpb2Va491gcKjZoQPJD+DAKvzh3okchYtUNCX85ZKwDysSOCP9V
+         B6cVH2xWf12di2X0/8pcoPVogXXfwAX2ukFKboZ6zLBU63WW2B965sVfHoGzKkyD9Qok
+         +bYLfHU/NJb/7PAfWu/vmcHbN9MsvyE1z7tPzW0N1bTYVLpXIcQMlJ3rh2DReIzf708o
+         EGmg==
+X-Forwarded-Encrypted: i=1; AKwUvBziEsufH+eivKy68jXXBnUDnSyD+fc/f1wF37Zt5czbHOBHGNJeMnxeOpM0R73gSlDD1o9smzTH2aTg@vger.kernel.org
+X-Gm-Message-State: AFuF++nUDbr3Fn1CPTDF1CI7pjCrC4O0z4ywNOz0ww9HRbtosBqaxqVf
+	2mXYji6z0ulR0WbmHcshdsa+2OoClqwysr1+zY7wFS16MPK2aYpI539Fc8rVaki2Kwnq5u95isN
+	qmmTB3Ug7hzdPQQLvp4Gr5SgHUzkxx5oFh0ULEouXxAC+NUxMzEQH4J80q6a10mc=
+X-Gm-Gg: AYBFou0EcEdIhpsvYsJ866rSDF5dOdaapE2AVxcyfliSXljpyGfLEfRDTMYbcSQglkl
+	dVMpQXcuJgWGiD/YYwjYMJxAhnwbqqdygdRsUiY506GAHbQB9TckaNrkmxthdczULAAMLKo8osZ
+	gGdIGokjyG0uPnGB5L1t+9EVkZQ9opOCuC4QS+Hmtkq9qldApdOChrYz4GmUToQ41gTYyRp3+Hj
+	HexiZ6MtDf6dJm3QTnNNbt+5flA6npLJq9itRFdVl6tXZJx7tum7lMyIJvF/iAAbyr69mRm6Zp9
+	zhEo5Vk2gyBphZXkejLbMOIcYQLvGl04oOB0q56HNP9AO3ujF+7extLgOugwR0FQbs6QWnfKwA=
+	=
+X-Received: by 2002:ac8:5750:0:b0:532:8063:4ccc with SMTP id d75a77b69052e-533831271a9mr130025981cf.3.1790963869145;
+        Fri, 02 Oct 2026 10:57:49 -0700 (PDT)
+X-Received: by 2002:ac8:5750:0:b0:532:8063:4ccc with SMTP id d75a77b69052e-533831271a9mr130025521cf.3.1790963868585;
+        Fri, 02 Oct 2026 10:57:48 -0700 (PDT)
+Received: from redhat.com ([2600:382:7723:4eba:66b1:961f:1a2d:af55])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53398bdd010sm33168861cf.19.2026.10.02.10.57.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 10:57:47 -0700 (PDT)
+Date: Fri, 2 Oct 2026 13:57:45 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: Junhui Liu <junhui.liu@pigmoral.tech>, Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Michael Walle <mwalle@kernel.org>, Alex Elder <elder@riscstar.com>,
-	Daniel Thompson <daniel@riscstar.com>,
-	Sushrut Shree Trivedi <sushrut.trivedi@oss.qualcomm.com>,
-	linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-gpio@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>
-Subject: Re: [PATCH v5 0/5] PCI/pwrctrl: tc9563: Introduce support for
- embedded GPIO controller
-Message-ID: <20261002175405.GA189401@bhelgaas>
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Yixun Lan <dlan@kernel.org>, linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org
+Subject: Re: [PATCH v2 2/2] riscv: dts: anlogic: drop unused DR1V90 external
+ clocks
+Message-ID: <ar_wmUWEXgIzq1XM@redhat.com>
+References: <20261003-dr1v90-cru-dt-fix-v2-0-6e7d96612ac0@pigmoral.tech>
+ <20261003-dr1v90-cru-dt-fix-v2-2-6e7d96612ac0@pigmoral.tech>
+ <20261002-crimson-unwrapped-b067e86de38c@spud>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -61,63 +106,34 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260923204350.GA1939701@bhelgaas>
+In-Reply-To: <20261002-crimson-unwrapped-b067e86de38c@spud>
+User-Agent: Mutt/2.4.2 (2026-08-30)
 
-[cc->to: Bjorn A for arm64 DTS, Linus, Bart for immutable branch question]
-
-On Wed, Sep 23, 2026 at 03:43:50PM -0500, Bjorn Helgaas wrote:
-> On Wed, Sep 09, 2026 at 04:55:52PM +0200, Lorenzo Bianconi wrote:
-> > The TC9563 embeds a GPIO controller currently used for per-port reset
-> > signals.
-> > Add a driver for the GPIO controller embedded in the Toshiba TC9563 PCIe
-> > switch providing 37 GPIO lines. The controller is registered as an auxiliary
-> > device by the TC9563 power controller driver and accessed through the same
-> > i2c device.
-> > Please note this series is based on pwrctrl upstream branch.
-> ...
-
-> > ---
-> > Alex Elder (1):
-> >       gpio: tc9563: Add support for the embedded GPIO controller
+On Fri, Oct 02, 2026 at 05:33:24PM +0100, Conor Dooley wrote:
+> On Sat, Oct 03, 2026 at 12:28:40AM +0800, Junhui Liu wrote:
+> > The external CAN and watchdog clock inputs are not routed on the MLKPAI
+> > FS01, the only board currently supported. Drop the two fixed-clock
+> > placeholders from the common dtsi, as fixed clocks require a valid
+> > clock-frequency property.
 > > 
-> > Lorenzo Bianconi (4):
-> >       dt-bindings: PCI: toshiba,tc9563: Document embedded GPIO controller
-> >       PCI/pwrctrl: tc9563: Add GPIO auxiliary device support
-> >       PCI/pwrctrl: tc9563: Switch per-port reset to GPIO descriptor API
-> >       arm64: dts: qcom: qcs6490-rb3gen2: Enable TC9563 embedded GPIO controller
+> > Both clock muxes select their internal parent clocks after reset, so
+> > the CRU operates correctly without the external inputs. Keep only the
+> > required oscillator input to the CRU.
 > > 
-> >  .../devicetree/bindings/pci/toshiba,tc9563.yaml    |  14 +-
-> >  arch/arm64/boot/dts/qcom/qcs6490-rb3gen2.dts       |   7 +-
-> >  drivers/gpio/Kconfig                               |  11 ++
-> >  drivers/gpio/Makefile                              |   1 +
-> >  drivers/gpio/gpio-tc9563.c                         |  99 +++++++++++++
-> >  drivers/pci/pwrctrl/Kconfig                        |   1 +
-> >  drivers/pci/pwrctrl/pci-pwrctrl-tc9563.c           | 165 +++++++++++++++++++--
-> >  include/linux/soc/qcom/tc9563.h                    |  19 +++
-> >  8 files changed, 300 insertions(+), 17 deletions(-)
-> > ---
-> > base-commit: 028f86457e822ab9de5b0d6d23efddc1b8b54ae1
-> > change-id: 20260731-pci-tc9563-aux-66a29d438f60
+> > A board using these external clocks should define them in its own
+> > board-level dts and override the clocks and clock-names properties of
+> > the CRU node.
+> > 
+> > Reported-by: Yixun Lan <dlan@kernel.org>
+> > Fixes: 7849521aaac2 ("riscv: dts: anlogic: add clocks and CRU for DR1V90")
+> > Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+> > Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> > Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
 > 
-> Applied on pci/pwrctrl for v7.4, thank you!
+> Per the v1, Brian said he would rebase the clock tree, so I'll just
+> squash this into the original patch I think.
 
-I had applied the arch/arm64 DTS change:
+It's already rebased, and dropped from the clk-next history.
 
-  arm64: dts: qcom: qcs6490-rb3gen2: Enable TC9563 embedded GPIO controller
+Brian
 
-on pci/pwrctrl, but I think that was a mistake because that should be
-handled by Bjorn Andersson instead.
-
-What I would *like* to do is rework the pci/pwrctrl branch to drop
-patch 5/5 (the arch/arm64 DTS change) and reorder the Alex's new gpio
-driver first so it's not in the middle of the tc9563 DT and driver
-updates:
-
-  gpio: tc9563: Add support for the embedded GPIO controller
-  dt-bindings: PCI: toshiba,tc9563: Document embedded GPIO controller
-  PCI/pwrctrl: tc9563: Add GPIO auxiliary device support
-  PCI/pwrctrl: tc9563: Switch per-port reset to GPIO descriptor API
-
-But I don't want to break anybody who assumed pci/pwrctrl was
-immutable and pulled it in already, e.g., to the GPIO tree.  Would
-this rework break anybody?
