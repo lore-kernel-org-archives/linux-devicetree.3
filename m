@@ -1,138 +1,129 @@
-Received: from mail-pj2-f9.google.com (mail-pj2-f9.google.com [74.125.227.137])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 639B81C5D5E
-	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 03:04:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.137
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790910299; cv=pass; b=rrl4ng7Flc9qD+4nXDH921t3kOVDEu92ZY64nDUnZonZQmhE4rFRf3EZ3tFl3DaUA9UzJmfUb/aTDwwjvBVFwWcZNBCEVOTevGGm6zED7uEUcJcGaVRnrmYViZFthubHAfimulCCdionqMnKKgWRJu1rWGl3vg838GrJTPLsxDs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790910299; c=relaxed/simple;
-	bh=S+vkIWLkZtH1qHq8zaiVAp0v80XL5+eda+lNoFZJXU0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ukWNYSUmXphKWU+e1oAHe1tiafSxZ7DkbhN/e45mV3SMkVNtU1WAUR4hjVJvvC+Zujvj8dzv9FROT94KlxP64Is67wYDgtGjxcohTdwrDXoyzIgCs+jOPH5QebxP4LkvpJl1uobFbGB9DvwPehZo0vCtHnQcDY4K8UoKC2jb99o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fF+ugGIs; arc=pass smtp.client-ip=74.125.227.137
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46A4E1C5D5E;
+	Fri,  2 Oct 2026 03:06:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790910376; cv=none; b=pCAEuQWb+QOWhda2OjZIXbK0r2kYjhSFb/t39UWCQMZktjc5L8uoTlmoR5iDSza7QFt3GL83cf7R5bqGu8/Pn12Q050z6K1Og02UElLQe6d0L8OVpjm+elNUP4rKJQ4Iq7rHUIauICJLR4RzJJk5CmRiPiDOUQzrzJe8Qy47T6Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790910376; c=relaxed/simple;
+	bh=oAwuRKh00IONPA+rvwAu8qtOhpyvxCrtbPvNTzsGGls=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Nfr3Us3WMMPlO1mSlb/ft/kQ01RTKyATee88ApgJeJ3csheekUS1kFT/PHI7kxEBdqyIwEbKGW4Kbp5nI5pyeBGhLR+W9AycR1B419NG+K+pbcqOLUp4KO1gFZ7vuvI+Kh0gh3mkBexAnbkpZPOxCrgJBgv2hRkfdwyc1HPDrpo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QFNBLgcq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fF+ugGIs"
-Received: by mail-pj2-f9.google.com with SMTP id 98e67ed59e1d1-3a4fe110578so988515a91.0
-        for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 20:04:58 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790910298; cv=none;
-        d=google.com; s=arc-20260327;
-        b=HnnxxkQsxp4pjT8vkOYwxWHOSAqRgFNvEi/vUvI6L4b8cz46+IoX1b004AIGKvaOtE
-         s2XIphx3Ain4QJdl7QDmIg3TNkRCsDSaS4obCt6afjZpfru+j+hXc96yGF4wyOYHSUES
-         qpcdjBikymPlwNH6SJZ64rXcLXzt9OCCmVYYGQpODwLOJLCbu0Ex2ZCv2a4hgEhaZETC
-         N4LCxHKil3O2E7Y6Aa8b2O0hlcN8Iy8QPUY7r+N5KZPWv1N0GvbOSWGPJlGx9CqsZblR
-         5GdKbZHUdBbSU1td5sbBHWKV9cPZc78scXoFmK6KLgIQgSwzmejyiuLusV/JiEz+92fE
-         mYpQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=S+vkIWLkZtH1qHq8zaiVAp0v80XL5+eda+lNoFZJXU0=;
-        fh=UM1et6TAvPNg8hUmk+3n2WmWl0/dd18o4PfD8wcc69E=;
-        b=IDxRigwHftWsjPxUnN5RrjExSUWHuiS6oNpZd8/beBpIg9/SBd64b/5BqROI8cWp/v
-         jIACDmmb7Yp+Mfm6DDdyUydqGrqZqj0AYPV1zrpyaaDO5THdb4tIXLZRxzyzBSC8Fnwa
-         iMkdU2w+wUMMgskFBBZexN292Z6xGdGw0Hpttn/Y64KTrPUzaNfAp/uvWTT/mMKQM89S
-         z4govA6Q2ngyNi4wxJ91QZ6b40+Fij2tIW9IRoW8mZYAv7ArJja07syUyvQxOl8S368f
-         9hjLys7PvN6Qf9K90sOsoKCeKqr/k1ZdfSbUGBe9RowfWfMqkpr3zcxtCkaM8s+7DVVf
-         4DeA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790910298; x=1791515098; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=S+vkIWLkZtH1qHq8zaiVAp0v80XL5+eda+lNoFZJXU0=;
-        b=fF+ugGIsqVoAISGueIGHQzsEMEjDQN67RSHVC5LgLMTU561Z3eVP49udVLEnIAH4TB
-         vfyLv+QIqSCuOfpY/xXe08MVU0k7G0OfHEiCuoTf0Flh2tTNCRq3lspQio2Rfzv5VET3
-         gI41UAVTGtBEXH/Gg5SQo665umTEx8ZRyVx0NvwCMpUxcnQ8ItW3qgZvJnVYG7SY5xHy
-         LcMWTUTpRERNXylD8qxRSQxAO2YZ5vcfxko2m9DgmcS7cGR5nE2CHMF4CJfl/tka61cE
-         ONXx0RY3/qaVPe4n+Y4JFTjA9OlnW4r/0r1qZTV3CyPXN9s6LNdvrnWYdqDlejFIWsl8
-         IchA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790910298; x=1791515098;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=S+vkIWLkZtH1qHq8zaiVAp0v80XL5+eda+lNoFZJXU0=;
-        b=wCwf6wmQ6TuTuyV2uYk8+C6oWLWO6gEqeVD+mvX0iqlC93P+stCELisgKckwhdsqzS
-         IeTIUfe8Fo40oUfHaCrPc9H4q8sF+CNTTEGo8xJKEdMvSKFxwVbSmha66QEb3nYC2zJw
-         XdqVRZDhvKUkyjb5sxR6zc7kY/YoXDCiBUf2m8RPZabIgfML5blh3+p3sCS3c16eaqb3
-         +B9pI1c9ggcsKS+Mqb+SHTYaddk0FWpCpGhiOw0afCiT22I/EntxkVeQjw6eWnV1eqM8
-         HPSIDysuVgZ5cfnERiFUEHHDtmFu8wejbKoI+bksY6jGvVhMhQ6IuiU/LLOnqpawzP5d
-         rxWQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxDPIQBwANWXXViw+jphQtfAwSMU/5HdiSc5gNS5YrCodkQAzxDHTjmxFmyQEnutH1HPQyAH6cvfIxa@vger.kernel.org
-X-Gm-Message-State: AFq9FYInBYLRYQvHNGY7JMz29M6eeQbESE9mmJrxrEHbTCbC4GU4RnMJ
-	ZGkpkOXXl1TrafsuRBwxkAxtXFyX7NIOpeoptP1jbUGjSuSKrpmMRXjsHg/muTLIpcw01ux5k1a
-	2OKNMyr/DiJV/5K7GB1BfJQ2PtWaULvI=
-X-Gm-Gg: AYBFou1j0PVO0pTYscyEjTaEZWITrfuTbexdUKqaG7bbKd3b6rqS2WRyi+2mdWanN91
-	FuBzbrSDiiTERWJxlfH75mBvw2mqtRlLzlK2VMy9tw2BkfYE+DQpvo3nRDcYT5y8wl8tNOddM5M
-	WEIg0fwi5du+IFAtGEmVnL1Ik5sSJTxpWxKl+I7id2h4n+To9bSVCFfjnYkKufR33jtwkGIQTLD
-	zSYe3pZw8q9sxhsZ3ZpxqgO95IoYCaFSUKdLZH1knh+/WOS5Rbu6LJ9aZqzN/oj0W9gQuAMi3RA
-	3Tr0iBoSoQ8MQKiuPdmEPWjTyIz+rQ5FTa2MHa1valmX77T3cjaIrFH8
-X-Received: by 2002:a17:90a:4ca7:b0:3a6:ddca:112b with SMTP id
- 98e67ed59e1d1-3a6ddca11b8mr489962a91.21.1790910297480; Thu, 01 Oct 2026
- 20:04:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QFNBLgcq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8026B1F00893;
+	Fri,  2 Oct 2026 03:06:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790910374;
+	bh=RDka1zA21dVd1416/IcxvzoMzp3YA9EEJUMJC3MFjhg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QFNBLgcq5wKOo9AZs3TZFPld5HYa60SIMUSoUqZ1JYyxwysCTiwsaF46UOZFaioYT
+	 PgGpmCfPOdDnf4cCQDJ/hNprbBsl4j3Vq8YNbBiRRdlrB7cd10ys8ZVJep4C01cgfX
+	 ajJ/sQL2LAMHemGUrKLhYkFQQbHxNgAhGtwPkbXHykDqDHrJPnuoVGNXCdgM79WT0M
+	 YqWpdJphUj5CRVxHn2eJcn55Kt5T4MzPXydBYRQohVg0cx/v1T+dMRrk20/yxCdJj6
+	 szayJ4nfsXJPecZfz3jfgaNX8iAHCN/oKHZmbJSxVvbMlco7hUcCaA5lkaK5xcVrG8
+	 Ag2Ik2p3eu46Q==
+Date: Fri, 2 Oct 2026 03:06:12 +0000
+From: Yixun Lan <dlan@kernel.org>
+To: sashiko-reviews@lists.linux.dev
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org,
+	linux-scsi@vger.kernel.org, robh@kernel.org
+Subject: Re: [PATCH v6 2/2] scsi: ufs: spacemit: k3: Add UFS Host Controller
+ driver
+Message-ID: <20261002030612-GKC51329@kernel.org>
+References: <20260921-08-k3-ufs-support-v6-0-3479768a2299@kernel.org>
+ <20260921-08-k3-ufs-support-v6-2-3479768a2299@kernel.org>
+ <20260921124652.AF2201F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260929075106.74731-1-suwangquanta@gmail.com>
- <20260929075106.74731-2-suwangquanta@gmail.com> <20260930-curious-narwhal-of-calibration-62442d@quoll>
-In-Reply-To: <20260930-curious-narwhal-of-calibration-62442d@quoll>
-From: Su Wang <suwangquanta@gmail.com>
-Date: Fri, 2 Oct 2026 11:04:46 +0800
-X-Gm-Features: AclHuK-KfgGwZ7bu_T0onXf5TVB_lsME61cxwHa_OQd7XBi3kxomvlalflHsano
-Message-ID: <CANoBHH2a_Qu=eMoQ9GFYYn-MVg7zhVZJbiBRP6L+roU2zp3d7g@mail.gmail.com>
-Subject: Re: [PATCH v14 1/2] dt-bindings: arm: aspeed: add Meta Ventura board
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, joel@jms.id.au, 
-	andrew@codeconstruct.com.au, ryan_chen@aspeedtech.com, 
-	billy_tsai@aspeedtech.com, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org, 
-	linux-kernel@vger.kernel.org, patrick@stwcx.xyz, Steward.Shih@quantatw.com, 
-	Martin.Peng@quantatw.com, Fred.Zhang@quantatw.com, p.k.lee@quantatw.com, 
-	"Sue.Wang" <Sue.Wang@quantatw.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260921124652.AF2201F000FF@smtp.kernel.org>
 
->
-> On Tue, Sep 29, 2026 at 03:51:05PM +0800, Sue Wang wrote:
-> > Document the new compatibles used on Meta Ventura.
-> >
-> > Signed-off-by: Sue Wang <suwangquanta@gmail.com>
->
-> Please respect our time. Actually other contributors time as well.
->
-> <form letter>
-> This is a friendly reminder during the review process.
->
-> It looks like you received a tag and forgot to add it.
->
-> If you do not know the process, here is a short explanation:
-> Please add Acked-by/Reviewed-by/Tested-by tags when posting new
-> versions of patchset, under or above your Signed-off-by tag, unless
-> patch changed significantly (e.g. new properties added to the DT
-> bindings). Tag is "received", when provided in a message replied to you
-> on the mailing list. Tools like b4 can help here. However, there's no
-> need to repost patches *only* to add the tags. The upstream maintainer
-> will do that for tags received on the version they apply.
->
-> Please read:
-> https://elixir.bootlin.com/linux/v6.12-rc3/source/Documentation/process/submitting-patches.rst#L577
->
-> If a tag was not added on purpose, please state in the patch changelog
-> or cover letter why and what changed.
-> </form letter>
->
-> Best regards,
-> Krzysztof
->
+Hi ALL,
 
-Thanks for the reminder, I'll add the Acked-by tag back in the next version.
+On 12:46 Mon 21 Sep     , sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> - [Medium] scsi: ufs: spacemit: missing M-PHY TX EQ configuration for lane 1
+> - [Medium] scsi: ufs: spacemit: unchecked return value from quirk configuration
+> --
+> 
+> commit 16f84e82c7f6101530a90dc4cc7509a53d6ac1b4
+> Author: Yixun Lan <dlan@kernel.org>
+> 
+> scsi: ufs: spacemit: k3: Add UFS Host Controller driver
+> 
+> This commit introduces the UFS host controller driver for the SpacemiT K3
+> SoC. It implements the vendor-specific configurations and initialization
+> sequences required to interact with the M-PHY and UniPro hardware.
+> 
+> > diff --git a/drivers/ufs/host/ufs-spacemit.c b/drivers/ufs/host/ufs-spacemit.c
+> > new file mode 100644
+> > index 0000000000000..941506cc5ab68
+> > --- /dev/null
+> > +++ b/drivers/ufs/host/ufs-spacemit.c
+> 
+> [ ... ]
+> 
+> > @@ -211,6 +211,9 @@ static int ufs_spacemit_uniprov1p6_init(struct ufs_hba *hba)
+> > +		/* RX HB8_TIME CAP */
+> > +		{ UIC_ARG_MIB_SEL(0x0092, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(0)), 0x64 },
+> > +		{ UIC_ARG_MIB_SEL(0x0092, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(1)), 0x64 },
+> > +		/* TX EQ 3DB */
+> > +		{ UIC_ARG_MIB_SEL(0x00CD, UIC_ARG_MPHY_TX_GEN_SEL_INDEX(0)),  0x5 },
+> 
+> [Severity: Medium]
+> The TX EQ 3DB attribute is explicitly configured for lane 0, but the
+> corresponding configuration for lane 1 (UIC_ARG_MPHY_TX_GEN_SEL_INDEX(1))
+> is missing in ufs_spacemit_uniprov1p6_init(), unlike other dual-lane
+> attributes in this array.
+> 
+> Can this missing equalization on lane 1 cause signal integrity issues and a
+> high error rate on the second TX lane, potentially degrading performance or
+> causing transmission failures unconditionally during the UniPro initialization
+> sequence when the device operates in 2-lane mode?
+ignore this comment, the configuration will also apply to lane 1
 
-Best regards,
-Su Wang
+> 
+> > +		/* RX garbage cnt = 32 SI */
+> > +		{ UIC_ARG_MIB_SEL(0x00F2, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(0)), 0x9F },
+> > +		{ UIC_ARG_MIB_SEL(0x00F2, UIC_ARG_MPHY_RX_GEN_SEL_INDEX(1)), 0x9F },
+> > +	};
+> 
+> [ ... ]
+> 
+> > @@ -401,6 +401,9 @@ static int ufs_spacemit_apply_dev_quirks(struct ufs_hba *hba)
+> > +	int err;
+> > +
+> > +	if (hba->dev_quirks & UFS_DEVICE_QUIRK_HOST_PA_SAVECONFIGTIME)
+> > +		ufs_spacemit_quirk_host_pa_saveconfigtime(hba);
+> 
+> [Severity: Medium]
+> The return value of ufs_spacemit_quirk_host_pa_saveconfigtime() is neither
+> assigned nor checked in ufs_spacemit_apply_dev_quirks(), ignoring potential
+> DME access errors.
+> 
+I will add a check and abort if it fails
+
+> If the PA_SaveConfigTime quirk configuration fails, could the error be
+> silently ignored, causing the device to operate with an invalid timing
+> configuration and leading to link instability or failure when a device
+> requiring UFS_DEVICE_QUIRK_HOST_PA_SAVECONFIGTIME is initialized?
+> 
+> > +
+> > +	if (hba->dev_info.wmanufacturerid == UFS_VENDOR_WDC)
+> > +		hba->dev_quirks |= UFS_DEVICE_QUIRK_HOST_PA_TACTIVATE;
+> 
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/20260921-08-k3-ufs-support-v6-0-3479768a2299@kernel.org?part=2
+
+-- 
+Yixun Lan (dlan)
