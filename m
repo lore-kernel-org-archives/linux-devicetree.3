@@ -1,68 +1,69 @@
 Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 702A8495AF0
-	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 13:32:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81D2B4A68B8
+	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 13:32:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790947939; cv=none; b=bnLXPaRkekJw1pMCVNea9NcrEolzoXLT76/hUBvhgQWC4dmj/WCSH9/+z0/DaLhhJepIfchIeHq5yONw2v1E3FyvgtYpayozIQFbAa+Sfz5iwVWuWkzSFazshkt3uU3AqufNymCoq2seoVGvVpQ8kp3KtNiX5vNYXwlqSzfpyXU=
+	t=1790947941; cv=none; b=qK/Az4zqEVrIco2mJYymjn436eKcIxjLTVj0Ohz5VPCSmZN4Ou3F8IpsG/MGwxNDgkCUlRyDVsgZraSH57/u7fq4SeuHCIAIlp46Zqf7GEssHi3FOoKvebGy2t2dE1ahTCptQqZT9uKf9qaGKz5TT69jnoSodnx4fFt1x0kI+ZM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790947939; c=relaxed/simple;
-	bh=yI1sJ8u7HcWbY3EwhSNFIbq0rewYn6Kj2tCz78IACdw=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=rKk8yo1IQgM+2X7NGSNjSMScjzLFs5NOeovF8YVkq+nd8IA5lacFheSYC6FManz9ekR/RrkRtKgzFnrorjSq+xf3wgut5rQWmO00rtdKYRY7yKXW6EMDu5pj1uEVSYjCfO4GvigvHlv0RQbSKjLEyYIttgoIacH1ZIV65H94sHo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P3ef5zNc; arc=none smtp.client-ip=74.125.225.98
+	s=arc-20240116; t=1790947941; c=relaxed/simple;
+	bh=jGF7Uptp7PeUJv+mf2mKrbCqxmD4rFQSTNs6N/+yV6Y=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=ZvcE7kjmsJNLYT0fuN2ldm7ImVTSukFhf5I0W9ju8hn1eNvjpI9kdfZbPCJt+RFcynuh2qIXymEEd1viTAsxOHXqXHX7ooxI6lsaN4vuBfSuNX9JUCyeU6Y2cyZDgDFBwTz2Z4OLnxb2GG3WjfSkD++EQDONpnOFUs8n70Umurs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MmAWabdp; arc=none smtp.client-ip=74.125.225.98
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P3ef5zNc"
-Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48b017a3be3so2529307f8f.2
-        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 06:32:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MmAWabdp"
+Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48afe3b2383so2430873f8f.1
+        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 06:32:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790947937; x=1791552737; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=hiRYKmHSzO5SlWk5Pf1admdJHvzaYFkX+u45NJi6WK0=;
-        b=P3ef5zNcyI2VaRuZOFC1B+8ABT+u9XeIwtZlqHV+MpBdiBSo5mwKdIR4lm5FqFOj3T
-         oPTTf4+BLl5xi3DC9ctP1mxDTqTMz81evjwiorF4kbphyhIOTLBOKERqob3j7+iWHQZg
-         cxOJFmc7epzU5yQxCc+I69otPMotJGebxGKyp12t5au9rQETojQoeLAZg47FcbPWJ++y
-         X1CmQO/5mAU+DewZcTaUkSuQX6nEn2NZEMrSOy5PFkDCE4AD1Wo+ezqvRTYQMYVfTAg5
-         cmdTuoSTbZqiuYyVzUGCiGRjuFwkykj4J/WVIPSSqu4kERvQ63jf4E8m3vtUE+ySyKcv
-         0Mrg==
+        d=gmail.com; s=20251104; t=1790947938; x=1791552738; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RQmzTc7JIS98CiZhgyzqtKCnw4uoHREsl6YRZzXnBUw=;
+        b=MmAWabdpaSDcb+sSIfETpYSXfWwl/TOpAhk84RITYLmRGkhmT6aDR6LEfSnL5OAgJf
+         uYU9ZJ/DNc/vf0TCEAltjAVxbDbNj2g+4u9jXKF64iG+brWaD7NqH99N+h2wl+4+DPDO
+         NQk2RRMdqTLNEGnYqOkASO304HszrVOs9VH/P3oq4hbbjR+ELXmyrYdrDPj3B+y1Bjac
+         aIaDcZAbkzSU4oOqm5CGrZq95fSTju+BzR/g/ipI+pay+I+Rlc6z4QR40Xd8TKCwmdtH
+         4+pDuadKvmghKrM5MvQRWXBsGwWTCXWnWPp46G3DA6AaKOaaF6yRbs8rJgpq39BouDVe
+         dpkQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790947937; x=1791552737;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=hiRYKmHSzO5SlWk5Pf1admdJHvzaYFkX+u45NJi6WK0=;
-        b=cSmooPVu2EnW+8rBe29YTVemURiqhjTFY33Pm0FFye2ySBWlDmM6tLAZSTmsrXrtri
-         4b7H9WJ8d6oSiB5HpDlnOTq6jIlt7vIUQADdn1UMABud1Ua8WeMcjEDJYTMxzMkm5mZQ
-         rXk2Bl7DJOGy1539NNBKQ7ANiYUzioPbBLalTaUkObrfDriuNdcOn4qvxS193oVhnHSK
-         Z9E6VQ1a8NHNxCrgljl74xfaPSrU8ZAJXsyOjXKVSJdjcWO74IBx3cvujKFKjY4bSauk
-         Kv9HaWvLX+gBThTsRoN4YDU0mX2S4xvdKZDwegqB+dXUpqr3swwaOkD2NeHLOIwDELsY
-         Ccbw==
-X-Gm-Message-State: AFq9FYJ03quucDMYJ/hlQydmRf35x/lrBT4e24ApLJuxlDqKU05n8wU9
-	yNGaz+uMs2SNpUS2qEXwLP+UAztGewKUvywPOpclW3QF+TIqCQhDVCK/
-X-Gm-Gg: AYBFou1aV4nbQMMZGx+uvamzBTe8dM7hlkLZ3omMfa4AZGUo45YP9BdteNcN/YOeaPN
-	tCrln/RISJ2pMKfrV5V6WOMZ85s8/tqwOZgLWMS+TbgaYxXN/7O/BxZMAsvb5QD3hPO41KwvH2w
-	VvG5iQWmfN3I7NEFbvxcWj8vYtVEAW2i/PT4mRDIDWk1W6bAT3c7nGYVDHq0/n1KIyhNBjL+S76
-	appAUcXNi279oic2FBQOnDhfwQ3FUvNo3+fjC/kQJ4MMCNX0u+ElVyNWbLJZsMm9AodBLOdRh1M
-	cPulpVPrXJlEeD9lGmXSvjdOFUXtBUji0j+kMund0SFjTHOUAz7Mv5WvQtxstk33A9NvnRSvfIY
-	TPeuRAYBiVgR6zD7EtE/O91aRg0B0H6XssHxR6K+ANzVBqFwJuNl7312j+DYCLKx69PNqejFQ0S
-	lahkPr/lGTSi493/nq8TnJA5aotAS/jYwFGmwo+E+TrlWD+zFRAQjcfhYoa+j+w0Exvytys42wK
-	ajwTjqPIr8P6YBXWhiLsiydln0/HpUgq7/bU0dFBywqIedNjqTomeM2GpO0lDCX1p5E7bI24iUH
-	h7+qrerU
-X-Received: by 2002:a05:6000:4308:b0:48a:fdde:5241 with SMTP id ffacd0b85a97d-48b12749eaamr5834965f8f.31.1790947936568;
-        Fri, 02 Oct 2026 06:32:16 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790947938; x=1791552738;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=RQmzTc7JIS98CiZhgyzqtKCnw4uoHREsl6YRZzXnBUw=;
+        b=vY892nOpd8xgmjUqKYVI5No6Br/9eAAO5kHIZHK3jsaVLrdsxkcMvYv2JBVdSZ5EEv
+         2ocW1obqu8SHcAUanNScuq1JPtRQqO/xB7sQjY8HNASqg9DBeI1qWLzfWjA8Wvr9yuMM
+         +v8pql7ympDfmBUeQgj6lKr+RMBdKsAeSrKI7pJzHrx1IRb4h9qui5RI54Xt9rUK30xQ
+         7zd0qehjppoQtK+ZDlpZic89fNw+2V09NfPmleAWurUTBpYfOVW8mSp6BM8CafheZuWL
+         5C0pPWFfEaydrBhdp0q5Uk7UJkvMa4tHXBSSv1vPvItzsP5pHZsRCSsiWSgjxEwiW22s
+         NxkA==
+X-Gm-Message-State: AFuF++kOhGNgJehz4BoD9O8K0Gcgg4O0r1zAoi2Ecj+x+i4Np/K3ELfl
+	HvhMdosB43CbbP/c4xKSrZvAID1pOpqg8rJt/87PmbQ1j/LIKNOUNJty
+X-Gm-Gg: AYBFou17A5nJAdQ1lI/JSbI9aV8fZv9EcxVeSFSJXXVF2kpcEFOdZ7ZpemU9t7Q447s
+	0jz6rePcyEO8387Lx2bbH/lBLe36WkxpZ1bA6dmHWsiWflkMqDLf0VVMcED5taeeWosC46W1yLj
+	t1HkBtwkmjeiIHXBVmmB9M13o7ayMKCNPFRFiP/OZLSwSJIYw//6cHdbnSQhy6Eiql4zHbfiIY8
+	S7ItoYY0VgnexiI+Pj3+grxu3QnxxiMXOqNeJmSJEfzyTkXf2fd7mvr3Od4Qc+obfZUip/F5Zy6
+	pKCqPMpNfpjfTIOjX83WuvKu2svcpl6FBrvXMcpgkgfhIYFBTno3xEunnoi/OFlZOK7y1CLGJXA
+	fZROyH3WqhEFDCCCJkNyxF69jy/Az4lSmWWz5CJnw94i7i3UAdhQeFne4l+9p9g7IWodOm6qXiS
+	u/Tbo22Ue4G7SDi9kCsvntM00AkaCH2KQY+zA+VI2bv9fb6aH8PRsc2NswFBvCda4BLz+PQh7ox
+	sVJye0DRzmU3EkU9gvV+2+lz9I6bVVQn1K7Le0GTxnMjbaNAz1sOffUu0467/VMDcLVv1+pmMjE
+	t1J/tuYc
+X-Received: by 2002:a05:600c:154c:b0:49f:fe88:e7d1 with SMTP id 5b1f17b1804b1-4a02769c438mr56562015e9.15.1790947937422;
+        Fri, 02 Oct 2026 06:32:17 -0700 (PDT)
 Received: from ernest.hoecke-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b382f9bc0sm5809855f8f.41.2026.10.02.06.32.15
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b382f9bc0sm5809855f8f.41.2026.10.02.06.32.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 06:32:16 -0700 (PDT)
+        Fri, 02 Oct 2026 06:32:17 -0700 (PDT)
 From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-Subject: [PATCH 0/2] arm64: dts: freescale: imx8mp-toradex-smarc: Add
- OV5640 overlays
-Date: Fri, 02 Oct 2026 15:31:29 +0200
-Message-Id: <20261002-v1-smarc-imx8mp-cameras-v1-0-a0e89182c625@toradex.com>
+Date: Fri, 02 Oct 2026 15:31:30 +0200
+Subject: [PATCH 1/2] arm64: dts: freescale: imx8mp-toradex-smarc: Add
+ camera connector nexus
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -71,9 +72,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIADGyv2oC/x3MMQqAMAxA0atIZgNtkSJeRRxiGzVDVRIQQby7x
- fEN/z9grMIGQ/OA8iUmx17h2wbSRvvKKLkaggvROxfw8miFNKGUuy8nJiqsZNjPMXaZgsvUQa1
- P5UXu/zxO7/sBEtjHR2kAAAA=
+Message-Id: <20261002-v1-smarc-imx8mp-cameras-v1-1-a0e89182c625@toradex.com>
+References: <20261002-v1-smarc-imx8mp-cameras-v1-0-a0e89182c625@toradex.com>
+In-Reply-To: <20261002-v1-smarc-imx8mp-cameras-v1-0-a0e89182c625@toradex.com>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
  Sascha Hauer <s.hauer@pengutronix.de>, 
@@ -84,35 +85,94 @@ Cc: devicetree@vger.kernel.org, imx@lists.linux.dev,
  Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
 X-Mailer: b4 0.13.0
 
-Add OV5640 camera overlays for the Toradex SMARC iMX8MP SoM and its
-development carrier board.
+From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
 
-This series requires support for the toradex,camera-connector binding:
-https://lore.kernel.org/imx/20261001-verdin-imx8mp-hmp-camera-ready-v2-3-7d1343ecd3ec@toradex.com/#t
+The SMARC Development Board exposes two 24-pin camera connectors with
+reset and power-control signals routed through the SoM GPIO expander.
 
-It also requires the following patch because it relies on the on-carrier
-3v3 regulator:
-https://lore.kernel.org/all/20261002-smarc-imx8mp-display-submit-v1-3-f578c63fb676@toradex.com/
+Describe the connectors as GPIO nexuses and add stable labels for the
+camera buses and CSI receivers, so accessory overlays can use the
+carrier's interfaces without embedding its GPIO routing.
 
 Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
 ---
-Ernest Van Hoecke (2):
-      arm64: dts: freescale: imx8mp-toradex-smarc: Add camera connector nexus
-      arm64: dts: freescale: imx8mp-toradex-smarc: Add OV5640 overlays
+ .../dts/freescale/imx8mp-toradex-smarc-dev.dts     | 26 ++++++++++++++++++++++
+ .../boot/dts/freescale/imx8mp-toradex-smarc.dtsi   | 10 +++++++--
+ 2 files changed, 34 insertions(+), 2 deletions(-)
 
- arch/arm64/boot/dts/freescale/Makefile             | 16 +++++
- .../imx8mp-toradex-smarc-csi0-ov5640-24mhz.dtso    | 15 +++++
- .../imx8mp-toradex-smarc-csi0-ov5640.dtso          | 75 ++++++++++++++++++++++
- .../imx8mp-toradex-smarc-csi1-ov5640-24mhz.dtso    | 15 +++++
- .../imx8mp-toradex-smarc-csi1-ov5640.dtso          | 75 ++++++++++++++++++++++
- .../dts/freescale/imx8mp-toradex-smarc-dev.dts     | 26 ++++++++
- .../boot/dts/freescale/imx8mp-toradex-smarc.dtsi   | 10 ++-
- 7 files changed, 230 insertions(+), 2 deletions(-)
----
-base-commit: a1f0ec0d615b3287faa88cf9b8b8a125e2b6e470
-change-id: 20261002-v1-smarc-imx8mp-cameras-8b664da20da4
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-toradex-smarc-dev.dts b/arch/arm64/boot/dts/freescale/imx8mp-toradex-smarc-dev.dts
+index c28d63293149..e0096388fbfe 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-toradex-smarc-dev.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mp-toradex-smarc-dev.dts
+@@ -13,6 +13,32 @@ / {
+ 		     "toradex,smarc-imx8mp",
+ 		     "fsl,imx8mp";
+ 
++	smarc_csi0: camera-connector-0 {
++		compatible = "toradex,camera-connector";
++		#gpio-cells = <2>;
++		/*
++		 * CAM_0_CON_RST     (pin 11) - SMARC GPIO2 (P110)
++		 * CAM_0_CON_PWRCTRL (pin 24) - SMARC GPIO0 (P108)
++		 */
++		gpio-map = <0 0 &som_gpio_expander 2 GPIO_ACTIVE_HIGH>,
++			   <3 0 &som_gpio_expander 0 GPIO_ACTIVE_HIGH>;
++		gpio-map-mask = <0xffffffff 0x0>;
++		gpio-map-pass-thru = <0x0 0xffffffff>;
++	};
++
++	smarc_csi1: camera-connector-1 {
++		compatible = "toradex,camera-connector";
++		#gpio-cells = <2>;
++		/*
++		 * CAM_1_CON_RST     (pin 11) - SMARC GPIO3 (P111)
++		 * CAM_1_CON_PWRCTRL (pin 24) - SMARC GPIO1 (P109)
++		 */
++		gpio-map = <0 0 &som_gpio_expander 3 GPIO_ACTIVE_HIGH>,
++			   <3 0 &som_gpio_expander 1 GPIO_ACTIVE_HIGH>;
++		gpio-map-mask = <0xffffffff 0x0>;
++		gpio-map-pass-thru = <0x0 0xffffffff>;
++	};
++
+ 	hdmi-connector {
+ 		compatible = "hdmi-connector";
+ 		label = "J64";
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-toradex-smarc.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-toradex-smarc.dtsi
+index eb8b9db7e3cd..e8e718ef7822 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-toradex-smarc.dtsi
++++ b/arch/arm64/boot/dts/freescale/imx8mp-toradex-smarc.dtsi
+@@ -587,7 +587,7 @@ &i2c2 {
+ };
+ 
+ /* SMARC I2C_CAM0 */
+-&i2c3 {
++smarc_csi0_i2c: &i2c3 {
+ 	pinctrl-names = "default", "gpio";
+ 	pinctrl-0 = <&pinctrl_i2c3>;
+ 	pinctrl-1 = <&pinctrl_i2c3_gpio>;
+@@ -616,7 +616,7 @@ eeprom@50 {
+ };
+ 
+ /* SMARC I2C_CAM1 */
+-&i2c5 {
++smarc_csi1_i2c: &i2c5 {
+ 	pinctrl-names = "default", "gpio";
+ 	pinctrl-0 = <&pinctrl_i2c5>;
+ 	pinctrl-1 = <&pinctrl_i2c5_gpio>;
+@@ -655,6 +655,12 @@ fec_phy: ethernet-phy@2 {
+ 	};
+ };
+ 
++/* SMARC CSI1 */
++smarc_csi1_rx: &mipi_csi_0 {};
++
++/* SMARC CSI0 */
++smarc_csi0_rx: &mipi_csi_1 {};
++
+ /* SMARC PCIE_A */
+ &pcie {
+ 	pinctrl-names = "default";
 
-Best regards,
 -- 
-Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+2.43.0
 
