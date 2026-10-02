@@ -1,147 +1,164 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40CAC3431E6
-	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 18:21:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 486DD38C40C
+	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 18:30:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790965274; cv=none; b=fzlhSiMfRTSygShWYzyudT5quy5DAUC3kp0i6UTd0z8w50axKIAEBdC1I6Lb/wC7Jd8e/YtxI1/rF2zY5xYZQ/NKJtIEELvG1DKLkaWCP6Q1+n3OVPmm4couYJSlNOTe5cRYu5x11cwmnP7ndP98n0rnKVm8qQwh0srCXWlNma4=
+	t=1790965826; cv=none; b=g0XwKOQ9ls81BRKVZ+b48KMrm2mC+kkQjGjLdHNzXUyKlrExOajxgV1LkJLeU70tnsnARF88Z663AsDSMbkgWuNbE0in8rE4J0hcPGwuaAx3qVhY7C7dK0cJGsFzjfBbtNKd6qxyyJMC6LKR4srY6ZdNyUse0tT83rTbZNpO2cg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790965274; c=relaxed/simple;
-	bh=7f/S7CoJrGk1q7EYAcbYAyAPHACsfynPJdO3xTOSshk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=CDhATucS75YQQT85shwgATmqb7Kv56TzOrisr1qLQku2BuTxX08ZmB5FfEPoN+fQq0nmIMz8XbZo+9Z0pFWWULQGa1CmMSJD7WEMeBr5hNSH/bfUEViZ23HI7C48g26/5CGiPvXJ93xKk8CPPYueK8VH+y8Y4+J/iHF3oB1ihmA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JafEFYsg; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790965826; c=relaxed/simple;
+	bh=a9DGLc0NeseciOnf2q1+7VtYJ5eoK8nd7Li3zgPWEig=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TxLqImJZKnIMEwW0DQqWkCzjrA0itTvFTqdd4sUzzWwXzaTaMC/Jc2D6RCD7iZz31HwOg7xcUbnYweE70w01iD6FmwdQvPkofvkAMUW8uxUZ3WvNXjZgGwPES4Bs1XMLWJPoqaEewbdYAxdsOMGVJRc9auqabrweBqYUKktYopA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=WLA8PxGt; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=uErQbVp1; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JafEFYsg"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a006d3fe83so833115e9.0
-        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 11:21:12 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="WLA8PxGt";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="uErQbVp1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790965820;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=yHtc6IteGKWmX+tDrjk0Un6qMA2HmnuYgSyxy+UifAQ=;
+	b=WLA8PxGt8D2ZjXp6f1i9b3jxPHDcwG6XkNGwfI5u1+k9/2fg3H9GVU3VdP86Ebb1xIbCKc
+	F4IamSUugE3kIL9bq6Y9qRuZU62KKPFR8hK2JGf189zKCGwBW1zEE3+B1ufpVze077VnnA
+	KezUIeMkFXj6/F0TdLTkp15MxC6IyvA=
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-691-WosWYrIaMvKlVJ7mEr1dkg-1; Fri, 02 Oct 2026 14:30:19 -0400
+X-MC-Unique: WosWYrIaMvKlVJ7mEr1dkg-1
+X-Mimecast-MFC-AGG-ID: WosWYrIaMvKlVJ7mEr1dkg_1790965819
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93cb6391e89so485953385a.1
+        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 11:30:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790965271; x=1791570071; darn=vger.kernel.org;
-        h=content-type:mime-version:references:in-reply-to:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ujd5qi4nwlP9wXVvUg5o3lKTuuQK4FVXJHYGoARDBmU=;
-        b=JafEFYsg9VYEkrOCSs4TXuikoACGuIunIwOahVbd4OMx2gR6e1gHU05/ZXqnwMgWyx
-         1MVIzf6yFnlOkVlhNaRgkmwWHRDld7ykjr++gyztRmppOrB5ZQjsSTvx1lyox6ApUFH7
-         IXDEMSmarJF9S8BdgqFxsWdHqJwoWEtdG4vxFlruUsLv1eGnmGOnIB507o5VvouVe0ik
-         EXMhktMjWVhOwVJ2Iu7ChgBpAh7VG4TtyNz6KVHptlkdf0nkfvM5tcejd7VxQ5luHiG8
-         uHAx3bzqWasrZ0AgpEVbuTY3IG5V7KemCUcCxmDNtknqcdQZxEv6Yecgwo6VrCfHnPvL
-         NN1A==
+        d=redhat.com; s=google; t=1790965819; x=1791570619; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=yHtc6IteGKWmX+tDrjk0Un6qMA2HmnuYgSyxy+UifAQ=;
+        b=uErQbVp1JssUAq9Q+sIEpqdtW1JBFlCjMg5tlozJrYd0AyuEkJ3J6oazf1HqriEiei
+         kLpgC9UC20LTdd/5WHL5kJ9vey2vr949yX3yNACeojgsj4zGIRY+3qYUBopaz9Sad3Nu
+         wH2WPNatg9wEiOwClou2jgTr+OKaCfc0fzMxEs3TwnK7u3iVmPx1dvf3PRxZIyhj/5IL
+         B+oy5Ewh7GYL+XrEftTF+RKG+YeqRHMcCSQHd0/Xo9xe3lROG9lZpQlo6W58Wd3nKTdG
+         OZXI03KCwDmnXIDQIa2LyjoLfQa8TwyiCMrU7XwJRXQHlpVlFpMFjTa5ba9DgK3vOPzi
+         Ukaw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790965271; x=1791570071;
-        h=content-type:mime-version:references:in-reply-to:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Ujd5qi4nwlP9wXVvUg5o3lKTuuQK4FVXJHYGoARDBmU=;
-        b=TohzxfvEr8XvhjBtz6ep92kW3M/mELEw1ZKc2FYqVe7YGtK7jpTDWgzW2NEXwt6fWj
-         Y1eeHYcnbVoxuivZt16Icn/I2kE5qe4+n0/rYPO4I5XFEm/a49eH6GFnRmiAqP4B1O2x
-         zLvnw74lu/bx98GDm6aaQ8SBgeAjuF1xv8DLOSaRLgiGvLJlfUwiQE6KVRpT4WYZZ2ft
-         roxYIXm5vrbn2v6RIpTPBdT0h7CuXlwdSXEsBNm90vijgqKvyNKfp/iSIGCkHweJ1wdH
-         x8YStqY3Toa2fNDaCXQWVkHz8ynZiGuWA1JGdGyRveIU+lRNzpWHhFo6wEN/6XNqBPRn
-         ZLWA==
-X-Forwarded-Encrypted: i=1; AKwUvBzDG/wUusxL9X0XmgmxSoYP3iaZs7BXuwQkBQNcPURLvzuNl/ANj1JyIjZpBkcX7O9QaaYoRKcNzWRM@vger.kernel.org
-X-Gm-Message-State: AFuF++nXDdM6jbQ9DQSZ9TJDQ8eCF8WCkVjyymqt1To4CgK5D9ahurQy
-	rHz5EYOIUhvUPv9PYvc4/mfBc7Y1wFENviwkVhQ0MLkuPNgvLvgrYj+X
-X-Gm-Gg: AYBFou14dWBxXQRwI4+xN12piJWsXExdu77DJZi8pXDHOOu/y4ykXWWsrmDFgCb3JmV
-	wpbovHfI7itN2iBTqd60bZfKkWCSbqo0HkfFz9s9FkHj6O0QoxHk9nvlUXOh7yLUX17qhHnOdux
-	nUEwnGHOxudcFX31rzKhFN3/YHimFOrr+b7Nnm7ltYx+R21eW0MxyrSmFZWgNZQX5vGl8RqywYt
-	AuSziPSgsgQW1jsVtdK8fF9OtQI8WqVmfO2PbjUcvNFnhylSPhz3+2xmsZtDCev3CUjrMySlQFv
-	0Y2hflEY6h+NXbgykOKkyig/Bh5S7SVXLWUBWnZv6ebaiDP8+EgVkU69T0DuDoeKyuAnlWljmG2
-	bR7cwNo2O2uMdq8ZOrfS1pdfHBcfhEwpBG/b3bHx9mnfzz2vlHRUU1G1zbw82Va3IWIrguc2hXR
-	ObGSSA8ZJmIXRj75t6JMoymkO7N9WKXiwetihKnpDdtQ7IjGnGpGCwdPOR38cI7KOL6XIRlI1K6
-	yW2ZNtE4cI=
-X-Received: by 2002:a05:600c:4ca6:b0:49c:ff66:7d88 with SMTP id 5b1f17b1804b1-4a01eb24989mr74619405e9.7.1790965271047;
-        Fri, 02 Oct 2026 11:21:11 -0700 (PDT)
-Received: from strix.localnet ([197.250.100.117])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b38104602sm7546193f8f.26.2026.10.02.11.21.06
+        d=1e100.net; s=20260707; t=1790965819; x=1791570619;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yHtc6IteGKWmX+tDrjk0Un6qMA2HmnuYgSyxy+UifAQ=;
+        b=BS7mJhariL3qKZ3sDP+b8dw4A7zXXnejcBcL3ojBd5G7IRSJYMjN21lDow2lZrSnlr
+         tnksUlEwMISJcFPOLLqUGqi0KTYFhEaLE1pTtlPrxqR3nUXAHW5FWVn0s/viPrK6HWcJ
+         EKtFElY5oaTXlJZNuguROtpnbKkBLd7IUvOaq32o5fwvrPxILMlDdgI0cqDO4muF3S/U
+         Ewk+9OgfzxOwmW18F7yauMYZA4E7fS8YAPvPU2npAOGlATij8WJgS+H0djR71n2O6pyY
+         q/iO12pYpRBk6Bh9sZcDivN0Blk3uKdfOgffxIXcakDinG1bEPIS885XbTBuK9Sdx4m2
+         MQIw==
+X-Forwarded-Encrypted: i=1; AKwUvByPxV+qmmrEOlXO7qgofz+j85R0p9iN9g9sw2VxCqoBIT0HKf55BgjY8B8DxfBbCOFbigP6PLqB4XSr@vger.kernel.org
+X-Gm-Message-State: AFuF++ka+c2mL6JlZQeeoSGmazG70Xunv8wrAcBgitSsM8RC6Z5hLl7D
+	z2GSE3tDaI8ym64vQnuQMU7V/9XdgbOK8LW68L2PJLxmW11t6siDr3s2qjVLVuKuZaEwaIvGUVR
+	J6t6oABlb1xsGLT6oBkJUrbep21iJI1ijHIwYk2OQArvyMb6j9H9LsN+gT1erUSw=
+X-Gm-Gg: AYBFou2PAOp8LD/KsS0TbCY02ta16vq3anTJt2Ur3sBUxH23WbO/8nldfXsOxBuXrCe
+	g+CpoI2PmLKIlMugiJ1afcEVDaI1rUkOeSv8KB+y2VmYz8xmLZT1alj0V1uUehosjwzqCrwX+6c
+	PYiIZrHFV4s1u1j+G9bRJyuf8/ACuG1usHz3lEgu+4An7OqqNpFPUeF9DJyFQmjlz3eHmMPTGTj
+	hfC65hjVVggmDz+5Z6gTX44IIoYhKR3ZhhscwHaf1g63nVroimDnegKXhmnt8M7eqNE/sT6szB5
+	+eXU7ZHWSYoydVJBrNkl5laOtjimxG20WiLKK/YNH+Zi7udUllhQcDd0GePc7c+XiS54Acfq7Q=
+	=
+X-Received: by 2002:a05:620a:31a3:b0:930:9091:f0ce with SMTP id af79cd13be357-93cf16b3b8bmr674434485a.22.1790965818236;
+        Fri, 02 Oct 2026 11:30:18 -0700 (PDT)
+X-Received: by 2002:a05:620a:31a3:b0:930:9091:f0ce with SMTP id af79cd13be357-93cf16b3b8bmr674421085a.22.1790965817184;
+        Fri, 02 Oct 2026 11:30:17 -0700 (PDT)
+Received: from redhat.com ([2600:382:7723:4eba:66b1:961f:1a2d:af55])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93cca0395dbsm285252285a.5.2026.10.02.11.30.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 11:21:10 -0700 (PDT)
-From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
-To: Brian Masney <bmasney@redhat.com>
-Cc: linux-clk@vger.kernel.org, Brian Masney <bmasney+clk@redhat.com>,
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- Jerome Brunet <jbrunet+clk@baylibre.com>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-phy@lists.infradead.org, Manivannan Sadhasivam <mani@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Philipp Zabel <p.zabel@pengutronix.de>, Rob Herring <robh@kernel.org>,
- Stephen Boyd <sboyd@kernel.org>, Vinod Koul <vkoul@kernel.org>,
- mturquette@baylibre.com
-Subject: Re: [GIT PULL] clk: zte: zx297520v3 clock bindings and driver (v2)
-Date: Fri, 02 Oct 2026 21:20:59 +0300
-Message-ID: <ZjjQUfHaR8iccs1M_cLsRA@gmail.com>
-In-Reply-To: <ar_Jt4eIPy1-uq1-@redhat.com>
-References: <hUBEMGo3TGyVsIj5LaphmQ@gmail.com> <ar_Jt4eIPy1-uq1-@redhat.com>
+        Fri, 02 Oct 2026 11:30:15 -0700 (PDT)
+Date: Fri, 2 Oct 2026 14:30:12 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: Changhuang Liang <changhuang.liang@starfivetech.com>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Emil Renner Berthing <kernel@esmil.dk>, Kees Cook <kees@kernel.org>,
+	"Gustavo A . R . Silva" <gustavoars@kernel.org>,
+	Richard Cochran <richardcochran@gmail.com>,
+	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+	linux-hardening@vger.kernel.org, netdev@vger.kernel.org,
+	Hal Feng <hal.feng@starfivetech.com>
+Subject: Re: [PATCH v5 00/23] Add basic clocks and resets for JHB100 SoC
+Message-ID: <ar_4NBLHrq2W7_vc@redhat.com>
+References: <20260930124317.5648-1-changhuang.liang@starfivetech.com>
+ <20260930-grafting-undertake-ff3e01060284@spud>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="nextPartH9UaHpHZRbKrBREmICrngA";
- micalg="pgp-sha256"; protocol="application/pgp-signature"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260930-grafting-undertake-ff3e01060284@spud>
+User-Agent: Mutt/2.4.2 (2026-08-30)
 
---nextPartH9UaHpHZRbKrBREmICrngA
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
-From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
-To: Brian Masney <bmasney@redhat.com>
-Subject: Re: [GIT PULL] clk: zte: zx297520v3 clock bindings and driver (v2)
-Date: Fri, 02 Oct 2026 21:20:59 +0300
-Message-ID: <ZjjQUfHaR8iccs1M_cLsRA@gmail.com>
-In-Reply-To: <ar_Jt4eIPy1-uq1-@redhat.com>
-References: <hUBEMGo3TGyVsIj5LaphmQ@gmail.com> <ar_Jt4eIPy1-uq1-@redhat.com>
-MIME-Version: 1.0
+Hi Conor,
 
-Hi Brian,
-
-Am Freitag, 2. Oktober 2026, 18:11:51 Ostafrikanische Zeit schrieb Brian 
-Masney:
-
-> The commits in the pull have the changelog in the commit message. For
-> example:
+On Wed, Sep 30, 2026 at 11:43:22PM +0100, Conor Dooley wrote:
+> FYI clock folks,
 > 
-> https://gitlab.com/stefandoesinger/zx297520-kernel/-/commit/75e4151c9e157d84
-> c8c6c365893ecf33d221bca5
+> On Wed, Sep 30, 2026 at 05:42:54AM -0700, Changhuang Liang wrote:
+> > The JHB100 SoC includes CRG (Clock and Reset Generator) for multiple
+> > subsystems:
+> > 
+> > The JHB100 SoC is divided into multiple subsystems, and basically
+> > each subsystem includes a CRG(Clock and Reset Generator):
+> >  - sys0crg/sys1crg/sys2crg/
+> >  - per0crg/per1crg/per2crg/per3crg/
+> >  - voutcrg
+> >  - vcecrg
+> >  - gpu0crg/gpu1crg
+> >  - cpucrg
+> >  - usbcrg
+> >  - host0crg/host1crg
+> >  - pcierpcrg
+> >  - husb0crg/husb1crg
+> >  - husbcmncrg
+> >  - husbd0crg/husbd1crg
+> >  - npucrg
+> > 
+> > In the current series, we will only add the following CRG:
+> >  - sys0crg/sys1crg/sys2crg/
+> >  - per0crg/per1crg/per2crg/per3crg/
+> > 
+> > The remaining CRG will be implemented in future series.
+> > 
+> > This series depends on the series:
+> > https://lore.kernel.org/all/20260806122553.182449-1-changhuang.liang@starfivetech.com/
+> > and it has been tested on the StarFive JHB100 EVB-1.
+> 
+> If this revision of the series is acceptable, I'd (although I'm not a
+> listed driver maintainer) like to send you a PR as I've done in the past
+> for Starfive stuff so that I can get some of these binding patches that
+> contain headers as part of a shared tag to be able to unblock a bunch of
+> the soc tree stuff. With conferences next week I understand that, with it
+> being -rc5, it's probably this doesn't make v7.4 but I figured it was
+> worth getting my intentions out there!
 
-Doh, right, a merge doesn't strip them like a git-am does. I'll keep that in 
-mind for the next pull request.
+I am going through this series now, and I have a few minor changes to
+the clk drivers themselves.
 
-> I went to the last series and cherry picked the relevant commits.
+Feel free to send a pull for the bindings and headers though.
 
-Thanks, that works for me. And yes, they were identical.
-
-Cheers,
-Stefan
-
---nextPartH9UaHpHZRbKrBREmICrngA
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
-
------BEGIN PGP SIGNATURE-----
-
-iQJPBAABCAA5FiEEQxb0tqoFWyeVMl1sPRO8yFRPGiIFAmq/9gsbFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJED0TvMhUTxoiISQQAJDoXziAeaDE07B/kRlD
-TMRWOtATrwrG5lKmW7BtzBnVA5nz2up4jWpVJvyqkT07v38KHnFde0WG8OQDH1sV
-/SilvR3Qd/kMoUUB9Ah1H70ka9PvTfewBn3GpOn7jOo4QPOaGgM1NI5QUuha8jpU
-fzEtqAk97Doyl2ZEoGMkiMKygEnUu6IC/wUFjSf6n+apZbf+M3YA0zhvpVXRqsat
-B2i+mBafNrqQNQBKzui5FZovbxChN86hnb23j8shDGTV3QGusiNB7F60Pz7rRXcY
-1K7MMEjVdJj3pMyLgsmyOubtl3pFP3Gii1EioKU2FKSRTE311xXXBX2GHOEj4zUn
-ja5Xb4TVYIJoolB7kEpU0B/k6KllVo5QS+3LAeV8oPZoVzzND9qZoANuS5vv+4Y9
-FJ7OGYUDAN+fCxPma50hscRsAyxAmvMjjykL3pZu8aL7jhKjpzZKsBs/KBxZOCqg
-lNjrVcwhq9NGMyxnxPXCsiNEbcrhZo9IjVwADpTpLmdUczHYNhp7wLkyg94HFbaY
-3ertTJlEYbbYADBf9UnwvY0TBdH2H9kX/kBfu9Ko6CRngMt8jBSL0XIwMf3XHKiO
-znmTjBITCE5XsqHPu0XIXey3hHQGIyC33egqIdv7yXjTZy70XHEp95xiLbE3dJ4H
-4W2k/yhZQCNjiKxeiIWywcJH
-=0hJV
------END PGP SIGNATURE-----
-
---nextPartH9UaHpHZRbKrBREmICrngA--
-
-
+Brian
 
