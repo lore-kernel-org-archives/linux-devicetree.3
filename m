@@ -1,68 +1,68 @@
-Received: from mail-wr2-f34.google.com (mail-wr2-f34.google.com [74.125.225.98])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 757754483A6
-	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 08:22:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3B9F3ED5C7
+	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 08:24:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790929359; cv=none; b=HUfgxwfBQlJW0cpgzbNdYkSqF808hH5d+UzBGIuG6ZxEt27vHsuDaP7yAPqPBuyyCelXSDj4o8RruIjLRd4FsDUgDASZ4mcidzWYE9DJbNVVZOE6SQ9S2/NJvxqGJl+Rj+joec6IbJAMbcxCAXIddAleNXBrUYjFDTvqHkvNN3A=
+	t=1790929459; cv=none; b=ItFARMAiUOOK6EgHQaurbuwJ2OerCXE6/1OXFiFrL4JwJ4YvXXpfjr8HoL3EegTa95mkd41v1YglFx1ld8kl0EgTlWsKgP4csFFXb8YiPeKwR60eq81vYXP6sTwXM+le5TgvC8cKPN/4U6hx83Eak9OCXvW/7k2rn1IAKDVP99Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790929359; c=relaxed/simple;
-	bh=uhpArYY+OICqmmGKPczNWZg6Ob6IRiHXPfmlrAbRq5w=;
+	s=arc-20240116; t=1790929459; c=relaxed/simple;
+	bh=YQszq9Jvv9f2bXJPtwC2MFLHqvWz/s9/VlDVouPB1dE=;
 	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=mJUhSLxecO9gHfmhqJXSXaBSJfEx6QVRmQuUSbs+XMj5ZqR04IdWH7yg65NYWJGkouwiT9uzDF+ewdfdhsj3DvzxyeH4590ce8DPMphkfljUorOnbbZ4FcRsr+eoIjVjVw6qXlgy0fwMEqBeWExluOC2Uu+MF5BJsLBDs0n7zQ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=FEzE+j3P; arc=none smtp.client-ip=74.125.225.98
+	 In-Reply-To:Content-Type; b=Vs3Hm5RQA++Q2bSPY1vyx/yvLBtUfrdt/i953r0WJ6GlBHggMJOjzJfp7sLWJBFNOIETZ8Hd3V/0V/+NeULL9Lz+welWoCYxGu+h2d0fxTypEwiqiHqw4H+QXej0Livdr3+iGFkfMN1CwNWvCQ+1UTveaRKhxSSCfZfy9Qj5kC0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=KncHu12I; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="FEzE+j3P"
-Received: by mail-wr2-f34.google.com with SMTP id ffacd0b85a97d-48b01c4f4daso2085161f8f.1
-        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 01:22:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="KncHu12I"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e79a408deso46203395e9.2
+        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 01:24:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790929354; x=1791534154; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1790929455; x=1791534255; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:organization
          :autocrypt:content-language:references:cc:to:subject:reply-to:from
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=oXhQxjCZPJkDL/0F5UFiLvNFCGp+omiCYVv4WP26NK8=;
-        b=FEzE+j3PmddHzuUTsmIbmnkCgoQg7g1V+mHcpXZ1WAVtQeXKZ6NxoZ2MYAH85x6yuE
-         XxRuvR30T8x8RBz9foPYXWW/zgakVxqR98gFqbGMfGo8Z9yp4WO2MEH7Zn2ibLhnAPva
-         p3xjiPD7PDbcfo0u6Dw4cHthFU46p26ZWbqodmqemcdDiOKYCFTm6nbYnXx7AeLdYS1k
-         f2RSu9l9Nir2g0QX2WoX89jYLmsBZRvrwa12anYFTD7a/HR0Nx2yDtx3TzmaOC3Bz40y
-         Fop2DyG6EGYuGAflUncLlB7TuOIA/Gw4wCd2I7QM6VKvMcANSy/O8XNZvwu3u1AGTfVH
-         8E1w==
+        bh=RoKrNdlWy9juYVasaEtNVnqjN6ihunEAqFoJ9i8t7V8=;
+        b=KncHu12IJmCMDfWGuIEdfJncmOJj2skHgph6WTHHU7luvpf5zlAe/WVnulcq8x2Ol2
+         +J0NSQLJCw2GdDKQidbRWGlwqll0ie5aNPOfZiBfKNBfgmc7p1TqfhMtlfA+LeD87Av4
+         dQOmnL490ueFliRfOmEm0ln93QWAypNzmVGDb7G5puffc6Ojz3Gp4412UGIdX5hjO2hg
+         QZ6hDJD/xi6I9pTHu0FoAPX52an64vAZqKOAq2745Lx9zwXSL82b2UXq/7pN0IoBMtKi
+         M/vpexyPjWk/40DdPhe7MIHrw4eg7GgU/49B8hDJM0MSp9sLUG7CUgSAFjgckxXYmjl6
+         5Kkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790929354; x=1791534154;
+        d=1e100.net; s=20260707; t=1790929455; x=1791534255;
         h=content-transfer-encoding:content-type:in-reply-to:organization
          :autocrypt:content-language:references:cc:to:subject:reply-to:from
          :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oXhQxjCZPJkDL/0F5UFiLvNFCGp+omiCYVv4WP26NK8=;
-        b=PO9ortj6JBQRwywCReO9lkSzyJyWCZjMpGBWz91l7KGiKFUYVXRyHoiLRpPy6+b9Vf
-         Wr9IHO9prVV0Fx8wDef2dTW6eNuh8cmskFNHx3LMaMoNm7OZupmBMI+3Zaul9LRcsaSz
-         LQFXx0PCbG8cL+q0+7sxjT2oDHI/FnXj+u8mC+lWnYFAIfs7AUail25MYux3zWYm467z
-         uVMNXQGakqk8fSewJGnxIhFplubpNYR3ojzpy5ORtKdDbnai/fzwU9BFixz6Qg2P1HET
-         uydT4tZ4mHwknBcV1iR1PmMxCKmqCZAtVfmXd+1Swml52kt/RBhHgKcKpyEnSKrVm+o5
-         aCZQ==
-X-Forwarded-Encrypted: i=1; AKwUvBypEy4yJ3VWzve/9IOvyapJ1d9D4p7Xoppi0YqpP4bc/18StZoGZgB3MtnaIL4puxDumtoIy+8ebT7K@vger.kernel.org
-X-Gm-Message-State: AFuF++ni5USEGX1AybPDxZEkVeAhiz33XEgUu4A09dclHMumkUp5qK1U
-	4D+Wk9deO7oBAEj6HbCz+0vbdjVIzmbkXUqPa2dHU9JX+b4i7eJ+4G6ZmCm0FY1A9eQ=
-X-Gm-Gg: AYBFou3MSn6+dzAguylC924fqzwdlxEVPhXUPhfrbV87kD89wXnvuYy2rox9IgT21G9
-	/tM32S13HVnwsn1l1blVRvSSQjPoOCkIX/RlrNNJFTMBqbkFooxfSWAkxh7HJnwOjrKR9q5lsBU
-	4k0lsiBT7yToTNO4Mc1Z2XKjjo0l7e3ufyi/QhQy/wqd82t0OTWRVY3GC6e8Ze9F2LsRVl7MVAN
-	smweqC34wN5BPtnR5RvTDU1szH3jAvvDhdybPMjY8HsJvz/lZRl90QrH9Kqp/cPqWK7LBhVAYHh
-	bhRs1LPLWOkq2+I+q8Gi2HGAywMo2YbkB4wUoOJOFWF1x+xqsZ9YjwycYksSTGoDDh/H2/fuBXs
-	DO6bLKCi9M/GWuBSpyRT+oQI/jVjDer08s0H6fjDrhinxcu6e0Purqg7Onhi+cfBnn/0hjA+gTR
-	HYW5Gc7NOH6WDYIh7LXnpuQ3YHfFwFAAxLj9H5/r095DNzywkP1NHMPnYjQX+Ck2TP98KLU2VB/
-	TBqhzL1TCfsZ8iV8cg7Ff+EXRmyq3gw6n03AdMN8jqbch0tKz/shQ==
-X-Received: by 2002:a05:600c:37cd:b0:49d:1840:4fd2 with SMTP id 5b1f17b1804b1-4a0275a1d84mr37767835e9.23.1790929353841;
-        Fri, 02 Oct 2026 01:22:33 -0700 (PDT)
+        bh=RoKrNdlWy9juYVasaEtNVnqjN6ihunEAqFoJ9i8t7V8=;
+        b=gTgKkUjYnPcU+7oAb/u6n3ViAFp5rcTok1NMTPgzZDlUTJ/+p5SZSTg9xa2JpsyCqK
+         RhGB6RGRWC2HsKyXjBlspPmQ/O+6wiGDLWMxk+sSnljneIRF4Dclc9HX7xQOdMgJj2WR
+         lVCh18IVFEXZlPSTK9Gul4pfaBLnKUUHu12725sz5EsQnnDUoRFInbra7l/jTtX1IYSf
+         xBVWBVhWq2M8qvY+CuGp4g7SWtMWrFoTJwWlc1j7QMwmlwyH4AvdqF1dthYS8DYpAjca
+         lDRRHrmB/GRUbGyDYHyjdHGFuUuEOEBtntqqmN46oThOO55TDs3+1x9Op8YeBDFV9lSu
+         HJCQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzHInJqTxxEVb9kgRixDveMYjdq0gYZIsuI3ES/uJVfxFrXLAPrqRI+BSeDGFNA3yNIIwwlbE6eLUBv@vger.kernel.org
+X-Gm-Message-State: AFuF++nsuc2h/DX2vtZDzfSCfOP8HScSM4sr/5eAqt2JNKHnJmY1GqEB
+	L2F2+KCzMc0fB0yFiPBdOS+XWcS9cuLHxNhJYU/6BbGxy3W4RjFlOE+gZI56hZSCInw=
+X-Gm-Gg: AYBFou1rovwxFD5AE/xOJQB4fOEFqWh9TkMFpL0eaLAcr61gegDPNAtBfTfZrzS6ggG
+	MgOY5jIe+XdXNTeLPdPzP35dJR0YkuQCo9HZKmTQ0HMeoYOBCMywzsGvCJr1T929zzAWHZQyBsy
+	0zdjLNLEAOiMuY90pO9W1lhZm5KCpWrWQ8VY4LkTAx98MLKNkfNY2XQRCzVqsoJcMsgkBQoOvwl
+	Wq7MUCiK2MoKCNmrUvL74s2JUi+T15cCBMnMg/fhUq2VLuZ9WBVfU+bIPv59L2DAoLRIMGInjPt
+	EUqaCgMxW838l7T0q6dm8utFZi2pktDAvZW4/wol4dFiS0tSPclZTEBRhbRPT1eqaCqKgskVIqY
+	hSCu+McHTRUnU/AAD+uL2cNGpMTVwJasYC5xomItg21lAHv5r9snXartJbClmyN/YdtloPXZ7yZ
+	QX5aqZo0J3dKFMNQtrTc6DtZbKwh6k3X/qsXaXxmdtAWGc7gK4MiO8Hpc/GE140tOhL1JW/hgri
+	Msybkq3Lp3Z905VSvOZRkvBk7vni/ue8vzIdaAaaer4GQl03zR7
+X-Received: by 2002:a05:600c:4e13:b0:49e:7a10:1b71 with SMTP id 5b1f17b1804b1-4a02754304fmr39323625e9.11.1790929454874;
+        Fri, 02 Oct 2026 01:24:14 -0700 (PDT)
 Received: from ?IPV6:2a01:e0a:106d:1080:2f62:6d3:721b:8c9e? ([2a01:e0a:106d:1080:2f62:6d3:721b:8c9e])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a027f2a4c4sm63997895e9.2.2026.10.02.01.22.32
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a030326132sm44946255e9.0.2026.10.02.01.24.13
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 02 Oct 2026 01:22:33 -0700 (PDT)
-Message-ID: <54da53e6-66db-4357-a00d-da27fb936117@linaro.org>
-Date: Fri, 2 Oct 2026 10:22:32 +0200
+        Fri, 02 Oct 2026 01:24:14 -0700 (PDT)
+Message-ID: <91192ea5-d96f-4fd1-98b8-7db4c46dd9b5@linaro.org>
+Date: Fri, 2 Oct 2026 10:24:13 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -72,25 +72,17 @@ MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Neil Armstrong <neil.armstrong@linaro.org>
 Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 1/2] dt-bindings: display: panel: add optional wled-supply
-To: Arpit Saini <arpit.saini@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Jessica Zhang <jesszhan0024@gmail.com>,
+Subject: Re: [PATCH v4 2/2] drm/panel: Add driver for Raydium RM69220 DDIC
+To: Alexander Koskovich <akoskovich@pm.me>,
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org,
- linux-kernel@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- devicetree@vger.kernel.org, rajeevny@qti.qualcomm.com
-References: <20260929-wled-supply-series-v1-0-75d0a83b4b00@oss.qualcomm.com>
- <20260929-wled-supply-series-v1-1-75d0a83b4b00@oss.qualcomm.com>
- <20261001-private-wooden-chachalaca-51aa57@quoll>
- <997cefa0-384c-466f-b318-077939946768@kernel.org>
- <cebrka4ya7u32ntiya42yx4txa3uryf5k2di234zm4enz3a6vy@xhily6qqmevo>
- <1cd249d8-0a26-45e4-8263-dd4a120fc89e@oss.qualcomm.com>
+ Conor Dooley <conor+dt@kernel.org>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261001-asteroids-panel-support-v4-2-fb228194ad91@pm.me>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -117,101 +109,498 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <1cd249d8-0a26-45e4-8263-dd4a120fc89e@oss.qualcomm.com>
+In-Reply-To: <20261001-asteroids-panel-support-v4-2-fb228194ad91@pm.me>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 10/1/26 20:09, Arpit Saini wrote:
+On 10/2/26 03:51, Alexander Koskovich wrote:
+> Add a panel driver for Raydium RM69220 DDIC based displays such as the
+> BOE BF068MWM-TD0 found in the Nothing Phone (3a).
 > 
+> Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
+> ---
+>   MAINTAINERS                                   |   1 +
+>   drivers/gpu/drm/panel/Kconfig                 |  15 +
+>   drivers/gpu/drm/panel/Makefile                |   1 +
+>   drivers/gpu/drm/panel/panel-raydium-rm69220.c | 417 ++++++++++++++++++++++++++
+>   4 files changed, 434 insertions(+)
 > 
-> On 10/1/2026 3:25 PM, Dmitry Baryshkov wrote:
->> On Thu, Oct 01, 2026 at 08:57:52AM +0200, Krzysztof Kozlowski wrote:
->>> On 01/10/2026 08:55, Krzysztof Kozlowski wrote:
->>>> On Tue, Sep 29, 2026 at 06:42:20PM +0530, Arpit Saini wrote:
->>>>> Some boards drive the ILI7807S panel's backlight from an external
->>>>> WLED driver whose enable input is wired to a GPIO, typically modeled
->>>>> as a fixed regulator (e.g. vreg_wled).
->>>>
->>>> You describe something else. What's fixed regulator should not matter
->>>> here. Which pin is it in ILI7807S?
->>>>
->>>> It seems you just want to represent GPIO with a regulator. This is just
->>>> confusing and typical downstream workaround.
->>>
->>> What's more, you basically REVERT the review YOU RECEIVED in v1. Really,
->>> just sneak the same stuff 3 months after like the review never happened.
->>>
->>> NAK
->>
->> After discussing this offline with Krzysztof. It's not a supply (my
->> fault), it's an LCD driver. So, the best way to handle your displaycard
->> seems to add a gpio-backlight, reference it from the panel and then in
->> the driver check for the backlight's max_brightness level. If it's 1,
->> then you have to send extra DCS commands to control PWM. If it's
->> higher, use normal backlight class controls.
->>
-> 
-> Hi Dmitry, Krzysztof
-> 
-> I have a few clarifying questions regarding the proposed approach. Please let me know if I've misunderstood anything.
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 6702142b117d..1e4d309e4792 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -8587,6 +8587,7 @@ DRM DRIVER FOR RAYDIUM RM69220 PANELS
+>   M:	Alexander Koskovich <akoskovich@pm.me>
+>   S:	Maintained
+>   F:	Documentation/devicetree/bindings/display/panel/raydium,rm69220.yaml
+> +F:	drivers/gpu/drm/panel/panel-raydium-rm69220.c
 >   
->    panel_backlight: backlight {
->        compatible = "gpio-backlight";
->        gpios = <&tlmm 91 GPIO_ACTIVE_HIGH>;
->        default-on;
->    };
-> 
-> 1) Adding gpio-backlight and check for max_brightness level if its 1,
-> 
->     If we model LCD_BKLT_EN using gpio-backlight, the backlight device effectively exposes only on/off control (max_brightness = 1),
->     we can't support the full range of brightness i.e 0 to 16383 (0x3FFF)
-> 
-> 2) Adding gpio-backlight and based upon max_brightness level of 1 , are you suggesting to register another
->     backlight device that can actually drive DCS brightness. In that case we can actually have the MIPI DCS controlled brightness
-> 
->     If so, wouldn't that result in two backlight devices associated with the same panel:
-> 
->      gpio-backlight device for enable/disable
->      panel backlight device for DCS brightness control
+>   DRM DRIVER FOR SAMSUNG DB7430 PANELS
+>   M:	Linus Walleij <linusw@kernel.org>
+> diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
+> index 53a1fc2913fe..61c047891f50 100644
+> --- a/drivers/gpu/drm/panel/Kconfig
+> +++ b/drivers/gpu/drm/panel/Kconfig
+> @@ -850,6 +850,21 @@ config DRM_PANEL_RAYDIUM_RM692E5
+>   	  Say Y here if you want to enable support for Raydium RM692E5-based
+>   	  display panels, such as the one found in the Fairphone 5 smartphone.
 >   
->     Is that the expected design?
+> +config DRM_PANEL_RAYDIUM_RM69220
+> +	tristate "Raydium RM69220-based DSI panel"
+> +	depends on OF
+> +	depends on DRM_MIPI_DSI
+> +	depends on BACKLIGHT_CLASS_DEVICE
+> +	select DRM_DISPLAY_DSC_HELPER
+> +	select DRM_DISPLAY_HELPER
+> +	help
+> +	  Say Y here if you want to enable support for Raydium RM69220-based
+> +	  display panels, such as the BOE BF068MWM-TD0 which can be found in
+> +	  the Nothing Phone (3a).
+> +
+> +	  To compile this driver as a module, choose M here: the module
+> +	  will be called panel-raydium-rm69220.
+> +
+>   config DRM_PANEL_RAYDIUM_RM69380
+>   	tristate "Raydium RM69380-based DSI panel"
+>   	depends on GPIOLIB
+> diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
+> index f2c9c80a218f..00c06d956e8b 100644
+> --- a/drivers/gpu/drm/panel/Makefile
+> +++ b/drivers/gpu/drm/panel/Makefile
+> @@ -83,6 +83,7 @@ obj-$(CONFIG_DRM_PANEL_RAYDIUM_RM67191) += panel-raydium-rm67191.o
+>   obj-$(CONFIG_DRM_PANEL_RAYDIUM_RM67200) += panel-raydium-rm67200.o
+>   obj-$(CONFIG_DRM_PANEL_RAYDIUM_RM68200) += panel-raydium-rm68200.o
+>   obj-$(CONFIG_DRM_PANEL_RAYDIUM_RM692E5) += panel-raydium-rm692e5.o
+> +obj-$(CONFIG_DRM_PANEL_RAYDIUM_RM69220) += panel-raydium-rm69220.o
+>   obj-$(CONFIG_DRM_PANEL_RAYDIUM_RM69380) += panel-raydium-rm69380.o
+>   obj-$(CONFIG_DRM_PANEL_RENESAS_R61307) += panel-renesas-r61307.o
+>   obj-$(CONFIG_DRM_PANEL_RENESAS_R63419) += panel-renesas-r63419.o
+> diff --git a/drivers/gpu/drm/panel/panel-raydium-rm69220.c b/drivers/gpu/drm/panel/panel-raydium-rm69220.c
+> new file mode 100644
+> index 000000000000..3030f8b89760
+> --- /dev/null
+> +++ b/drivers/gpu/drm/panel/panel-raydium-rm69220.c
+> @@ -0,0 +1,417 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Generated with linux-mdss-dsi-panel-driver-generator from vendor device tree.
+> + * Copyright (c) 2026 Alexander Koskovich <akoskovich@pm.me>
+> + */
+> +
+> +#include <linux/backlight.h>
+> +#include <linux/delay.h>
+> +#include <linux/device-id/of.h>
+> +#include <linux/gpio/consumer.h>
+> +#include <linux/module.h>
+> +#include <linux/regulator/consumer.h>
+> +
+> +#include <video/mipi_display.h>
+> +
+> +#include <drm/display/drm_dsc.h>
+> +#include <drm/display/drm_dsc_helper.h>
+> +#include <drm/drm_mipi_dsi.h>
+> +#include <drm/drm_modes.h>
+> +#include <drm/drm_panel.h>
+> +#include <drm/drm_probe_helper.h>
+> +
+> +struct raydium_rm69220 {
+> +	struct drm_panel panel;
+> +	struct mipi_dsi_device *dsi;
+> +	struct drm_dsc_config dsc;
+> +	struct regulator_bulk_data *supplies;
+> +	struct gpio_desc *reset_gpio;
+> +};
+> +
+> +static const struct regulator_bulk_data raydium_rm69220_supplies[] = {
+> +	{ .supply = "vddio" },
+> +	{ .supply = "dvdd" },
+> +	{ .supply = "vci" },
+> +};
+> +
+> +static inline
+> +struct raydium_rm69220 *to_raydium_rm69220(struct drm_panel *panel)
+> +{
+> +	return container_of(panel, struct raydium_rm69220, panel);
+> +}
+> +
+> +static void raydium_rm69220_reset(struct raydium_rm69220 *ctx)
+> +{
+> +	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
+> +	usleep_range(1000, 2000);
+> +	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
+> +	usleep_range(1000, 2000);
+> +	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
+> +	msleep(32);
+> +}
+> +
+> +static int raydium_rm69220_on(struct raydium_rm69220 *ctx)
+> +{
+> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
+> +
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0x76);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x9a, 0x10);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x9b, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0x77);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x9a, 0x10);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x9b, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0x78);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x9a, 0x10);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x9b, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0x79);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x9a, 0xf0);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x9b, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0x74);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x1a, 0xe0);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x1b, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0x40);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xa9, 0x68);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xab, 0x22);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0x40);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xc0, 0xa6);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xbf, 0x87);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0x82);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x00, 0x90);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0xd4);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x61, 0x08);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xa2, 0x04);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfa, 0x01);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0xd2);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x97, 0x08);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x36, 0x11);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x39, 0xab);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x3a, 0x30);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x3b, 0x80);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x3d, 0x09);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x3f, 0x58);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x40, 0x04);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x41, 0x38);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x42, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x43, 0x0d);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x44, 0x02);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x45, 0x1c);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x46, 0x02);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x47, 0x1c);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x48, 0x02);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x49, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x4a, 0x02);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x4b, 0x0e);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x4d, 0x20);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x4e, 0x01);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x4f, 0x39);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x50, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x51, 0x07);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x53, 0x0c);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x54, 0x08);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x55, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x56, 0x07);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x58, 0xd3);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x59, 0x18);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5a, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5b, 0x10);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5c, 0xf0);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5d, 0x07);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5e, 0x10);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5f, 0x20);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x60, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x61, 0x06);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x62, 0x0f);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x63, 0x0f);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x64, 0x33);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x65, 0x0e);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x66, 0x1c);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x67, 0x2a);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x68, 0x38);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x69, 0x46);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6a, 0x54);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6b, 0x62);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6c, 0x69);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6d, 0x70);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6e, 0x77);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x79);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x70, 0x7b);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x71, 0x7d);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x72, 0x7e);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x73, 0x01);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x74, 0x02);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x75, 0x22);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x76, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x77, 0x2a);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x78, 0x40);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x79, 0x2a);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x7a, 0xbe);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x7b, 0x3a);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x7c, 0xfc);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x7d, 0x3a);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x7e, 0xfa);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x7f, 0x3a);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x80, 0xf8);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x81, 0x3b);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x82, 0x38);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x83, 0x3b);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x84, 0x78);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x85, 0x3b);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x86, 0xb6);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x87, 0x4b);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x88, 0xf6);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x89, 0x4c);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x8a, 0x34);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x8b, 0x4c);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x8c, 0x74);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x8d, 0x5c);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x8e, 0x74);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x8f, 0x8c);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x90, 0xf4);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x91, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x92, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x93, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x94, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x95, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x96, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0xa0);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x66, 0x06);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0x49);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x87, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x3f, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0xa0);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x04, 0x07);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x4b, 0x40);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x4d, 0x40);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0xa1);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x58, 0x67);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x75, 0xa7);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x2f, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfa, 0x01);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xc1, 0x03);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xc2, 0x03);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x35, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x51, 0x0d, 0xbb);
+> +	mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0x00);
+> +	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
+> +	mipi_dsi_msleep(&dsi_ctx, 80);
+> +	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
+> +	mipi_dsi_usleep_range(&dsi_ctx, 10000, 11000);
+> +
+> +	return dsi_ctx.accum_err;
+> +}
+> +
+> +static int raydium_rm69220_off(struct raydium_rm69220 *ctx)
+> +{
+> +	struct mipi_dsi_multi_context dsi_ctx = { .dsi = ctx->dsi };
+> +
+> +	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
+> +	mipi_dsi_msleep(&dsi_ctx, 100);
+> +	mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
+> +	mipi_dsi_msleep(&dsi_ctx, 100);
+> +
+> +	return dsi_ctx.accum_err;
+> +}
+> +
+> +static int raydium_rm69220_prepare(struct drm_panel *panel)
+> +{
+> +	struct raydium_rm69220 *ctx = to_raydium_rm69220(panel);
+> +	struct device *dev = &ctx->dsi->dev;
+> +	struct drm_dsc_picture_parameter_set pps;
+> +	int ret;
+> +
+> +	ret = regulator_bulk_enable(ARRAY_SIZE(raydium_rm69220_supplies), ctx->supplies);
+> +	if (ret < 0) {
+> +		dev_err(dev, "Failed to enable regulators: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	raydium_rm69220_reset(ctx);
+> +
+> +	ret = raydium_rm69220_on(ctx);
+> +	if (ret < 0) {
+> +		dev_err(dev, "Failed to initialize panel: %d\n", ret);
+> +		goto err;
+> +	}
+> +
+> +	drm_dsc_pps_payload_pack(&pps, &ctx->dsc);
+> +
+> +	ret = mipi_dsi_picture_parameter_set(ctx->dsi, &pps);
+> +	if (ret < 0) {
+> +		dev_err(dev, "failed to transmit PPS: %d\n", ret);
+> +		goto err;
+> +	}
+> +
+> +	ret = mipi_dsi_compression_mode(ctx->dsi, true);
+> +	if (ret < 0) {
+> +		dev_err(dev, "failed to enable compression mode: %d\n", ret);
+> +		goto err;
+> +	}
+> +
+> +	msleep(28);
+> +
+> +	return 0;
+> +
+> +err:
+> +	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
+> +	regulator_bulk_disable(ARRAY_SIZE(raydium_rm69220_supplies), ctx->supplies);
+> +	return ret;
+> +}
+> +
+> +static int raydium_rm69220_unprepare(struct drm_panel *panel)
+> +{
+> +	struct raydium_rm69220 *ctx = to_raydium_rm69220(panel);
+> +	struct device *dev = &ctx->dsi->dev;
+> +	int ret;
+> +
+> +	ret = raydium_rm69220_off(ctx);
+> +	if (ret < 0)
+> +		dev_err(dev, "Failed to un-initialize panel: %d\n", ret);
+> +
+> +	gpiod_set_value_cansleep(ctx->reset_gpio, 1);
+> +	regulator_bulk_disable(ARRAY_SIZE(raydium_rm69220_supplies), ctx->supplies);
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct drm_display_mode raydium_rm69220_mode = {
+> +	.clock = (1080 + 36 + 4 + 36) * (2392 + 72 + 4 + 52) * 120 / 1000,
+> +	.hdisplay = 1080,
+> +	.hsync_start = 1080 + 36,
+> +	.hsync_end = 1080 + 36 + 4,
+> +	.htotal = 1080 + 36 + 4 + 36,
+> +	.vdisplay = 2392,
+> +	.vsync_start = 2392 + 72,
+> +	.vsync_end = 2392 + 72 + 4,
+> +	.vtotal = 2392 + 72 + 4 + 52,
+> +	.width_mm = 71,
+> +	.height_mm = 157,
+> +	.type = DRM_MODE_TYPE_DRIVER,
+> +};
+> +
+> +static int raydium_rm69220_get_modes(struct drm_panel *panel,
+> +					    struct drm_connector *connector)
+> +{
+> +	return drm_connector_helper_get_modes_fixed(connector, &raydium_rm69220_mode);
+> +}
+> +
+> +static const struct drm_panel_funcs raydium_rm69220_panel_funcs = {
+> +	.prepare = raydium_rm69220_prepare,
+> +	.unprepare = raydium_rm69220_unprepare,
+> +	.get_modes = raydium_rm69220_get_modes,
+> +};
+> +
+> +static int raydium_rm69220_bl_update_status(struct backlight_device *bl)
+> +{
+> +	struct mipi_dsi_device *dsi = bl_get_data(bl);
+> +	u16 brightness = backlight_get_brightness(bl);
+> +	int ret;
+> +
+> +	dsi->mode_flags &= ~MIPI_DSI_MODE_LPM;
+> +
+> +	ret = mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	dsi->mode_flags |= MIPI_DSI_MODE_LPM;
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct backlight_ops raydium_rm69220_bl_ops = {
+> +	.update_status = raydium_rm69220_bl_update_status,
+> +};
+> +
+> +static struct backlight_device *
+> +raydium_rm69220_create_backlight(struct mipi_dsi_device *dsi)
+> +{
+> +	struct device *dev = &dsi->dev;
+> +	const struct backlight_properties props = {
+> +		.type = BACKLIGHT_RAW,
+> +		.brightness = 2946,
+> +		.max_brightness = 3442, /* 4095 is HBM max */
+> +	};
+> +
+> +	return devm_backlight_device_register(dev, dev_name(dev), dev, dsi,
+> +					      &raydium_rm69220_bl_ops, &props);
+> +}
+> +
+> +static int raydium_rm69220_probe(struct mipi_dsi_device *dsi)
+> +{
+> +	struct device *dev = &dsi->dev;
+> +	struct raydium_rm69220 *ctx;
+> +	int ret;
+> +
+> +	ctx = devm_drm_panel_alloc(dev, struct raydium_rm69220, panel,
+> +				   &raydium_rm69220_panel_funcs,
+> +				   DRM_MODE_CONNECTOR_DSI);
+> +	if (IS_ERR(ctx))
+> +		return PTR_ERR(ctx);
+> +
+> +	ret = devm_regulator_bulk_get_const(dev,
+> +					    ARRAY_SIZE(raydium_rm69220_supplies),
+> +					    raydium_rm69220_supplies,
+> +					    &ctx->supplies);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	ctx->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
+> +	if (IS_ERR(ctx->reset_gpio))
+> +		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
+> +				     "Failed to get reset-gpios\n");
+> +
+> +	ctx->dsi = dsi;
+> +
+> +	dsi->lanes = 4;
+> +	dsi->format = MIPI_DSI_FMT_RGB101010;
+> +	dsi->mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_NO_EOT_PACKET |
+> +			  MIPI_DSI_CLOCK_NON_CONTINUOUS | MIPI_DSI_MODE_LPM |
+> +			  MIPI_DSI_MODE_DSC_ALL_SLICES_IN_PKT;
+> +
+> +	ctx->panel.prepare_prev_first = true;
+> +
+> +	ctx->panel.backlight = raydium_rm69220_create_backlight(dsi);
+> +	if (IS_ERR(ctx->panel.backlight))
+> +		return dev_err_probe(dev, PTR_ERR(ctx->panel.backlight),
+> +				     "Failed to create backlight\n");
+> +
+> +	ret = devm_drm_panel_add(dev, &ctx->panel);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	/* This panel only supports DSC; unconditionally enable it */
+> +	dsi->dsc = &ctx->dsc;
+> +
+> +	ctx->dsc.dsc_version_major = 1;
+> +	ctx->dsc.dsc_version_minor = 1;
+> +	ctx->dsc.slice_height = 13;
+> +	ctx->dsc.slice_width = 540;
+> +
+> +	ctx->dsc.slice_count = 1080 / ctx->dsc.slice_width;
+> +	ctx->dsc.bits_per_component = 10;
+> +	ctx->dsc.bits_per_pixel = 8 << 4; /* 4 fractional bits */
+> +	ctx->dsc.block_pred_enable = true;
+> +
+> +	return devm_mipi_dsi_attach(dev, dsi);
+> +}
+> +
+> +static const struct of_device_id raydium_rm69220_of_match[] = {
+> +	{ .compatible = "boe,bf068mwm-td0" },
+> +	{ /* sentinel */ }
+> +};
+> +MODULE_DEVICE_TABLE(of, raydium_rm69220_of_match);
+> +
+> +static struct mipi_dsi_driver raydium_rm69220_driver = {
+> +	.probe = raydium_rm69220_probe,
+> +	.driver = {
+> +		.name = "panel-raydium-rm69220",
+> +		.of_match_table = raydium_rm69220_of_match,
+> +	},
+> +};
+> +module_mipi_dsi_driver(raydium_rm69220_driver);
+> +
+> +MODULE_AUTHOR("Alexander Koskovich <akoskovich@pm.me>");
+> +MODULE_DESCRIPTION("DRM driver for RM69220-equipped DSI panels");
+> +MODULE_LICENSE("GPL");
+> 
 
-It's a great question because there's a large variety of how backlight is
-implemented, and some panels can drive a PWM to an actually backlight controller
-which uses external pwm. In this case we should model the backlight IC as
-backlight driver with only 1 or 0 capability and use the DCS to program
-the PWM.
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-So it leads exactly to your issue. So perhaps one way would be to either:
-- call into the gpio-backlight from the DCS callback, we may need to fix some locking issues
-- add way to "link" backlight devices so the backlight value can be propagated
-
-
-In any case the problem remains that both backlight devices will be exposed
-to userspace, which we don't want. So additional changes will be needed.
-
-> 
-> 3) I previously tried modeling LCD_BKLT_EN using pinctrl states (panel_bl_en / panel_bl_suspend)
->     for the enable GPIO itself. However, Dmitry suggested modeling it as a regulator instead:
-> 
->     Link : https://lore.kernel.org/all/qkhgg5x67sijiialucvzac275zhpjrtt47a4udjpyzmgvilut5@dcrslq3ai7mc/
-> 
-> 4) Modeled optional regulator wled-supply: a regulator that only gates the external backlight driver chip's power/enable,
->     with DCS remaining the sole brightness path in this current patch , the panel-himax-hx83121a.c does exactly the same.
->     
->     Would this can be the preferred modeling for such panels?
-> 
-> Please refer to this Hardware diagram I explained earlier ,
-> Link : https://lore.kernel.org/all/bade420c-aeb8-4bdd-b0cf-3ade17b21c18@oss.qualcomm.com/
-> 
-> 
-> Please let me know your suggestions.
-> 
-> Thanks,
-> Arpit
-> 
-> 
->     
-> 
->    
-
+Thanks,
+Neil
