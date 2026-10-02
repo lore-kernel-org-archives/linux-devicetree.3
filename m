@@ -1,151 +1,296 @@
-Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B65073A901F
-	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 18:55:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.141
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790967352; cv=pass; b=HxIGm4fdNasN7e7MjdADCL2QMrqd7R7tZuBP8WkBuKZhjBuoXwBSzqxyCy/4Z0OpPGB3XuqO4ifQUNNQ7y1FAgiXbXFq1aJBIqI/IvN1LWG9A3h3sCChPK2MWle5NiZgJwUcfN88JPvv0kPCWnMY9nhwMbCpHnUEgz0U3BMe0Dc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790967352; c=relaxed/simple;
-	bh=OR38zRZFAFpy4mOZaFXDsm6BWL0amMVzyna9ToNEKKc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=LVv8k+ANrPJhv/Tpl+knMZpaa1S3gBbUWQpPeDXjC5+8+qrlU2yd9DZ5Sn0b1kbfa3NM/oNvz5un/TZFrXnlGmAHJVjdLm3xlCQ0l+rIkytOmguMw+tFxDM3sdlcxGUh6R1KS6Q3H85fhU5DXqLFCVHHEPYTR0P345GpFXSyves=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ixtdxi2e; arc=pass smtp.client-ip=74.125.224.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96B863E51D4
+	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 18:59:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790967567; cv=none; b=ppig7pAa0Mbv9z1xJf1YXgzM4YASWprhE+EOM5i5ElscFg5fJQpPwXBEJwrW8tMDnUQbUQgpByuvm88kuclIK4thdASRd/ISz6t2qDzbYdwActY+XoHOjMc7PkkEQq5pb4A1zLbx11c+1vM4AV5TAbRBeZ8ORQGaXmuuERN420k=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790967567; c=relaxed/simple;
+	bh=WBDPScDo4+RNDk/RRkpVRacm/yzNLhSod/42Y3PXVXo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=fsWL4h4jo4byQj3KtMjyemaIxNV2L+PFpKr96pR/zp69FvOnVK5F2uTzwLIaVAYA8MuPgYGjUl0iNv3ERt07IJGFqAYiwxWlPfUh8aAnyCvs6FNOzc3qwFHw16e3W9mt6A1ZO/svd6QQF+ZXWZcn+z0WQw2v6fxc8cfgjcAc1cU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O/ZbVNWk; arc=none smtp.client-ip=74.125.229.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ixtdxi2e"
-Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66e4ab20f4bso459140d50.0
-        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 11:55:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790967350; cv=none;
-        d=google.com; s=arc-20260327;
-        b=VzveE6Mag2SyFwbUOxTgXMzxD88wWZYquKEipo3sWnj/r60V2J9XEVt5NnxomdMdu4
-         FsrzmrVAcI+nCIZszT9m+Hx3TNLAIQ6hWO8uGvBYDS5BVYUJK4qIqsrhVXtIeW67+zqz
-         OIduzi6dLmHlVyrjfPXvOzKwY0IYhEYTBgcLnCE+NwUOuFk5vBd3KB9TyK8Fo+rKovtJ
-         BdQNS9jSO+/bmxh5NOPs9+taRmG35tur3zDpGPHp+7xSov1agU2Q20hDK3CEK+pYbb+H
-         BprNUFnNXfpXVqatsHNApSrTy6KI9p7gTuuEioC0Cbvxv/Hh3w7TR7DNhZy15yyUuTJo
-         kCuA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=9S5eAE312pd6HZl9cjvi/BgiTHAVYy5cEZ8AWzWw5xo=;
-        fh=aLvq7k0qmO9fDmmDicLtWN13iflTucIsiEHimplTDL0=;
-        b=egr0XSG7eaf8TKNSAg8+/PiHz4pwnEupTmchYuTwg+fGR7juphS5UMN1btQLwcJQmU
-         ++xPQu/fA4eYB19d5SBptXb/Yfs9t7FWh6AurF/OP0h/A3tEKG8oHyoC25ygCI56SEkv
-         KR7OUviJKdD2Jw4RRY0pblUeTHDFvMPywMWewco3Ji1a6mL42HO1D9LkWBt2LPq8hEXf
-         FInMxjcwe7T9RCSRVzN+/AEWuKd2/ALNIrbZ5nQLxCFs8ib8JnDdXVSo0cJElzsJZi24
-         ksDHD+kW7eXp1GBn5Fl+u0LHa2a2H1BvXRr0guje0P66l0b7F2gUttykcjZ5QkDA9u16
-         DScw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O/ZbVNWk"
+Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33e4e75342aso647689eec.1
+        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 11:59:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790967350; x=1791572150; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=9S5eAE312pd6HZl9cjvi/BgiTHAVYy5cEZ8AWzWw5xo=;
-        b=ixtdxi2epUtKkuXGhSUNb8u7gi3ElY1KdTNYlhK+kZJUHuWz1ZvjK34YDV6lujj/Up
-         GSLFC0IAjjq4Ixdmv7MqjzUtqTK8oyDqJzOvg89I/oikJqNofFCRxql+FNBq1lhsUNfr
-         Mx63HpGg0Hnnvy6xYrQPmImodN190UZSNgdMUu+EGiBAXkkLW511auUv0DD7tU6M6u16
-         uinBUCCSShX9Gkz95Fvx78wvnLoVxtU3eT+GzXvOT6BeoOte2+CunvbWjSgteAMhe1US
-         JnopbvRys2LTPbnL8H2ZeXp7OeRuTQSQihOV1IeiHnNFglSX2LX2xTNqu+WAgPxxh2cq
-         Z3zw==
+        d=gmail.com; s=20251104; t=1790967564; x=1791572364; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Qqh3sFD4R9XPIqgyNgj/hFYYBYMoRi0+BfMPD24LCdQ=;
+        b=O/ZbVNWkC32jSVyp42twvNNbkrary3OgnXCTAXlSAqOiuO/sTmvLFUunYpk9T1AA/h
+         TK3Qj5AF4d0+uh+kp6puyUqH2lGYgn2K66nPelVQRSKYYUrWBFGyFNtwZxcyJdNazCyZ
+         1FHqYj9paKFDm7sJ6+KEz3IdeeaOA7MLvyKeGorciXcJiVrDU1uKevUl8ZpxTK47XVz1
+         L4MhFVos/fq3A48ecWuDgVQX0e4hGUZEIb7JGTne58wwfx3D2sA4e7WkywvQVVm32Bw6
+         wrgHSK89xT8EXBxxPGOotmeWD6gNRy92dHIrU/wly8/idFfro7HfZu53NAlCIk/1rRgp
+         5dPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790967350; x=1791572150;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9S5eAE312pd6HZl9cjvi/BgiTHAVYy5cEZ8AWzWw5xo=;
-        b=WaXwVNnvixLQiEhP0L1sECSxxKwz4ct+QYI0TvM+qbIfHoDCHh6hYR/aKJQfHPLg/a
-         hcRYyBU9Gze1GA0ToQwPJ5HqjSSkok1vHD8qnaWkQvSkxotO1mDSEq/PXEUGzsUUGnWx
-         mlkLEtH0I91sqTbVng26QWOU8HnzDCxk2H+wTx119qzVvRkPO9+CBPH4H4SjKMp2684G
-         zEJZ4L6VVHLq9YOGa8yxBl0hfZaGHiiGkqsEkF0msLYSW03ssvaPGd20pljZJWD0OzmC
-         dq/QSFSrQKjj7Lon0izMH7eb98XCjb/0/GzoB1ICHT6xqJUiXLHD1X4YZt99S+W54Hm6
-         QTnQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzsOHLka3KhPgBGgH94K1eK+vOHLMGhOD/e0L0NT62a2uAnZKZyM6e/8+WBW9fDzdRsvE6SRvtd+QBG@vger.kernel.org
-X-Gm-Message-State: AFq9FYKz62R/yptd7JU+xRkTk4vP7Vy67Ki019EQKzvs+ZfvCJWhzXp/
-	KlkyxZterX33pkvVHaMR2Gp/0/sCUqyU/sFHP5sk8dlfymxLAUPq+FUlNDp455oXopWwXqhWufa
-	VanHHb7fPwaHuefuOELF7Ot+tKESeV/Q=
-X-Gm-Gg: AYBFou2DZlbuNfP+kE6bwxrXrfF9Eff1ph5xNH4yQX5Jm2sDVDE4VkMRkUjevtBjuIG
-	G2EUvUzDi+/+HJaZJFdwRnVkPmmMO4w6IDkKX1130YaHNixxRA5C/M2K5HqFupgl3L/1HOed+UH
-	dK14fD5Ab8VRh7HQl87zg8EfnKU0vog/MBgQNAa5QCraDpgf7GtPvm4rLPEzNx6RDD5GrOs1yIY
-	sHlKkycnzhbUs1OI1rWpIWKwC/EA3ooKNginXj94QpvxlW3WxgWe67jsOPOy+DLFAbKvL55KIvX
-	2Merxt2ZBlj4HnYGrMLJSGLNJ2Lv2yTXdTFaziAfl2TYbsoGWG2vunvn
-X-Received: by 2002:a05:690e:1243:b0:677:b7e7:f68 with SMTP id
- 956f58d0204a3-677b7e71be5mr813923d50.108.1790967349727; Fri, 02 Oct 2026
- 11:55:49 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790967564; x=1791572364;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=Qqh3sFD4R9XPIqgyNgj/hFYYBYMoRi0+BfMPD24LCdQ=;
+        b=b9wYpISKhS3iu/wzJ2eCxG0XJq91RmwKE3wWAwzFYusqa8fEpBgqnzQIiB6Wc6DhS5
+         11FJPRYcfkQLAssRn7/89ovOCdoOhyB1BqSsR4VhCtG0dkLE4ffKQgot4CRLsCw3IQ4W
+         4g6kqDzJP0appGcZdd8f6UiLeRoztkF0kc2Uu7Ie/sGrav2E9Qs7yUbKYDGXQG86zthr
+         89LakQSKqGEZnLhv6AqDgqPnJ3xYO2ARCz53Fhj5ZavDnUvOmB5SKHcaDMomE1e7o21O
+         2BbnIJVQH8bfZMEVtux/e4Hn9SwAzCnHwInC6U6haLK+Eig6fE9pCC1mN8MnK/XSvXyU
+         vUDg==
+X-Gm-Message-State: AFuF++mAVRbvzt5hOUmLsooVrgwOQFLUiCOPAOZWbTWbzT6vF0t6u0nn
+	OU7tI7o655Vnruen+OTfr0V3E8U0VGqMArOUWrxKs+4E0QxyPlCyZJV+
+X-Gm-Gg: AYBFou0lGDbQeJQu+gqCpHVVOp9SJP4r+SOKhjWLv/9d3TdSBq3vhx72fzJhlX+UKc3
+	E+DYGCWDGVcAcRFfnQCtDe5N9ESELX9t2mtSYsPNaEG2ieGKxP5TkGFBHQfmuVSWXb3oxqvXSLG
+	RNXjnQ+PaMcV0HTZMWrqgRRqxJEHjLV2X7gmWrusUanRmnmpijzARHgq+FFugUd76hASkufynUr
+	jPg/UwlUpia6dFAbKAhQQfdFNVVOPvymnP/U5XHHadCXKvc98VXU98fZPMIGEwOm3m52RL7kwtl
+	J8Cab6HRnZWA5MfVQuqm/3tSSf3CLKnTIeVeA0oIx4uQeTXTNuJWBGu3FGLKCAx+lOXzfV7zFdQ
+	U/DIZOM/RkStp/KY2x8Xd/N++wv6j5K/WAiHXv021HK7RRFDqE6CN6oifwFnscasHQC9N+Tpe8Y
+	EKWXFXOnx6IIjyX+ymIoe7FplBS0zZZZ0az0xme3DNLpCVfef5oL6/tmXclNfGo1r2lACOXfSzu
+	uJJAoJSCA==
+X-Received: by 2002:a05:7022:b047:20b0:14b:edb2:c3bc with SMTP id a92af1059eb24-14f5625d203mr6419236c88.0.1790967564155;
+        Fri, 02 Oct 2026 11:59:24 -0700 (PDT)
+Received: from [10.211.86.252] ([2409:40c2:505a:e8d2:3478:3f80:375e:1a75])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14f45fedd43sm14694892c88.4.2026.10.02.11.59.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 11:59:23 -0700 (PDT)
+From: Bhargav Joshi <j.bhargav.u@gmail.com>
+Date: Sat, 03 Oct 2026 00:28:32 +0530
+Subject: [PATCH] dt-bindings: arm: omap-l3-noc: Convert to DT schema
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260918-04-k3-pm-support-v1-0-0acd2b36b96f@kernel.org> <20260918-04-k3-pm-support-v1-2-0acd2b36b96f@kernel.org>
-In-Reply-To: <20260918-04-k3-pm-support-v1-2-0acd2b36b96f@kernel.org>
-From: Iker Pedrosa <ikerpedrosam@gmail.com>
-Date: Fri, 2 Oct 2026 20:54:00 +0200
-X-Gm-Features: AclHuK9ruP21ynPDiadHS4oYScZ4A0eIuHPpImnDhttohXSuBO4BfsPMVhy9WRo
-Message-ID: <CABdCQ=OUTASG8JDBqnJAPJ5aTDUC-BQzCVcw0r=cxrb8CPUO2A@mail.gmail.com>
-Subject: Re: [PATCH 2/3] pmdomain: spacemit: Add power domain driver
-To: Yixun Lan <dlan@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
-	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	linux-pm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261003-ti-l3-noc-v1-1-9bd18cac33e9@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzNDAwMj3ZJM3Rxj3bz8ZF0ji5S05EQLw7SUZFMloPqCotS0zAqwWdGxEH5
+ xaVJWanIJyACl2loA//dD920AAAA=
+X-Change-ID: 20261002-ti-l3-noc-28dfca81fdc5
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Santosh Shilimkar <santosh.shilimkar@ti.com>, 
+ Sricharan R <r.sricharan@ti.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ goledhruva@gmail.com, m-chawdhry@ti.com, daniel.baluta@gmail.com, 
+ simona.toaca@nxp.com, j.bhargav.u@gmail.com
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1790967554; l=5574;
+ i=j.bhargav.u@gmail.com; h=from:subject:message-id;
+ bh=WBDPScDo4+RNDk/RRkpVRacm/yzNLhSod/42Y3PXVXo=;
+ b=VVurPjBfSSKglna/F0fvrr7HCvE8ydkleoSEqxxQpGyDJzXtw8nUEAlGmJmodbIidhbd9juF1
+ ovkbZLnr5h4Bv+oyl6K0Zr8BRiuEik8RcDA/1ngXudumSkyqNsvPxjJ
+X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
+ pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
-El vie, 18 sept 2026 a las 7:49, Yixun Lan (<dlan@kernel.org>) escribi=C3=
-=B3:
-> [...]
-> diff --git a/drivers/pmdomain/spacemit/pm_domains.c b/drivers/pmdomain/sp=
-acemit/pm_domains.c
-> new file mode 100644
-> index 000000000000..d563e4e4e232
-> --- /dev/null
-> +++ b/drivers/pmdomain/spacemit/pm_domains.c
-> [...]
-> +static struct spacemit_pmu *gpmu;
+Convert TI L3 NoC binding from text to DT schema format. Older OMAP3
+uses the SMX variant which also acts as a bus parent with simple-bus
+compatible so child nodes are allowed using patternproperties. Mark
+ti,hwmods deprecated as it is no longer needed and only used by older
+omap3-l3-smx.
 
-Would it make sense to embed the 'struct spacemit_pmu' pointer directly int=
-o
-'struct spacemit_pm_domain'? Other generic Power Domain drivers (Rockchip,
-QCOM, Renesas) use this pattern to keep domain callbacks self-contained and
-ready for multi-instance SoCs
+Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
+---
+ .../devicetree/bindings/arm/omap/l3-noc.txt        |  23 ----
+ .../bindings/arm/omap/ti,omap-l3-noc.yaml          | 149 +++++++++++++++++++++
+ 2 files changed, 149 insertions(+), 23 deletions(-)
 
-> [...]
-> +static int spacemit_pd_power_on(struct generic_pm_domain *domain)
-> +{
-> [...]
-> + regmap_read(gpmu->regmap, APMU_POWER_STATUS_REG, &val);
+diff --git a/Documentation/devicetree/bindings/arm/omap/l3-noc.txt b/Documentation/devicetree/bindings/arm/omap/l3-noc.txt
+deleted file mode 100644
+index 161448da959d2..0000000000000
+--- a/Documentation/devicetree/bindings/arm/omap/l3-noc.txt
++++ /dev/null
+@@ -1,23 +0,0 @@
+-* TI - L3 Network On Chip (NoC)
+-
+-This version is an implementation of the generic NoC IP
+-provided by Arteris.
+-
+-Required properties:
+-- compatible : Should be "ti,omap3-l3-smx" for OMAP3 family
+-               Should be "ti,omap4-l3-noc" for OMAP4 family
+-               Should be "ti,omap5-l3-noc" for OMAP5 family
+-	       Should be "ti,dra7-l3-noc" for DRA7 family
+-               Should be "ti,am4372-l3-noc" for AM43 family
+-- reg:	Contains L3 register address range for each noc domain.
+-- ti,hwmods: "l3_main_1", ... One hwmod for each noc domain.
+-
+-Examples:
+-
+-ocp {
+-	compatible = "ti,omap4-l3-noc", "simple-bus";
+-	#address-cells = <1>;
+-	#size-cells = <1>;
+-	ranges;
+-	ti,hwmods = "l3_main_1", "l3_main_2", "l3_main_3";
+-};
+diff --git a/Documentation/devicetree/bindings/arm/omap/ti,omap-l3-noc.yaml b/Documentation/devicetree/bindings/arm/omap/ti,omap-l3-noc.yaml
+new file mode 100644
+index 0000000000000..a72a0f4e64332
+--- /dev/null
++++ b/Documentation/devicetree/bindings/arm/omap/ti,omap-l3-noc.yaml
+@@ -0,0 +1,149 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/arm/omap/ti,omap-l3-noc.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: TI OMAP L3 Network On Chip (NoC) Interconnect
++
++maintainers:
++  - Santosh Shilimkar <santosh.shilimkar@ti.com>
++  - Sricharan R <r.sricharan@ti.com>
++
++description:
++  The L3 interconnect is an implementation of the generic NoC IP provided by
++  Arteris. OMAP3 uses the SMX variant while OMAP4/5, DRA7, and AM4372 use the
++  NoC variant.
++
++properties:
++  compatible:
++    oneOf:
++      - items:
++          - const: ti,omap3-l3-smx
++          - const: simple-bus
++      - enum:
++          - ti,omap4-l3-noc
++          - ti,omap5-l3-noc
++          - ti,dra7-l3-noc
++          - ti,am4372-l3-noc
++
++  reg:
++    minItems: 1
++    maxItems: 3
++
++  interrupts:
++    minItems: 2
++    maxItems: 2
++
++  ti,hwmods:
++    description: hwmod names for each NoC domain.
++    $ref: /schemas/types.yaml#/definitions/string-array
++    deprecated: true
++
++  "#address-cells":
++    const: 1
++
++  "#size-cells":
++    const: 1
++
++  ranges: true
++
++patternProperties:
++  "^(.*@[0-9a-fA-F]+|regulator-abb-mpu)$":
++    type: object
++
++required:
++  - compatible
++  - reg
++  - interrupts
++
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: ti,omap3-l3-smx
++    then:
++      properties:
++        reg:
++          maxItems: 1
++        ti,hwmods:
++          maxItems: 1
++      required:
++        - "#address-cells"
++        - "#size-cells"
++        - ranges
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - ti,omap4-l3-noc
++              - ti,omap5-l3-noc
++    then:
++      properties:
++        reg:
++          minItems: 3
++        "#address-cells": false
++        "#size-cells": false
++        ranges: false
++      patternProperties:
++        "^(.*@[0-9a-fA-F]+|regulator-abb-mpu)$": false
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: ti,dra7-l3-noc
++    then:
++      properties:
++        reg:
++          minItems: 2
++          maxItems: 3
++        "#address-cells": false
++        "#size-cells": false
++        ranges: false
++      patternProperties:
++        "^(.*@[0-9a-fA-F]+|regulator-abb-mpu)$": false
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: ti,am4372-l3-noc
++    then:
++      properties:
++        reg:
++          minItems: 2
++          maxItems: 2
++        "#address-cells": false
++        "#size-cells": false
++        ranges: false
++      patternProperties:
++        "^(.*@[0-9a-fA-F]+|regulator-abb-mpu)$": false
++
++additionalProperties: false
++
++examples:
++  - |
++    l3-noc@68000000 {
++        compatible = "ti,omap3-l3-smx", "simple-bus";
++        #address-cells = <1>;
++        #size-cells = <1>;
++        ranges;
++        reg = <0x68000000 0x10000>;
++        interrupts = <9>, <10>;
++        ti,hwmods = "l3_main";
++    };
++
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    l3-noc@44000000 {
++        compatible = "ti,omap4-l3-noc";
++        reg = <0x44000000 0x1000>,
++              <0x44800000 0x2000>,
++              <0x45000000 0x1000>;
++        interrupts = <GIC_SPI 9 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SPI 10 IRQ_TYPE_LEVEL_HIGH>;
++    };
 
-Please check the return value of regmap_read()
+---
+base-commit: 5e0f8396d4805a3e7f753fa58c8c55f1f3cc2160
+change-id: 20261002-ti-l3-noc-28dfca81fdc5
 
-> [...]
-> + if (ret < 0) {
-> + dev_err(&domain->dev, "power-off domain: %d, error\n", spd->pm_index);
+Best regards,
+-- 
+Bhargav
 
-Typo: should this say "power-on domain" since this is inside
-spacemit_pd_power_on()?
-
-> [...]
-> +static bool spacemit_pm_get_state(struct spacemit_pmu *pmu,
-> +  struct spacemit_pm_domain *pd)
-> +{
-> + const struct spacemit_pm_domain_param *p =3D pd->param;
-> + u32 reg, bit;
-> +
-> + regmap_read(pmu->regmap, APMU_POWER_STATUS_REG, &reg);
-
-Please check the return value here as well
-
-> + bit =3D p->use_hw ? BIT(pd->param->bit_hw_pwr_stat) :
-> +  BIT(pd->param->bit_pwr_stat);
-
-Since 'p' is initialized to 'pd->param' above, you can use 'p->bit_hw_pwr_s=
-tat'
-and 'p->bit_pwr_stat' directly here
