@@ -1,248 +1,167 @@
-Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023136.outbound.protection.outlook.com [40.107.44.136])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30C6D36C0DC
-	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 05:12:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F9CE36A377;
+	Fri,  2 Oct 2026 05:53:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.44.136
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790917981; cv=pass; b=l5KGJLaqjCZy5jvT/4gAsGM3mSBl2fM8VGjwl2SbvzYaMvX9IBWB5ySzqvW2H0LbmSJpN0JW+PRLxICWUsOPdME6YyE7RowWWQfus7Nntrn2RI6AeuB/LkBa01t1bvIEd60Hm3E6UUyRH4c9I2g5qgN5NQVdMVRtkP9OHS3/aSw=
+	t=1790920424; cv=fail; b=AltdMQYmCHk5LeSoHpf9K3wmaMaYJL1Ux7YlN1tTv5aTDWnuZM/V6Z+wiEyvDvrj8IoxamwYbVS2Sq9FBSCEzAaq6vmuNGEwbxJpUY8S1bu5Oe7ej/VxJuqV7CP/+Wa8znhaMIkS68ukDV9eJC3ldGa449nT/OyjmiAXbb6xbQM=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790917981; c=relaxed/simple;
-	bh=S8Jtihtn3387XynzpWWxcaATC2/8v7ntnHCXBS2w0/U=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=cQEngGSq+tkig/wQyxV1Nj/0RT5BHndy01sVLR0yIMZMQhd9ZCKCx8y0FO1YCJn3FGPYJ9l9CI4p/5e+vvofHwvWfSlxJKvi62DJXh5xez+l1ZHq5Xf8+B562An3sC7lOIr6rUpay7qDLrmq1RAYDeYMp23mDiwo276B0igQX94=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vayavyalabs.com; spf=pass smtp.mailfrom=vayavyalabs.com; dkim=pass (1024-bit key) header.d=vayavyalabs.com header.i=@vayavyalabs.com header.b=myosPXgN; arc=pass smtp.client-ip=74.125.230.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=vayavyalabs.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vayavyalabs.com
+	s=arc-20240116; t=1790920424; c=relaxed/simple;
+	bh=QyAo44k86cjy7Inn/HRyDIQ7Hwd29FoxQh/BmDKn4m0=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=idWBo+GZI31msZOOv1huL3SPH6adORzCZPugQgdpxXhywdYbcx4Zxeh1zY7CIylHD1oQGp6dhSpy5XG/BMHFxwB8iTV7oRy7CZ1EqdOZseZfWgFwhBUGIPuZ16trzEoF63OQRZ7PJIhdAf7kPQjzaxKueLBl8mssVD+YpiW7EB4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; dkim=pass (2048-bit key) header.d=aspeedtech.com header.i=@aspeedtech.com header.b=TnRIDlu9; arc=fail smtp.client-ip=40.107.44.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=vayavyalabs.com header.i=@vayavyalabs.com header.b="myosPXgN"
-Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfcb5cb1so83145426d6.1
-        for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 22:12:57 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790917976; cv=none;
-        d=google.com; s=arc-20260327;
-        b=dYHsUMQu8GE5Ys3c442Y9qhIXgvf6mNlD+tZyHEfd1yqnnEv7iFm+DLAl8HPMstoM8
-         +DHPNHFlhSccoxd28n3bD6+RMgb6yaEWnu7CF/LEPZnDRCTj5GOXPkIyKNUtVTluXveG
-         RchdU2ddu4wkbf7M/bbIMqeZdzXewwGVPXkCUPZxCRlkkV1UTWw0oRwuYLoWfn6+Vt8N
-         tJkZbk1d+WNredrt0b9dFxHHIpGgIlJWwybZjOuQeCVFGJWYVx0qGK1kQzjhJ8KWU/2e
-         JBadx/LhHAui/SZrzXSwjC5bcj8XSxff1bh0tNbo92aA/z1DbwFng6AbGv43qH+XxQeu
-         MO/A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=pNsuUSVMsMgy4F3/JOoqgtAPcs+ltR4LwZ8VqgJ/YUE=;
-        fh=trJcnMeXwY39TDnNlvi8pIo2o0N8D/KqeEhhGp811p0=;
-        b=rHEeGhYmxvuqarEqHZvRpuw1Y+IY83nCw0RYSOBvoP1gY6noJ4ud/lFqIyM0ncErga
-         kzmX9Gm2NPugb2yEnBRfV2kpq1Z06FRghSrtrVMGM6tYrGMKBx0iJLqGAPh+6+cr/XHk
-         zSN2v8ziEPSYM3PXfaBXmY1tX8yFX7vL58oCrtkrNKTX4yISbLAMGEApR4lPbJ0zFjmc
-         P7Mfp761VwiAOlz+fCDmwLH/wUEve8pgxvPptSrCNlre5b/7f7ismn0xaEegtaunFc/b
-         Gcr8bJA1SpoQZEP09UEsoSmIOQUsYAzz2XD7q+jt62kOw0PBtcWhTJJsa0JhtH9Drkdh
-         7oqg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=vayavyalabs.com; s=google; t=1790917976; x=1791522776; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pNsuUSVMsMgy4F3/JOoqgtAPcs+ltR4LwZ8VqgJ/YUE=;
-        b=myosPXgNiQ2EgUqdXuO+GFGGLYAJMcgo3fuME5H4yjy92LJKtfFI/XZ2p+TUsWFOZR
-         lBgkc8j4YUVVSjeNDM1c0RNIDKJJ7nwmmZrdhag/XDet5Bx1sgWv/hQiBNaZ+4raPtbP
-         ukvnU2guE5dyF8hKU427P271uiNd/ohRO/QQc=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790917976; x=1791522776;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pNsuUSVMsMgy4F3/JOoqgtAPcs+ltR4LwZ8VqgJ/YUE=;
-        b=LF0+JySinxiTMsyHzHkOuZUtsdSDgxmDyy+KPeUiC8m825dLMSIUqhLEI/B7Q9ZPqM
-         V1s/aY3KfLP+FYyjtUteMSIQaZk2gdXx83nJTiumvd/el/EOg8aXALh0nI8Uc3ZZSt1w
-         XXASnMDmY9MOdvcGfz9m3JQfAAI9BI9g0qa1KETI7cRvqvAvJTHJaoUNnIalSSZOXlT7
-         Ce+CTgIYTMiPLmQ3gShMEL0PhutkGt7m7wZh+CJp498zmJTdj5ZAMDWWp25WHrq9HFFq
-         z7xoGhijcu/caC2ZX9CBl4DlHqPd+b7ZTrCrRqoBAxr7ijbt5Tpm70gxR0LlNrP6Ftpl
-         tAaw==
-X-Forwarded-Encrypted: i=1; AKwUvBxPSq8ocHpba1pgCHBCwgiIMwzYkn+wBqt47VuZeo8XKJiCnEIwi9rhptq0bgVQnNibYcKXTX1v3/yh@vger.kernel.org
-X-Gm-Message-State: AFq9FYLadZoHNiNqCVb+i1bZbmJWTI595yYmjCkJgdrzaje8eTM6s81Y
-	4eEevPYLtWstS/Utq8fYOTnPddNXxs+0qDe1Z12zWjB8KUbhpv4BcDzGM5v2HX9g2Uh9OIS7uyI
-	x4j5ah+lX8Xm5TGUgm7xvvIqRqULS2DTV2HaMIcDUEQ==
-X-Gm-Gg: AYBFou0I6FbBzx6M+nsvn4QQR/K1lZWhLhKRrP90EsQ2whSAVWM2fMwI1GLGPtoRDki
-	kb6BWgzdX6b4SjobtSjdLmYwb28Nnjma7PIqIxs6GqSYD+NHW6CWEq7FCgPxq+tvsVUTYK0Uljg
-	1SDHX2BudbiJXWyo8OsbQL1is0TCRVgacO44+tVOxUgFNAvqJad5NcVfIdHrSW/xw4LcbDjwAsN
-	lOEwmZyl7VMTQOvPIoEYAXpu1JkOd5ZxzuXfIW0JHHHBivHJKtcqqpU3mr6tBFvKj/65uEVHEZf
-	1jZSwa1WKHDlYOFQmCdF7Hg9THt2DTgzyZCvIQ2KTxB/9+K1eomGdHfeiFEk31lWw6rAQGCXd4G
-	8l1CVYB5nGpw5sNYP2zqhA/PRU6ZiRgjZqZpg9n89drEUcx8Lxk71txgDYhINnSJcNRtRaQnHu/
-	8gHmAGWwtxK5zXcDGsNZaE06aKgkmQhTw=
-X-Received: by 2002:a05:6214:1d01:b0:912:6380:fe12 with SMTP id
- 6a1803df08f44-917c0043ca8mr36615026d6.8.1790917976456; Thu, 01 Oct 2026
- 22:12:56 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=aspeedtech.com header.i=@aspeedtech.com header.b="TnRIDlu9"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=CxnLGs4HRBiOFwVlO37+NvKa4nsmffO476XOwis0kRgzsEgQWM/6Xl43lXcsZdE+7QmeMUhrGuzVVNR3YxPRWRy3yOr7M+QTnVsuveHUTTqg1KB+Ar/CWGpMalmbSEABgv9HurTcJ9IJwIBOXVQNTul6uYWHxgeIfcOGlMKwqjbENcGkBeg5PYJfUJ1dsVq+fMnSatIAbbUClfPGwcvzSF3WYtD7bZpgRGqR6fVZRNkH/WWq2ewpRmAal5f1dDi3Sxt/SkrQXplqXIfyENEwd1MIoyLVwJExrXVYdZJVTzPTyUZzz1iopf3KfTEepuF20SUPDaIlKqQ4xIFWd4W7IA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QyAo44k86cjy7Inn/HRyDIQ7Hwd29FoxQh/BmDKn4m0=;
+ b=cRgMcYfT2kedQCyej2yeY27bTEQ3gdvTjGvgGKL+A6VtapVbmqpLIShvW/hkwaklkKbQuQjch7WAV6cwnclIyW0KntIreFQJhrO5CszjYBXxcsBE1ZXRzX+eehhK2pU8foo5ezy1gL5F+f9kjC4kCphYlPkiU7kLIGFBQidwU0iSp3yKX4/d50XwZfCT8pIsC4IpA6O4WM71gka1YpEVFKhbzXprTjmWXkJpuhMQgouqCbTWPVoA5+ertBCZwarBxeNW2/z7k/hPeaiuyTodOW4YwRWX0/3mBoSK8knfdh+LYnuFY1ETGMyjShFeNy5UKsjHdAfqcbtdWTmBnf85eA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=aspeedtech.com; dmarc=pass action=none
+ header.from=aspeedtech.com; dkim=pass header.d=aspeedtech.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aspeedtech.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=QyAo44k86cjy7Inn/HRyDIQ7Hwd29FoxQh/BmDKn4m0=;
+ b=TnRIDlu9vLDKBBeNAWg0P42RuSl/TV/DMqJNNXdvhjoWE1B3qUaKyiL8UNSrlkRLVzaV3xm6c9Pu0WJ1XflmE9RKWcKGIc+ot38ic+MBOOBQpI7aDZbDSCFaQyHVbWc06J9Wbh3Ftu9JSCfm9D5lVy+qR1F1s3mEzaS/s1/2mhA6kweUZwNEleKFkWXvhI2HIv8THdwmYFKh18EJh+MYbAdvXFc3N7GDm8XAmg2e8Y/N/FFMk278KmVjxyiIhNB9DlcAXC5xnAlmV+dzTp8daknML0TeBT9Pm5e4eG++SPOWOM9Ijtr6ns6FTYK/hwgmsv6n7KDl7N2HIESYVdvwrw==
+Received: from SEYPR06MB5134.apcprd06.prod.outlook.com (2603:1096:101:5a::12)
+ by TY2PPF86E4C9764.apcprd06.prod.outlook.com (2603:1096:408::79b) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.21; Fri, 2 Oct
+ 2026 05:53:37 +0000
+Received: from SEYPR06MB5134.apcprd06.prod.outlook.com
+ ([fe80::f53d:547a:8c11:fc6c]) by SEYPR06MB5134.apcprd06.prod.outlook.com
+ ([fe80::f53d:547a:8c11:fc6c%3]) with mapi id 15.21.0472.016; Fri, 2 Oct 2026
+ 05:53:37 +0000
+From: Jacky Chou <jacky_chou@aspeedtech.com>
+To: Andrew Lunn <andrew@lunn.ch>
+CC: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>, Po-Yu Chuang <ratbert@faraday-tech.com>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject:
+ =?big5?B?pl7C0Dogpl7C0Dogpl7C0DogW1BBVENIIDAvNV0gbmV0OiBmdGdtYWMxMDA6IEFk?=
+ =?big5?Q?d_AST2700_support?=
+Thread-Topic:
+ =?big5?B?pl7C0Dogpl7C0DogW1BBVENIIDAvNV0gbmV0OiBmdGdtYWMxMDA6IEFkZCBBU1Qy?=
+ =?big5?Q?700_support?=
+Thread-Index:
+ AQHdTlAasj9uKBxgPkm1zHM8L1PmQbbisb8AgAJznjCAAKgvgIAAkPjAgAC6rYCAAqhMEA==
+Date: Fri, 2 Oct 2026 05:53:37 +0000
+Message-ID:
+ <SEYPR06MB51346CEDA33BEB5509B657C69D892@SEYPR06MB5134.apcprd06.prod.outlook.com>
+References: <20260927-support_ast2700-v1-0-9f03f29d2c82@aspeedtech.com>
+ <14a281e2-c88e-42e3-acd3-b20f111a4c28@lunn.ch>
+ <SEYPR06MB5134D5AEAD86D3E4C97D1DB99D8C2@SEYPR06MB5134.apcprd06.prod.outlook.com>
+ <36d6dac0-30ab-440a-bf35-81b33ecd8e8b@lunn.ch>
+ <SEYPR06MB5134FA89E6754F168E94C1B29D8B2@SEYPR06MB5134.apcprd06.prod.outlook.com>
+ <e8a8de24-4f6d-4645-9022-36995d8fd770@lunn.ch>
+In-Reply-To: <e8a8de24-4f6d-4645-9022-36995d8fd770@lunn.ch>
+Accept-Language: zh-TW, en-US
+Content-Language: zh-TW
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=aspeedtech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: SEYPR06MB5134:EE_|TY2PPF86E4C9764:EE_
+x-ms-office365-filtering-correlation-id: 1c539b88-9e39-4f03-7509-08df204980f6
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|7416014|366016|376014|23010399003|4143699003|56012099006|10067099003|18002099003|38070700021|22082099003;
+x-microsoft-antispam-message-info:
+ 6BGsWTrfoLK4Pu0sTB0YW637NHnN02Ydod6SG9dseoKxeHM/McjjGkwjCIg3KLgRwDKWS3npQ6E6WJjnMcAbJxreG3/9aR+ckqeNu8NHxqIvz27Git/r5zTqHR6pklB1QGFgEPDiebElf/76NZ8q+1RIrczA+5DBt7HcS2Up0aEC8cTI1dv2iwJxfayhgGbf+8etp3lZYiZ9RJLNTSlrwu0YfD2RpAXxxDJl/smDz+FvOB9GExdSHIk822KzngFsS/1lvtmEz3RiBALLX+vRMzmjWXeJfaXpBxTuikW0I7upXcyQc2cPg4ieyHNwRu6/ytMHupiOkmxtgXKtvNijPGQXpaHOZ5b5bV++ZXMea8IrVyQ+kV5g8ZPJr3igkGK7IBx5WFYHMz6tm51yaCs+tKSVpeFdU3XOiUKaP9n2HAYdmtbhdzr5D9QLXJbVAHLzfzJH6xi6X9+FgVJEcCq8bbX52T8HiUcDsUpmzr5BXb/IJ6gsLSIoLuDNNGwjb0ntJPTkPRPtMDXCgyFB0UkOKinYHkGsQEG0xams7yLKaMrefpXZ/+GX7zLuXmUZevISkB4hpiAwJbb0tSk4mJ6BOYPb+Z3znGiQ+/7uHh/L6RzzBGSZBd2nCv0zG4tEKcb4nyZb4DG7Zoc4+67WqGwiQ7ziIiFHS4EZed068Lx0BQtNWFaU1g8YkyGjdkET/fR36c91rXkV2e3ieekyXJLfGCYFsTaox4D8eZDlcsl/QIg=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:zh-tw;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SEYPR06MB5134.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(366016)(376014)(23010399003)(4143699003)(56012099006)(10067099003)(18002099003)(38070700021)(22082099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?big5?B?YjRJUC9yTjhnMzB1bjIwYUh4U2dYWTlSOUE1Z3F0KzBER2RUQlQ1UGZscjgwN01w?=
+ =?big5?B?N3VCTHVsMjRkaEh1NkRkZEQyYTUxT3FFRkhQZ1JqTm0vM1loWDlNaHhKUDZtVEtR?=
+ =?big5?B?TDRHRHN0YkQyRWlvNnJhamZMMmZjdCtpM1lYNnNhZXFqQ2ZtS2xQdUNDWGhSYysx?=
+ =?big5?B?OE9IczM4WTQ1TU14U2VWSElTNksrU2Y4Q0lXNExsQnBic2FzZEtSZU5MM01SZ3lL?=
+ =?big5?B?b2lFUGp2Tys2bWtDMTg0aW5LeWo5L0pONTN2UVRJRmJMV1lzUjJRMVZwemo3TTBQ?=
+ =?big5?B?cU5qWlQ3WWh6ckk5amd2QXVYbnYraHRISlAydGxuWTQ4TVVsdTNYRUxzMjNRZmVl?=
+ =?big5?B?NWZmSE5qN3p3SUtwN2VuNDIwbUVmVWZyU2trRE9HQk93RjV5Q1JqeDAySVBpd2pQ?=
+ =?big5?B?dE9yNjErL3gxS1NndUE0WXprZDl5UGNsVDI4Vm1LbWRnSDlEcUNKTGdiV3lEZ1Fw?=
+ =?big5?B?V1h3a3VmcFNwcnFFaU9ZRmVYMWJqL2tQVjRVaUFMMU13dzY5anE5djNDMWFwQzZB?=
+ =?big5?B?TmxOZ3lvMjhZaE1MK0dXbzFrVXl4c0ZNWVR1VXY0WUgwdXRtM05ZN1MvUTZNWDJ6?=
+ =?big5?B?K2RmVzNxeGhBSnNISlVsa0ZTZFVjL05ERk9TMk53RnU2Um1IUm5ROUFoNG10V0gr?=
+ =?big5?B?QXlqMCtGc0dWZmZhSkcxcHlueFExMFdPaGV5cUJkRXY4d0NWeC83eEo1RkdCRnJJ?=
+ =?big5?B?Y250dWJaTWFnNmwyK2JPeEFYa2hpWDhWbE9OR0tLUWdoZ1g1YTgwektOWjl1dmNJ?=
+ =?big5?B?M2Fnd2I3dXlTaU40bzFJL1YxWGwxLy83MjdqZUw0Z2hzTHMveTNWVkQ1VEZnbUVx?=
+ =?big5?B?a0JzRzNzbklneUxkVGlidERQNlNYbnk3KzM1UWVYUXZIK3JZS3Z2WnpvZzZ5bWh6?=
+ =?big5?B?SnpRNXoyOEZDdnNFei9uRUhkSWk1djdENlNXWDJXVmpRcnRnM3BnT3Bra1d0QTEw?=
+ =?big5?B?bmlSZkFwUXZJQUVZOUFxbExVcU01bmZmRXpOcHV5dVQ5VHlsblRuM3Q4eks5c05x?=
+ =?big5?B?ZXNlVzdPbWx1U0o1TXhBdzJuR3loMFAwc1lMYmIxVVBHdE40bTBweEI3cGNraE9z?=
+ =?big5?B?NmZJQnlSNEJKYllwcHN0WjljWDJHeEVWTmt2Y1llbDZESDdlakRSd3F3S0xMM3BF?=
+ =?big5?B?UjZGREFxYS9Pd2t4MzM2NGVSTlJMVmsyWEQrMmVLVi85R2JDeU9nNnI5UXM4SklC?=
+ =?big5?B?RkIweml3TFg0anRUa05QTk1reVFZWkFBS3A4Tm4xMTg1VEN0d1FBTG5mUG96QWlv?=
+ =?big5?B?TGN5ZkVDb1lQTVZFRGZxL1IvcjJveXhpc3EyWVY1Ym1UNEdiUm5MY1pvQnpiSEZp?=
+ =?big5?B?b1hQcm40Y3MvQWYwTTRBN2lIU1NHQ1hSWnZIUDFBaDVQNUdMUUI4SXBaT0dWZmNh?=
+ =?big5?B?VkFGd095Ymw0azZoM2k4MUNpVUdpVHQ1NU1TWlJKNUpqbHBOTzl4SXpqOHlEcnpm?=
+ =?big5?B?VVlFVEV0eFo0TXJyMzJVZ3g2RWg3SCs2Skd4S2dFQ0l3Z0NwOEYyV1VXd1pwRy95?=
+ =?big5?B?czVqQUZXak1uVFMxNTJaOGlWODZnclkwYVFWUHdza2tLK3lVWFl6UW80d1NTTUw3?=
+ =?big5?B?Z203L0s1V1h6ZlJibXYyT2t2OFYxK2thYVdQaW1JR0tyajdtUCtBY2VVb1MwVnMr?=
+ =?big5?B?aGxVMFJmS212Sm5oVXdKbEFDbFBVWk9iVDloSnFLRGtBTVNoRGxSM054TlRmTkR6?=
+ =?big5?B?Z0RGWVZYdHNBcUM2UFJuS1ZzUkhWUnhOaVpoQnN1eitRcE4zMUxEYlIwb2d1L01n?=
+ =?big5?B?M2h2b0hrdm40OTM2S0lvdit5ZWJjaDhWemQ4U1h0QVJ1S1dsNDI2bll6NE9aVEF4?=
+ =?big5?B?WnY0YnBNbkNhTjllTVJaSFBjMk9EVTVBWkd0aG5LMU5jb0VMeXF6OXhqZElWOWZu?=
+ =?big5?B?VFlJMGlLeTJ4akQ2RG81MkY4UWFuWUsrRW16ak1xWCtrK2hCVjliTlNrQ1Q5YnB3?=
+ =?big5?B?ejEybW80dXUzQW1DOTVqUHExNHV0VHRMMFJ0Y0dUZUw4MFY0R0RTTU95aTFuV1VO?=
+ =?big5?B?cGU4eWhENjZOMFo3bFVXRU9RKzZwTWZGVzhPTnJXQm5YYzNMRGlzbzRIRVh0NzEx?=
+ =?big5?B?NmpzTkxNTXk3QjliYzczbFR5bE53N2lBbGZTWk4vYjg5aHM0K0hrenRFOVZMaEk5?=
+ =?big5?B?TDJNUzBSYjFDMDdCSWVZSXBkR0xEaGc0WWVxbVhIQUlHZGU2aURwNjZxNUdRNmJO?=
+ =?big5?B?ZWtVMkVSUlJPem9iNWxTMUYwWkF0Zz09?=
+Content-Type: text/plain; charset="big5"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260907155916.999153-1-pavitrakumarm@vayavyalabs.com>
- <20260907155916.999153-3-pavitrakumarm@vayavyalabs.com> <aqz45SDR8judkwk5@gondor.apana.org.au>
-In-Reply-To: <aqz45SDR8judkwk5@gondor.apana.org.au>
-From: Pavitrakumar Managutte <pavitrakumarm@vayavyalabs.com>
-Date: Fri, 2 Oct 2026 10:42:44 +0530
-X-Gm-Features: AclHuK9z4TzNQCLimIHBRc_f1VJ8yqzmTGjdYfPGf-ABCOBscmzwdXYvuVHOzI8
-Message-ID: <CALxtO0nptFbjV-h567rag=ibWTxb_2PtG4ZEKCiAufTt-g-bUg@mail.gmail.com>
-Subject: Re: [PATCH v25 2/4] crypto: spacc - Add SPAcc ahash support
-To: Herbert Xu <herbert@gondor.apana.org.au>
-Cc: linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, robh@kernel.org, krzk@kernel.org, 
-	conor+dt@kernel.org, ruud.derwig@gf.com, rbannerm@synopsys.com, 
-	manjunath.hadli@vayavyalabs.com, adityak@vayavyalabs.com, 
-	navami.telsang@vayavyalabs.com, bhoomikak@vayavyalabs.com, 
-	nazim.khan@vayavyalabs.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-OriginatorOrg: aspeedtech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SEYPR06MB5134.apcprd06.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1c539b88-9e39-4f03-7509-08df204980f6
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Oct 2026 05:53:37.7161
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43d4aa98-e35b-4575-8939-080e90d5a249
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: BKLS4KPgbXvd1o+5M7mUcBId4L1lletN0upYuCpMPb9s0pHVSfehZfmy212uC1Vkz2ixgsDHIH+03EB/T1HktR6CEZY8hf9PFfNMpR0bKLA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY2PPF86E4C9764
 
-Hi Herbert,
-   My comments are embedded below.
-
-Also while bringing up an async ahash SPAcc driver against 7.3-rc1,
-cmac(aes) and xcbc(aes) fail their self-tests at tfm allocation, and
-I'd like to understand whether the underlying cause is intentional
-before I work around it in the driver.
-
-All tests pass for every hash and HMAC we register, except cmac(aes)
-and xcbc(aes). For cmac(aes)/xcbc(aes) it fails.
-
-crypto_ahash_init_tfm() allocates the fallback with:
-
-    crypto_alloc_ahash(name, CRYPTO_ALG_REQ_VIRT,
-                       CRYPTO_ALG_ASYNC | CRYPTO_ALG_REQ_VIRT |
-                       CRYPTO_AHASH_ALG_NO_EXPORT_CORE);
-
-On our tree no cmac(aes)/xcbc(aes) provider satisfies that: with both
-CONFIG_CRYPTO_CMAC/XCBC=3Dy and CONFIG_CRYPTO_LIB_AES_CBC_MACS=3Dy,
-neither the crypto/cmac.c template nor the new AES-CMAC library shash
-implements export_core/import_core, so both report NO_EXPORT_CORE. The
-allocation finds no candidate and returns -EINVAL.
-
-alg: hash: failed to allocate transform for spacc-cmac(aes): -22
-
-The library shash matches ASYNC=3D0 and REQ_VIRT but is rejected on
-NO_EXPORT_CORE. No candidate remains. CONFIG_CRYPTO_SELFTESTS_FULL=3Dy,
-so this is hit deterministically.
-
-This looks like the case flagged in "crypto: sha256 - Implement
-export_core() and import_core()" (Eric, Sep 2025), which notes that
-since
-commit 9d7a0ab1c753 export_core/import_core "effectively became
-mandatory... since legacy drivers that need a fallback depend on
-them."
-sha256/sha512/md5/hmac gained export_core, but cmac(aes)/xcbc(aes) did not.
-
-Is the absence of export_core/import_core on cmac(aes)/xcbc(aes)
-intentional -- i.e. async offload drivers must not rely on the core
-software fallback for these MACs -- or is it an oversight that should
-be addressed the way sha256 was?
-
-Warm regards,
-Pavitrakumar
-Vayavya Labs Pvt. Ltd.
-
-On Fri, Sep 18, 2026 at 2:10=E2=80=AFPM Herbert Xu <herbert@gondor.apana.or=
-g.au> wrote:
->
-> On Mon, Sep 07, 2026 at 09:29:14PM +0530, Pavitrakumar Managutte wrote:
-> >
-> > +static int spacc_hash_init(struct ahash_request *req)
-> > +{
-> > +     int rc;
-> > +     struct crypto_ahash *tfm        =3D crypto_ahash_reqtfm(req);
-> > +     struct spacc_crypto_ctx *tctx   =3D crypto_ahash_ctx(tfm);
-> > +     struct spacc_crypto_reqctx *ctx =3D ahash_request_ctx(req);
-> > +
-> > +     memset(ctx->state_buffer, 0, sizeof(ctx->state_buffer));
-> > +
-> > +     if (tctx->shash_fb) {
-> > +             SHASH_DESC_ON_STACK(desc, tctx->shash_fb);
-> > +
-> > +             desc->tfm =3D tctx->shash_fb;
-> > +             rc =3D crypto_shash_init(desc);
-> > +             if (!rc)
-> > +                     rc =3D crypto_shash_export(desc, ctx->state_buffe=
-r);
-> > +             shash_desc_zero(desc);
-> > +     } else {
-> > +             HASH_FBREQ_ON_STACK(fbreq, req);
-> > +
-> > +             rc =3D crypto_ahash_init(fbreq);
-> > +             if (!rc)
-> > +                     rc =3D crypto_ahash_export(fbreq, ctx->state_buff=
-er);
-> > +             HASH_REQUEST_ZERO(fbreq);
-> > +     }
->
-> Why do we need two fallback paths? It would appear that you can
-> just use the else clause in all cases.
-PK: Will fix that. We just need the ahash else path.
-
->
-> > +static const struct ahash_engine_alg spacc_hash_template =3D {
-> > +     .base =3D {
-> > +             .init     =3D spacc_hash_init,
-> > +             .update   =3D spacc_hash_update,
-> > +             .final    =3D spacc_hash_final,
-> > +             .finup    =3D spacc_hash_finup,
-> > +             .digest   =3D spacc_hash_digest,
-> > +             .setkey   =3D spacc_hash_setkey,
-> > +             .export   =3D spacc_hash_export,
-> > +             .import   =3D spacc_hash_import,
-> > +             .init_tfm =3D spacc_hash_init_tfm,
-> > +             .exit_tfm =3D spacc_hash_exit_tfm,
-> > +
-> > +             .halg.base =3D {
-> > +                     .cra_priority   =3D 300,
-> > +                     .cra_module     =3D THIS_MODULE,
-> > +                     .cra_ctxsize    =3D sizeof(struct spacc_crypto_ct=
-x),
-> > +                     .cra_reqsize    =3D sizeof(struct spacc_crypto_re=
-qctx),
-> > +                     .cra_destroy    =3D spacc_hash_alg_destroy,
-> > +                     .cra_flags      =3D CRYPTO_ALG_TYPE_AHASH    |
-> > +                                       CRYPTO_ALG_ASYNC
->
-> Please use BLOCK_ONLY for all new drivers.  See aspeed for an
-> example on how it works.
-PK: Is this needed for SPAcc? Let me give some context here.
-The SPAcc engine computes MACs in a single shot only; it cannot export
-or import intermediate MAC state. So, following the current model, the
-driver registers async ahash algorithms and relies on the
-core-provided software fallback for the incremental
-(init/update/final) path, as per your suggestion. So is the BLOCK_ONLY
-flag still needed?
-
->
-> > +     /*
-> > +      * CMAC/XCBC-AES have a dedicated shash fallback (allocated in
-> > +      * init_tfm).  They must not advertise CRYPTO_ALG_OPTIONAL_KEY or
-> > +      * the crypto API may try to use the generic ahash fallback for t=
-hem,
-> > +      * which would recurse back into this driver.
-> > +      */
->
-> How can it recurse back into the driver? The fallback allocated
-> by the API is always synchronous so unless your driver is sync
-> (which it is not) it cannot recurse.
-PK: Agreed, will remove that.
-
->
-> > +             salg->alg.hash.base.halg.base.cra_flags =3D
-> > +                     CRYPTO_ALG_TYPE_AHASH | CRYPTO_ALG_ASYNC |
-> > +                     CRYPTO_ALG_NEED_FALLBACK;
->
-> There is no need to set NEED_FALLBACK as the API now allocates
-> fallbacks for all async drivers.
-PK: Agreed, I will fix that.
-
->
-> Cheers,
-> --
-> Email: Herbert Xu <herbert@gondor.apana.org.au>
-> Home Page: http://gondor.apana.org.au/~herbert/
-> PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+PiA+ID4gRG9lcyB5b3VyIEFTVDI3MDAgYm9vdGxvYWRlciBhbHNvIGhhdmUgdGhlIGRlbGF5cyBv
+ZmYgYnkgZGVmYXVsdD8NCj4gPiA+DQo+ID4NCj4gPiBZZXMuIEFsbCBvZiBNQUNzIGluIEFTVDI3
+MDAgYXJlIGNvbmZpZ3VyZWQgdG8gZGlzYWJsZSBSR01JSSBkZWxheSB3aXRoDQo+ICJyZ21paS1p
+ZCIuDQo+IA0KPiBzdGF0aWMgaW50IGZ0Z21hYzEwMF9taWlfcHJvYmUoc3RydWN0IG5ldF9kZXZp
+Y2UgKm5ldGRldikgew0KPiAgICAgICAgIHN0cnVjdCBmdGdtYWMxMDAgKnByaXYgPSBuZXRkZXZf
+cHJpdihuZXRkZXYpOw0KPiAgICAgICAgIHN0cnVjdCBwbGF0Zm9ybV9kZXZpY2UgKnBkZXYgPSB0
+b19wbGF0Zm9ybV9kZXZpY2UocHJpdi0+ZGV2KTsNCj4gICAgICAgICBzdHJ1Y3QgZGV2aWNlX25v
+ZGUgKm5wID0gcGRldi0+ZGV2Lm9mX25vZGU7DQo+ICAgICAgICAgc3RydWN0IHBoeV9kZXZpY2Ug
+KnBoeWRldjsNCj4gICAgICAgICBwaHlfaW50ZXJmYWNlX3QgcGh5X2ludGY7DQo+ICAgICAgICAg
+aW50IGVycjsNCj4gDQo+ICAgICAgICAgaWYgKCFwcml2LT5taWlfYnVzKSB7DQo+ICAgICAgICAg
+ICAgICAgICBkZXZfZXJyKHByaXYtPmRldiwgIk5vIE1ESU8gYnVzIGF2YWlsYWJsZVxuIik7DQo+
+ICAgICAgICAgICAgICAgICByZXR1cm4gLUVOT0RFVjsNCj4gICAgICAgICB9DQo+IA0KPiAgICAg
+ICAgIC8qIERlZmF1bHQgdG8gUkdNSUkuIEl0J3MgYSBnaWdhYml0IHBhcnQgYWZ0ZXIgYWxsICov
+DQo+ICAgICAgICAgZXJyID0gb2ZfZ2V0X3BoeV9tb2RlKG5wLCAmcGh5X2ludGYpOw0KPiAgICAg
+ICAgIGlmIChlcnIpDQo+ICAgICAgICAgICAgICAgICBwaHlfaW50ZiA9IFBIWV9JTlRFUkZBQ0Vf
+TU9ERV9SR01JSTsNCj4gDQo+IFRoaXMgZGVmYXVsdCBpcyBub3cgaW5jb3JyZWN0IGZvciB0aGUg
+MjcwMC4NCj4gDQo+IEkgd291bGQgc3VnZ2VzdCB0aGF0IGZvciB0aGUgMjcwMCB5b3UgbWFrZSBw
+aHktbW9kZSBhIHJlcXVpcmVkIERUIHByb3BlcnR5LA0KPiBhbmQgZmFpbCB0aGUgcHJvYmUgaWYg
+aXQgaXMgbWlzc2luZy4NCj4gDQoNCkFncmVlZC4gSSB3aWxsIGFkZCBhIGNvbmRpdGlvbiBjaGVj
+ayBmb3IgcGh5X21vZGUgcHJvcGVydHksIGlmIGl0IGlzIG1pc3NpbmcsIGNvZGUNCndpbGwgcmV0
+dXJuIGZhaWwgYW5kIHByaW50IG1lc3NhZ2UuDQoNClRoYW5rcywNCkphY2t5DQo=
