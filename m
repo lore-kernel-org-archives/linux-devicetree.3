@@ -1,104 +1,165 @@
-Received: from cp2.siel.si (cp2.siel.si [46.19.12.180])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAD223A83B1;
-	Fri,  2 Oct 2026 07:14:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.19.12.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1880C3DFC7F;
+	Fri,  2 Oct 2026 07:18:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790925288; cv=none; b=eu6xFYM4Y56+kOWU9bI+OJubUbWXC/oXn72kE+KzOlM9yfOYEF2GzIuNljg3IyYRc044mK7Qif2Dd0XHjhsQpVmysLMTJ971xJYvXg97acI1wGNTRyS2OMK00qM5dQdxVnuR27PzlYDOxvsmwqLtoVF1Q17wlZXP0j2PGtTDvUw=
+	t=1790925514; cv=none; b=PJjMwDYGbxzTEMwuqX4qIypo9GIsrshLrof19Hj0dkzMcyTm92FF3VXyoXUQkNBP8foq+M+4RTPPX9EzTe118BP5u31Cyl2IIkuwvngBI+EyB/He8pjJauqXSy8fQEXmgrg+ExhQTv5Q4cDXSFsj9btTdQhERSXExu6XmZ8pb7E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790925288; c=relaxed/simple;
-	bh=lqYgtkHfcGG1Hc07mh2tfwZkVLkpruwUU8I4k09G54Y=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=X+KsHiM5+4G1sZutAdwXNgGzFNUBCnxEjKgumGwmRiQaOpiGrCkcqZP9gDKiewDUiLVisqqXcQ5A6q17oHMLubvrKqwmHzHis+e5pfH2gt/oIuJ/UDCl8sFwrUMDq4D+akZJtzZaMbwB83FFU+1Y6gRVTl18LFTDCWwGq2nKfc4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=norik.com; spf=pass smtp.mailfrom=norik.com; dkim=pass (2048-bit key) header.d=norik.com header.i=@norik.com header.b=UKqQXx99; arc=none smtp.client-ip=46.19.12.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=norik.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=norik.com
+	s=arc-20240116; t=1790925514; c=relaxed/simple;
+	bh=LKOqFUF1VrzMql9xOqWfSWBZnOUurH7PVS5p9gJjW7g=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Cx/K70n4o387F0OM/bljIyOifR6PDi5wqHVQpMHPqmlcunHikbH4kmChXO6SrIQO+iLbzmbl3ilyjv4+1PpxLIY70tfWqRrPLL+KzeV0vmxHsgf7m2cJzGyke1gbXteAz9uw3ZKfQhIoFyrh8zO+K0Rqi0jlfLEYfslmDIK7cpc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=vG+L6g9p; arc=none smtp.client-ip=68.232.154.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=norik.com header.i=@norik.com header.b="UKqQXx99"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=norik.com;
-	s=default; h=Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:
-	Message-Id:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:List-Unsubscribe-Post:
-	List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=MNzDwuLi57xshjL/neWiu2RuuYKEMPl9QJTsvFxHCEg=; b=UKqQXx99EEYgsShGpnFPdXae/8
-	2fR+SMN5tTGWrcCUJA+moinM/H1A1lmBHjCS6jRbtqcHUL9B/lY88B/BCvPtyDS2/eaEGErSnUSGH
-	jY3VFuKNtPHCTTyHQLPxkK5Dszahj1bkSiiuDWj53YPDktFSHMX0QQzN+TRaaOOpg4Seq6l6fXcwp
-	LqjIL9P5dYtP4RJEBYwC0yH52BJ9FZBCa4EgkSa/qWQR1DQ2Xbo076CkUQ5H8MGrG1duM6bgZrkrh
-	1oQEvWaM2U3sNbjZ3wqrfUlvdC4eNsVHbzJe4wNuLwCbxBs/3lcEJU3HNEYpI7bxjkJ7/GD0qnBcj
-	wTCkY6zw==;
-Received: from 89-212-21-243.static.t-2.net ([89.212.21.243]:50874 helo=localhost.localdomain)
-	by cp2.siel.si with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.100.1)
-	(envelope-from <primoz.fiser@norik.com>)
-	id 1xCXTg-00000002ntQ-0e4H;
-	Fri, 02 Oct 2026 09:14:44 +0200
-From: Primoz Fiser <primoz.fiser@norik.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>
-Cc: devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	upstream@lists.phytec.de
-Subject: [PATCH v3 2/2] ARM: dts: imx6qdl-phytec-mira: Fix uart3 CTS/RTS pinmuxing
-Date: Fri,  2 Oct 2026 09:14:41 +0200
-Message-Id: <20261002071441.2499132-3-primoz.fiser@norik.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261002071441.2499132-1-primoz.fiser@norik.com>
-References: <20261002071441.2499132-1-primoz.fiser@norik.com>
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="vG+L6g9p"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1790925512; x=1822461512;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=LKOqFUF1VrzMql9xOqWfSWBZnOUurH7PVS5p9gJjW7g=;
+  b=vG+L6g9pA60ZZnr+CNJtxzH19ACVLbvbB2xExqGS3697VmI/189VLahH
+   2W3Jg8Ix4K/JCDKlUpOoA+5SiVHsxaxrUuwHADudLfxWBhHWViqHGJ4lD
+   wxsZakxudFdJsKsz+mD3bJjc+ZBxKHx7yTCeBe49sEjEk77yiQTgUIaC+
+   mtKyqfwdhvR244f5CRXC7iu+ocW4RRck9C3KayicxdVHPz1otb7eJAnuU
+   SLRuVjl0TesSOBydUpi/iSgw/ucGdd/q8EGBuZjbdHAdeaFtSCkqJnJJR
+   g+2CoeFV/x85u0/8HfBszFuI4985aUYlC4A7Vpt+W6ui0zJgvPCJ1/j8B
+   Q==;
+X-CSE-ConnectionGUID: i0tJqMb/Q1+GnaUojbBUhw==
+X-CSE-MsgGUID: sPwnByjRQP6kDmAvWCH9rw==
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
+   d="asc'?scan'208";a="231582500"
+X-Amp-Result: UNKNOWN
+X-Amp-Original-Verdict: FILE UNKNOWN
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa6.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 00:18:23 -0700
+Received: from chn-vm-ex03.mchp-main.com (10.10.87.152) by
+ chn-vm-ex1.mchp-main.com (10.10.87.30) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.49; Fri, 2 Oct 2026 00:18:23 -0700
+Received: from wendy (10.10.85.11) by chn-vm-ex03.mchp-main.com (10.10.85.151)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.58 via Frontend
+ Transport; Fri, 2 Oct 2026 00:18:20 -0700
+Date: Fri, 2 Oct 2026 08:17:00 +0100
+From: Conor Dooley <conor.dooley@microchip.com>
+To: Junhui Liu <junhui.liu@pigmoral.tech>
+CC: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Conor Dooley <conor@kernel.org>, Paul Walmsley <pjw@kernel.org>, Palmer
+ Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre
+ Ghiti <alex@ghiti.fr>, Brian Masney <bmasney@redhat.com>, Yixun Lan
+	<dlan@kernel.org>, <linux-clk@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-riscv@lists.infradead.org>
+Subject: Re: [PATCH 1/2] dt-bindings: clock: anlogic,dr1v90-cru: make
+ external clocks optional
+Message-ID: <20261002-oozy-reversal-e65157724bc3@wendy>
+References: <20261002-dr1v90-cru-dt-fix-v1-0-c3e0b5d4c30d@pigmoral.tech>
+ <20261002-dr1v90-cru-dt-fix-v1-1-c3e0b5d4c30d@pigmoral.tech>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - cp2.siel.si
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - norik.com
-X-Get-Message-Sender-Via: cp2.siel.si: authenticated_id: primoz.fiser@norik.com
-X-Authenticated-Sender: cp2.siel.si: primoz.fiser@norik.com
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="nko9mlGfTiTZzztm"
+Content-Disposition: inline
+In-Reply-To: <20261002-dr1v90-cru-dt-fix-v1-1-c3e0b5d4c30d@pigmoral.tech>
 
-The pin muxing of the UART3 CTS and RTS pins on the phyBOARD-Mira is
-wrong. They are swapped. Pad EIM_EB3 has to be muxed as RTS and pad
-EIM_D23 as CTS.
+--nko9mlGfTiTZzztm
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Fixes: 800d595151bb ("ARM: dts: imx6: Add initial support for phyBOARD-Mira")
-Signed-off-by: Primoz Fiser <primoz.fiser@norik.com>
----
-Changes in v3:
-- add Fixes tag
+On Fri, Oct 02, 2026 at 02:07:00PM +0800, Junhui Liu wrote:
+> The external CAN and WDT clocks are optional inputs routed from the
+> board; the main oscillator is the only required clock. The binding
+> currently requires all three clocks, which forces device trees to add
+> stub fixed-clock nodes without a clock-frequency to satisfy it.
+>=20
+> Allow the clocks and clock-names properties to contain just "osc",
+> optionally followed by either or both of "can_ext" and "wdt_ext".
+>=20
+> Fixes: 155d900e4c7d ("dt-bindings: clock: add Anlogic DR1V90 CRU")
+> Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
+> ---
+>  .../bindings/clock/anlogic,dr1v90-cru.yaml         | 24 +++++++++++++++-=
+------
+>  1 file changed, 17 insertions(+), 7 deletions(-)
+>=20
+> diff --git a/Documentation/devicetree/bindings/clock/anlogic,dr1v90-cru.y=
+aml b/Documentation/devicetree/bindings/clock/anlogic,dr1v90-cru.yaml
+> index 11a92588e494..8bd7b78a58d8 100644
+> --- a/Documentation/devicetree/bindings/clock/anlogic,dr1v90-cru.yaml
+> +++ b/Documentation/devicetree/bindings/clock/anlogic,dr1v90-cru.yaml
+> @@ -17,16 +17,26 @@ properties:
+>      maxItems: 1
+> =20
+>    clocks:
+> -    items:
+> -      - description: Main oscillator
+> -      - description: External CAN clock
+> -      - description: External WDT clock
+> +    minItems: 1
+> +    maxItems: 3
+> +    description:
+> +      The main oscillator is always required. An external CAN clock and =
+an
+> +      external WDT clock may additionally be provided if the board route=
+s these
+> +      clocks to the SoC.
+> =20
+>    clock-names:
+> -    items:
+> +    oneOf:
+>        - const: osc
+> -      - const: can_ext
+> -      - const: wdt_ext
+> +      - items:
+> +          - const: osc
+> +          - const: can_ext
+> +      - items:
+> +          - const: osc
+> +          - const: wdt_ext
+> +      - items:
+> +          - const: osc
+> +          - const: can_ext
+> +          - const: wdt_ext
 
- arch/arm/boot/dts/nxp/imx/imx6qdl-phytec-mira.dtsi | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+This need not be so complicated. The following should do the trick:
 
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-phytec-mira.dtsi b/arch/arm/boot/dts/nxp/imx/imx6qdl-phytec-mira.dtsi
-index a7d6af162731..8b2b4ed76328 100644
---- a/arch/arm/boot/dts/nxp/imx/imx6qdl-phytec-mira.dtsi
-+++ b/arch/arm/boot/dts/nxp/imx/imx6qdl-phytec-mira.dtsi
-@@ -374,8 +374,8 @@ MX6QDL_PAD_EIM_D27__UART2_RX_DATA	0x1b0b1
- 
- 	pinctrl_uart3: uart3grp {
- 		fsl,pins = <
--			MX6QDL_PAD_EIM_EB3__UART3_CTS_B		0x1b0b1
--			MX6QDL_PAD_EIM_D23__UART3_RTS_B		0x1b0b1
-+			MX6QDL_PAD_EIM_EB3__UART3_RTS_B		0x1b0b1
-+			MX6QDL_PAD_EIM_D23__UART3_CTS_B		0x1b0b1
- 			MX6QDL_PAD_EIM_D24__UART3_TX_DATA	0x1b0b1
- 			MX6QDL_PAD_EIM_D25__UART3_RX_DATA	0x1b0b1
- 		>;
--- 
-2.34.1
+clock-names:
+  minItems: 1
+  items:
+    - const: osc
+    - enum: [can_ext, wdt_ext]
+    - const: wdt_ext
 
+pwbot: changes-requested
+
+> =20
+>    "#clock-cells":
+>      const: 1
+>=20
+> --=20
+> 2.55.0
+>=20
+
+--nko9mlGfTiTZzztm
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCar9abAAKCRB4tDGHoIJi
+0hyqAQDEZIKCULEAwrQndVIAevHaJ2R9EhY5vu6x/fmrOPTwXwEAxqtkubDhkZ+1
+W0A0l0vK31l0ajK/8nN+ibndkBjaCgQ=
+=lnEC
+-----END PGP SIGNATURE-----
+
+--nko9mlGfTiTZzztm--
