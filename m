@@ -1,95 +1,183 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AB2542E42B;
-	Fri,  2 Oct 2026 07:26:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46D3C4156C2
+	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 07:29:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790925998; cv=none; b=mvaODdjc/oep7O2abeiuwvuzSenU0QDrP/Lw41KNYAtF08LZ9MAA3xtQ7s9z2KiWqtP8vz8hiUx06XmdOZlJeLAWD3bBUeL4MFTmXdEVrJbQk/VGX++8BJ7dbMmQ2waXLysKybkvJL6tziKXk95zzDQab2wyMgTw+4Zus+y6+uY=
+	t=1790926145; cv=none; b=nMrMhVAKo/zm1H8TXPVaOmYOX+37Ng2EWHLvcZp5Jc1KjGzyFJL01pMThn/+lNVm4PmMS7X2DT5fCMbn/kTFP4kFK7U+SIZJDqVtgyLa/ifYxFRZDUdyBiuGyMI+s6Ldcyz0b4Bby2Sa6QNKZr8ntSYugJfrROPT2W7UKDStxsk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790925998; c=relaxed/simple;
-	bh=M8LDx81Q8GYPdxpUav/etcd7GxcM5WDdP1EesCwH8/8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IZTRkDTf9bObfTCW9S7OMkrBv0EpxUJjnV/218Vflt+i1PV5DtU4hkHKEC9Hpw9HMwCSDthN3kml9LtOo2g0ym/909u6acyyqj5dAoz0gf20bzOUW1Kg7hjslEFlAl+IgAOvQFTfQvl8VDyE7GDQtAzsQak+/fTroXgPSfBaILE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GJU/RckA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790926145; c=relaxed/simple;
+	bh=BTuGr8m9qHOpmcjHfKxzvSU/3vPYu8rA2unWoXylLKk=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=Dd/dwIy+TbQg5Cd08S5+lahwyxPyXumoIlIgNO44xp9u2eAfAnmsRYQkkPJ+39oa4b5cHichZapHM51BGhHChwDlo5pc40UEHYh2+6zyiHrXyEHRPWT5fgHpJVSFOh3DFkNe2MaZynaqUE75f/ntr41zzMAg8V6otgPxfunvHnc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=bhKSNBHo; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GJU/RckA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 922681F000FF;
-	Fri,  2 Oct 2026 07:26:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790925992;
-	bh=t4Aa2rDm5IJKQVp9njva5WgCYsDKYOwucAStsTFJtbA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GJU/RckA8iIsEm/XH7EkqCo/C9CckCBSHHmu72+tpVsyn4rWcGsIq21cpPy5o4CLE
-	 ryQ7TIXeFh1H8WjDf1xDd1LGh+3cNS5jyYSL2zR3HaMifpuffZJw0PtqhwyOf/3iB+
-	 iWJhnhkThZHZ6Ifgy9wGXn2gdp/qOw3izHl6q8/Na8OYgw7RE+lHI28Oke+fQJqTun
-	 CVamtDd6qh4IetXIk3QyJ8b8mZdCebe6hNFSpsq40K6waDRvYaKpYMgitCg9Qvfr9e
-	 RPJbtfsiFxrOyXj4O2+aEdQUgYkUZKdTYCOvOj5taoxjkgsXtuREvfMj9e+jyygZmi
-	 DfbQrTDZdKrQQ==
-Date: Fri, 2 Oct 2026 09:26:29 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: tegra: Replace spaces indentation with tabs
-Message-ID: <ar9cmeQQviinOJbz@orome>
-References: <20260829193858.107368-2-krzysztof.kozlowski@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="bhKSNBHo"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-4a0977b9c20so4266295e9.2
+        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 00:29:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790926141; x=1791530941; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6zplr7QU6lV0JIsmwOjHD1EDA7HxZc99c9t5ZOt0FqI=;
+        b=bhKSNBHoAMMnzGX7ZcGPXEO4IE47Ndm51W5xr/hzwzpiypx7FC5CfkYK+Kt87JVpQJ
+         /QJosLMTALfrEVEhFCXcdAS1G9h9spnUj4KuxCEDblLtrfUVg4tvXdmotnJI/oP7GuRe
+         ennf0DeKkC4v6rQ/HW4bb458+0+QeuwGAluRstIcsqABFH/AbFXpV0FZ7GqxxcBgRzBj
+         b2BlhCGJVgL9n8Cp4hU0EHXk4uRwBb2PJrCBXlmw338T0qsJz5bUqCM+Cj2BiFMW67cI
+         7KmvaFREUd9aDsWFdrS7IaBOXKHyQv9LJrT1DOBQddrm/6Wb4ZxRyhqeLNpCxbbnnBqS
+         EiuQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790926141; x=1791530941;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=6zplr7QU6lV0JIsmwOjHD1EDA7HxZc99c9t5ZOt0FqI=;
+        b=rBkwsXVuzUXFiUq+CtRONn4LXt/bw5+r36FW7ZIo7w1GARP+n8r9wuVL/opzEDE+iF
+         /7LHpGdo7ml6LMNVuDb/ODUDoDfS2txtUuMvaFABX5Y/hMqRwWB2vyEX6gqmrAAzowy7
+         jzPrWJBGIZorBvk+gSayhfKvURyF+xqxOMdWsbqtpzTLaqxoHj1XNxxVN0ZDpami6yQL
+         nLgKcMxnLuk21FikTu1uDZeaeNjyROX8n1iQjU9X7KZ8SLo8rfBSOTRNsnQVjtnRo4I2
+         zltedLoQDrCUVr5jWukrdrjUr5wBxTfmvXkXcFyBNXdPNBsOSJEH70bMjcwmJRbEArbR
+         49ZA==
+X-Forwarded-Encrypted: i=1; AKwUvBzGg0R/xDIShxHzarp75RZRSUslT6J/F6cg6CZadGG0JgTVVJyURekrBV438yaXXRpcMrYxDfEI81+J@vger.kernel.org
+X-Gm-Message-State: AFuF++n1S0LLo1i2uNhd5F+zkXctn53InUaX8vo0erVITti+lrX51KyF
+	Bp7KZVoj5kap2CxZRs/42iW8HhIgw+JteXjVd9A1BU3uGd41i2NdDqmGlhrqJDAelnk=
+X-Gm-Gg: AYBFou2aiF++fJOVqIxIDdTASkcmn0O1y7N6UmiDWeeI9PYxbbEW8qplBw60N+ygBfN
+	Qm2b2dRtNFmpVTKSYDqovXzP87bwde6WknQle2yRB5/Cm1PjMmv5rprbW5yK3JXl2t4PBxsBkb4
+	eTc9byIUxJAKkbj51M+odqBNjDELg3wSdRnInhn0VXK3LhWRLG2rebpCTPwnLpArKXobWFmxw/k
+	58RF3iIODcP3arZe7dj8Q6BQYTeFl8We9ibO3MjrjY/5/GgUYkznE1OW+r/NtKF2fCtPmueFo/C
+	EqHsW9VILsXPL0w0YsfrmpK/iV0XO32Q1Kz4K7W7gCXQbwHIJ/E4Xj7K9hAp9OP393vRUJvlqhD
+	vpIOivq6E+GThLvN57Fq00PE2nYH3VXnfBu73jdU5zy+chugAHQsVK1SNcH1T0vZkarnvhr3rn1
+	9MLH5FlHXZk0tTbBL+geucRB5JvVg/SvsNTZXOWTxAX2ehOEgBZh/j8qig8xwd8bCboHm6WWRCf
+	CiZRWm5eKSgRgN+IryESY/ZvLBfz66oEzlkuzCfpSeGnsghCu64bEknOTxo4w==
+X-Received: by 2002:a05:600c:1911:b0:499:b65e:49c9 with SMTP id 5b1f17b1804b1-4a02756643dmr30178595e9.10.1790926141218;
+        Fri, 02 Oct 2026 00:29:01 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:2f62:6d3:721b:8c9e? ([2a01:e0a:106d:1080:2f62:6d3:721b:8c9e])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a039505568sm42454685e9.3.2026.10.02.00.28.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 02 Oct 2026 00:29:00 -0700 (PDT)
+Message-ID: <ebe0714e-cb96-4091-a718-97dd9c081710@linaro.org>
+Date: Fri, 2 Oct 2026 09:28:59 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="s5ykh2ispqzj7bvd"
-Content-Disposition: inline
-In-Reply-To: <20260829193858.107368-2-krzysztof.kozlowski@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 1/6] dt-bindings: display: Add panel-mipi-dsi-bpf generic
+ panel binding
+To: Maxime Ripard <mripard@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Jessica Zhang <jesszhan0024@gmail.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
+ <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve
+ <aesteve@redhat.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ Javier Martinez Canillas <javierm@redhat.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, llvm@lists.linux.dev,
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ Benjamin Tissoires <bentiss@kernel.org>
+References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
+ <20260928-drm-mipi-dsi-panel-ebpf-v1-1-5244926aace4@kernel.org>
+ <20260928204059.GA515872-robh@kernel.org> <artyl8fD3zzng8Uh@houat>
+ <742d5bab-51cc-49f0-825a-f299a055bb1e@linaro.org> <ar4G864IgYTvfNNy@houat>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <ar4G864IgYTvfNNy@houat>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
+On 10/1/26 09:09, Maxime Ripard wrote:
+> On Wed, Sep 30, 2026 at 03:32:19PM +0200, Neil Armstrong wrote:
+>> On 9/29/26 10:39, Maxime Ripard wrote:
+>>> Hi,
+>>>
+>>>
+>> <snip>
+>>
+>>>
+>>> panel-mipi-dsi-spi is a generic panel that will load a firmware, and
+>>> quite similar to this one. google,android-pipe and qcom,fastrpc don't
+>>> attach to anything and will just open a tunnel to userspace, which is
+>>> somewhat equivalent but more dramatic than what this driver is doing.
+>>> simple-card or its variations will just instantiate a kernel driver from
+>>> the DT and is used pretty much everywhere.
+>>>
+>>> I reused the binding from panel-mipi-dsi-spi for this. It was reviewed
+>>> by rob, and acked by a panel maintainer, and 4 years ago, so we're way
+>>> past the "oh but we didn't know what we were doing back then" argument.
+>>>
+>>> So, let's phrase this differently: what's different about the
+>>> description than panel-mipi-dsi-spi, or any other binding already in
+>>> tree?
+>>
+>> The panel-mipi-dsi-spi still describes a class of H/W control interface,
+>> not a pure software driver implementation type.
+>>
+>> "panel-mipi-dsi-bpf" or "panel-mipi-dsi-rust" or "panel-mipi-dsi-cplusplus"
+>> would be the same problem.
+> 
+> Rob explicitly said the bpf part wasn't the problem. Also, I don't care
+> for the compatible itself, so what would be an acceptable compatible for
+> you?
+> 
+>>> If it's the BPF part, BPF is not Linux-only, and there's hardware with
+>>> direct BPF support these days, so it can be considered OS-agnostic and
+>>> not an implementation detail.
+>>
+>> If somehow panels used a standardized MIPI firmware we could define this
+>> in DT, but here we're basically inventing our own type of firmware from
+>> thin air.
+> 
+> That's not what panel-mipi-dsi-spi is.
 
---s5ykh2ispqzj7bvd
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] arm64: tegra: Replace spaces indentation with tabs
-MIME-Version: 1.0
+What you describe is how it's implemented in software
 
-On Sat, Aug 29, 2026 at 09:38:59PM +0200, Krzysztof Kozlowski wrote:
-> Replace excessive spaces for aligning indentation into tabs.  This will
-> be reported by dt-style-check ("[mixed-indent-chars] too many space
-> characters in indent (more than 7)").
->=20
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/nvidia/tegra132.dtsi |  4 ++--
->  arch/arm64/boot/dts/nvidia/tegra186.dtsi |  2 +-
->  arch/arm64/boot/dts/nvidia/tegra194.dtsi | 26 ++++++++++++------------
->  arch/arm64/boot/dts/nvidia/tegra210.dtsi |  2 +-
->  4 files changed, 17 insertions(+), 17 deletions(-)
+Neil
 
-Applied, thanks.
+> 
+> Maxime
 
-Thierry
-
---s5ykh2ispqzj7bvd
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmq/XKIACgkQ3SOs138+
-s6HEcg//fSTNvrj7yG/sTCj5gra0mg7yx/MdHKpc4ejj0w3uewt5eHpKa1OhXyqZ
-4uGCcTBgZFsylp5wTVtRpu36EzrQACzKhsldGgvtIAsXfU9xcUSymawDU1RoTTYC
-QT7+4jEB75RmMLKL/CEiZ1XfXp0rBnJqUedclCaQh/WaBLP89mfCK4FG0qIq8T2/
-C7uup6gdGCO5Stk7/21hGBRXoFzbtUPjSOI9Bv9UE3vl0J0pRQKUx31Aqnbm/Lqr
-m9NxWPQ2gcPd0r4jks6naubUxSunY1CBTq66vqM+XOajRwQ1PNn5DUTv7riYyS3w
-5QqmryN0JsLiYb/fSa1/LazSnmtkTIEYFXF8gZFtYRXx6wmiwgqgS4J4QgdzzJeq
-tDKMVOitbDSL8YhbXNNuLNKbNmIBvkUVDDvKIF8wDLKdYUwmoLaRbh0JOIbTKpiS
-DKUZiBI9ZacP8tSJ6JsUaMulRCSrKHKO2o4/cMJdoq8VpipzSfLCoklwe2jJNNWQ
-eKsIgc6FCs6uVkU0aTASLis9diTSFTFrdvrseKskNXRhsUDm2g6LSnk5k4wyW785
-AKU3duUVfaC6hO/M7IkPRJ/1V+wJvOm6vVOWZyowE9ESdnlRkXuoEojHR14+l+X2
-xQOOblBLZZMG8yuDtH1GwgSAFqEgM1vOeBQTPnhacE8hdhucyfE=
-=UBg2
------END PGP SIGNATURE-----
-
---s5ykh2ispqzj7bvd--
