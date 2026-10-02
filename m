@@ -1,88 +1,85 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A032B47AF6E;
-	Fri,  2 Oct 2026 09:57:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B4A748EC7A
+	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 09:57:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790935050; cv=none; b=H6PAplQMkMXEKzMLW95WCdzO/WICkgsq0nzVcLowqXKLBAdJrcxvNXnvyhF0ZzXnfZD0ogpe384Ab67VmMoMK4LTMyNYEXUAFcdoC/MZyqCxipUCe4YevBmcEvhOMVzCnNbFcb2tdU1/BlZaLrgtSM/F0dps+5V8EQ4bD5DeL6U=
+	t=1790935059; cv=none; b=uA8943gnWasQctRmrQSAyooZMOuQ98dLikBiRi4GCW6fFueRDy26AYY/Y9bw+RmVb1V9DHlhUQcDSaDTMajV+ab08OZGXOD/mXZW5xo9kSC+tXP8FjRBV0XBf5mgMNYqL08sDOA6OZ/0J7P1Y+scbMNasm+4OSnffAvlSXUbxSo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790935050; c=relaxed/simple;
-	bh=qY9Qy/zjj5otB983nZyGB0RLI2KGL0XWmvAirNnx1iQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ARZiy06QZ6p1uo0zTRx4PRQN/jJ+w8lI4PObid+MBd5KZWTgZ1qKwChd+Iaz2UCQ3bbb1sKnKaSVNKXXdrGikEHU+n4IQkoVTnJX6LrHsYKuGnVhbUpIUU5lmPq5xjHbnrjHm2qOrIuXLd3N0Xc95nHaJLyDsUTJZW2e2MkFPFw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NOnmRr5G; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790935059; c=relaxed/simple;
+	bh=bq0BI4EtUwIqKTsl+V2VNwPj8wCAyWYOSmiBSaUbGDg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=oX320p+9nyDDaaI+evOUYlF0Pi6adFf2lungObJd9QBWNC5DgMT0mNHMWRw9nHZj2RhSyQU6LXifBrX3oNQE9H7unmJY5O4EDkbvMX1K45TRLbGRnng23A9JXyzUr2UeFCZP60so75pe8GviO18sQKaEqeRC0pP2M6/Q+sfM6Oc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hOumYXfW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NOnmRr5G"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F3461F000FF;
-	Fri,  2 Oct 2026 09:57:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hOumYXfW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C80941F0089D;
+	Fri,  2 Oct 2026 09:57:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790935049;
-	bh=PLeFu54Nd5rSMQsgmk8z/TW66IdcUrnWu2a8cKeXez0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NOnmRr5GZfqw+1btVcKPXx/ECYIxnDHl/RVP+c+SgzGdRqr9uXCheHqsscC2Zu2TN
-	 Zd5/EUIIesNAf66IZwaN6yQauHNLh2v0yyx0XWGLCoUDCI2UdIjJb9yAE7nmb5/Z/F
-	 B2wkj2OsN4Ek+Ut1w82WQ62aZYM6ERP1kBWxrWbmKU6FMIzpjh4Fp3gmMPLimSeCB3
-	 ap2Y6hekZMupJZV8yOOpFcc1paW4sHNie2ROcF9zhFXSbpL8gh1IXLSPOmdbtFbLuu
-	 z2N9z2ck7HCWUKUQPqogK+anFEiLuR3s3yWc2uf0b2RypMnqseV4An7MGAANYXVWLK
-	 Ai3NsRny3nAQg==
-Date: Fri, 2 Oct 2026 11:57:25 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: =?utf-8?B?QmFybmFiw6FzIEN6w6ltw6Fu?= <barnabas.czeman@mainlining.org>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Mathieu Poirier <mathieu.poirier@linaro.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Stephan Gerhold <stephan@gerhold.net>, 
-	Ulf Hansson <ulfh@kernel.org>, Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
-	linux-remoteproc@vger.kernel.org
-Subject: Re: [PATCH v3 1/7] dt-bindings: power: qcom-rpmpd: define RPMPD_VDDMD
-Message-ID: <20261002-devious-mauve-wrasse-66bbeb@quoll>
-References: <20261002-sdm632-rpmpd-v3-0-95c47d0f26cf@mainlining.org>
- <20261002-sdm632-rpmpd-v3-1-95c47d0f26cf@mainlining.org>
+	s=k20260515; t=1790935058;
+	bh=OPhykRUFfTkGXf3QI3hkUnST9bUMEbYLeSrSgVO4OUY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=hOumYXfWulDe8gW3gRm0xGuup7wSHE/EmbsQpbeJionIxDMGgS/O7JQT4HZxvX7W9
+	 LoCaQwgglAuDGC2nEZYnh3dY7RzH+LXtiV8OdOawdCZ9fjBGJGjMlVLXLCO8KoWsLz
+	 NDO7k+GoBkxbAZ9mER/VHtB+rg9SrLcGlO4Z5XyaJw5vWBPPoz4haOyeDnI2EddVUl
+	 8XaXItQ36Ih9Hpe8dTGu2G0aPbttgJrcG2pZWEeSOx5QakVEmBU25uJEtKYJbSch4k
+	 JhJsKcLJru/rv0l6w+Gga2plp6q7KwAO2VpdNFL8YKQijW46n1jRRkhbCHK8pn2l/Y
+	 NYozGkQmI1HmQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 4/5] ASoC: pcm179x: Add pcm1796 as compatible with
+ pcm1792a
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?Um9tYW4gU21yxb4=?= <roman@amarulasolutions.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20261002-work-v1-4-f0e53bc7331f@amarulasolutions.com>
+References: <20261002-work-v1-0-f0e53bc7331f@amarulasolutions.com>
+ <20261002-work-v1-4-f0e53bc7331f@amarulasolutions.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 02 Oct 2026 09:57:37 +0000
+Message-Id: <20261002095737.C80941F0089D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20261002-sdm632-rpmpd-v3-1-95c47d0f26cf@mainlining.org>
 
-On Fri, Oct 02, 2026 at 12:38:29AM +0200, Barnab=C3=A1s Cz=C3=A9m=C3=A1n wr=
-ote:
-> Define RPMPD_VDDMD can be used for SDM439 and SDM632 MSS.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] spi: missing pcm1796 spi_device_id breaks module autoloading
+--
 
-There is no sdm439 RPMPD... The SDM632 is added later and bindings
-header come with the compatible patch. Squash these.
+commit 8959b1de4bb8c22b7a8a0f59806c5a6f767c0c82
+Author: Roman Smr=C5=BE <roman@amarulasolutions.com>
 
->=20
-> Signed-off-by: Barnab=C3=A1s Cz=C3=A9m=C3=A1n <barnabas.czeman@mainlining=
-=2Eorg>
-> ---
->  include/dt-bindings/power/qcom-rpmpd.h | 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/include/dt-bindings/power/qcom-rpmpd.h b/include/dt-bindings=
-/power/qcom-rpmpd.h
-> index 4371ac941f29..beb066b3aa8c 100644
-> --- a/include/dt-bindings/power/qcom-rpmpd.h
-> +++ b/include/dt-bindings/power/qcom-rpmpd.h
-> @@ -15,6 +15,7 @@
->  #define RPMPD_VDDMX		3
->  #define RPMPD_VDDMX_AO		4
->  #define RPMPD_VDDMX_VFL		5
-> +#define RPMPD_VDDMD		5
+ASoC: pcm179x: Add pcm1796 as compatible with pcm1792a
 
-Problem is that it is platform specific and comment in that file says
-"don't do it" yet you do it.
+The PCM1796 is fully compatible with the PCM1792A.
 
-So the device has nbo MX? Why commit msg is silent on this? Explains
-not much except repeating the diff and referencing users which are
-almost obvious if this is properly squashed.
+> diff --git a/sound/soc/codecs/pcm179x-spi.c b/sound/soc/codecs/pcm179x-sp=
+i.c
+> index 192fee90c9714..e5e4b942acfc5 100644
+> --- a/sound/soc/codecs/pcm179x-spi.c
+> +++ b/sound/soc/codecs/pcm179x-spi.c
+> @@ -31,6 +31,7 @@ static int pcm179x_spi_probe(struct spi_device *spi)
+> =20
+>  static const struct of_device_id pcm179x_of_match[] __maybe_unused =3D {
+>  	{ .compatible =3D "ti,pcm1792a", },
+> +	{ .compatible =3D "ti,pcm1796" },
+>  	{ }
+>  };
+>  MODULE_DEVICE_TABLE(of, pcm179x_of_match);
 
-Best regards,
-Krzysztof
+[Severity: High]
+Should pcm179x_spi_ids[] also include an entry for "pcm1796"?
 
+Without a "pcm1796" entry in pcm179x_spi_ids[], SPI module autoloading fails
+for DT-instantiated devices and legacy board-file matching fails.
+
+The SPI core (__spi_register_driver()) explicitly enforces OF-to-SPI ID
+parity and will emit a warning during driver registration.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261002-work-v1-0-=
+f0e53bc7331f@amarulasolutions.com?part=3D4
