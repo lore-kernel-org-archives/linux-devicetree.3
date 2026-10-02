@@ -1,301 +1,117 @@
-Received: from mail-pj2-f40.google.com (mail-pj2-f40.google.com [74.125.227.168])
+Received: from mail-pz2-f37.google.com (mail-pz2-f37.google.com [74.125.228.37])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 556F82EBBA1
-	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 08:51:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D30628B4E2
+	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 08:57:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790931100; cv=none; b=rFJcqXwSviXy0ndNs8gRqImNnjd1JNxfKaU53mp40zwDmWaeAiI0d3KHiTXcNlWn3KX8PqeJFpqLYETvUOyuGwO7gpDUY0QzjU5PXVydHCsSiNW99cREMhFZeH0miKAPrXf5ISI2UUNpZjMOu8Pwv5QwWnH0qzLq8HpQO0Xhhd0=
+	t=1790931421; cv=none; b=c4DrvvxOKj0JEC3vAxgWYGtg3qVz+WpTE4i7IE7dcyE0Dx7URC6F6ugMr/YIXLgokOyEzPsWb9uxObQ69epuL28IBwzJNLBKBA+QBUs5pg9o7r7Gw/WLqUoacxckOm2Qa1kfKRGnWCOsLGanEGw1/bLS8gTD83v8FgFMA3/Uxw8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790931100; c=relaxed/simple;
-	bh=q0+WZWWpbUwk7OaIqFdQLngua7dC6tHeIz40hmGWwiI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HOEn29O9Pk+1nfy0eCDeyw2bkruZ43nFmPYX6zi/iHd7cheRTsyRB3ChDv76AyCo23Z7Oc8w8MNBvghzEnb3S9xDeDRSVLJjpXgAz7313oKzjrCrkEFkmNjF/tYkSHVORWAkhLuhDwPvYyv9h7kXBgcKUgvUBVcQkVH8bTLkPms=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=B0MJqgmk; arc=none smtp.client-ip=74.125.227.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1790931421; c=relaxed/simple;
+	bh=AKpAwGrAWkWPODtfuK12U4uxiMLieKQlbgES8jMWlzY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=otFD852aMfeezS3zvZ4+EUgmHeQ4MBM6WveKy8ltAWYPPxQHOh4JW+3m/qzQyTe1H/SYe01HTGibfKMUOualRxsq20diFlew9TyJd8FlfwPbE2AHUmwbCg3LgHz7BVDa6KpaWzjYi2KDYu9LxsdP5hEVdXZTAZCjCR/qbyh2mz0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cpSTW15w; arc=none smtp.client-ip=74.125.228.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="B0MJqgmk"
-Received: by mail-pj2-f40.google.com with SMTP id 98e67ed59e1d1-3a2adb9bc3cso3164116a91.2
-        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 01:51:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cpSTW15w"
+Received: by mail-pz2-f37.google.com with SMTP id d2e1a72fcca58-887d4b0e846so608941b3a.0
+        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 01:57:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1790931098; x=1791535898; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1790931420; x=1791536220; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=cFDRc4rOIO+c40lpmKovemaErB2R9zNLl58jsdIqFX4=;
-        b=B0MJqgmkGWHJlResHoCiWH/Rp+ZUFCmpTXmCaCXHjurxxsDBCxMC9AV8/We17NH5QD
-         ongB15C3HqsDNFzsxwc10EWzMo86aq79mjJwS+aqQk55VoH5rgf+iPWlNBHR1/4Ux1ac
-         usVZr1ju9LtZ9y/V4Hxs7H5nCnF/WO0NSUVhQ=
+        bh=cpvwnxAk9svVbGHuD977nmsMKCoPbElte6mylNvKXkA=;
+        b=cpSTW15wkqe1gxhkUDXYsc/8sDgK5EL2/zSlxKAx+691YPeYF6/YhH+9ZggmKWPKaV
+         92WUYKm1IWIQeFk+j2d8p42/HRgJJ1Imv/qi0X1gnyZ6EEgSDjLI/LxG6GFNlucTmzJk
+         z80myiv7fLn6nhsDJ4pDSxu2P0bHOOwNGUHZHqbf9PMPU6fOevM3LGeMfnB60/64x1EU
+         MIdVGQ7qlZGuLQtvuGnqWeQz3iav7ChrguC0YG2euIqnuBaoX6vQMOMoVz6Ebnl0PDhh
+         ELTQeVidueHUoJkNbuJjxvoEoCrcO05D744vNGCG22DR7Py47YeoFBLEj3959UQ0FZLk
+         N91Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790931098; x=1791535898;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1790931420; x=1791536220;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=cFDRc4rOIO+c40lpmKovemaErB2R9zNLl58jsdIqFX4=;
-        b=R3+HZO9tnquSDzvrmW1ZCjU35WBNz/BuXxfsdNTQU3snru5A2YJUpGk1Ua6qvsbwLb
-         AllXMYZAcwFouY0a2Hn/bNOVFJoXj6vapTgXAlicI/tjVpYqR4R+c42tUuWfro5XpFXl
-         RqTwojclfkkiko1BJCHvU7PkiTy4Eh/nPOSnARKXr/vZ022rKaiQWpPTWcl90vbJVzqP
-         dzQ/DEl/XW0SjYptFJCKNR3aVRBuqjftsAb8dWQHXQSlbTqhrcMLdvdZzdg4gPKh/eph
-         h1IH0BknpO3N/AlDvrrf4+r+Eb6rOTWF+MtNhoD406jQbAgEzqyLQeGDF2hfu40DkYik
-         7pPA==
-X-Forwarded-Encrypted: i=1; AKwUvByHyZMcIJ+NXtq0GoS1wIC/rNAPvLqqZCicg/Q8ExECZZMxY0eYQXbeioS9czkMvlc4dcxgmfHIuJPl@vger.kernel.org
-X-Gm-Message-State: AFq9FYJlO2FF25OkAFDeshP3f5iufEFyLWZdDTHDMuy0KHPEfGB0OC6C
-	wzO/kiKGL6BqW1PLGGLNDM/39uVFPdWlG2tbS5awFvQpAoN26olOAJje/0rT8bQm3g==
-X-Gm-Gg: AYBFou2rpyCcsS4eanTn62gwKOqx2aMWAxZvPIb0LCgbWV7Hn3MUC5Xo83aZzIE9bhg
-	SW3F/wiTwzcSb0Fa4y9UKkxeTf83sAfAYWMUmdepue239NyR7LbWvC4gzjjYaXu/nQZLn4MbNOa
-	T+mwOj0/aK9WSIOZYF5YUu+5MhydLrfJWN3BpnEPQZCHHNTV6GK73dluI/zb14kur05zmDAhDx7
-	HfxoZjaMVdboaGItOWBDkjdRvaed2xPzDTvHxgBEhSl95q4V5W3iSUFucpFN2boDVbCi+xTj0Fm
-	iKlY4Ce5eXvKBS4JQRxMl7RXHcSdqil+gMTHM8oMQwLhTWd0gXKEuSDKoZzJ9+7taSMsI6xnt91
-	KLVJ5QMShGWHbXt8U2e0dgEKcDp+vFXlQMYLGG3uNu9Oa2QZAYE1Y58ktwBgt3YBhj2I+SV3ISz
-	NZr7qEMUBF8ipqk7ORGzvDBoO56ylvbbr09IZc9mt9V4p2ZLdpV7hVZQzfA5Lb/Kf6cWfJ/CdUZ
-	HmigdyPY/mvVs2SeYYVCX2VmaEi7Pg=
-X-Received: by 2002:a17:90b:48ce:b0:3a0:cc3f:b93a with SMTP id 98e67ed59e1d1-3a6cdda1a3dmr768222a91.0.1790931097477;
-        Fri, 02 Oct 2026 01:51:37 -0700 (PDT)
-Received: from google.com ([2a00:79e0:203d:7:eb6d:4917:3e16:43e8])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a6dd4bd483sm1024611a91.4.2026.10.02.01.51.35
+        bh=cpvwnxAk9svVbGHuD977nmsMKCoPbElte6mylNvKXkA=;
+        b=sOLV2xR7DFiant6fa4XTeVqH9btuCZvbohR5ivywHfz30XHhQP2PKLMiM/eYwrA1fo
+         2Y9jwr7VU4rvxW8DqjjphdlpnJPnUphOWJELOtw1LkpY1+FfOm4OckXrF3zEeGm4MiDo
+         H3c29mOQ0FKfFq8zrRKx4gwkkMPCXv8rVtkSwKso2y9pWQxdqkx9g605dsKGbRkvuaGG
+         o8LSMoU5Hjq5Q41eESY3CpHV+GpFHH3l+Ebv6Dq1afBvpT3fkMWsqbldNJQMAI0h3N9F
+         icp57jzbb2TiCWL1D2zIllsSxkUqXP9L8Gcesr8E6TLOJemW/JpLRilQIDD4ceAtPonJ
+         7ZWg==
+X-Forwarded-Encrypted: i=1; AKwUvByj7hZpM7kyTpZ3NideZAX+FLQE5sz5RzeNgcX5gY3BAD+87HHqUzw+dIot4SmzTUuGCFPONq6McmDo@vger.kernel.org
+X-Gm-Message-State: AFq9FYLS0UmJZ30UvGmoajcXEftAUNPTXPSPxVCGlybYcf1zs+AYdgd+
+	1HMTcE2wQgwlzaQHOhKlB2cTiXVfcvfE35qos69WeMLPAePBu1k43EG9
+X-Gm-Gg: AYBFou0Ewon3sftu+P+YHzsXw5fMKzxLDMstYFvpE+15DgZPGeH0X7vDDg+xP3iFpvs
+	e60euNaB+RpC3PoupTgRm3VZ6ty20kJjLsF4NODo39/cmJP1zdJx/Xk+1jGKi/TCnJsYQIUm64B
+	aZ291qBYxFF1/yFPBs+/blDiQsMg/XS4cgn44+IuYKCBhVD0XG/BM/wZmjXgJ8kB/5BnFrgkK28
+	de/PeWmLt/NZ1A9PJf9MMux+GuOtKAQHkIdAmpgUHnhw7yuA8IDkzl57VB3rSuguFqfx2vq9zbU
+	kFArCLFzrKt/K9rh4b6TZq+0eDXU9AUeX+3jPxfb5kTtCwr68aPxD46211QC67wD2dMB+Rpq2DJ
+	wbzA2OPadV6tVHfmd5wNNEQBdympZ22WZgjIMQqKUWBBHYzhgWnatEsGmUhdKCpx31KIIVfECic
+	u1m96H1DOUFqZtsQDTVXt2P2nxdbahPDTvezMNJav+f/ZUHqiBm2xYEtNojhevnwT5v2GJjNvRg
+	wT0rWvBAGV/pHSPJ50NtwpE8ak0I/isRPwoFUSowBudXlNFthJkdp3fGjjQ8Lz/FYwRHpoi9DHv
+	l+sGTvLBrMd4bOGNPeX0sIOwAfzQR1Bd3fFT8j+xSQlBblVeW4L4lhY=
+X-Received: by 2002:a17:90a:c88d:b0:3a4:ee64:f492 with SMTP id 98e67ed59e1d1-3a6cec30c01mr1156984a91.33.1790931419389;
+        Fri, 02 Oct 2026 01:56:59 -0700 (PDT)
+Received: from B11403806-N.ieinet.org (211-23-39-77.hinet-ip.hinet.net. [211.23.39.77])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a4f4747100sm7956667a91.11.2026.10.02.01.56.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 01:51:36 -0700 (PDT)
-Date: Fri, 2 Oct 2026 16:51:33 +0800
-From: Chen-Yu Tsai <wenst@chromium.org>
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH RFC] arm64: dts: mediatek: mt8183: Switch to undeprecated
- qcom,calibration-variant
-Message-ID: <20261002085133.GA2343595@google.com>
-References: <20250225101828.107509-1-krzysztof.kozlowski@linaro.org>
- <c50e114a-bb5b-40a4-ab01-69ee33b984b8@collabora.com>
+        Fri, 02 Oct 2026 01:56:58 -0700 (PDT)
+From: LiangCheng Wang <zaq14760@gmail.com>
+To: devarsht@ti.com
+Cc: airlied@gmail.com,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	kristo@kernel.org,
+	krzk+dt@kernel.org,
+	linux-kernel@vger.kernel.org,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	nm@ti.com,
+	robh@kernel.org,
+	simona@ffwll.ch,
+	tzimmermann@suse.de,
+	vigneshr@ti.com,
+	LiangCheng Wang <zaq14760@gmail.com>
+Subject: Re: [PATCH v2 00/14] Add DRM driver for Solomon SSD16xx e-paper display controllers
+Date: Fri,  2 Oct 2026 16:56:39 +0800
+Message-ID: <20261002085639.109873-1-zaq14760@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260927182329.4193961-1-devarsht@ti.com>
+References: <20260927182329.4193961-1-devarsht@ti.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <c50e114a-bb5b-40a4-ab01-69ee33b984b8@collabora.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Feb 25, 2025 at 11:23:23AM +0100, AngeloGioacchino Del Regno wrote:
-> Il 25/02/25 11:18, Krzysztof Kozlowski ha scritto:
-> > The property qcom,ath10k-calibration-variant was deprecated in favor of
-> > recently introduced generic qcom,calibration-variant, common to all
-> > Qualcomm Atheros WiFi bindings.
-> > 
-> > Change will affect out of tree users, like other projects, of this DTS.
-> > 
-> > Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-> > 
-> 
-> Ah, finally. That's nice :-)
-> 
-> Regardless of the RFC status....:
-> 
-> Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Hi Devarsh,
 
-I think this can be applied now?
+Setup: Raspberry Pi 5, rpi-7.2.y with your patches 01-12/14 cherry-picked
+and the panel entry added locally, SPI0 CE0 at 5 and 20 MHz, DC/RST/BUSY
+on GPIO5/6/26, CONFIG_DRM_SSD16XX=y, drm.debug=0x02, no compositor.
 
+Bring-up is clean: it probes, the connector comes up at 800x480, and
+reset/BUSY and runtime PM all work.  The three issues I reported on
+31 July [1] are all gone - the mirroring is fixed by 11/14 [2], rotation
+180 draws, and refresh_mode takes effect.
 
-ChenYu
+All four DT rotation values work, and so do the plane properties -
+refresh_mode, color_mode, clear_on_init/close/disable and
+refresh_mode_init.  SPI is fine at both 5 and 20 MHz.
 
-> > ---
-> > 
-> > Dependency/RFC!
-> > 
-> > RFC, because this should be merged release after driver support is
-> > merged:
-> > https://lore.kernel.org/linux-devicetree/20250225-b-wifi-qcom-calibration-variant-v1-0-3b2aa3f89c53@linaro.org/T/#t
-> > ---
-> >   arch/arm64/boot/dts/mediatek/mt8183-kukui-jacuzzi-cozmo.dts     | 2 +-
-> >   arch/arm64/boot/dts/mediatek/mt8183-kukui-jacuzzi-damu.dts      | 2 +-
-> >   .../boot/dts/mediatek/mt8183-kukui-jacuzzi-fennel-sku1.dts      | 2 +-
-> >   .../boot/dts/mediatek/mt8183-kukui-jacuzzi-fennel-sku6.dts      | 2 +-
-> >   .../boot/dts/mediatek/mt8183-kukui-jacuzzi-fennel-sku7.dts      | 2 +-
-> >   .../boot/dts/mediatek/mt8183-kukui-jacuzzi-fennel14-sku2.dts    | 2 +-
-> >   arch/arm64/boot/dts/mediatek/mt8183-kukui-jacuzzi-fennel14.dts  | 2 +-
-> >   arch/arm64/boot/dts/mediatek/mt8183-kukui-jacuzzi-juniper.dtsi  | 2 +-
-> >   .../boot/dts/mediatek/mt8183-kukui-jacuzzi-makomo-sku0.dts      | 2 +-
-> >   .../boot/dts/mediatek/mt8183-kukui-jacuzzi-makomo-sku1.dts      | 2 +-
-> >   arch/arm64/boot/dts/mediatek/mt8183-kukui-jacuzzi-willow.dtsi   | 2 +-
-> >   arch/arm64/boot/dts/mediatek/mt8183-kukui-kakadu.dtsi           | 2 +-
-> >   arch/arm64/boot/dts/mediatek/mt8183-kukui-katsu-sku32.dts       | 2 +-
-> >   arch/arm64/boot/dts/mediatek/mt8183-kukui-katsu-sku38.dts       | 2 +-
-> >   arch/arm64/boot/dts/mediatek/mt8183-kukui-kodama.dtsi           | 2 +-
-> >   arch/arm64/boot/dts/mediatek/mt8183-kukui-krane.dtsi            | 2 +-
-> >   16 files changed, 16 insertions(+), 16 deletions(-)
-> > 
-> > diff --git a/arch/arm64/boot/dts/mediatek/mt8183-kukui-jacuzzi-cozmo.dts b/arch/arm64/boot/dts/mediatek/mt8183-kukui-jacuzzi-cozmo.dts
-> > index 83bbcfe62083..f2303d9f125f 100644
-> > --- a/arch/arm64/boot/dts/mediatek/mt8183-kukui-jacuzzi-cozmo.dts
-> > +++ b/arch/arm64/boot/dts/mediatek/mt8183-kukui-jacuzzi-cozmo.dts
-> > @@ -35,5 +35,5 @@ trackpad@2c {
-> >   };
-> >   &qca_wifi {
-> > -	qcom,ath10k-calibration-variant = "GO_COZMO";
-> > +	qcom,calibration-variant = "GO_COZMO";
-> >   };
-> > diff --git a/arch/arm64/boot/dts/mediatek/mt8183-kukui-jacuzzi-damu.dts b/arch/arm64/boot/dts/mediatek/mt8183-kukui-jacuzzi-damu.dts
-> > index 3935d83a047e..13ec15fa284f 100644
-> > --- a/arch/arm64/boot/dts/mediatek/mt8183-kukui-jacuzzi-damu.dts
-> > +++ b/arch/arm64/boot/dts/mediatek/mt8183-kukui-jacuzzi-damu.dts
-> > @@ -31,7 +31,7 @@ &mt6358codec {
-> >   };
-> >   &qca_wifi {
-> > -	qcom,ath10k-calibration-variant = "GO_DAMU";
-> > +	qcom,calibration-variant = "GO_DAMU";
-> >   };
-> >   &i2c2 {
-> > diff --git a/arch/arm64/boot/dts/mediatek/mt8183-kukui-jacuzzi-fennel-sku1.dts b/arch/arm64/boot/dts/mediatek/mt8183-kukui-jacuzzi-fennel-sku1.dts
-> > index 72852b760038..b576b974cf23 100644
-> > --- a/arch/arm64/boot/dts/mediatek/mt8183-kukui-jacuzzi-fennel-sku1.dts
-> > +++ b/arch/arm64/boot/dts/mediatek/mt8183-kukui-jacuzzi-fennel-sku1.dts
-> > @@ -40,6 +40,6 @@ &touchscreen {
-> >   };
-> >   &qca_wifi {
-> > -	qcom,ath10k-calibration-variant = "GO_FENNEL";
-> > +	qcom,calibration-variant = "GO_FENNEL";
-> >   };
-> > diff --git a/arch/arm64/boot/dts/mediatek/mt8183-kukui-jacuzzi-fennel-sku6.dts b/arch/arm64/boot/dts/mediatek/mt8183-kukui-jacuzzi-fennel-sku6.dts
-> > index 757d0afd14fb..d64581f35d2c 100644
-> > --- a/arch/arm64/boot/dts/mediatek/mt8183-kukui-jacuzzi-fennel-sku6.dts
-> > +++ b/arch/arm64/boot/dts/mediatek/mt8183-kukui-jacuzzi-fennel-sku6.dts
-> > @@ -28,6 +28,6 @@ &touchscreen {
-> >   &qca_wifi {
-> > -	qcom,ath10k-calibration-variant = "GO_FENNEL";
-> > +	qcom,calibration-variant = "GO_FENNEL";
-> >   };
-> > diff --git a/arch/arm64/boot/dts/mediatek/mt8183-kukui-jacuzzi-fennel-sku7.dts b/arch/arm64/boot/dts/mediatek/mt8183-kukui-jacuzzi-fennel-sku7.dts
-> > index 6641b087e7c5..d0c98d0aba95 100644
-> > --- a/arch/arm64/boot/dts/mediatek/mt8183-kukui-jacuzzi-fennel-sku7.dts
-> > +++ b/arch/arm64/boot/dts/mediatek/mt8183-kukui-jacuzzi-fennel-sku7.dts
-> > @@ -28,6 +28,6 @@ &touchscreen {
-> >   &qca_wifi {
-> > -	qcom,ath10k-calibration-variant = "GO_FENNEL";
-> > +	qcom,calibration-variant = "GO_FENNEL";
-> >   };
-> > diff --git a/arch/arm64/boot/dts/mediatek/mt8183-kukui-jacuzzi-fennel14-sku2.dts b/arch/arm64/boot/dts/mediatek/mt8183-kukui-jacuzzi-fennel14-sku2.dts
-> > index 877256eab262..3a81786084da 100644
-> > --- a/arch/arm64/boot/dts/mediatek/mt8183-kukui-jacuzzi-fennel14-sku2.dts
-> > +++ b/arch/arm64/boot/dts/mediatek/mt8183-kukui-jacuzzi-fennel14-sku2.dts
-> > @@ -14,5 +14,5 @@ / {
-> >   };
-> >   &qca_wifi {
-> > -	qcom,ath10k-calibration-variant = "GO_FENNEL14";
-> > +	qcom,calibration-variant = "GO_FENNEL14";
-> >   };
-> > diff --git a/arch/arm64/boot/dts/mediatek/mt8183-kukui-jacuzzi-fennel14.dts b/arch/arm64/boot/dts/mediatek/mt8183-kukui-jacuzzi-fennel14.dts
-> > index b981dd31a430..959c4d3d9707 100644
-> > --- a/arch/arm64/boot/dts/mediatek/mt8183-kukui-jacuzzi-fennel14.dts
-> > +++ b/arch/arm64/boot/dts/mediatek/mt8183-kukui-jacuzzi-fennel14.dts
-> > @@ -14,5 +14,5 @@ / {
-> >   };
-> >   &qca_wifi {
-> > -	qcom,ath10k-calibration-variant = "GO_FENNEL14";
-> > +	qcom,calibration-variant = "GO_FENNEL14";
-> >   };
-> > diff --git a/arch/arm64/boot/dts/mediatek/mt8183-kukui-jacuzzi-juniper.dtsi b/arch/arm64/boot/dts/mediatek/mt8183-kukui-jacuzzi-juniper.dtsi
-> > index 078bc765646f..4788edaeab87 100644
-> > --- a/arch/arm64/boot/dts/mediatek/mt8183-kukui-jacuzzi-juniper.dtsi
-> > +++ b/arch/arm64/boot/dts/mediatek/mt8183-kukui-jacuzzi-juniper.dtsi
-> > @@ -22,6 +22,6 @@ trackpad@2c {
-> >   };
-> >   &qca_wifi {
-> > -	qcom,ath10k-calibration-variant = "GO_JUNIPER";
-> > +	qcom,calibration-variant = "GO_JUNIPER";
-> >   };
-> > diff --git a/arch/arm64/boot/dts/mediatek/mt8183-kukui-jacuzzi-makomo-sku0.dts b/arch/arm64/boot/dts/mediatek/mt8183-kukui-jacuzzi-makomo-sku0.dts
-> > index ddb993521bbf..01cd59993a7c 100644
-> > --- a/arch/arm64/boot/dts/mediatek/mt8183-kukui-jacuzzi-makomo-sku0.dts
-> > +++ b/arch/arm64/boot/dts/mediatek/mt8183-kukui-jacuzzi-makomo-sku0.dts
-> > @@ -14,7 +14,7 @@ / {
-> >   };
-> >   &qca_wifi {
-> > -	qcom,ath10k-calibration-variant = "GO_FENNEL14";
-> > +	qcom,calibration-variant = "GO_FENNEL14";
-> >   };
-> >   &mmc1_pins_uhs {
-> > diff --git a/arch/arm64/boot/dts/mediatek/mt8183-kukui-jacuzzi-makomo-sku1.dts b/arch/arm64/boot/dts/mediatek/mt8183-kukui-jacuzzi-makomo-sku1.dts
-> > index 10c4f920a7d8..c939ef3965ec 100644
-> > --- a/arch/arm64/boot/dts/mediatek/mt8183-kukui-jacuzzi-makomo-sku1.dts
-> > +++ b/arch/arm64/boot/dts/mediatek/mt8183-kukui-jacuzzi-makomo-sku1.dts
-> > @@ -14,7 +14,7 @@ / {
-> >   };
-> >   &qca_wifi {
-> > -	qcom,ath10k-calibration-variant = "GO_FENNEL14";
-> > +	qcom,calibration-variant = "GO_FENNEL14";
-> >   };
-> >   &mmc1_pins_uhs {
-> > diff --git a/arch/arm64/boot/dts/mediatek/mt8183-kukui-jacuzzi-willow.dtsi b/arch/arm64/boot/dts/mediatek/mt8183-kukui-jacuzzi-willow.dtsi
-> > index c942e461a177..14d03419b92c 100644
-> > --- a/arch/arm64/boot/dts/mediatek/mt8183-kukui-jacuzzi-willow.dtsi
-> > +++ b/arch/arm64/boot/dts/mediatek/mt8183-kukui-jacuzzi-willow.dtsi
-> > @@ -37,5 +37,5 @@ trackpad@2c {
-> >   };
-> >   &qca_wifi {
-> > -	qcom,ath10k-calibration-variant = "GO_JUNIPER";
-> > +	qcom,calibration-variant = "GO_JUNIPER";
-> >   };
-> > diff --git a/arch/arm64/boot/dts/mediatek/mt8183-kukui-kakadu.dtsi b/arch/arm64/boot/dts/mediatek/mt8183-kukui-kakadu.dtsi
-> > index ff02f63bac29..c4c08c0f715e 100644
-> > --- a/arch/arm64/boot/dts/mediatek/mt8183-kukui-kakadu.dtsi
-> > +++ b/arch/arm64/boot/dts/mediatek/mt8183-kukui-kakadu.dtsi
-> > @@ -370,7 +370,7 @@ keyboard-controller {
-> >   };
-> >   &qca_wifi {
-> > -	qcom,ath10k-calibration-variant = "GO_KAKADU";
-> > +	qcom,calibration-variant = "GO_KAKADU";
-> >   };
-> >   &panel {
-> > diff --git a/arch/arm64/boot/dts/mediatek/mt8183-kukui-katsu-sku32.dts b/arch/arm64/boot/dts/mediatek/mt8183-kukui-katsu-sku32.dts
-> > index 2b5a8d1f900e..7428efec95a0 100644
-> > --- a/arch/arm64/boot/dts/mediatek/mt8183-kukui-katsu-sku32.dts
-> > +++ b/arch/arm64/boot/dts/mediatek/mt8183-kukui-katsu-sku32.dts
-> > @@ -32,5 +32,5 @@ &panel {
-> >   };
-> >   &qca_wifi {
-> > -	qcom,ath10k-calibration-variant = "GO_KATSU";
-> > +	qcom,calibration-variant = "GO_KATSU";
-> >   };
-> > diff --git a/arch/arm64/boot/dts/mediatek/mt8183-kukui-katsu-sku38.dts b/arch/arm64/boot/dts/mediatek/mt8183-kukui-katsu-sku38.dts
-> > index 75fadf2c7059..a36b6ddb71f6 100644
-> > --- a/arch/arm64/boot/dts/mediatek/mt8183-kukui-katsu-sku38.dts
-> > +++ b/arch/arm64/boot/dts/mediatek/mt8183-kukui-katsu-sku38.dts
-> > @@ -32,7 +32,7 @@ &panel {
-> >   };
-> >   &qca_wifi {
-> > -	qcom,ath10k-calibration-variant = "GO_KATSU";
-> > +	qcom,calibration-variant = "GO_KATSU";
-> >   };
-> >   &sound {
-> > diff --git a/arch/arm64/boot/dts/mediatek/mt8183-kukui-kodama.dtsi b/arch/arm64/boot/dts/mediatek/mt8183-kukui-kodama.dtsi
-> > index da6e767b4cee..2b283a55f653 100644
-> > --- a/arch/arm64/boot/dts/mediatek/mt8183-kukui-kodama.dtsi
-> > +++ b/arch/arm64/boot/dts/mediatek/mt8183-kukui-kodama.dtsi
-> > @@ -349,7 +349,7 @@ keyboard-controller {
-> >   };
-> >   &qca_wifi {
-> > -	qcom,ath10k-calibration-variant = "GO_KODAMA";
-> > +	qcom,calibration-variant = "GO_KODAMA";
-> >   };
-> >   &i2c_tunnel {
-> > diff --git a/arch/arm64/boot/dts/mediatek/mt8183-kukui-krane.dtsi b/arch/arm64/boot/dts/mediatek/mt8183-kukui-krane.dtsi
-> > index 8b56b8564ed7..00da50a41574 100644
-> > --- a/arch/arm64/boot/dts/mediatek/mt8183-kukui-krane.dtsi
-> > +++ b/arch/arm64/boot/dts/mediatek/mt8183-kukui-krane.dtsi
-> > @@ -353,7 +353,7 @@ keyboard-controller {
-> >   };
-> >   &qca_wifi {
-> > -	qcom,ath10k-calibration-variant = "LE_Krane";
-> > +	qcom,calibration-variant = "LE_Krane";
-> >   };
-> >   &sound {
-> 
-> 
-> 
+Tested-by: LiangCheng Wang <zaq14760@gmail.com>
+
+[1] https://lore.kernel.org/all/20260731035705.3198816-1-zaq14760@gmail.com/
+[2] https://lore.kernel.org/all/20260927182329.4193961-12-devarsht@ti.com/
+
+Regards,
+LiangCheng
