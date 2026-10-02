@@ -1,113 +1,143 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f227.google.com (mail-qk1-f227.google.com [209.85.222.227])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 151DC23D295;
-	Fri,  2 Oct 2026 02:19:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 246082E7F17
+	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 02:57:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.227
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790907570; cv=none; b=ALJUYlisybwj107d8HRNXxFZqrvhaRFQvXb9nMmux2o/1StgEfEbHrlkDXNO+ebZuTlLm8KD2db6u3rs4a9uUmCfevH6Vl02aC28XuSREPVg9lLtmRn5jvORZnP1p5GPBA+ceUAgwzDpJJ1uDwy5+t6oakvGiNVw7A+NuEN3t+U=
+	t=1790909875; cv=none; b=hp7HkH6bGYuKh/vliC3n/CBYMAsyUoEZtK8+VQQuX5vC4IK2fobcSftTQAGVWzjy7ByuGGSyvcf35+g/8NGG7hoDKAHpIbO2+mmQIBBUePD5c9fOYrPiW2QDwmqF+nvABvZ6ujCKHaKb5QW+RGDgxBKlViQggeQww0eeRHu/vbM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790907570; c=relaxed/simple;
-	bh=6M+UKP95uOCXtlBZBQ87VI3/zEbKTPu8471WPinWG1E=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=V9NPcKX8VRuZi4g6Hemwg/hRuHuO7x2Wa57xzeiUo1dhi/lrXgncv3jwZYY/vQXgR7e9xWDKMlSJaLVmXOERMKueAnmr+E1vxCYwoa6uJHq5lZIHAvRCNst0fyhTeA8wyED+NcxB8fhdoKxVg1CZk64CTvaFBEhFYtfNs29ZKUo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=S2vsJkv3; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1790909875; c=relaxed/simple;
+	bh=+rOznpuunXemMw6GDovaDiUAZaCGae3OqVN9WboilTo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VbQHc3pE+eAaFMIlKJnfiWunZz73MXYjde/ZfLMcnxfSqjaqRHqiJqhQpm6O0nIxPd8arCEzhJSQSHD5MtjzQojReQL6LaBTPsG+kkDIb1HQy8pseLqWDx9NANZhCQsdoQ+Qhlv/HqJuyetngm1IW9D6SZIQJJO5FcMDFamoIKQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ausil.us; spf=pass smtp.mailfrom=ausil.us; dkim=pass (2048-bit key) header.d=ausil.us header.i=@ausil.us header.b=Tq5yNamq; arc=none smtp.client-ip=209.85.222.227
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ausil.us
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ausil.us
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="S2vsJkv3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=6M+UKP95uOCXtlBZBQ87VI3/zEbKTPu8471WPinWG1E=; b=S
-	2vsJkv3QYTUZBtD4qZ5KKZEy3Wt7v3iZeooJeD4KK2ke6DeaeheqnjTGWi3fTUPi
-	rwnPBv4Z8+0MkGSomU+EFbbuTRRSqfWH3UqDpcEkcrx4bodZ1jwgTt1kaFf1XP2t
-	EicZ4QercFKgb/7D/E8TZnHrd96UoQu5HugL1ZjGVs=
-Date: Fri, 2 Oct 2026 10:17:53 +0800 (CST)
-From: zl020895  <zl020895@163.com>
-To: "Linus Walleij" <linusw@kernel.org>
-Cc: "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
-	longzhao@ambarella.com, "Arnd Bergmann" <arnd@arndb.de>,
-	"Krzysztof Kozlowski" <krzk@kernel.org>,
-	"Alexandre Belloni" <alexandre.belloni@bootlin.com>,
-	soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	"Rob Herring" <robh@kernel.org>,
-	"Krzysztof Kozlowski" <krzk+dt@kernel.org>,
-	"Conor Dooley" <conor+dt@kernel.org>,
-	"Michael Turquette" <mturquette@baylibre.com>,
-	"Stephen Boyd" <sboyd@kernel.org>,
-	"Jerome Brunet" <jbrunet@baylibre.com>,
-	"Bartosz Golaszewski" <brgl@kernel.org>,
-	"Michael Walle" <mwalle@kernel.org>,
-	"Jiri Slaby" <jirislaby@kernel.org>,
-	"Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	"Catalin Marinas" <catalin.marinas@arm.com>,
-	"Will Deacon" <will@kernel.org>, "Lee Jones" <lee@kernel.org>,
-	mfd@lists.linux.dev, devicetree@vger.kernel.org,
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re:Re: [PATCH v9 13/15] serial: 8250_dw: add Ambarella CV75 quirks
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <CAD++jLnv1Q7ChHuLo=ad9edqhZL8MNaMab8huMAepK_LwqVzGQ@mail.gmail.com>
-References: <20261001-cv75-v5-v9-0-486cc289a4b8@ambarella.com>
- <20261001-cv75-v5-v9-13-486cc289a4b8@ambarella.com>
- <2026100140-overbite-mundane-fc79@gregkh>
- <CAD++jLnv1Q7ChHuLo=ad9edqhZL8MNaMab8huMAepK_LwqVzGQ@mail.gmail.com>
-X-NTES-SC: AL_Qu2SAvWbuEws5SSebekcn0wRhug/UMa4u/sm3YNXc8AFnCHm4xgjUkF5HHHP+cSgBSmMqBeOdRZX299KTblabN9UUWfBtPNqeWUCoV4bFw==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass (2048-bit key) header.d=ausil.us header.i=@ausil.us header.b="Tq5yNamq"
+Received: by mail-qk1-f227.google.com with SMTP id af79cd13be357-93cbc3ab2fdso1461385a.3
+        for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 19:57:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ausil.us; s=google; t=1790909872; x=1791514672; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/8JFUeE5MEiIb7ITcrTZk76VTtK8zyPJORxw7JyUGnA=;
+        b=Tq5yNamqAcDJgcsgn1p+AbUwZBolXqKBQFBmvw7EBr4YVjfxtl2F92xwj1Ml7pgLwh
+         j7A5iZthbWJ1gdvDIWhmAwDRp2nT8Na89h46yhT9ZcssMcZ2Epg18MOskVWBWe8lzSGC
+         W7OBW8Je9aIYd3uoOPOrvxfvx6uUrYRoVRle/alttHmm4GQ2YJMHhbLiU/thQSKvqV9c
+         l9RtvnBKusu15m/QLebl4j/CM3mzGvhuI+jhpehwNJAa3WW1xWbjMsjLEOBZgC4AfuqS
+         vS2PpObGOqkUt3A5Y3uT1fN2rNOUoJLL7JpuL5TVIDa+NRhIE45tfSeJEy753mB0Pwj7
+         O5/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790909872; x=1791514672;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/8JFUeE5MEiIb7ITcrTZk76VTtK8zyPJORxw7JyUGnA=;
+        b=YUw83kqlzlVqwZxYRISmDAyTV8PdbomQ1Rwv92PaGS+9kNpNTnTMHNG0JtXda9WPKE
+         l+ney9DthC+oeYlJkOEAkfAk68UFxGu/yTG7tujT9Z4dPlolskogcE6MZvzoJUjFTYMD
+         U5RUJwOY6ARjWjt5RMqEa22jf0t9C3Xec2q7TCSo2XkeLbSk+404l3LODc4wgM1Y9ZG1
+         hMmFgBFBkeJSeNhSRP+2sw7TFfQeLjWeWj/LYJmzArqq3spSEWvhdd27zCHozIT1G6EI
+         2IUYB7uFujQ7L8RtuRXvKLQTkV7keQ2SL97mSGD/Gu5DWGTG8TBY1e1ooQSHkoyGCB1b
+         KkaQ==
+X-Forwarded-Encrypted: i=1; AKwUvByug2Ut6+XB2VSQUS0szOuNbo8YEmutSskGhWkQqEoQzdb+Ho75M8PU8WEzHdZ1kOAUTvhGT45Jfx7N@vger.kernel.org
+X-Gm-Message-State: AFuF++nuHPrX5A6/GI58WUcYR0bn2DvegPV6oS8X+bcQ4cQwt8QK9mNV
+	HaUSPjn2Ojvw0vi2rYa+2UL8TYywZIQFlPoXvPzOLewDWNy8Tp7prEW21l7vlisuOtOPwnBC/s9
+	CuzlZeGpBTZiGIJkMAoWb/9XTE7uethwqYamG
+X-Gm-Gg: AYBFou0CAdmIez/TNyNxz2M8ja9W6cOM0V04TyWDQVYHfP74Cl4rCFCq6FRYqYI/G2j
+	YfV1TysjkTE/zPVwg+0ODUq2g5OD5n0ep4QYo3s4e+MMZa9sl5+mAjoqXqrSg4VRV8JJzkH4eut
+	ZxYqae7fuM8QJKit2HomDRnjgwQYHs0otl9qvquhzfyi0oDEdOtF/D9VOoKf+U8Fy/1riymTPtX
+	C4i+JVhYZnjYzYXwZeApFD1o/g54gg+jhYoJUDbwvudFaBBZ8BXpWMdlIqM1dcdxnuYC1li6htb
+	FaE9nEu5pQpUb8f3bzekjuGpCfu6ABzfxsf3vUg+P0zXcY7ZsgcmfH8FFXHI1G/eUcR65uEiV7r
+	1hXZfR+QYua3IoxZds2Pzv+0=
+X-Received: by 2002:a05:620a:d8b:b0:93c:c987:7f70 with SMTP id af79cd13be357-93ce7c0dd2emr226556685a.21.1790909871950;
+        Thu, 01 Oct 2026 19:57:51 -0700 (PDT)
+Received: from ryac.ausil.us (207-179-239-100.mtco.net. [207.179.239.100])
+        by smtp-relay.gmail.com with ESMTPS id af79cd13be357-93cca1ea26fsm54885385a.3.2026.10.01.19.57.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 01 Oct 2026 19:57:51 -0700 (PDT)
+X-Relaying-Domain: ausil.us
+From: Dennis Gilmore <dennis@ausil.us>
+To: linux-kernel@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org
+Cc: Alexey Charkov <alchark@gmail.com>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Dennis Gilmore <dennis@ausil.us>
+Subject: [PATCH] arm64: dts: rockchip: Use GPIO function for PCIe reset on Orange Pi 5 Pro
+Date: Thu,  1 Oct 2026 21:57:46 -0500
+Message-ID: <20261002025746.3284691-1-dennis@ausil.us>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <4405a61f.505.1a0fa675e43.Coremail.zl020895@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:hSgvCgDnL_tRFL9qW95RAA--.9580W
-X-CM-SenderInfo: d2oqjiqyzvqiywtou0bp/xtbCxhGjFWq-FFEAigAA37
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Transfer-Encoding: 8bit
 
-SGkgR3JlZywgTGludXMsCgpUaGFua3MuCgpUaGlzIHNlcmllcyBmb2xsb3dzIHRoZSBuZXctdmVu
-ZG9yLCBuZXctU29DIHByb2Nlc3MgYW5kIGlzIHNlbnQKYXMgb25lIHNldCwgc28gdGhlIG5ldyBL
-Y29uZmlnIHN5bWJvbCBhbmQgdGhlIGRyaXZlcnMgdGhhdCB1c2UgaXQKbGFuZCB0b2dldGhlci4K
-CklmIGl0IGhhcyB0byBiZSBzcGxpdCwgdGhlIEdQSU8gcGF0Y2hlcyBhbmQgdGhlIFVBUlQgcGF0
-Y2hlcyBjYW4KZ28gb3V0IGFzIHRoZWlyIG93biBzZXJpZXMuIFRoZSBTb0MgcGF0Y2hlcyBhbmQg
-dGhlIENWNzUgY2xvY2sKZHJpdmVyIHNob3VsZCBzdGF5IGluIG9uZSBzZXJpZXM6IHRoZSBjbG9j
-ayBLY29uZmlnIGRlcGVuZHMgb24KQVJDSF9BTUJBUkVMTEEsIHdoaWNoIGlzIGFkZGVkIGJ5IHRo
-ZSBhcm02NCBwYXRjaC4KCldvdWxkIHRoYXQgc3BsaXQgYmUgYWNjZXB0YWJsZSBmb3IgeW91PwoK
-QmVzdCByZWdhcmRzLApMb25nIFpoYW8KCkF0IDIwMjYtMTAtMDIgMDM6MjA6NTEsICJMaW51cyBX
-YWxsZWlqIiA8bGludXN3QGtlcm5lbC5vcmc+IHdyb3RlOgo+T24gVGh1LCBPY3QgMSwgMjAyNiBh
-dCAyOjUy4oCvUE0gR3JlZyBLcm9haC1IYXJ0bWFuCj48Z3JlZ2toQGxpbnV4Zm91bmRhdGlvbi5v
-cmc+IHdyb3RlOgo+PiBPbiBUaHUsIE9jdCAwMSwgMjAyNiBhdCAwODo0MTowMlBNICswODAwLCBM
-b25nIFpoYW8gdmlhIEI0IFJlbGF5IHdyb3RlOgo+Cj4+ID4gRnJvbTogTG9uZyBaaGFvIDxsb25n
-emhhb0BhbWJhcmVsbGEuY29tPgo+PiA+Cj4+ID4gVGhlIEFtYmFyZWxsYSBDVjc1IFVBUlQgaXMg
-QW1iYXJlbGxhIElQLCBub3QgYSBTeW5vcHN5cyBEZXNpZ25XYXJlCj4+ID4gbGljZW5zZWQgYmxv
-Y2suIEF0IHRoZSByZWdpc3RlciBsZXZlbCBpdCBpcyBjbG9zZSBlbm91Z2ggdG8gRFcgQVBCIFVB
-UlQKPj4gPiB0aGF0IGEgZnVsbCBjdXN0b20gVUFSVCBkcml2ZXIgaXMgdW5uZWNlc3Nhcnk6IHJl
-dXNlIDgyNTBfZHcgd2l0aCBhCj4+ID4gc21hbGwgcGxhdGZvcm0gcXVpcmsuCj4+ID4KPj4gPiBR
-dWlya3M6Cj4+ID4gLSBrZWVwIElFUiBFVE9JIChiaXQgNSkgc2V0IGZvciBSWCB0aW1lb3V0IGJl
-aGF2aW91cgo+PiA+IC0gc2tpcCBzZXRfcmF0ZTsgYmF1ZCBjbG9jayBpcyBtYW5hZ2VkIG91dHNp
-ZGUgdGhlIFVBUlQgYmxvY2sKPj4gPgo+PiA+IFJldmlld2VkLWJ5OiBMaW51cyBXYWxsZWlqIDxs
-aW51c3dAa2VybmVsLm9yZz4KPj4gPiBSZXZpZXdlZC1ieTogQW5keSBTaGV2Y2hlbmtvIDxhbmRy
-aXkuc2hldmNoZW5rb0BsaW51eC5pbnRlbC5jb20+Cj4+ID4gUmV2aWV3ZWQtYnk6IElscG8gSsOk
-cnZpbmVuIDxpbHBvLmphcnZpbmVuQGxpbnV4LmludGVsLmNvbT4KPj4gPiBTaWduZWQtb2ZmLWJ5
-OiBMb25nIFpoYW8gPGxvbmd6aGFvQGFtYmFyZWxsYS5jb20+Cj4+ID4gLS0tCj4+ID4gIGRyaXZl
-cnMvdHR5L3NlcmlhbC84MjUwLzgyNTBfZHcuYyB8IDMyICsrKysrKysrKysrKysrKysrKysrKysr
-KysrKysrKysrCj4+ID4gIDEgZmlsZSBjaGFuZ2VkLCAzMiBpbnNlcnRpb25zKCspCj4+Cj4+IFdo
-ZW4geW91IHN1Ym1pdCBsb3RzIG9mIGRpZmZlcmVudCBzdWJzeXN0ZW0gcGF0Y2hlcyBhbGwgaW4g
-b25lIHNlcmllcywKPj4gaXQncyBoYXJkLCBpZiBub3QgaW1wb3NzaWJsZSwgZm9yIHN1YnN5c3Rl
-bSBtYWludGFpbmVycyB0byB0YWtlIHRoZW0gOigKPgo+SW4gbXkgZXhwZXJpZW5jZSBwZW9wbGUg
-ZG8gdGhpcyBpbiBjYXNlcyBsaWtlIHRoaXMgaXQgaXMgYmVjYXVzZSB0aGV5Cj5lc3NlbnRpYWxs
-eSBkdW1wIG91dCB0aGVpciAiYnJpbmctdXAiIHRyZWUsIHRoZSB0aGluZyB0aGV5IGhhdmUKPmJv
-b3Rpbmcgb24gdGhlIGhhcmR3YXJlIHNvIHRoZXkga25vdyB0aGUgcGllY2VzIHdvcmsgdG9nZXRo
-ZXIuCj4KPkxvbmc6IGNhbiB5b3Ugc3BsaXQgaXQgdXAgaW4gdG9waWMgYnJhbmNoZXMgYW5kIHdv
-cmsgb24gZS5nLiB0aGUKPnNlcmlhbCBkcml2ZXIgb24gYSBzZXBhcmF0ZSBicmFuY2g/Cj4KPkEg
-YmV0dGVyIHdheSB0byB0ZXN0IHRoZSB3aG9sZSBzZXQgb2YgcGF0Y2VzIGlzIHRvIGp1c3QgY3Jl
-YXRlIGEKPm1peGRvd24gYnJhbmNoIHdoZXJlIHlvdSBtZXJnZSBhbGwgdGhlIHRvcGljIGJyYW5j
-aGVkIGludG8KPm9uZSAidGVzdCIgYnJhbmNoLCB0aGVuIHlvdSBib290IGFuZCB0ZXN0IHRoaXMg
-YmVmb3JlIHNlbmRpbmcKPm91dCBlYWNoIGJyYW5jaCBzZXBhcmF0ZWx5Lgo+Cj5FYWNoIHRvcGlj
-IGJyYW5jaCBjYW4gYmUgdmVyc2lvbmVkIHNlcGFyYXRlbHkgd2l0aCBiNC4KPgo+WW91cnMsCj5M
-aW51cyBXYWxsZWlqCg==
+The PERST# pins of pcie2x1l1 and pcie2x1l2 are used as reset-gpios,
+but the default pinctrl state muxes them to the controllers' dedicated
+PERST# function instead of GPIO.
+
+Linux happens to work because the pin is switched to GPIO function
+when it is requested as a GPIO, but the devicetree should describe the
+pin function the board actually uses. Bootloaders such as U-Boot apply
+the pinctrl state as described and do not change the function when the
+GPIO is requested, and probing pcie2x1l2 then hangs.
+
+Add GPIO pinctrl nodes for both reset pins and use them in place of
+the PERST# function, like other RK3588 boards do.
+
+Fixes: f47af8ebbe53 ("arm64: dts: rockchip: Add Orange Pi 5 Pro board support")
+Signed-off-by: Dennis Gilmore <dennis@ausil.us>
+---
+ .../boot/dts/rockchip/rk3588s-orangepi-5-pro.dts   | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-pro.dts b/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-pro.dts
+index c9679bac1db7..783675337ab9 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-pro.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3588s-orangepi-5-pro.dts
+@@ -188,7 +188,7 @@ package_fan1: package-fan1 {
+ /* NVMe */
+ &pcie2x1l1 {
+ 	pinctrl-names = "default";
+-	pinctrl-0 = <&pcie30x1m1_1_perstn>, <&pcie30x1m1_1_clkreqn>,
++	pinctrl-0 = <&pcie2_1_rst>, <&pcie30x1m1_1_clkreqn>,
+ 		    <&pcie30x1m1_1_waken>;
+ 	reset-gpios = <&gpio4 RK_PA2 GPIO_ACTIVE_HIGH>;
+ 	supports-clkreq;
+@@ -199,7 +199,7 @@ &pcie2x1l1 {
+ /* NIC */
+ &pcie2x1l2 {
+ 	pinctrl-names = "default";
+-	pinctrl-0 = <&pcie20x1m0_perstn>, <&pcie20x1m0_clkreqn>,
++	pinctrl-0 = <&pcie2_2_rst>, <&pcie20x1m0_clkreqn>,
+ 		    <&pcie20x1m0_waken>;
+ 	reset-gpios = <&gpio3 RK_PD1 GPIO_ACTIVE_HIGH>;
+ 	vpcie3v3-supply = <&vcc3v3_eth>;
+@@ -223,6 +223,16 @@ ethernet_en: ethernet-en {
+ 		};
+ 	};
+ 
++	pcie {
++		pcie2_1_rst: pcie2-1-rst {
++			rockchip,pins = <4 RK_PA2 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++
++		pcie2_2_rst: pcie2-2-rst {
++			rockchip,pins = <3 RK_PD1 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++	};
++
+ 	usb {
+ 		vcc5v0_otg_en: vcc5v0-otg-en {
+ 			rockchip,pins = <0 RK_PC4 RK_FUNC_GPIO &pcfg_pull_down>;
+-- 
+2.55.0
+
