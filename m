@@ -1,154 +1,168 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011011.outbound.protection.outlook.com [52.101.70.11])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EE8F363C5E;
-	Fri,  2 Oct 2026 07:09:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790924946; cv=fail; b=CcVluRWrEezf0pT7GPZ9tzHIJ1U2QRrMAVeGto/ljrZH4UGeTshqXtA2rbwo3GdFuKqP6YvJS3WrySZ2UoZUPRNcPUpfa2VeYMNLvXuNrKUMx2cPC76ow2gqHR1EqRaUGBjvplw3v7ZAvFZy+ejR3pm9CwtfJmwDyAabGdhXIy0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790924946; c=relaxed/simple;
-	bh=rtyZOrIDOLbz4ovvOiLN7ehqxCAwLuLQtMLolqZrwZs=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=o+dxFDtdwdv02YJu1FBncuLMJg11jaPgfmIqGLoI6DGAvblabp2aUca7RMGuZs3kWQNJK60CCfLRcWYKebMEdjECaqSgP3OQbYr0uPhK7qnr8uUNSUTFSjxpOtWF0u7yfnq4S9OWEyVTiBupcEcJA//6Z2M6Y31manYuESTN244=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=qlkO2km4; arc=fail smtp.client-ip=52.101.70.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DACE53EF0A6;
+	Fri,  2 Oct 2026 07:10:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790925040; cv=none; b=W5Nh0BuuqiMVJDZg3zeuwP0mB1tBbCZyX7xNMZPGoC4O7WitfNKK3tQNQ7zsSRn6wFlT7ody5mdnsfwSXg+L6tvthKlZQD9O0wvXmlYknYP8MOTNZHg3i4+iWztokm93cvODSyXRd3OnQ1jd3phOSU5RtBCiZgNI5BQOAe+oNkE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790925040; c=relaxed/simple;
+	bh=VYD/sp+oTggw3GRcUvWM/79scp8d42HXpaCNucveWPk=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=c3O9kZJ76qpy+Os+xp06kgvCCG8o/3dtPfWDzeSazShaR2W4T/Y0uC38ECHwLFfCudtNZ2O8WevDLMSLDJMrZnQPc+TL5F0a0fHKvgHAgxPWX1yscug5ZcBPJ4vuifN53bmHRoD2f4Ab5cn0QVnckM9aQ7Bm0eShZKLT97WQTdA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=e8uLl42a; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="qlkO2km4"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vGq0Xt/z/cXajd19RrlZlJtgJgQf8Ab4yJ+T46EZWOy6/Mr/UTwPShYuCZMerc1qLXXzbf9h7kMeUvL3zMq4xqZ/5wFE55TLTOQzW0e6BSlFrmYQuuHdpl919wEb80yfHZgVtZOTFLY6Z7A/w6uF2FxpTcn3Z0akWWgjmrqpFwRWqeK6eh7n9mgObJuK456dThHYO8+K6MlSUr5yocX+gSBXfU2r2X+ySt8zkzM25kPU4BX2ZM9Xt4uc2VUQbZNsu/kbhU8jfS0OrWZWseDHMuovusLtE5lAkHVc7sRCmMFUuhwcl3Ng/2PUIpziJZk93hPS9DuvpVEpLanDjGpp2w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=yWLQl2OqmdsMu4IkLaiJMbh+edPB4CXQAu1j03h4Oy0=;
- b=qK6H+Lla9+8VgLZxFKi217dj//mEn2VjU2Vo1sNT0r7TmCfbNPXUMHXJwDgBtuvhj7nP5DPfVOxCzHEFe0S7qBBTTQ7reb40UpX8RijPB4w8hdvQ7eRKC8GtA++bEobPGomAyVmXpskyhZ0GO6931/maLWTRvJarAXh3GD9lkzMSIrXmp/nAI9xRnIm2wY6bFIaiCV5LGfm38+v3Rr2E+vZrmEifoUYrC9iriNmYouGSyDHRA42jFhafdcNNxVPMsKlWr2+7rsWCMOOzoauXkDOfWQXhQ2ZM4wJtrAV46Vt8PaIct+FbQTvo7rH1HJSmFdpMBCk7as+QBFjkJp23dg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=yWLQl2OqmdsMu4IkLaiJMbh+edPB4CXQAu1j03h4Oy0=;
- b=qlkO2km4sSzXWq86d/9zRX7Fo9IdcpO/w25mM2SMQds4NzDkEnLiYviLG4eTHkaaMRkLySGMtVqvHVeZOY7yXaWo4qa14tLW+EYTFN4ZX9B5Cc1eEk22kS/HEElL1wBAvUEWLLUUg4/pb3tFKtBFOGg06v6h0OOjeDN+QpZQUuoNTkoPDmlDIYRxZQ8S0aVKN4hBtAavSs7+rJaV4MtFX5bZPlAidnBshq2C88N5cR/YrtM5ZN8KztqMItoLITonvdT4Az12KCDiBQ0yHFjcpcEPZeEKLbQ/lFlPa22dbIVcWQsu0ZGB+2BzQbNxJbtKiSnf8che6ZgAwfIvp5xY/A==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GVXPR04MB12316.eurprd04.prod.outlook.com (2603:10a6:150:2c6::8)
- by GV1PR04MB9216.eurprd04.prod.outlook.com (2603:10a6:150:2b::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Fri, 2 Oct
- 2026 07:09:01 +0000
-Received: from GVXPR04MB12316.eurprd04.prod.outlook.com
- ([fe80::fc6e:ca22:f065:def4]) by GVXPR04MB12316.eurprd04.prod.outlook.com
- ([fe80::fc6e:ca22:f065:def4%5]) with mapi id 15.21.0451.022; Fri, 2 Oct 2026
- 07:09:01 +0000
-Message-ID: <217ee778-2515-4e66-93c4-7c1d8f0dd0c1@oss.nxp.com>
-Date: Fri, 2 Oct 2026 10:12:31 +0300
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 1/2] ARM: dts: imx6q-apalis: enable SPI1 and SPI2
-To: Francesco Dolcini <francesco@dolcini.it>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>
-Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
- devicetree@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261001155401.2584935-1-francesco@dolcini.it>
- <20261001155401.2584935-2-francesco@dolcini.it>
-Content-Language: en-US
-From: Daniel Baluta <daniel.baluta@oss.nxp.com>
-In-Reply-To: <20261001155401.2584935-2-francesco@dolcini.it>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS4P189CA0031.EURP189.PROD.OUTLOOK.COM
- (2603:10a6:20b:5dd::11) To GVXPR04MB12316.eurprd04.prod.outlook.com
- (2603:10a6:150:2c6::8)
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="e8uLl42a"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1790925044; x=1822461044;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=VYD/sp+oTggw3GRcUvWM/79scp8d42HXpaCNucveWPk=;
+  b=e8uLl42aoXbbGv/PsLSPIvNNL6D+7o68Uvm2W1g0IDEj8p7sM0pbbU3N
+   0rxUkrFuFAF9o3t/ZbwcFW9GgLQmRUenraf6DED7z2iCWDOn2zrwsNRrs
+   /SAL7CIbSlgM2BF+/zPetu3xtnwyoGTL6kVibm9l6CB5rmGXoGbH9Uwq8
+   8U6WJuWv6zJG5HnvLK3XhT8BWIbC/YlJHL1iuK9rtG9w3os13yojl9irc
+   aOLRPPST75Ppzbd47w6jJWPzB3rbDDvWJaADN9sGsoRLdhzgtamhuHLtk
+   hv06jBw4LxvQ1YMbAG7ZGgSGS+O+jFuC3UxAVtb8GaLDfoHbYn19KmK3M
+   A==;
+X-CSE-ConnectionGUID: y/3BfIYcTui6U+iUlaxtLw==
+X-CSE-MsgGUID: v6Vcy4wpQ4ify09tT7cO+g==
+X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
+   d="asc'?scan'208";a="64482213"
+X-Amp-Result: UNKNOWN
+X-Amp-Original-Verdict: FILE UNKNOWN
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa3.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 00:10:37 -0700
+Received: from chn-vm-ex02.mchp-main.com (10.10.87.72) by
+ chn-vm-ex1.mchp-main.com (10.10.87.30) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.49; Fri, 2 Oct 2026 00:10:31 -0700
+Received: from wendy (10.10.85.11) by chn-vm-ex02.mchp-main.com (10.10.85.144)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.58 via Frontend
+ Transport; Fri, 2 Oct 2026 00:10:28 -0700
+Date: Fri, 2 Oct 2026 08:09:08 +0100
+From: Conor Dooley <conor.dooley@microchip.com>
+To: Junhui Liu <junhui.liu@pigmoral.tech>
+CC: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Conor Dooley <conor@kernel.org>, Paul Walmsley <pjw@kernel.org>, Palmer
+ Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre
+ Ghiti <alex@ghiti.fr>, Brian Masney <bmasney@redhat.com>, Yixun Lan
+	<dlan@kernel.org>, <linux-clk@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-riscv@lists.infradead.org>
+Subject: Re: [PATCH 2/2] riscv: dts: anlogic: drop unused DR1V90 external
+ clocks
+Message-ID: <20261002-manpower-croon-26d578f57143@wendy>
+References: <20261002-dr1v90-cru-dt-fix-v1-0-c3e0b5d4c30d@pigmoral.tech>
+ <20261002-dr1v90-cru-dt-fix-v1-2-c3e0b5d4c30d@pigmoral.tech>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GVXPR04MB12316:EE_|GV1PR04MB9216:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2a571294-09d1-4cab-215a-08df205408fd
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|366016|23010399003|19092799006|1800799024|10067099003|56012099006|4143699003|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	gjI5K2IPghy6RSkM+SPGcQAEKMAAyogjQVtVR8/ge/CXzj5/rN0qfCX5DJfEWWZ18LjXl/I2M/KMJAjlgHfIfP+aCwh4L+rT0Lmr34AJ1Iu44XxOLwN/TiJvYbgmlJmU9E/IJgcrbPHukW8sCujLRh/M5h216iuWK1ZgmbI6w12MQoKr8q/RoDI3/N1nzs/Ca5Q134py+sxE/YJsvKQkb21U4yqRwsheEIDfZraI+PxJlXHRuphmC1Dep8j04B8o7JB90yo/o2qR9sKHeUcy1v2NOMxaX0AuCT/Axk36m4EkNSQA9u44RC1XUkTvqjSiWmCtcvheuApJlGt+ulwCgENodvtHk//h1qDZ9Mk9H3NLx0AbK84yAInp90cZym5bbs1GWe3OBT5UX7/tdOpWTv5DYOHsK6UILpu1qqi6krHCf+U3vIenqrB8pB0iTldw3mxr0jZTKUCono0oHJRJzDWi+Qu0fFzvntwUiIlE8sSqaudRczcgQ6QbCHPuDGE21VmzIndm7pd0kJWkEioyDbcaGjd8nAfgY5LpWhI5KHxaZhPpXQPThn+mmyugUyWP2mg+5mXkHDbe70A0eijy7LYDFRND2n2hO5AwnFYuoWKcx+HN2L2VsY841rPONXa6nv+05iUIybOhQEyFmD62YdP+vQergu8nYZZVXsDp/sI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GVXPR04MB12316.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(23010399003)(19092799006)(1800799024)(10067099003)(56012099006)(4143699003)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WGVhcjFUcW1kMXlRNWxvbC82b0cwa1MzYTlnNnBlVUJqWEZndHRuTXd6MmNk?=
- =?utf-8?B?WWVRUUk5OTBBRkczNGpHMU4wUHJLL0VvY0JxU09qamxVWk55bXVBOXZnaElG?=
- =?utf-8?B?MG1TL1hUZGw5R0pORlJmclh4aXg2V0I4bk0zZGZOUkJCRFhUN05Yck0xVmdt?=
- =?utf-8?B?eXJ1QUxhdmMzc0xqZjM0b3p1M3U5amk4ZURvV0JrejNTMkFwQktkelB0aGVi?=
- =?utf-8?B?cFM1cUdIa3FFYysvd0oyZG9jVk1UY21leG16ZVRUbzh2QmlHcGkxTEFGakpD?=
- =?utf-8?B?UUtqb1hITGV4NldtYVVlMVM5TWFqOTY1WkRsaFU5QXl1QUswaXN4RHZNODZV?=
- =?utf-8?B?aUx4YzQwNHdyRVgveWNtUGIxR3QwMHZ5YVByUFJMTmhaY05KcW53UWVmaEdl?=
- =?utf-8?B?SUFpQTNqREtnZS9mWS9jMDIzNER6VXQ1czlIQjd5SFo2L053RWJqcW92eXhr?=
- =?utf-8?B?ZVBreVhwVkg2VzBWL2Fpc2RaQUx3TGVTZ3FCWk1wM25TU1B5OFFUOEtWVm5V?=
- =?utf-8?B?ZThXa09rSkg2Nm5SOFVVNnVUSWMvTVYxdkxFNTRNMTNqd3B0T3dRZ1NSVEcz?=
- =?utf-8?B?eVhXZk9sblRUWThPY0hUeDVnclFqN2o3bWZvUXJMRnVHSzdyUUtnMHp2N0lG?=
- =?utf-8?B?RW91bnljV01ScWUzbjJJWXIrcFBHMHpqQmNGNjFUMDZFeVNrNFZRTlV1ZWFh?=
- =?utf-8?B?cG9PK0g5ZGtTYjdlYWpqVkRoTjk5QTBSaXVxbVdLT29RT1kxdzMxYk1iNmlM?=
- =?utf-8?B?S2FNY2FSTDAvd1lLaTZSaDAyMDJNMFM0aHdLODQ5RS9oTjRjUEc2bzZEcHo0?=
- =?utf-8?B?OUtPNVhCSzZvRyt2M1cxQkRGWTF1WlRGWWhpRmhsVmsxaUlKVWlvZnVRWjlL?=
- =?utf-8?B?MEFaLytLQlVhQTVJdkJEa1VqNjhmcW9mSnVIaDRaWTh4SEVOVHhZZ1FjN21X?=
- =?utf-8?B?VXdEQWkrdkpJbUFYM2ZsS3duTkhDN0tkck92OTZoMHZsSEo5VnhzUW4ySEli?=
- =?utf-8?B?cGxJWUhJazVCSVpQYlpUcTJ0ZFd5cXdYQTBUV2Q5ZHYvSmpzNVdlMm5iMktW?=
- =?utf-8?B?R1JwRTJobU01VENGWmp5OEo0RnNTUkttWStaZzA5UUNNeUZMWHZXN1g2MHNG?=
- =?utf-8?B?VmYrR3FFZFdIMVdKTmU0My9RdFE4MjRmaThqbmJyS2NSbXo5N1h2cDBrOXdk?=
- =?utf-8?B?YXVqNlpzZHp1UmxQK2lmUVA0R2JZZGdaZXdLK3NJZE5oYmJLdlc2anN2TmdF?=
- =?utf-8?B?TWVJaVdtK3hXaGx2WC9pN3VRc3NvZE5xdm1yYmJ2TWo1dk1TUVBONzZJN0pC?=
- =?utf-8?B?M3l5VHBHVU5Gb3RrYXVVS0Y5RVhEbTJNVDdJcFZ4ZzkwZWZBQlBlbWRzYXB3?=
- =?utf-8?B?WE9wRHpWN05jdWlNUDZDMUNLb2o5UGlIMFZkeFgzWXFRejY3WHV2eHlka3NR?=
- =?utf-8?B?aC8zUXdXMGRNbG04cnZTZmhzaXVmakdveFMyYmc4NW5hOUlvc0tVWHpodjVE?=
- =?utf-8?B?eUlQeU1hVzlPYVZrWmxySTVDcnU5T0luQlFTb3hYclFUODJCTFdFdVR2ZmZl?=
- =?utf-8?B?RHdvVnpMc1NoZXJsRFQ5dmNiekZrSHluRWRiNUVmbkM3MFZzUVBMZ2pSMmxB?=
- =?utf-8?B?a0lKWlpTQ1VHQk50QTFwSFI2bjN2blg4MFBmdHk5USs3WmtyT1piYlM2OXFy?=
- =?utf-8?B?ZlBqV1FmWHRLMXZpY2JVS3JKdXpyUm42Zy9xZXh1WmpIcC84YVJPeUFRTGdH?=
- =?utf-8?B?c1lNS2RHbnRsMFlDTHZXYUIxSHpRR211UkNvTUZ5ZGNoR2sxQktBMlUrS1dm?=
- =?utf-8?B?YkgveXdVOHJmLy94bXlFL3RCbVlOb252Z3VvZmpIa29KVTBUeTZJd3luK0Zi?=
- =?utf-8?B?eHRQODNJdllMcmdJWWhab2JJem43M21nSkR0N0FuV0FiUDF5RER3OHMyQjB4?=
- =?utf-8?B?dDNEbmtmMEx6alc0TGNjUUVRVXN6L2lkQVUxMHB2VmtSYytESk04YWlsWitZ?=
- =?utf-8?B?VHhrY3gxRG1vMjNGNnM0N3dHVHVzRGV1S3did3BZdlkxVzNoNGVNVmsvVGw1?=
- =?utf-8?B?K0ZURk14VEUxYnRrSWh3eEkxY2tXUWpHemV0NEZTdHlqaEhZMlF3aURkbzN3?=
- =?utf-8?B?ZC9vZmNmWjQxYkJhVjhpbnBqQXVKRDBMZ1ptbG5RakZuTTFhczhZTDlvU1Z6?=
- =?utf-8?B?VmJ0WkRXQUU3ZUJxcFhYU0hDNE5ZaVNld3NFbzltYjdHdi9WbHFIc2VjTUx0?=
- =?utf-8?B?UUhWK0Z1eVEwMEJsSElXaldoRkhwWmRLaWlwWWorL2xla3R1a2ltQ3V0RHE1?=
- =?utf-8?B?N21IeEpTN3J3Qi9tU25vWWRLTDVoL3o4UjNya2kxZGJFVmR6T2c5UT09?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2a571294-09d1-4cab-215a-08df205408fd
-X-MS-Exchange-CrossTenant-AuthSource: GVXPR04MB12316.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 07:09:01.1485
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ETq4tzFtBoXybGvQoc+svwnvW5dRMYd3Khod7l+x9qfW1j5h931NGLlYkqu7uT6RRdA+fZJI4KQzWeJkmpt8Ng==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB9216
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="xust6oqi6mFgyPu/"
+Content-Disposition: inline
+In-Reply-To: <20261002-dr1v90-cru-dt-fix-v1-2-c3e0b5d4c30d@pigmoral.tech>
 
-On 10/1/26 18:53, Francesco Dolcini wrote:
-> From: Francesco Dolcini <francesco.dolcini@toradex.com>
-> 
-> Apalis SPI1 and SPI2 are routed to user accessible connectors on both
-> boards, X27 and X24 on Ixora and X38 on the Evaluation Board, and a
-> device can be instantiated from user space through the spi_master
-> new_device sysfs interface, so enable the controllers here too, as the
-> Apalis iMX8 boards already do.
-> 
-> Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+--xust6oqi6mFgyPu/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Reviewed-by: Daniel Baluta <daniel.baluta@nxp.com>
+On Fri, Oct 02, 2026 at 02:07:01PM +0800, Junhui Liu wrote:
+> The external CAN and watchdog clock inputs are not routed on the MLKPAI
+> FS01, the only board currently supported. Drop the two fixed-clock
+> placeholders from the common dtsi, as fixed clocks require a valid
+> clock-frequency property.
+>=20
+> Both clock muxes select their internal parent clocks after reset, so
+> the CRU operates correctly without the external inputs. Keep only the
+> required oscillator input to the CRU.
+>=20
+> A board using these external clocks should define them in its own
+> board-level dts and override the clocks and clock-names properties of
+> the CRU node.
+>=20
+> Reported-by: Yixun Lan <dlan@kernel.org>
+> Fixes: 7849521aaac2 ("riscv: dts: anlogic: add clocks and CRU for DR1V90")
 
+Uh, why is this in linux next?
 
+Brian, please don't apply dts patches to the clock (or any other) driver
+tree in the future.
+
+Patch itself makes total sense,
+Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+and because it's easier
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+
+> Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
+> ---
+>  arch/riscv/boot/dts/anlogic/dr1v90.dtsi | 16 ++--------------
+>  1 file changed, 2 insertions(+), 14 deletions(-)
+>=20
+> diff --git a/arch/riscv/boot/dts/anlogic/dr1v90.dtsi b/arch/riscv/boot/dt=
+s/anlogic/dr1v90.dtsi
+> index 574c6608aef0..fe85d01563ad 100644
+> --- a/arch/riscv/boot/dts/anlogic/dr1v90.dtsi
+> +++ b/arch/riscv/boot/dts/anlogic/dr1v90.dtsi
+> @@ -44,23 +44,11 @@ cpu0_intc: interrupt-controller {
+>  	};
+> =20
+>  	clocks {
+> -		can_ext: clock-ext-can {
+> -			compatible =3D "fixed-clock";
+> -			clock-output-names =3D "can_ext";
+> -			#clock-cells =3D <0>;
+> -		};
+> -
+>  		osc: clock-osc {
+>  			compatible =3D "fixed-clock";
+>  			clock-output-names =3D "osc";
+>  			#clock-cells =3D <0>;
+>  		};
+> -
+> -		wdt_ext: clock-ext-wdt {
+> -			compatible =3D "fixed-clock";
+> -			clock-output-names =3D "wdt_ext";
+> -			#clock-cells =3D <0>;
+> -		};
+>  	};
+> =20
+>  	soc {
+> @@ -128,8 +116,8 @@ uart1: serial@f8401000 {
+>  		cru: clock-controller@f8801000 {
+>  			compatible =3D "anlogic,dr1v90-cru";
+>  			reg =3D <0x0 0xf8801000 0 0x400>;
+> -			clocks =3D <&osc>, <&can_ext>, <&wdt_ext>;
+> -			clock-names =3D "osc", "can_ext", "wdt_ext";
+> +			clocks =3D <&osc>;
+> +			clock-names =3D "osc";
+>  			#clock-cells =3D <1>;
+>  			#reset-cells =3D <1>;
+>  		};
+>=20
+> --=20
+> 2.55.0
+>=20
+
+--xust6oqi6mFgyPu/
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYIAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCar9YiQAKCRB4tDGHoIJi
+0oYFAQDls2b/qD2GTKOyDuH0hk4ZOJVlEskC8FgpGOTaACQiTQEAtdGfIoLq0kWc
+iMi9yihSNBI11RNrHV7DJPv0TYoBEQA=
+=88Ss
+-----END PGP SIGNATURE-----
+
+--xust6oqi6mFgyPu/--
