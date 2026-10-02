@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25FA6451996
-	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 09:13:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A40434718D0
+	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 09:13:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790932425; cv=none; b=n/NGS+dlIznAUJCWuZiM0K+c63DBddkpdPKwqYSGgpsujj4akdtVXcHnVn/tqMfLA/CwcvOtlUsCv4+YXS/bIhqdcoGwepA/1hgHLQVj8wMVbU/cPwMvvZxPdf2lCWJhs2Tr55dmky4B0UVFPsR1Yl70Tn0UVR6H25ZAo1IxTYI=
+	t=1790932426; cv=none; b=M/Ec0muzI4fZH+vTtCLo/mmmh4J2Fky8u/zXOgG/XsHm92afFp7MnistF0SbfYNjE/ICxhg6zExJJf/+Y+pS5ikd5eQs+4NZ4EVxI7ixePsp1s6NvofjbMk0Q2Vdmp6Va3ZuK4cuib9qMe6bT+xCJlg5W2rwJUSP1WFrENwHJvM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790932425; c=relaxed/simple;
-	bh=IkCmL1KrMzPrFCN/8+H25JFQIwgyzHM/P63Q4QZyZmg=;
+	s=arc-20240116; t=1790932426; c=relaxed/simple;
+	bh=m9alEZpHDZ9NV/LqDewbpCS72A/8u+ivSq2+BKBYwcM=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=AAGnSTWXMiPkcaSqRHN/QPz8GeeOzNvzolQ8rJk/LCxQDJ7HxTrXoS06Gk0uor+lZpbC3/U4z44qrfXTokcH32hakGriFHit7C6zwut9mM5Qq/s6Bm4YAlVu/Hjg63LpmKnejK5eZDcY2Fubr92b8wl1XfsSv2CV3cHMHy8EOBo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gzJfGaL3; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Wud+nD/rA7h2f0xHfsWr0BIBsGtSFakjuJV3zrNlBrOPJzhVfiRoMurh159y1K82uIiL8TvC0M5cDPiPcaUl2WqOZqDlt1Ih3yRg1ks27rcOWVr60VniLIWjBQAMDD+1Qt7g5QcliOIyQsDaU4/5acx3mM3HdOBarEM14bfgmPQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ebtbJ93y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gzJfGaL3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B64EB1F00893;
-	Fri,  2 Oct 2026 09:13:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ebtbJ93y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53BB11F000FF;
+	Fri,  2 Oct 2026 09:13:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790932420;
-	bh=YuS2t0RyM6ZUcZcxmciZXs1Kr+MRiGKNscW4T4dBREU=;
+	s=k20260515; t=1790932424;
+	bh=fBJVig5SlgacmL9iC1wwHl5s/llFaH4zXq/0Gc41GtQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gzJfGaL34ICpS2OuEPP9oCD7ivNkwpBqkMJmBEuxvVRWdUNXB4CrbgJPDJfZhlIvl
-	 i+ZTDsZhntCE8SGbjxdVgAaxS9JO6Wdr3sJ1XHMgwksVU5tPMNOXWFRWUs5Q30A+92
-	 /q89ulqTsRrLVxnnlgqd4AV2Euaqqeppm5SeT+3bnMfpYPygpoDw0S+G4L/ycr2RMt
-	 qiQRxr5TfTFDGqBunjV2kJ50K43iGw99pJVMmUAg5dYuodVT7lGvucdOiIrWWo+nKf
-	 boKySPREZXqZ+DnCMQ3HZ+4geI34RJY8X8iqGF8Rq8TJo3kyqSwb67QcAgrXvNh6Hi
-	 pTrGBWP2Rc9kw==
+	b=ebtbJ93yn8TyvEY057fTbsAps5XRam0hSpmpqn4FZu7NOxNX9fPtpNb9CJ5msQmDQ
+	 Lzg4O7XYr9LnOIl/CEEFXmNlm/cjDyMszV+KP6N+0YwQ5P1AhHmI6TmyHv2ew9dFLi
+	 LzclzfbwxH+/H+fxchBBVA9z3hhnJxRzCGK3fxdRMoBgNveQ3ml+y+kvMKcEfKqXBD
+	 zUpyfFN22YTL1V3Rtt0u8gofgBZmQoN1+O1kgdd/DFxY6GeamAY4Hes8GdxyjY5Z1+
+	 oDIm4LbvkmKMMVbX6dsXmUz8uwkSGljbbD+IlrsIjaobz99VmxbTi8fnuqKXMSm14n
+	 ljbGxqMhrey5A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC v4 03/13] drm: client: add splash client
+Subject: Re: [PATCH v10 6/6] spmi: apple: Add interrupt functionality
 Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?TcOgeGltIFBlZHJhemEgUGFkaWxsYQ==?= <maximpedraza@gmail.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20261001195847.141192-4-maximpedraza@gmail.com>
-References: <20261001195847.141192-1-maximpedraza@gmail.com>
- <20261001195847.141192-4-maximpedraza@gmail.com>
+To: "Sasha Finkelstein" <k@chaosmail.tech>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261001-t603x-spmi-v10-6-ff815c66c73f@chaosmail.tech>
+References: <20261001-t603x-spmi-v10-0-ff815c66c73f@chaosmail.tech>
+ <20261001-t603x-spmi-v10-6-ff815c66c73f@chaosmail.tech>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 02 Oct 2026 09:13:39 +0000
-Message-Id: <20261002091339.B64EB1F00893@smtp.kernel.org>
+Date: Fri, 02 Oct 2026 09:13:43 +0000
+Message-Id: <20261002091344.53BB11F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,172 +46,134 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] drm/client: splash: UAF of drm_framebuffer on hotplug error path
-- [Medium] drm/client: splash: memory leak of scanout array on hotplug -ENO=
-DEV
-- [Medium] drm/client: splash: firmware blob leak if render thread exits wi=
-th -EBUSY
+- [High] spmi: race condition in spmi_raw_cmd() error recovery causes prema=
+ture completion
+- [High] spmi: TOCTOU race on irq_mask_cache triggers spurious handle_bad_i=
+rq()
+- [Medium] spmi: endianness corruption on Big-Endian architectures due to w=
+ritel() for FIFO
 --
 
-commit 86a0b0be0de60a4b9d33ab49ce7a129fe48448a6
-Author: Francesco Valla <francesco@valla.it>
-Date:   Thu Oct 1 19:58:37 2026 +0000
+commit 30246ba2a054ae67e63f97a3891036e8eeaf0cd4
+Author: Alba Mendez <me@alba.sh>
 
-    drm: client: add splash client
-   =20
-    Add a DRM client that draws a simple splash, with possibility to show:
-   =20
-      - the logo provided by EFI BGRT;
-      - a static BMP image (loaded as firmware);
-      - a colored background.
+spmi: apple: Add interrupt functionality
 
-> diff --git a/drivers/gpu/drm/clients/drm_splash.c b/drivers/gpu/drm/clien=
-ts/drm_splash.c
-> new file mode 100644
-> index 0000000000000..66c192139d9c4
-> --- /dev/null
-> +++ b/drivers/gpu/drm/clients/drm_splash.c
-> @@ -0,0 +1,1028 @@
+This commit adds support for interrupts sent by slave devices and uses the
+IRQ for the RX FIFO if possible. This allows the driver to respond as soon
+as the reply is available rather than polling with a 10ms sleep interval.
 
+> diff --git a/drivers/spmi/spmi-apple-controller.c b/drivers/spmi/spmi-app=
+le-controller.c
+> index fabccd25aa0da..2390174452ab4 100644
+> --- a/drivers/spmi/spmi-apple-controller.c
+> +++ b/drivers/spmi/spmi-apple-controller.c
+> @@ -26,6 +32,13 @@
 [ ... ]
-
-> +static void drm_splash_fw_callback(const struct firmware *fw, void *cont=
-ext)
+> +static void apple_spmi_irq_mask(struct irq_data *d)
 > +{
-> +	struct drm_splash *splash =3D context;
-> +	struct drm_client_dev *client =3D &splash->client;
+> +	struct apple_spmi *spmi =3D irq_data_get_irq_chip_data(d);
+> +	unsigned long flags;
 > +
-> +	if (!fw || !fw->data) {
-> +		drm_err(client->dev, "splash: no firmware");
-> +		release_firmware(fw);
-> +		fw =3D NULL;
-> +	}
-> +
-> +	scoped_guard(spinlock, &splash->fw_lock)
-> +		splash->fw =3D fw;
-
-[ ... ]
-
-> +static int drm_splash_render_thread(void *data)
-> +{
-> +	struct drm_splash *splash =3D data;
-> +	struct drm_client_dev *client =3D &splash->client;
-> +
-> +	while (!kthread_should_stop()) {
-
-[ ... ]
-
-> +		if (draw_count > 0) {
-> +			ret =3D drm_client_modeset_commit(client);
-> +			/* If commit returns EBUSY, another master showed up.
-> +			 * This means that the splash is no more required.
-> +			 */
-> +			if (ret =3D=3D -EBUSY) {
-> +				drm_info(client->dev, "splash: not master anymore, exiting");
-> +				break;
-> +			}
-
-[Severity: Medium]
-Can the firmware blob be leaked if the render thread exits early here?
-
-If drm_client_modeset_commit() returns -EBUSY, the thread breaks out of the
-loop and exits. If the firmware request later completes,
-drm_splash_fw_callback() stores the firmware in splash->fw. Since the thread
-is already dead, won't this firmware remain unreleased until the DRM device=
- is
-completely unregistered?
-
-> +		}
-
-[ ... ]
-
-> +static int drm_splash_init_client(struct drm_splash *splash)
-> +{
-
-[ ... ]
-
-> +	/* And point every modeset at the buffer of its scanout */
-> +	i =3D 0;
-> +	drm_client_for_each_modeset(modeset, client) {
-> +		unsigned int idx =3D i++;
-> +
-> +		if (idx >=3D 32)
-> +			break;
-> +
-> +		for (k =3D 0; k < splash->n_scanout; k++) {
-> +			struct drm_splash_scanout *scanout =3D &splash->scanout[k];
-> +
-> +			if (scanout->buffer && (scanout->modesets & BIT(idx))) {
-> +				modeset->fb =3D scanout->buffer->fb;
-> +				break;
-> +			}
-> +		}
-> +	}
-> +
-> +	mutex_unlock(&client->modeset_mutex);
-> +
-> +	return (fb_count =3D=3D 0) ? -ENODEV : 0;
+> +	raw_spin_lock_irqsave(&spmi->irq_mask_lock, flags);
+> +	apple_spmi_irq_mask_raw(spmi, d->hwirq);
+> +	clear_bit(d->hwirq, spmi->irq_mask_cache);
+> +	raw_spin_unlock_irqrestore(&spmi->irq_mask_lock, flags);
 > +}
-
 [ ... ]
-
-> +static int drm_splash_client_hotplug(struct drm_client_dev *client)
-> +{
-> +	struct drm_splash *splash =3D client_to_drm_splash(client);
-> +	struct task_struct *thread;
-> +	int ret =3D 0;
-> +
-> +	guard(mutex)(&splash->hotplug_lock);
-> +
-> +	/* The modesets that get a splash are defined at first hotplug event */
-> +	if (splash->initialized)
-> +		return 0;
-> +
-> +	ret =3D drm_splash_init_client(splash);
-> +	if (ret =3D=3D -ENODEV) {
-> +		drm_info(client->dev, "splash: no modeset found");
-> +		return 0;
-> +	} else if (ret) {
-
-[Severity: Medium]
-Could this error path leak the splash->scanout array?
-
-If drm_splash_init_client() successfully extends the array using krealloc()
-but fails to create any buffers, it returns -ENODEV. This early return hand=
-les
-the -ENODEV case but does not free the array.
-
-Could subsequent hotplug events keep appending to it and leaking memory on
-every failure?
-
-> +		drm_err(client->dev,
-> +			"splash: failed to init client: %d", ret);
-> +		return ret;
-> +	}
-> +
-> +	/* Create the render thread, waken later */
-> +	thread =3D kthread_create(drm_splash_render_thread, splash,
-> +				"drm_splash_%s", client->dev->unique);
-> +	if (IS_ERR(thread)) {
-> +		ret =3D PTR_ERR(thread);
-> +		drm_err(client->dev,
-> +			"splash: failed to create render thread: %d", ret);
-> +		drm_splash_free_scanout(client);
-> +		return ret;
-> +	}
+>  static int spmi_raw_cmd(struct spmi_controller *ctrl, u8 opc, u8 sid, u1=
+6 param,
+>  			const u8 *buf_wr, size_t len_wr, u8 *buf_rd, size_t len_rd)
+>  {
+[ ... ]
+>  	if (spmi->prev_fail) {
+>  		writel(SPMI_ACT_FIFO_FLUSH, spmi->regs + SPMI_ACT_REG);
+> +		apple_spmi_irq_ack_raw(spmi, SPMI_IRQ_NOTIFY);
+>  		spmi->prev_fail =3D false;
+>  	}
+> +	reinit_completion(&spmi->fifo_rx);
 
 [Severity: High]
-Does this error path leave dangling pointers in the client's modeset array?
+Does this reinit_completion() risk a race condition in spmi_raw_cmd()?
 
-In drm_splash_init_client(), modeset->fb is assigned the framebuffer of the
-newly created buffer. If we fail here and call drm_splash_free_scanout(), t=
-he
-buffers and their framebuffers are freed, but modeset->fb is not cleared.
+If a previous command timed out and the chained IRQ handler is concurrently
+executing on another CPU, it could read the hardware status before it is
+acked, but call complete() after this reinit_completion() runs. This would
+spuriously mark the next command's wait as done, causing it to fail with
+-EIO prematurely.
 
-Since the client remains registered on dev->clientlist even after a hotplug
-error, could a subsequent modeset commit or sysrq trigger a use-after-free
-by dereferencing the freed modeset->fb?
+> =20
+>  	writel(spmi_cmd, spmi->regs + SPMI_CMD_REG);
+> =20
+>  	while (i < len_wr) {
+>  		j =3D min_t(size_t, sizeof(spmi_cmd), len_wr - i);
+>  		spmi_cmd =3D 0;
+>  		memcpy(&spmi_cmd, buf_wr + i, j);
+>  		writel(spmi_cmd, spmi->regs + SPMI_CMD_REG);
+
+[Severity: Medium]
+Since this driver can be built on 64-bit Big-Endian architectures via
+COMPILE_TEST && 64BIT, could using writel() here cause endianness
+corruption? The writel() accessor performs byte-swapping which reverses the
+memory layout of the stream in 4-byte chunks. Should this use writesl()
+exclusively for FIFO stream accesses instead?
+
+>  		i +=3D j;
+>  	}
+[ ... ]
+>  	/* Read SPMI data reply */
+>  	i =3D 0;
+>  	while (i < len_rd) {
+[ ... ]
+>  		rsp =3D readl(spmi->regs + SPMI_RSP_REG);
+>  		j =3D min_t(size_t, sizeof(spmi_cmd), len_rd - i);
+>  		memcpy(buf_rd + i, &rsp, j);
+
+[Severity: Medium]
+Similar to the write path above, does using readl() for the FIFO stream read
+cause unintended byte-swapping on Big-Endian systems?
+
+>  		i +=3D j;
+>  	}
+[ ... ]
+> +static void apple_spmi_irq_handler(struct irq_desc *desc)
+> +{
+[ ... ]
+> +	for (offset =3D 0; offset < SPMI_NUM_PERIPHERAL_IRQS / 8; offset +=3D s=
+izeof(val)) {
+> +		val =3D readq(spmi->regs + SPMI_IRQ_ACK_BASE + offset);
+> +		/**
+> +		 * because of other masters in the bus, we're going to get a multitude=
+ of
+> +		 * interrupts we're not interested in. irq_resolve_mapping isn't very
+> +		 * optimized for the nonexistent path, so instead we mask with (a loca=
+lly
+> +		 * cached version of) the IRQ mask
+> +		 */
+> +		val &=3D spmi->irq_mask_cache[offset / sizeof(val)];
+> +		for_each_set_bit(bit, &val, 64) {
+> +			generic_handle_domain_irq(spmi->irqd, offset * 8 + bit);
+> +			handled =3D true;
+> +		}
+> +	}
+> +	if (!handled)
+> +		handle_bad_irq(desc);
+> +	chained_irq_exit(chip, desc);
+> +}
+
+[Severity: High]
+Could this lockless read of irq_mask_cache cause a Time-of-Check to
+Time-of-Use race?
+
+If a peripheral interrupt is pending in the hardware status val, but another
+thread concurrently calls disable_irq(), it invokes apple_spmi_irq_mask()
+which clears the bit in irq_mask_cache.
+
+If irq_mask_cache is read right after the bit is cleared, the pending bit
+will be masked out. The handler would then leave the legitimately fired
+interrupt unacked, set handled =3D false, and incorrectly fall through to
+handle_bad_irq() on the parent interrupt controller.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261001195847.1411=
-92-1-maximpedraza@gmail.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261001-t603x-spmi=
+-v10-0-ff815c66c73f@chaosmail.tech?part=3D6
