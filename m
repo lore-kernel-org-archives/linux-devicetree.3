@@ -1,264 +1,179 @@
 Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0F2A446C0B
-	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 07:56:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01B85411689
+	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 08:09:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790927812; cv=none; b=b6aq2VZjW6eGP8etvLI0ZRyiU9+IAZMo2HKfSwTucbgVpF98pz8tEWECZrRHdarzMvueGDAPfZjtSDrq8zgidNaNcZ6JymYsmZqw/y/r1YReE/c1tIxK/ILiUW0PMcdgxfvfsYK1hLe4vnCZZfdJ3jF1OWj2eA8j5frdFQKRaZk=
+	t=1790928591; cv=none; b=p5wUagCQ70IUSRr6cJRSw7s8vfb0HX1YvVFctcDY3tJu/Jq2rHd35ATMC0cEAQ9+rJlfIaUcCOk48lFUcXx3jCSFHb0cbkqh+ZRu29uqnIt4uXUhjzoVabjOeQ3tLUTU9a4bsAXegkHc4OGUbYzUaM2q/skTCxdJZWb7mf2jKfQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790927812; c=relaxed/simple;
-	bh=8YdLh4ZCnwDwZQ/aIKC8ya5+UfbTiD6xxi99nvSGj8w=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZlGmbczDfwvS+gy6QiYlqaKdsS0b8yVFKYU9814kZByo6liRLRyMlrgvBZGmttBSC5pJlIiz/sjRUUj6+x0KGauCXSMejOHx9IVLeuXmbWKcR0JxUNnSoArh8kdSe8ifpbcXEJmTQRP1RmFL9Vhwqwh2B3of7c2tK9GapFREj5g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HEY+UAny; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790928591; c=relaxed/simple;
+	bh=DGpTwbDIeBlS7xGbevsnPXJ7r9V5/qe6fW0JwCkuRoQ=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=HMHTYlfp+g8YA7XkXntfk4cj6WxONNlZlyowPy673S0uzKk2oh3cEy1HUPBuatQ0wwILo2yYG+qp7UmnAmTgrS2ZK3WnBNn/x6tMpN9aYhnqkaS0kV1C5FMKtdJ5I3i8/BCi5zzTMpjpHheYiLKUokEkJhb4GxHcARbGg4rdCRc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=nlQrpZci; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HEY+UAny"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-4a00713639cso41033285e9.1
-        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 00:56:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="nlQrpZci"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ff9642c57so17045815e9.0
+        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 01:09:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790927808; x=1791532608; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+        d=baylibre.com; s=google; t=1790928586; x=1791533386; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=JKeQ7pMRDpSMvOsTqMY3Sd6L9YDjUesHcennVqLoo8U=;
-        b=HEY+UAnyQYsJYNeVTMnudMNB4WyCUDBYf7lcabfnD4DA7f6l/M5cuJzTPWdiTi/wXQ
-         kHLdav0Olih9gnZyiJSolpbfCjoUbtXgzaLkDvCvKg0nO6I7O/ZUU8exeT/xlQhQb43w
-         i1Ov0f5BLqiUUo9Vc+P2PVFrdVP6a3TNXft2IniIPQTkNSDTqYd/qQoQPlo/Kd7O5/2L
-         qR4GV7y3FhTKJ3WSNLN+1lPnhVy8QvlwOOxZueUCGkU9FhPM9nqkP17gQXQEd0Q+NJV8
-         zxCunny8Po73MehJsoynlI0Ods6CpiRWUZjPh1iJ9064rjvH4N/wsNXbCYJaodSucnGK
-         r6wg==
+        bh=cyfq5Z39i3Aa9ox1entG/vitb9px1bSDrzF3bMpTbqM=;
+        b=nlQrpZciIERMGLnEYKazKcxNj+AfzUsfyuG9eFIsindPMqlnlficfjm5HNNxocxGOY
+         wAGucdObo5WGQCzAlz97WJbAHs2P+OPfYsF4y/aXpkdo9xW/H9fD5dNwC7m9mSMWTkce
+         1B6BIhgCn628FpWP9dQFAlAjLDChlYAy/w6psUFv/DPquDGVbqZcS+4WaxlFIkLjfK03
+         p18rV+K24eteG2OnZvEFFNL0mTGLg2BsffcfcL5HJd0MuD+ySCIRgbJvceZVBpfzW5gQ
+         9xygZb/wmhajCIBDLvOn6JEQBSjgok/dHLWQAX7EAyC8HqXidy4o4FGTiKx6d58CoBZi
+         +ZPA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790927808; x=1791532608;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
+        d=1e100.net; s=20260707; t=1790928586; x=1791533386;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :references:in-reply-to:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=JKeQ7pMRDpSMvOsTqMY3Sd6L9YDjUesHcennVqLoo8U=;
-        b=ylIrm/VnXucAe03XNzZcSuU5OVJ/5RcSIRdaWQvjfsjCn92Q/oFRvGu43GNUb+Z4hU
-         D9qhcPL1Dmfa4gn2zdNzOrNiD5+ncBmyjBm+CaU58aq4nsV8lDAXyHCkJ+13BdHEIl14
-         pNwMffZ8M3zQqOqdDw+vl77ih5GeFAfQa93IKGXYLDm1YeRi1MoaV9J6H4xyXObBvabH
-         gBRL556vWQ9GKLQX3tTbAEpHcNeycPbn6xdScDkwOslavPYk4SSStR/pGUHRJ+2i9aCv
-         MwRG/FHPZopcMK+jFmARXBqkgWKlicnNGs5d8NV9p0ZJhsxtFDNhO82awBqGoRmD6+Ju
-         H+XA==
-X-Forwarded-Encrypted: i=1; AKwUvByZ0gHdcg3H6aJP0Z49fUovsGMkcYlghzggbs62lIDr0aNGT9qoTQnpZKm1vw3CJ88BtwFHS0h/sCaP@vger.kernel.org
-X-Gm-Message-State: AFuF++nyGzTDX64Lamb042wpEgnMEXhnUrLBqMmecWi6fZoFqc78symJ
-	yo5qFxvjpgPTOi1YcruZGVZWsSrTVYb7/6d4LBjmM7YdTLrOw9FmvVKp
-X-Gm-Gg: AYBFou1sC4PsRCEpbaBo87VbN/nU6oDTotbPNnXJAL+hW70iSGgx/mMp7uOjqcutv0m
-	KS5bpzgSNVqOS1PUjDsU8tdV6iPTBsUnHjttADa4LaGW1bd/kr86cExu8lgRyyOp/fABHPT2+PS
-	GK/VlrgQxusMSr+QfUtjO0XRTpffVTBN9rKX9XeAPWJa7nhOJRhLdq5/6+HRXR+CXg23glkjwDi
-	3caX727RDqc2a0VThPn5GU51UkDAF27VlnWw1/IkHdChpdavt9XpU5dVx5iGdmf9Pl/Em/RJPvo
-	BiYTcWKG8/xQgM0lOmp38KmEWI2LuIt0hudC4Jy+g0t5WY/Gz6q06U1h827LnZPoY0GzBAN6riR
-	kfQztOD+JwuYcC6ya6sdxYpMgLkyWcpQMoC6H+WgzyNi7q6dwecy7FcRGW3uFCrWXXyCfYaGSlq
-	pKsS61TXjMRNCnUVMDCga7ENrzsvZyDH9CVWQdHBtL9rkEmHp6wfwFWETWre5AN+gRRO1Puz6Y2
-	aGiYIy9imfEjZ1/Y5G22EXiAaIYB35meYsCOpTohqsWjXUexdRCDLfE43rEBZGo1qbBegMRhEFA
-	o8/x1seg
-X-Received: by 2002:a05:600c:4f04:b0:4a0:a34:6e7d with SMTP id 5b1f17b1804b1-4a027564c91mr37915915e9.18.1790927808420;
-        Fri, 02 Oct 2026 00:56:48 -0700 (PDT)
-Received: from ernest.hoecke-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0280be5dfsm63635305e9.7.2026.10.02.00.56.47
+        bh=cyfq5Z39i3Aa9ox1entG/vitb9px1bSDrzF3bMpTbqM=;
+        b=CHWiLMVM9BYNlHDwu7982l5oqkj8Gwpmdwte7gJFq6oBpSNEtX9jyVsZpNhzegFt6r
+         0ESCR03OMfqIdvYHthaCHB2RViPvOhNIkf5JNGJuMmnNJ/wVZPHuz1+DsNNJhnVOUor+
+         PoNKxmEu/l9HtjYevLhC/dxhPlr+OYWBJ8pWVssIIkY6vTDdxY2EhJYin5wiOmowTiOK
+         TH5Ci0qFF/sbPrm7yabkHF0B5SPpqwAFYkh5d0q9reYUUKvdz7vK4F1GaLowBKi24Y1c
+         lKO6n+qVTi/eUrQpuVuGeo8LJoPaRHqBbYdd/m4rXsuz1Kl136aPQ5GZ1xC4FvE9emz6
+         pUcQ==
+X-Forwarded-Encrypted: i=1; AKwUvByMhH7nt2rlkty4TXiQ4Ik8xZlJ7ia1ErfjK9xwjroPVO3tXThRe7Xn9KwouUHAxC5wTnffDE2uzA7K@vger.kernel.org
+X-Gm-Message-State: AFuF++mFSFrR8PYsC2AlpgG3I1aPYDXzmUgeAEdR6BHE3svRY4ha70u5
+	ae0ScP5Jh2hS7iIuzI8FFZNhW7cVgVz3Vyjj/y7QWF2CWLKxRC4OyW0O8KOo+7ZyGpM=
+X-Gm-Gg: AYBFou3xqh3pDL4XohuFahSP6LmPqX3YAOr5Ij48WfZXadQaJ5v9nfNWQRfKj2EasrB
+	Xc4PkbupmyM7qbVMw+yQO6i54ljD+yIOunMN9QpvkWyrFvsYWipnnIBehI3FFPSXwYj0ahe08Iy
+	qRaI1Ea82gXn/0mpsBeltf5zENQWWE2xRrH7Dv8RueTa93PQ2/9B8Lw4abaukhzmKj1CvcOpcAZ
+	PJ+Fb2VFthkISj+61T/mmQ2w6kNM1K1cZCQPL3Fb8GYcPf6+XzmBgdN0keQTKJX6SxFV39ZN5Ll
+	zI9ODLPVHKTc2alUVyM2yU+rzQQEtuxjrtjxFFUQ6EaE36/MuGxHgqzSos1v3h5rntufe97zfSl
+	hmTxoUYJ8j6YwIx9EMDSNp0Njpw7yIdtzVI9D36PSTqYpKwcC3dcayLtq+vJqAdUjkGVfQURxw+
+	LMoNGT/1Wz+yffbECFcysUi1w14Ct4twN/YxPfT/UyXqJfCnJYshVHOYKsNP/IRyRjIrfLtRO9S
+	8mpdHoOAgLIRm0dWNU=
+X-Received: by 2002:a05:600c:1e24:b0:49f:ffa2:1c72 with SMTP id 5b1f17b1804b1-4a0275507d7mr31998105e9.11.1790928586168;
+        Fri, 02 Oct 2026 01:09:46 -0700 (PDT)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0e1afbc44sm38823805e9.4.2026.10.02.01.09.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 00:56:48 -0700 (PDT)
-From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-Date: Fri, 02 Oct 2026 09:56:41 +0200
-Subject: [PATCH 5/5] arm64: dts: freescale: imx8mp-toradex-smarc: Add
- Toradex Capacitive Touch Display 7" DSI
+        Fri, 02 Oct 2026 01:09:45 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: zl020895 <zl020895@163.com>, Linus Walleij <linusw@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, longzhao@ambarella.com,
+ Arnd Bergmann <arnd@arndb.de>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, soc@lists.linux.dev,
+ linux-arm-kernel@lists.infradead.org, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+ Michael Walle <mwalle@kernel.org>, Jiri Slaby <jirislaby@kernel.org>, Andy
+ Shevchenko <andriy.shevchenko@linux.intel.com>, Ilpo =?utf-8?Q?J=C3=A4rvi?=
+ =?utf-8?Q?nen?=
+ <ilpo.jarvinen@linux.intel.com>, Catalin Marinas
+ <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Lee Jones
+ <lee@kernel.org>, mfd@lists.linux.dev, devicetree@vger.kernel.org,
+ linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re:Re: [PATCH v9 13/15] serial: 8250_dw: add Ambarella CV75 quirks
+In-Reply-To: <4405a61f.505.1a0fa675e43.Coremail.zl020895@163.com>
+References: <20261001-cv75-v5-v9-0-486cc289a4b8@ambarella.com>
+ <20261001-cv75-v5-v9-13-486cc289a4b8@ambarella.com>
+ <2026100140-overbite-mundane-fc79@gregkh>
+ <CAD++jLnv1Q7ChHuLo=ad9edqhZL8MNaMab8huMAepK_LwqVzGQ@mail.gmail.com>
+ <4405a61f.505.1a0fa675e43.Coremail.zl020895@163.com>
+Date: Fri, 02 Oct 2026 10:09:44 +0200
+Message-ID: <1j1pa834mv.fsf@starbuckisacylon.baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261002-smarc-imx8mp-display-submit-v1-5-f578c63fb676@toradex.com>
-References: <20261002-smarc-imx8mp-display-submit-v1-0-f578c63fb676@toradex.com>
-In-Reply-To: <20261002-smarc-imx8mp-display-submit-v1-0-f578c63fb676@toradex.com>
-To: Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-X-Mailer: b4 0.13.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+On ven. 02 oct. 2026 at 10:17, zl020895  <zl020895@163.com> wrote:
 
-Add a device tree overlay for the Toradex Capacitive Touch Display 7"
-on the Toradex SMARC Development Board DSI connector. The display
-features an internal Texas Instruments SN65DSI83 DSI-to-LVDS bridge
-driving a Riverdi RVT70HSLNWCA0 7" WSVGA IPS TFT LCD panel. The touch
-input is provided by an Ilitek ILI2132 capacitive touch controller.
+> Hi Greg, Linus,
+>
+> Thanks.
+>
+> This series follows the new-vendor, new-SoC process and is sent
+> as one set, so the new Kconfig symbol and the drivers that use it
+> land together.
 
-The overlay is also combined with the SMARC Development Board device
-tree to provide a ready-to-use DTB.
+What Greg and Linus say here is basically what I already suggested on
+v6 [1]
 
-Link: https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-7inch-dsi
-Link: https://developer.toradex.com/hardware/accessories/add-ons/dsi-display-adapter
-Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
----
- arch/arm64/boot/dts/freescale/Makefile             |   4 +
- ...ex-smarc-adapter-panel-cap-touch-7inch-dsi.dtso | 124 +++++++++++++++++++++
- 2 files changed, 128 insertions(+)
+Giving the whole context of a bring ups, mixing many trees, might be
+nice at the RFC stage but then it makes a lot more difficult.
 
-diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
-index 2ec50811ee1a..1310b34178e5 100644
---- a/arch/arm64/boot/dts/freescale/Makefile
-+++ b/arch/arm64/boot/dts/freescale/Makefile
-@@ -710,7 +710,9 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-hdmi.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-tian-g07017.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-skov-revc-jutouch-jt101tm023.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-toradex-smarc-adapter-panel-cap-touch-10inch-dsi.dtbo
-+dtb-$(CONFIG_ARCH_MXC) += imx8mp-toradex-smarc-adapter-panel-cap-touch-7inch-dsi.dtbo
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-toradex-smarc-dev-adapter-panel-cap-touch-10inch-dsi.dtb
-+dtb-$(CONFIG_ARCH_MXC) += imx8mp-toradex-smarc-dev-adapter-panel-cap-touch-7inch-dsi.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-toradex-smarc-dev-dsi-to-hdmi.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-toradex-smarc-dev-panel-cap-touch-10inch-lvds.dtb
- dtb-$(CONFIG_ARCH_MXC) += imx8mp-toradex-smarc-dev.dtb
-@@ -722,6 +724,8 @@ dtb-$(CONFIG_ARCH_MXC) += imx8mp-tqma8mpqs-mb-smarc-2.dtb
- 
- imx8mp-toradex-smarc-dev-adapter-panel-cap-touch-10inch-dsi-dtbs := imx8mp-toradex-smarc-dev.dtb \
- 	imx8mp-toradex-smarc-adapter-panel-cap-touch-10inch-dsi.dtbo
-+imx8mp-toradex-smarc-dev-adapter-panel-cap-touch-7inch-dsi-dtbs := imx8mp-toradex-smarc-dev.dtb \
-+	imx8mp-toradex-smarc-adapter-panel-cap-touch-7inch-dsi.dtbo
- imx8mp-toradex-smarc-dev-dsi-to-hdmi-dtbs := imx8mp-toradex-smarc-dev.dtb imx8mp-toradex-smarc-dsi-to-hdmi.dtbo
- imx8mp-toradex-smarc-dev-panel-cap-touch-10inch-lvds-dtbs := imx8mp-toradex-smarc-dev.dtb \
- 	imx8mp-toradex-smarc-panel-cap-touch-10inch-lvds.dtbo
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-toradex-smarc-adapter-panel-cap-touch-7inch-dsi.dtso b/arch/arm64/boot/dts/freescale/imx8mp-toradex-smarc-adapter-panel-cap-touch-7inch-dsi.dtso
-new file mode 100644
-index 000000000000..bbf945997703
---- /dev/null
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-toradex-smarc-adapter-panel-cap-touch-7inch-dsi.dtso
-@@ -0,0 +1,124 @@
-+// SPDX-License-Identifier: GPL-2.0-only OR MIT
-+/*
-+ * Copyright (c) Toradex
-+ *
-+ * Toradex Capacitive Touch Display 7" DSI connected via Toradex SMARC
-+ * Development Board DSI connector J44 through the Toradex DSI Display
-+ * Adapter. Open J95 to select the carrier DSI route.
-+ *
-+ * https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-7inch-dsi
-+ * https://www.toradex.com/accessories/capacitive-touch-display-7-inch-dsi
-+ * https://developer.toradex.com/hardware/accessories/add-ons/dsi-display-adapter
-+ * https://www.toradex.com/accessories/verdin-dsi-display-adapter
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/interrupt-controller/irq.h>
-+
-+&{/} {
-+	backlight_lcd1: backlight-lcd1 {
-+		compatible = "pwm-backlight";
-+		brightness-levels = <0 45 63 88 119 158 203 255>;
-+		default-brightness-level = <4>;
-+		/* SMARC LCD1_BKLT_PWM (SMARC S122) */
-+		pwms = <&pwm1 0 6666667 0>;
-+	};
-+
-+	panel-lvds-bridge {
-+		compatible = "riverdi,rvt70hslnwca0", "panel-lvds";
-+		backlight = <&backlight_lcd1>;
-+		data-mapping = "vesa-24";
-+		height-mm = <86>;
-+		width-mm = <154>;
-+
-+		/*
-+		 * Use a combined horizontal sync and back porch of 160 pixels.
-+		 * Treating the panel data sheet's 160-pixel back porch separately
-+		 * from the sync pulse results in unstable display output with the
-+		 * i.MX8M Plus DSI display pipeline.
-+		 */
-+		panel-timing {
-+			clock-frequency = <51200000>;
-+			de-active = <1>;
-+			hactive = <1024>;
-+			hback-porch = <100 100 100>;
-+			hfront-porch = <16 160 216>;
-+			hsync-active = <0>;
-+			hsync-len = <50 60 140>;
-+			pixelclk-active = <1>;
-+			vactive = <600>;
-+			vback-porch = <23 23 23>;
-+			vfront-porch = <1 12 126>;
-+			vsync-active = <0>;
-+			vsync-len = <1 10 20>;
-+		};
-+
-+		port {
-+			panel_lvds_bridge_in: endpoint {
-+				remote-endpoint = <&dsi_lvds_bridge_out>;
-+			};
-+		};
-+	};
-+};
-+
-+/* I2C on DSI Connector Pins 52/54 */
-+&i2c_dsi_1 {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	bridge@2c {
-+		compatible = "ti,sn65dsi83";
-+		reg = <0x2c>;
-+		/* SMARC LCD1_BKLT_EN (SMARC S107) */
-+		enable-gpios = <&som_gpio_expander 7 GPIO_ACTIVE_HIGH>;
-+		vcc-supply = <&reg_carrier_1p8v>;
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+
-+				dsi_lvds_bridge_in: endpoint {
-+					data-lanes = <1 2 3 4>;
-+					remote-endpoint = <&mipi_dsi_out>;
-+				};
-+			};
-+
-+			port@2 {
-+				reg = <2>;
-+
-+				dsi_lvds_bridge_out: endpoint {
-+					remote-endpoint = <&panel_lvds_bridge_in>;
-+				};
-+			};
-+		};
-+	};
-+
-+	touchscreen@41 {
-+		compatible = "ilitek,ili2132";
-+		reg = <0x41>;
-+		/* SMARC GPIO8 (SMARC P116) - DSI_INT# */
-+		/* Rising edge avoids spurious interrupts from the noisy falling edge. */
-+		interrupt-parent = <&gpio1>;
-+		interrupts = <1 IRQ_TYPE_EDGE_RISING>;
-+	};
-+};
-+
-+&lcdif1 {
-+	status = "okay";
-+};
-+
-+&mipi_dsi {
-+	samsung,esc-clock-frequency = <16000000>;
-+
-+	status = "okay";
-+};
-+
-+&mipi_dsi_out {
-+	remote-endpoint = <&dsi_lvds_bridge_in>;
-+};
+[1]: https://lore.kernel.org/all/1jld986j7m.fsf@starbuckisacylon.baylibre.c=
+om/
 
--- 
-2.43.0
+>
+> If it has to be split, the GPIO patches and the UART patches can
+> go out as their own series. The SoC patches and the CV75 clock
+> driver should stay in one series: the clock Kconfig depends on
+> ARCH_AMBARELLA, which is added by the arm64 patch.
+>
+> Would that split be acceptable for you?
+>
 
+I don't get why clock is any different here. Just state your
+dependencies in the cover letter. `b4` can help you there as well.
+
+> Best regards,
+> Long Zhao
+>
+> At 2026-10-02 03:20:51, "Linus Walleij" <linusw@kernel.org> wrote:
+>>On Thu, Oct 1, 2026 at 2:52=E2=80=AFPM Greg Kroah-Hartman
+>><gregkh@linuxfoundation.org> wrote:
+>>> On Thu, Oct 01, 2026 at 08:41:02PM +0800, Long Zhao via B4 Relay wrote:
+>>
+>>> > From: Long Zhao <longzhao@ambarella.com>
+>>> >
+>>> > The Ambarella CV75 UART is Ambarella IP, not a Synopsys DesignWare
+>>> > licensed block. At the register level it is close enough to DW APB UA=
+RT
+>>> > that a full custom UART driver is unnecessary: reuse 8250_dw with a
+>>> > small platform quirk.
+>>> >
+>>> > Quirks:
+>>> > - keep IER ETOI (bit 5) set for RX timeout behaviour
+>>> > - skip set_rate; baud clock is managed outside the UART block
+>>> >
+>>> > Reviewed-by: Linus Walleij <linusw@kernel.org>
+>>> > Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+>>> > Reviewed-by: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
+>>> > Signed-off-by: Long Zhao <longzhao@ambarella.com>
+>>> > ---
+>>> >  drivers/tty/serial/8250/8250_dw.c | 32 +++++++++++++++++++++++++++++=
++++
+>>> >  1 file changed, 32 insertions(+)
+>>>
+>>> When you submit lots of different subsystem patches all in one series,
+>>> it's hard, if not impossible, for subsystem maintainers to take them :(
+>>
+>>In my experience people do this in cases like this it is because they
+>>essentially dump out their "bring-up" tree, the thing they have
+>>booting on the hardware so they know the pieces work together.
+>>
+>>Long: can you split it up in topic branches and work on e.g. the
+>>serial driver on a separate branch?
+>>
+>>A better way to test the whole set of patces is to just create a
+>>mixdown branch where you merge all the topic branched into
+>>one "test" branch, then you boot and test this before sending
+>>out each branch separately.
+>>
+>>Each topic branch can be versioned separately with b4.
+>>
+>>Yours,
+>>Linus Walleij
+
+--=20
+Jerome
