@@ -1,199 +1,197 @@
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010012.outbound.protection.outlook.com [52.101.61.12])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9C0431716D;
-	Fri,  2 Oct 2026 15:21:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790954513; cv=fail; b=WldlpVKpvbR1+vJtvRGKUSKoXo5Jg5Wq9xThHQh8NicVf1A83jGvPc6Ppe5UrW2k1vNRCPPqlpHJuliZlnnPmk0jHzvuqry4zofmloIJqwOg8ifw6851fYNyW3UQWUzsCGTu5Kx8LRkemTMWa2MJWrolvuhpJo1K+oUbmnbGMJ4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790954513; c=relaxed/simple;
-	bh=abqx4/xNWaJDXTV2dRrt9lrakCLxD8RwTNMQBlA1a3k=;
-	h=Message-ID:Date:Subject:From:To:Cc:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=WnHyzaMt359eSn5+ckHAMzVA0tDDcrviXyrU8A7Lqxuv6r+orP/1035etPlgm4XuHs+HWd0oPndGrmt2+sGdGXdWRnX5byGQFIs3G29Lj/mxMj8C8yjdw0671DZJfhYg89Bw3g0JjAHQupmMZaXii7uPRdMYUuQNv90NSOTa7ec=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=KaoxtlHQ; arc=fail smtp.client-ip=52.101.61.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1432833F5B6
+	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 15:23:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790954623; cv=none; b=gtVJp9HHqjeH5pUvkKP1qOtc1iYDnzv3+OW5vdDHSUHMJRKGGpNGHpW/Hb1Hmr9JslCOh0xSelBWKqDZW7H+SEltyMKsu5bWqFSzqyldEWEGbugiv0NoBjrQN+doH+UPvhZq4hO5Y8CMPkXeOK1eByurceOfvyqQHRLSdkPZSls=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790954623; c=relaxed/simple;
+	bh=XtkYZYhVKl065Dt/k2DRdL7kw9MBNl5/6dckn+afPxA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RutFiGdbvYTDYzxkvi54RcfrDStoCTdBcZCbR9AWyyoZmGQpMdGnmjlO1xTfufPN9EKzTJ5c/8MBIB6A0ElX/+qrvZZVvbvmi5YDKqq5cnBWN6FDJWNmtgxGMlH2viXrMh5iEO5BR+jgov69Qt/C2Z4DN+REcnr7PWuy5RibAa4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=a691xB4d; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=kJ/zmQXL; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="KaoxtlHQ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=bigjxFOxqkoOVkQXdqr+jOo6mLYbvsM7Qi8uFOqREee9ZgMaLmrcB1WF4bVG/ykUKFH3oXEsd/4qogsOSwHCC2KqCXwIZsRcS0GEEgXWaJoJXsz/xhk6t2zduvdL0NOlth1mIQKIpVuirOHGAhp28XNcK7QkDwR8fRqlfNTUGh9LcC1SXRYazW68Ojtp5rtnF5MR5PswaoZCgHL/wZwd8bOaUx4KLuYTPydy6Oxtvwl3hGqqobBotlzoSkPiRA6Twtwn4sRenudiQn3zgwg14ml7FfRWkkGyGqQ89k/i3F7FIeWndSLft1mGF1GBLLFyjh7BbZAv4ngc2JzjDaS3sg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=fZ7Ha98jLi2qwbVZR27c5wP+8yHPxQbXJyDgBVuQ2lU=;
- b=kfbF/u2CmuUJ4n0S19ymCEmZ6sGJSwf8tKvXg0CRcM5OXmxfgIyIpZbi0CVNDlr0iI85X1MzKtmLPnXVA3s7STs5RjT7j7hkZ1WdaNMmrCIdBuGcs1woUlxN/95KRqGI+SfFae4nCVqQd/Nr/ovsFYfMfGv4zFCozM7s8O9vZ3fADDhmEj7qLhGB0H30i6m4yQ1Jx565WFMm/G6ARvNjGOJjU4J51hkpnraqLVmHagyE0gkeZbNcPlcwV2pQKq/HKdsy5tDtgfyTotpCufPdk6dmDqrCqs4b+Rai5udmIzcfcYfu18P3tyPpQLUoQPTuNCU3kdLkpjwnE8ebOb1lDQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=fZ7Ha98jLi2qwbVZR27c5wP+8yHPxQbXJyDgBVuQ2lU=;
- b=KaoxtlHQ8p/K8uzJqSoJSLQfh3I4mAjA4MolwpJTrL90WsQaQqIiLOzadmn1XRPgyrrcERSZC4+8rMLncsJ2np6F2ekHixDq68vIO3Ey21csWc47NerxpjzF1hd9rZB/VqXZp/sAKFkWBngNDk4f+O7KPkEmicD95s2tZMn2CMzdukTrEqT1hhR/rgNZ96bf/H/QZi8uMCk0HnOtPOARCkZFBEpiWu+nolRuobmUb0VBfxoRsqM2mQkkEFyfT898W+2olKZRmv86D8wcnt6HcQ8O6bNSjRXPWuMyeHfWx9YmExIfKjYS5TErdDrnue5+tEDFyHhFCtWfI7v+fJ54Gw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from PH8PR12MB7110.namprd12.prod.outlook.com (2603:10b6:510:22e::11)
- by PH0PR12MB8007.namprd12.prod.outlook.com (2603:10b6:510:28e::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.23; Fri, 2 Oct
- 2026 15:21:18 +0000
-Received: from PH8PR12MB7110.namprd12.prod.outlook.com
- ([fe80::736a:e1be:ec64:5740]) by PH8PR12MB7110.namprd12.prod.outlook.com
- ([fe80::736a:e1be:ec64:5740%6]) with mapi id 15.21.0451.014; Fri, 2 Oct 2026
- 15:21:18 +0000
-Message-ID: <aebcec98-d7c7-4cb6-8d6d-1ae5a420b5ec@nvidia.com>
-Date: Fri, 2 Oct 2026 16:21:11 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/9] dt-bindings: usb: Add Tegra238 XUSB host controller
- support
-From: Jon Hunter <jonathanh@nvidia.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Thierry Reding <thierry.reding@kernel.org>,
- Nagarjuna Kristam <nkristam@nvidia.com>, JC Kuo <jckuo@nvidia.com>,
- Mathias Nyman <mathias.nyman@intel.com>,
- Thierry Reding <thierry.reding@gmail.com>, linux-usb@vger.kernel.org,
- devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
- Thierry Reding <treding@nvidia.com>, Wayne Chang <waynec@nvidia.com>
-References: <20260921-tegra-usb-v1-0-74a925a35d82@nvidia.com>
- <20260921-tegra-usb-v1-1-74a925a35d82@nvidia.com>
- <20260925-alligator-of-authentic-economy-f631fd@quoll>
- <0c5b19f3-9ac8-452e-97be-0256aa0ccb0e@nvidia.com>
-Content-Language: en-US
-In-Reply-To: <0c5b19f3-9ac8-452e-97be-0256aa0ccb0e@nvidia.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: GV2PEPF0001A336.SWEP280.PROD.OUTLOOK.COM
- (2603:10a6:158:401::69b) To PH8PR12MB7110.namprd12.prod.outlook.com
- (2603:10b6:510:22e::11)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="a691xB4d";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="kJ/zmQXL"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790954621;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=iVjH0D2jt0kRvnH6DkUbM3A4qPDRx66aQ27YIk5b7Y4=;
+	b=a691xB4ddkHHoeeItF1tespNc5rc3EoKp+JvgoQDlJluXtrr1kAX/6VLYRfbS6s8DemVGX
+	9mJxdZl3EAGdT47psa0Fj4YkvfeqJzNCRuphegRPAx5PzaXFcuZdGDNJRmbDBQ0w9aLAj/
+	FdoJwSaI1c9X7EdUNdUDaFnv8rb48ag=
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+ [209.85.222.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-245-TPi69YHTPy-9Jg_7fIYWeQ-1; Fri, 02 Oct 2026 11:23:39 -0400
+X-MC-Unique: TPi69YHTPy-9Jg_7fIYWeQ-1
+X-Mimecast-MFC-AGG-ID: TPi69YHTPy-9Jg_7fIYWeQ_1790954619
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-92e82060977so332207685a.1
+        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 08:23:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1790954619; x=1791559419; darn=vger.kernel.org;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=iVjH0D2jt0kRvnH6DkUbM3A4qPDRx66aQ27YIk5b7Y4=;
+        b=kJ/zmQXL2LArzSSr7wKs8rtTIXCDxzzDfSUy59mvdqBFJheFUL0jZuT22ZriJk58NJ
+         rf8eIKLzp1mDeqxx4UtbxCShT9B9/ktJYWPmzFR8f+DLoqNOWBDJB0VnuP9ZMUd1T90z
+         1r7q0t7qv9aXcAZYDxymqDF1ExpsP4gOb1ko8cwXvzBM/ms+CaHDbnCXQQIvH1nB+fHv
+         Rz8BXOzi6oIbiSL+Gx7ZPPVmyrrNzXZbpuwbpUvEPS+QQlEZovyU5KBYpx5xSInQk6w9
+         SbUiFqnArWOpZdclWlEo9guJPVdq/z9rE/D95DvEmL9syXQWvOc0p9Q4LQyPMCJld7+G
+         5WIg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790954619; x=1791559419;
+        h=user-agent:in-reply-to:content-disposition:content-type
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=iVjH0D2jt0kRvnH6DkUbM3A4qPDRx66aQ27YIk5b7Y4=;
+        b=Y2MjY7p3oINt0LdMUUMpFy5HX+1hYzTnJEPFylEyWcr6cj2G3Cz+08sqjP8if5ExYR
+         B06Q4p/gWjmKMqTYNFgYULQ66VFT1NNBIfBPoLZ9dm7yRo7iR6NAg8wEPhdO846ztsAb
+         ytDbGha0mAChwvDtoQmMxpwNxGvQXLZYtVYk1NLFLpAtwOxSNPvcVocSPTrPeLpAYIGM
+         K4GlmQo4cCqmECgdLRaQP5Zw+1jDsrgb1lO5/+8+ON8f6nk9kvUbmhXhX0NM7+0xCt0q
+         Xq/shjYwzZzLJj/0kBmTuMzrnfi0r+kUr9yh3adb2rRRqQV/tNxDk+QwkxEMHBYa7ROA
+         v3ag==
+X-Forwarded-Encrypted: i=1; AKwUvBwSYmki4+oeEvaWfL5wjSvOyDOu70sM3YC67K9drj8z4qppgq+WagXRyvegzIU2d/271DgYXkauQVo8@vger.kernel.org
+X-Gm-Message-State: AFuF++m+3ohlBXUVgQCoB6COQi5Yp+49/oKdPZkfVA7Oqx9HwgYPjsAD
+	hwEJBQmYHIU4F2ko1MgOwlXTyqN6NoclhJYWi3BMLDd3/Kp9SFlIOWXoZlJAYa/L31dx5C4p5/z
+	eiuLVKcSlqxCbiCiEMRbyJmtCbVldd5LA9iGS2osbne17N9lvB8vZ6Kee+AW+QTM=
+X-Gm-Gg: AYBFou0hcETlZzb+Kk9OJxpbrGZjkilHC62kIKn58jAv5w3zukTmV9jXYTcz+BMtXXG
+	tYWAuJwZuWVlQk/pMvRBcSGr42KNpxVcsQ0v+W4fZe2iDxkJzidXHEi7kr7YgR+SaG4VSMq1uzt
+	4KVH9ZIE3K0MnLWLxY9tYY29EqB9DG6D+7aRioHFKCzJrYjkpX6foivH/+6gS8Lao1gx5l2q1j8
+	EcbUnODaV+yzZAtCfYS3viajdLw7vEAtacT/Ye1zDYNj74MDR+NbiBKuAaaWABJjqkAw40ZWgB8
+	zfiExVOEnk3LD7rX9O5JDPdyXSMMjfX6QLTkvIf0OqXqkBxB4srQWato2BY5pH1Rs07Tq4nv/HX
+	xXn/tr6SMJSeEwnWlox+7CuzpeR0I8h/CKzk=
+X-Received: by 2002:a05:620a:480a:b0:93a:d67:9ab0 with SMTP id af79cd13be357-93ce7a85665mr565820485a.4.1790954619234;
+        Fri, 02 Oct 2026 08:23:39 -0700 (PDT)
+X-Received: by 2002:a05:620a:480a:b0:93a:d67:9ab0 with SMTP id af79cd13be357-93ce7a85665mr565813085a.4.1790954618588;
+        Fri, 02 Oct 2026 08:23:38 -0700 (PDT)
+Received: from redhat.com (c-73-183-53-213.hsd1.pa.comcast.net. [73.183.53.213])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93cca2ec917sm242866585a.46.2026.10.02.08.23.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 08:23:37 -0700 (PDT)
+Date: Fri, 2 Oct 2026 11:23:35 -0400
+From: Brian Masney <bmasney@redhat.com>
+To: Conor Dooley <conor.dooley@microchip.com>
+Cc: Junhui Liu <junhui.liu@pigmoral.tech>, Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Conor Dooley <conor@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Yixun Lan <dlan@kernel.org>, linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org
+Subject: Re: [PATCH 2/2] riscv: dts: anlogic: drop unused DR1V90 external
+ clocks
+Message-ID: <ar_MdxhafYCvqci_@redhat.com>
+References: <20261002-dr1v90-cru-dt-fix-v1-0-c3e0b5d4c30d@pigmoral.tech>
+ <20261002-dr1v90-cru-dt-fix-v1-2-c3e0b5d4c30d@pigmoral.tech>
+ <20261002-manpower-croon-26d578f57143@wendy>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH8PR12MB7110:EE_|PH0PR12MB8007:EE_
-X-MS-Office365-Filtering-Correlation-Id: ee65e15d-4489-4687-65a1-08df2098ce36
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|23010399003|1800799024|7416014|376014|366016|10067099003|11063799006|56012099006|22082099003|18002099003|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	VZDa7gDwTE6NX5eBzUmWCvtLxKgRqAixpnbK6fUwwX2J0GRufJN6xEPeVksR4oTwz02HgVWf30rPzHedDEpCxHpaob2dXrb66pjdPs7RZF0sC9/V1iKTrJrCPZihmvvCCYF7yzVfT8aXqFmfR5CMNpnTubkp0BpAv0UWXxWEl17cuzs3MSOfyLy7UfH+n5Jy/u8z0dVnx4JpdPsMuLWYLrW/v71f+P17QhN8Ny/+xygZaOGn0kfz+DLjjfxzBVKZtIY7966SMsnBw74SccayFaDho7d/2diSdzB9zbSM0zOeqbXYFN8z9lldfbyIWu+fBgJmzPrpYNu7BzA/pc9q6IaLy5gucsN5xlFEiHd4RlblgpvJvA5BfhFQmOOzmBHLr/nc0Z7rAZjdlrTrtFuEe1ay656T+IXtyHV/8eDOG62xCl2DJBOkguVvCxhLwtBPS5WBd6U3xzmAL7nt/A32yd1w7s9H/Tx7t9rJpHo8rnNg+Nl90wq/fWqjHEj2EvfpjtIPKgGDUoY4esA5DSHto6fav0gk9yCML58I2a32nEaEMbiB/BrMEEJn5ums5cA/xYSVMV4Mb+occYeXBjIWQwV9g7xFZql1cp5NBDR1MPGZ5bsjoAssfj/h4mr5hfKSBvb2xB5WouiNONy5C7a3EoedRa8vJaRLPZ3Ny94+cow=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH8PR12MB7110.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(23010399003)(1800799024)(7416014)(376014)(366016)(10067099003)(11063799006)(56012099006)(22082099003)(18002099003)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?M2gydjNWa3dOTlVBSEdSL2J6ZzhSZWQ4U1k3MVBnb2lFWEpENCsyQ2thRnJD?=
- =?utf-8?B?VzYwVThXQjhSUDBrUnBmOVlWNFpIdW9idDM2N3dGVzNOT2pmbUoxNC9jTCt3?=
- =?utf-8?B?UmN1KzRpZWI4UkVGMEFiZm5lVUQzRC8yS0YrSFN2MXlOUDVlUmpQKzBaUnov?=
- =?utf-8?B?TXE2dlIvdElBcUJtVW1GdnpvOGp6UHk0R1ZVb0g1SW5wZWM5MzJuQXNsRGt3?=
- =?utf-8?B?RHdpUUpuRHF0RXlrQ0s4dUxaTWxwSURtb3UxR3VVMWJ5eitYYWFsOWRDTnZC?=
- =?utf-8?B?Z3hjMDdRZC9tZjJ5aWtjYWNwRi9FaUIwSTA5bXYveENXWmh0L00zNDBuZ2NP?=
- =?utf-8?B?eU1jUEhzM3phSm5pczhlSmZ3MThhenorTWNrZTA0TitldFlVZHV2S2p0K3dZ?=
- =?utf-8?B?RHBKanJLbnVsSEorOVdmVjdIRWVhVVovcHdQR1pJWTRQNEowYWtIWlU2eitE?=
- =?utf-8?B?Z1V5N0tXV3pLK3RpZ0UvenRkbUx2ZDkzNVZTTFUxYVdGeVk5U1dlVkNHNmFE?=
- =?utf-8?B?WGx5RTZUR2xCSlhjWkQwaTI2alRBV1hVTFduSkpRcmFyUmdCM1pqeERuS0pJ?=
- =?utf-8?B?MktDY1BSUGhLSjZrendDTHhzL2w4YWdTZ2pOb1JRYlQ1YnExdHNpTW5vUHNO?=
- =?utf-8?B?TkNkOFdOZ05hWW1uQk90NGhZWGdIYmEvUjE1N2Y1TmhQUVJxbWhPVWtSY0J3?=
- =?utf-8?B?ZE9HckdKU0dWNUVxU2RFZktPbHVIR2VaR0JEdXFaS1Q4WTgva3lXSllXM3pa?=
- =?utf-8?B?TE5MdHJJcFBucUI1TksxUmdYUStOOFM5QWN5elVqd2RZbjQrZWMxaHNYQThI?=
- =?utf-8?B?MVZkNmhCVDdPK0cvTXVTMkFabWpoRWVrWHRSY0JwTnRDRSs3QmttOEJkKzdh?=
- =?utf-8?B?YWRoMmxpZEwvcXA3YjR6Mm5PV0hzb21YRXk2R3JHSzl6NGJZOFBYN2lNM29C?=
- =?utf-8?B?WXJmbzZ6K3g1TTV5V0FkUEp3dWlZRjVnTTErSDJCcTFOQ2xCTytidDF0bkw3?=
- =?utf-8?B?cWZrUWhqWHQrbUlvTnNMTkhyU1RqQlozaTlQS1FXbnZ3M29hQS9zY2dNblNt?=
- =?utf-8?B?c2hSc0pVZkFqS3pKQit3ZnV2STZVajkwcUZwQXEzM0doRExFYStkS0kzSFNu?=
- =?utf-8?B?bHFUVU92L2hXM2tXdEx0TXRkV3Mxb2hReUQ4Z25ZbVBhRFNXOEFCSzZNdTZT?=
- =?utf-8?B?SnJSa0hubnRvaHVEN1lWaTNEVjA0MnRDTERteTZ2djVXYTNjeEpZNFFYZVRQ?=
- =?utf-8?B?aCt5Tk8vS1AyMVlOZEFESjV5eXcwN3RITnFybmpXZ2cyQmdya0xxNFNMUDg2?=
- =?utf-8?B?UVpOcmU5N1REYzI1b3FOZTdZNWFVYVhDSW1zVEU1ZGkyd0k2RHRDNi9BSlVh?=
- =?utf-8?B?Q2dhNVcrV2lEVHRSTjZiSHBUaERWa0JkSDNUYkMvZzJWdkhmNHNrN1VERUY4?=
- =?utf-8?B?VWF6YmRXZlN4ZVpPcGVYcEVjZG9rWVVGQlZHaHk5dlM1YTg2NlprbUcwVmZL?=
- =?utf-8?B?WGxHYnNDTUk2bnRzVzMySFRXUFVsdndDcmRmcmZySXZnY2U0R3JOQ1B2c3dF?=
- =?utf-8?B?eEE0SzJUa0NQSUhBVDljenQ0Yk5EUDhxVklRN3ZDK3lWdkpJK0IrZE9tVTBV?=
- =?utf-8?B?b04zSTJLemprN2VpUVd4WFRmZS9mbUl5SDBnS2lNZjJoVHRxakNuQ0xvekZt?=
- =?utf-8?B?cU1GTEFWeTBpbUI4YkpLMC84Y0FkQkpMeks4N1BUWlcxMHZFME8ydzU3aTVB?=
- =?utf-8?B?NTRwWFM1RlB3MWxHU2VaWkVBRnNpWWRUcUdBS3JtWlpzUDBOOEs3dW5zRzJw?=
- =?utf-8?B?bVJtd3MrYjQxNllEVC9WWHgwbVhvUm5LRCtNb0JDUTNKQWJ0RmFJalFlRTBt?=
- =?utf-8?B?Rjg1NVFUMDRtcDloSTZ4a2FUNzhuUkQrRXNFbHBlRVlNRzRURTBXV2xIRWRq?=
- =?utf-8?B?VGJ1K3dIMHNsTy91UEpvTk9qSGFEeitKVjc2NnBvVW1GSmFVdGVkTTA1RDBK?=
- =?utf-8?B?dW5VbmJNSnFOZ3BsZ2xIMEw2eC9ZaXVXUFd0OFJZYnA2R0QwODJGbktMa3pL?=
- =?utf-8?B?bGpmQWkydGQyRXJKZzRPT0N1Ym9UM1lrYVNlcU1wZjFDV092dHVERlpTQnAw?=
- =?utf-8?B?UmRCNzRMa1F0Y3hKK2YvelduS0RlYTFMY21sU1VhTkNhUHdyZWVsZi9JbFZV?=
- =?utf-8?B?SUMvNDBRTkV6RUlaWldBZkcyNVVMdWRVdFhsSCtHTXp5SkhmbmpVSFdaL0ZU?=
- =?utf-8?B?ejJOTVNLSXF1RTRvL1lEZHZySTBGT1I2bFJXdVd0eXpkcE4wSFA4NmovWWdn?=
- =?utf-8?B?T3BSenBMRXZCZHpFbkRETU95OHRVazRVZmtvdFRDV3kxN2FKY2Q3QXR5TENS?=
- =?utf-8?Q?3t0iJzwdVuj9oBB6J9DsRrmOp4SlM+OVOgKsPuswgHVpF?=
-X-MS-Exchange-AntiSpam-MessageData-1: 46ofdctLoFLXJg==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ee65e15d-4489-4687-65a1-08df2098ce36
-X-MS-Exchange-CrossTenant-AuthSource: PH8PR12MB7110.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 15:21:17.9890
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: XNYdGAdy0TVZXfxw/2BRm1DvvehGW6r66MiiaLZL5w5ZmYujn5HraH9urcOE5XP/tNxsMq7z4Wqsl91yiDgKKQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB8007
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261002-manpower-croon-26d578f57143@wendy>
+User-Agent: Mutt/2.4.2 (2026-08-30)
 
+Hi Conor,
 
-On 28/09/2026 14:57, Jon Hunter wrote:
+On Fri, Oct 02, 2026 at 08:09:08AM +0100, Conor Dooley wrote:
+> On Fri, Oct 02, 2026 at 02:07:01PM +0800, Junhui Liu wrote:
+> > The external CAN and watchdog clock inputs are not routed on the MLKPAI
+> > FS01, the only board currently supported. Drop the two fixed-clock
+> > placeholders from the common dtsi, as fixed clocks require a valid
+> > clock-frequency property.
+> > 
+> > Both clock muxes select their internal parent clocks after reset, so
+> > the CRU operates correctly without the external inputs. Keep only the
+> > required oscillator input to the CRU.
+> > 
+> > A board using these external clocks should define them in its own
+> > board-level dts and override the clocks and clock-names properties of
+> > the CRU node.
+> > 
+> > Reported-by: Yixun Lan <dlan@kernel.org>
+> > Fixes: 7849521aaac2 ("riscv: dts: anlogic: add clocks and CRU for DR1V90")
 > 
-> On 25/09/2026 14:27, Krzysztof Kozlowski wrote:
->> On Mon, Sep 21, 2026 at 01:19:01PM +0100, Jon Hunter wrote:
->>> Add a compatible string for the Tegra238 XUSB host controller. The
->>> Tegra238 XUSB host controller is similar to that found on the Tegra234
->>> device but only supports 3 PHYs compared to the 4 PHYs on the Tegra234.
->>> Hence, the binding is also updated to limit the number of PHYs that can
->>> be specified for the Tegra238 device.
->>>
->>> Signed-off-by: Jon Hunter <jonathanh@nvidia.com>
->>> ---
->>>   .../bindings/usb/nvidia,tegra234-xusb.yaml           | 20 ++++++++++++++++++++
->>>   1 file changed, 20 insertions(+)
->>>
->>> diff --git a/Documentation/devicetree/bindings/usb/nvidia,tegra234-xusb.yaml b/Documentation/devicetree/bindings/usb/nvidia,tegra234-xusb.yaml
->>> index 3f56110be915..9d605db7e77f 100644
->>> --- a/Documentation/devicetree/bindings/usb/nvidia,tegra234-xusb.yaml
->>> +++ b/Documentation/devicetree/bindings/usb/nvidia,tegra234-xusb.yaml
->>> @@ -19,6 +19,7 @@ properties:
->>>     compatible:
->>>       enum:
->>>         - nvidia,tegra234-xusb
->>> +      - nvidia,tegra238-xusb
->>>         - nvidia,tegra264-xusb
->>>     reg:
->>> @@ -154,6 +155,25 @@ properties:
->>>   allOf:
->>>     - $ref: usb-xhci.yaml
->>> +  - if:
->>> +      properties:
->>> +        compatible:
->>> +          contains:
->>> +            const: nvidia,tegra238-xusb
->>> +    then:
->>> +      properties:
->>> +        phys:
->>
->> minItems: to be explicit. I would expect minItems: 6, but your phy-names
->> is flexible, so probably wording in your commit msg should be "*up to* 3
->> PHYs compared to the...."
-> ACK. I will update the commit message to make this clear that this is
-> 'up to 3 PHYs'.
+> Uh, why is this in linux next?
+> 
+> Brian, please don't apply dts patches to the clock (or any other) driver
+> tree in the future.
 
-I have noticed that this binding does not have a 'required' section and it
-should because for Tegra238 there are no power domains for USB and we only
-need to control the resets. I will update the binding to add the required
-section and then ensure the correct required properties are specified for
-all devices. And of course I will add this detail to the commit message.
+OK, sorry. I just checked clk-next and this is the only dts that I
+applied. I'll rebase clk-next and drop this so that the tree only
+contains the drivers.
 
-Jon
+Brian
 
--- 
-nvpublic
+> 
+> Patch itself makes total sense,
+> Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+> and because it's easier
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> 
+> > Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
+> > ---
+> >  arch/riscv/boot/dts/anlogic/dr1v90.dtsi | 16 ++--------------
+> >  1 file changed, 2 insertions(+), 14 deletions(-)
+> > 
+> > diff --git a/arch/riscv/boot/dts/anlogic/dr1v90.dtsi b/arch/riscv/boot/dts/anlogic/dr1v90.dtsi
+> > index 574c6608aef0..fe85d01563ad 100644
+> > --- a/arch/riscv/boot/dts/anlogic/dr1v90.dtsi
+> > +++ b/arch/riscv/boot/dts/anlogic/dr1v90.dtsi
+> > @@ -44,23 +44,11 @@ cpu0_intc: interrupt-controller {
+> >  	};
+> >  
+> >  	clocks {
+> > -		can_ext: clock-ext-can {
+> > -			compatible = "fixed-clock";
+> > -			clock-output-names = "can_ext";
+> > -			#clock-cells = <0>;
+> > -		};
+> > -
+> >  		osc: clock-osc {
+> >  			compatible = "fixed-clock";
+> >  			clock-output-names = "osc";
+> >  			#clock-cells = <0>;
+> >  		};
+> > -
+> > -		wdt_ext: clock-ext-wdt {
+> > -			compatible = "fixed-clock";
+> > -			clock-output-names = "wdt_ext";
+> > -			#clock-cells = <0>;
+> > -		};
+> >  	};
+> >  
+> >  	soc {
+> > @@ -128,8 +116,8 @@ uart1: serial@f8401000 {
+> >  		cru: clock-controller@f8801000 {
+> >  			compatible = "anlogic,dr1v90-cru";
+> >  			reg = <0x0 0xf8801000 0 0x400>;
+> > -			clocks = <&osc>, <&can_ext>, <&wdt_ext>;
+> > -			clock-names = "osc", "can_ext", "wdt_ext";
+> > +			clocks = <&osc>;
+> > +			clock-names = "osc";
+> >  			#clock-cells = <1>;
+> >  			#reset-cells = <1>;
+> >  		};
+> > 
+> > -- 
+> > 2.55.0
+> > 
+
 
