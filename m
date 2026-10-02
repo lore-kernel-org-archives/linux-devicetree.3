@@ -1,110 +1,79 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 326B554705F
-	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 08:32:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CD0A46AA6F;
+	Fri,  2 Oct 2026 08:32:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790929934; cv=none; b=MiMCeWPcIOkTne111jgLMf1UMWBjF1xDDuGLAYnp/SlP+HPbYb50uAc/LlxZ1iayfLCCsuBQ2aoDGrUBvEr+ldDO+7q3Qb/hwJ7yb/VLalnalDLZOTcY6Y0PtGd5xLb4UXbsy1Wid/uremrB7edTMmi3I85ZLQkAtfUtAiMDJ6c=
+	t=1790929963; cv=none; b=i0Qalay4YegbCuqKZyL8QRLhYunN3DLp6G4v7gu46ZDUOTKVApFXbf9sS+NAZ7AVR2h4F0xLNO0cwkTk/bXRhDKYWgF5Fo8idCT1wwxa7wLMeCNgn0Jvdy197CMCKpGiRy6vxJwKN+Kl9Gd79jyF1hibu9eNuiu/emBbCRXIaVM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790929934; c=relaxed/simple;
-	bh=BMOQwjuoegDgdBRrw6ftVN3h4UxWkKJmf0XXGY1DkVM=;
+	s=arc-20240116; t=1790929963; c=relaxed/simple;
+	bh=njyLW2UtDcbiN0W3TdJ0xeuv6mgrNjxBq7CyDsFWJu0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NKmf4fd25HQmBIEZczDO0z0UUVKpxDx4WrpjQevdiZU0Biu3Jpx+0EFZLS3GPT1kx8JclKK/yUCd4eJ/zrcaBm+uw990C4YwGREDrkHNrosqlyCyujW7IY/EMlRRSQ7rvIJSTuVuEKP7qHayKG+llmrnENUPkYDPurGBKMmK0EY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qxO5e3mO; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=jBxqH6LiazwNjBBHi7/IxV0fL2V6AQTDrm7nW/rwn7pJ/D7orYNwnPRWAC2Je20EXxZbbZ+6AKnY+Th6raLdYsuVLF5TzqhKSSnT0WvUMqxRAOwPW0qjCliSdCFLUQbKKZcb9Ab4KZO170lQ5nSVu4nZClo4LhQt8UdfJ8vkgDI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C8qY02aQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qxO5e3mO"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d8239so58891285e9.0
-        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 01:32:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790929931; x=1791534731; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=sNyEsDdUIjj9QdYmMndkCdcHkWuCIiwfefFpnISO5Vg=;
-        b=qxO5e3mOr1P3iGdwB8Qrek0EMX5JcYwtcqeIBeRqI2h1BghZKRqHBPAGmmX+eMLiQm
-         oM2/Rf16TRn9Xfuze9en2m+zE1auuG+KaTYutONxSct67hXlpR+Ec9D6cKpyCLWCbd9N
-         1LQ1AZtG8VSplR7TUJ5fVQPwwAd6dSBQJWpWQvbeg1AYlZ6Ooyj8WRpLjMztGn1eXd0m
-         gkma2H60MB85G4nyUtTlyFY7qMCP2tzH4YYDXMi/w5uADJypzM/QiDAJyM2fVyDri2aK
-         snhT5GbNc1BPx4/3UZ6gJ3DrUL7YpcZHU8ge1oomcsjQXN0n0a37hWBKZBL7gynRR5Xo
-         KFMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790929931; x=1791534731;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sNyEsDdUIjj9QdYmMndkCdcHkWuCIiwfefFpnISO5Vg=;
-        b=CU2X81Z67NWpcoYZNcNhaU/8EFMQmzygWu7Nu/iB6HELTzr8bVOShLGFIvx0boI6S6
-         wCxZnLdUaxdiXygdMtZVVUFvL1p3vnq9DyCaiZ8TR4TRLMIN1XnxG9Mxj3g1GcewmJWd
-         We5yVeXuvIXs487rWCdpmJZoohxFubl2Q/XAcMUZGAM2e8MDPE8XiD4xmCH7BADD0Zv+
-         SLpFDKZhb5lSjRkzRtPOCP3Og2QgUSvqyZI19Q6oIhWmk7C6HzSi7aUnJeLyUZevTJXV
-         0X84SYPf6EumYpFB+zcqiUYYsnSLS4kDfxttqVXpFjD03VI4RuWD/0u5hLFHbJkdE0Pc
-         uMXA==
-X-Forwarded-Encrypted: i=1; AKwUvBw02IFl7txTs5W76T3XMompMXq6TzUiy9ooz627wH0iO3ZrnWoMMcTVNGkbz4xsNzA6rZZJA9CDA9zG@vger.kernel.org
-X-Gm-Message-State: AFuF++l+EIbOLGtzbvczlg3Xg+rBp9op2Vu+hZUXS0k5HIop8VIH/LQc
-	wOqii2F1nRD6B4BCYcO9tLurAtzhOPv5RSgNy/mey1H/ZaEzHG/xQlnJ
-X-Gm-Gg: AYBFou2EeXu+QDrDTYVaHigcW6/HWhFSLLpmXu+qaTgIEm4ZNBPV8sSydxIyHX6Q6Wc
-	b/toOXY0v/sD011GqDltUcoopDaAeB/YwBfjxuBe4cnkjIW4JK3ByOMR5l8Cvt0aBlmWqEeUUdZ
-	Da/rsSAiiVjsf19Aw4sqiD6ahvNZXma68kFtkV3RYyUjnjjGaQ9bx1ylVerrbDZAc5KHcK2+DGD
-	5bS3Sb7bOXVca7/O7zaf2Edo6ghzO5K5fmHfWUfP5Yj1fO8FNjRvywzugO1by9hOgEstbQ/Pu/X
-	Gn4EnqizjIARnI1rv3JT+4LPX3l4K9O+E61cQJXY6JBNsJsHIBTKos8gmxXnZGmFPdhAKMV/zRr
-	ncE61XauZLLEao+cEMGn64gTv1AI3QgFnilV4fXplSele+mIV4jQuZdSCZbJZyHPJ8xaZVCDgUM
-	XBCKwJa6mr9QqBliGlDn5n9GnOBlwgseY9tEp5pYGsuAF2X9MZTR9M65fOKg2B6qLdi2qXBW73h
-	XrBsGNSyBXhsyOprlZHJHvp/QkRs6vr7clsKV7MIwSaiOahQm3FZ6TDKzMp1Kj70OL21XsJQA==
-X-Received: by 2002:a05:600c:2391:b0:4a0:21b9:a55c with SMTP id 5b1f17b1804b1-4a0276a0f7cmr24840835e9.29.1790929930373;
-        Fri, 02 Oct 2026 01:32:10 -0700 (PDT)
-Received: from ernest.hoecke-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a027da120bsm67567425e9.0.2026.10.02.01.32.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 01:32:09 -0700 (PDT)
-Date: Fri, 2 Oct 2026 10:32:08 +0200
-From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Kieran Bingham <kieran.bingham@ideasonboard.com>, 
-	Francesco Dolcini <francesco.dolcini@toradex.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>, 
-	devicetree@vger.kernel.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-Subject: Re: [PATCH v2 1/6] arm64: dts: freescale: imx8mp-verdin: Add
- Cortex-M7 remoteproc
-Message-ID: <ew2g6ra2f7l35e56a3cslv53edmljlxm6d6rflakf2meftmjnz@ig6q45jlf6ms>
-References: <20261001-verdin-imx8mp-hmp-camera-ready-v2-0-7d1343ecd3ec@toradex.com>
- <20261001-verdin-imx8mp-hmp-camera-ready-v2-1-7d1343ecd3ec@toradex.com>
- <ar5sBB5VvZPJVrmt@SMW015318>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C8qY02aQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5926F1F000FF;
+	Fri,  2 Oct 2026 08:32:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790929961;
+	bh=3w5wxiDZOhPLHQoea7TkZz2w5L1AzLS0BHSsxDUFa6Y=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=C8qY02aQ8f1wHPD3EdVf3nLxS6MUHwpeyijZWOSCDNJcOLJbxIAGXdB1o9GoIE8N+
+	 4BjfHw+STGGXmT7qm72MAj1nX1rjSbo+AFIwvPFL05UTg8pbu3kdnwr1CtqM3dpOD+
+	 CPqSMLAKaxSK2Y/sVPwZAhcbnGOzmhWkGc5tN9Y+91RtkyCQMNm+J8Y1oGj6mzuXr2
+	 GJ00Fq9MjXTK/weOthR2/1zkRZoZdJKuNDhzKLa4cbCEr1/qdvKe8L3HCK1B/0/V3o
+	 6/WdqAdhnkBqaV003m665BQU3xLhv2yXGoMdEcjTYAwxqK9AVjUOu8HOU0f7TjQw7f
+	 fJGLMxyNohL3A==
+Date: Fri, 2 Oct 2026 10:32:36 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Ali Rouhi <arouhi@sitime.com>
+Cc: "jiri@resnulli.us" <jiri@resnulli.us>, 
+	"vadim.fedorenko@linux.dev" <vadim.fedorenko@linux.dev>, 
+	"arkadiusz.kubalewski@intel.com" <arkadiusz.kubalewski@intel.com>, "ivecera@redhat.com" <ivecera@redhat.com>, 
+	"kuba@kernel.org" <kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>, 
+	"robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>, 
+	"conor+dt@kernel.org" <conor+dt@kernel.org>, "cjubran@nvidia.com" <cjubran@nvidia.com>, 
+	"Oleg.Zadorozhnyi@devoxsoftware.com" <Oleg.Zadorozhnyi@devoxsoftware.com>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH net-next v11 01/13] dt-bindings: dpll: allow hex unit
+ addresses on output pins
+Message-ID: <20261002-vigorous-cyan-pegasus-d44fad@quoll>
+References: <20260930233714.87679-1-arouhi@sitime.com>
+ <20260930233714.87679-2-arouhi@sitime.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <ar5sBB5VvZPJVrmt@SMW015318>
+In-Reply-To: <20260930233714.87679-2-arouhi@sitime.com>
 
-On Thu, Oct 01, 2026 at 09:19:48AM -0500, Frank Li wrote:
-> On Thu, Oct 01, 2026 at 01:44:09PM +0200, Ernest Van Hoecke wrote:
-> > From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-> >
-> > Describe the Cortex-M7 remote processor available on the Verdin iMX8M
-> > Plus SoM.
-> >
-> > Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
-> > ---
+On Wed, Sep 30, 2026 at 11:37:16PM +0000, Ali Rouhi wrote:
+> From: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>
 > 
-> This indepedent part. suggest send as sperated patch. This time, I can pick
-> this one firstly.
+> The output-pins node matches its children against "^pin@[0-9]+$", while
+> input-pins takes "^pin@[0-9a-f]+$".  A unit address is the reg value in
+> hex, so a device with more than ten outputs cannot describe the
+> eleventh: dtc wants pin@a for reg = <10>, and the output pattern refuses
+> it.
 > 
-> Frank
+> Use the input pattern for the outputs as well.
 > 
+> Fixes: 0afcee10dda1 ("dt-bindings: dpll: Add DPLL device and pin")
+> Signed-off-by: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>
+> Assisted-by: Claude:claude-4-opus [chat]
 
-Hi Frank,
+: LLM
 
-Okay, I will send a separate series for this part with the needed edits.
+(see current docs)
+With this fixed:
 
-Ernest
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
+Best regards,
+Krzysztof
 
