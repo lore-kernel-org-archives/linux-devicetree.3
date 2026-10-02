@@ -1,225 +1,138 @@
-Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013065.outbound.protection.outlook.com [40.93.201.65])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f9.google.com (mail-pj2-f9.google.com [74.125.227.137])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D307A226CFE;
-	Fri,  2 Oct 2026 03:01:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 639B81C5D5E
+	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 03:04:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.137
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790910070; cv=fail; b=jHMB8FVm6v7MgKliy5jE+6pCSK1UkOYdJIiS0VCHdJJnAY7mp+EUNmFr0xq0Wr+AU+Hkiy66G6LHA3O1q5ztL72YJRfMrA+9g1dhY7FCJKVMafNK7VjZFJUDiWFQl4dRxiy7pnvDzZ8NXOIVlzEZd+SUvS6CKpSS02m2k6Gd1JA=
+	t=1790910299; cv=pass; b=rrl4ng7Flc9qD+4nXDH921t3kOVDEu92ZY64nDUnZonZQmhE4rFRf3EZ3tFl3DaUA9UzJmfUb/aTDwwjvBVFwWcZNBCEVOTevGGm6zED7uEUcJcGaVRnrmYViZFthubHAfimulCCdionqMnKKgWRJu1rWGl3vg838GrJTPLsxDs=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790910070; c=relaxed/simple;
-	bh=ficZQnUrErGLewCcqPX/moaFxe6rf59fPQmWd5a1viY=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=ncdRqRxR6ey9JbnEsHGOkL4U6u9yeCrAUWsissZmA9CQQHwy0t2d9Lv0BJROEAo4PgLOtb3eJa1Uz9VbGlKgiJe423ZHG5WydiZZJdJUCKYbSlYLvfcPEKPKVwLNBGAF7rQ9VY6KqHmEMDFPB1h7FrthX9s0d0HN+KpGXCq0LNc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=AsXQbZ/0; arc=fail smtp.client-ip=40.93.201.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
+	s=arc-20240116; t=1790910299; c=relaxed/simple;
+	bh=S+vkIWLkZtH1qHq8zaiVAp0v80XL5+eda+lNoFZJXU0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ukWNYSUmXphKWU+e1oAHe1tiafSxZ7DkbhN/e45mV3SMkVNtU1WAUR4hjVJvvC+Zujvj8dzv9FROT94KlxP64Is67wYDgtGjxcohTdwrDXoyzIgCs+jOPH5QebxP4LkvpJl1uobFbGB9DvwPehZo0vCtHnQcDY4K8UoKC2jb99o=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fF+ugGIs; arc=pass smtp.client-ip=74.125.227.137
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="AsXQbZ/0"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=e1vjTVvgVqlgc47Sbkl229QQiy8MHlrZ28/yprGUwDvZxq0QrFs98t7RkCXS7YBsqDdf3H/ngRVpt9MyD8zutzUTSxu5DZaRymWtsV8GkBrKeUAgp/aWsfEfiJYb3yu0myfMhlB5K9bagqa9dtcA17zUHnw8WOqHTVHBVUc/Ho/XsDx3SFdF7fecqbjfTyTqayhk415LHZrV0r4bE+bL42F3TnJMCJKxfR0bOXuGuj3TcNM2nIzmMJjSU/yx7bgGXRDrhPSobyGMKa1Fj383z88bn3Biw2Yf7DuZJnyJHLrXJtGwOsuwrYkjcn0ruIyhkvhtOlzRMNQnrMAl/Mbplw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ANWFlMr1yveEcSzw9yiQm3eA8o0eaeTPHOT5Gz2Kiz8=;
- b=OgzgvpZCz+F7+mie2Y1jcXQJBunH9AhOY0sBgV25l3hLksNCQjZHQiLjQv51aPE4+YefMaaV23JweOMtC/X7LE7gIOfjFR3A8K9kfKkS7ANr8VUkgzCo6Br4zzM3RYn6dz+1kU09ni7rnSjmYiAtQyH1+FGpaBcnOG8PxdjyUMNo3ECDN9GroDm8xhirrsH1Q9lfEMIosYYJ/HW3B8ImGV3vtQmq7cte/afKCBId1mt/z4nIocmBX8D71Q74v+LDE1cxpLY8wDCmEa4d1gOzUm53+oGItLqy1Kw3+yBw8Ju6riqT0Q/OCB/MfRKI8PaaxFOD/TAkoIhaXRVaf3QDHQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
- dkim=pass header.d=altera.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ANWFlMr1yveEcSzw9yiQm3eA8o0eaeTPHOT5Gz2Kiz8=;
- b=AsXQbZ/03Wr2aBTRnYk2nuLg62SGaGb8cb2QT7QrQBRqR3P0qZYGPQSetj4AVYUy7hEraoQBRPlcDENyiR6AlwQUEYYZrECTvAKC0bbJIJ/HyLvsRsD69fvts8xsCVpw4uu6N6YXro3TrI7FCknPkfRh4Z8eOqL2RR7IrTtVKk12R0DhCYIkF9qi7EtHU6r7ob1yl5LogADUo9MaUo3Ypw3wItWoBDmC/ztLuUB8RzsWGom9tQ5HtzyAB4i+rd1AqC9kcY575qW0E9MzImXv/W+2PMKqnWghQ46UgKjZM4n+jiI+NuPnzJ91OQo4PLOu3bd3ZqdLJWNlPgyBlLT1MA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=altera.com;
-Received: from CH0PR03MB6179.namprd03.prod.outlook.com (2603:10b6:610:d2::22)
- by SN7PR03MB7155.namprd03.prod.outlook.com (2603:10b6:806:359::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.27; Fri, 2 Oct
- 2026 03:01:06 +0000
-Received: from CH0PR03MB6179.namprd03.prod.outlook.com
- ([fe80::60aa:1bfd:62a1:2ddf]) by CH0PR03MB6179.namprd03.prod.outlook.com
- ([fe80::60aa:1bfd:62a1:2ddf%3]) with mapi id 15.21.0472.015; Fri, 2 Oct 2026
- 03:01:06 +0000
-Message-ID: <bd75547f-b254-42ab-9df0-fc16d8dfa8e7@altera.com>
-Date: Fri, 2 Oct 2026 11:00:58 +0800
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] dt-bindings: clock: altr,agilex72-clkmgr: add
- Agilex72 clock manager
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Dinh Nguyen <dinguyen@kernel.org>,
- Brian Masney <bmasney@redhat.com>,
- Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <cover.1790651166.git.evon.chiam@altera.com>
- <db3dd69fc666cca536488a75da122ff173995030.1790651166.git.evon.chiam@altera.com>
- <20260930-scrupulous-immortal-saiga-f2b24f@quoll>
-Content-Language: en-US
-From: "Chiam, Evon" <evon.chiam@altera.com>
-In-Reply-To: <20260930-scrupulous-immortal-saiga-f2b24f@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: SJ0PR03CA0172.namprd03.prod.outlook.com
- (2603:10b6:a03:338::27) To CH0PR03MB6179.namprd03.prod.outlook.com
- (2603:10b6:610:d2::22)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fF+ugGIs"
+Received: by mail-pj2-f9.google.com with SMTP id 98e67ed59e1d1-3a4fe110578so988515a91.0
+        for <devicetree@vger.kernel.org>; Thu, 01 Oct 2026 20:04:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790910298; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HnnxxkQsxp4pjT8vkOYwxWHOSAqRgFNvEi/vUvI6L4b8cz46+IoX1b004AIGKvaOtE
+         s2XIphx3Ain4QJdl7QDmIg3TNkRCsDSaS4obCt6afjZpfru+j+hXc96yGF4wyOYHSUES
+         qpcdjBikymPlwNH6SJZ64rXcLXzt9OCCmVYYGQpODwLOJLCbu0Ex2ZCv2a4hgEhaZETC
+         N4LCxHKil3O2E7Y6Aa8b2O0hlcN8Iy8QPUY7r+N5KZPWv1N0GvbOSWGPJlGx9CqsZblR
+         5GdKbZHUdBbSU1td5sbBHWKV9cPZc78scXoFmK6KLgIQgSwzmejyiuLusV/JiEz+92fE
+         mYpQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=S+vkIWLkZtH1qHq8zaiVAp0v80XL5+eda+lNoFZJXU0=;
+        fh=UM1et6TAvPNg8hUmk+3n2WmWl0/dd18o4PfD8wcc69E=;
+        b=IDxRigwHftWsjPxUnN5RrjExSUWHuiS6oNpZd8/beBpIg9/SBd64b/5BqROI8cWp/v
+         jIACDmmb7Yp+Mfm6DDdyUydqGrqZqj0AYPV1zrpyaaDO5THdb4tIXLZRxzyzBSC8Fnwa
+         iMkdU2w+wUMMgskFBBZexN292Z6xGdGw0Hpttn/Y64KTrPUzaNfAp/uvWTT/mMKQM89S
+         z4govA6Q2ngyNi4wxJ91QZ6b40+Fij2tIW9IRoW8mZYAv7ArJja07syUyvQxOl8S368f
+         9hjLys7PvN6Qf9K90sOsoKCeKqr/k1ZdfSbUGBe9RowfWfMqkpr3zcxtCkaM8s+7DVVf
+         4DeA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790910298; x=1791515098; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=S+vkIWLkZtH1qHq8zaiVAp0v80XL5+eda+lNoFZJXU0=;
+        b=fF+ugGIsqVoAISGueIGHQzsEMEjDQN67RSHVC5LgLMTU561Z3eVP49udVLEnIAH4TB
+         vfyLv+QIqSCuOfpY/xXe08MVU0k7G0OfHEiCuoTf0Flh2tTNCRq3lspQio2Rfzv5VET3
+         gI41UAVTGtBEXH/Gg5SQo665umTEx8ZRyVx0NvwCMpUxcnQ8ItW3qgZvJnVYG7SY5xHy
+         LcMWTUTpRERNXylD8qxRSQxAO2YZ5vcfxko2m9DgmcS7cGR5nE2CHMF4CJfl/tka61cE
+         ONXx0RY3/qaVPe4n+Y4JFTjA9OlnW4r/0r1qZTV3CyPXN9s6LNdvrnWYdqDlejFIWsl8
+         IchA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790910298; x=1791515098;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=S+vkIWLkZtH1qHq8zaiVAp0v80XL5+eda+lNoFZJXU0=;
+        b=wCwf6wmQ6TuTuyV2uYk8+C6oWLWO6gEqeVD+mvX0iqlC93P+stCELisgKckwhdsqzS
+         IeTIUfe8Fo40oUfHaCrPc9H4q8sF+CNTTEGo8xJKEdMvSKFxwVbSmha66QEb3nYC2zJw
+         XdqVRZDhvKUkyjb5sxR6zc7kY/YoXDCiBUf2m8RPZabIgfML5blh3+p3sCS3c16eaqb3
+         +B9pI1c9ggcsKS+Mqb+SHTYaddk0FWpCpGhiOw0afCiT22I/EntxkVeQjw6eWnV1eqM8
+         HPSIDysuVgZ5cfnERiFUEHHDtmFu8wejbKoI+bksY6jGvVhMhQ6IuiU/LLOnqpawzP5d
+         rxWQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxDPIQBwANWXXViw+jphQtfAwSMU/5HdiSc5gNS5YrCodkQAzxDHTjmxFmyQEnutH1HPQyAH6cvfIxa@vger.kernel.org
+X-Gm-Message-State: AFq9FYInBYLRYQvHNGY7JMz29M6eeQbESE9mmJrxrEHbTCbC4GU4RnMJ
+	ZGkpkOXXl1TrafsuRBwxkAxtXFyX7NIOpeoptP1jbUGjSuSKrpmMRXjsHg/muTLIpcw01ux5k1a
+	2OKNMyr/DiJV/5K7GB1BfJQ2PtWaULvI=
+X-Gm-Gg: AYBFou1j0PVO0pTYscyEjTaEZWITrfuTbexdUKqaG7bbKd3b6rqS2WRyi+2mdWanN91
+	FuBzbrSDiiTERWJxlfH75mBvw2mqtRlLzlK2VMy9tw2BkfYE+DQpvo3nRDcYT5y8wl8tNOddM5M
+	WEIg0fwi5du+IFAtGEmVnL1Ik5sSJTxpWxKl+I7id2h4n+To9bSVCFfjnYkKufR33jtwkGIQTLD
+	zSYe3pZw8q9sxhsZ3ZpxqgO95IoYCaFSUKdLZH1knh+/WOS5Rbu6LJ9aZqzN/oj0W9gQuAMi3RA
+	3Tr0iBoSoQ8MQKiuPdmEPWjTyIz+rQ5FTa2MHa1valmX77T3cjaIrFH8
+X-Received: by 2002:a17:90a:4ca7:b0:3a6:ddca:112b with SMTP id
+ 98e67ed59e1d1-3a6ddca11b8mr489962a91.21.1790910297480; Thu, 01 Oct 2026
+ 20:04:57 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH0PR03MB6179:EE_|SN7PR03MB7155:EE_
-X-MS-Office365-Filtering-Correlation-Id: db201bc2-c849-4834-2620-08df20316695
-X-MS-Exchange-AtpMessageProperties: SA
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|7416014|23010399003|11063799006|56012099006|4143699003|260925021911599003|260925022911599003|260925021311599003|10067099003|22082099003|55112099003|18002099003|6133799003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	AWex7bEMwBnIYrSGWi8TzZ7Szt2Fj5Gn2/MLNYk2wOL61FnsdEnF6X813DlFWJ2k/X/14tvVqhheGE1xdsVATWFc29zNY/epSBG1FgUEdUQXLK+b+io9qwT0p8TtXnWLhSI84q+ZTMFL6k7+bEPcrmoLD1tqd/3VT4Zi5YKJQYqPvVw2zrC/8D4mPFk1EQM1/K6S/i/pDiKaBqvA3J04uicO0qX5SkhELuENjDJkrVixAymtaHdwMAk86ZYb8CHUPEZjyofdLmDiq2sKQJXcp6phgpQiPGOiDIfp1TjhTWA20hNN5XLCzNDjMdSctEIuTzAkBbRkQxtVeUGTP7wipuO526TQ+iFnkfTOMinF53/tlIOo3GDV6QvDDWEU0GSyYOIacc5oa3cR/mZt799MZrI2VAygjiBsadY2KG3bMh+XMIbDH2cKbuh8R5Q5pd6HiiP8NYchFvTW0G6VJzwNADLTL7/kIAwwJO/waiquVHs7xm32RuT9aJ15PN9RDaXHyCNzxM+6bM/beGmqrne6/rLLtjUDhi5KWo35OBmTi7zxpVx5gx2TvSFpbD34ENk+Vhr2BSGwVT9mpd7yvSRTBlLKMgSMnBfCwKSge2FGDcZa1+2SF/Pc1LiHWn50aj/9
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH0PR03MB6179.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(23010399003)(11063799006)(56012099006)(4143699003)(260925021911599003)(260925022911599003)(260925021311599003)(10067099003)(22082099003)(55112099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?N0JOQzBtUDRvbjA0REM5MHVCck9RVjlWYnN4Nk9HbGhpMG42VG0zU1I0c2sy?=
- =?utf-8?B?LzN5bU90UnVERXViK09sN2dTSzlIbm4xSkZPanVuMDk1N0ZFaS9nNDRjcFlY?=
- =?utf-8?B?V2pNUXlXWlhwRWZNaHdkYUtSN2E2SnM2VllpckJFZmtFM2drM0ZTNm42TUFz?=
- =?utf-8?B?UlIwTGU2TEFHUGQvdVpINElnUU5ZWm0raHZHM3poTG14QjI4VXhhdVl0R2RV?=
- =?utf-8?B?OUJQTnNodVhEdFF1UGpuOGhXbktiVjUyUFhMb3FlNy8reG5kVHViY0h3c1hy?=
- =?utf-8?B?eFJ5Z0Y0SWQ0dGd1MnhQeHExMlRVOFZBTWEzdFdYSUliMDNmOG9tMWpMSjR5?=
- =?utf-8?B?amRKbjk3WTJmNHc1MjhIRHFZYjVXUnFUeG5jOEE5K1BVL05aOFYzWVJESDVQ?=
- =?utf-8?B?YUYxUXdkSnZRaldPbXo2SEU1VXpoNC9KZk5xR0gxK2lmVExSelhOSXBjcHZ5?=
- =?utf-8?B?U3pZU2VVSTJzbWliM0xabkprMld0OURCckRuNVU5dENOOVUxRHd5MStkbTM0?=
- =?utf-8?B?bHIvMmw5S2tScDBWUGhrZlVPYzQ5VVRld3Blb2dQUXhBd0NRSmZCVEhaWEpK?=
- =?utf-8?B?Z0NuZXBMREpZbTlmWUh4Vks4aStJRWs2cUdaaHNWb3NCcUtYZDlEblYzZmQ4?=
- =?utf-8?B?N3N2RnJnbXhGUjI4eFFGWVdMVmkwdC9tYjJ1bHI5V1g0dHJPSGdIT01rMTJR?=
- =?utf-8?B?cm9ndEhYRnhUdHM2YjNCSlk1MXNpbm9odDFTVTV4SDVyeFArZE5CeDdEaVFE?=
- =?utf-8?B?Y3c3SkxDTWJOVVVxMFpSSjMzcXNIYTluQnNMV1ZtcUY2ZE4zZGUzRUh5Q0h2?=
- =?utf-8?B?MXJuUVNKZE83bkR1YjJnQkVwN2ZWcUlTYWxsd2wzNzlJUHJDUVZhSHErY2xy?=
- =?utf-8?B?dkR0Vkg0TjE0S3d3SnFVbXlLRHN6ZHBac05HUmxwK3F1RUF1cEkzRzhzZWNu?=
- =?utf-8?B?aUtucXNVVVNnQ1lUdFdBajh3TUtlU2dwMVptcEkzTCs3Wk5PbUxFM0NZcFZu?=
- =?utf-8?B?L2hLZTQwQUZpZXJTSGdwTDFTUi9HN1ArWEtuMEJpS3UreUFMZS9sdzFFMmhC?=
- =?utf-8?B?VXJhRjRvRk1OSDJLd3ZOb0NQaTFEQjZvMnFtRURHZGhVOTBoME1reThhc25I?=
- =?utf-8?B?TEJhcDJ0OGpJLzg2clg2ZSswN1IyMlE1M0o3Tm5raE9hSUJ5NDFvKytuQ01P?=
- =?utf-8?B?dUJlQWtEWEtOQVpwa1ZUQnpRYmd0RUlWN2s3UXJpU3hxcTJyczlQbHNnZmxy?=
- =?utf-8?B?VHVCRVNHanE5NGRtdXNqb1kyOVNUblp3czU5NHlyOUhGSklYc1hGZU1nWWZr?=
- =?utf-8?B?MEYxRnVxNEx0MG1zNzJib2tTMmNVNHE5aXFTMUhWaEdRMkdTK1dUYXZpTXM1?=
- =?utf-8?B?UnJlK0FDUWVGUDYrcFZpL0ZpYSsvZzlQNkZiYjNNa3I5OENKTUV6cTh2MG1B?=
- =?utf-8?B?bmp0VHJlMnFucUZpTkdxZ3pudFBLSjFaeGhGTGNhVjhmNXByaFBoYmdIR0p2?=
- =?utf-8?B?SU1GTm1JSnVjY3I2ZjFwbDhyOSt0VE1VaGN1U1NSd1NUR2NLWWlEWTdWQktZ?=
- =?utf-8?B?KytJSUdjTHNWVkh3WXhMNkh2aW1va0xTMnNFdEp2ZEpEYThBZTJuZjhKTlVQ?=
- =?utf-8?B?UjQzZmFyUFN1dkJTNmJGZ0JidklFZDEybHFMRkVwQklpUCtPWVlKUVJsdU42?=
- =?utf-8?B?bjZFeks5eXp4cTJ1ckRzSXZMV2JiakZ6K1hBclE3bUw2VnNhU0ZuOTQ0M3k2?=
- =?utf-8?B?b0QrQmFJeHBhbTJsRlFoc05mWnVEcUw2ZjY2d0wydk12VmxNQ1RYZmRNb0Fx?=
- =?utf-8?B?bUtYUWpMbzZqL0ROQkEwOFBQYVlnT3ZmK1B4Yi91dGNBMmRIMVZQa1UwdERp?=
- =?utf-8?B?Z3ppZXlVT3plZkZla1hncy9BVGsvclppQnNVYzVsZ3VQZGo3dG5ZNDFHMlM2?=
- =?utf-8?B?UWNoVTBQTHJ3NXBMZ1lBeWV4cFNycFdFcDVoWTJualcyVmM2NnFaN2gvTDdx?=
- =?utf-8?B?R2NYZURBWVRqanZBNGVDeHVHRXF4Z0Y1aHlsemgvTnFyNWZkam1lb29VYTFE?=
- =?utf-8?B?SG54YTREcW9BdHM0RW5IOFdzWkN5YXFqU2xDYWpBR0oxR0c2UHU4NHFqOHU4?=
- =?utf-8?B?MWRDaGUwYlVRVDdkY3hiQUtPSGpicWNDbTVSK2p2aWEyNXB4QjY2ZnhIdUpz?=
- =?utf-8?B?RGRaOVJYQTIvUHVWd1N6OEVPS3AvaUpVcnpXcTVoVEZ0dlZ0dFhGQlVISXIr?=
- =?utf-8?B?cFFjclNYVS80Q3RXWm1FNEZQdWpJdlhKRnZqcTFJS2dlWFNCR05UelpkY3A0?=
- =?utf-8?B?ekQ1NnBBU0RrcnVkZjFQWkdrVTVwek1xeVBRM25SUVdicGJ0QTJBUT09?=
-X-OriginatorOrg: altera.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: db201bc2-c849-4834-2620-08df20316695
-X-MS-Exchange-CrossTenant-AuthSource: CH0PR03MB6179.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 03:01:06.0645
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: bfEfJvcUQFMx+8TPgpaUiCdImESthhYfj4rw2cb6TQFyVEN+Xvcxk37lACtm2lAqPc6dei269KcevmWe15EYag==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR03MB7155
+References: <20260929075106.74731-1-suwangquanta@gmail.com>
+ <20260929075106.74731-2-suwangquanta@gmail.com> <20260930-curious-narwhal-of-calibration-62442d@quoll>
+In-Reply-To: <20260930-curious-narwhal-of-calibration-62442d@quoll>
+From: Su Wang <suwangquanta@gmail.com>
+Date: Fri, 2 Oct 2026 11:04:46 +0800
+X-Gm-Features: AclHuK-KfgGwZ7bu_T0onXf5TVB_lsME61cxwHa_OQd7XBi3kxomvlalflHsano
+Message-ID: <CANoBHH2a_Qu=eMoQ9GFYYn-MVg7zhVZJbiBRP6L+roU2zp3d7g@mail.gmail.com>
+Subject: Re: [PATCH v14 1/2] dt-bindings: arm: aspeed: add Meta Ventura board
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, joel@jms.id.au, 
+	andrew@codeconstruct.com.au, ryan_chen@aspeedtech.com, 
+	billy_tsai@aspeedtech.com, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org, 
+	linux-kernel@vger.kernel.org, patrick@stwcx.xyz, Steward.Shih@quantatw.com, 
+	Martin.Peng@quantatw.com, Fred.Zhang@quantatw.com, p.k.lee@quantatw.com, 
+	"Sue.Wang" <Sue.Wang@quantatw.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Krzysztof,
-
-Please find my reply inline.
-
-On 9/30/2026 6:48 PM, Krzysztof Kozlowski wrote:
-> On Tue, Sep 29, 2026 at 05:38:12PM +0800, evon.chiam@altera.com wrote:
->> From: "Chiam, Evon" <evon.chiam@altera.com>
->>
->> The Agilex72 clock manager exposes four register regions: the clock
->> manager itself plus three general purpose PLLs.
->>
->> Add the schema and the clock ID header that consumers index.
->>
->> Signed-off-by: Chiam, Evon <evon.chiam@altera.com>
->> ---
-> 
-> Where is patch 3/3?
-> 
-Patch 3/3 was sent here:
-https://lore.kernel.org/all/d6a2a5026a6a00d0b7ecfae76ff299f5b9752686.1790661931.git.evon.chiam@altera.com/
-
-I accidentally sent it with different threading metadata, so it did not 
-appear in the same v2 thread. Sorry for the confusion. I will resend the 
-full series as v3 with proper threading.
-
->> Changes in v2:
->> - Subject: dropped the redundant "binding" suffix.
->> - Reworded the commit message.
->> - Dropped the external fixed-clock nodes from the example; they are not
->>    relevant to this binding.
->> - Dropped AGILEX72_NUM_CLKS from the clock ID header; it is not part of
->>    the binding. The driver derives it instead.
->> - Added the clocks and clock-names properties for the four external
->>    reference clocks, made them required, and used them in the example.
-> 
-> ...
-> 
->> +  clocks:
->> +    items:
->> +      - description: External oscillator input
->> +      - description: Internal oscillator divided by 2
->> +      - description: Internal oscillator divided by 10
->> +      - description: FPGA fabric to SoC free running clock
->> +
->> +  clock-names:
->> +    items:
->> +      - const: osc1
-> 
-> osc
-> 
->> +      - const: cb-intosc-div2-clk
-> 
-> Drop -clk
-> 
-Will fix in v3 to remove the redundant -clk suffixes.
->> +      - const: cb-intosc-div10-clk
-> 
-> Names are odd, seems like you put here source clock names, not the
-> actual logical names of the inputs.
-> 
-Will address in v3 by using logical input names.
->> +      - const: f2s-free-clk
->> +
->> +required:
->> +  - compatible
->> +  - reg
->> +  - reg-names
->> +  - clocks
->> +  - clock-names
->> +  - '#clock-cells'
->> +
->> +additionalProperties: false
->> +
->> +examples:
->> +  - |
->> +    clkmgr: clock-controller@915c000 {
-> 
-> and drop unused label.
-> 
-Will remove the unused label in v3.
+>
+> On Tue, Sep 29, 2026 at 03:51:05PM +0800, Sue Wang wrote:
+> > Document the new compatibles used on Meta Ventura.
+> >
+> > Signed-off-by: Sue Wang <suwangquanta@gmail.com>
+>
+> Please respect our time. Actually other contributors time as well.
+>
+> <form letter>
+> This is a friendly reminder during the review process.
+>
+> It looks like you received a tag and forgot to add it.
+>
+> If you do not know the process, here is a short explanation:
+> Please add Acked-by/Reviewed-by/Tested-by tags when posting new
+> versions of patchset, under or above your Signed-off-by tag, unless
+> patch changed significantly (e.g. new properties added to the DT
+> bindings). Tag is "received", when provided in a message replied to you
+> on the mailing list. Tools like b4 can help here. However, there's no
+> need to repost patches *only* to add the tags. The upstream maintainer
+> will do that for tags received on the version they apply.
+>
+> Please read:
+> https://elixir.bootlin.com/linux/v6.12-rc3/source/Documentation/process/submitting-patches.rst#L577
+>
+> If a tag was not added on purpose, please state in the patch changelog
+> or cover letter why and what changed.
+> </form letter>
+>
 > Best regards,
 > Krzysztof
+>
 
-Thanks and best regards,
-Evon
+Thanks for the reminder, I'll add the Acked-by tag back in the next version.
 
+Best regards,
+Su Wang
