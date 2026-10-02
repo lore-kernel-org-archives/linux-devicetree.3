@@ -1,155 +1,189 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF88F429CF3
-	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 07:50:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3207143DA3A
+	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 07:53:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790927427; cv=none; b=GVmrHtgYZMnfmQ6pbNGrvHQNvXJm/+qjg9uLhNaXGiHIMjjrXgXDkCHW+uyIL+a/jWDJzZ22FBQUG1nGMaPiGCKZeCigdPOiRXQi/JnCBvNODJfPpTHcHtX8BJUgzSh1j8lyFjwImTqrhtzSpfsvN2yy/cPlr7BG+H4fXE3Lfk0=
+	t=1790927593; cv=none; b=Ol8fsY5x+jb2YBWyxaoGK6ZhbtBpZpNLwilOZiNlkSqs9HLE+llm8ib6lN2daq6zETYdbgLKVGDpzBUZ/VZwVOjm8lmWoOtJrY8q7V3Re+l0VXMvsRHET7UZK+yMSI2Q5IFQEt5kyfj983NSxTJAw3D0YLo9aMMp34SPkTD3d3U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790927427; c=relaxed/simple;
-	bh=Uuw9YcGk9lfdEVRwjqrzUmYDlAJl7TAqXFgwWW6Q8r8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=KuUxOAjsz7aLu7PQWARw3mii2Rothj/OfMzCBMwV/9+Vg6QJ6xuI8Rb7UwRN4uRvTCAiFUquX1NxSsVfRolVPVyXeAjU8VDQBomw1ynLM/1HaloNz8CPdFt8P8MRRrQgl2o/pLwgn98GhbC963H8oYqfBPXe/0M+Ib5C/zEnqxc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=opAULVzs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790927593; c=relaxed/simple;
+	bh=ag+sZnjQWuyPSA4K+zz6QgF7pFR9QYHKz6IJ/tFAQLQ=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=O86vhInXQRS9Y46cZWb7/pMJEsUn1YaTfUIDf1eHQaea8BxIB9ZOmf9y3/N2TeSk6E3uyk1r4aouIiToB1WKZezjyvklXi/mNEyAHbvtOFfnfxBXsgkFm8c3Abj5AriIxnnfKFYlSyaF5GvJZ0mrTak1tfyPi+FjO763DcXCC6o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=cqh1NaeE; arc=none smtp.client-ip=74.125.225.99
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="opAULVzs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F1BC1F008A0
-	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 07:50:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790927425;
-	bh=Uuw9YcGk9lfdEVRwjqrzUmYDlAJl7TAqXFgwWW6Q8r8=;
-	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
-	b=opAULVzserwDb623yWkTcdiUML85+eUnznNSm2bz9BbqvYiGAwrYmMs4N5G3AI2Do
-	 SRosiiL4LqIJdn0j+5KRGCF1G3rI/z7WcudA0XxY2wuaOUQNGF8GzuhELil6VrQcbJ
-	 v+TtUe+v2C1s+wtC3hMFSXsxHqN1FKtST0gYH+D7h7EmZfo0fHDxSX+eIdcwsLqHnu
-	 EFnpu+wg5W/KoHhGajA0x9yUeS5bjGFxqyZsD6terQGNrPrL27SuXwsYIg196Tt1fC
-	 XqubiQjLbY8o+gzwBYblVy+/WkIt0LHmaHO2rXQrKBashx7FIBhHhrwuY19KS9LYe9
-	 12slgzEAXYrqA==
-Received: by mail-lr2-f33.google.com with SMTP id 38308e7fff4ca-3a76cedd9baso30825351fa.2
-        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 00:50:25 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzkng86F6E2JRljqegMR6Sh1a0fi83PU0Nsslfb31fYkj4lgKvFp63B7DioB+257NK3CHf4OxcXgwvZ@vger.kernel.org
-X-Gm-Message-State: AFq9FYJm4PGXvETQRDTSnTLIt5vgvIh6uGfnIKSmIricz41zoovItneC
-	QtuZ3QwWZQKhcqXFSZTP1tYX8BGeTghLeUAM2wG72NTPyN8XdPoGwE34/rxaoW7TfKNyQrtJCwv
-	7FrcLw3HGrYOaATulapCTy3NRkLuJFu4=
-X-Received: by 2002:a05:651c:a107:10b0:3a3:74b9:8a79 with SMTP id
- 38308e7fff4ca-3a8877f2af4mr3028011fa.18.1790927423980; Fri, 02 Oct 2026
- 00:50:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="cqh1NaeE"
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48882c1f2baso2621301f8f.1
+        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 00:53:12 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790927590; x=1791532390; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=URK5hJaiby1L1KtEXv2HgCyxpcy+Et12hnj8ni1/g3I=;
+        b=cqh1NaeEqrQtHsMP1LF5wq/gPDJlRjc152vrjLf+zRyR8Jm64x79MrxtkpOrIra/Uz
+         vOqiRV+/BB8DkleBjvMdw5tIm3QHP/hI9BdUUjFsm/NwMrV5QJKpXKBT6p7p7sDsET5y
+         5py7yp2FWX6SCsTf3knHwW38Qpe5U6ceRW+oVgZRINv39M8Vw2ZNZQz+AArbZ3Ig8Zeg
+         4J7pS/OeK3NxIuZgntbbie+DLAgZqe5Nqtq/NAWMm/2v7Zbt8jJXMnGKX3qxkhKXnLyQ
+         FpSz6cfEUWcwl8SHF8X6WUbc1eyPBAo74S1N18xHPAzNJL+bo2hCv8fKperxOrpCsyno
+         Ywfg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790927590; x=1791532390;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=URK5hJaiby1L1KtEXv2HgCyxpcy+Et12hnj8ni1/g3I=;
+        b=X/mhBbE/hZUCPDyojUwhXsA0RcnEcrBeS2EDzeQaQ5QvwJuGhFFZUSDTfoarSKtqW8
+         emfsYvakPxbxbEbJEZ4qOoX7is+AKhHoXxA+Ho8nT7aDSZDnVtMZ8v/OFcRjd23btVXE
+         iVxCnML32nCrtNMfctyh3p1W0bo7sNzeYB4n3E0+/2kasf3bLW2spsPcKBiD03HzL63t
+         9/mcBZzOaDouZ83FXG58l+nlM3pNPITr+bfYXL5kIIWWjA39f7HkJcYHI7S6aQFxXden
+         gN3L4aZlmAQD3+qNNt689bviLgn3btWkyjrObMOormaVpPA36aegmV5VhwznwSzEoQCn
+         Pfxg==
+X-Forwarded-Encrypted: i=1; AKwUvBwiqw5w7xrZDIjMHLckV4zxs0GSrnBJWBVjuzD3HgxBnJKQ9tsvTvDMrWZPvm9iwbUChIHxrHYyZM6B@vger.kernel.org
+X-Gm-Message-State: AFq9FYIcG3T9lNSXZ24557jzPITtOuhfyyAhx1OyeayxdhyzO8zgh0w0
+	UUH8HDx9dQ5IhNp39FAdDLZo9JUz96sHecttt0kvtfz/cOWXluo7otcXbVH0i1MDg54=
+X-Gm-Gg: AYBFou2r0m1Q5KiL/J1efbJHE+GSB3wOXab4ZcFFd5qBadEjopBUtmAvTtYA4FUaQan
+	WgHnp40GedkddC79hSgL0bA/ihWADx8FP6K0VpfU9dEXqRmuHTAsHq0AQU1TnuELAGCWaQGxGkv
+	vvWUuAnkcyAwM3L3dqhZCkEX2zyuPOCocY6wLg9UuWStha5H9Ph28V98/VYC+FUE9qQQIO3CA5s
+	dIDLOzd14Yp7vMlPcWRhmJj/rK8SowrN5vyiobXFU7KggZ81UDgSLbNw0LuTB74OfBTXuShVcXK
+	45DxdA4c6lDxEGz5bwt8G8K9ve/+JZhjnQj2wh2fwMGnETIqW4bX/menIlNBtJOxqcuvzTwoIqS
+	GxVSzgx/7Na9qGtK8fXx8iODhXH7baCJao+ecJtXLHLBIFPtcic5YCPz5Iy1a7lhF1DloySCq7H
+	SHawcvlm7dHUqdrHWSD6eCLEcF3h8NqX10IGZeBVvniHnnO6tcf/HRBnFG0OI10HOT86r0jYKZf
+	Ru575rPEpKLUBeUpomra+vJsozdEwckb7iaCNx8lpolb+Se895W
+X-Received: by 2002:a05:6000:46da:b0:48b:68:592e with SMTP id ffacd0b85a97d-48b126c2526mr2669376f8f.4.1790927590269;
+        Fri, 02 Oct 2026 00:53:10 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:2f62:6d3:721b:8c9e? ([2a01:e0a:106d:1080:2f62:6d3:721b:8c9e])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b380f0ab7sm3840821f8f.7.2026.10.02.00.53.07
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 02 Oct 2026 00:53:09 -0700 (PDT)
+Message-ID: <a92aa0bb-d50f-4b67-a645-942090d4fe79@linaro.org>
+Date: Fri, 2 Oct 2026 09:53:07 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260927025626.69614-1-tien.nguyenminh@embeddedlinux.blog>
- <20260927025626.69614-4-tien.nguyenminh@embeddedlinux.blog>
- <20260927132707.5f484946@posteo.net> <20260930130221.129529-1-tien.nguyenminh@embeddedlinux.blog>
- <20260930160541.040ccc0e@posteo.net> <20261002-matted-tux-5b4059bc305a@wendy> <20261002094816.64349979@posteo.net>
-In-Reply-To: <20261002094816.64349979@posteo.net>
-Reply-To: wens@kernel.org
-From: Chen-Yu Tsai <wens@kernel.org>
-Date: Fri, 2 Oct 2026 15:50:08 +0800
-X-Gmail-Original-Message-ID: <CAGb2v65YP7WM-FKKJJuEpGWO3xyY1KAhWjw39hgHE=Ns2a0zzw@mail.gmail.com>
-X-Gm-Features: AclHuK_HVE57bDVsQlmhG-VM5VBilmJ8qnl2ozGwoiccAzLaGGbOy91FR-N2-UM
-Message-ID: <CAGb2v65YP7WM-FKKJJuEpGWO3xyY1KAhWjw39hgHE=Ns2a0zzw@mail.gmail.com>
-Subject: Re: [PATCH 3/3] riscv: dts: allwinner: d1-t113: Add the hardware spinlock
-To: Wilken Gottwalt <wilken.gottwalt@posteo.net>
-Cc: Conor Dooley <conor.dooley@microchip.com>, 
-	Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>, Bjorn Andersson <andersson@kernel.org>, 
-	Baolin Wang <baolin.wang@linux.alibaba.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Andre Przywara <andre.przywara@arm.com>, Bastian Germann <bage@debian.org>, 
-	linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
+To: Javier Martinez Canillas <javierm@redhat.com>,
+ Maxime Ripard <mripard@kernel.org>
+Cc: Benjamin Tissoires <bentiss@kernel.org>,
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>,
+ Nick Desaulniers <ndesaulniers@google.com>, Bill Wendling
+ <morbo@google.com>, Justin Stitt <justinstitt@google.com>,
+ Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list
+ <bcm-kernel-feedback-list@broadcom.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve
+ <aesteve@redhat.com>, Dave Stevenson <dave.stevenson@raspberrypi.com>,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, bpf@vger.kernel.org, llvm@lists.linux.dev,
+ linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org
+References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
+ <6b80cb97-6706-412a-b013-9423f6f75153@linaro.org> <arqhwHiVf00j94J7@beelink>
+ <0259fe4b-3118-4ab0-9b62-55101bfd7f33@linaro.org> <arrAqg5n87INTHE6@beelink>
+ <674314b4-6b80-4b3a-ac15-eefd31cea607@linaro.org> <artpBMeM13Dd0lLy@houat>
+ <xlv1wls4ebjq.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
+ <828c9108-2db1-45a6-9301-19159a094301@linaro.org> <ar4CRTMQGs5_nGKY@houat>
+ <2bd17843-4a65-49b0-9e10-7b73afb206b6@linaro.org>
+ <xlv1cxtsft8e.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <xlv1cxtsft8e.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 2, 2026 at 3:48=E2=80=AFPM Wilken Gottwalt
-<wilken.gottwalt@posteo.net> wrote:
->
-> On Fri, 2 Oct 2026 08:32:51 +0100
-> Conor Dooley <conor.dooley@microchip.com> wrote:
->
-> > On Wed, Sep 30, 2026 at 02:05:47PM +0000, Wilken Gottwalt wrote:
-> > > On Wed, 30 Sep 2026 20:02:21 +0700
-> > > Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog> wrote:
-> > >
-> > > > Hi Wilken,
-> > > >
-> > > > > Wouldn't it make more sense to add the "allwinner,sun20i-d1-hwspi=
-nlock" line to
-> > > > > the driver in the sun6i_hwspinlock_ids struct, drop
-> > > > > "allwinner,sun6i-a31-hwspinlock" here in the D1 device tree and u=
-pdate the yaml
-> > > > > file accordingly?
-> > > >
-> > > > Thanks for looking at it. Bjorn hasn't replied yet, so I looked a b=
-it
-> > > > more at the naming. I'd like to keep the A31 fallback: it's the usu=
-al
-> > > > pattern, other blocks in this dtsi do the same (timer, I2S, LED
-> > > > controller), and Conor already acked the binding in 2/3. If Bjorn
-> > > > prefers a driver entry instead, I'm fine to change it.
-> > >
-> > > Yeah, Conor was a bit quick to act here, such things happen often wit=
-h patchsets
-> > > made out of documentation/devicetrees and code. Though, the get clock=
- and resets
-> > > patch is fine. The driver could use some modernization.
-> >
-> > I dunno, was I too quick to act? The patched looked correct to me, sinc=
-e
-> > it was using a fallback to a device that it appears to be compatible
-> > with. Had the series done what you're suggesting, my review feedback
-> > would have been to tell the Tien to add a fallback.
->
-> I'm just not sure how to actually do it right, because so many SoCs inclu=
-de that
-> feature. That is why I asked how you would do it having more insight as a
-> subsystem maintainer. It just looks incomplete to me. In the past I actua=
-lly
-> verified it working with H2, H2+ and H3, none of them being
-> "allwinner,sun6i-a31-hwspinlock".
+On 10/2/26 09:37, Javier Martinez Canillas wrote:
+> Neil Armstrong <neil.armstrong@linaro.org> writes:
+> 
+> Hello Neil,
+> 
+>> On 10/1/26 08:50, Maxime Ripard wrote:
+> 
+> [...]
+> 
+>>>>
+>>>> I don't want to add a supplementary maintenance burden for the sake of using a cool
+>>>> technology which has serious drawbacks and dependencies on user-space even if looks
+>>>> really cool.
+>>>
+>>> Spoiler alert: v2 won't. I've got the in-kernel loader to work and thus
+>>> you can have a built-in panel driver that works without user-space
+>>> intervention. So this is not a topic of discussion anymore.
+>>
+>> It will still have users-space dependency, meaning the BPF files will need to
+>> exist in the fs when drivers probes.
+>>
+> 
+> It doesn't have to AFAIU. The BPF programs could be built into the kernel
+> image, just like firmware binaries could be built-in as well.
 
-Even if all the SoCs had them, if no one enabled and tested them, then they
-wouldn't have entries in the binding or dtsi files.
+Right so my main question still is: what does it solve exactly ?
 
-> > > > Bjorn, what do you think? Just stay with the "allwinner,sun6i-a31-h=
-wspinlock"
-> > > > string or add all the possible combinations like
-> > > > "allwinner,sun8i-h2-plus-hwspinlock" or "allwinner,sun8i-a83t-hwspi=
-nlock".
-> > > > I mean, it is just a naming game and there are 10+ SoCs supporting =
-this
-> > > > spinlock register file
-> >
-> > All devices compatible with the a31 should use the a31 as a fallback.
-> >
-> > >
-> > > > > Oh, and I may be able to test it against the D1, I own a Sipeed N=
-ezha.
-> > > >
-> > > > That would be great. You don't need FreeRTOS for it: I tested with =
-a
-> > > > small Linux module that takes each lock and checks the status
-> > > > register. I can clean it up for the single-core D1 and send it.
-> > >
-> > > Uhm, the Linux-only test doesn't work as a hwspinlock test, it misses=
- the entire
-> > > point of the primitive. A hwspinlock arbitrates between two independe=
-nt agents,
-> > > in this case, Linux running on the C906 core and FreeRTOS running on =
-the HiFi
-> > > DSP, both sharing the same memory bus and other hardware. If Linux is=
- the only
-> > > one who ever takes the locks, it is simultaneously writer and reader =
-of the status
-> > > register, so the test cannot fail even for a broken (or fake) impleme=
-ntation. That
-> > > would basically test nothing at all, well, maybe it would be some kin=
-d of bring-up
-> > > test, but overall quite useless.
+All the descriptions I saw so far is that it simply moves
+the panel C code to a BPF code with no other additions.
+
+I still don't have a clear view of what is precisely solves.
+
+It adds some complexity to load those BPF driver, adds some
+maintenance complexities since with every API change we will
+need validate BPF still works in addition to C (and maybe one day Rust).
+
+As the maintainer of the panels, merging a bunch of new panels at each
+releases and helping migrating to newer and modern way to interact
+with panels, I think I have the right to express my interrogations.
+
+I'm clearly not the oldest kernel contributor & maintainer around here,
+but the main interrogation I have when submitting, reviewing and
+merging is : does it really solve something efficiently.
+
+I don't want people to be frustrated by my review and question,
+but I feel I'm allowed to say I'm not convinced about this solution.
+
+Neil
+
+> 
+>> Neil
+>>
+> 
+
