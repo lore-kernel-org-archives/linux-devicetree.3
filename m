@@ -1,91 +1,121 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 5A4FF47F3C5;
-	Fri,  2 Oct 2026 13:57:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtpcmd01-g.aruba.it (smtpcmd01-g.aruba.it [62.149.158.217])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD02947F3C5
+	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 13:57:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.149.158.217
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790949434; cv=none; b=MjyqH4RY9/0E/q9YvNuf7O6WoAXc71oXzlDJAyIoxZF9b+HvIPtt+kQsu/daKM3hTPDaqgqYZufyoso78g2U6523H/vuc1RJtZZanpXtJenCoHnMSnUwfHa9Nzz0jf8UP/BwgT1zLiPj5VnUj1nYXDmnskKPDLIvRK7qovc1AxM=
+	t=1790949465; cv=none; b=MITwsfnHL3onCu1sRp3AFvm4ZKeTIk7vOKzgMU7v+obuQ7RYAAqxB2xM7KcbfqjcDKWwcXbvQJYhBH2OH3clToXxjHe+uj8/Yg9FJMBdyykZvQsiPQx6X04GuDdvhYh1srmTqBVMsi+gxzZ4cp6PfHmAOSbTPscFnpnZjKALmfk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790949434; c=relaxed/simple;
-	bh=L+fVfiRoU5Rocj6JDsGYZYQi34BP/ycGEUuQn0k/teY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=t6Ng7l2jZfUPZ4P8I/cQXrAYiEAN+Ji4y1AsuZyEx/X3aevbPw5+4oF8ikPvaz3eNUK/Ol4bg2cK6FFvVO69O5XnJk54f4obp3BerEQBdLe15h503lwbc0Qn0rvL91vbqTUWHawmDkDvsvH2yNyCZ8540h1Y2EhslvkrEuv6Jro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=YYTZ88Nh; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1790949465; c=relaxed/simple;
+	bh=+i6VElqpiAm4ADwgZ3RXMCVldfiQiiZgh6SfyG7dy0c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CzKjC5hdh9FAEBeymugNldi3kDTPYsl8S+iGY2glNII0sSinuI9NoSnMmQ2zIKf50EDkrm+6yb9ITgPFi+rgVHnE/pE6Bn64XAQ1jfwDE+nBcX+Hii0ucZZmMmvCtgemM2k/AqxaQD1kLm9B7IZsqltH0/9vdidEpr1gk4k0KvA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com; spf=pass smtp.mailfrom=enneenne.com; dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b=lATSuIK7; arc=none smtp.client-ip=62.149.158.217
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=enneenne.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=enneenne.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="YYTZ88Nh"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id F325D497;
-	Fri,  2 Oct 2026 06:57:08 -0700 (PDT)
-Received: from [10.57.55.104] (unknown [10.57.55.104])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 454853F85F;
-	Fri,  2 Oct 2026 06:57:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1790949432; bh=L+fVfiRoU5Rocj6JDsGYZYQi34BP/ycGEUuQn0k/teY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=YYTZ88Nh2VPrS5piRUfDbQ9WCTE6LlF7Ec3UTDLDWKAxgBLEHfsR8U2TsUnPzN4J7
-	 MYUGn+ihgD7m5jjEEGjlDFP3YlN2TDOZn3aNATjeRP9GyhFuWJcqstFuE9x9dp1myP
-	 bsVeveRSoBVURvZ/PdSFdJqoeEdYgn6H6d7bZGTI=
-Message-ID: <d7561b18-23ff-42c8-9df7-3947b473f7ae@arm.com>
-Date: Fri, 2 Oct 2026 15:57:08 +0200
+	dkim=pass (2048-bit key) header.d=aruba.it header.i=@aruba.it header.b="lATSuIK7"
+Received: from polimar.tail4f75e6.ts.net ([101.57.122.26])
+	by Aruba SMTP with ESMTPSA
+	id CdlZxDen1LUMUCdlaxwrBy; Fri, 02 Oct 2026 15:57:39 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=aruba.it; s=a1;
+	t=1790949459; bh=+i6VElqpiAm4ADwgZ3RXMCVldfiQiiZgh6SfyG7dy0c=;
+	h=From:To:Subject:Date:MIME-Version;
+	b=lATSuIK76+Vm5XjGsTqVMbCKXpn2OFH8TdMrkaj1rNeeMIRv8r0B49X2ll6tSU9AX
+	 vQlrk21KRMlLym4YYLSjHgqB8BUzK2ZFn6TpF76U+vFEutDMZu9TT6O+uZmDLrgkym
+	 nNHHxbZZoHT0SpdfMVMGf2l5RoXZykFLtqFraUsMvaK3OmEcXB2aILz3hs9qOAuxXA
+	 du7Da9PeBlTw7cN1vQ5hAhlFpBwWK+FHKU+Mc5F9N4qxvGyAsOOwxhyPxAzJAks0uo
+	 7Ni3j554M8mRs8KMwyc/0oEvRYsolaRWUy+8bfp2OpGISQCQiIiarnG9bQPfWjYR41
+	 Wrv3dAJPQRgHg==
+From: Rodolfo Giometti <giometti@enneenne.com>
+To: Woojung Huh <woojung.huh@microchip.com>,
+	UNGLinuxDriver@microchip.com,
+	Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Marek Vasut <marex@denx.de>,
+	netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Rodolfo Giometti <giometti@enneenne.com>
+Subject: [PATCH net-next 0/2] net: dsa: microchip: let the board state its reset timing
+Date: Fri,  2 Oct 2026 15:55:40 +0200
+Message-ID: <20261002135542.359756-1-giometti@enneenne.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/8] firmware: smccc: lfa: Add timeout and trigger
- watchdog
-To: Sudeep Holla <sudeep.holla@kernel.org>
-Cc: Mark Rutland <mark.rutland@arm.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>, Salman Nabi
- <salman.nabi@arm.com>, Vedashree Vidwans <vvidwans@nvidia.com>,
- Trilok Soni <trilokkumar.soni@oss.qualcomm.com>,
- Nirmoy Das <nirmoyd@nvidia.com>, vsethi@nvidia.com,
- Varun Wadekar <vwadekar@nvidia.com>, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, devicetree@vger.kernel.org
-References: <20260918141112.2115555-1-andre.przywara@arm.com>
- <20260918141112.2115555-4-andre.przywara@arm.com>
- <20260921-elastic-impartial-pig-ea6b58@sudeepholla>
-Content-Language: en-GB
-From: Andre Przywara <andre.przywara@arm.com>
-In-Reply-To: <20260921-elastic-impartial-pig-ea6b58@sudeepholla>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CMAE-Envelope: MS4xfEW1Yj8i3zhIjVzqiH5/fOMLH9cxuuPtIsrqzceN+Lma+S/NNovw7sZ/lCUX6xoepm5qAAjwIauvAlYtPtJlp5Lyafpje5W49a5rUlrdIa8LQkLe483K
+ e6uqJ6If8ScgsNigVHFG19S6N5PnboyDEECtS4dXsyjgeE0QblHTYdJ65IsOtaYdBi/I47MdDMb9udSwqnOGHyN9pz6xqnuaZY+o/DnG9kGLMGWZK8EOeWka
+ HIOBmx2E5/WjBwRqz3KmhS0NYL1P2mmg8nEns6pCC0TEONywr/HCaXgAalzJgLwrT4E+tgu6TCUAk8XsVUfAxKQoi0RD8D3yLfa4LPaHoOuzTORiEZO0Wyst
+ hd68Z/2b6QtWbhq7HFmnRJljrVcfCzNYywePMX8+xQjQA2ns+BhUQqQuonYoTWV5K2+WfuzuCPrRBz+D4Y0gVEZ5+k2w6R1mQUuoqKTehbxoPS1bn1xv5gK2
+ 6EY2+A/BY3OuQtB1sc0a2NfMJJzmaAR5PcQ7cZXbYvCYgn46CcbbjgVWkYTzqdXiw160inXLxhPT7iTGxg2xhvljXueFka/c93us7mXGSCZBYNgMjADUNyhJ
+ CQmv6+ELlVkX77e1ou+32T5vdM1+mM5d4mSCRkj6hmRtdXB4fyET29724ysva01N0Y3BuulliFFQohhN+7oo09K+
 
-Hi Sudeep,
+ksz_switch_register() waits a fixed 100ms after releasing the reset
+line before it reads the chip ID. That figure comes from commit
+1c45ba93d34c ("net: dsa: microchip: Adjust reset release timing to match
+reference reset circuit"), which derives it from the reset circuit the
+datasheet recommends: about 95ms for a 10k pull-up and a 10uF
+capacitor. It is the timing of a reference board, and on one of our
+boards it turns out to be too short.
 
-On 9/21/26 17:36, Sudeep Holla wrote:
-> On Fri, Sep 18, 2026 at 04:11:06PM +0200, Andre Przywara wrote:
->> From: Vedashree Vidwans <vvidwans@nvidia.com>
->>
->> Enhance PRIME/ACTIVATION functions to touch watchdog and implement
->> timeout mechanism. This update ensures that any potential hangs are
->> detected promptly and that the LFA process is allocated sufficient
->> execution time before the watchdog timer expires. These changes improve
->> overall system reliability by reducing the risk of undetected process
->> stalls and unexpected watchdog resets.
->>
-> 
-> I assume this change is separate from 2/8 for authorship purposes.
-> Otherwise it should ideally be part of the original driver. It is prone
-> to firmware bugs without these changes.
+The board is an i.MX93 with a KSZ9897 on LPSPI6 at 500kHz. Every boot
+ended with
 
-Yes, I was quite torn over this. She genuinely wrote that code, so I 
-wanted to give her credit, but I see how it's odd to kind of fix up the 
-original patch in the same series.
-I am now leaning towards merging this patch into 2/8, and also the SMC 
-access lock (7/8), since it's not really safe without them.
-But then still keep Vedashree's ACPI patch (4/8) separate, as well as 
-the DT patch, and the auto-activate, since they are somewhat optional.
+  ksz-switch spi0.0: unsupported switch detected ffffff00)
 
-If you have better ideas, I am all ears.
+and no user ports, while a second board of the same family running the
+very same image came up fine.
 
-Cheers,
-Andre
+The bus is not at fault. With the switch already out of reset, reading
+the chip ID through spidev on the failing board returns the expected
+0x00989700, at the same speed and mode the driver uses. What differs is
+how soon the part is ready. Driving the reset line by hand and polling
+the chip ID every 11ms gives, on the failing board:
+
+  reset asserted for 10ms  ->  answers 95-120ms after the rising edge
+  reset asserted for  1s   ->  answers    ~160ms after the rising edge
+
+So a probe that reads at 100ms is at best a coin flip there, and never
+succeeds when the part comes out of a long reset. The board that works
+is simply on the right side of the same margin, which is why one image
+behaves differently on two boards.
+
+Since this is a property of the board rather than of the driver, take
+the delays from the device tree instead of hardcoding them, reusing
+reset-assert-us and reset-deassert-us, which already carry exactly this
+meaning for MDIO devices. The defaults keep the current behaviour, so
+boards that do not set them are unaffected.
+
+Tested on both boards with a 6.18-based NXP kernel, powered up from
+cold, with the failing one given reset-deassert-us = <250000>. It now
+detects the switch at every boot, and the one that already worked is
+unchanged: same detection, no SPI errors or timeouts. On both, the
+probe lands ~150ms later than before, which is the added wait showing
+up where it should. On net-next the series was built, not run on
+hardware.
+
+Rodolfo Giometti (2):
+  dt-bindings: net: dsa: microchip: add reset timing properties
+  net: dsa: microchip: take the reset timings from the device tree
+
+ .../bindings/net/dsa/microchip,ksz.yaml       | 12 +++++++++++
+ drivers/net/dsa/microchip/ksz_common.c        | 20 +++++++++++++++++--
+ 2 files changed, 30 insertions(+), 2 deletions(-)
 
 
+base-commit: 071876fd50482a68603a9460d80dd6dd58827ee1
+-- 
+2.43.0
 
