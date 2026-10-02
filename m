@@ -1,149 +1,159 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 099ED474245;
-	Fri,  2 Oct 2026 09:39:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B87032FA30;
+	Fri,  2 Oct 2026 09:40:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790933961; cv=none; b=hKRieSfbFG9EvOp310pBCWXmP4yuittOnsk3kzW0tDuYXdatxvJnRginJuHtcAZNLvq8d86MOfbLqIwn1FgsONzc8mM/2npPELutxP2jBHrbV+SmOVy6V1sym0Zf7UmjK5emxZhsr861tucJnNt8aVNG3n3SllkAC4t2j6kSZ2Q=
+	t=1790934003; cv=none; b=az+lGTu4N8MaumJHBJsJufsixbyRb7pPcAB0gZpE9HyjUP+UZLRM/bazxHnl9NWccAT0rGuu1A402jfW2OB/XdwwLC77/hnEvP2gHJyNau4HV/eG/UGfaNDV4kO4dBuHTrIIpmBJSiWR5VywbqMdxfKmidjA8Po/OXpUwDGr2Qw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790933961; c=relaxed/simple;
-	bh=hA1zeAk4wxpxXGX4kPhV20Ts9tikCfkkYTnQNM8EwqM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ozgvn3OL9UYL6orJPnPqpvVqT6rP32kEiP4Dppmb9U1B3gb1uI4bqA7R7KudO1PnNdtEIySkRYPMW48MiwfFzLVRP8rV6Nru9oupTLGWd2agGiPN0FJSQbuNK0eDLTz0KFn1DT8GVTw+p87XoxVVlue5OQYxy6EX2lDMghHse6Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Trs8e8WE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790934003; c=relaxed/simple;
+	bh=u5VE9aW+oZTiOwa+V4EBAsdkjKqtrA1ZKytj65kaAwY=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=OuWZK6qg7UfkrGa1V+uXCewaR1IAe7VZgDFQpxZR0CBmXzZdF8s2DOqGGqic6HzK94TTKxayaCU1Gu5Guue2AG99BbNqv88EoqhXW3volmRMDCdV+0UCnloYWiCf0ko0Oqd+QYVi/+gSKuQfvnTAx8XgPbUMwT1J4K/OPF2BdQ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZQlu2FBu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Trs8e8WE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F06C91F000FF;
-	Fri,  2 Oct 2026 09:39:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZQlu2FBu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E67F1F000FF;
+	Fri,  2 Oct 2026 09:40:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790933959;
-	bh=fjj+f5ijhUmhJthBkgxDWQqiZjrQVyrTMW5I1jLfkXY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Trs8e8WE4T7ghZ6J2kcvRzDd0DVCDTPX6L68v8d5dXlAwzAWeMXWbzzq8jBLz0R0u
-	 vw9YwyWOV1syIYezd4ixmTAeQQcPPj3Ub6H1lE0BT5jL/aktfvL9Jm0G3fol5pZa7R
-	 tONxMxHzUdbCoUGXmYvCZgD9IY6hQA07u3wk6+Qoq34z2Xl5jcGinVkblKveXL96BZ
-	 YdqZooGF1WY+jhnpfQehYlyhMxfZBydrAJv1a8FBkdtfIHiZu2g++MRKnWLqCYJcIg
-	 Ujtya90RKbBwlZmO8VXKhBAYvjbduRxIkFQRlVNOXXpYEkF+Evv8yb2+TPa7NOu+XV
-	 wFxHrH1SO5bPg==
-Message-ID: <7a66abc8-3b9a-4a9d-a094-e47e3588091a@kernel.org>
-Date: Fri, 2 Oct 2026 11:39:11 +0200
+	s=k20260515; t=1790934001;
+	bh=17lU94YXE4bG80jZVpJ+wbF3IZBR7FYU5Lqe5PbQH98=;
+	h=From:Subject:Date:To:Cc;
+	b=ZQlu2FBul7r4wVH0JdVhzpSfdOvan4x267lFa4BvEuahbasYDa+xKkTmg+YP6k4Y7
+	 /ScDfS/jv5R/oAaEcDb/caRsNfHqBIkGHLpQmeCojpTi0XI95rWevEXZke4geX4xgh
+	 tkkQN+7YpuyK35lkv1LtA/aY0O8XhyaolVDNaS2rLWaXfbyUfQ8zaTMpmWMws28seu
+	 68vWA7a6iwQDeNEK3B8sh8womMNh3af3cGkvZzbCUrnE6W61TRctdKwvyrbKf1h4/o
+	 C30g5mppNg62hRdbxgPYvr/HD3wn3wCAViCg3acpP0N3DHBhyTQTsazIjnnzAR6zOd
+	 hrZobGDd1YcvQ==
+From: Mattijs Korpershoek <mkorpershoek@kernel.org>
+Subject: [PATCH v6 0/2] Add support for SA8255P in the qcom-qmp-usb phy
+ driver
+Date: Fri, 02 Oct 2026 11:39:36 +0200
+Message-Id: <20261002-phy-qcom-qmp-usb-8255-v6-0-bb7dfc5636b4@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/6] dt-bindings: arm: keystone: ti,sci: Add
- ti,tda54-sci-pdm compatible
-To: "Padhi, Beleswar" <b-padhi@ti.com>
-Cc: nm@ti.com, kristo@kernel.org, ssantosh@kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- afd@ti.com, u-kumar1@ti.com, vigneshr@ti.com, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, devicetree@vger.kernel.org
-References: <20260930194131.117129-1-b-padhi@ti.com>
- <20260930194131.117129-3-b-padhi@ti.com>
- <20261002-observant-prudent-booby-eac28e@quoll>
- <ac1d3bae-81c5-47b6-99f1-50e5b06c1a86@ti.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <ac1d3bae-81c5-47b6-99f1-50e5b06c1a86@ti.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4XPTW6DMBAF4KtEXteVGf9n1XtUWdhmCG4bIHaCE
+ kXcvSZdlAqhLp80872ZB8mYImay3z1IwjHm2HclqJcdCa3rjkhjXTIBBoppZujQ3uk59Cd6Pg3
+ 0mj01ICW11ijLdKh9sKTsDgmbeHu674efnK/+A8NlxuaJNuZLn+7P4rGa5/7rGCvKqKmNBGcll
+ 7V/+8TU4ddrn45kLhlhydgtBgrDvQqgnJDamBXDFwzAFsMLg9qUr5kXptErRiwZscWIwjjLWCU
+ a54VWK0b+MpbxLUbO14CsEMBzUeEfZpqmb3gxTQPpAQAA
+X-Change-ID: 20260708-phy-qcom-qmp-usb-8255-9986907cdbc9
+To: Vinod Koul <vkoul@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>
+Cc: Maxime Ripard <mripard@kernel.org>, linux-arm-msm@vger.kernel.org, 
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Mattijs Korpershoek <mkorpershoek@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Sriram Dash <quic_sriramd@quicinc.com>, 
+ Shazad Hussain <quic_shazhuss@quicinc.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3937;
+ i=mkorpershoek@kernel.org; h=from:subject:message-id;
+ bh=u5VE9aW+oZTiOwa+V4EBAsdkjKqtrA1ZKytj65kaAwY=;
+ b=owEBbQGS/pANAwAKARkNHbRmThk1AcsmYgBqv3vvf6Nz0ForEaxKyO7xqkgsdXKvSmTKExKSx
+ OnpSH+EBfCJATMEAAEKAB0WIQQu6UKnth9qvlMTrQAZDR20Zk4ZNQUCar977wAKCRAZDR20Zk4Z
+ NV6TCACaEzcB2oIgGvjCbF/mQQhX9wpkA3RhOnklOz+EGi6s98XDcJ6izKnmc+/DLpumStxdKYP
+ Sv6ZN3UYHzKNLP2PhQGQFzs1ydJkH9aS0glqqT7KwS8V95lrsbsBOHb89WkCginpVFb/G7p0I3z
+ lCqtZpXlnlHn8ood9WAk4CkmH5jw9WrkqcmjiXvmMW1w/MaXrmTo3L5Nxg6S+QF66TH187Tjgn0
+ 9S2C/tmpYN+aLIKVbeBzaay+o/7fOnGx9cn7hJbC+NcdGyJjdZxm2kSdPMIjme+sk0cFm3bj/C4
+ hoxbhHLv+fzK2/HoCX6vlw2M5gWS3XGi7pwhaLdtvk9jL/iA
+X-Developer-Key: i=mkorpershoek@kernel.org; a=openpgp;
+ fpr=8234A35B45C0D26B31C1A2DA570338B018144F28
 
-On 02/10/2026 11:30, Padhi, Beleswar wrote:
-> 
-> On 10/2/2026 12:01 PM, Krzysztof Kozlowski wrote:
->> On Thu, Oct 01, 2026 at 01:11:27AM +0530, Beleswar Padhi wrote:
->>> The previous TI K2G and K3 architectures were tightly coupled systems in
->>> terms of Safety and Security. All the TI-SCI messages from HLOS (Linux)
->>> were sent to a single sec proxy thread terminating at the core running
->>> Safety service (DM). In K2G systems, DM handled both Safety & Security
->>> requests by itself. Whereas in K3 systems, DM serviced the Safety
->>> requests itself, and forwarded the Security requests to core running
->>> Security service (TIFS) on the HLOS's behalf. This posed various
->>> limitations:
->>>     a. Increased latency: An extra forwarding hop through DM adds latency
->>>        in requests and responses.
->>>     b. Freedom From Interference (FFI) concerns: Having Safety service
->>>        proxy Security's requests (& vice versa) undermines the isolation
->>>        and FFI of the system.
->>>     c. Potential Deadlock Scenario: Forwarding messages between Safety
->>>        and Security cores can result in a deadlock if there are circular
->>>        dependencies.
->>>
->>> To eliminate all the above limitations, the TI TDA54 class of SoCs
->>> introduce an architectural change: Isolation of Security and Safety
->>> services. To realize this enhanced isolation in hardware, two
->>> independent sec proxy threads are now provided for HLOS to communicate
->>> separately with the Security and Safety cores respectively. And the
->>> TI-SCI message forwarding has been eliminated in Software. The System
->>> Firmware ABI5.0 version necessitates this improved isolation and FFI
->>> change.
->> I don't get at all how above description helps to understand this patch
->> and this new compatible, except that this is not compatible with old
->> variants.
-> 
-> 
-> You just answered your own question.
-> 
->>   So 30 lines of text instead of 3?
-> 
-> 
-> The existing system controllers have been compatible in all TI SoCs
-> for over 10+ years since Keystone generations. Using 30 lines of
-> text to explain "why" the new system controller is not compatible
-> with old variants is worth it.
+The Qualcomm automotive SA8255p SoC relies on firmware to configure
+platform resources, including clocks, interconnects and TLMM.
+The driver requests resources operations over SCMI using power protocols.
 
-If you decide to spam us with a lot of description, including marketing
-crap ("To realize this enhanced isolation in hardware", "this improved
-isolation") instead of writing concise and precise messages, accept the
-outcome of maintainers choosing to allocate their time in "improved way".
+The SCMI power protocol enables or disables resources like clocks,
+interconnect paths, and TLMM (GPIOs) using runtime PM framework APIs,
+such as resume/suspend, to control power on/off.
+
+Power domain "core" controls the GDSC, resets, and TLMM (GPIOs)
+whereas power domain "transfer" controls clocks and interconnects.
+
+Patch 1 adds the binding for sa8255p. Similarly to what has been done
+for I2C [1], this is a separate binding.
+
+Patch 2 adds the driver change, which is based on a public vendor
+patch from qualcomm [2].
+I did the following changes on top of that:
+* Use devm_add_action_or_reset() for dev_pm_domain_detach_list() instead
+  of implementing a driver .remove()
+* Drop the .lanes struct member since it no longer exists.
+* Re-order some functions
+
+This has been tested on next-20260706 with a Ride4 SA8775P board that
+has SCMI firmware (which is compatible).
+
+[1] https://lore.kernel.org/all/20260617-enable-i2c-on-sa8255p-v7-1-ad736dbeab57@oss.qualcomm.com/
+[2] https://git.codelinaro.org/clo/le/meta-qti-auto-kernel/-/blob/LY.AU.0.1.0.r1-16800-gen4meta.0/recipes-kernel/linux/files/usb/0011-PENDING-phy-qcom-qmp-usb-Add-support-for-SA8255P.patch
+
+Signed-off-by: Mattijs Korpershoek <mkorpershoek@kernel.org>
+---
+Changes in v6:
+- Applied R-b tags from Krzysztof and Neil
+- Link to v5: https://patch.msgid.link/20260903-phy-qcom-qmp-usb-8255-v5-0-e251e22b341e@kernel.org
+
+Changes in v5:
+- Move 'core' as first domain, before 'transfer' (Krzysztof)
+- Reworded binding commit message to be more precise about the various
+  domains ('core', 'transfer' and 'perf') (Krzysztof)
+- Dropped Krzysztof review due to the above binding changes
+- Set .num_vregs=0 since regulators are managed by firmware
+- Link to v4: https://patch.msgid.link/20260724-phy-qcom-qmp-usb-8255-v4-0-a90014fab476@kernel.org
+
+Changes in v4:
+* bindings: Use additionalProperties: instead of unevaluatedProperties:
+  (Krzysztof)
+- Link to v3: https://patch.msgid.link/20260722-phy-qcom-qmp-usb-8255-v3-0-e789070b48f7@kernel.org
+
+Changes in v3:
+* Binding changes:
+  * Use a separate binding file (Krzysztof)
+  * Remove 'usb_' prefix from power-domain-names (Krzysztof)
+* Driver changes:
+  * Remove 'usb_' prefix from power-domain-names
+  * Moved sa8255p_usb3_uniphy_cfg before sa8775p_usb3_uniphy_cfg
+* Link to v2: https://patch.msgid.link/20260709-phy-qcom-qmp-usb-8255-v2-0-3b6c26a45788@kernel.org
+
+Changes in v2:
+* Driver changes:
+  * Fix comment typo tranfer -> transfer
+  * Fix print statement to add a missing '(' in the string
+  * Use dev_err_probe() in qmp_usb_domain_attach() to reduce log noise
+  * Fix pm_runtime_put_sync() order in qmp_usb_d0_to_d3 (Sashiko)
+  * Fix runtime PM reference leak on usb_transfer (Sashiko)
+  * Fix runtime PM reference leak on error in qmp_usb_init (Sashiko)
+  * Reorder qmp_usb_d0_to_d3() to mirror init ordering in qmp_usb_exit()
+    (Sashiko)
+  * Reorder qmp_usb_d0_to_d3() to mirror resume ordering in
+    qmp_usb_runtime_suspend() (Sashiko)
+  * Fix error handling in qmp_usb_runtime_resume() (Sashiko)
+* Link to v1: https://patch.msgid.link/20260708-phy-qcom-qmp-usb-8255-v1-0-8d852a9535db@kernel.org
+
+---
+Mattijs Korpershoek (1):
+      dt-bindings: phy: Add sa8255p USB PHY
+
+Sriram Dash (1):
+      phy: qcom: qmp-usb: Add support for SA8255P
+
+ .../phy/qcom,sa8255p-qmp-usb3-uni-phy.yaml         |  52 ++++++
+ drivers/phy/qualcomm/phy-qcom-qmp-usb.c            | 182 ++++++++++++++++++---
+ 2 files changed, 212 insertions(+), 22 deletions(-)
+---
+base-commit: 32b6ef9a5d0eca44f9cd91f52f4faa89f145a0de
+change-id: 20260708-phy-qcom-qmp-usb-8255-9986907cdbc9
 
 Best regards,
-Krzysztof
+-- 
+Mattijs Korpershoek <mkorpershoek@kernel.org>
+
