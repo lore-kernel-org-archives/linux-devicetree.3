@@ -1,137 +1,73 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8AB9B3B42CC
-	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 09:27:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1047847252A;
+	Fri,  2 Oct 2026 09:28:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790933257; cv=none; b=hrLLmkXUiimfY26Qaz7BR6IYhD6Qu1lhddSZRpn5MBiztDjdp3AhHViDYlDK0kwHIivE0e98Byk6ucKyCUWjbtCFoisu6IBOGhb2dwhYCDS+fmg712gOPCfl6bHPW7USzQARU9+WbQ36HHoyCJfC0U12TnP88bhhgVzqT+ov0kQ=
+	t=1790933291; cv=none; b=qArIDdDd4uy/QwUdIBqejLj4Uv0o1H2lMNsni5O1EGYW5olJLHRNNBVjjOPFLqWqzyYY6OeXpBhME2M8blwV2E9CqFMf0RJCUWnZPLgDnh9KSayh3R6zRkJzoSLRI3Mov6MeyYIL83GrVqRQ0KWWnvGlfEjF0m91kPx2Q3hkGFs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790933257; c=relaxed/simple;
-	bh=qut+HH5ndUJC86bhF49hMbk94W4adRwKuGOtXTsP0Sk=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=SCZ729uSGE6biiA71IagqI+EWwSEj2gtEuuM9uL3qPsR/amGg69aShqmnWrJkKt0cYZkr+6XM0gv8YgV2wHuP2ZkwfSpCYQkw4x5Egh7LQvYyR1LVf6pk9xPZqysRnklU63hP1aFDLwOoUD53GVWwzdHYoxBTukovA2yaJKiz7o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=dclVatYf; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1790933291; c=relaxed/simple;
+	bh=GhZLFjWh7++VbgqwiZXUPUiSt5lrvUXbGyf0Uee2g/o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FtgXIfCqX3PJfw4vUZHuRq0L9GPbotfU7My7z1XhmWzgnTaZ+ER1SAm56sDWU27ucBP/HOFHLStKhPLqDuNZE5k5IlTf3P5jckAXMTVvH5p4sUlA676GlMN9BQxKj23qtypPm5tqrbP9ARh9AzlkTqWzVT7jlQ8FMhB6wVayVw4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=dHN++6fZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="dclVatYf"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d8239so59269405e9.0
-        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 02:27:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790933254; x=1791538054; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Wv+98DicCIRnEF3119JyH5gfzpLGnB1aciy5iGQ8ki4=;
-        b=dclVatYftmEzVbRMF0gVD1Hr/lZtmx758A7/63xGb2eQ7usiNHj2F/b2cNi/6BZNPI
-         yWcOSBn/kd3d5m2HUjF6Rmv+UH6kCHreV+30TF0KNy70uWzbSqSxbdLptwz8OKJ9ymFV
-         ubGmhNDH5uMRTgfVA04MJJRJfJaaOTogFfOcXng3HlWwlemzf97pPNlegPZQSz4DYi5R
-         9lY/eBcALji4D6kwfVuZKCHJdj3EnaW09ZGjsK/+ZcepevG7WkeT36i4CNtRnb9prdY1
-         scjb9Eldo9YIoyw5Em+E3UlCVXVZ7/hFIX3DZW7y0lOwaOZSP4Li9ctezcfmkfrkyVbu
-         HOMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790933254; x=1791538054;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Wv+98DicCIRnEF3119JyH5gfzpLGnB1aciy5iGQ8ki4=;
-        b=cGuAKAN2jX0onaOumVbKDesXNdxLSsuNo0hEmPfd7zJ+CmFM5+8kt4Ua3P3Kg7nufs
-         +Gp6ZVXZhBPBO14Cq+AK1qbfbM+ENM3YZSFG35vuxq3lon3hrvvMpHLLTwv/rXw9LqzZ
-         unpp19Ugc+rXWI47V94V4saqp7xCvPoQEIxxcF74likf3WJMd576ktOxJ6h+TALgVGy2
-         nK2ReI2u1HHLxuulvnx0XyQ4AxcBv7DPYNpKRa2rKCXE3m9yfJkxERkBWLr2yvD9xSK9
-         5bmRKxoVF7yEw7tTIBtS0Ek4FrBvfa+Q4PUwnmaqlfTAjM8fOE614jDf/S8tv/7cq5pI
-         lxrA==
-X-Gm-Message-State: AFuF++m4xBsYvKKwc7uc2uCMHoSzZOSPSc26YnQO7qgpXMNXDPjFBoOx
-	jMyICiwG0B9u0iv+1cMTGLVEg0Qm1Zob8tscxf6Q0cIfnSQPjihrJ+FwyyOfwvRTmvc=
-X-Gm-Gg: AYBFou3BkYSXhL+XUf+5sRYsQXubRGLqQrWqVeT3Aqf4RG/00ZJk17oieaXAHfCGZZ6
-	FGZYhxOkAy38+yOWe/dOyXgbUnv8AfbJB9ZEnndM1F5+vida+nezi8XuJC/lpL43BmgwwjVKOCB
-	TxkXxH3zldEs9VHrtl9BqAs8pIeEhtVu72BN0A35iEdrkQbB2jXd7/2TvwUwZb/HG0srQ+Rl7Um
-	u88P31cEfjRLRyMM0hylUnSWMYWiyaJWkVRJJXwti3pfLo9qw0wsEemZ3Vrq0T8reMWPZuGXGSd
-	jnj4D9MMROvMYH/6LNF2J4pDArEceLGXkqIkdcZf1BesH3AGA0qA95qPkTkn9lUVzua9PvYYSEK
-	PT8yRM0GbhXsG3wF7MYvSmq+O0Ej4C7q8c9ny185PwEJB/LKalvr0MWxuiXCudlNTNyEiCUGOZW
-	j/+VH8oWZnTkMJ6oYOg7281cWJXynMRYyCf3gsSK+fHADc7hE7y5Nxvy/OFcarEsB4nxRpYZkEc
-	/xQj8LW818aEWr5uYemFfsCjpUZ+Op8QsgdnEy2
-X-Received: by 2002:a05:600c:3501:b0:49d:2562:d670 with SMTP id 5b1f17b1804b1-4a02757ab71mr39372915e9.14.1790933253544;
-        Fri, 02 Oct 2026 02:27:33 -0700 (PDT)
-Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a03ff6a82esm22443785e9.4.2026.10.02.02.27.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 02:27:32 -0700 (PDT)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Kevin Hilman <khilman@baylibre.com>, 
- Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
- Chuan Liu <chuan.liu@amlogic.com>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20260920-more-socs-to-support-clk_measure-v2-0-224382a429e8@amlogic.com>
-References: <20260920-more-socs-to-support-clk_measure-v2-0-224382a429e8@amlogic.com>
-Subject: Re: (subset) [PATCH v2 00/12] soc: amlogic: clk-measure: Add
- support for more SoCs
-Message-Id: <179093325187.2295112.1596878747647292092.b4-ty@b4>
-Date: Fri, 02 Oct 2026 11:27:31 +0200
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="dHN++6fZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEE851F00893;
+	Fri,  2 Oct 2026 09:28:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790933289;
+	bh=MdAeds9Rn5ejHFbGOvaWtfpF3b+9skQtlDhRS0wmEHE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dHN++6fZVpKjXzePoFtLfLd3/MqlUFPLOW1U1e8dt93RSSSgW1q2neMOPMS3mJaHi
+	 pBxoCtzdiDrUe6/lYaZcqjdoEfVUlCUFLCPOmw7rJMglfJFsNmglOaoQkDsQnnQD3c
+	 KRW3OOvNq/x6Z8GWn6YcqU+LxZF4rtj9e9CYv9R8=
+Date: Fri, 2 Oct 2026 11:28:02 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Wesley Cheng <quic_wcheng@quicinc.com>,
+	Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Subject: Re: [PATCH v2] dt-bindings: usb: qcom,snps-dwc3: Document the Nord
+ DWC3 controller
+Message-ID: <2026100256-enquirer-glorify-c80a@gregkh>
+References: <20260917-nord-usb-dwc3-dt-v2-1-8f88aa30c434@oss.qualcomm.com>
+ <CAMRc=Mf=Uw549oV0sAdkEKn0YWGbGs3WJDvwT9QT68Wof_M1jw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.1
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAMRc=Mf=Uw549oV0sAdkEKn0YWGbGs3WJDvwT9QT68Wof_M1jw@mail.gmail.com>
 
-Hi,
-
-On Sun, 20 Sep 2026 18:25:02 +0800, Chuan Liu wrote:
-> This patch series adds clk-measure support for the Amlogic A5, A4, S7,
-> S7D, S6 and A9 SoCs, listed in the order of their release.
+On Fri, Oct 02, 2026 at 11:47:26AM +0300, Bartosz Golaszewski wrote:
+> On Thu, 17 Sep 2026 19:07:00 +0200, Bartosz Golaszewski
+> <bartosz.golaszewski@oss.qualcomm.com> said:
+> > Add a compatible for the DWC3 USB controller found on the Qualcomm Nord
+> > SoC.
+> >
+> > Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> > Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> > Link: https://lore.kernel.org/r/20260901103300.60803-1-shengchao.guo@oss.qualcomm.com
+> > Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> > ---
+> > Changes in v2:
+> > - Fix the interrupt constraints for Nord: we also require hs_phy_irq
+> > - Link to v1: https://lore.kernel.org/all/20260901103300.60803-1-shengchao.guo@oss.qualcomm.com/
+> > ---
 > 
-> The clock names for the clk-measure channels are kept consistent with
-> those used by the clock driver as much as possible, making it easier to
-> identify the relationship between the clk-measure channels and the
-> corresponding clocks in the clock driver.
-> 
-> [...]
+> Greg: could you please queue this for v7.4?
 
-Thanks, Applied to https://git.kernel.org/pub/scm/linux/kernel/git/amlogic/linux.git (v7.4/arm64-dt)
+Sure, now applied, thanks.
 
-[07/12] arm64: dts: amlogic: a5: Add clk-measure controller node
-        https://git.kernel.org/amlogic/c/b937611475a0ac7e272881cdacebbeee70378ff0
-[08/12] arm64: dts: amlogic: a4: Add clk-measure controller node
-        https://git.kernel.org/amlogic/c/a108ff38da17eab6b0ad9b0fe989c1be57a96d0e
-[09/12] arm64: dts: amlogic: s7: Add clk-measure controller node
-        https://git.kernel.org/amlogic/c/16bdad08362bdd71b868dd02bfd19b0df99c0e97
-[10/12] arm64: dts: amlogic: s7d: Add clk-measure controller node
-        https://git.kernel.org/amlogic/c/6eb7132c8fdbc84b659f919d22d988e57728aa66
-[11/12] arm64: dts: amlogic: s6: Add clk-measure controller node
-        https://git.kernel.org/amlogic/c/fcc9787c5835325d89522eabaae5e2ee71fc22af
-[12/12] arm64: dts: amlogic: a9: Add clk-measure controller node
-        https://git.kernel.org/amlogic/c/520766a407c236b462c59d69b3923bd30fc3b20b
-
-These changes has been applied on the intermediate git tree [1].
-
-The v7.4/arm64-dt branch will then be sent via a formal Pull Request to the Linux SoC maintainers
-for inclusion in their intermediate git branches in order to be sent to Linus during
-the next merge window, or sooner if it's a set of fixes.
-
-In the cases of fixes, those will be merged in the current release candidate
-kernel and as soon they appear on the Linux master branch they will be
-backported to the previous Stable and Long-Stable kernels [2].
-
-The intermediate git branches are merged daily in the linux-next tree [3],
-people are encouraged testing these pre-release kernels and report issues on the
-relevant mailing-lists.
-
-If problems are discovered on those changes, please submit a signed-off-by revert
-patch followed by a corrective changeset.
-
-[1] https://git.kernel.org/pub/scm/linux/kernel/git/amlogic/linux.git
-[2] https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
-[3] https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git
-
--- 
-Neil
-
+greg k-h
