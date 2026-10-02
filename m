@@ -1,180 +1,171 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D572C472083
-	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 09:22:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6F53459AF9
+	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 09:23:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790932974; cv=none; b=hlf/lgkroC61Y4sh5F64lwokhRxSrUDX7ePLs2LUmH9vSABcZXrrKvLGm0CDWWVX9W8OU+UM4Vi9ZwKIdirvCd6tyU3IJXNVzFUPU2bCq6mEpuw8bBF8WV4FdO9Ga37zeY/DVYONeTwTdMuekc8P/eb/CQisUusHdY/Y4mdAWKs=
+	t=1790933015; cv=none; b=RnHnk7bZNEAz2y2y5m9Wjt6RweZCLGY+O4F60OnK1QEDpYf6+XqeidT7TnmIRWj4q1j5T2tBiUmKDvo5QpdNo/CFh7mAeiKIn6TTP0zlQkr8gsVRq6x+Uzhjv2l2r4Zc9nQLH7BQt2iqyNvyHqWAjiWwX+pvbJC7MN4iy3SAays=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790932974; c=relaxed/simple;
-	bh=4SJLPX+kwQBXDmR7raZp5aqQUkMqAt7w1SUMljxgVVQ=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ttZXiUEY2zC3C3FRSQ4LG5p/gDEyYBNwUJuiaVdXsqH2M3SFuNLZMIwHbyoA0UR6NJwfDvRTDJtoLe7jNRqsndfSeQHGDEiMGf8T4g7fDfCnk6v5RX5XuzeZPYSlihm6h1j+iTEzPmXPklicPtldcgfdd7SBYM1WO1NfpPBJ+Mg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WZchkmoI; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XscINgpC; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1790933015; c=relaxed/simple;
+	bh=zCRd6agWEG/52CFMUjeHuWFXDWmS0N7YyZXGVmbBjuQ=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=jbf9PQgPL9Mn1oDTdTE7EH4jQEem09GCxh1rgW6koo8vU+8AFImTm4MEVHZrPad+Y+/j7MGALComYm8y19IQ6vHILYv1lidPwrhOM7TET99gtPEHo4F7+z5+X0ieHnVu/gWYAw5f6NH6g6E5PWQZu6dqZBnDg7zaSFMcIZkzcyE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=wYHXuqC8; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WZchkmoI";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XscINgpC"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6925j7Uf233761
-	for <devicetree@vger.kernel.org>; Fri, 2 Oct 2026 09:22:51 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	/iqJLw5FjSYIhQ1eY3WdJE1c1w6PX4NxQm6ZY7VQdn4=; b=WZchkmoIHU+qjvdF
-	/Z4KPTEmCXryerWgvQ5fMse1US/iYI3wSkEpZRyO9WGoPqieh/8rC8ZVWMQR53lr
-	vVUFk2iL9fQeVLXDEmpuSo2Js7cVYiLeHQqNpb43C20c5ZUmXn2YarQfNNEkG68t
-	+7SQlclilqHXNy9DFUlBTX1FjK5EJXg4SQcaCzFuK26QOVxPZ0AbXZP7oWjPQD0T
-	01n7maRnfDajUkzt6JUfyhrzIJ+C0DdXjqnhRFMAOXFoHjGtujKRYPlcgJxlaRpz
-	HFuP6osAGmZzvF542wWwco6DJXMEycU3I/dZwr3M6huYJgtvbMSyVIwZTtx1OfDV
-	dEaXfA==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h1t9abeer-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 09:22:51 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3a0be20102fso7249677a91.0
-        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 02:22:51 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="wYHXuqC8"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ce364488dso13393395e9.0
+        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 02:23:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790932968; x=1791537768; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:subject:cc:to:from:message-id:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=/iqJLw5FjSYIhQ1eY3WdJE1c1w6PX4NxQm6ZY7VQdn4=;
-        b=XscINgpCRW7UUjRhn//yNfqH0y+yzM2kmk88wBDW34FyMjaw+ugw3c945x0UWhxNNZ
-         OBQSkK5c9tTvsysYSZ58cjFpfi180GnNWsKqt6PJ/8pWiSOw1l+nCcK8LqGe5x8CRWrj
-         /v9RBZlRfuIqXGcvNB/f7y1YRUIPdYXyrb0s/ccl/wLW9dF3BHEXWn8Np5s3ToLVlXji
-         HZmolU6PI4CqkYZ/sAP2bkxI3KrwAek8+s2rtLgTyVgyOu/qaII4sgIpM9giGgfF8XgO
-         L6gdOaPUql/wg4QY3UvZmIsTJm4DdJH88FDCHN+vP3oHMHfJjJbI4uROiFHzF49ROrva
-         ha2A==
+        d=linaro.org; s=google; t=1790933012; x=1791537812; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KH+uJZ38NeAYqKlocKuGqs/9s/QvL8xhydhkHOyMLZ4=;
+        b=wYHXuqC8AOacDM0YJdYRIC/JMKupZGcXhDmtsrQ5A7Da9L7QdlgwLdY9xyWMNqjyfY
+         3V77WQmHngvjFeIgW4k/NPTgX2W9rEAa/G7yW2jXOWPu11yfdMewmMVoD9ORyiUzXjf6
+         HHpCVQXhhjphZM3IhJ00qgcks6+l4/79K4rZBRthb/QNpgAX19k1FdxvnK6+VcAcTYx3
+         1yqbN3qeb4oi1mod7QngxJ12HPZ9lJyVnOuISBvcjYQgDqNVHGaGgLB/LqkUTvXPwrqG
+         Zci6DwtdRsJva6JR+Xav2mBFRimtq2maUZ3gwa7u4hAyAPhOuSb/b1TDJW31USrW95iR
+         dmqg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790932968; x=1791537768;
-        h=mime-version:content-transfer-encoding:content-type:references
-         :in-reply-to:subject:cc:to:from:message-id:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/iqJLw5FjSYIhQ1eY3WdJE1c1w6PX4NxQm6ZY7VQdn4=;
-        b=E4EVdEsyMz1MLJZw/oFTg5R/NWIADMlUxPZwo3CoucCPsMcyQdFADUfmkVqaTnOvIm
-         4pqU4UVCAsTEHJMZ5CP1ZwK0/Uokp6BGxz8zarsmrDwW3/DFsj695r+eN3npFk9Py7is
-         Rq90VS/mpBOVKwR/iyNxUpDAJYt84b1xTE5n32RQs/Wq+l2Eojog457Sw0X9YwpEGXH4
-         DqqiO5W39XUm8Y0yTJUcmxtekz/MQWV2WPZ7GuSbt2QlzepyJwQnJBaBsQM4Hnw60lVI
-         VjKD+sk/egWzhgc+xFK6/yzRER78EcU9PHcg/OVDalh4nNA0vCDJIxEIXvkVz6Z5xo4q
-         m3Mw==
-X-Forwarded-Encrypted: i=1; AKwUvBwNT3fKlnDMqUPKuiBjAHY9qOXNeCr8RS7ifLEG+BbjgW16wNNXwSU22gE4Gh+SsS+w2asu8vUSoc43@vger.kernel.org
-X-Gm-Message-State: AFq9FYK6b36Oe3hzVHajDEraOzZKUIcwcvirFWPRVVhI164uKr8fOF3G
-	J+NVNySOrje1bVNASgWhwjUdjMG7dVD5WsiCy86USTuhR/bfe97R4HaK8VZHz27S/QJo9XTPiBH
-	JyP9LmOcNM2ctX5iuPUeHjMMdNL6iHyGqEgy4rKJMwEQTQoVixBK08yCqBUe4W3so
-X-Gm-Gg: AYBFou1onK6dnjLqcSrrUilDTjMxCR2fsqGIUpt1NpYxnPxyLx9UpedXGRbv+YYY699
-	hlzzMOiSstz6f49iVtG60pMIg2aiUGVvZ8tqQ5GhdvKg6WPMhgftEhN8fet4iFl0gX4r2eLIz2t
-	Ul1ymxnNA4PG+/5rq5eZMdofbBpOLC6w0llqLXFyDzIyBMb1VACSoZnc45q0Y4I8NpuQLdYliOX
-	0Un9EssXzDF7cJADy03sk2hkfTQuRK1EOplGViR6TFSBXcL+7Fo1Gp+KjqwgH9vC51uzCozx1Vm
-	2WvjqfRYlxEcOHqfjEqC5mFcEnvuyuON8LWRxnEJKXzyC7xmDJM4u+19zxFqeuk3O+M/kDm/yMt
-	B4LO18owUo52R
-X-Received: by 2002:a17:90b:1e42:b0:39e:6c69:f47e with SMTP id 98e67ed59e1d1-3a6cec7cd2fmr1834296a91.61.1790932966364;
-        Fri, 02 Oct 2026 02:22:46 -0700 (PDT)
-X-Received: by 2002:a17:90b:1e42:b0:39e:6c69:f47e with SMTP id 98e67ed59e1d1-3a6cec7cd2fmr1834240a91.61.1790932965653;
-        Fri, 02 Oct 2026 02:22:45 -0700 (PDT)
-Received: from localhost ([2a12:a305:4::30fb])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a6ee4bc6d7sm616096a91.3.2026.10.02.02.22.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 02:22:44 -0700 (PDT)
-Date: Fri, 02 Oct 2026 05:22:41 -0400
-Message-ID: <2f143e2e0698daa43191ff3463e604d2.guodong.xu@oss.qualcomm.com>
-From: Guodong Xu <guodong.xu@oss.qualcomm.com>
-To: "rkrcmar@qti.qualcomm.com" <rkrcmar@qti.qualcomm.com>
-Cc: Heinrich Schuchardt <heinrich.schuchardt@canonical.com>,
-        "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-        "linux-riscv@lists.infradead.org" <linux-riscv@lists.infradead.org>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-        Paul Walmsley <paul.walmsley@sifive.com>,
-        Conor Dooley <conor@kernel.org>,
-        "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-        "spacemit@lists.linux.dev" <spacemit@lists.linux.dev>,
-        "sophgo@lists.linux.dev" <sophgo@lists.linux.dev>,
-        "linux-kselftest@vger.kernel.org" <linux-kselftest@vger.kernel.org>,
-        Andy Chiu <tchiu@tenstorrent.com>, Florian Weimer <fweimer@redhat.com>,
-        Peter Bergner <bergner@oss.tenstorrent.com>,
-        Zihong Yao <zihong.plct@isrc.iscas.ac.cn>,
-        Mark Harris <mark.hsj@gmail.com>,
-        Aurelien Jarno <aurelien@aurel32.net>,
-        Andrew Jones <andrew.jones@oss.qualcomm.com>,
-        Conor Dooley <conor.dooley@microchip.com>,
-        Jonathan Corbet <corbet@lwn.net>,
-        Shuah Khan <skhan@linuxfoundation.org>, Paul Walmsley <pjw@kernel.org>,
-        Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
-        Alexandre Ghiti <alex@ghiti.fr>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
-        Chen Wang <chen.wang@linux.dev>, Inochi Amaoto <inochiama@gmail.com>,
-        Randy Dunlap <rdunlap@infradead.org>
-Subject: Re: [PATCH v8 01/11] riscv: Add B to hwcap and hwprobe
-In-Reply-To: <DLRWB8R7P6SF.1XIL0OXLZ2F23@qti.qualcomm.com>
-References: <20260920-rva23u64-hwprobe-v2-v8-0-5f14bc5c23d3@oss.qualcomm.com>
- <20260920-rva23u64-hwprobe-v2-v8-1-5f14bc5c23d3@oss.qualcomm.com>
- <9d058591-466e-4c06-a820-b8ecc7d319a6@canonical.com>
- <15151b8ab012ca7444d4117e393cf999.guodong.xu@oss.qualcomm.com>
- <DLRWB8R7P6SF.1XIL0OXLZ2F23@qti.qualcomm.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+        d=1e100.net; s=20260707; t=1790933012; x=1791537812;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KH+uJZ38NeAYqKlocKuGqs/9s/QvL8xhydhkHOyMLZ4=;
+        b=pzH2iWn8jkkcLk9C0y3vN6Va4zFeMu79cH/EwLTWUNpSpCBkY19Cyq6B8AEAY23tBP
+         jYzL0r5tACbj38PBAel0IyKmK/i2EwrLN9hwFdHFWKzoFk8pVOny0nTp4Lia1ZQcg/nR
+         vLde6D8cJmnItycN7qrkMrB1tki8OeCXQit9vtf4Q48ZZll2rklPjJQ3JI5DY9ZfKm2k
+         bERq8GVTdJ0tNr6txz4SHVU2wQyTLFFEzYlDww2Gqrboyj145JYgHFTZGdLuseW7uE2y
+         neDKe6SnP2ccl2AcUcSi5RhbweOjQk5B7wjkGCpahzrWi3sJCJJ6hyIbLABpIT3pMhAj
+         HOZw==
+X-Forwarded-Encrypted: i=1; AKwUvBz+X+sEDDtOQo00ZnHXn2obpynovK6SETMXjNXiO+IbZU/E18B3lCCCV5mYq2Zf0amk1jnWlW8ohPFg@vger.kernel.org
+X-Gm-Message-State: AFuF++ncpA/xv81xEXBSqfeM2BHTQSYHI/jrqUqhv12LVBtbnfcfnqAT
+	Sz6l+X7tRAz+hwXU0EjeHvzaR6pU08YOVicAYhuqHHTQKjPkzJ+h4rwe2fixLry5IkI=
+X-Gm-Gg: AYBFou1TkRf86ZjFIGH2skrlJJ51Txy6y+ySoqhHaaJPTKeOmg/kgscy2O52pOLPBtK
+	pUB5FaqSBdvQNfGoziLnf/DSiKgIcsmu+no65/soDC0wxg8MMEPovzMDs46EdtcYk96M6c+hqGr
+	gqISwh/Vv9p9YqPQxVke0WZhme8e3AxT4JGczS51rkjt4PTdD0zCZujN3vbB94FXgdLgUPRuqqW
+	/oSmcm1LPYWprFvoEwFUeH0LYmiJvzNM1SlzJeZKY1lOCiKnP6x5ievq/gPpwIP//JR3t/Et7xB
+	wkscgex2HVFrqXoTlckkjout3MuSHXLe+qAgQ5bCXChRow5sbarqJgHq9NsSKMpjDLTfmU4AFWm
+	Ismw0JUAvtFAOltim6N8rZUgGsSxYP/32IjHdK9Yi8c2SXB7qwFqMu7CYTwYntv4xV5fORnqaDa
+	G+UUoGoWYDKOJXgWQ/Da/I16qzI91lcHiK/vC1aEAj8w8LlOZEL0OrJ+/q4hbzd2mo63q1C8EJA
+	iBQNXb04PizboOrf8AQdFFlqMdjaPuekKzWWBbbQPk29mW/aTZ2hpXuNdgG5w==
+X-Received: by 2002:a05:600c:19cd:b0:4a0:22d5:21af with SMTP id 5b1f17b1804b1-4a027564f48mr41402045e9.15.1790933011804;
+        Fri, 02 Oct 2026 02:23:31 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:2f62:6d3:721b:8c9e? ([2a01:e0a:106d:1080:2f62:6d3:721b:8c9e])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0276fa954sm68526245e9.3.2026.10.02.02.23.30
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 02 Oct 2026 02:23:31 -0700 (PDT)
+Message-ID: <143f8d6b-7c11-4a63-9c9b-36758b3ef635@linaro.org>
+Date: Fri, 2 Oct 2026 11:23:30 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAyMDAzNyBTYWx0ZWRfXxMqAy2Nfh8Jp
- BvAvSYAkdmpw/ZKzwD0Yy8P79MPUKSmaGis71H5koFwAmVpc0Qpi9TGJ7+YUwmYbVZWua+CCqn1
- h51/+LgxqAabscQtG9ZYIsx0g571WV8=
-X-Authority-Analysis: v=2.4 cv=N++8hG9B c=1 sm=1 tr=0 ts=6abf77eb cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=xvfqbYfxAAAA:20
- a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=iwpyHwDBbu1AC0YlxIwA:9 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22 a=bA3UWDv6hWIuX7UZL3qL:22
-X-Proofpoint-ORIG-GUID: YkRHunlnr6DkThwxmAR1z_JgFEO9oQoS
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAyMDAzNyBTYWx0ZWRfX3KzH7ztpYNyJ
- OeTDq6Pw2WgtP38Zoqd+MOZYeDU124JmA7pV8HqiD3gwzBtJBDsNRlq0XcqBUpobqjoK6RQ//XC
- 4r/xMiEsvcJFdoqyXjzuUY+itII9D6N1bFDM4eOfbDgv2fH3Ra1kqulppYPVT4LuwD46RGsoN6K
- RaRXBDTH16bhBkml3gf8Oy/iDJ1OG6fsrMuIvpjv0rBN1KmFKfrn696Y4K8pTpkyVgKDKR1sol9
- btyKTpfQUXXXKQO7ERdHxPtEHeKYY2x35bXR3D3f7HWWS0lR93T8hnvAtKYAE+dSTPV/L5TCLlJ
- 6joYoCv0WDYinGiIR1Py3to4H4NvqYQDo6JYccyAsY96z+ef5hYK1HuUs1Ms18Foe4wLKgwgZLl
- UE68ZG0HFlTlhaAsNCnbTuax3jQaafjrOO4t6W555hjjHzzAipdQaphMOQVPh2q10nlTN3C+Slw
- a+JGggivklgXB6wbL1g==
-X-Proofpoint-GUID: YkRHunlnr6DkThwxmAR1z_JgFEO9oQoS
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-02_02,2026-10-01_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 priorityscore=1501 adultscore=0 suspectscore=0 lowpriorityscore=0
- impostorscore=0 malwarescore=0 clxscore=1015 bulkscore=0 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610020037
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH 1/2] arm64: dts: amlogic: meson-sm1-odroid-hc4: mux the
+ SPI NOR HOLD# and WP# pins
+To: iav@iav.lv, Kevin Hilman <khilman@baylibre.com>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Christian Hewitt <christianshewitt@gmail.com>, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260930-hc4-spi-nor-v1-0-9a3351e2984e@iav.lv>
+ <20260930-hc4-spi-nor-v1-1-9a3351e2984e@iav.lv>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260930-hc4-spi-nor-v1-1-9a3351e2984e@iav.lv>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Hi Radim,
+On 9/30/26 18:52, Igor Velkov via B4 Relay wrote:
+> From: Igor Velkov <iav@iav.lv>
+> 
+> The SPI NOR flash uses six lines, but nor_pins covers only four: data,
+> clock and chip select. Nothing claims HOLD# (BOOT_3) and WP# (BOOT_7),
+> so they keep the boot ROM setting. After a boot from SPI they are in
+> the nor function and the flash works. After a boot from SD with the
+> button under the board, they stay eMMC data lines pulled low, and
+> spi-nor reports "unrecognized JEDEC id bytes: 00 00 00 00 00 00".
+> 
+> Mux them in a board-local group. nor_pins is shared with boards that
+> use BOOT_0..7 for eMMC, and the HC4 has eMMC disabled.
+> 
+> Tested on ODROID-HC4: after a boot from SD past the SPI, the flash
+> probes as a 16 MiB mtd0 and reads back correctly.
+> 
+> Fixes: 7178f340e929 ("arm64: dts: meson-sm1-odroid-hc4: add spifc node to ODROID-HC4")
+> Assisted-by: LLM
+> Signed-off-by: Igor Velkov <iav@iav.lv>
+> ---
+>   arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts | 12 +++++++++++-
+>   1 file changed, 11 insertions(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts b/arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts
+> index 3ece30a0a1ff..5ce76a1bfe02 100644
+> --- a/arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts
+> +++ b/arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts
+> @@ -124,9 +124,19 @@ &sd_emmc_c {
+>   	status = "disabled";
+>   };
+>   
+> +&periphs_pinctrl {
+> +	hc4_nor_hold_wp_pins: nor-hold-wp {
+> +		mux {
+> +			groups = "nor_hold", "nor_wp";
+> +			function = "nor";
+> +			bias-disable;
+> +		};
+> +	};
+> +};
 
-On Tue, 29 Sep 2026 15:12:36 +0000, Radim Krcmar wrote:
-> Are we sure that B will always be listed in the ISA string when Zba,
-> Zbb, and Zbs are present?
+Could you move this to meson-g12-common.dtsi instead ?
 
-For DT, yes. The binding requires b whenever zba, zbb and zbs are
-listed, since commit 0cdb7fc1879b ("dt-bindings: riscv: Add B ISA
-extension description").
+> +
+>   &spifc {
+>   	status = "okay";
+> -	pinctrl-0 = <&nor_pins>;
+> +	pinctrl-0 = <&nor_pins>, <&hc4_nor_hold_wp_pins>;
+>   	pinctrl-names = "default";
+>   
+>   	flash@0 {
+> 
 
-For ACPI there is no such check. But B is a ratified RVI extension
-and RVA23U64 lists it as mandatory [1], so any serious hardware vendor
-should respect it. Right?
-
-If the firmware does not advertise B, why should the kernel correct that
-for them? This came up in v2 [2], and maybe here I should quote what Conor
-said in [3], which I agree with:
-
-" Part of me wants to know why we should be going to a bunch of effort
-  to cover up for inaccurate devicetrees etc. Garbage in -> garbage out
-  and let them keep the pieces."
-
-[1] https://github.com/riscv/riscv-profiles/releases/tag/rva23-rvb23-ratified
-[2] https://lore.kernel.org/linux-riscv/CAH1PCMa-5W9PsX8cDLUk6-MkcM53HOz2QtaxCHd+XOr7DgH5+w@mail.gmail.com/
-[3] https://lore.kernel.org/all/20260604-decency-salaried-4cb69e1c9fa9@spud/
-
-Guodong
+Thanks,
+Neil
