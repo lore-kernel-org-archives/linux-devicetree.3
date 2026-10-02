@@ -1,100 +1,130 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011068.outbound.protection.outlook.com [40.107.130.68])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A8EF47F3B1
-	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 09:16:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790932595; cv=none; b=glrGLVOJvTOfvbOf0ojsj+GcuZEEXTI92Dv5AC/C+o4bZWbcg325e8jlM3gm1fRedkvOsfPDOJIwfrge7DarDUhTIqgw8GXq/052I1j1jcl3V+us/CzllQXgHhyquumtyOzG8vQ834YzsIJ9iChUZboZm1u8SKlmPi5FrZxR4Bo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790932595; c=relaxed/simple;
-	bh=wzEvL7aoXZ9DPdwZv8U1uHRR/rUu9UnMW0cqiOXa9sM=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=d+/cfN4bXNUIpm659xg1KRaaq/jWjMSSzi9Z52o9yKwDL3Nc/2ZJowO62wPXkkNT2FLjig7X3+G/9ESfWu0H64QsUTZ7cl2c/JOyyETUbn0CDMr8RkI/DFFvBuHOzX4XJKIX1bw77eP5nRwbehl58J42WSYtwnpSwrxNM7vi194=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ZG+QgGoH; arc=none smtp.client-ip=74.125.225.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4425C479864
+	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 09:16:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.68
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790932602; cv=fail; b=UwMzy6JdDFyB3Q7iZEmmaXjC/M+a/uSSksloE9kUC4RC3JotI+e2jx+6xF8PG09nSh1wdFCHUYtnchEarU0SRX9Uz74VpptN3zYOJQyrLVd+IDnjvA+LWSyPaW4dP6my7BN5sDOzBqt31gPU5cV54LpHhrKPoVHi3y+bE/ADgQg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790932602; c=relaxed/simple;
+	bh=r9B7oopihmuDaYXh3m7ktJ/iGxEwRDXZB0SF9J8p8Wk=;
+	h=From:To:CC:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=KHASLuXaT+vA2e3imn76bc9IO8gmJqyVVwEz8EcJhwhdNrU+SE2fMBeStTXEzblkwE97moPEtuqHHKwGnmVCedLyuEqgDtbkEe1H4hp/lw4md8ZxkoubPpT9v6fHccUei4JFFMZ1y8xC2MiLFCFcQ5/YUqmOurUmJXFLGevwZBI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com; spf=pass smtp.mailfrom=axis.com; dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b=GGx8rzMx; arc=fail smtp.client-ip=40.107.130.68
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=axis.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ZG+QgGoH"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-4885a1480a2so4417369f8f.3
-        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 02:16:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1790932591; x=1791537391; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=U9dZvdj5g2Xf7CgbEOngSTP98R8970sBXh4beZnL1CI=;
-        b=ZG+QgGoHvd4Ky5ZxCCKFq4DEmC8GKeSoQFb5L/x8fAPFfHLxKPAchXOkrlEG3Dr3VI
-         hAa08uSWVQJsIwbBd4QGesH+bn0b2xCzIhLlGLgWgEUncrAaYRmLNX3Svgwn0tZ3IFFD
-         cQ1tuPjWVMlFP38nBRH99PrgHdD2eJ2DDo6iJgzlMW05a6mva+7hd6DJWK+YPdCvFiWx
-         rhsyxFh7R4QzkoAfL8Z8eU6HhWvRNWSj/f62XWG5+3vqd7x/B4yIANPYigbWbOi7QxHZ
-         A5KQFifP4eH/sXjaEFL3T8Ft0xHPDwch9aADd59u7jK2zr3A6Mh9nwrmVMoOX3SCCT/z
-         YCVQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790932591; x=1791537391;
-        h=content-transfer-encoding:content-type:mime-version:date:message-id
-         :subject:references:in-reply-to:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=U9dZvdj5g2Xf7CgbEOngSTP98R8970sBXh4beZnL1CI=;
-        b=b3AD4s8asg6ECnjth8jepJLNAan+7LJlhGH93ciTLYqBo5IpZgOGN/7yJmTPx3BOjf
-         E3Uuzq5s97Vwr2DfqvaK6p+0+vUJ4j7eTyUjE9COFjNGfVd/S5AhFhNzId7ig0wY6d4P
-         ddFN64xcNRX0x0r6fc/CYGYb8LFptqE/umu1C1/JMF+ww6VP8dxp5+0Sf17Hj+5HwCQ9
-         MotxjX2HQ4I/PqU6azyOpF6ET682KKwHZ9W+Y8j2/opuXCWawTqm22gyBmJ8scl5Jq9n
-         epLINuxV2D/BI3RacoA+lzjfUQTRysebtqtq9Fh+jgW/tysEaaxSOFj9LMMkx4pLbQYM
-         UeMw==
-X-Forwarded-Encrypted: i=1; AKwUvBwxB5P2w8ZPQfoNY/39kCV17fyWl7I0BMF1f9uA7YokD2uZBKd27bMV0qXS5fGmmvMDOruuFXyXck9a@vger.kernel.org
-X-Gm-Message-State: AFq9FYIgUkE8pq7ZZ/qGd3HNGkp6uBbS4V/rwkyaiQVGo+2o6baSxQOS
-	wBY16jgaLwBL4gGITq+izTc1XadU+kuyGpFzG4lk6QzPkGGLXcuxUdMitvhF4bwOf+U=
-X-Gm-Gg: AYBFou28GCS5sAXsJuKVYFEF7HKMu8/4yrTcv/BATQUT0bCQL9oq88ZQ7iwPvoYjQKy
-	dF7JtKFKZCDpsAFanXxgu1+INwfkMUV8886JJ45Qe2O78yir2JLJk0pZsHPqfMXwzLnw4E10FZs
-	2Nct2+CVw/mOdqs2n+qn8L2snmjz1iE2a4/Qu21T0g1vlw9X24+Hc2FO3I1B7ztPAfUtUsA64C8
-	I7sGLE1QOteeVP1pWy60KAzz2u3Rg0cqvZnckWyr76M0cgZjapFGz46vnK9Ad1bdWUTyBFEOVAJ
-	MK40uLq7wBg1LC/E+qzMvV98rbBfeoKfnFHrgH7o9oSdfrsqGRobkuKmSeaZmZ9rrUX/uDdf4sn
-	dAnIS/CZSHnUJz9FFHthAbOgRo2BpeXtaOQ+31Fy3GQu93EcJm/lWmdpQ8qS9+D1AYnx0GujwbU
-	Zg/CVon+DReoZUSducJnw5MaRQVuZ7Tb5jrTssj+FwT/1wHd/HAWvO0yObAOBVZFWa/Tmrmjqaw
-	SHPsjiRL8pyhcM/vis=
-X-Received: by 2002:a5d:5e92:0:b0:48a:efed:ac97 with SMTP id ffacd0b85a97d-48b1271d746mr4025071f8f.33.1790932590900;
-        Fri, 02 Oct 2026 02:16:30 -0700 (PDT)
-Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b382f9ad6sm4461292f8f.40.2026.10.02.02.16.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 02:16:30 -0700 (PDT)
-From: Neil Armstrong <neil.armstrong@linaro.org>
-To: Jessica Zhang <jesszhan0024@gmail.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Alexander Koskovich <akoskovich@pm.me>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-In-Reply-To: <20261001-asteroids-panel-support-v4-2-fb228194ad91@pm.me>
-References: <20261001-asteroids-panel-support-v4-2-fb228194ad91@pm.me>
-Subject: Re: [PATCH v4 2/2] drm/panel: Add driver for Raydium RM69220 DDIC
-Message-Id: <179093258996.2282096.10304907203936947883.b4-ty@b4>
-Date: Fri, 02 Oct 2026 11:16:29 +0200
+	dkim=pass (1024-bit key) header.d=axis.com header.i=@axis.com header.b="GGx8rzMx"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YSuiVipL0CTL3AHV+wx/Dc/UzFHEFyPffgSB5cTJ/fqMtor6JK6V00ULsF3nsliN6aMGbVbHK9rkzCvPaDHvXM018tteWKJphTYc+TtHiKRJv7Ta1rOc8c0vS5Xr144y44Bkw1fs/78rwm2eIlmvSRXKe+6TvjVMk+4/GL5rKQD3O+I9bJbTVDZmdS3Cq+0YPI60TcUqYqnVX1TPfO54zmPXOCP+IZtNuFSp1pvID2Cu0SvZfWIo120Ne/DSqA2Um0qHnZrb7lsUpjI9MP4CIbnOuPHdrbh7OIBu7i97JyexX3Qxx1taY0aFNqs+zW4I4pH7QediPbI2LUEEcH5aqg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=r9B7oopihmuDaYXh3m7ktJ/iGxEwRDXZB0SF9J8p8Wk=;
+ b=LEw6yZVxn53TwKr90+oBEC27IGFjAn22W0ys0PYLXhtC9Ra3HZItobJ8oZdQdZ5M+0lyNbfzhnkRHqEYC7FeYybOuo0QlG1tKaolM3xdE1r7pyMwvVrtKJQ31Vj+NPQqOe/zA/ITYzTPvI0V1koDd+t6aWjyTxv0hJqlobzfts6pC/DqizXg83/LcDW06CRsBPOEu8Kzu7Dv1gXvq4D5gQ7fDzo0ZfOaTedeyAIplFvAcN+rg64XKk9/ApezQOSkDOFiUcgb7f8H14HNDHpbsM+VMZRTubAEA0XIxOdBCh+K9ihhkoxB/9JbyQwP5cE5+ieMYvtzLeIZ0ZdbfPpiIg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 195.60.68.100) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=axis.com;
+ dmarc=pass (p=none sp=none pct=100) action=none header.from=axis.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axis.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=r9B7oopihmuDaYXh3m7ktJ/iGxEwRDXZB0SF9J8p8Wk=;
+ b=GGx8rzMxDOHK7LVMcjejTDIMnKDv7g6P1ace2G1zqU5MuF54Og6bjbp6A3t4WVRAskT2hvVZEOUGN5uX/NjVDyrkWjoIPSd711ihbrhEem8kb667DebaCMXVntDS/BA0s2JrMAp2J/PfYowVP/lDyHcYUw30luXjgW80TOEypqU=
+Received: from PR1P264CA0179.FRAP264.PROD.OUTLOOK.COM (2603:10a6:102:344::6)
+ by PAVPR02MB9644.eurprd02.prod.outlook.com (2603:10a6:102:30f::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Fri, 2 Oct
+ 2026 09:16:34 +0000
+Received: from MI3PEPF00008557.eurprd05.prod.outlook.com
+ (2603:10a6:102:344:cafe::69) by PR1P264CA0179.outlook.office365.com
+ (2603:10a6:102:344::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.19 via Frontend Transport; Fri, 2
+ Oct 2026 09:16:30 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 195.60.68.100) smtp.mailfrom=axis.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=axis.com;
+Received-SPF: Pass (protection.outlook.com: domain of axis.com designates
+ 195.60.68.100 as permitted sender) receiver=protection.outlook.com;
+ client-ip=195.60.68.100; helo=mail.axis.com; pr=C
+Received: from mail.axis.com (195.60.68.100) by
+ MI3PEPF00008557.mail.protection.outlook.com (10.167.240.11) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.14 via Frontend Transport; Fri, 2 Oct 2026 09:16:30 +0000
+Received: from pc67007-2609 (10.4.0.13) by se-mail10w.axis.com (10.20.40.10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.39; Fri, 2 Oct
+ 2026 11:16:29 +0200
+From: Waqar Hameed <waqar.hameed@axis.com>
+To: <sashiko-reviews@lists.linux.dev>
+CC: <robh@kernel.org>, <conor+dt@kernel.org>, <devicetree@vger.kernel.org>
+Subject: Re: [PATCH 25/38] arm: dts: qcom: ipq8064: Break long property
+ array data
+In-Reply-To: <20261002091359.40B021F000FF@smtp.kernel.org>
+References: <cover.1790892852.git.waqar.hameed@axis.com>
+	<d8c979c34a5b49a7b83bda8101c5f74711a953a6.1790892852.git.waqar.hameed@axis.com>
+	<20261002091359.40B021F000FF@smtp.kernel.org>
+User-Agent: a.out
+Date: Fri, 2 Oct 2026 11:16:29 +0200
+Message-ID: <pndqzi85uoi.a.out@axis.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.1
+Content-Type: text/plain
+X-ClientProxiedBy: se-mail11w.axis.com (10.20.40.11) To se-mail10w.axis.com
+ (10.20.40.10)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MI3PEPF00008557:EE_|PAVPR02MB9644:EE_
+X-MS-Office365-Filtering-Correlation-Id: 033e7397-5c14-4ae9-1a5d-08df2065d861
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|23010399003|1800799024|82310400026|376014|56012099006|4143699003|11063799006|10067099003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	/wB8hR4ofOM53wJeynBVzrhDFS/kIqvA8kGHnyJkie6Gj5AHgZjyURY3rkgZslNKhr4mDdXFZ09nC0q649w2e2C0/OZACCV7opqAhprHsnAuRvXCEYeAZahbbkUFJC29w9+0pdro4qKE6mKSmG654rCNLMpimcnsygfjEqTBYzXWoDkxuP5DXnyXIB7iYlFSjXFN9SoEy9BP2RsicWTMVbe9UiFTiIT7PM4bTwgT7jsxxZJV9gvCRC4EZFfwjj0RKPDrQAbuj9TCgBpgYV6GpPsUuxJkdYGOaSWIBb82o+amZz2rrbWt+sQ0+eKfAIFCdoD6VsiVMD0ZsJiGbTxY2v/z2jQTlyJB5IRoN9xIAsKJwPoJDH5owvrGdskOaO9YHV4XMdaJeNiZNHjntMOzpuTnlhfBBUfo/0avaTwsFOEI9O+ie4rKLRsOtVyMs+udHD9xSPYzS1PJHigP5Zsdm599OoWPIvEHP0LRYuRwZaiyRkEkyUBWMLrOO8lC9Jp3pwewr7Hj3+E7Cmwh0tf3YWMrVBrJ2exICaxx9PYqPCrsGxzA01CuaB4JTXQeUVd0f9cSHtZxkxWaNHF57mBEXdeveLiIFjsuzr9hs6Vno/aY4CTjSFEGk+a0xWVQUDCJIdlf2if0HbbBBLjorDvJemFU6hGWE1uds99s7fjmEjEdoQiu52fpUV2El1d38y/6gxJ1vsMquUDFxbgQ+EbTzg==
+X-Forefront-Antispam-Report:
+	CIP:195.60.68.100;CTRY:SE;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.axis.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(23010399003)(1800799024)(82310400026)(376014)(56012099006)(4143699003)(11063799006)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	4V/h+XJYhsSWDtP8ihdyszX0715Sn6vqcpgM4rnIWCnvIRIG5u3fPvSQqSjMdowGTxJYiH6AIvb3y8qgEStAHwvIRIQlNKeRxyBhcNCUiciZjYu1KnTZKRa8+LFSsc5+SjJqUvVpEEd+4sELDQPTyZZkIk6bCoNOUDeHHZlnWPJomSTHN931uF67wDrss1APUfrTue5hcw4w1MklqgqjDS6rA6fO4j0YcuKef6bP7JshaEQx1kqbaxzxJhNZ2Dz+iT8xd4T3lTIffFb+Ti74hGpIijHmvz/wXYWJmGv5l7lXbxk/48jLCh4M8NbgkI1rv2s806I6qgQ6VnTN7XjzcBf625fU/2R4kHzxWjrN+zHl7sqJZofFdAL85qz9V9IAIFBXdhWEBZ0UcFesRxkZzrBRO5qDuI7Tj53XnLsy9HKV6jUWmE+p+/XU+Ju1DEYi
+X-OriginatorOrg: axis.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 09:16:30.3335
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 033e7397-5c14-4ae9-1a5d-08df2065d861
+X-MS-Exchange-CrossTenant-Id: 78703d3c-b907-432f-b066-88f7af9ca3af
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=78703d3c-b907-432f-b066-88f7af9ca3af;Ip=[195.60.68.100];Helo=[mail.axis.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MI3PEPF00008557.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAVPR02MB9644
 
-Hi,
+On Fri, Oct 02, 2026 at 09:13 +0000 sashiko-bot@kernel.org wrote:
 
-On Fri, 02 Oct 2026 01:51:46 +0000, Alexander Koskovich wrote:
-> Add a panel driver for Raydium RM69220 DDIC based displays such as the
-> BOE BF068MWM-TD0 found in the Nothing Phone (3a).
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Medium] arm/dts: commit message mismatch for msm8226
+> --
+>
+> commit 48c3f8677b03cbab24e050029b004bb3e0cca06a
+> Author: Waqar Hameed <waqar.hameed@axis.com>
+>
+> arm: dts: qcom: ipq8064: Break long property array data
+>
+> This commit resolves an awkward line break in a devicetree property array by
+> placing all elements on a new line.
+>
+>> arm: dts: qcom: ipq8064: Break long property array data
+>
+> [Severity: Medium]
+> Does this commit message prefix accurately reflect the changes?
+>
+> The prefix explicitly states 'ipq8064' (and shares the identical subject with
+> an earlier patch in the series, commit 0462db0355be), while the only modified
+> file is arch/arm/boot/dts/qcom/qcom-msm8226.dtsi which corresponds to the
+> MSM8226 SoC.
 
-Thanks, Applied to https://gitlab.freedesktop.org/drm/misc/kernel.git (drm-misc-next)
-
-[2/2] drm/panel: Add driver for Raydium RM69220 DDIC
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/54e61ea6c492d69a1717018826d8340810c812eb
-
--- 
-Neil
-
+Good bot! Will fix!
