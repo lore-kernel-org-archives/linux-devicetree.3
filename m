@@ -1,95 +1,61 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7BEB480321
-	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 09:14:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA3CD477295;
+	Fri,  2 Oct 2026 09:14:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790932474; cv=none; b=D5APWPr2hsLy7LCVqDq2P1rvgUuIUKo5gciKSWJEBvC0kJkTmBTSQfVzi4YEjLh4OeKg1G6fEQMLeWv5pabMo6CMDrvf0mFpfEBF+DVPPggR4lXPItOXTT0D50+QSrjvL8AVOFq70FAgoJWbUePZcy0xdvhLTv7JFlL7VZhX2Yc=
+	t=1790932480; cv=none; b=VKTm1nh4Xb/ahVc87zcWB6pudLra05kWuthLavUwvMqq/Gm1I9fhtAbc7ms3ENhAUpk0CpPtnoNbBbWKNmo7EvbLGTFwMyBDe4aEc9ZnCBLo/IG4DPDDCiIZSSZ7jpqu/ZLmz9T8VzFroSCQ7KKH1ypkXWqW+y933HNJjSjx3Bk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790932474; c=relaxed/simple;
-	bh=mQGEE5uoW5muh2aeWyrIJCtNORRMtrVhHqhZPU4ZbQ8=;
+	s=arc-20240116; t=1790932480; c=relaxed/simple;
+	bh=iHSjyGq/e0iutCNtTcNxMeeliuO4K+/92GD6Vv1maEI=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=QwFV1UKyg97DgBRK8rHXex3o9veMmJ9jl1JhIc/awkSFyEuhb5dL+pb9ngXmkHXQEe3lqv0a4Y7stBr5wR2i+CdFJog7+o+UZOn79FoYguIEwUd32Vd/iE1F52nOloSTC3c4Wpfhu6ogHhfO2Psx316MZqoGGdaWN2Sxq+ffZW0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l8n8wKw4; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=XTUtcsWeFi6wKRH+udLgM/oWifK+ERWS1VpR+/gb+Tt9nqQ/BMK4CsyXp97sI1GKTMs3srR4vdTQAE1uJgTy8JkqmAkvJ869gUAIck3EfxGQpxOgV6QoP3VvKmNfDS2ZLtYmv6Z0cU6Ht3Opd5neR806RXxMqpAayClhujnySDs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S+nofu8+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l8n8wKw4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FF8C1F00899;
-	Fri,  2 Oct 2026 09:14:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S+nofu8+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7677B1F000FF;
+	Fri,  2 Oct 2026 09:14:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790932472;
-	bh=OSBoHocnBC7myWVejLPUwgE7NV/ossFNA54QDtemtQo=;
+	s=k20260515; t=1790932478;
+	bh=iHSjyGq/e0iutCNtTcNxMeeliuO4K+/92GD6Vv1maEI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=l8n8wKw4597q1TjsaQ7qmyaHEywChrZy5/v5KTHHZrisnptTt7UHdJ6Zvz9eoY2+a
-	 C0Z/a5FSXyNqjjEl8XDsrLkFEi74q0KaSDtowot6T8gdo/5RARH/S0AcT+YTjISjlE
-	 VLtVv1Y22Lg9jEisjCI+FeohdOxCW39LUIH1aRT9K87xI/EYlaJ6PqMKkcZBFoBEkI
-	 +6QiBFibS2abRkcQLzOJGycujEvH0mECfISOpNtCuzrYyxwEv3JMxwRfvG0A60uY2t
-	 sPm05KeFpd3iNuU8E9OzDck/BK3ADewC7cvx6CQGnATqXoGMx4eolu4jVJYNL142v7
-	 dEdfKDW5bNt1w==
+	b=S+nofu8+u+ZtkKIiZZ+KHacEx8Wq5NRKuaUg129XVW+3t60/Dhke0A0ewdybeBOLS
+	 ywrYhiNmfl9JYO78s4c6gJK05LT44V1vFmd00CvmimLjnrWw/yAKcmV5ZratmwXX13
+	 wpHWSnM/sKxw1RVAFTHuQDFWWbUsVHzR4YXcWgqRrbZkH9H4fLgHImLJrUGBOKjwK+
+	 kSmC6rcVjBh6jUbDgH8O5w8VlPjBTOUZ892PM+pN1mlcGcN6Ls3hhnhGKbO7a5FMZk
+	 yHXdNuBK0md8kI5Teq8mEsC5pgz2InU60be+R5Xj3pzCVZ4uSbzNBRmypSnJDuaXuc
+	 0qX4658ulBGJA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] dt-bindings: arm: keystone: ti,sci: Correct reg and
- mboxes constraints
+Subject: Re: [PATCH v3 3/3] arm64: tegra: Add Tegra132 specific compatible
+ for AHUB
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261002063011.38972-2-krzysztof.kozlowski@oss.qualcomm.com>
-References: <20261002063011.38972-2-krzysztof.kozlowski@oss.qualcomm.com>
+To: "Thierry Reding" <thierry.reding@kernel.org>
+Cc: lee@kernel.org, conor+dt@kernel.org, mfd@lists.linux.dev, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20261002-as3722-bindings-v3-3-21c179b72a95@nvidia.com>
+References: <20261002-as3722-bindings-v3-0-21c179b72a95@nvidia.com>
+ <20261002-as3722-bindings-v3-3-21c179b72a95@nvidia.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 02 Oct 2026 09:14:32 +0000
-Message-Id: <20261002091432.8FF8C1F00899@smtp.kernel.org>
+Date: Fri, 02 Oct 2026 09:14:37 +0000
+Message-Id: <20261002091438.7677B1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] dt-bindings: missing minItems allows incomplete mboxes array
---
+> From: Thierry Reding <treding@nvidia.com>
+>=20
+> The AHUB on Tegra132 is backwards-compatible with the one found on
+> Tegra124, but it needs a specific compatible string anyway, so add
+> one.
+>=20
+> Signed-off-by: Thierry Reding <treding@nvidia.com>
 
-commit 344119f20b7b40eacf80223cff1d1579d7303039
-Author: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-
-dt-bindings: arm: keystone: ti,sci: Correct reg and mboxes constraints
-
-This commit replaces minItems constraints with maxItems constraints for the
-reg and mboxes properties. It intends to enforce an upper bound on these
-lists while assuming the lower bound remains intact.
-
->     minItems does not impose any limit on actual maximum number of items =
-in
->     a list, thus it needs maxItems.  maxItems on the other hand does imply
->     minItems.  Add missing upper bound on 'reg' and 'mboxes'.
-
-[Severity: Medium]
-Is the statement that maxItems implies minItems accurate for values greater
-than 1?
-
-In JSON Schema and dt-schema, omitting minItems on an array defaults to
-minItems: 1, regardless of the maxItems value.
-
-> diff --git a/Documentation/devicetree/bindings/arm/keystone/ti,sci.yaml b=
-/Documentation/devicetree/bindings/arm/keystone/ti,sci.yaml
-> index 25a2b42105e54..052e23966a8f1 100644
-> --- a/Documentation/devicetree/bindings/arm/keystone/ti,sci.yaml
-> +++ b/Documentation/devicetree/bindings/arm/keystone/ti,sci.yaml
-[ ... ]
-> @@ -59,7 +59,7 @@ properties:
->        - const: tx
-> =20
->    mboxes:
-> -    minItems: 2
-> +    maxItems: 2
-
-[Severity: Medium]
-Does removing minItems: 2 here incorrectly allow partial configurations?
-
-A device tree providing only a single mailbox will pass schema validation
-since the default minItems is 1, even though exactly two mailboxes (rx and
-tx) are required by the hardware and the mbox-names constraint.
+Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261002063011.3897=
-2-2-krzysztof.kozlowski@oss.qualcomm.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261002-as3722-bin=
+dings-v3-0-21c179b72a95@nvidia.com?part=3D3
+
