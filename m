@@ -1,65 +1,66 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AF8D47C107
-	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 09:49:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D94EC47ACE9
+	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 09:49:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790934598; cv=none; b=cDicZTQTIgAD1YUCKVk9vT9aZmkZX+uB5CS/Bn1EG7+jAM2aXwBxqaXr2QLGULelCYUDVOfcQf3dHV1gtJEnI7QNzhBPCPDSP7Slnbf3QkwBf+cuBiCDX+oxKzqF8U7ORNkSdNPh+TMjx4SAbw2X4wxCFZ8juAD30Pw8BdBMTfM=
+	t=1790934598; cv=none; b=kUojCzKSYAUSKIe+T6eeE/ELRND6GaT/EWj/nzWzvZSV5VDwrBpX7QuChKjfHVVRfZJP5B1o6jwSVkUIz09cDoXUJ9X8ZO1Y5iyeMeQu4qNZxQm8Hg7tAZMM3/9prUqzypaqlj5BqUOKt6J9pRGO5ODsaDZ2UMMeTBiljmt0nS8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790934598; c=relaxed/simple;
-	bh=7XIis/SaxCP7BZheKEH5EfAiCshL6qRfSl6dsIbmL4c=;
+	bh=Nv8VQkbUiPG1aZzPVXB79Tte0iN24CS3tAzHXZLKcRQ=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=jVk2g5I/5mmBecdJhDgLFbaZ1NV6kGdoym2WBhIrDvUq2Q1hM+JcuUWS54IkPmQ9daejn/O6SYiEz9MkYNLT/OXxNzPlp7PNjP0WRCOvkwMPOHQds1sx1hGJU+h8E9GgjjLWM3VjnIOZggu7P9Jq2bthEjm4rmfeLV/kiYH1pwA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com; spf=pass smtp.mailfrom=amarulasolutions.com; dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b=n2B7hROx; arc=none smtp.client-ip=74.125.225.140
+	 In-Reply-To:To:Cc; b=UEQo9uUDvNOTz02UZO9gHTfLUFEq69hdXJs1GuLZ3nLwURYYJp6kf9k2Gl37U5Xf2WBI8Qxng3kSwPPOTtN6KBu9km+1iDC6lkUC/o6e1QTh6TBEoE17P4USa9Yw+5sKhYOInw+h5FXDVWSzzQBogsbbmz+HqOA2ZfJCNKcfdcQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com; spf=pass smtp.mailfrom=amarulasolutions.com; dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b=rgvTibfr; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b="n2B7hROx"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49fff6f0f87so42756215e9.3
-        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 02:49:53 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b="rgvTibfr"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6c0fce17so41104835e9.1
+        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 02:49:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amarulasolutions.com; s=google; t=1790934589; x=1791539389; darn=vger.kernel.org;
+        d=amarulasolutions.com; s=google; t=1790934587; x=1791539387; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=VreqSPw0umlS9eUbJ8pFSQ6XltorV3sROnQHfTXwnds=;
-        b=n2B7hROxQtQbKGz18ks1AH3gbEfILIH7PM/7q0+AyxNTos2sgtjQn7nwQB/6ZWoph4
-         8UWSULx1+zAPSeYbp5T8apJmjG0rDwkN7bI/ws7JJkOz/mNX18g+aNiF+A6JNGzOXrDR
-         ao9gYz0aT5lsRd29VsnTJnK/yjAjorW/phwFs=
+        bh=x+lEaq8UIfWxZ/tIjV0SG6p5OStGVbQ7BX4PDBI90Lg=;
+        b=rgvTibfrt5n34qHdZWsWd4UAw7AJ80LPg/AA2Zwuce3p7b4525Z3vB3o4oQAM1aXuT
+         y1ScqnORIXcjjAiLl7gceJ62OaGNTGiIYJyGZ8OA6eSEjEHJBGXxDNteae6dP88oNgLz
+         uKSBzRSemLzcnVyDhW1zjgoPIV76Jpxl11KDg=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790934589; x=1791539389;
+        d=1e100.net; s=20260707; t=1790934587; x=1791539387;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=VreqSPw0umlS9eUbJ8pFSQ6XltorV3sROnQHfTXwnds=;
-        b=mU1mjykS3367KfJp3WVShMhFu4243ohShppULyj+ni7w5ECvK57R/nZEW5Z4DAVC5U
-         ow8pYxDV8hbpYdx40li+8VEHvcbdyK6S1mcvj/CEO4enHZj1gfyszd6irUAPHm0tTJBM
-         ttByToGUm4SSA07eT/SUVfpVIx0dsmbSx6raiMOXhXSyVbWN6lR820jl72SuY65wPt+X
-         319yF2F4xaW5tlfEI/UsMeV9Bt7mwwt3UrLGU25T0WJFB2vY72Uj91FL47a/YEzU4o/d
-         xshk75aDcCAw3jBSgHyJzOwebV59z4gO7qpJONxfPPL/UCBcMdi8YmFnzyE+K1olQj8f
-         iVbQ==
-X-Forwarded-Encrypted: i=1; AKwUvBztA/P9r5kXl/MhQBt49Ya3quLIwdP86k/1auTwSGAnGSmFQt3rHsRMnm11BrXz1FhgklqMOKfVhps+@vger.kernel.org
-X-Gm-Message-State: AFuF++n34vSbHbvufFQ9lGCctQB7jN9T4kVTItYMvq66vVGed6GUuVMj
-	BUetihpyfiC5K0NzNYqLjqNrKvp3z29+zz6BL+0p3ODi4agPlwfwqgT9AxzCoiPst40=
-X-Gm-Gg: AYBFou2QIuP+Xy7TlG9tPtOoL9Q2GTMQjPdfgNwR1Fs4F48N7O0BbY++UtXTGBtWJIX
-	to7eLASr7DT5bRVnZDz18b1WTpKU+GAwRCvh+diY3mt+fwTQpgypJ3Bz0psAs0klPYzjMJ59iRl
-	FTpbUzN9ytnkidwxmkIdrc1MmhzgIkk5eWHu+2AX8RUgg/upxga8v1VsP2KmY/+TB1n6J+dxgWx
-	xZGphOBFxqMnWCr4uv75XlNiw8v5xp4a62uxoaez3oqyIGQ9WyW5+49F0NubVhMx/4JqREQpazy
-	24RLiIztKxSM/xLA1KL3mpr3pd5qnnWAfeSBv1Lj3xMR3nUnbR6E3OjHLGCtOfc4tZEPUyGW560
-	rwqldm7m66jVvUycLrytE816kJLG+eazHrpbgk67a2aOVKKh3+DzCkKuJ3jC/5aydmK7yHqPDKD
-	Pku8eNbDUyBEi1UREjdVcf5S7pOmWCDLn5GNHSrIFQURjkm2LAbtMWjWYoELB8sBOx6m6ljZ89s
-	v4=
-X-Received: by 2002:a05:600c:c3ce:10b0:4a0:317:1996 with SMTP id 5b1f17b1804b1-4a02769f2a5mr27989155e9.27.1790934589559;
-        Fri, 02 Oct 2026 02:49:49 -0700 (PDT)
+        bh=x+lEaq8UIfWxZ/tIjV0SG6p5OStGVbQ7BX4PDBI90Lg=;
+        b=W1TW+tvkFDSJjUwFBMWqI0ZU04k8tfdqVX+8WxM/yUTAy4nORg1RgN15qWfw5POt8Y
+         eEYgqk9rsm+H+4/vGQAQermr0fmPioLBNqUjeCcNuKUZTcLwPBvfBxQ054sAaBeqZbrb
+         J5WBld44PwFlFWJSkmrDwcNkq8466DGJUf6TKBZRHNVj1u00XHl8dPVQlPJB+YGvbMAE
+         BLqE88PWnaaF0EWODT/IUyKBQiu9uH8UKqVWv3fmBDSjQf+NbvzF8ty6SaGBmFK71w/L
+         NJNAK4CLNlw0UJgPmDnDiwkqjQHFQR25lmKbv0rwrLn9pa+Kf/72uQoyFvk72TDtheDW
+         Z6Dg==
+X-Forwarded-Encrypted: i=1; AKwUvByLifmDN5GrooVrP3dIO/8H0DWcWBZFAp+ggOv79tcJ80iHoxzo9mPkIBcr3y8+ezo+oUstE2RNwtne@vger.kernel.org
+X-Gm-Message-State: AFuF++lT8Vbq4vbiQBG95iQ62TqxTvPbNnzz7UoGkwIZT2vX1RHRdxT7
+	eyxH0WLy7QxLDNAJmVRvgAc3gMGrY7CK0k3ODWcTFVPrgIlqfFTVIM2GlgT4+JC6JFcNTZMnfwN
+	4cb0IYgvgpw==
+X-Gm-Gg: AYBFou381XpowlX2Ks0eAE1QOZMrn2l03hek2iCLq0Oxv1QPL9k1y5XxUe1jOn2zNoB
+	klXwiupWp+qDddovnrpyOOsl54dnIHZ1nOLKIcm/o7vSgrp439AV2hE0EcISRo8GezBP2jkfsAE
+	ApuuX7pUy8h+ajmbP+siJGJ/ET3T87iXdHSBo4fBGmy0YCsxkWTzQQJvsbGKZECKiYrTS2M5evi
+	zf+OONbAxFlGjXQ0xMeKksjLKyXY4Zu0LHQ6XAoA8ZK51j0BDLUPbS6BXZbHnMTVsP++ey6LIKL
+	imU/Rm7D3FFCWOEedTHAkkaow/nZLcqxzDe9m+OIbWWQARYYqixCXxSAii02H+kKt9Zq1NMvsnZ
+	vRsaTAkWpwhh3/WOw3aYPgtYBGbLrb6TJcqgvLIoniDy1pDcaz6cKVbRQW1yRGEin2nkgyZVYml
+	oO3yDrM8LkTrL7SfnD/8CXCpI3aDcoRU83+FKKyNzVSSxJnu/0YA+RjRs1RyYwAwzR8Y6ibpblr
+	Ck=
+X-Received: by 2002:a05:600c:1d09:b0:4a0:37d:9e21 with SMTP id 5b1f17b1804b1-4a0276ed19amr37928025e9.29.1790934587622;
+        Fri, 02 Oct 2026 02:49:47 -0700 (PDT)
 Received: from localhost ([93.90.163.238])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b382f9bc0sm4572200f8f.41.2026.10.02.02.49.48
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a039505568sm52146605e9.3.2026.10.02.02.49.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 02:49:49 -0700 (PDT)
+        Fri, 02 Oct 2026 02:49:47 -0700 (PDT)
 From: =?utf-8?q?Roman_Smr=C5=BE?= <roman@amarulasolutions.com>
-Date: Fri, 02 Oct 2026 11:49:33 +0200
-Subject: [PATCH 4/5] ASoC: pcm179x: Add pcm1796 as compatible with pcm1792a
+Date: Fri, 02 Oct 2026 11:49:31 +0200
+Subject: [PATCH 2/5] ASoC: pcm179x: Refactor regmap value lookup
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -68,7 +69,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261002-work-v1-4-f0e53bc7331f@amarulasolutions.com>
+Message-Id: <20261002-work-v1-2-f0e53bc7331f@amarulasolutions.com>
 References: <20261002-work-v1-0-f0e53bc7331f@amarulasolutions.com>
 In-Reply-To: <20261002-work-v1-0-f0e53bc7331f@amarulasolutions.com>
 To: =?utf-8?q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>, 
@@ -88,38 +89,96 @@ Cc: patches@opensource.cirrus.com, linux-sound@vger.kernel.org,
  linux-amarula@amarulasolutions.com
 X-Mailer: b4 0.15.2
 
-The PCM1796 is fully compatible with the PCM1792A.
+Use a table lookup to find values for fmt register instead of switch
+statements to prepare for additional codec variants of the same family.
 
 Signed-off-by: Roman Smrž <roman@amarulasolutions.com>
 ---
- sound/soc/codecs/pcm179x-i2c.c | 1 +
- sound/soc/codecs/pcm179x-spi.c | 1 +
- 2 files changed, 2 insertions(+)
+ sound/soc/codecs/pcm179x.c | 60 +++++++++++++++++++++++-----------------------
+ 1 file changed, 30 insertions(+), 30 deletions(-)
 
-diff --git a/sound/soc/codecs/pcm179x-i2c.c b/sound/soc/codecs/pcm179x-i2c.c
-index 5337bcc7c62c..e81e20fadadf 100644
---- a/sound/soc/codecs/pcm179x-i2c.c
-+++ b/sound/soc/codecs/pcm179x-i2c.c
-@@ -32,6 +32,7 @@ static int pcm179x_i2c_probe(struct i2c_client *client)
- #ifdef CONFIG_OF
- static const struct of_device_id pcm179x_of_match[] = {
- 	{ .compatible = "ti,pcm1792a", },
-+	{ .compatible = "ti,pcm1796", },
- 	{ }
+diff --git a/sound/soc/codecs/pcm179x.c b/sound/soc/codecs/pcm179x.c
+index cb70927872aa..61b87dab3266 100644
+--- a/sound/soc/codecs/pcm179x.c
++++ b/sound/soc/codecs/pcm179x.c
+@@ -65,6 +65,31 @@ struct pcm179x_private {
+ 	unsigned int rate;
  };
- MODULE_DEVICE_TABLE(of, pcm179x_of_match);
-diff --git a/sound/soc/codecs/pcm179x-spi.c b/sound/soc/codecs/pcm179x-spi.c
-index 192fee90c971..e5e4b942acfc 100644
---- a/sound/soc/codecs/pcm179x-spi.c
-+++ b/sound/soc/codecs/pcm179x-spi.c
-@@ -31,6 +31,7 @@ static int pcm179x_spi_probe(struct spi_device *spi)
  
- static const struct of_device_id pcm179x_of_match[] __maybe_unused = {
- 	{ .compatible = "ti,pcm1792a", },
-+	{ .compatible = "ti,pcm1796" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, pcm179x_of_match);
++struct pcm179x_fmt_table {
++	unsigned int fmt;	/* SND_SOC_DAIFMT_* */
++	unsigned int width;	/* sample width in bits */
++	unsigned int value;	/* FMT[2:0] */
++};
++
++static const struct pcm179x_fmt_table pcm1792a_fmt[] = {
++	{ SND_SOC_DAIFMT_RIGHT_J, 16, 0 },
++	{ SND_SOC_DAIFMT_RIGHT_J, 24, 2 },
++	{ SND_SOC_DAIFMT_RIGHT_J, 32, 2 },
++	{ SND_SOC_DAIFMT_I2S,     16, 4 },
++	{ SND_SOC_DAIFMT_I2S,     24, 5 },
++	{ SND_SOC_DAIFMT_I2S,     32, 5 },
++};
++
++static int pcm179x_fmt_value(struct pcm179x_private *priv, unsigned int fmt,
++			     unsigned int width)
++{
++	for (unsigned int i = 0; i < ARRAY_SIZE(pcm1792a_fmt); i++)
++		if (pcm1792a_fmt[i].fmt == fmt && pcm1792a_fmt[i].width == width)
++			return pcm1792a_fmt[i].value;
++
++	return -EINVAL;
++}
++
+ static int pcm179x_set_dai_fmt(struct snd_soc_dai *codec_dai,
+                              unsigned int format)
+ {
+@@ -96,40 +121,15 @@ static int pcm179x_hw_params(struct snd_pcm_substream *substream,
+ {
+ 	struct snd_soc_component *component = dai->component;
+ 	struct pcm179x_private *priv = snd_soc_component_get_drvdata(component);
+-	int val = 0, ret;
++	int val, ret;
+ 
+ 	priv->rate = params_rate(params);
+ 
+-	switch (priv->format & SND_SOC_DAIFMT_FORMAT_MASK) {
+-	case SND_SOC_DAIFMT_RIGHT_J:
+-		switch (params_width(params)) {
+-		case 24:
+-		case 32:
+-			val = 2;
+-			break;
+-		case 16:
+-			val = 0;
+-			break;
+-		default:
+-			return -EINVAL;
+-		}
+-		break;
+-	case SND_SOC_DAIFMT_I2S:
+-		switch (params_width(params)) {
+-		case 24:
+-		case 32:
+-			val = 5;
+-			break;
+-		case 16:
+-			val = 4;
+-			break;
+-		default:
+-			return -EINVAL;
+-		}
+-		break;
+-	default:
++	val = pcm179x_fmt_value(priv, priv->format & SND_SOC_DAIFMT_FORMAT_MASK,
++				params_width(params));
++	if (val < 0) {
+ 		dev_err(component->dev, "Invalid DAI format\n");
+-		return -EINVAL;
++		return val;
+ 	}
+ 
+ 	val = val << PCM179X_FMT_SHIFT | PCM179X_ATLD_ENABLE;
 
 -- 
 2.55.0
