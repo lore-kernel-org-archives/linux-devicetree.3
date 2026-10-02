@@ -1,56 +1,59 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BA1137DE8D;
-	Fri,  2 Oct 2026 16:46:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18C5037DE8D;
+	Fri,  2 Oct 2026 16:47:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790959611; cv=none; b=NKjzZfqkJf/ZE+/ud/H/QX9njLUdKziL9IxNlXeqbgFmNeU+jru/CUqQHurd90uW0XMLMTMjw7lh4GFtZAwliHKckHKNcJ8vhroqGVIqT951SgGbh57UL9lEFbARmUL4btR7F2xpUQIUMTb8WgBrmeU+ZsRzLJrVzdFLrwGB2Vw=
+	t=1790959621; cv=none; b=ND5tI3MhwhQLRMv+HtoQ5zbFTxchDq0mToJU6aSAINqnah9AE/NpkGOpQj+KjtMpXjo/F7evZOyklXT+/ao2Au9Ewi7Lx8cP1VjKxpZMHvuFChS7gUcdn4ifSqQRi2VI8dnXs0kzIoy1ueAf+ydJTxg7xJXad1Hc7CRT8PYeHV8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790959611; c=relaxed/simple;
-	bh=6cg+lcCuAXFBL/G+Ow/2cm9Jj4ZO8hTglEeqlPbP+jM=;
+	s=arc-20240116; t=1790959621; c=relaxed/simple;
+	bh=Ak9YuvUZ4Q42MkX93DtuSJR5MmuDUyFag5+CHZ/hCHk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=gsQk+cgcHTm11PTZC4Y6pqA4NiPCaHaTxeSE+nisvPm42qFNDToUxMbDRGR1Cf2NsDlKm0GOqqFfUlhC5IAXVqHpMF4B3tliC5fbtDT5rJuCYe8zrf12OWFg0P7GfuSgbZ8p4voc5BTaZNZt3fu2+JqrWGUuj0ACLWiUn8Pw9m4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FbY6Q7sw; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=OYWcQklFZsQYZPWfG8SN4jyDwpfgzy56yKuI+bHignPKJZhpSk4Ym7AG8pKxiHZXjnlNnWrguWbTEs9VtIhy2s42WpMjtA16EOdQlOzMJxqGzVV0wZsx56xATUPVUJf1d3pPIsYZTTdexUD8Lfaa2xj1XBgLy9ytrzY8oOlsaEU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DAFy5SyA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FbY6Q7sw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B5751F000FF;
-	Fri,  2 Oct 2026 16:46:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DAFy5SyA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 030971F000FF;
+	Fri,  2 Oct 2026 16:46:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790959610;
-	bh=zjleGJ012fVIUizu+B+4yp+yZfnLWc86v1x3Uze5e9s=;
+	s=k20260515; t=1790959620;
+	bh=3kes/itfXouN+8b8QKCcHWhQnNlQ4qwwFi3DP2N4wKo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=FbY6Q7swcBGXHERBYi/rjqaoowyPWWj8QKiIbZ9bqRZwGy1kzg8F59oCJxiST0Hqo
-	 9ymkPB4zuc8/ZU2rA6N6TzX0urFAwRlChTzAPiQNeLLKtUFsHJTlKjdPgbNSEzWK+u
-	 HcPdLAKf//UVXffcgZ2bizZuPp/7DI7yVIjLf/Z0ODjd5LS7QSwq2umTByQsmXtEsM
-	 rLrbvmO2prQzU47PGy3n3MW6Z0IKqFHrq0jHDtE/YNB/hQ3ti3Ud40/6mHjktgsgrC
-	 0gCTqTocESF5/bNE+jj8YD0+RocgvoKBoMFCzfvRitatSOZuwR3AjACFP83y+YvwN5
-	 ENJPYZq/qyEyQ==
+	b=DAFy5SyAedvDBHPiCtmx+Lv1F1yUT3VlWcf2SpPsTYH2g/Ir8NpIKV1eQnA+JQwCW
+	 vFFSTgOvIHsPX5KD5xsZmU2IhQ4p3+cWGmoLJWtDRF3rB7cQuNYMAe9fpFzRfY76qb
+	 xUSCSW6rJtQWSG0gJtCx/h66lUQq3BSVzj0okY0Ll3sUISBEGzGHFjQTPptd6V4QiB
+	 FvUfB2YgBA1FMVlUFNCIu49ket3TIdIYeGxZ/UDd8/nQKNYBGTf4luQUCA4/tGRYVa
+	 m7K4oBaPZxU+C386dbovGdErUHiXfqZcclDp7vHdv0ll/qwt0fOPoRxUcDWWxJHbM9
+	 SWa+poyK8uGmA==
 From: Will Deacon <will@kernel.org>
 To: Robin Murphy <robin.murphy@arm.com>,
 	"Joerg Roedel (AMD)" <joro@8bytes.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Jingyi Wang <jingyi.wang@oss.qualcomm.com>
+	Peter Griffin <peter.griffin@linaro.org>
 Cc: catalin.marinas@arm.com,
 	mark.rutland@arm.com,
 	kernel-team@android.com,
 	Will Deacon <will@kernel.org>,
-	aiqun.yu@oss.qualcomm.com,
-	tingwei.zhang@oss.qualcomm.com,
-	trilok.soni@oss.qualcomm.com,
-	yijie.yang@oss.qualcomm.com,
+	Pranjal Shrivastava <praan@google.com>,
+	Daniel Mentz <danielmentz@google.com>,
+	Mostafa Saleh <smostafa@google.com>,
 	linux-arm-kernel@lists.infradead.org,
 	iommu@lists.linux.dev,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: arm-smmu: Document GPU SMMU on Qualcomm Maili SoC
-Date: Fri,  2 Oct 2026 17:46:36 +0100
-Message-ID: <179095600013.2119816.14349217332489680081.b4-ty@kernel.org>
+	linux-kernel@vger.kernel.org,
+	tudor.ambarus@linaro.org,
+	andre.draszik@linaro.org,
+	willmcvicker@google.com,
+	jyescas@google.com
+Subject: Re: [PATCH v2 0/2] Add arm-smmu-v3 support for Laguna SMMU silicon erratum workaround
+Date: Fri,  2 Oct 2026 17:46:38 +0100
+Message-ID: <179095464942.2068396.10273315598059135297.b4-ty@kernel.org>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260830-maili-gpu-smmu-v1-1-253e1108ce82@oss.qualcomm.com>
-References: <20260830-maili-gpu-smmu-v1-1-253e1108ce82@oss.qualcomm.com>
+In-Reply-To: <20260911-arm-smmu-v3-instcfg-override-v2-0-5804e4f400b5@linaro.org>
+References: <20260911-arm-smmu-v3-instcfg-override-v2-0-5804e4f400b5@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -60,15 +63,20 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
-On Sun, 30 Aug 2026 19:44:03 -0700, Jingyi Wang wrote:
-> Document GPU SMMU which uses "hlos" vote clock on Qualcomm Maili SoC.
+On Fri, 11 Sep 2026 21:21:04 +0000, Peter Griffin wrote:
+> The Google Tensor G5 SoC (Laguna) has a silicon erratum with the SMMU
+> integration where the AxPROT[2] signal is always 1, which makes all
+> transactions appear as instructions.
 > 
+> As a software workaround we make use of the INSTCFG override feature to
+> force all incoming traffic to data.
 > 
+> [...]
 
-Applied to iommu (arm/smmu/bindings), thanks!
+Applied first patch to iommu (arm/smmu/bindings), thanks!
 
-[1/1] dt-bindings: arm-smmu: Document GPU SMMU on Qualcomm Maili SoC
-      https://git.kernel.org/iommu/c/991ded609472
+[1/2] dt-bindings: iommu: arm,smmu-v3: Add arm,instdata-override property
+      https://git.kernel.org/iommu/c/87098700b3cb
 
 Cheers,
 -- 
