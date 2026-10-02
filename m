@@ -1,175 +1,137 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A89CE439F77;
-	Fri,  2 Oct 2026 08:18:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47440443C13;
+	Fri,  2 Oct 2026 08:21:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790929116; cv=none; b=EOJlvgFF4dxrTHxHxhYPx7x4xhRuEw84VEP0oRCcrkaZhzcmR27EVAGdJHF/ibJ6oIUHvU3en3wTZDH/T37f+Q9G2JdViwNiDZxW7PpzoMC1XsDjMnLIWqrIKaRaY56fL7QEAOX6DavX2I75a5AMfSdsMhI9mwgOPWC/K+hpdSo=
+	t=1790929294; cv=none; b=UW1AUm0dZ8tbdnRqnmaURPz3AmhY6xl6LCQuUdnv5SbeZ/E4C432EipTfs1UQnhIeA699jLIMkJLHowPL7Z4q+83QEimYzdpz0wbVQ8n8+zL0CUjkTwHFQJxfQhnO/+YcCNYf/Jx9whpmUeXHTA81JiyKQyx0vZFbCFnZFIWP5o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790929116; c=relaxed/simple;
-	bh=kvPqBXl3xWAhJQMCX/4ZLXrLR32rh96ebQXHfC/LA6k=;
+	s=arc-20240116; t=1790929294; c=relaxed/simple;
+	bh=sBePC58/1nGIQTG/U0OECcc/vsriPHIVEWXQtkPb018=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Lte5vS2AZxzoz3S9uZwj5A05lbYau90NjWt2iW4RR4ocZMgM/PtSwnA6BgdSJeVjGxJfXJvh4lYTH7totwhLCvdQ2EefVXDQeRcbkwzhm+GN0qeVpqTCwpD92hHvxanEf8jiKtKJCV7BagywcBW+RaqcqoZWsPdBT1jFCs26enA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=GIenKlYU; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	 Content-Type:Content-Disposition:In-Reply-To; b=N5K3AnjoPg3rr1ohbCvz0geua8DSLbeyJjhME6rCbdBXw36mxX9uDXG37DbwRKWNchftF8J+KqnMlV5185vYAHQtxMVHzljh5lDO9WstL+rRmDN/3rVch3OCpOOoA++BRzx9mMyZJ8NKnzidC55lZj8ysLZ86Er/yodS/iw8k6I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a1Jo48x3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="GIenKlYU"
-Received: from francesco-nb (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
-	by mail11.truemail.it (Postfix) with ESMTPA id 654E21FCAE;
-	Fri,  2 Oct 2026 10:18:28 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1790929109;
-	bh=sON4h7CzqIiZs4MauHtrUPsGQLkEQCz5/f7dL0338OY=; h=From:To:Subject;
-	b=GIenKlYUVzNhYHhvRD0ajo4hBCE3RANLT7YBoyN7fywSaVr62iOgWVki3nzup8Ed8
-	 gexb8Yi1IaJ6FVyGUZkx642zl5mHcAIbXYDfUuvPGx8LjHARuEX1VcX/16ddNb90bJ
-	 l+N4e8mbiOmN5dxGdbXDlf9U9cwI4mCLiSOhVnXQcZAAjXpCl9kYPZ5Fpdomw/DXQd
-	 oXQTONJFUPhev+0NwIkafWtuo61W4p1A2kV/t3R2yfdrKatbwhxkmM0rGR3mX4YtFm
-	 XgiGJTZHNItTQ0jmrxC6H8ScUps72wVnONodaM0UNr5veUnp/3WIbzKZ6yRx3X9zKL
-	 fnAGJs1Yo60cA==
-Date: Fri, 2 Oct 2026 10:18:24 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Leonardo Costa <leoreis.costa@gmail.com>, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, Frank.Li@nxp.com,
-	s.hauer@pengutronix.de, kernel@pengutronix.de, festevam@gmail.com,
-	francesco.dolcini@toradex.com, leonardo.costa@toradex.com,
-	hvilleneuve@dimonoff.com, marex@nabladev.com,
-	stefano.r@variscite.com, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 3/7] ARM: dts: imx6q-apalis: Add Toradex Capacitive Touch
- Display 10.1" LVDS
-Message-ID: <20261002081824.GA7222@francesco-nb>
-References: <20261001155412.3177428-1-leoreis.costa@gmail.com>
- <20261001155412.3177428-4-leoreis.costa@gmail.com>
- <ar6JnZp1jBvlc8bx@SMW015318>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a1Jo48x3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A4171F000FF;
+	Fri,  2 Oct 2026 08:21:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790929292;
+	bh=7eeSp1C4/hTG60Jp34wAdK2R8RaYhjX2x/k5gS4VDsA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=a1Jo48x3eK+3CwWMOkAhjll5meQzqEbqaTwc40gmqkzpON3plc8y9sWMEvUGQQDZy
+	 H7B4D/eQz/4NDRF9QY+QzwFwaQJJ8LTz7+Y+p0Ns3BkQrVG/Ofy+idki3yGS/of7lr
+	 lNaDNnbIx+yKGiZcS8ndFsYLmctBNf/QO/egtWxamOU5htqTOMlJqqpuR9tJbyovf3
+	 ueWQJJFfle4C1oXjaW0ohBsvMqUr8vvPMuH7a3vaS8hXsOwk3QJ36KdasThxxCnhHP
+	 KcrwugeZdIX8AIQk5KeuzjsLyrh5Rq4vqFerfQaMSVC4+Ze0yQ0EPdB8PutgJ8LhFI
+	 Bz7Eqvygmqp6Q==
+Date: Fri, 2 Oct 2026 10:21:30 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Manikanta Maddireddy <mmaddireddy@nvidia.com>
+Cc: Jonathan Hunter <jonathanh@nvidia.com>, 
+	Prathamesh Shete <pshete@nvidia.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
+	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 0/2] Enable PCIe WAKE# as a system wake source on
+ Tegra234
+Message-ID: <ar9pfNZstgn9pPXK@orome>
+References: <20260907113134.2543273-1-mmaddireddy@nvidia.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="6gn3v7gdvmn6udrx"
 Content-Disposition: inline
-In-Reply-To: <ar6JnZp1jBvlc8bx@SMW015318>
-
-Hello Frank,
-thanks for the review
-
-On Thu, Oct 01, 2026 at 11:26:05AM -0500, Frank Li wrote:
-> On Thu, Oct 01, 2026 at 12:52:53PM -0300, Leonardo Costa wrote:
-> > From: Leonardo Costa <leonardo.costa@toradex.com>
-> >
-> > Add a device tree overlay for the Toradex Capacitive Touch Display 10.1"
-> > LVDS connected via the Apalis iMX6 LDB.
-> >
-> > The panel is a LogicTechno LT170410-2WHC 10.1" WXGA IPS LCD and the
-> > touch input is provided by an Atmel MaxTouch capacitive touch
-> > controller.
-> >
-> > Remove the panel-lvds node from the Apalis iMX6 dtsi, as it is an
-> > external component that does not exist at the SoM level.
-> >
-> > The overlay is also combined with the Apalis iMX6 V1.2 Ixora Carrier
-> > Board V1.2 device tree to provide a ready-to-use DTB.
-> >
-> > Link: https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-101inch-lvds
-> > Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
-> > ---
-> >  arch/arm/boot/dts/nxp/imx/Makefile            |  6 +++
-> >  ...6q-apalis-panel-cap-touch-10inch-lvds.dtso | 53 +++++++++++++++++++
-> >  arch/arm/boot/dts/nxp/imx/imx6qdl-apalis.dtsi | 13 -----
-> >  3 files changed, 59 insertions(+), 13 deletions(-)
-> >  create mode 100644 arch/arm/boot/dts/nxp/imx/imx6q-apalis-panel-cap-touch-10inch-lvds.dtso
-> 
-> similar 7" case, add panel module name in file
-> 
-> imx6q-apalis-lvds-panel-lt170410.dtso
-
-This does not work, sorry, the current name is the correct one, for
-various reasons:
-
- - the product is a display made with a specific connector, touch
-   controller and display and more. The actual panel is just part of it
- - the current name wholly describe the product, it's a public product
-   with an official name, all of that is clearly linked in the commit
-   message and comments. there is no ambiguity.
- - the same toradex accessories are not module specific, they are used
-   across multiple families/carrier board. It is a whole ecosystem that is
-   building on top of standardized interfaces and connectors. The same
-   overlay file is available for multiple boards and in multiple SoC
-   vendor directory (as of now TI and NXP, soon we are going to have
-   also QCOM). Having a consistent naming scheme is important, we cannot
-   call the same things differently every time.
- - there was a situation in which we did a new product revision of a
-   display, specifically the "Toradex Capacitive Touch Display 10.1"
-   LVDS" there are two versions. The official product name is the same,
-   apart an additional version number, one is version1, the other is
-   version2. They have differences, and it's not just the panel, more
-   stuff changed, so having the panel name in the filename will not
-   help. v2 support is already in [1], for reference.
- - the toradex naming scheme is not encoding the actual part number used
-   in the product name, for example we have apalis imx6 v1.2 that uses a
-   different touch/adc than previous apalis imx v1.1. The product has a
-   different schematics, different BoM and so on, and there is no
-   reference of the difference touch/adc in the name. You can see this
-   information from the public documentation just looking at the
-   version. or you can check yourself comparing the two DTS in the linux
-   kernel tree.
-
-[1]
- arch/arm64/boot/dts/ti/k3-am625-verdin-panel-cap-touch-10inch-lvds.dtso
- arch/arm64/boot/dts/ti/k3-am625-verdin-panel-cap-touch-10inch-lvds-v2.dtso
+In-Reply-To: <20260907113134.2543273-1-mmaddireddy@nvidia.com>
 
 
-Frank: in general the names are clearly linked to the official product
-name, and this applies also to other patches in which you commented
-about the names, not planning to reply to every single one.
+--6gn3v7gdvmn6udrx
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v1 0/2] Enable PCIe WAKE# as a system wake source on
+ Tegra234
+MIME-Version: 1.0
 
-> > diff --git a/arch/arm/boot/dts/nxp/imx/imx6q-apalis-panel-cap-touch-10inch-lvds.dtso b/arch/arm/boot/dts/nxp/imx/imx6q-apalis-panel-cap-touch-10inch-lvds.dtso
-> > new file mode 100644
-> > index 0000000000000..a84114e1d3fba
-> > --- /dev/null
-> > +++ b/arch/arm/boot/dts/nxp/imx/imx6q-apalis-panel-cap-touch-10inch-lvds.dtso
-> > @@ -0,0 +1,53 @@
-> > +// SPDX-License-Identifier: GPL-2.0-only OR MIT
-> > +/*
-> > + * Copyright (c) Toradex
-> > + *
-> > + * Toradex Capacitive Touch Display 10.1" connected via Apalis iMX6 LDB
-> > + * on carrier boards with a Toradex standard LVDS display connector.
-> > + *
-> > + * https://docs.toradex.com/105952-10-1-inch-lvds-capacitive-touch-display-1280x800-datasheet.pdf
-> > + * https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-101inch-lvds
-> > + * https://www.toradex.com/accessories/capacitive-touch-display-10.1-inch-lvds
-> > + */
-> > +
-> > +/dts-v1/;
-> > +/plugin/;
-> > +
-> > +&{/} {
-> > +	panel-lvds {
-> > +		compatible = "logictechno,lt170410-2whc";
-> > +		backlight = <&backlight>;
-> > +		power-supply = <&reg_3v3_sw>;
-> 
-> use name reg_lvds_panel, it help improve reusablity.
+On Mon, Sep 07, 2026 at 05:01:32PM +0530, Manikanta Maddireddy wrote:
+> The P3768 carrier board used by Jetson Orin NX and Orin Nano routes the
+> PCIe WAKE# signal to Tegra234 main GPIO L.2. Nothing in the kernel
+> currently describes that signal, so a suspended system cannot be woken
+> by a PCIe endpoint.
+>=20
+> This series wires it up in two steps.
+>=20
+> Patch 1 adds the PMC wake event mapping for GPIO L.2. This is the piece
+> that lets the GPIO interrupt be armed as a system wake source during
+> suspend, rather than being treated as an ordinary interrupt that is
+> masked along with the rest of the GPIO controller.
+>=20
+> Patch 2 describes the signal in device tree, on the root port of the C8
+> controller. C8 is the controller with the onboard Ethernet NIC on this
+> carrier, so describing WAKE# there is what makes wake-on-LAN usable.
+> The property is consumed by the generic PCI core in
+> pci_configure_of_wake_gpio(), which looks it up on the OF node of the
+> PCI device itself, so no controller driver change is needed.
+>=20
+> The two patches touch different subsystems but are only useful together,
+> so they are posted as one series. Patch 2 depends on patch 1 to have any
+> effect.
+>=20
+> Testing:
+>=20
+>   - Verification:
+>     - Verified suspend-to-RAM functionality with no spurious pending
+>       wake sources observed.
+>     - Verified wake up through GPIO L.2 using an Ethernet magic packet.
+>     - Verified the reported wake source after resume.
+>     - Verified that regular Ethernet traffic does not trigger an
+>       unintended wake-up.
+>     - Confirmed Ethernet connectivity and normal network operation
+>       after resume.
+>     - Repeated multiple suspend/resume cycles to verify consistent
+>       behavior.
+>   - make ARCH=3Darm64 CHECK_DTBS=3Dy is clean for the two affected boards,
+>     tegra234-p3768-0000+p3767-0000 and -0005, with dtschema 2026.6.
+>   - checkpatch --strict reports no issues on either patch.
+>=20
+> Note: the series is based on the linux-next 20260817 snapshot rather
+> than a maintainer tree; see the base-commit trailer below. Happy to
+> rebase onto whichever tree you prefer.
+>=20
+> Manikanta Maddireddy (2):
+>   soc/tegra: pmc: Add PCIe wake event for Tegra234
+>   arm64: tegra: Add PCIe wake GPIO for Jetson Orin NX/Nano
+>=20
+>  .../boot/dts/nvidia/tegra234-p3768-0000+p3767.dtsi     | 10 ++++++++++
+>  drivers/soc/tegra/pmc.c                                |  1 +
+>  2 files changed, 11 insertions(+)
 
-I disagree.
+Both patches applied, thanks.
 
-The regulator should be the one that is physically used on
-the board. The DTS *must* describe the HW as accurately as possible, we
-are not supposed to invent non existing regulator and more in general
-non existing HW.
+Thierry
 
-I see your need to avoid duplication, and I agree with it. But an
-accurate HW description and the user experience trumps this need. 
-And I insist on the user experience, what we are doing is for someone to
-use, we should not make the life of people hard because we decide on
-non-descriptive or inaccurate names.
+--6gn3v7gdvmn6udrx
+Content-Type: application/pgp-signature; name="signature.asc"
 
+-----BEGIN PGP SIGNATURE-----
 
-Francesco
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmq/aYcACgkQ3SOs138+
+s6FvNRAAhLIRO5DxfJQ6+4ddNyH5Bm2Rq6FcGZwFcUTz2Sx8Fhwv4eqkypaeD/lQ
+DnTxudWMLRJexm0ByQOYO1VGWLG903f1kSgzC+pdyfkLt5WuS5oXXn7OLBh85nFU
+lavG5luMTRjZJ7Cj5b3Go6fL+HLDZUW5rk8bl1RQbUmQRxnMOllHRpBBGDtIHm1R
+pwk741DWD2rIqYkLw9L5RVmuSmeKEHEmiU+OxO+nWQGF1CH20K7/Hc3WavcHnMQf
+7L+YXryvpe30LG1e3IXft0x2ruwEtlD369XZU1rDNNRvMeCUCzx04CpsVNODHXcI
+pAJg3PyL+1iR15UuisUc0yDjToIp8q+NAOlSJBpb7AG5d+GLz50uFeb/GLQVA+/n
+GDFec+i+JOe13EEu+liehZzN0viQpyRZX2i7aJ7l9NadGSKms0wN6nFnvn3AS0Qi
+WK8g/CIuB3hOTfIIreIWYu2zwJZKUYog6tqZgsr1T/IUWpcWOeaqpz+1EBr0mAyZ
+BtUrkDYKJNrcWQxpgRMkxVuXbfwJyLd0ErqwTDEPNRQRNLK2JntLYU8g05TIhk80
+PxrGZclM/jLQx5pSr617dmVSAVC5wXe7oNQVmKY+AfJiqNjOTHzsuxqOl6Kj/+ah
+PTfUz2Yvhhwfm00IL1NsSWo3jTSoPknr6+E0GJLzlbek4r7Ua8o=
+=M3Rn
+-----END PGP SIGNATURE-----
 
+--6gn3v7gdvmn6udrx--
