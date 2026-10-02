@@ -1,340 +1,423 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012019.outbound.protection.outlook.com [52.101.66.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f43.google.com (mail-vs2-f43.google.com [74.125.227.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AD6223ABB9;
-	Fri,  2 Oct 2026 14:37:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CEBE4D9577
+	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 14:40:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.43
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790951861; cv=fail; b=p7Y9SWtJnQeG5N2/dTZBZEFIHgRTejv1/EI+Jr2NC/efb38JPrg9KYqiFr/wkhzWEbR2iBKNumK4g3UB+sZ9BxB2/QKUBdtQ4pE8IEHjK9T+nhDp87cDxuxn5tW5NYH9R8nkSqg8pQnirggTBobfbMztUy620u/olzZlnPw35YI=
+	t=1790952057; cv=pass; b=sIykb/uu86nUfSwALcnS53Dzc2BE3cLFQteeZBJJr1LNprcve3UdOIVBp/fGra9YBTvGdaNGIgW79V/Xu1f5wo9XVN+iwL2/J/viLhFxyBoqfw/FddCm1TagcNQ2DypD1ab9GMN5Zj+oDPZiUfM+LVzDuekQvPj5pIkaPshHep4=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790951861; c=relaxed/simple;
-	bh=rH5XrqQqHgPS7rBYcLs7Z4pr7dEp6zLfjuOnXSUaotA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=uSeExKfvRvY6LniKnCVf9MCtO6T1tU0MNUD4Vdw8RkFXXIwuZfRAMgpMlPbBIWu5v4X4VdrOeKCHeBX9sDtE9S7xIX+hMqKqmco6Sl4odkZr1iSP9qmF/KwuY9t1HlfU+sDfTQXtSzKheD642SC/MPPydZj0lKq0p+jMODLKWl0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=wz2R2/KA; arc=fail smtp.client-ip=52.101.66.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	s=arc-20240116; t=1790952057; c=relaxed/simple;
+	bh=yThCC7PHEtVrekbHIcRKtJ+4ThQy3inWeHk3llKz7M4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=LVBqjEDedkh8Q+hsscu1ZZJaj1SiJPQmL+ii87obPQTM/zoMRYO11pAUaDJxqY3zIj+pHDBA/w34UjPHyODaIuvJf//GB7hW2I03TObr39cidASZaXYaHT+GIqXkuDp/++GRJt1+uqnIPK3PkcdU7jagEinD2FhLeSYa7i1ctC4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=sHPmXUXP; arc=pass smtp.client-ip=74.125.227.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="wz2R2/KA"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=h/PIp1iU+4VtXj5MhiRaEq4hhkr3eabxgkF9keRtpAHcJW4PYn//lKD/wLf3+sdyGl8x5bRMGP1lqGYvOBnofNdG7BDRQ3I+0sWuU4AkyAdZRb/GfGZp4+mkGenXFcgH/R4lkQmRpn92OiQXihvnhsVgXWbrPUVLkJQVB/W20yiRZFUPmjo8sBMDajP9bZotv19J2TG9X51Q9iT8G7tg73+Cv7WdFMlbm5LkzVxMjpB2vpph4KuzgKEAJ2jg1XQ4gEsqeZtj9sUmwSuNRtnM8SA62jOKWjZAwQibT5OkxoxNu0R6o+M0XlFlPYQQhKlQsb/JY34rBKolQFeS2kytIw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=iyK9KF8BwI7l26n6Cuqk13fok4hb23usT40xtRevMDQ=;
- b=Je1kjm3HT3smKHF2IVzBcyFmTXPdoJkPy/bc3UqPC/njm39wAenaDqM6wT++np2pCr8ULdIKs/BeoOblbq2LXPKwsXx5eVGnupcS1Pc+QJiv0KsKZ+hioMjp5Ztv8TkqFoyPMZfnAO5OR/7mZrn+xe7MPwgfEe9faldSY8iN98ldvHJlY/M4Am0MgRr+wue1iXRnOlTFBx3usukcxK5SobX0nmE5dg8wjhM9mla55WtLnVeKI0qwnWFC/Q/ptF/0lK8bN44svaU/i62qz7rTSDv3/V/B4Va/2Okwzi6h/+CVQvUMsI566Hzt6lNdoqQP+FlBluP6NlVRjE1wkvt79A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=iyK9KF8BwI7l26n6Cuqk13fok4hb23usT40xtRevMDQ=;
- b=wz2R2/KAsO0EdPHMyepYQNuDxRi67y3r0/+LR3rKyHVXuOZLPVRPE+yXfyIXA4W3jhHSwtd69s8bWdqt1VcrxfnyD7Qf4whIIeKVDj7XZa/EWzaGcyIrf/MOwnE7nRcU2Y1EC9/C5b11oXu2/3ea340QEgHtCAoFO0zWjd4eVr9j2cr9oZiSPcTE5NBuHStJY6hC2jAVgKieIfNHI3V5NW3GPh6OVP2dfPcybOyhYSgmVi9H1bd5hAWW04WiPmVk4DW0WQ6i4DB5tpv4FYzpcZObgRFASeNlRORtgFd2ZZroMoMy+ED/Ryhr/CagSyOwdk0ZaQwhkWi0KcPs+KLZMg==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by VI1PR04MB7024.eurprd04.prod.outlook.com (2603:10a6:800:124::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Fri, 2 Oct
- 2026 14:37:27 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0472.016; Fri, 2 Oct 2026
- 14:37:27 +0000
-Date: Fri, 2 Oct 2026 09:37:17 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Alexander Stein <alexander.stein@ew.tq-group.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, devicetree@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, linux@ew.tq-group.com
-Subject: Re: [PATCH 1/8] ARM: dts: imx6ul: Add LVDS DT overlay for TQMa6ULx
-Message-ID: <ar_BnRDhyiMpUs_T@SMW015318>
-References: <20261002081417.2092471-1-alexander.stein@ew.tq-group.com>
- <20261002081417.2092471-2-alexander.stein@ew.tq-group.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261002081417.2092471-2-alexander.stein@ew.tq-group.com>
-X-ClientProxiedBy: CY5P220CA0006.NAMP220.PROD.OUTLOOK.COM
- (2603:10b6:930:ed::17) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="sHPmXUXP"
+Received: by mail-vs2-f43.google.com with SMTP id ada2fe7eead31-7bf2de022d5so1723120137.3
+        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 07:40:50 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790952048; cv=none;
+        d=google.com; s=arc-20260327;
+        b=r+F6n/6v1/UbDpl+cA0snj/FKbsDqz22su2oUuHegQ9Ul6G0awL8W4W8dHCrEIeT3u
+         8E9y/lz1JGAdMnft58nMz8AeFMm2vWYlkOOLd011o4e+YWOUgwlcidMN0OY97I53bLAY
+         pq6e5ot2pr+91i2yP1TLcxgYVIufsI0+wSd3FNd7Qd9JMHfEycuqL/SYeb0hSpNViigF
+         YZyHmM008M74zoXuB1DLXmqdUtNwKa+NqDS/dYZQL3eU8TcrFff9hqYNBRLdtwLnqc8i
+         7nj9lOFL69qGeVcEMEAr7TiyTn3Zl2NTzivnVM3gQtgdofBEBOg939QGxydG+UyFTNm/
+         N3NQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=4N4a9WNMcn4c5RNG0HhOqhbbIcBeca2e/1494h5sAxQ=;
+        fh=RWwW4aXGFEC8ohKKG3B/bqpvwRiarq0t2O/Q/Yhgg+4=;
+        b=nlIHwPnEPMYR0trU8TZ0kMoQFjG7c5H5zalZmgQ9qyb9d0kN9sUzBEJLWOENL0t8gx
+         nuCUp6SX+vr5fiwtybRM56IrN7d7vvc+X4Qj0XnpOI3IqfY1N8VDtEha7fHt0o6HxuFV
+         jBuk5EXFgJTRv1DuVp3/GFRgwvH0lzW9ha9tfoFvTWWuSvaJRXy8P7/dhXgDiw9uQoyE
+         lqOGdIS4eqDab6P8aPIOOTzyqJQkPXllwTH7lW3mxtOLGgNpSs3m8kICA8TUP4ssGsaR
+         RKD4FCF+dUyJPxBIdswKidHyfXA/qpBx6ZA2x69bLQDYP49IdMzPjUzqjUlQQfVMHUp5
+         omuw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1790952048; x=1791556848; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4N4a9WNMcn4c5RNG0HhOqhbbIcBeca2e/1494h5sAxQ=;
+        b=sHPmXUXPHIaj4Ir2ypLxJIs89CzNrMaVK+Z9qVO/U+tUtAXBmX5r99af9qgmMsbJ9Z
+         RtPHbvLmn4PcTW79yDcqw+KjgLIxFknWOKc4aDIhXCSwNFXEmhyOPkSjo3DUM03FtNtE
+         YbtcU0MvNKVG9Bo+z4WXgeBD15hyDFXDiFKwq9eYEx/cqNwMuQuQBWFryhMASRJARVcY
+         E4nvTnMZJdknQdYGcmzJ3woVX0Jj/89cPuL9jZzXGc0nHTVEXPnEQxBPleakS5SN8w9m
+         +y3x0zwVfZ/E4ZOsMKBQ5zgdDiTrlGTBa6f/09xK0VXwhN2zmftqs1Y2eYpBBIwKVzla
+         L+Hg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790952048; x=1791556848;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=4N4a9WNMcn4c5RNG0HhOqhbbIcBeca2e/1494h5sAxQ=;
+        b=GCJu3jUHtJX/859DOlvpXU7ardCWBCWPf/RfCnH6IQWR7ebYsb5fcQiKZJTtKVfVQY
+         gIQfQQx5yGc6SMz/KvZIfc7HFUjBPwWzZSNRJANCw+uJ2YXBdHs3Ic1r9tymhtMt4n+4
+         M/3eIY7sNRzuku9Tssf2fYxB6FTUxzVH7pfhL/0RyqdNUh5vk6YJNy60nVdca5Qh0Zfi
+         TMpowq/SP13m4cHeiudsB1uAnjQQAZG73T2LpqBJPm+tq5oK0wk41Wg3ds/PUJqAAvDw
+         n77eXWYfkFVYJRtEH69xtOTxM/6c3Q9UNLoTa40fyzWgdRvbSkMx62P8BiK5u9FLXTSH
+         3zxg==
+X-Forwarded-Encrypted: i=1; AKwUvBwKEBHqJNiUXAk6+gVS6v+jFt5WavjzpIHSfcHlX+QH3dyg8j7fPjL+pCOdDk3rxPf/XuFRgH1SFqSs@vger.kernel.org
+X-Gm-Message-State: AFq9FYL14ZJ5PLcEXC/FoWby+uoWzD0H8QqmUlmKJIMkX0F/Aa0CItgr
+	XWhLV6XMSJPrPQjkUGwapZ/klYgmdcc5f4D0I1a0Zg1vtIbM2H6nKUJbJaAcGTKXF2kpfcI6C6T
+	sILjmJhPNURoqZOyoc/EGPlx0ZD0iyae5LDSNDS9d29DP7FcpGT+yFRw=
+X-Gm-Gg: AYBFou2hC6CyjirVFds+aSERubjCCPrC92D9y3kI/vKDknDnFjnAQ/tkqLnupROF6+e
+	dgN3J/1MhLstPm6dCkxMHot+KP+FCaikVAK5pxx0fXWfuFrAPOInJo2+Q1rAvTRpFaRRsRPAWLW
+	7RjJsI7fKFUy/K2jQqEvoypYX9sxmWB23j51JisVycKlOL6Yv0WPiSDbJYMRtoLQgADCMbLIXaq
+	+fkvxBqG9fd5tiCzwHtsqUov6eenZClTmKiCalVsJEmv7mPIYhCu2nkakLlUpUivv/4W38LRWkm
+	JTQVIRERzQrkZhkn4jHNR3oq72afrP1QBakzqyPrL6xtBSngLXVPxIQv8P7jprF8dx2+yCz2+9w
+	pb+vApRbzrWRGBg==
+X-Received: by 2002:a05:6102:1624:b0:7a8:10eb:9775 with SMTP id
+ ada2fe7eead31-7c0f1de9f8amr776221137.4.1790952048089; Fri, 02 Oct 2026
+ 07:40:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|VI1PR04MB7024:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0cf81ee8-8dfd-4571-6efb-08df2092ae4a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|366016|376014|7416014|19092799006|23010399003|1800799024|11063799006|4143699003|56012099006|18002099003|10067099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	mO9l3kyLdckbnTSP7wvm08etQdZRswuOF5KPInr8cD3Xi7UjwMOeupW9ZiziPAaatEeDk/OWybAd7IhMyncn4f7bTcZMkNpEAoL1/i/3JH6oj5K0iURUQmjIOEKpglM4SoIJYh7VDbERPoF+4yOWdmnkrPYdPnTGolCHNlxAogUu9hxkwjcyaU0E5AYWp63PnvXdwZZjMc9n6CF7vJCNrA/bHhMgHCHZJSfGWc+tV+RbK7nvPQzIe5S8TiqZ2v9qdGr75L2/QjTsAdtxIN+aXytraVBfgguuCkMQyVt7QHH9sFr5e2VqtbJKlVz9nNffq3V/9+08BszlFu7r5qtFAYPGvW47AZQhENCK2j1cQ13NrRydXMN9GCdAu0v+SUqwQ9ItCoH0vlOA0V1rzF56qifqi0ixp01+R7w+B401taR0vT6Xs+o+JNS595nAab2vGhPVikIkGJuwcHibmptVJENnqnIs26PMCtCMi//6gIB4lhH2zA9whQvBpzJ3GxXoPxhM8h5eWObpdXLIX0eD6QzMGaluEXhmhiZnVCMIhVHWBOmKBQ5fZk77viMj4fsJ5B7G52VkVijJ6nRy0JZ91s+BQv+fAC0f8wNiEAk4Nfn2QSpbJd4sV7jVTp48I8ZBMTJKLZzzjvqMW5g7XpDnZZM2j6UR+dLbbF2n3LrA1Nc=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(7416014)(19092799006)(23010399003)(1800799024)(11063799006)(4143699003)(56012099006)(18002099003)(10067099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?chRFZjpWUix8CDtv4R3gjOPOJ09viPQErjq4sHYUshIe/GCfHC0FylUf6L1o?=
- =?us-ascii?Q?tLHWDzHxWQDcs/9fA2M230dJCb8HWJVTED19qs0Ln6TMVA7FtEfw1k8WgSL+?=
- =?us-ascii?Q?U1pkn5pinFWXTuYdakTYOqKyHy+qrJJ4zOBjaflLxZmTFx0QarQUk/2MLd/A?=
- =?us-ascii?Q?4+DnkTfpw5oMXd+D6/xLqt591TcRc6uS16RWiE+8h2Or5Wjz+2yk90NEq1wH?=
- =?us-ascii?Q?ZOi+vRrE4IW6Y19YFYFzY6BXHVEyUKqdEkxdMd4ZTXvZBrKPPJUTwz/96P0G?=
- =?us-ascii?Q?3AQcHh7mQBT28LPiqAvfQrnaoC1n1VBev0YTyrPJz949nF8cxNVfkVb43XUB?=
- =?us-ascii?Q?uGcqWkCOOdKKfAw5WcLTQD6fjtAnmvr7Mmg6yOBnbiqTam56J/D4ulmm13Ys?=
- =?us-ascii?Q?jabCANK1ISJdAp6wKEbHXz1EnhveRZwNiE1DAp6HCK80QBvEUwkLR5ie8v5Z?=
- =?us-ascii?Q?EudqkDqFbJyy03X6ooyZydAm46x0J3bA7/h5A+lBdAYicUnXEffuws7GV64x?=
- =?us-ascii?Q?otYs0prfOv7w6424M5lY7UbPyQCKiKf8CDfAijPSHE8lRE8uxjpgdMqku2n4?=
- =?us-ascii?Q?KKe0MpIkZ22p9PlbG0FT+p0a7nmV4xfLqodaYGMzAqjkNxxm48iRNSaP+XAC?=
- =?us-ascii?Q?BTWHkuDD30oFLf6PcdYS+JbOnNFtc5zewC1/aoMgb6xFh0E6Vk2d33+RZfoU?=
- =?us-ascii?Q?0leHxgjBKmtHc1F7979UCHD3rBhdh6SnDQKr56FMzO5qQ7Vo2ZzIco0n9Yz1?=
- =?us-ascii?Q?3snYNRt0GgITIhQLj16cSXEJM49R3E2nTx30H8i114d5xdK60M6Xb5xzp31B?=
- =?us-ascii?Q?insyWBeJ5vWnAX32ypgu8ig8b7ShfBtHm7ZLgqtTY5OqyFOnyKSFiaFU1AUk?=
- =?us-ascii?Q?AxaOhskshZjXK165rjtpooRdZqtd0oDi1CWOmFoMltxohO5Pli5NxEOPUgFY?=
- =?us-ascii?Q?YPEY2xapPTueUy8ndpKX7zHwPs429FloK8qQt11l5edfPF/MMmoSCRTlaIZF?=
- =?us-ascii?Q?yFVNrTYQQz8gEUPQYOWjqgxjtbT/ZR7Yem4WmI2k/GrEd1etsbAEb9hxaXA6?=
- =?us-ascii?Q?JBGqdehBVuuw0Ywrt991YRhaC6Abu5c/wp3639+nYcGs+4CJWJie8UgZCjRQ?=
- =?us-ascii?Q?JQJ8CFkH+TaCGXQeOkusVAfflKwWt03PNlL96P6dswQGveJa21Z4DNa2E1M4?=
- =?us-ascii?Q?yAeaTDavJyR5P8QSjrgaZ3pTU9G2MgFCyy9uTfqNm+nPqAOCaCV4CPc00KH6?=
- =?us-ascii?Q?KAUwhPDfVc8i7J+05Qi1FpHV9ld5MifryvkIqtnxxwaqyqdPQfHxF7J4icyh?=
- =?us-ascii?Q?CF+vSrF65YhNl3fkOoPzNW14+aiOsacLOR3izcLKlh7aP0SpKCzXm52l7x8K?=
- =?us-ascii?Q?kjd/UiUJwvlVM9RNQ47kx+XvswgHIB6n6YZN/jnEiHFqQ9ycCGtbhlfa4p4a?=
- =?us-ascii?Q?pCWqkJevEY8h/UmAS8avEl2MDXAZ8+vhkYvekSzWyao8Bmv0q9QQCwcO26zf?=
- =?us-ascii?Q?b9mfneCIJk49uRZGz7VEOG6/P2pvF/WzfgP39e5d+xtIUK2YkhZNRVvGv5xC?=
- =?us-ascii?Q?ICOiQ76FmmJK2FETW0QwUDcyTrAslcR1tgQ3thO1moYVfhNQGjOC6YCl99+Z?=
- =?us-ascii?Q?VYGRU9LOWDdLssDBvgb9nzPt/iriM7xuw0+ED6rWeLcGu4ct3aVcxTgynb11?=
- =?us-ascii?Q?T/OBPReUtWxLPs8GwUF/EQXMz1ANcpVrc4w1gx1VTmFGU4HVOmovwNngyK+r?=
- =?us-ascii?Q?IM1Ub/XjQdWnyes6JL7kelsv71q8MO5SbZdEpKOw3CsSOJfTXmTg?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0cf81ee8-8dfd-4571-6efb-08df2092ae4a
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Oct 2026 14:37:27.3951
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: UtukmIiPgGGztBOlb55vC9BV+8cNL644HC7Dfw8Xvn4joVxLAk84pFXX0jvtjw2QXJNKR3RDdM9mQmZeJz38HxUgK7FrMH2cnvKQEg3gC65hq5+RLn4cNZG/9iE9uP0z
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB7024
+References: <20260929-exynos850-acpm-node-cpufreq-v1-0-5a86c1d404b8@linaro.org>
+ <20260929-exynos850-acpm-node-cpufreq-v1-2-5a86c1d404b8@linaro.org>
+In-Reply-To: <20260929-exynos850-acpm-node-cpufreq-v1-2-5a86c1d404b8@linaro.org>
+From: Peter Griffin <peter.griffin@linaro.org>
+Date: Fri, 2 Oct 2026 15:40:33 +0100
+X-Gm-Features: AclHuK8D6xaEDYaJjeS22_XFdGHe8Vl0E2LtBv0KYmeFPY7diuDQNpJU8hTUVF8
+Message-ID: <CADrjBPrTNGN7N9Q+rRO61O-mkz-j7YVV4D3tT0W=xj=KM-GT7g@mail.gmail.com>
+Subject: Re: [PATCH 2/2] arm64: dts: exynos850: Add operating points for CPUs
+ and enable cpufreq
+To: Alexey Klimov <alexey.klimov@linaro.org>
+Cc: Sam Protsenko <semen.protsenko@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Alim Akhtar <alim.akhtar@samsung.com>, Thomas Turner <tturner@lineageos.org>, 
+	Tudor Ambarus <tudor.ambarus@linaro.org>, linux-samsung-soc@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Fri, Oct 02, 2026 at 10:14:02AM +0200, Alexander Stein wrote:
-> The generic setup like pinmux and lcdif <-> display connection is done
-> in the mainboard while LVDS specific setup is done in the overlay.
-> As this mainboard also supports parallel display the LVDS connection
-> using an LVDS encoder is done in the overlay.
+On Tue, 29 Sept 2026 at 04:11, Alexey Klimov <alexey.klimov@linaro.org> wrote:
 >
-> Signed-off-by: Alexander Stein <alexander.stein@ew.tq-group.com>
+> Exynos850 has two clusters with four Cortex-A55 cores each. The OPPs are
+> identical for both clusters.
+> Add OPPs for both clusters and replace cpu clocks with ACPM
+> EXYNOS850_CLK_ACPM_DVFS_CPUCL{0,1} clocks.
+>
+> The maximum nominal frequency should be 2.002 Ghz but at this point the
+> following OPP is not added here:
+>
+>         opp-2002000000 {
+>                 opp-hz = /bits/ 64 <2002000000>;
+>                 opp-microvolt = <1050000>;
+>                 clock-latency-ns = <500000>;
+>         };
+>
+> due to stability issues. Testing on a fully loaded system with CPU-bound
+> tasks triggers data aborts and illegal instruction errors at 2.002 GHz
+> after 1-2 hours of such stress testing.
+> Running the same workload overnight on a CPUs fixed at previous OPP didn't
+> lead to any issues so opp-1846000000 is currentlly the highest one as it is
+> considered safe.
+>
+> Higher OPPs can be re-evaluated once thermal support is implemented.
+>
+> Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
 > ---
->  arch/arm/boot/dts/nxp/imx/Makefile            |  4 ++
->  ...6ul-tqma6ul2-mba6ulx-lvds-tm070jvhg33.dtso | 69 +++++++++++++++++++
->  arch/arm/boot/dts/nxp/imx/mba6ulx.dtsi        | 64 +++++++++++++++++
->  3 files changed, 137 insertions(+)
->  create mode 100644 arch/arm/boot/dts/nxp/imx/imx6ul-tqma6ul2-mba6ulx-lvds-tm070jvhg33.dtso
+
+Reviewed-by: Peter Griffin <peter.griffin@linaro.org>
+
+>  arch/arm64/boot/dts/exynos/exynos850.dtsi | 224 +++++++++++++++++++++++++++++-
+>  1 file changed, 220 insertions(+), 4 deletions(-)
 >
-> diff --git a/arch/arm/boot/dts/nxp/imx/Makefile b/arch/arm/boot/dts/nxp/imx/Makefile
-> index c5caca92ea10c..ea0799ba1893e 100644
-> --- a/arch/arm/boot/dts/nxp/imx/Makefile
-> +++ b/arch/arm/boot/dts/nxp/imx/Makefile
-> @@ -420,6 +420,10 @@ dtb-$(CONFIG_SOC_IMX6UL) += \
->  	imx6ulz-14x14-evk.dtb \
->  	imx6ulz-bsh-smm-m2.dtb
+> diff --git a/arch/arm64/boot/dts/exynos/exynos850.dtsi b/arch/arm64/boot/dts/exynos/exynos850.dtsi
+> index 91c6cee8f483..36501e5903f8 100644
+> --- a/arch/arm64/boot/dts/exynos/exynos850.dtsi
+> +++ b/arch/arm64/boot/dts/exynos/exynos850.dtsi
+> @@ -100,8 +100,9 @@ cpu0: cpu@0 {
+>                         compatible = "arm,cortex-a55";
+>                         reg = <0x0>;
+>                         enable-method = "psci";
+> -                       clocks = <&cmu_cpucl0 CLK_CLUSTER0_SCLK>;
+> -                       clock-names = "cluster0_clk";
+> +                       clocks = <&acpm_ipc EXYNOS850_CLK_ACPM_DVFS_CPUCL0>;
+> +                       clock-names = "cpucl0";
+> +                       operating-points-v2 = <&cpucl0_opp_table>;
+>                 };
 >
-> +imx6ul-tqma6ul2-mba6ulx-lvds-tm070jvhg33-dtbs += imx6ul-tqma6ul2-mba6ulx.dtb imx6ul-tqma6ul2-mba6ulx-lvds-tm070jvhg33.dtbo
-> +
-> +dtb-$(CONFIG_SOC_IMX6UL) += 	imx6ul-tqma6ul2-mba6ulx-lvds-tm070jvhg33.dtb
-> +
->  imx7d-colibri-emmc-aster-panel-cap-touch-7inch-parallel-dtbs := \
->  	imx7d-colibri-emmc-aster.dtb \
->  	imx7d-colibri-emmc-panel-cap-touch-7inch-parallel.dtbo
-> diff --git a/arch/arm/boot/dts/nxp/imx/imx6ul-tqma6ul2-mba6ulx-lvds-tm070jvhg33.dtso b/arch/arm/boot/dts/nxp/imx/imx6ul-tqma6ul2-mba6ulx-lvds-tm070jvhg33.dtso
-> new file mode 100644
-> index 0000000000000..e44b7461001ea
-> --- /dev/null
-> +++ b/arch/arm/boot/dts/nxp/imx/imx6ul-tqma6ul2-mba6ulx-lvds-tm070jvhg33.dtso
-> @@ -0,0 +1,69 @@
-> +// SPDX-License-Identifier: (GPL-2.0-or-later OR MIT)
-> +/*
-> + * Copyright 2018-2026 TQ-Systems GmbH <linux@ew.tq-group.com>,
-> + * D-82229 Seefeld, Germany.
-> + * Author: Markus Niebel
-> + * Author: Alexander Stein
-> + */
-> +
-> +/dts-v1/;
-> +/plugin/;
-> +
-> +#include <dt-bindings/gpio/gpio.h>
-> +
-> +&{/} {
-> +	lvds_encoder: lvds-encoder {
-> +		compatible = "ti,sn75lvds83", "lvds-encoder";
-
-
-Can you check if shared one overlay files with
-ls1021a-tqmls1021a-mbls1021a-lvds-tm070jvhg33.dtso
-
-I suppose use the model between two boards.
-
-You use two labels like
-
-reg_lvds: reg_mba6ul_3v3: regulator { ... } to create unified label naming
-for regulator.
-
-GPIO can use nexus node to do mapping.
-
-https://lore.kernel.org/imx/20261001-verdin-imx8mp-hmp-camera-ready-v2-3-7d1343ecd3ec@toradex.com/
-
-Frank
-
-> +		powerdown-gpios = <&expander_out0 3 GPIO_ACTIVE_LOW>;
-> +		power-supply = <&reg_mba6ul_3v3>;
-> +
-> +		ports {
-> +			#address-cells = <1>;
-> +			#size-cells = <0>;
-> +
-> +			port@0 {
-> +				reg = <0>;
-> +
-> +				lvds_encoder_in: endpoint {
-> +					remote-endpoint = <&lcdif_out>;
-> +				};
-> +			};
-> +
-> +			port@1 {
-> +				reg = <1>;
-> +
-> +				lvds_encoder_out: endpoint {
-> +					remote-endpoint = <&display_in>;
-> +				};
-> +			};
-> +		};
-> +	};
-> +};
-> +
-> +&backlight {
-> +	pwms = <&pwm2 0 62500 0>;
-> +	brightness-levels = <0 16 32 64 96 128 160 192 224 255>;
-> +	default-brightness-level = <5>;
-> +	status = "okay";
-> +};
-> +
-> +&display {
-> +	compatible = "tianma,tm070jvhg33";
-> +	power-supply = <&reg_mba6ul_5v0>;
-> +	status = "okay";
-> +};
-> +
-> +&display_in {
-> +	remote-endpoint = <&lvds_encoder_out>;
-> +};
-> +
-> +/* for lcd reset != #stkrst */
-> +/* place r2021, resolder r2022 and iomux following: */
-> +/* MX6UL_PAD_LCD_RESET__GPIO3_IO04	0x79 */
-> +&lcdif {
-> +	status = "okay";
-> +};
-> +
-> +&lcdif_out {
-> +	remote-endpoint = <&lvds_encoder_in>;
-> +};
-> diff --git a/arch/arm/boot/dts/nxp/imx/mba6ulx.dtsi b/arch/arm/boot/dts/nxp/imx/mba6ulx.dtsi
-> index fd05479bbffc9..ba79bb9760806 100644
-> --- a/arch/arm/boot/dts/nxp/imx/mba6ulx.dtsi
-> +++ b/arch/arm/boot/dts/nxp/imx/mba6ulx.dtsi
-> @@ -30,6 +30,21 @@ beeper: beeper {
->  		gpios = <&expander_out1 6 GPIO_ACTIVE_HIGH>;
->  	};
+>                 cpu1: cpu@1 {
+> @@ -109,6 +110,8 @@ cpu1: cpu@1 {
+>                         compatible = "arm,cortex-a55";
+>                         reg = <0x1>;
+>                         enable-method = "psci";
+> +                       clocks = <&acpm_ipc EXYNOS850_CLK_ACPM_DVFS_CPUCL0>;
+> +                       operating-points-v2 = <&cpucl0_opp_table>;
+>                 };
 >
-> +	display: display {
-> +		/*
-> +		 * Display is not fixed, so compatible has to be added from
-> +		 * DT overlay
-> +		 */
-> +		backlight = <&backlight>;
-> +		status = "disabled";
-> +
-> +		port {
-> +			display_in: endpoint {
-> +				remote-endpoint = <&lcdif_out>;
-> +			};
-> +		};
-> +	};
-> +
->  	gpio_buttons: gpio-keys {
->  		compatible = "gpio-keys";
->  		pinctrl-names = "default";
-> @@ -299,6 +314,17 @@ se97b: eeprom@51 {
->  	};
->  };
+>                 cpu2: cpu@2 {
+> @@ -116,6 +119,8 @@ cpu2: cpu@2 {
+>                         compatible = "arm,cortex-a55";
+>                         reg = <0x2>;
+>                         enable-method = "psci";
+> +                       clocks = <&acpm_ipc EXYNOS850_CLK_ACPM_DVFS_CPUCL0>;
+> +                       operating-points-v2 = <&cpucl0_opp_table>;
+>                 };
 >
-> +&lcdif {
-> +	pinctrl-names = "default";
-> +	pinctrl-0 = <&pinctrl_lcdif>, <&pinctrl_lcdifctrl>;
-> +
-> +	port {
-> +		lcdif_out: endpoint {
-> +			remote-endpoint = <&display_in>;
-> +		};
-> +	};
-> +};
-> +
->  &pwm2 {
->  	pinctrl-names = "default";
->  	pinctrl-0 = <&pinctrl_pwm2>;
-> @@ -466,6 +492,44 @@ MX6UL_PAD_UART2_CTS_B__FLEXCAN2_TX	0x1b020
->  		>;
->  	};
+>                 cpu3: cpu@3 {
+> @@ -123,6 +128,8 @@ cpu3: cpu@3 {
+>                         compatible = "arm,cortex-a55";
+>                         reg = <0x3>;
+>                         enable-method = "psci";
+> +                       clocks = <&acpm_ipc EXYNOS850_CLK_ACPM_DVFS_CPUCL0>;
+> +                       operating-points-v2 = <&cpucl0_opp_table>;
+>                 };
 >
-> +	pinctrl_lcdif: lcdifgrp {
-> +		fsl,pins = <
-> +			MX6UL_PAD_LCD_DATA00__LCDIF_DATA00	0x79
-> +			MX6UL_PAD_LCD_DATA01__LCDIF_DATA01	0x79
-> +			MX6UL_PAD_LCD_DATA02__LCDIF_DATA02	0x79
-> +			MX6UL_PAD_LCD_DATA03__LCDIF_DATA03	0x79
-> +			MX6UL_PAD_LCD_DATA04__LCDIF_DATA04	0x79
-> +			MX6UL_PAD_LCD_DATA05__LCDIF_DATA05	0x79
-> +			MX6UL_PAD_LCD_DATA06__LCDIF_DATA06	0x79
-> +			MX6UL_PAD_LCD_DATA07__LCDIF_DATA07	0x79
-> +			MX6UL_PAD_LCD_DATA08__LCDIF_DATA08	0x79
-> +			MX6UL_PAD_LCD_DATA09__LCDIF_DATA09	0x79
-> +			MX6UL_PAD_LCD_DATA10__LCDIF_DATA10	0x79
-> +			MX6UL_PAD_LCD_DATA11__LCDIF_DATA11	0x79
-> +			MX6UL_PAD_LCD_DATA12__LCDIF_DATA12	0x79
-> +			MX6UL_PAD_LCD_DATA13__LCDIF_DATA13	0x79
-> +			MX6UL_PAD_LCD_DATA14__LCDIF_DATA14	0x79
-> +			MX6UL_PAD_LCD_DATA15__LCDIF_DATA15	0x79
-> +			MX6UL_PAD_LCD_DATA16__LCDIF_DATA16	0x79
-> +			MX6UL_PAD_LCD_DATA17__LCDIF_DATA17	0x79
-> +			MX6UL_PAD_LCD_DATA18__LCDIF_DATA18	0x79
-> +			MX6UL_PAD_LCD_DATA19__LCDIF_DATA19	0x79
-> +			MX6UL_PAD_LCD_DATA20__LCDIF_DATA20	0x79
-> +			MX6UL_PAD_LCD_DATA21__LCDIF_DATA21	0x79
-> +			MX6UL_PAD_LCD_DATA22__LCDIF_DATA22	0x79
-> +			MX6UL_PAD_LCD_DATA23__LCDIF_DATA23	0x79
-> +		>;
-> +	};
+>                 cpu4: cpu@100 {
+> @@ -130,8 +137,9 @@ cpu4: cpu@100 {
+>                         compatible = "arm,cortex-a55";
+>                         reg = <0x100>;
+>                         enable-method = "psci";
+> -                       clocks = <&cmu_cpucl1 CLK_CLUSTER1_SCLK>;
+> -                       clock-names = "cluster1_clk";
+> +                       clocks = <&acpm_ipc EXYNOS850_CLK_ACPM_DVFS_CPUCL1>;
+> +                       clock-names = "cpucl1";
+> +                       operating-points-v2 = <&cpucl1_opp_table>;
+>                 };
+>
+>                 cpu5: cpu@101 {
+> @@ -139,6 +147,8 @@ cpu5: cpu@101 {
+>                         compatible = "arm,cortex-a55";
+>                         reg = <0x101>;
+>                         enable-method = "psci";
+> +                       clocks = <&acpm_ipc EXYNOS850_CLK_ACPM_DVFS_CPUCL1>;
+> +                       operating-points-v2 = <&cpucl1_opp_table>;
+>                 };
+>
+>                 cpu6: cpu@102 {
+> @@ -146,6 +156,8 @@ cpu6: cpu@102 {
+>                         compatible = "arm,cortex-a55";
+>                         reg = <0x102>;
+>                         enable-method = "psci";
+> +                       clocks = <&acpm_ipc EXYNOS850_CLK_ACPM_DVFS_CPUCL1>;
+> +                       operating-points-v2 = <&cpucl1_opp_table>;
+>                 };
+>
+>                 cpu7: cpu@103 {
+> @@ -153,6 +165,210 @@ cpu7: cpu@103 {
+>                         compatible = "arm,cortex-a55";
+>                         reg = <0x103>;
+>                         enable-method = "psci";
+> +                       clocks = <&acpm_ipc EXYNOS850_CLK_ACPM_DVFS_CPUCL1>;
+> +                       operating-points-v2 = <&cpucl1_opp_table>;
+> +               };
+> +       };
 > +
-> +	pinctrl_lcdifctrl: lcdifctrlgrp {
-> +		fsl,pins = <
-> +			MX6UL_PAD_LCD_CLK__LCDIF_CLK		0x79
-> +			MX6UL_PAD_LCD_ENABLE__LCDIF_ENABLE	0x79
-> +			MX6UL_PAD_LCD_HSYNC__LCDIF_HSYNC	0x79
-> +			MX6UL_PAD_LCD_VSYNC__LCDIF_VSYNC	0x79
-> +		>;
-> +	};
+> +       cpucl0_opp_table: opp-table-0 {
+> +               compatible = "operating-points-v2";
+> +               opp-shared;
 > +
->  	pinctrl_pwm2: pwm2grp {
->  		fsl,pins = <
->  			/* 100 k PD, DSE 120 OHM, SPEED LO */
+> +               opp-130000000 {
+> +                       opp-hz = /bits/ 64 <130000000>;
+> +                       opp-microvolt = <625000>;
+> +                       clock-latency-ns = <500000>;
+> +               };
+> +
+> +               opp-182000000 {
+> +                       opp-hz = /bits/ 64 <182000000>;
+> +                       opp-microvolt = <625000>;
+> +                       clock-latency-ns = <500000>;
+> +               };
+> +
+> +               opp-247000000 {
+> +                       opp-hz = /bits/ 64 <247000000>;
+> +                       opp-microvolt = <625000>;
+> +                       clock-latency-ns = <500000>;
+> +               };
+> +
+> +               opp-351000000 {
+> +                       opp-hz = /bits/ 64 <351000000>;
+> +                       opp-microvolt = <625000>;
+> +                       clock-latency-ns = <500000>;
+> +               };
+> +
+> +               opp-442000000 {
+> +                       opp-hz = /bits/ 64 <442000000>;
+> +                       opp-microvolt = <625000>;
+> +                       clock-latency-ns = <500000>;
+> +               };
+> +
+> +               opp-546000000 {
+> +                       opp-hz = /bits/ 64 <546000000>;
+> +                       opp-microvolt = <625000>;
+> +                       clock-latency-ns = <500000>;
+> +               };
+> +
+> +               opp-650000000 {
+> +                       opp-hz = /bits/ 64 <650000000>;
+> +                       opp-microvolt = <625000>;
+> +                       clock-latency-ns = <500000>;
+> +               };
+> +
+> +               opp-806000000 {
+> +                       opp-hz = /bits/ 64 <806000000>;
+> +                       opp-microvolt = <656250>;
+> +                       clock-latency-ns = <500000>;
+> +               };
+> +
+> +               opp-949000000 {
+> +                       opp-hz = /bits/ 64 <949000000>;
+> +                       opp-microvolt = <681250>;
+> +                       clock-latency-ns = <500000>;
+> +               };
+> +
+> +               opp-1053000000 {
+> +                       opp-hz = /bits/ 64 <1053000000>;
+> +                       opp-microvolt = <706250>;
+> +                       clock-latency-ns = <500000>;
+> +               };
+> +
+> +               opp-1157000000 {
+> +                       opp-hz = /bits/ 64 <1157000000>;
+> +                       opp-microvolt = <737500>;
+> +                       clock-latency-ns = <500000>;
+> +               };
+> +
+> +               opp-1300000000 {
+> +                       opp-hz = /bits/ 64 <1300000000>;
+> +                       opp-microvolt = <781250>;
+> +                       clock-latency-ns = <500000>;
+> +               };
+> +
+> +               opp-1456000000 {
+> +                       opp-hz = /bits/ 64 <1456000000>;
+> +                       opp-microvolt = <825000>;
+> +                       clock-latency-ns = <500000>;
+> +               };
+> +
+> +               opp-1586000000 {
+> +                       opp-hz = /bits/ 64 <1586000000>;
+> +                       opp-microvolt = <875000>;
+> +                       clock-latency-ns = <500000>;
+> +               };
+> +
+> +               opp-1742000000 {
+> +                       opp-hz = /bits/ 64 <1742000000>;
+> +                       opp-microvolt = <937500>;
+> +                       clock-latency-ns = <500000>;
+> +               };
+> +
+> +               opp-1846000000 {
+> +                       opp-hz = /bits/ 64 <1846000000>;
+> +                       opp-microvolt = <981250>;
+> +                       clock-latency-ns = <500000>;
+> +               };
+> +       };
+> +
+> +       cpucl1_opp_table: opp-table-1 {
+> +               compatible = "operating-points-v2";
+> +               opp-shared;
+> +
+> +               opp-130000000 {
+> +                       opp-hz = /bits/ 64 <130000000>;
+> +                       opp-microvolt = <625000>;
+> +                       clock-latency-ns = <500000>;
+> +               };
+> +
+> +               opp-182000000 {
+> +                       opp-hz = /bits/ 64 <182000000>;
+> +                       opp-microvolt = <625000>;
+> +                       clock-latency-ns = <500000>;
+> +               };
+> +
+> +               opp-247000000 {
+> +                       opp-hz = /bits/ 64 <247000000>;
+> +                       opp-microvolt = <625000>;
+> +                       clock-latency-ns = <500000>;
+> +               };
+> +
+> +               opp-351000000 {
+> +                       opp-hz = /bits/ 64 <351000000>;
+> +                       opp-microvolt = <625000>;
+> +                       clock-latency-ns = <500000>;
+> +               };
+> +
+> +               opp-442000000 {
+> +                       opp-hz = /bits/ 64 <442000000>;
+> +                       opp-microvolt = <625000>;
+> +                       clock-latency-ns = <500000>;
+> +               };
+> +
+> +               opp-546000000 {
+> +                       opp-hz = /bits/ 64 <546000000>;
+> +                       opp-microvolt = <625000>;
+> +                       clock-latency-ns = <500000>;
+> +               };
+> +
+> +               opp-650000000 {
+> +                       opp-hz = /bits/ 64 <650000000>;
+> +                       opp-microvolt = <625000>;
+> +                       clock-latency-ns = <500000>;
+> +               };
+> +
+> +               opp-806000000 {
+> +                       opp-hz = /bits/ 64 <806000000>;
+> +                       opp-microvolt = <656250>;
+> +                       clock-latency-ns = <500000>;
+> +               };
+> +
+> +               opp-949000000 {
+> +                       opp-hz = /bits/ 64 <949000000>;
+> +                       opp-microvolt = <681250>;
+> +                       clock-latency-ns = <500000>;
+> +               };
+> +
+> +               opp-1053000000 {
+> +                       opp-hz = /bits/ 64 <1053000000>;
+> +                       opp-microvolt = <706250>;
+> +                       clock-latency-ns = <500000>;
+> +               };
+> +
+> +               opp-1157000000 {
+> +                       opp-hz = /bits/ 64 <1157000000>;
+> +                       opp-microvolt = <737500>;
+> +                       clock-latency-ns = <500000>;
+> +               };
+> +
+> +               opp-1300000000 {
+> +                       opp-hz = /bits/ 64 <1300000000>;
+> +                       opp-microvolt = <781250>;
+> +                       clock-latency-ns = <500000>;
+> +               };
+> +
+> +               opp-1456000000 {
+> +                       opp-hz = /bits/ 64 <1456000000>;
+> +                       opp-microvolt = <825000>;
+> +                       clock-latency-ns = <500000>;
+> +               };
+> +
+> +               opp-1586000000 {
+> +                       opp-hz = /bits/ 64 <1586000000>;
+> +                       opp-microvolt = <875000>;
+> +                       clock-latency-ns = <500000>;
+> +               };
+> +
+> +               opp-1742000000 {
+> +                       opp-hz = /bits/ 64 <1742000000>;
+> +                       opp-microvolt = <937500>;
+> +                       clock-latency-ns = <500000>;
+> +               };
+> +
+> +               opp-1846000000 {
+> +                       opp-hz = /bits/ 64 <1846000000>;
+> +                       opp-microvolt = <981250>;
+> +                       clock-latency-ns = <500000>;
+>                 };
+>         };
+>
+>
 > --
-> 2.55.0
->
+> 2.51.0
 >
