@@ -1,69 +1,78 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A16F04A2047;
-	Fri,  2 Oct 2026 13:18:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44EB53AB285
+	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 13:20:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790947101; cv=none; b=qY9jxjljPLQJ0Kk7wHI9rOLxbBbFaemRFMMLzc3Y9SfZfIUbHAKWy7ndUiRLTf80S3seVFFdl4dAsHEf3Myknkz14Ivy2N62Md6Vnt323qCX2tzycVRHsxSAr+aCp//+4cjqeaYoU0oIlQAqcON6PpRSqr5/N/BLaqXzTnWBNLw=
+	t=1790947255; cv=none; b=o4Gq8RJyiinhYKKdngWg5Ch3i0fHytMEy6YvtSYuQH48q1qnWniDxNUYUTzvreiIpyg1Ys8GXX0JJ6kLaFxiUdq4cnSzoP+3sciSYNUZFKZ0YfME5OMSSVbj2TY+3f+mekEvBPTDpJVRr7lePCFYSqestgtKz8pF6TqqZ01LK6M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790947101; c=relaxed/simple;
-	bh=8Em+JywnGV2v3UMj4eZhD/X5dnm53SlRF/7e/3Zguik=;
+	s=arc-20240116; t=1790947255; c=relaxed/simple;
+	bh=QQHMnrbHAllQ1PVxxzpZB612BRuLDZabVOOMwjxOk4I=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eYZZMgxmUo88nEEeK4LxGhcFxXIYC3WEjCDnMKiX8cF7SuOKQjKuXMhBzmhoDVfXH+fH/v2a4MHzG/MbMXdv6gzvc9z3x05cLvtgepJA1QJVTc3AZV+i6p4/G0nNqoOKRl/qjfnRiDygEapiMmWqvmotwPKmTMhuGYJ6VH18tFA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=G1jlDV3O; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=QgaBlcmiLjHhjPNX2wMNb1+oWFthUHn/Z0phrXqGTPdp+EevThGkC9djd35U3ffxIFAAHm9yx2x36Llx4RtqLNE4KXklxyzDg82plzpFglx5PbM2WqDG1KVbbVUDt3dD5/Nabz60lC+RPwfgmvfBRkEkZXPjjfLUBa9j7GCTg4Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iqOzefhH; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="G1jlDV3O"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790947099; x=1822483099;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=8Em+JywnGV2v3UMj4eZhD/X5dnm53SlRF/7e/3Zguik=;
-  b=G1jlDV3Oz/q20CEnDgmH1PJswwMK+99DVQa5oafB+g0yg4ofy5vw/H2O
-   Bs9GTh5bjcEnXp6lcw72tE/tKYjKMpoVhCOwJ27cuaTNGCP4Z3BQm8PQy
-   3blT6BeJsQfocrf8tM02KJ/3Qp7lc5UwpfhlXeo9K90IT6lrHKtwkDKig
-   yY3OhorGhYinMo+2B7dIxNdDN8LWIm4rK22xaehHne5vExUf9jZkaIa8D
-   /TnEdDcmkw5DpM3Dp2QgLVC1up22sFSS4G/KxNJBetqwSgESragUHPopp
-   0T4fubObD5Zcyz+wOQDSdUXHNa9CnngTeG+addSFpFIECrHVRdn51XZY2
-   A==;
-X-CSE-ConnectionGUID: ZKXn686TSaSJyVRYN0E80w==
-X-CSE-MsgGUID: tTkVmitHQ6mLo6x0lFAlsQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11923"; a="102286597"
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="102286597"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 06:18:19 -0700
-X-CSE-ConnectionGUID: +kquUBdfQweoFvkQ0U6M4A==
-X-CSE-MsgGUID: RapThUHGRSOKNe4rVQmGsg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="284307292"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.188])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 06:18:15 -0700
-Date: Fri, 2 Oct 2026 16:18:12 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Kanak Shilledar <kanak.shilledar@axis.com>
-Cc: Henrik Grimler <henrik.grimler@axis.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jean-Baptiste Maneyrol <jean-baptiste.maneyrol@tdk.com>,
-	Joshua Crofts <joshua.crofts1@gmail.com>,
-	Marcelo Schmitt <marcelo.schmitt1@gmail.com>,
-	Chris Morgan <macromorgan@hotmail.com>, kernel@axis.com,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 6/6] iio: imu: inv_icm42607: Add accelerometer
- calibbias support
-Message-ID: <ar-vFLFy1JhquDga@ashevche-desk.local>
-References: <20261002-b4-inv_icm42370p-v5-0-c65281b745c9@axis.com>
- <20261002-b4-inv_icm42370p-v5-6-c65281b745c9@axis.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iqOzefhH"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912df756so57420455e9.3
+        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 06:20:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790947252; x=1791552052; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=kRit+4DkJJMFIXTVgztzfNO5zcFZy88SGjfrumMDB4A=;
+        b=iqOzefhH2QhhdFm2z5xIvBRZd1nPUXza26UaFXPquL9/AuMc1loIfFlYnInBDSNgkO
+         7L8m7LufHzQZAHOFsYyL/wah9EXROeHHNCSi8Tnocga8geUXJg/td6A5nPchZGIO0m9B
+         vY97L8FKWOACBLIspXOY78EU6tOfBaL5OANSVl2qDKGe/bxLGreYwHMx3IMOH9fw2yre
+         YmRecXEPD3V38iWXm/6sAABEl/v3unPZz5/KGO/OMIO34WltI7q1f9IRQeWxOhrvqh1g
+         Eopt2flpGaCgW8IGIkwLjPkCwxBBJqjP5ezsuuFm5JnXl0/eNs1cFFEdewBR4qCrY1sG
+         sc2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790947252; x=1791552052;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=kRit+4DkJJMFIXTVgztzfNO5zcFZy88SGjfrumMDB4A=;
+        b=IQic/dmlELC325gmjt+x11KyxPt3EIEgEq2TPAivElaf35oQ8X4V2eK+WB6+ch0KSr
+         YMNO2gMlrM7/p2lNtZ4QHI+r4S09g/ll5Zf7giqRZyUt8+Buwns+6AdeyETeOB9sSQHC
+         sBKAPz822UwvEtPj9l4wjc1D0vqihTis1CHxh6facObSO3QCTH16wksz/h7/sO1gpjKT
+         cECTY5BULGxSfWfNTXiR3zurHfFhceHt+zKNKaZTZ+434RpF1BcbsSgZL2uVkNXDBZPN
+         +DX39PpQMFofC3n8oeKaOBbklrI7W7dnnJCJLcBC8OShA4i4O8uhxO9ZRD3P37j2W/f9
+         csLg==
+X-Forwarded-Encrypted: i=1; AKwUvBwUd4vmALUv9cjdUOsa/B9XERzC1NIkTPVBpqE3+JLn0wFzQOUspDpAHK5OcGnPFrRl3flvFARzmGOG@vger.kernel.org
+X-Gm-Message-State: AFuF++lL8VT3ADwIAdsdACIGJIYGajxnmCQfHPeVi9Fi0Im6XcvHNohi
+	jwYc1knMiAy5/FzOzFohlBqifwyasISZleMyM0xCfT21OF5GrF5rB0w6
+X-Gm-Gg: AYBFou1Btp/aC6DhxhnZCS8P5TpoP3jQXJ0/M9JB1NgAVeaY2NIPclM3+jfIjJX5bES
+	2dAcINONvKjTX/oNwYG0MS7RaTjpm9dSHefbyFEqJw1uIqFCpA8RedyhU3akI5JZganhtxL/hvT
+	hl8yVnUR3N+O9LSZyva9Vv0mkzCQR+h0J6edrxASE2q9ouODs5NJcv5vJoqxpDn5wD75Co2HAvw
+	+qJhWg8AYLgzv1q8S1DtygtJS/U3RijwaRmwAiLYYQ2EbFXyImtUHtZ8cKbBTVDQLOvRZga3BNN
+	gyY6Y7B6eDLEAq5iWCpOhP+5TzHOAsG4+8l4TpTbnviW/QjAZq+JUkXbr6vMiDHs3UEKB0fPFTT
+	kZTkhc2SY2QOD5Jw83I4BnmSKuUdxTiIQPTC5pVZ/+PSemejlO4IWZQ1pf/6T0hNCkm4t7LxWnC
+	rPQb2+IfiC4YRht6Ad1PBK0joDheO7RGBkvz+z8hQCPydXr5k8vWl2daRuppR+Y9Z+URg=
+X-Received: by 2002:a05:600c:3501:b0:49c:fc6e:8cbb with SMTP id 5b1f17b1804b1-4a02758ed05mr53703585e9.31.1790947252094;
+        Fri, 02 Oct 2026 06:20:52 -0700 (PDT)
+Received: from localhost ([2c0f:3d00:6be:8900:ce5e:9212:ea4b:f30])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0a6e894a4sm61225895e9.5.2026.10.02.06.20.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 06:20:51 -0700 (PDT)
+Date: Fri, 2 Oct 2026 16:20:47 +0300
+From: Dan Carpenter <error27@gmail.com>
+To: Mark Brown <broonie@kernel.org>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	p.zabel@pengutronix.de, james.tai@realtek.com, cy.huang@realtek.com,
+	stanley_chang@realtek.com, eleanor.lin@realtek.com,
+	jyanchou@realtek.com, linux-spi@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 2/2] spi: spi-mem: Add Realtek SPI NOR flash
+ controller driver
+Message-ID: <ar-vr51U-Gxpix_s@stanley.mountain>
+References: <20260930065945.88008-1-eleanor.lin@realtek.com>
+ <20260930065945.88008-3-eleanor.lin@realtek.com>
+ <70788248-798e-4c10-8f92-cb3670df4c9d@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -72,52 +81,29 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261002-b4-inv_icm42370p-v5-6-c65281b745c9@axis.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <70788248-798e-4c10-8f92-cb3670df4c9d@sirena.org.uk>
 
-On Fri, Oct 02, 2026 at 01:54:30PM +0200, Kanak Shilledar wrote:
-> Expose IIO_CHAN_INFO_CALIBBIAS on the accelerometer channels. The
-> registers are stored in MREG1. The calibration bias is written to
-> OFFSET_USER4 to OFFSET_USER8 registers in MREG1. Reject the out of
-> limit calibbias values instead of clamping it.
+On Fri, Oct 02, 2026 at 01:40:34PM +0100, Mark Brown wrote:
+> On Fri, Oct 02, 2026 at 02:12:38PM +0300, Dan Carpenter wrote:
+> > Commit aca8cbecdd2e ("spi: spi-mem: Add Realtek SPI NOR flash
+> > controller driver") from Sep 30, 2026 (linux-next), leads to the
+> > following Smatch static checker warning:
 > 
-> Note: The accelerometer functionality is tested with Invensense,
-> ICM42370-P development board.
+> You've not copied me on the rest of the series so I don't know what's
+> going on with dependencies.  When sending a patch series it is important
+> to ensure that all the various maintainers understand what the
+> relationship between the patches as the expecation is that there will be
+> interdependencies.  Either copy everyone on the whole series or at least
+> copy them on the cover letter and explain what's going on.  If there are
+> no strong interdependencies then it's generally simplest to just send
+> the patches separately to avoid any possible confusion.
 
-...
+Ah, Sorry Mark.  I told AI to reformat my bug reports and it screwed it
+up pretty badly.  I'll fix that again.
 
-> +	case IIO_MOD_X:
-> +	case IIO_MOD_Z:
-> +		offset = sign_extend32(((lo_val & 0xF0) << 4) | hi_val, 11);
-> +		break;
-> +	case IIO_MOD_Y:
-> +		offset = sign_extend32(((hi_val & 0x0F) << 8) | lo_val, 11);
-> +		break;
+Plus, when I run b4 on this, then lore doesn't have my email.
+Also sashiko-bot already complained about the bug that Smatch flagged.
 
-Why do we have hi/lo and not proper __le16 or __be16 type for that to begin
-with?
-
-...
-
-> +	val64 = (s64)offset * 5LL * 9806650LL;
-> +	/* For rounding, add + or - divisor (10000) divided by 2 */
-> +	if (val64 >= 0)
-> +		val64 += 10000LL / 2LL;
-> +	else
-> +		val64 -= 10000LL / 2LL;
-> +
-> +	bias = div_s64(val64, 10000L);
-
-We have DIV_S64_ROUND_CLOSEST().
-
-...
-
-Overall, the feeling is that this is cumbersome change and may be split to
-smaller and more isolated logical updates.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+regards,
+dan carpenter
 
