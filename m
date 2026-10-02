@@ -1,45 +1,43 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-24418.protonmail.ch (mail-24418.protonmail.ch [109.224.244.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E50D3B47D0;
-	Fri,  2 Oct 2026 09:53:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98A073B47D0;
+	Fri,  2 Oct 2026 09:53:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790934818; cv=none; b=e07xlFwK4JbnbbwaIQeLdX0e66MV+j3hQ3rowh5E0zQS3/9m/dBujWN0IZYCxbZH9o4L2lYzHmOQyZIBk10Nx6dWFR177rnWz7eLCVOs9P+x8zmaqVyLThLn0P8nMJePgpm0S3bZJAhg1x0jLvB6UEGJOPXFU2unMxQA7WHL840=
+	t=1790934828; cv=none; b=CIOiyo3kIu3Dn/mV3J9UGquPeq4qnxyr8zaHIOJHVue3ubIYya7gKZsdzBERQQPfVkPIJ2d+RGLJUV2DEsPktY1jAJ7sn8VTdXRlj1i692wGOaQqGmrlimk8LmXXL4TOeZMveAQANEwUnroZBQmsZVuIv8Dkn9B8ejxQQZB5V4s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790934818; c=relaxed/simple;
-	bh=rSJtrn+mxA5xF6RWaqUYkGC/l6fyaETthhcXNAnSpSE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IPO8nbdtaydSLx2b6wnnMGfmcVr3FYvBF5YfrahkLJYvoHohvZR6WV4pQrUEsMfYi2eXgp9rVWWObiMk+wfRZGA1LgTJ7K6lqENbYb1hspVeJc0oK+0CQYYZ6Aw3K5ObZDC0w3XSUnyVqxpce629LptWCV/7EP+JgKO5qMRRflk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qjqe23iO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790934828; c=relaxed/simple;
+	bh=gBVfS8Z97pp/piGdlIkEVhWZcOZCyLP6JZH2sHnPxI4=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=pnmX56NPuRcTegPmTcm/Et5t/imlvkD/uUafEtUP6dvdMhVJXZN/Od0qe/L2j7ZEh6sVwDRVnx0JO/Ps57CNFlbhevdxUOQ2nOUysCPOWrW64EMLKT1MgNs61pdElah3YpHvWYK4Y7DnDMu5LgAlwV+GtGz4zEkq7Mz15B2FTMM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=EqSkZGWI; arc=none smtp.client-ip=109.224.244.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qjqe23iO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 965391F000FF;
-	Fri,  2 Oct 2026 09:53:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790934816;
-	bh=sfnfzWmm2BDCyb+S8lJSQc0AkVFKWdTNICDV/Hi2Ki4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Qjqe23iOSVU285nzC63eIKl4jZp1VpzdZd4v2d1vx4o0ao/QZ/tt8an6Lcm7L7yVd
-	 6WRbVsRVVqusz3SGbqJp7rf9W3wiIXXPS98fvKU9T4+fgwbdzLAI0/7tQ+UWzwLQRr
-	 3LvEjKU6lwZeMUT9aGyli5ZTUUUrcaw4CWw5GAcB8n1Mguwej9xl2bldBbd90BND3Z
-	 xe6ChjszAv6Pb4690hittPC1WE2mDIo6sIndUgxKGRkRns8TIAOB8/fyGKo19H4tAX
-	 L1ZkFQB3T+58T79LPVPkS7/ERyDoEmeuwRMmOy8COt0UNX4bGguA4LclPR/YjsG75R
-	 CKN9K2ZVkC7nw==
-Date: Fri, 2 Oct 2026 11:53:33 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Sander Speetjens <sander.speetjens@gmail.com>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Florian Fainelli <florian.fainelli@broadcom.com>, 
-	Jonathan Bell <jonathan@raspberrypi.com>, Stefan Wahren <wahrenst@gmx.net>, linux-rtc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
-	linux-arm-kernel@lists.infradead.org, pbrobinson@gmail.com, Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: [PATCH v9 2/3] dt-bindings: rtc: Add property for Raspberry Pi 5
- RTC
-Message-ID: <20261002-prompt-sophisticated-sawfly-bb6f04@quoll>
-References: <20261001193703.734323-1-sander.speetjens@gmail.com>
- <20261001193703.734323-3-sander.speetjens@gmail.com>
+	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="EqSkZGWI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
+	s=protonmail3; t=1790934818; x=1791194018;
+	bh=gBVfS8Z97pp/piGdlIkEVhWZcOZCyLP6JZH2sHnPxI4=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=EqSkZGWIt90Bk+2itJm4JwvBaT8CrCrbwDCHBxI4k36yLUcJfv9GSWAH709/R8Gg7
+	 36ANzuQJJ3qRxmHUmZV/25OoVb8oMDlmUKEvR7S1etMz3YgAoxqeEjcvTlurv8A2fw
+	 R5URhN8yHmXzS97FPQPi4N3TCphgJrBo43gyLTlBofCks0lont+uDw3HoYVakM8E4o
+	 PfvdCs+0urapr6L/hymmk9nhYTjhqo+0se7x9u7YB3G+PtmpCv+Ox+pO267pAKques
+	 VjTcJLvYEi9XxMJO0RSEC/Kf4HHIXvjOyX+TsTsiopt7ppycxhpfMJZaV5q5XICjse
+	 mWm6V1uMgNBQQ==
+Date: Fri, 02 Oct 2026 09:53:32 +0000
+To: Sakari Ailus <sakari.ailus@linux.intel.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Andre Gilerson <andre.gilerson@gmail.com>, Dan Scally <dan.scally@ideasonboard.com>
+From: Sergey Lebedev <lsa.uz@pm.me>
+Cc: Hans de Goede <hansg@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, German Pablo Lindo <germanpapulindez@gmail.com>, sashiko-bot@kernel.org, sashiko-reviews@lists.linux.dev, linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v8 2/3] media: i2c: Add Sony IMX681 sensor driver
+Message-ID: <20261002095324.65355-1-lsa.uz@pm.me>
+In-Reply-To: <20261002082537.74084-3-lsa.uz@pm.me>
+References: <20261002082537.74084-1-lsa.uz@pm.me> <20261002082537.74084-3-lsa.uz@pm.me>
+Feedback-ID: 113843758:user:proton
+X-Pm-Message-ID: e99c89fc6fe63ed71028b4fc2830343b8854d6c8
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,28 +45,23 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261001193703.734323-3-sander.speetjens@gmail.com>
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 01, 2026 at 09:37:02PM +0200, Sander Speetjens wrote:
-> The Raspberry Pi 5 has a built-in RTC that can be battery-backed
-> via the VBAT pin. When a rechargeable coin cell is used, the
-> hardware requires a trickle-charge voltage to keep the battery
-> topped up.
-> 
-> Expose the trickle-voltage-millivolt DT property so the driver can
-> program the correct charge voltage for board specific configurations with
-> the attached battery.
+Sashiko's review of this patch [1] went to devicetree, not linux-media. It
+asks whether the flip controls are read here without the control handler
+lock:
 
-Commit msg could explain that you do not reference rtc.yaml due to node
-naming rule.
+> When a userspace process calls VIDIOC_SUBDEV_ENUM_MBUS_CODE or
+> VIDIOC_SUBDEV_S_FMT with V4L2_SUBDEV_FORMAT_TRY, the V4L2 core locks the
+> file handle's TRY state, but not the control handler.
 
-> 
-> Acked-by: Conor Dooley <conor.dooley@microchip.com>
-> Signed-off-by: Sander Speetjens <sander.speetjens@gmail.com>
+The TRY state's lock is the control handler's lock. The driver sets
+sd.state_lock to ctrl_handler.lock before v4l2_subdev_init_finalize(), and
+subdev_fh_init() allocates each TRY state with sd->state_lock, so these
+ioctls hold the same mutex as S_CTRL. No change needed.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+[1] https://lore.kernel.org/all/20261002091451.1476A1F000FF@smtp.kernel.org=
+/
 
-Best regards,
-Krzysztof
+Sergey
 
