@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D186480321
-	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 09:57:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF0D2457E64
+	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 09:58:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790935071; cv=none; b=q4vbSa6IH5YYL0UlxoYlMi9Kdux9K0dTmsA4wgdst5o9CuJuaInPOANxjYIBBvHW03/8jGP9XsqXaEinL+z+Elob5woKVwRlI8ZrBPYkp4UHCoL1aFh7xf/MdmP08J0UEVz2ClydHsfvKNzmJR8ndh/QDSfbVn96PO77gdyw0Fc=
+	t=1790935111; cv=none; b=A8z2fzQhjO4wJ5Zpev42QIAfu1pDNNgPRlcw65OmO7pcFi942229KAmXeGhOlXpxSCzVlTZNHPBsAxYCri4PMWwN8fNUhkY5WiCsH+9gfCFuMsX9dBpweFEWa+zRhgmVdPhsgz/EtJAIrH/Q9DyMT6frrw5kysJOAt8mTxwXo8Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790935071; c=relaxed/simple;
-	bh=UHMffMYnS2ynovZmh4U+d85mgfvXvj3l2i9TRsvfsNs=;
+	s=arc-20240116; t=1790935111; c=relaxed/simple;
+	bh=4sp4VcgJMxhd3M4TsgU26n6YJKkprmo97iOmIWwwJ8U=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=mwxvAuSP7CU2gYrW62DgjE1nEOIr3xW9cbby0ufQetm4OiCkc6IJ6EboRzOvdtik2MiNwCPu9R01yxFLucqu8+L4Uj1VuuWdKoa3h4XFC/M0MBDDZYXll29FV41Sq7m4oLqxDK08YTIAo5Dq90hr+mR0gShRpIvx77G3jXQhHjA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bWgRazzO; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=QHW/fw6FG+AYAMPvGHAI6auDsl7RrQX/bU3Pfb2ck2KbdP+7dNB9VxnulR8/O28KaJjxrDk2hG+pLl2sg+4YqpJnk7JnZs7HWF2z1bTo+csNF5C+qfkaEKgUbmG1B9rS95EvZWZjhdG7xLfBKi+sm+qWbYtXXDzsaddgeBaiQdo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JR05qLsh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bWgRazzO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 796DC1F000FF;
-	Fri,  2 Oct 2026 09:57:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JR05qLsh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FC8C1F00893;
+	Fri,  2 Oct 2026 09:58:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790935068;
-	bh=W4t45qMC4Z/mbEOXcYn2Gkqpwp34rqBzrdZ7PnxHo5g=;
+	s=k20260515; t=1790935109;
+	bh=ukQ2DDkkzPz+khjbTsQEOYENM1vHzJhPvNEqOK/dUgs=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bWgRazzOlvgIWT3vJ1pE+OdoDbJ1KJuLm/PaJ3wW5SNEuA87xemC7eZgH6NxwbHeq
-	 46sJe01BGET2TMRD9+5FkutQlC6LtWxMDNsD+O8zw95elGF2N3aL1oS/d5Vt0iGakj
-	 9vH/mvWhlDVGOXqIsU+ibcUru+UXzPCAzjCKB4izMz/c5EPAIty3moik3dvsvyZ3ZZ
-	 HpEHraYjJi6ae7sAyFX6zsh/cEERfT3teHY/PK+4+L+2VYOgrv1okWPn6WYktZAsOK
-	 hZ8hl/bfXYYpWX76GX0qag95zo0UqzgNDDMdLU4j2t3J4+TvnQPAROCbb6vAMAh6FQ
-	 TBuYEwHV157Jg==
+	b=JR05qLshA6MJloVCvQaHfiaMlKq5H4IELuD2p/4SvUv8rLZAP06mvQecUoGBEiPGa
+	 EFpkJMntGPvk+iODXEb2EHcsp6nMWzoPDgHL3Fgw1p/qCMZj60TpfOS/DsF90dze0m
+	 035XmiAXsSASuIGgCMJ2p7uIGUDrXF1F9cAF2c+of1H0DTgZoxIZlQcu+GgWX1nOn/
+	 67eI+isUpEtayE+Z86IwckKd3oW8bfTQYzP+E8unj+ZD0tn7OUiXpw+Zo7LAN7saV5
+	 2i+M9YslF6KkZZuLRBvDeUkgpyKri5evAQCo6A142Rsziafxuerp9HoEFRQC0g2Zo4
+	 qgLQNU4CvbmJg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/5] ASoC: pcm179x: Add left-justified formats for
- pcm1792a
+Subject: Re: [PATCH v5 1/5] firmware: raspberrypi: reorder
+ rpi_firmware_property_tag enum
 Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?Um9tYW4gU21yxb4=?= <roman@amarulasolutions.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261002-work-v1-3-f0e53bc7331f@amarulasolutions.com>
-References: <20261002-work-v1-0-f0e53bc7331f@amarulasolutions.com>
- <20261002-work-v1-3-f0e53bc7331f@amarulasolutions.com>
+To: "Gregor Herburger" <gregor.herburger@linutronix.de>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20261002-rpi-tryboot-v5-1-6294c131e583@linutronix.de>
+References: <20261002-rpi-tryboot-v5-0-6294c131e583@linutronix.de>
+ <20261002-rpi-tryboot-v5-1-6294c131e583@linutronix.de>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 02 Oct 2026 09:57:48 +0000
-Message-Id: <20261002095748.796DC1F000FF@smtp.kernel.org>
+Date: Fri, 02 Oct 2026 09:58:28 +0000
+Message-Id: <20261002095829.5FC8C1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,52 +47,45 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] ASoC: pcm179x: missing LEFT_J in auto_selectable_formats
+- [Low] misc: incomplete enum reordering contradicts commit intent
 --
 
-commit f6579131e2b6aaf5049aa6728620f5e3a4687837
-Author: Roman Smr=C5=BE <roman@amarulasolutions.com>
+commit ef2bb95b7d295f4ec53aefb9f615706dd192ce98
+Author: Gregor Herburger <gregor.herburger@linutronix.de>
 
-ASoC: pcm179x: Add left-justified formats for pcm1792a
+firmware: raspberrypi: reorder rpi_firmware_property_tag enum
 
-This commit adds left-justified format support for 24 and 32 bits to
-the pcm1792a format table to match the datasheet.
+The enum was once ordered by tag values. The later added tags were added
+in a different order. Reorder the tags again.
 
-> diff --git a/sound/soc/codecs/pcm179x.c b/sound/soc/codecs/pcm179x.c
-> index 61b87dab32667..c059e410cbbe4 100644
-> --- a/sound/soc/codecs/pcm179x.c
-> +++ b/sound/soc/codecs/pcm179x.c
-> @@ -75,6 +75,8 @@ static const struct pcm179x_fmt_table pcm1792a_fmt[] =
-=3D {
->  	{ SND_SOC_DAIFMT_RIGHT_J, 16, 0 },
->  	{ SND_SOC_DAIFMT_RIGHT_J, 24, 2 },
->  	{ SND_SOC_DAIFMT_RIGHT_J, 32, 2 },
-> +	{ SND_SOC_DAIFMT_LEFT_J,  24, 3 },
-> +	{ SND_SOC_DAIFMT_LEFT_J,  32, 3 },
+No functional change intended.
 
-[Severity: Medium]
-Should the new left-justified format also be added to the auto-negotiation
-bitmask in this file?
+> diff --git a/include/soc/bcm2835/raspberrypi-firmware.h b/include/soc/bcm=
+2835/raspberrypi-firmware.h
+> index 975bef529854a..8ad1cdbf5e9f5 100644
+> --- a/include/soc/bcm2835/raspberrypi-firmware.h
+> +++ b/include/soc/bcm2835/raspberrypi-firmware.h
 
-When the ASoC core attempts to find a matching DAI format between the CPU
-and codec components, it intersects their supported auto-selectable formats.
-Because SND_SOC_POSSIBLE_DAIFMT_LEFT_J is omitted from the bitmask, it
-appears this format will be skipped and remain unavailable to generic
-machine drivers unless manually configured in the device tree.
+[ ... ]
 
-For context, the current bitmask only includes I2S and right-justified
-formats:
+> @@ -125,10 +125,10 @@ enum rpi_firmware_property_tag {
+>  	RPI_FIRMWARE_FRAMEBUFFER_SET_VIRTUAL_OFFSET =3D         0x00048009,
+>  	RPI_FIRMWARE_FRAMEBUFFER_SET_OVERSCAN =3D               0x0004800a,
+>  	RPI_FIRMWARE_FRAMEBUFFER_SET_PALETTE =3D                0x0004800b,
+> -	RPI_FIRMWARE_FRAMEBUFFER_SET_TOUCHBUF =3D               0x0004801f,
+> -	RPI_FIRMWARE_FRAMEBUFFER_SET_GPIOVIRTBUF =3D            0x00048020,
+>  	RPI_FIRMWARE_FRAMEBUFFER_SET_VSYNC =3D                  0x0004800e,
+>  	RPI_FIRMWARE_FRAMEBUFFER_SET_BACKLIGHT =3D              0x0004800f,
+> +	RPI_FIRMWARE_FRAMEBUFFER_SET_TOUCHBUF =3D               0x0004801f,
+> +	RPI_FIRMWARE_FRAMEBUFFER_SET_GPIOVIRTBUF =3D            0x00048020,
+> =20
+>  	RPI_FIRMWARE_VCHIQ_INIT =3D                             0x00048010,
 
-sound/soc/codecs/pcm179x.c:pcm179x_selectable_formats
-static const u64 pcm179x_selectable_formats =3D
-	SND_SOC_POSSIBLE_DAIFMT_I2S	|
-	SND_SOC_POSSIBLE_DAIFMT_RIGHT_J;
-
->  	{ SND_SOC_DAIFMT_I2S,     16, 4 },
->  	{ SND_SOC_DAIFMT_I2S,     24, 5 },
->  	{ SND_SOC_DAIFMT_I2S,     32, 5 },
-> };
+[Severity: Low]
+Does this actually leave the enum unsorted? 0x0004801f and 0x00048020 are
+now placed immediately before 0x00048010, which appears to contradict the
+commit message's intent to reorder the tags by their values.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261002-work-v1-0-=
-f0e53bc7331f@amarulasolutions.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261002-rpi-tryboo=
+t-v5-0-6294c131e583@linutronix.de?part=3D1
