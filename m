@@ -1,154 +1,133 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0D7043DA4C
-	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 07:37:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96393442399;
+	Fri,  2 Oct 2026 07:39:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790926667; cv=none; b=pblZiHZUs9i0w86IQ8DSM3Ipw4hIXpOdFqPysSaHio1R2Ero3W6xvJ9RB8tIIhaFWj0BWJUEbqBb9qiKBn6FgKoFB0oeA1a3OKyl6j0gk2lLOfC4VO6u3FDqTD7yY4c5zRKjwer0DN9TYIRXCGk9dwnEqfDQoQyM7f06B+ytGH8=
+	t=1790926750; cv=none; b=ucpUj8keEKWYNJYq3f1AQ3i4u76MOUIkGG7DxzBa46sVUaW4qjOocs1i6fxpTqGwFlsVZLFusyHBUZwmdHe2kxei4/22++CYK/6VBnWgQ+QFYrL2Zohn8JMrqL2KSsMjwcBJXCQr2zdsu6x0BDfjx5hN3itcJVdL4n6sls4jFII=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790926667; c=relaxed/simple;
-	bh=sYAyqQ6f9bRmVhsxj1veuLunk3nA6ckSjNhuKUxpq88=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=D6j38sXQMrn/8e2r76UErRYuBWrMd4ui0csCH27AVu3zxdWHk20/IYg19qvRDIVKgDHMx2aEAR+R1XKbqKvlal3ZYZPkkvoZxRb5Q0ExFWT1LCU6ncbPDnZ8lCrtywm3wpeM3tH9h/0Zmq7r/Ag9fzXe7OZyVW57Phu7slSrl1g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Fr75uSse; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=ZeYoPVhP; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1790926750; c=relaxed/simple;
+	bh=5BFVq8ffo1QqLdJRbTDlVy7wmmmk7uEFZ9KPNIl4w4o=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=nX0PbZOs3a+llxcsnjQgP+K5PO9VBHQ76bG/sbMuYkPBKBdTK8nkAm2GMa9vSrh4PQEdH3VxuCEC1VF0+OThophetT2ZTqmPOO7phynGkufx2DSktQwVGIJsE4UxkpcLOwDR3RUd1dKaYej/msvS1TXJIP/nFeIF1bTEgKB0IGY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l68mmSFa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Fr75uSse";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="ZeYoPVhP"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790926664;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=WV95wAdEBW1v5k5upi/D6jheWF0Dkl/DxQsG1HnT/70=;
-	b=Fr75uSseE78QEevNjDaCJCDHn6m5AQ1oX5zD4I5MD8TTWR+GpRdxsjzlSDyLEs90THi7oe
-	JKbd+kn5oX4JqwQKujYzpGFd5IBiHczHxAHDLRRdGazRH2nIlN62zlcqF0XWjMsSM6+1rS
-	mQz8/zpuvNMftQbdPo++SpBtd69m4HY=
-Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
- [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-681-sHup7mD1OeCClIJXzemE-Q-1; Fri, 02 Oct 2026 03:37:40 -0400
-X-MC-Unique: sHup7mD1OeCClIJXzemE-Q-1
-X-Mimecast-MFC-AGG-ID: sHup7mD1OeCClIJXzemE-Q_1790926660
-Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-4a019d53f46so27696955e9.3
-        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 00:37:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790926659; x=1791531459; darn=vger.kernel.org;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WV95wAdEBW1v5k5upi/D6jheWF0Dkl/DxQsG1HnT/70=;
-        b=ZeYoPVhPeBCYI4tJMUHvSWBzHL0JWHBXuNqDLibDCcGpPKpg5NROpaBTSMW2aFKpPD
-         VyDJt8AapoKubq7MHS7dqoQtIK/S63mb1iOI7J9my9KagNLCVPGJ9XSlENnUADsA9VLB
-         ivMtSeQu5WY0cJYks46WVRAnAHSAR/3d5wC0YssIgl53Je5G0e+aJW20mAt6NRUwvnZJ
-         +WntoqaX+z6IJ2zJFYXq0pe2C1/TCnHeUQjVWFEDLfz1Mdqkrl6hUcIwH49nkiyOO28J
-         8lnKYe1WRTA06/znEOoGrvxs/vKv9DqYJrAyjDIof5stnVC3QMU7aVUynEMf//T/B7Rl
-         ia1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790926659; x=1791531459;
-        h=content-type:mime-version:message-id:date:references:in-reply-to
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=WV95wAdEBW1v5k5upi/D6jheWF0Dkl/DxQsG1HnT/70=;
-        b=2hscLHfV5ydSVlxu4eyrqNKvTzSOvwNZAaHw1uCMmW1h3wL12YerkITygnxMuXeqaN
-         wArd/dy6hNhW7ujzwJ2yJt6MyXqS2Ig0yWDsvGFiluPkH6/7NDnWTSb5GU9gQVrw8Jvw
-         q7yXBmWGBegphqVEW8K3GUMlzADceqC5aNdAUmIZ6eOPjUgjDVmYYhKv6Vj+yI5tMt0Q
-         M4iHxgKdd/9KEVREYTfMshJiP7azFw6QwoLyWUo5tPpNsYAfYQ0Bvg6jHRxBbF01bcpD
-         Y9hxHJdexJfnirofZNj4ltZhZAG++TWPIVO7Rtnx2RbvWtWRXq00zUpuR8KYA+4DrBU6
-         ddSg==
-X-Forwarded-Encrypted: i=1; AKwUvBzOU/NZElusXMtaXFD/ocEX5MR2P4QMjbbMjATC3gJHJ7cVWev48/EtlVWdv4fNXwWcvu7za7CMBdLU@vger.kernel.org
-X-Gm-Message-State: AFuF++nrAeiBVBpq/jDQa7Pzb3tQemM+53NirT9qiMaxQjWPwwi37aih
-	VreZbt3CeYeU2rggB+KWNxQ+zLouQ7DnMXCiH21alFLwkm1kB+WucvQQlnpUnIAZawnEa8Nw7ut
-	8/2rK1pVYy+mAwkSa1veDcwmth4SoliUS2Kv38Ow9pTeRTtG5ktLRlmektJeodX8=
-X-Gm-Gg: AYBFou0IwAy/830ERSP00F4bzT+O37YnQYSQ1iwsSM/emsme5wbEoRvkf8rS3p2yJ9l
-	1wHl2ajK13+dTQaCPj07tTyqPy7zyQO1N/FjsyIOVfVUt9g07yCOgdzBja0CqyHuPotI/ps8TdI
-	lcPLf5cIMZ8YwTBNIWJWTyCY27l6oKjkhVXFNkjDMwDpBOD5Y5wzuDtnuofT5em6JQuSLpY/SvS
-	8gS8LtD3t4ZWQa2Il3GvvPZ0c7YYpRvInISfZOTfUsJ0fUEr3L9OxgEh8Y78JupRJ5bb7Y8giA6
-	EutVVHX4WB68M9hj++7lMPKCxZ49dxDyNj+hXF8r5mGODgDTXcEsL6g0AOamwIjOnW3iqRVdWAh
-	cYGcRMrIxj0LUEmF1lJ/WDaS/KrJChCj29mi+XP7BsGHpkuuK3UDn2nZJGdjOz1C3+A==
-X-Received: by 2002:a05:600c:4e8e:b0:49f:fe79:62f9 with SMTP id 5b1f17b1804b1-4a0276afe79mr34251295e9.25.1790926659507;
-        Fri, 02 Oct 2026 00:37:39 -0700 (PDT)
-X-Received: by 2002:a05:600c:4e8e:b0:49f:fe79:62f9 with SMTP id 5b1f17b1804b1-4a0276afe79mr34250535e9.25.1790926658971;
-        Fri, 02 Oct 2026 00:37:38 -0700 (PDT)
-Received: from localhost (62-151-111-63.jazzfree.ya.com. [62.151.111.63])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a027da120bsm63581875e9.0.2026.10.02.00.37.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 02 Oct 2026 00:37:38 -0700 (PDT)
-From: Javier Martinez Canillas <javierm@redhat.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>, Maxime Ripard
- <mripard@kernel.org>
-Cc: Benjamin Tissoires <bentiss@kernel.org>, Jessica Zhang
- <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, Simona Vetter
- <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Nathan Chancellor <nathan@kernel.org>, Nick
- Desaulniers <ndesaulniers@google.com>, Bill Wendling <morbo@google.com>,
- Justin Stitt <justinstitt@google.com>, Florian Fainelli
- <florian.fainelli@broadcom.com>, Broadcom internal kernel review list
- <bcm-kernel-feedback-list@broadcom.com>, Andrzej Hajda
- <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, Laurent
- Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
- <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca
- Ceresoli <luca.ceresoli@bootlin.com>, Albert Esteve <aesteve@redhat.com>,
- Dave Stevenson <dave.stevenson@raspberrypi.com>,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, bpf@vger.kernel.org, llvm@lists.linux.dev,
- linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 0/6] drm/bridge: Add a BPF-based MIPI-DSI panel driver
-In-Reply-To: <2bd17843-4a65-49b0-9e10-7b73afb206b6@linaro.org>
-References: <20260928-drm-mipi-dsi-panel-ebpf-v1-0-5244926aace4@kernel.org>
- <6b80cb97-6706-412a-b013-9423f6f75153@linaro.org>
- <arqhwHiVf00j94J7@beelink>
- <0259fe4b-3118-4ab0-9b62-55101bfd7f33@linaro.org>
- <arrAqg5n87INTHE6@beelink>
- <674314b4-6b80-4b3a-ac15-eefd31cea607@linaro.org> <artpBMeM13Dd0lLy@houat>
- <xlv1wls4ebjq.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
- <828c9108-2db1-45a6-9301-19159a094301@linaro.org> <ar4CRTMQGs5_nGKY@houat>
- <2bd17843-4a65-49b0-9e10-7b73afb206b6@linaro.org>
-Date: Fri, 02 Oct 2026 09:37:37 +0200
-Message-ID: <xlv1cxtsft8e.fsf@fmartine-thinkpadx1carbongen12.rmtes.csb>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l68mmSFa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A48D21F000FF;
+	Fri,  2 Oct 2026 07:39:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790926748;
+	bh=/ykEFIXNpa+hm5Pcanjx941BUKY55WL5z7zwr6WIafY=;
+	h=From:Subject:Date:To:Cc;
+	b=l68mmSFa39sIm3KCj2Zl/tbzFLnjFrSDQD77VNcHsl6aABH21roQxPReE8Nec4/bR
+	 pbaoE5DZ4aOyE9Qz2f3zgbEQ9H0QEqViJAt0hbRR0hN6BPHrOYr8k2qxjPmWEOus5g
+	 yNSrntaJspdEBJbSdi6NabL1fz+gc+Fk9zT9Pn/GHcLJtBpYRH+vWR//U1l6XU462L
+	 RMYUPJOLHD6il+UCfD0yKo0Rle4LoftSKHKZtcMA2Tbt6xNx8vKcyjjxU3c6mgyQtW
+	 GddLrbvQunDySxPEbBKZTxABcyzFJl7U9jdmwe2JEUwZ+rWQxREn/Xv0aH9iMex16q
+	 F8tr239zd2bTA==
+From: Thierry Reding <thierry.reding@kernel.org>
+Subject: [PATCH v3 0/3] arm64: tegra: Fix DT validation issues for Tegra132
+Date: Fri, 02 Oct 2026 09:38:57 +0200
+Message-Id: <20261002-as3722-bindings-v3-0-21c179b72a95@nvidia.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XNTQ7CIBCG4asY1mLaoT/iynsYF0CHdkykBirRN
+ L27UDca4/JNvnlmZgE9YWCHzcw8Rgo0uhRiu2FmUK5HTl1qBgU0hYQ9V0G0AFyT68j1gSMY05a
+ 1ltLWLF3dPFp6rOLp/O5w1xc0U2byYqAwjf65voxl3v3XY8kLLmpbgVDSgoaji9SR2pnxyjIf4
+ QMQxS8ACVBCa9VUErWVX8CyLC/2ymRPAgEAAA==
+X-Change-ID: 20260928-as3722-bindings-e2cc715b99f5
+To: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
+ Mark Brown <broonie@kernel.org>, Laxman Dewangan <ldewangan@nvidia.com>, 
+ Thierry Reding <thierry.reding@kernel.org>, 
+ Jonathan Hunter <jonathanh@nvidia.com>
+Cc: mfd@lists.linux.dev, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Thierry Reding <thierry.reding@gmail.com>, 
+ linux-sound@vger.kernel.org, linux-tegra@vger.kernel.org, 
+ Thierry Reding <treding@nvidia.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2410; i=treding@nvidia.com;
+ h=from:subject:message-id; bh=5BFVq8ffo1QqLdJRbTDlVy7wmmmk7uEFZ9KPNIl4w4o=;
+ b=owEBbQKS/ZANAwAKAd0jrNd/PrOhAcsmYgBqv1+VO6vHLKS/n2JS6eugYe3dV9NJDK/DseskQ
+ O2G3XDiZM6JAjMEAAEKAB0WIQSI6sMIAUnM98CNyJ/dI6zXfz6zoQUCar9flQAKCRDdI6zXfz6z
+ obtqD/99remcsjQ8FJ7rVRfbIDA9FCpNcuSMLbDe6svLg72rC8dLBR30WybrFM+/Fl5/Xs84n5C
+ MiR0sK3zZvm5Dc5RV3Ix+7kkPyQyIpm48TOhVixpWXLqEAFFhYUdaN/Ieq4ubF5IcYwygmz01lx
+ aiVq4yBVy1Wk+FQsnD8IZns6TNBkGyNZ8NG42+jy9oXZEPmpUrgxmCMdXv2wFjuZGAZ8thiLoJK
+ 1ePzBqcTceTVhcQ2kcL9GsefdcfmeHYYiDbdePvaXVRyl7jPjl7yvQ0krK92q5F3hgVK1gdwp33
+ Vgm5j8sTwNlib+RWP5RJBzEHfr3I60azbTOHF/KAWR9HGOwWe+gx7K+8t3ErJhb2zeWE2CdIPhJ
+ 0d5ffroG39jKDi9W4n2fHaNfGX++fRDddyP7/zfjWwx4PkxyBl5qntYRjMfmZp5qBeWEZ1BUyRb
+ cpqencQyb3DYSUJEYZD+pmBgF1bf0xiU7vF0LyaIRo8zF6XqmNZHruwV9VVQ24xS9WmtkcMA5m0
+ XYnvagONwmFWoDkFGvbdRpRvQpu+4+wvJ9/64oBX0anu9hHPeNReFE2o9UYo9iVK4SOwX41UiAi
+ fmFheE7Q5UqHPSO2qgeM1MiWdU6gCm1d4LYuVz0QQeTq3jGPQ0V+XaYk4OUYoo3D6HjbEoPWsJL
+ HcxT8HQ7t4OYrRw==
+X-Developer-Key: i=treding@nvidia.com; a=openpgp;
+ fpr=88EAC3080149CCF7C08DC89FDD23ACD77F3EB3A1
 
-Neil Armstrong <neil.armstrong@linaro.org> writes:
+The following set of changes fix all remaining issues on Tegra132 Norrin
+as well as some collaterals. The two json-schema conversions in this
+series are shared with some 32-bit ARM platforms and they fix similar
+issues there, too, and I've verified that no new issues are introduced.
 
-Hello Neil,
+This brings down the total number of DT validation issues for Tegra to
+44 and 16 of them unique.
 
-> On 10/1/26 08:50, Maxime Ripard wrote:
+Lee, Mark, do you want to pick up the device tree bindings conversion
+patches, or should I take them through the Tegra tree?
 
-[...]
+Thierry
 
->>>
->>> I don't want to add a supplementary maintenance burden for the sake of using a cool
->>> technology which has serious drawbacks and dependencies on user-space even if looks
->>> really cool.
->> 
->> Spoiler alert: v2 won't. I've got the in-kernel loader to work and thus
->> you can have a built-in panel driver that works without user-space
->> intervention. So this is not a topic of discussion anymore.
->
-> It will still have users-space dependency, meaning the BPF files will need to
-> exist in the fs when drivers probes.
->
+Signed-off-by: Thierry Reding <treding@nvidia.com>
+---
+Changes in v3:
+- fix compatible string matching for per-SoC constraints
+- fix subject prefix for ASoC binding
+- Link to v2: https://patch.msgid.link/20260930-as3722-bindings-v2-0-a3bba649ebf9@nvidia.com
 
-It doesn't have to AFAIU. The BPF programs could be built into the kernel
-image, just like firmware binaries could be built-in as well.
+Changes in v2:
+- address review comments from Rob, Mark and Sashiko
+- Link to v1: https://patch.msgid.link/20260928-as3722-bindings-v1-0-35f423a9f2b2@nvidia.com
 
-> Neil
->
+To: Lee Jones <lee@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>
+To: Mark Brown <broonie@kernel.org>
+To: Laxman Dewangan <ldewangan@nvidia.com>
+To: Thierry Reding <thierry.reding@kernel.org>
+To: Jonathan Hunter <jonathanh@nvidia.com>
+Cc: mfd@lists.linux.dev
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: Thierry Reding <thierry.reding@gmail.com>
+Cc: linux-sound@vger.kernel.org
+Cc: linux-tegra@vger.kernel.org
 
--- 
+---
+Thierry Reding (3):
+      dt-bindings: mfd: as3722: Convert to json-schema
+      dt-bindings: ASoC: nvidia,tegra30-ahub: Convert to json-schema
+      arm64: tegra: Add Tegra132 specific compatible for AHUB
+
+ .../devicetree/bindings/mfd/ams,as3722.yaml        | 293 +++++++++++++++++++++
+ Documentation/devicetree/bindings/mfd/as3722.txt   | 214 ---------------
+ .../bindings/regulator/as3722-regulator.txt        |  91 -------
+ .../bindings/sound/nvidia,tegra30-ahub.txt         |  88 -------
+ .../bindings/sound/nvidia,tegra30-ahub.yaml        | 289 ++++++++++++++++++++
+ arch/arm64/boot/dts/nvidia/tegra132.dtsi           |   2 +-
+ 6 files changed, 583 insertions(+), 394 deletions(-)
+---
+base-commit: 6c2cb8b8b843d216ab549b678a0d8831c43153e0
+change-id: 20260928-as3722-bindings-e2cc715b99f5
+
 Best regards,
-
-Javier Martinez Canillas
-Core Platforms
-Red Hat
+--  
+Thierry Reding <treding@nvidia.com>
 
