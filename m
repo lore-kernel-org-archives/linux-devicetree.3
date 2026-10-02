@@ -1,84 +1,76 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E64264477F4;
-	Fri,  2 Oct 2026 09:02:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12F0433FE0A;
+	Fri,  2 Oct 2026 09:03:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790931760; cv=none; b=trQNME69gUj2yci9Sh+0gUyj6JIGDbbPiYf+7i3w2jleqdQO+GnbHccDoKLxYA9tptqckKHfvG0ADPTLkKpr8LsPjil95VmDMwpaktjfA9EXiI6maGeu91eMX9npwVxCkmiqc8vVcstlQGWFeGVnhywDZTzj0ABoE1PTAL8nhBA=
+	t=1790931819; cv=none; b=kvua/QGn3+JTwsIrhM3GfTiVDJ1fKUe5nLkQRNn3KDcAgdb2p6lXvKdrbNVw23Bjb0LVNpHHT1DGZqcZapMji4jlIIBVBNJnEZUV2yZF08d9mmIZkoU9xoBZiMS0HFeoUbiD5nUOhx4rOQhIEP3Ma6P8Tb0CxB6W/kV/Zp65mUo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790931760; c=relaxed/simple;
-	bh=McE9YnorQBQgu7XJjTQ1zhUZtE5g4ZLOGfzXTBBV5Mc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BQTz+OPSDTnuoJjXQrIOFNqiz9+1mUN5siSFiQigIN7lM54JPt1eTHrmbPNfQBAFA/Bv2zVZ5KqEDwNFw2a7UXqX5Ijn6ZfFgSsD8QpPz8dnwTkEc3kN/ekqiA80CtkV8pKy55fjTO/dj2EnyQCU2gvYi/0nA1cuduaK/Pc9AMo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=HD0syKCx; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	s=arc-20240116; t=1790931819; c=relaxed/simple;
+	bh=erFZpVSHUkxWhTkiSAOYGODrBZpNd+kBjM/Af5KkOY8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qcfk8eahjOygRZhvuu/wTNbQyEFi3WCk3wJkAVUOfc7nEIJvhqqsAXgMOJ/vj81mIuyInhuGnKLqiRoG0MkGgh0xIIybev5893mxdYTA0oBpjJdHIqlI039el3VP/jeAC7Q91nQTxdO4wVIGtu2qcgU0+eoCrUEpPQHSbPj+rRM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PMhj128m; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="HD0syKCx"
-Received: from francesco-nb.. (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
-	by mail11.truemail.it (Postfix) with ESMTPA id 4365D1FA8F;
-	Fri,  2 Oct 2026 11:02:35 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1790931755;
-	bh=OfgMEUF+Fw0qOI2z3NuCRJaeDMkJbrHyQvlbCPr4av4=; h=From:To:Subject;
-	b=HD0syKCxyO7pI/3K1fG+TXZMhYEcypAIjoZCL3siMyKIONN2VO6xeYJmdn6zhzsny
-	 DYgpcRHZWwbi7M5c/s0RTFY6Nz8BGRabzH88jkBZUlUxcMwvhSNBHbG5syd8OMooyi
-	 GgRd9I61fTQ6CijkphkJZdtbk4xGnZROwS8zQSsjc7R0N8Ww2JIXgNiHQHCyjB6lm6
-	 fxeAiTfHkvxQrsWkshN20MP4WIunj6ZrtnvWPN2xexwFfqJCSeDrKvFaBTVY9MMNIi
-	 urXgT7KCYO2Ri4cMyrhm36i2IaYcRi3V9rKnOxz6xAuoLcmTbog0prIccHleMaOTux
-	 FZUL37p2123vw==
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>
-Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v1 2/2] arm64: dts: freescale: imx95-aquila: fix i3c2 pinctrl group node name
-Date: Fri,  2 Oct 2026 11:02:27 +0200
-Message-ID: <20261002090228.41445-2-francesco@dolcini.it>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261002090228.41445-1-francesco@dolcini.it>
-References: <20261002090228.41445-1-francesco@dolcini.it>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PMhj128m"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAEB21F000FF;
+	Fri,  2 Oct 2026 09:03:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790931817;
+	bh=yQxZFijEU5LHsqzlp6kC4YKHFl6QGIvDQevjxQ5kmyQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PMhj128mwMLV5wxS5AIrCVz7sWVTvHfeMTUmtJNuQMrV/fEjwjC0ANphjgG8OAaNq
+	 OSLjHK3uCMbVUpu0mYgpgErTjWVVLMe9WD7+Qrr5bkigcdQh4JqDmMxKeowUhRgbC0
+	 b4p3M2Qu8uNS3IUEhscAJJbzwNepyc6xXKFYSRQNyWVYLpn2dojmo2Z2XD+A6996u7
+	 //Au+sbQQ2UqZ4xnXAlvCyahXqXAyat9yvVYB6EKZSHsLZUErIHJK/BxjevvjRJnYQ
+	 YpmjFn7W1D6cztpU0QScfgv7W6g2OZuTnXdZD6pGJ73e53km2ZfcjQ16G2dOJRVw0z
+	 i78vsxykvbi7g==
+Date: Fri, 2 Oct 2026 11:03:33 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Billy Tsai <billy_tsai@aspeedtech.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>, 
+	Ryan Chen <ryan_chen@aspeedtech.com>, linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/3] dt-bindings: iio: adc: Add syscon property for
+ multi-SCU SoCs
+Message-ID: <20261002-succinct-voracious-orangutan-fdac5e@quoll>
+References: <20261001-ast27xx-adc-upstream-v2-0-2f9c15cc0064@aspeedtech.com>
+ <20261001-ast27xx-adc-upstream-v2-1-2f9c15cc0064@aspeedtech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261001-ast27xx-adc-upstream-v2-1-2f9c15cc0064@aspeedtech.com>
 
-From: Francesco Dolcini <francesco.dolcini@toradex.com>
+On Thu, Oct 01, 2026 at 05:50:36PM +0800, Billy Tsai wrote:
+> The ADC's reference-voltage trimming data lives in a System Control
+> Unit (SCU) register. SoCs with a single SCU instance let the driver
+> locate it without any additional information, but SoCs such as AST2700
+> that expose more than one SCU node need an explicit phandle to
+> disambiguate which one holds the trimming data.
+> 
+> Add an "aspeed,trim-syscon" phandle property, and require it for the
+> AST2700 compatibles since they are the first multi-SCU SoCs supported
+> by this driver.
+> 
+> Signed-off-by: Billy Tsai <billy_tsai@aspeedtech.com>
+> Assisted-by: Claude:claude-sonnet-5
 
-The pinctrl group node for I3C2 is named "i3c2cgrp", with a stray "c".
-Rename it to "i3c2grp" to match the label and the usual naming convention.
+Your SoB is the last one.
 
-Fixes: d5c082ba23db ("arm64: dts: freescale: add Aquila iMX95 support")
-Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
----
- arch/arm64/boot/dts/freescale/imx95-aquila.dtsi | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+With this fixed:
 
-diff --git a/arch/arm64/boot/dts/freescale/imx95-aquila.dtsi b/arch/arm64/boot/dts/freescale/imx95-aquila.dtsi
-index c5f4cf0541f2..287b7bcebc73 100644
---- a/arch/arm64/boot/dts/freescale/imx95-aquila.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx95-aquila.dtsi
-@@ -932,7 +932,7 @@ pinctrl_ctrl_gpio_exp_int: gpioexpintgrp {
- 	};
- 
- 	/* Aquila I2C_2 */
--	pinctrl_i3c2: i3c2cgrp {
-+	pinctrl_i3c2: i3c2grp {
- 		fsl,pins = <IMX95_PAD_ENET1_MDC__I3C2_SCL	0x40001186>, /* Aquila C17 */
- 			   <IMX95_PAD_ENET1_MDIO__I3C2_SDA	0x40001186>; /* Aquila C16 */
- 	};
--- 
-2.47.3
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+
+Best regards,
+Krzysztof
 
