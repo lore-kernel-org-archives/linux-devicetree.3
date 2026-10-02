@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7529447798B;
-	Fri,  2 Oct 2026 09:14:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8775A484255
+	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 09:14:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790932488; cv=none; b=VeJZ56EqMZiJYcjhYrazEDthu0Ihi3RFG2gqgs++/3dMi8BHnAZ0EeIIy8JZebf5HCDn8HnYhcPxOQNVN0Nz5+J8t1snmN2YlKW/M9svGqAQSvZExh/V0OxIYDiWmIenXooeZacHWR4gVrMaypKa/QQb+RJnG9AtMe7h5iZTYEs=
+	t=1790932492; cv=none; b=sXVS6U+imUq4LZIY2KEhDJ9k/NupWKdaoyoE3vIZbYEgLGQyX/m0eKVhMJfhEqu+kAJiscf8lZfKkKK0dZ2/vkxUOrf6Mn2gWWdJyozg2ApI4G431/Fry1v2HLJ7+M3cTJtdJaqTZgoJQybFiccoXq+eYOYpBwk6DIWB8lWj3Ts=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790932488; c=relaxed/simple;
-	bh=j3SZEJJTdWffDJ1Fv7QSwsipTPAR0NYJGOKFTP6wsWU=;
+	s=arc-20240116; t=1790932492; c=relaxed/simple;
+	bh=cltgOaMvnXlRT+wm5O6nk8TR1T31qJFTibMDOMsLEDw=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=kIfdELk3V7fnOOLTKjifRAWXnJWMvwutLxMUMvY/Vy/5Cx20SRYZl0vg8lPWO+h9zgLj2Psmi/TcWArUTUPNib3TsXXjSNg4/7k9awrWGDRStFbQIBOHDW3W3+aLFPSVJ4pprbphjO1P1lIctDVkOoZj/L8gAW3769OVKInHp4k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nd5gUnf/; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=hjUlwNKWgBVsNR09ZLvtsSvVUDY1EkqU9LphgBn1OdXVv9Hwbd/4zBZFU2uHdKtq48oElT7P3NtKbx8txHvOuFfznFK1Nk9FSSmrPbuWyhepY4FrB+sePE6jGzGllEHb9wunowJ+bXE1icahEC3x4PytpAG1FJNrRUU/iwjO9DE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gs4bFKEX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nd5gUnf/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E8F51F00899;
-	Fri,  2 Oct 2026 09:14:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gs4bFKEX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1476A1F000FF;
+	Fri,  2 Oct 2026 09:14:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790932487;
-	bh=uqE41k3WoOozrY7e4V6jIdSC5TRMh7GJBe/zTNIpOoE=;
+	s=k20260515; t=1790932491;
+	bh=D6s7V2OlxjlDvQ1O7VZTxgkTrvI7PZuA9qx6SWniQso=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Nd5gUnf/LPiAS9b9g4HxTBicoT9rgdmEkR++1Muy8XMTO4X3+eZnSH8AdQjRgJZwT
-	 6hyhE5rrxRoGkelpYAOGqAMggQfwBBZRvROlesuvaJBx22jnbCUK6RiTNybkCSqjaA
-	 waoyRqLhWjRuAr1XKnH3IEfazx25taR9bhkfMXkiLS720uatYnz0DDnuZh5UIlt2Rl
-	 dItaCc/Kbg7K231knXgH6MOVp31wTZUFBh+Yqi+WQQ51c+LwPMav0MNzYt+/D+AsbY
-	 NQnnt/q6aRa8lpgVOLeTGjLU3vvkOz83p1zIPEfAC93jNtXoyVcYyrjc+bgHgfWx4O
-	 NsvIErfzF3Qbw==
+	b=gs4bFKEXQJD2KXGHfHLvZJCYyGI2fHfkpGAoue0bkGyXvardgxqqgHctGisDyyYRL
+	 A0J7nDMunNn3U9bP2PGsN0Ae2sMetDk2JDhcTZAQ9QeEfZu8M5eOqwSgCgGKC+aDLo
+	 Ae1RSOcGP8++7tdylNQt4+bv+gTDRmh2S+sFKw37Ql4XBr/SIL95WuFbxZUFOpBmA2
+	 4L31swonDxlFpnaBEiSYamXAkYORYgQ6Lz3kSAX1qYTMbHXCgp5u59HCoLB5kRXli9
+	 PFA6ee+SzF5kQ8DpGjvDbpdRid9XC5XznGqemIyPogYVN4wsnP3PvnjchRUv2fAeLA
+	 e1QU6ugZBVSTw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/8] ARM: dts: imx6ul: Add LVDS DT overlay for TQMa6ULxL
+Subject: Re: [PATCH v8 2/3] media: i2c: Add Sony IMX681 sensor driver
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alexander Stein" <alexander.stein@ew.tq-group.com>
-Cc: Frank.Li@kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev
-In-Reply-To: <20261002081417.2092471-3-alexander.stein@ew.tq-group.com>
-References: <20261002081417.2092471-1-alexander.stein@ew.tq-group.com>
- <20261002081417.2092471-3-alexander.stein@ew.tq-group.com>
+To: "Sergey Lebedev" <lsa.uz@pm.me>
+Cc: devicetree@vger.kernel.org, media-ci@linuxtv.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20261002082537.74084-3-lsa.uz@pm.me>
+References: <20261002082537.74084-1-lsa.uz@pm.me>
+ <20261002082537.74084-3-lsa.uz@pm.me>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 02 Oct 2026 09:14:46 +0000
-Message-Id: <20261002091447.0E8F51F00899@smtp.kernel.org>
+Date: Fri, 02 Oct 2026 09:14:50 +0000
+Message-Id: <20261002091451.1476A1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,44 +46,43 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] kbuild: wrong base DTB for imx6ul-tqma6ul2l-mba6ulx-lvds-tm070jvhg=
-33
+- [Medium] media: imx681: data race when reading controls in TRY state
 --
 
-commit 008daca5167f9a5874f9d9c4e80bdfc8d57fb2cc
-Author: Alexander Stein <alexander.stein@ew.tq-group.com>
+commit a33b99a3eba0fc3b30bb7afedc0eb847da781102
+Author: Andre Gilerson <andre.gilerson@gmail.com>
 
-ARM: dts: imx6ul: Add LVDS DT overlay for TQMa6ULxL
+media: i2c: Add Sony IMX681 sensor driver
 
-This commit adds the LVDS DT overlay for the TQMa6ULxL board, reusing
-the overlay file from the TQMa6ULx board.
+This commit adds a V4L2 sub-device driver for the Sony IMX681 sensor. It
+supports 10-bit Bayer formats over a two-lane CSI-2 bus with a single
+3844x2640 mode at 30 fps, along with various controls including flips.
 
-> diff --git a/arch/arm/boot/dts/nxp/imx/Makefile b/arch/arm/boot/dts/nxp/i=
-mx/Makefile
-> index ea0799ba1893e..734d40b8d389c 100644
-> --- a/arch/arm/boot/dts/nxp/imx/Makefile
-> +++ b/arch/arm/boot/dts/nxp/imx/Makefile
-> @@ -421,8 +421,10 @@ dtb-$(CONFIG_SOC_IMX6UL) +=3D \
->  	imx6ulz-bsh-smm-m2.dtb
-> =20
->  imx6ul-tqma6ul2-mba6ulx-lvds-tm070jvhg33-dtbs +=3D imx6ul-tqma6ul2-mba6u=
-lx.dtb imx6ul-tqma6ul2-mba6ulx-lvds-tm070jvhg33.dtbo
-> +imx6ul-tqma6ul2l-mba6ulx-lvds-tm070jvhg33-dtbs +=3D imx6ul-tqma6ul2-mba6=
-ulx.dtb imx6ul-tqma6ul2-mba6ulx-lvds-tm070jvhg33.dtbo
+> diff --git a/drivers/media/i2c/imx681.c b/drivers/media/i2c/imx681.c
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/media/i2c/imx681.c
+[ ... ]
+> +static u32 imx681_get_format_code(struct imx681 *imx681)
+> +{
+> +	return imx681_mbus_codes[(imx681->vflip->val ? 2 : 0) |
+> +				 (imx681->hflip->val ? 1 : 0)];
+> +}
 
-[Severity: High]
-Should this use imx6ul-tqma6ul2l-mba6ulx.dtb as the base instead of
-imx6ul-tqma6ul2-mba6ulx.dtb?
+[Severity: Medium]
+Is there a potential data race here when reading the control values
+during TRY state operations?
 
-Using the non-L variant base DTB here for the TQMa6ULxL board might boot
-the board with incorrect hardware definitions.
+When a userspace process calls VIDIOC_SUBDEV_ENUM_MBUS_CODE or
+VIDIOC_SUBDEV_S_FMT with V4L2_SUBDEV_FORMAT_TRY, the V4L2 core locks the
+file handle's TRY state, but not the control handler. Concurrently, if
+another thread calls VIDIOC_S_CTRL to modify V4L2_CID_HFLIP or
+V4L2_CID_VFLIP, it locks the control handler and mutates ctrl->val.
 
-> =20
->  dtb-$(CONFIG_SOC_IMX6UL) +=3D 	imx6ul-tqma6ul2-mba6ulx-lvds-tm070jvhg33.=
-dtb
-> +dtb-$(CONFIG_SOC_IMX6UL) +=3D 	imx6ul-tqma6ul2l-mba6ulx-lvds-tm070jvhg33=
-.dtb
+Because this code reads imx681->vflip->val and imx681->hflip->val without
+acquiring imx681->ctrl_handler.lock, this can lead to KCSAN warnings and
+incorrect media bus code reporting due to stale reads.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261002081417.2092=
-471-1-alexander.stein@ew.tq-group.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261002082537.7408=
+4-1-lsa.uz@pm.me?part=3D2
