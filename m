@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 450C9470EA4
-	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 09:13:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25FA6451996
+	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 09:13:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790932422; cv=none; b=f6CW1KC0gQ15nDyiCDnq2ksnsqFcQH/ZJ4oFgcZ9k1T+JQ75xh6axQylf1Ys2BDwLlSn+JSTyI2S59K8gZ0t92lj/nNPAMezGa1CFrI4CyjAvQwO/OxdbKRa8vGPj6IaEuW5446DQQnpygY+ReY/9iAim2w69pHdAaoTMVeocEE=
+	t=1790932425; cv=none; b=n/NGS+dlIznAUJCWuZiM0K+c63DBddkpdPKwqYSGgpsujj4akdtVXcHnVn/tqMfLA/CwcvOtlUsCv4+YXS/bIhqdcoGwepA/1hgHLQVj8wMVbU/cPwMvvZxPdf2lCWJhs2Tr55dmky4B0UVFPsR1Yl70Tn0UVR6H25ZAo1IxTYI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790932422; c=relaxed/simple;
-	bh=Qwq8n6OJ5r6ZJHFfW6g+8rLi4ZCsb/wu5ftZRcSFams=;
+	s=arc-20240116; t=1790932425; c=relaxed/simple;
+	bh=IkCmL1KrMzPrFCN/8+H25JFQIwgyzHM/P63Q4QZyZmg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=QbAbkXplwv1u5BS8LxJfu23XszS2xPWooppExV3jNadD4TnThK/UMeQa7G4hwz5Z5Ch4GLTp+E3kaVNoyYKeSiosrIpPXJ8NPXT1v0g3G/zWZ4DGzRHVLmKL4ftDcgkrqvmcC3cwkJCvw7AmHkKVOYRG40XiogKk/py5gQSfqMQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KMu83/E6; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=AAGnSTWXMiPkcaSqRHN/QPz8GeeOzNvzolQ8rJk/LCxQDJ7HxTrXoS06Gk0uor+lZpbC3/U4z44qrfXTokcH32hakGriFHit7C6zwut9mM5Qq/s6Bm4YAlVu/Hjg63LpmKnejK5eZDcY2Fubr92b8wl1XfsSv2CV3cHMHy8EOBo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gzJfGaL3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KMu83/E6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8C1C1F0089A;
-	Fri,  2 Oct 2026 09:13:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gzJfGaL3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B64EB1F00893;
+	Fri,  2 Oct 2026 09:13:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790932421;
-	bh=4cA9Mvu1ov2nYk+9GZkGPmWe581hgXBsn7rxdfvpgEw=;
+	s=k20260515; t=1790932420;
+	bh=YuS2t0RyM6ZUcZcxmciZXs1Kr+MRiGKNscW4T4dBREU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KMu83/E6UfEn4ZDBZ5M4ik74FuysPL1VIvUoFqtW6TQ3z8hAJSHUYiHPZiKQ07xm/
-	 P3mP6Ii3vvqYFUzTk92VCVkCTpmnwt8KuDrRh/wn9z99LobehaPk33wtP17bjjU+RL
-	 SzIRom06scohGW56w1OKDv9RTUmRLwNUoffAeTs30s6y1/KwspNvcMS9UCMKhyR1Hj
-	 TIfsg/CqcWHNIBAcgHswQkGIyiNokA2Sg+wwe+bUfxlQ8eSj5Y6N126Pk/lzOrmUNR
-	 +JD88FSZUH5shUprG+BQEFOaGXpmBuMFRnUw9sbFruhDRAbHPWMKNNd1ZhWk1jFiH7
-	 msDan+6lcksYg==
+	b=gzJfGaL34ICpS2OuEPP9oCD7ivNkwpBqkMJmBEuxvVRWdUNXB4CrbgJPDJfZhlIvl
+	 i+ZTDsZhntCE8SGbjxdVgAaxS9JO6Wdr3sJ1XHMgwksVU5tPMNOXWFRWUs5Q30A+92
+	 /q89ulqTsRrLVxnnlgqd4AV2Euaqqeppm5SeT+3bnMfpYPygpoDw0S+G4L/ycr2RMt
+	 qiQRxr5TfTFDGqBunjV2kJ50K43iGw99pJVMmUAg5dYuodVT7lGvucdOiIrWWo+nKf
+	 boKySPREZXqZ+DnCMQ3HZ+4geI34RJY8X8iqGF8Rq8TJo3kyqSwb67QcAgrXvNh6Hi
+	 pTrGBWP2Rc9kw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v2] dt-bindings: net: Convert HiSilicon
- hns-dsaf to DT schema
+Subject: Re: [PATCH RFC v4 03/13] drm: client: add splash client
 Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?Um9iIEhlcnJpbmcgKEFybSk=?= <robh@kernel.org>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260930201919.76465-2-robh@kernel.org>
-References: <20260930201919.76465-2-robh@kernel.org>
+To: =?utf-8?b?TcOgeGltIFBlZHJhemEgUGFkaWxsYQ==?= <maximpedraza@gmail.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20261001195847.141192-4-maximpedraza@gmail.com>
+References: <20261001195847.141192-1-maximpedraza@gmail.com>
+ <20261001195847.141192-4-maximpedraza@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 02 Oct 2026 09:13:40 +0000
-Message-Id: <20261002091340.E8C1C1F0089A@smtp.kernel.org>
+Date: Fri, 02 Oct 2026 09:13:39 +0000
+Message-Id: <20261002091339.B64EB1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,110 +46,172 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Medium] dt-bindings: additionalProperties false ignores properties from =
-$ref
-- [Medium] dt-bindings: missing required properties desc-num, buf-size and =
-subctrl-syscon
-- [Low] dt-bindings: driver still uses removed top-level phy-handle property
+- [High] drm/client: splash: UAF of drm_framebuffer on hotplug error path
+- [Medium] drm/client: splash: memory leak of scanout array on hotplug -ENO=
+DEV
+- [Medium] drm/client: splash: firmware blob leak if render thread exits wi=
+th -EBUSY
 --
 
-commit d25b601aef3405df25a4432415cfd3e767a90222
-Author: Rob Herring (Arm) <robh@kernel.org>
-Subject: dt-bindings: net: Convert HiSilicon hns-dsaf to DT schema
+commit 86a0b0be0de60a4b9d33ab49ce7a129fe48448a6
+Author: Francesco Valla <francesco@valla.it>
+Date:   Thu Oct 1 19:58:37 2026 +0000
 
-This commit converts the HiSilicon hns-dsaf device tree binding from
-the old text format to the new YAML schema format. It drops the
-top-level phy-handle property and adds the media-type property.
+    drm: client: add splash client
+   =20
+    Add a DRM client that draws a simple splash, with possibility to show:
+   =20
+      - the logo provided by EFI BGRT;
+      - a static BMP image (loaded as firmware);
+      - a colored background.
 
-> Convert the HiSilicon hns-dsaf binding to DT schema format.
->=20
-> Drop 'phy-handle' at top level as there are no users. Add undocumented
-> 'media-type' property.
-
-[Severity: Low]
-Is it entirely accurate that there are no users of the top-level
-phy-handle property?
-
-Looking at hns_mac_init_phy_handle() in
-drivers/net/ethernet/hisilicon/hns/hns_dsaf_mac.c:
-
-    np =3D of_parse_phandle(mac_cb->dev->of_node, "phy-handle",
-                          mac_cb->mac_id);
-
-The driver still explicitly parses this property from the top-level DSAF
-node as a fallback if port subnodes are not present. Removing this from
-the schema without removing the fallback logic in the driver will cause
-out-of-tree or legacy device trees relying on this feature to needlessly
-fail schema validation.
-
-Should it remain in the schema (possibly marked as deprecated) until the
-C driver is patched to drop support entirely?
-
-[ ... ]
-> diff --git a/Documentation/devicetree/bindings/net/hisilicon,hns-dsaf-v1.=
-yaml b/Documentation/devicetree/bindings/net/hisilicon,hns-dsaf-v1.yaml
+> diff --git a/drivers/gpu/drm/clients/drm_splash.c b/drivers/gpu/drm/clien=
+ts/drm_splash.c
 > new file mode 100644
-> index 0000000000000..36251b45abeb9
+> index 0000000000000..66c192139d9c4
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/net/hisilicon,hns-dsaf-v1.yaml
+> +++ b/drivers/gpu/drm/clients/drm_splash.c
+> @@ -0,0 +1,1028 @@
+
 [ ... ]
-> +patternProperties:
-> +  "^port@[0-5]$":
-> +    description: DSA Fabric port node
-> +    $ref: ethernet-switch-port.yaml#
-> +    additionalProperties: false
+
+> +static void drm_splash_fw_callback(const struct firmware *fw, void *cont=
+ext)
+> +{
+> +	struct drm_splash *splash =3D context;
+> +	struct drm_client_dev *client =3D &splash->client;
+> +
+> +	if (!fw || !fw->data) {
+> +		drm_err(client->dev, "splash: no firmware");
+> +		release_firmware(fw);
+> +		fw =3D NULL;
+> +	}
+> +
+> +	scoped_guard(spinlock, &splash->fw_lock)
+> +		splash->fw =3D fw;
+
+[ ... ]
+
+> +static int drm_splash_render_thread(void *data)
+> +{
+> +	struct drm_splash *splash =3D data;
+> +	struct drm_client_dev *client =3D &splash->client;
+> +
+> +	while (!kthread_should_stop()) {
+
+[ ... ]
+
+> +		if (draw_count > 0) {
+> +			ret =3D drm_client_modeset_commit(client);
+> +			/* If commit returns EBUSY, another master showed up.
+> +			 * This means that the splash is no more required.
+> +			 */
+> +			if (ret =3D=3D -EBUSY) {
+> +				drm_info(client->dev, "splash: not master anymore, exiting");
+> +				break;
+> +			}
 
 [Severity: Medium]
-Does additionalProperties: false correctly allow properties inherited
-from the $ref?
+Can the firmware blob be leaked if the render thread exits early here?
 
-Under JSON Schema semantics, additionalProperties only restricts the
-properties explicitly listed in the local object, completely ignoring
-any properties evaluated via a $ref.
+If drm_client_modeset_commit() returns -EBUSY, the thread breaks out of the
+loop and exits. If the firmware request later completes,
+drm_splash_fw_callback() stores the firmware in splash->fw. Since the thread
+is already dead, won't this firmware remain unreleased until the DRM device=
+ is
+completely unregistered?
 
-Would it be better to use unevaluatedProperties: false here so standard
-Ethernet port properties aren't incorrectly rejected by dt_binding_check
-when present in the device tree?
+> +		}
 
-> +
-> +    properties:
-> +      reg:
-> +        maximum: 5
 [ ... ]
-> +    required:
-> +      - reg
-> +      - serdes-syscon
+
+> +static int drm_splash_init_client(struct drm_splash *splash)
+> +{
+
+[ ... ]
+
+> +	/* And point every modeset at the buffer of its scanout */
+> +	i =3D 0;
+> +	drm_client_for_each_modeset(modeset, client) {
+> +		unsigned int idx =3D i++;
 > +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - reg-names
-> +  - interrupts
-> +  - mode
+> +		if (idx >=3D 32)
+> +			break;
+> +
+> +		for (k =3D 0; k < splash->n_scanout; k++) {
+> +			struct drm_splash_scanout *scanout =3D &splash->scanout[k];
+> +
+> +			if (scanout->buffer && (scanout->modesets & BIT(idx))) {
+> +				modeset->fb =3D scanout->buffer->fb;
+> +				break;
+> +			}
+> +		}
+> +	}
+> +
+> +	mutex_unlock(&client->modeset_mutex);
+> +
+> +	return (fb_count =3D=3D 0) ? -ENODEV : 0;
+> +}
+
+[ ... ]
+
+> +static int drm_splash_client_hotplug(struct drm_client_dev *client)
+> +{
+> +	struct drm_splash *splash =3D client_to_drm_splash(client);
+> +	struct task_struct *thread;
+> +	int ret =3D 0;
+> +
+> +	guard(mutex)(&splash->hotplug_lock);
+> +
+> +	/* The modesets that get a splash are defined at first hotplug event */
+> +	if (splash->initialized)
+> +		return 0;
+> +
+> +	ret =3D drm_splash_init_client(splash);
+> +	if (ret =3D=3D -ENODEV) {
+> +		drm_info(client->dev, "splash: no modeset found");
+> +		return 0;
+> +	} else if (ret) {
 
 [Severity: Medium]
-Should desc-num, buf-size, and subctrl-syscon be included in this
-required list?
+Could this error path leak the splash->scanout array?
 
-Looking at hns_dsaf_get_cfg() in
-drivers/net/ethernet/hisilicon/hns/hns_dsaf_main.c, the driver strictly
-fails the probe if desc-num or buf-size are omitted.
+If drm_splash_init_client() successfully extends the array using krealloc()
+but fails to create any buffers, it returns -ENODEV. This early return hand=
+les
+the -ENODEV case but does not free the array.
 
-Furthermore, if subctrl-syscon is missing, the driver's fallback logic
-consumes reg index 0 (ppe-base) as the syscon base. Later, when it
-attempts to map ppe-base again by name, it fails with an -EBUSY error
-and aborts the probe.
+Could subsequent hotplug events keep appending to it and leaking memory on
+every failure?
 
-Since omitting any of these three properties causes a guaranteed driver
-probe failure, shouldn't they be marked as required to ensure invalid
-device trees are properly flagged?
-
+> +		drm_err(client->dev,
+> +			"splash: failed to init client: %d", ret);
+> +		return ret;
+> +	}
 > +
-> +additionalProperties: false
-> +
-> +examples:
-[ ... ]
+> +	/* Create the render thread, waken later */
+> +	thread =3D kthread_create(drm_splash_render_thread, splash,
+> +				"drm_splash_%s", client->dev->unique);
+> +	if (IS_ERR(thread)) {
+> +		ret =3D PTR_ERR(thread);
+> +		drm_err(client->dev,
+> +			"splash: failed to create render thread: %d", ret);
+> +		drm_splash_free_scanout(client);
+> +		return ret;
+> +	}
+
+[Severity: High]
+Does this error path leave dangling pointers in the client's modeset array?
+
+In drm_splash_init_client(), modeset->fb is assigned the framebuffer of the
+newly created buffer. If we fail here and call drm_splash_free_scanout(), t=
+he
+buffers and their framebuffers are freed, but modeset->fb is not cleared.
+
+Since the client remains registered on dev->clientlist even after a hotplug
+error, could a subsequent modeset commit or sysrq trigger a use-after-free
+by dereferencing the freed modeset->fb?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260930201919.7646=
-5-2-robh@kernel.org?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261001195847.1411=
+92-1-maximpedraza@gmail.com?part=3D3
