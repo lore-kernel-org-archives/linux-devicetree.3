@@ -1,543 +1,113 @@
-Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch [109.224.244.17])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C95643081A2
-	for <devicetree@vger.kernel.org>; Fri,  2 Oct 2026 01:51:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 151DC23D295;
+	Fri,  2 Oct 2026 02:19:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790905916; cv=none; b=AOlVr9Gu3JVZ43khB4+fqBHUY2gtWItpnLUDEpRaYi4dBYXTmQmSU/ugE5bHWHtoF7+108+xQYt6FTIJNAizwzgh6Cx2y7iPm0f8Qe/+lipumhMBXQhyNu4X+i1VkJAcV9O3q+s3Ie6qJKOrlu9sCidWGEnOlm7ok8oi1vp4VZc=
+	t=1790907570; cv=none; b=ALJUYlisybwj107d8HRNXxFZqrvhaRFQvXb9nMmux2o/1StgEfEbHrlkDXNO+ebZuTlLm8KD2db6u3rs4a9uUmCfevH6Vl02aC28XuSREPVg9lLtmRn5jvORZnP1p5GPBA+ceUAgwzDpJJ1uDwy5+t6oakvGiNVw7A+NuEN3t+U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790905916; c=relaxed/simple;
-	bh=/c701bHMpGHHpBBH+Nr0q6cIzdxeztmbGihc1zkruOo=;
-	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=sGJRYLmTIynI5b1bQQkZRgKrbWGd0VGDiXJeBlXqriOnDfPZ8uC3pt6e0Uc4AVT/tQOTSGvFMW7zDSvU9gb+Wc39KC4q1hvgZRW8P5dbOVdqMZfs6ZHzIT743OkbfxXTfZmAFGp0n0t6i2g4pibXi+9fgaTuLuAXgNHsSKb4jfk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=YLEcWYUO; arc=none smtp.client-ip=109.224.244.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	s=arc-20240116; t=1790907570; c=relaxed/simple;
+	bh=6M+UKP95uOCXtlBZBQ87VI3/zEbKTPu8471WPinWG1E=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=V9NPcKX8VRuZi4g6Hemwg/hRuHuO7x2Wa57xzeiUo1dhi/lrXgncv3jwZYY/vQXgR7e9xWDKMlSJaLVmXOERMKueAnmr+E1vxCYwoa6uJHq5lZIHAvRCNst0fyhTeA8wyED+NcxB8fhdoKxVg1CZk64CTvaFBEhFYtfNs29ZKUo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=S2vsJkv3; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="YLEcWYUO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1790905911; x=1791165111;
-	bh=/mor2t7+zGxmTy+WpeseCaJm18rfuGj4yLAW0d0L4mA=;
-	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
-	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=YLEcWYUOJJxiUnYM8i5IZTZbmRbBSJRYQsgpAk2HAk9SJVG9SHX17yEHV4OMEmPZf
-	 fLICk3vLdVPF1InZVyYNupfh/cVbxMtawG1qwsNCWa1BEueW0TuE7tD8TIfukRnzdG
-	 wx38qVXD7m9ASbMxxWbp30F6vfk1FTc6XEPze2AdJENQeQegtSmBGUplVrjPs3hAlW
-	 aMUz8M7Sv4smXiihcoKD0jnRqCpAs8c7iCkskMdesdGd67DqTAB8pTLSZ1PcaZyNX/
-	 qSHcaLrj8aHoDSRRpKmhXtMTs1/UkoKi8s3Gh9NtJbU9nOAaIUIvX8+U1dM69adzh7
-	 n7bi5SXv/5yUQ==
-Date: Fri, 02 Oct 2026 01:51:46 +0000
-To: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-From: Alexander Koskovich <akoskovich@pm.me>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Alexander Koskovich <akoskovich@pm.me>
-Subject: [PATCH v4 2/2] drm/panel: Add driver for Raydium RM69220 DDIC
-Message-ID: <20261001-asteroids-panel-support-v4-2-fb228194ad91@pm.me>
-Feedback-ID: 37836894:user:proton
-X-Pm-Message-ID: 3893ef6421dfb228631305b12ed3dd37f44d937d
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="S2vsJkv3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=6M+UKP95uOCXtlBZBQ87VI3/zEbKTPu8471WPinWG1E=; b=S
+	2vsJkv3QYTUZBtD4qZ5KKZEy3Wt7v3iZeooJeD4KK2ke6DeaeheqnjTGWi3fTUPi
+	rwnPBv4Z8+0MkGSomU+EFbbuTRRSqfWH3UqDpcEkcrx4bodZ1jwgTt1kaFf1XP2t
+	EicZ4QercFKgb/7D/E8TZnHrd96UoQu5HugL1ZjGVs=
+Date: Fri, 2 Oct 2026 10:17:53 +0800 (CST)
+From: zl020895  <zl020895@163.com>
+To: "Linus Walleij" <linusw@kernel.org>
+Cc: "Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
+	longzhao@ambarella.com, "Arnd Bergmann" <arnd@arndb.de>,
+	"Krzysztof Kozlowski" <krzk@kernel.org>,
+	"Alexandre Belloni" <alexandre.belloni@bootlin.com>,
+	soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	"Rob Herring" <robh@kernel.org>,
+	"Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+	"Conor Dooley" <conor+dt@kernel.org>,
+	"Michael Turquette" <mturquette@baylibre.com>,
+	"Stephen Boyd" <sboyd@kernel.org>,
+	"Jerome Brunet" <jbrunet@baylibre.com>,
+	"Bartosz Golaszewski" <brgl@kernel.org>,
+	"Michael Walle" <mwalle@kernel.org>,
+	"Jiri Slaby" <jirislaby@kernel.org>,
+	"Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	"Catalin Marinas" <catalin.marinas@arm.com>,
+	"Will Deacon" <will@kernel.org>, "Lee Jones" <lee@kernel.org>,
+	mfd@lists.linux.dev, devicetree@vger.kernel.org,
+	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
+	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re:Re: [PATCH v9 13/15] serial: 8250_dw: add Ambarella CV75 quirks
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <CAD++jLnv1Q7ChHuLo=ad9edqhZL8MNaMab8huMAepK_LwqVzGQ@mail.gmail.com>
+References: <20261001-cv75-v5-v9-0-486cc289a4b8@ambarella.com>
+ <20261001-cv75-v5-v9-13-486cc289a4b8@ambarella.com>
+ <2026100140-overbite-mundane-fc79@gregkh>
+ <CAD++jLnv1Q7ChHuLo=ad9edqhZL8MNaMab8huMAepK_LwqVzGQ@mail.gmail.com>
+X-NTES-SC: AL_Qu2SAvWbuEws5SSebekcn0wRhug/UMa4u/sm3YNXc8AFnCHm4xgjUkF5HHHP+cSgBSmMqBeOdRZX299KTblabN9UUWfBtPNqeWUCoV4bFw==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=UTF-8
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Message-ID: <4405a61f.505.1a0fa675e43.Coremail.zl020895@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:hSgvCgDnL_tRFL9qW95RAA--.9580W
+X-CM-SenderInfo: d2oqjiqyzvqiywtou0bp/xtbCxhGjFWq-FFEAigAA37
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-Add a panel driver for Raydium RM69220 DDIC based displays such as the
-BOE BF068MWM-TD0 found in the Nothing Phone (3a).
-
-Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
----
- MAINTAINERS                                   |   1 +
- drivers/gpu/drm/panel/Kconfig                 |  15 +
- drivers/gpu/drm/panel/Makefile                |   1 +
- drivers/gpu/drm/panel/panel-raydium-rm69220.c | 417 ++++++++++++++++++++++=
-++++
- 4 files changed, 434 insertions(+)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 6702142b117d..1e4d309e4792 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -8587,6 +8587,7 @@ DRM DRIVER FOR RAYDIUM RM69220 PANELS
- M:=09Alexander Koskovich <akoskovich@pm.me>
- S:=09Maintained
- F:=09Documentation/devicetree/bindings/display/panel/raydium,rm69220.yaml
-+F:=09drivers/gpu/drm/panel/panel-raydium-rm69220.c
-=20
- DRM DRIVER FOR SAMSUNG DB7430 PANELS
- M:=09Linus Walleij <linusw@kernel.org>
-diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-index 53a1fc2913fe..61c047891f50 100644
---- a/drivers/gpu/drm/panel/Kconfig
-+++ b/drivers/gpu/drm/panel/Kconfig
-@@ -850,6 +850,21 @@ config DRM_PANEL_RAYDIUM_RM692E5
- =09  Say Y here if you want to enable support for Raydium RM692E5-based
- =09  display panels, such as the one found in the Fairphone 5 smartphone.
-=20
-+config DRM_PANEL_RAYDIUM_RM69220
-+=09tristate "Raydium RM69220-based DSI panel"
-+=09depends on OF
-+=09depends on DRM_MIPI_DSI
-+=09depends on BACKLIGHT_CLASS_DEVICE
-+=09select DRM_DISPLAY_DSC_HELPER
-+=09select DRM_DISPLAY_HELPER
-+=09help
-+=09  Say Y here if you want to enable support for Raydium RM69220-based
-+=09  display panels, such as the BOE BF068MWM-TD0 which can be found in
-+=09  the Nothing Phone (3a).
-+
-+=09  To compile this driver as a module, choose M here: the module
-+=09  will be called panel-raydium-rm69220.
-+
- config DRM_PANEL_RAYDIUM_RM69380
- =09tristate "Raydium RM69380-based DSI panel"
- =09depends on GPIOLIB
-diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefil=
-e
-index f2c9c80a218f..00c06d956e8b 100644
---- a/drivers/gpu/drm/panel/Makefile
-+++ b/drivers/gpu/drm/panel/Makefile
-@@ -83,6 +83,7 @@ obj-$(CONFIG_DRM_PANEL_RAYDIUM_RM67191) +=3D panel-raydiu=
-m-rm67191.o
- obj-$(CONFIG_DRM_PANEL_RAYDIUM_RM67200) +=3D panel-raydium-rm67200.o
- obj-$(CONFIG_DRM_PANEL_RAYDIUM_RM68200) +=3D panel-raydium-rm68200.o
- obj-$(CONFIG_DRM_PANEL_RAYDIUM_RM692E5) +=3D panel-raydium-rm692e5.o
-+obj-$(CONFIG_DRM_PANEL_RAYDIUM_RM69220) +=3D panel-raydium-rm69220.o
- obj-$(CONFIG_DRM_PANEL_RAYDIUM_RM69380) +=3D panel-raydium-rm69380.o
- obj-$(CONFIG_DRM_PANEL_RENESAS_R61307) +=3D panel-renesas-r61307.o
- obj-$(CONFIG_DRM_PANEL_RENESAS_R63419) +=3D panel-renesas-r63419.o
-diff --git a/drivers/gpu/drm/panel/panel-raydium-rm69220.c b/drivers/gpu/dr=
-m/panel/panel-raydium-rm69220.c
-new file mode 100644
-index 000000000000..3030f8b89760
---- /dev/null
-+++ b/drivers/gpu/drm/panel/panel-raydium-rm69220.c
-@@ -0,0 +1,417 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Generated with linux-mdss-dsi-panel-driver-generator from vendor device=
- tree.
-+ * Copyright (c) 2026 Alexander Koskovich <akoskovich@pm.me>
-+ */
-+
-+#include <linux/backlight.h>
-+#include <linux/delay.h>
-+#include <linux/device-id/of.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/module.h>
-+#include <linux/regulator/consumer.h>
-+
-+#include <video/mipi_display.h>
-+
-+#include <drm/display/drm_dsc.h>
-+#include <drm/display/drm_dsc_helper.h>
-+#include <drm/drm_mipi_dsi.h>
-+#include <drm/drm_modes.h>
-+#include <drm/drm_panel.h>
-+#include <drm/drm_probe_helper.h>
-+
-+struct raydium_rm69220 {
-+=09struct drm_panel panel;
-+=09struct mipi_dsi_device *dsi;
-+=09struct drm_dsc_config dsc;
-+=09struct regulator_bulk_data *supplies;
-+=09struct gpio_desc *reset_gpio;
-+};
-+
-+static const struct regulator_bulk_data raydium_rm69220_supplies[] =3D {
-+=09{ .supply =3D "vddio" },
-+=09{ .supply =3D "dvdd" },
-+=09{ .supply =3D "vci" },
-+};
-+
-+static inline
-+struct raydium_rm69220 *to_raydium_rm69220(struct drm_panel *panel)
-+{
-+=09return container_of(panel, struct raydium_rm69220, panel);
-+}
-+
-+static void raydium_rm69220_reset(struct raydium_rm69220 *ctx)
-+{
-+=09gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-+=09usleep_range(1000, 2000);
-+=09gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+=09usleep_range(1000, 2000);
-+=09gpiod_set_value_cansleep(ctx->reset_gpio, 0);
-+=09msleep(32);
-+}
-+
-+static int raydium_rm69220_on(struct raydium_rm69220 *ctx)
-+{
-+=09struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D ctx->dsi };
-+
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0x76);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x9a, 0x10);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x9b, 0x00);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0x77);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x9a, 0x10);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x9b, 0x00);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0x78);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x9a, 0x10);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x9b, 0x00);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0x79);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x9a, 0xf0);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x9b, 0x00);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0x74);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x1a, 0xe0);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x1b, 0x00);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0x40);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xa9, 0x68);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xab, 0x22);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0x40);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xc0, 0xa6);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xbf, 0x87);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0x82);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x00, 0x90);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0xd4);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x61, 0x08);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xa2, 0x04);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0x00);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfa, 0x01);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0xd2);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x97, 0x08);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x36, 0x11);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x39, 0xab);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x3a, 0x30);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x3b, 0x80);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x3d, 0x09);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x3f, 0x58);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x40, 0x04);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x41, 0x38);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x42, 0x00);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x43, 0x0d);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x44, 0x02);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x45, 0x1c);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x46, 0x02);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x47, 0x1c);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x48, 0x02);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x49, 0x00);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x4a, 0x02);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x4b, 0x0e);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x4d, 0x20);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x4e, 0x01);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x4f, 0x39);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x50, 0x00);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x51, 0x07);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x53, 0x0c);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x54, 0x08);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x55, 0x00);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x56, 0x07);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x58, 0xd3);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x59, 0x18);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5a, 0x00);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5b, 0x10);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5c, 0xf0);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5d, 0x07);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5e, 0x10);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x5f, 0x20);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x60, 0x00);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x61, 0x06);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x62, 0x0f);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x63, 0x0f);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x64, 0x33);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x65, 0x0e);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x66, 0x1c);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x67, 0x2a);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x68, 0x38);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x69, 0x46);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6a, 0x54);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6b, 0x62);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6c, 0x69);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6d, 0x70);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6e, 0x77);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x6f, 0x79);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x70, 0x7b);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x71, 0x7d);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x72, 0x7e);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x73, 0x01);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x74, 0x02);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x75, 0x22);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x76, 0x00);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x77, 0x2a);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x78, 0x40);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x79, 0x2a);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x7a, 0xbe);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x7b, 0x3a);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x7c, 0xfc);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x7d, 0x3a);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x7e, 0xfa);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x7f, 0x3a);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x80, 0xf8);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x81, 0x3b);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x82, 0x38);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x83, 0x3b);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x84, 0x78);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x85, 0x3b);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x86, 0xb6);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x87, 0x4b);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x88, 0xf6);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x89, 0x4c);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x8a, 0x34);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x8b, 0x4c);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x8c, 0x74);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x8d, 0x5c);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x8e, 0x74);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x8f, 0x8c);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x90, 0xf4);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x91, 0x00);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x92, 0x00);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x93, 0x00);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x94, 0x00);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x95, 0x00);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x96, 0x00);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0xa0);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x66, 0x06);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0x49);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x87, 0x00);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x3f, 0x00);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0xa0);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x04, 0x07);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x4b, 0x40);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x4d, 0x40);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0xa1);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x58, 0x67);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x75, 0xa7);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0x00);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x2f, 0x00);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0x00);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfa, 0x01);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xc1, 0x03);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xc2, 0x03);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x35, 0x00);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0x51, 0x0d, 0xbb);
-+=09mipi_dsi_dcs_write_seq_multi(&dsi_ctx, 0xfe, 0x00);
-+=09mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
-+=09mipi_dsi_msleep(&dsi_ctx, 80);
-+=09mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
-+=09mipi_dsi_usleep_range(&dsi_ctx, 10000, 11000);
-+
-+=09return dsi_ctx.accum_err;
-+}
-+
-+static int raydium_rm69220_off(struct raydium_rm69220 *ctx)
-+{
-+=09struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D ctx->dsi };
-+
-+=09mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
-+=09mipi_dsi_msleep(&dsi_ctx, 100);
-+=09mipi_dsi_dcs_enter_sleep_mode_multi(&dsi_ctx);
-+=09mipi_dsi_msleep(&dsi_ctx, 100);
-+
-+=09return dsi_ctx.accum_err;
-+}
-+
-+static int raydium_rm69220_prepare(struct drm_panel *panel)
-+{
-+=09struct raydium_rm69220 *ctx =3D to_raydium_rm69220(panel);
-+=09struct device *dev =3D &ctx->dsi->dev;
-+=09struct drm_dsc_picture_parameter_set pps;
-+=09int ret;
-+
-+=09ret =3D regulator_bulk_enable(ARRAY_SIZE(raydium_rm69220_supplies), ctx=
-->supplies);
-+=09if (ret < 0) {
-+=09=09dev_err(dev, "Failed to enable regulators: %d\n", ret);
-+=09=09return ret;
-+=09}
-+
-+=09raydium_rm69220_reset(ctx);
-+
-+=09ret =3D raydium_rm69220_on(ctx);
-+=09if (ret < 0) {
-+=09=09dev_err(dev, "Failed to initialize panel: %d\n", ret);
-+=09=09goto err;
-+=09}
-+
-+=09drm_dsc_pps_payload_pack(&pps, &ctx->dsc);
-+
-+=09ret =3D mipi_dsi_picture_parameter_set(ctx->dsi, &pps);
-+=09if (ret < 0) {
-+=09=09dev_err(dev, "failed to transmit PPS: %d\n", ret);
-+=09=09goto err;
-+=09}
-+
-+=09ret =3D mipi_dsi_compression_mode(ctx->dsi, true);
-+=09if (ret < 0) {
-+=09=09dev_err(dev, "failed to enable compression mode: %d\n", ret);
-+=09=09goto err;
-+=09}
-+
-+=09msleep(28);
-+
-+=09return 0;
-+
-+err:
-+=09gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+=09regulator_bulk_disable(ARRAY_SIZE(raydium_rm69220_supplies), ctx->suppl=
-ies);
-+=09return ret;
-+}
-+
-+static int raydium_rm69220_unprepare(struct drm_panel *panel)
-+{
-+=09struct raydium_rm69220 *ctx =3D to_raydium_rm69220(panel);
-+=09struct device *dev =3D &ctx->dsi->dev;
-+=09int ret;
-+
-+=09ret =3D raydium_rm69220_off(ctx);
-+=09if (ret < 0)
-+=09=09dev_err(dev, "Failed to un-initialize panel: %d\n", ret);
-+
-+=09gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-+=09regulator_bulk_disable(ARRAY_SIZE(raydium_rm69220_supplies), ctx->suppl=
-ies);
-+
-+=09return 0;
-+}
-+
-+static const struct drm_display_mode raydium_rm69220_mode =3D {
-+=09.clock =3D (1080 + 36 + 4 + 36) * (2392 + 72 + 4 + 52) * 120 / 1000,
-+=09.hdisplay =3D 1080,
-+=09.hsync_start =3D 1080 + 36,
-+=09.hsync_end =3D 1080 + 36 + 4,
-+=09.htotal =3D 1080 + 36 + 4 + 36,
-+=09.vdisplay =3D 2392,
-+=09.vsync_start =3D 2392 + 72,
-+=09.vsync_end =3D 2392 + 72 + 4,
-+=09.vtotal =3D 2392 + 72 + 4 + 52,
-+=09.width_mm =3D 71,
-+=09.height_mm =3D 157,
-+=09.type =3D DRM_MODE_TYPE_DRIVER,
-+};
-+
-+static int raydium_rm69220_get_modes(struct drm_panel *panel,
-+=09=09=09=09=09    struct drm_connector *connector)
-+{
-+=09return drm_connector_helper_get_modes_fixed(connector, &raydium_rm69220=
-_mode);
-+}
-+
-+static const struct drm_panel_funcs raydium_rm69220_panel_funcs =3D {
-+=09.prepare =3D raydium_rm69220_prepare,
-+=09.unprepare =3D raydium_rm69220_unprepare,
-+=09.get_modes =3D raydium_rm69220_get_modes,
-+};
-+
-+static int raydium_rm69220_bl_update_status(struct backlight_device *bl)
-+{
-+=09struct mipi_dsi_device *dsi =3D bl_get_data(bl);
-+=09u16 brightness =3D backlight_get_brightness(bl);
-+=09int ret;
-+
-+=09dsi->mode_flags &=3D ~MIPI_DSI_MODE_LPM;
-+
-+=09ret =3D mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
-+=09if (ret < 0)
-+=09=09return ret;
-+
-+=09dsi->mode_flags |=3D MIPI_DSI_MODE_LPM;
-+
-+=09return 0;
-+}
-+
-+static const struct backlight_ops raydium_rm69220_bl_ops =3D {
-+=09.update_status =3D raydium_rm69220_bl_update_status,
-+};
-+
-+static struct backlight_device *
-+raydium_rm69220_create_backlight(struct mipi_dsi_device *dsi)
-+{
-+=09struct device *dev =3D &dsi->dev;
-+=09const struct backlight_properties props =3D {
-+=09=09.type =3D BACKLIGHT_RAW,
-+=09=09.brightness =3D 2946,
-+=09=09.max_brightness =3D 3442, /* 4095 is HBM max */
-+=09};
-+
-+=09return devm_backlight_device_register(dev, dev_name(dev), dev, dsi,
-+=09=09=09=09=09      &raydium_rm69220_bl_ops, &props);
-+}
-+
-+static int raydium_rm69220_probe(struct mipi_dsi_device *dsi)
-+{
-+=09struct device *dev =3D &dsi->dev;
-+=09struct raydium_rm69220 *ctx;
-+=09int ret;
-+
-+=09ctx =3D devm_drm_panel_alloc(dev, struct raydium_rm69220, panel,
-+=09=09=09=09   &raydium_rm69220_panel_funcs,
-+=09=09=09=09   DRM_MODE_CONNECTOR_DSI);
-+=09if (IS_ERR(ctx))
-+=09=09return PTR_ERR(ctx);
-+
-+=09ret =3D devm_regulator_bulk_get_const(dev,
-+=09=09=09=09=09    ARRAY_SIZE(raydium_rm69220_supplies),
-+=09=09=09=09=09    raydium_rm69220_supplies,
-+=09=09=09=09=09    &ctx->supplies);
-+=09if (ret < 0)
-+=09=09return ret;
-+
-+=09ctx->reset_gpio =3D devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
-+=09if (IS_ERR(ctx->reset_gpio))
-+=09=09return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
-+=09=09=09=09     "Failed to get reset-gpios\n");
-+
-+=09ctx->dsi =3D dsi;
-+
-+=09dsi->lanes =3D 4;
-+=09dsi->format =3D MIPI_DSI_FMT_RGB101010;
-+=09dsi->mode_flags =3D MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_NO_EOT_PACKET |
-+=09=09=09  MIPI_DSI_CLOCK_NON_CONTINUOUS | MIPI_DSI_MODE_LPM |
-+=09=09=09  MIPI_DSI_MODE_DSC_ALL_SLICES_IN_PKT;
-+
-+=09ctx->panel.prepare_prev_first =3D true;
-+
-+=09ctx->panel.backlight =3D raydium_rm69220_create_backlight(dsi);
-+=09if (IS_ERR(ctx->panel.backlight))
-+=09=09return dev_err_probe(dev, PTR_ERR(ctx->panel.backlight),
-+=09=09=09=09     "Failed to create backlight\n");
-+
-+=09ret =3D devm_drm_panel_add(dev, &ctx->panel);
-+=09if (ret < 0)
-+=09=09return ret;
-+
-+=09/* This panel only supports DSC; unconditionally enable it */
-+=09dsi->dsc =3D &ctx->dsc;
-+
-+=09ctx->dsc.dsc_version_major =3D 1;
-+=09ctx->dsc.dsc_version_minor =3D 1;
-+=09ctx->dsc.slice_height =3D 13;
-+=09ctx->dsc.slice_width =3D 540;
-+
-+=09ctx->dsc.slice_count =3D 1080 / ctx->dsc.slice_width;
-+=09ctx->dsc.bits_per_component =3D 10;
-+=09ctx->dsc.bits_per_pixel =3D 8 << 4; /* 4 fractional bits */
-+=09ctx->dsc.block_pred_enable =3D true;
-+
-+=09return devm_mipi_dsi_attach(dev, dsi);
-+}
-+
-+static const struct of_device_id raydium_rm69220_of_match[] =3D {
-+=09{ .compatible =3D "boe,bf068mwm-td0" },
-+=09{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, raydium_rm69220_of_match);
-+
-+static struct mipi_dsi_driver raydium_rm69220_driver =3D {
-+=09.probe =3D raydium_rm69220_probe,
-+=09.driver =3D {
-+=09=09.name =3D "panel-raydium-rm69220",
-+=09=09.of_match_table =3D raydium_rm69220_of_match,
-+=09},
-+};
-+module_mipi_dsi_driver(raydium_rm69220_driver);
-+
-+MODULE_AUTHOR("Alexander Koskovich <akoskovich@pm.me>");
-+MODULE_DESCRIPTION("DRM driver for RM69220-equipped DSI panels");
-+MODULE_LICENSE("GPL");
-
---=20
-2.53.0
-
-
+SGkgR3JlZywgTGludXMsCgpUaGFua3MuCgpUaGlzIHNlcmllcyBmb2xsb3dzIHRoZSBuZXctdmVu
+ZG9yLCBuZXctU29DIHByb2Nlc3MgYW5kIGlzIHNlbnQKYXMgb25lIHNldCwgc28gdGhlIG5ldyBL
+Y29uZmlnIHN5bWJvbCBhbmQgdGhlIGRyaXZlcnMgdGhhdCB1c2UgaXQKbGFuZCB0b2dldGhlci4K
+CklmIGl0IGhhcyB0byBiZSBzcGxpdCwgdGhlIEdQSU8gcGF0Y2hlcyBhbmQgdGhlIFVBUlQgcGF0
+Y2hlcyBjYW4KZ28gb3V0IGFzIHRoZWlyIG93biBzZXJpZXMuIFRoZSBTb0MgcGF0Y2hlcyBhbmQg
+dGhlIENWNzUgY2xvY2sKZHJpdmVyIHNob3VsZCBzdGF5IGluIG9uZSBzZXJpZXM6IHRoZSBjbG9j
+ayBLY29uZmlnIGRlcGVuZHMgb24KQVJDSF9BTUJBUkVMTEEsIHdoaWNoIGlzIGFkZGVkIGJ5IHRo
+ZSBhcm02NCBwYXRjaC4KCldvdWxkIHRoYXQgc3BsaXQgYmUgYWNjZXB0YWJsZSBmb3IgeW91PwoK
+QmVzdCByZWdhcmRzLApMb25nIFpoYW8KCkF0IDIwMjYtMTAtMDIgMDM6MjA6NTEsICJMaW51cyBX
+YWxsZWlqIiA8bGludXN3QGtlcm5lbC5vcmc+IHdyb3RlOgo+T24gVGh1LCBPY3QgMSwgMjAyNiBh
+dCAyOjUy4oCvUE0gR3JlZyBLcm9haC1IYXJ0bWFuCj48Z3JlZ2toQGxpbnV4Zm91bmRhdGlvbi5v
+cmc+IHdyb3RlOgo+PiBPbiBUaHUsIE9jdCAwMSwgMjAyNiBhdCAwODo0MTowMlBNICswODAwLCBM
+b25nIFpoYW8gdmlhIEI0IFJlbGF5IHdyb3RlOgo+Cj4+ID4gRnJvbTogTG9uZyBaaGFvIDxsb25n
+emhhb0BhbWJhcmVsbGEuY29tPgo+PiA+Cj4+ID4gVGhlIEFtYmFyZWxsYSBDVjc1IFVBUlQgaXMg
+QW1iYXJlbGxhIElQLCBub3QgYSBTeW5vcHN5cyBEZXNpZ25XYXJlCj4+ID4gbGljZW5zZWQgYmxv
+Y2suIEF0IHRoZSByZWdpc3RlciBsZXZlbCBpdCBpcyBjbG9zZSBlbm91Z2ggdG8gRFcgQVBCIFVB
+UlQKPj4gPiB0aGF0IGEgZnVsbCBjdXN0b20gVUFSVCBkcml2ZXIgaXMgdW5uZWNlc3Nhcnk6IHJl
+dXNlIDgyNTBfZHcgd2l0aCBhCj4+ID4gc21hbGwgcGxhdGZvcm0gcXVpcmsuCj4+ID4KPj4gPiBR
+dWlya3M6Cj4+ID4gLSBrZWVwIElFUiBFVE9JIChiaXQgNSkgc2V0IGZvciBSWCB0aW1lb3V0IGJl
+aGF2aW91cgo+PiA+IC0gc2tpcCBzZXRfcmF0ZTsgYmF1ZCBjbG9jayBpcyBtYW5hZ2VkIG91dHNp
+ZGUgdGhlIFVBUlQgYmxvY2sKPj4gPgo+PiA+IFJldmlld2VkLWJ5OiBMaW51cyBXYWxsZWlqIDxs
+aW51c3dAa2VybmVsLm9yZz4KPj4gPiBSZXZpZXdlZC1ieTogQW5keSBTaGV2Y2hlbmtvIDxhbmRy
+aXkuc2hldmNoZW5rb0BsaW51eC5pbnRlbC5jb20+Cj4+ID4gUmV2aWV3ZWQtYnk6IElscG8gSsOk
+cnZpbmVuIDxpbHBvLmphcnZpbmVuQGxpbnV4LmludGVsLmNvbT4KPj4gPiBTaWduZWQtb2ZmLWJ5
+OiBMb25nIFpoYW8gPGxvbmd6aGFvQGFtYmFyZWxsYS5jb20+Cj4+ID4gLS0tCj4+ID4gIGRyaXZl
+cnMvdHR5L3NlcmlhbC84MjUwLzgyNTBfZHcuYyB8IDMyICsrKysrKysrKysrKysrKysrKysrKysr
+KysrKysrKysrCj4+ID4gIDEgZmlsZSBjaGFuZ2VkLCAzMiBpbnNlcnRpb25zKCspCj4+Cj4+IFdo
+ZW4geW91IHN1Ym1pdCBsb3RzIG9mIGRpZmZlcmVudCBzdWJzeXN0ZW0gcGF0Y2hlcyBhbGwgaW4g
+b25lIHNlcmllcywKPj4gaXQncyBoYXJkLCBpZiBub3QgaW1wb3NzaWJsZSwgZm9yIHN1YnN5c3Rl
+bSBtYWludGFpbmVycyB0byB0YWtlIHRoZW0gOigKPgo+SW4gbXkgZXhwZXJpZW5jZSBwZW9wbGUg
+ZG8gdGhpcyBpbiBjYXNlcyBsaWtlIHRoaXMgaXQgaXMgYmVjYXVzZSB0aGV5Cj5lc3NlbnRpYWxs
+eSBkdW1wIG91dCB0aGVpciAiYnJpbmctdXAiIHRyZWUsIHRoZSB0aGluZyB0aGV5IGhhdmUKPmJv
+b3Rpbmcgb24gdGhlIGhhcmR3YXJlIHNvIHRoZXkga25vdyB0aGUgcGllY2VzIHdvcmsgdG9nZXRo
+ZXIuCj4KPkxvbmc6IGNhbiB5b3Ugc3BsaXQgaXQgdXAgaW4gdG9waWMgYnJhbmNoZXMgYW5kIHdv
+cmsgb24gZS5nLiB0aGUKPnNlcmlhbCBkcml2ZXIgb24gYSBzZXBhcmF0ZSBicmFuY2g/Cj4KPkEg
+YmV0dGVyIHdheSB0byB0ZXN0IHRoZSB3aG9sZSBzZXQgb2YgcGF0Y2VzIGlzIHRvIGp1c3QgY3Jl
+YXRlIGEKPm1peGRvd24gYnJhbmNoIHdoZXJlIHlvdSBtZXJnZSBhbGwgdGhlIHRvcGljIGJyYW5j
+aGVkIGludG8KPm9uZSAidGVzdCIgYnJhbmNoLCB0aGVuIHlvdSBib290IGFuZCB0ZXN0IHRoaXMg
+YmVmb3JlIHNlbmRpbmcKPm91dCBlYWNoIGJyYW5jaCBzZXBhcmF0ZWx5Lgo+Cj5FYWNoIHRvcGlj
+IGJyYW5jaCBjYW4gYmUgdmVyc2lvbmVkIHNlcGFyYXRlbHkgd2l0aCBiNC4KPgo+WW91cnMsCj5M
+aW51cyBXYWxsZWlqCg==
