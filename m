@@ -1,110 +1,135 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32AF3443C03;
-	Fri,  2 Oct 2026 10:38:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7786481A83;
+	Fri,  2 Oct 2026 10:44:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790937524; cv=none; b=FuOTOzp7MQmQeR+rywfYuju1tygmnLOJft3OiDXUxpqwWbThtcfwApjQ8ZZB3ORODpf3yxK7oomDNct/4VzPMbuxsOqwKWuquGCUl/RrtLC6i02HKqeYEfTaYkmQMBL9gX359CvsgWi8GrvxZZ1g/4A34LqfjqZLj/qSVYdeawM=
+	t=1790937852; cv=none; b=HERb3ni7lTLBzc3iVtcHQo05yQa/jigotL08P/vgxUxnt+TKaUC2tYsNbcndSL4fFKYmyp0jn4eX+b1UO1Jt3r/VefzKpqpNRXZ/MjfBpyJAqEh6Uskd1j5y/hW/4mIurAA/EAP3WEMnsFMJvYyF50nh6w8N6CxxYQtWywB9pZ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790937524; c=relaxed/simple;
-	bh=I4Qxx5a6YA40o5Fjk2dWdK7ufH/s9Rp369XFg23yXqo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jLd9eFLWVrVIdhtSG+qCTNztcttUo3jpYnxCXleC4mIYTd/53IR425Bwu7aSV+yrm+QYWXUYMKVV5zshihpEi68OE0uhf1QDhcOPV6NRKmVm2GV+REsalSUp7/MmfOGPVh75qDkueIwpjuczmCY2OkwWK1erOM2kuWXiEHfWdWc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=NiK9FQpD; arc=none smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1790937852; c=relaxed/simple;
+	bh=PjVwAzQCYGwPKJzDeGxqId1aM2ZU3GoeWQRCOEC9spI=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=BVe6HApYOnULPhaa+CcL6dXwpbdjFutfI1owdLIFjWJ2SjgSlk622FDMk6zkb7iOOwQMvEctQhsYnhwkSHxqyanzoXD9eybBeCTas44qhYD/U4PRTsALptlefYKppMFz6cX23gQLbIE6AXEMmSTPosSE6Qg588KdrN68JDAGijo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jqyL+NJV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="NiK9FQpD"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1790937522; x=1822473522;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=I4Qxx5a6YA40o5Fjk2dWdK7ufH/s9Rp369XFg23yXqo=;
-  b=NiK9FQpD0AiW+GKKOhUPvMDRm+NWFI/kz6SFzydmFlT8U/lE2XZUJrMh
-   1d2icKzVpaUNzrVbxrC90caQcd6MJjy9Lh3Km1oyeNNh97o+0o6bk91BE
-   FDhOPu4pMJouUzdydbKqhjeXYry00vDaSvwKkVi8f2ZsGDy+3RsnZMT6i
-   ElBfyYnwKZtmJA7n12b0jnCShXGtUY7dkN2HpY0Mrieod+fhxBY5RvMah
-   XgqVnM6VFf8mnJY7uAfL6tFXOTZ9PSFGicwx39Uj04rOyM/63s4k24DIM
-   WMR5v6+CxzqJRXGG4tYafBRxGOqoaBMR/SOgSZt5Lx4P/nYSJbAauvCpE
-   g==;
-X-CSE-ConnectionGUID: xzeOGfgsQR+y83uBVqCoJA==
-X-CSE-MsgGUID: PQSrJTC7TXOBai/cFh0qoQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11922"; a="94414593"
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="94414593"
-Received: from orviesa001.jf.intel.com ([10.64.159.141])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 03:38:41 -0700
-X-CSE-ConnectionGUID: h4zMDUN7RsmpdfD8hw7QVQ==
-X-CSE-MsgGUID: iNsYPq3mTJCLZdROIRS2/g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,136,1787036400"; 
-   d="scan'208";a="314213939"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.188])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Oct 2026 03:38:38 -0700
-Date: Fri, 2 Oct 2026 13:38:36 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: radu.sabau@analog.com
-Cc: Lars-Peter Clausen <lars@metafoo.de>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/2] iio: imu: Add driver for the ADI ADIS16607
-Message-ID: <ar-JrLr-JHDAT9U9@ashevche-desk.local>
-References: <20261001-adis16607-v1-0-9c89cee35d56@analog.com>
- <20261001-adis16607-v1-2-9c89cee35d56@analog.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jqyL+NJV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A8221F00893;
+	Fri,  2 Oct 2026 10:44:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790937850;
+	bh=h7N9N0HQ+Zh/gY8vIC7G35LJ75G5/SbSrtWyyePbhUk=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=jqyL+NJVbKRZpwVzBRVfBtMkeH/Q7Nq+qvy9RiMFROqZ5ox5cWXhzqis9zXocX5uf
+	 UzKzQE+PO8/7lo7lT2TeVh0jhjY1eci+LDaSxI5jn9jRl2pwmMkSkEF+94nzagvrJ9
+	 6mkOHVagEwV3ZGbu7+6s3LW5rWKDkAfoi5rJAeNa1grp2ZvCTKSfEPIDtBE2tAv4AZ
+	 tJcpF7ZmxQzznB0+LmqaE7dOeWqrWBl24aCETdN/s5Vil1pdWInQWt3y8Uch+GOXGT
+	 EFSh+W5koi2wA4qJ3acfsMpCtJkXEkwkhnsosoN1gfM0CnUbe/U+ZsQMPkb1ygc6CA
+	 2jh8uZttdHN7Q==
+Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
+	by mailfauth.ams.internal (Postfix) with ESMTP id E29DA198003A;
+	Fri,  2 Oct 2026 06:44:07 -0400 (EDT)
+Received: from ams-imap-11 ([10.64.2.31])
+  by ams-compute-02.internal (MEProxy); Fri, 02 Oct 2026 06:44:07 -0400
+X-ME-Sender: <xms:84q_akNtFc_m8IqPCfS01lwOwwnlb6iwWNsSeaP5LZ8Jjrp2-u3vaQ>
+    <xme:84q_alyLnBtn5FwbzjNapuvaHdpW6B-9vMFARV_dsiXL0fQeSzgwbddu0dCiSkc9Q
+    8a2BM8XfbeYmeTnHApNqSlnH258O4q4an5JOkGoh9Bf2h4vXoUmWHXOXQ>
+X-ME-Proxy-Cause: dmFkZTF7v0Xj1DEnpcO6BUVol6zWmZrAP6o7CWAwbHkhXdIDi5sSS7yp1xr9ZZPwIBhJBB
+    GkXBQz9VF+JXcH7vt+0sFjJAGbofjSSmv/RNp/LtXy9wWYXx2hZ+b1RMskCVZPHKUMdb/m
+    ZOatOHoCpXj0a+5ph5ldA1jKzb1ltDN2+7xxma8A6JrRxHKh638T16bFurO/dM3C7Lti8D
+    l/JWE5GelKR6yNokvgG58ndMj85oi1Q3eGlSCRPSxw3CuPN09v6V+xYj8U2BkOzdi/fyBS
+    Xeh6AuR5w7wBeoV114P0zZ9HmLX+orpjQGx0T/RZyJ/U+SYak5JNnunLMEXnRZNElXI3XV
+    OmfKF7I5/l5lJnHfEL1ffIWJ6vZSfAFCrcfhH2R4hURERo3ZLyFgUBJy6AkKWfx5oahjhO
+    kjKgD+tn6FMYK89N3OwEmM57+lmjU8qMO3A9WB7oNAkRwqmBeA0AGLLdfJqFVcdIYOYwDV
+    eOzEY0V5ipQDOL6KuHdtjC2oOw5qfkEDmH14PvAQ1UL/G99OsCNlKojPtxe2MiYvhCEFXd
+    ogosyg4Dsto/Hmajt8Kjzp/RXiqy1ufa5tQqCnEpscgFXTTte47mdqfwnxJ+2KgJLVZsNF
+    M9zx7lZhfKryMkBBxV+1yQBZIpjjYmZmVW2IPzuUKeoMh4/QNIgBPgM2vR4A
+X-ME-Proxy: <xmx:94q_ak_C4KXvsHtNobGGfNaogyMfAk7tajGtMizHpGLeRGI7KN3JPQ>
+    <xmx:94q_aqL784SESyq09pYFL_dX5zdWPonTeW-K4xVghEmHPEnLG2wN2Q>
+    <xmx:94q_ap9rnmPKD8H6SvD-Ar5lpL9lk22OtJkTznBkS8wPTWnTfhtGWA>
+    <xmx:94q_amFF_UHjAHVfwQESOn13ThpYvSt5tGXuLALn_hdrm_xAzwHLAw>
+    <xmx:94q_apMIXONDJhbdtCTvo8nI1N2KYDTGljkHYRXIG5A1aaccZY-RK2sY>
+Feedback-ID: ice86485a:Fastmail
+Received: by mailuser.ams.internal (Postfix, from userid 501)
+	id 99395F80090; Fri,  2 Oct 2026 06:44:03 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261001-adis16607-v1-2-9c89cee35d56@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Date: Fri, 02 Oct 2026 12:43:43 +0200
+From: "Ard Biesheuvel" <ardb@kernel.org>
+To: =?UTF-8?Q?M=C3=A0xim_Pedraza_Padilla?= <maximpedraza@gmail.com>,
+ "Jani Nikula" <jani.nikula@linux.intel.com>
+Cc: "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>,
+ "Maxime Ripard" <mripard@kernel.org>,
+ "Thomas Zimmermann" <tzimmermann@suse.de>,
+ "David Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>,
+ "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>, "Jonathan Corbet" <corbet@lwn.net>,
+ "Francesco Valla" <francesco@valla.it>,
+ "Mario Limonciello" <mario.limonciello@amd.com>,
+ "Javier Martinez Canillas" <javierm@redhat.com>,
+ "Jocelyn Falempe" <jfalempe@redhat.com>, "Sam Ravnborg" <sam@ravnborg.org>,
+ "Ilias Apalodimas" <ilias.apalodimas@linaro.org>,
+ "Shuah Khan" <skhan@linuxfoundation.org>,
+ "Randy Dunlap" <rdunlap@infradead.org>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-efi@vger.kernel.org,
+ linux-doc@vger.kernel.org, linux-embedded@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Message-Id: <9cf259a5-6083-433c-8544-ca3f6286334e@app.fastmail.com>
+In-Reply-To: 
+ <CAEUXW=GKRstrsZniQSU0un6r--a2VrRjpZCe5meUyyxunJ-E7w@mail.gmail.com>
+References: <20261001195847.141192-1-maximpedraza@gmail.com>
+ <20261001195847.141192-3-maximpedraza@gmail.com>
+ <5c92c6f27b0778124d2365603374f70bd9b69b8d@intel.com>
+ <CAEUXW=GKRstrsZniQSU0un6r--a2VrRjpZCe5meUyyxunJ-E7w@mail.gmail.com>
+Subject: Re: [PATCH RFC v4 02/13] efi: bgrt: export the BGRT table and image size
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 01, 2026 at 12:11:50PM +0300, Radu Sabau via B4 Relay wrote:
 
-> The ADIS16607 is a Precision MEMS IMU from Analog Devices featuring
-> triaxial gyroscope, triaxial accelerometer, delta angle, delta velocity,
-> and temperature channels. The device communicates over SPI Half-Duplex,
-> requiring custom read and write ops that differ from the standard ADIS
-> library protocol.
-> 
-> Three variants are supported:
->   - ADIS16607-1: ±125°/s gyroscope range
->   - ADIS16607-2: ±450°/s gyroscope range
->   - ADIS16607-3: ±2000°/s gyroscope range
-> 
-> All variants share a ±40g accelerometer range and an 8 kHz internal
-> clock.
-> 
-> Data is acquired via 32-bit burst reads over a single held-low CS
-> transfer, providing 24-bit real resolution for all inertial channels.
-> 
-> Supported features:
->   - Hardware FIFO mode with configurable watermark threshold
->   - External clock with direct and scaled synchronization modes
->   - Calibration bias for gyroscope and accelerometer axes
->   - Configurable data-ready interrupt pin (DIO1-4)
->   - Optional hardware reset via GPIO
->   - Sensor self-test on probe
->   - Sampling frequency control via decimation rate register
->   - DebugFS entries for serial number, device ID, firmware and revision IDs
+On Fri, 2 Oct 2026, at 12:31, M=C3=A0xim Pedraza Padilla wrote:
+> Hi Jani,
+>
+> On Fri, 02 Oct 2026, Jani Nikula wrote:
+>> Data is not an interface.
+>>
+>> If these will be used more, perhaps it would be better to wrap access=
+ to
+>> them in functions? I think most of the time it will help with
+>> maintenance.
+>>
+>> And you can add stubs for CONFIG_ACPI_BGRT=3Dn where they belong,
+>> i.e. include/linux/efi-bgrt.h instead of drm_splash.c like in patch 11
+>> of this series.
+>
+> Agreed, and the same goes for your comment on patch 3. For v5 I would
+> replace the export with accessors in efi-bgrt.c, stubbed in
+> efi-bgrt.h for CONFIG_ACPI_BGRT=3Dn:
+>
+>       bool efi_bgrt_has_image(void);
+>       phys_addr_t efi_bgrt_image_address(void);
+>       size_t efi_bgrt_image_size(void);
+>       u8 efi_bgrt_status(void);
+>       u32 efi_bgrt_image_offset_x(void);
+>       u32 efi_bgrt_image_offset_y(void);
+>
+> The splash client then drops its own wrappers and stubs, and the
+> "static inline" in drm_splash.c go as well.
+>
+> drivers/acpi/bgrt.c is the only other user of bgrt_tab and
+> bgrt_image_size. I can move it to the accessors too, so that both
+> variables become static, if that is wanted; otherwise they stay
+> global for it and are no longer exported.
+>
+> Ard, this changes the patch you acked, so I will not carry your
+> Acked-by unless the above works for you. Both variables become
+> __ro_after_init either way, as you asked.
+>
 
-Good, now split this to be a series of 5, for example.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+This sounds good to me - please cc me again on the result and
+I'll take another look.
 
