@@ -1,45 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F18C630ACEE;
-	Sat,  3 Oct 2026 14:32:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27CBC3403F5;
+	Sat,  3 Oct 2026 14:34:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791037958; cv=none; b=JaV3Ts2Lwr7hlPeuD7iNLuQZGPzF84JpFYsmGhFRkJQNrju9TY2C2kE1NNYwXCYB0al+cm3zTO+8L5NVEHv55fy6qBSyenHImECiW/GXfvfY6Mb6bFwUxAq1IELB74pxD50y8xyYvOJqk6lVcNlybI919FHT/pUjX8tCVrViqSA=
+	t=1791038066; cv=none; b=n4ap5eslb/hO7VYO6kzLdRLExQq2CoYmpNnWkbK0c2hB9sCgIYsYjoTuERQbDuFQ9w6yf6n6UFgdjOETxuQrrway+QjOUtLf5mW5sTUG2Csr29yywlPSqlvfyN6ye8Y/FEgZaf47W+ByTsJ07SdPrs3q6PtEvo7Oqrdvxt/+udI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791037958; c=relaxed/simple;
-	bh=zrtPBIBhYFpp4Vz3DN9KUgyG5nS5wtaW+5tprYQ6Vn0=;
+	s=arc-20240116; t=1791038066; c=relaxed/simple;
+	bh=EUHTVU2Thlb9v5HDYZ9brf9jSxeVOJkLoCthUKqlyeY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=R74t8ZFqFAcRIkBh9P+zujaPt/UqTyj1MVjVCl2FF6f4uN4i3jou8Kz/XrZTsrjX78yVq1ArMzB6b+xk0qzixqkDUnFadPAsOBhfO3/Yg24xWei+vWETMcapsIzuqtTD9+WPtk7Wh6rR2Bc/3mRizXz3fbKWzZFnpiqHDBlXNSs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HTh4lYM0; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=E8+139M+fHEB01D/nWsw8oys7pDA+1h9KPMJ9j5pO6VXBKSFykoxZITHueZcGigTW6MI1i/Y7bMDElcQnu9aOs0tA1xTEU35ErWtREUp7F9hbYsTSkhZ8KkXd5cFmie/q9vcK91jcDYf1D8aJGByiz3EQ5hgXOV6JdV2uyjQULE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VDd+ju+t; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HTh4lYM0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F39A21F0089B;
-	Sat,  3 Oct 2026 14:32:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VDd+ju+t"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A24681F0089B;
+	Sat,  3 Oct 2026 14:34:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791037956;
-	bh=xvmvm5SlegXuNYPW+nGgskmwKTjFAzZ/ZX72Lx3IFvA=;
+	s=k20260515; t=1791038064;
+	bh=EUHTVU2Thlb9v5HDYZ9brf9jSxeVOJkLoCthUKqlyeY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HTh4lYM0lYZiJKaYadUFHs7eipLYtMPPcIxUEaPI9GzeUHKgsSjxL5/jlVqhVEd7y
-	 Gx+7vpPjKnX9INEh3aaCansC7OR6G6OHeuN3g0DNtlcJ5YluMA+VdZUcZv8my/tknR
-	 sVoRkD58VxyfQnZM4fL1pB6JCpJ1I6gmO7BR+CA4lwtFdeNGKiQhUKRC7P9SIQlx+k
-	 4j7PzwTTu8cpd9iAbvHa5mZgaNsndEvqbkpz3RDSsFYO8/2p5qGe8ivVakGbNDg8RB
-	 Pr1p9pbB8tPkmPEwQ6mWJSyAO72dwEw/r/6G8DcJIPJCHaL3DMvSXhO4R6wp4M9bEV
-	 5zkbmExrrm3dA==
-Date: Sat, 3 Oct 2026 16:32:34 +0200
+	b=VDd+ju+tGZ3HYnSZ4xnE2vL3ZUZHyHawSVnNiF0K1dMr0HzBPDBx6/2sry3ubHLRw
+	 rkUPxXe5cJr7fF7K/GGWB9a61ufK3uOQHIO8MyvO0NCdsZLqCHW79Ob1bUyrCDvL5u
+	 ZxCYA4wCj2sj9p6Tn+3a3z5AqMFtnL48XCxuNmB7x8fMB0HcixlN2FT3P9+4B7B46e
+	 p2G2QP0Uj+g3H8KJUqfGiSXips5KWsy2WWbjMRFsp6jpm3TXIbc1otFBqkrJaSnHdN
+	 GI1E9plAmdWwE86JDgcdU1ZmP5M3Dae4YoWM9yykkmsXXm3co+iUzNyMNQwUBrum58
+	 Wxi8XYx4JYWVw==
+Date: Sat, 3 Oct 2026 16:34:21 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Wim Van Sebroeck <wim@linux-watchdog.org>, 
-	Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
+To: Roman =?utf-8?B?U21yxb4=?= <roman@amarulasolutions.com>
+Cc: Martin =?utf-8?Q?Povi=C5=A1er?= <povik+lin@cutebit.org>, 
+	Lars-Peter Clausen <lars@metafoo.de>, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, 
+	Peter Rosin <peda@lysator.liu.se>, Liam Girdwood <lgirdwood@gmail.com>, 
+	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Rajendra Nayak <quic_rjendra@quicinc.com>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org, 
-	linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: watchdog: qcom-wdt: Document SM8650
- watchdog
-Message-ID: <20261003-competent-tangerine-mantis-caeced@quoll>
-References: <20261002-topic-sm8650-deckard-watchdog-v1-0-7d7f7d71d88a@linaro.org>
- <20261002-topic-sm8650-deckard-watchdog-v1-1-7d7f7d71d88a@linaro.org>
+	Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>, Baojun Xu <baojun.xu@ti.com>, 
+	Sen Wang <sen@ti.com>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	patches@opensource.cirrus.com, linux-sound@vger.kernel.org, asahi@lists.linux.dev, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-amarula@amarulasolutions.com, 
+	Michael Trimarchi <michael@amarulasolutions.com>
+Subject: Re: [PATCH 1/5] ASoC: dt-bindings: Add ti,pcm1795 and ti,pcm1796
+Message-ID: <20261003-adept-lush-beluga-09750d@quoll>
+References: <20261002-work-v1-0-f0e53bc7331f@amarulasolutions.com>
+ <20261002-work-v1-1-f0e53bc7331f@amarulasolutions.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,17 +51,25 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261002-topic-sm8650-deckard-watchdog-v1-1-7d7f7d71d88a@linaro.org>
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20261002-work-v1-1-f0e53bc7331f@amarulasolutions.com>
 
-On Fri, Oct 02, 2026 at 11:45:28AM +0200, Neil Armstrong wrote:
-> Add the SM8650 compatible string to Qualcomm watchdog binding.
-> 
-> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
-> ---
->  Documentation/devicetree/bindings/watchdog/qcom-wdt.yaml | 1 +
->  1 file changed, 1 insertion(+)
+On Fri, Oct 02, 2026 at 11:49:30AM +0200, Roman Smr=C5=BE wrote:
+> From: Michael Trimarchi <michael@amarulasolutions.com>
+>=20
+> The pcm179x driver gains support for the PCM1795 and the PCM1796. Both
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Driver does not matter here, it is not a reason to add bindings.
+
+Instead explain the hardware briefly.
+
+> are register compatible with the PCM1792A, so they belong in the trivial
+> codec schema.
+>=20
+> pcm179x.txt no longer exists upstream, it was folded into
+> trivial-codec.yaml when the trivial codec bindings were consolidated.
+
+That's almost confusing, how does it matter? Drop paragraph.
 
 Best regards,
 Krzysztof
