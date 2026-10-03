@@ -1,93 +1,129 @@
-Received: from mail-43100.protonmail.ch (mail-43100.protonmail.ch [185.70.43.100])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82C3B48EC6B
-	for <devicetree@vger.kernel.org>; Sat,  3 Oct 2026 16:51:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.100
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C667B35676A;
+	Sat,  3 Oct 2026 17:56:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791046306; cv=none; b=GyxSTntboQ3SA8EMJKjMymTPlaovydnv02DsOR1NJ48rAYSrxRXfebnVRYJIupbzb0CT7g5hl280FSDvs9ylhdir48tzHCgFt0+MU/kIlKW/jgaym7Pqc1smYfmfTvRQoE0MP88CduBSxexBHdXBBu+OOKgfDEw852gU0hDE64U=
+	t=1791050172; cv=none; b=sWi1z3FE+ONONdcFLWwTmOcduVkcY+Qi4p+0W+zJggiENTLaK94Bzy/oru/YKZ9fv/kWtPIcmdPCALmjjSzQ76HtD+IGe4iM5JO6Y/6dpLikcVu+J96VzyUFhIr9EfNWuDYIlxyo9kO2uiIgqCS3p63z5Rbb62QzPJyrXC8WESc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791046306; c=relaxed/simple;
-	bh=iN2dacuD2WXWVPe3pa7Hiwu4Q8mHr64UNBGkwL/Vsxo=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=N5nH4g91a9XGpApkjwHPawPkeB4R0Ik+TOp72dRhRAI66fHclLrmsc2QTjx6QZbUWoiu4w1XR73XG3nLWoH/C70y1DrfXpCDI7QfukjFIJeoAkZT2R1uBp233pgRlDmsE1iJyVWcfF7oJxdIc7/zNzoBiYX8cs+Xgiiio/5pLu0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=NPj4ASj3; arc=none smtp.client-ip=185.70.43.100
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1791050172; c=relaxed/simple;
+	bh=SRMfWbrHh1ZxNJ4h83PJ/G5CJox0l67TRHAwR8JE1qs=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=I3OwHwr6wyaNuoijJACYGIPfkgC5crbIbQVconLodZ0MdGMWazVYWO1BARrnI99T/WFRktHaCqRYUpyiF7ndzHn5f9A7v9hvebUYfr6lNmnv5ooEJuiWFffa+eP6poCpbitLTN7MJWSCv1+mn/MiRwwAspux8K7p7OelW8yd3kw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UEpWMrgi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="NPj4ASj3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1791046291; x=1791305491;
-	bh=jhnKxC1jfYQTIuTmaIFSI31CFkT8/+tMwqpFmimI1mE=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=NPj4ASj3XEB0AC4FSjoNSNY4thPPfkhDBceN/B6WWS+OtBflPV1mvNX8MFPV4VWrJ
-	 GkSGEHVXJAlj863kX7PKt3+YeM/wbnItd53pFWe9wJrrvhLcW5llncYSe4ERPi+kO2
-	 p7MNtEO4eHGAVsLe3q/7l28e68457E8nhgNnpp5sVYNeMaeCWxaSvsXWhwamcRYQMY
-	 jdR2D8BWxlanXhb46a6pJgkqEBFU4aVU6ZKDv/7jG2NY/PzJ3mOrUzC/suFYCKdfpm
-	 mt+AAma/lVJL5I9QzILJvPtnP+WwNmtEXWwt9WDETHlRbbx2Gj2a0UBn0FrypYQpgW
-	 sKWGp2wa3lCTw==
-Date: Sat, 03 Oct 2026 16:51:24 +0000
-To: Junhui Liu <junhui.liu@pigmoral.tech>
-From: Norman Herms <dockseed@proton.me>
-Cc: wens@kernel.org, Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, Philipp Zabel <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Richard Cochran <richardcochran@gmail.com>, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, netdev@vger.kernel.org, Jerome Brunet <jbrunet@baylibre.com>, Enzo Adriano <enzo.adriano.code@gmail.com>, Andre Przywara <andre.przywara@arm.com>
-Subject: Re: [PATCH v5 3/8] clk: sunxi-ng: a733: Add PRCM CCU
-Message-ID: <IX5E2OTO5TApj5Vn4djIoBmcguIRvSNmVwcbXPiXUUGdVZr1NAJHSRomSnI2U5zgW9LWkNXJUpSIlkvHGCwlb1n6mYkGZoH4l1EOvNgua38=@proton.me>
-In-Reply-To: <DLVAHLGLB6W5.1X87X6JJ6MY5H@pigmoral.tech>
-References: <20260930-a733-clk-v5-0-11175b41cd2d@pigmoral.tech> <20260930-a733-clk-v5-3-11175b41cd2d@pigmoral.tech> <CAGb2v65q8w6NLzTtuMX3HZR98nAvR=Z4ODUCFZb5j3TgkDu_3Q@mail.gmail.com> <DLVAHLGLB6W5.1X87X6JJ6MY5H@pigmoral.tech>
-Feedback-ID: 144388465:user:proton
-X-Pm-Message-ID: f0d0ad3ff4b1cce1df4b4fde15de0e8f3c9593c9
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UEpWMrgi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54FFD1F0089B;
+	Sat,  3 Oct 2026 17:56:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791050170;
+	bh=2VTg+EAdiBCPtFYTI1jrwCfHdtTZhmIOMewn7YAE/hY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=UEpWMrgise1jR+mIGVm3GkKTEPMCSUa8xdrW1es7S+Pk3Rdl2tpNMoEDw7FsA+4f4
+	 JAqpF6dkl2/znI7QB96wcxM9ZAQRIyvbKOUnQYgw0xRe0WUbqvfrclTCCwrIwxvMWJ
+	 Y7OXcOx8mfRews/671Zn8Z7u4EyzRsKJ2QfQNIdM0/kUt7js+n6k2FSW7KlcrqPQlB
+	 F/+NhaekZDABu+WBEVYZ/QPIXrwPxn4yBj1hwut/1zgpssbQfxXR3nTMY+lbP0IEtt
+	 CIyCySyqv15HVhXEsQNVydpp1hLcBJonop06h490r40CjSfpr8uJa1siYQcV1vSXl1
+	 AgmpSCgqCxjBQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 1/6] dt-bindings: input: Add Himax HX83102J
+ touchscreen
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?TWljaGHFgiBLb3BlxIc=?= <michal@nozomi.space>
+Cc: dmitry.torokhov@gmail.com, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, linux-input@vger.kernel.org
+In-Reply-To: <20261003142741.48634-2-michal@nozomi.space>
+References: <20261003142741.48634-1-michal@nozomi.space>
+ <20261003142741.48634-2-michal@nozomi.space>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 03 Oct 2026 17:56:09 +0000
+Message-Id: <20261003175610.54FFD1F0089B@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
 
-Hi Junhui, ChenYu,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] dt-bindings: inherited properties blocked by additionalPropertie=
+s: false
+--
 
-> > The three bus dividers are secure by default, and either need to be tog=
-gled
-> > to non-secure by the bootloader, or (I'm guessing) the system is runnin=
-g
-> > without secure boot and the secure access bit isn't in effect.
-> >
-> > Please add a comment about this.
->
-> Okay, I will add a comment explaining this.
+commit e01de01cb0d4342a5cf5aaa82a8d34629a2ccf17
+Author: Allen_Lin <allencl_lin@hotmail.com>
 
-A data point for that comment, measured since my last reply. For the
-registers behind a security switch, ChenYu's guess holds on our boards.
-Two test BL31s, each clearing a switch again after
-sunxi_security_setup(), then reads and writes from U-Boot at
-non-secure EL2:
+dt-bindings: input: Add Himax HX83102J touchscreen
 
-- PRCM_SEC_SWITCH_REG bit 0 cleared (0x07010290 reads 0x6): r-ahb
-  reads 0x03000000 and r-apb1 0x04000000, the values EL3 reads, and a
-  write to r-apb0 (0 -> 1 -> 0) sticks.
+This commit adds the device tree binding for the Himax HX83102J TDDI
+controller. It defines the touch function connected over SPI and the shared
+reset and analog supplies.
 
-- CCMU_SEC_SWITCH_REG cleared to 0 (PLL, BUS and MBUS secure): PLL_PERI0,
-  AHB, APB0, APB1, TRACE, the AHB and MBUS master gating, NSI and MBUS
-  read the values EL3 reads. Writes to PLL_NPU pattern 0 and to TRACE
-  stick, and U-Boot's own write to the MBUS gate enable register
-  (0x4 -> 0x804) sticks.
+> diff --git a/Documentation/devicetree/bindings/input/touchscreen/himax,hx=
+83102j.yaml b/Documentation/devicetree/bindings/input/touchscreen/himax,hx8=
+3102j.yaml
+> new file mode 100644
+> index 0000000000000..c9f229bf9ca7b
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/input/touchscreen/himax,hx83102j.=
+yaml
 
-So on these non-fused parts (SID + 0xA0 =3D 0) the switch bits do not
-gate non-secure access, as the UM notes on these registers say for
-non-security mode. With secure boot enabled, the bootloader has to set
-them; we cannot test that.
+[ ... ]
 
-That narrows what I wrote earlier about secure filtering without the
-fuse: on our boards it applies to the registers the UM marks as fixed
-secure (S_TWD_BGR_REG), to CCMU_SEC_SWITCH_REG itself and to the SPC
-status words, not to the registers behind a switch. We tested a sample
-of each switch group, not every register.
+> +  display-reset-gpios:
+> +    maxItems: 1
+> +    description:
+> +      Reset of the display function, usually driven by the panel. Assert=
+ing
+> +      it also resets the touch function.
+> +
+> +  spi-cpha: true
+> +
+> +  spi-cpol: true
+> +
+> +  spi-max-frequency: true
+> +
+> +  panel: true
 
-One board, AI agents (Claude) on my board as before, so a report, not
-a Tested-by.
+[Severity: Medium]
+Are these standard properties redundantly added here to bypass the strict
+local validation constraint? Changing the schema to use
+unevaluatedProperties: false at the bottom of the file would make these
+explicit declarations unnecessary.
 
-Thanks,
-Norman
+> +
+> +  firmware-name:
+> +    description: Specify the file name for firmware loading.
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +  - reset-gpios
+> +  - panel
+> +  - vccd-supply
+> +  - vsn-supply
+> +  - vsp-supply
+> +  - display-reset-gpios
+> +
+> +additionalProperties: false
+
+[Severity: Medium]
+Does this prevent the inherited properties from touchscreen.yaml and
+spi-peripheral-props.yaml from being used?
+
+In JSON schema validation, additionalProperties: false only checks the local
+properties block. It rejects standard properties defined in the referenced
+schemas (such as touchscreen-size-x or touchscreen-inverted-y) unless they
+are redundantly declared locally. Adding standard touchscreen properties to=
+ a
+board device tree node using this compatible string will cause
+make dt_binding_check to fail with 'additional properties are not allowed'.
+
+Changing this to unevaluatedProperties: false is the architectural standard
+for dt-bindings schemas that use $ref to inherit properties.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261003142741.4863=
+4-1-michal@nozomi.space?part=3D1
