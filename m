@@ -1,104 +1,108 @@
-Received: from mail.nozomi.space (mail.nozomi.space [139.162.184.125])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90E0748F855;
-	Sat,  3 Oct 2026 19:31:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=139.162.184.125
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F406D379988;
+	Sat,  3 Oct 2026 19:45:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791055878; cv=none; b=ocQeY/vM9TSuydgz8fvVKWNVT9oR1PlayVepXf65Gp9xVVO77SBEcQm61GkuXfAURIQK/Pa6c8+cPBs4itSobWqCYe8Aq9uHJP86gbKcwGm6CoSxC3wq4pwQk+53XWjRAhC5HIXkrac9vtWyCpr4QZH/R0H0HVkf9zLhzbK3DAs=
+	t=1791056723; cv=none; b=ssIlgfVgx28jFVz2ucvYq+pGIcqZoAFhRG9N5PFlIyZZnw6nQEbXAM0AAcZlcxogfQEM0OizEAbPOiAEFXQEoTJinvEfXdDsKljHpe2MQJ4mEmW3ug1+5/eDCCZzZdElxXa4NRE3HZprX+lzy2iEkEn3AKIf6ThiG73HMZ63Gj0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791055878; c=relaxed/simple;
-	bh=NBl5MBQEr9r73jdp+lWUfbbnaJnzQkvXY1jrCQq9vOw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=TzaF97mqME80cv8M9lBa1Mms4M+v3yA9KQebArj0jLt4BCNHjYOspgUafEFidt1MyWmWrK9AxCbdNhvS+/OAQcXQEXCItVMpQwM7I4Ny0WtZ1sASv3HmNnD6uCfYzkIW449WxwYTDP+0fYsmFXbDQA9axQpKifGgeyNiX3muQSY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nozomi.space; spf=pass smtp.mailfrom=nozomi.space; dkim=pass (2048-bit key) header.d=nozomi.space header.i=@nozomi.space header.b=k0xdnR9p; arc=none smtp.client-ip=139.162.184.125
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nozomi.space
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nozomi.space
+	s=arc-20240116; t=1791056723; c=relaxed/simple;
+	bh=j0JUPS3NqAgZfamgFMUUx01rdLyiXqWVMETSSNyBdVw=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=loZgX7dWiAZnkuzAJt7KbxKGJ0x+DKvv19/mLFzEsZhkxxFwCvqqILcGGAw64h1QYkWbKpA7kwzrofC/LAdSG5xcxpnUUI/uiDGs/Enfl7GDjB6Ge4pb67N+62B+pzWXICDWjHaBps2lQy7pg93Ioqsthdc3C6gQGOIbwbqKRvQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LQh78b6h; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nozomi.space header.i=@nozomi.space header.b="k0xdnR9p"
-From: =?UTF-8?q?Micha=C5=82=20Kope=C4=87?= <michal@nozomi.space>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nozomi.space;
-	s=mail; t=1791055874;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=mKQvMc8/mTLRPG1Kp5VBsc/OygCqDeG9AghhS1OUefc=;
-	b=k0xdnR9pU/icwwEkxAo90QC+I8f45hCOmjb0zbcsePfl8blkHKQ/5JaifRy1qWxCn8Rd/H
-	ZQkA1vKL9M+bRihOkeZoDpHOsHOwXJNPbKJxanG/Pu188wTVH/IuZv/ZFnAQFlhlNurGYu
-	IzS5JaZwFM+C2mQXUS1Tf9arw0GdX+VVKVXoSlfTVFMjxHBkkh6dxtPLzkCMOocQW2hQvK
-	j9NE5TjPxzDgLPzWiy6Mw/WPuy+HHQSq2mA7p3eDpaXqOLQEYMpOrgfArV6owX+wD5+mbQ
-	uLwT+nKLx4DkYMoZ88qM/eCTBUSss6MNl9iFW738XjYlO9E4nT6RPQ5ijjXtig==
-To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Fei Shao <fshao@chromium.org>,
-	devicetree@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	=?UTF-8?q?Micha=C5=82=20Kope=C4=87?= <michal@nozomi.space>
-Subject: [PATCH 3/3] arm64: dts: mediatek: mt8188-geralt: Add the detachable base touchpad
-Date: Sat,  3 Oct 2026 21:31:08 +0200
-Message-ID: <20261003193108.789939-4-michal@nozomi.space>
-In-Reply-To: <20261003193108.789939-1-michal@nozomi.space>
-References: <20261003193108.789939-1-michal@nozomi.space>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LQh78b6h"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 9FF93C2BCF6;
+	Sat,  3 Oct 2026 19:45:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791056722;
+	bh=j0JUPS3NqAgZfamgFMUUx01rdLyiXqWVMETSSNyBdVw=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=LQh78b6hbVaoB1ukecG+shpP7eZOcI5y+pJMDlxq4ZrP8BWoTWKfwPvA73vQCi8qX
+	 Q97ESew2uEiajl9Bcqzk43Uy1PyOwSMhsfZnsLvWxmv07rDafy7uZwdrzoe6tKl/QD
+	 3f3Lvbcxj3hYZ774CVOvZQx7hOB4YGvI3Fyj/6dGHUxfYStzj/056IrI/+3kmQYsKv
+	 cPuEjYEwMGGNNU6sldEIhq99c6rMZ9MS4/Y0O69I1yISr1NYH2B3p+yZ5dcyUa4rWS
+	 E06PLAJEH3bxGOY7ViqyI0WrNAQO2X8dKf+coVS3IkpF73m2pT0yB4SnC0d/7+vxa3
+	 pI31mgkIDQHJA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 7E8A6CA5FE4;
+	Sat,  3 Oct 2026 19:45:22 +0000 (UTC)
+From: Fabricio Akio via B4 Relay <devnull+fabricioakio.gmail.com@kernel.org>
+Date: Sat, 03 Oct 2026 16:45:21 -0300
+Subject: [PATCH 1/4] dt-bindings: power: supply: qcom,pmi8998-charger: add
+ chg-state-change
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261003-qcom-smbx-chg-state-change-v1-1-fffaef446932@gmail.com>
+References: <20261003-qcom-smbx-chg-state-change-v1-0-fffaef446932@gmail.com>
+In-Reply-To: <20261003-qcom-smbx-chg-state-change-v1-0-fffaef446932@gmail.com>
+To: Casey Connolly <casey.connolly@linaro.org>, 
+ Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: Robin Snyders <robin@snyders.xyz>, David Heidelberg <david@ixit.cz>, 
+ phone-devel@vger.kernel.org, Richard Acayan <mailingradian@gmail.com>, 
+ linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>, 
+ Fabricio Akio <fabricioakio@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791056720; l=1039;
+ i=fabricioakio@gmail.com; s=20260928; h=from:subject:message-id;
+ bh=ACxRf9zQSp49WZNPI7O//QWImpQWoDmjFCaFFKAHtmI=;
+ b=+t0z1QY9OEqXZpMHKaaitOEWXzs7uGy8M364T2NPNEKO6I6HKcQ+nOAjfVVCQUstxzj0OVdv7
+ 758Z/kRv9NQCvAzmNIGESkKKVA4OY1mYE2xLXihRjaEwmIDovipNxPh
+X-Developer-Key: i=fabricioakio@gmail.com; a=ed25519;
+ pk=TlMUT8bPI/ZQzp2q24BIQTb2qSx/jdUTBlGEXIRCm54=
+X-Endpoint-Received: by B4 Relay for fabricioakio@gmail.com/20260928 with
+ auth_id=1076
+X-Original-From: Fabricio Akio <fabricioakio@gmail.com>
+Reply-To: fabricioakio@gmail.com
 
-The touchpad of the detachable keyboard base is a HID over I2C device
-at address 0x56 on I2C4, with its interrupt on GPIO148. Describe it as
-the ChromeOS device tree does.
+From: Fabricio Akio <fabricioakio@gmail.com>
 
-Signed-off-by: Michał Kopeć <michal@nozomi.space>
+The charger raises an interrupt when its charging state changes. Allow
+it as an optional fifth interrupt.
+
+Signed-off-by: Fabricio Akio <fabricioakio@gmail.com>
 ---
- .../arm64/boot/dts/mediatek/mt8188-geralt.dtsi | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+ .../devicetree/bindings/power/supply/qcom,pmi8998-charger.yaml       | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
-index d8edbde6ee4ac..3bc15fd132149 100644
---- a/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
-+++ b/arch/arm64/boot/dts/mediatek/mt8188-geralt.dtsi
-@@ -494,6 +494,16 @@ &i2c4 {
- 	pinctrl-0 = <&i2c4_pins>;
- 	clock-frequency = <400000>;
- 	status = "okay";
-+
-+	touchpad@56 {
-+		compatible = "hid-over-i2c";
-+		reg = <0x56>;
-+		hid-descr-addr = <0x0001>;
-+		interrupts-extended = <&pio 148 IRQ_TYPE_LEVEL_LOW>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&hid_int>;
-+		wakeup-source;
-+	};
- };
+diff --git a/Documentation/devicetree/bindings/power/supply/qcom,pmi8998-charger.yaml b/Documentation/devicetree/bindings/power/supply/qcom,pmi8998-charger.yaml
+index 70f5cd6eaeab..7dfb0823ccbb 100644
+--- a/Documentation/devicetree/bindings/power/supply/qcom,pmi8998-charger.yaml
++++ b/Documentation/devicetree/bindings/power/supply/qcom,pmi8998-charger.yaml
+@@ -19,14 +19,17 @@ properties:
+     maxItems: 1
  
- &i2c5 {
-@@ -959,6 +969,14 @@ pins-gsc-ap-int-odl {
- 		};
- 	};
+   interrupts:
+-    maxItems: 4
++    minItems: 4
++    maxItems: 5
  
-+	hid_int: hid-int-pins {
-+		pins-ec-ap-hid-int-odl {
-+			pinmux = <PINMUX_GPIO148__FUNC_B_GPIO148>;
-+			input-enable;
-+			bias-disable;
-+		};
-+	};
-+
- 	i2c0_pins: i2c0-pins {
- 		pins-bus {
- 			pinmux = <PINMUX_GPIO56__FUNC_B1_SDA0>,
+   interrupt-names:
++    minItems: 4
+     items:
+       - const: usb-plugin
+       - const: bat-ov
+       - const: wdog-bark
+       - const: usbin-icl-change
++      - const: chg-state-change
+ 
+   io-channels:
+     items:
+
 -- 
 2.55.0
+
 
