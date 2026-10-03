@@ -1,240 +1,110 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA1FF38DC71
-	for <devicetree@vger.kernel.org>; Sat,  3 Oct 2026 20:29:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 845224399C4;
+	Sat,  3 Oct 2026 20:29:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791059346; cv=none; b=LFa+72dgJidYInWpokvdFNlyO7ZDxSnUFldA5YZbty1d3+MxzWh9/BPw0YgWMJnX9Jrp9AIc4+N9xNcXRrtR77M/u0y5YdYTJmqDIyBSDzDvnttwVbB4saW2qppEP8vl2i7RKqRNcOb6QtmxvihJaVR5WCffUcDPuNdg42l5PC0=
+	t=1791059366; cv=none; b=Pf9O3EBfGGwI7Mrl+k0YokYVdI6dJqSbw+N4+frU7nkJR68atwyPYjPRtKJx4JaadiTib8HUX7+MSGb28fVCaSAsWQH9JO3dDkCXnpcjoqCgWZ+YV8IpKzLObEE63FWTHQ6lm2WOrBLkJO21wzBISaL9F8NkJjWByQuwgbV7Wl0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791059346; c=relaxed/simple;
-	bh=jg/Ak7f9tzzjSw+/I/EAUpxxPeAsxzO8zBj8Enrv4Ic=;
+	s=arc-20240116; t=1791059366; c=relaxed/simple;
+	bh=347PMTUQfI8gzFrdmAs1Hfg3uIJgXzjc08e75xuHfJM=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=h+d50GKqAWjWvSkVqw7VoS1Ab3u01s9xdznAg29wF772UqkUpKSrNAFjNhgt1Y4kCqD+l5LR0YKG1+MUk8mgvWt2bb67ZbGR81CW3PJM0DNeF+T7QegVs4ERO32IzevpAVABNShweO74/PHYPjWVL+LPhXs9fRwxIPmhWWskxD0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FP7tgQ+c; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=LQb5ciaEypdZ/SX/o5iyflwecJinbww3jXGE490atzH4wnoCTRSg0RnnBV6Hve+stJdhXvSOZJn1kRJNGyqMO76NyjGnbdEgPuxQB09Bz2RbICyUDCNzOGQHlwhT6NTug5Cu2KfjrCrj09CxeKaaWpo5UfgLDOXPzQMxpCOLUdM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lfHmE4PH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FP7tgQ+c"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5670E1F0089B;
-	Sat,  3 Oct 2026 20:29:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lfHmE4PH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DECC1F0089B;
+	Sat,  3 Oct 2026 20:29:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791059344;
-	bh=A8hWN+Zd2xOTXQIn2LDXtFGYgFDp8a0bllMiLP0Ft6Q=;
+	s=k20260515; t=1791059365;
+	bh=7VZx5OHuI/fq48fGZFDaF2dYkCodU2PpFhlJl2qmUxU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=FP7tgQ+c/gM4cXPdkM6fBk/3d4eqZfjILEJL2s6Rp3ZSJRFF31p/2mCGRZsCNR61c
-	 EFCr6FShgbML0JF91e1nJdjsXqQPADlsQfxoF5NhRQFtbE/amxpX8So1d3sYsqVrhN
-	 dUJBmTc6t+GuX6zxEyUnay54JB3IBG1vAWLtyQtW1AzV+/YqkC9HSjFdvZnqKt7i/B
-	 ANhQDVh3sO8HwBIJnlrftHdDwPgrSPeqiFnwCKpjR4OhWYs4p7VveLoTncFPFUs7K0
-	 DY8XmsbKNIRvsSAHiD9a4WE62CQ6Mlo0YhlWRQxXlx/ddFB12JIs+7QorjATwOeWmM
-	 O3rwhTw2mGR3Q==
+	b=lfHmE4PHtN22YVuycTI1ffcXUQdCWFeCfSdUgTuZA/Z/eoEzUnyVqLAuE7eYVhRTA
+	 C+bmIUK1bw/NX2BBFMyLo4qiWQAONThOX8jjzOLphS6OsdkNtHmc+XpBBXl5WPOgwt
+	 kl+F7nlJ8rgnLfs5fA+bAqtKNpxvp2k2+I4OjfNW1kIsgdg8qAf0TTRnQ5PI3mIdLv
+	 eFkEEjnAbDYS3uPV+65eEpFKqhub7+6Zw+tTvD/v8eKQPMcIEZmfqa49V5wEZ/Krrw
+	 gEcD73qLOx77Jl++xwwwerdeAHJ1WYYSOsPoSy852mid/4DPBQ02KwmygwQZJ3yv+g
+	 wF2itbc3KJwtg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] bus: add Altera timeout bridge driver
+Subject: Re: [PATCH v5 2/3] platform/arm64: add Lenovo Yoga Slim 7x Gen 11
+ EC driver
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vyacheslav Yurkov" <V.Yurkov.EXT@bruker.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261003-feature-timeout-ip-v1-2-8837c311d571@bruker.com>
-References: <20261003-feature-timeout-ip-v1-0-8837c311d571@bruker.com>
- <20261003-feature-timeout-ip-v1-2-8837c311d571@bruker.com>
+To: "Oleg Keri" <okerixx@gmail.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org
+In-Reply-To: <20261003202143.4697-3-okerixx@gmail.com>
+References: <20261003202143.4697-1-okerixx@gmail.com>
+ <20261003202143.4697-3-okerixx@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 03 Oct 2026 20:29:03 +0000
-Message-Id: <20261003202904.5670E1F0089B@smtp.kernel.org>
+Date: Sat, 03 Oct 2026 20:29:24 +0000
+Message-Id: <20261003202925.1DECC1F0089B@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] bus: UAF of irq_node during teardown or early interrupt
-- [High] bus: CFI violation in devres teardown due to mismatched function p=
-ointer cast
-- [High] bus: driver incorrectly claims simple-bus devices, breaking power =
-management
-- [Medium] bus: bypassed hardware initialization when bound via driver_over=
-ride
-- [Medium] bus: leaked child devices due to missing depopulation on driver =
-remove
-- [Medium] bus: incorrectly adds physical base address to timeout address
-- [Medium] bus: un-rate-limited error logging in ISR causes kernel log floo=
-ding
+- [Low] hwmon: hardware monitoring registration outside drivers/hwmon/
 --
 
-commit c74336cb2c00c16659c7f03c8c51687597e67ab5
-Author: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
-Subject: bus: add Altera timeout bridge driver
+commit 1e4db7708b954def668e65b4325f61905437ade8
+Author: Oleg Keri <okerixx@gmail.com>
 
-Add support for the Altera timeout bridge IP. The bridge connects an Avalon
-bus to the HPS and monitors accesses for timeouts. When a timeout occurs
-the interrupt communicates the event via sysfs.
+platform/arm64: add Lenovo Yoga Slim 7x Gen 11 EC driver
 
-> diff --git a/drivers/bus/altera-timeout-bridge.c b/drivers/bus/altera-tim=
-eout-bridge.c
+This commit introduces a new embedded controller driver for the Lenovo Yoga=
+=20
+Slim 7x Gen 11. It exposes board thermistors and CPU fan speed through the=
+=20
+hardware monitoring subsystem, as well as a keyboard backlight via the LED=
+=20
+subsystem.
+
+> diff --git a/drivers/platform/arm64/lenovo-yoga-slim7x-gen11-ec.c b/drive=
+rs/platform/arm64/lenovo-yoga-slim7x-gen11-ec.c
 > new file mode 100644
-> index 0000000000000..bb44ff4a75910
+> index 0000000000000..1ef11b9eeffab
 > --- /dev/null
-> +++ b/drivers/bus/altera-timeout-bridge.c
-> @@ -0,0 +1,219 @@
-
+> +++ b/drivers/platform/arm64/lenovo-yoga-slim7x-gen11-ec.c
 [ ... ]
-
-> +static irqreturn_t altera_timeout_bridge_isr(int irq, void *data)
+> +static int slim7x11_ec_probe(struct i2c_client *client)
 > +{
-> +	struct altera_timeout_bridge_data *driver_data =3D data;
-> +	u32 timed_out_address;
-> +	resource_size_t effective_base_address;
-> +	resource_size_t effective_timed_out_address;
-> +
-> +	atomic_inc(&driver_data->irq_count);
-> +
-> +	// Read and print the timed-out address (encoded in the lower nibble
-> +	// 0x8..0xF according to AXI Timeout Bridge IP (CSR Interrupt Status In=
-formation)
-> +	timed_out_address =3D bridge_reg_read(
-> +		driver_data,
-> +		ALTERA_TIMEOUT_BRIDGE_REG_TIMED_OUT_ADDRESS);
-> +	effective_base_address =3D driver_data->bridge_register_resource->start;
-> +	effective_timed_out_address =3D effective_base_address + timed_out_addr=
-ess;
-
-[Severity: Medium]
-Does this calculation corrupt the actual timed-out AXI address by erroneous=
-ly
-adding the driver's own register base?
-
-> +	pr_err("%s: timeout at address 0x%llx\n",
-> +		__func__, (unsigned long long)effective_timed_out_address);
-
-[Severity: Medium]
-Will this synchronous pr_err() statement flood the kernel log if the hardwa=
-re
-triggers continuous faults?
-
-> +
-> +	// Reset IRQ status in the bridge
-> +	bridge_reg_write(
-> +		driver_data,
-> +		ALTERA_TIMEOUT_BRIDGE_REG_IRQ_STATUS_RESET,
-> +		0x1);
-> +	// notify the user space
-> +	sysfs_notify_dirent(driver_data->irq_node);
-
-[Severity: High]
-Can this sysfs_notify_dirent() dereference an uninitialized or freed
-irq_node?
-
-During probe, devm_request_irq() is called before driver_data->irq_node is
-initialized, leaving a window where early interrupts see a NULL pointer.
-Additionally, because the devres action to free irq_node is registered after
-the interrupt request, devres executes in LIFO order and frees irq_node
-before the interrupt is disabled during teardown.
-
-> +
-> +	return IRQ_HANDLED;
-> +}
-> +static int altera_timeout_bridge_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev =3D &pdev->dev;
-> +	const struct of_device_id *match;
-> +	const struct of_dev_auxdata *lookup =3D dev_get_platdata(dev);
-> +	struct device_node *np =3D dev->of_node;
-> +	struct altera_timeout_bridge_data *driver_data;
-> +	int ret =3D 0;
-> +	int irq =3D -1;
-> +
-> +	/*
-> +	 * Allow user to use driver_override to bind this driver to a
-> +	 * transparent bus device which has a different compatible string
-> +	 * that's not listed in simple_pm_bus_of_match. We don't want to do any
-> +	 * of the simple-pm-bus tasks for these devices, so return early.
-> +	 */
-> +	if (device_has_driver_override(&pdev->dev))
-> +		return 0;
-
-[Severity: Medium]
-Does this check incorrectly bypass the entire hardware initialization logic
-if a driver override is used?
-
-If a user explicitly binds the driver to a device via the driver_override
-sysfs attribute, the probe function immediately returns 0, skipping all
-memory allocations, register mappings, and interrupt requests.
-
-> +
-> +	match =3D of_match_device(dev->driver->of_match_table, dev);
-> +
-> +	/* Use a fall back logic like in simple-pm-bus */
-> +	if (match && match->data) {
-> +		if (of_property_match_string(np, "compatible", match->compatible) =3D=
-=3D 0)
-> +			return 0;
-
-[Severity: High]
-Does this cause the driver to incorrectly claim generic system buses and br=
-eak
-power management?
-
-The driver's OF match table includes the generic "simple-bus" compatible
-string. Returning 0 here prevents the correct simple-pm-bus driver from
-binding to these buses, which is responsible for enabling their power domai=
-ns
-and clocks, breaking all child devices on the bus.
-
-> +		else
-> +			return -ENODEV;
-> +	}
-
 [ ... ]
-
-> +	ret =3D devm_request_irq(dev, irq,
-> +			       altera_timeout_bridge_isr,
-> +			       0,
-> +			       dev_name(dev),
-> +			       driver_data);
-> +	if (ret) {
-> +		dev_err(dev,
-> +			"%s: devm_request_irq failed for IRQ %d: %d\n",
-> +			__func__, irq, ret);
-> +		return ret;
+> +	if (!ec->temp_present) {
+> +		return dev_err_probe(dev, -ENODEV,
+> +				     "no thermistor reported a usable value\n");
 > +	}
 > +
-> +	ret =3D devm_device_add_group(dev, &altera_timeout_bridge_sysfs_group);
-> +	if (ret)
-> +		return ret;
+> +	dev_dbg(dev, "thermistors present: %#lx\n", ec->temp_present);
 > +
-> +	driver_data->irq_node =3D sysfs_get_dirent(dev->kobj.sd, "timeout_irq");
-> +	if (!driver_data->irq_node)
-> +		return -ENOENT;
+> +	hwmon =3D devm_hwmon_device_register_with_info(dev, "yoga_slim7x_ec", e=
+c,
+> +						     &slim7x11_ec_chip_info, NULL);
+
+[Severity: Low]
+Does this hardware monitoring registration bypass the hwmon subsystem=20
+architectural layering rules?=20
+
+According to the hwmon subsystem guidelines, hardware monitoring devices=20
+should reside in the drivers/hwmon/ directory. If a device has secondary=20
+functionality or its main functionality isn't hardware monitoring, the hwmo=
+n=20
+features should be implemented as an auxiliary device driver, and that driv=
+er=20
+should reside in drivers/hwmon/.
+
+Registering the hwmon device directly from drivers/platform/arm64/ increase=
+s=20
+driver complexity and bypasses hwmon maintainer review.
+
+> +	if (IS_ERR(hwmon))
+> +		return PTR_ERR(hwmon);
 > +
-> +	ret =3D devm_add_action_or_reset(dev, (void (*)(void *))sysfs_put, driv=
-er_data->irq_node);
-
-[Severity: High]
-Does this mismatched function pointer cast cause a Control-Flow Integrity
-(CFI) violation during devres teardown?
-
-The driver registers sysfs_put() with devm_add_action_or_reset() by casting
-it to (void (*)(void *)). The actual signature of sysfs_put() expects a
-struct kernfs_node *, not void *. When devres executes this action on module
-unload or probe failure, KCFI detects the signature mismatch and panics.
-
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (np)
-> +		of_platform_populate(np, NULL, lookup, &pdev->dev);
-> +
-> +	return 0;
-> +}
-
-[Severity: Medium]
-Are these child devices leaked when the driver is unbound?
-
-During probe, of_platform_populate() creates child platform devices. Howeve=
-r,
-the platform driver lacks a .remove callback and does not use
-devm_of_platform_populate(). The child devices are never destroyed when the
-driver is unbound.
+> +	ec->kbd_led.name =3D "platform::kbd_backlight";
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261003-feature-ti=
-meout-ip-v1-0-8837c311d571@bruker.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261003202143.4697=
+-1-okerixx@gmail.com?part=3D2
