@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F01E2D9EED;
-	Sat,  3 Oct 2026 21:14:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF9AB221F39;
+	Sat,  3 Oct 2026 21:18:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791062069; cv=none; b=MIpuYasCJTYupR9EXEWRNfRM8+mbcGbL5JAFzFMxX3LRYZ0AKNm6h7r4jVhvp+H2PH7KiFZbY9zN3asqEQ4KbxarmtiVBQp9dtXjPnZefh9kaFne702uB+Pwk/JHjpl5+xjGhsyS6Bg9WrS1EREOidpuR9uYufviKvfA6gQDONY=
+	t=1791062312; cv=none; b=rHhsIHNgwgkwpdyQIdpeeot+y0XYTYwOpM0B7xUsRdmh498sZG6jpCrRuhMuKelt1jfas6/uoeW1tQZzw0JqDYuJWkx3/RK9IsWo6L/4KHjXVOWyzZ5w+9koclSZ4HWOna3inMz/R26zp11PqfZL2A9hd44d1nKktDIiDUIsnm0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791062069; c=relaxed/simple;
-	bh=Ub6LEqQ4rwROJxo1Ho2ypYv2xJ8fH5wFK0rmijLukJQ=;
+	s=arc-20240116; t=1791062312; c=relaxed/simple;
+	bh=RlKDGGrVWfLqxn07Sgrd8UkIFjHMbd7p4BW5/kvZmmk=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jOg3DgH3DXpfXk+ND24tc6/m4G1p6lt1JL35c6umJyFS+olGsdbTby6DWD23FXlUKav76kcoSRgY4tu0o0qLZ6eBsa2ecwATO2YfTJNe6NIBG8UJpblpjQKBZ7KW0ruA4dCSvRI6DSlNJLt6Twei8Dvm1lOGbkqis2ibHi7xNKo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ogVon9PF; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=pDkRXZ2Um14NMMJrYOU2Wi2xcT7wePBP8+w7sDr1jBm6s57rJXCddMNJKpKmPNWPRLhVFRB5TYjCq3wVPBVETyAJAQuDn94b5/eArS3m6uAuz9cqEd1df6ljyszG9qExD4rveAcRSvDMP7zbQMLjQqQAbKvjg+LB5SQJo+W1v4U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ayNfcK1r; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ogVon9PF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED7EE1F0089C;
-	Sat,  3 Oct 2026 21:14:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ayNfcK1r"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CE541F0089B;
+	Sat,  3 Oct 2026 21:18:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791062068;
-	bh=aLAwFt+Tq7GlMEaX8/iY40Albs91lRxQ0vr6oR4axkM=;
+	s=k20260515; t=1791062311;
+	bh=QFUWQ2qkbmbrXAMMVcxH3MVAzoCMw16GTny7iGm+v4M=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ogVon9PFyFUIsL8EIoHmsBudo4/a+aUMF13pz34KBgNJmPGFnzQ3uVJd3z7a//tC6
-	 iMDGDVTOdiZzFtHPfWBfW1YEAPDJalWnDXSzu6uqvOdD1G0ZD57kBb0V36cPbuVxOn
-	 s32og7QCJQREY/IEGkREZmVLGdFQGgQslVKn8euPOBRpgfAMPB8kxS9MBxa1/VY1WD
-	 X9edRwlM3CbzysfELEuSr+o4MS+pPOYiF4umpDQGRa3KYWbrjzqq2yqR7fkM6XkTIj
-	 VJNpmwiiVm05qUwpukoAAMiDCADIRDe9jA2+vc8BZo6h1u5qOIwwjlHqEjpdqn+t+2
-	 dGKeyfDNRjbmA==
-Message-ID: <387c02a6-1298-44a7-952e-47d1d8535541@kernel.org>
-Date: Sat, 3 Oct 2026 23:14:23 +0200
+	b=ayNfcK1r97THljNL5bFI2fITox4aT3MAPzMUumOiObDNFdrv1UlbvUk94hi1vmetS
+	 3hkaJHTDr+ctf8BML31pJ9fixux3Q1jRHnxx7ELAVUDWA2gE9vcGL0+ZLTJOcV0ZRS
+	 4sn9x9mPpcQqeHgEa06Ttyok5jgMRJHw2udYiHWlhVw/5Mq8++Z69ics5qErbhLGVe
+	 cJTjVnYVZX3ymg9o2Hz1hT0iYPkXHYqGENM/nRTfq1RaCsJaEWwPKka3WdxuBftmJ1
+	 gidi5k/fqG1um8OpG0BvbIRLt65QGM9mJjOsikFp3m2NX6LLW9uZ7IouRF180pL9vF
+	 fY0vIRm6ajQdA==
+Message-ID: <eeb7c9d4-ed3e-4b94-a590-0fcff1998971@kernel.org>
+Date: Sat, 3 Oct 2026 23:18:27 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,14 +35,14 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] dt-bindings: Add EBDEE vendor prefix
-To: Pufan Jin <2254650260@qq.com>, Conor Dooley <conor+dt@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Michal Simek
- <michal.simek@amd.com>, Rob Herring <robh@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261003194625.936288-1-2254650260@qq.com>
- <tencent_E21E2A584AF8EE0505C2C0809838621C8209@qq.com>
+Subject: Re: [PATCH 1/2] dt-bindings: bus: Add binding for Altera AXI Timeout
+ Bridge
+To: V.Yurkov.EXT@bruker.com, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Vyacheslav Yurkov <uvv.mail@gmail.com>
+References: <20261003-feature-timeout-ip-v1-0-8837c311d571@bruker.com>
+ <20261003-feature-timeout-ip-v1-1-8837c311d571@bruker.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -88,17 +88,127 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <tencent_E21E2A584AF8EE0505C2C0809838621C8209@qq.com>
+In-Reply-To: <20261003-feature-timeout-ip-v1-1-8837c311d571@bruker.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 03/10/2026 21:46, Pufan Jin wrote:
-> Shanghai Xin'yI Electronics Technology Co., Ltd. (EBDEE) manufactures
-> the EdgeBoard series of embedded compute cards, including Zynq
-> UltraScale+ based designs.
+On 03/10/2026 22:19, Vyacheslav Yurkov via B4 Relay wrote:
+> From: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
 > 
+> Add a device tree binding for the Altera timeout bridge, which connects
+> an Avalon bus to the HPS and provides an address space for child
+> devices with a fall back to a simple bus.
+> 
+> Signed-off-by: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+> ---
+>  .../bindings/bus/altera-timeout-bridge.yaml        | 82 ++++++++++++++++++++++
 
-What does EBDEE mean? What is the company website?
+Filename must match compatible and compatible has completely broken
+format. Please look at DT spec or any other examples how compatibles are
+created.
+
+
+>  1 file changed, 82 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/bus/altera-timeout-bridge.yaml b/Documentation/devicetree/bindings/bus/altera-timeout-bridge.yaml
+> new file mode 100644
+> index 000000000000..b57a0966ba6e
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/bus/altera-timeout-bridge.yaml
+> @@ -0,0 +1,82 @@
+> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/bus/altera-timeout-bridge.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Altera Timeout Bridge
+> +
+> +maintainers:
+> +  - Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+> +
+> +description: |
+> +  Altera timeout bridge bus.
+
+Useless description. You keep repeating the same.
+
+> +
+> +properties:
+> +  compatible:
+> +    items:
+> +      - const: altera-timeout-bridge
+> +      - const: simple-bus
+
+Why the fallback?
+
+Your commit msg is also useless here, you just wrote what you did, not why.
+
+I see no reason why generic "bus" like that should stay generic,
+although you have entire commit msg to explain why this is different or
+what is the versioning of this IP block.
+
+Missing blank line.
+
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  ranges: true
+> +
+> +  "#address-cells":
+> +    const: 1
+> +
+> +  "#size-cells":
+> +    const: 1
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +  - interrupt-parent
+> +  - ranges
+> +  - "#address-cells"
+> +  - "#size-cells"
+> +
+> +patternProperties:
+
+This follows properties.
+
+> +  "^[a-zA-Z][a-zA-Z0-9,+._-]*@[0-9a-f]+$":
+> +    type: object
+> +    description: |
+> +      Device connected to the timeout bridge.
+> +
+> +    required:
+> +      - compatible
+> +      - reg
+> +
+> +    additionalProperties: true
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +
+> +    intc: interrupt-controller {
+> +        interrupt-controller;
+> +        #interrupt-cells = <3>;
+> +    };
+
+Drop, irrelevant
+
+
+> +
+> +    timeout_bridge_hps@10000 {
+
+Really, this is the style you send? So the toolset - dt-check-style - or
+the Coding style mean nothing and you keep sending what you have in
+downstream.
+
+
 
 Best regards,
 Krzysztof
