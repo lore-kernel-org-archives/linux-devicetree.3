@@ -1,342 +1,194 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f33.google.com (mail-wr2-f33.google.com [74.125.225.97])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE6E7345EAB;
-	Sat,  3 Oct 2026 20:19:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6290DCA4E
+	for <devicetree@vger.kernel.org>; Sat,  3 Oct 2026 20:21:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.97
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791058773; cv=none; b=apof67P0oSomrBYEja+7kVrZDPoYtAgEBFZGo85S3/HvXWJT3EPfzQ6qjYVwF01jiJznqn/bJsBWD3t037QtrxzX0l4u3i3jbyO7675yoJR3qbyT+PyM1SplbYjcdC8vfnEkXMrkXO02PpXRvlRm6PKTMX87QJrq2F3ds1H0Aj8=
+	t=1791058918; cv=none; b=dTyVTb2MGSLFsXH5dKJi1I0mmTEAR3sH+RaI9plieQDG1hGhiJcCcgoO26hkCwRrweFJgmaTDgs7Mm40Az+N7JzrvyTfR0ubx4B6jvvUFVVigyx+GHm0Gy+OgLix12K0UgALaqreZ/1wdhpqw2mZS2QP4C/ASf9hMH1XYg79dhk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791058773; c=relaxed/simple;
-	bh=d+Pu2Dq/AbIds9W2PsGwZC/UUTv4eRbM2K6Si6cx+EE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=IMaCdEsV2mNXsBaYU1sUByPEEkKSs7WR0zuMh19n2Zywoi9Il/TmX1rK+w4pbrvalEdnOlr2vbw26ZgfaKRbPAat4C/u7IJAMcd4tyBrs1Dzja22nnXrD8THdYTxYK2YqxATutb6B+M9ERNvLKnr4vTo5qadU4Pb/XZ6b/qO6YM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dK5SMMjI; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791058918; c=relaxed/simple;
+	bh=2u34eksTJWhirfi4M5VyDEfsUceCwd7uw1Xs3JVyAls=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=My7r7p0AQmFF5lYDQoGpFsKXCMMg6ZyeEaJmJDeDNLySiwf3NMpvQcJOWaN1U3aZ4phXT3CQVvuIZMiOIiZPQiVnk9tTuYX5+uFBll8VGBx9g/ts6+3+GYkMQj6CgJiW4i5speBtp0UXp0KxVQbjdoMW4QM8rFJvytDNx4Yt72M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mKfEU408; arc=none smtp.client-ip=74.125.225.97
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dK5SMMjI"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 64156C4AF14;
-	Sat,  3 Oct 2026 20:19:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791058773;
-	bh=d+Pu2Dq/AbIds9W2PsGwZC/UUTv4eRbM2K6Si6cx+EE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=dK5SMMjIXA1wT3Na6NyW3agKZrplbIgb+h4KeADBTMc4AmP/v8cXUnhSTCSumKQXf
-	 o/hoOJwuuE1ab3DaNY0AZ4Rp1lNk9JnXCHnzM1+hd+nDHzjXe15fbX9U7nczjds2C1
-	 /Y0Cq7kywXa3CHDf0LZxAtG3/QaWjEJOaUSdZUY+FggZLLQ7WKbwPgYx4nksX8eeFl
-	 wQaSRzBGiY4YSk8P/FvC7XpDjEeRGaPgFbW9HFNr36QpcDgMPGgrZoWbidVSu8hJl3
-	 FpVHoDxcB8ciyCAhJfyiexnVjVWooZ7YwVtgAUPmmZYBZsp9MZMop17vgqvtwx7bOe
-	 vxx21xTOzBv6w==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 43919CA5FE4;
-	Sat,  3 Oct 2026 20:19:33 +0000 (UTC)
-From: Vyacheslav Yurkov via B4 Relay <devnull+V.Yurkov.EXT.bruker.com@kernel.org>
-Date: Sat, 03 Oct 2026 20:19:20 +0000
-Subject: [PATCH 2/2] bus: add Altera timeout bridge driver
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mKfEU408"
+Received: by mail-wr2-f33.google.com with SMTP id ffacd0b85a97d-48b104f6aa3so260652f8f.0
+        for <devicetree@vger.kernel.org>; Sat, 03 Oct 2026 13:21:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791058914; x=1791663714; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=C75l2wsXWFqHqj6w9JaZEjjSQbkyybpKUQfglyD3Zx0=;
+        b=mKfEU408/R4DQSr3VCjM6QQXSSJwVHffiYXis2+lY/1tniotMiUiAmH14YG4yJRfqR
+         yC8OCyWxQprr2RlXdyhOdF6Q2A/qWXnjZQXQOOOdWbzjtPQGaji5fW2ZQXzglCrMibig
+         b1rQEIxHVLdxLllUGECEbObYSKuF3qXHSH64JFNWr0N6yhSp8GtbP0T4NgBMkjryxH3/
+         ncqBznGkC7vR2wcN/0xIs6cPF4s7NmvbKtad+XFJhP2GNlDn7JDpaucf1gec1BrIho1m
+         1k21WqO7ta7ECKB+ukoq5YPcDrNW6yEZ6JuUb9lf4desHXdbndYlwcgxLIWgbeFSp6aN
+         SmYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791058914; x=1791663714;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=C75l2wsXWFqHqj6w9JaZEjjSQbkyybpKUQfglyD3Zx0=;
+        b=NhFhFFJiiHdkblxpbpYKSGW3Ro9WYC+YEcE1TkJn+cM2qh1H1gwaRmXHuxNwSk/HOo
+         TI58zVZDwmLJrjfr8NOV6UgK1jjemNLOl+tFIJYdWVrt9exxJkEBd85Yl2xJst69x6Ah
+         51yr9Px873gJGREAm7/wMJPMYCVFujuCEo/+kkeeKO6Z2ZSRJZmModHU8SzMXcAKrDAY
+         5ILt+LQHzIezVgiousclZmTpBAb9e1KjqKdPaQvl16eiIgyhjvEeDimkWz3xGhczaBdr
+         v8Qf4jGbuUmcSEw6j0ZCU9DMpQAVUYVOJVvHwnXnG4YiCo9GyUZrxxDz660YFi/qBA56
+         wQlA==
+X-Forwarded-Encrypted: i=1; AKwUvBw4Fp9jVE4K2oBS71MEmaoJaPzACxtjVJ5NKMpb94VsreUImNYrwL9yBTdVz4oqiiuzyrl8tqHrLnEP@vger.kernel.org
+X-Gm-Message-State: AFq9FYJOcnyBorOlEbIYtZZ7svGmdhC2MyjUXTcvjPV2MUhd2wNsBp8D
+	evugY0wHnvUjbfyb8sKKojvlzG65T4JtVasRxqViISNY7HORm3ij9Vjo
+X-Gm-Gg: AYBFou2scBi9oa4vL54t1DmmuO840YxVrkN3c48Bx7TKVPghS/kZnFbB5VomYWdIk8/
+	gU1RIhKluIoLalW6G3Lcwzyk7HfQc2tg6E/TPMr8yrFNawxtdHGqCoUr6GQFSTIefNm0qMU5c7p
+	lQtE5wOl+51tbFantsuWENOz866KrtxFzamijChXqKkLVcx+pwqfEfR9cEdp1vMh9qJY1t+r1T1
+	CRg8TMRuT0EgI8Umz0XMd14nmkT8lcTvglM7GsnNBIs7kuVZAXb3vAOZ4+qzL60kn61VYUDGHv8
+	Q5aa0e4O92VGhfttE0tJkpoP5Zcnfixm7mKeROODw9MxVHOMGiw/F7x9walcz2/jTfFMzQtc4vV
+	0MqSafK6nxRoMkD/yddIMC8mMqjmW1Vsob9zIDlZORx8c3IneviA4hfPWhp3AwHcziFsop0aOaf
+	57L4yQMIQiD/lyFDZaWePxZGxdpGWnusDwKB4KTjrSx26KTVOasNU7IVW7yhEmGi/9dsmzGZDGd
+	ScXi3y423kLEBWU
+X-Received: by 2002:a05:6000:4905:b0:48c:50db:30bb with SMTP id ffacd0b85a97d-48c50db37b2mr1760785f8f.26.1791058913464;
+        Sat, 03 Oct 2026 13:21:53 -0700 (PDT)
+Received: from localhost.localdomain ([94.252.75.11])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-48b380facfesm15083316f8f.23.2026.10.03.13.21.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 03 Oct 2026 13:21:52 -0700 (PDT)
+From: Oleg Keri <okerixx@gmail.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	"Bryan O'Donoghue" <bryan.odonoghue@linaro.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	platform-driver-x86@vger.kernel.org,
+	linux-hwmon@vger.kernel.org
+Subject: [PATCH v5 0/3] platform/arm64: Lenovo Yoga Slim 7x Gen 11 embedded controller
+Date: Sat,  3 Oct 2026 22:21:40 +0200
+Message-ID: <20261003202143.4697-1-okerixx@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261003-feature-timeout-ip-v1-2-8837c311d571@bruker.com>
-References: <20261003-feature-timeout-ip-v1-0-8837c311d571@bruker.com>
-In-Reply-To: <20261003-feature-timeout-ip-v1-0-8837c311d571@bruker.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>, 
- Vyacheslav Yurkov <uvv.mail@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791058772; l=8394;
- i=V.Yurkov.EXT@bruker.com; s=20260318; h=from:subject:message-id;
- bh=ay/MZFMkkNGZ3NCHm6d4sqZeF0z/c4FtI8+IFU78nM0=;
- b=XD5b3Dk7Mh11dDpSeHJHWE1//VOK2tdVJQZPZZQXwRmp2OkDHfYBil9JyJ5wfOnNlwy+C5FuJ
- oQOOZeiqCyPBYsHpzvQ5BGTm045FLcErW1tiChoP54Kjv4mBAMYGZBJ
-X-Developer-Key: i=V.Yurkov.EXT@bruker.com; a=ed25519;
- pk=snJmgYVOKlp7aQtK9tWnEI7QTYxpPpJJvxdVsnxA7Fk=
-X-Endpoint-Received: by B4 Relay for V.Yurkov.EXT@bruker.com/20260318 with
- auth_id=686
-X-Original-From: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
-Reply-To: V.Yurkov.EXT@bruker.com
+Content-Transfer-Encoding: 8bit
 
-From: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+The Lenovo Yoga Slim 7x Gen 11 is a Qualcomm Snapdragon X2 Elite (glymur)
+laptop. It carries a Compal EF06 embedded controller on I2C at address
+0x70, which is the only source on this machine for the board thermistors,
+the fan tachometer, the keyboard backlight, Fn-lock, and the mic-mute
+and airplane-mode keys.
 
-Add support for the Altera timeout bridge IP.
+Patch 1 documents the binding, patch 2 adds the driver, patch 3 adds the
+node to the board.
 
-The bridge connects an Avalon bus to the HPS and monitors accesses for
-timeouts. When a timeout occurs the interrupt communicates the event via
-sysfs, which user space can monitor to handle it accordingly. The
-address with the timeout is reported as well.
+Why one driver
+--------------
 
-Signed-off-by: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
----
- drivers/bus/Kconfig                 |  10 ++
- drivers/bus/Makefile                |   1 +
- drivers/bus/altera-timeout-bridge.c | 219 ++++++++++++++++++++++++++++++++++++
- 3 files changed, 230 insertions(+)
+The automated review of v2 asked for the hwmon part to become an
+auxiliary driver under drivers/hwmon/. The hwmon channels, the LED and
+the input device all sit behind one command mailbox and one interrupt,
+so the driver stays in one file, like huawei-gaokun-ec,
+lenovo-thinkpad-t14s and qcom-hamoa-ec next to it. It is documented
+under Documentation/ABI only.
 
-diff --git a/drivers/bus/Kconfig b/drivers/bus/Kconfig
-index e4b1db809187..8a4ad96742e5 100644
---- a/drivers/bus/Kconfig
-+++ b/drivers/bus/Kconfig
-@@ -247,6 +247,16 @@ config DA8XX_MSTPRI
- 	  configuration. Allows to adjust the priorities of all master
- 	  peripherals.
- 
-+config ALTERA_TIMEOUT_BRIDGE
-+	tristate "Altera AXI Timeout Bridge bus"
-+	depends on OF
-+	default n
-+	help
-+	  Driver for Altera AXI Timeout Bridge, which can be used a bus.
-+	  The subordinate devices can be connected to the bridge, which
-+	  detects frozen read/write requests and notifies user space by
-+	  means of a sysfs interrupt flag.
-+
- source "drivers/bus/fsl-mc/Kconfig"
- source "drivers/bus/mhi/Kconfig"
- 
-diff --git a/drivers/bus/Makefile b/drivers/bus/Makefile
-index a01f97fef3e8..ad4e6d7b1e49 100644
---- a/drivers/bus/Makefile
-+++ b/drivers/bus/Makefile
-@@ -39,6 +39,7 @@ obj-$(CONFIG_UNIPHIER_SYSTEM_BUS)	+= uniphier-system-bus.o
- obj-$(CONFIG_VEXPRESS_CONFIG)	+= vexpress-config.o
- 
- obj-$(CONFIG_DA8XX_MSTPRI)	+= da8xx-mstpri.o
-+obj-$(CONFIG_ALTERA_TIMEOUT_BRIDGE)	+= altera-timeout-bridge.o
- 
- # MHI
- obj-y				+= mhi/
-diff --git a/drivers/bus/altera-timeout-bridge.c b/drivers/bus/altera-timeout-bridge.c
-new file mode 100644
-index 000000000000..bb44ff4a7591
---- /dev/null
-+++ b/drivers/bus/altera-timeout-bridge.c
-@@ -0,0 +1,219 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Altera Timeout Bridge Bus Driver
-+ *
-+ * Copyright (C) 2026 Bruker Corporation
-+ */
-+
-+#include <linux/interrupt.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/of_device.h>
-+#include <linux/of_platform.h>
-+#include <linux/platform_device.h>
-+
-+#define ALTERA_TIMEOUT_BRIDGE_REG_TIMED_OUT_ADDRESS 0x08
-+#define ALTERA_TIMEOUT_BRIDGE_REG_IRQ_STATUS_RESET 0x00
-+
-+struct altera_timeout_bridge_data {
-+	struct device *dev;
-+	struct resource *bridge_register_resource;
-+	void __iomem *bridge_registers;
-+	atomic_t irq_count;
-+	struct kernfs_node *irq_node;
-+};
-+
-+static ssize_t timeout_irq_show(struct device *dev, struct device_attribute *attr,
-+			char *buf)
-+{
-+	return 0;
-+}
-+
-+static ssize_t irq_count_show(struct device *dev,
-+			      struct device_attribute *attr,
-+			      char *buf)
-+{
-+	struct altera_timeout_bridge_data *driver_data = dev_get_drvdata(dev);
-+
-+	return sysfs_emit(buf, "%d\n", atomic_read(&driver_data->irq_count));
-+}
-+
-+static DEVICE_ATTR_RO(timeout_irq);
-+static DEVICE_ATTR_RO(irq_count);
-+
-+static struct attribute *altera_timeout_bridge_sysfs_attrs[] = {
-+	&dev_attr_timeout_irq.attr,
-+	&dev_attr_irq_count.attr,
-+	NULL /* sentinel */
-+};
-+
-+static const struct attribute_group altera_timeout_bridge_sysfs_group = {
-+	.attrs = altera_timeout_bridge_sysfs_attrs,
-+};
-+
-+static u32
-+bridge_reg_read(struct altera_timeout_bridge_data *driver_data,
-+		u32 offset)
-+{
-+	u32 result;
-+
-+	result = readl(driver_data->bridge_registers + offset);
-+
-+	return result;
-+}
-+
-+static void bridge_reg_write(
-+	struct altera_timeout_bridge_data *driver_data,
-+	int offset, u32 value)
-+{
-+	writel(value, driver_data->bridge_registers + offset);
-+}
-+
-+static irqreturn_t altera_timeout_bridge_isr(int irq, void *data)
-+{
-+	struct altera_timeout_bridge_data *driver_data = data;
-+	u32 timed_out_address;
-+	resource_size_t effective_base_address;
-+	resource_size_t effective_timed_out_address;
-+
-+	atomic_inc(&driver_data->irq_count);
-+
-+	// Read and print the timed-out address (encoded in the lower nibble
-+	// 0x8..0xF according to AXI Timeout Bridge IP (CSR Interrupt Status Information)
-+	timed_out_address = bridge_reg_read(
-+		driver_data,
-+		ALTERA_TIMEOUT_BRIDGE_REG_TIMED_OUT_ADDRESS);
-+	effective_base_address = driver_data->bridge_register_resource->start;
-+	effective_timed_out_address = effective_base_address + timed_out_address;
-+	pr_err("%s: timeout at address 0x%llx\n",
-+		__func__, (unsigned long long)effective_timed_out_address);
-+
-+	// Reset IRQ status in the bridge
-+	bridge_reg_write(
-+		driver_data,
-+		ALTERA_TIMEOUT_BRIDGE_REG_IRQ_STATUS_RESET,
-+		0x1);
-+	// notify the user space
-+	sysfs_notify_dirent(driver_data->irq_node);
-+
-+	return IRQ_HANDLED;
-+}
-+static int altera_timeout_bridge_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	const struct of_device_id *match;
-+	const struct of_dev_auxdata *lookup = dev_get_platdata(dev);
-+	struct device_node *np = dev->of_node;
-+	struct altera_timeout_bridge_data *driver_data;
-+	int ret = 0;
-+	int irq = -1;
-+
-+	/*
-+	 * Allow user to use driver_override to bind this driver to a
-+	 * transparent bus device which has a different compatible string
-+	 * that's not listed in simple_pm_bus_of_match. We don't want to do any
-+	 * of the simple-pm-bus tasks for these devices, so return early.
-+	 */
-+	if (device_has_driver_override(&pdev->dev))
-+		return 0;
-+
-+	match = of_match_device(dev->driver->of_match_table, dev);
-+
-+	/* Use a fall back logic like in simple-pm-bus */
-+	if (match && match->data) {
-+		if (of_property_match_string(np, "compatible", match->compatible) == 0)
-+			return 0;
-+		else
-+			return -ENODEV;
-+	}
-+
-+	driver_data =
-+		devm_kzalloc(&pdev->dev, sizeof(*driver_data), GFP_KERNEL);
-+	if (!driver_data) {
-+		dev_err(&pdev->dev,
-+			"%s: kzalloc failed: no memory for the driver's data, returning ENOMEM\n",
-+			__func__);
-+		return -ENOMEM;
-+	}
-+
-+	driver_data->dev = dev;
-+	platform_set_drvdata(pdev, driver_data);
-+
-+	driver_data->bridge_register_resource =
-+		platform_get_resource(pdev, IORESOURCE_MEM, 0);
-+	if (!driver_data->bridge_register_resource) {
-+		dev_err(dev,
-+			"%s: missing required reg binding\n",
-+			__func__);
-+		return -ENOENT;
-+	}
-+	driver_data->bridge_registers =
-+		devm_ioremap_resource(dev,
-+				     driver_data->bridge_register_resource);
-+	if (IS_ERR(driver_data->bridge_registers)) {
-+		dev_err(dev,
-+			"%s: ioremap_resource failed for bridge-status MMIO, returning PTR_ERR(%ld)\n",
-+			__func__, PTR_ERR(driver_data->bridge_registers));
-+		return PTR_ERR(driver_data->bridge_registers);
-+	}
-+
-+	irq = platform_get_irq(pdev, 0);
-+	if (irq < 0) {
-+		dev_err(dev,
-+			"%s: platform_get_irq failed: %d\n", __func__, irq);
-+		return irq;
-+	}
-+
-+	ret = devm_request_irq(dev, irq,
-+			       altera_timeout_bridge_isr,
-+			       0,
-+			       dev_name(dev),
-+			       driver_data);
-+	if (ret) {
-+		dev_err(dev,
-+			"%s: devm_request_irq failed for IRQ %d: %d\n",
-+			__func__, irq, ret);
-+		return ret;
-+	}
-+
-+	ret = devm_device_add_group(dev, &altera_timeout_bridge_sysfs_group);
-+	if (ret)
-+		return ret;
-+
-+	driver_data->irq_node = sysfs_get_dirent(dev->kobj.sd, "timeout_irq");
-+	if (!driver_data->irq_node)
-+		return -ENOENT;
-+
-+	ret = devm_add_action_or_reset(dev, (void (*)(void *))sysfs_put, driver_data->irq_node);
-+	if (ret)
-+		return ret;
-+
-+	if (np)
-+		of_platform_populate(np, NULL, lookup, &pdev->dev);
-+
-+	return 0;
-+}
-+
-+#define ONLY_BUS	((void *) 1) /* Match if the device is only a bus. */
-+
-+static const struct of_device_id altera_timeout_bridge_of_match[] = {
-+	{ .compatible = "altera-timeout-bridge", },
-+	{ .compatible = "simple-bus",	.data = ONLY_BUS },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, altera_timeout_bridge_of_match);
-+
-+static struct platform_driver altera_timeout_bridge_driver = {
-+	.probe = altera_timeout_bridge_probe,
-+	.driver = {
-+		.name = "altera-timeout-bridge",
-+		.of_match_table = altera_timeout_bridge_of_match,
-+	},
-+};
-+
-+module_platform_driver(altera_timeout_bridge_driver);
-+
-+MODULE_LICENSE("GPL");
-+MODULE_DESCRIPTION("Avalon Timeout Bridge Bus");
-+MODULE_AUTHOR("Vyacheslav Yurkov (V.Yurkov.EXT@bruker.com)");
-+
+Notes
+-----
 
+Fan speed is reported but not controlled, deliberately - the EC enforces no
+thermal floor over a manual setpoint. Patch 2 has the measurement.
+
+Tested on a Lenovo Yoga Slim 7x Gen 11 (DMI 83QR, "Yoga Slim 7 14Q8Y11").
+
+Changes in v5:
+- Patch 2: drop the battery cell voltages. They live in an EC bank shared
+  with other EC activity, and 43-79% of reads failed the signature check
+  across runs; retries, a cache and a stale window only hid that.
+- Patch 2: fn_lock had the polarity inverted: 1 left the multimedia keys
+  primary and the Fn-lock LED off. SCUK bit 7 selects the multimedia keys
+  and bit 5 turns the LED off, as the vendor ACPI FNUS method reports it;
+  1 now means F1..F12, as documented and as in ideapad-laptop.
+- Patch 2: FIELD_MODIFY() for the backlight level; notify fn_lock when
+  the EC toggles it on Fn+Esc; Kconfig help updated; the ABI entry dated
+  October 2026 for 7.5.
+- Patch 3: pick up Reviewed-by from Konrad and Abel.
+- Link to v4: https://lore.kernel.org/all/20260922165737.260443-1-okerixx@gmail.com/
+
+Changes in v4:
+- Patch 2, after Ilpo's review: the missing includes added where the
+  symbols are used; the cache and stale periods defined in milliseconds
+  with the unit in the name and converted to jiffies at the call;
+  lockdep_assert_held() in the command path every EC access goes
+  through; each EC read checked right after the call; ARRAY_SIZE() for
+  the cell loop; MILLIDEGREE_PER_DEGREE from units.h; braces on the
+  multi-line returns; the ABI entry dated September 2026 for 7.4.
+- Patch 2: the i2c id was 20 characters, the size of i2c_device_id.name,
+  leaving no room for the terminator; now "slim7x-gen11-ec".
+- Patch 2: symbol prefix renamed from yoga_ec to slim7x11_ec, naming the
+  machine like the driver does. No user-visible name changes.
+- Link to v3: https://lore.kernel.org/all/20260921144953.15113-1-okerixx@gmail.com/
+
+Changes in v3:
+- Add the board DT node as patch 3. It was posted on its own [1], and a
+  node cannot be merged before its binding (Konrad).
+- Add the "Why one driver" section above.
+- Patch 2: name the driver after the module, and the i2c id after the
+  compatible.
+- Patch 2: spell out both SCUK bits the Fn-lock toggle moves instead of
+  the 0xa0/0x5f masks.
+- Patch 2: return -ENODATA for a thermistor reading of 0, as probe already
+  treats 0 as "not fitted".
+- Patch 2: ten tries for a cell-voltage sample instead of thirty.
+- Patch 2: include what is used directly, devm_mutex_init(), comment the
+  mutex, fix the address in MODULE_AUTHOR, say in the commit message that
+  results cannot be matched to commands.
+- Link to v2: https://lore.kernel.org/all/20260908183403.2107-1-okerixx@gmail.com/
+
+Changes in v2:
+- Patch 2: drop #include <linux/mod_devicetable.h>; <linux/i2c.h> already
+  provides both of_device_id (via linux/of.h) and i2c_device_id (via
+  linux/device-id/i2c.h), and the header is on its way out.
+  Reported-by: Uwe Kleine-Koenig <u.kleine-koenig@baylibre.com>
+- Patch 2: add "depends on INPUT" to EC_LENOVO_YOGA_SLIM7X_GEN11; the driver
+  registers an input device unconditionally, so a config with INPUT=n did
+  not link.
+- Patch 1: pick up Conor Dooley's Acked-by.
+- Link to v1: https://lore.kernel.org/all/20260908091752.5508-1-okerixx@gmail.com/
+
+[1] https://lore.kernel.org/all/20260914082950.9393-1-okerixx@gmail.com/
+
+Oleg Keri (3):
+  dt-bindings: embedded-controller: add Lenovo Yoga Slim 7x Gen 11 EC
+  platform/arm64: add Lenovo Yoga Slim 7x Gen 11 EC driver
+  arm64: dts: qcom: glymur-lenovo-yoga-slim7x: add the embedded
+    controller
+
+ .../sysfs-driver-lenovo-yoga-slim7x-gen11-ec  |  22 +
+ .../lenovo,yoga-slim7x-gen11-ec.yaml          |  56 ++
+ MAINTAINERS                                   |   8 +
+ .../dts/qcom/glymur-lenovo-yoga-slim7x.dts    |  12 +-
+ drivers/platform/arm64/Kconfig                |  23 +
+ drivers/platform/arm64/Makefile               |   1 +
+ .../arm64/lenovo-yoga-slim7x-gen11-ec.c       | 547 ++++++++++++++++++
+ 7 files changed, 667 insertions(+), 2 deletions(-)
+ create mode 100644 Documentation/ABI/testing/sysfs-driver-lenovo-yoga-slim7x-gen11-ec
+ create mode 100644 Documentation/devicetree/bindings/embedded-controller/lenovo,yoga-slim7x-gen11-ec.yaml
+ create mode 100644 drivers/platform/arm64/lenovo-yoga-slim7x-gen11-ec.c
+
+
+base-commit: f0406245cb9855e6318335a8a223551354291a46
 -- 
-2.34.1
-
+2.55.0
 
