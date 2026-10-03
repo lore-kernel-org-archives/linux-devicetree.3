@@ -1,138 +1,191 @@
-Received: from sender6-op-o12.zoho.com (sender6-op-o12.zoho.com [165.173.180.12])
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31CA734BA24;
-	Sat,  3 Oct 2026 15:24:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791041068; cv=pass; b=DgaqSL2NDzAZOMIFYVxc0bwbfPT75zpJRnge48vr43v6oYNreHfGrmgpmBgGRWJCMgyznY36FSgp7lGCyCtq9zWH02iQsd3kGQOM9WEzPMXhBkdsU2ZwiMhfYO50wI7v1j/RosXXecgxvwX70PVFBNFdSrmpKnJZqCv7E5PTV2c=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791041068; c=relaxed/simple;
-	bh=m4X/RhhMPONFFNOGIFwjTcEamNfPucpOxeJgUJZ/0xg=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Cc:Subject:
-	 References:In-Reply-To; b=PJiB/lRs+7ei6t1mMU6WZ5fJ/ULUE/KydKJiNScufLLUjJSH0C1cE3YbJp4Mq268zkqKSVEwXL/ymuAZxxhsMAhDM0nkFPFrgFOP+ZO6eXTNMdySssCF6CCP4En/OAFz2SlJIP8wF/wAQDw0DBinxd751YociuboIVd9mP0yLwA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech; spf=pass smtp.mailfrom=pigmoral.tech; dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b=mR/f9bi1; arc=pass smtp.client-ip=165.173.180.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pigmoral.tech
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28A4B2DECC2;
+	Sat,  3 Oct 2026 15:36:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.11
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791041801; cv=none; b=AnqtaRX5KbOptvo+NIKLCJrCAJGx83dfr6r1hMA7i84+ud31YUdDl8A+bC/imdweQOcyX2Xcr1/BzTcyPB2FfRU6X5d2O6EbVsT7FjrITtJTNfPVTBBJ5PItSEM0978Mf4NPYNlJC6HNpiTfkQOO1M727+2iVZZb//AG9vZKMKE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791041801; c=relaxed/simple;
+	bh=R1SaWeYMMbeZGDSXBSN/rMNKOG6/CCkSASIw2cgwwEU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=dWL1H0u+2GtDah2FUF/scbMmzFYuWTU2h0tf65bm/DyvdxnusMKQ/JeDBKdnsRxuOOSYra4GdfbaRWAMQsVgCO6k/FQwsG9uejp91blp0PYfJW/ZU3/usMFNkHotTAhK8J96yVMpM+TWdkQ7buz8IKIIK9YkdniIo4GWrbJ9vW4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=iyRdI8uv; arc=none smtp.client-ip=210.118.77.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b="mR/f9bi1"
-ARC-Seal: i=1; a=rsa-sha256; t=1791041012; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=Mla9QlvbKLfkIGm5F8CLZaJ0IQ2tiUxPFt+eAf2jLpuoig8zEBtn5uQsaJ5fe+elg6gB69uM9dXHYX9ayyO5LmTGJdop/MOrRhNpHrdo0qdObawACrVXlXAWDQ0qgfPeeT6XKTqCmDO9IrWMqnd9gA+Y+Q7mchB6dc5Xp5kBwVw=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1791041012; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=m4X/RhhMPONFFNOGIFwjTcEamNfPucpOxeJgUJZ/0xg=; 
-	b=T4v4+0UI7Q4e5xYrfbMQKzgVpyzxQncJImxKtVRjbWv7lTg6QmYaeWR6QvDA5LdQBbBqDdsyR1deGQIQxq0zD/Ha+zs+5fqXqcz/1tFspaK3fKHcVt2nlldw7tJfD1ePxqM5dhAGpzi7YDhV5b476VZ4FjjWnhd4NLeVdxxbzCQ=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=pigmoral.tech;
-	spf=pass  smtp.mailfrom=junhui.liu@pigmoral.tech;
-	dmarc=pass header.from=<junhui.liu@pigmoral.tech>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791041012;
-	s=zmail; d=pigmoral.tech; i=junhui.liu@pigmoral.tech;
-	h=Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Date:Message-Id:Message-Id:From:From:To:To:Cc:Cc:Subject:Subject:In-Reply-To:Reply-To;
-	bh=m4X/RhhMPONFFNOGIFwjTcEamNfPucpOxeJgUJZ/0xg=;
-	b=mR/f9bi16V5mpGJwGJF+eRlDykL3W+2i8B+eqzU1eydlpkvJ17Svx0r+gWyIP7/A
-	MS/k9V7KXnUWpgm7pwW1H7ihOCim1+nTZ0tyTCX0T59AV4i5TxafSGCaa8Nl+mtGLua
-	Kw8NwmBd1xY5WSb/ol7TylPdSFTELIhIWejKV9bw=
-Received: by smtp.zohomail.com with SMTPS id 1791041011797544.830040683923;
-	Sat, 3 Oct 2026 08:23:31 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="iyRdI8uv"
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20261003153628euoutp012ff25533234c428be9ff26b1fae8bcaf~bDwR0T6ER1714317143euoutp01W;
+	Sat,  3 Oct 2026 15:36:28 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20261003153628euoutp012ff25533234c428be9ff26b1fae8bcaf~bDwR0T6ER1714317143euoutp01W
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1791041788;
+	bh=cezTBuZnRU09BC5t/TXbbnr/2mOgRJXIrT1bA9nKYfk=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=iyRdI8uvT1VnyJT6tqgggenZI6nITXILkxQtf0XryX352UU+lQidWIGBUPATnmApl
+	 NqErh1NgfRSaacsdX3dVtsHcj+ObkGldlks/K3Pp/ACh4wuzlI3nw9I71uwYTuobcz
+	 MAqgn33qV3D/4uufZns8VtPAgjSZZJfnfsm8yK1Y=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
+	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+	20261003153627eucas1p1f4cc5dc15e7a5dbebdfb26617afe1f56~bDwQpLxK00845508455eucas1p1j;
+	Sat,  3 Oct 2026 15:36:27 +0000 (GMT)
+Received: from [192.168.1.44] (unknown [106.210.136.40]) by
+	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20261003153625eusmtip1ba5f07ce91f2ac9a6e0ffa2ce26ac1cb~bDwPATbZ22801128011eusmtip1E;
+	Sat,  3 Oct 2026 15:36:25 +0000 (GMT)
+Message-ID: <eaba2fa9-a1ce-4dac-9bd6-e0b3a3dd01ef@samsung.com>
+Date: Sat, 3 Oct 2026 17:36:25 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 03 Oct 2026 23:23:22 +0800
-Message-Id: <DLVB1PLRC8GV.2YX3NP2B1KV2A@pigmoral.tech>
-From: "Junhui Liu" <junhui.liu@pigmoral.tech>
-To: "Norman Herms" <dockseed@proton.me>, "Junhui Liu"
- <junhui.liu@pigmoral.tech>
-Cc: <wens@kernel.org>, "Stephen Boyd" <sboyd@kernel.org>, "Brian Masney"
- <bmasney+clk@redhat.com>, "Jerome Brunet" <jbrunet+clk@baylibre.com>, "Rob
- Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>, "Jernej Skrabec"
- <jernej.skrabec@gmail.com>, "Samuel Holland" <samuel@sholland.org>,
- "Philipp Zabel" <p.zabel@pengutronix.de>, "Paul Walmsley" <pjw@kernel.org>,
- "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
- "Alexandre Ghiti" <alex@ghiti.fr>, "Richard Cochran"
- <richardcochran@gmail.com>, <linux-clk@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-sunxi@lists.linux.dev>, <linux-kernel@vger.kernel.org>,
- <linux-riscv@lists.infradead.org>, <netdev@vger.kernel.org>, "Jerome
- Brunet" <jbrunet@baylibre.com>, "Enzo Adriano"
- <enzo.adriano.code@gmail.com>, "Andre Przywara" <andre.przywara@arm.com>,
- "Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>, "Yixun Lan"
- <dlan@gentoo.org>
-Subject: Re: [PATCH v5 0/8] clk: sunxi-ng: Add support for Allwinner A733
- CCU and PRCM
-X-Mailer: aerc 0.22.0
-References: <20260930-a733-clk-v5-0-11175b41cd2d@pigmoral.tech>
- <CAGb2v66O7Ze=TiHO_5q=76QpU8ZXraFyV+HfO+_HpkTDr1U-nQ@mail.gmail.com>
- <DLVA17A4RRG7.2ECQKV3SJDAGI@pigmoral.tech>
- <BZm0Br5_P98xkwslO2JLeCMSyqps8EfQzDnH1Ox34cpoxCpkznXDa4RUM40-b1WKuZ3w3Cy0LPBE31oL8T1nq1Z8iT9Z51wUJBRp3iQIn-Y=@proton.me>
-In-Reply-To: <BZm0Br5_P98xkwslO2JLeCMSyqps8EfQzDnH1Ox34cpoxCpkznXDa4RUM40-b1WKuZ3w3Cy0LPBE31oL8T1nq1Z8iT9Z51wUJBRp3iQIn-Y=@proton.me>
-X-ZohoMailClient: External
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 01/20] dt-bindings: phy: Add
+ starfive,jh7110-inno-hdmi-phy
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
+	<neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof
+	Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Andrzej
+	Hajda <andrzej.hajda@intel.com>, Robert Foss <rfoss@kernel.org>, Laurent
+	Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman
+	<jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, Luca Ceresoli
+	<luca.ceresoli@bootlin.com>, Maarten Lankhorst
+	<maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>, Lee Jones <lee@kernel.org>, Andy
+	Yan <andy.yan@rock-chips.com>, Philipp Zabel <p.zabel@pengutronix.de>, Emil
+	Renner Berthing <kernel@esmil.dk>, Hal Feng <hal.feng@starfivetech.com>,
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+	<sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>, Paul Walmsley
+	<pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
+	<aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Dominique
+	Belhachemi <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>, Jerome
+	Brunet <jbrunet+clk@baylibre.com>, linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dri-devel@lists.freedesktop.org, mfd@lists.linux.dev,
+	linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org, Marek
+	Szyprowski <m.szyprowski@samsung.com>, Maud Spierings
+	<maud_spierings@murena.io>, Graham Markall <hello@big-grey.co.uk>, Icenowy
+	Zheng <zhengxingda@iscas.ac.cn>, Chaoyi Chen <chaoyi.chen@rock-chips.com>,
+	Joshua Peisach <jpeisach@ubuntu.com>, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
+	<u.kleine-koenig@baylibre.com>
+Content-Language: en-US
+From: Michal Wilczynski <m.wilczynski@samsung.com>
+In-Reply-To: <6cf9e611-bfc5-407b-8132-bd328f8b61fc@kernel.org>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20261003153627eucas1p1f4cc5dc15e7a5dbebdfb26617afe1f56
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20260915153214eucas1p2b548f3236ef98fb0cbf320e397420125
+X-EPHeader: CA
+X-CMS-RootMailID: 20260915153214eucas1p2b548f3236ef98fb0cbf320e397420125
+References: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
+	<CGME20260915153214eucas1p2b548f3236ef98fb0cbf320e397420125@eucas1p2.samsung.com>
+	<20260915-jh7110-clean-send-v4-1-f0e4fd6f2cc8@samsung.com>
+	<20260917-mutant-chamois-of-competence-46ca77@quoll>
+	<1a1a9b49-430b-4218-b27d-e133d488e8d9@samsung.com>
+	<6cf9e611-bfc5-407b-8132-bd328f8b61fc@kernel.org>
 
-Hi Norman,
 
-Thanks for testing this. You saved my A7Z board from an almost certain
-sacrifice. :)
 
-On Sat Oct 3, 2026 at 11:05 PM CST, Norman Herms wrote:
-> Hi Junhui,
->
->> Thanks for pointing this out. This is indeed something I had not
->> considered before. I will try enabling secure boot on my spare Cubie A7Z
->> board and test it on actual hardware.
->
-> First a correction to my earlier reply in this thread. I answered
-> ChenYu's "presumably ... the secure/non-secure access bit isn't in
-> effect" with "yes" and quoted the UM note that these registers are
-> always non-secure in non-security mode. On our non-fused A7S boards
-> (SID + 0xA0 =3D 0, also when read from EL3) that does not hold for every
-> register. Read from EL3 with a test BL31, CCMU_SEC_SWITCH_REG is 0x7
-> after BL31's security setup, S_TWD_BGR_REG is 0x1 and the SPC status
-> registers are 0xffffffff, but from non-secure all of them read 0, and
-> non-secure writes to the first two do not stick. So secure filtering
-> is active on these parts even without the fuse.
+On 9/30/26 13:01, Krzysztof Kozlowski wrote:
+> On 25/09/2026 23:05, Michal Wilczynski wrote:
+>>>> +  clocks:
+>>>> +    maxItems: 1
+>>>> +    description: Reference oscillator.
+>>>
+>>> This barely counts as a resource, so usual question: no resources here?
+>>> no MMIO? Even the user of this phy is the block itself.
+>>>
+>>> This makes me wonder if this should be a device node in the first place
+>>> (instead folded into the parent).
+>>
+>> The PHY has no reg because the reg is shared with the controller and
+>> owned by the parent - patch 9 lets the bridge take its regmap from
+>> there.
+>>
+>> The user of the PHY is not only the block itself. It is the pixel clock
+>> provider for the whole display subsystem, voutcrg takes hdmitx0_pixelclk
+>> as the parent of its DC8200 pixel MUXes, and while HDMI output is active
+>> it is the only intended source for that clock. The parent has to be
+>> assigned explicitly so the general PLL does not end up driving the pixel
+>> clock, and so a DSI user does not reach the HDMI PHY clock generator.
+>>
+>> So it has to be its own node. The HDMI block has two independent
+> 
+> I do not see the logic which lead to this conclusion. Pixel clock
+> provider, so a clock controller, cannot be a user of a phy. Clock
+> controller does not have a physical layer.
 
-I will double-check this on my side and add the relevant comments as
-Chen-Yu suggested.
+Sorry I think the wording was not perfect. I meant the PHY node is a
+pixel clock provider. voutcrg consumes a clock not a PHY.
 
->
->> For the PLL and AHB/APB bus clock controls, the user manual indicates
->> that the relevant security bits can be set by TF-A to allow the kernel
->> to access these registers. This also appears to be how this has
->> traditionally been handled on sunxi platforms. So I think we can do the
->> same in TF-A for the A733.
->
-> That is what the BL31 on our boards does: PRCM_SEC_SWITCH_REG |=3D 0x7
-> and 0x7 to CCMU_SEC_SWITCH_REG at CCU + 0x1F00, as the vendor BL31
-> does. From EL3 both read 0 before and 0x7 after. The 0x1F00 versus
-> 0x0F00 trap in the A733 TF-A port is in my first reply.
->
->> For bus_r_twd_clk, I will test whether the register is indeed always
->> secure. If it is, I think the clock can be removed from the kernel and
->> left enabled by its hardware reset value or by the boot firmware.
->
-> On our non-fused boards it is already inaccessible from the non-secure
-> side (reads 0, writes ignored). From EL3 it reads 0x1, the UM default,
-> so the gate is open. Details are in my reply to ChenYu on patch 3/8,
-> which crossed with yours.
+voutcrg: clock-controller@295c0000 {
+         clocks = <&syscrg ...>, <&hdmi_phy>;
+         clock-names = ...,"hdmitx0_pixelclk";
+};
 
-Understood. This bus gate is therefore not meaningful to the kernel,
-so I will remove the clock in the next version.
+The consumer of the PHY is only the hdmi controller.
 
->
-> Same boards and caveats as before: AI agents (Claude) on my boards, a
-> report, not a Tested-by.
->
-> Thanks,
-> Norman
+What matters for the node layout is where that clock goes. voutcrg is the
+SoC display clock controller - it is not part of the HDMI block:
 
---=20
+hdmi_phy -- pixel clock -> voutcrg
+                              |
+                              - pclk/mclk/bclk -> hdmi_controller
+                              - pix0/pix1 -> dc8200
+
+hdmi_phy and hdmi_controller are the same register block with one reg
+owned by the parent. So if that block is described as a single node:
+
+hdmi_node - pixel clock -> voutcrg
+     ^                          |
+     --- pclk/mclk/bclk --------
+
+the node provides a clock to voutcrg and consumes three clocks from
+voutcrg. That is a cycle in the device tree description.
+
+Split in two there is no cycle: the PHY's only input is xin24m - the 24 MHz
+oscillator which gives a linear order - hdmi_phy, voutcrg, hdmi_controller.
+
+> 
+> And really, I have no clue what hdmitx0_pixelclk and voutcrg are. I
+> could probably study the patches a lot to figure that out, but my review
+> queue has still 200 more, so I'll skip.
+> 
+> But nevertheless assigning clock parent of HDMI clock to PHY is
+> standard, most of the platforms have it, thus it is not a justification
+> for odd design.
+
+Agreed and that is what this is - I followed RK3328, which uses the same
+Innosilicon IP and also describes it as two nodes:
+
+hdmi:    hdmi@ff3c0000   clocks = <&cru PCLK_HDMI>, ...
+hdmiphy: phy@ff430000    clocks = <&cru PCLK_HDMIPHY>, <&xin24m>,
+                                  <&cru DCLK_HDMIPHY>
+                         clock-output-names = "hdmi_phy";
+                         #clock-cells = <0>;
+                         #phy-cells = <0>;
+
+The only difference is reg: RK3328 has two register ranges, the JH7110 has
+one, so the parent owns it and the children have none.
+
+> 
+>> functions with different clock inputs and one of them feeds back into
+>> the SoC clock tree. The PHY generates hdmitx0_pixelclk which voutcrg
+>> consumes the controller consumes pclk/mclk/bclk from voutcrg. Folded
+>> into one node that node is both a provider to and a consumer of
+>> voutcrg which is a cycle in the hardware description, not just in Linux.
+> 
+> 
+> Best regards,
+> Krzysztof
+> 
+
 Best regards,
-Junhui Liu
-
+-- 
+Michal Wilczynski <m.wilczynski@samsung.com>
