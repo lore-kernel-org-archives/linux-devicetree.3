@@ -1,117 +1,117 @@
-Received: from mail-wr2-f32.google.com (mail-wr2-f32.google.com [74.125.225.96])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39ED73769EB
-	for <devicetree@vger.kernel.org>; Sat,  3 Oct 2026 09:15:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.96
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 217E43B059C
+	for <devicetree@vger.kernel.org>; Sat,  3 Oct 2026 09:16:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791018945; cv=none; b=c3uweCHrqoPtw/RVqmApAmR/Uvc3OiH7tb2e6l+eiF+iad9vp5L+2h4EmQsGiqjD4kuPP9g1NaXBwV8nvs9HWCwkUKi5qhmyAX7d0JyPvsbrj520chtLgZ0j+BZtto9si46FrhBrbUT9YSEaCRtAwXNEPOsGCVdyi1YzZ6AoBiQ=
+	t=1791018975; cv=none; b=LwqAMIlNPxocaCtuZVQuS4R40nAzARky8nW970TSqcg0yZ18C62+EjuOkFQpFW1XYMLjAf8TopOfeNABEUVWBOGbBj5rqTOsQNmBDhW70348C5vXzxN4DBDgaHuFA/CC0bPuuFhIeJUxkPDL9vLHFrYivh8dmOHCl5ppAeZMidY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791018945; c=relaxed/simple;
-	bh=5Amsj13Ypf+VNbZXqe2Aip4i68WKcfoJI3MkINWORYs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rE4xI1W0CKPaIXzmOMHtslJDO/1AS5gxI5a37OHAphUsoeS7pZJMPp1ZKPVZBxibwGlm/9/9N2bBQ96jb1FwV3ldNRtuHkGbLuv+DJycIhB1DC8cPwyCFExygIB67Zn8lr/MhWKYfmhHsullMgZNHD4nD85rK2pfYvDKj/7Lc/w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KuoQv8oS; arc=none smtp.client-ip=74.125.225.96
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791018975; c=relaxed/simple;
+	bh=RKiFmFAqNb364rTab/GwTpm3QZ2ra0NFuUG5txUl5Qk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=LJaGrkiojkzJT1fb5KlypbKLagYk01LP7graq+bT2891V+fJHX6mS5tjuLxOwisFgznWxi56fJcQUgQS629dSNj1UjuIWi89aOWKbyCa3lZ/aArLIwdJkKPUKfBPQ7uxExoo4tSVWCGIF9trg2AV9GLhBIp/3GV7CEgvWG2KRT4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hh1KJ6sJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KuoQv8oS"
-Received: by mail-wr2-f32.google.com with SMTP id ffacd0b85a97d-482f6350f91so79729f8f.1
-        for <devicetree@vger.kernel.org>; Sat, 03 Oct 2026 02:15:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791018941; x=1791623741; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EL7Wt7gCvxigatArl4vYdYfYVLxu4uqJTJstEATQ4Rk=;
-        b=KuoQv8oSidVn5GsKfTxOq11yuq8ZhuV1nwJ00BuiMrqVHuHD1G4mWS6cvwiPJZptEO
-         qzQTTAd5cFrF9MAjvoKNOZgS/K7TmSUfDhVbHrUnstp6T/Igou1ATf/lwUaEo+3SDbHa
-         xcO1wuUr8NvjE/9MubWS0sVij+uXZMQt/WJW0IBfvJjgGZVSJYs2C90rnyGDA9GnDLU6
-         o6aQKSZukNOsEP4cMqNUN3NSeu2+blA76zvg1NVhAnIadlgmgEiB3j+D5vDDX4VcdBYX
-         5TmZC69xKbWzQlxIpHWhzn2cjifKY3oN1yXXaM23Iy/EOa0ii+XZ58duPNkfFCshk5r+
-         sdpg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791018941; x=1791623741;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EL7Wt7gCvxigatArl4vYdYfYVLxu4uqJTJstEATQ4Rk=;
-        b=po63H9T+/eFE1jue7BZY0KKXRb48z23pxYWWb0W9ISSAGX+QMcK3RxL6+rN86/MA7F
-         P9v52uQT9fYHoS3rVsDStsDIzm2r+cPQ1X7RPcCzfm4roDhpUEkeRmtDcF51d9YVVj2S
-         SyOpNFUa/I1AQe+e08fI+ONbDtNuXo+8lw5164nAzOW8rcwr/FaeIlBso3RRTJ9fgc2/
-         CA2emKvHw+0iK0+sM1aWndGbdSPpr4vXgYJnVztapxjFxlVsnBkqmfjm1H9XBzj6tW0e
-         Y4OSCSafhOiUg7xpiQ3415bRtZK7AM0rtc0LDk+gDQh19vyTi/yzvgSt22MLOmR8s6Qi
-         iHJw==
-X-Forwarded-Encrypted: i=1; AKwUvBzUs9L8SOLCY7iJhsieJsJQpp2qrh85rwFcAhdoz7BVGDgaspk6piFAWeTZp17Hz8SkBJ1K6RpPEf4+@vger.kernel.org
-X-Gm-Message-State: AFq9FYImtaoWJ3KYA9wwUEH0eg+yBtKQ81lz7AJT6H2BurL9ErsMjdkk
-	3XgXj+o3TDmI1FqWMuKX3v9DjzLdDh1cGwVYdFG/rRItzGArrc4uMLTz
-X-Gm-Gg: AYBFou2AxjozW+oOY3Jgm6cyJtSvgOpPSCpeLtZh+AfcR6QXloT5CZm7uaKAb2XgpsS
-	rEc+jLU1tRMoeCfIPCGF7VP9FBNiho8Ym/u/c9jlWdImYUt0kygUSsF+rUMO0+g7IEwdoBFZoNY
-	KzNS7RAno2EY9RqUajDzB0RzH0ft1xp+Zqt+lTYTtl2SBuBnG9487Tfh2txJ6QaQOu62WrfblZl
-	8Sxdk6526iMMrJQ9fu/mQxAgLmoW2YS8+l/ZDakzzuh8bzbD11d1oUMIgeXAGox7sHXYRNrAQ+r
-	uDlImIVL+O7W5r/UsPeJXu3wLL/X0P4SAl1HpVXfepJdYtUEQTU1cBRHXJ1tBooPVD7cTFlPx+A
-	Ydi4LxEJZtu2rjqrP7vRHyhBO9bTwmMvTPtmju7a/T2C/aa5/X2acQsNuVrU5+U8BZVczKWlNI6
-	cjHJGaNCcnhY7krRUUAN1eFhZ0VRy3dpyKvCg4ecWxjeBm677qiZQHAL3lO/AwjnQx0fSpVvbTY
-	r8Mp6jJuH4=
-X-Received: by 2002:a05:6000:2c0a:b0:48b:7179:59da with SMTP id ffacd0b85a97d-48b71795ad8mr8328190f8f.1.1791018941391;
-        Sat, 03 Oct 2026 02:15:41 -0700 (PDT)
-Received: from FranzSP11.fritz.box ([31.31.60.25])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b82253dc9sm11336161f8f.3.2026.10.03.02.15.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 03 Oct 2026 02:15:40 -0700 (PDT)
-From: Franz <franzelfranzel@gmail.com>
-To: Jeff Johnson <jjohnson@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>
-Cc: Johannes Berg <johannes@sipsolutions.net>,
-	Abel Vesa <abelvesa@kernel.org>,
-	ath12k@lists.infradead.org,
-	linux-wireless@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH RFC 3/3] arm64: dts: qcom: x1-microsoft-denali: disable WCN7850 hardware rfkill
-Date: Sat,  3 Oct 2026 11:15:09 +0200
-Message-ID: <20261003091509.4822-4-franzelfranzel@gmail.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261003091509.4822-1-franzelfranzel@gmail.com>
-References: <20261003091509.4822-1-franzelfranzel@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hh1KJ6sJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC9351F0089B;
+	Sat,  3 Oct 2026 09:16:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791018971;
+	bh=LjdzR+JUGch7p+yVtKFpJqSe1Fq30t86V+flAs36tgc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=hh1KJ6sJIpplVfebVb4iceV4iWybHSNFJgOzBNZHyPXbwX4gu0mFCWAqaeQ1EXYAC
+	 XEAez8snJINNPORHJ0MH5NcmTT7AfIGaz+ppDNOcysv3hLeLR9qXEpCr3V/FEavBXh
+	 4z5uCTLX+SUQNU5CI0pSqLprDE0ZyY9l9FD3BVfOU3crjoIOp4nB3qOltfWuMX7Xzj
+	 bz4m4vMonGyinejMr1tc5nmjKABBNaiM55e0dYw86EDrb08pr4lwL3GXSHhLe24R2O
+	 wBwMy1N0jcgGiUTRHewbmV+/N3fmGSGFAPlL/S2Pu8Np7tR33gOMqCMppZITNOI6G5
+	 NcTtuIatNNU7A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v18 08/11] media: qcom: camss: tpg: Add support for
+ v2.4.0 TPG
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Hangxiang Ma" <hangxiang.ma@oss.qualcomm.com>
+Cc: media-ci@linuxtv.org, vkoul@kernel.org, linux-phy@lists.infradead.org, olteanv@gmail.com, robh@kernel.org, neil.armstrong@linaro.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20261003-kaanapali-camss-v18-8-87ba4ebe0db1@oss.qualcomm.com>
+References: <20261003-kaanapali-camss-v18-0-87ba4ebe0db1@oss.qualcomm.com>
+ <20261003-kaanapali-camss-v18-8-87ba4ebe0db1@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 03 Oct 2026 09:16:10 +0000
+Message-Id: <20261003091610.BC9351F0089B@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The WCN7850 hardware rfkill input reads as "radio off" on the Surface
-Pro 11, which keeps Wi-Fi hard-blocked. Mark it as unusable.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] media: camss: uninitialized hw_version used in tpg_reset()
+--
 
-Tested by adding the property to the installed DTB with fdtput, on
-next-20260929 with the matching ath12k change.
+commit df88e7d7afd82d4d282e25499832401b80cc7ee6
+Author: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
 
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Franz <franzelfranzel@gmail.com>
----
- arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi | 2 ++
- 1 file changed, 2 insertions(+)
+media: qcom: camss: tpg: Add support for v2.4.0 TPG
 
-diff --git a/arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi b/arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi
-index a71c29762..36592b8ed 100644
---- a/arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi
-+++ b/arch/arm64/boot/dts/qcom/x1-microsoft-denali.dtsi
-@@ -1009,6 +1009,8 @@ wifi@0 {
- 		vddrfa1p8-supply = <&vreg_pmu_rfa_1p8>;
- 		vddpcie0p9-supply = <&vreg_pmu_pcie_0p9>;
- 		vddpcie1p8-supply = <&vreg_pmu_pcie_1p8>;
-+
-+		disable-rfkill;
- 	};
- };
- 
--- 
-2.56.0
+Add support for the TPG found on Kaanapali. This TPG uses hardware
+version 2.4.0, which drives test-enable and reset through a separate
+TPG_CTRL_CMD register instead of TPG_CTRL, and routes its output into
+the CSID 1080 RX via the CSI2 TPG mux.
 
+> diff --git a/drivers/media/platform/qcom/camss/camss-tpg-gen1.c b/drivers=
+/media/platform/qcom/camss/camss-tpg-gen1.c
+> index d29de5f93c18e..770a9e5d5ba5f 100644
+> --- a/drivers/media/platform/qcom/camss/camss-tpg-gen1.c
+> +++ b/drivers/media/platform/qcom/camss/camss-tpg-gen1.c
+
+[ ... ]
+
+> @@ -164,18 +167,30 @@ static int tpg_stream_on(struct tpg_device *tpg)
+
+[ ... ]
+
+>  static int tpg_reset(struct tpg_device *tpg)
+>  {
+> -	writel(0, tpg->base + TPG_CTRL);
+> -	writel(1, tpg->base + TPG_CLEAR);
+> +	/*
+> +	 * On TPG older than v2.4.0 test-enable lives in TPG_CTRL, so clear it
+> +	 * first; v2.4.0+ drives both test-enable and reset through TPG_CTRL_CM=
+D.
+> +	 */
+> +	if (tpg->hw_version < TPG_HW_VER_2_4_0)
+
+[Severity: Medium]
+Does this newly added check incorrectly evaluate to true on the first power
+cycle due to tpg->hw_version being uninitialized?
+
+Looking at tpg_set_power() in camss-tpg.c, the reset callback is invoked
+before hw_version is populated:
+
+tpg_set_power() {
+    ...
+    tpg->res->hw_ops->reset(tpg);
+    tpg->res->hw_ops->hw_version(tpg);
+    ...
+}
+
+Since tpg->hw_version is 0 during the first power cycle, this condition
+will evaluate to true even for v2.4.0+ hardware. This executes the legacy
+fallback reset writel(0, tpg->base + TPG_CTRL), which this patch explicitly
+intended to avoid for newer hardware.
+
+Can this unintended write prior to TPG_CTRL_CMD_HW_RESET cause issues on
+v2.4.0 hardware?
+
+> +		writel(0, tpg->base + TPG_CTRL);
+> +
+> +	writel(TPG_CTRL_CMD_HW_RESET, tpg->base + TPG_CTRL_CMD);
+> =20
+>  	return 0;
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261003-kaanapali-=
+camss-v18-0-87ba4ebe0db1@oss.qualcomm.com?part=3D8
