@@ -1,90 +1,93 @@
-Received: from mail-43167.protonmail.ch (mail-43167.protonmail.ch [185.70.43.167])
+Received: from vtj.irix.systems (vtj.irix.systems [82.76.27.144])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B219381B10;
-	Sat,  3 Oct 2026 08:27:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.167
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62FBB39FCB4;
+	Sat,  3 Oct 2026 08:34:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.76.27.144
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791016083; cv=none; b=pyYKVBaixBli0HRImksP+J/pC91kQdcPsmrYgjvbdXA0W2LDoi458E9JxQB9cFsmDIgaaGG3W67txyTfvcUXqoyFTNBFAtzu0z2uxggsnyS134RT03In4AWbPmxyoVzpJFlOIN83Rrx3sV1hZwEJkwacDeHC5SY5d4ACv3DsdEw=
+	t=1791016460; cv=none; b=M2STJFFVFlBOVAEXgoAUik6ZjmLE+DOV3ltbXlUF8Bph8hjeP/3rmuTPDcCbXMA9Z2BDl4ZItQITOjfJOU4OB8uwjlOAorna/6565md+FRbVerAQ9cyD5WPtfDbsCA8bFnMt7J1k/UJfKhEujsAq7YKDm611Y692dbIsyCjJSkQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791016083; c=relaxed/simple;
-	bh=V5PpXmIzFly+1SKmGmwopKYT4H0LxbCqGoZMIBOvzAU=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fImudXhBRcZr3/IMd0F6Mv9TZWlQnCUIpCKH4mNj04ikCHTfuIlB1cV/yxGVWEquFvKdyy/FNol6XD6rDp+Kq42ijW2M4wFBGL+6X3DcDfIYzGzzvw0VVjsdR1PflrDlYrTQFULiIaPwhMrBtmemjpmgRSnKEjAsSenqgfm6uco=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=Yz1yExq1; arc=none smtp.client-ip=185.70.43.167
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1791016460; c=relaxed/simple;
+	bh=RO4nytf7lcKzxtiKCpH2c7aZA+7FuarZqaGNjY2VDQY=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=jp0+EO2MzUtZtf2gAR2xv9BUBF+7hssokVXMoWQFLZkNdgo6Xw4Hd+HpliSyRzZow77eoE0dItznvmBIwayhwi74KBu4ftjFPyEFFrF1SPRuI3xvdkmiOAzCjoOalvBhK74DY3Mfl/Y+sfSmDVmzQH/tv+6hSOQK7iIyMlzIEbc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andrei-z.com; spf=pass smtp.mailfrom=andrei-z.com; dkim=pass (2048-bit key) header.d=andrei-z.com header.i=@andrei-z.com header.b=a5SfUesX; arc=none smtp.client-ip=82.76.27.144
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andrei-z.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=andrei-z.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="Yz1yExq1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1791016075; x=1791275275;
-	bh=V5PpXmIzFly+1SKmGmwopKYT4H0LxbCqGoZMIBOvzAU=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=Yz1yExq1b18nKbwif0DkmqbZuweapUThBEuwv9NKRoePjueGZJP7dAexFb3Q1PMBh
-	 G+DwMhpZP5egQvrD7Vz7y5hDSaUTo8dsdgbzErZWu9HajwWF6VCnBaWVmmpk32yWr2
-	 n5Ts3jj1ADj4k2YT0id6Er4t9d2BN89rIMDBC/ifuWI0fAnf1bRBz/M512mj9e+TxY
-	 oylUd9SGrZA8xzdebO4hkTtwpyvLz/UcTEaQ8YSyi1Qc3Memr5R1DksCSnBKmWB4YA
-	 hactc3jODta1waztIDES4f6RP3cgwuKY//HDyKIkF5nT+dKgVB3a7xMSaCInDd+GxD
-	 69IjbF1rSiTHg==
-Date: Sat, 03 Oct 2026 08:27:50 +0000
-To: Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>
-From: "armandas.kvietkus" <armandas.kvietkus@proton.me>
-Cc: "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>
-Subject: Re: [PATCH v3 2/2] media: i2c: Add Samsung S5K3T2 image sensor driver
-Message-ID: <vZJyKnkShwVybbiN3mfym3OcfIkVK6pFbKl2dy8_T73jLlWeuSL7bB1e9sHT1jzWncEidimkH3ywfRsOICjXRIx9Phb2BLELcOoOp0N0YgU=@proton.me>
-In-Reply-To: <MA0P287MB21789760986BD3C1EE2A0486888A2@MA0P287MB2178.INDP287.PROD.OUTLOOK.COM>
-References: <20260924-upstream-s5k3t2-v3-0-a5c58dfcec29@proton.me> <20260924-upstream-s5k3t2-v3-2-a5c58dfcec29@proton.me> <MA0P287MB21789760986BD3C1EE2A0486888A2@MA0P287MB2178.INDP287.PROD.OUTLOOK.COM>
-Feedback-ID: 164226125:user:proton
-X-Pm-Message-ID: f1d44564f6e2d4598ff9e0c4be9c091fcd216e02
+	dkim=pass (2048-bit key) header.d=andrei-z.com header.i=@andrei-z.com header.b="a5SfUesX"
+Received: from MAILGW-DELL.dell.vtj.corp.irix.systems (localhost [127.0.0.1])
+	by vtj.irix.systems (Proxmox) with ESMTP id 78191CAE1;
+	Sat, 03 Oct 2026 11:34:17 +0300 (EEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=andrei-z.com; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:from:from:in-reply-to:message-id:mime-version:references
+	:reply-to:subject:subject:to:to; s=sig1; bh=1IJs1SGXeSNWjv6z8/4u
+	hGdL9UF8iMKOhCe2W9MDcSk=; b=a5SfUesXoyeKToa0l+bl+mkQ874Hn3MMuJZo
+	NeYaD8gp1Qs/FCtMcUqrSXNJhm0C8wGtF5mcx39G7qg4OTYDTlsVGfljEe6cVJ/p
+	aEv5NLUwcDEIhLDIGzcP94NzMwMEgZN1ZBlTIcJqMIowrKeR7Q3EzIKMVaSFskR2
+	vNaOSYEvBNBX37sD7gp/GIKFQZSTrJY9EzKLR/DhGP0vA0Omc7W+7OmpGb2kaWYa
+	iXBDw6NVAJrEkVjUqvo8q/wV92k+SAMZZvrWuQaLBWYqRbp3JNz4fiqhf0uSwtBh
+	ntfv6OPhV0Qjx3tFb9gF8i/TOpy1rW1k8RGZEtplHDayL8k4Sg==
+Received: from VTJ-MX.corp.irix.systems (unknown [IPv6:2a02:2f04:1:9c24::6])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by vtj.irix.systems (Proxmox) with ESMTPS id 64CA0C9E3;
+	Sat, 03 Oct 2026 11:34:16 +0300 (EEST)
+Received: from workspace.corp.irix.systems (2a02:2f04:1:9c23::c) by
+ VTJ-MX.corp.irix.systems (2a02:2f04:1:9c24::6) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Sat, 3 Oct 2026 11:34:16 +0300
+From: Andrei-Alexandru Bleortu <me@andrei-z.com>
+To: Abel Vesa <abelvesa@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Jeff Johnson <jjohnson@kernel.org>,
+	Johannes Berg <johannes@sipsolutions.net>, Konrad Dybcio
+	<konradybcio@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob
+ Herring <robh@kernel.org>
+CC: <ath11k@lists.infradead.org>, <devicetree@vger.kernel.org>,
+	<linux-arm-msm@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-wireless@vger.kernel.org>
+Subject: [PATCH 3/4] arm64: dts: qcom: ipq5018: label the PCIe1 root port
+Date: Sat, 3 Oct 2026 11:34:09 +0300
+Message-ID: <20261003083410.3126453-4-me@andrei-z.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261003083410.3126453-1-me@andrei-z.com>
+References: <20261003083410.3126453-1-me@andrei-z.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: VTJ-MX.corp.irix.systems (2a02:2f04:1:9c24::6) To
+ VTJ-MX.corp.irix.systems (2a02:2f04:1:9c24::6)
 
-Hi Elgin,
+The root port of pcie0 has a label, the one of pcie1 has none, so a
+board cannot attach its PERST# GPIO or a device below it the same way.
+Add pcie1_port0.
 
-Thanks for the review.
+Assisted-by: LLM
+Signed-off-by: Andrei-Alexandru Bleortu <me@andrei-z.com>
+---
+ arch/arm64/boot/dts/qcom/ipq5018.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-On Thu, Oct 01, 2026 at 06:41:29PM +0000, Elgin Perumbilly wrote:
-> Remove the unwanted pointers if they are not referenced,
-> as they unnecessarily consume memory.
+diff --git a/arch/arm64/boot/dts/qcom/ipq5018.dtsi b/arch/arm64/boot/dts/qcom/ipq5018.dtsi
+index fe1ed240d..2f3bcfa88 100644
+--- a/arch/arm64/boot/dts/qcom/ipq5018.dtsi
++++ b/arch/arm64/boot/dts/qcom/ipq5018.dtsi
+@@ -838,7 +838,7 @@ pcie1: pcie@80000000 {
+ 
+ 			status = "disabled";
+ 
+-			pcie@0 {
++			pcie1_port0: pcie@0 {
+ 				device_type = "pci";
+ 				reg = <0x0 0x0 0x0 0x0 0x0>;
+ 				bus-range = <0x01 0xff>;
+-- 
+2.47.3
 
-pixel_rate is not used after it is created, so I'll drop it. link_freq
-is used in set_fmt, so it stays.
-
-> Curious why 0x6f12 and 0x602a is used repeatedly in sequence here,
-> unlike in other drivers, Could you explain it.
-
-This is how these Samsung sensors write to their internal memory.
-0x6028 selects the page, 0x602a sets the address, and the words written
-to 0x6f12 go to that address and the ones after it. s5k3m5 and s5kjn1
-do the same.
-
-The first long block writes 210 words to page 0x2000 at 0x3aec. They
-decode as ARM Thumb code, so it looks like code for the sensor's own
-CPU. s5k3m5 starts its burst_array_setting with the same six words.
-
-> Could you explain what this register CCI_REG16(0x6028) actually does?
-
-It is the page pointer for the access above. s5k3m5 and s5kjn1 write
-the same value at the same point before streaming.
-
-> It seems unusual to write the values to S5K3T2_REG_CHIP_ID (0x0000),
->
-> The chip ID register is generally read-only.
-
-s5k3m5 and s5kjn1 do the same two writes to 0x0000, with a different
-first value, and mark them as setting the version. I don't have
-documentation that says more than that.
-
-I'll fix the rest in v4. It should be ready by Monday, or later if I
-need to wait for Sakari's answer on the link frequency.
-
-Armandas
 
