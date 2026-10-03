@@ -1,109 +1,155 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22DA626CE32
-	for <devicetree@vger.kernel.org>; Sat,  3 Oct 2026 03:22:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A69530FC26
+	for <devicetree@vger.kernel.org>; Sat,  3 Oct 2026 04:22:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790997758; cv=none; b=NKYzk+u5yVlumm87qVTj65eCXFODJ9gfnQIYKsgyV1vrW9ir7SVMjQhayVkykE2bfC2UERW0ZXr6PzuO3eZfneksWlNc9KWWrfIkEz5iJI4nBPPOd9EDbxNz7cAIZv0lUX4samCHrFdyGzQgaRrO+/hTZ7319F5kZ3Gq9TTnngc=
+	t=1791001353; cv=none; b=RKQNuPJwU/YEI4pG4GSTtOuVQVJMeYlpTQ6MmQJjXIky+B45mcHG6Ds+4kJdr/yIdqO+LgTb5l2BcH8ggaS392mr52tKoIDMBRcRXRyL4zDefVtT8lqq8UoWHa2635rPHdopwFlcsuF3lOXvkU8Qyn+H/DFL2xfIY0pR4+boJmA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790997758; c=relaxed/simple;
-	bh=V+ZDvfS4Lk+4z/Ak5Z+7gkMOqiznyasQoayKVlAnUPk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=mMloLTkT5JVaD3ZaLzGDJOXw36aj7dbUzSmtgM/UtJ5H/gbZ7NMKsYG2TurUhoh7dQj9/v4iqLxhOwIf/Kf795tzguYq1Mbfc6xfWNfnINn9pr93Ec4kCGooxbusK8orVho1CqFMsA6hp4IFzJU3wNUU11Ya1iasfaylLjBUqew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LP66Oe2l; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791001353; c=relaxed/simple;
+	bh=DD4FDKqDe5MLZbpoPD6Fuf26hrheV72HpMXR6Lc65pY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lzt89loWcywBbPsePae8ww/DBKFF6CiZO/EE1TzBtvGHLZZOeaUa223ETtmZ15UC5wL0l2ZdpF+rT97QIhnp4lKujGH+5bcNdvnZVbmK/SkvfGeepIxEe78fJ7EoIv26reRk9YYJdJbJzTw9P5gWhpC/PCb0N21wEfWetnU6YCM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=m+4TwNA2; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=A+f3ugAK; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LP66Oe2l"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 604EE1F000FF;
-	Sat,  3 Oct 2026 03:22:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790997756;
-	bh=EP7E1etbmbXCWkaG/mUP1Rr2jtYhV8xPQuM6X0GDUM4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=LP66Oe2ljUk0zpDG33XyDZosWF7jof8xRLmgwQ0vaxQHt+D4g0hhDdgANDi8TZYcl
-	 Wbo7YaFnvpwzBcBWt94djRa7pKjpR8G+nh/Exn3MSk6P4vrrUSVqbCZMIo1tve+cWf
-	 GETTCrP4c2QTOCOqZDXS5C3RzohPMDSBZLTxU1cECxR3Ynhqggttlv+/otqDqpGIUT
-	 cg9Ca3V/Przj+OwYGmkg+3hF+RXv355cWkqrqehPKPI3MFQ6jGP+QGUR28FWWmfsIC
-	 LhEoKUnu9M1k9LAI9YaWe2xdMRI6UxbmjGHo1MwPBeL+vMbnuQI34kpG9uFQm/ZG/f
-	 2Fumxuv1EvQDw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] arm64: dts: amlogic: meson-sm1-odroid: let the SD card
- be powered down
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Igor Velkov" <iav@iav.lv>
-Cc: robh@kernel.org, neil.armstrong@linaro.org, devicetree@vger.kernel.org, conor+dt@kernel.org, linux-amlogic@lists.infradead.org
-In-Reply-To: <20261003-hc4-sd-power-off-v1-1-f7ffba01b348@iav.lv>
-References: <20261003-hc4-sd-power-off-v1-1-f7ffba01b348@iav.lv>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 03 Oct 2026 03:22:35 +0000
-Message-Id: <20261003032236.604EE1F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="m+4TwNA2";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="A+f3ugAK"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6933QJYx146056
+	for <devicetree@vger.kernel.org>; Sat, 3 Oct 2026 04:22:31 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=GPPhG3McnxH7twP/0eHwBUr1
+	k8vDDtjVagOk1VrRcHA=; b=m+4TwNA2GEIgrj8jjh8dcCFH/XtltGie2mlLI3ob
+	uGTL0u4z7w6PehJZenTVf61k0Em0a4eYPjy1qcQNTE9Mt+oVEnU2Knxp+b35uidY
+	W2bS67Mmdv6ZIe66W4ZU/z+iHOdVf9CXdomkbuBRuG+bvInlhR7lRHcXhK2PX45p
+	xWSXAl7m61SUJOyDy5L8bPllGlZu2NuzsW5xD3nAviZWj67oyAHMwbLihnALHedz
+	M//JTsYqYXTXTOtxiWFjHhr+r2KE/9z2xxmNWV3az/AVL1VRHN0cvtqAjrSfjXtn
+	JYwZIDfHt3VeakJCQ8ZI/QS6+i2lEXBHvjL+sIZdToGKrQ==
+Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h2sssg2nt-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sat, 03 Oct 2026 04:22:31 +0000 (GMT)
+Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-139b62317d0so42197c88.0
+        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 21:22:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791001351; x=1791606151; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=GPPhG3McnxH7twP/0eHwBUr1k8vDDtjVagOk1VrRcHA=;
+        b=A+f3ugAKdtyR+Ch5uscneypO6Pg4fhiU2wrUyoUJ6RUuYo3XHV+Hqu2YB3r4RAbUUx
+         7aEBLtxvBTVw0zcPjryL38ktiavM0IzYMy8svfzgUkTb9cv8gzJgj15IsnXNjjW+ahwR
+         F69XE0/drw28f+IbgqGZxlFXpH/i7GcwAJGMHUrEdhX8qxVXaGWhCJUwQkcEsZSya6at
+         fa6vkicL0/Eve4+rWqG+YIgpAk6BYgcSvUBzGf7CXEudTIBFAz7kG/rJaNCXwkeuCqJ9
+         0wM3Q/er5rOU8gMibcD8dn6pI4Q7VwJ14M43VwS1RT+cFNfGmAl5xMhWVriR/xOUVy+h
+         H/aQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791001351; x=1791606151;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GPPhG3McnxH7twP/0eHwBUr1k8vDDtjVagOk1VrRcHA=;
+        b=xpYoGqJK3ZO8ci7aF7bX9J8QlET5DJkrwzE5GDfqGnmHUJb6T+JyDhliDh6rUnY2ot
+         yO/BebgqXbhb0ryHCMnnQRifVvXZ+Y0EjC+6C9O2NLPHOs9Wi8Of5fIBdb7vea7P0Ohy
+         1qI67d5tR6RIO2XYhXed72ZyIxsjDv+MnBp0Q8VY5GProb6s9G9OtJfKFYEcOBjRa8J7
+         +ZhFtqoVpNQJ5Ou/UXtTB/YAX9/iLSDS/6vNEl+cxfrXmz1cs2sU5oI548PF6FgQdnGS
+         OqVIwMHmP/JrCsTpFxXTIDOoiIrd6E52E6wpIkRcTZH5JCDPbUNCy4oKMUUssaCIapaW
+         gu5A==
+X-Forwarded-Encrypted: i=1; AKwUvBwV1e04OwApxattewANQ8swWM0PTLhYsa996R3h5d3cuHdW6HtmAFceBeqeK55n/wdCKgO94crbmTyz@vger.kernel.org
+X-Gm-Message-State: AFuF++kV2yUUb2H5FRdcUAgmMeA7paC7XtT2DiuHH95A8mu8sTJSpW8F
+	FkyMEGTT6ug/TIwOsIhfV8JRtJ8xtqWXowXaf9668fbAFq4QYYRSH0gSDfpiOvslT19ev9iw+xE
+	qu4TWOi8UlkiToeva02mXXOGka+TTIT9Gtj9hWJ8Lbd/JimxVPTHf/GzsD5wtROlr
+X-Gm-Gg: AYBFou250Z+ojJgo7KzUf9xl6HZ5Q3tN9frIvm83HsCWIXtEkZFLDvLygWiGBYa8R20
+	5q1X2Z4uLswLazvRs8i2fite0/6t73/zmYDhnF/eP3Ew8Q/CpR+1rsHwhCuMKwHN6mo/U4xWBND
+	CZ/jyjqt92+p8f5Q2HCmI3RYZuCRucyAI7FERaLuBmhsdMGQDUQTF/R9fn2ZPvjiJyKqo4eQuq3
+	m06Z6zmSN6mUElxepJ8FOs5lbURLpbb+JQKc9EKnt744QZ8U0G5XSGYenz2KN5H9Fch7ZfsLQmV
+	Qe1iq5P/pCnj6QlB7fxa31jBWMyw0+gJ1e4H25P01AwemCA1QjQ+YCUsBCJMU3KUKBdycshHvtN
+	9xpwikJ1CSpE/RSSq9DqJYmCZdXfmzj3TWscGRAIXRg==
+X-Received: by 2002:a05:701b:280e:b0:14d:523b:ce86 with SMTP id a92af1059eb24-14f5bffb067mr251788c88.20.1791001350554;
+        Fri, 02 Oct 2026 21:22:30 -0700 (PDT)
+X-Received: by 2002:a05:701b:280e:b0:14d:523b:ce86 with SMTP id a92af1059eb24-14f5bffb067mr251748c88.20.1791001349894;
+        Fri, 02 Oct 2026 21:22:29 -0700 (PDT)
+Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-151fa74fa1csm2061919c88.1.2026.10.02.21.22.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 02 Oct 2026 21:22:29 -0700 (PDT)
+Date: Sat, 3 Oct 2026 12:22:23 +0800
+From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
+        Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
+        linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 0/2] usb: typec: Add onsemi FUSB15201 support
+Message-ID: <asCC_0bS8nkFMyB4@QCOM-aGQu4IUr3Y>
+References: <20260916135918.1017527-1-shengchao.guo@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260916135918.1017527-1-shengchao.guo@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAzMDAxNyBTYWx0ZWRfXyXrYJlheSUdq
+ cTPkSTrq6MWWpy1dhdXJI1/452RYGZ77513IevNwyUizpJtdmvriPMr3MO9cOiDddduRnLzkF7x
+ BQFuD9t4P9yXMwwssOdJBZHKqSbeoj8=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAzMDAxNyBTYWx0ZWRfX99hL05Ut/GHo
+ UJFgO/JmzL42DoMeb9oGG4HmJTcZqM/gbaw2xpjbZIXtsxP+WJIB6M/rH8fNliNrmn9QKjlz/AN
+ QXktyAKys7fuHx3lyN0jTwslh078QxXWXi6WkfKBNX8DGZA+4dv9eRp8SdE5HYJ9DxMBB6PfdBI
+ mhcpdi49zfyILGrclnNHRDQ0bFafHfH4S9/5c7gpkECmhMTr95AqWiL2lvOFFHWNs+AxKIf9IwW
+ JIUlSt7qQ4yEaIMhe/81cGY6oYF3oTM1TabxC7o6Ulqu64EXec3OG6BI4l3v3R1MEwWKM1TXyRA
+ jRCp/OTktk/lbJXWdxQmOB7qaQOReGpQVg65iR1umMvtBJFqwIEJ7QamrFjtAzlm2OcTB1Dr/m8
+ /AL4dBcMQRjRw/fM13TNm07NqnlLtY+b+HLUNKZNhe/mq/OimyPzAuBXy4vi1LMHKIUNhDF4UNJ
+ aTJo0FRbBixcfL7GrHQ==
+X-Proofpoint-GUID: L_yhQ47NL0NSGXWA-Oja8k6eufVSHak2
+X-Authority-Analysis: v=2.4 cv=HqjjiETS c=1 sm=1 tr=0 ts=6ac08307 cx=c_pps
+ a=kVLUcbK0zfr7ocalXnG1qA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Z1MyDP9Hqjn3o93XXZQA:9 a=CjuIK1q_8ugA:10
+ a=vr4QvYf-bLy2KjpDp97w:22
+X-Proofpoint-ORIG-GUID: L_yhQ47NL0NSGXWA-Oja8k6eufVSHak2
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-02_07,2026-10-02_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 clxscore=1015 phishscore=0 bulkscore=0 adultscore=0
+ impostorscore=0 suspectscore=0 spamscore=0 malwarescore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610030017
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] dts: amlogic: SD card backpowering due to unpowered VMMC with powe=
-red VQMMC
---
+On Wed, Sep 16, 2026 at 09:59:16PM +0800, Shawn Guo wrote:
+> The series adds a driver/binding for onsemi FUSB15201 which can be found
+> on Qualcomm Nord reference design boards as a dual-port USB Type-C
+> controller.
+> 
+> Changes for v3:
+> - Address Heikki's review comments (Thanks Heikki!)
+> - Link to v2: https://lore.kernel.org/all/20260911073414.16711-1-shengchao.guo@oss.qualcomm.com/
+> 
+> Changes for v2:
+> - Drop include of <linux/mod_devicetable.h>
+> - Link to v1: https://lore.kernel.org/all/20260902045938.184221-1-shengchao.guo@oss.qualcomm.com/
+> 
+> Shawn Guo (2):
+>   dt-bindings: usb: Add onsemi FUSB15201 Type-C and PD controller
+>   usb: typec: Add onsemi FUSB15201 driver
 
-commit 4f4437abf57138f198c4057f670c6a5c23c3af61
-Author: Igor Velkov <iav@iav.lv>
+Hi Greg,
 
-arm64: dts: amlogic: meson-sm1-odroid: let the SD card be powered down
+How does this look to you? Would you consider to queue it up for 7.4
+merge window?
 
-This commit drops the regulator-always-on property from the SD card's VMMC
-supply (tflash_vdd) to allow it to be powered down during a warm reboot.
-
-Fixes: 326e57518b0d ("arm64: dts: meson-sm1: add support for Hardkernel ODR=
-OID-C4")
-
-> diff --git a/arch/arm64/boot/dts/amlogic/meson-sm1-odroid.dtsi b/arch/arm=
-64/boot/dts/amlogic/meson-sm1-odroid.dtsi
-> index e6f02d738a21f..7dbc75bfaea25 100644
-> --- a/arch/arm64/boot/dts/amlogic/meson-sm1-odroid.dtsi
-> +++ b/arch/arm64/boot/dts/amlogic/meson-sm1-odroid.dtsi
-> @@ -38,7 +38,6 @@ tflash_vdd: regulator-tflash-vdd {
->  		gpio =3D <&gpio_ao GPIOAO_3 GPIO_OPEN_DRAIN>;
->  		enable-active-high;
->  		regulator-boot-on;
-> -		regulator-always-on;
->  	};
-> =20
->  	tf_io: gpio-regulator-tf-io {
-
-[Severity: High]
-Does removing regulator-always-on from tflash_vdd cause the SD card to be
-backpowered during shutdown or warm reboot?
-
-Looking at the sd_emmc_b node, tf_io is configured as the vqmmc-supply
-alongside tflash_vdd:
-
-&sd_emmc_b {
-	...
-	vmmc-supply =3D <&tflash_vdd>;
-	vqmmc-supply =3D <&tf_io>;
-};
-
-However, the tf_io node still retains its regulator-always-on property:
-
-	tf_io: gpio-regulator-tf-io {
-		...
-		enable-active-high;
-		regulator-boot-on;
-		regulator-always-on;
-	};
-
-When mmc_power_off() disables VMMC (tflash_vdd), VMMC will drop to 0V.
-Because tf_io is always-on, the regulator core will ignore the request to
-disable VQMMC.
-
-Can this leave the I/O lines driven while the core power is removed, leading
-to an unpowered VMMC with a powered VQMMC?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261003-hc4-sd-pow=
-er-off-v1-1-f7ffba01b348@iav.lv?part=3D1
+Shawn
