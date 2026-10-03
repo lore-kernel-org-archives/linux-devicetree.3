@@ -1,119 +1,120 @@
-Received: from mail-lr2-f31.google.com (mail-lr2-f31.google.com [74.125.230.95])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BD093BC673
-	for <devicetree@vger.kernel.org>; Sat,  3 Oct 2026 09:25:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.95
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791019527; cv=pass; b=CSn3atpSTCcS5jMhGhi6jjJhySlIuEmyD2+9OMhJYvWL5R7b2FsiUmzAY7arhYFzQ2Auc/OVoUVsRPWbmQy5bo2YQfY6lvsV5Zu80Q2e6My5cVoUywu/Zs+jWdRQ2p9CIhtx4cI1Xlrx5xC0iDAHNiJUkuK/5R5Q0OaFKbR81wE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791019527; c=relaxed/simple;
-	bh=x9/9E3ufoV6jMPYJqbetP5DjLiiHxkuNm+gHzjxFZbg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Cgla4fhu59HtNKsAOCUXJ1Cfg0pUrpYa/DRDBxpm/c1wk8A7ikQPgcVYXya0wIc+XISyXJIiCGg+09VQfmeImpl24H1KK9qNSck6G9jocGVRdP19TbRZEzhfEXOd/Y3AUE71KS1IsS2mwYTEB1cuZh3cl2Kea1KF1yCVUisusvM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lMaPDg6l; arc=pass smtp.client-ip=74.125.230.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5511F331EBC;
+	Sat,  3 Oct 2026 09:27:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791019677; cv=none; b=YiAZwDg8MtS5+e802NrhaBl468W6CZNydH/cAnuUIl6IAUIlfqZb5VA7HcTmiTZKpGjw0LjfZPvFEQA6D78BPFZbSGn0wWalYMWoWpjiwMoFNGIcyUtIQbcC5hx6GhP55SGlavXrXo/FqAZkHeibZDFn8+PkGSg6PmIyY5PZjz0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791019677; c=relaxed/simple;
+	bh=owIRH9srE8X6VL0tvcg+0/nk8Ai/rxsAjJWM6OiUj6o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gsmeXIo1PJ9fdFTanpZ7BV/huZekm63Ri6eDMppYYsF4DUk+ohUikPutkimoINk1TCaxTn+fMWFFe905C03UhCmku2Oj5HNYdKd8gIF89WAVuRVRrQOaxToWxbUonAWcVmL1r4Fdk74rMfubIK5DO3jmRkqX+dHqRiH+SSg5S3Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZfKmHovL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lMaPDg6l"
-Received: by mail-lr2-f31.google.com with SMTP id 38308e7fff4ca-3a49e560a98so1196131fa.0
-        for <devicetree@vger.kernel.org>; Sat, 03 Oct 2026 02:25:25 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791019523; cv=none;
-        d=google.com; s=arc-20260327;
-        b=GthPaBVtDWFNYkd61K1KP6l8ipB/avmWLUiZm7wnLPMjgJuMezvseRhC0XImyWcdLK
-         EhIDVuz4o4rjKtb/WK/DYHD3t0yvDaRn6FArW7OlEKVb260o5dTbQkAiLxThpD5B7XYH
-         0vTXvLPJofBScamGboTDNNrXMtl8/ZtKl+Jb3Y/ASqnWJyUHJbDqx8IPvwbNXLfe0j3E
-         Q+fGCdQwWrfdsLUsPOVJDO7ZV7DMLTe7j3a+n45a7vKnTKl0yJuIS8ITQjz7UfNLG7K2
-         eahOXGTlz0zhMb33WDjSamzD9CNosT/XWL7k9oQNFHp/71jJzNm4CcpVu45zBaceNR58
-         oKlw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=x9/9E3ufoV6jMPYJqbetP5DjLiiHxkuNm+gHzjxFZbg=;
-        fh=ZE1O7jB8L030p8bA92sg/8Jueoa6d1d1vKrjQQcDTvE=;
-        b=AVKdDJXYW2Pcwg3SBNOueYQhxAdpjxTGYPYUGh+wue0zUnIckBjZ7rp2yU45NxGyjU
-         ag8kCYL4xBTrEpgGc+SGsgFRNBY2eSMrb8VNZ6prufvVN2zy6viVGKB8eu5+AFufFYtv
-         6qx7lvVew/IUyEPdgo8+8lZRwegQ5a/QzGVrId/JmCV3dz2EH3HCCu6aS3U6TzpQWlXL
-         cmg4sWTuaL+ZDsCJK5gl5EN1EBpzA2NyCZUhGAMLi6IsLIa62J2XMBT0WHRK8KOtwkXw
-         QmSeZtsgPrPQHoz1JVgafXy6PEcQguZxnfuQ5+FLORB9KUPxRYr0xqBYdjOHcG+tUy8M
-         VInQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791019523; x=1791624323; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=x9/9E3ufoV6jMPYJqbetP5DjLiiHxkuNm+gHzjxFZbg=;
-        b=lMaPDg6lpNv6sIPBcCN4PH9InwlKSOesw9JaWuQu/C+XTKlRv/RbRyZpSPAkxX0YEP
-         m5pxRXsWaMpzKawARloQghvt1U55TrLqYcWBPhMHdeX2E7jQC92ROWZVDPdt3y8+nf4E
-         wqgTSbO0mTDR7myzCFJ7A2z4gfAh717UVhGSNDtGBrccud8MV/zc6ix/1yIMlBMi15UL
-         4wTRIpukI1mZRm05bbKpwm3C5OncnQPyoJpP8LLpf6Kg23PnsUxbpgoNfz/9GeHdraUD
-         RJNHNXdTJibzJCN/wfkdW6mLIiIv4mTP+8Ww7noHSmed/EAdEqAEc3/3Q8C+dnFhIQuO
-         wxtw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791019523; x=1791624323;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=x9/9E3ufoV6jMPYJqbetP5DjLiiHxkuNm+gHzjxFZbg=;
-        b=Frd615EqxQlNmh6sJsv35s5bJikOzPPVB6E847y+Vvf25qG4BUPjQUv7/UMoUn7erg
-         y+3KcuVjIhd/DXOiKko+VSblyk00dI4BlGCuxkujDKiBwjxRk2HcwdAbrUwq+V0J0sDo
-         7eZB1TtN+//xLRgBiI6JoFzShqHOmeCSzbxk6EoaeO+qkUOkexEMMHpTL6sjFtSCJqAR
-         7/b6ZYYnSu20a0spNCP7huDWffI1HhW2Ie5UJC9LDS0pDktZQZYRrzksSuPouLnD8cLt
-         2Sco7G9yKTQIG/gZXgm4e15UEIQNk925NcHYa4HflTwj18BnRSEPz6pdhwUHpQIYtfA9
-         BxQg==
-X-Forwarded-Encrypted: i=1; AKwUvByI6xbs47oOn9/2eke5dqOZnOQHLwqiSLuhkot15odDBQJgOb78fIsBdKcogqxEJ1WN9aG2NoTwvU53@vger.kernel.org
-X-Gm-Message-State: AFq9FYJeIKGurbr6GuhVZLLKRozzzaF+T8pc40Kxutptrh7OU42fa/FW
-	LmebmevNbvGA6wlQntuG5g5tdjOkehfC2yXTJj1Ha1on+jvFcuIVKdUtDPS2+J8W2Poua3b96BM
-	+QB67yDuOhP96vwZSG8QJhR1t1c9zVFM=
-X-Gm-Gg: AYBFou0EwV87UhK6B4stgeJv4ZrMWptKJcZ8X2KIUCKBKfgBCVypGIx1M1B7pKKNcRZ
-	4+42aQGFJCpsopUQtcO81fmn6DItD9u7GzyuQNGGqzhcXZi2e8MBuWMTidTbQEW4YNFyaXgXR3k
-	QUnxBf16F9zG6HlDCy26huVc3hZj7Un77lRz3Rfy8BUkfmfjlC70uwmCaXksIU9LJ8DkKuDLdLH
-	GtHaeN0/SsBn/2g36H+audhYqSGPMdcG+lN8gp5zyoRR+At8gbW1DR4nAru9IPoKP1r31Vn1OYr
-	Vs9cP1iJp8t84pufHwejFDca+xvqT0Py42JEwAsnZAxmT769bbI3fHVJStIxpcMMw9Qmh/1YHA5
-	EW6+7O0FViCFvDtZ1u1/ioda8AL68JhS0IdEg
-X-Received: by 2002:a05:6512:4011:b0:5b8:ef9a:40ba with SMTP id
- 2adb3069b0e04-5bb9bb1132dmr1845311e87.4.1791019523088; Sat, 03 Oct 2026
- 02:25:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZfKmHovL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E72671F0089B;
+	Sat,  3 Oct 2026 09:27:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791019676;
+	bh=PK5mgDi/hmv0hoOXsSnxdZfMOPmMynYPkaSJh/0UNCY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ZfKmHovL8scKJJa/IBh6zaaajAJBvAihck0ZLkiakQ3Q5FoZ+ub2gIggTgta2ZUJM
+	 Rvf5OdQysvOToDC9tvTxD1o3NQKoW/pSdHJKYJltx3ALSjL+7RP+sGhm18wQgwxoVj
+	 RciyCsWAy94Gsy2Yeyg8bLzRMhcMiabU3yvk8HLwvDcXo26dNgROL7Z285d/4jTzd+
+	 g+sjwQ4ewaJNgPAQNuJafQWnLw7iW+0CNSWVk4+xoLMmoneX1TUT2WL1JrfYZ3h1Nl
+	 puh+yplAZxCGQbj4xbA4mNlOjn3xvsZBD96dn7lE/YbxGJbn5NQ5VaoYGhl9vQjTx7
+	 oTrcxj9VFaSLA==
+Message-ID: <608f9f6c-a405-4903-a1bb-86ca8a0999f3@kernel.org>
+Date: Sat, 3 Oct 2026 11:27:47 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261003084627.353899-1-chenyou910331@gmail.com>
- <20261003084627.353899-3-chenyou910331@gmail.com> <20261003085118.1D0351F0089B@smtp.kernel.org>
-In-Reply-To: <20261003085118.1D0351F0089B@smtp.kernel.org>
-From: =?UTF-8?B?6JGJ5a645L2R?= <chenyou910331@gmail.com>
-Date: Sat, 3 Oct 2026 17:25:11 +0800
-X-Gm-Features: AclHuK-ZzjOilMOUUbSeHgJLk7Cfv53pwgUKF_b_qOYPJ-oKX0eccz27j7k28dQ
-Message-ID: <CAKspUh+qp3rVdO51fBFdmKZd-jifHp+47-u6EbFgZtE392eWKA@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] riscv: dts: sophgo: cv180x: Fix internal ephy node name
-To: sashiko-reviews@lists.linux.dev
-Cc: Conor Dooley <conor+dt@kernel.org>, 
-	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Chen Wang <chen.wang@linux.dev>, 
-	Inochi Amaoto <inochiama@gmail.com>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC 1/3] dt-bindings: net: wireless: qcom,ath12k: add
+ disable-rfkill
+To: Franz <franzelfranzel@gmail.com>, Jeff Johnson <jjohnson@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: Johannes Berg <johannes@sipsolutions.net>, Abel Vesa
+ <abelvesa@kernel.org>, ath12k@lists.infradead.org,
+ linux-wireless@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261003091509.4822-1-franzelfranzel@gmail.com>
+ <20261003091509.4822-2-franzelfranzel@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261003091509.4822-2-franzelfranzel@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sat, Oct 03, 2026 at 08:51:17AM +0000, sashiko-bot@kernel.org wrote:
-> The commit message states "Rename the node to ethernet-phy@1", but the code
-> only changes the unit address from "phy@0" to "phy@1", omitting the
-> "ethernet-" prefix.
+On 03/10/2026 11:15, Franz wrote:
+> Some boards do not wire the WCN7850 hardware rfkill input, or wire it so
+> that it always reads as "radio off". On the Microsoft Surface Pro 11
+> (X1E80100), ath12k enables hardware rfkill handling and the interface
+> ends up hard-blocked for good.
+> 
+> ACPI platforms can already turn this off through a firmware setting
+> that ath12k reads (ath12k_acpi_get_disable_rfkill()). Add a boolean
+> property so that DT-based boards can describe the same thing.
+> 
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: Franz <franzelfranzel@gmail.com>
 
-Right, the description and the change disagree, and ethernet-phy@1 is
-the intended name: it is the generic node name for an Ethernet PHY, and
-it also brings the node under ethernet-phy.yaml, which phy@1 skips.
+Please do not duplicate work but build on top or reference previous
+discussions.
 
-I will rename it to ethernet-phy@1 in v3. The internal_ephy label is
-unchanged, so the phy-handle reference in gmac0 is unaffected.
+https://lore.kernel.org/all/20251220-surface-sp11-for-next-v5-3-16065bef8ef3@gmail.com/
+https://lore.kernel.org/all/20251201011457.17422-7-daleyo@gmail.com/
+and some more
 
-Inochi: the only change to this patch is the node name, so I intend to
-keep your Reviewed-by for v3 -- let me know if you would rather look at
-it again.
-
-Thanks,
-Chen-Yu
+Best regards,
+Krzysztof
