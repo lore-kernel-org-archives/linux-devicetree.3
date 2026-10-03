@@ -1,106 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AB1C547071
-	for <devicetree@vger.kernel.org>; Sat,  3 Oct 2026 20:12:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE61A1A3A80;
+	Sat,  3 Oct 2026 20:19:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791058349; cv=none; b=dJRe2SlancSyCu13iJkmCYqiFICt2PFen+BBACYIXDC9HZnQeocYIo1HHhj2aYkxQDvneTCLrfQ/nBADmB1p6gH05d66Nb0m4mj8Psas6C0i14mvysEHQR/MHs+ernn82IP+OLfALj4SkGvsB2ImpHm/lOxkXRJ6spoiqYBovuk=
+	t=1791058773; cv=none; b=Ok57vpyrHfFq/rHs+KhkEprR6ZIsr6C1W2BaPTgHDkT7I5kmrZxbn++zwGxY1IlFjSoZd6IYBqJQeXtvY0g2fPxY1PE+lpJy+kVPrPQzoMOQ1OJIlE34oKfDYy3bLraBrulOu8HkM50KRRBg0wtCJHASFu/u3Ey9KUDlHR7Oczc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791058349; c=relaxed/simple;
-	bh=wDFNDRm2nkEqW2oUnwmWVkt4GCw3jDltql+jKvWHn9s=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=o6gB4YYelhgtRToQLWT9Mrsclcuh6jrNiGmRBYZtm27FS7m7Nj3JybcwmwL1cH79uHqz9kDUu0Q2oFMm4bQ6z18ZXwhaXSOuEXfKTu4fTCeIEwOMCqAymnXZ+3bt4Ag1DHjyqqchsy8Ymcqm834u5JcaVvi3DLtEaPA2k3d2xwo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q9hxfL4P; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791058773; c=relaxed/simple;
+	bh=iBNPw4+S7wqe2ur9r2+G9UXaM8s1MByYaTEofVO10i8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Mk7NXsK8qlPtKqd04SdRdiD1J+KsWxerozFm4S9QUp438fQDVDdB5ghGUOw8B5WzfZSQtUcg4369Kp7CKh6TYzy89AxVaZd/22GxwUD3yVLdsA749V0wUhwplqrmTyB1sH+wqxsPypSjvg5ZxxK9YxiKk2CSc4HxFHOlfhVbQ3Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j/koQFUg; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q9hxfL4P"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D4A21F0089B;
-	Sat,  3 Oct 2026 20:12:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791058348;
-	bh=PETVYlALKVpYI3mZ6kwLDBMO2S9eWoODGUp/4KNKTeA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Q9hxfL4PvJjthTELW+6DEXd+Qd0x3NLqX8FbXmnPRh9IcZumW4rZ/KRkLQwmR6tdI
-	 NZ1/YLiMio24cmxkfw+PWI+AlypJUYZGsshH183I23bNeH34Jv9dDAxzi0X4/wKr28
-	 tVdOAM2jWBwkXFRMdL+J8ao6fMknUQQhx2lMb65S2C+NLTtTLrzJ7NLRZwdfbRGthv
-	 Zi5+W3jR6XQxDoTd2OBcf4+QGiS7tIxY+pCxmxYS65Fo0kiDt0ZFupJF11J3f6dqp9
-	 elgzOEGPuf9ac5ua6Vw2eq8uKph7D/Qw8tSEV87iDkyyYyDPdgo+OKL1Y7SNbdRUFT
-	 x9UPJIoFBrpdA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/3] arm64: dts: mediatek: mt8188: Add the MFGCFG
- phandle to the GPU
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?TWljaGHFgiBLb3BlxIc=?= <michal@nozomi.space>
-Cc: robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
-In-Reply-To: <20261003200132.866240-4-michal@nozomi.space>
-References: <20261003200132.866240-1-michal@nozomi.space>
- <20261003200132.866240-4-michal@nozomi.space>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 03 Oct 2026 20:12:27 +0000
-Message-Id: <20261003201227.9D4A21F0089B@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j/koQFUg"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 49662C2BCB9;
+	Sat,  3 Oct 2026 20:19:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791058773;
+	bh=iBNPw4+S7wqe2ur9r2+G9UXaM8s1MByYaTEofVO10i8=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=j/koQFUgiv1AhJOtahMKyyjrnDbQIE1v4MEomF/aH/t0m740HkKxaET1KYO1Bd+ki
+	 kGDQN5KX8vkRw9mrrvHdzqvIHgsLke3hwFvSOfm/IrA7VhAkRpC/0ezkccbbZd3VHg
+	 MVzPLPkPEaBNnlliR1SQ+y++ca05l1K62WkWVyt+gtxqpdspN4sO3eOFtbDKdg8My+
+	 Q60WsClUlIlwf6AT/0UWlgtbkg9R37+CiXWmx0uqXaJuDIHrJXOOOHuAoygvDxNBf5
+	 UHjaGsF9QWH96daz1w+Ms7rKXKHKwKU47K/imtgsOP36Q+KXzkSTkQrOCzZWeTta2V
+	 zWdQLu4TbJTow==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 22BDBCA5FDD;
+	Sat,  3 Oct 2026 20:19:33 +0000 (UTC)
+From: Vyacheslav Yurkov via B4 Relay <devnull+V.Yurkov.EXT.bruker.com@kernel.org>
+Subject: [PATCH 0/2] Add Altera timeout bridge driver
+Date: Sat, 03 Oct 2026 20:19:18 +0000
+Message-Id: <20261003-feature-timeout-ip-v1-0-8837c311d571@bruker.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAEZjwWoC/x3MQQqAIBBG4avErBswhcKuEi2k/moWWahFEN49a
+ fkt3nspIggi9dVLAbdEOXxBU1c0bc6vYJmLSSvdNkoZXuDSFcBJdhxXYjm5c9a0Rs3Q1lIJz4B
+ Fnn86jDl/3retxWQAAAA=
+X-Change-ID: 20261003-feature-timeout-ip-7a93630de299
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>, 
+ Vyacheslav Yurkov <uvv.mail@gmail.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791058772; l=1295;
+ i=V.Yurkov.EXT@bruker.com; s=20260318; h=from:subject:message-id;
+ bh=iBNPw4+S7wqe2ur9r2+G9UXaM8s1MByYaTEofVO10i8=;
+ b=8l2Csc7ezXuJVwxnNu8Y1LTcxSKxqxv38TBsQd9NhOdEMMLQDhfiNKOzCuCtyfGTj8G1wUSBR
+ Czdud9AosceAdMGj5vn51ekQOTZXVXvEfSoZHCbXsDdfZHebRhDy/+G
+X-Developer-Key: i=V.Yurkov.EXT@bruker.com; a=ed25519;
+ pk=snJmgYVOKlp7aQtK9tWnEI7QTYxpPpJJvxdVsnxA7Fk=
+X-Endpoint-Received: by B4 Relay for V.Yurkov.EXT@bruker.com/20260318 with
+ auth_id=686
+X-Original-From: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+Reply-To: V.Yurkov.EXT@bruker.com
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] drm/panfrost: missing GPU timestamp quirk on MT8370
---
+This series adds support for the Altera timeout bridge IP. 
 
-commit ad326344199c9c294e6415c92318bcef828d8630
-Author: Micha=C5=82 Kope=C4=87 <michal@nozomi.space>
+The timeout bridge connects an Avalon bus to the HPS and provides a
+downstream address space for devices implemented in the FPGA. The
+bridge also exposes status information and generates an interrupt when
+a timeout occurs.
 
-arm64: dts: mediatek: mt8188: Add the MFGCFG phandle to the GPU
+The driver registers the timeout bridge as a bus and allows child
+devices behind the bridge to be described as the child nodes in the
+device tree.
 
-This commit adds the MFGCFG phandle to the GPU node in the MT8188 device
-tree. The GPU driver requires this configuration block to enable the GPU
-timestamp counter, which otherwise reads zero.
+The latest bridge documentation (as of October 2026):
+https://docs.altera.com/r/docs/683609/26.1/quartus-prime-pro-edition-user-guide/axi-timeout-bridge-ip
 
-> diff --git a/arch/arm64/boot/dts/mediatek/mt8188.dtsi b/arch/arm64/boot/d=
-ts/mediatek/mt8188.dtsi
-> index 14a320f0c70cb..b4be89bf55bf7 100644
-> --- a/arch/arm64/boot/dts/mediatek/mt8188.dtsi
-> +++ b/arch/arm64/boot/dts/mediatek/mt8188.dtsi
-> @@ -2266,6 +2266,7 @@ gpu: gpu@13000000 {
->  				     <GIC_SPI 382 IRQ_TYPE_LEVEL_HIGH 0>,
->  				     <GIC_SPI 381 IRQ_TYPE_LEVEL_HIGH 0>;
->  			interrupt-names =3D "job", "mmu", "gpu";
-> +			mediatek,mfgcfg =3D <&mfgcfg>;
+Signed-off-by: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+---
+Vyacheslav Yurkov (2):
+      dt-bindings: bus: Add binding for Altera AXI Timeout Bridge
+      bus: add Altera timeout bridge driver
 
-[Severity: Medium]
-Since we are enabling the GPU timestamp counter via the MFG configuration
-block for the MT8188, does the MT8370 SoC also need its corresponding quirk
-updated in the panfrost driver to avoid breaking userspace timestamp querie=
-s?
+ .../bindings/bus/altera-timeout-bridge.yaml        |  82 ++++++++
+ drivers/bus/Kconfig                                |  10 +
+ drivers/bus/Makefile                               |   1 +
+ drivers/bus/altera-timeout-bridge.c                | 219 +++++++++++++++++++++
+ 4 files changed, 312 insertions(+)
+---
+base-commit: a74306e2e676f9775457366fc047a660fbf02f26
+change-id: 20261003-feature-timeout-ip-7a93630de299
 
-Looking at drivers/gpu/drm/panfrost/panfrost_drv.c, the mediatek_mt8370_data
-struct is defined as:
+Best regards,
+-- 
+Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
 
-static const struct panfrost_compatible mediatek_mt8370_data =3D {
-	.num_supplies =3D ARRAY_SIZE(default_supplies) - 1,
-	.supply_names =3D default_supplies,
-	.num_pm_domains =3D 2,
-	.pm_domain_names =3D mediatek_pm_domains,
-	.pm_features =3D BIT(GPU_PM_CLK_DIS) | BIT(GPU_PM_VREG_OFF),
-	.gpu_quirks =3D BIT(GPU_QUIRK_FORCE_AARCH64_PGTABLE),
-};
 
-This struct lacks .vendor_quirk =3D panfrost_gpu_mt8188_quirk.
-
-When the driver probes on MT8370 using the mediatek,mt8370-mali compatible,
-the missing quirk means the MFG configuration block is never enabled. As a
-result, the GPU timestamp counter will read zero on the MT8370 SoC.
-
-Could this be an omission, or is it intentional to skip the vendor quirk
-for MT8370?
-
->  			nvmem-cells =3D <&gpu_speedbin>;
->  			nvmem-cell-names =3D "speed-bin";
->  			operating-points-v2 =3D <&gpu_opp_table>;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261003200132.8662=
-40-1-michal@nozomi.space?part=3D3
