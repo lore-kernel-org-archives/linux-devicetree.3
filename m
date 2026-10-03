@@ -1,444 +1,225 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from relay-r21-hz12.hornetsecurity.com (relay-r21-hz12.hornetsecurity.com [94.100.138.221])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40B781F938
-	for <devicetree@vger.kernel.org>; Sat,  3 Oct 2026 00:06:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790985997; cv=none; b=KEWHnSnf5pq4UEKCVdpaezntDT39IOM6VGSN30IY+4TxIQ0O2ildrqxFu3xqdvM3gYkK4o4wGyjxajT7+Db5owKyFtfZmVQmxe7zH/UOjiokZkuNW+XPOn++IgxuxuYqv0LbjpMNGeN7q5dW4tsanM95Aatc9LFMyuNYqYyXdaU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790985997; c=relaxed/simple;
-	bh=jSjSvKzp7smyu3936/0pSG7c5grOpl/+0ErBJ5VecLo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=O6FRCOW0053LrrerK7qf+hrD9Nx0MOV3+3OW6vDfOp8p14fOWwfZpP647HM3LmFaXjzT1p1Siv86vqzsVQhjOWZxsX8hRBmMTgTmAoGGs3TWQ9dNn65kHb8dJUVBE6XKRzE0jNzgo79jx4bAojj0RiTiyokt/ncOA9cwDGqUwOM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JiVcq1q2; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MUC0s4Fa; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9CCB191F91
+	for <devicetree@vger.kernel.org>; Sat,  3 Oct 2026 00:15:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=94.100.138.221
+ARC-Seal:i=3; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790986505; cv=fail; b=MPtmDzdrdvBo6WCJh860txXDzt/gBGrc0gnK2CPL0OZgpAoDnTFzCL7BawIj6qqLn39obNECVzBGcB09NcXuIGFZMeF4ng46Ml0Vyx1NfKHq7aX9UtXddVVYZP+1C4yLk+4+esfEwPEo6BsPo3Xrck4Wfc3i6aj/VuxksRt1+gs=
+ARC-Message-Signature:i=3; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790986505; c=relaxed/simple;
+	bh=5rnoLQ3jdXUqBD980dPE0c5x9H8JrOWAmBSuDKmqEFE=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=WxEMHTu4D4rfFtg2yxVtSwmsTvfF9tEGToHcJ3Q6lxxZOw8hzdI2qFSE+HMf3cpK1f2iUmSM9ljBPhilI97EPG19Q2Qk7cAMz0PkIJNSIILz/wkhxDevDiyfbb0tVqjyJbeObMfnIAGfZnbTw1orJ01tGYlXPkWVh9Y6lDiFFt4=
+ARC-Authentication-Results:i=3; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=witekio.com; spf=pass smtp.mailfrom=witekio.com; dkim=pass (2048-bit key) header.d=witekio.com header.i=@witekio.com header.b=CWJqSMKk; arc=fail smtp.client-ip=94.100.138.221
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=witekio.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=witekio.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JiVcq1q2";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MUC0s4Fa"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 692NeMCu2928379
-	for <devicetree@vger.kernel.org>; Sat, 3 Oct 2026 00:06:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	HMrvdFYQCazM8G9VA/H64aEP6ONlH/25N/jX/1bcgzA=; b=JiVcq1q2j80ybQqO
-	8vqBrt6cFvVdmZDd7W14JUAMxNKy2OzSpPU37W8rs5gpunfWzuKko/WYPTzrR0lT
-	EvqdvVxPBE0iRqMx5p4EEhSPxQAd47z5kSyHZfj1pTGPRawAkVNdPhWEYbuP/Ag3
-	W7YlA9/z9DXK7NYNucFojZGKUzrj6cUqc+asQJwHeugAKm5UY/Nx4UwhOHiWAEOc
-	6lrXXTh8O/JXM87ZoFFC7TD9bXBXUJc7qFxD7b76ZHfbcLRTLnDDrNlFP+Tw0mhu
-	OrJ/lZR7YQ5Gt2T+SuAzSUJhzaUDoyYIhsHAx72Ecab35JxBWVEx+nnL0mH6NBp5
-	F/uSQQ==
-Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h20nfvt8c-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sat, 03 Oct 2026 00:06:34 +0000 (GMT)
-Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-14383177746so420311c88.1
-        for <devicetree@vger.kernel.org>; Fri, 02 Oct 2026 17:06:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1790985993; x=1791590793; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HMrvdFYQCazM8G9VA/H64aEP6ONlH/25N/jX/1bcgzA=;
-        b=MUC0s4FaTEMFnQd1To8mjlMdWkaDsiszBQKpDMkTPcdTVvcDPrAipDtoa72rAB/d3X
-         rz2LC/NAPoHH37GQYBxN0/6I3gsNbWsuaY2O+Amw5gnmzuDm5GnfoFm8FUIC/UvU1leu
-         nwfHIaEQTW4QVYqneLKEL0blje5y/7OqYj6pp+BjcoY/HlBBx2L30bYxcHodH0HV/sZt
-         wHbAY+3yK3DjiuJCMCaKmyyBqZcTrcUV/gyTTtPixqaGE2GYQmrGTD1Fybe190s6ALJA
-         QQ7wO9zsoY9tv5OEGjj2MNjvBZHz7tJNdTtdZwjOeAaDUsaQQhqqQBCqpJaa0WnAjJ7h
-         dyKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790985993; x=1791590793;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=HMrvdFYQCazM8G9VA/H64aEP6ONlH/25N/jX/1bcgzA=;
-        b=M6UJ7eT05kD0m0V5+iaBx5l2k78U2MNmf2omcQ0R7INOOZ08d//Ix+r6qaCFs4RIE4
-         u/+MKImnmSDm+ugcj5A6F3hGUHEW6+6yXgtsKI4YIhk7rj4QnktZHT+tA/OkcAwKsotL
-         uIKU1EAcERgXJMNfr4hp2U4Z5XJTOwxP7LokPAu/fKGknyE9VMOdE+O4i+YlI9ZRmdGk
-         jOgl4NNQ2Rz7mjMi8OS3SAVsCbhJXNMsCLarVPH2+3Zl1eDge6wqfi4Ziuah8mj0gZ03
-         1iNyw4fUIxdP6m5fkHEgAKV9AYiWwJZtiZE1o80nO0GxsEI6vfdw6fRF4lgut3KHFlXO
-         kV1g==
-X-Forwarded-Encrypted: i=1; AKwUvByAFmTxa3vuWuBpHrZsd39p7ofT8hMLjLR29zk1VOf1VLr2pNHq2szL1jmxFSUtO27WMjUWzH9/DJdQ@vger.kernel.org
-X-Gm-Message-State: AFuF++kNmmhFfxm04gqIVnYa8Hl0dsUd84EamE3B+0X7S29BQUCP6haz
-	S1mkGenA987ytFMUcphH79i1V2kJWu7GeKTlRVm+zn4sXYqs1eg+7zLsfg2mZcDaDQ4ULOp6ETD
-	Zbk9RrHM0aEsB/cJ8dok7C7bT+kCZjDchz/BNPcxTZHd8swBjIFEFG8OPYN0U8Z4l
-X-Gm-Gg: AYBFou15nfAbBcZse+OPUZBwRtYtu1v5M0T6GihAmIZFwuvZjR99NNcjg/CLXtmpRTT
-	oDI0NpcbNpGJZHxq02xoin3RoBpC9AhXr2CN6KmaUuPtTX9MSxGBUmN0lfDTH8YiKTK2YRTNUBt
-	BDtMAajhUFwoDbT/pm/fAa/YOEMIiENvCaLFaGZs6x0FGvIwpS2Thpxh6Yvc3uELKV76/YiLSIC
-	khojRjBoj6MlwxUs3QZYbp/XUjAW3wBPFkrOcX5KIvqlTkePa0BEab8yUgJE22VEk+MZEqVV/TD
-	rQttwLPTN4l39GhZdWKAuBUkp5gc6LArg1Ylz+N/WlJ2osWXdfrROoXo9ZjUw959L68nLLQWaHw
-	issJ+UncnH0A8x1Qsq6CqbPsBecT8K5rDA/3A8PkuHSONsYvxjY0YLG4X1lZioDo=
-X-Received: by 2002:a05:7022:f90b:b0:14c:be8e:69f2 with SMTP id a92af1059eb24-14f5c2ee7bfmr5868532c88.21.1790985992833;
-        Fri, 02 Oct 2026 17:06:32 -0700 (PDT)
-X-Received: by 2002:a05:7022:f90b:b0:14c:be8e:69f2 with SMTP id a92af1059eb24-14f5c2ee7bfmr5868482c88.21.1790985992020;
-        Fri, 02 Oct 2026 17:06:32 -0700 (PDT)
-Received: from [10.71.184.34] (i-global254.qualcomm.com. [199.106.103.254])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-151fce9a619sm768525c88.14.2026.10.02.17.06.31
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 02 Oct 2026 17:06:31 -0700 (PDT)
-Message-ID: <855bde4f-59cf-40f6-9dce-e0ee225c4e95@oss.qualcomm.com>
-Date: Fri, 2 Oct 2026 17:06:00 -0700
+	dkim=pass (2048-bit key) header.d=witekio.com header.i=@witekio.com header.b="CWJqSMKk"
+ARC-Authentication-Results: i=2; mx-gate101-hz12.hornetsecurity.com 1;
+ spf=pass reason=mailfrom (ip=52.101.84.105, headerfrom=witekio.com)
+ smtp.mailfrom=witekio.com
+ smtp.helo=db3pr0202cu003.outbound.protection.outlook.com; dkim=pass
+ header.d=witekio.com header.s=selector1 header.a=rsa-sha256; dmarc=pass
+ header.from=witekio.com orig.disposition=pass
+ARC-Message-Signature: a=rsa-sha256;
+ bh=XZLWHBGkp4i3Dcvh9DPzHAlKsX7K8QO6cp55S8r/UdQ=; c=relaxed/relaxed;
+ d=hornetsecurity.com; h=from:to:date:subject:mime-version; i=2; s=hse1;
+ t=1790986438;
+ b=jMRoI/ZM/qHv48gHNhXsa60qlFEDLlMue2+wkNoqBP6oMnd+2Sw0JHYn3ELIN2UFB9oRKo42
+ d1lsPte9LvbqlOW5Qshodw035AJpFUxEw1FE8yoh3NmxS7EC3UdofaSTE9NeqWNa1pdx0ETGQ+0
+ zcwUz3K9JgKHAK10SF6mJod4mQA/sZMzZ6hSHl/VRJw0UFxsGSugyvMc0IZtGoqoVt2wkh9DwFK
+ eTHfLD7hl/4FFgfDYcs+zstXrQxmLV+GENZ84Hi/AineL1UGP2FNwbRaoENUpD8nsCU1+mclZDM
+ aFfCEod6RXdyTFbj04Wi28woiWDnuqK1nfmTM4RBycYnA==
+ARC-Seal: a=rsa-sha256; cv=pass; d=hornetsecurity.com; i=2; s=hse1;
+ t=1790986438;
+ b=XmfuUmClEkR3gZhTttPcYLBf93M4CITUd7sQ/IMbTf15WTmDQugeVKqwZMwj8fgGr2g1nd2g
+ K/bDZgGhH9ASX2JD8CVU4WkXVNgLOca4+9ueJdgwnJWCz0KcS0gPwUOkfs4Je/NMi/lHIu0lTdM
+ nrS1hyiAZP5GzmirDmCBZ7Tv3QVbyhVe1M7jOD8YiY6b+XguTnIBeAiKZbiJihhMRsTqdEuU/r9
+ IFh03VRGc/znOvC3DbFZuwu/Lx4TwHML1z4+dEmJ1g8IejVs5w7f0txJRTMAkbCROSFNKEutyyG
+ bwY6m2ygg7mh7vglSChI4wD22Y2XTN3boE/2GxwT6Nd3w==
+Received: from mail-northeuropeazon11020105.outbound.protection.outlook.com ([52.101.84.105]) by mx-gate101-hz12.hornetsecurity.com;
+ Sat, 03 Oct 2026 02:13:58 +0200
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jxqYUqkLbRrutaexVxcbTw9bNi4MUtl3F1GNs2QPZG+eC8tGqtObFTrwFIRI/x7rtQPpo+pcSLBjmpmCmdda65eNQ70tEij63q7r3J3nXghmulEYYOvoKTcI0beIUhz9+gWAtFGQLhhAgmghA6vTs7NfT3PPbO2gg+B4R0erCyhCb+C9GQdvnMICSKLpt20iwBI8nLeJ5frYvM+IZiT+7mRY25o/Szb4s2OqULgZgrOuAeLfBgV0V/fvLv5F7XjO++Xo21KcW+UbhJC1S7ThtK1cOwLtcntiXJ1vRYfjCveYF22PHFpAVi9ELjHiMsj0aWvftahEQRnM6QYhcNQJWw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XZLWHBGkp4i3Dcvh9DPzHAlKsX7K8QO6cp55S8r/UdQ=;
+ b=zEVDFDSgX/5yCXf0kaBf6Huc/WeCElyVrVpC9mGJRIgZ+41kfoLH+S74naEjm3x11lHBD9U+BUZAjFOwJ5a9hhP14Smg1ANBjiBBSlTUPcVflrwFVrxoZ3U7y/o6Xkkb51ShGteKrFssRMO+SBb4cEWBghTvM2QttTnKuUDFpErGpZq3EiOybdg/jAbs475R8WWjSnZbUYBeRQ8eQBvhguI6wMPuJ72cJ6LeSJuKufwiPdhcMKa4ap3JpooyGbMZBtqMS9dJQNaVftzbkgxjRmwEFeEVWBfZQkVGuuWcd6vvZj5QsUzhf9wQ/eB6n9CUbGvxyCrTyfgHx5kkUE4Xpg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=witekio.com; dmarc=pass action=none header.from=witekio.com;
+ dkim=pass header.d=witekio.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=witekio.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XZLWHBGkp4i3Dcvh9DPzHAlKsX7K8QO6cp55S8r/UdQ=;
+ b=CWJqSMKkK5pzSe5E0xadhSJnGvYPtyzMwIFlNgOPhRQ9NsPaI+oDyb61/yTRqmFN2PJ0NMAR5L1txwEcBv5pdZHlU1S/PKH3+pWSXVbY7rFlhzEmqJ1Afsd3pp62sdB5ijFcu7E2gcFs+3gvJQ5SDBiXr1bZz4b3w+Qb8NepUeY7lEdcbyOsXYRQKgP9BiaB3vXClmWe7yzd3qXD8AC+Vu98d8YkmLYNrBEnNw7OXyq2Lxqz1MtU7MWG7IIbXQNoB0JTKVP0hh8Tb2WuYzAyYbNm9qdIAYPl5Lchgs3E7lfMoDyouAhJMZhbGbnZn1WjNR1HcZMIyuif5yITWH3e/A==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=witekio.com;
+Received: from DB8P192MB0792.EURP192.PROD.OUTLOOK.COM (2603:10a6:10:167::18)
+ by GV1P192MB3050.EURP192.PROD.OUTLOOK.COM (2603:10a6:150:284::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.19; Sat, 3 Oct
+ 2026 00:13:48 +0000
+Received: from DB8P192MB0792.EURP192.PROD.OUTLOOK.COM
+ ([fe80::587b:a57b:3517:d13b]) by DB8P192MB0792.EURP192.PROD.OUTLOOK.COM
+ ([fe80::587b:a57b:3517:d13b%7]) with mapi id 15.21.0472.016; Sat, 3 Oct 2026
+ 00:13:48 +0000
+Message-ID: <998a06e7-a4a7-40f0-9c99-21a7d2938a6f@witekio.com>
+Date: Fri, 2 Oct 2026 17:13:43 -0700
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/2] hwmon: (tps38900x) Add driver for TI
+ TPS389004/TPS389006/TPS389008
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+ Luna Hart <lhart.opensource@witekio.com>
+Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Shuah Khan <skhan@linuxfoundation.org>, Randy Dunlap
+ <rdunlap@infradead.org>, linux-hwmon@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-doc@vger.kernel.org, Flaviu Nistor <flaviu.nistor@gmail.com>
+References: <20260929-lhart-dev-tps38900x-v1-0-7045c5894152@witekio.com>
+ <20260929-lhart-dev-tps38900x-v1-2-7045c5894152@witekio.com>
+ <20261001-judicious-oyster-from-atlantis-ec18aa@quoll>
+Content-Language: en-US
+From: Luna Hart <lhart.opensource@witekio.com>
+In-Reply-To: <20261001-judicious-oyster-from-atlantis-ec18aa@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: CH0P221CA0017.NAMP221.PROD.OUTLOOK.COM
+ (2603:10b6:610:11c::26) To DB8P192MB0792.EURP192.PROD.OUTLOOK.COM
+ (2603:10a6:10:167::18)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/6] soc: qcom: qpace: Add Qualcomm Page Compression
- Engine driver
-To: sashiko-reviews@lists.linux.dev,
-        Georgi Djakov <georgi.djakov@oss.qualcomm.com>
-Cc: robh@kernel.org, linux-trace-kernel@vger.kernel.org, conor+dt@kernel.org,
-        devicetree@vger.kernel.org
-References: <20260930145215.3380977-1-georgi.djakov@oss.qualcomm.com>
- <20260930145215.3380977-3-georgi.djakov@oss.qualcomm.com>
- <20260930150435.C5D371F000FF@smtp.kernel.org>
-Content-Language: en-US
-From: Oreoluwa Babatunde <oreoluwa.babatunde@oss.qualcomm.com>
-In-Reply-To: <20260930150435.C5D371F000FF@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: TMX3qPI-sWnDR0adWRPitJuU4jQP89KJ
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDAzMDAwMCBTYWx0ZWRfX5MEdOO04kk5p
- JUlWpQUOOKfGHTSOXMs3F7R5ngJPCJrcuGMjFYYGTHK8Wvn6EYPZL6N6wqnL+X4IUYWoV+LGAyJ
- EsZlVfLDmELROJ2catMQXZo+efXH0i0=
-X-Proofpoint-ORIG-GUID: TMX3qPI-sWnDR0adWRPitJuU4jQP89KJ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDAzMDAwMCBTYWx0ZWRfX/7jWwL9rXO/N
- 1F7VC+39luX7DP/lq/nJuiIPPfrJ/nIE3OYVyjJzhjtwOw2I6xlDFpdMCQir8WL0Py+Z2nAXdoc
- CvICRCJyXzZjfXwTZM1CW6OSyG83wmz9dhOakEPK/OAk5RdiGipe/8t/qIw51ZAy/SJ4ocb+vFi
- 1WH5x9oHlj/uXAix742g0a3Od2CE5CXJ7mOhpUmkFUy0UTpUZ6rhhtsVQ7A8d8jJwslUxf/brYO
- vEibho723ii4BnG9w64QmL8QhjJGCrTsLwFu6ZNXZ3RtwA3g8bRBjguB9jVwScsZ996s/tIzgbv
- MvWwdsfIRfjQHsH5ReNzNkLUXc4Isd+MJXJkNeeSsngQHn9/mXcJZ3e21ABXhoZn5Y2uXt4iWlX
- MqruL/lgcKurTuWoZuonvZbLwgXpPLM8892ZTp4lMDEyLDpaAg1Ka9OeJWUlCgjKcqwyq32QvAy
- LDUFAAx2iRXk9kos0eg==
-X-Authority-Analysis: v=2.4 cv=f+jdl+yM c=1 sm=1 tr=0 ts=6ac0470a cx=c_pps
- a=bS7HVuBVfinNPG3f6cIo3Q==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=tqr4Kburuj4KFFtUzTYA:9 a=QEXdDO2ut3YA:10
- a=vBUdepa8ALXHeOFLBtFW:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-02_07,2026-10-02_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 phishscore=0 priorityscore=1501 impostorscore=0 suspectscore=0
- clxscore=1011 malwarescore=0 bulkscore=0 spamscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610030000
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DB8P192MB0792:EE_|GV1P192MB3050:EE_
+X-MS-Office365-Filtering-Correlation-Id: e52543f2-a4c5-4420-d873-08df20e3321d
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|366016|7416014|376014|4143699003|10067099003|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	5cIr6PKFN7JqrRZpZRJ8KrRZO1cRl1BDai3jRZDd08B83/+Pf+wNAqWsSSJG0n8FrYICr/wA1hIdhWv3j+LNUyJcw+TV90a53FC9sJcQw1vXaJ0xOXiVklKFGYgZZ8C+NbSLK3aauH5CAiUT0jj9W67oBfHolv5FdySli42W96AMvf5GkrWr3b1z8jSs6AHf4o71KyqvBUeRk20qZtpcyHH5kaks2ocRAirwhKnIEsqLUU4XRQ0kjZI2G+OpGvPAUGrQQXPO5Zt96MVQyGLXc+XC44WMreL+EV9VnMAIsCdB6qc1PkjpC5R7aYY/xE4TrDfeB9H/FKDd4QlgyD825HdyObWdFUf46b5Yu81nrxy//vhyK4xYJTZHS5xwW+CUeZci7fa8S+2HQV9oTzPzYWeyWNZm2rTl07ipEucJR3iG6G+7nWxjsKwt47uGLhotz0oEdOI351t+08pjXgww9kkr8TN7Egv3KzcvNc0Fos94Mw5GScQ1VUCb8rbqHocNcfW0NRA8c4oga3yh8/P9joyuC+yueZDM5vvxOuf2xfqeOWgQykf8dHDJY/n1bkTqXNqeUALjAWcXvvdy7NKHl8pmki2tL+b0T7rRfp0jWcGHqh3XFn/h4fQBsdkaP7c1RoACT5rLteU7QvFzN6vfM3gDH9qIgtbmPjTeX0iTF+g=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DB8P192MB0792.EURP192.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(366016)(7416014)(376014)(4143699003)(10067099003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ajUzTGxhZVoyM043a285RENJZkV0VU5jWklJVlZseHZqR3JUMVFtblE2Wm9E?=
+ =?utf-8?B?a1daUHJhMDdqZExXU05ubVEwVFVkZ1hEQlQveWdJVFJZaE9jeUtOcUVCQmk2?=
+ =?utf-8?B?ajBLR2RhNWNaOTc0ejh4Y1FLSm5mYklDVFFwOVF4bk10VkxDRFVNM2lkemI3?=
+ =?utf-8?B?VzltZVFBZnJmMHFrZHAxbG9pOGwxZlVsUU5lZnNZaXpQaHlDRko3WFVFWCtl?=
+ =?utf-8?B?a01ZK3BKTE85NnM0cmxGazBvUVhjU0l3L2RlK1V4UkcvcGxUSXZrVENqNnJv?=
+ =?utf-8?B?bTU4d2I0YWxZT3U2T1ZudWY0cHkwZkwvc3R0MGdKdHNKTDc3U3E2bFFWaHZi?=
+ =?utf-8?B?TzdyOXFKR3pIdFZHN0RHcWVJdWR5RDUxcXdUYXZER2dqL3BWK251S2tWRkJ3?=
+ =?utf-8?B?LzI5QjNvVmlFSTBLVlJrbXZseFRxWVA0NkVwVzQzWHZPeXM5WDFyNHdQVFY1?=
+ =?utf-8?B?blJ3SklOMEVnT3Nzc3NuVDk3NzBSTkExc3d3OHJ2R2ZmL2txMmxjeWtMRzVq?=
+ =?utf-8?B?U0NhTlF1bjY3bTFwbUh2bEFEbngyU09lSWxWckFSYkRsZEs2c2FBdS9uVTE0?=
+ =?utf-8?B?NTJ5akhDVDJSUVg4aVpPbnNPUnY0MHRocWlqVVlQNlRLSEdES2pqdlhtTXBr?=
+ =?utf-8?B?SEpVa1FhQlk0K0dNRkFkK1k5dVhkY1ZOZXBsUWc2c2tZNFZpTXJkK0Q0Mlk4?=
+ =?utf-8?B?d3RMV0VpTHQ3MXhKZTdJeHZxeTg1K2R1RUlzekVET3hVWFhTY2hIa2hFUnJP?=
+ =?utf-8?B?V3FWaWZKSXJ2Zit3RTNRV0o0MVRadGVVWjRyTmIySUNMR1hLQ3VuSk80WklO?=
+ =?utf-8?B?UFk5b3p6Tk00MjlLQmRPeHVJOFZLVG5JWkhLSnhCS3J4QjBXZ0ZVZTEyOFBP?=
+ =?utf-8?B?WThWMlorQ0dwQ2VFWmVBeEozUVJZZXVJc1E0VlRGTXZlU21xUG44TGpJbWZO?=
+ =?utf-8?B?UXMzOU1tQUhMbkFUaDU1NlFDYy9pL2hFMUR6ZlFKUWh3WXFTSDhPSUFNUzBq?=
+ =?utf-8?B?aTlaT0pGQWgwdEtpSUk1a0lNbkM5UzJLeTk5WlY5ZGh0V2hlVGJGbmU1aDNM?=
+ =?utf-8?B?Q2Z1WWVJRXNucXlWQTJTZmIxRUo1b2xxYXpabVdieTBWWGJTL0xnYWU1R1Bp?=
+ =?utf-8?B?emlyVVJWR2FXQUZjREsrSzJXQjJlOGNzTzNQbG03TDNGU0IxMkkxUGMvVE5m?=
+ =?utf-8?B?R2NhTTBPSE1pWU5DL1BuT1c0OU1GVDZJUFJTWTJkdGxHN0E4SVk2RzRJQlNx?=
+ =?utf-8?B?T1NkTzhrL1FvSFZHL3RnTjcwWXBXSlIyc1dGUFBwaHkvbmVXTmRDZmt3czlK?=
+ =?utf-8?B?MDZ5VS9mdnYrdnJ3dGRJTUFQSElIZEtMNzNYamdsUmFFTkUxR29VakVJeTNH?=
+ =?utf-8?B?UzQ0eHRPbHdXTmRsWW1ZckF5Q1djUzZpYzJKL1RIa25paVE4N2dkSU1BSm9j?=
+ =?utf-8?B?RzF4VUF3cXg3ZkhpVGVEWGVNN3lVWVUzNEJ3bE12ZnlyOURCaWFzMkxibDVY?=
+ =?utf-8?B?OURQcUdDNXExZ2lad1hwNnJkeGlUSjJLeHlwWXZHN1NTVHZ2a0s2cWtmSlBn?=
+ =?utf-8?B?c29sS0hGdkRGU1ZEbGswZXNtd0Y1Z1oxUVBycmxRQlQydjgxZ29qK3p6RWpu?=
+ =?utf-8?B?Si9WOUFQR0lOWi83Qm5haXlzUFUwM3dwQUIvb3FuRlVRWWVLYWRWM2xPV0JZ?=
+ =?utf-8?B?NmQzWmwxMStIekFDNEFqZEZYUlAybjhiWEI4Vkx4ZjJ1MUNKb3I0ZTRzQTNt?=
+ =?utf-8?B?ZnBDRmZaTEhXcE1UTDV5SXY4UmRhSmU3cFBxS2QxVHZHYkZyT081WGRQKzBP?=
+ =?utf-8?B?VVREY3BBNHhXTXM1YVFQREpzclUwYUoxY3RIY2RzOUEvT2x2NjF0K2IzQ2Zp?=
+ =?utf-8?B?WlF6eHEra1diaGh1TDVjNFNrd0YzakJTVDB3RVAyUHZ6Y3VWUFZwWDFweHI1?=
+ =?utf-8?B?QWQwYXAxNE9FSjlKV2orNlUrWmtGM3VpMU5sZE4vYU1ZYmZ2c1hURkNHT1I5?=
+ =?utf-8?B?eWxRZnQxSFpCblAxUUsxOWEvb2Ezcm50dEtTVXdMaWhZVWg1UHdvMm9QVGR2?=
+ =?utf-8?B?TmRwZE9MSENlSUMrR2o4OSs2eUZFMk1LMFBNYkdtek9rQXBCa1Q0ckdxQU80?=
+ =?utf-8?B?cUNvMENKcEllVU9SOTczQ0tDWEF3TXVkUDMxRFVPbHFVVXhnNXNNdVJnendm?=
+ =?utf-8?B?WlJSWit3N3lqajd3amZSNFY4a0k4UVZQQVBNNjZFVEFSZWZKeExJK1ZsNmVu?=
+ =?utf-8?B?QVZ0akZmTmZlR0taSzMxRHU1NlRvNjljV0VIK0wwcG1HSXF0ZDNocVM1V2dp?=
+ =?utf-8?B?ek5nbjZtVDJQdHhyalZNT0tIZGhIUTRpeTE4SXNNR1V1bkZVRER1dz09?=
+X-Exchange-RoutingPolicyChecked:
+	PrK5qIhvfdQN2wA4k24b8HlPqX9OTVeAc8vwiq5MRFuZMaP/2Dco44qejOkKvuYsahGYvdaZE2r/ynbg9iRqLYsbieB+sm5OtU2LlBF2KRX/wvCVOaBQA2UVReQhjsvzlROmMS80458hAy3Z6Heu6zhhwCkbPLyovIlha1iYNAZrwgj4E+/WMCsKPniOzuyCOnGc0l49dEfZ7jNCSIMBUW3P3qlyitmySDeu2uoOJ0WdN1vW/zF4seAICl43TagRDk9lkxwdmHbNLc6Vn7maU6w7WHtnOcN9JzZxFJ9YUpFQqrLsGX99hctcD80EUfFGrDYpjn7nhNrliujBALeICQ==
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	Ezf+5Zg2hs1f/QKw+RBK9ISMOulqqUoF8Cpw6cu/NeN1daT3i3K4Wc1zgOQSVrsFTz9ylH5MJGVKPyz/g5+pAgLvPFdWrvJgGv7+bTueSGQ4Ijx0joTurRlbyFUM3pStUvnQSTHpp9B6twFZZb7XTYet/ylYONrUzZWG3mfjZUUW2WpH4M+HRRGlszcYPsn8Hb2fY8/d68a6WC+a/1QnnU1OmltePg2nKUM4e1rYeX/mi47MTIZUiEzvjEKo7gTC410j/rekyFeiTdZh4IyZwBRY2eXerXTDS2KnPm2S4fR5OILkLXt7vZ1/ETkdR09K2eOIzdA0+/I8s4YMCqduc94Hxgpt4Lav5DUArqntBEUP6nRzD0gNeVQdDx8ZTNF7yUZtJwdrhDKYf48yFpIsB3o1VqRrTMAEF67YKgb5CWK91w4amNLmrKnXMUY/PgOsckWkwaypMEVS0+issGAECjqd3dXDstm3ZhFt3GvsgRZbCI7K0Z8k9fU61+wVt1gEy2TD3OtZDRdX6NsKt7eXwMSDrpTRxAWfENBrR/ceMiB3XCyBJRyLktFfxGvTiJLsXYUT1Z3zFCSo+4tEmfxkhn9+o6uOcdWQkBLEkI6oFS+6oUp426dv6GM7OX5N41xm
+X-OriginatorOrg: witekio.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e52543f2-a4c5-4420-d873-08df20e3321d
+X-MS-Exchange-CrossTenant-AuthSource: DB8P192MB0792.EURP192.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Oct 2026 00:13:48.2329
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 317e086a-301a-49af-9ea4-48a1c458b903
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: FuzLSKa0ulSbLKReH0mWgKH8ftymir9i64fCRtyT3SxctEwtR11IwrlV666zkGWzxugMVV+vQo80ZZaCOMtdwg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1P192MB3050
+X-cloud-security-sender:lhart@witekio.com
+X-cloud-security-recipient:devicetree@vger.kernel.org
+X-cloud-security-crypt: load encryption module
+X-cloud-security-Mailarchiv: E-Mail archived for: lhart.opensource@witekio.com
+X-cloud-security-Mailarchivtype:outbound
+X-cloud-security-Virusscan:CLEAN
+X-cloud-security-disclaimer: This E-Mail was scanned by E-Mailservice on mx-gate101-hz12.hornetsecurity.com with 4hxR2m1JJmz1dxnF
+X-cloud-security-connect: mail-northeuropeazon11020105.outbound.protection.outlook.com[52.101.84.105], TLS=1, IP=52.101.84.105
+X-cloud-security-Digest:27236412db9cfd462628b0cd40b06c92
+X-cloud-security:scantime:2.255
 
-On 9/30/2026 8:04 AM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 8 potential issue(s) to consider:
-> - [High] soc: qcom: qpace: concurrent MMIO access from CPU aliasing on >8 cores
-> - [High] soc: qcom: qpace: UAF of global qpace_priv after driver unbind
-> - [High] soc: qcom: qpace: 100ms busy wait with preemption disabled causes latency spikes
-> - [High] soc: qcom: qpace: interrupt storm due to uncleared level-triggered IRQ
-> - [High] soc: qcom: qpace: stray DMA writes on urgent command timeout
-> - [High] soc: qcom: qpace: hardware stuck in STOP mode after suspend/resume
-> - [Medium] soc: qcom: qpace: silent truncation of unaligned output_addr causes DMA corruption
-> - [Medium] soc: qcom: qpace: inline stp assembly breaks big-endian architectures
-> --
-> 
-> commit 5edbc123f3ebd977977e7d874e4ecebc5ed95e6a
-> Author: Georgi Djakov <georgi.djakov@oss.qualcomm.com>
-> 
-> soc: qcom: qpace: Add Qualcomm Page Compression Engine driver
-> 
-> This commit adds a platform driver for the Qualcomm Page Compression Engine
-> (QPaCE). It provides the urgent command path for synchronous single-page
-> compression and decompression, supporting low-latency operations for
-> compressed-memory users like zram.
-> 
->> diff --git a/drivers/soc/qcom/qpace.c b/drivers/soc/qcom/qpace.c
->> index 0000000000000..69aa14b7c4772
->> --- /dev/null
->> +++ b/drivers/soc/qcom/qpace.c
-> [ ... ]
->> +static inline int qpace_urgent_command_trigger(dma_addr_t input_addr,
->> +					       dma_addr_t output_addr,
->> +					       int urg_reg_num,
->> +					       enum urg_reg_cxts command)
->> +{
->> +	void __iomem *td_dst_src_reg = qpace_priv->urg_regs +
->> +				       (urg_reg_num * QPACE_REG_PAGE_SIZE) +
->> +					QPACE_URG_CMD_0_TD_DST_ADDR_L_CFG_CNTXT_OFFSET;
->> +	u64 urg_addr_field_lower, urg_addr_field_upper;
->> +	u32 stat_reg;
->> +	unsigned long ret;
+On 10/1/26 1:19 AM, Krzysztof Kozlowski wrote:
+> On Tue, Sep 29, 2026 at 04:04:05PM -0700, Luna Hart wrote:
+>> +static const struct i2c_device_id tps38900x_id[] = {
+>> +	{ .name = "tps389004", .driver_data = 4 },
+>> +	{ .name = "tps389006", .driver_data = 6 },
+>> +	{ .name = "tps389008", .driver_data = 8 },
+>> +	{}
+>> +};
+>> +MODULE_DEVICE_TABLE(i2c, tps38900x_id);
 >> +
->> +	urg_addr_field_lower = FIELD_PREP(URG_CMD_0_TD_DST_ADDR_L__CMD_CFG_CNTXT,
->> +					  command);
->> +	urg_addr_field_lower |= GENMASK(63, 8) & output_addr;
+>> +static const struct of_device_id tps38900x_of_match[] = {
+>> +	{ .compatible = "ti,tps389004", .data = (void *)4 },
+>> +	{ .compatible = "ti,tps389006", .data = (void *)6 },
+>> +	{ .compatible = "ti,tps389008", .data = (void *)8 },
 > 
-> [Severity: Medium]
-> Will this silently truncate the output_addr if the caller passes an address
-> that is not 256-byte aligned? In qpace_urgent_command_trigger(), this drops
-> the lowest 8 bits, meaning the hardware will write to the incorrectly
-> truncated address and overwrite up to 255 bytes of memory before the
-> intended buffer.
-
-Current use case for qpace is zram (although it is not limited to only 
-zram). ZRAM operates on a page granularity which means that all 
-addresses submitted to qpace will be 4KB aligned which is also 256 byte 
-aligned.
-
+> Does this mean programming model is exactly the same for all of them,
+> just additional channels?
 > 
->> +
->> +	urg_addr_field_upper = input_addr;
->> +
->> +	/* Clear a stale request-on-active error before ringing the doorbell. */
->> +	qpace_write_urg_cmd(qpace_priv, urg_reg_num, QPACE_URG_CMD_0_STAT_CLR_OFFSET,
->> +			    URG_CMD_0_STAT_CLR_REQ_ON_ACTIVE_ERR);
->> +
->> +	/* Ensure that preceding stores that QPaCE will depend on are done executing */
->> +	dma_wmb();
->> +
->> +	/*
->> +	 * Ring the doorbell with a single 128-bit atomic store. QPaCE
->> +	 * triggers processing when it observes the (dst_addr, src_addr)
->> +	 * pair land together.
->> +	 */
->> +	asm volatile("stp %0, %1, [%2]\n" :
->> +		     : "r" (urg_addr_field_lower), "r" (urg_addr_field_upper), "r" (td_dst_src_reg)
->> +		     : "memory");
+> If so, then these could be made compatible in the binding - use
+> fallback, to the ti,tps389004. I don't insist, though.
 > 
-> [Severity: Medium]
-> Does this inline assembly break big-endian architectures? By bypassing the
-> standard writeq() accessors, this stp instruction skips implicit cpu_to_le64
-> conversions, causing the hardware to receive byte-swapped, garbage memory
-> addresses and context configurations if the kernel is compiled with
-> CONFIG_CPU_BIG_ENDIAN.
+> Best regards,
+> Krzysztof
 > 
 
-ACK. Qpace is used in only little endian arch so far. We can look at a 
-handling for big endian configurations as well.
+This is correct. The programming is the same across these parts,
+they are differentiated just by number of channels. The tps389006
+datasheet also applies to the tps389004.
 
->> +
->> +	ret = readl_poll_timeout_atomic(qpace_priv->urg_regs +
->> +					urg_reg_num * QPACE_REG_PAGE_SIZE +
->> +					QPACE_URG_CMD_0_ED_STAT_OFFSET,
->> +					stat_reg,
->> +					FIELD_GET(URG_CMD_0_ED_STAT_COMP_CODE,
->> +						  stat_reg) != OP_URG_ONGOING,
->> +					1, 100 * USEC_PER_MSEC);
-> 
-> [Severity: High]
-> Does this cause severe scheduling latency spikes or RCU stalls? The caller,
-> such as qpace_urgent_compress(), disables preemption via get_cpu() before
-> initiating this hardware poll. Executing a 100ms busy-wait loop in
-> qpace_urgent_command_trigger() while preemption is completely disabled
-> can freeze CPU cores for unacceptable durations under load.
+That said, while double checking this, I could not find any
+substantial reference for the tps389004. I could not find a
+datasheet or any listing of parts with that name. The closest
+I found was a mention about a nameless 4 channel version of this
+part in some developer documentation. Expectation of a tps389004
+came from the previous driver.
 
-Under normal operating conditions qpace will finish processing a request
-much sooner than 100ms.We have not seen any RCU stalls as a result of 
-this 100ms timeout loop.
+As such, I have dropped the tps389004. Leaving only the *006 and
+*008, which share a datasheet.
 
-> 
->> +	if (ret) {
->> +		dev_err(qpace_priv->dev, "QPaCE urgent command timed out\n");
->> +		return -ETIMEDOUT;
->> +	}
-> 
-> [Severity: High]
-> Are we returning a timeout error here without stopping the hardware from
-> continuing the DMA operation? If the hardware takes longer than 100ms in
-> qpace_urgent_command_trigger(), this returns -ETIMEDOUT while the device
-> continues. If the caller (like zram) frees the output page, the hardware
-> could later finish and cause delayed asynchronous memory corruption.
-> 
-If we ever run into the timeout path, then that means a hang has 
-happened and qpace all toegther is not making forward progress on the 
-request. This means it will not be doing any more DMA accesses.
-But regardless I think adding some error handling to stop Qpace from SW 
-is a good idea and can be implemented. Thanks.
->> +
->> +	return stat_reg;
->> +}
->> +
->> +int qpace_urgent_compress(dma_addr_t input_addr,
->> +			  dma_addr_t output_addr,
->> +			  struct qpace_algorithm *algo)
->> +{
->> +	int urg_reg_num;
->> +	int stat_reg;
->> +	u32 stat_reg_val;
->> +	int ret;
->> +
->> +	ret = qpace_get();
->> +	if (ret)
->> +		return ret;
->> +
->> +	urg_reg_num = get_cpu() % NUM_TRS_ERS_URG_CMD_REGS;
->> +	stat_reg = qpace_urgent_command_trigger(input_addr, output_addr, urg_reg_num,
->> +						algo->urg_comp_cntxt);
-> 
-> [Severity: High]
-> Can this assign identical hardware registers to different CPUs running
-> concurrently when NR_CPUS is greater than 8 without cross-CPU mutual
-> exclusion? In qpace_urgent_compress(), get_cpu() disables preemption but
-> provides no mutual exclusion across different cores. If two threads initiate
-> compression on CPU 0 and CPU 8 simultaneously, they will both be assigned
-> urg_reg_num = 0 and race on the same MMIO block, leading to data corruption
-> and hardware timeouts.
-> 
-Current qpace HW configuraion is to work on soc with 8 cores so that 
-these urg_cmd registers match without overlap. Alternatively, we can add 
-a check at probe time for cpu topology and abort device initialization 
-if num cpus > 8.
+For the fallback: I'm unsure if it would be helpful in practice here.
+What does a fallback look like for the bindings? Could you point me
+at an example?
 
->> +	put_cpu();
->> +
->> +	qpace_put();
-> [ ... ]
->> +int qpace_urgent_decompress(dma_addr_t input_addr,
->> +			    dma_addr_t output_addr,
->> +			    size_t input_size,
->> +			    struct qpace_algorithm *algo)
->> +{
->> +	int urg_reg_num;
->> +	int stat_reg;
->> +	u32 stat_reg_val;
->> +	int ret;
->> +
->> +	ret = qpace_get();
->> +	if (ret)
->> +		goto out;
->> +
->> +	urg_reg_num = get_cpu() % NUM_TRS_ERS_URG_CMD_REGS;
->> +	qpace_write_urg_cmd_ctx(qpace_priv, QPACE_URG_CMD_0_CFG_CNTXT_SIZE_n_OFFSET,
->> +				urg_reg_num, algo->urg_decomp_cntxt,
->> +				FIELD_PREP(URG_CMD_0_CFG_CNTXT_SIZE_SIZE, input_size));
-> 
-> [Severity: High]
-> Does this dynamically overwrite the shared hardware context size register
-> concurrently across aliasing CPUs? In qpace_urgent_decompress(), with
-> more than 8 cores, aliasing CPUs will race on this MMIO block leading to
-> data corruption.
+Regards,
+Luna Hart
 
-ACK. Same response as above comment about > 8 cpus.
-
-> 
->> +	stat_reg = qpace_urgent_command_trigger(input_addr, output_addr, urg_reg_num,
->> +						algo->urg_decomp_cntxt);
->> +	put_cpu();
-> [ ... ]
->> +int qpace_get(void)
->> +{
->> +	int ret = 0;
->> +
->> +	mutex_lock(&qpace_ref_lock);
->> +	if (qpace_priv->suspended || READ_ONCE(qpace_priv->broken))
->> +		ret = -EBUSY;
-> 
-> [Severity: High]
-> Can this exported API blindly dereference the global pointer after the driver
-> has been unbound? If the device is unbound via sysfs, qpace_priv is freed,
-> but the global pointer remains set. A subsequent call from a client like zram
-> will call qpace_get() which dereferences qpace_priv->suspended, resulting in
-> a use-after-free.
-
-ACK. Possibly we can make use of qpace_drv_probed in exported functions
-to avoid using qpace if it has been removed or not probed.
-
-> 
->> +	else
->> +		_get_qpace();
->> +	mutex_unlock(&qpace_ref_lock);
->> +	return ret;
->> +}
->> +EXPORT_SYMBOL_GPL(qpace_get);
-> [ ... ]
->> +static irqreturn_t urgent_interrupt_handler(int irq, void *unused)
->> +{
->> +	pr_debug("Urgent interrupt handled\n");
->> +	return IRQ_HANDLED;
->> +}
-> 
-> [Severity: High]
-> Will this cause a catastrophic interrupt storm? The
-> urgent_interrupt_handler() fails to acknowledge or clear the interrupt at
-> the device level. Because the GIC interrupt is level-triggered, returning
-> IRQ_HANDLED without clearing it on the hardware will cause it to
-> immediately re-fire forever, resulting in a hard CPU lockup if the
-> hardware ever asserts this line.
-
-Currently as seen above, SW is noified of a completion event by polling 
-the HW register and not using interrupts. When other usecases are added 
-which use interrupt, then you are right that the HW registers will be 
-reset/cleared.
-
-> 
-> [ ... ]
->> +static void qpace_remove(struct platform_device *pdev)
->> +{
->> +	mutex_lock(&qpace_ref_lock);
->> +	qpace_priv->suspended = true;
->> +	mutex_unlock(&qpace_ref_lock);
->> +
->> +	static_branch_disable(&qpace_drv_probed);
->> +
->> +	wait_for_completion(&qpace_priv->no_active_refs);
->> +
->> +	/* No callers remain; tear down the hardware. */
->> +	cancel_work_sync(&qpace_priv->disable_work);
->> +	qpace_power_off(&pdev->dev);
->> +}
-> 
-> [Severity: High]
-> Does this leave the global qpace_priv pointer set? In qpace_remove(), the
-> device is torn down and devres will free the memory backing qpace_priv, but
-> the global pointer is never cleared, enabling the use-after-free mentioned
-> above.
-
-ACK. The pointer can be set to NULL to be safe and qpace_drv_probed can 
-be checked by exported functions to avoid using qpace if it has been 
-removed or not probed.
-
-> 
-> [ ... ]
->> +static int qpace_resume(struct device *dev)
->> +{
->> +	int ret;
->> +
->> +	mutex_lock(&qpace_ref_lock);
->> +
->> +	if (qpace_priv->active_rings)
->> +		dev_err(dev, "active_rings not 0, unexpected case\n");
->> +
->> +	ret = icc_set_bw(qpace_priv->interconnect, 0, 1);
->> +	if (ret)
->> +		goto out_unlock;
->> +
->> +	program_urg_command_contexts_v2();
->> +	program_decomp_core_cfg();
->> +
->> +	qpace_priv->suspended = false;
-> 
-> [Severity: High]
-> Will the hardware be stuck in STOP mode after suspend/resume? In
-> qpace_resume(), we restore contexts but fail to wake the hardware engine
-> up to RUN mode (omitting the QPACE_RUN write) and fail to reprogram
-> essential bulk mode and cache index settings from qpace_hw_init(). This
-> means all hardware operations will indefinitely time out after the system
-> resumes.
-> 
-
-In suspend case the HW is in power collapse mode, but once woken up will 
-retain it's run status.
-
->> +
->> +out_unlock:
->> +	if (ret)
->> +		dev_err(dev, "failed to resume QPaCE: %d\n", ret);
->> +	mutex_unlock(&qpace_ref_lock);
->> +	return ret;
->> +}
-> 
-
-Thanks,
-Oreoluwa
 
