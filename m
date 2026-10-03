@@ -1,68 +1,67 @@
-Received: from mail-ej2-f41.google.com (mail-ej2-f41.google.com [74.125.228.169])
+Received: from mail-ej2-f42.google.com (mail-ej2-f42.google.com [74.125.228.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A00954137BF
-	for <devicetree@vger.kernel.org>; Sat,  3 Oct 2026 10:45:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6170A3A6B6A
+	for <devicetree@vger.kernel.org>; Sat,  3 Oct 2026 10:46:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791024360; cv=none; b=Fxv99rkUqaYLJB2LguG0ZBEkqmdgBeEU2BfgsBrKBzxGr3+gHUXQ0y1NrcSRLZ2QlcKfWRIN22klIDoCl0+9nCeLgUAO10vWw1TGAL5PL2q7LWsZPgcRIqq80csBkNe83jkrYZg9ixhpO860ylSCab+tQmgYCuWImV/A6sPXFRU=
+	t=1791024395; cv=none; b=Wb2W2JW9QT+ds/YYLufAAY4fou4aZffVA+ba+pz4Tp0KyGsdbeoae7uT0mvpxGl0lJiAON3l6aUXocQmOPY1s+9gXltMg+TImLZWfT+zFRefAUmCDYMoDZdrWfyLB+B+F1pwhOqYFdpVijMjAScspQUbJkXigOwbX7EOeDkA6Sg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791024360; c=relaxed/simple;
-	bh=yk9FkD+JS1tHx2piExJrz00C5iQ7PsL+msSyrNMAWNU=;
+	s=arc-20240116; t=1791024395; c=relaxed/simple;
+	bh=idvxGuLkq+sQb4zIcAERMp4WjduqYGvTIN3q9L7ywvg=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Hn8o1XSXvDghEAkpDXNaePei+qymyCYfGIQC4xtUyIXthtJq2J5ynHlYMNmr2fODoRSO+4mWG6izrljXTl4kyeuVBuy635SSUYAL9Ini2aH0WHJJN0W7FfJl7MZ+k0Mi8Zrbysnc7N4XpgnrhpcsyXzfeexv097Qr/8B4uP9EuE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=lyLOGqqY; arc=none smtp.client-ip=74.125.228.169
+	 In-Reply-To:Content-Type; b=oT409fWhPJLrCyBwzsF5VwVJfhB1Uwxkpl5tNOQi6W+OUAZeNrpbcvIo9e+l0coBn8aQW5jpvU+aftJCRK0Uv1K5ukF64PQVeRafaQU1PX+zCswEEl9fenCdB3GX0aVh7i5e2earQCq2X6SeqhVSiPpWSYjFeUY/ast/oONuEY8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=Bp7lyqy2; arc=none smtp.client-ip=74.125.228.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="lyLOGqqY"
-Received: by mail-ej2-f41.google.com with SMTP id a640c23a62f3a-c2e3dcfe205so85186166b.0
-        for <devicetree@vger.kernel.org>; Sat, 03 Oct 2026 03:45:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="Bp7lyqy2"
+Received: by mail-ej2-f42.google.com with SMTP id a640c23a62f3a-c2e59b02972so76588166b.2
+        for <devicetree@vger.kernel.org>; Sat, 03 Oct 2026 03:46:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791024357; x=1791629157; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1791024391; x=1791629191; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:content-language
          :from:references:cc:to:subject:user-agent:mime-version:date
          :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ezx4xzy/gAlLbYrRv684J3BP0hR2VYyaFcE+9qMDACQ=;
-        b=lyLOGqqYLANJW8O8xGo68iSmAwDLaIr7iTuFPbDIfo2m3lkVxQK6zSmh/9mknGNJCX
-         54Y7xDnz+WWxTnG64CWVFVAXPqJwNJ68zJ3ol5qmY+aoeOW9Vf8qf2YHrXNtHuMyFdBL
-         YwyEk4yx1fpL4SMVbjgBtAyHz9qwJTBEr7lpYC/eNZrYhClWpvuuWeIcMmg9wt5Jtisu
-         Zfd1bEZjBjhwFCK78xkwHyBEnLJA934tfwR8zNiBJeu2ys1+zl0HfbaiE9dbIKR1reR1
-         /McgjmBfhu5AMb0rP+Wi4WXuZNxKdaOnDZG4jFCv5lAFDX68Xe03INgxt4Fh0hHl0KD0
-         +GMg==
+        bh=RwKHh70JY+GXTFZ9akuGUGzP+mt92O/1MI1gWM+jXbk=;
+        b=Bp7lyqy22dtkDtBgCaPOy/YpLuidGCaKL2LluRaZphZD76VXP8ZUceOL7fBY4iEDAG
+         P7l+8iJAh0YKs2C0uiJw1n+itNn/TpiEOVBcAdiOW0CWxj1VvSPTmLF5c+gREmnSMJuS
+         fU4KmjbWaPLVXMZw7ORLteyYv5trjH422IaUOvcOVuOq+0yBzST7xasy+bA5SVDiOlY2
+         qavtykVnoold9L+exf2ilzsrEqQsUALJE+Vc+4WLv/pWRvkTq8WGvVBnharq4qLPDmZ0
+         xwdQAar3xtVsibD1PEaXl8RukdAEEioKeHm12tk8g5PdTyMzx46DE9uOmqaJmdIJIxXj
+         omCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791024357; x=1791629157;
+        d=1e100.net; s=20260707; t=1791024391; x=1791629191;
         h=content-transfer-encoding:content-type:in-reply-to:content-language
          :from:references:cc:to:subject:user-agent:mime-version:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ezx4xzy/gAlLbYrRv684J3BP0hR2VYyaFcE+9qMDACQ=;
-        b=u6WpZag9qO1lvtFxH46w6Hji2+gzYDn290XiPh+Msx4FoSReAag7GXUCKFu80GCNR/
-         t8E8qkeB1Z+vVSfqEU5H670QWJjhJaTNUWhpylOUEm0krMFpm2xegTMYbFK9220Z5pbk
-         nSp8+Hp9p8/USRKB+s4c8Wosac+MAMisInRo1522dw1PE0ZZVHzCWwXGSpIMQSrn3t5v
-         5wI9FAeQmbHycEB5A4SKnXChujMV9iU3o+wTSB8VcMb0yehaObPBm+Y+ieRJZq/oNGz4
-         uLMbhxztB7ro0v+7osWTyZ3p9JrGI+lBTBGxNe8YcK0CeYJeGqFZRyRwAS79tZbOEIKE
-         l/Bw==
-X-Forwarded-Encrypted: i=1; AKwUvBwcoyqGSqz16GXDkL6vPAwqU8FFnSgAvPuFMLptZWM9YyGJp7DRNIljARCIZBOkuQ9MJiq9pXGHpnwd@vger.kernel.org
-X-Gm-Message-State: AFq9FYIMenSHleM+ohVHv+F4032TgT8iUGKRfsAruGoJzOYJI9ZONvQV
-	cmkcpUbkAZE2AWPSLV3KlGKXcz0CRttra91UimUVRr8krE7uJZ3Cu2mJ/xdhIHIpADOfsZtsDIi
-	YKg3WIPY=
-X-Gm-Gg: AYBFou0dG9YIV1JWuYOrZHIqeWX7ZgeB8qIUvl1Q2nIpAShGc85e6KDjUQp8rvDAqXs
-	g0MIeCsKwxLqU1W/svRfKphobKxymKyACTBaSMDrZzKQNs3DTBGhi3lPsLKznhuwv2bRxKH5tJi
-	eYzZAWTl7b2o4UWONF3tjPMsOOPd17Joh5AeDvDizOtMwnmv0299IJ2KjLl3NoKbZ6nDQPjWOAg
-	1NmXEq7youU0KlssvVHRpWWSQfrmFma+qRaQyjZTBv/04PzH/5OdEvShRURar82jaV6HpMef+p9
-	q7sDfv0hKGKaC3rP5Qs/K/GCtPJ5qFLF1Y75fa8nUWr3zBE5uNzXIQ7RuoyxQ8HxvsNg+BUkvgj
-	JNBKNrR4WtvAtTSD8DTRut2Sl8Qryl1ySj3PfUOyCTNOhqLTALyCC3dU6TAjJgEngEW/CfJy9Oe
-	xjYuDFpVa9p96avZr4nnguewrvuGPNB0hF4d0qfGtfx2BPxv3t2Fh8gJ+NXmdJyYlS1I50mM+2b
-	4XMQo0u8Nk=
-X-Received: by 2002:a17:907:6d24:b0:c2d:ca8d:435a with SMTP id a640c23a62f3a-c2e4af80457mr432580266b.38.1791024356730;
-        Sat, 03 Oct 2026 03:45:56 -0700 (PDT)
+        bh=RwKHh70JY+GXTFZ9akuGUGzP+mt92O/1MI1gWM+jXbk=;
+        b=vSGfvzrr28un1/xZOUxdoAk0LO4pMCXMOW+3HwPeFpjpPF781AJ9B0aPUsoi63YW7B
+         mDIHJK6yLAPqMAvjpYCDBI0sbmDVQSeG4+ONDOr/tEzS5rng5Q1/hIx8BDZn8mM1fjOZ
+         M9sC1A028C3qmXqEC6Gqd49v698hZRg3sscPDcnD5xdpbgMdbWglpKIuk0UczOQ7Jujd
+         N4Df+MtLEzQJimSWcmNWGqFwZrUySzT4BxzrMObRJgBmUKuU2kaktwcmqL+nK30wt/zh
+         2OksbMezpeNqtT05wvRknzqT0LK4tYxuTiwUflvVmp1ehHD8eXdOyZ3C6Ybqtm4EWIr0
+         4AKg==
+X-Forwarded-Encrypted: i=1; AKwUvBwiQ3j9iDq0aW1uaAhDN/gZ63avcWl+9aIlWU72te+ooD8rDQVh0/b5UbVPbyg8q2YMUNHb+F5XEdzd@vger.kernel.org
+X-Gm-Message-State: AFuF++lgagHeCP16ofWMzqtfxViXLF78Kr8WykQ3T89wiI7U76utgE/G
+	tEMAHo3l1/8iIKmAbiRQhGjoNRONasoCm63WTEFg1vf7YioVbl/W+xE2/4qoFrns18c=
+X-Gm-Gg: AYBFou0tirH8sgFNK1X8kcR5tsLyANcY/a7w7UfMVSlypj7zeYK9IROjlZWXoinuUxM
+	Of5xUxYUMxkyzVkC5mMPAKBWHXgYn0t+onenUxbQgN7P8qhjMsxkA3SiEOgT6wZQmUDCY7AYCMe
+	4+8PbpB17b0fZaJgn8dclIi0Zxb7XhqdDHl/mXsTWSVp7OGsktyq1wUkIX5dpmKH/I/P6/TSpqB
+	G6LXRp5nT0aUXvQxV67IbTxC4agiZ1XfmClpC5if+ouRDQkFBENQMPfEuVGwpBz83SjoebOOmTI
+	PoRJneOa5Gb1pCeWShoegA4KvhxEElxzBrWZqa15CH+vTIYGdgfA5QutWhD1GnnQYuuAfUfY4sn
+	iJr1bpeSXMxI/0aAXWf+nh876Uf/94DnxrcEiqQ9goc4vIfSE2N84AmntY2WGvK36mlpR+WUWvK
+	/jFsWyfnF6Ir81yWSXBezbLVZmHGU6pShiChWWoNMuRghjnHqPKM1k5lUVF/5IVJnPKPJVSacb9
+	qYL3N7pm2c=
+X-Received: by 2002:a17:906:f58b:b0:c2e:30a9:c04f with SMTP id a640c23a62f3a-c2e4ad155a4mr454607266b.13.1791024391402;
+        Sat, 03 Oct 2026 03:46:31 -0700 (PDT)
 Received: from [192.168.0.167] ([109.77.86.130])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e4cd26bedsm186675466b.34.2026.10.03.03.45.55
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2e4cf5f4e4sm192822066b.42.2026.10.03.03.46.30
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 03 Oct 2026 03:45:56 -0700 (PDT)
-Message-ID: <80d0d390-a0ca-452f-b8fd-a7da85bdde92@linaro.org>
-Date: Sat, 3 Oct 2026 11:45:54 +0100
+        Sat, 03 Oct 2026 03:46:30 -0700 (PDT)
+Message-ID: <61a2d75e-4061-4be9-ad8a-a85c5bf7368c@linaro.org>
+Date: Sat, 3 Oct 2026 11:46:29 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,8 +69,8 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] dt-bindings: soc: rockchip: add rk3576 csidphy grf
- syscon
+Subject: Re: [PATCH v2 2/4] dt-bindings: phy: rockchip-inno-csi-dphy: add
+ rk3576 variant
 To: Amin Gattout <amin.gattout@gmail.com>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
  <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
@@ -81,36 +80,55 @@ Cc: Michael Riesch <michael.riesch@collabora.com>,
  linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
  linux-phy@lists.infradead.org, Conor Dooley <conor.dooley@microchip.com>
 References: <20260915-rk3576-dphy-v2-0-b56e68b54b8c@gmail.com>
- <rtlQmJQ4ykTc4dV6nFJIqsjY7h9hUEOCFQETkvIiKG5GSaRI0L45Rmi2FuzpULqJC8hFjPE_3D4kyuRqgJNOdA==@protonmail.internalid>
- <20260915-rk3576-dphy-v2-1-b56e68b54b8c@gmail.com>
+ <Vv2QfKmkyPTU5VXXS1TYn-cg7DX3OD7InbT-5UjiZLMHVPPDWcj-0hgl7PJxI7ugjmudNTZJfhXCisY2fExubQ==@protonmail.internalid>
+ <20260915-rk3576-dphy-v2-2-b56e68b54b8c@gmail.com>
 From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 Content-Language: en-GB
-In-Reply-To: <20260915-rk3576-dphy-v2-1-b56e68b54b8c@gmail.com>
+In-Reply-To: <20260915-rk3576-dphy-v2-2-b56e68b54b8c@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 15/09/2026 11:42, Amin Gattout wrote:
-> Document the syscon compatible for the General Register Files of the
-> RK3576 MIPI CSI-2 DPHYs.
+> The Rockchip RK3576 features two MIPI CSI-2 DPHYs compatible with this
+> binding. Unlike the RK3588 variant, each PHY instance only has an APB
+> reset line, so add the new compatible to the single-reset group as
+> well.
+> 
+> No fallback compatible is used because the RK3576 DPHYs match neither
+> existing variant: their control bits sit in a dedicated CSI-DPHY GRF as
+> on RK3588 (rather than in the shared VI GRF used on RK3568), while only
+> a single APB reset is wired up, as on RK3568. Falling back to
+> "rockchip,rk3588-csi-dphy" would make the driver request a second,
+> non-existent reset, and falling back to "rockchip,rk3568-csi-dphy"
+> would make it write to the wrong GRF offsets, so dedicated match data
+> is required.
 > 
 > Acked-by: Conor Dooley <conor.dooley@microchip.com>
 > Signed-off-by: Amin Gattout <amin.gattout@gmail.com>
 > ---
->   Documentation/devicetree/bindings/soc/rockchip/grf.yaml | 1 +
->   1 file changed, 1 insertion(+)
+>   Documentation/devicetree/bindings/phy/rockchip-inno-csi-dphy.yaml | 2 ++
+>   1 file changed, 2 insertions(+)
 > 
-> diff --git a/Documentation/devicetree/bindings/soc/rockchip/grf.yaml b/Documentation/devicetree/bindings/soc/rockchip/grf.yaml
-> index 7bcb4e2f47ec..e94c83d7c138 100644
-> --- a/Documentation/devicetree/bindings/soc/rockchip/grf.yaml
-> +++ b/Documentation/devicetree/bindings/soc/rockchip/grf.yaml
-> @@ -32,6 +32,7 @@ properties:
->                 - rockchip,rk3568-usb2phy-grf
->                 - rockchip,rk3576-bigcore-grf
->                 - rockchip,rk3576-cci-grf
-> +              - rockchip,rk3576-csidphy-grf
->                 - rockchip,rk3576-dcphy-grf
->                 - rockchip,rk3576-gpu-grf
->                 - rockchip,rk3576-hdptxphy-grf
+> diff --git a/Documentation/devicetree/bindings/phy/rockchip-inno-csi-dphy.yaml b/Documentation/devicetree/bindings/phy/rockchip-inno-csi-dphy.yaml
+> index 03950b3cad08..92d0c961f4c4 100644
+> --- a/Documentation/devicetree/bindings/phy/rockchip-inno-csi-dphy.yaml
+> +++ b/Documentation/devicetree/bindings/phy/rockchip-inno-csi-dphy.yaml
+> @@ -21,6 +21,7 @@ properties:
+>         - rockchip,rk3326-csi-dphy
+>         - rockchip,rk3368-csi-dphy
+>         - rockchip,rk3568-csi-dphy
+> +      - rockchip,rk3576-csi-dphy
+>         - rockchip,rk3588-csi-dphy
+> 
+>     reg:
+> @@ -89,6 +90,7 @@ allOf:
+>                 - rockchip,rk3326-csi-dphy
+>                 - rockchip,rk3368-csi-dphy
+>                 - rockchip,rk3568-csi-dphy
+> +              - rockchip,rk3576-csi-dphy
+>       then:
+>         properties:
+>           resets:
 > 
 > --
 > 2.43.0
