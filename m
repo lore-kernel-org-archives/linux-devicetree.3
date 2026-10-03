@@ -1,194 +1,82 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D9832737FC;
-	Sat,  3 Oct 2026 20:45:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B8EB394792;
+	Sat,  3 Oct 2026 20:49:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791060330; cv=none; b=BtqZs95jgtNPz8RY67Sj0dKD23p6TURVS1RLfPUtko9Add6DlQAQj6ts6diBIKFfXxLpE+tg5ixDdDxDZCteOlDBEo+0IxXnBl8bZQ2iqz6NCQqwv3FR1d8JRY+QQtDSJI7RBWN8QhqrnRzx3y7AcH6iADLMGGA3Rj3hKbdnjEM=
+	t=1791060588; cv=none; b=I1z7SkCisd5hzYA4YhqznnueY4EsJTykM3BuNx6aRIPxPNxLUx5YAHcUoUxF9divGFm37syGiih48uuYy7f2Yji1u58J4qCRgW9+v3QixM2YQ9wxCCIn+romquOreMox1fjOXG0uvvMAjPAWPz4tO0CRgnFSeF63VxgkA4HoQbE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791060330; c=relaxed/simple;
-	bh=JenYKjlV6XIEvMSaZd7zEXK28c/Rlb8gWmrbqlqg4vs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NzPIbx4fE9f3c0t1U7gVddogFXv94MtNIqKSYhTpZmfCCwAhFv6lVg175Aktajwy6QE9cNNtJLVTAC/i6fbQtzIRYKsRZhczfog+jGVYwyCLZSaSgTvWdf2Lyq2oHWi3L01ZX6apOTuCJyYQYKRt6XHI5p3M+YdMesyKkBNpLmI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OZEj4F1n; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791060588; c=relaxed/simple;
+	bh=KC5YyxgmjngtWl4u2LrF1ZBHhFXX2suujOh91mWIuZY=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=rSS6Acroepsa2f3aBEj1YA8VUdB/EX+orUaKEb0pbx22v3NN6mXVDhPvLdGeqbcC3EITle/tbATMFAUu+zuaz80RFPqdb2JLqRWf7HvFZ7iOhomfxbbzruxYOdbkRncGPkNiRHWI/RhotJ6HL8JYE4xaeVjVNgFwaDlS2FYPRlg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GM3ziYP9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OZEj4F1n"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 333BB1F0089B;
-	Sat,  3 Oct 2026 20:45:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GM3ziYP9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D9AA1F0089B;
+	Sat,  3 Oct 2026 20:49:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791060329;
-	bh=X8iuOQXnVYYdSG0NuC0FpqYPqJ9aUVdctLVwjWuIw3s=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=OZEj4F1nQ7bdjYU+XZTkdEJ7/ssHip5lidQLNVWEi/QuA6awBDOVhvWhzQXm6yFj4
-	 eKotg0qzyzRTMIrQc4GaFLTN1IG6xzhob5Q7l6ys9J4THnxp1Rid4s3b+62yu3V7Zq
-	 5/kv8sJp35n9cpbZ5F9opovWevocGak0PMALOgcHIIOZ/zmullKw1j81ZRkbGHScO6
-	 c9oEPZeC/1yIBZ6Yv2C8ujWVbyvUIo99ndVuw+6hJjXEIKpmm/0hCgCO5X3bBNH63x
-	 jHELs+T79aqduVbESmXLEyYl7qMd5rPThx+TF0J5HF/PJQtqqUmyUQZVlPTgb9xi50
-	 lZCZLAfDvkq+g==
-Message-ID: <3ee91c92-4e3a-4bac-85cf-923f5d77ceff@kernel.org>
-Date: Sat, 3 Oct 2026 22:45:16 +0200
+	s=k20260515; t=1791060586;
+	bh=1BuU7jC4i69chPY01RNYqlbIN9dzYHsP3HeLG1L5754=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=GM3ziYP9DJpdpqyZUdsiOItfTiwlDIV53YabQDxNKLKY6JpkOms/6aC9WNsXAc85A
+	 ijv6PbGX04i93Vu8W0mWkMuzDrJpy+A1k58fCuYuwqbgsxIMrZQ64rlQGukUtbZrnX
+	 KX1mUDuQ2BNtOKdU5C1ZsI5QhzeGYH0C8cQbVQrUur3uMLkDBzcotnk4sdPuo7GZkl
+	 HrJs6d9bGceDMMIuCx2eJ/5UaYb2NyYfnodkBJ6lF/tChW7qqXp+Fugy5vS58zJQeu
+	 plRpQUFpk709ZQbPlv805TmwWB2rSIGtr3yAkC/YMZlXzyLErCI3W5um9I88z1yL2E
+	 e/EYllVn/5DLA==
+From: Vinod Koul <vkoul@kernel.org>
+To: kernel@collabora.com, Chunfeng Yun <chunfeng.yun@mediatek.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Julien Massot <julien.massot@collabora.com>
+Cc: linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org, linux-phy@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260826-mtk-usb2-repeater-usb2-v1-0-e8e48e2fd6d8@collabora.com>
+References: <20260826-mtk-usb2-repeater-usb2-v1-0-e8e48e2fd6d8@collabora.com>
+Subject: Re: [PATCH 0/2] phy: mediatek: xsphy: add eUSB2 repeater support
+ for USB2 ports
+Message-Id: <179106058316.240943.4391434773392918237.b4-ty@kernel.org>
+Date: Sat, 03 Oct 2026 22:49:43 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 01/20] dt-bindings: phy: Add
- starfive,jh7110-inno-hdmi-phy
-To: Michal Wilczynski <m.wilczynski@samsung.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
- <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
- Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Lee Jones <lee@kernel.org>, Andy Yan <andy.yan@rock-chips.com>,
- Philipp Zabel <p.zabel@pengutronix.de>,
- Emil Renner Berthing <kernel@esmil.dk>, Hal Feng
- <hal.feng@starfivetech.com>, Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
- Dominique Belhachemi <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, linux-phy@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- dri-devel@lists.freedesktop.org, mfd@lists.linux.dev,
- linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,
- Marek Szyprowski <m.szyprowski@samsung.com>,
- Maud Spierings <maud_spierings@murena.io>,
- Graham Markall <hello@big-grey.co.uk>,
- Icenowy Zheng <zhengxingda@iscas.ac.cn>,
- Chaoyi Chen <chaoyi.chen@rock-chips.com>,
- Joshua Peisach <jpeisach@ubuntu.com>,
- =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-References: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
- <CGME20260915153214eucas1p2b548f3236ef98fb0cbf320e397420125@eucas1p2.samsung.com>
- <20260915-jh7110-clean-send-v4-1-f0e4fd6f2cc8@samsung.com>
- <20260917-mutant-chamois-of-competence-46ca77@quoll>
- <1a1a9b49-430b-4218-b27d-e133d488e8d9@samsung.com>
- <6cf9e611-bfc5-407b-8132-bd328f8b61fc@kernel.org>
- <eaba2fa9-a1ce-4dac-9bd6-e0b3a3dd01ef@samsung.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
- /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
- s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
- EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
- rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
- DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
- IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
- vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
- oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
- sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
- vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
- Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
- BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
- 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
- f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
- WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
- XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
- IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
- YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
- p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
- GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
- YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
- vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
- ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
- QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
- +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
- wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
- c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
- K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
- n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
- qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <eaba2fa9-a1ce-4dac-9bd6-e0b3a3dd01ef@samsung.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14.3
 
-On 03/10/2026 17:36, Michal Wilczynski wrote:
-> 
-> 
-> On 9/30/26 13:01, Krzysztof Kozlowski wrote:
->> On 25/09/2026 23:05, Michal Wilczynski wrote:
->>>>> +  clocks:
->>>>> +    maxItems: 1
->>>>> +    description: Reference oscillator.
->>>>
->>>> This barely counts as a resource, so usual question: no resources here?
->>>> no MMIO? Even the user of this phy is the block itself.
->>>>
->>>> This makes me wonder if this should be a device node in the first place
->>>> (instead folded into the parent).
->>>
->>> The PHY has no reg because the reg is shared with the controller and
->>> owned by the parent - patch 9 lets the bridge take its regmap from
->>> there.
->>>
->>> The user of the PHY is not only the block itself. It is the pixel clock
->>> provider for the whole display subsystem, voutcrg takes hdmitx0_pixelclk
->>> as the parent of its DC8200 pixel MUXes, and while HDMI output is active
->>> it is the only intended source for that clock. The parent has to be
->>> assigned explicitly so the general PLL does not end up driving the pixel
->>> clock, and so a DSI user does not reach the HDMI PHY clock generator.
->>>
->>> So it has to be its own node. The HDMI block has two independent
->>
->> I do not see the logic which lead to this conclusion. Pixel clock
->> provider, so a clock controller, cannot be a user of a phy. Clock
->> controller does not have a physical layer.
-> 
-> Sorry I think the wording was not perfect. I meant the PHY node is a
-> pixel clock provider. voutcrg consumes a clock not a PHY.
-> 
-> voutcrg: clock-controller@295c0000 {
->          clocks = <&syscrg ...>, <&hdmi_phy>;
->          clock-names = ...,"hdmitx0_pixelclk";
-> };
-> 
-> The consumer of the PHY is only the hdmi controller.
-> 
-> What matters for the node layout is where that clock goes. voutcrg is the
-> SoC display clock controller - it is not part of the HDMI block:
-> 
-> hdmi_phy -- pixel clock -> voutcrg
->                               |
->                               - pclk/mclk/bclk -> hdmi_controller
->                               - pix0/pix1 -> dc8200
-> 
-> hdmi_phy and hdmi_controller are the same register block with one reg
-> owned by the parent. So if that block is described as a single node:
-> 
-> hdmi_node - pixel clock -> voutcrg
->      ^                          |
->      --- pclk/mclk/bclk --------
-> 
-> the node provides a clock to voutcrg and consumes three clocks from
-> voutcrg. That is a cycle in the device tree description.
 
-There is no cycle. Internal signals to the block are not represented in DT.
+On Wed, 26 Aug 2026 14:38:34 +0200, Julien Massot wrote:
+> Some USB2 PHY ports are connected to an external eUSB2 repeater chip
+> that sits between the PHY and the USB connector. To support such
+> configurations, this series adds an optional phys property to the
+> MediaTek xsphy port sub-node and integrates the repeater into the USB2
+> PHY init, exit and mode handling.
+> 
+> The binding follows the same pattern as the Synopsys eUSB2 PHY, which
+> already uses a phys property at the sub-node level to reference an
+> external repeater. The driver change similarly manages the repeater PHY
+> alongside the MediaTek USB2 PHY.
+> 
+> [...]
 
-What you have is a driver problem and you create some sort of DT
-structure to solve that. DT purpose is NOT to solve your driver
-dependencies or circular connections.
+Applied, thanks!
+
+[1/2] dt-bindings: phy: mediatek,xsphy: add optional repeater phys property
+      commit: e95b476302852ac1fb5bffaa824ac2cd35178e58
+[2/2] phy: mediatek: xsphy: add optional repeater support for USB2 ports
+      commit: bda1af7b177a94f6d169f0b359c61e7a7d39a36e
 
 Best regards,
-Krzysztof
+-- 
+~Vinod
+
+
