@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF9AB221F39;
-	Sat,  3 Oct 2026 21:18:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C76E49A3AF;
+	Sat,  3 Oct 2026 21:24:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791062312; cv=none; b=rHhsIHNgwgkwpdyQIdpeeot+y0XYTYwOpM0B7xUsRdmh498sZG6jpCrRuhMuKelt1jfas6/uoeW1tQZzw0JqDYuJWkx3/RK9IsWo6L/4KHjXVOWyzZ5w+9koclSZ4HWOna3inMz/R26zp11PqfZL2A9hd44d1nKktDIiDUIsnm0=
+	t=1791062694; cv=none; b=embl651cN1M+3sNoLeFzXUC0liz9+aPcjtkirKOIjSBKzYF/Ox1jed5QetrlrS9eshbBVj60sDbO555nYBxMNAw0JUIyoDjwGmgzt2Kbeh6qNaWbo4kqBYvnuxUXlol6zK75UFJfMdakJcAgH+IcgmvWH0aQ5EPJD0JxlrAAZZc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791062312; c=relaxed/simple;
-	bh=RlKDGGrVWfLqxn07Sgrd8UkIFjHMbd7p4BW5/kvZmmk=;
+	s=arc-20240116; t=1791062694; c=relaxed/simple;
+	bh=w8dFbUF32AbL/4mfCX6syCCVd1xhsU/quBfprhz/VcI=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pDkRXZ2Um14NMMJrYOU2Wi2xcT7wePBP8+w7sDr1jBm6s57rJXCddMNJKpKmPNWPRLhVFRB5TYjCq3wVPBVETyAJAQuDn94b5/eArS3m6uAuz9cqEd1df6ljyszG9qExD4rveAcRSvDMP7zbQMLjQqQAbKvjg+LB5SQJo+W1v4U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ayNfcK1r; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=LOjiTi8/nXHMbZzzNDUdN+nmpI0cRwl4QVZ0HO4ltHb1KtkcM5nUh3TCwBo+BhA6IN93AEzP5zHJeiVkrSS1X2+9Q2YVFlY4ItrYjwpcGwaN1HnYdqNa+jxaDXKq01RXC0G92y8+8+3Q9MmIwcTqz8dCIEpekFILxsA3TUrUiaM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WJjexml6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ayNfcK1r"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CE541F0089B;
-	Sat,  3 Oct 2026 21:18:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WJjexml6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96B6B1F00A01;
+	Sat,  3 Oct 2026 21:24:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791062311;
-	bh=QFUWQ2qkbmbrXAMMVcxH3MVAzoCMw16GTny7iGm+v4M=;
+	s=k20260515; t=1791062693;
+	bh=zCvngb9mLLtU/OT3MyqfFstZOG3lVllZVd75wGA7FsA=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ayNfcK1r97THljNL5bFI2fITox4aT3MAPzMUumOiObDNFdrv1UlbvUk94hi1vmetS
-	 3hkaJHTDr+ctf8BML31pJ9fixux3Q1jRHnxx7ELAVUDWA2gE9vcGL0+ZLTJOcV0ZRS
-	 4sn9x9mPpcQqeHgEa06Ttyok5jgMRJHw2udYiHWlhVw/5Mq8++Z69ics5qErbhLGVe
-	 cJTjVnYVZX3ymg9o2Hz1hT0iYPkXHYqGENM/nRTfq1RaCsJaEWwPKka3WdxuBftmJ1
-	 gidi5k/fqG1um8OpG0BvbIRLt65QGM9mJjOsikFp3m2NX6LLW9uZ7IouRF180pL9vF
-	 fY0vIRm6ajQdA==
-Message-ID: <eeb7c9d4-ed3e-4b94-a590-0fcff1998971@kernel.org>
-Date: Sat, 3 Oct 2026 23:18:27 +0200
+	b=WJjexml61cgZcvz12l3t8R+zE/vaYCf6sMQ24vYaRtxiJDneJPrwbRAWLEhLInOcM
+	 kmGZcZno6tyl0DFK8o3vYea0qtAme+QrnniTKcYFDLE1BD0kVQng2VXAp9idX93SKQ
+	 VFIa7MloiZGwWaqTxiR5plgMKxZhxgO99QUfezDoWvcag/Vm4HB5SmD9ZX6+f4dfAr
+	 BEPy1s3l9QMV2dnsoOrC1rZFMDOS71kOrac7RTb1iLfBYncFPxIMj4MoWZ9HbKY3xP
+	 ekxiHpxPpl8Ndj4rI06bM5gwKVoGgl+7bFg66A7wZ+LSGgC6unU5SybNob5lqK2RHT
+	 Z0AGL2uNLWjHg==
+Message-ID: <3c7238c0-b963-42e9-b0b4-3b1f231ee9ee@kernel.org>
+Date: Sat, 3 Oct 2026 23:24:48 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,14 +35,13 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: bus: Add binding for Altera AXI Timeout
- Bridge
+Subject: Re: [PATCH 2/2] bus: add Altera timeout bridge driver
 To: V.Yurkov.EXT@bruker.com, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
 Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  Vyacheslav Yurkov <uvv.mail@gmail.com>
 References: <20261003-feature-timeout-ip-v1-0-8837c311d571@bruker.com>
- <20261003-feature-timeout-ip-v1-1-8837c311d571@bruker.com>
+ <20261003-feature-timeout-ip-v1-2-8837c311d571@bruker.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -88,126 +87,101 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261003-feature-timeout-ip-v1-1-8837c311d571@bruker.com>
+In-Reply-To: <20261003-feature-timeout-ip-v1-2-8837c311d571@bruker.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 03/10/2026 22:19, Vyacheslav Yurkov via B4 Relay wrote:
 > From: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
 > 
-> Add a device tree binding for the Altera timeout bridge, which connects
-> an Avalon bus to the HPS and provides an address space for child
-> devices with a fall back to a simple bus.
+> Add support for the Altera timeout bridge IP.
 > 
+> The bridge connects an Avalon bus to the HPS and monitors accesses for
+> timeouts. When a timeout occurs the interrupt communicates the event via
+> sysfs, which user space can monitor to handle it accordingly. The
+> address with the timeout is reported as well.
+> 
+
+Neither this nor binding explains what is this hardware and where I can
+find it.
+
 > Signed-off-by: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
 > ---
->  .../bindings/bus/altera-timeout-bridge.yaml        | 82 ++++++++++++++++++++++
-
-Filename must match compatible and compatible has completely broken
-format. Please look at DT spec or any other examples how compatibles are
-created.
-
-
->  1 file changed, 82 insertions(+)
+>  drivers/bus/Kconfig                 |  10 ++
+>  drivers/bus/Makefile                |   1 +
+>  drivers/bus/altera-timeout-bridge.c | 219 ++++++++++++++++++++++++++++++++++++
+>  3 files changed, 230 insertions(+)
 > 
-> diff --git a/Documentation/devicetree/bindings/bus/altera-timeout-bridge.yaml b/Documentation/devicetree/bindings/bus/altera-timeout-bridge.yaml
-> new file mode 100644
-> index 000000000000..b57a0966ba6e
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/bus/altera-timeout-bridge.yaml
-> @@ -0,0 +1,82 @@
-> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/bus/altera-timeout-bridge.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Altera Timeout Bridge
-> +
-> +maintainers:
-> +  - Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
-> +
-> +description: |
-> +  Altera timeout bridge bus.
+> diff --git a/drivers/bus/Kconfig b/drivers/bus/Kconfig
+> index e4b1db809187..8a4ad96742e5 100644
+> --- a/drivers/bus/Kconfig
+> +++ b/drivers/bus/Kconfig
+> @@ -247,6 +247,16 @@ config DA8XX_MSTPRI
+>  	  configuration. Allows to adjust the priorities of all master
+>  	  peripherals.
+>  
+> +config ALTERA_TIMEOUT_BRIDGE
+> +	tristate "Altera AXI Timeout Bridge bus"
+> +	depends on OF
+> +	default n
+> +	help
+> +	  Driver for Altera AXI Timeout Bridge, which can be used a bus.
+> +	  The subordinate devices can be connected to the bridge, which
+> +	  detects frozen read/write requests and notifies user space by
+> +	  means of a sysfs interrupt flag.
 
-Useless description. You keep repeating the same.
 
-> +
-> +properties:
-> +  compatible:
-> +    items:
-> +      - const: altera-timeout-bridge
-> +      - const: simple-bus
-
-Why the fallback?
-
-Your commit msg is also useless here, you just wrote what you did, not why.
-
-I see no reason why generic "bus" like that should stay generic,
-although you have entire commit msg to explain why this is different or
-what is the versioning of this IP block.
-
-Missing blank line.
-
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  ranges: true
-> +
-> +  "#address-cells":
-> +    const: 1
-> +
-> +  "#size-cells":
-> +    const: 1
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - interrupt-parent
-> +  - ranges
-> +  - "#address-cells"
-> +  - "#size-cells"
-> +
-> +patternProperties:
-
-This follows properties.
-
-> +  "^[a-zA-Z][a-zA-Z0-9,+._-]*@[0-9a-f]+$":
-> +    type: object
-> +    description: |
-> +      Device connected to the timeout bridge.
-> +
-> +    required:
-> +      - compatible
-> +      - reg
-> +
-> +    additionalProperties: true
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +
-> +    intc: interrupt-controller {
-> +        interrupt-controller;
-> +        #interrupt-cells = <3>;
-> +    };
-
-Drop, irrelevant
 
 
 > +
-> +    timeout_bridge_hps@10000 {
+> +static ssize_t irq_count_show(struct device *dev,
+> +			      struct device_attribute *attr,
+> +			      char *buf)
+> +{
+> +	struct altera_timeout_bridge_data *driver_data = dev_get_drvdata(dev);
+> +
+> +	return sysfs_emit(buf, "%d\n", atomic_read(&driver_data->irq_count));
+> +}
+> +
+> +static DEVICE_ATTR_RO(timeout_irq);
+> +static DEVICE_ATTR_RO(irq_count);
 
-Really, this is the style you send? So the toolset - dt-check-style - or
-the Coding style mean nothing and you keep sending what you have in
-downstream.
+Missing ABI documentation.
 
+
+> +
+
+
+> +
+> +#define ONLY_BUS	((void *) 1) /* Match if the device is only a bus. */
+> +
+> +static const struct of_device_id altera_timeout_bridge_of_match[] = {
+> +	{ .compatible = "altera-timeout-bridge", },
+> +	{ .compatible = "simple-bus",	.data = ONLY_BUS },
+
+I don't understand why you want to bind to generic compatible.
+
+
+
+> +	{ /* sentinel */ }
+> +};
+> +MODULE_DEVICE_TABLE(of, altera_timeout_bridge_of_match);
+> +
+> +static struct platform_driver altera_timeout_bridge_driver = {
+> +	.probe = altera_timeout_bridge_probe,
+> +	.driver = {
+> +		.name = "altera-timeout-bridge",
+> +		.of_match_table = altera_timeout_bridge_of_match,
+> +	},
+> +};
+> +
+> +module_platform_driver(altera_timeout_bridge_driver);
+> +
+> +MODULE_LICENSE("GPL");
+> +MODULE_DESCRIPTION("Avalon Timeout Bridge Bus");
+> +MODULE_AUTHOR("Vyacheslav Yurkov (V.Yurkov.EXT@bruker.com)");
+> +
+> 
 
 
 Best regards,
