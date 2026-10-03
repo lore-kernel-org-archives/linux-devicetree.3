@@ -1,122 +1,139 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C32EC2F260C
-	for <devicetree@vger.kernel.org>; Sat,  3 Oct 2026 19:58:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAEB5495049;
+	Sat,  3 Oct 2026 20:00:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791057515; cv=none; b=AiaYT5GnN16TJzrIhYXcEAuzqX8iYBQp6qdufXsubs+JVgbtEDcWzjyw3p2jA1dX4/6QpgEO+mWhMPbU7Ld7Dqd+MDgDVvZ9vEd5cRcL4AYmzpQrobrCriSczH50hDDFiBarmwCh7BiIerQBoICTp5Omwr1qmyedlMuoo5rmor4=
+	t=1791057624; cv=none; b=lR4j2i1/vM9kt4O5jcZsSuPnNOiVv51nveBNLE4wy3XfRJBxsl+s6sccAsTM+q4CbiyX/mP7KucMLpQzIKpNhPVTJgYFMTgsqIyb/UcPgc5xDZVXY87p75/53abd4Nd4w/Hd1wcQnFW0Csrkb8N+Xlqf3kz/FpdmAP6YkQ6fVzQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791057515; c=relaxed/simple;
-	bh=Ep40Hvjd3Pio2IzHKfwp4+EwLPVSkIi9YK5ERyVginM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=PriyDgLXMsIobxIQVruZEL8GhYOm4xmO36kSA8lg5dyNkbNwEbMimnu1aEZBcnk1g7ytjYX38MylTcpA2m7zOQbljtKsKifNP66TMfbdG2r+15CptpkfCTPd8ehmLJa50eBsCWad3gbrVt0avOYu02hj4wPsIlRxTgDvyM9d02U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PU0Qs3TQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791057624; c=relaxed/simple;
+	bh=wt4fijNLNy3Aioc6Hwwh+0qwkeuZyGboHRfs5T8eNEE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DXNhFCluizSJZAHcaKQbUWH7SHADvPnwewXVSZeZqbd4FUjGheUkF6EVwVKGttGVXdzLOv3DJT6w+b3JnSEKH60Pe1kdHF9TALXt4Mg3QkhgF4lehPIxSQ85X8cDfEN6/88wxlYOUKBV7srGhZ5NyDMzKPi4XVxkXYAh18SiwxM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=LX+0sLFw; arc=none smtp.client-ip=80.241.56.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PU0Qs3TQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 14DB71F0089B;
-	Sat,  3 Oct 2026 19:58:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791057514;
-	bh=qdNNMcshR+rj05d0WQOS52KEpe/eAQwJWSnj6cqQ4Tc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=PU0Qs3TQklxdCIVcOaXYmI2hFMnWX0mIcn6HWouXfN/yCSk4ujCXvF8gY4oMkYOyF
-	 MuCU6pxRTOd6QmamU019SUwgD/OAuZdpB8LaYQRhp1Da94dVNDQkDIXU2Rur+sdoKh
-	 jgZjrY3GPrPBEeDytN1DWQ+5omSntcDEcCu5CXzMhq0dkH9g2gE99TgT4aiJYbwUkz
-	 aJCwbrwXohulwhe+y6nP3RiqGhon32zXGRcKsEPA1IJTXcu8o/fRsO2O2ef5ctBhGv
-	 dtCNnCI+jFTfJ1sczz790xEEC+8WAwthnOVTTRF9P5sFvfBvbbBTGhihEYCNa6Wvy3
-	 hg2j4zcMvZnbg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/3] arm64: zynqmp: Add EBDEE EdgeBoard FZ3A development
- board
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Pufan Jin" <2254650260@qq.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <tencent_06FFBD8580099835137D0C541050057B4906@qq.com>
-References: <20261003194625.936288-1-2254650260@qq.com>
- <tencent_06FFBD8580099835137D0C541050057B4906@qq.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 03 Oct 2026 19:58:33 +0000
-Message-Id: <20261003195834.14DB71F0089B@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="LX+0sLFw"
+Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hxxMk3hGQzMlLn;
+	Sat, 03 Oct 2026 22:00:18 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1791057618;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=pQEDlVwoaNn3lvGUdFeZJt4kmspOc3Gt/gvWhPl/auE=;
+	b=LX+0sLFwg45/cpGOqsS/aeVmL/ckSFPxFwWWq8iJmBa5JlVbmBiEUB2y00Fx0l+g//shJY
+	OMLUL8P2w9+bblYQM3U8W8QMSg651rkbqjAafmZY6hK8NMjBkK1x56oBqP2amHxccd9QnW
+	eBeStr07qzYNZYtUzzgW1uGdZYOyTKFWEoOKRUEI1km0wWf6BrkLAvLneV/PAgfcao9fZo
+	T8k3u9l5sYHmpMOovP48dy2b9boWyu7/EKiQFpNQyo9I2EpXl1cc9OkWk2Wpw5gEXvSrw5
+	hEh8dM/oU5ZrHCURN1+ejfyF4l8UoAczuEQENrUqXbmdul7yeuosyw9ZpddPOQ==
+Message-ID: <d9ffb9f3-ad89-4912-b863-637c838196cb@mailbox.org>
+Date: Sat, 3 Oct 2026 22:00:13 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 15/15] arm64: dts: renesas: r8a779f0: Describe the PCIe
+ AER interrupts
+To: Koichiro Den <den@valinux.co.jp>,
+ Marek Vasut <marek.vasut+renesas@mailbox.org>,
+ Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>, Jingoo Han <jingoohan1@gmail.com>
+Cc: Philipp Zabel <p.zabel@pengutronix.de>, Frank Li <Frank.Li@nxp.com>,
+ Niklas Cassel <cassel@kernel.org>, Wilfred Mallawa
+ <wilfred.mallawa@wdc.com>, Serge Semin <fancer.lancer@gmail.com>,
+ linux-pci@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260928165230.3397664-1-den@valinux.co.jp>
+ <20260928165230.3397664-16-den@valinux.co.jp>
+Content-Language: en-US
+From: Marek Vasut <marek.vasut@mailbox.org>
+In-Reply-To: <20260928165230.3397664-16-den@valinux.co.jp>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-MBO-RS-ID: 5c3a95b595878ea46c4
+X-MBO-RS-META: jqc8mug5qs1oxfr13rq3hmhqq7yibzzf
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] dt: zynqmp: peripherals fail to probe due to missing LPD_LSBUS clo=
-ck override
-- [Medium] dt: zynqmp: missing non-removable and bus-width properties for e=
-MMC
---
+On 9/28/26 6:52 PM, Koichiro Den wrote:
+> The PCIe controllers report Root Port AER notifications through
+> intreq_pci0_lperr (SPI 421) and intreq_pci1_lperr (SPI 428),
+> respectively, separately from the integrated MSI receiver interrupts.
+> Describe these interrupts with the "aer" name so the controller driver
+> can use them for Root Port error reporting.
+> 
+> Append the new interrupts to preserve the existing interrupt indices.
+> 
+> Reviewed-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> Signed-off-by: Koichiro Den <den@valinux.co.jp>
+Please also feel free to add this patch for R-Car V4H (performed cover 
+letter tests 2 and 3 on Retronix Sparrow Hawk)
 
-commit cf011196c14a8a65736d50052e13ac3e134bc620
-Author: Pufan Jin <2254650260@qq.com>
-Subject: arm64: zynqmp: Add EBDEE EdgeBoard FZ3A development board
+diff --git a/arch/arm64/boot/dts/renesas/r8a779g0.dtsi 
+b/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
+index 5284923b6cef7..8342d3c6f9881 100644
+--- a/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
++++ b/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
+@@ -801,8 +801,9 @@ pciec0: pcie@e65d0000 {
+                         interrupts = <GIC_SPI 449 IRQ_TYPE_LEVEL_HIGH>,
+                                      <GIC_SPI 450 IRQ_TYPE_LEVEL_HIGH>,
+                                      <GIC_SPI 451 IRQ_TYPE_LEVEL_HIGH>,
+-                                    <GIC_SPI 455 IRQ_TYPE_LEVEL_HIGH>;
+-                       interrupt-names = "msi", "dma", "sft_ce", "app";
++                                    <GIC_SPI 455 IRQ_TYPE_LEVEL_HIGH>,
++                                    <GIC_SPI 454 IRQ_TYPE_LEVEL_HIGH>;
++                       interrupt-names = "msi", "dma", "sft_ce", "app", 
+"aer";
+                         clocks = <&cpg CPG_MOD 624>, <&pcie0_clkref>;
+                         clock-names = "core", "ref";
+                         power-domains = <&sysc R8A779G0_PD_ALWAYS_ON>;
+@@ -850,8 +851,9 @@ pciec1: pcie@e65d8000 {
+                         interrupts = <GIC_SPI 456 IRQ_TYPE_LEVEL_HIGH>,
+                                      <GIC_SPI 457 IRQ_TYPE_LEVEL_HIGH>,
+                                      <GIC_SPI 458 IRQ_TYPE_LEVEL_HIGH>,
+-                                    <GIC_SPI 462 IRQ_TYPE_LEVEL_HIGH>;
+-                       interrupt-names = "msi", "dma", "sft_ce", "app";
++                                    <GIC_SPI 462 IRQ_TYPE_LEVEL_HIGH>,
++                                    <GIC_SPI 461 IRQ_TYPE_LEVEL_HIGH>;
++                       interrupt-names = "msi", "dma", "sft_ce", "app", 
+"aer";
+                         clocks = <&cpg CPG_MOD 625>, <&pcie1_clkref>;
+                         clock-names = "core", "ref";
+                         power-domains = <&sysc R8A779G0_PD_ALWAYS_ON>;
 
-This commit adds the device tree for the EBDEE EdgeBoard FZ3A carrier
-board built around the MYIR MYS-CZU3EG SoM. It enables various board
-peripherals including Ethernet, I2C, eMMC, PCIe, USB, DisplayPort,
-and UARTs.
+And a matching patch for R-Car V4M (boot tested, but the board has no 
+PCIe device plugged into the slot)
 
-> diff --git a/arch/arm64/boot/dts/xilinx/zynqmp-ebdee-edgeboard-fz3a.dts b=
-/arch/arm64/boot/dts/xilinx/zynqmp-ebdee-edgeboard-fz3a.dts
-> new file mode 100644
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/xilinx/zynqmp-ebdee-edgeboard-fz3a.dts
-[ ... ]
-> +	/*
-> +	 * The PM firmware on this ZU3EG does not report the LPD_LSBUS
-> +	 * clock id as valid, so <&zynqmp_clk LPD_LSBUS> resolves to no
-> +	 * clock at all and drivers that require their bus clock fail to
-> +	 * probe.
-> +	 */
-> +	lpd_lsbus: clock-lpd-lsbus {
-> +		compatible =3D "fixed-clock";
-> +		#clock-cells =3D <0>;
-> +		clock-frequency =3D <100000000>;
-> +	};
-[ ... ]
-> +&gem3 {
-> +	clocks =3D <&lpd_lsbus>, <&zynqmp_clk GEM3_REF>,
-> +		 <&zynqmp_clk GEM3_TX>, <&zynqmp_clk GEM3_RX>,
-> +		 <&zynqmp_clk GEM_TSU>;
-> +	phy-mode =3D "rgmii-id";
-> +	status =3D "okay";
-> +};
-[ ... ]
-> +&sdhci0 {
-> +	no-1-8-v;
-> +	status =3D "okay";
-> +};
-
-[Severity: High]
-Since the PM firmware's LPD_LSBUS clock is broken as noted above, will sdhc=
-i0
-fail to probe without a clock override? The base device tree maps LPD_LSBUS=
- to
-sdhci0, so it seems it will inherit the broken clock if not explicitly
-overridden here like it was for gem3.
-
-[Severity: Medium]
-The commit message states this board has an 8GB eMMC. Should this node
-include the non-removable and bus-width =3D <8>; properties? Without them,
-does the MMC core treat this as a removable SD card and run at a degraded
-1-bit or 4-bit bus width?
-
-[ ... ]
-> +&uart0 {
-> +	status =3D "okay";
-> +};
-
-[Severity: High]
-Will this console UART also fail to probe without the lpd_lsbus clock
-workaround? If it inherits the broken LPD_LSBUS clock from the base device
-tree, does that result in no console output on boot?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/tencent_E21E2A584AF=
-8EE0505C2C0809838621C8209@qq.com?part=3D3
+diff --git a/arch/arm64/boot/dts/renesas/r8a779h0.dtsi 
+b/arch/arm64/boot/dts/renesas/r8a779h0.dtsi
+index 5f9223a0f4468..a377aab3c8be0 100644
+--- a/arch/arm64/boot/dts/renesas/r8a779h0.dtsi
++++ b/arch/arm64/boot/dts/renesas/r8a779h0.dtsi
+@@ -683,8 +683,9 @@ pciec0: pcie@e65d0000 {
+                         interrupts = <GIC_SPI 449 IRQ_TYPE_LEVEL_HIGH>,
+                                      <GIC_SPI 450 IRQ_TYPE_LEVEL_HIGH>,
+                                      <GIC_SPI 451 IRQ_TYPE_LEVEL_HIGH>,
+-                                    <GIC_SPI 455 IRQ_TYPE_LEVEL_HIGH>;
+-                       interrupt-names = "msi", "dma", "sft_ce", "app";
++                                    <GIC_SPI 455 IRQ_TYPE_LEVEL_HIGH>,
++                                    <GIC_SPI 454 IRQ_TYPE_LEVEL_HIGH>;
++                       interrupt-names = "msi", "dma", "sft_ce", "app", 
+"aer";
+                         clocks = <&cpg CPG_MOD 624>, <&pcie0_clkref>;
+                         clock-names = "core", "ref";
+                         power-domains = <&sysc R8A779H0_PD_A2PCIPHY>;
