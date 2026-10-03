@@ -1,233 +1,121 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E931E309EFC;
-	Sat,  3 Oct 2026 02:05:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DC3517A586;
+	Sat,  3 Oct 2026 03:15:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790993128; cv=none; b=U9RDIWEYpqisvi0btEZwZfyslcK13vmRUQB2wTRVEUeU0gqojWmPasKyr/mS2bNhTG7XC98MtyUCYy47YTeKpS5N8vFLV0yF0CMAEs7fFDTP8JZ6/QvdJHz1ruVK9SQY/ZUOhuvm8+Cbd77oZCuz7XUyuHOsDpD2/Olnqpwxj60=
+	t=1790997307; cv=none; b=uI4Z08XpPZ9un/VPvgrLM0IeE1c4ZyHzQ0DDSO6aoWi5ZT/Iaf2VunmLvpl+5tY/d/xsWUs+y/OmjrxLsxp96Irc3VNqls/BhaTnN2b+rbtba8WlCPGN3xnxKnpO1ZuvtY1vKVoIQThUSZhf6F/llK9/VPrQAOg8qu38NVjQqc0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790993128; c=relaxed/simple;
-	bh=W/YWP1xpuEQLxbrDAlJEzxXMFwIqHADxNYpCPBGkQ3M=;
-	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
-	 To:Date:Message-ID; b=QaMpfBFQm4j+yMlxSgo3t/yM6Y8tEilMDpQbC1guKWBchQ3ZLQAPQuax4sInu2x+Sw8Rv4JD9U5HihwdNGu3bOdblDW6udzCR28Kk1FDA+bhogf/fjvwQ8HNVbl8Dfr08/KotGPwvmLTZCChxaatvSi12xd1zdtgOVgQIwPx8Ck=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=DsFCRSOD; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1790997307; c=relaxed/simple;
+	bh=5T+24V9e8z5HCcVYrnNkaJSm+elLVTowiHzkPZ1WEDA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=CskDbVaJbqdjxy7ZVIaWdThvg9IJYxosjkHZcatpaKXSE7YQg9LwA/UnYRt7H/g0bYVKc9r08xlk3KOS1aV9swd4/OGQDbQL3CMsoi1Wh2UH2jXr5tVzs56BCDswJ/uZpB4S0/1loqhZlNG2zAVWI52ketlaBREjNrMhwIOb8Xc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BDYztaxF; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="DsFCRSOD"
-Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c66:25c2:6a77:c271:6ec1:599])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 1A1D3593;
-	Sat,  3 Oct 2026 04:03:28 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1790993009;
-	bh=W/YWP1xpuEQLxbrDAlJEzxXMFwIqHADxNYpCPBGkQ3M=;
-	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
-	b=DsFCRSOD0zFWvpBDwCpsFoIiPG8T5vJ0VfIqTpq3gUtC/J6Te1hQi/4hnnFwQUogO
-	 cWjCZCLoEz+ZfXtGhIUhl8LWnA07q0/kpNH20T+KzeTKpFSqxWhEvq5U6i128UMV6x
-	 MRqncGRM1kGtwSfwxIqu5MhDJ9ANqlWVBP8syGWU=
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BDYztaxF"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 02881C2BCF4;
+	Sat,  3 Oct 2026 03:15:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1790997307;
+	bh=5T+24V9e8z5HCcVYrnNkaJSm+elLVTowiHzkPZ1WEDA=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=BDYztaxF0fBSUzUoc0fJ88KeJqIG+gyLyxHi70UVRctQQOlJKx/MC3CPhFeOhvjiE
+	 UO00/4ZwEqSHbnf+C5dkGgrP+L2HeEcB/3kexFjQjmZqOzWmvIZm3AmxAWpM+EP8Xu
+	 d7/4F6cQVeEmSECs2BHdPIY+rPgG9dikpBilfFfWl0Nf/9VdsHWVCoLfz52ylWLVKO
+	 n/AqN0YxVsjrR/DHcfVzhkUTDNBBMv7o79DHmMXr8wlvn6nCEwwb5i8Yy40ivmpBKr
+	 yuod/wkn4msxyz/AOeGYU+FSdxD+oXmPTT3Z9foe2wYoTZMDfnyObppnE+eG7viX87
+	 j7tlyF/njuN7w==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E19C1CA5FDD;
+	Sat,  3 Oct 2026 03:15:06 +0000 (UTC)
+From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
+Date: Sat, 03 Oct 2026 06:15:05 +0300
+Subject: [PATCH] arm64: dts: amlogic: meson-sm1-odroid: let the SD card be
+ powered down
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <e469d168-39f9-448c-a7ab-5d02b79d8cb8@nxp.com>
-References: <20260925133001.2780868-1-r-donadkar@ti.com> <20260925133001.2780868-7-r-donadkar@ti.com> <e469d168-39f9-448c-a7ab-5d02b79d8cb8@nxp.com>
-Subject: Re: [RFC PATCH 6/8] media: i2c: ov2312: add Omnivison OV2312 driver
-From: Jai Luthra <jai.luthra@ideasonboard.com>
-Cc: tomi.valkeinen@ideasonboard.com, mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, nm@ti.com, vigneshr@ti.com, kristo@kernel.org, sakari.ailus@linux.intel.com, mripard@kernel.org, jai.luthra@linux.dev, devarsht@ti.com, y-abhilashchandra@ti.com, laurent.pinchart@ideasonboard.com
-To: Mirela Rabulea <mirela.rabulea@nxp.com>, Rishikesh Donadkar <r-donadkar@ti.com>, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, linux-media@vger.kernel.org
-Date: Sat, 03 Oct 2026 07:35:16 +0530
-Message-ID: <179099311665.241161.3689416902838951007@freya>
-User-Agent: alot/0.13.dev38+g8e372ce37.d20260925
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261003-hc4-sd-power-off-v1-1-f7ffba01b348@iav.lv>
+X-B4-Tracking: v=1; b=H4sIADhzwGoC/x3MTQqAIBBA4avErBvQ7I+uEi1CZ2o2KgoVSHdPW
+ n6L9wpkSkIZlqZAokuyBF+h2wbsufuDUFw1dKobtVIGT9tjdhjDTQkDM46TMzzMrI3qoWYxEcv
+ zL9ftfT8AAcz0YgAAAA==
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Christian Hewitt <christianshewitt@gmail.com>, 
+ Dongjin Kim <tobetter@gmail.com>, 
+ Eric Neulight <Eric.Neulight@linuxdev.slmail.me>, 
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Igor Velkov <iav@iav.lv>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1814; i=iav@iav.lv;
+ h=from:subject:message-id;
+ bh=DXX3IOmUgvr4GKV8MwPySwGHNkc4UtI5AabTLkv0Z0E=;
+ b=owGbwMvMwCVmNH1q96v4SmbG02pJDFkHii1ZN5pd3bp57Xa/9BMGS0Q/Nyxizfx87ucKy5m/h
+ LYd9XL63VHKwiDGxSArpsgy4ZDGrYwlV//6e5g/gJnDygQyhIGLUwAm8siT4RdTE0fb5E2HJZm/
+ t+actL/EXKd+772c6JWvkemOi7mL+psZ/hmbnPd+9vHr6sPOBx/57bo4Rb5yZufzaUxCu65zPav
+ lTGEHAA==
+X-Developer-Key: i=iav@iav.lv; a=openpgp;
+ fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
+X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
+X-Original-From: Igor Velkov <iav@iav.lv>
+Reply-To: iav@iav.lv
 
-Hi Mirela,
+From: Igor Velkov <iav@iav.lv>
 
-Quoting Mirela Rabulea (2026-10-02 21:46:11)
-> Hi=C2=A0Rishikesh, Jay, Laurent, Hans, Sakari,
->=20
-> On 9/25/26 16:29, Rishikesh Donadkar wrote:
-> > From: Jai Luthra <j-luthra@ti.com>
-> >
-> > Omnivision OV2312 is an RGB-IR sensor, i.e. it uses a 4x4 R,G,B,Ir bayer
-> > pattern to capture both visible and near-infrared light. Every alternate
-> > frame, the sensor changes the exposure and IR flash strobe registers to
-> > stream an -
-> > A. IR-dominant frame on CSI-2 virtual channel 0
-> > B. RGB-dominant frame on CSI-2 virtual channel 1
-> >
-> > These A/B frames are routed as separate v4l2 streams, which may be
-> > mapped to two separate /dev/videoX nodes by the CSI-RX DMA driver.
-> >
-> > Both of these streams are captured at a resolution of 1600x1301, 30 fps
-> > each (60fps total). The extra row (1301 vs 1300) is an embedded line
-> > prepended to each frame by the sensor, containing the following register
-> > values:
-> >    0x4813 - VC (Virtual Channel)
-> >    0x321A - Group ID
-> >    0x3920 - Strobe
-> >    0x3501 - Exposure HI
-> >    0x3502 - Exposure LO
-> >    0x3508 - Gain HI
-> >    0x3509 - Gain LO
-> >    0x350e - Current Exposure HI
-> >    0x350f - Current Exposure LO
-> >
-> > This driver also supports a few v4l2 controls like horizontal/vertical
-> > flip, multi exposure and multi gain controls.
-> >
-> > Signed-off-by: Jai Luthra <j-luthra@ti.com>
-> > Signed-off-by: Rishikesh Donadkar <r-donadkar@ti.com>
-[...]
-> > +static int ov2312_set_ctrl(struct v4l2_ctrl *ctrl)
-> > +{
-> > +       struct ov2312 *ov2312 =3D container_of(ctrl->handler,
-> > +                                            struct ov2312, ctrls);
-> > +       int ret;
-> > +
-> > +       /*
-> > +        * If the device is not powered up by the host driver do
-> > +        * not apply any controls to H/W at this time. Instead
-> > +        * the controls will be restored right after power-up.
-> > +        */
-> > +       if (pm_runtime_suspended(ov2312->dev))
-> > +               return 0;
-> > +
-> > +       switch (ctrl->id) {
-> > +       case V4L2_CID_EXPOSURE_MULTI:
-> > +       case V4L2_CID_AGAIN_MULTI:
-> > +       case V4L2_CID_DGAIN_MULTI:
-> > +               dev_dbg(ov2312->dev, "debug: %s: %s =3D [%u, %u]\n", __=
-func__,
-> > +                               ctrl->name, ctrl->p_new.p_u32[0], ctrl-=
->p_new.p_u32[1]);
-> > +
-> > +               ret =3D ov2312_set_AB_mode(ov2312);
->=20
-> So, the group hold for A/B context is set right away, when the control=20
-> arrives.
->=20
-> While working with the Omnivision OX05B1S, which is also an RGB-IR=20
-> sensor, we run into this problem:
->=20
-> The normal expected sequence is that the sensor will output alternating=20
-> frames VC0, VC1, VC0, VC1,...
->=20
-> But=C2=A0 when user space tries to do automatic exposure and gain control=
- via=20
-> v4l2 muti controls, if the driver applies the values immediately, if the =
+A warm reboot leaves the ODROID-HC4 in the bootloader: the card is still
+detected - CID and CSD read fine - but data transfers fail, and both
+U-Boot and the boot ROM give up on CMD18. A cold power cycle always
+recovers it.
 
-> virtual channels are not switched within the proper timeframe, it is=20
-> possible to run into frame duplication (no more nice alternating frames=20
-> VC0, VC1, VC0, VC1,...but duplicate VC0,VC0 or VC1,VC1).
+The card is left in UHS mode at 1.8 V, and nothing after Linux brings it
+back to 3.3 V: the bootloader resets the controller, not the card. The
+kernel does try to cut the power on the way out - mmc_bus_shutdown() ends
+in _mmc_sd_suspend(), which calls mmc_power_off(), and meson-gx-mmc then
+disables the vmmc regulator - but TFLASH_VDD is marked
+regulator-always-on, so the regulator core keeps it enabled and the card
+keeps its supply.
 
-Yes I remember seeing a similar thing on OV2312 as well when the AE/AGC
-algorithm is turned on, and thus exposure and gain controls are updated
-frequently.
+Drop the property. The regulator has a consumer that manages it, and
+regulator-boot-on already describes the state it comes up in.
 
-In our case the streams get mixed, so in the captured frames for VC0
-(IR-dominant) we would occassionally see frames with the exposure/gain
-values that we expect in VC1 (RGB-dominant) and vice-versa.
+Tested on ODROID-HC4 with a card that reproduces the failure. Not tested
+on ODROID-C4, which shares this file.
 
-I had assumed this mixing was due to asynchronous nature of the control
-updates coming in, where the exposure+gain latch on with a delay of 2
-frames, but the rest of the registers in the group (like VC ID, and IR
-strobe) have a variable delay depending upon when the group registers are
-programmed.
+Fixes: 326e57518b0d ("arm64: dts: meson-sm1: add support for Hardkernel ODROID-C4")
+Assisted-by: LLM
+Signed-off-by: Igor Velkov <iav@iav.lv>
+---
+ arch/arm64/boot/dts/amlogic/meson-sm1-odroid.dtsi | 1 -
+ 1 file changed, 1 deletion(-)
 
-Without the AE/AGC the frames are stable (no mixing), so we must be talking
-about the same or very similar issues.
+diff --git a/arch/arm64/boot/dts/amlogic/meson-sm1-odroid.dtsi b/arch/arm64/boot/dts/amlogic/meson-sm1-odroid.dtsi
+index e6f02d738a21..7dbc75bfaea2 100644
+--- a/arch/arm64/boot/dts/amlogic/meson-sm1-odroid.dtsi
++++ b/arch/arm64/boot/dts/amlogic/meson-sm1-odroid.dtsi
+@@ -38,7 +38,6 @@ tflash_vdd: regulator-tflash-vdd {
+ 		gpio = <&gpio_ao GPIOAO_3 GPIO_OPEN_DRAIN>;
+ 		enable-active-high;
+ 		regulator-boot-on;
+-		regulator-always-on;
+ 	};
+ 
+ 	tf_io: gpio-regulator-tf-io {
 
-> The information we received from the sensor vendor is that group0 update =
+---
+base-commit: b44e2be772f866985cafdf90355285069ea68495
+change-id: 20261003-hc4-sd-power-off-67d3f58f1304
 
-> needs to be between 2 group0 launchpoints (similar for group 1). We can=20
-> use the status register to query the currently active context, and in=20
-> order to avoid frame duplication we can update each group only when its=20
-> context is active.
->=20
+Best regards,
+-- 
+Igor Velkov <iav@iav.lv>
 
-Ah, thanks for the pointer, a status register for group launch points
-sounds quite useful.
 
-> This is problematic in the v4l2-api context, it implies that even while=20
-> streaming, a v4l2 control cannot be committed to sensor registers right=20
-> away.
->=20
-> Even with workarounds in the sensor driver, to defer for later the=20
-> updates for the inactive context, it is still problematic: defer for how =
-
-> long, and problems with overloaded systems, a stress test can bring us=20
-> in a broken VC sequence, as there is no atomic way to determine the=20
-> current active context + update the right group.=C2=A0 A broken VC sequen=
-ce=20
-> shows up for example in libcamera as lost frames.
->=20
-
-Indeed, I think we need some sort of a mechanism to enforce timings of
-control updates in V4L2 framework. And I don't yet know if system stress
-would make this impossible to ensure without enabling RT?
-
-But knowing the sensor hardware provides status registers is a good sign
-that it should be possible to fix.
-
-> Rishikesh, Jai,
->=20
->  =C2=A0did you notice this problem on OV2312? A way to reproduce this is =
-to=20
-> stress the driver with frequent repeated set controls (for the=20
-> multi-controls), and observe broken VC sequence (I observed it with=20
-> libcamera and on the CSI analyzer).
->=20
-
-Yes frequent control updates reliably reproduce the stream mixing on OV2312
-as well.
-
-Would it be possible for you to share the downstream driver or the status
-register you have used? We could experiment if the same solution helps on
-OV2312 too.
-
->=20
-> Laurent, Hans, Sakari,
->=20
-> did you encounter similar situations? Any comments or proposals? The=20
-> concern here, to summarize, is: v4l2 control cannot be committed to=20
-> sensor registers right away (even when streaming) and we are also unsure =
-
-> when the right moment to perform the register access may come.
->=20
-
-I think this is a good candidate for discussion in the upcoming LPC BoF
-session [1]. Are you planning to travel to EOSS/LPC in Prague next week?
-
-I won't be travelling unfortunately, but hopefully Rishikesh, Laurent and
-others can discuss this.
-
-[1]: https://lore.kernel.org/all/22a0424b-c67d-4dcc-a31c-26acd764c653@ti.co=
-m/
->=20
-> Regards,
->=20
-> Mirela
->=20
-
-Thanks,
-Jai
-
-> > +               break;
-> > +
-> > +       case V4L2_CID_HFLIP:
-> > +       case V4L2_CID_VFLIP:
-> > +               ret =3D ov2312_set_orientation(ov2312);
-> > +               break;
-> > +
-> > +       default:
-> > +               ret =3D -EINVAL;
-> > +       }
-> > +
-> > +       return ret;
-> > +}
-> > +
-> >
