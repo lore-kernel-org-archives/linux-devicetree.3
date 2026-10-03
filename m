@@ -1,66 +1,66 @@
-Received: from mail-dl1-f52.google.com (mail-dl1-f52.google.com [74.125.82.52])
+Received: from mail-vk1-f177.google.com (mail-vk1-f177.google.com [209.85.221.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B72A43C07E
-	for <devicetree@vger.kernel.org>; Sat,  3 Oct 2026 16:23:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 499C0486429
+	for <devicetree@vger.kernel.org>; Sat,  3 Oct 2026 16:32:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791044616; cv=none; b=aB2JJkJ42ercOmxoCf4FouwLTCwgUe1+wUpCKQkE7Dz+bF70Ks8lFePadzKeZYYOyhHQAXWP5RFPNIv1bgNWAQnUNCXnvAkj2zAA2C9L379zFcSsIDuDF4wE2dijAgpX7YXDIREe8xYDM6O9lTTpzMZszloc//ALujaVQmx8hQM=
+	t=1791045163; cv=none; b=NDqVxXFDWGKPn3CWwwh5UFymAkcwfxvJlXYCZw/d7d1Y6W12cxZIbmH4Mm4FkbxqvdyIOcjgTgit5LUexs4pRGzoPkfvexEfuzKT97GvO36Cqe92HgHp/jrtxXJ529SOaNNGYABKWuKP7DHthl+82R4rEGUA/pXrDJE4XObxc7A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791044616; c=relaxed/simple;
-	bh=vgdhw8rACnZl7y0Wg1EtOUtcX8opsAU4+r/FkpeeN1c=;
+	s=arc-20240116; t=1791045163; c=relaxed/simple;
+	bh=kdwilH5OsLsurNREttMGC0xdBg68ib9NiILFCHZIk6c=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DzimuSeMkHssFwEOGapbl4gmAH6M6IHpLQqVAhIIO31GeancfU78jG5rpU8HjSiAFoFlqyRKT7e9KmrIv+T1+yy8EyF2dbKBtrQ0HkS7LvbL7Igx32q7DQzK7H0k12Pxgo2si4xWtiiwUe7W7eLLkdSJs7zkgGiKWuYP7MvwkBU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=DVCnUW8m; arc=none smtp.client-ip=74.125.82.52
+	 Content-Type:Content-Disposition:In-Reply-To; b=E1YKMo8LLJWsf71Lh1W879TVihaELwXyfRgnRwM8C7BqSGm/7ttn4LeE2EyUUQ8cTPtGqjNkpNXINQ3qi1JOiNda6v+IURKnUPTaC/KvJan5WRh3IYiWvTUqMUe5wORCHOs59DIL4iaHiuwZeBK/ot3/473xWs863H6yY1mPy/o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=RNUwRyJG; arc=none smtp.client-ip=209.85.221.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="DVCnUW8m"
-Received: by mail-dl1-f52.google.com with SMTP id a92af1059eb24-154e9d2d979so32131c88.1
-        for <devicetree@vger.kernel.org>; Sat, 03 Oct 2026 09:23:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="RNUwRyJG"
+Received: by mail-vk1-f177.google.com with SMTP id 71dfb90a1353d-5d82736af9fso257168e0c.0
+        for <devicetree@vger.kernel.org>; Sat, 03 Oct 2026 09:32:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1791044613; x=1791649413; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1791045159; x=1791649959; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=jxWbkNMJ0gxrVSfCconXVhPE8tqLr4BtV3xGSiKP/9w=;
-        b=DVCnUW8mDIrBI0sxxcwwHhvOXIhDL6gv8kV865zpsusVbDpJIQYXKf3iNI1W2OU5bb
-         eZ7WgE/0UvN5oRML0M6Z+j2jXw7m1NBvs3r1BCZhSSfQx48BUo9NCpTmM5+Wgz0EauiW
-         Nu5fB/h5fbo0ZtPI5oPkMXs3Z1YB5KPPXIrDVr7ZrBSW61y/VgJhlyXhnRSwIZvoDAJZ
-         LmtGYhYjppO42xeJQq1L4YG2mMwNa3xnQSfAMbbPR7BdwstuKhWpt0CUxCETcHazMM9q
-         arhN3MCSk1HITukaBWJcGAC77aP2WlYeW9WSi5yDnMl4XFjHHnY2p9SLL4OQRE2JL3UQ
-         3XDw==
+        bh=p6IGX+v8BkO6n9pIMVGytNElaq/yPQhIUaLvSvPAc94=;
+        b=RNUwRyJGV0tnICwtekEipgs8U+AMzIeUQz6InuP7yUTWLrLcJPkUqg/szV0MSndPiY
+         v+TOY4V35+fOeYMS0ghxzuNpQbDEGc9XlSJQs+prW1y9YVDrWLZSqlrYJHGX7Li5BBZ7
+         hLhtIJdsAlEuSjHu8fqx96E3ByLOYJnx7zCrUApnYydAeXH8UqYfeq8P9UVp/NJKuQw/
+         ZhJ2ISuo/zbWJqWN+0d2v1QkQGDrT2zdDzMwz9A4i3gl32VLOWmSRIFn94UMGgyesfTQ
+         CgrFa3zlDlEbpJVAUOpRhWXzY+AFwPCxbWpJ/grAuSbnfToBNoRW3922a1P90/x9tuhK
+         zceg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791044613; x=1791649413;
+        d=1e100.net; s=20260707; t=1791045159; x=1791649959;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=jxWbkNMJ0gxrVSfCconXVhPE8tqLr4BtV3xGSiKP/9w=;
-        b=ZS0kPJaiUZZKmFJC+2NGf0NIIszZzTh1zCjYb0hXn6CC+KG+jGFXT00wtuoy0OdpC2
-         TN8b41nN2y3JxEBB51ur36jOfWvfAlQlM6Cq8mGnOtIva6gNLtU6tXOuCsYAI1Jigigv
-         6h2dbbXoeSshgzZkioP6+D52RcXA33EGj5w9bzSc7xrtjjux+b4g3WV2NMslAJEtWBZo
-         Z+LxDlonKx6UZ0uqg23tcM813PF9ycWOh4l11FHkWyVwmQCakN6Megv9Crm4XWD/cki+
-         Q7hjcaUHa1lV/zlehZTJajw0ob0y6pTVDxQZwyifpVrSTnWP6z1+jyYeQXY1on+6PoZM
-         cx+w==
-X-Forwarded-Encrypted: i=1; AKwUvBzIu7AOUGY4Y1LMAf3/C7k4fMAy7GDLQ9+8SftvK+Lf/AU/jn8mRlarGx63snv9I5DO2Fawu7l3gv9I@vger.kernel.org
-X-Gm-Message-State: AFuF++knJ/vHddjzz37vqTm5DeP+RF0BQydldR/PzvTIy9ozYqY88YGM
-	lFC6FVrEwOD7/WC0g8UatOeACtSfX5zmmGvqswGY3HpoM/0+1E36cHdlXWuCGD43ebU=
-X-Gm-Gg: AYBFou2YoyJ0NOe4bIVbsp+VdL4Ca5jXJMLZo7Cr8QwyV0j8nOYo0k2fy6FREf+UCCn
-	hQdv2aphkIldSeGstYNnxCECNQ7c0lSnH0e2Hjko5J/yuAHVyHP66NcaXKodM+nGq/PUvryG8pN
-	xdpbhG3gusWgqQDfLUqDk9E+jmqHOMsmVIpL0QiHXk54CTNQIRchiHgXHylP7tWBy+E0dCZoIay
-	3mlfgFPhVYvfgv7D/yk17qTo8NDje6aEoKAixWQwCXm2SvgwYOONi/Ugm0Yo3j/zxpZ9aivDTNd
-	oiJ7CYZw+QVjF1UtwtgUk84D3XVVFZ6BPJNCnUeFy0LQPO8BlwmWNlwU1bVtHM+aY1ZlUiR5tPM
-	kJZnZ+bwsXTArKNwzMp/iDbCtxvx2l7yn4c5nj2UKA4V5I7D3Vevm0u1EmPjTyTRPNoH15olqvh
-	iK8XmC6BNrQok8wTnqtHYOo7CIh8fShfzZO2JETmR8SlJcZRRO2+7188eHC4B8FxrQYD82Yidzc
-	dzbE61EFAg8pqHuiMPtG5DGMPHfurQY7bcp8/9qRTo4vthdvUfLhvN2hIk2jg==
-X-Received: by 2002:a05:7022:4386:b0:152:97a1:dd36 with SMTP id a92af1059eb24-15297a1ddc9mr3493127c88.10.1791044612830;
-        Sat, 03 Oct 2026 09:23:32 -0700 (PDT)
+        bh=p6IGX+v8BkO6n9pIMVGytNElaq/yPQhIUaLvSvPAc94=;
+        b=HR8vVfaTPMF3BOdqoQYVPGJuJ0+DmkzukPf2r6WrAZRSG6UcVkhYqTohMTozI3/RtW
+         imv7SaQwUT1hQBNVgx+zoYNoZm7BY/Ny+70yLbcwy/IZ/HlTUw2IPWnSKXplQe/euu0/
+         4mUi798jQy2Vk0nW1O0ootUrAPrZ8PpT094ycrQWmffxbD7z0HsaXIgn6YVkKbxyxAfA
+         pvgeUZ0STP3o2yQo0yzkKEWlHx3GjCWcKaNrGBiGs6YODunRWXpSmSYpGr07kk6HslFX
+         w9K75b4bVJRdJRWfEc6UM/aO/uo//BNPzClni1y0edudxL694WTQSbfeCq4lAUJLWdnB
+         lEVQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxDMuZIwFHh72hN8bMpKORefzWmykw2Mm9PpMQ8HSi2AHUfU7TLuZpFqdW2vfeOeb9Doiqi3sMVOPp6@vger.kernel.org
+X-Gm-Message-State: AFq9FYINPQjB3cG/nOOPsPZWaf0AsT8NFBlPpt1SNx30F5oIfKq9tRJV
+	u34QkbdDEEbN7Bv2zafjv8xk5PVF6/ysZXRLw8EpHkf1uPtiaZjy9HMq3pWdiTITUOw=
+X-Gm-Gg: AYBFou1FOdXhYJZ5uBPeySjovu7+PnDqnI7phqLwC/yxAVmsuebA37bN5jW6dU/4pJb
+	Ma7+uFhNqs3tE5UkcOxG47fyS/76IM/pwNKzrdZsO96yvH3WDizo9Ru1XDKaOERHmymqEzywaYk
+	8JmBI/K3riY6HSartCYa1YKrn3c0Ikccb8rv3lGHBdFPMBHYi3prI9U/ThAoP0G8ZqJ3d5+by1i
+	JC92yjXnzVCjCOS6IerQb+9IcrtO/t9eJaI8kwn73/ElUxxs1gPSCTjya2SVHexFNChJzICm9wT
+	EgbN8heiEYOYWiciBgjmBzOeDxrJE/3u0LE+TCJDsXMsCELLhRhSZumb4xdnkBgFflYK48kG9Po
+	c1DNK7CuGCxTa6Tpti21rVKaACRnk6ASv40siUpJKnuXluPkm+x7QJuoiTR5DTr9l1wk8yrEDix
+	lG+YUYhwizCj6Cm9EJRmY4kgFmNN+4NY3dNxHIgNYHcLRMIiagk02e4z5nFSIW5LqtbTmmd9fCZ
+	QCuXhimDEkS62LzNyV0WhlNRxCS+d8XzbFPiwb1xJJeiKimQLw=
+X-Received: by 2002:a05:6122:35cd:b0:5d8:20d9:78f2 with SMTP id 71dfb90a1353d-5d820d97a5amr2139563e0c.14.1791045158975;
+        Sat, 03 Oct 2026 09:32:38 -0700 (PDT)
 Received: from hiagonb ([2804:7f0:9541:40e1:2108:ffa6:f94b:baff])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3511d87cfa7sm3498737eec.26.2026.10.03.09.23.26
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5da635c7209sm7442753e0c.15.2026.10.03.09.32.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 03 Oct 2026 09:23:32 -0700 (PDT)
-Date: Sat, 3 Oct 2026 13:23:23 -0300
+        Sat, 03 Oct 2026 09:32:37 -0700 (PDT)
+Date: Sat, 3 Oct 2026 13:32:27 -0300
 From: Hiago De Franco <hfranco@baylibre.com>
 To: Chen-Yu Yeh <chenyou910331@gmail.com>
 Cc: Rob Herring <robh@kernel.org>, 
@@ -71,11 +71,10 @@ Cc: Rob Herring <robh@kernel.org>,
 	Longbin Li <looong.bin@gmail.com>, "Anton D. Stavinskii" <stavinsky@gmail.com>, 
 	Joshua Milas <josh.milas@gmail.com>, devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
 	sophgo@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] riscv: dts: sophgo: cv180x: Fix internal ephy
- node name
-Message-ID: <asErZOk1RtzqC7Ao@hiagonb>
+Subject: Re: [PATCH v2 0/2] riscv: dts: sophgo: Milk-V Duo 256M ethernet
+ support
+Message-ID: <asEsCbfKIkXPAyCh@hiagonb>
 References: <20261003084627.353899-1-chenyou910331@gmail.com>
- <20261003084627.353899-3-chenyou910331@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -84,46 +83,76 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261003084627.353899-3-chenyou910331@gmail.com>
+In-Reply-To: <20261003084627.353899-1-chenyou910331@gmail.com>
 
-Hi Chen-Yu,
+On Sat, Oct 03, 2026 at 04:46:24PM +0800, Chen-Yu Yeh wrote:
+> The Milk-V Duo 256M has no Ethernet connector of its own; the SG2002's
+> internal PHY is only usable through the optional USB & Ethernet IO
+> board. This series adds an overlay for that board and fixes the name of
+> the internal PHY node it exposes.
+> 
+> Changes in v2:
+>  - Enable Ethernet through an overlay instead of in the board
+>    devicetree, since without the IO board the pins may be used as GPIO
+>    (Inochi)
+>  - Send both patches in one thread (Inochi)
+>  - Test link-up and traffic on the IO board, which v1 could not
+>  - Collect Inochi's Reviewed-by on the PHY node name fix
+> 
+> The overlay has the same shape as Hiago's for the Milk-V Duo [1], so the
+> two boards stay consistent. The PHY node name fix is in cv180x.dtsi and
+> so covers that board as well.
+> 
+> Testing, with a kernel built from this branch:
+> 
+>  - sg2002-milkv-duo256m-eth.dtb: eth0 comes up at 100Mbps/Full, gets an
+>    address via DHCP and passes traffic
+>  - sg2002-milkv-duo256m.dtb: no eth0 is created, and the gmac node
+>    reads back as disabled
+>    
+> Kernel log with sg2002-milkv-duo256m-eth.dtb:
+> 
+>   [    1.426499] stmmaceth 4070000.ethernet: User ID: 0x10, Synopsys ID: 0x37
+>   [    1.426536] stmmaceth 4070000.ethernet: 	DWMAC1000
+>   [    6.052829] stmmaceth 4070000.ethernet eth0: PHY [mdio_mux-0.0:01] driver [Generic PHY] (irq=POLL)
+>   [    8.138131] stmmaceth 4070000.ethernet eth0: Link is Up - 100Mbps/Full - flow control rx/tx
+> 
+>   # ip addr show eth0
+>   2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP qlen 1000
+>       inet 192.168.0.47/24 brd 192.168.0.255 scope global dynamic noprefixroute eth0
+> 
+> With the base sg2002-milkv-duo256m.dtb:
+> 
+>   # ip addr show eth0
+>   ip: can't find device 'eth0'
+>   # cat /proc/device-tree/soc/ethernet@4070000/status
+>   disabled
+> 
+> iperf3 against a desktop on the same switch gives 94 Mbit/s with the
+> board sending and 70-74 Mbit/s with it receiving, with no
+> retransmissions either way. The receive side being slower is not a CPU
+> limit on the board; I have not looked into it further yet.
+> 
+> v1: https://lore.kernel.org/sophgo/20260803163323.74414-1-chenyou910331@gmail.com/
+>     https://lore.kernel.org/sophgo/20260803163427.74445-1-chenyou910331@gmail.com/
+> 
+> [1] https://lore.kernel.org/sophgo/20261001-milkv-duo-eth-overlay-v1-1-78bc1454f35b@baylibre.com/
 
-On Sat, Oct 03, 2026 at 04:46:26PM +0800, Chen-Yu Yeh wrote:
-> The internal EPHY node is named "phy@0" while its reg property is <1>.
-> The unit-address should match the first entry of the reg property, but
-> this is not checked by dtc for MDIO buses. The kernel confirms the PHY
-> is indeed at address 1:
-> 
->   eth0: PHY [mdio_mux-0.0:01] driver [Generic PHY]
-> 
-> Rename the node to ethernet-phy@1, which also follows the common naming
-> convention for ethernet PHY nodes.
-> 
-> Fixes: ba1abacc57cb ("riscv: dts: sophgo: Add mdio multiplexer device for cv18xx")
+for the series,
 
-My only comment here is that I belive you should remove the newline
-between "Fixes" and the "Reviewed-by".
+Reviewed-by: Hiago De Franco <hfranco@baylibre.com>
 
 > 
-> Reviewed-by: Inochi Amaoto <inochiama@gmail.com>
-> Signed-off-by: Chen-Yu Yeh <chenyou910331@gmail.com>
-> ---
->  arch/riscv/boot/dts/sophgo/cv180x.dtsi | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> Chen-Yu Yeh (2):
+>   riscv: dts: sophgo: add Milk-V Duo 256M ethernet support overlay
+>   riscv: dts: sophgo: cv180x: Fix internal ephy node name
 > 
-> diff --git a/arch/riscv/boot/dts/sophgo/cv180x.dtsi b/arch/riscv/boot/dts/sophgo/cv180x.dtsi
-> index ec3bf305274a..cf672cc6b935 100644
-> --- a/arch/riscv/boot/dts/sophgo/cv180x.dtsi
-> +++ b/arch/riscv/boot/dts/sophgo/cv180x.dtsi
-> @@ -71,7 +71,7 @@ internal_mdio: mdio@0 {
->  				#size-cells = <0>;
->  				reg = <0>;
->  
-> -				internal_ephy: phy@0 {
-> +				internal_ephy: phy@1 {
->  					compatible = "ethernet-phy-ieee802.3-c22";
->  					reg = <1>;
->  				};
+>  arch/riscv/boot/dts/sophgo/Makefile             |  3 +++
+>  arch/riscv/boot/dts/sophgo/cv180x.dtsi          |  2 +-
+>  .../dts/sophgo/sg2002-milkv-duo256m-eth.dtso    | 17 +++++++++++++++++
+>  3 files changed, 21 insertions(+), 1 deletion(-)
+>  create mode 100644 arch/riscv/boot/dts/sophgo/sg2002-milkv-duo256m-eth.dtso
+> 
 > -- 
 > 2.43.0
 > 
