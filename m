@@ -1,43 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12B2B377550;
-	Sat,  3 Oct 2026 07:21:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2516E1E8826;
+	Sat,  3 Oct 2026 07:41:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791012115; cv=none; b=GjyOExc954vlX5T0TrpUYfh2s388aShFbY8zBAqFXBOs8lhhSads/ioV+H2iZmPz3zcMeCaCT/3/u0GhNf6L/a+/5azeoM4qyKm+IJYBZpZUH9VHBUFvGRCucUjd2SVOLdXoG8Td9H60AWje53SJlbV10A07Ssg5RB4e1H9jSr4=
+	t=1791013287; cv=none; b=Ueo6mccl+ksd2y7pnN9opU9t92A1ciSnv8jMQKb8aUsIUnjoZuTDZ6rjqioZiFwGd5ox8tl8RjG2FAcgUMNSv1X20U2ppPDhY9zB6SFzIoY+bY9sZzfEPPjHdr0Vxa7sZ3GWPnS1ohVASpGCD+wX1kbVDGPGNk0R/7nTqyDOc1Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791012115; c=relaxed/simple;
-	bh=WLaw8WNdTsVs/wqmgeBzRXibzeRyQgwXxQpiJCZIv+A=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=YqzXayvtZ0nDygflEDqm7l/QZ0OdFpdBmvFiEL2NsWArzg1YQIbW6YwIZPjgkazq0GEd0W5Py105eb6peSsv1bstM+usMP1vsznB9axJFQe38UB1tY/KONQi0yKl14gjdCkqQpv/8cdqwlccAgA1ixnGgrYcNACwQ2OTQYtgrL8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=boqFFFpY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791013287; c=relaxed/simple;
+	bh=r6gxLeWnq/J1Isax9qv6UAFtpr2Wk73y3KuTJXA9umI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jqJje/pm8HliVap/8yrmSGwkaKyyIeOrsoLeem+RKi3ouXdhMcAR35DwA2/SQCHilJOFQpGXkd33fEvxTTn/dZ2o59u9loZMXTRPi8GYsQnyyuHv5JEbV06hMy1ezpY8vGuBFpSSZH90syW6fyqOTF2Q9Z53nTV2nCi7bY2wmvE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G61T9tvg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="boqFFFpY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A3991F0089B;
-	Sat,  3 Oct 2026 07:21:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G61T9tvg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D75841F0089B;
+	Sat,  3 Oct 2026 07:41:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791012113;
-	bh=Xoc2jJkqxh0W1JpflqN0cFCgG8i+IFymj+idMxZoelg=;
-	h=Date:From:To:Cc:Subject;
-	b=boqFFFpYrdheYDq+BAfBc47tcGIE56gKYmwaUXjqUzJa3whInDoUwlhJVChsCamqi
-	 5CyFRVEV3w0BZGCqlUEVrcqZD0FU0MGIVHIT4bGVUPj7G0NMZ2LlVBIkBZNrigl2Oe
-	 D5wV3/KgXlHANqgpjMkOI4tGv1dHs8l0TyDafQqQD03/DFyJbAUkDW/jpow6Qha6XD
-	 JJxEPySjnF+FVlirMq2BclTauHUD11jVqit8mkWxRY2kozqP6XO/R85X3ea1MrueGk
-	 ejVheY/yyjlOqkIZR/kxcD1J0FFco+7BGxg7ATVxZHDWinJ696/RlWtXIQyLRTDa0e
-	 srdaOM1W+UmKg==
-Date: Sat, 3 Oct 2026 00:21:52 -0700
-From: Drew Fustini <fustini@kernel.org>
-To: soc@kernel.org
-Cc: Arnd Bergmann <arnd@arndb.de>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Linus Walleij <linusw@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>, Han Gao <gaohan@iscas.ac.cn>,
-	Han Gao <rabenda.cn@gmail.com>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org
-Subject: [GIT PULL] RISC-V T-HEAD devicetree changes for v7.4
-Message-ID: <asCtEGcXwUoOHyMA@x1gen8.tail89d63.ts.net>
+	s=k20260515; t=1791013285;
+	bh=9bCKHbiVXllMPKt+oTVJ2iKD2nFCzwNeIZOHpdGsxu8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=G61T9tvgbkdaFLG/FWAQtNLnocL0UlVS2TqokT3spijDWrOUM7jp0B3ShiIVDbu0m
+	 Iu5fhaGKVRxz5AF6+sD68ATNHhAdoL62AdMcoAuxcQiFzItDAbUza49kOgjWv2LRoI
+	 EO5fMa7YqlJMHAQYyRSNwdjtEZQucZmI0svhhnZjY5K8n2D/I5RplMUZXmi/xDQeeY
+	 0bahMHt6UVqhl9PMfaSpOutwUkJMOFzXcatZi+nC7L5UJETfCfV8usMZNV55+OxUqP
+	 8S2SjFNCmJI2t5Pkf7i8Wz3tS8oagC0hSFL9VQlON+24LZ3Tl7QIjF8t15m0DjyPWH
+	 Kf6OCcaHOejuA==
+Date: Sat, 3 Oct 2026 09:41:20 +0200
+From: Vinod Koul <vkoul@kernel.org>
+To: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
+Cc: Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, srini@kernel.org,
+	yung-chuan.liao@linux.intel.com, prasad.kumpatla@oss.qualcomm.com,
+	jingyi.wang@oss.qualcomm.com, sibi.sankar@oss.qualcomm.com,
+	quic_srivasam@quicinc.com, linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-sound@vger.kernel.org
+Subject: Re: [PATCH v2 2/3] soundwire: qcom: add multi-master support
+Message-ID: <asCxoMbtsSfVcX_9@parshuram>
+References: <20261001093806.634862-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20261001093806.634862-3-srinivas.kandagatla@oss.qualcomm.com>
+ <0ca6ee6a-020a-4705-8323-d524a813d3b5@linux.dev>
+ <586046f1-8439-4353-b60d-dab6356de3ba@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,45 +50,42 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <586046f1-8439-4353-b60d-dab6356de3ba@oss.qualcomm.com>
 
-The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
+On 01-10-26, 12:06, Srinivas Kandagatla wrote:
+> 
+> 
+> On 10/1/26 11:53 AM, Pierre-Louis Bossart wrote:
+> > 
+> >> @@ -192,6 +194,13 @@ struct qcom_swrm_ctrl {
+> >>  	const unsigned int *reg_layout;
+> >>  	void __iomem *mmio;
+> >>  	struct reset_control *audio_cgcr;
+> >> +	u8 num_lanes;
+> >> +	bool is_dependent;
+> >> +	struct qcom_swrm_ctrl *peer_ctrl;
+> >> +	u8 peer_first_lane;
+> >> +	u8 num_peer_lanes;
+> >> +	bool is_primary;
+> >> +	u32 peer_dpn_offset;
+> > 
+> > nit-pick: do you need both is_dependent and is_primary? One would think
+> > that a single variable would be enough, no?
+> I did try to do that which made the code bit confusing to read.
 
-  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
+I am viewing it that both should be set always for this mode. Do you
+have a case where it wont be the case..?
 
-are available in the Git repository at:
+> > also without context it's hard to understand if lanes are independent in
+> > terms of transport or not, not sure what 'peer' means in a multi-master
+> > setup with a primary controller and N dependent ones? Code like this
+> For now its one, but Yes, technically we could have more dependent ones,
+> I wanted to keep the patchset simple and right now the only have one
+> peer and i dont know if we have other setups with more dependent
+> controrllers.
 
-  https://git.kernel.org/pub/scm/linux/kernel/git/fustini/linux.git tags/thead-dt-for-v7.4
+Lets add the logic when we have such scenarios and keep now for one peer.
+Does Qualcomm roadmap envision more controllers?
 
-for you to fetch changes up to 2414ca8f5a0cafdfdb2b5899fd173adc09b5adf1:
-
-  MAINTAINERS: Move RISC-V T-Head SoC tree to kernel.org (2026-10-01 23:34:22 -0700)
-
-----------------------------------------------------------------
-T-HEAD device tree changes for v7.4
-
-Add the Milk-V Meles, a single board computer with the TH1520 SoC:
-- Document the board compatible alongside the BeagleV Ahead
-- Add the base device tree with UART0, eMMC, microSD, Gigabit Ethernet
-  and the PWM fan
-- Enable the AP6256 Wi-Fi module on SDIO1
-- Enable HDMI output through the DC8200 display controller and the
-  DW-HDMI transmitter
-
-Also update MAINTAINERS: move the T-Head SoC tree T: entry to kernel.org
-
-----------------------------------------------------------------
-Drew Fustini (1):
-      MAINTAINERS: Move RISC-V T-Head SoC tree to kernel.org
-
-Han Gao (4):
-      dt-bindings: riscv: thead: add Milk-V Meles
-      riscv: dts: thead: add Milk-V Meles
-      riscv: dts: thead: enable AP6256 Wi-Fi on Milk-V Meles
-      riscv: dts: thead: enable HDMI on Milk-V Meles
-
- Documentation/devicetree/bindings/riscv/thead.yaml |   6 +-
- MAINTAINERS                                        |   2 +-
- arch/riscv/boot/dts/thead/Makefile                 |   1 +
- arch/riscv/boot/dts/thead/th1520-milkv-meles.dts   | 346 +++++++++++++++++++++
- 4 files changed, 352 insertions(+), 3 deletions(-)
- create mode 100644 arch/riscv/boot/dts/thead/th1520-milkv-meles.dts
+-- 
+~Vinod
