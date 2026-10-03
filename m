@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 217E43B059C
-	for <devicetree@vger.kernel.org>; Sat,  3 Oct 2026 09:16:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1D9714883F
+	for <devicetree@vger.kernel.org>; Sat,  3 Oct 2026 09:18:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791018975; cv=none; b=LwqAMIlNPxocaCtuZVQuS4R40nAzARky8nW970TSqcg0yZ18C62+EjuOkFQpFW1XYMLjAf8TopOfeNABEUVWBOGbBj5rqTOsQNmBDhW70348C5vXzxN4DBDgaHuFA/CC0bPuuFhIeJUxkPDL9vLHFrYivh8dmOHCl5ppAeZMidY=
+	t=1791019114; cv=none; b=NDpHT1yo7MM4UOWDgxJPzZi1Gw5YLidFGhLjn70P1y7CDbSF3GxynQyNVH0UvOmNXEDKUjOiv7W0adKoAG1IdNOs/ICMe4BaWAepttZAnUfNON/cfQcLwZut8LBYLhW4YL/xG+6aVGn7zfSTEmA1D/nfpH+aH89+zWJPlDQqFDg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791018975; c=relaxed/simple;
-	bh=RKiFmFAqNb364rTab/GwTpm3QZ2ra0NFuUG5txUl5Qk=;
+	s=arc-20240116; t=1791019114; c=relaxed/simple;
+	bh=X09O51d6zYV+byPTmo2J5X6BBZkOeutokPTDkk10BJA=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=LJaGrkiojkzJT1fb5KlypbKLagYk01LP7graq+bT2891V+fJHX6mS5tjuLxOwisFgznWxi56fJcQUgQS629dSNj1UjuIWi89aOWKbyCa3lZ/aArLIwdJkKPUKfBPQ7uxExoo4tSVWCGIF9trg2AV9GLhBIp/3GV7CEgvWG2KRT4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hh1KJ6sJ; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=WeyTSCNXkzvG1lArkL6vXw4FEwAtlP3wWX2J/F7waNWpXlDQ2pobzHN+JOf/Q8ZuN7ZqCQ1SbIB0Ul3oEfE9SIU6O3B07l/GmhJ9RZRsJl5O+eBGyPGtVXZ+VejPHkSVP/x+pT8oRaur5SLJ+7qMjwYx0Q8itUvcDmX82bGqOyg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ISvnw3YD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hh1KJ6sJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC9351F0089B;
-	Sat,  3 Oct 2026 09:16:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ISvnw3YD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92E9B1F0089B;
+	Sat,  3 Oct 2026 09:18:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791018971;
-	bh=LjdzR+JUGch7p+yVtKFpJqSe1Fq30t86V+flAs36tgc=;
+	s=k20260515; t=1791019113;
+	bh=0gHzKlr+JRtSfZ6olTbs5i+9Rkgo/wToShRtzGa2Crk=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hh1KJ6sJIpplVfebVb4iceV4iWybHSNFJgOzBNZHyPXbwX4gu0mFCWAqaeQ1EXYAC
-	 XEAez8snJINNPORHJ0MH5NcmTT7AfIGaz+ppDNOcysv3hLeLR9qXEpCr3V/FEavBXh
-	 4z5uCTLX+SUQNU5CI0pSqLprDE0ZyY9l9FD3BVfOU3crjoIOp4nB3qOltfWuMX7Xzj
-	 bz4m4vMonGyinejMr1tc5nmjKABBNaiM55e0dYw86EDrb08pr4lwL3GXSHhLe24R2O
-	 wBwMy1N0jcgGiUTRHewbmV+/N3fmGSGFAPlL/S2Pu8Np7tR33gOMqCMppZITNOI6G5
-	 NcTtuIatNNU7A==
+	b=ISvnw3YDt5O3Ghb91cx5TpmXKxLfmWTHCQP5hlXoH575w5A0pMFn+zAvbKsYyBNj+
+	 En9iRY5qGntLRyRmTpHDj1DHURBU5NdvccIkPxP3E+AwfLC6tXJ1gN9NEkCRkIih1Q
+	 /CVSMJUiNtvQQ/AQ8z45vm8QaiZqrZ4CxSGoF1qqMR3StzIrhQaESUJ0fWo+aPzBOq
+	 qylNtzsU8la/mY3sbPLPuudlcL1YZiGzyFrQQHrBvaS6P3H1jLoVgz1x9uGZIhyWbJ
+	 TsZzdB3m83YNX9cgJosGaCH0mkjA+EY3Fdr2kOz5xKxa7zOiuyP0sljR7RW+SVgPsf
+	 6/AJlS/AKYQ8A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v18 08/11] media: qcom: camss: tpg: Add support for
- v2.4.0 TPG
+Subject: Re: [PATCH v18 06/11] media: qcom: camss: csid: Add support for
+ CSID 1080
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Hangxiang Ma" <hangxiang.ma@oss.qualcomm.com>
-Cc: media-ci@linuxtv.org, vkoul@kernel.org, linux-phy@lists.infradead.org, olteanv@gmail.com, robh@kernel.org, neil.armstrong@linaro.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20261003-kaanapali-camss-v18-8-87ba4ebe0db1@oss.qualcomm.com>
+Cc: linux-phy@lists.infradead.org, robh@kernel.org, olteanv@gmail.com, conor+dt@kernel.org, neil.armstrong@linaro.org, devicetree@vger.kernel.org, media-ci@linuxtv.org, vkoul@kernel.org
+In-Reply-To: <20261003-kaanapali-camss-v18-6-87ba4ebe0db1@oss.qualcomm.com>
 References: <20261003-kaanapali-camss-v18-0-87ba4ebe0db1@oss.qualcomm.com>
- <20261003-kaanapali-camss-v18-8-87ba4ebe0db1@oss.qualcomm.com>
+ <20261003-kaanapali-camss-v18-6-87ba4ebe0db1@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 03 Oct 2026 09:16:10 +0000
-Message-Id: <20261003091610.BC9351F0089B@smtp.kernel.org>
+Date: Sat, 03 Oct 2026 09:18:32 +0000
+Message-Id: <20261003091832.92E9B1F0089B@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,71 +47,71 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] media: camss: uninitialized hw_version used in tpg_reset()
+- [Low] Data Race / Unprotected State Modification
 --
 
-commit df88e7d7afd82d4d282e25499832401b80cc7ee6
+commit e1475151b2b7806091d8fbadf7603ba11320d02e
 Author: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
 
-media: qcom: camss: tpg: Add support for v2.4.0 TPG
+media: qcom: camss: csid: Add support for CSID 1080
 
-Add support for the TPG found on Kaanapali. This TPG uses hardware
-version 2.4.0, which drives test-enable and reset through a separate
-TPG_CTRL_CMD register instead of TPG_CTRL, and routes its output into
-the CSID 1080 RX via the CSI2 TPG mux.
+Add support for the CSID 1080 hardware found on Kaanapali SoC.
+Introduce CSID 1080 hardware resource descriptions and implement the
+hardware-specific register programming, reset sequence, and BUF_DONE
+interrupt handling. CSID 1080 splits RUP and AUP updates into separate
+registers and uses a SET register to commit the updates.
 
-> diff --git a/drivers/media/platform/qcom/camss/camss-tpg-gen1.c b/drivers=
-/media/platform/qcom/camss/camss-tpg-gen1.c
-> index d29de5f93c18e..770a9e5d5ba5f 100644
-> --- a/drivers/media/platform/qcom/camss/camss-tpg-gen1.c
-> +++ b/drivers/media/platform/qcom/camss/camss-tpg-gen1.c
-
-[ ... ]
-
-> @@ -164,18 +167,30 @@ static int tpg_stream_on(struct tpg_device *tpg)
+> diff --git a/drivers/media/platform/qcom/camss/camss-csid-1080.c b/driver=
+s/media/platform/qcom/camss/camss-csid-1080.c
+> new file mode 100644
+> index 0000000000000..46e443e05195a
+> --- /dev/null
+> +++ b/drivers/media/platform/qcom/camss/camss-csid-1080.c
 
 [ ... ]
 
->  static int tpg_reset(struct tpg_device *tpg)
->  {
-> -	writel(0, tpg->base + TPG_CTRL);
-> -	writel(1, tpg->base + TPG_CLEAR);
-> +	/*
-> +	 * On TPG older than v2.4.0 test-enable lives in TPG_CTRL, so clear it
-> +	 * first; v2.4.0+ drives both test-enable and reset through TPG_CTRL_CM=
-D.
-> +	 */
-> +	if (tpg->hw_version < TPG_HW_VER_2_4_0)
-
-[Severity: Medium]
-Does this newly added check incorrectly evaluate to true on the first power
-cycle due to tpg->hw_version being uninitialized?
-
-Looking at tpg_set_power() in camss-tpg.c, the reset callback is invoked
-before hw_version is populated:
-
-tpg_set_power() {
-    ...
-    tpg->res->hw_ops->reset(tpg);
-    tpg->res->hw_ops->hw_version(tpg);
-    ...
-}
-
-Since tpg->hw_version is 0 during the first power cycle, this condition
-will evaluate to true even for v2.4.0+ hardware. This executes the legacy
-fallback reset writel(0, tpg->base + TPG_CTRL), which this patch explicitly
-intended to avoid for newer hardware.
-
-Can this unintended write prior to TPG_CTRL_CMD_HW_RESET cause issues on
-v2.4.0 hardware?
-
-> +		writel(0, tpg->base + TPG_CTRL);
+> +static void __csid_aup_rup_clear(struct csid_device *csid, int port_id)
+> +{
+> +	/* Hardware clears the registers upon consuming the settings */
+> +	csid->aup_update &=3D ~CSID_RUP_AUP_RDI(port_id);
+> +	csid->rup_update &=3D ~CSID_RUP_AUP_RDI(port_id);
+> +}
 > +
-> +	writel(TPG_CTRL_CMD_HW_RESET, tpg->base + TPG_CTRL_CMD);
-> =20
->  	return 0;
->  }
+> +static void __csid_aup_update(struct csid_device *csid, int port_id)
+> +{
+> +	csid->aup_update |=3D CSID_RUP_AUP_RDI(port_id);
+> +	writel(csid->aup_update, csid->base + CSID_AUP_CMD);
+> +
+> +	__csid_aup_rup_trigger(csid);
+> +}
+> +
+> +static void __csid_reg_update(struct csid_device *csid, int port_id)
+> +{
+> +	csid->rup_update |=3D CSID_RUP_AUP_RDI(port_id);
+> +	writel(csid->rup_update, csid->base + CSID_RUP_CMD);
+> +
+> +	__csid_aup_rup_trigger(csid);
+> +}
+
+[Severity: Low]
+Can these un-synchronized read-modify-write operations race between hardirq
+and process contexts?
+
+When starting multiple streams in csid_configure_stream(), RDI 0 could
+complete a frame and trigger the BUF_DONE interrupt while RDI 1 is still be=
+ing
+configured. This would cause csid_isr() to call __csid_aup_rup_clear()
+concurrently with __csid_aup_update() or __csid_reg_update() executing in
+process context.
+
+Since these updates to csid->aup_update and csid->rup_update are unprotecte=
+d,
+a concurrent modification might cause bit updates to be lost. While this mi=
+ght
+only lead to a harmless redundant trigger or prevent a redundant write, it =
+is
+undefined behavior in C and can trigger KCSAN warnings.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261003-kaanapali-=
-camss-v18-0-87ba4ebe0db1@oss.qualcomm.com?part=3D8
+camss-v18-0-87ba4ebe0db1@oss.qualcomm.com?part=3D6
