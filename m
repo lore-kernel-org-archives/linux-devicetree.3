@@ -1,84 +1,65 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6C9C188005;
-	Sat,  3 Oct 2026 14:31:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F18C630ACEE;
+	Sat,  3 Oct 2026 14:32:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791037893; cv=none; b=o5nGVfm4rVKhKxQ9KX0+uMj3QuaCeqJYMBxf0a2mb9xDgjAvcGiPZKddTkhjXowdQoYepJe4oEc97WQcmMCM6ICRKsIWKa5ZpdHLH3v8XeX9TlbUjBGi3h3ZN7Sy9qHXev9HTQlqL//n9FTbPwCr+uXmKoQ53+BqDtWoVNGvNbY=
+	t=1791037958; cv=none; b=JaV3Ts2Lwr7hlPeuD7iNLuQZGPzF84JpFYsmGhFRkJQNrju9TY2C2kE1NNYwXCYB0al+cm3zTO+8L5NVEHv55fy6qBSyenHImECiW/GXfvfY6Mb6bFwUxAq1IELB74pxD50y8xyYvOJqk6lVcNlybI919FHT/pUjX8tCVrViqSA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791037893; c=relaxed/simple;
-	bh=oFcUmxlz+EHuGP4UKWMdwHTsdai4lwoB/1//Ba7qYU4=;
+	s=arc-20240116; t=1791037958; c=relaxed/simple;
+	bh=zrtPBIBhYFpp4Vz3DN9KUgyG5nS5wtaW+5tprYQ6Vn0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tzQ7OVRhdu/t/goMGPv2ABu5UBYSC+8F3hbERDp9GWgVAmHymTTwPyubpu/Hc1hGHxjBITLz9xrhQYMcTVHl7zq6miKXP28Yt0bejFveZgPNYOMGHL5SEu171i2BLdugEvReC9hIsGq0btRdzpY2k2osBMKT/N0Oj+EKaKEkc98=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PLmpsGE9; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=R74t8ZFqFAcRIkBh9P+zujaPt/UqTyj1MVjVCl2FF6f4uN4i3jou8Kz/XrZTsrjX78yVq1ArMzB6b+xk0qzixqkDUnFadPAsOBhfO3/Yg24xWei+vWETMcapsIzuqtTD9+WPtk7Wh6rR2Bc/3mRizXz3fbKWzZFnpiqHDBlXNSs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HTh4lYM0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PLmpsGE9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E95501F0089B;
-	Sat,  3 Oct 2026 14:31:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HTh4lYM0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F39A21F0089B;
+	Sat,  3 Oct 2026 14:32:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791037891;
-	bh=85VSlzMBZ/eH8Sf9Ij3dGa3YJSvPkW8LRgUERVbGizI=;
+	s=k20260515; t=1791037956;
+	bh=xvmvm5SlegXuNYPW+nGgskmwKTjFAzZ/ZX72Lx3IFvA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PLmpsGE9c/T69rpv7vmO/ufo+g++I2Hyh6ycU3gf0O2KWf0y3W6F89MJDY01+71cV
-	 CjloGXnBQR7VifxMp/TE/JDxVD9FwE7QhPuMO6CbL/sRGz0E6AgBXE3xopnG9HJD1/
-	 AB82WDlyvelh0Avo6lQFHSHy0dGMy+ZjG04xX9fDQGZPyKbugZBV7bVBySJKzvpBxs
-	 JsKest6WZImHDqR+e4u35x5nh9aChF9aHZJhqXyOoLNp9A30HJp2DRTM8hjaMi7Uve
-	 mUgWWPObp32GRb3LYZecjT5kOIROs+CZzi3EOmuloL+lcSFZgfAiewG/X2rB2kJ9ci
-	 dFEEBH1OY8sDA==
-Date: Sat, 3 Oct 2026 16:31:28 +0200
-From: Vinod Koul <vkoul@kernel.org>
-To: Jon Hunter <jonathanh@nvidia.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	JC Kuo <jckuo@nvidia.com>,
-	Thierry Reding <thierry.reding@gmail.com>,
-	Wayne Chang <waynec@nvidia.com>, linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v2 0/3] phy: tegra: xusb: Add Tegra238 support
-Message-ID: <asERwJjj3eUMm8Kd@parshuram>
-References: <20261001-tegra-phy-v2-0-3e453b1fb271@nvidia.com>
+	b=HTh4lYM0lYZiJKaYadUFHs7eipLYtMPPcIxUEaPI9GzeUHKgsSjxL5/jlVqhVEd7y
+	 Gx+7vpPjKnX9INEh3aaCansC7OR6G6OHeuN3g0DNtlcJ5YluMA+VdZUcZv8my/tknR
+	 sVoRkD58VxyfQnZM4fL1pB6JCpJ1I6gmO7BR+CA4lwtFdeNGKiQhUKRC7P9SIQlx+k
+	 4j7PzwTTu8cpd9iAbvHa5mZgaNsndEvqbkpz3RDSsFYO8/2p5qGe8ivVakGbNDg8RB
+	 Pr1p9pbB8tPkmPEwQ6mWJSyAO72dwEw/r/6G8DcJIPJCHaL3DMvSXhO4R6wp4M9bEV
+	 5zkbmExrrm3dA==
+Date: Sat, 3 Oct 2026 16:32:34 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Wim Van Sebroeck <wim@linux-watchdog.org>, 
+	Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Rajendra Nayak <quic_rjendra@quicinc.com>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org, 
+	linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: watchdog: qcom-wdt: Document SM8650
+ watchdog
+Message-ID: <20261003-competent-tangerine-mantis-caeced@quoll>
+References: <20261002-topic-sm8650-deckard-watchdog-v1-0-7d7f7d71d88a@linaro.org>
+ <20261002-topic-sm8650-deckard-watchdog-v1-1-7d7f7d71d88a@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261001-tegra-phy-v2-0-3e453b1fb271@nvidia.com>
+In-Reply-To: <20261002-topic-sm8650-deckard-watchdog-v1-1-7d7f7d71d88a@linaro.org>
 
-On 01-10-26, 14:28, Jon Hunter wrote:
-> Add support for the Tegra238 device to the Tegra XUSB PHY driver and
-> add the necessary device-tree binding documentation for this device.
+On Fri, Oct 02, 2026 at 11:45:28AM +0200, Neil Armstrong wrote:
+> Add the SM8650 compatible string to Qualcomm watchdog binding.
 > 
-> This series also includes a trivial clean-up patch to use the
-> dev_err_probe() function in the Tegra XUSB PHY driver instead of open
-> coding this function.
-> 
-> This series is based on top of the series that adds support for the
-> Tegra264 device to the Tegra XUSB PHY driver [0].
-> 
-> [0] https://lore.kernel.org/linux-tegra/20260903071937.533646-1-waynec@nvidia.com/
-> 
-> Signed-off-by: Jon Hunter <jonathanh@nvidia.com>
+> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
 > ---
-> Changes in v2:
-> - Dropped extra 'err' variable from patch that migrates to dev_err_probe
-> - Added Krzysztof's Reviewed-by for device-tree binding.
-> - Link to v1: https://patch.msgid.link/20260921-tegra-phy-v1-0-83466bf9a7cd@nvidia.com
-> 
-> ---
-> Jon Hunter (3):
->       dt-bindings: phy: tegra194: Add compatible for Tegra238
+>  Documentation/devicetree/bindings/watchdog/qcom-wdt.yaml | 1 +
+>  1 file changed, 1 insertion(+)
 
-Somehow this fails to apply on the current code, can you please rebase
-and also check the sashiko issues reported
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
--- 
-~Vinod
+Best regards,
+Krzysztof
+
