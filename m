@@ -1,106 +1,129 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 431D23148DA
-	for <devicetree@vger.kernel.org>; Sat,  3 Oct 2026 18:05:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 111243A75B8
+	for <devicetree@vger.kernel.org>; Sat,  3 Oct 2026 18:06:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791050755; cv=none; b=EL7r6oxSsOrVNaE8MXxT57Ar1x501WE64z5ZQMbFIBsAA5xULaNE4hbLFBcqlg+mpRRU5osHkYexERWixwmfH/V4C/buRqrgS7Xd2oN59UP1mGNZfWmbJeU2ud4uEn3ineWd3ZYzZ5x2wD2GQQlmWyfyYxp1Gb90ZRl4amIfmtc=
+	t=1791050798; cv=none; b=cPexre8m5uOephfv4mVkRAKWVNZuOgCBKpyg8UmU7M0b81leqQ3FPu+jJF/zxKXlVmNpF6BTVpoRmCgoWFsR/C3wLp9OfwyIEwCGrZy9SMAa2o+izISp+ecf91o6j6OA/C73AIWLiycErrzr1SGu+ZvcHEi1OdMwNZLK/sg/7HE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791050755; c=relaxed/simple;
-	bh=LkhE8m+FX6AuSpoPLQUnrWMhefBQMsfJn9+Id6kBR/I=;
+	s=arc-20240116; t=1791050798; c=relaxed/simple;
+	bh=5q+LDlYmngPPOmkRbePg7gbQ/UB1W0TkPNlT6xTanX4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=f46uww4QKCdEt9+5j+q56MBtKMseOV4q3eTHZtDqIYMgG+5fd6HdYB1eANMA66KhKe6qQGq+xlKkpDvyb9dyVWXVk1IY7gOnoyDzZCnqPXWamnDg3kMDSpwk25aA6SB3xQdQYPT38E96Kjz9AiVOOoHqb+hYXsiZowuEk98jm6Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DcPzojyN; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=liioZVlyTvhjEBOyN+We6tragNb2n/FBa04OhAsoj1/HQA3y3dbhT3VeOcxEPfpxW0cpVqFvx62/Ts5dQ/7357nHN0d4z7CqYvZsnLTbaTM4fD6FDGCU3gyXgZncMy5BIStXGx/6E3ug9fNxbsXBhraP0JwEIDib5HljsxuPwjA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BREPUKKN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DcPzojyN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5F651F0089B;
-	Sat,  3 Oct 2026 18:05:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BREPUKKN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B5F21F0089B;
+	Sat,  3 Oct 2026 18:06:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791050754;
-	bh=3o5ZOf2dD2+21qzs75suHgbSdYLMd6lvM7hRaaQO/hw=;
+	s=k20260515; t=1791050796;
+	bh=6uZDcwkVBKk055Ugg3q5i+Z7eqy60iY5yZbRTBIj3po=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=DcPzojyN7hsyGlB1oPyz5NIMvuDJuuDxSWpcShdww7VP/g0Zjsty0xqp+nn4snSFm
-	 JRmBNsXbT6bR1GE1jbB2x6id1EnZtYFeGTinOAwMqBGVIFwPzUwjRIjGUaA5JAZI+F
-	 Qa6uTUeiBswuFLXJ/sX/s3eFypPCv/vWGUm0/ZtSILh7PPlM4GXtoiaitzHe5D2pOn
-	 njCsZFZKBBaoj2NA0jni4yjJG6owQlYrBb+yElDv28f5ng/WQ7s+WKA+kZKs02r65G
-	 4rQuN+dzL7uebuO+HTYVy9lH215KYMPd+z5kvl6sWyCoxAtTFe0kxh+1pXQ1FJugpK
-	 HSnt3QvXpZhPw==
+	b=BREPUKKNMgn0eNdUHcQOnAw90ndCAJiljo4XrmjSRQm44DtVXZfQD03I5iohzg9hE
+	 t5WNCB20o5NAKNtvwaA7Ljy5j7IONlLxZCmGOTYoCO1SbFwIyP5YooI7kLRIFH/h52
+	 qSMVPRwDrkxgYS298quqz3gBREkgM3tOBEPwThDIcv5XA7ConbGb4dUcjdj5GAwRa+
+	 ByXbCjpmOoxc5bAJS6eHVQR/dqb7BEUOr2YJyLJnkdI7q9sNjEcSqimZzda3cCWQeQ
+	 lfV3XEnw0KYZtMkg3gJ3bTpfhRlgjxW9dHe0eUMEmOHUv+zH+9GU/F7DQtusyZRwF/
+	 9mGUh53XxaTYA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 04/11] dt-bindings: remoteproc: qcom: adsp: Add
- SDM670 ADSP compatible
+Subject: Re: [PATCH v2 09/11] arm64: dts: qcom: pm660l: add analog audio
+ codec
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Richard Acayan" <mailingradian@gmail.com>
 Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20261003175659.23536-5-mailingradian@gmail.com>
+In-Reply-To: <20261003175659.23536-10-mailingradian@gmail.com>
 References: <20261003175659.23536-1-mailingradian@gmail.com>
- <20261003175659.23536-5-mailingradian@gmail.com>
+ <20261003175659.23536-10-mailingradian@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 03 Oct 2026 18:05:53 +0000
-Message-Id: <20261003180553.E5F651F0089B@smtp.kernel.org>
+Date: Sat, 03 Oct 2026 18:06:35 +0000
+Message-Id: <20261003180636.5B5F21F0089B@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] dt-bindings: schema bypass due to compatible string in standalon=
-e enum
+- [Medium] dts: pm660l: board-specific hardware properties hardcoded in gen=
+eric PMIC dtsi
+- [Low] dts: pm660l: undeclared sound-name-prefix causes dtbs_check warning
 --
 
-commit fe965abba1a50ee3f23c3149e9b465705dc13459
+commit cfcd4e3e10aad19a5a6d69fee31b064e8108d24a
 Author: Richard Acayan <mailingradian@gmail.com>
 
-dt-bindings: remoteproc: qcom: adsp: Add SDM670 ADSP compatible
+arm64: dts: qcom: pm660l: add analog audio codec
 
-The commit adds the SDM670 ADSP compatible string to the qcom,adsp binding.
-It splits the compatible property into a oneOf block to allow the SDM670
-compatible to fallback to SDM845.
+The PM660L analog audio codec (PMIC revision 4) controls the headphone
+jack, and optionally the earpiece and speaker, at the vendor's decision.
+This commit adds the analog audio codec to the generic PMIC device tree.
 
-> diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,adsp.yaml =
-b/Documentation/devicetree/bindings/remoteproc/qcom,adsp.yaml
-> index 7e8ecae8e6cb6..6cf1f11efe041 100644
-> --- a/Documentation/devicetree/bindings/remoteproc/qcom,adsp.yaml
-> +++ b/Documentation/devicetree/bindings/remoteproc/qcom,adsp.yaml
-> @@ -15,19 +15,26 @@ description:
+> diff --git a/arch/arm64/boot/dts/qcom/pm660l.dtsi b/arch/arm64/boot/dts/q=
+com/pm660l.dtsi
+> index 3f8b9eafe1641..5b406b83043c2 100644
+> --- a/arch/arm64/boot/dts/qcom/pm660l.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/pm660l.dtsi
+> @@ -87,6 +87,46 @@ pm660l_wled: leds@d800 {
+>  			status =3D "disabled";
+>  		};
 > =20
->  properties:
->    compatible:
+> +		pm660l_codec: audio-codec@f000 {
+> +			compatible =3D "qcom,pm660l-wcd-analog-codec",
+> +				     "qcom,pm8953-wcd-analog-codec";
+> +			reg =3D <0xf000>;
 [ ... ]
-> +    oneOf:
-> +      - enum:
-> +          - qcom,msm8226-adsp-pil
-[ ... ]
-> +          - qcom,sdm660-cdsp-pas
-> +          - qcom,sdm670-adsp-pas
+> +			interrupt-names =3D "cdc_spk_cnp_int",
+> +					  "cdc_spk_clip_int",
+> +					  "cdc_spk_ocp_int",
+> +					  "mbhc_ins_rem_det1",
+> +					  "mbhc_but_rel_det",
+> +					  "mbhc_but_press_det",
+> +					  "mbhc_ins_rem_det",
+> +					  "mbhc_switch_int",
+> +					  "cdc_ear_ocp_int",
+> +					  "cdc_hphr_ocp_int",
+> +					  "cdc_hphl_ocp_det",
+> +					  "cdc_ear_cnp_int",
+> +					  "cdc_hphr_cnp_int",
+> +					  "cdc_hphl_cnp_int";
+> +			qcom,hphl-jack-type-normally-open;
+> +			qcom,gnd-jack-type-normally-open;
+> +			qcom,micbias2-ext-cap;
 
 [Severity: Medium]
-Does adding qcom,sdm670-adsp-pas to this standalone enum branch bypass the
-fallback requirement?
+Will this cause problems for other boards that include this generic PMIC
+file but have different hardware wiring?
 
-Because oneOf only requires a single branch to match, a device tree node
-specifying only "qcom,sdm670-adsp-pas" matches this enum branch and passes
-schema validation.
+These physical wiring properties (qcom,hphl-jack-type-normally-open,
+qcom,gnd-jack-type-normally-open, qcom,micbias2-ext-cap) seem like they
+should be placed in board-specific .dts files rather than a generic common
+.dtsi.
 
-This bypasses the fallback enforcement in the items branch below, allowing
-DTS nodes to be introduced without the required fallback string. Without
-the fallback string, older kernels may fail to probe the device.
+Other boards with differently wired jacks (e.g., normally-closed) or lacking
+an external capacitor will inherit these settings, which could lead to
+inverted headphone detection or broken microphones.
 
-> +          - qcom,sdm845-adsp-pas
-> +          - qcom,sdm845-cdsp-pas
-> +          - qcom,sdm845-slpi-pas
+> +			sound-name-prefix =3D "Analog";
+
+[Severity: Low]
+Is this sound-name-prefix property supported by the dt-binding schema?
+
+It appears that the dt-binding schema for this codec
+(Documentation/devicetree/bindings/sound/qcom,pm8916-wcd-analog-codec.yaml)
+enforces additionalProperties: false and does not define sound-name-prefix.
+Adding it here will likely cause a dtbs_check validation failure.
+
+> +			#sound-dai-cells =3D <1>;
+> +			status =3D "disabled";
+> +		};
 > +
-> +      - items:
-> +          - enum:
-> +              - qcom,sdm670-adsp-pas
-> +          - const: qcom,sdm845-adsp-pas
-> =20
->    reg:
->      maxItems: 1
+>  		pm660l_spmi_regulators: regulators {
+>  			compatible =3D "qcom,pm660l-regulators";
+>  		};
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261003175659.2353=
-6-1-mailingradian@gmail.com?part=3D4
+6-1-mailingradian@gmail.com?part=3D9
