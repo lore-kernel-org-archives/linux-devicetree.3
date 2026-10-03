@@ -1,127 +1,112 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF02A3D6688;
-	Sat,  3 Oct 2026 09:29:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89E651A3A80;
+	Sat,  3 Oct 2026 09:36:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791019747; cv=none; b=r+/ei0l7+5aF43hHnLihmIuUv9xrsz0/pWH9ZBO0HH8Sd2KQbVEs0hsh7Z70L4YijrnGKJ9PjMO0/J3+5/nqzzcaBL6du+tO4pccTSHJskaWFFodOXfugN/wM5BVBX0tNqKgnorRMXYVerj6Egb4UzjB+JvGwa3ayx59toIcsng=
+	t=1791020196; cv=none; b=Zu4d9fxYGT/NKCfXnhgGqXDlYY0sDRimYL+UF7aAywq12wOpIeht9KXnnS6rxS1cN4fSuKl0a3o+sNO5wz99nefjrNfxSyE0fueO/pw7aGn2PD2XRMthoioIll/J3o8k1LKSUNYxeXlCYw4Sif/JN0ue7Jk4jR+vFnOPEU4/HZI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791019747; c=relaxed/simple;
-	bh=iPpFlSvoGoSZedaiM9Xxm/LNDLmWUEjryJqeQqxqT9M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lGJmrVA8yrmBrwxM0bfJ3O14EYKZRZFv5hybp4b/uDtBlUVMZiNE7Sdlv90xHly7ee4K1lmP5IHDkghwexbyHQOfQxWKqJuTI4PVgAgbUi2A3iIAJwIsHMgdtgFrzmPFWXpEsBn4w8UWvJEmkV0ofmznejHbodcH95IU2eB1kXU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fKlCT8kN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791020196; c=relaxed/simple;
+	bh=xDRXUOlHyvFxXwOLI8tq+33TnDyx2/Lyok9LPLFktN8=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=qBE63wf9HC8S4Di819tnQcL10Qg2676sXyuJAxD9DZEHWdy8tWRdfq2ZSoqtxBNWShiInpa1SdKgVGbzFbSEMsVYIGxcSx1nuT6XssjlhfyFvn2MEW7Jov89RBUhbu3eIAKjBxXiuVGgspKvr06KkiowZ2PiERZs26oRx/7nwtg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ncSOa7Od; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fKlCT8kN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3C0D1F0089B;
-	Sat,  3 Oct 2026 09:28:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ncSOa7Od"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 576921F0089B;
+	Sat,  3 Oct 2026 09:36:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791019743;
-	bh=6NARaYH/kJOu/A5Fms6Mxa9yIa9KJ0pnqXM8PPqhcAs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=fKlCT8kNG2pJQhJsj01FnwsRt6fJtcaEzpAxal6pR0NeMsEnnFiNkz8O3QbYgCtKx
-	 bF1NLvwOrtmVm/gWfw2lRP+koa6oIUV6jZijVW5b0xnUc6jntAJ9PgDt865htMKPPh
-	 8A6INJnfLRuZoY3B4hPKhHZ7fxkieJCthxdpyJ00MoOLQJVAKpLd0pWOz8KWmiNP7h
-	 bidnaKnfcqvzxluIXzYdBIN97xx2c1xeN2A58BRosp+WtXiXotK8Tx5NHdHqyFxwLY
-	 VYjlwBLgZrrFheL24UK+koV6lPpih//wjmVhbIExBjt9dduAbcYyjtfNbCHa4OA/xH
-	 +aWaTBOkaGqeQ==
-Message-ID: <01b38753-d66e-48e3-a5b2-1482afd5c0c2@kernel.org>
-Date: Sat, 3 Oct 2026 11:28:56 +0200
+	s=k20260515; t=1791020192;
+	bh=dkU4fBFY9a/PX3RPkjkpeSWhVYiEXlPa5ViUBpp8ees=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=ncSOa7Od6pyGS4vaGBucAfDsBPKLPEX/LbTx6S4dDl03VVysLPZp6MpSLvfuPoBEJ
+	 yLYpaufJxoeX/U7gAnf7+vNo1ZaLffXweIm9kgBFfkURL295pitH13q1IA5PmYtgIu
+	 YmqLz1F3AUu/pB6wmOKqC54KHSUq3etXt4cm7x3FXDXITCG3UXWffyMdqS+znXugAC
+	 MwgXXdCsau4K+GCFw4iMpHM/h2MXIk0b0lsPVGA+1sS43cjSjo5QSXHKRf/FKTe6wM
+	 DKibWJC5CNBu+WRlSEuda6LMH+Y8I1OCgvwmyaj12XgmiQaA84lpASnKL4lAfdiEC0
+	 C/GdNENZ64o3w==
+From: Vinod Koul <vkoul@kernel.org>
+To: Manivannan Sadhasivam <mani@kernel.org>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Heiko Stuebner <heiko@sntech.de>, Frank Wang <frank.wang@rock-chips.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ Sebastian Reichel <sebastian.reichel@collabora.com>
+Cc: Andy Yan <andy.yan@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>, 
+ Yubing Zhang <yubing.zhang@rock-chips.com>, 
+ Alexey Charkov <alchark@flipper.net>, Igor Paunovic <royalnet026@gmail.com>, 
+ linux-phy@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ kernel@collabora.com, devicetree@vger.kernel.org, 
+ Sashiko <sashiko-bot@kernel.org>, William Wu <william.wu@rock-chips.com>
+In-Reply-To: <20260915-rockchip-usbdp-cleanup-v15-0-80e2c11d1ce8@collabora.com>
+References: <20260915-rockchip-usbdp-cleanup-v15-0-80e2c11d1ce8@collabora.com>
+Subject: Re: [PATCH v15 00/16] phy: rockchip: usbdp: Clean up the mess
+ (part 1)
+Message-Id: <179102018702.199361.10538365621002380308.b4-ty@kernel.org>
+Date: Sat, 03 Oct 2026 11:36:27 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC 2/3] wifi: ath12k: honour disable-rfkill from the
- device tree
-To: Franz <franzelfranzel@gmail.com>, Jeff Johnson <jjohnson@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: Johannes Berg <johannes@sipsolutions.net>, Abel Vesa
- <abelvesa@kernel.org>, ath12k@lists.infradead.org,
- linux-wireless@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261003091509.4822-1-franzelfranzel@gmail.com>
- <20261003091509.4822-3-franzelfranzel@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261003091509.4822-3-franzelfranzel@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14.3
 
-On 03/10/2026 11:15, Franz wrote:
-> ath12k_core_rfkill_config() skips the hardware rfkill setup only when
-> ACPI says so. DT-based boards have no equivalent. On the Microsoft
-> Surface Pro 11 (X1E80100), the WCN7850 rfkill input reads as "radio
-> off", so the interface is hard-blocked:
+
+On Tue, 15 Sep 2026 15:49:47 +0200, Sebastian Reichel wrote:
+> This series is the first part of a major overhaul of the Rockchip USBDP
+> driver. The goal of the bigger series is:
 > 
->   iwd: Error bringing interface 4 up: Operation not possible due to RF-kill
+>  * USB-C DP AltMode support
+>  * Fixing sporadic SErrors happening when connector is hot-plugged
+>  * Fixing USB3 support when connector orientation changes after
+>    hotplug
+>  * Fixing USBDP PHY not starting up properly initially or after a few
+>    replugs
 > 
-> Also skip the setup when the device's DT node has "disable-rfkill". The
-> PCI core attaches the node to the pci_dev, so ab->dev->of_node sees it.
-> 
-> Tested on a Surface Pro 11 with next-20260929 and the matching DT
-> change: the interface comes up and connects (5 GHz, 160 MHz).
-> 
-> Assisted-by: Claude:claude-opus-5-5
+> [...]
 
-LLM, see docs.
+Applied, thanks!
 
-
-> Signed-off-by: Franz <franzelfranzel@gmail.com>
-
-Please read submitting patches document carefully to understand what is
-needed when sending patch, e.g. what you need to certify with your full
-name.
-
-Your LLM cannot certify anything.
+[01/16] dt-bindings: phy: rockchip-usbdp: add improved ports scheme
+        commit: 861e77f3314e30228e234f866c8bb1ea82560b92
+[02/16] phy: rockchip: usbdp: Update mode_change after error handling
+        commit: 3f2181226d7708349c69cd4a4b21372a8049576b
+[03/16] phy: rockchip: usbdp: Do not lose USB3 PHY status
+        commit: b322403c294b67fd6bcf6719b4fc9f8a9e313129
+[04/16] phy: rockchip: usbdp: Fix devm_clk_bulk_get_all check
+        commit: a2ddfc60a7d3ba0f571f037371b261642f8ed208
+[05/16] phy: rockchip: usbdp: Handle missing clock-names DT property gracefully
+        commit: 17cd5e026a6e806b811f915b8e02a8b9d14f6f41
+[06/16] phy: rockchip: usbdp: Drop seamless DP takeover
+        commit: 1ab628ce8f3ab694c28dcfcd5b1eec0cf9f499b8
+[07/16] phy: rockchip: usbdp: Keep clocks running on PHY re-init
+        commit: 31fadcc97c033daa0b663dbd6e6acdf3121f1975
+[08/16] phy: rockchip: usbdp: Amend SSC modulation deviation
+        commit: 6bee51c8b7dcef4917ed9acd7a8903f263374d1b
+[09/16] phy: rockchip: usbdp: Fix LFPS detect threshold control
+        commit: 6977ac261a62399c696e5543519e3074de513eab
+[10/16] phy: rockchip: usbdp: Add missing mode_change update
+        commit: 5def5d61ea5ac6f391364f6fdcff13a27a52026e
+[11/16] phy: rockchip: usbdp: Support single-lane DP
+        commit: ae9b60ef1d626d1a4fdf8854f66d58f6ac56e37d
+[12/16] phy: rockchip: usbdp: Limit DP lane count to muxed lanes
+        commit: 443997ca8d797375ff35e8f3ad3828799e88f71b
+[13/16] phy: rockchip: usbdp: Rename DP lane functions
+        commit: ebe1e8cf3d109302c749591f6bb717cd260b00cf
+[14/16] phy: rockchip: usbdp: Use FIELD_PREP_WM16_CONST
+        commit: e8e7f3d875a302032d8b47b52b7adef16082e7f9
+[15/16] phy: rockchip: usbdp: Cleanup DP lane selection function
+        commit: 9235d03d5e520178d53f5098068f2c3926457465
+[16/16] phy: rockchip: usbdp: Register DP aux bridge
+        commit: bcdb77332fe05d699e8351263d535ffca373e459
 
 Best regards,
-Krzysztof
+-- 
+~Vinod
+
+
