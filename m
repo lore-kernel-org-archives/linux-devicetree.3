@@ -1,139 +1,99 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 447C4370D6B
-	for <devicetree@vger.kernel.org>; Sat,  3 Oct 2026 01:33:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2983D371D1D
+	for <devicetree@vger.kernel.org>; Sat,  3 Oct 2026 01:33:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790991192; cv=none; b=Swp3jFSr8UBpZf9alE4LgWi7RUqpSYA1+kWUt6MyUnOoy5Uiw/UVhp4g15F9w49IQabETLhkLzHXDYzmC2BwWYn0tZqJYTlii+yvknIpxj2OxuZ6qq1b5Pq0SCxNTxUgSNVuaBS0AwoiI5mxAd8UJBIOihroi9t9tT7gyR4C6Dw=
+	t=1790991193; cv=none; b=XkCbWcDqRob89IaP+hPjF6y9zjVUIbyUCQl/qsKV0HPM4zUlWO5BK//frKC8hlVdfL+ho1iud8rxEySOvwUkhlAeYYqEj5+Qyp9D3U99kAHczQsWtF/P3Dxj7GRu6qaM4q6U/JWZtI+g+7xifMf8GyE9f6W5bCwe2uST9f3wQRk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790991192; c=relaxed/simple;
-	bh=PaNuTxuQEXdVMJ0NcN/R6Cpt619hQgYY21dPSfhcW8k=;
+	s=arc-20240116; t=1790991193; c=relaxed/simple;
+	bh=tjCz4LWp8vovmdv7YdmVt9mRL1LNNiLylm6NpXlr7h8=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Muz8WD7oTONIcQ9eAeAaDiHWmVB5cZ0NYMz9EihcfcgplPnADiMXHDwZv73J2uH6eB25q0PqtjcEfBI3SreQarMMi/3xl42GN4AlWCvWHOCVSgEgOCOIHBOO77xMburHXQyJumd3vPfTirSt+kVZMXPLk9hkG6n/7RmZ+plGWC4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ait3xdju; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=G3SHkhWl5wwH3Up/h2mZ5oqtj3uXl6++WiCd1doGTM6rQNE1u4u92TIy8fFqAB3eJzEX3R6NodvP8TXZyorMsSxsX131wg5dkd3r77pBcQK+rv8SOnhshHkcfuueg95W0CH2VnGAMgG6iU9rr82nEUMmgGUTfGBl+ON4XoH5KEg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wju8vLNY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ait3xdju"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D30A61F000FF;
-	Sat,  3 Oct 2026 01:33:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wju8vLNY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C246A1F00893;
+	Sat,  3 Oct 2026 01:33:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790991191;
-	bh=BiYKwNy+2OHvvwVImDdjFefxqrDOm3KwW8sv6kkusYE=;
+	s=k20260515; t=1790991192;
+	bh=Lv8irvIxzMKK/Fh2hPWFH9Erd4pU5NF+knD+dWuGCU8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ait3xdjuU56xqfszwYObTRPM4J8/fnwEfm5j4DVFskavTUI5pwszS1CPnLZ+helso
-	 o5NA4bS3VZQLgDfG0vprGI8Y7iCycs2lngojK9nSWpcBNEc4VLHCQkeLHSomGcWbVI
-	 3dzPyEJWTo10BPx5Wbd9Y6IxU8dkP3EYNuNxdd5PzIEyqV2t4j14N+bRpbe4rWIdwl
-	 fKRx6cu62fO04w4Js6zHdg0FgEluCb1UV1I5kU8AamvonYsbTDUN3AGsOicgrSGvB2
-	 fSbcOki75g2hDECohonXDkPnqvn9O8EwcQ1l+stia9QwpBY+hEAr0SU7ExFGwgayCt
-	 4yxmmmurrdzaQ==
+	b=Wju8vLNYrSIEZbgwizKrGMOZj3DoAMPw23PIOAQCCIQit6XiCI+/L4o64VbL+mWMA
+	 DsW8Pbr9duchtMkNkLhEGRCvHJkKcW+Mp13QjidqE+MLw73gjCX2VRW19opVS/UAc4
+	 GOS+rxNMiOE5YHqX8qnNx6e7pNdVTtcwrpE/K2qRqToVeaO0fELlouvCRcaK+aYIH1
+	 xixIN9SkUhkk6KM1zU88lWIQ8dKa+ZYjnr6A/Wsj28Brs+0nuYbZwMLvM4IU/Y0ZJG
+	 hd7FGGYf57ccM/BbIu/WfigiuwDv/HBpOj1+g6GF5RIV+l7E8UMg+SOpr5ofrEyLbB
+	 iTzELqDoBC6uw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v2 04/12] dt-bindings: net: dsa:
- renesas,rzn1-a5psw: Add RZ/T2H and RZ/N2H ETHSW support
+Subject: Re: [PATCH net-next v2 10/12] net: dsa: rzn1-a5psw: Add fixed frame
+ length workaround for management port
 Reply-To: sashiko-reviews@lists.linux.dev
 To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com
-In-Reply-To: <20261001154326.754314-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org
+In-Reply-To: <20261001154326.754314-11-prabhakar.mahadev-lad.rj@bp.renesas.com>
 References: <20261001154326.754314-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20261001154326.754314-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20261001154326.754314-11-prabhakar.mahadev-lad.rj@bp.renesas.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 03 Oct 2026 01:33:10 +0000
-Message-Id: <20261003013310.D30A61F000FF@smtp.kernel.org>
+Date: Sat, 03 Oct 2026 01:33:11 +0000
+Message-Id: <20261003013311.C246A1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] dt-bindings: net: dsa: a5psw: globally requiring interrupts brea=
-ks backward ABI
-- [Low] dt-bindings: net: dsa: a5psw: missing port count restriction for ET=
-HSW variant
+- [Low] build: -Wdiscarded-qualifiers on of_data assignment
 --
 
-commit ac61e34c73e390592b92437f35f98d8807997f55
+commit c1982503d53e92d2bb0e481c0cef9b75fe397c5c
 Author: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-dt-bindings: net: dsa: renesas,rzn1-a5psw: Add RZ/T2H and RZ/N2H ETHSW supp=
-ort
+net: dsa: rzn1-a5psw: Add fixed frame length workaround for management port
 
-This commit extends the A5PSW DSA binding to cover the ETHSW variant used on
-newer Renesas SoCs. It updates the schema with new compatible strings, modi=
-fies
-interrupt and clock properties, and accounts for the 4-port topology.
+This commit adds a workaround for an ETHSW IP issue in SoCs like RZ/T2H whe=
+re
+the internal mgmt_tag_vld signal is asserted as a level instead of a pulse.
+It provides a way to set a fixed maximum frame length on the management port
+to prevent valid frames from being dropped.
 
-> diff --git a/Documentation/devicetree/bindings/net/dsa/renesas,rzn1-a5psw=
-.yaml b/Documentation/devicetree/bindings/net/dsa/renesas,rzn1-a5psw.yaml
-> index fab6aa6237e93..863633185912f 100644
-> --- a/Documentation/devicetree/bindings/net/dsa/renesas,rzn1-a5psw.yaml
-> +++ b/Documentation/devicetree/bindings/net/dsa/renesas,rzn1-a5psw.yaml
-[ ... ]
-> @@ -73,14 +145,48 @@ properties:
->                phandle pointing to a PCS sub-node compatible with
->                renesas,rzn1-miic.yaml#
-> =20
-> -unevaluatedProperties: false
-> -
->  required:
->    - compatible
->    - reg
->    - clocks
->    - clock-names
->    - power-domains
-> +  - interrupts
-> +  - interrupt-names
-
-[Severity: Medium]
-Does adding interrupts and interrupt-names to the top-level required array
-cause a regression by breaking backward compatibility for legacy device tre=
-es?
-
-Existing device trees for the older renesas,rzn1-a5psw hardware that do not
-specify the interrupts property will now fail validation. Since the Linux
-driver does not currently utilize interrupts, it is perfectly valid and
-functional for older device trees to omit them.
-
-Should these properties only be required conditionally within the then block
-for the new hardware variant?
-
-> +
-> +allOf:
-> +  - $ref: dsa.yaml#/$defs/ethernet-ports
-> +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: renesas,r9a09g077-ethsw
-> +    then:
-> +      properties:
-> +        interrupts:
-> +          minItems: 24
-> +        interrupt-names:
-> +          minItems: 24
-> +        clocks:
-> +          minItems: 3
-> +        clock-names:
-> +          minItems: 3
-> +      required:
-> +        - resets
+> diff --git a/drivers/net/dsa/rzn1_a5psw.c b/drivers/net/dsa/rzn1_a5psw.c
+> index 0b0b4055e6155..ce931442d49fd 100644
+> --- a/drivers/net/dsa/rzn1_a5psw.c
+> +++ b/drivers/net/dsa/rzn1_a5psw.c
+> @@ -209,8 +209,13 @@ static int a5psw_port_enable(struct dsa_switch *ds, =
+int port,
+>  static int a5psw_port_change_mtu(struct dsa_switch *ds, int port, int ne=
+w_mtu)
+>  {
+>  	struct a5psw *a5psw =3D ds->priv;
+> +	struct a5psw_of_data *of_data =3D a5psw->of_data;
 
 [Severity: Low]
-Does this conditional block need to restrict the port count for the new
-ETHSW variant?
+Does this assignment cause a compiler warning for discarding qualifiers?
 
-The global patternProperties for ethernet-ports allows
-"^(ethernet-)?port@[0-4]$", which globally permits up to 5 ports. This is
-correct for the older A5PSW variant but incorrect for the new 4-port ETHSW
-variant.
+In struct a5psw, of_data is defined as const:
 
-Without a port count restriction here (e.g., overriding and disabling port@=
-4),
-device trees with invalid 5-port configurations for the new variant will
-silently pass schema validation.
+struct a5psw {
+    ...
+    const struct a5psw_of_data *of_data;
+    ...
+};
+
+Assigning it to a non-const local pointer here causes a -Wdiscarded-qualifi=
+ers
+warning, which might break builds that treat warnings as errors. Should this
+local pointer be declared as const?
+
+> +
+> +	if (dsa_is_cpu_port(ds, port) && of_data->management_port_fixed_frame_l=
+en)
+> +		return 0;
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261001154326.7543=
-14-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D4
+14-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D10
