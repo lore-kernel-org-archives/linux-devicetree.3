@@ -1,105 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from xmbghk7.mail.qq.com (xmbghk7.mail.qq.com [43.163.128.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38C54495037;
-	Sat,  3 Oct 2026 19:45:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3AEB495049;
+	Sat,  3 Oct 2026 19:46:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=43.163.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791056723; cv=none; b=F2LB6fLaBsEz4ofrKAxqMmdbS+pArFvk3ewfuD+N0Iv/B0dPz50Ud5I15cpYsTZv35uZAgUHN1jkvbdwIvPCMzUPGsOpG8rE5SwM92UvtZu5cxGFvByNW04jnSd5hjZgtU6DomUDuCZwFuJ06+Id7KFfrgGFNdsTFKOMVFvKRBw=
+	t=1791056810; cv=none; b=tlJITQ4xfb3NAbrb1zrqF4nf0xibSSYGFVogVZIWBZtNQqF8fnDQyWiA/6O727A5TrXy57gZRyQ6L9Qs3HCTyZ1V8XVT+MG+zKUUccmv042CbX4k3ZZhKep+e5N2dQXJT+dDQVjKcpe46ttUB2JlpsjGfraa2BFC/EhbJ835308=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791056723; c=relaxed/simple;
-	bh=e4d3YIbpCboRqV6LBtpZBs+N7k1vOBHFMF9qD/0dOGo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=KXqPH7dHr091Bmgas6ZRcTiu0498yxu3FKQJ1mwSHsn13NQCAh+Ej9GTqDDYH13ll2bL0vTvLqdBi9WRkM5j2YaJCRSt8CNSCOpyuh85PItEyHW3CthxujkFeJC4Dkg3W9Rh1EzlN9mlZ8La5xZ6uknYT5aMscKvZpSrMgToqxU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NofembfH; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791056810; c=relaxed/simple;
+	bh=ShkTY0+rQkFFsx449jSEVzD0XmDR63XkYEvARtORrRU=;
+	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=H6t0oKummjWkwidyKw0yAzjY773aSr5JjdKq4dgnBCqGjQa1db6lJYXmJ6lA785E5LhlEqqv7bJiAkq7W07FDzxph53k2NFADQeGu5iK4P33OFw6Mjoxmu17uv/05UPy/DKnUYuSgbUtBHEUq9IubV34iA2b3Hm7geiD9YhKu5Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=WOewKR34; arc=none smtp.client-ip=43.163.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NofembfH"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id CB3B8C4AF4D;
-	Sat,  3 Oct 2026 19:45:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791056722;
-	bh=e4d3YIbpCboRqV6LBtpZBs+N7k1vOBHFMF9qD/0dOGo=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=NofembfH42nqRmx/+f4kDQVOrB1yvfh7O2dC301v1D9n9hAdq2FRC5FO4/KhwyGyZ
-	 jnSu7TeH3/KSXYcvpHO2cA6JFji0C3280gGsGmvpvAYUKFpTnsJHNDuYPnVA4kZ0vi
-	 YL+GmRhfNo4oLvdpaqdK+M5tX7/FjmHFlUqKz7y1XruJc5pn0AAzNqOHCN9Z8UAcL/
-	 zMdEqiB+wwT2zmVFAMukm0oZUOwfIMJ620YAeAEziEPlwASaSkzito1pDt8my+Z8XV
-	 c/NwLULVB995ly576s3dNGt2uaC4dKQY+/R4XwvA2uBET9l5bnZ7IFwHSdKtZuEk/X
-	 rd4eMa0Dao+Sw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id B23A9CA5FF2;
-	Sat,  3 Oct 2026 19:45:22 +0000 (UTC)
-From: Fabricio Akio via B4 Relay <devnull+fabricioakio.gmail.com@kernel.org>
-Date: Sat, 03 Oct 2026 16:45:24 -0300
-Subject: [PATCH 4/4] arm64: dts: qcom: pmi8998: Add the charger state
- change interrupt
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="WOewKR34"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1791056793; bh=KXqzVoCOHNj4x3oLI8LonBNbU14rAUA+riYDz1pDaA0=;
+	h=From:To:Cc:Subject:Date;
+	b=WOewKR34m6KKKjNP+ze8At/bPfhY6OgNPhEJMMT53/s9QnFTSKa3aASpMmS8vCAuG
+	 ZZi1W2Gzy8fEpdTjB0i+wbeRzlOSYTmwtMKUc1WxK2gLupbfWS7PMgPrLOuZBorIcv
+	 mHk3PIFxvOm/A/t7tmrSoUe6ibRfY0QKSywuwNFE=
+Received: from AERO17.taila7786d.ts.net ([112.43.117.189])
+	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
+	id B9D93CB0; Sun, 04 Oct 2026 03:46:29 +0800
+X-QQ-mid: xmsmtpt1791056789tmd9xg9z6
+Message-ID: <tencent_E9086080313181C5F806E5543C9638DC270A@qq.com>
+X-QQ-XMAILINFO: M2SvzgchpLqfCSVcvSgQB7e432dlIGlLZrovKeFBv0TAHYe9WXGY3FxV37JeyX
+	 dHdwWhfp26KS02Vzsx6TlYjvuA78DOji+Uimyq2rcewDQM8AhJaHQmuy/l5tV+W/yOjE/EN3wHoT
+	 m6rShVkqzEMAgMW+Y7Wk3xBLHbn9tr//fISPELMA9e12w4wcwiPeC6ra/kdRCYcuj3kVn7NrDY9b
+	 FBCyPoTl2u+11jIT+dEbgX1/xcmj7MSRCnB8DGZ8pq1vsv9GUyt7QChwjryZvPKE77WOFP6KBjZv
+	 5zPGDZUZUip3bVuEZYtDSIMPjuvqTLVyGZ/L6gg0510xjGhLR2s1zDfaWhffMzNtY+q8OHmLs0M8
+	 vQa/HF4ZXv0YELi/BjcN1k8do3M8IWh5ShLQFrVbZWf6Tmk0yWtzYD4ee3AD64ctjniNLZxegTeU
+	 Avtxsi5hHR7X0JZBY8v2ymjEflm6X1AhAFTD2nP6XvrK7aacH5gk56xujhYx/AzzHXPi1/hBFqjC
+	 lqG8/TQGwj3i+01TYeKLClAOzuDbTC3x17yIvS6PLkPswQBNqueVfDr85a6XQ/1mQUxI1ZUNJfmx
+	 6lzziCLKmz0hpkVOvtRrzEVIuYg6yFXACFNnb0Bn27GYGmB007QNdAnRdvvio3pb73riA8JPzfyC
+	 4XNjTAKzVa/ipbmTNCpa6172lkEN08h2m+m7u6MR5WF4rvshVA+Y8qGqZjiDY1PmGsdG2SdV00Uz
+	 B9XFp5SRZOVsaPHvuhHeqWoimbzQQi18DwBmUbmWjoZINPIg9Evb/qpczG7YcQsQgNeLzCuw0RY4
+	 cuIqZ3nLNhRea6TIcS+VIxq41YKSJK4TiO1mMbafynWg7UnpoxeZX8ZBGWr9+U8IazMdwdtfdT8+
+	 Y9LPEGRlg6uRA4gyivdF09ugdP2XWE1izXTa4H8YxKUPXggRB/NqT7LI6+2QW63sTiNTeASCJeaz
+	 2ZkUKYKepu/JVDjdE8RYhc7V0s3HvFofsgf3rmuOCuzars0bwPaPJ+t/LK8gyH8pIf6I98SRyvHB
+	 ohf81j9uWj9Yl/TfUSux0+nymAOC7ehMhZRZ6M/KzpcWea2ydI
+X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
+From: Pufan Jin <2254650260@qq.com>
+To: Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Michal Simek <michal.simek@amd.com>,
+	Rob Herring <robh@kernel.org>
+Cc: devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH 0/3] arm64: zynqmp: Add support for EBDEE EdgeBoard FZ3A
+Date: Sun,  4 Oct 2026 03:46:22 +0800
+X-OQ-MSGID: <20261003194625.936288-1-2254650260@qq.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261003-qcom-smbx-chg-state-change-v1-4-fffaef446932@gmail.com>
-References: <20261003-qcom-smbx-chg-state-change-v1-0-fffaef446932@gmail.com>
-In-Reply-To: <20261003-qcom-smbx-chg-state-change-v1-0-fffaef446932@gmail.com>
-To: Casey Connolly <casey.connolly@linaro.org>, 
- Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: Robin Snyders <robin@snyders.xyz>, David Heidelberg <david@ixit.cz>, 
- phone-devel@vger.kernel.org, Richard Acayan <mailingradian@gmail.com>, 
- linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Sebastian Reichel <sebastian.reichel@collabora.com>, 
- Fabricio Akio <fabricioakio@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791056720; l=1071;
- i=fabricioakio@gmail.com; s=20260928; h=from:subject:message-id;
- bh=7C77VJn5h1hHh/I/VZZaiNv4WEPYvSZpJOqhhjqRqHc=;
- b=0exrXWpGGiWrGFNj6VZv5rb5FFi3oEO9R9FhA38JvxlNknm4uAx73x2StdvgjRHBaFwqQcy2U
- E5Yh9gFzZNMCxsvBiC7f1jgm+L6wIE/O/8hD7zkoPbE4Sa9XwkoY0hB
-X-Developer-Key: i=fabricioakio@gmail.com; a=ed25519;
- pk=TlMUT8bPI/ZQzp2q24BIQTb2qSx/jdUTBlGEXIRCm54=
-X-Endpoint-Received: by B4 Relay for fabricioakio@gmail.com/20260928 with
- auth_id=1076
-X-Original-From: Fabricio Akio <fabricioakio@gmail.com>
-Reply-To: fabricioakio@gmail.com
+Content-Transfer-Encoding: 8bit
 
-From: Fabricio Akio <fabricioakio@gmail.com>
+The EBDEE EdgeBoard FZ3A is a development board built around the MYIR
+MYS-CZU3EG SoM, based on the Xilinx Zynq UltraScale+ XCZU3EG.
 
-Describe the charger's chg-state-change interrupt, as the vendor device
-tree does.
+This series adds the EBDEE vendor prefix, documents the board compatible,
+and adds a device tree for the board's PS peripherals:
 
-Signed-off-by: Fabricio Akio <fabricioakio@gmail.com>
----
- arch/arm64/boot/dts/qcom/pmi8998.dtsi | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+  - UART1 debug console
+  - eMMC and microSD card
+  - GEM3 Ethernet
+  - I2C0 and I2C1
+  - QSPI NOR flash
+  - PCIe
+  - USB 3.0 host
+  - DisplayPort output
 
-diff --git a/arch/arm64/boot/dts/qcom/pmi8998.dtsi b/arch/arm64/boot/dts/qcom/pmi8998.dtsi
-index cd3f0790fd42..bd07ff137947 100644
---- a/arch/arm64/boot/dts/qcom/pmi8998.dtsi
-+++ b/arch/arm64/boot/dts/qcom/pmi8998.dtsi
-@@ -16,11 +16,13 @@ pmi8998_charger: charger@1000 {
- 			interrupts = <0x2 0x13 0x4 IRQ_TYPE_EDGE_BOTH>,
- 				     <0x2 0x12 0x2 IRQ_TYPE_EDGE_BOTH>,
- 				     <0x2 0x16 0x1 IRQ_TYPE_EDGE_RISING>,
--				     <0x2 0x13 0x6 IRQ_TYPE_EDGE_RISING>;
-+				     <0x2 0x13 0x6 IRQ_TYPE_EDGE_RISING>,
-+				     <0x2 0x10 0x1 IRQ_TYPE_EDGE_RISING>;
- 			interrupt-names = "usb-plugin",
- 					  "bat-ov",
- 					  "wdog-bark",
--					  "usbin-icl-change";
-+					  "usbin-icl-change",
-+					  "chg-state-change";
- 
- 			io-channels = <&pmi8998_rradc 3>,
- 				      <&pmi8998_rradc 4>;
+The Paddle-Mobile FPGA accelerator is not included. Its PL description
+depends on vendor-specific IP and an out-of-tree driver.
 
+Tested on EBDEE FZ3A hardware with Linux 7.3.0-rc5: the board boots from
+the SD card into userspace over the serial console, and all enabled board
+functions work as expected.
+
+The base DTB passes CHECK_DTBS=y, and the Xilinx SoC binding passes
+dt_binding_check.
+
+Pufan Jin (3):
+  dt-bindings: Add EBDEE vendor prefix
+  dt-bindings: soc: xilinx: Add EBDEE EdgeBoard FZ3A
+  arm64: zynqmp: Add EBDEE EdgeBoard FZ3A development board
+
+ .../bindings/soc/xilinx/xilinx.yaml           |   1 +
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ arch/arm64/boot/dts/xilinx/Makefile           |   1 +
+ .../xilinx/zynqmp-ebdee-edgeboard-fz3a.dts    | 272 ++++++++++++++++++
+ 4 files changed, 276 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/xilinx/zynqmp-ebdee-edgeboard-fz3a.dts
+
+
+base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
 -- 
 2.55.0
-
 
