@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7C3C376BEA;
-	Sat,  3 Oct 2026 01:33:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B40DA37F339;
+	Sat,  3 Oct 2026 01:33:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790991209; cv=none; b=WvqQ7nPlHU6l4IaXDQ+K7MniIkO0YMiGuVVr0cDgQot2sB8oIHKXVQ9buwJIjkRRYHqAksFIRoIryoyTBZvABF92MtI1w9q79ejJLXMb2HGGKr7BB9bC9P3+0Q0dyK02uLXz68d8yICkypvv13uhM1Vu53/PfJ8pQS0y9TbsKBE=
+	t=1790991231; cv=none; b=rcSG/W/RQiAiy6DLK3w1x5wl1mrVi0DaTq4uhqSKTdksUO7b+f7d/srjdrssncE17GKszerp06OjdZaJ9hC9BhwFGpCLQitr8HQDJpTHOOd978Ryy6NWYRbuZVrt8hgQ/0aGzssRcxgRMta7XqfTKSQUPy1Y1HbRhsxhYbrZl8w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790991209; c=relaxed/simple;
-	bh=jqAgTBgyLB9in13H5pvqeM/pQK2NV8lj9aFgxj0cjjI=;
+	s=arc-20240116; t=1790991231; c=relaxed/simple;
+	bh=3+9mKCgxb9otCQr5pHSEe/WnHWxEg+JSki/GbsMrClk=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=dbDzZ4bQOhjEuNvIF9RL2ztLveZOFgHnucHjvxyz0VnRKz4ub/WZR1kBngdMol1lBbFWAr5euu8PMLEaD/a54p6n88oaonH7peXBELP4PF8yP7fhEax/a6D0LkDp1uFdSKT+nGiqo5rtYJCD0qonll5hnIsUA1QVbQAajRy0kp8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mpYqAPjV; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=smjzfMMKsRknid3qwpEpoadRGYtevU7q+PvywyNIdfKMD2oBqseBoBRBWr9bKAr3DwEEJ6pyyL99gpOfpSPImM+n8F1sBbTCVXT8hw14CC5nPOghDlT3qslPrbqAdIsQnMcHvUusfOZ3BovmImPCb2TdQ+6qZsLiyE5rEUXjPjo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PUKX34xf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mpYqAPjV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5849F1F00899;
-	Sat,  3 Oct 2026 01:33:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PUKX34xf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 55C4C1F00893;
+	Sat,  3 Oct 2026 01:33:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790991207;
-	bh=qkuLg96MVQmWm2nFIXHAj8tPzinEiR5Ik5JjHLPLSbE=;
+	s=k20260515; t=1790991230;
+	bh=RQYOIVqOzZS0PFZHt6iSDtb1yPE0cgKbh6X2s32xiLc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=mpYqAPjVlZeCGuVs2cYySFzjzxlo+bsiqpIyqu78B4FcYu+v8JRYSknDl1x2m2UzD
-	 hzGfxmlsR5dbJ58oxmCls4BBR5VZs5RzjBIzz/hRaCqC15AcTquAc6cjFjdTnHAxme
-	 3qo+wmwZ2xZaivK5u0zy6Yu3/45pn9N6dyYucsV0hoCqVUGXcE/lD91KUlpoDUDONC
-	 YN1FASV7aNgrDz7A/mkDrseEEon65R098/dnfCQwIbhQAMX7qT9GRZPa6KeyBnZuBE
-	 efsXkFbeb3DuEpC8boYe0HL+XSWkhMD19USx/wlOyJMMzjAgSXPsfhxge8Ps8KOyue
-	 G57YqcdunzQQQ==
+	b=PUKX34xf9ifnpN+CXG+wIVDzjdcnS2iUo5CbXw0dy+0L9g3YAdgNxwRwy7FCjwd9u
+	 KhTpU5VGaKRHEOIU6T2u41oITWKBCmNDEhW6YgwfqHPfUNIwrLWSQIoCDwbgZXhrgB
+	 sCe/kjEFfBV9NxV8LOJcCMyitwiFKHfcbPq10hU7EwfhY19ugEJop4Dla1tGs/9JL9
+	 hSnlMs+0NfBojvNutpu3ncNokDXn0qWuF/EQbMofB0aaliuJfFaaHXu4SmXM+uVpSd
+	 /2Z6OlwLwadMQSsaKOb9JKLM/RRvEAF7IZ6mTQHn0ECLvB9c3dLahxT/WShM6dVuTe
+	 SYVM93FoDtUkA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v14 2/3] perf: Add Raspberry Pi BCM2835 AXI PMU driver
+Subject: Re: [PATCH v3 3/4] clk: qcom: Add lpass audio clock controller
+ driver for Glymur
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ian Rogers" <irogers@google.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, linux-perf-users@vger.kernel.org
-In-Reply-To: <20261002175738.3242646-3-irogers@google.com>
-References: <20261002175738.3242646-1-irogers@google.com>
- <20261002175738.3242646-3-irogers@google.com>
+To: "Srinivas Kandagatla" <srinivas.kandagatla@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, linux-clk@vger.kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20261002194436.1275056-4-srinivas.kandagatla@oss.qualcomm.com>
+References: <20261002194436.1275056-1-srinivas.kandagatla@oss.qualcomm.com>
+ <20261002194436.1275056-4-srinivas.kandagatla@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 03 Oct 2026 01:33:27 +0000
-Message-Id: <20261003013327.5849F1F00899@smtp.kernel.org>
+Date: Sat, 03 Oct 2026 01:33:49 +0000
+Message-Id: <20261003013350.55C4C1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,100 +47,50 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] perf/rpi_axi_pmu: Endianness bug in VPU mailbox IPC payloads
+- [Medium] kconfig: inconsistent SC_ prefix and missing select CLK_GLYMUR_G=
+CC
 --
 
-commit 5a995c8809331bd8433a8a216b6077dd563f9f07
-Author: Ian Rogers <irogers@google.com>
+commit 4d46e5258e028c341d462d1519e907620d08c409
+Author: Srinivas Kandagatla <srinivas.kandagatla@oss.qualcomm.com>
 
-perf: Add Raspberry Pi BCM2835 AXI PMU driver
+clk: qcom: Add lpass audio clock controller driver for Glymur
 
-Adds a PMU driver for the Raspberry Pi AXI performance monitors, providing
-access to the System and VideoCore performance counters natively through
-the perf subsystem on Broadcom BCM2835 and BCM2711 platforms.
+Add support for the lpass audio clock controller found on Glymur based
+devices. This would allow lpass peripheral loader drivers to control the
+clocks and bring the subsystems out of reset.
 
-> diff --git a/drivers/perf/rpi_axi_pmu.c b/drivers/perf/rpi_axi_pmu.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/perf/rpi_axi_pmu.c
-
-[ ... ]
-
-> +static void set_monitor_control(struct rpi_axi_pmu *pmu, enum monitor mo=
-n, u32 set)
-> +{
-> +	if (pmu->monitor[mon].use_mailbox_interface) {
-> +		u32 tmp[3] =3D {pmu->monitor[mon].mailbox + GEN_CTRL, 1, set};
+> diff --git a/drivers/clk/qcom/Kconfig b/drivers/clk/qcom/Kconfig
+> index 27d0ab24d50a4..89e6a636e4973 100644
+> --- a/drivers/clk/qcom/Kconfig
+> +++ b/drivers/clk/qcom/Kconfig
+> @@ -1274,6 +1274,17 @@ config SC_LPASSCC_8280XP
+>  	  Say Y if you want to use the LPASS branch clocks of the LPASS clock
+>  	  controller to reset the LPASS subsystem.
+> =20
+> +config SC_LPASSCC_GLYMUR
+> +	tristate "GLYMUR Low Power Audio Subsystem (LPASS) Clock Controller"
+> +	depends on ARM64 || COMPILE_TEST
 
 [Severity: Medium]
-Will this payload work correctly on big-endian architectures?=20
+Should this symbol use the CLK_GLYMUR_ prefix instead of SC_ to ensure
+consistency with other Glymur configurations?
 
-The VPU mailbox communication appears to use native u32 arrays for its=20
-payloads here without explicit cpu_to_le32() conversions. Does this cause
-the little-endian VideoCore VPU to read swapped bytes when the driver is
-compiled for big-endian systems?
+Also, does this configuration need a select statement for CLK_GLYMUR_GCC?
+Building the kernel with SC_LPASSCC_GLYMUR enabled while CLK_GLYMUR_GCC is
+disabled can lead to the driver being built without the required global clo=
+ck
+controller infrastructure, potentially causing probe failures at runtime.
 
-> +		int err;
-
-[ ... ]
-
-> +static void set_bus_watcher_control(struct rpi_axi_pmu *pmu, enum monito=
-r mon, int idx, u32 set)
-> +{
-> +	int watcher =3D watcher_offset(idx);
+> +	default m if ARCH_QCOM
+> +	help
+> +	  Support for the LPASS clock controller on Glymur devices.
+> +	  Say Y if you want to use the LPASS branch clocks of the LPASS clock
+> +	  controller to reset the LPASS subsystem.  Required for the LPASS
+> +	  audio macros and the SoundWire compute-mode controller to leave
+> +	  reset on Glymur.
 > +
-> +	if (pmu->monitor[mon].use_mailbox_interface) {
-> +		u32 tmp[3] =3D {pmu->monitor[mon].mailbox + watcher, 1, set};
-
-[Severity: Medium]
-Similarly, does this watcher configuration payload require endianness
-conversions to prevent hardware communication failures on big-endian
-systems?
-
-> +		int err;
-
-[ ... ]
-
-> +static u32 rpi_axi_pmu_read_counter(struct rpi_axi_pmu *pmu, enum monito=
-r mon, int idx,
-> +				    enum counter counter)
-> +{
-> +	int watcher =3D watcher_offset(idx);
-> +	int offset =3D counter_offset(counter);
-> +	u32 ret;
-> +	/* Use READ_ONCE to prevent KCSAN data race warnings during lockless IP=
-C reads */
-> +	if (!READ_ONCE(pmu->monitor[mon].hw_events.enabled[idx]))
-> +		return 0;
-> +	if (pmu->monitor[mon].use_mailbox_interface) {
-> +		u32 tmp[3] =3D {
-> +			pmu->monitor[mon].mailbox + watcher + offset,
-> +			1, -1
-> +		};
-> +		int err;
-> +
-> +		might_sleep();
-> +		lockdep_assert_held(&pmu->vpu_mutex);
-> +		if (WARN_ON_ONCE(in_interrupt() || irqs_disabled()))
-> +			return -1;
-> +		err =3D rpi_firmware_property(pmu->firmware,
-> +					    RPI_FIRMWARE_GET_PERIPH_REG,
-> +					    tmp, sizeof(tmp));
-> +		if (err < 0 || tmp[1] !=3D 1) {
-> +			dev_err_ratelimited(&pmu->pdev->dev, "Failed to read bus watcher\n");
-> +			/* Return U32_MAX on IPC failure. */
-> +			return U32_MAX;
-> +		}
-> +		ret =3D tmp[2];
-
-[Severity: Medium]
-When the read response is received, is a le32_to_cpu() conversion needed on
-tmp[2] before it is consumed?
-
-Using proper endianness conversions would align with other Broadcom
-firmware drivers like clk-raspberrypi to correctly interface with the
-hardware.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261002175738.3242=
-646-1-irogers@google.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261002194436.1275=
+056-1-srinivas.kandagatla@oss.qualcomm.com?part=3D3
