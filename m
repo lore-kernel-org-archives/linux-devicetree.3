@@ -1,125 +1,86 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+Received: from mail.nozomi.space (mail.nozomi.space [139.162.184.125])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3184835C6A7;
-	Sat,  3 Oct 2026 19:14:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99CF821D3F5;
+	Sat,  3 Oct 2026 19:31:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=139.162.184.125
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791054850; cv=none; b=BrDG6k/KSTEvUAmBiObhc1s73zqRWCkbY840Za1SN5TkPLltCszTsqS2yJ5RsfbzE5C0USyJtUDeRbPv3LstvSZgPViRIGbwnMg7qP1mLWzWvbuSITouLzuKzjJ5p0FySswEdmLU3N7/pEnlSBow1ewbeaie+uS6dy/RYLqI6q0=
+	t=1791055875; cv=none; b=qgnXKTAQCsXzVmb7YpsCjdqgBETVR6OomCVuSk96l9N0TJGvIOyeXnBSPyg7lGMZS8H71yFKvgUdk8ED3LBqnRut+LS0DZeS7tkmCQN9/5gFNnim6n3OHQwveii6UVczq/zkMwvPMMjSUOdpkz+mocbkXIUCGqpZ0HjXiCxBRaI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791054850; c=relaxed/simple;
-	bh=KhgmOyAqjo/llGROourjFLvSd3sC7KcQpwY5Z6BnsCY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=t9V+d6IYrpbMmvzUPyxOfCnL+EbReRi7okjfFuk0nDi8EAbAarzueh21v4uujdN7MqVlySp5/twh5Dr6TtSP7Gyw29e6Ri1N/Gn4VDAI5db6ILySRRjuTQlPw3/fg+ta99zKZYYiLEqkRK5P+qmAL+ESHY/Lam2CsCEp50+jms4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UyWyh7Gp; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791055875; c=relaxed/simple;
+	bh=kgveik9/3mckawua1ug0HY+55b+NUZ1vrqReM0N4+Ds=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=tz9Ls0nHuFaXabv1YyrT3SRi/T/UUbo68gL7vRgSKZuzA8dHX1G7c8y3wJbF4l+7iDeEc/XxY1KicLuOkdAInRiw+BRDOujwm+6v3zPx9uklcwc3kPFZe+/GClI9AQX6FEM5BtzWeF3ToZlTLyul9BIV7gyZFFNCQ8havvc5C+I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nozomi.space; spf=pass smtp.mailfrom=nozomi.space; dkim=pass (2048-bit key) header.d=nozomi.space header.i=@nozomi.space header.b=RnUPguuM; arc=none smtp.client-ip=139.162.184.125
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nozomi.space
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nozomi.space
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UyWyh7Gp"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791054849; x=1822590849;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=KhgmOyAqjo/llGROourjFLvSd3sC7KcQpwY5Z6BnsCY=;
-  b=UyWyh7GpjeuS/czkNtHuHV/o5+XXTrLoxrX2WG3Vy9b4pQlsMpkqzksj
-   CpIzpNSUf/Qxq1NPQnqxD0xScclhG1Z0VAl4IyKDpjcvGpw4tDS9Ks5cZ
-   zTGhntIP1ERpo9pz8b+3dOOw1fgB6r0Xcquj/AxHXzPlhIj/ciTxiLdg9
-   bvce80Ag829x5YWCLQ4z6S87kVz/eevQ3+nTz5Ko5PerDLvAreSM+/H+s
-   8YWYzT/o7eXH1QrM2nSRDvzF69Jg/HDmWUjGp6ThUz5eCwuwlJCPILIln
-   py2F4Q6A49ZtRNE6Z9/Ui8NiSxYO4q/FSCoiITr7awZXS9NcWvh7JMjzI
-   A==;
-X-CSE-ConnectionGUID: m6fCXqXETteS2TAt7P4nMQ==
-X-CSE-MsgGUID: 5AQnYGEUSNyz+XOvwOmaqg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11924"; a="90840975"
-X-IronPort-AV: E=Sophos;i="6.27,138,1787036400"; 
-   d="scan'208";a="90840975"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Oct 2026 12:14:08 -0700
-X-CSE-ConnectionGUID: 5kjAKhlISJmucsEP+Z1HUw==
-X-CSE-MsgGUID: ddJqhZl7TPmfEZAML0iz8Q==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,138,1787036400"; 
-   d="scan'208";a="276562823"
-Received: from amilburn-desk.amilburn-desk (HELO localhost) ([10.245.245.78])
-  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Oct 2026 12:14:05 -0700
-Date: Sat, 3 Oct 2026 22:14:02 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Muhammad Abu Bakar <m.abubakar365@yahoo.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=nozomi.space header.i=@nozomi.space header.b="RnUPguuM"
+From: =?UTF-8?q?Micha=C5=82=20Kope=C4=87?= <michal@nozomi.space>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nozomi.space;
+	s=mail; t=1791055871;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=yNdfF33mWaDtKQmIYOFKyplY+dYLoXzNcNN0FYYoZ7A=;
+	b=RnUPguuM8lX35TwHLzfLe3aHOiSd6HoDvXZ8EamkK8ISmBPlNWOlleG3KeJOrEOVdJcE8u
+	kb1c7bSXSaoeVgByZLOwNZ7A16uW6dz6GUm+rEVi2d2fM/d7QL4UHJ+wHvmXzpg+/JQAQf
+	O4Rlrh0u2lV3OiSl5wseVS5GO9ZwLznCUZ+B5u6Y+rEbRd1p1+YbriCzVL/AhTpGmwKDQZ
+	Lcs3vGrAUp0vp1LTzMN7knFpt+hxrLS4HYTQ9xQQHyy2Vu4VsAR/MMiYvCh6+dSjQHcjxs
+	XdbF3x0oIm6vg7+nzzT6q7tRgv1fQzLYcfCV8a/TqRpRjUTQcwqNvlIXU44fIw==
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>
+Cc: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, dlechner@baylibre.com,
-	nuno.sa@analog.com, andy@kernel.org, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 2/2] iio: pressure: add Sensirion SDP31 driver
-Message-ID: <asFT-mYqD9PKNKEQ@ashevche-desk.local>
-References: <20261003160949.4657-1-m.abubakar365@yahoo.com>
- <20261003160949.4657-3-m.abubakar365@yahoo.com>
+	Conor Dooley <conor+dt@kernel.org>,
+	Fei Shao <fshao@chromium.org>,
+	devicetree@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?Micha=C5=82=20Kope=C4=87?= <michal@nozomi.space>
+Subject: [PATCH 0/3] arm64: dts: mediatek: mt8188: SCP memory, thermal and touchpad fixes
+Date: Sat,  3 Oct 2026 21:31:05 +0200
+Message-ID: <20261003193108.789939-1-michal@nozomi.space>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261003160949.4657-3-m.abubakar365@yahoo.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sat, Oct 03, 2026 at 09:09:49PM +0500, Muhammad Abu Bakar wrote:
-> Add an IIO driver for the Sensirion SDP3x family of differential pressure
-> sensors (SDP31, SDP32 and SDP33). The devices are accessed over I2C and
-> report differential pressure and temperature. Each measurement is
-> validated using the sensor's CRC-8 checksum. The scale factor is read
-> from the sensor at runtime, so all three parts are supported.
-> 
-> Tested on an SDP31 connected to a Raspberry Pi 4 I2C bus.
+These patches fix a memory reservation on the MT8188 based Chromebooks
+(Geralt/Ciri), tune the CPU thermal zones of MT8188 and add the
+touchpad of Ciri's detachable keyboard base.
 
-With the nit-picks addressed,
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+The first is a fix for Ciri: a DRAM region that the trusted firmware
+protects for the SCP was handed out to Linux and broke the GPU under
+memory pressure.
 
-> Assisted-by: Claude:claude-opus-4-8
-> Assisted-by: Claude:claude-opus-5-5
+The second makes the power allocator governor usable on the CPU thermal
+zones, which prevents thermal shutdowns under sustained load.
 
-Assisted-by: LLM
+The third adds the touchpad of the detachable keyboard base of Ciri.
 
-> Signed-off-by: Muhammad Abu Bakar <m.abubakar365@yahoo.com>
+The series is based on the v7.3-next/dts64 branch of the MediaTek tree.
 
-...
+Tested on Ciri (sku0).
 
-> +#include <linux/array_size.h>
-> +#include <linux/bits.h>
-> +#include <linux/cleanup.h>
-> +#include <linux/crc8.h>
-> +#include <linux/delay.h>
-> +#include <linux/device.h>
-> +#include <linux/errno.h>
-> +#include <linux/i2c.h>
+Michał Kopeć (3):
+  arm64: dts: mediatek: mt8188-geralt: Reserve SCP dual-core memory
+    region
+  arm64: dts: mediatek: mt8188: Add power allocator parameters to CPU
+    zones
+  arm64: dts: mediatek: mt8188-geralt: Add the detachable base touchpad
 
-> +#include <linux/mod_devicetable.h>
+ .../boot/dts/mediatek/mt8188-geralt.dtsi      |  23 ++++
+ arch/arm64/boot/dts/mediatek/mt8188.dtsi      | 110 +++++++++++++++++-
+ arch/arm64/boot/dts/mediatek/mt8370.dtsi      |  14 +++
+ 3 files changed, 141 insertions(+), 6 deletions(-)
 
-Not in the new code.
 
-> +#include <linux/module.h>
-> +#include <linux/mutex.h>
-> +#include <linux/once.h>
-> +#include <linux/regulator/consumer.h>
-> +#include <linux/types.h>
-> +#include <linux/unaligned.h>
-> +#include <linux/units.h>
-
-...
-
-> +static int sdp31_read_measurement(struct sdp31_data *data, s16 *pressure,
-> +				  s16 *temp)
-
-Better to split on logical boundary
-
-static int sdp31_read_measurement(struct sdp31_data *data,
-				  s16 *pressure, s16 *temp)
+base-commit: bf89276b2db391cbb25d1a0e898280fe85b16fb5
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.55.0
 
