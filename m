@@ -1,46 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 456763EB11C;
-	Sun,  4 Oct 2026 07:24:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C2C635F170;
+	Sun,  4 Oct 2026 07:27:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791098670; cv=none; b=Ye9ogCisn46CwyEj24KLcIaHuIrjdhEZmn+JLf1by8L7tlw2YvhSlkwJ0AYF4jUa1Wi7m+n9yD3vNeBcNVNy9nBZ9EJC9sWNc15BQXA/LQq0skU+m0zvDSwRiLZFfi8+PRPR9pt8D3cz2eIJM4ZPv97m/HTLmOYasI827zKJAVs=
+	t=1791098828; cv=none; b=giFA7zx4HBDM210MhR/RiN9NpZdpGumpWOSY98p8op4VyWeU12bCxC7nvDejlV09FTz2m7PSeZsUKph2n62STCsT04zKK03T0gj8LJOhYqxldHMNbhQXiGvFDZP1oMbttjpeAmgjYpu9lZdOR3alDoZ+26/g3obCOTLiTtitLCU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791098670; c=relaxed/simple;
-	bh=7wVLnZ5aKPjSHndJGLA8SeyXwYiVxkyOJMv/I9qGBiA=;
+	s=arc-20240116; t=1791098828; c=relaxed/simple;
+	bh=l8rJJm2qi4mvsO2SSVFmre8ravUbeWmYFL0geCmXYCQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BMUUvdzAtSgL8tCNTQlsS9ROgFGvp3MoYhrCLSueGbQ0g+7Yavm7VfpNIH7SHUy3SacyQqzptFQnvocq7FDfzOlrZxGPlAVWj+Mf16vZWx1XqtG8MOSQyN+U06nesbqFzo0hqK2ssfyiWH1+NPnugBkjsX+TzQaTcRjcV3WvGxs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yd6M8Qvj; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=l78wjOiY4aEPXEnngLA36Eya95EBAD9Zf5gyfH2K1Y3CXOWu51tP5/VjBLkxr2mMc3Kt0J+QTbNLIOTkWB077RHLRD7s6FXDaKh20D9mn89GQ50jt7Bj2v1q7P6ZZZjoq4GvxwcL8qgd9RN4xFmltjGU3UXy3dueBp/HloGcdmY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j6L6oCK2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yd6M8Qvj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49A031F000FF;
-	Sun,  4 Oct 2026 07:24:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j6L6oCK2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88A871F000FF;
+	Sun,  4 Oct 2026 07:27:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791098668;
-	bh=Xa7jvq/Hrco6wAxevCltMhRtEr5i7J1hN07rRZ/osl0=;
+	s=k20260515; t=1791098827;
+	bh=l8rJJm2qi4mvsO2SSVFmre8ravUbeWmYFL0geCmXYCQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Yd6M8QvjtVQeJAPcO6orijayNHA6UVZX/v70y1VWncldFTLvAdR6SeC4u1wZLendC
-	 vJ8OmCOs95VX/moAa2KPAPkDm6hs7C74NkLxrB4DAELwCxY1LFtMNBON3thY66H4Z5
-	 vWAgHUd/SOp8+LnsGjuUXx43EoFKMC2Zx3S/8fSuCL1H4NQTMX8jFwW7yT0SAKhs4Q
-	 fA4O+6AtS6//VX94juw19TwWc+v0vNVA7IIKy2tPg5mKDdikp3oAUbRlnFgIi9Nqth
-	 9h0/pOkuweH1J4WlstsAKtIt9OvYpblSDoitsyEKhlfxFQTaiPqIWnyrx0si9V8Oom
-	 0iGrWMHr3yiWA==
-Date: Sun, 4 Oct 2026 09:24:26 +0200
+	b=j6L6oCK29W3xKZIydfGzl7vZyY66zLoUPzVam3i+pANhcBB9LQc7dnbwMBUNli0fr
+	 f21KnLNhtGC1AJTD8fK2Yi5EumaNTQxcuLP4nTHm1PsJi3mxRFKzPCSWHggt3UmI5p
+	 keYQa44sMBbphNlDvtIZneWXyeYW8KvQ+gtbAwtDXpilOqoCZo7H/3pp8EZPfznIJq
+	 lDzxuU8FfCYdyMlk2WwLWsCF2K1OpK5pVtdb/PWEE5upuQpJ6ZWVCj46oRFG2r9GAT
+	 IP2erQ+H4N62fohnB6LMl64D/g8wBF6Ux+55FUlOK0Z0jgpMhYo1YU2MI/Cjt1ujM+
+	 O9zL4MqW3G2OQ==
+Date: Sun, 4 Oct 2026 09:27:04 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Daniel Golle <daniel@makrotopia.org>
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Hendrik Noack <hendrik-noack@gmx.de>, 
-	Arnd Bergmann <arnd@arndb.de>, Ferass El Hafidi <funderscore@postmarketos.org>, 
-	Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>, Oleh Kuzhylnyi <kuzhylol@gmail.com>, linux-input@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Chad Monroe <chad@monroe.io>, 
-	John Crispin <john@phrozen.org>
-Subject: Re: [PATCH v2 1/5] dt-bindings: input: touchscreen:
- hynitron,cst816x: axes and panel
-Message-ID: <20261004-unbreakable-funny-guan-73da47@quoll>
-References: <cover.1790944534.git.daniel@makrotopia.org>
- <04a70b1cb0969ec4e4b38f7945e0b22a977b038b.1790944534.git.daniel@makrotopia.org>
+To: Rodolfo Giometti <giometti@enneenne.com>
+Cc: Woojung Huh <woojung.huh@microchip.com>, UNGLinuxDriver@microchip.com, 
+	Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>, 
+	netdev@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next 1/2] dt-bindings: net: dsa: microchip: add reset
+ timing properties
+Message-ID: <20261004-transparent-cuscus-of-honor-8ccbb4@quoll>
+References: <20261002135542.359756-1-giometti@enneenne.com>
+ <20261002135542.359756-2-giometti@enneenne.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,37 +48,16 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <04a70b1cb0969ec4e4b38f7945e0b22a977b038b.1790944534.git.daniel@makrotopia.org>
+In-Reply-To: <20261002135542.359756-2-giometti@enneenne.com>
 
-On Fri, Oct 02, 2026 at 01:47:21PM +0100, Daniel Golle wrote:
-> diff --git a/Documentation/devicetree/bindings/input/touchscreen/hynitron,cst816x.yaml b/Documentation/devicetree/bindings/input/touchscreen/hynitron,cst816x.yaml
-> index 72d4da636881e..027a2b3dcf2e8 100644
-> --- a/Documentation/devicetree/bindings/input/touchscreen/hynitron,cst816x.yaml
-> +++ b/Documentation/devicetree/bindings/input/touchscreen/hynitron,cst816x.yaml
-> @@ -36,6 +36,18 @@ properties:
->        - description: Slide right gesture
->        - description: Long press gesture
->  
-> +  panel: true
-> +
-> +  touchscreen-min-x: true
-> +  touchscreen-min-y: true
-> +  touchscreen-size-x: true
-> +  touchscreen-size-y: true
-> +  touchscreen-fuzz-x: true
-> +  touchscreen-fuzz-y: true
-> +  touchscreen-inverted-x: true
-> +  touchscreen-inverted-y: true
-> +  touchscreen-swapped-x-y: true
-> +
->  required:
->    - compatible
->    - reg
-> @@ -43,6 +55,9 @@ required:
->  
->  additionalProperties: false
+On Fri, Oct 02, 2026 at 03:55:41PM +0200, Rodolfo Giometti wrote:
+> How long a KSZ switch needs before it answers on its management bus
+> after the reset line is released depends on the board it sits on, and a
+> board that needs longer than the driver waits has no way to say so.
 
-So just use unevaluatedProperties instead of listing almost entire
-contents of touchscreen.yaml.
+Not completely. This is implied by compatible. Individual phys/mdios
+have their own delays but not the entire device.
 
+Best regards,
+Krzysztof
 
