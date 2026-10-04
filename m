@@ -1,131 +1,98 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9549480DEB;
-	Sun,  4 Oct 2026 21:13:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63EB23B19B4
+	for <devicetree@vger.kernel.org>; Sun,  4 Oct 2026 21:16:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791148424; cv=none; b=O0XgxLWzTbTPmkS7yK67GL6elTzAPXyuLVX15rOEr86GihGuGptLGWYslxLOUdqZOeIsd56IQVOcIDr8EPC0HoXvTs+Wx0ayx19vgWEPHt3MimISoIc89pOGnYTMEwPuNfMX44UwG0TYzhLkRGYVC0bloAFoS+wv8kQIvNFcgxQ=
+	t=1791148600; cv=none; b=ni0WdMqp6adnFmyZo6L9wswIwrDTkMxltKke1d9E5uSDFUYUbQ130eGlTfcQiuHLcXCbkw7Mk4d7FYhAsvmPbfn+T87DHhjeKK5ev9gcUQMcg5f3e74q59CxtGGZwYuiLpGr+DIbqa5M9aqnxhOG9l2rkxTIMCkKT4Br8LP8T5U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791148424; c=relaxed/simple;
-	bh=NFYhCoYyRwrUc0Lyiyp3uLvg7G1eCSWrSipN36e/iwg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eeaqf1eDrmzU2TjIHIe0XJT0+PgGi2ozMuuQ2n6w9UWqZRYiGa3nk6ZH4QRXUdBQgGTI2655GErVMQ9fFTmv7jNqEBYQDS565vvovhmJTFhFV7d7CzVJ2S0Ta0iEkGsedwzepLhlSHNdEL71Dqdf3Ws65vgUnERTAJ6EytO0flY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=kCUsydxH; arc=none smtp.client-ip=185.246.84.56
+	s=arc-20240116; t=1791148600; c=relaxed/simple;
+	bh=Vj2X9K9rPf0LvjLyNei1z4XXYrolou0PRDoRFJ2UXhY=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=lVtApooPQooK2H/qhScD0++6mx22N6FjTurHH67MNFlvFcT6i4PUx4kUQZa7ewqV3pWVdzJgq/yRN48SvvcAbF8mIWW1N64KrfqmG8z5mzUlGAB5MzQhLCf5xkslQ2kXFUC3V+HLD9ZiuvShkjb1ZMUs9SuCPbkuOGUTII6C2oo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=PCzNhswH; arc=none smtp.client-ip=185.246.85.4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="kCUsydxH"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="PCzNhswH"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id 1B5AB1A113A;
-	Sun,  4 Oct 2026 21:13:39 +0000 (UTC)
+	by smtpout-03.galae.net (Postfix) with ESMTPS id E60084E41169;
+	Sun,  4 Oct 2026 21:16:36 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id D2DFD604FE;
-	Sun,  4 Oct 2026 21:13:38 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id DD9731032820F;
-	Sun,  4 Oct 2026 23:13:30 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 9D38E604FE;
+	Sun,  4 Oct 2026 21:16:36 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C6BC41032820F;
+	Sun,  4 Oct 2026 23:16:34 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1791148417; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=nXPXirW3eRDsSI9mvG4DFF7E3a00ea/RwmInqyXUVd4=;
-	b=kCUsydxHi1pBYG/VMU/FQcimtNJep3NIuesye/jvgOjSjEhH/76NRdMy4W334dzAh2mwqL
-	NAJrzK4xjqvAQEWVQPuKKWXqgC7W993Gfw7IanqW/t0bd2hSCIZ8YHThNyq8lPs7XLmL+c
-	sj8d3hdOigyOeVezUEzMB0h6XSzD+4RUTVJHTD+EoVPHOHXabzSdpDL6RrFoqjTImoGhlX
-	xk6jjh850A9O8vO5ZjhDzfrhIrbACQKXO3O/G6ycuany91IVzTe3wlEXh6S7EltG9da2Eo
-	INQJBZJLmavvZBTml0LeAhLl7Mt9OxbwWQKNXhSHnfHzXN3ud2jt/NntjLibew==
-Message-ID: <aafea01f-546e-47de-9e1d-e404450e78c5@bootlin.com>
-Date: Sun, 4 Oct 2026 23:13:29 +0200
+	t=1791148595; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=/J1CNps2JJKQJSD/9ngkF4RfpbWo/aO0HcABak3sjzo=;
+	b=PCzNhswHSy+bcLazyPyPr8u1S4OgDphi3VSVxwZq1s5Kb4kHgtMXEYukAG+k9H3wm2XYeO
+	6wr7CpPtWH00JchSSprtGm0lXhwqeECM1pz4uf+sJU8+2ITPCBpQJiLt2QtkTTJxUGHJw1
+	Z6YODtYdhPgEg6spzGureZ5rPuNY59Xm78/Pkxqvvnj6dPQ0rzrQJYhvlkMQbL04YPxx2U
+	DDLApOBtZXq0EKMEig2BTXk03zflXVFyFufP7DUWdOnh/sBauP18FMceXfKiimR1z0ueOA
+	2toJZ9kw1t343Q3HIRIbuW/I6TzHkbZ7QQ6wgndylqtrAdJsSc0WHneO3YhbMA==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: sashiko-bot@kernel.org
+Cc: sashiko-reviews@lists.linux.dev,  conor+dt@kernel.org,
+  linux-clk@vger.kernel.org,  devicetree@vger.kernel.org,  robh@kernel.org
+Subject: Re: [PATCH v8 3/7] clk: nuvoton: ma35d1: Retrieve HXT/LXT from DT
+ when possible
+In-Reply-To: <20261004205903.E62F91F000FF@smtp.kernel.org>
+	(sashiko-bot@kernel.org's message of "Sun, 04 Oct 2026 20:59:03
+	+0000")
+References: <20261004-perso-ma35d1-upstream-clk-v8-0-e1a106a128c0@bootlin.com>
+	<20261004-perso-ma35d1-upstream-clk-v8-3-e1a106a128c0@bootlin.com>
+	<20261004205903.E62F91F000FF@smtp.kernel.org>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Sun, 04 Oct 2026 23:16:33 +0200
+Message-ID: <875wzhjhe6.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH 3/6] net: stmmac: dwmac-meson8b: add support for the
- Amlogic T7
-To: Lucas Tanure <tanure@linux.com>, xianwei.zhao@amlogic.com,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
-References: <20261004144046.391444-1-tanure@linux.com>
- <20261004144046.391444-4-tanure@linux.com>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <20261004144046.391444-4-tanure@linux.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Lucas,
 
-On 10/4/26 16:40, Lucas Tanure wrote:
-> The glue registers on the T7 are laid out exactly as the G12A ones, RX
-> delay field included, so the T7 can reuse the G12A settings.
-> 
-> What the T7 does not share is how the controller reaches DRAM: the bus
-> path goes through a pipeline stage with a gate of its own, and no device
-> other than the controller has any use for that gate. Claim it and hold
-> it enabled for as long as the controller is bound, otherwise it is
-> switched off as unused and a transfer that has been started can never
-> complete.
-> 
-> Give the T7 match data of its own so that only it looks the clock up,
-> and require the clock instead of treating it as optional: the controller
-> cannot do DMA without it, and failing the probe with a clear message
-> beats booting and hitting an undiagnosable hang later.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Lucas Tanure <tanure@linux.com>
-> ---
+> This commit modifies the clock driver to retrieve the external HXT and LXT
+> clocks from the device tree instead of registering them directly. It falls
+> back to registering LXT for backward compatibility with older device tree=
+s.
+>
+>> diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk-=
+ma35d1.c
+>> index ceebcbd8c18b3..ed61a990870e4 100644
+>> --- a/drivers/clk/nuvoton/clk-ma35d1.c
+>> +++ b/drivers/clk/nuvoton/clk-ma35d1.c
+> [ ... ]
+>> @@ -240,12 +257,18 @@ static int ma35d1_clocks_probe(struct platform_dev=
+ice *pdev)
+>>  		return -EINVAL;
+>>  	}
+>>=20=20
+>> -	hws[HXT] =3D ma35d1_clk_fixed("hxt", 24000000);
+>
+> [Severity: Critical]
+> Does this unconditional removal break ABI compatibility with older device
+> trees?
+>
+> Because HXT (index 0) is exported as a public ABI in the DT bindings,
+> removing its explicit registration leaves hws[HXT] as NULL in the provide=
+r's
+> clock array. If an existing downstream or older device tree consumer expl=
+icitly
+> references this clock via clocks =3D <&clk HXT>, won't the provider's
+> of_clk_hw_onecell_get() fail to resolve the clock and return an error?
 
-[...]
+Jerome, your wisdom matters here :-) For me this is a false positive,
+because nobody outside this driver should access hws[HXT] and the clock
+is still referenced through the DT, just not provided by this
+driver. For me this is not an issue we should consider, let me know
+otherwise.
 
->  
-> +static const struct meson8b_dwmac_data meson_t7_dwmac_data = {
-> +	.set_phy_mode = meson_axg_set_phy_mode,
-> +	.has_prg_eth1_rgmii_rx_delay = true,
-
-Hmpf sorry this falls onto your series, but looking at the code it seems
-that this glue has the RGMII handling backwards...
-
-In meson8b_init_rgmii_delays :
-
-         switch (dwmac->phy_mode) {                           
-         case PHY_INTERFACE_MODE_RGMII:                       
-                 delay_config = tx_dly_config | rx_adj_config;
-                 break;                                       
-         case PHY_INTERFACE_MODE_RGMII_RXID:                  
-                 delay_config = tx_dly_config;                
-                 cfg_rxclk_dly = 0;                           
-                 break;                                       
-         case PHY_INTERFACE_MODE_RGMII_TXID:                  
-                 delay_config = rx_adj_config;                
-                 break;                                       
-         case PHY_INTERFACE_MODE_RGMII_ID:                    
-         case PHY_INTERFACE_MODE_RMII:                        
-                 delay_config = 0;                            
-                 cfg_rxclk_dly = 0;                           
-
-This is the behaviour one would expect from a PHY perspective.
-
-And indeed, 66 amlogic dts have "phy-mode = rgmii".
-
-grep "phy-mode = \"rgmii\"" $(find arch/ | grep amlogic) | wc -l
-66
-
-I really think all these 66 "rgmii" instance should have been "rgmii-id"...
-
-It's probably too late to change that though :(
-
-Maxime
+Miqu=C3=A8l
