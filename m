@@ -1,139 +1,114 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC44747F780
-	for <devicetree@vger.kernel.org>; Sun,  4 Oct 2026 20:22:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64927434994
+	for <devicetree@vger.kernel.org>; Sun,  4 Oct 2026 20:25:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791145375; cv=none; b=Hmk5tTdt3BYyNxVKQpo0pctFsrAtZ2SH8YdgspYoeJszuA1cdwpxx/U/1qKvByjZ+MdKR8/GZd3csVaKYEgg8d8NkDnWF4Tr/YkRlr/MXIrG+P2AA4ZCNfhjtlA/b34ClZR9a2x3gIcXGrz0EQAOeTOdg9cIQteKVSRe1uJYMJ0=
+	t=1791145532; cv=none; b=r0xWt9EPelwsy+vdPSIZJoEsQnoVyjqNqp7D/nvGOMYnRLhvv5pZl1MDbE421I5O155DHBGJDemQ6PMzvuHOXt5LQfP9EA+zUFu/mxvqqJDxWDfATj9AC52hdLVFb92Pqui+qREUNexPy2HHdpSQeUOk/CDi0xYs/mVYpgRSBtE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791145375; c=relaxed/simple;
-	bh=ztYL1LS2bhu36whhqBvW6em0XbL9fUZOVHbC7HjvK9Q=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fkaq8BSJW+tNT09QG82dUqpSqn1QLEC+MDgACteo4IfvMBTBDfVp+P0A3AFlEwSQoSUFjUnMkhIKcJ1RjJyrMyTUk0O3XC/C0rb5AaSEa7aYbUE/jXUCVoVSwF+vEJOr5Ao8tLwys3h3zjJM2augSUze7+yEZL7CxePXI6O8rEA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PKfY1Cth; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791145532; c=relaxed/simple;
+	bh=owzQsOXehJxIAsEAyOPE90XJOW8YyWdQMNkAdh+YYFc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Lx46LWloYnShs9oEkPdtzSZvyAZzg8IpXVvKLKrhtg6OB1Z2KEdVuwcalMy8TVoczKAnhg/DzpXglczlwRlM+vOhl43VFMqOAD7825OILOjRfcNCGfE1C0IyYJ6rsdOvItANDXc20uvIg7+cG4v7Utze/C9kEcqCoGqR6F/BsO0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nw9A0XTp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PKfY1Cth"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A5231F0089D
-	for <devicetree@vger.kernel.org>; Sun,  4 Oct 2026 20:22:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nw9A0XTp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1CE11F000FF;
+	Sun,  4 Oct 2026 20:25:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791145374;
-	bh=kafHJjiytSen4oG++rJSyyLmUK64zKjrIV7lk+5gzN8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=PKfY1CthtYS0jlEI2BO7t8HL1LTRXF3zNFmUwHHVOKfq5IMvmBmzImxGEyCwjtxj2
-	 H/nycB4/n0cBCCzadXhNKeioHqcUowk6gzmdVevcTosf6LnLrTEKe2c4qvTseuEe3S
-	 GQ6ZjgGu2dEVJ2iXIYDIdxq85iIiq6ymmnLsMifiBuz1OewQ2Ooz5Wcmlsk/9g3lz6
-	 XHKsgFJTWckvbviwmWVhIS16paVhL9I28W5laqO0g/pgkJwxfKm3myXko71DL7ZAka
-	 YpSzJOonp2qRxW//U37OpOi4dobEGGvRpJzFpysgO9dSn20qk/89YIz4I0cRtthNHy
-	 Q/sqqHNVyBPEg==
-Received: by mail-lr2-f33.google.com with SMTP id 38308e7fff4ca-3a9270161easo6430531fa.1
-        for <devicetree@vger.kernel.org>; Sun, 04 Oct 2026 13:22:54 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBy8CvaXLAhCN7Yyfnc3VdbFqSR0wHqc9hSrAeUz19wPVHVJYYWPeZm+1GeUrGMMN+AHUYdELpJRUjhM@vger.kernel.org
-X-Gm-Message-State: AFq9FYLkfaWwJ0TuL0jN82WP1muQBQ2OdsyUFb2943auMhDuB5v2MHri
-	m1KEmKzdFYt1tFqvdH5hVbgIAC//hfMWtDH0S51OXhVNYrx/ig3rObkarTagN7dlMhuHUDSDqLI
-	f3MkCkncFkl6vMCjQEUoleQ+tBtw3O+w=
-X-Received: by 2002:a05:651c:2123:b0:3a7:8372:61ae with SMTP id
- 38308e7fff4ca-3a8875478d4mr19348371fa.4.1791145372879; Sun, 04 Oct 2026
- 13:22:52 -0700 (PDT)
+	s=k20260515; t=1791145531;
+	bh=HTu4fq2LoeS5aFXZ+BwihQuwbeWy6ULImsmWdHgV4KA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Nw9A0XTpJEK3wdSEr9MrU7mR9nJ83A5fUIjXtQgDzhmvTAfRzi4vActXf/YAaobZj
+	 p+9BjFxqXMx6daKKzj7uNL2yr8/58tmlpuz66nuIxDhxB0k2Xm7TTrBORH0nFQZ36l
+	 FdctaJfUi6el4RcpHWTeQZ5Hzt44L8uBzYbu1t+UU+dWODHKCX/AD96U2IQ9SxXHXN
+	 nYggHUCdRgdt5QLGTb3MlRv2pGYkAXY0tINptfGk75yOV4PyOHO7PON43Ig4SWC0J4
+	 QKQ6QzTyumjU1YRnd41uvaJQ6p6/MMZW9woNRRKvQTewyHv6GyVDqSLJfjHIfrLUWs
+	 RnZc731mWSEZw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 08/17] ARM: dts: samsung: exynos4210: use
+ operating-points-v2
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Henrik Grimler" <henrik.grimler@axis.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20261004-exynos-arm-cleanup-v1-8-45e435353c56@axis.com>
+References: <20261004-exynos-arm-cleanup-v1-0-45e435353c56@axis.com>
+ <20261004-exynos-arm-cleanup-v1-8-45e435353c56@axis.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 04 Oct 2026 20:25:30 +0000
+Message-Id: <20261004202530.B1CE11F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260727-sm8650-7-1-bonded-dsi-v5-0-c042266b9eeb@linaro.org>
- <20260727-sm8650-7-1-bonded-dsi-v5-5-c042266b9eeb@linaro.org>
- <20260727-spotted-winged-mantis-7aa1ce@quoll> <CAD++jLkX0m6_GJd4Pd1Ko4tghta4AXQ5ALZpLe_x-3xxqu1Cvw@mail.gmail.com>
- <668e83d0-a017-4f59-bc76-bf6c9a80b5ba@kernel.org> <CAD++jLkyEPY5cFg_pHb71yG52iLwS9tQDpcHu=TTBknQMeFctw@mail.gmail.com>
- <bc3e618f-2e7a-4439-9466-8cd9695242e5@linaro.org> <2lcpzwh7fxecpffnakpnp5lecrm3e6u64ztat7cd75nuxofxa2@clj27bzgjy3r>
- <4d053234-06d8-4268-b60a-2fccc78da654@linaro.org> <d3xs3kzc2wg5lkouaemdicrbtsoquff6bvmnlmuxwh4kspfs2d@b77l43axr6a4>
- <8cf6ec52-fb36-44e7-831c-2bb24214f591@linaro.org>
-In-Reply-To: <8cf6ec52-fb36-44e7-831c-2bb24214f591@linaro.org>
-From: Linus Walleij <linusw@kernel.org>
-Date: Sun, 4 Oct 2026 22:22:41 +0200
-X-Gmail-Original-Message-ID: <CAD++jLkHk-2MK4vUAz3q4q6v6jHhBkt33eJL297axbRqLn6w3w@mail.gmail.com>
-X-Gm-Features: AclHuK8ujdY6mGbLMOyGi9ex9pbymEK6SXgRbW0wNs9wcCn6KDJLJ0Dey6NKZlE
-Message-ID: <CAD++jLkHk-2MK4vUAz3q4q6v6jHhBkt33eJL297axbRqLn6w3w@mail.gmail.com>
-Subject: Re: [PATCH v5 5/6] dt-bindings: display: Add Synaptics panel support
-To: Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
-	Krzysztof Kozlowski <krzk@kernel.org>, Jun Nie <jun.nie@linaro.org>, 
-	Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
-	Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi Neil,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] dts: missing opp-shared property causes conflicting cpufreq polici=
+es
+--
 
-On Sun, Oct 4, 2026 at 5:51=E2=80=AFPM Neil Armstrong <neil.armstrong@linar=
-o.org> wrote:
+commit fcba4068b9646df5bfbec161d06e3521379f32ed
+Author: Henrik Grimler <henrik.grimler@axis.com>
 
-> Describing it in separate distincts nodes is wrong since it doesn't refle=
-ct
-> that it's an unified display, so either we define :
-> - a "combined-display" bridge defined as:
->    - a separate top node in / like connectors with a graph from the DSI l=
-inks to each panel
->    - a DSI subnode with 2 panels as subnode, port graph from both dsi to =
-both sub-panels
-> - a "R63455" panel bindings with 2 subpanels as Linus shared in https://l=
-ore.kernel.org/all/CAD++jLkyEPY5cFg_pHb71yG52iLwS9tQDpcHu=3DTTBknQMeFctw@ma=
-il.gmail.com/
->
-> I think it would be interesting to have the "combined-display", with a co=
-nnector-like node,
-> which will do all the split-dsi dual-panel logic for us and leave use imp=
-lementing simple panel
-> drivers.
->
-> The outline would be:
+ARM: dts: samsung: exynos4210: use operating-points-v2
 
-Overall I really like the looks of this!
+This commit updates the exynos4210 device tree to use operating-points-v2
+instead of the deprecated operating-points (v1) format. This resolves dt-ch=
+eck
+style warnings about continuation-alignment.
 
->         xr-display {
->                 compatible =3D "combined-display";
->
->                 ports {
->                         port@0 {
->                                 combined_dsi0: endpoint {
->                                         remote-endpoint =3D <&dsi0_out>;
->                                 };
->                         };
->                         port@1 {
->                                 combined_dsi1: endpoint {
->                                         remote-endpoint =3D <&dsi1_out>;
->                                 };
->                         };
->                         port@2 {
->                                 combined_panel0: endpoint {
->                                         remote-endpoint =3D <&r63455_righ=
-t_in>;
->                                 };
->                         };
->                         port@3 {
->                                 combined_panel1: endpoint {
->                                         remote-endpoint =3D <&r63455_left=
-_in>;
->                                 };
->                         };
->                 };
->         };
+> diff --git a/arch/arm/boot/dts/samsung/exynos4210.dtsi b/arch/arm/boot/dt=
+s/samsung/exynos4210.dtsi
+> index d37ac0c97dbcf..4981bbb7cf311 100644
+> --- a/arch/arm/boot/dts/samsung/exynos4210.dtsi
+> +++ b/arch/arm/boot/dts/samsung/exynos4210.dtsi
 
-The core of the crux is to make the argument that this node represents
-the hardware and isn't just something put in there to make it easier
-to implement a driver.
+[ ... ]
 
-If I break open the headset, will I find something like this, some wires
-going around in there or so.
+> @@ -263,6 +247,46 @@ opp-200000000 {
+>  		};
+>  	};
+> =20
+> +	cpu_opp_table: opp-table-1 {
+> +		compatible =3D "operating-points-v2";
+> +
 
-If yes, this is a go.
+[Severity: High]
+Does this new node need the opp-shared property?
 
-Yours,
-Linus Walleij
+CPU0 and CPU1 on this device share the CLK_ARM_CLK clock. When migrating to
+operating-points-v2, the OPP framework relies on the opp-shared property to
+know whether CPUs share the same clock line and therefore need a unified
+cpufreq policy.
+
+Without this property, the framework assumes the CPUs do not share the tabl=
+e:
+
+drivers/opp/of.c:dev_pm_opp_of_get_sharing_cpus() {
+    ...
+    /* OPPs are shared ? */
+    if (!of_property_read_bool(np, "opp-shared"))
+        return 0;
+    ...
+}
+
+Because the legacy v1 fallback logic is bypassed for v2 nodes, the cpufreq
+driver will create independent policies and governors for CPU0 and CPU1.=20
+
+Since the cores share the same physical clock line, will this lead to the
+independent governors issuing conflicting clk_set_rate requests, potentially
+causing chaotic frequency switching and instability?
+
+> +		opp-200000000 {
+> +			opp-hz =3D /bits/ 64 <200000000>;
+> +			opp-microvolt =3D <950000>;
+> +			clock-latency-ns =3D <160000>;
+> +		};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261004-exynos-arm=
+-cleanup-v1-0-45e435353c56@axis.com?part=3D8
