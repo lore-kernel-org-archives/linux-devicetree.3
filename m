@@ -1,96 +1,206 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DA5C3A6418;
-	Sun,  4 Oct 2026 16:27:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2A9A247291
+	for <devicetree@vger.kernel.org>; Sun,  4 Oct 2026 16:31:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791131249; cv=none; b=EfbAH3L8qhvWJEdNTBpjedw9392kGftE/W/dKUyat10Lh+qi2hhU8mggjT6iHUjfZ8FKqQetqrDUaBgJ73RIwg4LWWBAtZayxwsbxlkAXLqXFTjFE+YAnh0XNuSvrJZV1B+ZDyApwWNzYeSritPYbrLnV3t5VlRxTvtn0LMNcSE=
+	t=1791131493; cv=none; b=VPcTb3DrxzVr5yXaVqg4hsGeb7t5/hfgVGhIOcUFjMumho6fngBeykIoxnD45oISRLsw7o7C3Pl6tq/923boVKFpvOPaW+1Pe3hCS86a1LzsE5fzXvPINiWfi3sM6IFxjqwtNrZ4h2RaHGOgNyJepibrciYIzFeaIIU/66++c/g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791131249; c=relaxed/simple;
-	bh=Z4gCoAWckmgDXKou2oJF9djMmcXIf7DvsNo6VGAidRw=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=jP2cwd2IjM0OIBpsfvd1jYRhl6F9+oYSxR5FCDH46xZQdlW3wJ5ZodD99YtGdRQ6lK/AjZF/lyB8jo8H+Dynu+BAZ2u7M0eL7TMygQV7tbq0LZy4bDAzHFEwjbzb2f8qngoLFsIZul4PJuJwDTZd7sSbR0CCk5t0AesdYi6u+pw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DLSOFFNh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791131493; c=relaxed/simple;
+	bh=kRMD3LifFT0eTo3gIXvJVRlHOZTJ+JtZ12j0BXFmzmo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=cAizAUNX7RMplNoVVyNYNLH34GPeUnqVE6mT7A2lqWUxE3+3gAnkVKZBQ+wzD09DdSsWeCUeqXRW37AHBQ8Os6uF1kCXKYe4ba087Y7KYDywbEdr3OtiwekSrEAEOPHbo9ZXNrUXvoeJtMm6V/b6mvsCJqfTapMkBSOEvOkGmVM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AzM5F/kQ; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DLSOFFNh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1ED8A1F000FF;
-	Sun,  4 Oct 2026 16:27:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791131247;
-	bh=M/dSWsxmcXiuwTULb1QxS7XuqCbQfn/jziyewxOKFzU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=DLSOFFNhJ0lM/4jB6UuInsPixhP8D/lP7HPyKN0CNisPUXCqePbMFy7/IR79CgsME
-	 yo10eANrpuD62ulR9+7YRkwNLsRu+IhmdJ2enM6QHVF/Cf9S4BY39O+0aqor/bFNrx
-	 fi/hFpMVd/R80IuMy0kOKDZ95MGJq+ClI7DRwBwqLX/p6K9L0bQGWhzPbwV976vP6w
-	 ZJ6TraTCP3VRGyhx5x9hm07EDa7BNI1RYagXBfz0FT9+E4RDRbvkESM1KUWEpMNvxM
-	 i3hggNTAfF7bo/KhhA582376EuMpydogjtC/F66Btn35ZnOBZbF+/Y+9205M1YxhBg
-	 Qjl5Xa0cmcb9Q==
-Date: Sun, 4 Oct 2026 17:27:21 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Rob Herring <robh@kernel.org>
-Cc: Arka Mondal <arka@arkamondal.net>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Michael Hennerich <Michael.Hennerich@analog.com>,
- David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux@analog.com, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- arkamondalofficial@gmail.com
-Subject: Re: [PATCH 4/5] dt-bindings: iio: dac: adi,ad5758: Fix the 4 mA to
- 20 mA current range
-Message-ID: <20261004172721.72d6d42e@jic23-hlaptop>
-In-Reply-To: <20260928193449.GA408126-robh@kernel.org>
-References: <20260918122032.134947-1-arka@arkamondal.net>
-	<20260918122032.134947-5-arka@arkamondal.net>
-	<20260920193949.45606414@jic23-hlaptop>
-	<20260928193449.GA408126-robh@kernel.org>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AzM5F/kQ"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso11803115e9.3
+        for <devicetree@vger.kernel.org>; Sun, 04 Oct 2026 09:31:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791131490; x=1791736290; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=klRLuslgHZkHfKV3cIJoQTmbsYS3GX5KrVERzHwo0vI=;
+        b=AzM5F/kQFVZMgfie9eh3c2Iinjg5pnCQ76ptrEnaT5W3gaq5vOKQsnUNIV7z1neoGk
+         ENfp5r/SheCGsYBkBy66R3/taSv0KotMJFKxLSPww1XP0be7nbTwrzTGoycpxScAIfvI
+         C2tlty74VlHeXIZ/rnLrCs6121WTzts0v/DUetlkYh88aaFS9LuQET2yIJpA5vFQL/R4
+         l4U2jHPT00CjcunfRwud8CjSw8J/Kxot6/VTrW83gX39uDwaT21VH7jbBINammq+b/JJ
+         iYjAXGiyjxYBLylk1nDsd0fQ1YUrcmy6YpJtEySkzco9j04tQtPtVCcBpmpG0a7AkPL3
+         J+dg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791131490; x=1791736290;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=klRLuslgHZkHfKV3cIJoQTmbsYS3GX5KrVERzHwo0vI=;
+        b=FX3cJ2s+MRJ3xdzUDTjbtZ7vNa4EeERmHrTxtShAn61ThR5ONUVC+tPCjCFsbVY5/a
+         RlK2MfwtBcITBKxGVGXLD+5e4228rTTubyoKGJgIa5LdVGduHfrM1jRgdWQg630ieWoO
+         dR5zbb4xMTS4dw7lSTZLa8KOvzSeDkvui/7aZxptuGb+M3HhANyufAYp8iO4A7FN+gKg
+         3oIj773bFrDNNiQ/08vSX2wUMZFERrt7MvHnYPLys/btZqiE1O38MzuG+sfTrtGS4eC/
+         uO5DigSNq86axZS3vw2r522k2jrW8xEil+8khR2CvkD1bgCd5NTx0jIJy30Ybci+pgjq
+         9Zew==
+X-Forwarded-Encrypted: i=1; AKwUvBwdYe4TsyfqJhH8xv0B+X2lCz1JK/mxI/z4URRNjijRDETrCXKj3dy3yrxnSoElVdI87ovNAVcm4F/9@vger.kernel.org
+X-Gm-Message-State: AFuF++kZ65eA4Tua1Ezof+X3bfmwUA61knOqXIz3k9jniUVpMykXGNsk
+	kw+l8onz69aXLV6CkFOuW5DQq7idl99y9F0t55vpEZO43dFkAS3hfWKk
+X-Gm-Gg: AYBFou09ZElrFeWoKTEZ22rvMrEYmNder6h7QOwRNwEzkCCE6hvajST9J2+aJ78VxU+
+	RqDFO3GMYvyicr3VDEKxTjSVkY627JW3C5QdGqBwKQsIyqTFdC1TbWZz3xqr4fku5nQzt0DyH21
+	KQoNT2lZg/OQZwGSfrTzG7CrOXU60TXpHhO2Jkt2uvSkG7qHewemYyxhtpYOgGdtrY30Ot0tdXC
+	sbgCOUzL8nIaDL3T+e9WC3SP01EyNnAh6rTdrkZ+m0PoASURrZB5ZnBNeyyMPcMVWWLOFV5bfg1
+	ot+g0p9EJKEv9hQQZtQcVxkAfCdI8cuzKqmfFUAod+XC6txDOkM/9e5IaI7SC3oe+tDVonTAhu8
+	eQWX1928mDbg0liQXGe+JOPP0FXogJGO09SXYmAfcgBtRkj7Q+w/923VcncDltGr7ksxHYGpOTE
+	SpuRkT7V11kdV1hgHx/doiyPR9aJvgQHFpv07cm1KSpGDv7DMCTrx3S1vrQuUAeHxJsF3LFd6h5
+	LolTt7qUZwBwB/NOjI=
+X-Received: by 2002:a05:600c:4705:b0:4a0:1c16:d6f6 with SMTP id 5b1f17b1804b1-4a1680ffe47mr81460025e9.24.1791131489734;
+        Sun, 04 Oct 2026 09:31:29 -0700 (PDT)
+Received: from xeon ([188.163.112.76])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0316b2524sm315365035e9.1.2026.10.04.09.31.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 04 Oct 2026 09:31:29 -0700 (PDT)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Mikko Perttunen <mperttunen@nvidia.com>,
+	Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-tegra@vger.kernel.org
+Subject: [PATCH v2 1/7] drm/tegra: dc: Expand available registers layouts
+Date: Sun,  4 Oct 2026 19:31:08 +0300
+Message-ID: <20261004163114.181800-2-clamor95@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261004163114.181800-1-clamor95@gmail.com>
+References: <20261004163114.181800-1-clamor95@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Mon, 28 Sep 2026 14:34:49 -0500
-Rob Herring <robh@kernel.org> wrote:
+Expand existing DC register definitions with additional fields in
+preparation for adding the 8-bit CPU interface.
 
-> On Sun, Sep 20, 2026 at 07:39:49PM +0100, Jonathan Cameron wrote:
-> > On Fri, 18 Sep 2026 21:20:31 +0900
-> > Arka Mondal <arka@arkamondal.net> wrote:
-> >   
-> > > adi,range-microamp gives the 4 mA to 20 mA range as <4 24000>. The
-> > > values are in microamps, so this reads as 4 uA to 24 mA. The original
-> > > text binding described <4 24000> as the "4 mA to 20 mA current range",
-> > > and the data sheet (Rev. B, Table 32) confirms range code 1010 is
-> > > 4 mA to 20 mA.
-> > > 
-> > > Add <4000 20000> and mark <4 24000> deprecated, so existing device
-> > > trees still validate.
-> > > 
-> > > Fixes: 777baca07ef1 ("dt-bindings: iio: dac: Add docs for AD5758 DAC")
-> > > Signed-off-by: Arka Mondal <arka@arkamondal.net>  
-> > 
-> > DT reviewers.   Better to paper over a dt that is specifying the wrong
-> > range as this does (deprecated) or just make it obvious by failing
-> > the binding checks?  I'm thinking failing is better as gets any such
-> > dt fixed up faster.  I also suspect no one actually it this because the
-> > disconnect they should have seen when reading the datasheet and considering
-> > what they wanted should have meant they saw this bug!  
-> 
-> No in tree .dts (for which I don't want more warnings), so I would just 
-> drop it.
+Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+---
+ drivers/gpu/drm/tegra/dc.c |  3 ++-
+ drivers/gpu/drm/tegra/dc.h | 49 +++++++++++++++++++++++++++++++++-----
+ 2 files changed, 45 insertions(+), 7 deletions(-)
 
-Works for me. Arka, please send v2 of patches 4 and 5 rebased on my togreg branch.
-Only change being to drop the broken parameter both from binding and from the
-driver.  If anyone screams driver side we might paper over this, but they really
-should have noticed the value was garbage when they wrote their DT!
-
-Jonathan
-
-
-> 
-> Rob
+diff --git a/drivers/gpu/drm/tegra/dc.c b/drivers/gpu/drm/tegra/dc.c
+index b0bfa946e6979..5c67928bcabfa 100644
+--- a/drivers/gpu/drm/tegra/dc.c
++++ b/drivers/gpu/drm/tegra/dc.c
+@@ -2384,7 +2384,8 @@ static void tegra_crtc_atomic_enable(struct drm_crtc *crtc,
+ 
+ 	if (dc->rgb) {
+ 		/* XXX: parameterize? */
+-		value = SC0_H_QUALIFIER_NONE | SC1_H_QUALIFIER_NONE;
++		value = SC0_H_QUALIFIER(SC_H_QUALIFIER_NONE) |
++			SC1_H_QUALIFIER(SC_H_QUALIFIER_NONE);
+ 		tegra_dc_writel(dc, value, DC_DISP_SHIFT_CLOCK_OPTIONS);
+ 	}
+ 
+diff --git a/drivers/gpu/drm/tegra/dc.h b/drivers/gpu/drm/tegra/dc.h
+index 0cb0515968b35..7005df32f485f 100644
+--- a/drivers/gpu/drm/tegra/dc.h
++++ b/drivers/gpu/drm/tegra/dc.h
+@@ -274,8 +274,11 @@ int tegra_dc_rgb_exit(struct tegra_dc *dc);
+ #define DC_COM_CRC_CHECKSUM			0x301
+ #define DC_COM_PIN_OUTPUT_ENABLE(x) (0x302 + (x))
+ #define DC_COM_PIN_OUTPUT_POLARITY(x) (0x306 + (x))
++#define LSC0_OUTPUT_POLARITY_LOW BIT(24)
+ #define LVS_OUTPUT_POLARITY_LOW (1 << 28)
+ #define LHS_OUTPUT_POLARITY_LOW (1 << 30)
++#define LSPI_OUTPUT_POLARITY_LOW BIT(8)
++#define LDC_OUTPUT_SELECT_V_PULSE1 BIT(14)
+ #define DC_COM_PIN_OUTPUT_DATA(x) (0x30a + (x))
+ #define DC_COM_PIN_INPUT_ENABLE(x) (0x30e + (x))
+ #define DC_COM_PIN_INPUT_DATA(x) (0x312 + (x))
+@@ -303,9 +306,15 @@ int tegra_dc_rgb_exit(struct tegra_dc *dc);
+ #define  UNDERFLOW_REPORT_ENABLE (1 << 0)
+ 
+ #define DC_DISP_DISP_SIGNAL_OPTIONS0		0x400
+-#define H_PULSE0_ENABLE (1 <<  8)
+-#define H_PULSE1_ENABLE (1 << 10)
+-#define H_PULSE2_ENABLE (1 << 12)
++#define H_PULSE0_ENABLE				BIT(8)
++#define H_PULSE1_ENABLE				BIT(10)
++#define H_PULSE2_ENABLE				BIT(12)
++#define V_PULSE0_ENABLE				BIT(16)
++#define V_PULSE1_ENABLE				BIT(18)
++#define V_PULSE2_ENABLE				BIT(19)
++#define V_PULSE3_ENABLE				BIT(20)
++#define M0_ENABLE				BIT(24)
++#define M1_ENABLE				BIT(26)
+ 
+ #define DC_DISP_DISP_SIGNAL_OPTIONS1		0x401
+ 
+@@ -451,12 +460,26 @@ int tegra_dc_rgb_exit(struct tegra_dc *dc);
+ #define BASE_COLOR_SIZE_888    (  8 << 0)
+ #define BASE_COLOR_SIZE_101010 ( 10 << 0)
+ #define BASE_COLOR_SIZE_121212 ( 12 << 0)
++#define DISP_COLOR_SWAP_BGR	BIT(16)
+ #define CMU_ENABLE_ENABLE      (1 << 20)
+ 
+ #define DC_DISP_SHIFT_CLOCK_OPTIONS		0x431
+-#define  SC1_H_QUALIFIER_NONE	(1 << 16)
+-#define  SC0_H_QUALIFIER_NONE	(1 <<  0)
+-
++#define SC0_H_QUALIFIER(x)			(((x) & 0x7) <<  0)
++#define SC1_H_QUALIFIER(x)			(((x) & 0x7) << 16)
++#define SC_H_QUALIFIER_DISABLE			0
++#define SC_H_QUALIFIER_NONE			1
++#define SC_H_QUALIFIER_HACTIVE			2
++#define SC_H_QUALIFIER_EXT_HACTIVE		3
++#define SC_H_QUALIFIER_HPULSE			4
++#define SC_H_QUALIFIER_EXT_HPULSE		5
++#define SC0_V_QUALIFIER(x)			(((x) & 0x7) <<  3)
++#define SC1_V_QUALIFIER(x)			(((x) & 0x7) <<  19)
++#define SC_V_QUALIFIER_NONE			0
++#define SC_V_QUALIFIER_RSVD			1
++#define SC_V_QUALIFIER_VACTIVE			2
++#define SC_V_QUALIFIER_EXT_VACTIVE		3
++#define SC_V_QUALIFIER_VPULSE			4
++#define SC_V_QUALIFIER_EXT_VPULSE		5
+ #define DC_DISP_DATA_ENABLE_OPTIONS		0x432
+ #define DE_SELECT_ACTIVE_BLANK  (0 << 0)
+ #define DE_SELECT_ACTIVE        (1 << 0)
+@@ -493,6 +516,20 @@ int tegra_dc_rgb_exit(struct tegra_dc *dc);
+ #define DC_DISP_CURSOR_POSITION_NS		0x441
+ 
+ #define DC_DISP_INIT_SEQ_CONTROL		0x442
++#define SEND_INIT_SEQUENCE			BIT(0)
++#define INIT_SEQUENCE_MODE_SPI			BIT(1)
++#define INIT_SEQUENCE_MODE_PLCD			0x0
++#define INIT_SEQ_DC_SIGNAL_SHIFT		4
++#define INIT_SEQ_DC_SIGNAL_MASK			(0x7 << INIT_SEQ_DC_SIGNAL_SHIFT)
++#define NO_DC_SIGNAL				0
++#define DC_SIGNAL_VSYNC				1
++#define DC_SIGNAL_VPULSE0			2
++#define DC_SIGNAL_VPULSE1			3
++#define DC_SIGNAL_VPULSE2			4
++#define DC_SIGNAL_VPULSE3			5
++#define INIT_SEQ_DC_CONTROL_SHIFT		7
++#define FRAME_INIT_SEQ_CYCLES_SHIFT		8
++
+ #define DC_DISP_SPI_INIT_SEQ_DATA_A		0x443
+ #define DC_DISP_SPI_INIT_SEQ_DATA_B		0x444
+ #define DC_DISP_SPI_INIT_SEQ_DATA_C		0x445
+-- 
+2.53.0
 
