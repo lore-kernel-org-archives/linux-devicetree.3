@@ -1,60 +1,159 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed2-f32.google.com (mail-ed2-f32.google.com [74.125.228.96])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A985140B119;
-	Sun,  4 Oct 2026 21:29:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 980F73DFC6D
+	for <devicetree@vger.kernel.org>; Sun,  4 Oct 2026 21:36:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.96
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791149392; cv=none; b=Gf6+SnTtueKFiAS97D1kkQJmCMadfBohHOGT4NEexFAzmKU8mZBg/X+eg0FQSyyBee1ZFjo5FN2Q0nculodVeNdBWK+2L76X7oIglZLwj5Eft585zCre8Bfuo/aN2KJp2Y8D6gVlyndX7pPEN/UwWO3geQ+Mokiof4uupyivyrU=
+	t=1791149799; cv=none; b=N0wJVu1Mv7F8G5RDTg1ajMQzetuK/Rn/PaXwwg5214UvotkIuE+OyvsLV5RJnAMG9treE8a0h3q6HrkvDw5V8sl6gdzYbID4RW6tduN9oKzQAAgZhRq9T64qPkRS4XqNt5BTjwCgoY/ncq/Gth4tFDlV60qb6Qsfaz0FsltZDY8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791149392; c=relaxed/simple;
-	bh=TYe4rW4o2vqZO6QkMGQLiHW6+NnADcGNTuGib3Ov7yw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tEPHjq6SraE2ThpggHkDX9fm+sw0tbRsU2b1nnGFGCKJeI+SNNazGT52mFR+nxdyP2GGH1K6Rf8vcTozCc1XBLL8Z35RYrSnpgDV+00kw+JaGDsQ5BaWmWNOmxrX8yfXoL+S5th0rmK1oQSnneMm1qUU6bEauf5Clfd7YlOPK6A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=jdBvLkhe; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1791149799; c=relaxed/simple;
+	bh=isfTBrqY9p5m/ED+4flN0cts6u/U4CK8ScTtSCqlZ1E=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:From:To:
+	 References:In-Reply-To; b=XkxORd8ePTMsILRxMKgeENKx+0Z+cHZyBsoUzuyRQdLY0kjy1JQj6yr/hbmbJ0uH7SYNaPqnSsH+cWfYyqxUTFVulXGgCL/887ovD2PDIfFsplus+L4Mq0nynf8kb9S8KmEDscPvXlSFSJt0jUvurS/WLljLfBZ0+O4HcgTF72M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ATbYxx61; arc=none smtp.client-ip=74.125.228.96
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="jdBvLkhe"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=YodB7Djkxkxsr6YA3Pc28UrEIZmZxedLSYMQiXw1jHw=; b=jdBvLkheJCjQHxedaKjTcsbT0U
-	RQSYlVyl7JVVq1OIUY0LwRal1qRyHtvkJE8DEXyL+XRuaIv4k4ffzjCYjEkqgnDQJamDCvlS/HU4s
-	pZQoSFX9saFWVJMROoXQw+uIJrBbLqpS3GR1h9kjrDWivFPWCnSwedidqFbk2ASYVm2k=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xDTmB-008wcB-Nh; Sun, 04 Oct 2026 23:29:43 +0200
-Date: Sun, 4 Oct 2026 23:29:43 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Pufan Jin <2254650260@qq.com>
-Cc: Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Michal Simek <michal.simek@amd.com>, Rob Herring <robh@kernel.org>,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 0/3] arm64: zynqmp: Add support for EBDEE EdgeBoard FZ3A
-Message-ID: <f1e7750f-7057-4430-9783-83dc8a8a2e23@lunn.ch>
-References: <tencent_E9086080313181C5F806E5543C9638DC270A@qq.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ATbYxx61"
+Received: by mail-ed2-f32.google.com with SMTP id 4fb4d7f45d1cf-6acb8b78d6cso1556496a12.2
+        for <devicetree@vger.kernel.org>; Sun, 04 Oct 2026 14:36:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791149796; x=1791754596; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:message-id:date:content-type
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1Qs/HNAMN3+qC8yepsmEsO4vU7YCCa/bUjxjtXFFHYg=;
+        b=ATbYxx61nHcJSRT5Glr+PNxHZZREoLXxOlIICME0sYSyPjmh280SWtvvqsd73BKNe6
+         UV2IT/l1zJj8/B1V6lBF18bRpo/BuHVmN1lZfRxmGupgbsXwZIOBV9wEHHZeQfyVJ1T7
+         NtvDO1M84zAAUQ7d6RP5pmuJGzZh9aNCi0r4EmOqu5ZA02xwzC5twpejgK+KPx0OXqM3
+         jgNGkG4bsT+sx7khkHkamiF08GRF8PUS0NPhEA9NUZkYWUiNKkfeOuPENeHKSNyusniX
+         VY7f+nggs7AxuSQt0egaKfDjI2nsDJp4PeXPuP2F7m6S0f+BbfHozXHMmN6c3LuzjDYh
+         Qseg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791149796; x=1791754596;
+        h=in-reply-to:references:to:from:subject:message-id:date:content-type
+         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1Qs/HNAMN3+qC8yepsmEsO4vU7YCCa/bUjxjtXFFHYg=;
+        b=oLN53NtxUpYrJY8AG9QZcyRddvWFf/8yd3h1OhX+Fd0uTCaM9W4YKgyutBWZM/nMaT
+         93+w0me2Tj00SO98lab8V9iJwSbvFRVlXdwnc8PUoUq3hh8aJ4HtexInYb5A8ltnGili
+         6IgBdEXsokPqH5OlYpPVky1QZjAar+nPPZQ4nK4szKfNyU77ATq1Mqj43B7qZeTGoUIo
+         bnfVjv0wedSJu9jy6MJF46U3LuraPWFmX+HzYO4hZ7dWcHQHNPjC0rAt7hx0XFIN/uzF
+         xJxTIZYz+mh5EV1PULIHEc+W+EsKed6oV7LNgyWzUgHWuDo40xn0psl8AkFvRbrIDGs+
+         rdBg==
+X-Forwarded-Encrypted: i=1; AKwUvBxg1a9MZiB59IHm8mJPmtIfdd8ZA4dcHgyiumD4XQtUw/fHiMWMJZMptwlreoEYGUneN/ixnbGq3Xut@vger.kernel.org
+X-Gm-Message-State: AFq9FYKpuN/9ah9KVPiz1abL6fU+ObOEu46CnJwOrJEPPU1GwXgVcpZ6
+	QFtErTYSZ4V0VenQSyW3fYhgrxZTbAJnBDAHiFnG/PcHhbX9/6nYEBzd
+X-Gm-Gg: AYBFou27e/I0zdRh12DklV2FpSP3aAG81O/FUb2VXt9b5LDmjSdb0jEcqC4Ud1QmlWm
+	fyzhK0MADV3T3CITBKj1bxrGLzZRlNoX7Rhuj8oCFTDFdvxzu7ajz7agZXmyOATY4CLB4zr8n0T
+	Y1pXS6VRp5RdrcSOKuB9M9m+G1zJkS5eT7n31yE3FkBXir2dDWtF/g1Tgn7gkRaaIdlNA3IIebu
+	MJR6VWpc3Eshi2FBbrp0uedrpo+0LGTllq/iyCuJNO3V2rtXygSOcGUdiqJBSdZVHwE7X9uTkbl
+	Jk0GI8/hEpPsS18eToKz+RocMDRCoqe9742WpMuecfvQGI4s610b7l6oORzo2ZS3JozewH2G8L8
+	8hp3FE4GL0xuV2F75Rq9GT5iVAYxSAbDpq2fT3Xj2eFH3Xeh+v6XQp1ji9F3xgTPuIu7nNaPOd+
+	E4E+UE5AXd3TkzYbFf1HXX72JAeNpQbqLcCIYxGSSYGXPcE7FxuJaJqXC8Ar5xE1lVMHwEwRZ0T
+	hMn5pw=
+X-Received: by 2002:a05:6402:5486:b0:6aa:915a:f51e with SMTP id 4fb4d7f45d1cf-6af9e2e11a3mr6565114a12.17.1791149795652;
+        Sun, 04 Oct 2026 14:36:35 -0700 (PDT)
+Received: from localhost ([46.205.201.71])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6afb01e59cesm2457040a12.12.2026.10.04.14.36.33
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 04 Oct 2026 14:36:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <tencent_E9086080313181C5F806E5543C9638DC270A@qq.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 04 Oct 2026 23:36:33 +0200
+Message-Id: <DLWDLZK1ZVOJ.G23QIUQTEMEC@gmail.com>
+Subject: Re: [PATCH v2 3/5] Input: hynitron-cst816x: release gesture keys
+From: "Oleh Kuzhylnyi" <kuzhylol@gmail.com>
+To: "Daniel Golle" <daniel@makrotopia.org>, "Dmitry Torokhov"
+ <dmitry.torokhov@gmail.com>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ "Hendrik Noack" <hendrik-noack@gmx.de>, "Arnd Bergmann" <arnd@arndb.de>,
+ "Ferass El Hafidi" <funderscore@postmarketos.org>,
+ =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>,
+ <linux-input@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+X-Mailer: aerc 0.17.0
+References: <cover.1790944534.git.daniel@makrotopia.org>
+ <7199967eb45b1c3adcb7efc859380f6f3dbf7bdd.1790944534.git.daniel@makrotopia.org>
+In-Reply-To: <7199967eb45b1c3adcb7efc859380f6f3dbf7bdd.1790944534.git.daniel@makrotopia.org>
 
-On Sun, Oct 04, 2026 at 03:46:22AM +0800, Pufan Jin wrote:
-> The EBDEE EdgeBoard FZ3A is a development board built around the MYIR
-> MYS-CZU3EG SoM, based on the Xilinx Zynq UltraScale+ XCZU3EG.
+On Fri Oct 2, 2026 at 2:47 PM CEST, Daniel Golle wrote:
+> The gesture key is reported with the value of the touch flag, so it
+> stays pressed once the controller stops reporting the gesture code
+> while the finger is still down. Report the press on its own and
+> release the keys the input core still holds down on the first report
+> that carries no gesture code. Keycodes above KEY_MAX are rejected,
+> as that release looks the key state up in the input core's key bitmap.
+>
+> Fixes: c87a819bec86 ("Input: add driver for Hynitron CST816x series")
+> Signed-off-by: Daniel Golle <daniel@makrotopia.org>
+> ---
+> v2:
+> - reject keycodes above KEY_MAX and publish keycodemax only once the
+>   whole array validates (Sashiko AI review)
+>
+>  static irqreturn_t cst816x_irq_cb(int irq, void *cookie)
+>  {
+>  	struct cst816x_priv *priv =3D cookie;
+> @@ -181,8 +205,9 @@ static irqreturn_t cst816x_irq_cb(int irq, void *cook=
+ie)
+> =20
+>  	if (tch.gest)
+>  		input_report_key(priv->input,
+> -				 priv->keycode[cst816x_gest_idx(tch.gest)],
+> -				 tch.active);
+> +				 priv->keycode[cst816x_gest_idx(tch.gest)], 1);
 
-What exactly are you describing here. The SoM or the carrier board?
+Tested on CST816S setup, found out a subtle issue: cst816x_gest_idx() maps =
+unhandled
+single-click (0x05) and long-press (0x0C) gestures to index 4.
 
-Generally, there is a dtsi for the SoM, and a dts for the carrier
-board which includes the SoM .dtsi file.
+Input subsystem ignores SINGLE_TOUCH (code 0x5) events with tch.active =3D=
+=3D 0 (t: 0).
+Instead, reporting index 4 (single-click 0x05 minus 1) with tch.active =3D=
+=3D 1 falls into BTN_TOOL_TRIPLETAP linux,keycodes element.
 
-      Andrew
+As a result every single touch accompanied by BTN_TOOL_TRIPLETAP:
+Event: time 1791148663.331439, type 3 (EV_ABS), code 0 (ABS_X), value 117
+Event: time 1791148663.331439, type 3 (EV_ABS), code 1 (ABS_Y), value 124
+Event: time 1791148663.331439, type 1 (EV_KEY), code 334 (BTN_TOOL_TRIPLETA=
+P), value 0
+Event: time 1791148663.331439, type 1 (EV_KEY), code 330 (BTN_TOUCH), value=
+ 1
+Event: time 1791148663.331439, -------------- SYN_REPORT ------------
+Event: time 1791148663.397477, type 1 (EV_KEY), code 330 (BTN_TOUCH), value=
+ 0
+Event: time 1791148663.397477, -------------- SYN_REPORT ------------
+Event: time 1791148663.409413, type 1 (EV_KEY), code 334 (BTN_TOOL_TRIPLETA=
+P), value 1
+Event: time 1791148663.409413, -------------- SYN_REPORT ------------
+
+Interrupts:
+cst816x 1-0015: x: 127, y: 124, t: 0, g: 0x5 // Finger down (index 4, tch.a=
+ctive =3D=3D 1)
+cst816x 1-0015: x: 117, y: 124, t: 1, g: 0x0
+cst816x 1-0015: x: 117, y: 124, t: 1, g: 0x0
+cst816x 1-0015: x: 117, y: 124, t: 0, g: 0x0
+cst816x 1-0015: x: 117, y: 124, t: 0, g: 0x5 // Finged up (index 4, tch.act=
+ive =3D=3D 1)
+
+I suggest either gate the gesture branch on tch.active so a finger-up
+single-click never fires a key, or fix cst816x_gest_idx() to map 0x5/0xC
+to their own valid slots so they stop aliasing the TRIPLETAP keycode.
+
+Best regards,
+Oleh Kuzhylnyi
+
+> +	else
+> +		cst816x_release_keys(priv);
+> =20
+>  	input_report_key(priv->input, BTN_TOUCH, tch.active);
+> =20
+
