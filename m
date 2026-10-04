@@ -1,64 +1,64 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 819493D0929
-	for <devicetree@vger.kernel.org>; Sun,  4 Oct 2026 16:52:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6B253D1CB4
+	for <devicetree@vger.kernel.org>; Sun,  4 Oct 2026 16:52:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791132740; cv=none; b=tWnBGYPkyh8rrtTg257WNLzTRecPJpWEiwCVALZ3H8AvHFiZDnw8PDVylyjv8/3yYjCg/qvOA1aAPfqKmqCW2so353rVotalHnE6JrvlGIjNaVV2YIodJRHhL2YZTD1i6TxydtOgBd+ziNr2dzgh4mr+TkxTNNYNLdZdW8UCyJo=
+	t=1791132743; cv=none; b=ovAStUlN8eyqLqooksjf6bk5UT25Je1cE6SOXJekpziQ2NBWV1OXOwOzrzjjOSHCnOPi5mVN4S6wgRxZ9rEu6aOkYhUjS6qkAleC2Ms6izrzPRzW/uvW/b4Ho5vJM9wyI8oydFYqMvNUTnlIoOSV9nw1XQF6AOz1Tpv6jJhqKB8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791132740; c=relaxed/simple;
-	bh=v+ePETCe8wPnxEXXhds1CDCZkr+Y5xOzkRoCEoyMHko=;
+	s=arc-20240116; t=1791132743; c=relaxed/simple;
+	bh=YsOWNf6k3c8k/mWCI04yyLmuoXVKeXFhCGr6HCib2RI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QfoYzEbzsmHI9PhKy/+RZ/Jp0YtNaIK3fz4LWXg+SfJvPAUDCAz4NrWuijqMBt3s09t5sTn/oWiilDyabUyXBGyCmJ5ArnLDu/z9tJNQTL0fVzljZ4nlR1ozWmDE0cqGaYcgTAR1CDYCGxz8u5ZCYCpI58ZM9aALajCPytWiXI4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cXCQnjFe; arc=none smtp.client-ip=209.85.128.44
+	 MIME-Version; b=YOwBkQKBNF5Q6YvS9pYNfTDKxoh+DnQBIr2WnSg92jvyFhDyij1FKETxy4tihKzo3YIgwlWAJJbk+Bv+Z6kVfFya5j4J71RG8lzQd0SZlRdP6WR0u8S2lBqNM1zi1M9Dviaq4orlw3h/qYB++08LjCB5pndQfRuCaGVIDJlpntc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZYIYwySM; arc=none smtp.client-ip=74.125.225.99
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cXCQnjFe"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a1728d8dfcso629365e9.1
-        for <devicetree@vger.kernel.org>; Sun, 04 Oct 2026 09:52:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZYIYwySM"
+Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48b042e00f7so462352f8f.0
+        for <devicetree@vger.kernel.org>; Sun, 04 Oct 2026 09:52:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791132736; x=1791737536; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791132739; x=1791737539; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=hjq6OWraU4ksP0g6/oSpn1onbvhCPh/gZN+ZtPInBtY=;
-        b=cXCQnjFe4rH8z+fFtFKJ9cImKMpKfZCgTlT9qfs1/Xf79ANiEtTiF7pImzSnJHcrti
-         8olG0kPGfuPnnUbpF3DmIEV3CAafnYxImuPizwYQ+g1eKrqsbDQE8QhdAAC68NywtylX
-         QMsmvwVe9fCCAPAJtI7IgtA0rUVuHBAG+Q0xoJRpv87SV+dDMNIGWPcw38K+afhg3FWK
-         j6eC/U3js+I3oVdGUaBRGEUgI5YR049tZaMhB+h67vZ0SkhkTpGx3yd42YRsP29aJrde
-         cbkuw5imFUqWz536jZxyAQJV+g/YvmotkREhnRpGk7Ww5y4raGIqL4akEDgCkwGHhDaH
-         XHDw==
+        bh=CFCgMSBeysJSZt2B7ifOkYjjdaDgVJLpazyx7TBo5uA=;
+        b=ZYIYwySMMqmGTrj7LuuXmgtZX8ZTUzwPOtuegbm6lkB2hiMxBaWIpil6WBfQWOvWst
+         9HiG3164afnZyqRAjRs2PIr6O97KAXy46ObaNdDS/6HFg0nrUqbdq3Ay04eITUHLgnSX
+         eDphXpaPug3CXyKz8iRi6cwhq7Sa8sSxeSgEH5Y4J4gQUIHz4Nbv8h1zTGJDHPjEVWgs
+         YJ0iIdezDcRCDVgUx7YB8I/da3fGlVBw7H8b2bKpV8fXMBzYgJn8etp40EcsxMe8j4zF
+         OrQFHtUJIvvuERL3Tym1wW0W3BhU2U2A6g5Xvv7/7mCVKOJjL0TfpFvXe9y/dEGPJqE1
+         eSog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791132736; x=1791737536;
+        d=1e100.net; s=20260707; t=1791132739; x=1791737539;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hjq6OWraU4ksP0g6/oSpn1onbvhCPh/gZN+ZtPInBtY=;
-        b=jQ4DdbaVB1MEkEl8M4CLE+Xd3pjR7pqtAw9jn7qELqdBUxmIMw5rp73ozyOecFxB+/
-         SCYaFQFvyYZq5rgwiECKFXNkEIyKfUKh3meTUJuknJK/NpeyAbfJQrFNZZybJRSgOnYl
-         o2tuPeJCLWq/X7B1hN+Ge0Yh+FLwrz2ByGuGqzNulP5mhcxlv+sxabkmCwXjxl9fHhJ/
-         1MWF1oimctP6ji2VZEJOy+FKwF9JuTdm1VmqbzX0xdX+4LKn4IQtROpit8lZFyijTVH9
-         jHunFtHGk9R10VzxTUfPK5iy3d6opV27oGL4vXroxUgP56gHCN0gYtxviM/jSBO1hBZI
-         s+yg==
-X-Forwarded-Encrypted: i=1; AKwUvBxY7IwqslyzdWWUUYKlqUVj6kj35xc4jvSz+sLb1WY3BWO/Yngp13gSFRY521IQy9kHM9yeHOrQETJR@vger.kernel.org
-X-Gm-Message-State: AFuF++nSBUwUkQprNINfXhNJoKKsCQ15IKJ/uNhU6Bwcp8mida17ihWq
-	fUOpMsXDV8tYAFlg3OF3oG//7BWQOPLeDlVIl+pghaw9YjRL0Febdk58
-X-Gm-Gg: AYBFou1/mjs+SDc+IEAgit3te8Fqndy/hURM+v+5fiFbDaN5QwgJrlqICa9sOGNOA9u
-	AXPH9hOruMZVP1TXvVeovhORdo8+Us7hkSloveoamJDzgsiWCsBheQmcoBiP7Dy0IY4IrqafuuZ
-	vhO11PtzLl6ySvTGzVXmHhG5yYZgKhZmaq9z8MSMzx82l3eKMIpNEkcbFKU8gp0yB4ELMmTYbhn
-	rU3pjHOZ48m01HcrSlI29Am0dd38tK8xQJrAAdk1hBt8+FGQwAFk+87LSNBrQXElhvO+Ydr8r+4
-	cesA3pOJBzJJuu3KHBX7MEyORCBJ6knL5PuO9Yg+0eMZn6zMxhMlXnLZDSybsdH+7lpXv/5AavG
-	lCibB4zDkBOH4zQBI5WLAwUFIRI6gAdDQydTSBnCYgnFx38bQpARnzG5yF4KpOUKmwu8J5hrPvc
-	obciOw+0p8MoPImL3gMwmkdWYm4kMWgdlgLwR9n21QkrqVXzHAklNHo3P8+Yvb6/ZBHyER5g84x
-	iVRnG0GRSU4LXRoAlw=
-X-Received: by 2002:a05:600c:1d0a:b0:4a1:6ff4:886a with SMTP id 5b1f17b1804b1-4a16ff48af5mr31663835e9.16.1791132736286;
-        Sun, 04 Oct 2026 09:52:16 -0700 (PDT)
+        bh=CFCgMSBeysJSZt2B7ifOkYjjdaDgVJLpazyx7TBo5uA=;
+        b=NbGIWWGP0QvRy7cQa6yEbcTm0lmf9b9+YKL//Dcmgmr75fP+EkmiH8/RD6egbcS+Dy
+         JyHC/N3E7YnL2moUXpucM3CmHRGAnvmBK5bpsbXHtAtY4/KTfD6yqgdXlRfOsWWeNMZA
+         7g/QVLaUF8shh486r2eHWIfRiEnrL3niXxP5MEOzWp7+O2oBQcGi42HxCW3t9fyikuv1
+         35U5pY8G4nfL5RcZbYoAqeoy6mpfeBs/sUB1IgAlEGPlmxkjKLpyD0s2AWCPlQUfIOaH
+         3ebaxB7ubdBeGZchVDw9OrsbCnc6rpT04fzV4zCG3vsw0qs8o09DjbehEaPsoxSv0M97
+         C3Xg==
+X-Forwarded-Encrypted: i=1; AKwUvBwBuSfeSpQmrSHPquyd788uqIIdR+tqTI5y72+vK9IXG5t7Ym3SWTz84jGCgSAq4pr8auXJ8qE2qyaB@vger.kernel.org
+X-Gm-Message-State: AFq9FYK3OT+m6pmGQV8gVKuIpUDSb6ObPVzlJHr421chLcdhYGfz7N9e
+	rj3JeGdaHa2JTwOpZ0UsB4Uf35cbBdoPFqpSz4H0NmDr9qNk33NfCSph
+X-Gm-Gg: AYBFou1CdXc33qTuCWOvFzA9H2Oqgx91kzfDZErvY+AgoN5iPxdJV/QxawSqz+XPsd/
+	lw9EaLnB57lsTGKQnc93ruelNhLCIYudPWj4AMh1ZZWg8T5uGNbyTyyaq/uoVd+XOizMjuFrCur
+	6MrAtanNGygQvj2VWbVmMGjFBJ1iuPjkLSS1Qmr+kftEdi8bqlb6QhmITUQX2NPUJe7E+azoxEt
+	JLkV7b2hIr8AvkgIhclWerljOL13XFVlSIdEpfgkrAGpWwBeqJedN98WKJN08ZgObpIm/2gnFVK
+	POUgmZJwvA8byr+LHnid5pFZY87TIKZ7Npni45/r4FriNd55JBZBPOtt2LqYlGEVrFql2jnTdtD
+	IMpiEcuo+UlDs06yjc7/wz6Y5HdhY3fmKDFRtLIetaUiof6Mx0NxGZzuOoNTdgUzgVcH4T3Ki7Y
+	HA91gIFExJMYI0mAw75I/80h8MytlHr/WxsBU6SLm85dVfU9vyAwJuJzPQSAjtQks9/4pslDPlc
+	T72z0FiaN86oAdBDO0=
+X-Received: by 2002:a05:6000:2405:b0:48c:5306:c11a with SMTP id ffacd0b85a97d-48c5306c1d1mr5056623f8f.24.1791132738870;
+        Sun, 04 Oct 2026 09:52:18 -0700 (PDT)
 Received: from xeon ([188.163.112.76])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b382f8c4asm20902213f8f.37.2026.10.04.09.52.14
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b382f8c4asm20902213f8f.37.2026.10.04.09.52.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 09:52:15 -0700 (PDT)
+        Sun, 04 Oct 2026 09:52:17 -0700 (PDT)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Rob Herring <robh@kernel.org>,
@@ -73,9 +73,9 @@ Cc: linux-usb@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-tegra@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v1 1/2] dt-bindings: usb: Move Tegra-specific Chipidea USB properties into a dedicated schema
-Date: Sun,  4 Oct 2026 19:52:03 +0300
-Message-ID: <20261004165204.205660-2-clamor95@gmail.com>
+Subject: [PATCH v1 2/2] usb: phy: tegra: Disable internal USB sensing if extcon is used
+Date: Sun,  4 Oct 2026 19:52:04 +0300
+Message-ID: <20261004165204.205660-3-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261004165204.205660-1-clamor95@gmail.com>
 References: <20261004165204.205660-1-clamor95@gmail.com>
@@ -87,152 +87,148 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Move all Tegra-specific Chipidea devices and their properties into a
-dedicated schema file, by analogy with i.MX.
+From: Jordan Viknar <jordanviknar@gmail.com>
 
+The Tegra USB PHY features four VBUS sensors: A_VBUS_VLD, A_SESS_VLD,
+B_SESS_VLD, and B_SESS_END. This allows the SoC to detect mode switches
+and natively work with OTG. On some devices, instead of relying on Tegra's
+own mechanism, some type of extcon detection chip may be used, which
+conflicts with the native Tegra implementation.
+
+Add extcon parsing from the linked USB controller. If such a property
+exists, switch VBUS sensors to software mode and set their values to SET.
+This indicates that the VBUS sensors are not required by the USB
+controller, which uses extcon for detection instead.
+
+This fixes all devices that have OTG mode set with extcon for Tegra20
+(LG Optimus 2X P990), Tegra30 (LG Optimus 4X P880 and Vu P895),
+Tegra114 (Nvidia Tegra Note 7), and Tegra124 (Xiaomi Mi Pad). All listed
+devices were tested.
+
+Assisted-by: Claude Sonnet 5
+Signed-off-by: Jordan Viknar <jordanviknar@gmail.com>
 Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
- .../bindings/usb/chipidea,usb2-tegra.yaml     | 88 +++++++++++++++++++
- .../devicetree/bindings/usb/ci-hdrc-usb2.yaml | 22 -----
- 2 files changed, 88 insertions(+), 22 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/usb/chipidea,usb2-tegra.yaml
+ drivers/usb/phy/phy-tegra-usb.c   | 55 +++++++++++++++++++++++++++++++
+ include/linux/usb/tegra_usb_phy.h |  1 +
+ 2 files changed, 56 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/usb/chipidea,usb2-tegra.yaml b/Documentation/devicetree/bindings/usb/chipidea,usb2-tegra.yaml
-new file mode 100644
-index 0000000000000..78046f8a63ad5
---- /dev/null
-+++ b/Documentation/devicetree/bindings/usb/chipidea,usb2-tegra.yaml
-@@ -0,0 +1,88 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/usb/chipidea,usb2-tegra.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Tegra USB2 ChipIdea USB controller
-+
-+maintainers:
-+  - Svyatoslav Ryhel <clamor95@gmail.com>
-+
-+properties:
-+  compatible:
-+    oneOf:
-+      - enum:
-+          - nvidia,tegra20-ehci
-+          - nvidia,tegra20-udc
-+          - nvidia,tegra30-ehci
-+          - nvidia,tegra30-udc
-+          - nvidia,tegra114-udc
-+          - nvidia,tegra124-udc
-+      - items:
-+          - enum:
-+              - nvidia,tegra114-ehci
-+              - nvidia,tegra124-ehci
-+              - nvidia,tegra210-ehci
-+          - const: nvidia,tegra30-ehci
-+
-+  operating-points-v2:
-+    description: A phandle to the OPP table containing the performance states.
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+
-+  nvidia,phy:
-+    description: phandle of usb phy that connects to the port. Use "phys" instead.
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+    deprecated: true
-+
-+  nvidia,needs-double-reset:
-+    description: Indicates double reset or not.
-+    type: boolean
-+    deprecated: true
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - clocks
-+  - resets
-+
-+allOf:
-+  - $ref: chipidea,usb2-common.yaml#
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/tegra30-car.h>
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+
-+    usb@7d000000 {
-+        compatible = "nvidia,tegra30-udc";
-+        reg = <0x7d000000 0x4000>;
-+        interrupts = <GIC_SPI 20 IRQ_TYPE_LEVEL_HIGH>;
-+        phy_type = "utmi";
-+        clocks = <&tegra_car TEGRA30_CLK_USBD>;
-+        resets = <&tegra_car 22>;
-+        reset-names = "usb";
-+        phys = <&phy1>;
-+        power-domains = <&pd_core>;
-+        operating-points-v2 = <&usbd_dvfs_opp_table>;
-+
-+        dr_mode = "otg";
-+
-+        hnp-disable;
-+        srp-disable;
-+        adp-disable;
-+
-+        usb-role-switch;
-+        extcon = <&charger>, <&extcon>; /* vbus, id */
-+        vbus-supply = <&usb_otg_vbus>;
-+
-+        port {
-+            usb_in: endpoint {
-+                remote-endpoint = <&connector_out>;
-+            };
-+        };
-+    };
-+...
-diff --git a/Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml b/Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml
-index 620b564914d43..b73bea61dcac0 100644
---- a/Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml
-+++ b/Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml
-@@ -17,20 +17,8 @@ properties:
-           - chipidea,usb2
-           - lsi,zevio-usb
-           - nuvoton,npcm750-udc
--          - nvidia,tegra20-ehci
--          - nvidia,tegra20-udc
--          - nvidia,tegra30-ehci
--          - nvidia,tegra30-udc
--          - nvidia,tegra114-udc
--          - nvidia,tegra124-udc
-           - nxp,s32g2-usb
-           - qcom,ci-hdrc
--      - items:
--          - enum:
--              - nvidia,tegra114-ehci
--              - nvidia,tegra124-ehci
--              - nvidia,tegra210-ehci
--          - const: nvidia,tegra30-ehci
-       - items:
-           - const: xlnx,zynq-usb-2.20a
-           - const: chipidea,usb2
-@@ -66,16 +54,6 @@ properties:
-           - description: register offset
-           - description: phy index
+diff --git a/drivers/usb/phy/phy-tegra-usb.c b/drivers/usb/phy/phy-tegra-usb.c
+index 00443a7beaeb0..d3faeb6619454 100644
+--- a/drivers/usb/phy/phy-tegra-usb.c
++++ b/drivers/usb/phy/phy-tegra-usb.c
+@@ -16,6 +16,7 @@
+ #include <linux/iopoll.h>
+ #include <linux/module.h>
+ #include <linux/of.h>
++#include <linux/of_address.h>
+ #include <linux/of_platform.h>
+ #include <linux/platform_device.h>
+ #include <linux/resource.h>
+@@ -68,9 +69,18 @@
+ #define   UHSIC_PHY_ENABLE			BIT(19)
  
--  nvidia,phy:
--    description: phandle of usb phy that connects to the port. Use "phys" instead.
--    $ref: /schemas/types.yaml#/definitions/phandle
--    deprecated: true
--
--  nvidia,needs-double-reset:
--    description: Indicates double reset or not.
--    type: boolean
--    deprecated: true
--
-   ulpi:
-     type: object
-     additionalProperties: false
+ #define USB_PHY_VBUS_SENSORS			0x404
++#define   B_SESS_VLD_SW_EN			BIT(11)
++#define   B_SESS_VLD_SW_VALUE			BIT(12)
+ #define   B_SESS_VLD_WAKEUP_EN			BIT(14)
++#define   A_SESS_VLD_SW_EN			BIT(19)
++#define   A_SESS_VLD_SW_VALUE			BIT(20)
+ #define   A_SESS_VLD_WAKEUP_EN			BIT(22)
++#define   A_VBUS_VLD_SW_EN			BIT(27)
++#define   A_VBUS_VLD_SW_VALUE			BIT(28)
+ #define   A_VBUS_VLD_WAKEUP_EN			BIT(30)
++#define VBUS_SENSORS_SW_OVERRIDE		(B_SESS_VLD_SW_EN | B_SESS_VLD_SW_VALUE | \
++						 A_SESS_VLD_SW_EN | A_SESS_VLD_SW_VALUE | \
++						 A_VBUS_VLD_SW_EN | A_VBUS_VLD_SW_VALUE)
+ 
+ #define USB_PHY_VBUS_WAKEUP_ID			0x408
+ #define   ID_INT_EN				BIT(0)
+@@ -621,6 +631,10 @@ static int utmi_phy_power_on(struct tegra_usb_phy *phy)
+ 		val = readl_relaxed(base + USB_PHY_VBUS_SENSORS);
+ 		val &= ~(A_VBUS_VLD_WAKEUP_EN | A_SESS_VLD_WAKEUP_EN);
+ 		val &= ~(B_SESS_VLD_WAKEUP_EN);
++
++		if (phy->has_extcon)
++			val |= VBUS_SENSORS_SW_OVERRIDE;
++
+ 		writel_relaxed(val, base + USB_PHY_VBUS_SENSORS);
+ 
+ 		val = readl_relaxed(base + UTMIP_BAT_CHRG_CFG0);
+@@ -727,6 +741,12 @@ static int utmi_phy_power_off(struct tegra_usb_phy *phy)
+ 					   val, !(val & VBUS_WAKEUP_STS),
+ 					   5000, 100000);
+ 
++	if (phy->has_extcon) {
++		val = readl_relaxed(base + USB_PHY_VBUS_SENSORS);
++		val &= ~VBUS_SENSORS_SW_OVERRIDE;
++		writel_relaxed(val, base + USB_PHY_VBUS_SENSORS);
++	}
++
+ 	utmi_phy_clk_disable(phy);
+ 
+ 	/* PHY won't resume if reset is asserted */
+@@ -1456,6 +1476,34 @@ static int tegra_usb_phy_parse_pmc(struct device *dev,
+ 	return 0;
+ }
+ 
++static int tegra_usb_phy_parse_controller(struct device *dev,
++					  struct tegra_usb_phy *phy)
++{
++	struct device_node *usb_node;
++	char *node_path;
++	u64 addr;
++	int ret;
++
++	ret = of_property_read_reg(dev->of_node, 0, &addr, NULL);
++	if (ret) {
++		dev_err(dev, "Failed to read reg entry 0: %d\n", ret);
++		return ret;
++	}
++
++	node_path = devm_kasprintf(dev, GFP_KERNEL, "/usb@%08llx", addr);
++	if (!node_path)
++		return -ENOMEM;
++
++	usb_node = of_find_node_by_path(node_path);
++	if (!usb_node)
++		return -ENODEV;
++
++	phy->has_extcon = of_property_present(usb_node, "extcon");
++	of_node_put(usb_node);
++
++	return 0;
++}
++
+ static const struct tegra_phy_soc_config tegra20_soc_config = {
+ 	.utmi_pll_config_in_car_module = false,
+ 	.has_hostpc = false,
+@@ -1552,6 +1600,13 @@ static int tegra_usb_phy_probe(struct platform_device *pdev)
+ 		return err;
+ 	}
+ 
++	if (tegra_phy->mode == USB_DR_MODE_OTG) {
++		err = tegra_usb_phy_parse_controller(&pdev->dev, tegra_phy);
++		if (err)
++			return dev_err_probe(&pdev->dev, err,
++					     "Failed to get controller\n");
++	}
++
+ 	tegra_phy->phy_type = of_usb_get_phy_mode(np);
+ 	switch (tegra_phy->phy_type) {
+ 	case USBPHY_INTERFACE_MODE_UTMI:
+diff --git a/include/linux/usb/tegra_usb_phy.h b/include/linux/usb/tegra_usb_phy.h
+index 6343f88df5de8..4bb20e39003ab 100644
+--- a/include/linux/usb/tegra_usb_phy.h
++++ b/include/linux/usb/tegra_usb_phy.h
+@@ -87,6 +87,7 @@ struct tegra_usb_phy {
+ 	bool wakeup_enabled;
+ 	bool pad_wakeup;
+ 	bool powered_on;
++	bool has_extcon;
+ };
+ 
+ #endif /* __TEGRA_USB_PHY_H */
 -- 
 2.53.0
 
