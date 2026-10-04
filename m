@@ -1,201 +1,114 @@
-Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com [209.85.128.182])
+Received: from mail-pz2-f39.google.com (mail-pz2-f39.google.com [74.125.228.39])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15C0B46C82E
-	for <devicetree@vger.kernel.org>; Sun,  4 Oct 2026 18:17:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.182
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791137840; cv=pass; b=tGfSnxqMzcjUpH7bpJp1LFLH9+E+gYUYamogguZ7bnSWkxAPWslPk54v0XO06wYkooaBZSZIeaaXjqAzmzEWYICAA8BeVXcgpiAh6gzG57YCDaKnbczNhFr1M4KGI7D35hvutIWBHmT2TiU5TXbYwtmOwpUivvq700ZGR+NHHa4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791137840; c=relaxed/simple;
-	bh=cJR4lAp9V5AURTVqP2Gl5OsN2xzomRNzgeycLcomVm8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BGugjN5BbJRp0izhDdZzlg4tR5o6Agoev7PWHUufdm6WIZSnB/K0X2h6ZiVLJfCI4+hkpmqz7FHqUPjiDfEvUvVrxeLqEKadEbukejC5D9ZhZzmil0rkLZA5tHhMnp1tdSMovR68Tx6jkmWigU1oZre0v/NF0t6+Xmzo7m1LqXc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MAYqgGy9; arc=pass smtp.client-ip=209.85.128.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD749485928
+	for <devicetree@vger.kernel.org>; Sun,  4 Oct 2026 19:10:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.39
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791141046; cv=none; b=EF0JO4PVn6XuD2gTi2CW+ZcnevkorAQcxvymWxK8WYNWxQIegVxEL90yhuPpJuxQ1Fe7zEMvS9qj0ItYcLLSWYVhbFko9iZhee7biHz+xM6omKQ/2KSY10wRrpe9ADcmdANH9rmtr0I/j5+G+eNHE+8iWx2+5xz2tHpNPaxbkMA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791141046; c=relaxed/simple;
+	bh=yfRz0gCmlse4iaV69rfQZ45cJ6QlHrEv8Tvd40l5z5U=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IrKJQsGUdGHEztpNzQsFMROZxiZheb5aACChIWW6NMs6oCEBIGEKxOLMjcQIJxzWp7NnsZA9LbIZCrNbSnRAtvCvKR6ERrkoabMho3xlCaInBiqTV7lPMEUQ0w+oXihEanXnloazpCQKOY1mL4t1QNxfL98kjo2HJrLSVY30yqM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aVbXhKrN; arc=none smtp.client-ip=74.125.228.39
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MAYqgGy9"
-Received: by mail-yw1-f182.google.com with SMTP id 00721157ae682-8ac525c1f05so7974407b3.1
-        for <devicetree@vger.kernel.org>; Sun, 04 Oct 2026 11:17:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791137838; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Q5hbiznYPYj5kIy4BFgfuJqAM341fJBVZzFi1gCys84qi3IsDMeL+Hf3RtPhoWGYKk
-         UcPq9mXRSKT5KodqHKHFKJEiJ5vS6dwKjgFX2HR6tWg8ez/DXGGD2F5PMyQjtBhpJpxP
-         LC9s1OgsRYM7zozV2njKDsNEfWH9IfZeUYJWLru6+WsK/l7BOUIsGYbQhk2y82gmvB/6
-         0zGnfkSb73aFb2h8X3brpdbpGugOj2o+GPgckg4mv13xbKBfnxLbxwOKUB20iyso2PTP
-         6qJbaoqR0lO981NhyPEKu5UUuQSLfmv0odsEBv0xC2TzUeC08lRzIpCzQGImfpfiz8aI
-         fppQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=xFmpccpIR+RbcQ/MVQmCJHkfs/R9fTCLwYQLZmcFH54=;
-        fh=3LTcC9is0XopxkvUhI/7WJNj8Z7i9a3UsAqIWBVWwcA=;
-        b=gRixAcmkZHfyGQJwGST9U4M90oEDLP8kjCrIePfrEadLcVIU1hxoGJh0cmnBDYXdHB
-         M8XvGERPNKquCWPpPIy239Ln0OsqNbLaqKrZx9pR0Fx9ExZ1qzKlbgWrNlz90rSGTZr4
-         Lb4YPiPUELH0/SCTorHYHWp9GgowhtnlNkvtPJgpLuYM6HY65mANx3cwHWiwiFfdH+EL
-         tvTDTuKSDLPf2uVrqQlh1LKPlBUVGKK9PJzptt5oUJ3YIKBlpx+VsOtVCM6Ozhc8tkwc
-         5epW+gd7qDH6PMLteom2KdsTTp2FFQpWCZ+YBmMdFanawPEBUzpE0uaVaZcIIN0V+TEA
-         jquA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aVbXhKrN"
+Received: by mail-pz2-f39.google.com with SMTP id 41be03b00d2f7-cc7901f7971so309588a12.0
+        for <devicetree@vger.kernel.org>; Sun, 04 Oct 2026 12:10:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791137838; x=1791742638; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=xFmpccpIR+RbcQ/MVQmCJHkfs/R9fTCLwYQLZmcFH54=;
-        b=MAYqgGy9y5v1+6oe21qsvjYKYOjtqMCZCAXKdKRrBxJP6obvD5VsSRYhk48kJksZ3T
-         s19bsLQ0z7YSFxqcIzVofZmjwOxf1U3NGExx+Um+hgYRubpXoIwkvqC4BS2Fsz0TFEN5
-         v/Nkq2Q25TrkNRA1osSp8usmyxIPMEg/+jGOq0D/UwizXxP3qmA/CXaRY1FvyfMcumse
-         UC1qZr2ez4JF5lQoeviwIjjfrK/9XwylCv2Yd7Vp3wbDrD7AY8Gf4sDqjQX+YkDhVVSR
-         E1KtL5iTWLs59qX5Jb7nSKKo+ExYlZhfTCBP8xrlNSseBp3phODL3ez3zXnCCS5rqY33
-         6M1g==
+        d=gmail.com; s=20251104; t=1791141044; x=1791745844; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=A7qHCKtt5edtxB2hHoADiQ7fMvPvqmsdZvnwWIudO2g=;
+        b=aVbXhKrNSmSjcClkuNmPzZ3P3I/Vj8rp1SyzhWu9uYU/e2opdPBv6C39MU7fE7CxSS
+         N3KqM6cJ2QQcCdTHY4xT42rWjL4p/21mDW7srmwFQfSao6E/g49bLW8HYf3W5y/h4BDK
+         gJR7aT8eVwWnRQcVetxe1unF110ZibdDkxXItxkCrNz8k/QiipgvC5M9XvnfAWgp8BRG
+         DXPVAamdumDo1mhNwK8AW7KkssknKTFlBNqQGw88xUKewqSSv4X+Km66cT2kT/Q+P/Ok
+         YQecUpQHNzosDWtVTdoIi9GBaiEB4d5nphsS6T1zDQhTAtYXvG+q3sZz6iuySCd93QdA
+         JNOA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791137838; x=1791742638;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=xFmpccpIR+RbcQ/MVQmCJHkfs/R9fTCLwYQLZmcFH54=;
-        b=TgXHDZkl0OjSMxbnv+6MugoTyRgDra28ReV40ATzoQVOG9FCQBLIKX1gk6n5ZV0LCx
-         Peds8msvzSQR1qfbMkHwdc8D/K/u4i4i3Ebb7HcFSRx1dz743hF/YpZ2goyeChNZsCu/
-         tMllP8g/6lT7eSj5c6YBvtP/3j99DLOHc73h4XrR3FAVy+oqm1eqObfbgC0BECjqKNFF
-         TpoxYeL7fPgcAQTuJ77KiPaHU8dumwO5Fi4Q8sdmGpYn+lvbdM3/KD6YJFhELmXYxtia
-         oL/bf8XumavtGvPtFVnbjeY5VmO4/JpyrA+B9hlLGlQYiubHTJu+riDDTIE7gUeBMGdq
-         Gu1Q==
-X-Forwarded-Encrypted: i=1; AKwUvBySgZVmmOffjH9SRtCI9MxpEBeLfMC0JoeTpqoY3kQv2xWOtkYUSBiS902tMgOmv3jnqpOhLjuBJSnz@vger.kernel.org
-X-Gm-Message-State: AFq9FYIcwIqhthkBGB8v5o1NG4fAm5vKJ1xU2PQTC+wdpktD66nPQ/7Q
-	mr8/mZxKVoXVMxY6qTNkHeSVNfiq/t1+zR//545c726uk3laLuhTw9Swkk1huHtsI1EadVDbftr
-	bCYDofkIz+ikT6/ONp6GHIjDnb6iMmTo=
-X-Gm-Gg: AYBFou07Ysdo9XMqMFBMWE8EDxWj2VojllhervPZwyDDjdKSjXyI2KeAO2A3wSw7DtF
-	bwCsrKNPqVrbfhRx+HXEOQh7Nq9EZqD6S9PlOwCCKWSwbQRo9u9usbLflUgzhfRlo0Q3uQn1Hin
-	KUppHk3EtYmt5IYLxrTFfKQ1uMHgrUFvvQloAGsEfEd4WIBqN+qRR/vudIwqXIfKoyOflXSRFtC
-	rdRgLh2G/gJ8dVGWalbD3pMu6+ompjaWDaA4R9VPgpS75eP+VKz4LGW/h8UBuWjY4jtaF1rVjqw
-	Pis7U2mll1gtv/jSxFZZnaFlStWKL4XLhgOPj0V+n+mIDFWreRSOTNKM1efoN5SlJKw=
-X-Received: by 2002:a05:690c:67c3:b0:8a5:af04:fb1d with SMTP id
- 00721157ae682-8ae957d3279mr23973447b3.55.1791137838008; Sun, 04 Oct 2026
- 11:17:18 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791141044; x=1791745844;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=A7qHCKtt5edtxB2hHoADiQ7fMvPvqmsdZvnwWIudO2g=;
+        b=0Ul09TRqDmakgxcsV/p/Vn/9z5v7wtzKlRJ4E7fX5dKdlgHnna8W7s9BE8fTIF6qGX
+         fYb7jWrVuOdzCF+LeSeZgJqivCC5sqe/y/WrSAoCApJ8wD34v76Ag2uppJENagOmZuns
+         db/jNXzRz/Uy660MK8sBBN0qUIGGhb61a8R6TYh4GYM460Lu6AirFaSa5K2YCgqU9EeK
+         2t4HLY0QCFB9eVBJPN1FzqZMv5V7cMhwVSeEn6qxeyI6teb2kkdGXrUAlEzRemMCPB6J
+         M2Qvu3Ll7G81DpPpxR8jczKo/UQRsP+PjNavbyKmV3Y+pU0/buLNXg5DXAdHzuTv/Zp+
+         A9+w==
+X-Gm-Message-State: AFq9FYK7wzD28+6jwJMAn/eRUfpG/etJua8ATDAXc2moK8FhTFkhlCRT
+	C6hC00uV5k+qTt+fJTaPy0+xdbJ8EexdFXNOdVweMSfHXRTdb7UaPbmXpO1ryyKF
+X-Gm-Gg: AYBFou1W50IiDK4ToVaeE1r3u8Y1jd3WXmFFI0mYLePwCVTP4kAvHBeN5sBNO+7laJN
+	UF/UGeWPGF7QbXSnoOrnAQ1F2eB9ARiHTExXgvt4k7MVI1Nm2nHgZJesgy5HI5OeJ3YcXEvVtJ3
+	LxVJMiplBJ7bWXVNR7+uhQXmIm6uwsjY4WSzdqKsOTjdFybHpNjtJ/XXZjIGa6KCebJPgPbIUe+
+	J9rsEV/6XAJtTMPGx+xi6c96MCwNcJkIfxc0l3MRdsKlsknfrC++Bd901V2Lq6Ncz2kyCPeAkJT
+	uJh/63xV6qnk16wwm8IX7XPR1ja7mV5zjIytLCNM3AhtqqUBGTEMNmG4Cnzi+u95oVVLZjTHWaD
+	b/Zys8U4XsgphdFZoW/YVl4R8g/dWql84nWJ3T8nRSU6uEsoMLGTKJR2q64R5IsevDnaUsh6REG
+	qXbGLfunLVVl4FqgMIZdZg4VsXBprcv/SbtY0PmrzQptX3KmQISK+WtxudynNY304auc6F9hoYN
+	OT5Mtk41OnRn1m4MboziOSWRdu/N3pByFF7f9c6kTK9Mrf+nk/v5SMrc06ustUwrMvFx3L8091g
+	QsWGXvORjbA+oWNoDFuaGvFyJu/9QL68navNcKXNILMxDoxQ
+X-Received: by 2002:a17:90b:388b:b0:3a6:fec5:c179 with SMTP id 98e67ed59e1d1-3a6fec5d128mr5479549a91.41.1791141044008;
+        Sun, 04 Oct 2026 12:10:44 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e35])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a78d7c64b1sm8318957a91.14.2026.10.04.12.10.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 04 Oct 2026 12:10:43 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: devicetree@vger.kernel.org
+Cc: Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-gpio@vger.kernel.org (open list:GPIO SUBSYSTEM),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH v2] dt-bindings: gpio: pca95xx: add onnn,pca9655 compatible
+Date: Sun,  4 Oct 2026 12:10:42 -0700
+Message-ID: <20261004191042.143713-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260901170358.176103-1-challauday369@gmail.com>
- <20260909-arcane-yellow-beluga-5ce6f7@quoll> <CAAj-GBkiTvFwx+3htJaKGFCYAC0jGdhyxkfUa8dKWPkYmbGViw@mail.gmail.com>
- <f402d93f-4443-4209-a6c7-5c30e7c8751a@kernel.org> <CAAj-GBnyFnVhNpuPTBoQhBZJLUYdXnBcxnEYy8rsYqkqX=UK7g@mail.gmail.com>
- <82b71784-4bb9-4165-a0f0-cf00fedde944@kernel.org> <CAAj-GBkPTmSxjKcXrzeMA3bz89vPGHt0Ai4Gat3KSz3epusRjw@mail.gmail.com>
- <5b34d2da-6e53-4a93-9d08-7d64e9072562@kernel.org>
-In-Reply-To: <5b34d2da-6e53-4a93-9d08-7d64e9072562@kernel.org>
-From: Uday Kiran <challauday369@gmail.com>
-Date: Sun, 4 Oct 2026 23:47:06 +0530
-X-Gm-Features: AclHuK8yMHOs5OrM1gtLGut4uFd1mZ5OV0auRu3panCfI1lvD8IXn4aLVjemE3g
-Message-ID: <CAAj-GBnDZ1NoGamjXFpE1wsnnQcUzjoSnsqxjzT6nsetYW0QZw@mail.gmail.com>
-Subject: Re: [PATCH v3] dt-bindings: leds: lacie,netxbig-leds: Convert to DT schema
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: lee@kernel.org, pavel@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, skhan@linuxfoundation.org, me@brighamcampbell.com, 
-	linux-leds@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sun, Oct 4, 2026 at 8:00=E2=80=AFPM Krzysztof Kozlowski <krzk@kernel.org=
-> wrote:
->
-> On 04/10/2026 16:04, Uday Kiran wrote:
-> > On Wed, Sep 16, 2026 at 11:39=E2=80=AFAM Krzysztof Kozlowski <krzk@kern=
-el.org> wrote:
-> >>
-> >> On 14/09/2026 19:58, Uday Kiran wrote:
-> >>> On Sat, Sep 12, 2026 at 1:20=E2=80=AFPM Krzysztof Kozlowski <krzk@ker=
-nel.org> wrote:
-> >>>>
-> >>>> On 11/09/2026 16:29, Uday Kiran wrote:
-> >>>>>>> +properties:
-> >>>>>>> +  compatible:
-> >>>>>>> +    const: lacie,netxbig-leds
-> >>>>>>> +
-> >>>>>>> +  gpio-ext:
-> >>>>>>> +    description: Phandle for the gpio-ext bus.
-> >>>>>>> +    $ref: /schemas/types.yaml#/definitions/phandle
-> >>>>>>> +
-> >>>>>>> +  timers:
-> >>>>>>> +    description: |
-> >>>>>>> +      Timer array. Each timer entry is represented by three inte=
-gers:
-> >>>>>>> +      Mode (gpio-ext bus), delay_on and delay_off.
-> >>>>>>> +    $ref: /schemas/types.yaml#/definitions/uint32-array
-> >>>>>>> +
-> >>>>>>> +patternProperties:
-> >>>>>>> +  "^(?!gpio-ext$|pinctrl-[0-9]+$)[a-z][a-z0-9]*(-[a-z0-9]+)+$":
-> >>>>>>
-> >>>>>> This is an odd pattern. Why is pinctrl an LED? or gpio-ext?
-> >>>>>>
-> >>>>>> Actually entire pattern is very odd - it has $ in the middle, but =
-then
-> >>>>>> followed with other REQUIRED stuff. I am surprised it works, but
-> >>>>>> regardless it is absolutely not readable. Looks like a begative pa=
-ttern,
-> >>>>>> but why would you have negative pattern for known properties?
-> >>>>>
-> >>>>> Thanks for the review Krzysztof.
-> >>>>>
-> >>>>> The negative lookahead was added because patternProperties matches =
-all top-
-> >>>>> level property names that fit the pattern, so excluded known top-le=
-vel
-> >>>>> properties like gpio-ext and pinctrl-*;
-> >>>>>
-> >>>>> In patch v1, I've used additionalProperties which removes the regex=
- entirely
-> >>>>> and allows arbitrary child-node names. But removed and used pattern=
-Properties
-> >>>>> as per the review feedback.
-> >>>>>
-> >>>>> Could you please suggest to me which way to proceed? with additiona=
-lProperties
-> >>>>> or patternProperties
-> >>>>
-> >>>>
-> >>>> The children are leds, so they should use generic node name pattern =
-like
-> >>>> "^led-[a-z0-9]+$"
-> >>>
-> >>> Yes, Krzysztof but the original binding uses blue-power, red-power,
-> >>> blue-sata0, etc.
-> >>> as LED child node names. Would you like me to rename these nodes to
-> >>> led-blue-power, led-red-power, etc. to use the suggested
-> >>> ^led-[a-z0-9]+$ pattern,
-> >>> or should I retain the existing node names and use a more specific
-> >>> pattern for them
-> >>> like "^(blue|red)-(power|sata[0-9]+)$"
-> >>
-> >> I did not see original binding mentioning any names. Neither in the dr=
-iver.
-> >
-> > Sorry for the delayed response, Krzysztof.
-> >
-> > You are right that the binding text and the driver do not mandate node =
-names.
-> > However, the existing device tree source use names like blue-power,
-> > red-sata0, etc.:
-> >
-> > arch/arm/boot/dts/marvell/kirkwood-netxbig.dtsi
-> >
-> > Also, the driver uses the node name as a fallback LED label when the la=
-bel
-> > property is absent.
-> >
-> > drivers/leds/leds-netxbig.c, lines 585-588.
->
-> So what is the problem exactly? You rename the nodes and use label. Does
-> anything break?
+The pca9655 is the On Semi variant of the pca9555 16-bit I2C GPIO
+expander. "onnn,pca9655" is already used standalone by in-tree DTS
+(armada-388-clearfog, armada-388-helios4) and has a dedicated entry in
+the pca953x driver's OF match table, but was never documented, causing
+dtbs_check failures.
 
-You are right. It will not break anything. will update the binding and DTS =
-files
-accordingly and send the next revision
+Document it alongside the other standalone entries such as
+onnn,pca9654, without an nxp,pca9555 fallback, so that the existing
+DTS remain valid.
 
-Regards,
-Udaya Kiran Challa
+Reported-by: kernel test robot <lkp@intel.com>
+Closes: https://lore.kernel.org/oe-kbuild-all/202610021617.AlVUa9No-lkp@intel.com/
+Assisted-by: LLM
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ v2: rewrite description. Use tags from kernel test bot.
+ Documentation/devicetree/bindings/gpio/gpio-pca95xx.yaml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Documentation/devicetree/bindings/gpio/gpio-pca95xx.yaml b/Documentation/devicetree/bindings/gpio/gpio-pca95xx.yaml
+index 4631388a7d91..563f61e6e543 100644
+--- a/Documentation/devicetree/bindings/gpio/gpio-pca95xx.yaml
++++ b/Documentation/devicetree/bindings/gpio/gpio-pca95xx.yaml
+@@ -67,6 +67,7 @@ properties:
+               - nxp,pcal9555a
+               - onnn,cat9554
+               - onnn,pca9654
++              - onnn,pca9655
+               - ti,pca6107
+               - ti,pca9536
+               - ti,tca6408
+-- 
+2.56.0
+
