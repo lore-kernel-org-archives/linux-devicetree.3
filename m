@@ -1,33 +1,69 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21CF145A288;
-	Sun,  4 Oct 2026 14:46:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57075391E72
+	for <devicetree@vger.kernel.org>; Sun,  4 Oct 2026 15:28:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791125176; cv=none; b=Ta33tQqU7YjfIGyDfL3v6ywxspmqeEmQsD2xgCaBd8x2LBIxw87UeyNnMLQ54axAgsv4nGn/pBdnYHBcMuCMo0nhKd3+W6h3A2G6VWKCWsjNSsppOiDFN52P/RBRL8U2iQjzADdMDSUiwIWENt3t8m6IMvtYa1fII2yW5rlKFjk=
+	t=1791127708; cv=none; b=YWdMoEiWshPqbqrXAsQwlTUc7PF3PofRg0afyl/6Jn17JZXZ7SCD81DgSE3EHvwQ0RyGjkHpO8dOIiT4i0nPP62mJCxzoiFkkcefq2zVQ32zo2/5tPd/8MQ0dDMcnVzSInqZMHKsWMEBEiZhuR9vbN4REnc8Mt6GIDPPTCqRINU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791125176; c=relaxed/simple;
-	bh=N5qjR0xFW92tqAUh+N25uNGVwQfsS30bhA/LSxf03xA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CS64YtPFAmTAMTX5uqDlgrwQHHJnDORGFKsAY8Uyhc9vs7s/NfKLURQJeMHRKkpBovaT9JXLSZxzxp+wRpVcgSJGmVAeIZ0VakXkpSHcC1Ui7CLTc6H4IZDyFRUfNHx+jSuoscKbMk+sy+gHHV6gBL4slbkl6VZN7YkdHTIObcY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ct4pjoGP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791127708; c=relaxed/simple;
+	bh=5mYst5Ullbp+HHdr6Uh5aXV63tNmZJUMGFOFHhbt800=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=n/o4hzA2kYKNexvkWvE/cn4ZPTXHJTJuTNvCsuVTxttpzeYh81zLuxEm8mHSjA9NUO0OVJCiTe9KqbC88+XVRozVtCo4B1GNtOzzfGnrDJOrWS8pBTTP83LGwNYu0DcykyUNn8tPq5p7z7T3daWyXrrzW8SUTXxdQyliBoFD7+w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=VkmrzzTt; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ct4pjoGP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F7851F000FF;
-	Sun,  4 Oct 2026 14:46:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791125174;
-	bh=qkdcHcttN+awDDSrS5s32XCOYrE5u5aPNQLlDw/zxgk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ct4pjoGPTmkOqXgqH8vXxHIhbVMTGgjb+XSzbhnaBC6MXXwQb3kzGEPea2kLbEYWQ
-	 V8Jlm0Sa1R5tsktbMPtbkNRJhzdSaqwzsGZmo/VcT5E9x4knFlnz5znwi6n8Zu+afT
-	 d5yYmWBbKjCnDw23PZvP4E6BMn2nOvdQZZDMRPz/ggSIbLjXCqMYvakaTju9EQShSm
-	 DPsnZoRqwk1zf3sQbDNwjS0kjg4pzaLPzmlgiKlJRyPdz8yWpJ4ROM/9Rctsk5lHNJ
-	 LKOnAyB54XqxJ0A2REtsyzVMvdJlAvo+0q+qf0KrFrqGt7RnOr3hovVY6Wyv5aVwdw
-	 5UtwKXqCoQg2Q==
-Message-ID: <6d76d0a1-a97c-4d1f-a799-15643161d297@kernel.org>
-Date: Sun, 4 Oct 2026 16:46:08 +0200
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="VkmrzzTt"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-4a0977b9c20so15287885e9.2
+        for <devicetree@vger.kernel.org>; Sun, 04 Oct 2026 08:28:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1791127705; x=1791732505; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WA4cfENfPEbrDvuT53Cr6d7+lPDcZpBsXedFYV5NI20=;
+        b=VkmrzzTtiVwoVJfHLdxekd5Up1C5u0redaUFy00gljCVl2Eu2Ly7UiThan4sMjS3QX
+         gmbPcVp4KCoM7TGhzoEkoRymJguX1qgw161W/d05ikargI4OSTnw9PO7C5HzQpMOtorr
+         ASNkChw3XcLaOYkVtng6ir9hKQb5IaU+osa1QAO3mi/4G/PtidlD1hhep7fvG4wW8md1
+         eZ5L6X2FV3KnqZQp8POFuHCgwqrcY9fBzGu+Nl2qe7wGgtXVr6qnQsnWsv9AWb771p+T
+         SuYhDhokZRWweYy/QGigdYACwUFBS6M8g1LB7QVesiGWPY3DNE+ojHLf2vobMShx1a/C
+         lgRg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791127705; x=1791732505;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WA4cfENfPEbrDvuT53Cr6d7+lPDcZpBsXedFYV5NI20=;
+        b=ODjB7WpFIXiQoQ0l/P7m6k9ydNcWfDbOO4mf8MwsK+lTCGrEmP3y/qeN/OpbUa0n9y
+         2JZ/ko+SSF+0pItFG+TyGI741IZbzrpGUKr25uv8fGBEmWg006hh8kEbnnOXR/BaYXAj
+         dc9F/fx1FA/qv5AHzwC0gJwI1hjNCfdc6o47oK5BwUq1IURlXRogkzLCfDr0atB+x7Gk
+         tdgwpTTdTkAv7YEcpahnHXPsYyElxekLuoY53QpANDbqfn+zhlRSQ74A7nKlujlVf6jw
+         xbRnq0ipzj8deO+uxUFrp+We8a3myS8U4W3LCuXj/s8yEeH65Z0HN3uYnnSTHBKvy22/
+         smWQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzWOzOwOsBrb1tf32u0bG8V/Gv2Z8c7logJrED3djklDjyVGgVCkV84Y4XXDS0uiRBXyVj0J/FtlMD/@vger.kernel.org
+X-Gm-Message-State: AFuF++mwunNxCoEGzmfn2SSgR56RgoRmyxjJoHhnTCpp41pykwnnngs5
+	zJaiP0boOJZJqLHqsh6e+8jqawJ6SPycnSP8wVxZpG6MuRmu7CogdLKVKuVpiA5zzyII0Szg3Am
+	wPpNsq2Q=
+X-Gm-Gg: AYBFou1U36yR6phi2RvPLPM5orC3k2e5W/jO/qUanUZ0RNDsmxk67+ggK3zUDB41vAY
+	xqAbcWLdEO5KRlA7/Hv4l1gJ+n6efr2IYYHQgP64nAlaDPcyr788/y8UgveMr+8AXgBhLWTj3OE
+	C8gfloO88H/21F0TADoOrlFBD/GcKQaUavrfS9iKud1Op2tVWwXddn1pjKL7hogAMQ1rNJ22otP
+	3MrY1mQeWBjVSF/1TRvmpFo7RWPng46ys9h7N1gpjJqd3BMMXDBUFEwSdowU4c06tM7GTsrg0nO
+	NwFgWfGRy0mWGZR4ZcxxYFN+WQ+cg0taERA1Rw5NqsjGeRbF1jIgg1E5nGm0bhY46AQJ1VtKI/s
+	+1X/C5U+PsMLcjQhrH/GRVX3NjosdGp13pQ4RjG2HgcSU9O01JdXV+oYla1j16pLJyT/1ehZtkC
+	dakHemRCyVm4Pm1t6ZAuuUnAr5WG0d9iWyLciFO7ibt84I8F+H0kUMWXsFycQZehRsxry7inkhn
+	U4sh9tO
+X-Received: by 2002:a05:600c:4e13:b0:49c:cee0:e7c1 with SMTP id 5b1f17b1804b1-4a02757999cmr135331735e9.16.1791127704520;
+        Sun, 04 Oct 2026 08:28:24 -0700 (PDT)
+Received: from [172.20.10.3] ([37.169.53.153])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0280d1e38sm220380705e9.13.2026.10.04.08.28.21
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 04 Oct 2026 08:28:23 -0700 (PDT)
+Message-ID: <162c3908-cbf9-4bf2-8594-8592d5e4c3e5@linaro.org>
+Date: Sun, 4 Oct 2026 17:28:21 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,84 +71,138 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/4] dt-bindings: input: touchscreen: hynitron,cst816x:
- axes and panel
-To: Daniel Golle <daniel@makrotopia.org>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
- <u.kleine-koenig@baylibre.com>, Oleh Kuzhylnyi <kuzhylol@gmail.com>,
- linux-input@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Cc: Chad Monroe <chad@monroe.io>, John Crispin <john@phrozen.org>
-References: <cover.1791103511.git.daniel@makrotopia.org>
- <747ca415953777441380b68fd0f004a0c4110095.1791103511.git.daniel@makrotopia.org>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <747ca415953777441380b68fd0f004a0c4110095.1791103511.git.daniel@makrotopia.org>
-Content-Type: text/plain; charset=UTF-8
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [RFC PATCH 3/6] net: stmmac: dwmac-meson8b: add support for the
+ Amlogic T7
+To: Lucas Tanure <tanure@linux.com>, xianwei.zhao@amlogic.com,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Kevin Hilman <khilman@baylibre.com>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+References: <20261004144046.391444-1-tanure@linux.com>
+ <20261004144046.391444-4-tanure@linux.com>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20261004144046.391444-4-tanure@linux.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 04/10/2026 11:34, Daniel Golle wrote:
-> The chip hands out coordinates in its own frame and knows nothing of
-> the panel it is glued to, so how it is oriented against that panel,
-> which coordinate range the assembly reports and how noisy it is are
-> properties of the board. Reference touchscreen.yaml and let its
-> properties through, among them the 'panel' phandle naming the panel a
-> controller is mounted on, which asks for the two to be power sequenced
-> together.
+On 10/4/26 16:40, Lucas Tanure wrote:
+> The glue registers on the T7 are laid out exactly as the G12A ones, RX
+> delay field included, so the T7 can reuse the G12A settings.
 > 
-> Signed-off-by: Daniel Golle <daniel@makrotopia.org>
+> What the T7 does not share is how the controller reaches DRAM: the bus
+> path goes through a pipeline stage with a gate of its own, and no device
+> other than the controller has any use for that gate. Claim it and hold
+> it enabled for as long as the controller is bound, otherwise it is
+> switched off as unused and a transfer that has been started can never
+> complete.
+> 
+> Give the T7 match data of its own so that only it looks the clock up,
+> and require the clock instead of treating it as optional: the controller
+> cannot do DMA without it, and failing the probe with a clear message
+> beats booting and hitting an undiagnosable hang later.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Lucas Tanure <tanure@linux.com>
 > ---
-> v3: describe the whole of touchscreen.yaml with unevaluatedProperties
+>   .../ethernet/stmicro/stmmac/dwmac-meson8b.c   | 19 +++++++++++++++++++
+>   1 file changed, 19 insertions(+)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
+> index e4d5c41294f4..450f7b4b29a6 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
+> @@ -81,6 +81,7 @@ struct meson8b_dwmac;
+>   struct meson8b_dwmac_data {
+>   	int (*set_phy_mode)(struct meson8b_dwmac *dwmac);
+>   	bool has_prg_eth1_rgmii_rx_delay;
+> +	bool has_pipeline_clk;
+>   };
+>   
+>   struct meson8b_dwmac {
+> @@ -384,6 +385,7 @@ static int meson8b_dwmac_probe(struct platform_device *pdev)
+>   	struct plat_stmmacenet_data *plat_dat;
+>   	struct stmmac_resources stmmac_res;
+>   	struct meson8b_dwmac *dwmac;
+> +	struct clk *pipeline_clk;
+>   	int ret;
+>   
+>   	ret = stmmac_get_platform_resources(pdev, &stmmac_res);
+> @@ -443,6 +445,13 @@ static int meson8b_dwmac_probe(struct platform_device *pdev)
+>   	if (IS_ERR(dwmac->timing_adj_clk))
+>   		return PTR_ERR(dwmac->timing_adj_clk);
+>   
+> +	if (dwmac->data->has_pipeline_clk) {
+> +		pipeline_clk = devm_clk_get_enabled(dwmac->dev, "pipeline");
+> +		if (IS_ERR(pipeline_clk))
+> +			return dev_err_probe(dwmac->dev, PTR_ERR(pipeline_clk),
+> +					     "missing pipeline clock\n");
+> +	}
+> +
+>   	ret = meson8b_init_rgmii_delays(dwmac);
+>   	if (ret)
+>   		return ret;
+> @@ -479,6 +488,12 @@ static const struct meson8b_dwmac_data meson_g12a_dwmac_data = {
+>   	.has_prg_eth1_rgmii_rx_delay = true,
+>   };
+>   
+> +static const struct meson8b_dwmac_data meson_t7_dwmac_data = {
+> +	.set_phy_mode = meson_axg_set_phy_mode,
+> +	.has_prg_eth1_rgmii_rx_delay = true,
+> +	.has_pipeline_clk = true,
+> +};
+> +
+>   static const struct of_device_id meson8b_dwmac_match[] = {
+>   	{
+>   		.compatible = "amlogic,meson8b-dwmac",
+> @@ -500,6 +515,10 @@ static const struct of_device_id meson8b_dwmac_match[] = {
+>   		.compatible = "amlogic,meson-g12a-dwmac",
+>   		.data = &meson_g12a_dwmac_data,
+>   	},
+> +	{
+> +		.compatible = "amlogic,t7-dwmac",
+> +		.data = &meson_t7_dwmac_data,
+> +	},
+>   	{ }
+>   };
+>   MODULE_DEVICE_TABLE(of, meson8b_dwmac_match);
 
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-
-
-
-Best regards,
-Krzysztof
+Thanks,
+Neil
