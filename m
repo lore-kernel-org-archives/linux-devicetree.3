@@ -1,304 +1,255 @@
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EDE834D4F9
-	for <devicetree@vger.kernel.org>; Sun,  4 Oct 2026 06:28:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791095282; cv=pass; b=YwAZyGUPTDilgztgtJU83WnwCMYFjU87O8ZWIZUg5u74VV1jOED3xBQAyBDicsNRGzHd7UWMY/pElXFeFWC/TarxT9Qn4PYm+tpILXrbc6uyLeHnJSJh9SWna28Yyv1CctjxcqfEVQ/y14NPAs+AScH+5XSWbU1ex1lPn0sP3oY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791095282; c=relaxed/simple;
-	bh=0MgJqxCSpKDH4OcGXJna3WQ38drD5FfTXNfYH0LNNkU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=VVSX6Fg8EqOXQUPIxOpKxKPXofiAEz6S7ohDZHaTDfp5SaZjdvxj61ntCQw86O1KPtFSpqU35PWX1h2c/6PXKpzG4FtRZ/7sqO6Ogge3QGfC/BOwdcMvVBoyvMaAYIx5+czGbB9cK0KfJGCxsoyYib4lqeTAjagaCzDqlXgbWy4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K9/6+MgG; arc=pass smtp.client-ip=209.85.208.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F85135CBD7;
+	Sun,  4 Oct 2026 07:15:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791098125; cv=none; b=I9tZKOEH5hrfqGGavwdiIwjEUiBKvNT6iotukC0sPHmljibOXlrQf5GNQ7Iiyxe92GTnYFQHkqT4+21ru2L/EhZt0MqjE//K8lSzjktapPDwoXYew4fWIfdvwdK0YlpvoXRuz/ubR19fnadzLgylh+ko1hrMA3Q6dvdgnEJWtF4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791098125; c=relaxed/simple;
+	bh=hwlTaim7t3I726sD5rkMbvkHa9ze7MTuT0ID+eAajW8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=fOUYzfi71c7+uOcISBTkSWKfZWrrCV32Bm85hNO/rDkVfTzIEQraXmvYs1Ee8gJVMH3pe/SsKBt+9M2J1OKoQd5hBXKikOoShdVjA2w+YtX4E1F4YzvmRivDl4UiwI1k8uMG99akZrU4OTbnbcZNdy5xFyRwkgnJQWfaFum6eik=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kn0TAw1q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K9/6+MgG"
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6af9cc73235so1395097a12.0
-        for <devicetree@vger.kernel.org>; Sat, 03 Oct 2026 23:28:00 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791095278; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Ul5EGmtAfYmmsSLjQqriQ5OUgdfjfMq1xVWoRoL+VT9OaDACqsDdV6sROV1n76q29q
-         g0EeGPHtYsTh7mrJ2UvA3L3DIsN5eZMX0HvBHyPA/bQxnb++N7R34ysKJGnjiaxcU2m7
-         GNveP8i+kfBZYul+IOlwAl014qazLtxATOEgihAcQJSY3OH/uPw8Plx3pDZVWVL29dpE
-         dy5k1gpjIthWSWObFWbhUraiP7EfzSTaj5A934ynt6bnNG58IEC5lF6WvpdXcKkcQOxP
-         ECJjrwuE2sKFPke2GJ3ENwETbpUFZVvER8mGUVYi+Bo6vvoYSB8xULzpgiRoU6KjEkXF
-         3rLw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=VdBLchJKylzFCeYfGu3WXTuIShpFkKPFHiVvdcDlSGI=;
-        fh=FWl7CNWVul7wtCsLnAHnMPvjGI5g/yVAzXmCyfvgaIw=;
-        b=Ex8vk9/DD04ssg8sW/u1t7lBu8UbqPwC/LpLM2NsuGNqlZZ2mWG5xyon6Kj8y5tc1E
-         AarK3oWL/VpdNbv4CcVbCrAfTlfsDF4lbkb45p9F2ky55DLVC1CYnL7FEPIfJlOtyN55
-         U+B+1YgozsbpQmlqHz8so00uLBiKPScbA7BR3r+wgenwg69DjCVi3r+rJKH4E9BSrdwV
-         7JO1QDLWsJ0Jggvguoic9YUntWZceZ+3C38OPBRycOYpHz9HwiwtGlOL92cupJ5gxvrd
-         GT3gt1Uh6eBKjyZV1dvsfdFdPonAIwD5JbrywtZmxltGht6kHau08Ni/LpGT413OGczu
-         tCgQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791095278; x=1791700078; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VdBLchJKylzFCeYfGu3WXTuIShpFkKPFHiVvdcDlSGI=;
-        b=K9/6+MgGtkoqf3LtVGe48/gT4zfxswJGJq1xPwCw5+SSjNQ4Opk565Ea1wysLa1or6
-         mOr0lwA7vzNyQ+q02UvGXccxHLJ9QWJzc/LYBcvTTV4spNE/k8+gtpWiT04DLehRx/ka
-         ANGecvnUPcz0D0VEy86I1y6cZabwvyJkd/1mbl/hSkffFlslV7M8MJEBHVid9UV4L8vx
-         nOY7Qo7Dlkmxp3aS8PJaV8rkTOcE7mEl3GpRT55RsrfJvd3S40RQGNzLv27wEbf8zxgb
-         Rtx1gB1uJlz9pe+LLcRljhTTKNfo2Qn9pNd9TBMMrujaGqLUQ63SCYnEQOtKZvMlB1mC
-         XaeA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791095278; x=1791700078;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VdBLchJKylzFCeYfGu3WXTuIShpFkKPFHiVvdcDlSGI=;
-        b=HpVQCskNiPOM7B3vtDOduG3CKH0Ad1CCbcNR3iSaKhKI2VCIwAdiC7bJ/yC1jWVg78
-         g5rrOsshbV4R9reONZkwOLps7rdIvDzxugYymiE0C8bEhvSWmzxv78b/c6MYrC95XUeG
-         140QpTiG5tL1BiKrRtS1026AX7Ycc1+StnQi0CmUHiJEO/pTA0DJNfVf1FCrzT2XY/U8
-         /rqnmgKGGKdNhqFoGB88EAxPOVOJzUkE+oUps+nOS286Xb8JfH0ibjcWmYVNphyXERev
-         k6tiNKVtC8to+9aU72WVVHfl9/GxZ7buqHw9PhjHHS7PGb4U4Ac/hTBeZfMTFaxsyFqt
-         zx+A==
-X-Forwarded-Encrypted: i=1; AKwUvBxK5+SgttTD4GNDmvumFKbW7PEWayLBUcaXWYGgJuRyhIP1MYLMJEovVIvQxaQk4gc6Xt0YJfOZzI1v@vger.kernel.org
-X-Gm-Message-State: AFuF++kUdg7JoPZvty2q49o/0k37lqqEDlx0pKx2qR1/SFKfzo2653vK
-	RPttFFIEWZKoDq7O/c7l2YZcpyXzgfxly/fjSGx0fSzm4d6lIWNYNNQr3pUC7Ujx1MMy2E2c9V+
-	LgYewnyzMMGgNpTQp8xw9QpzZJp+4j1I=
-X-Gm-Gg: AYBFou3llCF0t/0rZwIvNkMYgpdQHxJ6r0ONYzY2M5LW618h5vOxlhRvKoQHrkezjF/
-	UJXVkfjLmMVVzryakVBBJQINu3Ra6ADQ5haHwULUbSc6O+vhNNre12xBANGXHycWNnfVFHaPWEZ
-	dj/61afAj8pItnuxzFWVcvWrVdRJM2n4dPIxioIwTlxa/wVneHJr2birFc731kIlyRS6ZIhZD3M
-	eO9Z7Xa1vx5KuTDrO8V3BmEgjOvdYcA51mOLOXxLCwVOAJxDei53jf3s3bgahdfJDbeH4rpqFlq
-	rFkkhkE67GIkFzScXBIfjjR2QZFswhXXnjrOKrVgpRHujgfd3zH6snMfvA==
-X-Received: by 2002:a17:907:97c7:b0:c2e:22f7:59c5 with SMTP id
- a640c23a62f3a-c2e33ef144dmr903675566b.7.1791095278211; Sat, 03 Oct 2026
- 23:27:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kn0TAw1q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EBF51F000FF;
+	Sun,  4 Oct 2026 07:15:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791098124;
+	bh=1YLqc6z8LyeKl0+KHcGgxZtXD3B6g5rBKBLuGBPQUYU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=kn0TAw1qOPg5KYhpCD5VwxN5UsLsVZecc5X1+BlRO+/o/J0KyyUVCwJWD/DeTKK/E
+	 RYh5KVemaOG0bO5S4ZTiYG/rO+u7yoB1LVNJ2PrMNN87Sh+fHO+Hq2NFic5LVZSdNR
+	 StXIBQEf4ikYEcKOKN7jweHKB/e76NgzG1YzjtfmJvW5Ja9QS/+fdpD3Cv7OiopjY9
+	 snCT50OgtZ/e6e1g0T+tyndQn8GOvnTkD0WDMzLqDdlp3pU/mFxN5S9WqNFfz2OnG3
+	 gO2r9kpPI+glHqLVWBRh4vYaKeLHwwi5f/RIs3BogGDhK+P8plcxCS4Zt7KsoAs2O7
+	 btLDUv5erfrhA==
+Message-ID: <ac7b82e6-22ea-465c-8477-bbe0bd9c8c27@kernel.org>
+Date: Sun, 4 Oct 2026 09:15:11 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <cover.1790068409.git.zhoubinbin@loongson.cn> <fdd9fa87058b75fda0dbb805de7989fcd279137c.1790068409.git.zhoubinbin@loongson.cn>
- <ar2CuxAv9mRfiVsA@lizhi-Precision-Tower-5810> <CAMpQs4KOvjvOku+DEMzr+OdfRNQAm9QoXnG3B93ZJs78ax5NQA@mail.gmail.com>
- <ar_EDV7FMDBr7xCp@SMW015318>
-In-Reply-To: <ar_EDV7FMDBr7xCp@SMW015318>
-From: Binbin Zhou <zhoubb.aaron@gmail.com>
-Date: Sun, 4 Oct 2026 14:27:46 +0800
-X-Gm-Features: AclHuK98B_nfcu05QOo2QFUifWbI8m9nf45hMD7NfSrCJ3B2KmbMmSmveSfVUVU
-Message-ID: <CAMpQs4LR72mkD5UuA-T5_Ypo6qrC_4xcjfyP4VR5tDTekcipuA@mail.gmail.com>
-Subject: Re: [PATCH 2/3] dt-bindings: dma: loongson: Add Loongson-2K0300 DMA
- mux support
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Binbin Zhou <zhoubinbin@loongson.cn>, Huacai Chen <chenhuacai@loongson.cn>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, dmaengine@vger.kernel.org, 
-	Huacai Chen <chenhuacai@kernel.org>, devicetree@vger.kernel.org, 
-	Keguang Zhang <keguang.zhang@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 01/20] dt-bindings: phy: Add
+ starfive,jh7110-inno-hdmi-phy
+To: Michal Wilczynski <m.wilczynski@samsung.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Andrzej Hajda <andrzej.hajda@intel.com>,
+ Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Lee Jones <lee@kernel.org>, Andy Yan <andy.yan@rock-chips.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>,
+ Emil Renner Berthing <kernel@esmil.dk>, Hal Feng
+ <hal.feng@starfivetech.com>, Michael Turquette <mturquette@baylibre.com>,
+ Stephen Boyd <sboyd@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+ Dominique Belhachemi <db@domibel.de>, Brian Masney <bmasney+clk@redhat.com>,
+ Jerome Brunet <jbrunet+clk@baylibre.com>, linux-phy@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, mfd@lists.linux.dev,
+ linux-clk@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-riscv@lists.infradead.org,
+ Marek Szyprowski <m.szyprowski@samsung.com>,
+ Maud Spierings <maud_spierings@murena.io>,
+ Graham Markall <hello@big-grey.co.uk>,
+ Icenowy Zheng <zhengxingda@iscas.ac.cn>,
+ Chaoyi Chen <chaoyi.chen@rock-chips.com>,
+ Joshua Peisach <jpeisach@ubuntu.com>,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+References: <20260915-jh7110-clean-send-v4-0-f0e4fd6f2cc8@samsung.com>
+ <CGME20260915153214eucas1p2b548f3236ef98fb0cbf320e397420125@eucas1p2.samsung.com>
+ <20260915-jh7110-clean-send-v4-1-f0e4fd6f2cc8@samsung.com>
+ <20260917-mutant-chamois-of-competence-46ca77@quoll>
+ <1a1a9b49-430b-4218-b27d-e133d488e8d9@samsung.com>
+ <6cf9e611-bfc5-407b-8132-bd328f8b61fc@kernel.org>
+ <eaba2fa9-a1ce-4dac-9bd6-e0b3a3dd01ef@samsung.com>
+ <3ee91c92-4e3a-4bac-85cf-923f5d77ceff@kernel.org>
+ <3c5c15d9-ea7e-49a2-adae-ec3e3c72594b@samsung.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <3c5c15d9-ea7e-49a2-adae-ec3e3c72594b@samsung.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Frank:
+On 04/10/2026 00:35, Michal Wilczynski wrote:
+> 
+> 
+> On 10/3/26 22:45, Krzysztof Kozlowski wrote:
+>> On 03/10/2026 17:36, Michal Wilczynski wrote:
+>>>
+>>>
+>>> On 9/30/26 13:01, Krzysztof Kozlowski wrote:
+>>>> On 25/09/2026 23:05, Michal Wilczynski wrote:
+>>>>>>> +  clocks:
+>>>>>>> +    maxItems: 1
+>>>>>>> +    description: Reference oscillator.
+>>>>>>
+>>>>>> This barely counts as a resource, so usual question: no resources here?
+>>>>>> no MMIO? Even the user of this phy is the block itself.
+>>>>>>
+>>>>>> This makes me wonder if this should be a device node in the first place
+>>>>>> (instead folded into the parent).
+>>>>>
+>>>>> The PHY has no reg because the reg is shared with the controller and
+>>>>> owned by the parent - patch 9 lets the bridge take its regmap from
+>>>>> there.
+>>>>>
+>>>>> The user of the PHY is not only the block itself. It is the pixel clock
+>>>>> provider for the whole display subsystem, voutcrg takes hdmitx0_pixelclk
+>>>>> as the parent of its DC8200 pixel MUXes, and while HDMI output is active
+>>>>> it is the only intended source for that clock. The parent has to be
+>>>>> assigned explicitly so the general PLL does not end up driving the pixel
+>>>>> clock, and so a DSI user does not reach the HDMI PHY clock generator.
+>>>>>
+>>>>> So it has to be its own node. The HDMI block has two independent
+>>>>
+>>>> I do not see the logic which lead to this conclusion. Pixel clock
+>>>> provider, so a clock controller, cannot be a user of a phy. Clock
+>>>> controller does not have a physical layer.
+>>>
+>>> Sorry I think the wording was not perfect. I meant the PHY node is a
+>>> pixel clock provider. voutcrg consumes a clock not a PHY.
+>>>
+>>> voutcrg: clock-controller@295c0000 {
+>>>          clocks = <&syscrg ...>, <&hdmi_phy>;
+>>>          clock-names = ...,"hdmitx0_pixelclk";
+>>> };
+>>>
+>>> The consumer of the PHY is only the hdmi controller.
+>>>
+>>> What matters for the node layout is where that clock goes. voutcrg is the
+>>> SoC display clock controller - it is not part of the HDMI block:
+>>>
+>>> hdmi_phy -- pixel clock -> voutcrg
+>>>                               |
+>>>                               - pclk/mclk/bclk -> hdmi_controller
+>>>                               - pix0/pix1 -> dc8200
+>>>
+>>> hdmi_phy and hdmi_controller are the same register block with one reg
+>>> owned by the parent. So if that block is described as a single node:
+>>>
+>>> hdmi_node - pixel clock -> voutcrg
+>>>      ^                          |
+>>>      --- pclk/mclk/bclk --------
+>>>
+>>> the node provides a clock to voutcrg and consumes three clocks from
+>>> voutcrg. That is a cycle in the device tree description.
+>>
+>> There is no cycle. Internal signals to the block are not represented in DT.
+>>
+>> What you have is a driver problem and you create some sort of DT
+>> structure to solve that. DT purpose is NOT to solve your driver
+>> dependencies or circular connections.
+> 
+> The structure is not something I added. The voutcrg binding has required
+> an input clock named hdmitx0_pixelclk since it was merged in 2023
+> a097a5ec14df ("dt-bindings: clock: Add StarFive JH7110 Video-Output
+> clock and reset generator") and this series does not touch that file:
+> 
+> Documentation/devicetree/bindings/clock/starfive,jh7110-voutcrg.yaml
+>        - const: hdmitx0_pixelclk
+> 
+> Mainline satisfies it with a placeholder, because so far nothing provided the
+> real clock:
+> 
+> hdmitx0_pixelclk: hdmitx0-pixel-clock {
+>             compatible = "fixed-clock";                                                                          
+>             clock-output-names = "hdmitx0_pixelclk";
+>             #clock-cells = <0>;
+> };
+> 
+> All this series does is point that existing input at the device that actually
+> generates it.
+> 
+> TRM [1] table 5-3  on page 529 lists the display CRG's input clocks. Most come from
+> dom_vout_top, but three come from IP blocks inside the subsystem:
+> 
+> clk_hdmitx0_pixelclk        297 MHz   u0_hdmi_tx.clk_pix
+> clk_mipitx_dphy_rxesc        10 MHz   u0_mipitx_dphy.clk_rxesc
+> clk_mipitx_dphy_txbytehs    297 MHz   u0_mipitx_dphy.clk_txbytehs
+> 
+> and on page 530 the CRG offers clk_hdmitx0_pixelclk as Source1 for:
+> 
+> u0_dc8200.clk_pix0      Source0 clk_dc8200_pix0  Source1 clk_hdmitx0_pixelclk
+> u0_dc8200.clk_pix1      Source0 clk_dc8200_pix0  Source1 clk_hdmitx0_pixelclk
+> u0_cdns_dsiTx.clk_dpi   Source0 clk_dc8200_pix0  Source1 clk_hdmitx0_pixelclk
+> 
+> The DC8200 and the DSI TX are separate devices, so the pixel clock
+> crosses two block boundaries to reach them.
+> 
+> That is also why the DT has to be able to name it. Those MUXes have two
+> parents and the selection is made in DT:
+> 
+> &dc8200 {
+>           assigned-clocks = <&voutcrg JH7110_VOUTCLK_DC8200_PIX0>, ...;
+>           assigned-clock-parents = <&hdmi_phy>, <&hdmi_phy>;
+> };
+> 
+> and voutcrg takes it as an input clock because that is what the hardware
+> does. If the PHY is folded into the HDMI node, that input phandle points at
+> a node which also consumes pclk/mclk/bclk from voutcrg. That is where the
+> cycle comes from - the hardware topology not the driver.
 
-On Fri, Oct 2, 2026 at 10:47=E2=80=AFPM Frank Li <Frank.li@oss.nxp.com> wro=
-te:
->
-> On Fri, Oct 02, 2026 at 10:00:11PM +0800, Binbin Zhou wrote:
-> > Hi Frank:
-> >
-> > Thanks for your reply.
-> >
-> > On Thu, Oct 1, 2026 at 5:44=E2=80=AFAM Frank Li <Frank.li@oss.nxp.com> =
-wrote:
-> > >
-> > > On Tue, Sep 22, 2026 at 05:25:43PM +0800, Binbin Zhou wrote:
-> > > > The DMA mux on Loongson-2K0300 is not a standalone hardware block. =
-It is
-> > > > implemented as part of the chip configuration registers CHIP_CTRL13=
-/14/15,
-> > > > which route peripheral DMA requests to the physical channels of the=
- CMC
-> > > > DMA controller.
-> > > >
-> > > > Document this as a DMA router. The #dma-cells =3D <3> specifier con=
-tains
-> > > > the peripheral request ID, the target CMC DMA channel, and channel
-> > > > configuration flags forwarded to the parent DMA controller.
-> > > >
-> > > > Signed-off-by: Binbin Zhou <zhoubinbin@loongson.cn>
-> > > > ---
-> > > >  .../dma/loongson,ls2k0300-dmamux.yaml         | 49 +++++++++++++++=
-++++
-> > > >  MAINTAINERS                                   |  1 +
-> > > >  2 files changed, 50 insertions(+)
-> > > >  create mode 100644 Documentation/devicetree/bindings/dma/loongson,=
-ls2k0300-dmamux.yaml
-> > > >
-> > > > diff --git a/Documentation/devicetree/bindings/dma/loongson,ls2k030=
-0-dmamux.yaml b/Documentation/devicetree/bindings/dma/loongson,ls2k0300-dma=
-mux.yaml
-> > > > new file mode 100644
-> > > > index 000000000000..12b8f8af51e9
-> > > > --- /dev/null
-> > > > +++ b/Documentation/devicetree/bindings/dma/loongson,ls2k0300-dmamu=
-x.yaml
-> > > > @@ -0,0 +1,49 @@
-> > > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > > > +%YAML 1.2
-> > > > +---
-> > > > +$id: http://devicetree.org/schemas/dma/loongson,ls2k0300-dmamux.ya=
-ml#
-> > > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > > > +
-> > > > +title: Loongson-2 APB DMA MUX (DMA request router)
-> > > > +
-> > > > +maintainers:
-> > > > +  - Binbin Zhou <zhoubinbin@loongson.cn>
-> > > > +
-> > > > +allOf:
-> > > > +  - $ref: /schemas/dma/dma-router.yaml#
-> > > > +
-> > > > +properties:
-> > > > +  compatible:
-> > > > +    const: loongson,ls2k0300-dmamux
-> > > > +
-> > > > +  reg:
-> > > > +    maxItems: 1
-> > > > +
-> > > > +  '#dma-cells':
-> > > > +    const: 3
-> > > > +    description: |
-> > > > +      Each cell represents the following:
-> > > > +      1. The peripheral request id (see
-> > > > +         include/dt-bindings/dma/loongson,ls2k-dmamux.h)
-> > > > +      2. The physical CMC DMA channel (0-7) that is passed to the =
-real
-> > > > +         DMA controller
-> > >
-> > > Do you have restriction between request id and channel? Does any requ=
-est id
-> > > route to any channel?
-> >
-> > Yes, according to the description of this register=E2=80=99s bit fields=
- in the
-> > manual, DMA channels are not mapped arbitrarily.
-> >
-> > We can broadly categorize them as follows:
-> > 1. First, most peripherals that use this DMA controller request
-> > adjacent DMA channels (TX/RX) in pairs.
-> > Let=E2=80=99s take I2S as an example.
-> > Bits [17:16] at address `0x16000138` controls the I2S DMA channel mappi=
-ng:
-> > 00: Channels 0, 1
-> > 01: Channels 2, 3
-> > 10: Channels 4, 5
-> > 11: Channels 6, 7
-> > 2. The SM/DES/AES module uses only channels 0 and 1, corresponding to
-> > the bit field values 00 and 01, respectively.
-> > 3. The can/adc module is single-channel, so each bit in the
-> > corresponding bit field corresponds to channels 0=E2=80=937.
->
-> Does channel dynmatic allocated or have to static assign, if channel dynm=
-atic
-> allocated, needn't arg2. If static assign, it'd better descript clean abo=
-ut
-> restriction between arg1 and arg2.
+Which is perfectly "fine" - present in many other SoCs as well. This is
+not different and your arguments are insufficient to give here
+exceptions. Why? Because again you use as an argument a Linux driver
+problem (cyclic dependency). Basically to solve Linux problem you
+introduce new empty nodes.
 
-No, it needs to be statically assigned based on the register configuration.
-
-Let me think about how to describe this better. First, both arg1 and
-arg2 are required; they fully configure the register. arg1 determines
-the range of the bit field, and arg2 determines the value of that bit
-field.
-At the same time, arg2 and arg3 are passed to the DMA controller
-itself to complete the relevant initialization.
-
-Is this description acceptable?
-
-'#dma-cells':
-const: 3
-description: |
-Each cell represents the following:
-1. Peripheral request ID: This describes the corresponding bit field
-for that peripheral in the configuration register; see (
-include/dt-bindings/dma/loongson,ls2k-dmamux.h) for details.
-2. Physical DMA channel (0=E2=80=937): This not only represents the DMA
-channel used by the peripheral but is also converted into a value for
-the corresponding bit field in the configuration register, indicating
-the legitimacy of that peripheral using that channel.
-Specifically:
-     1. I2S/SPI/UART/I2C: Require adjacent channels in pairs; valid
-values are 0/1, 2/3, 4/5, 6/7;
-     2. SM3/SM4/DES/AES: Single channel; valid values are limited to 0/1;
-     3. CAN/ADC: Single channel; valid values range from 0 to 7.
-3. DMA Channel Configuration: A 32-bit mask used to specify
-device-specific DMA channel configurations.
-- Bit 6: Peripheral Address Increment Mode
-0x0: Disabled
-0x1: Enabled
-- Bit 7: Memory Address Increment Mode
-0x0: Disabled
-0x1: Enabled
-- Bits 12=E2=80=9313: Priority
-0x0: Low
-0x1: Medium
-0x2: High
-0x3: Very High
-.........
-
->
-> Frank
->
-> >
-> > >
-> > > Frank
-> > > > +      3. Bitfield representing DMA channel configuration that is p=
-assed
-> > > > +         to the real DMA controller
-> > > > +
-> > > > +required:
-> > > > +  - compatible
-> > > > +  - reg
-> > > > +
-> > > > +unevaluatedProperties: false
-> > > > +
-> > > > +examples:
-> > > > +  - |
-> > > > +    #include <dt-bindings/dma/loongson,ls2k-dmamux.h>
-> > > > +    dma-router@16000134 {
-> > > > +        compatible =3D "loongson,ls2k0300-dmamux";
-> > > > +        reg =3D <0x16000134 0xc>;
-> > > > +        #dma-cells =3D <3>;
-> > > > +        dma-masters =3D <&dma>;
-> > > > +        dma-requests =3D <22>;
-> > > > +    };
-> > > > +...
-> > > > diff --git a/MAINTAINERS b/MAINTAINERS
-> > > > index b021fb623446..dc976938c58c 100644
-> > > > --- a/MAINTAINERS
-> > > > +++ b/MAINTAINERS
-> > > > @@ -15344,6 +15344,7 @@ M:    Binbin Zhou <zhoubinbin@loongson.cn>
-> > > >  L:   dmaengine@vger.kernel.org
-> > > >  S:   Maintained
-> > > >  F:   Documentation/devicetree/bindings/dma/loongson,ls2k0300-dma.y=
-aml
-> > > > +F:   Documentation/devicetree/bindings/dma/loongson,ls2k0300-dmamu=
-x.yaml
-> > > >  F:   Documentation/devicetree/bindings/dma/loongson,ls2x-apbdma.ya=
-ml
-> > > >  F:   drivers/dma/loongson/loongson2-apb-cmc-dma.c
-> > > >  F:   drivers/dma/loongson/loongson2-apb-dma.c
-> > > > --
-> > > > 2.52.0
-> > > >
-> >
-> > --
-> > Thanks.
-> > Binbin
-
---=20
-Thanks.
-Binbin
+Best regards,
+Krzysztof
