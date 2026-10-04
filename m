@@ -1,202 +1,159 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7307B3C1404
-	for <devicetree@vger.kernel.org>; Sun,  4 Oct 2026 17:05:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BA7A471CE7
+	for <devicetree@vger.kernel.org>; Sun,  4 Oct 2026 17:22:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791133510; cv=none; b=QMsZnMX8YvGxG30TPK7voY15xoFDpKM38nHjfWgxnPMiV/0N8WsPBLB4LizwzvY9C9C1/50W+AYxuxDjgNUDVd0m3NVEpDwnk9l+jr1s0RKooHc4HYdOKIlrc2A/B5/1SXrXFN8oDztIy0xGCov0e2/fMhQT9dROQlU5qi9w+O4=
+	t=1791134554; cv=none; b=BRv8NMIFV/QuRwVOqCU7Ml1UwfB7UpZbsUcc0qiUq88qM+G7GPxUsYTlyGQzCcEL9NA8NK6vA6a6MSYicHGd8KWqJfdIBRJdfrbr8OGGnvGRcP2jDfmHzxcUpToiU+93YhINnCkhD8KLqi5cq/I75/x4GKhBZGnO3DdBhOHKmpc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791133510; c=relaxed/simple;
-	bh=K5EX71jeQ3j9go5r/j75E8s96pMz5xm19vA5/t4HX/A=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=F2WoP+69XmauVeP1YkyWf0/ekb5gX17ECWi3UF37yDhYyWt8LktKekYFAvutToF5thLkGXkYKtgaS0JPUhwTNxfINA22AmEPQdayWeK3BWZpLFAGjDTQgEuijf38/wR6WZlq3VZuq1e0vM+Z7AMzLcPdjN79h9CwCDlCAsa+I0U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bobLZTO6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791134554; c=relaxed/simple;
+	bh=GLlt1YeRuUW5WlbWRWsA3akMoS6gmz8sfeOQOa8Ko08=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Sig8f12lfS8z1Jf+EXF0JHS/0Y30eo9O746hiVOKxYS+H8s2lmFH4DduIny6Nfd6itC4h4wy+cI0JfBwfs0DVIJk3UwPzTvfOfeu66sorZmAjfKc2/okfzeUBm7PL0rpFKBS2HI6dT4iqOjIwEklH6NQ2UFUwo87MjFTl3gN8to=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gx5OR6Ld; arc=none smtp.client-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bobLZTO6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B87D91F000FF;
-	Sun,  4 Oct 2026 17:05:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791133509;
-	bh=parIaP3yx5owx2ZBwc/89/m2eHUL1lngZn1hiFVdWFU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bobLZTO6Ynlt4Q1SM4w+9RKVuJfR/xMw4Sm3D77qQtSWwgbXREsj41gc661re4dgc
-	 OhTPDykxZo25nmMb8DS8kpq/GGO8Jm5yWJeCbZm70O5D8bUv6+cbcdBuaCuQdAQqip
-	 3FT5gHZn7BRzcNgQeTrprKU8GcAnykSwQZfdDxwIkcNJ3hpVFT8ExMtndqJvR+1HIy
-	 NmhMUivdCwk2n1hDdVKtoe9rse1SmA5X8D5SfnVVSSUAHbDfkFvwqcSgzfxjLy9+nz
-	 MywdN86RcRNZrIY5UfoTnGC28CvlhmW6wbgjaPEya4xNxapXgKQRW75R8uEI4op59m
-	 xmFUDFKmw+8yw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 2/2] usb: phy: tegra: Disable internal USB sensing if
- extcon is used
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261004165204.205660-3-clamor95@gmail.com>
-References: <20261004165204.205660-1-clamor95@gmail.com>
- <20261004165204.205660-3-clamor95@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 04 Oct 2026 17:05:08 +0000
-Message-Id: <20261004170508.B87D91F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gx5OR6Ld"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3a49623b865so488500a91.0
+        for <devicetree@vger.kernel.org>; Sun, 04 Oct 2026 10:22:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791134551; x=1791739351; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=f7rAIIfQRjf/DZlHIopzmqG8GHaCqWeari8L74hauSs=;
+        b=gx5OR6LdXal6Bfjj6sXUow1ZhAiZYscrkMQVlRlz+pi5zHgvTnLQk+PddsAAvcFodQ
+         hndYH/yTZsGlMy7ZL4jXDYurh0izwA1p7xKy3SOCFswuuIv/TQv8FCM2q4s68wFBxTyT
+         ZTb4ChRTWOrkoZIYuMVO0u8ESz929lyLX3pvD5BPXXcjUaQJsTjk+7V2N7geW8nNK4MO
+         HvG8PAUx4rxYAMqjC5tk6/30sZX+Px02PrTZ0WM0Pdp7q3O4IRDuMv5XptTVRFtqRgn6
+         sKhLVYYJuaQCsc+deBVx554oLIb3M0rNvtAFr/3gbJ0aKc1SMoaoQHRCosMOmXRsVfpE
+         geVg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791134551; x=1791739351;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=f7rAIIfQRjf/DZlHIopzmqG8GHaCqWeari8L74hauSs=;
+        b=qgcMIa4Tuc74QWOG0vo7MujRfenrCsvHxEycegaPdicUY7RBYPUXTYn7egMj+eIKw8
+         AJv7OW/TmKzR6w1jpW72KxKGz2G3CqIhjtLTHXk+tnFb1rlI/TNv1EYYhyf8j5mqJxVu
+         NXl2g+308wSsFuxM1nvEJ6D3EXt6zECZEFuvbaTefQ3JTjX2jexoTqXnYRk/4kfc+ub5
+         Za2bQIlf9V5KxeBOasdKl7VFUOTu0kQppzJJfLFnhuras/OLsgIlHoqPRpFYtmeYRFiq
+         KvGnjgWiIuVFHsqnsNWOhJIdkfRNtRuM07HtiBUDV51whaa1LAwUp0GK0nbNuGdZHah+
+         G1pg==
+X-Forwarded-Encrypted: i=1; AKwUvBzF+wqJ5ziggwjQA4cfIERRzseMF96U3snCKoqsUHasW9YAysiKTvQOHmEF0LhSAhtLIn8WvhlW2S0B@vger.kernel.org
+X-Gm-Message-State: AFq9FYJm3orXRnyCX3YVSFAO40+fBMZ+BShst6PJ4HtrgFsEyzZIHlEm
+	/6h+frLscef2MvmXlnzO/LN5Ps+CJWzJ5MFdlI+5b2KlxzWy3+VhA5se
+X-Gm-Gg: AYBFou1eWHFohtksXv2Iyr2WsSjKf9lg6NtttKiSeuSCfDcTFQqRLPLKiSqO5dbh4qm
+	iU+XtQB02fPrHajjFnWBu4hI9ad4Vd80sdDib8fzNyK0gvMciJdhuI6Vh+eFOJk5ebEi8dwzlUi
+	GEb/9+K/bWMe+EZodyXD/cZYkPnwpyJbZ0wqI3ttdGOtEKMk5uiK0dkeeCj1wvmM/dkEZnbwJIq
+	8JvAmrTxYYfsq78kI7TdAPL/c9M2w0AfWoAwi0to/srBSRBM2Hnyn3EHBDo187xb5vD/0C1WoR0
+	uxEK7PyLxBBhg5Sd+6rT3ZgOH6kiMT4NoboMQKtztJ+AOvUJ1Mul3VANIPpYDVsiUn2zN76Orkk
+	Fo7LfWDEw7No5OaMf3I8uF9V14h5ouMw9MxoZObsyt8LXvUleKM2yAjTIYG4Spp8jLJZ7noCjW4
+	67pBZNQgod+e8zL/zZi1oK8CPtl7AK8RvQNBG8ayhasQX6Ymgz4bMfyX7/XsfirdLUkSytD1zK2
+	CbNbZLKKM2iUw==
+X-Received: by 2002:a17:90b:4d:b0:3a4:aee8:76ef with SMTP id 98e67ed59e1d1-3a78717db57mr4586561a91.21.1791134551329;
+        Sun, 04 Oct 2026 10:22:31 -0700 (PDT)
+Received: from SonYoungWon.skbroadband ([121.125.40.90])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a6dd4bd483sm5847677a91.4.2026.10.04.10.22.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 04 Oct 2026 10:22:30 -0700 (PDT)
+From: Youngwon Son <yoson5375@gmail.com>
+To: Heiko Stuebner <heiko@sntech.de>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Youngwon Son <yoson5375@gmail.com>
+Subject: [PATCH] arm64: dts: rockchip: Enable the NPU on ODROID-M2
+Date: Mon,  5 Oct 2026 02:21:15 +0900
+Message-ID: <20261004172115.5105-1-yoson5375@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] usb: phy: tegra: spurious wakeups due to re-enabled floating VBUS =
-sensor
-- [High] usb: phy: tegra: unhandled extcon parsing for peripheral-only mode
-- [Medium] usb: phy: tegra: brittle DT parsing via hardcoded absolute path
-- [Medium] usb: phy: tegra: unconditional 100ms timeout delay on power-off =
-due to active SW override
-- [Low] usb: phy: tegra: unnecessary devm allocation for temporary string
---
+Enable the NPU cores and their IOMMUs on the ODROID-M2 and wire up
+the vdd_npu_s0 regulator.
 
-commit 4cd162cd45681e0cd98b5676b09fbcbe3368c0d1
-Author: Jordan Viknar <jordanviknar@gmail.com>
+As the regulator is now controlled through the NPU power domain,
+remove regulator-always-on. regulator-boot-on is not needed either,
+since the RK8602 state can be read back.
 
-usb: phy: tegra: Disable internal USB sensing if extcon is used
+Tested with the rocket driver and Mesa Teflon (MobileNet V1).
 
-This commit adds extcon parsing from the linked USB controller. If an extcon
-property exists, it switches VBUS sensors to software mode and sets their
-values to SET, allowing boards with extcon chips to function properly witho=
-ut
-conflicting with Tegra's native mechanism.
+Signed-off-by: Youngwon Son <yoson5375@gmail.com>
+---
+ .../boot/dts/rockchip/rk3588s-odroid-m2.dts   | 36 +++++++++++++++++--
+ 1 file changed, 34 insertions(+), 2 deletions(-)
 
-> diff --git a/drivers/usb/phy/phy-tegra-usb.c b/drivers/usb/phy/phy-tegra-=
-usb.c
-> index 00443a7beaeb0..b5660910dfc7b 100644
-> --- a/drivers/usb/phy/phy-tegra-usb.c
-> +++ b/drivers/usb/phy/phy-tegra-usb.c
+diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-odroid-m2.dts b/arch/arm64/boot/dts/rockchip/rk3588s-odroid-m2.dts
+index 4e98fa3349..ea4d86a588 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3588s-odroid-m2.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3588s-odroid-m2.dts
+@@ -320,8 +320,6 @@ vdd_npu_s0: regulator@42 {
+ 		reg = <0x42>;
+ 		fcs,suspend-voltage-selector = <1>;
+ 		regulator-name = "vdd_npu_s0";
+-		regulator-always-on;
+-		regulator-boot-on;
+ 		regulator-min-microvolt = <550000>;
+ 		regulator-max-microvolt = <950000>;
+ 		regulator-ramp-delay = <2300>;
+@@ -441,6 +439,10 @@ &pd_gpu {
+ 	domain-supply = <&vdd_gpu_s0>;
+ };
+ 
++&pd_npu {
++	domain-supply = <&vdd_npu_s0>;
++};
++
+ &pinctrl {
+ 	hdmi {
+ 		hdmi0_tx_on_h: hdmi0-tx-on-h {
+@@ -514,6 +516,36 @@ &pwm0 {
+ 	status = "okay";
+ };
+ 
++&rknn_core_0 {
++	npu-supply = <&vdd_npu_s0>;
++	sram-supply = <&vdd_npu_s0>;
++	status = "okay";
++};
++
++&rknn_core_1 {
++	npu-supply = <&vdd_npu_s0>;
++	sram-supply = <&vdd_npu_s0>;
++	status = "okay";
++};
++
++&rknn_core_2 {
++	npu-supply = <&vdd_npu_s0>;
++	sram-supply = <&vdd_npu_s0>;
++	status = "okay";
++};
++
++&rknn_mmu_0 {
++	status = "okay";
++};
++
++&rknn_mmu_1 {
++	status = "okay";
++};
++
++&rknn_mmu_2 {
++	status = "okay";
++};
++
+ &saradc {
+ 	vref-supply = <&vcca_1v8_s0>;
+ 	status = "okay";
+-- 
+2.43.0
 
-[ ... ]
-
-> @@ -727,6 +741,12 @@ static int utmi_phy_power_off(struct tegra_usb_phy *=
-phy)
->  					   val, !(val & VBUS_WAKEUP_STS),
->  					   5000, 100000);
-> =20
-
-[Severity: Medium]
-Does this code introduce an unconditional 100ms delay during power-off?
-
-Since readl_relaxed_poll_timeout() executes before VBUS_SENSORS_SW_OVERRIDE
-is disabled in the code below, the software override forces VBUS to 1. Will
-this cause the status bit to never clear and the loop to hit the 100ms
-timeout limit on extcon-enabled boards?
-
-> +	if (phy->has_extcon) {
-> +		val =3D readl_relaxed(base + USB_PHY_VBUS_SENSORS);
-> +		val &=3D ~VBUS_SENSORS_SW_OVERRIDE;
-> +		writel_relaxed(val, base + USB_PHY_VBUS_SENSORS);
-> +	}
-
-[Severity: High]
-Can this clearing of the software override cause spurious system wakeups?
-
-By clearing VBUS_SENSORS_SW_OVERRIDE here, the disconnected hardware sensors
-are exposed. Later in utmi_phy_power_off(), if wakeup_enabled is true, the
-code sets A_VBUS_VLD_WAKEUP_EN:
-
-    val =3D readl_relaxed(base + USB_PHY_VBUS_SENSORS);
-    val |=3D A_VBUS_VLD_WAKEUP_EN;
-    writel_relaxed(val, base + USB_PHY_VBUS_SENSORS);
-
-Because the physical pin is disconnected or floating on extcon-based design=
-s,
-will re-enabling this hardware sensor trigger spurious wakeups during system
-suspend?
-
-> +
->  	utmi_phy_clk_disable(phy);
-> =20
->  	/* PHY won't resume if reset is asserted */
-
-[ ... ]
-
-> @@ -1456,6 +1476,34 @@ static int tegra_usb_phy_parse_pmc(struct device *=
-dev,
->  	return 0;
->  }
-> =20
-> +static int tegra_usb_phy_parse_controller(struct device *dev,
-> +					  struct tegra_usb_phy *phy)
-> +{
-> +	struct device_node *usb_node;
-> +	char *node_path;
-> +	u64 addr;
-> +	int ret;
-> +
-> +	ret =3D of_property_read_reg(dev->of_node, 0, &addr, NULL);
-> +	if (ret) {
-> +		dev_err(dev, "Failed to read reg entry 0: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	node_path =3D devm_kasprintf(dev, GFP_KERNEL, "/usb@%08llx", addr);
-
-[Severity: Low]
-Is it necessary to use devm_kasprintf() for this temporary string?
-
-Since node_path is only used once for of_find_node_by_path(), allocating it
-with devm_kasprintf() binds the string to the device lifetime, unnecessarily
-keeping it in heap memory until the device is unbound.
-
-[Severity: Medium]
-Will this hardcoded absolute path break if the device tree topology changes?
-
-Using a hardcoded format string "/usb@%08llx" requires the controller node
-to be named exactly "usb", placed at the root of the device tree, and its
-address zero-padded to exactly 8 characters. If the node is moved under
-"/soc/" or "/amba/", or if the address requires fewer than 8 hex digits
-(as leading zeroes are prohibited for smaller addresses by the DT spec),
-will this fail to find the node and break USB functionality?
-
-> +	if (!node_path)
-> +		return -ENOMEM;
-> +
-> +	usb_node =3D of_find_node_by_path(node_path);
-> +	if (!usb_node)
-> +		return -ENODEV;
-> +
-> +	phy->has_extcon =3D of_property_present(usb_node, "extcon");
-> +	of_node_put(usb_node);
-> +
-> +	return 0;
-> +}
-
-[ ... ]
-
-> @@ -1552,6 +1600,13 @@ static int tegra_usb_phy_probe(struct platform_dev=
-ice *pdev)
->  		return err;
->  	}
-> =20
-> +	if (tegra_phy->mode =3D=3D USB_DR_MODE_OTG) {
-> +		err =3D tegra_usb_phy_parse_controller(&pdev->dev, tegra_phy);
-> +		if (err)
-> +			return dev_err_probe(&pdev->dev, err,
-> +					     "Failed to get controller\n");
-> +	}
-
-[Severity: High]
-Does this prevent extcon parsing for USB_DR_MODE_PERIPHERAL?
-
-If dr_mode is "peripheral", the parser never runs and has_extcon remains
-false. Since the software override (VBUS_SENSORS_SW_OVERRIDE) is not applied
-during utmi_phy_power_on() without has_extcon, will peripheral-only
-extcon-based designs fail to detect connections because they read the
-disconnected hardware sensor instead?
-
-> +
->  	tegra_phy->phy_type =3D of_usb_get_phy_mode(np);
->  	switch (tegra_phy->phy_type) {
->  	case USBPHY_INTERFACE_MODE_UTMI:
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261004165204.2056=
-60-1-clamor95@gmail.com?part=3D2
