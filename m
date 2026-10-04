@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 209F813957E
-	for <devicetree@vger.kernel.org>; Sun,  4 Oct 2026 15:53:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 968A1222599
+	for <devicetree@vger.kernel.org>; Sun,  4 Oct 2026 15:55:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791129222; cv=none; b=pwxeIZUK1cOLy7IEP2WUcdiznEMj3odhLkR9j34IP2OPGVehUxtIgJf8N2cRFj9QnJ1Tne5aRmIH3O59oiBSiVx+EyzLnAuioYqK2bvrWVtUtq433CWdU2SznEnqJL7R4fFSYk6L0JUJdIvtfo73swwRg+GyCEjuPONxH3xyWxY=
+	t=1791129351; cv=none; b=fwHRNn7eIUsJOBd8dZYBFDUwh2gkJyOZq/vejy+N8/Rja3Eczci/Q0TTSRr5kSr2tDygvo+4xFo/uidXebYHrpdBiCO1n7/MepbKARlovRIOGfx5wkkiaczMVoca+Ouo/YKg2cbsvrwLIV4AFdV1yh28wMj1JkJ1roVnlYfGSmU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791129222; c=relaxed/simple;
-	bh=dHFd4e58cGpz5w9DFQKjQAaR5ewBcq76qWg1EahkFqk=;
+	s=arc-20240116; t=1791129351; c=relaxed/simple;
+	bh=L7XMHhzjWVEyIEt4dIjwXVWp2DcuUiVniMPJX9fUDJA=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=B+yK8KgvliUbrU3B5yLHmrvS+CwBCfjCvmSYwrLDXp+f3LLjC429qpAFcafzhsDeWQhCKo5WkqUdu5S6Qpp9TWXdDOmGnHF+lEhT2C52nBU2h6ktx1XCQ5OZo/04oPF3n8+L4KEX2vVt8LYFFBIsjkRnCAMMpG/oz+cIxjaMzlY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gtqJ3z8+; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=QxvfGY7xL75MGWEvLtaltsDy2ZC1sUha7mVJ+9+stl01wLuZXDl5eoKf4Ru/ZEuVEP8TRMuBJkgx4mKmN7vMsE3pLrrxWPHINlbq3CHf+eDsMa5cdHYNuPAxSwsyC/tbtX3fzU0zA857xReItlP/lLO/rN0m6gi9ps7ZiP9T6rM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fjFEoaJy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gtqJ3z8+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 547C01F000FF;
-	Sun,  4 Oct 2026 15:53:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fjFEoaJy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 073AE1F000FF;
+	Sun,  4 Oct 2026 15:55:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791129218;
-	bh=lLB+dxOQN0xza3F2Z+TWaOIY+921znehfcyCVsET8Uw=;
+	s=k20260515; t=1791129350;
+	bh=zzHzYf2e8B6rAp7IY9iDGDaGm/Jpu6R5+zarwS1ttE0=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gtqJ3z8+Kh6cvgj1zrazVnUvnIHuXVr9SFX+o7/9MjDZD1kSdnUa6GHGIhbObWRbo
-	 S5aXuSMmZNJ4Igiq7epc5rcyWwd4hEmeci0JM6tDGYSeBk13AbJETfIulcN2kUEDwJ
-	 mxKzqrS+7oOK4TSkoHPzLQOdI04htisyASAdmUCwBkfwFeBjAHQD/Q3UL0uI/cUud8
-	 ltPYsvxK+CSZgHhDYChdCGP3HVIOw2g0eRwBYU5xIeHmUrtpS6FrkG3MpB9C+ED63F
-	 NlZtwiGOnsCN+nXMDc9eWooaZwdSqhIzF3RaIpPzpHsn231f26cPQ95n+e7v6aFaqT
-	 ldixfQ8Da2mcA==
+	b=fjFEoaJyUVJneYtoyj5RL7jPP6TonrdXqFapwwrNSGRlkOO+xHAm7BbLe2qMY5uKQ
+	 imDH9GTpP65IpjfupIlTqn88iuOextY5nHS91rfHP7M1LwEqTEWPuwVUfTobmaI+Mq
+	 ZSbznsbhzI9jxLXZdDAT5wVfmwC8nSsfL2iz/2bhKqNKyqzMUtft41uYq5OqYdO0/W
+	 Dx9a5BurLzlp3FN04maDEoJqYq3H9XZtE0Hr9Ad6w8BGf2lYBaXafNIy2MkWRYBe17
+	 yNb54nqigcEKRO7f79YWQSXULm6agDiwIErSQhJX2MIhPzXNM3SQl8fkWkQub3LBli
+	 SXjRV8g0t5gfQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 4/9] ARM: tegra: lg-x3: Add light sensor node
+Subject: Re: [PATCH 2/2] dt-bindings: i2c: rtl9300: add pinctrl
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
+To: "Michael Zavertkin" <misha.zavertkin@mail.ru>
 Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20261004154456.145362-5-clamor95@gmail.com>
-References: <20261004154456.145362-1-clamor95@gmail.com>
- <20261004154456.145362-5-clamor95@gmail.com>
+In-Reply-To: <0cd1f9b98511c55a375ab82b121fe256916b87e2.1791127538.git.misha.zavertkin@mail.ru>
+References: <cover.1791127538.git.misha.zavertkin@mail.ru>
+ <0cd1f9b98511c55a375ab82b121fe256916b87e2.1791127538.git.misha.zavertkin@mail.ru>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 04 Oct 2026 15:53:37 +0000
-Message-Id: <20261004155338.547C01F000FF@smtp.kernel.org>
+Date: Sun, 04 Oct 2026 15:55:49 +0000
+Message-Id: <20261004155550.073AE1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,62 +46,55 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] arm: dt: incorrect interrupt trigger polarity for APDS9900 sensor
+- [Critical] dt-bindings: ABI breakage by making pinctrl required for rtl96=
+07-i2c
 --
 
-commit 9cb1ebe47a901b15c3fac941849ede08f1799d2f
-Author: Svyatoslav Ryhel <clamor95@gmail.com>
+commit b162c61d2fc7ab941d4ea49cc274452fca8d089d
+Author: Michael Zavertkin <misha.zavertkin@mail.ru>
 
-ARM: tegra: lg-x3: Add light sensor node
+dt-bindings: i2c: rtl9300: add pinctrl
 
-This commit adds the device tree node for the Avago APDS9900 ambient
-light and proximity sensor to the tegra30-lg-x3 dtsi file.
+For RTL9607C driver used to configure IO_MODE register. This register is
+global and is a scope of pinctrl driver (either pinctrl-single or WIP
+driver for SoC). Drop realtek,scl requirement for that SoC and require
+pinctrl instead.
 
-> diff --git a/arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi b/arch/arm/boot/=
-dts/nvidia/tegra30-lg-x3.dtsi
-> index d5365253c740b..4cd2bbc94f9d7 100644
-> --- a/arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi
-> +++ b/arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi
+> diff --git a/Documentation/devicetree/bindings/i2c/realtek,rtl9301-i2c.ya=
+ml b/Documentation/devicetree/bindings/i2c/realtek,rtl9301-i2c.yaml
+> index 5873cfdc5b3e0..ad143509aa425 100644
+> --- a/Documentation/devicetree/bindings/i2c/realtek,rtl9301-i2c.yaml
+> +++ b/Documentation/devicetree/bindings/i2c/realtek,rtl9301-i2c.yaml
 [ ... ]
-> @@ -1106,6 +1106,19 @@ nfc@28 {
->  			firmware-gpios =3D <&gpio TEGRA_GPIO(R, 0) GPIO_ACTIVE_HIGH>;
->  		};
+> @@ -94,8 +98,9 @@ allOf:
+>              const: realtek,rtl9607-i2c
+>      then:
+>        required:
+> -        - realtek,scl
+>          - clocks
+> +        - pinctrl-0
+> +        - pinctrl-names
+
+[Severity: Critical]
+Does making these properties strictly required introduce a regression for
+existing device trees?
+
+Device tree bindings are considered stable ABI, and changes must be backward
+compatible. The realtek,rtl9607-i2c compatible string was already present in
+the bindings. Existing valid device trees for this SoC do not contain
+pinctrl-0 or pinctrl-names because the previous schema used
+additionalProperties: false without defining them.
+
+Adding pinctrl-0 and pinctrl-names to the required list in the allOf block
+for rtl9607-i2c means all existing, deployed device trees will now fail
+schema validation during dtbs_check.
+
+Could these new properties be made optional to prevent ABI breakage?
+
 > =20
-> +		light-sensor@39 {
-> +			compatible =3D "avago,apds9900";
-> +			reg =3D <0x39>;
-> +
-> +			interrupt-parent =3D <&gpio>;
-> +			interrupts =3D <TEGRA_GPIO(K, 2) IRQ_TYPE_EDGE_RISING>;
-
-[Severity: Low]
-Is IRQ_TYPE_EDGE_RISING the correct interrupt polarity for this sensor?
-
-The device tree describes the APDS9900 interrupt as IRQ_TYPE_EDGE_RISING, b=
-ut
-the APDS9900 has an active-low open-drain interrupt pin, meaning it asserts
-via a falling edge or low level. This appears to be a mismatch between the =
-DT
-hardware description and physical hardware.
-
-While the Linux tsl2772 driver currently hardcodes IRQF_TRIGGER_FALLING
-(masking the issue in Linux), could this latent hardware description bug br=
-eak
-interrupt handling for any OS or future driver refactoring that relies on t=
-he
-DT-provided flags? Booting an OS that relies on the DT interrupt trigger fl=
-ags
-will configure the GPIO interrupt for a rising edge, which will fail to
-trigger when the sensor pulls the line low.
-
-> +
-> +			vdd-supply =3D <&vdd_3v0_proxi>;
-> +			vddio-supply =3D <&vdd_1v8_sen>;
-> +
-> +			led-max-microamp =3D <100000>;
-> +		};
-> +
+>  required:
+>    - compatible
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261004154456.1453=
-62-1-clamor95@gmail.com?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1791127538.gi=
+t.misha.zavertkin@mail.ru?part=3D2
