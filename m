@@ -1,84 +1,95 @@
-Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch [109.224.244.17])
+Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8666942255C;
-	Sun,  4 Oct 2026 11:15:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C826322C88
+	for <devicetree@vger.kernel.org>; Sun,  4 Oct 2026 11:24:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.66
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791112507; cv=none; b=Ht+cid2cGpfRjvkHlubhnOno/RH/NgwToXpPljF7XxOfDaK1vWvEDWOsi2zf9DaZs3LL+zwVpcRVYwidTdgSvuynbM+JrUJbZMvzk/LUtg3iqRPY06Qr3EQNik35WLPujmOs8/V2vadu343h5h7HznkSxUrOTNKTvnCNIk3cvtQ=
+	t=1791113084; cv=none; b=aMp7HjRfXyH67V7ogCakAkpd4Kk0nQbbpRCS8DzO2sjiYjynYFDW3I81CujGxe3abj/RK+svbdGzvJxSLmC2ng4zfJouzp18m/B5zy9wwZk1JwWpHqYoJqd2lLtNgqCojLGDAoxcGzX/xd+HBwav/gucrccXytiaaUUQTsBVWPA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791112507; c=relaxed/simple;
-	bh=hsUe3R8HTIJa107Px4Pv5UjHvCZZlBUMI1qqHQMrE1U=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=GQ8s8DLM5RJBqVr8TBbD9vso/RD4j/je4jBhTRQASoUtD+kF8umUmLxCgv/Qqd/icOcgXuXoMEpPiLVZpgxGtKa2CB6lX4JJ18Vwoo7jz0kcLjiq1gXE1zge+5UgrNLO8qIvKdwKNB7p6AbReF3W7Iw3riC8KS2Blh/SV7TzNls=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=IO3RWP4M; arc=none smtp.client-ip=109.224.244.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
+	s=arc-20240116; t=1791113084; c=relaxed/simple;
+	bh=G6a4L0DuKqgO2Xk/4BihAgScDpyjIdpZ+p83hQUV6Vc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nFWVHq4GWIAQkv9OHDIuQmHo8NZZCOpFIEaMq2YJymccGAPMPhDvBUm+0n5k7jeZsURPJaBxLwCcrhNN9SzbWfN3Rnffh7LbnQDb3gF1S9MiHKbtj8sPlmRVW42oFNDnjeCU1+V2zD3FHAhhPi2L1JHvV431Lp91r/pAZ3oc5OE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.net; spf=pass smtp.mailfrom=posteo.net; dkim=pass (2048-bit key) header.d=posteo.net header.i=@posteo.net header.b=JZuOzBjU; arc=none smtp.client-ip=185.67.36.66
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="IO3RWP4M"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
-	s=protonmail2; t=1791112496; x=1791371696;
-	bh=axUuY6R+xPUQ9WsKqWZyN6vKAeBDZjWnfhApo6LvrFU=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=IO3RWP4MxsoympIGLuMgbYvzs9IVs1H4h4EsImXO+KDAGmiMm81gXPq616RUv4pyV
-	 ggy3fdn3B1uimqvqorZcmf+qI98ciJzr1bgAYUSxyXC7UxeaI80pKFqxQD3jg/VIxn
-	 yHonCeDb115PBvkfjUGx6GIifZYHjiEyg/8FNF9vi2HTjprUr4Q2Mvm9qnvxv/Febi
-	 GOkZofTu0EYjJLfFWclkELv5rALS8Rzyacmu4qht+nbVA8iRmVS+G5BBTU2P8RHd3n
-	 qpLtzBjgXdNwsBQtR8DjlHZSW85qIUfycbCeVl3tu19oVcg3Jnc9IH5StFjEjeerUO
-	 cwh9aunD2WP7A==
-Date: Sun, 04 Oct 2026 11:14:50 +0000
-To: wens@kernel.org
-From: Norman Herms <dockseed@proton.me>
-Cc: Junhui Liu <junhui.liu@pigmoral.tech>, Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, Philipp Zabel <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Richard Cochran <richardcochran@gmail.com>, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, netdev@vger.kernel.org, Jerome Brunet <jbrunet@baylibre.com>, Enzo Adriano <enzo.adriano.code@gmail.com>, Andre Przywara <andre.przywara@arm.com>
-Subject: AW: Re: [PATCH v5 7/8] clk: sunxi-ng: a733: Add bus clock gates
-Message-ID: <TEcOYCDcz77vYtgXxuHGwhVo6AFFgV2M5rIDAsLiG4T7fD6J41La8o19hf2iMQhaMXd1wHsvqeDardYv7hjy3TbV9oCkfzYKRMn0EGlh7Ww=@proton.me>
-In-Reply-To: <CAGb2v65Lqo7NiFhc2GYdfY7+jkC4Y+p6=Zy85HOFmXJzT0u1fg@mail.gmail.com>
-References: <20260930-a733-clk-v5-0-11175b41cd2d@pigmoral.tech> <20260930-a733-clk-v5-7-11175b41cd2d@pigmoral.tech> <CAGb2v65Lqo7NiFhc2GYdfY7+jkC4Y+p6=Zy85HOFmXJzT0u1fg@mail.gmail.com>
-Feedback-ID: 144388465:user:proton
-X-Pm-Message-ID: 24affaecb9b426f52699549cb7abbc8bb40c0be3
+	dkim=pass (2048-bit key) header.d=posteo.net header.i=@posteo.net header.b="JZuOzBjU"
+Received: from submission (posteo.de [185.67.36.169]) 
+	by mout02.posteo.de (Postfix) with ESMTPS id D30B0240105
+	for <devicetree@vger.kernel.org>; Sun,  4 Oct 2026 13:24:33 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.net;
+	s=1984.8680eb; t=1791113073;
+	bh=eh6oGqLnV3p2vYbKzJgOkd1E+lStsY6pYpuQQzA/zB4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:
+	 Content-Transfer-Encoding:From;
+	b=JZuOzBjUqBcis65fZbaB0VEExATJ4s0dTYjk3/nRZVkD/s8R9ydD0sfqjcmR390w2
+	 H6jS2oJ5SgMTHsmKu2wL9l4DhYzi9QG0ezCFfImD6Ad5c7b35wM7Z3M1RcdBh73MX8
+	 2SykB5isOyOilQeOmgMD6F9Jmi/txUOLq5i855b5Dwj7JWWJ1HLlBrBIlJEcBCOwTO
+	 Uwh/z/Yep9DGK5LrkbWzUL5Kz/KDFshB2R3RQSDqXOg/+yJuBJna3wxINuJNEgol3l
+	 RfasOWrR92f6xmDNQswBihDOJrKRejPV1cGB72Fb8vznEXnzcqvUdH9TCq9GBJWGxj
+	 /sVLbeM+2ycmg==
+Received: from customer (localhost [127.0.0.1])
+	by submission (posteo.de) with ESMTPSA id 4hyKt75yByz9rxG;
+	Sun,  4 Oct 2026 13:24:31 +0200 (CEST)
+From: Mateusz Nowicki <mateusz.nowicki@posteo.net>
+To: Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Mateusz Nowicki <mateusz.nowicki@posteo.net>
+Subject: [PATCH] arm64: dts: st: mark main supplies always-on on stm32mp257f-dk
+Date: Sun, 04 Oct 2026 11:24:33 +0000
+Message-ID: <20261004112421.47158-1-mateusz.nowicki@posteo.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sun, Oct 4, 2026 at 1:03 PM Chen-Yu Tsai <wens@kernel.org> wrote:
-> > +static SUNXI_CCU_GATE_HWS(ahb_store_clk, "ahb-store", ahb_hws,
-> > +                         0x5c0, BIT(24), CLK_IS_CRITICAL);
-> > +static SUNXI_CCU_GATE_HWS(ahb_cpus_clk, "ahb-cpus", ahb_hws,
-> > +                         0x5c0, BIT(28), CLK_IS_CRITICAL);
->
-> I suspect these refer to a AHB-AHB bridge for the various subsystems show=
-n
-> in the memory map. That would explain why when the "ahb-store" clock is
-> gated, the storage bits stop working.
->
-> If that's the case, we should describe it as the parent of each storage
-> peripheral bus gate's parent. Same would go for the other types. I haven'=
-t
-> checked what the BSP does though.
+The vddcore, v1v8 and v3v3 regulators have no consumer in Linux, so
+the regulator core disables them 30 seconds after boot. They supply
+the SoC digital logic, the SoC 1.8 V analog domain and the 3.3 V board
+peripherals, and must stay on while Linux runs.
 
-Two data points, in case they help.
+Mark them always-on.
 
-The vendor BSP (radxa/allwinner-bsp, branch cubie-aiot-v1.5.0,
-drivers/clk/sunxi-ng/ccu-sun60iw2.c) models no hierarchy either. It
-registers every gate in 0x5c0 and 0x5e0 as a keyed gate on the
-oscillator and marks each one CLK_IS_CRITICAL or CLK_IGNORE_UNUSED, so
-clk_disable_unused() never closes any of them.
+Signed-off-by: Mateusz Nowicki <mateusz.nowicki@posteo.net>
+---
+ arch/arm64/boot/dts/st/stm32mp257f-dk.dts | 3 +++
+ 1 file changed, 3 insertions(+)
 
-On a Cubie A7S running our own 6.18-based tree, with the GPU power
-domain up and ahb-gpu0 (0x5c0 bit 7) and mbus-gpu0 (0x5e0 bit 16) both
-closed, drm/powervr still bound, read the core ID and loaded the
-matching firmware, but the firmware then failed to boot ("Firmware
-failed to boot"). With both bits set, the same modprobe initialized the
-GPU. So for the GPU, register access worked with these two gates
-closed; what failed was the firmware running on the GPU.
+diff --git a/arch/arm64/boot/dts/st/stm32mp257f-dk.dts b/arch/arm64/boot/dts/st/stm32mp257f-dk.dts
+index a8f18508db3e..7a837e6fd578 100644
+--- a/arch/arm64/boot/dts/st/stm32mp257f-dk.dts
++++ b/arch/arm64/boot/dts/st/stm32mp257f-dk.dts
+@@ -310,14 +310,17 @@ scmi_vddio1: regulator@0 {
+ 	scmi_vddcore: regulator@11 {
+ 		reg = <VOLTD_SCMI_STPMIC2_BUCK2>;
+ 		regulator-name = "vddcore";
++		regulator-always-on;
+ 	};
+ 	scmi_v1v8: regulator@14 {
+ 		reg = <VOLTD_SCMI_STPMIC2_BUCK5>;
+ 		regulator-name = "v1v8";
++		regulator-always-on;
+ 	};
+ 	scmi_v3v3: regulator@16 {
+ 		reg = <VOLTD_SCMI_STPMIC2_BUCK7>;
+ 		regulator-name = "v3v3";
++		regulator-always-on;
+ 	};
+ 	scmi_vdd_emmc: regulator@18 {
+ 		reg = <VOLTD_SCMI_STPMIC2_LDO2>;
 
-The measurements were run on my boards by AI agents.
+base-commit: f831584128ac2a36fb4fa62fe106793d08c2dbf1
+-- 
+2.56.0
 
-Norman
