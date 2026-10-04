@@ -1,211 +1,104 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 78AA839A04C
-	for <devicetree@vger.kernel.org>; Sun,  4 Oct 2026 14:06:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFEE23921E9;
+	Sun,  4 Oct 2026 14:20:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791122809; cv=none; b=VMthWy1qtHEwj/cLP05kiNsW4YuxkURgz8woO0QFEn/Zf0QET0n6l2q3nSl6MV/g4x1Uw/yox3ZKk362cicWUkh2N/g5lWWxt/+gKUoXY1oO26aDYvSg/D/cGVos9t26qFZervRECidVGSJ15bHX5rc0ioTdGPP1i/3vltUGKUY=
+	t=1791123604; cv=none; b=UjO0qCwM4MU+DAPAZg8PB4IRQK7Q+CuGnvWQXPjnR2RrK3cBY8CrqXVdI20l3PlUUeItBHeQ3nXyGYWxeGAIrtu+/dmb+LVPKAU0QBbgaKmFdXFej2Da1NYHJCpULyvcfgxWH+okDSVpaxtOynt4XAzpdJMzPxVwilCWGAhzwAo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791122809; c=relaxed/simple;
-	bh=Eta09yHf0y9K2CX42Ddir6PtPan1JHP91SRbMGkdqe4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=RCyYSfvXgz/4LlU8vcgrEsd9v3oiNBU2hYblskwGuldQtdzAQAsp2gypRyGpwYrYd0clC+83TCDYA5U5ho+zwnwtZnP2KTwd81e0vNPY+dXnn7nZKFlXEDTqm3M0vCo2aeLvksmLDbE9XPOcqpKpgfHZ7+UNHbBne97TIT5ufZU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ffde3cec6so6495255e9.3
-        for <devicetree@vger.kernel.org>; Sun, 04 Oct 2026 07:06:46 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791122805; x=1791727605;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VUXvy50bECQ2jjyhstzsZVcApJzJFF/Z6zq/JzULuvY=;
-        b=hCPFyuvdP9rkcPDom6VUI91P7rzr0XLMyeO3cnrbULLT8ROgvENyQVRMb48R4Nai9u
-         v35nLTW9LtvsRvcHMvQlNl09ztT7ib2PrXODHWgdTCP/fKI6mxP4cwnDKAoXff/GcTlx
-         xh6zcq83wbeB1Jt8pLKM61KRviQac95zdEuz9VvrLibklS5DOyNXe5EpcRSVIQd4TB2j
-         MUTiycfhSrqr5M1WvxLtlI2Bj+6+4rQbgaeww9UtGFR5ivIzeyKLvwXCJMPoS9b5xKzn
-         ziCJUef67u7acxHMREt480Y38/qgClN2hsxDQI3V2kGbQ03c8u5KLiypBraz0G4Kc8Xq
-         YIbQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwth7sruWL3r5LVwl5JIU/QNKpe062GQK7RuA+P1ps74QNO/5UC6hGqoQMA9cnbkjD5bEEKJyVgtI6d@vger.kernel.org
-X-Gm-Message-State: AFuF++n12Zu81LCbmdG0oTR+ZgW8CFRrJNNTCmk/KB+ScAe3A/h8EpVR
-	Rpdv5D4qmpJquGbVzSF34YCzp1f3uB9w2jd3uo56Oru9PfaWIyUZiLYD
-X-Gm-Gg: AYBFou3ig1SDqftLf04W7BrvEa2s86BorPXNVT1yqMr9SfaB4jcI0DVDrowY1kH+Hof
-	Xm7BVN4p1kUMvx2mKupznn73obGFxt2e9DroVXxXKSug89x6NZjVz7ZsSkzLAMEq0qYoYor7aFJ
-	DvZf9+gAhZSHJkmGfo5RXXQUFEtCvU0/SY1LvfKBCccTKYBiUpbIpjHaIf6ArJYZrgEJmbymmiD
-	4y0AwCjua/wyxIx3/E/dZ/cd5u5vrM+vi5bs1JI/L9k6AQfhdrEc/qYl/J6Pk3znVycEjd/BZ84
-	2nPVEtnUiBMxQ193UkhQg3FGsGaiInXQT4ZXLDu1orO284KXkvun6EUSSwlWMocBrJX2lU9YvFs
-	ZrGejT0ZNqxB2MVFbDyswFw8m9tpDuVxzFZo8xnmrgwcAroU5ws0oAdUsoU9gwvScIQaLEuSPEm
-	B5/l8O9JOSC6FtMLzBYJ1z4fsCQxntLTjydcHRSEI5Rb4B/0Ge0x5c0Qx5SWaopP33vZltDRYzh
-	ku25HdZHGvBXyF4fguQCdKCTxmD
-X-Received: by 2002:a05:600c:6212:b0:49f:e701:51c8 with SMTP id 5b1f17b1804b1-4a0275432f7mr127957445e9.9.1791122804538;
-        Sun, 04 Oct 2026 07:06:44 -0700 (PDT)
-Received: from [192.168.1.135] ([84.68.183.72])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a17125adfesm30902405e9.15.2026.10.04.07.06.43
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 04 Oct 2026 07:06:44 -0700 (PDT)
-Message-ID: <4460ec4a-1a28-4481-a33e-3fe72f68bf58@linux.com>
-Date: Sun, 4 Oct 2026 15:06:43 +0100
+	s=arc-20240116; t=1791123604; c=relaxed/simple;
+	bh=sw8Nm/1ZBUjCMBcV3vtsze3LPK/jLThAPKdelmF/AzI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=oUugMakbUbc7XKl/jYTdhx5a2ee6pt7Y3BDUzq3MIhSREInPQRH7lrX9cJ41y/gCiJgQcTec5/cV5WciN1dmHBo/MzlhBG2dnGXOMJbLsGTKFc82WZ9rknl+aobZSfcbyI3C4jIRBR5D/AgrGKetjkqW57OX6SIIycrIkncjqB0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T+JpqJeq; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T+JpqJeq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B2F31F000FF;
+	Sun,  4 Oct 2026 14:20:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791123602;
+	bh=sw8Nm/1ZBUjCMBcV3vtsze3LPK/jLThAPKdelmF/AzI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=T+JpqJeq/Cn4380qxOJE4VAPvA0bgwmfzFQX2T8RjRx4TFS1bXf/YWIs5zmOlg9i5
+	 BbNczpzxUc1p4uXSZE3WUt/M9LZCnFawuqtonuI/s8nTm+mCG+J8rI1AVhQRkQWUP0
+	 9dOKaf8/sUrerQM60RnIy9ruDCsIZB9PhMbyKiHh4RJLC913GjoKkWVOjsV6OPGisp
+	 kPqgNu04ZU78Za1nRGwDN2+mGlp+Ct42Sw/yUAiymlZzPWNo2sw1aTthifIfAeNKES
+	 C4ICdx/5eRcjsS49zAfFIpGQXoovkG0xvjPjdAdNxKmFZBQwpf88M8fyBdCwRvglUz
+	 v3HMh/F498s+w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/5] ARM: dts: imx6ull-tarragon-common: Fix Ethernet PHY
+ issues
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Stefan Wahren" <wahrenst@gmx.net>
+Cc: imx@lists.linux.dev, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20261004140123.46461-3-wahrenst@gmx.net>
+References: <20261004140123.46461-1-wahrenst@gmx.net>
+ <20261004140123.46461-3-wahrenst@gmx.net>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 04 Oct 2026 14:20:01 +0000
+Message-Id: <20261004142002.1B2F31F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/3] dt-bindings: net: meson-dwmac: add T7 support
-To: Conor Dooley <conor@kernel.org>, xianwei.zhao@amlogic.com
-Cc: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- linux-spi@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org
-References: <20260924-t7-node-new-v2-0-319d3c19b4b2@amlogic.com>
- <20260924-t7-node-new-v2-2-319d3c19b4b2@amlogic.com>
- <20260924-stinger-stoplight-7c327c3225fa@spud>
-Content-Language: en-US
-From: Lucas Tanure <tanure@linux.com>
-In-Reply-To: <20260924-stinger-stoplight-7c327c3225fa@spud>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 24/09/2026 18:21, Conor Dooley wrote:
-> On Thu, Sep 24, 2026 at 05:51:09AM +0000, Xianwei Zhao via B4 Relay wrote:
->> From: Xianwei Zhao <xianwei.zhao@amlogic.com>
->>
->> Add the T7 compatible to the Meson DWMAC binding.
->>
->> The T7 DWMAC controller requires the following compatible combination:
->>
->> amlogic,t7-dwmac
->> amlogic,meson-axg-dwmac
->> snps,dwmac-4.00
->>
->> Add a conditional schema check to enforce this compatible combination
->> when amlogic,t7-dwmac is used.
->>
->> Signed-off-by: Xianwei Zhao <xianwei.zhao@amlogic.com>
->> ---
->>   .../devicetree/bindings/net/amlogic,meson-dwmac.yaml    | 17 +++++++++++++++++
->>   1 file changed, 17 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml b/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
->> index 5c91716d1f21..b529ca5577a9 100644
->> --- a/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
->> +++ b/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
->> @@ -23,11 +23,24 @@ select:
->>             - amlogic,meson-gxbb-dwmac
->>             - amlogic,meson-axg-dwmac
->>             - amlogic,meson-g12a-dwmac
->> +          - amlogic,t7-dwmac
->>     required:
->>       - compatible
->>   
->>   allOf:
->>     - $ref: snps,dwmac.yaml#
->> +  - if:
->> +      properties:
->> +        compatible:
->> +          contains:
->> +            const: amlogic,t7-dwmac
->> +    then:
->> +      properties:
->> +        compatible:
->> +          items:
->> +            - const: amlogic,t7-dwmac
->> +            - const: amlogic,meson-axg-dwmac
->> +            - const: snps,dwmac-4.00
-> 
-> This is not how fallback compatibles are described.
-> 
-> Instead of doing this, which affects all other compatibles in the file
-> by allowing dwmac-4.00 for all devices, please do this the normal way.
-> dwmac isn't special, it's just this binding that's weird!
-> Can whats currently in the binding (before this patch) be largely
-> replaced by just doing:
->    compatible:
->      oneOf:
->        - items:
->            - enum:
->                - amlogic,meson8b-dwmac
->                - amlogic,meson-gxbb-dwmac
->                - amlogic,meson-axg-dwmac
->                - amlogic,meson-g12a-dwmac
->            - const: snps,dwmac-3.70a
->            - const: snps,dwmac
->        - items:
->            - enum:
->                - amlogic,meson6-dwmac
->                - amlogic,meson8m2-dwmac
->            - const: snps,dwmac
-> 
-> You'll have to check this yourself against the amlogic devicetrees and
-> see if this is correct, but with this you should be able to add your new
-> device without doing anything special.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] dts: Missing PHY ID in compatible string causes PHY probe failure
+- [High] dts: PHY reset pinctrl applied too late due to PHY node placement
+- [Medium] dts: PHY reset duration drastically reduced from 25ms to 500us
+--
 
-I have the same patch in my T7 work and checked it against the amlogic 
-device trees: meson6 and meson8m2 use the two entry form, the rest add 
-snps,dwmac-3.70a. dt_binding_check and dtbs_check are clean. The example 
-needs fixing.
+commit f2c57a8f69beb5f6e98a9a695928883c23235853
+Author: Stefan Wahren <wahrenst@gmx.net>
+ARM: dts: imx6ull-tarragon-common: Fix Ethernet PHY issues
 
-Xianwei, from my VIM4: the MAC reports Synopsys ID 0x51, DWMAC_CORE_5_10
-in common.h, so the core is 5.10a, not 4.00. And the controller reaches
-DRAM through a pipeline stage. Nothing claims its gate, sys_ampipe_eth,
-so clk_disable_unused switches it off. My node lists it as a fourth
-clock. Does the AN400 differ?
+This commit moves the SMSC LAN8710 Ethernet PHY reset handling to the
+generic PHY reset properties on the Tarragon platform.
 
-I will send my series today so the code is on the list. Not a race: I
-will drop or rebase whatever overlaps once you tell me.
+[Severity: High]
+In arch/arm/boot/dts/nxp/imx/imx6ull-tarragon-common.dtsi, the ethphy0
+node at line 131 sets the compatible string to ethernet-phy-ieee802.3-c22.
+Does this missing explicit PHY ID cause the MDIO core to fail device
+creation?
 
-Thanks,
-Lucas
+When the MDIO bus is registered, fwnode_mdiobus_register_phy in
+drivers/net/mdio/fwnode_mdio.c (around line 132) will try to parse the PHY
+ID from the compatible string. If it fails, it falls back to
+get_phy_device to read the ID directly from the MDIO bus. Since the PHY is
+still held in hardware reset during this read, it will receive 0xffff and
+return -ENODEV. The generic PHY reset logic runs after the PHY device is
+created, creating a chicken-and-egg situation where the PHY is never
+detected.
 
-> 
-> pw-bot: changes-requested
-> 
-> Thanks,
-> Conor.
-> 
->>     - if:
->>         properties:
->>           compatible:
->> @@ -38,6 +51,7 @@ allOf:
->>                 - amlogic,meson-gxbb-dwmac
->>                 - amlogic,meson-axg-dwmac
->>                 - amlogic,meson-g12a-dwmac
->> +              - amlogic,t7-dwmac
->>   
->>       then:
->>         properties:
->> @@ -93,6 +107,7 @@ allOf:
->>                 - amlogic,meson8m2-dwmac
->>                 - amlogic,meson-gxbb-dwmac
->>                 - amlogic,meson-axg-dwmac
->> +              - amlogic,t7-dwmac
->>       then:
->>         properties:
->>           rx-internal-delay-ps:
->> @@ -139,8 +154,10 @@ properties:
->>             - amlogic,meson-gxbb-dwmac
->>             - amlogic,meson-axg-dwmac
->>             - amlogic,meson-g12a-dwmac
->> +          - amlogic,t7-dwmac
->>       contains:
->>         enum:
->> +        - snps,dwmac-4.00
->>           - snps,dwmac-3.70a
->>           - snps,dwmac
->>   
->>
->> -- 
->> 2.52.0
->>
->>
+[Severity: High]
+In arch/arm/boot/dts/nxp/imx/imx6ull-tarragon-common.dtsi, moving the
+pinctrl_enet1_phy_rst from the fec1 node (line 114) to the ethphy0 node
+(line 130) appears to apply the pinctrl too late.
+
+Could this cause the PHY reset GPIO pad to remain unconfigured during the
+initial MDIO device registration reset sequence? The Linux driver core
+applies pinctrl state just before the device probe binds. However, the
+MDIO core initial hardware reset pulse happens before the PHY device is
+added and bound to a driver. Since the i.MX pinctrl driver does not
+implement gpio_request_enable, requesting the GPIO does not automatically
+mux the pin in hardware, causing the reset pulse to be swallowed and
+leading to initialization failures on cold boots.
+
+[Severity: Medium]
+In arch/arm/boot/dts/nxp/imx/imx6ull-tarragon-common.dtsi, the previous
+phy-reset-duration on the fec1 node at line 118 was 25 milliseconds. The
+new reset-assert-us and reset-deassert-us properties on the ethphy0 node
+at line 137 are 500 microseconds.
+
+Can this 50x reduction in reset duration violate the PHY hardware timing
+requirements and cause intermittent link negotiation failures? It looks
+like the units might have been confused between milliseconds and
+microseconds when migrating these properties.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261004140123.4646=
+1-1-wahrenst@gmx.net?part=3D2
