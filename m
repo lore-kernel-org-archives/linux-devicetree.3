@@ -1,218 +1,333 @@
-Received: from mail.mindbit.ro (xs1.mindbit.ro [80.86.107.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9838E4A64EF;
-	Sun,  4 Oct 2026 19:30:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.86.107.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B233C47D471
+	for <devicetree@vger.kernel.org>; Sun,  4 Oct 2026 19:36:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791142252; cv=none; b=FciYSzw4h08KQJno+g2z9sHzZAPWvs10QwKAjoO6LMEznGAYUsvLnnpzcgyfHAZC3hdKryyeUQSgIRBdCLu3H4vTXYFTqRgmn44sMgXwdmhJvhiyyOuhMRl+tzt6vJvVDEDVinpMsfRrDrXXHlLclT6tlw9VH8AfKgS3tyWdOE8=
+	t=1791142612; cv=none; b=NRpyXhwGxOTzWtV8RYDjx+CypyVFK3NHtI+KL36f+QagOYKWX8pcpBcQOxDEvVCV66WI3dZmpzbjjgGReOHU3gegfqfcWbwvy1l7tqK78HPuxD4FYMRV/GLNMDvaJk3wk+YiH0ss7RwX/m3yWxbXo/jrzMKM6q1yEBKfAL9263A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791142252; c=relaxed/simple;
-	bh=FjqPubxucxx2dXu8awuKPL1mdmehESgs/hnF/llUpIo=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=VPhcp1nIn13tE1HwhYxtPsxyDertI4sR6UzTWvHXRZLlUuJIa1ePGE4AZ2HwMENFsIspCqmT34Rfi7v9ea8FeQFRpDVjuiRICzNz+Oxn6tMmwdh9uARSRqe7F2WSN4AZiJ74wx2H0299D4/sG/IbVdAPB61qfxE0UCv2/L5tGTY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net; spf=pass smtp.mailfrom=rendec.net; dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b=0yCEGg6T; arc=none smtp.client-ip=80.86.107.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rendec.net
+	s=arc-20240116; t=1791142612; c=relaxed/simple;
+	bh=8g4zVRDdm7AFB9V8eMNB5liEHMmZXnhicReABTjaU4U=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=k5YY/xtoayJccdJIA1Cc8TbkBfXeaaJNq7Eov/VdCWboVOtNBflbzO3XoXpDZ7JRHDdtPZaTDkBe6PLxJ5QVLGC40AzthE6suT3XmNXHFSP/6zIjrqRf8p+TwQFEvTBRsgawUf5cmibuvcFH9EGlqOdXGxydVyNQY2qMIYnXlPI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F8CB2jFl; arc=none smtp.client-ip=209.85.214.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b="0yCEGg6T"
-Received: from dog.kanata.rendec.net (pool-174-112-193-187.cpe.net.cable.rogers.com [174.112.193.187])
-	by mail.mindbit.ro (Postfix) with ESMTPSA id 4280ED194D;
-	Sun,  4 Oct 2026 22:30:31 +0300 (EEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.mindbit.ro 4280ED194D
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rendec.net;
-	s=default; t=1791142232;
-	bh=J5csTJm5tEw8LAomVACMbclht+KvcDBy+uGJAGgN51s=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=0yCEGg6T9f70wOcl4cO84vgMVR4RmTogfAGc+zTkWZES9/QKXjtWgSRYx1UNAb7LS
-	 3FnH0XPfAS3QOpc30Q/R4p/OhFbfR3aCc43OxKvfNqkil1uEWlPP0kLLU6yj9hSGp5
-	 wusJ2DakZXK+R+iCby2PaLhLz/daqjEa0vuFi3JzqDftqvzPiNWvQ56y7pOA9u2Kt9
-	 4dCJWXJWq9cJUPeSMPqvrxQtcdCq+tozUYVQgfvwtEL0nHeumUQr/jOkz27zUiM2Ih
-	 j2gmWr/AL1TxHHBQ4ERcX1q2CR+Zfp70yXp4ZsSZDNTEAigO+rtRYpPWpCcwDCVqZl
-	 6DtM1CpulJgqw==
-Message-ID: <325cca1679899cf7dd84d6e313c183f1c7eaf6f0.camel@rendec.net>
-Subject: Re: [PATCH v2 4/8] irqchip/al-fic: switch to shared parent interrupt
-From: Radu Rendec <radu@rendec.net>
-To: Eliav Farber <farbere@amazon.com>, Thomas Gleixner <tglx@kernel.org>, 
- Talel Shenhar <talel@amazon.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-  Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Sun, 04 Oct 2026 15:30:29 -0400
-In-Reply-To: <20260927080637.27285-5-farbere@amazon.com>
-References: <20260927080637.27285-1-farbere@amazon.com>
-	 <20260927080637.27285-5-farbere@amazon.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F8CB2jFl"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2d6e954afbdso3844365ad.2
+        for <devicetree@vger.kernel.org>; Sun, 04 Oct 2026 12:36:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791142610; x=1791747410; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=thSakCopdqdyxg0wl9015hNt7s21og4flg1RvJbjOvQ=;
+        b=F8CB2jFl42i8+0n+QJ2qDxGNjNsJXRBI3TlUpXLIvEfFaW+HRGneX51WF3p9bAwOTL
+         92pyNJGtoGdeA6LUcl+u3WR3qdJ/KBH9yv4fEVLoMZKWleiOfHGzREjMJPqGqwWuyODP
+         60QFl4MJLpKKx+8qmws9vYcKy0tTWrZPxL1Rn8esr0XhJTgpKXTRQzsteAfoLBh9yHjf
+         ZB2JxWM+WLbB5IrVRE278omtZQQxbhrGGKhdMim00m8ckDLWPc99OVzqOANyghQFfQ7g
+         tL4O3QGy6jFLWz+0OOMteKsuGNKuvJ+8oL6xQ1ghG5oNppUbhPi5doT1U/XnQIWV7zb2
+         zd+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791142610; x=1791747410;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=thSakCopdqdyxg0wl9015hNt7s21og4flg1RvJbjOvQ=;
+        b=1T+OL+85IaWYdPmaPgGfzAwgL640/Ouw0oD4TotEUyQM8f3OXq0ZZKbZ7phvxQSODN
+         bPy0mg18JUlY4a3ij6dK1sBiuwTcy/cMhOcWOkwrAwbnw4D1M2aYwBL9e5YGNK6dOkTy
+         xFyXBaC9+sjCRWI8n7Owp8PLeuHteH3B2pH8ZOPzx4Tc4hRKbVNvV0BsVPvbXWkyaWsQ
+         Z/nEY5uGOqPauiYfWynWPtNSLI74VHSO+NHEVweyBmkD7NmJpoiQ4acZUWs3RnNrI7NR
+         /9fIaR5WSQralqG26z6taCdZlJNlynS3MG7zlNMRTg4iygHQuJ/wBgIJqZePnHBk51i7
+         wfZw==
+X-Gm-Message-State: AFq9FYJf2z/HKGYvdex+3Mu+lF37OyC+244eDTj0VC8tfRhEVJQcz074
+	E+bfVuZDRkCFqkzjJFF0KZDhfGxgsDVboj6P38C8EwhsUvGHnaizaDgLXeWj9NQT
+X-Gm-Gg: AYBFou1PLv57eXO1SXZ+pR4HINEj6n1R1iVTK5nYhAe9pYcqnwFVjxGerRD9ipgQnLC
+	hsaidNCzGuVHuSp0qo7iWVNYtKGdHmjPvym8eQE6oVoBKG/PTXeZDhIbaEqGKV0aLNLUBNJKMxA
+	xOJhRCe3RXWkjw1WQlSgsb7imgV+nMezte9NDH//YgefOFs6VWe8yjcTDPkimopiuzWvemHpl7B
+	xbPYQKX9UTemx5N+q3G+h0v5pKWMPb5bYLf9He7xYQxbpMYnlb+ouoQTQ9YyHqPYOncvbjzaqIR
+	zW2Ujx3BhQcR4cJ3dZAdFTXSpEshoaVks/pvMHC+iMqncWs902AubEvzdx9Zrtj6AdARkBy7Got
+	GtpJSCoksmkMLE033ZhQgPKHgtqzELLRDLroqC/Bag2TbqOkFU9IgZKksQSKfVn9QSnrLLcN7Tn
+	j5SxdzHFVa5eHImC8JjScpxFmGpWGRJpcppIbABk8/ZhwgFVgBCIU/5qKTzzhsVaQ0E377tv5R/
+	y+KwZBJMJrfGglts+oJ/807w9MXuRuZyNInIOk0xG1X5F/V8RCB9+5NcM/QGjB8wP2BPjK/QDQ9
+	WpLelsYQmSoArCmezusDNRBz874IbzermvWOTvFIicvZlF94
+X-Received: by 2002:a17:90b:180c:b0:3a4:a229:58b2 with SMTP id 98e67ed59e1d1-3a7873dbd40mr4051614a91.38.1791142609926;
+        Sun, 04 Oct 2026 12:36:49 -0700 (PDT)
+Received: from ryzen.lan ([2601:644:8000:7a86::e35])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a7cd99a7e5sm3849849a91.6.2026.10.04.12.36.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 04 Oct 2026 12:36:49 -0700 (PDT)
+From: Rosen Penev <rosenp@gmail.com>
+To: devicetree@vger.kernel.org
+Cc: Linus Walleij <linusw@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Ray Jui <rjui@broadcom.com>,
+	Scott Branden <sbranden@broadcom.com>,
+	linux-gpio@vger.kernel.org (open list:PIN CONTROL SUBSYSTEM),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH v4] dt-bindings: pinctrl: brcm,nsp-gpio: Convert to DT schema
+Date: Sun,  4 Oct 2026 12:36:47 -0700
+Message-ID: <20261004193647.182052-1-rosenp@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Sun, 2026-09-27 at 08:06 +0000, Eliav Farber wrote:
-> Until now the driver requested its parent interrupt using the chained IRQ
-> API (irq_set_chained_handler_and_data()), which only works when each
-> parent interrupt is wired to a single FIC instance.
->=20
-> A FIC controller is built from groups, each described by its own DT node,
-> and the groups of one controller share that controller's output line
-> toward the parent. So a real devicetree has several FIC nodes on one
-> parent GIC SPI, and a chained handler can only be installed once per
-> parent. Cascading compounds this: an aggregating group collects several
-> peripherals' outputs onto the line above it.
->=20
-> To support that, request the parent interrupt as a shared interrupt
-> (IRQF_SHARED) instead of installing a chained handler. The handler now ha=
-s
-> the standard irqreturn_t prototype and reports whether it handled any
-> child interrupt, so the shared-IRQ core can dispatch to the correct
-> instance. IRQF_NO_THREAD is set because the handler only demultiplexes to
-> the child domain and must not be forced-threaded; all instances sharing a
-> parent line agree on this flag, as the shared-IRQ core requires.
->=20
-> generic_handle_domain_irq() is retained for dispatch; its return value is
-> used to determine whether a pending child was actually handled so the
-> handler can return IRQ_HANDLED/IRQ_NONE correctly.
->=20
-> request_irq() can fail, unlike irq_set_chained_handler_and_data(), so add
-> an error path for it. It calls irq_domain_remove_generic_chips() before
-> irq_domain_remove(), because irq_domain_remove() frees the generic chips
-> only when the domain carries IRQ_DOMAIN_FLAG_DESTROY_GC.
->=20
-> Co-developed-by: Talel Shenhar <talel@amazon.com>
-> Signed-off-by: Talel Shenhar <talel@amazon.com>
-> Signed-off-by: Eliav Farber <farbere@amazon.com>
-> ---
-> v2:
-> =C2=A0- Fix the request_irq() error path: v1 called irq_free_generic_chip=
-(gc),
-> =C2=A0=C2=A0 which is kfree(gc) on an interior pointer into the single al=
-location
-> =C2=A0=C2=A0 made by irq_domain_alloc_generic_chips() - an invalid free r=
-eachable
-> =C2=A0=C2=A0 when request_irq() fails at probe. Replace it with
-> =C2=A0=C2=A0 irq_domain_remove_generic_chips() before irq_domain_remove()=
-, and add a
-> =C2=A0=C2=A0 commit-message paragraph explaining the teardown ordering.
-> =C2=A0- Add Co-developed-by/Signed-off-by: Talel Shenhar.
-> =C2=A0- Reworded to state the hardware reason for the shared parent (the =
-groups
-> =C2=A0=C2=A0 of one controller share that controller's output line).
->=20
-> =C2=A0drivers/irqchip/irq-al-fic.c | 31 +++++++++++++++++++------------
-> =C2=A01 file changed, 19 insertions(+), 12 deletions(-)
->=20
-> diff --git a/drivers/irqchip/irq-al-fic.c b/drivers/irqchip/irq-al-fic.c
-> index c7cc2631caf8..091a06abc0bb 100644
-> --- a/drivers/irqchip/irq-al-fic.c
-> +++ b/drivers/irqchip/irq-al-fic.c
-> @@ -4,9 +4,9 @@
-> =C2=A0 */
-> =C2=A0
-> =C2=A0#include <linux/bitfield.h>
-> +#include <linux/interrupt.h>
-> =C2=A0#include <linux/irq.h>
-> =C2=A0#include <linux/irqchip.h>
-> -#include <linux/irqchip/chained_irq.h>
-> =C2=A0#include <linux/irqdomain.h>
-> =C2=A0#include <linux/module.h>
-> =C2=A0#include <linux/of.h>
-> @@ -95,24 +95,24 @@ static int al_fic_irq_set_type(struct irq_data *data,=
- unsigned int flow_type)
-> =C2=A0	return 0;
-> =C2=A0}
-> =C2=A0
-> -static void al_fic_irq_handler(struct irq_desc *desc)
-> +static irqreturn_t al_fic_irq_handler(int irq, void *data)
-> =C2=A0{
-> -	struct al_fic *fic =3D irq_desc_get_handler_data(desc);
-> +	struct al_fic *fic =3D data;
-> =C2=A0	struct irq_domain *domain =3D fic->domain;
-> -	struct irq_chip *irqchip =3D irq_desc_get_chip(desc);
-> =C2=A0	struct irq_chip_generic *gc =3D irq_get_domain_generic_chip(domain=
-, 0);
-> +	irqreturn_t ret =3D IRQ_NONE;
-> =C2=A0	unsigned long pending;
-> =C2=A0	u32 hwirq;
-> =C2=A0
-> -	chained_irq_enter(irqchip, desc);
-> -
-> =C2=A0	pending =3D readl_relaxed(fic->base + AL_FIC_CAUSE);
-> =C2=A0	pending &=3D ~gc->mask_cache;
-> =C2=A0
-> -	for_each_set_bit(hwirq, &pending, NR_FIC_IRQS)
-> -		generic_handle_domain_irq(domain, hwirq);
-> +	for_each_set_bit(hwirq, &pending, NR_FIC_IRQS) {
-> +		if (!generic_handle_domain_irq(domain, hwirq))
-> +			ret =3D IRQ_HANDLED;
+The brcm,nsp-gpio-a compatible used by the NSP GPIO controller was only
+documented in the legacy text binding, so dtbs_check reported "failed to
+match any schema" for the gpio@20 node in bcm-nsp.dtsi.
 
-I'm not sure about this. The only way generic_handle_domain_irq() can
-fail is if hwirq is invalid and doesn't map back to a virq assigned to
-the domain. The handler itself has a void return type, so this doesn't
-tell you whether the interrupt was handled downstream, it just tells
-you whether the downstream handler was called or not.
+Convert the text binding to DT schema. Beyond a direct conversion:
 
-Since you're looking at exactly NR_FIC_IRQS bits, which is also the
-domain size, I expect the conversion (from hwirq to virq) to always be
-successful.
+- Require pin configuration nodes to use a '-pins' suffix and GPIO hogs
+  a '-hog' suffix, as the old example used arbitrary node names. No
+  in-tree DTS has child nodes under this controller, so nothing is
+  affected.
+- Document slew-rate, which the driver supports but the text binding
+  never listed.
+- Add #interrupt-cells and gpio-line-names, and make #interrupt-cells
+  depend on interrupt-controller.
 
-If you search for "generic_handle_domain_irq" in drivers/irqchip/,
-you'll notice that most drivers don't check the return type. The few
-who do, just log a ratelimited "spurious irq" message.
+Assisted-by: LLM
+Signed-off-by: Rosen Penev <rosenp@gmail.com>
+---
+ v4: rewrite to add extra stuff not present in original.
+ v3: add additionalProperties
+ v2: don't drop gpio-hog
+ .../bindings/pinctrl/brcm,nsp-gpio.txt        |  80 -----------
+ .../bindings/pinctrl/brcm,nsp-gpio.yaml       | 130 ++++++++++++++++++
+ 2 files changed, 130 insertions(+), 80 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/pinctrl/brcm,nsp-gpio.txt
+ create mode 100644 Documentation/devicetree/bindings/pinctrl/brcm,nsp-gpio.yaml
 
-When the interrupt is shared, the purpose of the handler return value
-is to identify which of the devices generated the interrupt, or in
-other words to tell the irq core whether it should keep looking at the
-remaining devices. If a bit in AL_FIC_CAUSE is set, I would expect this
-instance to be the one that generated the parent interrupt.
+diff --git a/Documentation/devicetree/bindings/pinctrl/brcm,nsp-gpio.txt b/Documentation/devicetree/bindings/pinctrl/brcm,nsp-gpio.txt
+deleted file mode 100644
+index 0844168a6dd4..000000000000
+--- a/Documentation/devicetree/bindings/pinctrl/brcm,nsp-gpio.txt
++++ /dev/null
+@@ -1,80 +0,0 @@
+-Broadcom Northstar plus (NSP) GPIO/PINCONF Controller
+-
+-Required properties:
+-- compatible:
+-    Must be "brcm,nsp-gpio-a"
+-
+-- reg:
+-    Should contain the register physical address and length for each of
+-    GPIO base, IO control registers
+-
+-- #gpio-cells:
+-    Must be two. The first cell is the GPIO pin number (within the
+-    controller's pin space) and the second cell is used for the following:
+-    bit[0]: polarity (0 for active high and 1 for active low)
+-
+-- gpio-controller:
+-    Specifies that the node is a GPIO controller
+-
+-- ngpios:
+-    Number of gpios supported (58x25 supports 32 and 58x23 supports 24)
+-
+-Optional properties:
+-- interrupts:
+-    Interrupt ID
+-
+-- interrupt-controller:
+-    Specifies that the node is an interrupt controller
+-
+-- gpio-ranges:
+-    Specifies the mapping between gpio controller and pin-controllers pins.
+-    This requires 4 fields in cells defined as -
+-    1. Phandle of pin-controller.
+-    2. GPIO base pin offset.
+-    3  Pin-control base pin offset.
+-    4. number of gpio pins which are linearly mapped from pin base.
+-
+-Supported generic PINCONF properties in child nodes:
+-- pins:
+-    The list of pins (within the controller's own pin space) that properties
+-    in the node apply to. Pin names are "gpio-<pin>"
+-
+-- bias-disable:
+-    Disable pin bias
+-
+-- bias-pull-up:
+-    Enable internal pull up resistor
+-
+-- bias-pull-down:
+-    Enable internal pull down resistor
+-
+-- drive-strength:
+-    Valid drive strength values include 2, 4, 6, 8, 10, 12, 14, 16 (mA)
+-
+-Example:
+-
+-	gpioa: gpio@18000020 {
+-		compatible = "brcm,nsp-gpio-a";
+-		reg = <0x18000020 0x100>,
+-		      <0x1803f1c4 0x1c>;
+-		#gpio-cells = <2>;
+-		gpio-controller;
+-		ngpios = <32>;
+-		gpio-ranges = <&pinctrl 0 0 31>;
+-		interrupt-controller;
+-		interrupts = <GIC_SPI 85 IRQ_TYPE_LEVEL_HIGH>;
+-
+-		/* Hog a few default settings */
+-		pinctrl-names = "default";
+-		pinctrl-0 = <&led>;
+-		led: led {
+-			pins = "gpio-1";
+-			bias-pull-up;
+-		};
+-
+-		pwr: pwr {
+-			gpio-hog;
+-			gpios = <3 1>;
+-			output-high;
+-		};
+-	};
+diff --git a/Documentation/devicetree/bindings/pinctrl/brcm,nsp-gpio.yaml b/Documentation/devicetree/bindings/pinctrl/brcm,nsp-gpio.yaml
+new file mode 100644
+index 000000000000..e32b2cde0f17
+--- /dev/null
++++ b/Documentation/devicetree/bindings/pinctrl/brcm,nsp-gpio.yaml
+@@ -0,0 +1,130 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/pinctrl/brcm,nsp-gpio.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Broadcom Northstar Plus (NSP) GPIO/PINCONF Controller
++
++maintainers:
++  - Ray Jui <rjui@broadcom.com>
++  - Scott Branden <sbranden@broadcom.com>
++
++description: |
++  The chipCommonA GPIO block also provides generic pin configuration for the
++  pins it controls: bias, pull up/down, slew rate and drive strength. Pin
++  configuration is described in '-pins' child nodes, referenced through the
++  standard pinctrl-0/pinctrl-names properties. Child nodes named '*-hog' are
++  treated as GPIO hogs.
++
++properties:
++  compatible:
++    const: brcm,nsp-gpio-a
++
++  reg:
++    items:
++      - description: GPIO base registers
++      - description: IO control registers
++
++  "#gpio-cells":
++    const: 2
++    description: |
++      The first cell is the GPIO pin number (within the controller's pin
++      space) and the second cell is used for the following:
++      bit[0]: polarity (0 for active high and 1 for active low)
++
++  gpio-controller: true
++
++  ngpios:
++    description: Number of GPIOs supported (58x25 supports 32 and 58x23 supports 24)
++    maximum: 32
++
++  interrupts:
++    maxItems: 1
++
++  "#interrupt-cells":
++    const: 2
++
++  interrupt-controller: true
++
++  gpio-ranges: true
++
++  gpio-line-names: true
++
++required:
++  - compatible
++  - reg
++  - "#gpio-cells"
++  - gpio-controller
++  - ngpios
++
++dependencies:
++  interrupt-controller: ['#interrupt-cells']
++
++patternProperties:
++  '-pins$':
++    type: object
++    $ref: pincfg-node.yaml#
++
++    properties:
++      pins:
++        $ref: /schemas/types.yaml#/definitions/string-array
++        items:
++          pattern: '^gpio-'
++
++      bias-disable: true
++      bias-pull-up: true
++      bias-pull-down: true
++
++      drive-strength:
++        $ref: /schemas/types.yaml#/definitions/uint32
++        enum: [ 2, 4, 6, 8, 10, 12, 14, 16 ]
++
++      slew-rate:
++        description: 0 disables and 1 enables slew rate control
++        enum: [ 0, 1 ]
++
++    required:
++      - pins
++
++    additionalProperties: false
++
++  '-hog(-[0-9]+)?$':
++    type: object
++    required:
++      - gpio-hog
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++
++    gpio@18000020 {
++        compatible = "brcm,nsp-gpio-a";
++        reg = <0x18000020 0x100>,
++              <0x1803f1c4 0x1c>;
++        #gpio-cells = <2>;
++        gpio-controller;
++        ngpios = <32>;
++        gpio-ranges = <&pinctrl 0 0 31>;
++        interrupt-controller;
++        #interrupt-cells = <2>;
++        interrupts = <GIC_SPI 85 IRQ_TYPE_LEVEL_HIGH>;
++
++        pinctrl-names = "default";
++        pinctrl-0 = <&led_pins>;
++
++        led_pins: led-pins {
++            pins = "gpio-1";
++            bias-pull-up;
++            drive-strength = <16>;
++        };
++
++        /* GPIO hog */
++        pwr-hog {
++            gpio-hog;
++            gpios = <3 1>;
++            output-high;
++        };
++    };
+-- 
+2.56.0
 
-By the way, how is AL_FIC_CAUSE cleared? Is it read-to-clear? I'm just
-curious; I assume it's implemented correctly because this hasn't
-changed with the conversion from chained interrupts to shared, and it
-was probably working before.
-
-> +	}
-> =C2=A0
-> -	chained_irq_exit(irqchip, desc);
-> +	return ret;
-> =C2=A0}
-> =C2=A0
-> =C2=A0static int al_fic_irq_retrigger(struct irq_data *data)
-> @@ -162,11 +162,18 @@ static int al_fic_register(struct device_node *node=
-,
-> =C2=A0	gc->chip_types->chip.flags =3D IRQCHIP_SKIP_SET_WAKE;
-> =C2=A0	gc->private =3D fic;
-> =C2=A0
-> -	irq_set_chained_handler_and_data(fic->parent_irq,
-> -					 al_fic_irq_handler,
-> -					 fic);
-> +	ret =3D request_irq(fic->parent_irq, al_fic_irq_handler,
-> +			=C2=A0 IRQF_NO_THREAD | IRQF_SHARED, fic->node->full_name,
-
-I have the same comment here about fic->node->full_name as I did on the
-previous patch. There is an accessor, so I would use it.
-
-> +			=C2=A0 fic);
-> +	if (ret) {
-> +		pr_err("fail to request irq (%d)\n", ret);
-> +		goto err_remove_generic_chips;
-> +	}
-> +
-> =C2=A0	return 0;
-> =C2=A0
-> +err_remove_generic_chips:
-> +	irq_domain_remove_generic_chips(fic->domain);
-
-As you noted in the commit message, IRQ_DOMAIN_FLAG_DESTROY_GC does
-exactly that, so why not use it? It's safe to set the flag even before
-calling irq_alloc_domain_generic_chips() and knowing it has been
-successful; irq_domain_remove_generic_chips() checks first if the GC
-has been allocated and returns early if not. There is an example of
-using the flag in drivers/irqchip/irq-renesas-irqc.c.
-
-> =C2=A0err_domain_remove:
-> =C2=A0	irq_domain_remove(fic->domain);
-> =C2=A0
