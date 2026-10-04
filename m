@@ -1,110 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C7DB46F48D;
-	Sun,  4 Oct 2026 20:55:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6D633F65EA;
+	Sun,  4 Oct 2026 20:59:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791147353; cv=none; b=NI8Uv/BdiAFZ3s6+AdUbzpSvQ1mjOQwAwS1DkCld37GFCi+HwD04wiirWbCe9fM+7YDtZgycjgHUVmzC1lZnlgaEPZScX6s4yiVM7JaWZOfbPfxrzIU9mznrDDlJ9qRyCS1hufjtYcbzqPZ2+rxWTYbmKHI+EBxKdWAoHsj0rb0=
+	t=1791147544; cv=none; b=NSQ8g86GSVtDNmGptVB0z1iSh53SK2OxcoJj4k76PAIr+An5XwTaQMY6tA7JS5LzceJA4knhVc89TkI6pLVuAso26gkGelEat2yS3DXdaaBOIzFtZnsPgZazMs0V06lnpaI+0O23sR7oXKz06K7mZA7ok69WRQSM3zWy7HzIRZY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791147353; c=relaxed/simple;
-	bh=w+ooKPjJFs3FKWTvNKh+T0LT4FiF4kxXywiRU6eIvSQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=nB4h+bs7OL+5Ud4a/svaD0FxejWYODdKE6ZwS9fv7FeQF4M4ciLTI9Rut9QVJ/sKWOhNURhREkdXdViMq/aoLSMnH/n6GDweCzGcywT+QfUhgWqeaLmXUajx8U71lfpV+IJma9mrzVCAShiyLLEuWluc+DNKgJPuIF/bqZ7UhvE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LIHkPpT2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791147544; c=relaxed/simple;
+	bh=eQsgQYdHnnL3VJecUGS4MAkSXP6VNzWsrHw6fiRz7MU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=imIQ7Q6X5ZxzAOmRPkzjaAjC2j4Rs9hzq9BzFoSapV3Ut2xtbffu+i1Yo8QwFj/tYz0r7FTNGuMeLhNIKncac4QEfr275f4rgElQjGKCrXLMCJulVbm5ygBqcxiOBe5P34/No9VMwfRVlHEdWGltkycakr015GAHzxHmrpeUfGc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=FGN/etFs; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LIHkPpT2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6279C1F000FF;
-	Sun,  4 Oct 2026 20:55:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791147351;
-	bh=B8LUWvu6s4SdaafqHqjXFhN13k8QixcOmifvNTK5f3o=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=LIHkPpT2bDHUJQ+BYMJNMIvFFoXlQWfyr/TsoueF0LfQry2gJmtDyNts2PVQWrZKY
-	 W8QZKXnQT7lfFPjjb7g3Lawmw4amIatnI4SPTQsbMv8m5ddKtl6ril70J22ajHvYtQ
-	 dJfc5mkV1X761d7KHrJ7DU5liyt/ECKL8ZAGJgdiZMFaWNJw3tfMS67GX1TQ9lbAUB
-	 4k5qnxZKo7Y7VgcrMMSFYTDG4Q/bAj37QfYtDdH9537t4DrqZP9FPkMp24+d6Yukah
-	 WG/8zVP2D0LNtDVkY8ta9K2I0cx8ihW/weiprrRw+VeNROjt7icBKOhz3GD/1m66Lm
-	 DC/hIc8ApCqpA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 5/7] clk: nuvoton: ma35d1: Reparent SYSPLL correctly
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Miquel Raynal" <miquel.raynal@bootlin.com>
-Cc: conor+dt@kernel.org, linux-clk@vger.kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20261004-perso-ma35d1-upstream-clk-v8-5-e1a106a128c0@bootlin.com>
-References: <20261004-perso-ma35d1-upstream-clk-v8-0-e1a106a128c0@bootlin.com>
- <20261004-perso-ma35d1-upstream-clk-v8-5-e1a106a128c0@bootlin.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 04 Oct 2026 20:55:50 +0000
-Message-Id: <20261004205551.6279C1F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="FGN/etFs"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 34E6E1A1134;
+	Sun,  4 Oct 2026 20:58:59 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id EBE57604FE;
+	Sun,  4 Oct 2026 20:58:58 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 1989E1032820F;
+	Sun,  4 Oct 2026 22:58:49 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791147537; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=jM6fCgMzlrh3EWJKc1X+4QJ1+TyZKSQffV+aGGr36KY=;
+	b=FGN/etFsNicQkwc2Ng7T0X4rN7HYvMj2fTVXXMnfELUCfl4IhdTkNd7SFwlWk5F1qcN7aD
+	J3DQ8UTrVIagIX/QB7I7HHFQi1goueoTBFG9aMaVIKIziZr1QH1BDapG+ln6oSCrK2bBOb
+	9cjbwUA3p+uQmCKNixLCtzgzWHW7Om+LXQxSf1TmuEUvlrg+FuLGufWM6i3UG0c8EqS9YD
+	ziPlqAKqS7PZXkp/y+MtKjFhZpbsCVe4Zw8Eab1OkZTW4UZdOHuv8r5ldHWmaTAffhlpv0
+	QZeyESje0WfG4MTJhKqYCJnPz5rfylaQb8e4Qn+AhhHW4IfZzDCJRrnZQX+x4Q==
+Message-ID: <d1ae6c21-72a9-4bc7-aaaf-9051d0f6b1b0@bootlin.com>
+Date: Sun, 4 Oct 2026 22:58:47 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 6/6] arm64: dts: amlogic: t7: khadas-vim4: enable the
+ ethernet port
+To: Lucas Tanure <tanure@linux.com>, xianwei.zhao@amlogic.com,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+References: <20261004144046.391444-1-tanure@linux.com>
+ <20261004144046.391444-7-tanure@linux.com>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20261004144046.391444-7-tanure@linux.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] clk: nuvoton: ma35d1: Modification of global static state during pr=
-obe
---
+Hi Lucas,
 
-commit ee5a5a1eb9fdc7516949d10347d8380f083a7848
-Author: Miquel Raynal <miquel.raynal@bootlin.com>
-
-clk: nuvoton: ma35d1: Reparent SYSPLL correctly
-
-This commit reparents SYSPLL under HXT_GATE to properly define the clock tr=
-ee
-topology. It also reuses a devm_ helper for fixed clocks to make them
-device managed.
-
-> diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk-m=
-a35d1.c
-> index 2e6e1c65d01e5..6763f0fddc944 100644
-> --- a/drivers/clk/nuvoton/clk-ma35d1.c
-> +++ b/drivers/clk/nuvoton/clk-ma35d1.c
-> @@ -73,6 +73,8 @@ static const struct clk_parent_data lxtg_parent_data[] =
-=3D {
->  	{ .fw_name =3D "lxt", .name =3D "lxt" },
+On 10/4/26 16:40, Lucas Tanure wrote:
+> The board carries a Realtek RTL8211F gigabit PHY on the external
+> management bus, connected to the MAC over RGMII.
+> 
+> Enable the controller, hand it the ethernet pins and point it at the
+> PHY. The clock delays RGMII needs are supplied by the MAC rather than
+> the PHY: 2ns on transmit and 2000ps on receive, the values the vendor
+> kernel programs.
+> 
+> The PHY interrupt output is wired to GPIOH_6, so describe it and let
+> link changes be reported instead of polled. The PHY reset pin is driven
+> by an RC network on the board, not by the SoC, so there is no reset line
+> to describe.
+> 
+> Tested at 930Mbit/s sustained receive over a minute, with no MAC error
+> counters moving in either direction.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Lucas Tanure <tanure@linux.com>
+> ---
+>  .../amlogic/amlogic-t7-a311d2-khadas-vim4.dts | 28 +++++++++++++++++++
+>  1 file changed, 28 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
+> index 0fa83362b417..5d0365ddde72 100644
+> --- a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
+> +++ b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
+> @@ -14,6 +14,7 @@ / {
+>  	compatible = "khadas,vim4", "amlogic,a311d2", "amlogic,t7";
+>  
+>  	aliases {
+> +		ethernet0 = &ethmac;
+>  		serial0 = &uart_a;
+>  		mmc0 = &sd_emmc_c;
+>  		mmc1 = &sd_emmc_b;
+> @@ -256,6 +257,33 @@ xtal: xtal-clk {
+>  	};
 >  };
-> =20
-> +static struct clk_parent_data syspll_parent_data[1] =3D {};
+>  
+> +&ethmac {
+> +	status = "okay";
+> +	pinctrl-0 = <&eth_pins>, <&eth_rgmii_pins>;
+> +	pinctrl-names = "default";
 > +
->  /* Mux parent selection, by index into the controller's clock table */
->  static const int ca35clk_parent_idx[] =3D { HXT_GATE, CAPLL, DDRPLL };
+> +	/*
+> +	 * The RGMII clock delays are added by the MAC, so the PHY is
+> +	 * asked for the mode that adds none.
+> +	 */
+> +	phy-mode = "rgmii";
 
-[ ... ]
+In devicetree, "rgmii" means that the delays are inserted at the hardware
+level, i.e. with longer PCB traces for the clock. With the above comment,
+this is therefore wrong.
 
-> @@ -275,22 +283,26 @@ static int ma35d1_clocks_probe(struct platform_devi=
-ce *pdev)
+As a rule of thumb, "phy-mode = rgmii" is almost always wrong.
 
-[ ... ]
+The right behaviour here is to represent the HW as it is, that is to say
+pass phy-mode = "rgmii-id"; delays are internal. In DT we don't say who
+inserts the delays (MAC or PHY), that's for the drive to figure out.
 
->  	hws[CAPLL] =3D ma35d1_reg_clk_pll(dev, CAPLL, pllmode[0], "capll",
->  					hws[HXT_GATE], clk_base + REG_CLK_PLL0CTL0);
-> -	hws[SYSPLL] =3D ma35d1_clk_fixed("syspll", 180000000);
-> +	syspll_parent_data[0].hw =3D hws[HXT_GATE];
-> +	hws[SYSPLL] =3D ma35d1_clk_fixed_parent_data(dev, "syspll", 180000000, =
-syspll_parent_data);
+If the MAC inserts the delays, then it needs to fixup the mode passed to the PHY so that
+they follow this doc :
 
-[Severity: Low]
-Is it safe to modify this global static array in the probe function?
+https://www.kernel.org/doc/html/v7.2/networking/phy.html#rg-mii-electrical-interface-considerations
 
-In drivers/clk/nuvoton/clk-ma35d1.c, syspll_parent_data is declared as a
-global static array and then modified here in ma35d1_clocks_probe() by
-assigning it an instance-specific dynamically allocated hardware pointer.
+Maxime
 
-Since the clock framework copies clk_parent_data during registration, could
-syspll_parent_data be safely declared as a local stack variable inside
-ma35d1_clocks_probe() to avoid modifying global state?
-
-Modifying global state here violates device model isolation principles, whi=
-ch
-could lead to data races or dangling pointers if multiple driver instances
-were to exist.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261004-perso-ma35=
-d1-upstream-clk-v8-0-e1a106a128c0@bootlin.com?part=3D5
