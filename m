@@ -1,364 +1,84 @@
-Received: from vtj.irix.systems (vtj.irix.systems [82.76.27.144])
+Received: from mail-24417.protonmail.ch (mail-24417.protonmail.ch [109.224.244.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A6E842050;
-	Sun,  4 Oct 2026 11:13:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=82.76.27.144
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8666942255C;
+	Sun,  4 Oct 2026 11:15:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791112433; cv=none; b=pJdhQFseFJ7mGZrOlKHP51l5yQoTJq+SwLitWbbEvm4uOcGupj/gOpKQIX2vDITRsQa+VWN4EVfRkYBrxn7AHgjhYplOx2T9Ddafd+0AwvUERrLz9o3NfMxIhTZt7oElhE+A/Q7YKJG+Dlr88Zvppm83k139aK8SBvwoYB03yUg=
+	t=1791112507; cv=none; b=Ht+cid2cGpfRjvkHlubhnOno/RH/NgwToXpPljF7XxOfDaK1vWvEDWOsi2zf9DaZs3LL+zwVpcRVYwidTdgSvuynbM+JrUJbZMvzk/LUtg3iqRPY06Qr3EQNik35WLPujmOs8/V2vadu343h5h7HznkSxUrOTNKTvnCNIk3cvtQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791112433; c=relaxed/simple;
-	bh=aBgCcmxqTChYLYMa+Z4f5mYGc7pS0NfBh7jiYJmN2o4=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=YbF+1LAAa9q7c+gdBxjF7OyC1hoIUqOzApS7XZH0f46BdHS+FWzcGDTajeNKTl3UoBl0cZ5LHM4nX9i/gWsC7zn3eVK1WxAH/wpyxoOhk3iERZom56qzoGTZcrRF92419RO+ZeSwZlJ4L000O58iOvYbhbkykUG95h32Uj6lL1g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andrei-z.com; spf=pass smtp.mailfrom=andrei-z.com; dkim=pass (2048-bit key) header.d=andrei-z.com header.i=@andrei-z.com header.b=QwE0q5bM; arc=none smtp.client-ip=82.76.27.144
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=andrei-z.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=andrei-z.com
+	s=arc-20240116; t=1791112507; c=relaxed/simple;
+	bh=hsUe3R8HTIJa107Px4Pv5UjHvCZZlBUMI1qqHQMrE1U=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=GQ8s8DLM5RJBqVr8TBbD9vso/RD4j/je4jBhTRQASoUtD+kF8umUmLxCgv/Qqd/icOcgXuXoMEpPiLVZpgxGtKa2CB6lX4JJ18Vwoo7jz0kcLjiq1gXE1zge+5UgrNLO8qIvKdwKNB7p6AbReF3W7Iw3riC8KS2Blh/SV7TzNls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me; spf=pass smtp.mailfrom=proton.me; dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b=IO3RWP4M; arc=none smtp.client-ip=109.224.244.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=proton.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=proton.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=andrei-z.com header.i=@andrei-z.com header.b="QwE0q5bM"
-Received: from MAILGW-HP.hp.vtj.corp.irix.systems (localhost [127.0.0.1])
-	by vtj.irix.systems (Proxmox) with ESMTP id 54A0F1BB2A;
-	Sun, 04 Oct 2026 14:13:50 +0300 (EEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=andrei-z.com; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:from:from:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=sig1; bh=y4fzGtATBGOFN1Ct1sYm
-	gkbem1Kx3IntSRgBB5imcys=; b=QwE0q5bM/XEFvOy8HRNhoGxKjzN87iRbi5bB
-	6IJd968chcheRuOK6nMYL9J6wBkp942nDypYGp8NoV+RJuf6NCptwGac1lAtnVXG
-	LixnLUx0tLVieOUgoSlhJAtW6lSIFvQHlKoB0gbd0ms1mBPRNshDmhHBqG3Ri+7R
-	E47i1laGE6xKuV98W5fwQPViRBztAdlEzM/vs5xSxG2j3rRWuhOQVTl8QhPHg9f7
-	uZbLnDxxdpwWRkW0f1rqCyDic/CDcDGCoeY/oFThhy8SFB+39LQ1hw+eRqwJQ/2z
-	lNzsLS+gZUJV0pGRaZ7kntPFds/ppoTeQoqPb2+qW7mxXmnLBg==
-Received: from VTJ-MX.corp.irix.systems (unknown [IPv6:2a02:2f04:1:9c24::6])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by vtj.irix.systems (Proxmox) with ESMTPS id 95C951BB29;
-	Sun, 04 Oct 2026 14:13:49 +0300 (EEST)
-Received: from workspace.corp.irix.systems (2a02:2f04:1:9c23::c) by
- VTJ-MX.corp.irix.systems (2a02:2f04:1:9c24::6) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.49; Sun, 4 Oct 2026 14:13:49 +0300
-From: Andrei-Alexandru Bleortu <me@andrei-z.com>
-To: Bjorn Andersson <andersson@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Jeff Johnson <jjohnson@kernel.org>, Johannes Berg
-	<johannes@sipsolutions.net>, Konrad Dybcio <konradybcio@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>
-CC: <ath11k@lists.infradead.org>, <devicetree@vger.kernel.org>,
-	<linux-arm-msm@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-wireless@vger.kernel.org>
-Subject: [PATCH v2 3/3] arm64: dts: qcom: ipq5018: add Ubiquiti UniFi U6 Enterprise
-Date: Sun, 4 Oct 2026 14:10:28 +0300
-Message-ID: <ddbc631bb95ae5fcc6498e083b280ba2b736181f.1791110510.git.me@andrei-z.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1791110510.git.me@andrei-z.com>
-References: <cover.1791110510.git.me@andrei-z.com>
+	dkim=pass (2048-bit key) header.d=proton.me header.i=@proton.me header.b="IO3RWP4M"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=proton.me;
+	s=protonmail2; t=1791112496; x=1791371696;
+	bh=axUuY6R+xPUQ9WsKqWZyN6vKAeBDZjWnfhApo6LvrFU=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=IO3RWP4MxsoympIGLuMgbYvzs9IVs1H4h4EsImXO+KDAGmiMm81gXPq616RUv4pyV
+	 ggy3fdn3B1uimqvqorZcmf+qI98ciJzr1bgAYUSxyXC7UxeaI80pKFqxQD3jg/VIxn
+	 yHonCeDb115PBvkfjUGx6GIifZYHjiEyg/8FNF9vi2HTjprUr4Q2Mvm9qnvxv/Febi
+	 GOkZofTu0EYjJLfFWclkELv5rALS8Rzyacmu4qht+nbVA8iRmVS+G5BBTU2P8RHd3n
+	 qpLtzBjgXdNwsBQtR8DjlHZSW85qIUfycbCeVl3tu19oVcg3Jnc9IH5StFjEjeerUO
+	 cwh9aunD2WP7A==
+Date: Sun, 04 Oct 2026 11:14:50 +0000
+To: wens@kernel.org
+From: Norman Herms <dockseed@proton.me>
+Cc: Junhui Liu <junhui.liu@pigmoral.tech>, Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, Philipp Zabel <p.zabel@pengutronix.de>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, Richard Cochran <richardcochran@gmail.com>, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, netdev@vger.kernel.org, Jerome Brunet <jbrunet@baylibre.com>, Enzo Adriano <enzo.adriano.code@gmail.com>, Andre Przywara <andre.przywara@arm.com>
+Subject: AW: Re: [PATCH v5 7/8] clk: sunxi-ng: a733: Add bus clock gates
+Message-ID: <TEcOYCDcz77vYtgXxuHGwhVo6AFFgV2M5rIDAsLiG4T7fD6J41La8o19hf2iMQhaMXd1wHsvqeDardYv7hjy3TbV9oCkfzYKRMn0EGlh7Ww=@proton.me>
+In-Reply-To: <CAGb2v65Lqo7NiFhc2GYdfY7+jkC4Y+p6=Zy85HOFmXJzT0u1fg@mail.gmail.com>
+References: <20260930-a733-clk-v5-0-11175b41cd2d@pigmoral.tech> <20260930-a733-clk-v5-7-11175b41cd2d@pigmoral.tech> <CAGb2v65Lqo7NiFhc2GYdfY7+jkC4Y+p6=Zy85HOFmXJzT0u1fg@mail.gmail.com>
+Feedback-ID: 144388465:user:proton
+X-Pm-Message-ID: 24affaecb9b426f52699549cb7abbc8bb40c0be3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: VTJ-MX.corp.irix.systems (2a02:2f04:1:9c24::6) To
- VTJ-MX.corp.irix.systems (2a02:2f04:1:9c24::6)
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-The Ubiquiti UniFi U6 Enterprise is a ceiling-mount Wi-Fi 6E access point:
+On Sun, Oct 4, 2026 at 1:03 PM Chen-Yu Tsai <wens@kernel.org> wrote:
+> > +static SUNXI_CCU_GATE_HWS(ahb_store_clk, "ahb-store", ahb_hws,
+> > +                         0x5c0, BIT(24), CLK_IS_CRITICAL);
+> > +static SUNXI_CCU_GATE_HWS(ahb_cpus_clk, "ahb-cpus", ahb_hws,
+> > +                         0x5c0, BIT(28), CLK_IS_CRITICAL);
+>
+> I suspect these refer to a AHB-AHB bridge for the various subsystems show=
+n
+> in the memory map. That would explain why when the "ahb-store" clock is
+> gated, the storage bits stop working.
+>
+> If that's the case, we should describe it as the parent of each storage
+> peripheral bus gate's parent. Same would go for the other types. I haven'=
+t
+> checked what the BSP does though.
 
-- SoC: Qualcomm IPQ5018
-- RAM: 1 GiB
-- Flash: SPI NOR (boot chain) and eMMC
-- 5 GHz: QCN9074 on PCIe0
-- 6 GHz: QCN9074 on PCIe1
-- Ethernet: one 2.5GbE PoE port, a QCA8081 PHY behind GMAC1
-- Accelerometer: ST LIS2DH12
-- Button: reset
+Two data points, in case they help.
 
-Describe what mainline supports today. The Ethernet port and the
-IPQ5018's own 2.4 GHz radio are left out until the GMAC and the WCSS
-remoteproc have bindings; the LED controller and the board MCU on the
-I2C bus have none. The QCN9074s carry the calibration variants their
-board data is looked up by. The SoC dtsi gains the pcie1_port0 label, as
-pcie0 has, for the 6 GHz radio below that root port. The vendor QSEE
-reserves 4 MiB, twice the SoC default.
+The vendor BSP (radxa/allwinner-bsp, branch cubie-aiot-v1.5.0,
+drivers/clk/sunxi-ng/ccu-sun60iw2.c) models no hierarchy either. It
+registers every gate in 0x5c0 and 0x5e0 as a keyed gate on the
+oscillator and marks each one CLK_IS_CRITICAL or CLK_IGNORE_UNUSED, so
+clk_disable_unused() never closes any of them.
 
-Assisted-by: LLM
-Signed-off-by: Andrei-Alexandru Bleortu <me@andrei-z.com>
----
- arch/arm64/boot/dts/qcom/Makefile             |   1 +
- .../dts/qcom/ipq5018-ubnt-u6-enterprise.dts   | 236 ++++++++++++++++++
- arch/arm64/boot/dts/qcom/ipq5018.dtsi         |   2 +-
- 3 files changed, 238 insertions(+), 1 deletion(-)
- create mode 100644 arch/arm64/boot/dts/qcom/ipq5018-ubnt-u6-enterprise.dts
+On a Cubie A7S running our own 6.18-based tree, with the GPU power
+domain up and ahb-gpu0 (0x5c0 bit 7) and mbus-gpu0 (0x5e0 bit 16) both
+closed, drm/powervr still bound, read the core ID and loaded the
+matching firmware, but the firmware then failed to boot ("Firmware
+failed to boot"). With both bits set, the same modprobe initialized the
+GPU. So for the GPU, register access worked with these two gates
+closed; what failed was the firmware running on the GPU.
 
-diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-index 88230c4e0..aca7d8e41 100644
---- a/arch/arm64/boot/dts/qcom/Makefile
-+++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -32,6 +32,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= hamoa-lenovo-ideacentre-mini-01q8x10.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= hawi-mtp.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= ipq5018-rdp432-c2.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= ipq5018-tplink-archer-ax55-v1.dtb
-+dtb-$(CONFIG_ARCH_QCOM)	+= ipq5018-ubnt-u6-enterprise.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= ipq5210-rdp504.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= ipq5332-rdp441.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= ipq5332-rdp442.dtb
-diff --git a/arch/arm64/boot/dts/qcom/ipq5018-ubnt-u6-enterprise.dts b/arch/arm64/boot/dts/qcom/ipq5018-ubnt-u6-enterprise.dts
-new file mode 100644
-index 000000000..6462f99df
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/ipq5018-ubnt-u6-enterprise.dts
-@@ -0,0 +1,236 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
-+
-+/dts-v1/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/input/input.h>
-+
-+#include "ipq5018.dtsi"
-+
-+/ {
-+	model = "Ubiquiti UniFi U6 Enterprise";
-+	compatible = "ubnt,u6-enterprise", "qcom,ipq5018";
-+
-+	aliases {
-+		serial0 = &blsp1_uart1;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	keys {
-+		compatible = "gpio-keys";
-+		pinctrl-0 = <&button_pins>;
-+		pinctrl-names = "default";
-+
-+		button-reset {
-+			label = "reset";
-+			gpios = <&tlmm 24 GPIO_ACTIVE_LOW>;
-+			linux,code = <KEY_RESTART>;
-+		};
-+	};
-+};
-+
-+&blsp1_i2c3 {
-+	pinctrl-0 = <&i2c_pins>;
-+	pinctrl-names = "default";
-+	status = "okay";
-+
-+	accelerometer@18 {
-+		compatible = "st,lis2dh12-accel";
-+		reg = <0x18>;
-+	};
-+};
-+
-+&blsp1_spi1 {
-+	pinctrl-0 = <&spi_0_pins>;
-+	pinctrl-names = "default";
-+	status = "okay";
-+
-+	flash@0 {
-+		compatible = "jedec,spi-nor";
-+		reg = <0>;
-+		spi-max-frequency = <50000000>;
-+
-+		partitions {
-+			compatible = "fixed-partitions";
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			partition@0 {
-+				label = "0:sbl1";
-+				reg = <0x000000 0x030000>;
-+				read-only;
-+			};
-+
-+			partition@30000 {
-+				label = "0:mibib";
-+				reg = <0x030000 0x010000>;
-+				read-only;
-+			};
-+
-+			partition@40000 {
-+				label = "0:bootconfig";
-+				reg = <0x040000 0x010000>;
-+				read-only;
-+			};
-+
-+			partition@50000 {
-+				label = "0:qsee";
-+				reg = <0x050000 0x0a0000>;
-+				read-only;
-+			};
-+
-+			partition@f0000 {
-+				label = "0:devcfg";
-+				reg = <0x0f0000 0x010000>;
-+				read-only;
-+			};
-+
-+			partition@100000 {
-+				label = "0:cdt";
-+				reg = <0x100000 0x010000>;
-+				read-only;
-+			};
-+
-+			partition@110000 {
-+				label = "0:appsblenv";
-+				reg = <0x110000 0x010000>;
-+			};
-+
-+			partition@120000 {
-+				label = "0:appsbl";
-+				reg = <0x120000 0x0a0000>;
-+				read-only;
-+			};
-+
-+			partition@1c0000 {
-+				label = "0:art";
-+				reg = <0x1c0000 0x070000>;
-+				read-only;
-+			};
-+
-+			partition@230000 {
-+				label = "eeprom";
-+				reg = <0x230000 0x010000>;
-+				read-only;
-+			};
-+		};
-+	};
-+};
-+
-+/* The bootloader muxes the console pins; GPIO33/34 are I2C on this board. */
-+&blsp1_uart1 {
-+	status = "okay";
-+};
-+
-+&pcie0 {
-+	status = "okay";
-+};
-+
-+&pcie0_phy {
-+	status = "okay";
-+};
-+
-+&pcie0_port0 {
-+	reset-gpios = <&tlmm 15 GPIO_ACTIVE_LOW>;
-+
-+	wifi@0,0 {
-+		compatible = "pci17cb,1104";
-+		reg = <0x10000 0x0 0x0 0x0 0x0>;
-+		qcom,calibration-variant = "Ubiquiti-U6-Enterprise-5G";
-+	};
-+};
-+
-+&pcie1 {
-+	status = "okay";
-+};
-+
-+&pcie1_phy {
-+	status = "okay";
-+};
-+
-+&pcie1_port0 {
-+	reset-gpios = <&tlmm 18 GPIO_ACTIVE_LOW>;
-+
-+	wifi@0,0 {
-+		compatible = "pci17cb,1104";
-+		reg = <0x10000 0x0 0x0 0x0 0x0>;
-+		qcom,calibration-variant = "Ubiquiti-U6-Enterprise-6G";
-+	};
-+};
-+
-+&prng {
-+	status = "okay";
-+};
-+
-+&sdhc_1 {
-+	pinctrl-0 = <&emmc_pins>;
-+	pinctrl-names = "default";
-+	bus-width = <4>;
-+	non-removable;
-+	no-sd;
-+	no-sdio;
-+	status = "okay";
-+};
-+
-+&sleep_clk {
-+	clock-frequency = <32000>;
-+};
-+
-+&tlmm {
-+	button_pins: button-state {
-+		pins = "gpio24";
-+		function = "gpio";
-+		drive-strength = <8>;
-+		bias-pull-up;
-+	};
-+
-+	emmc_pins: emmc-state {
-+		clk-pins {
-+			pins = "gpio9";
-+			function = "sdc1_clk";
-+			drive-strength = <8>;
-+			bias-disable;
-+		};
-+
-+		cmd-pins {
-+			pins = "gpio8";
-+			function = "sdc1_cmd";
-+			drive-strength = <8>;
-+			bias-pull-up;
-+		};
-+
-+		data-pins {
-+			pins = "gpio4", "gpio5", "gpio6", "gpio7";
-+			function = "sdc1_data";
-+			drive-strength = <8>;
-+			bias-disable;
-+		};
-+	};
-+
-+	i2c_pins: i2c-state {
-+		pins = "gpio33", "gpio34";
-+		function = "blsp2_i2c0";
-+		drive-strength = <8>;
-+		bias-disable;
-+	};
-+
-+	spi_0_pins: spi-0-state {
-+		pins = "gpio10", "gpio11", "gpio12", "gpio13";
-+		function = "blsp0_spi";
-+		drive-strength = <8>;
-+		bias-disable;
-+	};
-+};
-+
-+/* The vendor QSEE uses 4 MiB, twice the SoC default. */
-+&tz_region {
-+	reg = <0x0 0x4ac00000 0x0 0x400000>;
-+};
-+
-+&xo_board_clk {
-+	clock-div = <4>;
-+	clock-mult = <1>;
-+};
-diff --git a/arch/arm64/boot/dts/qcom/ipq5018.dtsi b/arch/arm64/boot/dts/qcom/ipq5018.dtsi
-index fe1ed240d..2f3bcfa88 100644
---- a/arch/arm64/boot/dts/qcom/ipq5018.dtsi
-+++ b/arch/arm64/boot/dts/qcom/ipq5018.dtsi
-@@ -838,7 +838,7 @@ pcie1: pcie@80000000 {
- 
- 			status = "disabled";
- 
--			pcie@0 {
-+			pcie1_port0: pcie@0 {
- 				device_type = "pci";
- 				reg = <0x0 0x0 0x0 0x0 0x0>;
- 				bus-range = <0x01 0xff>;
--- 
-2.47.3
+The measurements were run on my boards by AI agents.
 
-
+Norman
