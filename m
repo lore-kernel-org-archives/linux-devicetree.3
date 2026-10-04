@@ -1,187 +1,109 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35FCA3939D7
-	for <devicetree@vger.kernel.org>; Sun,  4 Oct 2026 15:39:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.171
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791128361; cv=pass; b=T8CjDxtoasmSUyxGt6i+sQxsYRXudaZ2969PpfWVifDdF2iSydESghGucZWbQEHrR66cxMChOo1m4Qn8v0/J1e9FUY8xy1pPOQCHd/L1HzLgHFdltSYsULb4hzx6gh0neCO1Bs4mH7klY+FlgcVT1z1gzzDvy3UAChhXkxdgS7c=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791128361; c=relaxed/simple;
-	bh=3cdHnUfHpaPGgAkFtOVEuzUpvi6BLXWvqN78lkdzaMo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=JDz9gPWwDOR7u12BUh43Pa7MMyECSor2h8PSJnqrhijzQj5W1yRLKY0ZxzQBCNTpU+ln1QMDRLTgebZ2pHFG5BTfFWcraoKzlsLMFeqavT4zrJ6QJ2N/8nxzIJg6MLgxfgb4MSVl2aTel86LYUAy/Ti0zPmtr09trsVkI7FaoXg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gIDTufiz; arc=pass smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAA463BFE5C
+	for <devicetree@vger.kernel.org>; Sun,  4 Oct 2026 15:45:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791128736; cv=none; b=OlyItD1uX381SvBHXPVmC9sloihwUbhNdjDzlnxQhB8FF3svVwCAI1sXpMlqMmu8w7ZKbIMzt5ifkC++sbiwHFpyUECbtJGqTLfKLq54bfT/Up3v7/kQ83niRGJMnFGuyy1zxJMCLk+eUQlb+DbPfoaOmtRGYaXnho+MblFEXqI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791128736; c=relaxed/simple;
+	bh=JJ5PatwUf4+x5mD73Hv8f080y8YoRVgQwuJkNNfdR2g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ekPLEo9sWnl9jgJ1CG1f5/MtKbYTUHp3SgCcrs5W4Rrmy8o+tqcjDR46t0fXI70jwEE7XA4RXC9uoiz7c0vkE4JzOPSYQ3wvWzHK1eSI9rBaEOgXTfuyUdlhBGxSBcsO+2QAtuMcI049OybYDM0D4o4jeLgZqqSNzzAddIywnWk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PCnZyeyS; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gIDTufiz"
-Received: by mail-pj2-f43.google.com with SMTP id d9443c01a7336-2d747ee1f9bso2838005ad.3
-        for <devicetree@vger.kernel.org>; Sun, 04 Oct 2026 08:39:20 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791128359; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Xpsb0zk/MdxqwENn5spsxzNfkvpDHrv5c0ngmo+BbEEfKw6dF/j8V79j6V0y3VNxXe
-         kJnNhx9FuqluG71G/Gep72dXcy7/ju0XRPzfqpcKJ6on3KFmyPGiEvr2AQSbgreMHijL
-         AOW2yHd/tQHgQjzkPk2gJhn71RQZ3vRKzpFMx+LsTynoSFUeejevCDk4Trij/minO5GE
-         5W5/XJOqqU3wHRUi/MdgwMeGdhDdk+c2viRoD7m0Fv6vCUqmcKuLnPRZ+qJqKllzjHF0
-         FR++R7PpZg2lqT7RVmI50daX91MU1K/YMzUqnazi9ampZjaCS+3CMKzGW7UCBQM8M3TE
-         Npww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=uU2ek87LjjL1jNDt+iYTmSSnmmr7Z48twFZ1D54C/G8=;
-        fh=AaG+Yl8a6fH8UbrBtvX7gyLNrET6oS+GqlnjyZe65PM=;
-        b=NCauvx4mSvs/PkoHU+f97rtMDYpY+ePXmBm8HMfMNyuE21AJiIZ+DAzl0Wvd/T3cj8
-         hJkU32J3RtHk7ndGaYEGcMNvEjUmCUepY6Q80M73eyXvoB0dKr7a0MKl4J2fj7Mbb39j
-         NG5c/gTkLfg7PEOTSTa7bhvHnApdSlVCu0dDgH7eLTdLmtMAdxtrre+LCQr0YuO7lMhL
-         u7T/Sqq0cZxwRlYz5h6xPMC0B+VVZnj+a4SHlCakxBO7pfjI62DU20/5b3RA63D+RaVD
-         tpzO7oPVuQB61nhUbCiiDfIHoK9ONShoO10RNPVPSfWKeIsZuLJcQZnhTJS8NLkx9Z8n
-         1j7w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PCnZyeyS"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ce364488dso3259335e9.0
+        for <devicetree@vger.kernel.org>; Sun, 04 Oct 2026 08:45:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791128359; x=1791733159; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=uU2ek87LjjL1jNDt+iYTmSSnmmr7Z48twFZ1D54C/G8=;
-        b=gIDTufiz6KngN5fXuYiX/qHgFZ21KQ1lxKRoK6xCOre0zIwaB5ZdZc/kGGQC/KPHKZ
-         I9yH3D5OSsnGAgrBYBU2ih3DlsAmqB6SqUQC2NRKljWqwKp/1SZ277PApphXQ+O4Q+GJ
-         TN45Ecl76Q2t+XxVw5PgmFy3cgCxFH0fMYCoGflTOVfE6ODmyTJbnCYuhNJdtQ4UjzEh
-         z1OSXsOvY3thKX1WEsyQY6cMG8FQsIXgBjA+aYZxpNamXBP4D2fC2GUuKMc85BGrdfHs
-         3SF6E/Gn9+svqNzKs4P7oc6qEj7uXdpS3Vzk0KOKKtbRpmdhLT5fAbWkZvZ8+dzjYnvu
-         X0Qg==
+        d=gmail.com; s=20251104; t=1791128731; x=1791733531; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=cWjKgA1ht9vd7gcEh0QJP7aH/UymJT1EXVYifgzXx/4=;
+        b=PCnZyeySB3RFsYezf45VSoZj/PgX0Ol13DPHxK2goT0AoTDHwcXNerRApDPy3KRe5b
+         RGN9WgAbYUXci7AAAHMvFwS5yEJ1osSeMeCYSDo04DLPtzgcwrDyA3cGx1lgbtKmnQPo
+         8ohvjlvCHYiABfp6RZc/6eIpqMNxrJfTskusTc+6U426IPKEQtK8SIQYFaTmOkMoQW/h
+         fz0tFnN34a30bGuVbIa1TC+/p1U8rLCYsJl/xhX7hm70owyaD8wvou2kFogECKKo8OCC
+         07bWHK/ibe23Mms8Lr9Sa4wh7GrN0WGXMqZ+L52GSi3SSLNqVR42qCzYrH6DeKEOLrQM
+         4ERw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791128359; x=1791733159;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uU2ek87LjjL1jNDt+iYTmSSnmmr7Z48twFZ1D54C/G8=;
-        b=BgXP7sigCxJ2yNbXB6fARL0I2+X/QzQGROImU0texJrJ5uXMMI8mlgk20JsqNeyIcI
-         7yKZgGAYghljWAqDF7q7M3kgXH5Jx8W1epB28TNBGpKSBSxlHnNFONL15WctOgxXzje8
-         c9V7WU9ltx/G5wSBwzLIUNw8z5BknNTEjNqsx90jhfxKeCJIqgv8BNQS0vQ906xupTQZ
-         4wxUNu5oEMBwAieM3M54QlackuxvKkXIr2G79Cf5TfrNTKrbyEHHnYXoIjF+Ctj+gbKv
-         vI4l6vum7MmESRELe9Cic99ImAGDNS/sPs/JRV/mK0+QoFRvE1DDLU24NbVhW+Xb7P6c
-         KgKg==
-X-Forwarded-Encrypted: i=1; AKwUvByq2/6JyXzleLbPERk0wjqvcvLfmc1GKWwn0o7SfYdilk9SkiSnltMLQBa+nZuDGPGh2cZPxE7A4HwC@vger.kernel.org
-X-Gm-Message-State: AFq9FYJbT9DHOi+7liTImy62CX+EwEYygGtKz6S1WxU7HB0wKdlTXsVO
-	BMq5a39vawvGz0v4QdocNAgMFxf8puCBONiIrLsZM/uWpC/kQ9p61NIpcIx7q8dymU+zqNigrqI
-	IetPIHIFgrDT6IdX2f230ytTZ++oZxPo=
-X-Gm-Gg: AYBFou3vHMCXRVSzUTTcPLlVjTUbl5FKU71I1ID4GTh5/Mcx5gILbJBpHkLN3M2WMzg
-	i7T+eBy8YlVhA+QejQa7siSAjR28sewk1I1sTp1TjJzxozdZp4khCi9IjeGDJFbT8eUe9G4gLe1
-	Q/ZJBi6uKoReeWuw05C4CZmW0ET0AfPkT+YgeS2bwS9r87l2y0YT4sDa4e4WOQttQmq8x1EK4wr
-	8iDTSbpNVo7ikLImAD4SXFVVnf+RB8nB3pJUHs3NKkP1nftpzzD/7bMrezydzRLhQShc3IHj34E
-	Vhjb6pjBr/p1KRWhFVUI5OHCBMGpL47LwUhgenKkfr/yEPlIYFv8PMJAWA==
-X-Received: by 2002:a17:902:da84:b0:2dd:c100:7cbe with SMTP id
- d9443c01a7336-2e49b6dca4bmr75707755ad.58.1791128359433; Sun, 04 Oct 2026
- 08:39:19 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791128731; x=1791733531;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=cWjKgA1ht9vd7gcEh0QJP7aH/UymJT1EXVYifgzXx/4=;
+        b=EZhUsquZishgRTFnRABWCBhFS1dYQATXgsWJMJ9SGCLvcEPC4VUYM7TKutz+B7RUX8
+         7ITmoinN9W1ehPY19WvaA+LUGLHGRrbfbYuzrDalPIAnKlmJx0TreK+NQF/4Y9XwbDOD
+         grDCJnD1ljSMngZ2h3zHRqowoZPPyZtWP15mOFrmtEHvXcROA+evlJp+cySNcNY9x+gU
+         FPaXIoF2tvpNWDEwyCPYXtsrfb0VCA+LZPkIaTJvQJyiehqEei0Ls9vFtZbKSMPMBzSt
+         zO+TFdur3DH0Gn22MVW8Yw/rSdxU9E1gMoe6nV0blR630QAs7lwKgzZ1Tmr5KPIJL6Wf
+         2iDQ==
+X-Gm-Message-State: AFuF++lE/OYG98073obup+Z57ey33YsrUzVJMnHZXSL0PKlZHOh/EO+a
+	rI2r+CxPzQpYm7SIqPx92M/7qW0KLombJIt29tHhaJVDBh/+2Hf1zlqN19lNng==
+X-Gm-Gg: AYBFou0aN8/BlkDYqQBVVUMUIHJAcqbPVCe93gbdU64IJoTa0fOl/ziSvsvWsQcAGR/
+	B2ThotaZTxeH+orDV/3cdI6pRBIEB+fH/5MBmEstOW9LEebeaaayl8yfj64HhN87PcfYghAM11d
+	VnkzL4J4YkBNT2imSpM74ynKskTwtFtQeJ9jKchGCWIcBmTBEa9dquu3UdJbWzqo+t3G/H88I3c
+	vT/xrLDvRHULC7rKN5A6xTf6WArbXGnqtwb93ccGgbSNlcza6N02D6IuNn7hYug7P0c9AiWEUTK
+	OeVzzzZfC/lq+E53wRxMWqgEwRzBmppPjxyjtY7Z2/z3x9geNWAIRjGHfNqaQP4+qO11gLRAvtt
+	95ZY1SpAlnHrUTBCvuXWl7i1ifcHPsQ9NTgG4H7/aaKmJt+RhvCkkmx9kSBMk5pnw7z6t8BsdAb
+	nzaw0iVX5wF0WTJxkXd2OwS/q0OcYElhI4SC1pxS8P4SlHhZmyxm6KUkzTOKxsN8+3t/04U6K55
+	TG84TLGjW+st+n3sMU=
+X-Received: by 2002:a05:600c:3e19:b0:49b:8f5e:51fb with SMTP id 5b1f17b1804b1-4a027534b98mr143954955e9.3.1791128730435;
+        Sun, 04 Oct 2026 08:45:30 -0700 (PDT)
+Received: from xeon ([188.163.112.76])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0394ca0f0sm168639935e9.1.2026.10.04.08.45.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 04 Oct 2026 08:45:29 -0700 (PDT)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Svyatoslav Ryhel <clamor95@gmail.com>,
+	Ion Agorria <ion@agorria.com>
+Cc: devicetree@vger.kernel.org,
+	linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/9] ARM: tegra: lg-x3: Add newly supported devices and fixes
+Date: Sun,  4 Oct 2026 18:44:47 +0300
+Message-ID: <20261004154456.145362-1-clamor95@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260922171942.201947-1-sid9.karanam@gmail.com> <8cb23b44-027d-4d81-b342-7eaca0248f63@ti.com>
-In-Reply-To: <8cb23b44-027d-4d81-b342-7eaca0248f63@ti.com>
-From: Sidd <sid9.karanam@gmail.com>
-Date: Sun, 4 Oct 2026 21:09:08 +0530
-X-Gm-Features: AclHuK9ZGYlY4040N6uy7-lCOD-y_fYZ0mAfz4ke5Z9n9mwfFspUkB4sIuVJ618
-Message-ID: <CABM86pxDca--BxNFUjdZy3Z_t7qpd8a9A8FpnYc9r=VGag9bXQ@mail.gmail.com>
-Subject: Re: [PATCH] arm64: dts: ti: k3-am62-mcu: Add power-domains property
- for M4FSS
-To: Andrew Davis <afd@ti.com>
-Cc: nm@ti.com, vigneshr@ti.com, kristo@kernel.org, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, linux-arm-kernel@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-> Anyway, the reason we don't use the normal "power-domains", and instead m=
-anage
-> the power using `ti,sci-dev-id`, is because the normal power domain frame=
-work
-> has a nasty habit of unconditionally powering up devices before the drive=
-r can
-> probe. Which in the case of remoteprocs can cause the core to start runni=
-ng
-> and executing random data.
+Add nodes for recently supported device (ALS, LED controllers, haptics)
+along with minor tweaks and fixups.
 
-Oh I was not aware of this issue, seemed logical and a straightforward
-issue to me, I'll drop this patch then.
-I also figured this would in turn nicely move into wrapping all ti sci
-handle's device ops through pmruntime (such as get_device and
-put_device functions) but I believe that won't work as well.
+---
+Changes in v2:
+- added USB configuration update commit
+- added p895 power LED trigger update commit
+---
 
-  > * Power up subsystem
-  > * Set reset line for core
-  > * Power up the core
-  > * Setup the core (load firmware and set boot address)
-  > * Release reset line for core to start it running
+Svyatoslav Ryhel (9):
+  ARM: tegra: lg-x3: Adjust WiFi node
+  ARM: tegra: lg-x3: Remove pinctrl-* properties duplication
+  ARM: tegra: lg-x3: Lower supported suspend mode
+  ARM: tegra: lg-x3: Add light sensor node
+  ARM: tegra: lg-x3: Add flash LEDs controller node
+  ARM: tegra: lg-x3: Add haptic engine node
+  ARM: tegra: lg-x3: Add backlight LED controller node
+  ARM: tegra: lg-x3: Update USB configuration
+  ARM: tegra: p895: Update power LED trigger
 
-Right, I see, thanks for the input :)
+ arch/arm/boot/dts/nvidia/tegra30-lg-p880.dts |   5 +-
+ arch/arm/boot/dts/nvidia/tegra30-lg-p895.dts |   7 +-
+ arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi  | 125 ++++++++++++++++++-
+ 3 files changed, 127 insertions(+), 10 deletions(-)
 
-Thanks,
-Siddharth Karanam
+-- 
+2.53.0
 
-On Tue, Sep 29, 2026 at 10:09=E2=80=AFPM Andrew Davis <afd@ti.com> wrote:
->
-> On 9/22/26 12:19 PM, Siddharth Karanam wrote:
-> > Assign the power domain to the MCU M4FSS (Cortex-M4F) node by following
-> > the device ids info published in TI-SCI public documentation.
-> >
-> > This will be useful in future patches that will attempt at abstracting
-> > ti_sci_dev_ops's calls such as get_device and put_device via pm_runtime
-> > calls.
-> >
-> > Signed-off-by: Siddharth Karanam <sid9.karanam@gmail.com>
-> > ---
-> >   arch/arm64/boot/dts/ti/k3-am62-mcu.dtsi | 1 +
-> >   1 file changed, 1 insertion(+)
-> >
-> > diff --git a/arch/arm64/boot/dts/ti/k3-am62-mcu.dtsi b/arch/arm64/boot/=
-dts/ti/k3-am62-mcu.dtsi
-> > index 68e906796aefe..1ae0870893c16 100644
-> > --- a/arch/arm64/boot/dts/ti/k3-am62-mcu.dtsi
-> > +++ b/arch/arm64/boot/dts/ti/k3-am62-mcu.dtsi
-> > @@ -181,6 +181,7 @@ mcu_m4fss: m4fss@5000000 {
-> >                     <0x00 0x5040000 0x00 0x10000>;
-> >               reg-names =3D "iram", "dram";
-> >               resets =3D <&k3_reset 9 1>;
-> > +             power-domains =3D <&k3_pds 7 TI_SCI_PD_EXCLUSIVE>;
->
-> The surrounding M4 subsystem's power domain is 7, but the core's power do=
-main number
-> is 9 (see below in `ti,sci-dev-id`). Enabling 9 should also enable 7 as i=
-t is a
-> dependency. We probably should have modeled the M4 in DT the way we did t=
-he R5[0].
-> With the core being a subnode of the subsystem. Then 7 goes in subsystem =
-and 9
-> goes in the core's subnode.
->
-> Anyway, the reason we don't use the normal "power-domains", and instead m=
-anage
-> the power using `ti,sci-dev-id`, is because the normal power domain frame=
-work
-> has a nasty habit of unconditionally powering up devices before the drive=
-r can
-> probe. Which in the case of remoteprocs can cause the core to start runni=
-ng
-> and executing random data. We have to do things in order,
->
->   * Power up subsystem
->   * Set reset line for core
->   * Power up the core
->   * Setup the core (load firmware and set boot address)
->   * Release reset line for core to start it running
->
-> Andrew
->
-> [0] https://github.com/torvalds/linux/blob/master/arch/arm64/boot/dts/ti/=
-k3-am62a-mcu.dtsi#L178
->
-> >               firmware-name =3D "am62-mcu-m4f0_0-fw";
-> >               ti,sci =3D <&dmsc>;
-> >               ti,sci-dev-id =3D <9>;
->
