@@ -1,98 +1,75 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63EB23B19B4
-	for <devicetree@vger.kernel.org>; Sun,  4 Oct 2026 21:16:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51FDF3F1066;
+	Sun,  4 Oct 2026 21:17:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791148600; cv=none; b=ni0WdMqp6adnFmyZo6L9wswIwrDTkMxltKke1d9E5uSDFUYUbQ130eGlTfcQiuHLcXCbkw7Mk4d7FYhAsvmPbfn+T87DHhjeKK5ev9gcUQMcg5f3e74q59CxtGGZwYuiLpGr+DIbqa5M9aqnxhOG9l2rkxTIMCkKT4Br8LP8T5U=
+	t=1791148653; cv=none; b=QB32Li+G20ylec+r385PSaHbjX3JG7tViGLWmzuPgq69PgvhCZSGSbrgA1SsQpX/VL/Enfl6ryxnOCNsIaeiY9mrylidEtBFxzl929Hvk901QH6ULi9BtO3zh88lcrCvGk4hBQKBSSjAP73QmkejGQDPSgucCC+/S677DFBQKNg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791148600; c=relaxed/simple;
-	bh=Vj2X9K9rPf0LvjLyNei1z4XXYrolou0PRDoRFJ2UXhY=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=lVtApooPQooK2H/qhScD0++6mx22N6FjTurHH67MNFlvFcT6i4PUx4kUQZa7ewqV3pWVdzJgq/yRN48SvvcAbF8mIWW1N64KrfqmG8z5mzUlGAB5MzQhLCf5xkslQ2kXFUC3V+HLD9ZiuvShkjb1ZMUs9SuCPbkuOGUTII6C2oo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=PCzNhswH; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1791148653; c=relaxed/simple;
+	bh=6bAiZD9tk7SgBSs7rcDRgXPd0REu5Es4SE+eYuuEevk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=tADplU9WRzb0KgrrKPMDKsWlFxO6jJaHM3w4BFXTntZ0amO+6mCoCrlWLfdlrpgtx8ZPX6TvLXJfAxa6XNG1hc3MngDpTkCZakwmh0sDRvCNGnJex1TiZ6i8w0qjf1ZC8lKxe433UL8ImyHkb+4w80DH++50ZwCR0JToFXoyam8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=ibdYPqeu; arc=none smtp.client-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="PCzNhswH"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id E60084E41169;
-	Sun,  4 Oct 2026 21:16:36 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 9D38E604FE;
-	Sun,  4 Oct 2026 21:16:36 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C6BC41032820F;
-	Sun,  4 Oct 2026 23:16:34 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1791148595; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=/J1CNps2JJKQJSD/9ngkF4RfpbWo/aO0HcABak3sjzo=;
-	b=PCzNhswHSy+bcLazyPyPr8u1S4OgDphi3VSVxwZq1s5Kb4kHgtMXEYukAG+k9H3wm2XYeO
-	6wr7CpPtWH00JchSSprtGm0lXhwqeECM1pz4uf+sJU8+2ITPCBpQJiLt2QtkTTJxUGHJw1
-	Z6YODtYdhPgEg6spzGureZ5rPuNY59Xm78/Pkxqvvnj6dPQ0rzrQJYhvlkMQbL04YPxx2U
-	DDLApOBtZXq0EKMEig2BTXk03zflXVFyFufP7DUWdOnh/sBauP18FMceXfKiimR1z0ueOA
-	2toJZ9kw1t343Q3HIRIbuW/I6TzHkbZ7QQ6wgndylqtrAdJsSc0WHneO3YhbMA==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: sashiko-bot@kernel.org
-Cc: sashiko-reviews@lists.linux.dev,  conor+dt@kernel.org,
-  linux-clk@vger.kernel.org,  devicetree@vger.kernel.org,  robh@kernel.org
-Subject: Re: [PATCH v8 3/7] clk: nuvoton: ma35d1: Retrieve HXT/LXT from DT
- when possible
-In-Reply-To: <20261004205903.E62F91F000FF@smtp.kernel.org>
-	(sashiko-bot@kernel.org's message of "Sun, 04 Oct 2026 20:59:03
-	+0000")
-References: <20261004-perso-ma35d1-upstream-clk-v8-0-e1a106a128c0@bootlin.com>
-	<20261004-perso-ma35d1-upstream-clk-v8-3-e1a106a128c0@bootlin.com>
-	<20261004205903.E62F91F000FF@smtp.kernel.org>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Sun, 04 Oct 2026 23:16:33 +0200
-Message-ID: <875wzhjhe6.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="ibdYPqeu"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=dznMhbarLMivAgJOVrxX3y7MErwS1c7oJy/giVli5uY=; b=ibdYPqeu4UvBJixwGgOV0bR56B
+	grF38h8+aRBuap2gvI/pB76vkbjwVNjbDmxCRRqLZlPfmdwR1IaLVY0uK652c3xaI56PWRHY/6QRJ
+	wJlx4VscCBidege7nnpeWLEa/cAeLY3nF8cE2qYbRvk4kPcqg56pGjLoSMNEUY50lsSfvO7FrhmCb
+	mcllAv+OytFnvBGN/M6VC9DMPo7Z/XZGVbUclj7SslfP3Si/mGie2+hoN0r66yBFuRU5UcUWZtIsL
+	h/fAXw2jo5FJ4cTs2Hh8AUvrRJqaMteazBEV75SQbMVcNoSKCrRLUNEOxy5ZlIrPb9mFPvKCui8Uf
+	h9gcOeyA==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: linux-kernel@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	Dennis Gilmore <dennis@ausil.us>
+Cc: Heiko Stuebner <heiko@sntech.de>,
+	Alexey Charkov <alchark@gmail.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>
+Subject: Re: [PATCH] arm64: dts: rockchip: Use GPIO function for PCIe reset on Orange Pi 5 Pro
+Date: Sun,  4 Oct 2026 23:17:21 +0200
+Message-ID: <179114864094.3283966.7199370518358824006.b4-ty@sntech.de>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261002025746.3284691-1-dennis@ausil.us>
+References: <20261002025746.3284691-1-dennis@ausil.us>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
 
-> This commit modifies the clock driver to retrieve the external HXT and LXT
-> clocks from the device tree instead of registering them directly. It falls
-> back to registering LXT for backward compatibility with older device tree=
-s.
->
->> diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk-=
-ma35d1.c
->> index ceebcbd8c18b3..ed61a990870e4 100644
->> --- a/drivers/clk/nuvoton/clk-ma35d1.c
->> +++ b/drivers/clk/nuvoton/clk-ma35d1.c
-> [ ... ]
->> @@ -240,12 +257,18 @@ static int ma35d1_clocks_probe(struct platform_dev=
-ice *pdev)
->>  		return -EINVAL;
->>  	}
->>=20=20
->> -	hws[HXT] =3D ma35d1_clk_fixed("hxt", 24000000);
->
-> [Severity: Critical]
-> Does this unconditional removal break ABI compatibility with older device
-> trees?
->
-> Because HXT (index 0) is exported as a public ABI in the DT bindings,
-> removing its explicit registration leaves hws[HXT] as NULL in the provide=
-r's
-> clock array. If an existing downstream or older device tree consumer expl=
-icitly
-> references this clock via clocks =3D <&clk HXT>, won't the provider's
-> of_clk_hw_onecell_get() fail to resolve the clock and return an error?
+On Thu, 01 Oct 2026 21:57:46 -0500, Dennis Gilmore wrote:
+> The PERST# pins of pcie2x1l1 and pcie2x1l2 are used as reset-gpios,
+> but the default pinctrl state muxes them to the controllers' dedicated
+> PERST# function instead of GPIO.
+> 
+> Linux happens to work because the pin is switched to GPIO function
+> when it is requested as a GPIO, but the devicetree should describe the
+> pin function the board actually uses. Bootloaders such as U-Boot apply
+> the pinctrl state as described and do not change the function when the
+> GPIO is requested, and probing pcie2x1l2 then hangs.
+> 
+> [...]
 
-Jerome, your wisdom matters here :-) For me this is a false positive,
-because nobody outside this driver should access hws[HXT] and the clock
-is still referenced through the DT, just not provided by this
-driver. For me this is not an issue we should consider, let me know
-otherwise.
+Applied, thanks!
 
-Miqu=C3=A8l
+[1/1] arm64: dts: rockchip: Use GPIO function for PCIe reset on Orange Pi 5 Pro
+      commit: e95e4fcdc4541e999888f297174e8f6f5f5f899a
+
+Best regards,
+-- 
+Heiko Stuebner <heiko@sntech.de>
