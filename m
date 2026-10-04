@@ -1,100 +1,111 @@
-Received: from out162-62-57-87.mail.qq.com (out162-62-57-87.mail.qq.com [162.62.57.87])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E5354C33D1;
-	Mon,  5 Oct 2026 15:59:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.87
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35FE64CC622;
+	Mon,  5 Oct 2026 16:03:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791215967; cv=none; b=Afy0pmYmBgtHV1cassreMCfkQKA37tKuB7f/qlKLXYbtZ8NiSNE8EhwyF82zbJSHLpbT6lgwzABPniFBQz8cSp/LDrjFVS/mhDePr0SorOizDhTZ0v1spRyIhF8PNQgVZbSNz65EQRWwBX7WrIRfKYPOVnjgy3e4/gqsMewLVhw=
+	t=1791216214; cv=none; b=BatDM1B8lrYXvQi57e7mUiCWKLOK5fp6sPOGYgBkcU/lU5gyoLD1c5PLX3z/OUn5Oet0h//qJ8+QwyEUfiFWveyFMdDX1oKTj9vZYCEPiAdh5ZrosQxfIEXmUKk4rci15ypFhkskbcD76XoFDus9fVwHZlkV4pLkaeAO/BoUMKs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791215967; c=relaxed/simple;
-	bh=wWUV3emk7ULpEee/9G63NluqNobYqArTy8HB1/MEtJY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=N1moaZv+WtDMk8Snb73pl3IQfA4EPB/WhCDXqFAqA/rFkfFrJAk8XVtUrUAwodKs6I7lcX5JR1S31iHkmvc7rINUJPpEAmLi1r4LuWWLcs1tzIEW/0AYRc71GAGmuQmzwW/Q9w00/hOmxLktT4gKf57rSKBUB+l+L3H16hymb2k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=q6YVYBE8; arc=none smtp.client-ip=162.62.57.87
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1791216214; c=relaxed/simple;
+	bh=8L+fNVLW4rDXS6jqguZrtBICvw+Olrye0hpvC31GY/c=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=Su1qBUYRDWld4gp0c5gpE+3j6Gy1ffadn1L4zNxrVklrIp0vZ/8SoqFaPObHIuKMSv/PvE2e/o/6+sbkedTqMqr60kXbk74xkJgJ6/RDx/juz/7mJ7l4RJRXcVfry/pBE/Ja/WoP7ffiMwPoT5V7if8diOHfeaUKgGnG8oisfvY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hhsmB6Le; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="q6YVYBE8"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1791215953; bh=wWUV3emk7ULpEee/9G63NluqNobYqArTy8HB1/MEtJY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=q6YVYBE88V85PRYuvbIq3neymOFilDrh8cO5qqWizFRHMcK9SRpLyPHt8eRZJni7Y
-	 AhKt8fy55tPNH8CsIQjBLqWSSSxlOWUz1zluf+zzrhlW37b1Qt4B/fIXqOR5d3oOCn
-	 V0ik3x92lqC62BA97RBRf05IWe3tL4K+cSNtOyvU=
-Received: from [198.18.0.1] ([112.43.117.189])
-	by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
-	id ECAA2E19; Mon, 05 Oct 2026 23:59:10 +0800
-X-QQ-mid: xmsmtpt1791215950tdkxd44af
-Message-ID: <tencent_F21509258CF77A024260954C593157414F08@qq.com>
-X-QQ-XMAILINFO: MhK4DKsBP06iQ0lS0hbC/UsLm9tt/MybcZCBA3F8VcY7H+aZeqAd8AROVa4pXO
-	 d0pIei1IbKnZP6DIoAZ63YcKKcIIkGQ3lkGuWRWClueza9+PIxnIIKTf8t8nr/fD59D89U+EIBVL
-	 pJFEJqG/ddtw5tSjxy2YFSR+z9MfRNKc9ZRI/oUaJVVtgZgVMtgcmxujBACCn8EYlTkhkOy0abr5
-	 UIrmORpcPUMjDgrISxSTXiW5LEzQkcaCECIfYULE7jpwPQ9JpmJnpalM9QCqCCgEvpqM+MXLOR9R
-	 rieP/2H5nNw/HcFtxJEy8tf99kEmztlQhucqRvsYMdswUg39IwpMehiIqPOj5UsRax51j6bWULQd
-	 MfimKaKfYpn6P9dkwjxbcByDoMLz5WUT4SkljPAo4/lpKlU+Rw3BktTsSqhBDHsf8jCztjIrKWAQ
-	 XDBmKvZFD2PA64M1mbBuk/kGfHlewP1vX0rf5xKn3oi9VHXm59MUd1DvSgJrOKYRDf96S/BftjSI
-	 xBJnmgL1W61ajxRpkwW/FRSpkD1EpgOq6XOIgx9uQLwTL5NnEpv2PmN7mHMZlhN8KDyjwLjioN/M
-	 cKqmzeUks5/DOyjXIydFIQc8XU1LjrdqhxZhFerDTBvdj6/xfeCP2EmnPbaGq9TLwKQy+JRS6bDP
-	 9uGeerVZETCB01xMQ08u8Vg5lw3fGgFE3pUQ84v8LFXlCPVLrRdlFiLT7uBAST08rJVbbYLoKHwT
-	 8gmRwww+uZG7+jl95rniYFUkuf7qerHqPYFLGuiWx+0n2tB2/0zveOW771jTcHcy1MFD/K5dHQSM
-	 JNVCpywNHClD+uLOE0pS5cvCEiSHRElx8K2HMhhtkcvVzFW4hXxNzR9TGd5defYSxt3C8dAAeSIs
-	 DUmd5qUZr5M4PF+goJFu0Jv9zkfT+17Drz7uukSJJTPfuh3Ht3fLXtutvMBzqjzXtcq1atYFt+wu
-	 dbEw1n9AsI99ZeU9EbxG4Kag8ygSlF+NQbK7v21Rt9cC1+0tN+4vI4cR2Bm0zj7qt0n665bJexjb
-	 PVd9o2DAmUBQtthosmwrLPWjIwWhwLHgcCd6sQb39CZIa9YZkfnPbX5y913nQ=
-X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
-X-OQ-MSGID: <322103a8-cf74-4213-bc95-e65c34366dd1@qq.com>
-Date: Mon, 5 Oct 2026 23:59:10 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hhsmB6Le"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DF191F000FF;
+	Mon,  5 Oct 2026 16:03:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791216212;
+	bh=fW7YTsAMJl59v0bNQzFmwCvsNNTWWYWsWINgNF+b1Cw=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=hhsmB6LeUneD9PL9B9u7RhwTOJqWJVY1yurZPG0e0K769rJ1mesepYYGFktA3k3Rn
+	 iOzPC5hlTgONC13jhTFs8+yDbu8tgP6/9P1UB8bu93bPyWWG4tGv3yMTznXR3Y6P1T
+	 OPn707dvgKQX5K7/pwCHkSU6X6lhvB4zOzKRCcQHfEXcSfotG0bpiSMn/iaMw8WIN9
+	 onsL6GxsIs/WLmgA+3anGka8TIBmvW+HYNT5KWj6H84aTyMCYa+Rs6ToITPcGZOnMW
+	 oNx60EcW/21fbHSQ+Gdv3xPt/Yz0MTFrA2pxi57RrOppbr7yyN5oA27aY/NArmEaQB
+	 1XCrh+wQ0RyYw==
+From: Mark Brown <broonie@kernel.org>
+To: konrad.dybcio@oss.qualcomm.com, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Praveen Talari <praveen.talari@oss.qualcomm.com>
+Cc: chandana.chiluveru@oss.qualcomm.com, 
+ Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-msm@vger.kernel.org, 
+ linux-spi@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+In-Reply-To: <20260927-use_gpio_to_notify_master_of_spi_target_activity-v5-0-9b973623080f@oss.qualcomm.com>
+References: <20260927-use_gpio_to_notify_master_of_spi_target_activity-v5-0-9b973623080f@oss.qualcomm.com>
+Subject: Re: [PATCH v5 0/2] spi: qcom-geni: Use GPIO to notify master of
+ SPI target activity
+Message-Id: <179114365827.150114.15536189360467733085.b4-ty@b4>
+Date: Sun, 04 Oct 2026 21:54:18 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/3] dt-bindings: Add EBDEE vendor prefix
-To: Krzysztof Kozlowski <krzk@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Michal Simek <michal.simek@amd.com>,
- Rob Herring <robh@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261003194625.936288-1-2254650260@qq.com>
- <tencent_E21E2A584AF8EE0505C2C0809838621C8209@qq.com>
- <387c02a6-1298-44a7-952e-47d1d8535541@kernel.org>
-Content-Language: en-US
-From: Pufan Jin <2254650260@qq.com>
-In-Reply-To: <387c02a6-1298-44a7-952e-47d1d8535541@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1829; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=8L+fNVLW4rDXS6jqguZrtBICvw+Olrye0hpvC31GY/c=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqw8pLq8ze7npewKtbVrq6AKmKOVDAlaNtIMcu9
+ AHIg0CU3uyJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCasPKSwAKCRAk1otyXVSH
+ 0A/nB/9S+W186ZbL3UtC97P7+0+bZGsvBkO1snX+DckCq0vPPukiUepciU8cTmx+rwYTnl1/5Yt
+ kGi4m3f1mY3HqL+inslYhaUyqWBgLWHzTBl6lTY1KMBccEtFQ704Z9GwP4DUaq3FJ/NdhE36Q4n
+ xrH283vP1LvhHBY32fmt45Ux0HabxCr6gmsaKrB9iC0hFIOXrBdYbxBgY3A1+I9og8LclyTT0nJ
+ 5ZctQqQJsNii0C9OhY3+TR94tnSDoGTghOH3tmjrmPhi9kwxajguOgAVtUgzOtzSF+tGW8V9HPM
+ Z6QC4UNCXWT/ssuFXjedeBXy/PNQH7nvdy2N30c1Hn/e3gqs
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
+On Sun, 27 Sep 2026 01:26:32 +0530, Praveen Talari wrote:
+> spi: qcom-geni: Use GPIO to notify master of SPI target activity
+> 
+> When operating in SPI target mode, the GENI controller relies on an
+> external GPIO to notify the SPI master about the target's active state.
+> 
+> Add support for an optional device GPIO that is asserted when a target
+> transfer begins and deasserted when the transfer completes, is aborted,
+> or hits a timeout. This allows the target to explicitly signal its
+> availability to the master and ensures the GPIO is released in all error
+> and completion paths, preventing the master from observing a stale or
+> incorrect target ready indication.
+> 
+> [...]
 
-On 2026/10/4 05:14, Krzysztof Kozlowski wrote:
-> On 03/10/2026 21:46, Pufan Jin wrote:
->> Shanghai Xin'yI Electronics Technology Co., Ltd. (EBDEE) manufactures
->> the EdgeBoard series of embedded compute cards, including Zynq
->> UltraScale+ based designs.
->>
-> What does EBDEE mean? What is the company website?
->
-> Best regards,
-> Krzysztof
+Applied to
 
-Hi Krzysztof,
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.4
 
+Thanks!
 
-Thank you for pointing this out. "EBDEE" was an improper local acronym
-derived from "EdgeBoard Developer Edition".
+[1/2] spi: dt-bindings: Document ready-gpios property
+      https://git.kernel.org/broonie/spi/c/ae0f8f861e28
+[2/2] spi: qcom-geni: Use GPIO to notify master of SPI target activity
+      https://git.kernel.org/broonie/spi/c/bb5805a74e75
 
-The actual commercial brand and manufacturer of the board is ALINX
-(Shanghai Xin'yi Electronics Technology Co., Ltd.). The official
-company website is:
-https://www.alinx.com/
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-I have dropped the "ebdee" prefix and replaced it with "alinx" in v2
-to properly match the manufacturer and board schematics.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-Best regards,
-Pufan Jin
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
+Thanks,
+Mark
 
