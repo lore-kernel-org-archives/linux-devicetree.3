@@ -1,234 +1,90 @@
-Received: from mail-wr2-f35.google.com (mail-wr2-f35.google.com [74.125.225.99])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6B253D1CB4
-	for <devicetree@vger.kernel.org>; Sun,  4 Oct 2026 16:52:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17CF03D88F6;
+	Sun,  4 Oct 2026 16:54:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791132743; cv=none; b=ovAStUlN8eyqLqooksjf6bk5UT25Je1cE6SOXJekpziQ2NBWV1OXOwOzrzjjOSHCnOPi5mVN4S6wgRxZ9rEu6aOkYhUjS6qkAleC2Ms6izrzPRzW/uvW/b4Ho5vJM9wyI8oydFYqMvNUTnlIoOSV9nw1XQF6AOz1Tpv6jJhqKB8=
+	t=1791132880; cv=none; b=Ir4QW9Q4OUIsx4BVuw5LwPHiSIDYXRnt7j4NB5+uxMAeuudp+do76UpvMzTeSAwpOH2CLuuQPbbSZa0SNtKiBw3ZsDNPrkXdSCozncrADnLonoq0AEEza5IvkMZfboBLpxjCrm8xCNc0eXiNC7GzVF9/ePw9v/us8jP/9S930Eg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791132743; c=relaxed/simple;
-	bh=YsOWNf6k3c8k/mWCI04yyLmuoXVKeXFhCGr6HCib2RI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YOwBkQKBNF5Q6YvS9pYNfTDKxoh+DnQBIr2WnSg92jvyFhDyij1FKETxy4tihKzo3YIgwlWAJJbk+Bv+Z6kVfFya5j4J71RG8lzQd0SZlRdP6WR0u8S2lBqNM1zi1M9Dviaq4orlw3h/qYB++08LjCB5pndQfRuCaGVIDJlpntc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZYIYwySM; arc=none smtp.client-ip=74.125.225.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791132880; c=relaxed/simple;
+	bh=TlQQivNQDdXhzhtZmgmRKqVxk4tHFDO+j5mCVUIB120=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=EvnEmm6x0q38gdByoDXHklwdfkTlUoTHLxDEHvuvatC7qhX4i3qFhIFGDgq5k3ts2jYPGjwcIyLfl2rmiZ0yex3xXBoGKL4ICvAk8psqHYrqZwAPjOafHfhwcDyF5jokuWen/fb/HJh795M9RRa50IFfHPrn7GD/uWq0EZQ14b8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RVUBecdt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZYIYwySM"
-Received: by mail-wr2-f35.google.com with SMTP id ffacd0b85a97d-48b042e00f7so462352f8f.0
-        for <devicetree@vger.kernel.org>; Sun, 04 Oct 2026 09:52:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791132739; x=1791737539; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=CFCgMSBeysJSZt2B7ifOkYjjdaDgVJLpazyx7TBo5uA=;
-        b=ZYIYwySMMqmGTrj7LuuXmgtZX8ZTUzwPOtuegbm6lkB2hiMxBaWIpil6WBfQWOvWst
-         9HiG3164afnZyqRAjRs2PIr6O97KAXy46ObaNdDS/6HFg0nrUqbdq3Ay04eITUHLgnSX
-         eDphXpaPug3CXyKz8iRi6cwhq7Sa8sSxeSgEH5Y4J4gQUIHz4Nbv8h1zTGJDHPjEVWgs
-         YJ0iIdezDcRCDVgUx7YB8I/da3fGlVBw7H8b2bKpV8fXMBzYgJn8etp40EcsxMe8j4zF
-         OrQFHtUJIvvuERL3Tym1wW0W3BhU2U2A6g5Xvv7/7mCVKOJjL0TfpFvXe9y/dEGPJqE1
-         eSog==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791132739; x=1791737539;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CFCgMSBeysJSZt2B7ifOkYjjdaDgVJLpazyx7TBo5uA=;
-        b=NbGIWWGP0QvRy7cQa6yEbcTm0lmf9b9+YKL//Dcmgmr75fP+EkmiH8/RD6egbcS+Dy
-         JyHC/N3E7YnL2moUXpucM3CmHRGAnvmBK5bpsbXHtAtY4/KTfD6yqgdXlRfOsWWeNMZA
-         7g/QVLaUF8shh486r2eHWIfRiEnrL3niXxP5MEOzWp7+O2oBQcGi42HxCW3t9fyikuv1
-         35U5pY8G4nfL5RcZbYoAqeoy6mpfeBs/sUB1IgAlEGPlmxkjKLpyD0s2AWCPlQUfIOaH
-         3ebaxB7ubdBeGZchVDw9OrsbCnc6rpT04fzV4zCG3vsw0qs8o09DjbehEaPsoxSv0M97
-         C3Xg==
-X-Forwarded-Encrypted: i=1; AKwUvBwBuSfeSpQmrSHPquyd788uqIIdR+tqTI5y72+vK9IXG5t7Ym3SWTz84jGCgSAq4pr8auXJ8qE2qyaB@vger.kernel.org
-X-Gm-Message-State: AFq9FYK3OT+m6pmGQV8gVKuIpUDSb6ObPVzlJHr421chLcdhYGfz7N9e
-	rj3JeGdaHa2JTwOpZ0UsB4Uf35cbBdoPFqpSz4H0NmDr9qNk33NfCSph
-X-Gm-Gg: AYBFou1CdXc33qTuCWOvFzA9H2Oqgx91kzfDZErvY+AgoN5iPxdJV/QxawSqz+XPsd/
-	lw9EaLnB57lsTGKQnc93ruelNhLCIYudPWj4AMh1ZZWg8T5uGNbyTyyaq/uoVd+XOizMjuFrCur
-	6MrAtanNGygQvj2VWbVmMGjFBJ1iuPjkLSS1Qmr+kftEdi8bqlb6QhmITUQX2NPUJe7E+azoxEt
-	JLkV7b2hIr8AvkgIhclWerljOL13XFVlSIdEpfgkrAGpWwBeqJedN98WKJN08ZgObpIm/2gnFVK
-	POUgmZJwvA8byr+LHnid5pFZY87TIKZ7Npni45/r4FriNd55JBZBPOtt2LqYlGEVrFql2jnTdtD
-	IMpiEcuo+UlDs06yjc7/wz6Y5HdhY3fmKDFRtLIetaUiof6Mx0NxGZzuOoNTdgUzgVcH4T3Ki7Y
-	HA91gIFExJMYI0mAw75I/80h8MytlHr/WxsBU6SLm85dVfU9vyAwJuJzPQSAjtQks9/4pslDPlc
-	T72z0FiaN86oAdBDO0=
-X-Received: by 2002:a05:6000:2405:b0:48c:5306:c11a with SMTP id ffacd0b85a97d-48c5306c1d1mr5056623f8f.24.1791132738870;
-        Sun, 04 Oct 2026 09:52:18 -0700 (PDT)
-Received: from xeon ([188.163.112.76])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b382f8c4asm20902213f8f.37.2026.10.04.09.52.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 09:52:17 -0700 (PDT)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Svyatoslav Ryhel <clamor95@gmail.com>,
-	Mikko Perttunen <mperttunen@nvidia.com>,
-	Jordan Viknar <jordanviknar@gmail.com>
-Cc: linux-usb@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-tegra@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v1 2/2] usb: phy: tegra: Disable internal USB sensing if extcon is used
-Date: Sun,  4 Oct 2026 19:52:04 +0300
-Message-ID: <20261004165204.205660-3-clamor95@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20261004165204.205660-1-clamor95@gmail.com>
-References: <20261004165204.205660-1-clamor95@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RVUBecdt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC8441F000FF;
+	Sun,  4 Oct 2026 16:54:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791132870;
+	bh=NBCZh0Bbi0e7OowDfnL5q0PlqRgE3kemrckowdtq9m8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=RVUBecdtQoxhDpVVn05aAGLQDxcA7HoaSg28Beow6mx8m9+Y6CyVtAFXMTzFv3ssN
+	 5Cp9wxtHbsfKv1aLiCmHJi+JtmJ6dHWzif790sQz2AWVNYBqU7ttfMhYq7SGfN/+CJ
+	 q3uyglYBIYiEZnlRj96CokbVyUexCtSqvXLUQsECkauA6iFw6MBK+kY4/jvzkJ0h0T
+	 tqESAj+4dJtg95mzQAD2blPfDt4BbvajVq5TIpt/M+aBvD3Rrdyyr4hF8svfZu2bgc
+	 Al6lBKWvsGQ9KCg2yEAXTi5sfuHG15p5pqIZAamAeOQpDYj/0n0EPYIqSAZR7YIMnm
+	 dPYTwx+xqwLuA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/3] regulator: dt-bindings: maxim,max8907: Convert
+ to DT schema
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Svyatoslav Ryhel" <clamor95@gmail.com>
+Cc: lee@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, mfd@lists.linux.dev
+In-Reply-To: <20261004164540.198446-2-clamor95@gmail.com>
+References: <20261004164540.198446-1-clamor95@gmail.com>
+ <20261004164540.198446-2-clamor95@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 04 Oct 2026 16:54:29 +0000
+Message-Id: <20261004165429.AC8441F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Jordan Viknar <jordanviknar@gmail.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] dt-bindings: broken schema reference to non-existent nvidia,tegra-r=
+egulators-coupling.yaml
+--
 
-The Tegra USB PHY features four VBUS sensors: A_VBUS_VLD, A_SESS_VLD,
-B_SESS_VLD, and B_SESS_END. This allows the SoC to detect mode switches
-and natively work with OTG. On some devices, instead of relying on Tegra's
-own mechanism, some type of extcon detection chip may be used, which
-conflicts with the native Tegra implementation.
+commit 299fcba3d236bda6f3824120d17a27592c67f650
+Author: Svyatoslav Ryhel <clamor95@gmail.com>
 
-Add extcon parsing from the linked USB controller. If such a property
-exists, switch VBUS sensors to software mode and set their values to SET.
-This indicates that the VBUS sensors are not required by the USB
-controller, which uses extcon for detection instead.
+regulator: dt-bindings: maxim,max8907: Convert to DT schema
 
-This fixes all devices that have OTG mode set with extcon for Tegra20
-(LG Optimus 2X P990), Tegra30 (LG Optimus 4X P880 and Vu P895),
-Tegra114 (Nvidia Tegra Note 7), and Tegra124 (Xiaomi Mi Pad). All listed
-devices were tested.
+Convert Maxim MAX8907 regulator binding from text to DT schema. Reference
+to nvidia,tegra-regulators-coupling in child regulator nodes.
 
-Assisted-by: Claude Sonnet 5
-Signed-off-by: Jordan Viknar <jordanviknar@gmail.com>
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
----
- drivers/usb/phy/phy-tegra-usb.c   | 55 +++++++++++++++++++++++++++++++
- include/linux/usb/tegra_usb_phy.h |  1 +
- 2 files changed, 56 insertions(+)
+> diff --git a/Documentation/devicetree/bindings/regulator/maxim,max8907.ya=
+ml b/Documentation/devicetree/bindings/regulator/maxim,max8907.yaml
+> new file mode 100644
+> index 0000000000000..e4e1390a49b9b
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/regulator/maxim,max8907.yaml
+[ ... ]
+> +  regulators:
+> +    type: object
+> +    additionalProperties: false
+> +
+> +    patternProperties:
+> +      "^(sd[1-3]|ldo([1-9]|1[0-9]|20)|bbat|mbatt|out(5v|33v)|sdby|vrtc)$=
+":
+> +        allOf:
+> +          - $ref: /schemas/regulator/regulator.yaml#
+> +          - $ref: /schemas/regulator/nvidia,tegra-regulators-coupling.ya=
+ml#
 
-diff --git a/drivers/usb/phy/phy-tegra-usb.c b/drivers/usb/phy/phy-tegra-usb.c
-index 00443a7beaeb0..d3faeb6619454 100644
---- a/drivers/usb/phy/phy-tegra-usb.c
-+++ b/drivers/usb/phy/phy-tegra-usb.c
-@@ -16,6 +16,7 @@
- #include <linux/iopoll.h>
- #include <linux/module.h>
- #include <linux/of.h>
-+#include <linux/of_address.h>
- #include <linux/of_platform.h>
- #include <linux/platform_device.h>
- #include <linux/resource.h>
-@@ -68,9 +69,18 @@
- #define   UHSIC_PHY_ENABLE			BIT(19)
- 
- #define USB_PHY_VBUS_SENSORS			0x404
-+#define   B_SESS_VLD_SW_EN			BIT(11)
-+#define   B_SESS_VLD_SW_VALUE			BIT(12)
- #define   B_SESS_VLD_WAKEUP_EN			BIT(14)
-+#define   A_SESS_VLD_SW_EN			BIT(19)
-+#define   A_SESS_VLD_SW_VALUE			BIT(20)
- #define   A_SESS_VLD_WAKEUP_EN			BIT(22)
-+#define   A_VBUS_VLD_SW_EN			BIT(27)
-+#define   A_VBUS_VLD_SW_VALUE			BIT(28)
- #define   A_VBUS_VLD_WAKEUP_EN			BIT(30)
-+#define VBUS_SENSORS_SW_OVERRIDE		(B_SESS_VLD_SW_EN | B_SESS_VLD_SW_VALUE | \
-+						 A_SESS_VLD_SW_EN | A_SESS_VLD_SW_VALUE | \
-+						 A_VBUS_VLD_SW_EN | A_VBUS_VLD_SW_VALUE)
- 
- #define USB_PHY_VBUS_WAKEUP_ID			0x408
- #define   ID_INT_EN				BIT(0)
-@@ -621,6 +631,10 @@ static int utmi_phy_power_on(struct tegra_usb_phy *phy)
- 		val = readl_relaxed(base + USB_PHY_VBUS_SENSORS);
- 		val &= ~(A_VBUS_VLD_WAKEUP_EN | A_SESS_VLD_WAKEUP_EN);
- 		val &= ~(B_SESS_VLD_WAKEUP_EN);
-+
-+		if (phy->has_extcon)
-+			val |= VBUS_SENSORS_SW_OVERRIDE;
-+
- 		writel_relaxed(val, base + USB_PHY_VBUS_SENSORS);
- 
- 		val = readl_relaxed(base + UTMIP_BAT_CHRG_CFG0);
-@@ -727,6 +741,12 @@ static int utmi_phy_power_off(struct tegra_usb_phy *phy)
- 					   val, !(val & VBUS_WAKEUP_STS),
- 					   5000, 100000);
- 
-+	if (phy->has_extcon) {
-+		val = readl_relaxed(base + USB_PHY_VBUS_SENSORS);
-+		val &= ~VBUS_SENSORS_SW_OVERRIDE;
-+		writel_relaxed(val, base + USB_PHY_VBUS_SENSORS);
-+	}
-+
- 	utmi_phy_clk_disable(phy);
- 
- 	/* PHY won't resume if reset is asserted */
-@@ -1456,6 +1476,34 @@ static int tegra_usb_phy_parse_pmc(struct device *dev,
- 	return 0;
- }
- 
-+static int tegra_usb_phy_parse_controller(struct device *dev,
-+					  struct tegra_usb_phy *phy)
-+{
-+	struct device_node *usb_node;
-+	char *node_path;
-+	u64 addr;
-+	int ret;
-+
-+	ret = of_property_read_reg(dev->of_node, 0, &addr, NULL);
-+	if (ret) {
-+		dev_err(dev, "Failed to read reg entry 0: %d\n", ret);
-+		return ret;
-+	}
-+
-+	node_path = devm_kasprintf(dev, GFP_KERNEL, "/usb@%08llx", addr);
-+	if (!node_path)
-+		return -ENOMEM;
-+
-+	usb_node = of_find_node_by_path(node_path);
-+	if (!usb_node)
-+		return -ENODEV;
-+
-+	phy->has_extcon = of_property_present(usb_node, "extcon");
-+	of_node_put(usb_node);
-+
-+	return 0;
-+}
-+
- static const struct tegra_phy_soc_config tegra20_soc_config = {
- 	.utmi_pll_config_in_car_module = false,
- 	.has_hostpc = false,
-@@ -1552,6 +1600,13 @@ static int tegra_usb_phy_probe(struct platform_device *pdev)
- 		return err;
- 	}
- 
-+	if (tegra_phy->mode == USB_DR_MODE_OTG) {
-+		err = tegra_usb_phy_parse_controller(&pdev->dev, tegra_phy);
-+		if (err)
-+			return dev_err_probe(&pdev->dev, err,
-+					     "Failed to get controller\n");
-+	}
-+
- 	tegra_phy->phy_type = of_usb_get_phy_mode(np);
- 	switch (tegra_phy->phy_type) {
- 	case USBPHY_INTERFACE_MODE_UTMI:
-diff --git a/include/linux/usb/tegra_usb_phy.h b/include/linux/usb/tegra_usb_phy.h
-index 6343f88df5de8..4bb20e39003ab 100644
---- a/include/linux/usb/tegra_usb_phy.h
-+++ b/include/linux/usb/tegra_usb_phy.h
-@@ -87,6 +87,7 @@ struct tegra_usb_phy {
- 	bool wakeup_enabled;
- 	bool pad_wakeup;
- 	bool powered_on;
-+	bool has_extcon;
- };
- 
- #endif /* __TEGRA_USB_PHY_H */
--- 
-2.53.0
+[Severity: Low]
+Does this schema reference break dtschema device tree validation?
 
+The dt_binding_check validation tool will fail because it cannot resolve the
+referenced nvidia,tegra-regulators-coupling.yaml schema, as the target file
+has not been converted and still only exists as a .txt binding.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261004164540.1984=
+46-1-clamor95@gmail.com?part=3D1
