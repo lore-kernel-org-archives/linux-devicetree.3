@@ -1,197 +1,193 @@
-Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 738A643BDA3
-	for <devicetree@vger.kernel.org>; Sun,  4 Oct 2026 14:02:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.21
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791122522; cv=none; b=TNkLI0r+Gg0yVP37445tK2gybIkugwUbZT/Ga8nsNQ8eXCuwmvA7NnvSRXl+rtmIQ0iea+iLY++pDElUJa2Z1wQ9CGmwt7QUBopI3w0NNSHb5LAv1YUNEPQlc6E7KI+UW1no/dS7PX3/eTTm1GbhZl+BFLlbH41GzDrnHIHN0gs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791122522; c=relaxed/simple;
-	bh=fgDIAowiGVPHmpIQnHv28H9YCPmJ9xtuRXwqmc11gpQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BKbJhEhHRaYXm4C5eiZrVXf/rIZ7jBInmGm9WexyuDCFtXTQCm+NQ7Nk+hs9k1BBIXQ8I9x8JldiWF82xIdavf2V8udMhaqjHGSzGqpuYd0g6aweQLcSagyKDmxvIlbXjoyVrwETLDr3tvlVTjjLLg5t9a6lAWNFmxmQVarM1AY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.net; spf=pass smtp.mailfrom=gmx.net; dkim=pass (2048-bit key) header.d=gmx.net header.i=wahrenst@gmx.net header.b=Ib3G8g8Q; arc=none smtp.client-ip=212.227.17.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.net
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC993440644
+	for <devicetree@vger.kernel.org>; Sun,  4 Oct 2026 14:04:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791122673; cv=pass; b=rO+hHcywTyxXpZCwrfKvUP6lnUJiSdzhUqOMn7O0PSgkzo2fKpJ+V9x88ouUKDqAf2PEKvMhibH2x9z8w08ZtLNfe0DRTuYtl3wjwPxUs25DVv7zFPIELGBAvcQ4K6Eqg5pVKjFYsvsW9x4NdgryHIlBXQDCT00lIALlAHbCgys=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791122673; c=relaxed/simple;
+	bh=zQvitaeXvIXPsBzLHJD4W7X6qye0XVH/jk4cnitg1Ik=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=WT5s66Dzk5J8ig0WBvEjO4obtm46++O2JoyAuL5czcR70dPKbKkGHWvHUFzGgfU4s0LJQTxq1uln+V1bhm+K23ozRC+PVMG7iLkpGHM35lZp0cKrH84LFeFzWalkcvt1NTbUyPugVD3h2c530NLrj+gBY1T3Fg81Q8ds5T9DVBE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ftQUyQkG; arc=pass smtp.client-ip=74.125.224.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmx.net header.i=wahrenst@gmx.net header.b="Ib3G8g8Q"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.net;
-	s=s31663417; t=1791122505; x=1791727305; i=wahrenst@gmx.net;
-	bh=n85cPgRcUMugkyTneQ6NPJYyfdPtF+eqAAlDgpKnEqU=;
-	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
-	 References:MIME-Version:Content-Transfer-Encoding:cc:
-	 content-transfer-encoding:content-type:date:from:message-id:
-	 mime-version:reply-to:subject:to;
-	b=Ib3G8g8QIO9XATQO7N5mvN6OmXXvfAh1iFBNVmO/Jfe3jAOYpvdTDQwKJVj8RBsz
-	 H3hJH6QDGJXRmBHKxJ6VMfJl+jcwg8FeUTC3S2vhWoJ7P8l2t9OayDe6rpQUuINXK
-	 HRBwJp+QMSj+1qy8u2z6b5yFC1S7bmrGH8nq3ASJvZFAU16WNqarMw6FmlNJiPZ64
-	 kXPAMTXZAPBi2H2z87c+GQIFgMgq29/dv5cUsmm5HFLF090PSGRI6v9q+KeXIyPwm
-	 QXARnKKb+wH/PVKHqWpfqjYLwo0Tg/FUBJ28lm2IfT1/j+TgEadlnPuGULK2YSmal
-	 rgrzRHlUEkPN3qRnWQ==
-X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
-Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
- [212.227.17.168]) with ESMTPSA (Nemesis) id 1N6sn1-1wcs2I10CV-00zgOE; Sun, 04
- Oct 2026 16:01:45 +0200
-From: Stefan Wahren <wahrenst@gmx.net>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>
-Cc: devicetree@vger.kernel.org,
-	Manuel Traut <manuel.traut@mt.com>,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	Stefan Wahren <wahrenst@gmx.net>
-Subject: [PATCH 3/5] ARM: dts: imx6ull-tarragon-common: Disable unused LDOs
-Date: Sun,  4 Oct 2026 16:01:21 +0200
-Message-ID: <20261004140123.46461-4-wahrenst@gmx.net>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261004140123.46461-1-wahrenst@gmx.net>
-References: <20261004140123.46461-1-wahrenst@gmx.net>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ftQUyQkG"
+Received: by mail-yx2-f12.google.com with SMTP id 00721157ae682-85d43ac8d1eso5246567b3.2
+        for <devicetree@vger.kernel.org>; Sun, 04 Oct 2026 07:04:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791122671; cv=none;
+        d=google.com; s=arc-20260327;
+        b=d0c3vz6rSVA1PXJ61qai7rYqm7PwA0k121C+BMKy6JM3ZRYbG3JimKTRWxK5NyDeNN
+         vmXMN9C5uGBaGkZowVetBfXPyzVsoLFuUtRw+pMmKci8MqrYxT+FoXoFqvBAvJHzbz+L
+         bLjJavp8tw9A5cHfdWK7D9dsdn95OGnGeOOZY/+pi8J6y7mEFskyETHRZ1U0iLuDpgcK
+         H4msuKef6NrkbXm77mcDK90YfEYuV0KysgVJwDteTkfb+/EN+1oTXJl2byIc4H1bWDXG
+         RKqvCF6wwxXC8+Yi2MddBBwmgg4wQYqA8IBIY7uJkN3HDqT9PkFe9eeJzhFVzP3AVIwK
+         xR1g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=JLb4eRNcCEX2UMwoo8gXKRnIfuOx+5A4lJjiZhpkmM4=;
+        fh=yIwneq7kjlKisYRXmd9lns1aWtBC5JqrTBpuNh4lcA8=;
+        b=bvA5kvShwrus96RgOLMQxOdocKDZgoQB4/xbVo3z2w+1HgcvuQLH2oH9j7jo98Ec/f
+         vCg9JE/9mUpj1hVOGyx6zWqYERHoesArx4+MRa8FEjo2xH85k2wurcbnZieK1+A5X12y
+         wi/Ol/Kna7I6WdxawgETMLnbLa/IVSskq5oTknO0iUXrgiP0GErxBctl8MJi0jS6IH5E
+         2bI96vwMrqSClqTsnPr2wIpW26Srjlb+bIeBzw1b6TVaFTRVzI4VhEItrXlhS8kVWCRo
+         uOkqGsOdZjHD4j5CTIoAEiHruFPhVa0IrhW0szVrMTOxtcWLgVeDWoOCPTttnKA9glvR
+         luIw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791122671; x=1791727471; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=JLb4eRNcCEX2UMwoo8gXKRnIfuOx+5A4lJjiZhpkmM4=;
+        b=ftQUyQkG+UApOz3N48cMNnWYQL4ijCkijE5ox8/EKFDbl4A+U0lAwXlsIa4D/ZQAKi
+         i09beRXkWesIif+5Q79oRGas+iuXUYz7FpfD6OtT9mUQWsepBuVyu6IaJTQ1q6/wC4nB
+         lA9+xS5s3T1q957OsDiwUX6wt5JBrivakwbyhtA3BN7C2/roUEvnQrLQPn1zweqQPHsK
+         HmijqrBuc4EAuulTL2fYBd/1pT3PApE2yUUX2MDq1Jv4pdWbr74f3feD8B/+/RIrw28f
+         TtzmRg1HcRYKO3asm2EsftP/3bVODcI/H6gU44DlETGNyYb+2qcV6nmJjNyiHasd49V+
+         fBsg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791122671; x=1791727471;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JLb4eRNcCEX2UMwoo8gXKRnIfuOx+5A4lJjiZhpkmM4=;
+        b=yrq6dpyknSwGEXsch3L4gfAuRIyDUriLzfNOx96GqZKLrNShs7orJuP4wSFVBMzz/M
+         qqor+rpJA7/x63ykFuKR7zVDIQDCe+oyjuGlHAe+32iIaf/0xV3qxpZqRl5Vm0Ksdgtf
+         Fl8Q2m1u1TT2uBMuO2cZProueDRhMXRgRIHDq+ndlQrkeouMUGHCdV2FEmOt4OKh509s
+         2ZperV5hxCszQit0k75A9EQcN5aCrdvCl03T4DGyMgUhtjhsF5lqQMr1t9flPri7kutB
+         TybLt0tFwHR8gIXMFrol9hdxz8dr1w9AVPCInXeNwdSpjQkR3f4yk2r9T79Drr+KbkWX
+         S2Qw==
+X-Forwarded-Encrypted: i=1; AKwUvBzssdRDIgirKzNHTzMmWIc4iQcKJhb43Bfr3nHidCZwgdLdu2/tmEgVRQy+/BY5r2gUkYTlBp7Ow3qV@vger.kernel.org
+X-Gm-Message-State: AFq9FYIrfu/88DM+30JBs6j8TtVpEjM6JQiC/w1a1C7DwGXz58GBqk69
+	ebLxTalVvvVyPJ6nvVPYcywWS/rBrRtWAzJo3xzwKDhiwMKIuWcmFIjV936hVu3vnJDRzScX5hB
+	0NmmeFq1f6PxpAq/R3GaPXxr223WNWDU=
+X-Gm-Gg: AYBFou3PQUp9yG9nB5kmJg4s9jioSELEItMGT6bzj95LECy7PKj9pc7SBoyjyX+hYYp
+	PcuSNDbev4YZZSKrdjYb9j8g0Rxsz6ALGite36ucyQqfmnvCcvasP0IFcKvVy97lTDDoyW8/bV8
+	g3dTsp38v2Dr3iMxblpoc8r5cHa0tmVO1cYKdj54MSRmc92PcBvZ0hrGanb3ypVsP+p7CyYKXjk
+	hOB8Wruj/lwy9ImQ5HMCn65nJrzJNOwqUVGeqwa9EwKBh5QiTzm6Qbg1aSnE2da1KhUGnvCRE1p
+	IKbp6tYI4C2rFdOp2VXRpBI0flbZwPcnpRoRK713n6/pAQIgG15CTYw0l69NNpEJAAo=
+X-Received: by 2002:a05:690c:808:b0:894:4ded:2746 with SMTP id
+ 00721157ae682-8ae39bc3a5emr29986867b3.36.1791122670719; Sun, 04 Oct 2026
+ 07:04:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260901170358.176103-1-challauday369@gmail.com>
+ <20260909-arcane-yellow-beluga-5ce6f7@quoll> <CAAj-GBkiTvFwx+3htJaKGFCYAC0jGdhyxkfUa8dKWPkYmbGViw@mail.gmail.com>
+ <f402d93f-4443-4209-a6c7-5c30e7c8751a@kernel.org> <CAAj-GBnyFnVhNpuPTBoQhBZJLUYdXnBcxnEYy8rsYqkqX=UK7g@mail.gmail.com>
+ <82b71784-4bb9-4165-a0f0-cf00fedde944@kernel.org>
+In-Reply-To: <82b71784-4bb9-4165-a0f0-cf00fedde944@kernel.org>
+From: Uday Kiran <challauday369@gmail.com>
+Date: Sun, 4 Oct 2026 19:34:19 +0530
+X-Gm-Features: AclHuK-smCoxAzq60YVQ3K1PKT1W0UA8Bq-Qwa7xNOwTShMYhxgCUih7FvIhu4Y
+Message-ID: <CAAj-GBkPTmSxjKcXrzeMA3bz89vPGHt0Ai4Gat3KSz3epusRjw@mail.gmail.com>
+Subject: Re: [PATCH v3] dt-bindings: leds: lacie,netxbig-leds: Convert to DT schema
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: lee@kernel.org, pavel@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, skhan@linuxfoundation.org, me@brighamcampbell.com, 
+	linux-leds@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Provags-ID: V03:K1:bosZpySA7+akI+72MkR4K/z0kQWc2wkOGFGtgeCUVgS2VphxKOM
- HVE5b/H3c8gStFhf0ut/gR3Hdx9ZmeDc/6zCmARpQ51e2NwjWR84uMUuJymCAMZcaAQwFsD
- 8PLeDGy3EJHzkdYAw4mHgmPDRZWZtopsG5mK2JOTsJPsYZ7zcb+LluZPO02m8pd3M4u6zZW
- HI7xkMlCWl0jd4b/ky2mQ==
-X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:h9Buo3RwJrA=;JDjYuKP9bvtlWTtaPPui12dTnRY
- 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
- 6hjRMAPl75js3gJMBVYTVi5OnQ==
 
-According to the Tarragon schematics LDO2, LDO3 and LDO4 doesn't have any
-consumers. So there is no point for regulator-always-on.
+On Wed, Sep 16, 2026 at 11:39=E2=80=AFAM Krzysztof Kozlowski <krzk@kernel.o=
+rg> wrote:
+>
+> On 14/09/2026 19:58, Uday Kiran wrote:
+> > On Sat, Sep 12, 2026 at 1:20=E2=80=AFPM Krzysztof Kozlowski <krzk@kerne=
+l.org> wrote:
+> >>
+> >> On 11/09/2026 16:29, Uday Kiran wrote:
+> >>>>> +properties:
+> >>>>> +  compatible:
+> >>>>> +    const: lacie,netxbig-leds
+> >>>>> +
+> >>>>> +  gpio-ext:
+> >>>>> +    description: Phandle for the gpio-ext bus.
+> >>>>> +    $ref: /schemas/types.yaml#/definitions/phandle
+> >>>>> +
+> >>>>> +  timers:
+> >>>>> +    description: |
+> >>>>> +      Timer array. Each timer entry is represented by three intege=
+rs:
+> >>>>> +      Mode (gpio-ext bus), delay_on and delay_off.
+> >>>>> +    $ref: /schemas/types.yaml#/definitions/uint32-array
+> >>>>> +
+> >>>>> +patternProperties:
+> >>>>> +  "^(?!gpio-ext$|pinctrl-[0-9]+$)[a-z][a-z0-9]*(-[a-z0-9]+)+$":
+> >>>>
+> >>>> This is an odd pattern. Why is pinctrl an LED? or gpio-ext?
+> >>>>
+> >>>> Actually entire pattern is very odd - it has $ in the middle, but th=
+en
+> >>>> followed with other REQUIRED stuff. I am surprised it works, but
+> >>>> regardless it is absolutely not readable. Looks like a begative patt=
+ern,
+> >>>> but why would you have negative pattern for known properties?
+> >>>
+> >>> Thanks for the review Krzysztof.
+> >>>
+> >>> The negative lookahead was added because patternProperties matches al=
+l top-
+> >>> level property names that fit the pattern, so excluded known top-leve=
+l
+> >>> properties like gpio-ext and pinctrl-*;
+> >>>
+> >>> In patch v1, I've used additionalProperties which removes the regex e=
+ntirely
+> >>> and allows arbitrary child-node names. But removed and used patternPr=
+operties
+> >>> as per the review feedback.
+> >>>
+> >>> Could you please suggest to me which way to proceed? with additionalP=
+roperties
+> >>> or patternProperties
+> >>
+> >>
+> >> The children are leds, so they should use generic node name pattern li=
+ke
+> >> "^led-[a-z0-9]+$"
+> >
+> > Yes, Krzysztof but the original binding uses blue-power, red-power,
+> > blue-sata0, etc.
+> > as LED child node names. Would you like me to rename these nodes to
+> > led-blue-power, led-red-power, etc. to use the suggested
+> > ^led-[a-z0-9]+$ pattern,
+> > or should I retain the existing node names and use a more specific
+> > pattern for them
+> > like "^(blue|red)-(power|sata[0-9]+)$"
+>
+> I did not see original binding mentioning any names. Neither in the drive=
+r.
 
-Fixes: 5e4f393ccbf0 ("ARM: dts: imx6ull: Add chargebyte Tarragon support")
-Signed-off-by: Stefan Wahren <wahrenst@gmx.net>
-=2D--
- arch/arm/boot/dts/nxp/imx/imx6ull-tarragon-common.dtsi | 3 ---
- 1 file changed, 3 deletions(-)
+Sorry for the delayed response, Krzysztof.
 
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6ull-tarragon-common.dtsi b/arch=
-/arm/boot/dts/nxp/imx/imx6ull-tarragon-common.dtsi
-index d2aa5285cd18..81761a505d6f 100644
-=2D-- a/arch/arm/boot/dts/nxp/imx/imx6ull-tarragon-common.dtsi
-+++ b/arch/arm/boot/dts/nxp/imx/imx6ull-tarragon-common.dtsi
-@@ -321,7 +321,6 @@ vgen2_reg: vldo2 {
- 				regulator-name =3D "VLDO2";
- 				regulator-min-microvolt =3D <800000>;
- 				regulator-max-microvolt =3D <1550000>;
--				regulator-always-on;
- 			};
-=20
- 			vgen3_reg: vccsd {
-@@ -342,14 +341,12 @@ vgen5_reg: vldo3 {
- 				regulator-name =3D "VLDO3";
- 				regulator-min-microvolt =3D <1800000>;
- 				regulator-max-microvolt =3D <3300000>;
--				regulator-always-on;
- 			};
-=20
- 			vgen6_reg: vldo4 {
- 				regulator-name =3D "VLDO4";
- 				regulator-min-microvolt =3D <1800000>;
- 				regulator-max-microvolt =3D <3300000>;
--				regulator-always-on;
- 			};
- 		};
- 	};
-=2D-=20
-2.43.0
+You are right that the binding text and the driver do not mandate node name=
+s.
+However, the existing device tree source use names like blue-power,
+red-sata0, etc.:
 
+arch/arm/boot/dts/marvell/kirkwood-netxbig.dtsi
+
+Also, the driver uses the node name as a fallback LED label when the label
+property is absent.
+
+drivers/leds/leds-netxbig.c, lines 585-588.
+
+If we enforce ^led-[a-z0-9]+$ in the schema, the existing DTS file would fa=
+il
+validation, and renaming the nodes would change the userspace-visible
+LED names.
+
+Regards,
+Udaya Kiran Challa
