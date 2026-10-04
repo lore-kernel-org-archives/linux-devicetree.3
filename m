@@ -1,303 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC7213C552B
-	for <devicetree@vger.kernel.org>; Sun,  4 Oct 2026 16:44:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BF2F3CD8CC
+	for <devicetree@vger.kernel.org>; Sun,  4 Oct 2026 16:46:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791132271; cv=none; b=kOLiCkwaMIBSB5SPVMRVIoLERF5FdfjOW7jydAXLB0l+uvClaYm+O6+gW0W3iD76dZmN36kNHbXJNVIet27jPGIBRO05gLMg3rmlwI7lCtPMehCJpDfS/gpUMtuDAu7xl2aD11iR1g96Zcip2oJZJeWZBdHgFcY+LG4WRtMB/50=
+	t=1791132364; cv=none; b=TVKn6dK0jaZnmehQ4kIqgBvdJHjoIeaenROYRtjJbCVhJIje7YIn/T3CuKMkbq6pvSJ7Fm9wV5Ljbnq7p2JDOpzdTgsFcm2e6YPEjC7d5mBapQNm4y7I8dM518aDbwC7zPNvGMzkbqe4CcAYymmrL8kVnmznkmF1DVPnBsj9/IU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791132271; c=relaxed/simple;
-	bh=ReiDbd9ONK/a4xbyJfiQPXBZ+hxnnaXfymzsjbFs4m0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=GMlX9zHce9TzGKdD+z1hVbsVpTzgVlN9wwv3+I1XjaapYhsxCNs9E2EQNOHtCnCk6KmlUWdOENEvlPFtRs+a0X1AZ9LTpujMN3nG10sRGAoGyjOdhm0Bb6W3CraiCphxysa9BLfDuUbxqba0xWFjaVIqfM1plIUEBx2U8JNHgYs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L5gJpuTo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791132364; c=relaxed/simple;
+	bh=l5oEal4VAJKhbsdVKhFkkLQTTN9gxEOa+mODKSDfhF0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=frR20OoN7mUK2cRfpfm4LI9/8T0DD3HPs9eojwk6//p5Wh5vRJX94JwWR5p/Nt4tCtJAy5zdw1cHkX4yum8ooS3M2i4Ksd05P5qiAjhcfKb79QqCqCUwDZAovsYS/TXQ6YYZSnOGdA1KnmXhZLFefd20udD1n18sQgIOzHnGlW8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SqUa020L; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L5gJpuTo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 247FD1F000FF;
-	Sun,  4 Oct 2026 16:44:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791132269;
-	bh=ZmiGYnUEqS+sQUGNM0ZqBViugxpbMBQ8gFD/1a3C0HU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=L5gJpuTon/GGT1Fv1VTUj2iYUgkN4bawPEmlm+DIXZ71k8N/oa9QTWpIuApD5aNCr
-	 5kdgOS6l8XXsHlAFJy3RKhJiBknDm0yNakIJAB3PpcQb20FovVIQ0b3VCSJOEIG+xz
-	 lEAGPgdavMDmCkhvawCfC/bDtFyQQiLyDy6zXWoSM50SCub0svutMrBspOIv+Ebr8v
-	 e7PdAnZy2TmOmM7em9+OhrIMXPP4YkABaeTNiUjqxRyEpRv03smZ92OtLHrmnwBIrI
-	 Q1OWDPdUXmd0znPiL9fXt+jeeK+MPa0QDtMV/mC6O31dCfYd9O+B58Vywpx/2GTFac
-	 4qraGdeSzzi/w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 4/7] drm/tegra: Add support for 8-bit CPU interface
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
-In-Reply-To: <20261004163114.181800-5-clamor95@gmail.com>
-References: <20261004163114.181800-1-clamor95@gmail.com>
- <20261004163114.181800-5-clamor95@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 04 Oct 2026 16:44:28 +0000
-Message-Id: <20261004164429.247FD1F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SqUa020L"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a1688d7769so7125565e9.0
+        for <devicetree@vger.kernel.org>; Sun, 04 Oct 2026 09:46:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791132361; x=1791737161; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4IvLGZFohw08LsO9YplAB+8WHFnyYtxpYVPZVN/oLn0=;
+        b=SqUa020LlTv/IOjOOlRowv3Dq1/GT0bqbP2z5vXTkA1mM8eNLr4fyf6eH4iqFGKHv8
+         NMzNuWfUWovsXHO97I55MiY6Z1++qV34AwBuxvqqFBGT8exvhryGYt9cVR7vv6vbOP9b
+         R1Y1R+3q857f+KV9xli+/dHuqG+swcyZPsOox2ah6vjmcM1RQ5PHOsZvl7A4HzOTM1qA
+         +6aaj5A9ylw9wpOozNIRiMTYTC3/jDiEkEwz1EmR2w6X72tmAlcxMLUoMJ+jTa+VRs/o
+         BpgepNPHAljx8uHLn9rVPGYWX/JNbCQ62PtKifrnfj4stLXN1g6iIaYmxFxOQE1CcFZK
+         3obA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791132361; x=1791737161;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4IvLGZFohw08LsO9YplAB+8WHFnyYtxpYVPZVN/oLn0=;
+        b=pqmy8Kzuc5R3DD0YZ4lhCQuFzL9tEBWj4vKpf1SPMvIZcORBKUGHyS7NWYkHPn30zP
+         1cfACPHghbjzze/Qh52ow8ck54/TNDG9K5NnnjgPOhDutE9jyLhVIsW+GMEf6nrUnu06
+         Ymm3pGMt//w2gSTPmFKlCJ49Oew62fu/dDDoJwNPrD3CeoAYlMVCg01vmmrYUgO09zkY
+         WLkCw/u9zLV/nj+t0I2kcKQT4vMwo401fod6sSpmRU48iC0BoP+V7hHE1HhGQS394Jmt
+         dOMKgTAhBsftm0OdVjtYRmNqLIGLdmF2jMqQcv5HZxC0ZWBcIPyuXt0H+J/je32GDSe2
+         WWuQ==
+X-Forwarded-Encrypted: i=1; AKwUvByg5+V5ptsn3HNS3OhDcBBsPe7wdFvI5U8cNTdsz80l0CwAmNoHofHAE03h7HzwkXQfGKpKncd2AUIz@vger.kernel.org
+X-Gm-Message-State: AFuF++lB2V1VV80NlkP6Mn1tqOZy815hLj2MkQEiTbgVltu0BkljcSn6
+	UN381pMCwmVBJpXwndTeFMHkPaFQJ9wyX45yTTfWLRNNDT5igtvmCurZ
+X-Gm-Gg: AYBFou2FUFwAxlhLk4/VIyEOdPKvmBHnW6LxD3k53/siHQnncbAK8DWNJAlyDkn9XSJ
+	9BDkITgsKfC6VSWXiPA9OhPFxGMIaFX+V93gRiBJiXPfJXkJhtb41Owrrxw8ICu4FDSV3UW7BZJ
+	uet2Bq/+bLbLDa1MqtchKtgKPyC1bZOc5NYGm03Lpv4RmetVafGW8IsIVMgpn90wOK9+ZCV6IzZ
+	rzD7Ajcb0TKp/bC3JtC8y9Ry5ZZW4dtneKCTwglyA3xxFwZ7j9oSlicTYZa/0dzj8PAAJFMIwpv
+	Ilx96vsdFLb5fxzmJMCeTOIf/9I7grIgim6z5ABdhUc5ZIBqhwiz/9V7kZzrOWoK7nr5ulpVZEO
+	VshM6lwp8I20vCZrN56R0IQG39C88dB8RcOdHlknl9eoRrSVCSdrGnbVp3CA8C1oOas2vAXHbTP
+	cm2dUkOvQuChMOlZBUKLJxI/1GxMFNuXTeaoYrmjPnDKK4z1TjhpsJG4QqqOZ3N5/8DUjxM/Vp0
+	zG55VOzsW8ELK0Kaw+LRpQ9oHjFaw==
+X-Received: by 2002:a05:600c:c177:b0:4a0:1c0e:b136 with SMTP id 5b1f17b1804b1-4a168103397mr86677335e9.29.1791132361371;
+        Sun, 04 Oct 2026 09:46:01 -0700 (PDT)
+Received: from xeon ([188.163.112.76])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48b380f0613sm21801435f8f.13.2026.10.04.09.45.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 04 Oct 2026 09:46:00 -0700 (PDT)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Lee Jones <lee@kernel.org>,
+	Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	mfd@lists.linux.dev
+Subject: [PATCH v2 0/3] mfd: max8907: Schema, pdata and poweroff
+Date: Sun,  4 Oct 2026 19:45:37 +0300
+Message-ID: <20261004164540.198446-1-clamor95@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
-- [Critical] drm/tegra: UAF of GPIO descriptors during MIPI DCS panel disab=
-le
-- [High] drm/tegra: panel init commands in prepare() silently dropped
-- [High] drm/tegra: sleeping in atomic context in bridge callbacks
-- [Medium] drm/tegra: tegra-dbi platform device leaked on dc probe error pa=
-ths
-- [Medium] drm/tegra: double-enable/disable warnings from redundant manual =
-panel calls
-- [Medium] drm/tegra: leaked DRM panel reference from drm_of_find_panel_or_=
-bridge
-- [Low] drm/tegra: unused idx variable in tegra_dbi_priv
---
+Convert existing txt documentation file to DF schema. Remove
+platform data use. Switch to device managed poweroff handler.
 
-commit 0271b6e2272161d6c9c79ab99f61fc6699770373
-Author: Svyatoslav Ryhel <clamor95@gmail.com>
-Subject: drm/tegra: Add support for 8-bit CPU interface
+Schema includes reference to pending tegra-regulators-coupling
+conversion. https://lore.kernel.org/lkml/20260924-ti-tps6586x-v4-1-6c7a8fb8b646@gmail.com/
 
-The display controller in Tegra20/30 SoCs features an 8-bit SPI interface
-that closely resembles the MIPI DBI Type B protocol and is referred to as
-'8-bit CPU'. Each display controller provides two such interfaces, which
-can be used to send MIPI DCS commands to initialize and control the panel
-while image data is transmitted via 16/18/24-line RGB.
+---
+Changes in v2:
+- fixed max8907_power_off return
+---
 
-> diff --git a/drivers/gpu/drm/tegra/dbi.c b/drivers/gpu/drm/tegra/dbi.c
-> new file mode 100644
-> index 0000000000000..74a1051b86778
-> --- /dev/null
-> +++ b/drivers/gpu/drm/tegra/dbi.c
-> @@ -0,0 +1,416 @@
-[ ... ]
-> +struct tegra_dbi_priv {
-> +	struct mipi_dbi dbi;		/* must be first */
-> +	struct device *dev;
-> +	struct tegra_dc *dc;
-> +
-> +	struct gpio_desc *dc_gpio;
-> +	struct gpio_desc *rw_gpio;
-> +	struct gpio_desc *cs_gpio;
-> +	struct gpio_descs *data_gpios;
-> +
-> +	struct drm_bridge bridge;
-> +	struct tegra_dbi_output output;
-> +
-> +	u32 spi_init_seq[4];
-> +	u32 bus_width;
-> +	u32 idx;
+Svyatoslav Ryhel (3):
+  regulator: dt-bindings: maxim,max8907: Convert to DT schema
+  mfd: max8907: Remove platform_data based probing
+  mfd: max8907: Convert to use device managed poweroff handler
 
-[Severity: Low]
-Is the idx field needed here? It doesn't appear to be used anywhere in the
-driver.
+ .../devicetree/bindings/regulator/max8907.txt |  69 -----
+ .../bindings/regulator/maxim,max8907.yaml     | 285 ++++++++++++++++++
+ drivers/mfd/max8907.c                         |  38 +--
+ drivers/regulator/max8907-regulator.c         |   8 +-
+ include/linux/mfd/max8907.h                   |   5 -
+ 5 files changed, 309 insertions(+), 96 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/regulator/max8907.txt
+ create mode 100644 Documentation/devicetree/bindings/regulator/maxim,max8907.yaml
 
-> +	bool prepared;
-> +};
-[ ... ]
-> +static void tegra_dbi_write(struct tegra_dbi_priv *priv, u8 type, u8 val=
-ue)
-> +{
-> +	DECLARE_BITMAP(value_bitmap, 8);
-> +
-> +	value_bitmap[0] =3D value;
-> +
-> +	gpiod_set_value(priv->dc_gpio, type);
-> +
-> +	gpiod_set_value(priv->cs_gpio, 0);
-> +	gpiod_set_value(priv->rw_gpio, 0);
-> +
-> +	gpiod_set_array_value(priv->data_gpios->ndescs, priv->data_gpios->desc,
-> +			      priv->data_gpios->info, value_bitmap);
+-- 
+2.53.0
 
-[Severity: Critical]
-Could this dereference freed memory during display teardown?
-
-During a disable cycle, panel_bridge_disable() runs before
-tegra_dbi_atomic_disable() and sends DCS commands through
-tegra_dbi_dbi_command() -> tegra_dbi_write(). However, the GPIO descriptors
-were already freed by gpiod_put_array() at the end of tegra_dbi_atomic_enab=
-le(),
-leaving dangling pointers in priv->data_gpios.
-
-> +
-> +	gpiod_set_value(priv->cs_gpio, 1);
-> +	gpiod_set_value(priv->rw_gpio, 1);
-> +
-> +	udelay(10);
-> +}
-> +
-> +static int tegra_dbi_dbi_command(struct mipi_dbi *dbi, u8 *cmd, u8 *para=
-m, size_t num)
-> +{
-> +	struct tegra_dbi_priv *priv =3D mipi_dbi_to_tegra_dbi(dbi);
-> +	u8 command =3D *cmd;
-> +
-> +	if (!priv->data_gpios)
-> +		return 0;
-
-[Severity: High]
-Does this silently drop panel initialization commands?
-
-The drm_panel_prepare() hook executes during panel_bridge_pre_enable(), whi=
-ch
-happens before tegra_dbi_atomic_enable(). Because data_gpios is only alloca=
-ted
-later during atomic_enable, priv->data_gpios is NULL here and the initializ=
-ation
-commands get ignored.
-
-> +
-> +	tegra_dbi_write(priv, TEGRA_DBI_COMMAND, command);
-[ ... ]
-> +static int tegra_dbi_prepare_gpios(struct tegra_dbi_priv *priv)
-> +{
-> +	struct device *dev =3D priv->dev;
-> +	int ret;
-> +
-> +	if (priv->prepared)
-> +		return 0;
-> +
-> +	/*
-> +	 * Control and data GPIOs are shared between SPI and DPI. The bridge
-> +	 * driver must get and put the required GPIOs each time DCS commands
-> +	 * are transmitted.
-> +	 */
-> +
-> +	priv->cs_gpio =3D gpiod_get(dev, "cs", GPIOD_OUT_HIGH);
-[ ... ]
-> +	priv->data_gpios =3D gpiod_get_array(dev, "data", GPIOD_OUT_LOW);
-
-[Severity: High]
-Can this sleep in atomic context?
-
-tegra_dbi_prepare_gpios() is called unconditionally by tegra_dbi_atomic_ena=
-ble(),
-which executes in an atomic context during non-blocking commits. Both
-gpiod_get() and gpiod_get_array() can sleep as they acquire mutexes and per=
-form
-GFP_KERNEL allocations.
-
-> +	if (IS_ERR(priv->data_gpios)) {
-[ ... ]
-> +static void tegra_dbi_atomic_enable(struct drm_bridge *bridge,
-> +				    struct drm_atomic_commit *state)
-> +{
-[ ... ]
-> +	if (priv->output.panel)
-> +		drm_panel_enable(priv->output.panel);
-
-[Severity: Medium]
-Is this manual panel enablement redundant?
-
-The DRM core automatically manages panel enablement via the attached panel_=
-bridge
-in the bridge chain. Calling drm_panel_enable() here duplicates the operati=
-on
-that panel_bridge_enable() will perform immediately afterward, which will c=
-ause
-kernel warnings about enabling an already enabled panel.
-
-> +
-> +	gpiod_set_value(priv->cs_gpio, 0);
-> +
-> +	gpiod_put(priv->dc_gpio);
-> +	gpiod_put(priv->rw_gpio);
-> +	gpiod_put(priv->cs_gpio);
-> +
-> +	gpiod_put_array(priv->data_gpios);
-> +	priv->prepared =3D false;
-> +}
-> +
-> +static void tegra_dbi_atomic_disable(struct drm_bridge *bridge,
-> +				     struct drm_atomic_commit *state)
-> +{
-> +	struct tegra_dbi_priv *priv =3D bridge_to_tegra_dbi(bridge);
-> +	int ret;
-> +
-> +	ret =3D tegra_dbi_prepare_gpios(priv);
-> +	if (ret)
-> +		return;
-> +
-> +	if (priv->output.panel)
-> +		drm_panel_disable(priv->output.panel);
-
-[Severity: Medium]
-Same issue as above. Does this redundant call conflict with the panel_bridg=
-e's
-automatic lifecycle management, causing warnings about disabling an already
-disabled panel?
-
-> +
-> +	gpiod_set_value(priv->cs_gpio, 0);
-[ ... ]
-> +static int tegra_dbi_probe(struct platform_device *pdev)
-> +{
-[ ... ]
-> +	/* Initialize MIPI DBI interface */
-> +	mutex_init(&priv->dbi.cmdlock);
-> +	priv->dbi.command =3D tegra_dbi_dbi_command;
-> +
-> +	ret =3D drm_of_find_panel_or_bridge(np, 1, 0, &panel, &bridge);
-
-[Severity: Medium]
-Does this code leak the panel reference?
-
-drm_of_find_panel_or_bridge() acquires a reference to the panel, but
-drm_panel_put() is never called in the error paths, and there doesn't appear
-to be a driver remove function to drop the reference when the driver unbind=
-s.
-
-> +	if (ret)
-> +		return ret;
-[ ... ]
-> diff --git a/drivers/gpu/drm/tegra/dc.c b/drivers/gpu/drm/tegra/dc.c
-> index 5c67928bcabfa..dae2b14f79e31 100644
-> --- a/drivers/gpu/drm/tegra/dc.c
-> +++ b/drivers/gpu/drm/tegra/dc.c
-[ ... ]
-> @@ -3382,6 +3383,23 @@ static int tegra_dc_probe(struct platform_device *=
-pdev)
->  		}
->  	}
-> =20
-> +	dbi_np =3D of_get_available_child_by_name(pdev->dev.of_node, "dbi");
-> +	if (dbi_np) {
-> +		struct platform_device_info dbi_info =3D {
-> +			.parent =3D &pdev->dev,
-> +			.name =3D "tegra-dbi",
-> +			.id =3D PLATFORM_DEVID_AUTO,
-> +			.fwnode =3D of_fwnode_handle(dbi_np),
-> +			.of_node_reused =3D true,
-> +		};
-> +
-> +		dc->dbi =3D platform_device_register_full(&dbi_info);
-> +		of_node_put(dbi_np);
-> +		if (IS_ERR(dc->dbi))
-> +			return dev_err_probe(&pdev->dev, PTR_ERR(dc->dbi),
-> +					     "Failed to create DBI device\n");
-> +	}
-> +
->  	err =3D tegra_dc_rgb_probe(dc);
->  	if (err < 0 && err !=3D -ENODEV)
->  		return dev_err_probe(&pdev->dev, err,
->  				     "failed to probe RGB output\n");
-
-[Severity: Medium]
-Are we leaking the dc->dbi platform device on error paths?
-
-If tegra_dc_rgb_probe() or host1x_client_register() fails, the function ret=
-urns
-without calling platform_device_unregister() to clean up the registered dc-=
->dbi
-device. This cleanup also appears to be missing in the disable_pm error lab=
-el.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261004163114.1818=
-00-1-clamor95@gmail.com?part=3D4
