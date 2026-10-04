@@ -1,186 +1,118 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19801459AD7
-	for <devicetree@vger.kernel.org>; Sun,  4 Oct 2026 14:40:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21CF145A288;
+	Sun,  4 Oct 2026 14:46:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791124863; cv=none; b=Kq6APpRNCZ1PcUr/Eo4W5Eyr7cnGnikgSrw8GPywgS7NlzSNzRy1B5wpZXVaciyCYvlRimf6b4NdTuspPa3XqSRy9N+nsuWAa743Lnm2m/zHsKGLerUOr1ldWEFoARBRhEk0TE6J1ThVou5hHNmB+hNg7pK6Iw6qF/YCTC2hzS8=
+	t=1791125176; cv=none; b=Ta33tQqU7YjfIGyDfL3v6ywxspmqeEmQsD2xgCaBd8x2LBIxw87UeyNnMLQ54axAgsv4nGn/pBdnYHBcMuCMo0nhKd3+W6h3A2G6VWKCWsjNSsppOiDFN52P/RBRL8U2iQjzADdMDSUiwIWENt3t8m6IMvtYa1fII2yW5rlKFjk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791124863; c=relaxed/simple;
-	bh=GmvhDuHgpMxF2f93Qq0ERl8r8HiaQxqlwog46212BSs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UoVds2kzsWabkk3i0F3o3qFJVaGt8chMU15KCGf9Ulxyx1v6PAy55jb+M+0OAizDlJI7zjWBX4ahd+VMZ7lEV85ZXHjvmbfR+msZt85H5POt/xL4PIsTAWndYaFj0JOPhCzdvXC+Ziw+k4HUuhZ/CZVi19janLowkATsvArKJhI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-4a0280d4f56so6063125e9.2
-        for <devicetree@vger.kernel.org>; Sun, 04 Oct 2026 07:40:56 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791124854; x=1791729654;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=MZRgdojaRbZiMOWyCy78Vo+uAB8tMtaxuR0FMlqF6Sc=;
-        b=Lt1dgFApd6R2pOetwdEBbMbTgkpRoeqB0juJ7t8du57boAZmfGjpnhwFdLJ7ehpEiB
-         e55y1II8d49uIq6k+SJN0XDL5qoR/U69Tg5uihmmJgT6yGTEZY8hDSgl+fjNNLFmRWt0
-         cq2aUtolX07DBOCjIVgkfIiNaVmSpIwCXiWI1i3cbN4P+s1hJtd8zr0E2l1q+cgWI+Tr
-         WROzFcReJuUmh73sEKMgN0fobeF2bgKeEut9heInLek4ZeScm0tSMUZ6x+S+4FyI48ek
-         01WDhQDicsiNQIJXuUUofvcVjdrxN6iuenVCBtcgM2nXXgdMe34XgfT37PGHnice438u
-         9Rdw==
-X-Forwarded-Encrypted: i=1; AKwUvByMHTfRsf7Wjqp0UGmFu9GsTBPBD+9gNGDsaaeXnkkDK8VuC/K9Qmit0Uqmpwlz0QOkBdrcCTlUy7+A@vger.kernel.org
-X-Gm-Message-State: AFuF++kQkESNa+qy6xGarZXiIo3v7C8CfisPgFyRTW7ZkQyLI/uR3aDp
-	QQrmZzznQ+YcnipWAvtpvcRRmFN5gZ4la3KelNC8tzV9ffZlNhgUkiIt
-X-Gm-Gg: AYBFou279gwRRDSp6+6RUr8d1yJ7wqmfsCCCZk79APCQqOUjfWlit03ty+LzrKqBm+V
-	IAvgZgxQKFmo1OvHKpQu9eSni3GfZ1bIB4VxL9KcjMhxMvq8nc561Cpkb4FH26AK7GtLhcf6Apk
-	fz63KImObgmTKt7JkFrEbCE6VExruku8b53n/gdFZNwg9ZMYzFCTREqyxoue6LDB9Wzck5XuXxW
-	Rju8nWY8r+QqrxZNYceSh4drpPbNlKuHbaHvJzXEKL3ysEM3JlNMQ6NYGB/ouUtOlxyO+6pqaAE
-	lhRbYmaB36N4IDUrN/Qi5t6V9TdA7VzIu5e11sivFhoQ49GNYcRIO7dPksRkmnWqUQWKCifWkHw
-	/duGIIn90wr7QnsYDPzLFP5bX5a5SiuoXUhrZVrwYmC05TO5QWcjHDLkr7DDi5/WkO8kpZ9SbhA
-	NdIgGC+ozmY9z8R+E1T5fDhno37YFk05/1m7PssZarQA25k9L7HaNM1m4auVeH46smTFG0UOdZY
-	4KXOnsLzqhl5BSXCCvLnI54sbBcL2dufQ==
-X-Received: by 2002:a05:600c:8b30:b0:4a0:2644:80db with SMTP id 5b1f17b1804b1-4a0276c0b12mr117321955e9.35.1791124854357;
-        Sun, 04 Oct 2026 07:40:54 -0700 (PDT)
-Received: from threads.localdomain ([84.68.183.72])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a027740a2fsm298907685e9.13.2026.10.04.07.40.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 07:40:53 -0700 (PDT)
-From: Lucas Tanure <tanure@linux.com>
-To: xianwei.zhao@amlogic.com,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-amlogic@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com
-Subject: [RFC PATCH 5/6] arm64: dts: amlogic: t7: add the ethernet controller
-Date: Sun,  4 Oct 2026 15:40:45 +0100
-Message-ID: <20261004144046.391444-6-tanure@linux.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261004144046.391444-1-tanure@linux.com>
-References: <20261004144046.391444-1-tanure@linux.com>
+	s=arc-20240116; t=1791125176; c=relaxed/simple;
+	bh=N5qjR0xFW92tqAUh+N25uNGVwQfsS30bhA/LSxf03xA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CS64YtPFAmTAMTX5uqDlgrwQHHJnDORGFKsAY8Uyhc9vs7s/NfKLURQJeMHRKkpBovaT9JXLSZxzxp+wRpVcgSJGmVAeIZ0VakXkpSHcC1Ui7CLTc6H4IZDyFRUfNHx+jSuoscKbMk+sy+gHHV6gBL4slbkl6VZN7YkdHTIObcY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ct4pjoGP; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ct4pjoGP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F7851F000FF;
+	Sun,  4 Oct 2026 14:46:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791125174;
+	bh=qkdcHcttN+awDDSrS5s32XCOYrE5u5aPNQLlDw/zxgk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ct4pjoGPTmkOqXgqH8vXxHIhbVMTGgjb+XSzbhnaBC6MXXwQb3kzGEPea2kLbEYWQ
+	 V8Jlm0Sa1R5tsktbMPtbkNRJhzdSaqwzsGZmo/VcT5E9x4knFlnz5znwi6n8Zu+afT
+	 d5yYmWBbKjCnDw23PZvP4E6BMn2nOvdQZZDMRPz/ggSIbLjXCqMYvakaTju9EQShSm
+	 DPsnZoRqwk1zf3sQbDNwjS0kjg4pzaLPzmlgiKlJRyPdz8yWpJ4ROM/9Rctsk5lHNJ
+	 LKOnAyB54XqxJ0A2REtsyzVMvdJlAvo+0q+qf0KrFrqGt7RnOr3hovVY6Wyv5aVwdw
+	 5UtwKXqCoQg2Q==
+Message-ID: <6d76d0a1-a97c-4d1f-a799-15643161d297@kernel.org>
+Date: Sun, 4 Oct 2026 16:46:08 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/4] dt-bindings: input: touchscreen: hynitron,cst816x:
+ axes and panel
+To: Daniel Golle <daniel@makrotopia.org>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
+ <u.kleine-koenig@baylibre.com>, Oleh Kuzhylnyi <kuzhylol@gmail.com>,
+ linux-input@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Cc: Chad Monroe <chad@monroe.io>, John Crispin <john@phrozen.org>
+References: <cover.1791103511.git.daniel@makrotopia.org>
+ <747ca415953777441380b68fd0f004a0c4110095.1791103511.git.daniel@makrotopia.org>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <747ca415953777441380b68fd0f004a0c4110095.1791103511.git.daniel@makrotopia.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The SoC pairs a Synopsys gigabit MAC with a small block of glue
-registers that selects the interface type and trims the clock timing,
-and with a multiplexer that points the management bus at either the
-on-chip 100M PHY or the external pins. None of it was described, so the
-port could not be used at all.
+On 04/10/2026 11:34, Daniel Golle wrote:
+> The chip hands out coordinates in its own frame and knows nothing of
+> the panel it is glued to, so how it is oriented against that panel,
+> which coordinate range the assembly reports and how noisy it is are
+> properties of the board. Reference touchscreen.yaml and let its
+> properties through, among them the 'panel' phandle naming the panel a
+> controller is mounted on, which asks for the two to be power sequenced
+> together.
+> 
+> Signed-off-by: Daniel Golle <daniel@makrotopia.org>
+> ---
+> v3: describe the whole of touchscreen.yaml with unevaluatedProperties
 
-Add the controller and the multiplexer. The MAC reports a 5.10a core.
-The path the controller reaches memory over runs through a pipeline
-stage with a gate of its own, so hand that to the controller as well;
-nothing else claims it and it would otherwise be switched off as unused,
-leaving the port unable to complete a transfer.
 
-The on-chip PHY behind the second port of the multiplexer is described
-the way the G12A does it. No board in tree uses it and that path is
-untested.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-The controller is left disabled for boards to enable.
 
-Assisted-by: LLM
-Signed-off-by: Lucas Tanure <tanure@linux.com>
----
- arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi | 57 +++++++++++++++++++++
- 1 file changed, 57 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
-index 7bd53ec16607..140f1836f3dd 100644
---- a/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
-+++ b/arch/arm64/boot/dts/amlogic/amlogic-t7.dtsi
-@@ -250,6 +250,31 @@ gic: interrupt-controller@fff01000 {
- 			interrupts = <GIC_PPI 9 (GIC_CPU_MASK_SIMPLE(8) | IRQ_TYPE_LEVEL_HIGH)>;
- 		};
- 
-+		ethmac: ethernet@fdc00000 {
-+			compatible = "amlogic,t7-dwmac",
-+				     "snps,dwmac-5.10a",
-+				     "snps,dwmac";
-+			reg = <0x0 0xfdc00000 0x0 0x10000>,
-+			      <0x0 0xfe024000 0x0 0x8>;
-+			interrupts = <GIC_SPI 74 IRQ_TYPE_LEVEL_HIGH>;
-+			interrupt-names = "macirq";
-+			clocks = <&clkc_periphs CLKID_SYS_ETH>,
-+				 <&scmi_clk CLKID_FCLK_DIV2>,
-+				 <&mpll CLKID_MPLL2>,
-+				 <&clkc_periphs CLKID_SYS_AMPIPE_ETH>;
-+			clock-names = "stmmaceth", "clkin0", "clkin1", "pipeline";
-+			power-domains = <&pwrc PWRC_T7_ETH_ID>;
-+			rx-fifo-depth = <4096>;
-+			tx-fifo-depth = <2048>;
-+			status = "disabled";
-+
-+			mdio0: mdio {
-+				compatible = "snps,dwmac-mdio";
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+			};
-+		};
-+
- 		apb4: bus@fe000000 {
- 			compatible = "simple-bus";
- 			reg = <0x0 0xfe000000 0x0 0x480000>;
-@@ -645,6 +670,38 @@ gpio_intc: interrupt-controller@4080 {
- 					<10 11 12 13 14 15 16 17 18 19 20 21>;
- 			};
- 
-+			eth_phy: mdio-multiplexer@28000 {
-+				compatible = "amlogic,g12a-mdio-mux";
-+				reg = <0x0 0x28000 0x0 0xa4>;
-+				clocks = <&clkc_periphs CLKID_SYS_ETHPHY>,
-+					 <&xtal>,
-+					 <&scmi_clk CLKID_FCLK_50M>;
-+				clock-names = "pclk", "clkin0", "clkin1";
-+				mdio-parent-bus = <&mdio0>;
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				ext_mdio: mdio@0 {
-+					reg = <0>;
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+				};
-+
-+				int_mdio: mdio@1 {
-+					reg = <1>;
-+					#address-cells = <1>;
-+					#size-cells = <0>;
-+
-+					internal_ephy: ethernet-phy@8 {
-+						compatible = "ethernet-phy-id0180.3301",
-+							     "ethernet-phy-ieee802.3-c22";
-+						interrupts = <GIC_SPI 340 IRQ_TYPE_LEVEL_HIGH>;
-+						reg = <8>;
-+						max-speed = <100>;
-+					};
-+				};
-+			};
-+
- 			uart_a: serial@78000 {
- 				compatible = "amlogic,t7-uart", "amlogic,meson-s4-uart";
- 				reg = <0x0 0x78000 0x0 0x18>;
--- 
-2.56.0
-
+Best regards,
+Krzysztof
