@@ -1,42 +1,48 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38456481235;
-	Sun,  4 Oct 2026 20:46:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6985D476CE5
+	for <devicetree@vger.kernel.org>; Sun,  4 Oct 2026 20:51:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791146819; cv=none; b=JtoFF4EywGov5yrCnOoEXXlwl5NDnvB7aLcrByIAFyhlYYzLvEh8B2s+1P7QUt9PNHGRMZcnmJ4c3T9SVXSSFSxjU10mtb68I0cDgXCBeMsJjYzeh8EvtQV2Zf462k4iOcZFU+4L3ZykeNs1l4m+W5T5K5TFZ/ofD+E1pzMZXu8=
+	t=1791147123; cv=none; b=UEms7op8xN4HrmBuFpO+m3NqzT3NFLjB4+l86uAdWvMIA36mH7M1mJIl1Gm+/p2gwSJx7e/yd42qJpWr1UGAY6cJXc1XGTN67YW0nQMUlJxIQ+8JFpMxWgUdTgvrAVAkm7PJ8bFHN0mR8kzS7ElfbnyJn4QUMe2LzKEwg9n26RY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791146819; c=relaxed/simple;
-	bh=wUIP60ReUng2toh7xrANlc05gxl0Ni0XDP3WkJdt+dk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=OQCZtJ4y4ddbAPgcSJnaIre+j3MjSm4JnkzHpo46/N8bv/YZld9t8EenKdskKGrnAmuNfAC19KVqgTKPzntIfyPFxpWLEmQyJmiWksu12xoaSf427FvjFP0yrP6oC3FnXbj9RwKX84Q5QnqCV4k6wPnpWUvMRJ9V3JYl7chHAwM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=A6VOebVN; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1791147123; c=relaxed/simple;
+	bh=fmB+VlDnV07fQx4InnpSsAsSGPzJ1rBgrTK4A8291RE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=u0Hyu90qnHGLx4OPVLh0ttU7h2E3J1ncbM6sbfKxm180lV7p54RWIImkNUwNDbEHTNHwdchu8gSxO5PnYTIxzQwWKmL0niue7TTn9xCRfhy6p5dVIw3Sjd56IkiX8o2dW6s5rdiErqqJaTTjTWA3WsJR3seoZmYbfWTt8ZMoyiA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=wt92fhu3; arc=none smtp.client-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="A6VOebVN"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id F1FD71A113A;
-	Sun,  4 Oct 2026 20:46:56 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id C58B3604FE;
-	Sun,  4 Oct 2026 20:46:56 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3E6661032820F;
-	Sun,  4 Oct 2026 22:46:46 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1791146815; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=AbpkMZVsBdBOWRwxjTkLihKxr/UR5S6eo3rRMVyn4ks=;
-	b=A6VOebVNjDlnkxLhmL0E3QTdnjmAbZ1/upC3qI/K+qBTvGg1CDBKmCqWdW03bm9DRqEd+k
-	9jl1fMbJxIE9+lmjR2yhoMejcH/YpKYZ6IWH6e/NBD/q00evPj7xVpf/6VULIaDBBKAUy0
-	06r7+AQvaxr5xdMUzBp5WiU4vjR4HHKAfVyYKXQxmllN8yhtNTKAhafa+GApsfwTlaiDuA
-	Xw/8fnbMdqmshvOt1wpHXCS+XTojvtghdyaNPSPNMFwfh00kH8MSynAeymjDUY7HjmAAEL
-	3lPz05kh+LP1wPqsN/zQ3jGd+c3QwT3qCIEDOZBgQPWE4G1O80VAqb6R/m+pRA==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-Date: Sun, 04 Oct 2026 22:45:31 +0200
-Subject: [PATCH v8 7/7] arm64: dts: nuvoton: ma35d1: Add LXT crystal and
- clock-names
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="wt92fhu3"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=4/oZBwZNUJHzy5epIabVPY4mFU5VbIVDH+NWWmNIeek=; b=wt92fhu357919RTJDNuElokXT5
+	M5JjrN8l+xwjMphQUvyIA2LxI+IWLTVbu+nrqFOPKwZ9UnSJk4nZQ17IgIO1YY/bOkTw0cQ5jt4a3
+	uUo3MEnb5VqBHNNB9MDEWVCgFMqDfQnEJaBVRAXgOmfgOThnTBwKe3JxpBYt6OVrhnc7/T+n2F9bk
+	ROqB+elV0YYVpoz3JafIkbaAtcdyyf10KOs8FjM9UMeuR726hfFLp7ZNG795EXaNsswtDcBP5wB3R
+	J+FtjepK3vuoWVNnRfXq3vDD5h4hzdKYgd6QTbqfCG1rro8U6kycPuyY1LiAZFyvvXs3UJFT1yO/V
+	bB51AfeQ==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Joachim Eastwood <joachim.eastwood@gmail.com>
+Cc: Heiko Stuebner <heiko@sntech.de>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	diederik@cknow-tech.com,
+	jonas@kwiboo.se,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v6 00/12] arm64: dts: rockchip: Add NanoPi M6 board
+Date: Sun,  4 Oct 2026 22:51:46 +0200
+Message-ID: <179114705963.3265768.14931994624548567445.b4-ty@sntech.de>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260903-nanopi-m6-v6-0-37416bbd6862@gmail.com>
+References: <20260903-nanopi-m6-v6-0-37416bbd6862@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -44,95 +50,48 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261004-perso-ma35d1-upstream-clk-v8-7-e1a106a128c0@bootlin.com>
-References: <20261004-perso-ma35d1-upstream-clk-v8-0-e1a106a128c0@bootlin.com>
-In-Reply-To: <20261004-perso-ma35d1-upstream-clk-v8-0-e1a106a128c0@bootlin.com>
-To: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Richard Cochran <richardcochran@gmail.com>, 
- Arnd Bergmann <arnd@arndb.de>, Brian Masney <bmasney+clk@redhat.com>, 
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Andrew Jeffery <andrew@codeconstruct.com.au>, 
- Avi Fishman <avifishman70@gmail.com>, Tomer Maimon <tmaimon77@gmail.com>, 
- Tali Perry <tali.perry1@gmail.com>, Patrick Venture <venture@google.com>, 
- Nancy Yuen <yuenn@google.com>, Benjamin Fair <benjaminfair@google.com>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Steam Lin <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org, 
- linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
- openbmc@lists.ozlabs.org, Miquel Raynal <miquel.raynal@bootlin.com>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.14.3
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Transfer-Encoding: 8bit
 
-The clock controller takes its two crystal oscillator inputs from the
-board: HXT and LXT. The LXT crystal is not described at all: add the
-fixed clock node for it and reference both inputs from the clock
-controller node, with their respective clock-names.
 
-Fixes: 691521a367cf ("clk: nuvoton: Add clock driver for ma35d1 clock controller")
-Fixes: b69af0984732 ("arm64: dts: nuvoton: Add initial ma35d1 device tree")
-Cc: stable@vger.kernel.org
-Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
----
----
- arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts | 6 ++++++
- arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts | 6 ++++++
- arch/arm64/boot/dts/nuvoton/ma35d1.dtsi         | 3 ++-
- 3 files changed, 14 insertions(+), 1 deletion(-)
+On Thu, 03 Sep 2026 23:23:12 +0200, Joachim Eastwood wrote:
+> This patch series add support for the NanoPi M6. This board is very
+> similar to the NanoPi R6C and R6S boards which are already supported.
+> 
+> Main differences:
+> * M.2 M-key slot with PCIe (Also present on R6C)
+> * M.2 E-key slot with PCIe and USB (from hub)
+> * 1 additional USB 2.0 port from an on-board USB hub
+> * RT5616 audio CODEC
+> 
+> [...]
 
-diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts b/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
-index d7670afb0a63..7752e85734ac 100644
---- a/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
-+++ b/arch/arm64/boot/dts/nuvoton/ma35d1-iot-512m.dts
-@@ -36,6 +36,12 @@ clk_hxt: clock-hxt {
- 		#clock-cells = <0>;
- 		clock-frequency = <24000000>;
- 	};
-+
-+	clk_lxt: clock-lxt {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <32768>;
-+	};
- };
- 
- &clk {
-diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts b/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
-index 8f3cb18d39b6..5c65f1fe5da9 100644
---- a/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
-+++ b/arch/arm64/boot/dts/nuvoton/ma35d1-som-256m.dts
-@@ -36,6 +36,12 @@ clk_hxt: clock-hxt {
- 		#clock-cells = <0>;
- 		clock-frequency = <24000000>;
- 	};
-+
-+	clk_lxt: clock-lxt {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <32768>;
-+	};
- };
- 
- &clk {
-diff --git a/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi b/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
-index 7228ad4735b5..9a341c2b1397 100644
---- a/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
-+++ b/arch/arm64/boot/dts/nuvoton/ma35d1.dtsi
-@@ -92,7 +92,8 @@ clk: clock-controller@40460200 {
- 			compatible = "nuvoton,ma35d1-clk";
- 			reg = <0x00000000 0x40460200 0x0 0x100>;
- 			#clock-cells = <1>;
--			clocks = <&clk_hxt>;
-+			clocks = <&clk_hxt>, <&clk_lxt>;
-+			clock-names = "hxt", "lxt";
- 		};
- 
- 		pinctrl: pinctrl@40040000 {
+Applied, thanks!
 
+[01/12] dt-bindings: arm: rockchip: add FriendlyElec NanoPi M6
+        commit: bd3edfb61ee0b68dc95aa7ddd53cef65b5bdb3f7
+[02/12] arm64: dts: rockchip: rk3588s-nanopi-r6: fix missing sdmmc cd pinctrl
+        commit: 30fcc62cf5d27fe264145bb743407af62f8ff240
+[03/12] arm64: dts: rockchip: rk3588s-nanopi-r6: fix missing pcie rst pinctrl
+        commit: 1d974afb0ea4e1ffc03535a2b2ae5a84d35738d7
+[04/12] arm64: dts: rockchip: rk3588s-nanopi-r6: remove pull up on rtc int pin
+        commit: 2d4c429e561b21c07f95ed41481a5d1062659c9e
+[05/12] arm64: dts: rockchip: rk3588s-nanopi-r6: pcie2x1l2: add clkreq
+        commit: 3ac1a8d422126ea08f6ce32c0a05e181e08d9299
+[06/12] arm64: dts: rockchip: rk3588s-nanopi-r6: remove always-on and boot-on from vdd_npu_s0 reg
+        commit: 92507cbe7581c519da115128a2ce6930dd9dd6fb
+[07/12] arm64: dts: rockchip: rk3588s-nanopi-r6: remove useless vcc_3v3_pcie20
+        commit: 1faf8018879fc0e4a76958f2122f6ab7aac5957a
+[08/12] arm64: dts: rockchip: rk3588s-nanopi-r6: add gmac1 phy-supply
+        commit: e7fd313ef4e5907a0bd769101de48ae354b7fcca
+[09/12] arm64: dts: rockchip: rk3588s-nanopi-r6: remove bogus vcc5v0_usb regulator
+        commit: 9518c669aa24574445e874c89313a133c276513b
+[10/12] arm64: dts: rockchip: rk3588s-nanopi-r6: add comment about gmac phy-mode
+        commit: 92b4f18f9a07786f9146788ca5e18cb9469bd1cf
+[11/12] arm64: dts: rockchip: rk3588s-nanopi-r6: refactor to support M6 boards
+        commit: c08257d642ac9d821710852f514577d331a13390
+[12/12] arm64: dts: rockchip: add support for NanoPi M6 board
+        commit: 2640aea473b463e260ba2f52833e7c1fc2074246
+
+Best regards,
 -- 
-2.55.0
-
+Heiko Stuebner <heiko@sntech.de>
