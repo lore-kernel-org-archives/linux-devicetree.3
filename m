@@ -1,206 +1,306 @@
-Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11021094.outbound.protection.outlook.com [52.101.125.94])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f41.google.com (mail-dy2-f41.google.com [74.125.229.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDAA02F0680;
-	Mon,  5 Oct 2026 17:12:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.125.94
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0EFFC5208D8
+	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 17:18:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.41
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791220325; cv=fail; b=HCQ7kirawsFhFaxgmWyaRRtrvSzB3RdH6aPx0k3NLllgvQCZNwJU71U0uSlEmUZiZmMS8OryV5ojgtUCTGt0IZqALP2TspEleD4H0MxCjk+o038t2xhGPpz91ikeNiTMrF1wBItTcchzJrpSe0FV54YSwR5W35q23cYPmCoDXsU=
+	t=1791220726; cv=pass; b=Tih9PLgVuIXrR7brusklc0GOi49ULKKZKXtNJoJr4Xi6CT8HRkd0jwvOtH15uwHxWkqoDqjyv1ndGuPl+a1lZrZKlNTCdU0xf+1ZwXX+SgKJ0lKkLXW1vSvpMYUcE7uCsi0nNXZkbJPhsvE+nNGHTpXldHK7f2tS5bi+5GNOGpQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791220325; c=relaxed/simple;
-	bh=15VkQGjMj6NHwCkjlaJE6dxrmiXexWS40y4nYxgDqi0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=O37macIQL+tMiWZOuq3TwOqCbMOJUpzvz6x3DUp7VmFjkH/1N+GoaarT93Jd4qYWuwgYD6QqfAJ7boCh4bSIsmdVufzftWE4bJzcK0UyTzMb/OMr+A0EjxObTkWCIzBLWXmKRLORZj0tskWE+NEGNbymdQZlYSredUFVMndeu5Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp; spf=pass smtp.mailfrom=valinux.co.jp; dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b=MStQCown; arc=fail smtp.client-ip=52.101.125.94
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
+	s=arc-20240116; t=1791220726; c=relaxed/simple;
+	bh=uuRxUEWAiTYG1xcsGVUJv5Gj+GudNMkgTE5oMCqx0vM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=iYxHGMCZqsbBByRi5+oTvvaQpbQ0pRXEQELCNyCniNN5+5Z8tHNaolz6IR7DU9Tnd4tVgSsE8H8QJ6yubZQwO5BKcBhd9pwUuOQcBZtBEtP9rQvU9COn5+JtFW6Tq4/2lV1higRdKYSR4z/ciYVCjI5SavSAr1G3Nrg5KeUBv0M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=f+2EqZ6b; arc=pass smtp.client-ip=74.125.229.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b="MStQCown"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=n9HVYbfkdmyDISacQ858AOd2rOcDt2QXQmsFLOs4z16mpvcI2yQ1lO1AoWHIpRT2sS/uHBXx9F1iN/osEIwUZhKgh4yBL97xNFBzODkcq+lS7FLCohqvG/uJRCgtBMZcA9Qg+qqKqnLNWzYXJ/iO6iliNrDcb+NGhbJxBglZafuUtZlXh9iO54EjB2vhntcr1u1Kp8Eo0PIy4u37VH7LFydxJHP2zDBzHHijZ+PgiXNFTxtoJOwMhFjW6ijzGcQJIniWYXDiorBtW1VYl2GnEfbnvAyKAm1BKP/G99WZRDrJ12ujPAg4l7IZgM/dBMJA0VWCODn9+woqzQLSMsck9w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ishS5DoktF1HyTvJ4eQawrmeWZ2n0FFi8SyESmBm7wA=;
- b=Uy5jxXBvr8muX1yCo77/pB7AOIbcIlygR+Zgnae+5jpIGgXkNEJOpiLv8GLcoL28gU97whAiNdnbVs1QRLQNngNFyYYXJwtR2CTY0/UwuFHxgEuZvBXEeKRXa8yHZiA+bRvkQWlARYtbgMsM3aR8i2NBLaBBCQNsATwjfOSU3gqcEBXmOAPB8TWf5Sq2S+bNlJ2qwtfvFG4Bw46H5VKfxPS9bo64wEyuJIrtN33nMrT/axhGg+Z6iokGno7iGtKCvU+H/npLQYLaQNbvJma4kS2hwNBm4iCFTljMdlblPiMNyNh9UQ4uIXFcJeuMJOVVnICNXvVtFIBQLyhGgrIy1A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
- header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ishS5DoktF1HyTvJ4eQawrmeWZ2n0FFi8SyESmBm7wA=;
- b=MStQCownvC5DsbqYTFGPfpwaE1K6LkO22b+udO76hTMqGTUrMSmqfVkuX2CIh++K+47pSpP9eJnqUgG+Mh3hZDLEtjzJTw2qFlZGnr1sTZzTv+1UGKS1pNB77xV1LSc/CcVPaxmrEKA338kGCJ6T5OI/L9KhxvvNTiNoaV/ZwBg=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=valinux.co.jp;
-Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:325::11)
- by TYRP286MB5578.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:18a::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Mon, 5 Oct
- 2026 17:12:00 +0000
-Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
- ([fe80::cce5:2aa8:53f9:dba9]) by TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
- ([fe80::cce5:2aa8:53f9:dba9%5]) with mapi id 15.21.0472.016; Mon, 5 Oct 2026
- 17:12:00 +0000
-Date: Tue, 6 Oct 2026 02:11:59 +0900
-From: Koichiro Den <den@valinux.co.jp>
-To: Marek Vasut <marek.vasut@mailbox.org>
-Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>, 
-	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
-	Jingoo Han <jingoohan1@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Frank Li <Frank.Li@nxp.com>, Niklas Cassel <cassel@kernel.org>, 
-	Wilfred Mallawa <wilfred.mallawa@wdc.com>, Serge Semin <fancer.lancer@gmail.com>, linux-pci@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 15/15] arm64: dts: renesas: r8a779f0: Describe the
- PCIe AER interrupts
-Message-ID: <mtczl7e3tlwt26gj56wmvfeotuvd63dfpsmazo3yg4sqstyuhn@omeidmdgauzz>
-References: <20260928165230.3397664-1-den@valinux.co.jp>
- <20260928165230.3397664-16-den@valinux.co.jp>
- <d9ffb9f3-ad89-4912-b863-637c838196cb@mailbox.org>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <d9ffb9f3-ad89-4912-b863-637c838196cb@mailbox.org>
-X-ClientProxiedBy: TY6P301CA0015.JPNP301.PROD.OUTLOOK.COM
- (2603:1096:405:3bf::14) To TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:325::11)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="f+2EqZ6b"
+Received: by mail-dy2-f41.google.com with SMTP id 5a478bee46e88-34c4a0870d2so1382368eec.2
+        for <devicetree@vger.kernel.org>; Mon, 05 Oct 2026 10:18:43 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791220723; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Iei9kJ696z2p98Evjm7jqe66/B7G4TFMh8Q8ItI9lPzQef7VuLE1qlskCDypTxUCfi
+         dFZNO52p9xQnsDlOUbb1qXwh0M9+MK/fw0BOK+U9PMfNxOr24lHrgsis/n5MmcO/G2NI
+         IRE/L4qcEAdX48+zqP9hrxLW5W1zZWEUHL4qWqhaybNasiWjBcuV73t1NezFMQin5ytg
+         K8nq5DJCJnUXbocDEwPjqgjIXxVtQphoBh420+pebHGcC0n+h1NwS65WP/G+IxZSJCnE
+         /wcKYU5rn54S4aVwaTae8qqj+ST2hLM+FyRK3rD1Wn5AZs2F02J3gR+lp0B4N0F35OfS
+         Idfg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=FJFeJtfT8/aRZATxwvI0/pPdKdSmPKSztHUwOt17NCQ=;
+        fh=eXZ8IyKtMzo3KVP4o6MbLCseUk86PjOWKpFJknqckoA=;
+        b=fUrCZabuEgOAh2i1D4X0N46dC8I659vl+bJKnmUoumH9rlCd3QZAZDLyoiwgLNN+gg
+         f6l8YetZuQJyJJS9T+W6xtHk2cIkaJz+qh0g5kwA97ozB/3tYjpsvNITVoSUtQC6qvK4
+         bAllJLvaudCZp08nUIUNZVkn3e9x767qXmog9vXXxnJKmtNJgRF6ONsoEJVhTnPoQVPG
+         tE5t6Bfztw1gBNFoojPWbXdrRt64HLTC950rbYk8B/osGKE+SadtpxB2VKuIedvC1PNr
+         4mZkqS4y0zsxLoYQVzZQ94Y9kmjfMrGzzVTF3J57O1TpvVAqaG9FCjNWuJjFy9P7bNoK
+         ZOkQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791220723; x=1791825523; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=FJFeJtfT8/aRZATxwvI0/pPdKdSmPKSztHUwOt17NCQ=;
+        b=f+2EqZ6bObv/gzsdr8ds+qFex1CbwItQjMBS+7+B7bmtiYOz0TcX6upIXEOZA0W2tF
+         9vCyfLReKpLIzaaceAwSsia/Ao2A8+FgojOfVc132RzDorubJiP2/YLZrBs0L9iYyUlY
+         SiSAPTZPsKZLNiUf/oGBDl3MV2pjMgNt2dyQsSzbz51xHnwOWvJ8/gI0Zba1KoM1wdpJ
+         zGwogdyKYtU1hH327Jd08OLC+B4nHlBWSa2DtjPUIJpNuzbromHS11Os0p5hEG1Qd6Uw
+         aL01oP5UJk5UtrD0njyOj+DChHrhp5Q6I2lc25P3upFQtCjtyMB4H9XjR+uEZRzLE2E6
+         U6oQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791220723; x=1791825523;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=FJFeJtfT8/aRZATxwvI0/pPdKdSmPKSztHUwOt17NCQ=;
+        b=ylgBllDzKV236zdurFe03EO53NMitn9hkFIUqobpNO44TYXZCg9PTpoMdvjIFS06lg
+         DVOoWnkwdEmlPZENtBYcvTgtOy8k/oniBN8AcZv6fmBn6l8ZeynqlpV15mndYdRfPrP9
+         sQGV1q1IUECdIj8RnSFRg4b1vN0duhwsJecJmmHX+k0wWJ887JNZ2t4VcGf5G2mM4WUk
+         Ir5skJiBSLmSogrbW//WwqCBS+mQfkZDmK0PoLboLV3lp2rOGXDI23AvVdBA6YEyCO84
+         56QCKjkZgJAvtdyvji1CLdrprL/jPsCK67/97OL3n/gj6V+8xoai0riJ8fFQllaAk5rc
+         J1Ig==
+X-Forwarded-Encrypted: i=1; AKwUvBx6ymt/Y6+WHowgsgE2NiFnPsSpiyWwJKwXC07kme4u8n1qXvRhLuSx0Ze3j2+chSVpexJtEut4L13e@vger.kernel.org
+X-Gm-Message-State: AFuF++kjmsP3JyzUH4KTqzu3lplN8pQPKHxs0iie3a090JVP00mTlWPT
+	TzI8SOD1emmfhlrlklNKawr1P/QTat5gUGNYRmyK7zInKAwfPrE3RawskzfZWUA8KKU4InZyquG
+	oCCjgjU3mrPtVf1Fz7yQ2mNALffhscXQ=
+X-Gm-Gg: AYBFou2TYb3SXvegUAbZ98WEJqxE9EQYKbF9IzWWsO7vXBfZWKwod54tglGunEErtA/
+	6Xc3BPtVLLGeeDJEowUhYeOV55kTQccpN46caBcRHaVQsXewNMsNdSHv/bNmeXUmiuLseoLa0xs
+	6tOm0HDbI9wf6HNOaEXVQZOZot4HlKlyM/S2kcA2ZQ0bAiKyhrn5FA7CsT3zb5HZff6cUH7mKRt
+	nu4APy+vAvk4ObK2LPjxDpYNjDD0JIMdYaEx0sws/vNmK2bllOm4OgaZehETGOtTCqvWcz1poPX
+	cEhwcYOURDvyIAngFZxYAUEItmuBrwvqVb9TtcFjdPeTpbZsG/i6OOqUv/57hJUSbRLrkVDjiO9
+	hu29O2LTsuTFv
+X-Received: by 2002:a05:693c:87d1:20b0:34c:1bc7:bcb with SMTP id
+ 5a478bee46e88-34f159887a3mr13944123eec.22.1791220722737; Mon, 05 Oct 2026
+ 10:18:42 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: TY7P286MB6866:EE_|TYRP286MB5578:EE_
-X-MS-Office365-Filtering-Correlation-Id: 22572714-0335-4469-bfbe-08df2303c488
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|366016|10070799003|23010399003|1800799024|10067099003|56012099006|4143699003|18002099003|22082099003|27256017;
-X-Microsoft-Antispam-Message-Info:
-	ux2o1c1O/JEICYw9pjHVpGxZqvlFdZ8WXCDBXjjsDZ658Gbx93FreMYGuNXYuHPO/WFSE5SJOkDX0PUqs7JgNqjmIq1raeA5pLjXgCdqCyOjbIcsX06JPVtekjDd5Md7myCbgCbdo3H3N3LYmUDe/inSoRUNzbrhrbikBe5j2bi1G3M642CXDT3/2Jsy6VJQ8lK/N8qygnilx/pIoX4eUWSI1Dy5BV7Wt768mknSHeIMASZn53K2C5enKfB4ABhYFsnHikDXolMw/wSxT61Vzjlu3ck1NyNE52zVW+Orne1JZKmDtT/nCjhkPsfRK6xPZFhYWJhmzTFmjaDkY/P5PWLD8GvJ0n9iJnDhTMfb9SSIrtA+PM1TGSa8dbdGsJ3O1uaLLXQHrax3wOaHKlSrSwhpYeT+Qguif95M//YuYAOROQOmOmsKX8w7PLi4gzqCH/eOca4/1HBhrq83KC8PRgsYqvHtlQ83V8PznZBuUho/GBd8gvz7/qFZEjiZWzLV2lXspPmxoxvDJ/VrnknNR5ainT3ZwhgU11RihyqgZ57OX83q5ayck6XYKZW3B8nm5yjZHJuDa2Bri5PPbUw3PMWg8Sh9ybO9rEjN486qibWog7HXxESnsC1x3ZBpABkEK2uc1UNqQLtka7v1B8U/QoaxcLeHW78r+63+r6xWGwGVBptUlYgKxp0jispJM/8xN+Owg9Wd7cTHPmtANoYiZg==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(10070799003)(23010399003)(1800799024)(10067099003)(56012099006)(4143699003)(18002099003)(22082099003)(27256017);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?G7U8On8SiyOO5EZ0bBfJu3yE/yu7m4gLL3SK1nebuGL5wvBO5XAy6batHTjA?=
- =?us-ascii?Q?Ay/QF+CU/hR1t4Jp/xLgRjWcaA1ToABYuwiODqozH6JnjLjavdWIF42dqP1f?=
- =?us-ascii?Q?ftzXQTOpHjBooLKcB9nDWd4QKcpUvBSNHhPu6WBzPOlSLLq7Rpd5BkYxxCnm?=
- =?us-ascii?Q?z/tA9kp2nYsBV0TruGfXaOZe2/JksPu6X1flXMKG3YWsFba0+16r8A1uXmLe?=
- =?us-ascii?Q?anKTbX4uWb1c/ZzA/7k/dJbIwKDJm9nYYa5KplMb9H14+f2OParkvsCwyQHP?=
- =?us-ascii?Q?vddJkfSx7Xy6Zvg2yTxBSF7WdoZoDkgc8uq5LrHGCaPZnmvcJ8Ya2QB5Pkc3?=
- =?us-ascii?Q?HucCBIDvIbZ4CbAjL4W0Ac1a20tpbFZ1R2n+5cOW3efTuwNouvr6Wj79zkus?=
- =?us-ascii?Q?DkerC+dnC3g/fnyNyzZEij64cTxWPr9rd8K44qtgqUggw1T8VJ0mWM9x7VrN?=
- =?us-ascii?Q?O2cDBiKmzwYN1XZNADoy+2/LfFwEoCGfF2wgBXXBXDhalU+D+FGWxqOeA4Rv?=
- =?us-ascii?Q?nyRzxyVFjZkawsufzBvpp+4SIZjMdC2giGvcc0d22/73pURSN9zm68xrY/Gk?=
- =?us-ascii?Q?23YMxZgAKdzmPsDBR3J3SgnfdPyAPYSePkuUS1LOT9Z4UPlf6tACc8QKeR8Y?=
- =?us-ascii?Q?naREJyh7gC0QE03lS6JUAIqZYe+lTG/6rb+FGRTgW+9yjAmEeMm9rJDlSGqr?=
- =?us-ascii?Q?pOZSXpxRHGsvjj4vxv+aH+duUairFEzQrnVTlaHj7VFb7uoAhpdmUmZ/VbtH?=
- =?us-ascii?Q?KLKFCSfymV2dt6cvbmob2b097zFHBxhAMG2vqMosjOnkXcpZ3QwadeVDz9LZ?=
- =?us-ascii?Q?ubNhFFLsrrRLzgdWm3YLqXzFE0FRXEv9ACRV1p/zJ3dtCV2DLHwcHzlzkZc7?=
- =?us-ascii?Q?jji7amxcqRyxWR3WWeoUaFxTwEhisrdIkzfR6/dAUE7cGMpcAwqAHI/QJbFZ?=
- =?us-ascii?Q?ZrSyl0YoR7CpCT1xrq9N6EYCUB1VrANFRUFkVfVeTbG3PnlnT84S7WtWK8TB?=
- =?us-ascii?Q?FC+41aI/V0TK6DKmvVmbqn20Vh3m7jsjCRpZU1CGyL605im4k8uVb4ceANhi?=
- =?us-ascii?Q?f2YLak+Ma4Ev6xyzYqkQazkiIuUj3dRDGHvhAozgoFi6b1ERvXBcX5P09/jZ?=
- =?us-ascii?Q?reltNmK4PB5nVbE39MArzI1rngCBRwnq/PooBBIp/J5I+t7Qj0by9jmuKRlj?=
- =?us-ascii?Q?0YZ8a5QoCiqkzPlAOMb1TLa4QAIvAI7EcXMD3W0UbTMppSFnLXfjj1ZdFIuJ?=
- =?us-ascii?Q?Myz9rnaUD9WFEgvbzPzjsGmp3scDoW2ojUh6X6n7ghsn7zRq6XpubQlYlCb7?=
- =?us-ascii?Q?47adBkpSd2CRWG8qIxFvBYytrqt1BLBLhlP8sA7JrkRlCAlFdV3B3PpwN9fK?=
- =?us-ascii?Q?OszPA0rqX0XtsuKqcG+7lMWjYJ1qOp5Ca+RQwk1OnBhruJdHmYl4FiIAVVtk?=
- =?us-ascii?Q?cUuDZs7KFrEOOrxzku2o0byeDCJPnEH0qO8m607OI8swzeb2PVPBjGLFac2d?=
- =?us-ascii?Q?uBIA56SMTt5YookRXRTt1Gs1voWFZsfe6iqSNEwifJlKhlGIfryUKCCM/CiM?=
- =?us-ascii?Q?cIT+HluW8pssrCxmLC8Aolk6TXxhWPRNFnt4XtwT17EJfjTw7VmmZ6X4U9LW?=
- =?us-ascii?Q?skrEpwSZHbWs/8/imvsdZH+kItzbMefK28jKKSzp4qxgRzjXV5BaFSmRibhw?=
- =?us-ascii?Q?UZUYpN3BBdZcK4+VLEZKPhbbk+jCJ97ibMSfpcVC8lFOxDqX5W+UJeh+ycdS?=
- =?us-ascii?Q?383ZIHKV6o8+EqUqC/ZM4XYAD3G3LCEQUydu6VIXDBPVCw6lPUq4?=
-X-OriginatorOrg: valinux.co.jp
-X-MS-Exchange-CrossTenant-Network-Message-Id: 22572714-0335-4469-bfbe-08df2303c488
-X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 17:11:59.9773
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: gREsjXKrUmaoIECiq+VGfMHu7cJrMpnl/Z5gaYyrAFtU/jq2eEXcnxgUpIS5snko8Uk060CYWjX3vPg+dnebcw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYRP286MB5578
+References: <20261004164121.193514-1-clamor95@gmail.com> <20261004164121.193514-3-clamor95@gmail.com>
+ <asPVmbvyslGgEsjk@aspen.lan>
+In-Reply-To: <asPVmbvyslGgEsjk@aspen.lan>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Mon, 5 Oct 2026 20:18:31 +0300
+X-Gm-Features: AclHuK8sdu976map0XQTAXXmXCzthY8nwPjOHGJ7oTbO_2PaU56B3jQ1t93eAwE
+Message-ID: <CAPVz0n29+1yOO0i057RdpUAu+z85hhnm9GGaHkqgf5XW1SPfeQ@mail.gmail.com>
+Subject: Re: [PATCH v2 2/3] mfd: aat2870: Convert to use OF bindings
+To: Daniel Thompson <danielt@kernel.org>
+Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Jingoo Han <jingoohan1@gmail.com>, linux-leds@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, mfd@lists.linux.dev, 
+	dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, Oct 03, 2026 at 10:00:13PM +0200, Marek Vasut wrote:
-> On 9/28/26 6:52 PM, Koichiro Den wrote:
-> > The PCIe controllers report Root Port AER notifications through
-> > intreq_pci0_lperr (SPI 421) and intreq_pci1_lperr (SPI 428),
-> > respectively, separately from the integrated MSI receiver interrupts.
-> > Describe these interrupts with the "aer" name so the controller driver
-> > can use them for Root Port error reporting.
-> > 
-> > Append the new interrupts to preserve the existing interrupt indices.
-> > 
-> > Reviewed-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> > Signed-off-by: Koichiro Den <den@valinux.co.jp>
+=D0=BF=D0=BD, 5 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 19:51=
+ Daniel Thompson <danielt@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Sun, Oct 04, 2026 at 07:41:20PM +0300, Svyatoslav Ryhel wrote:
+> > Conversion of the AAT2870 driver to use OF bindings requires a few comp=
+lex
+> > changes that should be done simultaneously.
+> >
+> > The AAT2870 essentially provides two functions via child devices:
+> > backlight and regulators. Both functions are fairly self-sufficient and
+> > may not be populated on the final board. Consequently, the MFD
+> > registration API was replaced with of_platform_populate(), and each
+> > sub-device was given its own compatible string.
+> >
+> > Additionally, aat2870-core utilizes an enable GPIO. Obtaining this GPIO
+> > was converted to use modern gpiod/OF helpers, allowing the redundant
+> > aat2870_enable() and aat2870_disable() helpers to be removed.
+> >
+> > The aat2870-regulator driver was updated to register each of the four L=
+DOs
+> > from a dedicated OF node.
+> >
+> > The aat2870-backlight driver was changed to populate all required
+> > properties from a dedicated Device Tree node. Its channel map was updat=
+ed
+> > to use u8 instead of int. Furthermore, because the maximum current is n=
+ow
+> > parsed as an absolute value rather than an enum entry, the calculation =
+and
+> > application of the maximum current were updated accordingly.
+> >
+> > All of the changes above allow platform data to be removed entirely.
+> >
+> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > ---
+> >  drivers/mfd/aat2870-core.c            | 115 ++++++--------------------
+> >  drivers/regulator/aat2870-regulator.c |  76 ++++++++++++-----
+> >  drivers/video/backlight/aat2870_bl.c  |  55 ++++++------
+> >  include/linux/mfd/aat2870.h           |  95 +--------------------
+> >  4 files changed, 111 insertions(+), 230 deletions(-)
+> >
+> > [snip]
+> >
+> > diff --git a/drivers/video/backlight/aat2870_bl.c b/drivers/video/backl=
+ight/aat2870_bl.c
+> > index 8b790df1e842b..933a8f728f66a 100644
+> > --- a/drivers/video/backlight/aat2870_bl.c
+> > +++ b/drivers/video/backlight/aat2870_bl.c
+> > @@ -15,11 +15,19 @@
+> >  #include <linux/backlight.h>
+> >  #include <linux/mfd/aat2870.h>
+> >
+> > +/* Backlight has 8 channels, each bit represents one channel */
+> > +#define AAT2870_BL_CH_ALL    0xff
+> > +
+> > +/* Backlight current magnitude (uA), 450uA current is eq to 0 */
+> > +#define AAT2870_CURRENT_MIN  450
+> > +#define AAT2870_CURRENT_MAX  27900
+> > +#define AAT2870_CURRENT_STEP 900
+> > +
+> >  struct aat2870_bl_driver_data {
+> >       struct platform_device *pdev;
+> >       struct backlight_device *bd;
+> >
+> > -     int channels;
+> > +     u8 channels;
+> >       int max_current;
+> >       int brightness; /* current brightness */
+> >  };
+> > @@ -30,7 +38,7 @@ static inline int aat2870_brightness(struct aat2870_b=
+l_driver_data *aat2870_bl,
+> >       struct backlight_device *bd =3D aat2870_bl->bd;
+> >       int val;
+> >
+> > -     val =3D brightness * (aat2870_bl->max_current - 1);
+> > +     val =3D brightness * aat2870_bl->max_current;
+> >       val /=3D bd->props.max_brightness;
+>
+> What is the purpose of max_brightness?
+>
+> Normally it is used to limit brightness but max_current is already doing
+> that. Is it just being used to reduce the number of steps in the
+> brightness scale (and if so, why is that useful)?
+>
 
-Hi Marek,
+This is the original driver behavior; I did not modify it.
 
-> Please also feel free to add this patch for R-Car V4H (performed cover
-> letter tests 2 and 3 on Retronix Sparrow Hawk)
-> 
-> diff --git a/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
-> b/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
-> index 5284923b6cef7..8342d3c6f9881 100644
-> --- a/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
-> +++ b/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
-> @@ -801,8 +801,9 @@ pciec0: pcie@e65d0000 {
->                         interrupts = <GIC_SPI 449 IRQ_TYPE_LEVEL_HIGH>,
->                                      <GIC_SPI 450 IRQ_TYPE_LEVEL_HIGH>,
->                                      <GIC_SPI 451 IRQ_TYPE_LEVEL_HIGH>,
-> -                                    <GIC_SPI 455 IRQ_TYPE_LEVEL_HIGH>;
-> -                       interrupt-names = "msi", "dma", "sft_ce", "app";
-> +                                    <GIC_SPI 455 IRQ_TYPE_LEVEL_HIGH>,
-> +                                    <GIC_SPI 454 IRQ_TYPE_LEVEL_HIGH>;
-> +                       interrupt-names = "msi", "dma", "sft_ce", "app",
-> "aer";
->                         clocks = <&cpg CPG_MOD 624>, <&pcie0_clkref>;
->                         clock-names = "core", "ref";
->                         power-domains = <&sysc R8A779G0_PD_ALWAYS_ON>;
-> @@ -850,8 +851,9 @@ pciec1: pcie@e65d8000 {
->                         interrupts = <GIC_SPI 456 IRQ_TYPE_LEVEL_HIGH>,
->                                      <GIC_SPI 457 IRQ_TYPE_LEVEL_HIGH>,
->                                      <GIC_SPI 458 IRQ_TYPE_LEVEL_HIGH>,
-> -                                    <GIC_SPI 462 IRQ_TYPE_LEVEL_HIGH>;
-> -                       interrupt-names = "msi", "dma", "sft_ce", "app";
-> +                                    <GIC_SPI 462 IRQ_TYPE_LEVEL_HIGH>,
-> +                                    <GIC_SPI 461 IRQ_TYPE_LEVEL_HIGH>;
-> +                       interrupt-names = "msi", "dma", "sft_ce", "app",
-> "aer";
->                         clocks = <&cpg CPG_MOD 625>, <&pcie1_clkref>;
->                         clock-names = "core", "ref";
->                         power-domains = <&sysc R8A779G0_PD_ALWAYS_ON>;
-> 
-> And a matching patch for R-Car V4M (boot tested, but the board has no PCIe
-> device plugged into the slot)
-> 
-> diff --git a/arch/arm64/boot/dts/renesas/r8a779h0.dtsi
-> b/arch/arm64/boot/dts/renesas/r8a779h0.dtsi
-> index 5f9223a0f4468..a377aab3c8be0 100644
-> --- a/arch/arm64/boot/dts/renesas/r8a779h0.dtsi
-> +++ b/arch/arm64/boot/dts/renesas/r8a779h0.dtsi
-> @@ -683,8 +683,9 @@ pciec0: pcie@e65d0000 {
->                         interrupts = <GIC_SPI 449 IRQ_TYPE_LEVEL_HIGH>,
->                                      <GIC_SPI 450 IRQ_TYPE_LEVEL_HIGH>,
->                                      <GIC_SPI 451 IRQ_TYPE_LEVEL_HIGH>,
-> -                                    <GIC_SPI 455 IRQ_TYPE_LEVEL_HIGH>;
-> -                       interrupt-names = "msi", "dma", "sft_ce", "app";
-> +                                    <GIC_SPI 455 IRQ_TYPE_LEVEL_HIGH>,
-> +                                    <GIC_SPI 454 IRQ_TYPE_LEVEL_HIGH>;
-> +                       interrupt-names = "msi", "dma", "sft_ce", "app",
-> "aer";
->                         clocks = <&cpg CPG_MOD 624>, <&pcie0_clkref>;
->                         clock-names = "core", "ref";
->                         power-domains = <&sysc R8A779H0_PD_A2PCIPHY>;
+The AAT2870 backlight intensity is regulated by the Main Backlight
+Current Magnitude register. It has 31 steps from 450uA (0) to 27.9mA
+(31), so even setting max_current to 0 will not disable the backlight.
+The max current value may be limited for some configurations, which is
+why this property exists.
 
-Thanks! I'll add them as two separate patches in v3, with your Suggested-by.
+The max_brightness property determines the maximum number of steps the
+backlight can have and is mapped to the available current range
+provided by the hardware. The backlight is controlled in steps, not in
+uA.
 
-Best regards
-Koichiro Den
+>
+> >
+> >       return val;
+> > @@ -42,7 +50,7 @@ static inline int aat2870_bl_enable(struct aat2870_bl=
+_driver_data *aat2870_bl)
+> >                       =3D dev_get_drvdata(aat2870_bl->pdev->dev.parent)=
+;
+> >
+> >       return aat2870->write(aat2870, AAT2870_BL_CH_EN,
+> > -                           (u8)aat2870_bl->channels);
+> > +                           aat2870_bl->channels);
+> >  }
+> >
+> >  static inline int aat2870_bl_disable(struct aat2870_bl_driver_data *aa=
+t2870_bl)
+> > @@ -96,24 +104,12 @@ static const struct backlight_ops aat2870_bl_ops =
+=3D {
+> >
+> >  static int aat2870_bl_probe(struct platform_device *pdev)
+> >  {
+> > -     struct aat2870_bl_platform_data *pdata =3D dev_get_platdata(&pdev=
+->dev);
+> >       struct aat2870_bl_driver_data *aat2870_bl;
+> >       struct backlight_device *bd;
+> >       struct backlight_properties props;
+> > +     u32 max_brightness =3D 0;
+> >       int ret =3D 0;
+> >
+> > -     if (!pdata) {
+> > -             dev_err(&pdev->dev, "No platform data\n");
+> > -             ret =3D -ENXIO;
+> > -             goto out;
+> > -     }
+> > -
+> > -     if (pdev->id !=3D AAT2870_ID_BL) {
+> > -             dev_err(&pdev->dev, "Invalid device ID, %d\n", pdev->id);
+> > -             ret =3D -EINVAL;
+> > -             goto out;
+> > -     }
+> > -
+> >       aat2870_bl =3D devm_kzalloc(&pdev->dev,
+> >                                 sizeof(struct aat2870_bl_driver_data),
+> >                                 GFP_KERNEL);
+> > @@ -140,18 +136,18 @@ static int aat2870_bl_probe(struct platform_devic=
+e *pdev)
+> >
+> >       aat2870_bl->bd =3D bd;
+> >
+> > -     if (pdata->channels > 0)
+> > -             aat2870_bl->channels =3D pdata->channels;
+> > -     else
+> > -             aat2870_bl->channels =3D AAT2870_BL_CH_ALL;
+> > +     aat2870_bl->channels =3D AAT2870_BL_CH_ALL;
+> > +     device_property_read_u8(&pdev->dev, "skyworks,channels", &aat2870=
+_bl->channels);
+> >
+> > -     if (pdata->max_current > 0)
+> > -             aat2870_bl->max_current =3D pdata->max_current;
+> > -     else
+> > -             aat2870_bl->max_current =3D AAT2870_CURRENT_27_9;
+> > +     device_property_read_u32(&pdev->dev, "led-max-microamp", &aat2870=
+_bl->max_current);
+> > +     aat2870_bl->max_current =3D clamp(aat2870_bl->max_current, AAT287=
+0_CURRENT_MIN,
+> > +                                     AAT2870_CURRENT_MAX);
+> > +     aat2870_bl->max_current /=3D AAT2870_CURRENT_STEP;
+> >
+> > -     if (pdata->max_brightness > 0)
+> > -             bd->props.max_brightness =3D pdata->max_brightness;
+> > +     /* If max-brightness property is missing or set to zero, use chip=
+'s max value */
+> > +     device_property_read_u32(&pdev->dev, "max-brightness", &max_brigh=
+tness);
+> > +     if (max_brightness)
+> > +             bd->props.max_brightness =3D max_brightness;
+> >       else
+> >               bd->props.max_brightness =3D 255;
+>
+> IIUC max_current can be zero (since AAT2870_CURRENT_MIN <
+> AAT2870_CURRENT_STEP). Since that means aat2870_brightness() will
+> always return 0 then there might need to be a special case
+> max_brightness for this case.
+>
+>
+> > @@ -181,9 +177,16 @@ static void aat2870_bl_remove(struct platform_devi=
+ce *pdev)
+> >       backlight_update_status(bd);
+> >  }
+> >
+> > +static const struct of_device_id aat2870_bl_match_table[] =3D {
+> > +     { .compatible =3D "skyworks,aat2870-backlight" },
+> > +     { }
+> > +};
+> > +MODULE_DEVICE_TABLE(of, aat2870_bl_match_table);
+> > +
+> >  static struct platform_driver aat2870_bl_driver =3D {
+> >       .driver =3D {
+> >               .name   =3D "aat2870-backlight",
+> > +             .of_match_table =3D aat2870_bl_match_table,
+> >       },
+> >       .probe          =3D aat2870_bl_probe,
+> >       .remove         =3D aat2870_bl_remove,
+>
+>
+> Daniel.
