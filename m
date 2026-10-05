@@ -1,85 +1,206 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1C4F2264A7
-	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 11:35:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2589347CA7A
+	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 11:42:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791200157; cv=none; b=qhSjmZHOwfeM3MFO/ikFLAXYzyy4txfC6liaF3tXhG9Y6LlOp4AH+GTQ9DH64pgC1e/eujVbbKGF8EzUuBWff593Sqq7Ddtfs9QZmTHyg8lEK4v8KEOl4fZt+Xbi7CFZoXr7p/dQKM3+Eog2x4s3VdiLXpQ9yzxSOVV9LW76eQ4=
+	t=1791200563; cv=none; b=NhVBJFsieNX5sXXIHqOn2U0MrB2Bmakq37MVsYla96+CaIP6IQpwqdM6OOP5K4qgIWDV8euPmECGKOEzgqjyO3xx4GSYZfIEfLD4jnuPD2vi8BDB8dNkrEJak4jjMec50VdcctrCY44pYh5tjjqF7Nt4lym/tebeysbiDDu33H0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791200157; c=relaxed/simple;
-	bh=TiNOeBmlc6jzsdImhyFTVM4dUnDAF1ZqeoBuR7eGKtU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=EWMfnc4svI6sz1Guf8/LTCjlgOaHTgyabajFZWf/GXJ7JtFvnmDADJabSTAfOnbxK9mLkexldPqp6JUdH4RzpsHy8iG15gtC6LW+fBu2109RoXpUuf8laLT7AZcQyiKqrnwouXybC+zW767kl4FhwKBOLJ96eO5ib7MmU5A32+M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cl1ocp3A; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791200563; c=relaxed/simple;
+	bh=THs6bx1IoAxPAp4DnNJHxSRnux00o7DADNSvNshdIok=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JLU/Nll9JLF6hAcZtmCPw0/aChDK5NKTyNI6Ogcf6Jgj75PjeeOilU3sRBY2GRlu/qWlGt0mLpWp7MRlCCrDNIHgA15vHO6CnGXXnHJEv4W0L2Qc78RG4IwqOFaYKGTPW3WfFDjGK2ZDU4FmVd+HoJQF7zsAh6wzkaY2ccLFDNc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SDTFF7Jo; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gM9/kq8l; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cl1ocp3A"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CA381F000FF;
-	Mon,  5 Oct 2026 11:35:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791200156;
-	bh=TiNOeBmlc6jzsdImhyFTVM4dUnDAF1ZqeoBuR7eGKtU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Cl1ocp3AayuEPh/PjXPWSwcxA3YkdW4i5PuN5C75eS2f2/SUTr2ekmqR6dQv7PJGO
-	 WFpyQHmII3PqG8CPxdt9qVFaHRMecarUamd8kSBAWB/bBV5yuLITUnyqhub0b7Ek5y
-	 7BcNtN540/2GGCFrJhCvZk0DH/kV8f7J4MSxRnz48QV8WZ01wIPS1MjMa+XmPUiM00
-	 UYNBaeTChnUNcToDEOr0naxfLWbRA0xN1IhOXR7pm8wzpr07iEJIvwbO1g9ilPC3D/
-	 R/rzu1SzEB8go6KWlUkWb1pmIhmjL/yrFftAdGnEmpEXL3ODWTCDGIsTbccP2YxSAI
-	 sFtHe+3BRV/yQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 4/8] irqchip/al-fic: switch to shared parent
- interrupt
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Eliav Farber" <farbere@amazon.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20261005112458.22291-5-farbere@amazon.com>
-References: <20261005112458.22291-1-farbere@amazon.com>
- <20261005112458.22291-5-farbere@amazon.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 05 Oct 2026 11:35:55 +0000
-Message-Id: <20261005113556.2CA381F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SDTFF7Jo";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gM9/kq8l"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 695BTvqQ2801998
+	for <devicetree@vger.kernel.org>; Mon, 5 Oct 2026 11:42:41 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=abOvEkNlOA0Ylyy+FBc9VdBu
+	BuQsp2/yxfH7U5b4CZM=; b=SDTFF7JofAD43m7RDcTpULyp9Mjv9kjidR4NV+J+
+	kt/NjeKtupq+LATZ76WXJty+h9l0BETIflX0cLmkmrRn5lWHp4j7/76P+5JzKiyx
+	iX/OEWwfcaPKOu7cAM6GyCnicRC+OwqbPM6npK+hqxtslEDyR4D5A+zl6Nq/CW6n
+	cEXdyrvR7S0P+7kfXsJl2thpN6bsboPcFiXWUpWpXi1d8yRgueOnZ10J/nrefgW5
+	TIQkLcZvCgmbgO/4zgz9+ZXh+/mJ1I5s8WThKbAy0aegwFGyL2VE4SIlaJOfgtXr
+	B16vFGQ62YB3nYL0KbuBd8SoXQ8JgjI2UxyIKTr9FUUDCw==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h2sssnn08-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 05 Oct 2026 11:42:41 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-313d1015161so5058867eec.1
+        for <devicetree@vger.kernel.org>; Mon, 05 Oct 2026 04:42:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791200558; x=1791805358; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=abOvEkNlOA0Ylyy+FBc9VdBuBuQsp2/yxfH7U5b4CZM=;
+        b=gM9/kq8lbLDScQm7SqGalgR7zhp+SGblfKTmssh14OKR7R0sK9vqTVgfK5BH4ytdbE
+         SsR89I+SpPkyUuc24yZei38HPMwK8K0DmpMw0gb6yzkW2B7tMZFdb+z92Y8+JzdfFzVM
+         TUEKTntLogGBT/Auss7RSqd1YvH3uojqzZy9SUJg6KsWtTpdtxra49tmTbVDTLnxBAp6
+         KVMBhkTHi578iF8gv8PMsJZSr+criIayU3E+9UOWq+vPxRhoNDnYkyEqbZh0V23Bhyy/
+         LKhh4T0bZd7IRXSeHPchqTrk3WIKHkghnEUjKEvBWjqwgEkOxusQh7n9xEahb6PKzsd5
+         t0hw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791200558; x=1791805358;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=abOvEkNlOA0Ylyy+FBc9VdBuBuQsp2/yxfH7U5b4CZM=;
+        b=gV3uw7j9y0pcoDRbXAQFRHYgqphFJYj8qkWe6rDsRzp94gxMMHxj4uUA82POrlleW4
+         OUc8o/gOmCcHlIqt+kpGW4dIHHlVtVpit0LwkIe3UWpvq2IMyluuXiEQZZai24HYnjkp
+         ud9nIs5dJjVdgsDtT6rswVJXFpiCfdxGPso6g/l3uJo086dORfHqGaSKkY9iwYl/Lw9W
+         DcXMFG4AfGxIOt/w+WC+2oSM+C3VmmMxi2Z4LjsdWF/VsER13b7Jb3m/8ZK2eqcO680E
+         Ef5Sg5WipCAr3tnSf/nI2jXLfOkaE+YROkmLJtL9zTtoFfOKaFoVgVnMMBXiuCsQPwUP
+         GV0A==
+X-Forwarded-Encrypted: i=1; AKwUvBzvcsqFBdVUhR4z9ISfomdIOWmQRPj2e1lGmCLE1I0zPmCTmet3eZh1e6St5aNZlIMTltRhKstmQVDK@vger.kernel.org
+X-Gm-Message-State: AFuF++kqCQq9mUCZvamAxbq3ux6qvsETK7lPbxC+3WS5oti7D4ARxvqN
+	KRiJ5eRH9A+kOo0eUf9UTADlBuduvgYykv1b4DIMtV6nQFmbq9BWpF7DEY6L4evgUakj7mCdn3y
+	fYAZ8Pyt4ZB7s6qKaS4bwGSHhjaFE7/g8zHWVKOQT1Yr9PIbxNTfRtSwnQfCYIqUa
+X-Gm-Gg: AYBFou2m1nL9GDTDm3q11IVOSc+7phssqA+i2UPuex7Jpdags48FMPk/hRXOGpwNqGI
+	70vemfKp3WP8OmEGXKyz0H3wI/STCFSgu0PxwDC8DdWNxmV9SCT0OBU0yW8jlYR+S9DjiDJAwQ9
+	CdtLgw4uUPfjMTxdePQQyy3yxE/skWFd+Zwfori35QP4GrpddprVJM4bIBbafLWo9klYPmsn97q
+	lTbrLDxI+O+YZ9ZBM0XYQs4o9Pn/ozWIt99aWsU1AR4C1HZYk7UnBZ2P2Vy5pz1fG4K2YTRYXyO
+	Acjq0+ziG+sKDOrurxuUkaE0XF9FWRyJi/I7dmC6VdXKe8Qs5Rg7gbNRF1Zkks92bOJUqFWsDLg
+	fUxsiEBn6Rq35xKgd1QutCDHGuNAFIda1sFGwBGNskKMPJv+YCGx2KOErnejR1+8uOUVHVkfY+B
+	VwY7Z5F5yrrWtWNc71ChduqMxZ/lFY
+X-Received: by 2002:a05:693c:8810:20b0:351:165a:baec with SMTP id 5a478bee46e88-351165abed5mr8555604eec.37.1791200557535;
+        Mon, 05 Oct 2026 04:42:37 -0700 (PDT)
+X-Received: by 2002:a05:693c:8810:20b0:351:165a:baec with SMTP id 5a478bee46e88-351165abed5mr8555544eec.37.1791200556694;
+        Mon, 05 Oct 2026 04:42:36 -0700 (PDT)
+Received: from hu-varada-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35127021d1esm14466025eec.4.2026.10.05.04.42.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 04:42:36 -0700 (PDT)
+Date: Mon, 5 Oct 2026 17:12:28 +0530
+From: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Wesley Cheng <quic_wcheng@quicinc.com>,
+        Manu Gautam <mgautam@codeaurora.org>, Stephen Boyd <sboyd@kernel.org>,
+        Philipp Zabel <pza@pengutronix.de>, linux-arm-msm@vger.kernel.org,
+        linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 6/6] phy: qcom: snps-femto-v2: Add IPQ9650 support
+Message-ID: <asONJKiT8pbIulWj@hu-varada-blr.qualcomm.com>
+References: <20261005-phy-v4-0-b04c4123ecb3@oss.qualcomm.com>
+ <20261005-phy-v4-6-b04c4123ecb3@oss.qualcomm.com>
+ <ck5st7q7rbnzfp26kbwzixorxlikq6hpmso5fzz33dlsqsrnrm@g3aey2pabkzb>
+ <asN/uLBfYARYXlhb@hu-varada-blr.qualcomm.com>
+ <lfs76pvsdpkkle3b75m2ez75x25xjqjkgbw6kkaf7rxqrc2plz@7sekrxlnqcus>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <lfs76pvsdpkkle3b75m2ez75x25xjqjkgbw6kkaf7rxqrc2plz@7sekrxlnqcus>
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDA0NSBTYWx0ZWRfX+h7G1M8zkmMA
+ Z81y+4LX7tSxjTR4b4SX0EhMUFDRfPJkOVsGWwCWy2RnIYYwYMSKHFc5m4FG7g2Nn6PBG8WvltI
+ BYJQHRbXiLVsQ0IL+p/p2fwd78MqsOU=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDA0NSBTYWx0ZWRfXw/jakKdUp4ba
+ m/KmThTnPiclN1zvd8ILtIRsWhf92sehIOirahxlIbax9mL8d5ahWfUr033uVVCUSbF1piMYnma
+ PWoc1lvbKzQe3HPK9XH4AvmDbZtHCKyexfKbGRakZu+X/JdaYhxTBUMmucOWwSgZFAO97gn+iSZ
+ KSrRh01UL91d2y9NYCNvhXkaIyFaTnDeY+/bXZUlmUl72e089upww3TarstahcSJCy8JEssESKm
+ 7M5g3A6TD69HSMisYknXvcPNiMWjGwuWhwR5KmIjAce+UfFArNbijLK3AGrqf4+gO4SePSz4CaK
+ pb0PkH1iYHlaAPWt7H/peUGgnrSFeGWLpdbViMNtayc6jfxwNXWPsnXYMLnmDtbSx8iRP1jSdhe
+ oF74NGArz49hCDGEcxZaPm9Tl1u6bpMvi/VE/eQE91ckvb1GIYXBJ/V+Rrp197KMu7Xg8BIfyMM
+ qFbtnM6GpGNMAqnS8Iw==
+X-Proofpoint-GUID: -J89LvSzRed6joi2Lz8_iAMUgTsud3qF
+X-Authority-Analysis: v=2.4 cv=HqjjiETS c=1 sm=1 tr=0 ts=6ac38d31 cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=jxoNFKAhCVCw1AryeQUA:9 a=CjuIK1q_8ugA:10
+ a=6Ab_bkdmUrQuMsNx7PHu:22
+X-Proofpoint-ORIG-GUID: -J89LvSzRed6joi2Lz8_iAMUgTsud3qF
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-05_03,2026-10-02_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 clxscore=1015 phishscore=0 bulkscore=0 adultscore=0
+ impostorscore=0 suspectscore=0 spamscore=0 malwarescore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610050045
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] irqchip: al-fic: uninitialized mask_cache causes false IRQ_HANDLED=
- in shared handler
---
+On Mon, Oct 05, 2026 at 02:01:48PM +0300, Dmitry Baryshkov wrote:
+> On Mon, Oct 05, 2026 at 04:15:12PM +0530, Varadarajan Narayanan wrote:
+> > On Mon, Oct 05, 2026 at 10:17:32AM +0300, Dmitry Baryshkov wrote:
+> > > On Mon, Oct 05, 2026 at 12:06:31PM +0530, Varadarajan Narayanan wrote:
+> > > > Add the 6 nm SNPS femto USB2 PHY configuration needed by IPQ9650. The PHYs
+> > > > on this SoC require a dedicated init sequence and override parameters
+> > > > before they can be enabled.
+> > > >
+> > > > Signed-off-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+> > > > ---
+> > > >  drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c | 62 +++++++++++++++++++++++++++
+> > > >  1 file changed, 62 insertions(+)
+> > > >
+> > > > diff --git a/drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c b/drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c
+> > > > index b6bbf2b570c7..8957f208bc51 100644
+> > > > --- a/drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c
+> > > > +++ b/drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c
+> > > > @@ -29,12 +29,15 @@
+> > > >
+> > > >  #define USB2_PHY_USB_PHY_UTMI_CTRL5		(0x50)
+> > > >  #define POR					BIT(1)
+> > > > +#define ATERESET				BIT(0)
+> > > >
+> > > >  #define USB2_PHY_USB_PHY_HS_PHY_CTRL_COMMON0	(0x54)
+> > > >  #define SIDDQ					BIT(2)
+> > > >  #define RETENABLEN				BIT(3)
+> > > >  #define FSEL_MASK				GENMASK(6, 4)
+> > > >  #define FSEL_DEFAULT				(0x3 << 4)
+> > > > +#define FSEL_24MHZ				(0x2 << 4)
+> > >
+> > > Use FIELD_PREP, please.
+> >
+> > Not able to use FIELD_PREP, getting this compilation error.
+>
+> Sorry. Does FIELD_PREP_CONST work?
 
-commit cfdc04eba40afdf67fb8743fd9c337f5dc214952
-Author: Eliav Farber <farbere@amazon.com>
-Subject: irqchip/al-fic: switch to shared parent interrupt
+Yes. Will post a new version...
 
-This commit modifies the AL-FIC driver to request its parent interrupt as a
-shared interrupt instead of using a chained handler. This change allows
-multiple FIC controllers to share a single output line toward the parent GI=
-C.
+Thanks
+Varada
 
-[Severity: High]
-In drivers/irqchip/irq-al-fic.c, at line 169 within al_fic_register(), the
-parent IRQ is now requested with IRQF_SHARED. Because the generic chip is
-allocated with IRQ_GC_INIT_MASK_CACHE, gc->mask_cache is initialized to 0
-and hardware sync is deferred until the first child IRQ is mapped.
-
-Does requesting the shared IRQ at this stage expose the handler to early
-execution if another device sharing the line raises an interrupt before any
-child IRQs are mapped?
-
-If this occurs, when al_fic_irq_handler() is called around line 105,
-the bitwise NOT of gc->mask_cache evaluates to 0xFFFFFFFF. Any latched but
-masked events in the AL_FIC_CAUSE register would then bypass the software
-mask, resulting in a non-zero pending value.
-
-Could this cause the handler to loop over unmapped bits and falsely return
-IRQ_HANDLED? Falsely returning IRQ_HANDLED defeats the kernel's spurious
-interrupt detector, which might lead to system hard lockups if the shared
-line experiences a spurious storm or becomes stuck.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261005112458.2229=
-1-1-farbere@amazon.com?part=3D4
+> >
+> >   CC      drivers/phy/qualcomm/phy-qcom-snps-femto-v2.o
+> > drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c:449:53: error: statement expression not allowed at file scope
+> >   449 |         { USB2_PHY_USB_PHY_HS_PHY_CTRL_COMMON0, FSEL_MASK, FSEL_24MHZ },
+> >       |                                                            ^
+> > drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c:39:23: note: expanded from macro 'FSEL_24MHZ'
+> >    39 | #define FSEL_24MHZ                              FIELD_PREP(FSEL_MASK, 2)
+> >       |                                                 ^
+> > ./include/linux/bitfield.h:136:2: note: expanded from macro 'FIELD_PREP'
+> >   136 |         ({                                                              \
+> >       |         ^
+> >
+> > Thanks
+> > Varada
+> >
+> > >
+> > > > +#define VATESTENB_MASK				GENMASK(1, 0)
+> > > >
+> > > >  #define USB2_PHY_USB_PHY_HS_PHY_CTRL_COMMON1	(0x58)
+> > > >  #define VBUSVLDEXTSEL0				BIT(4)
+> > >
+> > > --
+> > > With best wishes
+> > > Dmitry
+>
+> --
+> With best wishes
+> Dmitry
