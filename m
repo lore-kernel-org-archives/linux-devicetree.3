@@ -1,77 +1,70 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82F1D4BA1C1;
-	Mon,  5 Oct 2026 15:42:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D65D94C77C6;
+	Mon,  5 Oct 2026 15:42:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791214950; cv=none; b=XMvk3qbqECMq3E0VHCJ3OPL3jk6paZdz1pVTraayb89NEmNuHWNOI3+aLnxF6rcZ5IbgB+ly7nKXMsP2SUhN4zvWlC+RTty5m+JNEGmWd/K+A4pFNDQCF4b+iWoEY+lyiTR3bXOY/9JaD6XPexmXb+rLg1YSCvBkQjw1i64Xmrs=
+	t=1791214974; cv=none; b=d1T+YaX6xiUUx/JAd9S+Hnlauonu7CSX/lgv775+AJaWS/DJgoXDa4iQ0wCDGAv1ljDAU/SDo/sps9mNbFlFnHxBZj0fIJy7oMrpoe2s1pctmmYpCu0KaQmsXb2JDZkcpjkv+WZe4aZ333/9PYmCrCtw8vIwlKsMqDoSi0jyq0U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791214950; c=relaxed/simple;
-	bh=fj4OMuH0jQ1sZSqKm2Ek6vC7DvUQIrXRLg10NYu7wH8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DhWqbwJL4VnBS4umjwKnXpZb+15ZiF2LLUvdjxO5Y5COvNRLS6fTnWOIC881puRobTDPMQNfx30wzCIzKyBJLEaXIcCV+/3j8WIRHzGwoWIMM5PAl1H5PMgVmRqQF6QQ8tZSD1hZNo1MaMUeczzGYk7F3K+lYmIuIu0bCrZOUjc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KhxX5TlG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791214974; c=relaxed/simple;
+	bh=dx5ZPuw0EDthZkAiYwdnJ88apPFW9G1RVihGrnW3Hbo=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=cfE19zMmxNG4jNhe/8kAtxg8DBdcKcUa//Z6VRnbX8Ax9pqWE7USuO76E8xVjr/2DtmP8eY5HbEtbGGxE4mLklq/al/DH8rKuc2W/E6l/FEBeCrexiJ3ppanwIBXOXpn9u7woIDvkTLIMjPdnNWzpY+soy1DIKSLG8adS42u73Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xpu2ucEK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KhxX5TlG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D26C1F000FF;
-	Mon,  5 Oct 2026 15:42:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xpu2ucEK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 969B41F00893;
+	Mon,  5 Oct 2026 15:42:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791214949;
-	bh=4LoR9vP2iNc+7lsbl3WuvZLwu4ihDSdaejDj2zJPu/I=;
-	h=From:To:Cc:Subject:Date;
-	b=KhxX5TlGxr62rTZ97hqidI4+S8PTq1/pH30x+i7UmDdQMc3wZ0ij4inxOFRiHyLsx
-	 0DLCoIBWN/5JoaulW2G/7dFS4XFVWA8cBVuyIOIILWiZtZk2R9ZY9zaNb1rZarlgze
-	 WGl4kjR8GNds2kvWKoFgoSsmmxnN8KLTZ2FkBbWOCSo8CrAZ/Tew0HrU7Ow4f9SI+d
-	 Ae58Gx8zj0VM1AYJUsiQC3C+TtQ8x2ltu98rLsyptj8S0goaTeGXU0CB5fRemH3qBW
-	 tvUGUVGwu5J8VnMJJQ0wYai4WPxAG+ZokM7FqoPva5GZRmI6XnxiSr2iIfmWOZKqZG
-	 qBEMY2668nFEg==
-From: Jisheng Zhang <jszhang@kernel.org>
-To: Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-spi@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] spi: dt-bindings: snps,dw-apb-ssi: Add Synaptics sl2610 spi
-Date: Mon,  5 Oct 2026 23:22:30 +0800
-Message-ID: <20261005152230.25294-1-jszhang@kernel.org>
-X-Mailer: git-send-email 2.51.0
+	s=k20260515; t=1791214973;
+	bh=cY0MImdsbwwry+0M5+lusqvStPfpoJWB8RTDFB0Iwvw=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=Xpu2ucEKC7J4WZKgWocc13bV56BFfjA/o2ZhUHlgzrny4VLzVrJiRfsC3jOs2HyLj
+	 RiSwkpSx5JlAby7QZsMWgt2JfkNgaYdvs7YWKsISRQmYrx7FXjAHWBKcLhDypt316f
+	 gTdlfX6We6cVQE8Xn/w1QJ5AD7ytHwwLmuhhJQ/rybdQUXX7lTZKlKqYJd/Hzv0fv0
+	 dVedNvHP46QUVGgcybrORTcb7dRRO3djLGlmHL+r5abYGbM6gXbBGc/yjnQyQnyHrQ
+	 J6HA4MXCfJiLCLj2vkBBkPmGlmyMu/mmpr5SKRfR1Oz2MxRgu/jDtYjv4HJmqVDxZk
+	 sCrFNl+J16DbA==
+From: Vinod Koul <vkoul@kernel.org>
+To: Sean Wang <sean.wang@mediatek.com>, Frank Li <Frank.Li@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Long Cheng <long.cheng@mediatek.com>, Roman Vivchar <rva333@protonmail.com>
+Cc: dmaengine@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260914-6572-dt-uartdma-v1-1-b26b429ab68c@protonmail.com>
+References: <20260914-6572-dt-uartdma-v1-1-b26b429ab68c@protonmail.com>
+Subject: Re: [PATCH] dt-bindings: dma: mediatek,uart-dma: add mt6572
+Message-Id: <179121497025.358863.4128356307100144833.b4-ty@kernel.org>
+Date: Mon, 05 Oct 2026 17:42:50 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14.3
 
-Add the compatible for the Synaptics SL2610 SoC SPI controllers, which
-are compatible with the Synopsys DesignWare APB SSI.
 
-Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
----
-This is one of the "arm64: add Synaptics SL261X SoCs and RDK boards"
-series, I want to send it as a separate patch.
+On Mon, 14 Sep 2026 15:10:52 +0300, Roman Vivchar wrote:
+> Add a compatible string for the mt6572 APDMA, that is compatible with
+> mt6577 IP.
+> 
+> 
 
-since v1:
- - use sl2610 instead of sl261x
- - send as a separate patch
+Applied, thanks!
 
- Documentation/devicetree/bindings/spi/snps,dw-apb-ssi.yaml | 1 +
- 1 file changed, 1 insertion(+)
+[1/1] dt-bindings: dma: mediatek,uart-dma: add mt6572
+      commit: 6c0a5a1fb1668b5fa9f9c9c302f5235d131f2ed5
 
-diff --git a/Documentation/devicetree/bindings/spi/snps,dw-apb-ssi.yaml b/Documentation/devicetree/bindings/spi/snps,dw-apb-ssi.yaml
-index 1e70c6804d5d..20c123601b51 100644
---- a/Documentation/devicetree/bindings/spi/snps,dw-apb-ssi.yaml
-+++ b/Documentation/devicetree/bindings/spi/snps,dw-apb-ssi.yaml
-@@ -62,6 +62,7 @@ properties:
-               - mscc,ocelot-spi
-               - mscc,jaguar2-spi
-               - sophgo,sg2042-spi
-+              - syna,sl2610-spi
-               - thead,th1520-spi
-           - const: snps,dw-apb-ssi
-       - description: Vendor controllers compatible with v1.01a
+Best regards,
 -- 
-2.53.0
+~Vinod
+
 
