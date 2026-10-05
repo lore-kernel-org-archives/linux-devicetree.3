@@ -1,189 +1,173 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1288418A33
-	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 10:02:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D804E35DA78
+	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 10:02:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791194539; cv=none; b=BpUwo6j5YWBEEIrQwv8TYOYUMovDNtZ8pujvmQheNKYWp5pCNxk+AKsyzoTGf07cFTOQ/4wncvn+oqLGGgHT21fncQNif6IWh+icr3UQunuEtCGtNr7v21mAigtQqror/+gHOBxNHf7eM8sTTCCpa1IkksdWC/2PNRKGZNnR2RU=
+	t=1791194540; cv=none; b=N+H5FO7ncRLnSdxXZQOsXJkSM+rh6BqymJrhccsENtmqnC7fkrUGSRrPJzxWm0KW9XZD9OzqEKkyEy4YaYUtHFsTVIovqZAOCjol8kzFbRtpVdlHcYQcjDeMkc0djUJHpWsp/ZCPZ/w0fp+FPhWredlSBDUDXTWUCvMgtA3+TaU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791194539; c=relaxed/simple;
-	bh=FwcozDZvnTxxwdSDupqvWTmRLRaDvdWPDr8U1ZnsJyg=;
+	s=arc-20240116; t=1791194540; c=relaxed/simple;
+	bh=PpMajIyqOBpWAmz7Y+zTzy+LmcDAIG7fDv7ywEKE0+4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=aqSCPnbKuuuJo5FPgE2ZGZdYnueE6VvaVLLpeMYEu1DNmzEHDibE/mStsIvY2s3zDXCff2OGEixyZe7UzekhGzBoZPfoCle/Lds5JfcdevA1TIdS7qbyPCzL6EP+VBIB178nWBpmGJgpyct/oN9/h0D4RUQvDf6nJEyszX4hANg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KOrXzW6F; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=LRtC6n2/V5J++bky9s0UBuG5SyAreilTs5G3dzdiKkq2EZCc5TVxGnPgB0wiKjLTnczr2kogPElrakFhoT62dwmLbffX62KQUF8GFNcxd1XnH+OqvO6waOkIOJkxADb4f9A4AGSafQtP/CnQSCTA1hj6J6FLBn9d/W8W5KTbQSU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KKALkIao; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KOrXzW6F"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A2211F000FF;
-	Mon,  5 Oct 2026 10:02:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KKALkIao"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 301BF1F00893;
+	Mon,  5 Oct 2026 10:02:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791194537;
-	bh=qYBHjiYF+VCi1zD054c/t657UsFpmNJSKL2uGVkhMag=;
+	s=k20260515; t=1791194538;
+	bh=socEQDK4B5+P793pS7JrR9TzGsEyBlfGg+mrbDVHufA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KOrXzW6FbAOx4bnncARcP+VoVCSS5Lbk807STo5f7zXZWCYABOD0Hr77dQ8zSyJng
-	 rX1Kju0l+vXUUbgMMQRKzIlrmRb3A+4Ir9ccAgPn6+7+XWF5O/qvqQINHBn8UUZBK0
-	 003I6jOMSbjUehXA8W+fatyxHWZ4Vtug91BnWUgQC1SVl29lNIcwXgeDG+cIauB1cc
-	 +ErR4InRBZXNwrlQMvHQPssH36HDThmH3yUBGDrAs8VQijzDIQqIyMSuxP2l4ESvB+
-	 WCBQeeFzkTLpGDh3zZBhaoxv0pA5kdwWaOA5vc0HoyFpBfnsQ6iSfGec73cSk7GTlZ
-	 /VuoZCVVyI4iw==
+	b=KKALkIaoDhq12kPFYVYw3yWQkjER2UbxTFpqEEI8CJ7UTpwAFr24I9C+f3NX9VVit
+	 Qhvbfyx6I7VqHkK/ltuD8o4rgikRD9BiPEqKdqfNnKtcgpx8FDIUj1btOH9CTbX6JN
+	 agoX/KD+8ZGACJ3s23AQfHClncSNbZAZKMBwvu/Lten/Vn+rEPc4f3smBpCe2/Co7a
+	 R01eOyuiXfXgu1vRlpOwYgf2ZBUDJG4P7TTqTbOybkLUl0FEP1ZZg/Dlu7VGgx2Ztb
+	 EqVldY/F/lUJwBcphNyO6w0N+9mXPbhAwcbnTt9kthJ5NGOGZNfl6VO62y196YoXoY
+	 7LKbBmb5czJdg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v13 2/2] media: i2c: Add driver for AMS-OSRAM Mira220
+Subject: Re: [PATCH v6 2/4] media: rockchip: Add JPEG decoder driver
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jacopo Mondi" <jacopo.mondi@ideasonboard.com>
-Cc: media-ci@linuxtv.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261005-mira220-v13-2-27a041933929@ideasonboard.com>
-References: <20261005-mira220-v13-0-27a041933929@ideasonboard.com>
- <20261005-mira220-v13-2-27a041933929@ideasonboard.com>
+To: "Sascha Hauer" <s.hauer@pengutronix.de>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, media-ci@linuxtv.org, conor+dt@kernel.org
+In-Reply-To: <20261005-rockchip-jpegdec-v6-2-25f16dea1697@pengutronix.de>
+References: <20261005-rockchip-jpegdec-v6-0-25f16dea1697@pengutronix.de>
+ <20261005-rockchip-jpegdec-v6-2-25f16dea1697@pengutronix.de>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 05 Oct 2026 10:02:16 +0000
-Message-Id: <20261005100217.5A2211F000FF@smtp.kernel.org>
+Date: Mon, 05 Oct 2026 10:02:17 +0000
+Message-Id: <20261005100218.301BF1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
 s) to consider:
-- [High] media: mira220: NULL pointer dereference in mira220_set_ctrl due t=
-o race with remove
-- [Medium] media: mira220: missing .set_selection leaves frame windowing de=
-ad code
-- [Medium] media: mira220: data race when accessing flip controls during TR=
-Y format operations
+- [High] media: rkjpegd: user-triggerable WARN_ON_ONCE in error path
+- [High] pm: kernel crash from spurious IRQ reading unclocked registers
+- [High] media: rkjpegd: IRQ handler wipes out watchdog soft reset
+- [Medium] pm: resource leak due to missing synchronous suspend in remove
+- [Medium] media: rkjpegd: data race on ctx->sequence_cap between QBUF and =
+IRQ
 --
 
-commit e6501c571328e79b8fc444fba484ac0380fd2bca
-Author: Philippe Baetens <philippebaetens@gmail.com>
+commit e33f32166562ddeac3fb6446b67084c1666b6b89
+Author: Sascha Hauer <s.hauer@pengutronix.de>
 
-media: i2c: Add driver for AMS-OSRAM Mira220
+media: rockchip: Add JPEG decoder driver
 
-This commit introduces the V4L2 subdev driver for the AMS-OSRAM Mira220
-image sensor. It implements support for mono and RGB formats with varying
-bit depths.
+Add a driver for the JPEG hardware decoder Rockchip integrates into a
+number of its SoCs, exposing one V4L2 M2M device implementing the
+stateful decoder interface.
 
-> diff --git a/drivers/media/i2c/mira220.c b/drivers/media/i2c/mira220.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/media/i2c/mira220.c
+> diff --git a/drivers/media/platform/rockchip/rkjpegd/rkjpegd.c b/drivers/=
+media/platform/rockchip/rkjpegd/rkjpegd.c
+> --- a/drivers/media/platform/rockchip/rkjpegd/rkjpegd.c
+> +++ b/drivers/media/platform/rockchip/rkjpegd/rkjpegd.c
 
 [ ... ]
 
-> +#define MIRA220_FLIP_FORMAT_MASK	0x3
-> +static inline unsigned int mira220_flip_format_index(struct mira220 *mir=
-a220,
-> +						     unsigned int index)
-> +{
-> +	return (index & ~MIRA220_FLIP_FORMAT_MASK)	|
-> +	       (mira220->vflip->val ? BIT(1) : 0)	|
-> +	       (mira220->hflip->val ? BIT(0) : 0);
-> +}
+> @@ -1388,8 +1388,9 @@ static void rkjpegd_job_finish_no_pm(struct rkjpegd=
+_ctx *ctx,
+> =20
+>  	src->sequence =3D ctx->sequence_out++;
+>  	dst->sequence =3D ctx->sequence_cap++;
+> =20
 
 [Severity: Medium]
-Is this vulnerable to a data race during V4L2_SUBDEV_FORMAT_TRY operations?
+Does this create a data race on ctx->sequence_cap?
 
-This reads the vflip and hflip control values directly without taking the
-control handler lock. When this is called via pad operations like
-set_pad_format() or enum_mbus_code() for a TRY request, the V4L2 core holds
-the file handle's TRY state lock rather than the active state lock.
+Here in rkjpegd_job_finish_no_pm(), ctx->sequence_cap is incremented in
+hardirq context protected by drain_lock. However, it is also incremented in
+rkjpegd_last_buffer_done() under vdev_lock in process context.
 
-Since a concurrent VIDIOC_S_CTRL ioctl can modify these values under the
-control handler lock, could this result in read tearing or unexpected
-behavior from concurrent modifications?
+If userspace issues a VIDIOC_QBUF on the capture queue while a drain is
+ongoing, this might lead to duplicate sequence numbers or skipped counts
+since the differing locks provide no mutual exclusion.
 
-[ ... ]
-
-> +static int mira220_set_ctrl(struct v4l2_ctrl *ctrl)
-> +{
-> +	struct mira220 *mira220 =3D
-> +		container_of(ctrl->handler, struct mira220, ctrl_handler);
-> +	struct i2c_client *client =3D v4l2_get_subdevdata(&mira220->sd);
-> +	struct v4l2_mbus_framefmt *format;
-> +	struct v4l2_subdev_state *state;
-> +	int ret =3D 0;
-> +
-> +	state =3D v4l2_subdev_get_locked_active_state(&mira220->sd);
-> +	format =3D v4l2_subdev_state_get_format(state, 0);
+>  	/* GStreamer takes an empty capture buffer for the end of the stream. */
+>  	vb2_set_plane_payload(&dst->vb2_buf, 0,
+>  			      ctx->dst_fmt.plane_fmt[0].sizeimage);
 
 [Severity: High]
-Could this lead to a NULL pointer dereference during device unbind?
+Could this trigger a kernel WARN_ON_ONCE when handling an undersized buffer?
 
-This function fetches the locked active state and blindly dereferences the
-format pointer. If a concurrent VIDIOC_S_CTRL ioctl happens during device
-removal, the active state might have already been freed by
-v4l2_subdev_cleanup() before the control handler is unregistered.
+If userspace queues a frame with a larger resolution, rkjpegd_vdpu720_run()
+detects the undersized capture buffer and fails with -EINVAL. The error path
+jumps here, which unconditionally sets the payload size to the new, larger
+ctx->dst_fmt.plane_fmt[0].sizeimage.
 
-Should the control handler be freed before destroying the subdev state
-in mira220_remove() to prevent this race window?
-
-[ ... ]
-
-> +static int mira220_set_framefmt(struct mira220 *mira220,
-> +				struct v4l2_subdev_state *state)
-> +{
+Because sizeimage exceeds the underlying plane length, setting it via
+vb2_set_plane_payload() will trigger a warning.
 
 [ ... ]
 
-> +	/*
-> +	 * Program the ROI area, centered in the sensor's pixel array.
-> +	 *
-> +	 * TODO: Use the crop rectangle sizes once the driver is ported to the
-> +	 * new RAW camera sensor model.
-> +	 */
-> +	top =3D (MIRA220_PIXEL_ARRAY_HEIGHT - format->height) / 2;
-> +	left =3D (MIRA220_PIXEL_ARRAY_WIDTH - format->width) / 2;
-
-[Severity: Medium]
-Is the dynamic windowing calculation here effectively dead code?
-
-The commit message mentions dynamic frame windowing support. However,
-since the driver forces the format to the 1600x1400 maximum resolution in
-mira220_set_pad_format() and omits the .set_selection callback in the
-v4l2_subdev_pad_ops structure, userspace has no mechanism to change the
-crop rectangle.
-
-Should a .set_selection callback be added so that format->height and
-format->width can actually vary?
-
-[ ... ]
-
-> +static const struct v4l2_subdev_pad_ops mira220_pad_ops =3D {
-> +	.enum_mbus_code =3D mira220_enum_mbus_code,
-> +	.get_fmt =3D v4l2_subdev_get_fmt,
-> +	.set_fmt =3D mira220_set_pad_format,
-> +	.get_selection =3D mira220_get_selection,
-> +	.enum_frame_size =3D mira220_enum_frame_size,
-> +	.enable_streams =3D mira220_enable_streams,
-> +	.disable_streams =3D mira220_disable_streams,
-> +};
-
-[Severity: Medium]
-This is related to the previous question: does the lack of a .set_selection
-callback leave the windowing feature incomplete?
-
-[ ... ]
-
-> +static void mira220_remove(struct i2c_client *client)
-> +{
-> +	struct v4l2_subdev *sd =3D i2c_get_clientdata(client);
-> +	struct mira220 *mira220 =3D to_mira220(sd);
-> +
-> +	v4l2_async_unregister_subdev(sd);
-> +	v4l2_subdev_cleanup(&mira220->sd);
-> +	media_entity_cleanup(&sd->entity);
-> +
-> +	v4l2_ctrl_handler_free(mira220->sd.ctrl_handler);
+> @@ -1405,6 +1405,7 @@ static irqreturn_t rkjpegd_vdpu720_irq(int irq, voi=
+d *dev_id)
+>  	struct rkjpegd_dev *jpegd =3D dev_id;
+>  	enum vb2_buffer_state state;
+>  	u32 status;
+> =20
+>  	status =3D rkjpegd_read(jpegd, VDPU720_REG_INT);
+> =20
 
 [Severity: High]
-Does freeing the control handler after cleaning up the subdev state
-introduce the NULL pointer dereference race mentioned above?
+Could a spurious interrupt cause a synchronous bus fault here?
 
-v4l2_subdev_cleanup() frees the active state without taking the control
-handler lock. Because the control handler is still registered, userspace
-can still invoke mira220_set_ctrl(), which will try to access the now-NULL
-active state format pointer.
+The IRQ is requested via devm_request_irq() in rkjpegd_probe() before
+pm_runtime_enable() is called and before resets are deasserted. If a
+spurious interrupt is pending from a prior bootloader or kexec stage, the
+IRQ handler fires immediately and reads VDPU720_REG_INT while the device
+clocks are still disabled.
+
+Should the handler use pm_runtime_get_if_active() to guard access, and the
+IRQ be requested after PM initialization is complete?
+
+>  	/* First phase of the IRQ clear, see VDPU720_IRQ_CLR_KEEP. */
+>  	rkjpegd_write(jpegd, status & VDPU720_IRQ_CLR_KEEP, VDPU720_REG_INT);
+> =20
+>  	if (!(status & VDPU720_IRQ_RAW))
+>  		return IRQ_NONE;
+> =20
+>  	rkjpegd_write(jpegd, 0, VDPU720_REG_INT);
+
+[Severity: High]
+Can the IRQ handler wipe out a concurrent soft reset requested by the
+watchdog?
+
+If the watchdog timeout executes vdpu720_soft_reset(), it writes
+VDPU720_SOFT_RST_EN to this register. If a hardware IRQ fires concurrently,
+this IRQ handler reads the register and then unconditionally writes 0 to
+clear it.
+
+This seems to wipe out the VDPU720_SOFT_RST_EN bit before the watchdog
+finishes waiting for VDPU720_SOFT_RST_RDY, potentially leaving the block
+wedged.
+
+[ ... ]
+
+> @@ -2121,6 +2121,7 @@ static void rkjpegd_remove(struct platform_device *=
+pdev)
+>  	reset_control_assert(jpegd->resets);
+>  	/* Suspends at once, a pending autosuspend does not keep it active. */
+>  	pm_runtime_dont_use_autosuspend(&pdev->dev);
+>  	pm_runtime_disable(&pdev->dev);
+>  }
+
+[Severity: Medium]
+Does this leave the hardware active and leak clocks on module unload?
+
+If a job finishes and calls pm_runtime_put_autosuspend(), a delayed suspend
+is queued. If the driver is removed before the timer fires,
+pm_runtime_disable() cancels the pending autosuspend, but does not suspend
+the active device.
+
+Should the driver explicitly suspend the device synchronously before or
+after disabling PM runtime?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261005-mira220-v1=
-3-0-27a041933929@ideasonboard.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261005-rockchip-j=
+pegdec-v6-0-25f16dea1697@pengutronix.de?part=3D2
