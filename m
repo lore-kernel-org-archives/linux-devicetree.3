@@ -1,106 +1,156 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AD1D3F6C55
-	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 08:36:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF13C3806AD;
+	Mon,  5 Oct 2026 08:45:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791189407; cv=none; b=aANeI0JaBRmd5G45B1BmveX24TKkjloAp1o1wd6rGGV3Qn/Bb4hB/8ZBr/Q1aUXm5XE7o9xUQpSinGB/FrmsQtyAmMyOkhg6/W6yBB1hdDosHkQOv20IhvhVtHp62Hdrh7J4DHaiEUmWjhbQcB9xCcReFLEuNsYeMfMviMu9aHk=
+	t=1791189904; cv=none; b=NzaC2bKiQZK47vKM6h+PUrpDZ2wsd+Zci/LxqSTxmDerJz5SED1ZCZ/3yI8a04fPrTUpE6Xr16eaH3iO8sR7pVMOCE2Ez8IeNUlyojZXfzoHK8Yui4inPUDx2IXkm8UELpyxhud/ditHpiy/yLtMihD/MEjteqGt9Mo9XzNOxRM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791189407; c=relaxed/simple;
-	bh=xVWhoI1lNUOU6HwKrdL16M8Wcy17FpNv6JjlWtBiFHw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=d3eIeFnJd0B0L2h0olEbMxrXpCRFKTfUE8+RGlYb1H9gEpGXFNfPpkQTrb+kQTY7BVx042RuaiwyyEJ/HXPXTJR7qXdRJ2p72EnAYyNk/TykPsdz8kt3mHsyTorkHg4SS54ffvTEj7KSCd+r9UbWY3Q5IhEGDH7I6ZfKpGcVzng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W3Rn2Sw4; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791189904; c=relaxed/simple;
+	bh=v7fBogfEa4SyyyvCAt2cXY9omS2YlKzUV5YfX5OoCdk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=e6fWI9mfpDxAWoq50M3cawHhNrYqb3+JXz9SCzlHZLUP4Ikun+aodClidtEreScN28KFlJSzmLIM2BhuxNicEOuiNUoe8lp02IpgpkvI7ik7z9bYQhBJ5brGkiApe7rsDmZEPRITs5MkcnrLW1UmGbSSwRZjRx7F+ArnttAE0dQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ATksT9qc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W3Rn2Sw4"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-4a0977b9c20so20173745e9.2
-        for <devicetree@vger.kernel.org>; Mon, 05 Oct 2026 01:36:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791189405; x=1791794205; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WdBlTkVU5Ix+L6SuwkpBVt4AjcxSBhXQvwOG+kfCA84=;
-        b=W3Rn2Sw4fmV+JEy9l/LRs2sdd2M0OqA85K9pcdruSRtQPUX24/Ozxpm8GgMKHXs33a
-         NrlEVeJs/iUdXLZJ83eYePucLoiUh0Xxb0x9JRDqw8ZVD901Ysgx2/vLRjIFdaJaaKEk
-         4HIgirjGIjg6apKmmRYHHrq+eu6F+9B8AMBX0U3Mh57Sr3DtMdZ6Mqm87iLV29IhYkb7
-         aCG1mF+3RR6UFyMbcglHEdXvw0AArduKougLV4enqRdQQFX6fTCHzyZtr4YKxzpPaNjr
-         ta8EkiHk4Glpj2pccjkqrsS72Hn4mxanb30SZeBmYoSpweZf1cljOlMhxZE5RlAZvICk
-         7Erw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791189405; x=1791794205;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WdBlTkVU5Ix+L6SuwkpBVt4AjcxSBhXQvwOG+kfCA84=;
-        b=fqhr5xHc735tqn5z8UxcdTeAe9DkBgVDKFacUS5p2PfXe+NReD9EgHjEh38QZ1F6IJ
-         kkgNkeaq40+b+aT77TcAVK6isEwB0OAIvzTEYd46YnRvugZgIIyc2UtU+4nWwAdpUuxT
-         aYUKzDdICBRLOl+6r4p16KXi5ij0luGL0RQ/yn16RuTTXu57+9DdNzviGqWw13Grk0DC
-         ppfXeDQ5Yl1tNGfs8hwEL7bGPmdWdXX2oxprV1Er8Odl8L0kJrGIcmRmFt78gGMkMMzO
-         JAEEugCExHWoBtmoEuZxJwUxkCq53E1Zrqv5Mdh9SquVbS2fL/hZNIFOWQUhPPyjSXaJ
-         uHXQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx7CkqR/NhiYDsCCdpVljDH0yAfxiOG0/GzDw/5gTX5NBuD3UaJMoyMpEAAuRWpSLHz4owlCW0FhFdP@vger.kernel.org
-X-Gm-Message-State: AFuF++nV74S7g0n8V3j8TXbNjWqPkWPElsd76kLG3vpcoprQmMKeJ9vO
-	BqiC6Z0dSxOudxmS/pI1oYFYf0vkuxZgxAYmnDjb357YIiJIdkYtp++R
-X-Gm-Gg: AYBFou0hIBSj1qAU5hgzoqRVQ621RRzyShEoXphkFU3vsLFmz4P/QPCghLp/HOom2A1
-	vlZwyQTIANsNl62uwRBy4ZVsywEoaFRCVv+0I44NNxAUsE1MtxdKNDuuGpbo8FsPVVD3y8KHrYp
-	gEO/U+7uGoMqTFMCR3ASmcOZnteGwNYfZBxnr8R7RedqucBe4DZ1t/KI67HJP7RO+BPRnGYeKs3
-	zdaBo9bEgLgXsF8z3uT/yn9EbS9WAV/3tDUQmAdYWA+ci4+M/D7ER/zA8rdAIINcJRztSRLqd3E
-	ChsyKDrTzYSy/iB/AstezaKXxmO78ETDNwmHBdiwhBWcaszNNsBBM9kROHD56o5NXzWBmvJPecV
-	EXNWjIobuaRHd8DcoZZmtyPk+161o+9PDX8N92fmKoxsClGbseeB7e1D1pdygbMLF2OeZ/z7c5R
-	aVB6ZPnDMHQLIRq4CnQ3KR5LUbc3y0yqkgsRoW+dU/IR1Y8BbqhQJTtXd8CrPsBoM83oo2JZXa8
-	mhMu2ihfdaCDyDUTDx1LimbM9S9nd5pVKlCp2L7omUGervg2UTTt9fOJeLdGXIRr0QmtRFztSvz
-	RqEMZt2Hbl11tOJLMc514OZxBg==
-X-Received: by 2002:a05:600c:a010:b0:4a0:251f:a726 with SMTP id 5b1f17b1804b1-4a02759badbmr163677825e9.24.1791189404503;
-        Mon, 05 Oct 2026 01:36:44 -0700 (PDT)
-Received: from robert-83cx (static-dsl-191.87-197-115.telecom.sk. [87.197.115.191])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a16620dbdfsm219210615e9.0.2026.10.05.01.36.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 01:36:43 -0700 (PDT)
-From: Robert Bozik <robertbozik@gmail.com>
-To: sakari.ailus@linux.intel.com
-Cc: linux-media@vger.kernel.org,
-	mchehab@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	conor.dooley@microchip.com,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 1/3] dt-bindings: media: i2c: Add OmniVision OV32C4
-Date: Mon,  5 Oct 2026 10:36:42 +0200
-Message-ID: <20261005083642.11511-1-robertbozik@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <asNbwhGCuxF6e6Ba@kekkonen.localdomain>
-References: <20261005071010.7191-1-robertbozik@gmail.com> <20261005071010.7191-2-robertbozik@gmail.com> <asNbwhGCuxF6e6Ba@kekkonen.localdomain>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ATksT9qc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C75C71F000FF;
+	Mon,  5 Oct 2026 08:45:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791189902;
+	bh=yu0jeX6WAJv4JtgUQ7WdlwZ7yT+kLcw/DK3wWTM8lF4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ATksT9qcj606k9JWregl4eW5+phJ39KeCgq22MOa38VA5rhOTUdfYGpS/NXMkVrr1
+	 NbwsUxVMQSQ1Yl1F2UkTYY1r+io9jqfAHQw6uQjuVrUSCS13AQsjp7VsRfENZaQEb1
+	 XjNaieHCRvp5OQwuHxuUdowfrsO3MotjvwBmVk22w9zWwsVOwmIurTFdteBjZCR3K3
+	 6i8bCwta0V5GhFYRHVWxljx1H1SzNvv41FCEklW1JaaZjC3YjZp2VhJhiWTQ68J4d9
+	 4hUL0Ng/BVdUarII1B9Qms10p2M9CnmmHwqsYwTXJMhyHsRTRY/6lb6bDWKSuEUA90
+	 9Ny2sKzI5vzVA==
+Date: Mon, 5 Oct 2026 10:44:59 +0200
+From: Vinod Koul <vkoul@kernel.org>
+To: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Subject: Re: [PATCH v8 2/5] include: linux: phy: Add phy attribute "type" and
+ associated helpers
+Message-ID: <asNji2_GUda8x245@parshuram>
+References: <20260913-eusb2-interrupt-v8-v8-0-0f505b9c394b@oss.qualcomm.com>
+ <20260913-eusb2-interrupt-v8-v8-2-0f505b9c394b@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260913-eusb2-interrupt-v8-v8-2-0f505b9c394b@oss.qualcomm.com>
 
-Hi Sakari,
+On 13-09-26, 20:10, Krishna Kurapati wrote:
+> In cases like USB High-speed phys which can be either USB2 or EUSB2, it is
+> required to know the type of phy (rather than the operating mode) because
+> DP and DM interrupt lines need to be configured differently for each of
+> them.
 
-On Mon, Oct 05, 2026 at 11:11:46AM +0300, Sakari Ailus wrote:
-> On Mon, Oct 05, 2026 at 09:10:08AM +0200, Robert Bozik wrote:
-> > +  reg:
-> > +    maxItems: 1
+Does the controller care? In preceding patch you defined the EUSB2 in dt
+type, so this describes the hardware. So phy knows it is usb or eusb...
 > 
-> minItems should be 2 here, for the always-on client.
+> Add support to cache the PHY_TYPE and add the following helpers:
+> 
+> - phy_set_type() for the phy drivers (like m31_eusb2 or snps-eusb2) to
+> declare what type of PHY they are (in this case PHY_TYPE_EUSB2).
+> 
+> - phy_get_type() for the consumers (like USB controllers) to query the
+> type of phy connected to them.
 
-Yes - will do in v5: two entries, the sensor and the always-on block,
-with the example as reg = <0x36>, <0x3e>. The driver will take the
-second address from reg on DT and keep the _CRS lookup for ACPI, and
-fail probe when there is none, now that the binding requires it. I'll
-drop Conor's ack since the binding changes.
+I am not convinced that this is the way to go... Driver already knows
+the type and should use it...
+we alreayd have mode, i am inclined to not say yes to adding type here
 
-I can compile the DT path but have no DT platform to run it on; the
-ACPI path is what I can test.
+> 
+> Reviewed-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
+> Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+> Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+> ---
+>  include/linux/phy/phy.h | 27 +++++++++++++++++++++++++++
+>  1 file changed, 27 insertions(+)
+> 
+> diff --git a/include/linux/phy/phy.h b/include/linux/phy/phy.h
+> index ea47975e288a..038c2b58bbe1 100644
+> --- a/include/linux/phy/phy.h
+> +++ b/include/linux/phy/phy.h
+> @@ -21,6 +21,8 @@
+>  #include <linux/phy/phy-lvds.h>
+>  #include <linux/phy/phy-mipi-dphy.h>
+>  
+> +#include <dt-bindings/phy/phy.h>
+> +
+>  struct phy;
+>  
+>  enum phy_mode {
+> @@ -152,11 +154,13 @@ struct phy_ops {
+>   * @bus_width: Data path width implemented by PHY
+>   * @max_link_rate: Maximum link rate supported by PHY (units to be decided by producer and consumer)
+>   * @mode: PHY mode
+> + * @type: PHY type
+>   */
+>  struct phy_attrs {
+>  	u32			bus_width;
+>  	u32			max_link_rate;
+>  	enum phy_mode		mode;
+> +	int			type;
+>  };
+>  
+>  /**
+> @@ -262,6 +266,20 @@ static inline enum phy_mode phy_get_mode(struct phy *phy)
+>  {
+>  	return phy->attrs.mode;
+>  }
+> +
+> +static inline int phy_get_type(struct phy *phy)
+> +{
+> +	if (phy)
+> +		return phy->attrs.type;
+> +
+> +	return PHY_NONE;
+> +}
+> +
+> +static inline void phy_set_type(struct phy *phy, int type)
+> +{
+> +	phy->attrs.type = type;
+> +}
+> +
+>  int phy_reset(struct phy *phy);
+>  int phy_calibrate(struct phy *phy);
+>  int phy_notify_connect(struct phy *phy, int port);
+> @@ -393,6 +411,15 @@ static inline enum phy_mode phy_get_mode(struct phy *phy)
+>  	return PHY_MODE_INVALID;
+>  }
+>  
+> +static inline int phy_get_type(struct phy *phy)
+> +{
+> +	return PHY_NONE;
+> +}
+> +
+> +static inline void phy_set_type(struct phy *phy, int type)
+> +{
+> +}
+> +
+>  static inline int phy_reset(struct phy *phy)
+>  {
+>  	if (!phy)
+> 
+> -- 
+> 2.34.1
 
-Thanks,
-Robert
+-- 
+~Vinod
