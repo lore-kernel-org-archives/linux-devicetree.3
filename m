@@ -1,127 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp9.goneo.de (smtp9.goneo.de [85.220.189.104])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A25444C66A
-	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 15:35:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBDFB15AADA;
+	Mon,  5 Oct 2026 15:36:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.220.189.104
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791214519; cv=none; b=Uwl7+zv6PmzLdsqpPnLejWYMXVSZk6NNFIQG/ZyYpCWoC33pd26QKw2jIjxd0cmSM4BwCssFRZfyYTJMzglzUgYPvyElw2pVpLCShceWFVLIgrjET4qA8wAazNLTEtT/OeVy9YegUm7JaPKQWZ5oEeqzLnE6ISsImT65rRDqDnI=
+	t=1791214573; cv=none; b=q3M7IUeM4gEcW9E6wxUWzgNiE2KpSkWjknzGH5e3eYkof9H+WsGpbfRtK8laUEVIwV076UnDKKCyMpOR+G5vATtrNX6Du+83sLa303xCYLDuQAbPpSpYoZUaHmwZDy65O05jRuqKF6H4pXarX3XZxfUfCzNo3MqcUUi/x4RlbKQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791214519; c=relaxed/simple;
-	bh=5Wlk3C4fPzSe03Z4PLzVc/xs4+zaEnZvEB0pYwXTbzY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=JxJ+65ZcJHdOEcsWMxIOMCSRVMmmuWXkr0r6OA8vR7lIWPZ5Fw0gwMIr6H2+XiU/3jI2PMbRLJuXR0aIKT6W+aDxquX7w3+r3/e+h1VRzFvrh6PrMX/toleXig1yEFSTnNnLnLkGqWDnQP7umDWxYLU1RBG2lehsaRmhxaItC18=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HnK++8B1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791214573; c=relaxed/simple;
+	bh=a42x7DdL/6yIGIy5wAtCXmRS3tsHBHPM4WpDbcIE/U4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LibkUkiLkR7BqM9jkz65hd2GSOnIVDrJ38Gkhl1Kzb3eA21lkW6xU7SVJYk/xw44KCpbsFk65gOA2sLRSlkkvTv4DsXdmdJHQDgqSERD60gYjnJPXiGo9LNd6MOdQ1Amb+fx3bf0S1vQ4nJUtpT65aWi8LAbSx9SJP9HPI+GrFc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tk154.de; spf=pass smtp.mailfrom=tk154.de; dkim=pass (2048-bit key) header.d=tk154.de header.i=@tk154.de header.b=q1XA5rYn; arc=none smtp.client-ip=85.220.189.104
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tk154.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tk154.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HnK++8B1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A07C41F000FF;
-	Mon,  5 Oct 2026 15:35:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791214517;
-	bh=S+lLtqdUAlDmA/Z+AYL4d+VhGHS79dW+b/gkn7k7mF4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=HnK++8B1d3ZnDrDOGiHA2q9pM3PGK0c3ZOOI1FRSSlpnB46qw7vQUX+Blg9MOMog6
-	 79m3bA2Oe0qPDbuDHxtYr9E/7dIGxnHZbM0Fa3lH6kVU1OE++N5bbvo0xTuGjaRduA
-	 h7NBiAUjjlIDiybIMGFvWzZ9yScaprzhUG8mMX9cqD3WJWbzSwUwLDDIc18K70wPbh
-	 lda9OkQnTIqxsjQjan+dDi+GV/h67E4a1wDi1l6AAR8P5l0cM3H59VUfJmma3mNwUB
-	 yCNcMWMLqkrt5XF+v9YvBNg7ZpcpTHfI41UCjyHW+CQnlpqxa0kSyDDwxpqHlf1GH1
-	 PmEE3ia7gDD0g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: power: domain-idle-state: Add
- system-state
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Maulik Shah" <maulik.shah@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261005-s2idle_state-v1-1-3c402c66f388@oss.qualcomm.com>
-References: <20261005-s2idle_state-v1-0-3c402c66f388@oss.qualcomm.com>
- <20261005-s2idle_state-v1-1-3c402c66f388@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 05 Oct 2026 15:35:17 +0000
-Message-Id: <20261005153517.A07C41F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=tk154.de header.i=@tk154.de header.b="q1XA5rYn"
+Received: from hub1.goneo.de (hub1.goneo.de [85.220.129.52])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	by smtp9.goneo.de (Postfix) with ESMTPS id 65EA6240238;
+	Mon, 05 Oct 2026 17:29:32 +0200 (CEST)
+Received: from hub1.goneo.de (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519)
+	(No client certificate requested)
+	by hub1.goneo.de (Postfix) with ESMTPS id 203A224052C;
+	Mon, 05 Oct 2026 17:29:30 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tk154.de; s=DKIM001;
+	t=1791214170;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=jJuNZTixbETv98/YnWXCykgebAMZ5OC0EKTrS4Kq8eo=;
+	b=q1XA5rYn+uza+SbJGSyZ4F9k4u6yHV7ND9gNG5UyQghhMIawWeDeIglMeZNs5n7TrRtMz8
+	1s/QrCLm43sIYezLuDlzmaQIKTlTSxd59sUrAh8iIMK539O4UqJ4bjBmWX3M/dSyqSo7Sn
+	Fgb3oNfN7k/Y6ltY9la6poZtoj1IY9tfTH36EYyNk8AQpp892q1T+mpksf0K+5Lhh0v/Ot
+	RpI+OsvRgXe2jJomAAes/zcvzZcH6XFgKiaPc/KWq3gst6iXW6g4bdewcciIr7PaJt2tql
+	0bZhnEPKLfjHWL5TCdy+W7PShYQ1whXqpd7jWH9TeA7KPoFm/tUZxcXyxZO/4Q==
+Received: from CASE (unknown [195.37.88.189])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by hub1.goneo.de (Postfix) with ESMTPSA id D7C82240400;
+	Mon, 05 Oct 2026 17:29:26 +0200 (CEST)
+From: Til Kaiser <mail@tk154.de>
+To: netdev@vger.kernel.org
+Cc: Luo Jie <jie.luo@oss.qualcomm.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Simon Horman <horms@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Lei Wei <quic_leiwei@quicinc.com>,
+	Suruchi Agarwal <quic_suruchia@quicinc.com>,
+	Pavithra R <quic_pavir@quicinc.com>,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org
+Subject: [PATCH net-next 0/4] net: ethernet: qualcomm: ppe: Add IPQ5332 support
+Date: Mon,  5 Oct 2026 17:29:11 +0200
+Message-ID: <20261005152915.101780-1-mail@tk154.de>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Rspamd-UID: 7ecd1c
+X-Rspamd-UID: 4022e5
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Critical] dt-bindings: backwards compatibility broken by reusing domain-=
-idle-state
---
+IPQ5332 uses the same PPE architecture as IPQ9574, but has two front
+panel ports, a 200 MHz PPE clock, and different interconnect, buffer
+and scheduler settings. This series adds support for it.
 
-commit 7783b35f06985a4e4112599684740ef1b9b25325
-Author: Maulik Shah <maulik.shah@oss.qualcomm.com>
+Patch 1 moves the IPQ9574 settings into per-SoC match data and a
+hardware configuration structure, renames the shared regmap configuration,
+and makes the reserved scheduler resource lookup independent of the port
+count. Patch 2 tightens the port node constraints in the DT schema.
+Patch 3 adds IPQ5332 to the schema with per-SoC interconnect, clock, EDMA
+reset and interrupt constraints, while retaining the original binding
+filename. Patch 4 adds the IPQ5332 configuration to the driver and adds
+its port and UNIPHY counts to the documentation.
 
-dt-bindings: power: domain-idle-state: Add system-state
+The IPQ5332 values come from the PPE initialization in Qualcomm's
+downstream QSDK 14.0.1595.1665, qca-ssdk revision
+48484d531927b070b996685f1570aff3bccb9c32 (src/init/ssdk_hppe.c,
+src/init/ssdk_appe.c and src/adpt/hppe/adpt_hppe_qm.c).
 
-Some domain idle states require system-wide coordination and are not
-applicable while the platform is up and running. Add a boolean system-state
-property to describe these states.
+IPQ5332 requires the GCC IM sleep clock in addition to the four PPE
+clocks, two EDMA resets instead of one, and 49 EDMA interrupts instead
+of 65. These differences are constrained without changing the existing
+IPQ9574 layouts.
 
-> diff --git a/Documentation/devicetree/bindings/power/domain-idle-state.ya=
-ml b/Documentation/devicetree/bindings/power/domain-idle-state.yaml
-> index 4dd4f59bbbec3..35dab3cd6aedc 100644
-> --- a/Documentation/devicetree/bindings/power/domain-idle-state.yaml
-> +++ b/Documentation/devicetree/bindings/power/domain-idle-state.yaml
-> @@ -45,6 +45,12 @@ patternProperties:
->            state will yield power benefits, after overcoming the overhead=
- while
->            entering the idle state.
-> =20
-> +      system-state:
-> +        description:
-> +          When present, this state requires system-wide coordination and=
- is
-> +          not applicable while the platform is up and running.
-> +        type: boolean
-> +
+Tested on the Ubiquiti UniFi 7 Pro XGS access point, using the EDMA
+driver from OpenWrt, which is not yet upstream. The device has a
+single Ethernet port, connected to PPE port 1. The second front
+panel port and its configuration are untested from my side.
 
-[Severity: Critical]
-Does adding this property to nodes that still use the "domain-idle-state"
-compatible string break backwards compatibility?
+Thanks,
+Til
 
-When an older kernel parses a Device Tree containing a system-only power
-state, it traverses the domain-idle-states phandles and matches the
-compatible =3D "domain-idle-state" string. Because older kernels do not
-recognize the newly introduced system-state boolean property, they will
-silently ignore it and incorrectly register the system-only state as a
-regular runtime cpuidle state.
+Til Kaiser (4):
+  net: ethernet: qualcomm: ppe: Select hardware configuration by SoC
+  dt-bindings: net: qcom,ipq9574-ppe: Tighten ethernet port node
+    constraints
+  dt-bindings: net: qcom,ipq9574-ppe: Add IPQ5332 support
+  net: ethernet: qualcomm: ppe: Add IPQ5332 support
 
-If the runtime governor selects this system-suspend state during normal
-operation, the lack of system-wide coordination can cause the hardware to
-hang or crash. Device Tree bindings form an ABI between firmware/bootloader
-and the OS, meaning newer Device Trees must safely degrade on older kernels.
+ .../bindings/net/qcom,ipq9574-ppe.yaml        | 103 +++++++++-
+ .../ethernet/qualcomm/ppe/ppe.rst             |   9 +-
+ drivers/net/ethernet/qualcomm/ppe/ppe.c       |  81 ++++++--
+ .../net/ethernet/qualcomm/ppe/ppe_config.c    | 185 ++++++++++++++++--
+ .../net/ethernet/qualcomm/ppe/ppe_config.h    |  35 +++-
+ 5 files changed, 369 insertions(+), 44 deletions(-)
 
-Could a new compatible string (e.g., compatible =3D "domain-system-state") =
-or
-a distinct linking property (e.g., domain-system-states) be introduced
-instead, so older kernels naturally skip parsing it?
 
-[ ... ]
+base-commit: 8b4e7209c842d8cb9516f1f5ef0a88aa2d8831a6
+-- 
+2.55.0
 
-> @@ -77,5 +83,13 @@ examples:
->          exit-latency-us =3D <40>;
->          min-residency-us =3D <80>;
->        };
-> +
-> +      domain_power_off: domain-power-off {
-> +        compatible =3D "domain-idle-state";
-> +        entry-latency-us =3D <100>;
-> +        exit-latency-us =3D <200>;
-> +        min-residency-us =3D <1000>;
-> +        system-state;
-> +      };
->      };
->  ...
-
-[Severity: Critical]
-Does this example demonstrate the compatibility issue? A state explicitly
-restricted to system-wide coordination still uses the "domain-idle-state"
-compatible string, which would render it structurally unsafe for older OS
-releases to process.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261005-s2idle_sta=
-te-v1-0-3c402c66f388@oss.qualcomm.com?part=3D1
