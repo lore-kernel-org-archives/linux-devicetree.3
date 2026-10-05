@@ -1,205 +1,219 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4431E13C9C4
-	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 07:06:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCD6F37418C
+	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 07:10:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791183978; cv=none; b=dlWCMdzs/Ik3V5YbmpzDaa8R1mtzrACJiOzwUjYlEqrVYjw+OCkaiwHtET8H3FGffjw+rI1AKMMqaLo+uJPSVjYlOPU+Te8u8EMvmG01bti78UOIq4BnOx0p+CA17hY9+Rc/G6AHYTft6jqiidTBDD6pecQTv+vaoTyFQuFHR9k=
+	t=1791184241; cv=none; b=Y/wlON+OxSnZ/TwP1BaR7En6ZsBtD1hM2qtH84FCgQ3kajv/1mc3YSncT0wnJ33VVn2B5uum0ykI4P3PXO4zOlPYDSAtx4odv3czY8RrnVg4c/gir2HkC6EWuABGX2WJmpbZCjJMNW4ZN7dEmCWa2NjChX48ONc7YdC6MkdDe34=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791183978; c=relaxed/simple;
-	bh=atrjdIQ97trzdZpGjI+qemq9aj6Nd3thS1TUv+eArUM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oposE9u1S7xEiHASIQ0FVH0fgIlypJfhZMwC3jS7dmESj+A5tLYE7hWKd3LWPy7yjHJGfqtz9qtCwEOitydYCYt2KtIxWG3l/6ZvAoo02ATg5YeKD0AKIWKVQg2QOInv3RRbsD2FE8xLjCfQd/2Pdsxul8DT5gd0qe0yLlfQopg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=lsvePr11; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AzXwob36; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791184241; c=relaxed/simple;
+	bh=g9L55NSZTjbF7DR8qLdBD/MseUaTAj2QqtyFJ7AK9Sc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=qbiIn6XZ7Xpuj6DG8cY8m6+TUt4g4zwx9p4Dp/RHNIxGLU7f8J0dj7HHkwvSmp45xc8/+My5P7Mq28udJqmCkGyLOWbY84ygMUQ2/S1dyoR5x0Kveu61I2gW2qZLvhSYO3KZHN7468Phn1iNl0nI5h1iecwg7esDlN/2R9UWgdg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=coTZ3kc7; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="lsvePr11";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AzXwob36"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69510CJp471070
-	for <devicetree@vger.kernel.org>; Mon, 5 Oct 2026 07:06:15 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	yiEyYAeWYq28BCDpwkf47FyVsnh8JwoWDWQ3CJx+bfk=; b=lsvePr11+Lrh4Tng
-	9YmBWlhU9+uaw1LjvwVApNPtLRgYBRWIij9FUVeZnjG/CSwBqIJFJXCZ3iyDetxl
-	9lWeNni4xvKjX56JE8nY2udW4OsQBZjMjN5fVP3ldZEPFtYF/sN4ZuzcK/AeVqML
-	cxs3Bd/C99H9d+lHX7/Zh14ATL0lULWNioSh66xKcfddtMAS13LRPikZZVTAV4hR
-	cObDUUZviSTRVkmS2ldUsPaXBOqLIAkMaK+mn7isqZQwULFofmEosE+DdWrggbmr
-	SOUGz4GxmsB4kzZDcwWGs3zOppw0BkNZ8jm+ATE2Dk11O0mzFYXrfnjk/vQOH6Zt
-	+YeulA==
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h2ssucuax-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 05 Oct 2026 07:06:15 +0000 (GMT)
-Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-9179d9cde17so17073236d6.0
-        for <devicetree@vger.kernel.org>; Mon, 05 Oct 2026 00:06:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="coTZ3kc7"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ffbd83a92so11944495e9.0
+        for <devicetree@vger.kernel.org>; Mon, 05 Oct 2026 00:10:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791183974; x=1791788774; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yiEyYAeWYq28BCDpwkf47FyVsnh8JwoWDWQ3CJx+bfk=;
-        b=AzXwob36n3ru82TuVeWiqRtZu2zV+DB0iYbRSrf9lirQYCumv+99CGzaoYh6Zmkhdg
-         q69SH6p/cg9N4j4CS6l39obUxwy+D7Mqd55/+yuStO+hKxE3XS7o1ZRra1ke85do8Y/L
-         PulYT6wbgIwHYh5IXlakdJ2tDON/j0Wt/9RotwVE+/JWwcZYY5EljQ3Z19VDYbDTZqjz
-         QKVgbDz9Ni+EityhAh9Oz+MfLbRMTEeXVzRVHO3/JO5RfsS3tOZzHT4Gd8xcjWFC+jrz
-         /n8hWvdkOLUX/PP4CRDY+QLuOTqH25b/FWavN6KR9bXen+NnHVLPcTdv4bOeRxtrztFH
-         Cqnw==
+        d=gmail.com; s=20251104; t=1791184238; x=1791789038; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=N6xKUj60fP5HlRPnblfOGOYjQo1YTnSgTpi29S2wERA=;
+        b=coTZ3kc73YAlhxDe344hpUJXqQCSQ1ILhAUJv0Drevojrn2YnmnCt41e5tDObOAdCg
+         jgaOJ7IWZx187cfqYrFjRVykfeDPJtX6Ijrjb725QB3m0DIFURyg9Xyeb4wbYNCNjos9
+         HG7GEqK3+ShJamQXxeJiHTn1E0J1fZBjuRdtbaxGtZrPmNjTsU55WqyJMrGsgFrJXAcg
+         iTpz/LwbOqCoP5TCpvC20vQ+raMKVn3YHwM9d459syQyQJyjQTkYhMz7dnrGgYdDmT9F
+         dYlLrLrZMMeCBrS2skA7+VU0+c8zyfQjPLUfdb9+wkHDZakVW5u10y/uk+a/Uo7JzCCJ
+         e/Xw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791183974; x=1791788774;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=yiEyYAeWYq28BCDpwkf47FyVsnh8JwoWDWQ3CJx+bfk=;
-        b=tw6ffdOHe0iFfdJVgCm7ZNV/NhR+U3sdtJQni1r6kOsp9YJxfOnzNfyoACt9QpqQF4
-         l/4VoGdyCU64cdircoNnxxcIcyfXLlLRPVZSzNqtB2F3AMRBFU1zI17sq8LW5oDVCC7K
-         q0EGaL72QPVEHlNgdzAm/RMmIs/pAkeREos3IVF8eeqHhQYRJkgL5RQ2fCpKSRBHDMVY
-         ihlOZPtPL0ut8CDS4ZzDsog0aooMcCiXcyaZ6RJmHSbMf5zTRgOAGK8s/SOdLwASl8i/
-         +Qo3sRuXymmZrCAL5w2NaDYd4xsgUgNrmUHeKN/SPNCKbz7VjgpwWGT9/P6nR7Jy1XEv
-         QE5g==
-X-Forwarded-Encrypted: i=1; AKwUvBwo3sEN5Xw27QKUHMW4hGHT7UGoE0rRjmkcYQSNgn0rrJX31APro0ul4EfTKdxAkI6AcpSJWOBrj14w@vger.kernel.org
-X-Gm-Message-State: AFuF++lMIFIikgflpGxCro8bZkgiKOHEvNSKJWJMPndqns9i/Pn0cpM7
-	Yr2vSCPMPlfVGkf9nfO/R7dqOtdf2Gzzz6jufpob06rsyDXkQU+gThyYcQaRgfXNa/9WWm+8avH
-	5GMfrahbGZSzfJyxYk46HbALdlx6J0I0vkDkf2WbXiDAf9KwiGAUTl3AwRM4UGL3P
-X-Gm-Gg: AYBFou2RbYeoG+dDEMVjEzTpLFD5odDrgZw+i0gpO6fHuBId8XHsqM/LuZDTVHF7dOx
-	TIO/PXLNEOtMtqYREzd+1OqkW9kI9XpqxMglyOElrQyzEtj4dx8RihgSyv+0FSwcdj9hDLDqNTX
-	T1eMVZywpqDDIwRgP8iW/i12ODrKvqs4BRmInadP7WPQATgdg2X5yw/DsYGs92ubIguxWAtw9d4
-	4v5WJ3khnVJIIqiVw7+oQEkAC8mCf8hFw7FVrRXDxELoPekoc1vW5GrPjXx1PH+0Wtmurj2zcUK
-	SpkM7LGKjkHn0bgXDUdRPBlgrof1Y/XlSHqhjU4yLEOV9CRwCzBrq3pN6HjbyiT5xlkq1E3zPns
-	+AmGIjRGvF22mEMwUaF2zAjMAS6Zaj5AKG/xb15c92UM/EtCXMnezkEobzDRbAjlIoQw+DAGFAr
-	FjwD9/Ponx5t1s
-X-Received: by 2002:a05:620a:404c:b0:93c:b7f3:9f5b with SMTP id af79cd13be357-93e51081bbcmr1036870985a.45.1791183974400;
-        Mon, 05 Oct 2026 00:06:14 -0700 (PDT)
-X-Received: by 2002:a05:620a:404c:b0:93c:b7f3:9f5b with SMTP id af79cd13be357-93e51081bbcmr1036867185a.45.1791183973821;
-        Mon, 05 Oct 2026 00:06:13 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bb7c79d725sm2957189e87.46.2026.10.05.00.06.12
+        d=1e100.net; s=20260707; t=1791184238; x=1791789038;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=N6xKUj60fP5HlRPnblfOGOYjQo1YTnSgTpi29S2wERA=;
+        b=x+Qfy2RWcj+iMsE8b4sY4uiF97h5XVhe36Xe6p/ptcXO+31Y3wLf0Fxt+yY0QLXz3r
+         xx/beUi0qeU4ICqvoT7jHcGHguYqqy8hGsFBQFwalow3XBuManqzMq+bpezJxPHZJlAa
+         RU2HPMdy5z2E+Nsn73K7TyXwBuiBR9hOpO6VjlULkGcg9n0E/YquvBDTEs6d89kDRm60
+         9FHccqF81IYi4rtrHy0yC52e8Zu8uqdKzcHu3I2NuFocokBWAzuAwwWF7771UbRit64c
+         HrpaT7/ypn+24fkHRSeI9Ip4nJbOrwOalz1pGAE2HjX20R/zeN+5lrmAw6qR9pC4g1J2
+         ijJA==
+X-Forwarded-Encrypted: i=1; AKwUvBxiNUePraxslpZBHfo0elDpPeolYlvI+1BDUiR1tAT5CMTqEmMecxkvJC3mzgi3P3mmXUPbzbCOqlJB@vger.kernel.org
+X-Gm-Message-State: AFuF++n/Zix6wChIpRHtwVj+blh2RGlkxCuPSby3rElQg5SE7Y3UwJ6a
+	qgRPuFSJ6mffx1klElVVdKSmDo1vRVyvAxdhn7snaO8ZX0pOwm6o2DL9
+X-Gm-Gg: AYBFou1MzKCrcD9iPs09H9QlNkhWcIUZ6YQ0Ww4aaW79BKOBL8YQDUldXcD4bAfjuml
+	nOVE13fQBGpmZjfgE6bCvYSImLN2yrxFz+Nkt7XdBWVe42q4tiyaen3OCz75X7nBpHtre/5kxvV
+	30IqUqsxGlf9HQ4xBRZ+RhNVHSv2DvUtAGEBFIciPQbeTf1JPf4TE1O+rTCtesJHX1bEU+rpk7V
+	C5XkW0lumewKZr37cZfvZaSgzf/IHtXDywqzrgkfUBmsITar5Qxr5MrAWS2w2RReLdbJ8CahSDn
+	tO/b/Ufu890U3qHlz1s1pBufnn0ur1Y6dcCyZ0VZWdlV9sJkq/Oez+UIPEB+RdaWRpt108GfIWB
+	03EpCAGKWbrP2m9AntWHJzWd/HFk5kFa7iW9uAPKbvbF4IJccE3JJeESW3NzXP6pjhKHZ1QC3ud
+	MNlUQJHlmwgdgZwSoMUp9mjyCtqncvqggAdH5ugGRWdGeTbaT8tJj7f4wvF3M8wDPSYQTaEw4ej
+	tDcvrDuGGB0YLzczYqB/1TSTGnk8lokJuNS8pWyqTXHzqc3a9FCJXQ8lFO645pK1D9Gl8W5oGnc
+	qLA9vVqui9p+r16tcjbSbUMWcqmKV9rsBhWM
+X-Received: by 2002:a05:600c:1c08:b0:4a1:722a:d2a3 with SMTP id 5b1f17b1804b1-4a1722ad405mr36499765e9.23.1791184237829;
+        Mon, 05 Oct 2026 00:10:37 -0700 (PDT)
+Received: from robert-83cx (static-dsl-191.87-197-115.telecom.sk. [87.197.115.191])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a027741586sm316749855e9.14.2026.10.05.00.10.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 00:06:12 -0700 (PDT)
-Date: Mon, 5 Oct 2026 10:06:10 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: =?utf-8?B?QmFybmFiw6FzIEN6w6ltw6Fu?= <barnabas.czeman@mainlining.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Stephan Gerhold <stephan@gerhold.net>, Ulf Hansson <ulfh@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-pm@vger.kernel.org, linux-remoteproc@vger.kernel.org
-Subject: Re: [PATCH v3 4/7] remoteproc: qcom_q6v5_mss: Use mss as regulator
- for MSM8953
-Message-ID: <7smt722arn43gwpfhbgagevi3ut6gdxalgfre3mzm4rb25fkkq@ftsucipakelm>
-References: <20261002-sdm632-rpmpd-v3-0-95c47d0f26cf@mainlining.org>
- <20261002-sdm632-rpmpd-v3-4-95c47d0f26cf@mainlining.org>
+        Mon, 05 Oct 2026 00:10:37 -0700 (PDT)
+From: Robert Bozik <robertbozik@gmail.com>
+To: linux-media@vger.kernel.org
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Robert Bozik <robertbozik@gmail.com>,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: [PATCH v4 1/3] dt-bindings: media: i2c: Add OmniVision OV32C4
+Date: Mon,  5 Oct 2026 09:10:08 +0200
+Message-ID: <20261005071010.7191-2-robertbozik@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261005071010.7191-1-robertbozik@gmail.com>
+References: <20261005071010.7191-1-robertbozik@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261002-sdm632-rpmpd-v3-4-95c47d0f26cf@mainlining.org>
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDAyOCBTYWx0ZWRfX0h2LDrgdMkUd
- qPkG9MulH6cpESiQPsvThb6vvyib7tKyuFoIfok8pcxVniOKCdqTnxvv2BtsA/voLdPZ4csX2xp
- n7IPnRdjSUaDjQjCZVEOpkyHUwjIsEU=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDAyOCBTYWx0ZWRfX5mWKNbTNaA+Q
- nPNhO53OwV5qOHGDld/ZlX4AiU7UWsTGpvh6UX1MdK0o+w0rXdoxAJ857L0XRqEhmm+g+cHFv1K
- SmvrczPpYVV3SxtmMQLaTU9f+XzeMDTE85VKnARCs62G7JFNlCNBr7UNhlPS6dJkBfLULT077WG
- 6TxA9S7Ru3ndD1OSdBii+UTISjlZkQWfLn18XZ6HulxgGPnzLvUyBI94D5eEpaUoiRyA0vJiYZQ
- Q3AikHH513MMN9oZQ5z1COu64+vD5OF4AZQl2pf0ZauyRSuyNpOeRIJ3TTyD+iZfRABvCePUWou
- 7Uf1LLnsE2KI4JUepE31uI5FdkpZdFSoVniFX8ORG6OEWr4NvOnmdx1U29JGoVbaNh5NVMRdrVA
- ZrNnR4Yb9xLzdsa8w57lEt36nvatUYAp9+5kLgay9wgt70TOOfJv/crQ70n6UVnrm8az1uP+tff
- JIWa6wKRVUtNmRCJjwA==
-X-Proofpoint-GUID: NsMsDWLW8Nae4c4JnHr9EmwyxsFsCD1J
-X-Proofpoint-ORIG-GUID: NsMsDWLW8Nae4c4JnHr9EmwyxsFsCD1J
-X-Authority-Analysis: v=2.4 cv=FryQbGrq c=1 sm=1 tr=0 ts=6ac34c67 cx=c_pps
- a=UgVkIMxJMSkC9lv97toC5g==:117 a=xqWC_Br6kY4A:10 a=8nJEP1OIZ-IA:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=OuZLqq7tAAAA:8
- a=BJAjVMLeuKdTMRx92iYA:9 a=3ZKOabzyN94A:10 a=wPNLvfGTeEIA:10
- a=1HOtulTD9v-eNWfpl4qZ:22 a=AKGiAy9iJ-JzxKVHQNES:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-05_01,2026-10-02_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 lowpriorityscore=0 phishscore=0 bulkscore=0 priorityscore=1501
- malwarescore=0 impostorscore=0 suspectscore=0 adultscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610050028
 
-On Fri, Oct 02, 2026 at 12:38:32AM +0200, Barnabás Czémán wrote:
-> On MSM8953 MSS regulators is controlled using the voltages rather than
-> performance levels. Correct DT definition and model the MSS as a
-> regulator rather than a power domain
-> 
-> Signed-off-by: Barnabás Czémán <barnabas.czeman@mainlining.org>
-> ---
->  arch/arm64/boot/dts/qcom/msm8953.dtsi | 5 ++---
->  drivers/remoteproc/qcom_q6v5_mss.c    | 9 ++++++++-
+Add a binding for the OmniVision OV32C4, a 32 megapixel RGBC CMOS image
+sensor with on-chip 4-cell fusion, a 4-lane MIPI CSI-2 D-PHY transmitter
+and the standard SCCB command interface.
 
-Two separate patches. Yes, one will be broken without another. Write
-this in the commit message and explain why you can't provide backwards
-compatibility. Don't forget Fixes tags (or explain the lack of them).
-But I think it applies to the rest of the series too.
+The sensor ships in laptops as an under-display camera, where it is
+described by ACPI; the binding follows ovti,ov08x40.yaml, which covers
+the closest relative already in tree.
 
->  2 files changed, 10 insertions(+), 4 deletions(-)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/msm8953.dtsi b/arch/arm64/boot/dts/qcom/msm8953.dtsi
-> index 753167c3f861..c7dc08858d54 100644
-> --- a/arch/arm64/boot/dts/qcom/msm8953.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/msm8953.dtsi
-> @@ -1451,9 +1451,8 @@ mpss: remoteproc@4080000 {
->  					  "handover", "stop-ack";
->  
->  			power-domains = <&rpmpd MSM8953_VDDCX>,
-> -					<&rpmpd MSM8953_VDDMX>,
-> -					<&rpmpd MSM8953_VDDMD>;
-> -			power-domain-names = "cx", "mx","mss";
-> +					<&rpmpd MSM8953_VDDMX>;
-> +			power-domain-names = "cx", "mx";
->  
->  			clocks = <&gcc GCC_MSS_CFG_AHB_CLK>,
->  				 <&gcc GCC_MSS_Q6_BIMC_AXI_CLK>,
-> diff --git a/drivers/remoteproc/qcom_q6v5_mss.c b/drivers/remoteproc/qcom_q6v5_mss.c
-> index 2f71ed2feff6..8f6312213e1a 100644
-> --- a/drivers/remoteproc/qcom_q6v5_mss.c
-> +++ b/drivers/remoteproc/qcom_q6v5_mss.c
-> @@ -2728,6 +2728,14 @@ static const struct rproc_hexagon_res msm8953_mss = {
->  		},
->  		{}
->  	},
-> +	.active_supply = (struct qcom_mss_reg_res[]) {
-> +		{
-> +			.supply = "mss",
-> +			.uV = 1050000,
-> +			.uA = 100000,
-> +		},
-> +		{}
-> +	},
->  	.proxy_clk_names = (char*[]){
->  		"xo",
->  		NULL
-> @@ -2741,7 +2749,6 @@ static const struct rproc_hexagon_res msm8953_mss = {
->  	.proxy_pd_names = (char*[]) {
->  		"cx",
->  		"mx",
-> -		"mss",
->  		NULL
->  	},
->  	.need_mem_protection = false,
-> 
-> -- 
-> 2.56.0
-> 
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: Robert Bozik <robertbozik@gmail.com>
+---
+Changes in v4:
+- No changes to the binding.
 
+ .../bindings/media/i2c/ovti,ov32c4.yaml       | 105 ++++++++++++++++++
+ 1 file changed, 105 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/media/i2c/ovti,ov32c4.yaml
+
+diff --git a/Documentation/devicetree/bindings/media/i2c/ovti,ov32c4.yaml b/Documentation/devicetree/bindings/media/i2c/ovti,ov32c4.yaml
+new file mode 100644
+index 000000000..804307cd0
+--- /dev/null
++++ b/Documentation/devicetree/bindings/media/i2c/ovti,ov32c4.yaml
+@@ -0,0 +1,105 @@
++# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/media/i2c/ovti,ov32c4.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: OmniVision OV32C4 Image Sensor
++
++maintainers:
++  - Robert Bozik <robertbozik@gmail.com>
++
++description:
++  The OmniVision OV32C4 is a 32 megapixel RGBC (red, green, blue and clear)
++  CMOS image sensor in a 4-cell arrangement, with on-chip 4-cell fusion and
++  binning. It has a 6528x4896 active pixel array, a 4-lane MIPI CSI-2 D-PHY
++  transmitter and the standard SCCB command interface.
++
++allOf:
++  - $ref: /schemas/media/video-interface-devices.yaml#
++
++properties:
++  compatible:
++    const: ovti,ov32c4
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++    description: Input clock (XVCLK).
++
++  avdd-supply: true
++
++  dovdd-supply: true
++
++  dvdd-supply: true
++
++  reset-gpios:
++    maxItems: 1
++    description: Active low GPIO connected to the XSHUTDOWN pad of the sensor.
++
++  port:
++    $ref: /schemas/graph.yaml#/$defs/port-base
++    additionalProperties: false
++
++    properties:
++      endpoint:
++        $ref: /schemas/media/video-interfaces.yaml#
++        additionalProperties: false
++
++        properties:
++          data-lanes:
++            items:
++              - const: 1
++              - const: 2
++              - const: 3
++              - const: 4
++          link-frequencies: true
++          remote-endpoint: true
++
++        required:
++          - data-lanes
++          - link-frequencies
++          - remote-endpoint
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - port
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        camera@36 {
++            compatible = "ovti,ov32c4";
++            reg = <0x36>;
++
++            clocks = <&ov32c4_clk>;
++            assigned-clocks = <&ov32c4_clk>;
++            assigned-clock-rates = <19200000>;
++
++            avdd-supply = <&vreg_2p8>;
++            dovdd-supply = <&vreg_1p8>;
++            dvdd-supply = <&vreg_1p1>;
++
++            reset-gpios = <&tlmm 111 GPIO_ACTIVE_LOW>;
++
++            port {
++                ov32c4_ep: endpoint {
++                    remote-endpoint = <&csiphy0_ep>;
++                    data-lanes = <1 2 3 4>;
++                    link-frequencies = /bits/ 64 <400000000>;
++                };
++            };
++        };
++    };
++...
 -- 
-With best wishes
-Dmitry
+2.53.0
+
