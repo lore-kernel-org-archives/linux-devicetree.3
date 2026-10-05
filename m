@@ -1,97 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail2.kuutio.org (mail2.kuutio.org [91.107.195.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D0A447AF57;
-	Mon,  5 Oct 2026 20:16:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6665531714A;
+	Mon,  5 Oct 2026 20:23:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.107.195.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791231400; cv=none; b=cQmFZNL7/9n9IbTQwbcK6t9arOkcM17or5rI41DyyCZoCpSZ0beAh1zz61398pUONRXgWlALNCuf8GQ6Z6QkHMPjkNZHFzdTOq6duKQnC9nMr+LtZ0n7Fo+Sll4cEryHc1lW1r4uZrQK0YskFSV5/q3kNEDCfGglYgeekmq4Cbw=
+	t=1791231823; cv=none; b=GiD7K6uLz3KOZjPLcgVWhuZsvFHTqEo2K3hR3jwMwOGhwCfGdt5CF32ZUBVpTAwb3eZnNLLfgq5/sSFNLYp8mN/UF4cnwn0VKCWCZTB9Qlv4s4uWvE/SCOD3drhoCqh+6ZXaHuhGfQi4/a0J4O6hBDw3009/qGjLtaf2Fa/dups=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791231400; c=relaxed/simple;
-	bh=8Jzek+0zRSiVuZ7n0HDJlhS/n5kPtErQnI7huKM+UP4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gG4JkHOK60ZbhTL3roX5NfpsB5HcgiOaphM+kSCv9/401Gi1SKT+RWpWrPuAyKSPuMhjZhA1nYbs/vS5UsQonDwFNJj1wZ+Q0xjkrDnpUTlNk5aU0Zs23W4W6oNg8VMQ2dz+U4rkLCupX78z6RbEYu5+p1LJixR99hnpJMvPnS8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hZ2ytO0s; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hZ2ytO0s"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C5E61F00899;
-	Mon,  5 Oct 2026 20:16:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791231399;
-	bh=2JUEgppnsskmxzR6hR4FkRdIFTQOgEmr9ItwcDNvDFI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hZ2ytO0sFLlzH4xRT+cCs/c8fstDoh4U2Eqck7SoEtjBfo1o/iXk1AE676BfwQ1hq
-	 KRxVF5A/bjOg7Cjo8VzH1GeLzf8Ww7TQotpSrb8jsxgXx49xpyl0JhAcDSiZQQUGGk
-	 wrK8aqDMH3nIVoKwKpsXfHWj+RIbNvSFSiRrVuKEQ8bsmj0nzA0ad0Vz3vtWnQ7eUA
-	 VRIWvL6zrIF1qicvT4xbGQUMqrTJ6n9FN/6ZPcuiXCxAOHU8utLuOgksNcocVzPZhZ
-	 Hp36Q4TYrXj76CnBBm68Xo0yne4/bjOh9w1JLWq0X2+1lZvVIiWGZ2XHHsmEZfD/Ua
-	 detfejExnZnNQ==
-Date: Mon, 5 Oct 2026 15:16:38 -0500
-From: Rob Herring <robh@kernel.org>
-To: netdev-bot+sashiko@kernel.org
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
-	kuba@kernel.org, pabeni@redhat.com, krzk+dt@kernel.org,
-	conor+dt@kernel.org, shenjian15@huawei.com, shaojijie@huawei.com,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v2] dt-bindings: net: Convert HiSilicon hns-dsaf
- to DT schema
-Message-ID: <20261005201638.GA1807068-robh@kernel.org>
-References: <20260930201919.76465-2-robh@kernel.org>
- <179115213771.434549.6434616017051204695@kernel.org>
+	s=arc-20240116; t=1791231823; c=relaxed/simple;
+	bh=miP2jVdaSSEmcRSnUanYI1fm8lLKcxXEn09+4uSO2N4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MTyajNaPQbHGQrByNmtVDSXCr1XpGOROQBUT+p/Eu8wuav/0Y024+nN1EDneUfUJcwonhX50iB8wx/fMitR8+wiCBhiEVehc6lYcxIB5uBFn4nN5ilu/aeqUiMIrMLV1eUzGAj/HyX9fLVgzQXyrwmd47chcCE4qd6ydP4bukTc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lemmela.net; spf=pass smtp.mailfrom=lemmela.net; arc=none smtp.client-ip=91.107.195.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lemmela.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lemmela.net
+Received: from localhost (mail2.kuutio.org [127.0.0.1])
+	by mail2.kuutio.org (Postfix) with ESMTP id BADC920F04;
+	Mon,  5 Oct 2026 20:17:19 +0000 (UTC)
+X-Virus-Scanned: amavis at kuutio.org
+Received: from mail2.kuutio.org ([127.0.0.1])
+ by localhost (mail2.kuutio.org [127.0.0.1]) (amavis, port 10024) with LMTP
+ id CVZDsY7fl8hU; Mon,  5 Oct 2026 20:17:18 +0000 (UTC)
+Received: from muovi.kuutio.org (nbqchc6j3dhrbnnpubi-1.v6.elisa-laajakaista.fi [IPv6:2001:99a:adc:6a00::8be])
+	by mail2.kuutio.org (Postfix) with ESMTPSA id DE8B61FD40;
+	Mon,  5 Oct 2026 20:17:17 +0000 (UTC)
+From: Oskari Lemmela <oskari@lemmela.net>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Javen Xu <javen_xu@realsil.com.cn>,
+	Vladimir Oltean <vladimir.oltean@nxp.com>,
+	Aleksander Jan Bajkowski <olek2@wp.pl>,
+	Oleksij Rempel <o.rempel@pengutronix.de>,
+	Issam Hamdi <ih@simonwunderlich.de>,
+	Chukun Pan <amadeus@jmu.edu.cn>,
+	Jan Hoffmann <jan@3e8.eu>,
+	Florian Fainelli <f.fainelli@gmail.com>
+Cc: Russell King <linux@armlinux.org.uk>,
+	Andrew Lunn <andrew@lunn.ch>,
+	netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Manuel Stocker <mensi@mensi.ch>,
+	Oskari Lemmela <oskari@lemmela.net>
+Subject: [PATCH net-next v2 0/2] Support unaligned RTL8224 PHY packages
+Date: Mon,  5 Oct 2026 23:15:38 +0300
+Message-ID: <20261005201540.913977-1-oskari@lemmela.net>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <179115213771.434549.6434616017051204695@kernel.org>
 
-On Sun, Oct 04, 2026 at 10:15:37PM +0000, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 6 potential
-> issue(s) to consider.
-> 
-> Critical: 0 · High: 0 · Medium: 2 · Low: 4
-> 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
-> 
-> - [Medium] The conversion drops the two leading legacy 'reg' regions
->   (sub-control and SerDes) that the old binding documented as the…
+RTL8224 packages contain four PHYs at consecutive MDIO addresses, but
+their first address need not be a multiple of four. The Hasivo
+S1100WP-8GT-2S+ uses two such packages at addresses 1-4 and 5-8.
 
-The old binding was deprecated for a long time and there are no users. 
-Will detail in commit msg.
+This series documents how to describe RTL8224 packages using the existing
+ethernet-phy-package binding and extends the driver to use the explicit
+package base when provided. The package-relative port index selects the
+MDI pair order and polarity fields. Existing configurations without a
+package node retain the aligned-address assumption.
 
-> - [Medium] The top-level 'required' list in hisilicon,hns-dsaf-v1.yaml
->   leaves out 'desc-num' and 'buf-size', although the deleted text…
+The package-addressing change was tested on a Hasivo S1100WP-8GT-2S+
+using an OpenWrt kernel. The rebased net-next version has not been
+runtime-tested.
 
-Will fix.
+Changes since v1:
+- Target net-next, as suggested by Andrew Lunn.
+- Remove the Fixes tag and describe the change as extending support
+  rather than fixing a regression.
+- Rebased on net-next/main
+- Add a separate DT binding documentation patch with an unaligned
+  four-port package example, placed before the driver patch.
 
-> - [Low] The patch deletes
->   Documentation/devicetree/bindings/net/hisilicon-hns-dsaf.txt, but…
+The driver behavior is unchanged from v1; the rebase only updates patch
+context.
 
-Not an issue. Fixed when other binding is converted.
+v1:
+https://lore.kernel.org/netdev/20261004204637.721148-1-oskari@lemmela.net/
 
-> - [Low] The deleted text binding had the buf-size and desc-num ranges
->   swapped ('buf-size: ... should be 16-1024', 'desc-num: ... should be…
+Manuel Stocker (1):
+  net: phy: realtek: support unaligned RTL8224 PHY packages
 
-Based on the .dts files and driver, the text binding is wrong.
+Oskari Lemmela (1):
+  dt-bindings: net: realtek,rtl82xx: document RTL8224 packages
 
-> - [Low] The concern says that 'mc-mac-mask' with only 'maxItems: 6'
->   accepts 1–5 bytes, while hns_mac_get_info() needs exactly ETH_ALEN (6)…
+ .../bindings/net/realtek,rtl82xx.yaml         | 52 +++++++++++++++++--
+ drivers/net/phy/realtek/realtek_main.c        | 49 +++++++++++++++--
+ 2 files changed, 93 insertions(+), 8 deletions(-)
 
-Not an issue.
 
-> - [Low] reg and reg-names use 'minItems: 1' for every 'mode'.
-
-Not worth the complexity to try to express that.
-
-pw-bot: cr
-
-Rob
+base-commit: 8b4e7209c842d8cb9516f1f5ef0a88aa2d8831a6
+-- 
+2.55.0
