@@ -1,358 +1,98 @@
-Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A99036403D
-	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 18:45:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C813F363C5A;
+	Mon,  5 Oct 2026 18:46:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791225916; cv=none; b=Xni7Bdtlm3UeI3H49w8y0ikSz4DXmwhWbRzoZ+N7Ey8JyQSCUMnI7qgaHJ8u9lPsHCegEOmUdBLADiqwrL8VbE1ygs88sDi9yE5ksiS4tAL+uewPlNiX0LyUgxMtDonGLraZ6J8IiRVWS+itA0IPgoZAhiquZpmT/ZoVcp9YQPw=
+	t=1791226016; cv=none; b=Qxy6JGbufe5/HmPDGimzPPxl6w7JDHWFqi9gJVHo85MVZMAkdFNq+RUH2USd+y8huywBKK1kV4zUEW6/bORsPkPAD5S3MsutASGexGXXQ4x1eMeCN4LxKt58HIlCdl4IoBCRg6EWrpsDBhGbkLK+mk5/t3tDcw49FPR/rQEtulI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791225916; c=relaxed/simple;
-	bh=Pa/B/6lzvNosJmOlBb1hGpthqBVdJojogY7Q5t5iEpg=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=S15Iwft3i8APsEO8lO94zFX0zQa3VpsDg+GCmvI2Xgx3QpcnjIUIhed0O4j/dFBEGX2Ui+emHAfU+TAfvbh5DXEi0wwZ2eSBsvDTz8cRrtsJWewzzx5eWF9oxQ9uN+PjyaWghKm+uhgBtPVFJO3sSXSjDlNCPiKeJCzqjrvYSXA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ktob5S+q; arc=none smtp.client-ip=74.125.229.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791226016; c=relaxed/simple;
+	bh=zJy94wq+pxsvLL8zQ2fDXpGOCF5NanZqgXUp1EvccIA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=GApkF7HAvQK1jhT68RyTTTF79Kxg8L07MWdNNVY3QKuYh89NTCrUvL/pmgfX5Gr0hd2uhfkp6XPPooZ4rB4r5cgmf+0L/an51gwaTNWPzxAOQpmy2rHJw597SkAl/4qXTB3A713+gO0ejMTJYINiOftzyBlqVNZVdVhl/Qr/TaE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=MABR9Alz; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ktob5S+q"
-Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-34b3a9cd8edso1067043eec.1
-        for <devicetree@vger.kernel.org>; Mon, 05 Oct 2026 11:45:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791225914; x=1791830714; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oKRGgL1d9laQKntKJ5ZCtPSXyeLDiiH4qMSXoJCCJ0Y=;
-        b=ktob5S+qXBoaZjJRjkOZIopPZ/AeuYn4NIJ3BjKMQ6L4z5dhODGmWMNsImwQ7wWhou
-         YAsUKB+Yck70JIykFYpLcIOKEaRX84NFcofrulbTcKl7E6Z0pnyGKzuMrOuOoLSxxMSG
-         FpNc8Nu28eg6qQT16aWxXB9hMBq0raKXZVmR+6NuIY9obMXwLpdqLy6WWGeIuKnIklHe
-         QWNvcBhjeSrNvAZF9XoBQ/FpHJqmoIb5uIvb2dQTGY3K4tflHRPf0oY3CFRK5+wTB+FZ
-         KM6kihhAwB3VJJTNYslqoxaiUzY0HbhVZJm5XcBIwQGTNg3ETBqtcp6zTV3X9+xRKVQ/
-         9ecQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791225914; x=1791830714;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=oKRGgL1d9laQKntKJ5ZCtPSXyeLDiiH4qMSXoJCCJ0Y=;
-        b=aWOpyZGkiSRwB0OFPbpB5M13LdzUl8EzRHDrSFucNzcqCPi1Ql0+22PAtOifIsXbZ0
-         /W9VPFZrO4WeI6pka/D+f+QTtaHkfJXPutqgjI9KUEQO3mmZmT35FTGiwPrA5rMej3l9
-         jiNVXC8guv5sQBse4gZ51afMKENGfrHBa6OyaF6VTGDU/3GqCkVwKswUviaASMA18In3
-         QzRzfOGKWUQivldkmuFtiG/rdZvKzcAHerKrsnocPxyEF9Mlp2/vPtF7c2gaOPeFgvKY
-         J9Z6uiuaBYFgB8K4sEa+MPAivN2TtHgn5BfefL0/vqYdsvGUSSVM9gnaFJApLug2BePK
-         ZyEQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxLEJVCXDa/26d9AqvHgsTgnRyszeU6oicEIbGTR7ZQgJZKwf0AtDK3LNi5oBeCgZQ8qzFCmye+REtH@vger.kernel.org
-X-Gm-Message-State: AFuF++k9bHGH87092xA71EFq/RyiSQcLg7AZnKHxsx8Fht2XfOU3CM++
-	IYJxHqHuSuzrDIPeC2KzBqU2xvOaItZ1A9B+yl649SgcyILbVDr0tmLx
-X-Gm-Gg: AYBFou0O6jGUiqtKxI6LXvAATHIivdEFm+tucFm2raTX9k9EWBYOPM3XWKc/VjW9HbJ
-	3V+vd6koie6POiATglz/+izv0ccb7VEc1JjQ4bHIzybnQC0wXp6T7Yv5Z3wWZ9jRc3zXruQrUxH
-	/3Pacw90ohjCnCOOs/+UPhu15g3s6pf+o/LiysoTSUPu182hU+/BTjMqbsWPWLXKmXQBfVHhLEJ
-	iubLqCdf0O+/CyYHtOuuK3U5YbFJc5R8SkA+o7tlfQAnBKCBgvxaXCdlV2IlXPHbbUJImWC3Y+g
-	ckLiyjGwfEZ1zWq2LnxtiGPAjCHQXETyiP1KsEb82if0/PpaU7b32eP69njLsVqiyU+HYuNSGqY
-	9bKQ4+6h2PDt570X4rcIvyQU9iFtoWAk3qy1H7DHD92uXS1GtGXMnErc7w21fFF3rpz+fk9X/kG
-	6kSg/vaHEXhMOR/CPHgt6yeO1ZqzUyGyyjLCCC2GQ9QwhfzbFmvCC5yfLdzMNEWbHF1QectxWhc
-	AV6I7xVOGgvWYQYvN31nMjIgnwZ
-X-Received: by 2002:a05:7301:550e:b0:347:a3d9:dfa3 with SMTP id 5a478bee46e88-351450c21bbmr455348eec.7.1791225913995;
-        Mon, 05 Oct 2026 11:45:13 -0700 (PDT)
-Received: from inhnjlux1020.ls.ege.ds ([2406:b400:53:bc23:13ce:62d6:5ad0:c521])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35146a2add7sm191248eec.13.2026.10.05.11.45.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 11:45:12 -0700 (PDT)
-From: Udaya Kiran Challa <challauday369@gmail.com>
-To: lee@kernel.org,
-	pavel@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: skhan@linuxfoundation.org,
-	me@brighamcampbell.com,
-	linux-leds@vger.kernel.org,
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="MABR9Alz"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 8863040E02A8;
+	Mon,  5 Oct 2026 18:46:51 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id WqRemdZ8-rBP; Mon,  5 Oct 2026 18:46:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1791226000; bh=JkX2GDHCaUk/bsmTXqai5KaSceDht0IEE6x+doMIyr8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=MABR9AlzoRB85EV/neOIxFXDjqhHkp0L0wp90cXC6dd3DOnHWA3dNmY5pNasCZiSb
+	 EIPqNQqPosZmIszXkCYnPItHiiOWVIW8Mr8ISjpjmVsQA9Qct0zYuTiNM+SyB9/kHF
+	 WhkPM2Y3V3xwq4A4iXZioYoAVHi5eDT3v9dwTBDv/HVojfnSjFPejJrSELSTNt1gtS
+	 tjRJlNKdgCCqd8QHJJgTxmi1A10KkJssn87bnWLfNYAgX3SxQrVT3NpeTeRATvzPc9
+	 fqqvZGy3FQvPTYh2l6izrCSD8Y3vrF/QqogSUvyT3p/x4iehzwqBkTd6h+XaRYY/j7
+	 KsakRUPELSVqdi84fMiDFGMdmTTuZk2Cdk2Hc6pj3LX0pCAW/gQErUw25P4t5TwYlw
+	 DwebbyJFBMSL2WKUcymrvLwLwPVLf6vhRtaB6tyy5Za1ePysipRLcIzKS1/V5oqizw
+	 sinyfw9/lmUFzU0s5/0nvKBsPz3IAY10vcRw+f7OKR73bP0EOhytit/jXaWZCSJbNj
+	 EGGZN8rWxyaExoH+5854LfTQZyGNiljANILgNMy2sPWT91hseJhT5Tdo1vKSGANtS6
+	 RThngi+aXsm9ue9+xNhY+/tjFmQM3OsFPLhwmE5NlHBSYZIb7KNz2t48HJoRJkfxN6
+	 gi+doYG5AJJwwsPg6qMXg2a8=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::3a])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id A50BC40E01B4;
+	Mon,  5 Oct 2026 18:46:24 +0000 (UTC)
+Date: Mon, 5 Oct 2026 11:46:21 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Paul Louvel <paul.louvel@bootlin.com>
+Cc: Tony Luck <tony.luck@intel.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>, linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org, linux-edac@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Udaya Kiran Challa <challauday369@gmail.com>
-Subject: [PATCH v4 1/2] dt-bindings: leds: lacie,netxbig-leds: Convert to DT schema
-Date: Tue,  6 Oct 2026 00:14:28 +0530
-Message-Id: <20261005184428.251868-1-challauday369@gmail.com>
-X-Mailer: git-send-email 2.34.1
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Herve Codina <herve.codina@bootlin.com>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>
+Subject: Re: [PATCH v5 1/3] dt-bindings: edac: cdns,ddr-edac: add Cadence DDR
+ EDAC
+Message-ID: <20261005184621.GCasPwfaQNE0q6zykP@fat_crate.local>
+References: <20261005-paul-v7-3-rc1-edac-v5-0-140a0f124bc0@bootlin.com>
+ <20261005-paul-v7-3-rc1-edac-v5-1-140a0f124bc0@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261005-paul-v7-3-rc1-edac-v5-1-140a0f124bc0@bootlin.com>
 
-Convert lacie,netxbig-leds devicetree binding from legacy
-text format to DT schema.
+On Mon, Oct 05, 2026 at 02:49:22PM +0200, Paul Louvel wrote:
+> Add the Cadence EDAC dt binding.
+> The memory controller optionally supports ECC SECDED with DDR2/DDR3
+> memory.
+> 
+> Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+> Signed-off-by: Paul Louvel (Schneider Electric) <paul.louvel@bootlin.com>
+> ---
+>  .../devicetree/bindings/edac/cdns,ddr-edac.yaml    | 61 ++++++++++++++++++++++
+>  MAINTAINERS                                        |  6 +++
+>  2 files changed, 67 insertions(+)
 
-Signed-off-by: Udaya Kiran Challa <challauday369@gmail.com>
----
-Changelog:
-Changes since v3:
-- Correct patternProperties to use generic led node names
-- Rename example device name to leds
-- Drop optional subnode properties
+Needs review by DT maintainers if it is going to go through the EDAC tree, see
+output of:
 
-Link to v3:https://lore.kernel.org/all/20260901170358.176103-1-challauday369@gmail.com/
+./scripts/get_maintainer.pl -f Documentation/devicetree/bindings/edac/
 
-Changes since v2:
-- Add reference to led common.yaml
-- Drop type for all common properties
-
-Link to v2:https://lore.kernel.org/all/20260821123723.198286-1-challauday369@gmail.com/
-
-Changes since v1:
-- Use pattenProperties for LED child nodes instead of additionalProperties
-- Explicitly list the two optional properties supported by the binding
-- Place the top-level required block after child-node definition
-
-Link to v1:https://lore.kernel.org/all/20260820150223.108374-1-challauday369@gmail.com/
----
- .../bindings/leds/lacie,netxbig-leds.yaml     | 136 ++++++++++++++++++
- .../devicetree/bindings/leds/leds-netxbig.txt |  92 ------------
- 2 files changed, 136 insertions(+), 92 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/leds/lacie,netxbig-leds.yaml
- delete mode 100644 Documentation/devicetree/bindings/leds/leds-netxbig.txt
-
-diff --git a/Documentation/devicetree/bindings/leds/lacie,netxbig-leds.yaml b/Documentation/devicetree/bindings/leds/lacie,netxbig-leds.yaml
-new file mode 100644
-index 000000000000..fe47c12044da
---- /dev/null
-+++ b/Documentation/devicetree/bindings/leds/lacie,netxbig-leds.yaml
-@@ -0,0 +1,136 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/leds/lacie,netxbig-leds.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: LaCie/Seagate netxbig CPLD LEDs
-+
-+maintainers:
-+  - Simon Guinot <simon.guinot@sequanux.org>
-+
-+description: |
-+  Binding for the CPLD LEDs (GPIO extension bus) found on some LaCie/Seagate
-+  boards (Example: 2Big/5Big Network v2, 2Big NAS).
-+
-+properties:
-+  compatible:
-+    const: lacie,netxbig-leds
-+
-+  gpio-ext:
-+    description: Phandle for the gpio-ext bus.
-+    $ref: /schemas/types.yaml#/definitions/phandle
-+
-+  timers:
-+    description:
-+      Timer array. Each timer entry is represented by three integers -
-+      Mode (gpio-ext bus), delay_on and delay_off.
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+
-+patternProperties:
-+  "^led-[a-z0-9]+$":
-+    type: object
-+    $ref: common.yaml#
-+    unevaluatedProperties: false
-+
-+    properties:
-+      mode-addr:
-+        description: Mode register address on gpio-ext bus.
-+        $ref: /schemas/types.yaml#/definitions/uint32
-+
-+      mode-val:
-+        description:
-+          Mode to value mapping. Each entry is represented by two integers -
-+          a mode and the corresponding value on the gpio-ext bus.
-+        $ref: /schemas/types.yaml#/definitions/uint32-array
-+
-+      bright-addr:
-+        description: Brightness register address on gpio-ext bus.
-+        $ref: /schemas/types.yaml#/definitions/uint32
-+
-+      max-brightness:
-+        description: Maximum brightness value.
-+        $ref: /schemas/types.yaml#/definitions/uint32
-+
-+    required:
-+      - mode-addr
-+      - mode-val
-+      - bright-addr
-+      - max-brightness
-+
-+required:
-+  - compatible
-+  - gpio-ext
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/leds/leds-netxbig.h>
-+
-+    leds {
-+        compatible = "lacie,netxbig-leds";
-+
-+        gpio-ext = <&netxbig_gpio_ext>;
-+
-+        timers = <NETXBIG_LED_TIMER1 500 500
-+                  NETXBIG_LED_TIMER2 500 1000>;
-+
-+        led-0 {
-+            label = "netxbig:blue:power";
-+            mode-addr = <0>;
-+            mode-val = <NETXBIG_LED_OFF 0
-+                        NETXBIG_LED_ON 1
-+                        NETXBIG_LED_TIMER1 3
-+                        NETXBIG_LED_TIMER2 7>;
-+            bright-addr = <1>;
-+            max-brightness = <7>;
-+        };
-+        led-1 {
-+            label = "netxbig:red:power";
-+            mode-addr = <0>;
-+            mode-val = <NETXBIG_LED_OFF 0
-+                        NETXBIG_LED_ON 2
-+                        NETXBIG_LED_TIMER1 4>;
-+            bright-addr = <1>;
-+            max-brightness = <7>;
-+        };
-+        led-2 {
-+            label = "netxbig:blue:sata0";
-+            mode-addr = <3>;
-+            mode-val = <NETXBIG_LED_OFF 0
-+                        NETXBIG_LED_ON 7
-+                        NETXBIG_LED_SATA 1
-+                        NETXBIG_LED_TIMER1 3>;
-+            bright-addr = <2>;
-+            max-brightness = <7>;
-+        };
-+        led-3 {
-+            label = "netxbig:red:sata0";
-+            mode-addr = <3>;
-+            mode-val = <NETXBIG_LED_OFF 0
-+                        NETXBIG_LED_ON 2
-+                        NETXBIG_LED_TIMER1 4>;
-+            bright-addr = <2>;
-+            max-brightness = <7>;
-+        };
-+        led-4 {
-+            label = "netxbig:blue:sata1";
-+            mode-addr = <4>;
-+            mode-val = <NETXBIG_LED_OFF 0
-+                        NETXBIG_LED_ON 7
-+                        NETXBIG_LED_SATA 1
-+                        NETXBIG_LED_TIMER1 3>;
-+            bright-addr = <2>;
-+            max-brightness = <7>;
-+        };
-+        led-5 {
-+            label = "netxbig:red:sata1";
-+            mode-addr = <4>;
-+            mode-val = <NETXBIG_LED_OFF 0
-+                        NETXBIG_LED_ON 2
-+                        NETXBIG_LED_TIMER1 4>;
-+            bright-addr = <2>;
-+            max-brightness = <7>;
-+        };
-+    };
-diff --git a/Documentation/devicetree/bindings/leds/leds-netxbig.txt b/Documentation/devicetree/bindings/leds/leds-netxbig.txt
-deleted file mode 100644
-index 5ef92a26d768..000000000000
---- a/Documentation/devicetree/bindings/leds/leds-netxbig.txt
-+++ /dev/null
-@@ -1,92 +0,0 @@
--Binding for the CPLD LEDs (GPIO extension bus) found on some LaCie/Seagate
--boards (Example: 2Big/5Big Network v2, 2Big NAS).
--
--Required properties:
--- compatible: "lacie,netxbig-leds".
--- gpio-ext: Phandle for the gpio-ext bus.
--
--Optional properties:
--- timers: Timer array. Each timer entry is represented by three integers:
--  Mode (gpio-ext bus), delay_on and delay_off.
--
--Each LED is represented as a sub-node of the netxbig-leds device.
--
--Required sub-node properties:
--- mode-addr: Mode register address on gpio-ext bus.
--- mode-val: Mode to value mapping. Each entry is represented by two integers:
--  A mode and the corresponding value on the gpio-ext bus.
--- bright-addr: Brightness register address on gpio-ext bus.
--- max-brightness: Maximum brightness value.
--
--Optional sub-node properties:
--- label: Name for this LED. If omitted, the label is taken from the node name.
--- linux,default-trigger: Trigger assigned to the LED.
--
--Example:
--
--netxbig-leds {
--	compatible = "lacie,netxbig-leds";
--
--	gpio-ext = &gpio_ext;
--
--	timers = <NETXBIG_LED_TIMER1 500 500
--		  NETXBIG_LED_TIMER2 500 1000>;
--
--	blue-power {
--		label = "netxbig:blue:power";
--		mode-addr = <0>;
--		mode-val = <NETXBIG_LED_OFF 0
--			    NETXBIG_LED_ON 1
--			    NETXBIG_LED_TIMER1 3
--			    NETXBIG_LED_TIMER2 7>;
--		bright-addr = <1>;
--		max-brightness = <7>;
--	};
--	red-power {
--		label = "netxbig:red:power";
--		mode-addr = <0>;
--		mode-val = <NETXBIG_LED_OFF 0
--			    NETXBIG_LED_ON 2
--			    NETXBIG_LED_TIMER1 4>;
--		bright-addr = <1>;
--		max-brightness = <7>;
--	};
--	blue-sata0 {
--		label = "netxbig:blue:sata0";
--		mode-addr = <3>;
--		mode-val = <NETXBIG_LED_OFF 0
--			    NETXBIG_LED_ON 7
--			    NETXBIG_LED_SATA 1
--			    NETXBIG_LED_TIMER1 3>;
--		bright-addr = <2>;
--		max-brightness = <7>;
--	};
--	red-sata0 {
--		label = "netxbig:red:sata0";
--		mode-addr = <3>;
--		mode-val = <NETXBIG_LED_OFF 0
--			    NETXBIG_LED_ON 2
--			    NETXBIG_LED_TIMER1 4>;
--		bright-addr = <2>;
--		max-brightness = <7>;
--	};
--	blue-sata1 {
--		label = "netxbig:blue:sata1";
--		mode-addr = <4>;
--		mode-val = <NETXBIG_LED_OFF 0
--			    NETXBIG_LED_ON 7
--			    NETXBIG_LED_SATA 1
--			    NETXBIG_LED_TIMER1 3>;
--		bright-addr = <2>;
--		max-brightness = <7>;
--	};
--	red-sata1 {
--		label = "netxbig:red:sata1";
--		mode-addr = <4>;
--		mode-val = <NETXBIG_LED_OFF 0
--			    NETXBIG_LED_ON 2
--			    NETXBIG_LED_TIMER1 4>;
--		bright-addr = <2>;
--		max-brightness = <7>;
--	};
--};
 -- 
-2.34.1
+Regards/Gruss,
+    Boris.
 
+https://people.kernel.org/tglx/notes-about-netiquette
