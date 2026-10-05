@@ -1,184 +1,137 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 500B048125E;
-	Mon,  5 Oct 2026 13:36:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06CF947125A
+	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 13:43:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791207369; cv=none; b=lQzcw/s3ETZFv5pja8wVDenxK0YXR0Ypj5rPeTk6hG8Kpz6CSl/mtrItZ7ZiKSDWc6oJ4U1UxUuj7K5WK+u8Ia5Nd0Cw42w9Xz4q7K49yHlSI7qYgh9DMsA0mldJ6ePpJSPAsKt5GIlkMs9UE4cA0Pvocu4r4ZJZhwrCh2SGas0=
+	t=1791207814; cv=none; b=cjpsOsJ6O8FlUV9X/ZWsGRCmtnZOjN7/B6RU8JChvrxs5N38CFfNBdSE5k2lTntXaRPKbp/xSEdbmbrP6iHazbCXDFGC1CUKxZ9YA/UFmj8AkqpXj38R2Wtku+RPZxXTi0Fl9BL08+NUhVCSixi044R7vRccAidJU3Na/mFZlWk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791207369; c=relaxed/simple;
-	bh=D755r6xXb/wyK9M9P2atlpPVB8X5t5vPoEEjbvY12oc=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=or+7QNAPMQ/+9oCpbsQIPinr8wZpD9RCzKfLE4YMLKqnnTcg2dwuHVUTwNI80mut4AyTJEACvhVC4u7xI3ofNseWQNcxxlJph5gPVWbtmjZ60eiBKNv/Me515+6o7UnBnnIr9KMqCtGJecOgxzYq742tyfoJ/03/Ulk5iSynvqs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VB/Kis31; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791207814; c=relaxed/simple;
+	bh=eitsfC+mm9nDvmbCWD53UEhX8ajZxRkZpZLwY0tsE/k=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=YrMkRwcvrIw7uwg8hzDSk0vyr2pT8DHHZsEzCE/+Qaxr0M8tka7po8ZmpbCZvvOXPtcZltTrijbXmgZuM2g0ED+7yGpFoOj9n0XYBVTxj2uFt1+wL7QQPHE9n9CBmKa8U+Q86FQJWLy7PskV9pfol/GtmhjFSlDqGmiIlXyTdN8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Eu354+2V; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VB/Kis31"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89D251F00898;
-	Mon,  5 Oct 2026 13:36:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Eu354+2V"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B1361F000FF;
+	Mon,  5 Oct 2026 13:43:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791207367;
-	bh=Or8bGKd328cjwT8opyEZlfDyIVPvTUBoe+zbP1elmYo=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=VB/Kis31yp9kknyjWLppXvf5/9uVnI20+ZnC5JqOwjgd5VGolKJLtr4GgX5A0aK3F
-	 5qi3AJiSmy/cyjYXOeisSUjtYRLXbkxwYLxQxHzQodNVnJs5xVyHf/dsgoW8HuqtTM
-	 GGZ8l2+v4yS+4BY3d/+yGLOv/BFO9nfaWi8OdxsvEqjTYqcIKEgtKrACvQIA9LTDQl
-	 t0jz5KHyRfdRsz+zTzKFZePwb9T9iLYJpmJSzePfG7G2oLCvWWIyo9clqU3jkO/Haa
-	 A3ZNYY4VMjR00Iq3ewzfo4unC2yhW7GhATyhFqoIxDXo+oRvyMF+2JnUWkSCbQT7UU
-	 XBXVWO5Dmiz0w==
-Subject: Re: [PATCH net-next v5 3/3] net: dsa: let user ports wait for a PHY
- that probes late
-From: netdev-bot+sashiko@kernel.org
-To: f@lex.la
-Cc: linux@armlinux.org.uk, andrew@lunn.ch, hkallweit1@gmail.com,
- olteanv@gmail.com, netdev@vger.kernel.org, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- conor@kernel.org, f.fainelli@gmail.com, chester.a.unal@arinc9.com,
- daniel@makrotopia.org, matthias.bgg@gmail.com,
- angelogioacchino.delregno@collabora.com, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-mediatek@lists.infradead.org
-Date: Mon, 05 Oct 2026 13:36:06 +0000
-Message-ID: <179120736615.434549.15639450340100893930@kernel.org>
-In-Reply-To: <20261001130208.105558-4-f@lex.la>
-References: <20261001130208.105558-4-f@lex.la>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1791207812;
+	bh=wf8V7qANZs0BSaLHOWzlE9GUwvX5EMq+8hbYYJD/iII=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Eu354+2V5OmNQa3rPp14s3TuV8wXyWxgh5eU7TN7vvxgjylS5N9x5uXf3BKHR2i3g
+	 Wb1fTofwMckcdipdnH6CuTrxSZNOT5LEhQ8C3etz0okXjoQBq7zzhx788VfqvOQ/JK
+	 GeOPADwIqY0PO3lHa/jojoTCmmln+7/Rmw4r6CkXAotne5datiPGNgWOPRG1MIpGOD
+	 +oj+/fI5KB20DAFYZPxLmB/vI+CHAxXavfx6v1Z6ZtnOWWgdFJpDhGYxXDs8dKdhDs
+	 qyiMfxa1z/ulngksnfV4Z417iAeoqf81z4egow93y6rmfJVC7QnLdqS4EHhVdhdkhp
+	 7AEA645XJGYXQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 01/10] media: synopsys: hdmirx: free the driver data
+ when the last user is gone
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sascha Hauer" <s.hauer@pengutronix.de>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20261005-hdmirx-media-v3-1-71a11a2e3e76@pengutronix.de>
+References: <20261005-hdmirx-media-v3-0-71a11a2e3e76@pengutronix.de>
+ <20261005-hdmirx-media-v3-1-71a11a2e3e76@pengutronix.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 05 Oct 2026 13:43:31 +0000
+Message-Id: <20261005134331.8B1361F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
-
-Critical: 0 · High: 0 · Medium: 1 · Low: 1
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] This patch arms phylink's self-requeueing late-PHY poller
-  (pl->late_phy_poll on system_freezable_power_efficient_wq) for…
-- [Low] The comment this patch adds on struct
-  dsa_switch::phy_may_probe_late (include/net/dsa.h:458-460) says a…
-
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] media: hdmirx: Use-After-Free of resets array during devres cleanup
 --
 
-net: dsa: let user ports wait for a PHY that probes late
+commit e1b26e1980a2a31fc0b4801e98e60468eba4a502
+Author: Sascha Hauer <s.hauer@pengutronix.de>
 
-This adds a phy_may_probe_late bit to struct dsa_switch. dsa_user_phy_setup()
-passes it to phylink so that a user port can wait for a PHY whose driver
-needs host firmware and probes late. mt7530 opts in.
+media: synopsys: hdmirx: free the driver data when the last user is gone
 
-> diff --git a/drivers/net/dsa/mt7530.c b/drivers/net/dsa/mt7530.c
-> index 7781a63b4e6fd..e4c155605e27f 100644
-> --- a/drivers/net/dsa/mt7530.c
-> +++ b/drivers/net/dsa/mt7530.c
-> @@ -3548,6 +3548,7 @@ mt7530_probe_common(struct mt7530_priv *priv)
->  	priv->ds->priv = priv;
->  	priv->ds->ops = &mt7530_switch_ops;
->  	priv->ds->phylink_mac_ops = &mt753x_phylink_mac_ops;
-> +	priv->ds->phy_may_probe_late = true;
+The driver data is allocated with devm_kzalloc() and contains the
+video_device, the vb2 queue and the control handler. devres frees it when
+the device is unbound, but an open file descriptor on the video device
+node keeps the video_device referenced beyond that point.
 
-[Severity: Medium]
-
-With this opt-in, phylink's late PHY poller (pl->late_phy_poll) can be
-pending on mt7530 user ports. Does anything on the switch shutdown path
-cancel it?
-
-mt7530_shutdown() and the mmio shutdown handler both call
-dsa_switch_shutdown(). That function closes the conduits, detaches and
-unlinks the user netdevs, and clears conduit->dsa_ptr:
-
-net/dsa/dsa.c:dsa_switch_shutdown() {
-    ...
-	dsa_switch_for_each_user_port(dp, ds) {
-		conduit = dsa_port_to_conduit(dp);
-		user_dev = dp->user;
-
-		netif_device_detach(user_dev);
-		netdev_upper_dev_unlink(conduit, user_dev);
-	}
-    ...
-}
-
-It never calls phylink_disconnect_phy() or phylink_destroy(). Those two
-functions and phylink_fwnode_phy_connect() are the only callers of
-phylink_late_phy_cancel(). phylink_stop() does not cancel the work either.
-
-Suppose the PHY driver binds shortly before a reboot or kexec. A poll that
-is still queued (up to 30 seconds out after backoff) can then run after
-.shutdown has returned:
-
-phylink_late_phy_poll()
-    phylink_attach_phy()
-        phy_attach_direct()
-            phy_init_hw()
-            phy_resume()
-    phylink_bringup_phy()
-        phy_request_interrupt()
-
-Could this cause MDIO traffic, a PHY soft reset and config_init, and an
-IRQ request on hardware that has already been shut down? Could it also
-leave that interrupt enabled for a kexec'd kernel?
-
-For comparison, sfp_shutdown() calls cancel_delayed_work_sync() on
-sfp->poll and sfp->timeout.
-
->  	mutex_init(&priv->reg_mutex);
->  	spin_lock_init(&priv->stats_lock);
->  	INIT_DELAYED_WORK(&priv->stats_work, mt7530_stats_poll);
-> diff --git a/include/net/dsa.h b/include/net/dsa.h
-> index 5d12191b6f6f5..f7e78c3a123d3 100644
-> --- a/include/net/dsa.h
-> +++ b/include/net/dsa.h
-> @@ -455,6 +455,11 @@ struct dsa_switch {
->  	 */
->  	u32			dscp_prio_mapping_is_global:1;
->  
-> +	/* Drivers whose .port_enable copes with a NULL phy may set this to
-> +	 * let user ports wait for a PHY that needs host firmware.
-> +	 */
-> +	u32			phy_may_probe_late:1;
-
-[Severity: Low]
-
-Is "copes with a NULL phy" the whole requirement for opting in?
-
-The only caller of .port_enable is dsa_user_open() ->
-dsa_port_enable_rt(dp, dev->phydev). When phylink_late_phy_poll() attaches
-the PHY later, it forces a major config and calls phy_start(). It does not
-call .port_enable again with the new phy.
-
-gswip_port_enable() already handles a NULL phy:
-
-	if (phydev)
-		mdio_phy = phydev->mdio.addr & GSWIP_MDIO_PHY_ADDR_MASK;
-
-So gswip meets the rule as written. Yet the commit message says gswip must
-not opt in, because the PHY address would stay wrong until the next open.
-
-The same applies to qca8k. Adding an if (phy) check around
-phy_support_asym_pause(phy) in qca8k_port_enable() would satisfy this
-comment. A PHY that attaches late would then never advertise asym pause.
-
-Should the comment say that the driver must not depend on the phy argument
-of .port_enable at all? That would match the reasoning in the commit
-message.
-
-> +
->  	/* Listener for switch fabric events */
->  	struct notifier_block	nb;
->  
-
+> diff --git a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c b/drive=
+rs/media/platform/synopsys/hdmirx/snps_hdmirx.c
+> index 25f8ca0d6d946..bc541431638e7 100644
+> --- a/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
+> +++ b/drivers/media/platform/synopsys/hdmirx/snps_hdmirx.c
 [ ... ]
+> @@ -2646,6 +2642,16 @@ static int hdmirx_register_cec(struct snps_hdmirx_=
+dev *hdmirx_dev,
+>  	return 0;
+>  }
+> =20
+> +/* Runs when the last user of a device node is gone, possibly after remo=
+ve() */
+> +static void hdmirx_v4l2_release(struct v4l2_device *v4l2_dev)
+> +{
+> +	struct snps_hdmirx_dev *hdmirx_dev =3D
+> +		container_of(v4l2_dev, struct snps_hdmirx_dev, v4l2_dev);
+> +
+> +	v4l2_ctrl_handler_free(&hdmirx_dev->hdl);
+> +	kfree(hdmirx_dev);
+        ^^^^
 
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261001130208.105558-1-f%40lex.la
+[Severity: High]
+hdmirx_parse_dt() calls devm_reset_control_bulk_get_exclusive(), which
+registers a devres action that stores the pointer to the inline array
+hdmirx_dev->resets.=20
+
+When the last v4l2 user is gone, this kfree(hdmirx_dev) frees the driver
+data structure synchronously. The driver core will later invoke
+devres_release_all(), which calls devm_reset_control_bulk_release(). That
+release function will attempt to iterate and put the resets using the
+stored pointer, which now points into the already freed hdmirx_dev.
+
+Does this code cause a use-after-free during devres cleanup?
+
+> +}
+> +
+>  static int hdmirx_probe(struct platform_device *pdev)
+>  {
+>  	struct snps_hdmirx_dev *hdmirx_dev;
+[ ... ]
+> @@ -2771,10 +2780,16 @@ static int hdmirx_probe(struct platform_device *p=
+dev)
+>  	vb2_video_unregister_device(&hdmirx_dev->stream.vdev);
+>  err_unreg_v4l2_dev:
+>  	v4l2_device_unregister(&hdmirx_dev->v4l2_dev);
+> -err_hdl:
+> -	v4l2_ctrl_handler_free(&hdmirx_dev->hdl);
+> +	hdmirx_disable(dev);
+> +	v4l2_device_put(&hdmirx_dev->v4l2_dev);
+> +
+> +	return ret;
+> +
+>  err_pm:
+>  	hdmirx_disable(dev);
+> +	v4l2_ctrl_handler_free(&hdmirx_dev->hdl);
+> +err_free:
+> +	kfree(hdmirx_dev);
+        ^^^^
+
+[Severity: High]
+If probe fails after hdmirx_parse_dt() has successfully called
+devm_reset_control_bulk_get_exclusive(), hdmirx_dev is explicitly freed
+here. Once probe returns, the driver core will run devres cleanup.
+
+Does this error path result in the same use-after-free when accessing
+hdmirx_dev->resets?
+
+> =20
+>  	return ret;
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261005-hdmirx-med=
+ia-v3-0-71a11a2e3e76@pengutronix.de?part=3D1
