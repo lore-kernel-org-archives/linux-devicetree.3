@@ -1,137 +1,66 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BC4E440A1F
-	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 09:36:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF123411F83;
+	Mon,  5 Oct 2026 09:36:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791192964; cv=none; b=WMZf9AT0cg9T4P5uhIt90LXBtlE2LZbu9Vryh8YqYtpn7E2JeXnjIPn433RIY4B3zC+VUE2gF0FHKSdQhw9FZFUrm7J3da3cn5ses2YqaggplFCt1obvFssO053Z6lps41/+t7o0VoZjS4sF1l5kczSN/eW5LwwrW1ptdHcPDdY=
+	t=1791192973; cv=none; b=DbTAOTwxs1KR8/MWWu+IVVY3a7DOHXtGu9U7MIDtvrxwMdhQjzISiGjHJSzC1acJUmpqelafgKwtIroRodN3fAxOVUS5jgsvYFCSRfhlTQA0cMIj9agqVuPuF+XZQ2JT5qY5qSinvgrazk66B0ZMbieGMeSAXqIWQIrV4FzfWbY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791192964; c=relaxed/simple;
-	bh=THNiZhFHii+ex+LZMsS2OghfP24T0+GzzryhIM5GK6Y=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=Pm7oSvseF2l+Qjp2M3++2fZvcPaGaiqrpRoIYFbz+nEEVY1VlmEZo8PqRV5Zmv00JpTZ0beFt/Gbqfjbek9SKRHJGz9wF2DE8bAf2sf9F7ub9kj4QDLgsmraqjI0t/fnFIxEfi3SS91+OnFxH/52+heG6/uRMU9V/lYIk8QZrW0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com; spf=pass smtp.mailfrom=fairphone.com; dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b=IP3UlyLd; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fairphone.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fairphone.com
+	s=arc-20240116; t=1791192973; c=relaxed/simple;
+	bh=WwtwkI319utFrDtMTgBVWaxrm8/qwqTxwFJs3vTZvy4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=j/gPpxv94AtuVOXKkhXMECm9Y3H9iwS4NzBQqvToCxtv8KZtrvObbFVqnrocS+NjrDhFeHrbUn/Na14XdCoTPNqlEJysSysiHtijO/IMwHWSXHid29PxUIXU0K9mHKJ49qKuMq8qcgbbXv6q+4eKf4SuHnM6wQO7aP/208mF0SY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MkAVn3g+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fairphone.com header.i=@fairphone.com header.b="IP3UlyLd"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-49ff680331aso15303795e9.3
-        for <devicetree@vger.kernel.org>; Mon, 05 Oct 2026 02:36:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=fairphone.com; s=fair; t=1791192957; x=1791797757; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=glJhOe3o69hGuf36JpkU5EUJfHjbvLOwKHaTPoIM6ys=;
-        b=IP3UlyLdDl7MF5rFNGopn+P5YwigWgC7jWPj3foZuJas+AtlDLV5/+p0tCRHUe4HhM
-         fqDSvUgHPXM6PrGF6HnU8QeydZTrfUOSX3aW2iV1ZR8VILbe5tPMioFTeLkM+1NB2XM8
-         ucd6d+w2eDHwgiaLo/OYR0uMVB3BDzKxGCG7miHoH2ECdZe/wydFKLlAVEePF+rWHQRB
-         gzw0DQhCpEaQOQHHbAI0Z16CH69DgKKgPlvMEvXRSsA2cOyRHXmbMzpbaI2/UYPzpOGS
-         /WVL+qCN386ZR8Yh2n/+xdaFxtZHKi225d+SpujkweEIJGq/6QrfsG+iJiCyF4tbO67r
-         a0Jw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791192957; x=1791797757;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=glJhOe3o69hGuf36JpkU5EUJfHjbvLOwKHaTPoIM6ys=;
-        b=d3MkafT9PZPBR/R0rAOhwiLMYYVliwZi2plb3ny3oe+I0D+dfvvIcy4HTOmCAoWuFX
-         91VBO/UJvCfrG1MeVE853IkOAgurYrYna0sGEbL1b7G2yh+J03v3oW7GSQ+svLVgFKGg
-         3JYVgfeJSQwYUDS7aa9mq+PAhKFd8RvoC5RMrPQvEpID3UWc9ptFTaUS1LTHg8CryDBi
-         ScsMlnkP9NEcbitE9CdAd+UfX//znnEaMquUzPcloCItJeIxXX8Ipd349VxWu+s+w/fs
-         Nwo8W9LnlAjNDALVTl73g30Pgb4iPpzdJ1L4Z7kqqrMvhpaGA0jQRk2PdkoDNEAGK6+m
-         pgfA==
-X-Forwarded-Encrypted: i=1; AKwUvBzQy8/sJSrcw4kJyECvulWr1DdbP0jyCnuprwBL29YnnKvZ5JNebkUG96MJw+/nzLvyb/JqeIg90xRw@vger.kernel.org
-X-Gm-Message-State: AFuF++lQ4dV7SNQcCoL7vj1vND2KRJeEMfhV0Ar7GaQI0AQbxiLzkKq9
-	5l+ZD+5YUdlBQPYizPYaLieGP9QdCMbDkvjod/nxYwZ3k8XNS3+6vlz5gs3/g2VslgM=
-X-Gm-Gg: AYBFou2hWJHneXZ7HVHTtAWy3q/EHQSzyojZheGIvTy2LC1RK2bmLGfKrums9h/Vf0j
-	e/iLVbT76W6T8ocV5OvzLG++Wn2uGzFCsHyIHVPnVNlJvhiBAriCjZuMf5/2GxCfV8H0ZKVSfyk
-	326IiO80A2hzTNPA5eHuYW+wr4jq5lgMowQTUt1RM4WEEiUaOP+gtIS+/pKsiW3NRN3eKJDpZT7
-	nN815DszB6YtHQ7YIcVfSZrA/Duiy/JTFoJCYkQ15rFF1M0vl9o3Kd1TuUbPpTo9kgN+paejdxN
-	/GbdJhXx7+35F+TPYXXg4m5Ztz4glBddm9GAZQ/JfQ7cvx7Ic8tRTG9zy5xWRX26wSsGH9rFfyc
-	Ad3Fc4kanXit9TF7zkRsw59olEw+Xq/dcQaDgg8dklpeeuexF4WGzpf+0izMYKmme0GfBXqxebO
-	tCulgAcrrGR518Bxjz0vUC/6zPMKNQ7kP4Bx4R/rIYu7H9GVNcOk0IZPIwvWiYN4JDHWew
-X-Received: by 2002:a05:600c:4705:b0:49c:fc6e:a3da with SMTP id 5b1f17b1804b1-4a1680ffb88mr111842255e9.25.1791192957347;
-        Mon, 05 Oct 2026 02:35:57 -0700 (PDT)
-Received: from localhost ([41.66.99.5])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a027698f13sm313414045e9.1.2026.10.05.02.35.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 05 Oct 2026 02:35:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MkAVn3g+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D67F1F00898;
+	Mon,  5 Oct 2026 09:36:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791192963;
+	bh=0Ao/mLNTjmSkWmcOamQdcSXL9pFAvIeKIenqzfFwDYE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MkAVn3g+inmSBSz5Fzu0VGiuBrdRC72Erc14Fo1fRXNMasfI6jc0ioFi29XAC4WUb
+	 e0EMo8YHg0iO5T49/1QOyhu7gzVXYTKh1Ra03l2yI1N5pDAWyfWZGXnpgl/lkbc55/
+	 /4VmY1qRBi0mp2CzzTYl2NnJxFED1hhZetH9teyAcddp5gm5QnYXPXWGJZV/4QHkia
+	 XAzd7keTIL4Jh5vl2AFjtM5xzaF+4ZrTujk54/pMK4cdJIWOLzKKLGhX8DTxGdD4zq
+	 Savyadu6JZABjEYih4G0DUtpL2Nxu0+8kPyqyfA9i5gEWMqPf/sl1/p+oNpRAfal6D
+	 EaRDByI2FZxmQ==
+Date: Mon, 5 Oct 2026 11:35:59 +0200
+From: Vinod Koul <vkoul@kernel.org>
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Cc: Marc Kleine-Budde <mkl@pengutronix.de>,
+	Vincent Mailhol <mailhol@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Aswath Govindraju <a-govindraju@ti.com>, linux-can@vger.kernel.org,
+	linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: phy: ti,tcan104x-can: Fixup unapplied
+ constraint to ti,tcan1042 family
+Message-ID: <asNvf1LZET8i7UoQ@parshuram>
+References: <20260918110116.94024-2-krzysztof.kozlowski@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Mon, 05 Oct 2026 11:35:54 +0200
-Message-Id: <DLWSWRKGNB1K.303TRIRF4FH16@fairphone.com>
-Cc: <~postmarketos/upstreaming@lists.sr.ht>, <phone-devel@vger.kernel.org>,
- <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 1/2] dt-bindings: display: panel: himax,hx83112a:
- Tighten compatible matching
-From: "Luca Weiss" <luca.weiss@fairphone.com>
-To: "Neil Armstrong" <neil.armstrong@linaro.org>, "Luca Weiss"
- <luca.weiss@fairphone.com>, "Jessica Zhang" <jesszhan0024@gmail.com>,
- "Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, "Maxime Ripard"
- <mripard@kernel.org>, "Thomas Zimmermann" <tzimmermann@suse.de>, "David
- Airlie" <airlied@gmail.com>, "Simona Vetter" <simona@ffwll.ch>, "Rob
- Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>, "Luca Weiss" <luca@lucaweiss.eu>
-X-Mailer: aerc 0.22.0-0-gc2f86b7abde3-dirty
-References: <20261002-hx83112-compatible-contains-v1-0-d558635ab7fc@fairphone.com> <20261002-hx83112-compatible-contains-v1-1-d558635ab7fc@fairphone.com> <9be89803-974c-4746-8af0-a13e5a19fb33@linaro.org>
-In-Reply-To: <9be89803-974c-4746-8af0-a13e5a19fb33@linaro.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918110116.94024-2-krzysztof.kozlowski@oss.qualcomm.com>
 
-On Mon Oct 5, 2026 at 11:27 AM CEST, Neil Armstrong wrote:
-> Hi,
->
-> On 10/2/26 16:49, Luca Weiss wrote:
->> The compatible was defined too wide, we just want "djn,9a-3r063-1102b"
->> and nothing else.
->
-> Can you add Fixes tags ?
+On 18-09-26, 13:01, Krzysztof Kozlowski wrote:
+> ti,tcan1042 is also used as fallback for a few devices, thus the check
+> in "if:" conditional should use "contains" to properly validate these
+> other devices.  The other compatibles used in the changed enum are used
+> alone, so it does not affect them.
 
-Sure, I can do that. Wasn't sure if that's a thing on dt-bindings
-patches, but it seems to be used regularly.
+looks duplicate of c7f2322431cb ("dt-bindings: phy: ti,tcan104x-can: Fix
+property constrains") ? if not please rebase on this and send
 
-Fixes: 3b59787a5170 ("dt-bindings: display: panel: Add Himax HX83112A")
-
-Regards
-Luca
-
->
-> Thanks,
-> Neil
->
->>=20
->> Signed-off-by: Luca Weiss <luca.weiss@fairphone.com>
->> ---
->>   Documentation/devicetree/bindings/display/panel/himax,hx83112a.yaml | =
-3 +--
->>   1 file changed, 1 insertion(+), 2 deletions(-)
->>=20
->> diff --git a/Documentation/devicetree/bindings/display/panel/himax,hx831=
-12a.yaml b/Documentation/devicetree/bindings/display/panel/himax,hx83112a.y=
-aml
->> index 2c60d0cd704e..3dd9b25ff13f 100644
->> --- a/Documentation/devicetree/bindings/display/panel/himax,hx83112a.yam=
-l
->> +++ b/Documentation/devicetree/bindings/display/panel/himax,hx83112a.yam=
-l
->> @@ -18,8 +18,7 @@ allOf:
->>  =20
->>   properties:
->>     compatible:
->> -    contains:
->> -      const: djn,9a-3r063-1102b
->> +    const: djn,9a-3r063-1102b
->>  =20
->>     reg:
->>       maxItems: 1
->>=20
-
-
+-- 
+~Vinod
