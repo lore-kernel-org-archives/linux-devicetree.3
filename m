@@ -1,97 +1,127 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDC854A5EBA;
-	Mon,  5 Oct 2026 15:32:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A25444C66A
+	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 15:35:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791214369; cv=none; b=M6lnLcL5KGGoV8a7dzoFs6SOCotFSm3zXx7Xt89UoRxK280ETvfiaqHVS8Ka63ZPndVSB1tJFA0uo67QRDSIavXkb8SYX9BhhHrLTsRIJwiYC4Mumr7L5dTsxdO65viKE0ewD99+lbND/9d4okHCQnWQIpdljI675wII0kuNuLQ=
+	t=1791214519; cv=none; b=Uwl7+zv6PmzLdsqpPnLejWYMXVSZk6NNFIQG/ZyYpCWoC33pd26QKw2jIjxd0cmSM4BwCssFRZfyYTJMzglzUgYPvyElw2pVpLCShceWFVLIgrjET4qA8wAazNLTEtT/OeVy9YegUm7JaPKQWZ5oEeqzLnE6ISsImT65rRDqDnI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791214369; c=relaxed/simple;
-	bh=UsnN6PH7fTub/zsxY5VlX9B8a0kmr86Cvx8kE1sC/b0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=dODgtGt56xV74t4LmptJaxtLmNjgLNYXHFdcyfW2/JmPMVLHi0SNLC8v9SlkXM0Whb/hS4w+pN175chgm6yb5aAr8Spyv/IUO/n3NA/4Pdxw7Z9zsMTb1GHK2f9feXgc8jxPrsG160tkuXYaXx5neis5RGcYFwNKWVtdS9J1yuE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LHC2U6kV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791214519; c=relaxed/simple;
+	bh=5Wlk3C4fPzSe03Z4PLzVc/xs4+zaEnZvEB0pYwXTbzY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=JxJ+65ZcJHdOEcsWMxIOMCSRVMmmuWXkr0r6OA8vR7lIWPZ5Fw0gwMIr6H2+XiU/3jI2PMbRLJuXR0aIKT6W+aDxquX7w3+r3/e+h1VRzFvrh6PrMX/toleXig1yEFSTnNnLnLkGqWDnQP7umDWxYLU1RBG2lehsaRmhxaItC18=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HnK++8B1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LHC2U6kV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 510441F000FF;
-	Mon,  5 Oct 2026 15:32:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HnK++8B1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A07C41F000FF;
+	Mon,  5 Oct 2026 15:35:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791214367;
-	bh=LbIjpXl+324bLgMATiQrFMKy5rUeG4uifuAYYnf6dJM=;
-	h=Date:Subject:To:References:From:In-Reply-To;
-	b=LHC2U6kV00SJbkKGH1ryQ+/yiEw3j6KQT8bMZo3cSHwpNjpDR1yIUo+FyqJk64QU7
-	 DFsk1E1O+ZNbOJ/jE+cje9N+672KuKIQQQafb4P4eExo6HoChdwJ3+v5aq1lLYqIpI
-	 9VtEMtlLl/zyOo+vmFyn9gH3oGeBeKS8oc3JODeRRgyaOY4UkqgnMD92EfZo8JbG2n
-	 RhVOCsttzSTFBL+Z5Dezc2+9XeanOK1GuIL5tMSp6mIiEwOcQPAFrj7YbTgft4aK3a
-	 PTconCjISkApgxlpWvuxZxr6BuoLGUmOatT8hfT4zy8GEWcswb/V32Be04BEu8/ZhQ
-	 vFvBKo/4oKY6w==
-Message-ID: <accebbb0-d7bc-4446-829e-2f2d65357f17@kernel.org>
-Date: Mon, 5 Oct 2026 10:32:46 -0500
+	s=k20260515; t=1791214517;
+	bh=S+lLtqdUAlDmA/Z+AYL4d+VhGHS79dW+b/gkn7k7mF4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=HnK++8B1d3ZnDrDOGiHA2q9pM3PGK0c3ZOOI1FRSSlpnB46qw7vQUX+Blg9MOMog6
+	 79m3bA2Oe0qPDbuDHxtYr9E/7dIGxnHZbM0Fa3lH6kVU1OE++N5bbvo0xTuGjaRduA
+	 h7NBiAUjjlIDiybIMGFvWzZ9yScaprzhUG8mMX9cqD3WJWbzSwUwLDDIc18K70wPbh
+	 lda9OkQnTIqxsjQjan+dDi+GV/h67E4a1wDi1l6AAR8P5l0cM3H59VUfJmma3mNwUB
+	 yCNcMWMLqkrt5XF+v9YvBNg7ZpcpTHfI41UCjyHW+CQnlpqxa0kSyDDwxpqHlf1GH1
+	 PmEE3ia7gDD0g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: power: domain-idle-state: Add
+ system-state
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Maulik Shah" <maulik.shah@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261005-s2idle_state-v1-1-3c402c66f388@oss.qualcomm.com>
+References: <20261005-s2idle_state-v1-0-3c402c66f388@oss.qualcomm.com>
+ <20261005-s2idle_state-v1-1-3c402c66f388@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 05 Oct 2026 15:35:17 +0000
+Message-Id: <20261005153517.A07C41F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 0/2] arm64: dts: altera: Consolidate SoCFPGA device
- trees
-Content-Language: en-US
-To: evon.chiam@altera.com, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <cover.1789123511.git.evon.chiam@altera.com>
-From: Dinh Nguyen <dinguyen@kernel.org>
-In-Reply-To: <cover.1789123511.git.evon.chiam@altera.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Critical] dt-bindings: backwards compatibility broken by reusing domain-=
+idle-state
+--
 
+commit 7783b35f06985a4e4112599684740ef1b9b25325
+Author: Maulik Shah <maulik.shah@oss.qualcomm.com>
 
-On 9/11/26 08:58, evon.chiam@altera.com wrote:
-> From: "Chiam, Evon" <evon.chiam@altera.com>
-> 
-> The arch/arm64/boot/dts/intel/ directory holds two unrelated families:
-> the Altera SoCFPGA platforms (Stratix 10, Agilex, Agilex5, Agilex72,
-> Agilex7M, N5X) and Intel Keembay. Stratix 10 already lives in
-> arch/arm64/boot/dts/altera/, so the SoCFPGA device trees are split
-> across two directories today.
-> 
-> Patch 1 moves the remaining SoCFPGA DTS/DTSI files to dts/altera/ so
-> that all of them live in one place; only Keembay is left in dts/intel/.
-> Patch 2 then drops the now stale arch/arm64/boot/dts/intel/ path from
-> the ARM/SOCFPGA ARCHITECTURE MAINTAINERS entry.
-> 
-> ---
-> Changes in v4:
-> - Split the MAINTAINERS change out of the move patch into its own patch
-> 
-> Changes in v3:
-> - Drop stale SoCFPGA MAINTAINERS F: entry for arch/arm64/boot/dts/intel/
-> 
-> Changes in v2:
-> - Reworded commit subject to drop redundant "device trees" and phrase
->    the move as "to dts/altera"
-> 
-> v3 patch link:
-> https://lore.kernel.org/all/47719884b157863b2253b415daa447b417cd3419.1789048358.git.evon.chiam@altera.com/
-> 
-> v2 patch link:
-> https://lore.kernel.org/all/4b78273b85041f74b12245d0bf222f018afd2bd6.1788933630.git.evon.chiam@altera.com/
-> 
-> v1 patch link:
-> https://lore.kernel.org/all/802bf0d27fbff9b1ddb6b9fc323a1a9f8f050f74.1788512748.git.evon.chiam@altera.com/
-> 
-> ---
-> 
-> Chiam, Evon (2):
->    arm64: dts: altera: Move all SoCFPGA files to dts/altera
->    MAINTAINERS: Drop arm64 dts/intel path from ARM/SOCFPGA ARCHITECTURE
-> 
->
-Applied!
+dt-bindings: power: domain-idle-state: Add system-state
 
-Thanks,
-Dinh
+Some domain idle states require system-wide coordination and are not
+applicable while the platform is up and running. Add a boolean system-state
+property to describe these states.
+
+> diff --git a/Documentation/devicetree/bindings/power/domain-idle-state.ya=
+ml b/Documentation/devicetree/bindings/power/domain-idle-state.yaml
+> index 4dd4f59bbbec3..35dab3cd6aedc 100644
+> --- a/Documentation/devicetree/bindings/power/domain-idle-state.yaml
+> +++ b/Documentation/devicetree/bindings/power/domain-idle-state.yaml
+> @@ -45,6 +45,12 @@ patternProperties:
+>            state will yield power benefits, after overcoming the overhead=
+ while
+>            entering the idle state.
+> =20
+> +      system-state:
+> +        description:
+> +          When present, this state requires system-wide coordination and=
+ is
+> +          not applicable while the platform is up and running.
+> +        type: boolean
+> +
+
+[Severity: Critical]
+Does adding this property to nodes that still use the "domain-idle-state"
+compatible string break backwards compatibility?
+
+When an older kernel parses a Device Tree containing a system-only power
+state, it traverses the domain-idle-states phandles and matches the
+compatible =3D "domain-idle-state" string. Because older kernels do not
+recognize the newly introduced system-state boolean property, they will
+silently ignore it and incorrectly register the system-only state as a
+regular runtime cpuidle state.
+
+If the runtime governor selects this system-suspend state during normal
+operation, the lack of system-wide coordination can cause the hardware to
+hang or crash. Device Tree bindings form an ABI between firmware/bootloader
+and the OS, meaning newer Device Trees must safely degrade on older kernels.
+
+Could a new compatible string (e.g., compatible =3D "domain-system-state") =
+or
+a distinct linking property (e.g., domain-system-states) be introduced
+instead, so older kernels naturally skip parsing it?
+
+[ ... ]
+
+> @@ -77,5 +83,13 @@ examples:
+>          exit-latency-us =3D <40>;
+>          min-residency-us =3D <80>;
+>        };
+> +
+> +      domain_power_off: domain-power-off {
+> +        compatible =3D "domain-idle-state";
+> +        entry-latency-us =3D <100>;
+> +        exit-latency-us =3D <200>;
+> +        min-residency-us =3D <1000>;
+> +        system-state;
+> +      };
+>      };
+>  ...
+
+[Severity: Critical]
+Does this example demonstrate the compatibility issue? A state explicitly
+restricted to system-wide coordination still uses the "domain-idle-state"
+compatible string, which would render it structurally unsafe for older OS
+releases to process.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261005-s2idle_sta=
+te-v1-0-3c402c66f388@oss.qualcomm.com?part=3D1
