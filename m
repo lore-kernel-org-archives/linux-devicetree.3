@@ -1,151 +1,273 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11021101.outbound.protection.outlook.com [52.101.125.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F39319CC0F
-	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 03:10:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791169848; cv=none; b=ZQkouh4gkz41uQdXbjlz0AIZbsj3iUtiHxXRfJa0SBiQ/3bLigfj729dgCg+KV1FwodKlD86hpLt/tA7CORQlEp5u85c/rgFNQXy1AzcuSjgF9TbqblpHBxK+qi7yTamT0HhVYntRaZY9ACFbG2EuDjEkMLx7W97jlKoGSEGDD4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791169848; c=relaxed/simple;
-	bh=FkAYTVSx/narKs44G9kWV+3HqbiiTQQLw1ziMHERtW0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JIVxx02kYBKGeY+86QPPuVNkDYXZFBsfIDTiH9jRaL6wQAcBamDnB0lA6jBka/1YK71A6dzeIxNpxWRInzkXlI16ar9NtTqrgJQaj4PHptvDGflSXQd6VOxJFyuxf8DMtLgPdy5I9InKASdJP50gNnL+8Cw6iKmwFfArmsJmte8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=d+gM6bE0; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cdtJ1KyB; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28B19DF6C;
+	Mon,  5 Oct 2026 04:22:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.125.101
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791174169; cv=fail; b=uCdYOZICvAGnUC5wfHzQ6JE794l9dM8rzcpGETl4VlQzUFMaeLMXD3m6cBcird/8xhFQY7aMT97MK+WcAssVTcVENqAK73g22+Bj1N/xSA2YWRr+6vhvctbmrhZst755m7LxOTg1UbxCBYGNxZcBV4qMNioQJR5kuNtmRdh/908=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791174169; c=relaxed/simple;
+	bh=vxJzpiz6x8h33SR2Sw25hXIzSSJ8FJKbLhUaVxfOkBY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=JbzB46QO9LUZaxS5Lno+x695ogfSRHMVEwMwEQYO1qHKmDtwBBZvHqk4DJRxuuMa0FDyDIMISO6kkhOZvOVyKr62njxvYl1t3CXasHNajuQzF4Zse0j16zOfn/ENLl224p2MRgxbAcfPu9A1BMfDSswT6vVLJfOWOclpeOpvosI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp; spf=pass smtp.mailfrom=valinux.co.jp; dkim=fail (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b=keJUcwWS reason="signature verification failed"; arc=fail smtp.client-ip=52.101.125.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=valinux.co.jp
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=valinux.co.jp
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="d+gM6bE0";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cdtJ1KyB"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 695102qY3838382
-	for <devicetree@vger.kernel.org>; Mon, 5 Oct 2026 03:10:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=3OfEK2icYr2I7GSUxSDco0Fe
-	v4FbkyIVeW2fdTVpW8s=; b=d+gM6bE0mp8gn+PS8MsvfEEFXa2AYtPjzXEvduFv
-	bISDW94sY7FXV2hxT7ss4R+hJuJkDg7/MGREAEXDlrw2y6yBGUTTBRtbaUWreMAX
-	1BJ3dqYZEXzZ/BJEHbFSrGcQfbLwehjIrHtYlM0tHLBn7GRvA6kW2c+IUWdUt66I
-	OIEdwDWP3955Iuj9tzOOg79JHKCskYXfWLelN40GgIV48WuR9NY6UmWsr91sK4vk
-	vREcrp+x2iU+1nbaPALvUV2UhBJ4oT8jNmPKpc9Q2igrOrrMPM6NJw75WsEI/lm1
-	UG+SroPbg8/S81xTjVEx+77w6gZLf3wxkBFgNMIpX5Ad2Q==
-Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h2u08m68h-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 05 Oct 2026 03:10:46 +0000 (GMT)
-Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-7bf71bbf197so1198443137.2
-        for <devicetree@vger.kernel.org>; Sun, 04 Oct 2026 20:10:46 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791169846; x=1791774646; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3OfEK2icYr2I7GSUxSDco0Fev4FbkyIVeW2fdTVpW8s=;
-        b=cdtJ1KyB1iD+oOm5+Sd+EDNvhKJt8AmqdUEICdclBsT31UcfAdpFGTP+coBdvjq3Qm
-         nk+zWmXGlMX82vVdQLY8Srur6uRNt/MtI2kWQrJoFBHOg5PEWYnECDClwbptYc3hfXAO
-         TfEzC4vXdacyifM5JOHYoDH6YPK06vaK47D6Jwt7B04PBa86tpEptH9bQ5051iJ/YXHv
-         mrDT4zuzpEu/dhSUOPjJq7wKOmm9e9+P4H2q/rCr4Jp3kJLCGam4hJSPu52NclEAsefH
-         F6Maze6boJGYKkdYQviR5Q8Fd7RoN9zrUFIIZ28kmPHvc14/ZGg62OpYee3cIvMZLhJQ
-         BOwA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791169846; x=1791774646;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3OfEK2icYr2I7GSUxSDco0Fev4FbkyIVeW2fdTVpW8s=;
-        b=VkT8hELWVw0ZGpuJ0dItc/6atu7JAB0/2dQV+IpcNKDZ0/RuTnQEzHFZaFuOfwZIR3
-         qCyvJDpGd6t0tfReqYD3J7unaMx8CLeqjOiNSVh68p3/LRtzwFd3j/rW7UOl1MlxXw6m
-         dHfocok85F6LizVMkge6ZH4aSuBHHSQjvsGPI4C6Ao50iYNDCR3AzxdALrFiDgU0wgeD
-         6VVecY7ojsEnWQjQrfPC9usglhSj1928XUh+DATW9A1DnzwrWhqC95jUlFrmYcBDx0iL
-         lZY9cprFh+Gotws9+Zehbymqg1VvRXzOLNaVzjOO/JGuioE8EsFKxPfAdzQZxuS81OxU
-         ggag==
-X-Forwarded-Encrypted: i=1; AKwUvBw0plMt3cyKmzNUzUCXuoQpNLYAGPbhgipc7Wf1+NsQr5Vz4yDtQK4jzsZkcNa9PuuEtse2YdfUQKvl@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ0D1xM7P16YSxkIfGNB4q2q9gRlDGGRk1Lluc66/1XKn8G3qWk
-	4CgbaRRyGAPSLpYiUD2t6/+oM7MPjTInk3Oi2yn4trj4kfZDHQHZ53FIKidecFDrpF+MLC5h6NI
-	yh70DFV3pN5L5E7BC8e9zpDgGsVNp6FGi5/hrgtB2JyrwoxC0yQ/ePv+SPAtnX5Ne96j/29Xda3
-	GMjQ==
-X-Gm-Gg: AYBFou2zIKuaLW77OtiZO/U/40eyI+2RPdYBEJmZFJYdnIdiJ9bHlw+abIrkPtumNJ/
-	fM+YC2KOImi4Nwp8L8n6BoU5sFBwhkZe3Ixw97qD9SLaUdERJUr+b6QtuMljxthvcvce7JmjvWR
-	YjHIgS9xQ4Wn/X9OQoSXyS9TqV1lm8Oqr8eZSh77fw6zGptaQo5Lfs4UpNd9Ij1Y3oLzSss7HUj
-	oNHyjWWXN4X9Z1dLMPv1kzn5Q5vn1MF5G49o55rocWRJIHB6JnquFqu6oSIwPJrFm7FolYITkuZ
-	kOxAreIBTdu+R9W0syV5o11coBzoGwg4V/NgThS62h2D55X/Yroudgi5jgMXg/PAD9sJ3TJitCZ
-	TqLFBEZkC4kmzdB0p5p6IzLdAwmSr+rZ2XRuAr2BaBDOI12LDxxACOfz5kbvqu0+aYefPVKDDQ+
-	Cv30sR8BrRP8wG
-X-Received: by 2002:a05:6102:3c8e:b0:7a8:d959:bd76 with SMTP id ada2fe7eead31-7c0f51af767mr2878350137.33.1791169845771;
-        Sun, 04 Oct 2026 20:10:45 -0700 (PDT)
-X-Received: by 2002:a05:6102:3c8e:b0:7a8:d959:bd76 with SMTP id ada2fe7eead31-7c0f51af767mr2878337137.33.1791169845260;
-        Sun, 04 Oct 2026 20:10:45 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a87e31035esm36650811fa.30.2026.10.04.20.10.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 20:10:44 -0700 (PDT)
-Date: Mon, 5 Oct 2026 06:10:42 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Reza Kurniawan <imkyufie@gmail.com>
-Cc: Sebastian Reichel <sre@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, linux-pm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: msm8917-xiaomi-riva: Enable USB
- support (peripheral mode)
-Message-ID: <3w2te74boo63yqbfgi5mwiu4rqdjd67nmb4ums7p7whucdr2gj@5l7euw4umfun>
-References: <20260912-riva-usb-v2-0-997fe0171ee5@gmail.com>
- <20260912-riva-usb-v2-2-997fe0171ee5@gmail.com>
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=valinux.co.jp header.i=@valinux.co.jp header.b="keJUcwWS"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=w0VMfvr6QKbr7ZfGTUJlnOKvkATZX3oIVvIIidrd3PYFtHsjCm8NXoAhTr/jTpjcbknpdRqaBHys3TGB5otD4NGdP9yl98VaHtY71Tv9xYlZAyFLr+zsqSg+CThGG+p0A6o/KT3wCqv+VEwh0XBWdBLvzB8sIo3HaK9vhASukvA4iX0rkpAmGOljmKOwdH6SN84XltMdFlEm0DvirQc1eWe1B9AJO2cE+wk5S2Uyr1baRIMuM9UJi5fXggRWIePkmKImKCDLfOvhGl+1xEoAldmHyQQN3ZlvsIRf/tl2955QyvgX4E+PyQLz8kR9054UiZJZwOcgOG33DN2Z+P7f5w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=xNrDvzMKcSEOn4uukTezqfn//YbNtCrh5wRxp3iLLc4=;
+ b=rmF/Yn/Js0P4bV4hEfJR7OZyIljLOINpHfWgGTuuIrP5ob1gUI8uxE5yO2zqhekQPz8PWxPIMMrxsyGvsRMdintTqZP8QXxswrh1BgD2VXLuDoOdI8H7BtcGCq88axQIaGfSyDCBVg1i8ivYjzJxXCRE4W1lVhXAkLYlGMsBfpdfno09xwvAsLDbtv9X5V7piwJrbQ2rpPxMwQdWkn5MaxMMl+RdPXFPTAupabvEm2IRagAOOljnB+HfCz5cEKDgweU9Hlp2dGAfumSafSePQVMh4DoR7NSuLC+/fbNdgW1dagdYMJAYMLORiRXNdeKbUjLYK3h1mv2YFSlTUMoJjg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=valinux.co.jp; dmarc=pass action=none
+ header.from=valinux.co.jp; dkim=pass header.d=valinux.co.jp; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=valinux.co.jp;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=xNrDvzMKcSEOn4uukTezqfn//YbNtCrh5wRxp3iLLc4=;
+ b=keJUcwWSbY742+MfPHlTIjnflOs21MA9H5gXQfBai86f4WaSpJDgEWccMemkWtI0FEy3Hit9aoieHvPtrTAVfZN1wtZDb2qFAJ1Lq3gxdkzm6tXP7KogFR3z85qwN2Wg9T0v+jsJWpnbci4YHJD8zhS9bfK1i5KqXv7mQVg3Gio=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=valinux.co.jp;
+Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM (2603:1096:405:325::11)
+ by OS7P286MB6341.JPNP286.PROD.OUTLOOK.COM (2603:1096:604:41c::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Mon, 5 Oct
+ 2026 04:22:42 +0000
+Received: from TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::cce5:2aa8:53f9:dba9]) by TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ ([fe80::cce5:2aa8:53f9:dba9%5]) with mapi id 15.21.0472.016; Mon, 5 Oct 2026
+ 04:22:42 +0000
+Date: Mon, 5 Oct 2026 13:22:41 +0900
+From: Koichiro Den <den@valinux.co.jp>
+To: Marek Vasut <marek.vasut@mailbox.org>
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>, 
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	Jingoo Han <jingoohan1@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Frank Li <Frank.Li@nxp.com>, Niklas Cassel <cassel@kernel.org>, 
+	Wilfred Mallawa <wilfred.mallawa@wdc.com>, Serge Semin <fancer.lancer@gmail.com>, linux-pci@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 02/15] PCI: rcar-gen4: Check live link status in
+ link_up()
+Message-ID: <abcodlpsh2k2cood5czno5fqb32uxdrrzy7lwougxhil7zlqbj@b7a7v3kouwxn>
+References: <20260928165230.3397664-1-den@valinux.co.jp>
+ <20260928165230.3397664-3-den@valinux.co.jp>
+ <d675e0ba-10f3-4503-bc2e-61977f4a5875@mailbox.org>
+ <c038dbd9-7675-43a9-834c-915b6795dd50@mailbox.org>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <c038dbd9-7675-43a9-834c-915b6795dd50@mailbox.org>
+X-ClientProxiedBy: TY4P301CA0106.JPNP301.PROD.OUTLOOK.COM
+ (2603:1096:405:37b::17) To TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:405:325::11)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260912-riva-usb-v2-2-997fe0171ee5@gmail.com>
-X-Proofpoint-ORIG-GUID: 10PkqY63b9-jQIbjTxvJHDNfwoXsjkH2
-X-Proofpoint-GUID: 10PkqY63b9-jQIbjTxvJHDNfwoXsjkH2
-X-Authority-Analysis: v=2.4 cv=JqlkP84C c=1 sm=1 tr=0 ts=6ac31536 cx=c_pps
- a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=pGLkceISAAAA:8
- a=EUspDBNiAAAA:8 a=AYGg-ij1XDh01NWh1ucA:9 a=CjuIK1q_8ugA:10
- a=-aSRE8QhW-JAV6biHavz:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDAxMiBTYWx0ZWRfXzDSg9ndiBJc7
- EpkpTGtQdyQDXxyKEBvegrfvRSwfcYCv780bAutqkl558WrR+IKZcD+oePwcdbF+Dayd0xl7pPm
- MPXP5eo4ubU1gGT0W21UEZR9zdgVC0s=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDAxMiBTYWx0ZWRfXwb0I5Az591/D
- qqjbfD4CqyujQDIqzHS7HNQhTEJlyxf0m4JI0XEG1q7jnxS7P2E7w0VPcNRusd7ykacCf2o6mkC
- NTkwm1GcZycVWj4ZpO8VVwp3vBqAHOQba5xyABTNY0AeXjUQuD1HZturBOrjFuQsqDwHpYH+wY0
- +C3pvkGvw5GL74xczNgkFYooOwI7xH3/yrtW7Azbuyg7Wr2e6CIxWOntzjdKSFSr42VktLWY+0v
- taTf75CMcHvBflHxQ5ys1hvPAy76ZEFz6uGnyZsibMzhaCncTrMihpXNUx6XgPSVH5wLSTUoNJ8
- 8vC4CS797p9JWfA9jloa2UkE4yBVF9JwytgV5Agw61JLhxtDa1c34MuzFmGGh0vbC6ZSYQgM+oi
- Fos98KWg6Iu6qTZNcL0VPLX2PN+oTEizYUUxIWnS4EUX6sNIrDgymKRS/J5eXhSp2H93eyCqzVb
- N1NZg5p9P0YwI9O+WbA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-05_01,2026-10-02_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0 phishscore=0 suspectscore=0 lowpriorityscore=0
- impostorscore=0 priorityscore=1501 adultscore=0 clxscore=1015 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610050012
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY7P286MB6866:EE_|OS7P286MB6341:EE_
+X-MS-Office365-Filtering-Correlation-Id: a28ca222-4ce9-4c01-0bc7-08df22984c7a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|1800799024|10070799003|366016|23010399003|56012099006|4143699003|10067099003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	Ohbvl1B0w9YCxuR3mjx9wVAoJ4iWwC/wMZmRXPhDhCVo3eo//inITywjVlD5r3yh8yYNzu9Pcvt3s1xji4iaMcENuSvgq6/c0cZZB+HmZBrXuEE7+UFGGTx9/0r3W6Jq8CZ4Ig1PB9aD/Anx9aGGMQkyjbzZjFOsbiHNy84A7avQ+FH7brb/aAtP8sg9zXdeuRnZ1CPz55LsRGG0gy2eOCDG10uS3/W1KBfyJmbDWBvdyRmBSS5s+kJ+VWloZHrjxxMjuvkOPV9qPFdh6YMJs5Dj+gppHN3QhUaBz8bFThjhQP9U3cAmx0TbfQsCle/DOTuz0ieEVfqN7bqC8qy28v+H1+m9qZ5CmKbSRR/DVwQN4ijzYtqY+bWuyVmNLzheOevFtirxZPC+Mbp0LUB3a+HzCGO8IvVZ3lNB+MyRC+AC0I3o/pLDBooAY1QWcmHSDN79Ef7o6IIhZa9IhDtchbbiN6a5N98ghgKwr6yikBTsAkuPdyviMdmIICxWWpi4gGd1Utaldrnw/uJj3HEZRSO9fE5roC8k5W2066T7ursED15aJIg/RD4WxbCRekJm16SDkom7dU1m/XM1zqD6Hd7N6GfU1/CHdIUEzEu2QvmfArRe7u5DC3iTUlEJkCCKKA89JV54HzJzMlQZ61cRSZIk/9Tmx2l+ZPjhDVVMqvQ=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(10070799003)(366016)(23010399003)(56012099006)(4143699003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?iso-8859-1?Q?rSJ5m4bm0QGuw0p/hSeK2Dn7dom4+L+QvpFRqFui8QyGlKltfhjWcXcZKL?=
+ =?iso-8859-1?Q?UIB5i0u8Kywfts40vHLeew7U5xp53ZoZ9qVxY4/LLPFsDOqC8LAW1DGQxk?=
+ =?iso-8859-1?Q?XhPkDkSuxWBGSHIZwncJSKeEIXBycuWdeNcMPwJicJK3IBHlrs6Ta7BD9w?=
+ =?iso-8859-1?Q?pdPWiq3JlYbTF5Z4556MW+ALmlX4lGZCEBHhaa/xhe2oGGvArGcCuilUFy?=
+ =?iso-8859-1?Q?0v3vqjfIRE8ts1fw0BQOFNz+TkQcqyFhczF+PGQoTEo9fa9c3ea2XT2H2N?=
+ =?iso-8859-1?Q?w0YUdkcHeYLwcqNj7bMaO1C76Pm3l4oLnxSU4NHcpRp3BsWC8935SRutCL?=
+ =?iso-8859-1?Q?MxUPjKXI1PxX/6eP02+U80z2Z+WIGnIqXSrvFdwftyg5Bgfe4WprXiqxsW?=
+ =?iso-8859-1?Q?dJYGfj/57p1RM2u9aR4TZ8jTAq2GoF9yM+lqosyWtLryv2xWEh0pSPE3mi?=
+ =?iso-8859-1?Q?P1xlJaikpqnzPVtMotal2ovqKGLwcVy5JA6UsIzqHRIBxcHAF3c2yUnzOg?=
+ =?iso-8859-1?Q?de5+eUn/ICIiMdZwdctfqrqDpPztnUK7R7rtapzqLvxVybJR9bWl6fXvzB?=
+ =?iso-8859-1?Q?RL5rNnJm+jiKaCuLTQZa1n1afb3oiw9z6AyEVsmFniuwD5W+PTaJn4uatZ?=
+ =?iso-8859-1?Q?l2N0757MbPjXtLyuLjU1Z4g0oxnYh5nw1mydRigGeSzmav1bjQjv9d5qq7?=
+ =?iso-8859-1?Q?Cls+0qCnkP8MWAmCoYJQkF4A1FXxxQuJOIgzyhsVevMRQccG0okmpG6sLh?=
+ =?iso-8859-1?Q?hXdkox3VjexQDFPANbmwMz90t/J/oSa0MDACoYySOUtMDfzV1ELdUy2dVj?=
+ =?iso-8859-1?Q?ydcb02tCYHNnH//aDxPbJnYkIbKaga44hoxQeT6HPjsHcmWlnN6Jjb590x?=
+ =?iso-8859-1?Q?hL+3aYsGMbH6v8NYW0E68n0O9ntzwMioKybDrF4+vzdoRojcsQVHZkCASG?=
+ =?iso-8859-1?Q?04u6JU+etHkM/OpdnUeZwh/Udhc7F3g5P51BhpC2AXFO27gJUUVOGoRfMV?=
+ =?iso-8859-1?Q?jORvLxpDPNHxgjFR1D1U3gT8+IOTrJ1UoHZ3EPHmKqxqSAcUsf5O3g+1Vh?=
+ =?iso-8859-1?Q?QK0ElqkTYJ4C9v+aReIVqVoJ1IRm8/k8UKrxcFsoFu4UIlQs4OyuzL6kQF?=
+ =?iso-8859-1?Q?aJbwffPDWFwSO28x1J05gXozcMN7Q+HfaDLyLkJcwc4IQ9f1/+EcKXUuRU?=
+ =?iso-8859-1?Q?L+0XLpatxNOc5+2gFYfZqai/SS12CVHWEXcvB0o+3c70kwVYWsbu5x6b14?=
+ =?iso-8859-1?Q?h9Hv+r8Elg+KUbCbdI+NRtuYxikJMvtb1J4Lyv4In3GD32aJDFJuOnQfBO?=
+ =?iso-8859-1?Q?8P/R9IczV5AuaDOiD8Pp3aoHVRfVxsbL0sMOguGSZ/cibJGr7+jgd/H+pB?=
+ =?iso-8859-1?Q?F/fLhllVLogTKcjxflYnaBkm9aAQr2eLNnAwb5C78I00cd7sCTlWmRjxyp?=
+ =?iso-8859-1?Q?eyXJ3/oacojaeW/VyZo79eaO4yH/GyH5RMmZbf3qQyG5sJvPfXa4yC1CtO?=
+ =?iso-8859-1?Q?6MwVZNWqpW5K6h8QyxzfeQM4kiaStubPsJivFYRCZuvVXYX7o8VHn1hZjs?=
+ =?iso-8859-1?Q?kYEjCCiZ++uWeaDpgpfE9RqxVo7loe2P+K+FAXBumk4Vzni9ssr6/QLCmV?=
+ =?iso-8859-1?Q?IHcabNz2BgCGJieQRekJ9OpSg0wRSQJ0+sjzFwlE3wUQqH5sjDysFv77nO?=
+ =?iso-8859-1?Q?QZPTZD5oZ3lZ+COPIXS+ijHkOKRRpSDufwxpFESqS6FscqU12jNQZgX/MS?=
+ =?iso-8859-1?Q?Up6ljuahUYhkzb5NC/OIqlxs9fUZD1047hCQPHNrNXdWrTSbwpjDmJJ7/S?=
+ =?iso-8859-1?Q?H1P8QQd8XjRbbeBeMFzv1VcniGfDhcatsYbSn6kxYxDDqpBE6kCl?=
+X-OriginatorOrg: valinux.co.jp
+X-MS-Exchange-CrossTenant-Network-Message-Id: a28ca222-4ce9-4c01-0bc7-08df22984c7a
+X-MS-Exchange-CrossTenant-AuthSource: TY7P286MB6866.JPNP286.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 04:22:42.5833
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 7a57bee8-f73d-4c5f-a4f7-d72c91c8c111
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: CsSm7kExADsZtldhDbIsa8n5O1kQvsgT2y+J/4ekMN0yzwKqg5mkK3H3YU4W2g8CK/sQtNixKfyTztBMlEEciA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS7P286MB6341
 
-On Sat, Sep 12, 2026 at 10:18:12PM +0700, Reza Kurniawan wrote:
-> Enable USB node and PHY. Since VBUS is wired to the charger IC, also
-> set extcon of the USB node to inform the USB driver of cable events
-> emitted by the charger driver.
+On Sat, Oct 03, 2026 at 08:51:58PM +0200, Marek Vasut wrote:
+> On 10/3/26 8:29 PM, Marek Vasut wrote:
+> > On 9/28/26 6:52 PM, Koichiro Den wrote:
+> > > rcar_gen4_pcie_link_up() checks link state using SMLH_LINK_UP and
+> > > RDLH_LINK_UP in PCIEINTSTS0. However, these bits do not reflect the live
+> > > link state. On an R-Car S4, after taking down the endpoint, a link-down
+> > > interrupt saw PCIEINTSTS0 = 0x20a000c5 with both bits still set. Even
+> > > after resetting the controller with the LTSSM back in Polling, they read
+> > > 0xa000c5, still set.
+> > > 
+> > > As a result, dw_pcie_link_up() keeps reporting the link as up after it
+> > > has gone down. That defeats the check in dw_pcie_other_conf_map_bus(),
+> > > which is supposed to stop config accesses to downstream devices while
+> > > the link is down, so such accesses go out on the dead link and stall the
+> > > host. It also makes the callback useless for the link-down recovery
+> > > added later, which has to wait for the link to actually come back after
+> > > resetting the controller.
+> > > 
+> > > Keep the APP link-up event check from Figure 104.5 of the R-Car S4
+> > > reference manual, but also require PORT_DEBUG1 to report the link up and
+> > > not in training. The callback then rejects a downed link even if the APP
+> > > link-up events remain latched.
+> > > 
+> > > Clear the APP latches before enabling LTSSM to discard events from a
+> > > previous start, and only read them in .link_up(). RC startup uses
+> > > dw_pcie_wait_for_link() to poll the combined condition.
+> > > 
+> > > Fixes: 0d0c551011df ("PCI: rcar-gen4: Add R-Car Gen4 PCIe controller
+> > > support for host mode")
+> > > Suggested-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> > > Signed-off-by: Koichiro Den <den@valinux.co.jp>
+> > 
+
+Hi Marek,
+
+> > I apologize for the late reply.
+> > 
+> > Reviewed-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> > Tested-by: Marek Vasut <marek.vasut+renesas@mailbox.org> # R-Car V4H
+
+Thanks for the review and for testing on V4H.
+
+> > 
+> > Since next 20261002 now contains commit
+> > 
+> > f29719b5064c ("PCI: dwc: Align register macros with Synopsys
+> > documentation")
+> > 
+> > This will need the following slight adjustment:
+> > 
+> > "s@PCIE_PORT_DEBUG@PORT_LINK_DEBUG@g"
+> > 
+> > "
+> > -       val = dw_pcie_readl_dbi(dw, PCIE_PORT_DEBUG1);
+> > -       return (val & PCIE_PORT_DEBUG1_LINK_UP) &&
+> > -              !(val & PCIE_PORT_DEBUG1_LINK_IN_TRAINING);
+> > +       val = dw_pcie_readl_dbi(dw, PORT_LINK_DEBUG1);
+> > +       return (val & PORT_LINK_DEBUG1_LINK_UP) &&
+> > +              !(val & PORT_LINK_DEBUG1_LINK_IN_TRAINING);
+> > "
+
+Thanks for the heads-up. v3 will be rebased onto the latest -next and use the
+new names.
+
 > 
-> Signed-off-by: Reza Kurniawan <imkyufie@gmail.com>
-> ---
->  arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts | 17 ++++++++++++++++-
->  1 file changed, 16 insertions(+), 1 deletion(-)
+> A small nitpick, would the following change make sense to reduce duplication
+> a bit ?
+
+Yes. In v3 I'm planning to add it as a separate patch right before this one,
+with your Suggested-by.
+
+Best regards,
+Koichiro
+
 > 
-
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-
-
--- 
-With best wishes
-Dmitry
+> diff --git a/drivers/pci/controller/dwc/pcie-designware.c
+> b/drivers/pci/controller/dwc/pcie-designware.c
+> index c726aa71c830c..52bdb1fcc2db2 100644
+> --- a/drivers/pci/controller/dwc/pcie-designware.c
+> +++ b/drivers/pci/controller/dwc/pcie-designware.c
+> @@ -817,17 +817,23 @@ int dw_pcie_wait_for_link(struct dw_pcie *pci)
+>  }
+>  EXPORT_SYMBOL_GPL(dw_pcie_wait_for_link);
+> 
+> -bool dw_pcie_link_up(struct dw_pcie *pci)
+> +bool dw_pcie_link_up_debug_check(struct dw_pcie *pci)
+>  {
+>         u32 val;
+> 
+> -       if (pci->ops && pci->ops->link_up)
+> -               return pci->ops->link_up(pci);
+> -
+>         val = dw_pcie_readl_dbi(pci, PORT_LINK_DEBUG1);
+>         return ((val & PORT_LINK_DEBUG1_LINK_UP) &&
+>                 (!(val & PORT_LINK_DEBUG1_LINK_IN_TRAINING)));
+>  }
+> +EXPORT_SYMBOL_GPL(dw_pcie_link_up_debug_check);
+> +
+> +bool dw_pcie_link_up(struct dw_pcie *pci)
+> +{
+> +       if (pci->ops && pci->ops->link_up)
+> +               return pci->ops->link_up(pci);
+> +
+> +       return dw_pcie_link_up_debug_check(pci);
+> +}
+>  EXPORT_SYMBOL_GPL(dw_pcie_link_up);
+> 
+>  void dw_pcie_upconfig_setup(struct dw_pcie *pci)
+> diff --git a/drivers/pci/controller/dwc/pcie-designware.h
+> b/drivers/pci/controller/dwc/pcie-designware.h
+> index 4199324882800..2ce61709b58c2 100644
+> --- a/drivers/pci/controller/dwc/pcie-designware.h
+> +++ b/drivers/pci/controller/dwc/pcie-designware.h
+> @@ -618,6 +618,7 @@ int dw_pcie_write(void __iomem *addr, int size, u32
+> val);
+>  u32 dw_pcie_read_dbi(struct dw_pcie *pci, u32 reg, size_t size);
+>  void dw_pcie_write_dbi(struct dw_pcie *pci, u32 reg, size_t size, u32 val);
+>  void dw_pcie_write_dbi2(struct dw_pcie *pci, u32 reg, size_t size, u32
+> val);
+> +bool dw_pcie_link_up_debug_check(struct dw_pcie *pci);
+>  bool dw_pcie_link_up(struct dw_pcie *pci);
+>  void dw_pcie_upconfig_setup(struct dw_pcie *pci);
+>  int dw_pcie_wait_for_link(struct dw_pcie *pci);
+> diff --git a/drivers/pci/controller/dwc/pcie-rcar-gen4.c
+> b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
+> index dbc0115885afc..b2ed1a329c418 100644
+> --- a/drivers/pci/controller/dwc/pcie-rcar-gen4.c
+> +++ b/drivers/pci/controller/dwc/pcie-rcar-gen4.c
+> @@ -127,9 +127,7 @@ static bool rcar_gen4_pcie_link_up(struct dw_pcie *dw)
+>                 return false;
+> 
+>         /* The APP link-up events remain latched after the link goes down.
+> */
+> -       val = dw_pcie_readl_dbi(dw, PORT_LINK_DEBUG1);
+> -       return (val & PORT_LINK_DEBUG1_LINK_UP) &&
+> -              !(val & PORT_LINK_DEBUG1_LINK_IN_TRAINING);
+> +       return dw_pcie_link_up_debug_check(dw);
+>  }
+> 
+>  /*
