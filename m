@@ -1,91 +1,80 @@
-Received: from out162-62-57-87.mail.qq.com (out162-62-57-87.mail.qq.com [162.62.57.87])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E1734D9F77;
-	Mon,  5 Oct 2026 17:34:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.87
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 237A84DA9A0;
+	Mon,  5 Oct 2026 17:34:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791221652; cv=none; b=EbV+LdjgdyNtdeuyH1TV8KKsmXiFZsWqXfysl4zDQVJe4FYBUMAcAEbgcTFZ3TMgszGOY5/v4y17RcnBVzTewCp/h27ar2wrMOx3haNZgaY4VPhq+OJQEt8h40tiQcWcQvoLv/S9gk0Rx4ANV8WlON1LfHot9tnieUBH2WzyZd4=
+	t=1791221653; cv=none; b=lu5zedtQGbPBj7Jpi2wqgSNOXqviA1H/kcmrc5prMVbYLti0ZUARoP1IBlSvQvp2XgKwIpR/IXAR+Q2JjRH8gqA/7Sil72kU7p/552BX8igCpllKXr71yHgilqClk8O7MfroCdcO9L1mbLKccHGug4zsRAGVNwI8FsTMiU6xMy8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791221652; c=relaxed/simple;
-	bh=1/QNs/RXd3I+xhGhK087MWiQ67GOsTw/k2ZWqVa4kDU=;
-	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
-	 MIME-Version; b=NOeCTqAUNsBbIBiYZdziBA8Yzoqr+vaiqMTZn+rwOcDWTcGFLwmgf4sUt1xtkhU8UZMBgx49SCqNFwpqI/dMw8IK4HjZ8OOIh8a3hLG5scf7ZLjsUl6CTkLTBcnpfI5FzTPaclLLSR5TT1t8V4j0s48bM8zYvBi7lJLQjR5R29w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=KkwmzThq; arc=none smtp.client-ip=162.62.57.87
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1791221653; c=relaxed/simple;
+	bh=NhqrkiSA02ITxm2xbuelRY8j0rmrvR6e0kC7iHqyrZQ=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=PDno2S6Od1aMqc7q4Rrgz0DlYBCcDjNva9fqco9eIfPnAaqtWSsFcWuVuLJKzSZdI2lmEUTkwauC1vIqruOZV9B3UItexeSGbg1a/wrKUt2Jr4bbKGxMAf7b20YNE47eZEMVB8Wn02lqgDSVaqQzp5dQQVGSHfpsYIMmhd7TQlI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VjX1PLwe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="KkwmzThq"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1791221645; bh=Wur1NLL6aiOKmJUmUiVG+uZqeCciMOf0+vtQvT0dX/Y=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KkwmzThq9Isw/vQZJYqphJ2q1JHrl2tklgcStXGb/7cG1+iEOKR47AuTbBCl/Iliq
-	 xt39/SO/51CKYAJBFomXMedyEH3NSFTx2wQzyv4XPpc650cAR/v/gS+Lg+CViZisaA
-	 aSTHmAgbvSLxFytRAOK4XY55B/S8kBmAa1Bmd18w=
-Received: from AERO17.taila7786d.ts.net ([2409:8a7c:21c:8010:c675:1308:618e:14ff])
-	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
-	id 7A82281B; Tue, 06 Oct 2026 01:30:40 +0800
-X-QQ-mid: xmsmtpt1791221443th06dqgbu
-Message-ID: <tencent_083C0104B06626D418A320F00AB992DD7B07@qq.com>
-X-QQ-XMAILINFO: MRMtjO3A6C9XpybnuFTaIZm4mrEpr2c73AFdvMwVIo3lC4zNAU+ilEx13A1PAQ
-	 N0vkhR5a4Q0H675Rh8Ar+HEWBXmfybqGyeAghMV6EtAEhUgFdEtnySAxLIlGOK80FJrKj1+jbEeW
-	 uU8G5+P7nhuACRKpVemdSsV5OcCP8jkZrppqSY/kAmAPLC94gsy6KiuypZtlFmXbmdEKNwOosIyI
-	 v3XTzIMdOGoqBGZtf0eFEo3wo2YztGGhVX8EpnwoI2ryiDHeawEZX7yuPgocwNyMUXDnwVSJ0Dt8
-	 w2gFkc80HvxqrgzLqLjOsNgOniGiTRZwjohYL4aYIpFlDa7lKGV1lXJNsVqvivMmFwmldBRNFdTI
-	 hqb6eFLWnv1WWRrDoH1G1HG4mV+XhxyvBRfozEYnbOaL58fo0RQD9i1W1m9hIeKIYUT+KRPVy4zM
-	 rRG5PccMfMVPub2EmjvfBdKdl1WcWDLLwgFVERI8sOHYpnRgoW/CHOlXZz+jcQ5fSvWV5xrQatAT
-	 Y/m1gCbcfZVs+acjb22oWMxlDc7u2o82zcKJRnNgTsb+TwjZg+PZeISv8DYolzP2Gv16RAt2onud
-	 PjZysveZwyeDxEIGI3gHpr/+8bFdZoIS8bXDC4jDqyBQbonxJs3bCs6khg1001QB1w1HzRDcsuC3
-	 owpsTqrCQ3xzhvu8GYi/LDN2slZp/6TP5vh4q5Aw6Vhk0FSxXxk4ByfdbRcdvQGSZsIbTdsTrvhY
-	 L35SVyh0ksEq+0hRB1+EvWS96r/rUgke7uByySS9XS9Ra/1/nPPtfRxuKjGiS5OQwT7LeNc5Njh1
-	 vMU2MbwqOmBeH8beoZVeo3/cOQrKYVWe2ccMaOPsGmBn5JN7eAgdlALpDubiFeVLN+wm9AwfK705
-	 pXKjfuss1IfcjxYWd9zAtxFpps/Fx4byYy58RDteXXUowj1+DXIV6cE+EhL2FuBotc5w1f4XbH+j
-	 kkmW5RVT40zQUR8SEHwwyZIHo/xitdDA8SxSU8XrELWhlyMiSoBflsqHqkpenikEDpqLtrxZTUQN
-	 3UOchapfr3PClKeT+GJAky7WHItA/Bu5TdpxghciJPMkhA6UjTMmUA1rKD6Gzu0VmsHqF0pcUBmO
-	 N53mBxiBgRfL4/BNjL5WXvrGGkVwzImgQU9qr2XGhu4Ygt7ec=
-X-QQ-XMRINFO: OWPUhxQsoeAVwkVaQIEGSKwwgKCxK/fD5g==
-From: Pufan Jin <2254650260@qq.com>
-To: Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Michal Simek <michal.simek@amd.com>,
-	Rob Herring <robh@kernel.org>
-Cc: devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	andrew@lunn.ch
-Subject: [PATCH v2 2/3] dt-bindings: soc: xilinx: Add ALINX EdgeBoard FZ3A
-Date: Tue,  6 Oct 2026 01:30:38 +0800
-X-OQ-MSGID: <20261005173039.707304-3-2254650260@qq.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261005173039.707304-1-2254650260@qq.com>
-References: <20261005173039.707304-1-2254650260@qq.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VjX1PLwe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A4D11F000FF;
+	Mon,  5 Oct 2026 17:34:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791221651;
+	bh=NhqrkiSA02ITxm2xbuelRY8j0rmrvR6e0kC7iHqyrZQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=VjX1PLwe/qS8Z3PUvMjLvZ7DM3tQ09LVvX4M0BxCoOi1hUajcLE/s2+TolRx5oOx1
+	 vy0EPMftpPtGSdqHzr9h8+McV5Ec29U2kYIc9HqoTLfDvDecjNGYAj/gxxcWpqICm9
+	 4JNPyrmT/V0o25/n+RTszkLqIKhnyvIFH5RBt9znEfUYWp1fBPY5PZ4YaMRJXPqgAP
+	 +n/0XbgwDutck/Bm51k2gBGRjw1M6oSIydzjAC5Z7JZs+vljsm1Q+JfCsXh3dRAwUP
+	 On0BJ7d1/bSBCM5YZj7OwWv6AhUgm8aKozk41DdVWIy2qtl5VT6CVzwchOhfii5y2q
+	 28tnzjjpflLbg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/3] serial: 8250_dw: Keep the BUSY-safe divisor hook
+ when DLF is present
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Vinicius Pedrosa" <vinicius.eduardo.pedrosa@gmail.com>
+Cc: linux-sunxi@lists.linux.dev, robh@kernel.org, linux-serial@vger.kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261005172538.398522-2-vinicius.eduardo.pedrosa@gmail.com>
+References: <20261005172538.398522-1-vinicius.eduardo.pedrosa@gmail.com>
+ <20261005172538.398522-2-vinicius.eduardo.pedrosa@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 05 Oct 2026 17:34:11 +0000
+Message-Id: <20261005173411.9A4D11F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Document the ALINX EdgeBoard FZ3A compatible.
+> dw8250_probe() installs dw8250_set_divisor(), which brackets the
+> DLAB/DLL/DLH sequence with dw8250_idle_enter()/dw8250_idle_exit() so that
+> a BUSY UART cannot drop the divisor LCR write. dw8250_setup_port() runs
+> afterwards and replaces that hook with the dwlib one whenever it detects
+> a DLF register. The dwlib hook programs the divisor through
+> serial8250_do_set_divisor() without entering idle.
+>=20
+> When termios changes while the UART is transmitting, the LCR|DLAB write
+> is ignored and dw8250_check_lcr() retries it between
+> dw8250_idle_enter() and dw8250_idle_exit(). dw8250_idle_exit() restores
+> IER while DLAB is still set, so the value lands in DLH. The real IER
+> keeps the zero written by dw8250_idle_enter(), and the port gets no
+> further TX or RX interrupts while up->ier says they're enabled.
+>=20
+> Program DLF from dw8250_set_divisor() inside the idle section and keep
+> that hook after dw8250_setup_port().
+>=20
+> Observed on an Allwinner A733 (Radxa Cubie A7Z): the first interactive
+> tcsetattr() during console output left hardware IER at 0 and up->ier at
+> 0x07. The shell never printed its prompt or read input. With this change
+> alone the same boot reached the prompt and echoed input, and hardware
+> IER matched up->ier afterwards.
+>=20
+> Fixes: a7b9ce39fbe4 ("serial: 8250_dw: Ensure BUSY is deasserted")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
 
-Signed-off-by: Pufan Jin <2254650260@qq.com>
----
- Documentation/devicetree/bindings/soc/xilinx/xilinx.yaml | 1 +
- 1 file changed, 1 insertion(+)
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-diff --git a/Documentation/devicetree/bindings/soc/xilinx/xilinx.yaml b/Documentation/devicetree/bindings/soc/xilinx/xilinx.yaml
-index c9f99e0df..ad7c71f9b 100644
---- a/Documentation/devicetree/bindings/soc/xilinx/xilinx.yaml
-+++ b/Documentation/devicetree/bindings/soc/xilinx/xilinx.yaml
-@@ -46,6 +46,7 @@ properties:
- 
-       - items:
-           - enum:
-+              - alinx,edgeboard-fz3a
-               - xlnx,zynqmp-zc1751
-           - const: xlnx,zynqmp
- 
--- 
-2.55.0
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261005172538.3985=
+22-1-vinicius.eduardo.pedrosa@gmail.com?part=3D1
 
