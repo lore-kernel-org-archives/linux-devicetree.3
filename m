@@ -1,174 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9754530F7FF;
-	Mon,  5 Oct 2026 05:41:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51C4A547047;
+	Mon,  5 Oct 2026 05:59:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791178895; cv=none; b=YHFV+EKf6ryTcf2PMtaNFULw2nhTbXjhqKQzukETKs+W5vj/vK8Fd72rNl7Y+sfSzIgrmfRjZdPYmU0Ta/J6darALR863uJ7YVLT4f0f6Edv8LnftGWeXfjsLSjMq2vOjeiY37T4TbCBvnnz6TNEZGvXymHsZN2HjorLHyLAvmc=
+	t=1791180000; cv=none; b=GqGP0CIIpWvSk4TTBtvaHrsC2SMYdFZm3upAXWyzm221HwBCmXLmYNZymbuTc2wyUTo952opdmpj9V7QaM6NDVpPZveIhfgIF9xsKN0akClFODKhZMyUvB61nJGGRBkDnuFd7JEFmyQxFTnzhJ+pGznPYk00TSw6k79C5hep88o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791178895; c=relaxed/simple;
-	bh=hsw9NSPhz5CedlJYWGP0Mi1O/i0VaMefug0YlhuqREg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QI8Vx7dKSJ6P7LFE8CeTsRLPFHOMsBMOu1PzzZm4gCVEjNzj9liCNDzhePbT5deaPhW62G6+ZIVTFSYWL/h/KkwpxpDEjmm+LQLPnFVnu+tcZQURCSNzE9gcVp2Kj+rDdMGQQDOIV8Fxr2omTD35ZTrQHA0Ju7moq0DxAizwEDk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jXMeP0jW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791180000; c=relaxed/simple;
+	bh=aLItZcP/H5RkTQJ8n3LRci/NNeMojm8BixxlFLZtxLs=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TPHHYygkbFwYUzayO4LF5J97p8Ib+uL5ktHeCroRQhoMf9qO+E9mnLEgVCBUfAgpT/YGjPqY4Lf2p4KKiiMgF4EKXxUjPSOHHkOLtUsEQRIHi1eRmFQuRb3Mv03ZGhpK6oDhsKSmGrz0USXVxHq3BOkJxpw2zyrtTDrtT5fghC4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=bDP4oqrO; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=igkD8Dwq; arc=none smtp.client-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jXMeP0jW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5637D1F000FF;
-	Mon,  5 Oct 2026 05:41:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791178894;
-	bh=kEvPPDlseXzo0VIEtns5Uo5OEVsIzZ5vK243j+h4K6A=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=jXMeP0jWqoqNrZhtOmvSchDhn3bNHe6vW/ozxHYYcIL5McnHyeVgS7Q95L6P+lEKE
-	 1fmOaHh2gm2yH923I7eiWIAjkC8eu05eLFkokl+MZUoigplShMS4YdChUwy9yN+Kgr
-	 F4NB7Tdf09vOzpaZgSDgxhpH/34X7zuG6kw0ga2bbbwRs4HAIMrLR/wbTBIfTzjIAu
-	 OZ75zMRYuKhWsSjx8fRzNlQyenMiYLe66ADtlq/F66hxqt3/pQXG55E8oIIrB8hErL
-	 9l9SEuzyCsvRdzK4gt5qgTyIaoPPmJjbDFmh1Th/DdGGDSW/xWHDb3D485A3m3jdOI
-	 q6g47SDuM3kkA==
-Date: Sun, 4 Oct 2026 22:41:24 -0700
-From: Drew Fustini <fustini@kernel.org>
-To: Conor Dooley <conor@kernel.org>
-Cc: Adrien Ricciardi <aricciardi@baylibre.com>,
-	Alexandre Ghiti <alex@ghiti.fr>, Albert Ou <aou@eecs.berkeley.edu>,
-	Atish Patra <atish.patra@linux.dev>,
-	Babu Moger <babu.moger@amd.com>, Ben Horgan <ben.horgan@arm.com>,
-	Borislav Petkov <bp@alien8.de>, Chen Pei <cp0613@linux.alibaba.com>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Dave Martin <Dave.Martin@arm.com>, Fenghua Yu <fenghuay@nvidia.com>,
-	Gong Shuai <gong.shuai@sanechips.com.cn>,
-	Gong Shuai <gsh517@gmail.com>, guo.wenjia23@zte.com.cn,
-	James Morse <james.morse@arm.com>,
-	Kornel =?utf-8?Q?Dul=C4=99ba?= <mindal@semihalf.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, liu.qingtao2@zte.com.cn,
-	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
-	Peter Newman <peternewman@google.com>,
-	Radim =?utf-8?B?S3LEjW3DocWZ?= <rkrcmar@ventanamicro.com>,
-	Reinette Chatre <reinette.chatre@intel.com>,
-	Rob Herring <robh@kernel.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Tony Luck <tony.luck@intel.com>,
-	Vasudevan Srinivasan <vasu@rivosinc.com>,
-	Ved Shanbhogue <ved@rivosinc.com>, Weiwei Li <liwei1518@gmail.com>,
-	yunhui cui <cuiyunhui@bytedance.com>,
-	Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>,
-	linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
-	x86@kernel.org, devicetree@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev, linux-doc@vger.kernel.org
-Subject: Re: [PATCH v9 4/5] dt-bindings: riscv: Add binding for CBQRI
- controllers
-Message-ID: <asM4hITT4dNVIndy@x1gen8.tail89d63.ts.net>
-References: <20261003-dfustini-atl-sc-cbqri-dt-v9-0-52fd8be98dcf@kernel.org>
- <20261003-dfustini-atl-sc-cbqri-dt-v9-4-52fd8be98dcf@kernel.org>
- <20261004-fender-oink-1646de550f3b@spud>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="bDP4oqrO";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="igkD8Dwq"
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hypd16D3FzMlFx;
+	Mon, 05 Oct 2026 07:59:49 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1791179989;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vYn/txQTt5JlfdIUpIoIQbi2SYnYhnBxGZBwbOOJ3A8=;
+	b=bDP4oqrO+qbc5dxsqxH43WHVmHBn5kTmFU5BtZgI5mabTpJEmNzw2KjEXJ3tMFGG5a1HYh
+	Mjxd8yRJoqNZ2SECG3Mkn39p7RMHG0jmNRrZact9h8iRG6+mG6IAUv1Lmwg5TBqQAOdIY5
+	vN2CSRUqQB7327ZGYHtydN0vUjk7s7d+EKzNcRl70AYW4M/SNQEsp18+5PQAb+tUTEXKIj
+	VdgSbJelvrJ1Rh6K9P+PFt+v/xH6SmsxWH/Xgr40vJR5NwFDlJ5FsvzCQ2wYPYS3kIaTun
+	/ZswjFxOQdcbH9UQCF+VnQNjk0Vy96UXORq4utEPeZmrXVokUYeqIhtVe0EkMQ==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=igkD8Dwq;
+	spf=pass (outgoing_mbo_mout: domain of marek.vasut@mailbox.org designates 2001:67c:2050:b231:465::1 as permitted sender) smtp.mailfrom=marek.vasut@mailbox.org
+Message-ID: <5ad29672-c9c6-4bc8-ba41-cf96528cd9c1@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1791179988;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=vYn/txQTt5JlfdIUpIoIQbi2SYnYhnBxGZBwbOOJ3A8=;
+	b=igkD8DwqoPp8x18Hsevt6m6YlQi9Jj501tcuU86iKghx8mpZfU4WcDZYy6nj0swCm0VoG8
+	4ztuikVL5lGGISWfMACANNlIjPxT5ThX+k6Lr1145WJ/0TGe1ulem9Z/vd7GfXlluXIvh/
+	Vy5cCascM29appNFrudY6TQp219bbGDA1n5MXzg1Oki8eZSdJtmjKYRFQ/a04htH4ZQwV0
+	9DMdwYIS/DsLDPxlo3wwxXYMdI/pIPpDC65K8psTVpKBkdL2R5DtiuPG+7Ks83evTjj5NC
+	cmSirz+mBXcC21pLG4K0d0lJelbzK9MizXcs7uiFl6U8ANV3iae0PdMsXEIPiw==
+Date: Mon, 5 Oct 2026 07:59:42 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="maNOYJSQl7XIC3wz"
-Content-Disposition: inline
-In-Reply-To: <20261004-fender-oink-1646de550f3b@spud>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 02/15] PCI: rcar-gen4: Check live link status in
+ link_up()
+To: Koichiro Den <den@valinux.co.jp>
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+ Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
+ Lorenzo Pieralisi <lpieralisi@kernel.org>,
+ =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Bjorn Helgaas <bhelgaas@google.com>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>, Jingoo Han <jingoohan1@gmail.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Frank Li <Frank.Li@nxp.com>,
+ Niklas Cassel <cassel@kernel.org>, Wilfred Mallawa
+ <wilfred.mallawa@wdc.com>, Serge Semin <fancer.lancer@gmail.com>,
+ linux-pci@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260928165230.3397664-1-den@valinux.co.jp>
+ <20260928165230.3397664-3-den@valinux.co.jp>
+ <d675e0ba-10f3-4503-bc2e-61977f4a5875@mailbox.org>
+ <c038dbd9-7675-43a9-834c-915b6795dd50@mailbox.org>
+ <abcodlpsh2k2cood5czno5fqb32uxdrrzy7lwougxhil7zlqbj@b7a7v3kouwxn>
+Content-Language: en-US
+From: Marek Vasut <marek.vasut@mailbox.org>
+In-Reply-To: <abcodlpsh2k2cood5czno5fqb32uxdrrzy7lwougxhil7zlqbj@b7a7v3kouwxn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 05438c2c60fc43063f0
+X-MBO-RS-META: oz56gi4f1mnfg6g33unuyomhtsd3oxhi
+X-Rspamd-Queue-Id: 4hypd16D3FzMlFx
 
+On 10/5/26 6:22 AM, Koichiro Den wrote:
 
---maNOYJSQl7XIC3wz
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Hello Den-san,
 
-On Sun, Oct 04, 2026 at 12:05:31AM +0100, Conor Dooley wrote:
-> On Sat, Oct 03, 2026 at 12:12:29AM -0700, Drew Fustini wrote:
-> > Document the device tree binding for RISC-V CBQRI capacity and bandwidth
-> > controllers. Each controller is named by a device-specific compatible
-> > followed by the generic compatible. The binding also describes the
-> > common riscv,cbqri-rcid and riscv,cbqri-mcid properties, and the
-> > optional riscv,cbqri-cache phandle that links a capacity controller to
-> > the cache whose capacity it allocates.
-> >=20
-> > Assisted-by: LLM
-> > Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
-> > Co-developed-by: Adrien Ricciardi <aricciardi@baylibre.com>
-> > Signed-off-by: Adrien Ricciardi <aricciardi@baylibre.com>
-> > Signed-off-by: Drew Fustini <fustini@kernel.org>
-> > ---
-> >  .../devicetree/bindings/riscv/riscv,cbqri.yaml     | 97 ++++++++++++++=
-++++++++
-> >  MAINTAINERS                                        |  1 +
-> >  2 files changed, 98 insertions(+)
-> >=20
-> > diff --git a/Documentation/devicetree/bindings/riscv/riscv,cbqri.yaml b=
-/Documentation/devicetree/bindings/riscv/riscv,cbqri.yaml
-> > new file mode 100644
-> > index 000000000000..0924758ebdde
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/riscv/riscv,cbqri.yaml
-> > @@ -0,0 +1,97 @@
-> > +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/riscv/riscv,cbqri.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: RISC-V Capacity and Bandwidth QoS Register Interface (CBQRI) co=
-ntroller
-> > +
-> > +description: |
-> > +  The RISC-V CBQRI specification defines capacity-controller and
-> > +  bandwidth-controller register blocks that allocate cache capacity an=
-d memory
-> > +  bandwidth to resource-control IDs (RCIDs) and monitor usage per
-> > +  monitoring-counter ID (MCID):
-> > +  https://github.com/riscv-non-isa/riscv-cbqri/blob/main/riscv-cbqri.p=
-df
-> > +
-> > +  Allocation and monitoring share one register block, and a controller=
- may
-> > +  implement either or both. A driver discovers which at runtime from t=
-he
-> > +  capabilities register, so the compatible names only the controller t=
-ype. It
-> > +  does not distinguish allocation-only, monitoring-only or combined
-> > +  controllers, and no property declares monitoring support.
-> > +
-> > +maintainers:
-> > +  - Drew Fustini <fustini@kernel.org>
-> > +
-> > +properties:
-> > +  compatible:
-> > +    oneOf:
-> > +      - items:
-> > +          - enum:
-> > +              - tenstorrent,ascalon-shared-cache-controller
-> > +          - const: riscv,cbqri-capacity-controller
-> > +      - items:
-> > +          - {}
-> > +          - const: riscv,cbqri-bandwidth-controller
->=20
-> I think I lead you up the garden path here actually, it needs to be
-> "- not: {}", "- {}" permits anything.
-
-Ah, good point. I will change it to "- not: {}" in the next rev.
-
-Thanks,
-Drew
-
---maNOYJSQl7XIC3wz
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQSy8G7QpEpV9aCf6Lbb7CzD2SixDAUCasM4dwAKCRDb7CzD2Six
-DHDzAPoDfbP02+kZlbXNjkO9p6YVGEPpNzVD/2lUwGTPtG8jrgEAmupMZOgQVR3D
-O+0kZ5PUEUvEiYg7LLv7Xo/SkiA+fAo=
-=sKfI
------END PGP SIGNATURE-----
-
---maNOYJSQl7XIC3wz--
+>>> I apologize for the late reply.
+>>>
+>>> Reviewed-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+>>> Tested-by: Marek Vasut <marek.vasut+renesas@mailbox.org> # R-Car V4H
+> 
+> Thanks for the review and for testing on V4H.
+> 
+>>>
+>>> Since next 20261002 now contains commit
+>>>
+>>> f29719b5064c ("PCI: dwc: Align register macros with Synopsys
+>>> documentation")
+>>>
+>>> This will need the following slight adjustment:
+>>>
+>>> "s@PCIE_PORT_DEBUG@PORT_LINK_DEBUG@g"
+>>>
+>>> "
+>>> -       val = dw_pcie_readl_dbi(dw, PCIE_PORT_DEBUG1);
+>>> -       return (val & PCIE_PORT_DEBUG1_LINK_UP) &&
+>>> -              !(val & PCIE_PORT_DEBUG1_LINK_IN_TRAINING);
+>>> +       val = dw_pcie_readl_dbi(dw, PORT_LINK_DEBUG1);
+>>> +       return (val & PORT_LINK_DEBUG1_LINK_UP) &&
+>>> +              !(val & PORT_LINK_DEBUG1_LINK_IN_TRAINING);
+>>> "
+> 
+> Thanks for the heads-up. v3 will be rebased onto the latest -next and use the
+> new names.
+> 
+>>
+>> A small nitpick, would the following change make sense to reduce duplication
+>> a bit ?
+> 
+> Yes. In v3 I'm planning to add it as a separate patch right before this one,
+> with your Suggested-by.
+Thank you !
