@@ -1,499 +1,246 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo1-f41.google.com (mail-oo1-f41.google.com [209.85.161.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CD2741A549;
-	Mon,  5 Oct 2026 22:25:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A32937F8C0
+	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 22:30:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.161.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791239126; cv=none; b=dAoee5iHdP4ldM/kCruVV0TN0DlZwsSgGBQDNl7/+q8EIpb4d8N065y/qPh6stnCxpZ09TrQe+BJ3WqOmXitEn3LU0y/x/DiUeCREDdHwJf8eDFBFIQtXa0Vb1XZ5deSceIprSnwC3GKrhauIdTaPnE6j0JE9x3F4SUZcGYh044=
+	t=1791239419; cv=none; b=rLkAVyNdBEja1IfQfIRxbPOR4oD5ga2wN1t4cV2eBZeVI1RdkAXcMf87sBnKuU6edTtn8jbvl5KopdRkkxKynV92j/nHuNFPZqxnOha0oP/mOY/gSd/vsjjNK6uVkOGohsq6ZImDrpIKklAjxO3zlhXkd1pS2nsNhrr2/zg1G+s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791239126; c=relaxed/simple;
-	bh=Mpu/PU1YjKAjpl8OyjYBUppFaXLbD2sFSKhSe9p2oi0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=qCU8+3kLd+/ciBtkbWWm3M8BYSgd6XtVmvhTJJBJXWbs/xAxytZ4ZG+nTXLC5JEvdCEgdnJvfbFsdCxazI0IVpOsRuvEWs7Tr5eqru/l9H3IrNT3A66mHBmkesPhVczbybYJjT/WD1eCDieiiPUeuLewIDA74y2QSZVbwPu3VHI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zwv2r6+c; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zwv2r6+c"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id F130CC4AF66;
-	Mon,  5 Oct 2026 22:25:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791239126;
-	bh=Mpu/PU1YjKAjpl8OyjYBUppFaXLbD2sFSKhSe9p2oi0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=Zwv2r6+cnGoVuKv4LGP9+05OLBgVSCZ5X16455JtTQZdwUWcScv4rZmlYe1dACM9S
-	 MbbjRr1uy2wiEUkeAZb443hWyLqFmcr2ImtIvfl8l7ncaYkM1sqVIeVdScFW+CoetS
-	 52thXg8TSIzzISwpD3mAiM8BF2gs9y+f5ei69fABByXiuJ5on3Ya0mptLCxQDvTT4L
-	 rRdkouS8FRBdh+KhRQ0Z9SZfoLRP+Tx2sUqnC2/X1D3A+PCySOlYcIpTISuIG56jS5
-	 1V0JjHun+cn5tVXK7/ol+tr2gc/aIZLPFM8v1VpdhlFU6Pv64FYlAeC22JinZk7eXF
-	 2r9cwlJNi4aBw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id C8F4ECA5FFE;
-	Mon,  5 Oct 2026 22:25:25 +0000 (UTC)
-From: Serv Pol via B4 Relay <devnull+servpol.tuta.io@kernel.org>
-Date: Mon, 05 Oct 2026 22:25:25 +0000
-Subject: [PATCH 2/2] power: supply: Add GL.iNet GL-E750 MCU battery driver
+	s=arc-20240116; t=1791239419; c=relaxed/simple;
+	bh=mucEdj1uqoLVSZBfuK1SF6FXby2PwwKZv5l3z18QNLk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=hJdtaFqojZButVvtNOdwjXkdBlr/XZg4uc2e4M53Wh87MjJIoy5ocr47BHGypXn8njDjkXHW8zrMtK8AkzSF47iJG7wGlu505GJOckxTe/o3JreiRf8LLRQVwkfPRCf5jQQVu9yQdvfOpc2x4Vdf6PL3XMp1KeH5Fhx9donv3QY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gompa.dev; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.161.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gompa.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-oo1-f41.google.com with SMTP id 006d021491bc7-6dddc514bcdso1405556eaf.3
+        for <devicetree@vger.kernel.org>; Mon, 05 Oct 2026 15:30:17 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791239416; x=1791844216;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xb3yq1vtfACEwe75yrbB1CPQfwdI7baxuA1mRi57je4=;
+        b=s4d+IcY2rtdfpMVzZu14qAqMsmh/fFfTU+tfBBFFHsJ3/B5I/EhUOC5zldFxv5Qtr9
+         tQuNJeO32E+guyCnRbCl8BX8MpD/8rNbuEW+ZVJPnBS5HuRyHzO+Tuxv7NYCARB6jPBT
+         5o4RnDfHwtCjwjeWWEYfPikTHdtvVg2Mp8vg+421KhwWC1pG1qohw4RAzTiHYc2+y1yN
+         4Gjm6fh/4ewxtl7gYxHddvETra4+MUyAxUf8NXO0mOejaotX1rjAxnw3s+pgy2Snaa3n
+         vOt4XLqa3xmiIc07l1/gqfLwZzwguQuFObKPkU+QdaA5RweONSMWMHqRMUgvgg7xppPt
+         OpTQ==
+X-Forwarded-Encrypted: i=1; AKwUvByB7K/+j6UTeeqtkoo3CTLbOvV0ftt6eqbtsA+MgYnl2Gka8HoqyMCNSaXXqeiS6RMx53SuyyHVHU2S@vger.kernel.org
+X-Gm-Message-State: AFuF++nqZxCBlsHfBLMZz7UBQUl/A8Bb6tSAaXditwJ8FOl8iyIcmko5
+	RI5BQ8NkLyHwcK2G4BVmF0BLRjc9CPvSgWTi2pGJ41Vi+39DC4CfImdaHvzAZ3uK
+X-Gm-Gg: AYBFou3l1hbMRV+YG6qQLBSqvIq1UbwElK6TY4qBXi8CwAQCC9sGXxPAUXna2iD4x7W
+	/oJPrwPzLZuL32jdOkg1OPScLih3O/YN49UDfc7OgTIRQrjkHGMKGi3H0exkhyiRxkNH4VWcj5y
+	JWY/1A/kZarxn5Az43BEV6KWitJ7qjNhx5IC37mNU9S+6E+e7VGeVT2D7C1IWXATgOfanuUMD7Z
+	AzLtt8fGKpjaDA1w1tLZ9hsjIGc3GB/0EXf/h0L/BKl81LV1IK3UfRnfI4kLNPyKHwJQyGQauxC
+	tUmzu1VDeZmxmD66CnzcmlA0KUPAJBWF/3d2EDeCVlocIO8gkeXhqu/zfyRJCa95OAf+X+IS2WU
+	oVEmM4Ze6sYVgi90ijAcvmP5HppaBSxpIE4OTR3nVbDrCCpg1unxTfc2YLrAYw4J5ZdVMjEO83p
+	Yn8qt/quOIaEQP5vcvasUdDXF+Pk1I2mq11TemX3I9LWgKyOIBK1Hqxbhl+3EWqWu/jwTx5JaS1
+	kZI9H2YqJ8DXkTP9I79+fe+K0R8tIVEVwJ1k0XUXaMM+vgXuMCFCRNMYMCE5xh2gqkXZOLLfNqp
+	WGUhHzJ3b9FD44mHEiOrCO0GJ6rk3XW73qo6MF6RoOAUTT4=
+X-Received: by 2002:a05:6820:2226:b0:6de:1788:c3af with SMTP id 006d021491bc7-6e09db9eae9mr7389376eaf.43.1791239415965;
+        Mon, 05 Oct 2026 15:30:15 -0700 (PDT)
+Received: from mail-oo1-f54.google.com (mail-oo1-f54.google.com. [209.85.161.54])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-82820ea5605sm829775a34.24.2026.10.05.15.30.15
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 05 Oct 2026 15:30:15 -0700 (PDT)
+Received: by mail-oo1-f54.google.com with SMTP id 006d021491bc7-6b0496f4bbcso1318203eaf.0
+        for <devicetree@vger.kernel.org>; Mon, 05 Oct 2026 15:30:15 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByvy8eiknbvqBP5HXFD6zIgyaCsLfHw2fVBpiheYuhnZ+55bMvtS0M36OFsFQ8jtrzTlh2/rNu1NE9q@vger.kernel.org
+X-Received: by 2002:a05:6820:2226:b0:6de:1788:c3af with SMTP id
+ 006d021491bc7-6e09db9eae9mr7389349eaf.43.1791239415075; Mon, 05 Oct 2026
+ 15:30:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261005-gl-e750-mcu-v1-2-499d2e31f786@tuta.io>
-References: <20261005-gl-e750-mcu-v1-0-499d2e31f786@tuta.io>
-In-Reply-To: <20261005-gl-e750-mcu-v1-0-499d2e31f786@tuta.io>
-To: Serv Pol <servpol@tuta.io>, Sebastian Reichel <sre@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791239123; l=13339;
- i=servpol@tuta.io; s=20261005; h=from:subject:message-id;
- bh=rcgI0nZmKFG3g5c+fhrZDMdvXPcReybCrASp7IB4yxw=;
- b=AX6ou7+uEHrr6OE+DsLlq1wRwblaE711F83M7CtD8FAEFBczJsDn6tEG8bIqDFjlldOloIhJs
- SBXOyHOCF8rC2FUL4O/zsL8WM8lpFBmvi6rL6eJi9Mdgg9eImOPWPeE
-X-Developer-Key: i=servpol@tuta.io; a=ed25519;
- pk=2HCjaqYjXxgwTYu30Nem9DOHT8mtKgjitt1vEXKpwrE=
-X-Endpoint-Received: by B4 Relay for servpol@tuta.io/20261005 with
- auth_id=1120
-X-Original-From: Serv Pol <servpol@tuta.io>
-Reply-To: servpol@tuta.io
+References: <20260926-avd-v2-0-ecebe6a3648e@icloud.com>
+In-Reply-To: <20260926-avd-v2-0-ecebe6a3648e@icloud.com>
+From: Neal Gompa <neal@gompa.dev>
+Date: Mon, 5 Oct 2026 18:29:38 -0400
+X-Gmail-Original-Message-ID: <CAEg-Je9OY45PLvj2BKyXVfnVo4+VpRL-iQXVvMUVohLYNfWGTA@mail.gmail.com>
+X-Gm-Features: AclHuK9yFwOzqsj_JcPTvXfeG7bJIFye1-m4CrTXTFUfDaK1QknzW0JvhVf1j8M
+Message-ID: <CAEg-Je9OY45PLvj2BKyXVfnVo4+VpRL-iQXVvMUVohLYNfWGTA@mail.gmail.com>
+Subject: Re: [PATCH v2 00/17] media: apple: add avd driver
+To: Sofus Forstreuter <sofus.c@icloud.com>
+Cc: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Heiko Stuebner <heiko@sntech.de>, asahi@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-media@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-rockchip@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Serv Pol <servpol@tuta.io>
+On Sat, Sep 26, 2026 at 9:16=E2=80=AFAM Sofus Forstreuter <sofus.c@icloud.c=
+om> wrote:
+>
+> Hi,
+>
+> This series enables hardware video decoding on Apple Silicon M1, M2 and
+> M3 SoCs. It adds support for all the codecs AVD (Apple Video Decoder)
+> supports, which is H264, H265, VP9 and AV1 (only on M3+).
+>
+> The AVD is a bit unique both as a video decoder and an IP block on Apple
+> Silicon SoCs. Instead of following the normal "a register for each
+> parameter", AVD is programmed through one single register. This means
+> the order of the writes are important, but its also important to ensure
+> we dont write faster than the hardware can process. To solve this, we
+> use the included Cortex-M3 co-processor. The CM3 accepts unsigned code,
+> which we take advantage off [1].
+> The driver prepares the instructions and writes them into segments,
+> which are submitted to the CM3. The CM3 then programs the hardware and
+> notifies the AP when the job is done or if an error occurred.
+>
+> The driver implements the V4L2 M2M stateless decoder API. The driver's
+> framework is based very heavy on rkvdecs driver. It therefore comes as
+> no suprise that `v4l2-compliance` reports no errors:
+> Total for avd device /dev/video0: 49, Succeeded: 49, Failed: 0, Warnings:=
+ 0
+>
+> The fluster scores are:
+> JVT-AVC_V1: 77/135
+> JVT-FR-EXT: 42/69
+> VP9-TEST-VECTORS: 216/305
+> VP9-TEST-VECTORS-HIGH: 1/6
+> JCT-VC-HEVC_V1: 143/147
+> AV1-TEST-VECTORS: 238/242
+>
+> Since not all unsupported H264 streams are rejected, the scores
+> depend on the reset working, this only works with a patch to the
+> apple-dart driver so that the IOMMU attach/detach trick works.
+>
+> All codecs support 4:2:2, 4:2:0, in 10 and 8 bit. By default, AVD
+> outputs in NV12, NV16, P010 and P210. Support for 4:4:4 and 12 bit
+> formats has not been added yet.
+>
+> Internally the AVD uses an Apple specific compressed and tiled format
+> called Interchange to store reference image data. This is stored after
+> image data across all codecs. Apple Interchange is used for sharing
+> buffers with other hardware blocks (GPU, display controller), support
+> for this is on its way [2].
+> The V4L2 pixel formats have been added to help with calculating sizes.
+>
+> This driver has been tested on most Apple Silicon SoCs in our downstream
+> tree [3]. Its expected this driver will work on M4, M5, M6 and the Neo,
+> with firmware already being written for all except the M6 SoCs [4].
+>
+> The groundwork for this was laid many years ago by Jamie, R and Eileen,
+> who through a combined effort managed to reverse engineer many core
+> parts of the AVD block.
+> This driver would not have been possible without the work done by
+> Eileen, who wrote initial support for H264, H265, VP9 and excellent
+> tooling [5], allowing me to reverse engineer AV1 and make the driver
+> conformant.
+>
+> [1] https://github.com/sofus13/avd-fw/tree/avd-next-fw
+> [2] https://patch.msgid.link/20260917-apple-interchange-modifier-v1-1-875=
+294689c48@gmail.com
+> [3] https://github.com/AsahiLinux/linux
+> [4] https://github.com/AsahiLinux/avd-fw
+> [5] https://github.com/eiln/avd/tree/main
+>
+> Signed-off-by: Sofus Forstreuter <sofus.c@icloud.com>
+> ---
+> Changes in v2:
+> - Patch order
+> - Fixed dt-bindings by constraining all properties
+> - Fixed dts, add interrupts, iommus and regs. Drop labels, fix names
+> - Add Apple Interchange format
+> - Add more av1 and vp9 validation to v4l2-ctrls
+> - Validate more codec parameters
+> - Use the new CM3 firmware (drop avd-hw, drop submission loops)
+> - Updated cover to reflect changes
+> - Link to v1: https://patch.msgid.link/20260918-avd-v1-0-49977931f455@icl=
+oud.com
+>
+> To: Sven Peter <sven@kernel.org>
+> To: Janne Grunau <j@jannau.net>
+> To: Neal Gompa <neal@gompa.dev>
+> To: Mauro Carvalho Chehab <mchehab@kernel.org>
+> To: Rob Herring <robh@kernel.org>
+> To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> To: Conor Dooley <conor+dt@kernel.org>
+> To: Sofus Forstreuter <sofus.c@icloud.com>
+> To: Philipp Zabel <p.zabel@pengutronix.de>
+> To: Heiko Stuebner <heiko@sntech.de>
+> Cc: asahi@lists.linux.dev
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-media@vger.kernel.org
+> Cc: devicetree@vger.kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> Cc: linux-rockchip@lists.infradead.org
+>
+> ---
+> Sofus Forstreuter (17):
+>       dt-bindings: media: add apple,avd
+>       media: v4l2: Add P210 pixel format
+>       media: v4l2: Add Apple interchange pixel formats
+>       media: v4l2-ctrls: validate av1 tile info
+>       media: v4l2-ctrls: validate vp9 tile_rows_log2
+>       media: apple: add avd driver
+>       media: apple: avd: add h264 support
+>       media: apple: avd: add vp9 support
+>       media: apple: avd: add hevc support
+>       media: apple: avd: add av1 support
+>       arm64: dts: apple: t8103: add avd nodes
+>       arm64: dts: apple: t8112: add avd nodes
+>       arm64: dts: apple: t8122: add avd nodes
+>       arm64: dts: apple: t600x: add avd nodes
+>       arm64: dts: apple: t602x: add avd nodes
+>       arm64: dts: apple: t6030: add avd nodes
+>       arm64: dts: apple: t6031: add avd nodes
+>
+>  .../devicetree/bindings/media/apple,avd.yaml       |  127 +
+>  .../userspace-api/media/v4l/pixfmt-yuv-planar.rst  |   14 +-
+>  MAINTAINERS                                        |    2 +
+>  arch/arm64/boot/dts/apple/t600x-dieX.dtsi          |   32 +
+>  arch/arm64/boot/dts/apple/t602x-dieX.dtsi          |   32 +
+>  arch/arm64/boot/dts/apple/t6030.dtsi               |   32 +
+>  arch/arm64/boot/dts/apple/t6031-dieX.dtsi          |   32 +
+>  arch/arm64/boot/dts/apple/t8103.dtsi               |   32 +
+>  arch/arm64/boot/dts/apple/t8112.dtsi               |   32 +
+>  arch/arm64/boot/dts/apple/t8122.dtsi               |   32 +
+>  drivers/media/platform/Kconfig                     |    1 +
+>  drivers/media/platform/Makefile                    |    1 +
+>  drivers/media/platform/apple/Kconfig               |    5 +
+>  drivers/media/platform/apple/Makefile              |    3 +
+>  drivers/media/platform/apple/avd/Kconfig           |   18 +
+>  drivers/media/platform/apple/avd/Makefile          |    5 +
+>  .../media/platform/apple/avd/avd-av1-entropymode.c | 4698 ++++++++++++++=
+++++++
+>  .../media/platform/apple/avd/avd-av1-entropymode.h |  284 ++
+>  drivers/media/platform/apple/avd/avd-av1.c         | 1432 ++++++
+>  drivers/media/platform/apple/avd/avd-drv.c         |  776 ++++
+>  drivers/media/platform/apple/avd/avd-h264.c        |  862 ++++
+>  drivers/media/platform/apple/avd/avd-hevc.c        | 1340 ++++++
+>  drivers/media/platform/apple/avd/avd-inst.h        |  210 +
+>  drivers/media/platform/apple/avd/avd-v4l2.c        |  992 +++++
+>  drivers/media/platform/apple/avd/avd-vp9.c         | 1054 +++++
+>  drivers/media/platform/apple/avd/avd.h             |  299 ++
+>  drivers/media/v4l2-core/v4l2-common.c              |    8 +
+>  drivers/media/v4l2-core/v4l2-ctrls-core.c          |   17 +-
+>  drivers/media/v4l2-core/v4l2-ioctl.c               |    7 +
+>  include/uapi/linux/v4l2-controls.h                 |    2 +-
+>  include/uapi/linux/videodev2.h                     |    9 +
+>  31 files changed, 12386 insertions(+), 4 deletions(-)
+> ---
+> base-commit: 4efa625593e1e9c76346232413997556dea1d89f
+> change-id: 20260917-avd-7ee5474b468c
+>
 
-The status MCU of the GL.iNet GL-E750 (Mudi) travel router sits on the
-SoC UART and talks in text lines: the host sends JSON objects whose values
-are all strings, and a request containing "mcu_status": "1" is answered
-with
+Series LGTM.
 
-  {OK},<percent>,<temperature>,<charging>,<cycles>
-
-Poll that every 30 seconds and expose the result as a power_supply.
-
-When the power switch is turned off, the MCU sends {"shut_down": "1"},
-without a line ending, and cuts the power a few seconds later. Shut the
-system down cleanly in that case.
-
-The MCU also renders the status screen from JSON fields (SSIDs, clients,
-cellular state...). That vendor-specific content is not handled here.
-
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Serv Pol <servpol@tuta.io>
----
- MAINTAINERS                        |   1 +
- drivers/power/supply/Kconfig       |  13 ++
- drivers/power/supply/Makefile      |   1 +
- drivers/power/supply/gl-e750-mcu.c | 352 +++++++++++++++++++++++++++++++++++++
- 4 files changed, 367 insertions(+)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 247432449..505aa205c 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -11110,6 +11110,7 @@ M:	Serv Pol <servpol@tuta.io>
- L:	linux-pm@vger.kernel.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/power/supply/glinet,gl-e750-mcu.yaml
-+F:	drivers/power/supply/gl-e750-mcu.c
- 
- GNSS SUBSYSTEM
- M:	Johan Hovold <johan@kernel.org>
-diff --git a/drivers/power/supply/Kconfig b/drivers/power/supply/Kconfig
-index ee7dc5f26..e87c76c18 100644
---- a/drivers/power/supply/Kconfig
-+++ b/drivers/power/supply/Kconfig
-@@ -1203,4 +1203,17 @@ config MACSMC_POWER
- 
- 	  Say Y or M here if you have an Apple Silicon based Mac.
- 
-+config BATTERY_GL_E750_MCU
-+	tristate "GL.iNet GL-E750 status MCU battery driver"
-+	depends on SERIAL_DEV_BUS
-+	depends on OF || COMPILE_TEST
-+	help
-+	  Say Y or M here to enable the battery driver for the status
-+	  microcontroller of the GL.iNet GL-E750 (Mudi) travel router.
-+	  It reports the battery state and shuts the system down when
-+	  the power switch is turned off.
-+
-+	  To compile this driver as a module, choose M here: the module
-+	  will be called gl-e750-mcu.
-+
- endif # POWER_SUPPLY
-diff --git a/drivers/power/supply/Makefile b/drivers/power/supply/Makefile
-index f3c0d1006..5d405556e 100644
---- a/drivers/power/supply/Makefile
-+++ b/drivers/power/supply/Makefile
-@@ -78,6 +78,7 @@ obj-$(CONFIG_CHARGER_TWL4030)	+= twl4030_charger.o
- obj-$(CONFIG_CHARGER_TWL6030)	+= twl6030_charger.o
- obj-$(CONFIG_CHARGER_LP8727)	+= lp8727_charger.o
- obj-$(CONFIG_CHARGER_LP8788)	+= lp8788-charger.o
-+obj-$(CONFIG_BATTERY_GL_E750_MCU)	+= gl-e750-mcu.o
- obj-$(CONFIG_CHARGER_GPIO)	+= gpio-charger.o
- obj-$(CONFIG_CHARGER_MANAGER)	+= charger-manager.o
- obj-$(CONFIG_CHARGER_LT3651)	+= lt3651-charger.o
-diff --git a/drivers/power/supply/gl-e750-mcu.c b/drivers/power/supply/gl-e750-mcu.c
-new file mode 100644
-index 000000000..0799e41d5
---- /dev/null
-+++ b/drivers/power/supply/gl-e750-mcu.c
-@@ -0,0 +1,352 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * GL.iNet GL-E750 (Mudi) status MCU battery driver
-+ *
-+ * The MCU sits on the SoC UART. It drives the OLED screen, monitors the
-+ * battery and watches the power switch. The host sends one JSON object per
-+ * line, where every value is a string. When a line contains
-+ * "mcu_status": "1", the MCU answers with
-+ *
-+ *	{OK},<percent>,<temperature>,<charging>,<cycles>
-+ *
-+ * When the power switch is turned off, the MCU sends {"shut_down": "1"} and
-+ * cuts the power a few seconds later.
-+ *
-+ * Copyright (C) 2026 Serv Pol <servpol@tuta.io>
-+ */
-+
-+#include <linux/completion.h>
-+#include <linux/ctype.h>
-+#include <linux/devm-helpers.h>
-+#include <linux/math.h>
-+#include <linux/mod_devicetable.h>
-+#include <linux/module.h>
-+#include <linux/power_supply.h>
-+#include <linux/property.h>
-+#include <linux/reboot.h>
-+#include <linux/serdev.h>
-+#include <linux/spinlock.h>
-+#include <linux/string.h>
-+#include <linux/workqueue.h>
-+
-+#define MCU_BAUDRATE		115200
-+#define MCU_RX_LINE_MAX		128
-+#define MCU_POLL_INTERVAL_MS	30000
-+#define MCU_REPLY_TIMEOUT_MS	1500
-+
-+static const u8 mcu_status_req[] = "{ \"mcu_status\": \"1\" }\n";
-+
-+struct gl_e750_mcu {
-+	struct serdev_device *serdev;
-+	struct power_supply *psy;
-+	struct delayed_work poll_work;
-+	struct work_struct poweroff_work;
-+	struct completion reply;
-+
-+	/* receive buffer and battery state, filled from the serdev callback */
-+	spinlock_t lock;
-+	char rx_line[MCU_RX_LINE_MAX];
-+	size_t rx_len;
-+	bool valid;
-+	int capacity;		/* percent */
-+	int temp;		/* tenths of a degree Celsius */
-+	bool charging;
-+	int cycles;
-+};
-+
-+/* "37.4", "40" or "-1.5" -> tenths of a degree */
-+static int mcu_parse_tenths(const char *s, int *out)
-+{
-+	const char *dot = strchr(s, '.');
-+	char whole_str[8];
-+	int whole, frac = 0;
-+
-+	if (!dot) {
-+		if (kstrtoint(s, 10, &whole))
-+			return -EINVAL;
-+		*out = whole * 10;
-+		return 0;
-+	}
-+
-+	if (dot == s || dot - s >= sizeof(whole_str))
-+		return -EINVAL;
-+	memcpy(whole_str, s, dot - s);
-+	whole_str[dot - s] = '\0';
-+	if (kstrtoint(whole_str, 10, &whole))
-+		return -EINVAL;
-+	if (isdigit(dot[1]))
-+		frac = dot[1] - '0';
-+	*out = whole * 10 + (*s == '-' ? -frac : frac);
-+	return 0;
-+}
-+
-+/*
-+ * "{OK},<percent>,<temperature>,<charging>,<cycles>", called with the lock
-+ * held. Returns true if the line was a valid status reply.
-+ */
-+static bool mcu_parse_status(struct gl_e750_mcu *mcu, char *line)
-+{
-+	char *p = line + 4, *f[4];
-+	int capacity, temp, charging, cycles, i;
-+	bool changed;
-+
-+	if (*p++ != ',')
-+		return false;
-+	for (i = 0; i < ARRAY_SIZE(f); i++) {
-+		f[i] = strsep(&p, ",");
-+		if (!f[i] || !*f[i])
-+			return false;
-+	}
-+
-+	if (kstrtoint(f[0], 10, &capacity) || mcu_parse_tenths(f[1], &temp) ||
-+	    kstrtoint(f[2], 10, &charging) || kstrtoint(f[3], 10, &cycles))
-+		return false;
-+	if (capacity < 0 || capacity > 100)
-+		return false;
-+
-+	changed = !mcu->valid || mcu->capacity != capacity ||
-+		  mcu->charging != !!charging || mcu->cycles != cycles ||
-+		  abs(mcu->temp - temp) >= 10;
-+	mcu->capacity = capacity;
-+	mcu->temp = temp;
-+	mcu->charging = !!charging;
-+	mcu->cycles = cycles;
-+	mcu->valid = true;
-+
-+	complete(&mcu->reply);
-+	if (changed)
-+		power_supply_changed(mcu->psy);
-+	return true;
-+}
-+
-+/* called with the lock held */
-+static void mcu_handle_line(struct gl_e750_mcu *mcu, char *line)
-+{
-+	if (!strncmp(line, "{OK}", 4))
-+		mcu_parse_status(mcu, line);
-+	else if (strstr(line, "\"shut_down\""))
-+		schedule_work(&mcu->poweroff_work);
-+	else
-+		dev_dbg_ratelimited(&mcu->serdev->dev, "unhandled: %s\n", line);
-+}
-+
-+static size_t mcu_receive_buf(struct serdev_device *serdev, const u8 *data,
-+			      size_t count)
-+{
-+	struct gl_e750_mcu *mcu = serdev_device_get_drvdata(serdev);
-+	unsigned long flags;
-+	size_t i;
-+
-+	spin_lock_irqsave(&mcu->lock, flags);
-+	for (i = 0; i < count; i++) {
-+		char c = data[i];
-+
-+		if (c == '\r' || c == '\n') {
-+			if (mcu->rx_len) {
-+				mcu->rx_line[mcu->rx_len] = '\0';
-+				mcu_handle_line(mcu, mcu->rx_line);
-+				mcu->rx_len = 0;
-+			}
-+			continue;
-+		}
-+		if (mcu->rx_len < MCU_RX_LINE_MAX - 1)
-+			mcu->rx_line[mcu->rx_len++] = c;
-+
-+		/* JSON events from the MCU come without a line ending */
-+		if (c == '}' && mcu->rx_line[0] == '{' &&
-+		    strncmp(mcu->rx_line, "{OK}", 4)) {
-+			mcu->rx_line[mcu->rx_len] = '\0';
-+			mcu_handle_line(mcu, mcu->rx_line);
-+			mcu->rx_len = 0;
-+		}
-+	}
-+	spin_unlock_irqrestore(&mcu->lock, flags);
-+
-+	return count;
-+}
-+
-+static const struct serdev_device_ops mcu_serdev_ops = {
-+	.receive_buf = mcu_receive_buf,
-+	.write_wakeup = serdev_device_write_wakeup,
-+};
-+
-+static void mcu_poll_work(struct work_struct *work)
-+{
-+	struct gl_e750_mcu *mcu = container_of(to_delayed_work(work),
-+					       struct gl_e750_mcu, poll_work);
-+	unsigned long timeout = msecs_to_jiffies(MCU_REPLY_TIMEOUT_MS);
-+	unsigned long flags;
-+	int ret;
-+
-+	spin_lock_irqsave(&mcu->lock, flags);
-+	mcu->rx_len = 0;
-+	reinit_completion(&mcu->reply);
-+	spin_unlock_irqrestore(&mcu->lock, flags);
-+
-+	ret = serdev_device_write(mcu->serdev, mcu_status_req,
-+				  sizeof(mcu_status_req) - 1, timeout);
-+	if (ret < 0) {
-+		dev_warn_ratelimited(&mcu->serdev->dev, "write failed: %d\n", ret);
-+	} else if (!wait_for_completion_timeout(&mcu->reply, timeout)) {
-+		/* the reply may also come without a line ending */
-+		spin_lock_irqsave(&mcu->lock, flags);
-+		mcu->rx_line[mcu->rx_len] = '\0';
-+		if (!(mcu->rx_len > 4 && !strncmp(mcu->rx_line, "{OK}", 4) &&
-+		      mcu_parse_status(mcu, mcu->rx_line)))
-+			dev_dbg(&mcu->serdev->dev, "no status reply\n");
-+		mcu->rx_len = 0;
-+		spin_unlock_irqrestore(&mcu->lock, flags);
-+	}
-+
-+	schedule_delayed_work(&mcu->poll_work,
-+			      msecs_to_jiffies(MCU_POLL_INTERVAL_MS));
-+}
-+
-+static void mcu_poweroff_work(struct work_struct *work)
-+{
-+	struct gl_e750_mcu *mcu = container_of(work, struct gl_e750_mcu,
-+					       poweroff_work);
-+
-+	/* the MCU cuts the power a few seconds after reporting the switch */
-+	dev_info(&mcu->serdev->dev, "power switch turned off, shutting down\n");
-+	orderly_poweroff(true);
-+}
-+
-+static const enum power_supply_property mcu_battery_props[] = {
-+	POWER_SUPPLY_PROP_PRESENT,
-+	POWER_SUPPLY_PROP_STATUS,
-+	POWER_SUPPLY_PROP_TECHNOLOGY,
-+	POWER_SUPPLY_PROP_CAPACITY,
-+	POWER_SUPPLY_PROP_TEMP,
-+	POWER_SUPPLY_PROP_CYCLE_COUNT,
-+};
-+
-+static int mcu_battery_get_property(struct power_supply *psy,
-+				    enum power_supply_property psp,
-+				    union power_supply_propval *val)
-+{
-+	struct gl_e750_mcu *mcu = power_supply_get_drvdata(psy);
-+	unsigned long flags;
-+	int ret = 0;
-+
-+	spin_lock_irqsave(&mcu->lock, flags);
-+	switch (psp) {
-+	case POWER_SUPPLY_PROP_PRESENT:
-+		val->intval = 1;
-+		break;
-+	case POWER_SUPPLY_PROP_TECHNOLOGY:
-+		val->intval = POWER_SUPPLY_TECHNOLOGY_LION;
-+		break;
-+	case POWER_SUPPLY_PROP_STATUS:
-+		if (!mcu->valid)
-+			val->intval = POWER_SUPPLY_STATUS_UNKNOWN;
-+		else if (mcu->charging)
-+			val->intval = mcu->capacity >= 100 ?
-+				      POWER_SUPPLY_STATUS_FULL :
-+				      POWER_SUPPLY_STATUS_CHARGING;
-+		else
-+			val->intval = POWER_SUPPLY_STATUS_DISCHARGING;
-+		break;
-+	case POWER_SUPPLY_PROP_CAPACITY:
-+		if (mcu->valid)
-+			val->intval = mcu->capacity;
-+		else
-+			ret = -ENODATA;
-+		break;
-+	case POWER_SUPPLY_PROP_TEMP:
-+		if (mcu->valid)
-+			val->intval = mcu->temp;
-+		else
-+			ret = -ENODATA;
-+		break;
-+	case POWER_SUPPLY_PROP_CYCLE_COUNT:
-+		if (mcu->valid)
-+			val->intval = mcu->cycles;
-+		else
-+			ret = -ENODATA;
-+		break;
-+	default:
-+		ret = -EINVAL;
-+	}
-+	spin_unlock_irqrestore(&mcu->lock, flags);
-+
-+	return ret;
-+}
-+
-+static const struct power_supply_desc mcu_battery_desc = {
-+	.name = "gl-e750-battery",
-+	.type = POWER_SUPPLY_TYPE_BATTERY,
-+	.properties = mcu_battery_props,
-+	.num_properties = ARRAY_SIZE(mcu_battery_props),
-+	.get_property = mcu_battery_get_property,
-+};
-+
-+static int gl_e750_mcu_probe(struct serdev_device *serdev)
-+{
-+	struct device *dev = &serdev->dev;
-+	struct power_supply_config psy_cfg = {};
-+	struct gl_e750_mcu *mcu;
-+	int ret;
-+
-+	mcu = devm_kzalloc(dev, sizeof(*mcu), GFP_KERNEL);
-+	if (!mcu)
-+		return -ENOMEM;
-+
-+	mcu->serdev = serdev;
-+	spin_lock_init(&mcu->lock);
-+	init_completion(&mcu->reply);
-+	serdev_device_set_drvdata(serdev, mcu);
-+	serdev_device_set_client_ops(serdev, &mcu_serdev_ops);
-+
-+	/*
-+	 * devm teardown runs in reverse: the poll work is cancelled before the
-+	 * port is closed, the power-off work (queued from the receive path)
-+	 * and the battery only after it.
-+	 */
-+	psy_cfg.drv_data = mcu;
-+	psy_cfg.fwnode = dev_fwnode(dev);
-+	mcu->psy = devm_power_supply_register(dev, &mcu_battery_desc, &psy_cfg);
-+	if (IS_ERR(mcu->psy))
-+		return dev_err_probe(dev, PTR_ERR(mcu->psy),
-+				     "failed to register battery\n");
-+
-+	ret = devm_work_autocancel(dev, &mcu->poweroff_work, mcu_poweroff_work);
-+	if (ret)
-+		return ret;
-+
-+	ret = devm_serdev_device_open(dev, serdev);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to open serdev\n");
-+
-+	serdev_device_set_baudrate(serdev, MCU_BAUDRATE);
-+	serdev_device_set_flow_control(serdev, false);
-+	ret = serdev_device_set_parity(serdev, SERDEV_PARITY_NONE);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to set parity\n");
-+
-+	ret = devm_delayed_work_autocancel(dev, &mcu->poll_work, mcu_poll_work);
-+	if (ret)
-+		return ret;
-+
-+	schedule_delayed_work(&mcu->poll_work, 0);
-+	return 0;
-+}
-+
-+static const struct of_device_id gl_e750_mcu_of_match[] = {
-+	{ .compatible = "glinet,gl-e750-mcu" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, gl_e750_mcu_of_match);
-+
-+static struct serdev_device_driver gl_e750_mcu_driver = {
-+	.probe = gl_e750_mcu_probe,
-+	.driver = {
-+		.name = "gl-e750-mcu",
-+		.of_match_table = gl_e750_mcu_of_match,
-+	},
-+};
-+module_serdev_device_driver(gl_e750_mcu_driver);
-+
-+MODULE_AUTHOR("Serv Pol <servpol@tuta.io>");
-+MODULE_DESCRIPTION("GL.iNet GL-E750 status MCU battery driver");
-+MODULE_LICENSE("GPL");
-
--- 
-2.47.3
+Reviewed-by: Neal Gompa <neal@gompa.dev>
 
 
+--=20
+=E7=9C=9F=E5=AE=9F=E3=81=AF=E3=81=84=E3=81=A4=E3=82=82=E4=B8=80=E3=81=A4=EF=
+=BC=81/ Always, there's only one truth!
