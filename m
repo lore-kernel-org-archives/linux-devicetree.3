@@ -1,51 +1,67 @@
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D89D04DAF8E;
-	Mon,  5 Oct 2026 19:07:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A1EF4C7558
+	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 19:10:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791227229; cv=none; b=IONDr+Gev+mQrPmXtCMSSJTV65pU0bXwX5QQQxBpyfQl69xEAiX6RWpSmQGGLaaUsizXeHSNutU09wOCRmc5SXlhsOXmsNfdAtiY1OeOxMlNXTT6BdJSbXuAf0sA12IDmpPoWFD7QCnGDpXw5ANOKMKRFL4trcoZtpx8guvXxNs=
+	t=1791227447; cv=none; b=kgAaNqnqZBv14kBLbnaEozY1U7Mbtv5YYc+gfePH5JJMJe+Nal9guJ//J2M2Z+OMM+7asZQ9MqKtfvBwF4hXICNt26f1eeMMF6DF9ArcXiEHqxEto+OkVM84eebq0EauSUSUB8AeiSm+s+RaPXUfUwdGq0I4KpZVqdm9frT9RVE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791227229; c=relaxed/simple;
-	bh=iSEVROoxaiVnWebh5umlgYtbgxY4u4SRPxiOq1nTnv4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=lojMKDoB3KU4IWMMPoKWuZNKOuo7B+3gIcOscKsFzvh59CfvcK9wljG+h0LPn1/ipKwc24rHNpjq1qjFcnRlJNtPj846aTnUt/NkfM4gEdolDYDJWRYEJzU1uS1JSiMp15pJTfcuYCnw81dOzvyvuR9oXRBgyt7wHWr0yY5R2+E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=LuzOGfVv; arc=none smtp.client-ip=185.11.138.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	s=arc-20240116; t=1791227447; c=relaxed/simple;
+	bh=TN5pLnk4ylfuQCDcPJKk8WYph9lKab8Uf7A34Sv6vbU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=KKXTR/ngY0b8AkZvqcXdrBv1uTUUrdUMoU3RDl5N9bQikAL2b86rFCRELF7hwuy4CYsBgm5w3dQk0YrQGbbUMWDUPdpB3D7mwREaRW/T54S8QTGLKUbYLGSNqIkvEvp0Ptm/MGrghKi22UJFZgheIQm21AHKY0r+RwSeFW0DEPw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A8BNIdom; arc=none smtp.client-ip=74.125.229.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="LuzOGfVv"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=69MHVnGdOAe0SajgriMbKOljFABccXRQ0VGfA+upUvo=; b=LuzOGfVvoW9Jpv8B/8hUo0ZXzQ
-	S0jPXwmSOKae+3uANqfqfxTClfmCwMMRiksQSY236dpdqm1PCPW7HB18LRfmvyMqeitBpGPfQFRAL
-	XJ62YU7IJi0YkbBXofkTgSyo1ANHD9k/XgZIKrdIzpGW8wNF59tfnrYNPJYleFodMDRUDcnXnuqOc
-	+T5/C4XPwNgX3vLsacgau9p8XzncCNXXq1bLA56Coe20mnj3tBYYsJU0MTOHXzBIRL9I/KqKfycBz
-	O3lRq4TLpy3HXnZ/p+DbWgf9Wtc8Hmv0932KeB0sqFttWqOUjQs9Lc7GRFOYVNZWR16U4FV2e8Jxb
-	BFVHJYjA==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: Mehdi Djait <mehdi.djait@linux.intel.com>,
-	Michael Riesch <michael.riesch@collabora.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Amin Gattout <amin.gattout@gmail.com>
-Cc: Heiko Stuebner <heiko@sntech.de>,
-	linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: (subset) [PATCH v2 0/5] media: rockchip: add support for the RK3576 Video Capture unit
-Date: Mon,  5 Oct 2026 21:06:53 +0200
-Message-ID: <179122712929.3317128.1173871776565894592.b4-ty@sntech.de>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260921-vicap-rk3576-v2-0-0a4582e20c72@gmail.com>
-References: <20260921-vicap-rk3576-v2-0-0a4582e20c72@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A8BNIdom"
+Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33e4e75342aso175578eec.1
+        for <devicetree@vger.kernel.org>; Mon, 05 Oct 2026 12:10:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791227445; x=1791832245; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=GSbhrt/lgKepV2a1GBS3lg8xwzm8vGysOirgZ5JBTUA=;
+        b=A8BNIdomSof02GpFF0Y9+EJi6154tf8KxvORbVzA7OBDbTqjGzS/BrK4nfCOnLDHhk
+         E1OSIUtStRIrJJZ1byo8R31j52xsJkPklYYFK1QXmlTl/xSla2QR//tg3EUcJR+xFac3
+         lE2iIkcvCAlG8X4yBNX5ifw0TNamTUtxhePEpi30Y/GRRZ4VsNBAUs2UeLamJlv+go9y
+         W+YtKh3n8trwbNvV/K9oxiYzBN+xsJ7/pCgNdmi5YBa1wcESYF26W0W2fD0w+iHR0/Bg
+         F0JIhzryf2+x3intj89dgcvlxinmRoKExpOvzP1KiHlkaNgt8T2KN922M9HO3q6hBq8g
+         MGGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791227445; x=1791832245;
+        h=cc:to:message-id:content-transfer-encoding:content-type
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=GSbhrt/lgKepV2a1GBS3lg8xwzm8vGysOirgZ5JBTUA=;
+        b=kcV4lHgWJ9wnMKIb9XIpRMzXSU5FoqgMjS58HCg+IJU69D0cRz5BBm8pJa9ZPX5B+Y
+         b1Bt4IN/iifrfVihumpLPmFulMo/Xp2llakPWvH4zLQYVrGUYoss71roxYRnWD4VHdpi
+         ltzey6EpvMzS+V30DxIjp3WBYzxO5/BwVEVcySpoF0UVS8H9Rirg3b8lEDeP5aCf5JoT
+         L58YgAvJ5Unjse6qSbXInNCaXH5YlgxES8F+X/Xj6pxbggLyUoRuUO/BQAQ4JvzKg+IR
+         th8UvarASz84JtCD0A69qLtddZiATsLlgY4xoFSdumoeQyhuPnRQFak1GwRnvuGWxQ7D
+         RAWg==
+X-Forwarded-Encrypted: i=1; AKwUvBxf64Czsx504WK4zsDUm+y8thuAUdgLqvzU6ILE9MbIRQePZ8OQCJ4BbgRbYCDCN2pLjbG4c7tHm158@vger.kernel.org
+X-Gm-Message-State: AFuF++m4H02yr0K3ysCXsRfIvLfhhpFjFGCtSIBtPZxGmWb0RnpseC2w
+	wM715MxC7nH6AXQ9e2nNeWK5x5DqdGgYfzRKXrKHMGZDGEgtQKFLjHjV
+X-Gm-Gg: AYBFou1mX1+AzK3LPbUlP3cDYg+s93DQbCITXbBC1XJOA5d5YUXyhWCtiRf/JoD/zBT
+	+JrSaqh2Z4Bal5RPlj+hL7DpEf63675W97wmGuKfpkL6Om3Y8TmReieCkaODE6CPpZekM6eT0ZQ
+	P4as8HxEbvJ+3Jnlig/XHfCj1ZXMvmGNJN6fFqsvRPTQBc80ynEODp6J44PRahpyzgZSbtUhFMD
+	A+Rnvw61UUy16slel7GHH7arBU4mvGVuFl2fXuvr9B0lQxgUTHImVqvF0hYFzYkpf4eJqlOhMPG
+	f2itNZVpq3hC/jTq/U8mBMzJ7efmk1OsWzVo9y//Fj671HGhGztNG/4MtLeEM4vmFK1DlA59lw/
+	yP+UQXNbuX/Q04/44lx9mxvEh3cCje+B6sp5BrIRrDbjHvV6tYvrY+FtG3jbGjZbGT9HDKJD6bo
+	lor3iqfMaFYx83+wq62LcHsVjeHFwtU24jGcE7xBVLhVVt8HYvj0Dmh9ZU26xfEgAzmzBLORacV
+	IF70FlpcCo=
+X-Received: by 2002:a05:7301:9a83:b0:34c:f181:85e4 with SMTP id 5a478bee46e88-34f14ffa69cmr21314485eec.1.1791227444450;
+        Mon, 05 Oct 2026 12:10:44 -0700 (PDT)
+Received: from [10.211.86.252] ([2409:40c2:5007:c960:23fb:5e63:6976:fa4f])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35146b5ee6bsm475408eec.30.2026.10.05.12.10.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 12:10:43 -0700 (PDT)
+From: Bhargav Joshi <j.bhargav.u@gmail.com>
+Date: Tue, 06 Oct 2026 00:40:26 +0530
+Subject: [PATCH] dt-bindings: remoteproc: ti,keystone-rproc: Convert to DT
+ schema
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -53,29 +69,377 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261006-ti-keystone-rproc-v1-1-41f7f078b44e@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqAIBBA0avErBswDYmuEi3KxhoCjTGikO6et
+ HyL/zMkEqYEfZVB6OLEMRQ0dQVum8JKyEsxaKVto5TFk3GnJ50xEMoh0WFLZu680Z21Gkp3CHm
+ +/+cwvu8HaiMGh2MAAAA=
+X-Change-ID: 20261006-ti-keystone-rproc-4e3b8f328662
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Mathieu Poirier <mathieu.poirier@linaro.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Suman Anna <s-anna@ti.com>
+Cc: linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, goledhruva@gmail.com, m-chawdhry@ti.com, 
+ daniel.baluta@gmail.com, simona.toaca@nxp.com, j.bhargav.u@gmail.com
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791227434; l=11715;
+ i=j.bhargav.u@gmail.com; h=from:subject:message-id;
+ bh=TN5pLnk4ylfuQCDcPJKk8WYph9lKab8Uf7A34Sv6vbU=;
+ b=fJmAv24dBO753NanC9n00n0anTt7+DDNR1XmL4EKn4AQav3pxnvQUYccAfycHtmfOb4U/r6d5
+ ps+C1DnoznIBnfmgUndWYceI6jijGoUCB5sVn1MuLwJIphn2qQk81xn
+X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
+ pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
 
+Convert TI Keystone DSP remoteproc binding from legacy text format to DT
+schema. No functional changes are introduced during conversion.
 
-On Mon, 21 Sep 2026 17:29:56 +0200, Amin Gattout wrote:
-> This series adds support for the Video Capture (VICAP) unit of the
-> Rockchip RK3576 to the rkcif driver.
-> 
-> The RK3576 VICAP features a digital video port (DVP) and five MIPI
-> CSI-2 capture interfaces. Compared to the RK3588 variant, the MIPI
-> register blocks are laid out differently, the ID_CTRL0 bit layout has
-> changed, the VC/DT filter has moved from ID_CTRL0 to ID_CTRL1, and the
-> capture size is configured in the new ID_SET_SIZE register. In
-> addition, the pixel clock of each MIPI port enters the VICAP through a
-> dedicated gate in the clock and reset unit, so the VICAP claims five
-> interface clocks and five interface resets.
-> 
-> [...]
+Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
+---
+ .../bindings/remoteproc/ti,keystone-rproc.txt      | 182 ---------------------
+ .../bindings/remoteproc/ti,keystone-rproc.yaml     | 140 ++++++++++++++++
+ 2 files changed, 140 insertions(+), 182 deletions(-)
 
-Applied, thanks!
+diff --git a/Documentation/devicetree/bindings/remoteproc/ti,keystone-rproc.txt b/Documentation/devicetree/bindings/remoteproc/ti,keystone-rproc.txt
+deleted file mode 100644
+index 8475521336333..0000000000000
+--- a/Documentation/devicetree/bindings/remoteproc/ti,keystone-rproc.txt
++++ /dev/null
+@@ -1,182 +0,0 @@
+-TI Keystone DSP devices
+-=======================
+-
+-The TI Keystone 2 family of SoCs usually have one or more (upto 8) TI DSP Core
+-sub-systems that are used to offload some of the processor-intensive tasks or
+-algorithms, for achieving various system level goals.
+-
+-These processor sub-systems usually contain additional sub-modules like L1
+-and/or L2 caches/SRAMs, an Interrupt Controller, an external memory controller,
+-a dedicated local power/sleep controller etc. The DSP processor core in
+-Keystone 2 SoCs is usually a TMS320C66x CorePac processor.
+-
+-DSP Device Node:
+-================
+-Each DSP Core sub-system is represented as a single DT node, and should also
+-have an alias with the stem 'rproc' defined. Each node has a number of required
+-or optional properties that enable the OS running on the host processor (ARM
+-CorePac) to perform the device management of the remote processor and to
+-communicate with the remote processor.
+-
+-Required properties:
+---------------------
+-The following are the mandatory properties:
+-
+-- compatible:		Should be one of the following,
+-			    "ti,k2hk-dsp" for DSPs on Keystone 2 66AK2H/K SoCs
+-			    "ti,k2l-dsp" for DSPs on Keystone 2 66AK2L SoCs
+-			    "ti,k2e-dsp" for DSPs on Keystone 2 66AK2E SoCs
+-			    "ti,k2g-dsp" for DSPs on Keystone 2 66AK2G SoCs
+-
+-- reg:			Should contain an entry for each value in 'reg-names'.
+-			Each entry should have the memory region's start address
+-			and the size of the region, the representation matching
+-			the parent node's '#address-cells' and '#size-cells' values.
+-
+-- reg-names:		Should contain strings with the following names, each
+-			representing a specific internal memory region, and
+-			should be defined in this order,
+-			     "l2sram", "l1pram", "l1dram"
+-
+-- ti,syscon-dev:	Should be a pair of the phandle to the Keystone Device
+-			State Control node, and the register offset of the DSP
+-			boot address register within that node's address space.
+-
+-- resets:		Should contain the phandle to the reset controller node
+-			managing the resets for this device, and a reset
+-			specifier. Please refer to either of the following reset
+-			bindings for the reset argument specifier as per SoC,
+-			Documentation/devicetree/bindings/reset/ti-syscon-reset.txt
+-			    for 66AK2HK/66AK2L/66AK2E SoCs or,
+-			Documentation/devicetree/bindings/reset/ti,sci-reset.yaml
+-			    for 66AK2G SoCs
+-
+-- interrupts: 		Should contain an entry for each value in 'interrupt-names'.
+-			Each entry should have the interrupt source number used by
+-			the remote processor to the host processor. The values should
+-			follow the interrupt-specifier format as dictated by the
+-			'interrupt-parent' node. The purpose of each is as per the
+-			description in the 'interrupt-names' property.
+-
+-- interrupt-names:	Should contain strings with the following names, each
+-			representing a specific interrupt,
+-			    "vring" - interrupt for virtio based IPC
+-			    "exception" - interrupt for exception notification
+-
+-- kick-gpios: 		Should specify the gpio device needed for the virtio IPC
+-			stack. This will be used to interrupt the remote processor.
+-			The gpio device to be used is as per the bindings in,
+-			Documentation/devicetree/bindings/gpio/ti,keystone-dsp-gpio.yaml
+-
+-SoC-specific Required properties:
+----------------------------------
+-The following are mandatory properties for Keystone 2 66AK2HK, 66AK2L and 66AK2E
+-SoCs only:
+-
+-- clocks: 		Should contain the device's input clock, and should be
+-			defined as per the bindings in,
+-			Documentation/devicetree/bindings/clock/ti,keystone,psc-clock.yaml
+-
+-The following are mandatory properties for Keystone 2 66AK2G SoCs only:
+-
+-- power-domains:	Should contain a phandle to a PM domain provider node
+-			and an args specifier containing the DSP device id
+-			value. This property is as per the binding,
+-			Documentation/devicetree/bindings/soc/ti/sci-pm-domain.yaml
+-
+-Optional properties:
+---------------------
+-
+-- memory-region:	phandle to the reserved memory node to be associated
+-			with the remoteproc device. The reserved memory node
+-			can be a CMA memory node, and should be defined as
+-			per the bindings in
+-			Documentation/devicetree/bindings/reserved-memory/reserved-memory.txt
+-
+-
+-Examples:
+----------
+-
+-1.
+-	/* 66AK2H/K DSP aliases */
+-	aliases {
+-		rproc0 = &dsp0;
+-		rproc1 = &dsp1;
+-		rproc2 = &dsp2;
+-		rproc3 = &dsp3;
+-		rproc4 = &dsp4;
+-		rproc5 = &dsp5;
+-		rproc6 = &dsp6;
+-		rproc7 = &dsp7;
+-	};
+-
+-	/* 66AK2H/K DSP memory node */
+-	reserved-memory {
+-		#address-cells = <2>;
+-		#size-cells = <2>;
+-		ranges;
+-
+-		dsp_common_memory: dsp-common-memory@81f800000 {
+-			compatible = "shared-dma-pool";
+-			reg = <0x00000008 0x1f800000 0x00000000 0x800000>;
+-			reusable;
+-		};
+-	};
+-
+-	/* 66AK2H/K DSP node */
+-	soc {
+-		dsp0: dsp@10800000 {
+-			compatible = "ti,k2hk-dsp";
+-			reg = <0x10800000 0x00100000>,
+-			      <0x10e00000 0x00008000>,
+-			      <0x10f00000 0x00008000>;
+-			reg-names = "l2sram", "l1pram", "l1dram";
+-			clocks = <&clkgem0>;
+-			ti,syscon-dev = <&devctrl 0x40>;
+-			resets = <&pscrst 0>;
+-			interrupt-parent = <&kirq0>;
+-			interrupts = <0 8>;
+-			interrupt-names = "vring", "exception";
+-			kick-gpios = <&dspgpio0 27 0>;
+-			memory-region = <&dsp_common_memory>;
+-		};
+-
+-	};
+-
+-2.
+-	/* 66AK2G DSP alias */
+-	aliases {
+-		rproc0 = &dsp0;
+-	};
+-
+-	/* 66AK2G DSP memory node */
+-	reserved-memory {
+-		#address-cells = <2>;
+-		#size-cells = <2>;
+-		ranges;
+-
+-		dsp_common_memory: dsp-common-memory@81f800000 {
+-			compatible = "shared-dma-pool";
+-			reg = <0x00000008 0x1f800000 0x00000000 0x800000>;
+-			reusable;
+-		};
+-	};
+-
+-	/* 66AK2G DSP node */
+-	soc {
+-		dsp0: dsp@10800000 {
+-			compatible = "ti,k2g-dsp";
+-			reg = <0x10800000 0x00100000>,
+-			      <0x10e00000 0x00008000>,
+-			      <0x10f00000 0x00008000>;
+-			reg-names = "l2sram", "l1pram", "l1dram";
+-			power-domains = <&k2g_pds 0x0046>;
+-			ti,syscon-dev = <&devctrl 0x40>;
+-			resets = <&k2g_reset 0x0046 0x1>;
+-			interrupt-parent = <&kirq0>;
+-			interrupts = <0 8>;
+-			interrupt-names = "vring", "exception";
+-			kick-gpios = <&dspgpio0 27 0>;
+-			memory-region = <&dsp_common_memory>;
+-		};
+-	};
+diff --git a/Documentation/devicetree/bindings/remoteproc/ti,keystone-rproc.yaml b/Documentation/devicetree/bindings/remoteproc/ti,keystone-rproc.yaml
+new file mode 100644
+index 0000000000000..3117cfb2b3e07
+--- /dev/null
++++ b/Documentation/devicetree/bindings/remoteproc/ti,keystone-rproc.yaml
+@@ -0,0 +1,140 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/remoteproc/ti,keystone-rproc.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: TI Keystone DSP devices
++
++maintainers:
++  - Suman Anna <s-anna@ti.com>
++
++description: >
++  The TI Keystone 2 family of SoCs usually have one or more (up to 8) TI DSP
++  Core sub-systems that are used to offload some of the processor-intensive
++  tasks or algorithms, for achieving various system level goals.
++
++  These processor sub-systems usually contain additional sub-modules like L1
++  and/or L2 caches/SRAMs, an Interrupt Controller, an external memory
++  controller, a dedicated local power/sleep controller etc. The DSP processor
++  core in Keystone 2 SoCs is usually a TMS320C66x CorePac processor.
++
++  Each DSP Core sub-system is represented as a single DT node, and should also
++  have an alias with the stem 'rproc' defined. Each node has a number of
++  required or optional properties that enable the OS running on the host
++  processor (ARM CorePac) to perform the device management of the remote
++  processor and to communicate with the remote processor.
++
++properties:
++  compatible:
++    enum:
++      - ti,k2hk-dsp
++      - ti,k2l-dsp
++      - ti,k2e-dsp
++      - ti,k2g-dsp
++
++  reg:
++    minItems: 3
++    maxItems: 3
++
++  reg-names:
++    items:
++      - const: l2sram
++      - const: l1pram
++      - const: l1dram
++
++  interrupts:
++    minItems: 2
++    maxItems: 2
++
++  interrupt-names:
++    items:
++      - const: vring
++      - const: exception
++
++  ti,syscon-dev:
++    description: Phandle and offset to syscon device
++    $ref: /schemas/types.yaml#/definitions/phandle-array
++    items:
++      - items:
++          - description: Phandle to Keystone Device State Control node
++          - description: offset of the DSP boot address register
++
++  resets:
++    maxItems: 1
++    description:
++      refer to either of the following reset bindings for the reset argument
++      specifier as per SoC,
++      Documentation/devicetree/bindings/reset/ti-syscon-reset.txt for
++      66AK2HK/66AK2L/66AK2E SoCs or,
++      Documentation/devicetree/bindings/reset/ti,sci-reset.yaml for 66AK2G SoCs
++
++  kick-gpios:
++    maxItems: 1
++    description:
++      GPIO used by the virtio IPC stack to interrupt the remote processor. See
++      Documentation/devicetree/bindings/gpio/ti,keystone-dsp-gpio.yaml
++
++  memory-region:
++    maxItems: 1
++    description:
++      Reserved memory node can be CMA memory node, and should be defined as per
++      Documentation/devicetree/bindings/reserved-memory/reserved-memory.txt
++
++  clocks:
++    maxItems: 1
++    description:
++      Input clock (66AK2HK/66AK2L/66AK2E only), see
++      Documentation/devicetree/bindings/clock/ti,keystone,psc-clock.yaml
++
++  power-domains:
++    maxItems: 1
++    description:
++      PM domain provider phandle and DSP device id (66AK2G only), see
++      Documentation/devicetree/bindings/soc/ti/sci-pm-domain.yaml
++
++required:
++  - compatible
++  - reg
++  - reg-names
++  - interrupts
++  - interrupt-names
++  - ti,syscon-dev
++  - resets
++  - kick-gpios
++
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: ti,k2g-dsp
++    then:
++      properties:
++        clocks: false
++      required:
++        - power-domains
++    else:
++      properties:
++        power-domains: false
++      required:
++        - clocks
++
++additionalProperties: false
++
++examples:
++  - |
++    dsp@10800000 {
++      compatible = "ti,k2g-dsp";
++      reg = <0x10800000 0x00100000>,
++            <0x10e00000 0x00008000>,
++            <0x10f00000 0x00008000>;
++      reg-names = "l2sram", "l1pram", "l1dram";
++      power-domains = <&k2g_pds 0x0046>;
++      ti,syscon-dev = <&devctrl 0x844>;
++      resets = <&k2g_reset 0x0046 0x1>;
++      interrupts = <0>, <8>;
++      interrupt-names = "vring", "exception";
++      kick-gpios = <&dspgpio0 27 0>;
++      memory-region = <&dsp_common_memory>;
++    };
 
-[5/5] arm64: dts: rockchip: add vicap node to rk3576
-      commit: c9f69938f459e80471759008ce7504a637e801f6
+---
+base-commit: 67f0943b394d920b6c142aad8c6af94340342ae7
+change-id: 20261006-ti-keystone-rproc-4e3b8f328662
 
 Best regards,
 -- 
-Heiko Stuebner <heiko@sntech.de>
+Bhargav
+
