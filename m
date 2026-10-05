@@ -1,105 +1,110 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E21E4908CD
-	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 14:02:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D7F34A0912;
+	Mon,  5 Oct 2026 14:14:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791208963; cv=none; b=AjHlG02NA4ErwvP2/vpemV8Rp3QY+KU+NFwogsPAKApmYs2bgZWtUFIf6/VW+BzUibwo6r/Pj4xTf3+0xDhfanDbIdzHQrDm1Zt3EO+Af4qNDDLps7ho79mT6frQIwykeo3SxQQzsYr0W+QG16k2711kWd04YeDeRzs+EdOdrIE=
+	t=1791209684; cv=none; b=dOOOJ21wsOuycGezitbJ9iCBx5rT8wRkdq+9RN5QAWjJUf+Aw8iXuv59K6chp8U7FZgGFX7/KSXalCcuoygtBsue3NGHdZAa3U5nwuFztOBHTYwZMgtJyUENI8kwMp0FSEtuiKM8c4sxmIm+voZmQG2ygMyml6Nm4RNh0nKhoKg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791208963; c=relaxed/simple;
-	bh=ryk3zoix9eZQlhJtkvEAH8KIqg/RgzkBKEjS4nsfUC8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=TzNY1vB0KstzwkRbs4ksxto3D7kBT+GOosDk05lrwzrav+Fn5PGeTqnqxl+eVJiAyMePHc89no58ISME2xCvMGErXNd4/Ly0KW8UXxaHbQiX2hYZZNnD1Nlm5nHUchNydjVyP/9VVKSZNFBnHuoKltox/Un55AdF6MTUU0L4Oqc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cBC2B7kN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791209684; c=relaxed/simple;
+	bh=UHwh7wFHuN5Ga6uewbclz9cNyo0kJzEZC9uqnAntPpU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=C05nMpUAOl0uMeNtcjC7ErOtDO7yu1yT8Yo/ZlmVEN0r/beWYME3rD4D2XHHYKRB3kBpwzN0bE4yk8ZRVg3Hbs1lRW/2advY2hUqoKIDtgRvFyeUtlERfPkUEVd51zQCWz/eSBSJ/ciJ4726ast66EIM5U5hlIWZSMfD3BDEaVs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lFpWSE8A; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cBC2B7kN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 644461F000FF;
-	Mon,  5 Oct 2026 14:02:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lFpWSE8A"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 59D6E1F00898;
+	Mon,  5 Oct 2026 14:14:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791208960;
-	bh=IOJ/CxqebTmLTW6gACH4+Zng/yc+b/aunsZBTq4rAjA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=cBC2B7kNvDbTHJhMx9Y6xBJZ20UPt3mY1qIHusYEdmzQt8Qe69vH8D9C0fRvQL4nL
-	 HOPIsxJELag0cmRC5tEZLTdsGalSTU62IJoBJmZHeLpnCuxWyjSHLEp83UeCKEdv+M
-	 re/P4jmUZnlcH1NZa11rG+N/JkSXoiJrao9k5eGjP8R0XQGW8L7ijDfn4sMnxA0zkW
-	 KuJMBljovoK/ZJEP7he3sY1tjxAmDFlnJfsyY5CPVEPcsp5qOpAGo+KeTzIgpSctL+
-	 6U5397noXp+4p/wvMujdDAt3/VbvsLwRk3+gJYZu4577n1fHvaE/TdDq9/CoF0+PCf
-	 PVc2OP83Rmoiw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 09/10] media: v4l2-subdev: notify the bridge when the
- source power changes
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sascha Hauer" <s.hauer@pengutronix.de>
-Cc: robh@kernel.org, media-ci@linuxtv.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261005-hdmirx-media-v3-9-71a11a2e3e76@pengutronix.de>
-References: <20261005-hdmirx-media-v3-0-71a11a2e3e76@pengutronix.de>
- <20261005-hdmirx-media-v3-9-71a11a2e3e76@pengutronix.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 05 Oct 2026 14:02:40 +0000
-Message-Id: <20261005140240.644461F000FF@smtp.kernel.org>
+	s=k20260515; t=1791209674;
+	bh=rVrrDfv4poJotbfMcfWYdkLo+G1+TYiRY9Y2dnE3WCs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lFpWSE8Am/LCLqpkSREObdjxVg+T1lCW1a0IINduLTsAWVcqJj+SlbQU4K5om54Pc
+	 bcXpTmNRqaILdQcsq31uRIjys0bk6szavl93IEAD+GMSw9nOuhc0cqUy9IrC6f1F+Q
+	 raZE5PBu2z+5py2dA/YUf2Qr3oNrcZPsYjNtOkPSnW70w/IGvEhUvnWw83ohkY4jBz
+	 lsR3B6tpSkioz73FDxSJ1Ch8PFxLIfFrCkZMDR0to1qLogNEoAlurvLaNdYPq4xX19
+	 cvYGkS0+AiMVYHDUyPhXaU/H3465WSgFjbJcZD8WVxd0118qTMmFkinrxwSzOWYEam
+	 RIhtfVm5YJAIw==
+Date: Mon, 5 Oct 2026 16:14:32 +0200
+From: Vinod Koul <vkoul@kernel.org>
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Frank Li <Frank.li@oss.nxp.com>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Shawn Guo <shawnguo@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Subject: Re: [PATCH] dt-bindings: dma: qcom,gpi: Document the Nord GPI DMA
+ engine
+Message-ID: <asOwyLDTFc3gMGXW@parshuram>
+References: <20260916-nord-gpi-dt-bindings-v1-1-857bf9e84999@oss.qualcomm.com>
+ <CAMRc=MdVQ4xUFPtcytXt5Tqor5-fUjHiRvnpmxBsJpJbd1rHLw@mail.gmail.com>
+ <ar_OXbdMsP43JM9v@SMW015318>
+ <CAMRc=Mfb-YspC2DBCfq+gay5Z7FkaK0HzfgwSiULaUZUxjMSgw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAMRc=Mfb-YspC2DBCfq+gay5Z7FkaK0HzfgwSiULaUZUxjMSgw@mail.gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] media: missing V4L2_DEVICE_NOTIFY_RX_POWER_PRESENT producers bre=
-aks hotplug
---
+On 02-10-26, 12:28, Bartosz Golaszewski wrote:
+> On Fri, 2 Oct 2026 17:31:41 +0200, Frank Li <Frank.li@oss.nxp.com> said:
+> > On Fri, Oct 02, 2026 at 11:46:57AM +0300, Bartosz Golaszewski wrote:
+> >> On Wed, 16 Sep 2026 17:21:29 +0200, Bartosz Golaszewski
+> >> <bartosz.golaszewski@oss.qualcomm.com> said:
+> >> > Add the compatible string for the GPI DMA engine found on the Nord
+> >> > family of SoCs.
+> >> >
+> >> > Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> >> > ---
+> >> >  Documentation/devicetree/bindings/dma/qcom,gpi.yaml | 1 +
+> >> >  1 file changed, 1 insertion(+)
+> >> >
+> >> > diff --git a/Documentation/devicetree/bindings/dma/qcom,gpi.yaml b/Documentation/devicetree/bindings/dma/qcom,gpi.yaml
+> >> > index 54dca623223d51373a4d54591f3ebbf5e31fca17..ad70717b5b86e600e74d6cfe42015dc03db25ba9 100644
+> >> > --- a/Documentation/devicetree/bindings/dma/qcom,gpi.yaml
+> >> > +++ b/Documentation/devicetree/bindings/dma/qcom,gpi.yaml
+> >> > @@ -29,6 +29,7 @@ properties:
+> >> >                - qcom,hawi-gpi-dma
+> >> >                - qcom,kaanapali-gpi-dma
+> >> >                - qcom,milos-gpi-dma
+> >> > +              - qcom,nord-gpi-dma
+> >> >                - qcom,qcm2290-gpi-dma
+> >> >                - qcom,qcs8300-gpi-dma
+> >> >                - qcom,qdu1000-gpi-dma
+> >> >
+> >> > ---
+> >> > base-commit: e6e35979777d646fe3c7c94dca7dd32fb25d45f4
+> >> > change-id: 20260916-nord-gpi-dt-bindings-f4b10102d22b
+> >> >
+> >> > Best regards,
+> >> > --
+> >> > Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> >> >
+> >> >
+> >>
+> >> Vinod: gentle ping, can this make v7.4, please? Otherwise, can you Ack it
+> >> and let Bjorn pick it up?
+> >
+> > I have not seen dt team's review tags yet. You should ping DT Team firstly.
+> >
+> > And subject:
+> > 	dt-bindings: dmaengine: qcom,gpi, although there some use "dma",
+> > but avoid confuse in future, all will consistently use "dmeangine".
+> >
+> 
+> Do we require DT maintainers' review tags even for a single liner changes
+> like this one that don't carry much potential for errors? For GPIO I typically
+> take small changes like this even without them.
 
-commit 6a92b4c6dc1e86451bb217218d03ed0f4be33caf
-Author: Sascha Hauer <s.hauer@pengutronix.de>
+They have been providing :-) I will pick this though...
 
-media: v4l2-subdev: notify the bridge when the source power changes
-
-This commit adds a new V4L2_DEVICE_NOTIFY_RX_POWER_PRESENT notification
-macro. It allows subdevices to notify the bridge when the source power
-changes on the connector's +5V line, so devices can act on hardware
-changes instead of only handing the value to userspace.
-
-> diff --git a/include/media/v4l2-subdev.h b/include/media/v4l2-subdev.h
-> --- a/include/media/v4l2-subdev.h
-> +++ b/include/media/v4l2-subdev.h
-[ ... ]
-> @@ -29,6 +29,14 @@
-> =20
->  #define	V4L2_DEVICE_NOTIFY_EVENT		_IOW('v', 2, struct v4l2_event)
-> =20
-> +/*
-> + * The source power state a receiver publishes as
-> + * V4L2_CID_DV_RX_POWER_PRESENT has changed. The argument points at an
-> + * unsigned int holding the same per-input mask as that control, so zero
-> + * means no input sees a source.
-> + */
-> +#define	V4L2_DEVICE_NOTIFY_RX_POWER_PRESENT	_IOW('v', 3, unsigned int)
-
-[Severity: Medium]
-Is this notification actually emitted by any subdevices in this series?
-
-While this macro is added to allow subdevices to notify the bridge of power
-changes (and is consumed by hdmirx_notify in patch 10 to detect hotplug
-events on boards lacking a dedicated 5V GPIO), it doesn't appear to be
-used by any upstream subdevice drivers like adv7604 or tc358743 in this
-patch series.
-
-When a user plugs or unplugs the HDMI cable at runtime, the upstream
-subdevice updates the V4L2_CID_DV_RX_POWER_PRESENT control but fails to
-emit this V4L2_DEVICE_NOTIFY_RX_POWER_PRESENT event. Without the producer
-side implemented, the receiver (e.g. snps_hdmirx) never receives the
-notification and fails to rescan the link state.
-
-Does this leave runtime hotplug functionality incomplete or broken on
-boards that rely on this notification rather than a dedicated 5V GPIO?
-
-> +
->  struct v4l2_device;
->  struct v4l2_ctrl_handler;
->  struct v4l2_event;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261005-hdmirx-med=
-ia-v3-0-71a11a2e3e76@pengutronix.de?part=3D9
+-- 
+~Vinod
