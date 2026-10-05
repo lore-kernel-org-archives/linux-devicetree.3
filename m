@@ -1,79 +1,135 @@
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F00D34A3841;
-	Mon,  5 Oct 2026 18:09:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D2D6318BB8
+	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 18:31:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791223772; cv=none; b=gVXGGBOwegYSplDOxsCe7jQIuXow2olFgTFFxr02jBjdfHc1AKyl6YRdqOV0M3Kct3e1TePkZGzzR421yqTR94CjiZq1GjfmNDquOxtcn291pIORmfZi1u/3w6Yi4/YOOYzKOQyWXS3Hl9IaXD+XZvSpfQ/Sl3V41ZIQecE5YtI=
+	t=1791225070; cv=none; b=Wj3a7Hzd4QrPY07rwRqKUv22mm7fOd1Yhuj16CRegP2lbtEk7ILalkQRrLxVveesIVqxQx4cNzdhmD5HNr6z5iGaKk4R20vgzBCVJQqGEAUJ2IhgrvR9D04AK2qB4cNNYEoW4qV8N2N4PveVYL9omaWh2plIzt5Buw7fO5CB3rk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791223772; c=relaxed/simple;
-	bh=m63eG4EQqCvB8LtSO/48HhC5Ni1xS6bHRJzac66SfSc=;
+	s=arc-20240116; t=1791225070; c=relaxed/simple;
+	bh=/YjAT+PTANp5RO4duL6E//TuMjIjLHUPGD7hH8q1nCA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=LNS1VoDD3SXsJgm2+i3YNeVGE9kXlT1qwFR3L4ckHf5l/GZKOZ2C0uC6BabcruRVyfzODgZwARCu2UosVFvZ1acB5pJj1rtSIr+MxL2xRai4eTOYOoBqpUltmyRW138EHAPmiDTbioiaTDI3r1hkTkMZRy8ZYtefOYDEc7kKpfM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=wh8lZYdI; arc=none smtp.client-ip=185.11.138.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	 MIME-Version:Content-Type; b=Ak4090kVDZ44oWb6DqTT5A/Mii/363VUpqB2Wwkgoql60uzF5NyHU3rhVb/d3sNJEX62+uoyHzwSMrmvR2ClE+Y9KKoEZFXN7Zj0KJwuEwEay99XA5BdJBvC1o/JrpzkHrPYPCIr+r/5hcI25w0OGtWZi6fZaMnFGqqwnlX7Fzs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mPp0567a; arc=none smtp.client-ip=74.125.82.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="wh8lZYdI"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=KWSjVCVfhYPrZE0ETR+lrH3OHG2RwgKAy0qCp+LBWOw=; b=wh8lZYdIq/+MLr9OmtxrVg5feF
-	wI8VSnydL3P+HMY/5BjwvsD2lnnS06rSgU2W8euhhCDVFrefnQ5PCU32v/O7zKxhLGsOt2R6qFyxh
-	LwRR5LelPnF25xPtDCvLom2b2ER2TWO0iUs08pyds84ppCK7xdd2KEzTnTM34xe4nT9DVQAdFJkLA
-	gMqrn4CzaLBO+4naoyBcls4HYaJ6wiUkERUaXynfy8M6hRPA5FMdGM5rVR9NNB4e3JWF2XLJqlKyB
-	jFb2VWcrHXvg4e/81tr2Hl1rjA08pjLEgByzNAMA0U3qSfrxPBv/IvsQXd/Tr//wBAWhOOf5jImut
-	+joamz0g==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mPp0567a"
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-33fb4680717so5893352eec.1
+        for <devicetree@vger.kernel.org>; Mon, 05 Oct 2026 11:31:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791225068; x=1791829868; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6PuYbZh3CSJx/YeySaraDhA8HTOEwlS5gR3oZ9G0OMs=;
+        b=mPp0567abLw7JG+WLzGJMH3XRtB8NuakHDzWTv9g5TjEdG07ni23ONXk7jRK0IVOPN
+         wWm2WhuxD04bvvttEcwS2+cXKT66WtRkXBzQBhiBhPNRtKpBjop5DTOTEXSCW6OacQSP
+         +Hem3A8aBZ68N076PQnd/jY2EvFAb5Tx2usUG/VUpIy2jsfCAXNC+Fp8ll1l9CkhpHfV
+         26rD7s+K33w1vZ9IV3CApU5Ac0cR3ntU8L6+w1UWGpv1UM7I2r4pVPvvz6CA+K2kAlBx
+         ZnLGzSk3WvqbExEl9rWrshJIwkC+Xs2dN/4TmcGxC1fDEIBbvtUXY7fxgxqnnIPVmcUH
+         VWKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791225068; x=1791829868;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6PuYbZh3CSJx/YeySaraDhA8HTOEwlS5gR3oZ9G0OMs=;
+        b=FpM64FVSP6UKFTcSSFc3zu3lFrfckBGMDPT3YGKT0vKZ5Ai5mBO/GjMFUZz6oPOY+W
+         W9WHeTn0WNj9lEvKUkHEdsLBS7J/ApIp5ICRuTq90C3w/apkIGeTMwgj2BbdSzyPTTEY
+         1Ke47D+VSw899c1TmpFJI+QzhjG6UhUcJGnIglz3BWkXGSqJm7CIv3XVEizO84Yp0Ejn
+         sEkWR1/zenYMRQmBJUEiMsm4rFLIdKpP9SwWAGDwUJE+GmyRzEmZGYOYghhXqN8rzgUm
+         v6g0rkO9Z81Bx9ilnVFCsaCy9h5iR8+dQbS6ATKsUnuPcauK1/fmRe/+tilma8kBVMUl
+         CZYg==
+X-Forwarded-Encrypted: i=1; AKwUvByL37TUzXXM+pCkrJQamTNr0BlVMJZMFQ7hCwSBhqum6+MHXAQqSs06eGD0AaG8OS9LhKIucbgbkaWz@vger.kernel.org
+X-Gm-Message-State: AFuF++mcNYE7BnO0wxP4Z0HF1AVMdBjh42U5ELFq8yu2qKEuU5Gy7TS2
+	C3PIC5MlPtu+FxJTD9R9Iy66dCLMTpwLqDDNMc+NRvVNJnU0Iy0PQLpy
+X-Gm-Gg: AYBFou1EoEXJ0X/A6nfiBwPMzOsJ7u/oX+D+h/rsVz63AWZMam5WmWxwX6wzi3Fxxvk
+	EKEIEBnsIDnQASOctMB40Zd4XuM4gjaQIUieV1IaZZwajUw917QGGq3P2f4OidBefu+8EE5+6e4
+	koeAEW1WjhRuLo7PxYfHhoJpicnM4QVvyn57gSGEtjlrh7O/dRNT/xPvVT2MFtTa4IkY6HEDAaa
+	HSHdvBZX9v+WrVTVoRDjMT8qQIxiGISNCb5YhFkihHA3FVGcnKB8y2BaSwt1v4zGx6se4JeKPtD
+	Szsv9vY930DfWZqY2JqY2taWbNPVyKF+Pebq/+6TlWSYSzFzdAQlLFrei7sbz8768bagmNJXJNK
+	+PcHRInWnRAPpyB+LyNeXBDq4UrW4Ey0eoaCoNh0SRk6SYkda5x0V/r/VgPnUr1HRcvS2FclY5R
+	whz6Xtnf6nIvV1eDITgRCH7RonCGTx3eUc7yVlEcwe7wuJiPKIdQpyQIbwGhIfCe/QvHLIXjIfH
+	0Fbv47Kap3Zl1y+JmMfCvGWgcxL8ZH7vRLY3EMqYWPUKFO4hFabCRtet+zH2mirGGRVnglD3fa1
+	vyDE6ao=
+X-Received: by 2002:a05:7301:f84:b0:34c:1f07:2d5 with SMTP id 5a478bee46e88-3511162fa68mr10914269eec.6.1791225067702;
+        Mon, 05 Oct 2026 11:31:07 -0700 (PDT)
+Received: from MaquinaLab.. ([179.179.237.181])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35146ac4dc4sm140223eec.23.2026.10.05.11.31.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 11:31:07 -0700 (PDT)
+From: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
+To: Junhui Liu <junhui.liu@pigmoral.tech>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Amin Gattout <amin.gattout@gmail.com>
-Cc: Heiko Stuebner <heiko@sntech.de>,
-	Michael Riesch <michael.riesch@collabora.com>,
+	Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Richard Cochran <richardcochran@gmail.com>
+Cc: linux-clk@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
+	linux-sunxi@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: (subset) [PATCH v2 0/4] phy: rockchip: add support for the RK3576 MIPI CSI-2 DPHYs
-Date: Mon,  5 Oct 2026 20:09:18 +0200
-Message-ID: <179122375594.3298998.10291240183600049512.b4-ty@sntech.de>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260915-rk3576-dphy-v2-0-b56e68b54b8c@gmail.com>
-References: <20260915-rk3576-dphy-v2-0-b56e68b54b8c@gmail.com>
+	linux-riscv@lists.infradead.org,
+	netdev@vger.kernel.org,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Enzo Adriano <enzo.adriano.code@gmail.com>,
+	Andre Przywara <andre.przywara@arm.com>,
+	Norman Herms <dockseed@proton.me>
+Subject: Re: [PATCH v5 3/8] clk: sunxi-ng: a733: Add PRCM CCU
+Date: Mon,  5 Oct 2026 15:30:20 -0300
+Message-ID: <20261005183038.417798-1-vinicius.eduardo.pedrosa@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260930-a733-clk-v5-3-11175b41cd2d@pigmoral.tech>
+References: <20260930-a733-clk-v5-0-11175b41cd2d@pigmoral.tech> <20260930-a733-clk-v5-3-11175b41cd2d@pigmoral.tech>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+Hi Junhui,
 
-On Tue, 15 Sep 2026 12:42:45 +0200, Amin Gattout wrote:
-> The Rockchip RK3576 features two MIPI CSI-2 DPHYs. The CSI-2 DPHYs can be
-> supported using the existing phy-rockchip-inno-csidphy driver.
-> 
-> This patch series adds support for this variant.
-> 
-> As you may have guessed, this is part of the efforts to bring the
-> support for the RK3576 camera pipeline (VICAP) mainline.
-> 
-> [...]
+On Wed Sep 30, 2026 at 1:26 AM CST, Junhui Liu wrote:
+> +static SUNXI_CCU_GATE_HW(bus_r_msgbox_clk, "bus-r-msgbox", &r_ahb_clk.common.hw, 0x17c, BIT(0), 0);
 
-Applied, thanks!
+[...]
 
-[1/4] dt-bindings: soc: rockchip: add rk3576 csidphy grf syscon
-      commit: 21792937b01b9c36c9a1c4d039f3e1883856157c
-[4/4] arm64: dts: rockchip: add csi dphy nodes to rk3576
-      commit: e68360ded44be19051df2cb7e121ba7afd52035e
+> +static SUNXI_CCU_GATE_HW(bus_r_riscv_clk, "bus-r-riscv", &r_apb0_clk.common.hw,
+> +			 0x21c, BIT(0), 0);
 
-Best regards,
--- 
-Heiko Stuebner <heiko@sntech.de>
+I'm bringing up mainline on a Radxa Cubie A7Z (PCB V1.11, 1 GiB). With
+7.3-rc6, this series and a local common-DT integration, PSCI reboot and
+power-off hang once unused clocks are disabled. The boot chain uses
+vendor boot0/BL31 and source-built SCP/U-Boot.
+
+Keeping both of these gates enabled fixes reboot; either alone still
+hangs. With only these two marked CLK_IS_CRITICAL, reboot returns to
+boot0 and power-off drops DCDC1 from 3.3 V to 0.7 V and turns off the
+green LED with power still connected. I haven't checked whether each
+gate is needed for power-off on its own.
+
+My guess is that BL31 talks to the SCP for these, but I haven't traced
+it, and it may be specific to the vendor firmware.
+
+Would it make sense to mark them CLK_IS_CRITICAL, like bus-r-cpucfg
+already is? I can test the next revision on this board either way.
+
+Thanks,
+Vinicius
