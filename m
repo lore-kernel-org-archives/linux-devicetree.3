@@ -1,64 +1,64 @@
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
+Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D78064C9579
-	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 16:43:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 901414D2EC8
+	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 16:43:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791218593; cv=none; b=GTMmo0B8kJgl3HQrlfOgy/v2yi6FPmWV6FmrgeqDvkH2ORVf1MlKBakTA13Gjyn2bNfNTXw16Ui8BwFVJSlslIW0wRmSlZYXhNxbxqvTTVvw+EjsrOhEaF/KZPNkeHGl23cpa1CqzV+hYzIlmMUG0FlohVqpaDE5WHvxQS/fhCQ=
+	t=1791218596; cv=none; b=RDnkxXWzlJGjk7bhqX1u9QpESmKsMhGhiuC9UJEW/bu7YMJtpTIFtoS5QIQhpagS0aPxWwX95OMKjC3+D1K2mzBNGhQOtTAUVxihYGNvhPads5qDpKPUA/yqoKPfvIFfaTv2fmeF1M7eZG9B1irB9/kdEMjyvxL+ktWmQioB+KM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791218593; c=relaxed/simple;
-	bh=onxGFw14UdaCBzTiIQKMoS6rRAkkOewNhWFGdGfRBEk=;
+	s=arc-20240116; t=1791218596; c=relaxed/simple;
+	bh=5AgDAztz8fNZkLN5QBtVGFY+DjmJen9nNpVlnXdVckk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KaUNSlIWsavD0OQEojlVM8whjrWHjXY/xa7f1+cntd7D2ONgmaSTCL5bqyWuJyoJf2zW32EDEOKUNYmD6vc+aNZrd26wZNr/iQEekX5HlITAwXHPEVw8M6LWXtc8uVmeu5t8dyOLwlojZS7D04sBZLBhCA52WsqA3zx78EP6RcE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JliO+Y7A; arc=none smtp.client-ip=209.85.208.41
+	 MIME-Version; b=mTTuAwOdwv5fKyE17xQ4EqkKsAoGLm477Rz2ulPHaO92uEoUYaYhiMDx487wfBUAJGSuCEnGkpqHwgto0JgnYTLtuzj+aiamoA1MGEf7f3gwAs+FVN2eZhsn97dpCs0pku5JkpKO7yOlPRCRkh032Qsb87CzDAuJ3AEb+UmofDo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p8Yvjq26; arc=none smtp.client-ip=74.125.228.76
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JliO+Y7A"
-Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-6af9befd04cso2800722a12.2
-        for <devicetree@vger.kernel.org>; Mon, 05 Oct 2026 09:43:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p8Yvjq26"
+Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a60591ae54so2670463a12.3
+        for <devicetree@vger.kernel.org>; Mon, 05 Oct 2026 09:43:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791218590; x=1791823390; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791218592; x=1791823392; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=r5LtuU5mJBEJmnwj1dJT2uLQm/24d8PsdO+wylUidO4=;
-        b=JliO+Y7APYbEJ8bVIkDO2piBfvD3E5p9/AAmIpbN9Xd3X8nvl0k6hiIdaDb/hM4txK
-         RRh8NcoEUkq/0dUyB30UV6KjbhATlG9xZuO1w7REhfsTTazdV7lo4GTgRHEUKOGW3vGH
-         ItDpt52Yu9wErwJvCwtLfQIHF+TQVvxImLdn05YDF3Wl/OpGBQOUT7zdWJhTs2H4dltv
-         tqo6PZf2w40IrUTb4rZK7mXR70+9tTM5n1g1cMdCvi8Sa4aaXnwL+A+5Jdj6ENsyVWBK
-         MIzkw0zh/CuB8rAVIuCBWJjqZXuUe2k9GPJUfBYN8tGbKutJ1LcSNFkJdwRwAxwUFsZU
-         2wkg==
+        bh=wAGEhXILcvD7hpkiY40sC0H+/SDOHnE9bL5Y2oA7gd0=;
+        b=p8Yvjq26Ju6CzmSxAi7BS84me9yc/dbFrFYWcq6xbFGAQo8Dhl5tlk3KKi76iB83we
+         WZOVeKDcLclRsdIqkkJO4U1djZc0sp2y7y5xX3DVoPc+nuF78Pp5abMgr30OXgK7KUWF
+         GKcTM49/c9iubWvlHapOR6I65vWxl4zzJELvCsBIx4zwRD+csm+30fXQkR9zVI7y5qRc
+         TDIEKu6H8JQ75C832fCfWXIWrgXpI4q90ORJFxln+/Lm2NC+pnU1K5UlNPWdw+8Uz8kX
+         rFuI9j2+VOrxjO8upoTFXwsiR7l1nBTCr9a3F5NJ7UwGznNnM+5DJdlgCNjcu7SAlEbX
+         Gliw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791218590; x=1791823390;
+        d=1e100.net; s=20260707; t=1791218592; x=1791823392;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=r5LtuU5mJBEJmnwj1dJT2uLQm/24d8PsdO+wylUidO4=;
-        b=t2SoXVZyT7tKMLBeeUkegjpsqTEQGn7aPVO60UxFq7+53U6IYRk9lpNoIsy2tyOWjw
-         kDOip9HngY8eKmDbYbxvnt6Zsgg0DDrYZEqkHOH/EIa7YTf1mHRW5LvexlkF8EDfi9e3
-         zKVwxZS+qtnvsbjEq6tg5i/dWDRNbgojEDCsVOtAOZpgGnONBEgqtV3Ppn0EJZ0EgHeN
-         Kusrb345bgYhXFbYzztS9vmlO804gfZQ9SjgPWMWm6apAO8zWp5cPWYSJKd2BJBZFWXQ
-         R7gjx6tlogoV1CeoEMnqSYa6JFyeZPaJ3LZShrPPHRjS/OMvr5WfvswMXg/drlbQ0IkQ
-         cllA==
-X-Forwarded-Encrypted: i=1; AKwUvBwGsTje35nFoW7K0/Vug3YGsdbwq0HIplPHLqAtcztuU9NIOj+Vvmgyr/qaDkXP00JjUt6W77r319Qm@vger.kernel.org
-X-Gm-Message-State: AFq9FYKoekcVmU42P0t99DH4iHf6i7d39rZhvz1KQYSc4aV+4IHPZB03
-	xxDyWFlCr6WmSpvRAx8Nx37+2ELqt5+YxBq2/GZGytfiv1Sbq3bNC4V5
-X-Gm-Gg: AYBFou34vaziE1M3+JYAE2W0vsyncgWO1h9dj/FoUIMh3iLHaWYTeh9cbdk13+k7D/w
-	kpx84ob8ckKrgrfKm85Y/YWOusLiqbZHhaAWXtJdr06JRzAHd+c9ZqZ4DXo6S3nOCx8CjtXIPp/
-	EvY9wE9jgWwKUzIVTwNIzjcfUOegFYIjxf6Zf0q9JEA0U+8eqxU+E39zXrmS8WxNEa9JJ5S7Yyn
-	acltSjMIuKwjPRCmCesgWcK/4OZFQXWPNhYZqcDM7fsFYKyoohPV96qNsI0P7uzkEJCh6hNAclU
-	syffUqj5oky7eDbOrVJfzfPyrC0GqQo2Pc8YwqdcFR6D712gx+YZSnFjeRX/pqPJrDhoHpr3mse
-	7asqtOJm3MHBt0VNiHBtyAfWoRe82+L8bYMKcgeZsLjF9adPMFq8TQkhyTli9xEjvBa21g1CjwT
-	O50zD+N1nIxdb97xPPbEZosG3+6R5EsGEo3Ot7wRdXalNrS9rlEE+v3ivIO2odmCUh3eZlBpNom
-	eEAHRCeyApBDuD82+UELkg=
-X-Received: by 2002:a05:6402:2b99:b0:6ae:fc0f:e19 with SMTP id 4fb4d7f45d1cf-6afada35bf4mr6868392a12.42.1791218589731;
-        Mon, 05 Oct 2026 09:43:09 -0700 (PDT)
+        bh=wAGEhXILcvD7hpkiY40sC0H+/SDOHnE9bL5Y2oA7gd0=;
+        b=mxe/901zcRYgrHPl8/jjAsqPmULdZnZtJQT57Q0aHxWcrd++k4kSvrG2q3HKWRbCvh
+         WXcGCx+kVGR9+et33tW+IVYwsajNWdk0AC1TIDYnx8bqoYxDWErIYHiBtIWlw8gIrok8
+         MIrtxnvDoDjPvCU0K2f70SP4fK5zOx4AMq8pvK43ApsSJpdp4UmdLVTO2tQ38XdNnVyt
+         EDE8MkWIasBy6Rep4S3ILbQqBsVn8YL+GmCcHje29/V5wg3KxYkp5GFCjpbmfLTMqtuS
+         nOCA6jd/sieGJXap3TTbgqq+v3Iz0Mox1dv2Jy4VrZ1vXZaPNpt4HtWwtoC0Y9DEh5Qo
+         zvOA==
+X-Forwarded-Encrypted: i=1; AKwUvBzQUF3iFvPpMuSCcAtw+z5MO6nflzvPQMOhRQ6KIkcC1nNZrWiQBeylZ9nl38w1kgDvZymwH12szXm6@vger.kernel.org
+X-Gm-Message-State: AFuF++mj8OtXmRSPgPPyCl2YHF/EZ6/d93vqRlSubuzXKl6sKls+LUgs
+	2m/aWSytfOECtjuBD6hmMEQj9aKHrhjaUSYaRikVNTh7YzpL8HLg8QP0
+X-Gm-Gg: AYBFou1+rKOS79x2x+Vdm14WBHIfkxe+GXV6reTFubs2EiRzebyJfruzl4am3F46K9V
+	gWo3VmS+vHVrmgZYh7EnSkEz6EfanRl9ncpWDUxhWgKGVT1P4CT3OfN2MXmsx86ZfDmKPZVH7GB
+	oZZcO1Q/W00w7TfeOlEqI6/bx8dYEWtsJHnaJ145dplhLuIxKI01zSbFFOqos3IvSMlBWpikRMO
+	QCVhOKUhs7Wg2Btmx1Z/d0L/bXGWpNBWNCkrPfo5/sX0POzr4zEedkZAPcDaH6W889AIshcudvO
+	cfs/VWE1SK9ytw1owkLWHZQPbqPjlGkvjh9IKAUm0TMOmfArSTgO5a7AFNwEPIVBFyAInkW4/be
+	9PUY0EI1leV/1AfwWEBRp2q4DuiCFIXvHgHtQ1u8uRwlwkdBhFO9CQ9MwHcKyg3Xr6YRSrzpTBs
+	s0XN9o/zwec1IG/f8B/xsHwJpyNLTC/NMzLoep2gJtT6RKIlhLF5NMzXSgsCYQNzxqX5JLo62vs
+	h8R9Gs3VdwJqcUafwRK+QO3DMichGyx62nC9w==
+X-Received: by 2002:a17:907:3da3:b0:c2e:7fe7:288e with SMTP id a640c23a62f3a-c2e7fe736eamr529823366b.32.1791218591445;
+        Mon, 05 Oct 2026 09:43:11 -0700 (PDT)
 Received: from workstation.home (161-53-210-87.ftth.glasoperator.nl. [87.210.53.161])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6afb021af56sm3485851a12.31.2026.10.05.09.43.07
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6afb021af56sm3485851a12.31.2026.10.05.09.43.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 09:43:08 -0700 (PDT)
+        Mon, 05 Oct 2026 09:43:10 -0700 (PDT)
 From: Stanislav Zaikin <zstaseg@gmail.com>
 To: Bjorn Andersson <andersson@kernel.org>,
 	Konrad Dybcio <konradybcio@kernel.org>,
@@ -70,10 +70,11 @@ Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-pm@vger.kernel.org,
-	Stanislav Zaikin <zstaseg@gmail.com>
-Subject: [PATCH v5 1/3] dt-bindings: soc: qcom: qcom,pmic-glink: Document Xiaomi taoyao compatible
-Date: Mon,  5 Oct 2026 18:43:01 +0200
-Message-ID: <20261005164303.1208127-2-zstaseg@gmail.com>
+	Stanislav Zaikin <zstaseg@gmail.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: [PATCH v5 2/3] power: supply: qcom_battmgr: add Xiaomi taoyao support
+Date: Mon,  5 Oct 2026 18:43:02 +0200
+Message-ID: <20261005164303.1208127-3-zstaseg@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261005164303.1208127-1-zstaseg@gmail.com>
 References: <20261005164303.1208127-1-zstaseg@gmail.com>
@@ -85,30 +86,140 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The taoyao is the device compatible with the QCM6490 platform (apart
-from battmgr). The device also requires both UCSI_NO_PARTNER_PDOS &
-UCSI_DELAY_DEVICE_PDOS quirks.
-
-Document the PMIC GLINK firmware interface on the taoyao by using the
-QCM6490 bindings as fallback.
+The Xiaomi taoyao firmware defines an additional BATT_CONSTANT_CURRENT
+property (ID 12) between BATT_CHG_CTRL_LIM_MAX and BATT_TEMP, shifting
+all higher battery property IDs by one.
 
 Signed-off-by: Stanislav Zaikin <zstaseg@gmail.com>
+Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 ---
- Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/power/supply/qcom_battmgr.c | 86 +++++++++++++++++++++++++++--
+ 1 file changed, 82 insertions(+), 4 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml b/Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml
-index 16ad4f5698fc..8ca057c4e3e6 100644
---- a/Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml
-+++ b/Documentation/devicetree/bindings/soc/qcom/qcom,pmic-glink.yaml
-@@ -41,6 +41,7 @@ properties:
-       - items:
-           - enum:
-               - qcom,sm7325-pmic-glink
-+              - xiaomi,taoyao-pmic-glink
-           - const: qcom,qcm6490-pmic-glink
-           - const: qcom,pmic-glink
-       - items:
+diff --git a/drivers/power/supply/qcom_battmgr.c b/drivers/power/supply/qcom_battmgr.c
+index 490137a23d00..1ff079750807 100644
+--- a/drivers/power/supply/qcom_battmgr.c
++++ b/drivers/power/supply/qcom_battmgr.c
+@@ -23,6 +23,7 @@ enum qcom_battmgr_variant {
+ 	QCOM_BATTMGR_SC8280XP,
+ 	QCOM_BATTMGR_SM8350,
+ 	QCOM_BATTMGR_SM8550,
++	QCOM_BATTMGR_TAOYAO,
+ 	QCOM_BATTMGR_X1E80100,
+ };
+ 
+@@ -451,16 +452,87 @@ static const u8 sm8350_bat_prop_map[] = {
+ 	[POWER_SUPPLY_PROP_CHARGE_CONTROL_END_THRESHOLD] = BATT_CHG_CTRL_END_THR,
+ };
+ 
++/*
++ * Xiaomi Taoyao firmware has BATT_CONSTANT_CURRENT (ID 12) inserted
++ * between BATT_CHG_CTRL_LIM_MAX and BATT_TEMP, shifting all subsequent
++ * IDs by one.
++ */
++static const u8 taoyao_bat_prop_map[] = {
++	[POWER_SUPPLY_PROP_STATUS] = BATT_STATUS,
++	[POWER_SUPPLY_PROP_HEALTH] = BATT_HEALTH,
++	[POWER_SUPPLY_PROP_PRESENT] = BATT_PRESENT,
++	[POWER_SUPPLY_PROP_CHARGE_TYPE] = BATT_CHG_TYPE,
++	[POWER_SUPPLY_PROP_CAPACITY] = BATT_CAPACITY,
++	[POWER_SUPPLY_PROP_VOLTAGE_OCV] = BATT_VOLT_OCV,
++	[POWER_SUPPLY_PROP_VOLTAGE_NOW] = BATT_VOLT_NOW,
++	[POWER_SUPPLY_PROP_VOLTAGE_MAX] = BATT_VOLT_MAX,
++	[POWER_SUPPLY_PROP_CURRENT_NOW] = BATT_CURR_NOW,
++	[POWER_SUPPLY_PROP_TEMP] = BATT_TEMP + 1,
++	[POWER_SUPPLY_PROP_TECHNOLOGY] = BATT_TECHNOLOGY + 1,
++	[POWER_SUPPLY_PROP_CHARGE_COUNTER] = BATT_CHG_COUNTER + 1,
++	[POWER_SUPPLY_PROP_CYCLE_COUNT] = BATT_CYCLE_COUNT + 1,
++	[POWER_SUPPLY_PROP_CHARGE_FULL_DESIGN] = BATT_CHG_FULL_DESIGN + 1,
++	[POWER_SUPPLY_PROP_CHARGE_FULL] = BATT_CHG_FULL + 1,
++	[POWER_SUPPLY_PROP_MODEL_NAME] = BATT_MODEL_NAME + 1,
++	[POWER_SUPPLY_PROP_TIME_TO_FULL_AVG] = BATT_TTF_AVG + 1,
++	[POWER_SUPPLY_PROP_TIME_TO_EMPTY_AVG] = BATT_TTE_AVG + 1,
++	[POWER_SUPPLY_PROP_INTERNAL_RESISTANCE] = BATT_RESISTANCE + 1,
++	[POWER_SUPPLY_PROP_STATE_OF_HEALTH] = BATT_SOH,
++	[POWER_SUPPLY_PROP_POWER_NOW] = BATT_POWER_NOW + 1,
++	[POWER_SUPPLY_PROP_CHARGE_CONTROL_START_THRESHOLD] = BATT_CHG_CTRL_START_THR + 1,
++	[POWER_SUPPLY_PROP_CHARGE_CONTROL_END_THRESHOLD] = BATT_CHG_CTRL_END_THR + 1,
++};
++
++/*
++ * Reverse mapping from Xiaomi Taoyao firmware property IDs to canonical
++ * kernel property IDs.
++ */
++static const u8 taoyao_to_canonical[] = {
++	[BATT_STATUS] = BATT_STATUS,
++	[BATT_HEALTH] = BATT_HEALTH,
++	[BATT_PRESENT] = BATT_PRESENT,
++	[BATT_CHG_TYPE] = BATT_CHG_TYPE,
++	[BATT_CAPACITY] = BATT_CAPACITY,
++	[BATT_SOH] = BATT_SOH,
++	[BATT_VOLT_OCV] = BATT_VOLT_OCV,
++	[BATT_VOLT_NOW] = BATT_VOLT_NOW,
++	[BATT_VOLT_MAX] = BATT_VOLT_MAX,
++	[BATT_CURR_NOW] = BATT_CURR_NOW,
++	[BATT_CHG_CTRL_LIM] = BATT_CHG_CTRL_LIM,
++	[BATT_CHG_CTRL_LIM_MAX] = BATT_CHG_CTRL_LIM_MAX,
++	[BATT_CHG_CTRL_LIM_MAX + 1] = 0xff,	/* BATT_CONSTANT_CURRENT - never requested */
++	[BATT_TEMP + 1] = BATT_TEMP,
++	[BATT_TECHNOLOGY + 1] = BATT_TECHNOLOGY,
++	[BATT_CHG_COUNTER + 1] = BATT_CHG_COUNTER,
++	[BATT_CYCLE_COUNT + 1] = BATT_CYCLE_COUNT,
++	[BATT_CHG_FULL_DESIGN + 1] = BATT_CHG_FULL_DESIGN,
++	[BATT_CHG_FULL + 1] = BATT_CHG_FULL,
++	[BATT_MODEL_NAME + 1] = BATT_MODEL_NAME,
++	[BATT_TTF_AVG + 1] = BATT_TTF_AVG,
++	[BATT_TTE_AVG + 1] = BATT_TTE_AVG,
++	[BATT_RESISTANCE + 1] = BATT_RESISTANCE,
++	[BATT_POWER_NOW + 1] = BATT_POWER_NOW,
++	[BATT_POWER_AVG + 1] = BATT_POWER_AVG,
++	[BATT_CHG_CTRL_EN + 1] = BATT_CHG_CTRL_EN,
++	[BATT_CHG_CTRL_START_THR + 1] = BATT_CHG_CTRL_START_THR,
++	[BATT_CHG_CTRL_END_THR + 1] = BATT_CHG_CTRL_END_THR,
++};
++
+ static int qcom_battmgr_bat_sm8350_update(struct qcom_battmgr *battmgr,
+ 					  enum power_supply_property psp)
+ {
+ 	unsigned int prop;
+ 	int ret;
+ 
+-	if (psp >= ARRAY_SIZE(sm8350_bat_prop_map))
+-		return -EINVAL;
+-
+-	prop = sm8350_bat_prop_map[psp];
++	if (battmgr->variant == QCOM_BATTMGR_TAOYAO) {
++		if (psp >= ARRAY_SIZE(taoyao_bat_prop_map))
++			return -EINVAL;
++		prop = taoyao_bat_prop_map[psp];
++	} else {
++		if (psp >= ARRAY_SIZE(sm8350_bat_prop_map))
++			return -EINVAL;
++		prop = sm8350_bat_prop_map[psp];
++	}
+ 
+ 	mutex_lock(&battmgr->lock);
+ 	ret = qcom_battmgr_request_property(battmgr, BATTMGR_BAT_PROPERTY_GET, prop, 0);
+@@ -1381,6 +1453,11 @@ static void qcom_battmgr_sm8350_callback(struct qcom_battmgr *battmgr,
+ 	switch (opcode) {
+ 	case BATTMGR_BAT_PROPERTY_GET:
+ 		property = le32_to_cpu(resp->intval.property);
++
++		if (battmgr->variant == QCOM_BATTMGR_TAOYAO &&
++		    property < ARRAY_SIZE(taoyao_to_canonical))
++			property = taoyao_to_canonical[property];
++
+ 		if (property == BATT_MODEL_NAME) {
+ 			if (payload_len != sizeof(resp->strval)) {
+ 				dev_warn(battmgr->dev,
+@@ -1617,6 +1694,7 @@ static const struct of_device_id qcom_battmgr_of_variants[] = {
+ 	{ .compatible = "qcom,sc8280xp-pmic-glink", .data = (void *)QCOM_BATTMGR_SC8280XP },
+ 	{ .compatible = "qcom,sm8550-pmic-glink", .data = (void *)QCOM_BATTMGR_SM8550 },
+ 	{ .compatible = "qcom,x1e80100-pmic-glink", .data = (void *)QCOM_BATTMGR_X1E80100 },
++	{ .compatible = "xiaomi,taoyao-pmic-glink", .data = (void *)QCOM_BATTMGR_TAOYAO },
+ 	/* Unmatched devices falls back to QCOM_BATTMGR_SM8350 */
+ 	{}
+ };
 -- 
 2.55.0
 
