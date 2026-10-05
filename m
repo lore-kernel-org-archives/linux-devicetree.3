@@ -1,117 +1,272 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FBC44746A6;
-	Mon,  5 Oct 2026 10:09:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 509D1472523
+	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 10:09:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791194986; cv=none; b=ISzTem+QWZDmJFlYwH6VkqdwvgfGIiE7ZsDvHJYKUv56HMkgxOPsHKrcxNlDuKURPhV4kVFok1Mvdo98xY8s1iyNC4YOjtbUNrWnPrvHaxkcZD4+KGfpJE0WmXGY4ududkRHe2ABJnvBCPFCevf1Y/qvF2YM5cnPmCYnwTufIrg=
+	t=1791194993; cv=none; b=LrqaXKB4Kj+o7v9xK3vyv9FgnywkszsKpiLlxv37E6/DtlDux/uKoSojGxeF1gCOJFKsNq7w5b7/LAftQ0G46M3BZSz3hUP/kE3i7pzZA1dvwnTA5y6LF9rsLZKZ/GlfBgzzqQxbxq4GxEbPuhLwJ/BraUyHnzuS4OV+0pYvarg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791194986; c=relaxed/simple;
-	bh=9LuZcUmKFaW6b6u44pbfIklLepyRhBueefukwEOyVpg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=nTPKsN1fPX56So7J6SxEAfbKC0DgGAIgWWP03MVVBPa6T9jBmJieu6jGSK5+SUXUz7FzoeNK5vOyZsE+JNyjLRrbyfDAgU1VAjaFpGAhkQigV3NbOCwVWvAvAVa0Ccesg3S1uTQCFV+SJDShJxTjqfSG3uFFrj9UHinbHHDKbRg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N8mAqxtF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791194993; c=relaxed/simple;
+	bh=F/3Ral9Y1JF0253NsPqcvdFonuL+abvMZayZd3zy7ik=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=JBeCFDiD8Jg8lilipXrzqMg1oIGnHzC2mkTXFnTiqHfNGI9rxKdtyaHsUIzok9EYl5sySkzshZLD6c3xCfMY1Qr8plaEtNpIz/E4WDQjw9b7TLyRf4ppWaBGa3aGq4Wc8cRNf3AsPtkx0Pt/BmBQOTX4kP730g/BTfi56hDttSw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hHt52A2E; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VrkYCMjq; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N8mAqxtF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A2711F000FF;
-	Mon,  5 Oct 2026 10:09:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791194983;
-	bh=2YGeHChBvhA7K0WyoAvKXjOIqWOaj+obKZ1/E9sHY2c=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=N8mAqxtFYgraiFyK3Bw+4l/xGnKh+ZOeHrqFwo1CYS1MKIJ19XNilQJlR6Jz2Rpu4
-	 WFGsMyNuEzSFJc5PAu2RmV4RdGz6BV5wrzxZFrH6+iIqsexDAHZY6ZNTb7QMpS8PlE
-	 lon7nEUwXOOOF+ZFO/wh02qYK+LBhBwLZwaC5gWU3vco8hfkoqEN46fLoO3CnMbN7/
-	 sEvKcK0leDhFnF1IBU9lX8vvXC8LxrjfTeclpkH42vJUl1tTQAssJ8cOs37lwDL9jg
-	 bAT+PdCUUDIEiVWDwdMobB2zBP0ytMQW7OKKZmDia2yJ/fFIoqxhykCQqBPOU95YcD
-	 Her2N4fk2GQKA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/4] drm/bridge: Add THine THC63LVD827 LVDS encoder
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Francesco Dolcini" <francesco@dolcini.it>
-Cc: robh@kernel.org, conor+dt@kernel.org, imx@lists.linux.dev, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, Frank.Li@kernel.org
-In-Reply-To: <20261005095006.20290-3-francesco@dolcini.it>
-References: <20261005095006.20290-1-francesco@dolcini.it>
- <20261005095006.20290-3-francesco@dolcini.it>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 05 Oct 2026 10:09:42 +0000
-Message-Id: <20261005100943.1A2711F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hHt52A2E";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VrkYCMjq"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6958xTVr1300330
+	for <devicetree@vger.kernel.org>; Mon, 5 Oct 2026 10:09:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	emKGw6rm4cR1mwCY7FGTF8gcjw/YmbLxMFdIuBtcbuM=; b=hHt52A2EdBiBL9kl
+	QCo64vOOztqI6lpUDqROgw7qt9jYXih4ftOxo6wY9bdPcgxrd2Fd/pK7HcHASsgR
+	IT3KERbFyjmh8/i2C9kMVcvm9Xok2tPfkIrSQW0XO9B9ias6jKVoZHdPSL89a5Pc
+	DAy5nuywW59BSOw9aaA3vNrxQfPLUT6UJrk7qew5lt2h/yKAhKsSu+5O6d9xE+8K
+	a7iXJi7OOPyYBKZ5XNrMefuCUIVDjGp24jwym2VKucPMjMJlfxg3KDU7n8Z6PLfB
+	wD1Zg8um2qg4WLr6kvcD2SKxBYA//0F0Ys/3EHdm6ZFcNKyZD0aH0urJq2aUGmoy
+	aCytvQ==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h3xhs1m65-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 05 Oct 2026 10:09:46 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3a6d95d6e08so1290223a91.1
+        for <devicetree@vger.kernel.org>; Mon, 05 Oct 2026 03:09:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791194986; x=1791799786; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=emKGw6rm4cR1mwCY7FGTF8gcjw/YmbLxMFdIuBtcbuM=;
+        b=VrkYCMjq/IDwWBG+PHNczFWwGp0uTyR3jEwJTMPnBNYq2YkvDiq9IDH6hn93LNC3Am
+         mitOWmhDKeqDRAKgD091wGexw756NPHJnKHJhlqxklYpnmBXikbnGkTFVpLhXLsi7jH/
+         j9kLq8+RW/OxJaa7kffIoQhpnFPy24RsBBgI7T3nl0GIX2q8k3tasYT3slvrnv4RrgZF
+         ZgR8oncZ3uT5Wy2ap58QuK8QAhakVQwsAv3DJ0Gydr1gACGCGpNZG6YAaboo+knYI5Cx
+         QFhi9IAqiD78YzvtBiR9Epkm11CblMuVOEPIA6p0Xj5hTOyc7fw5+WScse7DVEYqJTuC
+         PB8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791194986; x=1791799786;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=emKGw6rm4cR1mwCY7FGTF8gcjw/YmbLxMFdIuBtcbuM=;
+        b=FNVk39wecg1cny6Vr1ION4aeTLBrii+//Qa9B05FOJ20K67rE39TNIgwV7QN/z8D9F
+         XWmkIm/tQil/uwo7iQTjTNeXXKYFypxmVbqiBhiCGFlaPMai0TrLzQwqGcVlvM7KtaAt
+         bt1j1/DuXlRLMGUCQixK/y0KwrbUgYkfjb98tgXq8rjqRbqtDC6ATdzsl3yPsrqxNhhE
+         AY5uatbmuj68nUWH0CX3ZREtsWJGSg+zg9wPmOw3nem0AKGq+sVTv0ply8nRsVY8/2t1
+         r1VEP7Xwr1gmo5SXp3ozyfBUmM9lXgqGdiG+OxwX6TH7BdzEAXFcschMLOVzIc7OxAF1
+         HGkg==
+X-Forwarded-Encrypted: i=1; AKwUvBwOo5SJx52W6M9us9w/pBH9jyGGGnZLCJbjQ7sJNpddc3aEBiqoYjV+PG0JnDx5+65zVLi014cAd6ia@vger.kernel.org
+X-Gm-Message-State: AFq9FYINV6DMB2mBHy9loh9rdoUIsM6CSKBQYx1prHdDi73ujHMWKPEs
+	Tl+wx/zz/F08OWajjQo8ZKgKhP2XMMQbydSKonafCEi+EBZjSQu/6JfPpf8WrkB9ChMT0xo81LU
+	fIY75DOGEHy9XiyUpajg58ZQpNdbp7qLehqX6Yb8rwK909UUVjgQy26D8QeBJN1XU
+X-Gm-Gg: AYBFou1jVAwCJ3/DJU0iM3kxXqBKjZlZVlYyJCHfg0IZb7YcRPWgE6pBRFwVc1i2BT8
+	wK50HDvxWacfqPDWvg0ZnRXQ0Axd5A7VdE7WWgWIEDzKasZl4emmA0hmstNm7kRF4tFG+heuoiO
+	GDtmK2YpK/mcRwoXItT7u5aH6XP4H/RTR4uc4w2iFyguZFeN5psdSv7ILqMDIKSHzKNQ9hZX4DT
+	6fVHpgFhyoya1OIF8ajhNPfUggBhI1Ywqi8rCksiySF614PLwPu9Vhf7kzQDjbCH9o8FSMDySX+
+	3X3o2R1D3gOucR0E9BmLl1uzBtI7+xBa9OuC+xGyftMxw4pluLGgaVnbeSAhpZeHl5dYGkTvghY
+	dSc2u68QHP/afhQEm90alZ/uVLjQ=
+X-Received: by 2002:a17:90b:518d:b0:3a2:a576:f67a with SMTP id 98e67ed59e1d1-3a6ce84bc3emr7488175a91.52.1791194985547;
+        Mon, 05 Oct 2026 03:09:45 -0700 (PDT)
+X-Received: by 2002:a17:90b:518d:b0:3a2:a576:f67a with SMTP id 98e67ed59e1d1-3a6ce84bc3emr7488141a91.52.1791194985008;
+        Mon, 05 Oct 2026 03:09:45 -0700 (PDT)
+Received: from [10.218.30.203] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a78daef465sm11066805a91.1.2026.10.05.03.09.39
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 05 Oct 2026 03:09:44 -0700 (PDT)
+Message-ID: <c42c8f3e-fb8b-48fb-bbc6-5b6532ea9d72@oss.qualcomm.com>
+Date: Mon, 5 Oct 2026 15:39:38 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v9 0/3] Add DT Support for USB on Shikra
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+        Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>,
+        Rakesh Kota <rakesh.kota@oss.qualcomm.com>
+References: <20260912-usb-shikra-v7-v9-0-c7b507a0ec27@oss.qualcomm.com>
+ <ar50erRON6cMF9Oz@zenbook>
+Content-Language: en-US
+From: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+In-Reply-To: <ar50erRON6cMF9Oz@zenbook>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: MVzAdGBUhhM5HHFJSv1jzxtWXi_RRgal
+X-Proofpoint-GUID: MVzAdGBUhhM5HHFJSv1jzxtWXi_RRgal
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDAzOSBTYWx0ZWRfX58Qr4zQ1YFNI
+ HTpkehLyAEYQAmnM2xs+QUaipM7wyF1n3dGJ3YPZj+tgX3yvFz08zHoX88HS0aXchzJ/Dzd1b3a
+ /B4Ru/5IM5kwnlEfTPLSHstUmIIF7ug=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDAzOSBTYWx0ZWRfXwXLNm0BQdt5q
+ qcvQ3SWK7wJetmAqusPGepp+Vpe3yow0Bya6hR9gUi9/8BAkxgEZXNMyabbvF165goe6EylmgEO
+ Tgn7KrVznEtFMx43W5GvXAHCfzulMlnJdIYQHj74GEj8zE8kBlstKNX+h87PXkuzYRrz/wIZILk
+ WfrrjM2lY6tXClEXLLuof9iIrQyi/Q9C/zRCmSIWwe4hw26MGHcrlC8vP+rlEUm3YkP8QudOxwp
+ 0TEsgYFy6iivLvExWcYTja5LfMgS+cWrs/KQFaz4tPRk/uOjVKawLEpsh/CY+zv94q01kGtTwxR
+ YfMsPuaRT08+qA+AcASfylh28p3PIi8QIvS/YNG9txgxJAO/m/IVohUkqXxkLy3b8ydtGj48zIN
+ S6+iM9D1QhuUUCCiFAnsjIPHJ3F12Lq6aOqBSxRFrep6iE5SrmPJG2qZBpU1+ZT8RcznAFo93Dg
+ omyUfv7h+3N/ZvgmjDQ==
+X-Authority-Analysis: v=2.4 cv=Q6tHcI2a c=1 sm=1 tr=0 ts=6ac3776a cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=bC-a23v3AAAA:8 a=fgocQaM1e1r3VjC9RBkA:9
+ a=QEXdDO2ut3YA:10 a=rl5im9kqc5Lf4LNbBjHf:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-05_01,2026-10-02_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 bulkscore=0 priorityscore=1501 adultscore=0 lowpriorityscore=0
+ malwarescore=0 impostorscore=0 suspectscore=0 phishscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610050039
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] drm/bridge: back-powering via GPIOs on unpowered chip
---
+On 10/1/2026 8:32 PM, Bjorn Andersson wrote:
+> On Sat, Sep 12, 2026 at 08:17:00PM +0530, Komal Bajaj wrote:
+>> Shikra has two USB controllers. Adding both USB controllers support
+>> in device mode in this series. Also squashing Type-C enablement on
+>> CQS/CQM platforms [1] into base USB enablement changes on these
+>> platforms [2] based on feedback to squash related subsystem changes.
+>>
+>> While at it, also sorting subnodes under soc@0 for consistency.
+>>
+> When you repackage scattered patches like this into new series patchwork
+> is often unable to determine that these patches supersed the previous
+> version.
+>
+> The result is that for each patch I now have (at least) 2 similar and
+> conflicting patches in my queue. As the patches was altered to the point
+> that patchwork doesn't detect it and nobody told me that the previous
+> versions are no longer to be considered, we now manually have to spend
+> time to detangle this.
 
-commit b3195cf0e052ea83d4890e15599f3b4469d3b2e4
-Author: Francesco Dolcini <francesco.dolcini@toradex.com>
+I understand your concern, and thank you for pointing this out.
+By repackaging patches into a new series, I should have made it explicit 
+that the previous submissions were superseded. I will keep this in mid 
+for future submissions.
 
-drm/bridge: Add THine THC63LVD827 LVDS encoder
+>
+> In other words, this series doesn't apply - please determine if there
+> are any remaining parts of these changes that isn't accounted for in
+> linux-next and resubmit those.
 
-This commit introduces a new DRM bridge driver for the THine THC63LVD827 DPI
-to LVDS bridge. The driver provides support for configuring the LVDS data
-mapping, GPIO-based control pins, and regulator power supplies.
+I see that one of the patches has already been merged into linux-next. I 
+will review the remaining changes and resubmit only those that are not 
+yet applied.
 
-> diff --git a/drivers/gpu/drm/bridge/thc63lvd827.c b/drivers/gpu/drm/bridg=
-e/thc63lvd827.c
-> new file mode 100644
-> index 0000000000000..02b97d1cc71ea
-> --- /dev/null
-> +++ b/drivers/gpu/drm/bridge/thc63lvd827.c
-[ ... ]
-> +static void thc63lvd827_atomic_post_disable(struct drm_bridge *bridge,
-> +					    struct drm_atomic_commit *state)
-> +{
-> +	struct thc63lvd827 *thc63lvd827 =3D bridge_to_thc63lvd827(bridge);
-> +	int ret;
-> +
-> +	gpiod_set_value_cansleep(thc63lvd827->pd_gpio, 1);
-> +
-> +	ret =3D regulator_bulk_disable(ARRAY_SIZE(thc63lvd827_supplies),
-> +				     thc63lvd827->supplies);
+Thanks
+Komal
 
-[Severity: Medium]
-Does this sequence leave the chip exposed to back-powering?
+>
+> Regards,
+> Bjorn
+>
+>> [1]: https://lore.kernel.org/all/20260818-pm4125_typec_changes-v1-1-6e6ede93db19@oss.qualcomm.com/
+>> [2]: https://lore.kernel.org/all/20260811-usb-shikra-v7-v7-2-753e928f37ae@oss.qualcomm.com/
+>>
+>> Changes in v9:
+>> - Move usb_2_hsphy above usb_qmpphy to maintain alphabetical ordering
+>>
+>> Link to v8:
+>> https://lore.kernel.org/r/20260911-usb-shikra-v7-v8-0-851ee4bc0eec@oss.qualcomm.com
+>>
+>> Changes in v8:
+>>   - Rebase on top of latest linux-next branch
+>>   - Sort /soc@0 subnodes in ascending order of unit address
+>>   - Squashed with Type-C support change
+>>   - Individual patches were previously reviewed by Abel, Dmitry, Konrad and
+>>     Mani; however, those reviews do not apply to the squashed commit and
+>>     are therefore being dropped
+>>
+>>   Link to v7:
+>>   https://lore.kernel.org/all/20260811-usb-shikra-v7-v7-0-753e928f37ae@oss.qualcomm.com/
+>>
+>> Changes in v7:
+>> - Rebased on top of latest for-next branch
+>> - Added Mani's tag from cover letter to both the induvidual patches.
+>>
+>> Link to v6:
+>> https://lore.kernel.org/all/20260729-shikra-usb-v6-dt-v6-0-72ffb4796a08@oss.qualcomm.com/
+>>
+>> Changes in v6:
+>> - Moved dr_mode property to shikra-evk.dtsi
+>> - Merged platform specific changes into one patch
+>>
+>> Link to v5:
+>> https://lore.kernel.org/all/20260723-usb-shikra-dt-v4-v5-0-5b69d9eb0888@oss.qualcomm.com/
+>>
+>> Changes in v5:
+>> - Added interconnects and sorted nodes alphanumerically - Dmitry
+>> - Updated commit text mentioning that device mode is being enabled
+>>    since role switching changes are not yet present.
+>>
+>> Link to v4:
+>> https://patch.msgid.link/20260721-usb-shikra-dt-v4-v4-0-2e7a092d7f27@oss.qualcomm.com
+>>
+>> Changes in v4:
+>> - Enable both controllers in CQS/CQM platform
+>> - Fixed iface clock in usb_2 node
+>> - Skipped adding RB tags obtained from Konrad since on CQM/CQS, second
+>>    controller also is enabled in v4. Also specified dr_mode as peripheral
+>>    for first controller.
+>>
+>> Link to v3:
+>> https://lore.kernel.org/all/20260716-shikra-usb-dt-v3-v3-0-13f73a0571bb@oss.qualcomm.com/
+>>
+>> Changes in v3:
+>> - USB changes were sent as part of consolidated submission in v2, but
+>>    they were later dropped since bindings had to be updated.
+>> - Remove double vote on USB3_PRIM_CLKREF and also removed xo clock.
+>> - Uses &mpm as interrupt reference (sashiko bot)
+>>
+>> Link to v2:
+>> https://lore.kernel.org/all/20260519-shikra-dt-v2-0-c01b90fb4395@oss.qualcomm.com/
+>>
+>> Changes in v2:
+>> - Moved to using mpm interrupt handler for ss phy irq (sashiko bot)
+>>
+>> Link to v1:
+>> https://lore.kernel.org/all/20260512-shikra-dt-v1-0-716438330dd0@oss.qualcomm.com/
+>>
+>> Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+>> Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+>> ---
+>> Komal Bajaj (1):
+>>        arm64: dts: qcom: shikra: sort /soc@0 nodes by unit address
+>>
+>> Krishna Kurapati (2):
+>>        arm64: dts: qcom: Add support for usb nodes on Shikra
+>>        arm64: dts: qcom: shikra: Enable USB controllers and primary Type-C support
+>>
+>>   arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts  |  43 +++
+>>   arch/arm64/boot/dts/qcom/shikra-cqm-som.dtsi |  41 +++
+>>   arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts  |  43 +++
+>>   arch/arm64/boot/dts/qcom/shikra-evk.dtsi     |  12 +
+>>   arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts  |  23 ++
+>>   arch/arm64/boot/dts/qcom/shikra.dtsi         | 515 +++++++++++++++++++--------
+>>   6 files changed, 536 insertions(+), 141 deletions(-)
+>> ---
+>> base-commit: f2bfbc3554ca6919484030729424b9dee2942d24
+>> change-id: 20260811-usb-shikra-v7-2dc0d3afc3d4
+>>
+>> Best regards,
+>> -- 
+>> Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+>>
 
-The regulators are disabled here, cutting power to the chip, but the driver
-does not reset the b6b8, map, or mode GPIOs to a safe physical low state fi=
-rst.
-These pins remain driven in their previously asserted physical HIGH states,
-causing continuous back-powering while the display is disabled.
-
-Hardware back-powering causes leakage current through ESD diodes into the
-unpowered chip's VDD net, which can lead to latch-up, increased power
-consumption during suspend, or improper power-on reset sequencing.
-
-[ ... ]
-> +static int thc63lvd827_probe(struct platform_device *pdev)
-> +{
-[ ... ]
-> +	thc63lvd827->map_gpio =3D devm_gpiod_get_optional(dev, "map", GPIOD_OUT=
-_LOW);
-> +	if (IS_ERR(thc63lvd827->map_gpio))
-> +		return dev_err_probe(dev, PTR_ERR(thc63lvd827->map_gpio),
-> +				     "failed to get MAP GPIO\n");
-> +
-> +	thc63lvd827->mode_gpio =3D devm_gpiod_get_optional(dev, "mode", GPIOD_O=
-UT_HIGH);
-
-[Severity: Medium]
-Will this initialization also cause back-powering via GPIOs on the unpowered
-chip?
-
-This configures the mode GPIO to be driven logically HIGH in
-thc63lvd827_probe(). Since the chip's regulators are not enabled until late=
-r in
-thc63lvd827_atomic_pre_enable(), this immediately sources voltage into the
-unpowered IC.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261005095006.2029=
-0-1-francesco@dolcini.it?part=3D2
