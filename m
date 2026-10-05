@@ -1,208 +1,205 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from iad-out-004.esa.us-east-1.outbound.mail-perimeter.amazon.com (iad-out-004.esa.us-east-1.outbound.mail-perimeter.amazon.com [18.207.52.234])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAA433A9639
-	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 11:19:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791199143; cv=none; b=dXXovCTUJU5dD2my2qjUR3NVG3bgA5FakKknRDD2Q2Ak/UmoC/eZHe46Mzdb6hN5bkUhvniXzFtBdCkLZ6e8X0ermotIY40Ej8pnlGTZWyHe+AMiLniqcofVSjMC9An3taKS3HGL1edD/4e+Hxn/UGwnouaAK3AmwK5d6+20E6I=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791199143; c=relaxed/simple;
-	bh=MXj6Apc/LdWXDh2qGPNbMm6OMatVdF6m4z+3uYAeADk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cchpeuw3DOrJhMkWupMBqs3G2+6gs2kq2aj5oUxqtJaAQ7MDoSjiNlZpNHbYjZAwCB569xUl3qi2yBNqBoCT6hqEqv4AFkMrRM6tYrSR/bafxi9SFDArUEl7ryAvnNd8wnbky7XoRuQsg0FIagkY8jVsJx4JTmhiMbSR6taVVQg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TfK0BP6Q; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5777441A903;
+	Mon,  5 Oct 2026 11:19:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=18.207.52.234
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791199155; cv=fail; b=hijWuBqdTA0ZZ+YhlBt4agcRMoC50hbRiro3xZYthuLO3obW+Q7lPKIk61qrBrhwkQUOwmmX7IQfR8Kh5yGmF8Ow8bHrNMid40vQac1B3UZ6LSVK7fL+yozzgrEKNBrsTB0bs/RTLMrbC+E7z+wIBRmK+5qMl5Q6UCckEvN/baY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791199155; c=relaxed/simple;
+	bh=0AUDnun6DeWGZEDCW60wZU9rYKVWiIj1AdfYXLRgVl0=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=tpHCWg6YRgFcAu6r/VETXEtOPEBwQDkmFQuAbzMirYJFTvstE87g+GOzrsn9yBTkUku9F4NrbTYljeTBvv/Izq+FGn3zry3m8khWbmQ33VLH18ievU5ok22LcVDh06iIynXJtggJJbAPSNgy0SZh/0TJQVnAHdwinknmqqQgctU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=BzOwS1y7; arc=fail smtp.client-ip=18.207.52.234
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TfK0BP6Q"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-49d05d51553so11490855e9.2
-        for <devicetree@vger.kernel.org>; Mon, 05 Oct 2026 04:19:01 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="BzOwS1y7"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791199140; x=1791803940; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=x7pRonANv4/Ol5SKaY+fmS4hBQvh5qLZ5CKpih15RA4=;
-        b=TfK0BP6QeclhlBBZ5nqcLloMNjPa2umn803zfHeUZ1sJoBopBZ6DL+MKyibOunPFie
-         i2WnECEV6do1FCYEQCt633OSf+jVl8nch/dO06LdtDa/W9cnylpX4xiqc5X91bg0LFwY
-         cRKkpdkD5D5utww619EwtDT8qoaKMGOKf3GECv68F6zDNvnZWA0ZNWZCRAgWWJufm9i7
-         0JqWVPkuc8PhQN2gjmCe/8ctc/qa7fP/HqtE/sx5r6JqdQnbxyfmgrNyyTrAxEidOU1v
-         apZF8JgTesORoPkNMjdY8MJek7ED9YuLWI5IHe1YAWJQfj6MWvjxlwjpf62sxb6X3+jE
-         18Og==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791199140; x=1791803940;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=x7pRonANv4/Ol5SKaY+fmS4hBQvh5qLZ5CKpih15RA4=;
-        b=mxikbSaXyQlRWHAPEpLwtP/8zwRnDNuK/3nha6IcFBOi8mhf0FLrnzgsg9+CqTU3os
-         rabeJxJhBm1bA1rxXUPKZweKeTuVw9Ey3mlIu9WTq2KKV7V/Y2foMc0LExYAT3VOOKdD
-         J5NY4V5EPAQzqxqSIMyI78XrXIC/ozmrIatyVt4buo0yEhQkUoAyEwlzusbnexvnbWmp
-         BDnM9E+cAl8oJIRb+0Q4VOY0TT5EuP3D2cs1+yVoABvG7cT1QbNVEkOxcCjDglRVrQ4G
-         tMd4E66q8S8rb5wbSJmf/eQ4gwaiunfEEg8Guh4WrcrT/PUvTdrVuhmUmVUBEuBtkVzN
-         77fg==
-X-Forwarded-Encrypted: i=1; AKwUvBxEAzJW4hM/JTplIUr21Sk0gVyA8O3rGv3RzfLek+4NtgKxkMKFACI3WTKdIJulE6SIhQsfIGOQU54H@vger.kernel.org
-X-Gm-Message-State: AFuF++nBBU+AAAEimZzvRmPSuKlYYqH4Y0gXNStCIebOa3lVTAB1AkCg
-	7VxoqRQ9gicXyprPAa1GNbczFd92FirRzAg8Bd3Ju03BIWeafpZrlegh
-X-Gm-Gg: AYBFou1aIq9Q2yOOE8UMYtM43ckIRfb+Olj4icQNWqWDZ56SsX3d1NRgTlNDkO0YC3K
-	oHJUfB754jyWFpJhp7D7UYiqmUVm+hNKa0iBnuAEONhfke0qQ3Heb6fOFP7d/80aCC0n6M788B7
-	wBHGTNmSY+6j6/skmrYP+RxDGu5/kvjrlFY3eLdY64xum8A1/dUghwV3MXKs0vmfHB0b3YugpyP
-	BxexNxNzQxnHRG/lKKKH+PBHE3H/lrGnHsF9Brm/iWk7SYwkJMWCSAArZq0COUt9F79JdB3g2v0
-	Rw+su5mj+ecGaHufSNFujfUJTziFVgT8bc3/5jwVp2T1C11jqJVtCZxmdBo+zAg9mWzTYvwyi6c
-	m76UB+xfgrXmLwUFysjr4kJEf8411XYk8CmEI9vw1pRfeLbL++ckm+1z3oWHyZr3iJEhkIgHX0x
-	oEofxGDGVXy10jOnHefvqSv1GDxV4F/N6YOlTWc8MGCqbxMX3VlrET7m7I1NV8C5VGyOKnKSJFM
-	c8hf4EpfLUCLr0n/Dc9yE0=
-X-Received: by 2002:a05:600c:3556:b0:49f:dc71:e609 with SMTP id 5b1f17b1804b1-4a1680f7447mr123180355e9.20.1791199139691;
-        Mon, 05 Oct 2026 04:18:59 -0700 (PDT)
-Received: from localhost.localdomain ([2a00:23c4:a702:d301:ddf5:4eec:313c:43f0])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0280bfafasm355884865e9.8.2026.10.05.04.18.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 04:18:59 -0700 (PDT)
-From: Biju <biju.das.au@gmail.com>
-X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
-To: Philipp Zabel <p.zabel@pengutronix.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>
-Cc: Biju Das <biju.das.jz@bp.renesas.com>,
-	devicetree@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	Chris Paterson <Chris.Paterson2@renesas.com>,
-	Biju Das <biju.das@bp.renesas.com>,
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v11 2/5] dt-bindings: reset: renesas,rzg2l-usbphy-ctrl: Document RZ/G3L support
-Date: Mon,  5 Oct 2026 12:18:28 +0100
-Message-ID: <20261005111854.275120-3-biju.das.jz@bp.renesas.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261005111854.275120-1-biju.das.jz@bp.renesas.com>
-References: <20261005111854.275120-1-biju.das.jz@bp.renesas.com>
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1791199153; x=1822735153;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=0AUDnun6DeWGZEDCW60wZU9rYKVWiIj1AdfYXLRgVl0=;
+  b=BzOwS1y7/UyPGnVhZPbE9s2mFtoGTPachezL85ehHjWEwWl9GNSei49D
+   QjxnsKk1EiZi2dw51Wp5wh1RZgHPf0nn0DpJKtfym9RaU36E2pwR72cnA
+   aOeJV6GPu//5OfNxPK+/6AucTzHRaYcdeMgFAI8s4DYrkgqcXJpzjJnX+
+   axtAseva8qF+jmLwyb8kSJS3TL/KW+XD5f1NgIj3/RImDSEx9pqG6R0p2
+   /jZ1kdjk0IchaPN1RrAmaBqpEmeDILIwvHL+COeB4yMLK3EWcYeZx4U7G
+   r7C3pGzki4vE1p/arHShYQRaVKxTHn+g9YZV3gclj3yv0hzN4LogVNbit
+   A==;
+X-CSE-ConnectionGUID: q8vU3TRnTyu6WP2jBzaJPw==
+X-CSE-MsgGUID: J91NTqjsSIqyiYBjZmC6nA==
+X-IronPort-AV: E=Sophos;i="6.27,141,1787011200"; 
+   d="scan'208";a="28863719"
+Received: from ip-10-4-22-235.ec2.internal (HELO smtpout.naws.us-east-1.prod.farcaster.email.amazon.dev) ([10.4.22.235])
+  by internal-iad-out-004.esa.us-east-1.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 11:19:05 +0000
+Received: from EX19MTAUEB002.ant.amazon.com [72.21.198.67:7399]
+ by smtpin.naws.us-east-1.prod.farcaster.email.amazon.dev [10.0.14.71:2525] with esmtp (Farcaster)
+ id 251e028a-af16-4a0e-9b70-a6513fa297c3; Mon, 5 Oct 2026 11:19:05 +0000 (UTC)
+X-Farcaster-Flow-ID: 251e028a-af16-4a0e-9b70-a6513fa297c3
+Received: from EX19EXOUEB002.ant.amazon.com (10.252.135.74) by
+ EX19MTAUEB002.ant.amazon.com (10.252.135.47) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Mon, 5 Oct 2026 11:19:05 +0000
+Received: from SN1PR07CU001.outbound.protection.outlook.com (10.252.135.42) by
+ EX19EXOUEB002.ant.amazon.com (10.252.135.74) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49
+ via Frontend Transport; Mon, 5 Oct 2026 11:19:04 +0000
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Q/igVffG+F1aNrOAt81ZiM6/wxH/XrqgG6lB7WR4LIdec2F6q9040PrlANy4xZFbpKeuGGtZiqM36kPyFeufTPHc4oq9NnrdB2w+mvvGV9nPHeXQiSCSuXkV31SeulmudwfcQArfkat2aN6oB9Ni2aYGDKLrttSCMxbmUKqWxjfQLI69G2H1c/i/nkq1KJXbJIGsMow/Zlgtog4cjty1K7gpmWuHoyaWlWSwM/Z+HWMp0JjPW/6B6srzfGgkH1ub2KtRzCnF1PQaRw4KHbMMhPqcjV39cVeMmtCrkMOURjGSc8nmRyaLw/03WsiSmcIecddZv9eAWKSx0axYsDRZ/w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0AUDnun6DeWGZEDCW60wZU9rYKVWiIj1AdfYXLRgVl0=;
+ b=N37hTs1+eaYNbN0Po6wmjnuUoAPK9ga2vo7yIBQZ0psd++NVEDuImCMfbHPyDKY7atg3EfEcSM5xXAgliWEFMuAVcH1e9CegZk9jzMq9n0ekCYMJwuCDxeG07Oo3kP4Cjw9VeBKiHGrHd10av3QcahJe7Gdt7DtCQjp80QrRHL3qY8nq8886Q0YnBP+x6byT98UEwQB81I5D3c4dN7XEni3dKBFkLIpxlxZlgVEsIXnv3MJokjRy/31U0Xqou0N1T2kPw3Vd6Wr6/AdveCXU/J9BekUtIL5k7IQXzbAoUbFRUvijEB40rQrciFEOyRXR90qj/eZVPh5krfN0CS1pNg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amazon.com; dmarc=pass action=none header.from=amazon.com;
+ dkim=pass header.d=amazon.com; arc=none
+Received: from BY3PR18MB4722.namprd18.prod.outlook.com (2603:10b6:a03:3c9::19)
+ by DM3PPFA08CB310A.namprd18.prod.outlook.com (2603:10b6:f:fc00::6ba) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Mon, 5 Oct
+ 2026 11:19:01 +0000
+Received: from BY3PR18MB4722.namprd18.prod.outlook.com
+ ([fe80::e307:5f61:2694:b219]) by BY3PR18MB4722.namprd18.prod.outlook.com
+ ([fe80::e307:5f61:2694:b219%4]) with mapi id 15.21.0451.022; Mon, 5 Oct 2026
+ 11:19:01 +0000
+From: "Farber, Eliav" <farbere@amazon.com>
+To: Radu Rendec <radu@rendec.net>, Thomas Gleixner <tglx@kernel.org>,
+	"Shenhar, Talel" <talel@amazon.com>
+CC: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH v2 6/8] irqchip/al-fic: support error and fatal outputs
+ and FIC v2
+Thread-Topic: [PATCH v2 6/8] irqchip/al-fic: support error and fatal outputs
+ and FIC v2
+Thread-Index: AQHdVLtSVk4ybO1bLk+uQVNgYIrZuw==
+Date: Mon, 5 Oct 2026 11:19:01 +0000
+Message-ID: <BY3PR18MB47223DDF986081E1A74E4A40C6962@BY3PR18MB4722.namprd18.prod.outlook.com>
+References: <20260927080637.27285-1-farbere@amazon.com>
+	 <20260927080637.27285-7-farbere@amazon.com>
+ <a74366542ddd5e0e3fca71c5dee5d535cc9c560e.camel@rendec.net>
+In-Reply-To: <a74366542ddd5e0e3fca71c5dee5d535cc9c560e.camel@rendec.net>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amazon.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: BY3PR18MB4722:EE_|DM3PPFA08CB310A:EE_
+x-ms-office365-filtering-correlation-id: a132d124-68e7-46d5-b393-08df22d27502
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|23010399003|366016|1800799024|376014|10067099003|56012099006|5023799004|4143699003|11063799006|22082099003|18002099003|38070700021;
+x-microsoft-antispam-message-info: nno3WDNdkKBVjLsnsaH1j+5NEtb5ae7kj8dhUvv/p84K6BWNPKe6Iuynth5N37oefUkG29Q207jyycvUBmoRDoMRZHAu7ifyPdqTSrG0gP95/QYOETWA3aPD6+0jC2fCRKHcRtjq21zbFyuBn44ah2L5ZVLI3ODAQPY5NcOpKJ4gzPRPE7YbmXQ+zVN0kdAypIXUjnszGCbuffRZJ35rZ9VZLr8YsJSOtlKQrWsOX/l07EpHmiVKzWBvIqLUGjgJYXxr2ygycqr/zSpuBKPkBMLlMOVR/tS9hVDwiHolVZnsMssWoiHMhcC4k56aHlab2wIQ7VM75PJUn7/OnZwVY8b0OK9FQNmvmndPjE6XpXutTMUIxKD1dVWLD5pi1yQs9T3SXbad7cl78FONrU9LN34FbmuVdv1ooO6Aohk8/MMr23DhJGPSWpTSDZXcD2+kVJ2cpmla258HDPrKT6aWdvhwNkKLz+r9afXG2s1+f87M/g4U7+NX6cxXdA7FKLGOj8qzEf5eX0QAqs2+c4OEVynd/+DrGf9DAlHCB5bsaF8y7KtPNJfN4Vd2gs4sa6dLtmGIVzqvkLq4560DEjXSMJpKYb0rxaZvLRqiuBM74LGbFe8bBAoHCfhRgn4BYd7mSvUJqoZki/FJcM4NAtHdpsVLyVOmWkByhouPecuSz6iEkN4GvwmQygubNkbe6OmTP/XY51s1XKrAkCsAl6mETFqyHqnHib+ytWmy/8ti8Oo=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BY3PR18MB4722.namprd18.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(1800799024)(376014)(10067099003)(56012099006)(5023799004)(4143699003)(11063799006)(22082099003)(18002099003)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?Q1BwaGJzS0ZSaDRzaHFoTER1RWZMbDJWSWwydGwzMmMya2VaZzJFc1h3UHpa?=
+ =?utf-8?B?NWUvd3BwMlJIdmZPNWl3SHRYaHhJbXhZRzkzdm1ja29EK1BpeksrbHBJWXBY?=
+ =?utf-8?B?by9ERWFJSFNONCswZ3hBWm9nNzZRRGJLM2MwUFlPVS9hcGxRLy9mRi9jVmlG?=
+ =?utf-8?B?a05RZG9wMVZXbjZwSmVKVkdlRjZEQTZsTWo0ZUw4WS8xNjdBNVpNUDN3MWVy?=
+ =?utf-8?B?SzUrbmRWNmhZTTBtVkFkdS9SYjd4ZklIZEVEL2Zqa0xYdGQ3bXlkQU1DWnZG?=
+ =?utf-8?B?alEzUWZXVGNxNTJjbjIvdjBzTHRYR2p3cHAvcFQ2UzVBYmZabzBQWHp1cXVr?=
+ =?utf-8?B?UW93QzZBYVhvWGVKZzI0Z3VrZ3BrOFFicVFjdFRrU1RCYWc5UStIY0dGMTNI?=
+ =?utf-8?B?S0ZJL0hBUlZMcmR5ZDc4ZERWL1NtV29FeUNXaENPSTdLR1d5WUYyTThvalo4?=
+ =?utf-8?B?M3JCbkE4cGx6RXhHNmYyeVBKQ2ZkcmF3ZTF4Qnc0eXh4V0piRU1ROVRxdG9u?=
+ =?utf-8?B?Myt4ZWY4VDBiM0lYb0dZR0E4VGJSb0p4U3RUMTFWQ1F6elhLOFdoT0crN3ZN?=
+ =?utf-8?B?WXZLNWdzMU1NdHdndm95NzczNUVITmoyUnBDc3ZNaXI4T0NveVBTcmRhK0Rh?=
+ =?utf-8?B?dlhYdXRZcW1oRmV0OTk2VDZmTnRjMG5BbWoycGx1RjZnWTZSS1ExUER3U3ZD?=
+ =?utf-8?B?T1JmQVdCV1UvdU1zUk5DOHo3NG0wT1VOb0JjTXdPaFdJNDF1MHArVFR5cDBX?=
+ =?utf-8?B?aHM2RnRqdXhCQmNwZUdJNE9EQ0ptSG5XYmEyYzdLY2pNQTlpaTM4TjFvRUFk?=
+ =?utf-8?B?UU5jZFM1c0hFdzRDOVlXbmZYdTZ1QStVd2tMSVR0MlFWc0VLTmRselJsbGFi?=
+ =?utf-8?B?NXlMeUtac0ZvWlgxS1h4ZStJMnVhTEpLanM3d2VJSHNuRm0zL2hXWFJ3ZmNs?=
+ =?utf-8?B?ekRiVktVVFoxeW1HWHRVaGRBSTBaT0Q1dVFrUy8zZmpvTTJIdEdMWUQxclN2?=
+ =?utf-8?B?TXpHVDNzVER6NzZWWlJId0luT1JtSW1FZExxWGJxN1NMN05wY3o0bFdvWmg2?=
+ =?utf-8?B?aW1QZzBqZzVBb0ZxQm52QnNLS2t6Qi80S2lBcnJvNmVRZ2xJNzVjdmJWc08x?=
+ =?utf-8?B?ZnhUKy9GK3NPUHJVZFRjd1NaS3lPOTVDR1RVQmdFWVFKODlxMm5BTTJTNnVO?=
+ =?utf-8?B?dWxwQ1M5MlN0VVNLaCtmbmdQQnU4TXRjWm9VT0Z5dzVtc1V5YmU0NUlIbWU2?=
+ =?utf-8?B?b1dvYjFkVSthdGluM1lwTzhhbVRrOUJBS1JwWE5RcXZCV1FrR0treWVLVHli?=
+ =?utf-8?B?NVpuTEFwUDQ2blJmb2p1ZGpLcGpGSTRjMldUQ2VKc1ZuM24zclpwQ2krRmlD?=
+ =?utf-8?B?TWFlRFBCZjkyWkgyb2NXWHJ2R0JCVFpNMmEyRm00eE8wVHNZMCtWR2tiYzlx?=
+ =?utf-8?B?dnh2eTJZaWo4SnJTU2VvR3M2UGtsU0p4RUlmNFN6VVRPUXVQeVV5WFJ2L1B6?=
+ =?utf-8?B?dWR0aDVlSkM3Qm1BQytXK3ZuQldjMjl4OXp6bGptL0NQVmtzVVVWOUZhQUly?=
+ =?utf-8?B?N2Y1N0Qxemlhd0NQbHZocUtzWUZwaVZHTkdlYXNZTnpsQjNDaWF1WEpFY25C?=
+ =?utf-8?B?bVovYkNuWFZsMVhhS0J3cFJJRnY5ZWZYenBraEVyMFRnVXJwcDNUNGJzU0tS?=
+ =?utf-8?B?aGplRVA2WXR6dUwxQlArNlkvdVYybXI0NitmNWkxYXIrTXhnRm50dU41bi9P?=
+ =?utf-8?B?ZE9zYlBOUThvMXgwRlVDeWphcXUyQ1IvMnY4bVNGaHQvbU5NSm1kWFgzWGVG?=
+ =?utf-8?B?UXlvZFhLRXl6RFROWU9uSU85U1hxWlR2L2pGd2QySkxnMDNJdW53LzdtTXBa?=
+ =?utf-8?B?MW5qQ2dFSVFLRVdOMStQb0NPdk11bWhnWVJxcWIzVVNBOUpSNXFjNjhITWxT?=
+ =?utf-8?B?TGJOODNDNzl5ODBVcjNJTzBjSzNBSkhFOVVZYnhIaHVyK01penNqV2sySEFF?=
+ =?utf-8?B?UlREVkJ3V1RUbkUwM2tKK0FVQ01ENnltMHUvR2o2Ky91dHJxL2YyUFhkYm9O?=
+ =?utf-8?B?ZVdaS2pNU0YxQU9HbXRkcHhvRjd2d2JLeTViN1FrS0NhRXJ0T0RoeDFSU2p3?=
+ =?utf-8?B?dGxJMHV4dndHOGJqSFRnYUhoOWYzM1ZpMnNDclVmb3R0bmluaXorelZjTUpF?=
+ =?utf-8?B?NG1pN3lGeC84RGdwa01aUkdQTXNyYkxiSnJtSnZiL1N2Mkg4Qkx4UDBXM0VR?=
+ =?utf-8?B?dEhLZHNrWkV6Vi9oUGtJdHZSelNPMmRPa25kTHNnT0NsMEQrRnMrUGFGMkdv?=
+ =?utf-8?Q?vFJE/ALeFQc8E51jww?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Exchange-RoutingPolicyChecked: Sx4Ac+/hBpNVspzNIJNNaRrHVXHv+Qwdi1Xldjw2CKssojAKopuE1OAi9MLVEGgX1RkCOS5K2Uj+a0hk7WjRYPXf6Ix4Y/bs4b+oaAyF0GRBlsrWzTvmOMQLyGvrUC7f71hJaeYmIJCfoeopwNhXSgP2AC4EAiVRBdypegVVB9/wPlNIv5xSMTdp+X03/UK2OFMFGItuJFol0NDgQekfMx3L6moSz3OdL5AGCSgQOy3hEvpPyjL/lNjVXEJEIcdsPGlC2uF0iEop03cWwdgFVrmzEvE7tSgARsoirLZrj0nDw0lu27g3k6dCpSNHc6Xz9iGDfazYV+B9vB9clJmDng==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: BY3PR18MB4722.namprd18.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a132d124-68e7-46d5-b393-08df22d27502
+X-MS-Exchange-CrossTenant-originalarrivaltime: 05 Oct 2026 11:19:01.1313
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 5280104a-472d-4538-9ccf-1e1d0efe8b1b
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 9e1nFs4sc0wXFiJ0OSf1p/2kdWBvbFvlYNH+MimNMYnTYu4IZIUdfEIuMBOtwTQo6/NXG0+5VvmMfLMA5O4T6w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM3PPFA08CB310A
+X-OriginatorOrg: amazon.com
 
-From: Biju Das <biju.das.jz@bp.renesas.com>
-
-Document Renesas RZ/G3L (r9a08g046) USB PHY controller bindings.
-The RZ/G3L USB PHY block is similar to RZ/G3S but differs in that each
-port has its own OTG controller, whereas RZ/G3S only has one on port 1.
-To reflect this, RZ/G3L uses a regulators sub-node with per-port vbus0
-and vbus1 entries instead of the single regulator-vbus property used
-by other compatible SoCs.
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
----
-v10->v11:
- * No change.
-v9->v10:
- * No change.
-v8->v9:
- * No change.
-v7->v8:
- * Collected tag.
-v6->v7:
- * Added additionalProperties: false in regulators node.
-v5->v6:
- * No change.
-v4->v5:
- * Dropped renesas,sysc-pwrrdy for RZ/G3L as pwrrdy signal is modelled as
-   power sequence.
- * Dropped the tag from Conor due to above change .
-v3->v4:
- * No change.
-v2->v3:
- * Replaced items->enum
- * Collected tag.
-v1->v2:
- * Updated commit description.
- * Added enum instead of const in the compatible section.
- * Dropped regulator1-vbus and added a regulators group node.
- * Updated schema check.
----
- .../reset/renesas,rzg2l-usbphy-ctrl.yaml      | 41 ++++++++++++++++++-
- 1 file changed, 40 insertions(+), 1 deletion(-)
-
-diff --git a/Documentation/devicetree/bindings/reset/renesas,rzg2l-usbphy-ctrl.yaml b/Documentation/devicetree/bindings/reset/renesas,rzg2l-usbphy-ctrl.yaml
-index c83469a1b379..75e034fa7ce7 100644
---- a/Documentation/devicetree/bindings/reset/renesas,rzg2l-usbphy-ctrl.yaml
-+++ b/Documentation/devicetree/bindings/reset/renesas,rzg2l-usbphy-ctrl.yaml
-@@ -23,6 +23,7 @@ properties:
-               - renesas,r9a07g054-usbphy-ctrl # RZ/V2L
-           - const: renesas,rzg2l-usbphy-ctrl
-       - const: renesas,r9a08g045-usbphy-ctrl # RZ/G3S
-+      - const: renesas,r9a08g046-usbphy-ctrl # RZ/G3L
- 
-   reg:
-     maxItems: 1
-@@ -50,6 +51,29 @@ properties:
-     $ref: /schemas/regulator/regulator.yaml#
-     unevaluatedProperties: false
- 
-+  regulators:
-+    type: object
-+    additionalProperties: false
-+    description:
-+      list of vbus regulators provided by this controller.
-+
-+    properties:
-+      vbus0:
-+        type: object
-+        description: Port 1 USB VBUS regulator
-+        $ref: /schemas/regulator/regulator.yaml#
-+        unevaluatedProperties: false
-+
-+      vbus1:
-+        type: object
-+        description: Port 2 USB VBUS regulator
-+        $ref: /schemas/regulator/regulator.yaml#
-+        unevaluatedProperties: false
-+
-+    required:
-+      - vbus0
-+      - vbus1
-+
-   renesas,sysc-pwrrdy:
-     description:
-       The system controller PWRRDY indicates to the USB PHY if the power supply
-@@ -71,7 +95,6 @@ required:
-   - resets
-   - power-domains
-   - '#reset-cells'
--  - regulator-vbus
- 
- allOf:
-   - if:
-@@ -86,6 +109,22 @@ allOf:
-       properties:
-         renesas,sysc-pwrrdy: false
- 
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: renesas,r9a08g046-usbphy-ctrl
-+    then:
-+      properties:
-+        regulator-vbus: false
-+      required:
-+        - regulators
-+    else:
-+      properties:
-+        regulators: false
-+      required:
-+        - regulator-vbus
-+
- additionalProperties: false
- 
- examples:
--- 
-2.43.0
-
+T24gU3VuLCAyMDI2LTEwLTA1IGF0IDAxOjAxICswMDAwLCBSYWR1IFJlbmRlYyB3cm90ZToNCj4g
+T24gU3VuLCAyMDI2LTA5LTI3IGF0IDA4OjA2ICswMDAwLCBFbGlhdiBGYXJiZXIgd3JvdGU6DQo+
+ID4gKyAgIGlmICh2ZXJzaW9uID09IEFMX0ZJQ19WRVJTSU9OX1YyICYmDQo+ID4gKyAgICAgICAo
+ZmljX2lkID09IEFMX0ZJQ19JRF9FUlJPUiB8fCBmaWNfaWQgPT0gQUxfRklDX0lEX0ZBVEFMKSkN
+Cj4gPiArICAgICAgICAgICBnY19mbGFncyA9IDA7DQo+ID4gKyAgIGVsc2UNCj4gPiArICAgICAg
+ICAgICBnY19mbGFncyA9IElSUV9HQ19JTklUX01BU0tfQ0FDSEU7DQo+DQo+IFRoaXMgaXMgY29y
+cmVjdCBidXQgZ2NfZmxhZ3MgY2FuIGJlIHNldCB0byBJUlFfR0NfSU5JVF9NQVNLX0NBQ0hFIGF0
+DQo+IHRoZSBkZWNsYXJhdGlvbiwgYW5kIHRoZW4gdGhlICJlbHNlIiBicmFuY2ggaXMgbm90IG5l
+ZWRlZC4gT3IgaXQgY2FuIGJlDQo+IGluaXRpYWxpemVkIHRvIDAgYW5kIHNldCB0byBJUlFfR0Nf
+SU5JVF9NQVNLX0NBQ0hFIGZvciB0aGUgdmVyc2lvbi9pZA0KPiB0aGF0IHN1cHBvcnQgaXQ7IHRo
+ZSBjb25kaXRpb24gd291bGQgaGF2ZSB0byBiZSBmbGlwcGVkIG9mIGNvdXJzZSBlLmcuDQo+ICAg
+ICBpZiAodmVyc2lvbiAhPSBBTF9GSUNfVkVSU0lPTl9WMiB8fCBmaWNfaWQgPT0gQUxfRklDX0lE
+X0lORk8pDQo+ICAgICAgICAgZ2NfZmxhZ3MgPSBJUlFfR0NfSU5JVF9NQVNLX0NBQ0hFOw0KPg0K
+PiBUaGF0J3MganVzdCBhIHN1Z2dlc3Rpb24sIGFuZCBpdCdzIHRvdGFsbHkgZmluZSB3aXRoIG1l
+IGlmIHlvdSBwcmVmZXINCj4gdG8ga2VlcCBpdCBsaWtlIHRoYXQuDQoNClRvb2sgdGhlIGZpcnN0
+IGZvcm0gLSBpbml0aWFsaXNlIGl0IGF0IHRoZSBkZWNsYXJhdGlvbiBhbmQgb25seSBjbGVhciBp
+dA0Kb24gdGhlIHYyIGVycm9yL2ZhdGFsIHBhdGguDQoNCj4gPiArICAgaWYgKCEoZ2NfZmxhZ3Mg
+JiBJUlFfR0NfSU5JVF9NQVNLX0NBQ0hFKSkNCj4gPiArICAgICAgICAgICBnYy0+bWFza19jYWNo
+ZSA9IDB4RkZGRkZGRkY7DQo+DQo+IFRoaXMgaXMgY29ycmVjdCBidXQgSSBwcmVmZXIgdG8gd3Jp
+dGUgaXQgYXMgfjBVLiBJdCdzIGVhc3kgdG8gbWlzcyBvbmUNCj4gJ0YnLCBib3RoIHdoZW4gd3Jp
+dGluZyBhbmQgcmVhZGluZyBpdC4gQWdhaW4sIGl0J3MganVzdCBhIHN1Z2dlc3Rpb24NCj4gYW5k
+IGEgbWF0dGVyIG9mIHN0eWxlLg0KDQpEb25lLCBoZXJlIGFuZCBpbiB0aGUgdGhyZWUgbWFzay1y
+ZWdpc3RlciB3cml0ZXMgYmVsb3cuDQoNCj4gPiArICAgLyogbWFrZSBzdXJlIHRoZSBjb250cm9s
+bGVyIHdvcmtzIGluIG5vbiBtc2lfeCBtb2RlICovDQo+ID4gKyAgIGNvbnRyb2wgfD0gQ09OVFJP
+TF9NQVNLX01TSV9YOw0KPg0KPiBUaGUgc2lkZSBlZmZlY3Qgb2YgdGhpcyBpcyB0aGF0IGFsbCB0
+aGUgb3RoZXIgYml0cyBwcmV2aW91c2x5IHNldCBpbg0KPiB0aGUgQUxfRklDX0NPTlRST0wgcmVn
+aXN0ZXIgYXJlIHByZXNlcnZlZCwgd2hlcmVhcyBiZWZvcmUgdGhpcyBwYXRjaA0KPiB0aGV5IHdl
+cmUgcmVzZXQgYnkgaW5pdGlhbGl6aW5nICJjb250cm9sIiB0byBDT05UUk9MX01BU0tfTVNJX1gu
+IElzDQo+IHRoaXMgaW50ZW50aW9uYWw/IElmIGl0IGlzLCB0aGVuIHBlcmhhcHMgaXQgZGVzZXJ2
+ZXMgYSBjb21tZW50IGJlY2F1c2UNCj4gaXQgbG9va3MgbGlrZSBhIGJlaGF2aW9yIGNoYW5nZS4N
+Cg0KSXQgaXMgaW50ZW50aW9uYWwsIGJ1dCBpdCBpcyBub3QgYWN0dWFsbHkgYSBiZWhhdmlvdXIg
+Y2hhbmdlLiBFdmVyeQ0Kd3JpdGFibGUgYml0IGluIHRoaXMgcmVnaXN0ZXIgcmVzZXRzIHRvIDA7
+IHRoZSBvbmx5IG5vbi16ZXJvIHJlc2V0IGZpZWxkDQppcyB0aGUgcmV2aXNpb24sIHdoaWNoIGlz
+IHJlYWQtb25seS4gU28gYXQgcHJvYmUgdGhlIHJlYWQtbW9kaWZ5LXdyaXRlDQpwcm9kdWNlcyB0
+aGUgc2FtZSB2YWx1ZSBhcyBidWlsZGluZyBpdCBmcm9tIENPTlRST0xfTUFTS19NU0lfWCBhbG9u
+ZS4NCg0KSSBrZXB0IHRoZSByZWFkLW1vZGlmeS13cml0ZSBiZWNhdXNlIGl0IGlzIHRoZSBiZXR0
+ZXIgcHJhY3RpY2UgLSBpdCBjb3N0cw0Kbm90aGluZyBhbmQgZG9lcyBub3QgcmVseSBvbiB0aGUg
+cmVzZXQgdmFsdWUgc3RheWluZyAwIC0gYW5kIGJlY2F1c2UgdGhlDQp2ZXJzaW9uIGZpZWxkIG5v
+dyBoYXMgdG8gYmUgcmVhZCBmcm9tIHRoaXMgcmVnaXN0ZXIgYW55d2F5LiBJIGRpZCBub3QgYWRk
+DQphIGNvZGUgY29tbWVudCBzaW5jZSB0aGVyZSBpcyBubyBzdXJwcmlzaW5nIGJlaGF2aW91ciB0
+byBmbGFnLCBidXQgSSBhZGRlZA0KYSBwYXJhZ3JhcGggdG8gdGhlIGNvbW1pdCBtZXNzYWdlIGV4
+cGxhaW5pbmcgdGhlIGVxdWl2YWxlbmNlLiBMZXQgbWUga25vdw0KaWYgeW91IHdvdWxkIHN0aWxs
+IHJhdGhlciBzZWUgYSBjb21tZW50IGF0IHRoZSB3cml0ZSBzaXRlLg0KDQpBbGwgb2YgdGhpcyBp
+cyBpbiB2Mywgd2hpY2ggSSB3aWxsIHBvc3Qgc2hvcnRseS4NCg0KVGhhbmtzLA0KRWxpYXYNCg==
