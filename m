@@ -1,95 +1,81 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA5843BB671
-	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 21:00:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB9F9318BB8;
+	Mon,  5 Oct 2026 21:05:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791234036; cv=none; b=UmPrWj6NtWt+ud1uFOMnGDfErGNv/2xyW6e2eYEaJ2K2nIykoysaJ9SfKWqFtu83OWj00BA7PWjSqiYabK9qa9kU+74ZE085XYdUkxHcFFuKAvHwrveYWZAoHQx2pA8O92VKcTWrwQV4pQrQNOvinZ5HNb2H6+zP4P0c1ZTuXiM=
+	t=1791234337; cv=none; b=uUP9CG3s/Rip7bO+YgU/l/92ItfCRwKXkFlVWkn30P6WFM6dJFxh3esVoBRagDRrka8Mjd70lHJvO3oWiv5mexJy1Z/rLMHZoUKXLPSoxQkB5HLB0mNztGHaIUIAaaHkV9GmvidhzDFvUHjt2pczXt+Gslyj+zOn3xqwkGowRwo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791234036; c=relaxed/simple;
-	bh=8yg3jhaaVEm2BYZ2jMfK219y5rlWshCXYnvNK7e5XTw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=MDi+s591Rq1BEDxjlxBAXrLm8Ve1Tr04KXbnshq0GHy6qqK9czoPDZ9Ua7Tr6i4FQhc1M409ws3vBAbTtZha6N/k2YC50YcAFAj7NWLQZtsP/2y+3QxktsegMNzl/X9+95yw0OynHW8Dce+5DIfBy2SmG5vnVDRz+ad4SVInMwU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NMPlURJS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791234337; c=relaxed/simple;
+	bh=G+w7EkzR9iONABXgqKNyTfrfF1ClH+VVNNkqFimY3Pk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CRY1oUSo69tC2wezIpo2YANkaR6msk/ATKW8M5Y1+6xSjS0UFYBhWmy5d0Pg9KBQQYrU7mPTmGovoGaPyXWxGRJwQZyZSDsqubXVt7dK5vraY8ILqhkzqow7zIKkvwC+r5CaQF2gVASw7QjcZ9eHINZxvMFL+MAt8EuAyRFh5F0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bFBMVAKT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NMPlURJS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FD341F000FF;
-	Mon,  5 Oct 2026 21:00:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bFBMVAKT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 323311F000FF;
+	Mon,  5 Oct 2026 21:05:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791234035;
-	bh=NZnig060A2+dyXYPVegaaaDgcgCAkb4dTQ1fT3mGOV8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=NMPlURJSr+WV2vaLeQkGrdPvkWC6C4GVqGe4kivANXIFsorAURSDfDQqPh/0XMo2W
-	 k04NXKqsDtr2RIr40pJy32XeYiOtPgcFz6Y8oj9QHVHJRruAxXhJT010WXbCzw4CA4
-	 GZA7b3NcF7h/vapElpaIoh+XTBngfduOlAYmeAbEaOv6mJbHVTRKmcydCNIcxeI26O
-	 YDjsSkm975DToeKn7Ab0ZehDeUl+vS9x37AD/cT9PKc+5kfpD7wBPs3ThLk/3GlzQC
-	 gooIS5PEqGe+8az+e8PftjnhxBJjY/1L4rgGIOz41OsAly2546/qnNw4YR7Rxr6WUP
-	 6wV9+5hZ97PpQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] dt-bindings: bus: Add HiSilicon local bus
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?Um9iIEhlcnJpbmcgKEFybSk=?= <robh@kernel.org>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20261005205310.2079198-1-robh@kernel.org>
-References: <20261005205310.2079198-1-robh@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 05 Oct 2026 21:00:34 +0000
-Message-Id: <20261005210035.1FD341F000FF@smtp.kernel.org>
+	s=k20260515; t=1791234336;
+	bh=w2pIgFiEsXU056asN4AfqubB2EFM4zS7a5OgX9F1Kac=;
+	h=From:To:Cc:Subject:Date;
+	b=bFBMVAKTvhIR2n3To4WWdXuc9KtDdFGha11HRSsirugMVFeHsODpkBYxxUkcbZ6Ap
+	 jR7k7gKTGezDUKdDDHiCuHDSffJBWPHDigfRJ/k1udQjSvEydA/jCj/AWJLh3xc0d4
+	 hxbH1QG42KGyST/xRlpqkDKMuOVUae85+32BnT878E+TlcUBONBoUyTvaVX2mQphgR
+	 +zCJlGztuhKsHiuLQ8mcJM1yv/zo/OZz/spgKt+dSFytpcaE7y8lwoPlZrytm1NtAO
+	 uVBA+rmaikFSd0ZWPJfEVOh8dyP89JqJyugbrf80eD61+WWyoQr5rKAob3PS7ncO6s
+	 tHo6MGMsi3K/w==
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Liviu Dudau <liviu.dudau@arm.com>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] arm64: dts: arm: corstone1000-a320: Fix GIC redistributor region size
+Date: Mon,  5 Oct 2026 16:05:06 -0500
+Message-ID: <20261005210506.2118052-2-robh@kernel.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] dt-bindings: missing `required` block allows nodes without `reg` to=
- pass
---
+The Arm Corstone1000-A320 has a GICv4 which means the redistributor
+region should be 4x256KB rather than 512KB. This issue didn't become
+apparent as SMP was disabled as a work-around in early versions of the
+FVP.
 
-commit 31cf8e8c992601dbcd36de1b649ef5c513febf6f
-Author: Rob Herring (Arm) <robh@kernel.org>
+Fixes: 87599f1843d3 ("arm64: dts: arm/corstone1000: Add corstone-1000-a320")
+Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
+Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+---
+Hi, this still hasn't been applied.
 
-dt-bindings: bus: Add HiSilicon local bus
+v2:
+ - No changes, rebase on v7.3-rc1
+---
+ arch/arm64/boot/dts/arm/corstone1000-a320.dtsi | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-This commit introduces a new device tree binding schema for the HiSilicon l=
-ocal
-bus. It sets up validation constraints for the compatible string and regist=
-ers.
+diff --git a/arch/arm64/boot/dts/arm/corstone1000-a320.dtsi b/arch/arm64/boot/dts/arm/corstone1000-a320.dtsi
+index f0937914350c..f895a024fc92 100644
+--- a/arch/arm64/boot/dts/arm/corstone1000-a320.dtsi
++++ b/arch/arm64/boot/dts/arm/corstone1000-a320.dtsi
+@@ -73,7 +73,7 @@ gic: interrupt-controller@1c000000 {
+ 		#size-cells = <1>;
+ 		interrupt-controller;
+ 		reg = <0x1c000000 0x10000>,
+-		      <0x1c040000 0x80000>;
++		      <0x1c040000 0x100000>;
+ 		interrupts = <GIC_PPI 9 IRQ_TYPE_LEVEL_LOW>;
+ 	};
+ 
+-- 
+2.53.0
 
-> diff --git a/Documentation/devicetree/bindings/bus/hisilicon,hisi-localbu=
-s.yaml b/Documentation/devicetree/bindings/bus/hisilicon,hisi-localbus.yaml
-> new file mode 100644
-> index 0000000000000..cd9ecea88269f
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/bus/hisilicon,hisi-localbus.yaml
-
-[ ... ]
-
-> +properties:
-> +  compatible:
-> +    items:
-> +      - const: hisilicon,hisi-localbus
-> +      - const: simple-bus
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +unevaluatedProperties: false
-
-[Severity: Low]
-Should this schema include a required array to enforce the presence of the
-compatible and reg properties?
-
-Because properties are optional by default, omitting an explicit required
-block here means that incomplete device tree nodes missing either the reg
-property or the compatible string will silently pass dtbs_check validation
-without enforcing the constraints defined above.
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261005205310.2079=
-198-1-robh@kernel.org?part=3D1
