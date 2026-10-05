@@ -1,61 +1,110 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C07B47F3D2;
-	Mon,  5 Oct 2026 12:33:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4986A47F3D2;
+	Mon,  5 Oct 2026 12:33:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791203611; cv=none; b=MmubZIZiQUwY1k6+5qC+Ua0+1PNLFKN3BuA2eBCGCFbfA+poCKsGCmu1ipDsUOUrdTdju2J5sAtOGrUX10FvdW1RBfBrHAhevpcHiv9EYUL9IaWGqHTVrhV4ej5ARe7rqUWQM/QbK+bR1sxWQhP29ABbv1rD8CNJam1C5dT19Ok=
+	t=1791203617; cv=none; b=kbtqSJLGaeEp0LNLxU8g3Xq/BrHCGeKwuaE+NBnYXwH02c1mGZS18DlVHtm3l9NIKJVreQaaMEOL/PREXhvOWYPNrVa7O8pv/JzZpZ7kHp0xwnO0u8dxVlZjyJxpthT05E8Cf55wcVlSo2r9lOnwlvjlmFbXj8KKTDRsVwD1O8k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791203611; c=relaxed/simple;
-	bh=ROggpUTf0sRg3+DOJSJbdXnv3BwVDfsa1cIFffTMPZ0=;
+	s=arc-20240116; t=1791203617; c=relaxed/simple;
+	bh=sv3g1B5KofY2UxAcLPxCocr718zgmi8KJ7fOJAtVyKo=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=X5XQkLlYS9j8A7wmmn4mdD/qkDZAndXiwba5H/FS2gmWQ3/UHvVznWGz8AuBOanJrhXKTpLMKZIJDG70b1h/siKWIhFgcYar3rMvGO2vrKRBrS8UPjjXBl8F4zUm2rjTdTZJJTVf3sDNO/7HZgkefKvMi1vZvWo6EK1y8uEiEHo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ea7CX0SK; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=t4RHOQinfTUftRbrK1RGnazMbKyhecp32/hgsPt1sdxLwcNMdVSHiFH0znujM8slj2FwliU+NGcfNK+qmjJdEng7yIoqf4QM7bsj+0B/n0umVXpPDeVQJI+5U5wiWxoYLUvgFsEqlQY1NhvoQC1eAVSy5EM+Vqr33HplOOEblUo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KEWX/Rou; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ea7CX0SK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D45A91F00893;
-	Mon,  5 Oct 2026 12:33:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KEWX/Rou"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDAE01F000FF;
+	Mon,  5 Oct 2026 12:33:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791203610;
-	bh=ROggpUTf0sRg3+DOJSJbdXnv3BwVDfsa1cIFffTMPZ0=;
+	s=k20260515; t=1791203616;
+	bh=3GJMIDEq3GMLJxrBLmLIihKdODSmlMF1hxTGS4Eku1w=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ea7CX0SKjviBGP7xrSBmjpUK2aYaXdXdudTJacl1n7r7AcmVC38MC077/3YyABfu5
-	 Z4h9OfDl1wrd6j/v9W5ZZ9++RLjXjkYTnuPsf1dyuyWb3dGv1JzUzJAMLbgeE8L6D1
-	 x93qLugsQMkjduDs96TivbYG4LVVOUA4BXbfEiJH8HrfDneLBlpWq/yE0wJQXI1B91
-	 XdB4JTmHX51b9wn1ArqjHsFfKvpynL0kEGce0IAieMMfqyrjwgcS30JGOQSBxo26jq
-	 F3ez8e9WaN6k4gaF0Dua3kbejEOBODIgTpgtZy9r4Ikk7vJnSPFMXAdl3cpOcn+9gB
-	 XpujTSEcYpB+Q==
+	b=KEWX/Rou2J/awQDihfxg7t9apccZ5gccnwxFHIpW0l6tSZMFP1zFwM/rQL97QfaJQ
+	 KbO2mXXbN5IfB8smFYtWyZshuEi8nhE2rkpkzqJbxtrCapZpq73vAh4gD/UuOYGWf0
+	 LgHqiZCnI4FcblTJYSjwSGtePYfBqzoHKQiPw+BlJjmLFUlPtO00RDDEuG3im8O57l
+	 vxE20lbCQAXFwc03qnKHQ9F/HyH1WA6rIFPeCO/GMaIwKj25IoGAVR+tdK2QIuKu0D
+	 vHEU4ox3nS/bjmCWONVb23ZUwhizZQTz5WWzf8NenQtIsxwcsOd9iptT4wYj8WHwuK
+	 hSIN/z6SbEBsQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 04/12] arm64: dts: qcom: pm7250b: Enable BCL sensor
- node
+Subject: Re: [PATCH v7 3/8] Bluetooth: hci_qca: Set 'bt_en_available' based
+ on pwrseq power controllability
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Manaf Meethalavalappu Pallikunhi" <manaf.pallikunhi@oss.qualcomm.com>
-Cc: lee@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, mfd@lists.linux.dev, linux-hwmon@vger.kernel.org
-In-Reply-To: <20261005-qcom-bcl-hwmon-v4-4-50b9a8c730b7@oss.qualcomm.com>
-References: <20261005-qcom-bcl-hwmon-v4-0-50b9a8c730b7@oss.qualcomm.com>
- <20261005-qcom-bcl-hwmon-v4-4-50b9a8c730b7@oss.qualcomm.com>
+To: "Loic Poulain" <loic.poulain@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, linux-pci@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261005-monza-wireless-v7-3-5a6de7662dcb@oss.qualcomm.com>
+References: <20261005-monza-wireless-v7-0-5a6de7662dcb@oss.qualcomm.com>
+ <20261005-monza-wireless-v7-3-5a6de7662dcb@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 05 Oct 2026 12:33:29 +0000
-Message-Id: <20261005123329.D45A91F00893@smtp.kernel.org>
+Date: Mon, 05 Oct 2026 12:33:35 +0000
+Message-Id: <20261005123335.CDAE01F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-> Add Battery Current Limiting (BCL) hardware monitor node for pm7250b
-> PMIC. The BCL monitors battery voltage and current, providing hardware
-> interrupts when configurable thresholds are violated.
->=20
-> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
-> Signed-off-by: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qua=
-lcomm.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] bluetooth: hci_qca: missing error check for pwrseq_enable() in pro=
+be
+--
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+commit 842e42b3b693b54c6eab8132c98045df38fc5343
+Author: Loic Poulain <loic.poulain@oss.qualcomm.com>
+
+Bluetooth: hci_qca: Set 'bt_en_available' based on pwrseq power controllabi=
+lity
+
+This commit updates the driver to query pwrseq_is_controllable() when Bluet=
+ooth
+power comes from a sequencer. If the power is not controllable, it clears
+bt_en_available so that the non-persistent setup quirk is not set and treats
+the device as always-on.
+
+> diff --git a/drivers/bluetooth/hci_qca.c b/drivers/bluetooth/hci_qca.c
+> index f53f95601693d..20d8c5e890a89 100644
+> --- a/drivers/bluetooth/hci_qca.c
+> +++ b/drivers/bluetooth/hci_qca.c
+> @@ -2557,7 +2557,20 @@ static int qca_serdev_probe(struct serdev_device *=
+serdev)
+>  			return PTR_ERR(qcadev->susclk);
+>  		}
+>  	}
+> -=09
+> +
+> +	if (qcadev->bt_power->pwrseq) {
+> +		bt_en_available =3D pwrseq_is_controllable(qcadev->bt_power->pwrseq);
+> +		if (!bt_en_available) {
+> +			/* The host cannot gate the BT power individually.
+> +			 * Treat it as always-on and drop the pwrseq handle.
+> +			 * The descriptor itself is still released by devres,
+> +			 * so dropping the handle here is not a leak.
+> +			 */
+> +			pwrseq_power_on(qcadev->bt_power->pwrseq);
+
+[Severity: High]
+Does this code need to check the return value of pwrseq_power_on()?
+
+If powering on the Bluetooth hardware fails, the driver incorrectly continu=
+es
+probing and returns success. This leads to silent hardware initialization
+failures and downstream communication timeouts when the host attempts to
+interact with the unpowered controller.
+
+Note: The undefined function typo (pwrseq_power_on) present in this patch
+is fixed in a subsequent patch in this series (commit 'Bluetooth: hci_qca:
+Flatten struct qca_power into struct qca_serdev'), but the missing error
+check for the corrected pwrseq_enable() call remains unfixed in the final
+state of the series.
+
+> +			qcadev->bt_power->pwrseq =3D NULL;
+> +		}
+> +	}
+> +
+>  	err =3D hci_uart_register_device(&qcadev->serdev_hu, &qca_proto);
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261005-qcom-bcl-h=
-wmon-v4-0-50b9a8c730b7@oss.qualcomm.com?part=3D4
-
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261005-monza-wire=
+less-v7-0-5a6de7662dcb@oss.qualcomm.com?part=3D3
