@@ -1,108 +1,161 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-f52.google.com (mail-vs1-f52.google.com [209.85.217.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C7A1472072
-	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 15:51:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64D104A49AC
+	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 15:56:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791215478; cv=none; b=BtQzZ4u+0PTmUBZcSs1sxRXx979Rs2mD6Px4OO4KXCCdTGf+leBr4krysYCRUPEgGfgc1sEXU+whnk+fvhYc2Q1TCQpzqm15VwKxKhU2KdpNtfDG2zzZJpzgfLCjCaEYgIk+ufUP3cipu4BAgCbUxFJE92w55pYt4sgh+7axKto=
+	t=1791215765; cv=none; b=goDLDeM43nJjaHZgzc7SEyN0O2qGOQkHeudg+IHISCjgx1jtRhUW5C0k9LpS3pHtdYdqQrmAO/Hqi3ido8cEjr4GjdRw6rBtN84QRuZMPFqmi0BfPSmXVykVAMtZ4wtgPIK5If+W4EGDeSO5vgcQRbn0/RzpZ9uJ+kk+Lnh7mOQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791215478; c=relaxed/simple;
-	bh=+GUBM4GUpISUCGXo8g1itIoC/G55jTd36WzkQi+8bCY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=R6+ZLWNwX9Usb89OGw16YFOu6+Qrcb8Q+w9ZmHGu8YAu28GzbfPSB3HcwydMP7ALNke/vlDB9VaylS7YQKRBuW4Il0eBhqcbF9pXxrS9+UcgpBP7tMeUAoCINFxL7THknu+4BHkdaE1Rh3B3CYzFuYJqSz7kwoYNVr18Lg7rCCU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wzi3+kzP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791215765; c=relaxed/simple;
+	bh=vdpsJ3hZNyAcL4ng7ir9nttQMH7WO6n1mJsbI2s3ZfQ=;
+	h=From:MIME-Version:References:In-Reply-To:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=by71TLKCTKGu1yZ8UQ6U0ewqI0pzURpESepsASvUQMJNiKHXk65EnlrYcEGg2bePbDEDA0E4Yo1wYUC4U0EVwtrgp3LWnMwzBB6VJQMvoEPWUxYfeGBRyK7Qu5+zwFFSsIq5akgovWhftknk/weTAPjhMvM/xgIwUsi0ohMOIcw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ossystems.com.br; spf=pass smtp.mailfrom=ossystems.com.br; dkim=pass (2048-bit key) header.d=ossystems.com.br header.i=@ossystems.com.br header.b=phhP112C; arc=none smtp.client-ip=209.85.217.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ossystems.com.br
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ossystems.com.br
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wzi3+kzP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83BD71F000FF;
-	Mon,  5 Oct 2026 15:51:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791215476;
-	bh=x2lnOnUWOM4T5ecFvHiYCAvAPl9vtG9c9feEiy77cj8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Wzi3+kzPqucRDy6KTtGbphOu3cuRCh6QP5FfSc4FzmmObEaY/OKRs9qypL9iVdBPf
-	 RNPOLYtxaMPMqVbQl+c1TFmpsl5dOE1FfIoCELeriwh8qh5LTXC4fOBdHit44fNs7j
-	 9ddDu1mP2m+sdAUVgEykWCFAuejBTp1DveCAEo1a01UEgyGY2DeGRy5a/3zBQAWRpI
-	 35QBL/M+ODz9FxbPt/EBKiFC7UI9T9nvIgbeEFFoTbzLtLqqf5/1gjgZ7k2Vhwe1fD
-	 2WehHIpLLh9jPX4hooFwWJkr+NQLtF3r72R3smkckhRTHOl5ylXvB7E4LsA6UiedIL
-	 YUUDIsCPdIesw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/3] dt-bindings: i3c: dw: support up to two reset
- lines
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jisheng Zhang" <jszhang@kernel.org>
-Cc: Frank.Li@kernel.org, linux-i3c@lists.infradead.org, conor+dt@kernel.org, "Alexandre
- Belloni" <alexandre.belloni@bootlin.com>, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20261005152425.25319-2-jszhang@kernel.org>
-References: <20261005152425.25319-1-jszhang@kernel.org>
- <20261005152425.25319-2-jszhang@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 05 Oct 2026 15:51:16 +0000
-Message-Id: <20261005155116.83BD71F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=ossystems.com.br header.i=@ossystems.com.br header.b="phhP112C"
+Received: by mail-vs1-f52.google.com with SMTP id ada2fe7eead31-7bec5112765so1468786137.1
+        for <devicetree@vger.kernel.org>; Mon, 05 Oct 2026 08:56:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=ossystems.com.br; s=os; t=1791215763; x=1791820563; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:in-reply-to:references:mime-version:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=C54WbketwFUMnlhWt0X/x+0i291DYrFlSIzr7u5PmQc=;
+        b=phhP112CL4/frIKxoSymCZU/rxHU8+5u3DMQnopTiqZe6U0SYFSdAS09jdFhK6JyPi
+         TMd5L/utwziTOBq7/nfDkYmTaWmugk3CpWTnS9gaAkfNIAMox8C9Nllo0G6RxPVaFPII
+         8HW4Ys6nCDHwI/fh4vOE4dRz98WKyBw/uErHDBaV87+MS5ozHu/H0syJoj1BltjJKFho
+         tzM2MpGfX/gsbS1WnMDLiwu4hFuywI8PxMrhdempfzbhBVYUZPWydCqwkICfDASFxyDY
+         9C37NIGtWc4tj5dt3HJTIIy4FGFpDIuVaBT0ZbXOYKUJhn+ZUVhWuHwtsznJiBZE6o7e
+         8o2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791215763; x=1791820563;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:in-reply-to:references:mime-version:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=C54WbketwFUMnlhWt0X/x+0i291DYrFlSIzr7u5PmQc=;
+        b=mc2T5I31zz581H25hpWrdpYltVhQgl7PCwRa+0EOn0K9faWnNXEH+057w/pZgWSCsP
+         P9U+pAEjL0bHp7A/iM3vXexeln7UOdhP/8DS/X2UkHShYBYcuI5Ijaeuvdw/fiFkSHrZ
+         9nl+/iNd83vr5F6lGlJ/LTVysrKJ6YzRqUIcDPQIrKemiJFvmV1FvZr5za+qHbGHG/NV
+         NZSgoDbjI2dffohrDWtf2YAAMu4EXdtXGRISLcGqe8tKlZuhahJKT/wIQbYfIb33YsSC
+         yZjapSD2vN7z21dnWnzIPK6wXvA6Mwo64/l2JhZ15a8C3dEOqHOdFw0jQjf/os84Q+g+
+         gp4g==
+X-Forwarded-Encrypted: i=1; AKwUvByWvqXdOBqo2VYsVN7hCMxBvlxwmDu1k9oKR1NvA3SMP1bhlPNFNKcRvcMG0sZ4PdKj6aseVDOcMmue@vger.kernel.org
+X-Gm-Message-State: AFq9FYJNxlDaj6lR5QXJG4ApfMzLS0oytFtu4uZvSrF+hfuHgUKq8K7a
+	YLfbSnSwa/bbTTKg2UqBuK3xOelR8Pv0qRzdOahEegSJjjxf/kccu6dTDQZo4iXxYpEriajFPKO
+	v0fKd2jw=
+X-Gm-Gg: AYBFou0jiLAfeS8sjJoJiLBJNcGvAELIWNnj+OlJcrFqrNhSvz4cQ3qZtzibXMVQDtF
+	Z6AjyIPh+DnNwIZdatGXqq8iQfZx0UBxyBbDFmbnO/5mWlu4K5IGczQ84NqaOcldan4TKUsFj+E
+	9thSMCxw2zCwNKbKTU+aicIqMIK1TnF/6PV+7Sv2OPkZiR1am4b8ZSVidD3MnoH6EC72Sa8uQik
+	1kKnpdigoyKd5tUxgrhhvNVfUlaaJSISnRdE4HRWEo+jbB1vgwkw0ODP/DcTOQlrRZgiazUaqW4
+	FIZCfQytAxvCALKmVtj6hCs/HQhdk2VudboERoJ1RFOf5V2RROt2fEWB9c0NXok0acG4UOSsj7/
+	CnkS/XdIv7zZaIN6ipH+00TWhocOzYNBaUuIA3J8ifUnbHuV5w4zXkYX9QVpqjAkstkYp+pX+pk
+	E+ThtB1Ezf2Z8rp0XSFZKHT1sWwsIjO8Dy4Mf4tPltSMajuv+0md40cOr/XETys3gJRyLPdanpv
+	XtJhY8akyu8DKlFkr3iqFeCvgXlE4R1qQOHKm3nXLxW7cuGExsp
+X-Received: by 2002:a05:6102:1626:b0:7a8:15b9:dd34 with SMTP id ada2fe7eead31-7c2427e142amr2516377137.2.1791215762829;
+        Mon, 05 Oct 2026 08:56:02 -0700 (PDT)
+Received: from mail-ua1-f44.google.com (mail-ua1-f44.google.com. [209.85.222.44])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-98c844d9dc3sm967719241.11.2026.10.05.08.56.02
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 05 Oct 2026 08:56:02 -0700 (PDT)
+From: Otavio Salvador <otavio.salvador@ossystems.com.br>
+X-Google-Original-From: Otavio Salvador <otavio@ossystems.com.br>
+Received: by mail-ua1-f44.google.com with SMTP id a1e0cc1a2514c-98c786605e7so714224241.1
+        for <devicetree@vger.kernel.org>; Mon, 05 Oct 2026 08:56:02 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBx4URwLPGtNyZG4azYBKpuwaUgzqzsplkLrskCk2roZqyJv6GABM4CvOAcOdg3qZ3vGrPo5maP3OCEl@vger.kernel.org
+X-Received: by 2002:a05:6102:50a1:b0:7c3:2f13:d905 with SMTP id
+ ada2fe7eead31-7c32f13da5fmr1970603137.3.1791215410224; Mon, 05 Oct 2026
+ 08:50:10 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20261003012534.418820-3-otavio@ossystems.com.br>
+ <20261003012534.418820-5-otavio@ossystems.com.br> <2c75983e-5e63-4613-a9a8-055015d04bbf@arm.com>
+In-Reply-To: <2c75983e-5e63-4613-a9a8-055015d04bbf@arm.com>
+Date: Mon, 5 Oct 2026 12:49:57 -0300
+X-Gmail-Original-Message-ID: <CAP9ODKr2FQ2xeg-u_UQ-krUGsaU3mcWjWYfPAPd7V=ks2=GwzQ@mail.gmail.com>
+X-Gm-Features: AclHuK9M-oP6_gI2ooGV7CYgI6qML-uXhAEOVd9YWl1vJlrxk84aNQ57MoMLtgc
+Message-ID: <CAP9ODKr2FQ2xeg-u_UQ-krUGsaU3mcWjWYfPAPd7V=ks2=GwzQ@mail.gmail.com>
+Subject: Re: [PATCH 2/2] ARM: dts: sun8i-r40: Add SID node and THS calibration
+To: Andre Przywara <andre.przywara@arm.com>
+Cc: Otavio Salvador <otavio@ossystems.com.br>, Chen-Yu Tsai <wens@kernel.org>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
+	Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Maxime Ripard <mripard@kernel.org>, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] dt-bindings: i3c: dw: maxItems mismatch with commit message
-- [Low] dt-bindings: i3c: dw: missing items/reset-names for multiple resets
---
+Hi Andre,
 
-commit 6da78b08867272d83c36c1c30ce43bb39d9aaf6d
-Author: Jisheng Zhang <jszhang@kernel.org>
+Thanks for the review.
 
-dt-bindings: i3c: dw: support up to two reset lines
+Em seg., 5 de out. de 2026 =C3=A0s 06:02, Andre Przywara
+<andre.przywara@arm.com> escreveu:
+>
+> Hi Otavio,
+>
+> thanks for sending the patch!
+>
+> On 10/3/26 03:25, Otavio Salvador wrote:
+> > Without the calibration cell, the THS driver leaves the sensor
+> > calibration registers at their reset value (0x800) and the reported
+> > temperatures drift from the real die temperature by a chip-dependent
+> > offset.
+> >
+> > Add the SID node at 0x01c1b000 and wire the thermal sensor to its
+> > factory calibration at eFuse offset 0x40, one 16-bit word for each of
+> > the two sensors.
+> >
+> > The R40 user manual gives the size of the thermal sensor key (32 bits)
+> > but not its offset. The vendor SDK key map names 0x48 "thermal_sensor",
+> > but that word is zero on all the boards checked. On an A40i running the
+> > Boardcon vendor kernel, the THS_0_1_CDATA register holds exactly the
+> > eFuse word at 0x40 (0x08780875), which confirms the location.
+>
+> So in some U-Boot BSP sources on github I see
+> arch/arm/include/asm/arch-sun8iw11p1/sid.h putting the sensor at 0x34
+> (like the H3 or A64).
+> Can you check the values there? I see that Tina-Linux puts them at 0x40,
+> as you reported, and it's probably more reliable there than in the
+> U-Boot sources, but it's worth double checking.
+>
+> The rest looks alright (checked the manual and how the compatible string
+> is handled in the driver), so if you can confirm that it's 0x40:
+>
+> Reviewed-by: Andre Przywara <andre.przywara@arm.com>
 
-This commit updates the Synopsys DesignWare I3C master controller device tr=
-ee
-binding to support multiple reset lines. It increases the maxItems for the
-resets property to 2 and adds a conditional block to maintain the previous
-limit for the Agilex 5 variant.
+Yes, I checked 0x34. The BPI U-Boot sid.h for sun8iw11p1 puts the
+thermal key there, but that word is zero on every A40i I dumped: three
+boards on mainline with this patch, and the Boardcon board on its
+vendor kernel. 0x48 is zero too. Only 0x40 holds two plausible 12-bit
+values:
 
-> The Synopsys DesignWare I3C master controller can have multiple reset
-> lines, such as core reset, apb reset, and dma reset.
->=20
-> Update the DT binding documentation to increase maxItems for the resets
-> property to 2.
+  board 1: 0x08780875 (vendor kernel, THS_0_1_CDATA =3D 0x08780875)
+  board 2: 0x082d0822
+  board 3: 0x083d0838
 
-[Severity: Medium]
-The commit message explicitly lists three distinct reset lines (core reset,
-apb reset, and dma reset). Does limiting the property to 2 directly
-contradict the hardware capabilities described?
+The value differs per board, and on the vendor kernel THS_0_1_CDATA
+holds exactly the word at 0x40. With this patch, CDATA on boards 2 and
+3 also matches their word at 0x40. So 0x40 it is, matching Tina Linux.
 
-A hardware configuration wired with all three resets would fail schema
-validation, and the follow-up patches in the series do not appear to fix
-this mismatch.
+I also compared the MMIO window at SID + 0x200 with the register-based
+readout (the H3 method) across several boots. All 64 words matched, so
+the R40 doesn't seem to have the H3 readout problem.
 
-> diff --git a/Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yam=
-l b/Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml
-> --- a/Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml
-> +++ b/Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml
-[ ... ]
-> @@ -39,7 +49,7 @@ properties:
->      maxItems: 1
-> =20
->    resets:
-> -    maxItems: 1
-> +    maxItems: 2
-
-[Severity: Low]
-When allowing multiple items in an array, does the schema need to document
-the exact order (via an items list) or require reset-names?
-
-Without a strict documented order or reset-names, the OS-independent ABI
-remains ambiguous. Although a follow-up patch in this series (commit "i3c:
-dw: switch to array-based exclusive reset control") updates the Linux driver
-to use devm_reset_control_array_get_optional_exclusive to fetch all resets
-regardless of order, the device tree binding itself remains incomplete.
-
-Other OSes or future drivers that may need to toggle these distinct reset
-lines sequentially currently have no ABI to rely on.
+Best regards,
+Otavio
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261005152425.2531=
-9-1-jszhang@kernel.org?part=3D1
+Otavio Salvador                             O.S. Systems
+http://www.ossystems.com.br        http://code.ossystems.com.br
+Mobile: +55 (53) 9 9981-7854
