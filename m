@@ -1,173 +1,176 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D804E35DA78
-	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 10:02:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6183937F8C0
+	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 10:04:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791194540; cv=none; b=N+H5FO7ncRLnSdxXZQOsXJkSM+rh6BqymJrhccsENtmqnC7fkrUGSRrPJzxWm0KW9XZD9OzqEKkyEy4YaYUtHFsTVIovqZAOCjol8kzFbRtpVdlHcYQcjDeMkc0djUJHpWsp/ZCPZ/w0fp+FPhWredlSBDUDXTWUCvMgtA3+TaU=
+	t=1791194677; cv=none; b=EjXhhKSSdhgk56DgYwVmEhx2/9mf6Pe+p3m3rP+Z7nocIBjevqvxmkg3KPelZf2dBbHoAtDs94Bp7SifIgyQ/sFkv64xWcaWMawMafNHbvGCkA0SrM1rfKkblwTq/7UkYT8MPVTFmdEv1mW7b9I8krwsoNijLHPiZFkeb87aQMU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791194540; c=relaxed/simple;
-	bh=PpMajIyqOBpWAmz7Y+zTzy+LmcDAIG7fDv7ywEKE0+4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=LRtC6n2/V5J++bky9s0UBuG5SyAreilTs5G3dzdiKkq2EZCc5TVxGnPgB0wiKjLTnczr2kogPElrakFhoT62dwmLbffX62KQUF8GFNcxd1XnH+OqvO6waOkIOJkxADb4f9A4AGSafQtP/CnQSCTA1hj6J6FLBn9d/W8W5KTbQSU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KKALkIao; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KKALkIao"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 301BF1F00893;
-	Mon,  5 Oct 2026 10:02:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791194538;
-	bh=socEQDK4B5+P793pS7JrR9TzGsEyBlfGg+mrbDVHufA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KKALkIaoDhq12kPFYVYw3yWQkjER2UbxTFpqEEI8CJ7UTpwAFr24I9C+f3NX9VVit
-	 Qhvbfyx6I7VqHkK/ltuD8o4rgikRD9BiPEqKdqfNnKtcgpx8FDIUj1btOH9CTbX6JN
-	 agoX/KD+8ZGACJ3s23AQfHClncSNbZAZKMBwvu/Lten/Vn+rEPc4f3smBpCe2/Co7a
-	 R01eOyuiXfXgu1vRlpOwYgf2ZBUDJG4P7TTqTbOybkLUl0FEP1ZZg/Dlu7VGgx2Ztb
-	 EqVldY/F/lUJwBcphNyO6w0N+9mXPbhAwcbnTt9kthJ5NGOGZNfl6VO62y196YoXoY
-	 7LKbBmb5czJdg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 2/4] media: rockchip: Add JPEG decoder driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sascha Hauer" <s.hauer@pengutronix.de>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, media-ci@linuxtv.org, conor+dt@kernel.org
-In-Reply-To: <20261005-rockchip-jpegdec-v6-2-25f16dea1697@pengutronix.de>
-References: <20261005-rockchip-jpegdec-v6-0-25f16dea1697@pengutronix.de>
- <20261005-rockchip-jpegdec-v6-2-25f16dea1697@pengutronix.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 05 Oct 2026 10:02:17 +0000
-Message-Id: <20261005100218.301BF1F00893@smtp.kernel.org>
+	s=arc-20240116; t=1791194677; c=relaxed/simple;
+	bh=oHX5S5UfFPvt8CW5tDL/Lr+kdvnzvnuIjZbXiUvlxCI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=qp/qltJpYdIq986NBnqMYb+8d5jYmRWWlBQQBHhDNzsly/04zA0e2jPVmh3BY09T2dMZ0SoXv/J8evgFhz1s55N0kdahqmuhfyPOJJ5cyLi8V2mBiPrWkC3cVWIgezLUj0KQ25EFKyATfhQbB/UM5xXLCb9TfNWugpj2Tk+M7CY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.208.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6a051b737d8so1520273a12.1
+        for <devicetree@vger.kernel.org>; Mon, 05 Oct 2026 03:04:31 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791194667; x=1791799467;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=LFDKBytFqpiCAKHq7794WGTm1eiUeSTtEFvwUnjGNk4=;
+        b=AsAam0Jkm7KCIkDosI3Lu+vWF611F7Zaca4Pv7kBx1cszUfobT3Ijx4bcjpLM7c8q1
+         AsYJOxF4WVPIJktvwVONLwJFw8L8IZWQyamzzn//u3VBDgCBph84uXaezloYhyGk5Ycw
+         R29OILx9BF8QArCHUZnv7xGnQH7UR7YLNq6Wo3HCK3HwJ+MhAwB/JxDg1nJ2NvKSok3C
+         NH4NAra6br+J/jq/Ye6cz3xbgDM04Xld42boism/qOexQlcwlbpe/Ln+9nZajgzNa2o4
+         R4HGylu70jHqaOrVu8ymIfL86GiJRM7BodwW8b9dobBVzEICn+UTya5h3qWeukQkVgdx
+         32pQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxq+DTiScIP3bSpd4zFTQRGnuz29pNoFec/LJ0IliSAiUT4Z1UE+muItr4dlWAbLHORe0SKLyIJW4KM@vger.kernel.org
+X-Gm-Message-State: AFq9FYLOPGIVQVhKaVkurAi/37xoVjOncwFbZuNcraRo+fhmWKO97gaR
+	2LQS0GpfyZT8eXfn6f/z/BsjrK+ob8qZo6R1kIo66c5477X+hchSaIgX
+X-Gm-Gg: AYBFou1+vTfX2R0t/foNQtoAs4r44XS1eHqD1r1e5/xV4kvCy6NCoick1+w2GEHyHiT
+	BCim0xwpHNdDYFUOogw26mHg9I2C2ClR8DK54wqkg6hiVh5yVak72jJOMvuYgpIzIs7S/3o5oku
+	Yp7hYaSDP48qREYOhi64h5fn0c6J2Tf57xGZ79wirZDy1ih1GNQj6GcPQDEltdiZQR1thotPave
+	xje8ofISuLj4k+9Tuf0M6OsB9DzjBsDHR0gxc7Hyuq25rIq71NfklE/MAyosOIQ1sJlXxguz+uN
+	tGbV/jawhAnOwp4lbvtgYheLKnJ7SYDwQ/xGx9tk2h53A5xocQPaVr0nq9AgqX8uIWmUmSgzAXV
+	OTDLBURlQqsboOiuPh5SY83ujgAYxtyx/dOoJCLzCdfDUSIweUHS7O20MLfsiaUFMe/PG7B4q8t
+	yuXbxqKSN6bm2tFFFM8bPLE8xXquC07uH3MIs8nk0nr3e5v6/jzT0G2GU38lS5wJZCDeBiFY7lk
+	g6jcb22RU6y0dwzT+f5Ne+fqx3y
+X-Received: by 2002:a05:6402:2421:b0:6ac:6968:9424 with SMTP id 4fb4d7f45d1cf-6afada1af02mr6404847a12.33.1791194667149;
+        Mon, 05 Oct 2026 03:04:27 -0700 (PDT)
+Received: from [192.168.1.135] ([84.68.183.72])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6afb020bdb9sm3060982a12.23.2026.10.05.03.04.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 05 Oct 2026 03:04:26 -0700 (PDT)
+Message-ID: <f246ff74-a30e-4381-a6a0-ab51261f9e90@linux.com>
+Date: Mon, 5 Oct 2026 11:04:25 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH 6/6] arm64: dts: amlogic: t7: khadas-vim4: enable the
+ ethernet port
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com
+References: <20261004144046.391444-1-tanure@linux.com>
+ <20261004144046.391444-7-tanure@linux.com>
+ <d1ae6c21-72a9-4bc7-aaaf-9051d0f6b1b0@bootlin.com>
+Content-Language: en-US
+From: Lucas Tanure <tanure@linux.com>
+In-Reply-To: <d1ae6c21-72a9-4bc7-aaaf-9051d0f6b1b0@bootlin.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] media: rkjpegd: user-triggerable WARN_ON_ONCE in error path
-- [High] pm: kernel crash from spurious IRQ reading unclocked registers
-- [High] media: rkjpegd: IRQ handler wipes out watchdog soft reset
-- [Medium] pm: resource leak due to missing synchronous suspend in remove
-- [Medium] media: rkjpegd: data race on ctx->sequence_cap between QBUF and =
-IRQ
---
+On 04/10/2026 21:58, Maxime Chevallier wrote:
+> Hi Lucas,
+> 
+> On 10/4/26 16:40, Lucas Tanure wrote:
+>> The board carries a Realtek RTL8211F gigabit PHY on the external
+>> management bus, connected to the MAC over RGMII.
+>>
+>> Enable the controller, hand it the ethernet pins and point it at the
+>> PHY. The clock delays RGMII needs are supplied by the MAC rather than
+>> the PHY: 2ns on transmit and 2000ps on receive, the values the vendor
+>> kernel programs.
+>>
+>> The PHY interrupt output is wired to GPIOH_6, so describe it and let
+>> link changes be reported instead of polled. The PHY reset pin is driven
+>> by an RC network on the board, not by the SoC, so there is no reset line
+>> to describe.
+>>
+>> Tested at 930Mbit/s sustained receive over a minute, with no MAC error
+>> counters moving in either direction.
+>>
+>> Assisted-by: LLM
+>> Signed-off-by: Lucas Tanure <tanure@linux.com>
+>> ---
+>>   .../amlogic/amlogic-t7-a311d2-khadas-vim4.dts | 28 +++++++++++++++++++
+>>   1 file changed, 28 insertions(+)
+>>
+>> diff --git a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
+>> index 0fa83362b417..5d0365ddde72 100644
+>> --- a/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
+>> +++ b/arch/arm64/boot/dts/amlogic/amlogic-t7-a311d2-khadas-vim4.dts
+>> @@ -14,6 +14,7 @@ / {
+>>   	compatible = "khadas,vim4", "amlogic,a311d2", "amlogic,t7";
+>>   
+>>   	aliases {
+>> +		ethernet0 = &ethmac;
+>>   		serial0 = &uart_a;
+>>   		mmc0 = &sd_emmc_c;
+>>   		mmc1 = &sd_emmc_b;
+>> @@ -256,6 +257,33 @@ xtal: xtal-clk {
+>>   	};
+>>   };
+>>   
+>> +&ethmac {
+>> +	status = "okay";
+>> +	pinctrl-0 = <&eth_pins>, <&eth_rgmii_pins>;
+>> +	pinctrl-names = "default";
+>> +
+>> +	/*
+>> +	 * The RGMII clock delays are added by the MAC, so the PHY is
+>> +	 * asked for the mode that adds none.
+>> +	 */
+>> +	phy-mode = "rgmii";
+> 
+> In devicetree, "rgmii" means that the delays are inserted at the hardware
+> level, i.e. with longer PCB traces for the clock. With the above comment,
+> this is therefore wrong.
+> 
+> As a rule of thumb, "phy-mode = rgmii" is almost always wrong.
+> 
+> The right behaviour here is to represent the HW as it is, that is to say
+> pass phy-mode = "rgmii-id"; delays are internal. In DT we don't say who
+> inserts the delays (MAC or PHY), that's for the drive to figure out.
+> 
+> If the MAC inserts the delays, then it needs to fixup the mode passed to the PHY so that
+> they follow this doc :
+> 
+> https://www.kernel.org/doc/html/v7.2/networking/phy.html#rg-mii-electrical-interface-considerations
+> 
+> Maxime
+Hi Maxime,
 
-commit e33f32166562ddeac3fb6446b67084c1666b6b89
-Author: Sascha Hauer <s.hauer@pengutronix.de>
+Thanks for the review. You are right about what the mode names mean,
+but after a few tests I do not think this board can follow it. I tried
+all three:
 
-media: rockchip: Add JPEG decoder driver
+   rgmii-id    23 of 23 received frames had a bad CRC, DHCP never
+               completes.
+   rgmii-txid  receive becomes perfect, but then the peer sees nothing
+               we send, not even an error counter.
+   rgmii       1Gbit/s, 930Mbit/s sustained, no error counter moving.
 
-Add a driver for the JPEG hardware decoder Rockchip integrates into a
-number of its SoCs, exposing one V4L2 M2M device implementing the
-stateful decoder interface.
+There was nothing to tune on the PHY side either: the RTL8211F delays
+are single enable bits, TXCR bit 8 and RXCR bit 3, on or off.
 
-> diff --git a/drivers/media/platform/rockchip/rkjpegd/rkjpegd.c b/drivers/=
-media/platform/rockchip/rkjpegd/rkjpegd.c
-> --- a/drivers/media/platform/rockchip/rkjpegd/rkjpegd.c
-> +++ b/drivers/media/platform/rockchip/rkjpegd/rkjpegd.c
+The modes whose names promise internal delays are the same ones where
+the glue switches its own off, so there is no value that is both right
+by phy.rst and working here. Keeping "rgmii" and the comment, so the
+next person sees why before trying it. Glad to help test and convert
+this board if the driver's phy-mode handling is ever reworked along
+with the other Amlogic boards.
 
-[ ... ]
+Thanks,
+Lucas
 
-> @@ -1388,8 +1388,9 @@ static void rkjpegd_job_finish_no_pm(struct rkjpegd=
-_ctx *ctx,
-> =20
->  	src->sequence =3D ctx->sequence_out++;
->  	dst->sequence =3D ctx->sequence_cap++;
-> =20
-
-[Severity: Medium]
-Does this create a data race on ctx->sequence_cap?
-
-Here in rkjpegd_job_finish_no_pm(), ctx->sequence_cap is incremented in
-hardirq context protected by drain_lock. However, it is also incremented in
-rkjpegd_last_buffer_done() under vdev_lock in process context.
-
-If userspace issues a VIDIOC_QBUF on the capture queue while a drain is
-ongoing, this might lead to duplicate sequence numbers or skipped counts
-since the differing locks provide no mutual exclusion.
-
->  	/* GStreamer takes an empty capture buffer for the end of the stream. */
->  	vb2_set_plane_payload(&dst->vb2_buf, 0,
->  			      ctx->dst_fmt.plane_fmt[0].sizeimage);
-
-[Severity: High]
-Could this trigger a kernel WARN_ON_ONCE when handling an undersized buffer?
-
-If userspace queues a frame with a larger resolution, rkjpegd_vdpu720_run()
-detects the undersized capture buffer and fails with -EINVAL. The error path
-jumps here, which unconditionally sets the payload size to the new, larger
-ctx->dst_fmt.plane_fmt[0].sizeimage.
-
-Because sizeimage exceeds the underlying plane length, setting it via
-vb2_set_plane_payload() will trigger a warning.
-
-[ ... ]
-
-> @@ -1405,6 +1405,7 @@ static irqreturn_t rkjpegd_vdpu720_irq(int irq, voi=
-d *dev_id)
->  	struct rkjpegd_dev *jpegd =3D dev_id;
->  	enum vb2_buffer_state state;
->  	u32 status;
-> =20
->  	status =3D rkjpegd_read(jpegd, VDPU720_REG_INT);
-> =20
-
-[Severity: High]
-Could a spurious interrupt cause a synchronous bus fault here?
-
-The IRQ is requested via devm_request_irq() in rkjpegd_probe() before
-pm_runtime_enable() is called and before resets are deasserted. If a
-spurious interrupt is pending from a prior bootloader or kexec stage, the
-IRQ handler fires immediately and reads VDPU720_REG_INT while the device
-clocks are still disabled.
-
-Should the handler use pm_runtime_get_if_active() to guard access, and the
-IRQ be requested after PM initialization is complete?
-
->  	/* First phase of the IRQ clear, see VDPU720_IRQ_CLR_KEEP. */
->  	rkjpegd_write(jpegd, status & VDPU720_IRQ_CLR_KEEP, VDPU720_REG_INT);
-> =20
->  	if (!(status & VDPU720_IRQ_RAW))
->  		return IRQ_NONE;
-> =20
->  	rkjpegd_write(jpegd, 0, VDPU720_REG_INT);
-
-[Severity: High]
-Can the IRQ handler wipe out a concurrent soft reset requested by the
-watchdog?
-
-If the watchdog timeout executes vdpu720_soft_reset(), it writes
-VDPU720_SOFT_RST_EN to this register. If a hardware IRQ fires concurrently,
-this IRQ handler reads the register and then unconditionally writes 0 to
-clear it.
-
-This seems to wipe out the VDPU720_SOFT_RST_EN bit before the watchdog
-finishes waiting for VDPU720_SOFT_RST_RDY, potentially leaving the block
-wedged.
-
-[ ... ]
-
-> @@ -2121,6 +2121,7 @@ static void rkjpegd_remove(struct platform_device *=
-pdev)
->  	reset_control_assert(jpegd->resets);
->  	/* Suspends at once, a pending autosuspend does not keep it active. */
->  	pm_runtime_dont_use_autosuspend(&pdev->dev);
->  	pm_runtime_disable(&pdev->dev);
->  }
-
-[Severity: Medium]
-Does this leave the hardware active and leak clocks on module unload?
-
-If a job finishes and calls pm_runtime_put_autosuspend(), a delayed suspend
-is queued. If the driver is removed before the timer fires,
-pm_runtime_disable() cancels the pending autosuspend, but does not suspend
-the active device.
-
-Should the driver explicitly suspend the device synchronously before or
-after disabling PM runtime?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261005-rockchip-j=
-pegdec-v6-0-25f16dea1697@pengutronix.de?part=3D2
