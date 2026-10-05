@@ -1,117 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A86B2282F15
-	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 22:19:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CE3941A575;
+	Mon,  5 Oct 2026 22:25:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791238755; cv=none; b=CuaiX9w7m6t5GTOpBNWTrRRjglwPnc/3tenr4/fyYP4OJ7GKc3+TEuS69XgIa1laVTWU4ZUrb78LEbaWfgJZkOp2dt5ElpF8MuMuoTnLuY2kelOAGtriOxGeMdWNaxv0dH4o3pzu4KHgfEGJsqI8seb8RAaMjIAbU28cpOS0LiI=
+	t=1791239126; cv=none; b=dXjj5O+8rQf5CY5A34eK86GnQ4DV4XRHemFXaZuJSbNYA8pfED+IK9kEBwGK1/GQ4ii2OwTN2F5JyNbdPMSxWWYrxi6a5x3Y+26UdAbgCQfeypBH3oXIW3MvYKT8s8nN85QSO+i8l+s7UsSeeiai+yRJ/t6AOFPmEbRRmAzjm/s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791238755; c=relaxed/simple;
-	bh=Br7v+sf+hMjTkOUEyeD54txLUD48L9exWiSgZs3iP80=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=EFyf7cmmastFbHePVMrhK/YVgLcvWqbkOvKK0Pu2IxwxUasWTNuxRPn+lplsEzL6jGLW+Hdg8nGe31eTMczYlqmFNC9MmOrahtFjw9p33Yuj2kCsiiqpX2soYvdZZILBMCgPVJLJ0R5yiM5y3tXA5XWVWNYYjbTuAz8U8di/l3Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aDaWt2JL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791239126; c=relaxed/simple;
+	bh=WzrXr+286so0YfZSbG016gCWVzsB4SC45b59lp5A3b0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=tT/CKkGopSOl69QX6Sk3XKfnqZVLlce34vnmtxIGPf6op4FkxNIEAaqy9R1knnX45m2F0GxEuWy/JBgB87wUVhDUPK79z1WyX2AG4fL8MF7CoHAlu9TFArdCQvKZWs5Yk5zIJDjeEW6TXEOcGsiol2fVgYKifRWoqLDJcYLE08w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nWUFafxK; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aDaWt2JL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D20A51F000FF;
-	Mon,  5 Oct 2026 22:19:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791238754;
-	bh=9V+Voe+BN23Z4CMadXnt0HkrJYx2YpQ/zBzSl6egvVk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=aDaWt2JLvC65oueYRsauLAZDjpqB+SrGFEw3v2GgLnLKBGi4PQKytOCr91n6YU64G
-	 6hjGGweXuMFAL5q6ab2A+tF0vJjBfv2Qo6yWT/nMybmN9viMNCSZ5kHLWxItVcai6x
-	 hYJ1IAGsOIUN1Xu7gM0s1l2SBQhDCpWLhkpcDEkhq78qrdyjjeOJW/HzXhNT4F1vMt
-	 4PZm8FsIZB3ER1uFUnBBZ0lkUvn6qEKRz0pjKD3f+5pPUWCzVUkh3RbmZTHGHrb4eN
-	 PseshbFepC6g7gr+8bl0DPWBzBWDngu5bQmczOWHKyeL0KeDN0i4aqyVgEHKB2cDX3
-	 qiKmAU4CHHcww==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 1/2] dt-bindings: phy: rockchip: naneng-combphy: add
- rockchip,sgmii-mac-sel property
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Coia Prant" <coiaprant@gmail.com>
-Cc: devicetree@vger.kernel.org, vkoul@kernel.org, conor+dt@kernel.org, olteanv@gmail.com, linux-phy@lists.infradead.org, neil.armstrong@linaro.org, robh@kernel.org
-In-Reply-To: <20261005221229.1095843-2-coiaprant@gmail.com>
-References: <20261005221229.1095843-1-coiaprant@gmail.com>
- <20261005221229.1095843-2-coiaprant@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 05 Oct 2026 22:19:13 +0000
-Message-Id: <20261005221913.D20A51F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nWUFafxK"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id CDB59C2BCC7;
+	Mon,  5 Oct 2026 22:25:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791239125;
+	bh=WzrXr+286so0YfZSbG016gCWVzsB4SC45b59lp5A3b0=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=nWUFafxKUzD8/ctVV82XPw3aGHVJ+nQr7FAFIVHSTNA5yLWdUGuPWPm70SSqJOw2i
+	 SSSgjlxrmf7HkzIAeR79wgGi57BsFIcSkVw3I7gvdj+h3QV5N5xbh2RFYlfi54kl5J
+	 gjARPfTV2d1+e4TcbI4TMdp43K+/1hBhjn7OpaI8S/IPVZYLh09tM2WhsrUWliv8fw
+	 T1G58PUTgcYq7n1MfSiY/2RjJkA2RKlNzZQhzsAD4ZNltuujm22kgx8phR1yeLJGRS
+	 1hTlmajw44bbw24cAPruxALOjTXyE0tm7h1fhJfrsLkfjfsHkWC6eX+q9ts3C6VCZM
+	 XDIe/qmuSphiw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 9FFE8CA5FF5;
+	Mon,  5 Oct 2026 22:25:25 +0000 (UTC)
+From: Serv Pol via B4 Relay <devnull+servpol.tuta.io@kernel.org>
+Subject: [PATCH 0/2] power: supply: Add GL.iNet GL-E750 MCU battery driver
+Date: Mon, 05 Oct 2026 22:25:23 +0000
+Message-Id: <20261005-gl-e750-mcu-v1-0-499d2e31f786@tuta.io>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIANMjxGoC/yXMwQrCMAyA4VcpOS+QFRbBVxEPLk1nRKu0ToTSd
+ 1+nx+/w/xWKZtMCR1ch68eKPVPHODiQ6yUtiha6wZPnkWjC5Y56mAgfsmJkYpHAHFSgF6+s0b6
+ /2+n8d1nnm8p7X0BrG4WdAFhvAAAA
+X-Change-ID: 20261005-gl-e750-mcu-f606ccd66dec
+To: Serv Pol <servpol@tuta.io>, Sebastian Reichel <sre@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791239123; l=2347;
+ i=servpol@tuta.io; s=20261005; h=from:subject:message-id;
+ bh=WzrXr+286so0YfZSbG016gCWVzsB4SC45b59lp5A3b0=;
+ b=g1cfgCZEVYxe8JiPEhW94zSLAkO7/Oz0lis/SpvzZSQKH1xfjdpzoUlyKcR0qFy0PJrJJmJ4W
+ 7XsfAhHUXF3A2PuZA42QMlWhZ/NkC18+UL5cymZmZwfLwODwTtD1XVa
+X-Developer-Key: i=servpol@tuta.io; a=ed25519;
+ pk=2HCjaqYjXxgwTYu30Nem9DOHT8mtKgjitt1vEXKpwrE=
+X-Endpoint-Received: by B4 Relay for servpol@tuta.io/20261005 with
+ auth_id=1120
+X-Original-From: Serv Pol <servpol@tuta.io>
+Reply-To: servpol@tuta.io
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] dt-bindings: schema validation fails for non-RK3568 variants due=
- to default injection
---
+The GL.iNet GL-E750 (Mudi) is a battery powered LTE travel router
+(QCA9531). A microcontroller on the SoC UART drives the OLED status
+screen, monitors the battery and watches the power switch. The host talks
+to it in text lines of JSON; on request it reports the battery state, and
+when the power switch is turned off it sends a notification a few seconds
+before cutting the power.
 
-commit f30c2450528092b975c8899ad617f4fa20dab422
-Author: Coia Prant <coiaprant@gmail.com>
+This series adds a binding and a serdev driver that exposes the battery
+through the power_supply class and shuts the system down cleanly when the
+switch is turned off. The screen content (SSIDs, clients, cellular state,
+free-form vendor JSON) is deliberately left out.
 
-dt-bindings: phy: rockchip: naneng-combphy: add rockchip,sgmii-mac-sel prop=
-erty
+The board itself is supported by OpenWrt (ath79), not by an in-tree DTS,
+so there is no in-tree user of the binding yet. The OpenWrt side is at
+https://github.com/openwrt/openwrt/pull/25649
 
-On RK3568, the SGMII interface can be routed to either GMAC0 or
-GMAC1 via the pipe_sgmii_mac_sel bit in the pipe GRF registers.
-Add the optional "rockchip,sgmii-mac-sel" property to allow the
-device tree to select which GMAC controller is used for SGMII.
+Testing: OpenWrt main with kernel 6.18 on a GL-E750 V1. Battery
+properties read back as expected (capacity, status, temperature, cycle
+count), the module was unloaded and reloaded repeatedly without
+warnings, and turning the power switch off logs "power switch turned off,
+shutting down" and leads to a clean shutdown before the MCU removes
+power. On this tree: checkpatch --strict, W=1 and sparse builds, and
+dt_binding_check are clean.
 
-> diff --git a/Documentation/devicetree/bindings/phy/phy-rockchip-naneng-co=
-mbphy.yaml b/Documentation/devicetree/bindings/phy/phy-rockchip-naneng-comb=
-phy.yaml
-> index 379b08bd9e97a..8e898bce9af73 100644
-> --- a/Documentation/devicetree/bindings/phy/phy-rockchip-naneng-combphy.y=
-aml
-> +++ b/Documentation/devicetree/bindings/phy/phy-rockchip-naneng-combphy.y=
-aml
-> @@ -80,6 +80,15 @@ properties:
->      description:
->        Some additional pipe settings are accessed through GRF regs.
-> =20
-> +  rockchip,sgmii-mac-sel:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    enum: [0, 1]
-> +    default: 1
-> +    description:
-> +      Select gmac0 or gmac1 to be used as SGMII controller.
-> +      The hardware reset value is GMAC1 (1). Set this to 0 to route
-> +      SGMII to GMAC0.
-> +
->    "#phy-cells":
->      const: 1
+Tool use: the driver, the binding and the changelogs were written with
+the help of an AI coding assistant (Claude, claude-opus-5-5), based on
+the vendor protocol description at
+https://github.com/gl-inet/GL-E750-MCU-instruction and on traces of the
+MCU traffic on the device. I reviewed the code, tested it on the
+hardware as described above and am responsible for it.
 
-[ ... ]
+---
+Serv Pol (2):
+      dt-bindings: power: supply: Add GL.iNet GL-E750 MCU
+      power: supply: Add GL.iNet GL-E750 MCU battery driver
 
-> @@ -105,6 +114,10 @@ allOf:
->            maxItems: 1
->          reset-names:
->            maxItems: 1
-> +        rockchip,sgmii-mac-sel: true
-> +    else:
-> +      properties:
-> +        rockchip,sgmii-mac-sel: false
+ .../bindings/power/supply/glinet,gl-e750-mcu.yaml  |  37 +++
+ MAINTAINERS                                        |   7 +
+ drivers/power/supply/Kconfig                       |  13 +
+ drivers/power/supply/Makefile                      |   1 +
+ drivers/power/supply/gl-e750-mcu.c                 | 352 +++++++++++++++++++++
+ 5 files changed, 410 insertions(+)
+---
+base-commit: 5c1c602463d597c5189ddc5a73dece588ba2c57a
+change-id: 20261005-gl-e750-mcu-f606ccd66dec
 
-[Severity: Medium]
-Will this break dtbs_check for non-RK3568 platforms?
+Best regards,
+--  
+Serv Pol <servpol@tuta.io>
 
-When the dtschema tooling processes a device node for a non-RK3568 compatib=
-le
-(like rockchip,rk3588-naneng-combphy), it injects the top-level default val=
-ue
-of 1 into the node data.
 
-Then the allOf evaluation applies this else branch, which enforces
-rockchip,sgmii-mac-sel: false (meaning the property must not exist).
-
-The presence of the injected default value violates this constraint, causing
-validation to fail.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261005221229.1095=
-843-1-coiaprant@gmail.com?part=3D1
