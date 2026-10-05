@@ -1,119 +1,85 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BAFD3769EA;
-	Mon,  5 Oct 2026 12:37:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D81047F3C9;
+	Mon,  5 Oct 2026 12:38:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791203847; cv=none; b=Oih0Ef8B8OsAzYrgre80WWvbl/Y61vm+baRCCD0/3CeTNA4LYzDvv3VSA9drAZvMwwYd4W5tQzmznQMhWFlBOgxk0B2mcrn7cm+DJGFO2lLQUiTkgqEKnabExfFIDJiqNbDzBJj0q15qIFTXcq4s1I4TE0ye/HhHDK6iphH1/Tg=
+	t=1791203913; cv=none; b=ppT5KOwAJruWZ4IciPPN676ApBE4MJ2BpzdFfWGfXTSTYWayYbOdQbO8/j/bRkBRv8iM+ynYAHQWfTmUigmc6j7ywgvMo0nO6fP/fhszFdS5k33KQnTLioCZdyZJb3DwgFZOQ5ssz639Dv553sfQ/6TTfQ9tpNE/u/ZiGGKiFpk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791203847; c=relaxed/simple;
-	bh=l3OphedaPcqUbDa9OVB2ReALwEZdKEOpw+CJKoXknAw=;
+	s=arc-20240116; t=1791203913; c=relaxed/simple;
+	bh=FgZ2YAMb7rmjurpa71IA8Hvz2EuDJo0PdBxxYTgCuNk=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=UDKpiP81nGbFihOWrEnFNzcnD8/GD0MSk0Pfw4sn8mESvztlNxv3f1VwOhNp6IQXOALOWv4dKJyLEJKwDsGG0SBQlsehNHTYhmOeTuN7xUglursk0DwVD/CqtleV4NNBOUYoNBJ+FwtUGwOMRtw0aNoalA2YsiOWoa/m7X/JrSQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E23osBtG; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=sacn6tGJyIhZZe0jlqVooE/Iv0w6hQUTi2uhriIQZ6KA6gVufHkWMA+bY8neIl9Qcb2t02FnbTV0H8ARdfmHK8vW/v3oFHU+w1V8IfaC4xgHewFGOviRpECmFEx2dQja8M6UDuSnhtLADtkzmqK5mAfadu/XpPU0GyzPc8HwTZQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RavI4QjI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E23osBtG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBA401F000FF;
-	Mon,  5 Oct 2026 12:37:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RavI4QjI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B70201F000FF;
+	Mon,  5 Oct 2026 12:38:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791203845;
-	bh=MWazUpUjiLdplpch4e2o6Zo6l4w3El+exbH9m71l7Rc=;
+	s=k20260515; t=1791203912;
+	bh=b+4AGPgXz2Ejl0t7B7SduNvlTzyPXxGmYd+U0k34dUs=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=E23osBtGfk5uZQ1RZJFoXjHPTU0B+uYH3JM8zNsFoulRUouG3nizLo/30BUwKZerv
-	 gWA2Lw+tV5oOuPLdk6nTe2UUu9mmAcuDpefo+jUy2773A6lLJcSqUQMEc4E6JMsB02
-	 k6nYI0L8bTLCoihFpTPANC4WG1PCNa2h29LNT9ORiJHnPTZvKuzAEqB/rUQFTCpSPJ
-	 kAmH/uoN9mN/DLY9Cn5BQcABS1IXgYYFhf2V1DiQHsVTdHCmT108o4dtEcr5LYGme2
-	 kVcNElADzT+en8ECU9Q9FYyUFAJp8gNi0iuMvfgP3AhtvOjw+XSX6oAhb0cyGdVrL6
-	 F6jAuLYsdifKA==
+	b=RavI4QjIUyUYkldL23ubC9aM47dy7phZGYVHw0+a1RzLOdbLsFhWKKbARxJqcQw0A
+	 Ek+2cRirD3U1BM4oOBpzAxz9ItSifPhiAcXMyYtBVqRd48vcwyCj5E4F850yJ673cp
+	 22KrJ2sigZJnytKac1AAj62JbsiNa8E0qfzan5VJo+BLQxYZFRThpYLFkWHS5jTLj+
+	 xf/zgerhdIh0+psZDAddJ0/q9YalSncf4l8M6vz1s64ib3NfUhMUTQFkVKt157/yH/
+	 JQojhx/wQywhIJpQJDi+GWU9v5tkVf1LHjGOkSkepIyZngq2QTQ6rSs1svhqlFYJNy
+	 3XmQxfsIUfM0A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 8/8] arm64: dts: qcom: monaco-arduino-monza: Add
- QCA2066 M.2 WiFi/BT support
+Subject: Re: [PATCH v4 05/12] arm64: dts: qcom: pm7550-eliza: Enable BCL
+ sensor node
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Loic Poulain" <loic.poulain@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, linux-pci@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20261005-monza-wireless-v7-8-5a6de7662dcb@oss.qualcomm.com>
-References: <20261005-monza-wireless-v7-0-5a6de7662dcb@oss.qualcomm.com>
- <20261005-monza-wireless-v7-8-5a6de7662dcb@oss.qualcomm.com>
+To: "Manaf Meethalavalappu Pallikunhi" <manaf.pallikunhi@oss.qualcomm.com>
+Cc: lee@kernel.org, robh@kernel.org, linux-hwmon@vger.kernel.org, mfd@lists.linux.dev, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20261005-qcom-bcl-hwmon-v4-5-50b9a8c730b7@oss.qualcomm.com>
+References: <20261005-qcom-bcl-hwmon-v4-0-50b9a8c730b7@oss.qualcomm.com>
+ <20261005-qcom-bcl-hwmon-v4-5-50b9a8c730b7@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 05 Oct 2026 12:37:24 +0000
-Message-Id: <20261005123724.DBA401F000FF@smtp.kernel.org>
+Date: Mon, 05 Oct 2026 12:38:31 +0000
+Message-Id: <20261005123831.B70201F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] dts: qcom: missing clocks property in wireless-lga-connector
-- [Low] dts: qcom: invalid bus-range property for downstream PCI bridge
+- [Medium] commit message contradicts driver feature support (no current mo=
+nitoring)
 --
 
-commit 29a5722958bd298370461ff6846d50f2a2e13fa0
-Author: Loic Poulain <loic.poulain@oss.qualcomm.com>
+commit 8447c9c53d332d6bf1a3b16dc8c50ad9c4dc3576
+Author: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
 
-arm64: dts: qcom: monaco-arduino-monza: Add QCA2066 M.2 WiFi/BT support
+arm64: dts: qcom: pm7550-eliza: Enable BCL sensor node
 
-This commit adds support for the QCA2066 WiFi/Bluetooth module on the
-Arduino VENTUNO Q board. It introduces a wireless-lga-connector node and a
-downstream pcie port to enable the M.2 slot power sequencer.
+This commit adds the Battery Current Limiting (BCL) hardware monitor node f=
+or
+pm7550-eliza. It configures the sensor at 0x4700 and its associated interru=
+pts.
 
-> diff --git a/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts b/arch/arm=
-64/boot/dts/qcom/monaco-arduino-monza.dts
-> index 940a03732eefc..f24a87bd7cbf6 100644
-> --- a/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts
-> +++ b/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts
-> @@ -178,6 +178,40 @@ vreg_nvme: regulator-3p3-m2 {
->  		enable-active-high;
->  		startup-delay-us =3D <20000>;
->  	};
-> +
-> +	wireless-lga-connector {
-> +		compatible =3D "qcom,pcie-m2-1418-lga-connector",
-> +			     "pcie-m2-e-connector";
-> +		vpcie3v3-supply =3D <&vdc_3v3>;
-> +		vpcie1v8-supply =3D <&vdc_1v8>;
-> +		w-disable1-gpios =3D <&tlmm 56 GPIO_ACTIVE_LOW>;
-> +		w-disable2-gpios =3D <&tlmm 55 GPIO_ACTIVE_LOW>;
+> Add Battery Current Limiting (BCL) hardware monitor node for
+> pm7550-eliza. The BCL monitors battery voltage and current, providing
+> hardware interrupts when configurable thresholds are violated.
 
-[Severity: Low]
-Is the clocks property missing here in the wireless-lga-connector node for
-the M.2 SUSCLK routing?
+[Severity: Medium]
+Does the pm7550-bcl actually monitor current?
 
-The clocks property is defined in the pcie-m2-e-connector binding and was
-previously included in the legacy bluetooth node, but appears to have been
-dropped during the transition to the new node. Because sleep_clk is a fixed
-clock that is physically always running on this platform, the omission caus=
-es
-no functional regression, but the Device Tree hardware description seems
-incomplete without the SUSCLK routing.
+The driver definition for this compatible in drivers/hwmon/qcom-bcl-hwmon.c
+explicitly disables current monitoring:
 
-[ ... ]
-> @@ -541,6 +575,22 @@ pcie@0,0 {
->  		ranges;
->  		reg =3D <0x010000 0x00 0x00 0x00 0x00>;
-> =20
-> +		pcie@1,0 {
-> +			#address-cells =3D <3>;
-> +			#size-cells =3D <2>;
-> +			device_type =3D "pci";
-> +			compatible =3D "pciclass,0604";
-> +			bus-range =3D <0x00 0xff>;
+drivers/hwmon/qcom-bcl-hwmon.c:pm8550_data {
+    ...
+    .curr_mon_enabled =3D false,
+    ...
+}
 
-[Severity: Low]
-Does this bus-range property in the pcie@1,0 node define an invalid
-secondary bus?
-
-The bus-range property claims the downstream bridge's secondary bus is 0,
-which violates PCI numbering rules since its primary bus is 2 (encoded in
-the reg property as 0x020800).
-
-The Linux PCI core dynamically reassigns invalid topologies for downstream
-bridges, preventing functional breakage. However, specifying a topologically
-invalid bus range in the DT seems to be an error.
+Could the commit message be updated to accurately reflect the hardware's
+supported capabilities?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261005-monza-wire=
-less-v7-0-5a6de7662dcb@oss.qualcomm.com?part=3D8
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261005-qcom-bcl-h=
+wmon-v4-0-50b9a8c730b7@oss.qualcomm.com?part=3D5
