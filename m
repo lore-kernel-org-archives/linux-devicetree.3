@@ -1,121 +1,117 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9A73386426;
-	Mon,  5 Oct 2026 10:07:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FBC44746A6;
+	Mon,  5 Oct 2026 10:09:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791194874; cv=none; b=ssg6eo6KyKrbpTNL8t9LQ19vNrIm4ZyTaB9RsmER3BxBuoULDnscQjKXd61MXtM3YAOQxV46Kk/ElVPwbdExMsHW+HQLDpeg4gHnA6IdVMfR47CBg9wrG/pgziiZZDKWwlnWn33Ee8qpe1xpVxTbAmOXOJkBL3YcsmMAI1szwdQ=
+	t=1791194986; cv=none; b=ISzTem+QWZDmJFlYwH6VkqdwvgfGIiE7ZsDvHJYKUv56HMkgxOPsHKrcxNlDuKURPhV4kVFok1Mvdo98xY8s1iyNC4YOjtbUNrWnPrvHaxkcZD4+KGfpJE0WmXGY4ududkRHe2ABJnvBCPFCevf1Y/qvF2YM5cnPmCYnwTufIrg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791194874; c=relaxed/simple;
-	bh=opYv/6JOmK/l89MBwh1tKXxLMTfTCEG4Xg0wfM2Hi5s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ENZk0IOX4vAH90EJuuRR+1Y9Ejc7vjlbDJ2WzVdsjYc4fxm7Xxe4gsTtaDCUURXi7xlNYyBc1K50wTUDKdbEhLOhRr8sUs06i/D8+2wDQHkVC5tR1QfRRJXolHHifPUnTWbukD2sV5BlRmj+sNR4kduhGnOrnbOeGPXId50RtF4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B0IGPCmo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791194986; c=relaxed/simple;
+	bh=9LuZcUmKFaW6b6u44pbfIklLepyRhBueefukwEOyVpg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=nTPKsN1fPX56So7J6SxEAfbKC0DgGAIgWWP03MVVBPa6T9jBmJieu6jGSK5+SUXUz7FzoeNK5vOyZsE+JNyjLRrbyfDAgU1VAjaFpGAhkQigV3NbOCwVWvAvAVa0Ccesg3S1uTQCFV+SJDShJxTjqfSG3uFFrj9UHinbHHDKbRg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N8mAqxtF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B0IGPCmo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CEEE81F000FF;
-	Mon,  5 Oct 2026 10:07:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N8mAqxtF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A2711F000FF;
+	Mon,  5 Oct 2026 10:09:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791194872;
-	bh=JNnXFWmwLPPFEi6jlV/oyQsN1wGX9viqM9jVVnzW/i8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=B0IGPCmopouwW4cNU/iiNXWslex16ZrFSaZWk+rbei8IkBWTpW+mED5m/GCumV/SG
-	 no1UZ2WJcFvrMvhahxidGR4x16U22EUuNdSo9xlSIXCzgCrswGOEHXw2uLo0iJHyej
-	 UHnHWlnebk77fBHM5YQFz7A2vQaetdbvT2ZgkSU8vHRajSAaDSOqL3mP7yiqGvHhMV
-	 8Z9PVedgr8kj0Zes5R59C5QAHsMKhjFbGMGgkyhC3uuvWSjP0GiGcIvXxxHLrr6klh
-	 zMSJC36ju56wUgtTZhl5qWESGlBRce+PaxkQPqpPVnJ3A6xHHBTSVZ/oHZPRjYQ+vS
-	 dWU0GX10jyF1w==
-Date: Mon, 5 Oct 2026 12:07:48 +0200
-From: Vinod Koul <vkoul@kernel.org>
-To: Joey Lu <a0987203069@gmail.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Jacky Huang <ychuang3@nuvoton.com>,
-	Shan-Chun Hung <schung@nuvoton.com>,
-	Hui-Ping Chen <hpchen0nvt@gmail.com>, Joey Lu <yclu4@nuvoton.com>,
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 3/3] phy: nuvoton: phy-ma35d1-usb2: extend to
- dual-port with OTG support
-Message-ID: <asN29Gi71MIA-2fq@parshuram>
-References: <20260929020854.1282339-1-a0987203069@gmail.com>
- <20260929020854.1282339-4-a0987203069@gmail.com>
+	s=k20260515; t=1791194983;
+	bh=2YGeHChBvhA7K0WyoAvKXjOIqWOaj+obKZ1/E9sHY2c=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=N8mAqxtFYgraiFyK3Bw+4l/xGnKh+ZOeHrqFwo1CYS1MKIJ19XNilQJlR6Jz2Rpu4
+	 WFGsMyNuEzSFJc5PAu2RmV4RdGz6BV5wrzxZFrH6+iIqsexDAHZY6ZNTb7QMpS8PlE
+	 lon7nEUwXOOOF+ZFO/wh02qYK+LBhBwLZwaC5gWU3vco8hfkoqEN46fLoO3CnMbN7/
+	 sEvKcK0leDhFnF1IBU9lX8vvXC8LxrjfTeclpkH42vJUl1tTQAssJ8cOs37lwDL9jg
+	 bAT+PdCUUDIEiVWDwdMobB2zBP0ytMQW7OKKZmDia2yJ/fFIoqxhykCQqBPOU95YcD
+	 Her2N4fk2GQKA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/4] drm/bridge: Add THine THC63LVD827 LVDS encoder
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Francesco Dolcini" <francesco@dolcini.it>
+Cc: robh@kernel.org, conor+dt@kernel.org, imx@lists.linux.dev, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, Frank.Li@kernel.org
+In-Reply-To: <20261005095006.20290-3-francesco@dolcini.it>
+References: <20261005095006.20290-1-francesco@dolcini.it>
+ <20261005095006.20290-3-francesco@dolcini.it>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 05 Oct 2026 10:09:42 +0000
+Message-Id: <20261005100943.1A2711F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260929020854.1282339-4-a0987203069@gmail.com>
 
-On 29-09-26, 10:08, Joey Lu wrote:
-> PHY0 and PHY1 use the same power-on/reset sequence in USBPMISCR, with
-> PHY1 control bits shifted 16 positions relative to PHY0.  A separate
-> driver for PHY1 would duplicate this logic, so the existing driver is
-> extended to manage both ports.
-> 
-> The original driver polled only DEVCKSTB after releasing PHY0 from
-> reset.  When USB0 operates in host mode (USB ID pin floating or tied
-> high) only HSTCKSTB and CK12MSTB assert; DEVCKSTB never sets.  Polling
-> exclusively for DEVCKSTB in host mode causes a 1 ms timeout on every
-> phy_init() call from the EHCI driver.  The init callback is changed to
-> accept either host-mode or device-mode clock stability, whichever
-> asserts first.
-> 
-> The power_on and power_off callbacks are replaced by a single init
-> callback that handles PHY reset and clock-stable polling, because
-> there is no PHY-specific clock gate on MA35D1; the PHY analog block
-> derives its reference from the HXT crystal.
-> 
-> A read-only USB role switch is registered for PHY0 to expose the USB0
-> role to userspace via the standard role-switch sysfs interface.  The
-> .set callback returns -EOPNOTSUPP because the hardware mux is fully
-> automatic with no software override path.  When CONFIG_USB_ROLE_SWITCH
-> is not enabled, the registration returns -ENODEV and the driver skips
-> the role switch gracefully without failing probe.
-> 
-> Two new optional device-tree properties are implemented:
->   - nuvoton,rcalcode: writes per-port 4-bit resistor calibration trim
->     codes to the RCALCODE field in USBPMISCR.
->   - nuvoton,oc-active-high: sets the UHOVRCURH bit in MISCFCR0 to treat
->     the over-current detect input as active-high.
-> 
-> Signed-off-by: Joey Lu <a0987203069@gmail.com>
-> ---
->  drivers/phy/nuvoton/phy-ma35d1-usb2.c | 286 +++++++++++++++++++-------
->  1 file changed, 211 insertions(+), 75 deletions(-)
-> 
-> diff --git a/drivers/phy/nuvoton/phy-ma35d1-usb2.c b/drivers/phy/nuvoton/phy-ma35d1-usb2.c
-> index 9a459b700ed4..547c7d55d8ff 100644
-> --- a/drivers/phy/nuvoton/phy-ma35d1-usb2.c
-> +++ b/drivers/phy/nuvoton/phy-ma35d1-usb2.c
-> @@ -1,11 +1,16 @@
->  // SPDX-License-Identifier: GPL-2.0
->  /*
-> - * Copyright (C) 2024 Nuvoton Technology Corp.
-> + * Nuvoton MA35D1 USB 2.0 PHY driver
-> + *
-> + * Supports PHY0 (USB0 OTG port, shared between DWC2 gadget and EHCI0/OHCI0)
-> + * and PHY1 (USB1 host-only port, used by EHCI1/OHCI1). The hardware mux on
-> + * PHY0 switches automatically via the USB ID pin.
-> + *
-> + * Copyright (C) 2026 Nuvoton Technology Corp.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] drm/bridge: back-powering via GPIOs on unpowered chip
+--
 
-Not correct, this should be updated to 2024-2026, you dont drop the
-copyright notices, you update them!
+commit b3195cf0e052ea83d4890e15599f3b4469d3b2e4
+Author: Francesco Dolcini <francesco.dolcini@toradex.com>
 
->   */
->  #include <linux/bitfield.h>
->  #include <linux/clk.h>
->  #include <linux/delay.h>
-> -#include <linux/io.h>
+drm/bridge: Add THine THC63LVD827 LVDS encoder
 
-why is this dropped? 
--- 
-~Vinod
+This commit introduces a new DRM bridge driver for the THine THC63LVD827 DPI
+to LVDS bridge. The driver provides support for configuring the LVDS data
+mapping, GPIO-based control pins, and regulator power supplies.
+
+> diff --git a/drivers/gpu/drm/bridge/thc63lvd827.c b/drivers/gpu/drm/bridg=
+e/thc63lvd827.c
+> new file mode 100644
+> index 0000000000000..02b97d1cc71ea
+> --- /dev/null
+> +++ b/drivers/gpu/drm/bridge/thc63lvd827.c
+[ ... ]
+> +static void thc63lvd827_atomic_post_disable(struct drm_bridge *bridge,
+> +					    struct drm_atomic_commit *state)
+> +{
+> +	struct thc63lvd827 *thc63lvd827 =3D bridge_to_thc63lvd827(bridge);
+> +	int ret;
+> +
+> +	gpiod_set_value_cansleep(thc63lvd827->pd_gpio, 1);
+> +
+> +	ret =3D regulator_bulk_disable(ARRAY_SIZE(thc63lvd827_supplies),
+> +				     thc63lvd827->supplies);
+
+[Severity: Medium]
+Does this sequence leave the chip exposed to back-powering?
+
+The regulators are disabled here, cutting power to the chip, but the driver
+does not reset the b6b8, map, or mode GPIOs to a safe physical low state fi=
+rst.
+These pins remain driven in their previously asserted physical HIGH states,
+causing continuous back-powering while the display is disabled.
+
+Hardware back-powering causes leakage current through ESD diodes into the
+unpowered chip's VDD net, which can lead to latch-up, increased power
+consumption during suspend, or improper power-on reset sequencing.
+
+[ ... ]
+> +static int thc63lvd827_probe(struct platform_device *pdev)
+> +{
+[ ... ]
+> +	thc63lvd827->map_gpio =3D devm_gpiod_get_optional(dev, "map", GPIOD_OUT=
+_LOW);
+> +	if (IS_ERR(thc63lvd827->map_gpio))
+> +		return dev_err_probe(dev, PTR_ERR(thc63lvd827->map_gpio),
+> +				     "failed to get MAP GPIO\n");
+> +
+> +	thc63lvd827->mode_gpio =3D devm_gpiod_get_optional(dev, "mode", GPIOD_O=
+UT_HIGH);
+
+[Severity: Medium]
+Will this initialization also cause back-powering via GPIOs on the unpowered
+chip?
+
+This configures the mode GPIO to be driven logically HIGH in
+thc63lvd827_probe(). Since the chip's regulators are not enabled until late=
+r in
+thc63lvd827_atomic_pre_enable(), this immediately sources voltage into the
+unpowered IC.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261005095006.2029=
+0-1-francesco@dolcini.it?part=3D2
