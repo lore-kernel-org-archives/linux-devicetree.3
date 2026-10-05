@@ -1,66 +1,61 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5A5947F766;
-	Mon,  5 Oct 2026 12:29:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51F0144A3F1;
+	Mon,  5 Oct 2026 12:31:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791203383; cv=none; b=GKGtXia58s2x6wHMAdCzV++KXZwT+FPqN/f8N1VfFHvajMfdkCYmzUGLD+hyZ9w+cDed4DGIROHR83E5EzEx0pE4F4rmHUOTKjTtX5N96y9sasbJcWzjSQ/okiS9xhVo7pqz2glFYoMzjWuweaoVQiCNsL9A0ja8O5+uL+rRDvM=
+	t=1791203495; cv=none; b=cZLJ4zHZksYONOAMmp8Z0/j4FuLjrhXCE1zLKdJ/EmAzmqhwKHD3PRrl7rbfPkzlVkjGYE+QS2LPVPzLZJ1tKVVRvci0fCs4E1TSjeLY3efyV5v6ig/0Nfo2gliLZtM/sDUMWacArL8+ACZAJsy3xHJ6xVFWgL0OxCPSeHJsA58=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791203383; c=relaxed/simple;
-	bh=HXLKK1gWHI2xFCaBzNh77jS0AFMq5AZupVgOOf0qlFk=;
+	s=arc-20240116; t=1791203495; c=relaxed/simple;
+	bh=p3BXWsQEEeDyT9c1Z06l+S7KentoIp6c2XoQAmh2ccE=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=uZIY3ymJ5KwnQRU56nfFJjDJ/Th9M9CJaeP2H2ReUckjWAi7jP9wkJ6HE22RbZE6KqjNqjyxMNGIu2Kxdt54pU3n4sbvxiX9cFwVw/DPuGq6FeP54Q7f8kICOvYmfW9dXgVnIn1XgK6WtVC7kfN7xDGB07i6QPUazcGVv/5KA68=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Euj8yCyV; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=t8enUJR58cwJIckIn6Lh+DLxgp4jgnv2lJx5Qly7dJHLFTZwJE4rQLP4gBtBwKDwKCpuIOc0hsjOP2zEnyQZhFEJ/JQ1Zv3p/a2bnHhKVd/fHmZceBf5xkCQOIDJUN09TzEzsl8BFjkRXYcqtmfUpzWJDW7WIZzWkvC1vSXZn5w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dVpYVFkm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Euj8yCyV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45FB11F000FF;
-	Mon,  5 Oct 2026 12:29:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dVpYVFkm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 325511F000FF;
+	Mon,  5 Oct 2026 12:31:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791203381;
-	bh=HXLKK1gWHI2xFCaBzNh77jS0AFMq5AZupVgOOf0qlFk=;
+	s=k20260515; t=1791203492;
+	bh=p3BXWsQEEeDyT9c1Z06l+S7KentoIp6c2XoQAmh2ccE=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Euj8yCyVLpSjOnqtfn4Wp3Jhg/7Ewz4PP41XOSKDYpTG69HAG1Ctnaz5JyejX73LQ
-	 Nql6RYnLPHdRaPIgRRv1tw9yYeqyxVWTb07bZNX3Ia81bON1njV8Ll5RG4vE1gBpEY
-	 MuLCo6NNvCjPtPaJWwSgDYkVOsSCnjoMt6ts7YbcDoLuN1hJ4Da6d5AFtNDOzMKLUy
-	 ka3CWhARmEZ+Bk1H5b+ff6RMkDWpaXYsEQebUxFAK+sc2V9BR8It7cCV3U5XatOxwU
-	 AYhI6UA1BDIrxTX+X5S4bi+xYVHuuNQtZqYravb/WEVrg3fiJL2Xx9NeNCK5La428X
-	 Ucxg17OlsI26A==
+	b=dVpYVFkmvi2bxso/8c2nwHO8ovPuJgCUxCXp0fKcjYYF8C1cb++oMGNdM4peSJczm
+	 SEeDeuANfNIrX4n+sVstqvKFy7JRmtcNd3OWgQjSvFhOg4/ZnWqBbMC6m/Hwapku5d
+	 BfNdqVHIBVpUPUHOVUrXlX+ll2LayeJgega+w79JDKyKP+lj7yRSQSli4eMYd3MEtP
+	 WUQuai8bjwAismIp3wxIymLLgxiM9xhsoeXGJUykcazvSDTVtNHoD343tS5yWfcUS9
+	 nQFeODQNwV9OtBaAbaJAY6BU2PdJjKFCDrA+3rIxH7IrGsXQWtflIPT7giVn0ajd6s
+	 L28dIEzu3YZKw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 1/8] Bluetooth: hci_qca: Add M.2 Bluetooth device
- support using pwrseq
+Subject: Re: [PATCH v4 03/12] arm64: dts: qcom: hamoa-pmic: Enable BCL
+ sensor node
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Loic Poulain" <loic.poulain@oss.qualcomm.com>
-Cc: robh@kernel.org, linux-pci@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20261005-monza-wireless-v7-1-5a6de7662dcb@oss.qualcomm.com>
-References: <20261005-monza-wireless-v7-0-5a6de7662dcb@oss.qualcomm.com>
- <20261005-monza-wireless-v7-1-5a6de7662dcb@oss.qualcomm.com>
+To: "Manaf Meethalavalappu Pallikunhi" <manaf.pallikunhi@oss.qualcomm.com>
+Cc: linux-hwmon@vger.kernel.org, mfd@lists.linux.dev, lee@kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20261005-qcom-bcl-hwmon-v4-3-50b9a8c730b7@oss.qualcomm.com>
+References: <20261005-qcom-bcl-hwmon-v4-0-50b9a8c730b7@oss.qualcomm.com>
+ <20261005-qcom-bcl-hwmon-v4-3-50b9a8c730b7@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 05 Oct 2026 12:29:40 +0000
-Message-Id: <20261005122941.45FB11F000FF@smtp.kernel.org>
+Date: Mon, 05 Oct 2026 12:31:31 +0000
+Message-Id: <20261005123132.325511F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-> From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+> Add Battery Current Limiting (BCL) hardware monitor node for
+> hamoa-pmic. The BCL monitors battery voltage and current, providing
+> hardware interrupts when configurable thresholds are violated.
 >=20
-> Power supply to the M.2 Bluetooth device attached to the host using M.2
-> connector is controlled using the 'uart' pwrseq device. So add support for
-> getting the pwrseq device if the OF graph link is present. Once obtained,
-> the existing pwrseq APIs can be used to control the power supplies of the
-> M.2 card.
->=20
-> Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.=
-com>
+> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> Signed-off-by: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qua=
+lcomm.com>
 
 Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261005-monza-wire=
-less-v7-0-5a6de7662dcb@oss.qualcomm.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261005-qcom-bcl-h=
+wmon-v4-0-50b9a8c730b7@oss.qualcomm.com?part=3D3
 
