@@ -1,112 +1,91 @@
-Received: from out203-205-221-192.mail.qq.com (out203-205-221-192.mail.qq.com [203.205.221.192])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA0EE2868B4;
-	Mon,  5 Oct 2026 16:26:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.192
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECC3F4D0A05;
+	Mon,  5 Oct 2026 16:31:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791217590; cv=none; b=P5OooGMP/kaovbC8ipm6mVM5aJZ7vCERtOiLh8Mlv57d/LL7oNDr2ehm0sXftLoIEVJUJ4ZC/cecqcAwuO9io+121zx9T8YDWlpNIGqSn+DhAUm5eMlREURDMHUo725VFZXREQwYYAKkjPy83uSCW9HbwCHaFMt3w90WN/HKLlM=
+	t=1791217899; cv=none; b=dnBp3EWfqshzwEqa9a3U/zQtzhDMVRvjFB3kBlzKknCAPwuuE61gkO/YbhULNa8EezxoH8ReJWZioOcgbZzdKiFbKyui4+s31+2kbeXIIUD3Ceknf0tq2WqSQYowQvXGKNeAofEPFyvd9XbGksyNp978td9xcOM8026gqQi5t5Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791217590; c=relaxed/simple;
-	bh=phdlOyf84M4P8eS3CzyzOJ5O5iOvaPgqXrBfM1TDcpg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=blf9BCcobpUmyBVXHYoDfmB8z0EjtyBW/S+BuixKHSTV+DOgndrw+gpEaUtK4ZgDO8Q/vtsvlg77DI4pmjP7IqTsnCE7netCvaxG13oT1CcDqfiI31mUUKrP/5Cg7okWp/xbxp6foPHueCahKtSKqSWHWEX0zDEIFBHzozWfC54=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=MfTGUDxi; arc=none smtp.client-ip=203.205.221.192
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1791217899; c=relaxed/simple;
+	bh=rf80/niE8qLwq+55qi9hVBkMl37ZIOXVTrbMFLituNY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lo54edXg2L3y9jxGvKbTnYcwHULWDif0zctqFJo1L6Qpqm+43B3BoVjQfMjchPwqyu4xdjO8+XH9q3smO3LJ9ISNZUn2cqZJGdRr5HkcoiP1WeZn8PZWzAVODF7/SnxN0uHngzjBfDxH57chS3AYORSL46/uUPShzeZTNs/QCek=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P7IqcPkZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="MfTGUDxi"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1791217577; bh=mM96EH6+OvEcFcgZIg/Izjec9utL//+6+FzoZE3eP/I=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=MfTGUDxi+UN0hsK/OAOGHm2aw/nh9jCYFSf20bmqP+QC6h2h6Qg+VIb0hdERWJqHI
-	 8ikH80zF+Ja00BLxE4GoRbLooTm1xI/WArbQ66KmuTZMyM2lNrEqEAWxr7OAGWTE6a
-	 2GUQtnC1vTGqGPjAwbhDIy8FzjAzMxUdXqhgrVtA=
-Received: from [198.18.0.1] ([2409:8a7c:21c:8010:c675:1308:618e:14ff])
-	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
-	id 68EABA6E; Tue, 06 Oct 2026 00:26:14 +0800
-X-QQ-mid: xmsmtpt1791217574thc5z48a5
-Message-ID: <tencent_13712505F7B9023560934C4431D3411C1508@qq.com>
-X-QQ-XMAILINFO: Me8mHstNM5a8SJ1BJzUVkamztcveQ3txPTzgUYUGcf+HueWlJZc2WpvtxLMDfw
-	 APP03LMvlAUXwRXad9ICAXzfE1q3sj1h/EiynQQmAjd2YYdYLbufeaeo3zUmGXdwsE60wrhXFyL6
-	 N/7wMfc6KQVmxmDO+KeNpZe+KagorjYyndye/7s7sxF+n9cQVFIqtl3zWDfmq62EBmKCSRVG/jei
-	 TGFhGohyKb4UrwnJCzdguv4e5Az+1o3z6X9yZHVfZXbxgeAoj4p9IGQFh3I8NwY2cYzdzrMgjva7
-	 cqYWnteOl5/wZ1P6ZMcNU8lYLg2D4KmaTEiausW4J7rqkfyIDMBanoPZxJpm7fR22GXG+gloF9Ab
-	 p1/C1cR2jq9OlZu63j2APyeq1UfF7bin2ZgG/ZwHRafAGVdAIdIxmsC2NcD+Ll6a3jABMo7qWdEB
-	 4GnWzj9W520b64Vn4bS0uHxxfF+vX2omtYlIVUDp3DZVie7jTOHm4wbhHakk739n0LwAnIszbCJ4
-	 fHcYdD7y7/moEhzhGLeNekxzOwaFiCNYUxrAJ1c2YsMVMHx3OW6yR+X1eyLUbLbwBXVEHXq+Fq3q
-	 EwnYQoN3hc3zMspH476AGbyrvzZ//GICk4kbWhcq5dHQJLoMXhJKHJAj9pIQIPcv6hAYDqDKQNg3
-	 m+KVhX9PsYxyzduXBOLxqlBRHCUak4ANcZvRpyUdRnAj0/JdYmXzthGDHQsud1iDStd9y83DQHBC
-	 /o6Q/qbaRwqLmHAC+Q7DlwFyF8ukhTQOjBmG4iuNiHJwziuSgWtK2oskN90zd2EsC8zH0lyi6qrK
-	 Nk2MwSstGeOPJ0PKH/Kt+BuYqfDWuUCyG4VG09byMPkCW3pwRkHln7SyXCalflR1tQks3aI+YxNo
-	 /Zwk9+6Kf+WclgCnKhLA7jaURpSExwgZz9vKhgVgrS+/o+SlxxTp/TUnRIMOIAF2fkSyEso32/W4
-	 zAbec6F0b+gzUAhfLS+l5OqCW+KMHdunWnzyfSEjXFUpfgXDHb4kyf2NFJMnP8WVWATDxm6aK7jW
-	 DVNJ/e9QlKoXUVYRYvtlF5y0sguQmj5mhCna/MdlbDIMc0j2rQ
-X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
-X-OQ-MSGID: <e2571f5c-820d-4d4c-85ac-1908b55db0ed@qq.com>
-Date: Tue, 6 Oct 2026 00:26:14 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P7IqcPkZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3CD91F00893;
+	Mon,  5 Oct 2026 16:31:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791217897;
+	bh=w9KjakV6Ms9jin0wX9osmpzk77dx7kQIFeLApUKCnxk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=P7IqcPkZqOXmZp1QAhv6wsHZG7M8U/SR/dOIoI3eWTjJiCZuK/Y/G3sF5+NcNiyzP
+	 mGwySL1nUlU6y2kbb4BrMGagAm02WFOjtrVMi5ThzENnVBNgXT7Aapr/RrMgIQmBof
+	 fTGR/gcop636uC6n6dsjZyqdASXVPy4PPa38Pv0h7q5NCUz6ciqhq/Kv59CMFwlprg
+	 s9LHxpGMDOB5JY9T2Qh2N9YxnMBhG2avB5bLay51hpVOx7swoi0Z7STXlwAkIoJKzb
+	 73+Dt5M2ZwLxqbg44tCkKo1P5YiGCuDAxFLBkNPWd4BVsfR7nDw8+G2D2Wvnk7Q7hz
+	 BcirUN376L+mQ==
+Date: Mon, 5 Oct 2026 17:31:32 +0100
+From: Daniel Thompson <danielt@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
+	linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, mfd@lists.linux.dev,
+	dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v2 1/3] dt-bindings: mfd: Document Skyworks AAT2870
+Message-ID: <asPQ5FgHe87XQJBT@aspen.lan>
+References: <20261004164121.193514-1-clamor95@gmail.com>
+ <20261004164121.193514-2-clamor95@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] arm64: zynqmp: Add EBDEE EdgeBoard FZ3A development
- board
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Conor Dooley <conor+dt@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Michal Simek
- <michal.simek@amd.com>, Rob Herring <robh@kernel.org>,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261003194625.936288-1-2254650260@qq.com>
- <tencent_06FFBD8580099835137D0C541050057B4906@qq.com>
- <fb944e1e-2386-4e5e-a2f8-8c0ccf66362f@lunn.ch>
-Content-Language: en-US
-From: Pufan Jin <2254650260@qq.com>
-In-Reply-To: <fb944e1e-2386-4e5e-a2f8-8c0ccf66362f@lunn.ch>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261004164121.193514-2-clamor95@gmail.com>
 
-
-On 2026/10/5 05:25, Andrew Lunn wrote:
->> +&gem3 {
->> +	clocks = <&lpd_lsbus>, <&zynqmp_clk GEM3_REF>,
->> +		 <&zynqmp_clk GEM3_TX>, <&zynqmp_clk GEM3_RX>,
->> +		 <&zynqmp_clk GEM_TSU>;
->> +	phy-mode = "rgmii-id";
->> +	status = "okay";
->> +};
-> No MDIO bus? No phy-handle?
+On Sun, Oct 04, 2026 at 07:41:19PM +0300, Svyatoslav Ryhel wrote:
+> Document Skyworks AAT2870 LED Backlight Driver and Multiple LDO Lighting
+> Management Unit.
 >
->     Andrew
-Hi Andrew,
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> ---
+>  .../bindings/leds/skyworks,aat2870.yaml       | 127 ++++++++++++++++++
+>  1 file changed, 127 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/leds/skyworks,aat2870.yaml
+>
+> diff --git a/Documentation/devicetree/bindings/leds/skyworks,aat2870.yaml b/Documentation/devicetree/bindings/leds/skyworks,aat2870.yaml
+> new file mode 100644
+> index 0000000000000..014678616076f
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/leds/skyworks,aat2870.yaml
+> @@ -0,0 +1,127 @@
+> [snip]
+> +  backlight:
+> +    $ref: /schemas/leds/backlight/common.yaml#
+> +    unevaluatedProperties: false
+> +
+> +    properties:
+> +      compatible:
+> +        const: skyworks,aat2870-backlight
+> +
+> +      led-max-microamp:
+> +        minimum: 450
+> +        maximum: 27900
+> +        default: 450
+> +
+> +      max-brightness:
+> +        default: 255
 
-Thanks for the review. In v1, the mdio node and phy-handle were omitted,
-relying on the Cadence MACB driver's MDIO auto-probing, which was 
-incomplete.
+Should there be a min/max here as well?
 
-According to the hardware schematics and live register readback, the board
-has an on-board Micrel KSZ9031RNX Gigabit PHY strapped to MDIO address 1
-(PHYAD[2:0] = 001b, PHY ID 0x00221620).
 
-In v2, I have added an explicit mdio bus node with the PHY at reg = <1>:
-
-```
-     mdio {
-         phy0: ethernet-phy@1 {
-             reg = <1>;
-             compatible = "ethernet-phy-id0022.1620";
-         };
-     };
-```
-
-and referenced it with phy-handle = <&phy0> under phy-mode = "rgmii-id".
-
-This has been validated on physical hardware at 1000 Mbps Full Duplex
-with zero CRC/frame errors.
-
-Best regards,
-Pufan Jin
-
+Daniel.
