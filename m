@@ -1,85 +1,88 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9FB626CE32
-	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 16:45:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 995A72868B4
+	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 16:46:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791218762; cv=none; b=KTBuNGDJGo0JSXZnHXxY81/XUtGhBwJ6F8Ug0HkPhN2/ShORxk9R/wrawEMTmB5guQwGzz5Va0/LhytbdvBWcSATimJx1HnU3ekKrhR8Bgzak6HccKMKysStMnbRPSOUXtbF4OLHvW+PEQF/SqxfbLqxarpvHRuoIfwbeitdFco=
+	t=1791218764; cv=none; b=LuS62ukHiwwbwC0L7ChN0NvzK8lS0DtuMcFx4ZLvXs7z15YvzN4pzWxwqmx9XYkc3S10xKzjBlFZYtkafCRpSdU6YISMVhJvV8YUfyMKSi9ZRFvKykRnJBDGGZw1Q5/QUELaAeDK4lUuc7Bbppvw3wDn2gNC75gwnagVvdkeAXk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791218762; c=relaxed/simple;
-	bh=Qdttc+Uull2B6NlHs+W5t+MNibElOhjui4YrHJLoqA8=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=fKsq9uDLJ7NUOzwWFzEN3JeQhQrv6JXo/JZhWJpSAxqMWeC80RuGYYSQSBcDDWGNZvNJt0sb4I/sD/BfelLauLYP0fKjGxFWyGXVaX1pAMN+TxsmRG5Exa7QttWNJK0Qk7Msz/pvkuJbJjgfg0D0FKS+/lqDZlV2Xc1QiJkmicg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SXCeWGWU; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cHbtUGrQ; arc=none smtp.client-ip=205.220.168.131
+	s=arc-20240116; t=1791218764; c=relaxed/simple;
+	bh=vuxpQQHSHpogoXgcj1g6nYIyqWnif7Aqe4zqMtU2VSg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=hup3uELeON13YXSzW6C2JJ8T7CjyeO2eBWs74xrbhJWtaAvDylkyiBeUTqx5B48ob7Zh8TIBBXSGJC3wYrP4fLaEniylZqBwgdP1UMkDQSmt8DwUpRuRO0T+JqQgvOCwy02T4cyozZhr4rA8/SWD1hLnUrhC8vwcbQ2uDyV55MY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RVdadjHK; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bAwVzQdz; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SXCeWGWU";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cHbtUGrQ"
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RVdadjHK";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bAwVzQdz"
 Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 695EPHEJ3141754
-	for <devicetree@vger.kernel.org>; Mon, 5 Oct 2026 16:45:59 GMT
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 695EPRJw3142428
+	for <devicetree@vger.kernel.org>; Mon, 5 Oct 2026 16:46:03 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=06UdcohYwj/NS7PUtyFuZZ
-	u3m1KXSF55e9gfl1wyMec=; b=SXCeWGWUE6r4bD1/qw07uFOmXfQtmhA58cnlBG
-	MXWOhCa5Ax9xh5GXi+JUqSC6kuBa4GotSB6b1c/KRkTj67ZCYx8R00Rp7HsbUUEJ
-	Zfrey4sIfR9Ad49jz7bw1B4qNoI3oWiWY0fUHSca1iT52dt48VgqYyXKaT5QiN8N
-	KWMkPtxMHbs0CK2OHHHANbfCUxj1cR3a9lIhOx+GkLeWrTGoEEgMD221OpIkZ/wV
-	sQhFN5hYR6bAzKAR/ZbvVjahbF83SA6gsMwkgdDjrfaYxnZlbFN6lB2lgWZUr4JI
-	eHgbzFgh71S/X4Z4awdMNHLiEmp8u85KvKXEyJQwZ2NfeIBg==
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	312B9C6n0UKKu6NJESvzkUE//S3M9JdnPEV0pkxNzjc=; b=RVdadjHKRDFdePLL
+	+B3B6fED203OnFhhjYuocbbf9WN2gYd1eD6mUm3oA7wa7T/vR0qimuJJ+Sxf0KTi
+	hjdf57cxmIAnK7zltI1nHqPImNvutUsX2IjrEchEBypCl29TpHHt7hmNWYGkDJJ8
+	ctCptH2n/6imq4Sfr2gvI4pB5xUZ2QlX+v1BBG/n12NIKGrZIl6pxwjkjD5YMCid
+	htIrsvqUDthHhKnhOBauqnjROKe85EQaCYZu3WukUXZCjvqfexj5RlthcvE4iPJV
+	/sj/14kFVKwMOCJqhsrG+KYQEDmMKo3OVA3Fo1d77j5FDhP/0YmiFEJxqAMXorXT
+	zvEInA==
 Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h49u41h2p-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h49u41h2w-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 05 Oct 2026 16:45:58 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2d6f75c1219so28816495ad.3
-        for <devicetree@vger.kernel.org>; Mon, 05 Oct 2026 09:45:58 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Mon, 05 Oct 2026 16:46:02 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2e2d83bb68cso17667845ad.0
+        for <devicetree@vger.kernel.org>; Mon, 05 Oct 2026 09:46:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791218758; x=1791823558; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=06UdcohYwj/NS7PUtyFuZZu3m1KXSF55e9gfl1wyMec=;
-        b=cHbtUGrQjGU3B7D+9a9tAQSIqCK7ICx8WjIelf/0oz7VREtCfziUmqUinBrTkoekxB
-         UVd5z0AxQ+uc+ZceQLcotKNEuD4rODIYuljZs0BgiaRt+we4fUzENWERACBNB0Ar+f46
-         WDCyU00DiwxEDgY4yY3Vz5hKqyMmqPpcu+B9QhTMclqeCDWIgPUt1fw0cn46x7gkkITN
-         fljg//1FSp7EOBK9Xf5ZHC2GcLzuZUyFZfHa0ErIHyex7myisusQ8Qnrk3DmZQamiuzY
-         dTxiTw195bs4qs7UWKM1Zn+6CzSiCsVTKFRaC6TKS5qwqmbs1h6uAgPJRy7fnTOYzNXF
-         DEPg==
+        d=oss.qualcomm.com; s=google; t=1791218762; x=1791823562; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=312B9C6n0UKKu6NJESvzkUE//S3M9JdnPEV0pkxNzjc=;
+        b=bAwVzQdzi/K7UAvO3VtT1FcKRerQol2DmLtgQlvJLIAQRYUGzFaJ8mWHc6H6XPeCEJ
+         fhP1Ip5odVQ2gre7q1fUiLOmNNFyVHTmqKoKdfBUg54HmI62HggEnnYQeEZ6ZkSZ1pSK
+         eOxipafOBS+q3pgp3bzUzd16Z/wU6NRddyG78sddAbEelqqT14zYiGKNzzTDOewK5Yt1
+         uUF1Hqu2fdZrc44/vdeMFDqPUwjlhTR0oKhl0PapRF81ZDlgJ0WnXaU5tbYHZWqmDhhI
+         LjZkbnf8p1YJ1m6wM5lZ0DD0brTcLzJe29sp2mc/CaXHarhtGXPm+tIz+cfStGYpPEu+
+         KM6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791218758; x=1791823558;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=06UdcohYwj/NS7PUtyFuZZu3m1KXSF55e9gfl1wyMec=;
-        b=rItSANAWYRzRi4+hZJmMYEda5nWuuW4RRFkrBukgw9I7mFB3CyVDNMY0w2xeNzbw+a
-         asUjfcmlKgC3n60jw2UvAHNw4+i8CgeZzolHU6NdvefTzkMPpPBpmXYvTrN26EDpOTN6
-         j97Illpxi+LiTx0y04uK8DkJy6+eNQZpoph83wFQrn/fnX1n3kwxuFf0G5x9EAp+ChVo
-         vhs3vZxwDCVrD6voWt1GN0sCZXmraN1a4iPE4+XTs8kWpmmo+qB8rqN29rN1Fu/r6a26
-         +TROSzfpwXmXJ4AZLMOnT6EgT4GN9ADuK/adnyfOe5q1X2QUQKtu6ssUZ6QPoF7prlHI
-         FGPw==
-X-Forwarded-Encrypted: i=1; AKwUvByH0ODLfB2Gqx8OIQCMPkHnKz9gpDQnLwj7mJ22HxQdX8P8l8dFAQLVLU7cDaE6iBHJiDGlep8P3Ghr@vger.kernel.org
-X-Gm-Message-State: AFq9FYIzBCBfl2VOypxOUl/4tZQQHfAYeLhX9rRFaTQv6b/CxW2eNU9T
-	xi2j1JEPnpHlmOXekx+67awyJiN9ZTc2wTuqFZqhXVO1mRGhSVf6GXbEMuyMKhSEI8idrZ5Cfy2
-	LXZi4XGNHuRvJV9Yfa3h4L9+hheKxescOWj2T5YQW7Uvw8dBZf5RVZFFmqGUzrclY
-X-Gm-Gg: AYBFou1b9C4YomI9+RenuEBGnHGWUctRBUsl9b/4c613jCYhP7sC0iPiAOxEnG4YXk6
-	jIXk6Kz6UK/MJZykVZAicjjNYE7W7fV6awtog3WflpbY1/N0Hzk+ab8vsgmj9Kvrq97NMjcJdGl
-	56JZVxqxxflxi7qt545jR374DY1t2AqsLaUla0BvPaAVL5OLcdVe95mSpmDDLgPWPl8l469vwcl
-	CSOcAVLr8Xw4Xp+Tkxph/ZLJbdf+Ni17a2irrZEvXQO6yQSXkjPXkDON+8MB5lqmQZBi2hVL8xi
-	MNXhmtb6VivfZJzaLb8HikGpW+0d39ZNykC7Su1+T3MRrSs0KsUEeHyDVzR3aWrE0nTSNXW5RaE
-	uzb3sZbKXXYN+X5JgTX7NhuZacqjb+dLyt5A=
-X-Received: by 2002:a17:902:a701:b0:2dd:c100:313e with SMTP id d9443c01a7336-2e510684ff0mr53210275ad.58.1791218758114;
-        Mon, 05 Oct 2026 09:45:58 -0700 (PDT)
-X-Received: by 2002:a17:902:a701:b0:2dd:c100:313e with SMTP id d9443c01a7336-2e510684ff0mr53209965ad.58.1791218757430;
-        Mon, 05 Oct 2026 09:45:57 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791218762; x=1791823562;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=312B9C6n0UKKu6NJESvzkUE//S3M9JdnPEV0pkxNzjc=;
+        b=BFgn01C4NXbbFs4f9rTEscullPBQilHUlBt3VJaSbIPFmvDysTeHDA4gfYc/kiRvvM
+         sWHUKINKsJdEAz8dMJnHmSF2TwQDAcp4ZIS9zqPaYiKnIJ9PI+CzrdYzVmvdrDUujrB9
+         ZPp+iBLM5A8pTBtU0yLwrp5msR61qVkV0qd+auKYR6LwfAUdtiIv1mV9djtkbEUSXBbf
+         NYBxCY9GSVWva0MUbOhZ9MP76DEVZw/SL4HdU8aXjblP4xKq6iTgTToT06r9ndtaEdA9
+         b+LoUZgVcjRh9FcZxWwFOjQ7JvrbVeRN4nqoR7VKhW3bTDZa57A3s1dj7bNYJmv8IpOx
+         75sg==
+X-Forwarded-Encrypted: i=1; AKwUvBzDpBgr+7609Ag2W2gWa4iogwGPIqbe/F3CsmjfIigXXVDq9SvwulEo1lVD/1QcFgZ4SD+g83dCEghS@vger.kernel.org
+X-Gm-Message-State: AFq9FYJqiwmnvlwDzhubMpUBSDs/JCTYquLOqMfDp6+vQzxQlWIj2rif
+	YbyOcgCJpqIyDFQ6PTA9DZYUB29/eb+gC3k6lAbp7MW/LKRZ9zfjCW1uIlQN20dWZWdXlsJNjGL
+	2dSN72JGOh+id2oNW7ingyhka5oh5elR8i8mpQKlU/BFf1PbXJs36APSiP+9npBty
+X-Gm-Gg: AYBFou0T6uyxLpDIn0nsed1Nvg9RnFzKW5c1uetEaeaxXkBiWOmZHAjMcsmJKjuQELw
+	jXEyrI4exKQN4wG6KoAWh5/Q/QGI08cFBEapaovzRD+2T77RHQJhjdaL9fyA05yBlc6w+vNYNNH
+	6wqRndcr2dp5iK+Izd9dl9azXLSwi5a2ul0S0JXlNYwLf3a3z1BgQkxlDmB8WsnfMmS505rPSSg
+	yLqL53SlXv5eq/3Um/73wF3Zh5uOJi1NVqG4l1JpAqEuXYYq0jJFTbU957f5NzPU5qh0uqb9c7m
+	Oe7wrL901614AgLe0Zud7ptpc90MqwfSKvOD9mqmiygke2T2TOtwc3n+GOkHgwxzaQwXBjdUM/Q
+	xdxy1mzXExm07t9YSPOqOH2T8VybbBdRw6Ug=
+X-Received: by 2002:a17:902:e5c6:b0:2e2:d77b:e584 with SMTP id d9443c01a7336-2e49b652159mr106114175ad.13.1791218761883;
+        Mon, 05 Oct 2026 09:46:01 -0700 (PDT)
+X-Received: by 2002:a17:902:e5c6:b0:2e2:d77b:e584 with SMTP id d9443c01a7336-2e49b652159mr106113895ad.13.1791218761385;
+        Mon, 05 Oct 2026 09:46:01 -0700 (PDT)
 Received: from hu-vdadhani-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e5a55b6161sm10665605ad.1.2026.10.05.09.45.53
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e5a55b6161sm10665605ad.1.2026.10.05.09.45.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 09:45:57 -0700 (PDT)
+        Mon, 05 Oct 2026 09:46:01 -0700 (PDT)
 From: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
-Subject: [PATCH v5 0/2] Add Qualcomm I2C target controller driver
-Date: Mon, 05 Oct 2026 22:15:43 +0530
-Message-Id: <20261005-i2c-qcom-slave-v5-0-6254cc7c08d3@oss.qualcomm.com>
+Date: Mon, 05 Oct 2026 22:15:44 +0530
+Subject: [PATCH v5 1/2] dt-bindings: i2c: Add Qualcomm I2C target
+ controller
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -88,12 +91,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIADfUw2oC/3XNQW7DIBAF0KtErEs0M2DAXfUeVRYYDw1VEjcmQ
- aki3704XaSS681IX/rz/l1kHhNn8bq5i5FLymk41dC8bETY+9MHy9TXLAjIgCEnEwV5DsNR5oM
- vLINyFKNmZ1oU9elr5JhuD/B995vztfvkcJmVubFP+TKM34/FgnNvFS8oQboOfBMAYxvN25Dz9
- nz1h9o5busR80ahp+KAFgpVhaxpFKKL3jYrivqjoFooqirYK6uJyffarij6qbQEC0VXJVpGIIi
- q6/Q/yjRNP13t4iyXAQAA
-X-Change-ID: 20260628-i2c-qcom-slave-c382ff4e8691
+Message-Id: <20261005-i2c-qcom-slave-v5-1-6254cc7c08d3@oss.qualcomm.com>
+References: <20261005-i2c-qcom-slave-v5-0-6254cc7c08d3@oss.qualcomm.com>
+In-Reply-To: <20261005-i2c-qcom-slave-v5-0-6254cc7c08d3@oss.qualcomm.com>
 To: Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>,
         Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
         Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -103,32 +103,32 @@ Cc: linux-arm-msm@vger.kernel.org, linux-i2c@vger.kernel.org,
         Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>,
         Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: b4 0.16-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791218753; l=5289;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791218753; l=2790;
  i=viken.dadhaniya@oss.qualcomm.com; s=20260324; h=from:subject:message-id;
- bh=Qdttc+Uull2B6NlHs+W5t+MNibElOhjui4YrHJLoqA8=;
- b=hnjQMLMOM8wUBifhNFQMQno+41Ug05NC6OVqt6iZ/cVDdgpR/VXgdGZEMKj4kPtoP29wohG89
- ah/KOby22FbDcgCN0Wn3DTT+pI8KH4pmkeW8yI8Lqz92CReHLIlBSHD
+ bh=vuxpQQHSHpogoXgcj1g6nYIyqWnif7Aqe4zqMtU2VSg=;
+ b=qlo/yCL/da/k8bjEDYuBMYX8DIv6a6sleDD8q3TXdZR3mAF8G0KYj2LBdEmYA+ZbNAkcN8WRj
+ Wukk0S5AI/mDx0fb2LyC1o8vBh3NvLCfosD8tAAlALF6Oz+bIt/eOi6
 X-Developer-Key: i=viken.dadhaniya@oss.qualcomm.com; a=ed25519;
  pk=C39f+LOIGhh/02LQpT46TsUSXRvBn9qXC8Xb26KJ44Y=
-X-Proofpoint-ORIG-GUID: 1IOQDRzmH2rLJ5rEvfiQLgZE2xbF56bf
-X-Proofpoint-GUID: 1IOQDRzmH2rLJ5rEvfiQLgZE2xbF56bf
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDA2NSBTYWx0ZWRfX5zNH5KCF77ng
- Vt7dCFPWFzRRBe0n5bJYCgl1ijAbwcFCaMKaUPU2IQgU7y5k0cySnj922m52OeOdz9z1lNnRAfI
- i6ZnVpTeI4VR8Ejc59erGZwyf7jj58U=
-X-Authority-Analysis: v=2.4 cv=LuEHWXdc c=1 sm=1 tr=0 ts=6ac3d446 cx=c_pps
+X-Proofpoint-ORIG-GUID: d1r30NdWTiXDooRQNMlPbd_tvscVW52v
+X-Proofpoint-GUID: d1r30NdWTiXDooRQNMlPbd_tvscVW52v
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDA2NSBTYWx0ZWRfX1clZ5jdZspHM
+ n/EU6HOODoQs/7vE8N5TuuhPdsGBfEd+/TrVriZ3Fc4mJ8vw6LZRz2as2xJNj/s/8zAFccf9NxP
+ sOOMX4Q1adrfKuoZgamKUIE76K0fueA=
+X-Authority-Analysis: v=2.4 cv=LuEHWXdc c=1 sm=1 tr=0 ts=6ac3d44a cx=c_pps
  a=cmESyDAEBpBGqyK7t0alAg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
  a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=oWxMlBoAAk1XZI7vwbsA:9 a=QEXdDO2ut3YA:10
- a=1OuFwYUASf3TG4hYMiVC:22 a=FO4_E8m0qiDe52t0p3_H:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDA2NSBTYWx0ZWRfX97FyvWkynHMB
- Upmot1gG7Up52SjPrN3FjxiMT2UvbbGS/MeA/W1qfpgF7UpdgJ1hUHB/sydhLTp9nGuenv0AY8+
- joXCnF2AWxyZHHaPmZIAD2MbHJyDw2SnVMQ4QKNvdrJUHoyUAvw9MOIz4rbzrQBEn2ufr7KtUmo
- TYt29ZAWxM5N4ULvMb0akKuFIB3ybQXWQJ6ShxKxPnUnynUVZliM1klSChJYfPeOuRenNWjntJP
- Tg6T+ZEJffKNh32PuXW2iHFe8vmpxDuD4jkQt9ppztFyh+Fw03r2k7XLC+vCcNtPT0yKdV35r04
- wW5veHQvXxkAMDl55YZlaSPOpzgKdVF1LZqthaVhq2ObDFyJgXb47b/g0Pc2uK3ygz4zXjc9Jt2
- Nb2gcBZPnr4Rg2nXgaWT1JPXMUSHY2KD7trkY9NHCYRvJi7dte/fYv0x9KSGu6BYv/cpC4TaYIc
- XEO2WLEQ7+SsakxPX0A==
+ a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=64-jBHeFNbSwsrqMnDgA:9 a=QEXdDO2ut3YA:10
+ a=1OuFwYUASf3TG4hYMiVC:22 a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDA2NSBTYWx0ZWRfX3zfElLdyAVvs
+ 7LjrmJSu2T2bs3gAzTlOM3RGd40+C79QO8OZ1FYI8izmsfdFr/GZ7mIZMutbvLvinFbsgjKnHY1
+ sXplVUu6SrtXVFM7/8f5RGIP+yVB1+pDn+kJOtK1uIgiLUTGSlngRt0MbYGwREt49rKYFhiTe2q
+ zvJgjJs2zCzB8cG+TXP6M+80GGcxwT04d0ryh/5vW89obOMQkelU7gcbR7MEZKv6uKY73SnExSp
+ qqgJ6wJ/Q1pv4B+/aq7GK0B+U94R5plJ/x9ub3zpoat2Y236seI8ueuLP22g0TsT7UfHVebHAYL
+ KmqfXTN/9WF/7vn+S+gnpt8ZWimJ6Ddc0lGs/Zjon7Ozlb3t3gh2dH9LdJtezadcukiwklfGOcb
+ cws45glot7/KVlnDdIjtdUM6YdkdnM55vGPrGKyRv/j+wVJSQMZlAHKhM+In8g+K2NyFc8VWc4U
+ kU6gJ58X/mpQhMVm+Dg==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-05_04,2026-10-05_01,2025-10-01_01
@@ -139,111 +139,101 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610050065
 
 QDU1000 and related Qualcomm SoCs include a dedicated I2C target
-controller that operates exclusively in target mode and is not supported
-by the existing Qualcomm I2C master controller drivers (GENI, QUP).
+controller that operates exclusively in target mode. It is a distinct
+IP from the Qualcomm I2C master controllers (GENI, QUP) with a
+different register interface, so it requires its own binding.
 
-This series adds DT binding and driver support for this IP. The driver
-uses the standard Linux I2C slave framework (reg_target/unreg_target,
-i2c_slave_event) so any slave backend (e.g. slave-24c02) can be
-attached via i2c_slave_register().
+Document the MMIO region, interrupt, XO and AHB clocks, interconnect
+path, and optional pinctrl states for the controller.
 
-The series is structured as follows:
-
-  Patch 1: DT binding document
-  Patch 2: Driver implementation including Kconfig, Makefile and
-           MAINTAINERS entries
-
-The driver has been tested on QDU1000 hardware.
-
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Signed-off-by: Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
 ---
-Changes in v5:
-- Handle errors returned from I2C_SLAVE_WRITE_REQUESTED and NACK
-  subsequent write data until the transaction ends.
-- Use target/adapter terminology for driver-internal structures, members,
-  callbacks, and comments while retaining the existing I2C_SLAVE_* API names.
-- Initialize the I2C adapter owner with THIS_MODULE.
-- Express the interconnect bandwidth vote using the ICC kilobytes-per-second
-  units through Bps_to_icc().
-- Make clock enable and disable ordering consistent across probe, remove,
-  suspend, and resume.
-- Keep the interrupt disabled when resume fails before the clocks and
-  controller state are fully restored.
-- Mark system sleep callbacks as __maybe_unused for configurations without
-  CONFIG_PM_SLEEP.
-- Reject 10-bit target addresses before programming the controller.
-- Update short-write handling to use the common write-request event path
-  before delivering the STOP event.
-- Link to v4: https://patch.msgid.link/20260920-i2c-qcom-slave-v4-0-f7e1020f3bb4@oss.qualcomm.com
+ .../bindings/i2c/qcom,qdu1000-i2c-target.yaml      | 75 ++++++++++++++++++++++
+ 1 file changed, 75 insertions(+)
 
-Changes in v4:
-- Replaced usleep_range() with udelay(20) in the reset path, since
-  reset is invoked from the hardirq error handler.
-- Avoided releasing clock stretch on RESTART_DETECTED when STRCH_RD is
-  co-asserted; TX FIFO is now loaded before ACK_RESUME is written.
-- Added cleanup for both clocks on all probe failures after they are
-  enabled.
-- Explicitly freed the IRQ before clock teardown in remove(), preventing
-  IRQ-handler register accesses after clocks are disabled.
-- Replaced noirq PM callbacks with regular system suspend/resume callbacks
-  and quiesced the IRQ while clocks are disabled.
-- Link to v3: https://patch.msgid.link/20260813-i2c-qcom-slave-v3-0-1d3742e2ad47@oss.qualcomm.com
+diff --git a/Documentation/devicetree/bindings/i2c/qcom,qdu1000-i2c-target.yaml b/Documentation/devicetree/bindings/i2c/qcom,qdu1000-i2c-target.yaml
+new file mode 100644
+index 000000000000..9a6b08f0ab0e
+--- /dev/null
++++ b/Documentation/devicetree/bindings/i2c/qcom,qdu1000-i2c-target.yaml
+@@ -0,0 +1,75 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/i2c/qcom,qdu1000-i2c-target.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Qualcomm I2C Target Controller
++
++maintainers:
++  - Mukesh Kumar Savaliya <mukesh.savaliya@oss.qualcomm.com>
++  - Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
++
++description:
++  Dedicated hardware IP found on Qualcomm SoCs that operates exclusively
++  as an I2C target (slave) device on the bus. Supports FIFO (PIO) mode
++  for data transfer.
++
++properties:
++  compatible:
++    enum:
++      - qcom,qdu1000-i2c-target
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: XO reference clock
++      - description: AHB bus clock
++
++  clock-names:
++    items:
++      - const: xo
++      - const: ahb
++
++  interconnects:
++    maxItems: 1
++
++  pinctrl-0: true
++  pinctrl-1: true
++
++  pinctrl-names:
++    minItems: 1
++    items:
++      - const: default
++      - const: sleep
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - clocks
++  - clock-names
++  - interconnects
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/clock/qcom,qdu1000-gcc.h>
++    #include <dt-bindings/interconnect/qcom,qdu1000-rpmh.h>
++
++    i2c@88ca000 {
++        compatible = "qcom,qdu1000-i2c-target";
++        reg = <0x88ca000 0x64>;
++        clocks = <&gcc GCC_SM_BUS_XO_CLK>, <&gcc GCC_SM_BUS_AHB_CLK>;
++        clock-names = "xo", "ahb";
++        interrupts = <GIC_SPI 358 IRQ_TYPE_LEVEL_HIGH>;
++        interconnects = <&gem_noc MASTER_APPSS_PROC 0 &config_noc SLAVE_SMBUS_CFG 0>;
++    };
++...
 
-Changes in v3:
-- Rename file to match compatible (qcom,qdu1000-i2c-target.yaml)
-- Remove interconnect-names property
-- Remove allOf reference to i2c-controller.yaml
-- Remove #address-cells and #size-cells from example
-- Add minItems: 1 to pinctrl-names
-- Move I2C_S_CORE_EN out of hw_init; enable core only in reg_slave
-  and hw_reset
-- Add usleep_range(10, 20) after SW_RESET before reconfiguring hardware 
-- Fix RESTART_DETECTED dispatch order; handle before STRCH_RD and
-  Rx data phases
-- Use test_and_set_bit in write_requested and handle_strch_rd
-- Loop drain_rx_fifo until FIFO is empty to close post-STOP data race
-- Disable core before clearing slave pointer in unreg_slave
-- Clear target->status on resume
-- Switch from devm_clk_get_enabled to devm_clk_get with manual
-  clk_prepare_enable
-- Remove unbalanced disable_irq from remove
-- Update struct kdoc to note I2C_LOCK_ROOT_ADAPTER serialises
-  reg/unreg_target
-- Link to v2: https://patch.msgid.link/20260802-i2c-qcom-slave-v2-0-27653118fa75@oss.qualcomm.com
-
-Changes in v2:
-- Rename driver and binding from "slave" to "target" terminology
-- Use SoC-specific compatible string (qcom,qdu1000-i2c-target) instead of
-  generic qcom,i2c-slave; add allOf/$ref to i2c-controller.yaml
-- Replace SMBus layer (smbus_xfer, I2C_FUNC_SMBUS_*) with native Linux I2C
-  slave framework (reg_target/unreg_target, I2C_SLAVE_* events)
-- Remove qcom,slave-addr DT property; slave address taken from the
-  registered i2c_client at reg_target() time
-- Remove staging buffers and spinlock; bytes delivered directly to backend
-  via i2c_slave_event() per STRCH_RD/RX/STOP event
-- Use SET_NOIRQ_SYSTEM_SLEEP_PM_OPS; PM core quiesces IRQs at noirq stage,
-  removing need for manual disable_irq/enable_irq in suspend
-- Simplify clock-names (xo/ahb) and interconnect-names (i2c)
-- Replace icc_enable/icc_disable with icc_set_bw() vote/unvote
-- Merge MAINTAINERS entry into the dt-bindings patch
-- Link to v1: https://patch.msgid.link/20260628-i2c-qcom-slave-v1-0-8b0a5c01f9f6@oss.qualcomm.com
-
----
-Viken Dadhaniya (2):
-      dt-bindings: i2c: Add Qualcomm I2C target controller
-      i2c: qcom-target: Add driver for Qualcomm I2C target controller
-
- .../bindings/i2c/qcom,qdu1000-i2c-target.yaml      |  75 +++
- MAINTAINERS                                        |   9 +
- drivers/i2c/busses/Kconfig                         |  15 +
- drivers/i2c/busses/Makefile                        |   1 +
- drivers/i2c/busses/i2c-qcom-target.c               | 638 +++++++++++++++++++++
- 5 files changed, 738 insertions(+)
----
-base-commit: bf1ee2bd5c2da8992f33c8950ef194aaff74ed6c
-change-id: 20260628-i2c-qcom-slave-c382ff4e8691
-
-Best regards,
---  
-Viken Dadhaniya <viken.dadhaniya@oss.qualcomm.com>
+-- 
+2.34.1
 
