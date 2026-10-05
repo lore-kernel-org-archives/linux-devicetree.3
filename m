@@ -1,175 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f4.google.com (mail-pj2-f4.google.com [74.125.227.132])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EABDA419FBE
-	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 22:34:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C366C3AA1BA
+	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 22:40:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.132
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791239697; cv=none; b=H7FJMtBZvZYCbDXib+rpf02/4vj4PKxCsxF3jnke5mGYgWZdWVTwjsau1ko9nBTeydUEGDZcYveV2cTBLv2AeCfWPeaPTFehAR4aq4fSTAPEO7/IqncTtue9D/XfXEdz/bc56W5IABohp3e+QMm74t1PHkOPRNntZz1iTLXnZp0=
+	t=1791240044; cv=none; b=MW4Nojc/D9Aj5VvVRoYIB+GRD2SXIXb//TxRrCJNel9WoozxznfTGo3eaweAOmPPPC2MWJBJxI6rV1RFEdhYyb6SpVHP//3477cUTXDTrSXmU0q7VSifrY5JJrj4RSI7v8S/TxePEFxfUBqGtozb2oGFzF45izlan3Db8UlI5ho=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791239697; c=relaxed/simple;
-	bh=1+9vSdxBpNU2da41VuanKznCxlLI+8WK0L7532IDNcY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=dgBy124pfr/tmrjhqek0e2mG52GWRgMDrSTGshlPIOrb9p9LyNApIQS61oF9vBhMs1APi7pQ9kt1vfHp56a4YtGjgHPlazImcfbxDo7tCQSx17deHA9ADEfluheEKuQK904OimzqNOKh/Rp5evEQT/6u9en9zJz1CANEym48DHY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CnvL20Tl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791240044; c=relaxed/simple;
+	bh=Mg+xLhEBE+iNwytNcOclz0X+Cg8TFYLnf/u5pFemE2A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=E4EcoAiMoXwFXCB6FKyJ3Ky8igeqHajMA+UXzMMGjd9w8nqNWJX/2T4AyUeQ7Z6QOTjSUQRN35ikOjs8/HfzyxLmuNfSqaF+6mDANkcXWjcDBShJV/LPCNrw47JZPGDb5nr6OYNNYQxA37MhD41x0DqNjnVEK80+UvzYVwzXTHE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rncpOBWD; arc=none smtp.client-ip=74.125.227.132
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CnvL20Tl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C4251F000FF;
-	Mon,  5 Oct 2026 22:34:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791239695;
-	bh=gn0FL5ZPjwLh7qD7CkmwVASN4tP1FtRymFcvk5TOkZk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CnvL20TlgSVoaIMUEExV4ZgcfRROnJFlgz6VEdiOLKOn0rdgOZMh03FWypBdm2gg8
-	 VQig/VlRa6+K7DGHNXkdgvrkhagkosUPJZNDNJBTSqcA51nIyJpDmYDJ1ve0A/F/CP
-	 3LeK8O1xWl0JbQTl1JL/iAqMfKSoKHK0MaAjlj1Ve+ezUwdcTgkl3iRUxRS0/SZeyD
-	 WvaZUV2oXTzNXCjMpL9I5i/oKR7pbWFI0n5ORdoTps0KdjKTVU9N0LEIxy9eh35zXl
-	 dMnD0eJnT5IxbLf+BrMSj7T7eBA59Mhys/hRJrEsX+T99vEUVa9IJ2Sx6D35UKiScL
-	 LnxfY/hm9hrPQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] power: supply: Add GL.iNet GL-E750 MCU battery
- driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Serv Pol" <servpol@tuta.io>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20261005-gl-e750-mcu-v1-2-499d2e31f786@tuta.io>
-References: <20261005-gl-e750-mcu-v1-0-499d2e31f786@tuta.io>
- <20261005-gl-e750-mcu-v1-2-499d2e31f786@tuta.io>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 05 Oct 2026 22:34:54 +0000
-Message-Id: <20261005223455.4C4251F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rncpOBWD"
+Received: by mail-pj2-f4.google.com with SMTP id 98e67ed59e1d1-3a854dffb5dso168844a91.1
+        for <devicetree@vger.kernel.org>; Mon, 05 Oct 2026 15:40:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791240038; x=1791844838; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=3O5Pix90BvrGtShH3HWLTeak2Koa8dPqPpawpalPiLo=;
+        b=rncpOBWDD4guQAl4cXfmq+OfSC3li3I97OqdWoHyQrvDGtZe309Pwi9duLbt/EeEdX
+         w775WQ0e41+j3cq/qF75pM6KFF9jUhW/cP0ua7IfPRLzptVthPMAmd+jQgNpTWlW1wMB
+         yGCDCNyFpSrhjsi1ErOC6dakngdCqFflWNk0Q74yKP6fABXbjYtbOIK0NAKt2FeKP8OE
+         iATZR3DClV1HuNgdtuM0Oqr1sTkmgDDOy0VUuAkDtwEcBcXL9n0goH/14qppuadiOAX7
+         xrlax/uQrHoKl53isoCK0Wn914zWzKIyQHEjObgHHCQYNafbjMqqtC/E//75t4vBVn+W
+         Sndw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791240038; x=1791844838;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=3O5Pix90BvrGtShH3HWLTeak2Koa8dPqPpawpalPiLo=;
+        b=EyQNx40T6xzGFJ4EXkzXmapv0ExX4uYshJoWP61XVloZ5PRbWk/IjF7QPjojlwW6e9
+         wWBtNF/EA7FSRZR7nxr0HQaseZz7bU9Ab1FTFlB+ZqByGQwg4G1Tq1aaysiVOLbPcTdN
+         fupIFEiJ91OBP4tuJUP3GZE3fM5JOmiDC9DklQqBpf13qZ64yGdCzILo32wIAJ7UD8XY
+         CjGwr7ymHH66rvecH6elVXYGfqck6Y9QBhw/hLhZco+YYa/aK+x3lX5lvrizKHTRJEFq
+         y9jCcomvbNELG1Z9i3TotzVe8TYjw8+JRIP+HdkoIfM7EAEzCl4cmkXf+8Uru3nCcWf5
+         T3Og==
+X-Forwarded-Encrypted: i=1; AKwUvByGKmlUYF6Z7HNFTF4ZgJ+e0Vj29+EHda7qFW3szD36I+Ywo0uTWqSA8vOLP9IMeO6XNxFRUmvaHWzQ@vger.kernel.org
+X-Gm-Message-State: AFq9FYKcPKmzeDZM9FWdsysunQaXMZOxg0D8edoD7wusE6CeSUD0IARk
+	ll6r3nsen6vdM8aUY2/DlpKs1rU+f7ALGhWju04GoJUVVGOnFOGleW1K
+X-Gm-Gg: AYBFou2jiMGa92NOCh1eQ9FeM1GUTKP9oOg8UsHl1wo/o6FzUsGhlIFueLYHzE0OhIs
+	AQgcG4NVIFNdBzajUA6WhzokqTAHaaEkwW/AjLlocgTx+EqPjBpcmpdezdYJeyKqYnAQVrHwVSz
+	ViCifqcjmlF0XFzmZrdhRlhi1j7RDEqLk0x4cjLL57F8PY7jzHMB31CYdAnxKbCl6XLBmCXrBrD
+	UXYZ4sI1SqM1qSe1+ECyH0vmqfbRbGW6bgxl3zZVKLz5RRyJkJvUrZFKpxeLiZ34iwzFZ7EUcaw
+	2asysFAc2cPTDlzhh9Vt3Muj4KgzuymZGdAWowUZJcVObKIC700k2eJdULDBoQOBQuFykznll+/
+	H8SPoGsA0kbXu2GCdAT3mNkD+X4G8VuXGwdVeRSk53UBfGdhhaKq5BoRFHRzN5/iNcT/1wcv3+a
+	+S2ebvTJ5Hi1rBBKbKjgveTsr8YDW8m9hoHIXg4K0WeLJdAv/Oy+3vHgSAPqdm6+U+W27U
+X-Received: by 2002:a17:90b:3803:b0:3a0:7591:ad7a with SMTP id 98e67ed59e1d1-3a6ce3b92f2mr9535670a91.5.1791240037537;
+        Mon, 05 Oct 2026 15:40:37 -0700 (PDT)
+Received: from server.lan ([168.138.199.194])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a853e66d7fsm1496243a91.5.2026.10.05.15.40.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 15:40:37 -0700 (PDT)
+From: Coia Prant <coiaprant@gmail.com>
+To: Heiko Stuebner <heiko@sntech.de>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Shawn Lin <shawn.lin@rock-chips.com>,
+	David Heidelberg <david@ixit.cz>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Coia Prant <coiaprant@gmail.com>
+Subject: [PATCH v10 0/2] arm64: dts: rockchip: add RK3568 XPCS nodes and enable SGMII on Photonicat
+Date: Tue,  6 Oct 2026 06:40:06 +0800
+Message-ID: <20261005224008.1140250-1-coiaprant@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] gl-e750-mcu: unconditional buffer clearing drops async UART events
-- [High] gl-e750-mcu: newline-less status replies block async JSON parsing
---
+This series adds the RK3568 XPCS and fixed-clock nodes, and enables the
+SGMII LAN port on the Ariaboard Photonicat.
 
-commit df0b44f7ad4b4bbb857745d8458ec2b575186c6f
-Author: Serv Pol <servpol@tuta.io>
+Dependencies:
+- Generic PM domain (genpd) changes:
+  https://lore.kernel.org/all/20260925041751.495818-1-coiaprant@gmail.com/
+- PHY binding+driver (Naneng Combo PHY SGMII MAC selection):
+  https://lore.kernel.org/all/20261005221229.1095843-1-coiaprant@gmail.com/
+- stmmac XPCS lifetime management fix:
+  https://lore.kernel.org/all/20261005221749.1104430-1-coiaprant@gmail.com/
+- net-next series (XPCS glue, dwmac-rk SGMII support, pcs-handle binding):
+  https://lore.kernel.org/all/20261005223011.1124347-1-coiaprant@gmail.com/
 
-power: supply: Add GL.iNet GL-E750 MCU battery driver
+There is no hard build dependency. DTS validation will pass once the
+binding and driver are present in linux-next, which they will be after
+the PHY and net-next trees merge.
+---
+Coia Prant (2):
+  arm64: dts: rockchip: rk3568: add XPCS and fixed-clock nodes
+  arm64: dts: rockchip: rk3568-photonicat: enable SGMII LAN port
 
-This patch adds a power supply driver for the GL.iNet GL-E750 travel router=
-'s
-status microcontroller. It polls the battery status via JSON over UART every
-30 seconds, and shuts the system down cleanly if a shut_down JSON event is
-received from the MCU.
+ .../boot/dts/rockchip/rk3568-photonicat.dts   | 74 ++++++++++++++++++-
+ arch/arm64/boot/dts/rockchip/rk3568.dtsi      | 45 +++++++++++
+ 2 files changed, 117 insertions(+), 2 deletions(-)
 
-> diff --git a/drivers/power/supply/gl-e750-mcu.c b/drivers/power/supply/gl=
--e750-mcu.c
-> index 0000000000000..0799e41d58a9a 100644
-> --- /dev/null
-> +++ b/drivers/power/supply/gl-e750-mcu.c
+-- 
+2.47.3
 
-[ ... ]
-
-> +static size_t mcu_receive_buf(struct serdev_device *serdev, const u8 *da=
-ta,
-> +			      size_t count)
-> +{
-
-[ ... ]
-
-> +		/* JSON events from the MCU come without a line ending */
-> +		if (c =3D=3D '}' && mcu->rx_line[0] =3D=3D '{' &&
-> +		    strncmp(mcu->rx_line, "{OK}", 4)) {
-
-[Severity: High]
-Does this logic correctly handle asynchronous events appended to a pending
-status reply?
-
-If the MCU replies to a status request without a newline, the reply stays in
-rx_line until the 1.5s timeout. If an asynchronous JSON event (like
-{"shut_down": "1"}) arrives during this window, it is appended to rx_line.
-
-The fast-path JSON parser in mcu_receive_buf() will ignore the new event
-because strncmp(mcu->rx_line, "{OK}", 4) evaluates to 0 (the buffer still
-starts with the pending status reply).
-
-> +			mcu->rx_line[mcu->rx_len] =3D '\0';
-> +			mcu_handle_line(mcu, mcu->rx_line);
-> +			mcu->rx_len =3D 0;
-> +		}
-> +	}
-> +	spin_unlock_irqrestore(&mcu->lock, flags);
-> +
-> +	return count;
-> +}
-
-[ ... ]
-
-> +static void mcu_poll_work(struct work_struct *work)
-> +{
-
-[ ... ]
-
-> +	spin_lock_irqsave(&mcu->lock, flags);
-> +	mcu->rx_len =3D 0;
-
-[Severity: High]
-Could this unconditional buffer clearing drop asynchronous UART events?
-
-If the MCU is actively transmitting an asynchronous event (e.g., flipping t=
-he
-power switch) when this 30-second poll triggers, the partially received mes=
-sage
-currently in rx_line is discarded here. This can lead to an abrupt hard pow=
-er
-cut instead of a clean system shutdown.
-
-> +	reinit_completion(&mcu->reply);
-> +	spin_unlock_irqrestore(&mcu->lock, flags);
-> +
-> +	ret =3D serdev_device_write(mcu->serdev, mcu_status_req,
-> +				  sizeof(mcu_status_req) - 1, timeout);
-> +	if (ret < 0) {
-> +		dev_warn_ratelimited(&mcu->serdev->dev, "write failed: %d\n", ret);
-> +	} else if (!wait_for_completion_timeout(&mcu->reply, timeout)) {
-> +		/* the reply may also come without a line ending */
-> +		spin_lock_irqsave(&mcu->lock, flags);
-> +		mcu->rx_line[mcu->rx_len] =3D '\0';
-> +		if (!(mcu->rx_len > 4 && !strncmp(mcu->rx_line, "{OK}", 4) &&
-> +		      mcu_parse_status(mcu, mcu->rx_line)))
-
-[Severity: High]
-Will this parse the combined buffer correctly?
-
-When the 1.5s timeout subsequently triggers, mcu_parse_status() attempts to
-parse the concatenated string. The parsing fails because the final numeric =
-field
-(cycles) is concatenated with the JSON event (e.g., 10{"shut_down": "1"}), =
-which
-fails strict string-to-integer conversion (kstrtoint()). Both messages are =
-then
-lost.
-
-> +			dev_dbg(&mcu->serdev->dev, "no status reply\n");
-> +		mcu->rx_len =3D 0;
-
-[Severity: High]
-Similarly, does clearing the buffer here truncate asynchronous events that =
-were
-just being received when the timeout expires?
-
-Like the pre-emptive clear at the start of mcu_poll_work(), clearing rx_len
-here on timeout risks discarding partially received asynchronous messages. =
-Both
-issues can result in missing the critical "shut_down" signal.
-
-> +		spin_unlock_irqrestore(&mcu->lock, flags);
-> +	}
-> +
-> +	schedule_delayed_work(&mcu->poll_work,
-> +			      msecs_to_jiffies(MCU_POLL_INTERVAL_MS));
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261005-gl-e750-mc=
-u-v1-0-499d2e31f786@tuta.io?part=3D2
