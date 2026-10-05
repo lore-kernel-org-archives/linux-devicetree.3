@@ -1,408 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out203-205-221-192.mail.qq.com (out203-205-221-192.mail.qq.com [203.205.221.192])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FB6F4CCDCB;
-	Mon,  5 Oct 2026 16:05:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA0EE2868B4;
+	Mon,  5 Oct 2026 16:26:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.192
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791216316; cv=none; b=IpWeJEl/zGNNiVULZEoyfhrH9W3WBdatx0eh22S603VtStEPlecqj7CBRKiz/tnJ4DY+j8bIRFqpK/wwrKyVl6INsHmCTT7NUgOv3mdJO6ZDIuwTxTXtHbgwrj4cYqJhMmCh0SqSqkjPpjF8Grt8to5lwdKrwTp71I+Hg1+U3Ww=
+	t=1791217590; cv=none; b=P5OooGMP/kaovbC8ipm6mVM5aJZ7vCERtOiLh8Mlv57d/LL7oNDr2ehm0sXftLoIEVJUJ4ZC/cecqcAwuO9io+121zx9T8YDWlpNIGqSn+DhAUm5eMlREURDMHUo725VFZXREQwYYAKkjPy83uSCW9HbwCHaFMt3w90WN/HKLlM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791216316; c=relaxed/simple;
-	bh=GPmLO0mY19ZSZuVAhtA0nv7PEpGlGGOyDTKBGsxziDw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=af4SvNyzw05En4z0vQ5n8wjgBLoTXKUxHQVtCy67csd+XpPpRgwCooVX4AxAxuGcHRnyfhTi3PfsUO9Dxw0OPpoBMQzjdjvcJV6ft3sk9/sFfDec6FAjGv6v5BmuP+ZqbS3k1ZrFF8TiBEsEQB0/MZRXXet/mz3P9sFMGNmdtxM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A0i4Iiq9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791217590; c=relaxed/simple;
+	bh=phdlOyf84M4P8eS3CzyzOJ5O5iOvaPgqXrBfM1TDcpg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=blf9BCcobpUmyBVXHYoDfmB8z0EjtyBW/S+BuixKHSTV+DOgndrw+gpEaUtK4ZgDO8Q/vtsvlg77DI4pmjP7IqTsnCE7netCvaxG13oT1CcDqfiI31mUUKrP/5Cg7okWp/xbxp6foPHueCahKtSKqSWHWEX0zDEIFBHzozWfC54=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=MfTGUDxi; arc=none smtp.client-ip=203.205.221.192
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A0i4Iiq9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 35A511F000FF;
-	Mon,  5 Oct 2026 16:05:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791216314;
-	bh=YbL5X+/GeJAK4u6KKvcMiWqewAkh3e4GACS9RWX4Vuc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=A0i4Iiq9i6Jl9GeonyVXKvbcSbaLZh/zZ3+PpXUw/ggwfow4HcGNlotRWjNnMwuWX
-	 by93fkR4UJDx3PFOslexDFUL57P/gZQaMWxaNNajTAU8vFHqZ9unXj6dgT5/02LpVh
-	 6V0zZGmGCP+UUWtymIkLk/+Opsw+ULzIkK+4ra+0XgWU4L+TgmCxi2ucu7HYalJDqv
-	 CVTf1cyWu6PbnXp9v843RcviQK2GchkWXPscbLcEBiiM2GQqpsFV8Nx7F4t9UyNG0q
-	 6eEMSYL6bJVqNHFxNP8xmExqETAqFdi7HYVkhbLR8rLqDun4cvfxwIJK+FpLxaqsiH
-	 EexxiKq/tIhmw==
-Date: Mon, 5 Oct 2026 18:05:11 +0200
-From: Vinod Koul <vkoul@kernel.org>
-To: Sai Sree Kartheek Adivi <s-adivi@ti.com>
-Cc: peter.ujfalusi@gmail.com, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, nm@ti.com, ssantosh@kernel.org,
-	dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	vigneshr@ti.com, Frank.li@nxp.com, r-sharma3@ti.com,
-	gehariprasath@ti.com
-Subject: Re: [PATCH v11 12/19] drivers: soc: ti: k3-ringacc: handle absence
- of tisci
-Message-ID: <asPKt_QuEAjey62J@parshuram>
-References: <20261001084105.1692228-1-s-adivi@ti.com>
- <20261001084105.1692228-13-s-adivi@ti.com>
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="MfTGUDxi"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1791217577; bh=mM96EH6+OvEcFcgZIg/Izjec9utL//+6+FzoZE3eP/I=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=MfTGUDxi+UN0hsK/OAOGHm2aw/nh9jCYFSf20bmqP+QC6h2h6Qg+VIb0hdERWJqHI
+	 8ikH80zF+Ja00BLxE4GoRbLooTm1xI/WArbQ66KmuTZMyM2lNrEqEAWxr7OAGWTE6a
+	 2GUQtnC1vTGqGPjAwbhDIy8FzjAzMxUdXqhgrVtA=
+Received: from [198.18.0.1] ([2409:8a7c:21c:8010:c675:1308:618e:14ff])
+	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
+	id 68EABA6E; Tue, 06 Oct 2026 00:26:14 +0800
+X-QQ-mid: xmsmtpt1791217574thc5z48a5
+Message-ID: <tencent_13712505F7B9023560934C4431D3411C1508@qq.com>
+X-QQ-XMAILINFO: Me8mHstNM5a8SJ1BJzUVkamztcveQ3txPTzgUYUGcf+HueWlJZc2WpvtxLMDfw
+	 APP03LMvlAUXwRXad9ICAXzfE1q3sj1h/EiynQQmAjd2YYdYLbufeaeo3zUmGXdwsE60wrhXFyL6
+	 N/7wMfc6KQVmxmDO+KeNpZe+KagorjYyndye/7s7sxF+n9cQVFIqtl3zWDfmq62EBmKCSRVG/jei
+	 TGFhGohyKb4UrwnJCzdguv4e5Az+1o3z6X9yZHVfZXbxgeAoj4p9IGQFh3I8NwY2cYzdzrMgjva7
+	 cqYWnteOl5/wZ1P6ZMcNU8lYLg2D4KmaTEiausW4J7rqkfyIDMBanoPZxJpm7fR22GXG+gloF9Ab
+	 p1/C1cR2jq9OlZu63j2APyeq1UfF7bin2ZgG/ZwHRafAGVdAIdIxmsC2NcD+Ll6a3jABMo7qWdEB
+	 4GnWzj9W520b64Vn4bS0uHxxfF+vX2omtYlIVUDp3DZVie7jTOHm4wbhHakk739n0LwAnIszbCJ4
+	 fHcYdD7y7/moEhzhGLeNekxzOwaFiCNYUxrAJ1c2YsMVMHx3OW6yR+X1eyLUbLbwBXVEHXq+Fq3q
+	 EwnYQoN3hc3zMspH476AGbyrvzZ//GICk4kbWhcq5dHQJLoMXhJKHJAj9pIQIPcv6hAYDqDKQNg3
+	 m+KVhX9PsYxyzduXBOLxqlBRHCUak4ANcZvRpyUdRnAj0/JdYmXzthGDHQsud1iDStd9y83DQHBC
+	 /o6Q/qbaRwqLmHAC+Q7DlwFyF8ukhTQOjBmG4iuNiHJwziuSgWtK2oskN90zd2EsC8zH0lyi6qrK
+	 Nk2MwSstGeOPJ0PKH/Kt+BuYqfDWuUCyG4VG09byMPkCW3pwRkHln7SyXCalflR1tQks3aI+YxNo
+	 /Zwk9+6Kf+WclgCnKhLA7jaURpSExwgZz9vKhgVgrS+/o+SlxxTp/TUnRIMOIAF2fkSyEso32/W4
+	 zAbec6F0b+gzUAhfLS+l5OqCW+KMHdunWnzyfSEjXFUpfgXDHb4kyf2NFJMnP8WVWATDxm6aK7jW
+	 DVNJ/e9QlKoXUVYRYvtlF5y0sguQmj5mhCna/MdlbDIMc0j2rQ
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+X-OQ-MSGID: <e2571f5c-820d-4d4c-85ac-1908b55db0ed@qq.com>
+Date: Tue, 6 Oct 2026 00:26:14 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001084105.1692228-13-s-adivi@ti.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] arm64: zynqmp: Add EBDEE EdgeBoard FZ3A development
+ board
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: Conor Dooley <conor+dt@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Michal Simek
+ <michal.simek@amd.com>, Rob Herring <robh@kernel.org>,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20261003194625.936288-1-2254650260@qq.com>
+ <tencent_06FFBD8580099835137D0C541050057B4906@qq.com>
+ <fb944e1e-2386-4e5e-a2f8-8c0ccf66362f@lunn.ch>
+Content-Language: en-US
+From: Pufan Jin <2254650260@qq.com>
+In-Reply-To: <fb944e1e-2386-4e5e-a2f8-8c0ccf66362f@lunn.ch>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 01-10-26, 14:10, Sai Sree Kartheek Adivi wrote:
-> Handle absence of tisci with direct register writes. This will support
-> platforms that do not have tisci firmware like AM62L.
 
-Need ack from TI maintainers on this... I think we have dependency on
-this here
+On 2026/10/5 05:25, Andrew Lunn wrote:
+>> +&gem3 {
+>> +	clocks = <&lpd_lsbus>, <&zynqmp_clk GEM3_REF>,
+>> +		 <&zynqmp_clk GEM3_TX>, <&zynqmp_clk GEM3_RX>,
+>> +		 <&zynqmp_clk GEM_TSU>;
+>> +	phy-mode = "rgmii-id";
+>> +	status = "okay";
+>> +};
+> No MDIO bus? No phy-handle?
+>
+>     Andrew
+Hi Andrew,
 
-> 
-> Signed-off-by: Sai Sree Kartheek Adivi <s-adivi@ti.com>
-> ---
->  drivers/soc/ti/k3-ringacc.c       | 199 +++++++++++++++++++++++++++---
->  include/linux/soc/ti/k3-ringacc.h |  18 +++
->  2 files changed, 198 insertions(+), 19 deletions(-)
-> 
-> diff --git a/drivers/soc/ti/k3-ringacc.c b/drivers/soc/ti/k3-ringacc.c
-> index 5966db4327b13..d52e0ab33678c 100644
-> --- a/drivers/soc/ti/k3-ringacc.c
-> +++ b/drivers/soc/ti/k3-ringacc.c
-> @@ -7,6 +7,7 @@
->  
->  #include <linux/dma-mapping.h>
->  #include <linux/io.h>
-> +#include <linux/iopoll.h>
->  #include <linux/module.h>
->  #include <linux/of.h>
->  #include <linux/platform_device.h>
-> @@ -46,6 +47,53 @@ struct k3_ring_rt_regs {
->  	u32	hwindx;
->  };
->  
-> +#define K3_RINGACC_RT_CFG_REGS_OFS	0x40
-> +#define K3_DMARING_CFG_ADDR_HI_MASK	GENMASK(3, 0)
-> +#define K3_DMARING_CFG_ASEL_SHIFT	16
-> +#define K3_DMARING_CFG_SIZE_MASK	GENMASK(15, 0)
-> +
-> +/**
-> + * struct k3_ring_cfg_regs - The RA Configuration Registers region
-> + *
-> + * @ba_lo: Ring Base Address Low Register
-> + * @ba_hi: Ring Base Address High Register
-> + * @size: Ring Size Register
-> + */
-> +struct k3_ring_cfg_regs {
-> +	u32	ba_lo;
-> +	u32	ba_hi;
-> +	u32	size;
-> +};
-> +
-> +#define K3_RINGACC_RT_INT_REGS_OFS		0x140
-> +#define K3_RINGACC_RT_INT_ENABLE_SET_COMPLETE	BIT(0)
-> +#define K3_RINGACC_RT_INT_ENABLE_SET_TR			BIT(2)
-> +
-> +/**
-> + * struct k3_ring_intr_regs {
-> + *
-> + * @enable_set: Ring Interrupt Enable Register
-> + * @resv_1: Reserved
-> + * @clr: Ring Interrupt Clear Register
-> + * @resv_2: Reserved
-> + * @status_set: Ring Interrupt Status Set Register
-> + * @resv_3: Reserved
-> + * @status: Ring Interrupt Status Register
-> + * @resv_4: Reserved
-> + * @status_masked: Ring Interrupt Status Masked Register
-> + */
-> +struct k3_ring_intr_regs {
-> +	u32	enable_set;
-> +	u32	resv_1;
-> +	u32	clr;
-> +	u32	resv_2;
-> +	u32	status_set;
-> +	u32	resv_3;
-> +	u32	status;
-> +	u32	resv_4;
-> +	u32	status_masked;
-> +};
-> +
->  #define K3_RINGACC_RT_REGS_STEP			0x1000
->  #define K3_DMARING_RT_REGS_STEP			0x2000
->  #define K3_DMARING_RT_REGS_REVERSE_OFS		0x1000
-> @@ -139,6 +187,8 @@ struct k3_ring_state {
->   * struct k3_ring - RA Ring descriptor
->   *
->   * @rt: Ring control/status registers
-> + * @cfg: Ring config registers
-> + * @intr: Ring interrupt registers
->   * @fifos: Ring queues registers
->   * @proxy: Ring Proxy Datapath registers
->   * @ring_mem_dma: Ring buffer dma address
-> @@ -158,6 +208,8 @@ struct k3_ring_state {
->   */
->  struct k3_ring {
->  	struct k3_ring_rt_regs __iomem *rt;
-> +	struct k3_ring_cfg_regs __iomem *cfg;
-> +	struct k3_ring_intr_regs __iomem *intr;
->  	struct k3_ring_fifo_regs __iomem *fifos;
->  	struct k3_ringacc_proxy_target_regs  __iomem *proxy;
->  	dma_addr_t	ring_mem_dma;
-> @@ -467,15 +519,39 @@ static void k3_ringacc_ring_reset_sci(struct k3_ring *ring)
->  	struct k3_ringacc *ringacc = ring->parent;
->  	int ret;
->  
-> -	ring_cfg.nav_id = ringacc->tisci_dev_id;
-> -	ring_cfg.index = ring->ring_id;
-> -	ring_cfg.valid_params = TI_SCI_MSG_VALUE_RM_RING_COUNT_VALID;
-> -	ring_cfg.count = ring->size;
-> +	if (!ringacc->tisci) {
-> +		u32 reg;
->  
-> -	ret = ringacc->tisci_ring_ops->set_cfg(ringacc->tisci, &ring_cfg);
-> -	if (ret)
-> -		dev_err(ringacc->dev, "TISCI reset ring fail (%d) ring_idx %d\n",
-> -			ret, ring->ring_id);
-> +		if (!ring->cfg)
-> +			return;
-> +
-> +		reg = readl(&ring->cfg->size);
-> +		reg &= ~K3_DMARING_CFG_SIZE_MASK;
-> +		writel(reg, &ring->cfg->size);
-> +
-> +		ret = readl_poll_timeout(&ring->cfg->size, reg,
-> +					  !(reg & K3_DMARING_CFG_SIZE_MASK),
-> +					  1, 100);
-> +		if (ret) {
-> +			dev_err(ringacc->dev, "ring %d size clear timeout\n",
-> +				ring->ring_id);
-> +			return;
-> +		}
-> +
-> +		reg = readl(&ring->cfg->size);
-> +		reg |= ring->size;
-> +		writel(reg, &ring->cfg->size);
-> +	} else {
-> +		ring_cfg.nav_id = ringacc->tisci_dev_id;
-> +		ring_cfg.index = ring->ring_id;
-> +		ring_cfg.valid_params = TI_SCI_MSG_VALUE_RM_RING_COUNT_VALID;
-> +		ring_cfg.count = ring->size;
-> +
-> +		ret = ringacc->tisci_ring_ops->set_cfg(ringacc->tisci, &ring_cfg);
-> +		if (ret)
-> +			dev_err(ringacc->dev, "TISCI reset ring fail (%d) ring_idx %d\n",
-> +				ret, ring->ring_id);
-> +	}
->  }
->  
->  void k3_ringacc_ring_reset(struct k3_ring *ring)
-> @@ -501,6 +577,9 @@ static void k3_ringacc_ring_reconfig_qmode_sci(struct k3_ring *ring,
->  	ring_cfg.valid_params = TI_SCI_MSG_VALUE_RM_RING_MODE_VALID;
->  	ring_cfg.mode = mode;
->  
-> +	if (!ringacc->tisci)
-> +		return;
-> +
->  	ret = ringacc->tisci_ring_ops->set_cfg(ringacc->tisci, &ring_cfg);
->  	if (ret)
->  		dev_err(ringacc->dev, "TISCI reconf qmode fail (%d) ring_idx %d\n",
-> @@ -576,10 +655,40 @@ static void k3_ringacc_ring_free_sci(struct k3_ring *ring)
->  	ring_cfg.index = ring->ring_id;
->  	ring_cfg.valid_params = TI_SCI_MSG_VALUE_RM_ALL_NO_ORDER;
->  
-> -	ret = ringacc->tisci_ring_ops->set_cfg(ringacc->tisci, &ring_cfg);
-> -	if (ret)
-> -		dev_err(ringacc->dev, "TISCI ring free fail (%d) ring_idx %d\n",
-> -			ret, ring->ring_id);
-> +	if (!ringacc->tisci) {
-> +		u32 reg;
-> +
-> +		writel(K3_RINGACC_RT_INT_ENABLE_SET_COMPLETE | K3_RINGACC_RT_INT_ENABLE_SET_TR,
-> +		       &ring->intr->clr);
-> +
-> +		reg = readl(&ring->cfg->size);
-> +		reg &= ~K3_DMARING_CFG_SIZE_MASK;
-> +		writel(reg, &ring->cfg->size);
-> +
-> +		ret = readl_poll_timeout(&ring->cfg->size, reg,
-> +					  !(reg & K3_DMARING_CFG_SIZE_MASK),
-> +					  1, 100);
-> +		if (ret) {
-> +			dev_err(ringacc->dev, "ring %d size clear timeout\n",
-> +				ring->ring_id);
-> +			return;
-> +		}
-> +
-> +		reg = readl(&ring->cfg->size);
-> +		reg |= ring_cfg.count & K3_DMARING_CFG_SIZE_MASK;
-> +
-> +		writel(reg, &ring->cfg->size);
-> +
-> +		writel(ring_cfg.addr_lo, &ring->cfg->ba_lo);
-> +		writel((ring_cfg.addr_hi & K3_DMARING_CFG_ADDR_HI_MASK) +
-> +				(ring_cfg.asel << K3_DMARING_CFG_ASEL_SHIFT),
-> +				&ring->cfg->ba_hi);
-> +	} else {
-> +		ret = ringacc->tisci_ring_ops->set_cfg(ringacc->tisci, &ring_cfg);
-> +		if (ret)
-> +			dev_err(ringacc->dev, "TISCI ring free fail (%d) ring_idx %d\n",
-> +				ret, ring->ring_id);
-> +	}
->  }
->  
->  int k3_ringacc_ring_free(struct k3_ring *ring)
-> @@ -670,15 +779,36 @@ int k3_ringacc_get_ring_irq_num(struct k3_ring *ring)
->  }
->  EXPORT_SYMBOL_GPL(k3_ringacc_get_ring_irq_num);
->  
-> +u32 k3_ringacc_ring_get_irq_status(struct k3_ring *ring)
-> +{
-> +	struct k3_ringacc *ringacc = ring->parent;
-> +	struct k3_ring *fwd_ring = &ringacc->rings[ring->ring_id];
-> +
-> +	if (!fwd_ring->intr)
-> +		return 0;
-> +
-> +	return readl(&fwd_ring->intr->status);
-> +}
-> +EXPORT_SYMBOL_GPL(k3_ringacc_ring_get_irq_status);
-> +
-> +void k3_ringacc_ring_clear_irq(struct k3_ring *ring, u32 status)
-> +{
-> +	struct k3_ringacc *ringacc = ring->parent;
-> +	struct k3_ring *fwd_ring = &ringacc->rings[ring->ring_id];
-> +
-> +	if (!fwd_ring->intr)
-> +		return;
-> +
-> +	writel(status, &fwd_ring->intr->status);
-> +}
-> +EXPORT_SYMBOL_GPL(k3_ringacc_ring_clear_irq);
-> +
->  static int k3_ringacc_ring_cfg_sci(struct k3_ring *ring)
->  {
->  	struct ti_sci_msg_rm_ring_cfg ring_cfg = { 0 };
->  	struct k3_ringacc *ringacc = ring->parent;
->  	int ret;
->  
-> -	if (!ringacc->tisci)
-> -		return -EINVAL;
-> -
->  	ring_cfg.nav_id = ringacc->tisci_dev_id;
->  	ring_cfg.index = ring->ring_id;
->  	ring_cfg.valid_params = TI_SCI_MSG_VALUE_RM_ALL_NO_ORDER;
-> @@ -689,6 +819,24 @@ static int k3_ringacc_ring_cfg_sci(struct k3_ring *ring)
->  	ring_cfg.size = ring->elm_size;
->  	ring_cfg.asel = ring->asel;
->  
-> +	if (!ringacc->tisci) {
-> +		u32 reg;
-> +
-> +		writel(ring_cfg.addr_lo, &ring->cfg->ba_lo);
-> +		writel((ring_cfg.addr_hi & K3_DMARING_CFG_ADDR_HI_MASK) +
-> +				(ring_cfg.asel << K3_DMARING_CFG_ASEL_SHIFT),
-> +				&ring->cfg->ba_hi);
-> +
-> +		reg = readl(&ring->cfg->size);
-> +		reg &= ~K3_DMARING_CFG_SIZE_MASK;
-> +		reg |= ring_cfg.count & K3_DMARING_CFG_SIZE_MASK;
-> +
-> +		writel(reg, &ring->cfg->size);
-> +		writel(K3_RINGACC_RT_INT_ENABLE_SET_COMPLETE | K3_RINGACC_RT_INT_ENABLE_SET_TR,
-> +		       &ring->intr->enable_set);
-> +		return 0;
-> +	}
-> +
->  	ret = ringacc->tisci_ring_ops->set_cfg(ringacc->tisci, &ring_cfg);
->  	if (ret)
->  		dev_err(ringacc->dev, "TISCI config ring fail (%d) ring_idx %d\n",
-> @@ -1347,6 +1495,11 @@ static int k3_ringacc_probe_dt(struct k3_ringacc *ringacc)
->  		return PTR_ERR(ringacc->rm_gp_range);
->  	}
->  
-> +	if (!IS_ENABLED(CONFIG_TI_SCI_INTA_MSI_DOMAIN)) {
-> +		dev_err(dev, "TI_SCI_INTA_MSI_DOMAIN is required for a DT-probed ringacc with ti,sci\n");
-> +		return -ENODEV;
-> +	}
-> +
->  	return ti_sci_inta_msi_domain_alloc_irqs(ringacc->dev,
->  						 ringacc->rm_gp_range);
->  }
-> @@ -1481,9 +1634,12 @@ struct k3_ringacc *k3_ringacc_dmarings_init(struct platform_device *pdev,
->  
->  	mutex_init(&ringacc->req_lock);
->  
-> -	base_rt = devm_platform_ioremap_resource_byname(pdev, "ringrt");
-> -	if (IS_ERR(base_rt))
-> -		return ERR_CAST(base_rt);
-> +	base_rt = data->base_rt;
-> +	if (!base_rt) {
-> +		base_rt = devm_platform_ioremap_resource_byname(pdev, "ringrt");
-> +		if (IS_ERR(base_rt))
-> +			return ERR_CAST(base_rt);
-> +	}
->  
->  	ringacc->rings = devm_kzalloc(dev,
->  				      sizeof(*ringacc->rings) *
-> @@ -1499,6 +1655,10 @@ struct k3_ringacc *k3_ringacc_dmarings_init(struct platform_device *pdev,
->  		struct k3_ring *ring = &ringacc->rings[i];
->  
->  		ring->rt = base_rt + K3_DMARING_RT_REGS_STEP * i;
-> +		ring->cfg = base_rt + K3_RINGACC_RT_CFG_REGS_OFS +
-> +			    K3_DMARING_RT_REGS_STEP * i;
-> +		ring->intr = base_rt + K3_RINGACC_RT_INT_REGS_OFS +
-> +			     K3_DMARING_RT_REGS_STEP * i;
->  		ring->parent = ringacc;
->  		ring->ring_id = i;
->  		ring->proxy_id = K3_RINGACC_PROXY_NOT_USED;
-> @@ -1512,7 +1672,8 @@ struct k3_ringacc *k3_ringacc_dmarings_init(struct platform_device *pdev,
->  		ring->flags = K3_RING_FLAG_REVERSE;
->  	}
->  
-> -	ringacc->tisci_ring_ops = &ringacc->tisci->ops.rm_ring_ops;
-> +	if (ringacc->tisci)
-> +		ringacc->tisci_ring_ops = &ringacc->tisci->ops.rm_ring_ops;
->  
->  	dev_info(dev, "Number of rings: %u\n", ringacc->num_rings);
->  
-> diff --git a/include/linux/soc/ti/k3-ringacc.h b/include/linux/soc/ti/k3-ringacc.h
-> index 39b022b925986..4b6ec925e2f2d 100644
-> --- a/include/linux/soc/ti/k3-ringacc.h
-> +++ b/include/linux/soc/ti/k3-ringacc.h
-> @@ -158,6 +158,23 @@ u32 k3_ringacc_get_ring_id(struct k3_ring *ring);
->   */
->  int k3_ringacc_get_ring_irq_num(struct k3_ring *ring);
->  
-> +/**
-> + * k3_ringacc_ring_get_irq_status - Get the irq status for the ring
-> + * @ring: pointer on ring
-> + *
-> + * Returns the interrupt status
-> + */
-> +u32 k3_ringacc_ring_get_irq_status(struct k3_ring *ring);
-> +
-> +/**
-> + * k3_ringacc_ring_clear_irq - Clear the given interrupts
-> + * @ring: pointer on ring
-> + * @status: mask of interrupt status bits to clear
-> + *
-> + * Clears only the interrupt status bits set in @status on the ring
-> + */
-> +void k3_ringacc_ring_clear_irq(struct k3_ring *ring, u32 status);
-> +
->  /**
->   * k3_ringacc_ring_cfg - ring configure
->   * @ring: pointer on ring
-> @@ -262,6 +279,7 @@ struct k3_ringacc_init_data {
->  	const struct ti_sci_handle *tisci;
->  	u32 tisci_dev_id;
->  	u32 num_rings;
-> +	void __iomem *base_rt;
->  };
->  
->  struct k3_ringacc *k3_ringacc_dmarings_init(struct platform_device *pdev,
-> -- 
-> 2.55.0
+Thanks for the review. In v1, the mdio node and phy-handle were omitted,
+relying on the Cadence MACB driver's MDIO auto-probing, which was 
+incomplete.
 
--- 
-~Vinod
+According to the hardware schematics and live register readback, the board
+has an on-board Micrel KSZ9031RNX Gigabit PHY strapped to MDIO address 1
+(PHYAD[2:0] = 001b, PHY ID 0x00221620).
+
+In v2, I have added an explicit mdio bus node with the PHY at reg = <1>:
+
+```
+     mdio {
+         phy0: ethernet-phy@1 {
+             reg = <1>;
+             compatible = "ethernet-phy-id0022.1620";
+         };
+     };
+```
+
+and referenced it with phy-handle = <&phy0> under phy-mode = "rgmii-id".
+
+This has been validated on physical hardware at 1000 Mbps Full Duplex
+with zero CRC/frame errors.
+
+Best regards,
+Pufan Jin
+
