@@ -1,89 +1,95 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95AF03876BE;
-	Mon,  5 Oct 2026 20:59:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA5843BB671
+	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 21:00:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791233982; cv=none; b=n4lnM/0rMUFCWY7bC9SzOUhdXCEqFGV+iOQOsw/vyUYNyBO8ihUYeunN3YKWwRXfilEe0DJXbz696K8sDnL5xluga3gNr1QVrRl66Y0bL0fhNIYvoEie4mRbPGg/nQKfsUDQn52VRmxosoCNW+svfpHuWci5TRebKVPDep7VnWg=
+	t=1791234036; cv=none; b=UmPrWj6NtWt+ud1uFOMnGDfErGNv/2xyW6e2eYEaJ2K2nIykoysaJ9SfKWqFtu83OWj00BA7PWjSqiYabK9qa9kU+74ZE085XYdUkxHcFFuKAvHwrveYWZAoHQx2pA8O92VKcTWrwQV4pQrQNOvinZ5HNb2H6+zP4P0c1ZTuXiM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791233982; c=relaxed/simple;
-	bh=mVWgfGZfotmXvsJphNGazrhH2AwQ7eNHb3tlBoti7d4=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=kHgroCkvOhVPKGq+KaBJIcag9l22yG52r9F+B4KURRjLdgv0+GeFRUY/1knRL4XWk1GgQQrPutGPFlTbem3wD7oJdharUTV7dkruCfbcWU2Q5deSAYSGsyUrNOe72rkuSwgxlIlAiaqOTKeYBgqfOdSkqqMLdgUMfGuEtt0WqJ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B3kTnT4a; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791234036; c=relaxed/simple;
+	bh=8yg3jhaaVEm2BYZ2jMfK219y5rlWshCXYnvNK7e5XTw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=MDi+s591Rq1BEDxjlxBAXrLm8Ve1Tr04KXbnshq0GHy6qqK9czoPDZ9Ua7Tr6i4FQhc1M409ws3vBAbTtZha6N/k2YC50YcAFAj7NWLQZtsP/2y+3QxktsegMNzl/X9+95yw0OynHW8Dce+5DIfBy2SmG5vnVDRz+ad4SVInMwU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NMPlURJS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B3kTnT4a"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D2AF1F000FF;
-	Mon,  5 Oct 2026 20:59:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NMPlURJS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FD341F000FF;
+	Mon,  5 Oct 2026 21:00:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791233981;
-	bh=Hd4+5Wpltbd4UHs8m7Jg0BtmW4zxBsg77tDhADJx1qU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=B3kTnT4aYxXIrltShEqfO8pnc3XaIm0eVzw1o4Xekcf3wYgLM8ESzohQfGoVi9DQl
-	 d7wzRQPMTuCXTB8C7AorKMNdpSCdH0VKdun7BqkR5lt+CYcmpz5SgB1h/fCFJbMBxq
-	 5XpoVR08NsSPs8MBVZ/dk1sKIHqsX4DN5D182EBjT+taB9U3Hj/Nf7FC6WLJmX87vr
-	 Ypl8i9d0hIMOyA/eQKwYHwcQEBlK1cNIPjuljt8kjkjQfF/PuNJrKLLSS4lRZbQBu7
-	 kyVy07a+v8Rp8YIyd+UuAA2umIMXyFPTdjelr14S9l77O0YEZN/Lx6wDVNb8/pYxSj
-	 K+WZMgH76ajqA==
-Date: Mon, 5 Oct 2026 13:59:39 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Coia Prant <coiaprant@gmail.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo Abeni
- <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner
- <heiko@sntech.de>, Vinod Koul <vkoul@kernel.org>, Maxime Chevallier
- <maxime.chevallier@bootlin.com>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Lad Prabhakar
- <prabhakar.mahadev-lad.rj@bp.renesas.com>, Romain Gantois
- <romain.gantois@bootlin.com>, Heiner Kallweit <hkallweit1@gmail.com>, Neil
- Armstrong <neil.armstrong@linaro.org>, Russell King
- <linux@armlinux.org.uk>, Shawn Lin <shawn.lin@rock-chips.com>, David
- Heidelberg <david@ixit.cz>, netdev@vger.kernel.org,
- linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH net-next v10 03/11] phy: rockchip: naneng-combphy: add
- SGMII MAC selection for RK3568
-Message-ID: <20261005135939.01ccde50@kernel.org>
-In-Reply-To: <20260922200336.2201212-4-coiaprant@gmail.com>
-References: <20260922200336.2201212-1-coiaprant@gmail.com>
-	<20260922200336.2201212-4-coiaprant@gmail.com>
+	s=k20260515; t=1791234035;
+	bh=NZnig060A2+dyXYPVegaaaDgcgCAkb4dTQ1fT3mGOV8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=NMPlURJSr+WV2vaLeQkGrdPvkWC6C4GVqGe4kivANXIFsorAURSDfDQqPh/0XMo2W
+	 k04NXKqsDtr2RIr40pJy32XeYiOtPgcFz6Y8oj9QHVHJRruAxXhJT010WXbCzw4CA4
+	 GZA7b3NcF7h/vapElpaIoh+XTBngfduOlAYmeAbEaOv6mJbHVTRKmcydCNIcxeI26O
+	 YDjsSkm975DToeKn7Ab0ZehDeUl+vS9x37AD/cT9PKc+5kfpD7wBPs3ThLk/3GlzQC
+	 gooIS5PEqGe+8az+e8PftjnhxBJjY/1L4rgGIOz41OsAly2546/qnNw4YR7Rxr6WUP
+	 6wV9+5hZ97PpQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] dt-bindings: bus: Add HiSilicon local bus
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?Um9iIEhlcnJpbmcgKEFybSk=?= <robh@kernel.org>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20261005205310.2079198-1-robh@kernel.org>
+References: <20261005205310.2079198-1-robh@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 05 Oct 2026 21:00:34 +0000
+Message-Id: <20261005210035.1FD341F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Wed, 23 Sep 2026 04:03:27 +0800 Coia Prant wrote:
-> On RK3568, the SGMII interface can be routed to either GMAC0 or
-> GMAC1 via the GRF register pipe_sgmii_mac_sel.
-> 
-> Add support for this selection by introducing
-> the "rockchip,sgmii-mac-sel" DT property.
-> 
-> From the RK3568 TRM (Part1, Page 229), the PIPE_GRF_XPCS_CON0
-> bit 1 (pipe_sgmii_mac_sel) is defined as:
-> 
->     0: SGMII routed to GMAC0
->     1: SGMII routed to GMAC1
-> 
-> The hardware reset value is 1 (GMAC1). If the property is set to 0,
-> the driver routes SGMII to GMAC0; if set to 1 (or omitted), it
-> remains at GMAC1.
-> 
-> This is necessary for boards such as the Ariaboard Photonicat, which
-> uses the SGMII interface connected to GMAC0.
-> 
-> Out-of-range values are rejected by dtschema, so the driver does not
-> duplicate the range check.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] dt-bindings: missing `required` block allows nodes without `reg` to=
+ pass
+--
 
-While looking thru the patches again I noticed this is changing generic
-PHY. Maybe you can send it separately to Vinod? I don't see a hard
-dependency? The code can "converge" during the merge window for the
-whole thing to work.
+commit 31cf8e8c992601dbcd36de1b649ef5c513febf6f
+Author: Rob Herring (Arm) <robh@kernel.org>
+
+dt-bindings: bus: Add HiSilicon local bus
+
+This commit introduces a new device tree binding schema for the HiSilicon l=
+ocal
+bus. It sets up validation constraints for the compatible string and regist=
+ers.
+
+> diff --git a/Documentation/devicetree/bindings/bus/hisilicon,hisi-localbu=
+s.yaml b/Documentation/devicetree/bindings/bus/hisilicon,hisi-localbus.yaml
+> new file mode 100644
+> index 0000000000000..cd9ecea88269f
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/bus/hisilicon,hisi-localbus.yaml
+
+[ ... ]
+
+> +properties:
+> +  compatible:
+> +    items:
+> +      - const: hisilicon,hisi-localbus
+> +      - const: simple-bus
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +unevaluatedProperties: false
+
+[Severity: Low]
+Should this schema include a required array to enforce the presence of the
+compatible and reg properties?
+
+Because properties are optional by default, omitting an explicit required
+block here means that incomplete device tree nodes missing either the reg
+property or the compatible string will silently pass dtbs_check validation
+without enforcing the constraints defined above.
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261005205310.2079=
+198-1-robh@kernel.org?part=3D1
