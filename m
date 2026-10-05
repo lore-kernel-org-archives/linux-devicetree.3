@@ -1,46 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CE6E4CDA0E;
-	Mon,  5 Oct 2026 15:43:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 473294C7525;
+	Mon,  5 Oct 2026 15:43:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791214990; cv=none; b=K10X2GhDv4sGiy4+fEWwX8+480eC3fKQ81PS0q+dPzFESRdpcC/bT+EDusDW5xYGaij8JTEF5vmxo7qQHOMyP9NjxLFJ3DVRCAq5cwoHqRb77BkPjYtadXhHMm1huE3mEoChvW07aBNLiSVwBTaVYOqgl+8XYZEh/fY5Hlj/X7c=
+	t=1791215002; cv=none; b=qnFSQxx2WMgTm9IbwaCbLpan/WyotYiaH5lJgKkd/YKQsI70XdnjrapNOCIhVkA/wuI/qv1i7JrmyKgZBxoVi91g2qYHGJdmnp0UZUN/HedfEPAnUHW8gShIIeNtB1M74oCKf8nvgTUtLprjBhiDvIivy5rZFlZ73fjNnZ6Xr4Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791214990; c=relaxed/simple;
-	bh=TZ37uppsEKT6O/lt70QLZZW1s9HfosgORGRDGdRokKw=;
+	s=arc-20240116; t=1791215002; c=relaxed/simple;
+	bh=sBPJsWJD7jRbBco4v3/h7Y1y5JJ1gET+qXh1zu7Aq/Y=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=daOaDNgnYd+gFWUV0aTiVZtu7NBd7sniSG0LS2Zm4HQZ+InDq6Im4WU2mCYLBtfatWKogq7065nIJcVPtiNUJnorA7lxqieWSoyDkq2QDfOmUeCK75rJ3btcbBdMNPzVcznFVFbvt9zGovDMUDxdfIg3chbKDyBBAlDSCVopC/E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QZ8VS3Dl; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=Hi1cOOX+ogv2OvO1jgnfS2ZHCOPDRVUmtnA+91XVqjyNTY3h3C48xjgX5uLTQ+17pX3UztiIBMoiUOYPAz7WsWanHqdRNABL0n166BWUECWGW4SagyMfzoPxA2SLIznu/zNjuvd7jsdQdmrGc8MCPu/jR1mKgNnWDmUuggs2a8E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QIIV7NWZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QZ8VS3Dl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F076F1F00899;
-	Mon,  5 Oct 2026 15:43:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QIIV7NWZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F4581F000FF;
+	Mon,  5 Oct 2026 15:43:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791214988;
-	bh=Q1Vfx7NrxHZYYW5wQYD7P1oRNFAFAgPBJklq3qG+Db8=;
+	s=k20260515; t=1791215001;
+	bh=8C/WXXk9BgcOCU6GGY2Nv7ksbz/apVWdRbZj6d7ITWo=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=QZ8VS3DlM0nG+JWTLc1DKFMUZcfUCJzceZk2H1N9tb5uP4m/xH6GS1DKTl/6q+0Xw
-	 Rsdc3xKVZnMgeMbB+iCO1HnRnhRX/zFf7H3cC2TJB/s5sPJ3Rs9qt4cefXKoKIIlsA
-	 ev7ZcFrqmwtmjyHnlVO7rDhJsuul/aI+oOoQtCVC6ifhFg9NtPOmtRFXAF7ZPDIQUC
-	 fJ4kQam4r4tRpn7mOJz45gDnkFVpEIc+KAbBlN32G1QlPJgClFjzeZM0RSh2pnCcXz
-	 Zd47isaxvvS92HMx2+x1A53HJFtmn4oPkimxfHPPxBK5MGqSU1pwNZ0XcA0hJ8UilY
-	 mYFyRGyTc4ZIA==
+	b=QIIV7NWZqKFJJJtT9ys3tp5Mnh4G4tesKgNLzRx2ujYPCKR/D2KmPZzOKbqwylbiz
+	 4pxMGYzrH8u9gS7yj/kzGcOoeT2qeskmym+l5rhR83dwT75DOMMF+1tWdYQ86DTzu5
+	 pFNeqCboumhDrjZV0SX90W+75JZb/rIgMuDZOfgWFU+J+yFxp4MuFhBa+CDN0rzA79
+	 ESz0N/k3sjXAEfDcER3bl61/eyAZWXFyc9cE83+d4p3lRmwf44MvGncqmT5T24xcEG
+	 z7RWOEN4zId+Pp19y42vVfD//TJ2Vv5ZRkFQ52K2DcxGpCDE4AG/bJuaKOeMMEDge3
+	 JoghItzdkVbnw==
 From: Vinod Koul <vkoul@kernel.org>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>, 
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
- Frank Li <Frank.Li@kernel.org>, Xianwei Zhao <xianwei.zhao@amlogic.com>
-Cc: linux-amlogic@lists.infradead.org, dmaengine@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-hardening@vger.kernel.org, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
- Frank Li <Frank.Li@nxp.com>
-In-Reply-To: <20260903-amlogic-dma-v12-0-f769bc344056@amlogic.com>
-References: <20260903-amlogic-dma-v12-0-f769bc344056@amlogic.com>
-Subject: Re: [PATCH v12 0/3] Add Amlogic general DMA
-Message-Id: <179121498561.358863.6559293781501344071.b4-ty@kernel.org>
-Date: Mon, 05 Oct 2026 17:43:05 +0200
+To: Frank Li <Frank.Li@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Wei Xu <xuwei5@hisilicon.com>, 
+ "Rob Herring (Arm)" <robh@kernel.org>
+Cc: dmaengine@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260928124448.3754740-1-robh@kernel.org>
+References: <20260928124448.3754740-1-robh@kernel.org>
+Subject: Re: [PATCH v2] dt-bindings: dma: Convert hisilicon,k3-dma-1.0 to
+ DT schema
+Message-Id: <179121499902.358863.7442676698125241084.b4-ty@kernel.org>
+Date: Mon, 05 Oct 2026 17:43:19 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -52,19 +50,21 @@ Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.14.3
 
 
-On Thu, 03 Sep 2026 07:38:27 +0000, Xianwei Zhao wrote:
-> Add DMA driver and bindigns for the Amlogic SoCs.
+On Mon, 28 Sep 2026 07:44:46 -0500, Rob Herring (Arm) wrote:
+> Convert the hisilicon,k3-dma-1.0 binding to DT schema format.
 > 
+> Add dma-channel-mask, dma-no-cci, dma-type and interrupt-names
+> properties which were not documented.
 > 
+> The "hisilicon,hisi-pcm-asp-dma-1.0" doesn't have clocks, so make it
+> optional.
+> 
+> [...]
 
 Applied, thanks!
 
-[1/3] dt-bindings: dma: Add Amlogic A9 SoC DMA
-      commit: 9d79e5efaf7b908fd3eea1a6afb34fc06dfa1d7e
-[2/3] dmaengine: amlogic: Add general DMA driver for A9
-      commit: b84b5197e344e2d378a9edf5d782b6fbddff8d06
-[3/3] MAINTAINERS: Add an entry for Amlogic DMA driver
-      commit: a5b2763df36b5c8ca0927f24ee97d9617e4eb6eb
+[1/1] dt-bindings: dma: Convert hisilicon,k3-dma-1.0 to DT schema
+      commit: 6b0089d88669c87d69df6fa118c198024494a033
 
 Best regards,
 -- 
