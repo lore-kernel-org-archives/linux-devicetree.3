@@ -1,63 +1,65 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83FCA348C67
-	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 07:10:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 316E337755A
+	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 07:10:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791184241; cv=none; b=D7x8OJcozXVXeWvGYvDGxnEaZBFsrl86fN7rbqxIVf+STyAm0hBSKT4bzmMAM1/KcJ6mZR7xwu2f6NFC34qQEkEDWSWla0EyNiOngNS+1yWZiZ8TRsmLN1MIC8bbwCU2PaUXbn2u8g2LUKS52XTw+Kvw8oQVHJT9KWFrWFvbGyU=
+	t=1791184247; cv=none; b=mPAYWr+laH7Z6rCB1uWhpqtCsFxvNO5Ha4eS4zlwj2C21rLNSZWa8DM7mcqc9HJMLIHMXisR62I57Ii8E6SfBObZR9/UACqO1XnYkA0B/2qlfR9Y01Y1CtF0MhVWZ/UTtIDblR5JoMFdF2r/t+kCLpwhPTB2B+UxkIy+puonJbs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791184241; c=relaxed/simple;
-	bh=W2DrySIcx70vrTbptdu3ALk9CYU49TBI2l50an7B/bc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qwrnpv95YZ7f6KgUNrD6RiwAKRFvwB8v7RYp/wbq9jI6lWuFLmgcqdYr4c2NDkpWjXP4GtZJ9hIMntKGn3OOw4JWLg0O5gdsX/BGs3Q64hlcfmYy7V+GgZgHU/1iDB5mpPDmVoNY3PMo7qLzq6aMvvhGfA4QF+zsOnlHjFy93WU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fiP25KQW; arc=none smtp.client-ip=209.85.128.41
+	s=arc-20240116; t=1791184247; c=relaxed/simple;
+	bh=DCokXdATGPIggSgFw3/QiZFiz3LeqkJtGjMK9ckNik0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=eOQ9y3xKo8AiL3FUh0k+DD2asROyyCFX2SBMNwFnA9hUruF5+z4jnDLs2ltgJSY310A35+WGjNC9KRv4H9w+1N+pPe4zXT6R3KDro63zY+NKyL1qt2oqLtUdzp60Ik4gbjEB543LlQy7PKQXhzu2gHlobwZWuoiI+O4DfUyARGc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VQWh1fjK; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fiP25KQW"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a1688d7769so9383995e9.0
-        for <devicetree@vger.kernel.org>; Mon, 05 Oct 2026 00:10:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VQWh1fjK"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49fe8bf173aso7977575e9.3
+        for <devicetree@vger.kernel.org>; Mon, 05 Oct 2026 00:10:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791184237; x=1791789037; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=9O/YxO2mPH+H7HGo9/k7HsTpYrEEKl4oBq8R1d8UlDM=;
-        b=fiP25KQWkw6Qar+h0jRrP8oqk0+X2nrGVrzYX/ItTJIFlyULaifF01IUYp4qcepmqh
-         K3heIZkY2l2llksz6/M1k1uAHLJGbpRcbsz8B+OV2qcW6J9aOTdkVfo7lvyqMujV4vw3
-         aEEtf+7zs79yC++S0NBnucqyYoG2fnpQ+ni8rIf6wR64AQLDH8zGASpRh7wCdwDRUMgF
-         hfdsbn6mr32vvyhdLdTsGOzmpFLAqfau3OKj8HUoJeOw4GcmvYZDr4TZqmm2bq+jw0To
-         QfiL7BDE0Axwofo8iPIhTOTzrCoaU4F1VuM6v/JBDexQFaYOpT8qb6ojQEujCeIGZDIq
-         16HQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791184237; x=1791789037;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1791184241; x=1791789041; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=9O/YxO2mPH+H7HGo9/k7HsTpYrEEKl4oBq8R1d8UlDM=;
-        b=bLeBWq90IhtG56DXaIJ20/lcFPhzVpmO90RHCcEbC5ar1k77UEq3tLIlYk3j2+qYbc
-         gGQAYzV+HzANh9dkOOIb01ctxhSJzkGNSoA2Zq9hdnGnNYMf/UYfWcJdDOaHAAvv+4Nm
-         MW1KONpg8iZMFl4oOOWaeFyoL+VFTtEkLaMLVsxrdQ3UUxnD+IFHCV/9kvop7fSO6o40
-         rwqnNR8lyX3iNVtgCV/fbDrwji1UYUT8Lv5fJCjZW7ZzXb+8pFmpYRD2wtrwionut7Wp
-         lRm3WxfYNPvtCJL4dPV8XXbMIEZUm00sAYHM+SV0Fk8Yx9WfXvcW5pHCAOE2+XOPZu2y
-         GLtw==
-X-Forwarded-Encrypted: i=1; AKwUvByLM5/4nSbu9lLrnKEopOIEXqE3xVa0FQ9taygXGkQPqmr2v7c28K59EvTTFyygla3hmP/UHGwOfDX9@vger.kernel.org
-X-Gm-Message-State: AFuF++kZBfUA7Rmq7GKECKV7F3L6VfFmoNOG07dyAZ1Pv4Z60hp5Ggzu
-	tGcNKAeXIWD7DB5sekj9KkETI+E4IOuuwcoSbwGcQJvq0dmTm307e3x4
-X-Gm-Gg: AYBFou2Iw1lgKqWF3ufQbG9Ipp2ROErvt5ZD6EOP7B9/fuGXlqCF3M51Gd+p+a/Lr5c
-	bzlFoSMspsKoqfddLtt0sBTxQi/7JIcHAs3oMjqJfYpQMA6leouu0mwpijFu2+blfUgxiLg48Ym
-	BxjoEkNI461/z0azrCtdgz1F2yn3yD1H3NakiZaNAUOz1Gjg+rVJI70qPCNu7PNNx7mIKXZm9G6
-	P1F4srHlQa5TyZBK9Y1ArBvzCvsysvPcFNpBmtqBAPVRyIw64xbkM72cHRTsPk2hEY691BrHLUO
-	aL/fVn6d/uazBxiYTPcgomg9ITrSPxJbB6yCIdCXn2E8nBhigKTa3xnxXTaafRjzNAbSmMdVFlx
-	vNVzOAy8i7oju6pY8rRXzSvXia6+Sd+BWDaxQ+7oDqZwhxw8XQI3R8u71l5uYz+/kvIe/ETYQCQ
-	kQDXC6D0xE97M+/Fh2wqEUYC/D5WS5utr6Z4jb15nQFtnKyAjFUw8OdNJaVonBBriGiTJ+ko9St
-	T1L77yl07S05v0vDkuezYbpHjRXJgFqiqQpyY6KI+6XcNBdCmoicrjSxBBWLTZOzkoDL6rHJSNT
-	9MYI/5UZ7GOx3OdZSCpMXugzrg==
-X-Received: by 2002:a05:600c:4594:b0:4a0:22d5:908c with SMTP id 5b1f17b1804b1-4a1680eee54mr81493895e9.12.1791184236472;
-        Mon, 05 Oct 2026 00:10:36 -0700 (PDT)
+        bh=Yp/IMZwSWJ7KU6BBKiPJnaYZoJ/BB8B0UGfzVWC27XU=;
+        b=VQWh1fjKwaJYFDckIA39+mDWXAkvtbvw+X/y1lS+vncphw/+CrWWxkAq4SccRuCrNH
+         ebukjYyCnmxUUI/Q8/n5brX3wxarUmQ846jW0ImC9b2udbecIvoolpcvrHo2xgifJYBn
+         /v4jXTnbg0Vtj1Y2+oLk0kHpEHsdqsf/CsEJ+Cd8pVPuZhpbYk62twTWvQA+6ZbFsl1e
+         BykjfG1dtd8IB8J5NOH3AyVBwjjKtJJ5xVuUEiZ1Oh5oE9LR10WHPFIEnmKQcJyZ1XNL
+         ucqrlT4Dlcz1yb/JUxbI63kd2lggDm1z5OOQ5n17TjCsbttI0i4tiGW8Y3oNiEvIPWIT
+         kcdg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791184241; x=1791789041;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Yp/IMZwSWJ7KU6BBKiPJnaYZoJ/BB8B0UGfzVWC27XU=;
+        b=Q7C3FTE/LRzaXoADbLro1j2qfVtMHmWBgM07I6xpk8Ep1clBqIc+LvP6IV9Ny76TOP
+         73DLjC2lUel3eR5rIk7XCgs3+hjmPZkXMZKsXTuoKydnp5zT57+YabDcapVBFZOnMpYd
+         EkZ3u5azgqQ+0e2dNoWydw6nTkJOolWoiK+ph3dmb8Ny4xqpGmQD7cd28c2bdvDsa7On
+         S3ksU86zt7RZrC7NYGjlrt6McBnj6XFx4nMitovPwaTNWE4TK3YBJPxIDiMAbvVH9JOa
+         22GbRSpVqo7ykmGnlu7HVfnFXkSGGlJzuDayRi4fVxoh1lcKHn/11cTaUIjYTs45Ii6w
+         ftsw==
+X-Forwarded-Encrypted: i=1; AKwUvBw1JPgalmTPoBMcld9ALLcxee8LsEUIJ4xnYWTRFPnXnj/bTnVczx+Sw4gWhjUkYnKbszGkwUXqonBi@vger.kernel.org
+X-Gm-Message-State: AFuF++nBRkxZqi5HJ0TxbGfHnMbjmteI8so0zvxwnKMi9EPxYvGsk3KG
+	K7Re5tiCJoTZRQUY0j7XBG+iuNG9FHj8+8MicaXh2ejzUr7Tzsjshl+G
+X-Gm-Gg: AYBFou3WnhSSHekOfj6wuoifsQxngPcByho5nTD0CQjMDvV+9gcKZ65+Z3gT8AwSyoN
+	8ORgLn1cs0A4BsqbiqAhn+5El2F2UZHavBArUStdCb7NTSw5wo+VldE7hFAdEyau7F8sYIV2PtI
+	ESvouF7qcjJQmIn8+IBJyMgi21cU2abPHDmMbyB0Sw9XM1XhHSN98yW5ppIWlUICo4t3MI1T/dH
+	+Dnel4K7VdachgPL0L23iyqzWDY+/EaTnBtLZDoderXDP4ORzU4DEh0a9YQCFdR/sHPFNFLBLXz
+	cBAkrH9oXCHs29pHdjsWQHs7u9e2DVXQM7eZje2UQCmz9NZRXZfaINvqJwaOTvJpNewcCfOleCb
+	y3hPfcWSAfT/exBTBPOV7VJmXgCmaTlpL6SsiEDhQYgF0+B5iSPvtCXdDNDB7FYz/U5QFq9MjhS
+	sleuRCWE/QHGBGAYcOC/SSpzxS+dku20m89stBLyzWwaLcXyuYvBgftXSs1E5aLYHDhL8lry7+c
+	sQFneYwJxSBLAcVY4WjDOlXNC7uljBrGWV7iFCq1/e9S2rYOzfl7A0yc226BIhDXoZdNXtB68QZ
+	sCETNAKYSsuSK7v2u1Wi8llhrPU3qgjREXSG
+X-Received: by 2002:a05:600c:5391:b0:4a0:c2a:485e with SMTP id 5b1f17b1804b1-4a02769a99cmr177202295e9.33.1791184241452;
+        Mon, 05 Oct 2026 00:10:41 -0700 (PDT)
 Received: from robert-83cx (static-dsl-191.87-197-115.telecom.sk. [87.197.115.191])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a027741586sm316749855e9.14.2026.10.05.00.10.34
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a027741586sm316749855e9.14.2026.10.05.00.10.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 00:10:35 -0700 (PDT)
+        Mon, 05 Oct 2026 00:10:40 -0700 (PDT)
 From: Robert Bozik <robertbozik@gmail.com>
 To: linux-media@vger.kernel.org
 Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
@@ -68,10 +70,12 @@ Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Robert Bozik <robertbozik@gmail.com>
-Subject: [PATCH v4 0/3] media: Add OmniVision OV32C4 sensor driver
-Date: Mon,  5 Oct 2026 09:10:07 +0200
-Message-ID: <20261005071010.7191-1-robertbozik@gmail.com>
+Subject: [PATCH v4 3/3] media: ipu-bridge: Add OmniVision OV32C4
+Date: Mon,  5 Oct 2026 09:10:10 +0200
+Message-ID: <20261005071010.7191-4-robertbozik@gmail.com>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261005071010.7191-1-robertbozik@gmail.com>
+References: <20261005071010.7191-1-robertbozik@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -80,145 +84,80 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi,
+Add the sensor configuration for the OV32C4, matching the _HID the
+sensor enumerates with. Without this entry the bridge does not build a
+software node graph for the sensor, so its driver defers probing on the
+missing fwnode endpoint forever and the camera never binds.
 
-v4 of the OV32C4 sensor driver. v3 is at
-https://lore.kernel.org/linux-media/20260829115832.8749-1-robertbozik@gmail.com/
+The SSDB of this sensor declares a VCM, and ipu-bridge would instantiate
+a dw9714 client on the sensor's second I2C address. There is no lens
+driver there: the address belongs to a register block of the sensor
+itself, which the sensor driver claims and needs. A dw9714 client on it
+takes the address away from the sensor driver, and dw9714 has no id
+register, so it binds to anything. Do not instantiate a VCM for this
+sensor, whatever the SSDB says.
 
-The one open question from v1 and v2 was the second I2C address - the
-write to 0x3e that the sensor needs before its main address answers -
-and whether it belongs in a sensor driver. v3 could only say what it was
-not. This version answers it with a measurement, and the design follows
-from the answer.
+Signed-off-by: Robert Bozik <robertbozik@gmail.com>
+---
+Changes in v4:
+- Do not instantiate the VCM the SSDB declares for this sensor; the
+  address it names is the sensor's own second address, which the sensor
+  driver now claims.
 
-The question that decides it is whether the block behind 0x3e lives and
-dies with the sensor. Measured on the machine, polling 0x3e and 0x36
-every 0.5 ms through a runtime power cycle and lining the polls up with
-the kernel's regulator, gpio and i2c tracepoints:
+ drivers/media/pci/intel/ipu-bridge.c | 26 +++++++++++++++++++++++++-
+ 1 file changed, 25 insertions(+), 1 deletion(-)
 
-  - sensor off (AVDD disabled, reset asserted): 0x3e NACKs, as does 0x36
-  - AVDD on at t=1.0 ms, settled 3.5 ms; reset released 8.9 ms
-  - 0x3e first ACK at 10.1 ms, reading 0x1001 = 0x00; between AVDD and
-    the reset release it did not answer
-  - the driver's 0x1001 = 0x04 at 30.1 ms; 0x36 first ACK at 30.6 ms
-  - reset asserted and AVDD off at 4000.8 ms: 0x3e gone by 4001.9 ms,
-    0x36 by 4003.0 ms
-
-So it is unreachable without power, appears only once the sensor's own
-reset is released, forgets the value written to it over a power cycle,
-and disappears with the sensor. It has no ACPI device of its own, 0x300a
-there reads zero (it is not an alias of the main map), and 0x36 has
-nothing at 0x1000. The same register pair exists in OV08X40 at that
-sensor's main address, named AO_STANDBY (0x1000) and MS_SELECT (0x1001,
-0x04 for streaming) in ov08x40.c. The vendor Windows driver writes it
-from the sensor driver as well, once, after reset and before the chip id
-read, and never reads it back. I take all of that to mean the block is
-part of the sensor and the sensor driver is its owner.
-
-What changed accordingly:
-
- - The driver claims the second address with devm_i2c_new_dummy_device()
-   and writes it through a CCI regmap of its own; the bare i2c_transfer()
-   is gone.
- - ipu-bridge no longer instantiates a VCM for this sensor. The SSDB
-   says vcmtype 2 and the bridge would put a dw9714 on 0x3e; dw9714 has
-   no id register and binds to anything, and that client would hold the
-   address the sensor driver needs. Patch 3 carries the exception, so
-   patches 2 and 3 go together.
-
-Two smaller things turned up while re-reading the driver for this:
-
- - The 10 ms after the software reset was a busy wait. The reset sat in
-   the mode table with a delay_us, and regmap_multi_reg_write() turns
-   that into udelay() on a regmap without can_sleep, which the CCI one
-   is. The driver now issues the stream-off and the reset itself and
-   sleeps; the table is the vendor's sequence minus those two entries.
- - power_on() returned 0 when the enable write failed. It now fails and
-   undoes the clock, the supply and the reset.
-
-The power-up timing, your "0 and 5 ms" on v1: I did not follow it then,
-and I think I do now - nothing after the supply, because the regulator
-core waits for it, and 5 ms after reset. The measurement above agrees:
-the block answers about 1 ms after reset release and the main address
-within 1 ms of the enable write. v4 uses 0, 5 ms and 1 ms, verified over
-a cold boot, 20 runtime power cycles and 15 stream starts without a
-failure.
-
-Where the numbers come from, stated plainly this time, because v3 said
-both "copied 1:1" and "measured by me" about the same table:
-
-  From the vendor Windows driver (ov32c4.sys, FileVersion
-  70.26100.2.18255):
-  - the mode register table (1787 writes, at file offset 0x31300), of
-    which the driver drops the first two entries, stream-off and reset,
-    and issues them itself;
-  - the 400 MHz link frequency, carried there as bits per second;
-  - the chip id 0x563243;
-  - the write of 0x04 to 0x1001 at the second address;
-  - the registers the controls use (exposure 0x3500, analogue gain
-    0x3508, digital gain 0x350a, VTS 0x380e) and the rule
-    exposure_max = VTS - 32.
-
-  Measured on the sensor:
-  - the chip id, the register meanings above and the exposure rule,
-    confirmed against what the chip reports;
-  - the gain ranges: analogue exactly proportional between 0x100 and
-    0x7c0 (1x to 7.75x, 0x100 being the power-up value), digital
-    proportional with 1024 as unity, clipping to black one step above
-    16383 - the obvious donor, ov13b10 on the same registers, puts
-    analogue unity at 0x80, which is wrong here;
-  - the timings: 320000000 / (4080 * 2614) = 30.005 fps against a
-    measured 30.00; the power-up sequence as above;
-  - flips preserve the Bayer order, so the media bus code never changes
-    and the crop compensation ov13b10 does would introduce the shift it
-    undoes there;
-  - the 6560x4928 array and 6528x4896 active area, from the window
-    registers of the table, agreeing with the vendor's product brief;
-  - the second address, as above.
-
-The rest of the series is as before. It adds a driver for the OmniVision
-OV32C4, a 32 megapixel RGBC CMOS image sensor. It ships as the
-under-display camera in the Lenovo Yoga Slim 9 14ILL10, where it is
-enumerated through ACPI (_HID "OVTI32C4") and feeds an Intel IPU7. The
-driver supports 3264x1840 at 30 fps, 10-bit Bayer, 4 CSI-2 lanes at a
-400 MHz link frequency, with exposure, analogue gain, digital gain,
-vblank, hblank and flip controls, runtime PM and .get_selection. Tested
-on that machine: the sensor probes, streams at a measured 30.00 fps,
-frames arrive complete, and the full path to a processed image runs
-through libcamera's software ISP. The driver has what libcamera's sensor
-driver requirements ask for: the five mandatory controls, the crop
-selection targets, flips that keep the Bayer order, and the orientation
-and rotation properties.
-
-v4l2-compliance on the subdev, kernel 7.0.0-38:
-
-  Total for device /dev/v4l-subdev4: 46, Succeeded: 46, Failed: 0, Warnings: 0
-
-Static checks: checkpatch.pl --strict, sparse (C=1), W=1 and
-dt_binding_check.
-
-The series applies to media_stage.git; base-commit is below.
-
-Thanks,
-Robert
-
-Robert Bozik (3):
-  dt-bindings: media: i2c: Add OmniVision OV32C4
-  media: i2c: Add driver for OmniVision OV32C4
-  media: ipu-bridge: Add OmniVision OV32C4
-
- .../bindings/media/i2c/ovti,ov32c4.yaml       |  105 +
- MAINTAINERS                                   |    8 +
- drivers/media/i2c/Kconfig                     |   10 +
- drivers/media/i2c/Makefile                    |    1 +
- drivers/media/i2c/ov32c4.c                    | 2716 +++++++++++++++++
- drivers/media/pci/intel/ipu-bridge.c          |   26 +-
- 6 files changed, 2865 insertions(+), 1 deletion(-)
- create mode 100644 Documentation/devicetree/bindings/media/i2c/ovti,ov32c4.yaml
- create mode 100644 drivers/media/i2c/ov32c4.c
-
-
-base-commit: 4900cad020c0580dfb1be27776ff10a4ef110cfa
+diff --git a/drivers/media/pci/intel/ipu-bridge.c b/drivers/media/pci/intel/ipu-bridge.c
+index 1bb3a3e98..a0ba323d4 100644
+--- a/drivers/media/pci/intel/ipu-bridge.c
++++ b/drivers/media/pci/intel/ipu-bridge.c
+@@ -93,6 +93,8 @@ static const struct ipu_sensor_config ipu_supported_sensors[] = {
+ 	IPU_SENSOR_CONFIG("OVTIDB10", 1, 560000000),
+ 	/* Omnivision OV2680 */
+ 	IPU_SENSOR_CONFIG("OVTI2680", 1, 331200000),
++	/* Omnivision OV32C4 */
++	IPU_SENSOR_CONFIG("OVTI32C4", 1, 400000000),
+ 	/* Omnivision OV5675 */
+ 	IPU_SENSOR_CONFIG("OVTI5675", 1, 450000000),
+ 	/* Omnivision OV8856 */
+@@ -217,6 +219,28 @@ static const char * const ipu_vcm_types[] = {
+ 	"lc898212axb",
+ };
+ 
++/*
++ * Sensors whose second I2C resource is not a lens driver, whatever the SSDB
++ * calls it. The OV32C4 keeps a register block of its own at that address,
++ * part of the sensor and owned by its driver; a VCM client there would take
++ * the address away and leave the notifier waiting for a lens subdev that
++ * never appears.
++ */
++static const char * const ipu_no_vcm_hids[] = {
++	"OVTI32C4",
++};
++
++static bool ipu_bridge_sensor_has_no_vcm(struct acpi_device *adev)
++{
++	unsigned int i;
++
++	for (i = 0; i < ARRAY_SIZE(ipu_no_vcm_hids); i++)
++		if (acpi_dev_hid_match(adev, ipu_no_vcm_hids[i]))
++			return true;
++
++	return false;
++}
++
+ /*
+  * Used to figure out IVSC acpi device by ipu_bridge_get_ivsc_acpi_dev()
+  * instead of device and driver match to probe IVSC device.
+@@ -435,7 +459,7 @@ int ipu_bridge_parse_ssdb(struct acpi_device *adev, struct ipu_sensor *sensor)
+ 	sensor->rotation = ipu_bridge_parse_rotation(adev, &ssdb);
+ 	sensor->orientation = ipu_bridge_parse_orientation(adev);
+ 
+-	if (ssdb.vcmtype)
++	if (ssdb.vcmtype && !ipu_bridge_sensor_has_no_vcm(adev))
+ 		sensor->vcm_type = ipu_vcm_types[ssdb.vcmtype - 1];
+ 
+ 	return 0;
 -- 
 2.53.0
 
