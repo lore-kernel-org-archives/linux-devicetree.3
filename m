@@ -1,161 +1,189 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D72C4756CA
-	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 09:50:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1288418A33
+	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 10:02:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791193836; cv=none; b=SnqH3DTbGB5egBhIc/lKKysTwZh3Bpa4It8ZZhcZ8tigwo8BUwMxv36y45OsUeIadaU7ykHwF5JgHo5w+/vx/s+dkJVguVEAqJ9BgxVFSeLiAWsKnHiSRTRDNjt3mid5wVao8AZH5DSsZPGUPmlL2WpTPa0eEx3so+aZZBBofjU=
+	t=1791194539; cv=none; b=BpUwo6j5YWBEEIrQwv8TYOYUMovDNtZ8pujvmQheNKYWp5pCNxk+AKsyzoTGf07cFTOQ/4wncvn+oqLGGgHT21fncQNif6IWh+icr3UQunuEtCGtNr7v21mAigtQqror/+gHOBxNHf7eM8sTTCCpa1IkksdWC/2PNRKGZNnR2RU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791193836; c=relaxed/simple;
-	bh=JbK2XciOCAGYGhh2WwFKNXGA0zTsF0JZw6rU+WHZCk8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mERVEmBFCXOKSqLBXxVzZouNY7h88AIBnCpd3E/OYv2kly4lquzLvIzDgFsfXnrGlwGlrYAs2xhuRxQgYOqsLJm3MoNRefCEi0c/4ehRPRwH6nML6no+zncyeI4dNGJRLPIOii4G31nLQAXiO2gY4P2HlOzeaUypLsMurFG69Uo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=m3iitKEd; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AzSgbiGu; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791194539; c=relaxed/simple;
+	bh=FwcozDZvnTxxwdSDupqvWTmRLRaDvdWPDr8U1ZnsJyg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=aqSCPnbKuuuJo5FPgE2ZGZdYnueE6VvaVLLpeMYEu1DNmzEHDibE/mStsIvY2s3zDXCff2OGEixyZe7UzekhGzBoZPfoCle/Lds5JfcdevA1TIdS7qbyPCzL6EP+VBIB178nWBpmGJgpyct/oN9/h0D4RUQvDf6nJEyszX4hANg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KOrXzW6F; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="m3iitKEd";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AzSgbiGu"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6958xTTN1300330
-	for <devicetree@vger.kernel.org>; Mon, 5 Oct 2026 09:50:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	9yVrXwIWJyocR1tAJIhOeeUu2pEhXOkwQN59FJ7DNeY=; b=m3iitKEdTX/pVTGo
-	uUcpOEJe3bY/VPfBt3uSLAm6zg1kRHO0AHLTCTXe8J8r73ynnZBJtzJrM6E0JgsP
-	495uwzdnV4ycOpbJ3hVKWubpo2IT5/VTtTWPJEiKVOSg5wvm1AZQLYIFu3DI3l4F
-	PngAUyq1zI9G3o2TLAMj7f2BOPfsPcLUDI3fbjTwO7EAHnG0vK0KNTOXPRLYteQX
-	4pVIRx48Xco+TxfpBkYtPpBh+tMcAAr1vBkl2h2H928ukwMv3HwTnpoRABxyuE53
-	ALN7AvhW+pGP72JhAWi63OueSIAWGwb5o5dqiCrb+c0N6ctL0jCaI+K24aqaBwhA
-	uSknxw==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h3xhs1hrs-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 05 Oct 2026 09:50:33 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3a470ead068so1306936a91.3
-        for <devicetree@vger.kernel.org>; Mon, 05 Oct 2026 02:50:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791193832; x=1791798632; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=9yVrXwIWJyocR1tAJIhOeeUu2pEhXOkwQN59FJ7DNeY=;
-        b=AzSgbiGukSsAgKxhD4Y1q1+pxxDxBQIucb0IAKIFQYQilJt8CpSZGxnFP4F8TuGp6j
-         yFAtOGJHKbsGqlpj5fi1gtweb9QuA5YIzxGEkDxSAJFw7+sV7rChvqoh8rOSh832TE9+
-         Y1t9r6nnbgab9avCUV/pe7iTXqeDXbxbkD5uOss6Vc8uPqTi7xzyfx4vKmxEyVsgwPDG
-         kmXbXYFvS1uJtw4xzKVQ86JdN6eSSb9D0yEAVg1kUqtLbYRVcKDb5Vi64LCS4mJ69QAA
-         cS9GJsij1xvT15qPJL3J3QDqTfTk3QTT9M0e6RWO4FuVR5bVmgdFXirlErSTufY+xXns
-         JBGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791193832; x=1791798632;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=9yVrXwIWJyocR1tAJIhOeeUu2pEhXOkwQN59FJ7DNeY=;
-        b=atUwf9dCJnUbDWoRM5L4ToZXWhuG5M/ZtfT2ehdblPA1Rw9Pz3jCpPxQuI+6SmDzd3
-         vVSmCe9P4N/8dpnpQuPme5kI0XlWc6pz1W/FLfPcDkiGc5uy1JgPe6Bhpr8kOP2hu5i/
-         6x0FWl5JEMmCfxGrVvxRKos3hxweM6pcvZ6PlLF5Q7cMKwKAa4Fo0lnLDaJMwcozIMjb
-         mPbOrR4idGDtQ4bsnCJ3U1LrBocyql60EQ7UH9oNyKOb4nfxCHWcJRcwRq4AXsy4Euqb
-         S0cVswcXAcL0L8cDK1qgh4AztS7uTnkLrTm0/rU80Mbv9axWgkOvI9hJkXgGbIkHTjDw
-         JlUQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw4SMFOnZ1D/lqlxenCJTlFdvPXN0OduXEAds9FADlFqDPf6HyxHVnwfJb6OmAvEXKnr/SWK+FFrGrU@vger.kernel.org
-X-Gm-Message-State: AFq9FYICAd5xq6mAKG7bW83A9LgB9Gsux1GT9OQ+qbHd5Cwi9UPEW5nH
-	kn+BUUZqL8ajE+x/L1Z+lAfcFts8OHRh7sDyALj4g0dZtcrEvsFdj0W7/92wEYy7Q8SYSiP1srW
-	xelVYJMfhrVkUYv+Ocv6yPy2NFNKDKCBZFPNZ2WLeBa/n5HfNgM77OSuAgZq2f5sp
-X-Gm-Gg: AYBFou3p0xicaF/ILjvg8R2eEOwpBTrO98EuvsPnOvZCHzvFOASeuYJc22teEa1xOjN
-	z87mmxGlcWIMRPRPini+r8RmZwCXb6zpModeHEkg6Cqg9/gDHxo4jSExFvlJIDw0kzGLEUIF8VI
-	mKRYmzavq/Chht1HM8TEa1Bu18DbojDsHo+PcEujo4bsTzR+dfYVKwNqquQkJglB2cEfv5c6v4r
-	pRsyGd0JLL9tOCz6nWsarOC3e24ra7BhVoPBHMInss1hqeVgWr8bRTfmh8EgN6uDAX4GnPWUVdE
-	3wX9T2nBLxiUvPdhSUVCfTp7NJJJQ8MMJb6Zf8RncygJ6b2G9CWvwi2FLsj5d5IWvNcqUHzJmyZ
-	GEEd1D72OhDjS5w76x0plhJc6qAc=
-X-Received: by 2002:a17:90b:1346:b0:3a0:ace4:d2b4 with SMTP id 98e67ed59e1d1-3a6ceaf84a3mr3933991a91.23.1791193832039;
-        Mon, 05 Oct 2026 02:50:32 -0700 (PDT)
-X-Received: by 2002:a17:90b:1346:b0:3a0:ace4:d2b4 with SMTP id 98e67ed59e1d1-3a6ceaf84a3mr3933979a91.23.1791193831490;
-        Mon, 05 Oct 2026 02:50:31 -0700 (PDT)
-Received: from [10.218.30.203] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a78e4a1bfesm11565317a91.12.2026.10.05.02.50.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 05 Oct 2026 02:50:31 -0700 (PDT)
-Message-ID: <9f049a54-96cc-485d-85c1-58ee3c1cbd2a@oss.qualcomm.com>
-Date: Mon, 5 Oct 2026 15:20:24 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KOrXzW6F"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A2211F000FF;
+	Mon,  5 Oct 2026 10:02:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791194537;
+	bh=qYBHjiYF+VCi1zD054c/t657UsFpmNJSKL2uGVkhMag=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=KOrXzW6FbAOx4bnncARcP+VoVCSS5Lbk807STo5f7zXZWCYABOD0Hr77dQ8zSyJng
+	 rX1Kju0l+vXUUbgMMQRKzIlrmRb3A+4Ir9ccAgPn6+7+XWF5O/qvqQINHBn8UUZBK0
+	 003I6jOMSbjUehXA8W+fatyxHWZ4Vtug91BnWUgQC1SVl29lNIcwXgeDG+cIauB1cc
+	 +ErR4InRBZXNwrlQMvHQPssH36HDThmH3yUBGDrAs8VQijzDIQqIyMSuxP2l4ESvB+
+	 WCBQeeFzkTLpGDh3zZBhaoxv0pA5kdwWaOA5vc0HoyFpBfnsQ6iSfGec73cSk7GTlZ
+	 /VuoZCVVyI4iw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v13 2/2] media: i2c: Add driver for AMS-OSRAM Mira220
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jacopo Mondi" <jacopo.mondi@ideasonboard.com>
+Cc: media-ci@linuxtv.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261005-mira220-v13-2-27a041933929@ideasonboard.com>
+References: <20261005-mira220-v13-0-27a041933929@ideasonboard.com>
+ <20261005-mira220-v13-2-27a041933929@ideasonboard.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 05 Oct 2026 10:02:16 +0000
+Message-Id: <20261005100217.5A2211F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] dt-bindings: remoteproc: qcom: Relax PAS iommus
- item limit
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-remoteproc@vger.kernel.org
-References: <20260930-shikra-el2-v2-0-f0822be5aaee@oss.qualcomm.com>
- <20260930-shikra-el2-v2-1-f0822be5aaee@oss.qualcomm.com>
- <20261001-ordinary-cheerful-velociraptor-80c793@quoll>
-Content-Language: en-US
-From: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-In-Reply-To: <20261001-ordinary-cheerful-velociraptor-80c793@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: k_N37dCpgDI7J91XJyS7sVzCrHSP64LD
-X-Proofpoint-GUID: k_N37dCpgDI7J91XJyS7sVzCrHSP64LD
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDAzOSBTYWx0ZWRfXxYRYMCEw3tfR
- T9oI4OmaTncl2cjFfiE08s6Ef26sTAX772cT/tLh+gDkaWE9clOkvr4ydv1L10+6r9DXKUKHaRb
- /x9jVRzlqmMFWZ1CwbVReopIHYNJHYE=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDAzOSBTYWx0ZWRfX9tTYatRPt0PE
- lG281hpdR57cxS0S7yDZNfTWmewrbS2sQ/N89bU2vVEcKdT41GUjldO0v7bQ3NvR9mOX8ZCGOfh
- A08qARLEvRZIApbLOf1ySG8P66hdtdL1CMM6auFWutdUGmzeF2ZLg/tKfrC6gCIacGAsE9O9sT4
- VcLheIpHL/hxxvJ+BxH35jr/EZNN6g0LEiVNvDpOXt/ot3cjBhk4sfzOeZ4o39O92VdaKBH2RpQ
- boz/Su7TVda6xpZP7GC8lrucAejXiSnGlJec+NQp+TE169RpftYUF9GgCb01Kr5euw5lMR29VIp
- lmsEZ4KDPWg3EjrjkIZFSTV6UULgdvrEhQ39Z1OpaCax1bkHblNUr7CDf4qL0y1vB9tb2B540ck
- Url5gXhsaX7PlHfGqV7jkall4Nrf3MrjMAzNSlJCXOgJ+T0RMQ2ctRLgUgt0Y9MloMSAzyfsSDR
- Lu+E2JwnroHesky9aHw==
-X-Authority-Analysis: v=2.4 cv=Q6tHcI2a c=1 sm=1 tr=0 ts=6ac372e9 cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=CHHwcf0ky9qZlHHGEQsA:9 a=QEXdDO2ut3YA:10 a=zZCYzV9kfG8A:10
- a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-05_01,2026-10-02_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 bulkscore=0 priorityscore=1501 adultscore=0 lowpriorityscore=0
- malwarescore=0 impostorscore=0 suspectscore=0 phishscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610050039
 
-On 10/1/2026 2:03 PM, Krzysztof Kozlowski wrote:
-> On Wed, Sep 30, 2026 at 05:19:03PM +0530, Komal Bajaj wrote:
->> Some PAS users require more than one IOMMU mapping. Update
->> qcom,pas-common.yaml to allow up to three iommus entries so
->> PAS bindings can represent multi-stream mappings used by
->> platform device trees and avoid dt-schema array length failures.
-> This is incomplete. You just added two more iommus to all devices. You
-> need constraints and proper user of this.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] media: mira220: NULL pointer dereference in mira220_set_ctrl due t=
+o race with remove
+- [Medium] media: mira220: missing .set_selection leaves frame windowing de=
+ad code
+- [Medium] media: mira220: data race when accessing flip controls during TR=
+Y format operations
+--
 
-I see your point. This change relaxes constraint for all targets, which 
-is broader than intended.
-I will rework this and add required Shikra specific constraints in next 
-revision.
+commit e6501c571328e79b8fc444fba484ac0380fd2bca
+Author: Philippe Baetens <philippebaetens@gmail.com>
 
-Thanks
-Komal
+media: i2c: Add driver for AMS-OSRAM Mira220
 
->
-> Best regards,
-> Krzysztof
->
+This commit introduces the V4L2 subdev driver for the AMS-OSRAM Mira220
+image sensor. It implements support for mono and RGB formats with varying
+bit depths.
 
+> diff --git a/drivers/media/i2c/mira220.c b/drivers/media/i2c/mira220.c
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/media/i2c/mira220.c
+
+[ ... ]
+
+> +#define MIRA220_FLIP_FORMAT_MASK	0x3
+> +static inline unsigned int mira220_flip_format_index(struct mira220 *mir=
+a220,
+> +						     unsigned int index)
+> +{
+> +	return (index & ~MIRA220_FLIP_FORMAT_MASK)	|
+> +	       (mira220->vflip->val ? BIT(1) : 0)	|
+> +	       (mira220->hflip->val ? BIT(0) : 0);
+> +}
+
+[Severity: Medium]
+Is this vulnerable to a data race during V4L2_SUBDEV_FORMAT_TRY operations?
+
+This reads the vflip and hflip control values directly without taking the
+control handler lock. When this is called via pad operations like
+set_pad_format() or enum_mbus_code() for a TRY request, the V4L2 core holds
+the file handle's TRY state lock rather than the active state lock.
+
+Since a concurrent VIDIOC_S_CTRL ioctl can modify these values under the
+control handler lock, could this result in read tearing or unexpected
+behavior from concurrent modifications?
+
+[ ... ]
+
+> +static int mira220_set_ctrl(struct v4l2_ctrl *ctrl)
+> +{
+> +	struct mira220 *mira220 =3D
+> +		container_of(ctrl->handler, struct mira220, ctrl_handler);
+> +	struct i2c_client *client =3D v4l2_get_subdevdata(&mira220->sd);
+> +	struct v4l2_mbus_framefmt *format;
+> +	struct v4l2_subdev_state *state;
+> +	int ret =3D 0;
+> +
+> +	state =3D v4l2_subdev_get_locked_active_state(&mira220->sd);
+> +	format =3D v4l2_subdev_state_get_format(state, 0);
+
+[Severity: High]
+Could this lead to a NULL pointer dereference during device unbind?
+
+This function fetches the locked active state and blindly dereferences the
+format pointer. If a concurrent VIDIOC_S_CTRL ioctl happens during device
+removal, the active state might have already been freed by
+v4l2_subdev_cleanup() before the control handler is unregistered.
+
+Should the control handler be freed before destroying the subdev state
+in mira220_remove() to prevent this race window?
+
+[ ... ]
+
+> +static int mira220_set_framefmt(struct mira220 *mira220,
+> +				struct v4l2_subdev_state *state)
+> +{
+
+[ ... ]
+
+> +	/*
+> +	 * Program the ROI area, centered in the sensor's pixel array.
+> +	 *
+> +	 * TODO: Use the crop rectangle sizes once the driver is ported to the
+> +	 * new RAW camera sensor model.
+> +	 */
+> +	top =3D (MIRA220_PIXEL_ARRAY_HEIGHT - format->height) / 2;
+> +	left =3D (MIRA220_PIXEL_ARRAY_WIDTH - format->width) / 2;
+
+[Severity: Medium]
+Is the dynamic windowing calculation here effectively dead code?
+
+The commit message mentions dynamic frame windowing support. However,
+since the driver forces the format to the 1600x1400 maximum resolution in
+mira220_set_pad_format() and omits the .set_selection callback in the
+v4l2_subdev_pad_ops structure, userspace has no mechanism to change the
+crop rectangle.
+
+Should a .set_selection callback be added so that format->height and
+format->width can actually vary?
+
+[ ... ]
+
+> +static const struct v4l2_subdev_pad_ops mira220_pad_ops =3D {
+> +	.enum_mbus_code =3D mira220_enum_mbus_code,
+> +	.get_fmt =3D v4l2_subdev_get_fmt,
+> +	.set_fmt =3D mira220_set_pad_format,
+> +	.get_selection =3D mira220_get_selection,
+> +	.enum_frame_size =3D mira220_enum_frame_size,
+> +	.enable_streams =3D mira220_enable_streams,
+> +	.disable_streams =3D mira220_disable_streams,
+> +};
+
+[Severity: Medium]
+This is related to the previous question: does the lack of a .set_selection
+callback leave the windowing feature incomplete?
+
+[ ... ]
+
+> +static void mira220_remove(struct i2c_client *client)
+> +{
+> +	struct v4l2_subdev *sd =3D i2c_get_clientdata(client);
+> +	struct mira220 *mira220 =3D to_mira220(sd);
+> +
+> +	v4l2_async_unregister_subdev(sd);
+> +	v4l2_subdev_cleanup(&mira220->sd);
+> +	media_entity_cleanup(&sd->entity);
+> +
+> +	v4l2_ctrl_handler_free(mira220->sd.ctrl_handler);
+
+[Severity: High]
+Does freeing the control handler after cleaning up the subdev state
+introduce the NULL pointer dereference race mentioned above?
+
+v4l2_subdev_cleanup() frees the active state without taking the control
+handler lock. Because the control handler is still registered, userspace
+can still invoke mira220_set_ctrl(), which will try to access the now-NULL
+active state format pointer.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261005-mira220-v1=
+3-0-27a041933929@ideasonboard.com?part=3D2
