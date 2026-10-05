@@ -1,190 +1,208 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A1464749FC
-	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 10:45:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84D19385D94;
+	Mon,  5 Oct 2026 10:46:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791197125; cv=none; b=hUopmUNpUotudc4BF7HU6Piheskqz1ZH0sjZDrwQkvMrytKkKy3onnVLBB2rsf/V7B8A1G41vSABcUpt/9WbLAeZaKb+Hx+GKSa4wmmGj6qxVLkpQfQ8kYPSrkEK7Bjix20bDPs1BgZHt/0c3k9Kb7VEmTcAhPcSBnqunsO5VNo=
+	t=1791197187; cv=none; b=Qs6igASj+htYNAxan0nkoGBuqNCk4iVMwQg2udw/6oR5tVwxTTOPFEjHSnMPMx2QZbjM0DOekOFsyH2Wrul9SfOxwkxp8AXP2OYfgD8K3fb1mauJsAns33a5ihVdZLkgLLXVKJ4mhj22pbHV5hRpczHSG2uZD5v9FsFDLqsaSyk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791197125; c=relaxed/simple;
-	bh=Oi22PG/2WusMu/4lVK2j2cf/IGBMHwO0Bsn1RuvnEt4=;
+	s=arc-20240116; t=1791197187; c=relaxed/simple;
+	bh=dHMACaWYMeE13Va/fHy15h8CSXR5scS7BNxw2ctt8y8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=STe61TY9Ia9ZHuX2LZunTnWAWPsDH+y3gUeD/P5HA1pIpIhxZq+krIVRMSE01LESjq8mLYGYp0nQSL6kjjdnOz9KEx5oYvwjxgg3IoTSLRx/rfJo8xc11AyB5eZuZJYC4SsQSwO7RnZh1UagaCW2g4NOvMrOutySKPeSfOZAfsA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jJR9AuEv; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CZlx5fVZ; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=ks23uG5S+V3T5UqCmVd+OlcSpwnsguJh6AYV6eZ2NzLmzLz/TsZs1LsiVhhX17N4dKXeRU3XBL20rqbNu8mMz1WTAssBpynNKzpxyg+SvQhFCsfBG3D1PMN3xUhcPIaKKwcF/ly538jzfqtuvCjMh+bjojVDzIxxS9ZueNRV4/M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bcun3XAs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jJR9AuEv";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CZlx5fVZ"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6958xQ0V1300182
-	for <devicetree@vger.kernel.org>; Mon, 5 Oct 2026 10:45:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=pQeClRWL5fMnV+jW+MgQGB0s
-	7nSB8YFmEBzlXVtXF7g=; b=jJR9AuEvbL0VK2nl5a38FNlDKkChzxp1nZsKcG/7
-	qXezKMQxYRBlj9igqMX7mlEvTWA5ESLdkAAkBHthWwd2LPNlrmg7ODkkcXtQ/nnw
-	AI2zPgwsm5L/O7LE1Eu7y2U8N6alJ/OX21qZWSle0BLV1fGACI6NOLABApPUNZCK
-	4cExS5J9BVz5O0ri3GAoORoEytWMUHBXNgmJgoWIRhkjpszBftt/tQAKQrl33z0j
-	hMDBuz9iXAjHEGPjx/2hNwhqArsjLovpSPFteMfjBmGYhKv2YnLiGfNlg8aH6a/z
-	m4tuD4QCeeKOhhT7s88IazqzvDW1RyHF/ZS/XkborU+3qg==
-Received: from mail-dl1-f72.google.com (mail-dl1-f72.google.com [74.125.82.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h3xhs1qn5-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 05 Oct 2026 10:45:22 +0000 (GMT)
-Received: by mail-dl1-f72.google.com with SMTP id a92af1059eb24-147be78cd56so6259025c88.1
-        for <devicetree@vger.kernel.org>; Mon, 05 Oct 2026 03:45:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791197121; x=1791801921; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pQeClRWL5fMnV+jW+MgQGB0s7nSB8YFmEBzlXVtXF7g=;
-        b=CZlx5fVZQOb8klRHJpYygdeOtfJOKx0ERSWeJYcVq7mazinsfn4aUusLTjlZrz720d
-         w5mLSyN7RhEzMxXmT6IV19brnqUlQD235p5d/lX7vNwelZ/uSOax7Q3CsZwEhhaZRIHS
-         mGEafWqaygMrpPD+953jSZJD63893pj/cPlDs+ZsEkuzWAUZ/4kZwM6LsxQo9QXJ7ZMy
-         oN0YGuBLuz1z8o8Gm1LY2w0ehl3bEWIZ/kIj0aMBc5ahyyBWLEXRgVp/pGuSabNfEqiJ
-         fyWGWqWE4wjrHq6O3tEWiy8OlAoFDi0og3eLCc0J7Fzmqk05d786xCFoolYG2PTGCzvJ
-         D0YA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791197121; x=1791801921;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pQeClRWL5fMnV+jW+MgQGB0s7nSB8YFmEBzlXVtXF7g=;
-        b=TTRO8ADDjTUGfOZiumN4L6yvhICuOszP4rqK62mJ6IT1GaA3XD8ufI6kJAfx8AoIU1
-         3u8ClZgnN/6UAD+2XpeqOrVA1ciAUQd4QCmsh+rbY8Lx7ivdDOaPAklq8Hw399U64Ghf
-         WIB19mvrANn0Oml+jqfJrGTMgyzuCWqt9Z0CztRhVRMiwjALF7sB4tzRsYqg58pyXmMs
-         YRDVcVA3B4mUmSySYyh4OuX/NUBy3O6uZoOJCM3+bpv8kIJyFUB+pX9Oecg25NpfDVrq
-         02gXlh7lWMoO/y76Rk7J17HcVKbJYX8nII4KbSO+56pPbjBEKqhDi17QniK+yg0YLaEG
-         EbAg==
-X-Forwarded-Encrypted: i=1; AKwUvBzLPalK3vBLC1+VQo8m26yvlOcyEoT8Fs2pMNg33j1xhwbVdkLUO6/MXu7CykkEB71HDNjFAvq1TGDQ@vger.kernel.org
-X-Gm-Message-State: AFuF++nhulEuHO0GmVWT8VRBDOTj9DODLzOY2cRidB0tz4Lx3wVi39MS
-	E5cKLP/qwUMoF1adtGXPhOvio+QWqujN2/JAmobkVB+Ta88STii+RSnDPSid2qkeHZNhAvrpsum
-	s0oh/tL39qc/ovLHLwioQIJwSgHT3ByzcakgX1T1+HeN9uqJtuzLc/bC2zVRcuZSH
-X-Gm-Gg: AYBFou2Gm1AK2ocoefKjJHcQj2qBVyiMov+4GkKeb/7q9MsYlFBSnDiu942qwGjGroa
-	VS3F8qfXIzBHsUOlMDSc96RKDriOm+85d3GgwnGH0e9d6O5fzsGg9V2Lg9B/JZxmYcLePtVy2zf
-	f7Z/CfSg4sbeGL5aoHrer7dXKTM878OP0Z4/wggZ8/GLbQ4kWfsclruNSnldGHJwsgw0RoIhMYp
-	ZU2SixVvdkzGibT0NgTbbti4mxqLV/gA30H2kOB+DGGyoUAYd/T7/9sm84vRIDyth5Mg0EFLIm/
-	dfy5A2jyai38Qqsh6zbigG7aJ0a+zLLrgNg1jFP+A6Yx/Qo2iA6ZrFtQtUKm8TvjpbaHDtVUDC/
-	yUYbc4Lbm2Slhv7s97Nfx+sUDmpXlKURDrD8EfAXFRCRok65Cu/Hr1FLtZkTTMbakkwqNFEZWaC
-	z+5yB418uLR+xO5VW/+LBqaSlmRWUAfw==
-X-Received: by 2002:a05:7022:b057:20b0:152:3812:496a with SMTP id a92af1059eb24-15238124bacmr9694224c88.43.1791197121013;
-        Mon, 05 Oct 2026 03:45:21 -0700 (PDT)
-X-Received: by 2002:a05:7022:b057:20b0:152:3812:496a with SMTP id a92af1059eb24-15238124bacmr9694186c88.43.1791197120458;
-        Mon, 05 Oct 2026 03:45:20 -0700 (PDT)
-Received: from hu-varada-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-151fc3992b6sm24328004c88.6.2026.10.05.03.45.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 03:45:19 -0700 (PDT)
-Date: Mon, 5 Oct 2026 16:15:12 +0530
-From: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Wesley Cheng <quic_wcheng@quicinc.com>,
-        Manu Gautam <mgautam@codeaurora.org>, Stephen Boyd <sboyd@kernel.org>,
-        Philipp Zabel <pza@pengutronix.de>, linux-arm-msm@vger.kernel.org,
-        linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 6/6] phy: qcom: snps-femto-v2: Add IPQ9650 support
-Message-ID: <asN/uLBfYARYXlhb@hu-varada-blr.qualcomm.com>
-References: <20261005-phy-v4-0-b04c4123ecb3@oss.qualcomm.com>
- <20261005-phy-v4-6-b04c4123ecb3@oss.qualcomm.com>
- <ck5st7q7rbnzfp26kbwzixorxlikq6hpmso5fzz33dlsqsrnrm@g3aey2pabkzb>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bcun3XAs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99F9D1F00893;
+	Mon,  5 Oct 2026 10:46:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791197186;
+	bh=/d8LfWyLYdaFbqA2Zb7PPVzA3eT0mVZ68XMXAvLeC0g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Bcun3XAstKR5IyK7IU9Nfj+U15NzNKZwLn5GhGzfSHOfATfiIPYoSMvvmSUe6in/h
+	 lAbpP66YUjBUB6fAdtJhFkLYxx2LYFqfjhKwjTlpZQrgPmyNsoq0A1BuvskXwdrXDq
+	 oR9U1vkXfbQuxfNwMCAUx1R1BA2OIDcL+9ANhlnCW9qfS9Ih6UZnNDv+JUYEN9lCw1
+	 Lr9LQalvJRFbQdxbL86oUuKjJM/gn/TmSfk5cY36e72pDeP3g0/c/uxDOiJrTvS3Jv
+	 ltuxqcVz2cDdjvMGrCHYNvdMuXwo6egJ38MQLg4oW5pMWQ0LY6go7qxYpE/h/eeSDt
+	 lxzPLwmmYOmoA==
+Date: Mon, 5 Oct 2026 11:46:19 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Lucas Tanure <tanure@linux.com>
+Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	netdev@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com
+Subject: Re: [RFC PATCH 2/6] dt-bindings: net: amlogic,meson-dwmac: add
+ amlogic,t7-dwmac
+Message-ID: <asN_-5zalENhkdVA@squawk>
+References: <20261004144046.391444-1-tanure@linux.com>
+ <20261004144046.391444-3-tanure@linux.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="JIUT8vrAkNrJ90Yp"
+Content-Disposition: inline
+In-Reply-To: <20261004144046.391444-3-tanure@linux.com>
+
+--JIUT8vrAkNrJ90Yp
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <ck5st7q7rbnzfp26kbwzixorxlikq6hpmso5fzz33dlsqsrnrm@g3aey2pabkzb>
-X-Proofpoint-ORIG-GUID: pbwYh3h6SdZhw6DJjtMRUe5XaGDQBhvF
-X-Proofpoint-GUID: pbwYh3h6SdZhw6DJjtMRUe5XaGDQBhvF
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDA0MSBTYWx0ZWRfX+9682T514PU6
- hGXu0384dgPhvJbcxNDm77xKnVQLmdn3YCMrUZkqZzYL+PmsDa72lMyFoRoI0ldCkMCPZTrP+up
- G9mdsPTOYXpU4fZV9t556nUQeqHJnic=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDA0MSBTYWx0ZWRfXze8E5WNOWw4J
- BC1CA4kwJxntuywXjRmeFmmxVklrvaCVIrexW6tN2sOSpJo955lMR3U+wCUHhp/I4bJGDXiXLf8
- qw+bB6DqacsTzGSbqiHWiMYMTfvV/yd8zFMEJd3as55/UqYWITHJITWwzflzw0mnZYO5LB6ZxWc
- kBZSokNuqIJ39JkqLLhG6DXVWKa2c3LNXJl1VwwiypqsdFdShKALSCm8hsDjxLTjz3fE5lT276g
- h970FrENFkjXTWK4SiPBUVfu4CDCrUA5cyo/SRscKSCReiDN04oLlNLBrITJ7LEtqxoGXrJcW/X
- 00JNn8xPMl2IgQp9Ixujdfmq2tYS4aYuIm+hnXuKUidu8yGDhpbQ2T+hsXmgS0ivL+CJjUmaYW0
- 7zviWfd0si2/9aeM8BbR4Vfu/VkD8LegnDizde34t9iYeFdUfNz5uE8sykPvMJ9hTop9IhHy0t+
- 2H5DlRpkaxpVnNI68PQ==
-X-Authority-Analysis: v=2.4 cv=Q6tHcI2a c=1 sm=1 tr=0 ts=6ac37fc2 cx=c_pps
- a=bS7HVuBVfinNPG3f6cIo3Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=3-y4kEJGFriZeApEiEQA:9 a=CjuIK1q_8ugA:10
- a=vBUdepa8ALXHeOFLBtFW:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-05_01,2026-10-02_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 bulkscore=0 priorityscore=1501 adultscore=0 lowpriorityscore=0
- malwarescore=0 impostorscore=0 suspectscore=0 phishscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610050041
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 05, 2026 at 10:17:32AM +0300, Dmitry Baryshkov wrote:
-> On Mon, Oct 05, 2026 at 12:06:31PM +0530, Varadarajan Narayanan wrote:
-> > Add the 6 nm SNPS femto USB2 PHY configuration needed by IPQ9650. The PHYs
-> > on this SoC require a dedicated init sequence and override parameters
-> > before they can be enabled.
-> >
-> > Signed-off-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-> > ---
-> >  drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c | 62 +++++++++++++++++++++++++++
-> >  1 file changed, 62 insertions(+)
-> >
-> > diff --git a/drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c b/drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c
-> > index b6bbf2b570c7..8957f208bc51 100644
-> > --- a/drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c
-> > +++ b/drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c
-> > @@ -29,12 +29,15 @@
-> >
-> >  #define USB2_PHY_USB_PHY_UTMI_CTRL5		(0x50)
-> >  #define POR					BIT(1)
-> > +#define ATERESET				BIT(0)
-> >
-> >  #define USB2_PHY_USB_PHY_HS_PHY_CTRL_COMMON0	(0x54)
-> >  #define SIDDQ					BIT(2)
-> >  #define RETENABLEN				BIT(3)
-> >  #define FSEL_MASK				GENMASK(6, 4)
-> >  #define FSEL_DEFAULT				(0x3 << 4)
-> > +#define FSEL_24MHZ				(0x2 << 4)
->
-> Use FIELD_PREP, please.
+On Sun, Oct 04, 2026 at 03:40:42PM +0100, Lucas Tanure wrote:
+> The T7 has the same ethernet glue as the G12A, but the controller
+> reaches DRAM through a pipeline stage that the hardware design inserts
+> in the bus path. That stage has a gate of its own, which no other member
+> of the family has. Nothing else in Linux claims the gate, so it is
+> switched off as unused and the port can then no longer complete a
+> transfer.
+>=20
+> Describing it means a fourth clock, and the fourth clock of the existing
+> list is the one driving the timing adjustment logic. The T7 applies the
+> RGMII RX delay through PRG_ETH1 and never enables that logic, so it has
+> no use for that clock. Give the T7 a list of its own with the pipeline
+> gate as the fourth entry, under the same name the SD/eMMC controllers of
+> this SoC already use for the equivalent stage on their own bus path. All
+> four entries are required, since the port cannot move data without any
+> of them.
+>=20
+> The RX delay range is the one the G12A has, since it is the same
+> register field.
+>=20
+> The compatible pairs the T7 name with the 5.10a Synopsys core the MAC
+> reports, and with the generic fallback.
+>=20
+> Assisted-by: LLM
+> Signed-off-by: Lucas Tanure <tanure@linux.com>
+> ---
+>  .../bindings/net/amlogic,meson-dwmac.yaml     | 47 +++++++++++++++++++
+>  1 file changed, 47 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.ya=
+ml b/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
+> index 90ef79161ab1..96118b4d1560 100644
+> --- a/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
+> +++ b/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
+> @@ -23,6 +23,7 @@ select:
+>            - amlogic,meson-gxbb-dwmac
+>            - amlogic,meson-axg-dwmac
+>            - amlogic,meson-g12a-dwmac
+> +          - amlogic,t7-dwmac
+>    required:
+>      - compatible
+> =20
+> @@ -57,6 +58,47 @@ allOf:
+>              - const: clkin1
+>              - const: timing-adjustment
+> =20
+> +  # The T7 applies the RGMII RX delay through PRG_ETH1 and never enables=
+ the
+> +  # timing adjustment logic, so it has no timing-adjustment clock. What =
+it does
+> +  # need is the gate of the pipeline stage the controller reaches DRAM t=
+hrough.
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: amlogic,t7-dwmac
+> +    then:
+> +      properties:
+> +        clocks:
+> +          items:
+> +            - description: GMAC main clock
+> +            - description: First parent clock of the internal mux
+> +            - description: Second parent clock of the internal mux
+> +            - description:
+> +                clock of the pipeline stage inserted in the bus path bet=
+ween
+> +                the controller and the DRAM. Without it, the controller =
+cannot
+> +                complete DMA transfers.
 
-Not able to use FIELD_PREP, getting this compilation error.
+Have you checked that this actually works as a limiter to only 4 clocks?
+There's an additionalItems: true in the snps,dwmac.yaml that I don't
+know if will permit random additional items here.
 
-  CC      drivers/phy/qualcomm/phy-qcom-snps-femto-v2.o
-drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c:449:53: error: statement expression not allowed at file scope
-  449 |         { USB2_PHY_USB_PHY_HS_PHY_CTRL_COMMON0, FSEL_MASK, FSEL_24MHZ },
-      |                                                            ^
-drivers/phy/qualcomm/phy-qcom-snps-femto-v2.c:39:23: note: expanded from macro 'FSEL_24MHZ'
-   39 | #define FSEL_24MHZ                              FIELD_PREP(FSEL_MASK, 2)
-      |                                                 ^
-./include/linux/bitfield.h:136:2: note: expanded from macro 'FIELD_PREP'
-  136 |         ({                                                              \
-      |         ^
+Cheers,
+Conor.
 
-Thanks
-Varada
+> +
+> +        clock-names:
+> +          items:
+> +            - const: stmmaceth
+> +            - const: clkin0
+> +            - const: clkin1
+> +            - const: pipeline
+> +
+> +  # Delay definitions for Meson8b and newer (including T7)
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - amlogic,meson8b-dwmac
+> +              - amlogic,meson8m2-dwmac
+> +              - amlogic,meson-gxbb-dwmac
+> +              - amlogic,meson-axg-dwmac
+> +              - amlogic,meson-g12a-dwmac
+> +              - amlogic,t7-dwmac
+> +    then:
+> +      properties:
+>          amlogic,tx-delay-ns:
+>            enum: [0, 2, 4, 6]
+>            default: 2
+> @@ -106,6 +148,7 @@ allOf:
+>            contains:
+>              enum:
+>                - amlogic,meson-g12a-dwmac
+> +              - amlogic,t7-dwmac
+>      then:
+>        properties:
+>          rx-internal-delay-ps:
+> @@ -143,6 +186,10 @@ properties:
+>                - amlogic,meson6-dwmac
+>                - amlogic,meson8m2-dwmac
+>            - const: snps,dwmac
+> +      - items:
+> +          - const: amlogic,t7-dwmac
+> +          - const: snps,dwmac-5.10a
+> +          - const: snps,dwmac
+> =20
+>    reg:
+>      items:
+> --=20
+> 2.56.0
+>=20
 
->
-> > +#define VATESTENB_MASK				GENMASK(1, 0)
-> >
-> >  #define USB2_PHY_USB_PHY_HS_PHY_CTRL_COMMON1	(0x58)
-> >  #define VBUSVLDEXTSEL0				BIT(4)
->
-> --
-> With best wishes
-> Dmitry
+--JIUT8vrAkNrJ90Yp
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCasN/+wAKCRB4tDGHoIJi
+0oDyAP4+IQpTnFmpW2yrTw+Bsr5db2sboD7vx1z7xYwq24/bEgEAgceiW2kGrrqP
+RgLSuoYLpe5+tAKurXzLtYmc7bAuaQs=
+=bcjg
+-----END PGP SIGNATURE-----
+
+--JIUT8vrAkNrJ90Yp--
