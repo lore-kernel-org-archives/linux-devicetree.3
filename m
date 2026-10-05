@@ -1,133 +1,149 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 90EDC310652;
-	Mon,  5 Oct 2026 09:02:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9923C42980B
+	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 09:07:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791190947; cv=none; b=Yfu7ph1w7lq+gKCWYeHuepyyLGj1OUX/eZZCUTuE1hs5S54p74NxtdUqg+5pIvI3TsJ28SKKvfXOGy7XcaBcd5jOWsiJdZJnytS/diPWXg2jqKv0T1aPwn+SDRltY5Me4s2PloHUPjAEfSPeSantpY+Z0vqxA5oC5qEt0tYQH/8=
+	t=1791191227; cv=none; b=smrFcoY0TQRY1YIU06d3uD9ohzLbCon7Y2f3Is/qLeAWDkyW0IFGeXbZCalBeKh9rf6Jvee4/qD6LZ7Z5GWTse4VBKVtqKbC6rTz20qQTV2FC70T9JkS+2TGChHbhWOccYztGK0uAUeKW9aMGeuuS1bSZfC/rogjz2DYghc4OFg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791190947; c=relaxed/simple;
-	bh=wzKbXcm9aX7tddsl1dJRDbixjLaOCm42RIzbP5lg+5Y=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=d6Krn9zogvrqUzFD+OsrQs79wzdsUn7xS9aoJBwUR4uPKiJw7tXopNCdQN/DAOnKfA+1DMMcFiB8nrcu8m3VkLq4r3oHPL5BlSC2VcJit08TCqWALanjcvhlMzBPQq+vPsxp+ddbYg10N3QmjLEUob0VI8JzbmQ4VPCjfV8bccM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=BWUNNiOd; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791191227; c=relaxed/simple;
+	bh=AcOLGf4v2rbS8shGlvVPEN+rZjREDTeoRFP79D6hClQ=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=NEhiHl0egu4c2J3RVkPypTewHe0UVVSR46Vt8k6N7NpPtLDZMxpvKJfgHZp9NaB1kn0X17+bGUYrfL6gugs/0/Hv6CFmT45Rtu3JPtfhgKxKqk28BQmXw5TPwYzxp7q0c6isINeKJOCkLKZnmRH58li6BKTk/N2GPxmMEFFl2j4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Br6lWdax; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="BWUNNiOd"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 50279152B;
-	Mon,  5 Oct 2026 02:02:13 -0700 (PDT)
-Received: from [192.168.178.24] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 62B473F66F;
-	Mon,  5 Oct 2026 02:02:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791190936; bh=wzKbXcm9aX7tddsl1dJRDbixjLaOCm42RIzbP5lg+5Y=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=BWUNNiOdSkAjCx/IrsnnuZPHK2MQ2nujJ8LoSUkIn6VrEYUzdLL9Mv9EF+A4BPRIL
-	 d6U7CO5/r+w7SziIcjVnSQD3GMX1h6pWF2pAJuVXXkAZrSVCM3Lgw60iN35eQx1/e6
-	 5aMEwUajUHrIWyqQwVtsBi4/l5dMrhFp18PkN6I4=
-Message-ID: <2c75983e-5e63-4613-a9a8-055015d04bbf@arm.com>
-Date: Mon, 5 Oct 2026 11:02:05 +0200
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Br6lWdax"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a1682bff3cso7501075e9.1
+        for <devicetree@vger.kernel.org>; Mon, 05 Oct 2026 02:07:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1791191223; x=1791796023; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uWvBdfWTlWbNxYn1ui3rGPRWaxO6riK7kgAYX6piQTM=;
+        b=Br6lWdaxtnKiR5N1rjhd3hBUuz5PeAwAILb0hu48Z5ljFvwFI8b8H6vB62OFL3/MGZ
+         13lmcIa859PuzWsEqCopGbtqyZLRhm8TN0pXROwNPiQy5k0uz/i/Tx7xYrKMpckLcmec
+         b/4D8bVP+YsM9fiv4reD6UU7Bo72O2fRVPOcXcf55SWNTGbBcp9xzZCvXi9ZewWbmn8A
+         O4uiU7dJnXq1bFQAMzBwaNJyEqqF2xS8ShQs/i4NkBfFs5sQSLQQEeM99QZnJJQuLkxp
+         Sjar9E8S6kr0KOaqN50ELCQdssXus66PdJlHc2UpjTHow+3eQz3xh2LOzMvnUlvlO7Rm
+         VUEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791191223; x=1791796023;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :references:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=uWvBdfWTlWbNxYn1ui3rGPRWaxO6riK7kgAYX6piQTM=;
+        b=OOvWgKdydyJedu2Zrp7GkxHXVUy5hJlJ22EIN4ayEyGSkuzoq2dKFLMB7fdIpGN+b+
+         BGbCTL+kHaGYuPUI8/Qw2Ik/SL8HNsMk5BOdeplD4Msxi4FgRDhpjZfcMoc6rP5S80SR
+         Ab9w+WqUD6KPHxyFzuwMpxepSm47xssR4vZTP1RYEBx3b80UOEL9vh/PxP/P0T8Smv4R
+         o180ZlPaE/N+osVJRU4pOK71CBBHga/qfkBPsGXeu4wWOmru446znaBMQGrcJ+aMtWAC
+         34nrDedsH2sTu8hwc5H8DJ93kLhFOcf1BmubTDtcbUg8e/UtypbUg+E/aBa9DMOSbj+O
+         KQiw==
+X-Forwarded-Encrypted: i=1; AKwUvBxfSVR0NBFObPs+1syCeeLd3A80o5m94mj39jkKTfv9w8xvyCpmu+WBd/SslAh9fbRGNdVu5Ijq339X@vger.kernel.org
+X-Gm-Message-State: AFuF++mb2tGmMdxCmn/t0svl2nBBtMXIQK0Jke4SZSBW/KH02qSVbJ79
+	UP7CtvmLFtGsTUjtXrd5YJSX+nlhZwjtUBqUfKdHxs/lfHGSuOl29EYqi1HDoJoOtl4=
+X-Gm-Gg: AYBFou3AKYwaDOk7uRzGrAI+tAQn+LSaunw09uZXzxrkL01ycDX9Tk1QLGd0Mj/887b
+	VkmbyNpB7TH7NxlXLsGPWfofowa31aFUfE+gLF3ezvao0ZjU1vG8Ai7oW6T8NIXowaeLiOQrNAi
+	ZjPLijhAx90voEL4BmD6YID8Ilm75En9CCfiQuBaDc7OfATC34dSkgKvF3doiuo/JdZqOQawnG4
+	8l+TFF9Vc3OZjT8hseZEpB1tnz1Wc5Htawhlu1BnBf18TB0FIL7tb3Vk78m6bAoCvXV331c15tN
+	sMy0iofT7Wnzyn58kYRHqnQ0it7lqqEBSpnZNxrWZ+3mQ5kXRclVQNGpQ+csJcbYVjrGP3SKmWX
+	HOBt68W+A+R3HlesNUil0ilaX73gwg4DGozfWJEcStlOnekiNd+Uv1Vm17u/077U3bKHZjgY27d
+	Rk30H6USgDbn8/xfwQNgCexi64rQILTdq9T+zCCO+HExuGWSzJqlt6Os4W7Uc+XOExpbHrUtaHO
+	jmFb3irW24F46TH1x9GR3NVeg==
+X-Received: by 2002:a05:600c:6212:b0:49d:15b9:2a2a with SMTP id 5b1f17b1804b1-4a1680e9466mr100424735e9.10.1791191222643;
+        Mon, 05 Oct 2026 02:07:02 -0700 (PDT)
+Received: from localhost (90-182-211-1.rcp.o2.cz. [90.182.211.1])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0394c937csm189528695e9.1.2026.10.05.02.06.59
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 05 Oct 2026 02:07:00 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Miquel Raynal <miquel.raynal@bootlin.com>, sashiko-bot@kernel.org
+Cc: sashiko-reviews@lists.linux.dev, conor+dt@kernel.org,
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+Subject: Re: [PATCH v8 3/7] clk: nuvoton: ma35d1: Retrieve HXT/LXT from DT
+ when possible
+In-Reply-To: <875wzhjhe6.fsf@bootlin.com>
+References: <20261004-perso-ma35d1-upstream-clk-v8-0-e1a106a128c0@bootlin.com>
+ <20261004-perso-ma35d1-upstream-clk-v8-3-e1a106a128c0@bootlin.com>
+ <20261004205903.E62F91F000FF@smtp.kernel.org> <875wzhjhe6.fsf@bootlin.com>
+Date: Mon, 05 Oct 2026 11:06:50 +0200
+Message-ID: <1jmrss7byt.fsf@starbuckisacylon.baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] ARM: dts: sun8i-r40: Add SID node and THS calibration
-To: Otavio Salvador <otavio@ossystems.com.br>, Chen-Yu Tsai
- <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>, Srinivas Kandagatla
- <srini@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: Maxime Ripard <mripard@kernel.org>, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev,
- linux-kernel@vger.kernel.org
-References: <20261003012534.418820-3-otavio@ossystems.com.br>
- <20261003012534.418820-5-otavio@ossystems.com.br>
-Content-Language: en-GB
-From: Andre Przywara <andre.przywara@arm.com>
-In-Reply-To: <20261003012534.418820-5-otavio@ossystems.com.br>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Hi Otavio,
+On Sun 04 Oct 2026 at 23:16, Miquel Raynal <miquel.raynal@bootlin.com> wrot=
+e:
 
-thanks for sending the patch!
+>> This commit modifies the clock driver to retrieve the external HXT and L=
+XT
+>> clocks from the device tree instead of registering them directly. It fal=
+ls
+>> back to registering LXT for backward compatibility with older device tre=
+es.
+>>
+>>> diff --git a/drivers/clk/nuvoton/clk-ma35d1.c b/drivers/clk/nuvoton/clk=
+-ma35d1.c
+>>> index ceebcbd8c18b3..ed61a990870e4 100644
+>>> --- a/drivers/clk/nuvoton/clk-ma35d1.c
+>>> +++ b/drivers/clk/nuvoton/clk-ma35d1.c
+>> [ ... ]
+>>> @@ -240,12 +257,18 @@ static int ma35d1_clocks_probe(struct platform_de=
+vice *pdev)
+>>>  		return -EINVAL;
+>>>  	}
+>>>=20=20
+>>> -	hws[HXT] =3D ma35d1_clk_fixed("hxt", 24000000);
+>>
+>> [Severity: Critical]
+>> Does this unconditional removal break ABI compatibility with older device
+>> trees?
+>>
+>> Because HXT (index 0) is exported as a public ABI in the DT bindings,
+>> removing its explicit registration leaves hws[HXT] as NULL in the provid=
+er's
+>> clock array. If an existing downstream or older device tree consumer exp=
+licitly
+>> references this clock via clocks =3D <&clk HXT>, won't the provider's
+>> of_clk_hw_onecell_get() fail to resolve the clock and return an error?
+>
+> Jerome, your wisdom matters here :-) For me this is a false positive,
+> because nobody outside this driver should access hws[HXT] and the clock
+> is still referenced through the DT, just not provided by this
+> driver. For me this is not an issue we should consider, let me know
+> otherwise.
 
-On 10/3/26 03:25, Otavio Salvador wrote:
-> Without the calibration cell, the THS driver leaves the sensor
-> calibration registers at their reset value (0x800) and the reported
-> temperatures drift from the real die temperature by a chip-dependent
-> offset.
-> 
-> Add the SID node at 0x01c1b000 and wire the thermal sensor to its
-> factory calibration at eFuse offset 0x40, one 16-bit word for each of
-> the two sensors.
-> 
-> The R40 user manual gives the size of the thermal sensor key (32 bits)
-> but not its offset. The vendor SDK key map names 0x48 "thermal_sensor",
-> but that word is zero on all the boards checked. On an A40i running the
-> Boardcon vendor kernel, the THS_0_1_CDATA register holds exactly the
-> eFuse word at 0x40 (0x08780875), which confirms the location.
+Strictly speaking there is (used to be) a clock at this index so it is
+not a false positive. Someone crazy enough could have gone through here
+to get the OSC even if does not make a lot of sense.
 
-So in some U-Boot BSP sources on github I see 
-arch/arm/include/asm/arch-sun8iw11p1/sid.h putting the sensor at 0x34 
-(like the H3 or A64).
-Can you check the values there? I see that Tina-Linux puts them at 0x40, 
-as you reported, and it's probably more reliable there than in the 
-U-Boot sources, but it's worth double checking.
+This clock should never have existed to start with but it got in the
+bindings ... and that is the pain of dealing with bad bindings :/
 
-The rest looks alright (checked the manual and how the compatible string 
-is handled in the driver), so if you can confirm that it's 0x40:
+You've got 2 options:
+* Removing the ID from the bindings explaining clearly that it conflicts
+  with the fact this clock is actually an input according to the same
+  bindings. I suspect the DT maintainers won't like this much ...
 
-Reviewed-by: Andre Przywara <andre.przywara@arm.com>
+* Keep the bad support binding in the driver: You'll need a pass-through
+  clock element where the parent data is the fw_name and a fallback to
+  an `hxt-fake-internal' fixed clock. Feel free to add a comment
+  explaining how bad it is to use that clock and what user should be
+  doing instead.
 
-Thanks,
-Andre
+You'll probably need to play that last trick with the lxt anyway ?
 
-> 
-> Tested on two Boardcon EMA40i (A40i) boards: THS_0_1_CDATA now holds
-> the eFuse word at 0x40 of each chip (0x082d0822 and 0x083d0838) instead
-> of the reset value 0x08000800.
-> 
-> Signed-off-by: Otavio Salvador <otavio@ossystems.com.br>
-> ---
->   arch/arm/boot/dts/allwinner/sun8i-r40.dtsi | 15 ++++++++++++++-
->   1 file changed, 14 insertions(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm/boot/dts/allwinner/sun8i-r40.dtsi b/arch/arm/boot/dts/allwinner/sun8i-r40.dtsi
-> index f0ed802a9d08e..c7c9cad695ca4 100644
-> --- a/arch/arm/boot/dts/allwinner/sun8i-r40.dtsi
-> +++ b/arch/arm/boot/dts/allwinner/sun8i-r40.dtsi
-> @@ -485,6 +485,18 @@ ohci1: usb@1c19400 {
->   			status = "disabled";
->   		};
->   
-> +		sid: efuse@1c1b000 {
-> +			compatible = "allwinner,sun8i-r40-sid",
-> +				     "allwinner,sun50i-a64-sid";
-> +			reg = <0x01c1b000 0x400>;
-> +			#address-cells = <1>;
-> +			#size-cells = <1>;
-> +
-> +			ths_calibration: thermal-sensor-calibration@40 {
-> +				reg = <0x40 0x4>;
-> +			};
-> +		};
-> +
->   		ehci2: usb@1c1c000 {
->   			compatible = "allwinner,sun8i-r40-ehci", "generic-ehci";
->   			reg = <0x01c1c000 0x100>;
-> @@ -832,7 +844,8 @@ ths: thermal-sensor@1c24c00 {
->   			clock-names = "bus", "mod";
->   			interrupts = <GIC_SPI 36 IRQ_TYPE_LEVEL_HIGH>;
->   			resets = <&ccu RST_BUS_THS>;
-> -			/* TODO: add nvmem-cells for calibration */
-> +			nvmem-cells = <&ths_calibration>;
-> +			nvmem-cell-names = "calibration";
->   			#thermal-sensor-cells = <1>;
->   		};
->   
+>
+> Miqu=C3=A8l
 
+--=20
+Jerome
