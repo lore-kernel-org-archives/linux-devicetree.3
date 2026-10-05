@@ -1,67 +1,78 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E5264C7532;
-	Mon,  5 Oct 2026 15:39:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D84F490C10;
+	Mon,  5 Oct 2026 15:40:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791214766; cv=none; b=i7GOfsSkEcRzuGKB9ydfxKnY9VQAzhWV3SVQFNyBpUNo8qms9pE3IXydjQthTdksHb9N5jLrr5Oi3kAzoB6mk5NphFdtx70vSv6tY8mc8E6AY8Enk2w8RA614y45Zfz3Et/wuvILbf2PX56qWSexAqcVXz0sQmZXlJJaKBljOXM=
+	t=1791214835; cv=none; b=ejHkeAYNS5t5S6goGerO4suOu4eehSe9gMquqFl1+tRu/EXAlGOW0w8fYQdbu5wW30fZ9ufwdoEDtmEp2Et18F0lZJOi5Cq6OlFFkZMY2+XdjqBwNvIuUYtwS3NTwJSoBj+5Y5d7GjXWuhx9+E6wdYLXwaNJjJ0GxzpQaj7f6wo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791214766; c=relaxed/simple;
-	bh=ynEJF2SqYkp8qPh3o+LRVWKW+uVHe+XcgnAZo8fmZCY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HL8Vj2SvMKmQ5aQG+0za6xQbqxnc3jJrk5hoxv0jsIi6SlshOJ3GcPno7fGWUm0sqXz/5Z4+P1bS45lyb6bhEd5HJWugVaX6m45BNTxLCbWFN/T7p5tEJaK3BmZJkmozf32n2vAqo4Q4HnT7j+BmDW1gYAvzuJP1DbtKw1+lHcU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EiJtPG6+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791214835; c=relaxed/simple;
+	bh=e7xRSjYl4E0fpu2J3ZomS4wEmXaESY5OJdfoqG1Gxnk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ca/mRdJqhQYb9Efvb+kKtjBsCflWaFA0d+bHfAK5lEiF1MjBGhThOOHjG7aAkh2jEUNJLT5zNqtuq8OnYdOyL4NG/gjZp3erBHYsK3WEJ5lEilKytHlyHDrsBe1Y5luz4QvzmeVrjbDKSMlgyE5FIsipA2bzaPrp2gH8YgXwTos=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WnqfR+Oo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EiJtPG6+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEEA51F000FF;
-	Mon,  5 Oct 2026 15:39:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WnqfR+Oo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C0A01F000FF;
+	Mon,  5 Oct 2026 15:40:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791214765;
-	bh=NKxFrLnZ7VXzXJV8RURK6f8E2Iskw9hoQ3Fi8Vnwd6E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=EiJtPG6+Oh4Bgxbayj+ef5JuKjMburjIywMdIHF5C4HIw4md1HSadLr0EGyM5hlvj
-	 VtZksmBlRTc1SaaWyixbNu2PwbaV8F2DlJVPTsxRWm/tjeO7EMdTcpCnzA7s1sWuVW
-	 XuCoaC3UB3AjQKglya0ucqHffoisX7yXXf0yYfUvVaaKfxvv0zv3KHeiItbc3XwJ/q
-	 vUGRhZ0jrp+OvYNn66urLRddFwaIcBC0KDoF/Qpffze7I8Z5fDRLnTypehP/+FoflN
-	 3hfBG8kgSZP30kDWNny3Pd0plbpDCH/rbN0Q4J/Vmyymja5gQL8xNrYWPnMIb3SoBu
-	 faoFWw42K0Rpw==
-Date: Mon, 5 Oct 2026 10:39:24 -0500
-From: Rob Herring <robh@kernel.org>
-To: Alex Robinson <alex@ironrobin.net>
-Cc: Hans de Goede <hansg@kernel.org>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	s=k20260515; t=1791214833;
+	bh=770xBw6G6hcnC/5NwlVxxMZESUM0SI4myi4X8aEmkWQ=;
+	h=From:To:Cc:Subject:Date;
+	b=WnqfR+OoLMlS4MHMTLoF6Yfv5gfzxFOABvsPMapX02DQWOKws07NRtjLfzrjYED5o
+	 QF/WS6UW63qcTrlB7GCJb9FqzhT+VNMqica6rw3IWOb2NAmExSmEjPuERkA/ld8RWV
+	 Kve8hx1fKxRAYpG+SCBh8BjibLAUlzxs+6X6MjWturcNL1A1Z0cjn5XZ1Up5Oepxc4
+	 aNEUkuf2/xwmqob9GmB3Sy/DUbtMTuoGLVbJdEaj6Ni8P28k4gm5ZQpR5OdXaltdjC
+	 qBdtxZ/UodcJ1CYpijmL1LVd514OtGoRHLLRk0SI1/r/3PVHFF3V6xWDU+L4qjIbKP
+	 +tLS0V1f8mdGw==
+From: Jisheng Zhang <jszhang@kernel.org>
+To: Andi Shyti <andi.shyti@kernel.org>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Steev Klimaszewski <threeway@gmail.com>,
-	platform-driver-x86@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v5 1/3] dt-bindings: embedded-controller: Add Lenovo
- ThinkPad X13s EC
-Message-ID: <20261005153924.GA520845-robh@kernel.org>
-References: <20261002154231.31376-1-alex@ironrobin.net>
- <20261002154231.31376-2-alex@ironrobin.net>
+	Conor Dooley <conor+dt@kernel.org>
+Cc: linux-i2c@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: [PATCH v2] dt-bindings: i2c: dw: Add Synaptics sl2610 i2c
+Date: Mon,  5 Oct 2026 23:20:36 +0800
+Message-ID: <20261005152036.25276-1-jszhang@kernel.org>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261002154231.31376-2-alex@ironrobin.net>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 02, 2026 at 03:42:56PM +0000, Alex Robinson wrote:
-> The ThinkPad X13s EC uses a command transport similar to the T14s EC,
-> but has different keyboard-backlight, event and power-management
-> interfaces.
-> 
-> Add a separate binding to describe the X13s EC.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Alex Robinson <alex@ironrobin.net>
+Add the compatible for the Synaptics SL2610 SoC I2C controllers, which
+are compatible with the Synopsys DesignWare I2C.
 
-Missing Krzysztof's Reviewed-by.
+Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
+Acked-by: Andi Shyti <andi.shyti@kernel.org>
+---
+
+since v1:
+ - use sl2610 instead of sl261x
+ - send as a separate patch
+ - collect Acked-by tag. Hi Andi, I still added your Acked-by, but
+   replaced sl261x with sl2610, feel free to comment if you have
+   concerns.
+
+ Documentation/devicetree/bindings/i2c/snps,designware-i2c.yaml | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Documentation/devicetree/bindings/i2c/snps,designware-i2c.yaml b/Documentation/devicetree/bindings/i2c/snps,designware-i2c.yaml
+index 467bdcbb8538..467688be922b 100644
+--- a/Documentation/devicetree/bindings/i2c/snps,designware-i2c.yaml
++++ b/Documentation/devicetree/bindings/i2c/snps,designware-i2c.yaml
+@@ -43,6 +43,7 @@ properties:
+               - mobileye,eyeq6lplus-i2c
+               - mscc,ocelot-i2c
+               - sophgo,sg2044-i2c
++              - syna,sl2610-i2c
+               - thead,th1520-i2c
+           - const: snps,designware-i2c
+ 
+-- 
+2.53.0
+
