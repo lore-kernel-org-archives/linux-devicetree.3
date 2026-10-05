@@ -1,89 +1,90 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D9511E1024
-	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 02:03:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B061221DAE
+	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 02:22:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791165787; cv=none; b=ej4B5rTnm1zHeD3ZqxRMzyFp/XIG4V7/9kuwMRxkk2yJCBuZPRWQMIeIb568qaztB4X+vBAFRV9EayMUSHQmcm8BFdMy5nP+uTMa50o+ZsGyu+8grUn6KUJWp479dDNnWVHX2R0Tv0Csy8tXAJz/XswFbXeBHy52AOZvTxaaXsc=
+	t=1791166958; cv=none; b=VVCGouqq+bdZs4hfz3cntiaKC8QMk24mvQkeVMAE9Io1e371msiI6p/2KcGmgQI2mXGcsybXH7abUOL6TUtvFLebnY0d0MZNzG3+AQMVyvSn5f0MoQJ6ugOlLI6uRIF+JLM31l46s9qyC11sEKzbm7nRXDCpMhwKR7evVoy1ZDM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791165787; c=relaxed/simple;
-	bh=D9Qf7wHcoSWAHeYCtWzkYP8+JyMuhb1U18c/RLSREWM=;
+	s=arc-20240116; t=1791166958; c=relaxed/simple;
+	bh=Xl2DdGsWjQEdbbvk8p2bEAcA+VdvI37yIoMFpBIWfV8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DH+9LIC1YHdpVZDSNzfeTu2CyOjhRKc2E5rbZopgssJZkb3ebdknCEZ22KTRsT4sW+7UTaTnHek/QIhWuBk5F9qUQehpBD6EOZsrFBo5GqhEkZJ4gOjaWryhbuoNAgru8qt+19CvPEbPp5S+PCQ4q+B+Ukk3ECqB65XubL9uxYM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=b2/Iak2r; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=idLuTzQC; arc=none smtp.client-ip=205.220.180.131
+	 Content-Type:Content-Disposition:In-Reply-To; b=cb0VbFlK1nBVuEHaFGjzrQjkAU26O5WLdmEvKzawzjqXy6YIjmr82sFLPwAdeQUHmDyeHpy7kaTxca3NnfDIK7+gfu/vJzDhmV2fM+RutdjKVeJSvV80rQZd8MjvUW2VTwS8wGqRaOyxwD+5G0OTdmzM3cT4wiXGORhVJ2iLk+c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OOJduBMP; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JxoxzUQA; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="b2/Iak2r";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="idLuTzQC"
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OOJduBMP";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JxoxzUQA"
 Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69510SpB788234
-	for <devicetree@vger.kernel.org>; Mon, 5 Oct 2026 02:03:05 GMT
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69510Daq787389
+	for <devicetree@vger.kernel.org>; Mon, 5 Oct 2026 02:22:35 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	+SgEIltGQkRfnBLbDG2XrKCaH5AEd8lzeFZSn/DYU0I=; b=b2/Iak2rzA16AFBz
-	USndGqFKkXIMGYosQRob8pP0CWF9a11zSNM9emK/3l/j6TJvqyJ1c3cLocMTG/g6
-	j+9uthC16d5RUwxtlv10XQYwVlXYbviB6a8Wdcn9A5bAQtSrekD4yVHBHxNoE7bj
-	9wDWVf2yWrFg7lHj9RChbuf+OrZpZBJB8EbA4DvRcmbVk4sbAHfezXuzXkePQkOl
-	3k9zlGo11K4h4wnJKGf0rHdu9pGKJVMmWa/JcflHRXNwGGsSdYqwFT30Tq296+0o
-	Z0FJ1NqWKzlBL2pYR2algI9XLxKyAQjYuhp/NzSO8yBut6LD3yKTVSm9OLH3oFlA
-	DnbOzw==
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h2spa46yy-1
+	xNAkAdnRqmG1WxVm2qrUwlPD3YQ5EJEfWaG7blUh2rw=; b=OOJduBMPLkuU3ICF
+	GnacmXqnbNczTFye0O11DdlJnG6biVDGNT9eq+lFvRf1GZTT5xEjICcu1yMJEUMi
+	b83CgseG7/1r/IqsWOxzEpQZahSI34h1aDSqm3jtargpsCn2JRNpnMxaNH1R/Uea
+	HlTj504dV0cRYa2/ooWAdGtwLm3bN3cx2hrY41/nGElxqq11/IKTd8VWe/P7w4z0
+	uFEI+OPQOJ2eGTqzDbkSQ5BWMVu1JkfT3P/NhMJvF7OHs0wrcLa6nyLp6ifLv3SH
+	CsuTAKBnf1iQDnqwxZqAmGLGlMSFQOEXy0IgawaLKLYPtSeihV4XVqHmxHTHrVw8
+	00xz9w==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h2spa482d-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 05 Oct 2026 02:03:04 +0000 (GMT)
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-9179a2035a4so42835996d6.1
-        for <devicetree@vger.kernel.org>; Sun, 04 Oct 2026 19:03:04 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Mon, 05 Oct 2026 02:22:35 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93ae8e7e546so213453985a.1
+        for <devicetree@vger.kernel.org>; Sun, 04 Oct 2026 19:22:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791165784; x=1791770584; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1791166955; x=1791771755; darn=vger.kernel.org;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :content-type:mime-version:references:message-id:subject:cc:to:from
          :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+SgEIltGQkRfnBLbDG2XrKCaH5AEd8lzeFZSn/DYU0I=;
-        b=idLuTzQCD6Pf5yY1oseiNUote8aB4YZngDQE5dIbwMgPGnrc/4a45S7VHTLWBFiOVt
-         SI8bCJ/sMDbti91Wug/2EP4ESM86zT7WOoObZB8nek9HHVE2cB6rSoLMJDlMjw0vx9I+
-         QUdZGprfCCp0QOv8yIdhgMu8quQXLpk2JEfALzC9Er+u54YNFTldCAiNv4NmupOg8S+o
-         y1yAWLhyy4BSqVnKQkaGjnwxluCsZ781MTtTLgj/QwLssQ6b/Po6G3uFtN3085zr0VmG
-         R2buUKszUN9jQKLPshUITNoHwbNtQtXduPUwKaYLP0x/cVIHJ9xfGMfX17cqPu2rQ7lL
-         cgjw==
+        bh=xNAkAdnRqmG1WxVm2qrUwlPD3YQ5EJEfWaG7blUh2rw=;
+        b=JxoxzUQAV05CNZEM5iLQv8vpE8gei49HOaZzpUZOmYLVAyMtBOYbICDgdPabugSZJK
+         wQq/VlqvAE69nWOBpkoUs/Xx89/hYeRX89evZ8W61tzKClJJx1foA4gXYOWnFP6ZPgZe
+         S8kFEoSWCn7y6sieFxNudlRMY/Pjk3QWUcEapZRN+tm4AI83vGDROjUJzfO+NENhr9lJ
+         sabSh7Kp9SAaeFMbuPq/yTMg7MiBuCA4BKn+L1Yb/BaDOtXFOdgGspH0UW+HFCMd6UrZ
+         FDGUTLk2Wjn1UA/AV0aH/xINgsRnmM6X8L6XEng5zzdzHYVEkdUsgr9GBPXsqojswlKS
+         s39g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791165784; x=1791770584;
+        d=1e100.net; s=20260707; t=1791166955; x=1791771755;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :content-type:mime-version:references:message-id:subject:cc:to:from
          :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to:content-type;
-        bh=+SgEIltGQkRfnBLbDG2XrKCaH5AEd8lzeFZSn/DYU0I=;
-        b=2uXKVw0DIEq2qff0VWvE6aTO73wmaE3qmeWevpzSgG59TeHo8AEFz623eNMKgyWEDy
-         D6aFHYDzZUHuFDL0+kWpTgF4qEmhCYR0AV1X2yl3IvT3/NJvXM5cY+5CBR8epoqJ55TJ
-         8kU0kNqZo9itbdLnJqcsrZ2sOkO/gMkEdOKUUk2H5CPjLeCOv2M/h36fOWMsBWGJSWF7
-         fyxDKy2vM8KCDMo5YgZ0v6vLgrlctc66crh2q7U0T/vF9DFWRsGJEizj1EaSifzyjrR5
-         ijUrC/bmObsJn9a/Ztv3cv7MbUD0ANROdrpucLcUXf1Q9ub2zb3bR1/YU6O9FeroBByX
-         HYTQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwTKHNKqjB7YgrlL0HFhpjAof0GryDRIpkXPAX9XztqJoJCLAxIaLmtWWnMgyVKyzLUuoNOp60SyCUp@vger.kernel.org
-X-Gm-Message-State: AFuF++lWYj8khYdsrZaqogqRM0Y8wY927c17chmVBoJXv1/4+GNQIof1
-	oGC7BNcKeg1DsnIjY9KlMhHW0eyS4460ZhPgZyfxWgj7bNC+Vw2YbOsnanGJ6zXe4OzPlOqQTRp
-	Q0nt0FM6xLY5i0FqdozyMDyExYqiiLLp/0G8A/pmAMuzgCEQc6BfLSVCPTAAhoXeI
-X-Gm-Gg: AYBFou2s8hpRONps8k4VWjF6V9ei5PPAytNCH5ildXnCreau1l0EFIdd66Q9NahibKK
-	J5XCw9a9EvxSI5kDSF9A0lURw8688uX6LAc/ucNJkoGouVwr5SRilD9lXziIIS74MjEqJPPVJgw
-	L0ZbMZVdlsfWQIbH2bFtv/JFr/ynCJrZYojyXiE14Nl9QnlQi0JRd4g1rqKGL+E9Tb5CSC7ROuG
-	H23VgW4jKbWe3451/2XZ5bKNxm6EIHb/ZRQSIYCcuH1HBHDw6Q/YNH6RqPU9wcT17GKVYsLKAcl
-	z63ir/THeE7xh4cfHSF7lQJSGNrm2ZX2ggfCtNYCGk2k+hLEtPHOkT4NgcV1ObJyU6c9DHMD/O/
-	gYptddclcsCIPIOVtgIUsOKsA5lC96VvxI/R3+ydqqU3LZiuLMAmLgDssVaBvjRkDrnRLtuY5f/
-	Swwqc3OQ3/x4O4
-X-Received: by 2002:a05:620a:271c:b0:93c:3863:ff7f with SMTP id af79cd13be357-93cb54376f0mr2312052785a.0.1791165783970;
-        Sun, 04 Oct 2026 19:03:03 -0700 (PDT)
-X-Received: by 2002:a05:620a:271c:b0:93c:3863:ff7f with SMTP id af79cd13be357-93cb54376f0mr2312050785a.0.1791165783480;
-        Sun, 04 Oct 2026 19:03:03 -0700 (PDT)
+        bh=xNAkAdnRqmG1WxVm2qrUwlPD3YQ5EJEfWaG7blUh2rw=;
+        b=XDCNuc3kUfQhxlGURAwy4XpGKmLFTdazDFsjyuTcCmUs/fLtdF2A1V6KU5bs4cTFL5
+         weRAWV9GnR7Y5tYDABhZvQ3o8mQQUUd8Dnu14mhVVc8q4fKbDveXHEsUpWsW8UQ3qWpX
+         uDous22k5MSVXQUxqjK4KeXVuvt085GgUCN8CNi2zS0ocx/Z/AJIq2LzmhR02syu0i2y
+         Db3yKq4fVasd/docEroMpnge3SxgxhGUdNpMctTz2AQbDQ1oLiTiGRtExMGzF5etE/l1
+         XVYRzzz/cgYie8uGRwnPUvtTL8Z0htKrKycxmmGJmf+wivOvZj5fcHezLfwz6FemID7V
+         dLFg==
+X-Forwarded-Encrypted: i=1; AKwUvBzlKfJ+/pHapora+xaiFF6TLVHwjd8aILnOKkO+4wX22/vUWrdJ5hVl57yJZ0Z+kjlNV+L30Zlx3tQw@vger.kernel.org
+X-Gm-Message-State: AFuF++l2GYB3f7BhvtIapHWovKuAX4oq+FKxjckwaedcy+tBja8j4jL+
+	GuCVUgShetZ6O65w2TJUU9SJn+mx37qHlBqy4yX7+TR8mr7Vh08O6Tn260M14KXwDGr5Y5SFEUf
+	uIb6hKSaxBW1WtqdMGddyX3IWC5lbL0iP9+E5fMswxMKURYFdWv0wcmIfkfpSZnVk
+X-Gm-Gg: AYBFou1NRKx07PmJ6WE0GQlWynvYRDgPeC5dyFf0v631cFBtoXejQ0sptRsPynANsHT
+	/1iu+tgAR1V0AjPyHFFdxt8o1PF08B09x+tSj1fNE2Nnj7xsjW5MYBp5Tv6bxDDbFqN6jfL7ojd
+	ETgqaLOfzD+zG13HxrVGdseEOVm5dApu7/Gv3sR1S9vo0rCiMOY2egtDNP3+WCPkbbUy7fy1qST
+	d/n1vjZq3ZT1+bdh22SVCBtwO73jDBN/L++b9N1j2qeMM0Fhdfss2tFv300Gs1+93EUzKIOsM2Y
+	V4JRQkD6G8NWAn4qsn0M0yl/9IxJph1iFaRAwEp76MZJogEAZzdGoG6bCeloJ5SCn4+GTdCUBGH
+	jgarW2jBU7dhcr3AXxSMNWl+cIwzgWU4p/5kFClKqyaQilJO5ngkucuN+50piO94J32wEvpZwdJ
+	fprC9wnJGbcWCI
+X-Received: by 2002:a05:620a:271c:b0:939:6de6:9518 with SMTP id af79cd13be357-93cf1763839mr1579084685a.47.1791166954553;
+        Sun, 04 Oct 2026 19:22:34 -0700 (PDT)
+X-Received: by 2002:a05:620a:271c:b0:939:6de6:9518 with SMTP id af79cd13be357-93cf1763839mr1579082185a.47.1791166954023;
+        Sun, 04 Oct 2026 19:22:34 -0700 (PDT)
 Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bb7c7bb70fsm2877427e87.76.2026.10.04.19.03.01
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bb7c795b22sm2750298e87.36.2026.10.04.19.22.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 04 Oct 2026 19:03:02 -0700 (PDT)
-Date: Mon, 5 Oct 2026 05:03:00 +0300
+        Sun, 04 Oct 2026 19:22:32 -0700 (PDT)
+Date: Mon, 5 Oct 2026 05:22:30 +0300
 From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Jun Nie <jun.nie@linaro.org>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Linus Walleij <linusw@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+        Jun Nie <jun.nie@linaro.org>, Rob Clark <robin.clark@oss.qualcomm.com>,
         Dmitry Baryshkov <lumag@kernel.org>,
         Abhinav Kumar <abhinav.kumar@linux.dev>,
         Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
@@ -91,22 +92,23 @@ Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
         David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
         Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
         Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Rob Herring <robh@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
         Krzysztof Kozlowski <krzk+dt@kernel.org>,
         Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
         dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
         linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v5 3/6] drm/mipi-dsi: Add flag to support dual-panel
- configurations
-Message-ID: <m46353a3ikqtkv3ycevnpzg77z32jickl7hophmehlot4sjj56@bbh7kjb4td7z>
-References: <20260727-sm8650-7-1-bonded-dsi-v5-0-c042266b9eeb@linaro.org>
- <20260727-sm8650-7-1-bonded-dsi-v5-3-c042266b9eeb@linaro.org>
- <gu22hz3dnttzyu2eewpalgzxtocmlbfvnpwore36ufmyr3xtag@r5bbhafsn562>
- <CABymUCNtcgbcRNXdMUjVdnH_ybOxjFB31gd6AW-0HCFDSn9w4g@mail.gmail.com>
- <kgnrsnko7u4g6bpxudfo6yqubhd5gcyrdyovjfkohlgo63yrwn@xbgp7jgv6ns3>
- <CABymUCMGT32A5gE+a3u7=-3scH_Nu7Amb22-FRfWiNrcEOnAgw@mail.gmail.com>
+Subject: Re: [PATCH v5 5/6] dt-bindings: display: Add Synaptics panel support
+Message-ID: <pyl6bihy4zsyhmblrgvuvov2gi2jz5ktpbcz4u3r53qw7h725y@4wzvce345wwh>
+References: <20260727-sm8650-7-1-bonded-dsi-v5-5-c042266b9eeb@linaro.org>
+ <20260727-spotted-winged-mantis-7aa1ce@quoll>
+ <CAD++jLkX0m6_GJd4Pd1Ko4tghta4AXQ5ALZpLe_x-3xxqu1Cvw@mail.gmail.com>
+ <668e83d0-a017-4f59-bc76-bf6c9a80b5ba@kernel.org>
+ <CAD++jLkyEPY5cFg_pHb71yG52iLwS9tQDpcHu=TTBknQMeFctw@mail.gmail.com>
+ <bc3e618f-2e7a-4439-9466-8cd9695242e5@linaro.org>
+ <2lcpzwh7fxecpffnakpnp5lecrm3e6u64ztat7cd75nuxofxa2@clj27bzgjy3r>
+ <4d053234-06d8-4268-b60a-2fccc78da654@linaro.org>
+ <d3xs3kzc2wg5lkouaemdicrbtsoquff6bvmnlmuxwh4kspfs2d@b77l43axr6a4>
+ <8cf6ec52-fb36-44e7-831c-2bb24214f591@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -116,26 +118,26 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CABymUCMGT32A5gE+a3u7=-3scH_Nu7Amb22-FRfWiNrcEOnAgw@mail.gmail.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDAwNyBTYWx0ZWRfX7OOX4PIDmWFa
- V5Zk3FqmXYMgRLM88KgRqUPMCA8MLEJBK1u40PytIaH0Xy/2p6LTjfkgabce7tWQ/g+MpdIbMzq
- YTFN+3RCESW1rAHnBMzOkS4cW17b/yM2nsytK1rjQyXJlWfW48HtgsqRsg6Xs3VWoE/aLgXYm/j
- JhN8QlhWCgEzQt6SQoYHNFWijTNTeO+qzgVYaUVXNj64xKY/n1bQf6Kg6NM1ZmK5uyKiD7/X/O6
- j2M4T+aJnBIu+bxaEdbvGJF4XDAqmFGbwkyYTe7tIbgGV+U1/GzkewOqzjWoAXCxsUNAYweCanf
- GJWk/X9W70/qPpNtZhy8K3cKt182qohM4BxMJslpl3Zo0v9KkjRlkQWgO/8i3vnLOpAMbvpWBY3
- 1FxGN4Ilv7n+pv8GoFtR3i44SooD3wtVRoLR6GPn3mY6vcbjZ4R5uE+6IpgYhY/MOutdlJJ/42i
- EmHoQila4T3qt+jlZoQ==
-X-Authority-Analysis: v=2.4 cv=b7MncdGx c=1 sm=1 tr=0 ts=6ac30558 cx=c_pps
- a=wEM5vcRIz55oU/E2lInRtA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+In-Reply-To: <8cf6ec52-fb36-44e7-831c-2bb24214f591@linaro.org>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDAwOSBTYWx0ZWRfX06m3PuEhJckD
+ q29ysWzyyvdTN+q1UqfK5viCskJiK0PdpyKMBKGk/hbRqlxLWVZ37DgbYhnLF0hirhFX7V3xYAz
+ fQuLUID0U6HAGd96fOn89E2rdKAn5530Q8T8CDLIwXAayF2hBrUkIM8Wto1wvobba9CO4/tQeGg
+ lJHxKNHeNTYtpPufdPpfAgs6KXPnJe8pB69g/tQ1DUDyZ+wlFHI5H4aZBQzw9b3rN5wuer651xy
+ EAbzS1VvqvkuioZ+Vj3qDVmyKk48ojzG3X8PAfqqqSxDfnRcEAGh5sZIZfiu6iSwgrBolzlqqxU
+ jbObVkErrt1TE6JvvbqcRPb86NHPsRYRkKDW6fP8waDM8TfGIMEp5aQB+POHG8i5BXtou+FH1ib
+ SYwPgr4JjeFhHJbkgc67mlz2qHCweqAJFiSn2DQJQ8JczQmlgOx+yZrREdOGlrZEid3Jympl+6F
+ D6BsV2OJBksuw2eQfVw==
+X-Authority-Analysis: v=2.4 cv=b7MncdGx c=1 sm=1 tr=0 ts=6ac309eb cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
  a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8
- a=KKAkSRfTAAAA:8 a=kAmi71hXjrz3IqBiEUQA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=OIgjcC2v60KrkQgK7BGD:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-ORIG-GUID: Yzk3PY_U9TeeYxmhWiuRUTHrZXudyZOF
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDAwNyBTYWx0ZWRfX51mr9KpJZx1c
- VXvkaFDjop0kCnfLq0JGjPRAeRozRTrwPNXNjRL9l8YugQWQ4Jr/e4cCyS+JJ9IFAy93M2/doE9
- 9VVr0vayTefms6mBXU/Avl2U1peXHJ0=
-X-Proofpoint-GUID: Yzk3PY_U9TeeYxmhWiuRUTHrZXudyZOF
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=vnREMb7VAAAA:8
+ a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=c2XYxALNj4nUam8qvhUA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-ORIG-GUID: BCZsZFFWKj2yd08sVaArmCXOoc88SigK
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDAwOSBTYWx0ZWRfX1sANCuH5ytA1
+ NgeAJuAsa4Id9T6Qz/UBcIGIgZg7EuH59J3lU5xdt54ORpBXmfgBmRzwmilAMLDZHr04jzxGNnM
+ CjVSjJUYGKvGqP+lx7UrK30GuW/Z2qA=
+X-Proofpoint-GUID: BCZsZFFWKj2yd08sVaArmCXOoc88SigK
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-05_01,2026-10-02_02,2025-10-01_01
@@ -144,105 +146,141 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  bulkscore=0 malwarescore=0 suspectscore=0 priorityscore=1501
  lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
  route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2610050007
+ definitions=main-2610050009
 
-On Sun, Oct 04, 2026 at 09:58:04PM +0800, Jun Nie wrote:
-> Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> 于2026年10月1日周四 03:43写道：
-> >
-> > On Wed, Sep 30, 2026 at 09:52:48PM +0800, Jun Nie wrote:
-> > > Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com> 于2026年9月30日周三 00:05写道：
-> > > >
-> > > > On Mon, Jul 27, 2026 at 04:08:42PM +0800, Jun Nie wrote:
-> > > > > Some devices treat two independent physical DSI panels as a single
-> > > > > logical panel from the CRTC's perspective. However, two separate DSI
-> > > > > hosts are still required to drive the panels individually.
-> > > > >
-> > > > > Introduce a `dual_panel` flag to the `mipi_dsi_device` struct. This
-> > > > > allows a panel driver to inform the DSI host that it is part of a
-> > > > > dual-panel setup, enabling the host to coordinate both physical
-> > > > > displays as one.
-> > > > >
-> > > > > This change does not force individual panel driver to manage
-> > > > > system-level display topology if the driver does not intended to
-> > > > > support dual panel topology. Only the driver that set the flag to
-> > > > > true need to take care of panel topology.
-> > > > >
-> > > > > Signed-off-by: Jun Nie <jun.nie@linaro.org>
-> > > > > ---
-> > > > >  include/drm/drm_mipi_dsi.h | 2 ++
-> > > > >  1 file changed, 2 insertions(+)
-> > > >
-> > > > Do you have a single MIPI DSI device, or are there two independent MIPI
-> > > > DSI devices? In the latter case, the flag is wrongly placed.
-> > >
-> > > Yes, there are 2 mipi devices, and 2 mipi hosts. This flag is used for
-> > > mipi device
-> > > to notify host they are one of dual panels, so that horizontal
-> > > configuration(width)
-> > > in mipi host can be handled correctly. Where do you suggest to put this flag?
-> > > Thanks!
-> >
-> > Into the msm DSI structures. We already have several Qualcomm-specific
-> > flags. I'm thinking from the 'generic device' point of view. The
-> > 'dual_panel' doesn't mean anything if the device has more than two DSI
-> > hosts. You need to specify which hosts are mapped to L or R channels, etc.
+On Sun, Oct 04, 2026 at 05:51:44PM +0200, Neil Armstrong wrote:
+> On 10/1/26 02:43, Dmitry Baryshkov wrote:
+> > On Wed, Sep 30, 2026 at 09:18:55PM +0200, Neil Armstrong wrote:
+> > > On 9/30/26 21:04, Dmitry Baryshkov wrote:
+> > > > On Wed, Sep 30, 2026 at 06:43:47PM +0200, Neil Armstrong wrote:
+> > > > > On 9/30/26 09:44, Linus Walleij wrote:
+> > > > > > On Tue, Sep 29, 2026 at 3:35 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
+> > > > > > 
+> > > > > > > This entire binding seems like stitching two devices together, which
+> > > > > > > might be fine (I don't even remember this stuff... two months old) or
+> > > > > > > might be artificial grouping of separate devices.
+> > > > > > 
+> > > > > > I think that's a good point and fair pushback.
+> > > > > > 
+> > > > > > Neil and Jun talk about it yesterday at XDC (1:15 into the stream):
+> > > > > > https://www.youtube.com/watch?v=6tNGW8PoSzw
+> > > > > > 
+> > > > > > The current binding does not reflect the physical topology of the
+> > > > > > actual device, and the bindings need improvements. I have a feeling
+> > > > > > there is one display controller with two physical panels.
+> > > > > 
+> > > > > No there's really 2 controller and 2 separate panels, but they are not
+> > > > > classic panel, they are a pair of panels+lens which are in front of
+> > > > > the eyes which forms a single "image" for the brain, so they are
+> > > > > technically a single display and requires to be hard synchronized.
+> > > > 
+> > > > Yes. However this approach makes it impossible to share the code between
+> > > > the double-panel drivers and single-panel drivers. I think, that the
+> > > > panel driver should still reference a single glass+DDIC, while letting
+> > > > the DSI host driver to handle the bifurcation.
+> > > 
+> > > Yes, and no, it must really be considered as a "single panel driven by 2 identical controllers",
+> > > and even this is really purely software implementation issue.
+> > 
+> > [...]
+> > 
+> > 
+> > > > > Describing both panels into separate nodes would only be possible
+> > > > > if we described a "VR display complex" nodes linked to both panels
+> > > > > but this would probably be solved by actually describing the "display"
+> > > > > linked to a DDIC controller and is out of subject for this serie,
+> > > > > and can be added later when we properly define things.
+> > > > 
+> > > > I like the VR complex idea. In the end, you have two modes which you
+> > > > most likely might want to support:
+> > > > - L+R, having double-width CRTC scanning over a double-width framebuffer
+> > > > - Mx2, having a single-width CRTC and a single-width framebuffer
+> > > >     displaying the same picture to both eyes. I can imaging that knowing
+> > > >     about L+R might be an explicit opt-in feature of the DRM interface.
+> > > > 
+> > > 
+> > > This makes no sense to support both modes, and this will never be used,
+> > > and anyway this is purely software implementation.
+> > > 
+> > > We're defining bindings here, describing the real reality, not hypothetical
+> > > situation that will never happen.
+> > 
+> > Let's ignore software issues. On the hardware side, you have two
+> > distinct DSI panels, each having its own set of controls, own DSI link
+> > and own backlight control.
+> > 
 > 
-> How about to add below 3 members regarding multiple physical panels in
-> single logic panel. We have h*v panels in a panel wall. The index start from
-> 0 when we iterate panel from left to right of the top array of panel wall. In
-> XR case, we have num_panel_h = 2;  num_panel_v = 1; and
-> panel_index = 0 for left channel, panel_index = 1 for right channel. The
-> original framebuffer is divided into width/num_panel_h and
-> height/num_panel_v for each panel's DSI link.
+> OK so let's see the problem in another angle, if we had 2 DS links 2 physical
+> controllers, 2 physically distinct panels but forms an unique display.
+
+Imaging the case: through the time the backlight LEDs on the right eye
+age faster than the ones on the left eye, so we need to apply dynamic
+correction to the backlight, dynamically calibrating the coefficient to
+be applied to the LED brightness (or even worse, dynamically applieing
+the _curve_ to compensate for the brightness difference).
+
+Note, I don't have any information here, if such a difference can exist
+or if it can appear through the time, or if the xR DDICs can handle it
+on its own via a pre-programmed LUT, so you can totally say that the
+argument is moot and I won't even argue here.
+
 > 
-> u32 num_panel_h;
-> u32 num_panel_v;
-> u32 panel_index;
+> Describing it in separate distincts nodes is wrong since it doesn't reflect
+> that it's an unified display, so either we define :
+> - a "combined-display" bridge defined as:
+>   - a separate top node in / like connectors with a graph from the DSI links to each panel
+>   - a DSI subnode with 2 panels as subnode, port graph from both dsi to both sub-panels
+> - a "R63455" panel bindings with 2 subpanels as Linus shared in https://lore.kernel.org/all/CAD++jLkyEPY5cFg_pHb71yG52iLwS9tQDpcHu=TTBknQMeFctw@mail.gmail.com/
+> 
+> I think it would be interesting to have the "combined-display", with a connector-like node,
+> which will do all the split-dsi dual-panel logic for us and leave use implementing simple panel
+> drivers.
+> 
+> The outline would be:
+> 
+> =====><=======================================
+> / {
+> 
+> 	xr-display {
+> 		compatible = "combined-display";
+> 
+> 		ports {
+> 			port@0 {
+> 				combined_dsi0: endpoint {
+> 					remote-endpoint = <&dsi0_out>;
+> 				};
+> 			};
+> 			port@1 {
+> 				combined_dsi1: endpoint {
+> 					remote-endpoint = <&dsi1_out>;
+> 				};
+> 			};
+> 			port@2 {
+> 				combined_panel0: endpoint {
+> 					remote-endpoint = <&r63455_right_in>;
+> 				};
+> 			};
+> 			port@3 {
+> 				combined_panel1: endpoint {
+> 					remote-endpoint = <&r63455_left_in>;
+> 				};
+> 			};
+> 		};
+> 	};
+> };
 
-You have seen drm_connector's tile-related fields used by
-drm_connector_set_tile_property(), haven't you? If we are to use num_h
-and num_v, I'd also use h_loc an v_loc instead of a single panel_index.
+This is an interesting approach and it would be a requirement, if we
+ever have a device with 4 DSI hosts which can driver two sets of XR
+panels (there would be no other way to understand, which pairs of panels
+are bundled together). I am not sure if it needs to be an OF graph
+device or if it can simply reference the DSI devices. Or if it can
+reference panels (which is not the same).
 
-The driver needs to distinguish (for the DSC params) if it's a single
-panel spanning two DSI links or if there are several DSI panels, bundled
-together, so you also have to add h_size / v_size style of params.
-
-But then the real question becomes, do we really need this complexity?
-Will there be any use for it other than representing the XR vs non-XR
-cases? This all doesn't concern userspace or uAPI, so, if anybody needs
-actual DSI panel walls (maybe also using DSI subchannels to driver more
-than two pannels), we can extend the solution on the kernel side.
-
-If we take the dual-LVDS panels in mind, I can propose the following
-API:
-
-struct drm_panel {
-	/**
-	  * @dual_channel: set for the DSI or LVDS panels which use two
-	  * host interfaces to be driven
-	  */
-	bool dual_channel;
-};
-
-struct drm_bridge {
-	/**
-	  * @dual_channel: set for the bridges which use two host
-	  * interfaces to be driven, e.g. dual LVDS panel or bonded DSI
-	  * bridge.
-	  */
-	bool dual_channel;
-};
-
-Devices like LT9611/LT9611UXC or panels like hx8279 will set that flag.
-The DSI host driver can use it to determine whether to use width or
-2*width in the DSI calculation.
-
-At the same time, in your case, you won't set this flag. The DSI host
-driver, fidning bonded DSI link and non-dual-channel bridge will
-determine that it's a panel bifurcation case and handle it
-appropriately.
-
-What do you think?
+Another question, do we need to list any other devices here? regulators?
+sensors? maybe proximity sensor? cameras? I'm thinking from the
+4-host-2-xr point of view, because if we don't have 4 DSI hosts, we
+don't need to describe anything. We already know all the hardware
+properies and connections, the rest is really just a software plumbing.
 
 -- 
 With best wishes
