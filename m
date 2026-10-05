@@ -1,214 +1,277 @@
-Received: from pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.34.181.151])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB69447DFA7;
-	Mon,  5 Oct 2026 11:25:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.34.181.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FF0847DD5C
+	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 11:25:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791199524; cv=none; b=M5tV4FG7fNinWuJSQM9/uFcEt0m7uxBkS+p4WOoiuZtlttPgyDP4/kUzJ4gragOmBSoia22Bw/oZAk0zKjzqdx/s19Bm8Ijd1K0YL8ChyJMhGIEDMdV/SfrHmHoKBP1snv89+3SyCs6IgmRozj3BHC5EzMHFSUn300AObYtN4y4=
+	t=1791199538; cv=none; b=CX65pJWDU6gKiMiGWpSmWql1tzTO+jbULdEnEJt94Wjpd2p8GtzcItJActYR2hB9WSuFGlUr5+xaL9GSw3LZ4FXDlvCXYg9OmJvWbPxUuPANoBDhnYGuB2Hyn5S46bknIA9rRjteIE39HpJ16hCC80zKmt1Lbf7dxeojYDBtZHQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791199524; c=relaxed/simple;
-	bh=XCs/paEGYM17fjv+cHZo/UKaY3xp3WuoGtMAmiGLns4=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=DN4exCo+SRCE5jv6xV9SxL9siNsWGUoKavdfFM1vmbwNd8XRG0izyRZ7tSmed1TpgBCObKjRmWo0+J+HXbRVoIzSZgJRG53mCTHYq8Uch3ngHvXUfNUgZ/PtBUxlCc3w08A7lr66A803ECZhtRsDC+F3OoN76mqo4rIaA4vVQ7Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=KQiqJqWA; arc=none smtp.client-ip=52.34.181.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
+	s=arc-20240116; t=1791199538; c=relaxed/simple;
+	bh=3Pc9Itga+pi16jhUeqmzJNwEXoXts84QaR6nATMrKFc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=SZOcH6Pex8eS5TbzpZ959ws+up6Q0Lzmx4tH3C8VaKsSZNdfgJZPC3IHQri+tPQ1cfqDzZ5AMbgHAQl3erORgjaKdsgsG1FlJ6IgHXWE8Zd424Fgdh5TmAuWpkupUGIh5Ff70fit2NsB4RpcVyLkXA2p8BnZkL5n2EHsypAQv1Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Yvi51Lca; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MLj6tOd4; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="KQiqJqWA"
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Yvi51Lca";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MLj6tOd4"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 695Aoh3M1113789
+	for <devicetree@vger.kernel.org>; Mon, 5 Oct 2026 11:25:35 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	VabCPYl8CmmT4hmJVbpxYnUz4Qn/+FS2QK4fZXw5zF4=; b=Yvi51Lcaxs/cZYO3
+	MF4SJkCukFSA7UUwRKJwQbu1iKLWU7i86jlcZRulPtMIZ5UuyJ2GNf09vnwhLGM7
+	t5Cizp/Glf2ELNdR9s9NPwZVHcE9HdbsBtKnwbcLYzh9/Sw7APCTtxMSyaQSKfQP
+	bA/0FbONcQHthuW565Y4ndkTYUts9PO14pS9tgusMHJ23Y7mplsFFEgAvZl68/kw
+	XDCvmcIXbpxqUwAO2uNCZ/iT0kT06/FSlvwLLdQkJ7QGE4imOGxwehrS/96F1krp
+	nGvvkXXIx8BXQDPqHDeE5Gfg/7064m5BuvsWXaA1OARpKxBrFbxrxna21iZd+ns9
+	DbS8+Q==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h41gn9jxa-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 05 Oct 2026 11:25:35 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-3a4f7eb79f2so1594658a91.1
+        for <devicetree@vger.kernel.org>; Mon, 05 Oct 2026 04:25:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1791199513; x=1822735513;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=uTkwUBd2rR2sTvGTWenad0+Q0AEGgLoC4T1XhpCn1BE=;
-  b=KQiqJqWAblhVbWP86qVO0TYoIHmt/gBE04eApIqZmk1sLonsKqbPISWk
-   /vbDs8GAawbYY+vgGpwjLZkfcSHcTzOGmYBG9qaNV7IdszPnwbIk+5Br/
-   BrHL5iiMQNGKQskG4Bijs8tUpkOry5bVwiIop8WV5mGzRtBxvtmWpoi71
-   9V8esUYrs/j0BxdllMN0y+ddXbIpOoe7P0vRX7Rq54K0YTYwKMW85BWM8
-   JGuct7kri6teePwDsViTaY9bTSvfwqit46azOUmHW1SvQWscg+eNW7UP8
-   0iOlX54IAJYYtGFTbzq/LXFNsbhWScA+27wpYZQk7uw2kGWxGdMoxIhse
-   Q==;
-X-CSE-ConnectionGUID: gFPzG05NTMeEo0QeOW5QSA==
-X-CSE-MsgGUID: O5vYiHICSUuaqUSoWpvOyA==
-X-IronPort-AV: E=Sophos;i="6.27,141,1787011200"; 
-   d="scan'208";a="30414840"
-Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
-  by internal-pdx-out-007.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 11:25:11 +0000
-Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.111:14704]
- by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.61.153:2525] with esmtp (Farcaster)
- id 2a214ec6-14d1-4f47-b703-47b8f8c60f4e; Mon, 5 Oct 2026 11:25:11 +0000 (UTC)
-X-Farcaster-Flow-ID: 2a214ec6-14d1-4f47-b703-47b8f8c60f4e
-Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
- EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
- Mon, 5 Oct 2026 11:25:11 +0000
-Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
- (172.19.116.181) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49; Mon, 5 Oct 2026
- 11:25:09 +0000
-From: Eliav Farber <farbere@amazon.com>
-To: Thomas Gleixner <tglx@kernel.org>, Talel Shenhar <talel@amazon.com>
-CC: Radu Rendec <radu@rendec.net>, Rob Herring <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, "Eliav
- Farber" <farbere@amazon.com>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH v3 4/8] irqchip/al-fic: switch to shared parent interrupt
-Date: Mon, 5 Oct 2026 11:24:54 +0000
-Message-ID: <20261005112458.22291-5-farbere@amazon.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261005112458.22291-1-farbere@amazon.com>
-References: <20261005112458.22291-1-farbere@amazon.com>
+        d=oss.qualcomm.com; s=google; t=1791199535; x=1791804335; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VabCPYl8CmmT4hmJVbpxYnUz4Qn/+FS2QK4fZXw5zF4=;
+        b=MLj6tOd4Iv8+mIXrymssbogSBJDoZmDFZdA1u1wIooMr7hIC8NRyoPe8SpIcoOLiLk
+         uEheKhl+I/q1Yl72D9c47AOARJ8UNQ+KfPhWoE3xRPOlGyLO0HtLQH50ex667iGndRHY
+         5J9oxMQqitj5TNLvPP0c39njXfEj3uhlP4FkwHScoc0VB9ZLo6I922pU+VIBgy4XwOVR
+         82SRpmi8cbrcT3sF+9giGtYBjRz2ouVd6zFJs65bUJtSAwuEi/qSj2yUcgoiotgj0W4s
+         13USm2EKjpz8e+06FWc1bLth5s1Wt5gruCJp5VrN3Y7ZTuG1P33FfZ1yTmS7H+AoP23G
+         rf8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791199535; x=1791804335;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VabCPYl8CmmT4hmJVbpxYnUz4Qn/+FS2QK4fZXw5zF4=;
+        b=jYGhyDHqd2aBiiv+zw8YpqY6+FXA5UjIWoqD4M6sZsp1rDSSXGiMQW1CDLHPvhMS7Q
+         5gV+4p0a1lshXyBHevvs7t/d9f5cH4DmjeZ8+XtLFtlVz35dEvRFEAEmgUn6FkxyoI9q
+         tHbn7Z/pMiic5CkiO2AvHNx96ljI/gXltKB0bSTj5ZiEZXNH4/ehfaJsfHHK3j4EevSk
+         S4xgA34Ao3S/NYKf7xgNkcESLUNtMALnQowQoCYNkZSxQf+GzWFlA2vyOVOG0Gfz0vX+
+         hdo/1T07g0eIkWOusKXTCPfpWhKfTkEy9/aoomwnnVEmR6MWNZ8Zgc1SOeyyUghbthbn
+         I71Q==
+X-Gm-Message-State: AFq9FYI+BrAAB7D6z+89XX2dVdgrZf+XW+z1WxZETEZtOD93Ne3JnaYj
+	mA7E5SlSxCUzI4RkAIg76PzJANpADIckFla36yZDIKZkgW4KSFUCX6XBdMIUBDoH+rk70yF7LDA
+	Lf/GKKitv53JVKXYx2n4RSkbmygnSl8kaHmYvAL+IdefbfCBuLVEGnvssiLvxske7pFp0Ybwr
+X-Gm-Gg: AYBFou0fL9CBaRD8kCvefp2taLOnoa6LQ4P3Gl2MTxYs3YgmN2pBAhiHt4UUgwPBWT8
+	CcznODNPVn8HZ1IlSVC2HT+nqhpQjzO+kgYyL9WM3ecr+7Kq7LdWCERy8O4biQCSHXbqwniTMby
+	53c9XOtezzeUhFx0iRUgD1JN8fbz5iJ3xqjE/VwWD26DOWTQ4idhRb1k5LhV6H4huvGHwUdO1ou
+	d4pycDC4RwVioVfdSElyZwy/mMyd3b+DyynD6DDWsvllJ9WUbF09h/FXhefrdfYP7JoIcdZh5Ne
+	1e319uctyR6Kk8g99FNr1xm2dgK3nXMZymqm24gX563Ez5GSCZwus6jUg1arTBMR6hqj4yIIWLg
+	fBU4RJ7x0c+Ib5NvgNy+LGfFA3hZxqy1Zxw==
+X-Received: by 2002:a17:90b:4d83:b0:3a4:fe48:d427 with SMTP id 98e67ed59e1d1-3a6ce7987e0mr4334822a91.28.1791199534600;
+        Mon, 05 Oct 2026 04:25:34 -0700 (PDT)
+X-Received: by 2002:a17:90b:4d83:b0:3a4:fe48:d427 with SMTP id 98e67ed59e1d1-3a6ce7987e0mr4334799a91.28.1791199533988;
+        Mon, 05 Oct 2026 04:25:33 -0700 (PDT)
+Received: from [10.92.200.217] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a78e4262f0sm11836451a91.4.2026.10.05.04.25.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 05 Oct 2026 04:25:33 -0700 (PDT)
+Message-ID: <a362b160-0b31-4f66-bb2c-69ac741f71c7@oss.qualcomm.com>
+Date: Mon, 5 Oct 2026 16:55:29 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: EX19D039UWA001.ant.amazon.com (10.13.139.110) To
- EX19D001UWA001.ant.amazon.com (10.13.138.214)
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 02/12] hwmon: Add Qualcomm PMIC BCL driver
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, lee@kernel.org, robh@kernel.org,
+        linux-hwmon@vger.kernel.org, mfd@lists.linux.dev, conor+dt@kernel.org
+References: <20260929-qcom-bcl-hwmon-v3-0-f5ca00889cf7@oss.qualcomm.com>
+ <20260929-qcom-bcl-hwmon-v3-2-f5ca00889cf7@oss.qualcomm.com>
+ <20260929132147.2D7C41F000FF@smtp.kernel.org>
+Content-Language: en-US
+From: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
+In-Reply-To: <20260929132147.2D7C41F000FF@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: lkmDsBq-JprVPwlAfFwhbPPd24_jwVbB
+X-Proofpoint-GUID: lkmDsBq-JprVPwlAfFwhbPPd24_jwVbB
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDA0NCBTYWx0ZWRfX6xee25T2R6lC
+ PREM2bUBW2nLvxPRbS5oWdU69OO7I2YXhNnrlJZO5JhAScS/ISbnLzxiOhIF2iEuE7hq42vo9Fo
+ Zppoberi88spteXD39OLgGNhHj4xjWz2kqynKdg1SkzQT+1O4SPR6j5VJGTBFnLl5mb2b/R/iQK
+ ZBzTkHcxxhrejtoICYA4gtDqtSD2wB94Z/7w5XptorF/7a9xauRsRb1LqX8yPDKYMHv1F5Cimwf
+ KwxbLp12AAoDk3hFjYQ4yucr9uIcWDWbz29x0wFiM+nL7V1NLMRSP12y94JLr7CdAg9wUj4AlX9
+ OdCdXoQSWgF8sBbHNX4XY2XWXXNz+vIvRiR3/0IndxJeuJIw7ZVd9OOZdRvqTIA0hKFHXYazSC0
+ CfZi8dr8wAs04Gw/R1BSUhiyZFazVuHLIxrmSCDUsTlNIToLfzFDV0czQWw6jDeK53FMU1gKXSi
+ N6vJfFdjgfQsukXXWQQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDA0NCBTYWx0ZWRfXw9hpGumzb+To
+ 1BfAUgdjql+jos0hvSGVkjOOJQ/FaZAX7DVPb4s4AobM6h3tg6FqLCEZ1nnNoiu//T+8FsvbVAy
+ urxUsjnn4thvoyekOVEG+sgvLpf01lM=
+X-Authority-Analysis: v=2.4 cv=P9WvFSAu c=1 sm=1 tr=0 ts=6ac3892f cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=3-bhLjB0DjplO_CttVUA:9 a=QEXdDO2ut3YA:10
+ a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-05_02,2026-10-02_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 bulkscore=0 clxscore=1015 spamscore=0 priorityscore=1501
+ lowpriorityscore=0 adultscore=0 suspectscore=0 malwarescore=0 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610050044
 
-Until now the driver requested its parent interrupt using the chained IRQ
-API (irq_set_chained_handler_and_data()), which only works when each
-parent interrupt is wired to a single FIC instance.
+Hi
 
-A FIC controller is built from groups, each described by its own DT node,
-and the groups of one controller share that controller's output line
-toward the parent. So a real devicetree has several FIC nodes on one
-parent GIC SPI, and a chained handler can only be installed once per
-parent. Cascading compounds this: an aggregating group collects several
-peripherals' outputs onto the line above it.
+On 9/29/2026 6:51 PM, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
+> - [High] hwmon: use-after-free in delayed work due to missing cleanup on probe error
+> - [Medium] hwmon: potential torn read of 16-bit volatile ADC values
+> - [Low] hwmon: incorrect rounding of negative ADC current readings
+> --
+> 
+> commit 582b6b399b20e883c83628558dc27f1dcb1c1d4d
+> Author: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
+> Subject: hwmon: Add Qualcomm PMIC BCL driver
+> 
+> Add driver for Qualcomm SPMI PMIC Battery Current Limiting (BCL)
+> hardware monitor. The driver exposes battery voltage and current
+> monitoring through hwmon interface.
+> 
+>> diff --git a/drivers/hwmon/qcom-bcl-hwmon.c b/drivers/hwmon/qcom-bcl-hwmon.c
+>> new file mode 100644
+>> index 0000000000000..eb6bfa7ff18f5
+>> --- /dev/null
+>> +++ b/drivers/hwmon/qcom-bcl-hwmon.c
+> [ ... ]
+>> +static int bcl_convert_raw_to_milliunit(const struct bcl_device *bcl,
+>> +					s32 raw_val,
+>> +					enum bcl_channel type,
+>> +					u8 field_width)
+>> +{
+>> +	const struct bcl_desc *desc = bcl->desc;
+>> +	u32 def_scale = desc->channel_cfg[bcl->batt_config][type].default_scale_nu;
+>> +	u32 scaling_factor = (field_width > 8) ? def_scale : (def_scale << field_width);
+>> +
+>> +	return div_s64((s64)raw_val * scaling_factor + 500000, 1000000);
+> 
+> [Severity: Low]
+> Does this math correctly handle negative current values?
+> 
+> When the hardware provides a negative ADC value for current (e.g., during
+> battery discharging), it is sign-extended in bcl_curr_input_read() and
+> passed here. The arithmetic unconditionally adds 500000 before performing
+> integer division (div_s64). For negative dividends, adding a positive offset
+> shifts the value towards positive infinity, and C integer division truncates
+> towards zero, causing the hwmon statistics to be off by 1 unit.
+> 
+> Could this conditionally subtract 500000 for negative dividends to ensure
+> mathematically symmetric rounding?
 
-To support that, request the parent interrupt as a shared interrupt
-(IRQF_SHARED) instead of installing a chained handler. The handler now has
-the standard irqreturn_t prototype and reports whether this instance had
-anything pending, so the shared-IRQ core can tell which instance on the
-line raised the interrupt. IRQF_NO_THREAD is set because the handler only
-demultiplexes to the child domain and must not be forced-threaded; all
-instances sharing a parent line agree on this flag, as the shared-IRQ core
-requires.
+I will use DIV_S64_ROUND_CLOSEST instead of the biased 
+add-500000-then-truncate pattern in next revision.
 
-The handler reads the group's cause register and returns IRQ_HANDLED when
-any unmasked cause bit is set, IRQ_NONE otherwise. That is the signal the
-shared-IRQ core needs - "did this instance's hardware raise the line" -
-rather than the result of dispatching to the child domain, which for a
-domain sized exactly to the cause register always succeeds.
+> 
+> [ ... ]
+>> +static int bcl_curr_input_read(struct bcl_device *bcl, long *out)
+>> +{
+>> +	int ret;
+>> +	u32 raw_val = 0, msb = 0;
+>> +	s32 signed_val;
+>> +	const struct bcl_desc *desc = bcl->desc;
+>> +
+>> +	/* Return cached value if read too soon after last update */
+>> +	if (bcl->last_curr_updated &&
+>> +	    time_before(jiffies, bcl->last_curr_updated + HZ)) {
+>> +		*out = bcl->last_curr_input;
+>> +		return 0;
+>> +	}
+>> +
+>> +	ret = regmap_field_read(bcl->fields[F_CURR_INPUT], &raw_val);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	/* For 16-bit data, read MSB and combine with LSB */
+>> +	if (desc->data_field_bits_size == 16) {
+>> +		ret = regmap_field_read(bcl->fields[F_CURR_INPUT1], &msb);
+> 
+> [Severity: Medium]
+> Is there a risk of a torn read when fetching this 16-bit volatile ADC value?
+> 
+> These sequential reads can capture hardware registers in an inconsistent
+> state if the PMIC hardware updates the ADC registers exactly between the two
+> independent bus transactions. Since the mutex lock only serializes software
+> threads, a hardware update right between these calls would result in reading a
+> mix of old and new bytes (e.g., an LSB of 0xFF and an MSB of 0x01).
+> 
+> Should this use an atomic regmap_bulk_read() for 16-bit data fields to
+> prevent wildly incorrect sensor readings?
 
-request_irq() can fail, unlike irq_set_chained_handler_and_data(), so add
-an error path for it. Set IRQ_DOMAIN_FLAG_DESTROY_GC on the domain after
-creating it, so irq_domain_remove() tears the generic chips down too and
-the single call suffices for both the chip-allocation and request_irq()
-failure paths.
+I will update regmap_bulk_read() for the 16-bit LSB/MSB pair.
 
-Co-developed-by: Talel Shenhar <talel@amazon.com>
-Signed-off-by: Talel Shenhar <talel@amazon.com>
-Signed-off-by: Eliav Farber <farbere@amazon.com>
----
-v3:
- - al_fic_irq_handler() no longer derives IRQ_HANDLED/IRQ_NONE from
-   generic_handle_domain_irq(), whose return value only reports whether
-   the hwirq to virq mapping succeeded - and since the loop iterates
-   exactly NR_FIC_IRQS bits, which is the domain's own size, that mapping
-   always succeeds. Return IRQ_HANDLED when the masked CAUSE snapshot is
-   non-zero instead, which is the correct signal for a shared interrupt.
- - Set IRQ_DOMAIN_FLAG_DESTROY_GC on the domain and let
-   irq_domain_remove() free the generic chips, instead of calling
-   irq_domain_remove_generic_chips() by hand. Both error paths now go
-   through one label. The invalid-free fix from v2 is unaffected; only the
-   teardown mechanism changed.
- - Use of_node_full_name() in the request_irq() call.
+> 
+>> +		if (ret)
+>> +			return ret;
+>> +		raw_val |= FIELD_PREP(GENMASK(15, 8), msb);
+>> +	}
+> [ ... ]
+>> +static int bcl_alarm_irq_init(struct platform_device *pdev,
+>> +			      struct bcl_device *bcl)
+>> +{
+>> +	int ret, irq_num, i;
+>> +	struct bcl_alarm_data *alarm;
+>> +
+>> +	for (i = 0; i < ARRAY_SIZE(bcl->bcl_alarms); i++) {
+>> +		alarm = &bcl->bcl_alarms[i];
+> [ ... ]
+>> +		ret = devm_request_threaded_irq(&pdev->dev, irq_num, NULL,
+>> +						bcl_handle_alarm, IRQF_ONESHOT,
+>> +						bcl_int_names[i], alarm);
+>> +		if (ret)
+>> +			return ret;
+>> +
+>> +		if (!enable_irq_wake(irq_num))
+>> +			alarm->irq_wake_enabled = true;
+>> +
+>> +		ret = devm_add_action_or_reset(&pdev->dev, bcl_alarm_wake_cleanup_action,
+>> +					       alarm);
+>> +		if (ret)
+>> +			return ret;
+>> +
+>> +		ret = devm_add_action_or_reset(&pdev->dev, bcl_alarm_work_cleanup_action,
+>> +					       alarm);
+> 
+> [Severity: High]
+> Could this lead to a use-after-free if device probe fails under memory
+> pressure?
+> 
+> The IRQ is activated by devm_request_threaded_irq() and can immediately
+> schedule the delayed work. If the very next devm_add_action_or_reset()
+> fails, the driver returns early without registering
+> bcl_alarm_work_cleanup_action.
+> 
+> If the IRQ fires in this brief window and schedules the delayed work, the
+> work will not be safely canceled during the devm teardown sequence and will
+> execute after the bcl_device memory is freed.
 
-v2:
- - Fix the request_irq() error path: v1 called irq_free_generic_chip(gc),
-   which is kfree(gc) on an interior pointer into the single allocation
-   made by irq_domain_alloc_generic_chips() - an invalid free reachable
-   when request_irq() fails at probe. Replace it with
-   irq_domain_remove_generic_chips() before irq_domain_remove(), and add a
-   commit-message paragraph explaining the teardown ordering.
- - Add Co-developed-by/Signed-off-by: Talel Shenhar.
- - Reworded to state the hardware reason for the shared parent (the groups
-   of one controller share that controller's output line).
+ACK, will update
 
- drivers/irqchip/irq-al-fic.c | 28 ++++++++++++++++++----------
- 1 file changed, 18 insertions(+), 10 deletions(-)
+Thanks,
+Manaf
 
-diff --git a/drivers/irqchip/irq-al-fic.c b/drivers/irqchip/irq-al-fic.c
-index ee06d0123b7a..4c60da8558ed 100644
---- a/drivers/irqchip/irq-al-fic.c
-+++ b/drivers/irqchip/irq-al-fic.c
-@@ -4,9 +4,9 @@
-  */
- 
- #include <linux/bitfield.h>
-+#include <linux/interrupt.h>
- #include <linux/irq.h>
- #include <linux/irqchip.h>
--#include <linux/irqchip/chained_irq.h>
- #include <linux/irqdomain.h>
- #include <linux/module.h>
- #include <linux/of.h>
-@@ -95,24 +95,21 @@ static int al_fic_irq_set_type(struct irq_data *data, unsigned int flow_type)
- 	return 0;
- }
- 
--static void al_fic_irq_handler(struct irq_desc *desc)
-+static irqreturn_t al_fic_irq_handler(int irq, void *data)
- {
--	struct al_fic *fic = irq_desc_get_handler_data(desc);
-+	struct al_fic *fic = data;
- 	struct irq_domain *domain = fic->domain;
--	struct irq_chip *irqchip = irq_desc_get_chip(desc);
- 	struct irq_chip_generic *gc = irq_get_domain_generic_chip(domain, 0);
- 	unsigned long pending;
- 	u32 hwirq;
- 
--	chained_irq_enter(irqchip, desc);
--
- 	pending = readl_relaxed(fic->base + AL_FIC_CAUSE);
- 	pending &= ~gc->mask_cache;
- 
- 	for_each_set_bit(hwirq, &pending, NR_FIC_IRQS)
- 		generic_handle_domain_irq(domain, hwirq);
- 
--	chained_irq_exit(irqchip, desc);
-+	return pending ? IRQ_HANDLED : IRQ_NONE;
- }
- 
- static int al_fic_irq_retrigger(struct irq_data *data)
-@@ -140,6 +137,12 @@ static int al_fic_register(struct device_node *node,
- 		return -ENOMEM;
- 	}
- 
-+	/*
-+	 * Let irq_domain_remove() free the generic chips on either error path
-+	 * below, instead of calling irq_domain_remove_generic_chips() by hand.
-+	 */
-+	fic->domain->flags |= IRQ_DOMAIN_FLAG_DESTROY_GC;
-+
- 	ret = irq_alloc_domain_generic_chips(fic->domain,
- 					     NR_FIC_IRQS,
- 					     1, of_node_full_name(fic->node),
-@@ -162,9 +165,14 @@ static int al_fic_register(struct device_node *node,
- 	gc->chip_types->chip.flags = IRQCHIP_SKIP_SET_WAKE;
- 	gc->private = fic;
- 
--	irq_set_chained_handler_and_data(fic->parent_irq,
--					 al_fic_irq_handler,
--					 fic);
-+	ret = request_irq(fic->parent_irq, al_fic_irq_handler,
-+			  IRQF_NO_THREAD | IRQF_SHARED,
-+			  of_node_full_name(fic->node), fic);
-+	if (ret) {
-+		pr_err("fail to request irq (%d)\n", ret);
-+		goto err_domain_remove;
-+	}
-+
- 	return 0;
- 
- err_domain_remove:
--- 
-2.47.3
+> 
+>> +		if (ret)
+>> +			return ret;
+>> +	}
+>> +
+>> +	return 0;
+>> +}
+> 
 
