@@ -1,108 +1,94 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19B1F4AF9FA
-	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 15:38:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4A144AF9FA;
+	Mon,  5 Oct 2026 15:39:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791214695; cv=none; b=lrHrvV3EANNyP8MQqzC2tn6L2bi+7qx1YvMBOsIwYUrxaoIKurkflaVgD5mcNPCGclKnv2tS6bKVYS0LaI1Za0MUrbPhHM+BtL9H1NMAZZ9zavgcomxMRdqAgL+FKy5Q64ZVtrHNHJn9R2rTrxB1SL8ZMVSMmcyD+Ah2hBA0Nts=
+	t=1791214759; cv=none; b=KhmRKFV+zRv0GPDna7DpmJFTw/cf+Rf/ds7kqz0Oen6QlN/UyyT4pXCfDNYTdjtQwxgKhYdrTu52V2mdcUda9b5DJU4lieD4vRh/iLbnM+XpVBQ0EW6tEATpOO2mfaiufxkHONPnu3O8F3ku8cBLJyi67DE832qGefZa6Q4rhGE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791214695; c=relaxed/simple;
-	bh=iUnKHf8E7STNjetq/MRAl48qVGSGNs02md8OvQrxIyU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=uN2Ku8z6MpleNW6XVc+fNTTL1pEzdmsVpw6jdGkovn4rzaTGEMknfMHdalhBr9iOaUlfQcfrlqW4ch7x9SEmcRBJ712vI1tKYzOG0lsGyDKtNtqdJV69F+0rPIgLZcxIEdFXSUWWIVZgm4NCXsRR6EI9jvqNOyVw+tjs6jEsJ7c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RprkLiNn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791214759; c=relaxed/simple;
+	bh=NdDAmGKSfysWHMXCSJbk65A4t0KhXlWdzk3AMSzy/yM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uRLRDHEnNlfWLl7lvpjhZcquIl2gft+ANR7FxNObJuMhC2bmHotOBobwvd11JpE7B/qU2jEIfeHsTzzsbGnv7xa4GrSPhr7WmFvugnm4l6ogijU4MD0BSD5YDHpFKl2xUS4rqnHgTW4mazdggWwyVwoKoTlh4CnRQl39ptbzIow=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cnmYAUhw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RprkLiNn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81EB51F000FF;
-	Mon,  5 Oct 2026 15:38:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cnmYAUhw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A5DF1F00893;
+	Mon,  5 Oct 2026 15:39:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791214693;
-	bh=xyEdkdUO16AfChRvcw3A85+vjw6OK4gJRucxW1v437Y=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=RprkLiNnA+5UxbZFLqX1jTUcfDLkCwBN6fgFKfD2IuLRQ6L0/hdONv2RXOmDjfcx8
-	 zYeNE10PL2yAQU6thOJa38YpIbHvJGA3gg7gyyQ1v3j0rCrzTWM1KxkF57qeuZNhVD
-	 o/zqZ8mOnKbKaWnpbzAFJM6+tU+2OWM6EeVpfrUzfwvOFByAhezq41iUG7AIYG48ij
-	 S4l4BeF1Pb789loj7Pf96R+3MyWAgfDejgabr9uKtglABBhCu2oWnECbunqx18qEtu
-	 YejJXfmgiMfPj2Ek7h5dxhfcWTuYmhxqCoUaEAKZgeFyctjNakSuj/LSfPOtS4KIJE
-	 ixQRIq7cJCQPQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/3] arm64: dts: qcom: monaco-evk: Add suspend-only
- power collapse state
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Maulik Shah" <maulik.shah@oss.qualcomm.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261005-s2idle_state-v1-3-3c402c66f388@oss.qualcomm.com>
-References: <20261005-s2idle_state-v1-0-3c402c66f388@oss.qualcomm.com>
- <20261005-s2idle_state-v1-3-3c402c66f388@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 05 Oct 2026 15:38:13 +0000
-Message-Id: <20261005153813.81EB51F000FF@smtp.kernel.org>
+	s=k20260515; t=1791214758;
+	bh=ST8JvTfWiVBzR+UC4P+DeoNgfhkeK7Pj4K0yMpN+dnA=;
+	h=From:To:Cc:Subject:Date;
+	b=cnmYAUhwCCAkM+s6t6LelFAr8lCfZM5Rex7/SvUi3ujGbPZQHyeAu6c9lViL+KMMo
+	 eqVWhnd5KOcaPEtpSypEXT7+QBL4D8QD+9UEHGEbWGu5Yk4t/Inu7x4GgF55D45iwp
+	 gCVMtrQ5a53/F1hrCuke/TZXfm6nXkXP5hUXyW0Wo6eSpR+si+NPrlPDu9l5hXiC2J
+	 hRP80gBeI73gJJhmG9tLaAFxK2WLC9ug8F2H9kEmX4aabJ1RoAicIjNcs30AFR888L
+	 cjNKLeeQJ/6XUeMNBneVycVJvVFYhrP9aaXQ1KDhMP4Ov0YOJ3tyGp5htTFdQV5Aqh
+	 z89CZdS6P13NA==
+From: Jisheng Zhang <jszhang@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: [PATCH v2] dt-bindings: serial: snps-dw-apb-uart: Add Synaptics sl2610 uart
+Date: Mon,  5 Oct 2026 23:19:18 +0800
+Message-ID: <20261005151918.25259-1-jszhang@kernel.org>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] dts: qcom: invalid AI hallucinated latencies in system_suspend
---
+Add the compatible for the UARTs of the Synaptics SL2610, which are
+compatible with the Synopsys DesignWare APB UART.
 
-commit 31318bb17563026be6b93cecd9358caf654ab7fb
-Author: Maulik Shah <maulik.shah@oss.qualcomm.com>
+Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
+---
 
-arm64: dts: qcom: monaco-evk: Add suspend-only power collapse state
+since v1:
+ - use sl2610 instead of sl261x
+ - send as a separate patch
 
-This patch adds a deepest system power collapse state reserved for system-w=
-ide
-suspend (s2idle) on the Monaco EVK board, requiring coordinated power-down =
-of
-CPUSS and the Safety Island (SAIL) subsystem.
+ .../devicetree/bindings/serial/snps-dw-apb-uart.yaml | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
 
-> diff --git a/arch/arm64/boot/dts/qcom/monaco-evk.dts b/arch/arm64/boot/dt=
-s/qcom/monaco-evk.dts
-> index 539c9c80a808d..b2978be6823dc 100644
-> --- a/arch/arm64/boot/dts/qcom/monaco-evk.dts
-> +++ b/arch/arm64/boot/dts/qcom/monaco-evk.dts
+diff --git a/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml b/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
+index 664305de4986..a40f2737e71b 100644
+--- a/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
++++ b/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
+@@ -34,7 +34,16 @@ allOf:
+       properties:
+         resets:
+           minItems: 2
+-    else:
++
++  - if:
++      not:
++        properties:
++          compatible:
++            contains:
++              enum:
++                - starfive,jh7110-uart
++                - syna,sl2610-uart
++    then:
+       properties:
+         resets:
+           maxItems: 1
+@@ -80,6 +89,7 @@ properties:
+               - starfive,jh7100-hsuart
+               - starfive,jh7100-uart
+               - starfive,jh7110-uart
++              - syna,sl2610-uart
+               - ultrarisc,dp1000-uart
+           - const: snps,dw-apb-uart
+       - const: snps,dw-apb-uart
+-- 
+2.53.0
 
-[ ... ]
-
-> @@ -80,6 +80,19 @@ m2_e_uart_ep: endpoint@0 {
->  		};
->  	};
-> =20
-> +	cpus {
-> +		domain-idle-states {
-> +			system_suspend: domain-suspend {
-> +				compatible =3D "domain-idle-state";
-> +				arm,psci-suspend-param =3D <0x4200C344>;
-> +				entry-latency-us =3D <706562>;
-> +				exit-latency-us =3D <706562>;
-> +				min-residency-us =3D <709987>;
-
-[Severity: Medium]
-Are these latency values physically accurate for the hardware?
-
-The min-residency-us value of 709,987 us is strictly less than the combined
-entry and exit latencies of 1,413,124 us (706,562 + 706,562). This appears
-invalid, as a state cannot typically yield power benefits before the hardwa=
-re
-has finished transitioning into and out of it.=20
-
-Additionally, 706 milliseconds seems unusually high for a transition time on
-an EVK board. Since the commit message mentions this was AI-assisted, could=
-=20
-these numbers be hallucinated placeholders that need to be replaced with=20
-actual measured hardware values?
-
-> +				system-state;
-> +			};
-> +		};
-> +	};
-> +
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261005-s2idle_sta=
-te-v1-0-3c402c66f388@oss.qualcomm.com?part=3D3
