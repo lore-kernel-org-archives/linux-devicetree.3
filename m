@@ -1,368 +1,166 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from de-smtp-delivery-113.mimecast.com (de-smtp-delivery-113.mimecast.com [194.104.111.113])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6607F5038FE;
-	Mon,  5 Oct 2026 17:33:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E9DA4D6C53
+	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 17:34:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.104.111.113
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791221616; cv=none; b=oEZbP8zzh1w4hhorXZmR7iY4mFgasyWnRfu9TxnsZf9B8emRgDquk3/rUaofeshOnjx/E1AAor7kCIIcOQWOW68m3AQ0NEaikKabVq5Ji9SZQzyDu6ziMbbOWyDLaWdv4JeO/cQW3N5q4eEiiwWoZT9aX9374pO8Iuzph+K/0Ww=
+	t=1791221651; cv=none; b=CdpqoRu2KFfCaLmezXy0UH+qKD8rDZrvAmvRq8QsrP9uXzY/LABqBAWexQCT3UrqTaNiw6xlC4MeLvZJq5YCT44K0ghrefHI+ril0WEyLkDQRcfjvvPS/FXwBWU3WBavCYn4a2DcT/S1jvWZNkjPFH8tKdVGtGb/P375DLEhams=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791221616; c=relaxed/simple;
-	bh=2oGbf7x2Whw7rfp8sLsBTksCIRx08bfMHwCwxIQyDcE=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=RcEo2wUYFrEdR3Vfe8EuhKe1bDjRLTQXsqkMFTrKjZ8ALaSmweegDSTHQiafWBtGPUaC3eXVq/iDyH+AZ6CICvYr6pm5llwPmsjKYKfspzSziwzYCwG7rQ5AZRkCt1nIBOc7nOTACoNdVol0493gIBQe5zZwfTy0Hw9D8vt2aFw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=glBCt1GQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791221651; c=relaxed/simple;
+	bh=M4Uj5MEonCB/vj1XCdqkFUIcJISiYy0mUruXe5m1bQI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:In-Reply-To:
+	 MIME-Version:Content-Type:Content-Disposition; b=GghR51zSNzI1SOzVlEBUrkWSTsbL6etaMyoa5T+6jw3gdE5eYnXXGSGwbQHDfpxDbZb0HhxXsl70yVGnyhRKQ1KML6X1pOMDrRNT6rOPJQEm7XQp1TiBNMLWJZAEhKrIDGOIt4TNnwyegYkcbGe5zDbZS18KEZNwm3tU48u9S/U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=toradex.com; spf=pass smtp.mailfrom=toradex.com; dkim=pass (1024-bit key) header.d=toradex.com header.i=@toradex.com header.b=X8mzQIqf; arc=none smtp.client-ip=194.104.111.113
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=toradex.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=toradex.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="glBCt1GQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 280DC1F00898;
-	Mon,  5 Oct 2026 17:33:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791221614;
-	bh=Zo6OosAOp++XGKHJ+z6voKimvySKQBhp/73wphdmxYU=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=glBCt1GQe8DEfkEGALuob+Qobdw+0x8wqUN2zBRng15ImeG6Zq5V2sAtTewvKVe1M
-	 Qp/ZCfno2uORxCE2Z+JVZUsBXyafmfo89dnUfbO0Ua7lxLmkUgaAHaFDWmhEE5FJpY
-	 DNu7utDuFlC6rNWbn57B3hvWpvLbOytmmwQm38MNRQbkqNyQSXxyynrR+MvGHkAziY
-	 XViLWO4Cgg1izm6s2nYywmQ8K/GJK1HxWRLobYCWBwuf7eN/bt/wAb2VfXKNtLQNuv
-	 Rud72DWJHWH60tUPEcRihufE5V8U4rH1ksAiggAm3ogqA06M8HnwnGj32xLVbW85Od
-	 x8FM1qEcJZgWA==
-Subject: Re: [PATCH net-next v8 7/7] net: phy: own phydev->psec via PSE
- notifier and remove fwnode_mdio hook
-From: netdev-bot+sashiko@kernel.org
-To: github@szelinsky.de
-Cc: o.rempel@pengutronix.de, kory.maincent@bootlin.com, andrew+netdev@lunn.ch,
- hkallweit1@gmail.com, linux@armlinux.org.uk, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
- saravanak@kernel.org, corey@leavitt.info, jelonek.jonas@gmail.com,
- horms@kernel.org, olek2@wp.pl, broonie@kernel.org, lgirdwood@gmail.com,
- netdev-bot+sashiko@kernel.org, devicetree@vger.kernel.org,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Mon, 05 Oct 2026 17:33:32 +0000
-Message-ID: <179122161274.434549.2931247814591983963@kernel.org>
-In-Reply-To: <20261004164219.1161294-8-github@szelinsky.de>
-References: <20261004164219.1161294-8-github@szelinsky.de>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=toradex.com header.i=@toradex.com header.b="X8mzQIqf"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=toradex.com; s=toradex-com;
+	t=1791221646;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ONuAfwO9E4ixY5T7A2NxatSseTcwUzIRgeJpb2V/chQ=;
+	b=X8mzQIqfmG5dfSbZh5t7k7thtzadz+Mc/l1uPjFt1n2EZo7/hmei0z42ZrtT4DYEAl9EIy
+	yCeWbtRFK5/VmW6/hTIIs6ADNZcb5Pc9T+OlxPx0f6sw0qY+P22sEHx61dwYZdbuffK8Sa
+	wubG8oy3QcoZUCbHQXb6eKxMelniwx4=
+Received: from ZR1P278CU001.outbound.protection.outlook.com
+ (mail-switzerlandnorthazon11022072.outbound.protection.outlook.com
+ [40.107.168.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ de-mta-44-OEOBfRwAO1CkhYLQ2X3ayQ-1; Mon, 05 Oct 2026 19:32:53 +0200
+X-MC-Unique: OEOBfRwAO1CkhYLQ2X3ayQ-1
+X-Mimecast-MFC-AGG-ID: OEOBfRwAO1CkhYLQ2X3ayQ_1791221573
+Received: from ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM (2603:10a6:910:2e::8) by
+ ZR1P278MB1392.CHEP278.PROD.OUTLOOK.COM (2603:10a6:910:98::7) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.472.20; Mon, 5 Oct 2026 17:32:51 +0000
+Received: from ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM
+ ([fe80::88:6821:13f5:a5b2]) by ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM
+ ([fe80::88:6821:13f5:a5b2%6]) with mapi id 15.21.0472.016; Mon, 5 Oct 2026
+ 17:32:51 +0000
+Date: Mon, 5 Oct 2026 19:32:49 +0200
+From: Francesco Dolcini <francesco.dolcini@toradex.com>
+To: Frank Li <Frank.Li@nxp.com>, Francesco Dolcini <francesco@dolcini.it>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, devicetree@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: freescale: imx952: Add GPIO5 lines 18 to 20
+Message-ID: <asPfQZURHvVzbgVU@francesco-nb>
+References: <20261005172622.135725-1-francesco@dolcini.it>
+In-Reply-To: <20261005172622.135725-1-francesco@dolcini.it>
+X-ClientProxiedBy: MI1P293CA0024.ITAP293.PROD.OUTLOOK.COM (2603:10a6:290:3::6)
+ To ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM (2603:10a6:910:2e::8)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: ZRAP278MB0495:EE_|ZR1P278MB1392:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9fef649c-eee8-4d5b-6a28-08df2306ae8f
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|366016|7416014|376014|1800799024|23010399003|18002099003|22082099003|10067099003|56012099006
+X-Microsoft-Antispam-Message-Info: fpZQYy0uB+OV1Dy7JBgfXyfZKI1KOdMki1LbyiwxObWoOHy3sb1kC7O4gmKeiA5by/lPvqjO33kdMx7XlwtvSKATtpmAq1NVHP93TQhOSRTApxsKaq7KgCXxBP/t8NzLE4d65R1giz4bVIieifYaHOhsXsM8PFku7L2crb2agUH13VbzJ0BUl6dAMiX5cL1YzFI7hx5wZi3KoIBb7zbP4JBX4x1VFFT7tPlRylODffCoJTveo7Di9QDSV3ZojvnpdjubfX97r+rAXxDHjp+185wo1ueSvPtj/wphICII9Wzz9ClrgcTBigiJQ55AZfnoPXRrynBNATVVqveo9StmVwYTN/OWwUCxcOovVVio4xoYQHkLDz0Yt9gtTg73xAkRYFx2YP1OMLMjmJC/rNnHXDV1vO0wdYSYbeBsM9bkuj2chLtgBuuQOFEqUgKODO68fSpbU5koCyQRpB8cKufj5gZqzwWB2LIoSgPcZH0GT5FNggcN20ZGK89h9n1VnjoHgJ+cJjxCp/ED3Zc0Uql37dhgI9iSaxCzJI4CXEPElHFabK7ZbyrJ0LcMHeBEMsy+WDD+VRU//qGiCF1t2E84dukyFalMx0IcKs2S+4S7Wml5eHq7Ul5imfVmDWD1PC/0W+Z9c/daNVkWTcuVJBdfPepL/aot7tXhr4Zi0NLOxTY=
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(1800799024)(23010399003)(18002099003)(22082099003)(10067099003)(56012099006);DIR:OUT;SFP:1102
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?8n4rX/IXV1mqL4GVpPc1xTWNFSugcejCz+0eB9eI9oDgwiyQThT7mpkDUZx1?=
+ =?us-ascii?Q?VnUjtI43xNWbrP/M+Pyux9/mRqRudvDyVSuQuq8bj2m5uuSEHxOwauhDlZHB?=
+ =?us-ascii?Q?5b2GtCvArLMBHqI1Rt5tx9+A0eUx+kmbqEAtNPWxZ+Oh5aQfylrDBHvVJ0xP?=
+ =?us-ascii?Q?pmB1+6BqPVnH6Qa95/xWRyt5rhvT4aWe+TL9BQKQ8mgs2w9qAvXjOtdm750D?=
+ =?us-ascii?Q?lZYwdRmOzsZXIPzkRmUUcUr+dim+zUgsbJJ7/o0zuFEBnNyiFqo634tfOCEQ?=
+ =?us-ascii?Q?n2l+x0kgWCCxmLOLfq18U5R7VNqdDgfieM00JnLsb4O2z0SVPxDKcM/yZI+9?=
+ =?us-ascii?Q?Ow6f9KLfdQ8R8BZaV4xiUG1aOgMW+1svF9Bdr9khuVgKxVSpd32fiomDYo+k?=
+ =?us-ascii?Q?ndZySlUTqTXTUR+F1mzWhQ3nblzQp+KBUajVc40d6qmkRPo9FW/Q3D1ntda9?=
+ =?us-ascii?Q?bMVCRm7+QJ3SdkDvNoCSYilSbf1rUi67j8WaWRKuVUO/mcoJVKukG3jEwIVR?=
+ =?us-ascii?Q?Bj+/BXYtKnAr3Uw+d147Yui4WqqPW2IEkoU6Ny2EalCZ0QxuSsaFCDPvggIU?=
+ =?us-ascii?Q?qqIggs9GHKG8jvZw+RyH7cR6IMfrOgp9+halmaKYMC+5i2jFFVArWlzW/ru0?=
+ =?us-ascii?Q?gI+LPJwV3/V0Ek4vvh42z2L4faLJdTK1PUH/fuYuZ/736E3NP/1zFnrLMBhr?=
+ =?us-ascii?Q?/Yh5emV0Qs1+AkHj/YCC8j/dhAUO5pht6oHuL56f+lipM74lNFkgRmOzB5h7?=
+ =?us-ascii?Q?jPy40T6dZuywNOvvn90pihxgpZAuSarAbFQyfkE8LazotOZfZR66LUHDQBlG?=
+ =?us-ascii?Q?iEH0X2cWA+mXGzNAtog1Gh0CPqGN074HJLr3KeXQcsroLAsphiY3ttO4n0+8?=
+ =?us-ascii?Q?yZFJW4mhS+ORe0yDjN0nUXBMndAnSz5cbGAtfUpcsJj1CmZmJqPFQXVO0OTY?=
+ =?us-ascii?Q?zMqCNTY7u5PUO2f3mNIpTHpkhCQMC3XydnfGkBMfQJjc1VLG0RS1Oe7Y/Ojp?=
+ =?us-ascii?Q?oWIpGOaZlHXwYVKdRHDYTa/qu9RK4rT6L1635nKavpL7Sve+e3YJ2P69EmTB?=
+ =?us-ascii?Q?OEmiEs+MkLuYcGcs++/uU4NSqJcu/SGcFMKGevT4c0WoEUVoVw4a1v3QcWFI?=
+ =?us-ascii?Q?H164Jej6YyM1yx72U4qeB4GfCCPQL885nsQYh1MwS6lEXQu/bwfOXI0BkRD9?=
+ =?us-ascii?Q?lQBxxXvwG1ONjw49tsWXHO3otKIrZvc+/gHK4jaVYvi280O1+Ym89CbS5FQd?=
+ =?us-ascii?Q?bYkkuy1Z2zytnXnV/5fwIIYVCH0ojpDtcsXz2hBRIKDOxVU6fX/KUg0bjEAd?=
+ =?us-ascii?Q?GgvFA8dfMfI/CjMwLDC3M+0XV7Ko4OSjfEOs0jEOIxNA4oVtqXLf78GpZEmU?=
+ =?us-ascii?Q?TmcdzR3be0A1Evh4HF5dgzhSl09SKvECm8nGxCDRdulZc/gZHkkvgqSAb+VV?=
+ =?us-ascii?Q?Tn5IkW834EI2EFBTyJXnUjZ1QY+5e4OzNKNNy9swuiMBm7tl0hUFjb6Fpzj1?=
+ =?us-ascii?Q?LJUEDCXaKz0QcEdprLfrq7Zsn9dgKLwmk023KCx51XJysFsoFYdCWSjgdmb5?=
+ =?us-ascii?Q?xPjROYUxjRal53jhWz4suflOsT/HbHDnG2m2wF+rfDIejkXDH0Bkt0uE3+Qo?=
+ =?us-ascii?Q?oG8ZfKmQ35HqrPHobgAgKZGIacFepJkZ87RNDUCGgSH8rZQW0VK3qNRR0ZYA?=
+ =?us-ascii?Q?7rfqEjfQFSAGGGmV3iJ/rLXRNyEO3qCUZHQVyaBsU5iEs71pcXFrAJyZO8Z0?=
+ =?us-ascii?Q?lRSqroWOOPE65dNZTWYSehvfKpeasJ8=3D?=
+X-Exchange-RoutingPolicyChecked: yluifC8fWzNqNph+stMVZ7TRPkk2DuqR5kQR7qSrEXWojWPlWxdnr39QRGXc6eHXz0mChKaWNKPzc+PH3hnLH6UmffsJWjW20CcjHLvCC6Ox2hWcnXipqcO9RBDQyUNjbp+Q3JRTcbfrUF/0CZbzMVK6sjBlzxkz5KdQjm3VRp2WyzIMp+F7lhjApGSGvwPjqRgwyAfADUf0upFUhgxeIlo4jNrDuHJ/FeaV9z1LFf50j/Zzq7ERDn0k+f2gW2p3gWUdI1jA3qHpHNjj2C2I0RyGWcKlsGpGToOa0u4q1efXmWsn7sPSRycRfjVZoVMiDev8jV++2BoF7QdZk5aiPg==
+X-OriginatorOrg: toradex.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9fef649c-eee8-4d5b-6a28-08df2306ae8f
+X-MS-Exchange-CrossTenant-AuthSource: ZRAP278MB0495.CHEP278.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 17:32:51.6415
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: d9995866-0d9b-4251-8315-093f062abab4
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: r6I5rZxKHBFG76ETuFEvLw37j5I51KKp6Hvitf49fk0AUHlgDlpQiAOI0+NYVh1ykJBVKdcldakTg1GJwxOtFAK9KiSVt6ip5djMDJFlXnQ=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZR1P278MB1392
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: x1oOYdyq3U7OKkyUCK6OSHLPG6YYnyC0sHCBZX3yY2M_1791221573
+X-Mimecast-Originator: toradex.com
+Content-Type: text/plain; charset=WINDOWS-1252
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 4 potential
-issue(s) to consider.
+Hello Frank,
 
-Critical: 0 · High: 0 (2) · Medium: 3 · Low: 1
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [Medium] pse_control_get_internal() leaks a reference on the PSE
-  controller module whenever pse_pi_is_hw_enabled() fails.
-- [Medium] phy_try_attach_pse() drops -EPROBE_DEFER silently and relies
-  on a later PSE_REGISTERED event to retry.
-- [Medium] The PSE_REGISTERED walk now attaches PHY handles from inside
-  pse_controller_register(), partway through the PSE driver's probe.
-- [Low] The commit fixes two reported, user-visible problems, both
-  recorded with Reported-by/Closes: the deferred-probe storm in which…
-
-Pre-existing issues:
-- [High] Use-after-free of phy_device in the PSE notification worker.
-- [High] This problem wasn't introduced by this patch, but
-  pse_controller_unregister() still frees pcdev->pi (pse_release_pis()…
-
---
-
-net: phy: own phydev->psec via PSE notifier and remove fwnode_mdio hook
-
-This patch takes the pses phandle lookup out of
-fwnode_mdiobus_register_phy() and gives ownership of phydev->psec to
-phylib. Handles are now attached and released from the PSE controller
-lifecycle notifier and from phy_device_register()/phy_device_remove(),
-serialised by a new pse_phy_lock() mutex in pse_core. The goal is to stop
-the -EPROBE_DEFER retry storm seen with modular PSE controller drivers.
-
-Link: https://lore.kernel.org/netdev/20260703071025.100797-1-pabeni@redhat.com/
-
-> Reported-by: Jonas Jelonek <jelonek.jonas@gmail.com>
-> Closes: https://lore.kernel.org/netdev/e00048dd-1ed3-40c3-9912-59bccf015ad5@gmail.com/
-> Reported-by: Aleksander Jan Bajkowski <olek2@wp.pl>
-> Closes: https://lore.kernel.org/netdev/bac5e6e9-7358-4ccb-87fc-9c40baa33682@wp.pl/
-
-[Severity: Low]
-Should this have a Fixes: tag? Both Closes: reports describe the deferred
-probe storm. That storm comes from the register-then-remove-on-defer code
-in fwnode_mdiobus_register_phy(), which was added by commit fa2f0454174c
-("net: pse-pd: Introduce attached_phydev to pse control"). The
-phy->psec = psec assignment itself goes back to 5e82147de1cb.
-
-This fix also depends on earlier patches in the series:
-
-  net: pse-pd: add notifier chain for controller lifecycle events
-  net: pse-pd: fire lifecycle events on controller register/unregister
-  net: pse-pd: check the PI vpwr supply before registering the controller
-  of: property: do not let "pses" block a consumer's probe
-
-None of them has a Fixes or stable marker either, so backporters have no
-sign that the series must be taken together. If this is meant for
-net-next only, could the commit message say so?
-
-> diff --git a/drivers/net/phy/phy_device.c b/drivers/net/phy/phy_device.c
-> index 5b13a74e2fa92..497cf179398bd 100644
-> --- a/drivers/net/phy/phy_device.c
-> +++ b/drivers/net/phy/phy_device.c
-
-[ ... ]
-
-> @@ -1012,9 +1013,116 @@ struct phy_device *get_phy_device(struct mii_bus *bus, int addr, bool is_c45)
-
-[ ... ]
-
-> +static void phy_try_attach_pse(struct phy_device *phydev)
-> +{
-> +	struct pse_control *psec;
-> +	struct device_node *np;
+On Mon, Oct 05, 2026 at 07:26:21PM +0200, Francesco Dolcini wrote:
+> From: Francesco Dolcini <francesco.dolcini@toradex.com>
+>=20
+> Add missing GPIO5 lines, GPIO_IO38, GPIO_IO39 and GPIO_IO40 are
+> GPIO-only pads fixed to GPIO5[18:20], their SW_MUX_CTL registers have no
+> MUX_MODE field (IMX952RM Rev.1, 2026-07-08, sections 33.3.2.44-46 and
+> 33.3.2.184-186).
+>=20
+> Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+> ---
+>  arch/arm64/boot/dts/freescale/imx952-pinfunc.h | 6 ++++++
+>  arch/arm64/boot/dts/freescale/imx952.dtsi      | 4 ++--
+>  2 files changed, 8 insertions(+), 2 deletions(-)
+>=20
+> diff --git a/arch/arm64/boot/dts/freescale/imx952-pinfunc.h b/arch/arm64/=
+boot/dts/freescale/imx952-pinfunc.h
+> index debe6ede2d70..72cfe7893af8 100644
+> --- a/arch/arm64/boot/dts/freescale/imx952-pinfunc.h
+> +++ b/arch/arm64/boot/dts/freescale/imx952-pinfunc.h
+> @@ -307,6 +307,12 @@
+>  #define IMX952_PAD_GPIO_IO37__WAKEUPMIX_TOP_LPUART7_RX                0x=
+00A4 0x02D4 0x05B0 0x02 0x01
+>  #define IMX952_PAD_GPIO_IO37__WAKEUPMIX_TOP_LPSPI4_SCK                0x=
+00A4 0x02D4 0x0568 0x04 0x01
+> =20
+> +#define IMX952_PAD_GPIO_IO38__WAKEUPMIX_TOP_GPIO5_IO_18               0x=
+00A8 0x02D8 0x0000 0x00 0x00
 > +
-> +	pse_phy_lock_assert_held();
+> +#define IMX952_PAD_GPIO_IO39__WAKEUPMIX_TOP_GPIO5_IO_19               0x=
+00AC 0x02DC 0x0000 0x00 0x00
 > +
-> +	np = phydev->mdio.dev.of_node;
-> +	if (!np)
-> +		return;
-> +
-> +	if (phydev->psec || phydev->psec_detached)
-> +		return;
-> +
-> +	psec = of_pse_control_get(np, phydev);
-> +	if (IS_ERR(psec)) {
-> +		if (PTR_ERR(psec) != -EPROBE_DEFER && PTR_ERR(psec) != -ENOENT)
-> +			phydev_warn(phydev, "failed to get PSE control: %pe\n",
-> +				    psec);
-> +		return;
-> +	}
-
-[Severity: Medium]
-Can this retry leak a reference on the PSE controller module? When
-pse_pi_is_hw_enabled() fails, pse_control_get_internal() jumps past
-module_put():
-
-drivers/net/pse-pd/pse_core.c:pse_control_get_internal() {
-	...
-	if (!try_module_get(pcdev->owner)) {
-		ret = -ENODEV;
-		goto free_psec;
-	}
-
-	if (!pcdev->ops->pi_get_admin_state) {
-		ret = -EOPNOTSUPP;
-		goto free_psec;
-	}
-	...
-	ret = pse_pi_is_hw_enabled(pcdev, index);
-	if (ret < 0)
-		goto free_psec;
-	...
-put_module:
-	module_put(pcdev->owner);
-free_psec:
-	kfree(psec);
-	...
-}
-
-The missing module_put() is older than this patch. What changes here is
-that the error only produces a warning and phydev->psec stays NULL. The
-same phy is then tried again on every phy_device_register() and, through
-phy_pse_attach_one(), on every PSE_REGISTERED walk, including walks for
-unrelated controllers. Each attempt leaks another module reference.
-
-pd692x0 hits this every time. It registers the controller even when its
-firmware is broken or needs an update, and pd692x0_pi_get_admin_state()
-then returns an error from pd692x0_fw_unavailable(). Bus errors on
-tps23881, si3474 or realtek-pse-mcu would have the same effect.
-
-Should the pi_get_admin_state check and the pse_pi_is_hw_enabled() error
-path jump to put_module instead?
-
-[Severity: Medium]
-Does a later PSE_REGISTERED event really retry every -EPROBE_DEFER? A
-controller that is already registered and matched can still return it:
-
-pse_control_get_internal()
-  regulator_get_exclusive()
-    _regulator_get_common()
-      regulator_resolve_supply()
-        if (!device_is_bound(r->dev.parent)) {
-            ...
-            ret = -EPROBE_DEFER;
-
-This happens when the vpwr provider has registered its regulator but has
-not finished binding. pse_pi_check_supply() uses
-of_regulator_get_optional(), which does not check binding, so the
-controller registers anyway.
-
-When the provider finishes binding, nothing calls phy_try_attach_pse()
-again. The port then reports "No PSE is attached" until another PSE
-controller registers or the phy is re-registered.
-
-Before this patch, the same -EPROBE_DEFER came back out of
-fwnode_mdiobus_register_phy(), and the MAC/DSA probe recovered once the
-provider was bound. The commit message mentions this case. Is there a way
-to retry it, for example when the supply becomes available?
-
-> +
-> +	phydev->psec = psec;
-> +}
-
-[ ... ]
-
-> +static int phy_pse_notifier_event(struct notifier_block *nb,
-> +				  unsigned long event, void *data)
-> +{
-> +	switch (event) {
-> +	case PSE_REGISTERED:
-> +		pse_phy_lock();
-> +		bus_for_each_dev(&mdio_bus_type, NULL, NULL,
-> +				 phy_pse_attach_one);
-> +		pse_phy_unlock();
-> +		return NOTIFY_OK;
-> +	case PSE_UNREGISTERED:
-> +		pse_phy_lock();
-> +		bus_for_each_dev(&mdio_bus_type, NULL, data,
-> +				 phy_pse_detach_one);
-> +		pse_phy_unlock();
-> +		return NOTIFY_OK;
-
-[Severity: Medium]
-Can a failed PSE driver probe now power down a port that was already
-live? The PSE_REGISTERED walk runs synchronously inside
-pse_controller_register(), so it attaches handles before the PSE driver's
-probe has finished. For a PI the hardware already reports as powered,
-pse_control_get_internal() sets pcdev->pi[index].admin_state_enabled.
-
-The probe can still fail after registration. One example is
-tps23881_i2c_probe():
-
-	ret = devm_pse_controller_register(dev, &priv->pcdev);
-	...
-	return tps23881_setup_irq(priv, client->irq);
-
-Another is firmware_upload_register() in pd692x0. In that case devres runs
-pse_controller_unregister(), the PSE_UNREGISTERED walk drops the last
-reference, and __pse_control_release() does:
-
-	if (psec->pcdev->pi[psec->id].admin_state_enabled)
-		regulator_disable(psec->ps);
-
-That reaches ops->pi_disable() and cuts PoE power on the port. Before this
-patch, a failed PSE probe did not power down a port this way.
-
-The commit message documents this behaviour. Could handles be attached
-only after the PSE driver's probe has completed?
-
-> +	default:
-> +		return NOTIFY_DONE;
-> +	}
-> +}
-
-[ ... ]
-
-> @@ -1061,8 +1182,22 @@ EXPORT_SYMBOL(phy_device_register);
->   */
->  void phy_device_remove(struct phy_device *phydev)
->  {
-> +	struct pse_control *psec;
-> +
->  	unregister_mii_timestamper(phydev->mii_ts);
-> -	pse_control_put(phydev->psec);
+> +#define IMX952_PAD_GPIO_IO40__WAKEUPMIX_TOP_GPIO5_IO_20               0x=
+00B0 0x02E0 0x0000 0x00 0x00
 > +
 
-[ ... ]
+Frank: the downstream kernel has different names, that seems not
+correct. A double check on why you have this wrong naming on your
+donwstream kernel is appreciated.
 
-> +	pse_phy_lock();
-> +	psec = phydev->psec;
-> +	phydev->psec = NULL;
-> +	phydev->psec_detached = true;
-> +	pse_control_put(psec);
-> +	pse_phy_unlock();
->  
->  	device_del(&phydev->mdio.dev);
+Francesco
 
-[Severity: High]
-This isn't a bug introduced by this patch, but the new pse_phy_lock()
-scheme does not cover psec->attached_phydev. Can pse_send_ntf_worker()
-read a freed phy_device here?
-
-The worker holds only a transient kref and rtnl:
-
-pse_send_ntf_worker()
-  psec = pse_control_find_by_id(pcdev, ntf.id);
-  rtnl_lock();
-  netdev = pse_control_get_netdev(psec);
-    return psec->attached_phydev->attached_dev;
-
-phy_device_remove() can run at the same time outside rtnl, for example
-from mdiobus_unregister() in a MAC's remove after unregister_netdev().
-The pse_control_put() above is then not the final put, because the worker
-still holds a reference. psec survives with attached_phydev still pointing
-at this phy, and device_del() followed by phy_device_free() frees the
-phydev while the worker can still dereference it.
-
-Nothing clears psec->attached_phydev when the owning phy drops its
-reference. Also, when two phys share a PI, pse_control_get_internal()
-returns the existing psec through kref_get() and leaves attached_phydev
-unchanged.
-
-[ ... ]
-
-> diff --git a/drivers/net/pse-pd/pse_core.c b/drivers/net/pse-pd/pse_core.c
-> index e560833ad0340..bfa025e2194bb 100644
-> --- a/drivers/net/pse-pd/pse_core.c
-> +++ b/drivers/net/pse-pd/pse_core.c
-
-[ ... ]
-
-> @@ -1345,6 +1392,13 @@ void pse_controller_unregister(struct pse_controller_dev *pcdev)
->  	 */
->  	cancel_work_sync(&pcdev->ntf_work);
->  
-> +	/* Every handle should be gone here: subscribers drop theirs in the
-> +	 * event above, and the worker's transient one goes with the drain.
-> +	 * The controller is off the list and the irq is off, so nothing can
-> +	 * add one. Anything left is a holder nobody accounted for.
-> +	 */
-> +	WARN_ON(!list_empty(&pcdev->pse_control_head));
-> +
->  	pse_flush_pw_ds(pcdev);
->  	pse_release_pis(pcdev);
->  	kfifo_free(&pcdev->ntf_fifo);
-
-[Severity: High]
-This is a pre-existing issue, but pse_release_pis() still frees pcdev->pi
-here while the PI regulators that index it are registered. Can a read of
-a PI regulator's state attribute touch the freed array?
-
-devm_pse_pi_regulator_register() calls devm_regulator_register(pcdev->dev,
-...) from inside pse_controller_register(). devm_pse_controller_register()
-adds its own devres after that. Because devres releases in reverse order,
-devm_pse_controller_release() runs and frees pcdev->pi before the
-regulators are unregistered.
-
-During that window, reading /sys/class/regulator/*/state for one of these
-PIs reaches:
-
-pse_pi_is_enabled()
-	...
-	if (pse_pw_d_is_sw_pw_control(pcdev, pcdev->pi[id].pw_d)) {
-
-That reads pw_d and admin_state_enabled from freed memory. The earlier
-series patch "net: pse-pd: unwind allocations when controller
-registration fails" mentions this read of freed memory but does not fix
-it. The new PSE_UNREGISTERED walk and WARN_ON clean up the control
-handles, but the PI array still does not outlive the regulators.
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261004164219.1161294-1-github%40szelinsky.de
