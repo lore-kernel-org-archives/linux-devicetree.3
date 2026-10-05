@@ -1,94 +1,96 @@
-Received: from mail-ej2-f1.google.com (mail-ej2-f1.google.com [74.125.228.129])
+Received: from mail-ed2-f7.google.com (mail-ed2-f7.google.com [74.125.228.71])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C02253DFC6D
-	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 21:14:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.129
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A5153E2751
+	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 21:15:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.71
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791234845; cv=pass; b=tT6xNIEQ2x6bqtOs/bkyChH2VUmHABnRHxd+hU9NLvG5A36HKlTGhXSLvtMQ/wwAL+QLizjLcC0ugSITeXSVEHoiFd0HI1IcyBhKeFHZRWMlGQVzd44rsVsv+k9B1pJE6PNZ5VYi4qxQadGaVjfTa9fS1NOhyZ7jYwy2a//A1sA=
+	t=1791234925; cv=pass; b=sMDNm9xmqXSPfwNNEDZLsYrl7LFOedIjDCisDrno1KYOoBNcmw++SwtL6uMTSnv3CbX+8e5QheXWveRbi9ZLW68FFejccIVDcDCNCxR8cQtM5KloC/6NVO8QJhgRbt11wIgDm5daZBdDu/FTkgDN9tjRYGTPTNq7/cTo1e5TUIQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791234845; c=relaxed/simple;
-	bh=Jg+48cepgWrDgUNaKNya1rXBAe0v3PkEajJvFhN8l1Q=;
+	s=arc-20240116; t=1791234925; c=relaxed/simple;
+	bh=hqIWRi6Tpux/2qAc3lWZzGdHe7GnVUNYF9Jq8zwuyMI=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Mpx8TDzQNXHki36w5zIjN7HDlU07GGxhxRo1biE574ktoeUBZ5P/O8+yqdcgZvsYJoImVj/NCgfIl+j/gvxWXSomEQHvhcmgQkU6kHbtFcdYz4Rk1v6OvP8TDUc47f/iW1wUWlbuGPOjbzqySfB6rF+lGA1eWHTc3SDEsUWBA64=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lLu7YO1s; arc=pass smtp.client-ip=74.125.228.129
+	 To:Cc:Content-Type; b=N+kfpsHiSt/KGE1lq766jmFNfB4TdGu2ptJyqbURl5euBARilTgL6ons16ZqIPMAJkuj8ANrxzuQ4J+7KQ0UVvvO8he4UtR9v1UrhVqSfV+JgWyOtjFyXjIKiSR6++KxJbP2yn1UUtqbftfKi4+3lidEu464pZ2rpAV+Ra70Kq8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SAFIFXK6; arc=pass smtp.client-ip=74.125.228.71
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lLu7YO1s"
-Received: by mail-ej2-f1.google.com with SMTP id a640c23a62f3a-c1971f5efc3so132993966b.0
-        for <devicetree@vger.kernel.org>; Mon, 05 Oct 2026 14:14:02 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791234840; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SAFIFXK6"
+Received: by mail-ed2-f7.google.com with SMTP id 4fb4d7f45d1cf-6aa912db07bso1567401a12.0
+        for <devicetree@vger.kernel.org>; Mon, 05 Oct 2026 14:15:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791234918; cv=none;
         d=google.com; s=arc-20260327;
-        b=S28QG/mauFOKWS2DkUHbjcaH+Z4xShXz3NQIWAI1LmIPYmCpWZlGNVFeMccbxbsSro
-         TcimydzzvFZO773LNlHBZM5nRdATB1o9JvgJSr3DsR8fFaU9KRk6YBqv/6g0rfZVWxms
-         jIrVUsujeHPXoHEjgQuNXbEhAwLCsCrMp/Tii0lDmQR+mutPTnYtwuBgMjZ8xVk+/IbY
-         LjZQzYjBBkfDSBfGMu9NLq8N91v2kzXh97WKBZ1KXQinLsz/jkQoc2VsGnvzZtAkilnm
-         XI1tpJzh1iSg4CsKt68IZoc5hEn7s7WEAjWtopt0PaAirWTi/C9RGBqDUX6TgEiTtkJi
-         nFrA==
+        b=JcDAb4sV/s5v8swwjyJb4wSF2H+zHcIrfqXJdJjBdZafJwIZGnQkQ8upbgsSvwAWBS
+         diMU7aEJVwdR4bgWm100I+usid+KvMxQWMeGYPUImoDehgvWVrh3QHa9aYpb6f0UnxSR
+         su4ebvXiMMDtwx+sRfZKjKTawXroe1SJkydncmI0jCUusicC5hBPdB+7fGUlZ68J3H1x
+         9Gbf3ikxyiF4BcmhIdfBDi8tbUyi5wd4PRD6FnmRHM+5fMRPwPFk6JmEz5LsUr4Mxr86
+         yCAU8baeKQbbovLLHNn8Px2qNPNjt/SWLlLiRj48Omwpa4RelzAvFgdZxg5/oDlgNklX
+         Ue1A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=Jg+48cepgWrDgUNaKNya1rXBAe0v3PkEajJvFhN8l1Q=;
-        fh=rcblsJqMTVgIjguT7oc/n9Mzj2FFZHR8zN6iIUarA6Q=;
-        b=g280dBD04suc4wejUaSPPlt5qm+9LuRPgeX+4EKbHZdToAuMCgQtS0K6RN8aubVYA/
-         OqzJCN3mHuGNLowRAzI16C8tXkpyU8/R1rZ3ySZaBKJZU292BMe8cUwPcRI1c92xUsQh
-         mGR+8NjczzV19nIGPyFVzTU3IfV54oCC11mKFk4ewLNijOPtR85FDKEE/wnd2lT+OYr8
-         z/cWY8bN8A28yawPvKd/OiHSKNq8JCi+BibDc7/+TMsTee80fdo3ZI+x2Ek/VW5dY+6Z
-         I1w9L5isBR8xyJa5LTcRrzXyHt6V0ujV+06nSqUMYX3GeOXDrcByTcCKYHT0xd2sw7iy
-         cZ7w==;
+        bh=v463Ztb7l8HkbYlND0+jy6OLKJauaplyxKRrplRmY1k=;
+        fh=GRRihKRJHB8IVFHzCtBpyyKt51v8oWxbMH5FPZJvVEo=;
+        b=Tn2sSgbH/PhUmKnqTxooyzNpPxonX1mvpZ5fFLOj/3fZlxLLtUh/sj7+r9qnVxcGMl
+         rdctersGy3KTcZNP8I1Zbepn1Y2/zI46S3uqeAsal8AZxXZqapwOFrcE5DmHVKGA1Ye8
+         bOhGKvoFquYqiH5q+KN7fjy5L5QlNwYZFRUwGbd42sGGJYSTYrz14v7IzGd1KzR/D4bM
+         Khz6RWVQPbDkkG4kJ5Ds6uc3A+VuhxOAEUi1sd46by07499qlLra8ntq7lzTxP43W8of
+         KHHcIzYDk6ZjQ/jCUNZXvPr7KB91ZmGGfyoSNUVvWZ8ecbu05sc9TlGW80w3HaRblnEc
+         8BGg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791234840; x=1791839640; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791234918; x=1791839718; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Jg+48cepgWrDgUNaKNya1rXBAe0v3PkEajJvFhN8l1Q=;
-        b=lLu7YO1slAZEk+Wl6hSffZxM6Snh1lZSsi+WQAaXaQP1v5bvYdKtKSYhsF25BnML4U
-         HcAmNaR1PG9wcCytglUyreRWS7KO/AQPpJ7F9m9KzqPlnUqdYVvy2gRRLgQ2BIZl03K8
-         xb9tmKEGvtt8s3ek77sLxtrQ7aINnKfHP0ZyIfCvUU8nQZHqAMo6SVbKZMkI7qKXCZik
-         27/FLQ6WRy15QyDVTGHvsnjOdlYnpjD5DIJb3MjNJAUU5+imo662ezsCPYAzL2qWrAtY
-         i8pw5jFnjpiDUwQDMWI+OXVq/Ui0SOLBkBll3qYBsMJJ61hCONI1cQM8TJCPUXJcJl2N
-         rpJw==
+        bh=v463Ztb7l8HkbYlND0+jy6OLKJauaplyxKRrplRmY1k=;
+        b=SAFIFXK6PwsIHAJFlSgsJvpLZAAAaxXXJKBVyGiqvqZBQ1qV/qA02uCQqWCcTBeSEX
+         t+DfKN2/e9Ktb60blPSTUhRP3DMqSr26MBhAffDKXCO1cBKLE9KqjtP3KsFv0pTyIHxA
+         flHZpo7j+AX4rpp765KRTePnoaK0oWKQq+4Z+/4tcvXmUoFWPHOVeyIeOgpmiD4KnKaT
+         BDj+376D567sTBCKAKvaeBqRwnuJFfD4M+QUH+ehf/lLQ6N6RbiWhGuZWAh0IPXjUlw3
+         pTnp4lofAIsfNCiGgwHnH65kdXQbWx+FYypBg2Nl4EWOhIl9WB5K4to+AWXCWn/RXY+X
+         Ac/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791234840; x=1791839640;
+        d=1e100.net; s=20260707; t=1791234918; x=1791839718;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Jg+48cepgWrDgUNaKNya1rXBAe0v3PkEajJvFhN8l1Q=;
-        b=nbS8fz/R2GlRB+OKMRS/7WRFoRP20o+40sU4MaDxrL0xliV2Pgp62TvF9X9+E11zsV
-         jyUJcXpk5g/SZFzvaOXDxFIFKnUtySJttO4V/cytTSpqEKTP4fXA/Kjk+zBUpSUYAEmd
-         Rfe7ouVN34skG8tXpWeviDjz2mbEhOjwwnWm2Cfio1CoeEb17pQJzzi6DxQvAwMaP8Zl
-         huVoUzCZoOeuclrq+fYTWyDf8HUutUCCeoIh6kl7ApJw4s0chw91V87MY3kz4SllJtlT
-         56h5KZPVWooaKMFdU2fhasWRirAJjv3+RnTkYjfSRsK0LA84idU7FApXkOu74TyRUQv9
-         Lm7w==
-X-Forwarded-Encrypted: i=1; AKwUvBx+z0qz9AEHf0yEelrgQn+xAmmoCfWHlUF4q56pqKA6DJnQD2eHy9wWXy8sc2V7hCXqEvtYziYgSNMF@vger.kernel.org
-X-Gm-Message-State: AFuF++nbydgRZSTbsqxrVXdRVVT2h+ymGlXg3lKOiKy8ZxbDxpbHHV4f
-	CnO4nyCYS7iEp47jwIuOAKjMX5IfOfjVGrKV/iK0WBur8xhIUySkBB31wNX4YNQhY3KF/1kSUlT
-	QeL3tFIHyamUkOigIrlm33wyiocfvCuU=
-X-Gm-Gg: AYBFou1+BecqhmMTyYSczuvKAACzlb0j6U4AoYh99n3+dtfJIul8qICi5Y0AffX2UoD
-	xqWVVWlr4mrLvWSkI1cEe272d+HHW3fp2qGs4lIPk0BlGB89BhRt3UsFJVlvBRAk9lqWImtDUI/
-	UsfnxdOb9nTgGC+m4zwzen2vbmmo60zo1U0z+3B44ugd+d3f5Dp+taieuTgRBlrovsbHWZ2hQDU
-	AAcPRBJPY82utYiTI//rb/BkZL5cpfHgS96ekHcM8nDE0pEtGrxNTGq/oIeR1LgQrYXVu78c/np
-	A1Jp4UzkYYDxAnKgtZGTI94hEwzniE7FmIr+AkX6+ZGn2Cs+QoAaTjsIyw==
-X-Received: by 2002:a17:907:940e:b0:c29:62d8:68af with SMTP id
- a640c23a62f3a-c2e4b2bc542mr1047723566b.47.1791234840255; Mon, 05 Oct 2026
- 14:14:00 -0700 (PDT)
+        bh=v463Ztb7l8HkbYlND0+jy6OLKJauaplyxKRrplRmY1k=;
+        b=NGNsvdZPJbK+yYa2KIkawanPtOIiFJ7cDfZdzszjXpQWtBg6OmmndZUFkFosRvwAwN
+         Pfm04fNt/CI8u4r6DKOupOkrYMJM6RAXlCBdbKxpv+rSk+enJZ8P184ikIR0KcGSW+O/
+         nr3Z30qNWZOj3OixTcfI+vEiKCoeuObGVFj5BwjzxTpJFSvWy7wsSZEqSHvp1kXXHpg3
+         0AK3RE3k3/a7iH140P+26DuVe2qQFYsFxv+oVmBS/cfpDc++Kaytj8+WOjeu5e2RLofj
+         p57km0GCadbIw2m56uvtG8mCN8siNcvmDA8mlJnNDPVZqhJt7JSBK0LdQ5pXLGLuSeJk
+         LNEg==
+X-Forwarded-Encrypted: i=1; AKwUvBxRDtZrgn2uWPPXFNlfDbWNFAooL+8ktbnDOB3trx8cIZxSuVVZtocCB77obw8ZsD4m55ElqGDPN8PQ@vger.kernel.org
+X-Gm-Message-State: AFq9FYJYTculN33nQ/gBcm3q+xmQVbPmIyQQWn2NkYTbIeShJsqUJoOZ
+	yqAJXZ7iTJxSHqSvSjyDTGMOSlLFzaijQoisjgSPZC7lqpCFfaeHScDpTBSfR0f+nq8V77fGWY2
+	lDE7m6eV0Y88O+D3FEgB/b7aJGJYguvo=
+X-Gm-Gg: AYBFou014xdaH0xLKYYyHOmWVCrUyTFd0x8D7viXMmst5TP7Z93FrYqDnN/4Ntda8eg
+	DrStHqDtDW0Fo08JfE+eOQandzcrpozC+c2awm2BCYwHqPtC+WGboPuIRBBYjSBF23YKBM3TMm5
+	QlwjuqnvreF4WRPd3VMi1dC9XLwBDEatKXen2x3usJ1s3NEdC3pDeKCtaOrnarcTjfj99wbAze7
+	vvIny5M9Fz2FElv5Wavi5tRdJ4OnNBcnbj5RpBpowjPK0r9jbw7sPR1wdwIRNu0b7jnPmCrMKJf
+	L/8+ot3luI8Vihp1zyrHyoG6JcTzrdu56eMx1rQXI1QgU7XuE7lA8a4Jpg==
+X-Received: by 2002:a17:907:7215:b0:c2d:bd95:874a with SMTP id
+ a640c23a62f3a-c2e4ad79199mr1112515766b.17.1791234918176; Mon, 05 Oct 2026
+ 14:15:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260922200336.2201212-1-coiaprant@gmail.com> <20261005135833.37376f20@kernel.org>
-In-Reply-To: <20261005135833.37376f20@kernel.org>
+References: <20260922200336.2201212-1-coiaprant@gmail.com> <20260922200336.2201212-4-coiaprant@gmail.com>
+ <20261005135939.01ccde50@kernel.org>
+In-Reply-To: <20261005135939.01ccde50@kernel.org>
 From: Coia Prant <coiaprant@gmail.com>
-Date: Tue, 6 Oct 2026 05:13:49 +0800
-X-Gm-Features: AclHuK96Q0r6tDkOyMFxRRlJTRgYT5CZFZq3doTRuVETMpVpnBIKbah20Qfa8QQ
-Message-ID: <CALj3r0jgyhtmwSR03nZm4UJZ7dw6Y16X9N6-ASq9puY40zeBfA@mail.gmail.com>
-Subject: Re: [PATCH net-next v10 00/11] net: pcs: add basic support for RK3568 XPCS
+Date: Tue, 6 Oct 2026 05:15:07 +0800
+X-Gm-Features: AclHuK-hmC2IHermBe0I62cu-4Uo5MfOk7srVIbtbJ9DQ0aB5gykKJWKnA3WMzU
+Message-ID: <CALj3r0h7j-4ZAiX67LmbgpmYCvK-Xmzd_qnYYgoBmniAW+eiWw@mail.gmail.com>
+Subject: Re: [PATCH net-next v10 03/11] phy: rockchip: naneng-combphy: add
+ SGMII MAC selection for RK3568
 To: Jakub Kicinski <kuba@kernel.org>
 Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S . Miller" <davem@davemloft.net>, 
 	Eric Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
@@ -107,24 +109,57 @@ Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
 Jakub Kicinski <kuba@kernel.org> =E4=BA=8E2026=E5=B9=B410=E6=9C=886=E6=97=
-=A5=E5=91=A8=E4=BA=8C 04:58=E5=86=99=E9=81=93=EF=BC=9A
+=A5=E5=91=A8=E4=BA=8C 04:59=E5=86=99=E9=81=93=EF=BC=9A
 >
-> On Wed, 23 Sep 2026 04:03:24 +0800 Coia Prant wrote:
-> > This series adds proper SGMII support for the Rockchip RK3568 SoC
-> > using the integrated Synopsys DesignWare XPCS, along with necessary
-> > fixes and refactoring in the stmmac core and XPCS driver.
+> On Wed, 23 Sep 2026 04:03:27 +0800 Coia Prant wrote:
+> > On RK3568, the SGMII interface can be routed to either GMAC0 or
+> > GMAC1 via the GRF register pipe_sgmii_mac_sel.
+> >
+> > Add support for this selection by introducing
+> > the "rockchip,sgmii-mac-sel" DT property.
+> >
+> > From the RK3568 TRM (Part1, Page 229), the PIPE_GRF_XPCS_CON0
+> > bit 1 (pipe_sgmii_mac_sel) is defined as:
+> >
+> >     0: SGMII routed to GMAC0
+> >     1: SGMII routed to GMAC1
+> >
+> > The hardware reset value is 1 (GMAC1). If the property is set to 0,
+> > the driver routes SGMII to GMAC0; if set to 1 (or omitted), it
+> > remains at GMAC1.
+> >
+> > This is necessary for boards such as the Ariaboard Photonicat, which
+> > uses the SGMII interface connected to GMAC0.
+> >
+> > Out-of-range values are rejected by dtschema, so the driver does not
+> > duplicate the range check.
 >
-> Someone marked this as changes requested. Not sure who and why.
-> I was waiting for an ack from DT maintainers.
-> If it wasn't you, either, maybe repost to re-queue this for review?
+> While looking thru the patches again I noticed this is changing generic
+> PHY. Maybe you can send it separately to Vinod? I don't see a hard
+> dependency? The code can "converge" during the merge window for the
+> whole thing to work.
 
 Hi Jakub,
 
-Thanks for the review.
+Thanks for the suggestion. I looked at this again, and I think the
+dependency is a bit more involved than it might seem.
 
-Regarding the "changes requested" state: I'm not sure who set it, and I
-couldn't find any specific review comment explaining it. If it was
-accidental, I'm happy to repost the series to re-queue it for review.
-Please let me know if a repost is what you'd prefer.
+The PHY patch (03/11) adds the driver support for
+"rockchip,sgmii-mac-sel", which is documented by the PHY binding (02/11).
+The DTS patch (10/11) then uses this property. If I send 03/11 separately
+to Vinod and keep 10/11 in net-next, dtbs_check will flag the DTS property
+as undocumented until the PHY binding lands in mainline. That would break
+DTS validation for the net-next series.
 
-- Coia
+Also, splitting into separate series means each has to queue and get
+reviewed independently, which I'm worried might not all make the merge
+window in time.
+
+So unless you strongly prefer splitting, I'd rather keep the whole series
+together in net-next. If that works, would it be possible to coordinate an
+Ack from Vinod for the PHY part? Or if you still think it should go
+separately, I can do that too, but I wanted to flag the dependency and
+timing first.
+
+Thanks,
+Coia
