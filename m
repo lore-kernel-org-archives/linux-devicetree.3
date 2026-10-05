@@ -1,296 +1,99 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5ACB4A483F;
-	Mon,  5 Oct 2026 14:44:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 382C64AD4A9;
+	Mon,  5 Oct 2026 14:47:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791211505; cv=none; b=h8Xzp6dVpwj9EVyFBhhSVGdzUBqYXU+sMUDjXJTVl8gtAsdtH+zzx26OnfWdEF+LWtlD/vB2AlVK6ck77LgBNaW6q16LeEAsneSlVcJcKsjXiyALKfAR/i7xFB9w5tAHPX7Ml4s1xhpAJEr/MwqDO76oW5atEFdfwjeIMhVmJPM=
+	t=1791211648; cv=none; b=UJbeJc1Gsaq20LoDoNE1rXs3oMPySZiURirj/H0sUSJv2TWKFWNR8B+QGU9bM0YkLM7ojXmHeWc1iMouyiUeLJlDrN0L7XfdOgsZx+2NrhG89Fhu8hrZs7v0oxfUIj2axAfUl/fkClVY/o7qj4aTVWAm6NhnYVnaYXFjrXy7aKw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791211505; c=relaxed/simple;
-	bh=6T4Tog3D9ZgXq4YvOeG+JFSPCx8A0Jg9bkAN4W0dXiM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=MrbGdYNHwBlanOkbhwGoBr+IEHQDx/TJmdaBdGKuPOJ8AnNw9UeGm+V+6PdRIwwLD/lrogBQu2EmDHz1Nl5MUGiaj/o0BxUOuryeXlz+4WlIKmjxdZMN1IkeNNFySgfjPf+O2noNfZKwo19Vsz5adyMPkPCiax44DhQgsChob4w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=fhY1qyQO; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1791211648; c=relaxed/simple;
+	bh=9T2fmSNRbjXFVPQksKl+UwFKOHU4uZBn0rZ5YRuuXiU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HurUEN0c0gEdKO+XNQ8ShlruLZheROJN6VK604CS7KEEYaDCXtAbOu/w1iaU1ixhRaj61OYOCDdBGrqUklC7vUZfbnwYbbOTbYruiMzXOThL8fZwBok4btGf4Cf6ozAyrDsf+grn0Li/V4CgsnobJr7gM1Fs8WQW3mx4rfJR/hU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=IRmoPjy4; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="fhY1qyQO"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id B953A1A117A;
-	Mon,  5 Oct 2026 14:44:52 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 8BE8E601A5;
-	Mon,  5 Oct 2026 14:44:52 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id BC96A103307C6;
-	Mon,  5 Oct 2026 16:44:45 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1791211487; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=O/vKoMeflT9nPRyOcWw9LHjjIb32mZRk5p1cYeQFa4Y=;
-	b=fhY1qyQOBJamKPEYUqjtmqO7d1ciMUbOCSNa+LQ4E2uJxkJjVUOQDCqgd7f3sB9NWG1lqB
-	Gv3zhJV6mBQnTT3aEFSWk1j9nMQzb8Gm1EAK9AmTfCIyX/Rlzg+io0HDSXn6sUgMLabrU7
-	lC/WUQ2qde91UdAe3cN0Kq89C+n6yMgwwDz5HrwSPEVCuK1dmoPX9thiA4k8MXB1VouzFN
-	TkAx2mi6Ng4qZ2z0AnoaE/rEleUBzE3Sf+hbCD88YzXSfVQWyXaF+eXslQIMSABr1ILMHR
-	18Gwlrhs7Y71mc92w1PUaRjDQYWcSGC0ySD4kybDo7Z0xFPu9sAjaY4+rJOADQ==
-From: Thomas Bonnefille <thomas.bonnefille@bootlin.com>
-Date: Mon, 05 Oct 2026 16:44:20 +0200
-Subject: [PATCH 2/2] iio: temperature: tmp117: add support for HIGH and LOW
- alerts
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="IRmoPjy4"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 57A2A152B;
+	Mon,  5 Oct 2026 07:47:19 -0700 (PDT)
+Received: from localhost (unknown [10.2.196.114])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 5CCAC3F66F;
+	Mon,  5 Oct 2026 07:47:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791211642; bh=9T2fmSNRbjXFVPQksKl+UwFKOHU4uZBn0rZ5YRuuXiU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=IRmoPjy4x1D3I65S3fuZZwvM/YUbo+fDHogt0bn7J0vJ8JhY0OZ5z7xjxXYwh4Rz9
+	 AYZH7sCcEGNxNA68Dmth5z95uoeV7a5lbogEIuC1al6IH7rte27ZOnL8amzB8MTpiA
+	 97wr+5l/e0XGTei4n9y2QszmJh7+fFW/IcOgkRas=
+Date: Mon, 5 Oct 2026 15:47:20 +0100
+From: Leo Yan <leo.yan@arm.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Mike Leach <mike.leach@arm.com>,
+	James Clark <james.clark@linaro.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Wei Xu <xuwei5@hisilicon.com>, Michal Simek <michal.simek@amd.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>, coresight@lists.linaro.org,
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH 5/5] ARM: dts: qcom: apq8064: Drop PCLK from static
+ replicator
+Message-ID: <20261005144720.GK1208404@e132581.arm.com>
+References: <20261002-arm_coresight_hi3660_remove_dynamic_funnel_clocks-v1-0-c3edca1c480b@arm.com>
+ <20261002-arm_coresight_hi3660_remove_dynamic_funnel_clocks-v1-5-c3edca1c480b@arm.com>
+ <z2bu73w3xcl4ofbp4td3rj7wazzoth5gq35obiqkrfhhfxufcq@hrfvij5jnb55>
+ <20261002153328.GE1208404@e132581.arm.com>
+ <umknnkfjevejagydaktpq6zgh4l2uuxy4k2f5l7v2ypr2xb57q@obtxdmeihisp>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261005-add-tmp117-notif-v1-2-c6cef6fad64c@bootlin.com>
-References: <20261005-add-tmp117-notif-v1-0-c6cef6fad64c@bootlin.com>
-In-Reply-To: <20261005-add-tmp117-notif-v1-0-c6cef6fad64c@bootlin.com>
-To: Puranjay Mohan <puranjay@kernel.org>, 
- Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- =?utf-8?q?Miqu=C3=A8l_Raynal?= <miquel.raynal@bootlin.com>, 
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Thomas Bonnefille <thomas.bonnefille@bootlin.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6647;
- i=thomas.bonnefille@bootlin.com; h=from:subject:message-id;
- bh=6T4Tog3D9ZgXq4YvOeG+JFSPCx8A0Jg9bkAN4W0dXiM=;
- b=owGbwMvMwCV2Z+MHT+XNR6wYT6slMWQd3n4h5L77jGWt5p/3sXN8PCJw8+OGzafXXWy2yq8uV
- /1U1Ohxr6OUhUGMi0FWTJHlgn9qicDiE8Yp6WETYeawMoEMYeDiFICJXDBkZDh/2e+bYtV7trx9
- YnZNfwT4MjivhH3ZNbFV7T3v7hs/Il4w/DO+Y7x0tUTQnpuHZvpri1V/nLl3/beH/DwqZ7Q9vTp
- Ul7AAAA==
-X-Developer-Key: i=thomas.bonnefille@bootlin.com; a=openpgp;
- fpr=D04F657410A3C83364675691DCB1F04923B3C43A
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <umknnkfjevejagydaktpq6zgh4l2uuxy4k2f5l7v2ypr2xb57q@obtxdmeihisp>
 
-The TMP117/116/119 chips allow the user to set an alert if the
-temperature reaches a HIGH or LOW limit.
+On Fri, Oct 02, 2026 at 07:05:14PM +0300, Dmitry Baryshkov wrote:
+> On Fri, Oct 02, 2026 at 04:33:28PM +0100, Leo Yan wrote:
+> > On Fri, Oct 02, 2026 at 06:21:36PM +0300, Dmitry Baryshkov wrote:
+> > > On Fri, Oct 02, 2026 at 04:07:24PM +0100, Leo Yan wrote:
+> > > > The APQ8064 static replicator has no registers to program, so it
+> > > > does not need an APB clock. Remove its RPM_QDSS_CLK reference.
+> > > > Other programmable CoreSight devices keep their clock references.
+> > > 
+> > > QDSS clock is not actually the APB one, it's required for the coresight
+> > > (or to access some of the regs) if I remember correctly.
+> > 
+> > If so, it might be atclk for clocking the module rather than the
+> > register interface. Could you confirm this?
+> > 
+> > The replicator is just a middle component on the data path. I read
+> > that it shares the same clock with other CoreSight components, so it
+> > should still be safe to remove the clock from the replicator node,
+> > as other components on the path will ensure that the clock is enabled.
+> 
+> Unfortunately it might be hard to find info for this platform nowadays. 
 
-Add support for setting the high and low alert limits.
-An IIO event is generated when the temperature crosses either limit
-thanks to an interrupt on the Alert pin.
+How about rename RPM_QDSS_CLK on the static replicator as "atclk", the
+optional clock name supported by its binding.
 
-Signed-off-by: Thomas Bonnefille <thomas.bonnefille@bootlin.com>
----
- drivers/iio/temperature/tmp117.c | 145 +++++++++++++++++++++++++++++++++++++++
- 1 file changed, 145 insertions(+)
+          replicator {
+                compatible = "arm,coresight-static-replicator";
 
-diff --git a/drivers/iio/temperature/tmp117.c b/drivers/iio/temperature/tmp117.c
-index 74cb8d62bef3c..d2924e9a7f97b 100644
---- a/drivers/iio/temperature/tmp117.c
-+++ b/drivers/iio/temperature/tmp117.c
-@@ -22,9 +22,12 @@
- #include <linux/regulator/consumer.h>
- 
- #include <linux/iio/iio.h>
-+#include <linux/iio/events.h>
- 
- #define TMP117_REG_TEMP			0x0
- #define TMP117_REG_CFGR			0x1
-+#define TMP117_CFGR_HIGH_ALERT		BIT(15)
-+#define TMP117_CFGR_LOW_ALERT		BIT(14)
- #define TMP117_REG_HIGH_LIM		0x2
- #define TMP117_REG_LOW_LIM		0x3
- #define TMP117_REG_EEPROM_UL		0x4
-@@ -37,6 +40,13 @@
- #define TMP117_RESOLUTION_10UC		78125
- #define MICRODEGREE_PER_10MILLIDEGREE	10000
- 
-+/*
-+ * The temperature limit registers store a signed 16-bit value with an LSB of
-+ * TMP117_RESOLUTION_10UC / MICRODEGREE_PER_10MILLIDEGREE = 125/16 m°C.
-+ */
-+#define TMP117_LIMIT_LSB_NUM		125
-+#define TMP117_LIMIT_LSB_DEN		16
-+
- #define TMP116_DEVICE_ID		0x1116
- #define TMP117_DEVICE_ID		0x0117
- #define TMP119_DEVICE_ID		0x2117
-@@ -52,6 +62,112 @@ struct tmp11x_info {
- 	int num_channels;
- };
- 
-+static irqreturn_t tmp117_interrupt_handler(int irq, void *private)
-+{
-+	struct iio_dev *indio_dev = private;
-+	struct tmp117_data *data = iio_priv(indio_dev);
-+	int ret;
-+
-+	ret = i2c_smbus_read_word_swapped(data->client, TMP117_REG_CFGR);
-+	if (ret < 0 || !(ret & (TMP117_CFGR_HIGH_ALERT | TMP117_CFGR_LOW_ALERT)))
-+		return IRQ_NONE;
-+
-+	if (ret & TMP117_CFGR_HIGH_ALERT)
-+		iio_push_event(indio_dev,
-+			       IIO_UNMOD_EVENT_CODE(IIO_TEMP, 0,
-+						    IIO_EV_TYPE_THRESH,
-+						    IIO_EV_DIR_RISING),
-+			       iio_get_time_ns(indio_dev));
-+
-+	if (ret & TMP117_CFGR_LOW_ALERT)
-+		iio_push_event(indio_dev,
-+			       IIO_UNMOD_EVENT_CODE(IIO_TEMP, 0,
-+						    IIO_EV_TYPE_THRESH,
-+						    IIO_EV_DIR_FALLING),
-+			       iio_get_time_ns(indio_dev));
-+
-+	return IRQ_HANDLED;
-+}
-+
-+static int tmp117_read_thresh(struct iio_dev *indio_dev,
-+			      const struct iio_chan_spec *chan,
-+			      enum iio_event_type type,
-+			      enum iio_event_direction dir,
-+			      enum iio_event_info info,
-+			      int *val, int *val2)
-+{
-+	struct tmp117_data *data = iio_priv(indio_dev);
-+	s32 ret;
-+	u8 reg;
-+
-+	switch (dir) {
-+	case IIO_EV_DIR_RISING:
-+		reg = TMP117_REG_HIGH_LIM;
-+		break;
-+	case IIO_EV_DIR_FALLING:
-+		reg = TMP117_REG_LOW_LIM;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	if (info != IIO_EV_INFO_VALUE || type != IIO_EV_TYPE_THRESH)
-+		return -EINVAL;
-+	ret = i2c_smbus_read_word_swapped(data->client, reg);
-+	if (ret < 0)
-+		return ret;
-+
-+	/*
-+	 * Report the threshold in millidegrees Celsius as an exact fraction:
-+	 * value = raw * TMP117_LIMIT_LSB_NUM / TMP117_LIMIT_LSB_DEN.
-+	 */
-+	*val = sign_extend32(ret, 15) * TMP117_LIMIT_LSB_NUM;
-+	*val2 = TMP117_LIMIT_LSB_DEN;
-+
-+	return IIO_VAL_FRACTIONAL;
-+}
-+
-+static int tmp117_write_thresh(struct iio_dev *indio_dev,
-+			       const struct iio_chan_spec *chan,
-+			       enum iio_event_type type,
-+			       enum iio_event_direction dir,
-+			       enum iio_event_info info,
-+			       int val, int val2)
-+{
-+	struct tmp117_data *data = iio_priv(indio_dev);
-+	s64 tmp;
-+	u8 reg;
-+
-+	switch (dir) {
-+	case IIO_EV_DIR_RISING:
-+		reg = TMP117_REG_HIGH_LIM;
-+		break;
-+	case IIO_EV_DIR_FALLING:
-+		reg = TMP117_REG_LOW_LIM;
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	if (info != IIO_EV_INFO_VALUE || type != IIO_EV_TYPE_THRESH)
-+		return -EINVAL;
-+
-+	/*
-+	 * The threshold is passed in millidegrees Celsius as
-+	 * value = val + val2 / 1000000 (val2 holds the fractional part, with
-+	 * the sign taken from val). Convert it back with the same LSB ratio:
-+	 * raw = value / (TMP117_LIMIT_LSB_NUM / TMP117_LIMIT_LSB_DEN).
-+	 */
-+	tmp = (val < 0) ? (s64)val * 1000000 - val2
-+			: (s64)val * 1000000 + val2;
-+	tmp = DIV_ROUND_CLOSEST(tmp * TMP117_LIMIT_LSB_DEN,
-+				(s64)TMP117_LIMIT_LSB_NUM * 1000000);
-+	tmp = clamp_t(s64, tmp, S16_MIN, S16_MAX);
-+
-+	return i2c_smbus_write_word_swapped(data->client,
-+					    reg, tmp);
-+}
-+
- static int tmp117_read_raw(struct iio_dev *indio_dev,
- 			   struct iio_chan_spec const *channel, int *val,
- 			   int *val2, long mask)
-@@ -112,12 +228,27 @@ static int tmp117_write_raw(struct iio_dev *indio_dev, struct iio_chan_spec
- 	}
- }
- 
-+static const struct iio_event_spec tmp11x_obj_event[] = {
-+	{
-+		.type = IIO_EV_TYPE_THRESH,
-+		.dir = IIO_EV_DIR_RISING,
-+		.mask_separate = BIT(IIO_EV_INFO_VALUE),
-+	},
-+	{
-+		.type = IIO_EV_TYPE_THRESH,
-+		.dir = IIO_EV_DIR_FALLING,
-+		.mask_separate = BIT(IIO_EV_INFO_VALUE),
-+	},
-+};
-+
- static const struct iio_chan_spec tmp117_channels[] = {
- 	{
- 		.type = IIO_TEMP,
- 		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
- 				      BIT(IIO_CHAN_INFO_CALIBBIAS) |
- 				      BIT(IIO_CHAN_INFO_SCALE),
-+		.event_spec = tmp11x_obj_event,
-+		.num_event_specs = ARRAY_SIZE(tmp11x_obj_event),
- 	},
- };
- 
-@@ -126,6 +257,8 @@ static const struct iio_chan_spec tmp116_channels[] = {
- 		.type = IIO_TEMP,
- 		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
- 				      BIT(IIO_CHAN_INFO_SCALE),
-+		.event_spec = tmp11x_obj_event,
-+		.num_event_specs = ARRAY_SIZE(tmp11x_obj_event),
- 	},
- };
- 
-@@ -150,6 +283,8 @@ static const struct tmp11x_info tmp119_channels_info = {
- static const struct iio_info tmp117_info = {
- 	.read_raw = tmp117_read_raw,
- 	.write_raw = tmp117_write_raw,
-+	.read_event_value = tmp117_read_thresh,
-+	.write_event_value = tmp117_write_thresh,
- };
- 
- static int tmp117_probe(struct i2c_client *client)
-@@ -208,6 +343,16 @@ static int tmp117_probe(struct i2c_client *client)
- 	indio_dev->num_channels = match_data->num_channels;
- 	indio_dev->name = match_data->name;
- 
-+	if (client->irq) {
-+		ret = devm_request_threaded_irq(&client->dev, client->irq,
-+						NULL, tmp117_interrupt_handler,
-+						IRQF_ONESHOT, match_data->name,
-+						indio_dev);
-+		if (ret) {
-+			dev_err_probe(&client->dev, ret, "irq request error\n");
-+			return ret;
-+		}
-+	}
- 
- 	return devm_iio_device_register(&client->dev, indio_dev);
- }
+                clocks = <&rpmcc RPM_QDSS_CLK>;
+-               clock-names = "apb_pclk";
++               clock-names = "atclk";
 
--- 
-2.55.0
+I would leave the AMBA CoreSight nodes in the same dtsi unchanged for
+now. They need an apb_pclk lookup for register access, and so far we
+have no evidence to justify adding the same RPM clock again as atclk.
 
+Please let me know if this works for you.
+
+Thanks,
+Leo
