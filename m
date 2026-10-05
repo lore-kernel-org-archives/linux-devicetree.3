@@ -1,156 +1,276 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF13C3806AD;
-	Mon,  5 Oct 2026 08:45:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A537305692
+	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 08:54:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791189904; cv=none; b=NzaC2bKiQZK47vKM6h+PUrpDZ2wsd+Zci/LxqSTxmDerJz5SED1ZCZ/3yI8a04fPrTUpE6Xr16eaH3iO8sR7pVMOCE2Ez8IeNUlyojZXfzoHK8Yui4inPUDx2IXkm8UELpyxhud/ditHpiy/yLtMihD/MEjteqGt9Mo9XzNOxRM=
+	t=1791190486; cv=none; b=dn2BRLmDgJfcP/hJMAVl2PICbvHSX4cfItuPX84YPXkcJ5eyELW2FTLFEW43dHZxst9CW/uV0ivICpLD2aaDpv/1nwNFnOV9OksyQo8+s4h4Uc2SkJwF1N2jD4/TRe0riTBIpnZq8s59p6ZnFVaTncHQJ+hb6MbL/SGbhZ8Kajk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791189904; c=relaxed/simple;
-	bh=v7fBogfEa4SyyyvCAt2cXY9omS2YlKzUV5YfX5OoCdk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=e6fWI9mfpDxAWoq50M3cawHhNrYqb3+JXz9SCzlHZLUP4Ikun+aodClidtEreScN28KFlJSzmLIM2BhuxNicEOuiNUoe8lp02IpgpkvI7ik7z9bYQhBJ5brGkiApe7rsDmZEPRITs5MkcnrLW1UmGbSSwRZjRx7F+ArnttAE0dQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ATksT9qc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791190486; c=relaxed/simple;
+	bh=HjfD9Sk3Ecr2vQKR57DUO/tKFIgPZQr8nPPUZfnIC9o=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=b30rd0GE+hr4nkhWYQ91coyk1QPM1MQq0dIDa90dsDUJcSpdNgQ9CmVAm52iadF9OfM+Zt6Kp7uvvUe8YW1zMUW0VCJ34hkJDlzaa9IZlC3mWsznJ4EQeTuXeIkfm73vrAnf1z7/QBX3medPjKb2dGCA8a3dC/KVHwoC/AMUk6g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=DbNL9bRa; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ATksT9qc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C75C71F000FF;
-	Mon,  5 Oct 2026 08:45:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791189902;
-	bh=yu0jeX6WAJv4JtgUQ7WdlwZ7yT+kLcw/DK3wWTM8lF4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ATksT9qcj606k9JWregl4eW5+phJ39KeCgq22MOa38VA5rhOTUdfYGpS/NXMkVrr1
-	 NbwsUxVMQSQ1Yl1F2UkTYY1r+io9jqfAHQw6uQjuVrUSCS13AQsjp7VsRfENZaQEb1
-	 XjNaieHCRvp5OQwuHxuUdowfrsO3MotjvwBmVk22w9zWwsVOwmIurTFdteBjZCR3K3
-	 6i8bCwta0V5GhFYRHVWxljx1H1SzNvv41FCEklW1JaaZjC3YjZp2VhJhiWTQ68J4d9
-	 4hUL0Ng/BVdUarII1B9Qms10p2M9CnmmHwqsYwTXJMhyHsRTRY/6lb6bDWKSuEUA90
-	 9Ny2sKzI5vzVA==
-Date: Mon, 5 Oct 2026 10:44:59 +0200
-From: Vinod Koul <vkoul@kernel.org>
-To: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thinh Nguyen <Thinh.Nguyen@synopsys.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-Subject: Re: [PATCH v8 2/5] include: linux: phy: Add phy attribute "type" and
- associated helpers
-Message-ID: <asNji2_GUda8x245@parshuram>
-References: <20260913-eusb2-interrupt-v8-v8-0-0f505b9c394b@oss.qualcomm.com>
- <20260913-eusb2-interrupt-v8-v8-2-0f505b9c394b@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="DbNL9bRa"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a16aaf2067so15021265e9.0
+        for <devicetree@vger.kernel.org>; Mon, 05 Oct 2026 01:54:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1791190483; x=1791795283; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Kl8JkkqPfJQbBpas2qrLorrgrsm8HTlHvd812hKlvVs=;
+        b=DbNL9bRauSMJdladhXh4JYosWazPcc/Ewczu1r1eYXOK4J1YFMwCgzQnZFlgnCdu73
+         yKuXNKVXy6bwn0OveH/8jL95mShibUy9exMA1ObHaViVoo9n238OLcxRVzG6+7LyFmBg
+         AslGJtWWZpjIoCeEel1DkaIqZq0ZO6YccS/M1yLSP4/9yThHdHQnTRZyCgZxovCvS6Zn
+         r607pUPFTgHFwItgD/lInF26HWr4gyGMQFVEX6tkOsRu7714fyc1vzMDGKz+Isz8P65w
+         qv3vzuO/9PTypRzLz5DPQpY2TtEw1vxh/WthoPyeqUypHovwPKUBcd7MtItry1EYW0xX
+         ogRg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791190483; x=1791795283;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Kl8JkkqPfJQbBpas2qrLorrgrsm8HTlHvd812hKlvVs=;
+        b=0EEmwjnOu2PD4dVic8lzjEOhmEmZW+C2tlEDNsVb8Vt5OBxs/Nw6n7aQJvN4q5FlLO
+         cd4rawRIhMcftACF58YXF1MfJ+H00xEa0JGimoTH1GKZaB4MwwJBrE8waY6SpvxBbaBr
+         Skh0REQM56bW3K9t3Bn57X9t3+6dXNB7Oi3SKTyjhDGgAndFhpW6r/TdhOxhWFHgaEkV
+         x0a5N1BfLXBOi0+hvlxyNDkW6+Eg87o25OQReINuXJwhT3VGxQ+oi33Tk67AtUnIDlx9
+         QPbyodBEZDZ7VtNhmnoOhSmjgkpCVOwHb9VVIAEJ6APHybjWW7t1SIBO0K/9aO40BSJ5
+         9uwA==
+X-Forwarded-Encrypted: i=1; AKwUvBy9yZPuK2rdXGf6rWmd2zNR6VU08HNMvCBR5SB9PqOaFgTp0pXEiY8LgDeHRcu+GNZRRheKBwSoGe/f@vger.kernel.org
+X-Gm-Message-State: AFuF++kjFuU+m/wkT7/MwMwWT6K1a8jYaTPMFwemtnhV0PFyNyHVUv94
+	VOf6bKqRv6O4FixcDn2zeVbQ22Df0zp0zIezFCxxNw9AUYJ/3ZrKBIky5CXIN7Wgakk=
+X-Gm-Gg: AYBFou0i3FFMYA3uZZKVIsYpmyTKiyMzB3mhRFDrhOWKl4uvBxEEZU1XQtxEwOqtqx2
+	fVYx5Lfzompl6xPx3rsdR8O5mwFk96aWxw2k4z2jpWUX97s0nmMsrphcAeWtxaalGze2RJdqfqX
+	S4jneuSCQIGckapB6RTjj3CsnXuHHHk88LFRc9tAuNy4mF8I550WZYxGNMudWZXUFGCUe2r70DA
+	/lteCSjR2e0QkHtlHOcOP9RXVEQOqiT1U7JmI+1ETyQjC1ZKp/eFR8kMibO0qQX3hAcSZ0cfRVi
+	qQaubMO5+m8qXGMztMxp6kILnMCyDLnyydyOoF1olnSo1x8MWn5KeND+vyz+yzZ568SfO01jDj2
+	i8cBXKr0nFbL/d+NmyoUT8CYYadnInwkyi0wVHcUaSPXy2A+K/qtPzwp8GQ7uMsL6sWMBRdvuJm
+	+2JMnjGh3U9co3Fl9+nxpQ3DXLsr8bxoUG6GPiBjeWU5WkEUML3iOwqGSQ+0e4RqTj8dL6GgtLr
+	BGhHfABfpxx2QfaN5ZVkrHpDYbokVY=
+X-Received: by 2002:a05:600c:b8a:b0:49f:fe90:de63 with SMTP id 5b1f17b1804b1-4a1680f4052mr97726875e9.28.1791190483083;
+        Mon, 05 Oct 2026 01:54:43 -0700 (PDT)
+Received: from [192.168.151.46] (90-182-211-1.rcp.o2.cz. [90.182.211.1])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a0a6e894a4sm291578635e9.5.2026.10.05.01.54.42
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 05 Oct 2026 01:54:42 -0700 (PDT)
+Message-ID: <b48f9b77-5b11-483d-b031-81da16c5c73a@linaro.org>
+Date: Mon, 5 Oct 2026 10:54:41 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260913-eusb2-interrupt-v8-v8-2-0f505b9c394b@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v5 5/6] dt-bindings: display: Add Synaptics panel support
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Linus Walleij <linusw@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+ Jun Nie <jun.nie@linaro.org>, Rob Clark <robin.clark@oss.qualcomm.com>,
+ Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
+ <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
+ Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260727-sm8650-7-1-bonded-dsi-v5-5-c042266b9eeb@linaro.org>
+ <20260727-spotted-winged-mantis-7aa1ce@quoll>
+ <CAD++jLkX0m6_GJd4Pd1Ko4tghta4AXQ5ALZpLe_x-3xxqu1Cvw@mail.gmail.com>
+ <668e83d0-a017-4f59-bc76-bf6c9a80b5ba@kernel.org>
+ <CAD++jLkyEPY5cFg_pHb71yG52iLwS9tQDpcHu=TTBknQMeFctw@mail.gmail.com>
+ <bc3e618f-2e7a-4439-9466-8cd9695242e5@linaro.org>
+ <2lcpzwh7fxecpffnakpnp5lecrm3e6u64ztat7cd75nuxofxa2@clj27bzgjy3r>
+ <4d053234-06d8-4268-b60a-2fccc78da654@linaro.org>
+ <d3xs3kzc2wg5lkouaemdicrbtsoquff6bvmnlmuxwh4kspfs2d@b77l43axr6a4>
+ <8cf6ec52-fb36-44e7-831c-2bb24214f591@linaro.org>
+ <pyl6bihy4zsyhmblrgvuvov2gi2jz5ktpbcz4u3r53qw7h725y@4wzvce345wwh>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <pyl6bihy4zsyhmblrgvuvov2gi2jz5ktpbcz4u3r53qw7h725y@4wzvce345wwh>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 13-09-26, 20:10, Krishna Kurapati wrote:
-> In cases like USB High-speed phys which can be either USB2 or EUSB2, it is
-> required to know the type of phy (rather than the operating mode) because
-> DP and DM interrupt lines need to be configured differently for each of
-> them.
+On 10/5/26 04:22, Dmitry Baryshkov wrote:
+> On Sun, Oct 04, 2026 at 05:51:44PM +0200, Neil Armstrong wrote:
+>> On 10/1/26 02:43, Dmitry Baryshkov wrote:
+>>> On Wed, Sep 30, 2026 at 09:18:55PM +0200, Neil Armstrong wrote:
+>>>> On 9/30/26 21:04, Dmitry Baryshkov wrote:
+>>>>> On Wed, Sep 30, 2026 at 06:43:47PM +0200, Neil Armstrong wrote:
+>>>>>> On 9/30/26 09:44, Linus Walleij wrote:
+>>>>>>> On Tue, Sep 29, 2026 at 3:35 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>>>>>>>
+>>>>>>>> This entire binding seems like stitching two devices together, which
+>>>>>>>> might be fine (I don't even remember this stuff... two months old) or
+>>>>>>>> might be artificial grouping of separate devices.
+>>>>>>>
+>>>>>>> I think that's a good point and fair pushback.
+>>>>>>>
+>>>>>>> Neil and Jun talk about it yesterday at XDC (1:15 into the stream):
+>>>>>>> https://www.youtube.com/watch?v=6tNGW8PoSzw
+>>>>>>>
+>>>>>>> The current binding does not reflect the physical topology of the
+>>>>>>> actual device, and the bindings need improvements. I have a feeling
+>>>>>>> there is one display controller with two physical panels.
+>>>>>>
+>>>>>> No there's really 2 controller and 2 separate panels, but they are not
+>>>>>> classic panel, they are a pair of panels+lens which are in front of
+>>>>>> the eyes which forms a single "image" for the brain, so they are
+>>>>>> technically a single display and requires to be hard synchronized.
+>>>>>
+>>>>> Yes. However this approach makes it impossible to share the code between
+>>>>> the double-panel drivers and single-panel drivers. I think, that the
+>>>>> panel driver should still reference a single glass+DDIC, while letting
+>>>>> the DSI host driver to handle the bifurcation.
+>>>>
+>>>> Yes, and no, it must really be considered as a "single panel driven by 2 identical controllers",
+>>>> and even this is really purely software implementation issue.
+>>>
+>>> [...]
+>>>
+>>>
+>>>>>> Describing both panels into separate nodes would only be possible
+>>>>>> if we described a "VR display complex" nodes linked to both panels
+>>>>>> but this would probably be solved by actually describing the "display"
+>>>>>> linked to a DDIC controller and is out of subject for this serie,
+>>>>>> and can be added later when we properly define things.
+>>>>>
+>>>>> I like the VR complex idea. In the end, you have two modes which you
+>>>>> most likely might want to support:
+>>>>> - L+R, having double-width CRTC scanning over a double-width framebuffer
+>>>>> - Mx2, having a single-width CRTC and a single-width framebuffer
+>>>>>      displaying the same picture to both eyes. I can imaging that knowing
+>>>>>      about L+R might be an explicit opt-in feature of the DRM interface.
+>>>>>
+>>>>
+>>>> This makes no sense to support both modes, and this will never be used,
+>>>> and anyway this is purely software implementation.
+>>>>
+>>>> We're defining bindings here, describing the real reality, not hypothetical
+>>>> situation that will never happen.
+>>>
+>>> Let's ignore software issues. On the hardware side, you have two
+>>> distinct DSI panels, each having its own set of controls, own DSI link
+>>> and own backlight control.
+>>>
+>>
+>> OK so let's see the problem in another angle, if we had 2 DS links 2 physical
+>> controllers, 2 physically distinct panels but forms an unique display.
+> 
+> Imaging the case: through the time the backlight LEDs on the right eye
+> age faster than the ones on the left eye, so we need to apply dynamic
+> correction to the backlight, dynamically calibrating the coefficient to
+> be applied to the LED brightness (or even worse, dynamically applieing
+> the _curve_ to compensate for the brightness difference).
+> 
+> Note, I don't have any information here, if such a difference can exist
+> or if it can appear through the time, or if the xR DDICs can handle it
+> on its own via a pre-programmed LUT, so you can totally say that the
+> argument is moot and I won't even argue here.
+> 
+>>
+>> Describing it in separate distincts nodes is wrong since it doesn't reflect
+>> that it's an unified display, so either we define :
+>> - a "combined-display" bridge defined as:
+>>    - a separate top node in / like connectors with a graph from the DSI links to each panel
+>>    - a DSI subnode with 2 panels as subnode, port graph from both dsi to both sub-panels
+>> - a "R63455" panel bindings with 2 subpanels as Linus shared in https://lore.kernel.org/all/CAD++jLkyEPY5cFg_pHb71yG52iLwS9tQDpcHu=TTBknQMeFctw@mail.gmail.com/
+>>
+>> I think it would be interesting to have the "combined-display", with a connector-like node,
+>> which will do all the split-dsi dual-panel logic for us and leave use implementing simple panel
+>> drivers.
+>>
+>> The outline would be:
+>>
+>> =====><=======================================
+>> / {
+>>
+>> 	xr-display {
+>> 		compatible = "combined-display";
+>>
+>> 		ports {
+>> 			port@0 {
+>> 				combined_dsi0: endpoint {
+>> 					remote-endpoint = <&dsi0_out>;
+>> 				};
+>> 			};
+>> 			port@1 {
+>> 				combined_dsi1: endpoint {
+>> 					remote-endpoint = <&dsi1_out>;
+>> 				};
+>> 			};
+>> 			port@2 {
+>> 				combined_panel0: endpoint {
+>> 					remote-endpoint = <&r63455_right_in>;
+>> 				};
+>> 			};
+>> 			port@3 {
+>> 				combined_panel1: endpoint {
+>> 					remote-endpoint = <&r63455_left_in>;
+>> 				};
+>> 			};
+>> 		};
+>> 	};
+>> };
+> 
+> This is an interesting approach and it would be a requirement, if we
+> ever have a device with 4 DSI hosts which can driver two sets of XR
+> panels (there would be no other way to understand, which pairs of panels
+> are bundled together). I am not sure if it needs to be an OF graph
+> device or if it can simply reference the DSI devices. Or if it can
+> reference panels (which is not the same).
 
-Does the controller care? In preceding patch you defined the EUSB2 in dt
-type, so this describes the hardware. So phy knows it is usb or eusb...
-> 
-> Add support to cache the PHY_TYPE and add the following helpers:
-> 
-> - phy_set_type() for the phy drivers (like m31_eusb2 or snps-eusb2) to
-> declare what type of PHY they are (in this case PHY_TYPE_EUSB2).
-> 
-> - phy_get_type() for the consumers (like USB controllers) to query the
-> type of phy connected to them.
-
-I am not convinced that this is the way to go... Driver already knows
-the type and should use it...
-we alreayd have mode, i am inclined to not say yes to adding type here
+I mean we could imagine combine any number of panels to form a combined display,
+2 or 4 DSI links would be handled the same.
 
 > 
-> Reviewed-by: Thinh Nguyen <Thinh.Nguyen@synopsys.com>
-> Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-> Signed-off-by: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
-> ---
->  include/linux/phy/phy.h | 27 +++++++++++++++++++++++++++
->  1 file changed, 27 insertions(+)
-> 
-> diff --git a/include/linux/phy/phy.h b/include/linux/phy/phy.h
-> index ea47975e288a..038c2b58bbe1 100644
-> --- a/include/linux/phy/phy.h
-> +++ b/include/linux/phy/phy.h
-> @@ -21,6 +21,8 @@
->  #include <linux/phy/phy-lvds.h>
->  #include <linux/phy/phy-mipi-dphy.h>
->  
-> +#include <dt-bindings/phy/phy.h>
-> +
->  struct phy;
->  
->  enum phy_mode {
-> @@ -152,11 +154,13 @@ struct phy_ops {
->   * @bus_width: Data path width implemented by PHY
->   * @max_link_rate: Maximum link rate supported by PHY (units to be decided by producer and consumer)
->   * @mode: PHY mode
-> + * @type: PHY type
->   */
->  struct phy_attrs {
->  	u32			bus_width;
->  	u32			max_link_rate;
->  	enum phy_mode		mode;
-> +	int			type;
->  };
->  
->  /**
-> @@ -262,6 +266,20 @@ static inline enum phy_mode phy_get_mode(struct phy *phy)
->  {
->  	return phy->attrs.mode;
->  }
-> +
-> +static inline int phy_get_type(struct phy *phy)
-> +{
-> +	if (phy)
-> +		return phy->attrs.type;
-> +
-> +	return PHY_NONE;
-> +}
-> +
-> +static inline void phy_set_type(struct phy *phy, int type)
-> +{
-> +	phy->attrs.type = type;
-> +}
-> +
->  int phy_reset(struct phy *phy);
->  int phy_calibrate(struct phy *phy);
->  int phy_notify_connect(struct phy *phy, int port);
-> @@ -393,6 +411,15 @@ static inline enum phy_mode phy_get_mode(struct phy *phy)
->  	return PHY_MODE_INVALID;
->  }
->  
-> +static inline int phy_get_type(struct phy *phy)
-> +{
-> +	return PHY_NONE;
-> +}
-> +
-> +static inline void phy_set_type(struct phy *phy, int type)
-> +{
-> +}
-> +
->  static inline int phy_reset(struct phy *phy)
->  {
->  	if (!phy)
-> 
-> -- 
-> 2.34.1
+> Another question, do we need to list any other devices here? regulators?
+> sensors? maybe proximity sensor? cameras? I'm thinking from the
+> 4-host-2-xr point of view, because if we don't have 4 DSI hosts, we
+> don't need to describe anything. We already know all the hardware
+> properies and connections, the rest is really just a software plumbing.
 
--- 
-~Vinod
+The regulators would be in the panel nodes, for the associated peripherals
+like sensors & cameras they are not physically tied to the display so
+it's only software plumbing.
+
+Neil
+
+> 
+
