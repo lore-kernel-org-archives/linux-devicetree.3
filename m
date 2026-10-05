@@ -1,126 +1,115 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A106374A0E
-	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 22:49:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F5B52D6E64
+	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 22:50:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791240575; cv=none; b=HjhwiQvj1sndT4vIUE+FwEFa/o+s33ctWJ/PURefb/DLUKS0CfLTcdi+o6qsPnij/zqInXIm6nnNxTbhVhw1N9t4b1lutGWcLvg4bbvZjBQJUZJukrmXvL9pZ/xqMvOiRV8HEzO8eiK1TaPadGcH8l4pTbey3Prp9h/RSSztp+c=
+	t=1791240646; cv=none; b=jKZuLHF1WpMsyfk/RhvK10NYD7gx9k1mPCoAMucXLlOojgOZtVM3G/EOk3jvKDWl34wTDpZOdaUfrZDx/ZGV+GMOCFmOFM/WgM9nRwjYxnZ15KtZI2oYGGfqcJSDbblNGzkMgMz10SIMyGm0dTGzgl3UGAepqUImursu9JQcR4U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791240575; c=relaxed/simple;
-	bh=aXs0SIufecLRTf6oJn1cR3MHBqW97dW0NoQPr/8ogYs=;
+	s=arc-20240116; t=1791240646; c=relaxed/simple;
+	bh=Wo2tr705mrDU8Nn9MECvnoetbnC+Edcu8XuNYUVThE0=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=l3wp4kuu5m349uWzCpF1dsb83TZvjC/sbbRMJxUtUAnDAkxajrubDlBLwQ+QVAvO2Q7/JzjcZzMDqTJZB3812g01oxJO5XLux94LpNgDKblFIePzCSqpS+MJIETbx4OK1FeRCeeIp+fHCxbrltb/bBf+mOrHIfZvG3EyCrQHfvM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J1WiWOWh; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=URJpUnrYWjrG8Pw84j+OajI0MQPr1B7ciRpzXJ2bRhCbG03RLklIMz7LIFhSlNmnbnmap7CXUYX1tzadFHVia/Ss4MC8i2hFhG/qwR9zWBMqu9XZHvL6kDSBSGxHnVgFn87PT9fEV2KWOGSeWLkHLE+fbkbgF2KK7Ew5SUL/Ctw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mEW61f+B; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J1WiWOWh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 26EA21F000FF;
-	Mon,  5 Oct 2026 22:49:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mEW61f+B"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11E491F000FF;
+	Mon,  5 Oct 2026 22:50:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791240574;
-	bh=OEsaQgomoiRlVSi2UxUUwKZkE5b8cqwms6U7UYp0PqI=;
+	s=k20260515; t=1791240645;
+	bh=FaVoiu5O72EdIEV4wf6c0hf6TczSD9voh+00V2dj3sY=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=J1WiWOWhiCvl60hYjjM2A5gTaC3C83NlQWmfVMjZxQR/ZNzzuPLwrisgRcTsrmoHk
-	 WSxZGaftjLhuCLJWxJaEdTHhj6e19iDLgb7w321qwJ05nmZZqltRtl9DfIm6Ibp9bS
-	 wi6iKe2vHONX41r77COJ2FrVmAJvh9tjkLvnS1yZwAp6cBhP5VYMTxH4n0XxxblSzQ
-	 9Z+HU3974L342UHeFN4pTAk3gqnUD5bK5ZU0YpvsbiA5/j8OP5/IP/GRT5ZGMKskjy
-	 1g+bcqlsvBJtuFtI5yXXx20KgQ6tG7Nalc2KNE/7gHcdK+iR5O6M37+3o8sxr722HN
-	 oG1ZlyEJQD3NQ==
+	b=mEW61f+BC0BUZ8NR+vB50z3N8mLZ2E2P5M8YHzzr4veKk2wWnaJuQvbAvPvFPCFDb
+	 98TYK72L8rXcauDNn4/0Zufb9RoUOnC7cYFW+M/oK2xCAVFjCiJVBOmlx0h8pUBlrD
+	 LZZC6EQ9JtRsRbF5hrFm767y9Og7lxbl7Suj6zlLKLUrgUxyLwHbVhf8suBORfWXOe
+	 +lkZSAc0WV72rxGuAFDMc7zzSU0ov6J5wkZa5jI7m7bWV43OCNvUzzV/HSSrxvUl0w
+	 MYfKW8Z/tmYjyTZfxaC5Sutugv9Z303e6EF/nr7z+pxo3Ej/1ugPp2ZJTvYR8buqBk
+	 NkR7Gh5IvDiJA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 2/2] arm64: dts: rockchip: rk3568-photonicat: enable
- SGMII LAN port
+Subject: Re: [PATCH v10 1/2] arm64: dts: rockchip: rk3568: add XPCS and
+ fixed-clock nodes
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Coia Prant" <coiaprant@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20261005224008.1140250-3-coiaprant@gmail.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20261005224008.1140250-2-coiaprant@gmail.com>
 References: <20261005224008.1140250-1-coiaprant@gmail.com>
- <20261005224008.1140250-3-coiaprant@gmail.com>
+ <20261005224008.1140250-2-coiaprant@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 05 Oct 2026 22:49:33 +0000
-Message-Id: <20261005224934.26EA21F000FF@smtp.kernel.org>
+Date: Mon, 05 Oct 2026 22:50:44 +0000
+Message-Id: <20261005225045.11E491F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] net: stmmac: infinite probe deferral due to unsupported XPCS compa=
-tible
-- [Low] dts: undocumented and unparsed property rockchip,sgmii-mac-sel
+- [High] dt-bindings: rk3568-xpcs compatible and sub-nodes break driver pro=
+be
 --
 
-commit 3f0b676bf5c1cf7b3503051c6c41df786bf6f4a2
+commit 14866edde455974144845fb966151f552d75c4c8
 Author: Coia Prant <coiaprant@gmail.com>
 
-arm64: dts: rockchip: rk3568-photonicat: enable SGMII LAN port
+arm64: dts: rockchip: rk3568: add XPCS and fixed-clock nodes
 
-This commit enables the Motorcomm YT8521SC Gigabit Ethernet PHY connected
-to GMAC0 via XPCS SGMII on the Ariaboard Photonicat. It adds MDIO
-configuration, enables the XPCS nodes, and configures combphy2.
+The RK3568 SoC integrates a Synopsys DesignWare XPCS that provides
+the Physical Coding Sublayer for 1000BASE-X, SGMII, and QSGMII
+interfaces via its four MII ports. Add the XPCS device node and
+its pcs-mii sub-nodes to the SoC device tree.
 
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts b/arch/ar=
-m64/boot/dts/rockchip/rk3568-photonicat.dts
-> index 58c1052ba8ef3..fdaa4a2a4328b 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts
-> +++ b/arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3568.dtsi b/arch/arm64/boot/d=
+ts/rockchip/rk3568.dtsi
+> index 3bc653f027f1f..2cea108b31a4e 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3568.dtsi
+> +++ b/arch/arm64/boot/dts/rockchip/rk3568.dtsi
 [ ... ]
-> @@ -241,6 +242,7 @@ &combphy1 {
->  };
+> @@ -110,6 +124,37 @@ sata0: sata@fc000000 {
+>  		status =3D "disabled";
+>  	};
 > =20
->  &combphy2 {
-> +	rockchip,sgmii-mac-sel =3D <0>;
-
-[Severity: Low]
-Is this rockchip,sgmii-mac-sel property properly documented and supported?
-
-When running make dtbs_check, this property appears to trigger a validation
-failure because it is not defined in any mainline binding (such as
-phy-rockchip-naneng-combphy.yaml).
-
-Since there is currently no mainline driver that parses this property, could
-this just act as dead code that breaks device tree validation?
-
->  	status =3D "okay";
->  };
-> =20
-[ ... ]
-> -/* Motorcomm YT8521SC LAN port (require SGMII) */
-> +/* Motorcomm YT8521SC LAN port */
->  &gmac0 {
-> -	status =3D "disabled";
-> +	assigned-clocks =3D <&cru SCLK_GMAC0_RX_TX>;
-> +	assigned-clock-parents =3D <&clk_gmac0_xpcs_mii>;
-> +	managed =3D "in-band-status";
-> +	pcs-handle =3D <&xpcs_mii0>;
+> +	xpcs: ethernet-pcs@fda00000 {
+> +		compatible =3D "rockchip,rk3568-xpcs";
 
 [Severity: High]
-Will this hard dependency cause an infinite probe deferral for the gmac0
-interface at boot time?
+Will this compatible string prevent the platform driver from binding?
 
-Because the xpcs_mii0 fwnode is a child of the xpcs node, it relies on the
-rockchip,rk3568-xpcs compatible string. However, since there is no platform
-driver in the mainline kernel that matches this compatible string, the MDIO
-bus and devices for the XPCS node might never be instantiated.
+The rockchip,rk3568-xpcs compatible string lacks a generic fallback to
+snps,dw-xpcs. Without it, the platform driver (pcs-xpcs-plat.c) will not bi=
+nd,
+causing the stmmac MAC driver to fail to probe (stuck in -EPROBE_DEFER)
+since it cannot resolve the pcs-handle.
 
-When stmmac_dvr_probe() attempts to configure the MDIO bus and calls
-xpcs_create_fwnode(), fwnode_mdio_find_device() will fail to find the
-MDIO device for xpcs_mii0 and return -EPROBE_DEFER indefinitely.
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <0>;
+> +		reg =3D <0x0 0xfda00000 0x0 0x200000>;
+> +		clocks =3D <&cru PCLK_XPCS>, <&cru CLK_XPCS_EEE>;
+> +		clock-names =3D "csr", "eee";
 
-> +	phy-handle =3D <&sgmii_phy>;
-> +	phy-mode =3D "sgmii";
-> +	phy-supply =3D <&vcc_3v3>;
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&gmac0_miim>;
-> +	status =3D "okay";
->  };
-[ ... ]
-> +&xpcs_mii0 {
-> +	status =3D "okay";
-> +};
+[Severity: High]
+Is the eee clock undocumented in the binding schema?
+
+Including the undocumented eee clock will cause dt_binding_check validation
+failures against the snps,dw-xpcs.yaml schema constraints.
+
+> +		power-domains =3D <&power RK3568_PD_PIPE>;
+> +		status =3D "disabled";
+> +
+> +		xpcs_mii0: ethernet-pcs-mii@0 {
+> +			reg =3D <0>;
+> +			status =3D "disabled";
+> +		};
+
+[Severity: High]
+Will this sub-node topology break xpcs_create_fwnode() resolution?
+
+The upstream driver registers its single MDIO device using the parent node's
+fwnode. If pcs-handle references this sub-node, fwnode_mdio_find_device()
+will return NULL, preventing the MAC driver from resolving the pcs-handle.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261005224008.1140=
-250-1-coiaprant@gmail.com?part=3D2
+250-1-coiaprant@gmail.com?part=3D1
