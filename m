@@ -1,82 +1,102 @@
-Received: from mail-pj2-f9.google.com (mail-pj2-f9.google.com [74.125.227.137])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B803543F4A7
-	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 22:40:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.137
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791240053; cv=none; b=grl+5hWpq1xDeeWcekRxrlG9TxBEpgJjAuKdrH75Eig0uKcSoey7/B8NDFEu6hdnVBoTR6t6ksOUD3mYl8dtkjNbl7gwpmufCZlt0gPpEthDHZ9fwvvf3DjL48SYQtI3pd1OqcoyRVHTYwW7NQFnuKvyJUFnedin5hKH9FDiiuU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791240053; c=relaxed/simple;
-	bh=EAepGZi5JJgVl5A2Zgbnsm82y7MavVep4jBcaMjh1U4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QKTNf1NKmiJ0QyseMZ0BM8bY3tGaIW03Ny2wbAPbkRUI2ibZ2KtF8chdAes+oDrFM3+yTJoi6jcf4kfyv4jmIKd2s7RFr9UsUr5jM7oJBmbIVUnE3mS8Tb6Fv0ks+3buiUuINDRBQoZFyvlskeLC7Me8KWzKgRalcEc4TuXBYI4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BsBO70I1; arc=none smtp.client-ip=74.125.227.137
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04BB934EF1F;
+	Mon,  5 Oct 2026 22:47:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791240434; cv=fail; b=iR6YItG3JlQe50cK0TQJWTO/rde48sozosPQG9J5nT+kJUN9QCXVS0bIiqwTZJG6sldfX3z5VXDDJA7f+pZoIW/b4VVp8xGADuyfxk96lOSb6pUWHu5QI+EKha1piX7Nwz9dlTOIfrzaDpxI8HxZCP5DjtO/PXnc8YlgUQFjKbw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791240434; c=relaxed/simple;
+	bh=waGVLT+B5XfEJG26J/qM4hkvQfbEXHo0lU9wK3iAQGQ=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=PRm6qHD4kSvIHsvNGx6cizuaH1xdxmkvlXDvIXTr/OzlnkvzXDPCnjZoM3YuuNcURBQCbntoXtbNNuuWl0LLV6R67wOnaLiSqbMp8uGAWOB/qRhYtK7NzY46cmqOnR4cVzeOSl99NWXE/7T67U1+JiUADrl44tj43rV7MnF4m7E=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=BuYt7rS+; dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b=EUkJEUfz; arc=fail smtp.client-ip=148.163.150.75
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BsBO70I1"
-Received: by mail-pj2-f9.google.com with SMTP id 98e67ed59e1d1-3a4fe110578so1518748a91.0
-        for <devicetree@vger.kernel.org>; Mon, 05 Oct 2026 15:40:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="BuYt7rS+";
+	dkim=pass (1024-bit key) header.d=ticloud.onmicrosoft.com header.i=@ticloud.onmicrosoft.com header.b="EUkJEUfz"
+Received: from pps.filterd (m0380145.ppops.net [127.0.0.1])
+	by m0380145.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 695HKmgS323193;
+	Mon, 5 Oct 2026 17:47:08 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
+	:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=proofpoint-05-2026; bh=gWhcgcYJdXOFX
+	Otpi5RzTefbcfjpX2JryO8wWi6ZZ7U=; b=BuYt7rS+3MnONDfC0WUM3UHHG8keo
+	wWFYJxltgzgAKH8ZCKRQHs60wlvHU+xfRva1YAyrJ/1BcejJ2mOZr56bEjihL59j
+	dvkzbkiv/hxjesI5i/tyh85wmsYQM9hnUSOePA9m9baO4DA5Oi3l/ekzgeJeuJKH
+	lM663oWOSB5rSTYjkNOqTZtc61sjKmPhAf+Wdpm1kN/d0+ht5W/T46MlQrKDcUw6
+	i4hLU71dcQ8acl3sE/E/pJ0sPV5V0pHmEP44mk+dvivJyh4xaWgNIJhHWcchud3j
+	/1mbsAAh5uDtE/E3ZsFEMi5q6Xu0br1lyR66TAcoCEqvjmwPsL6kPBkZQ==
+Received: from mw6pr02cu001.outbound.protection.outlook.com (mail-westus2azon11012038.outbound.protection.outlook.com [52.101.48.38])
+	by m0380145.ppops.net (PPS) with ESMTPS id 4h4d7du64e-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 05 Oct 2026 17:47:08 -0500 (CDT)
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=n3Llp/WqPsT+Q5cMUHwNpQa3tmN5NxmYfAwWvXK06Z3v0dCNSgkUrzH4XxsBhAVgvx+UcTv9OxZP7sHfR+2Ke5IuFDvX32oO7XJS0dw7e2Pem3YUb1ky1htQRB/I2K5x5OMJ45fFiMbAbZgo6HlIMSr+RqLE68sLMpnAErpzjkbpKfaPMNg+P0bk92Y9tKEJp8BHk0zMzG8IC5IBKOAlIi3E3BWYeHUPvJeg2hS+ArYAweB4mSJdxxy12w1N3PohDaOxEQgXDSQTXE6X4O8+Eoyo8XjYAtgb88Xs8IPFGng3iKhgfI6AibTVgNhrRfkkuUNDpOl/+1yKg2pOlHhIdA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gWhcgcYJdXOFXOtpi5RzTefbcfjpX2JryO8wWi6ZZ7U=;
+ b=PEEmJxE+J9q2vMzW+rHy04GkdK56UZSUhPdZ9KcbYDk8sIymwGrlQuBs1O1YOznCX2IKoNOduJG+fZNCXY8ZA6X5Rllt8xw3ccZ/CWIGkpVRyL5nVcyWkaf0ojj3aDl6as1smDVWI6fxBNmsl3uBRiPUH65GjjZJULzBUEquU/y2TiXLyKgWeS+1Xuh9dseXR81No6Mbz2ZGE6Qt4b9uGFkXTM6OlXTdKm8NG7J+LaAOI6QPYmxOKx5Fu5pR17OHbDLdyra/89ZEthZAj1GhnXBmF0ifvxnYbwe3OL2cybJW8TPwCyTsC5NHg2tKsk06TTzUx9TY7UJSL6049bVY9w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791240047; x=1791844847; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IeBd/f+KYPaUD3mTxXbAK7RiokjVClr9ke91eN5DQPw=;
-        b=BsBO70I1RqrhnXeNwZRsH2G7LscW9tmceTEhks8FzZSeSvxeuXqQWTuAw07qDAwuN4
-         NaeQE5JBdHnb8SHszF+vRloH9oWTHtsAetdifi4Jj6jcRjUmyfGD82bDzXRvFy1bm+fK
-         EVMH6W00Cj7yk/uNlrEgvAdByon0F3NgM6p5egd1MN/8OA32F32BTCVKfUnAgzCbyWf/
-         3L1ky+22JRZ3Zrrn/rm9ih0gZiwwTBTTwgDPiFjODShb+pKuIMvP498HhAnM4cP1nTEX
-         om8BQOz4giDCREp0OtiKmkpejMjTHGmRdFnUrAGi9EO+c34GtdnTqywnTEANUus5NDeV
-         ZTSA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791240047; x=1791844847;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=IeBd/f+KYPaUD3mTxXbAK7RiokjVClr9ke91eN5DQPw=;
-        b=BvPdy60s+auqXund0yuOdCJoIKV+LxKgCWFP2rY0D0Mi1db5Kq8PQrPD8KAOYtu9GU
-         C9Mk00fP4+69ccFYGg8/A8tDZamZco6HH+vw47o+5iEaTk5RGHw01Hclng8fVmIg0bCw
-         z3kLI6sxQYMspHKrvr2At5MLFeUPmhVyRIp9WNhexfYNMgbuCLuVJJc4ttn1tBckquKM
-         C75CEosGaBwlkMid3etYPMgmkx579jSXL7llGwwmYgIQ9MDyqfLdAdlv9xyGkbbF7C48
-         4jwlo7gIcGdDUobxz6jC7XIChbxYNZIdgHGzQeNZ2ZJTUakMqt8VZU+q0JGrfov3WTAj
-         eC3w==
-X-Forwarded-Encrypted: i=1; AKwUvBz06dw3ePLN8SLEjwWmIZ7Hcga8ru02W7OCIyAVFLZ9nqUsNh4V//i0f8dOhuR61gLXj1jCWMhnqmir@vger.kernel.org
-X-Gm-Message-State: AFq9FYLGZHJp3BWfDFq8KwbcSbVP6sV8KRmGaYxAPc6mbZP+x1lW3p6N
-	EDHaCQnyvwMvqtwfnRlvkQCOY4ULo1dARMnhaj0HyJMce07y7dcqiXW6
-X-Gm-Gg: AYBFou1nsNTJih9BaRdeDS4VQgwU1pbFWNqP/kJS+vp9bidP2U4Vg7tAqGVEJKFep3L
-	CU0pwcFqvXNs7Yo5nI1bCcEuwIdBV/znO6fJOhKIuWKwCgZ/IoJumv/VS7vDHO8e7JS4+S17inY
-	xWfX54x74yi0Ouppp53bEW/7OrFdY9ER7nnpfFYBmYdlQs8ze7yQ8caDxNHQ8pj1n2vYBnqK0cl
-	EuJ12Zyx4ZZbqjjpm24kFf+cVZleteEJCEfYHxKCCc1MwK5TskYLWIV1pdoz/5FkGNupydWQhMJ
-	yIPTryae1Gt6jZ+LDrxOOvuPEaONgsO+L1UhfppbwWpn2n00AYvXzqHRu8sBU1MgyeGqX99F+O8
-	0nSaLCmYkvB5F/GB4nfHwlnxW80UUx+mr6ZEzUKyPRX8AOlWzgZDWIyxAIwwGOPoYeoD3XgSi3Y
-	GzT+24mRl+QqpT2wnCO3iDh8SjzgAR1jrTU6JJizrcl1FJP5In2l4xP2lSwQSl80YCSCejTbL/A
-	PGsf40=
-X-Received: by 2002:a17:90b:2886:b0:3a8:2c7e:8986 with SMTP id 98e67ed59e1d1-3a82c7e90c0mr2473707a91.17.1791240046758;
-        Mon, 05 Oct 2026 15:40:46 -0700 (PDT)
-Received: from server.lan ([168.138.199.194])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a853e66d7fsm1496243a91.5.2026.10.05.15.40.42
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 15:40:46 -0700 (PDT)
-From: Coia Prant <coiaprant@gmail.com>
-To: Heiko Stuebner <heiko@sntech.de>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Shawn Lin <shawn.lin@rock-chips.com>,
-	David Heidelberg <david@ixit.cz>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Coia Prant <coiaprant@gmail.com>
-Subject: [PATCH v10 2/2] arm64: dts: rockchip: rk3568-photonicat: enable SGMII LAN port
-Date: Tue,  6 Oct 2026 06:40:08 +0800
-Message-ID: <20261005224008.1140250-3-coiaprant@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261005224008.1140250-1-coiaprant@gmail.com>
-References: <20261005224008.1140250-1-coiaprant@gmail.com>
+ d=ticloud.onmicrosoft.com; s=selector1-ticloud-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gWhcgcYJdXOFXOtpi5RzTefbcfjpX2JryO8wWi6ZZ7U=;
+ b=EUkJEUfzZSdvPJ7PINqH7iIa6GzWyGjQJtYcaqNHkJGPYLd5u2zk+aLOVlkQhmTeDoj8GHCwzcCTxDkXVil9nP1oqLkC+HHwZWR+cR+2j5sLcpZ+jh3dy0yOiuWeM7ALVZhVJx7WxM7NXJjdCgvxm8v/jwEA6tEuDdlfgzT3ktc=
+Received: from CH0PR04CA0119.namprd04.prod.outlook.com (2603:10b6:610:75::34)
+ by DS0PR10MB7294.namprd10.prod.outlook.com (2603:10b6:8:f6::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Mon, 5 Oct
+ 2026 22:46:57 +0000
+Received: from CH2PEPF00000144.namprd02.prod.outlook.com
+ (2603:10b6:610:75:cafe::1a) by CH0PR04CA0119.outlook.office365.com
+ (2603:10b6:610:75::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Mon, 5
+ Oct 2026 22:46:57 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 198.47.21.195) smtp.mailfrom=ti.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
+Received: from flwvzet201.ext.ti.com (198.47.21.195) by
+ CH2PEPF00000144.mail.protection.outlook.com (10.167.244.101) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.496.14 via Frontend Transport; Mon, 5 Oct 2026 22:46:56 +0000
+Received: from DFLE200.ent.ti.com (10.64.6.58) by flwvzet201.ext.ti.com
+ (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 5 Oct
+ 2026 17:46:24 -0500
+Received: from DFLE213.ent.ti.com (10.64.6.71) by DFLE200.ent.ti.com
+ (10.64.6.58) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Mon, 5 Oct
+ 2026 17:46:23 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE213.ent.ti.com
+ (10.64.6.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
+ Transport; Mon, 5 Oct 2026 17:46:23 -0500
+Received: from hpz2.dhcp.ti.com (hpz2.dhcp.ti.com [128.247.81.105])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 695MkNTL1054010;
+	Mon, 5 Oct 2026 17:46:23 -0500
+From: Judith Mendez <jm@ti.com>
+To: Judith Mendez <jm@ti.com>, Nishanth Menon <nm@ti.com>,
+        Vignesh Raghavendra
+	<vigneshr@ti.com>
+CC: Tero Kristo <kristo@kernel.org>, Rob Herring <robh@kernel.org>,
+        "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, Moteen Shah <m-shah@ti.com>
+Subject: [PATCH v3] arm64: dts: ti: Add k3-am62p-wakeup.dtsi for AM62PX efuse GP_SW1
+Date: Mon, 5 Oct 2026 17:46:23 -0500
+Message-ID: <20261005224623.1836410-1-jm@ti.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -84,146 +104,130 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PEPF00000144:EE_|DS0PR10MB7294:EE_
+X-MS-Office365-Filtering-Correlation-Id: d3161b9f-50aa-454e-7cf0-08df23328f14
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|82310400026|376014|23010399003|1800799024|13003099007|18002099003|10067099003|3023799007|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	u1IEhhY4+0rzU+HFKDFl/P9MZ0DXrgy/zOTEgOaTDLVI3A5GyBFmjo5SPQrU1089LAwkF+9sC+HLbUoqAUMRXd6sEsiFq2Wn4ktglLU1Sxgi7g4CdftXFPIoSu1JFZE9q2A3LeCWMeBhlROWnqLD06m4Fn6PyciKgbGKZE10WiRMaK333jXjuWqpnedESRWGjZrxGdUs2CiiSUM6pNMHyrSqzoSZLYdRJ3eLPR5NY8PGe6J7K6ZaUtG4s+TY1opkRiC1SAMAJi23ZtMiKPRgGjGLhsnzX1dV8l7Vonm3d69ywqIvQovcGyavufVzKSDGHSqPrphYXN9Bv9CMZw+NNVGw/VgIFnJKeSM8S/813hCyh2Vn2gvVMXeUQUSWrIAbBzWTl6STgLUJ9RYUb1sUXG6fIommO3Ru0kjlgHO15Oijb5cL096mcnVKg5P8JzDRQjm6ZQKcyzEa2opUv/yA0XvZLW07pMBeignWoKXRJWTQtOniEB0JZCWnpsPrFadMdEuBiyu1lFPy5AuY+4QJkP/c1a59nGDkvM3c0bQdVb+0LpUMEdSnlVY9b8sUn2kUxw2CTaAzCNAk+m/EF3F7vv1lKKEPdvJWGmYPNJF6lE7dsY059mZdYG/aH0PSA9FeR5PQWFmF6jHlLewgWLRNtw==
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(376014)(23010399003)(1800799024)(13003099007)(18002099003)(10067099003)(3023799007)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	dJtidCcByGLxYJ2iuDV8n5lfEGVk3Izy6XrRGBJJig9Q0SK+OvekfdMTlarSbb+3QrAKuayzGZB14rPlH8wCSj0cdSTb4lGpGnsPWtFC8SG8kVMIBgI3klYiJJ40fp3YupSBscPU6fqrT5or3MdWpSAksRLB4Fi2z4Btx9VYOABhlIMp2bIdr46dSMbcG0zb1npgR+dcqNg+LKkAtZaCC1mNZVhwEpSGOeUhjj0TAEkEmSBdK4DtUcX+EACCSLmKuJJeUXbUMhqG7f2QX55M1m0LLNYQpCuij9n2OsPGXP3ueLi5HLOp71H17MEa7HxT5tz4pbo791H5mA7E2St+jBMp7wjWC2AFZeCBfC/Xc/aGSNGCw0KCn5W6nJ2adpOnwhWY1KyvJvCHYw6x2UHvQiJ4GTBx7g2WvvhiM6crihKgbq3VKka4CZZYRN+hoaU9
+X-Exchange-RoutingPolicyChecked:
+	J4PsEwVfPEpgNqSNj6YISxPKvysIdY1+euGBGJsHWsN+6y8WRHTl0yMygTgNdxb9MZrDdhGQcHFEL3U0olsNU0TJUeNr3XyR51MfoGrE8pA6kqmzv6d/GLrUUtOTb/S0Pj2gOtcxxjNdWaPuReKY9aPLfYtHQz7YtWVU54t1HaSZ3vdvTC0HQ8+OioxiyyDCCHBkjt1S37THL3zVnvIKaoeFM1jeMJIJqapsywE7yzqQnYN0ovKqx0HZPi70O1x84ZD919sEtg4A8qmFxIZgw9RvY3nVLhVBO/5wAdKaTU4r2PdLxprENSAAdVWBnNnYgmHF9HrcXPuE13AWXI/L7g==
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Oct 2026 22:46:56.4742
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: d3161b9f-50aa-454e-7cf0-08df23328f14
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH2PEPF00000144.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR10MB7294
+X-Authority-Analysis: v=2.4 cv=AMeVrcbb c=1 sm=1 tr=0 ts=6ac428ec cx=c_pps
+ a=alg3xCnYRXnG81SgvFS1VQ==:117 a=tJyPKKxUohctrY4NYmUjkA==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=660iZSQnnn4A:10 a=AlMIdn_sM9wA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=Z8NIEmU8O1QQgoT56wFK:22 a=gO1vWkAQAl3rybz1DQOp:22
+ a=VwQbUJbxAAAA:8 a=sozttTNsAAAA:8 a=KGfP4kqFyaGSDz3jI5oA:9
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDA4OSBTYWx0ZWRfX3YTCyadPRbiu
+ nNDTbYTA0bdGigMAZEEOTSd7DAmHVQOcOpjr6hZvbb5kAdx/9ccTYMbno4tAMj1/f1TdPxQgqy2
+ IYenRsWUZSNAE4C7JawLPMOhUzEalyc=
+X-Proofpoint-ORIG-GUID: wG9U-5PhSgXhIvp_4emot1KHFJcX3IQy
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDA4OSBTYWx0ZWRfX0SmG/nZOIkz0
+ Ye1crveBb/4Q9jFj8yVUIVVnwYAB/Si+KzcPlcwkMV6drp41RDJOThNMVv8x00IphjWX5AMRbXJ
+ mmS6Fq0yjRzaoODCMCFPxYonourlmh7lCoxnKr7A6Beb4J2A24438nJgzoOn+8XVpyvejt+x3ko
+ 6SH1/EV5G2R4EKw3K3SfvCY5Jj94UoD/rGQuSuZ387AUWkxomhohllfUtu5XIcOa4g3zDLYb6sb
+ JbDCA3agEnIffARBYXBdtDAsg74yQsDqtZrGKO/y2ykQbzFNIWWb8XPGHAuDYA5a/Zb5/NsL9gU
+ SoG532iXKc/jO5xJIlUF4WmhGWm49+bFOSNiT6AGLmJuNk4VuiqQF8tGzAnt+RTVPF3OGpRoVCK
+ DtDrQe6FHX3bs+SkesE4+nxGdFXsESD9m+32ikGWQPDEomgaXiBVkAk/MWG2jmn/xYh6DTVLHqU
+ 8wfqR6/plGScw1H11og==
+X-Proofpoint-GUID: wG9U-5PhSgXhIvp_4emot1KHFJcX3IQy
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-05_05,2026-10-05_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 lowpriorityscore=0 impostorscore=0 adultscore=0 bulkscore=0
+ phishscore=0 priorityscore=1501 clxscore=1015 malwarescore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610050089
 
-The Ariaboard Photonicat has a Motorcomm YT8521SC Gigabit Ethernet PHY
-connected to GMAC0 via XPCS SGMII.  Enable the necessary nodes to make
-this port functional.
+Create k3-am62p-wakeup.dtsi which includes AM62P-specific WAKEUP
+domain nodes.
 
-Add rockchip,sgmii-mac-sel = <0> to the already enabled combphy2,
-to route the SGMII interface to GMAC0.  RK3568 has three Combo PHYs
-that can carry SGMII; which one is wired to the XPCS is a board-level
-choice, and Photonicat uses combphy2.
+In k3-am62p-wakeup.dtsi, add efuse node for GP_SW registers at offset
+0x230. GP_SW1 at offset 0x4 will be used to determine AM62P silicon
+revision.
 
-Enable the xpcs node and its port 0 sub-node, referencing combphy2
-as the SerDes PHY.
-
-Add the mdio0 node with the YT8521SC PHY at address 3, including its
-reset GPIO and LED configuration.  Also add LED configuration for the
-existing RGMII PHY on mdio1 for consistency.
-
-Signed-off-by: Coia Prant <coiaprant@gmail.com>
+Signed-off-by: Judith Mendez <jm@ti.com>
+Reviewed-by: Moteen Shah <m-shah@ti.com>
 ---
- .../boot/dts/rockchip/rk3568-photonicat.dts   | 74 ++++++++++++++++++-
- 1 file changed, 72 insertions(+), 2 deletions(-)
+This patch adds GP_SW1 efuse node for AM62PX only now that bindings [0]
+are in place.
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts b/arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts
-index 58c1052ba8ef3..fdaa4a2a4328b 100644
---- a/arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3568-photonicat.dts
-@@ -3,6 +3,7 @@
- /dts-v1/;
- 
- #include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/leds/common.h>
- #include <dt-bindings/pinctrl/rockchip.h>
- #include <dt-bindings/soc/rockchip,vop2.h>
- #include "rk3568.dtsi"
-@@ -241,6 +242,7 @@ &combphy1 {
- };
- 
- &combphy2 {
-+	rockchip,sgmii-mac-sel = <0>;
- 	status = "okay";
- };
- 
-@@ -260,9 +262,18 @@ &cpu3 {
- 	cpu-supply = <&vdd_cpu>;
- };
- 
--/* Motorcomm YT8521SC LAN port (require SGMII) */
-+/* Motorcomm YT8521SC LAN port */
- &gmac0 {
--	status = "disabled";
-+	assigned-clocks = <&cru SCLK_GMAC0_RX_TX>;
-+	assigned-clock-parents = <&clk_gmac0_xpcs_mii>;
-+	managed = "in-band-status";
-+	pcs-handle = <&xpcs_mii0>;
-+	phy-handle = <&sgmii_phy>;
-+	phy-mode = "sgmii";
-+	phy-supply = <&vcc_3v3>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&gmac0_miim>;
-+	status = "okay";
- };
- 
- /* Motorcomm YT8521SC WAN port */
-@@ -341,6 +352,36 @@ &i2s0_8ch {
- 	status = "okay";
- };
- 
-+&mdio0 {
-+	sgmii_phy: ethernet-phy@3 {
-+		compatible = "ethernet-phy-ieee802.3-c22";
-+		reg = <0x3>;
-+		max-speed = <1000>;
-+		reset-assert-us = <20000>;
-+		reset-deassert-us = <100000>;
-+		reset-gpios = <&gpio3 RK_PC6 GPIO_ACTIVE_LOW>;
+Changes since v2:
+- Add Moteen's review tag
+- Fix commit description as per Moteens review [1]
+
+[0] https://lore.kernel.org/all/178942274041.683176.599438200260103620.b4-ty@kernel.org/
+[1] https://lore.kernel.org/linux-devicetree/b82dec19-02a9-4b93-a2bb-3cbb6f33ae63@ti.com/
+
+Link to v2:
+https://lore.kernel.org/all/20260922165714.425576-1-jm@ti.com/
+---
+ arch/arm64/boot/dts/ti/k3-am62p-wakeup.dtsi | 25 +++++++++++++++++++++
+ arch/arm64/boot/dts/ti/k3-am62p.dtsi        |  1 +
+ 2 files changed, 26 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am62p-wakeup.dtsi
+
+diff --git a/arch/arm64/boot/dts/ti/k3-am62p-wakeup.dtsi b/arch/arm64/boot/dts/ti/k3-am62p-wakeup.dtsi
+new file mode 100644
+index 0000000000000..c56fb3890c983
+--- /dev/null
++++ b/arch/arm64/boot/dts/ti/k3-am62p-wakeup.dtsi
+@@ -0,0 +1,25 @@
++// SPDX-License-Identifier: GPL-2.0-only OR MIT
++/*
++ * Device Tree file for the AM62P WAKEUP domain peripherals
++ *
++ * Copyright (C) 2026 Texas Instruments Incorporated - https://www.ti.com/
++ */
 +
-+		leds {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
++&wkup_conf {
++	gpsw_efuse: efuse@230 {
++		compatible = "ti,am62p-efuse", "socionext,uniphier-efuse";
++		reg = <0x230 0x10>;
++		#address-cells = <1>;
++		bootph-all;
++		#size-cells = <1>;
 +
-+			led@1 {
-+				reg = <1>;
-+				color = <LED_COLOR_ID_AMBER>;
-+				function = LED_FUNCTION_LAN;
-+				default-state = "keep";
-+			};
-+
-+			led@2 {
-+				reg = <2>;
-+				color = <LED_COLOR_ID_GREEN>;
-+				function = LED_FUNCTION_LAN;
-+				default-state = "keep";
-+			};
++		gpsw1: gpsw1@4 {
++			reg = <0x4 0x4>;
 +		};
 +	};
 +};
 +
- &mdio1 {
- 	rgmii_phy: ethernet-phy@3 {
- 		compatible = "ethernet-phy-ieee802.3-c22";
-@@ -350,6 +391,25 @@ rgmii_phy: ethernet-phy@3 {
- 		reset-gpios = <&gpio4 RK_PC0 GPIO_ACTIVE_LOW>;
- 		rx-internal-delay-ps = <1500>;
- 		tx-internal-delay-ps = <1500>;
-+
-+		leds {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			led@1 {
-+				reg = <1>;
-+				color = <LED_COLOR_ID_AMBER>;
-+				function = LED_FUNCTION_WAN;
-+				default-state = "keep";
-+			};
-+
-+			led@2 {
-+				reg = <2>;
-+				color = <LED_COLOR_ID_GREEN>;
-+				function = LED_FUNCTION_WAN;
-+				default-state = "keep";
-+			};
-+		};
- 	};
- };
++&chipid {
++	nvmem-cells = <&gpsw1>;
++	nvmem-cell-names = "gpsw1";
++};
+diff --git a/arch/arm64/boot/dts/ti/k3-am62p.dtsi b/arch/arm64/boot/dts/ti/k3-am62p.dtsi
+index 9d6266d6ddb82..058f264ee0646 100644
+--- a/arch/arm64/boot/dts/ti/k3-am62p.dtsi
++++ b/arch/arm64/boot/dts/ti/k3-am62p.dtsi
+@@ -154,3 +154,4 @@ cbass_wakeup: bus@b00000 {
  
-@@ -586,3 +646,13 @@ &xin32k {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&clk32k_out1>;
- };
-+
-+&xpcs {
-+	phys = <&combphy2 PHY_TYPE_SGMII>;
-+	phy-names = "serdes";
-+	status = "okay";
-+};
-+
-+&xpcs_mii0 {
-+	status = "okay";
-+};
+ /* Include AM62P specific peripherals */
+ #include "k3-am62p-main.dtsi"
++#include "k3-am62p-wakeup.dtsi"
 -- 
-2.47.3
+2.34.1
 
