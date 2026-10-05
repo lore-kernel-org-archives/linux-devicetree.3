@@ -1,67 +1,38 @@
-Received: from mail-dy2-f43.google.com (mail-dy2-f43.google.com [74.125.229.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A1EF4C7558
-	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 19:10:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.229.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D7B936F90F;
+	Mon,  5 Oct 2026 19:48:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791227447; cv=none; b=kgAaNqnqZBv14kBLbnaEozY1U7Mbtv5YYc+gfePH5JJMJe+Nal9guJ//J2M2Z+OMM+7asZQ9MqKtfvBwF4hXICNt26f1eeMMF6DF9ArcXiEHqxEto+OkVM84eebq0EauSUSUB8AeiSm+s+RaPXUfUwdGq0I4KpZVqdm9frT9RVE=
+	t=1791229691; cv=none; b=fH/7rxdlcP/ycFqadHP2ZiLRPxI7kH7sNZDQHnTC/VIL21svWflk/HTHdUkWS00KYSfhPOtWPkG7/rA+XVOkPojjU+0H2QKmsPBRgp63AR0k1wW6sMB6xIAxW/Tst39I0XwBxwHo/bnEMoRgXn132/gC8BCxOkHS5ivM9LdVUA8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791227447; c=relaxed/simple;
-	bh=TN5pLnk4ylfuQCDcPJKk8WYph9lKab8Uf7A34Sv6vbU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=KKXTR/ngY0b8AkZvqcXdrBv1uTUUrdUMoU3RDl5N9bQikAL2b86rFCRELF7hwuy4CYsBgm5w3dQk0YrQGbbUMWDUPdpB3D7mwREaRW/T54S8QTGLKUbYLGSNqIkvEvp0Ptm/MGrghKi22UJFZgheIQm21AHKY0r+RwSeFW0DEPw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A8BNIdom; arc=none smtp.client-ip=74.125.229.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791229691; c=relaxed/simple;
+	bh=dBX1mUzaW7tfnmaJ65jUc6DxO0ChYcYBHtIpV/VgDH0=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=UwSQMM/eaC5ItSf9ziM3QzyQuxaMwsvVzX8Aa7RIT801UfOr0QtiwZD+Dgy/y94atoNXTDj2D0DoAcdhsu6vK4r1eudvrG+msylTR0hbSGrUgl6NWp8eQdZ9PYqmi2pY/OM/+3inYkmfVuA04CAO1gDGdvegiXFEHpvQTj1xU/k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WnVbPcU7; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A8BNIdom"
-Received: by mail-dy2-f43.google.com with SMTP id 5a478bee46e88-33e4e75342aso175578eec.1
-        for <devicetree@vger.kernel.org>; Mon, 05 Oct 2026 12:10:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791227445; x=1791832245; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=GSbhrt/lgKepV2a1GBS3lg8xwzm8vGysOirgZ5JBTUA=;
-        b=A8BNIdomSof02GpFF0Y9+EJi6154tf8KxvORbVzA7OBDbTqjGzS/BrK4nfCOnLDHhk
-         E1OSIUtStRIrJJZ1byo8R31j52xsJkPklYYFK1QXmlTl/xSla2QR//tg3EUcJR+xFac3
-         lE2iIkcvCAlG8X4yBNX5ifw0TNamTUtxhePEpi30Y/GRRZ4VsNBAUs2UeLamJlv+go9y
-         W+YtKh3n8trwbNvV/K9oxiYzBN+xsJ7/pCgNdmi5YBa1wcESYF26W0W2fD0w+iHR0/Bg
-         F0JIhzryf2+x3intj89dgcvlxinmRoKExpOvzP1KiHlkaNgt8T2KN922M9HO3q6hBq8g
-         MGGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791227445; x=1791832245;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=GSbhrt/lgKepV2a1GBS3lg8xwzm8vGysOirgZ5JBTUA=;
-        b=kcV4lHgWJ9wnMKIb9XIpRMzXSU5FoqgMjS58HCg+IJU69D0cRz5BBm8pJa9ZPX5B+Y
-         b1Bt4IN/iifrfVihumpLPmFulMo/Xp2llakPWvH4zLQYVrGUYoss71roxYRnWD4VHdpi
-         ltzey6EpvMzS+V30DxIjp3WBYzxO5/BwVEVcySpoF0UVS8H9Rirg3b8lEDeP5aCf5JoT
-         L58YgAvJ5Unjse6qSbXInNCaXH5YlgxES8F+X/Xj6pxbggLyUoRuUO/BQAQ4JvzKg+IR
-         th8UvarASz84JtCD0A69qLtddZiATsLlgY4xoFSdumoeQyhuPnRQFak1GwRnvuGWxQ7D
-         RAWg==
-X-Forwarded-Encrypted: i=1; AKwUvBxf64Czsx504WK4zsDUm+y8thuAUdgLqvzU6ILE9MbIRQePZ8OQCJ4BbgRbYCDCN2pLjbG4c7tHm158@vger.kernel.org
-X-Gm-Message-State: AFuF++m4H02yr0K3ysCXsRfIvLfhhpFjFGCtSIBtPZxGmWb0RnpseC2w
-	wM715MxC7nH6AXQ9e2nNeWK5x5DqdGgYfzRKXrKHMGZDGEgtQKFLjHjV
-X-Gm-Gg: AYBFou1mX1+AzK3LPbUlP3cDYg+s93DQbCITXbBC1XJOA5d5YUXyhWCtiRf/JoD/zBT
-	+JrSaqh2Z4Bal5RPlj+hL7DpEf63675W97wmGuKfpkL6Om3Y8TmReieCkaODE6CPpZekM6eT0ZQ
-	P4as8HxEbvJ+3Jnlig/XHfCj1ZXMvmGNJN6fFqsvRPTQBc80ynEODp6J44PRahpyzgZSbtUhFMD
-	A+Rnvw61UUy16slel7GHH7arBU4mvGVuFl2fXuvr9B0lQxgUTHImVqvF0hYFzYkpf4eJqlOhMPG
-	f2itNZVpq3hC/jTq/U8mBMzJ7efmk1OsWzVo9y//Fj671HGhGztNG/4MtLeEM4vmFK1DlA59lw/
-	yP+UQXNbuX/Q04/44lx9mxvEh3cCje+B6sp5BrIRrDbjHvV6tYvrY+FtG3jbGjZbGT9HDKJD6bo
-	lor3iqfMaFYx83+wq62LcHsVjeHFwtU24jGcE7xBVLhVVt8HYvj0Dmh9ZU26xfEgAzmzBLORacV
-	IF70FlpcCo=
-X-Received: by 2002:a05:7301:9a83:b0:34c:f181:85e4 with SMTP id 5a478bee46e88-34f14ffa69cmr21314485eec.1.1791227444450;
-        Mon, 05 Oct 2026 12:10:44 -0700 (PDT)
-Received: from [10.211.86.252] ([2409:40c2:5007:c960:23fb:5e63:6976:fa4f])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35146b5ee6bsm475408eec.30.2026.10.05.12.10.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 12:10:43 -0700 (PDT)
-From: Bhargav Joshi <j.bhargav.u@gmail.com>
-Date: Tue, 06 Oct 2026 00:40:26 +0530
-Subject: [PATCH] dt-bindings: remoteproc: ti,keystone-rproc: Convert to DT
- schema
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WnVbPcU7"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 2E928C4AF61;
+	Mon,  5 Oct 2026 19:48:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791229691;
+	bh=dBX1mUzaW7tfnmaJ65jUc6DxO0ChYcYBHtIpV/VgDH0=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=WnVbPcU72vaEfu6aGeNMqJTEGVPM+3xbGKkAcDfEzawMwCt8YN3sqcXWliYJLijUG
+	 PcqHEDM2KzE/744QZTfmyQKFjhep7iHLyQaeRInFZlDSdvVvIyldgFImklRpddaZDu
+	 7OsTGzHgXyxTW4qRdp2PV3pbKb4lVOC9dcUKAGqcfYqTzqcVewCXEIFcomRcBphN/4
+	 fYYbLsznzDjegsZTEG+neAK/b1BLNOLv6LveAR4bNl4dJ8zEX2UrGO/TWCtvFh1jrx
+	 eQxP5uuhqi7HvW3aBn5iMMlsGNXv/IuFpP4l5h563c2SUv3gqevlT6ThpyW/gtz1jY
+	 b50CBMbBPlIEw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 0AB28CA5FFD;
+	Mon,  5 Oct 2026 19:48:11 +0000 (UTC)
+From: Nizat Mikayilli via B4 Relay <devnull+nacht.dxdmail.cc@kernel.org>
+Date: Mon, 05 Oct 2026 21:47:37 +0200
+Subject: [PATCH v2 2/2] arm64: dts: qcom: sm8550: Add support for Samsung
+ Galaxy Tab S9 Wi-Fi
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,376 +41,746 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261006-ti-keystone-rproc-v1-1-41f7f078b44e@gmail.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqAIBBA0avErBswDYmuEi3KxhoCjTGikO6et
- HyL/zMkEqYEfZVB6OLEMRQ0dQVum8JKyEsxaKVto5TFk3GnJ50xEMoh0WFLZu680Z21Gkp3CHm
- +/+cwvu8HaiMGh2MAAAA=
-X-Change-ID: 20261006-ti-keystone-rproc-4e3b8f328662
+Message-Id: <20261005-gts9wifi-dts-v2-2-c3ac9b0f9ceb@dxdmail.cc>
+References: <20261005-gts9wifi-dts-v2-0-c3ac9b0f9ceb@dxdmail.cc>
+In-Reply-To: <20261005-gts9wifi-dts-v2-0-c3ac9b0f9ceb@dxdmail.cc>
 To: Bjorn Andersson <andersson@kernel.org>, 
- Mathieu Poirier <mathieu.poirier@linaro.org>, Rob Herring <robh@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Suman Anna <s-anna@ti.com>
-Cc: linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, goledhruva@gmail.com, m-chawdhry@ti.com, 
- daniel.baluta@gmail.com, simona.toaca@nxp.com, j.bhargav.u@gmail.com
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Nizat Mikayilli <nacht@dxdmail.cc>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791227434; l=11715;
- i=j.bhargav.u@gmail.com; h=from:subject:message-id;
- bh=TN5pLnk4ylfuQCDcPJKk8WYph9lKab8Uf7A34Sv6vbU=;
- b=fJmAv24dBO753NanC9n00n0anTt7+DDNR1XmL4EKn4AQav3pxnvQUYccAfycHtmfOb4U/r6d5
- ps+C1DnoznIBnfmgUndWYceI6jijGoUCB5sVn1MuLwJIphn2qQk81xn
-X-Developer-Key: i=j.bhargav.u@gmail.com; a=ed25519;
- pk=IqNDwUZKECEA+n8wXctFLBbYL9NhFstZNbOznm/nX1k=
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791229689; l=18089;
+ i=nacht@dxdmail.cc; s=20261004; h=from:subject:message-id;
+ bh=wa4VwR3q90qCnQND907chWiXwQg1g9zhB/7+n8JaHKI=;
+ b=aQGnCi++w/HfOZXAbD5jMQNdT9gHIovU8EPkE/MJuZk6NepJW7FHi2VFipXK9KrwLPKgEor0K
+ e6ocXNyifdRBBU0x5+6+5hQoTyGYBrR5K6A6L+/uRDpJiFIbmsNvRdF
+X-Developer-Key: i=nacht@dxdmail.cc; a=ed25519;
+ pk=Kay3P3pOJq5klUD+0/I8QX8JGOh0CeQXEwRVv7CMm4k=
+X-Endpoint-Received: by B4 Relay for nacht@dxdmail.cc/20261004 with
+ auth_id=1111
+X-Original-From: Nizat Mikayilli <nacht@dxdmail.cc>
+Reply-To: nacht@dxdmail.cc
 
-Convert TI Keystone DSP remoteproc binding from legacy text format to DT
-schema. No functional changes are introduced during conversion.
+From: Nizat Mikayilli <nacht@dxdmail.cc>
 
-Signed-off-by: Bhargav Joshi <j.bhargav.u@gmail.com>
+Add support for the Samsung Galaxy Tab S9 Wi-Fi (SM-X710, codename
+gts9wifi) tablet, based on the SM8550 SoC. This is the Wi-Fi SKU, so the
+modem memory regions are removed and no modem firmware is referenced.
+
+Described hardware: UFS storage, the microSD slot, USB 2.0 peripheral
+mode over the eUSB2 PHY with an NXP PTN3222 repeater, the
+bootloader-provided framebuffer console, power and volume keys, the
+book-cover switch, GPU, video decoder, ADSP with the internal audio path
+(four CS35L45 speaker amplifiers and the VA-macro digital microphones).
+
+Tested on hardware: booted via U-Boot on top of linux-next
+next-20261002, with the default kernel command line (no
+clk_ignore_unused, pd_ignore_unused or regulator_ignore_unused).
+Verified: UFS storage enumeration, USB 2.0 gadget, framebuffer console,
+power and volume keys, the book-cover switch, CPU frequency scaling, GPU
+(firmware loads, render node present), video decoder (device opens),
+ADSP booting at startup with the sound card registered and all four
+amplifiers and the VA macro probing. The microSD slot is described but
+not yet tested; audio playback and capture were not exercised.
+
+The display panel, touch, pen digitizer, cameras, battery/charging and
+the wireless module are not described here; the latter needs additional
+power sequencing and follows as a separate series.
+
+Assisted-by: LLM
+Signed-off-by: Nizat Mikayilli <nacht@dxdmail.cc>
 ---
- .../bindings/remoteproc/ti,keystone-rproc.txt      | 182 ---------------------
- .../bindings/remoteproc/ti,keystone-rproc.yaml     | 140 ++++++++++++++++
- 2 files changed, 140 insertions(+), 182 deletions(-)
+ arch/arm64/boot/dts/qcom/Makefile                  |   1 +
+ .../boot/dts/qcom/sm8550-samsung-gts9wifi.dts      | 664 +++++++++++++++++++++
+ 2 files changed, 665 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/remoteproc/ti,keystone-rproc.txt b/Documentation/devicetree/bindings/remoteproc/ti,keystone-rproc.txt
-deleted file mode 100644
-index 8475521336333..0000000000000
---- a/Documentation/devicetree/bindings/remoteproc/ti,keystone-rproc.txt
-+++ /dev/null
-@@ -1,182 +0,0 @@
--TI Keystone DSP devices
--=======================
--
--The TI Keystone 2 family of SoCs usually have one or more (upto 8) TI DSP Core
--sub-systems that are used to offload some of the processor-intensive tasks or
--algorithms, for achieving various system level goals.
--
--These processor sub-systems usually contain additional sub-modules like L1
--and/or L2 caches/SRAMs, an Interrupt Controller, an external memory controller,
--a dedicated local power/sleep controller etc. The DSP processor core in
--Keystone 2 SoCs is usually a TMS320C66x CorePac processor.
--
--DSP Device Node:
--================
--Each DSP Core sub-system is represented as a single DT node, and should also
--have an alias with the stem 'rproc' defined. Each node has a number of required
--or optional properties that enable the OS running on the host processor (ARM
--CorePac) to perform the device management of the remote processor and to
--communicate with the remote processor.
--
--Required properties:
----------------------
--The following are the mandatory properties:
--
--- compatible:		Should be one of the following,
--			    "ti,k2hk-dsp" for DSPs on Keystone 2 66AK2H/K SoCs
--			    "ti,k2l-dsp" for DSPs on Keystone 2 66AK2L SoCs
--			    "ti,k2e-dsp" for DSPs on Keystone 2 66AK2E SoCs
--			    "ti,k2g-dsp" for DSPs on Keystone 2 66AK2G SoCs
--
--- reg:			Should contain an entry for each value in 'reg-names'.
--			Each entry should have the memory region's start address
--			and the size of the region, the representation matching
--			the parent node's '#address-cells' and '#size-cells' values.
--
--- reg-names:		Should contain strings with the following names, each
--			representing a specific internal memory region, and
--			should be defined in this order,
--			     "l2sram", "l1pram", "l1dram"
--
--- ti,syscon-dev:	Should be a pair of the phandle to the Keystone Device
--			State Control node, and the register offset of the DSP
--			boot address register within that node's address space.
--
--- resets:		Should contain the phandle to the reset controller node
--			managing the resets for this device, and a reset
--			specifier. Please refer to either of the following reset
--			bindings for the reset argument specifier as per SoC,
--			Documentation/devicetree/bindings/reset/ti-syscon-reset.txt
--			    for 66AK2HK/66AK2L/66AK2E SoCs or,
--			Documentation/devicetree/bindings/reset/ti,sci-reset.yaml
--			    for 66AK2G SoCs
--
--- interrupts: 		Should contain an entry for each value in 'interrupt-names'.
--			Each entry should have the interrupt source number used by
--			the remote processor to the host processor. The values should
--			follow the interrupt-specifier format as dictated by the
--			'interrupt-parent' node. The purpose of each is as per the
--			description in the 'interrupt-names' property.
--
--- interrupt-names:	Should contain strings with the following names, each
--			representing a specific interrupt,
--			    "vring" - interrupt for virtio based IPC
--			    "exception" - interrupt for exception notification
--
--- kick-gpios: 		Should specify the gpio device needed for the virtio IPC
--			stack. This will be used to interrupt the remote processor.
--			The gpio device to be used is as per the bindings in,
--			Documentation/devicetree/bindings/gpio/ti,keystone-dsp-gpio.yaml
--
--SoC-specific Required properties:
-----------------------------------
--The following are mandatory properties for Keystone 2 66AK2HK, 66AK2L and 66AK2E
--SoCs only:
--
--- clocks: 		Should contain the device's input clock, and should be
--			defined as per the bindings in,
--			Documentation/devicetree/bindings/clock/ti,keystone,psc-clock.yaml
--
--The following are mandatory properties for Keystone 2 66AK2G SoCs only:
--
--- power-domains:	Should contain a phandle to a PM domain provider node
--			and an args specifier containing the DSP device id
--			value. This property is as per the binding,
--			Documentation/devicetree/bindings/soc/ti/sci-pm-domain.yaml
--
--Optional properties:
----------------------
--
--- memory-region:	phandle to the reserved memory node to be associated
--			with the remoteproc device. The reserved memory node
--			can be a CMA memory node, and should be defined as
--			per the bindings in
--			Documentation/devicetree/bindings/reserved-memory/reserved-memory.txt
--
--
--Examples:
-----------
--
--1.
--	/* 66AK2H/K DSP aliases */
--	aliases {
--		rproc0 = &dsp0;
--		rproc1 = &dsp1;
--		rproc2 = &dsp2;
--		rproc3 = &dsp3;
--		rproc4 = &dsp4;
--		rproc5 = &dsp5;
--		rproc6 = &dsp6;
--		rproc7 = &dsp7;
--	};
--
--	/* 66AK2H/K DSP memory node */
--	reserved-memory {
--		#address-cells = <2>;
--		#size-cells = <2>;
--		ranges;
--
--		dsp_common_memory: dsp-common-memory@81f800000 {
--			compatible = "shared-dma-pool";
--			reg = <0x00000008 0x1f800000 0x00000000 0x800000>;
--			reusable;
--		};
--	};
--
--	/* 66AK2H/K DSP node */
--	soc {
--		dsp0: dsp@10800000 {
--			compatible = "ti,k2hk-dsp";
--			reg = <0x10800000 0x00100000>,
--			      <0x10e00000 0x00008000>,
--			      <0x10f00000 0x00008000>;
--			reg-names = "l2sram", "l1pram", "l1dram";
--			clocks = <&clkgem0>;
--			ti,syscon-dev = <&devctrl 0x40>;
--			resets = <&pscrst 0>;
--			interrupt-parent = <&kirq0>;
--			interrupts = <0 8>;
--			interrupt-names = "vring", "exception";
--			kick-gpios = <&dspgpio0 27 0>;
--			memory-region = <&dsp_common_memory>;
--		};
--
--	};
--
--2.
--	/* 66AK2G DSP alias */
--	aliases {
--		rproc0 = &dsp0;
--	};
--
--	/* 66AK2G DSP memory node */
--	reserved-memory {
--		#address-cells = <2>;
--		#size-cells = <2>;
--		ranges;
--
--		dsp_common_memory: dsp-common-memory@81f800000 {
--			compatible = "shared-dma-pool";
--			reg = <0x00000008 0x1f800000 0x00000000 0x800000>;
--			reusable;
--		};
--	};
--
--	/* 66AK2G DSP node */
--	soc {
--		dsp0: dsp@10800000 {
--			compatible = "ti,k2g-dsp";
--			reg = <0x10800000 0x00100000>,
--			      <0x10e00000 0x00008000>,
--			      <0x10f00000 0x00008000>;
--			reg-names = "l2sram", "l1pram", "l1dram";
--			power-domains = <&k2g_pds 0x0046>;
--			ti,syscon-dev = <&devctrl 0x40>;
--			resets = <&k2g_reset 0x0046 0x1>;
--			interrupt-parent = <&kirq0>;
--			interrupts = <0 8>;
--			interrupt-names = "vring", "exception";
--			kick-gpios = <&dspgpio0 27 0>;
--			memory-region = <&dsp_common_memory>;
--		};
--	};
-diff --git a/Documentation/devicetree/bindings/remoteproc/ti,keystone-rproc.yaml b/Documentation/devicetree/bindings/remoteproc/ti,keystone-rproc.yaml
+diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+index 88230c4e00ea..9372ec7b57b6 100644
+--- a/arch/arm64/boot/dts/qcom/Makefile
++++ b/arch/arm64/boot/dts/qcom/Makefile
+@@ -438,6 +438,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sm8550-hdk-rear-camera-card.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8550-hdk.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8550-mtp.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8550-qrd.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= sm8550-samsung-gts9wifi.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8550-samsung-q5q.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8550-sony-xperia-yodo-pdx234.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm8650-ayaneo-pocket-s2.dtb
+diff --git a/arch/arm64/boot/dts/qcom/sm8550-samsung-gts9wifi.dts b/arch/arm64/boot/dts/qcom/sm8550-samsung-gts9wifi.dts
 new file mode 100644
-index 0000000000000..3117cfb2b3e07
+index 000000000000..369cd921bc04
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/remoteproc/ti,keystone-rproc.yaml
-@@ -0,0 +1,140 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/remoteproc/ti,keystone-rproc.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++++ b/arch/arm64/boot/dts/qcom/sm8550-samsung-gts9wifi.dts
+@@ -0,0 +1,664 @@
++// SPDX-License-Identifier: BSD-3-Clause
++/*
++ * Copyright (c) 2024, Alexandru Marc Serdeliuc <serdeliuk@yahoo.com>
++ * Copyright (c) 2024, David Wronek <david@mainlining.org>
++ * Copyright (c) 2022, Linaro Limited
++ * Copyright (c) 2026, Nizat Mikayilli <nacht@dxdmail.cc>
++ */
 +
-+title: TI Keystone DSP devices
++/dts-v1/;
 +
-+maintainers:
-+  - Suman Anna <s-anna@ti.com>
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/input/input.h>
++#include <dt-bindings/interrupt-controller/irq.h>
++#include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
++#include <dt-bindings/regulator/qcom,rpmh-regulator.h>
++#include "sm8550.dtsi"
++#include "pm8550.dtsi"
++#include "pm8550vs.dtsi"
++#include "pmk8550.dtsi"
 +
-+description: >
-+  The TI Keystone 2 family of SoCs usually have one or more (up to 8) TI DSP
-+  Core sub-systems that are used to offload some of the processor-intensive
-+  tasks or algorithms, for achieving various system level goals.
++/* This is the Wi-Fi SKU: no modem firmware is shipped. */
++/delete-node/ &ipa_fw_mem;
++/delete-node/ &ipa_gsi_mem;
++/delete-node/ &mpss_dsm_mem;
++/delete-node/ &mpss_mem;
++/delete-node/ &q6_mpss_dtb_mem;
++/delete-node/ &rmtfs_mem;
++/delete-node/ &spu_modem_shared_mem;
 +
-+  These processor sub-systems usually contain additional sub-modules like L1
-+  and/or L2 caches/SRAMs, an Interrupt Controller, an external memory
-+  controller, a dedicated local power/sleep controller etc. The DSP processor
-+  core in Keystone 2 SoCs is usually a TMS320C66x CorePac processor.
++/ {
++	model = "Samsung Galaxy Tab S9 Wi-Fi";
++	compatible = "samsung,gts9wifi", "qcom,sm8550";
++	chassis-type = "tablet";
 +
-+  Each DSP Core sub-system is represented as a single DT node, and should also
-+  have an alias with the stem 'rproc' defined. Each node has a number of
-+  required or optional properties that enable the OS running on the host
-+  processor (ARM CorePac) to perform the device management of the remote
-+  processor and to communicate with the remote processor.
++	aliases {
++		serial0 = &uart7;
++	};
 +
-+properties:
-+  compatible:
-+    enum:
-+      - ti,k2hk-dsp
-+      - ti,k2l-dsp
-+      - ti,k2e-dsp
-+      - ti,k2g-dsp
++	chosen {
++		#address-cells = <2>;
++		#size-cells = <2>;
++		ranges;
 +
-+  reg:
-+    minItems: 3
-+    maxItems: 3
++		framebuffer@b8000000 {
++			compatible = "simple-framebuffer";
++			reg = <0x0 0xb8000000 0x0 0xfa0000>;
++			width = <2560>;
++			height = <1600>;
++			stride = <(2560 * 4)>;
++			format = "a8r8g8b8";
++			clocks = <&gcc GCC_DISP_HF_AXI_CLK>;
++		};
++	};
 +
-+  reg-names:
-+    items:
-+      - const: l2sram
-+      - const: l1pram
-+      - const: l1dram
++	gpio-keys {
++		compatible = "gpio-keys";
++		pinctrl-0 = <&volume_up_n>, <&hall_cover_n>;
++		pinctrl-names = "default";
 +
-+  interrupts:
-+    minItems: 2
-+    maxItems: 2
++		key-volume-up {
++			label = "Volume Up";
++			linux,code = <KEY_VOLUMEUP>;
++			gpios = <&pm8550_gpios 6 GPIO_ACTIVE_LOW>;
++			debounce-interval = <15>;
++			linux,can-disable;
++			wakeup-source;
++		};
 +
-+  interrupt-names:
-+    items:
-+      - const: vring
-+      - const: exception
++		switch-lid {
++			label = "Book Cover";
++			linux,input-type = <EV_SW>;
++			linux,code = <SW_LID>;
++			gpios = <&tlmm 107 GPIO_ACTIVE_LOW>;
++			debounce-interval = <50>;
++			wakeup-source;
++		};
++	};
 +
-+  ti,syscon-dev:
-+    description: Phandle and offset to syscon device
-+    $ref: /schemas/types.yaml#/definitions/phandle-array
-+    items:
-+      - items:
-+          - description: Phandle to Keystone Device State Control node
-+          - description: offset of the DSP boot address register
++	speaker_vdd: regulator-speaker-vdd {
++		compatible = "regulator-fixed";
++		regulator-name = "speaker_vdd";
++		gpio = <&tlmm 19 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++		regulator-boot-on;
++	};
 +
-+  resets:
-+    maxItems: 1
-+    description:
-+      refer to either of the following reset bindings for the reset argument
-+      specifier as per SoC,
-+      Documentation/devicetree/bindings/reset/ti-syscon-reset.txt for
-+      66AK2HK/66AK2L/66AK2E SoCs or,
-+      Documentation/devicetree/bindings/reset/ti,sci-reset.yaml for 66AK2G SoCs
++	reserved-memory {
++		chipinfo_mem: chipinfo@81cf4000 {
++			reg = <0x0 0x81cf4000 0x0 0x1000>;
++			no-map;
++		};
 +
-+  kick-gpios:
-+    maxItems: 1
-+    description:
-+      GPIO used by the virtio IPC stack to interrupt the remote processor. See
-+      Documentation/devicetree/bindings/gpio/ti,keystone-dsp-gpio.yaml
++		kaslr_mem: kaslr@b01ff000 {
++			reg = <0x0 0xb01ff000 0x0 0x1000>;
++			no-map;
++		};
 +
-+  memory-region:
-+    maxItems: 1
-+    description:
-+      Reserved memory node can be CMA memory node, and should be defined as per
-+      Documentation/devicetree/bindings/reserved-memory/reserved-memory.txt
++		uh_heap_mem: uh-heap@b0200000 {
++			reg = <0x0 0xb0200000 0x0 0x40000>;
++			no-map;
++		};
 +
-+  clocks:
-+    maxItems: 1
-+    description:
-+      Input clock (66AK2HK/66AK2L/66AK2E only), see
-+      Documentation/devicetree/bindings/clock/ti,keystone,psc-clock.yaml
++		uh_guest_mem: uh-guest@b1000000 {
++			reg = <0x0 0xb1000000 0x0 0x3000000>;
++			no-map;
++		};
 +
-+  power-domains:
-+    maxItems: 1
-+    description:
-+      PM domain provider phandle and DSP device id (66AK2G only), see
-+      Documentation/devicetree/bindings/soc/ti/sci-pm-domain.yaml
++		splash-region@b8000000 {
++			reg = <0x0 0xb8000000 0x0 0x2b00000>;
++			no-map;
++		};
 +
-+required:
-+  - compatible
-+  - reg
-+  - reg-names
-+  - interrupts
-+  - interrupt-names
-+  - ti,syscon-dev
-+  - resets
-+  - kick-gpios
++		llcc_lpi_mem: llcc-lpi@ff800000 {
++			reg = <0x0 0xff800000 0x0 0x600000>;
++			no-map;
++		};
++	};
 +
-+allOf:
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: ti,k2g-dsp
-+    then:
-+      properties:
-+        clocks: false
-+      required:
-+        - power-domains
-+    else:
-+      properties:
-+        power-domains: false
-+      required:
-+        - clocks
++	sound {
++		compatible = "qcom,sm8550-sndcard", "qcom,sm8450-sndcard";
++		model = "Samsung-Galaxy-Tab-S9";
 +
-+additionalProperties: false
++		pinctrl-0 = <&tdm0_clk_active>, <&tdm0_ws_active>,
++			    <&tdm0_din_active>, <&tdm0_dout_active>;
++		pinctrl-names = "default";
 +
-+examples:
-+  - |
-+    dsp@10800000 {
-+      compatible = "ti,k2g-dsp";
-+      reg = <0x10800000 0x00100000>,
-+            <0x10e00000 0x00008000>,
-+            <0x10f00000 0x00008000>;
-+      reg-names = "l2sram", "l1pram", "l1dram";
-+      power-domains = <&k2g_pds 0x0046>;
-+      ti,syscon-dev = <&devctrl 0x844>;
-+      resets = <&k2g_reset 0x0046 0x1>;
-+      interrupts = <0>, <8>;
-+      interrupt-names = "vring", "exception";
-+      kick-gpios = <&dspgpio0 27 0>;
-+      memory-region = <&dsp_common_memory>;
-+    };
++		speaker-playback-dai-link {
++			link-name = "CS35L45 Speaker Playback";
++
++			cpu {
++				sound-dai = <&q6apmbedai PRIMARY_MI2S_RX>;
++			};
++
++			codec {
++				sound-dai = <&cs35l45_fl 0>, <&cs35l45_fr 0>,
++					    <&cs35l45_rl 0>, <&cs35l45_rr 0>;
++			};
++
++			platform {
++				sound-dai = <&q6apm>;
++			};
++		};
++
++		va-capture-dai-link {
++			link-name = "Internal DMIC Capture";
++
++			cpu {
++				sound-dai = <&q6apmbedai VA_CODEC_DMA_TX_0>;
++			};
++
++			codec {
++				sound-dai = <&lpass_vamacro 0>;
++			};
++
++			platform {
++				sound-dai = <&q6apm>;
++			};
++		};
++	};
++};
++
++/* Samsung's ADSP/SLPI firmware needs a larger carveout than the reference. */
++&adspslpi_mem {
++	reg = <0x0 0x9ea00000 0x0 0x59b4000>;
++};
++
++&apps_rsc {
++	regulators-0 {
++		compatible = "qcom,pm8550-rpmh-regulators";
++		qcom,pmic-id = "b";
++
++		/* Sensor VDD; the ADSP firmware expects it to be on. */
++		vreg_l1b_1p8: ldo1 {
++			regulator-name = "vreg_l1b_1p8";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-always-on;
++		};
++
++		vreg_l5b_3p104: ldo5 {
++			regulator-name = "vreg_l5b_3p104";
++			regulator-min-microvolt = <3104000>;
++			regulator-max-microvolt = <3104000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l8b_1p8: ldo8 {
++			regulator-name = "vreg_l8b_1p8";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <3000000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l9b_2p9: ldo9 {
++			regulator-name = "vreg_l9b_2p9";
++			regulator-min-microvolt = <2960000>;
++			regulator-max-microvolt = <3000000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		/* DMIC bias, not switched by the VA macro driver. */
++		vreg_l10b_1p8: ldo10 {
++			regulator-name = "vreg_l10b_1p8";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-always-on;
++		};
++
++		vreg_l15b_1p8: ldo15 {
++			regulator-name = "vreg_l15b_1p8";
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		/* Sensor VDDIO; the ADSP firmware expects it to be on. */
++		vreg_l16b_3p0: ldo16 {
++			regulator-name = "vreg_l16b_3p0";
++			regulator-min-microvolt = <3000000>;
++			regulator-max-microvolt = <3000000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-always-on;
++		};
++
++		vreg_l17b_2p5: ldo17 {
++			regulator-name = "vreg_l17b_2p5";
++			regulator-min-microvolt = <2504000>;
++			regulator-max-microvolt = <2504000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++	};
++
++	regulators-1 {
++		compatible = "qcom,pm8550vs-rpmh-regulators";
++		qcom,pmic-id = "e";
++
++		vreg_l1e_0p88: ldo1 {
++			regulator-name = "vreg_l1e_0p88";
++			regulator-min-microvolt = <880000>;
++			regulator-max-microvolt = <880000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l3e_1p2: ldo3 {
++			regulator-name = "vreg_l3e_1p2";
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1200000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++	};
++
++	regulators-2 {
++		compatible = "qcom,pm8550ve-rpmh-regulators";
++		qcom,pmic-id = "f";
++
++		vreg_l3f_0p88: ldo3 {
++			regulator-name = "vreg_l3f_0p88";
++			regulator-min-microvolt = <880000>;
++			regulator-max-microvolt = <912000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++	};
++
++	regulators-3 {
++		compatible = "qcom,pm8550vs-rpmh-regulators";
++		qcom,pmic-id = "g";
++
++		vreg_l1g_1p2: ldo1 {
++			regulator-name = "vreg_l1g_1p2";
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1200000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++			regulator-allow-set-load;
++			regulator-allowed-modes = <RPMH_REGULATOR_MODE_LPM
++						   RPMH_REGULATOR_MODE_HPM>;
++		};
++
++		vreg_l3g_1p2: ldo3 {
++			regulator-name = "vreg_l3g_1p2";
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1200000>;
++			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
++		};
++	};
++};
++
++/* Keep the bootloader-initialised display clocks for simple-framebuffer. */
++&dispcc {
++	status = "disabled";
++};
++
++&gpi_dma1 {
++	status = "okay";
++};
++
++&gpu {
++	status = "okay";
++
++	zap-shader {
++		firmware-name = "qcom/sm8550/Samsung/gts9wifi/a740_zap.mbn";
++	};
++};
++
++&hub_i2c6_data_clk {
++	drive-strength = <8>;
++};
++
++/* The SM-X710 firmware reserves a slightly larger HW-fence window than MTP. */
++&hwfence_shbuf {
++	reg = <0x0 0xe6440000 0x0 0x2dd000>;
++};
++
++&i2c6 {
++	clock-frequency = <400000>;
++	status = "okay";
++
++	eusb2_repeater: redriver@4f {
++		compatible = "nxp,ptn3222";
++		reg = <0x4f>;
++		#phy-cells = <0>;
++
++		vdd3v3-supply = <&vreg_l5b_3p104>;
++		vdd1v8-supply = <&vreg_l15b_1p8>;
++		reset-gpios = <&pm8550vs_d_gpios 4 GPIO_ACTIVE_LOW>;
++
++		pinctrl-0 = <&eusb2_reset_default>;
++		pinctrl-names = "default";
++	};
++};
++
++&i2c_hub_6 {
++	clock-frequency = <400000>;
++	status = "okay";
++
++	cs35l45_rl: amplifier@30 {
++		compatible = "cirrus,cs35l45";
++		reg = <0x30>;
++		#sound-dai-cells = <1>;
++		interrupts-extended = <&tlmm 14 IRQ_TYPE_LEVEL_LOW>;
++		reset-gpios = <&tlmm 42 GPIO_ACTIVE_HIGH>;
++		vdd-a-supply = <&speaker_vdd>;
++		vdd-batt-supply = <&speaker_vdd>;
++		pinctrl-0 = <&cs35l45_gpio_default>;
++		pinctrl-names = "default";
++		sound-name-prefix = "Rear Left";
++		cirrus,asp-sdout-hiz-ctrl = <3>;
++
++		cirrus,gpio-ctrl1 {
++			gpio-ctrl = <2>;
++		};
++
++		cirrus,gpio-ctrl2 {
++			gpio-ctrl = <2>;
++		};
++	};
++
++	cs35l45_fl: amplifier@31 {
++		compatible = "cirrus,cs35l45";
++		reg = <0x31>;
++		#sound-dai-cells = <1>;
++		interrupts-extended = <&tlmm 14 IRQ_TYPE_LEVEL_LOW>;
++		reset-gpios = <&tlmm 42 GPIO_ACTIVE_HIGH>;
++		vdd-a-supply = <&speaker_vdd>;
++		vdd-batt-supply = <&speaker_vdd>;
++		pinctrl-0 = <&cs35l45_gpio_default>;
++		pinctrl-names = "default";
++		sound-name-prefix = "Front Left";
++		cirrus,asp-sdout-hiz-ctrl = <3>;
++
++		cirrus,gpio-ctrl1 {
++			gpio-ctrl = <2>;
++		};
++
++		cirrus,gpio-ctrl2 {
++			gpio-ctrl = <2>;
++		};
++	};
++
++	cs35l45_rr: amplifier@32 {
++		compatible = "cirrus,cs35l45";
++		reg = <0x32>;
++		#sound-dai-cells = <1>;
++		interrupts-extended = <&tlmm 14 IRQ_TYPE_LEVEL_LOW>;
++		reset-gpios = <&tlmm 42 GPIO_ACTIVE_HIGH>;
++		vdd-a-supply = <&speaker_vdd>;
++		vdd-batt-supply = <&speaker_vdd>;
++		pinctrl-0 = <&cs35l45_gpio_default>;
++		pinctrl-names = "default";
++		sound-name-prefix = "Rear Right";
++		cirrus,asp-sdout-hiz-ctrl = <3>;
++
++		cirrus,gpio-ctrl1 {
++			gpio-ctrl = <2>;
++		};
++
++		cirrus,gpio-ctrl2 {
++			gpio-ctrl = <2>;
++		};
++	};
++
++	cs35l45_fr: amplifier@33 {
++		compatible = "cirrus,cs35l45";
++		reg = <0x33>;
++		#sound-dai-cells = <1>;
++		interrupts-extended = <&tlmm 14 IRQ_TYPE_LEVEL_LOW>;
++		reset-gpios = <&tlmm 42 GPIO_ACTIVE_HIGH>;
++		vdd-a-supply = <&speaker_vdd>;
++		vdd-batt-supply = <&speaker_vdd>;
++		pinctrl-0 = <&cs35l45_gpio_default>;
++		pinctrl-names = "default";
++		sound-name-prefix = "Front Right";
++		cirrus,asp-sdout-hiz-ctrl = <3>;
++
++		cirrus,gpio-ctrl1 {
++			gpio-ctrl = <2>;
++		};
++
++		cirrus,gpio-ctrl2 {
++			gpio-ctrl = <2>;
++		};
++	};
++};
++
++&i2c_master_hub_0 {
++	status = "okay";
++};
++
++&ipa {
++	/delete-property/ memory-region;
++};
++
++&iris {
++	firmware-name = "qcom/sm8550/Samsung/gts9wifi/vpu30_4v.mbn";
++	status = "okay";
++};
++
++&lpass_tlmm {
++	dmic45_default: dmic45-default-state {
++		clk-pins {
++			pins = "gpio12";
++			function = "dmic3_clk";
++			drive-strength = <8>;
++			output-high;
++		};
++
++		data-pins {
++			pins = "gpio13";
++			function = "dmic3_data";
++			drive-strength = <8>;
++			input-enable;
++		};
++	};
++
++	dmic67_default: dmic67-default-state {
++		clk-pins {
++			pins = "gpio17";
++			function = "dmic4_clk";
++			drive-strength = <8>;
++			output-high;
++		};
++
++		data-pins {
++			pins = "gpio18";
++			function = "dmic4_data";
++			drive-strength = <8>;
++			input-enable;
++		};
++	};
++};
++
++&lpass_vamacro {
++	pinctrl-0 = <&dmic01_default>, <&dmic23_default>,
++		    <&dmic45_default>, <&dmic67_default>;
++	pinctrl-names = "default";
++	qcom,dmic-sample-rate = <4800000>;
++	vdd-micb-supply = <&vreg_l10b_1p8>;
++	status = "okay";
++};
++
++&pm8550_gpios {
++	sdc2_card_det_n: sdc2-card-det-state {
++		pins = "gpio12";
++		function = "normal";
++		input-enable;
++		output-disable;
++		bias-pull-up;
++		power-source = <1>;
++	};
++
++	volume_up_n: volume-up-n-state {
++		pins = "gpio6";
++		function = "normal";
++		power-source = <1>;
++		bias-pull-up;
++		input-enable;
++	};
++};
++
++&pm8550vs_d {
++	status = "okay";
++};
++
++&pm8550vs_d_gpios {
++	eusb2_reset_default: eusb2-reset-state {
++		pins = "gpio4";
++		function = "normal";
++		power-source = <1>;
++		input-enable;
++		output-enable;
++		drive-push-pull;
++		qcom,drive-strength = <PMIC_GPIO_STRENGTH_MED>;
++		bias-disable;
++	};
++};
++
++&pm8550vs_e {
++	status = "okay";
++};
++
++&pm8550vs_g {
++	status = "okay";
++};
++
++&pon_pwrkey {
++	status = "okay";
++};
++
++&pon_resin {
++	linux,code = <KEY_VOLUMEDOWN>;
++	status = "okay";
++};
++
++&qupv3_id_0 {
++	status = "okay";
++};
++
++&remoteproc_adsp {
++	firmware-name = "qcom/sm8550/Samsung/gts9wifi/adsp.mbn",
++			"qcom/sm8550/Samsung/gts9wifi/adsp_dtb.mbn";
++	status = "okay";
++};
++
++&remoteproc_mpss {
++	/delete-property/ memory-region;
++};
++
++&sdhc_2 {
++	cd-gpios = <&pm8550_gpios 12 GPIO_ACTIVE_LOW>;
++	pinctrl-0 = <&sdc2_default>, <&sdc2_card_det_n>;
++	pinctrl-1 = <&sdc2_sleep>, <&sdc2_card_det_n>;
++	pinctrl-names = "default", "sleep";
++	vmmc-supply = <&vreg_l9b_2p9>;
++	vqmmc-supply = <&vreg_l8b_1p8>;
++	bus-width = <4>;
++	no-sdio;
++	no-mmc;
++	status = "okay";
++};
++
++&sleep_clk {
++	clock-frequency = <32764>;
++};
++
++&tlmm {
++	/* GPIO36..39 are owned by TrustZone. */
++	gpio-reserved-ranges = <36 4>;
++
++	cs35l45_gpio_default: cs35l45-gpio-default-state {
++		pins = "gpio14", "gpio42";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
++	};
++
++	hall_cover_n: hall-cover-n-state {
++		pins = "gpio107";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-disable;
++	};
++
++	tdm0_clk_active: tdm0-clk-active-state {
++		pins = "gpio126";
++		function = "i2s0_sck";
++		drive-strength = <2>;
++		bias-disable;
++	};
++
++	tdm0_din_active: tdm0-din-active-state {
++		pins = "gpio127";
++		function = "i2s0_data0";
++		drive-strength = <2>;
++		bias-disable;
++	};
++
++	tdm0_dout_active: tdm0-dout-active-state {
++		pins = "gpio128";
++		function = "i2s0_data1";
++		drive-strength = <2>;
++		bias-disable;
++	};
++
++	tdm0_ws_active: tdm0-ws-active-state {
++		pins = "gpio129";
++		function = "i2s0_ws";
++		drive-strength = <2>;
++		bias-disable;
++	};
++};
++
++&uart7 {
++	status = "okay";
++};
++
++&ufs_mem_hc {
++	reset-gpios = <&tlmm 210 GPIO_ACTIVE_LOW>;
++	vcc-supply = <&vreg_l17b_2p5>;
++	vcc-max-microamp = <1300000>;
++	vccq-supply = <&vreg_l1g_1p2>;
++	vccq-max-microamp = <1200000>;
++	vdd-hba-supply = <&vreg_l3g_1p2>;
++	status = "okay";
++};
++
++&ufs_mem_phy {
++	vdda-phy-supply = <&vreg_l1e_0p88>;
++	vdda-pll-supply = <&vreg_l3e_1p2>;
++	status = "okay";
++};
++
++/* Without a Type-C controller driver, keep the DWC3 in peripheral mode. */
++&usb_1 {
++	dr_mode = "peripheral";
++	status = "okay";
++};
++
++&usb_1_hsphy {
++	vdd-supply = <&vreg_l1e_0p88>;
++	vdda12-supply = <&vreg_l3e_1p2>;
++	phys = <&eusb2_repeater>;
++	status = "okay";
++};
++
++/* Referenced by usb_1 as its USB3 PHY. */
++&usb_dp_qmpphy {
++	vdda-phy-supply = <&vreg_l3f_0p88>;
++	vdda-pll-supply = <&vreg_l3e_1p2>;
++	status = "okay";
++};
++
++&xo_board {
++	clock-frequency = <76800000>;
++};
 
----
-base-commit: 67f0943b394d920b6c142aad8c6af94340342ae7
-change-id: 20261006-ti-keystone-rproc-4e3b8f328662
-
-Best regards,
 -- 
-Bhargav
+2.55.0
+
 
