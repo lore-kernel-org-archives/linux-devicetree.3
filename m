@@ -1,132 +1,105 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57742494805;
-	Mon,  5 Oct 2026 14:00:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E21E4908CD
+	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 14:02:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791208828; cv=none; b=Fq59kSst0yL2hGcavFgC8DFuEuzp4d40yYhJksR9PyIdbnYtlZhXQyYR5AUpaOklDH9dpIP9MKQoGbHdqs5Qwbad5kihU5mXFEyq/nQtrwasVgvpAFWURKIfe3gWwdDPbYO/L6/KTpcmbomwaJccRwJb6/9rgKHqM6U4IxJnksM=
+	t=1791208963; cv=none; b=AjHlG02NA4ErwvP2/vpemV8Rp3QY+KU+NFwogsPAKApmYs2bgZWtUFIf6/VW+BzUibwo6r/Pj4xTf3+0xDhfanDbIdzHQrDm1Zt3EO+Af4qNDDLps7ho79mT6frQIwykeo3SxQQzsYr0W+QG16k2711kWd04YeDeRzs+EdOdrIE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791208828; c=relaxed/simple;
-	bh=ZX5xUToHuWaNOd+bCaQzYXpRy+E8h/GxkuOaBVGHj2A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uzp3QYWlQ+RQTv1PfIEDNvVXtUo6z7q6zfPuxCwM5re+hkCyCA5zx5GKUETs3mQPs7L9J0w9prxDk0CQrscUR/XxwRZ5LRlb453tMtDTUDYTcW++hHm0iHPlgVgGIAkXZlmf77PD8UpBhix7z3Yk2YmxjscXQvPxU/SoEzQzQmI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.helo=mail.mainlining.org; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.helo=mail.mainlining.org
-Message-ID: <e590764c-1ef7-4166-9c2d-a96a89029736@mainlining.org>
-Date: Mon, 5 Oct 2026 17:00:05 +0300
+	s=arc-20240116; t=1791208963; c=relaxed/simple;
+	bh=ryk3zoix9eZQlhJtkvEAH8KIqg/RgzkBKEjS4nsfUC8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=TzNY1vB0KstzwkRbs4ksxto3D7kBT+GOosDk05lrwzrav+Fn5PGeTqnqxl+eVJiAyMePHc89no58ISME2xCvMGErXNd4/Ly0KW8UXxaHbQiX2hYZZNnD1Nlm5nHUchNydjVyP/9VVKSZNFBnHuoKltox/Un55AdF6MTUU0L4Oqc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cBC2B7kN; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cBC2B7kN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 644461F000FF;
+	Mon,  5 Oct 2026 14:02:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791208960;
+	bh=IOJ/CxqebTmLTW6gACH4+Zng/yc+b/aunsZBTq4rAjA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=cBC2B7kNvDbTHJhMx9Y6xBJZ20UPt3mY1qIHusYEdmzQt8Qe69vH8D9C0fRvQL4nL
+	 HOPIsxJELag0cmRC5tEZLTdsGalSTU62IJoBJmZHeLpnCuxWyjSHLEp83UeCKEdv+M
+	 re/P4jmUZnlcH1NZa11rG+N/JkSXoiJrao9k5eGjP8R0XQGW8L7ijDfn4sMnxA0zkW
+	 KuJMBljovoK/ZJEP7he3sY1tjxAmDFlnJfsyY5CPVEPcsp5qOpAGo+KeTzIgpSctL+
+	 6U5397noXp+4p/wvMujdDAt3/VbvsLwRk3+gJYZu4577n1fHvaE/TdDq9/CoF0+PCf
+	 PVc2OP83Rmoiw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 09/10] media: v4l2-subdev: notify the bridge when the
+ source power changes
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sascha Hauer" <s.hauer@pengutronix.de>
+Cc: robh@kernel.org, media-ci@linuxtv.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261005-hdmirx-media-v3-9-71a11a2e3e76@pengutronix.de>
+References: <20261005-hdmirx-media-v3-0-71a11a2e3e76@pengutronix.de>
+ <20261005-hdmirx-media-v3-9-71a11a2e3e76@pengutronix.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 05 Oct 2026 14:02:40 +0000
+Message-Id: <20261005140240.644461F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 00/19] Add Initial Support For MSM8952, Add General
- Mobile Shamrock
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
- Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Srinivas Kandagatla <srini@kernel.org>,
- Ulf Hansson <ulfh@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
- "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
- Robin Murphy <robin.murphy@arm.com>, Lee Jones <lee@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov
- <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>,
- Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
- Marijn Suijten <marijn.suijten@somainline.org>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Robert Marko <robimarko@gmail.com>, Guru Das Srinagesh <linux@gurudas.dev>,
- Amit Kucheria <amitk@kernel.org>, Thara Gopinath <thara.gopinath@gmail.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Lukasz Luba <lukasz.luba@arm.com>, Kees Cook <kees@kernel.org>,
- Tony Luck <tony.luck@intel.com>, "Guilherme G. Piccoli"
- <gpiccoli@igalia.com>, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-mmc@vger.kernel.org, iommu@lists.linux.dev, mfd@lists.linux.dev,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- Krzysztof Kozlowski <krzk@kernel.org>, linux-pm@vger.kernel.org,
- linux-input@vger.kernel.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Abel Vesa <abel.vesa@oss.qualcomm.com>
-References: <20260921-msm8952-initial-support-v3-0-b96fd3fe298b@mainlining.org>
- <179098834078.3641559.798772743228949994.b4-ty@b4>
-From: Muzaffer Kadir <muzafferkadir@mainlining.org>
-Content-Language: en-US
-In-Reply-To: <179098834078.3641559.798772743228949994.b4-ty@b4>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On Sat,  3 Oct 2026 03:46:52 +0300, Dmitry Baryshkov wrote:
-> On Mon, 21 Sep 2026 21:18:51 +0300, Muzaffer Kadir wrote:
->> MSM8952 is a SoC with 8 core cpu and Adreno 405 gpu.
->>
->> Ported without uart connection. ramoops and usb
->> mainly used to debug.
->> USB is not enabled in this series because it
->> depends on the not yet upstreamed (and not developed by me)
->> pmi8950_smbcharger.
->>
->> [...]
-> 
-> Applied to ttt, thanks!
-> 
-> [01/19] dt-bindings: clock: qcom: Add MSM8952 global clock controller
->         (no commit info)
-> [02/19] clk: qcom: Add global clock controller driver for MSM8952
->         (no commit info)
-> [03/19] dt-bindings: nvmem: Add compatible for MSM8952
->         (no commit info)
-> [04/19] dt-bindings: power: rpmpd: Add MSM8952 power domains
->         (no commit info)
-> [05/19] dt-bindings: mmc: sdhci-msm: Add MSM8952 compatible
->         (no commit info)
-> [06/19] dt-bindings: vendor-prefixes: Add General Mobile
->         (no commit info)
-> [07/19] dt-bindings: arm: qcom: Document MSM8952 SoC binding
->         (no commit info)
-> [08/19] dt-bindings: iommu: qcom,iommu: Add MSM8952 IOMMU to SMMUv2 compatibles
->         (no commit info)
-> [09/19] dt-bindings: mfd: qcom,tcsr: Add compatible for MSM8952
->         (no commit info)
-> [10/19] dt-bindings: display/msm: qcom, mdp5: Add MSM8952 compatible
->         https://gitlab.freedesktop.org/lumag/msm/-/commit/df6ce9e6447e
-> [11/19] dt-bindings: firmware: qcom,scm: Document MSM8952 SCM
->         (no commit info)
-> [12/19] dt-bindings: clock: qcom,rpmcc: Add MSM8952 compatible
->         (no commit info)
-> [13/19] drm: msm: mdp5: Add MDP5 configuration for MSM8952
->         https://gitlab.freedesktop.org/lumag/msm/-/commit/7af226f9aa59
-> [14/19] soc: qcom: ubwc: Add UBWC config for MSM8952
->         (no commit info)
-> [15/19] dt-bindings: thermal: tsens: Add MSM8952
->         (no commit info)
-> [16/19] thermal: qcom: tsens: Add support for MSM8952 tsens
->         (no commit info)
-> [17/19] arm64: dts: qcom: Add initial support for MSM8952
->         (no commit info)
-> [18/19] dt-bindings: input: touchscreen: goodix: Add binding for GT970
->         (no commit info)
-> [19/19] arm64: dts: qcom: generalmobile-shamrock: new device
->         (no commit info)
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] media: missing V4L2_DEVICE_NOTIFY_RX_POWER_PRESENT producers bre=
+aks hotplug
+--
 
-Hi Dmitry,
+commit 6a92b4c6dc1e86451bb217218d03ed0f4be33caf
+Author: Sascha Hauer <s.hauer@pengutronix.de>
 
-Thanks for accepting MDP5 patches.
+media: v4l2-subdev: notify the bridge when the source power changes
 
-The message lists all 19 patches, but only 10 and 13 have commit
-links, the rest say "(no commit info)". Does this mean the whole
-series was applied, or only the MDP5 ones?
+This commit adds a new V4L2_DEVICE_NOTIFY_RX_POWER_PRESENT notification
+macro. It allows subdevices to notify the bridge when the source power
+changes on the connector's +5V line, so devices can act on hardware
+changes instead of only handing the value to userspace.
 
-Best regards,
-Muzaffer Kadir
+> diff --git a/include/media/v4l2-subdev.h b/include/media/v4l2-subdev.h
+> --- a/include/media/v4l2-subdev.h
+> +++ b/include/media/v4l2-subdev.h
+[ ... ]
+> @@ -29,6 +29,14 @@
+> =20
+>  #define	V4L2_DEVICE_NOTIFY_EVENT		_IOW('v', 2, struct v4l2_event)
+> =20
+> +/*
+> + * The source power state a receiver publishes as
+> + * V4L2_CID_DV_RX_POWER_PRESENT has changed. The argument points at an
+> + * unsigned int holding the same per-input mask as that control, so zero
+> + * means no input sees a source.
+> + */
+> +#define	V4L2_DEVICE_NOTIFY_RX_POWER_PRESENT	_IOW('v', 3, unsigned int)
 
+[Severity: Medium]
+Is this notification actually emitted by any subdevices in this series?
+
+While this macro is added to allow subdevices to notify the bridge of power
+changes (and is consumed by hdmirx_notify in patch 10 to detect hotplug
+events on boards lacking a dedicated 5V GPIO), it doesn't appear to be
+used by any upstream subdevice drivers like adv7604 or tc358743 in this
+patch series.
+
+When a user plugs or unplugs the HDMI cable at runtime, the upstream
+subdevice updates the V4L2_CID_DV_RX_POWER_PRESENT control but fails to
+emit this V4L2_DEVICE_NOTIFY_RX_POWER_PRESENT event. Without the producer
+side implemented, the receiver (e.g. snps_hdmirx) never receives the
+notification and fails to rescan the link state.
+
+Does this leave runtime hotplug functionality incomplete or broken on
+boards that rely on this notification rather than a dedicated 5V GPIO?
+
+> +
+>  struct v4l2_device;
+>  struct v4l2_ctrl_handler;
+>  struct v4l2_event;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261005-hdmirx-med=
+ia-v3-0-71a11a2e3e76@pengutronix.de?part=3D9
