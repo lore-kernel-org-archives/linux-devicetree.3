@@ -1,223 +1,151 @@
-Received: from mail-pj2-f40.google.com (mail-pj2-f40.google.com [74.125.227.168])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A39D42517A5
-	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 03:08:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F39319CC0F
+	for <devicetree@vger.kernel.org>; Mon,  5 Oct 2026 03:10:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791169690; cv=none; b=aJqSL5eA8QOyArUgYBL5HAN15AT021YRanzE4gj5lDkRZ4v2x8/oNqV9E4p0NBewCi2UDht3+vb/DolZUcTj6poYhHZu7Taxyl/GlX3slXCTaXoAxTHSUgl5LJxVmkHHYaGOMNcl27/js3ymcK8Fkx68LFyUSSYN/xtZL6CBZrU=
+	t=1791169848; cv=none; b=ZQkouh4gkz41uQdXbjlz0AIZbsj3iUtiHxXRfJa0SBiQ/3bLigfj729dgCg+KV1FwodKlD86hpLt/tA7CORQlEp5u85c/rgFNQXy1AzcuSjgF9TbqblpHBxK+qi7yTamT0HhVYntRaZY9ACFbG2EuDjEkMLx7W97jlKoGSEGDD4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791169690; c=relaxed/simple;
-	bh=3yFEDiOLVMsJyEOVraTu9nOIGvr8skJyU0mQeCxspoQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uf7/zCBAwHx9D3egp4+jL6QZSGDG53/Gsj9h8S0zyMul4uorekiXmcPCovgP9RjftHUZSYkSmp0DdR3wJCf3unVphmkQVkkYmEfuGsLYTm82xXnHaK3cIjTC0lHuR1cn3yCBKTzo1FfZniSLcLo6Ud7WyQzYyVORb02QfLiDvRs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OuEPmH9g; arc=none smtp.client-ip=74.125.227.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791169848; c=relaxed/simple;
+	bh=FkAYTVSx/narKs44G9kWV+3HqbiiTQQLw1ziMHERtW0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JIVxx02kYBKGeY+86QPPuVNkDYXZFBsfIDTiH9jRaL6wQAcBamDnB0lA6jBka/1YK71A6dzeIxNpxWRInzkXlI16ar9NtTqrgJQaj4PHptvDGflSXQd6VOxJFyuxf8DMtLgPdy5I9InKASdJP50gNnL+8Cw6iKmwFfArmsJmte8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=d+gM6bE0; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cdtJ1KyB; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OuEPmH9g"
-Received: by mail-pj2-f40.google.com with SMTP id 98e67ed59e1d1-3a7e13e2a77so293702a91.3
-        for <devicetree@vger.kernel.org>; Sun, 04 Oct 2026 20:08:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="d+gM6bE0";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cdtJ1KyB"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 695102qY3838382
+	for <devicetree@vger.kernel.org>; Mon, 5 Oct 2026 03:10:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=3OfEK2icYr2I7GSUxSDco0Fe
+	v4FbkyIVeW2fdTVpW8s=; b=d+gM6bE0mp8gn+PS8MsvfEEFXa2AYtPjzXEvduFv
+	bISDW94sY7FXV2hxT7ss4R+hJuJkDg7/MGREAEXDlrw2y6yBGUTTBRtbaUWreMAX
+	1BJ3dqYZEXzZ/BJEHbFSrGcQfbLwehjIrHtYlM0tHLBn7GRvA6kW2c+IUWdUt66I
+	OIEdwDWP3955Iuj9tzOOg79JHKCskYXfWLelN40GgIV48WuR9NY6UmWsr91sK4vk
+	vREcrp+x2iU+1nbaPALvUV2UhBJ4oT8jNmPKpc9Q2igrOrrMPM6NJw75WsEI/lm1
+	UG+SroPbg8/S81xTjVEx+77w6gZLf3wxkBFgNMIpX5Ad2Q==
+Received: from mail-vs1-f72.google.com (mail-vs1-f72.google.com [209.85.217.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h2u08m68h-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 05 Oct 2026 03:10:46 +0000 (GMT)
+Received: by mail-vs1-f72.google.com with SMTP id ada2fe7eead31-7bf71bbf197so1198443137.2
+        for <devicetree@vger.kernel.org>; Sun, 04 Oct 2026 20:10:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791169687; x=1791774487; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=iUwgITrS/KUPi15l4I3iar5grcNqp8PamuCjtCJWXOI=;
-        b=OuEPmH9gjMyt8ZuIRBKsASCMQkSyJaZG7JIb9h6TBkpl6F39W4ASAVBWnM6K37K2KX
-         xjCoNoqgI82TUmTdqJR+R5bvBhJbmEr3/y5zP6YQGSPDB0KzRqTHAFaFvEwmWAX/AGYg
-         5dbokoi/0iBcaa7SV4IZOxTpXOw4TKUKA77LRqnKTo+5NuRyKceq6ek9wqYb1IzmBnOW
-         hgQ+AWb0AqeujX7RlIkXkfD8MCSkwVQZhOu8Ea1saqRvyOtM3nRFiY0hCu2u9Ax+uKqj
-         TcnWWNm+rL15H4mycUJj4HV8PdYdOiD4RJ2Ho5w5pYiW04+vduPZamUjZP7uvX4rRQdu
-         P9Ww==
+        d=oss.qualcomm.com; s=google; t=1791169846; x=1791774646; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3OfEK2icYr2I7GSUxSDco0Fev4FbkyIVeW2fdTVpW8s=;
+        b=cdtJ1KyB1iD+oOm5+Sd+EDNvhKJt8AmqdUEICdclBsT31UcfAdpFGTP+coBdvjq3Qm
+         nk+zWmXGlMX82vVdQLY8Srur6uRNt/MtI2kWQrJoFBHOg5PEWYnECDClwbptYc3hfXAO
+         TfEzC4vXdacyifM5JOHYoDH6YPK06vaK47D6Jwt7B04PBa86tpEptH9bQ5051iJ/YXHv
+         mrDT4zuzpEu/dhSUOPjJq7wKOmm9e9+P4H2q/rCr4Jp3kJLCGam4hJSPu52NclEAsefH
+         F6Maze6boJGYKkdYQviR5Q8Fd7RoN9zrUFIIZ28kmPHvc14/ZGg62OpYee3cIvMZLhJQ
+         BOwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791169687; x=1791774487;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iUwgITrS/KUPi15l4I3iar5grcNqp8PamuCjtCJWXOI=;
-        b=k1JBZiNPsxcoGfIVorOKu/niBo3ru91TGd+Td2tmVZsJmK92Rw7wXfOamXy9SKhVD4
-         /zwrv+FRo7O1H+q5cV/NnfWKEowgYuczAmwynOqNOj+VAgrT3cfaJ8wfaQwvzx1obEy5
-         PXM9w2fhwIhb8hpQJqxleezLBnYYR/GdoyF1wpdXdZVy2hyVq/zpGoTiCd6J2lP3QduY
-         X72LLyh6pl5B6/jF3yyw8TE++1cVnaw4Gu6IC8KVTxH3XrS/L/c6+6uvo12F8Z5kitCU
-         SkIZnxkYaSfum4FlK+tvVE1aifCVOszs2Fd6xCxUYTvtRyEpQ/hdWjfq9KF5aNe1BDoh
-         clvg==
-X-Forwarded-Encrypted: i=1; AKwUvBwYY5dm6zzJL+Az2Fy/uDRocQTRSUj6L0V1bonqnJa/MnY3zDSQ/aJF0Oh59750cM6ojSa940Pw8Bq8@vger.kernel.org
-X-Gm-Message-State: AFq9FYJJi47YrM7aPm0bVM5+S2I5J7aldNse3On7uxRnd4xTEyXD7vPz
-	G+/E0BtGz/kib+HTuLOxumA4TVXtDAcfXhEmyt8QOexk81MkUIhBugeC
-X-Gm-Gg: AYBFou24QuUQ44Ri7Pcolz/5ciBe7ElOFl2ILHFsXC0ulJMy2QTmjGfbyMuYX5vkxuc
-	74vI/QdRsqfPOEZjWDPHsHf9SxzCzDbk7p+cuyCOSgoNxYgeQdPS7z28gbnvcPe4MGebbFIcvEA
-	MOYYDKWF0Ta4Qu2SN0H+gZmH35HVE7+wbneyxiOtOB4Kixu5pYrgZxSxHan7gyapjgmppaBLOQP
-	yZlCh0V3WdvFsjjprxSgwRchTU8F0qrPMQzXWau0xH+8ThcM++zqSTxFLcXqj4HKBUVDIcpuqKo
-	5+y1SiY8HzLyKR7MD/glNYn+SQCDBHU++CTca+awu4YExPuP6bH7o4hv2zODCOljVxkCJxBUj91
-	ZfthoBE7U3tDnaQEUffVajchrtw0YlTyigCESZohE6jRgNeZOX+x64r/MqtKiQOoojBNSq3VoBF
-	g/mokAiDtC0+nRJic/m9sqpXat+7UgQbC5kxDsCw7y5qXXhnniR0Ig+YhGlp/f8YjMPvsaOJ7lY
-	CDsh9HHRPi2EyxkBVNOrHRZCu5w7Cob8cI2L8x3xVSgpIqHDw==
-X-Received: by 2002:a17:90b:4ac1:b0:3a0:ddd6:896c with SMTP id 98e67ed59e1d1-3a6ce6af244mr7716297a91.17.1791169686748;
-        Sun, 04 Oct 2026 20:08:06 -0700 (PDT)
-Received: from [172.19.1.42] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a78e497230sm8991834a91.11.2026.10.04.20.08.03
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 04 Oct 2026 20:08:05 -0700 (PDT)
-Message-ID: <9706e01c-9c90-4dbc-a694-7f88bf7ee38c@gmail.com>
-Date: Mon, 5 Oct 2026 11:08:02 +0800
+        d=1e100.net; s=20260707; t=1791169846; x=1791774646;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3OfEK2icYr2I7GSUxSDco0Fev4FbkyIVeW2fdTVpW8s=;
+        b=VkT8hELWVw0ZGpuJ0dItc/6atu7JAB0/2dQV+IpcNKDZ0/RuTnQEzHFZaFuOfwZIR3
+         qCyvJDpGd6t0tfReqYD3J7unaMx8CLeqjOiNSVh68p3/LRtzwFd3j/rW7UOl1MlxXw6m
+         dHfocok85F6LizVMkge6ZH4aSuBHHSQjvsGPI4C6Ao50iYNDCR3AzxdALrFiDgU0wgeD
+         6VVecY7ojsEnWQjQrfPC9usglhSj1928XUh+DATW9A1DnzwrWhqC95jUlFrmYcBDx0iL
+         lZY9cprFh+Gotws9+Zehbymqg1VvRXzOLNaVzjOO/JGuioE8EsFKxPfAdzQZxuS81OxU
+         ggag==
+X-Forwarded-Encrypted: i=1; AKwUvBw0plMt3cyKmzNUzUCXuoQpNLYAGPbhgipc7Wf1+NsQr5Vz4yDtQK4jzsZkcNa9PuuEtse2YdfUQKvl@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ0D1xM7P16YSxkIfGNB4q2q9gRlDGGRk1Lluc66/1XKn8G3qWk
+	4CgbaRRyGAPSLpYiUD2t6/+oM7MPjTInk3Oi2yn4trj4kfZDHQHZ53FIKidecFDrpF+MLC5h6NI
+	yh70DFV3pN5L5E7BC8e9zpDgGsVNp6FGi5/hrgtB2JyrwoxC0yQ/ePv+SPAtnX5Ne96j/29Xda3
+	GMjQ==
+X-Gm-Gg: AYBFou2zIKuaLW77OtiZO/U/40eyI+2RPdYBEJmZFJYdnIdiJ9bHlw+abIrkPtumNJ/
+	fM+YC2KOImi4Nwp8L8n6BoU5sFBwhkZe3Ixw97qD9SLaUdERJUr+b6QtuMljxthvcvce7JmjvWR
+	YjHIgS9xQ4Wn/X9OQoSXyS9TqV1lm8Oqr8eZSh77fw6zGptaQo5Lfs4UpNd9Ij1Y3oLzSss7HUj
+	oNHyjWWXN4X9Z1dLMPv1kzn5Q5vn1MF5G49o55rocWRJIHB6JnquFqu6oSIwPJrFm7FolYITkuZ
+	kOxAreIBTdu+R9W0syV5o11coBzoGwg4V/NgThS62h2D55X/Yroudgi5jgMXg/PAD9sJ3TJitCZ
+	TqLFBEZkC4kmzdB0p5p6IzLdAwmSr+rZ2XRuAr2BaBDOI12LDxxACOfz5kbvqu0+aYefPVKDDQ+
+	Cv30sR8BrRP8wG
+X-Received: by 2002:a05:6102:3c8e:b0:7a8:d959:bd76 with SMTP id ada2fe7eead31-7c0f51af767mr2878350137.33.1791169845771;
+        Sun, 04 Oct 2026 20:10:45 -0700 (PDT)
+X-Received: by 2002:a05:6102:3c8e:b0:7a8:d959:bd76 with SMTP id ada2fe7eead31-7c0f51af767mr2878337137.33.1791169845260;
+        Sun, 04 Oct 2026 20:10:45 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a87e31035esm36650811fa.30.2026.10.04.20.10.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 04 Oct 2026 20:10:44 -0700 (PDT)
+Date: Mon, 5 Oct 2026 06:10:42 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Reza Kurniawan <imkyufie@gmail.com>
+Cc: Sebastian Reichel <sre@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-pm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: msm8917-xiaomi-riva: Enable USB
+ support (peripheral mode)
+Message-ID: <3w2te74boo63yqbfgi5mwiu4rqdjd67nmb4ums7p7whucdr2gj@5l7euw4umfun>
+References: <20260912-riva-usb-v2-0-997fe0171ee5@gmail.com>
+ <20260912-riva-usb-v2-2-997fe0171ee5@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] spi: dt-bindings: nuvoton,ma35d1-qspi: Add MA35D1
- SPI controller
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: broonie@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-spi@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, cwweng@nuvoton.com
-References: <20261001131818.110028-1-cwweng.linux@gmail.com>
- <20261001131818.110028-2-cwweng.linux@gmail.com>
- <20261003-innocent-placid-markhor-e7c6ec@quoll>
-Content-Language: en-US
-From: Chi-Wen Weng <cwweng.linux@gmail.com>
-In-Reply-To: <20261003-innocent-placid-markhor-e7c6ec@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260912-riva-usb-v2-2-997fe0171ee5@gmail.com>
+X-Proofpoint-ORIG-GUID: 10PkqY63b9-jQIbjTxvJHDNfwoXsjkH2
+X-Proofpoint-GUID: 10PkqY63b9-jQIbjTxvJHDNfwoXsjkH2
+X-Authority-Analysis: v=2.4 cv=JqlkP84C c=1 sm=1 tr=0 ts=6ac31536 cx=c_pps
+ a=DUEm7b3gzWu7BqY5nP7+9g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=pGLkceISAAAA:8
+ a=EUspDBNiAAAA:8 a=AYGg-ij1XDh01NWh1ucA:9 a=CjuIK1q_8ugA:10
+ a=-aSRE8QhW-JAV6biHavz:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA1MDAxMiBTYWx0ZWRfXzDSg9ndiBJc7
+ EpkpTGtQdyQDXxyKEBvegrfvRSwfcYCv780bAutqkl558WrR+IKZcD+oePwcdbF+Dayd0xl7pPm
+ MPXP5eo4ubU1gGT0W21UEZR9zdgVC0s=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA1MDAxMiBTYWx0ZWRfXwb0I5Az591/D
+ qqjbfD4CqyujQDIqzHS7HNQhTEJlyxf0m4JI0XEG1q7jnxS7P2E7w0VPcNRusd7ykacCf2o6mkC
+ NTkwm1GcZycVWj4ZpO8VVwp3vBqAHOQba5xyABTNY0AeXjUQuD1HZturBOrjFuQsqDwHpYH+wY0
+ +C3pvkGvw5GL74xczNgkFYooOwI7xH3/yrtW7Azbuyg7Wr2e6CIxWOntzjdKSFSr42VktLWY+0v
+ taTf75CMcHvBflHxQ5ys1hvPAy76ZEFz6uGnyZsibMzhaCncTrMihpXNUx6XgPSVH5wLSTUoNJ8
+ 8vC4CS797p9JWfA9jloa2UkE4yBVF9JwytgV5Agw61JLhxtDa1c34MuzFmGGh0vbC6ZSYQgM+oi
+ Fos98KWg6Iu6qTZNcL0VPLX2PN+oTEizYUUxIWnS4EUX6sNIrDgymKRS/J5eXhSp2H93eyCqzVb
+ N1NZg5p9P0YwI9O+WbA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-05_01,2026-10-02_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 malwarescore=0 phishscore=0 suspectscore=0 lowpriorityscore=0
+ impostorscore=0 priorityscore=1501 adultscore=0 clxscore=1015 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610050012
 
-
-
-Krzysztof Kozlowski 於 2026/10/3 下午 10:25 寫道:
-> On Thu, Oct 01, 2026 at 09:18:16PM +0800, Chi-Wen Weng wrote:
->> From: Chi-Wen Weng <cwweng@nuvoton.com>
->>
->> Extend the existing MA35D1 QSPI binding to also describe the MA35D1 SPI
->> controller.
->>
->> The SPI and QSPI controllers are separate hardware IPs. QSPI additionally
->> supports dual, quad and DTR transfers and a target-mode timeout function,
->> but these differences do not require additional controller-specific
->> Devicetree properties.
->>
->> Both controllers expose the same Devicetree-visible resources and provide
->> up to two native chip-select signals. GPIO chip selects are supported
->> through the generic SPI controller binding. Since the MA35D1 QSPI driver
->> now supports GPIO chip selects, also remove the existing restriction
->> on cs-gpios for the QSPI compatible.
+On Sat, Sep 12, 2026 at 10:18:12PM +0700, Reza Kurniawan wrote:
+> Enable USB node and PHY. Since VBUS is wired to the charger IC, also
+> set extcon of the USB node to inform the USB driver of cable events
+> emitted by the charger driver.
 > 
-> This has to be a separate commit.
+> Signed-off-by: Reza Kurniawan <imkyufie@gmail.com>
+> ---
+>  arch/arm64/boot/dts/qcom/msm8917-xiaomi-riva.dts | 17 ++++++++++++++++-
+>  1 file changed, 16 insertions(+), 1 deletion(-)
 > 
->>
->> Add the nuvoton,ma35d1-spi compatible and update the binding description
->> and examples to cover both controllers.
->>
->> Signed-off-by: Chi-Wen Weng <cwweng@nuvoton.com>
->> ---
->>   .../bindings/spi/nuvoton,ma35d1-qspi.yaml     | 41 +++++++++++++++++--
->>   1 file changed, 37 insertions(+), 4 deletions(-)
->>
->> diff --git a/Documentation/devicetree/bindings/spi/nuvoton,ma35d1-qspi.yaml b/Documentation/devicetree/bindings/spi/nuvoton,ma35d1-qspi.yaml
->> index 40965ec5163b..72f2e1e1219a 100644
->> --- a/Documentation/devicetree/bindings/spi/nuvoton,ma35d1-qspi.yaml
->> +++ b/Documentation/devicetree/bindings/spi/nuvoton,ma35d1-qspi.yaml
->> @@ -4,7 +4,17 @@
->>   $id: http://devicetree.org/schemas/spi/nuvoton,ma35d1-qspi.yaml#
->>   $schema: http://devicetree.org/meta-schemas/core.yaml#
->>   
->> -title: Nuvoton MA35D1 Quad SPI Controller
->> +title: Nuvoton MA35D1 SPI and Quad SPI Controllers
->> +
->> +description: |
->> +  The Nuvoton MA35D1 SoC contains separate SPI and QSPI controller IPs.
->> +  Both controllers expose the same Devicetree-visible resources and provide
->> +  two native chip-select signals. GPIO chip selects are supported through the
->> +  generic SPI controller binding.
->> +
->> +  The QSPI controller additionally supports dual, quad and DTR transfers and
->> +  a target-mode timeout function. These capability differences do not require
->> +  additional controller properties.
->>   
->>   maintainers:
->>     - Chi-Wen Weng <cwweng@nuvoton.com>
->> @@ -14,7 +24,9 @@ allOf:
->>   
->>   properties:
->>     compatible:
->> -    const: nuvoton,ma35d1-qspi
->> +    enum:
->> +      - nuvoton,ma35d1-spi
->> +      - nuvoton,ma35d1-qspi
->>   
->>     reg:
->>       maxItems: 1
->> @@ -33,8 +45,6 @@ properties:
->>       maximum: 2
->>       default: 2
->>   
->> -  cs-gpios: false
->> -
->>   required:
->>     - compatible
->>     - reg
->> @@ -59,7 +69,30 @@ examples:
->>               interrupts = <GIC_SPI 57 IRQ_TYPE_LEVEL_HIGH>;
->>               clocks = <&clk QSPI0_GATE>;
->>               resets = <&sys MA35D1_RESET_QSPI0>;
->> +
->> +            #address-cells = <1>;
->> +            #size-cells = <0>;
->> +        };
->> +    };
->> +
->> +  - |
->> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
->> +    #include <dt-bindings/clock/nuvoton,ma35d1-clk.h>
->> +    #include <dt-bindings/reset/nuvoton,ma35d1-reset.h>
->> +
-> 
-> No need for a new example, for exactly the same node. Difference in
-> value of a property does not justify it.
-> 
-> Best regards,
-> Krzysztof
+
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
 
-Hi Krzysztof,
-
-Thanks for the review.
-
-I will address both comments in v3.
-
-For the binding changes, I will split the current patch into two 
-separate commits:
-
-1. Extend the existing MA35D1 QSPI binding to also describe the MA35D1
-    SPI controller.
-
-    This patch will only update the title, description and compatible
-    list to cover both the SPI and QSPI controllers.
-
-    The existing `cs-gpios: false` restriction will remain in this
-    commit.
-
-2. Add a separate binding patch to allow GPIO chip selects.
-
-    This patch will remove the existing `cs-gpios: false` restriction so
-    that the generic SPI controller binding can provide GPIO chip-select
-    support.
-
-I will also drop the additional SPI example. Since the SPI and QSPI
-controllers use the same node structure and only differ in property
-values, the existing example is sufficient.
-
-So the v3 series is planned as:
-
-   1. spi: dt-bindings: nuvoton,ma35d1-qspi: Add MA35D1 SPI controller
-   2. spi: dt-bindings: nuvoton,ma35d1-qspi: Allow GPIO chip selects
-   3. spi: ma35d1: Add Nuvoton MA35D1 SPI controller support
-   4. spi: ma35d1-qspi: Add GPIO chip select support
-
-Thanks,
-Chi-Wen
-
+-- 
+With best wishes
+Dmitry
