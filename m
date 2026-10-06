@@ -1,68 +1,70 @@
 Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 650D846C4DD
-	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 16:02:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4460749E14B
+	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 16:02:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791302580; cv=none; b=d/1PsRxfJbnKftCxEmDSqa82PDGfxjsXY54PS8QTs7ofvJXxy3Z7CUIvNLUoo5qZVrgrR+h0L0l2CjQ+YCDCXVkrIPQrbZ3jokAjE2J4CQvaNNxLaWLNS7IvbKTzfZHWqrVvq1aLcZYrp/YHV0k2WQc3UHdGfY9OUP82RXnc3yM=
+	t=1791302580; cv=none; b=GhDBWftplPhOXGUDVodfV+OSjK5DOSA3SgFvUIZKynctHfZ5/EkIJMRWFygO4aGlnmgEi0RMMi1cRML5xHgXj7G0bC5lZPv9n+hl/mjExoVrzzaiCDRejVWqkcdhhwok3IaNWetC1mnO+mbD0dFp+OM6yQDYoMOcD/ChV2bj2xw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791302580; c=relaxed/simple;
-	bh=eFY0EL/+0X6JOgjuwcgNPswP21gloYHJF0IpxpUkDLE=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=jouHqQ3hhcrQbeAbmxzmnHAqRxIV7a33RCCsAWaiPR0rSSi6plrtLNy2b9HpmGw2COshSgj68sC06NdICwvMNtgSZJn7bwIWMyDBo7EDK1WHPeOdGG+RjHtwl7evJ/VrPa2ntAlk2ntG5FYVcYo+lqkaG9K0XmgXQRPBIEF3u4g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=m54ieys2; arc=none smtp.client-ip=209.85.128.46
+	bh=Ft5tajPF6rdyfGUW0BWFsN32iOQqo1FkzC57Z7wFY/o=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Btj/DFaFGWX4TBM1JdZOYnjEsnVDDViZG53SLsA6gdmlU+yl0Tt5PdmdfTyu1GUenc4+dFaO2YJwSlAjWgesDUrtERiAgt0jHPohJFmtYEis0g4cCI1DahqYZ/Z8flemL2SMmCzEVqloNDuLwPGyWxwOXuKjZeLYpiCDR9oQZTc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=fnzCrYJ0; arc=none smtp.client-ip=209.85.128.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="m54ieys2"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a061a13884so8232645e9.3
-        for <devicetree@vger.kernel.org>; Tue, 06 Oct 2026 09:02:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="fnzCrYJ0"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a172eb31f0so8208885e9.1
+        for <devicetree@vger.kernel.org>; Tue, 06 Oct 2026 09:02:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1791302576; x=1791907376; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=J8q1Zp2FdwvzE5fOrPSeuvqoT9vOFY1AG6osvW0MSLk=;
-        b=m54ieys2i8OUV1pRTbC4UJX124Lp/fhnxOQjoPIHoYI8Fr0os6szO2oPqfT9vqo6jr
-         Duym2aXiHQxPbBbk25TiraxniEmmz0R007ij4XEmR11kxwMW9ITjoV8An44UNRA+jkdH
-         +pCdBV75OKTB4ehBjWXyyS7DImnu3wuiIx6BTKQBgYjc/px+61Ta0mlks6EkBkTnvEXn
-         5+8FIxMcpJRQWKaq3fFZCMziSW0AXayZmakS0ZjN2bTLEcfs4YYor6Yhxky9+II0udyB
-         uUZxBk9B5m2Ah0RnnKi6hrLicUlDGWCNsy8i1Ldp8zrNtLt1yp6JxwjBzpHCZrG9XdnH
-         r2RQ==
+        d=flipper.net; s=google; t=1791302577; x=1791907377; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=zIRsrxbOMOkK9iDXr4aj3ra7y2Ob9j8yNJXopYjS6eU=;
+        b=fnzCrYJ0bWH/cTkJrT3ILae8a4hgqidYJuaNshNoiwsP7tvsMUgs3rC0qAY6oj5oa3
+         +Ff8xnl6qI2b53EXBjkFmGwz16Xq5XLciGiY5dQSpuomQ9y4bSXHP0ds52y2KWMDHwLL
+         jR0c5yZtG5xg5YS3N3mxhCmwSHiJG/t0RusvBHuA3NZYMC9I4XtYjfLg+X1Nj515lihe
+         071VsMZWFb5G14K+Ytkf0wXX3pHub4dItMa7r0IZpSJgObW7td4m+WjulC3sdUNIjV0f
+         dJP02fp9qYKHw09RcZFtnP+VZOVQrOPUPuJfvTnm3HD3SL8SpzH5UmQNW9RCWlASPwq2
+         Biqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791302576; x=1791907376;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=J8q1Zp2FdwvzE5fOrPSeuvqoT9vOFY1AG6osvW0MSLk=;
-        b=TrP5nrRwK33XRnzD7KDEl31+2NyvjDX1zETCT7bAHwVzOpnhsGefUtGC1X7hTpUs9/
-         pPUzgzIwsKFWGNzJLQbghIbcuB/HqItDaSS+YpMqHiC8khaMWkCmGwEJ8g7tjaZl7Ikn
-         EG1rWUU2Rr4A+VbiVTrWlP/Xn2U7Dtxus2QtR6bW0iRyupAtX9jRU6CX5zH9YjWVDvGL
-         fCHI0hpIO2HnbQvFyeSsfE5tRgCZXT0jpJqyDmEfU4wB+DOibMSpfisOW/1RRJJVetrd
-         NM9mdyJOMzdwSj6wFvpzdo/A5oy4mEkjJOpUE6tZi1RuGKi/OmTTw+Ozxw9PLI0vDPSV
-         rLuA==
-X-Forwarded-Encrypted: i=1; AKwUvBzfMmf9M0Z5+y6C/xL6/JNqxgzFgzuFifK175ejcAiCD7kFY9i5neJEEBBglHjM/epNEUwUDFlbO5ZE@vger.kernel.org
-X-Gm-Message-State: AFuF++n+mAkm0kapC/9fwCwJnqb1P10VJe4xyoiFUqk+ZpTWTa/PbYAF
-	SNaLD4ZmoXtomFDdGCA0yhWIyj6BeGjlPTAG/M1lO8UdlUKP0BtcQjc9GK8C2yXQ8Y8=
-X-Gm-Gg: AYBFou1qtyB9elnv8ZkuUu10qDH/PBlk1yRMg0UlM9kE1nh3FFqqCzLs5BP2zXHasdY
-	eBDNldjIFn9VrsZc0U+LVBf0WehDxwd2fDfinuDAj+nNyMES0WGLm8Jb6ynm7XHU2wyb1xvg+VP
-	zqbjjiAem/xSZNvAPWeIust9xJXMCPjZE/3RxqfoXsvA1dJEgZtz865v9W/pxPyeQclqJT3BztD
-	vpMgmyeFy+n+sbib59eIBuRZJSkaDkUjdZlU/qyFrm1cUMogKvuKgNWwZOEspfsWGlj8gyybp2m
-	1eRv11LztoXfF7iHP65er0ZolZ92JK7XA+/Ol5lz3EA+h3zUdlcpgGzvm0V5HysrytgWKnJ7RHQ
-	z9MPvywdswJGIwhZdbitM8ehCF4JgJy3kZ5mK6yZw7WV5Y7nVgGTIL9iy6OTphHMzl3QX4SuuLq
-	8eic/BkZwJ+OdKMcpixCPDYgz2ppoP4IIA0MDANAkDr2tpgOgucsUj6tivBmKd9QGgD+vEAGmjy
-	/dGfnudenm0X7UyrFxbpmMrknjp
-X-Received: by 2002:a05:600c:2049:b0:4a0:2644:80db with SMTP id 5b1f17b1804b1-4a17b562c6cmr22905595e9.35.1791302576578;
-        Tue, 06 Oct 2026 09:02:56 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791302577; x=1791907377;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=zIRsrxbOMOkK9iDXr4aj3ra7y2Ob9j8yNJXopYjS6eU=;
+        b=tWEP3XZm6fVw805sEX09vKik5EAGLRHn5dso6a3MgHGtwRCe4cg+8KDo9w7fTD4IaC
+         EzZKO1t6eSJTLC84sHiHbS89vvBrqBUp+TTz8FxHHxRCqceYap1OUnemSWJ/Xp5CZHs+
+         6mlkhvAoitMLU8xngoGbAlby2sQcM2mmqPFQfMTrTi3PylpEKqBsGwVg88rHHro6QGVW
+         fPFVExfiCXrXLiXpQyP5UukPfV4Ej4M6IFeXiudJ0s753HI4PM9Dt7Eb/icVlwYTJ9UW
+         OzEDwgnhZZ+0CFARFEnH7qhBAq2wU1a+yeSwvFQsTvu9EZjIuMHoQS+DinPqrVK8jrUe
+         R1BQ==
+X-Forwarded-Encrypted: i=1; AKwUvByzKVUSewneTAiUm+57LlaDBBHkEZfLvA/0NY/GoSvDmAbDfuh9pwvgF5ojOOQ/ZGGxKg4qm1zZIfcQ@vger.kernel.org
+X-Gm-Message-State: AFuF++nQfAgF4FVDJrWoBJrK7GM9wK1AXcD5S/ZEpmhI7rVXQaUSAZhm
+	XVD8ni3mPQPcPd3SMQXdnfMYcPI9GTJukBOEPz/F5ccQ5tgRi7ejKhBLr4xf2GmUHLWhuRr6+Ve
+	CwZZAfC/uBQ==
+X-Gm-Gg: AYBFou3fi+KWwNDxVE2y4Ud/WNBaux0MLEl792/zunKuPj4FBYGEEryXQQNTn85UyO0
+	hiqAQijRzJEUo/Tnzuw9YtdVnZs2iNUrDZXU2pFqyYFX3gi0VY069y86XfnmtbPdcnyjH+mADnX
+	Jh8lAFYqQp1diGsQp/c+ZDwBjdgVEFBEKTch+Tj+SzQbJ0SV7aG1SJstokpO+R6eyFibUWSAhSA
+	3u2SCgAnZ1+ppWzpdutCkPStWShOf2XH4Ge89F258wF/RiCJ6Lv0v4VpBAVmN74TBZcl2Zivgob
+	auovMAJIf8Fi8fWdRyYcBOzMXlvXLUEWDk+eAK4B8L11hOOOW0PwotOTE8WsmGGoZrezQTnqYGq
+	7kV4CETa7dDBSF7IfqvrSzowkUTOoRGzrzzgK5mNrqayvK/uZBDuGdHcTAIVqacq4X/pJO38B8t
+	FL4yg0nxslt2Ib0frOs/Zj7i0U/EsaKiDPE3w16n0EroTP8lGG7rsJ1x6JcI5x9yB9lQgocMnra
+	VJl5QFQ6zlV40c1SK6JuDt4XWZFSg==
+X-Received: by 2002:a05:600c:5617:b0:4a1:78dd:dd28 with SMTP id 5b1f17b1804b1-4a17b55428bmr21165335e9.27.1791302577573;
+        Tue, 06 Oct 2026 09:02:57 -0700 (PDT)
 Received: from alchark-surface.localdomain ([193.85.242.110])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c71d2014asm369641f8f.38.2026.10.06.09.02.54
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c71d2014asm369641f8f.38.2026.10.06.09.02.56
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 09:02:55 -0700 (PDT)
+        Tue, 06 Oct 2026 09:02:57 -0700 (PDT)
 From: Alexey Charkov <alchark@flipper.net>
-Subject: [PATCH v3 0/5] power: reset: syscon-reboot-mode: Add support for
- Rockchip RK3576 reboot modes
-Date: Tue, 06 Oct 2026 20:02:38 +0400
-Message-Id: <20261006-b4-rk3576-reboot-mode-v3-0-6edba064693b@flipper.net>
+Date: Tue, 06 Oct 2026 20:02:39 +0400
+Subject: [PATCH v3 1/5] dt-bindings: soc: rockchip: add boot ROM download
+ boot mode
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -71,11 +73,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WNyw6CMBQFf4V0bU3pC3DlfxgXLb1IfVDS1kZD+
- HcLbnRhXE5yzsyEAngLAe2KCXlINlg3ZGCbArW9Gk6ArcmMKKGSNLTGmmN/YaKS2IN2LuKbM4A
- NqwkH1piOcJS/o4fOPlbv4fjmcNdnaOMiWxa9DdH55xpO5bL710glJlgKXktNmDa83HdXO47gt
- wNEtFQS/fQ0vzw0e4RivFUVJVKob888zy9LK+Q7FgEAAA==
-X-Change-ID: 20260928-b4-rk3576-reboot-mode-d3804e39df04
+Message-Id: <20261006-b4-rk3576-reboot-mode-v3-1-6edba064693b@flipper.net>
+References: <20261006-b4-rk3576-reboot-mode-v3-0-6edba064693b@flipper.net>
+In-Reply-To: <20261006-b4-rk3576-reboot-mode-v3-0-6edba064693b@flipper.net>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
  Sebastian Reichel <sre@kernel.org>
@@ -84,75 +84,38 @@ Cc: Alexey Charkov <alchark@flipper.net>,
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
  linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2803; i=alchark@flipper.net;
- h=from:subject:message-id; bh=eFY0EL/+0X6JOgjuwcgNPswP21gloYHJF0IpxpUkDLE=;
- b=owGbwMvMwCW2adGNfoHIK0sZT6slMWQdlV59fO6HO2LMB9oMc1MOdcTfnsIoI82R/TRb7remg
- NKX0slnOiayMIhxMViKKbLM/bbEdqoR36xdHh5fYeawMoEMkRZpYAACFga+3MS8UiMdIz1TbUM9
- QyMdYx0jBi5OAZjq9KkM/3MONbC/dohs2apfalN85pCjm2yd1pPstUdFlecfs7hx5SzDP7spJ20
- qkwzzb1f+/ZzfrO0/1yh7qSbPXtnj37NCH95w4gMA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=915; i=alchark@flipper.net;
+ h=from:subject:message-id; bh=Ft5tajPF6rdyfGUW0BWFsN32iOQqo1FkzC57Z7wFY/o=;
+ b=owGbwMvMwCW2adGNfoHIK0sZT6slMWQdlV79Nion2T8ozWixZ/6da5aiGbrB0uVbZLWDY+xuT
+ 90xjzmiYyILgxgXg6WYIsvcb0tspxrxzdrl4fEVZg4rE8gQaZEGBiBgYeDLTcwrNdIx0jPVNtQz
+ NNIx1jFi4OIUgKk+sYCR4av2HxfXQ6l3JgmdT1Hc82R+Kv/C/vWRT4MbQ7YwVHyyq2X4Z854eqJ
+ ndfnFiB6vAtOdWaY3355/PzPo79LmjUveR88/xQcA
 X-Developer-Key: i=alchark@flipper.net; a=openpgp;
  fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
 
-Rockchip RK3576 supports reboots with a specified boot device priority
-mode, allowing one to override the board-defined strapping config and the
-OTP programmed priority setting.
-
-Supporting it requires several changes though:
-- The boot mode request needs to be forwarded via TF-A to the boot ROM
-  (upstream since TF-A commit 2a97ba20e901 ("feat(rk3576): forward any
-  boot ROM boot mode request on reset"))
-- Some power supplies need to be kept active across the reboot to prevent
-  early boot code from running into a synchronous abort
-- The magic values for each of the supported boot modes need to be defined
-  for the OS to use
-
-This series enables the above with the RK3576 EVB1 board as the example
-user. Other boards will likely need a close to identical change to make
-use of this functionality, but need testing.
+Rockchip boot ROMs enter USB download mode, commonly known as maskrom,
+when they find 0xef08a53c in the register they take the boot mode from.
+Add the magic under the name U-Boot already uses for it, so that boards
+able to request it can do so symbolically.
 
 Signed-off-by: Alexey Charkov <alchark@flipper.net>
 ---
-Changes in v3:
-- Dropped Tested-by tags from bindings patches (Krzysztof)
-- Link to v2: https://patch.msgid.link/20260929-b4-rk3576-reboot-mode-v2-0-5a34ca72065a@flipper.net
+ include/dt-bindings/soc/rockchip,boot-mode.h | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Changes in v2:
-- Fixed a leak of the dynamically allocated syscon_rbm->supplies (Sashiko)
-- Uninitialized access to supplies[].supply (Sashiko) is fixed separately in:
-  https://lore.kernel.org/all/20260929-regulator-get-all-v1-1-e887c66a47f1@flipper.net/
-- Link to v1: https://patch.msgid.link/20260928-b4-rk3576-reboot-mode-v1-0-65486b03bd41@flipper.net
+diff --git a/include/dt-bindings/soc/rockchip,boot-mode.h b/include/dt-bindings/soc/rockchip,boot-mode.h
+index 4b0914c0989d..88684f4184df 100644
+--- a/include/dt-bindings/soc/rockchip,boot-mode.h
++++ b/include/dt-bindings/soc/rockchip,boot-mode.h
+@@ -12,5 +12,7 @@
+ #define BOOT_RECOVERY		(REBOOT_FLAG + 3)
+  /* enter fastboot mode */
+ #define BOOT_FASTBOOT		(REBOOT_FLAG + 9)
++/* enter boot ROM usb download (maskrom) mode */
++#define BOOT_BROM_DOWNLOAD	0xEF08A53C
+ 
+ #endif
 
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: Heiko Stuebner <heiko@sntech.de>
-To: Sebastian Reichel <sre@kernel.org>
-Cc: Shawn Lin <shawn.lin@rock-chips.com>
-Cc: devicetree@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-rockchip@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-Cc: linux-pm@vger.kernel.org
-
----
-Alexey Charkov (5):
-      dt-bindings: soc: rockchip: add boot ROM download boot mode
-      dt-bindings: power: reset: syscon-reboot-mode: allow supplies
-      power: reset: syscon-reboot-mode: enable supplies for the next stage
-      arm64: dts: rockchip: add reboot-mode node to RK3576
-      arm64: dts: rockchip: name the reboot mode supplies on RK3576 EVB1
-
- .../bindings/power/reset/syscon-reboot-mode.yaml   |  8 +++++
- arch/arm64/boot/dts/rockchip/rk3576-evb1-v10.dts   | 16 +++++++++
- arch/arm64/boot/dts/rockchip/rk3576.dtsi           | 36 +++++++++++++++++++
- drivers/power/reset/syscon-reboot-mode.c           | 41 ++++++++++++++++++++++
- include/dt-bindings/soc/rockchip,boot-mode.h       |  2 ++
- 5 files changed, 103 insertions(+)
----
-base-commit: eea3fef32a9cf36abcb5975a5a594e4135a6b026
-change-id: 20260928-b4-rk3576-reboot-mode-d3804e39df04
-
-Best regards,
---  
-Alexey Charkov <alchark@flipper.net>
+-- 
+2.55.0
 
