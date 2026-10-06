@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 033B02D060D;
-	Tue,  6 Oct 2026 18:27:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A50A74A2A5F
+	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 18:27:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791311264; cv=none; b=CiGuLqu9+wgLEmMpJc62wZFzHAksr0HgBg/K2TgGQu2NcdDFg92WMujVsschbWYJVMod4ibBif6yvad/7UlgIRF2q3P+XedU5lfETJLythFcNHJm+i6BUL8TcNfTV0cddE7z1lY4f5HaTBqNX+jA9TZTn5gIKjuew1WDb9t4g7M=
+	t=1791311270; cv=none; b=brEi0DmctWD19ew/Nf5RSCaLKPwhqid9wk5++u47QqTUTu6MJnW8izu6wLgG8e741sE3fqoRt+VVWilYuAUUJWW0uMGQ2GbBlTwaLAdJy2o7dbvbclvXuZzwBtYhakNe6DDP5MiBtN9dkL//FMGXM1YwAFtH2Vw7v/OeMg7TdzM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791311264; c=relaxed/simple;
-	bh=eb0JxMahiQW40XPiWR0rkHKpbVD9ul6sLG9NMegN5UQ=;
+	s=arc-20240116; t=1791311270; c=relaxed/simple;
+	bh=e6LnMR58GdSI0hWJt4IpXBvlBoCy7uWkSgXg04VcA1A=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=n5kPZmKP+zC6En/rYouY68u4KdrpeBmV+lOD1e+asU+VjUBMiUX1PlE5rlrTuIzFdkr4SSWQ/9YFml+dh8hYiLPdM0GxIB4jVNUSbank8vNd/jx37vMdAC00jFDmwK/It0Kz8SuOMAlpRsgG4n4o80EMJmizrjH2oBUcI8PMYDI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vr+aAhEp; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=QReHjecHAYkXXuaQnxJApcgFVvwSTpxTu8MTMQMHBkXPcZwolmu/lYMzNMijoAis9bOx5XKTrGtpuTsGsq5jWsGpvAYHANzE0SrA43XHDnSgykmzTJNmMswX/2PYvosEmE05sJdZB2XKOQcGmR+kCYE8RihPDbpVjqJnJgZCA/0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hWI10ket; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vr+aAhEp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CDB41F0089B;
-	Tue,  6 Oct 2026 18:27:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hWI10ket"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C1191F0089B;
+	Tue,  6 Oct 2026 18:27:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791311262;
-	bh=mUxAqKVlEpI/5RZpt374KPo/BMSmIvJ1JmnTmCXImy8=;
+	s=k20260515; t=1791311268;
+	bh=yh0z6X++xNWZzERo84PZU7z6qaIoG2ns6zChdpzWCjY=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Vr+aAhEpocR7hPUCQm+twtRdjBweaaodGfQe013ExojIYaTuRsYMdoHGUI5lkCPuC
-	 YewHzOn5VdSmbkKeTuxnN/eXRYQoZS7rpm6KYItUfm7gWGl2B6lTvkCEqYyTS6nRlv
-	 miVRuN+SEURxXsCtbeXy2QppFJf2OMBCDke30BvjFMbntPHulICUINgtGQM/XRCWKu
-	 KSV1O47rod87XTygOZwful+y8sJsoY7pzvxpGgHA9quir4kK+fIWqmoBDoIg1arWKu
-	 euKuzVs99jrrTYQ8Hs/OI7dOIMgb76bRgTSzBtSKf4xNfzkh3mYdzt6k8GMfK0hmUt
-	 pBqITWwOEkJuA==
-Message-ID: <sashiko-outbox-162340@kernel.org>
+	b=hWI10ketAVWDtlJWhKN5pIAL3yv6YtnsinfP0UJ96EbsxaYMdhxfIU8V2AxMRKajB
+	 OP4tFiIN7oCuzzDvndxdtu1SvPN/Z6RamR2OMMxZ/I0p+pGn0EE2HXuRK0wJ1LojBs
+	 3RgYiYWFY+QF8TragxnXd6ZSld4fRJ/8mzoEzatT3OkItnsXI4nnWTpugwaZfRBZPw
+	 Ajyv3Ebv5xp+8HHv2W5MoiU8BercAWrtfxkcy+3HRgQRpwHUS90GfImckppP0OBGGQ
+	 Zk1ADO68358ukMI23+sVDMuskaHnGRsfHJ5xgn3yvyJJPWOcEvu3KYt0t0PlmEz6ZI
+	 GPxDz7TaQUZ/g==
+Message-ID: <sashiko-outbox-162341@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC v2 07/10] tty: serial: Add Cortina UART driver
+Subject: Re: [PATCH v4 11/13] dt-bindings: iio: adc: adi,ad4134: Document
+ PWM usage
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Fil Dunsky" <filipp.dunsky@gmail.com>
-Cc: linux-serial@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20261006-b4-cs75xx-v2-7-b7d6e1e24d44@gmail.com>
-References: <20261006-b4-cs75xx-v2-0-b7d6e1e24d44@gmail.com>
- <20261006-b4-cs75xx-v2-7-b7d6e1e24d44@gmail.com>
+To: "Marcelo Schmitt" <marcelo.schmitt@analog.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <d7b7074d048a1ced9d37178a529051ec0e1f0cb4.1791309733.git.marcelo.schmitt@analog.com>
+References: <cover.1791309733.git.marcelo.schmitt@analog.com>
+ <d7b7074d048a1ced9d37178a529051ec0e1f0cb4.1791309733.git.marcelo.schmitt@analog.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 06 Oct 2026 18:27:41 +0000
+Date: Tue, 06 Oct 2026 18:27:47 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,57 +47,42 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] tty: serial: use-after-free due to __init on console setup
+- [Low] dt-bindings: missing mutual exclusivity between pwms and odr-gpios
 --
 
-commit f274bba502abaeb866daa29a51921a3960bdaaa5
-Author: Fil Dunsky <filipp.dunsky@gmail.com>
+commit c1bcb33be57f5c8d53016ee21cdb73103ab97ef3
+Author: Marcelo Schmitt <marcelo.schmitt@analog.com>
 
-tty: serial: Add Cortina UART driver
+dt-bindings: iio: adc: adi,ad4134: Document PWM usage
 
-This commit adds a driver for the UART found in Cortina SoCs. It supports
-the system console and earlycon, using the current serial core API and devm
-resource management.
+This patch updates the AD4134 binding schema to document the use of a PWM
+signal connected to the ODR pin for faster output data rates. It adds the
+pwms property to the device tree bindings.
 
-> diff --git a/drivers/tty/serial/cortina-uart.c b/drivers/tty/serial/corti=
-na-uart.c
-> new file mode 100644
-> index 0000000000000..1952629de0522
-> --- /dev/null
-> +++ b/drivers/tty/serial/cortina-uart.c
-> @@ -0,0 +1,583 @@
+> diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml b/=
+Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
+> index c70b9113cd677..6a190b7a93114 100644
+> --- a/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
+> +++ b/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
+> @@ -104,6 +104,10 @@ properties:
+>        GPIO connected to ODR pin. Used to sample ADC data in minimum I/O =
+mode.
+>      maxItems: 1
+> =20
+> +  pwms:
+> +    description: PWM signal connected to the ODR pin.
+> +    maxItems: 1
 
-[ ... ]
+[Severity: Low]
+Does the schema allow specifying both pwms and odr-gpios simultaneously?
 
-> +static int __init cortina_uart_console_setup(struct console *co, char *o=
-ptions)
-> +{
-> +	struct cortina_uart_port *up;
+Since both properties describe a physical connection driving the exact
+same ODR pin on the AD4134, specifying both in a device tree could result
+in an invalid hardware state.
 
-[Severity: High]
-Is it safe to mark this function with __init?
-
-Since cortina_uart_probe() uses devm_clk_get_enabled() which can return
--EPROBE_DEFER, the platform device might probe long after the boot process
-has finished and the .init.text section has been freed.
-
-During a post-boot probe, uart_add_one_port() invokes register_console(),
-which unconditionally calls the console's .setup callback. If
-cortina_uart_console_setup() is marked as __init, jumping to it at this
-point would cause a kernel panic due to executing freed memory.
-
-[ ... ]
-
-> +static int cortina_uart_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev =3D &pdev->dev;
-
-[ ... ]
-
-> +	up->clk =3D devm_clk_get_enabled(dev, NULL);
-> +	if (IS_ERR(up->clk))
-> +		return dev_err_probe(dev, PTR_ERR(up->clk), "failed to get clock\n");
+Should a oneOf or not constraint be added to the schema to enforce mutual
+exclusivity between pwms and odr-gpios?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261006-b4-cs75xx-=
-v2-0-b7d6e1e24d44@gmail.com?part=3D7
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1791309733.gi=
+t.marcelo.schmitt@analog.com?part=3D11
