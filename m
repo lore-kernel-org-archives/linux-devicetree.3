@@ -1,170 +1,252 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 943AF2F3C0E;
-	Tue,  6 Oct 2026 14:16:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E48A92C1584
+	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 14:22:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791296182; cv=none; b=CK8hVkGV7IquqoweiEKbCYFHj5F/M1ASZdN+RNuxK+KyzLRWxEyw8dcrRUCEd/Pcf4Uf0VajvyzRcaZo9RRHtDkc7M6SPEkfeRIavBT5+33jkeDH/7u+JIdc7NkVIBPL46Y1jUGYZ3b4mYHrWeoZFrCvLq67ppZdLkL2h2GbqpA=
+	t=1791296539; cv=none; b=U53gT2WO3BNqJsqa8SRnKp3q0ZqNVGoeYteRJVr0IQa9mQag6EDb7jBG7s06digWM4lz+3DH/x2sxDYGRfUiiGCTU0b7PBYPDL+4twtRHkD/PscPq/fuVQhh+LbOUMpGbyzvQaICQjS15iROdfJUWMLn0Ev+07zhNcbfIis/DD4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791296182; c=relaxed/simple;
-	bh=n8OE6sUU/22v8JYzcIXDQZhxlASUOVM3TzT5eZMXjqM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=K97zX5p3ObctpaOcvfoSZrlBV2SKs4e1WM3LU21k45sWofmFIqrF4Zmk6gJZ8Hu7gYLzGsnJXSLcw/Ud+vfv0nExlaNO6C1sd5XPpYyjQ4fHLXlp8E0vFYHAS8eekzhh1W4/X0eIPZKkAt6+gchh6H5Lt95b09dfl6k86Bbu4mI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NyCEzdx9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791296539; c=relaxed/simple;
+	bh=WKAf6WQmm1tEH7nqcq0kd2klPf0pVwm1HCcqvO9wRus=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=W9Q+AmpxrCLxOow/w3Qdk44x5pVqF6Me2MIoDNMyuNll/7F/H2AzGbmTKM5BZxilqJ0+4xY/k5TW4xcu8tII+GvzQYpxdIFYTD4Hr8ZMOGB18Mn73z7rkHfs22hyAc+nkBWryNfHJTtz3rUFNq98qp0fbTQ6jQ1q+NRGWRDbLko=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=I2OWmxG8; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BsVnlP1U; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NyCEzdx9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46C5F1F000FF;
-	Tue,  6 Oct 2026 14:16:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791296181;
-	bh=uh0/HDHa65h1Y4pZiTg3gOriE1GFv13Xms4g8A5nBys=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NyCEzdx9Ydf+B17eOZH1EF2eKJERKZHytvtlIuTT3Ioz042V1cTVG4aN0wNTPUMXZ
-	 LOd66+UCOI4k1iWV8RiE9hDDzlsb0O3kMdpr/x7IToGOZ9T+zTwgiF+CVmPhDrLo5A
-	 zdndmiRjb+kq1kN2b/HlLDabnTjMKOofvnF4YSmlJp9s4BSAQybyfzhpyTLQIEp51m
-	 eNrvdGG800yNfg8RUtnr4A8aGRB9qdgtWnZm9m1k0DqrfbiIftYMzhQmi5KHmDo/iv
-	 5NvS8UwDwqsDELQnZH8XXcgTq2cxlkLRRcrtgix3nzo63Q08I3bKTdoQ9EznCVS0jh
-	 m0OHHarEmlAEw==
-Date: Tue, 6 Oct 2026 09:16:20 -0500
-From: Rob Herring <robh@kernel.org>
-To: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>, Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Prasad Kumpatla <prasad.kumpatla@oss.qualcomm.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Sarath Ganapathiraju <sarath.ganapathiraju@oss.qualcomm.com>,
-	Kumar Anurag Singh <kumar.singh@oss.qualcomm.com>,
-	Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-Subject: Re: [PATCH v8 01/10] ASoC: dt-bindings: qcom,shikra-qaif-cpu: Add
- binding
-Message-ID: <20261006141620.GA1950759-robh@kernel.org>
-References: <20260928-b4-qaif-shikra-audio-v8-0-ac618057fe85@oss.qualcomm.com>
- <20260928-b4-qaif-shikra-audio-v8-1-ac618057fe85@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="I2OWmxG8";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BsVnlP1U"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 696EBDWm693093
+	for <devicetree@vger.kernel.org>; Tue, 6 Oct 2026 14:22:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	97a5UrakWAv4t3YGKHHug98oReETYUquuDQhepwEIdI=; b=I2OWmxG8O1Rt6zSV
+	/eIcwM7Rcf+CyvQpRPiD305IfJe/pKH70ZmxHzDQvNtQ4dNM7fDf3GLJ2I6D980q
+	zVGsNgH1+OgEc7i5sBnIV60Pc7dl2p2jV1FZAZ7cdcwRh/hD3CL7JP7aVIvfCB5V
+	Lw4KvgKEBdwgiQujLc+GLhQ5e9ybWtTd3kgEALI9b8wFdzcRqXO8pm9ujDJCQsoH
+	CbGG0dBJCHMYr4UJQLIhjheX5/6YMseayCfVGvG1npJpRB7fPPAmHaktnxa9AF+M
+	9ZK77TFjubwNavBuOA1AszipHGasAxxlR2gN0Em4OfDq1oa1onRsDX7LUBmwE76S
+	D06NUA==
+Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h4xdu90y8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 06 Oct 2026 14:22:16 +0000 (GMT)
+Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-88c768885b4so3608655b3a.0
+        for <devicetree@vger.kernel.org>; Tue, 06 Oct 2026 07:22:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791296536; x=1791901336; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=97a5UrakWAv4t3YGKHHug98oReETYUquuDQhepwEIdI=;
+        b=BsVnlP1UrnHEgSJQYpwpRZkRhlRuqrB/l5DQ1nyBby0wCaJErYI5Cq4MZxVPQyO37Q
+         /JMHHcvPXLEgced6oJTmBPO3gChGGW8Sj+0+juz8TU2fd89HjNtAa1BIucinWWukotnx
+         AM+6r4Xvn1kHhwF5F7lEtuRAvLwosSk2hThQz/MKd+MGxxgrqA6j+MtnkTwVJRHIC/IP
+         qEpG8Fw11/lIZmWWjVFMkw+BMKfLT0scplleDYhEEfMoXz5RlSoj9+ySdrrBWpcDkox2
+         tA/hLKk7J0DQVdXO9WHaJrVEFENr5rWGUcaOaA5JFNraom0FiOoenW/EBkAbjb718zX2
+         6b5A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791296536; x=1791901336;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=97a5UrakWAv4t3YGKHHug98oReETYUquuDQhepwEIdI=;
+        b=N/7wsH18PcrtspBsjrjMlb7RZMJx49w3GC5Lc5JmQEVHWgmJfYgw9j/Fb7yuq3Mb3J
+         3YBAw1BkY3i/dFQ3RRQTN9eQe2YoYpeuQ5TPWujrzArVTyv375aORxittMpKD9G1PuxT
+         NiDPoYPGh2Bio7f0JeSTDYfoeV6M2EnM4gtmYjDwUwnDew3hGB7sDoonHHPaVp9kKkYi
+         QqJ199YxKYbJ/y/fviiirhxNP6shX7gUUQ0vtPXZJfzZqby8pEReA843FtrDd91ENG4A
+         YX8sjSoOMUjs7zNLL5cHBRsR32Jth0Rob41TGZLAzN/gNTdlOS3iWcohPZXXkDfqay4+
+         VUNQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxFknY9+A/nvx4HvTuCQmffkiWQcmTat1pZJ4lvUbfkCkzsO2oYJdbuRytDEqUP5IxqmKfOzcvFzR6J@vger.kernel.org
+X-Gm-Message-State: AFuF++kqWYM4Q4PihLseVSxkoviylbOVppSoYf5LanhxQnYGL5XU7NbR
+	/thK/5vxHLz2+LT20PSFyavmciHq/c1OVAchLTP91dugZoKgjOG+VzCU+X+vnsx9YA9Ld/0kpPu
+	ViqSYkumRhBninKBgtHTZIfnKyGsgIQgS00KZonFwCcpzAe0m4UE2aPjkaQtQ7xJ5
+X-Gm-Gg: AYBFou1VM90e1wnMh+uS50FmSk+G0YLQNJRk1oinBGoRbWiz2x27JxEdaHwNDfmAA9f
+	5rc9kj/9Sz5nc+YPzIJV3PYBXGAixVJspAMoBoH3/bCo51O5v9XUADyI42n1inZK8y5goGm1dt0
+	PX9FjWav8D0NrmL2cENrzLJduH009+EiTpiNn+yYwBXXK7a69zRe2xpklGGeXD70NMA+vVJ721V
+	FB93jfA3pul/DHdLGoiyFzCDh69s0ZjpN94BlCUIAwnwZc59lViCuyyJJ/Y4egaibod2TY1vJ30
+	fAC6ma3zNUYN9oMmGtKoDkp+fpKuSgybxQ/96grwi/LJr6xf9WSRtI4EaaHNyP1X7TlecOZAXxK
+	+2eNFUNpePSOgyoGTradyf/ommDE=
+X-Received: by 2002:a05:6a00:2e07:b0:886:9eb2:a9aa with SMTP id d2e1a72fcca58-890dbb8c48emr1339045b3a.6.1791296535339;
+        Tue, 06 Oct 2026 07:22:15 -0700 (PDT)
+X-Received: by 2002:a05:6a00:2e07:b0:886:9eb2:a9aa with SMTP id d2e1a72fcca58-890dbb8c48emr1338997b3a.6.1791296534698;
+        Tue, 06 Oct 2026 07:22:14 -0700 (PDT)
+Received: from [10.206.96.212] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-88b0968b995sm5077532b3a.4.2026.10.06.07.22.08
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 06 Oct 2026 07:22:14 -0700 (PDT)
+Message-ID: <a3f1a0da-039f-43be-89a3-ecb5df28bc1d@oss.qualcomm.com>
+Date: Tue, 6 Oct 2026 19:52:06 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260928-b4-qaif-shikra-audio-v8-1-ac618057fe85@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: display: panel: add optional wled-supply
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Jessica Zhang <jesszhan0024@gmail.com>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org,
+        linux-kernel@vger.kernel.org,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        devicetree@vger.kernel.org, rajeevny@qti.qualcomm.com
+References: <20260929-wled-supply-series-v1-0-75d0a83b4b00@oss.qualcomm.com>
+ <20260929-wled-supply-series-v1-1-75d0a83b4b00@oss.qualcomm.com>
+ <20261001-private-wooden-chachalaca-51aa57@quoll>
+ <997cefa0-384c-466f-b318-077939946768@kernel.org>
+ <cebrka4ya7u32ntiya42yx4txa3uryf5k2di234zm4enz3a6vy@xhily6qqmevo>
+ <1cd249d8-0a26-45e4-8263-dd4a120fc89e@oss.qualcomm.com>
+ <54da53e6-66db-4357-a00d-da27fb936117@linaro.org>
+Content-Language: en-US
+From: Arpit Saini <arpit.saini@oss.qualcomm.com>
+In-Reply-To: <54da53e6-66db-4357-a00d-da27fb936117@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDA1NyBTYWx0ZWRfX/AfCIXnrfx6O
+ 6/HJbw7HZR/+FuGChM9Scyf3n9yaruovqJsiuPe2/rFAdqUcpqmBjp372utMEKs0ycUuScPelqJ
+ tmsBb8KhasSRW37tvkVxdVXA07Kv0Jk=
+X-Authority-Analysis: v=2.4 cv=NshE4MdJ c=1 sm=1 tr=0 ts=6ac50418 cx=c_pps
+ a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=oPQ4ZL9H7VA3A5lk3HYA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=2VI0MkxyNR6bbpdq8BZq:22
+X-Proofpoint-GUID: iN3Ge9f_mUYaPiX_sqvk9AAkR-kz4rTU
+X-Proofpoint-ORIG-GUID: iN3Ge9f_mUYaPiX_sqvk9AAkR-kz4rTU
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDA1NyBTYWx0ZWRfX46M/b4SlA9ZT
+ BnDRLGW/R6euAP+5cpDOjA3nCZMJt5cZNcTJGDTnXHFlmPd4gNqaJwxojpVo2FLW1owSuTxh41e
+ 7f9BqOyMjnW6k0jSkQoXLugHIHLSSvQBrKDeWvIFW7bYsyatbB5D11Ye3q62eWvsQ9r3XYwkYOk
+ dPHOQtq3LLfQro6AmMxSzK+FApQO+72BhNqk11rnCfYag4tS1AC4Sp2MrQ5TrWsuEY17Dtx/qBN
+ 2pKQaCFPP1bb6mHgB6lcjqmaZvDhIbnqQwmcHCzaA+rBR4OjWtoM9hkijgPhYQ7ZTJrdcIN126f
+ g7LCnqhdFHAkOFS6C8C6JeYzxVsnG/vKfsTl/6Q1wgG1gJeqztSPiH+FOPivPgKDB7uYWqPfZY/
+ GLQNLpLZiMxj45yegi98GeAICiEyEoeNRzi14bgMDMVNrjxmad5in3CGOpvhL6CjQfPbhstPnIO
+ GeEtYckiGmubhAlz5OQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-06_04,2026-10-06_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 suspectscore=0 malwarescore=0 phishscore=0 impostorscore=0
+ spamscore=0 clxscore=1015 priorityscore=1501 bulkscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610060057
 
-On Mon, Sep 28, 2026 at 06:22:51PM +0530, Harendra Gautam wrote:
-> Add the Devicetree binding for the Qualcomm Audio Interface (QAIF) CPU DAI
-> controller used on the Shikra audio platform.
+
+
+On 10/2/2026 1:52 PM, Neil Armstrong wrote:
+> On 10/1/26 20:09, Arpit Saini wrote:
+>>
+>>
+>> On 10/1/2026 3:25 PM, Dmitry Baryshkov wrote:
+>>> On Thu, Oct 01, 2026 at 08:57:52AM +0200, Krzysztof Kozlowski wrote:
+>>>> On 01/10/2026 08:55, Krzysztof Kozlowski wrote:
+>>>>> On Tue, Sep 29, 2026 at 06:42:20PM +0530, Arpit Saini wrote:
+>>>>>> Some boards drive the ILI7807S panel's backlight from an external
+>>>>>> WLED driver whose enable input is wired to a GPIO, typically modeled
+>>>>>> as a fixed regulator (e.g. vreg_wled).
+>>>>>
+>>>>> You describe something else. What's fixed regulator should not matter
+>>>>> here. Which pin is it in ILI7807S?
+>>>>>
+>>>>> It seems you just want to represent GPIO with a regulator. This is just
+>>>>> confusing and typical downstream workaround.
+>>>>
+>>>> What's more, you basically REVERT the review YOU RECEIVED in v1. Really,
+>>>> just sneak the same stuff 3 months after like the review never happened.
+>>>>
+>>>> NAK
+>>>
+>>> After discussing this offline with Krzysztof. It's not a supply (my
+>>> fault), it's an LCD driver. So, the best way to handle your displaycard
+>>> seems to add a gpio-backlight, reference it from the panel and then in
+>>> the driver check for the backlight's max_brightness level. If it's 1,
+>>> then you have to send extra DCS commands to control PWM. If it's
+>>> higher, use normal backlight class controls.
+>>>
+>>
+>> Hi Dmitry, Krzysztof
+>>
+>> I have a few clarifying questions regarding the proposed approach. Please let me know if I've misunderstood anything.
+>>      panel_backlight: backlight {
+>>        compatible = "gpio-backlight";
+>>        gpios = <&tlmm 91 GPIO_ACTIVE_HIGH>;
+>>        default-on;
+>>    };
+>>
+>> 1) Adding gpio-backlight and check for max_brightness level if its 1,
+>>
+>>     If we model LCD_BKLT_EN using gpio-backlight, the backlight device effectively exposes only on/off control (max_brightness = 1),
+>>     we can't support the full range of brightness i.e 0 to 16383 (0x3FFF)
+>>
+>> 2) Adding gpio-backlight and based upon max_brightness level of 1 , are you suggesting to register another
+>>     backlight device that can actually drive DCS brightness. In that case we can actually have the MIPI DCS controlled brightness
+>>
+>>     If so, wouldn't that result in two backlight devices associated with the same panel:
+>>
+>>      gpio-backlight device for enable/disable
+>>      panel backlight device for DCS brightness control
+>>       Is that the expected design?
 > 
-> QAIF routes audio between system memory, external PCM/TDM/MI2S serial
-> interfaces and the internal Bolero/WCD codec. Platform Devicetree files
-> need a binding to describe the controller resources, DAI cells and per-
-> interface AIF configuration, and named constants to avoid raw numeric IDs
-> in sound-dai references and child-node reg values.
+> It's a great question because there's a large variety of how backlight is
+> implemented, and some panels can drive a PWM to an actually backlight controller
+> which uses external pwm. In this case we should model the backlight IC as
+> backlight driver with only 1 or 0 capability and use the DCS to program
+> the PWM.
 > 
-> Describe the MMIO region, interrupt, clocks, DMA IOMMU mapping and
-> aif-interface child nodes required by the controller.
+> So it leads exactly to your issue. So perhaps one way would be to either:
+> - call into the gpio-backlight from the DCS callback, we may need to fix some locking issues
+> - add way to "link" backlight devices so the backlight value can be propagated
 > 
-> Signed-off-by: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
-> ---
->  .../bindings/sound/qcom,shikra-qaif-cpu.yaml       | 305 +++++++++++++++++++++
->  1 file changed, 305 insertions(+)
 > 
-> diff --git a/Documentation/devicetree/bindings/sound/qcom,shikra-qaif-cpu.yaml b/Documentation/devicetree/bindings/sound/qcom,shikra-qaif-cpu.yaml
-> new file mode 100644
-> index 000000000000..5cabbe54d6fd
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/qcom,shikra-qaif-cpu.yaml
+> In any case the problem remains that both backlight devices will be exposed
+> to userspace, which we don't want. So additional changes will be needed.
+> 
+>>
+>> 3) I previously tried modeling LCD_BKLT_EN using pinctrl states (panel_bl_en / panel_bl_suspend)
+>>     for the enable GPIO itself. However, Dmitry suggested modeling it as a regulator instead:
+>>
+>>     Link : https://lore.kernel.org/all/qkhgg5x67sijiialucvzac275zhpjrtt47a4udjpyzmgvilut5@dcrslq3ai7mc/
+>>
+>> 4) Modeled optional regulator wled-supply: a regulator that only gates the external backlight driver chip's power/enable,
+>>     with DCS remaining the sole brightness path in this current patch , the panel-himax-hx83121a.c does exactly the same.
+>>         Would this can be the preferred modeling for such panels?
 
-> +
-> +  reg:
-> +    maxItems: 1
-> +    description: QAIF core registers
+Hi Neil,
 
-Drop the description.
+Could you please help me understand why we cannot model the external WLED enable path similarly to panel-himax-hx83121a.c using an optional bl_supply?
 
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +    description:
-> +      QAIF summary interrupt for this Execution Engine. Signals DMA period
-> +      completion, buffer underflow/overflow, error response, audio interface
-> +      underflow/overflow, interface-group done, rate detector and VFR events.
-> +
-> +  iommus:
-> +    maxItems: 1
-> +    description: Phandle to apps_smmu node with sid mask
+In our case, this supply would only enable or disable the external WLED driver through LCD_BKLT_EN/GPIO91,
+while the panel’s existing MIPI DCS backlight would continue to control the brightness.
 
-Drop. The exact provider is outside the scope of this binding.
+This approach would also avoid exposing a second backlight device to userspace. Would this be an acceptable way to model the ILI7807S panel?
 
-[...]
+Thanks,
+Arpit
+>>
+>> Please refer to this Hardware diagram I explained earlier ,
+>> Link : https://lore.kernel.org/all/bade420c-aeb8-4bdd-b0cf-3ade17b21c18@oss.qualcomm.com/
+>>
+>>
+>> Please let me know your suggestions.
+>>
+>> Thanks,
+>> Arpit
+>>
+>>
+>>    
+>>    
+> 
 
-> +patternProperties:
-> +  '^aif@[0-9a-f]+$':
-> +    type: object
-> +    description:
-> +      QAIF AIF interface child node for PCM, TDM or MI2S configuration.
-> +
-> +    properties:
-> +      reg:
-> +        maxItems: 1
-> +        description:
-> +          DAI ID of the AIF interface (QAIF_MI2S_AIF* or QAIF_TDM_AIF*).
-> +
-> +      dai-format:
-> +        description: Serial audio interface format (MI2S, TDM or PCM).
-> +        enum: [i2s, dsp_a, dsp_b]
-> +
-> +      dai-tdm-slot-width:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        enum: [8, 16, 24, 32]
-> +        description:
-> +          Slot width in bits.
-> +
-> +      dai-tdm-slot-num:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        description:
-> +          Number of slots per lane.
-> +        minimum: 1
-> +        maximum: 32
-> +
-> +      dai-tdm-slot-rx-mask:
-> +        $ref: /schemas/types.yaml#/definitions/uint32-array
-> +        description:
-> +          Active RX slots, one entry per slot. A nonzero value marks the
-> +          slot as active.
-> +        minItems: 1
-> +        maxItems: 32
-> +
-> +      dai-tdm-slot-tx-mask:
-> +        $ref: /schemas/types.yaml#/definitions/uint32-array
-
-These are all common properties. Don't redefine the type. You need to 
-reference the common schema (at the object/node level, not per 
-property).
-
-> +        description:
-> +          Active TX slots, one entry per slot. A nonzero value marks the
-> +          slot as active.
-> +        minItems: 1
-> +        maxItems: 32
-> +
-> +      qcom,qaif-aif-lane-map:
-> +        $ref: /schemas/types.yaml#/definitions/uint32-array
-> +        description:
-> +          Per-lane direction map, one entry per lane starting from lane 0.
-> +          Use 0 for TX (output/speaker) and 1 for RX (input/mic).
-> +        minItems: 1
-> +        maxItems: 8
-> +        items:
-> +          enum: [0, 1]
-
-Can't you use a single uint32 bit mask for this?
-
-Rob
