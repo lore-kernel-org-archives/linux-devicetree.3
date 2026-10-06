@@ -1,135 +1,133 @@
-Received: from fhigh-a2-smtp.messagingengine.com (fhigh-a2-smtp.messagingengine.com [103.168.172.153])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f44.google.com (mail-qv1-f44.google.com [209.85.219.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A652378828
-	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 10:45:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.153
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791283554; cv=none; b=ptDKlNlYOmOeSqChPY6r3INFn0GWdAPy/KYPZUWmHOSG9fRVwVVgVlIgZo8rRrm2b763u4LT++/5puHFx49aUEFpjDBgibL7iuhOvi/WncFTOGq0V3aCVlhjuNxDttB5KxnUVH0hMv+tcHFEzzmq9CiT6AER91LHmVoIMa2OzuI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791283554; c=relaxed/simple;
-	bh=hYnMIuf9IJ9ZXwf35KrcykFHtQwQCLcRpmeWfFT/tXo=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=PwEGbMrmJeB2aYSPljQDW09DBHR+0HPLnviulMn/ra1xltRN7W7qo81SE4TYpOS4dby9+NDFH0vtzlcmRTAAUTiKKax+ObUaq2gbOY4DfBn6hf/hfBpg5nDROGCN8XbHOpxegl4Z6p8jSkUynvaMZFGiWj+3OK403NBXKzbv0aM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=GJtFmWuP; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Ey/P3qK+; arc=none smtp.client-ip=103.168.172.153
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B0363DD522
+	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 10:47:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.219.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791283679; cv=pass; b=E+jKQOB56VPO/M6KL9MXfaWPtpp8jobofhixJn+qmXW6mSChai5VtwLj1ftmUoy3ezksDQOctsmi9julw0TV2Xw0MUmRXo/tYcLxFFlXD+aLEi//B1Unb6qGtfmNiRjSlfRaV3g7Lb1Zlh8s/47p2Pm2l7Sd1tSm1mmCEiVl8ws=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791283679; c=relaxed/simple;
+	bh=e/UFUu1HfFn6538kphTVwWa5FV2s/YJlDCcIhCs7g5Y=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=kfO3gvi9zNtzjUjmPBu+u8d/j3vo1qQBI07AbYeHeGxvJNvdqc+JMIsZ4d9mXz5/4rny/xCjfw3J2/ZJZyfk3cgI9/IKnHACMOfYGZHIzTrg0L4/IuAFeCELb0fgp3oPXEoSw49qkSUAuinBCQDT8JEgwelp0XV6nokmtq/Pzr8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a1kklJ8Q; arc=pass smtp.client-ip=209.85.219.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="GJtFmWuP";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Ey/P3qK+"
-Received: from phl-compute-05.internal (phl-compute-05.internal [10.202.2.45])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id A72181400170
-	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 06:45:51 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-05.internal (MEProxy); Tue, 06 Oct 2026 06:45:51 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1791283551;
-	 x=1791369951; bh=C4gS1mrdzGZyEHNcX8oPdYcyRpMYGZeHaaYB6VPfr/4=; b=
-	GJtFmWuPmsvtJK4iGH2wr+0fJiF/vgbi2BE5TLShefZc/YzO4lgxsVT1mujksbkj
-	9LiOLm9e1/vNqDtprGg87mdfUZtmVc2qp5VtT3znnWuhtUjlQS1qjkUuOdLe2k4I
-	uHo9J8dFIcvcFNRLZiE8v0nQ4348gy+odmm/Nsq0BYIN01RNjoJx217A1RX6OX2b
-	YThbg5Q8wqrrXTDS/Rh/HiNyjY9qEALSMHRhVLYYh7iZqlgrDQuOjtxoSvoK4EMV
-	I91Qgswx63axh8E3s/U0gIqxsJM5yfpl9iTxpzBS1yT+1bpOPF0UGk8weQZbQS8s
-	kXxGHvQCiWePx2cApmTfhA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791283551; x=
-	1791369951; bh=C4gS1mrdzGZyEHNcX8oPdYcyRpMYGZeHaaYB6VPfr/4=; b=E
-	y/P3qK+A5PyEe7+WmdYYmoyAXVaTLNBMlJ65Sw3mEMfTUXJRqx/UqA6Kf82RcInJ
-	jJrwxIoFAoK4qlWQHsWiIFD1yMZhE/Ii/7/D8ePwqj12Pqusi3WC9TEIpteW5/2i
-	W/Bxu+8o9oCxe64FVaP4CktrQSv/qhnJDBXMIs0DP2kB4Qd5OVZHufC8lCKT9+1R
-	dnab8iS7jRZHCpaBI9bSBjTBCdCwCUT4nxcYCPq0NZkJUriAfAt1d9HLALa3cvaT
-	5H+MG7Gb+tTkEl4BD/TrkmkyDJWEfv1kCEPisEknUnrkFw+GONUruFjfktcbLNLu
-	89wlloGhqllmGaBLUoVKA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=kroah.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791283551; d=kroah.com;
-	mf=PGdyaWZmaW5Aa3JvYWguY29tPg==;
-	rt=PGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnPg==;
-	s=fm2:rsa-sha256:sLCoVlrtgeTP4xJdVSwRVIv9u4vcBG9wemA0h4C8WpPaite
-	uDQuBJkIJxuVYzfv+eOTq/npZjllRdPlz3K06rLL5nvbt1BHzN73zH+bQKrXXFa5
-	DF7EnLQ7JAWmI4gTnPOipz8sjspiHwKERxSmT7/h9g72k1wf971fy+mzRe3HSsBz
-	jG2mIItIff9sGBnWKYkvBgfCN0Ib5xdfCE74LIKxSm0BIxmnte+NcGz+zSdeIOdi
-	5gwTOx7T8rwS5WJ8texr+TkCa94HrZB8o+nbYqsopLuAEZtZPUkpF2fJloCxYB9K
-	2YRx7Xc39PFmdGKRuQRazpZgWye666+3gY40Zzw==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:pzdmtJgjbNy+WiPvdAyYwifn6KAwUgmimkie6AyAc8U=:hYnMIuf9IJ9ZXwf35KrcykFHtQwQCLcRpmeWfFT/tXo=;
-X-ME-Sender: <xms:X9HEaowfHzLV7bEv776C462BzLCsojYLaC7V__en6IOX15tq1jYGMw>
-    <xme:X9HEahd-KPtFBKEAsEWVT3migvkdOer_IWN3EeFXOKHuCLnuhxw4-EZ6-xJS3VArM
-    qzwsavi4w3fJMyIzrJQvYw0nFa8nMqp_nA4vF_j6H5FXCT61ZVx>
-X-ME-Received: <xmr:X9HEatvhJKAEUwbfgEr3JA1_Ah9v2rNuSZt1trQnspr7wEzdYUndQ0oQ1oj0xL0kNJsVTon1uzpLB5FxkBU2PPc>
-X-ME-Proxy-Cause: dmFkZTFy4ly97poWc5eIB3CDioH0b7lk00ywrvxtI3dD2vlH5skS96JyuW8PGyM4KCPx/N
-    U77fhS90DigJqJud0V3fVaAttDCxLkq/UnS2mJ/LRpXNeDVazJ/atUMxnDr+P6ix9Puicw
-    wVB/Zrj0LiFcbzQhepuNoO/sLOC49ACMQz8n4kghT5mI051YmmuJpJLlLACRMGlp4QjApF
-    iYnBwSWLmBVHM3abxjVvf83CelErZCLqqUdBW1PMFkyfwASS3xnAIAFWJUFQuoUBmtgE5B
-    db3yLg+Kly76VNzLpIq+Mg3NrkmTvg8R57TPp9l3N2M0LqNvDvKdXktiXFtLeI4iLErbk+
-    TZccKL2fF4mIyHRgvl6WwUCyrMazL6TvX/Q1O+CyP9BWbHXGgG4k2M52Z57tSQmW/5XrK+
-    Srb6HPtAcKW6OxlDEi4mqMEp2ldjXoG1TQ2xC+4X/pZoVpAA4HjPCN//3osh1+QAR+5XfM
-    NyHZUiijvx4zrAh6QH8VLhVZ+R/ErlVn+T8C5sYJHQo6vO9vE+vUOBKeYmSVRMAYDUZ7R5
-    s3k/j9FJ6Nrif8GWZsuHPXdyApWwz8BpEGqp4fEPwusEyPdTcP0WiJseYQqgvcGGiqRUvW
-    R/rdrhif3lUBCBZi/AacUdnhZGetMkCaMKm2zKHVYH7pEw4J1zAPRzbsArDg
-X-ME-Proxy: <xmx:X9HEamAroRAiCFuHBTqtNvleokLi1p8sL1uhNycEG0SRlPvMvIeFGw>
-    <xmx:X9HEalFLkwAPVFbv7wc3va4mHq0RPlXbYkzJ3e9tKhrpIisf3G84Tw>
-    <xmx:X9HEamtX7oFjLY62Xnnhcb6ZnVwSA54-v5YjJCnmLR3iMEvGFk0wZA>
-    <xmx:X9HEarnrZBiAFqskCe9AmTeUF08VU3gwQTr3w854DPwEc9NOdk33eQ>
-    <xmx:X9HEamvJWzOuKhz7K6v9iqLVBctDmQrkbLmxWFBw57EgO8rOrjrXr-E0>
-Feedback-ID: i1d2843be:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 6 Oct 2026 06:45:47 -0400 (EDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a1kklJ8Q"
+Received: by mail-qv1-f44.google.com with SMTP id 6a1803df08f44-917bab38b14so31596886d6.3
+        for <devicetree@vger.kernel.org>; Tue, 06 Oct 2026 03:47:57 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791283677; cv=none;
+        d=google.com; s=arc-20260327;
+        b=sgsj7xLFuG1JCXmqQuVqTriItnIsd8D7fT7v5VcxRx85fyvHXXu2pnABz8ghwtwBv+
+         hYj7Feac4rxeXlht9pdCVQM3sBlubqezk4cEhU5mK2FzU/ixLfXkKaQ773HAXoSgtsG1
+         SHVXAeue9miWUDUU3u7I+308M+FieTmrt/MHe3RAvCuT8F1eVCCB1OGb14IwZV/0qR1A
+         vQw7WSlYspjIh09xWNpATF0twNZVMIpEfo/VUWS65D38qqsJqwKLjNNGLomqbXxEp6pU
+         G+4s6eHt79GB5LQehbRQeAfgDRi2IGUGdjWFjpdpCYTOo6ha5NaOdzXyFjUi24+yRyb9
+         qlsA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=SYZusaEHeQJp9+PNNGappmpwDZuJKs0VI2BXqV5hxv4=;
+        fh=6qOcBvqzyLgRfLi0ZWdGIq0x48T4tXpf0dC3E7U7zYU=;
+        b=B6T+ONh0ZqoihzhcaDchLefIa7Vq8UjcD2nPqegRDhNClTXeYKhdrJFNpQ1Wuhq7nb
+         xzxiT6+BCxsV65L1rVeMsPteM5rKnVE4pv8s4NIMZ6DnfAQ9P+PrBUZkIsPVYgnr2t1G
+         GunLGr2jjU3Eb2vF7qPM0epWmBcZRjACZSeayOK+9pxp3PT+OJMC0VQEplMYRbSEiGc0
+         6qMefFNgw0i648p3wOEbLPquSz4NTBnHaKx7Mphx8LQImEnwNltNi49nNPykZzDBaBw4
+         KUVYSkHrmjcYAOvEGMZ5kNjWGN6TgfwR/Dc+JRArL3KjfRddyceg/ymsq5c970ZjftUF
+         vlfg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791283677; x=1791888477; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SYZusaEHeQJp9+PNNGappmpwDZuJKs0VI2BXqV5hxv4=;
+        b=a1kklJ8QXYoIGi8lOlZsRO9VraF/W//BIFsd966H1Bj7WVBE79q3p+MOh3/Cq3rtPn
+         efHncnYAyQwhVVLjyDJBGc4At7S2q1wU9nGH90Pd84kxixRkYGsQGLpSuNbeJP6CdxiS
+         /x+WHdhXXi/vKTQN6cFFGphbo/TWu6eek1PEA5oQ3mBY9gnu2po6RVl8ctUNlNUT9rXs
+         Mq0Gq3djU69YqAZuauI4rdv0XviL0YNEfPbDO3imnSkjvZRyU22Frx6fcOcxuaSYGRO6
+         K/q6mG6ewNrU25RPub0hkE+EB9ALROElmYOCgv8T4mUB72e374CDNi7XQHqmGOTe+h7S
+         sr2Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791283677; x=1791888477;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=SYZusaEHeQJp9+PNNGappmpwDZuJKs0VI2BXqV5hxv4=;
+        b=XJp8FrmLHpneLHs/rrAs/A1bWpJGxghwM/VazcGI15bncXrg5+npUMiUiNk3kEMsQP
+         HdmJQDppCdlrKb/DfY6thJbjvLC38cClyxoLpbPpzjcNnNMYb/4N2i9S6IywEv4FeUGL
+         xGbZfPmcXlHCJfHH309RPtHUcOtW6VPLQAIo7PLJcDiTEgcCW0Yes9XnLQiMyzTQ8rL1
+         IXwbmANGVbvjKO5aeIrQDKqyqrh0K9xmr+sTYeCzUhYlnk9Bo22iUhRVLhPOtLyt5bZT
+         LhMtQtBPxAwLl1y1W70kHTJS18vewPaatAw/8IyRDO/IvppVfel5mpBy4DMnFJNkp1gV
+         WZmQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy0QqkhEZkRtWQ07u/208uwOsYvDZwG1DNdk2nhzHbFh1KUCPTDIl+XCYS/Wm83FHD9y48KBHSd9JBF@vger.kernel.org
+X-Gm-Message-State: AFq9FYJAC6OYcNEbHI8jWU6MVGLHWuTGRIAX9GdxZc2yx0b5/b/tVhid
+	9pBzOkXMgvI5SzmXtjCBFsEVpNY3qo1xX8GNL63lnpWIpiNtH5i8q/83eEWvOp/lqwZvh+YvNG8
+	fBjXISrMrr3nmcmPo4EO86UkfqY4iyWY=
+X-Gm-Gg: AYBFou2cjpsRl33B+HV3TEFPUpYWGfa7Nd8Mo+v8Zj6e3mHc+yNEz59SC2d7srxcJqH
+	xCwRWlWhc0yP8w5SsydmVeP8yVJdcVPWgmjXM7m/7G5ftQLQ7nJAuLM5leLGv+Rmeq0qmj1GQpL
+	Pwq1Sy5bYEhg3v59KC8eGWzJTg/uwnMT8J+qpS4XjX9DJxYx5h5MmcyqgItUrj3d0iazl2Pxgg4
+	Muoe0OiHYKa7u81rfLpK1O18Qi0DKEcVoXtbOCC3mzRXcPL2zTZCxlsODnWmUA7vHNa9oRQmuRl
+	DqS3l/deCLzxIlx8chuO+bS72S2rYX1k293iPajzuh2oOQx/pGu7kOFr10Lhxo+1Wu7GsBxnbXo
+	LzINlv8LY
+X-Received: by 2002:ad4:5fc9:0:b0:912:435f:1a8b with SMTP id
+ 6a1803df08f44-9198b7a05f0mr16247936d6.22.1791283676856; Tue, 06 Oct 2026
+ 03:47:56 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v2 2/7] leds: aw2013: Rename internal APIs from aw2013
- to aw20xx
-From: Griffin Kroah-Hartman <griffin@kroah.com>
-To: Paul Sajna <sajattack@postmarketos.org>
-Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Nikita Travkin <nikitos.tr@gmail.com>, 
- Alexey Min <alexeymin@minlexx.ru>, linux-leds@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht
-In-Reply-To: <20261005-aw2013-aw20xx-rename-v2-2-108ecbdf2775@postmarketos.org>
-References: <20261005-aw2013-aw20xx-rename-v2-0-108ecbdf2775@postmarketos.org>
- <20261005-aw2013-aw20xx-rename-v2-2-108ecbdf2775@postmarketos.org>
-Date: Tue, 06 Oct 2026 12:45:39 +0200
-Message-Id: <179128353952.5667.14752630401954655843.b4-review@b4>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791283547; l=470;
- i=griffin@kroah.com; s=20260910; h=from:subject:message-id;
- bh=hYnMIuf9IJ9ZXwf35KrcykFHtQwQCLcRpmeWfFT/tXo=;
- b=gxewX2HL/m5lL+vuOpm4/Sn4pb7rX32zykPyRQ64FJyOvP41n4xMSX0ZL2bkRsdWCMItg/UYL
- 59Ank6z1sdBDrzQ1ZZ6PezLrbMyXOmfwn69MzmC3izAqZxKlUAbii6l
-X-Developer-Key: i=griffin@kroah.com; a=ed25519;
- pk=HlyUkuZAN9I5qlPbOHN5N9xxdQ5sT6AbPgC4TsLCxzA=
+References: <20261006102937.10972-1-ansuelsmth@gmail.com> <asTRQ6d0-NYOeHqX@parshuram>
+In-Reply-To: <asTRQ6d0-NYOeHqX@parshuram>
+From: "Christian Marangi (Ansuel)" <ansuelsmth@gmail.com>
+Date: Tue, 6 Oct 2026 12:47:44 +0200
+X-Gm-Features: AclHuK9fa-eKez1qMwGkLA8zpyrdQxMIu76X1IlFgkWsR3UIRNVxdiubkFU4NSU
+Message-ID: <CA+_ehUw8fQHGef_L7YPQEf-wwuzP9km=G64Ty3+AkvM=fkNJ4Q@mail.gmail.com>
+Subject: Re: [PATCH v14 0/3] airoha: an7581: USB support
+To: Vinod Koul <vkoul@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Lorenzo Bianconi <lorenzo@kernel.org>, linux-arm-kernel@lists.infradead.org, 
+	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Mon, 05 Oct 2026 20:46:03 -0700, Paul Sajna <sajattack@postmarketos.org> wrote:
-> We don't want to break external compatibility, but it's better
-> if the things shared between aw2013 and aw2027 have generic names.
-> 
+Il giorno mar 6 ott 2026 alle ore 12:45 Vinod Koul <vkoul@kernel.org>
+ha scritto:
+>
+> On 06-10-26, 12:29, Christian Marangi wrote:
+> > This is a major rework of the old v2 series.
+> >
+> > The SoC always support USB 2.0 but for USB 3.0 it needs additional
+> > configuration for the Serdes port. Such port can be either configured
+> > for USB usage or for PCIe lines or HSGMII and these are configured
+> > in the SCU space.
+> >
+> > The previous implementation of a dedicated SSR driver was too
+> > complex and fragile for the simple task of configuring a register
+> > hence it was dropped and the handling is entirely in the PHY driver.
+> >
+> > Everything was reducted to the dt-bindings to describe the Serdes line.
+> >
+> > Also the property for the PHY are renamed to a more suitable name and
+> > everything is now mandatory to simplify the implementation.
+> > (the PHY are always present and active on the SoC)
+>
+> I get build failure:
+>
+> drivers/phy/airoha/phy-an7581-usb.c:7:10: fatal error: dt-bindings/soc/airoha,scu-ssr.h: No such file or directory
+>     7 | #include <dt-bindings/soc/airoha,scu-ssr.h>
+>       |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+>
 
-I understand the impulse, but the preferred way to handle this situation
-is just to rename the properties unique to your new driver, otherwise
-this code wouldn't make sense to be in the aw2013.c file anymore :)
+This header is present in linux-next
 
-Thanks,
-Griffin
+https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tree/include/dt-bindings/soc/airoha,scu-ssr.h
+https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/commit/include/dt-bindings/soc/airoha,scu-ssr.h?id=11952173d8a180ac05641775f80bd6946327478f
 
--- 
- 
-
+Introduced by a clk series.
