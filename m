@@ -1,149 +1,106 @@
-Received: from mout-p-101.mailbox.org (mout-p-101.mailbox.org [80.241.56.151])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6376E30ACF0;
-	Tue,  6 Oct 2026 05:48:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 849D136EAB0;
+	Tue,  6 Oct 2026 06:03:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791265715; cv=none; b=hrgIfWth0eSyWsEnTXAslPSqOllxSghj4zEfdI53WaOmutXezuI8GnMo13YPWiolvW9xnFz4MCM7JiHw9gx0W0GZP8+oV4HP/bePzNxOZxRIBAX3FsC2Km5IB0Pt1rR69hUXyp76NB1BVFE6P7EUfaioLDVs1HQUxC7bZzeDG3Y=
+	t=1791266582; cv=none; b=nrEb3eVzjGTZgUIYR7trbHgG3zE85rvCrqdX5Apmn7b5Tb6hJQMmNVFM0jvxUAjfZAOYs2RQBuR7+QFRjZm5ixoPjgZftO/YDFshX4icM9xcnb0aEq33NlkXgqcFygawBvvsxuNboKOO7MySWvi65sm/f0eNufYihyjff//WiyY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791265715; c=relaxed/simple;
-	bh=bWFHcT3cQnXUfVn+E4GPd6ugdQHGNoy+3sAGbounbAc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=uVuzFFGBOzSYM+h5K6saAT46LvWORakGsAp9GCQOvI42ZMfACT7yYjwDTunwNcyeHDBk3HPAm9q8+7hwDfUovcsCfvG9Esw7j1MkkIwqAWK1vbkPvo0N2dFlgWlfA+Eq5xz5cUp/KEFjBsF6uYi1RjvuqPOGBqoHXtqe4mNOvr8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=tzbPh0+T; arc=none smtp.client-ip=80.241.56.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1791266582; c=relaxed/simple;
+	bh=4RrppC/03roNa+H8YcGtw0/eBWvITbBtHds3QUWqoks=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=j5JyHALNBRL7fo+wB1DzCIxCNqG/mitR5JzWyxgldN16ZNE1a1bDJxI5JD54R/MxuVZnhyB5u0kUWhrxAbw2NxtKP38PQz8G6iO6pe0+Syjnw3//bROgjZ2O0OCnEv6HAd8hFz9WNeQpzkzXpXp792ezFd2uYMY0ov+/nRjDO8w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MZVYLceG; arc=none smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="tzbPh0+T"
-Received: from smtp202.mailbox.org (smtp202.mailbox.org [IPv6:2001:67c:2050:b231:465::202])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-101.mailbox.org (Postfix) with ESMTPS id 4hzQKM56kzz8twZ;
-	Tue, 06 Oct 2026 07:48:23 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1791265703;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=K/f9oCJzacuOtCMgIQ2RlyGSpR3oGeLxyRwyU9u3vJo=;
-	b=tzbPh0+TlNHJvmbQrUpGcz8Skkdq2EJqWqcDif/G3wj3HvVi5QLw6BNFgM+cfj1OCbZXfO
-	4v3U6JUw+86VZ7E7t2w2ErJVNrVnWvEGlwvEbH1wIU94vhQwKxi3wrV6F6dD/kx6qm6Wr5
-	sTbWz2W1mfprRrlf8A8IQ5uhuM+ll4ZPqT5Eu8Wzru2ckQA96Wnm2ayiOxbaQmuw+Cq8xK
-	nl/c8fDozTdRQjFNyAmBNCBdKizc8PwI2IK2AKnfX9cE7a75DNQ/0InH3JyAniZNkoO2VH
-	itbWCNXfibhPE2e8xwKPrbM4JS7vLofePYnAPL2h8WmIikMFo9maiqIjhjZlkw==
-Message-ID: <f4ca9c43-aaf8-4c15-9b29-363414779e41@mailbox.org>
-Date: Tue, 6 Oct 2026 07:20:11 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MZVYLceG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791266581; x=1822802581;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=4RrppC/03roNa+H8YcGtw0/eBWvITbBtHds3QUWqoks=;
+  b=MZVYLceGXiF0FbddReTV5BDwgsuFmIAVsBgc2u7xAB5AZUkw9EURGGXp
+   oTxXCuKZCvZg2HSyaXYpV43eYcTGy2bcnF3eFk4HxnGUdiu0q5GgzTR6U
+   LK2JxTIPQCS9vYxkHe7y16O+eFiT6PVTwqQVmTPo3Uuy7+MDzSCBWIK32
+   MWaxSjH8QxlBUFMIzrAi1/mXw/wVr77dcgjrzctjxpP20Ip3Ej+0w0A9A
+   f1MX+KS5jLezXIqf8u4D0xhDVekJl9eC2/TpgC9EYC8ACHQQf+GTzn9az
+   6+AdkgiDtCMHatYryswJAF5GJjDYtqBExL50awGuzrXRc21gltcY25AZF
+   w==;
+X-CSE-ConnectionGUID: 7Ht8SClzQ42+jRimMUP6Bw==
+X-CSE-MsgGUID: oP+m7+PQRGq2Sdk45oYxsQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="94434227"
+X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
+   d="scan'208";a="94434227"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 23:03:00 -0700
+X-CSE-ConnectionGUID: r57R8brgT1q9IQDJith4fA==
+X-CSE-MsgGUID: 2M2cMkSNT6C+eXkret5tuA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
+   d="scan'208";a="276180007"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by orviesa008.jf.intel.com with ESMTP; 05 Oct 2026 23:02:57 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xDyGM-000000001DE-11Dp;
+	Tue, 06 Oct 2026 06:02:54 +0000
+Date: Tue, 6 Oct 2026 14:02:35 +0800
+From: kernel test robot <lkp@intel.com>
+To: Thomas Bonnefille <thomas.bonnefille@bootlin.com>,
+	Puranjay Mohan <puranjay@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	=?iso-8859-1?Q?Miqu=E8l?= Raynal <miquel.raynal@bootlin.com>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Thomas Bonnefille <thomas.bonnefille@bootlin.com>
+Subject: Re: [PATCH 2/2] iio: temperature: tmp117: add support for HIGH and
+ LOW alerts
+Message-ID: <202610061423.9wuPD5b6-lkp@intel.com>
+References: <20261005-add-tmp117-notif-v1-2-c6cef6fad64c@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 15/15] arm64: dts: renesas: r8a779f0: Describe the PCIe
- AER interrupts
-To: Koichiro Den <den@valinux.co.jp>
-Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
- Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>,
- Lorenzo Pieralisi <lpieralisi@kernel.org>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>, Jingoo Han <jingoohan1@gmail.com>,
- Philipp Zabel <p.zabel@pengutronix.de>, Frank Li <Frank.Li@nxp.com>,
- Niklas Cassel <cassel@kernel.org>, Wilfred Mallawa
- <wilfred.mallawa@wdc.com>, Serge Semin <fancer.lancer@gmail.com>,
- linux-pci@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260928165230.3397664-1-den@valinux.co.jp>
- <20260928165230.3397664-16-den@valinux.co.jp>
- <d9ffb9f3-ad89-4912-b863-637c838196cb@mailbox.org>
- <mtczl7e3tlwt26gj56wmvfeotuvd63dfpsmazo3yg4sqstyuhn@omeidmdgauzz>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <mtczl7e3tlwt26gj56wmvfeotuvd63dfpsmazo3yg4sqstyuhn@omeidmdgauzz>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-MBO-RS-META: f7xtbstsca31pjg4c6b7uatdib6i1qhp
-X-MBO-RS-ID: da55d30359b515db82d
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261005-add-tmp117-notif-v1-2-c6cef6fad64c@bootlin.com>
 
-On 10/5/26 7:11 PM, Koichiro Den wrote:
-> On Sat, Oct 03, 2026 at 10:00:13PM +0200, Marek Vasut wrote:
->> On 9/28/26 6:52 PM, Koichiro Den wrote:
->>> The PCIe controllers report Root Port AER notifications through
->>> intreq_pci0_lperr (SPI 421) and intreq_pci1_lperr (SPI 428),
->>> respectively, separately from the integrated MSI receiver interrupts.
->>> Describe these interrupts with the "aer" name so the controller driver
->>> can use them for Root Port error reporting.
->>>
->>> Append the new interrupts to preserve the existing interrupt indices.
->>>
->>> Reviewed-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
->>> Signed-off-by: Koichiro Den <den@valinux.co.jp>
-> 
-> Hi Marek,
-> 
->> Please also feel free to add this patch for R-Car V4H (performed cover
->> letter tests 2 and 3 on Retronix Sparrow Hawk)
->>
->> diff --git a/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
->> b/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
->> index 5284923b6cef7..8342d3c6f9881 100644
->> --- a/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
->> +++ b/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
->> @@ -801,8 +801,9 @@ pciec0: pcie@e65d0000 {
->>                          interrupts = <GIC_SPI 449 IRQ_TYPE_LEVEL_HIGH>,
->>                                       <GIC_SPI 450 IRQ_TYPE_LEVEL_HIGH>,
->>                                       <GIC_SPI 451 IRQ_TYPE_LEVEL_HIGH>,
->> -                                    <GIC_SPI 455 IRQ_TYPE_LEVEL_HIGH>;
->> -                       interrupt-names = "msi", "dma", "sft_ce", "app";
->> +                                    <GIC_SPI 455 IRQ_TYPE_LEVEL_HIGH>,
->> +                                    <GIC_SPI 454 IRQ_TYPE_LEVEL_HIGH>;
->> +                       interrupt-names = "msi", "dma", "sft_ce", "app",
->> "aer";
->>                          clocks = <&cpg CPG_MOD 624>, <&pcie0_clkref>;
->>                          clock-names = "core", "ref";
->>                          power-domains = <&sysc R8A779G0_PD_ALWAYS_ON>;
->> @@ -850,8 +851,9 @@ pciec1: pcie@e65d8000 {
->>                          interrupts = <GIC_SPI 456 IRQ_TYPE_LEVEL_HIGH>,
->>                                       <GIC_SPI 457 IRQ_TYPE_LEVEL_HIGH>,
->>                                       <GIC_SPI 458 IRQ_TYPE_LEVEL_HIGH>,
->> -                                    <GIC_SPI 462 IRQ_TYPE_LEVEL_HIGH>;
->> -                       interrupt-names = "msi", "dma", "sft_ce", "app";
->> +                                    <GIC_SPI 462 IRQ_TYPE_LEVEL_HIGH>,
->> +                                    <GIC_SPI 461 IRQ_TYPE_LEVEL_HIGH>;
->> +                       interrupt-names = "msi", "dma", "sft_ce", "app",
->> "aer";
->>                          clocks = <&cpg CPG_MOD 625>, <&pcie1_clkref>;
->>                          clock-names = "core", "ref";
->>                          power-domains = <&sysc R8A779G0_PD_ALWAYS_ON>;
->>
->> And a matching patch for R-Car V4M (boot tested, but the board has no PCIe
->> device plugged into the slot)
->>
->> diff --git a/arch/arm64/boot/dts/renesas/r8a779h0.dtsi
->> b/arch/arm64/boot/dts/renesas/r8a779h0.dtsi
->> index 5f9223a0f4468..a377aab3c8be0 100644
->> --- a/arch/arm64/boot/dts/renesas/r8a779h0.dtsi
->> +++ b/arch/arm64/boot/dts/renesas/r8a779h0.dtsi
->> @@ -683,8 +683,9 @@ pciec0: pcie@e65d0000 {
->>                          interrupts = <GIC_SPI 449 IRQ_TYPE_LEVEL_HIGH>,
->>                                       <GIC_SPI 450 IRQ_TYPE_LEVEL_HIGH>,
->>                                       <GIC_SPI 451 IRQ_TYPE_LEVEL_HIGH>,
->> -                                    <GIC_SPI 455 IRQ_TYPE_LEVEL_HIGH>;
->> -                       interrupt-names = "msi", "dma", "sft_ce", "app";
->> +                                    <GIC_SPI 455 IRQ_TYPE_LEVEL_HIGH>,
->> +                                    <GIC_SPI 454 IRQ_TYPE_LEVEL_HIGH>;
->> +                       interrupt-names = "msi", "dma", "sft_ce", "app",
->> "aer";
->>                          clocks = <&cpg CPG_MOD 624>, <&pcie0_clkref>;
->>                          clock-names = "core", "ref";
->>                          power-domains = <&sysc R8A779H0_PD_A2PCIPHY>;
-> 
-> Thanks! I'll add them as two separate patches in v3, with your Suggested-by.
-Thank you !
+Hi Thomas,
+
+kernel test robot noticed the following build errors:
+
+[auto build test ERROR on 551c722f40809618230001baccf219193e22fc5a]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Thomas-Bonnefille/dt-bindings-iio-ti-tmp117-describe-interrupts-for-TMP117/20261005-164419
+base:   551c722f40809618230001baccf219193e22fc5a
+patch link:    https://lore.kernel.org/r/20261005-add-tmp117-notif-v1-2-c6cef6fad64c%40bootlin.com
+patch subject: [PATCH 2/2] iio: temperature: tmp117: add support for HIGH and LOW alerts
+config: i386-buildonly-randconfig-1004-20261006 (https://download.01.org/0day-ci/archive/20261006/202610061423.9wuPD5b6-lkp@intel.com/config)
+compiler: clang version 22.1.3 (https://github.com/llvm/llvm-project e9846648fd6183ee6d8cbdb4502213fcf902a211)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261006/202610061423.9wuPD5b6-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610061423.9wuPD5b6-lkp@intel.com/
+
+All errors (new ones prefixed by >>, old ones prefixed by <<):
+
+>> ERROR: modpost: drivers/iio/temperature/tmp117.ko: symbol '__udivdi3' undefined!
+ERROR: modpost: drivers/iio/temperature/tmp117.ko: symbol '__divdi3' undefined!
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
