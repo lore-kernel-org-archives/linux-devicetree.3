@@ -1,129 +1,110 @@
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com [209.85.210.175])
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84A4A390981
-	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 06:36:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C7CC394783
+	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 06:42:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791268615; cv=none; b=tkKSrE5syNFyMlFnZzw+BfrnR4PPIg0S631SSe1zV3yKDDz4B9PDiFsojFt595F8gIbYgvjIwLoMUEHlKfLX+usFhHp7epgaYvqm98iMRE86QgkLbCRvwA9b4E5WadgKH1sK54wFJCYsTQ1jBSj+XfgwIyqVUAQEn1Ug3ragWi4=
+	t=1791268970; cv=none; b=tbuN4eeEcESVN1lVOhliSH7/V5Bacw4diCaHfM5ZRAu9J7vHG4RmWje0rQQ7hW9Po8eibwP3xszBlpMP0K37ikg3M6DEwLqDclce2x/Zhm92+Tt0a4LfjEYJgT6KHemplfKNMpXRQjkFml8D5BWD7KRqpSeQIQrYJa19hrCAHNY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791268615; c=relaxed/simple;
-	bh=DehrlvGFJbgB6EByjRUCSsgYcA5AqtbttJ75nffiJL0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=KLhUzWWOuPj2+9PGXg3P7kNGMa0jbBfyK7+LOjdRkvARoiyeLD0ifPVetAEXQ/mpzh1lABglkUV29OKevlo+CcUAwy4nahg9+0Wg3watq/DIEMf7oKsjPa0/gxQNwiLgoYDGH+9KGC6+tnCNdTZAFNMvtx9gF+SokCGcjvBLWfM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Dct/Emr8; arc=none smtp.client-ip=209.85.210.175
+	s=arc-20240116; t=1791268970; c=relaxed/simple;
+	bh=/89uV7ti2K11U3cB31sSgf1JcllbYfkCwr4VKRFLXo0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=jAMd1qeC/ekk/RgzGZeWD8pArmHC2/5h4DdZYy2TTZ3fxxbtuUXdXuVsqTAkQdEYhzFzbwb8NHB2skapZ/0axfR0/nI7mQKcyBDAIVo5TtTza+l0rWqPZD8z9CNv3re7HfFyKwubq87vreloV1i0lQTD4G97WT6/afReKExh3QQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=R0c29tWA; arc=none smtp.client-ip=74.125.82.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Dct/Emr8"
-Received: by mail-pf1-f175.google.com with SMTP id d2e1a72fcca58-872024e2b4eso158037b3a.0
-        for <devicetree@vger.kernel.org>; Mon, 05 Oct 2026 23:36:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="R0c29tWA"
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-34ef8f66a6bso327712eec.1
+        for <devicetree@vger.kernel.org>; Mon, 05 Oct 2026 23:42:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791268612; x=1791873412; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6zokyqVAZo/3wOkzS2UYtFNTlUvQWqnfGSA9wFDnc6s=;
-        b=Dct/Emr8TYxbWWRlwrxQ98zQoy2taOIntE1DT7W4M2qZf4d3amQ+lylqSnkxLClTKM
-         n0eCRd8aSQyz2oXZhKDcW75A1GBbWXlIpC2SfTwZPB1GNfpofyj8vYQPVC9aG9ezqk91
-         tJlqk9Adrdr1J8Slquo+sidBPe8z2+YG7nW/WjgvM3AE3ZL2IbJ/8m0PLlFGUsQZfOBp
-         53rRGMSeQfPpNLZBLDABu9DURSRPyyI4TLCz8IWw8TzE6lhcs55tKwn3/xCXMHWfEUAp
-         8l3z8eztgd4/N7nwSkuT9W5vyaAu6LQVmtSJonsRArdKpfoQDAlyKI4j3s/4SI8EBDh2
-         FpOw==
+        d=gmail.com; s=20251104; t=1791268968; x=1791873768; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Jj0M0FNSVgErT6nNNDG/5xniUjNErRGkcSo2LLHcxBY=;
+        b=R0c29tWAF4PalyEtX6wbtcrtPBAISA3Z2010/RluzMRWqM6u+lqKDilUMd+YY31CFh
+         pa+FSiLRvdNtis1UUHNPZW+cfTvFV/GH08FzQ3ydBYB9StfBl7VMm+VNlLAsF8+0mqho
+         9F9dpVsOhUWVnzzYFKWceItUygfEx7dhgcJWDvDQ2RkQ7UqgR7ouXmxFbKhNiPKocLZZ
+         eT9Y2k3btLHfSFRgaGXNfT7mje5VidLv5dE1AoFyoqfP3Y487ImCiTedqDRQ5sm9B7l8
+         1+/S/az4xetLIopzXCDTtUMfdVE5lX145MAG5N4j//YiiKKErcNFCFHavLhlnTnZ6Dj6
+         23Ew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791268612; x=1791873412;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6zokyqVAZo/3wOkzS2UYtFNTlUvQWqnfGSA9wFDnc6s=;
-        b=yusZZZoOP8OoOUahXMJqNBa+lR3pdSi4GZxRkDGx1uH9D0n/yZYLMtY8Ewcsl2CTnh
-         yYknGEry63rE9BtORTM76fxv8pfw5XKlqNosn3CG1HARqLV14cusJ2/TUb70pZu8MGEi
-         AisZIOqQ0QXIchug+3Bhf1aKD7v1sjqOr4p3l6fkBz0VpZx2dk/BemZ8S+95vl13BOtG
-         ZpnXQ2IbIojh3CBBJx4ouACt9cC/zMJTBlsO+UbaUZA/ReEyQTNJSYy+BPtqF9obNV3M
-         /0vSE4/mwG4O4TEsBsE5SfNDHzmte5YYnIwfe9ZIFkFCY3PG0eztRig5bgGSIb/+Iu1n
-         3TTw==
-X-Forwarded-Encrypted: i=1; AKwUvBwPTxjwh0iioFN1GLMFi8IzdfRSy33maxfgkktBvCWflbTJRlQDg6hjfn/IakrKdMMjH1QZmI21BQOy@vger.kernel.org
-X-Gm-Message-State: AFuF++kL5lfTmYRpMW9U/N3w7VTyA2Kfr8n05nTdg20/VO3KdvgVdaWi
-	xWdJ0PUOlKUWDRAj/UWdGievqpYESq5zAxeEAhttWqTRhV/KUzbGEI+l
-X-Gm-Gg: AYBFou2NfVqQRzqX6wHkblTqmhwbZvWx3JGNY7TV5/VjrTO33ujq38bZ3RUw/Xe2wtd
-	ODoYWoQHZcUCM4RoboN+MuCBOzVEgfm2ht36VsvSVRe5PU/11vn6EIERJ88sWpUZt+YJGiQ0HM1
-	ravuEt3aPa65wSK44SNXZ2vCuaTcow14vyHq1WrvFRMPrnS/s4mYQ/lrX5qOYJ4z3aKAnvS/wZ6
-	5CNTb1kPSwymwKMDRMsdZN0r3U9D7esYYZ9vm8W4a9698TLwwP8DXQ1tDV9/KNyuz/2P1VVazTY
-	8vkTkWRiySH77UcALaSV5TfQcORtYaVwojHVS2WSTZRVo18RtFwJGERXMCG1amMiv+pQDcawrgc
-	hdHs4/Hsk5dH50jZfPacfjOk/TLDbUBqd/zYml5yOdBWsOBRe+CN5QjfGJaVVgP1EFcpywuGEDy
-	BaYEHZm/yn5iKZZuPc4rVqjst4RpuNkFtIYM8gk3fJnPXdRUbVQP4Fj1Mc5NJ3rDGvIKCDAcrAE
-	wNH3bpB0yFQNEbOEHYAbJ+CheGXrvWYivMRzDpyRT05V289XKZzN6L+uLmYDAdEK8/PwBwS
-X-Received: by 2002:a05:6a00:3689:b0:878:6ee:672b with SMTP id d2e1a72fcca58-890deacd37bmr383696b3a.35.1791268611801;
-        Mon, 05 Oct 2026 23:36:51 -0700 (PDT)
-Received: from localhost.localdomain (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-88b0c792ce7sm4340790b3a.41.2026.10.05.23.36.48
+        d=1e100.net; s=20260707; t=1791268968; x=1791873768;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Jj0M0FNSVgErT6nNNDG/5xniUjNErRGkcSo2LLHcxBY=;
+        b=DWC1k9F+GlIx2YANgKpAeAbw66d3/kw2JU7rUs5XH8Z1yiYosQdS4bAqqnDgjd4wBL
+         /1s8NaQSvTj9gTWMwi9OcaUhrTpIZID86m9uKl0zrwSCi6DwWAz8MEWWPS84ws6p46XS
+         WaRq3qnSaL7ja0rATIeTEmkRwW57da+KNcWwdSn9VerzvzaLBXhstizMkW2oYumuK3Pr
+         ZxlbWWY4ZmxwvjC8zHWM+qS7g6rlRGeLpAZHA99WXeFrkQnzboE9D34HC+6nB8bMCBOB
+         /S8CmI9N7X2/rOMxyvjqZDjJEnBpXCi3JzmRsdI/Juuk0/dybiPJG9CHVzhzUrhQQR+y
+         3Zbg==
+X-Forwarded-Encrypted: i=1; AKwUvBxO7VocJDoQPRYGANwv31AhBvycXLksNve7+kOT8X/l55TE1En6C7R89WqxpRgqikfa7Yr2E3C2xJNB@vger.kernel.org
+X-Gm-Message-State: AFq9FYI9LE30/W6WuYyTZnKnaV6ApVue33zEa+55zWfcOY8ZPYpnX+J3
+	cjNGvOYODw815AKfKjB5av14kZIeJi+mw8jXagq23IXqGDgBcvzzaAJP
+X-Gm-Gg: AYBFou326I1fjCB2XtjEPaN0JacjsyZ+hmQpZio1UYSX/HMikOtEwqv7Zo7Xll0D8yh
+	v602scyiffdGF4tToFGOQpVxUeiYd34W+TmEzSCAbkkVpYtI39DxPtEkM2cx/ZPThiVYj1wW5Sz
+	8j0am3dJvAyDr36bMvpbRzLdKrpE4ShqXdPBbRRRTBrdc4UA5vx2UH6vvYhDbcAvyLzacHbHUCV
+	f3hx5hiiiG8BPELXSjyYpf56ZQ9ll1lnFZmYDPyEhzQPl1E+uWQsGpDLEfKjjP0dk5W8bEKG2Hy
+	BXb+3H8qygO3e4OJriVVNmjK2potG+9PJOMfoaS1vtOSD2J6d8NGmzVMM50Kd4I+7FcuIKTcJzX
+	xPLLbKQhUrYqn1WfSl/H463svA9oFI68o7oK8cTab4Y60M62A+IuS/kyBGW0OJMevoTop6HYiCK
+	uuoxYrqZitrzb5TuZMDY0r1UpiS34+mznwkmsO1p+d/t7b1CHT5ntE5sZo6L1fMeLWl6+PkdudT
+	4MBKufT
+X-Received: by 2002:a05:7300:3e8a:b0:34b:fd9e:ad4f with SMTP id 5a478bee46e88-3514e314fbbmr452029eec.22.1791268968324;
+        Mon, 05 Oct 2026 23:42:48 -0700 (PDT)
+Received: from localhost.localdomain ([2a09:bac5:55f5:25c3::3c3:b])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35146a2c991sm4617347eec.14.2026.10.05.23.42.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 05 Oct 2026 23:36:51 -0700 (PDT)
-From: Chi-Wen Weng <cwweng.linux@gmail.com>
-To: broonie@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org
-Cc: linux-arm-kernel@lists.infradead.org,
-	linux-spi@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	cwweng@nuvoton.com,
-	cwweng.linux@gmail.com
-Subject: [PATCH] spi: dt-bindings: nuvoton,ma35d1-qspi: Drop redundant SPI example
-Date: Tue,  6 Oct 2026 14:36:43 +0800
-Message-Id: <20261006063643.198830-1-cwweng.linux@gmail.com>
-X-Mailer: git-send-email 2.25.1
+        Mon, 05 Oct 2026 23:42:47 -0700 (PDT)
+From: Chuanhong Guo <gch981213@gmail.com>
+Subject: [PATCH 0/2] Add MT7629 RTC clock selection
+Date: Tue, 06 Oct 2026 14:42:22 +0800
+Message-Id: <20261006-b4-mt7629-rtc-v1-0-e556386df816@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQrCMBBA0auUWTvYhpA2XkW6mMSpHbBRJlECp
+ Xc3unyL/3fIrMIZLt0Oyh/J8kwNw6mDuFK6M8qtGUxvXO+Nw2BxK6MzHrVEHO00LeRtGChAa17
+ Ki9T/7zo3B8qMQSnF9Xd5SHpXTFzLeaNcWOE4vjjXKlmDAAAA
+X-Change-ID: 20260926-b4-mt7629-rtc-7488fa94b1ab
+To: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>
+Cc: linux-clk@vger.kernel.org, linux-mediatek@lists.infradead.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, Chuanhong Guo <gch981213@gmail.com>
+X-Mailer: b4 0.14.3
 
-From: Chi-Wen Weng <cwweng@nuvoton.com>
+The MT7629 RTC mux can select the 40 MHz crystal divided by 1024 or
+1221. The integrated Wi-Fi needs the /1221 source, but the clock
+driver currently exposes only the /1024 source.
 
-The SPI and QSPI controllers use the same Devicetree node structure.
-The additional SPI example only differs in property values and does not
-demonstrate any binding-specific behavior.
+Add clock IDs, the /1221 fixed-factor clock and the RTC mux to allow
+selection of the approximately 32.76 kHz source from device tree.
 
-Drop the redundant SPI example and keep the existing QSPI example.
-
-Signed-off-by: Chi-Wen Weng <cwweng@nuvoton.com>
 ---
- .../bindings/spi/nuvoton,ma35d1-qspi.yaml     | 20 -------------------
- 1 file changed, 20 deletions(-)
+Chuanhong Guo (2):
+      dt-bindings: clock: mediatek: mt7629: add RTC clock IDs
+      clk: mediatek: mt7629: add RTC clock selection
 
-diff --git a/Documentation/devicetree/bindings/spi/nuvoton,ma35d1-qspi.yaml b/Documentation/devicetree/bindings/spi/nuvoton,ma35d1-qspi.yaml
-index 72f2e1e1219a..9ee61f8ac4d6 100644
---- a/Documentation/devicetree/bindings/spi/nuvoton,ma35d1-qspi.yaml
-+++ b/Documentation/devicetree/bindings/spi/nuvoton,ma35d1-qspi.yaml
-@@ -75,24 +75,4 @@ examples:
-         };
-     };
- 
--  - |
--    #include <dt-bindings/interrupt-controller/arm-gic.h>
--    #include <dt-bindings/clock/nuvoton,ma35d1-clk.h>
--    #include <dt-bindings/reset/nuvoton,ma35d1-reset.h>
--
--    soc {
--        #address-cells = <2>;
--        #size-cells = <2>;
--
--        spi@40600000 {
--            compatible = "nuvoton,ma35d1-spi";
--            reg = <0 0x40600000 0 0x10000>;
--            interrupts = <GIC_SPI 89 IRQ_TYPE_LEVEL_HIGH>;
--            clocks = <&clk SPI0_GATE>;
--            resets = <&sys MA35D1_RESET_SPI0>;
--
--            #address-cells = <1>;
--            #size-cells = <0>;
--        };
--    };
- ...
+ drivers/clk/mediatek/clk-mt7629.c      | 7 +++++++
+ include/dt-bindings/clock/mt7629-clk.h | 4 +++-
+ 2 files changed, 10 insertions(+), 1 deletion(-)
+---
+base-commit: f5f84daefcd92d7a630066635ecea1433ed5eac7
+change-id: 20260926-b4-mt7629-rtc-7488fa94b1ab
 
-base-commit: 4825287f6d2346e9273f35a928d1ef40e68bc58b
+Best regards,
 -- 
-2.25.1
+Chuanhong Guo <gch981213@gmail.com>
 
