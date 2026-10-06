@@ -1,137 +1,100 @@
-Received: from twmbx01.aspeedtech.com (mail.aspeedtech.com [211.20.114.72])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED5643B3886;
-	Tue,  6 Oct 2026 07:21:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.20.114.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1804D3BD22F;
+	Tue,  6 Oct 2026 07:36:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791271273; cv=none; b=UWNw5U+hxripd6O0f2c275tm2Hpx8Ls8K9snRWeIZULiXxFzK+glMCBn/+dQ8PWIDp+s7ISiuqmJQT3ELBhh874+s4pEloFUhuA+0K0HRHspz/G30BoVezGV3RNXSS2xDXIlKaBN8iPCrcDS/e3E4uTbJjb1jou/Ljt3MXKC6nw=
+	t=1791272190; cv=none; b=Ggnb0jo1W4Be8dEG0mdD72ZS3KdriL/PQ6x/vYraCJX7remiWNqFhCNWHm6TY1kzqeVmAwMalaI1UB536I/z4oY1yP+DijHdnybpJ2E9TMpVliz3skxUcyzjUfpyfAKEH4r/DOUQ9EtgafNCb6NA2+MVYh1AJoY6hEIshb+272Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791271273; c=relaxed/simple;
-	bh=SgYkW/BdBSqtNZ8s+/OpHERQbXZNXhDxkkwWVN95X2s=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=okbg1VL4hYT9MWugxWPWy5oF2AzFWTBYdXqiXovemr+VWSQHAyaF6YEcAuuF89dB8Cre7oG4EyREeBjXBB5kt/8MDiIelXnxSVqrzaqKsAs5ljxnZTWvuGrm9AWwV8s/zpMsfRPFetogK7ry6dWBc+eQ5WNlBQQ0yTukSxiu1iQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; arc=none smtp.client-ip=211.20.114.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
-Received: from TWMBX01.aspeed.com (192.168.0.62) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.10; Tue, 6 Oct
- 2026 15:20:44 +0800
-Received: from [127.0.1.1] (192.168.10.13) by TWMBX01.aspeed.com
- (192.168.0.62) with Microsoft SMTP Server id 15.2.1748.10 via Frontend
- Transport; Tue, 6 Oct 2026 15:20:44 +0800
-From: Jacky Chou <jacky_chou@aspeedtech.com>
-Date: Tue, 6 Oct 2026 15:20:44 +0800
-Subject: [PATCH net-next v2 6/6] net: ftgmac100: Allow building on ARM64
+	s=arc-20240116; t=1791272190; c=relaxed/simple;
+	bh=yeWaKhrm+WR9bLBovNZ3j0cg/B3ktN5heCYTCG/FzqU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Yw8TJ07TvRa2BxlJ2GbG2yATnqpeGnn7CPUvrOQl66HiaTQsaJT7Z0jBdfxI5CQzhSN8WCzRbNpTBGNWbFtvVyeewrg7kcj9sT3AQLNIsI3TPiV/A+a0M82FiomyXQzPEN02MadQOxJXI1k6aQ5TT0yiCxbz8XQ1l9Z0L5+I2Gk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=IrBTefDs; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="IrBTefDs"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791272186; x=1822808186;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=yeWaKhrm+WR9bLBovNZ3j0cg/B3ktN5heCYTCG/FzqU=;
+  b=IrBTefDsyd76w6JZGswrHSc2LISTKP6Dn2jfcPKWzPa/hKPQoFzd8cm5
+   Ji9NdyM8s1YwLsxrOHPDBCY5EpfGVljFvfWuTk9WD0IqVEc+3w653Znxh
+   KpP8r0MBg4TNhl8JfzfKVTIf5fmMq4F+SuVAg3NQSk0Uk+3+qHyNaryOX
+   GVuE2f6q1vfw9QYnUwB3n8dJ8wQRhpY0psvCk6xWYhZghXkQAGZavIr3l
+   kU+CABV54fB9CtnySJxifXPBU+TfrqJe9yNUJOdG80EUQ2eBcigjBJ/8f
+   WmaKttD2fWEXOtx6gTtflTvlkRlqaI6AUOZpFJIdfv0sTYuA5jJXKyXRL
+   g==;
+X-CSE-ConnectionGUID: GGl7k1lMTKWp+f50kLTs/A==
+X-CSE-MsgGUID: Lm6SlYnNQkWdiAZmaG5vug==
+X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="8866"
+X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
+   d="scan'208";a="8866"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 00:36:23 -0700
+X-CSE-ConnectionGUID: fvjocqIcQz2EJtYqpGak0w==
+X-CSE-MsgGUID: nRfyIxf3T8C0XksoKhGq4g==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
+   d="scan'208";a="1105882"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.66])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 00:36:19 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 5D586121BCD;
+	Tue, 06 Oct 2026 10:36:20 +0300 (EEST)
+Date: Tue, 6 Oct 2026 10:36:20 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Mirela Rabulea <mirela.rabulea@nxp.com>
+Cc: Rishikesh Donadkar <r-donadkar@ti.com>, linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	tomi.valkeinen@ideasonboard.com, mchehab@kernel.org,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, nm@ti.com,
+	vigneshr@ti.com, kristo@kernel.org, mripard@kernel.org,
+	jai.luthra@linux.dev, jai.luthra@ideasonboard.com, devarsht@ti.com,
+	y-abhilashchandra@ti.com, laurent.pinchart@ideasonboard.com
+Subject: Re: [RFC PATCH 6/8] media: i2c: ov2312: add Omnivison OV2312 driver
+Message-ID: <asSk9KW-lzuiUJa3@kekkonen.localdomain>
+References: <20260925133001.2780868-1-r-donadkar@ti.com>
+ <20260925133001.2780868-7-r-donadkar@ti.com>
+ <e469d168-39f9-448c-a7ab-5d02b79d8cb8@nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261006-support_ast2700-v2-6-36de51fb8066@aspeedtech.com>
-References: <20261006-support_ast2700-v2-0-36de51fb8066@aspeedtech.com>
-In-Reply-To: <20261006-support_ast2700-v2-0-36de51fb8066@aspeedtech.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
-	<davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
-	<pabeni@redhat.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Po-Yu Chuang
-	<ratbert@faraday-tech.com>, Eric Dumazet <edumazet@kernel.org>, "Heiner
- Kallweit" <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, "Eric
- Dumazet" <edumazet@kernel.org>
-CC: <netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, Jacky Chou <jacky_chou@aspeedtech.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791271243; l=3578;
- i=jacky_chou@aspeedtech.com; s=20251031; h=from:subject:message-id;
- bh=SgYkW/BdBSqtNZ8s+/OpHERQbXZNXhDxkkwWVN95X2s=;
- b=PoBcaygNNpPkTTvj19a0JkFZ3ZjmRgetPUNUJrU9j0Gvb4XXTwnkoP5aUBkMartaQqCYPzWeQ
- 6PCmOfH80xYDyjfoSmQD0odHAtwgCgOLN3IKs/KUfLET52iGf5DgHDo
-X-Developer-Key: i=jacky_chou@aspeedtech.com; a=ed25519;
- pk=8XBx7KFM1drEsfCXTH9QC2lbMlGU4XwJTA6Jt9Mabdo=
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <e469d168-39f9-448c-a7ab-5d02b79d8cb8@nxp.com>
 
-Allow the Faraday vendor menu and FTGMAC100 driver to be selected on
-ARM64 so AST2700 platforms can enable the MAC. The driver now programs
-the upper DMA address fields, so it no longer needs to be marked BROKEN
-for 64-bit builds.
+Hi Mirela,
 
-AST2700 has no dedicated MACH_ASPEED_G7 symbol; unlike the 32-bit
-generations it is only gated by the common ARCH_ASPEED symbol. On
-32-bit Aspeed platforms, arch/arm/mach-aspeed/Kconfig nests
-MACH_ASPEED_G4/G5/G6 under "if ARCH_ASPEED", so MACH_ASPEED_G6 already
-implies ARCH_ASPEED and is redundant once ARCH_ASPEED is part of the
-condition. Drop it and select MDIO_ASPEED directly on ARCH_ASPEED.
+On Fri, Oct 02, 2026 at 07:16:11PM +0300, Mirela Rabulea wrote:
+> Laurent, Hans, Sakari,
+> 
+> did you encounter similar situations? Any comments or proposals? The concern
+> here, to summarize, is: v4l2 control cannot be committed to sensor registers
+> right away (even when streaming) and we are also unsure when the right
+> moment to perform the register access may come.
 
-This does widen the MDIO_ASPEED select beyond AST2600: it is now also
-selected for AST2400/AST2500, which keep driving their embedded MDIO
-controller from FTGMAC100 itself and have no MDIO node for this driver
-to bind to, so it is built but stays unused there. Update the
-MDIO_ASPEED help text to describe this.
+In practice there's little the kernel overall can do about this: the timing
+of everything is handled by the userspace. Drivers that aren't directly in
+control of the data path don't even have frame timing information and even
+if we did pass that to drivers, I²C writes always have some uncertainty
+(system scheduling, I²C access failures etc.), so one needs to be prepared
+to failing to do the writes in time, which would further complicate the
+UAPI.
 
-Signed-off-by: Jacky Chou <jacky_chou@aspeedtech.com>
----
- drivers/net/ethernet/faraday/Kconfig |  7 +++----
- drivers/net/mdio/Kconfig             | 16 ++++++++++------
- 2 files changed, 13 insertions(+), 10 deletions(-)
-
-diff --git a/drivers/net/ethernet/faraday/Kconfig b/drivers/net/ethernet/faraday/Kconfig
-index 474073c7f94d..9acc2d260c1f 100644
---- a/drivers/net/ethernet/faraday/Kconfig
-+++ b/drivers/net/ethernet/faraday/Kconfig
-@@ -6,7 +6,7 @@
- config NET_VENDOR_FARADAY
- 	bool "Faraday devices"
- 	default y
--	depends on ARM || COMPILE_TEST
-+	depends on ARM || ARM64 || COMPILE_TEST
- 	help
- 	  If you have a network (Ethernet) card belonging to this class, say Y.
- 
-@@ -28,11 +28,10 @@ config FTMAC100
- 
- config FTGMAC100
- 	tristate "Faraday FTGMAC100 Gigabit Ethernet support"
--	depends on ARM || COMPILE_TEST
--	depends on !64BIT || BROKEN
-+	depends on ARM || ARM64 || COMPILE_TEST
- 	select PHYLIB
- 	select FIXED_PHY
--	select MDIO_ASPEED if MACH_ASPEED_G6
-+	select MDIO_ASPEED if ARCH_ASPEED
- 	select CRC32
- 	help
- 	  This driver supports the FTGMAC100 Gigabit Ethernet controller
-diff --git a/drivers/net/mdio/Kconfig b/drivers/net/mdio/Kconfig
-index d44278f26fab..d784782c230f 100644
---- a/drivers/net/mdio/Kconfig
-+++ b/drivers/net/mdio/Kconfig
-@@ -50,12 +50,16 @@ config MDIO_ASPEED
- 	depends on OF_MDIO && HAS_IOMEM
- 	help
- 	  This module provides a driver for the independent MDIO bus
--	  controllers found in the ASPEED AST2600 SoC. This is a driver for the
--	  third revision of the ASPEED MDIO register interface - the first two
--	  revisions are the "old" and "new" interfaces found in the AST2400 and
--	  AST2500, embedded in the MAC. For legacy reasons, FTGMAC100 driver
--	  continues to drive the embedded MDIO controller for the AST2400 and
--	  AST2500 SoCs, so say N if AST2600 support is not required.
-+	  controllers found in the ASPEED AST2600 and AST2700 SoCs. This is a
-+	  driver for the third revision of the ASPEED MDIO register interface -
-+	  the first two revisions are the "old" and "new" interfaces found in
-+	  the AST2400 and AST2500, embedded in the MAC. For legacy reasons,
-+	  FTGMAC100 driver continues to drive the embedded MDIO controller for
-+	  the AST2400 and AST2500 SoCs. AST2700 has no dedicated MACH_ASPEED_G7
-+	  symbol and is only gated by ARCH_ASPEED, so FTGMAC100 now
-+	  unconditionally selects this driver on every ARCH_ASPEED platform,
-+	  including the older AST2400/AST2500 SoCs where it has no MDIO node to
-+	  bind to.
- 
- config MDIO_BITBANG
- 	tristate "Bitbanged MDIO buses"
+Do you have libcamera in userspace or something else?
 
 -- 
-2.34.1
+Kind regards,
 
+Sakari Ailus
