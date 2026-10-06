@@ -1,418 +1,184 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A83AA41E6CD
-	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 13:11:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B49F0430CDD
+	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 13:19:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791292317; cv=none; b=n9SvRW9LyqshIV5Sr7Qc9dtZ1e/4z/LXgLaBp0ECwep5I/Okf1me5ewwp7tZmHN1uXLNF5TdMV3BvTI4324KTHuDBRLVJVO+zybqmQ5FzAhNlzeZ3cNnagpuEDXRBTN0m0L4AssSyvRdvLfGyg+XSWSaNpXJ1gnww5KJiyNVkxw=
+	t=1791292751; cv=none; b=mGQI97l2Sbt/ebCZuSNSiVqULtBNbdmnZbNfxLMhO6qLyOYM3e4SK7OTAT0JuShCU+dmT9ah5NKX9LAOubYK4cTQ7ky5/OYpOFoDmlcITT3ogPxAB2/QsUkLIv9dcrW4bkughu3cuByCPGBV+BJVCx08SV63+EGeoHrI+dhsXYU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791292317; c=relaxed/simple;
-	bh=angcDuvLqFg4CeV3cPxkm8QJUE0XFdlgizSznmF2Q+o=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=PPIAb+rKgEmYLWTT3ltzcbXLN6aa/736hoXzWRse4PtVEcKWDAY6vRcsDjV8e5XJ2FIMNY1fWxWIoHni40LUo9BCgUe4RAlNs/yX6AhkJFiA8+qiJfDKU1QrZ/JW6/dhqfwTidAIdlKK7zGFFeOTf8wD0kWLivGH8Tn+49Eo6Yc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kj584qAZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791292751; c=relaxed/simple;
+	bh=eszSZMOJpj74kh0VdtVM25yFcD4ep3fqH84k7hrgH0Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dzS7kr48vSPaO7WgjMiqAQRD2H1fdgj+meKlUojfPRtEvHzctThL8VpUtnYtRnHbzZJgI1mhrjC4iMv/g63dp1Xaty2VfYJGgz81WpSLE6G3wlyzosPQsuzFpgUWY3DRSr1JCSB+7+21IAfuWEkyFzfpkCH7WGzYNeiXiHn2pUA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=djpO39YQ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OquInDAz; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kj584qAZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04F2D1F000FF;
-	Tue,  6 Oct 2026 13:11:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791292315;
-	bh=XyzpIdZ169f+bYLUduLxbD03IjA+J5BpiwHLMJRjoF0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Kj584qAZTArUpJCBcSfoqW6jS+mU2WWzDvOHnwPkNPLKk/O6s7ZgmVlQDAfb7Cy2F
-	 OWAW0zAkkCTqxHXnkammPUOvgDKBPY+GTv5RDnTNWFhGTFf1yilKUbbZdDd4uYgduV
-	 9vRjxs6M26V3EF97cnq9V9FR7PhCRIuIuARWcJObkq9/b5RxhSGQgxkgyw79WSks9S
-	 13PtXfxj1ECA7ArPoqIjngbIG3K/XbNk1prOLcLUIHIbgBK7RjqZWOmTyb3FUhs0B9
-	 GV2/3YnAIoseWZmUSJS/cVdLRDqR/faZqh5U0X8BN96JIC9KuAfmtAqau0Z+Tam6X2
-	 gmY5Bx39vNmWQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 2/5] drm/microchip: add a driver for the Microchip
- GFX2D GPU
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Cyrille Pitchen" <cyrille.pitchen@microchip.com>
-Cc: dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20261006-cpitchen-mainline_gfx2d-v9-2-74bd3df2e183@microchip.com>
-References: <20261006-cpitchen-mainline_gfx2d-v9-0-74bd3df2e183@microchip.com>
- <20261006-cpitchen-mainline_gfx2d-v9-2-74bd3df2e183@microchip.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 06 Oct 2026 13:11:54 +0000
-Message-Id: <20261006131155.04F2D1F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="djpO39YQ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OquInDAz"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 696BPMDh1045904
+	for <devicetree@vger.kernel.org>; Tue, 6 Oct 2026 13:19:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=3977fqgFQopqrOyetisycUnU
+	JNoVrBq+V4kqibqFyZQ=; b=djpO39YQ55MRcLvTrU8FokAtAmc25B8PO6rhSyDs
+	RJU4RGI6ZtKkLJ8bTvW2KxxuFZFTSiujmfX1/X85RxYrkbuMuL1CgeaZnPL9i4qF
+	54XN73PDYKUfTJzZ1A3S386RM5q3T2Sh5TRNp1ckEIAV07+4eJaoO/nPw/BG83Fi
+	Hq3N/Fcw6MgPuaQSCfzrNrI8fBoqq5IpYeht+/An7rgZhb+bGiAgShgYGyFrIdpk
+	s+cxaQhxcHjn0+TsjzuOfzlXjRy53E4l9GFJ8lea3j5Vdc77CMbIMIuVau5+QeXb
+	siQygViHTHY1l1TttPP8fjQWhuqepsqUcAca25vW3utrNg==
+Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com [209.85.221.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h4xfbgrcp-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 06 Oct 2026 13:19:08 +0000 (GMT)
+Received: by mail-vk1-f198.google.com with SMTP id 71dfb90a1353d-5da613f7588so2309685e0c.2
+        for <devicetree@vger.kernel.org>; Tue, 06 Oct 2026 06:19:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791292748; x=1791897548; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=3977fqgFQopqrOyetisycUnUJNoVrBq+V4kqibqFyZQ=;
+        b=OquInDAzKHPBlexKLw5dAfzB0MyjUhrgX66xMm2UkWAwUZ2xReEAxfiPp/yvk+ybUL
+         Mf7cHwXFFg4HjqD8wibuLz7jX1b6mp0lmjgc90KsSx/ehABx1xjoA92jqIU8F5f+wy4p
+         MX2xsDtuOhU+rdwMeRRwdGpxAvRQf/Q6T5H+KGPC9NCuIwkSvFZJ4SDc9anVa34jel6S
+         Y7kZX5SfIE2opA/jSRCjmio0Z6YcAwnCrhKlsssgaOV5iPjeWWDc+K4Hsc8IBCILBYT4
+         P9bkU0yeflx3FmdhH7LqXyObYt9TSfZPHUIJrs2pVe8YO6tlnO80L7a7aElYDrN9PJDS
+         1+ag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791292748; x=1791897548;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=3977fqgFQopqrOyetisycUnUJNoVrBq+V4kqibqFyZQ=;
+        b=XC+dDdzLDZywUijB8VfSlesTOLjRLGQrCVw4JcICviA0OA6NbB1QFpsGEl2sBV3aIz
+         O610dcVfgmb+x9SodorF6LCBfQCzVVE2ZmYEJ8ntJsd8nIPAHVOeJkdrxJSu6FYh3GDV
+         Oij+xsIRWM5K0pmSOvC0TGYZy13nSbrnZQalSt9bvVgxUh2xAMe6gotCAB/Zgo5Vvlvq
+         bgpKLw5ffiSbwZazFw/uY/iPZ/UZlBpAfFjBD6JPd8MC2K5pJD7+RMk09+LGJyjNncOt
+         1SLM2nlnOucHEqnjxuphRkVLQtoRmPbwJczzDni+8F8aPyYMxX+m8tfhcXs4wQLOSgDt
+         M6SA==
+X-Forwarded-Encrypted: i=1; AKwUvBxQLysbWgvdHhD5atOm8L1BqutepC7aQkGBxDC/l0G7d2f3q7x13YWd1Ag9DprAh2IEgjtrFXxzPEPT@vger.kernel.org
+X-Gm-Message-State: AFq9FYLJawGEPoiLw181Gz2MckXR/2/yxXqXTAE914rIprWmaxK9pmda
+	rn0uyOqjCkhTYiTaYYnQcdEcU2mV8p0aEGanQUL9P/vzFmKogz8YbpB44qsC/C5T4zgPCRLCdmS
+	mTT26daJpzf0ChQyHtUxuidHMKVgOJaJ3ETLSr9Wxdg3JhJ1/E7N+yzJABtalZgs+
+X-Gm-Gg: AYBFou2YfqpOTJAcihdEkUgmihAJL5TkCQVun2XYH0mrNjKCVKAbuRf2X66XaelN4P8
+	PP7Jc7dfPibUvOBrbF46J8tQLLgkSuGjlW7C7rP8Ol+Tk+++6GPN1xu5BQGzCQyazlCoptiz7b9
+	52rWwvruxMUXAZkUnqpzHbYm/Py6moj0g3qaYj8/oCxNzVM9MepSIV3tc+3pOYr5v8r/mFh9afN
+	TeajGk+9OXlKMXYuZUBUIdFhdvncHjKXp8m7agDq6hSzQzlR6JaY+MmkDKyCdWYSfDHw8bkBNc2
+	i1JhrhsOt9Zb61m5cwtBep3khTdfipGPuxU//9G1Mq5qZAw2D/m5MpveUT/uIlk0GV5lx71yIVN
+	wJzmpc/T7adlHqkEANmvoQKG0BR85xU8l134/jieG2XUMkASssHsWDpCfB0DZtqxXpPvBeid0ql
+	NrDVrKZvh5PEhX
+X-Received: by 2002:a05:6102:b15:b0:7a7:198a:c2bd with SMTP id ada2fe7eead31-7c87c9235c2mr384651137.37.1791292747980;
+        Tue, 06 Oct 2026 06:19:07 -0700 (PDT)
+X-Received: by 2002:a05:6102:b15:b0:7a7:198a:c2bd with SMTP id ada2fe7eead31-7c87c9235c2mr384647137.37.1791292747447;
+        Tue, 06 Oct 2026 06:19:07 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a99ea94684sm885231fa.26.2026.10.06.06.19.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 06:19:06 -0700 (PDT)
+Date: Tue, 6 Oct 2026 16:19:04 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: muzafferkadir@mainlining.org
+Cc: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+        Robin Murphy <robin.murphy@arm.com>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Amit Kucheria <amitk@kernel.org>,
+        Thara Gopinath <thara.gopinath@gmail.com>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Kees Cook <kees@kernel.org>,
+        Tony Luck <tony.luck@intel.com>,
+        "Guilherme G. Piccoli" <gpiccoli@igalia.com>,
+        Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+        David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
+        linux-pm@vger.kernel.org, linux-input@vger.kernel.org
+Subject: Re: [PATCH v4 4/7] thermal: qcom: tsens: Add support for MSM8952
+ tsens
+Message-ID: <suzsbvsdlfrfsnvaerphqdycaaaiu5inh5uw5wups4jmfozkbt@n4lsb5pfdhbw>
+References: <20261006-msm8952-initial-support-v4-0-ecdcc1ac620c@mainlining.org>
+ <20261006-msm8952-initial-support-v4-4-ecdcc1ac620c@mainlining.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261006-msm8952-initial-support-v4-4-ecdcc1ac620c@mainlining.org>
+X-Authority-Analysis: v=2.4 cv=D8TSufRj c=1 sm=1 tr=0 ts=6ac4f54c cx=c_pps
+ a=1Os3MKEOqt8YzSjcPV0cFA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=Oh2cFVv5AAAA:8
+ a=OuZLqq7tAAAA:8 a=Nmgb9aOmcCZNRWd-E-8A:9 a=CjuIK1q_8ugA:10
+ a=hhpmQAJR8DioWGSBphRh:22 a=7KeoIwV6GZqOttXkcoxL:22 a=AKGiAy9iJ-JzxKVHQNES:22
+X-Proofpoint-GUID: LW2h4f0JgH4PIHPx1vb0jet8ysMDqvuI
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDA1MiBTYWx0ZWRfX70SvyWXLx5br
+ Nlb80vdpsxLHKHLaj3e9O1ua7G6++/TN68xgBqY5xjUhF4EBPvT0RVzTCN0nNGvpi5zy4IASuMP
+ m+M/DbE867Tb1anLa3CwNF8A3ZXd4BA=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDA1MiBTYWx0ZWRfX4Q8fX76+X+Ei
+ nzwNw6oTKls/by5amdewDzgBcM7sfYt9ZJk8D8/vUfKnIYR/z5ABYMVKhT+TRpy/sDLcmwh50Hi
+ U1jqr9i6RC8KR6HBZ4HPPpxzbZtJR4udE30xesF/V/405AU3iY4dC92BH+RUK0h0txZw5Ztjssf
+ xthHeWN/WuLSytmSYAdNdhuP65TQpXIt3vnT2nFSCQet1LOvtQHkHY1qQwy8Ll9cKCPV04Xr6w7
+ se3pYDQrllBRLOnpa/a1be4a+IAAIASUFLOJykc+PRdlQ5Kmd4K33D1SyJrW9Z5GcXUhh22g6DU
+ eDb2DLCyb61CZsEErPI7+rKnFoOPYOPd1GTV7pLyxMRXIWHu/8zQjL3HD9BpLi528I6CoZhnkXu
+ O3ixMpmcrJO/ib3rSCtDgFCwcFM8n3gNE3ZaQDhFLdxzfdIa7jz/4NU1L2oItbUOfqpq6BGckkn
+ CoRamW9ZuFqAp5pkwoA==
+X-Proofpoint-ORIG-GUID: LW2h4f0JgH4PIHPx1vb0jet8ysMDqvuI
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-06_03,2026-10-06_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015 adultscore=0 suspectscore=0 priorityscore=1501
+ bulkscore=0 lowpriorityscore=0 spamscore=0 impostorscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610060052
 
-Thank you for your contribution! Sashiko AI review found 8 potential issue(=
-s) to consider:
-- [High] pm: unsafe hardware register access in IRQ handlers when device is=
- runtime suspended
-- [High] irq: use-after-free and crash due to missing IRQ synchronization o=
-n teardown
-- [High] irq: hardware access crash due to requesting IRQ before enabling p=
-eripheral clock
-- [High] drm: double free of command rectangles and GEM objects in free_cmd=
-list cleanup
-- [Medium] uapi: structures use compiler-dependent enum types and contain i=
-mplicit padding holes
-- [Medium] mm: layering violation and API misuse via manual flush_cache_mm()
-- [Medium] drm: GEM handle and object reference leak in mchp_gfx2d_ioctl_im=
-port_buffer error path
-- [Medium] pm: PM runtime usage count leak for running commands during tear=
-down
---
-
-commit 22d96d52a44db473414b78bd380f4a039a0bb91a
-Author: Cyrille Pitchen <cyrille.pitchen@microchip.com>
-
-drm/microchip: add a driver for the Microchip GFX2D GPU
-
-The Microchip GFX2D is a 2D GPU, which supports very basic graphics
-instructions.
-
-> diff --git a/drivers/gpu/drm/microchip/mchp_gfx2d_cmd.c b/drivers/gpu/drm=
-/microchip/mchp_gfx2d_cmd.c
-> index 0000000000000..b84c11c3511d5 100644
-> --- /dev/null
-> +++ b/drivers/gpu/drm/microchip/mchp_gfx2d_cmd.c
-[ ... ]
-> @@ -1577,15 +1577,15 @@ void mchp_gfx2d_cleanup_command_queue(struct mchp=
-_gfx2d_device *priv,
->  				      bool is_clk_enabled)
->  {
->  	struct device *dev =3D priv->drm.dev;
->  	struct mchp_gfx2d_command *cmd, *tmp;
->  	uint32_t i;
-> =20
->  	if (is_clk_enabled) {
->  		writel(GFX2D_IRQ_EXEND, priv->regs + GFX2D_ID);
->  		writel(GFX2D_GD_DISABLE, priv->regs + GFX2D_GD);
->  	}
-> =20
->  	mutex_lock(&priv->cmdlist_mutex);
->  	list_for_each_entry_safe(cmd, tmp, &priv->running_cmdlist, cmd_node) {
->  		list_del(&cmd->cmd_node);
->  		mchp_gfx2d_release_command(priv, cmd, false);
->  		kmem_cache_free(priv->cmd_cache, cmd);
->  	}
-
-[Severity: Medium]
-Does this leak PM runtime usage counts for the running commands?
-
-When commands are added to running_cmdlist, pm_runtime_get_noresume()
-increments the usage count (in mchp_gfx2d_queue_running()). This loop
-removes commands without dropping their associated PM runtime references
-via pm_runtime_put_noidle(), permanently leaking the usage counter and
-preventing runtime suspend.
-
-> =20
->  	list_for_each_entry_safe(cmd, tmp, &priv->pending_cmdlist, cmd_node) {
->  		list_del(&cmd->cmd_node);
->  		mchp_gfx2d_release_command(priv, cmd, false);
->  		kmem_cache_free(priv->cmd_cache, cmd);
->  	}
->  	mutex_unlock(&priv->cmdlist_mutex);
-> =20
->  	mutex_lock(&priv->free_cmdlist_mutex);
->  	list_for_each_entry_safe(cmd, tmp, &priv->free_cmdlist, cmd_node) {
->  		list_del(&cmd->cmd_node);
->  		mchp_gfx2d_release_command(priv, cmd, false);
->  		kmem_cache_free(priv->cmd_cache, cmd);
->  	}
->  	mutex_unlock(&priv->free_cmdlist_mutex);
-
-[Severity: High]
-Does this cause a double-free of command rectangles and GEM objects?
-
-When a command completes normally, mchp_gfx2d_release_command() frees
-its rectangles and drops GEM references, then places the command on
-priv->free_cmdlist without clearing the pointers. This loop in
-mchp_gfx2d_cleanup_command_queue() blindly re-releases commands that
-have already been completely released, causing use-after-free and double-fr=
-ee
-issues that corrupt the slab allocator and DRM core state.
-
-> diff --git a/drivers/gpu/drm/microchip/mchp_gfx2d_drv.c b/drivers/gpu/drm=
-/microchip/mchp_gfx2d_drv.c
-> index 0000000000000..d415bd94110bc 100644
-> --- /dev/null
-> +++ b/drivers/gpu/drm/microchip/mchp_gfx2d_drv.c
-[ ... ]
-> @@ -71,15 +71,15 @@ static irqreturn_t mchp_gfx2d_interrupt(int irq, void=
- *dev_id)
->  {
->  	struct mchp_gfx2d_device *priv =3D dev_id;
->  	u32 status, mask, pending;
-> =20
->  	status =3D readl(priv->regs + GFX2D_IS);
->  	mask =3D readl(priv->regs + GFX2D_IM);
-
-[Severity: High]
-Does this code crash with a synchronous external abort if the peripheral
-clock is disabled?
-
-The hard IRQ handler unconditionally accesses hardware registers (GFX2D_IS)
-without verifying if the device is runtime active. Spurious interrupts can
-trigger this path when the device is suspended and the clock is off. As
-mandated by the subsystem guide, IRQ handlers must use
-pm_runtime_get_if_active() before accessing hardware registers.
-
-[ ... ]
-> @@ -89,15 +89,15 @@ static irqreturn_t mchp_gfx2d_thread(int irq, void *d=
-ev_id)
->  {
->  	struct mchp_gfx2d_device *priv =3D dev_id;
->  	struct mchp_gfx2d_gem_object *gfx2d_obj;
->  	struct device *dev =3D priv->drm.dev;
->  	bool is_suspended =3D false;
->  	bool enable_exend =3D false;
-> =20
->  	drm_dbg(&priv->drm, "enter IRQ thread\n");
-> =20
->  	pm_runtime_get_noresume(dev);
-> =20
->  	writel(GFX2D_IRQ_EXEND, priv->regs + GFX2D_ID);
-
-[Severity: High]
-Is it safe to use pm_runtime_get_noresume() here before blindly accessing
-registers?
-
-This function increments the usage counter but does not resume the device,
-meaning it may still be suspended when writel() is called. This can cause
-a kernel panic if the clock is disabled.
-
-[ ... ]
-> @@ -182,15 +182,15 @@ static int mchp_gfx2d_probe(struct platform_device =
-*pdev)
->  	if (irq < 0) {
->  		dev_err(&pdev->dev, "failed to get the IRQ\n");
->  		ret =3D irq;
->  		goto err_exit;
->  	}
-> =20
->  	ret =3D devm_request_threaded_irq(&pdev->dev, irq,
->  					mchp_gfx2d_interrupt,
->  					mchp_gfx2d_thread,
->  					0, dev_name(&pdev->dev), priv);
-
-[Severity: High]
-Could this crash if an interrupt fires immediately?
-
-The IRQ handler is registered via devm_request_threaded_irq() before the
-peripheral clock is fetched and enabled via clk_prepare_enable(). If an
-interrupt line is asserted (e.g., from a previous boot or spurious event), =
-the
-hard IRQ handler will execute and read from a hardware register while the c=
-lock
-is still off.
-
-[ ... ]
-> @@ -245,15 +245,15 @@ static void mchp_gfx2d_remove(struct platform_devic=
-e *pdev)
->  {
->  	struct mchp_gfx2d_device *priv =3D platform_get_drvdata(pdev);
->  	int ret;
-> =20
->  	drm_dev_unregister(&priv->drm);
-> =20
->  	ret =3D pm_runtime_resume_and_get(&pdev->dev);
->  	mchp_gfx2d_cleanup_command_queue(priv, !ret);
->  	if (ret) {
->  		dev_warn(&pdev->dev, "Failed to resume device on remove\n");
->  	} else {
->  		pm_runtime_put_noidle(&pdev->dev);
->  		clk_disable(priv->pclk);
->  	}
-> =20
->  	pm_runtime_disable(&pdev->dev);
-> =20
->  	clk_unprepare(priv->pclk);
->  }
-
-[Severity: High]
-Does this sequence create a use-after-free window for the IRQ thread?
-
-Resources are manually torn down and the clock disabled while the devres-ma=
-naged
-IRQ thread is still permitted to run. Since devm_request_threaded_irq() def=
-ers
-IRQ teardown until after remove() returns, the IRQ thread can execute
-concurrently, accessing freed memory (like priv->mbx freed in
-mchp_gfx2d_cleanup_command_queue()) and unclocked registers.
-
-[ ... ]
-> @@ -265,15 +265,15 @@ static int __maybe_unused mchp_gfx2d_runtime_suspen=
-d(struct device *dev)
->  	struct mchp_gfx2d_device *priv =3D dev_get_drvdata(dev);
->  	unsigned long to;
-> =20
->  	mutex_lock(&priv->cmdlist_mutex);
->  	priv->is_suspended =3D true;
->  	reinit_completion(&priv->running_cmdlist_empty);
->  	mutex_unlock(&priv->cmdlist_mutex);
-> =20
->  	(void)mchp_gfx2d_progress(priv);
->  	to =3D msecs_to_jiffies(GFX2D_PM_RUNTIME_SUSPEND_DELAY);
->  	if (!wait_for_completion_timeout(&priv->running_cmdlist_empty, to)) {
->  		mutex_lock(&priv->cmdlist_mutex);
->  		priv->is_suspended =3D false;
->  		pm_runtime_mark_last_busy(dev);
->  		mutex_unlock(&priv->cmdlist_mutex);
->  		writel(GFX2D_IRQ_EXEND, priv->regs + GFX2D_IE);
->  		return -EBUSY;
->  	}
-> =20
->  	clk_disable(priv->pclk);
-
-[Severity: High]
-Can this tear down hardware access underneath the threaded IRQ handler?
-
-The suspend path disables the clock the moment the completion is signaled. =
-This
-could race with the threaded IRQ handler still executing, causing a synchro=
-nous
-external abort.
-
-> diff --git a/drivers/gpu/drm/microchip/mchp_gfx2d_ioctl.c b/drivers/gpu/d=
-rm/microchip/mchp_gfx2d_ioctl.c
-> index 0000000000000..a989d63db7b52 100644
-> --- /dev/null
-> +++ b/drivers/gpu/drm/microchip/mchp_gfx2d_ioctl.c
-[ ... ]
-> @@ -187,15 +187,15 @@ static int mchp_gfx2d_ioctl_import_buffer(struct dr=
-m_device *dev, void *data,
->  	/* Is it the first import of this object? (gfx2d_obj->width =3D=3D 0 me=
-ans it is) */
->  	if (!gfx2d_obj->width) {
->  		if (!mchp_gfx2d_valid_size(args->stride, args->height, obj->size)) {
->  			drm_gem_handle_delete(file_priv, args->handle);
->  			ret =3D -EINVAL;
->  			goto unlock;
->  		}
-> =20
->  		gfx2d_obj->width =3D args->width;
->  		gfx2d_obj->height =3D args->height;
->  		gfx2d_obj->stride =3D args->stride;
->  		gfx2d_obj->format =3D args->format;
->  		/*
->  		 * Leave 'gfx2d_obj->direction' unchanged (hence set to 'DMA_NONE') as
->  		 * imported buffers (from the atmel-hlcdc driver) always use coherent
->  		 * memory (allocated with dma_alloc_wc()).
->  		 */
->  	} else {
->  		if (gfx2d_obj->width !=3D args->width ||
->  		    gfx2d_obj->height !=3D args->height ||
->  		    gfx2d_obj->stride !=3D args->stride ||
->  		    gfx2d_obj->format !=3D args->format)
->  			ret =3D -EINVAL;
->  	}
-> =20
->  unlock:
->  	mutex_unlock(&gfx2d_obj->mutex);
-
-[Severity: Medium]
-Does this error path leak the GEM handle and object reference?
-
-If the buffer was already imported but the new parameters do not match, the=
- code
-sets ret =3D -EINVAL and jumps to unlock. It misses the
-drm_gem_handle_delete(file_priv, args->handle) call that is correctly prese=
-nt
-in the other error path, leaking a GEM object reference and an allocated DRM
-GEM handle.
-
-[ ... ]
-> @@ -301,15 +301,15 @@ static int mchp_gfx2d_ioctl_sync_for_gpu(struct drm=
-_device *dev, void *data,
->  					 struct drm_file *file_priv)
->  {
->  	struct mchp_gfx2d_device *priv =3D drm_to_dev(dev);
->  	struct drm_mchp_gfx2d_sync_for_gpu *args =3D data;
->  	struct mchp_gfx2d_gem_object *gfx2d_obj;
->  	enum dma_data_direction dir;
->  	struct drm_gem_object *obj;
-> =20
->  	obj =3D drm_gem_object_lookup(file_priv, args->handle);
->  	if (!obj)
->  		return -ENOENT;
-> =20
->  	gfx2d_obj =3D to_mchp_gfx2d_bo(obj);
-> =20
->  	dir =3D gfx2d_obj->direction;
->  	if (valid_dma_direction(dir)) {
->  		dma_sync_single_for_device(dev->dev, gfx2d_obj->base.dma_addr,
->  					   obj->size, dir);
-> =20
->  		if (priv->caps->has_cache_aliasing && current->mm)
->  			flush_cache_mm(current->mm);
-
-[Severity: Medium]
-Is it appropriate to bypass standard DMA coherence primitives here?
-
-Directly calling flush_cache_mm(current->mm) performs an inefficient
-whole-address-space cache flush and uses a low-level mm API which may not
-be exported for loadable modules or behave uniformly across architectures.
-The driver should rely on standard dma_sync_single_for_device() or DRM
-cache helpers.
-
-> diff --git a/include/uapi/drm/microchip_drm.h b/include/uapi/drm/microchi=
-p_drm.h
-> index 0000000000000..c7c4436276387 100644
-> --- /dev/null
-> +++ b/include/uapi/drm/microchip_drm.h
-[ ... ]
-> @@ -148,15 +148,15 @@ struct drm_mchp_gfx2d_rop {
->  	__u32 mask_handle;
->  	enum drm_mchp_gfx2d_rop_mode mode;
->  	__u8 high;
->  	__u8 low;
+On Tue, Oct 06, 2026 at 03:15:11PM +0300, Muzaffer Kadir via B4 Relay wrote:
+> From: Muzaffer Kadir <muzafferkadir@mainlining.org>
+> 
+> Add support for tsens v1 block that exists on MSM8952
+> with 11 tsens sensors. Sensor Offsets and slope values
+> are taken from downstream.
+> 
+> Link: https://android.googlesource.com/kernel/msm.git/+/refs/tags/android-wear-7.0.0_r0.3/drivers/thermal/msm-tsens.c#1621
+> Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
+> ---
+>  drivers/thermal/qcom/tsens-v1.c | 44 +++++++++++++++++++++++++++++++++++++++++
+>  drivers/thermal/qcom/tsens.c    |  3 +++
+>  drivers/thermal/qcom/tsens.h    |  2 +-
+>  3 files changed, 48 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/thermal/qcom/tsens-v1.c b/drivers/thermal/qcom/tsens-v1.c
+> index faa5d00788ca..f4201748ea29 100644
+> --- a/drivers/thermal/qcom/tsens-v1.c
+> +++ b/drivers/thermal/qcom/tsens-v1.c
+> @@ -145,6 +145,37 @@ static const struct reg_field tsens_v1_regfields[MAX_REGFIELDS] = {
+>  	[TRDY] = REG_FIELD(TM_TRDY_OFF, 0, 0),
 >  };
-> =20
->  struct drm_mchp_gfx2d_submit {
->  	__u64 rectangles;
->  	__u32 num_rectangles;
->  	__u32 target_handle;
->  	struct drm_mchp_gfx2d_source sources[2];
->  	enum drm_mchp_gfx2d_operation operation;
->  	union {
->  		struct drm_mchp_gfx2d_fill fill;
->  		struct drm_mchp_gfx2d_blend blend;
->  		struct drm_mchp_gfx2d_rop rop;
->  	};
->  };
+>  
+> +static int __init init_8952(struct tsens_priv *priv)
+> +{
+> +	for (int i = 0; i < priv->num_sensors; ++i)
+> +		priv->sensor[i].slope = 3200;
 
-[Severity: Medium]
-Are these structures safe for the Application Binary Interface (ABI)?
+Where are these values coming from? The driver that you pointed out
+reads them from the QFPROM (like other tsens platforms do).
 
-The UAPI structure drm_mchp_gfx2d_submit uses a C enum type which has an
-implementation-defined size, and the union results in 4 bytes of implicit
-padding at the end of the structure due to leading __u64 alignment. This
-can cause incompatibility between 32-bit and 64-bit userspace or across
-different compiler flags. UAPI structures must use explicitly sized types
-like __u32.
+> +
+> +	priv->sensor[0].p1_calib_offset = 2;
+> +	priv->sensor[0].p2_calib_offset = -1;
 
-[ ... ]
-> @@ -224,15 +224,15 @@ struct drm_mchp_gfx2d_alloc_buffer {
->  	__u32 size;     /* in bytes for mmap() */
->  	__u16 width;
->  	__u16 height;
->  	__u16 stride;
->  	enum drm_mchp_gfx2d_pixel_format format;
->  	enum drm_mchp_gfx2d_direction direction;
-> =20
->  	__u32 handle;
->  	__u64 offset;
->  };
-
-[Severity: Medium]
-Does this UAPI structure also contain implicit padding holes and enum types?
-
-There is a 2-byte implicit padding hole after the __u16 stride field, and
-enum types are used for format and direction. Explicit padding fields
-and explicitly sized types should be used.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261006-cpitchen-m=
-ainline_gfx2d-v9-0-74bd3df2e183@microchip.com?part=3D2
+-- 
+With best wishes
+Dmitry
