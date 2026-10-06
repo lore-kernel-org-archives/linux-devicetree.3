@@ -1,259 +1,175 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F22C41DED8;
-	Tue,  6 Oct 2026 12:39:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6351B42123F
+	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 12:47:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791290381; cv=none; b=geBukrpDJRKaOWyrdNSNKygLmHIiT6jfbOVEJIsQXXujwryjB3thj+0Xrt/YEaGUa2MmkqBlr8tuYtNz+u5MxUpKHfDinzzcfAeEKs/YEXvmy/S6QXHBYUoUCjf4MXXT3fSE4wYD1EYdLT2VGeXzg2UppyZMrZRZG9Z8c4U1Z+U=
+	t=1791290864; cv=none; b=I2mVZ+UdcAQT3ZsuH9o4EDdsdlI67BzU0KxxSsbhv3KwFbq3Jg4r2ycfjZZq+sZUrHwVFAA8wa2jd9c4BBbNdJTAZGWMD1EB9GDE5lnOws2Fw3+27YAzszB/nSOTooJ6UJ1fnkJHNxmD4DUSkklT1jA+CqYw/AE+qfj5NN6vhPI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791290381; c=relaxed/simple;
-	bh=MbrJqfwqCjuGh60+qitZSZSLe+Qs9ZRMZla6rzLWL6o=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=tQR6kCeUQWVu2+yHrAY0uSbuF4FDV3zaEddVekgVn4kDtH/W9c5XkolfHVZf+8Senzig2uMIsfzC1KEhVJg+/2/gcfSe11zzwPZVwCsaMkqj1y8jFnc5cih7D6QzMohkQKKpjSQi4tt4GSRH1k0ymkA2CWIOBxiq7iXvj2/eRDk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EGvWYJma; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791290864; c=relaxed/simple;
+	bh=VPRvLKFU/4JwdFlsA07KHBhbQlgqiomdzFmD+vs2G1A=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NXovVdgp+ZKpx3GYaPZCyChAvBojvPEO0hUByOSOG608Ce+OVZXtrPt4qHl4s8M0W1ZhGq2Pp60poa/o9QSLuttyAYl8XnYT+MkNHlhczrRkzkhVAOIfp3LA8rT70GLes/jlivrCxZ3UGOmzCkWqm8Zz2YDdAJVe8OyEuNDyHX8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=NyM2Byd0; arc=none smtp.client-ip=209.85.221.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EGvWYJma"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA3D01F000FF;
-	Tue,  6 Oct 2026 12:39:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791290347;
-	bh=Yq6OiSx3FxPuTsvTlsCDDPOyEIntIosfuEfu0U4SWeM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=EGvWYJmav2Ur2h0tYlZSCOtexebXgZimXCswJmf97f7z9mZ/IjejJ5KI+m2/p8CHt
-	 rdOxNeUPLu/3CmgVSBLcSvejq74eBhZFWhBOyY4vcbdt+EjD+miisnse7jVUahT59v
-	 YAH4fRLMLIL82peLDwifAzhHSLBO/L++IJMiNbBTGuQU97mF8CwUx5CNpHMtmMN3RV
-	 BApzi5/F5gz5ys9k4q3eU2OqMdOfyvQesMaVDUGwwllxkDoOq/E3RZFHD+K8btzsTf
-	 Sjjt3Q7ygGKlZ9L+8UuAIvJ1VP51iyC7KpdKjUtbKATh6sr4dN+t5hAMS+l1+2v0ae
-	 f6hBFUMErDlwQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 5/9] drm/imx: Add support for i.MX94 DCIF
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Laurentiu Palcu" <laurentiu.palcu@oss.nxp.com>
-Cc: imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-clk@vger.kernel.org, Frank.Li@kernel.org
-In-Reply-To: <20261006-dcif-upstreaming-v10-5-bcfb28de0aae@oss.nxp.com>
-References: <20261006-dcif-upstreaming-v10-0-bcfb28de0aae@oss.nxp.com>
- <20261006-dcif-upstreaming-v10-5-bcfb28de0aae@oss.nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 06 Oct 2026 12:39:06 +0000
-Message-Id: <20261006123906.AA3D01F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="NyM2Byd0"
+Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48c4d99c32bso583809f8f.1
+        for <devicetree@vger.kernel.org>; Tue, 06 Oct 2026 05:47:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=lex.la; s=google; t=1791290858; x=1791895658; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RSZxsBu5RBEC02GI587QjIyYZwSuYrJWfwAAHFHFZ+o=;
+        b=NyM2Byd0Gc6bzeffEvVrxyA79H4UAr+uCWL0Q8hhW0IDM64Q7PTVK+7dIAqTsB5GBf
+         gJUo7JTLIlVtsOBQs51KUyN8kqRLkjFOrJEiG+sVhfCcS8DwE2A79urQIc+ggV9ZN5GL
+         /3Sp5iw8s5kEVaUbmA1ASkbzFUfAJCOO1MXtPxM/44n1JEwEvCNYI61y6iFyvKCEs/RH
+         mRwL0m8MbguwDFu/TnwrCZOOjqC2EguO/r5acMZk09XuOObbp7cQu0onwt5gdB08Nh2y
+         PMURcI8kp6uCbCovOuju036WDEQsTMK+RuYoyKXF3VurKJu8JSYLf+L2bSn9LbvZlRIe
+         AHxw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791290858; x=1791895658;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RSZxsBu5RBEC02GI587QjIyYZwSuYrJWfwAAHFHFZ+o=;
+        b=tiyZVVk5Ra/0Ox3BZ8R8PRcmYPPa4YWFPYCSESdou1dP0Kss+ZNKjLMU6eMqfp3Her
+         HYDHzx5yJw/HTj2pFCd6c53u0ddfAcFG5iFip5VLvMUdsG3INRjIbjt1/4n/HK/0inpM
+         BtwpIH9l4R88cbkN5cOL6w+aFLriazul+/uYQYS7fFnN+OmPQ0qp2dOBkyrY5QCIzU4K
+         WFQ3MPCSIaCIyCkhZxFmmrOlWz1tEDA670xJLjUZeNbds6OKJ8+tsQ6HNBpneQRsJIh6
+         gGzPNP3rDZmtoII139yqkI8r6OsBzEgYa9X4d+shwYGvUnNU393UtUNKn/CUuT1YEIgI
+         kq4A==
+X-Forwarded-Encrypted: i=1; AKwUvBy3m9NO4BWlciST1Z43pmhSCw3oiM+eR3yilRfF38yUYOpm4gS0C3zfWsFfuNAXLCoRtaC/VEJgvHM5@vger.kernel.org
+X-Gm-Message-State: AFq9FYIil6akOdDrgb+r8LQ0MCIi78ml36uklpj3W+a39Twf5UOHTmZx
+	T3xQyhTuxZ/Rbqe1uKGWvQylHgsArls2oPscVEM6QKLGAMh+CUK7bMWhWsvN+F+kIi8=
+X-Gm-Gg: AYBFou0By1UtjtweezmaNz03Ri5lkE29pwXICqE+tPj72KWyeQ938TrBcrU+XQgXnf8
+	W0UbPWuyWD5i2UK0OqUC7HfnSydn6UkvNkk7crvq0YdRLb+26AAuXKYXtIeogl/e3IQ6LnRmqA2
+	huHFLxvQvh0+/CfhYB8U8luOePQjBAXhRUwTpUk4zLkhLGzROp4S5Pxugi7R/i0vH2x8wRsD5F4
+	1jObsD65izlFmf+T5afAk6XZxZppyGnoO09okfburR7lQjjuu+x5Yd+yQMGgCPWWdlyr2IsjFoy
+	pHPoysTbOFAQ07RV+J1vIDSxGXd93qEcPtzh7ZVfUyn1sqsWWb/jn0Lqg09TAQ4csjM21PiIB3q
+	4oaUTPD3wTxBjs8J8mu2gbsPfaX4SDYfBGcMj2sdE51KHjA6LHlCcfTCAnYwweuw9qtcB/A3ye4
+	jplLX7FudOaaypWUzDvkXzpNT38HnGgX45nm9WJo0fFdbASUmNnA==
+X-Received: by 2002:a05:6000:4915:b0:48b:4c8:7b08 with SMTP id ffacd0b85a97d-48c6d19d048mr2285274f8f.34.1791290857366;
+        Tue, 06 Oct 2026 05:47:37 -0700 (PDT)
+Received: from remote-01 ([84.17.55.224])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c622b4685sm9722003f8f.41.2026.10.06.05.47.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 05:47:36 -0700 (PDT)
+From: Aleksei Sviridkin <f@lex.la>
+To: Russell King <linux@armlinux.org.uk>,
+	Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	netdev@vger.kernel.org
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Conor Dooley <conor@kernel.org>,
+	Florian Fainelli <f.fainelli@gmail.com>,
+	"Chester A. Unal" <chester.a.unal@arinc9.com>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: [PATCH net-next v6 0/3] net: phylink: wait for a PHY that probes after the MAC
+Date: Tue,  6 Oct 2026 15:47:28 +0300
+Message-ID: <20261006124731.1528963-1-f@lex.la>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] drm/imx/dcif: unpowered MMIO access crash if PM resume fails in at=
-omic_enable
-- [High] drm/imx/dcif: vblank refcount underflow and memory leak via manual=
- event caching
-- [High] drm/imx/dcif: NULL pointer dereference in IRQ handler during probe
-- [Medium] drm/imx/dcif: premature vblank event delivery exposes race with =
-plane updates
-- [Medium] drm/imx/dcif: back-to-back software reset may cause incomplete h=
-ardware reset
---
+On the Keenetic KN-1012 (MT7981B with an MT7531 switch), the Airoha
+EN8811H behind lan4 has its PHY driver built as a module on the root
+filesystem. The switch sets up its ports before that filesystem is
+mounted, so the port is validated against the generic driver, fails its
+phy-mode and stays dead for the uptime. DSA does not retry it.
 
-commit 5b82f4222050053f161ded1c655289268046892b
-Author: Sandor Yu <sandor.yu@nxp.com>
+Patch 1 lets the PHY node say so with needs-host-firmware. Patch 2 makes
+phylink poll for such a PHY instead of giving up, for a MAC that opts
+in. Patch 3 opts in DSA user ports of switch drivers that set a flag,
+and sets it in mt7530.
 
-drm/imx: Add support for i.MX94 DCIF
+The poller can still lose a race against an unbind of the PHY driver,
+between its readiness check and the attach. That window is phylib's:
+any phy_attach_direct() caller racing an unbind has it. The attach
+guard series [1] closes it.
 
-The i.MX94 Display Control Interface features:
- * Up to maximum 3 layers of alpha blending:
-    - 1 background layer(Layer 0);
-    - 1 foreground layer(Layer 1);
-    - A programmable constant color behind the background layer;
- * Each layer supports:
-    - programmable plane size;
-    - programmable background color;
-    - embedded alpha and global alpha;
- * Data output with CRC checksum for 4 programmable regions;
+Tested on that board with the series backported to its OpenWrt 6.18
+kernel, together with a940003f44e7 and 07d995873960 (the mt7530
+.get_stats64 atomic-context fix). The kernel had lockdep and
+DEBUG_ATOMIC_SLEEP on. Local debug parameters, not part of the series,
+drove the error paths. They fail the connect after a successful attach,
+ignore the opt-in, fail the generic attach of a PHY with no driver, and
+add a sleep after the switch shutdown.
 
-> diff --git a/drivers/gpu/drm/imx/dcif/dcif-crtc.c b/drivers/gpu/drm/imx/d=
-cif/dcif-crtc.c
-> index 0000000000000..07016b5fc700d 100644
-> --- /dev/null
-> +++ b/drivers/gpu/drm/imx/dcif/dcif-crtc.c
-> @@ -0,0 +1,763 @@
+ - boot: the PHY driver loaded its firmware at 8.7 s. lan4 attached at
+   26.3 s, when the port was brought up. Link up at 1 Gb/s.
+ - port kept down for 10 s with the PHY driver bound: no poll and no
+   attach. "ip link set lan4 up" attached it a second later.
+ - opt-in ignored: the old behaviour, the generic driver took the PHY.
+ - two injected failures: "failed to connect late PHY: -EIO" twice, a
+   second apart, and the third attempt attached. Link up at 1 Gb/s.
+ - failures that do not stop: four attempts and one "giving up". No
+   poll after that, also not after a down/up.
+ - four failed generic attaches with no driver bound: nothing logged as
+   a failure and no retry spent. The port attached once the driver
+   bound.
+ - switch unbound while the poller waited: nothing oopsed.
+ - reboot with a 3 s sleep after the switch shutdown: the poll ran
+   every second up to the shutdown and not once in the sleep. On v5 the
+   same test polled 3 times in the sleep.
 
-[ ... ]
+No in-tree device tree sets needs-host-firmware yet. The board is
+supported out of tree, in OpenWrt.
 
-> +static void dcif_reset_block(struct dcif_dev *dcif)
-> +{
-> +	regmap_set_bits(dcif->regmap, DCIF_DISP_CTRL, DCIF_DISP_CTRL_SW_RST);
-> +
-> +	regmap_clear_bits(dcif->regmap, DCIF_DISP_CTRL, DCIF_DISP_CTRL_SW_RST);
+Changes in v6 (since v5):
+https://lore.kernel.org/r/20261001130208.105558-1-f@lex.la/
+ - Defer only in PHY mode and without an SFP cage. In-band, the PCS
+   could bring the carrier up with no PHY attached. An SFP PHY could
+   take the port while the wait is armed, and its removal dropped the
+   wait.
+ - Poll only while phylink is started. A port that is down attaches at
+   its next up, and nothing touches the PHY after a switch shutdown.
+ - A failed attach after the PHY driver went away no longer counts as a
+   failed connect.
+ - The patch 2 message no longer says that MACs connecting from
+   ndo_open recover on the next open. They do not when the PHY driver
+   loads while the generic one holds the PHY.
+ - The dsa.h comment states the rule: .port_enable must not use its phy
+   argument.
 
-[Severity: Medium]
-Will this 1-cycle reset pulse be sufficient for full pipeline resets across
-all clock domains? Since this toggles the bit via back-to-back regmap
-writes without any delay or status polling, the hardware might remain in an
-indeterminate state.
+[1] https://lore.kernel.org/r/20261001130120.104628-1-f@lex.la/
 
-> +}
+Aleksei Sviridkin (3):
+  dt-bindings: net: ethernet-phy: add needs-host-firmware
+  net: phylink: wait for PHYs that are known to probe late
+  net: dsa: let user ports wait for a PHY that probes late
 
-[ ... ]
+ .../devicetree/bindings/net/ethernet-phy.yaml |   6 +
+ drivers/net/dsa/mt7530.c                      |   1 +
+ drivers/net/phy/phylink.c                     | 232 +++++++++++++++++-
+ include/linux/phylink.h                       |   5 +
+ include/net/dsa.h                             |   5 +
+ net/dsa/user.c                                |   1 +
+ 6 files changed, 242 insertions(+), 8 deletions(-)
 
-> +static void dcif_crtc_queue_state_event(struct drm_crtc *crtc)
-> +{
-> +	struct dcif_dev *dcif =3D crtc_to_dcif_dev(crtc);
-> +
-> +	scoped_guard(spinlock_irq, &crtc->dev->event_lock) {
-> +		if (crtc->state->event) {
-> +			WARN_ON(drm_crtc_vblank_get(crtc));
-> +			WARN_ON(dcif->event);
-> +			dcif->event =3D crtc->state->event;
-> +			crtc->state->event =3D NULL;
 
-[Severity: High]
-Does this code leak the vblank event and underflow the refcount if
-drm_crtc_vblank_get() fails? Even if the WARN_ON triggers, the event is
-manually cached and the loop continues. Later, dcif_irq_handler() will
-blindly call drm_crtc_vblank_put(), underflowing the refcount.=20
+base-commit: 47a1446725732cd3996edf607e8739334bbf4d78
+-- 
+2.53.0
 
-If the hardware times out and no VSYNC fires, the event is leaked when
-overwritten or ignored during disable. Could this use
-drm_crtc_arm_vblank_event() instead of manual caching?
-
-> +		}
-> +	}
-> +}
-
-[ ... ]
-
-> +static void dcif_crtc_atomic_enable(struct drm_crtc *crtc,
-> +				    struct drm_atomic_commit *state)
-> +{
-> +	struct drm_crtc_state *crtc_state =3D drm_atomic_get_new_crtc_state(sta=
-te, crtc);
-> +	struct drm_plane_state *plane_state =3D drm_atomic_get_new_plane_state(=
-state, crtc->primary);
-> +	struct dcif_crtc_state *dcif_crtc_state =3D to_dcif_crtc_state(crtc_sta=
-te);
-> +	struct drm_display_mode *adj =3D &crtc_state->adjusted_mode;
-> +	struct dcif_dev *dcif =3D crtc_to_dcif_dev(crtc);
-> +	struct drm_device *drm =3D crtc->dev;
-> +	dma_addr_t baseaddr;
-> +	int ret;
-> +
-> +	dev_dbg(drm->dev, "mode " DRM_MODE_FMT "\n", DRM_MODE_ARG(adj));
-> +
-> +	/* enable power when we start to set mode for CRTC */
-> +	ret =3D pm_runtime_resume_and_get(drm->dev);
-> +	if (ret < 0) {
-> +		drm_err(drm, "failed to resume DCIF, ret =3D %d\n", ret);
-> +
-> +		/* Don't leave the commit waiting for a flip done that never comes. */
-> +		scoped_guard(spinlock_irq, &drm->event_lock) {
-> +			if (crtc->state->event) {
-> +				drm_crtc_send_vblank_event(crtc, crtc->state->event);
-> +				crtc->state->event =3D NULL;
-> +			}
-> +		}
-> +		return;
-
-[Severity: High]
-If this returns early, will the DRM atomic helpers proceed to call
-dcif_plane_atomic_update() anyway? Since the helpers ignore this void
-return, plane updates will write to unpowered registers (e.g.,
-DCIF_CTRLDESC1) and the subsequent dcif_crtc_atomic_disable() will call
-dcif_disable_controller() which also accesses registers, causing a kernel
-panic from unpowered MMIO access.
-
-> +	}
-> +	dcif->crtc_pm_enabled =3D true;
-> +
-> +	dcif_crtc_mode_set_nofb(crtc_state, plane_state);
-> +
-> +	drm_crtc_vblank_on(crtc);
-> +
-> +	baseaddr =3D drm_fb_dma_get_gem_addr(plane_state->fb, plane_state, 0);
-> +	if (baseaddr)
-> +		regmap_write(dcif->regmap, DCIF_CTRLDESC4(0), baseaddr);
-> +
-> +	dcif_enable_plane_panic(dcif);
-> +	dcif_enable_controller(dcif);
-> +
-> +	dcif_crtc_queue_state_event(crtc);
-
-[Severity: Medium]
-Since the controller is already enabled at this point, could a VSYNC
-interrupt fire and deliver the event to userspace prematurely? Userspace
-might receive the completion event before drm_atomic_helper_commit_planes()
-finishes calling atomic_update on overlay planes, potentially causing
-framebuffers to be released too early.
-
-> +
-> +	if (dcif->has_crc && dcif_crtc_state->crc.source !=3D DCIF_CRC_SRC_NONE=
-) {
-> +		struct drm_rect roi;
-> +
-> +		dcif_crtc_get_crc_roi(crtc_state, &roi);
-> +		dcif_crc_source_enable(dcif, dcif_crtc_state->crc.source, &roi, 0);
-> +	}
-> +}
-
-[ ... ]
-
-> +irqreturn_t dcif_irq_handler(int irq, void *data)
-> +{
-> +	struct drm_device *drm =3D data;
-> +	struct dcif_dev *dcif =3D to_dcif_dev(drm);
-> +	int domain =3D dcif->cpu_domain;
-> +	u32 stat0, stat1, crc;
-> +
-> +	regmap_read(dcif->regmap, DCIF_IS0(domain), &stat0);
-> +	regmap_read(dcif->regmap, DCIF_IS1(domain), &stat1);
-> +	regmap_write(dcif->regmap, DCIF_IS0(domain), stat0);
-> +	regmap_write(dcif->regmap, DCIF_IS1(domain), stat1);
-> +
-> +	if (stat0 & DCIF_INT0_VS_BLANK) {
-> +		drm_crtc_handle_vblank(&dcif->crtc);
-
-[Severity: High]
-Could this dereference a NULL crtc->dev? In dcif_probe(),
-devm_request_irq() is called before the CRTC is initialized by
-dcif_kms_prepare(). If the bootloader left the display active, a pending
-VSYNC interrupt could fire immediately, passing the uninitialized CRTC to
-drm_crtc_handle_vblank().
-
-> +
-> +		scoped_guard(spinlock_irqsave, &drm->event_lock) {
-> +			if (dcif->event) {
-
-[ ... ]
-
-> diff --git a/drivers/gpu/drm/imx/dcif/dcif-drv.c b/drivers/gpu/drm/imx/dc=
-if/dcif-drv.c
-> index 0000000000000..ddc2614656a79 100644
-> --- /dev/null
-> +++ b/drivers/gpu/drm/imx/dcif/dcif-drv.c
-> @@ -0,0 +1,238 @@
-
-[ ... ]
-
-> +static int dcif_probe(struct platform_device *pdev)
-> +{
-> +	struct dcif_dev *dcif;
-> +	struct drm_device *drm;
-> +	int ret;
-> +	int i;
-
-[ ... ]
-
-> +	ret =3D devm_request_irq(drm->dev, dcif->irq[dcif->cpu_domain],
-> +			       dcif_irq_handler, 0, drm->driver->name, drm);
-> +	if (ret < 0)
-> +		return dev_err_probe(drm->dev, ret, "failed to install IRQ handler\n");
-> +
-> +	dcif_read_chip_info(dcif);
-> +
-> +	ret =3D dcif_kms_prepare(dcif);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261006-dcif-upstr=
-eaming-v10-0-bcfb28de0aae@oss.nxp.com?part=3D5
