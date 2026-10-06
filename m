@@ -1,72 +1,136 @@
-Received: from mail-4325.protonmail.ch (mail-4325.protonmail.ch [185.70.43.25])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABDB44A5EAC
-	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 19:30:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A13E306B3D
+	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 19:31:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791315007; cv=none; b=qCOqj0DHSAhVNjXFFF36tyoU+yQEWN+3V55phQSypOWGZ/nGl0acZvcX9IlLxMu1dHsj/YQSfM2r2I2+lPb1aBZoIrMOSxpmqfAEvqK36l3uweDtxvoCxqQmalHYtnB9Ls5EG+uKzU9XoGPnP5rlOjZJDwBCslaRCC2pSTY/eQg=
+	t=1791315074; cv=none; b=aU3gH4mO0uqlByj6ZRVSZ1cAQc+9wJt8FT0ZeIupHFk6OoNpIu340B/Y+WmFS4rlN8WwoWbrMLuSantP3H9eR7sFgTW5Pqt0cRVI6isR+ac+5nci8bXkVTryuDWLU/PtWTl9agq76vCr/Im86NEjxckDLB/dKSWe2iMp5rTFwnQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791315007; c=relaxed/simple;
-	bh=1qBitEhmQ0nRXsqFbRoBV52/x56ftA0tXFJqTD+1+Bg=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=P03q7LaldSR051rjEukRcl+yonm/GnAmgsEbkQFxetmrVkA2A5LTq0qh/J5+cjtMK9hpCPKVyO9FKV26RkfLWBuWyN0GoPI6yzkPuyn4SZh04+huAxoHMXTKLk781gUFHhkKflfnx113CkXZ3a8y4yYFnHAsYOf+Z6gFfIA0tRQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=ODfamKOl; arc=none smtp.client-ip=185.70.43.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
+	s=arc-20240116; t=1791315074; c=relaxed/simple;
+	bh=ObcFZUo9XljskIGbuLmwpSTyteIwyyt3iWGxb6XgNn0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=UqE/FoUBuPLAzGp5G4Dl24gUKWlsT4qMJxGBI4SToDEf47RsZrSOvyWneSwfpsVU6Rj4wTpVrTxRVMRWyOg6NRvJhZUTRHI39nKeViTGoZSgVyMqPKxt3Qeui5UnCsHrvjRPguu4F5sjeJqNyOfq6kRWsJXA0WDrbNzSbusWC54=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WXC2E8ow; arc=none smtp.client-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="ODfamKOl"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
-	s=protonmail3; t=1791314996; x=1791574196;
-	bh=1qBitEhmQ0nRXsqFbRoBV52/x56ftA0tXFJqTD+1+Bg=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=ODfamKOlMrd/svk2N3xAryTpWMoBSxgYAPPwkYwb/0eKSjCXnjVUZqpWhxScYZNWB
-	 58XC6whD0CzUO7YKaqbV3ZM+x6o5EEkMpEAcModPXCC30POBiq3n18F9XopFL6PAFI
-	 PXji54w/i0RCzudx1GTj8elNBmBNvyX7ZjO+XxEuaGx46wwsWpqZG3Sqdw6KWKdZJ2
-	 Zbslz5qkM0RU8zmsKGoxkqjBF0h70rJPxjdN0Qfo1iSsBMtvlMePjN3GBsoKKLw/6i
-	 fZ+1h0XWOKzJEstjlXja/pXtOO5uP6nKY36aDtfOFylDT9Ixhmg6oBN4r/GLo2D9DW
-	 uLh0UyllLGKdw==
-Date: Tue, 06 Oct 2026 19:29:50 +0000
-To: Linus Walleij <linusw@kernel.org>
-From: Yassine Oudjana <y.oudjana@protonmail.com>
-Cc: Sean Wang <sean.wang@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Andy Teng <andy.teng@mediatek.com>, linux-mediatek@lists.infradead.org, linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH v9 0/6] MediaTek pinctrl DT binding cleanup and MT6735 pinctrl support
-Message-ID: <oiGrAevSu8pKA28tZnLYomTYf7Ox9GgRiITPUpJnRqzFsusm9sE3GXOED7sBHn-oTLk0rfD5bqwABV7rQdkHBuTTGaqiuzgY1m7QxFIKxCk=@protonmail.com>
-In-Reply-To: <CAD++jLnJZBqQVkh51QGWuv0SQVNoxdy4fw3xOSOdCVSpSkkXww@mail.gmail.com>
-References: <20260925-mt6735-pinctrl-v9-v9-0-bfb19d8bb87c@protonmail.com> <CAD++jLnJZBqQVkh51QGWuv0SQVNoxdy4fw3xOSOdCVSpSkkXww@mail.gmail.com>
-Feedback-ID: 6882736:user:proton
-X-Pm-Message-ID: 496c99386a9184e561265d3356b401c0b7c518a6
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WXC2E8ow"
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-34ceab2900eso1613145eec.0
+        for <devicetree@vger.kernel.org>; Tue, 06 Oct 2026 12:31:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791315072; x=1791919872; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ObcFZUo9XljskIGbuLmwpSTyteIwyyt3iWGxb6XgNn0=;
+        b=WXC2E8owFukNNC5JXO52ZlUeWBcP2xuvuoC7xXh/Ku5AN39VuJGB/64KkkcEKxO4tu
+         q5Iu9V8s9e/ydPAkouDPSrwEazX10rIf/5oh2h3J1x0ZowUhpJBsNjifFOfAEfkX+41O
+         422t5Z8cT7vUhyhyvxHerVVieooqmVh7MghYlmARqBGAEOY5jjw6uELOS+ufNHfWrdo+
+         tlykLeuiYPxi9DjnfYUhypEtdyg0jFhhewcXHsuUqLkfOzdQZNcbEUIbgie17WSbRPzP
+         7ZQWgiXpT4j8sm3nnAqX6qavdGabwn7sUJZE6ONEWafKF2vLTvTgEGc1IVzXWv4MlnM7
+         EQAQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791315072; x=1791919872;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ObcFZUo9XljskIGbuLmwpSTyteIwyyt3iWGxb6XgNn0=;
+        b=Hzc0lu/f8KmFPVO2qqqSxJdrnF+cVQDPMDEtcZjzUI1oXnO5V1BKtto9ZYr2rBtmar
+         horBKZpZbiTHxSNxdyEmarxKdaM7D09P+x5EsthG2Q8lqqp3UO5bPa2c/RFMTXZYJ6bL
+         4+knXazVa2coBPuim5vbtvsU1U1Q/aPNu+lUH6D6jhMGF3btHYdGYTBdUPCT/Cehzcsk
+         k7vbFyPF+9+sTi8WG/WaCNMZTHAysOS14GlisKKmzTHUa8YHg0jUe2+cn8aAJ01Z4gXs
+         PY6FV2MBDWFU6ARPcmMD7Ezitn7PQokrGEJyKlH7+MkBvOPYLTIOl9jbbEtWSF4IU1GR
+         CGfQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwA7hL63KSFpmLwJnQ/7GWl9q+IDzwgdnak7mrNHOguvhyZtChI3cw4M/n9ljRwmEX1l+sLOFXlUmRe@vger.kernel.org
+X-Gm-Message-State: AFq9FYJxfZ5fFGQgEkncRX2Sq0FT6WrZzHPK5cTkBqk6WFbJRHxG2FYt
+	7RZiTKuPRXI0/kDuGPUH0ttm7MDvAeOrJv20oPyEFOMJ0gEDe8/npSt0
+X-Gm-Gg: AYBFou1kd4eHkvKjHSQ854N0JXpueaf+CdxoDEV31WmbpLjK0AGKHmX9RRrMmH4455S
+	3djHz/QzmBFzokYAPmWg+IoloabmM6sVhTl5VWBD84FITCml8D5amL+8bvpO3JHrv5S9tKXlczN
+	yvUXL9WA12oIcxTrfBNhevFmmUmfMeKz90nrIT779DLIKRIXS8HYM1lXAgZYtsiIcUU6rUkijVe
+	jFX2ly0UFp6q3KO/mXzhMPoAmMcwZVBFyGgn8lu/H44D67HJ3n2uGuc+aqVtDdwtupctbSy3S36
+	YMVklJF8ZhpbiKrWmFwgVGokkOFjzAnJxfSz0IdXG7fpGIx5SW4/aZiIaHGChTA/H5sgidUAW3l
+	ovP37hXqagNtEjkYB42z8adamKbZ1wcLTAWz8gpPocthJkKS4l6wzK6eTpjAo1Vc+t+kg9g00mn
+	e7dJeUmCFB/WA1owgsjsGvIuozeN6Xo2DZhS3jvRNGqAtbfUYJwAbZOo3RtCkblwIVJcCVztQIi
+	/LiBJ2Oa5u+njZdrxuRK0hpkGost5VvVss+EU3JR27iCKrjpmarO1HJnYYFbTikJeM30VAOMsB4
+	Pv3oEKw=
+X-Received: by 2002:a05:7301:fc0b:b0:351:5665:e451 with SMTP id 5a478bee46e88-3515665e804mr975434eec.38.1791315072116;
+        Tue, 06 Oct 2026 12:31:12 -0700 (PDT)
+Received: from MaquinaLab.. ([179.179.237.181])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3515af170c5sm717764eec.11.2026.10.06.12.31.06
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 12:31:11 -0700 (PDT)
+From: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
+To: Andre Przywara <andre.przywara@arm.com>,
+	linux-serial@vger.kernel.org
+Cc: gregkh@linuxfoundation.org,
+	jirislaby@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	andriy.shevchenko@linux.intel.com,
+	ilpo.jarvinen@linux.intel.com,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-sunxi@lists.linux.dev,
+	Enzo Adriano <enzo.adriano.code@gmail.com>
+Subject: Re: [PATCH 3/3] serial: 8250_dw: Add Allwinner A733 UART
+Date: Tue,  6 Oct 2026 16:30:46 -0300
+Message-ID: <20261006193046.540252-1-vinicius.eduardo.pedrosa@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <603b4f40-2a60-4bc5-8b98-ada7a52fead9@arm.com>
+References: <20261005172538.398522-1-vinicius.eduardo.pedrosa@gmail.com> <20261005172538.398522-4-vinicius.eduardo.pedrosa@gmail.com> <603b4f40-2a60-4bc5-8b98-ada7a52fead9@arm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thursday, October 1st, 2026 at 9:07 AM, Linus Walleij <linusw@kernel.org=
-> wrote:
+Hi Andre,
 
-> On Fri, Sep 25, 2026 at 5:46=E2=80=AFPM Yassine Oudjana
-> <y.oudjana@protonmail.com> wrote:
->=20
-> > These patches are part of a larger effort to support the MT6735 SoC fam=
-ily in
-> > mainline Linux. More patches (unsent or sent and pending review or revi=
-sion) can
-> > be found here[1].
->=20
-> Waiting for a DT maintainer ACK on patch 3 otherwise this looks good.
+On 10/6/26 14:16, Andre Przywara wrote:
+> So isn't that a bug somewhere else then? Why would it gate the clock to
+> set the rate?
 
-I sent a v10 [1] addressing some additional comments by Sashiko and the DT =
-patch there got a Reviewed-By already. Please make sure you pick that rathe=
-r than the v9.
+I think the bug is in dw8250_set_termios(). The gate comes from
+4e26b134bd17 (2014, replacing the Baytrail hook) and runs on every
+termios change that reaches the driver, with nothing draining the port
+first. On LPSS the UART's clock ends in a gate on bit 31, the divider
+update bit, so I'd guess the disable/enable pair is how a new rate gets
+latched there. On the A733 the DT hands over only the bus gate, so that
+is what gets pulsed.
 
-Thanks!
-Yassine
+> And what is your use case here, exactly? Do you reconfigure the baud
+> rate while characters are incoming?
 
-[1] https://patchwork.kernel.org/project/linux-mediatek/list/?series=3D1173=
-988
+No baud change. I toggled only CLOCAL with TCSANOW, 300 times while the
+console printed 3000 lines. With the gate alone every run lost 12 to 18
+lines (3 runs). With round_rate and set_rate but no gate, all 3 were
+clean. A CSTOPB toggle splits the same way over 6 runs each.
+
+> So can you just expose CLK_APB1 as the baud rate clock in the DT?
+
+On the A733 the UARTs aren't on APB1. They sit on APB_UART (0x538),
+shared by the seven UARTs. I tried it as baudclk with the bus gate as
+apb_pclk and the console was garbage. The driver asks for 16 x baud and
+the CCU rounds down, so 115200 gets RC16M/9 = 1777778 and divisor 1
+gives 111111 baud. 24M/13 is just above the target, so it isn't picked.
+ccu-sun6i-rtc lists RC16M at 30% accuracy anyway.
+
+It's also shared: 01569a29af76 removed the clock notifier in 7.2, so a
+port that re-rates APB_UART would leave the other six with stale
+divisors.
+
+For v2 I'd drop SKIP_SET_RATE for the A733 and only gate and set the
+rate when clk_round_rate() differs from clk_get_rate(). By my reading
+the branch is never taken here, and that kernel was clean in all 13
+runs. H6, H616 and A523 pass only a bus gate too, so they likely see the
+same thing, but I can't test them.
+
+Would you rather drop the gate altogether? I kept it because I can't
+test LPSS.
+
+Thanks,
+Vinicius
