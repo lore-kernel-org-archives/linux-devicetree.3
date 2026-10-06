@@ -1,216 +1,114 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA2F239D3FD
-	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 10:20:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0360468C33;
+	Wed,  7 Oct 2026 10:22:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791368461; cv=none; b=gzNctKym6pplZO7vjbF4hr+pSZLcXr/81c+vl5Q4jT1IePoQcSAEzFIS62cxCKE44dVaXrE3NCd5v109qrDRlQam4nx9ZqtndttxKgO5ZGpKjDoKs7JnphdwVVtYZLTOWVBTCTOpcQPvezi6CUVAkfVXJOT9yB1X02aPRn8cPMM=
+	t=1791368556; cv=none; b=nXWwS+U4xEgSRwIZfs2Ay7C1FFu4PIHmGiHwXgbB8Ue713zhB9PYFfbJENHPEPDp161kjDyXCaiRkz022LLyeUVrWeL+Cv4L/ZVvMf2YQ0g1hR1T5SDWYZTwMUKmRUerpmvYuoAXIYZfZFS6IC0o5mUKH7JxrrtlgMLwVhL8Sf4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791368461; c=relaxed/simple;
-	bh=UNIKGS1w/o9uITv+TX8T1Jcps6D+3XfpPQ9R6iwiV6g=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=P2mFtpbZEr3vJ4Y+CQ1Qenv78KjuGw6GSJ7wdq/O5uBPWeEmmz2DMKtLx0CGeOhxYd0mKy3pACTcc2111b1GwkdRpEWVLALq30E77FIpsMcjM7fDhBC24fj2nGsnrr+5QLLpmd0nShxt2szDGIBYedvisx+lAHoA0GQX5bDpvYM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VNZpFI2E; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791368556; c=relaxed/simple;
+	bh=sZcZ2Lkfhju22e9qIS2BXcwU6/Lwoej9bKkDvQzsH3E=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=qX7PZQsxJrEaAa08Mr6Jm3K7PmMxqpeOgaLPcA/qlXWtp0DBEYrexug8f1f8Vc1/VZSemVHwQ0HvABNTE6W0jXcde6Hrf+6bhGhxOprjr7i1qYS+Ay7W3yorx3q61OJFD9CglKnx6dTsojQLOa6Bn6uiXahudQUd9m1jAJzAev0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J1jKUodm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VNZpFI2E"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10F2C1F0089B;
-	Wed,  7 Oct 2026 10:20:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J1jKUodm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 222E31F0089C;
+	Wed,  7 Oct 2026 10:22:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791368450;
-	bh=0WyzbuOJtbzmf4jOWQcLjayGjAXr6ATyNld+3FNFXJA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=VNZpFI2EX4TR8FYh2dD2BIKVm+ZxPkip5hkE6CX9aJV+kwKuJ/Uk7BJmyk3ouYPb7
-	 vp//JIdjLjU1c0clghjXNTUxOMowNR8adMZmtIQNAytvhzIOznye48JUr1TIivMUNN
-	 eNNJmOZk6hm5XohKm9g9/grqucqZ8F42R3UZU8JWWb6OVhOfe5FaQ1a/kYto+4mwrS
-	 k+a7hOaVCxPXCQMAmcZsPuBNqec3Uxn0JULWVTbuVZh0kc1AivK+IdRdNjKsqb3IkN
-	 CrxgeW9Z4t8iCh5No/eVHAR+zU/Su/DDH4hqSX89j/wfIh/1dRQRoh4yMP0Z5Bz9MC
-	 yg7sFGqaWv2Sg==
-Message-ID: <sashiko-outbox-162854@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 2/2] arm64: dts: ti: k3-am62l3-evm: Add HDMI support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Swamil Jain" <s-jain1@ti.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20261007100707.1065564-3-s-jain1@ti.com>
-References: <20261007100707.1065564-1-s-jain1@ti.com>
- <20261007100707.1065564-3-s-jain1@ti.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 07 Oct 2026 10:20:49 +0000
+	s=k20260515; t=1791368545;
+	bh=t9z/0Q7Qn9h9T22cZ3CtXSL0njpjeg4aF7aOM1ALsuw=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=J1jKUodmBu+VBZwChp40BcpqXOfNmEpR/KWwISyjvKmaAzfZVQurji52/wl+9Hxg1
+	 4xfe2auLS1wtDBS3L51V//dAJCz6Pfrb0Zy7f3/3Szg9Pb/k3pOoeQTYFU+KN+qWKQ
+	 cXdKsZADZ39BnDT7UbNIIAm0TOfzMVN79nJdjrrLZ/a9rNxVNy81eMdTQ/SooSCLRF
+	 S6t4t2zmr3yJPLEnacD4mo0JVMXgl7NNi3cmlWiA46l1VmsP3qfx85tZO+zsPleE/Y
+	 8z4VGlCm5o4t3kS7A5a2c6DZkMu2yGag3RjXrjAF6iExHdvB9JflGpdfamb8KFp+OR
+	 sH+vkXGVTm17Q==
+From: Mark Brown <broonie@kernel.org>
+To: Srinivas Kandagatla <srini@kernel.org>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, 
+ Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
+Cc: linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
+ Pratyush Meduri <mpratyus@qti.qualcomm.com>, 
+ Mohit Sharma <mohit.sharma@oss.qualcomm.com>
+In-Reply-To: <20260923-vmid-v4-v6-0-3d61a0319b1c@oss.qualcomm.com>
+References: <20260923-vmid-v4-v6-0-3d61a0319b1c@oss.qualcomm.com>
+Subject: Re: [PATCH v6 0/4] ASoC: qcom: enable audio on stage-2 protected
+ DSPs (mDSP)
+Message-Id: <179130111502.150114.14627451797945762193.b4-ty@b4>
+Date: Tue, 06 Oct 2026 17:38:35 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2023; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=sZcZ2Lkfhju22e9qIS2BXcwU6/Lwoej9bKkDvQzsH3E=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqxh1YljsUnhntksZopCroHihzWh52QisMbc4vO
+ /Lj0Q8bkYqJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCasYdWAAKCRAk1otyXVSH
+ 0BZFB/9o7BNq9S5R35+7IRmVUUES380ic3VHMQz3KJ3SN0zvkoxqrSt5uDc44VaqRV2fJdhkr75
+ K9EsubtobucKxrJ0CEdJVnc18o7t5YdrXry6J5Ht6+mzdUwPJSKr6uXpeBnNfh45EPYnNzo9Gql
+ 13BfJMFG6bgd4MLNBhtQ1sybh/KkfUlBXdQl5F9Aosujozpe1Bh6ILdRTnq2PeqCFulCyeqQ5wV
+ Q1RbAAwPPVxeO4HOxEyNCPHe2mcUKrrWCanM7EyKYrs0Z2CPR9bkZu9ZdKKx21i+VMvuHLJ9Kq6
+ OVvfOoExjexjEHSn2B8ewaGHVmRBMKiy2FtyR41Cr32GeWCU
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Medium] arm64: dts: ti: missing reset-gpios for sii9022 HDMI bridge
-- [Medium] dts: missing gpio-hog for VOUT0_FET_SEL0 hardware mux
-- [Medium] dts: ineffective bootph-all properties on HDMI endpoints and pin=
-mux
---
+On Wed, 23 Sep 2026 22:03:37 +0530, Ajay Kumar Nandam wrote:
+> ASoC: qcom: enable audio on stage-2 protected DSPs (mDSP)
+> 
+> On platforms such as Qualcomm Shikra, audio is served by the modem DSP
+> (mDSP) rather than the ADSP. The mDSP runs in a stage-2 protected context
+> and cannot use the SMMU, so the PCM buffers it consumes must live in
+> reserved-memory carveouts that are handed to the consumer VMIDs via a
+> hypervisor (SCM) memory assignment. This series adds that access model to
+> the q6apm DAI driver and its binding, alongside the existing stage-1/SMMU
+> (iommus) path, which is left untouched.
+> 
+> [...]
 
-commit 67599eb578ca3fc87e07bad393a95787a31afca5
-Author: Devarsh Thakkar <devarsht@ti.com>
+Applied to
 
-arm64: dts: ti: k3-am62l3-evm: Add HDMI support
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
 
-This commit adds HDMI bridge and connector nodes to the TI AM62L3 EVM device
-tree. It configures the DPI pinmux connecting VOUT0 to the SII9022 bridge, =
-and
-hooks up the DSS output to the bridge input.
+Thanks!
 
-> diff --git a/arch/arm64/boot/dts/ti/k3-am62l3-evm.dts b/arch/arm64/boot/d=
-ts/ti/k3-am62l3-evm.dts
-> index 84a0cfaaf196a..7733a0d265ab4 100644
-> --- a/arch/arm64/boot/dts/ti/k3-am62l3-evm.dts
-> +++ b/arch/arm64/boot/dts/ti/k3-am62l3-evm.dts
-> @@ -44,6 +44,19 @@ usr: button-usr {
->  		};
->  	};
-> =20
-> +	hdmi0: connector-hdmi {
-> +		compatible =3D "hdmi-connector";
-> +		label =3D "hdmi";
-> +		type =3D "a";
-> +
-> +		port {
-> +			hdmi_connector_in: endpoint {
-> +				remote-endpoint =3D <&sii9022_out>;
-> +				bootph-all;
-> +			};
-> +		};
-> +	};
-> +
+[1/4] ASoC: qcom: q6apm: clear g_apm on driver removal
+      https://git.kernel.org/broonie/sound/c/be2172758f2b
+[2/4] ASoC: qcom: qdsp6: generalize GPR service domain
+      https://git.kernel.org/broonie/sound/c/d3ad9ee48425
+[3/4] ASoC: dt-bindings: qcom,q6apm-dai: add memory-region and relax iommus
+      https://git.kernel.org/broonie/sound/c/7ff0bdaf9292
+[4/4] ASoC: qcom: q6apm-dai: add SCM buffer assignment for mDSP platforms
+      https://git.kernel.org/broonie/sound/c/bb8afd437d79
 
-[Severity: Medium]
-The hdmi_connector_in endpoint has a bootph-all property, but the parent
-device node hdmi0 lacks it.
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-U-Boot's fdtgrep tool extracts subnodes structurally if a child has bootph-=
-all,
-but strips the properties (such as compatible and reg) of the parent node
-unless the parent itself also has bootph-all.
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-Will this cause the connector driver to not probe in early boot, making the
-bootph-all property ineffective and dead code?
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-[ ... ]
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-> @@ -192,6 +205,37 @@ exp2: gpio@23 {
->  		bootph-all;
->  	};
-> =20
-> +	sii9022: bridge-hdmi@3b {
-> +		compatible =3D "sil,sii9022";
-> +		reg =3D <0x3b>;
-> +		interrupt-parent =3D <&exp1>;
-> +		interrupts =3D <20 IRQ_TYPE_EDGE_FALLING>;
-> +		#sound-dai-cells =3D <0>;
-> +		sil,i2s-data-lanes =3D < 0 >;
+Thanks,
+Mark
 
-[Severity: Medium]
-The sii9022 node is missing the reset-gpios property. Does this allow the
-driver to probe silently without a reset line?
-
-The AM62L3 EVM hardware has a dedicated reset line (GPIO_HDMI_RSTn) on the
-exp2 expander:
-
-	exp2: gpio@23 {
-		...
-		gpio-line-names =3D "BT_EN_SOC", "VOUT0_FET_SEL0",
-		...
-				  "GPIO_QSPI_NAND_RSTn", "GPIO_HDMI_RSTn",
-
-By omitting reset-gpios, the kernel fails to actively manage the reset stat=
-e,
-relying on the bootloader to leave the pin de-asserted.
-
-If the bootloader leaves it floating or asserted, or if the hardware loses
-state during suspend, will the HDMI bridge silently fail to operate?
-
-[Severity: Medium]
-Additionally, the exp2 GPIO expander defines a VOUT0_FET_SEL0 line, indicat=
-ing
-a hardware FET switch multiplexes the DPI/VOUT0 signals.
-
-Without a gpio-hog to actively select the HDMI output path, does the expand=
-er
-default to inputs (high impedance), leaving the FET switch floating or rest=
-ing
-in an unverified default hardware state?
-
-Could this cause display signals to not reach the HDMI bridge, rendering the
-HDMI output non-functional?
-
-> +
-> +		ports {
-> +			#address-cells =3D <1>;
-> +			#size-cells =3D <0>;
-> +
-> +			port@0 {
-> +				reg =3D <0>;
-> +
-> +				sii9022_in: endpoint {
-> +					remote-endpoint =3D <&dpi_out>;
-> +					bootph-all;
-> +				};
-> +			};
-> +
-> +			port@1 {
-> +				reg =3D <1>;
-> +
-> +				sii9022_out: endpoint {
-> +					remote-endpoint =3D <&hdmi_connector_in>;
-> +					bootph-all;
-> +				};
-> +			};
-> +		};
-> +	};
-
-[Severity: Medium]
-Similar to the hdmi0 node, the sii9022_in and sii9022_out endpoints have
-bootph-all but the parent sii9022 node lacks it.
-
-Will the missing bootph-all on the parent prevent the driver from probing in
-early boot, rendering the endpoints' bootph-all properties dead code?
-
-[ ... ]
-
-> @@ -321,6 +400,24 @@ AM62LX_IOPAD(0x0004, PIN_OUTPUT, 0) /* (AA23) WKUP_U=
-ART0_TXD */
->  	};
->  };
-> =20
-> +&dss {
-> +	status =3D "okay";
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&dpi_pins_default>;
-> +};
-> +
-> +&dss_ports {
-> +	/* VP1: DPI Output */
-> +	port@0 {
-> +		reg =3D <0>;
-> +
-> +		dpi_out: endpoint {
-> +			remote-endpoint =3D <&sii9022_in>;
-> +			bootph-all;
-> +		};
-> +	};
-> +};
-
-[Severity: Medium]
-The dpi_out endpoint has bootph-all, but the parent dss and dss_ports nodes
-lack it.
-
-Will the missing bootph-all on the parents prevent the display subsystem fr=
-om
-probing in early boot, making the endpoint bootph-all properties ineffectiv=
-e?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261007100707.1065=
-564-1-s-jain1@ti.com?part=3D2
