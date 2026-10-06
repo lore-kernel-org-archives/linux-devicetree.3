@@ -1,179 +1,194 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ABDB231829;
-	Tue,  6 Oct 2026 09:38:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 355033ABDA8;
+	Tue,  6 Oct 2026 09:47:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791279534; cv=none; b=u0FxHGlEyXoCATgV4WZsPtAwWc7frHkWOTHBW9eBEVaCM04zfFJRd0gqSZ8C5l0BDty1yGyqOR9+Ce1HBpuUHU1BnhpjVo6o/dpucBTr3CjC1IKJQ1ZWlEJTMeTRz8nx54Dw/I+g9ZmZ0SnSCZy0mNndWKFe6s+hwDVsoiLVe4o=
+	t=1791280025; cv=none; b=uoSCsxMaT6JNcyUCft3ouiRA2UOS6P/dWf5kiOoEOUyz2uar8U02ceA7Burl/eKNuwuMmDhcqGRwM4uGgel8kdqwGnK2AA+eSMy00wqsirsPwgBjvwKL9Bpr65GjmRSkTIZf2QHAHmjDt/BI4pnRUd71/TkSxV3FQi6WXtK67ek=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791279534; c=relaxed/simple;
-	bh=xvI7QxA0zzWmWCU7jrxfVAAC95rQjrMUUSlHuT+vlTk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=G/VFWKRaRyrCZOAVLrxWTc+OMY0AR1L3ULS3LTKQcMbjG7bORD4g/hGESmcFBD17h1MUzubMGsTZ/JFif8kxgyCQ2zhKG88aamcOcc7HUceqX1pKBNqAtu4vwyjyv4FbKulqFg+wXL5OI6HM/2q86G4oi1NlIRO4FksjZAYITLI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eUS/FOXD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791280025; c=relaxed/simple;
+	bh=FLHj0G5aOhXs16x0OKE7+C6AYvH6VvieuGt1QUJ8GBU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=h7t3ut55w56MqAWyuvZ9cYaDmNeF0FIzt8ID/ZoJJ+FExMfRwrjitGblf6zETuLPmL8Vm5AgpJXgB9FDRAmJa02CiULMyRcgGLNvPFWUZNqlRfCzdOmLLXjBaYMkXb8HxnT/Xm1iUD76fao4l/QbZLPWtAbkC6G9I/qn9Bs+k/w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Q3i20Eq+; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eUS/FOXD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AB921F000FF;
-	Tue,  6 Oct 2026 09:38:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791279533;
-	bh=gk2x8xTXFyS7Damzh5pMSZEky6AcMORsKpJ/0CVQZcI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=eUS/FOXDO2qaZ0BoiqDrFJLnetqgEHuH4FDypKy7omS9ZHpfG67TTGqoXLXzQlYsr
-	 xQ+AA9YteCuEzOwlrK/8JQOQtin7iWFP07VzDONUispB7bVIF1vOpK+KAEw2H1ZGP6
-	 GTv3DhegYPF4ByutaQTnLEcZ2vg490zxVp+NLDdXTazuiWs1rIDtFhnUvCdWS7PD+7
-	 4EcBkbjTiy19KDPBOWRpDRLiQjcVASDdSCSwvpbcfzVdSfo2wraXuJn1jfaDS9zL09
-	 Zq1fodG3VoCJlP1AHVwp9Sn9eC1l8V7aWOX4PbuFGaytJf7pfooYqrlla343QezvxH
-	 qscIL4gbm9wkg==
-Date: Tue, 6 Oct 2026 10:38:47 +0100
-From: Daniel Thompson <danielt@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
-	linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, mfd@lists.linux.dev,
-	dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v2 2/3] mfd: aat2870: Convert to use OF bindings
-Message-ID: <asTBp2RPPvsD4AsU@aspen.lan>
-References: <20261004164121.193514-1-clamor95@gmail.com>
- <20261004164121.193514-3-clamor95@gmail.com>
- <asPVmbvyslGgEsjk@aspen.lan>
- <CAPVz0n29+1yOO0i057RdpUAu+z85hhnm9GGaHkqgf5XW1SPfeQ@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Q3i20Eq+"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3D46B1516;
+	Tue,  6 Oct 2026 02:47:00 -0700 (PDT)
+Received: from [192.168.178.24] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 483123F763;
+	Tue,  6 Oct 2026 02:47:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791280023; bh=FLHj0G5aOhXs16x0OKE7+C6AYvH6VvieuGt1QUJ8GBU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=Q3i20Eq+Va1cYGLHzHDjsaxDQ6/8kKdT9HfUX2/YU9b59PkMqzReJ3bYlgbAAACi7
+	 MVlx22Wz3O4rozJTYWcAV6Uxl4T3QAkRD0Nv2E/eWhLIzHp5Y4oTvw9/PrA5w/GZCd
+	 byo17B/sRhxboDUuQH/48nb+kLyKHpqoHkaAG+w0=
+Message-ID: <db561de8-cef7-4945-93ee-b0d434eb806b@arm.com>
+Date: Tue, 6 Oct 2026 11:46:59 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAPVz0n29+1yOO0i057RdpUAu+z85hhnm9GGaHkqgf5XW1SPfeQ@mail.gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] serial: 8250_dw: Add Allwinner A733 UART
+To: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>,
+ linux-serial@vger.kernel.org
+Cc: gregkh@linuxfoundation.org, jirislaby@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, andriy.shevchenko@linux.intel.com,
+ ilpo.jarvinen@linux.intel.com, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-sunxi@lists.linux.dev,
+ Enzo Adriano <enzo.adriano.code@gmail.com>
+References: <20261005172538.398522-1-vinicius.eduardo.pedrosa@gmail.com>
+ <20261005172538.398522-4-vinicius.eduardo.pedrosa@gmail.com>
+Content-Language: en-GB
+From: Andre Przywara <andre.przywara@arm.com>
+In-Reply-To: <20261005172538.398522-4-vinicius.eduardo.pedrosa@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 05, 2026 at 08:18:31PM +0300, Svyatoslav Ryhel wrote:
-> пн, 5 жовт. 2026 р. о 19:51 Daniel Thompson <danielt@kernel.org> пише:
-> >
-> > On Sun, Oct 04, 2026 at 07:41:20PM +0300, Svyatoslav Ryhel wrote:
-> > > Conversion of the AAT2870 driver to use OF bindings requires a few complex
-> > > changes that should be done simultaneously.
-> > >
-> > > The AAT2870 essentially provides two functions via child devices:
-> > > backlight and regulators. Both functions are fairly self-sufficient and
-> > > may not be populated on the final board. Consequently, the MFD
-> > > registration API was replaced with of_platform_populate(), and each
-> > > sub-device was given its own compatible string.
-> > >
-> > > Additionally, aat2870-core utilizes an enable GPIO. Obtaining this GPIO
-> > > was converted to use modern gpiod/OF helpers, allowing the redundant
-> > > aat2870_enable() and aat2870_disable() helpers to be removed.
-> > >
-> > > The aat2870-regulator driver was updated to register each of the four LDOs
-> > > from a dedicated OF node.
-> > >
-> > > The aat2870-backlight driver was changed to populate all required
-> > > properties from a dedicated Device Tree node. Its channel map was updated
-> > > to use u8 instead of int. Furthermore, because the maximum current is now
-> > > parsed as an absolute value rather than an enum entry, the calculation and
-> > > application of the maximum current were updated accordingly.
-> > >
-> > > All of the changes above allow platform data to be removed entirely.
-> > >
-> > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > ---
-> > >  drivers/mfd/aat2870-core.c            | 115 ++++++--------------------
-> > >  drivers/regulator/aat2870-regulator.c |  76 ++++++++++++-----
-> > >  drivers/video/backlight/aat2870_bl.c  |  55 ++++++------
-> > >  include/linux/mfd/aat2870.h           |  95 +--------------------
-> > >  4 files changed, 111 insertions(+), 230 deletions(-)
-> > >
-> > > [snip]
-> > >
-> > > diff --git a/drivers/video/backlight/aat2870_bl.c b/drivers/video/backlight/aat2870_bl.c
-> > > index 8b790df1e842b..933a8f728f66a 100644
-> > > --- a/drivers/video/backlight/aat2870_bl.c
-> > > +++ b/drivers/video/backlight/aat2870_bl.c
-> > > @@ -15,11 +15,19 @@
-> > >  #include <linux/backlight.h>
-> > >  #include <linux/mfd/aat2870.h>
-> > >
-> > > +/* Backlight has 8 channels, each bit represents one channel */
-> > > +#define AAT2870_BL_CH_ALL    0xff
-> > > +
-> > > +/* Backlight current magnitude (uA), 450uA current is eq to 0 */
-> > > +#define AAT2870_CURRENT_MIN  450
-> > > +#define AAT2870_CURRENT_MAX  27900
-> > > +#define AAT2870_CURRENT_STEP 900
-> > > +
-> > >  struct aat2870_bl_driver_data {
-> > >       struct platform_device *pdev;
-> > >       struct backlight_device *bd;
-> > >
-> > > -     int channels;
-> > > +     u8 channels;
-> > >       int max_current;
-> > >       int brightness; /* current brightness */
-> > >  };
-> > > @@ -30,7 +38,7 @@ static inline int aat2870_brightness(struct aat2870_bl_driver_data *aat2870_bl,
-> > >       struct backlight_device *bd = aat2870_bl->bd;
-> > >       int val;
-> > >
-> > > -     val = brightness * (aat2870_bl->max_current - 1);
-> > > +     val = brightness * aat2870_bl->max_current;
-> > >       val /= bd->props.max_brightness;
-> >
-> > What is the purpose of max_brightness?
-> >
-> > Normally it is used to limit brightness but max_current is already doing
-> > that. Is it just being used to reduce the number of steps in the
-> > brightness scale (and if so, why is that useful)?
-> >
->
-> This is the original driver behavior; I did not modify it.
+Hi Vinicius,
 
-I can see that but the parameters for these (rather dubious) previous
-behaviours are now being copied into the devicetree bindings where they
-become stable ABI.
+On 10/5/26 19:25, Vinicius Pedrosa wrote:
+> The A733 UART is clocked from its bus clock gate, which can't change
+> rate. dw8250_set_termios() still gates it around a no-op clk_set_rate()
+> on every termios change. That stalls the character being shifted out
+> and corrupts it on the wire. Use the existing SKIP_SET_RATE quirk, as
+> other SoCs with a fixed UART clock do.
+> 
+> Offset 0xc0 is the RS485 control register on this SoC (A733 User
+> Manual, UART_485_CTL), not DLF. dw8250_setup_port() writes all ones
+> there, reads back a nonzero 9-bit value and takes it for a 9-bit DLF.
+> Every later divisor change then writes the fractional divisor into the
+> RS485 control register. Add a NO_DLF quirk so dwlib skips that probe.
 
+many thanks for digging into this, and superficially it looks like the 
+right thing to do. But looking into some manuals, it seems like 
+Allwinner added this RS485 support on registers +0xc0, 0xc4 and 0xc8 
+already a while ago: I find it in the H6, H616, A523 manuals, for 
+instance. And while register 0x50004c0 ignores writes on the H616, the 
+corresponding 0x25004c0 reacts on the A523, so at least that one is 
+already broken.
+So as Sashiko mentioned, we would technically need to drop the fallback 
+compatible, and doing this also for the A523 would break all older 
+kernels, so that isn't a good option.
 
-> The AAT2870 backlight intensity is regulated by the Main Backlight
-> Current Magnitude register. It has 31 steps from 450uA (0) to 27.9mA
-> (31), so even setting max_current to 0 will not disable the backlight.
-> The max current value may be limited for some configurations, which is
-> why this property exists.
->
-> The max_brightness property determines the maximum number of steps the
-> backlight can have and is mapped to the available current range
-> provided by the hardware. The backlight is controlled in steps, not in
-> uA.
+Now when I write 0xffffffff into +0xc0 on the A523, I read 0x9f back, so 
+there are zero bits in the middle, which doesn't match the expected 
+contiguous bitmask for the fractional divider bits.
+So I was wondering if we should refine the DLF detection instead? Only 
+when the readback from 0xc0 returns some 2^n-1 value we assume DLF is 
+implemented?
 
-This behaviour does not match the devicetree bindings documentation for
-max-brightness:
+Alternatively making DLF a (negative?) DT/ACPI property instead, and 
+keep the fallback compatible?
+I guess this all depends a bit on what the snps,dw-apb-uart compatible 
+string really covers, and if Allwinner hacked^Wchanged the IP, by adding 
+their RS485 bits on top of on older Designware IP, or if this is a valid 
+configuration.
 
-  Normally the maximum brightness is determined by the hardware and this
-  property is not required. This property is used to put a software limit
-  on the brightness apart from what the driver says, as it could happen
-  that a LED can be made so bright that it gets damaged or causes damage
-  due to restrictions in a specific system, such as mounting conditions.
+Cheers,
+Andre
 
-Hence the question, why is the current behaviour useful?
+> Signed-off-by: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
+> ---
+>   drivers/tty/serial/8250/8250_dw.c    | 13 +++++++++++++
+>   drivers/tty/serial/8250/8250_dwlib.c | 22 ++++++++++++----------
+>   drivers/tty/serial/8250/8250_dwlib.h |  1 +
+>   3 files changed, 26 insertions(+), 10 deletions(-)
+> 
+> diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/8250_dw.c
+> index ba414306c98a..ea33aa644cda 100644
+> --- a/drivers/tty/serial/8250/8250_dw.c
+> +++ b/drivers/tty/serial/8250/8250_dw.c
+> @@ -52,6 +52,7 @@
+>   #define DW_UART_QUIRK_CPR_VALUE		BIT(5)
+>   #define DW_UART_QUIRK_IER_KICK		BIT(6)
+>   #define DW_UART_QUIRK_SKIP_EMPTY_FIFO_READ	BIT(7)
+> +#define DW_UART_QUIRK_NO_DLF		BIT(8)
+>   
+>   /*
+>    * Number of consecutive IIR_NO_INT interrupts required to trigger interrupt
+> @@ -606,6 +607,8 @@ static void dw8250_quirks(struct uart_port *p, struct dw8250_data *data)
+>   		p->serial_out = dw8250_serial_out38x;
+>   	if (quirks & DW_UART_QUIRK_SKIP_SET_RATE)
+>   		p->set_termios = dw8250_do_set_termios;
+> +	if (quirks & DW_UART_QUIRK_NO_DLF)
+> +		data->data.no_dlf = true;
+>   	if (quirks & DW_UART_QUIRK_IS_DMA_FC) {
+>   		data->data.dma.txconf.device_fc = 1;
+>   		data->data.dma.rxconf.device_fc = 1;
+> @@ -892,6 +895,15 @@ static const struct dw8250_platform_data dw8250_skip_set_rate_data = {
+>   	.quirks = DW_UART_QUIRK_SKIP_SET_RATE,
+>   };
+>   
+> +/*
+> + * The baud clock is the bus clock gate, whose rate cannot change, and offset
+> + * 0xc0 is the RS485 control register rather than DLF.
+> + */
+> +static const struct dw8250_platform_data dw8250_sun60i_a733_data = {
+> +	.usr_reg = DW_UART_USR,
+> +	.quirks = DW_UART_QUIRK_SKIP_SET_RATE | DW_UART_QUIRK_NO_DLF,
+> +};
+> +
+>   static const struct dw8250_platform_data dw8250_intc10ee = {
+>   	.usr_reg = DW_UART_USR,
+>   	.quirks = DW_UART_QUIRK_IER_KICK,
+> @@ -913,6 +925,7 @@ static const struct dw8250_platform_data dw8250_tda54 = {
+>   
+>   static const struct of_device_id dw8250_of_match[] = {
+>   	{ .compatible = "snps,dw-apb-uart", .data = &dw8250_dw_apb },
+> +	{ .compatible = "allwinner,sun60i-a733-uart", .data = &dw8250_sun60i_a733_data },
+>   	{ .compatible = "cavium,octeon-3860-uart", .data = &dw8250_octeon_3860_data },
+>   	{ .compatible = "marvell,armada-38x-uart", .data = &dw8250_armada_38x_data },
+>   	{ .compatible = "renesas,rzn1-uart", .data = &dw8250_renesas_rzn1_data },
+> diff --git a/drivers/tty/serial/8250/8250_dwlib.c b/drivers/tty/serial/8250/8250_dwlib.c
+> index 9bb02a4ab11f..9c6f3d926ad5 100644
+> --- a/drivers/tty/serial/8250/8250_dwlib.c
+> +++ b/drivers/tty/serial/8250/8250_dwlib.c
+> @@ -209,16 +209,18 @@ void dw8250_setup_port(struct uart_port *p)
+>   	}
+>   	up->capabilities |= UART_CAP_NOTEMT;
+>   
+> -	/* Preserve value written by firmware or bootloader  */
+> -	old_dlf = dw8250_readl_ext(p, DW_UART_DLF);
+> -	dw8250_writel_ext(p, DW_UART_DLF, ~0U);
+> -	reg = dw8250_readl_ext(p, DW_UART_DLF);
+> -	dw8250_writel_ext(p, DW_UART_DLF, old_dlf);
+> -
+> -	if (reg) {
+> -		pd->dlf_size = fls(reg);
+> -		p->get_divisor = dw8250_get_divisor;
+> -		p->set_divisor = dw8250_set_divisor;
+> +	if (!pd->no_dlf) {
+> +		/* Preserve value written by firmware or bootloader  */
+> +		old_dlf = dw8250_readl_ext(p, DW_UART_DLF);
+> +		dw8250_writel_ext(p, DW_UART_DLF, ~0U);
+> +		reg = dw8250_readl_ext(p, DW_UART_DLF);
+> +		dw8250_writel_ext(p, DW_UART_DLF, old_dlf);
+> +
+> +		if (reg) {
+> +			pd->dlf_size = fls(reg);
+> +			p->get_divisor = dw8250_get_divisor;
+> +			p->set_divisor = dw8250_set_divisor;
+> +		}
+>   	}
+>   
+>   	reg = dw8250_readl_ext(p, DW_UART_UCV);
+> diff --git a/drivers/tty/serial/8250/8250_dwlib.h b/drivers/tty/serial/8250/8250_dwlib.h
+> index ee7a07fac0f6..ca0dfd6d056e 100644
+> --- a/drivers/tty/serial/8250/8250_dwlib.h
+> +++ b/drivers/tty/serial/8250/8250_dwlib.h
+> @@ -88,6 +88,7 @@ struct dw8250_port_data {
+>   	/* Hardware configuration */
+>   	u32			cpr_value;
+>   	u8			dlf_size;
+> +	bool			no_dlf;		/* Offset 0xc0 is not DLF */
+>   
+>   	/* RS485 variables */
+>   	bool			hw_rs485_support;
 
-If I understand your summary correctly the hardware has 32 steps
-including 0) and the effect of max_current is to ban all brightness
-values greater than max_current / AAT2870_CURRENT_STEP.
-
-If that is the case then max_brightness if fundamentally broken because
-it's default value offers more steps than exists in the hardware.
-bd->props.max_brightness should be set to max_current /
-AAT2870_CURRENT_STEP and the whole of aat2870_brightness() should be
-removed (use backlight_get_brightness() instead).
-
-IMHO the patchset will be cleaner if the weird max_brightness logic is
-removed in a separate before doing the DT changes.
-
-
-Daniel.
