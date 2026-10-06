@@ -1,95 +1,210 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from sonic312-22.consmr.mail.bf2.yahoo.com (sonic312-22.consmr.mail.bf2.yahoo.com [74.6.128.84])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FE3E54704E
-	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 04:17:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41FAE1B78F3
+	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 04:18:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.6.128.84
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791260255; cv=none; b=ZzBa8pbbuGbbhXo7cr6NYl/RsexlRG4mkRQj7pGCtJ+W8AFKMkDMIaNRAu700CowmR0zDO4P4UvBPI6Lr+ARO9YzRqE6dc+cLyruaET959Zv4DHUNb0jIp3OP2K0FHy6oxDlOZOm31/xdvqBoxeyJbn5nrx2dr5uiSJSxXaiPVw=
+	t=1791260286; cv=none; b=nryW79fs6W6l1Tyv1ZwU6JHR76/rGV/8tNl661WY0/pohz8iRIz49khRtc0TD6F+DCJm9uSn23jtKTx4Q6133ZLQ9IJr6uAh3gJP/af9MHWJ0QfNWqEB7R98UT2o1BajNPSyj/hlUsDWrJDIQ89OFnVqwZaRrf8kx3T7yRQayEI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791260255; c=relaxed/simple;
-	bh=mtSCGlThRoYEVULvk1zACRXcKpEc0uGyrwRIzA3hGPM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=rT9gXGSHRMq7YrdgFFE8s7CT4eJSH4F5ZUYIjCzt6uYz5SbOJ1mImrVj6hS8Uf900qlkPzTDKx/2RdEJvPEIz8UmcwSF1eF5TjW7hdQPULeC4248kCjRE0TOxwO/4lB2JLTtw4GmnrQM4pKwBC8C/3DwqL9F379Dw5xI6QKjrOY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fUSfwTQ7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791260286; c=relaxed/simple;
+	bh=o9GEaIpo4Tk/4/pMUTALBMy9vOnA6rh/r9pgoPzbjz4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:References; b=tTJOMh93wrb8Sn0VvVJxRPjB6S2KmcxtfuvlaNDN5S5yKGQ/UkXxlckYAZIqxcT0djaINsLOBwMCAmJVRz1CSXvwHNhc0ajNFX1MLPG0gkON9b3JV1R0v/QI/eDPBI5zxObFiUq/lMCtoOstZaQWb171iiRinoN7QxCA0L2j1bA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=EwaFz09m; arc=none smtp.client-ip=74.6.128.84
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fUSfwTQ7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C4081F000FF;
-	Tue,  6 Oct 2026 04:17:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791260253;
-	bh=Wa7TJlUO24vY7LXy+sZzppiO9CgVtOyMPLitAlGGnSk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=fUSfwTQ7akVKqLW2TgVzO4FdyGFq/3q+tTouO8vt0acjDgdegA6wFz9KqCh5swhGW
-	 hhjRV7L6Jm97g40P7AEzSZo8UX/mhxP6CUDXeWMET/zt3TYNkhwAy8q8UrErvcdsi5
-	 7UmgpgQYYvxEThgaiWvJEC3Mw/NtwASMbCqDxr/v8jF3Mz6kEcdGreieFMLqRnhbDP
-	 K9OMXQGfxtv5t2eMqksQ0iokr5ttVT6UzC11prYhgvsJ1dNOjadxF6YznAeWUMLkyv
-	 sv84S6Mbtml54P1janK5rih20XAQFCGkDP3mHghLvtf3YVEs4G3BNSlp0HYHjJuA7y
-	 IXDrghg2ZAtHw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] arm64: dts: amlogic: meson-sm1-odroid-hc4: add the fan
- tachometer
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Igor Velkov" <iav@iav.lv>
-Cc: linux-amlogic@lists.infradead.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, neil.armstrong@linaro.org
-In-Reply-To: <20261006-hc4-fan-tach-v1-1-4e7cecf0b45b@iav.lv>
-References: <20261006-hc4-fan-tach-v1-1-4e7cecf0b45b@iav.lv>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 06 Oct 2026 04:17:33 +0000
-Message-Id: <20261006041733.8C4081F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="EwaFz09m"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791260284; bh=w4I8ZXaJUUT/qNwcfw4dbGwkZTp3g2dvFI/so9RtbJw=; h=From:To:Cc:Subject:Date:References:From:Subject:Reply-To; b=EwaFz09mubru5mlITzQUPlgu95C23dIkfn2v8zUEHxdXm/o9DzKvuFhey0odNv6pxu3fbYIMhBwYdnNc7vXFwFGUwEThmpJQamiIsNHvk0g2CH7LfOLHgh4m8I0PfTmdJRBa/mmRlxCjqoKaf4OgkbPM59pflYsUgVL5D6cphlVWR2fyuNHlg1W7gmNgFUBlkUjvQ25UH2dUqEdZ35PW0Qy0aJIxPr4NC4TmKl4GeHd+oIiI7iXakt4bdtDe1wFy3E748PJToZmlEouI9otYj3+bMz4L84wEPJIHIoo5N82mrR0+SAzj5JysufQgSAVb38qE042DspBI73m6zs2vEQ==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791260284; bh=TFV/6AsWFXr/ivUFnBT+7NvFuCxbYPOrZzvtn+Jgwke=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=nO/xftemx9uMuUAh3O8yeLF42tYB8pjZzvvfCoFeU0AONYi32jfCUGoiYZSKP7JEePXFtkBZgIgokBdK21mwmZ6RCiRNAJ4bH35J7EjwbecZ1munnGw/rfE5skUu5s2/ks3kVAjaKscZk8R5qm/JaufO/ZeNXHuHxK2x+3MXM3JXoazG9ZNexmdtITT/8sbjw1t44wwOAD9ge3Z0Qzjt4LevkG53EA3uQKhqVIoUxFLjxlHFfD9wBzc3NWvQULaeoZg5jh8AphLg7tZ5xkCe00omjTw7/J22WoF/GjCXwWBWrPt63fE17rzhQKI3sahpGG90jLj0WB0f1tiOzs21jw==
+X-YMail-OSG: Uv1RxzgVM1nnIh78FtrYv2sIGQb3waRwmGU67JJjEOTkN6lY.ajYrwGevyu5oJo
+ GxVz_vjSZe_zyvLI5j6iCYDSHH6vJI_MAhHrggt.alVlPZSb8MYg..71GeUzO3fdGw6VD1aLwO1l
+ MLAYnnedHtOC6vow539AW3MinepNgL07hvb76pgS69OQxdUaNZcn2RZJb.7WvBIw0XoKUG4yuBhd
+ qOEdYv09I7QAwzvhdT09TbiY3OvLrwwTA0umuz5scAfDlYo5TobhFZs1Mz8izR.VvfHIxll4fUvr
+ fBFeBzEmAFFMA7_d0lEW4BEQv_OsDaRZDkAqVVTk_p.cH_igcha2j7pWsKY1qDKjUUyq_uJ7YyAu
+ mTsHluH51i0i7JNQX_juk4zzZGd.S4etJ4uU17P5vl.dS1IO8FAN3nF5SHwtgaBSiwf.IK_IhrHN
+ 9En6zgTZMRiV.K3O4JQskRnCP7piubRHGSmjUSMIWPlOacMr.uB0.PW_CvjQG8_.aeqyRkgWkbao
+ jbsWrPqcuZXkG2wZtt5ynfEq7hElH3nC9HiJ1Gvdntzd3ilnqKA5oBmfQXI8LwHghbiOwvkujG2v
+ P.vkGVkFKy2gYZZ6h7ncdhLsqWmYghsuvmS5C4sulyDCDLnmBLDL4vVAxZqv55xKBAUxaMX1FpKu
+ 5pLOkhlf7ZR5sD0_kZaIsDh_YT_F225009EVmdpGSd9lfy4V4pQhcxYCDNGSgqLGZ7pDiPpbY0Af
+ be55ZnGFkrlCO4HFK_jPImR49BdgU2rk._uaQrdRXwEA4AzDRX5WjF32SaXMm_KF9IchcJ5AJvLB
+ gowZcfebch4TmkymmkC85QMNrzLCxBHFdvNCOWhjvmdbQDDUzzenHB_nhlI4KO.24Ohcb4QImZFI
+ pcFSK5JuiZv5PJ6wdYzx6yhQxQ_5PKVBvo_CZQbHCAAk_yMa2rOQRjnW9jiwlWGun7OYtkK5qKhh
+ n7CWfPd06yTIxRb1GoWLqLUyufDbnF.I4BE7TSKom_NU3itASRrOzfNBjnKBK6r72ykciWtyhOq6
+ OXd44QCqMD8y3AhVIkZV2DF4NvOB3yut2g8srUbYkAc5btNOQbfxtVn0AbgJG_o4YWI04_GXJOIT
+ qVd0qezJPFAsI2yF6uDeVoMiqZzqY8Xwcgg1Gn39DpxSk97UIqbt5IyBPEafq0kNdrnWS4KIBlQM
+ ybkdI.GWT0nTtYvceoCrUCWTJIO_WesVN0zPX0W4bwW0IleRb0zR5oQx3H_C8D1RH21laqdnsHSe
+ uiHqkB0H5PPd4uNiS8n5bV8aJXVNRN.5V8t15c8cqzJ3.33LAIH2IwYmhCBx_tm0tiDb8DS.jQeu
+ 9RQUB4lngNHQl7XQigaLxQYhFpcwrH7pBhZhjFQQ1XBFNzXw875NFr792NmFL8dFYvP_kVzjuon2
+ EDKrxoKtu1w4IIs_oD6V75o.qoP_oNMVP3654_L5iBNsHoD7EdWIPK8NktM4EiyIbh6T53m_PQZd
+ vhjARTdCcPWUHgYweGcC_eEuWtCK24hbisCAZ08t_x2EKG_QdoNwkCx2Zs6necFIv0qgPDkZHhAU
+ 7l60PXXhxjlhAgr0Pf9spmpBJrmypw59GPQGgrNm0O2sTDtL8bf4uSpDCOyCjyUQ477WYwAof1TK
+ 6D8MCHX5SI402xyY1ZLkMp6Gmsgxq6u6K7lyQ03oHLadsbedHlOfD7.3P_dYX0brYBSeeP0Seefq
+ tDBSBtV46u4oRTta5tnYVPKrBApOy1RsNORC173WgFSFPGKQxZrrTH0nZ1IHWA7sdkFuhiydnxfn
+ wChiDsyud.Q2r6NhjCxPSSa6EGPeoLMPmhq62OKAz1dwmAIkmUEUh7.33f8SkqaeUceQl88Cg_6R
+ WSXCJ3uaIlzexxiQxZk.mPqG7wR1crWQp3aGywIeqkG5UoHaYRXRqu6j_Gdv1dkAq1_HWSClgS.h
+ k8DvyzJRUY2sHtWmLigIgXkhwXc6GVo3meVqmDgUNtBgjG.qp5E9Vh0Oc.Gx37KBgDKh4GqYBKd9
+ nUACF0mqHZqylJjaX9agzGSyM6Dsb8B0p2HnCJikH.L8z1L._MB9GlO7orLJfVngp34VhRbv6yW3
+ fxpWft3gobFA1auF5q643en5ylKGy7pr8b3PRfrnh2XRv1miP70_FxYV2tUxFPzo69KWWOVi4a1W
+ SA7c8hqh9akxcX8mC2HLIysDwRb2NXKWzicDd09j.6aLbktjnyLNGRBhv1UU.k.46AeJtzVQp8VK
+ OY11nTbF7M1.AtYmxxJhth_pRa21pTgBewIjINqQ2eNiOfJ8ZWBMMrAkdgA--
+X-Sonic-MF: <deaner92@yahoo.com>
+X-Sonic-ID: 4e63f676-19bc-40cd-beef-4c4f5ba32c5d
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic312.consmr.mail.bf2.yahoo.com with HTTP; Tue, 6 Oct 2026 04:18:04 +0000
+Received: by hermes--production-bf1-6d6877594b-8262h (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 119945a1ab88cc8a53fdba40fa374bce;
+          Tue, 06 Oct 2026 03:35:31 +0000 (UTC)
+From: Jeremy Dean <deaner92@yahoo.com>
+To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: linux-pwm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jeremy Dean <deaner92@yahoo.com>
+Subject: [PATCH] dt-bindings: pwm: Convert NXP PCA9685 PWM controller to DT schema
+Date: Tue,  6 Oct 2026 03:35:18 +0000
+Message-ID: <20261006033518.34332-1-deaner92@yahoo.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+References: <20261006033518.34332-1-deaner92.ref@yahoo.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] arm64: dts: amlogic: missing pinctrl for fan tachometer interrupt
---
+Convert the NXP PCA9685 PWM controller binding to DT schema format.
 
-commit a6a97db21df93ac09c2154310040802278dbb495
-Author: Igor Velkov <iav@iav.lv>
+Changes from the text binding:
 
-arm64: dts: amlogic: meson-sm1-odroid-hc4: add the fan tachometer
+Document the 'reg' property and make it required. It was missing
+from the text binding, although the example used it and the device
+cannot work without the I2C address.
 
-This commit adds the interrupt configuration for the fan tachometer to the
-pwm-fan node on the ODROID-HC4, mapping it to GPIOX_7.
+Rename the example node to the generic 'pwm', as required by
+pwm.yaml.
 
-> diff --git a/arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts b/arch/=
-arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts
-> index 5f15c2299509b..261a42560a5e9 100644
-> --- a/arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts
-> +++ b/arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts
-> @@ -21,6 +21,8 @@ fan0: pwm-fan {
->  		#cooling-cells =3D <2>;
->  		cooling-levels =3D <0 120 170 220>;
->  		pwms =3D <&pwm_cd 1 40000 0>;
-> +		interrupt-parent =3D <&gpio_intc>;
-> +		interrupts =3D <IRQID_GPIOX_7 IRQ_TYPE_EDGE_FALLING>;
+Describe both cells of the PWM specifier, and state that 'invert'
+and 'open-drain' apply to all outputs, as per the datasheet (INVRT
+and OUTDRV bits in MODE2).
 
-[Severity: Medium]
-Does this configuration leave the hardware pin direction entirely dependent=
- on
-the pre-kernel bootloader state?
+Assisted-by: LLM
+Signed-off-by: Jeremy Dean <deaner92@yahoo.com>
+---
+The schema was generated with an AI assistant (Claude).
+I verified the properties against the driver source, the PCA9685
+datasheet, and the text binding. Passes make dt_binding_check.
+ .../bindings/pwm/nxp,pca9685-pwm.txt          | 27 --------
+ .../bindings/pwm/nxp,pca9685-pwm.yaml         | 62 +++++++++++++++++++
+ 2 files changed, 62 insertions(+), 27 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.txt
+ create mode 100644 Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.yaml
 
-The pwm-fan driver requests the IRQ via devm_request_irq(), and the
-meson-gpio-intc interrupt controller does not implement .irq_request_resour=
-ces
-to automatically mux the pin to GPIO mode.
+diff --git a/Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.txt b/Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.txt
+deleted file mode 100644
+index f21b55c95738..000000000000
+--- a/Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.txt
++++ /dev/null
+@@ -1,27 +0,0 @@
+-NXP PCA9685 16-channel 12-bit PWM LED controller
+-================================================
+-
+-Required properties:
+-  - compatible: "nxp,pca9685-pwm"
+-  - #pwm-cells: Should be 2. See pwm.yaml in this directory for a description of
+-    the cells format.
+-    The index 16 is the ALLCALL channel, that sets all PWM channels at the same
+-    time.
+-
+-Optional properties:
+-  - invert (bool): boolean to enable inverted logic
+-  - open-drain (bool): boolean to configure outputs with open-drain structure;
+-		       if omitted use totem-pole structure
+-
+-Example:
+-
+-For LEDs that are directly connected to the PCA, the following setting is
+-applicable:
+-
+-pca: pca@41 {
+-	compatible = "nxp,pca9685-pwm";
+-	#pwm-cells = <2>;
+-	reg = <0x41>;
+-	invert;
+-	open-drain;
+-};
+diff --git a/Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.yaml b/Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.yaml
+new file mode 100644
+index 000000000000..36b312ac0be9
+--- /dev/null
++++ b/Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.yaml
+@@ -0,0 +1,62 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/pwm/nxp,pca9685-pwm.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: NXP PCA9685 16-channel 12-bit PWM LED controller
++
++maintainers:
++  - Jeremy Clifton <deaner92@yahoo.com>
++
++allOf:
++  - $ref: pwm.yaml#
++
++properties:
++  compatible:
++    const: nxp,pca9685-pwm
++
++  reg:
++    maxItems: 1
++
++  "#pwm-cells":
++    const: 2
++    description:
++      The first cell is the PWM channel index, from 0 to 15, or 16 for the
++      ALLCALL channel, which sets all PWM channels at the same time. The
++      second cell is the PWM period in nanoseconds.
++
++  invert:
++    type: boolean
++    description:
++      Invert the logic state of all outputs (INVRT bit in the MODE2
++      register). The setting applies to the whole chip, not to individual
++      channels, and is typically used when the outputs drive an external
++      driver stage.
++
++  open-drain:
++    type: boolean
++    description:
++      Configure all outputs with an open-drain structure (OUTDRV bit in the
++      MODE2 register). If omitted, the outputs use a totem-pole structure.
++
++required:
++  - compatible
++  - reg
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        pwm@41 {
++            compatible = "nxp,pca9685-pwm";
++            reg = <0x41>;
++            #pwm-cells = <2>;
++            invert;
++            open-drain;
++        };
++    };
 
-Without an explicit pinctrl-0 property in the fan0 node, will the fan
-tachometer silently fail to read the fan speed (always reporting 0) on syst=
-ems
-where the bootloader leaves GPIOX_7 configured as an alternate function (su=
-ch
-as uart_b_rx or pwm_f_x) instead of a GPIO input?
+base-commit: bf1ee2bd5c2da8992f33c8950ef194aaff74ed6c
+-- 
+2.43.0
 
->  	};
-> =20
->  	leds {
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261006-hc4-fan-ta=
-ch-v1-1-4e7cecf0b45b@iav.lv?part=3D1
