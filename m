@@ -1,45 +1,53 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A7AD490BF9
-	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 15:01:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A815E46E007;
+	Tue,  6 Oct 2026 15:05:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791298904; cv=none; b=H8ImFrDpJYb82ONdBlqijdwnvRFOvlgf6natGsVxeHj4d10rJZWZ5OSMkyiulrAUTzVpj45/TARXJ7ptcwSQTA+SzYb9iJU7rhHZyNAfLRzzVqAjukdSyBjR1uizgt40o1jbNtlAQW6kr35aGTuIBTqZ+D3yehicQiNhlfGSyHA=
+	t=1791299130; cv=none; b=flKSpXrr+Ec4n9l/4DTJW1Mh1GP5x8eXLfo/aDlx1QPq+Rcx9UD6jfYkhXedsStnMOMbXWyM7CkeyDYhNcYCNTNBD0Tm7z+wajk7OpHhNtXejM0SdynFX04U5jnYEf4S9cRrOfwA7VclMTkZ3lN6aPu0B6CLIKEVKNbYTpUuy3I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791298904; c=relaxed/simple;
-	bh=WCReoSrP+WxFLri6IhjP00i7qONfVXljIS8JO0K/5xc=;
+	s=arc-20240116; t=1791299130; c=relaxed/simple;
+	bh=kywWPPUkRrL4Ls3U6xiUZCF49pQdQ4WNb0YLEU8SD5Y=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=N1ejQnYDzsGuwG7lGWlSTDd5R7jzXWsnIgDriC+fayFODeEdQwXP4yTu/df7G3VMYR3wdUtailmVvfnlA+i9JL0xw2AOTBYMnorSbHmGwauhS92cLhFVebhuCwr9oH4J2L0teTYfc+l1Hpy+szIKWBb33S+Sadj12QIxrV0ezHk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=JkpbdRIl; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	 Content-Type:Content-Disposition:In-Reply-To; b=m6YVf99ltW4E0RMTjYeyLzPtxt4EtUUbzM01YrBulydBGbHJjMWcR4gWVq6a0lkUO5ijfTpzjlX4Rn2je9wknu7+MtVZMDtbdpNrsr/vimvk7oHmA9rP79dJbNm3GXI/iZYrcXYlgBUJEEECyF1vH4/7NYGPVF5hA4NPjdrywDU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kyHZtuH+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="JkpbdRIl"
-Received: from francesco-nb (unknown [81.0.251.149])
-	by mail11.truemail.it (Postfix) with ESMTPA id 8823F201A2;
-	Tue,  6 Oct 2026 17:01:32 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1791298892;
-	bh=WCReoSrP+WxFLri6IhjP00i7qONfVXljIS8JO0K/5xc=; h=From:To:Subject;
-	b=JkpbdRIl5EUmQEMPX+yhyJh5beUWJ8DNkXlZjBcFwxQ65VzrYfaXxO0yOc6RswYWD
-	 8cew4LR9ZOPNIF7TObQXGbeu97P+EcywAp2W3D1P2vDlXOXF+9mFzPXnJ5vW1fmD0g
-	 QEfdo3530YccdzdsPONS/pyP8lSzR8Y/7yg8O+vFGypSjXAUN28g8gCs+Aj1gEBmY/
-	 xPxgE6KyEC4vOThjB5El4DNQt8vt84Q9rKc9ZJy2vxxXasS4qmJH0bafn6aXRlKkkU
-	 aZYmxfe6bB2n/fHId+WbzUy01qYG+LZv8eg4TMb9FDCizRPmNTlH2yumBFL10I9OjP
-	 qj9aNKGyMBlLA==
-Date: Tue, 6 Oct 2026 17:01:28 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: sashiko-reviews@lists.linux.dev
-Cc: Francesco Dolcini <francesco@dolcini.it>, robh@kernel.org,
-	conor+dt@kernel.org, imx@lists.linux.dev,
-	devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
-	Frank.Li@kernel.org
-Subject: Re: [PATCH v2 2/4] drm/bridge: Add THine THC63LVD827 LVDS encoder
-Message-ID: <20261006150128.GA30406@francesco-nb>
-References: <20261005095006.20290-1-francesco@dolcini.it>
- <20261005095006.20290-3-francesco@dolcini.it>
- <20261005100943.1A2711F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kyHZtuH+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16E8B1F0089B;
+	Tue,  6 Oct 2026 15:05:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791299129;
+	bh=hBqFdznuLd3hjEwdeyX6wxG7qA8UaM4e75ldG5AnVMg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=kyHZtuH+FP9Kiatn9EU+MxMJ9YMK/tjec/fNEotp8ZykFRq4e/RGG1/ISWwLjlCyC
+	 xJzurq7kFCpyzybl8cOhnEtKTZa/CTshXKO66+4ESF/E3geFruNz3swKCHV5VtIgs6
+	 NWdfOQUUaBwjZ+/u1wZSjumOSM0xXYyxO0RtJPfgICNKga7POHHWXY87J0s5e3TSmT
+	 Mu8hrXnqiAVBsDgBXHdoPZYIdQpmvC39TFEHEsrPh816BWa9HZQzWWtIIwcRAOW1lr
+	 49uJQQwONgadWKq6DHjEqhEc0+RI/nr9bREDlCuURtQX+VM/mOA6O+t2zOQ10Q5Tng
+	 th1I+GZtq5zxg==
+Date: Tue, 6 Oct 2026 10:05:28 -0500
+From: Rob Herring <robh@kernel.org>
+To: "Musham, Sai Krishna" <sai.krishna.musham@amd.com>
+Cc: "bhelgaas@google.com" <bhelgaas@google.com>,
+	"lpieralisi@kernel.org" <lpieralisi@kernel.org>,
+	"kw@linux.com" <kw@linux.com>, "mani@kernel.org" <mani@kernel.org>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+	"conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"cassel@kernel.org" <cassel@kernel.org>,
+	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"Simek, Michal" <michal.simek@amd.com>,
+	"Gogada, Bharat Kumar" <bharat.kumar.gogada@amd.com>,
+	"Havalige, Thippeswamy" <thippeswamy.havalige@amd.com>,
+	"Sanwal, Pranav" <Pranav.sanwal@amd.com>
+Subject: Re: [PATCH v7 1/2] dt-bindings: PCI: amd-mdb: Add CPM6 support
+Message-ID: <20261006150528.GB2194299-robh@kernel.org>
+References: <20260823040715.204096-1-sai.krishna.musham@amd.com>
+ <20260823040715.204096-2-sai.krishna.musham@amd.com>
+ <20260917192515.GA3283677-robh@kernel.org>
+ <IA4PR12MB9810F0345A3E7A7D3F28ADCDCD952@IA4PR12MB9810.namprd12.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,16 +56,74 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261005100943.1A2711F000FF@smtp.kernel.org>
+In-Reply-To: <IA4PR12MB9810F0345A3E7A7D3F28ADCDCD952@IA4PR12MB9810.namprd12.prod.outlook.com>
 
-On Mon, Oct 05, 2026 at 10:09:42AM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] drm/bridge: back-powering via GPIOs on unpowered chip
+On Tue, Oct 06, 2026 at 10:01:31AM +0000, Musham, Sai Krishna wrote:
+> AMD General
+> 
+> Hi Rob,
+> 
+> > -----Original Message-----
+> > From: Rob Herring <robh@kernel.org>
+> > Sent: Friday, September 18, 2026 12:55 AM
+> > To: Musham, Sai Krishna <sai.krishna.musham@amd.com>
+> > Cc: bhelgaas@google.com; lpieralisi@kernel.org; kw@linux.com;
+> > mani@kernel.org; krzk+dt@kernel.org; conor+dt@kernel.org;
+> > cassel@kernel.org; linux-pci@vger.kernel.org; devicetree@vger.kernel.org;
+> > linux-kernel@vger.kernel.org; Simek, Michal <michal.simek@amd.com>;
+> > Gogada, Bharat Kumar <bharat.kumar.gogada@amd.com>; Havalige,
+> > Thippeswamy <thippeswamy.havalige@amd.com>; Sanwal, Pranav
+> > <Pranav.sanwal@amd.com>
+> > Subject: Re: [PATCH v7 1/2] dt-bindings: PCI: amd-mdb: Add CPM6 support
+> >
+> > On Sun, Aug 23, 2026 at 09:37:14AM +0530, Sai Krishna Musham wrote:
+> > > The AMD CPM6 PCIe controller is based on the Synopsys DesignWare PCIe
+> > > IP and integrates two PCIe host controller instances. Add the
+> > > "amd,versal2-cpm6-host" and "amd,versal2-cpm6-host1" compatible strings
+> > > to describe the HOST0 and HOST1 controller instances.
+> >
+> > That is clear from the diff. What's not clear in this patch, and I
+> > probably already asked, what is the difference between host0 and host1?
+> > Usually instances are not different compatibles...
+> >
+> 
+> Thanks for reviewing, there is no functional difference between HOST0 and
+> HOST1. They are two instances of the same CPM6 PCIe controller and support
+> the same feature set.
+> 
+> The underlying hardware and driver behavior are identical between the
+> two instances. The only differences are instance-specific resources,
+> such as register regions and controller-specific interrupt status bits.
 
-Not planning to address this feedback unless/till someone comment on it.
+The only difference I see in the driver is:
 
-For what matter, the HW I have available and I tested with has always-on
-power supply.
++/* MERGED input bits for the MISC_EVENT sources this driver handles. */
++#define AMD_CPM6_MERGED_MISC_EVENT_HOST0	14
++#define AMD_CPM6_MERGED_MISC_EVENT_HOST1	17
 
-Francesco
+If that is the only difference, I would make this a property instead.
 
+But there's another problem here:
+
++		/*
++		 * CPM6 moves the per-controller MISC_EVENT registers
++		 * into a separate "intr" region. The SLCR block, which holds
++		 * the shared MERGED/PS_MISC aggregators, is shared by both CPM6
++		 * host controllers, so map it without requesting exclusive
++		 * ownership; otherwise the second controller fails to probe.
++		 */
+
+This implies the 'slcr' region is the same address for both controllers? 
+That's a problem because the DT should not contain the same address in 
+multiple nodes. There should be a single 'slcr' node.
+
+> I understand your point that instances are typically not represented by
+> different compatible strings. Given that the driver needs to distinguish
+> between the two controller instances for these instance-specific
+> resources, could you please suggest the preferred DT representation for
+> this case?
+
+The answer depends on what the variation is, so the patch needs to 
+explain that.
+
+Rob
