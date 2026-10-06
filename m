@@ -1,114 +1,108 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-225.mta0.migadu.com [91.218.175.225])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE094332621;
-	Tue,  6 Oct 2026 03:43:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 749122E7BD3
+	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 03:46:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.225
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791258232; cv=none; b=q2UiD52MQY+8yWNCAD1cVU1vLYCgIzeUoDTE7oyOYq/P0Sj44w2hcLIrkz5a4mRpxAPVl3pT3FIUKpoFyZEwlVYbclVfn0Wd3HxY1wVzzUqN9iBxPfLfUt3AiaGCgwPq/xtpKKgzVPkUldFujLnsV4weUAhh77ja3ahmhiqkLw4=
+	t=1791258382; cv=none; b=dXdZQA4tVBCPQRLqCFFTIOTV44fqaIt09ggFVW96ITeA6tkPFDcwiGdWTedctzi0VMc5nyYLDjNP49ZFRtbVzchTPiU01eAKZnZtV5JSngMB3ldrs+ckGziCJtpFkdTzwcpO4r3/1MpzBgHeE+ReVAglLLMxoeRNuYj6ZVnEv5M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791258232; c=relaxed/simple;
-	bh=3tgkAQgFnZ1KpY58GWODV6fxFp7Qx3kbvjbBmjjBKTM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AwiixvpU0KnDpK+0PRkG6kZR3qJd+YAS7g4hkckcdWNPMQXdtuh+mLRDC0IlMARZTpDF9p8V65PUnQVgdNm/dcWSFQs+ZmEeINYx9O1lt5A2tbWstah1Nf8pzr7aJwZ9sDXtGzDNmKugk4av46sDfFzc6mdAhRKX1HMxW3Y49I4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kseey+5s; arc=none smtp.client-ip=198.175.65.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791258382; c=relaxed/simple;
+	bh=dJXA/6tV0b2I4Avb+qNgYbSJeMN+DeMn7NG028Us1Rs=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=TtbzvvmB9+AOxQVkikXB16cPUQ9YLQxx+2X+JO4NEIt95dSWvBFFa43o/XQx8nh6bIrVbU/gFOzBEb3asDeetxbAGQlj9b3AP4Enn8LOFBr7Gi0OlCUpqKjo8cIr/pcByFK4p5iRfiKD3nL41h46GsW/7pDnhJW68r0gWYLQhsg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org; spf=pass smtp.mailfrom=postmarketos.org; dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b=hHOmz0+2; arc=none smtp.client-ip=91.218.175.225
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=postmarketos.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kseey+5s"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791258230; x=1822794230;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=3tgkAQgFnZ1KpY58GWODV6fxFp7Qx3kbvjbBmjjBKTM=;
-  b=kseey+5sK5x4/yCKtoAEZ5jj7I5OJx+PoiTTPySS59QLxGZhMzmyIhsO
-   W0qFHdaIFtgnYa8MiTw3gUz8/T6o9BqEbosWMGp5FslU8EfJi/K5cfrWI
-   eHCGjqwL/H46tEmaFwOJu7g81WSJXqacSWZFUvNGuk7kbVWtuN/9sLDFF
-   Ws/85xAtr3RqOVGaNbU1FBmui1gs5sJdoXcP3gKXrsyf5Xt7Tjdw1alds
-   /HMDx0E9kTPpF9hrpzzD2bla58xXAVoPHrEwW/6FfI0sBm5cIgr7n68C3
-   ykNvWmMLchewhmSWOufpkHipMl8S+BMRelmIMGyzmFVplDAIvuzbZ1r1J
-   w==;
-X-CSE-ConnectionGUID: MPY+1KBcT/GayIuUkC2/Jw==
-X-CSE-MsgGUID: SHItgT5ASNaWiECorJDkGA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="94812289"
-X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
-   d="scan'208";a="94812289"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 20:43:49 -0700
-X-CSE-ConnectionGUID: kPfbZEwwRryQKtQgZMlbLA==
-X-CSE-MsgGUID: rCb0w7q3R9Ccc2zH61qK/g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
-   d="scan'208";a="276530544"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa007.fm.intel.com with ESMTP; 05 Oct 2026 20:43:45 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xDw5e-0000000017k-15jA;
-	Tue, 06 Oct 2026 03:43:42 +0000
-Date: Tue, 6 Oct 2026 11:42:52 +0800
-From: kernel test robot <lkp@intel.com>
-To: Svyatoslav Ryhel <clamor95@gmail.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Mikko Perttunen <mperttunen@nvidia.com>
-Cc: oe-kbuild-all@lists.linux.dev, dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-tegra@vger.kernel.org
-Subject: Re: [PATCH v2 4/7] drm/tegra: Add support for 8-bit CPU interface
-Message-ID: <202610061119.aQ5vg3Ez-lkp@intel.com>
-References: <20261004163114.181800-5-clamor95@gmail.com>
+	dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b="hHOmz0+2"
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=dJXA/6tV0b2I4Avb+qNgYbSJeMN+DeMn7NG028Us1Rs=;
+ c=simple/simple; d=postmarketos.org;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791258377; v=1; x=1791863177;
+ b=hHOmz0+2FJYyzENB+XVUbQ6sfC/abpfSqRZAidUgnmzFgFNYbwyNY/IHdMotJ8ToiH5j09+k
+ gXbHo4WC8MT0ASLwetNaLJXuPE5Kx64Y+Y6NvhepvfWmr5s+T9vqY/IFXOhd3coJHywwNbYQwpb
+ aIm9/YqiaITu3sM0sHRftDePMovMcROsZx4T9K/E3tVIZPS8LgD2Y26W0B5NjTz8NneNbgHcHnD
+ GAoAx7t7lRLHlJnAZh9THCXcLYu5clg8YfCd9C9eh6dj/c6vkf+SrOvAgVlTdM8Uk5mDcw+qeLO
+ V11AGkIuF+9DPvuz4B/Jx+9WLHKgkFf13hyRXz3u+8doQ==
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id cbfac3dcf9219809;
+	Tue, 06 Oct 2026 03:46:17 +0000
+X-Mizu-Trace-ID: cbfac3dcf9219809
+X-Migadu-Flow: FLOW_OUT
+From: Paul Sajna <sajattack@postmarketos.org>
+Subject: [PATCH v2 0/7] leds: aw2013: Add AW2027 support
+Date: Mon, 05 Oct 2026 20:46:01 -0700
+Message-Id: <20261005-aw2013-aw20xx-rename-v2-0-108ecbdf2775@postmarketos.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261004163114.181800-5-clamor95@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WNQQqDMBBFryKzbspkpEq66j2KixBHDcVEJmJTx
+ Ls39QJdfd6H//4OicVzgnu1g/Dmk4+hAF0qcJMNIyvfFwZCatBgq+ybUNdn5KyEg51Z9QPVtbs
+ Z0q6BMl2EB59P7bMrPPm0RvmcL5v+tX+Em1aonLFtP2iyLerHEtM6W3nxGtM1ygjdcRxfHVIzz
+ 78AAAA=
+X-Change-ID: 20260907-aw2013-aw20xx-rename-df233c5921c6
+To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Nikita Travkin <nikitos.tr@gmail.com>, 
+ Alexey Min <alexeymin@minlexx.ru>
+Cc: linux-leds@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
+ ~postmarketos/upstreaming@lists.sr.ht, 
+ Paul Sajna <sajattack@postmarketos.org>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791258374; l=1703;
+ i=sajattack@postmarketos.org; s=20250422; h=from:subject:message-id;
+ bh=dJXA/6tV0b2I4Avb+qNgYbSJeMN+DeMn7NG028Us1Rs=;
+ b=S94v4SivH2dR32huQGT3SuaRxQrHWg0Ive4v4hvnG1sy0zvXcZkv3E3MPizP6FFWdK3FfYBNV
+ 1ePjw8nmStHAlouXHO5rsLB6PvUxTaGTyM7B6pQdg5hgiol1Mdy4IKz
+X-Developer-Key: i=sajattack@postmarketos.org; a=ed25519;
+ pk=TwacvEOiRJ2P2oAdEqIDrtQTL18QS4FfcHfP/zNsxkQ=
 
-Hi Svyatoslav,
+Refer to PATCH 3 for a full description of the similarities and
+differences between AW2013 and AW2027.
 
-kernel test robot noticed the following build errors:
+Several pre-existing bugs were also caught by Sashiko Review
+and fixed in this patch-series. The joys of LLM-inflicted bikeshedding.
 
-[auto build test ERROR on drm-misc/drm-misc-next]
-[also build test ERROR on drm/drm-next linus/master v7.3-rc6 next-20261005]
-[cannot apply to tegra/for-next]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+This PATCH resulted out of discussions pertaining to
+sdm660-mainline/linux, a close-to-mainline fork for Qualcomm Snapdragon 660
+devices, specifically for the BlackBerry KEY2 Keyboard Backlight,
+in the following GitHub PR: https://github.com/sdm660-mainline/linux/pull/218
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Svyatoslav-Ryhel/drm-tegra-dc-Expand-available-registers-layouts/20261004-193108
-base:   https://gitlab.freedesktop.org/drm/misc/kernel.git drm-misc-next
-patch link:    https://lore.kernel.org/r/20261004163114.181800-5-clamor95%40gmail.com
-patch subject: [PATCH v2 4/7] drm/tegra: Add support for 8-bit CPU interface
-config: parisc-allmodconfig (https://download.01.org/0day-ci/archive/20261006/202610061119.aQ5vg3Ez-lkp@intel.com/config)
-compiler: hppa-linux-gcc (GCC) 16.1.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261006/202610061119.aQ5vg3Ez-lkp@intel.com/reproduce)
+Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
+---
+Changes in v2:
+- Reduce renames to internal driver scope, to prevent breaking compat
+- Address Sashiko Review Comments
+- Split renames into a separate commit to make the actual changes easier
+to identify
+- Change from RFC to PATCH
+- Link to v1: https://lore.kernel.org/r/20260907-aw2013-aw20xx-rename-v1-0-c9a7df12a701@postmarketos.org
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610061119.aQ5vg3Ez-lkp@intel.com/
+---
+Paul Sajna (7):
+      dt-bindings: leds: aw2013: Add awinic,aw2027 compatible
+      leds: aw2013: Rename internal APIs from aw2013 to aw20xx
+      leds: aw2013: Add AW2027 support
+      leds: aw2013: use dev_err_probe
+      leds: aw2013: Move assignment of chip->num_leds
+      leds: aw2013: Prevent writes to unpowered chip
+      leds: aw2013: move reset from probe_dt to chip_init
 
-All errors (new ones prefixed by >>):
+ .../devicetree/bindings/leds/leds-aw2013.yaml      |   6 +-
+ drivers/leds/leds-aw2013.c                         | 351 +++++++++++++--------
+ 2 files changed, 229 insertions(+), 128 deletions(-)
+---
+base-commit: 944a035ecca915ae947905dcfb03f2b9dc6d032c
+change-id: 20260907-aw2013-aw20xx-rename-df233c5921c6
 
-   hppa-linux-ld: drivers/gpu/drm/tegra/dbi.o: in function `tegra_dbi_driver_init':
->> (.init.text+0x10): multiple definition of `init_module'; drivers/gpu/drm/tegra/drm.o:(.init.text+0x10): first defined here
-   hppa-linux-ld: drivers/gpu/drm/tegra/dbi.o: in function `tegra_dbi_driver_exit':
->> (.exit.text+0x0): multiple definition of `cleanup_module'; drivers/gpu/drm/tegra/drm.o:(.exit.text+0x0): first defined here
+Best regards,
+-- 
+Paul Sajna <sajattack@postmarketos.org>
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
