@@ -1,128 +1,134 @@
-Received: from mail-ej2-f9.google.com (mail-ej2-f9.google.com [74.125.228.137])
+Received: from mail-pj2-f9.google.com (mail-pj2-f9.google.com [74.125.227.137])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86AFE37DEBC
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C0953B4EB3
 	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 07:48:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.137
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791272924; cv=pass; b=WHpfKMD7SZjC90wMRoN6O2zFlYQg5kdlUp2s+7Qhq936cKFVbLT4VxjXZBCf87w0FYDwZ0uLtYlOthJzyHmhfRDwKn2UymzVw3oCHyB9OjbUSCfjB9IRO6pHGolkCmcGUIJtliTKd8JnGvxtT53PLtkOhkFv0W321KOrxsdj4OU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791272924; c=relaxed/simple;
-	bh=ZrF6e9Xl85C0uPBnJ0UyoaM1ga2dKcFe32QjUJGwcAI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=WPzsHNuqWuH0Y/kG0DhFbd6zPn/X1MmFTZbu7XRkhS+9bAqH9WCJW5OW2gGdgAK/o6gzDivrYkkMfH93LKkRudf5kekJYOv8qaYoHex2xHNxN3Z2nINZ7hq+lsNd1Y4XAXqqvi8/db0vpcPe8ZLh+2N36NmA3tvwaRBswd64WTo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rWrpOpsP; arc=pass smtp.client-ip=74.125.228.137
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.137
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791272925; cv=none; b=TyXEJsftTQ2lVnN6mvXjDzrQVcS2OpnG+LqGb7b8rexB64J/je2SmoV3FuU3Tc/acoQCiZAMaqkPr7vP8or9Ib7sT/7a7SzkaqS2kslJ8s3bxeEoFyQ5xRDSjT6x1tNldsQMSLBg6vsXFPJaxeLaksF9QbhnF0U7OXFiINF7zsg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791272925; c=relaxed/simple;
+	bh=+jOfCnFXSfPxl0yaVoDKsZecnSdkpw2ZpHxdR4nJTGk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BIjlcg0GMvvllWhjtR3szWXBEQKZJRpgRd+o9v1ntEsyXrIodnOvGkv9xBESFpiWzS3IAizw7m5vRdmC8LR+yVgbbaKiosbkmxLyOg0Sj6+DeGXJsnl0gqfsDVWk4V47ezpwvRMCdG692rV6e8JzsnsdySSJe2wSEtybh0NbVcw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bF5vgcAB; arc=none smtp.client-ip=74.125.227.137
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rWrpOpsP"
-Received: by mail-ej2-f9.google.com with SMTP id a640c23a62f3a-c2e31c05606so76880666b.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bF5vgcAB"
+Received: by mail-pj2-f9.google.com with SMTP id d9443c01a7336-2e31e9f035fso9726695ad.1
         for <devicetree@vger.kernel.org>; Tue, 06 Oct 2026 00:48:43 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791272922; cv=none;
-        d=google.com; s=arc-20260327;
-        b=qxw+NZhTeYZI5hO8PqfFcPC4Pvy7ssdPDExrN64z11nB5lKxU84J+KfqMwHwTWWIef
-         VfO3G9+G+FS1udz+9Zo36xFfClfYLZaIeG+9jiQNlq9sH4x5rYwqgrpP16psw2FB4MEF
-         RtDVi13Il9EP/1PY/xlN9P+qWOw5Yc3jfpWSeoAIjpoMvxZa/kNYtnUo5JrSbnYnsUEp
-         TWcPf3X5a1tXnmK5ytVRrmAnmKzSwRsGV7UsEWgYKsca1qgyWeiR1AT5b8DOMRzk8hB0
-         Stg/St4oCknn7x8PZqyL+WI0ejHFpnDnLXiTyPgNwUHsUJRtiL1xDDu80XEWEY9F6VOd
-         cqsg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=LIS7LQGXFKGRWwjzJfFhANm/+ELSmq9NRDYM4Ibfol0=;
-        fh=jml2hlj+I5BOjPJdnt1ulefBovqj0mvivOl3h3ZyN+Q=;
-        b=WWyaAXR/6X0Ob3t8QuRsPoSju6equV7/eJ/kJHOF9D3QnDPuyw057JrKuRgFpiKJji
-         MMlWb8fZ8rSc+r/s2wfmM00NMJneMPCJp0aBPjXiTD/TN2oz1hPkvJJAYakuu3sMPRBn
-         EVLDWaMRnzk76hFaocnQhKO37UH6WdkQ4GeztP7EsyzR8vES62hNq8uaDj5ex2waE+3f
-         S0um3589ZRnWjxIohhCYPxugpBY0JhTFjooE0uuMC/t47YYMAGcIalo+sBTV/+qmNQ1R
-         k/2QYOoKxU8B7qNibze5A6joobx4V/Yp8YK9FtjAn3xv/9oFU1278JlvNmrQgbUWv0H/
-         YC0g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791272922; x=1791877722; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=LIS7LQGXFKGRWwjzJfFhANm/+ELSmq9NRDYM4Ibfol0=;
-        b=rWrpOpsPEDFP7vvWlfOKx1M3EJJGUTHlDGxZJbg5FxKaIn0ldScJaBMNHv6NXC26Ls
-         rlrx4UYaI5zPK9Hq3zPoTvbQStnOVjjsMFGfAbbOYJxdDeDlLGmad+SQHGBRcKhWvpJA
-         WdUnEAfDEdY+LnCbtYg1HMsXt77Lz7YX2Si444YtVyQNAzlbsCoUx1wps5REbYqPwvmX
-         lptiqL/heWUpuPbImvkQxNLqzZf/3+/2d7C3oykyeXQ2qbLWkk7Qtc7//yS6a8FPrDMq
-         VUMzOlmNLGWeUPPY7f/j+QH/oUOERVkDx3JzM7ZBkOm4+Fp5lCiJwzvA4Q/wcMcXkTTk
-         pZUg==
+        d=gmail.com; s=20251104; t=1791272923; x=1791877723; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=5FZEAA0Lgtv6ilrYXH3YJyGzw6r/Idq0zYgWK6iHl90=;
+        b=bF5vgcABrZUQnZpqQ0fBKF5O9JjCbzwpEdVy9INifLC4k9T9zQfyQttEBetsZ/APim
+         Y16Rn14cLYRo9/x1TaTat4jnsa8/1w05D7cuCXVpLA9s+eaNVEl03S+Fe00WjyjmhORB
+         8yG/mLux9/q4jvERkjyyOhjvcAxZmVZQP8LLdJfjGSBrtn8dIq/6KHRgiKwjijgtvb/5
+         CWIGTjlB+2UwrJCwM/mOfRaNscYysGhNhk6vOTh+O8oNThm/eD0BSyaHpbvyUcctiWL/
+         WekBHWAssJNKpxE+NVgT+7RbjTN3I1sTHggCYqGt6KczuXnIZJa5TgAh/iBOmwU3LGcv
+         pe/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791272922; x=1791877722;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=LIS7LQGXFKGRWwjzJfFhANm/+ELSmq9NRDYM4Ibfol0=;
-        b=Kyf4QIwGzqqH/hEvw5FiIVEjSIsTUoGGFg8cLZAnCVF3lbrmajvMSSjWhhB4mmiZFL
-         cdjNEKDKwdPX2wHKJAzRPJ+nbk3GDrPVEmR4PkTeF35SaVBhDRWq9JK4al06n42vlgz5
-         EYxRFoqnBYvr/bzsLho6csq0tdcAUVgHHCAz/ksOvK/Vs7YWhcAJ3TybkKVapNnoOHFv
-         dbUKwoKhggcnEsddp8b5DX74a2yxYcdcbpMJYWuSzcF/tTCcyMq+HW/vL/QYLCRuF5b+
-         wgcKyy+2UpmQZeVBryIJOGTExC5sXVdLLKVtwCv+wb42ilheJFLmdEeKhD5LwiVGE7lh
-         9Dtg==
-X-Forwarded-Encrypted: i=1; AKwUvBws8zmoYYuwWhqXQnn9PVSheZIM6BsvPHWqPX3XFK8FNPYAH0/Nyjvl534LnWjGTi0etnrR9w3VHyBf@vger.kernel.org
-X-Gm-Message-State: AFuF++meBRNXnvwc6KteRoVsGt5knKyILjT60n9UUO7KqgBwBcMl6mUj
-	GpeOqJSenSP8SXPXN5kWBI/G349+WTslRk81CPnrFOFxsE1k/KUa8YF11esLVrt/F7Vooeu48sp
-	z6X/g0Wipoof7SWRDHNhkURcSSPCbiFc=
-X-Gm-Gg: AYBFou1e3yVY48mGNDLYplRSSqeNJcg7K41onBHVyjzbhDiay1PTCrg8cr7SczVKGG1
-	M96XMQvhhm3W0Vov4iKzJR3xzOXMk1SWJSPgL6cQqrh7nVcZ8YnJ8QB/m1kIlDRAoKeZfL9HysP
-	5wcl9tjmX4zcLSJuVW0/GD3JU7sRkL6NB/bbt7gkZa9kTaghCVEPe1pb2LpuYcbLu0CuLQzkPZg
-	WtcpUre8le0Q682Qq3VrYkeMEH1FuQSPi47DolQGQaH5hF9+0/11iHgX/RM1JdjJK8Bz2UmSj8r
-	uauUGF2uxfW+8N6Vw5aj6TtzpA+v7/X1KX0KhHtzBNweUwR9WHS3Jzm7bg==
-X-Received: by 2002:a17:907:9405:b0:c2a:f360:1c67 with SMTP id
- a640c23a62f3a-c316a07eb4cmr65136466b.35.1791272920911; Tue, 06 Oct 2026
- 00:48:40 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791272923; x=1791877723;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=5FZEAA0Lgtv6ilrYXH3YJyGzw6r/Idq0zYgWK6iHl90=;
+        b=qJFehAjPsK59HqboR9C9fywcX0dwpw3xohmi2NrXTVU5O39wKVPUNTlVy2ED0GLeH4
+         qVyKZxu1LGCPFQkDUfnnRrt69rByj6Nq45G2PGCE8694/AqY4X5i6AicUReai0fKWN6m
+         rVbdQKAfggQlE0sUsxmFA+qh0Fn1E9VcYlKAy7RvMdevimKuTJCH5H3ZSWsP4TUq7dq2
+         qrFmTHwfgmIdXPvUW6V3eD41DsjHXzQKH62NnEW4+GffJlS/nRkG9uviWJdJjcvHTvkc
+         rCb3CVNZKIYoi3wtqhPmnmCIk9qpnemopI0bwwr4GUkXu4rGqu2yMf6UJrGrkdacGSAE
+         a8wQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxTedPZchxjUTf1N5VRaXaSadkJoQVGJch1LK4vvVnsFILWlWlsrsJuzZChhH4j5A8KFI0d2nfe6JzY@vger.kernel.org
+X-Gm-Message-State: AFuF++n6illBiotlbdjVDCdWUN0kiSi05z53MpXTDNDYyrHFJZX4/sD5
+	eYK81Bq3rAamJhXmbxUvXZ5C/pcTYKJGD/b0+14TbM1RCYmEv6SaaJGDQ+GP5+WM51zmfQ==
+X-Gm-Gg: AYBFou2PDEjUI2hq84CPwuMLzyFBuvjYPJXiP8rPsuekdMapXr5uyCuhK4c2C5epf5B
+	CWN5jElyWY9TzxRy16Ctb1tnu8y37Vd+hIImTG87Dsrv1yE6VRWq2lVMZCzm8XNuhCrGx+CiIRk
+	Qv8Q2nvRCMYlQOCLdwLvS9cjr9XifOXfRcZ2gEg7BGObaGZQODwTSZ9ZuQ3tIXPVWJMA9bF692C
+	MBv7pNVI+QlhfE081Q66x96YGLMdmzMNwOOQ/d0mHKtCPrFPaPXhe/T2yUTva6UzQVjNWMG6gjq
+	CTzvrnHjtsanLepXbv2CxD1Zu6H3Z/d4jGOB9Mum6InTmTNW3CPQzuragmagdKDj3yRG9tHoBNv
+	cMkEJ798GVYIJimdwmVVAeCrRgQyccqMEHNd2PjjEqbsfHHicP7ELFag9+G3ovkJizwxi9ng9ij
+	2jjEFcpvXQYDTrw2rn+HxFgLEu8jIKKjRpcQzOc2WfnB/vdlnnGlytE0PQs7wiYMK0dwF+
+X-Received: by 2002:a05:6a20:94ca:b0:3dd:85a8:4c56 with SMTP id adf61e73a8af0-3e1246dea5dmr525873637.29.1791272923390;
+        Tue, 06 Oct 2026 00:48:43 -0700 (PDT)
+Received: from server.lan ([168.138.199.194])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cce6d2406b1sm1998173a12.8.2026.10.06.00.48.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 00:48:42 -0700 (PDT)
+From: Coia Prant <coiaprant@gmail.com>
+To: Vinod Koul <vkoul@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Coia Prant <coiaprant@gmail.com>
+Subject: [PATCH v12 0/2] phy: rockchip: naneng-combphy: add SGMII MAC selection for RK3568
+Date: Tue,  6 Oct 2026 15:47:47 +0800
+Message-ID: <20261006074749.2010233-1-coiaprant@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261005225944.1171574-1-coiaprant@gmail.com> <20261006032710.GA3539706-robh@kernel.org>
-In-Reply-To: <20261006032710.GA3539706-robh@kernel.org>
-From: Coia Prant <coiaprant@gmail.com>
-Date: Tue, 6 Oct 2026 15:48:27 +0800
-X-Gm-Features: AclHuK-_H5DMjjR501xY25PLqDQ4wPnk0DiXBT1PdwIvhQ2wQ01nPR-CgEl7PoQ
-Message-ID: <CALj3r0hwkXBowh=vUbC9yPimkraMH1NJ3OmgBb0zp-z22ZFXvg@mail.gmail.com>
-Subject: Re: [PATCH v11 0/2] phy: rockchip: naneng-combphy: add SGMII MAC
- selection for RK3568
-To: Rob Herring <robh@kernel.org>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Rob Herring <robh@kernel.org> =E4=BA=8E2026=E5=B9=B410=E6=9C=886=E6=97=A5=
-=E5=91=A8=E4=BA=8C 11:27=E5=86=99=E9=81=93=EF=BC=9A
->
-> On Tue, Oct 06, 2026 at 06:59:42AM +0800, Coia Prant wrote:
-> > Changes since v10:
-> >
-> > - Drop the top-level "default: 1" for "rockchip,sgmii-mac-sel".
-> >   dtschema injects top-level defaults into every matching node, and the
-> >   injected value conflicts with the "else" branch that forbids the
-> >   property on non-RK3568 variants, breaking dtbs_check on those
-> >   platforms. The driver already treats an absent property as 1 (GMAC1),
-> >   so behavior is unchanged.
->
-> What? That's not right. 'default' has no effect on the validation.
-> Please add it back. If the property doesn't apply to some variant, then
-> default doesn't matter.
->
-> Rob
+Changes since v11:
 
-Hi Rob,
+- Revert changes in v10.
 
-Thanks for the correction. You're right, 'default' has no effect on
-validation. I'll add it back and send a v12 right away.
+Changes since v10:
 
-Sorry for the noise.
+- Drop the top-level "default: 1" for "rockchip,sgmii-mac-sel".
+  dtschema injects top-level defaults into every matching node, and the
+  injected value conflicts with the "else" branch that forbids the
+  property on non-RK3568 variants, breaking dtbs_check on those
+  platforms. The driver already treats an absent property as 1 (GMAC1),
+  so behavior is unchanged.
 
-Coia
+===
+
+This is the PHY part split out from the v10 RK3568 SGMII series, sent
+separately to linux-phy as suggested by Vinod and Jakub.
+
+On RK3568, the SGMII interface can be routed to either GMAC0 or GMAC1 via
+the GRF register pipe_sgmii_mac_sel. Patch 1 documents the
+"rockchip,sgmii-mac-sel" DT property, patch 2 adds the driver support.
+
+From the RK3568 TRM (Part1, Page 229), PIPE_GRF_XPCS_CON0 bit 1
+(pipe_sgmii_mac_sel) is defined as:
+
+    0: SGMII routed to GMAC0
+    1: SGMII routed to GMAC1
+
+The hardware reset value is 1 (GMAC1). If the property is set to 0, the
+driver routes SGMII to GMAC0; if set to 1 (or omitted), it remains at
+GMAC1. This is necessary for boards such as the Ariaboard Photonicat,
+which uses the SGMII interface connected to GMAC0.
+
+The DTS changes using this property are sent separately to
+Heiko/linux-rockchip, and the net-next parts (XPCS glue, dwmac-rk SGMII
+support) are sent separately to net-next. There is no hard build
+dependency; the pieces can converge during the merge window.
+---
+Coia Prant (2):
+  dt-bindings: phy: rockchip: naneng-combphy: add rockchip,sgmii-mac-sel
+    property
+  phy: rockchip: naneng-combphy: add SGMII MAC selection for RK3568
+
+ .../bindings/phy/phy-rockchip-naneng-combphy.yaml   | 13 +++++++++++++
+ drivers/phy/rockchip/phy-rockchip-naneng-combphy.c  |  8 ++++++++
+ 2 files changed, 21 insertions(+)
+
+-- 
+2.47.3
+
