@@ -1,343 +1,176 @@
-Received: from mail.savoirfairelinux.com (mail.savoirfairelinux.com [208.88.110.44])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9909649E135;
-	Tue,  6 Oct 2026 18:36:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=208.88.110.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3E3D4A4F0A
+	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 18:36:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791311785; cv=none; b=GwsU2LQhLmK/WZCVgv1piuFpfpzJknx+CdUvYwUaGy8v9McNPJx22YcbFHTpiy9vK5nyLIhF3K9jDMQX7i9At7TRAOVrLSW7raKFOfW5/wxRiYCEdUzbwTi0pvgGQ5lQ3DPW5wBvbuZWUoDUltFR8coJHkc1o8DCZbtzjmOq/UU=
+	t=1791311799; cv=none; b=mWBDj5a8r7Ryy/5szb3WaO94lW+46OksuHRGBic9jqoxH32d+5xkOxBVKzBm7EuL1+tPvMQYePqruMIOKQuUhPXkgYhdWTGIbJIeXqxMJEphTwwWbUOMH80LGM7xTwo586foVpGdbgOeOyCkTqX3dAD+yGXoa0Dc0ZhuAbYj/qg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791311785; c=relaxed/simple;
-	bh=BgJCUOnNT2POJuzRQrMqDGtyCx1UKklciJ8/Y3wCNtQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=VOBxHvgYdZhkdQUakauFFHPDeaT3LuQXiCU4tCHJNsj8GcyMiunKEDZlbSwcZ6PMPevG/DYzz2XCBuLGowgVRRRYm7mw22nUPVDcPWpnBJszraf9TLhCOJpeHm11zfDasxbsWs55FwvAaozbLdD9xiiM73WhdkD2bbZW2n2OBFU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=savoirfairelinux.com; spf=none smtp.mailfrom=mail.savoirfairelinux.com; dkim=pass (2048-bit key) header.d=savoirfairelinux.com header.i=@savoirfairelinux.com header.b=DMAleC8e; arc=none smtp.client-ip=208.88.110.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=savoirfairelinux.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mail.savoirfairelinux.com
+	s=arc-20240116; t=1791311799; c=relaxed/simple;
+	bh=HVweg6R1Ro32oFMOATKf4WpNJx9ZWsbblJeVYMAxaks=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=E/ayBgzmAkQOaLBH3nb+FhpZ/KQ3pppmRO12KDTeH07cBZKcCG1A6u6BXDqi4jz3z0Oa2FPggCWbsvFekxFtVyj8A5PW21+nHdvPcty4SAHVfmlyvQ2MM2FNRyO02DfIV/F5eGdp18lO58kmzwUGMdKZ1zsPfUW2KwJUzkNRPXQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mfuu4IXM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=savoirfairelinux.com header.i=@savoirfairelinux.com header.b="DMAleC8e"
-Received: from localhost (localhost [127.0.0.1])
-	by mail.savoirfairelinux.com (Postfix) with ESMTP id B6ABE3D8189B;
-	Tue,  6 Oct 2026 14:36:17 -0400 (EDT)
-Received: from mail.savoirfairelinux.com ([127.0.0.1])
- by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10032)
- with ESMTP id 5OAxWsRJn-R7; Tue,  6 Oct 2026 14:36:15 -0400 (EDT)
-Received: from localhost (localhost [127.0.0.1])
-	by mail.savoirfairelinux.com (Postfix) with ESMTP id 8E3763D8181A;
-	Tue,  6 Oct 2026 14:36:15 -0400 (EDT)
-DKIM-Filter: OpenDKIM Filter v2.10.3 mail.savoirfairelinux.com 8E3763D8181A
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=savoirfairelinux.com; s=DFC430D2-D198-11EC-948E-34200CB392D2;
-	t=1791311775; bh=pPwds9orn0zywC9UcxF6DhLudXbpgrTYR5kJrji9dy0=;
-	h=From:To:Date:Message-Id:MIME-Version;
-	b=DMAleC8esKLeub/wpChxTdvAyQ/mgAlVsj+QQS24lp4xasjPNT/++HcMkr2Ea5nur
-	 Vvg0zh1ZpRK/3YgLzzSmebOHKLxSuWBnVOEVern/TyFpnzPcZ9aastPvS8lHg/9X/+
-	 soobk/7nYdpExpIBlcf6W7Hxg3hgKlE4O94aJO8kjisz0WY/jHvH1fNkjoXLN6BecW
-	 gAw/tcUOcmf0RO1tBfC9oC+5alRmQZKLbXpffzGlKL9qttbZ2bLfusqYX1H2eInpVO
-	 VzgGngnSh/VDDMwB2oqsG/DFY9DDd8/Kkv7gnvp+JD9tn3QnioCWst3xBg8JVqmuAe
-	 +NX4MkwFTy1Mg==
-X-Virus-Scanned: amavis at mail.savoirfairelinux.com
-Received: from mail.savoirfairelinux.com ([127.0.0.1])
- by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10026)
- with ESMTP id ma4RZqOj-GXA; Tue,  6 Oct 2026 14:36:15 -0400 (EDT)
-Received: from localhost (unknown [192.168.51.254])
-	by mail.savoirfairelinux.com (Postfix) with ESMTPSA id 3AF573D81665;
-	Tue,  6 Oct 2026 14:36:15 -0400 (EDT)
-From: Marc-Olivier Champagne <marc-olivier.champagne@savoirfairelinux.com>
-To: Neil Armstrong <neil.armstrong@linaro.org>,
-	Jessica Zhang <jesszhan0024@gmail.com>
-Cc: David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
-	Marc-Olivier Champagne <marc-olivier.champagne@savoirfairelinux.com>,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jerome Oufella <jerome.oufella@savoirfairelinux.com>,
-	Felix Boucher <felix.boucher@savoirfairelinux.com>,
-	Quentin Lehoux <quentin.lehoux@savoirfairelinux.com>
-Subject: [PATCH 2/2] drm/panel: ilitek-ili9881c: Add DCLTek 300249 5.5in display
-Date: Tue,  6 Oct 2026 14:34:55 -0400
-Message-Id: <20261006183455.2350966-3-marc-olivier.champagne@savoirfairelinux.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261006183455.2350966-1-marc-olivier.champagne@savoirfairelinux.com>
-References: <20261006183455.2350966-1-marc-olivier.champagne@savoirfairelinux.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mfuu4IXM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CA3C1F00906;
+	Tue,  6 Oct 2026 18:36:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791311797;
+	bh=gttt2ud9BAgKVch9FTdCpZPs9II74VWg9koJGYGUviA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=mfuu4IXM6biee7hskAyySs/eRmrpHGujRUaIL6fVMRJOAIkhf8JTaUaBInoF4imsN
+	 MXtRtG1+L68xE4A7M+09MCtSVGQRcMZ5czCZWRyNLEnN4jqD3K2koo6i5m9iRVpMNY
+	 uYzHRMgrNjt7Z9ThbHqDQ5HbL8+fBuEt+P3UqeykznJmcQdR2ARK/htFG+Vsy/9/2D
+	 Bcb+kJGDixlE4dPPRgyoC5yl6InmXhVvHpEQWVUIiTirnEcYFXSZgDzctTe0whCwOO
+	 geoYHBbdnbz5TKsnFUGsunAA/CX+NFfSypGfrne0gnP+0iA0NpZAtw1rOODw3Is6re
+	 Ih6UOPZ2srGSA==
+Message-ID: <sashiko-outbox-162362@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 07/13] iio: adc: ad4134: Support buffered data read
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Marcelo Schmitt" <marcelo.schmitt@analog.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <5d31212a27c2099c226cce189aa96677e75ca529.1791309733.git.marcelo.schmitt@analog.com>
+References: <cover.1791309733.git.marcelo.schmitt@analog.com>
+ <5d31212a27c2099c226cce189aa96677e75ca529.1791309733.git.marcelo.schmitt@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 06 Oct 2026 18:36:36 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
 
-The DCLTek dt300249 is an LCD panel using the Ilitek ILI9881C controller.
-Add the panel to the driver.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] iio: data race on rx_buf between trigger handler and regmap debugfs
+- [Medium] iio: stack memory leak via regmap due to ARRAY_SIZE(ad4134_chan_=
+set) increase
+- [Medium] iio: adc: ad4134: DMA buffers rx_buf and tx_buf share the same c=
+acheline
+--
 
-Suggested-by: Hugo Villeneuve <hvilleneuve@dimonoff.com>
-Signed-off-by: Marc-Olivier Champagne <marc-olivier.champagne@savoirfaire=
-linux.com>
----
- drivers/gpu/drm/panel/panel-ilitek-ili9881c.c | 216 ++++++++++++++++++
- 1 file changed, 216 insertions(+)
+commit c725b04fb026c820b0d14c82b9c9ef92e634640f
+Author: Marcelo Schmitt <marcelo.schmitt@analog.com>
 
-diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c b/drivers/gpu/=
-drm/panel/panel-ilitek-ili9881c.c
-index 7bf38e96678a..acc560dc5ea5 100644
---- a/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
-+++ b/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
-@@ -2198,6 +2198,195 @@ static const struct ili9881c_instr waveshare_7inc=
-h_a_init[] =3D {
- 	ILI9881C_COMMAND_INSTR(0x36, 0x00),
- };
-=20
-+static const struct ili9881c_instr dt300249_init[] =3D {
-+	ILI9881C_SWITCH_PAGE_INSTR(3),
-+	ILI9881C_COMMAND_INSTR(0x01, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x02, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x03, 0x72),
-+	ILI9881C_COMMAND_INSTR(0x04, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x05, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x06, 0x09),
-+	ILI9881C_COMMAND_INSTR(0x07, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x08, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x09, 0x01),
-+	ILI9881C_COMMAND_INSTR(0x0a, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x0b, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x0c, 0x01),
-+	ILI9881C_COMMAND_INSTR(0x0d, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x0e, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x0f, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x10, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x11, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x12, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x13, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x14, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x15, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x16, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x17, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x18, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x19, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x1a, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x1b, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x1c, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x1d, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x1e, 0x40),
-+	ILI9881C_COMMAND_INSTR(0x1f, 0x80),
-+	ILI9881C_COMMAND_INSTR(0x20, 0x05),
-+	ILI9881C_COMMAND_INSTR(0x21, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x22, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x23, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x24, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x25, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x26, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x27, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x28, 0x33),
-+	ILI9881C_COMMAND_INSTR(0x29, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x2a, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x2b, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x2c, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x2d, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x2e, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x2f, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x30, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x31, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x32, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x33, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x34, 0x04),
-+	ILI9881C_COMMAND_INSTR(0x35, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x36, 0x2a),
-+	ILI9881C_COMMAND_INSTR(0x37, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x38, 0x3c),
-+	ILI9881C_COMMAND_INSTR(0x39, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x3a, 0x40),
-+	ILI9881C_COMMAND_INSTR(0x3b, 0x40),
-+	ILI9881C_COMMAND_INSTR(0x3c, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x3d, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x3e, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x3f, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x40, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x41, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x42, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x43, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x44, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x50, 0x01),
-+	ILI9881C_COMMAND_INSTR(0x51, 0x23),
-+	ILI9881C_COMMAND_INSTR(0x52, 0x45),
-+	ILI9881C_COMMAND_INSTR(0x53, 0x67),
-+	ILI9881C_COMMAND_INSTR(0x54, 0x89),
-+	ILI9881C_COMMAND_INSTR(0x55, 0xab),
-+	ILI9881C_COMMAND_INSTR(0x56, 0x01),
-+	ILI9881C_COMMAND_INSTR(0x57, 0x23),
-+	ILI9881C_COMMAND_INSTR(0x58, 0x45),
-+	ILI9881C_COMMAND_INSTR(0x59, 0x67),
-+	ILI9881C_COMMAND_INSTR(0x5a, 0x89),
-+	ILI9881C_COMMAND_INSTR(0x5b, 0xab),
-+	ILI9881C_COMMAND_INSTR(0x5c, 0xcd),
-+	ILI9881C_COMMAND_INSTR(0x5d, 0xef),
-+	ILI9881C_COMMAND_INSTR(0x5e, 0x11),
-+	ILI9881C_COMMAND_INSTR(0x5f, 0x01),
-+	ILI9881C_COMMAND_INSTR(0x60, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x61, 0x15),
-+	ILI9881C_COMMAND_INSTR(0x62, 0x14),
-+	ILI9881C_COMMAND_INSTR(0x63, 0x0e),
-+	ILI9881C_COMMAND_INSTR(0x64, 0x0f),
-+	ILI9881C_COMMAND_INSTR(0x65, 0x0c),
-+	ILI9881C_COMMAND_INSTR(0x66, 0x0d),
-+	ILI9881C_COMMAND_INSTR(0x67, 0x06),
-+	ILI9881C_COMMAND_INSTR(0x68, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x69, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x6a, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x6b, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x6c, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x6d, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x6e, 0x07),
-+	ILI9881C_COMMAND_INSTR(0x6f, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x70, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x71, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x72, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x73, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x74, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x75, 0x01),
-+	ILI9881C_COMMAND_INSTR(0x76, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x77, 0x14),
-+	ILI9881C_COMMAND_INSTR(0x78, 0x15),
-+	ILI9881C_COMMAND_INSTR(0x79, 0x0e),
-+	ILI9881C_COMMAND_INSTR(0x7a, 0x0f),
-+	ILI9881C_COMMAND_INSTR(0x7b, 0x0c),
-+	ILI9881C_COMMAND_INSTR(0x7c, 0x0d),
-+	ILI9881C_COMMAND_INSTR(0x7d, 0x06),
-+	ILI9881C_COMMAND_INSTR(0x7e, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x7f, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x80, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x81, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x82, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x83, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x84, 0x07),
-+	ILI9881C_COMMAND_INSTR(0x85, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x86, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x87, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x88, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x89, 0x02),
-+	ILI9881C_COMMAND_INSTR(0x8a, 0x02),
-+	ILI9881C_SWITCH_PAGE_INSTR(4),
-+	ILI9881C_COMMAND_INSTR(0x6c, 0x15),
-+	ILI9881C_COMMAND_INSTR(0x6e, 0x2a),
-+	ILI9881C_COMMAND_INSTR(0x6f, 0x33),
-+	ILI9881C_COMMAND_INSTR(0x3a, 0x94),
-+	ILI9881C_COMMAND_INSTR(0x8d, 0x1a),
-+	ILI9881C_COMMAND_INSTR(0x87, 0xba),
-+	ILI9881C_COMMAND_INSTR(0x26, 0x76),
-+	ILI9881C_COMMAND_INSTR(0xb2, 0xd1),
-+	ILI9881C_COMMAND_INSTR(0xb5, 0x06),
-+	ILI9881C_SWITCH_PAGE_INSTR(1),
-+	ILI9881C_COMMAND_INSTR(0x22, 0x0a),
-+	ILI9881C_COMMAND_INSTR(0x31, 0x00),
-+	ILI9881C_COMMAND_INSTR(0x53, 0x84),
-+	ILI9881C_COMMAND_INSTR(0x55, 0x8f),
-+	ILI9881C_COMMAND_INSTR(0x50, 0xae),
-+	ILI9881C_COMMAND_INSTR(0x51, 0xae),
-+	ILI9881C_COMMAND_INSTR(0x60, 0x28),
-+	ILI9881C_COMMAND_INSTR(0xa0, 0x0f),
-+	ILI9881C_COMMAND_INSTR(0xa1, 0x1b),
-+	ILI9881C_COMMAND_INSTR(0xa2, 0x28),
-+	ILI9881C_COMMAND_INSTR(0xa3, 0x12),
-+	ILI9881C_COMMAND_INSTR(0xa4, 0x15),
-+	ILI9881C_COMMAND_INSTR(0xa5, 0x28),
-+	ILI9881C_COMMAND_INSTR(0xa6, 0x1b),
-+	ILI9881C_COMMAND_INSTR(0xa7, 0x1e),
-+	ILI9881C_COMMAND_INSTR(0xa8, 0x79),
-+	ILI9881C_COMMAND_INSTR(0xa9, 0x1b),
-+	ILI9881C_COMMAND_INSTR(0xaa, 0x27),
-+	ILI9881C_COMMAND_INSTR(0xab, 0x69),
-+	ILI9881C_COMMAND_INSTR(0xac, 0x19),
-+	ILI9881C_COMMAND_INSTR(0xad, 0x18),
-+	ILI9881C_COMMAND_INSTR(0xae, 0x4c),
-+	ILI9881C_COMMAND_INSTR(0xaf, 0x21),
-+	ILI9881C_COMMAND_INSTR(0xb0, 0x28),
-+	ILI9881C_COMMAND_INSTR(0xb1, 0x52),
-+	ILI9881C_COMMAND_INSTR(0xb2, 0x65),
-+	ILI9881C_COMMAND_INSTR(0xb3, 0x3f),
-+	ILI9881C_COMMAND_INSTR(0xc0, 0x04),
-+	ILI9881C_COMMAND_INSTR(0xc1, 0x1b),
-+	ILI9881C_COMMAND_INSTR(0xc2, 0x27),
-+	ILI9881C_COMMAND_INSTR(0xc3, 0x13),
-+	ILI9881C_COMMAND_INSTR(0xc4, 0x15),
-+	ILI9881C_COMMAND_INSTR(0xc5, 0x28),
-+	ILI9881C_COMMAND_INSTR(0xc6, 0x1c),
-+	ILI9881C_COMMAND_INSTR(0xc7, 0x1e),
-+	ILI9881C_COMMAND_INSTR(0xc8, 0x79),
-+	ILI9881C_COMMAND_INSTR(0xc9, 0x1a),
-+	ILI9881C_COMMAND_INSTR(0xca, 0x27),
-+	ILI9881C_COMMAND_INSTR(0xcb, 0x69),
-+	ILI9881C_COMMAND_INSTR(0xcc, 0x1a),
-+	ILI9881C_COMMAND_INSTR(0xcd, 0x18),
-+	ILI9881C_COMMAND_INSTR(0xce, 0x4c),
-+	ILI9881C_COMMAND_INSTR(0xcf, 0x21),
-+	ILI9881C_COMMAND_INSTR(0xd0, 0x27),
-+	ILI9881C_COMMAND_INSTR(0xd1, 0x52),
-+	ILI9881C_COMMAND_INSTR(0xd2, 0x65),
-+	ILI9881C_COMMAND_INSTR(0xd3, 0x3f),
-+};
-+
- static inline struct ili9881c *panel_to_ili9881c(struct drm_panel *panel=
-)
- {
- 	return container_of(panel, struct ili9881c, panel);
-@@ -2493,6 +2682,23 @@ static const struct drm_display_mode waveshare_7in=
-ch_a_mode =3D {
- 	.height_mm	=3D 154,
- };
-=20
-+static const struct drm_display_mode dt300249_default_mode =3D {
-+	.clock		=3D 62000,
-+
-+	.hdisplay	=3D 720,
-+	.hsync_start	=3D 720 + 10,	/* HFP =3D 10 */
-+	.hsync_end	=3D 720 + 10 + 20,	/* HSYNC =3D 20 */
-+	.htotal		=3D 720 + 10 + 20 + 20,	/* HBP =3D 20, htotal =3D 770 */
-+
-+	.vdisplay	=3D 1280,
-+	.vsync_start	=3D 1280 + 10,	/* VFP =3D 10 */
-+	.vsync_end	=3D 1280 + 10 + 10,	/* VSYNC =3D 10 */
-+	.vtotal		=3D 1280 + 10 + 10 + 20,	/* VBP =3D 20, vtotal =3D 1320 */
-+
-+	.width_mm	=3D 68,
-+	.height_mm	=3D 121,
-+};
-+
- static int ili9881c_get_modes(struct drm_panel *panel,
- 			      struct drm_connector *connector)
- {
-@@ -2698,9 +2904,19 @@ static const struct ili9881c_desc waveshare_7inch_=
-a_desc =3D {
- 	.lanes =3D 2,
- };
-=20
-+static const struct ili9881c_desc dt300249_desc =3D {
-+	.init =3D dt300249_init,
-+	.init_length =3D ARRAY_SIZE(dt300249_init),
-+	.mode =3D &dt300249_default_mode,
-+	.mode_flags =3D MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_SYNC_PULSE |
-+		      MIPI_DSI_MODE_LPM,
-+	.lanes =3D 4,
-+};
-+
- static const struct of_device_id ili9881c_of_match[] =3D {
- 	{ .compatible =3D "bananapi,lhr050h41", .data =3D &lhr050h41_desc },
- 	{ .compatible =3D "bestar,bsd1218-a101kl68", .data =3D &bsd1218_a101kl6=
-8_desc },
-+	{ .compatible =3D "dcltek,dt300249", .data =3D &dt300249_desc },
- 	{ .compatible =3D "feixin,k101-im2byl02", .data =3D &k101_im2byl02_desc=
- },
- 	{ .compatible =3D "startek,kd050hdfia020", .data =3D &kd050hdfia020_des=
-c },
- 	{ .compatible =3D "tdo,tl050hdv35", .data =3D &tl050hdv35_desc },
+iio: adc: ad4134: Support buffered data read
+
+This commit enables buffered data captures triggered by the IIO trigger
+device and adds an IIO timestamp channel. It also requires single-read
+operations to be in IIO device direct access mode to prevent buffered and
+single-shot captures from disrupting each other.
+
+> diff --git a/drivers/iio/adc/ad4134.c b/drivers/iio/adc/ad4134.c
+> index 3048e61a3cb13..b5207f16054e4 100644
+> --- a/drivers/iio/adc/ad4134.c
+> +++ b/drivers/iio/adc/ad4134.c
+> [ ... ]
+> @@ -131,6 +141,7 @@ static const struct iio_chan_spec ad4134_chan_set[] =
+=3D {
+>  	AD4134_CHANNEL(1),
+>  	AD4134_CHANNEL(2),
+>  	AD4134_CHANNEL(3),
+> +	IIO_CHAN_SOFT_TIMESTAMP(4),
+>  };
+> =20
+>  struct ad4134_state {
+> @@ -149,7 +160,7 @@ struct ad4134_state {
+>  	 * DMA (thus cache coherency maintenance) requires the transfer buffers
+>  	 * to live in their own cache lines.
+>  	 */
+> -	u8 rx_buf[AD4134_SPI_MAX_XFER_LEN] __aligned(IIO_DMA_MINALIGN);
+> +	u8 rx_buf[AD4134_SPI_MAX_XFER_LEN * AD4134_NUM_CHANNELS] __aligned(IIO_=
+DMA_MINALIGN);
+>  	u8 tx_buf[AD4134_SPI_MAX_XFER_LEN];
+>  };
+
+[Severity: Medium]
+Do tx_buf and rx_buf end up sharing the same cacheline here?
+
+Because rx_buf is only 12 bytes long (assuming AD4134_SPI_MAX_XFER_LEN is 3
+and AD4134_NUM_CHANNELS is 4), tx_buf will be placed immediately after it at
+offset 12. Since tx_buf lacks __aligned(IIO_DMA_MINALIGN), they will occupy
+the same cacheline.
+
+If the CPU writes to tx_buf during a debugfs operation while the SPI core is
+concurrently mapping rx_buf for a triggered read, could the DMA FROM_DEVICE
+cache invalidation discard the CPU's writes to tx_buf and corrupt memory?
+
+> [ ... ]
+> @@ -269,7 +280,7 @@ static int ad4134_data_read(struct ad4134_state *st, =
+unsigned int reg,
+>  	 * interface. Now we read data from all channels but keep only the bits
+>  	 * from the requested one.
+>  	 */
+> -	for (i =3D 0; i < ARRAY_SIZE(ad4134_chan_set); i++) {
+> +	for (i =3D 0; i < AD4134_NUM_CHANNELS; i++) {
+>  		ret =3D spi_write_then_read(st->spi, NULL, 0, st->rx_buf,
+>  					  BITS_TO_BYTES(AD4134_CHAN_PRECISION_BITS));
+
+[Severity: Medium]
+Could this leak uninitialized stack memory to userspace if accessed via the
+regmap debugfs interface?
+
+The patch adds IIO_CHAN_SOFT_TIMESTAMP(4) to ad4134_chan_set, which increas=
+es
+its ARRAY_SIZE from 4 to 5. The max_register calculation for the regmap
+configuration uses ARRAY_SIZE(ad4134_chan_set) - 1.
+
+If userspace reads this new max register (0x54) via the regmap debugfs
+interface, it will call ad4134_data_read(). Inside this loop, it only
+iterates up to AD4134_NUM_CHANNELS (which is 4).=20
+
+Since AD4134_VREG_CH(reg) would evaluate to 4, the condition
+if (i =3D=3D AD4134_VREG_CH(reg)) never matches, leaving the stack variable
+'sample' uninitialized before it is sign-extended and returned.
+
+> [ ... ]
+> @@ -333,6 +344,44 @@ static const struct regmap_config ad4134_regmap_conf=
+ig =3D {
+>  	.max_register =3D AD4134_CH_VREG(ARRAY_SIZE(ad4134_chan_set) - 1),
+>  };
+> =20
+> +static irqreturn_t ad4134_trigger_handler(int irq, void *p)
+> +{
+> +	IIO_DECLARE_BUFFER_WITH_TS(u32, channels, AD4134_NUM_CHANNELS) =3D { };
+> +	unsigned int chan_bytes =3D BITS_TO_BYTES(AD4134_CHAN_PRECISION_BITS);
+> +	struct iio_poll_func *pf =3D p;
+> +	struct iio_dev *indio_dev =3D pf->indio_dev;
+> +	struct ad4134_state *st =3D iio_priv(indio_dev);
+> +	struct spi_transfer xfer =3D {
+> +		.rx_buf =3D st->rx_buf,
+> +		.cs_off =3D true,
+> +		.len =3D chan_bytes * AD4134_NUM_CHANNELS,
+> +	};
+> +	int ret;
+> +
+> +	gpiod_set_value_cansleep(st->odr_gpio, 1);
+> +	fsleep(1);
+> +	gpiod_set_value_cansleep(st->odr_gpio, 0);
+> +
+> +	/* Run enough DCLK cycles to match the data frame length. */
+> +	ret =3D spi_sync_transfer(st->spi, &xfer, 1);
+
+[Severity: High]
+Does this introduce a data race on st->rx_buf?
+
+The trigger handler runs asynchronously and uses st->rx_buf directly in
+spi_sync_transfer() without taking any locks.
+
+Meanwhile, if userspace reads from the regmap debugfs node, the regmap core
+takes its internal lock and calls ad4134_data_read(), which invokes
+spi_write_then_read() using the exact same st->rx_buf.
+
+Because regmap debugfs access does not claim IIO direct mode, and the trigg=
+er
+handler bypasses the regmap lock, could both paths execute concurrently
+and cause concurrent DMA mapping of the same buffer?
+
+> [ ... ]
+
 --=20
-2.34.1
-
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1791309733.gi=
+t.marcelo.schmitt@analog.com?part=3D7
