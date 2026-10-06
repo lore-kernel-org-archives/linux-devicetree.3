@@ -1,378 +1,134 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id A9F743914F5;
-	Tue,  6 Oct 2026 19:36:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from fhigh-b7-smtp.messagingengine.com (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60B703914E5
+	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 19:53:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.158
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791315370; cv=none; b=Q9PSx0fik1RzDPAHrwDDSOFElitGnV6FXzB7sdy3IvoZg2HRdNfZ+XqE+IDKqALL0CJ2u15gl53ALEBYehzT6zj8jnXW8bA+i6KTKf1fo7Pjjf8vBX0EQF8ChnjOWDZcoxjzHAUjFr/J8wMMF44EoomZFzCzPzUZvyNR8eJEA78=
+	t=1791316386; cv=none; b=QnxDg6vpho0vYKDAGVMNgdsRKMAehLeXnzktKwNxAB02hVY7jCacj27OTL+NRoGa8EnGfjPZNkcmMKzHUJvanS4MEX3jO5qMG3/LLb5gXz1Ol/sPsKJAAepIl7FBfahmxX8eDIwn41tXKhIZQfj082gEb4Bc3cQL0s6+iNGCWqE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791315370; c=relaxed/simple;
-	bh=wj/sWfdoddtzMIGh1H3vjjBs66rG02RDwUhV9GRgmWw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OqEE+LXwRZeSUInF7suoYAUtDRremclJbYUAGwBIe5/aj1rypMxanpcx6QrRHDLAUJvdcI7+Fc/9VlCkxgnwlBgdsMYtXm0rE9r3+tX5s+R3DWGp5aeOJlA1p1kcW5imjYaiWbjyLwJuAP/cpehQp5nayyO+rre48TgXzc5E3MI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=JIXVxyYP; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1791316386; c=relaxed/simple;
+	bh=NJ1pRbRnKJmFoEUqhxcP8u3zEH4RTXw94iffrMDycjw=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=SzZqLJ/oS22jLnojV/YIVOxW7kA756Si9XBbu/Kc+wTjiUNGJROGnSiBY8tWKgxgZ5F9ZqQOlQInH0N7p6zcQBEnDlUT3xmXdfDkKZxo2V1/Y/5+bWOVey0mG8/z4f3NK4hPvMlBd3dG6hfpfSaHM8ungkzVvYv81U/TCatW/e4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=MKO58mlB; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Gsz6Kehn; arc=none smtp.client-ip=202.12.124.158
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="JIXVxyYP"
-Received: by linux.microsoft.com (Postfix, from userid 1223)
-	id B1A5820B7175; Tue,  6 Oct 2026 12:35:12 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com B1A5820B7175
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1791315312;
-	bh=ZHFeuUEcgA/zJNYAb+gVRneYC++YNlFUgfUofhTwpC0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=JIXVxyYPVGUahVQSbBeR6lhtqlo+464NbJKVnsn6MnEHpuAojkME6r5sK/6Vg4jbk
-	 TE1b2xfxdU9SmWh0bU8XY9UYwUFrXHCszXWEv7hY8gF7i+TF0HC3F7IICTGKZoti5g
-	 8wdiOittX0hXTsSe1NqVwmj/ySYwpMcP8fcsBKbQ=
-Date: Tue, 6 Oct 2026 12:35:12 -0700
-From: Meagan Lloyd <meaganlloyd@linux.microsoft.com>
-To: "Patil, Shubham Sanjay" <shubpati@amd.com>
-Cc: Frank Li <Frank.li@oss.nxp.com>,
-	Shubham Patil <shubhamsanjay.patil@amd.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Frank Li <Frank.Li@nxp.com>, linux-i3c@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	meaganlloyd@linux.microsoft.com, git@amd.com,
-	jk@codeconstruct.com.au, matt@codeconstruct.com.au,
-	netdev@vger.kernel.org
-Subject: Re: [PATCH] i3c: master: dw: Clamp GETMRL/GETMWL to controller FIFO
- limits
-Message-ID: <20261006-fc1d7a5f0e4e3b1b453450f9@linux.microsoft.com>
-References: <20260908102724.3232660-1-shubhamsanjay.patil@amd.com>
- <aqL4HaQ1gjeaJYUQ@lizhi-Precision-Tower-5810>
- <eff031f6-e212-43a8-98c0-5f52a4b9317b@amd.com>
- <arVBZ0j2noe0g0Wi@lizhi-Precision-Tower-5810>
- <44e2c06b-7742-47a7-b2fa-2284867d4f32@amd.com>
+	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="MKO58mlB";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Gsz6Kehn"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id AFFD17A0155
+	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 15:53:04 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-04.internal (MEProxy); Tue, 06 Oct 2026 15:53:04 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm2; t=1791316383;
+	 x=1791402783; bh=xldaJtJatu9aKIUiDCxeXNusAU6qzJ37au3HT7Fm//s=; b=
+	MKO58mlB99lpRYtnQGXQi/Gqymg1LOnKQ0P2VSuVCP+AJhRjGLYpDTwmxP2ZB4wC
+	JXw71iv6btSaOEt4168OSBtiwpucLPvkkC/AtrTNEeS6jrLjiVS93Buj8oYlEXzp
+	9UfcokbCy7/06HiVzp3HrjwDibHridTZl87Mw5WOWjhJE9MESfQvzviaRDLdkB1a
+	98Q2YtU0pX0MciYpqrZ1TYmhygJTFYa9+JyVOZElzB8BTHhu0/UOY+y9JF3R1o4H
+	K8H16jbpkdaCZWxR4Ou6sNLgr87yLud3kglo+v9iVDCB96BmR0vU3ttQMO5No3Dd
+	Q2AEI0a9YZMf+8GNoiyD1w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791316383; x=
+	1791402783; bh=xldaJtJatu9aKIUiDCxeXNusAU6qzJ37au3HT7Fm//s=; b=G
+	sz6Kehnvxal+l9c6iWyqS/rMoV0CHTYulMfg0yCj9GjLQJMZMUMXydC7uZpXKGOK
+	2nrlvfppza75jJ0RzgCIwOLnbg+8Qz3SrOgKVrapnToRG0g/ZaZSjyrv+HxpfhHg
+	uoATY1sSvazo4neIziCvYUDrb9f3BR3IUjdF/lBUnKV4bHrPhLG40LjGKhuw7dZI
+	GmKCgL8ItGp+eKfvr+Jw4H82twyj9Z1Ozw7uoaydQ3zvO9GNjKxIjrKrVGJG9tcf
+	4COZzggzCSVoBry7PGSds0hU9WjfA5ltMBDU9jY+BU2whY5RSUJtJylVmghdg/KC
+	D1uAXvydXDD+z30r2cYjw==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=sign d=kroah.com a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1791316383; d=kroah.com;
+	mf=PGdyaWZmaW5Aa3JvYWguY29tPg==;
+	rt=PGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnPg==;
+	s=fm2:rsa-sha256:aqXoeuHxkDcOaUw3E2snnuXMMQZ8qIulV0ppGMGUkDZryZQ
+	1xkMJyaDuJ2mmi0IA6CqSaH73KK0KFw09s8zKqrQGBYEr554ovZqLtRj/kRDt9ho
+	8lmtxhCkIz6hkD2e5XIED5eHbIcpZhk0b2mFmghaf4EMOmkBrpbzt7UhJ4Gh5KCB
+	Pm8enHw/PIMUyUD/ohdzChATaRJpBfD5hyMKK0LgHttCKzS7/dnnmj6QeYZpjUVU
+	iXylgNEMbnyr1ijbjPQY1eMrrinWFU6gcyWGFJotq1t9hfC8nVGeXSvOdoKK4hEb
+	j2lEg7U6eofN5I53/joW/bFmtMtNOLpjH/gqnJQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=mi-m=1; hc=12;
+	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
+	from,in-reply-to,message-id,mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:92us6Jfvd+OzOP89EiR252Amh/mmuVAJqo44MSKg82k=:NJ1pRbRnKJmFoEUqhxcP8u3zEH4RTXw94iffrMDycjw=;
+X-ME-Sender: <xms:nlHFauyMTadoNQ9UQoNF3d7oR7xIFl9MBDdTZFR1NqDHhcM9JuXzWg>
+    <xme:nlHFavdPsaptcc7khSbsflMN1LlnRxFgg99cKudBqrGUQfM2OMD-atOz7Ybc9aZTC
+    JuUs8sGYZLnX2UmVDtGfps5s63fnYicHHhKjCx0ZaMxAWORfeI>
+X-ME-Received: <xmr:nlHFajt-dQSrh-bFkdied0Z-E2CTpvC-Ew5V9lhjeChNBWkS8Q9JPXZWnf4kQBP-1I2UWuvOS62er1VO6yJXsh_cWQfk7rj4NIxMHGlNBg>
+X-ME-Proxy-Cause: dmFkZTGV8nXLgn086JaXf8cevSE95/GulR8M8Esy8uUy4s5UIlArkTvX/QFBZiEJ4YMSRs
+    bZ+4UyNhQoyfBsmfOOo4RjwrVO9Ao24AjY2aKjUJkeEpKeS9ZPvoxFRiSDTL7gOQDE2Gue
+    aaOfl0LL5Jnt0kr2L/Oi5R++JV0qH7E1vrnaU68RQeOpg3JdTHUFln9/meyjCiQnE0PziN
+    tj/lBWrc2WcZf+z5NkgOd33vJ2LOfsCrjAFlxOa6UNY5HvRGQ4sqern16o1QOpJqMhDVkN
+    /zUoPJrZi+MaW16YeTGQcgyzNez3hGh9B3blohBRgpkVsRSmQssdRQ4Rs0+2aiyrpdLbrh
+    ZfR56gTPa5VxISRSO/4SFM2Q5qml+ToYHyDhEuMF2EwgxlHDXoj9UF5jCCI8uc2adTqA0O
+    YLvG/ddqeSWaOznQbem/qnAFga4LmuqOPxbwgkYlAjTzBe+nYHTDxkkL3nTVk4eJbR08HK
+    pL8GGfMtou3V25Fpt4hV+9kcRW3ajSd5vHbgIExnUDh7OobEAzoF+/gN7QFG+aDhP5KuRt
+    1622xYzvjNf3gGMkSo5k5SIjiijNUxcHYOejO+V5G78ONtucJDVp4Y9AEZJiD67Cqz1Una
+    lKbBG3DaaNAAbBRnthYoUF/wC5tSyfimJ+iP7lMonugHglbWNC2rRG3gTRkQ
+X-ME-Proxy: <xmx:nlHFakAA8puUgbk3lmQPEvA6L-Y65TFXj7fJLZ4pUUYpQcHO1DXDpA>
+    <xmx:nlHFarEuv2_q1ruheaoG8c521nBMj7wsE4hY-AuVK5clCGT9I1nOpQ>
+    <xmx:nlHFaktnZiKjEFZFDcRRBw4Gm9IZO3eyqaTEy_BVl9ezG7wGfH5Hiw>
+    <xmx:nlHFahnuRiwEgX2nAR8oHbh3c1qx8ck8uJ6cwGmvy8BJdhNpK83EZA>
+    <xmx:n1HFakterNy7uBzT0vGrNWnnr9Lta_FiP_m0M9Ak-GVWcgmoaEVmzvUK>
+Feedback-ID: i1d2843be:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 6 Oct 2026 15:52:58 -0400 (EDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <44e2c06b-7742-47a7-b2fa-2284867d4f32@amd.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v2 4/7] leds: aw2013: use dev_err_probe
+From: Griffin Kroah-Hartman <griffin@kroah.com>
+To: Paul Sajna <sajattack@postmarketos.org>
+Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Nikita Travkin <nikitos.tr@gmail.com>, 
+ Alexey Min <alexeymin@minlexx.ru>, linux-leds@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht
+In-Reply-To: <20261005-aw2013-aw20xx-rename-v2-4-108ecbdf2775@postmarketos.org>
+References: <20261005-aw2013-aw20xx-rename-v2-0-108ecbdf2775@postmarketos.org>
+ <20261005-aw2013-aw20xx-rename-v2-4-108ecbdf2775@postmarketos.org>
+Date: Tue, 06 Oct 2026 21:52:46 +0200
+Message-Id: <179131636687.6822.4895381769539366104.b4-review@b4>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791316378; l=352;
+ i=griffin@kroah.com; s=20260910; h=from:subject:message-id;
+ bh=NJ1pRbRnKJmFoEUqhxcP8u3zEH4RTXw94iffrMDycjw=;
+ b=ujdRNQDCJOxKnTvhoZptG9V/l3QiRKpKvMMuNZB6LfCCYZQATZ6sVJKLSdAUSnqxQ9nFQHDOE
+ TSfE6UxbJQVDmftjN7xtidJXyuuC7buZfzHJA8Ic0U5bCqL0w6+0icf
+X-Developer-Key: i=griffin@kroah.com; a=ed25519;
+ pk=HlyUkuZAN9I5qlPbOHN5N9xxdQ5sT6AbPgC4TsLCxzA=
 
-On Tue, Oct 06, 2026 at 06:05:16PM +0530, Patil, Shubham Sanjay wrote:
-> On 9/24/2026 8:57 PM, Frank Li wrote:
-> > Caution: This message originated from an External Source. Use proper caution when opening attachments, clicking links, or responding.
-> > 
-> > 
-> > On Thu, Sep 24, 2026 at 10:25:44AM +0530, Patil, Shubham Sanjay wrote:
-> > > 
-> > > 
-> > > On 9/11/2026 12:04 AM, Frank Li wrote:
-> > > > Caution: This message originated from an External Source. Use proper caution when opening attachments, clicking links, or responding.
-> > > > 
-> > > > 
-> > > > On Tue, Sep 08, 2026 at 03:57:24PM +0530, Shubham Patil wrote:
-> > > > > The DW master rejects private SDR transfers larger than
-> > > > > caps.datafifodepth with -EOPNOTSUPP. Targets often report MRL/MWL
-> > > > > values larger than that FIFO, so the core stores limits the controller
-> > > > > cannot meet.
-> > > > > 
-> > > > > After a successful GETMRL/GETMWL, issue Direct SETMRL/SETMWL to the
-> > > > > same target with lengths capped to the data FIFO (in bytes), then
-> > > > > rewrite the GET payload so the core keeps the same values. Only update
-> > > > > the GET buffer once SET is acked, so a failed SET does not leave the
-> > > > > core and the target disagreeing.
-> > > > 
-> > > > I think i3c device driver should know these information choose
-> > > > min value dring each xfer. even though you set devcie's MRL/MXL, device
-> > > > driver still issue a longer transfer.
-> > > > 
-> > > > Frank
-> > > 
-> > > Understood - I will drop the SETMRL/SETMWL and stop rewriting the GET
-> > > payload, and instead expose the controller limit so the min is taken
-> > > per transfer. Two questions on how you want that done:
-> > > 1) Where should the min be taken?
-> > >     a) In the core: the controller driver sets max_read_len /
-> > >        max_write_len / max_ibi_len in struct i3c_master_controller, and
-> > >        the core caps i3c_device_info to min(target, controller) after
-> > >        GETMRL/GETMWL. Device drivers then use i3c_device_get_info()
-> > >        as-is and cannot forget.
-> > >     b) In each device driver: the core keeps reporting the raw target
-> > >        values, and drivers do the min themselves.
-> > 
-> > We can provide APIs for device driver to get whole data path required
-> > max_read/write_len.
+On Mon, 05 Oct 2026 20:46:05 -0700, Paul Sajna <sajattack@postmarketos.org> wrote:
+> Failure to use dev_err_probe() for regulator requests violates
+> LED subsystem guidelines.
 > 
-> Thanks. Next v2 will be:
-> 
-> Patch 1 - core: add max_read_len/max_write_len to struct
-> i3c_master_controller, set by the controller driver before
-> i3c_master_register(), plus two helpers for client drivers:
-> 	u16 i3c_device_get_max_read_len(const struct i3c_device *dev);
-> 	u16 i3c_device_get_max_write_len(const struct i3c_device *dev);
-> 
-> Each returns the smallest limit along the whole data path, i.e.
-> min_not_zero() of the target's GETMRL/GETMWL value and the controller
-> limit, and U16_MAX when nothing limits it. i3c_device_info keeps the raw
-> target values untouched.
-> 
-> Patch 2 - dw: advertise the data FIFO depth to the core, by setting
-> base.max_read_len/base.max_write_len in dw_i3c_common_probe() before
-> i3c_master_register().
-> 
-> Thanks,
-> Shubham
-
-I'd vote to avoid overloading the terms 'max_read_len' and
-'max_write_len' as it currently refers to the device's MRL and MWL
-values retrieved through the GETMRL, GETMWL CCCs.
-
-So, maybe something like:
-
-struct i3c_master_controller fields rx_fifo_bytes, tx_fifo_bytes
-
-i3c_device_get_max_read_xfer_bytes() - min(rx_fifo_bytes, device mrl)
-i3c_device_get_max_write_xfer_bytes() - min(tx_fifo_bytes, device mwl)
-
--
-
-The first meaningful user of this patch would be mctp-i3c driver. Where
-the i3c_xfer.len would need to be updated from using the device's mrl/mwl
-to whatever these new API functions return.
-
-I think that the mctp-i3c driver update should be part of this series since
-it'll be the first user. Unless, Alexandre and the MCTP maintainers disagree.
-
-Thanks,
-Meagan
-
-> 
-> > 
-> > > 2) Either way, a driver that ignores these limits still gets
-> > >     -EOPNOTSUPP from dw_i3c_master_i3c_xfers() when the transfer does
-> > >     not fit the data FIFO. Should the driver keep returning that, or
-> > >     would you consider splitting an oversized private SDR transfer into
-> > >     FIFO-sized chunks in the controller driver? My understanding is
-> > >     no - splitting changes what the target sees on the bus - but I
-> > >     want to be sure before v2.
-> > 
-> > the decision about split transfer should be decided by device drivers.
-> > Not all device treat two continue repeat START as continue write/read.
-> > 
-> > Frank
-> > > 
-> > > Thanks,
-> > > Shubham>
-> > > > > 
-> > > > > GETMRL is variable length: the optional third byte is max IBI payload
-> > > > > and is only present if the target returned it. Clamp that IBI byte to
-> > > > > the IBI queue depth from QUEUE_SIZE_CAPABILITY.IBI_BUF_SIZE (bits 19:16
-> > > > > at 0xe8, encoded as 2^(n+1) dwords).
-> > > > > 
-> > > > > Rename the unused EXTENDED_CAPABILITY macro at 0xe8 to the databook
-> > > > > name QUEUE_SIZE_CAPABILITY.
-> > > > > 
-> > > > > Signed-off-by: Shubham Patil <shubhamsanjay.patil@amd.com>
-> > > > > ---
-> > > > >    drivers/i3c/master/dw-i3c-master.c | 149 ++++++++++++++++++++++++++++-
-> > > > >    drivers/i3c/master/dw-i3c-master.h |   1 +
-> > > > >    2 files changed, 149 insertions(+), 1 deletion(-)
-> > > > > 
-> > > > > diff --git a/drivers/i3c/master/dw-i3c-master.c b/drivers/i3c/master/dw-i3c-master.c
-> > > > > index 4563d8761ba0..51defcb57761 100644
-> > > > > --- a/drivers/i3c/master/dw-i3c-master.c
-> > > > > +++ b/drivers/i3c/master/dw-i3c-master.c
-> > > > > @@ -203,7 +203,13 @@
-> > > > >    #define BUS_IDLE_TIMING                      0xd8
-> > > > >    #define I3C_VER_ID                   0xe0
-> > > > >    #define I3C_VER_TYPE                 0xe4
-> > > > > -#define EXTENDED_CAPABILITY          0xe8
-> > > > > +#define QUEUE_SIZE_CAPABILITY                0xe8
-> > > > > +#define QUEUE_SIZE_CAPABILITY_IBI_BUF(x)     (((x) & GENMASK(19, 16)) >> 16)
-> > > > > +/*
-> > > > > + * IBI_BUF_SIZE is encoded as 2^(field + 1) dwords: the smallest buffer is
-> > > > > + * 2 dwords and each increment of the field doubles the depth.
-> > > > > + */
-> > > > > +#define QUEUE_SIZE_IBI_BUF_MIN_DWORDS        2
-> > > > >    #define SLAVE_CONFIG                 0xec
-> > > > > 
-> > > > >    #define DYN_ADDR_LO_MASK GENMASK(4, 0)
-> > > > > @@ -844,6 +850,130 @@ static int dw_i3c_ccc_get(struct dw_i3c_master *master, struct i3c_ccc_cmd *ccc)
-> > > > >         return ret;
-> > > > >    }
-> > > > > 
-> > > > > +/*
-> > > > > + * Cap the limits a target reported through GETMRL to what this controller can
-> > > > > + * actually transfer, so the core never asks for a private read the data FIFO
-> > > > > + * cannot hold. The optional IBI payload byte is capped to the IBI queue depth
-> > > > > + * instead; since that byte is a u8, the IBI cap only ever applies to
-> > > > > + * controllers whose IBI queue is smaller than 255 bytes.
-> > > > > + *
-> > > > > + * Direct SETMRL is optional, so a target may implement GETMRL and NACK the SET.
-> > > > > + * Clamp the values handed back to the core either way: a failed SET only means
-> > > > > + * the target keeps its own larger limit, which is harmless as long as the core
-> > > > > + * stays within ours.
-> > > > > + */
-> > > > > +static int dw_i3c_master_clamp_mrl(struct dw_i3c_master *master,
-> > > > > +                                struct i3c_ccc_cmd *ccc)
-> > > > > +{
-> > > > > +     u16 max_fifo_bytes = master->caps.datafifodepth * sizeof(u32);
-> > > > > +     u32 max_ibi_bytes = master->caps.ibififodepth * sizeof(u32);
-> > > > > +     u16 actual_len = ccc->dests[0].payload.actual_len;
-> > > > > +     struct i3c_ccc_cmd_dest set_dest = { };
-> > > > > +     struct i3c_ccc_cmd set_cmd = { };
-> > > > > +     struct i3c_ccc_mrl set_mrl;
-> > > > > +     struct i3c_ccc_mrl *mrl;
-> > > > > +     bool clamp_ibi = false;
-> > > > > +     bool clamp_read;
-> > > > > +     u8 ibi_len = 0;
-> > > > > +     u16 read_len;
-> > > > > +     int ret;
-> > > > > +
-> > > > > +     /* Need at least the 2-byte max read length field to act on. */
-> > > > > +     if (actual_len < 2)
-> > > > > +             return 0;
-> > > > > +
-> > > > > +     mrl = ccc->dests[0].payload.data;
-> > > > > +     read_len = be16_to_cpu(mrl->read_len);
-> > > > > +     clamp_read = read_len > max_fifo_bytes;
-> > > > > +
-> > > > > +     /* Optional third byte is valid only if the target returned it. */
-> > > > > +     if (actual_len > 2) {
-> > > > > +             ibi_len = mrl->ibi_len;
-> > > > > +             clamp_ibi = max_ibi_bytes && ibi_len > max_ibi_bytes;
-> > > > > +     }
-> > > > > +
-> > > > > +     if (!clamp_read && !clamp_ibi)
-> > > > > +             return 0;
-> > > > > +
-> > > > > +     set_mrl.read_len = cpu_to_be16(clamp_read ? max_fifo_bytes : read_len);
-> > > > > +     if (actual_len > 2)
-> > > > > +             set_mrl.ibi_len = clamp_ibi ? max_ibi_bytes : ibi_len;
-> > > > > +
-> > > > > +     set_dest.addr = ccc->dests[0].addr;
-> > > > > +     set_dest.payload.data = &set_mrl;
-> > > > > +     set_dest.payload.len = actual_len;
-> > > > > +
-> > > > > +     set_cmd.rnw = 0;
-> > > > > +     set_cmd.id = I3C_CCC_SETMRL(false);
-> > > > > +     set_cmd.ndests = 1;
-> > > > > +     set_cmd.dests = &set_dest;
-> > > > > +
-> > > > > +     ret = dw_i3c_ccc_set(master, &set_cmd);
-> > > > > +     if (ret)
-> > > > > +             dev_dbg(&master->base.dev,
-> > > > > +                     "SETMRL not accepted by target: %d\n", ret);
-> > > > > +
-> > > > > +     if (clamp_read) {
-> > > > > +             mrl->read_len = cpu_to_be16(max_fifo_bytes);
-> > > > > +             dev_dbg(&master->base.dev,
-> > > > > +                     "clamped target MRL from %u to %u bytes (FIFO depth limit)\n",
-> > > > > +                     read_len, max_fifo_bytes);
-> > > > > +     }
-> > > > > +     if (clamp_ibi) {
-> > > > > +             mrl->ibi_len = max_ibi_bytes;
-> > > > > +             dev_dbg(&master->base.dev,
-> > > > > +                     "clamped target IBI len from %u to %u bytes (IBI buffer limit)\n",
-> > > > > +                     ibi_len, max_ibi_bytes);
-> > > > > +     }
-> > > > > +
-> > > > > +     return 0;
-> > > > > +}
-> > > > > +
-> > > > > +/* Same contract as dw_i3c_master_clamp_mrl(), for the write direction. */
-> > > > > +static int dw_i3c_master_clamp_mwl(struct dw_i3c_master *master,
-> > > > > +                                struct i3c_ccc_cmd *ccc)
-> > > > > +{
-> > > > > +     u16 max_fifo_bytes = master->caps.datafifodepth * sizeof(u32);
-> > > > > +     struct i3c_ccc_cmd_dest set_dest = { };
-> > > > > +     struct i3c_ccc_cmd set_cmd = { };
-> > > > > +     struct i3c_ccc_mwl set_mwl;
-> > > > > +     struct i3c_ccc_mwl *mwl;
-> > > > > +     u16 write_len;
-> > > > > +     int ret;
-> > > > > +
-> > > > > +     if (ccc->dests[0].payload.actual_len < 2)
-> > > > > +             return 0;
-> > > > > +
-> > > > > +     mwl = ccc->dests[0].payload.data;
-> > > > > +     write_len = be16_to_cpu(mwl->len);
-> > > > > +
-> > > > > +     if (write_len <= max_fifo_bytes)
-> > > > > +             return 0;
-> > > > > +
-> > > > > +     set_mwl.len = cpu_to_be16(max_fifo_bytes);
-> > > > > +
-> > > > > +     set_dest.addr = ccc->dests[0].addr;
-> > > > > +     set_dest.payload.data = &set_mwl;
-> > > > > +     set_dest.payload.len = sizeof(set_mwl);
-> > > > > +
-> > > > > +     set_cmd.rnw = 0;
-> > > > > +     set_cmd.id = I3C_CCC_SETMWL(false);
-> > > > > +     set_cmd.ndests = 1;
-> > > > > +     set_cmd.dests = &set_dest;
-> > > > > +
-> > > > > +     ret = dw_i3c_ccc_set(master, &set_cmd);
-> > > > > +     if (ret)
-> > > > > +             dev_dbg(&master->base.dev,
-> > > > > +                     "SETMWL not accepted by target: %d\n", ret);
-> > > > > +
-> > > > > +     mwl->len = cpu_to_be16(max_fifo_bytes);
-> > > > > +     dev_dbg(&master->base.dev,
-> > > > > +             "clamped target MWL from %u to %u bytes (FIFO depth limit)\n",
-> > > > > +             write_len, max_fifo_bytes);
-> > > > > +
-> > > > > +     return 0;
-> > > > > +}
-> > > > > +
-> > > > >    static int dw_i3c_master_send_ccc_cmd(struct i3c_master_controller *m,
-> > > > >                                       struct i3c_ccc_cmd *ccc)
-> > > > >    {
-> > > > > @@ -866,6 +996,18 @@ static int dw_i3c_master_send_ccc_cmd(struct i3c_master_controller *m,
-> > > > >         else
-> > > > >                 ret = dw_i3c_ccc_set(master, ccc);
-> > > > > 
-> > > > > +     /*
-> > > > > +      * Clamp GETMRL/GETMWL responses to the data FIFO depth, and the
-> > > > > +      * optional GETMRL IBI byte to the IBI queue depth. The GET itself has
-> > > > > +      * already succeeded, so its result is never overridden here.
-> > > > > +      */
-> > > > > +     if (!ret && ccc->rnw) {
-> > > > > +             if (ccc->id == I3C_CCC_GETMRL)
-> > > > > +                     dw_i3c_master_clamp_mrl(master, ccc);
-> > > > > +             else if (ccc->id == I3C_CCC_GETMWL)
-> > > > > +                     dw_i3c_master_clamp_mwl(master, ccc);
-> > > > > +     }
-> > > > > +
-> > > > >         pm_runtime_put_autosuspend(master->dev);
-> > > > >         return ret;
-> > > > >    }
-> > > > > @@ -1728,6 +1870,11 @@ int dw_i3c_common_probe(struct dw_i3c_master *master,
-> > > > >         ret = readl(master->regs + DATA_BUFFER_STATUS_LEVEL);
-> > > > >         master->caps.datafifodepth = DATA_BUFFER_STATUS_LEVEL_TX(ret);
-> > > > > 
-> > > > > +     /* Read the IBI data buffer size advertised by the controller. */
-> > > > > +     ret = readl(master->regs + QUEUE_SIZE_CAPABILITY);
-> > > > > +     master->caps.ibififodepth = QUEUE_SIZE_IBI_BUF_MIN_DWORDS <<
-> > > > > +                                 QUEUE_SIZE_CAPABILITY_IBI_BUF(ret);
-> > > > > +
-> > > > >         ret = readl(master->regs + DEVICE_ADDR_TABLE_POINTER);
-> > > > >         master->datstartaddr = ret;
-> > > > >         master->maxdevs = ret >> 16;
-> > > > > diff --git a/drivers/i3c/master/dw-i3c-master.h b/drivers/i3c/master/dw-i3c-master.h
-> > > > > index 17ad817d1f8e..54c3912374c8 100644
-> > > > > --- a/drivers/i3c/master/dw-i3c-master.h
-> > > > > +++ b/drivers/i3c/master/dw-i3c-master.h
-> > > > > @@ -15,6 +15,7 @@
-> > > > >    struct dw_i3c_master_caps {
-> > > > >         u8 cmdfifodepth;
-> > > > >         u8 datafifodepth;
-> > > > > +     u32 ibififodepth;
-> > > > >    };
-> > > > > 
-> > > > >    struct dw_i3c_dat_entry {
-> > > > > --
-> > > > > 2.34.1
-> > > > > 
-> > > 
+> The original driver didn't use it, but it's worth cleaning up
+> while I'm here.
 > 
 > 
-> -- 
-> linux-i3c mailing list
-> linux-i3c@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-i3c
+> [...]
+
+Reviewed-by: Griffin Kroah-Hartman <griffin@kroah.com>
+
+-- 
+ 
+
