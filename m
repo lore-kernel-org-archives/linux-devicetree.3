@@ -1,105 +1,139 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0FA4255F28;
-	Tue,  6 Oct 2026 04:47:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91A9137C930;
+	Tue,  6 Oct 2026 04:49:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791262077; cv=none; b=mQ+NqFoAb/X9tD57Jj0s+9MeOOTdg2BRdjT7MCdU6wSYJzii7/Rn1U9It4h2WoiJKZfSMSlbEXqDBd0LJW83Y7W/BKbk7oNq4XFkwnknm7KCCTugMTqKV/9lVT5ZwuT8Nunwv9VGWMHb2TJkOvFZZlvd7L9uEYvK8iz0d4aEXd0=
+	t=1791262141; cv=none; b=Q6M9h10YZi1FLYMhx6A0QX+ScUd1VLhw8uXR2XQ+7qqYONV+kb07IQqTur1vzoxKOE0hTV10mp4ES3oy3CUgat+vgQKv6dK4xz97PQU/wp/sf4Q62DxzjBjkQOubxEE7cNpZPS2vZklgn2ataUI1sz4ivyWhqvuZLpAU+/oN2AQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791262077; c=relaxed/simple;
-	bh=oTyNBGv99KF9PBYy3pNQZ9Ld7UNz0+mPGHPDsHDgXrE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VxD75rnxY3mmsc+ufxkyBYqVZiDNu6NCsAlpfVai1GrKCPyT37fcaGzlOY+8sAQB6KJGAK1HAw6WMrOHCli1zltzCdtZLERTsSjF6LKNFGNsTDbWeIuzlYwC2MHuDbJ6zwpUtqgl+tQrZl9JDmhJVDCjycvao4HptmLbVHJJCmE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=lUl8WgRJ; arc=none smtp.client-ip=192.198.163.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791262141; c=relaxed/simple;
+	bh=k10XiJLWnHpFsNMiWX4Pai7y/jGhozADPMYq2+PHjNM=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=eA/pe7ElFgf1zfjBB9o6Q8yW4hel07DJGyqQvkhjDSL+Gezhetl4/HePG7VCx9QPoeKy0+yVBlX6oHXRX8VBozCYAdcHz8GPj5SSztikX5ai1+D4yJwrOvb6CpkC8oRp/H83XUzd16A7kCXyVaLkPL/qQuY3WvNxeU2FrnTSdPQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AI5uQ8Rs; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="lUl8WgRJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791262075; x=1822798075;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=oTyNBGv99KF9PBYy3pNQZ9Ld7UNz0+mPGHPDsHDgXrE=;
-  b=lUl8WgRJN458cyPdd0PDeH48h3z1LfnC8EDMVJZyVnO3jBemcvOA7OAK
-   n7zVxoORqU5aa7PLNbzmQKPihl5caJ4UdlMvadusCp9x+ki22fIsSqgGq
-   XBrp1Zb3bI6GohXxvZaDV4qJ9g/B7Kz1iJHUDTitbNP0WrEgab7z/RfdI
-   5l8C5sI3AH+sdZPyBGIfwz0UGNg1orN3a5C99515mRijARb65yQLtnOXc
-   1B9i6czO73jhWO3OVxjXCwsozcRr753uxgw/6Ny8uG/SzSzzh8dz5E7ET
-   0V/IHikywZYNai9HbNbyZkZLl7zHgMmVr4g4NQLLgD/CJtaoGjOhhYXbU
-   g==;
-X-CSE-ConnectionGUID: AN1u2Jg9TTuVyXWsQqmuQw==
-X-CSE-MsgGUID: iAJcHgUsQbSbAG5w91z3Fg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="88576"
-X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
-   d="scan'208";a="88576"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 05 Oct 2026 21:47:54 -0700
-X-CSE-ConnectionGUID: V+MLLb8uTF+fu3kMyIkdMw==
-X-CSE-MsgGUID: pYgNTfN2TLiq5mrKus1LEQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
-   d="scan'208";a="275695217"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa006.fm.intel.com with ESMTP; 05 Oct 2026 21:47:51 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xDx5g-000000001Aa-1cbt;
-	Tue, 06 Oct 2026 04:47:48 +0000
-Date: Tue, 6 Oct 2026 12:47:05 +0800
-From: kernel test robot <lkp@intel.com>
-To: Thomas Bonnefille <thomas.bonnefille@bootlin.com>,
-	Puranjay Mohan <puranjay@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: oe-kbuild-all@lists.linux.dev,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	=?iso-8859-1?Q?Miqu=E8l?= Raynal <miquel.raynal@bootlin.com>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Thomas Bonnefille <thomas.bonnefille@bootlin.com>
-Subject: Re: [PATCH 2/2] iio: temperature: tmp117: add support for HIGH and
- LOW alerts
-Message-ID: <202610061256.stF5y2PX-lkp@intel.com>
-References: <20261005-add-tmp117-notif-v1-2-c6cef6fad64c@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AI5uQ8Rs"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 001D4C4AF0B;
+	Tue,  6 Oct 2026 04:49:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791262141;
+	bh=k10XiJLWnHpFsNMiWX4Pai7y/jGhozADPMYq2+PHjNM=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=AI5uQ8RsFf4OYn9th+afVr2VW9OQiPkAVNI5WDVvq8j5SWkXSeGhwNaiflinUv3Tw
+	 Wv5uFdUBg8kdzLuTn+Gm9VuXFc6hndrDhcnU+8Q0NFUraX5GT6HPJw/BoqGyMA0jQ5
+	 v1LW79+LAFZvzR9yrWyYwrYpSeEnwAOpp3vsPR33DENIGiDpM4DQu1ZzC9fJUBoYe0
+	 p3VnzKd8tENcJ/NgCxdMsjG09cq6OuVJFijtiAOtRE0++FzeakiJsUR8T4InIqoWIz
+	 OnYv6Ziy4WkLZYF2jBGjqI/8vfEQ2VQnXFQlj11O68bfa0z0Qgffs/FfDiE1QvyQAI
+	 vh5BIbFcQVjYQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DFEF9CA5FFE;
+	Tue,  6 Oct 2026 04:49:00 +0000 (UTC)
+From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
+Date: Tue, 06 Oct 2026 07:48:58 +0300
+Subject: [PATCH] arm64: dts: rockchip: Add the fan tachometers to Kobol
+ Helios64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261005-add-tmp117-notif-v1-2-c6cef6fad64c@bootlin.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261006-helios64-fan-tach-v1-1-1c87e72d42b2@iav.lv>
+X-B4-Tracking: v=1; b=H4sIALl9xGoC/x3MQQqAIBBA0avErBvQyVx0lWihNeZAWGhEEN09a
+ fkW/z9QOAsXGJoHMl9SZE8Vum1gji6tjLJUAymyWimLkTfZizUYXMLTzRFp8WS87kirHmp3ZA5
+ y/89xet8PxiNwOmMAAAA=
+To: Heiko Stuebner <heiko@sntech.de>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Igor Velkov <iav@iav.lv>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2185; i=iav@iav.lv;
+ h=from:subject:message-id;
+ bh=UqldmxTMEF3J34R8VW6EVq9SH4TMYUR5K/t8pdza0BQ=;
+ b=owGbwMvMwCVmNH1q96v4SmbG02pJDFlHanenbA14+VvTLSX709oLufKqi4QL2zzLT2+9INujO
+ XPmyZezO0pZGMS4GGTFFFkmHNK4lbHk6l9/D/MHMHNYmUCGMHBxCsBEuMQY/oqYdqsrn5zZyfWU
+ +afFrQKxgtd/fevNxdIzeGrWMihqqDH8Zo9YYGChJHJtnVGn6ozQxDmVIQ8PLrH99l9nwtK5Jy0
+ jWQE=
+X-Developer-Key: i=iav@iav.lv; a=openpgp;
+ fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
+X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
+X-Original-From: Igor Velkov <iav@iav.lv>
+Reply-To: iav@iav.lv
 
-Hi Thomas,
+From: Igor Velkov <iav@iav.lv>
 
-kernel test robot noticed the following build errors:
+The tachometer outputs of both fan connectors reach the SoC through
+open-drain buffers, on GPIO4_C5 for P7 and GPIO4_C7 for P6, but the fan
+nodes do not describe them. pwm-fan therefore registers no fan1_input.
 
-[auto build test ERROR on 551c722f40809618230001baccf219193e22fc5a]
+Describe each line as the fan's interrupt. The board pulls both lines
+up, so configure the pins without internal bias.
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Thomas-Bonnefille/dt-bindings-iio-ti-tmp117-describe-interrupts-for-TMP117/20261005-164419
-base:   551c722f40809618230001baccf219193e22fc5a
-patch link:    https://lore.kernel.org/r/20261005-add-tmp117-notif-v1-2-c6cef6fad64c%40bootlin.com
-patch subject: [PATCH 2/2] iio: temperature: tmp117: add support for HIGH and LOW alerts
-config: um-randconfig-1000-20261006 (https://download.01.org/0day-ci/archive/20261006/202610061256.stF5y2PX-lkp@intel.com/config)
-compiler: gcc-14 (Debian 14.2.0-19) 14.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261006/202610061256.stF5y2PX-lkp@intel.com/reproduce)
+Tested on 7.3-rc6: fan1_input reads 0 with the fans stopped and rises
+with the duty cycle, to about 3500 rpm at full speed on both fans.
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610061256.stF5y2PX-lkp@intel.com/
+Assisted-by: LLM
+Signed-off-by: Igor Velkov <iav@iav.lv>
+---
+Schematic, sheets 30 and 36:
+https://wiki.kobol.io/helios64/files/schematics/Helios64_Schematics_Rev1.2.pdf
+---
+ arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
-All errors (new ones prefixed by >>, old ones prefixed by <<):
+diff --git a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts b/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
+index d146e5075b4f..63ad79b4c8ac 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
+@@ -74,6 +74,10 @@ fan1 {
+ 		compatible = "pwm-fan";
+ 		pwms = <&pwm0 0 40000 0>;
+ 		cooling-levels = <0 80 170 255>;
++		interrupt-parent = <&gpio4>;
++		interrupts = <RK_PC5 IRQ_TYPE_EDGE_FALLING>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&fan1_sense>;
+ 	};
+ 
+ 	fan2 {
+@@ -81,6 +85,10 @@ fan2 {
+ 		compatible = "pwm-fan";
+ 		pwms = <&pwm1 0 40000 0>;
+ 		cooling-levels = <0 80 170 255>;
++		interrupt-parent = <&gpio4>;
++		interrupts = <RK_PC7 IRQ_TYPE_EDGE_FALLING>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&fan2_sense>;
+ 	};
+ 
+ 	gpio-keys {
+@@ -493,6 +501,16 @@ user1_btn: user1-btn {
+ 		};
+ 	};
+ 
++	fan {
++		fan1_sense: fan1-sense {
++			rockchip,pins = <4 RK_PC5 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++
++		fan2_sense: fan2-sense {
++			rockchip,pins = <4 RK_PC7 RK_FUNC_GPIO &pcfg_pull_none>;
++		};
++	};
++
+ 	gmac {
+ 		gphy_reset: gphy-reset {
+ 			rockchip,pins = <3 RK_PB7 RK_FUNC_GPIO &pcfg_output_low>;
 
->> ERROR: modpost: drivers/iio/temperature/tmp117.ko: symbol '__divdi3' undefined!
+---
+base-commit: 1892b1ccccb9d546903ad6a61ffb9e388acdec80
+change-id: 20261006-helios64-fan-tach-2db24b132105
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Best regards,
+-- 
+Igor Velkov <iav@iav.lv>
+
+
