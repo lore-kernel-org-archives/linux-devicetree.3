@@ -1,70 +1,67 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35E7D2BE034;
-	Tue,  6 Oct 2026 08:51:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C0483B8D4F;
+	Tue,  6 Oct 2026 08:51:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791276661; cv=none; b=Nt9Q/7V17g4mM3+UOB3SYXqGhO24yVOR4NDeTc2OoMfbgq+e3QrlNX/NH0McXvQhQlhJ5e0OP/uBUbEaJTdSvbKKgJuvHJBS1Lzb5/2fn5Efpy4sQd2RJjHJ0xY4r4/3hu6xNiI4lQiK/lCsxhENL07dHqAcPRSrhSFZzIghlis=
+	t=1791276667; cv=none; b=aQS978zpt1vadWYqHDV6n0wbRbuRCgrdVsui7ydRmmBRgrc/OFdreL79KV0VgrOiVOEArNnwzbOLMxEEsbhfOEL41zWIutzBuEa46TrYSiqpdQC3108P7tP9eSTfYTdJecgxSBqG1l+L6Y64nEc+niQzu3KqyfVXSkHzBRiBXf8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791276661; c=relaxed/simple;
-	bh=VscwG1f5K2jduvr077VdL+KOqfPHDzEsfmEOibu0sLE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mjIAccopeeZMqUiUqg/2LnvkGrqrQIQlhYH/QhlIN/8QxuRZgEO9M2oQ/2io+FwC9UksZ9TX1CceHoT/510MW61Ad998r/wiYhCZH7kcRla7rSBb2W+pAL1KyrUY3rdFabhSlw3e9vkjTt7CIS+fXhQoOYUkx22W5a5gl1OVEcg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E8LU7oYu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791276667; c=relaxed/simple;
+	bh=hPuTMyOHC3cQYnEtZaVTjdhRZVnARB4SZA68C9fM+Ns=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=BSKiFwizXgJB5aW48XcKBFpXODVQ11xGcJN/aM2bpQechEg81sJuGQ2EJyrsm75PJvxLwEupYlaOa7JcveQezJQUB+o3olCCcwiWME/yr2Vvck8kaDdoIslXMEpkEO6LN5bCxkWeKzlIplxtFRwfrT3PeS+EOKvCWfHDrsse+7k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nw187PCE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E8LU7oYu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E7421F00893;
-	Tue,  6 Oct 2026 08:50:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nw187PCE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D4291F000FF;
+	Tue,  6 Oct 2026 08:51:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791276660;
-	bh=XAm9KYDGmoWGIoypJdL3/5p96DaHo0z/EOUgYKjNC0Y=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=E8LU7oYuUo4ErsWhLhHh0iFCumgQrpLE/7pAc/t2GknntDjMH5a8FgvB0uHfb22zk
-	 HsH/Dd4FE3lnpNnKPSSrgSoLULyy3eM+2MwMLD5vS71cEFa64jmFQFtlAy5Usmh1aV
-	 TBSWUdjzLVC0tTptszn2DYfpCLsUmA8EyRAzwjvjoHI7+5EuFsd5s420VMNvNUlBjV
-	 jEMCJCX8rqaIB7N92oMi6cMbuUbtm/0u5SjZ8nP0v6Ex2R93nCUYgORCdoXymp2ME/
-	 RuuYV4JWc0SYxt2Vk8BxWESnSpBSNnoYokarkGDMjVVjmQ9kJ+uCPuFHE1+Wk6MBdU
-	 BR9DRdk37d1kQ==
-Date: Tue, 6 Oct 2026 09:50:56 +0100
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Liviu Dudau <liviu.dudau@arm.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] arm64: dts: arm: corstone1000-a320: Fix GIC
- redistributor region size
-Message-ID: <20261006-important-malkoha-of-faith-073aa8@sudeepholla>
-References: <20261005210506.2118052-2-robh@kernel.org>
+	s=k20260515; t=1791276665;
+	bh=hPuTMyOHC3cQYnEtZaVTjdhRZVnARB4SZA68C9fM+Ns=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=nw187PCEd3aLCkg8rL9exRGp/fkUmFeiUsckuQvyfHkFoG09ztcEI5uKs8E+RvnpJ
+	 qnJloQdp/NQid8CsnP6MA4oeq7QpzTw1WIwdP0TlauJAFuGFREzMybVp5BWrbJpeHx
+	 DcRcJjkUCiSWDMP2cHGTiTbN2ttYmsHbkiveLlTibp5bxx9F5cyOyO2ko235lMVVXs
+	 G1EmgawV3tq3HwmEGDnNwAvGomqfRipBovp4SPG40Nuaxf8A2mZnVTn6/J592FB59+
+	 w/0PyaSmotCBUyJ2eTEL1L/gZvlnwJ2Kh/PRbkzlDJreO8+Hi/ZJDpbRPAHdTKsiPX
+	 2oxtBxk091vqA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 02/18] PCI: dwc: Factor out the PORT_LINK_DEBUG1
+ link-up check
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Koichiro Den" <den@valinux.co.jp>
+Cc: conor+dt@kernel.org, linux-pci@vger.kernel.org, robh@kernel.org, devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com
+In-Reply-To: <20261006084638.3821710-3-den@valinux.co.jp>
+References: <20261006084638.3821710-1-den@valinux.co.jp>
+ <20261006084638.3821710-3-den@valinux.co.jp>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 06 Oct 2026 08:51:04 +0000
+Message-Id: <20261006085105.2D4291F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261005210506.2118052-2-robh@kernel.org>
 
-On Mon, Oct 05, 2026 at 04:05:06PM -0500, Rob Herring (Arm) wrote:
-> The Arm Corstone1000-A320 has a GICv4 which means the redistributor
-> region should be 4x256KB rather than 512KB. This issue didn't become
-> apparent as SMP was disabled as a work-around in early versions of the
-> FVP.
-> 
-> Fixes: 87599f1843d3 ("arm64: dts: arm/corstone1000: Add corstone-1000-a320")
-> Reviewed-by: Liviu Dudau <liviu.dudau@arm.com>
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-> ---
-> Hi, this still hasn't been applied.
-> 
+> dw_pcie_link_up() reads PORT_LINK_DEBUG1 when the glue driver provides
+> no .link_up() callback. A callback that needs a platform-specific check
+> on top of that register would have to duplicate the register read.
+>=20
+> Factor the check out into dw_pcie_link_up_debug_check() and export it
+> for modular glue drivers. pcie-rcar-gen4 will be the first user: its APP
+> link-up events remain latched after the link goes down, so it has to
+> combine them with the live PORT_LINK_DEBUG1 state.
+>=20
+> No functional change.
+>=20
+> Suggested-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> Signed-off-by: Koichiro Den <den@valinux.co.jp>
 
-Sorry for the delay, I missed v1 when I was away. I have sent PR for v7.4
-already, will send this as fix at -rc1.
+Sashiko has reviewed this patch and found no issues. It looks great!
 
--- 
-Regards,
-Sudeep
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261006084638.3821=
+710-1-den@valinux.co.jp?part=3D2
+
