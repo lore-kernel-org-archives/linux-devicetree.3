@@ -1,134 +1,105 @@
-Received: from fhigh-b7-smtp.messagingengine.com (fhigh-b7-smtp.messagingengine.com [202.12.124.158])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60B703914E5
-	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 19:53:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.158
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4239425B0BD
+	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 20:23:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791316386; cv=none; b=QnxDg6vpho0vYKDAGVMNgdsRKMAehLeXnzktKwNxAB02hVY7jCacj27OTL+NRoGa8EnGfjPZNkcmMKzHUJvanS4MEX3jO5qMG3/LLb5gXz1Ol/sPsKJAAepIl7FBfahmxX8eDIwn41tXKhIZQfj082gEb4Bc3cQL0s6+iNGCWqE=
+	t=1791318229; cv=none; b=gTHfqYOX/6LHEHen5qiYJRyx4eDqnE1Uvo4G8KyxFlogLqKAHUckaas6gKt3fvnPusxVn14HMcWg/tZ10ZY7bU7MCeuhhjbVho+Ri3eJv6tY9j8JVpSJOfU3p5OpbVHRLFcf6IkUTXQqsvRPhLDF5WNGfhNiXFqsPrd7aJC091w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791316386; c=relaxed/simple;
-	bh=NJ1pRbRnKJmFoEUqhxcP8u3zEH4RTXw94iffrMDycjw=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=SzZqLJ/oS22jLnojV/YIVOxW7kA756Si9XBbu/Kc+wTjiUNGJROGnSiBY8tWKgxgZ5F9ZqQOlQInH0N7p6zcQBEnDlUT3xmXdfDkKZxo2V1/Y/5+bWOVey0mG8/z4f3NK4hPvMlBd3dG6hfpfSaHM8ungkzVvYv81U/TCatW/e4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=MKO58mlB; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Gsz6Kehn; arc=none smtp.client-ip=202.12.124.158
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
+	s=arc-20240116; t=1791318229; c=relaxed/simple;
+	bh=OuhouRFSgXc9SKBp4mNmbvAF+Y7o5Am4Ej72IPMGqQg=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=QJlvYLYM6XjHe0i9mgqi/GbAROsmodJ1dSCAZ1Q4fpPRTVVuC+MqU4tEagAc/i9YSR7TidADqfCo51xbpB8huunrJqi2aZVCrqkwZhInSlglrWdFMdHI2Nfp5A8SpVPPWErgOZUfjLuj6g0sUmhspGd3rdKcNc6FKKzXGOyQv8s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BJkjsLXZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="MKO58mlB";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Gsz6Kehn"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id AFFD17A0155
-	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 15:53:04 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-04.internal (MEProxy); Tue, 06 Oct 2026 15:53:04 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm2; t=1791316383;
-	 x=1791402783; bh=xldaJtJatu9aKIUiDCxeXNusAU6qzJ37au3HT7Fm//s=; b=
-	MKO58mlB99lpRYtnQGXQi/Gqymg1LOnKQ0P2VSuVCP+AJhRjGLYpDTwmxP2ZB4wC
-	JXw71iv6btSaOEt4168OSBtiwpucLPvkkC/AtrTNEeS6jrLjiVS93Buj8oYlEXzp
-	9UfcokbCy7/06HiVzp3HrjwDibHridTZl87Mw5WOWjhJE9MESfQvzviaRDLdkB1a
-	98Q2YtU0pX0MciYpqrZ1TYmhygJTFYa9+JyVOZElzB8BTHhu0/UOY+y9JF3R1o4H
-	K8H16jbpkdaCZWxR4Ou6sNLgr87yLud3kglo+v9iVDCB96BmR0vU3ttQMO5No3Dd
-	Q2AEI0a9YZMf+8GNoiyD1w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791316383; x=
-	1791402783; bh=xldaJtJatu9aKIUiDCxeXNusAU6qzJ37au3HT7Fm//s=; b=G
-	sz6Kehnvxal+l9c6iWyqS/rMoV0CHTYulMfg0yCj9GjLQJMZMUMXydC7uZpXKGOK
-	2nrlvfppza75jJ0RzgCIwOLnbg+8Qz3SrOgKVrapnToRG0g/ZaZSjyrv+HxpfhHg
-	uoATY1sSvazo4neIziCvYUDrb9f3BR3IUjdF/lBUnKV4bHrPhLG40LjGKhuw7dZI
-	GmKCgL8ItGp+eKfvr+Jw4H82twyj9Z1Ozw7uoaydQ3zvO9GNjKxIjrKrVGJG9tcf
-	4COZzggzCSVoBry7PGSds0hU9WjfA5ltMBDU9jY+BU2whY5RSUJtJylVmghdg/KC
-	D1uAXvydXDD+z30r2cYjw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=kroah.com a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791316383; d=kroah.com;
-	mf=PGdyaWZmaW5Aa3JvYWguY29tPg==;
-	rt=PGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnPg==;
-	s=fm2:rsa-sha256:aqXoeuHxkDcOaUw3E2snnuXMMQZ8qIulV0ppGMGUkDZryZQ
-	1xkMJyaDuJ2mmi0IA6CqSaH73KK0KFw09s8zKqrQGBYEr554ovZqLtRj/kRDt9ho
-	8lmtxhCkIz6hkD2e5XIED5eHbIcpZhk0b2mFmghaf4EMOmkBrpbzt7UhJ4Gh5KCB
-	Pm8enHw/PIMUyUD/ohdzChATaRJpBfD5hyMKK0LgHttCKzS7/dnnmj6QeYZpjUVU
-	iXylgNEMbnyr1ijbjPQY1eMrrinWFU6gcyWGFJotq1t9hfC8nVGeXSvOdoKK4hEb
-	j2lEg7U6eofN5I53/joW/bFmtMtNOLpjH/gqnJQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:92us6Jfvd+OzOP89EiR252Amh/mmuVAJqo44MSKg82k=:NJ1pRbRnKJmFoEUqhxcP8u3zEH4RTXw94iffrMDycjw=;
-X-ME-Sender: <xms:nlHFauyMTadoNQ9UQoNF3d7oR7xIFl9MBDdTZFR1NqDHhcM9JuXzWg>
-    <xme:nlHFavdPsaptcc7khSbsflMN1LlnRxFgg99cKudBqrGUQfM2OMD-atOz7Ybc9aZTC
-    JuUs8sGYZLnX2UmVDtGfps5s63fnYicHHhKjCx0ZaMxAWORfeI>
-X-ME-Received: <xmr:nlHFajt-dQSrh-bFkdied0Z-E2CTpvC-Ew5V9lhjeChNBWkS8Q9JPXZWnf4kQBP-1I2UWuvOS62er1VO6yJXsh_cWQfk7rj4NIxMHGlNBg>
-X-ME-Proxy-Cause: dmFkZTGV8nXLgn086JaXf8cevSE95/GulR8M8Esy8uUy4s5UIlArkTvX/QFBZiEJ4YMSRs
-    bZ+4UyNhQoyfBsmfOOo4RjwrVO9Ao24AjY2aKjUJkeEpKeS9ZPvoxFRiSDTL7gOQDE2Gue
-    aaOfl0LL5Jnt0kr2L/Oi5R++JV0qH7E1vrnaU68RQeOpg3JdTHUFln9/meyjCiQnE0PziN
-    tj/lBWrc2WcZf+z5NkgOd33vJ2LOfsCrjAFlxOa6UNY5HvRGQ4sqern16o1QOpJqMhDVkN
-    /zUoPJrZi+MaW16YeTGQcgyzNez3hGh9B3blohBRgpkVsRSmQssdRQ4Rs0+2aiyrpdLbrh
-    ZfR56gTPa5VxISRSO/4SFM2Q5qml+ToYHyDhEuMF2EwgxlHDXoj9UF5jCCI8uc2adTqA0O
-    YLvG/ddqeSWaOznQbem/qnAFga4LmuqOPxbwgkYlAjTzBe+nYHTDxkkL3nTVk4eJbR08HK
-    pL8GGfMtou3V25Fpt4hV+9kcRW3ajSd5vHbgIExnUDh7OobEAzoF+/gN7QFG+aDhP5KuRt
-    1622xYzvjNf3gGMkSo5k5SIjiijNUxcHYOejO+V5G78ONtucJDVp4Y9AEZJiD67Cqz1Una
-    lKbBG3DaaNAAbBRnthYoUF/wC5tSyfimJ+iP7lMonugHglbWNC2rRG3gTRkQ
-X-ME-Proxy: <xmx:nlHFakAA8puUgbk3lmQPEvA6L-Y65TFXj7fJLZ4pUUYpQcHO1DXDpA>
-    <xmx:nlHFarEuv2_q1ruheaoG8c521nBMj7wsE4hY-AuVK5clCGT9I1nOpQ>
-    <xmx:nlHFaktnZiKjEFZFDcRRBw4Gm9IZO3eyqaTEy_BVl9ezG7wGfH5Hiw>
-    <xmx:nlHFahnuRiwEgX2nAR8oHbh3c1qx8ck8uJ6cwGmvy8BJdhNpK83EZA>
-    <xmx:n1HFakterNy7uBzT0vGrNWnnr9Lta_FiP_m0M9Ak-GVWcgmoaEVmzvUK>
-Feedback-ID: i1d2843be:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 6 Oct 2026 15:52:58 -0400 (EDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BJkjsLXZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BB411F0089B;
+	Tue,  6 Oct 2026 20:23:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791318227;
+	bh=yCwRyM2IY/tuaZrbV29cfApQA9vGIzHUoOiITmq2f2k=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=BJkjsLXZdCzTNXp08sP9pzN/hllpwg08U8xVbjuMPxPe+7QkiwRIh1jeM4Ut7YkGU
+	 OL9ODDgK8l7O79NZKzbwhH7Qud2r70+oCoWa8o6pRLoOmt2KMiKc8du2F7BrA6OJ59
+	 VVft2gENQrpSxz8P4+aoAjQqEhrcEDQiJT05Qxz/2FTqY1kT2fH2VvtSdBII781uGB
+	 zL/bBKNHkgozozTkxzPUZIbcKLTrAEbN5saelJJo5aAae7o4sWxElT8BSppwjurL0J
+	 nabXaEvc3hIMF7uRnDMp/q2WcwJskfsMKd/ZfyePjZofVf04K7pMyJEe67fH2MVgru
+	 xxWV1LDVkC81g==
+Message-ID: <sashiko-outbox-162426@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next v2 1/2] dt-bindings: net: realtek,rtl82xx:
+ document RTL8224 packages
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Oskari Lemmela" <oskari@lemmela.net>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261005201540.913977-2-oskari@lemmela.net>
+References: <20261005201540.913977-1-oskari@lemmela.net>
+ <20261005201540.913977-2-oskari@lemmela.net>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 06 Oct 2026 20:23:47 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v2 4/7] leds: aw2013: use dev_err_probe
-From: Griffin Kroah-Hartman <griffin@kroah.com>
-To: Paul Sajna <sajattack@postmarketos.org>
-Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Nikita Travkin <nikitos.tr@gmail.com>, 
- Alexey Min <alexeymin@minlexx.ru>, linux-leds@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht
-In-Reply-To: <20261005-aw2013-aw20xx-rename-v2-4-108ecbdf2775@postmarketos.org>
-References: <20261005-aw2013-aw20xx-rename-v2-0-108ecbdf2775@postmarketos.org>
- <20261005-aw2013-aw20xx-rename-v2-4-108ecbdf2775@postmarketos.org>
-Date: Tue, 06 Oct 2026 21:52:46 +0200
-Message-Id: <179131636687.6822.4895381769539366104.b4-review@b4>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791316378; l=352;
- i=griffin@kroah.com; s=20260910; h=from:subject:message-id;
- bh=NJ1pRbRnKJmFoEUqhxcP8u3zEH4RTXw94iffrMDycjw=;
- b=ujdRNQDCJOxKnTvhoZptG9V/l3QiRKpKvMMuNZB6LfCCYZQATZ6sVJKLSdAUSnqxQ9nFQHDOE
- TSfE6UxbJQVDmftjN7xtidJXyuuC7buZfzHJA8Ic0U5bCqL0w6+0icf
-X-Developer-Key: i=griffin@kroah.com; a=ed25519;
- pk=HlyUkuZAN9I5qlPbOHN5N9xxdQ5sT6AbPgC4TsLCxzA=
 
-On Mon, 05 Oct 2026 20:46:05 -0700, Paul Sajna <sajattack@postmarketos.org> wrote:
-> Failure to use dev_err_probe() for regulator requests violates
-> LED subsystem guidelines.
-> 
-> The original driver didn't use it, but it's worth cleaning up
-> while I'm here.
-> 
-> 
-> [...]
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] dt-bindings: net: generic compatible in example fails schema valida=
+tion
+--
 
-Reviewed-by: Griffin Kroah-Hartman <griffin@kroah.com>
+commit 6e9280e0153fb3196c44f745f9db18bcf7971400
+Author: Oskari Lemmela <oskari@lemmela.net>
 
--- 
- 
+dt-bindings: net: realtek,rtl82xx: document RTL8224 packages
 
+This commit updates the realtek,rtl82xx bindings to document RTL8224 PHY
+packages and adds an example demonstrating multiple child PHY nodes within =
+an
+ethernet-phy-package.
+
+> diff --git a/Documentation/devicetree/bindings/net/realtek,rtl82xx.yaml b=
+/Documentation/devicetree/bindings/net/realtek,rtl82xx.yaml
+> index 07b39ef1fc624..ca52c3ae19f7a 100644
+> --- a/Documentation/devicetree/bindings/net/realtek,rtl82xx.yaml
+> +++ b/Documentation/devicetree/bindings/net/realtek,rtl82xx.yaml
+[ ... ]
+> @@ -90,9 +100,45 @@ examples:
+>          #address-cells =3D <1>;
+>          #size-cells =3D <0>;
+> =20
+[ ... ]
+> +        ethernet-phy-package@1 {
+> +            reg =3D <1>;
+> +            #address-cells =3D <1>;
+> +            #size-cells =3D <0>;
+> +
+> +            ethernet-phy@1 {
+> +                compatible =3D "ethernet-phy-ieee802.3-c45";
+
+[Severity: Low]
+Does this generic compatible string cause a schema validation warning during
+make dt_binding_check?=20
+
+Because this generic string is not listed in the schema's compatible enum,
+the implicit select logic generated for this schema fails to match the
+example node. The dt-schema tool strictly requires examples to match their
+enclosing schema, so this mismatch will trigger a validation error.
+
+> +                reg =3D <1>;
+> +                enet-phy-pair-order =3D <0>;
+> +            };
+> +
+> +            ethernet-phy@2 {
+> +                compatible =3D "ethernet-phy-ieee802.3-c45";
+> +                reg =3D <2>;
+> +                enet-phy-pair-order =3D <0>;
+> +            };
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261005201540.9139=
+77-1-oskari@lemmela.net?part=3D1
