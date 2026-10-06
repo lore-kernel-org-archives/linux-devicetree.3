@@ -1,113 +1,80 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-126.mta0.migadu.com [91.218.175.126])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB4554A204F;
-	Tue,  6 Oct 2026 18:50:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02D2A54707A
+	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 18:54:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.126
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791312641; cv=none; b=r6/CN570K4Y7YcnyPI3WNut85xh3PYxLgE8nHvyCPXSF2p6pPBwO3qj9n4w1fAMTJCplOSktUULfjv4iAQSnqEryfexhuKssdqmh7jTOWmj/+pXpUoDLs8W8DN6xlQfeaDhzkH+C2HIPcGerbb3AoYKhaOklkBk/j2/KSVqWySE=
+	t=1791312900; cv=none; b=OwSrZPNBpypfKSVEMSywxcN6QrDw+eTYeySCY8x+SomdxOhSDOpAOWt+hCsj+YDQN0bvQ3+YacVbfYsueqsepbA0b31b9gVephZaptfm2vke5KuUy316xF84AB6TB+tcJKbKXREFaG+mu9dS4ybnwODjLdPdqU8GMjDI0ksO0oE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791312641; c=relaxed/simple;
-	bh=pAafaC7hBrqDElAgMvcvE6thWpIPEbnhcZP2tU/+WTg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IHjiR5Bs+pMNn9g3bn69LnXfUIrgY9Vnkjv3jgG79Sv737EtQ7V2/g4ldj9zRZgyjeMYnRhapkX+ZhQHaalRqEMRlWnLHrz2rRsnngiSQioK+7Z9mqk0YyuMrKm+CoKL1sdqR0pfkpGgokzbHhCe0MwOBAiubmo3L/I0FqcUXjQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nqVtH0PD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791312900; c=relaxed/simple;
+	bh=3bvT2VatBc1K+HvjSMEV9tZwrAHqrBfs03wveSjQq+s=;
+	h=MIME-Version:Date:Content-Type:From:Message-ID:Subject:To:Cc:
+	 In-Reply-To:References; b=GaDDLOmCgvs4DGuZhC8yJoveTmvd+yviHBhzHElHV8XWNwoDwIytj8y2z+JfK1ujru5kPalGg9f/rT4bDHIKv/pDyr76bc1vwqNKvlUeSGrzW70DrVi2QukMVB8US+dpO8EwgHuFlWVKt6j5nMq5gQekZ2+lYzvp7pvmE8HrhvA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org; spf=pass smtp.mailfrom=postmarketos.org; dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b=mBQQMbvl; arc=none smtp.client-ip=91.218.175.126
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=postmarketos.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=postmarketos.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nqVtH0PD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 258821F0089B;
-	Tue,  6 Oct 2026 18:50:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791312640;
-	bh=tXLSbpyUG31gTT+jrU2zP+FXGyzeEv4VmzVE/LaXxjY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nqVtH0PDsADZHitSsB9NWX6JfSdnbWpCkPis74u/0eQ63jKclvt5x9BouQeAL7kPr
-	 8ZusnzhuwxM4EYc3SKaoCz3/Qn3ZujK5jHZtdB3Smo+GYoy+pVIXJtUzesjicm7FC2
-	 MEmscX1QmXDyp9yR/DlINPPGfK6bwhEccUyN68rL4c+Nm9IBGK4MA69p/6wLDZGTdF
-	 nQXottDid1ozi9tFP6Jli6w//JVcmnFjNThZ5LaTmMuv+kwLLrjQW+bFTIZBRLgMWK
-	 WjclFiJq1gqZGf13rs3vSt7mU51/uVUG4sBUKYEnJEsmJfKiJf7KA2EerfDEQjyXOs
-	 ZRZJ0xUdNzSdA==
-Date: Tue, 6 Oct 2026 13:50:39 -0500
-From: Rob Herring <robh@kernel.org>
-To: Yureka Lilian <yureka@cyberchaos.dev>
-Cc: Michael Reeves <michael.reeves077@gmail.com>,
-	Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
-	Neal Gompa <neal@gompa.dev>, Jassi Brar <jassisinghbrar@gmail.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Hector Martin <marcan@marcan.st>,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>, asahi@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, iommu@lists.linux.dev,
-	linux-input@vger.kernel.org, Julian Braha <julianbraha@gmail.com>,
-	Sasha Finkelstein <k@chaosmail.tech>
-Subject: Re: [PATCH v4 04/10] dt-bindings: input: apple: Add DockChannel HID
- transport
-Message-ID: <20261006185039.GE2194299-robh@kernel.org>
-References: <20260925-apple-mtp-keyboard-final-v4-0-304c267518f4@gmail.com>
- <20260925-apple-mtp-keyboard-final-v4-4-304c267518f4@gmail.com>
- <20261006160049.GA2406717-robh@kernel.org>
- <2687bc3e-b73a-415c-8c68-8249e1fe4e6b@cyberchaos.dev>
+	dkim=pass (2048-bit key) header.d=postmarketos.org header.i=@postmarketos.org header.b="mBQQMbvl"
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=3bvT2VatBc1K+HvjSMEV9tZwrAHqrBfs03wveSjQq+s=;
+ c=simple/simple; d=postmarketos.org;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791312897; v=1; x=1791917697;
+ b=mBQQMbvl3gSTi/r3flm6HPOfjjNv5JbZeXIGEP4LlMdVlNUijgBNm8159X9do/x4yOZB7CFh
+ 2nLBmKVNjvjKRxCMNEUtz8EAPWvJd/zYDl78fOes80kO9rIeDKQOsu0vIgVe3u6OCnkTpeiXlpw
+ sbSPYCc1Bl211PcBfmE9vFFXOysVwack/Oj2VqEe5pHg8oJIEJu3E+Mh1TruhH9oDFvt0rre99I
+ i1Y8DjJLh8PxFDUQK0BTn7J6Pp//fGrfvXgkjOPkP+psOEj/qd5S0xmXSEIslgKji0gb8PYIo4+
+ DsccG4yeZn8OTag9TkU9IUv8Uz7Y00dv3vE74CV+crOrA==
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id b3cd69ab155009df;
+	Tue, 06 Oct 2026 18:54:46 +0000
+X-Mizu-Trace-ID: b3cd69ab155009df
+X-Migadu-Flow: FLOW_OUT
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2687bc3e-b73a-415c-8c68-8249e1fe4e6b@cyberchaos.dev>
+Date: Tue, 06 Oct 2026 18:54:46 +0000
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
+From: "Paul Sajna" <sajattack@postmarketos.org>
+Message-ID: <8233c4f988d72cd2cc65897dcf2d9e46639ecffd@postmarketos.org>
+TLS-Required: No
+Subject: Re: [PATCH v2 2/7] leds: aw2013: Rename internal APIs from aw2013 to
+ aw20xx
+To: "Griffin Kroah-Hartman" <griffin@kroah.com>
+Cc: "Lee Jones" <lee@kernel.org>, "Pavel Machek" <pavel@kernel.org>, "Rob
+ Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>, "Nikita Travkin"
+ <nikitos.tr@gmail.com>, "Alexey Min" <alexeymin@minlexx.ru>,
+ linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org,
+ ~postmarketos/upstreaming@lists.sr.ht
+In-Reply-To: <179128353952.5667.14752630401954655843.b4-review@b4>
+References: <20261005-aw2013-aw20xx-rename-v2-0-108ecbdf2775@postmarketos.org>
+ <20261005-aw2013-aw20xx-rename-v2-2-108ecbdf2775@postmarketos.org>
+ <179128353952.5667.14752630401954655843.b4-review@b4>
 
-On Tue, Oct 06, 2026 at 08:09:47PM +0200, Yureka Lilian wrote:
-> 
-> On 10/6/26 18:00, Rob Herring wrote:
-> > On Fri, Sep 25, 2026 at 10:09:31PM +1000, Michael Reeves wrote:
-> > [...]
-> > > +
-> > > +  mboxes:
-> > > +    items:
-> > > +      - description: ASC mailbox used for RTKit control
-> > > +      - description: DockChannel FIFO mailbox used for HID packets
-> > > +
-> > > +  mbox-names:
-> > > +    items:
-> > > +      - const: asc
-> > > +      - const: dockchannel
-> > > +
-> > > +  iommus:
-> > > +    maxItems: 1
-> > > +
-> > > +  stm:
-> > > +    type: object
-> > > +    description:
-> > > +      STM interface providing the vendor, product and version identifiers
-> > > +      and serial number shared by the HID devices. When present, the host
-> > > +      must query this interface before registering the keyboard.
-> > > +    additionalProperties: false
-> > An empty node is unusual. Why can't you just query the STM interface and
-> > treat it not existing or having those properties the same as no 'stm'
-> > node.
-> 
-> The issue is there is no indicator for the stm *not* being present: We boot
-> the MTP coprocessor, and then receive a message when the stm is available.
-> In that case we know it's ready and we can proceed with obtaining the serial
-> numbers and registering the hid devices. But if there is no stm, we simply
-> do not get the stm ready message, and the hid devices are never registered
-> (this is the case in the original downstream Asahi dockchannel-hid). To make
-> the stm optional *without* taking the information from the device tree, this
-> would require some sort of timeout for waiting for the stm ready message. I
-> outlined the available options in this thread[1] and argued the empty stm
-> subnode makes sense, since this is describing a peripheral which may or may
-> not be present (and this information is useful to initialize the device
-> properly).
-> 
-> Link[1]: https://lore.kernel.org/asahi/bbaca769-312c-4a24-9524-16cb2b4f277f@cyberchaos.dev/
+October 6, 2026 at 3:45 AM, "Griffin Kroah-Hartman" <griffin@kroah.com ma=
+ilto:griffin@kroah.com?to=3D%22Griffin%20Kroah-Hartman%22%20%3Cgriffin%40=
+kroah.com%3E > wrote:
 
-Okay, but you don't need a node here. Just an 'apple,has-stm' or similar 
-property will suffice.
+> I understand the impulse, but the preferred way to handle this situatio=
+n
+> is just to rename the properties unique to your new driver, otherwise
+> this code wouldn't make sense to be in the aw2013.c file anymore :)
+>=20
+>=20Thanks,
+> Griffin
+>=20
+>=20--
+>
 
-Rob
+Thanks. This is the sort of feedback I was looking for in the RFC, but ne=
+ver got directly.=20
 
+I'll=20walk back the renames some more, and look at the fresh batch of Sa=
+shiko nits before sending v3.
