@@ -1,91 +1,87 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07AA53E3140
-	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 10:30:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12AF03C76A0;
+	Tue,  6 Oct 2026 10:39:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791282655; cv=none; b=jAMJoswcuww2PR3Ypb3IFbcJ/wju3LQfDp39JZE8s7TaqRiiinZNFHGylg8p/JYLJhLIWxco32ut93D03zmj1qQD7Oy9CVYnxkwPmRwlxAMuI3NEkbbjtKyIbc2sPqS7cgbBxdzJh6v4BsOED74pRK5OLvYqRInYpu162OCJyXc=
+	t=1791283175; cv=none; b=t89vGRQN6Thn6Hedm++AHHu9TsxxTYaxKLkAYDz+P+EgSJilU9q8tLvh7Dtcx1VnWWVT8GLsMCw4Iam0+DokOpvor7a5n/2Fdi4CuYXp/DWm+IDKjnoCqePevz/6CHzb+heL+DdE3hyaDPDFlHDIl0f7ihU3o/FsnyC5veQHf88=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791282655; c=relaxed/simple;
-	bh=xQbV5GbBp43r4Try8maWYx6KPArL8fbqa1bW31iNOu0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nPJAcTWfIEBUJAi9CCmQffuiXY4eaYjrxPYiSDhAmJs+k7Rb3Hj9nLIutV1N+DMCRUHwWqH7iHg551Tl9V+D4F/q5kwhXP+03eXKDDU0vX2NtQgNHUAxD5DD7W2r7tqcvegGT4n/b8oRppPClXMF4JeztQ5nySs5ygaSJN1nG5s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dD0cwu0N; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791283175; c=relaxed/simple;
+	bh=uHhLksw+SaQbTq6T0bsFQltUqf6MN3ztzugZWEA66uI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ergEH5hU9tc9EXvwk0ux4Y9XkJ2XbnIp74OGx93IBYV5twzQQ6zbBc4Tw9p9wwevxpm01iIhWP6fiBUGR0wzfnVHKDwpt5P8QUJGNi/dOSOLONuQIGp5INnuiy5NZ7EsBNGVPnO5EbR2tCQ+RP0ADNrkcwhSuAUACNTbyIE9wSc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GiIWmASu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dD0cwu0N"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4F5F1F008A0
-	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 10:30:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GiIWmASu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24BAD1F000FF;
+	Tue,  6 Oct 2026 10:39:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791282653;
-	bh=5ZaN40cf3gaPYVrOntAep/0sU9jdzMlSTIwHDqydOaY=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=dD0cwu0NaDmzI6FDzUr53SqL2l2laUa5BRdUfSDXpMeJulyDsNvKsVevM17EV3FEd
-	 UnKpbzoEAi1KOzIDEnEX7hQZBVO5C3K16NnV0NfEVsa75lDW43NjtZdYPMUCx8kT6T
-	 V8dDmhAxtndAcxWds7MxUMrjuRmmQvQuryZPTJHIBHYHLkXZGXoeemLfEexl0uadYO
-	 x7OD+ttM+AOxtRzH0yQD4Mh6ONR7x4isxees6zA9pEdZ9XuqQ8uB2KiPLHPnoUTkJP
-	 jQfDo++ybon7Jrf/vh/St2hPwor3pVNafuKsj1hcHTvtBSXNJsk2YgzKp/i53Om+GZ
-	 xpXvOTPX/BvJQ==
-Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-3a20c95e412so3777171fa.1
-        for <devicetree@vger.kernel.org>; Tue, 06 Oct 2026 03:30:53 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxrUBFeOProFiJFNJqfCLz1bAfZW+quiN0kc5j35VhuEd8uZGxFcZR+vbFyu+nBo88YhwW5QWuOTnIN@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ/U9YtPX+vw2GaF4tNGbd7Wz7bv2v4WloBxX0Y9K4kqllfnrl5
-	oOwQszlTgcKiGxKrHS7gXIlY+ciCAq9N06hdxTy+BBM7NUIy5JBzAeBBmpYmsmriN4HbidRs2Dh
-	g4ph7hK74DXab2Cy+ioUlm4l9fR7Y6OM=
-X-Received: by 2002:a2e:9fca:0:b0:3a9:969e:98a6 with SMTP id
- 38308e7fff4ca-3a99af67db3mr1737921fa.25.1791282652577; Tue, 06 Oct 2026
- 03:30:52 -0700 (PDT)
+	s=k20260515; t=1791283173;
+	bh=dLU+evSr9Yr5I7+bxIvZFtnl9Tc1V6u/KdtkDVmD0Xw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=GiIWmASu/hUtJP9PSjFKsoGZ8HfL8gn3fv8Wdb1OtfjjpMiYMK70/HkRIwBpI9ZcL
+	 NuHFpwrIudVF2nlswRK3ZrtYnLjewRPxctLvsQSsQD/FCCA/wKmSA9lEGdPP+i3h2T
+	 /15gINR1QV9O6K14Marxnr5smQPx9HF6AsH1aNSsim+M2O9ayRPq1sSHYHC+jFg2EL
+	 CTpsowTfxdMpwoyxn38DNOea3u3Srl1xt4xC21u9urYoF9Bcdfu2/bq12Dc04xZfbV
+	 Dr/OfztyGpURnYxKzpMXW7+nAXfdLWb0moUetJ3IGO3f+miod5o7vople0CH2grHDk
+	 Lpk4iK3VhAVtw==
+Date: Tue, 6 Oct 2026 12:39:30 +0200
+From: Vinod Koul <vkoul@kernel.org>
+To: Joey Lu <a0987203069@gmail.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Jacky Huang <ychuang3@nuvoton.com>,
+	Shan-Chun Hung <schung@nuvoton.com>,
+	Hui-Ping Chen <hpchen0nvt@gmail.com>, Joey Lu <yclu4@nuvoton.com>,
+	linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v6 3/3] phy: nuvoton: phy-ma35d1-usb2: extend to
+ dual-port with OTG support
+Message-ID: <asTP4lI3psLy5GCg@parshuram>
+References: <20260929020854.1282339-1-a0987203069@gmail.com>
+ <20260929020854.1282339-4-a0987203069@gmail.com>
+ <asN29Gi71MIA-2fq@parshuram>
+ <ab91b558-e7e6-4758-b4e3-66e5db75b790@gmail.com>
+ <asSzYUA5W51Ngn4X@parshuram>
+ <413f21b6-90ca-4102-9466-3cf7b9feddc3@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921-ux500-power-domains-v7-1-v3-0-9352be6b86b1@kernel.org>
-In-Reply-To: <20260921-ux500-power-domains-v7-1-v3-0-9352be6b86b1@kernel.org>
-From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 6 Oct 2026 12:30:40 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=gFt9kKZH9T-m8B_pbwRvzc35tTrMn5V238d3528DpUg@mail.gmail.com>
-X-Gm-Features: AclHuK_AtwEo8WT_r25jczYf_hFshziwzfIIOr6vEXjFvPYUcVAgc5OmT1Oo8GM
-Message-ID: <CAD++jL=gFt9kKZH9T-m8B_pbwRvzc35tTrMn5V238d3528DpUg@mail.gmail.com>
-Subject: Re: [PATCH v3 00/18] pmdomain: st: ux500: Implement ux500 power domains
-To: Ulf Hansson <ulfh@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-pm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	dmaengine@vger.kernel.org, Krzysztof Kozlowski <krzk@kernel.org>, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Frank Li <Frank.Li@nxp.com>, 
-	Frank Li <Frank.li@oss.nxp.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Mark Brown <broonie@kernel.org>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Frank Li <Frank.Li@kernel.org>, 
-	Lee Jones <lee@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <413f21b6-90ca-4102-9466-3cf7b9feddc3@gmail.com>
 
-Hi Ulf,
+On 06-10-26, 18:22, Joey Lu wrote:
+> 
+> Vinod Koul 於 2026/10/6 下午 04:37 寫道:
+> > On 06-10-26, 09:37, Joey Lu wrote:
+> > > Vinod Koul 於 2026/10/5 下午 06:07 寫道:
+> > > > >     */
+> > > > >    #include <linux/bitfield.h>
+> > > > >    #include <linux/clk.h>
+> > > > >    #include <linux/delay.h>
+> > > > > -#include <linux/io.h>
+> > > > why is this dropped?
+> > > This driver never did direct MMIO access (no readl()/writel()/ioremap()/
+> > > __iomem), even before this series - all register access goes through
+> > > regmap via syscon_regmap_lookup_by_phandle(). So linux/io.h was an
+> > > unused include already, and it's dropped here as part of the broader
+> > > rewrite touching this include block. Happy to keep it if you'd prefer
+> > > not to bundle unrelated include cleanup into this series.
+> > Then it should be a different patch explaining this
+> Understood. I'll drop this change from the series. I'll leave the include
+> unchanged.
 
-On Mon, Sep 21, 2026 at 12:48=E2=80=AFAM Linus Walleij <linusw@kernel.org> =
-wrote:
+Nope, pls add it, but a separate patch. This in unrelated to this one,
+and should be added but as a different patch.
 
-> This series pays off technical debt from the beginning of the device
-> tree for ARM initiative in the early 2010s.
-
-I have so many fixes series that need to land for v7.4 that this is
-mostly targeted at v7.4 at this point.
-
-However:
-
-> Linus Walleij (18):
->       dt-bindings: power: Convert Ux500 PM domains to schema
->       dt-bindings: arm: ux500: Drop NR_DOMAINS
->       dt-bindings: arm: Add the actual power domains on U8500
-
-What do you think about applying these three patches to the
-PM domain tree as a starter for v7.4 if it's not too late?
-
-They are reviewed by binding maintainers and should be
-uncontroversial and will make it possible to avoid trouble when
-merging more stuff later.
-
-Yours,
-Linus Walleij
+-- 
+~Vinod
