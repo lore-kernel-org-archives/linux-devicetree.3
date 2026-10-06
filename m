@@ -1,127 +1,127 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9643E3CA4A3;
-	Tue,  6 Oct 2026 09:56:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5925A3BB661;
+	Tue,  6 Oct 2026 10:00:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791280576; cv=none; b=mMRL9URCBAZvzyZR/cSCFBsrfB6FDS3t15F8+cQ/4F4vVCOQMCT9xE8HRd9dCIob5m4w/vIUhvK4ZiNfMhkRj/lUueYLSsjd1ncAtp2up5XqJZarvP0iS9Xkd7l/lKAaLUtUP/cefXRv71ahoSIzb8YpCD0+4B4FOSQVIFmKZEE=
+	t=1791280813; cv=none; b=bU4zlCCbO8t7fbsVnP1aJYBIbsvPCDH2BU0CjNU2QbMcTzygMrrQmkqSgPW3irrLNwJYwIgIUT5FbC39y5y1imvtseBik9s62T+aKceDkBBzlYNIqP9rNZgdSAOOvNSc3ZKvLqq885PJ1YbikmUTIGUeqW4UX3eBDPsmdblFHis=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791280576; c=relaxed/simple;
-	bh=7otKa+GWApZeqC3ipf9Lr4+6RHqfIHCarUORzQocWA8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EdfKRqiJYYRe8YpMYGrqBfnH8GPy7X384rdaCwVmCnorHpchr0OIhRX3q3dAP0Y+YJ8RsC7F9hi18hRPpGqI/O6bFYrZGUZyLFBoguZjZ07Aj0pPUYpjZ6SmXBCdBhwHASH2ZXI2C2ILifUH13L5VVpUQZ2P/WUvcPZaK48k+kU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=a25U7s5C; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="a25U7s5C"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791280575; x=1822816575;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=7otKa+GWApZeqC3ipf9Lr4+6RHqfIHCarUORzQocWA8=;
-  b=a25U7s5CPGslbE7X+okGKI8qnNMk6x/QlBBlLa9wZ3HhXDdjBwfe42/C
-   gHG680AFtIHjKWd4jkRH7gcHSPuUZf4neK/jSktfnVZOLsPLnPoT/xpqh
-   VtTcvtm7YtPz8/RV6w9D66tR8BdN1Mg3D1xzL5CVhI4oNiboyxzWB5No2
-   yss8nXsLGuEKSWfts3LTyo5fi2qrtO0KdEVtrO/SEILlK4T4XVc+8GSz2
-   Nu//PDTRcER834Losunazj+V6+piddyKmPNK9T3KZp2LMhpf0pQfGuP+V
-   /Pefkk4fqLFK2/+bk2zjS2NQjZJ6mDz7VXRp+lnRU9Sh6+RLCM9eZIUpx
-   Q==;
-X-CSE-ConnectionGUID: WpIf1IyhSd+fvv49WefEUg==
-X-CSE-MsgGUID: MZVoux4VRdmzmLvqksPhaw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="19401"
-X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
-   d="scan'208";a="19401"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 02:56:14 -0700
-X-CSE-ConnectionGUID: qVNayI0VRya34JiFRZx3wQ==
-X-CSE-MsgGUID: szIgNtfbQSq7kNC5O0B13g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
-   d="scan'208";a="305038549"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa001.fm.intel.com with ESMTP; 06 Oct 2026 02:56:12 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xE1u5-000000001Qu-3Qs7;
-	Tue, 06 Oct 2026 09:56:09 +0000
-Date: Tue, 6 Oct 2026 17:55:48 +0800
-From: kernel test robot <lkp@intel.com>
-To: Vyacheslav Yurkov via B4 Relay <devnull+V.Yurkov.EXT.bruker.com@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: oe-kbuild-all@lists.linux.dev, devicetree@vger.kernel.org,
+	s=arc-20240116; t=1791280813; c=relaxed/simple;
+	bh=EvMamSDRxzu7OuMvdizxprj6S5S2WL34AU5Oxj3sGE4=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=J8EPt9nYSyUPt0ojASbo7XfOsBmCbZp7RHu08LiLOAHPIQg9wU2eZtiOA0xSkyHm0y4ZorBCqpgx+ZhK/gztWQDo9STDt3rk/9ElSk2XqeUNIzRD/vOm2PpO5nCbBlNejzt7P4LabMktSmyIpaf7DZbdoUnzERzBTMVR0NBvXJI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jmu.edu.cn; spf=pass smtp.mailfrom=jmu.edu.cn; arc=none smtp.client-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jmu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jmu.edu.cn
+Received: from Vostro-3710.. (unknown [14.220.232.127])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 50126dbdd;
+	Tue, 6 Oct 2026 18:00:05 +0800 (GMT+08:00)
+From: Chukun Pan <amadeus@jmu.edu.cn>
+To: Yixun Lan <dlan@kernel.org>
+Cc: Rob Herring <robh@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	linux-riscv@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
-Subject: Re: [PATCH 2/2] bus: add Altera timeout bridge driver
-Message-ID: <202610061734.ZXwVnIt2-lkp@intel.com>
-References: <20261003-feature-timeout-ip-v1-2-8837c311d571@bruker.com>
+	devicetree@vger.kernel.org,
+	spacemit@lists.linux.dev,
+	Chukun Pan <amadeus@jmu.edu.cn>
+Subject: [PATCH v2 1/1] riscv: dts: spacemit: set ETH MAC from eeprom for OrangePi
+Date: Tue,  6 Oct 2026 18:00:00 +0800
+Message-Id: <20261006100000.548264-1-amadeus@jmu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261003-feature-timeout-ip-v1-2-8837c311d571@bruker.com>
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa110a7f59703a2kunm67906f2632db24
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCT0pNVkkdTh8eGk8dQ08dSlYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKT1VJSUtVSUhJVUpJTFlXWRYaDxIVHRRZQVlPS0hVSktISk
+	5MTlVKS0tVSkJLS1kG
 
-Hi Vyacheslav,
+The EEPROM on the OrangePi R2S and RV2 stores the MAC address.
+Assign it to Ethernet, with ethernet1 having a MAC offset of 1.
 
-kernel test robot noticed the following build errors:
+Signed-off-by: Chukun Pan <amadeus@jmu.edu.cn>
+---
+Changes in v2:
+  Remove Ethernet alias changes.
+---
+ arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts | 6 +++++-
+ arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts | 6 +++++-
+ 2 files changed, 10 insertions(+), 2 deletions(-)
 
-[auto build test ERROR on a74306e2e676f9775457366fc047a660fbf02f26]
+diff --git a/arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts b/arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts
+index 7125f2882ce8..78cdef0c7287 100644
+--- a/arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts
++++ b/arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts
+@@ -66,6 +66,8 @@ &emmc {
+ };
+ 
+ &eth0 {
++	nvmem-cells = <&mac_address 0>;
++	nvmem-cell-names = "mac-address";
+ 	phy-handle = <&rgmii0>;
+ 	phy-mode = "rgmii-id";
+ 	pinctrl-names = "default";
+@@ -90,6 +92,8 @@ rgmii0: phy@1 {
+ };
+ 
+ &eth1 {
++	nvmem-cells = <&mac_address 1>;
++	nvmem-cell-names = "mac-address";
+ 	phy-handle = <&rgmii1>;
+ 	phy-mode = "rgmii-id";
+ 	pinctrl-names = "default";
+@@ -129,7 +133,7 @@ eeprom@50 {
+ 		nvmem-layout {
+ 			compatible = "onie,tlv-layout";
+ 
+-			mac-address {
++			mac_address: mac-address {
+ 				#nvmem-cell-cells = <1>;
+ 			};
+ 
+diff --git a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
+index 837616255464..44b81268c802 100644
+--- a/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
++++ b/arch/riscv/boot/dts/spacemit/k1-orangepi-rv2.dts
+@@ -93,6 +93,8 @@ &emmc {
+ };
+ 
+ &eth0 {
++	nvmem-cells = <&mac_address 0>;
++	nvmem-cell-names = "mac-address";
+ 	phy-handle = <&rgmii0>;
+ 	phy-mode = "rgmii-id";
+ 	pinctrl-names = "default";
+@@ -117,6 +119,8 @@ rgmii0: phy@1 {
+ };
+ 
+ &eth1 {
++	nvmem-cells = <&mac_address 1>;
++	nvmem-cell-names = "mac-address";
+ 	phy-handle = <&rgmii1>;
+ 	phy-mode = "rgmii-id";
+ 	pinctrl-names = "default";
+@@ -156,7 +160,7 @@ eeprom@50 {
+ 		nvmem-layout {
+ 			compatible = "onie,tlv-layout";
+ 
+-			mac-address {
++			mac_address: mac-address {
+ 				#nvmem-cell-cells = <1>;
+ 			};
+ 
+-- 
+2.34.1
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Vyacheslav-Yurkov-via-B4-Relay/dt-bindings-bus-Add-binding-for-Altera-AXI-Timeout-Bridge/20261003-201919
-base:   a74306e2e676f9775457366fc047a660fbf02f26
-patch link:    https://lore.kernel.org/r/20261003-feature-timeout-ip-v1-2-8837c311d571%40bruker.com
-patch subject: [PATCH 2/2] bus: add Altera timeout bridge driver
-config: s390-allyesconfig (https://download.01.org/0day-ci/archive/20261006/202610061734.ZXwVnIt2-lkp@intel.com/config)
-compiler: s390-linux-gcc (GCC) 16.1.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261006/202610061734.ZXwVnIt2-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610061734.ZXwVnIt2-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   drivers/bus/altera-timeout-bridge.c: In function 'bridge_reg_read':
->> drivers/bus/altera-timeout-bridge.c:60:18: error: implicit declaration of function 'readl' [-Wimplicit-function-declaration]
-      60 |         result = readl(driver_data->bridge_registers + offset);
-         |                  ^~~~~
-   drivers/bus/altera-timeout-bridge.c: In function 'bridge_reg_write':
->> drivers/bus/altera-timeout-bridge.c:69:9: error: implicit declaration of function 'writel' [-Wimplicit-function-declaration]
-      69 |         writel(value, driver_data->bridge_registers + offset);
-         |         ^~~~~~
-
-
-vim +/readl +60 drivers/bus/altera-timeout-bridge.c
-
-    53	
-    54	static u32
-    55	bridge_reg_read(struct altera_timeout_bridge_data *driver_data,
-    56			u32 offset)
-    57	{
-    58		u32 result;
-    59	
-  > 60		result = readl(driver_data->bridge_registers + offset);
-    61	
-    62		return result;
-    63	}
-    64	
-    65	static void bridge_reg_write(
-    66		struct altera_timeout_bridge_data *driver_data,
-    67		int offset, u32 value)
-    68	{
-  > 69		writel(value, driver_data->bridge_registers + offset);
-    70	}
-    71	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
