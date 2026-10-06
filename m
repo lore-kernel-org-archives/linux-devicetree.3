@@ -1,165 +1,112 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFDBC3D9DB1;
-	Tue,  6 Oct 2026 10:19:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F9FA2F8EBE
+	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 10:22:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791281953; cv=none; b=ScK7RoHGXESGhFn21aco6twga69gJYpWQzKCt2mRfq1qniQqeUTa91aaTtLYT3/Z6eGWfhGJLhuPALJY6sm+XxO+VU3CKcejvBO5CuN9OLL4cAtpU5kfgeKWmCy20uwcdC8k7/QFuaYiIM5Gj+Ryma06ivua8/W44GS3CP9WJXQ=
+	t=1791282143; cv=none; b=E+m2SweT64sGPBu9xMm4fNwuN1+I2n+bkje78knuBg9cEcsHa6jKP+RXqqQJ2NH/aG0YzP+c3FI08IYcnI9Y+anYMvD55r7kkRj29cTv5FIUc3HcMnyRSjgWD+GJHyg2MV5xO19dy7jxUO7J5AD3ZWM0MDet0m/BOuqeacRSfvA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791281953; c=relaxed/simple;
-	bh=OaNAldnz+9ckvaaYLOdUyTKTxlfPsmmT7rxhIfzTZfI=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=FVXLD0yDIP3eudbvVCzR+VQoZgcbg3eeyKq7MU2HRoCJcEOapilS3CzVX/Tdsgw4GHHUfpJg+2IihXGhpzsfvnlgxF/wB4RD/1eo57Bikhs7xRoeIOJZ4hL6g/WwjRTnCfoLFhtC9NFPaSP1pSBFXgIxjDVTSvKsWAvFfQVhcKM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CUHzSEhs; arc=none smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791282143; c=relaxed/simple;
+	bh=NGfZhmeeQkA2/L2I3n1PItuYPI0fkx3kBIC6StcGCW8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=se4cM3+vEqda9cgyF0XhK5IY/twRswiM+xR0NlfuzdMMNlfVyMunyPwQR2JF9VxK8AzoMGPwPqyUONHhdvc7NXpytLsHe70V0GcbB7cJ/qObyjJ1Ku2yv2+GvNOy4RoYYy7Vp7oIJcok7QPFejMhauxIBW28xqLIe9TsoMTybnE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cInBsqLn; arc=none smtp.client-ip=209.85.215.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CUHzSEhs"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791281950; x=1822817950;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=OaNAldnz+9ckvaaYLOdUyTKTxlfPsmmT7rxhIfzTZfI=;
-  b=CUHzSEhs/pI0coPsrwaTaEvUuOU5oOorbcKG6Vv2UIHs/z5v3r1+L1Dn
-   yFOAHE55MN8fS4noTF6Yg8r8kHaA8ejsol8yLmySQJoN4aveR2mBqOvnG
-   Xr6Td5qTxq31VlycU9D6JI/bQKQ0559C5RpYOrJF3baFLGlrTA71qnTHx
-   9NYs7m6R/XFwfG6uioq+NLa8zWNHTPz54nuO9/sus+Z0GJRAq60EXOKqI
-   9kDTMOlTVFawbFaV4TPGTAd1FxiWcqhvYfeNNjOuJ1LTX6jnuIXQCkz6K
-   nkubXhgCilbDLtChBhk79iAzXmEuwprQ/IqpKb2xC/e8c+qtzD4Bexzoi
-   Q==;
-X-CSE-ConnectionGUID: woGwG97VRlOtgBLAQm+GmA==
-X-CSE-MsgGUID: uK8qBbD9TduxudWM4LreOw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="18262"
-X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
-   d="scan'208";a="18262"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 03:19:08 -0700
-X-CSE-ConnectionGUID: QUQMRA4IRUOXSw9Jo2tKew==
-X-CSE-MsgGUID: QBBKzDfhTF+AyiqrjBbPsg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
-   d="scan'208";a="276620896"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.106])
-  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 03:19:05 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Tue, 6 Oct 2026 13:19:02 +0300 (EEST)
-To: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
-cc: linux-serial <linux-serial@vger.kernel.org>, 
-    Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-    Jiri Slaby <jirislaby@kernel.org>, robh@kernel.org, krzk+dt@kernel.org, 
-    conor+dt@kernel.org, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-    devicetree@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
-    linux-sunxi@lists.linux.dev, Enzo Adriano <enzo.adriano.code@gmail.com>, 
-    stable@vger.kernel.org
-Subject: Re: [PATCH 1/3] serial: 8250_dw: Keep the BUSY-safe divisor hook
- when DLF is present
-In-Reply-To: <20261005172538.398522-2-vinicius.eduardo.pedrosa@gmail.com>
-Message-ID: <e9538164-3565-a702-c26b-bdc0b8cb1c6c@linux.intel.com>
-References: <20261005172538.398522-1-vinicius.eduardo.pedrosa@gmail.com> <20261005172538.398522-2-vinicius.eduardo.pedrosa@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cInBsqLn"
+Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cc4be0e5351so829747a12.0
+        for <devicetree@vger.kernel.org>; Tue, 06 Oct 2026 03:22:21 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791282141; x=1791886941; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=M/hrvnn0z+2DlIg4l/OJm7mUefYyBjl4fij27fEnYo4=;
+        b=cInBsqLn7ZsiOddalzdnIaw0x77kbuhW6TLiekzNtCCOYIS9GqD4Kt0TTh8mCOVIBO
+         xiy1r4Ya5TAIYHY19HBnNfRRrvv9IRfw44en92o2/JsAhf2R7B+se6wm/UxEi8fA7AqL
+         TMQCZaZW+NWXhNyzirtL9BnUgQNE5aADZnX4W4wOay64gAWrtAQ3N2HL71TjI/FWeFjP
+         2irIOWSZhrPDgfhZoPLZdeUr96QwEh9PmGaRmK3cobUbbRR6C5z7ofm4KiXZ7fH2qRRa
+         af42hvENHhuvhThQezszucMjxat9eRITbblx7QfCZ9nAYJvidbPeTHbBcIDcWcCuspHM
+         bf5Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791282141; x=1791886941;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=M/hrvnn0z+2DlIg4l/OJm7mUefYyBjl4fij27fEnYo4=;
+        b=UriF01efbY6QPK+XbGBFvowrf2sFZ7HFc1lH91xEVVzBvN6Prc1nZeJAeYXsf3fnI5
+         B8iLO4oWhV9+irk5Hys5Mej8pilDbUM1jYiBGdlo6jkWaK6yUIV8jOdSFF7UBfd9061e
+         1baVez3GVPBYzlQ1P7+FIe75Z1P6ltDCrZddxpbw5YAeWtvst6E/0XGvY0hb7a9B/0vC
+         1UL93NMC7gCxaFQpHDAKAVfNUyY5KINLjobXs4p+jeceUQeu7dbMXsFbX5GbFcMuwrB7
+         /Z8t+7ip5SGkXxadRHJttAb6STyitlG+BcaKpNElG6/ZdYheHmf/gPrMp8k/dDiU/Em1
+         5Ihw==
+X-Forwarded-Encrypted: i=1; AKwUvBwSAa57F/KA8EAeQ5JT5tGmlrWVnCe8MBnl+8cQ/dm304IgJQnPjm7iYgeANwxdAVpVFh1KZUA9Y2GG@vger.kernel.org
+X-Gm-Message-State: AFq9FYIbkSJhtycn2ePeQCgnZhhSpKbcZikV9Hxg4YMlD0e8mB6MrWUR
+	ltKKXln5Ekq/yj4H9eggDbrBNKLOJoa2ZihTNlqMYo+/zgEg3hjb+RfH
+X-Gm-Gg: AYBFou1MPh/qULrZKmaYeQsgyp9VQxYUrT20VqnhtVeEE7kd98P3yFnoHn4CgWqjzb4
+	cTME2V3djTKWiiynw/flAtGuMXFgYYAqqVn6RRMqY09Kt4kTt0BGd22KoXi937pyPFivUKR9FjV
+	9dJ8nz7XMxYifvNTxz1ww3UqPEiEk2XupVXolhKxjYBmzMedmhI6irYMaPnVGuPqFxtc7sqk8XJ
+	rLr1+VtVK4a63uWxJbPhROnOZsVLrs/kG4tKCY+vou3Mc5Fvq2dCh2Iuvg8DCWbEJIr1zytJvo+
+	9NMrbBn3i8Xd4xcYvnVZIXEydPJFAY3imZ2Nq9vbkp/Qkb/J2DPjngOgcv/+jVsSCtjH2mr9pn0
+	P8fJVTO+mLUUggj+j/OOlMewhgY0mqIRQfNU7Ci954VGnbFTxi+FCpNUTON1qE134OQRW1pKxQ/
+	rdRfh2S0RyY/s6/VUqWjjJZSqEHdiR1uGqML1Rma4hlnK0lFtDcFjkcEcBKxYZAXEwkl7RDrqTL
+	MoCMbIT4XRMB1RhNBmDP+VPGJFB4amBFMExlqLw0uTvsOVdCrAHmjo=
+X-Received: by 2002:a17:90b:4f:b0:3a0:deda:3d07 with SMTP id 98e67ed59e1d1-3a787181df6mr8026458a91.14.1791282141410;
+        Tue, 06 Oct 2026 03:22:21 -0700 (PDT)
+Received: from [192.168.0.100] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a85436fb54sm4153971a91.10.2026.10.06.03.22.17
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 06 Oct 2026 03:22:21 -0700 (PDT)
+Message-ID: <413f21b6-90ca-4102-9466-3cf7b9feddc3@gmail.com>
+Date: Tue, 6 Oct 2026 18:22:17 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 3/3] phy: nuvoton: phy-ma35d1-usb2: extend to dual-port
+ with OTG support
+To: Vinod Koul <vkoul@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+ Catalin Marinas <catalin.marinas@arm.com>, Jacky Huang
+ <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>,
+ Hui-Ping Chen <hpchen0nvt@gmail.com>, Joey Lu <yclu4@nuvoton.com>,
+ linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260929020854.1282339-1-a0987203069@gmail.com>
+ <20260929020854.1282339-4-a0987203069@gmail.com> <asN29Gi71MIA-2fq@parshuram>
+ <ab91b558-e7e6-4758-b4e3-66e5db75b790@gmail.com> <asSzYUA5W51Ngn4X@parshuram>
+Content-Language: en-US
+From: Joey Lu <a0987203069@gmail.com>
+In-Reply-To: <asSzYUA5W51Ngn4X@parshuram>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Mon, 5 Oct 2026, Vinicius Pedrosa wrote:
 
-> dw8250_probe() installs dw8250_set_divisor(), which brackets the
-> DLAB/DLL/DLH sequence with dw8250_idle_enter()/dw8250_idle_exit() so that
-> a BUSY UART cannot drop the divisor LCR write. dw8250_setup_port() runs
-> afterwards and replaces that hook with the dwlib one whenever it detects
-> a DLF register. The dwlib hook programs the divisor through
-> serial8250_do_set_divisor() without entering idle.
-
-Yeah, non-dwlib code should own the hook if it sets one.
-
-> When termios changes while the UART is transmitting, the LCR|DLAB write
-> is ignored and dw8250_check_lcr() retries it between
-> dw8250_idle_enter() and dw8250_idle_exit(). dw8250_idle_exit() restores
-> IER while DLAB is still set, so the value lands in DLH. The real IER
-> keeps the zero written by dw8250_idle_enter(), and the port gets no
-> further TX or RX interrupts while up->ier says they're enabled.
-> 
-> Program DLF from dw8250_set_divisor() inside the idle section and keep
-> that hook after dw8250_setup_port().
-> 
-> Observed on an Allwinner A733 (Radxa Cubie A7Z): the first interactive
-> tcsetattr() during console output left hardware IER at 0 and up->ier at
-> 0x07. The shell never printed its prompt or read input. With this change
-> alone the same boot reached the prompt and echoed input, and hardware
-> IER matched up->ier afterwards.
-> 
-> Fixes: a7b9ce39fbe4 ("serial: 8250_dw: Ensure BUSY is deasserted")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
-> ---
-> The A733 has no real DLF. Offset 0xc0 is an RS485 control register that
-> dw8250_setup_port() mistakes for one (patch 3), which is how this path
-> was reached. The new DLF write hasn't been tested on a UART with a real
-> DLF register.
-> 
->  drivers/tty/serial/8250/8250_dw.c | 12 +++++++++++-
->  1 file changed, 11 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/8250_dw.c
-> index 0ab558230370..ba414306c98a 100644
-> --- a/drivers/tty/serial/8250/8250_dw.c
-> +++ b/drivers/tty/serial/8250/8250_dw.c
-> @@ -189,6 +189,7 @@ static int dw8250_idle_enter(struct uart_port *p)
->  static void dw8250_set_divisor(struct uart_port *p, unsigned int baud,
->  			       unsigned int quot, unsigned int quot_frac)
->  {
-> +	struct dw8250_data *d = to_dw8250_data(p->private_data);
->  	struct uart_8250_port *up = up_to_u8250p(p);
->  	int ret;
->  
-> @@ -196,6 +197,9 @@ static void dw8250_set_divisor(struct uart_port *p, unsigned int baud,
->  	if (ret < 0)
->  		return;
->  
-> +	if (d->data.dlf_size)
-> +		dw8250_writel_ext(p, DW_UART_DLF, quot_frac);
-
-It might be better to add __dw8250_set_divisor() to dwlib to keep the DLF 
-setting code in one place. If the dwlib side does d->data.dlf_size check, 
-8250_dw side doesn't need to care about DLF stuff but can just 
-unconditionally call __dw8250_set_divisor().
-
-> +
->  	serial_port_out(p, UART_LCR, up->lcr | UART_LCR_DLAB);
->  	if (!(serial_port_in(p, UART_LCR) & UART_LCR_DLAB))
->  		goto idle_failed;
-> @@ -650,7 +654,6 @@ static int dw8250_probe(struct platform_device *pdev)
->  
->  	p->set_ldisc	= dw8250_set_ldisc;
->  	p->set_termios	= dw8250_set_termios;
-> -	p->set_divisor	= dw8250_set_divisor;
->  
->  	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
->  	if (!data)
-> @@ -767,6 +770,13 @@ static int dw8250_probe(struct platform_device *pdev)
->  	if (!data->skip_autocfg)
->  		dw8250_setup_port(p);
->  
-> +	/*
-> +	 * dw8250_setup_port() installs the library divisor hook when it finds
-> +	 * DLF. Keep the BUSY-safe hook instead: it also programs DLF, and it
-> +	 * must own DLAB so that a BUSY UART never drops the divisor LCR write.
-> +	 */
-> +	p->set_divisor = dw8250_set_divisor;
-> +
->  	/* If we have a valid fifosize, try hooking up DMA */
->  	if (p->fifosize) {
->  		data->data.dma.rxconf.src_maxburst = p->fifosize / 4;
-> 
-
-It might be safer approach to NULL check .set_divisor in dwlib before 
-setting it as ordering requirements like this are easy to miss.
-
--- 
- i.
-
+Vinod Koul 於 2026/10/6 下午 04:37 寫道:
+> On 06-10-26, 09:37, Joey Lu wrote:
+>> Vinod Koul 於 2026/10/5 下午 06:07 寫道:
+>>>>     */
+>>>>    #include <linux/bitfield.h>
+>>>>    #include <linux/clk.h>
+>>>>    #include <linux/delay.h>
+>>>> -#include <linux/io.h>
+>>> why is this dropped?
+>> This driver never did direct MMIO access (no readl()/writel()/ioremap()/
+>> __iomem), even before this series - all register access goes through
+>> regmap via syscon_regmap_lookup_by_phandle(). So linux/io.h was an
+>> unused include already, and it's dropped here as part of the broader
+>> rewrite touching this include block. Happy to keep it if you'd prefer
+>> not to bundle unrelated include cleanup into this series.
+> Then it should be a different patch explaining this
+Understood. I'll drop this change from the series. I'll leave the 
+include unchanged.
+Thanks for the feedback.
