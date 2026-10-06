@@ -1,233 +1,179 @@
-Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com [209.85.222.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 885513B05A1
-	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 09:30:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ABDB231829;
+	Tue,  6 Oct 2026 09:38:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791279011; cv=none; b=kR9UaNqYhj7O+tyH4S2tBKjkMJ+ykQlly39hDCOkF5YMuz7Rrr3ShbHFQ620okqitLmInk3JgimwZ6zp5YOKklcDshjVQtcEhLpNQxfhCIiFA1lrHArJP6SrgFAt4VefqQ23YNQ/lq89z4edI+rXRXWOAIh2GbnHWOT+t7qtDMs=
+	t=1791279534; cv=none; b=u0FxHGlEyXoCATgV4WZsPtAwWc7frHkWOTHBW9eBEVaCM04zfFJRd0gqSZ8C5l0BDty1yGyqOR9+Ce1HBpuUHU1BnhpjVo6o/dpucBTr3CjC1IKJQ1ZWlEJTMeTRz8nx54Dw/I+g9ZmZ0SnSCZy0mNndWKFe6s+hwDVsoiLVe4o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791279011; c=relaxed/simple;
-	bh=PbO3I5Wzv6Q0HLNgTgjdCNxGPB2wiMT01lvMSgTu2s0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=bKSX5fkRCPFLive1FM8+z59gytK5OGOBWge/eidiiyjeiGqzHLVjq9uQrkOiOxVnzwQterPfXMPj50qf1O1Vj86UuRHHSkhwp71b4uSt0wiVuuwx7PP1rg3Y4voFh6V38xktfaBNaDQVfKeknVv9ambJfdUxeHuA/bQ4rnWUYAI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-93e706a6ba9so40100285a.2
-        for <devicetree@vger.kernel.org>; Tue, 06 Oct 2026 02:30:09 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791279008; x=1791883808;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jVTxTfkNs+IvzxUmHzgjnWzXGShomJ5y8a1XbauhqO0=;
-        b=P4Ux7aJ/Hbb+oO3XabfjQN99ag10EYEhATALx5f0ns1IWwogpAgjKM9S8POnn3MYYO
-         Q5EsDP1zVmHQYvycnlBRpCxbJoYktNEaVeYr/MjFoidBufM/U5MQ8n/PMxvrjcVTtAs4
-         LLKH3Erg7XqTNLsSJkWqOzB9qm8+3/oiVfhtNRCwGcnS4gyA/9zE+9ooaIwv7nVl5DRX
-         5IZSL2GP6ykCQDwMNo7l+N3PSU5D+6bSx4rxSWT7FvoC4CmIp3O1vMV4dj+2vxBm7DbS
-         hwkaZ7dTI4SBocTl8Arhx5zbgJ1DKDq2pczIjGc0OMFPyu8arjdmrTYQdStGfDwxhUtT
-         IdsA==
-X-Forwarded-Encrypted: i=1; AKwUvBzI9Boy5zLVAkP6Dtyx1vqkN57P7NS86wTN0jg/vJfT203fy+hm3E5hdBmehDDlhMuEKyUTCiAcCOMu@vger.kernel.org
-X-Gm-Message-State: AFuF++mPIW9h2yrtvg++ut7HfZUJLKxWH3cSPNL7T6Pn/1fPwcLDyhEF
-	2XEHls9o+N3pmnfKnEw9Vd8DZuNYdPLtHmqgyyhdWTns0L8Fdhshmhu2bHC5YFXODJF53g==
-X-Gm-Gg: AYBFou0BjQ2Qd5PVpsfn1H9U8GVwA5dVYVExF/8YF6DlvMVQbSLctaRbODyLdtrKQwR
-	LvmnFiQQV+Td4sYIXRe2mP5H/sHAX66VpiQYOuvS7+a7IuS3+HYSUxn0gL0RX2ZKHhocQM/V9Yz
-	iT6pYhHyY8aEpo48AYA1gO7HscVa/Pn5g7jviVd5LB/momrwz90mSlCv/cxUoPpfQ3fAW4sY4nB
-	sjoKyBXc6va10CgkKmHQLjy+C+P2mxsSJo6y5AlF/jL7SIMdCHjsLRLAjXJ3on+3xp36Ip9rdbm
-	XsUHXc++1KtbH+Ekl13Eam/SykaBLQ8ETuBa43gRc+fg4K90g+tqqRNYB/GtiU1k5ifUXi4d7iR
-	FZyvfPumz0IXfIO+Gj9ZZkJt97q01K8Mg1wkt0rshvtt84iDHmaFUZQZ1pWnpEd/RO8+HfZ917D
-	ChGYwiE8ImMa96Xbznjf1bxIGqW1zWaEQgtfKwfAb6xqPFziri0+LoekMkCV8agy8twa8THHAPw
-	80zZyMIxmevPHgFEzBjB1K/JF45MK041KP8iVd7641GLo3AvTW3JMbwAil7L9o/mZc=
-X-Received: by 2002:a05:620a:290d:b0:939:6de8:43dd with SMTP id af79cd13be357-93e8f52108dmr138398985a.49.1791279007971;
-        Tue, 06 Oct 2026 02:30:07 -0700 (PDT)
-Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com. [209.85.160.169])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93cca1a63d8sm1088041885a.12.2026.10.06.02.30.07
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 06 Oct 2026 02:30:07 -0700 (PDT)
-Received: by mail-qt1-f169.google.com with SMTP id d75a77b69052e-5350d9ea106so6526801cf.0
-        for <devicetree@vger.kernel.org>; Tue, 06 Oct 2026 02:30:07 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBww3tW2c/RlH0hUfVLYKBS3zLYe1adfbAHcZ4v5SKAI4G7+1SEQSn/OHhaNQenWt+e/g5a15dDp3AGj@vger.kernel.org
-X-Received: by 2002:a05:690c:7108:b0:8ae:7fb9:8cb8 with SMTP id
- 00721157ae682-8b04f3b6667mr2040067b3.17.1791278683947; Tue, 06 Oct 2026
- 02:24:43 -0700 (PDT)
+	s=arc-20240116; t=1791279534; c=relaxed/simple;
+	bh=xvI7QxA0zzWmWCU7jrxfVAAC95rQjrMUUSlHuT+vlTk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=G/VFWKRaRyrCZOAVLrxWTc+OMY0AR1L3ULS3LTKQcMbjG7bORD4g/hGESmcFBD17h1MUzubMGsTZ/JFif8kxgyCQ2zhKG88aamcOcc7HUceqX1pKBNqAtu4vwyjyv4FbKulqFg+wXL5OI6HM/2q86G4oi1NlIRO4FksjZAYITLI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eUS/FOXD; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eUS/FOXD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AB921F000FF;
+	Tue,  6 Oct 2026 09:38:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791279533;
+	bh=gk2x8xTXFyS7Damzh5pMSZEky6AcMORsKpJ/0CVQZcI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=eUS/FOXDO2qaZ0BoiqDrFJLnetqgEHuH4FDypKy7omS9ZHpfG67TTGqoXLXzQlYsr
+	 xQ+AA9YteCuEzOwlrK/8JQOQtin7iWFP07VzDONUispB7bVIF1vOpK+KAEw2H1ZGP6
+	 GTv3DhegYPF4ByutaQTnLEcZ2vg490zxVp+NLDdXTazuiWs1rIDtFhnUvCdWS7PD+7
+	 4EcBkbjTiy19KDPBOWRpDRLiQjcVASDdSCSwvpbcfzVdSfo2wraXuJn1jfaDS9zL09
+	 Zq1fodG3VoCJlP1AHVwp9Sn9eC1l8V7aWOX4PbuFGaytJf7pfooYqrlla343QezvxH
+	 qscIL4gbm9wkg==
+Date: Tue, 6 Oct 2026 10:38:47 +0100
+From: Daniel Thompson <danielt@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
+	linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, mfd@lists.linux.dev,
+	dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH v2 2/3] mfd: aat2870: Convert to use OF bindings
+Message-ID: <asTBp2RPPvsD4AsU@aspen.lan>
+References: <20261004164121.193514-1-clamor95@gmail.com>
+ <20261004164121.193514-3-clamor95@gmail.com>
+ <asPVmbvyslGgEsjk@aspen.lan>
+ <CAPVz0n29+1yOO0i057RdpUAu+z85hhnm9GGaHkqgf5XW1SPfeQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261004144046.391444-1-tanure@linux.com> <20261004144046.391444-3-tanure@linux.com>
- <asN_-5zalENhkdVA@squawk>
-In-Reply-To: <asN_-5zalENhkdVA@squawk>
-Reply-To: tanure@linux.com
-From: Lucas Tanure <tanure@linux.com>
-Date: Tue, 6 Oct 2026 10:24:32 +0100
-X-Gmail-Original-Message-ID: <CAJX_Q+2hD_LTcimHAVhyzgTnp9jYxKKFD2TK5cv9-wLjDh8+wQ@mail.gmail.com>
-X-Gm-Features: AclHuK-bVUCezgDuqipnwl794qiJm9NtCr-yWp4gG5KzmPFjPQMebZJ1Y2LQr9E
-Message-ID: <CAJX_Q+2hD_LTcimHAVhyzgTnp9jYxKKFD2TK5cv9-wLjDh8+wQ@mail.gmail.com>
-Subject: Re: [RFC PATCH 2/6] dt-bindings: net: amlogic,meson-dwmac: add amlogic,t7-dwmac
-To: Conor Dooley <conor@kernel.org>
-Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
-	Jerome Brunet <jbrunet@baylibre.com>, 
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
-	Maxime Chevallier <maxime.chevallier@bootlin.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
-	Alexandre Torgue <alexandre.torgue@foss.st.com>, netdev@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-stm32@st-md-mailman.stormreply.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAPVz0n29+1yOO0i057RdpUAu+z85hhnm9GGaHkqgf5XW1SPfeQ@mail.gmail.com>
 
-On Mon, Oct 5, 2026 at 11:46=E2=80=AFAM Conor Dooley <conor@kernel.org> wro=
-te:
+On Mon, Oct 05, 2026 at 08:18:31PM +0300, Svyatoslav Ryhel wrote:
+> пн, 5 жовт. 2026 р. о 19:51 Daniel Thompson <danielt@kernel.org> пише:
+> >
+> > On Sun, Oct 04, 2026 at 07:41:20PM +0300, Svyatoslav Ryhel wrote:
+> > > Conversion of the AAT2870 driver to use OF bindings requires a few complex
+> > > changes that should be done simultaneously.
+> > >
+> > > The AAT2870 essentially provides two functions via child devices:
+> > > backlight and regulators. Both functions are fairly self-sufficient and
+> > > may not be populated on the final board. Consequently, the MFD
+> > > registration API was replaced with of_platform_populate(), and each
+> > > sub-device was given its own compatible string.
+> > >
+> > > Additionally, aat2870-core utilizes an enable GPIO. Obtaining this GPIO
+> > > was converted to use modern gpiod/OF helpers, allowing the redundant
+> > > aat2870_enable() and aat2870_disable() helpers to be removed.
+> > >
+> > > The aat2870-regulator driver was updated to register each of the four LDOs
+> > > from a dedicated OF node.
+> > >
+> > > The aat2870-backlight driver was changed to populate all required
+> > > properties from a dedicated Device Tree node. Its channel map was updated
+> > > to use u8 instead of int. Furthermore, because the maximum current is now
+> > > parsed as an absolute value rather than an enum entry, the calculation and
+> > > application of the maximum current were updated accordingly.
+> > >
+> > > All of the changes above allow platform data to be removed entirely.
+> > >
+> > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > > ---
+> > >  drivers/mfd/aat2870-core.c            | 115 ++++++--------------------
+> > >  drivers/regulator/aat2870-regulator.c |  76 ++++++++++++-----
+> > >  drivers/video/backlight/aat2870_bl.c  |  55 ++++++------
+> > >  include/linux/mfd/aat2870.h           |  95 +--------------------
+> > >  4 files changed, 111 insertions(+), 230 deletions(-)
+> > >
+> > > [snip]
+> > >
+> > > diff --git a/drivers/video/backlight/aat2870_bl.c b/drivers/video/backlight/aat2870_bl.c
+> > > index 8b790df1e842b..933a8f728f66a 100644
+> > > --- a/drivers/video/backlight/aat2870_bl.c
+> > > +++ b/drivers/video/backlight/aat2870_bl.c
+> > > @@ -15,11 +15,19 @@
+> > >  #include <linux/backlight.h>
+> > >  #include <linux/mfd/aat2870.h>
+> > >
+> > > +/* Backlight has 8 channels, each bit represents one channel */
+> > > +#define AAT2870_BL_CH_ALL    0xff
+> > > +
+> > > +/* Backlight current magnitude (uA), 450uA current is eq to 0 */
+> > > +#define AAT2870_CURRENT_MIN  450
+> > > +#define AAT2870_CURRENT_MAX  27900
+> > > +#define AAT2870_CURRENT_STEP 900
+> > > +
+> > >  struct aat2870_bl_driver_data {
+> > >       struct platform_device *pdev;
+> > >       struct backlight_device *bd;
+> > >
+> > > -     int channels;
+> > > +     u8 channels;
+> > >       int max_current;
+> > >       int brightness; /* current brightness */
+> > >  };
+> > > @@ -30,7 +38,7 @@ static inline int aat2870_brightness(struct aat2870_bl_driver_data *aat2870_bl,
+> > >       struct backlight_device *bd = aat2870_bl->bd;
+> > >       int val;
+> > >
+> > > -     val = brightness * (aat2870_bl->max_current - 1);
+> > > +     val = brightness * aat2870_bl->max_current;
+> > >       val /= bd->props.max_brightness;
+> >
+> > What is the purpose of max_brightness?
+> >
+> > Normally it is used to limit brightness but max_current is already doing
+> > that. Is it just being used to reduce the number of steps in the
+> > brightness scale (and if so, why is that useful)?
+> >
 >
-> On Sun, Oct 04, 2026 at 03:40:42PM +0100, Lucas Tanure wrote:
-> > The T7 has the same ethernet glue as the G12A, but the controller
-> > reaches DRAM through a pipeline stage that the hardware design inserts
-> > in the bus path. That stage has a gate of its own, which no other membe=
-r
-> > of the family has. Nothing else in Linux claims the gate, so it is
-> > switched off as unused and the port can then no longer complete a
-> > transfer.
-> >
-> > Describing it means a fourth clock, and the fourth clock of the existin=
-g
-> > list is the one driving the timing adjustment logic. The T7 applies the
-> > RGMII RX delay through PRG_ETH1 and never enables that logic, so it has
-> > no use for that clock. Give the T7 a list of its own with the pipeline
-> > gate as the fourth entry, under the same name the SD/eMMC controllers o=
-f
-> > this SoC already use for the equivalent stage on their own bus path. Al=
-l
-> > four entries are required, since the port cannot move data without any
-> > of them.
-> >
-> > The RX delay range is the one the G12A has, since it is the same
-> > register field.
-> >
-> > The compatible pairs the T7 name with the 5.10a Synopsys core the MAC
-> > reports, and with the generic fallback.
-> >
-> > Assisted-by: LLM
-> > Signed-off-by: Lucas Tanure <tanure@linux.com>
-> > ---
-> >  .../bindings/net/amlogic,meson-dwmac.yaml     | 47 +++++++++++++++++++
-> >  1 file changed, 47 insertions(+)
-> >
-> > diff --git a/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.=
-yaml b/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
-> > index 90ef79161ab1..96118b4d1560 100644
-> > --- a/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
-> > +++ b/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
-> > @@ -23,6 +23,7 @@ select:
-> >            - amlogic,meson-gxbb-dwmac
-> >            - amlogic,meson-axg-dwmac
-> >            - amlogic,meson-g12a-dwmac
-> > +          - amlogic,t7-dwmac
-> >    required:
-> >      - compatible
-> >
-> > @@ -57,6 +58,47 @@ allOf:
-> >              - const: clkin1
-> >              - const: timing-adjustment
-> >
-> > +  # The T7 applies the RGMII RX delay through PRG_ETH1 and never enabl=
-es the
-> > +  # timing adjustment logic, so it has no timing-adjustment clock. Wha=
-t it does
-> > +  # need is the gate of the pipeline stage the controller reaches DRAM=
- through.
-> > +  - if:
-> > +      properties:
-> > +        compatible:
-> > +          contains:
-> > +            const: amlogic,t7-dwmac
-> > +    then:
-> > +      properties:
-> > +        clocks:
-> > +          items:
-> > +            - description: GMAC main clock
-> > +            - description: First parent clock of the internal mux
-> > +            - description: Second parent clock of the internal mux
-> > +            - description:
-> > +                clock of the pipeline stage inserted in the bus path b=
-etween
-> > +                the controller and the DRAM. Without it, the controlle=
-r cannot
-> > +                complete DMA transfers.
+> This is the original driver behavior; I did not modify it.
+
+I can see that but the parameters for these (rather dubious) previous
+behaviours are now being copied into the devicetree bindings where they
+become stable ABI.
+
+
+> The AAT2870 backlight intensity is regulated by the Main Backlight
+> Current Magnitude register. It has 31 steps from 450uA (0) to 27.9mA
+> (31), so even setting max_current to 0 will not disable the backlight.
+> The max current value may be limited for some configurations, which is
+> why this property exists.
 >
-> Have you checked that this actually works as a limiter to only 4 clocks?
-I have now, and it does limit to four. Adding
-a fifth clock to the board gets rejected:
+> The max_brightness property determines the maximum number of steps the
+> backlight can have and is mapped to the available current range
+> provided by the hardware. The backlight is controlled in steps, not in
+> uA.
 
-  ethernet@fdc00000 (amlogic,t7-dwmac): clock-names:
-    ['stmmaceth', 'clkin0', 'clkin1', 'pipeline', 'bogus'] is too long
+This behaviour does not match the devicetree bindings documentation for
+max-brightness:
+
+  Normally the maximum brightness is determined by the hardware and this
+  property is not required. This property is used to put a software limit
+  on the brightness apart from what the driver says, as it could happen
+  that a LED can be made so bright that it gets damaged or causes damage
+  due to restrictions in a specific system, such as mounting conditions.
+
+Hence the question, why is the current behaviour useful?
+
+If I understand your summary correctly the hardware has 32 steps
+including 0) and the effect of max_current is to ban all brightness
+values greater than max_current / AAT2870_CURRENT_STEP.
+
+If that is the case then max_brightness if fundamentally broken because
+it's default value offers more steps than exists in the hardware.
+bd->props.max_brightness should be set to max_current /
+AAT2870_CURRENT_STEP and the whole of aat2870_brightness() should be
+removed (use backlight_get_brightness() instead).
+
+IMHO the patchset will be cleaner if the weird max_brightness logic is
+removed in a separate before doing the DT changes.
 
 
-> There's an additionalItems: true in the snps,dwmac.yaml that I don't
-> know if will permit random additional items here.
-There are two checks on clocks and both have to pass: snps,dwmac.yaml
-allows 1 to 10 items, the t7 branch allows exactly 4. The
-additionalItems: true only relaxes the first one, so the second still
-rejects a fifth clock. The "exactly 4" is not something I wrote -
-dt-schema's _fixup_items_size() sets minItems and maxItems from the
-length of the items list.
-
->
-> Cheers,
-> Conor.
->
-> > +
-> > +        clock-names:
-> > +          items:
-> > +            - const: stmmaceth
-> > +            - const: clkin0
-> > +            - const: clkin1
-> > +            - const: pipeline
-> > +
-> > +  # Delay definitions for Meson8b and newer (including T7)
-> > +  - if:
-> > +      properties:
-> > +        compatible:
-> > +          contains:
-> > +            enum:
-> > +              - amlogic,meson8b-dwmac
-> > +              - amlogic,meson8m2-dwmac
-> > +              - amlogic,meson-gxbb-dwmac
-> > +              - amlogic,meson-axg-dwmac
-> > +              - amlogic,meson-g12a-dwmac
-> > +              - amlogic,t7-dwmac
-> > +    then:
-> > +      properties:
-> >          amlogic,tx-delay-ns:
-> >            enum: [0, 2, 4, 6]
-> >            default: 2
-> > @@ -106,6 +148,7 @@ allOf:
-> >            contains:
-> >              enum:
-> >                - amlogic,meson-g12a-dwmac
-> > +              - amlogic,t7-dwmac
-> >      then:
-> >        properties:
-> >          rx-internal-delay-ps:
-> > @@ -143,6 +186,10 @@ properties:
-> >                - amlogic,meson6-dwmac
-> >                - amlogic,meson8m2-dwmac
-> >            - const: snps,dwmac
-> > +      - items:
-> > +          - const: amlogic,t7-dwmac
-> > +          - const: snps,dwmac-5.10a
-> > +          - const: snps,dwmac
-> >
-> >    reg:
-> >      items:
-> > --
-> > 2.56.0
-> >
+Daniel.
