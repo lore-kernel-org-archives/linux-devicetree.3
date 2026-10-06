@@ -1,100 +1,128 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f9.google.com (mail-ej2-f9.google.com [74.125.228.137])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1804D3BD22F;
-	Tue,  6 Oct 2026 07:36:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791272190; cv=none; b=Ggnb0jo1W4Be8dEG0mdD72ZS3KdriL/PQ6x/vYraCJX7remiWNqFhCNWHm6TY1kzqeVmAwMalaI1UB536I/z4oY1yP+DijHdnybpJ2E9TMpVliz3skxUcyzjUfpyfAKEH4r/DOUQ9EtgafNCb6NA2+MVYh1AJoY6hEIshb+272Q=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791272190; c=relaxed/simple;
-	bh=yeWaKhrm+WR9bLBovNZ3j0cg/B3ktN5heCYTCG/FzqU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Yw8TJ07TvRa2BxlJ2GbG2yATnqpeGnn7CPUvrOQl66HiaTQsaJT7Z0jBdfxI5CQzhSN8WCzRbNpTBGNWbFtvVyeewrg7kcj9sT3AQLNIsI3TPiV/A+a0M82FiomyXQzPEN02MadQOxJXI1k6aQ5TT0yiCxbz8XQ1l9Z0L5+I2Gk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=IrBTefDs; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86AFE37DEBC
+	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 07:48:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.137
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791272924; cv=pass; b=WHpfKMD7SZjC90wMRoN6O2zFlYQg5kdlUp2s+7Qhq936cKFVbLT4VxjXZBCf87w0FYDwZ0uLtYlOthJzyHmhfRDwKn2UymzVw3oCHyB9OjbUSCfjB9IRO6pHGolkCmcGUIJtliTKd8JnGvxtT53PLtkOhkFv0W321KOrxsdj4OU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791272924; c=relaxed/simple;
+	bh=ZrF6e9Xl85C0uPBnJ0UyoaM1ga2dKcFe32QjUJGwcAI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=WPzsHNuqWuH0Y/kG0DhFbd6zPn/X1MmFTZbu7XRkhS+9bAqH9WCJW5OW2gGdgAK/o6gzDivrYkkMfH93LKkRudf5kekJYOv8qaYoHex2xHNxN3Z2nINZ7hq+lsNd1Y4XAXqqvi8/db0vpcPe8ZLh+2N36NmA3tvwaRBswd64WTo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rWrpOpsP; arc=pass smtp.client-ip=74.125.228.137
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="IrBTefDs"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791272186; x=1822808186;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=yeWaKhrm+WR9bLBovNZ3j0cg/B3ktN5heCYTCG/FzqU=;
-  b=IrBTefDsyd76w6JZGswrHSc2LISTKP6Dn2jfcPKWzPa/hKPQoFzd8cm5
-   Ji9NdyM8s1YwLsxrOHPDBCY5EpfGVljFvfWuTk9WD0IqVEc+3w653Znxh
-   KpP8r0MBg4TNhl8JfzfKVTIf5fmMq4F+SuVAg3NQSk0Uk+3+qHyNaryOX
-   GVuE2f6q1vfw9QYnUwB3n8dJ8wQRhpY0psvCk6xWYhZghXkQAGZavIr3l
-   kU+CABV54fB9CtnySJxifXPBU+TfrqJe9yNUJOdG80EUQ2eBcigjBJ/8f
-   WmaKttD2fWEXOtx6gTtflTvlkRlqaI6AUOZpFJIdfv0sTYuA5jJXKyXRL
-   g==;
-X-CSE-ConnectionGUID: GGl7k1lMTKWp+f50kLTs/A==
-X-CSE-MsgGUID: Lm6SlYnNQkWdiAZmaG5vug==
-X-IronPort-AV: E=McAfee;i="6800,10657,11926"; a="8866"
-X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
-   d="scan'208";a="8866"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 00:36:23 -0700
-X-CSE-ConnectionGUID: fvjocqIcQz2EJtYqpGak0w==
-X-CSE-MsgGUID: nRfyIxf3T8C0XksoKhGq4g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
-   d="scan'208";a="1105882"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.244.66])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 00:36:19 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with ESMTP id 5D586121BCD;
-	Tue, 06 Oct 2026 10:36:20 +0300 (EEST)
-Date: Tue, 6 Oct 2026 10:36:20 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Mirela Rabulea <mirela.rabulea@nxp.com>
-Cc: Rishikesh Donadkar <r-donadkar@ti.com>, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	tomi.valkeinen@ideasonboard.com, mchehab@kernel.org,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, nm@ti.com,
-	vigneshr@ti.com, kristo@kernel.org, mripard@kernel.org,
-	jai.luthra@linux.dev, jai.luthra@ideasonboard.com, devarsht@ti.com,
-	y-abhilashchandra@ti.com, laurent.pinchart@ideasonboard.com
-Subject: Re: [RFC PATCH 6/8] media: i2c: ov2312: add Omnivison OV2312 driver
-Message-ID: <asSk9KW-lzuiUJa3@kekkonen.localdomain>
-References: <20260925133001.2780868-1-r-donadkar@ti.com>
- <20260925133001.2780868-7-r-donadkar@ti.com>
- <e469d168-39f9-448c-a7ab-5d02b79d8cb8@nxp.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rWrpOpsP"
+Received: by mail-ej2-f9.google.com with SMTP id a640c23a62f3a-c2e31c05606so76880666b.0
+        for <devicetree@vger.kernel.org>; Tue, 06 Oct 2026 00:48:43 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791272922; cv=none;
+        d=google.com; s=arc-20260327;
+        b=qxw+NZhTeYZI5hO8PqfFcPC4Pvy7ssdPDExrN64z11nB5lKxU84J+KfqMwHwTWWIef
+         VfO3G9+G+FS1udz+9Zo36xFfClfYLZaIeG+9jiQNlq9sH4x5rYwqgrpP16psw2FB4MEF
+         RtDVi13Il9EP/1PY/xlN9P+qWOw5Yc3jfpWSeoAIjpoMvxZa/kNYtnUo5JrSbnYnsUEp
+         TWcPf3X5a1tXnmK5ytVRrmAnmKzSwRsGV7UsEWgYKsca1qgyWeiR1AT5b8DOMRzk8hB0
+         Stg/St4oCknn7x8PZqyL+WI0ejHFpnDnLXiTyPgNwUHsUJRtiL1xDDu80XEWEY9F6VOd
+         cqsg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=LIS7LQGXFKGRWwjzJfFhANm/+ELSmq9NRDYM4Ibfol0=;
+        fh=jml2hlj+I5BOjPJdnt1ulefBovqj0mvivOl3h3ZyN+Q=;
+        b=WWyaAXR/6X0Ob3t8QuRsPoSju6equV7/eJ/kJHOF9D3QnDPuyw057JrKuRgFpiKJji
+         MMlWb8fZ8rSc+r/s2wfmM00NMJneMPCJp0aBPjXiTD/TN2oz1hPkvJJAYakuu3sMPRBn
+         EVLDWaMRnzk76hFaocnQhKO37UH6WdkQ4GeztP7EsyzR8vES62hNq8uaDj5ex2waE+3f
+         S0um3589ZRnWjxIohhCYPxugpBY0JhTFjooE0uuMC/t47YYMAGcIalo+sBTV/+qmNQ1R
+         k/2QYOoKxU8B7qNibze5A6joobx4V/Yp8YK9FtjAn3xv/9oFU1278JlvNmrQgbUWv0H/
+         YC0g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791272922; x=1791877722; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=LIS7LQGXFKGRWwjzJfFhANm/+ELSmq9NRDYM4Ibfol0=;
+        b=rWrpOpsPEDFP7vvWlfOKx1M3EJJGUTHlDGxZJbg5FxKaIn0ldScJaBMNHv6NXC26Ls
+         rlrx4UYaI5zPK9Hq3zPoTvbQStnOVjjsMFGfAbbOYJxdDeDlLGmad+SQHGBRcKhWvpJA
+         WdUnEAfDEdY+LnCbtYg1HMsXt77Lz7YX2Si444YtVyQNAzlbsCoUx1wps5REbYqPwvmX
+         lptiqL/heWUpuPbImvkQxNLqzZf/3+/2d7C3oykyeXQ2qbLWkk7Qtc7//yS6a8FPrDMq
+         VUMzOlmNLGWeUPPY7f/j+QH/oUOERVkDx3JzM7ZBkOm4+Fp5lCiJwzvA4Q/wcMcXkTTk
+         pZUg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791272922; x=1791877722;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LIS7LQGXFKGRWwjzJfFhANm/+ELSmq9NRDYM4Ibfol0=;
+        b=Kyf4QIwGzqqH/hEvw5FiIVEjSIsTUoGGFg8cLZAnCVF3lbrmajvMSSjWhhB4mmiZFL
+         cdjNEKDKwdPX2wHKJAzRPJ+nbk3GDrPVEmR4PkTeF35SaVBhDRWq9JK4al06n42vlgz5
+         EYxRFoqnBYvr/bzsLho6csq0tdcAUVgHHCAz/ksOvK/Vs7YWhcAJ3TybkKVapNnoOHFv
+         dbUKwoKhggcnEsddp8b5DX74a2yxYcdcbpMJYWuSzcF/tTCcyMq+HW/vL/QYLCRuF5b+
+         wgcKyy+2UpmQZeVBryIJOGTExC5sXVdLLKVtwCv+wb42ilheJFLmdEeKhD5LwiVGE7lh
+         9Dtg==
+X-Forwarded-Encrypted: i=1; AKwUvBws8zmoYYuwWhqXQnn9PVSheZIM6BsvPHWqPX3XFK8FNPYAH0/Nyjvl534LnWjGTi0etnrR9w3VHyBf@vger.kernel.org
+X-Gm-Message-State: AFuF++meBRNXnvwc6KteRoVsGt5knKyILjT60n9UUO7KqgBwBcMl6mUj
+	GpeOqJSenSP8SXPXN5kWBI/G349+WTslRk81CPnrFOFxsE1k/KUa8YF11esLVrt/F7Vooeu48sp
+	z6X/g0Wipoof7SWRDHNhkURcSSPCbiFc=
+X-Gm-Gg: AYBFou1e3yVY48mGNDLYplRSSqeNJcg7K41onBHVyjzbhDiay1PTCrg8cr7SczVKGG1
+	M96XMQvhhm3W0Vov4iKzJR3xzOXMk1SWJSPgL6cQqrh7nVcZ8YnJ8QB/m1kIlDRAoKeZfL9HysP
+	5wcl9tjmX4zcLSJuVW0/GD3JU7sRkL6NB/bbt7gkZa9kTaghCVEPe1pb2LpuYcbLu0CuLQzkPZg
+	WtcpUre8le0Q682Qq3VrYkeMEH1FuQSPi47DolQGQaH5hF9+0/11iHgX/RM1JdjJK8Bz2UmSj8r
+	uauUGF2uxfW+8N6Vw5aj6TtzpA+v7/X1KX0KhHtzBNweUwR9WHS3Jzm7bg==
+X-Received: by 2002:a17:907:9405:b0:c2a:f360:1c67 with SMTP id
+ a640c23a62f3a-c316a07eb4cmr65136466b.35.1791272920911; Tue, 06 Oct 2026
+ 00:48:40 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <e469d168-39f9-448c-a7ab-5d02b79d8cb8@nxp.com>
+References: <20261005225944.1171574-1-coiaprant@gmail.com> <20261006032710.GA3539706-robh@kernel.org>
+In-Reply-To: <20261006032710.GA3539706-robh@kernel.org>
+From: Coia Prant <coiaprant@gmail.com>
+Date: Tue, 6 Oct 2026 15:48:27 +0800
+X-Gm-Features: AclHuK-_H5DMjjR501xY25PLqDQ4wPnk0DiXBT1PdwIvhQ2wQ01nPR-CgEl7PoQ
+Message-ID: <CALj3r0hwkXBowh=vUbC9yPimkraMH1NJ3OmgBb0zp-z22ZFXvg@mail.gmail.com>
+Subject: Re: [PATCH v11 0/2] phy: rockchip: naneng-combphy: add SGMII MAC
+ selection for RK3568
+To: Rob Herring <robh@kernel.org>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Mirela,
+Rob Herring <robh@kernel.org> =E4=BA=8E2026=E5=B9=B410=E6=9C=886=E6=97=A5=
+=E5=91=A8=E4=BA=8C 11:27=E5=86=99=E9=81=93=EF=BC=9A
+>
+> On Tue, Oct 06, 2026 at 06:59:42AM +0800, Coia Prant wrote:
+> > Changes since v10:
+> >
+> > - Drop the top-level "default: 1" for "rockchip,sgmii-mac-sel".
+> >   dtschema injects top-level defaults into every matching node, and the
+> >   injected value conflicts with the "else" branch that forbids the
+> >   property on non-RK3568 variants, breaking dtbs_check on those
+> >   platforms. The driver already treats an absent property as 1 (GMAC1),
+> >   so behavior is unchanged.
+>
+> What? That's not right. 'default' has no effect on the validation.
+> Please add it back. If the property doesn't apply to some variant, then
+> default doesn't matter.
+>
+> Rob
 
-On Fri, Oct 02, 2026 at 07:16:11PM +0300, Mirela Rabulea wrote:
-> Laurent, Hans, Sakari,
-> 
-> did you encounter similar situations? Any comments or proposals? The concern
-> here, to summarize, is: v4l2 control cannot be committed to sensor registers
-> right away (even when streaming) and we are also unsure when the right
-> moment to perform the register access may come.
+Hi Rob,
 
-In practice there's little the kernel overall can do about this: the timing
-of everything is handled by the userspace. Drivers that aren't directly in
-control of the data path don't even have frame timing information and even
-if we did pass that to drivers, I²C writes always have some uncertainty
-(system scheduling, I²C access failures etc.), so one needs to be prepared
-to failing to do the writes in time, which would further complicate the
-UAPI.
+Thanks for the correction. You're right, 'default' has no effect on
+validation. I'll add it back and send a v12 right away.
 
-Do you have libcamera in userspace or something else?
+Sorry for the noise.
 
--- 
-Kind regards,
-
-Sakari Ailus
+Coia
