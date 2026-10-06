@@ -1,151 +1,95 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.savoirfairelinux.com (mail.savoirfairelinux.com [208.88.110.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59B4B48E0C5
-	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 18:35:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E35463B71B3;
+	Tue,  6 Oct 2026 18:36:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=208.88.110.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791311747; cv=none; b=HawLW8UmLuK1nobrNEAb4NGqoqj8f47BDjI+wCfs7jxnZd9MF6izEyvbEKePVTAG+Kjq3kzZx6FLXkeig197rEobAaGk/i7001xqqrWNriGZ5lA/ZZ2hzmOXnwsbZQJbFtMl1B07JwZjjmKuuEyFu6UfQa4+dlSL/cHkomSme6Q=
+	t=1791311784; cv=none; b=EaL9ts9Z1PBIakLcWbxKQKXai6XzshvEhG4S9yeCMpClJjOyNjMHuYKirrVj6nEZqSihCNSO4xxamSPtC/uzKqzdjgG2NDtbetOMfAqD70VfWkE2jBjHjnKS5jtxWc8k+rBvEy8VqwXCJfvj7AB5Jg3lnx6yIsYaNWjQu8qCzmw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791311747; c=relaxed/simple;
-	bh=HY1TkPjCGjFln6/JRqR+m9irsAQEXUGXCSsQKD0Hjak=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=L9PhorgaTwPQzU1ciJTSynsqobhGbn+THBG81CiZ/DtBKisCeXHXAY2GcURZgVzsMGYfudF2ygli6fVnFfVWHa/YOhPXhZ3N+yI1Vg3J05s3L6lGy8mLwyQiN7qygG3O8vpBt9nQliqhUT8nVJS5eKiWfSsVDexruq9FqL+71V4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j2nT0/i2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791311784; c=relaxed/simple;
+	bh=2GM8TEv8McI2+PRk3oG83nTLrFB6aiAxdh5+TsWF4oQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=n1teAdtet+r540vSrP1CHd30usuIzXv2oC4G36nL/qFJLN0fXvPIjm7KxFoCWoEZuR18BtEXHL+iMoBER1Tq+s0xIWtw3gFG/zlxRYuvgALuMrbB8oKanxRSYvTuXlmExrMbOBhwMo6j+sdHFfJ4x80EpxujklhGOciPt4mUbAo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=savoirfairelinux.com; spf=none smtp.mailfrom=mail.savoirfairelinux.com; dkim=pass (2048-bit key) header.d=savoirfairelinux.com header.i=@savoirfairelinux.com header.b=kF5BEVw2; arc=none smtp.client-ip=208.88.110.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=savoirfairelinux.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mail.savoirfairelinux.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j2nT0/i2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B82FE1F00906;
-	Tue,  6 Oct 2026 18:35:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791311746;
-	bh=nNg7mbHkM70q7mP4MdVKdxmlRDg3AnucGnviHV67smU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=j2nT0/i20/Mt9gLODNDdXSY7kbZnM0ndd22Py/rIAUGlW6Y0U86z56GF18rpGtfkc
-	 912UD8qycjZSItKtxTfK5VOIsbGueHlRE0jYKjiUoFhlhwVRqlYvNNoby5epkCEgjS
-	 cC1V2v38M4NFEz3BS3WOh5gKRAocaRfOxz+2AvXY8FaWzqVzEBGfHI4E7P5txrFx22
-	 WTnBFy1D8qosQ/6qMnUj1aRheXtaSpgiHNuTKAuzvCYiYrjUfVitEELsSK9nlMd9JG
-	 TABbSUeF+zPY9fIzacewF+U1sbmiBNgS5a5bYbk2BH5u6jv8W46IdWODfk7A8Wue7P
-	 ha+8Qyd4oE9BA==
-Message-ID: <sashiko-outbox-162356@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 12/13] iio: adc: ad4134: Support high-speed data
- capture
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Marcelo Schmitt" <marcelo.schmitt@analog.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <14b9c627f24e8f2456a918d02f43a7aea382ccb5.1791309733.git.marcelo.schmitt@analog.com>
-References: <cover.1791309733.git.marcelo.schmitt@analog.com>
- <14b9c627f24e8f2456a918d02f43a7aea382ccb5.1791309733.git.marcelo.schmitt@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 06 Oct 2026 18:35:45 +0000
+	dkim=pass (2048-bit key) header.d=savoirfairelinux.com header.i=@savoirfairelinux.com header.b="kF5BEVw2"
+Received: from localhost (localhost [127.0.0.1])
+	by mail.savoirfairelinux.com (Postfix) with ESMTP id D4F523D81665;
+	Tue,  6 Oct 2026 14:36:15 -0400 (EDT)
+Received: from mail.savoirfairelinux.com ([127.0.0.1])
+ by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10032)
+ with ESMTP id 5Z34JawlgyAj; Tue,  6 Oct 2026 14:36:15 -0400 (EDT)
+Received: from localhost (localhost [127.0.0.1])
+	by mail.savoirfairelinux.com (Postfix) with ESMTP id 08DBB3D81826;
+	Tue,  6 Oct 2026 14:36:15 -0400 (EDT)
+DKIM-Filter: OpenDKIM Filter v2.10.3 mail.savoirfairelinux.com 08DBB3D81826
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=savoirfairelinux.com; s=DFC430D2-D198-11EC-948E-34200CB392D2;
+	t=1791311775; bh=a9RPQL6d8AbfrHO3aTH2bTI5fw1IZlpNrG5pUuZwUqU=;
+	h=From:To:Date:Message-Id:MIME-Version;
+	b=kF5BEVw2gVngOMRucBIa+mLhtFeriyYgNlHUJcPN3FSZm7w89Xqo/SCJ1XNvNJz6y
+	 rPCYEpnXZCzXNiX+AKDpWSj0px1wBNwbhvfqWO5VzM6PTF5RDykT9wxesWFrYbIzpH
+	 XWEvwBCyIakIiLgx03rKNGU5g6AAfXq+qe/TBiKzoJn34Jctb57+RQ38jHvGpuJBcu
+	 WBeIxwfbGSFt74iCBlYX9HCID5ubcjDehcQdSoUk6gOrXCl0xiZWRra/TcQXdYx74R
+	 gql/KPaJbh2bhWgiyIsoGp6k3yux5Pb3fM0XSiu6dq72/6zFw7M894lJeDpBfxBDne
+	 Pt+vuhOUV5X2A==
+X-Virus-Scanned: amavis at mail.savoirfairelinux.com
+Received: from mail.savoirfairelinux.com ([127.0.0.1])
+ by localhost (mail.savoirfairelinux.com [127.0.0.1]) (amavis, port 10026)
+ with ESMTP id RrlqKPBuLamJ; Tue,  6 Oct 2026 14:36:14 -0400 (EDT)
+Received: from localhost (unknown [192.168.51.254])
+	by mail.savoirfairelinux.com (Postfix) with ESMTPSA id 976283D81665;
+	Tue,  6 Oct 2026 14:36:14 -0400 (EDT)
+From: Marc-Olivier Champagne <marc-olivier.champagne@savoirfairelinux.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+	Jessica Zhang <jesszhan0024@gmail.com>
+Cc: David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
+	Marc-Olivier Champagne <marc-olivier.champagne@savoirfairelinux.com>,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jerome Oufella <jerome.oufella@savoirfairelinux.com>,
+	Felix Boucher <felix.boucher@savoirfairelinux.com>,
+	Quentin Lehoux <quentin.lehoux@savoirfairelinux.com>
+Subject: [PATCH 0/2] drm/panel: ilitek-ili9881c: add support for DCLTek DT300249
+Date: Tue,  6 Oct 2026 14:34:53 -0400
+Message-Id: <20261006183455.2350966-1-marc-olivier.champagne@savoirfairelinux.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] ad4134: ODR PWM is left running on probe failure and device unbind
-- [High] iio: adc: ad4134: debugfs_reg_access corrupts active SPI offload c=
-apture
-- [Low] ad4134: Incorrect macro HZ_PER_GHZ used for nanosecond time math
---
+This series adds support for the DCLTek DT300249 5.5-inch MIPI DSI
+panel based on the Ilitek ILI9881C controller.
 
-commit 646edf6c83770fad0c88592b752978f3561b3e9e
-Author: Marcelo Schmitt <marcelo.schmitt@analog.com>
-Subject: iio: adc: ad4134: Support high-speed data capture
+It documents the new compatible string in the binding and adds the
+panel descriptor with its initialization sequence to the driver.
 
-This commit implements SPI transfer offloading for the AD4134 ADC. It
-enables faster data acquisition at sample rates up to 1.496 MSPS.
+Marc-Olivier Champagne (2):
+  dt-bindings: display: panel: add compatible for DCLTek 300249 5.5in
+    panel
+  drm/panel: ilitek-ili9881c: Add DCLTek 300249 5.5in display
 
-> diff --git a/drivers/iio/adc/ad4134.c b/drivers/iio/adc/ad4134.c
-> index debc2ff027051..aa8abe5715c4b 100644
-> --- a/drivers/iio/adc/ad4134.c
-> +++ b/drivers/iio/adc/ad4134.c
-[ ... ]
-> @@ -517,6 +522,92 @@ ...
-> +static int ad4134_update_conversion_rate(struct ad4134_state *st,
-> +					 unsigned int freq_Hz)
-> +{
-[ ... ]
-> +	/*
-> +	 * Configure SPI offload PWM trigger.
-> +	 * For gated DCLK, the minimum required time between ODR rising edge
-[ ... ]
-> +	 */
-> +	offload_period_ns =3D odr_wf.period_length_ns;
-> +	config.periodic.frequency_hz =3D DIV_ROUND_UP_ULL(HZ_PER_GHZ, offload_p=
-eriod_ns);
+ .../display/panel/ilitek,ili9881c.yaml        |   1 +
+ drivers/gpu/drm/panel/panel-ilitek-ili9881c.c | 216 ++++++++++++++++++
+ 2 files changed, 217 insertions(+)
 
-[Severity: Low]
-This isn't a bug, but should this use NSEC_PER_SEC instead of HZ_PER_GHZ?
 
-While both macros are numerically identical, the calculation here is dividi=
-ng
-by a period in nanoseconds to get a frequency in Hertz, so NSEC_PER_SEC
-seems to be the semantically correct unit scaling factor to use here.
-
-[ ... ]
-> @@ -606,6 +787,166 @@ ...
-> +static const struct iio_info ad4134_offload_info =3D {
-> +	.read_raw =3D ad4134_read_raw,
-> +	.read_avail =3D ad4134_read_avail,
-> +	.write_raw =3D ad4134_write_raw,
-> +	.debugfs_reg_access =3D ad4134_debugfs_reg_access,
-
-[Severity: High]
-Can this corrupt an ongoing SPI offload capture?
-
-It looks like ad4134_debugfs_reg_access() issues regmap_read() and
-regmap_write() operations without calling iio_device_claim_direct_mode().
-If a privileged user accesses direct_reg_access via debugfs while an
-offload engine is actively streaming data, this could dynamically alter
-the SPI controller mode to SPI_MODE_0 and shift the pin mux.
-
-Since ad4134_release_reg_access() does not restore the SPI mode to
-SPI_MODE_1, would this permanently corrupt the capture stream until it
-is restarted?
-
-> +};
-[ ... ]
-> +static int ad4134_offload_setup(struct iio_dev *indio_dev, struct ad4134=
-_state *st)
-> +{
-> +	struct device *dev =3D &st->spi->dev;
-> +	int ret;
-> +
-> +	ret =3D ad4134_pwm_get(st);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D ad4134_offload_buffer_setup(indio_dev, st->spi);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/*
-> +	 * Start with a sampling rate slower than 374 kSPS because that is the
-> +	 * maximum rate supported with wideband filter (default on power up).
-> +	 */
-> +	st->odr_hz =3D 250 * HZ_PER_KHZ;
-> +	ret =3D ad4134_update_conversion_rate(st, st->odr_hz);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to set sampling freq\n");
-
-[Severity: High]
-Will the ODR PWM be left running if probe fails later or the device is
-unbound?
-
-The call to ad4134_update_conversion_rate() actively starts the PWM
-generation by calling pwm_set_waveform_might_sleep(). The PWM is acquired
-via devm_pwm_get() earlier in ad4134_offload_setup(), so devres will call
-pwm_put() during cleanup. However, pwm_put() only frees the software
-resource and does not stop the physical PWM output.
-
-Should there be a devm_add_action_or_reset() handler registered to
-explicitly disable the PWM or set the duty cycle to zero on teardown?
-
+base-commit: 54e61ea6c492d69a1717018826d8340810c812eb
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1791309733.gi=
-t.marcelo.schmitt@analog.com?part=3D12
+2.34.1
+
