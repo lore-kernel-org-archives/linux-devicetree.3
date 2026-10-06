@@ -1,113 +1,74 @@
-Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
+Received: from sender-op-o17.zoho.eu (sender-op-o17.zoho.eu [136.143.169.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E218356747
-	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 04:28:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.25
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791260921; cv=none; b=Wb9U+9gwiWs+q+DTuTxumjWWIQWkTDvxRhj53h3SiNoxO+/Z195gL45LunZdtxOZbID/odTFaY7nH0sduJsIjfYqaWXPEaJYE6o5ce3vHKqbJ0fIR0EvOz7O9hpiywH+n7Tl7LxEzlLhiUFTJnet4/9Q91J5cQR/QHLfErrcoyo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791260921; c=relaxed/simple;
-	bh=bo2X3hDeI4pBnunTcHhhTv7/UJwW6YG6gQ9h4NZtf1c=;
-	h=From:To:Cc:In-Reply-To:Subject:Date:Message-ID:MIME-Version:
-	 Content-Type:References; b=GV2VJv3z9gFmucfP1Nlkp3PvfR5HG2diHu5e1QsGD750zSTo9k9b8ROBIxwm7XNvCX8SPMY4+LWI+IRBG9cZ3quiZAEJB1uGLW1dI+3F+cXfCXwflGEClTB+mIKmjpg/QQNZlfMutrx1lXTmwdgLBTkZBjfeezmuvGZ7vchFPNQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=az278A1A; arc=none smtp.client-ip=203.254.224.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E202431E82B;
+	Tue,  6 Oct 2026 04:30:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.17
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791261012; cv=pass; b=FQeqvoy/u81b37AVJJfk9/rldOcG9lV001YTiT24gM0BYL+bFixr6GschjjLJVUIz6FnzC0vN+CYcbiZE9jO9jVyryEqwTgIb9Bcr0OZf9EWBIBhMWOkozs6Wa/Eyo3yBgaYQvxrSwCFio4+YpzMMrh2jq9qRG1nxxGkoyA3zok=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791261012; c=relaxed/simple;
+	bh=HLJZx8skdSTkwlOQto9p1gF7ZlGkvsinMZLCxnN3xic=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 Content-Type:MIME-Version; b=hTkm3cpzDVaWMRjjbJk90vsIVtZvBn/ETE1pCymPKeT9uvhEDzmIbUrjCC6gcynh9b2RGDF6sQZdpPVjiNE419cQD36t0NzzA1zLnBkhwv3a6JWxIdJoEtSI/2IHRtSN8Z85BfJBmHfqVoDtN1Zb7w43LrF1ClYDQirUHIyklrs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv; spf=pass smtp.mailfrom=iav.lv; dkim=pass (1024-bit key) header.d=iav.lv header.i=iav@iav.lv header.b=KHEEUrMg; arc=pass smtp.client-ip=136.143.169.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iav.lv
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="az278A1A"
-Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
-	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20261006042836epoutp028365024025bfba6a1302777b5bbd837e~b1lAv9Vi42700227002epoutp02d
-	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 04:28:36 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20261006042836epoutp028365024025bfba6a1302777b5bbd837e~b1lAv9Vi42700227002epoutp02d
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1791260916;
-	bh=LgntyPCT6mbiDQeIW6B53O9DRHxz2wX1AyNTwm4lHi4=;
-	h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
-	b=az278A1AT5woz2LO9nCwKc56yOcJp2CKzCO033T58bFlnVZ5IbgAYglFDQcik64tV
-	 ssUF2dQgmftHgqF5d8kXAsQmDCq5esefw9ccB51LnrKLnGvb/RSPUQF8OYUtPCgpbj
-	 GgIz4lndLDTBNieNw+a/Xg02xCjbRZPagyx7S6hY=
-Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
-	epcas5p2.samsung.com (KnoxPortal) with ESMTPS id
-	20261006042835epcas5p24a08e2017b6d2f377eb2245a203597c7~b1k-SGrtO1183111831epcas5p2Z;
-	Tue,  6 Oct 2026 04:28:35 +0000 (GMT)
-Received: from epcas5p4.samsung.com (unknown [182.195.38.89]) by
-	epsnrtp01.localdomain (Postfix) with ESMTP id 4hzNYG2vjjz6B9mD; Tue,  6 Oct
-	2026 04:28:34 +0000 (GMT)
-Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
-	epcas5p4.samsung.com (KnoxPortal) with ESMTPA id
-	20261006042833epcas5p4ce0e831af9c9d099e022ee6fc6e8ec79~b1k9_G1RV0768007680epcas5p4Y;
-	Tue,  6 Oct 2026 04:28:33 +0000 (GMT)
-Received: from INBRO002756 (unknown [107.122.3.168]) by epsmtip1.samsung.com
-	(KnoxPortal) with ESMTPA id
-	20261006042832epsmtip1b09d3016748e0b94bfd2d6f288100092~b1k8bE5mJ0554705547epsmtip10;
-	Tue,  6 Oct 2026 04:28:31 +0000 (GMT)
-From: "Alim Akhtar" <alim.akhtar@samsung.com>
-To: "'Peter Griffin'" <peter.griffin@linaro.org>
-Cc: <krzk@kernel.org>, <robh@kernel.org>, <conor+dt@kernel.org>,
-	<linusw@kernel.org>, <linux-samsung-soc@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-watchdog@vger.kernel.org>, <linux@roeck-us.net>,
-	<hajun.sung@samsung.com>, <wim@linux-watchdog.org>
-In-Reply-To: <CADrjBPrXYX4_d9dJ=SUqHf-eMDyuSpSChkuTsrPHfo2ZNh2mMw@mail.gmail.com>
-Subject: RE: [PATCH v2 2/2] watchdog: s3c2410_wdt: Add support for
- Exynos8855 SoC
-Date: Tue, 6 Oct 2026 09:58:30 +0530
-Message-ID: <18b901dd554b$259eb890$70dc29b0$@samsung.com>
+	dkim=pass (1024-bit key) header.d=iav.lv header.i=iav@iav.lv header.b="KHEEUrMg"
+ARC-Seal: i=1; a=rsa-sha256; t=1791260981; cv=none; 
+	d=zohomail.eu; s=zohoarc; 
+	b=FjS0TW+EogxwysMgu43M48cHmsunBJV755U8qj0eLoU2xnt446vHXJ6k+RxMC20Vfqz5IT8gzykGZwoGU56+TLI5S9Z4kKktRcaITgkfg1o3XiNagma7Bv+ZpIC3JFeUBNU3Q2KYt7W8G0Frw50ruDfW5KHMUNWhJkhUiOx5ltE=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
+	t=1791260981; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=HLJZx8skdSTkwlOQto9p1gF7ZlGkvsinMZLCxnN3xic=; 
+	b=dmtHOwLwAq6uxsjTH+CH78o7lADM2C97jXMCVm1bChwUk9fbfjzz1fWV+VnRQbho0GyPXtk2/nrEhExYAkGVCeUdRQGffzxshUd/INSMsikFDq24qVB0YeArXJbMHQuTGJuZMxpMyR4owkStSXkMjZbNW1LwM100osj2pJLz2dE=
+ARC-Authentication-Results: i=1; mx.zohomail.eu;
+	dkim=pass  header.i=iav.lv;
+	spf=pass  smtp.mailfrom=iav@iav.lv;
+	dmarc=pass header.from=<iav@iav.lv>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791260981;
+	s=zoho; d=iav.lv; i=iav@iav.lv;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:In-Reply-To:Date:Date:Message-ID:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
+	bh=HLJZx8skdSTkwlOQto9p1gF7ZlGkvsinMZLCxnN3xic=;
+	b=KHEEUrMgJFfGYQ1NsPIxFV4bAdKT5pkGcmGxFGBfEtQ08bZri839n+6QsOikLcMY
+	Ii6hMK5SN0EX90ScsBLRPpQYDy6phg93mwMxE/vNmXsjNX3elPBGNssD/JGZdpvsRAH
+	APXH7iJwNcmxZaArpg0+nRPbPnyAxaquHK8FxMJk=
+Received: by smtp.zoho.eu with SMTPS id 1791260979404351.6587551574256;
+	Tue, 6 Oct 2026 06:29:39 +0200 (CEST)
+From: Igor Velkov <iav@iav.lv>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Christian Hewitt <christianshewitt@gmail.com>, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Igor Velkov <iav@iav.lv>
+Subject: Re: [PATCH] arm64: dts: amlogic: meson-sm1-odroid-hc4: add the fan tachometer
+In-Reply-To: <20261006041733.8C4081F000FF@smtp.kernel.org>
+References: <20261006-hc4-fan-tach-v1-1-4e7cecf0b45b@iav.lv>
+ <20261006041733.8C4081F000FF@smtp.kernel.org>
+Date: Tue, 06 Oct 2026 07:29:02 +0300
+Message-ID: <179126094299.1095177.4869656735733059341@iav.lv>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-X-Mailer: Microsoft Outlook 16.0
-Thread-Index: AQJaA0b9OUQoKjNfig97L7/y+bvwowH+CJFiAXoAkAkBm/b0zbXN73ow
-Content-Language: en-us
-X-CMS-MailID: 20261006042833epcas5p4ce0e831af9c9d099e022ee6fc6e8ec79
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-CMS-TYPE: 105P
-cpgsPolicy: CPGSC10-543,Y
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20260927150943epcas5p1fb1720070f2bdca2c6cd32094dde895c
-References: <CGME20260927150943epcas5p1fb1720070f2bdca2c6cd32094dde895c@epcas5p1.samsung.com>
-	<20260927152738.3673504-1-alim.akhtar@samsung.com>
-	<20260927152738.3673504-2-alim.akhtar@samsung.com>
-	<CADrjBPrXYX4_d9dJ=SUqHf-eMDyuSpSChkuTsrPHfo2ZNh2mMw@mail.gmail.com>
 
-Hi Peter
+On Tue, 06 Oct 2026 04:17:33 +0000, sashiko-bot@kernel.org wrote:
+> Without an explicit pinctrl-0 property in the fan0 node, will the fan
+> tachometer silently fail to read the fan speed (always reporting 0) on systems
+> where the bootloader leaves GPIOX_7 configured as an alternate function (such
+> as uart_b_rx or pwm_f_x) instead of a GPIO input?
 
-> -----Original Message-----
-> From: Peter Griffin <peter.griffin@linaro.org>
-> Sent: Friday, October 2, 2026 8:32 PM
-> To: Alim Akhtar <alim.akhtar@samsung.com>
-> Cc: krzk@kernel.org; robh@kernel.org; conor+dt@kernel.org;
-> linusw@kernel.org; linux-samsung-soc@vger.kernel.org; linux-
-> kernel@vger.kernel.org; devicetree@vger.kernel.org; linux-
-> watchdog@vger.kernel.org; linux@roeck-us.net; hajun.sung@samsung.com;
-> wim@linux-watchdog.org
-> Subject: Re: [PATCH v2 2/2] watchdog: s3c2410_wdt: Add support for
-> Exynos8855 SoC
-> 
-> On Sun, 27 Sept 2026 at 16:09, Alim Akhtar <alim.akhtar@samsung.com>
-> wrote:
-> >
-> > Watchdog IP on this SoC is similar to Exynos850/ExynosAutov{9/920}.
-> > This does not have CNT_EN_WDT bit in PMU and offset of RST_STAT is
-> > different then the previously support SoC.
-> > Reuse the offset as much as from already supported SoC
-> >
-> > Signed-off-by: Alim Akhtar <alim.akhtar@samsung.com>
-> > ---
-> 
-> Small nit: If you send another version, the last sentence could be updated
-> slightly for clarity. Something like "Reuse the offsets as much as possible
-> from already supported SoCs"
-> 
-Sure, will update
+Checked on the board: with GPIOX_7 muxed to uart_b_rx, the interrupt
+counts edges as it does with the pin as GPIO (452 vs 445 in 5 s).
+U-Boot leaves the pin as GPIO. The PHY interrupt on this board is
+described the same way, without pinctrl.
 
-> Reviewed-by: Peter Griffin <peter.griffin@linaro.org>
-> 
-Thank you!
-
+Igor
