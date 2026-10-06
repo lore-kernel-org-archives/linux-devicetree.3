@@ -1,294 +1,418 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F1F23ED11F;
-	Tue,  6 Oct 2026 13:09:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A83AA41E6CD
+	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 13:11:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791292154; cv=none; b=LIIejnN5VIV6zCgiNrfvBhJAe/3l1+KZtjsXZrpFWvuE62ynr/B9ag455T3jFGIZKOCQ3dm3BpVXJDAj5UrRWqe2TyRaUfAsQ3PdNhH3NKMfRiqLSs2JtHVnSLCFiGGAu8dmo7V8SscgqPvsbQV+bzoTUIZezs++mIZjRG1gnAA=
+	t=1791292317; cv=none; b=n9SvRW9LyqshIV5Sr7Qc9dtZ1e/4z/LXgLaBp0ECwep5I/Okf1me5ewwp7tZmHN1uXLNF5TdMV3BvTI4324KTHuDBRLVJVO+zybqmQ5FzAhNlzeZ3cNnagpuEDXRBTN0m0L4AssSyvRdvLfGyg+XSWSaNpXJ1gnww5KJiyNVkxw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791292154; c=relaxed/simple;
-	bh=KQFedXUBSor2Vi+BFxKt3Un9w3W0+ppkD0IhmQ6E3m8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cV3PmtA/oV3fUckf0LYFqjvaQUHzWHzcqyNDIfk9Yr2jkiTJR4YmSWWygJuq6ktrpznVfKpQDT0cavL28s082OZ2XNa92KoBf8BTG0t43Jl6+W0cOOICX7mK6J3iCO20R8FMPEiTe3VCaAjOuCCPwK5nI72ybQK1oPRB6M5rOW0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m5sXnRqE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791292317; c=relaxed/simple;
+	bh=angcDuvLqFg4CeV3cPxkm8QJUE0XFdlgizSznmF2Q+o=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=PPIAb+rKgEmYLWTT3ltzcbXLN6aa/736hoXzWRse4PtVEcKWDAY6vRcsDjV8e5XJ2FIMNY1fWxWIoHni40LUo9BCgUe4RAlNs/yX6AhkJFiA8+qiJfDKU1QrZ/JW6/dhqfwTidAIdlKK7zGFFeOTf8wD0kWLivGH8Tn+49Eo6Yc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kj584qAZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m5sXnRqE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1272D1F000FF;
-	Tue,  6 Oct 2026 13:09:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kj584qAZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04F2D1F000FF;
+	Tue,  6 Oct 2026 13:11:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791292153;
-	bh=vZztWPtp5ncZiUT/2stEBx8HKJ83ENUFyKg8/WHaRME=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=m5sXnRqE/1YxDuHFx4MR1iiFEHZLc1dQMugbCERm8+bPXt1WKpbJtwJ1Ue/qxKmr5
-	 YH6BMvLStNfzZNwHMCDN5xka4FWYxtpyT+9wa/GfNkP67UrH8UfrEKc19rybYhfsv6
-	 IF8yZCDHuOfBNdLvJR2J3oUtZVz02OeCzjzpvurSQa0zTWhe2HawVTG183HlByNFcn
-	 08m6JlceV48MoPiPsoVxy0atrqa7no1iM0Xt1dCWpBFJj2LLq3CQJtU9YKXY2dHeRt
-	 Eh5/bqZEFcTQ8Eh1NfGjc2C1+/yQk8tzWD3IKi7h489qNPnEXLtm1/07X5fGOylPIF
-	 4cdzUhTf6H1Iw==
-Date: Tue, 6 Oct 2026 14:09:07 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Raiden Lumine <2557597107@qq.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	gregkh@linuxfoundation.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-staging@lists.linux.dev,
-	ovidiu.panait.oss@gmail.com, jacobsfeder@gmail.com
-Subject: Re: [PATCH 1/2] dt-bindings: misc: add binding for Xilinx AXI-Stream
- FIFO
-Message-ID: <asTy8HmiLNfR2RN7@squawk>
-References: <tencent_517661DA7DB5CFD22DE073FD269BED407507@qq.com>
+	s=k20260515; t=1791292315;
+	bh=XyzpIdZ169f+bYLUduLxbD03IjA+J5BpiwHLMJRjoF0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Kj584qAZTArUpJCBcSfoqW6jS+mU2WWzDvOHnwPkNPLKk/O6s7ZgmVlQDAfb7Cy2F
+	 OWAW0zAkkCTqxHXnkammPUOvgDKBPY+GTv5RDnTNWFhGTFf1yilKUbbZdDd4uYgduV
+	 9vRjxs6M26V3EF97cnq9V9FR7PhCRIuIuARWcJObkq9/b5RxhSGQgxkgyw79WSks9S
+	 13PtXfxj1ECA7ArPoqIjngbIG3K/XbNk1prOLcLUIHIbgBK7RjqZWOmTyb3FUhs0B9
+	 GV2/3YnAIoseWZmUSJS/cVdLRDqR/faZqh5U0X8BN96JIC9KuAfmtAqau0Z+Tam6X2
+	 gmY5Bx39vNmWQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 2/5] drm/microchip: add a driver for the Microchip
+ GFX2D GPU
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Cyrille Pitchen" <cyrille.pitchen@microchip.com>
+Cc: dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20261006-cpitchen-mainline_gfx2d-v9-2-74bd3df2e183@microchip.com>
+References: <20261006-cpitchen-mainline_gfx2d-v9-0-74bd3df2e183@microchip.com>
+ <20261006-cpitchen-mainline_gfx2d-v9-2-74bd3df2e183@microchip.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 06 Oct 2026 13:11:54 +0000
+Message-Id: <20261006131155.04F2D1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="FW4p7Z2079+Juyly"
-Content-Disposition: inline
-In-Reply-To: <tencent_517661DA7DB5CFD22DE073FD269BED407507@qq.com>
 
---FW4p7Z2079+Juyly
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you for your contribution! Sashiko AI review found 8 potential issue(=
+s) to consider:
+- [High] pm: unsafe hardware register access in IRQ handlers when device is=
+ runtime suspended
+- [High] irq: use-after-free and crash due to missing IRQ synchronization o=
+n teardown
+- [High] irq: hardware access crash due to requesting IRQ before enabling p=
+eripheral clock
+- [High] drm: double free of command rectangles and GEM objects in free_cmd=
+list cleanup
+- [Medium] uapi: structures use compiler-dependent enum types and contain i=
+mplicit padding holes
+- [Medium] mm: layering violation and API misuse via manual flush_cache_mm()
+- [Medium] drm: GEM handle and object reference leak in mchp_gfx2d_ioctl_im=
+port_buffer error path
+- [Medium] pm: PM runtime usage count leak for running commands during tear=
+down
+--
 
-On Tue, Oct 06, 2026 at 07:29:54PM +0800, Raiden Lumine wrote:
-> The axis-fifo driver's compatible strings were undocumented, flagged
-> by checkpatch.pl as UNDOCUMENTED_DT_STRING. Add a devicetree binding
-> document for drivers/staging/axis-fifo, derived from the properties
-> the driver reads via of_property_read_u32() in axis_fifo_parse_dt().
->=20
-> Signed-off-by: Raiden Lumine <2557597107@qq.com>
+commit 22d96d52a44db473414b78bd380f4a039a0bb91a
+Author: Cyrille Pitchen <cyrille.pitchen@microchip.com>
 
-pw-bot: changes-requested
+drm/microchip: add a driver for the Microchip GFX2D GPU
 
-Please see previously explained (multiple times) rationale for why this
-is not a simple conversion:
-lore.kernel.org/all/?q=3Ddfn:axis-fifo
+The Microchip GFX2D is a 2D GPU, which supports very basic graphics
+instructions.
 
-Thanks,
-Conor.
-
-> ---
->  .../bindings/misc/xlnx,axi-fifo-mm-s.yaml     | 191 ++++++++++++++++++
->  1 file changed, 191 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/misc/xlnx,axi-fifo-=
-mm-s.yaml
->=20
-> diff --git a/Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.ya=
-ml b/Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml
-> new file mode 100644
-> index 000000000000..219a7de223cc
+> diff --git a/drivers/gpu/drm/microchip/mchp_gfx2d_cmd.c b/drivers/gpu/drm=
+/microchip/mchp_gfx2d_cmd.c
+> index 0000000000000..b84c11c3511d5 100644
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml
-> @@ -0,0 +1,191 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/misc/xlnx,axi-fifo-mm-s.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +$defs:
-> +  xlnx-uint32-zero:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    const: 0
-> +    description: Must be 0, this feature isn't supported.
-> +
-> +title: Xilinx AXI-Stream FIFO v4.1 IP core
-> +
-> +maintainers:
-> +  - Jacob Feder <jacobsfeder@gmail.com>
-> +
-> +description: |
-> +  This IP core has read and write AXI-Stream FIFOs, the contents of whic=
-h can
-> +  be accessed from the AXI4 memory-mapped interface. This is useful for
-> +  transferring data from a processor into the FPGA fabric. The driver cr=
-eates
-> +  a character device that can be read/written to with standard
-> +  open/read/write/close.
-> +
-> +  See Xilinx PG080 document for IP details.
-> +
-> +  Currently supports only store-forward mode with a 32-bit
-> +  AXI4-Lite interface. DOES NOT support:
-> +    - cut-through mode
-> +    - AXI4 (non-lite)
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - xlnx,axi-fifo-mm-s-4.1
-> +      - xlnx,axi-fifo-mm-s-4.2
-> +      - xlnx,axi-fifo-mm-s-4.3
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  interrupt-names:
-> +    const: interrupt
-> +
-> +  xlnx,axi-str-rxd-tdata-width:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    const: 32
-> +    description: AXI-Stream RX data width, must be 32.
-> +
-> +  xlnx,axi-str-txd-tdata-width:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    const: 32
-> +    description: AXI-Stream TX data width, must be 32.
-> +
-> +  xlnx,rx-fifo-depth:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description: Depth of RX FIFO in words.
-> +
-> +  xlnx,tx-fifo-depth:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description: Depth of TX FIFO in words.
-> +
-> +  xlnx,use-rx-data:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    enum: [0, 1]
-> +    description: Set to 1 if RX FIFO is enabled, 0 otherwise.
-> +
-> +  xlnx,use-tx-data:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    enum: [0, 1]
-> +    description: Set to 1 if TX FIFO is enabled, 0 otherwise.
-> +
-> +  xlnx,axi-str-rxd-protocol:
-> +    $ref: /schemas/types.yaml#/definitions/string
-> +    description: Ignored by the driver.
-> +
-> +  xlnx,axi-str-txc-protocol:
-> +    $ref: /schemas/types.yaml#/definitions/string
-> +    description: Ignored by the driver.
-> +
-> +  xlnx,axi-str-txd-protocol:
-> +    $ref: /schemas/types.yaml#/definitions/string
-> +    description: Ignored by the driver.
-> +
-> +  xlnx,axi-str-txc-tdata-width:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description: Ignored by the driver.
-> +
-> +  xlnx,axis-tdest-width:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description: Ignored by the driver.
-> +
-> +  xlnx,axis-tid-width:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description: Ignored by the driver.
-> +
-> +  xlnx,axis-tuser-width:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description: Ignored by the driver.
-> +
-> +  xlnx,data-interface-type:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description: Ignored by the driver.
-> +
-> +  xlnx,has-axis-tdest:
-> +    $ref: '#/$defs/xlnx-uint32-zero'
-> +
-> +  xlnx,has-axis-tid:
-> +    $ref: '#/$defs/xlnx-uint32-zero'
-> +
-> +  xlnx,has-axis-tkeep:
-> +    $ref: '#/$defs/xlnx-uint32-zero'
-> +
-> +  xlnx,has-axis-tstrb:
-> +    $ref: '#/$defs/xlnx-uint32-zero'
-> +
-> +  xlnx,has-axis-tuser:
-> +    $ref: '#/$defs/xlnx-uint32-zero'
-> +
-> +  xlnx,rx-fifo-pe-threshold:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description: Ignored by the driver.
-> +
-> +  xlnx,rx-fifo-pf-threshold:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description: Ignored by the driver.
-> +
-> +  xlnx,s-axi-id-width:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description: Ignored by the driver.
-> +
-> +  xlnx,s-axi4-data-width:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description: Ignored by the driver.
-> +
-> +  xlnx,select-xpm:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description: Ignored by the driver.
-> +
-> +  xlnx,tx-fifo-pe-threshold:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description: Ignored by the driver.
-> +
-> +  xlnx,tx-fifo-pf-threshold:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description: Ignored by the driver.
-> +
-> +  xlnx,use-rx-cut-through:
-> +    $ref: '#/$defs/xlnx-uint32-zero'
-> +
-> +  xlnx,use-tx-ctrl:
-> +    $ref: '#/$defs/xlnx-uint32-zero'
-> +
-> +  xlnx,use-tx-cut-through:
-> +    $ref: '#/$defs/xlnx-uint32-zero'
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - xlnx,axi-str-rxd-tdata-width
-> +  - xlnx,axi-str-txd-tdata-width
-> +  - xlnx,rx-fifo-depth
-> +  - xlnx,tx-fifo-depth
-> +  - xlnx,use-rx-data
-> +  - xlnx,use-tx-data
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    axi_fifo_mm_s_0: axi-fifo-mm-s@43c00000 {
-> +        compatible =3D "xlnx,axi-fifo-mm-s-4.1";
-> +        interrupt-parent =3D <&intc>;
-> +        interrupts =3D <0 29 4>;
-> +        reg =3D <0x43c00000 0x10000>;
-> +        xlnx,axi-str-rxd-protocol =3D "XIL_AXI_STREAM_ETH_DATA";
-> +        xlnx,axi-str-rxd-tdata-width =3D <0x20>;
-> +        xlnx,axi-str-txc-protocol =3D "XIL_AXI_STREAM_ETH_CTRL";
-> +        xlnx,axi-str-txc-tdata-width =3D <0x20>;
-> +        xlnx,axi-str-txd-protocol =3D "XIL_AXI_STREAM_ETH_DATA";
-> +        xlnx,axi-str-txd-tdata-width =3D <0x20>;
-> +        xlnx,rx-fifo-depth =3D <0x200>;
-> +        xlnx,tx-fifo-depth =3D <0x8000>;
-> +        xlnx,use-rx-data =3D <0x0>;
-> +        xlnx,use-tx-data =3D <0x1>;
-> +    };
-> +...
-> --=20
-> 2.55.0
->=20
+> +++ b/drivers/gpu/drm/microchip/mchp_gfx2d_cmd.c
+[ ... ]
+> @@ -1577,15 +1577,15 @@ void mchp_gfx2d_cleanup_command_queue(struct mchp=
+_gfx2d_device *priv,
+>  				      bool is_clk_enabled)
+>  {
+>  	struct device *dev =3D priv->drm.dev;
+>  	struct mchp_gfx2d_command *cmd, *tmp;
+>  	uint32_t i;
+> =20
+>  	if (is_clk_enabled) {
+>  		writel(GFX2D_IRQ_EXEND, priv->regs + GFX2D_ID);
+>  		writel(GFX2D_GD_DISABLE, priv->regs + GFX2D_GD);
+>  	}
+> =20
+>  	mutex_lock(&priv->cmdlist_mutex);
+>  	list_for_each_entry_safe(cmd, tmp, &priv->running_cmdlist, cmd_node) {
+>  		list_del(&cmd->cmd_node);
+>  		mchp_gfx2d_release_command(priv, cmd, false);
+>  		kmem_cache_free(priv->cmd_cache, cmd);
+>  	}
 
---FW4p7Z2079+Juyly
-Content-Type: application/pgp-signature; name=signature.asc
+[Severity: Medium]
+Does this leak PM runtime usage counts for the running commands?
 
------BEGIN PGP SIGNATURE-----
+When commands are added to running_cmdlist, pm_runtime_get_noresume()
+increments the usage count (in mchp_gfx2d_queue_running()). This loop
+removes commands without dropping their associated PM runtime references
+via pm_runtime_put_noidle(), permanently leaking the usage counter and
+preventing runtime suspend.
 
-iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCasTy8AAKCRB4tDGHoIJi
-0o28AP9kmracDSEVYwhylPFvQLztYB5bEWlk8FMqjJwnDzyuSgEA5kzcxiej2eOo
-xnynpx6Md1u3blwI5UiMSGJkMn1ljAI=
-=kMW6
------END PGP SIGNATURE-----
+> =20
+>  	list_for_each_entry_safe(cmd, tmp, &priv->pending_cmdlist, cmd_node) {
+>  		list_del(&cmd->cmd_node);
+>  		mchp_gfx2d_release_command(priv, cmd, false);
+>  		kmem_cache_free(priv->cmd_cache, cmd);
+>  	}
+>  	mutex_unlock(&priv->cmdlist_mutex);
+> =20
+>  	mutex_lock(&priv->free_cmdlist_mutex);
+>  	list_for_each_entry_safe(cmd, tmp, &priv->free_cmdlist, cmd_node) {
+>  		list_del(&cmd->cmd_node);
+>  		mchp_gfx2d_release_command(priv, cmd, false);
+>  		kmem_cache_free(priv->cmd_cache, cmd);
+>  	}
+>  	mutex_unlock(&priv->free_cmdlist_mutex);
 
---FW4p7Z2079+Juyly--
+[Severity: High]
+Does this cause a double-free of command rectangles and GEM objects?
+
+When a command completes normally, mchp_gfx2d_release_command() frees
+its rectangles and drops GEM references, then places the command on
+priv->free_cmdlist without clearing the pointers. This loop in
+mchp_gfx2d_cleanup_command_queue() blindly re-releases commands that
+have already been completely released, causing use-after-free and double-fr=
+ee
+issues that corrupt the slab allocator and DRM core state.
+
+> diff --git a/drivers/gpu/drm/microchip/mchp_gfx2d_drv.c b/drivers/gpu/drm=
+/microchip/mchp_gfx2d_drv.c
+> index 0000000000000..d415bd94110bc 100644
+> --- /dev/null
+> +++ b/drivers/gpu/drm/microchip/mchp_gfx2d_drv.c
+[ ... ]
+> @@ -71,15 +71,15 @@ static irqreturn_t mchp_gfx2d_interrupt(int irq, void=
+ *dev_id)
+>  {
+>  	struct mchp_gfx2d_device *priv =3D dev_id;
+>  	u32 status, mask, pending;
+> =20
+>  	status =3D readl(priv->regs + GFX2D_IS);
+>  	mask =3D readl(priv->regs + GFX2D_IM);
+
+[Severity: High]
+Does this code crash with a synchronous external abort if the peripheral
+clock is disabled?
+
+The hard IRQ handler unconditionally accesses hardware registers (GFX2D_IS)
+without verifying if the device is runtime active. Spurious interrupts can
+trigger this path when the device is suspended and the clock is off. As
+mandated by the subsystem guide, IRQ handlers must use
+pm_runtime_get_if_active() before accessing hardware registers.
+
+[ ... ]
+> @@ -89,15 +89,15 @@ static irqreturn_t mchp_gfx2d_thread(int irq, void *d=
+ev_id)
+>  {
+>  	struct mchp_gfx2d_device *priv =3D dev_id;
+>  	struct mchp_gfx2d_gem_object *gfx2d_obj;
+>  	struct device *dev =3D priv->drm.dev;
+>  	bool is_suspended =3D false;
+>  	bool enable_exend =3D false;
+> =20
+>  	drm_dbg(&priv->drm, "enter IRQ thread\n");
+> =20
+>  	pm_runtime_get_noresume(dev);
+> =20
+>  	writel(GFX2D_IRQ_EXEND, priv->regs + GFX2D_ID);
+
+[Severity: High]
+Is it safe to use pm_runtime_get_noresume() here before blindly accessing
+registers?
+
+This function increments the usage counter but does not resume the device,
+meaning it may still be suspended when writel() is called. This can cause
+a kernel panic if the clock is disabled.
+
+[ ... ]
+> @@ -182,15 +182,15 @@ static int mchp_gfx2d_probe(struct platform_device =
+*pdev)
+>  	if (irq < 0) {
+>  		dev_err(&pdev->dev, "failed to get the IRQ\n");
+>  		ret =3D irq;
+>  		goto err_exit;
+>  	}
+> =20
+>  	ret =3D devm_request_threaded_irq(&pdev->dev, irq,
+>  					mchp_gfx2d_interrupt,
+>  					mchp_gfx2d_thread,
+>  					0, dev_name(&pdev->dev), priv);
+
+[Severity: High]
+Could this crash if an interrupt fires immediately?
+
+The IRQ handler is registered via devm_request_threaded_irq() before the
+peripheral clock is fetched and enabled via clk_prepare_enable(). If an
+interrupt line is asserted (e.g., from a previous boot or spurious event), =
+the
+hard IRQ handler will execute and read from a hardware register while the c=
+lock
+is still off.
+
+[ ... ]
+> @@ -245,15 +245,15 @@ static void mchp_gfx2d_remove(struct platform_devic=
+e *pdev)
+>  {
+>  	struct mchp_gfx2d_device *priv =3D platform_get_drvdata(pdev);
+>  	int ret;
+> =20
+>  	drm_dev_unregister(&priv->drm);
+> =20
+>  	ret =3D pm_runtime_resume_and_get(&pdev->dev);
+>  	mchp_gfx2d_cleanup_command_queue(priv, !ret);
+>  	if (ret) {
+>  		dev_warn(&pdev->dev, "Failed to resume device on remove\n");
+>  	} else {
+>  		pm_runtime_put_noidle(&pdev->dev);
+>  		clk_disable(priv->pclk);
+>  	}
+> =20
+>  	pm_runtime_disable(&pdev->dev);
+> =20
+>  	clk_unprepare(priv->pclk);
+>  }
+
+[Severity: High]
+Does this sequence create a use-after-free window for the IRQ thread?
+
+Resources are manually torn down and the clock disabled while the devres-ma=
+naged
+IRQ thread is still permitted to run. Since devm_request_threaded_irq() def=
+ers
+IRQ teardown until after remove() returns, the IRQ thread can execute
+concurrently, accessing freed memory (like priv->mbx freed in
+mchp_gfx2d_cleanup_command_queue()) and unclocked registers.
+
+[ ... ]
+> @@ -265,15 +265,15 @@ static int __maybe_unused mchp_gfx2d_runtime_suspen=
+d(struct device *dev)
+>  	struct mchp_gfx2d_device *priv =3D dev_get_drvdata(dev);
+>  	unsigned long to;
+> =20
+>  	mutex_lock(&priv->cmdlist_mutex);
+>  	priv->is_suspended =3D true;
+>  	reinit_completion(&priv->running_cmdlist_empty);
+>  	mutex_unlock(&priv->cmdlist_mutex);
+> =20
+>  	(void)mchp_gfx2d_progress(priv);
+>  	to =3D msecs_to_jiffies(GFX2D_PM_RUNTIME_SUSPEND_DELAY);
+>  	if (!wait_for_completion_timeout(&priv->running_cmdlist_empty, to)) {
+>  		mutex_lock(&priv->cmdlist_mutex);
+>  		priv->is_suspended =3D false;
+>  		pm_runtime_mark_last_busy(dev);
+>  		mutex_unlock(&priv->cmdlist_mutex);
+>  		writel(GFX2D_IRQ_EXEND, priv->regs + GFX2D_IE);
+>  		return -EBUSY;
+>  	}
+> =20
+>  	clk_disable(priv->pclk);
+
+[Severity: High]
+Can this tear down hardware access underneath the threaded IRQ handler?
+
+The suspend path disables the clock the moment the completion is signaled. =
+This
+could race with the threaded IRQ handler still executing, causing a synchro=
+nous
+external abort.
+
+> diff --git a/drivers/gpu/drm/microchip/mchp_gfx2d_ioctl.c b/drivers/gpu/d=
+rm/microchip/mchp_gfx2d_ioctl.c
+> index 0000000000000..a989d63db7b52 100644
+> --- /dev/null
+> +++ b/drivers/gpu/drm/microchip/mchp_gfx2d_ioctl.c
+[ ... ]
+> @@ -187,15 +187,15 @@ static int mchp_gfx2d_ioctl_import_buffer(struct dr=
+m_device *dev, void *data,
+>  	/* Is it the first import of this object? (gfx2d_obj->width =3D=3D 0 me=
+ans it is) */
+>  	if (!gfx2d_obj->width) {
+>  		if (!mchp_gfx2d_valid_size(args->stride, args->height, obj->size)) {
+>  			drm_gem_handle_delete(file_priv, args->handle);
+>  			ret =3D -EINVAL;
+>  			goto unlock;
+>  		}
+> =20
+>  		gfx2d_obj->width =3D args->width;
+>  		gfx2d_obj->height =3D args->height;
+>  		gfx2d_obj->stride =3D args->stride;
+>  		gfx2d_obj->format =3D args->format;
+>  		/*
+>  		 * Leave 'gfx2d_obj->direction' unchanged (hence set to 'DMA_NONE') as
+>  		 * imported buffers (from the atmel-hlcdc driver) always use coherent
+>  		 * memory (allocated with dma_alloc_wc()).
+>  		 */
+>  	} else {
+>  		if (gfx2d_obj->width !=3D args->width ||
+>  		    gfx2d_obj->height !=3D args->height ||
+>  		    gfx2d_obj->stride !=3D args->stride ||
+>  		    gfx2d_obj->format !=3D args->format)
+>  			ret =3D -EINVAL;
+>  	}
+> =20
+>  unlock:
+>  	mutex_unlock(&gfx2d_obj->mutex);
+
+[Severity: Medium]
+Does this error path leak the GEM handle and object reference?
+
+If the buffer was already imported but the new parameters do not match, the=
+ code
+sets ret =3D -EINVAL and jumps to unlock. It misses the
+drm_gem_handle_delete(file_priv, args->handle) call that is correctly prese=
+nt
+in the other error path, leaking a GEM object reference and an allocated DRM
+GEM handle.
+
+[ ... ]
+> @@ -301,15 +301,15 @@ static int mchp_gfx2d_ioctl_sync_for_gpu(struct drm=
+_device *dev, void *data,
+>  					 struct drm_file *file_priv)
+>  {
+>  	struct mchp_gfx2d_device *priv =3D drm_to_dev(dev);
+>  	struct drm_mchp_gfx2d_sync_for_gpu *args =3D data;
+>  	struct mchp_gfx2d_gem_object *gfx2d_obj;
+>  	enum dma_data_direction dir;
+>  	struct drm_gem_object *obj;
+> =20
+>  	obj =3D drm_gem_object_lookup(file_priv, args->handle);
+>  	if (!obj)
+>  		return -ENOENT;
+> =20
+>  	gfx2d_obj =3D to_mchp_gfx2d_bo(obj);
+> =20
+>  	dir =3D gfx2d_obj->direction;
+>  	if (valid_dma_direction(dir)) {
+>  		dma_sync_single_for_device(dev->dev, gfx2d_obj->base.dma_addr,
+>  					   obj->size, dir);
+> =20
+>  		if (priv->caps->has_cache_aliasing && current->mm)
+>  			flush_cache_mm(current->mm);
+
+[Severity: Medium]
+Is it appropriate to bypass standard DMA coherence primitives here?
+
+Directly calling flush_cache_mm(current->mm) performs an inefficient
+whole-address-space cache flush and uses a low-level mm API which may not
+be exported for loadable modules or behave uniformly across architectures.
+The driver should rely on standard dma_sync_single_for_device() or DRM
+cache helpers.
+
+> diff --git a/include/uapi/drm/microchip_drm.h b/include/uapi/drm/microchi=
+p_drm.h
+> index 0000000000000..c7c4436276387 100644
+> --- /dev/null
+> +++ b/include/uapi/drm/microchip_drm.h
+[ ... ]
+> @@ -148,15 +148,15 @@ struct drm_mchp_gfx2d_rop {
+>  	__u32 mask_handle;
+>  	enum drm_mchp_gfx2d_rop_mode mode;
+>  	__u8 high;
+>  	__u8 low;
+>  };
+> =20
+>  struct drm_mchp_gfx2d_submit {
+>  	__u64 rectangles;
+>  	__u32 num_rectangles;
+>  	__u32 target_handle;
+>  	struct drm_mchp_gfx2d_source sources[2];
+>  	enum drm_mchp_gfx2d_operation operation;
+>  	union {
+>  		struct drm_mchp_gfx2d_fill fill;
+>  		struct drm_mchp_gfx2d_blend blend;
+>  		struct drm_mchp_gfx2d_rop rop;
+>  	};
+>  };
+
+[Severity: Medium]
+Are these structures safe for the Application Binary Interface (ABI)?
+
+The UAPI structure drm_mchp_gfx2d_submit uses a C enum type which has an
+implementation-defined size, and the union results in 4 bytes of implicit
+padding at the end of the structure due to leading __u64 alignment. This
+can cause incompatibility between 32-bit and 64-bit userspace or across
+different compiler flags. UAPI structures must use explicitly sized types
+like __u32.
+
+[ ... ]
+> @@ -224,15 +224,15 @@ struct drm_mchp_gfx2d_alloc_buffer {
+>  	__u32 size;     /* in bytes for mmap() */
+>  	__u16 width;
+>  	__u16 height;
+>  	__u16 stride;
+>  	enum drm_mchp_gfx2d_pixel_format format;
+>  	enum drm_mchp_gfx2d_direction direction;
+> =20
+>  	__u32 handle;
+>  	__u64 offset;
+>  };
+
+[Severity: Medium]
+Does this UAPI structure also contain implicit padding holes and enum types?
+
+There is a 2-byte implicit padding hole after the __u16 stride field, and
+enum types are used for format and direction. Explicit padding fields
+and explicitly sized types should be used.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261006-cpitchen-m=
+ainline_gfx2d-v9-0-74bd3df2e183@microchip.com?part=3D2
