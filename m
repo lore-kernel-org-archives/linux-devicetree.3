@@ -1,181 +1,246 @@
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010017.outbound.protection.outlook.com [52.101.61.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 882DA3DBD51;
-	Tue,  6 Oct 2026 10:01:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9AD71E260C
+	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 10:06:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.179
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791280911; cv=fail; b=rXqBotqsjJb1WaYYd1P+IDNc1Xg3bIYoCQdMqqMpHqW9UMs5rbuP95r1ONvlIaKjBA2eeN5dngOFWmSdH3DoO26AmzuAu6/iIF1baA7YqKX4wbi7YTbCHN0CJa5wgeS/DvtjwnzG2WBhT0XRZmgZSP0kPMF54ufJUsPRU8HKo4Q=
+	t=1791281221; cv=pass; b=JcjRDrsBZkAKADaBvVl+AXjhCliOPz4ovsYRBVFKOa7+X9REH1WfMI8/OY3sigFveoOOGTCrtVnXTjrbWoHjAr58iJ5ArqSyGsoo4hMMIbMqnch2k8SdSrIk0FDmEYVIE04W+8h0rJ0gE7puWhMfHGQqBuO/R6vP5cCWYUSrl3A=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791280911; c=relaxed/simple;
-	bh=C/oDcs7ybgylxFkEf+8EonFn8lGCdFSOQG02UTYucrg=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=ND7+LewnGTmUTEr4uDJkod24ZFAnds2wKQUzwtxpmbIGy7RCFa4y0Un17ZRjToFbIE47qeK3JOKXfRGsRfnlYUu2uTZXj7OevsPNvq1B1O1wBN001nRV+5BDX5BQW7T5sKX2PQnbhP9GvOfFHqfVbSUEI38L9gSQtDFgBEc4sik=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=4hoakLv7; arc=fail smtp.client-ip=52.101.61.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1791281221; c=relaxed/simple;
+	bh=jXoCJSmZrRsEtjPvzR6W3LtMbjIzm96pCRvUzmkQjw0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=mxti4sO4AClEtvqkvBghX20dM2NTJHZO3UJvITMTxySvDRzTa0T8JMTpZVLANBwEmT/kg5QQMtbnBesGyWdrozcC6F2+tSAKbrKKhaIdofvl7tZ9PlFCXMlXzVbsK0VUVOWKC6VWy13stnrOsJxixIP6qmNwsE9FzDIKq8jIt+U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NQvktCp8; arc=pass smtp.client-ip=74.125.82.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="4hoakLv7"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=hctFFB97RFtTv51LuBQEbXCqfShemcbkHCRBuLDsRM6i8UckVRqmdYnQuylaJjIiRh4WdkNfPAblrDuD4tfPWyuHs03REz9TQQSlnQg3HeSTLL2siYWLEq1U9QcwJNXHyLgit8XwgOuOWSzDk85nsZQs4gF84zqgovzFHYGy6Y/v24ETtFyhvRZMBhDtKft7ixivJzesTt9P4qYZC3yddzKRCAteH1dH3OosX0LDHFgFvnB2q4Z+0NhBWCcwM78wler34m2q0I4Yxx92Els55jHi3gUfSlJh5mtn8mRpMwMClPy6SCn9/8F9eLYvv/5rGDv9pkGJonqhSxsLu3a5Wg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=C/oDcs7ybgylxFkEf+8EonFn8lGCdFSOQG02UTYucrg=;
- b=Vrsu29ce/UXqN+xaa6OZUVuuN27G9esFKRaiOjGw90YTiIb4QqKZqyUk+DsILsrfqyK0jDbbEgS70nbMUNHdZy+zkoR7GlAZo81yGCYGwDyDwwXw2UfhZCinT+hkmNu+CwKhHPEGesitoCA/Kd4EBJ4Fb7vWpe5q7oezb4nrE0xsckZsOaaPXzkqaV/iRc4G6hAyJ+sK6IIuI6l67SWblbAxTuJlipmDq2bfFeAiFLtzEU+P3fBDHe80X7d6h54/ih38m7gRIBR07uB2LrUqSj1tXOv6zQfgXlwKUJPKT2BqQz8p4wgl2zc8t1JGhS5ulGGS8fAuSEQnAiFFfTgsIw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=C/oDcs7ybgylxFkEf+8EonFn8lGCdFSOQG02UTYucrg=;
- b=4hoakLv726WxmpKn5IgSn7IUV1NmtQMKqZDQIiIgZl+HzADjo6l9kUCdvhM0wKAqBNWSG1vJbMA0DX/kdf8AwL/CAD4rQRHOd9j6rNRGm3blmaPa+L+E1iFtQ5L90BATm2mvTCv4QU6FhgLGtQ3Yk/nT0BqGHIDuD48zkgW3Cdg=
-Received: from IA4PR12MB9810.namprd12.prod.outlook.com (2603:10b6:208:551::13)
- by IA1PR12MB9524.namprd12.prod.outlook.com (2603:10b6:208:596::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.18; Tue, 6 Oct
- 2026 10:01:32 +0000
-Received: from IA4PR12MB9810.namprd12.prod.outlook.com
- ([fe80::2d21:ba94:fd95:5b0f]) by IA4PR12MB9810.namprd12.prod.outlook.com
- ([fe80::2d21:ba94:fd95:5b0f%3]) with mapi id 15.21.0496.010; Tue, 6 Oct 2026
- 10:01:31 +0000
-From: "Musham, Sai Krishna" <sai.krishna.musham@amd.com>
-To: Rob Herring <robh@kernel.org>
-CC: "bhelgaas@google.com" <bhelgaas@google.com>, "lpieralisi@kernel.org"
-	<lpieralisi@kernel.org>, "kw@linux.com" <kw@linux.com>, "mani@kernel.org"
-	<mani@kernel.org>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>, "cassel@kernel.org"
-	<cassel@kernel.org>, "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Simek,
- Michal" <michal.simek@amd.com>, "Gogada, Bharat Kumar"
-	<bharat.kumar.gogada@amd.com>, "Havalige, Thippeswamy"
-	<thippeswamy.havalige@amd.com>, "Sanwal, Pranav" <Pranav.sanwal@amd.com>
-Subject: RE: [PATCH v7 1/2] dt-bindings: PCI: amd-mdb: Add CPM6 support
-Thread-Topic: [PATCH v7 1/2] dt-bindings: PCI: amd-mdb: Add CPM6 support
-Thread-Index: AQHdMrTvqo5o8LbSa0mOVXC/Q8D+A7bTTx6AgB0+LfA=
-Date: Tue, 6 Oct 2026 10:01:31 +0000
-Message-ID:
- <IA4PR12MB9810F0345A3E7A7D3F28ADCDCD952@IA4PR12MB9810.namprd12.prod.outlook.com>
-References: <20260823040715.204096-1-sai.krishna.musham@amd.com>
- <20260823040715.204096-2-sai.krishna.musham@amd.com>
- <20260917192515.GA3283677-robh@kernel.org>
-In-Reply-To: <20260917192515.GA3283677-robh@kernel.org>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-msip_labels:
- MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Enabled=True;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SiteId=3dd8961f-e488-4e60-8e11-a82d994e183d;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_SetDate=2026-10-06T09:59:18.0000000Z;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Name=AMD
- General
- v26;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_ContentBits=3;MSIP_Label_198e8dea-a4f3-4850-b16a-fd6d2b1302b4_Method=Standard
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: IA4PR12MB9810:EE_|IA1PR12MB9524:EE_
-x-ms-office365-filtering-correlation-id: 50511413-64f5-4f57-e98a-08df2390cc35
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|376014|23010399003|366016|7416014|10067099003|56012099006|4143699003|11063799006|22082099003|18002099003|38070700021;
-x-microsoft-antispam-message-info:
- Rg49t7fv+WJAWUk2YVQ5HfpuH3Bd1ylagHJBROn/soUsyc+eGvJVnO8sU4MZlVDuOh1w8DXDjtOetEz5UUtXBiPRyqe7oWxMSIUQh1YJWlkHtNh5LobI3YhtpRJFUIVfF7Kb1M4L95iy70W2poF7vfVoyJoX8ga19og76q1t9O5V0IGafztDTNJjwHn/4HGYlvdezSyZciJJkBFi1Yz+F90qBQsR9c+pm80wxczoSs0Iut4WBKcqFsb4Nr0ctNVsmHQPQLqILM3SECZsNoFRGM7B5W0n2/st1DYuErvMQsscLgu0LlQxjtAv95+6wV9V6CpaNGrKCAGQ1JhOaGRetrocYU7HLGv3ctd+N5uOzROYGvhkY3HstGhRtik8e3C1bE9yGAWGLlGF6x4oGnV9ZuNQPoAgK2VpZ86YtylUPqn+eN+YUnKCc/OlukMboAqxUiDxpcSa/NTjlu6lr/2M36BJxYQ0bKYziLx9thwWzlSg82Y/3fCjLZTe4DUICNP60sWYSAqbcqXP7w032QB1M0lLmXLSQEZc1WiNtamK3BEg8P44tksz+7AeKm8j6SAAlNJiGxy6lej/4unTxHWEu1bSRmp55r3LPQnbFtMSfJyuYgzlSGDLRuF4deFCjlbZICV5b3/HF8tK97RXR8ieO32b+VbprtzyIeUmWW/9AqxI/hcu9mqCHNhMGGjFhaKbG/MUzgG3OuIomNiXsiBtMmBSTQaixvfGo9bgOXkOYjc=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA4PR12MB9810.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(23010399003)(366016)(7416014)(10067099003)(56012099006)(4143699003)(11063799006)(22082099003)(18002099003)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?by4tCdp01mPpgHI///IrzcAWaIAqo0BqKjymVCwqW9q2m9ja/9AVcya0zbeq?=
- =?us-ascii?Q?T71KKxFDobc0DG8uwUvoY8gaqEnbK5P0GxYwpEWJgvNo15lUcK7vCJqUSb0h?=
- =?us-ascii?Q?cNXCz0+LV06fuQcuSsBhLuNZMgkGTC0ufqcB4dD7m+lIn5iiZEtq0+jqmbS2?=
- =?us-ascii?Q?iYpqTHmyC/sRR7fTg4NJJNE7JX6FJycyqCFPaB+6QKCLDSdbFhuXtO4WVXlW?=
- =?us-ascii?Q?iDXY90yWmdRTqMK6NrNhuNF+s349LfGSgq7FPgP6aIl+4miqb+S+Vx73HOn2?=
- =?us-ascii?Q?++qbdWcYiQ4SnwL6+R7LmkYQTBytMSs1G8rLKPFhR0QV0WMY3uEt1zvhHuBO?=
- =?us-ascii?Q?J/TwzQ+/w3Q1fyt1QmQLVedmadsZd4LTEO1h/dTChOhuV6PBL6dRRYiPhglz?=
- =?us-ascii?Q?Dz32a/WeqNmnzY1h5LKcSG66YAYwVdzOGENppu+9yDdMOlm5dkYLtBynj3G0?=
- =?us-ascii?Q?nWC51W/pYoxPDpEbJhcplfBPEQ4MVpp6D5LSGm2VlcdH5wBPdTyWeTGcmJSJ?=
- =?us-ascii?Q?TEnMGUOUyxIceTjtzaWBeKi0xASJvNzjshM3zPCGHMacM+NC6cj/G2Rem7h1?=
- =?us-ascii?Q?DQUc5UOY/T5MRQKbtbvacJ58kZtTA7yXxbnlqz0vHmM4dxSu3fmd31ewfIk7?=
- =?us-ascii?Q?WBwZJX+bT4EftsxLu/oFrL0CggXLT3Gsp4wbS+dYSqCehscw+HHh0VRT6jAt?=
- =?us-ascii?Q?RVsLA15gyHqX3tj9LuIWJFcWn1I4u3PotEOOzB5fcLAWZ0aya5GHIRDnzbiF?=
- =?us-ascii?Q?VQBhHovb+kwHZJSC1qnlaExo7ptgqRuz9UZzCDgb+xK4bJrIqu46rMqAK2ZX?=
- =?us-ascii?Q?ngxwJ6iYYk8XvOkfEazDH/y4YUK7cE3ZF12ITvb4QZWMOXz35cB8GzqYzMVe?=
- =?us-ascii?Q?vId5hzR4A4nMdfRVxjQ1gtXm6zQeHrDUXYxyqmTAUJgA8Z0ekUkFbJ9dyoxF?=
- =?us-ascii?Q?zR+4SvQa1Nv9hv+bU+QanZZjzIfW3w55f2eYaUfEaaSBWLYM0ZtWtdQ9gkfl?=
- =?us-ascii?Q?pCGwLF5A/uiPVBwl7rnyhfqaFmwTcRl0DD1TWRcNtZK+9h0EpCJQNkEb5Sgd?=
- =?us-ascii?Q?UBupCV1i8dfIT7i0FD+t5tYwcA7zPf/Xfx+T4AzNdRhP9xvEyazk6qXYDYRE?=
- =?us-ascii?Q?fpibAVtUK9NHl3724lDXImmvoc6KR/mtg0ZAe1d0yv1FMaBbG/N45XgaQDWV?=
- =?us-ascii?Q?26JzPW0c1IRQxgDDvLN1QN+tP5Tit6MsfYSTQlFizoZN2u12+jTI6btDj9tU?=
- =?us-ascii?Q?+yPxpVuXyoOF1GBp2cO2aZ3zod/ZEJJVOpze6mpDHj2QLq/npq6wPciM/wzS?=
- =?us-ascii?Q?bnifGencDw+A1vVg35rMNqU251jcXUIpKJndLgymOTp20el0gGylx9+SAY0C?=
- =?us-ascii?Q?UfDW9H8uctFCV7sC81wJdfpK3x0bBefEzC2f0dEnNzHoH3EuLqpGVFIbKSFT?=
- =?us-ascii?Q?bbvSZKrMA6e31iv6+eNnBpsajXDX2ZrMor8mHsjd4YaHPkOMfEVI7gx02Gyc?=
- =?us-ascii?Q?XObmumJFpara1flvEyx/D110/NVRNjhKuJ5swqrxYqNCLycC9y5r0NsjDB6z?=
- =?us-ascii?Q?bEWK017xMnm8+dvf8s7TcGI/2aNK9jf159GW5HKuwpOA+tfmQ9rD2OJvgx27?=
- =?us-ascii?Q?LkU+0aYUuoggOfewNI5t+/Tpcw2JmYVSDkg45Nz7fm+JjEibH6YC8rPIzSTo?=
- =?us-ascii?Q?KHZ+4zmyEAvqtMbIPWXQSpGMYg5sYueQomNkm62Roysn1vz4?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NQvktCp8"
+Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3514e7cbbbaso547281eec.1
+        for <devicetree@vger.kernel.org>; Tue, 06 Oct 2026 03:06:59 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791281219; cv=none;
+        d=google.com; s=arc-20260327;
+        b=FS8+3oBATzMsCaIoy9xRkAaHOa9SKizLdSUHqzOBNrGTeAbKVLr3KldeEYSI8xhFLU
+         YMRHb5cAm/UDHT24XSe5Q1uL4heYb73taeeb0riWhSix883/ljJutOFdy6i7knldngE3
+         FeRuupZYhVzEJsKc526X6zfKILe6FVIKEEFek6nzwjAZ/bAQMV40xxnuqaFvjTEXgtey
+         smluxsRjxrzUo7qKsMNVncY2uoce+h4eVJr4i8jQGGQpTpdOaCVyjR2wekxVhRJEVfv8
+         fcr7GlOOCE+xPlB4ttTVgcPJgfjVI+SeoPI9ZWgx4iVt+5Zg6UPWYxWPXCStmgSBOd7l
+         cpBw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=6NBVbMbxanh8syK4XzpA91skjBSLQAwKVvNkTlGCE98=;
+        fh=tP0xjIYzfWTV3Tlj838TjziUQjzVyBolRVV4uhol7IE=;
+        b=df06Hc5q29arzZXRmsXIpEo+1rVAyhtSqW0SYcwcGf2a+y4kV+DE1w1ne4RdlK/bWI
+         mWnCpPQuttkYVU/59FZzaS+gW2JwWp31H4tRLrV3U4v6xNXtI4t/Qzg77Wsy3pxhyh/9
+         heQ4QsVBoQMF9eeRm/CA6c9ipmd8kkps1Ng+FW+8l9whUa5oCT/4in9GmU1wfp2fpAW8
+         Eub1NH6kSRuMN5U83NvTEo8vd8NJVPPmXRq3jOfmyoq4GD3121iAmjhkvcm+t/OK+1TA
+         Yd5qYJH9SyU+YpN0Y7h8vQUFt4anlzcoQPBJqKZKnmdTnbC0dx2yQDkL4fA6+wpkBacJ
+         rDMA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791281219; x=1791886019; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6NBVbMbxanh8syK4XzpA91skjBSLQAwKVvNkTlGCE98=;
+        b=NQvktCp8eEOXlgz+kjY7UmNhYqTf65ja4qKCDyllIKb58fSr4ZdIiBp39imPIIKEAM
+         +zbscR9PG+akcAyWbw5+NtFT/UG/2SXz/b0qJtNrgT/vOQjqyh3DOh7gzfycr6d56T69
+         Zy7V1AJe8Sy5wQkqmE+5fGgjpAjsRG3ul6sVyVrhbfdJXCgyEaPdKGXNCEJVb9Ti8TMh
+         b2d+WXnjzoKpmbb8XpWrhvmNMwijSNYxMpYAvr5h8xk6qvWoh6Il9FVd60VQnRwg9Zs4
+         2DWCkNHylDfGFw266DXaY+uy/D9Wo94FZz5LZkn/W6OJk1v6+he0ya8LEWD5Z8uiOzMF
+         LGcA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791281219; x=1791886019;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6NBVbMbxanh8syK4XzpA91skjBSLQAwKVvNkTlGCE98=;
+        b=JCUbUlzxuJXux8QeQfFRPsBOOpkRgA91/uFAbOcF9ezxVO3MS3QBkD2wSgakiFnsSM
+         O77kHt1WUeQWzJ/UWxxM7FQnNfFmheG3wJvJ8GO1uamaI2R4xUB6h7iCmbaqujX/HDR/
+         66KyU6ZJ7bTg1fZuPhKAxW3UDJ6EbZUuuhktFRwduEqECIvn2pMDupjuLD1NS0l2JQ4Q
+         36msLb2qfT3HeCiRYSQZPTqt0oLyyrYtoTj0PKFTQN4v8DpBsB71lj1bI3MYxjWOCHmb
+         vcL7SJLLcOasyf6mjro6LpundWHOIXImROlnNtMpc1z0k1H7pCE1XtT5kJ4yQZpz9NWe
+         QDLQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzcMZKhZjeQIeb/y1/bmE+WJ+OWQlT5MEZu/6UzndekrKJRgUSkJKRI5wyrgLyKnEe/7E0csdhvwaln@vger.kernel.org
+X-Gm-Message-State: AFq9FYI9FHQuwyy3SyYtczq15igjVXdJyB9+DYeXpX4P8ojLK9FzIX00
+	TKY/I6UIgjXpxi8bb3stSZ3nviV0v0cT0pm2TTopaZx7U2HW47mcFnoyWzchAz8SehGSI82hTB9
+	9DO6Lh3XCHyv+77vjRISy/aH/nRMRPh0=
+X-Gm-Gg: AYBFou00S0AEatRqewS2hRe8LYjI70F8X0U8epSAkaH8aintAV9B9y77SyUksHfdDZH
+	Wof6i4RuF3Bx2LwBsj3c+vRVawJA5q5rR1B6bzI/eXyQjlXu48tTBWiUFJV/1KrLohamcfj0ZC3
+	nBzQeg7KzmBp0Y1nh/sALDk7VujDDombcn6ZPSFF2QhXP1bSYCppyYAvfbQ7N6F9SLikHw9VCwr
+	PWlaHD6WY0Fw+07Dca5s0hAP9V/aaUkKennGQRz+13yzE6DNc39P532qq48a609hWt6zulziCNN
+	+K/sWFY6FYQZr7HyhJibu9QMniaKa+eu7TiceNxi/tCUO9nGPU+m33sgnRllhFb2X5rAksgMh3c
+	428iwUoWxCAmjcureo+bVxT4=
+X-Received: by 2002:a05:7300:fe83:b0:34d:2c1a:9881 with SMTP id
+ 5a478bee46e88-3514e2e4731mr1077709eec.36.1791281218726; Tue, 06 Oct 2026
+ 03:06:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: IA4PR12MB9810.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 50511413-64f5-4f57-e98a-08df2390cc35
-X-MS-Exchange-CrossTenant-originalarrivaltime: 06 Oct 2026 10:01:31.8128
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: eC6KdJm28B0dQFP6h+pcgV1NuoMIQ3FJ0tC4GVuXc93MuDkhGtKOx/FD5OvGWV2DYSfJ73W1DYrZjz7r1ce2vQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR12MB9524
+References: <20261004164121.193514-1-clamor95@gmail.com> <20261004164121.193514-3-clamor95@gmail.com>
+ <asPVmbvyslGgEsjk@aspen.lan> <CAPVz0n29+1yOO0i057RdpUAu+z85hhnm9GGaHkqgf5XW1SPfeQ@mail.gmail.com>
+ <asTBp2RPPvsD4AsU@aspen.lan>
+In-Reply-To: <asTBp2RPPvsD4AsU@aspen.lan>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Tue, 6 Oct 2026 13:06:47 +0300
+X-Gm-Features: AclHuK9B4BcbljbuUp4qHu8_KC4fu9LyfN3Q8g8blEUDDcIte_SIuNY9L1q_5iI
+Message-ID: <CAPVz0n1PMxOoHMJ3viKa-e3=tjZ6AtzffjnHE9kCFrz1tjezOw@mail.gmail.com>
+Subject: Re: [PATCH v2 2/3] mfd: aat2870: Convert to use OF bindings
+To: Daniel Thompson <danielt@kernel.org>
+Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Jingoo Han <jingoohan1@gmail.com>, linux-leds@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, mfd@lists.linux.dev, 
+	dri-devel@lists.freedesktop.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-AMD General
-
-Hi Rob,
-
-> -----Original Message-----
-> From: Rob Herring <robh@kernel.org>
-> Sent: Friday, September 18, 2026 12:55 AM
-> To: Musham, Sai Krishna <sai.krishna.musham@amd.com>
-> Cc: bhelgaas@google.com; lpieralisi@kernel.org; kw@linux.com;
-> mani@kernel.org; krzk+dt@kernel.org; conor+dt@kernel.org;
-> cassel@kernel.org; linux-pci@vger.kernel.org; devicetree@vger.kernel.org;
-> linux-kernel@vger.kernel.org; Simek, Michal <michal.simek@amd.com>;
-> Gogada, Bharat Kumar <bharat.kumar.gogada@amd.com>; Havalige,
-> Thippeswamy <thippeswamy.havalige@amd.com>; Sanwal, Pranav
-> <Pranav.sanwal@amd.com>
-> Subject: Re: [PATCH v7 1/2] dt-bindings: PCI: amd-mdb: Add CPM6 support
+=D0=B2=D1=82, 6 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 12:38=
+ Daniel Thompson <danielt@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
 >
-> On Sun, Aug 23, 2026 at 09:37:14AM +0530, Sai Krishna Musham wrote:
-> > The AMD CPM6 PCIe controller is based on the Synopsys DesignWare PCIe
-> > IP and integrates two PCIe host controller instances. Add the
-> > "amd,versal2-cpm6-host" and "amd,versal2-cpm6-host1" compatible strings
-> > to describe the HOST0 and HOST1 controller instances.
+> On Mon, Oct 05, 2026 at 08:18:31PM +0300, Svyatoslav Ryhel wrote:
+> > =D0=BF=D0=BD, 5 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 1=
+9:51 Daniel Thompson <danielt@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+> > >
+> > > On Sun, Oct 04, 2026 at 07:41:20PM +0300, Svyatoslav Ryhel wrote:
+> > > > Conversion of the AAT2870 driver to use OF bindings requires a few =
+complex
+> > > > changes that should be done simultaneously.
+> > > >
+> > > > The AAT2870 essentially provides two functions via child devices:
+> > > > backlight and regulators. Both functions are fairly self-sufficient=
+ and
+> > > > may not be populated on the final board. Consequently, the MFD
+> > > > registration API was replaced with of_platform_populate(), and each
+> > > > sub-device was given its own compatible string.
+> > > >
+> > > > Additionally, aat2870-core utilizes an enable GPIO. Obtaining this =
+GPIO
+> > > > was converted to use modern gpiod/OF helpers, allowing the redundan=
+t
+> > > > aat2870_enable() and aat2870_disable() helpers to be removed.
+> > > >
+> > > > The aat2870-regulator driver was updated to register each of the fo=
+ur LDOs
+> > > > from a dedicated OF node.
+> > > >
+> > > > The aat2870-backlight driver was changed to populate all required
+> > > > properties from a dedicated Device Tree node. Its channel map was u=
+pdated
+> > > > to use u8 instead of int. Furthermore, because the maximum current =
+is now
+> > > > parsed as an absolute value rather than an enum entry, the calculat=
+ion and
+> > > > application of the maximum current were updated accordingly.
+> > > >
+> > > > All of the changes above allow platform data to be removed entirely=
+.
+> > > >
+> > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > > > ---
+> > > >  drivers/mfd/aat2870-core.c            | 115 ++++++----------------=
+----
+> > > >  drivers/regulator/aat2870-regulator.c |  76 ++++++++++++-----
+> > > >  drivers/video/backlight/aat2870_bl.c  |  55 ++++++------
+> > > >  include/linux/mfd/aat2870.h           |  95 +--------------------
+> > > >  4 files changed, 111 insertions(+), 230 deletions(-)
+> > > >
+> > > > [snip]
+> > > >
+> > > > diff --git a/drivers/video/backlight/aat2870_bl.c b/drivers/video/b=
+acklight/aat2870_bl.c
+> > > > index 8b790df1e842b..933a8f728f66a 100644
+> > > > --- a/drivers/video/backlight/aat2870_bl.c
+> > > > +++ b/drivers/video/backlight/aat2870_bl.c
+> > > > @@ -15,11 +15,19 @@
+> > > >  #include <linux/backlight.h>
+> > > >  #include <linux/mfd/aat2870.h>
+> > > >
+> > > > +/* Backlight has 8 channels, each bit represents one channel */
+> > > > +#define AAT2870_BL_CH_ALL    0xff
+> > > > +
+> > > > +/* Backlight current magnitude (uA), 450uA current is eq to 0 */
+> > > > +#define AAT2870_CURRENT_MIN  450
+> > > > +#define AAT2870_CURRENT_MAX  27900
+> > > > +#define AAT2870_CURRENT_STEP 900
+> > > > +
+> > > >  struct aat2870_bl_driver_data {
+> > > >       struct platform_device *pdev;
+> > > >       struct backlight_device *bd;
+> > > >
+> > > > -     int channels;
+> > > > +     u8 channels;
+> > > >       int max_current;
+> > > >       int brightness; /* current brightness */
+> > > >  };
+> > > > @@ -30,7 +38,7 @@ static inline int aat2870_brightness(struct aat28=
+70_bl_driver_data *aat2870_bl,
+> > > >       struct backlight_device *bd =3D aat2870_bl->bd;
+> > > >       int val;
+> > > >
+> > > > -     val =3D brightness * (aat2870_bl->max_current - 1);
+> > > > +     val =3D brightness * aat2870_bl->max_current;
+> > > >       val /=3D bd->props.max_brightness;
+> > >
+> > > What is the purpose of max_brightness?
+> > >
+> > > Normally it is used to limit brightness but max_current is already do=
+ing
+> > > that. Is it just being used to reduce the number of steps in the
+> > > brightness scale (and if so, why is that useful)?
+> > >
+> >
+> > This is the original driver behavior; I did not modify it.
 >
-> That is clear from the diff. What's not clear in this patch, and I
-> probably already asked, what is the difference between host0 and host1?
-> Usually instances are not different compatibles...
+> I can see that but the parameters for these (rather dubious) previous
+> behaviours are now being copied into the devicetree bindings where they
+> become stable ABI.
+>
+>
+> > The AAT2870 backlight intensity is regulated by the Main Backlight
+> > Current Magnitude register. It has 31 steps from 450uA (0) to 27.9mA
+> > (31), so even setting max_current to 0 will not disable the backlight.
+> > The max current value may be limited for some configurations, which is
+> > why this property exists.
+> >
+> > The max_brightness property determines the maximum number of steps the
+> > backlight can have and is mapped to the available current range
+> > provided by the hardware. The backlight is controlled in steps, not in
+> > uA.
+>
+> This behaviour does not match the devicetree bindings documentation for
+> max-brightness:
+>
+>   Normally the maximum brightness is determined by the hardware and this
+>   property is not required. This property is used to put a software limit
+>   on the brightness apart from what the driver says, as it could happen
+>   that a LED can be made so bright that it gets damaged or causes damage
+>   due to restrictions in a specific system, such as mounting conditions.
+>
+> Hence the question, why is the current behaviour useful?
+>
+> If I understand your summary correctly the hardware has 32 steps
+> including 0) and the effect of max_current is to ban all brightness
+> values greater than max_current / AAT2870_CURRENT_STEP.
+>
+> If that is the case then max_brightness if fundamentally broken because
+> it's default value offers more steps than exists in the hardware.
+> bd->props.max_brightness should be set to max_current /
+> AAT2870_CURRENT_STEP and the whole of aat2870_brightness() should be
+> removed (use backlight_get_brightness() instead).
+>
+> IMHO the patchset will be cleaner if the weird max_brightness logic is
+> removed in a separate before doing the DT changes.
 >
 
-Thanks for reviewing, there is no functional difference between HOST0 and
-HOST1. They are two instances of the same CPM6 PCIe controller and support
-the same feature set.
+Noted, I will see what I can do. Thank you.
 
-The underlying hardware and driver behavior are identical between the
-two instances. The only differences are instance-specific resources,
-such as register regions and controller-specific interrupt status bits.
-
-I understand your point that instances are typically not represented by
-different compatible strings. Given that the driver needs to distinguish
-between the two controller instances for these instance-specific
-resources, could you please suggest the preferred DT representation for
-this case?
-
-Thanks,
-Sai Krishna
-
-> Rob
+>
+> Daniel.
