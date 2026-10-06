@@ -1,147 +1,84 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8221F4A2071
-	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 18:29:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5A253B71B3;
+	Tue,  6 Oct 2026 18:31:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791311372; cv=none; b=blm7pbC+5hsPDPb8L0UtBqK+MVmsbxPe0hX562zhR8x2iryUR8gSPd1ssZs2HcoLM25mRCjMOETOqGJ1HiYArGZ1/7Bxb4sB71MF1k1aehw0LvCXdKjcJ1mNZWDe71TgkCzlEc9n6EehXzIJCjmFxXj+YZE0fUuyId93z9xqt2s=
+	t=1791311511; cv=none; b=Sptzp8WqnDk3tIgRCbawOtRo7J+1DHGC9N/nhsWKdJ64FzcImQM9tBFgJXOjLwG3IsOGrerxUpa6QN5Hb+tq4+NU+FMqjTWW1X0rMpg0qTJbIvkfGyE345QvfmKmdf56n/TPR99fm6B5+fvJOHDeLjESh9fqyZZmsQXsq6QOwjA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791311372; c=relaxed/simple;
-	bh=BDa9ZJ9xBLiaRUOioBmnK1atNjxy8UObcdRA0rk33go=;
+	s=arc-20240116; t=1791311511; c=relaxed/simple;
+	bh=A7azKmerCt8GcJtRiXfBbb8azalt5qUya8Ts7OMbXfM=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=nygww3x7BxkTA2DuDBkOHxdKb0qncMafHRbrhw9kTwZqz5ZiG4CxL3NBSPPnRNfBiDgTCgfbTIv9qaWDEdNKVK6rI8YzKZsj5o6VAEUH+XuEBoTBEENx3Y6mXQ5Sy/QkBRgMIJBY0YA6GBWpMURn85x6NQ7rjyc4W/XTe7vG/og=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Orq1RLKt; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=nMJfdcJInIbj5Kj0quA0mXQrDevhtAklK9mNhmo7px7hbdYCP894XD7iAvWQX57qT/zTKejRhu+f9TMcyeLYC0Qe8gn0w1mp3J8knz05NyxgvHV0WlGdxi2XwOBkeBTksNzQoVuJxKsd+FrnEz5bao1IMOF5pv+NB1sj9zigDIU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bMpbRZhA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Orq1RLKt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06F601F0089B;
-	Tue,  6 Oct 2026 18:29:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bMpbRZhA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A90B1F0089B;
+	Tue,  6 Oct 2026 18:31:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791311369;
-	bh=W/ZdxLHnVC8X4YnIZOGrqAh4fCPWY3K1MLVM9hU1K8g=;
+	s=k20260515; t=1791311510;
+	bh=A7azKmerCt8GcJtRiXfBbb8azalt5qUya8Ts7OMbXfM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Orq1RLKteUl+Y4HWDPF7RoFJuax4uJShzrQrOABaL1GbF8trIaThT4Dv4myqLk/ZX
-	 dawYuDtYYfJzR41296peALdbZnHMfsZA/orJObRT9kg7at+XAvn3N0cIaCheQsdjO+
-	 vd9YrRC0QcjxjRxJk7gZuZ0bG7bQabzfe2gDs5pMl0ImAueRwNaCgZIC9hgtvCUFXz
-	 yrlEAa/FIRbgQZNLbVVC6N76ElE1hWNRrVR2zOwO6AdfAKV5nn10t1xjqNFy2lCc0B
-	 CtGVpJkbVx6VP4LuOJnqL+GwvA8MvtPAUSqlSnW1LXmYRud0yCctSt7Z4Uor9LRYcQ
-	 iKG1XGjw23rZA==
-Message-ID: <sashiko-outbox-162344@kernel.org>
+	b=bMpbRZhAe31X0cY3RT4YjF03gkQCbZ9LTQZbmV1Vp7VslFkTPMKn1GaBO6bAbN7rv
+	 WG9XPX4ra1GmlMSDJoGBljCS1CF6HgMzV/df7HACg7+F+7jG5ZKfJRbDlD1a3mrzIS
+	 c7+ZsAQrGDWuJzP8ZVwlfKcqWZuQ+ldB9YwHX7PqadvRPQOHrJWsih42E5L7nR8Gtf
+	 UAga8J1Dk/JT2dP1EMY8stOikq0z3TN95cu4erGC8HA6CS9PqY6UhIpwwNCoFCKd22
+	 MPykE4FMUqK8K1VWVkUgRbMqaMhrUDYhH9tDG9NzHwN5BMHZrF7HUzQxKhhc4yiEJM
+	 r5tT9T5eDqqxQ==
+Message-ID: <sashiko-outbox-162346@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 08/13] dt-bindings: iio: adc: adi,ad4134: Document
- SPI connection mode
+Subject: Re: [PATCH RFC v2 04/10] ARM: goldengate: Add support for the
+ CS75xx SoC family
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Marcelo Schmitt" <marcelo.schmitt@analog.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <6afeb3fcb39f73edde5f39f6f37a1ecea5523319.1791309733.git.marcelo.schmitt@analog.com>
-References: <cover.1791309733.git.marcelo.schmitt@analog.com>
- <6afeb3fcb39f73edde5f39f6f37a1ecea5523319.1791309733.git.marcelo.schmitt@analog.com>
+To: "Fil Dunsky" <filipp.dunsky@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, linux-serial@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20261006-b4-cs75xx-v2-4-b7d6e1e24d44@gmail.com>
+References: <20261006-b4-cs75xx-v2-0-b7d6e1e24d44@gmail.com>
+ <20261006-b4-cs75xx-v2-4-b7d6e1e24d44@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 06 Oct 2026 18:29:28 +0000
+Date: Tue, 06 Oct 2026 18:31:49 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] dt-bindings: invalid and incomplete constraints for spi-rx-bus-width
---
+> From: Fil Dunsky <filipp.dunsky@gmail.com>
+>=20
+> The Cortina Systems CS75xx ("Goldengate G2") are network processors
+> with two Cortex-A9 cores, an SCU, GIC, the Cortex-A9 global and private
+> timers and a PL310 L2 cache controller. The family includes at least
+> the CS7522 and the CS7542; the CS7542 is used, among others, in the
+> Securifi Almond+ router.
+>=20
+> Apart from the vendor this has little in common with the Cortina
+> Systems Gemini (SL3516/CS3516) supported by mach-gemini: Gemini is a
+> single ARMv4 FA526 with Faraday peripherals (FTINTC010, FTTMR010,
+> FTGPIO010, a 16550 UART) built for ARCH_MULTI_V4, while the CS75xx is
+> an ARMv7 MPCore whose UART, GPIO, interrupt controller and NAND
+> controller are different blocks. It therefore gets its own directory,
+> named after the Goldengate codename like in the vendor kernel. The
+> Kconfig symbol, ARCH_CORTINA_ACCESS, covers the whole family and is
+> named after Cortina Access, which last sold these chips and also makes
+> the newer 64-bit parts.
+>=20
+> The generic DT machine is sufficient for the platform, so only the SMP
+> bring-up needs code: the bootloader parks the secondary core in a WFE
+> loop that polls a global software register, so boot it by writing the
+> physical address of secondary_startup to the register named by the
+> cpu-release-addr property and issuing SEV.
+>=20
+> The CPU is a Cortex-A9 r2p1, so select the errata workarounds that apply
+> to that revision and can be enabled on a multiplatform kernel. The PL310
+> is r3p2 and needs none of the PL310 workarounds.
+>=20
+> Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
 
-commit a58d6d0037332b8cd9f5b3717ec4b6ddd8e36734
-Author: Marcelo Schmitt <marcelo.schmitt@analog.com>
-
-dt-bindings: iio: adc: adi,ad4134: Document SPI connection mode
-
-This commit updates the AD4134 device tree bindings to document different S=
-PI=20
-connection modes. It introduces the adi,spi-mode and #daisy-chained-devices=
-=20
-properties along with corresponding constraints for different wiring=20
-configurations.
-
-> diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml b/=
-Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
-> index ea6d7e0264190..970e7adb2405b 100644
-> --- a/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
-> +++ b/Documentation/devicetree/bindings/iio/adc/adi,ad4134.yaml
-[ ... ]
-> @@ -141,13 +161,36 @@ required:
->    - clocks
->    - clock-names
-> =20
-> -oneOf:
-> -  - required:
-> -      - ldoin-supply
-> -  - required:
-> -      - avdd1v8-supply
-> -      - dvdd1v8-supply
-> -      - clkvdd-supply
-> +allOf:
-> +  - oneOf:
-> +      - required:
-> +          - ldoin-supply
-> +      - required:
-> +          - avdd1v8-supply
-> +          - dvdd1v8-supply
-> +          - clkvdd-supply
-> +
-> +  - oneOf:
-> +      - required: ['adi,spi-mode', '#daisy-chained-devices']
-
-[Severity: Low]
-Neither chain configuration includes spi-rx-bus-width in the required list.
-
-Since JSON Schema property constraints only evaluate when the property is=20
-present, omitting spi-rx-bus-width from a chain node bypasses the hardware=
-=20
-constraint.=20
-
-Should spi-rx-bus-width be added to the required lists so the SPI controlle=
-r=20
-doesn't silently initialize with a single receive lane?
-
-> +        properties:
-> +          adi,spi-mode:
-> +            const: one-channel-chain
-> +          spi-rx-bus-width:
-> +            const: 1
-
-[Severity: Low]
-Because the core SPI bindings define spi-rx-bus-width as a uint32-array,=20
-evaluating a device tree value (such as <1>, parsed internally as the JSON=
-=20
-array [1]) against a scalar causes a strict type mismatch.=20
-
-Could this falsely reject valid configurations during dt_binding_check?
-
-> +      - required: ['adi,spi-mode', '#daisy-chained-devices']
-> +        properties:
-> +          adi,spi-mode:
-> +            const: two-channel-chain
-> +          spi-rx-bus-width:
-> +            items:
-> +              - const: 1
-> +              - const: 1
-
-[Severity: Low]
-This array items constraint validates the first two lanes, but it lacks bou=
-nds=20
-checks.=20
-
-Does this need minItems: 2 and maxItems: 2 to properly restrict the overall=
-=20
-length of the array?
-
-> +      - properties:
-> +          '#daisy-chained-devices': false
-> +          adi,spi-mode:
-> +            enum:
-> +              - no-cs
-> +              - 4-wire
+Sashiko has reviewed this patch and found no issues. It looks great!
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1791309733.gi=
-t.marcelo.schmitt@analog.com?part=3D8
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261006-b4-cs75xx-=
+v2-0-b7d6e1e24d44@gmail.com?part=3D4
+
