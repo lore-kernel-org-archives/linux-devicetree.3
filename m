@@ -1,140 +1,196 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5BE43EEAF8;
-	Tue,  6 Oct 2026 12:15:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8423B39A7EF;
+	Tue,  6 Oct 2026 12:16:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791288943; cv=none; b=lpVOH7/zMtajWZ64PH5Ot4OmNj2zbnj1To+hxGKQZc1o9SFgVfJ28aZhxAYcHwlUMk3v5GqZduht0cKEQ7AH9xuxuHwTKFRH+qJ+3nQiCsXXEQLZb6pUKbMDzSpBaEL6li+R+4osZA64DWt+24EqvHoQ1Vl/1t5dqvmynx+gF/A=
+	t=1791288987; cv=none; b=tWCYUsRtLdR58FmS414Ne9WX29uYMqqBTxOh79fhHAc7bxa+J/svYB3P6AfVcfY3R+v2q6soZGBevUSsvCbhonTu9yNgHj61J/Lw2sf13TVXrQ4Ou4HbE0NqptYPGndQGkobLbjC27p7QXMHC3Jb3smVauPpHHhlLgS11+DC08k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791288943; c=relaxed/simple;
-	bh=0deulQ1kIGuJRh4MmwOsQAYnS8UbaVp2fh4+ZadIOc0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=XuICdayPqf6XDatdDz1uZ/AXCvskb7CQlSke1qIGA5wIvLanTOmeIFId7CTrSUUdFAK0wYwRlgBalYwPrYqn30HoZK9+WGdu1xA7obAnrlPxaSncLmv/0hjTj3VTxUI+lECJcAyiLmLjWJ8CzYK1szbYN/9El+qM4KflRsv5kXQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YSs3V3OL; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791288987; c=relaxed/simple;
+	bh=TBS5GBEQ+BQ1mfJ/fxBa32HZcsgKA+CW7tg1R0oCgqw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QgWC/PVWkNSdHhjc7X+pw75vNDmCFUqogceloiaTo6NqioGiSsMOMKmU/GOIZspy6tGNr9+bm0FwGHwysR61qkqR5xYO0wT0m58HTy1RhobadI9fyyrP226If1gjlHO3T6YsNi47ICwmf7cgl/oYmyE6li28m17TtG6Ul6YMrBk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=jzckIVqE; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YSs3V3OL"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 34AA0C4DDE3;
-	Tue,  6 Oct 2026 12:15:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791288941;
-	bh=0deulQ1kIGuJRh4MmwOsQAYnS8UbaVp2fh4+ZadIOc0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=YSs3V3OL57jJ3tSVJ9MgQ6WwGe1MLVA7+kRx/zm+YAA+28ZQm1ucMjaEDyto+nERk
-	 D8K1CWUXrkB3TKuM9/AwDl63uYeGrlNL/g3ML7ucMiZkKyPmz2jgWqGnhrDdGZaORo
-	 Y30AI0og3bP6CRhXCrNrDc3htVMXoGRhjNt+NcIWUUnLOS8Ic9OUezQRbx4ntx5Sq5
-	 JlV6Kgi/64WyfRBW0gwhoxkKxpZCAZFYDEsyPCvUVc56MNgZezxTDwJVqnKgF14S2x
-	 wPJGTC3OUMmA7tmNhF+SGSrFAAd4Hm9swUibtowRUTRluSiIm+iDs9N6jOyltF0Buy
-	 xHstTCTsIJpLg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 1FC49CA5FFC;
-	Tue,  6 Oct 2026 12:15:41 +0000 (UTC)
-From: Muzaffer Kadir via B4 Relay <devnull+muzafferkadir.mainlining.org@kernel.org>
-Date: Tue, 06 Oct 2026 15:15:13 +0300
-Subject: [PATCH v4 6/7] dt-bindings: input: touchscreen: goodix: Add
- binding for GT970
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="jzckIVqE"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 745491516;
+	Tue,  6 Oct 2026 05:16:21 -0700 (PDT)
+Received: from [192.168.178.24] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id D51F73F66F;
+	Tue,  6 Oct 2026 05:16:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791288984; bh=TBS5GBEQ+BQ1mfJ/fxBa32HZcsgKA+CW7tg1R0oCgqw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=jzckIVqEn6x7dUQWuh/LMixBqqMfPzPxRr2+z0EDMQN+GaRRYPotA//6f3z7yqkQN
+	 kr/bIlyMo68oM4bckrS8hgl+SYaDn+PqSxtZNPRhq+VEViy47pArx3Vpku30C6JNV+
+	 v6n8PvMIhi7vl0eWXEaX5cTPPf6/zCZyKwu69B7Y=
+Message-ID: <603b4f40-2a60-4bc5-8b98-ada7a52fead9@arm.com>
+Date: Tue, 6 Oct 2026 14:16:21 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/3] serial: 8250_dw: Add Allwinner A733 UART
+To: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>,
+ linux-serial@vger.kernel.org
+Cc: gregkh@linuxfoundation.org, jirislaby@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, andriy.shevchenko@linux.intel.com,
+ ilpo.jarvinen@linux.intel.com, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-sunxi@lists.linux.dev,
+ Enzo Adriano <enzo.adriano.code@gmail.com>
+References: <20261005172538.398522-1-vinicius.eduardo.pedrosa@gmail.com>
+ <20261005172538.398522-4-vinicius.eduardo.pedrosa@gmail.com>
+Content-Language: en-GB
+From: Andre Przywara <andre.przywara@arm.com>
+In-Reply-To: <20261005172538.398522-4-vinicius.eduardo.pedrosa@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261006-msm8952-initial-support-v4-6-ecdcc1ac620c@mainlining.org>
-References: <20261006-msm8952-initial-support-v4-0-ecdcc1ac620c@mainlining.org>
-In-Reply-To: <20261006-msm8952-initial-support-v4-0-ecdcc1ac620c@mainlining.org>
-To: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
- Konrad Dybcio <konradybcio@kernel.org>, Amit Kucheria <amitk@kernel.org>, 
- Thara Gopinath <thara.gopinath@gmail.com>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
- Lukasz Luba <lukasz.luba@arm.com>, Bjorn Andersson <andersson@kernel.org>, 
- Abel Vesa <abelvesa@kernel.org>, Kees Cook <kees@kernel.org>, 
- Tony Luck <tony.luck@intel.com>, 
- "Guilherme G. Piccoli" <gpiccoli@igalia.com>, 
- Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, iommu@lists.linux.dev, 
- linux-pm@vger.kernel.org, linux-input@vger.kernel.org, 
- Muzaffer Kadir <muzafferkadir@mainlining.org>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791288938; l=1656;
- i=muzafferkadir@mainlining.org; s=20260816; h=from:subject:message-id;
- bh=WcI6NF2jH7/1jsgO/qq/6GfopHH27DV/LBlXLYlg2yo=;
- b=qL6ny7alhXWGpoNICSK8rqcxx5rVT8AO4gqTTVM1VOiJghV3hha3+wEm2zkfLYwxGFnWrKkdB
- CiBfsku2srqBULzKViXaAPwEvtmVKLN7hPJ3f0A3H2Sq5znJgcDSkAl
-X-Developer-Key: i=muzafferkadir@mainlining.org; a=ed25519;
- pk=4zkv4suQ3cYcO4Z7CrV8JSSjEGLBGepUtvQCFjgnYIU=
-X-Endpoint-Received: by B4 Relay for muzafferkadir@mainlining.org/20260816
- with auth_id=954
-X-Original-From: Muzaffer Kadir <muzafferkadir@mainlining.org>
-Reply-To: muzafferkadir@mainlining.org
 
-From: Muzaffer Kadir <muzafferkadir@mainlining.org>
+Hi,
 
-GT970 works with GT911 driver, document it to be
-used with GT911 compatible.
+about the rate settting ...
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
----
- .../bindings/input/touchscreen/goodix.yaml         | 35 ++++++++++++----------
- 1 file changed, 20 insertions(+), 15 deletions(-)
+On 10/5/26 19:25, Vinicius Pedrosa wrote:
+> The A733 UART is clocked from its bus clock gate, which can't change
+> rate. dw8250_set_termios() still gates it around a no-op clk_set_rate()
+> on every termios change. That stalls the character being shifted out
 
-diff --git a/Documentation/devicetree/bindings/input/touchscreen/goodix.yaml b/Documentation/devicetree/bindings/input/touchscreen/goodix.yaml
-index a26a54d63a1c..4be2c137abd7 100644
---- a/Documentation/devicetree/bindings/input/touchscreen/goodix.yaml
-+++ b/Documentation/devicetree/bindings/input/touchscreen/goodix.yaml
-@@ -14,21 +14,26 @@ allOf:
- 
- properties:
-   compatible:
--    enum:
--      - goodix,gt1151
--      - goodix,gt1158
--      - goodix,gt5663
--      - goodix,gt5688
--      - goodix,gt911
--      - goodix,gt9110
--      - goodix,gt912
--      - goodix,gt9147
--      - goodix,gt917s
--      - goodix,gt927
--      - goodix,gt9271
--      - goodix,gt928
--      - goodix,gt9286
--      - goodix,gt967
-+    oneOf:
-+      - enum:
-+          - goodix,gt1151
-+          - goodix,gt1158
-+          - goodix,gt5663
-+          - goodix,gt5688
-+          - goodix,gt911
-+          - goodix,gt9110
-+          - goodix,gt912
-+          - goodix,gt9147
-+          - goodix,gt917s
-+          - goodix,gt927
-+          - goodix,gt9271
-+          - goodix,gt928
-+          - goodix,gt9286
-+          - goodix,gt967
-+      - items:
-+          - enum:
-+              - goodix,gt970
-+          - const: goodix,gt911
- 
-   reg:
-     enum: [ 0x5d, 0x14 ]
+So isn't that a bug somewhere else then? Why would it gate the clock to 
+set the rate? Shouldn't this decision be left to the CCF, where we have 
+CLK_SET_RATE_GATE and CLK_SET_RATE_UNGATE to describe the clock's 
+requirement? For instance the A733 manual says:
+"Note: The clock MUX/DIV provides glitch-free switching
+and supports dynamic configuration."
+So we can both change the mux and the divider without gating.
 
--- 
-2.55.0
+And secondly, why does the termios code gate the clock when it's 
+apparently not safe to do so, because the UART is not quiescent?
 
+And what is your use case here, exactly? Do you reconfigure the baud 
+rate while characters are incoming? That would garble characters anyway?
+
+One thing you could try: the binding and the code support separate bus 
+gate and baud rate clocks. So can you just expose CLK_APB1 as the baud 
+rate clock in the DT? This would allow to change the rate, which is also 
+beneficial, because at least on the current H6 generation U-Boot code 
+(clock_sun50i_h6.c) we set the UART APB to 24MHz, so limit ourselves to 
+1.5Mpbs. With APB1 set to 100 or 160 MHz, we could get higher baud 
+rates, and exposing the mux+divider clock should allow to set the rate. 
+I think the CCF would still need to negotiate with the other users, 
+which are I2C and PWM, but that's something to solve there.
+
+Cheers,
+Andre.
+
+  > and corrupts it on the wire. Use the existing SKIP_SET_RATE quirk, as
+> other SoCs with a fixed UART clock do.
+> 
+> Offset 0xc0 is the RS485 control register on this SoC (A733 User
+> Manual, UART_485_CTL), not DLF. dw8250_setup_port() writes all ones
+> there, reads back a nonzero 9-bit value and takes it for a 9-bit DLF.
+> Every later divisor change then writes the fractional divisor into the
+> RS485 control register. Add a NO_DLF quirk so dwlib skips that probe.
+> 
+> Signed-off-by: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
+> ---
+>   drivers/tty/serial/8250/8250_dw.c    | 13 +++++++++++++
+>   drivers/tty/serial/8250/8250_dwlib.c | 22 ++++++++++++----------
+>   drivers/tty/serial/8250/8250_dwlib.h |  1 +
+>   3 files changed, 26 insertions(+), 10 deletions(-)
+> 
+> diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/8250_dw.c
+> index ba414306c98a..ea33aa644cda 100644
+> --- a/drivers/tty/serial/8250/8250_dw.c
+> +++ b/drivers/tty/serial/8250/8250_dw.c
+> @@ -52,6 +52,7 @@
+>   #define DW_UART_QUIRK_CPR_VALUE		BIT(5)
+>   #define DW_UART_QUIRK_IER_KICK		BIT(6)
+>   #define DW_UART_QUIRK_SKIP_EMPTY_FIFO_READ	BIT(7)
+> +#define DW_UART_QUIRK_NO_DLF		BIT(8)
+>   
+>   /*
+>    * Number of consecutive IIR_NO_INT interrupts required to trigger interrupt
+> @@ -606,6 +607,8 @@ static void dw8250_quirks(struct uart_port *p, struct dw8250_data *data)
+>   		p->serial_out = dw8250_serial_out38x;
+>   	if (quirks & DW_UART_QUIRK_SKIP_SET_RATE)
+>   		p->set_termios = dw8250_do_set_termios;
+> +	if (quirks & DW_UART_QUIRK_NO_DLF)
+> +		data->data.no_dlf = true;
+>   	if (quirks & DW_UART_QUIRK_IS_DMA_FC) {
+>   		data->data.dma.txconf.device_fc = 1;
+>   		data->data.dma.rxconf.device_fc = 1;
+> @@ -892,6 +895,15 @@ static const struct dw8250_platform_data dw8250_skip_set_rate_data = {
+>   	.quirks = DW_UART_QUIRK_SKIP_SET_RATE,
+>   };
+>   
+> +/*
+> + * The baud clock is the bus clock gate, whose rate cannot change, and offset
+> + * 0xc0 is the RS485 control register rather than DLF.
+> + */
+> +static const struct dw8250_platform_data dw8250_sun60i_a733_data = {
+> +	.usr_reg = DW_UART_USR,
+> +	.quirks = DW_UART_QUIRK_SKIP_SET_RATE | DW_UART_QUIRK_NO_DLF,
+> +};
+> +
+>   static const struct dw8250_platform_data dw8250_intc10ee = {
+>   	.usr_reg = DW_UART_USR,
+>   	.quirks = DW_UART_QUIRK_IER_KICK,
+> @@ -913,6 +925,7 @@ static const struct dw8250_platform_data dw8250_tda54 = {
+>   
+>   static const struct of_device_id dw8250_of_match[] = {
+>   	{ .compatible = "snps,dw-apb-uart", .data = &dw8250_dw_apb },
+> +	{ .compatible = "allwinner,sun60i-a733-uart", .data = &dw8250_sun60i_a733_data },
+>   	{ .compatible = "cavium,octeon-3860-uart", .data = &dw8250_octeon_3860_data },
+>   	{ .compatible = "marvell,armada-38x-uart", .data = &dw8250_armada_38x_data },
+>   	{ .compatible = "renesas,rzn1-uart", .data = &dw8250_renesas_rzn1_data },
+> diff --git a/drivers/tty/serial/8250/8250_dwlib.c b/drivers/tty/serial/8250/8250_dwlib.c
+> index 9bb02a4ab11f..9c6f3d926ad5 100644
+> --- a/drivers/tty/serial/8250/8250_dwlib.c
+> +++ b/drivers/tty/serial/8250/8250_dwlib.c
+> @@ -209,16 +209,18 @@ void dw8250_setup_port(struct uart_port *p)
+>   	}
+>   	up->capabilities |= UART_CAP_NOTEMT;
+>   
+> -	/* Preserve value written by firmware or bootloader  */
+> -	old_dlf = dw8250_readl_ext(p, DW_UART_DLF);
+> -	dw8250_writel_ext(p, DW_UART_DLF, ~0U);
+> -	reg = dw8250_readl_ext(p, DW_UART_DLF);
+> -	dw8250_writel_ext(p, DW_UART_DLF, old_dlf);
+> -
+> -	if (reg) {
+> -		pd->dlf_size = fls(reg);
+> -		p->get_divisor = dw8250_get_divisor;
+> -		p->set_divisor = dw8250_set_divisor;
+> +	if (!pd->no_dlf) {
+> +		/* Preserve value written by firmware or bootloader  */
+> +		old_dlf = dw8250_readl_ext(p, DW_UART_DLF);
+> +		dw8250_writel_ext(p, DW_UART_DLF, ~0U);
+> +		reg = dw8250_readl_ext(p, DW_UART_DLF);
+> +		dw8250_writel_ext(p, DW_UART_DLF, old_dlf);
+> +
+> +		if (reg) {
+> +			pd->dlf_size = fls(reg);
+> +			p->get_divisor = dw8250_get_divisor;
+> +			p->set_divisor = dw8250_set_divisor;
+> +		}
+>   	}
+>   
+>   	reg = dw8250_readl_ext(p, DW_UART_UCV);
+> diff --git a/drivers/tty/serial/8250/8250_dwlib.h b/drivers/tty/serial/8250/8250_dwlib.h
+> index ee7a07fac0f6..ca0dfd6d056e 100644
+> --- a/drivers/tty/serial/8250/8250_dwlib.h
+> +++ b/drivers/tty/serial/8250/8250_dwlib.h
+> @@ -88,6 +88,7 @@ struct dw8250_port_data {
+>   	/* Hardware configuration */
+>   	u32			cpr_value;
+>   	u8			dlf_size;
+> +	bool			no_dlf;		/* Offset 0xc0 is not DLF */
+>   
+>   	/* RS485 variables */
+>   	bool			hw_rs485_support;
 
