@@ -1,63 +1,63 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AABC83C10A9
-	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 12:47:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5699B3EC69C
+	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 12:47:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791290867; cv=none; b=e1Bi5y/Ui2oELMY1u7wl1YqsjkrghdYyASbaCHWlB46Gt/cNelRySPhma/CEHkw+Il/GNzydesU3A/lCAMUgTnsNwnYuAB0dGfQHjvAR/on0O4OuNYmMSOE5/eWabM202KZ7bhVWLm5pcIUs9AejGyGpljd+sTGbF8ltSX3O+cc=
+	t=1791290872; cv=none; b=aIunwVMiWErU7LChNzrpOStRJ2XGD3/s0EutNUYCh5bL5kX/fNH5bOwGb31iYxgPQ8XpkMS/LgwaLfm9dP21qBEOWr0HNUE32WDbNPm/f9IrUyfyn3JQYl53NmhG8dw18l0NrGqBtz1uJ0vkh+Bs1oESFhO+CLxg4P+8B4aBfzU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791290867; c=relaxed/simple;
-	bh=j6mlx9CPkum7bpd93df0KuA9wXWsuLKzELZc3PzmjK4=;
+	s=arc-20240116; t=1791290872; c=relaxed/simple;
+	bh=8BEd9pOmcZGMI9o1dv26yM8HUC5GCtUJRwGdm5AKk/A=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Y12kYRkmpoTA085L+zYxVe9oD4j7p0dIxpdrWgjVZj3zCsF+nNY9F7SRPeiNYhkp3SK6NNE9L585mwuS7BdK034Qa+vmCtstqza1gF9v3dhHErqlGRAI9NR3rU3f0lvdgoXj4PCy6kkJ91yPyiqCBSYXGxvOXDAe99/0OZIlbkY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=dBtWmZ0k; arc=none smtp.client-ip=209.85.128.45
+	 MIME-Version; b=ZWo6ZxkcpW0EfSgaNREL1DGNu9QB0P6KAXjqDowYjT1CDkpAprzP7ptvVelbMqRgaMQYvjkZ2dXQG2rBzaotFRapEjhspx3yRSLOWERufvu7aWS708c+F3k3VOhBUQ7eJCtjbz/Z2OfBfZWU2qwT7mPE/+UgMXB0mPagYV5OcQ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=Q6T8ZaDG; arc=none smtp.client-ip=209.85.221.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="dBtWmZ0k"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a168355946so6635545e9.0
-        for <devicetree@vger.kernel.org>; Tue, 06 Oct 2026 05:47:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="Q6T8ZaDG"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-48c4649b35bso2898266f8f.3
+        for <devicetree@vger.kernel.org>; Tue, 06 Oct 2026 05:47:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=lex.la; s=google; t=1791290859; x=1791895659; darn=vger.kernel.org;
+        d=lex.la; s=google; t=1791290863; x=1791895663; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=URnF0WpPNT76iwwx4OUHbknNShXeDW8wlFWgezHCYwk=;
-        b=dBtWmZ0k8CwfKgtLEQbpYwUdconweRIQDnJ+hj2SlCqykC/27iUMZ/xGWduTT7Hpx1
-         lIvdnTPRsn04NtXKqJC0nVlU3CiJZisPz7RIxtuVoDKHdyyAMS2y6lf5X11zsXbJNzpb
-         fFMDOc7TWbjrHSCE2Eyq5kvgawoi+6S6sdSnqqIbRTBEkaftmh/J17Ca1fQ1JEdrzGE5
-         AD/palnI4ZUTfoVRcTlKwSRBGjIXy1kar1BjW/eTUIhtnlPKX2z+Mkee5o5/ucI0/M+z
-         RIkNJlKxsRrfrlsUuhvx2nBbjPcz+9/38Uz+EZt8uHUbobDgMSNV3EbESX31+UIaYujh
-         2B/w==
+        bh=OC5mtqfzbzgIq1/X/NhSCNyVOEfRnsAKjvbmtawFpSk=;
+        b=Q6T8ZaDGBQalq5djdVaWXQdktxralCcEzEHUyls7DfUmEQW2Ra8vNLQ3s2eX5N23p6
+         Z4dBz4/HE8GeAH86foTJ2eYONGtasg7k/6Y/Yh3GV+8vzdbSK1eBReE93iKQvjzfDUf8
+         FHBVG4YjcyQuUOlQb+E/pUMC44QDRbbu4hNHvmMXq0O9bsFubTg4hzXREPsdpEVjysXp
+         BVfjT4wKNhFTWCqmCgGPLa+yEMNLrU9nLH3tmJQFKKwpGPwcTc3+BbfEppAi25b/N0em
+         g884yTzW3QJczyUoM+o8Hf7DotaILrkNsikGHJuV/mrSPV/bpOdFZ+R2521ZXIcr1Wqa
+         hqBg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791290859; x=1791895659;
+        d=1e100.net; s=20260707; t=1791290863; x=1791895663;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=URnF0WpPNT76iwwx4OUHbknNShXeDW8wlFWgezHCYwk=;
-        b=kMhkrSBk4Si6ph+M9fnce6oUON1IS+gukCJtGpaaGqJvcWS8vLxgpzfCQDSYMqpqnP
-         Qb66Eqh3pi5kzMQLc/LDuL0Xa67sAvJOpHPe8brhNbBbxNktN4zYVkzFuZfGjck0uRyd
-         JJgw/zBrVjO/eSEhcbGhv59z0R4s0dxoIwf2g52pqweCa6Z4kgR5JcbcuBidb9k11gEv
-         8Zz1VnmwfhtCRWqmOd4vvpRQL9/ayukTIKT6p7W5foohWCP48Q2LYqg3MgQz8KB3C3tc
-         SXzEBxlrHNvxEBgaUIW67TB2Fem2lJ07MZTvQkE6FL0AtPVcxaQp/5Pm4nbvuE2p2jR2
-         DWIg==
-X-Forwarded-Encrypted: i=1; AKwUvBxYckKqWUecH7GXfpmgh6KJBghMHLPEFnQu7RqMeGWeDyqWX/zeUvvdmyEkVK5f7G2eZNjDK1SREI1k@vger.kernel.org
-X-Gm-Message-State: AFuF++lGR5lFZzQfsBII+uUeX4mx/8WR/nLLS1pXeYymxOiXejWpaVL2
-	+KHkOh1oMB8tRwdkg4xKeflqHxrsWLpMp8o6ukEcHKgGJAgVXvGh2A46C48dKYSXhUA=
-X-Gm-Gg: AYBFou1t9cck7aXyoAIq1sYR5XhqvoVYL8HEhURwlg47uKm6gQhZmMtdSIP9knRbLzW
-	k5OEsUsmXCwCWJxSfDiFRw4FiGblqP/kQPaLFzx/jG4+n0VME6Nh75MQgpqvu1eF5agI+DE1eFJ
-	3o6VcpzXEVyWYb/7LO14CetFp1/ffMX7Z5z6C9kxVd7igC4ZJEVzLR2R6fpPjhvtsc0TM3+KOXq
-	s1xjPf0esFTSqBbbWkfZhrwlAsjggeSNq34OX54AdBAtBY7O+0TkZYJGf5xhxb6nU3/foqffX8n
-	osWvtG1cn2p/UzyrJtuAaxZcC01zAJ/2djADgYGarnzWU5m4mLKt4xBBejF2vlXaoKpsT8pAzF6
-	YI7HCFEqp5n46C9Ln6SDrqv6kZrY3XjYb4sG827Ccy3KaoBEouP+UWKnypJGt682nwzH/W/HkZC
-	CL0/yjKMzF7+/OQymM6vk3GPN1B5x0n6q5+7x3bLCa+P8Y1lYN7Q==
-X-Received: by 2002:a05:600c:4f81:b0:49d:4ef:bf70 with SMTP id 5b1f17b1804b1-4a17b53be50mr23583605e9.10.1791290859097;
-        Tue, 06 Oct 2026 05:47:39 -0700 (PDT)
+        bh=OC5mtqfzbzgIq1/X/NhSCNyVOEfRnsAKjvbmtawFpSk=;
+        b=T3J5p4BHuqfSxYR7elrgp3n1AJ25Rag3es/2JmKbrhQQZyTqrsmD8LlTiu78wYRxfH
+         DqJdTMqE7m2L94PlTaWZlS4DEjuEfh7tD0rweJW7E9x6CQWvh8i1/GVytgOXQqTqRUN0
+         Nfm8WmEE9HNKmtFw1DlxcIvCPezqPGWwamTenYdaiJxvAPvCtIvFmdK48fxsRklfpkpo
+         AlV3IZh4SrLM1gEYVFqw7qWRMtbZfmGwVgNuHd3mmF0tGiK/S+lkl5hvccVx1hIBFLhb
+         ZKAbrr6Ih+I75af0MC1bEbtKHzOA13IEHKghK5fJWiv4tNsysFemanFM4KbypJncEkRG
+         lFRw==
+X-Forwarded-Encrypted: i=1; AKwUvBz2jSkmXly+k1bTl1Hv+LquBOXdxtvMljHyLwb/EbS++zVKdU2HAvgA3fln5a1zGwqKgRG1wBnuZAQf@vger.kernel.org
+X-Gm-Message-State: AFq9FYLYnCzSrx1c+7eNmwTkEubaR25nCfigR421AKnzf/nMEEIN/uNK
+	vE1FnolmlSLcM/MRJFNPRp8A4pbtmjudXovTDFUJoZGfXRvcdXB62Mz92ubby2TGQPM=
+X-Gm-Gg: AYBFou35nedS5BVy0rAes2Hgcl2gqI3HFYdXIPjdz3Y+Wvu85wZn2NBzx3KyoTnqAj6
+	ZqRdNAbhSWby5eUXZT6eAGoMte8N1PwkX2IVYkliVitlbrzdA0NvqFV+FEi9B5mgLvmsk+78Em0
+	SXT96EsYnYKBo1gtquH/B2bbcClhbVrArk7569zfAsrB7vkS4PU8b6kJo7EysOXcOcalfj5mXwG
+	BwVw9g1rjW5N6EKYlXAPxVlobkN2Q9jPrpn3lEIt96gGarm2SsezzH2kGNmuma+KPLX0P/c3BKz
+	d6nNqnTRm6rlXMUtynLRYEOK/bgfCchk0GzTcOZ6nGcVu3jRZykqbRpfIOGXOGTCKkq68Arzp4C
+	CrM3bkdq2vydrEeL9nHP1i2PjxPUOdwaU8ekg/RvjW6VQMysU27vR9LrZoIMSYzPwwwEQaGdEk2
+	wQCQrZ6hklYOW4OY7QHAfTeAfFMtKeEAQK0qEqdz1qZIRrZT8Fpw==
+X-Received: by 2002:a05:6000:2510:b0:48b:2a1:dfc1 with SMTP id ffacd0b85a97d-48c6d17d529mr2163808f8f.22.1791290862711;
+        Tue, 06 Oct 2026 05:47:42 -0700 (PDT)
 Received: from remote-01 ([84.17.55.224])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c622b4685sm9722003f8f.41.2026.10.06.05.47.37
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c622b4685sm9722003f8f.41.2026.10.06.05.47.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 05:47:38 -0700 (PDT)
+        Tue, 06 Oct 2026 05:47:42 -0700 (PDT)
 From: Aleksei Sviridkin <f@lex.la>
 To: Russell King <linux@armlinux.org.uk>,
 	Andrew Lunn <andrew@lunn.ch>,
@@ -83,9 +83,9 @@ Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
 	linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-mediatek@lists.infradead.org
-Subject: [PATCH net-next v6 1/3] dt-bindings: net: ethernet-phy: add needs-host-firmware
-Date: Tue,  6 Oct 2026 15:47:29 +0300
-Message-ID: <20261006124731.1528963-2-f@lex.la>
+Subject: [PATCH net-next v6 3/3] net: dsa: let user ports wait for a PHY that probes late
+Date: Tue,  6 Oct 2026 15:47:31 +0300
+Message-ID: <20261006124731.1528963-4-f@lex.la>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261006124731.1528963-1-f@lex.la>
 References: <20261006124731.1528963-1-f@lex.la>
@@ -97,55 +97,72 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A PHY can be one that the host has to load firmware into before it can
-be driven at all. A controller that connects to such a PHY at setup,
-before its driver has loaded, gets the generic driver or no PHY at all,
-and one that connects only once gets no working PHY on that port for the
-rest of the uptime, even though the PHY works seconds later.
+A user port connects its PHY once, when the switch sets up its ports.
+If that PHY needs firmware from the host and its driver is a module not
+loaded yet, the port gets no working PHY for the rest of the uptime.
 
-The flag declares that. A consumer that sees it keeps the port and
-connects the PHY once its driver binds. It describes the PHY, so it
-sits on the PHY node and needs no prefix naming one.
+Let a switch driver opt its user ports in to phylink waiting for such a
+PHY, and opt in mt7530. Until the PHY attaches, .port_enable sees a NULL
+phy, so the opt-in is per driver: qca8k dereferences that argument, and
+gswip programs the PHY address from it at open, so a late attach leaves
+it wrong until the next open. mt7530 does not use it. Shared ports are
+left out.
 
-firmware-name is not used for this: it names the file to load, and the
-EN8811H driver keeps its two blob names in code, so it would only be
-read as a presence flag.
-
-The need is not derived from the compatible because the knowledge that
-an ID needs host firmware lives in the PHY driver, and that driver is a
-module not yet loaded when the MAC connects, so it has to come from the
-device tree.
-
-Found on a Keenetic KN-1012, where the EN8811H behind lan4 has its
-driver on the root filesystem and the switch sets its ports up before
-that is mounted, so lan4 stayed dead for the uptime.
+Found on a Keenetic KN-1012 (MT7981B with an MT7531 switch), where the
+EN8811H behind lan4 has its driver on the root filesystem and lan4 was
+lost for the uptime.
 
 Assisted-by: LLM
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
 Signed-off-by: Aleksei Sviridkin <f@lex.la>
 ---
-Changes in v6: none.
+Changes in v6: the dsa.h comment says .port_enable must not use its
+phy argument, rather than cope with a NULL one.
 
- Documentation/devicetree/bindings/net/ethernet-phy.yaml | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/net/dsa/mt7530.c | 1 +
+ include/net/dsa.h        | 5 +++++
+ net/dsa/user.c           | 1 +
+ 3 files changed, 7 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/net/ethernet-phy.yaml b/Documentation/devicetree/bindings/net/ethernet-phy.yaml
-index df50c4c33d76..ab95b9a5d95a 100644
---- a/Documentation/devicetree/bindings/net/ethernet-phy.yaml
-+++ b/Documentation/devicetree/bindings/net/ethernet-phy.yaml
-@@ -215,6 +215,12 @@ properties:
-       used. The absence of this property indicates the muxers
-       should be configured so that the external PHY is used.
+diff --git a/drivers/net/dsa/mt7530.c b/drivers/net/dsa/mt7530.c
+index 7781a63b4e6f..e4c155605e27 100644
+--- a/drivers/net/dsa/mt7530.c
++++ b/drivers/net/dsa/mt7530.c
+@@ -3548,6 +3548,7 @@ mt7530_probe_common(struct mt7530_priv *priv)
+ 	priv->ds->priv = priv;
+ 	priv->ds->ops = &mt7530_switch_ops;
+ 	priv->ds->phylink_mac_ops = &mt753x_phylink_mac_ops;
++	priv->ds->phy_may_probe_late = true;
+ 	mutex_init(&priv->reg_mutex);
+ 	spin_lock_init(&priv->stats_lock);
+ 	INIT_DELAYED_WORK(&priv->stats_work, mt7530_stats_poll);
+diff --git a/include/net/dsa.h b/include/net/dsa.h
+index 5d12191b6f6f..04b151cd52ce 100644
+--- a/include/net/dsa.h
++++ b/include/net/dsa.h
+@@ -455,6 +455,11 @@ struct dsa_switch {
+ 	 */
+ 	u32			dscp_prio_mapping_is_global:1;
  
-+  needs-host-firmware:
-+    $ref: /schemas/types.yaml#/definitions/flag
-+    description:
-+      This PHY runs firmware that the host must load before it can be
-+      driven, and is not usable until then.
++	/* Drivers whose .port_enable does not use its phy argument may set
++	 * this to let user ports wait for a PHY that needs host firmware.
++	 */
++	u32			phy_may_probe_late:1;
 +
-   resets:
-     maxItems: 1
+ 	/* Listener for switch fabric events */
+ 	struct notifier_block	nb;
  
+diff --git a/net/dsa/user.c b/net/dsa/user.c
+index 041f9060c8ef..41075bb74193 100644
+--- a/net/dsa/user.c
++++ b/net/dsa/user.c
+@@ -2661,6 +2661,7 @@ static int dsa_user_phy_setup(struct net_device *user_dev)
+ 
+ 	dp->pl_config.dev = &user_dev->dev;
+ 	dp->pl_config.type = PHYLINK_NETDEV;
++	dp->pl_config.phy_may_probe_late = ds->phy_may_probe_late;
+ 
+ 	/* The get_fixed_state callback takes precedence over polling the
+ 	 * link GPIO in PHYLINK (see phylink_get_fixed_state).  Only set
 -- 
 2.53.0
 
