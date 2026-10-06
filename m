@@ -1,322 +1,506 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010006.outbound.protection.outlook.com [52.101.84.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 216093B71A7;
-	Tue,  6 Oct 2026 12:31:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791289894; cv=none; b=UkKaD3Vm3RRH8H4Cdo/rTR6DnOr//Ah702IcNOu3YVKzp34xuDIFhpR6ybF2ccewdNT0UoQBTwoKiMUsRD3Jh1odws0veE67eNOI3FOO7CH2O+Gqe2cW2NY/mQD6/HEz1G1RFkHFHSMBBaci3uNTGTJESSHl0DF6hBGPHWkmfsQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791289894; c=relaxed/simple;
-	bh=jTJv4LN6YeQb4G6P58S4hw/dap7MGFciSdG861ysXr4=;
-	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ZcKwbq03/9lonMe89wJ+I4Cq3qLO0ZTeaUcxuUhq5XGEB8ju6XpamhN59rYPOg1Z4qcayGKWYxNnPqJUpfk6lEkWIDmILxZ1tPamKwgy20iu6DjNrT8BEwCLYojKlJcZ6c6/aYyD7oEzUfBzLsFE0V0At/Z09psEFME+PEn+Jw0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=ze5Sw48d; arc=none smtp.client-ip=68.232.153.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87CF93F54D2;
+	Tue,  6 Oct 2026 12:33:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.6
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791290001; cv=fail; b=mmi7u5Wvhc17XaRplDfzpXNevBXkcZ9zIvaIzvww3I0aKN5GBvBm6C+1OeLgnnX7mmuvb2wR0JUp+MUlcSY/uxWNTqSOIGNwicL+T5cXuQj3M2hYhNjaQzLwxf5VhgpJ7w3xZLTpEhpNtsy9P4ivMNsEfkC/8oX5YAT6ej2a9ic=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791290001; c=relaxed/simple;
+	bh=0W3YPkpLI8ulpI3LR7D3pQkDDyEsQ/psmGfgjUveWyo=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=gTFwduVYmNU1Gbz4l0tPsGYjbZ78ne8mxAvPRUfxbFkF6mgg85ehF+Fm+fwM1JDI2e+M8cykaqUfEZa8A720mjXe0bbgH+qwhsTa9QkJRvaDuA8AVopW5eQ3oyyqqevSYhAtz0zMDgV7y3kLzeLjgb8BJSoGuJqiNwCSd7cCq4I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=Xbu4pemS; arc=fail smtp.client-ip=52.101.84.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="ze5Sw48d"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1791289893; x=1822825893;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=jTJv4LN6YeQb4G6P58S4hw/dap7MGFciSdG861ysXr4=;
-  b=ze5Sw48dcuVObN8Bq81R35CyswYbkrslCv5YM4mblRUf5K8DFg0kTkRO
-   Ev3cA9SnoOcqog++kEcUfEmuuwkob/CNbfFRvcbR8Ek8SAvf5rXqhkI5i
-   0i9A7/c/nF9M7DAFl1pVpMwBuy40Y92Aq3jgWkBVh3hr4d5l6Lay8ERpe
-   P40OCkRWnfE8Ry8zA0ndVKAGZc3IUpr2gHvq0IKvexOKXpsfo3ey7lmiP
-   bUs6EBcYMm26DwqfjZIEHRHSgmiwodGbUVIEurynzL3uDjpJ8ZTkxeqKY
-   NkH/KevwzUuzQtm+cQpNDxuGUq6opDh+hQcwQjhqXA10tEcad3BeDg/jc
-   g==;
-X-CSE-ConnectionGUID: z6W3zX7rStW6KFyEWPS2YQ==
-X-CSE-MsgGUID: 16TG9y/xRwWZdFV6pCxZJg==
-X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
-   d="scan'208";a="74909272"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa1.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 05:31:25 -0700
-Received: from chn-vm-ex04.mchp-main.com (10.10.87.151) by
- chn-vm-ex2.mchp-main.com (10.10.87.31) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.49; Tue, 6 Oct 2026 05:31:25 -0700
-Received: from DEN-DL-M77643.microsemi.net (10.10.85.11) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Tue, 6 Oct 2026 05:31:21 -0700
-Message-ID: <72ceab96dccc7d09a19d773ab0eda05df4382d52.camel@microchip.com>
-Subject: Re: [PATCH net-next v13 5/9] net: dsa: lan9645x: add vlan support
-From: Jens Emil Schulz Ostergaard <jensemil.schulzostergaard@microchip.com>
-To: <netdev-bot+sashiko@kernel.org>
-CC: <UNGLinuxDriver@microchip.com>, <andrew@lunn.ch>, <olteanv@gmail.com>,
-	<davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
-	<pabeni@redhat.com>, <horms@kernel.org>, <robh@kernel.org>,
-	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <woojung.huh@microchip.com>,
-	<linux@armlinux.org.uk>, <Steen.Hegelund@microchip.com>,
-	<daniel.machon@microchip.com>, <geert+renesas@glider.be>,
-	<magnus.damm@gmail.com>, <linux-kernel@vger.kernel.org>,
-	<netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-renesas-soc@vger.kernel.org>
-Date: Tue, 6 Oct 2026 14:31:21 +0200
-In-Reply-To: <179097565993.434549.16648659214046712507@kernel.org>
-References: <20260929-dsa_lan9645x_switch_driver_base-v13-5-827c2d3617f2@microchip.com>
-	 <179097565993.434549.16648659214046712507@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.44.4-0ubuntu2.1 
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="Xbu4pemS"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Hqcis7KiKIsI7UC3ddLwAs3Bb22iY5OTMecgt2OQIQlequspqjFGmemGg9sVPmwiUx5v/HiPEMKc23QSQMcGOs0MJOGFjUSdNZAzoU0t6SqhDDIzPEOUMtt3VWfqmmrlwZF1wczSZrLvzm9QKu5iUmUbBzAM906VcVWBEVq7vc4IArvl60Yyi6A39amiWeA0vB1cuBW5lo+240JvG4NkPG2Tucre9A3ESM4Z7I43055NGkaTkjfe0f+Joaf/Do3BS8dJ1c9s6t1b9KbD1Wr5+tyDX0+n6bn1De0QwkM4Lp4wwVDmSfwRqxU4V4+8Lg/QQnC8IQvCmHU0ozrSJaWdCw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=FYe4EhmM6d/Zseobfy/qUsNkksLASh2Bv8kH4UN7/Rw=;
+ b=iZ+fAMpuxyeGzgg/pqvoyZZLVtoud4xZ7V2LPzhQenyvosgiMB3Ha9zHu/cQmbvsXSTiTAOYyfa00E1yq6Hn5aRUeIPK9558Rilcwyn3595eEHRJgCWoTslBf0icfMXCYaHNNZfAsNSTuP4hI3W32nMaXigtQq1wGVl4s2hM78tkcypfvkUDbWYh1XN0LnRLZfDAIWz0TV1eG6282djA8JtPKmzMu98IH1+SnBiDpR5DIYgze0fj+n6yHme1gaN9/V7IjSEgOo8hFSKCiVoYLHcvLWTCpIqOQcptmZHCQW5nPFesukg2l1hAOO59PMPm7TeAA41zPCjanv2HuMz/cw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=FYe4EhmM6d/Zseobfy/qUsNkksLASh2Bv8kH4UN7/Rw=;
+ b=Xbu4pemSLgw0pSIz63gCHbLUy/qdjCNpmB6vkFlnJuaUNuQXEpKT9gXSvyUbkUB94jPtrmtp7q6ghgKRRpLoJr6JE2Bbpvn9oK8G4GuoG90JkCtQ4+icCS2fe+1xdh7ddRTx0ID6WjEQPQdrWiMflpsPyzqIkyqpvvdmbiHBEXgtgctBBebUUwGT+rCPfm6jcNUR2tAoxQlMpRpQiWnbuKVowelgF1gycbXACyeRvnLC6zkYO2aGNgsCqT+oBRQk6zqSksGb7s7TZpDBxBbCXo2AeXvuwefR8ceE94Xvhe9kEjxCf/ZwJqCmo3XdnfD3BBqWMKipDgAGXo6RM+XKKQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AS4PR04MB9244.eurprd04.prod.outlook.com (2603:10a6:20b:4e3::9)
+ by PA2PR04MB10216.eurprd04.prod.outlook.com (2603:10a6:102:406::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Tue, 6 Oct
+ 2026 12:33:09 +0000
+Received: from AS4PR04MB9244.eurprd04.prod.outlook.com
+ ([fe80::adaf:805c:51c5:9538]) by AS4PR04MB9244.eurprd04.prod.outlook.com
+ ([fe80::adaf:805c:51c5:9538%6]) with mapi id 15.21.0472.016; Tue, 6 Oct 2026
+ 12:33:09 +0000
+Message-ID: <8b8ec06e-ac08-491e-998d-a46e1d9ed524@nxp.com>
+Date: Tue, 6 Oct 2026 15:33:06 +0300
+User-Agent: Mozilla Thunderbird
+Subject: Re: [EXT] Re: [RFC PATCH 6/8] media: i2c: ov2312: add Omnivison
+ OV2312 driver
+To: Rishikesh Donadkar <r-donadkar@ti.com>, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+Cc: tomi.valkeinen@ideasonboard.com, mchehab@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, nm@ti.com, vigneshr@ti.com,
+ kristo@kernel.org, sakari.ailus@linux.intel.com, mripard@kernel.org,
+ jai.luthra@linux.dev, jai.luthra@ideasonboard.com, devarsht@ti.com,
+ y-abhilashchandra@ti.com, laurent.pinchart@ideasonboard.com,
+ tomas.babinec@nxp.com, daniel.baluta@nxp.com, Frank Li <Frank.li@nxp.com>
+References: <20260925133001.2780868-1-r-donadkar@ti.com>
+ <20260925133001.2780868-7-r-donadkar@ti.com>
+ <e469d168-39f9-448c-a7ab-5d02b79d8cb8@nxp.com>
+ <3a488385-bf10-4500-b78d-e43c152387a4@ti.com>
+Content-Language: en-US
+From: Mirela Rabulea <mirela.rabulea@nxp.com>
+In-Reply-To: <3a488385-bf10-4500-b78d-e43c152387a4@ti.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: AS4P190CA0042.EURP190.PROD.OUTLOOK.COM
+ (2603:10a6:20b:5d1::19) To AS4PR04MB9244.eurprd04.prod.outlook.com
+ (2603:10a6:20b:4e3::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-
-On Fri, 2026-10-02 at 21:14 +0000, netdev-bot+sashiko@kernel.org wrote:
-> EXTERNAL EMAIL: Do not click links or open attachments unless you know th=
-e content is safe
->=20
-> Thank you for your contribution! Sashiko AI review found 4 potential
-> issue(s) to consider.
->=20
-> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 2 =C2=B7 Low: 2
->=20
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwor=
-k
-> know by including "pw-bot: cr" as a separate line at the end of your repl=
-y
-> (one such reply per series is enough).
->=20
-> - [Medium] On a VLAN-aware bridged port, frames the host sends without a
->   tag can leave the switch tagged, sometimes with the wrong VID.
-> - [Medium] On VLAN-aware ports, lan9645x_vlan_port_apply_ingress() sets
->   ANA_VLAN_CFG_VLAN_POP_CNT=3D1, so the hardware removes the outer VLAN=
-=E2=80=A6
-> - [Low] The commit message says the patch adds "VLAN support for VLAN-
->   aware and VLAN-unaware bridges", but none of the bridged code paths=E2=
-=80=A6
-> - [Low] Errors from VLAN table programming are not passed back to
->   callers.
->=20
-> --
->=20
-> net: dsa: lan9645x: add vlan support
->=20
-> This commit adds VLAN table management to the lan9645x DSA driver. It
-> configures ports for VLAN-aware and VLAN-unaware bridges, and reserves
-> HOST_PVID (4095) for standalone ports. It also registers the
-> port_vlan_filtering, port_vlan_add and port_vlan_del ops, all serialized
-> by a new fwd_domain_lock.
->=20
-> > Add VLAN support for VLAN-aware and VLAN-unaware bridges.
->=20
-> [Severity: Low]
-> Does this description match what the commit does on its own?
->=20
-> At this point in the series nothing writes lan9645x->bridge_mask, and
-> lan9645x_switch_ops has no .port_bridge_join. That means
-> lan9645x_port_is_bridged() always returns false:
->=20
-> static inline bool lan9645x_port_is_bridged(struct lan9645x_port *p)
-> {
->         return p->lan9645x->bridge_mask & BIT(p->chip_port);
-> }
->=20
-> It also means DSA never offloads a bridge, so .port_vlan_filtering,
-> .port_vlan_add and .port_vlan_del are never called for user ports. The
-> only thing that takes effect here is the standalone HOST_PVID setup done
-> from .port_setup.
->=20
-> Bridge offload, and clearing HOST_PVID membership on bridge join, arrive
-> with the later "net: dsa: lan9645x: add bridge support" patch. That
-> ordering is only explained in the v12 changelog below the "---", and git
-> am drops that part.
->=20
-> Could the commit message say that the bridged paths only become
-> reachable once the bridge support patch is applied?
->=20
-> > diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_vlan.c b/drive=
-rs/net/dsa/microchip/lan9645x/lan9645x_vlan.c
-> > new file mode 100644
-> > index 0000000000000..6d28a7cf1442b
-> > --- /dev/null
-> > +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_vlan.c
-> > @@ -0,0 +1,402 @@
->=20
-> [ ... ]
->=20
-> > +static void
-> > +lan9645x_vlan_port_apply_egress(struct lan9645x_port *p,
-> > +                             struct lan9645x_vlan_port_info *info)
-> > +{
-> > +     struct lan9645x *lan9645x =3D p->lan9645x;
-> > +     enum lan9645x_vlan_port_tag tag_cfg;
-> > +     u16 port_vid =3D UNAWARE_PVID;
-> > +
-> > +     if (!lan9645x_port_is_bridged(p)) {
-> > +             tag_cfg =3D LAN9645X_TAG_NO_PVID_NO_UNAWARE;
-> > +             port_vid =3D HOST_PVID;
-> > +     } else if (p->vlan_aware) {
->=20
-> [ ... ]
->=20
-> > +             if (info->untagged =3D=3D 1 && info->tagged) {
-> > +                     tag_cfg =3D LAN9645X_TAG_NO_PVID_NO_UNAWARE;
-> > +                     port_vid =3D info->untagged_vid;
-> > +             } else if (info->untagged) {
-> > +                     tag_cfg =3D LAN9645X_TAG_DISABLED;
-> > +             } else {
-> > +                     tag_cfg =3D LAN9645X_TAG_ALL;
-> > +             }
->=20
-> [Severity: Medium]
-> Can untagged frames from the host leave a VLAN-aware bridged port tagged,
-> and with the wrong VID?
->=20
-> For an untagged host frame on a VLAN-filtering bridge,
-> lan9645x_xmit_get_vlan_info() in net/dsa/tag_lan9645x.c puts the bridge
-> device's pvid into the IFH:
->=20
->         } else {
->                 rcu_read_lock();
->                 br_vlan_get_pvid_rcu(br, &tci);
->                 rcu_read_unlock();
->                 *vlan_tci =3D tci;
->         }
->=20
-> The rewriter mode here, however, is chosen from the port's own untagged
-> VID:
->=20
-> - With one untagged VLAN X plus tagged VLANs, TAG_NO_PVID_NO_UNAWARE with
->   PORT_VID=3DX leaves only VID X or VID 0 untagged.
-> - With no untagged VLANs, TAG_ALL tags every frame, including VID 0.
->=20
-> The two sides only agree when br0's pvid equals the port's untagged VID.
-> Two examples where they don't:
->=20
-> (a) swp0 has "vid 10 pvid untagged" plus tagged vid 20, and br0 self
-> pvid is 1. br_handle_vlan() strips host traffic on br0.10 for egress on
-> swp0, and the same happens to VLAN 10 traffic forwarded in software from
-> a foreign bridge port. The tagger then puts VID 1 in the IFH, so the
-> frame goes out tagged with VID 1 instead of untagged in VLAN 10.
->=20
-> (b) On a trunk port with no untagged VLANs, untagged frames go out tagged
-> with br0's pvid. If br0 has no pvid, they go out priority-tagged with
-> VID 0. STP BPDUs from br_send_bpdu() and LLDP sent on swp0 are examples.
->=20
-> This depends on the rewriter using IFH.TCI as the classified VID when
-> BYPASS=3D1, and on the TAG_CFG semantics described in the
-> lan9645x_vlan_port_tag comment. I could not check either against the
-> datasheet. ocelot and tag_ocelot use a similar pairing, so this may be a
-> known limitation.
->=20
-> The code becomes reachable once the bridge support patch lands, and it
-> is unchanged at the end of the series. Also, LAN9645X_TAG_NO_UNAWARE is
-> defined but never used.
->=20
-
-Correct, this is the same issue as the one raised on the tag driver
-patch, and the rewriter does use IFH.TCI as the classified VID with
-BYPASS set. v14 fixes both sides: the tag driver no longer uses the
-bridge pvid, and ports with only tagged VLANs use TAG_NO_UNAWARE instead
-of TAG_ALL.
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS4PR04MB9244:EE_|PA2PR04MB10216:EE_
+X-MS-Office365-Filtering-Correlation-Id: fb86fe8a-f24e-403a-4941-08df23a5fa55
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|19092799006|376014|7416014|23010399003|11063799006|56012099006|4143699003|260925022911599003|260925021311599003|260925021911599003|10067099003|22082099003|18002099003|6133799003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	Js9gUsF1nZ/o+SSanmiNiKXcj+b2FdS2hCCubPMl1GmUmOw7UH8GRS/V8TAH4338HJKun4GzPWFzbh1J2GTg/sUWgDJVaKtCFU9FVEUQ88lqYXcapvlv3GUuqszws245VUXKGzJyPzJ/b4B5XWU2w/pxaddwiQMI682dw1l9Ysiu/XVYwsHN7vi6ajqaoLiI5tb1K0QU8VvFl8N3KYvYtUjlOyW7cPzGyLdiZZ2vmcIdlpp8G9o2x3C8AnCdg5zKkzeLDDLHIMI2D/B5mrTneizfWAr0D/nGiUMzXc1YRuZhhHx3mpQqmJDpWhMRzajKd2DEEkoPTsv42LzrkDRlysBRgSgQBY9kEqIpbNAaFlphUuud6sUhI8CpkcsxLABFbQvDB+EZYKu/4KVu2KQxaMXiZFXUBN4Rk8oIU0rXnsHD9jBGCrP2svZdv4MLlDQxLQkwCJ8seVEITyXwsI/Mt2ye0+Y0WOQbkYj+BkKSgglAp6gEA/K40e/iqPNUJra7KElcuGMyH3FflU2pciovtOjse46fnbdEoQ8Y127Cf0Myax1auN5JbI/srG/mL81iDblPe0zA209p0j27vh45Oqeik2nm5Aavqpa7jTzTmyF0fUlgeT5FjD5v/VyHfOH1
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS4PR04MB9244.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(19092799006)(376014)(7416014)(23010399003)(11063799006)(56012099006)(4143699003)(260925022911599003)(260925021311599003)(260925021911599003)(10067099003)(22082099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?ajFsY09CVE9EQmIwL3F5eU4xenVseGFwaHk5b1NZcW5aTXh6QnJkRStwTEZz?=
+ =?utf-8?B?OGlHUlRBUmpNanZUV2VTWTF1dkN1Mjk4eG80aUthQmZId0ZTVTRmaHJ6a1Rx?=
+ =?utf-8?B?MjVwc0tYOVdGZmZuNi8rclpzMW1FMWJOS1Fhd3RkalNYd1p3VjZHZW84NHFZ?=
+ =?utf-8?B?L3BEZzdFblhGTTFKbXBSQ3dzQmlzdCtGRWgwY01jQkRNaFNsQzlHSGo2Rnhr?=
+ =?utf-8?B?Z2h1MlhJVFBzSEpYcmZDOWhvdVdaK0FVRW91ZUhBellxQVEvZDNVbFEybkg3?=
+ =?utf-8?B?aHhZaitlNHlTZkJEUEdWQW1pT3VpTlFubjdUNjZuNGV4S3JVSFpRNVhaYmhi?=
+ =?utf-8?B?L0dJWlB6M1BtZFFRckZCOS93OWIzZUErTlNRZVZROVk2SGphQnJ1RElVK1lS?=
+ =?utf-8?B?cTN0SlpXaHY4Ymlyd3g2L0trRGJmTnFnTkVxZ2NLSFhDZGRRclpLYk8rVERs?=
+ =?utf-8?B?bklCYm1BM2FsS2RRTkdFYWZib3FjUmN5SlFwcGl4bTk3QnJlNGxxenNFMGRH?=
+ =?utf-8?B?UzRXc01wL1Y3WW1sUHU4Z1BFOEZVbmZkU3hVcnArOCtSV3d5dnN4NmdDMTI5?=
+ =?utf-8?B?QmR1TFJ3Q1Q5UTg1LzB5bHc2N0RXY3E1UlpVY2VTdk5vaFc2Q3B6OUo4R0pq?=
+ =?utf-8?B?TjNucGJHU1ZBb3VaMHZ3TU1VcEZ3SmY2dXhEZExzRGNpQWRaWGVxRDhmZWRN?=
+ =?utf-8?B?bmJ1aTRnWEtTMTAwb1h0a2pwMUdrZFZZSVBrdy94Z2F1NEg3N2lDTmNJWnNw?=
+ =?utf-8?B?QXFjL3p1RFBMdFlYQlltK3l0ZHhzdVEydGNzVENmNGhXQzhVZGdrQmwxNnJs?=
+ =?utf-8?B?cFZ4clFhdDZBSU12VTNvRmhKMlJwQmFCN1Q0ZmgxSW5wMWI3YWZLMHpjbXls?=
+ =?utf-8?B?ZDJraDJLYUxsUFgyTDgzTm94eWpHRGtkS2NsZVZsV216c2NWd2w5R0cxK0Fs?=
+ =?utf-8?B?cVFZd1QxdHMvWEQyb3BTdW81TFFUSVBDOVlLWDlGdFRKdWxOOUdaTGtiSGlI?=
+ =?utf-8?B?TjVuZ2JnWmZmSVl6enJpd3J6UzJiU2dLSnJzU2VSRTFIeHNjeHk5bTlwSjBv?=
+ =?utf-8?B?dG5KN20rRTM2THB2MGZQTDdJZXN2cVZ3SlRQd2Y4NWFNVytSZUtRWFE2TWk5?=
+ =?utf-8?B?Zko3Zk1sWXBiaVFqMlpWYXJoTHZpMkNVcXluVHgvLy9OczhyVllZTHRWamZl?=
+ =?utf-8?B?SVUxajhHbExZRFk5eTdtN1RBQlVTNWRkZmJ0SUc3L093aUV3MWpHOHNhdXZU?=
+ =?utf-8?B?WG8vblFSR01ZcFF2WVVaRWZzaTI1dmVQd0h1TElaRUFiRkxHSEQ5UmsxNTNo?=
+ =?utf-8?B?ckVUUmpTRno2QWFTYWdTQ1d5Y1dHRlFvOE45aUVWc2xGYkxtcGNJcE5MZVFk?=
+ =?utf-8?B?a0w1NEJkRjZGaVhiNHUrZjZ6OWxJU2ZlWFR5WWNxNS8zRlNiUUgxeEtibmk4?=
+ =?utf-8?B?eHRXMkJ2Z2R6QVcwdFY1WThROXFySnJUdEYwc250WjJWaS9HZDAvdDJwclNm?=
+ =?utf-8?B?NE1WL3lhTjJFVjZTTUNXck1HQTl2Q2RzenB5VzA2eUZXSy9IRGFsdlk5d1NL?=
+ =?utf-8?B?bllwWTJ3cVg1SXFlbUF2aDFJS0lmU3BaWmFKTGhLS2dvMHFoNTJxTVNJRnAr?=
+ =?utf-8?B?RDdIT1lEVVpjTHFuN1dDYTFGOWZ5MkdCRU9BRjJrVEhQMW0zVlR1NG9MdFJM?=
+ =?utf-8?B?RlRhTVlyTUY1YlBUQ1RIODJqWUsvSGo1dnFGb295eUdpcU5nZklJaTRoUFVm?=
+ =?utf-8?B?N3FXbFFWaG1seGdkZFFPSFhEQ0ZXUkRhcVV2MnlkU2NVWW43QjM5TzNsTU9s?=
+ =?utf-8?B?QnRreWoxd1JnRitGSDEvRkNVU1NxT0dKV3VZV1YwTE5NVmpyZm9ESUVjczdP?=
+ =?utf-8?B?RHhqNFFMN1JKd3JabTdxWGN5U3JuOHBqVS9hUTRYM3k0Q3pFbHk0ZE5UMmVh?=
+ =?utf-8?B?LzdkS2RzS1lRMGVYTmlpd1ZxaHBHYm5pV3VCQXdiM3hrRnl4RnRGTVRLMkIw?=
+ =?utf-8?B?Mkd3bHpDKzBiaWxzQUhoUUxPdWlabStiRi80L05pV2pkRnNvdzBkeTRYYlB6?=
+ =?utf-8?B?bFJGSy9BRFZ0SHRGVzBRWTVZWmlCL00yMmR0QkpHTkh0bXNBR0ZyTnVlSVBJ?=
+ =?utf-8?B?a3dYV3hiR0dGT3dlZlJSTmJHQUpaR1EwaE9qRGtUMlZ4MFM3anZlRzJKclZS?=
+ =?utf-8?B?ZGVMblN6YUZoeGtya21QZGZGUDVvZUtteXhtVUc5QWVjeDZSaFpPTDJLOHFl?=
+ =?utf-8?B?b3JyQ0ZaWjN4ZUtpN0g2amduK250VVUvN3RUZzhyc250Z1IyMTZNSkpIVUFm?=
+ =?utf-8?B?UlFYSktwbUdsOWFPcmhmdlQ3K3V3OXU1RFRLYWpsNmNya0Jac1NzUT09?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fb86fe8a-f24e-403a-4941-08df23a5fa55
+X-MS-Exchange-CrossTenant-AuthSource: AS4PR04MB9244.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 12:33:08.8964
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: aCVu7QYcFeOVDS9VlufgDPn0ImfN8deBSNVfSucrlPoXmZgGcuhuQqSL96ZoPqxotX7XK3SYNcR3YrHnjjzz4Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA2PR04MB10216
 
 
-> > +     } else {
-> > +             tag_cfg =3D LAN9645X_TAG_DISABLED;
-> > +     }
->=20
-> [ ... ]
->=20
-> > +static void lan9645x_vlan_port_apply_ingress(struct lan9645x_port *p)
-> > +{
->=20
-> [ ... ]
->=20
-> > +     val =3D ANA_VLAN_CFG_VLAN_VID_SET(pvid) |
-> > +           ANA_VLAN_CFG_VLAN_TAG_TYPE_SET(0);
-> > +     if (p->vlan_aware)
-> > +             val |=3D ANA_VLAN_CFG_VLAN_AWARE_ENA_SET(1) |
-> > +                    ANA_VLAN_CFG_VLAN_POP_CNT_SET(1);
->=20
-> [Severity: Medium]
-> Does popping the outer tag here conflict with the pvid check in
-> lan9645x_rcv()?
->=20
-> With VLAN_POP_CNT=3D1 on VLAN-aware ports, the classified VID survives
-> only in the IFH. lan9645x_rcv() in net/dsa/tag_lan9645x.c skips
-> restoring it when it equals the port pvid:
->=20
->                 if ((vlan_tci & VLAN_VID_MASK) !=3D port_pvid)
->                         __vlan_hwaccel_put_tag(skb, htons(ETH_P_8021Q),
->                                                vlan_tci);
->=20
-> That is fine for untagged frames. Consider a double-tagged frame
-> [0x8100 VID 100][0x8100 VID 200] that arrives on a VLAN-aware port with
-> pvid 100 and is sent to the CPU (broadcast, host flood or trap). The
-> hardware classifies it to VID 100 and pops the outer tag. IFH TCI is
-> 100, which equals the pvid, so no hwaccel tag is set.
->=20
-> The software bridge then finds the inner tag 200 in the payload and puts
-> the frame in VLAN 200, while the hardware forwarded it in VLAN 100.
->=20
-> Could this cause local delivery (for example to br0.200), or software
-> forwarding in a different VLAN than the hardware used?
-> br_allowed_ingress() still restricts this to VIDs the port is a member
-> of.
->=20
+On 10/6/26 08:19, Rishikesh Donadkar wrote:
+> Caution: This is an external email. Please take care when clicking 
+> links or opening attachments. When in doubt, report the message using 
+> the 'Report this email' button
+>
+>
+> On 02/10/26 21:46, Mirela Rabulea wrote:
+>> Hi Rishikesh, Jay, Laurent, Hans, Sakari,
+>>
+>> On 9/25/26 16:29, Rishikesh Donadkar wrote:
+>>> From: Jai Luthra <j-luthra@ti.com>
+>>>
+>>> Omnivision OV2312 is an RGB-IR sensor, i.e. it uses a 4x4 R,G,B,Ir 
+>>> bayer
+>>> pattern to capture both visible and near-infrared light. Every 
+>>> alternate
+>>> frame, the sensor changes the exposure and IR flash strobe registers to
+>>> stream an -
+>>> A. IR-dominant frame on CSI-2 virtual channel 0
+>>> B. RGB-dominant frame on CSI-2 virtual channel 1
+>>>
+>>> These A/B frames are routed as separate v4l2 streams, which may be
+>>> mapped to two separate /dev/videoX nodes by the CSI-RX DMA driver.
+>>>
+>>> Both of these streams are captured at a resolution of 1600x1301, 30 fps
+>>> each (60fps total). The extra row (1301 vs 1300) is an embedded line
+>>> prepended to each frame by the sensor, containing the following 
+>>> register
+>>> values:
+>>>    0x4813 - VC (Virtual Channel)
+>>>    0x321A - Group ID
+>>>    0x3920 - Strobe
+>>>    0x3501 - Exposure HI
+>>>    0x3502 - Exposure LO
+>>>    0x3508 - Gain HI
+>>>    0x3509 - Gain LO
+>>>    0x350e - Current Exposure HI
+>>>    0x350f - Current Exposure LO
+>>>
+>>> This driver also supports a few v4l2 controls like horizontal/vertical
+>>> flip, multi exposure and multi gain controls.
+>>>
+>>> Signed-off-by: Jai Luthra <j-luthra@ti.com>
+>>> Signed-off-by: Rishikesh Donadkar <r-donadkar@ti.com>
+>>> ---
+>>>   drivers/media/i2c/Kconfig  |  12 +
+>>>   drivers/media/i2c/Makefile |   1 +
+>>>   drivers/media/i2c/ov2312.c | 939 
+>>> +++++++++++++++++++++++++++++++++++++
+>>>   drivers/media/i2c/ov2312.h | 285 +++++++++++
+>>>   4 files changed, 1237 insertions(+)
+>>>   create mode 100644 drivers/media/i2c/ov2312.c
+>>>   create mode 100644 drivers/media/i2c/ov2312.h
+>>>
+>>> diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
+>>> index 4d9946479160..8d9d8d491b2e 100644
+>>> --- a/drivers/media/i2c/Kconfig
+>>> +++ b/drivers/media/i2c/Kconfig
+>>> @@ -496,6 +496,18 @@ config VIDEO_OV13B10
+>>>            This is a Video4Linux2 sensor driver for the OmniVision
+>>>            OV13B10 camera.
+>> ...
+>>> +
+>>> +static int ov2312_read(struct ov2312 *ov2312, u16 addr, u32 *val,
+>>> size_t nbytes)
+>>> +{
+>>> +       int ret;
+>>> +       __le32 val_le = 0;
+>>> +
+>>> +       ret = regmap_bulk_read(ov2312->regmap, addr, &val_le, nbytes);
+>> I've received in the past feedback to use cci_* helpers instead of
+>> regmap, see drivers/media/v4l2-core/v4l2-cci.c
+>
+> Sure, I will use them.
+>
+>>> +       if (ret < 0) {
+>>> +               dev_err(ov2312->dev, "%s: failed to read reg 0x%04x:
+>>> %d\n",
+>>> +                       __func__, addr, ret);
+>>> +               return ret;
+>>> +       }
+>>> +
+>>> +       *val = le32_to_cpu(val_le);
+>>> +       return 0;
+>>> +}
+>>> +
+>>> +static int ov2312_write(struct ov2312 *ov2312, u16 addr, u32 val,
+>>> size_t nbytes)
+>>> +{
+>>> +       int ret;
+>>> +       __le32 val_le = cpu_to_le32(val);
+>>> +
+>>> +       ret = regmap_bulk_write(ov2312->regmap, addr, &val_le, nbytes);
+>>> +       if (ret < 0)
+>>> +               dev_err(ov2312->dev, "%s: failed to write reg 0x%04x:
+>>> %d\n",
+>>> +                       __func__, addr, ret);
+>>> +       return ret;
+>>> +}
+>>> +
+>>> +static int ov2312_write_table(struct ov2312 *ov2312,
+>>> +                             const struct reg_sequence *regs,
+>>> +                             unsigned int nr_regs)
+>>> +{
+>>> +       int ret, i;
+>>> +
+>>> +       for (i = 0; i < nr_regs; i++) {
+>>> +               ret = regmap_write(ov2312->regmap, regs[i].reg,
+>>> regs[i].def);
+>>> +               if (ret < 0) {
+>>> +                       dev_err(ov2312->dev,
+>>> +                               "%s: failed to write reg[%d] 0x%04x =
+>>> 0x%02x (%d)!\n",
+>>> +                               __func__, i, regs[i].reg, regs[i].def,
+>>> ret);
+>>> +                       return ret;
+>>> +               }
+>>> +       }
+>>> +       return 0;
+>>> +}
+>>> +
+>>>
+>>>
+>>>
+>>> + */
+>>> +static int ov2312_set_group_a(struct ov2312 *ov2312)
+>>> +{
+>>> +       u32 ir_exposure = ov2312->exposure_multi->p_new.p_u32[1];
+>>> +       u32 ir_again    = ov2312->again_multi->p_new.p_u32[1];
+>>> +       u32 ir_dgain    = ov2312->dgain_multi->p_new.p_u32[1];
+>>> +       u32 ir_strobe_start = OV2312_VTS - ir_exposure - 7;
+>>> +       int ret;
+>>> +
+>>> +       struct reg_sequence ov2312_groupA[] = {
+>>> +               {0x3208, 0x00},/* Group A (IR Dominant VC0) */
+>>> +               {OV2312_AEC_PK_EXPO_HI, (ir_exposure >> 8) & 0xff},
+>>> +               {OV2312_AEC_PK_EXPO_LO, ir_exposure & 0xff},
+>>> +               {OV2312_AEC_PK_AGAIN_HI, (ir_again >> 4) & 0xff},
+>>> +               {OV2312_AEC_PK_AGAIN_LO, (ir_again & 0x0f) << 4},
+>>> +               {OV2312_AEC_PK_DGAIN_HI, (ir_dgain >> 8) & 0xff},
+>>> +               {OV2312_AEC_PK_DGAIN_LO, ir_dgain & 0xff},
+>>> +               {0x3920, 0xff},/* IR Strobe duty cycle */
+>>> +               {0x3927, (ir_exposure >> 8) & 0xff},
+>>> +               {0x3928, ir_exposure & 0xff},
+>>> +               {0x3929, (ir_strobe_start >> 8) & 0xff},
+>>> +               {0x392a, ir_strobe_start & 0xff},
+>>> +               {0x4813, 0x01},/* VC=1. This register takes effect
+>>> from next frame */
+>>> +               {0x3208, 0x10},
+>>> +               {0x320D, 0x00},/* Auto mode switch between group0 and
+>>> group1 ;setting to switch */
+>>> +               {0x320D, 0x31},
+>>> +               {0x3208, 0xA0},
+>>> +       };
+>>> +
+>>> +       ret = regmap_register_patch(ov2312->regmap, ov2312_groupA,
+>>> + ARRAY_SIZE(ov2312_groupA));
+>>> +       if (ret < 0)
+>>> +               dev_err(ov2312->dev,
+>>> +                       "%s: failed to apply Group A register patch
+>>> (%d)!\n",
+>>> +                       __func__, ret);
+>>> +       return ret;
+>>> +}
+>>> +
+>>> +static int ov2312_set_group_b(struct ov2312 *ov2312)
+>>> +{
+>>> +       u32 rgb_exposure = ov2312->exposure_multi->p_new.p_u32[0];
+>>> +       u32 rgb_again    = ov2312->again_multi->p_new.p_u32[0];
+>>> +       u32 rgb_dgain    = ov2312->dgain_multi->p_new.p_u32[0];
+>>> +       int ret;
+>>> +
+>>> +       struct reg_sequence ov2312_groupB[] = {
+>>> +               {0x3208, 0x01},/* Group B (RGB Dominant VC1) */
+>>> +               {OV2312_AEC_PK_EXPO_HI, (rgb_exposure >> 8) & 0xff},
+>>> +               {OV2312_AEC_PK_EXPO_LO, rgb_exposure & 0xff},
+>>> +               {OV2312_AEC_PK_AGAIN_HI, (rgb_again >> 4) & 0xff},
+>>> +               {OV2312_AEC_PK_AGAIN_LO, (rgb_again & 0x0f) << 4},
+>>> +               {OV2312_AEC_PK_DGAIN_HI, (rgb_dgain >> 8) & 0xff},
+>>> +               {OV2312_AEC_PK_DGAIN_LO, rgb_dgain & 0xff},
+>>> +               {0x3920, 0x00},
+>>> +               {0x4813, 0x00},/* VC=0. This register takes effect
+>>> from next frame */
+>>> +               {0x3208, 0x11},
+>>> +               {0x320D, 0x00},/* Auto mode switch between group0 and
+>>> group1 ;setting to switch */
+>>> +               {0x320D, 0x30},
+>>> +               {0x3208, 0xA0},
+>>> +       };
+>>> +
+>>> +       ret = regmap_register_patch(ov2312->regmap, ov2312_groupB,
+>>> + ARRAY_SIZE(ov2312_groupB));
+>>> +       if (ret < 0)
+>>> +               dev_err(ov2312->dev,
+>>> +                       "%s: failed to apply Group B register patch
+>>> (%d)!\n",
+>>> +                       __func__, ret);
+>>> +       return ret;
+>>> +}
+>>> +
+>>> +static int ov2312_set_AB_mode(struct ov2312 *ov2312)
+>>> +{
+>>> +       bool ir_ready  = ov2312->exposure_multi->p_new.p_u32[1] &&
+>>> + ov2312->again_multi->p_new.p_u32[1] &&
+>>> + ov2312->dgain_multi->p_new.p_u32[1];
+>>> +       bool rgb_ready = ov2312->exposure_multi->p_new.p_u32[0] &&
+>>> + ov2312->again_multi->p_new.p_u32[0] &&
+>>> + ov2312->dgain_multi->p_new.p_u32[0];
+>>> +       int ret;
+>>> +
+>>> +       if (ir_ready) {
+>>> +               ret = ov2312_set_group_a(ov2312);
+>>> +               if (ret < 0)
+>>> +                       return ret;
+>>> +       }
+>>> +
+>>> +       if (rgb_ready) {
+>>> +               ret = ov2312_set_group_b(ov2312);
+>>> +               if (ret < 0)
+>>> +                       return ret;
+>>> +       }
+>>> +
+>>> +       /* Wait for 1 frame duration after setting AB mode registers */
+>>> +       if (ir_ready || rgb_ready)
+>>> +               msleep(33);
+>>> +
+>>> +       return 0;
+>>> +}
+>>> +
+>>> +static int ov2312_set_orientation(struct ov2312 *ov2312)
+>>> +{
+>>> +       bool v_flip = ov2312->v_flip->val;
+>>> +       bool h_flip = ov2312->h_flip->val;
+>>> +       u32 reg = (v_flip ? 0x4400 : 0) | (h_flip ? 0x0004 : 0);
+>>> +
+>>> +       return ov2312_write(ov2312, OV2312_TIMING_VFLIP,
+>>> be16_to_cpu(reg), 2);
+>>> +}
+>>> +
+>>> +static int ov2312_set_ctrl(struct v4l2_ctrl *ctrl)
+>>> +{
+>>> +       struct ov2312 *ov2312 = container_of(ctrl->handler,
+>>> +                                            struct ov2312, ctrls);
+>>> +       int ret;
+>>> +
+>>> +       /*
+>>> +        * If the device is not powered up by the host driver do
+>>> +        * not apply any controls to H/W at this time. Instead
+>>> +        * the controls will be restored right after power-up.
+>>> +        */
+>>> +       if (pm_runtime_suspended(ov2312->dev))
+>>> +               return 0;
+>>> +
+>>> +       switch (ctrl->id) {
+>>> +       case V4L2_CID_EXPOSURE_MULTI:
+>>> +       case V4L2_CID_AGAIN_MULTI:
+>>> +       case V4L2_CID_DGAIN_MULTI:
+>>> +               dev_dbg(ov2312->dev, "debug: %s: %s = [%u, %u]\n",
+>>> __func__,
+>>> +                               ctrl->name, ctrl->p_new.p_u32[0],
+>>> ctrl->p_new.p_u32[1]);
+>>> +
+>>> +               ret = ov2312_set_AB_mode(ov2312);
+>>
+>> So, the group hold for A/B context is set right away, when the control
+>> arrives.
+>>
+>> While working with the Omnivision OX05B1S, which is also an RGB-IR
+>> sensor, we run into this problem:
+>>
+>> The normal expected sequence is that the sensor will output alternating
+>> frames VC0, VC1, VC0, VC1,...
+>>
+>> But  when user space tries to do automatic exposure and gain control via
+>> v4l2 muti controls, if the driver applies the values immediately, if the
+>> virtual channels are not switched within the proper timeframe, it is
+>> possible to run into frame duplication (no more nice alternating frames
+>> VC0, VC1, VC0, VC1,...but duplicate VC0,VC0 or VC1,VC1).
+>> The information we received from the sensor vendor is that group0 update
+>> needs to be between 2 group0 launchpoints (similar for group 1). We can
+>> use the status register to query the currently active context, and in
+>> order to avoid frame duplication we can update each group only when its
+>> context is active.
+>
+> Just to clarify, when you say "update each group only when its context
+> is active" you mean when the frame for that group is being captured 
+> right?
+>
+> Lets say group0 is launched, do we need to set the exposure for group0
+> before the next group i.e. group1 is launched?
+>
+> Rishikesh
 
-Correct, same issue as on the tag driver patch. v14 restores the classified=
- VID
-as a hwaccel tag whenever a tag was popped, so in the example the
-inner tag 200 stays in the payload and the bridge classifies the frame
-to VLAN 100, as the hardware did. This also preserves the PCP of
-priority tagged frames and of frames tagged with the pvid.
+Yes. For more exact details on the timings required, you may check 
+"Context switch (AB mode) group write timeline" here:
 
-> [ ... ]
->=20
-> > +int lan9645x_vlan_port_add_vlan(struct lan9645x_port *p, u16 vid, bool=
- pvid,
-> > +                             bool untagged, struct netlink_ext_ack *ex=
-tack)
-> > +{
->=20
-> [ ... ]
->=20
-> > +     lan9645x_vlan_hw_wr(lan9645x, vid);
-> > +     lan9645x_vlan_port_apply_ingress(p);
-> > +     lan9645x_vlan_port_apply_egress(p, &info);
-> > +
-> > +     return 0;
-> > +}
->=20
-> [Severity: Low]
-> Should the return value of lan9645x_vlan_hw_wr() be checked here, before
-> the software state is committed?
->=20
-> This path updates lan9645x->vlans[] and p->pvid, reprograms the port
-> ingress and egress configuration, and returns 0 even when the table
-> write failed. lan9645x_vlan_port_del_vlan(), lan9645x_vlan_cpu_add(),
-> lan9645x_vlan_cpu_del() and lan9645x_vlan_set_hostmode() do the same.
->=20
-> Inside lan9645x_vlan_hw_wr(), the ANA_VLANTIDX, ANA_VLAN_PORT_MASK and
-> ANA_VLANACCESS writes go through lan_wr(), which only does WARN_ON_ONCE()
-> on a regmap error. The engine is also not checked for IDLE before a new
-> command is issued.
->=20
-> When this fails, the shadow table and the hardware can diverge while
-> switchdev believes the change succeeded. For the CPU port, DSA caches the
-> VID as installed, so later adds of the same VID only bump a refcount and
-> never restore the missing membership.
->=20
-> The comment in lan9645x_vlan_hw_wr() says a timeout most likely means
-> the register bus is dead, which limits the practical impact. lan_wr()
-> swallowing errors also predates this patch.
->=20
-> [ ... ]
->=20
-> --
-> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
-set/20260929-dsa_lan9645x_switch_driver_base-v13-0-827c2d3617f2%40microchip=
-.com
+https://github.com/nxp-imx/linux-imx/blob/lf-6.18.y/drivers/media/i2c/ox05b1s/ox05b1s_mipi.c#L795 
 
+
+Group0 update (exp0, vc0) needs to be between group0 launch points (t0), 
+but the sensor driver is unaware when the launch points take place, so 
+instead, we try to update group 0 in the first half of t0, which we can 
+determine by querying the status register for the active context.
+
+Check if your 0x322d register provides information about the active 
+group/context.
+
+Maybe it makes sense to do an even more extensive study on the level of 
+compatibility on the register set between ox05b1s and OV2312? I am 
+wondering if it makes sense for these 2 to share a driver, with a 
+compatible for each.
+
+
+Regards,
+
+Mirela
+
+>
+>>
+>> This is problematic in the v4l2-api context, it implies that even while
+>> streaming, a v4l2 control cannot be committed to sensor registers right
+>> away.
+>>
+>> Even with workarounds in the sensor driver, to defer for later the
+>> updates for the inactive context, it is still problematic: defer for how
+>> long, and problems with overloaded systems, a stress test can bring us
+>> in a broken VC sequence, as there is no atomic way to determine the
+>> current active context + update the right group.  A broken VC sequence
+>> shows up for example in libcamera as lost frames.
+>>
+>> Rishikesh, Jai,
+>>
+>>   did you notice this problem on OV2312? A way to reproduce this is to
+>> stress the driver with frequent repeated set controls (for the multi-
+>> controls), and observe broken VC sequence (I observed it with libcamera
+>> and on the CSI analyzer).
+>>
+>>
+>> Laurent, Hans, Sakari,
+>>
+>> did you encounter similar situations? Any comments or proposals? The
+>> concern here, to summarize, is: v4l2 control cannot be committed to
+>> sensor registers right away (even when streaming) and we are also unsure
+>> when the right moment to perform the register access may come.
+>>
+>>
+>> Regards,
+>>
+>> Mirela
+>>
+>>> +               break;
+>>> +
+>>> +       case V4L2_CID_HFLIP:
+>>> +       case V4L2_CID_VFLIP:
+>>> +               ret = ov2312_set_orientation(ov2312);
+>>> +               break;
+>>> +
+>>> +       default:
+>>> +               ret = -EINVAL;
+>>> +       }
+>>> +
+>>> +       return ret;
+>>> +}
+>>> +
+>>>
+>
