@@ -1,200 +1,101 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D71849DBB6;
-	Tue,  6 Oct 2026 17:08:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B967A4A0147
+	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 17:20:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791306498; cv=none; b=TnsmPmAYBpjptmeAbKlv/5wEY3rSGDrkiIlpVnsGJ4o5v/+wv3qwKe5nEqHX7d8XJPQRQxlJ+55DT4GbOYltO5O8bA3wrDJGEqBbq+pRkg7DypTSZU2eZ9ryP8I4mziHq72dUeSJfsOl4PjQj2mLRoz+LBExKApGaeXenc11T6Q=
+	t=1791307252; cv=none; b=X90e6ojjxyraopTrFUH/qomAL+fSFfX+8/5f3Kj57MpVnxn4rvsl/B9Xg7VN/0rfwLIVKkauovPkZ+MHLBa1ZyVwXi8PT3hJ3X3W1XPFPw6LSHHAKS9Z5z0xf3Br6aPlQr5zTz2oRy/3aae6XJwot/H0w/zPBBFo9po8M7HTKyM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791306498; c=relaxed/simple;
-	bh=tlax6E5WZ7rvPoHaLoDtRBdGXjYVI91yc0wGOkPO43Q=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ZObxDkR8+5K4O6BcwViAsYppamoMBCjTBz7g2F7JsPeIvlM/u+yPcaEKcb2X1Dk9EGFmXn+TyIw80m5e6MqUrDDxlIf9RGsqisFVrmRl5g0BFyp1v3oc23+4m3YAaID4XHTraQG+LImEeTTPd6Ms+FlAUjCna8SZohw0xSkDe78=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=CMRKrc0j; arc=none smtp.client-ip=117.135.210.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791307252; c=relaxed/simple;
+	bh=RC810j3E+YCCtmcFbhRGhu+gTofUzr24EXEZJaqrf5g=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=LQupdoBwnmhghrg3+LJCV3zAo17XuemEoYnQEYi5SHA6IPL68m9XNwyGzKgc2AQCh0gSoBSVtg18y2B4Ftm+FG2myVHqXIxNrrp4OkmcMEXcaNFVh5wIj8WgiR1NtkunbG1bLhBGimVT26bcMbA/S1/fl/wP3PFEXUwgc9FA7sU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SXkewPXh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="CMRKrc0j"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:Subject:Date:Message-Id:MIME-Version:
-	Content-Type:To; bh=GxSXrn1I5iZE9sOU8qsq/Mjbajn5S833YpKv40o2AwE=;
-	b=CMRKrc0jxFT4bjz3AF5GuIjyiZQkJPzAUYOl2TyXMK+5sfK+wJvolMTMoXpSqT
-	TpPsUJST15QoLwMJ+sX711esOrLEb5sRl8dhyGhfLugdhiHww1mwGD9a24HgFTrN
-	NnmxgVtWRSIoWW/j0h60fb1q+LyM1PJ7k5BLFpuEjTN6A=
-Received: from 4F-GAME.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wDnz_fJKsVqPjBSCw--.19378S2;
-	Wed, 07 Oct 2026 01:07:22 +0800 (CST)
-From: Bob Hui <bg9oxa@163.com>
-Subject: [PATCH v7 0/2] arm64: dts: rockchip: Add ALIENTEK QuarkPi-CA2
-Date: Wed, 07 Oct 2026 01:06:25 +0800
-Message-Id: <20261007-quarkpi-ca2-v7-v7-0-a84c6d5d6ef6@163.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SXkewPXh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 467721F0089B;
+	Tue,  6 Oct 2026 17:20:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791307248;
+	bh=LSOs3zVHzq5LUJvNes94dLczj6Rt4dKClh/3Q9n7mfk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=SXkewPXh5kDzTG5mujLO01HdpUS/kgu3z8v06yBNcD+fCAbT8G2qdEu7P/CFl7L5P
+	 XEXiDV+xX0Vw6ZCD8oLVAImQSkthr249qhJuOlEkPl9pzIuoX0X0rctLABqDsTz61W
+	 mLfrix1OmWBzPD+VRFAbEuNCZQoQNx3smOSJXkk3V/OBrQm+WuMdZeI95F4xVgJrp9
+	 wfH6gxA5xL3M0l5wV6XudRo0pFhOSL+dlGAcO9KsCCbukwKzsuAUfh5JKahttiupnE
+	 Qsr3Let8wBrfzGnq5wLf78q1oi0RDUjvo/PchIIaGPgQntxHznOW6C7E2Uzv6LcuHk
+	 TJrKtUJrT7/fg==
+Message-ID: <sashiko-outbox-162297@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 2/2] arm64: dts: rockchip: Add ALIENTEK QuarkPi-CA2
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Bob Hui" <bg9oxa@163.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20261007-quarkpi-ca2-v7-v7-2-a84c6d5d6ef6@163.com>
+References: <20261007-quarkpi-ca2-v7-v7-0-a84c6d5d6ef6@163.com>
+ <20261007-quarkpi-ca2-v7-v7-2-a84c6d5d6ef6@163.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 06 Oct 2026 17:20:47 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAJEqxWoC/yXMSQ6DMAxA0asgr2spmElwlaqLYNxikBiSBiEh7
- t4Ulm/x/wFenIqHJjnAyaZe5ymieiTAvZ0+gtpFAxkqU2NyXIN146LIlnCrkNKObFFzYTiDGC1
- O3rpfw+frtg/tIPz9X+A8f+yLJI9yAAAA
-X-Change-ID: 20261004-quarkpi-ca2-v7-21d2a59c50c3
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>, 
- "Guilherme G. Piccoli" <gpiccoli@igalia.com>, Andrew Lunn <andrew@lunn.ch>, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Bob Hui <bg9oxa@163.com>
-X-Mailer: b4 0.15.2
-X-CM-TRANSID:_____wDnz_fJKsVqPjBSCw--.19378S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW3WFWrGr1rAry8Zr1Dtw1xuFg_yoW3ZFy3pF
-	ZxXrs8Jr4DGryIkan7Ca17u34rZa18Jw4Ygr1qq34F9a15ZF10yr4S9r45Xa4jkr95K3W2
-	qFsxWa48Ka4DZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pREApUUUUUU=
-X-CM-SenderInfo: lejz05rd6rljoofrz/xtbC+gvINmrFKssN0gAA3e
 
-This series adds support for the ALIENTEK QuarkPi-CA2, an RK3588S based
-single board computer. The binding patch documents the board, the DTS
-patch describes the hardware.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] dts: missing enable-active-high in vcc_3v3_sd_s0 inverts SD card p=
+ower
+--
 
-The DTS was rebuilt from scratch against the vendor 5.10 BSP device tree
-and then translated to current mainline bindings, so that every node and
-property has a vendor-side or schematic origin instead of being carried
-over from the earlier revisions.
+commit 4624c6a23d34c30caad9b329d1a8fc7579634e41
+Author: Bob Hui <bg9oxa@163.com>
 
-Changes in v7:
-- Rebuilt the board DTS from the vendor 5.10 BSP device tree.
-- USB-C: the connector now describes data-role "dual" with role-switch and
-  DP-altmode endpoints, the dwc3 uses usb-role-switch, and the VBUS switch
-  is marked enable-active-high.  v5 had set data-role "host", following the
-  vendor configuration; the port is a dual-role connector and the tested
-  behaviour is host mode with DP altmode on an attached display.
-  https://lore.kernel.org/all/20261001140429.1710C1F000FF@smtp.kernel.org/
-  https://lore.kernel.org/all/20260927140406.5C3381F000FF@smtp.kernel.org/
-- GbE: the RGMII delays are now documented as PHY-side only, matching
-  "rgmii-id" in the DTS; re-measured with this setting, a 500 MB transfer
-  completed with zero retransmissions.
-  https://lore.kernel.org/all/80eceb66-b573-463a-a577-30ba5793dbc4@lunn.ch/
-  https://lore.kernel.org/all/20261001153113.E4B131F000FF@smtp.kernel.org/
-- Audio: both the codec and the amplifier paths to the jack are kept,
-  with the hardware evidence in the patch description.
-  https://lore.kernel.org/all/20261001140429.1710C1F000FF@smtp.kernel.org/
-- Codec: the compatible list is "everest,es8388", "everest,es8328".
-  https://lore.kernel.org/all/20260927125456.4D5501F000FF@smtp.kernel.org/
-  https://lore.kernel.org/all/20260927140406.5C3381F000FF@smtp.kernel.org/
-- Microphone wiring matches the board schematic: the microphone signal
-  (HP_MIC) is on LINPUT1 and its reference (HP_MIC_GND) on RINPUT1.
-- rk806 DVS1 pin names, node names, indentation, blank lines and
-  regulator prefixes cleaned up to match the mainline style.
-  https://lore.kernel.org/all/20260927125456.4D5501F000FF@smtp.kernel.org/
-  https://lore.kernel.org/all/20260929-analytic-cocky-magpie-afefcc@quoll/
-- Recipients collected with "b4 prep --auto-to-cc".
-  https://lore.kernel.org/all/20260929-ambitious-festive-orca-b59ffe@quoll/
-- Link to v6:
-  https://lore.kernel.org/all/20261002-b4-quarkpi-ca2-v6-0-9fc33f27ebb9@163.com/
+arm64: dts: rockchip: Add ALIENTEK QuarkPi-CA2
 
-Changes in v6:
-- My oversight, sorry for the noise: when I switched phy-mode to "rgmii-id"
-  in v5 I forgot to update the commit message of patch 2/2 at the same time,
-  so the message still described the v3/v4 approach (delays applied on the
-  MAC side) while the code had moved to the PHY-side delays.  The message now
-  describes what the code does: the PHY adds the delays internally and the
-  MAC adds none, so nothing is applied twice.  The device tree is not touched
-  by this change; the compiled .dtb is byte-for-byte identical to the one in
-  v5 (verified).
-- Keep the headphone routing as in v5.  On this board the 3.5 mm jack needs
-  the direct codec output routes: describing only the amplifier path gives
-  no output at the jack, which I verified on hardware with a test tone and
-  with music playback.  So the parallel routes are intentional here and
-  were not changed.
-- Link to v5: https://lists.infradead.org/pipermail/linux-rockchip/2026-October/077620.html
+This commit adds a device tree for the ALIENTEK QuarkPi-CA2, an RK3588S
+based card computer. The board supports variants with different amounts
+of LPDDR4X and eMMC. Various peripherals are configured including SDRAM,
+eMMC, PMIC, Ethernet, HDMI, USB, and audio components.
 
-Changes in v5:
-- Use phy-mode = "rgmii-id" and let the PHY add the RGMII delays, instead of
-  "rgmii" with the delay applied on the MAC side, as pointed out by Andrew
-  Lunn.  The MAC adds no delay in this mode, so nothing is applied twice;
-  see the GbE note above for the details and the measurements.
-- Move the Makefile entry so that the list stays in alphabetical order.
-- Rename the headphone amplifier node to the generic name "audio-amplifier";
-  the labels are unchanged, so no reference is affected.  The audio routing
-  itself is unchanged, see the note above.
-- Set the Type-C connector data-role to "host".  The XHCI controller is
-  host-only on this board (dr_mode = "host" and no usb-role-switch), and
-  the vendor DT lists "dual" only because the vendor configures that
-  controller as OTG.  The power role stays "dual", as the board can be
-  powered over Type-C.
-- Link to v4: https://lists.infradead.org/pipermail/linux-rockchip/2026-October/077616.html
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3588s-quarkpi-ca2.dts b/arch/=
+arm64/boot/dts/rockchip/rk3588s-quarkpi-ca2.dts
+> new file mode 100644
+> index 0000000000000..d81b96d8daec0
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/rockchip/rk3588s-quarkpi-ca2.dts
+[ ... ]
+> +	vcc_3v3_sd_s0: regulator-vcc-3v3-sd-s0 {
+> +		compatible =3D "regulator-fixed";
+> +		gpios =3D <&gpio0 RK_PA0 GPIO_ACTIVE_HIGH>;
+> +		pinctrl-names =3D "default";
+> +		pinctrl-0 =3D <&sd_s0_pwr>;
+> +		regulator-name =3D "vcc_3v3_sd_s0";
+> +		regulator-min-microvolt =3D <3300000>;
+> +		regulator-max-microvolt =3D <3300000>;
+> +		vin-supply =3D <&vcc_3v3_s3>;
+> +	};
 
-Changes in v4:
-- Add the missing blank line between the include block and the root node.
-- Fix the node indentation in a few places.  That cleanup is whitespace only;
-  the compiled .dtb is unchanged by it (verified byte-for-byte).
-- Rename the Type-C controller node to the generic name "typec-port", as the
-  other boards using this part do, and drop its redundant status property.
-- Give the fixed regulator nodes the "regulator-" name prefix, as the other
-  boards do; the labels are unchanged, so no reference is affected.
-- Route the Type-C SuperSpeed lanes through the USBDP PHY, as the other
-  RK3588 boards do, so that the PHY does the orientation muxing.
-- Feed the headphone amplifier from one codec output pair only; that is what
-  the other ES8388 boards do.
-- Cc the people and lists reported by scripts/get_maintainer.pl.
-- Link to v3: https://lists.infradead.org/pipermail/linux-rockchip/2026-October/077611.html
+[Severity: High]
+Does this configuration invert the SD card power polarity?
 
-Changes in v3:
-- Rebase onto current mainline and re-run dtbs_check.
-- Drop the explanatory device tree comments, as requested.  The rationale
-  that was in them is in this cover letter instead; the compiled .dtb is
-  unchanged by that cleanup (verified byte-for-byte).
-- Use phy-mode = "rgmii" with the RGMII delay applied on the MAC side
-  instead of "rgmii-rxid", as pointed out by Andrew Lunn: phy-mode
-  describes the PCB wiring, and only one side should add the delay.
-- Rename the fixed regulators that used a different naming scheme so that
-  all of them follow the same style, and use generic node names.
-- Drop two redundant "status = \"okay\"" properties (rga3_core0 and
-  rga3_core1 are already enabled in rk3588-base.dtsi).
-- Add the missing "enable-active-high" to the Type-C VBUS regulator.
-- Use the binding-documented codec compatible pair and drop the
-  "clock-names" property, which everest,es8328.yaml does not allow; the
-  codec node now passes dtbs_check.
-- Drop the phy-supply of u2phy0_otg, the USB 2.0 PHY of the USB-C OTG
-  port.  That rail is the Type-C VBUS and is already owned by the TCPC;
-  while the PHY held it enabled as well, VBUS was powered from boot, the
-  TCPM state machine never saw a VBUS-off event, and the port could not
-  finish a source attach, so DisplayPort altmode never came up (the
-  monitor had power but no picture).  Verified on hardware: the port now
-  attaches at boot and the monitor gets a picture.
-- Add the LED color so the work LED is exposed as "green:heartbeat".
-- Drop the camera sensor and its regulator: camera modules are plug-in
-  devices, and enabling the CSI-2 receiver without a sensor attached makes
-  the driver fail to find its endpoint at probe.  Following the vendor
-  tree, camera and panel descriptions belong in overlays.
+The vcc_3v3_sd_s0 fixed regulator specifies gpios =3D <&gpio0 RK_PA0
+GPIO_ACTIVE_HIGH> but omits the enable-active-high property. In
+drivers/gpio/gpiolib-of.c, of_gpio_set_polarity_by_property() checks for
+the presence of enable-active-high on regulator-fixed compatible nodes.
 
-Changes in v2:
-- Fix the RK806 DVS1 pin configuration: dvs1-null-pins used
-  "gpio_pwrctrl2" instead of "gpio_pwrctrl1", as reported by the
-  sashiko review.
-- Translate all device tree comments to English, and drop a stale
-  comment that no longer matched the Type-C / USB3 nodes.  Comment
-  changes only: the code is otherwise byte-for-byte identical to v1.
+Because it is missing, of_gpio_quirk_polarity() evaluates active_high as
+false and forcibly adds the OF_GPIO_ACTIVE_LOW flag to the internal GPIO
+descriptor. This actively overrides the GPIO_ACTIVE_HIGH phandle flag
+and emits an 'enforce active low on GPIO handle' message.
 
-Please review.
+When the SDMMC driver subsequently calls regulator_enable(), the fixed
+regulator driver sets a logical '1', which gpiolib translates to a physical
+LOW signal due to the inverted polarity. Will this physically cut power to
+the SD card when the driver attempts to enable it?
 
----
-Bob Hui (2):
-      dt-bindings: arm: rockchip: Add ALIENTEK QuarkPi-CA2
-      arm64: dts: rockchip: Add ALIENTEK QuarkPi-CA2
-
- .../devicetree/bindings/arm/rockchip.yaml          |    5 +
- arch/arm64/boot/dts/rockchip/Makefile              |    1 +
- .../boot/dts/rockchip/rk3588s-quarkpi-ca2.dts      | 1204 ++++++++++++++++++++
- 3 files changed, 1210 insertions(+)
----
-base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
-change-id: 20261004-quarkpi-ca2-v7-21d2a59c50c3
-
-Best regards,
---  
-Bob Hui <bg9oxa@163.com>
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261007-quarkpi-ca=
+2-v7-v7-0-a84c6d5d6ef6@163.com?part=3D2
