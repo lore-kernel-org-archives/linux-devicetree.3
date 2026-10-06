@@ -1,194 +1,201 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 355033ABDA8;
-	Tue,  6 Oct 2026 09:47:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A12B23A8736
+	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 09:50:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791280025; cv=none; b=uoSCsxMaT6JNcyUCft3ouiRA2UOS6P/dWf5kiOoEOUyz2uar8U02ceA7Burl/eKNuwuMmDhcqGRwM4uGgel8kdqwGnK2AA+eSMy00wqsirsPwgBjvwKL9Bpr65GjmRSkTIZf2QHAHmjDt/BI4pnRUd71/TkSxV3FQi6WXtK67ek=
+	t=1791280237; cv=none; b=rOf/FwdAB7fK4xj8Qojvxo7M0nOIRXqq2QcWpMlef9S1SdHY4X0q/Gui24pN27CzYP2mHG/rMtABvErq/CoHsZfk00OMF4puT7Ok0bPBPZNM6YCRz5WG8ehP1vOEA57ibSDVGNDmbTT5po7TwOsWcmq7R/IjzFXzzhJV19r/2m0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791280025; c=relaxed/simple;
-	bh=FLHj0G5aOhXs16x0OKE7+C6AYvH6VvieuGt1QUJ8GBU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=h7t3ut55w56MqAWyuvZ9cYaDmNeF0FIzt8ID/ZoJJ+FExMfRwrjitGblf6zETuLPmL8Vm5AgpJXgB9FDRAmJa02CiULMyRcgGLNvPFWUZNqlRfCzdOmLLXjBaYMkXb8HxnT/Xm1iUD76fao4l/QbZLPWtAbkC6G9I/qn9Bs+k/w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=Q3i20Eq+; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1791280237; c=relaxed/simple;
+	bh=vBESHexR1XlckAAiOTO635W5zfqoyXyDw+1NzmtYhMc=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=nQ1CJTGiVIBdP3MPHEYmCIibcmjkZd3XDhkKwZ0J/YK7afKiR5lpT1AafnFdNeGA48E+pMcJr0ehSOwcZ9M15W0xcMHYhNUg5S9SYJ9eJs3QRSqzUq5YOm97Pwqb58kiK8brxiOO30IQg6NOFC6EjndsjXEvXNlcS10bHl/+Ioo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=R1FN5KEE; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bNML1oMh; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="Q3i20Eq+"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3D46B1516;
-	Tue,  6 Oct 2026 02:47:00 -0700 (PDT)
-Received: from [192.168.178.24] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 483123F763;
-	Tue,  6 Oct 2026 02:47:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1791280023; bh=FLHj0G5aOhXs16x0OKE7+C6AYvH6VvieuGt1QUJ8GBU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=Q3i20Eq+Va1cYGLHzHDjsaxDQ6/8kKdT9HfUX2/YU9b59PkMqzReJ3bYlgbAAACi7
-	 MVlx22Wz3O4rozJTYWcAV6Uxl4T3QAkRD0Nv2E/eWhLIzHp5Y4oTvw9/PrA5w/GZCd
-	 byo17B/sRhxboDUuQH/48nb+kLyKHpqoHkaAG+w0=
-Message-ID: <db561de8-cef7-4945-93ee-b0d434eb806b@arm.com>
-Date: Tue, 6 Oct 2026 11:46:59 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="R1FN5KEE";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bNML1oMh"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6966eHMo548453
+	for <devicetree@vger.kernel.org>; Tue, 6 Oct 2026 09:50:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=T9oEOBEBhJUjWH2nQll9Zu
+	PtpcYhVcGfQm4EXIdM0IQ=; b=R1FN5KEEE30nDMwDoKFKY4GCY7QjCNhKdTQQ0s
+	9j/40Zv44klyD9Ou1fKZYui7D79nOAdvoAc/DP262XEFdmpJTxefmynWZhYHs9ju
+	56rgil2zyRuyoEdK+Nyf94iLTiag2U2BIEEnaWQeTDuJPshh8yqSupbNZdjfjekS
+	DHdHkyzME4DyIQ8gQty0U3c45zTvNt6gsS1HpTQZOvm5IqIyWJYJCeUP4hBB7vWo
+	TUEN3mQ1S4NulnHSqIc3UKS7PMSSFg7te4eEartGUq0XlXyDKJb8DSKhMbmilwh1
+	p7JqClcK/Nn/Qe9P72eJwdGeNH+jr04eQ9ci+gPnS4PUU5jQ==
+Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h49tvvp7t-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 06 Oct 2026 09:50:34 +0000 (GMT)
+Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc44d708055so3602463a12.0
+        for <devicetree@vger.kernel.org>; Tue, 06 Oct 2026 02:50:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791280233; x=1791885033; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=T9oEOBEBhJUjWH2nQll9ZuPtpcYhVcGfQm4EXIdM0IQ=;
+        b=bNML1oMhn5yfJwwNAiXhK69hInRhOjD6ysXgf5TfhTbyUelU0jCtMzBQo8ggwlLhhG
+         kmZGEk+rIjZFprvqwlS6sUm6UUmRRLefh8CEUt+/3sT7nQWGuSryKq1ZcoJbTt176yRR
+         c42CaWc5K9XdGn+9xj4b6crBMkNTtiIGfGiTmteFDXaatdRmidoSvO7AOFHE1jhFqt1i
+         tV5R+KUL/NkiUaS5BFN0oVeo3n+t2SQEfWMKbkaBKzUxYrY3fmKyjONdoEMSGhUpZtUq
+         OcHNmBjB5UkrZK+P5MnUGAI+amf4zcighx5OsXUQzEDH83cYDxEoY7GqOr0jeo9DP5gt
+         CAmA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791280233; x=1791885033;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=T9oEOBEBhJUjWH2nQll9ZuPtpcYhVcGfQm4EXIdM0IQ=;
+        b=tHsYSnIT0Dv7ObU31Af1nYBqzby/w4yhBWqX5kLdrXepx/iedE3WydMnWQ3kNBXUt+
+         xaHQKB8gwcWz/NZOwcdD8kP2Z6Ultu/PHFG164p6D9xLCG1Sf1LYswR3KEomCKkO9UBZ
+         shquii4V8BKTvSCy7ZcGX3LgzbR4f1Qt0X3DwBv3O5mtMgK3EPlTXdfUl3+kaV5zkY2m
+         CdqDWbVvWLWuGEB+xzEegs+RcOfxYhiUkS9U1Galcpinvw9Sn65sW+lbGzTVbLYOliBM
+         alunshrRjiFfFby1VOwFrnqCuAv3Ka5UuPqb89PPmK3rV1twHO4RgFZRkCVNOfyI/Ub1
+         ceSQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy8xQ1SRkrM45xSYbMZ/HsfNkrl+Ojs94csNDo5eW0YBGbcFMcBrtijimbw5YQPFMuWy3fpuh54fXvt@vger.kernel.org
+X-Gm-Message-State: AFuF++nClE8sddnS3aQFgj5tCb0e11zaKYa1/Fd55SXmKTrJmegqHM+f
+	t7puy8jtfTe6fEEGvC5HFr2Niw7Hz2HYIL5lVyZ92EI2SwKMSisWlvgOIHTwIbb4T5ecxwHzlGY
+	w9kADakNVentOs+n0V1JpC7dVXC8dezeQlctiv8kRi+m7OdXnKOgiPGRAkAKw7jWH
+X-Gm-Gg: AYBFou3ljMBSgq6Bw0v/hEnRLqUnWDFiptZZWJZDFkSOwn2bC0/5CqsVsjF64hTEIEX
+	0O6KvJPhC+gsmI/04+1/cBIEh0Ra/aeUNEi2UCNrHUhvxSBHKZPrRqK8juxXQc7eZh2bTdKW7XY
+	8FIVLZgjjRb2xR0vglMTqZyJlRosTcJH5U0ehAsL4LRP6jdhhh6mk2ZQ3BTrED5N+K5mSiUBCv8
+	UnUaQ/GRPtqV9EbqL3J/AUYTZfukFY1TFwSUGPZMM7YSxS+kqXzIWxUQmuPWnRHQ0aS3XKpkUcq
+	nFKe3cLznIpY19OAJbxqmWONw4u/c6CU4d6MNDAG5/cHNLNOBjoiLfWMHu1MYu3C5Agb4LiHy/A
+	BXXnW4EJb2F3A3k17nSkbUVLcYjpQMR+57k+SdiTmUjBq/KRwjUeDEC8pC5eG95g7
+X-Received: by 2002:a05:6a21:495:b0:3e0:c961:b5bb with SMTP id adf61e73a8af0-3e0d6baccdfmr8945965637.66.1791280233292;
+        Tue, 06 Oct 2026 02:50:33 -0700 (PDT)
+X-Received: by 2002:a05:6a21:495:b0:3e0:c961:b5bb with SMTP id adf61e73a8af0-3e0d6baccdfmr8945928637.66.1791280232685;
+        Tue, 06 Oct 2026 02:50:32 -0700 (PDT)
+Received: from hu-ggarmidi-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-890acde961asm535523b3a.61.2026.10.06.02.50.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 02:50:32 -0700 (PDT)
+From: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
+Subject: [PATCH 0/5] arm64: dts: qcom: Add Microsoft Surface Laptop 8th
+ Edition
+Date: Tue, 06 Oct 2026 02:50:26 -0700
+Message-Id: <20261006-mahua-surface-laptop-v1-0-406fc042162a@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/3] serial: 8250_dw: Add Allwinner A733 UART
-To: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>,
- linux-serial@vger.kernel.org
-Cc: gregkh@linuxfoundation.org, jirislaby@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, andriy.shevchenko@linux.intel.com,
- ilpo.jarvinen@linux.intel.com, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-sunxi@lists.linux.dev,
- Enzo Adriano <enzo.adriano.code@gmail.com>
-References: <20261005172538.398522-1-vinicius.eduardo.pedrosa@gmail.com>
- <20261005172538.398522-4-vinicius.eduardo.pedrosa@gmail.com>
-Content-Language: en-GB
-From: Andre Przywara <andre.przywara@arm.com>
-In-Reply-To: <20261005172538.398522-4-vinicius.eduardo.pedrosa@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAGLExGoC/yXMQQqDQAxA0atI1g3EUQR7ldJFOkaNtDpMnCKId
+ 3dsl2/x/w4mUcXgXuwQ5aumy5xR3grwI8+DoHbZ4Mg11FaEHx4To6XYsxd8c1iXgMTSdK4uW1c
+ T5DRE6XX7bR/Pvy29JvHr9YLjOAFUIl2heAAAAA==
+X-Change-ID: 20260930-mahua-surface-laptop-0ae6d2419240
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Maximilian Luz <luzmaximilian@gmail.com>,
+        Hans de Goede <hansg@kernel.org>,
+        =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+        Douglas Anderson <dianders@chromium.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
+        Pankaj Patil <pankaj.patil@oss.qualcomm.com>
+Cc: Rajendra Nayak <rajendra.nayak@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+        dri-devel@lists.freedesktop.org,
+        Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791280230; l=1985;
+ i=gopikrishna.garmidi@oss.qualcomm.com; s=20260102;
+ h=from:subject:message-id; bh=vBESHexR1XlckAAiOTO635W5zfqoyXyDw+1NzmtYhMc=;
+ b=MpjB7a8GEPa+bcf+sqbcNhELpb0WjJ6AVsq1tEC4UAa4FYFSazy2XGawD33zmxlL91PNp71EB
+ RgnGVVJjUHRDSkVNiufFUiVVG5dYJD2zlInZ5ronm/jz+Ile7EfYQWt
+X-Developer-Key: i=gopikrishna.garmidi@oss.qualcomm.com; a=ed25519;
+ pk=TkSjNEhrfsj90i3wkABTZtAjLNr2cfYsujaTvyOIDsE=
+X-Authority-Analysis: v=2.4 cv=aN9lOr9m c=1 sm=1 tr=0 ts=6ac4c46a cx=c_pps
+ a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=6qiGk_Zo5UkJWkwZqDsA:9 a=QEXdDO2ut3YA:10
+ a=_Vgx9l1VpLgwpw_dHYaR:22
+X-Proofpoint-GUID: Xwg4qdgB0VUrrTqTnFqXjca8bbay_0dS
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDAzOSBTYWx0ZWRfXzRzgNODyBy/I
+ xDWydCvxt5xvKca36uqcK88rr3QqRZh52AB0cycVCMV7Y/WfMODvxbCdgn0X1ffkMB+ySjrStHj
+ Q5MgB4gAhvUiRs3TzI3iIGmutb8pDWtTLuvmfJ5RhGbCpn0RrnQI77NfrnWqDOyBUxEHOfONiqm
+ hJF4N4MD+xhY46Bfms4ip8BlzSvJt4GcAXrU5REjxAK/U0PA8aBJeQ7WJVOM3NHIxuoKZ6ffy9u
+ r2l1Mff3Wtsht/TpI7vwjgukpmADzaGE7LYk40ptiS0F+3SJ7wEeT3ItYfCoA+rMYUd6mKO5WT8
+ q9BO2lR1DmfbFi1PPIOCHtCEKvuwyyhZIvN/JIxTVCXiD/YrN9TAoVtQWjf8Kpy0OmSW6tgPSKh
+ 9irRgyJ7R1PKWMwkG1Hish5SDKo5L+L7tsOSuqzbpS5T+T+Zc1XYYf7lQTQkPmHsvvyqRm60EiB
+ 5wqJV1qBN4R1lpJP+6Q==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDAzOSBTYWx0ZWRfX/NUyQU5huHa9
+ fVoXuLV7kqCgpifLwtCFg+1vW7Njd3q61vnSOhtzEjsDT1flJ4BZxHu4nPvGXoLej6cjdrbKYpI
+ q2r3zxRxE1CAz5qXFUcBW/ct1jelfyQ=
+X-Proofpoint-ORIG-GUID: Xwg4qdgB0VUrrTqTnFqXjca8bbay_0dS
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-06_02,2026-10-05_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 suspectscore=0 clxscore=1015 spamscore=0 phishscore=0
+ malwarescore=0 priorityscore=1501 adultscore=0 lowpriorityscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610060039
 
-Hi Vinicius,
+This series adds initial support for the Microsoft Surface Laptop 13.8"
+8th Edition. It's built on Mahua, the 12-core variant of Glymur with
+cluster2 fused off.
 
-On 10/5/26 19:25, Vinicius Pedrosa wrote:
-> The A733 UART is clocked from its bus clock gate, which can't change
-> rate. dw8250_set_termios() still gates it around a no-op clk_set_rate()
-> on every termios change. That stalls the character being shifted out
-> and corrupts it on the wire. Use the existing SKIP_SET_RATE quirk, as
-> other SoCs with a fixed UART clock do.
-> 
-> Offset 0xc0 is the RS485 control register on this SoC (A733 User
-> Manual, UART_485_CTL), not DLF. dw8250_setup_port() writes all ones
-> there, reads back a nonzero 9-bit value and takes it for a 9-bit DLF.
-> Every later divisor change then writes the fractional divisor into the
-> RS485 control register. Add a NO_DLF quirk so dwlib skips that probe.
+As on the Surface Laptop 7, the keyboard, fan and platform profile are
+handled by the Surface Aggregator Module over UART. The rest of the
+board is close to the Qualcomm reference design.
 
-many thanks for digging into this, and superficially it looks like the 
-right thing to do. But looking into some manuals, it seems like 
-Allwinner added this RS485 support on registers +0xc0, 0xc4 and 0xc8 
-already a while ago: I find it in the H6, H616, A523 manuals, for 
-instance. And while register 0x50004c0 ignores writes on the H616, the 
-corresponding 0x25004c0 reacts on the A523, so at least that one is 
-already broken.
-So as Sashiko mentioned, we would technically need to drop the fallback 
-compatible, and doing this also for the A523 would break all older 
-kernels, so that isn't a good option.
+With this series the laptop boots to a desktop with rootfs on NVMe.
 
-Now when I write 0xffffffff into +0xc0 on the A523, I read 0x9f back, so 
-there are zero bits in the middle, which doesn't match the expected 
-contiguous bitmask for the fractional divider bits.
-So I was wondering if we should refine the DLF detection instead? Only 
-when the readback from 0xc0 returns some 2^n-1 value we assume DLF is 
-implemented?
+Features enabled in this series:
+1. Internal eDP panel
+2. Speakers (2x WSA8845) and DMICs
+3. USB-C host and charging on both ports
+4. USB multiport controller behind two PTN3222 eUSB2 redrivers
+5. Wi-Fi and Bluetooth (WCN7850)
+6. NVMe
+7. Keyboard, fan and platform profile via SAM
+8. HID-over-I2C touchpad and touchscreen
+9. Lid switch
+10. UEFI variables and RTC via QSEECOM
 
-Alternatively making DLF a (negative?) DT/ACPI property instead, and 
-keep the fallback compatible?
-I guess this all depends a bit on what the snps,dw-apb-uart compatible 
-string really covers, and if Allwinner hacked^Wchanged the IP, by adding 
-their RS485 bits on top of on older Designware IP, or if this is a valid 
-configuration.
+The QSEECOM, SAM registry, and panel patches add independent support for
+the board or panel and can be merged separately from the DT patches.
 
-Cheers,
-Andre
+---
+Gopikrishna Garmidi (5):
+      dt-bindings: arm: qcom: Document Microsoft Surface Laptop 8th Edition
+      firmware: qcom: scm: Allow QSEECOM on Surface Laptop 8th Edition
+      platform/surface: aggregator_registry: Add Surface Laptop 8th Edition
+      drm/panel-edp: Add Sharp LQ138P1JX61 (Surface Laptop 8th Ed.)
+      arm64: dts: qcom: Add Microsoft Surface Laptop 8th Edition
 
-> Signed-off-by: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
-> ---
->   drivers/tty/serial/8250/8250_dw.c    | 13 +++++++++++++
->   drivers/tty/serial/8250/8250_dwlib.c | 22 ++++++++++++----------
->   drivers/tty/serial/8250/8250_dwlib.h |  1 +
->   3 files changed, 26 insertions(+), 10 deletions(-)
-> 
-> diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/8250_dw.c
-> index ba414306c98a..ea33aa644cda 100644
-> --- a/drivers/tty/serial/8250/8250_dw.c
-> +++ b/drivers/tty/serial/8250/8250_dw.c
-> @@ -52,6 +52,7 @@
->   #define DW_UART_QUIRK_CPR_VALUE		BIT(5)
->   #define DW_UART_QUIRK_IER_KICK		BIT(6)
->   #define DW_UART_QUIRK_SKIP_EMPTY_FIFO_READ	BIT(7)
-> +#define DW_UART_QUIRK_NO_DLF		BIT(8)
->   
->   /*
->    * Number of consecutive IIR_NO_INT interrupts required to trigger interrupt
-> @@ -606,6 +607,8 @@ static void dw8250_quirks(struct uart_port *p, struct dw8250_data *data)
->   		p->serial_out = dw8250_serial_out38x;
->   	if (quirks & DW_UART_QUIRK_SKIP_SET_RATE)
->   		p->set_termios = dw8250_do_set_termios;
-> +	if (quirks & DW_UART_QUIRK_NO_DLF)
-> +		data->data.no_dlf = true;
->   	if (quirks & DW_UART_QUIRK_IS_DMA_FC) {
->   		data->data.dma.txconf.device_fc = 1;
->   		data->data.dma.rxconf.device_fc = 1;
-> @@ -892,6 +895,15 @@ static const struct dw8250_platform_data dw8250_skip_set_rate_data = {
->   	.quirks = DW_UART_QUIRK_SKIP_SET_RATE,
->   };
->   
-> +/*
-> + * The baud clock is the bus clock gate, whose rate cannot change, and offset
-> + * 0xc0 is the RS485 control register rather than DLF.
-> + */
-> +static const struct dw8250_platform_data dw8250_sun60i_a733_data = {
-> +	.usr_reg = DW_UART_USR,
-> +	.quirks = DW_UART_QUIRK_SKIP_SET_RATE | DW_UART_QUIRK_NO_DLF,
-> +};
-> +
->   static const struct dw8250_platform_data dw8250_intc10ee = {
->   	.usr_reg = DW_UART_USR,
->   	.quirks = DW_UART_QUIRK_IER_KICK,
-> @@ -913,6 +925,7 @@ static const struct dw8250_platform_data dw8250_tda54 = {
->   
->   static const struct of_device_id dw8250_of_match[] = {
->   	{ .compatible = "snps,dw-apb-uart", .data = &dw8250_dw_apb },
-> +	{ .compatible = "allwinner,sun60i-a733-uart", .data = &dw8250_sun60i_a733_data },
->   	{ .compatible = "cavium,octeon-3860-uart", .data = &dw8250_octeon_3860_data },
->   	{ .compatible = "marvell,armada-38x-uart", .data = &dw8250_armada_38x_data },
->   	{ .compatible = "renesas,rzn1-uart", .data = &dw8250_renesas_rzn1_data },
-> diff --git a/drivers/tty/serial/8250/8250_dwlib.c b/drivers/tty/serial/8250/8250_dwlib.c
-> index 9bb02a4ab11f..9c6f3d926ad5 100644
-> --- a/drivers/tty/serial/8250/8250_dwlib.c
-> +++ b/drivers/tty/serial/8250/8250_dwlib.c
-> @@ -209,16 +209,18 @@ void dw8250_setup_port(struct uart_port *p)
->   	}
->   	up->capabilities |= UART_CAP_NOTEMT;
->   
-> -	/* Preserve value written by firmware or bootloader  */
-> -	old_dlf = dw8250_readl_ext(p, DW_UART_DLF);
-> -	dw8250_writel_ext(p, DW_UART_DLF, ~0U);
-> -	reg = dw8250_readl_ext(p, DW_UART_DLF);
-> -	dw8250_writel_ext(p, DW_UART_DLF, old_dlf);
-> -
-> -	if (reg) {
-> -		pd->dlf_size = fls(reg);
-> -		p->get_divisor = dw8250_get_divisor;
-> -		p->set_divisor = dw8250_set_divisor;
-> +	if (!pd->no_dlf) {
-> +		/* Preserve value written by firmware or bootloader  */
-> +		old_dlf = dw8250_readl_ext(p, DW_UART_DLF);
-> +		dw8250_writel_ext(p, DW_UART_DLF, ~0U);
-> +		reg = dw8250_readl_ext(p, DW_UART_DLF);
-> +		dw8250_writel_ext(p, DW_UART_DLF, old_dlf);
-> +
-> +		if (reg) {
-> +			pd->dlf_size = fls(reg);
-> +			p->get_divisor = dw8250_get_divisor;
-> +			p->set_divisor = dw8250_set_divisor;
-> +		}
->   	}
->   
->   	reg = dw8250_readl_ext(p, DW_UART_UCV);
-> diff --git a/drivers/tty/serial/8250/8250_dwlib.h b/drivers/tty/serial/8250/8250_dwlib.h
-> index ee7a07fac0f6..ca0dfd6d056e 100644
-> --- a/drivers/tty/serial/8250/8250_dwlib.h
-> +++ b/drivers/tty/serial/8250/8250_dwlib.h
-> @@ -88,6 +88,7 @@ struct dw8250_port_data {
->   	/* Hardware configuration */
->   	u32			cpr_value;
->   	u8			dlf_size;
-> +	bool			no_dlf;		/* Offset 0xc0 is not DLF */
->   
->   	/* RS485 variables */
->   	bool			hw_rs485_support;
+ Documentation/devicetree/bindings/arm/qcom.yaml    |    1 +
+ arch/arm64/boot/dts/qcom/Makefile                  |    1 +
+ .../qcom/mahua-microsoft-surface-laptop-8-13in.dts | 1180 ++++++++++++++++++++
+ drivers/firmware/qcom/qcom_scm.c                   |    1 +
+ drivers/gpu/drm/panel/panel-edp.c                  |    1 +
+ .../platform/surface/surface_aggregator_registry.c |    2 +
+ 6 files changed, 1186 insertions(+)
+---
+base-commit: bf1ee2bd5c2da8992f33c8950ef194aaff74ed6c
+change-id: 20260930-mahua-surface-laptop-0ae6d2419240
+
+Best regards,
+--  
+Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
 
