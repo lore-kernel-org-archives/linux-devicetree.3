@@ -1,61 +1,63 @@
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6351B42123F
-	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 12:47:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AABC83C10A9
+	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 12:47:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791290864; cv=none; b=I2mVZ+UdcAQT3ZsuH9o4EDdsdlI67BzU0KxxSsbhv3KwFbq3Jg4r2ycfjZZq+sZUrHwVFAA8wa2jd9c4BBbNdJTAZGWMD1EB9GDE5lnOws2Fw3+27YAzszB/nSOTooJ6UJ1fnkJHNxmD4DUSkklT1jA+CqYw/AE+qfj5NN6vhPI=
+	t=1791290867; cv=none; b=e1Bi5y/Ui2oELMY1u7wl1YqsjkrghdYyASbaCHWlB46Gt/cNelRySPhma/CEHkw+Il/GNzydesU3A/lCAMUgTnsNwnYuAB0dGfQHjvAR/on0O4OuNYmMSOE5/eWabM202KZ7bhVWLm5pcIUs9AejGyGpljd+sTGbF8ltSX3O+cc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791290864; c=relaxed/simple;
-	bh=VPRvLKFU/4JwdFlsA07KHBhbQlgqiomdzFmD+vs2G1A=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NXovVdgp+ZKpx3GYaPZCyChAvBojvPEO0hUByOSOG608Ce+OVZXtrPt4qHl4s8M0W1ZhGq2Pp60poa/o9QSLuttyAYl8XnYT+MkNHlhczrRkzkhVAOIfp3LA8rT70GLes/jlivrCxZ3UGOmzCkWqm8Zz2YDdAJVe8OyEuNDyHX8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=NyM2Byd0; arc=none smtp.client-ip=209.85.221.43
+	s=arc-20240116; t=1791290867; c=relaxed/simple;
+	bh=j6mlx9CPkum7bpd93df0KuA9wXWsuLKzELZc3PzmjK4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Y12kYRkmpoTA085L+zYxVe9oD4j7p0dIxpdrWgjVZj3zCsF+nNY9F7SRPeiNYhkp3SK6NNE9L585mwuS7BdK034Qa+vmCtstqza1gF9v3dhHErqlGRAI9NR3rU3f0lvdgoXj4PCy6kkJ91yPyiqCBSYXGxvOXDAe99/0OZIlbkY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la; spf=pass smtp.mailfrom=lex.la; dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b=dBtWmZ0k; arc=none smtp.client-ip=209.85.128.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=lex.la
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lex.la
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="NyM2Byd0"
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-48c4d99c32bso583809f8f.1
-        for <devicetree@vger.kernel.org>; Tue, 06 Oct 2026 05:47:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=lex.la header.i=@lex.la header.b="dBtWmZ0k"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a168355946so6635545e9.0
+        for <devicetree@vger.kernel.org>; Tue, 06 Oct 2026 05:47:41 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=lex.la; s=google; t=1791290858; x=1791895658; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RSZxsBu5RBEC02GI587QjIyYZwSuYrJWfwAAHFHFZ+o=;
-        b=NyM2Byd0Gc6bzeffEvVrxyA79H4UAr+uCWL0Q8hhW0IDM64Q7PTVK+7dIAqTsB5GBf
-         gJUo7JTLIlVtsOBQs51KUyN8kqRLkjFOrJEiG+sVhfCcS8DwE2A79urQIc+ggV9ZN5GL
-         /3Sp5iw8s5kEVaUbmA1ASkbzFUfAJCOO1MXtPxM/44n1JEwEvCNYI61y6iFyvKCEs/RH
-         mRwL0m8MbguwDFu/TnwrCZOOjqC2EguO/r5acMZk09XuOObbp7cQu0onwt5gdB08Nh2y
-         PMURcI8kp6uCbCovOuju036WDEQsTMK+RuYoyKXF3VurKJu8JSYLf+L2bSn9LbvZlRIe
-         AHxw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791290858; x=1791895658;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=lex.la; s=google; t=1791290859; x=1791895659; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=RSZxsBu5RBEC02GI587QjIyYZwSuYrJWfwAAHFHFZ+o=;
-        b=tiyZVVk5Ra/0Ox3BZ8R8PRcmYPPa4YWFPYCSESdou1dP0Kss+ZNKjLMU6eMqfp3Her
-         HYDHzx5yJw/HTj2pFCd6c53u0ddfAcFG5iFip5VLvMUdsG3INRjIbjt1/4n/HK/0inpM
-         BtwpIH9l4R88cbkN5cOL6w+aFLriazul+/uYQYS7fFnN+OmPQ0qp2dOBkyrY5QCIzU4K
-         WFQ3MPCSIaCIyCkhZxFmmrOlWz1tEDA670xJLjUZeNbds6OKJ8+tsQ6HNBpneQRsJIh6
-         gGzPNP3rDZmtoII139yqkI8r6OsBzEgYa9X4d+shwYGvUnNU393UtUNKn/CUuT1YEIgI
-         kq4A==
-X-Forwarded-Encrypted: i=1; AKwUvBy3m9NO4BWlciST1Z43pmhSCw3oiM+eR3yilRfF38yUYOpm4gS0C3zfWsFfuNAXLCoRtaC/VEJgvHM5@vger.kernel.org
-X-Gm-Message-State: AFq9FYIil6akOdDrgb+r8LQ0MCIi78ml36uklpj3W+a39Twf5UOHTmZx
-	T3xQyhTuxZ/Rbqe1uKGWvQylHgsArls2oPscVEM6QKLGAMh+CUK7bMWhWsvN+F+kIi8=
-X-Gm-Gg: AYBFou0By1UtjtweezmaNz03Ri5lkE29pwXICqE+tPj72KWyeQ938TrBcrU+XQgXnf8
-	W0UbPWuyWD5i2UK0OqUC7HfnSydn6UkvNkk7crvq0YdRLb+26AAuXKYXtIeogl/e3IQ6LnRmqA2
-	huHFLxvQvh0+/CfhYB8U8luOePQjBAXhRUwTpUk4zLkhLGzROp4S5Pxugi7R/i0vH2x8wRsD5F4
-	1jObsD65izlFmf+T5afAk6XZxZppyGnoO09okfburR7lQjjuu+x5Yd+yQMGgCPWWdlyr2IsjFoy
-	pHPoysTbOFAQ07RV+J1vIDSxGXd93qEcPtzh7ZVfUyn1sqsWWb/jn0Lqg09TAQ4csjM21PiIB3q
-	4oaUTPD3wTxBjs8J8mu2gbsPfaX4SDYfBGcMj2sdE51KHjA6LHlCcfTCAnYwweuw9qtcB/A3ye4
-	jplLX7FudOaaypWUzDvkXzpNT38HnGgX45nm9WJo0fFdbASUmNnA==
-X-Received: by 2002:a05:6000:4915:b0:48b:4c8:7b08 with SMTP id ffacd0b85a97d-48c6d19d048mr2285274f8f.34.1791290857366;
-        Tue, 06 Oct 2026 05:47:37 -0700 (PDT)
+        bh=URnF0WpPNT76iwwx4OUHbknNShXeDW8wlFWgezHCYwk=;
+        b=dBtWmZ0k8CwfKgtLEQbpYwUdconweRIQDnJ+hj2SlCqykC/27iUMZ/xGWduTT7Hpx1
+         lIvdnTPRsn04NtXKqJC0nVlU3CiJZisPz7RIxtuVoDKHdyyAMS2y6lf5X11zsXbJNzpb
+         fFMDOc7TWbjrHSCE2Eyq5kvgawoi+6S6sdSnqqIbRTBEkaftmh/J17Ca1fQ1JEdrzGE5
+         AD/palnI4ZUTfoVRcTlKwSRBGjIXy1kar1BjW/eTUIhtnlPKX2z+Mkee5o5/ucI0/M+z
+         RIkNJlKxsRrfrlsUuhvx2nBbjPcz+9/38Uz+EZt8uHUbobDgMSNV3EbESX31+UIaYujh
+         2B/w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791290859; x=1791895659;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=URnF0WpPNT76iwwx4OUHbknNShXeDW8wlFWgezHCYwk=;
+        b=kMhkrSBk4Si6ph+M9fnce6oUON1IS+gukCJtGpaaGqJvcWS8vLxgpzfCQDSYMqpqnP
+         Qb66Eqh3pi5kzMQLc/LDuL0Xa67sAvJOpHPe8brhNbBbxNktN4zYVkzFuZfGjck0uRyd
+         JJgw/zBrVjO/eSEhcbGhv59z0R4s0dxoIwf2g52pqweCa6Z4kgR5JcbcuBidb9k11gEv
+         8Zz1VnmwfhtCRWqmOd4vvpRQL9/ayukTIKT6p7W5foohWCP48Q2LYqg3MgQz8KB3C3tc
+         SXzEBxlrHNvxEBgaUIW67TB2Fem2lJ07MZTvQkE6FL0AtPVcxaQp/5Pm4nbvuE2p2jR2
+         DWIg==
+X-Forwarded-Encrypted: i=1; AKwUvBxYckKqWUecH7GXfpmgh6KJBghMHLPEFnQu7RqMeGWeDyqWX/zeUvvdmyEkVK5f7G2eZNjDK1SREI1k@vger.kernel.org
+X-Gm-Message-State: AFuF++lGR5lFZzQfsBII+uUeX4mx/8WR/nLLS1pXeYymxOiXejWpaVL2
+	+KHkOh1oMB8tRwdkg4xKeflqHxrsWLpMp8o6ukEcHKgGJAgVXvGh2A46C48dKYSXhUA=
+X-Gm-Gg: AYBFou1t9cck7aXyoAIq1sYR5XhqvoVYL8HEhURwlg47uKm6gQhZmMtdSIP9knRbLzW
+	k5OEsUsmXCwCWJxSfDiFRw4FiGblqP/kQPaLFzx/jG4+n0VME6Nh75MQgpqvu1eF5agI+DE1eFJ
+	3o6VcpzXEVyWYb/7LO14CetFp1/ffMX7Z5z6C9kxVd7igC4ZJEVzLR2R6fpPjhvtsc0TM3+KOXq
+	s1xjPf0esFTSqBbbWkfZhrwlAsjggeSNq34OX54AdBAtBY7O+0TkZYJGf5xhxb6nU3/foqffX8n
+	osWvtG1cn2p/UzyrJtuAaxZcC01zAJ/2djADgYGarnzWU5m4mLKt4xBBejF2vlXaoKpsT8pAzF6
+	YI7HCFEqp5n46C9Ln6SDrqv6kZrY3XjYb4sG827Ccy3KaoBEouP+UWKnypJGt682nwzH/W/HkZC
+	CL0/yjKMzF7+/OQymM6vk3GPN1B5x0n6q5+7x3bLCa+P8Y1lYN7Q==
+X-Received: by 2002:a05:600c:4f81:b0:49d:4ef:bf70 with SMTP id 5b1f17b1804b1-4a17b53be50mr23583605e9.10.1791290859097;
+        Tue, 06 Oct 2026 05:47:39 -0700 (PDT)
 Received: from remote-01 ([84.17.55.224])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c622b4685sm9722003f8f.41.2026.10.06.05.47.35
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c622b4685sm9722003f8f.41.2026.10.06.05.47.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 05:47:36 -0700 (PDT)
+        Tue, 06 Oct 2026 05:47:38 -0700 (PDT)
 From: Aleksei Sviridkin <f@lex.la>
 To: Russell King <linux@armlinux.org.uk>,
 	Andrew Lunn <andrew@lunn.ch>,
@@ -81,10 +83,12 @@ Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
 	linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-mediatek@lists.infradead.org
-Subject: [PATCH net-next v6 0/3] net: phylink: wait for a PHY that probes after the MAC
-Date: Tue,  6 Oct 2026 15:47:28 +0300
-Message-ID: <20261006124731.1528963-1-f@lex.la>
+Subject: [PATCH net-next v6 1/3] dt-bindings: net: ethernet-phy: add needs-host-firmware
+Date: Tue,  6 Oct 2026 15:47:29 +0300
+Message-ID: <20261006124731.1528963-2-f@lex.la>
 X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261006124731.1528963-1-f@lex.la>
+References: <20261006124731.1528963-1-f@lex.la>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -93,83 +97,55 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On the Keenetic KN-1012 (MT7981B with an MT7531 switch), the Airoha
-EN8811H behind lan4 has its PHY driver built as a module on the root
-filesystem. The switch sets up its ports before that filesystem is
-mounted, so the port is validated against the generic driver, fails its
-phy-mode and stays dead for the uptime. DSA does not retry it.
+A PHY can be one that the host has to load firmware into before it can
+be driven at all. A controller that connects to such a PHY at setup,
+before its driver has loaded, gets the generic driver or no PHY at all,
+and one that connects only once gets no working PHY on that port for the
+rest of the uptime, even though the PHY works seconds later.
 
-Patch 1 lets the PHY node say so with needs-host-firmware. Patch 2 makes
-phylink poll for such a PHY instead of giving up, for a MAC that opts
-in. Patch 3 opts in DSA user ports of switch drivers that set a flag,
-and sets it in mt7530.
+The flag declares that. A consumer that sees it keeps the port and
+connects the PHY once its driver binds. It describes the PHY, so it
+sits on the PHY node and needs no prefix naming one.
 
-The poller can still lose a race against an unbind of the PHY driver,
-between its readiness check and the attach. That window is phylib's:
-any phy_attach_direct() caller racing an unbind has it. The attach
-guard series [1] closes it.
+firmware-name is not used for this: it names the file to load, and the
+EN8811H driver keeps its two blob names in code, so it would only be
+read as a presence flag.
 
-Tested on that board with the series backported to its OpenWrt 6.18
-kernel, together with a940003f44e7 and 07d995873960 (the mt7530
-.get_stats64 atomic-context fix). The kernel had lockdep and
-DEBUG_ATOMIC_SLEEP on. Local debug parameters, not part of the series,
-drove the error paths. They fail the connect after a successful attach,
-ignore the opt-in, fail the generic attach of a PHY with no driver, and
-add a sleep after the switch shutdown.
+The need is not derived from the compatible because the knowledge that
+an ID needs host firmware lives in the PHY driver, and that driver is a
+module not yet loaded when the MAC connects, so it has to come from the
+device tree.
 
- - boot: the PHY driver loaded its firmware at 8.7 s. lan4 attached at
-   26.3 s, when the port was brought up. Link up at 1 Gb/s.
- - port kept down for 10 s with the PHY driver bound: no poll and no
-   attach. "ip link set lan4 up" attached it a second later.
- - opt-in ignored: the old behaviour, the generic driver took the PHY.
- - two injected failures: "failed to connect late PHY: -EIO" twice, a
-   second apart, and the third attempt attached. Link up at 1 Gb/s.
- - failures that do not stop: four attempts and one "giving up". No
-   poll after that, also not after a down/up.
- - four failed generic attaches with no driver bound: nothing logged as
-   a failure and no retry spent. The port attached once the driver
-   bound.
- - switch unbound while the poller waited: nothing oopsed.
- - reboot with a 3 s sleep after the switch shutdown: the poll ran
-   every second up to the shutdown and not once in the sleep. On v5 the
-   same test polled 3 times in the sleep.
+Found on a Keenetic KN-1012, where the EN8811H behind lan4 has its
+driver on the root filesystem and the switch sets its ports up before
+that is mounted, so lan4 stayed dead for the uptime.
 
-No in-tree device tree sets needs-host-firmware yet. The board is
-supported out of tree, in OpenWrt.
+Assisted-by: LLM
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: Aleksei Sviridkin <f@lex.la>
+---
+Changes in v6: none.
 
-Changes in v6 (since v5):
-https://lore.kernel.org/r/20261001130208.105558-1-f@lex.la/
- - Defer only in PHY mode and without an SFP cage. In-band, the PCS
-   could bring the carrier up with no PHY attached. An SFP PHY could
-   take the port while the wait is armed, and its removal dropped the
-   wait.
- - Poll only while phylink is started. A port that is down attaches at
-   its next up, and nothing touches the PHY after a switch shutdown.
- - A failed attach after the PHY driver went away no longer counts as a
-   failed connect.
- - The patch 2 message no longer says that MACs connecting from
-   ndo_open recover on the next open. They do not when the PHY driver
-   loads while the generic one holds the PHY.
- - The dsa.h comment states the rule: .port_enable must not use its phy
-   argument.
+ Documentation/devicetree/bindings/net/ethernet-phy.yaml | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-[1] https://lore.kernel.org/r/20261001130120.104628-1-f@lex.la/
-
-Aleksei Sviridkin (3):
-  dt-bindings: net: ethernet-phy: add needs-host-firmware
-  net: phylink: wait for PHYs that are known to probe late
-  net: dsa: let user ports wait for a PHY that probes late
-
- .../devicetree/bindings/net/ethernet-phy.yaml |   6 +
- drivers/net/dsa/mt7530.c                      |   1 +
- drivers/net/phy/phylink.c                     | 232 +++++++++++++++++-
- include/linux/phylink.h                       |   5 +
- include/net/dsa.h                             |   5 +
- net/dsa/user.c                                |   1 +
- 6 files changed, 242 insertions(+), 8 deletions(-)
-
-
-base-commit: 47a1446725732cd3996edf607e8739334bbf4d78
+diff --git a/Documentation/devicetree/bindings/net/ethernet-phy.yaml b/Documentation/devicetree/bindings/net/ethernet-phy.yaml
+index df50c4c33d76..ab95b9a5d95a 100644
+--- a/Documentation/devicetree/bindings/net/ethernet-phy.yaml
++++ b/Documentation/devicetree/bindings/net/ethernet-phy.yaml
+@@ -215,6 +215,12 @@ properties:
+       used. The absence of this property indicates the muxers
+       should be configured so that the external PHY is used.
+ 
++  needs-host-firmware:
++    $ref: /schemas/types.yaml#/definitions/flag
++    description:
++      This PHY runs firmware that the host must load before it can be
++      driven, and is not usable until then.
++
+   resets:
+     maxItems: 1
+ 
 -- 
 2.53.0
 
