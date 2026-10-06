@@ -1,133 +1,94 @@
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C946244682E
-	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 13:26:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0BDA4195C8;
+	Tue,  6 Oct 2026 13:32:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791293195; cv=none; b=WZY8EGNgSyg8wHDKAImcPwVRL8lGiCqEURRt6vgdBARneVzu+GkgQ2eyfqrz9BTWvXwK4rl9NzgFAwQ3YbnxTRJp8RBs64N9I4NrdmEdna7UducsVkeD8EFewmGTabo9jAkm8bYRb8J0ZHyRidXLnLYRJt9sfD0jDE6CIYCw7RY=
+	t=1791293577; cv=none; b=fPUt7T/EwGEV5YFAIxqtE+dgbS4laA9dt/3ltTvhKSS6/9z63TSsWR/L0+rzkwdqRE2uPrFmIIheS9n9sKGc3U0Ox33O31vn5y/KEnhwuKNFSEte0hFVssIGtLUPeejKOZfqnRTof5VKV1jYYCrtzzGn1W7k5Gco6M/XtEh+OwY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791293195; c=relaxed/simple;
-	bh=ceGfxjof+93GEskjqqlX9xzwc6QXB9c09TKAcO5jqe8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=pII3tt/a5DPjACXmIe0yHR6Tti4rmVA+u3kBgGJ+6UJJ3cpMnqYuMIPmo323i+5N2zzTUKnhWMzGlC4gZ5TXRUKb9rXYV95RMmNbYNItWGgQStX2vVKbWgcp/fxdxIj4WVdsIyCKkSL67BjSbiGNuJJ/PxZmUiXcntWNytrgOiQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=Xo20vtU7; arc=none smtp.client-ip=210.118.77.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1791293577; c=relaxed/simple;
+	bh=rDBfT6pAvhNxalF+kSQQ02i8OGbRSXeGMZh1ZRM8VEs=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=b1MeNVf6+hMwrqt5DjJwRB6C/mFcLvl72mDkdHWx2JM17flxWaHb6OLsz3M3/mMUPAxVgjHnlBBAipT96xxwHCTx4ORN9jPxic+1mUODAp8tSioen4g/m7VmQa50XLPVqtpfaK0Vl0KejpCkWO1BoJXwAbow/Zw56XYjgWWLLCQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h8BaYucA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="Xo20vtU7"
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261006132623euoutp021523601fc7a3f20e1914db26d51a6025~b86j2lsob2916829168euoutp02m
-	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 13:26:23 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261006132623euoutp021523601fc7a3f20e1914db26d51a6025~b86j2lsob2916829168euoutp02m
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1791293183;
-	bh=ilvLBZmTUTzmE/0HmWSaWsOHx+yR2B5vrGdgJnqNXLU=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=Xo20vtU7vpz6oPUoo5J+3OTaVXCzYEoQLwGJLQfKlEieZQ+4aq6ct4FxV2dwnPz/D
-	 yx4SBODk1XoQCa5j4HwJKEaIxs8v9xdtu6dfama+2U5eK6SntjR0Uh3iaxA3MvMUdy
-	 /tKoGJSPDOTQ2YTToVsh2PWc+iaolL2UY3RkF6XI=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
-	20261006132623eucas1p2f095ce115c383348370c030aa9756bab~b86jfzdIa1161711617eucas1p2E;
-	Tue,  6 Oct 2026 13:26:23 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261006132622eusmtip134c8b3d58fbd753bef81a132148a358c~b86ibB-YQ3255432554eusmtip1f;
-	Tue,  6 Oct 2026 13:26:22 +0000 (GMT)
-Message-ID: <5dccea9b-a9e1-44f5-84d9-bc9efe04edee@samsung.com>
-Date: Tue, 6 Oct 2026 15:26:21 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h8BaYucA"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 7520F1F000FF;
+	Tue,  6 Oct 2026 13:32:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791293575;
+	bh=6CZikXboQ4pJcmLiTLM5ulPxyvEM102hfSjAIL4v6vU=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=h8BaYucACLeuFvkOnlGfyIh75DNQcKCrpxM0dABHEBNL9cA2ScG1G5IdfMJNBjaKt
+	 77fZ2SVWNl0zPmlQtmDq+w02mOnT149nxE/OWIFUmB1KiTDESmuC1MhjY1dFUhlFZd
+	 Mc23Akff+DL8RyVJPKKQTNwQFN2s6PrOzQ8A+vQ8RPu37LHJGOgjJbJcH//glHuBC8
+	 sLD6LpxWGDllIHhb2XUoQtQP/fQbpvRfPuKRFyeaEpLKe+qvtxfMGV0vYfAPfS2QBj
+	 Lkkc+WJlBfxS0v2CjTu9a8Jxb1wjR6b0JKNFKyG1VTcQXBS5z+xvwktxaR4wIfLXlD
+	 vrxSf+DLZs1Vw==
+From: Kevin Hilman <khilman@kernel.org>
+To: Maulik Shah <maulik.shah@oss.qualcomm.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio
+ <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Daniel Lezcano
+ <daniel.lezcano@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org, Maulik Shah
+ <maulik.shah@oss.qualcomm.com>
+Subject: Re: [PATCH 0/3] pmdomain: Support system-suspend-only domain idle
+ states
+In-Reply-To: <20261005-s2idle_state-v1-0-3c402c66f388@oss.qualcomm.com>
+References: <20261005-s2idle_state-v1-0-3c402c66f388@oss.qualcomm.com>
+Date: Tue, 06 Oct 2026 06:32:55 -0700
+Message-ID: <7h7bjv0xa0.fsf@baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH v3 0/5] of: reserved_mem: several fixes about reserved
- memory
-To: Mike Rapoport <rppt@kernel.org>, Wandun <chenwandun1@gmail.com>
-Cc: robh@kernel.org, saravanak@kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org, akpm@linux-foundation.org
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <asC3DBvtlcO5AVsz@kernel.org>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20261006132623eucas1p2f095ce115c383348370c030aa9756bab
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261003080438eucas1p2bdb68c248ecad088559285a4f736bfe5
-X-EPHeader: CA
-X-CMS-RootMailID: 20261003080438eucas1p2bdb68c248ecad088559285a4f736bfe5
-References: <20260920092852.614973-1-chenwandun1@gmail.com>
-	<arJA6fOMetzoBhDH@kernel.org>
-	<060fb694-ba1d-40e7-8a18-f32d5a4039ab@gmail.com>
-	<CGME20261003080438eucas1p2bdb68c248ecad088559285a4f736bfe5@eucas1p2.samsung.com>
-	<asC3DBvtlcO5AVsz@kernel.org>
+Content-Type: text/plain
 
-On 03.10.2026 10:04, Mike Rapoport wrote:
-> On Tue, Sep 22, 2026 at 05:24:32PM +0800, Wandun wrote:
->> On 9/22/26 16:48, Mike Rapoport wrote:
->>> On Sun, Sep 20, 2026 at 05:28:47PM +0800, Wandun Chen wrote:
->>>> From: Wandun Chen <chenwandun@lixiang.com>
->>>>
->>>> This series fixes several error-handling issues in the reserved-memory
->>>> initialization paths.
->>>>
->>>> The first two patches fix cleanup of no-map regions after driver
->>>> initialization failure.
->>>>
->>>> Static reserved-memory nodes are reserved during the early DT scan but
->>>> initialized later. The third patch tags regions whose early reservation
->>>> succeeded, so the late scan can skip the nodes whose early reservation
->>>> failed.
->>>>
->>>> The last two patches reject overlapping static regions. Without
->>>> these checks, overlapping nodes can be initialized over the same
->>>> physical memory, result in data corrupt.
->>>>
->>>> Sashiko reported these issues in [1] [2] [3].
->>>>
->>>> [1] https://protect2.fireeye.com/v1/url?k=7e2f7441-1fa46164-7e2eff0e-74fe485cbff6-619f01488e6b7010&q=1&e=f3c07e6c-275b-4aa1-aec1-d931cda5f11a&u=https%3A%2F%2Fsashiko.dev%2F%23%2Fmessage%2F20260814090305.4C8741F00A3D%2540smtp.kernel.org
->>>> [2] https://protect2.fireeye.com/v1/url?k=a92ba57b-c8a0b05e-a92a2e34-74fe485cbff6-5f58f4b0f32080b9&q=1&e=f3c07e6c-275b-4aa1-aec1-d931cda5f11a&u=https%3A%2F%2Fsashiko.dev%2F%23%2Fmessage%2F20260814084718.29C341F000E9%2540smtp.kernel.org
->>>> [3] https://protect2.fireeye.com/v1/url?k=4f58aae4-2ed3bfc1-4f5921ab-74fe485cbff6-f4c4b3d0ed61b93e&q=1&e=f3c07e6c-275b-4aa1-aec1-d931cda5f11a&u=https%3A%2F%2Fsashiko.dev%2F%23%2Fmessage%2F20260806100605.2C2C01F000E9%2540smtp.kernel.org
->>>>
->>>> v2 --> v3:
->>>> 1. Rework the mechanism that checks in the late scan whether the early
->>>>    reservation succeeded (patches 3-5, suggested by Marek, thanks).
->>>>
->>>>    Patch 3 adds a new memblock flag MEMBLOCK_RSRV_RMEM, which is set when
->>>>    the early reservation of a static region succeeds and checked in the
->>>>    late scan.
->>> Can we keep this local to of_reserved_mem please?
->> Probably not. I do not see a way to keep this entirely local to
->> of_reserved_mem while handling the issue robustly.
->>
->> I previously implemented an approach in of_reserved_mem that records
->> static reserved-memory nodes whose early reservation failed in a local
->> array [1]. However, the early scan runs before paging_init(), so the array
->> cannot be dynamically expanded. If the number of failed nodes exceeds
->> the array size, some failures cannot be recorded and the issue remains,
->> and that is why Marek said "partial solution", although in practice
->> having that many failed nodes is unlikely.
-> Even before paging_init() there is memblock_alloc().
+Maulik Shah <maulik.shah@oss.qualcomm.com> writes:
 
-One can call it, but such memory cannot be dereferenced/accessed for example
-on ARM64, because it is not yet mapped in the linear map.
+[...]
 
->> To handle this robustly, the late scan needs a way to determine whether
->> the corresponding early reservation actually succeeded. Current approach
->> uses memblock to retain that state.
-> I can't say I like the idea of keeping this state in memblock.
-> This add flags and code to memblock to deal with corner cases of bad
-> firmware that reports weird memory layouts, and once there is a flag in
-> the common infrastructure, people tend to abuse it.
+> All domain idle states described in devicetree are currently considered
+> during the regular idle path. This limits which states can be described in
+> devicetree. Due to hardware constraints, some domain idle states are only
+> applicable to system-wide suspend, including suspend-to-idle (s2idle).
+>
+> To allow these states to be described in DT and used only during system
+> suspend, this series adds a boolean system-state property to domain idle
+> state bindings and a corresponding system_state boolean in genpd. The
+> genpd governors skip these states during normal operation. The system
+> suspend selection path remains unchanged, allowing these states during
+> suspend while retaining the existing wakeup latency checks for s2idle.
+>
+> This series applies to cluster idle states with the "domain-idle-state"
+> compatible string managed by genpd and its governors, but can be extended
+> to CPU idle states with the "arm,idle-state" compatible string if the same
+> restriction is needed for CPUidle states too.
+>
+> Assisted-by: Codex:GPT-6
+> Signed-off-by: Maulik Shah <maulik.shah@oss.qualcomm.com>
 
-So far I found no better place to store the information about successful
-region reservation.
+Acked-by: Kevin Hilman <khilman@baylibre.com>
 
-Best regards
--- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
+Thank you for submitting this.  I have been considering how to add
+exactly this feature, so I add an enthusaistic +1 to the need for
+this feature.
 
+On TI SoCs where we use s2idle, we have similar reasons to have
+domain-idle-states that should only be available during system-wide
+suspend-to-idle.
+
+The current hack to supporting this is to just use absurdly high
+residency numbers for these system states such that the runtime CPUidle
+never picks the states.  But this is a hack, and is not describing the
+hardware, so I would much rather see a way to describe this in DT.
+
+Thanks,
+
+Kevin
