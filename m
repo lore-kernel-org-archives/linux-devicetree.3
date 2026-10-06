@@ -1,246 +1,133 @@
-Received: from mail-dy1-f179.google.com (mail-dy1-f179.google.com [74.125.82.179])
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9AD71E260C
-	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 10:06:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.179
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791281221; cv=pass; b=JcjRDrsBZkAKADaBvVl+AXjhCliOPz4ovsYRBVFKOa7+X9REH1WfMI8/OY3sigFveoOOGTCrtVnXTjrbWoHjAr58iJ5ArqSyGsoo4hMMIbMqnch2k8SdSrIk0FDmEYVIE04W+8h0rJ0gE7puWhMfHGQqBuO/R6vP5cCWYUSrl3A=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791281221; c=relaxed/simple;
-	bh=jXoCJSmZrRsEtjPvzR6W3LtMbjIzm96pCRvUzmkQjw0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=mxti4sO4AClEtvqkvBghX20dM2NTJHZO3UJvITMTxySvDRzTa0T8JMTpZVLANBwEmT/kg5QQMtbnBesGyWdrozcC6F2+tSAKbrKKhaIdofvl7tZ9PlFCXMlXzVbsK0VUVOWKC6VWy13stnrOsJxixIP6qmNwsE9FzDIKq8jIt+U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NQvktCp8; arc=pass smtp.client-ip=74.125.82.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67AEB3C1092
+	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 10:10:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791281402; cv=none; b=li28UYa66cHgLsOdlbzlwdmlq66Blcdg4dht4bGRSa9ZhdDeU5QjWNrXiaGLWduxrHd1/52m3I//v+CHtTZ5EFUgmLGb1RPXemB7IeN/BjTgpvXVi67Oz5cjOkUSAls48R7S5ixVLprmAanNOYPeEE0Zwv7BUkP5ZP2SsPqs1LQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791281402; c=relaxed/simple;
+	bh=6YM5dOs2Pa7yUNeFsnmXwCOmE6Ns3r7eTdFiVyrvPY8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ZX3HznomVKByNdNXWkT1y3GewD0YPBF9HD7fxvEliJcM5qIkUu87JAcaY9CfljDaNZVDe0kYMYyQiB7EG8Z3NmrP4q7BHQm6B8fJV5Intvs/coVGIQnOSpO8RpVr/jl0DyNKSOqLtfoECjpiMjhEs3tdJ7KOOvbQH26jaBFmbvg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=KmjqhzHz; arc=none smtp.client-ip=209.85.210.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NQvktCp8"
-Received: by mail-dy1-f179.google.com with SMTP id 5a478bee46e88-3514e7cbbbaso547281eec.1
-        for <devicetree@vger.kernel.org>; Tue, 06 Oct 2026 03:06:59 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791281219; cv=none;
-        d=google.com; s=arc-20260327;
-        b=FS8+3oBATzMsCaIoy9xRkAaHOa9SKizLdSUHqzOBNrGTeAbKVLr3KldeEYSI8xhFLU
-         YMRHb5cAm/UDHT24XSe5Q1uL4heYb73taeeb0riWhSix883/ljJutOFdy6i7knldngE3
-         FeRuupZYhVzEJsKc526X6zfKILe6FVIKEEFek6nzwjAZ/bAQMV40xxnuqaFvjTEXgtey
-         smluxsRjxrzUo7qKsMNVncY2uoce+h4eVJr4i8jQGGQpTpdOaCVyjR2wekxVhRJEVfv8
-         fcr7GlOOCE+xPlB4ttTVgcPJgfjVI+SeoPI9ZWgx4iVt+5Zg6UPWYxWPXCStmgSBOd7l
-         cpBw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=6NBVbMbxanh8syK4XzpA91skjBSLQAwKVvNkTlGCE98=;
-        fh=tP0xjIYzfWTV3Tlj838TjziUQjzVyBolRVV4uhol7IE=;
-        b=df06Hc5q29arzZXRmsXIpEo+1rVAyhtSqW0SYcwcGf2a+y4kV+DE1w1ne4RdlK/bWI
-         mWnCpPQuttkYVU/59FZzaS+gW2JwWp31H4tRLrV3U4v6xNXtI4t/Qzg77Wsy3pxhyh/9
-         heQ4QsVBoQMF9eeRm/CA6c9ipmd8kkps1Ng+FW+8l9whUa5oCT/4in9GmU1wfp2fpAW8
-         Eub1NH6kSRuMN5U83NvTEo8vd8NJVPPmXRq3jOfmyoq4GD3121iAmjhkvcm+t/OK+1TA
-         Yd5qYJH9SyU+YpN0Y7h8vQUFt4anlzcoQPBJqKZKnmdTnbC0dx2yQDkL4fA6+wpkBacJ
-         rDMA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="KmjqhzHz"
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-873a4edb243so1907431b3a.0
+        for <devicetree@vger.kernel.org>; Tue, 06 Oct 2026 03:10:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791281219; x=1791886019; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6NBVbMbxanh8syK4XzpA91skjBSLQAwKVvNkTlGCE98=;
-        b=NQvktCp8eEOXlgz+kjY7UmNhYqTf65ja4qKCDyllIKb58fSr4ZdIiBp39imPIIKEAM
-         +zbscR9PG+akcAyWbw5+NtFT/UG/2SXz/b0qJtNrgT/vOQjqyh3DOh7gzfycr6d56T69
-         Zy7V1AJe8Sy5wQkqmE+5fGgjpAjsRG3ul6sVyVrhbfdJXCgyEaPdKGXNCEJVb9Ti8TMh
-         b2d+WXnjzoKpmbb8XpWrhvmNMwijSNYxMpYAvr5h8xk6qvWoh6Il9FVd60VQnRwg9Zs4
-         2DWCkNHylDfGFw266DXaY+uy/D9Wo94FZz5LZkn/W6OJk1v6+he0ya8LEWD5Z8uiOzMF
-         LGcA==
+        d=gmail.com; s=20251104; t=1791281401; x=1791886201; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QH7NYDc+Yp9RWvv4A2NBCx8EZXAjVS1e6vOPWVaVpKU=;
+        b=KmjqhzHzjz2gaQvXJtt4xACWGymOsdN4FCrS23pBQM3EWS0ZzdgutNj+Ut6p+HV0dp
+         Jx9QbTN7GlL5rI99Yja90Cuf57APhG2UmOAPqDtysPVrp2YQP3JjDg3NZKbICbkDqWoU
+         UJr0Y/A+T/3REA3m69b+LKJ4qtpuuiRUQhSz4AwARBtUflwHylbJvgJe36A7SylHpCo/
+         DbfPn73pjzJkUcnH7FpwNJifRw50gdbXQBi1ZnBYD9Oj+789laBk20WrJ4oB2qpYuw3L
+         Q2dlF6mUhP82ynL+buPRMNzZ8bhXf92/9lIw031fplo+qldSD2nGrWlyFiiKqn7dRqBG
+         OnUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791281219; x=1791886019;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6NBVbMbxanh8syK4XzpA91skjBSLQAwKVvNkTlGCE98=;
-        b=JCUbUlzxuJXux8QeQfFRPsBOOpkRgA91/uFAbOcF9ezxVO3MS3QBkD2wSgakiFnsSM
-         O77kHt1WUeQWzJ/UWxxM7FQnNfFmheG3wJvJ8GO1uamaI2R4xUB6h7iCmbaqujX/HDR/
-         66KyU6ZJ7bTg1fZuPhKAxW3UDJ6EbZUuuhktFRwduEqECIvn2pMDupjuLD1NS0l2JQ4Q
-         36msLb2qfT3HeCiRYSQZPTqt0oLyyrYtoTj0PKFTQN4v8DpBsB71lj1bI3MYxjWOCHmb
-         vcL7SJLLcOasyf6mjro6LpundWHOIXImROlnNtMpc1z0k1H7pCE1XtT5kJ4yQZpz9NWe
-         QDLQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzcMZKhZjeQIeb/y1/bmE+WJ+OWQlT5MEZu/6UzndekrKJRgUSkJKRI5wyrgLyKnEe/7E0csdhvwaln@vger.kernel.org
-X-Gm-Message-State: AFq9FYI9FHQuwyy3SyYtczq15igjVXdJyB9+DYeXpX4P8ojLK9FzIX00
-	TKY/I6UIgjXpxi8bb3stSZ3nviV0v0cT0pm2TTopaZx7U2HW47mcFnoyWzchAz8SehGSI82hTB9
-	9DO6Lh3XCHyv+77vjRISy/aH/nRMRPh0=
-X-Gm-Gg: AYBFou00S0AEatRqewS2hRe8LYjI70F8X0U8epSAkaH8aintAV9B9y77SyUksHfdDZH
-	Wof6i4RuF3Bx2LwBsj3c+vRVawJA5q5rR1B6bzI/eXyQjlXu48tTBWiUFJV/1KrLohamcfj0ZC3
-	nBzQeg7KzmBp0Y1nh/sALDk7VujDDombcn6ZPSFF2QhXP1bSYCppyYAvfbQ7N6F9SLikHw9VCwr
-	PWlaHD6WY0Fw+07Dca5s0hAP9V/aaUkKennGQRz+13yzE6DNc39P532qq48a609hWt6zulziCNN
-	+K/sWFY6FYQZr7HyhJibu9QMniaKa+eu7TiceNxi/tCUO9nGPU+m33sgnRllhFb2X5rAksgMh3c
-	428iwUoWxCAmjcureo+bVxT4=
-X-Received: by 2002:a05:7300:fe83:b0:34d:2c1a:9881 with SMTP id
- 5a478bee46e88-3514e2e4731mr1077709eec.36.1791281218726; Tue, 06 Oct 2026
- 03:06:58 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791281401; x=1791886201;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QH7NYDc+Yp9RWvv4A2NBCx8EZXAjVS1e6vOPWVaVpKU=;
+        b=p2Oh8zqkzarqa69BsxFqWGPXt70/tsQoM7jQ9jojJVPmXNv8Gc/OnaBhN4/C0OV4cJ
+         EzAyh8G3w5G3cesNR9sNOWzD5am5A2nOILOMM4rk/a9x4WaH1BpVKWzVJ8aLga7y3aBO
+         3Yp2Wht0mI8k82/NVougqMA03jjGjiO6a797f6ERC83YImNe+8p999sXv0aCHj4TgkhB
+         1r31g/XkWuDzYWqkI6G0ofY6KsKjMxKjFkjokCjGIFqDo96zd32aCuRwEc8ohJeOw67p
+         WvDtcekB9+kF41KhrwuHxSyTQbtX2Im8uoMltF9WBIh188sDbxEGyqHlIhEZ8voLylmC
+         D4cQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy6cdGC4wqH7mdHsgBUbRxVJfojB0p3ZYW24AV3kTiP/9wBvrAGFiGRdEwfRzIlDw7F/OzKef9KeClE@vger.kernel.org
+X-Gm-Message-State: AFuF++m4L++/CVIUnnRgz4uD6fAfnbcmyNq5cw7f29YX+cqX529jd8gt
+	w0DiRRZrFx0RYmEjl2o+fMcs+lE77aOgZSwKKuvhNz/LRrkT2drtCr4A
+X-Gm-Gg: AYBFou3PkxwO+mEODE3m9Iuo14xpUWzyXRiwLByIo/pxPodDlaWvDf9kE9/Etr4EpSf
+	CyERTIaU8NEqA8j595By5dFhpZjoq8Cd18hbF6Z7Vg9tT6mTOmLioQQij7Re3EH19rWMrICthUY
+	7Cj0hFdnr5ZePAgXt+Zw2olt0O5nLQiKgkd5VoX8l2cfPnJZQZLUp+DEikC653IaKUgoQI/oFRa
+	eUG5FgHuFKT99Oq/Ubf9dJv90L+coaAd2MbZXdyywf9CTF85Dfbtp7cBzCU4/vChrmfbosezcpt
+	FSjWDNbPVcdn9BrQ6nXkq4UG8jxeGjgvAt1PQWU5k7hsV81DeIP8hoFshwQ2SuYKApioxiA1QIJ
+	0XpQKePfG9HCkYTYyk2kPM30X9iFvbTkm2DNU/86RU5ECxU2tSvQSid4IEkGedjBaygsZiH+oZz
+	cP7QCi4iqlqBveE0kqxVgudqhV6mImKBV5w7n3KDYydI8t5HOtQNr2Ia/YKVNci9iRrlf6dNRZI
+	IE/EpEv8hJFc7BoQD0=
+X-Received: by 2002:a05:6a00:4197:b0:881:4b67:ffd with SMTP id d2e1a72fcca58-88c6398f00amr10813068b3a.26.1791281400579;
+        Tue, 06 Oct 2026 03:10:00 -0700 (PDT)
+Received: from l (ec2-56-155-114-54.ap-northeast-3.compute.amazonaws.com. [56.155.114.54])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-88b0b8f7198sm4592961b3a.9.2026.10.06.03.09.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 03:10:00 -0700 (PDT)
+From: Liu Yufei <lyf98405@gmail.com>
+X-Google-Original-From: Liu Yufei <lyf98405@gmail.com
+To: Jonathan Cameron <jic23@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Liu Yufei <lyf98405@gmail.com>
+Subject: [PATCH v2 0/2] iio: proximity: Add Vishay VCNL36829 driver
+Date: Tue,  6 Oct 2026 18:09:41 +0800
+Message-ID: <20261006100943.78971-1-lyf98405@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261004164121.193514-1-clamor95@gmail.com> <20261004164121.193514-3-clamor95@gmail.com>
- <asPVmbvyslGgEsjk@aspen.lan> <CAPVz0n29+1yOO0i057RdpUAu+z85hhnm9GGaHkqgf5XW1SPfeQ@mail.gmail.com>
- <asTBp2RPPvsD4AsU@aspen.lan>
-In-Reply-To: <asTBp2RPPvsD4AsU@aspen.lan>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Tue, 6 Oct 2026 13:06:47 +0300
-X-Gm-Features: AclHuK9B4BcbljbuUp4qHu8_KC4fu9LyfN3Q8g8blEUDDcIte_SIuNY9L1q_5iI
-Message-ID: <CAPVz0n1PMxOoHMJ3viKa-e3=tjZ6AtzffjnHE9kCFrz1tjezOw@mail.gmail.com>
-Subject: Re: [PATCH v2 2/3] mfd: aat2870: Convert to use OF bindings
-To: Daniel Thompson <danielt@kernel.org>
-Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
-	Jingoo Han <jingoohan1@gmail.com>, linux-leds@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, mfd@lists.linux.dev, 
-	dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-=D0=B2=D1=82, 6 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 12:38=
- Daniel Thompson <danielt@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Mon, Oct 05, 2026 at 08:18:31PM +0300, Svyatoslav Ryhel wrote:
-> > =D0=BF=D0=BD, 5 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 1=
-9:51 Daniel Thompson <danielt@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
-> > >
-> > > On Sun, Oct 04, 2026 at 07:41:20PM +0300, Svyatoslav Ryhel wrote:
-> > > > Conversion of the AAT2870 driver to use OF bindings requires a few =
-complex
-> > > > changes that should be done simultaneously.
-> > > >
-> > > > The AAT2870 essentially provides two functions via child devices:
-> > > > backlight and regulators. Both functions are fairly self-sufficient=
- and
-> > > > may not be populated on the final board. Consequently, the MFD
-> > > > registration API was replaced with of_platform_populate(), and each
-> > > > sub-device was given its own compatible string.
-> > > >
-> > > > Additionally, aat2870-core utilizes an enable GPIO. Obtaining this =
-GPIO
-> > > > was converted to use modern gpiod/OF helpers, allowing the redundan=
-t
-> > > > aat2870_enable() and aat2870_disable() helpers to be removed.
-> > > >
-> > > > The aat2870-regulator driver was updated to register each of the fo=
-ur LDOs
-> > > > from a dedicated OF node.
-> > > >
-> > > > The aat2870-backlight driver was changed to populate all required
-> > > > properties from a dedicated Device Tree node. Its channel map was u=
-pdated
-> > > > to use u8 instead of int. Furthermore, because the maximum current =
-is now
-> > > > parsed as an absolute value rather than an enum entry, the calculat=
-ion and
-> > > > application of the maximum current were updated accordingly.
-> > > >
-> > > > All of the changes above allow platform data to be removed entirely=
-.
-> > > >
-> > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > > ---
-> > > >  drivers/mfd/aat2870-core.c            | 115 ++++++----------------=
-----
-> > > >  drivers/regulator/aat2870-regulator.c |  76 ++++++++++++-----
-> > > >  drivers/video/backlight/aat2870_bl.c  |  55 ++++++------
-> > > >  include/linux/mfd/aat2870.h           |  95 +--------------------
-> > > >  4 files changed, 111 insertions(+), 230 deletions(-)
-> > > >
-> > > > [snip]
-> > > >
-> > > > diff --git a/drivers/video/backlight/aat2870_bl.c b/drivers/video/b=
-acklight/aat2870_bl.c
-> > > > index 8b790df1e842b..933a8f728f66a 100644
-> > > > --- a/drivers/video/backlight/aat2870_bl.c
-> > > > +++ b/drivers/video/backlight/aat2870_bl.c
-> > > > @@ -15,11 +15,19 @@
-> > > >  #include <linux/backlight.h>
-> > > >  #include <linux/mfd/aat2870.h>
-> > > >
-> > > > +/* Backlight has 8 channels, each bit represents one channel */
-> > > > +#define AAT2870_BL_CH_ALL    0xff
-> > > > +
-> > > > +/* Backlight current magnitude (uA), 450uA current is eq to 0 */
-> > > > +#define AAT2870_CURRENT_MIN  450
-> > > > +#define AAT2870_CURRENT_MAX  27900
-> > > > +#define AAT2870_CURRENT_STEP 900
-> > > > +
-> > > >  struct aat2870_bl_driver_data {
-> > > >       struct platform_device *pdev;
-> > > >       struct backlight_device *bd;
-> > > >
-> > > > -     int channels;
-> > > > +     u8 channels;
-> > > >       int max_current;
-> > > >       int brightness; /* current brightness */
-> > > >  };
-> > > > @@ -30,7 +38,7 @@ static inline int aat2870_brightness(struct aat28=
-70_bl_driver_data *aat2870_bl,
-> > > >       struct backlight_device *bd =3D aat2870_bl->bd;
-> > > >       int val;
-> > > >
-> > > > -     val =3D brightness * (aat2870_bl->max_current - 1);
-> > > > +     val =3D brightness * aat2870_bl->max_current;
-> > > >       val /=3D bd->props.max_brightness;
-> > >
-> > > What is the purpose of max_brightness?
-> > >
-> > > Normally it is used to limit brightness but max_current is already do=
-ing
-> > > that. Is it just being used to reduce the number of steps in the
-> > > brightness scale (and if so, why is that useful)?
-> > >
-> >
-> > This is the original driver behavior; I did not modify it.
->
-> I can see that but the parameters for these (rather dubious) previous
-> behaviours are now being copied into the devicetree bindings where they
-> become stable ABI.
->
->
-> > The AAT2870 backlight intensity is regulated by the Main Backlight
-> > Current Magnitude register. It has 31 steps from 450uA (0) to 27.9mA
-> > (31), so even setting max_current to 0 will not disable the backlight.
-> > The max current value may be limited for some configurations, which is
-> > why this property exists.
-> >
-> > The max_brightness property determines the maximum number of steps the
-> > backlight can have and is mapped to the available current range
-> > provided by the hardware. The backlight is controlled in steps, not in
-> > uA.
->
-> This behaviour does not match the devicetree bindings documentation for
-> max-brightness:
->
->   Normally the maximum brightness is determined by the hardware and this
->   property is not required. This property is used to put a software limit
->   on the brightness apart from what the driver says, as it could happen
->   that a LED can be made so bright that it gets damaged or causes damage
->   due to restrictions in a specific system, such as mounting conditions.
->
-> Hence the question, why is the current behaviour useful?
->
-> If I understand your summary correctly the hardware has 32 steps
-> including 0) and the effect of max_current is to ban all brightness
-> values greater than max_current / AAT2870_CURRENT_STEP.
->
-> If that is the case then max_brightness if fundamentally broken because
-> it's default value offers more steps than exists in the hardware.
-> bd->props.max_brightness should be set to max_current /
-> AAT2870_CURRENT_STEP and the whole of aat2870_brightness() should be
-> removed (use backlight_get_brightness() instead).
->
-> IMHO the patchset will be cleaner if the weird max_brightness logic is
-> removed in a separate before doing the DT changes.
->
+From: Liu Yufei <lyf98405@gmail.com>
 
-Noted, I will see what I can do. Thank you.
+This series adds support for the Vishay VCNL36829, an I2C proximity
+sensor with an integrated VCSEL emitter.
 
->
-> Daniel.
+Patch 1 adds the devicetree binding.
+Patch 2 adds the IIO driver, which exposes the proximity reading and
+a configurable integration time.
+
+Tested on Orange Pi Zero 2W.
+
+Changes in v2:
+- dt-bindings: Collect Reviewed-by from Krzysztof.
+- driver: Address review comments from Andy:
+  - Use a Datasheet: tag in the commit message.
+  - Drop mod_devicetable.h, sort the includes and include what is used.
+  - Drop the i2c_client pointer from the private data and use
+    regmap_get_device() instead.
+  - Drop the unused i2c_set_clientdata().
+  - Enable a maple regmap cache, mark PS_DATA and DEV_ID volatile.
+  - Rework the integration time validation in write_raw().
+  - Use reverse xmas tree order for local variables.
+  - Document the power-up delay and use 3 * USEC_PER_MSEC.
+  - Warn and continue on an unknown device ID instead of failing.
+  - Join lines that fit within 100 columns.
+  - Simplify the Assisted-by tag.
+- driver: Drop the i2c_check_functionality() call, as
+  devm_regmap_init_i2c() already checks the adapter capabilities.
+
+Link to v1: https://lore.kernel.org/linux-iio/20261003050453.413700-1-lyf98405@gmail.com/
+
+Liu Yufei (2):
+  dt-bindings: iio: proximity: Add Vishay VCNL36829
+  iio: proximity: Add driver for Vishay VCNL36829
+
+ .../iio/proximity/vishay,vcnl36829.yaml       |  55 ++++
+ MAINTAINERS                                   |   6 +
+ drivers/iio/proximity/Kconfig                 |  11 +
+ drivers/iio/proximity/Makefile                |   1 +
+ drivers/iio/proximity/vcnl36829.c             | 298 ++++++++++++++++++
+ 5 files changed, 371 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/proximity/vishay,vcnl36829.yaml
+ create mode 100644 drivers/iio/proximity/vcnl36829.c
+
+
+base-commit: 52c36105f76e96b638152a42e735f2e7767ed946
+-- 
+2.53.0
+
