@@ -1,61 +1,160 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE2DA448CE0;
-	Tue,  6 Oct 2026 16:31:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F15C8499F2D;
+	Tue,  6 Oct 2026 16:31:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791304263; cv=none; b=gC/sLkCF9WDvIO9uwHCbzYquRSI+FeJ0ZvLJXGIsCkGEl0F8cOu0yb/qPZmEJE+tEEQd9YKcbBTlmyH8x5o9oNvgWuSWWHvvUy3xocklCBmAfq7v40vXV3/F7MGTb7qgjK2gtvsOvXKOcK+PGSL6zG8OkoovzxSEttzVIoDEAPU=
+	t=1791304302; cv=none; b=TFRhifwgEpogmGmz0D0sy3BqhV7g3XmxLBIhPTk7qRxKzNH5V3EvacLPYGlP5pvdJCcGaE9w/UcgYOjfIjQ9yzeJua4AA4QfNcTXz8GAn2QM8bFgRJDhDl/frBSn45ueOp5UPo2ToeIs34g5dqPcigz1j3nsz3+60Leu1zvbXOk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791304263; c=relaxed/simple;
-	bh=f/+xtJjwgh/KO8pEVNU6Dra5VomeS9TP+drph0+Qyyc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RE3C14H72HTn4AHadhu6wY0TnOksjITvIp83Fti6+sVy0VwzMh1UllZd9tAsOBbIKqLWT1ebiYek3Q8QzPHvKUoRF9F57Gbu8R7/T46FnEZTlTJwr2B1grxSPTchaDpcWhx5I15iqiMlmgYlPghOjHDJxmVLcHBiCTPYfPS+x60=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ZOIamDdt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791304302; c=relaxed/simple;
+	bh=rhT08b+glvPpW1l6yH8H9qdpaK3d17/NBaj+vAT8ryw=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=YenYgRb6UGybHWxE7n7fzIf1v1NKtRcAAmmbbMoPtM/cwaok6cenW8T9H/1/cPkJZo3BTMqGupibQ4OFhM6xJQk0Pp4LVM0aXxXoAYyiGTqo1HH8bwiZVpJvSZOt6wbGDqn6116tUCZoluLU8LsoUSgKk/AqSa6SN2IlFWWQvMU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fvOu8AtK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ZOIamDdt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7A1D1F0089C;
-	Tue,  6 Oct 2026 16:31:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791304261;
-	bh=IBecjwPeJwaxoKEg2gZX/H231yNJpJCqbcnNTJfUOxM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZOIamDdtVy7mDbaM8L1tfFChNZqDAMyBEi+NzUlVY+6mJZ99z1hUj3dV+3Vs2xZoR
-	 9yLWroQNZSX1aysuZHa68OP/VZlWhkqiWmz6a7WwkasfK1/kENSMbAs7FodIRLetaa
-	 tm9kQxp8hQkNaXL1wKMdbj2C0gkTvi19kg831jcM=
-Date: Tue, 6 Oct 2026 18:30:57 +0200
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Raiden Lumine <2557597107@qq.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-staging@lists.linux.dev, ovidiu.panait.oss@gmail.com,
-	jacobsfeder@gmail.com
-Subject: Re: [PATCH 2/2] staging: axis-fifo: remove obsolete text binding
-Message-ID: <2026100632-washtub-active-0952@gregkh>
-References: <20261006112955.208744-1-2557597107@qq.com>
- <tencent_DB7D53C376BBFA9CB0F63ED6E7FE56C6B906@qq.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fvOu8AtK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B14131F0089B;
+	Tue,  6 Oct 2026 16:31:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791304300;
+	bh=EQxdhBfbtyMgMfbca0rm+ILKO2CQUIh6DyHyMegL+1M=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=fvOu8AtKB4A8ASvuODnmUFNHNGH8/HJ/+Gb28doNh90F8npImOhT1UjS37UBUKrbx
+	 AHRJif5nzTCkALpHx2aQ/OV5rOGVokNUIxCKVGoSZBlwazHGPvcRkoUObE6Rkx5XUd
+	 mvanWiiVaBF8UzVlZL9j55dGhSd43vb12twvuMSFf0NEsBtO+/VXdxE+iPcfjf2Hpq
+	 UdDEdnlYlOqfVHZlOYuH6O7T+2syOcdZvtyX600NRjefxyg0qoM1DSW3G8ETvT7PTU
+	 ZfyGRR7B1hsjt5/ACdKg3p+tQ9tr2Dk9i7YFoRoPufOGN2kHUZEyLmF41y9IDCrQ10
+	 JtPQ+u3koAsmA==
+Subject: Re: [PATCH net-next v24 1/3] dt-bindings: net: Document Motorcomm
+ YT8824 PHY package
+From: netdev-bot+sashiko@kernel.org
+To: kyle.switch@motor-comm.com
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, andrew@lunn.ch, hkallweit1@gmail.com,
+ linux@armlinux.org.uk, Frank.Sae@motor-comm.com, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ ming.xu@motor-comm.com, xiaolin.xu@motor-comm.com,
+ jianmin.wang@motor-comm.com
+Date: Tue, 06 Oct 2026 16:31:39 +0000
+Message-ID: <179130429912.434549.15478715617108213161@kernel.org>
+In-Reply-To: <20261002153034.934814-2-kyle.switch@motor-comm.com>
+References: <20261002153034.934814-2-kyle.switch@motor-comm.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <tencent_DB7D53C376BBFA9CB0F63ED6E7FE56C6B906@qq.com>
 
-On Tue, Oct 06, 2026 at 07:29:55PM +0800, Raiden Lumine wrote:
-> The binding is now documented in
-> Documentation/devicetree/bindings/misc/xlnx,axi-fifo-mm-s.yaml, so the
-> free-form text version in the driver directory is no longer needed.
-> 
-> Signed-off-by: Raiden Lumine <2557597107@qq.com>
-> ---
->  drivers/staging/axis-fifo/axis-fifo.txt | 96 -------------------------
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-Staging drivers should be self-contained, please don't move this out of
-drivers/staging/ as has been discussed many times in the past.
+Low priority / nit picks for your consideration:
 
-thanks,
+- [Low] The YT8824 binding gives the package node's `reg` a device-
+  specific meaning: the MDIO address of the shared 'top extend' register…
 
-greg k-h
+--
+
+dt-bindings: net: Document Motorcomm YT8824 PHY package
+
+This commit adds a devicetree binding for the Motorcomm YT8824, a package
+of four PHYs. The binding is built on ethernet-phy-package.yaml. It adds a
+motorcomm,package-mode property and gives the package reg a
+device-specific meaning. MAINTAINERS is updated to list the new file and
+a new maintainer.
+
+> diff --git a/Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml b/Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml
+> new file mode 100644
+> index 0000000000000..4c67f8afcf27a
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/net/motorcomm,yt8824.yaml
+
+[ ... ]
+
+> +  motorcomm,package-mode:
+> +    description: |
+> +      PHY package can be configured in 2 modes:
+> +      - internal: YT8824 is embedded in the switch, using
+> +        an internal interface to the MAC.
+> +      - 10g-qxgmii: YT8824 is a standalone external PHY,
+> +        connected via 10G QXGMII.
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    enum: [ internal, 10g-qxgmii ]
+> +
+> +  reg:
+> +    description:
+> +      The absolute MDIO address of the YT8824 shared top extend
+> +      register block.
+> +      For internal mode, this is fixed at 9;
+> +      For external mode, it is the base MDIO address of the four
+> +      member PHYs plus 4, where base is typically 0x0.
+> +      Note that this is NOT the reg of the first member PHY.
+
+[Severity: Low]
+Should the schema enforce the constraints that this description states?
+
+The text says reg is fixed at 9 in internal mode. In 10g-qxgmii mode it
+says reg is the member PHY base plus 4. The binding has no allOf if/then
+block that ties reg to motorcomm,package-mode, so any reg value passes
+dt_binding_check. For example, nothing like this exists:
+
+  if:
+    properties:
+      motorcomm,package-mode:
+        const: internal
+  then:
+    properties:
+      reg:
+        const: 9
+
+This meaning of reg also differs from ethernet-phy-package.yaml. That file
+describes reg as "The base ID number for the PHY package. Commonly the ID
+of the first PHY in the PHY package". A DT that follows the common
+convention would pass validation here without any warning.
+
+This matters for the driver added later in this series.
+ytphy_read_top_ext() and ytphy_write_top_ext() in
+drivers/net/phy/motorcomm.c send every top extend access to package
+offset 0:
+
+  ret = __phy_package_write(phydev, 0, YTPHY_PAGE_SELECT, regnum);
+
+phy_package_address() in drivers/net/phy/phy_package.c turns offset 0
+into base_addr:
+
+  return base_addr + addr_offset;
+
+of_phy_package_join() reads base_addr directly from the package node's
+reg. The call path is:
+
+  of_phy_package_join()
+    of_property_read_u32(package_node, "reg", &base_addr)
+  phy_package_join()
+  ytphy_write_top_ext()
+    __phy_package_write(phydev, 0, YTPHY_PAGE_SELECT, ...)
+      phy_package_address() -> base_addr
+
+If a board DT sets reg to the first member PHY's address, would the driver
+write the top extend page select and data values into that member PHY's
+registers 0x1e/0x1f?
+
+Could a per-mode if/then block be added to constrain reg? For internal
+mode this could be const: 9.
+
+> +
+> +required:
+> +  - compatible
+> +  - motorcomm,package-mode
+> +  - reg
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261002153034.934814-2-kyle.switch%40motor-comm.com
