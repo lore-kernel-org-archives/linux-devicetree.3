@@ -1,135 +1,244 @@
-Received: from mail-lf1-f46.google.com (mail-lf1-f46.google.com [209.85.167.46])
+Received: from mail-pz2-f6.google.com (mail-pz2-f6.google.com [74.125.228.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C1EE3BBA09
-	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 13:59:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791295177; cv=pass; b=iVnbfiSZZzfoHG36uRTkKoE6mEk7EkEjMw1TBUp6mUChTW+k5L8XGuH4wvz2FM8YP31chEeIXyftxF+Tj+hKabRAkCVGlhsAekPOROtyhlS1zHPRnehzAahKl1m0/FLIp7Hjl/WP7YxAYP197rx1bEPDXIqzr1T2h4g6o8NB6W4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791295177; c=relaxed/simple;
-	bh=DfhFeA0xy4wkFSmxWrb/zdg6T7WvBFoNE+ecWH4moX4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=o169/yo1M5z0on3f/R8ALDxif16qm0c+d6hcFGLm+WqpyCihNwcA91J/X5uRZIX59VkggojdK16WUTlRrJ/MnBq2EMgCglvIhqRpflBK65hrKgDGyWGCY1fKP+rpFzvH+V1PCKnxDvfUbWh0i3ant6fp+vz+eCLeGfDaXor8BiA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZqnkdCOW; arc=pass smtp.client-ip=209.85.167.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2C8C3B4EA4
+	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 13:59:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.6
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791295201; cv=none; b=LQdAdSKFrQKHfsR/CABDFMARrXDC8TZgIsK2QloxNv9TlZ/wQju6t+diwhkvrlkurjDKO+GKsT9I4UTt/aB86YjnrpTo4YBjYNhNWsxu6vgBV9OgaqkYEH0fT7m2P66zffwOeTeC+7lkzwupRQUwXFV+UwuXEorM/Ett6qcWNxo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791295201; c=relaxed/simple;
+	bh=M82nwgNX76iCRR4cujDnXwZBrtDhYXuYRvUQUXdn+oU=;
+	h=Date:From:To:CC:Subject:In-Reply-To:References:Message-ID:
+	 MIME-Version:Content-Type; b=kcrsShCWsVnD70ZeOENm4O+W6VtQUbSuwkn7Vc4GNtOTNvGemlNXfuvpNbAq8vToBDQeKyQXNRf3LgZC51eEPt9C0Kq8CM8ntt7KCEBNQkDPIS2MZU+N3ufl/0+78giiIZgy7nlcCaQCWbmOuDzQVRAp0SKaK4QDRkF4L7DtyNo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XCuwPDZG; arc=none smtp.client-ip=74.125.228.6
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZqnkdCOW"
-Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5bcb1f1358aso455877e87.1
-        for <devicetree@vger.kernel.org>; Tue, 06 Oct 2026 06:59:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791295174; cv=none;
-        d=google.com; s=arc-20260327;
-        b=j7SDfZcWvU01pi1QSja7w5C2wDW+gaQoX15mrjuXrEAa5lQBQMQfu4PHPQ28x3gGiT
-         6Bv2mx4d0hniUEJDe/7tAQgc7yIjLvbdM9qU6Qa5Salk42NFySrTRdqznyNtMAtkAiei
-         +bpVupvAKLAS9uCA6qYpKAeeDj+r3PrelNoiGVvp5guMoX3oENUtI/WDy3xrzv660Mky
-         5Att/dhd1rAT1BzDlB9rjiuFWSilT0i+eDptMnQlK8TKx8ZVnA2yqttXSTS1axAdJ3XM
-         S8DhIE7OOWcmps6aERjwlzY7vTGjVPT86B2c5LvvnidDGbACBRgEbxo7yJ9lQsg5P5wb
-         gNGg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=DfhFeA0xy4wkFSmxWrb/zdg6T7WvBFoNE+ecWH4moX4=;
-        fh=MYKBeUhVWU7KhW/xtfs9bhdWoJfJj8u/QrI3SVX3ZdE=;
-        b=WRblGlXEfnqCKYdMBCNSNAnoiABdbZExpsspKdxjhxCsFSFJQB/SgQjdaf3U7XI1ho
-         cnbOlO4Nt9cPEDQKUp0jh2NA317MLjbnjLzRX+ADm7WOfzIS9pCYRq4miZcDng7QJGKg
-         xzgXNUzsiKgus4Fbfuyf/1GqOwfEIJPDXPSsomP/e+3l2s53lGGGZePJjVXbDdO1fR7J
-         V8cly44ZBlR2CAPTtrfTeSdTuLTJW75bOJa2XbXn/Bt9jRf5gN6k0JweT5GQ1xmZgkDH
-         a6osB2zYwzQ582VSYSG8BuLDan/7KAmNKYPzQ2FsHxjEevgra347rkGHb/IAKlhGUXrX
-         FYkg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XCuwPDZG"
+Received: by mail-pz2-f6.google.com with SMTP id 41be03b00d2f7-cc75f2924abso3091134a12.1
+        for <devicetree@vger.kernel.org>; Tue, 06 Oct 2026 06:59:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791295174; x=1791899974; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DfhFeA0xy4wkFSmxWrb/zdg6T7WvBFoNE+ecWH4moX4=;
-        b=ZqnkdCOWEloim8WjLiU/7QnRV8jeNxk/DORaPPoi5XWMDSz7x4ZJkXcOhQHyZ+Z9wl
-         o6U/T49lVU1n3QUcQAk11Vey3MsMzQ7iPOpENw9DF4k37nzcI1ST1ntN/fSOzoS9bMkC
-         KA09uasvwb9ow1emFj4//QcRUJ0s6d3bI2BcJpd4dJV5n+JOLIb8oavyGtfcK0yrZ5V9
-         8gVu1NJhWbAAsEiJaEIzkOsgwuH+2zzN4knXkw9FQZgmoVcsNHc1UbeR6UO64y0t5Iq+
-         qfC+pYsEv7VShew0vSUcx9nkuTDSbsbqQTSoAE5z+wSStQhMqcUhT7fqowXQS+ccx0PG
-         kujA==
+        d=gmail.com; s=20251104; t=1791295198; x=1791899998; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id
+         :references:in-reply-to:user-agent:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=1lgDiGiDkESTunf7jYG2kAM7tCOtBYTh+K/PRaEYgo0=;
+        b=XCuwPDZG+qWeh3/CXDGQc/AATXko01Ffo54hFQm7Q8dbNr3k7IQ7dMokRZU7E6SUWh
+         VS73CESmgr3vhmBCeE9FRT7qKikvOTMJLtT4C6rMaTv+y3EMumlTpA973W5CFbUsy8ok
+         LshrFhod5wZo710DxGPeKlQtt1dzGMak/yeBH97sgaH6lTcnxqmW7QR5MecOcb0i3j5S
+         X0eBQMRjDfEuKDrdTW5G0cYiBpmvYcWZH5SJFXR8wV6V7Xihj0WmH4b81URP8M+GRdo6
+         On5XON8DCQZwZANxHgebSGikomXAEOvDbMNs/4r66NwdTJAwUmNC3cQnFuyk4Ag2KFwT
+         fPCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791295174; x=1791899974;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1791295198; x=1791899998;
+        h=content-transfer-encoding:content-type:mime-version:message-id
+         :references:in-reply-to:user-agent:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=DfhFeA0xy4wkFSmxWrb/zdg6T7WvBFoNE+ecWH4moX4=;
-        b=JqoaNGDo/xvsdSReJ0srklkvvSyl/nC03TPUbYBhAqG2yvyEQznbnlVYmaX9qj9Ich
-         vuq7mwJubyXD4VxIWxqYXJBKYMMPVAoMp2WqyYkRjfcMIUOJ8FWgFAxQ/pW+8XDebf5G
-         icxCJfQI8HBey19ORXeKz4qbyXeu18fzkL6bgDOZYPxxp0IVHyoT9pCQjjSzCqfyhKoH
-         nLLTphopSwSOHTCe9Tgga4bvGy8QLiF8iAJwoMOJcwTbT/jCNm46kA3adfAecdSBAEK7
-         T7XIR37h7j2v7/4AFYZdXcR3a9w5gyEEiDeRMfx3XITq1RA0CnTFB3+tULoOBhxwJaIO
-         jbmg==
-X-Forwarded-Encrypted: i=1; AKwUvBzqtiXYXITJ6XbAjXCKKLjvQImCK5+Q8sU4JgQNE1jT73ogZWC96YQocyYfz1Wcg1KUENFw4zyWNea7@vger.kernel.org
-X-Gm-Message-State: AFq9FYILGgkW19+hqPrtUd+p+oxJqZ+avGH54oZk4iZUOhZpEu9iYgOn
-	eFBc++o5+sDZjgOuw4547FziVW5BvFXc33NOsCNh954Vitla5zZ/0VpKilACU6+40MTVepSLOtz
-	F+g7GR/1MAdN0NfrvvJ86FDgl7hY3JTA=
-X-Gm-Gg: AYBFou2qC00FM9UWBMqryLofVYftmPjkHWh4J/egUOSddqRjVnNY6OEWG6jCxa6wODy
-	eoaurgoz7QbWy4BaAG8dJ9jzRzLyTPYQk/XsVTWue3D0+5eK364iWVRJzK6SokGpzU16N9CejUE
-	hqVTo9YGQvNOASsiEXt6anFK+/+IQsB1zwBlY0HYOvhB4bnwNcvyxLjNixH1vsJYXPpmrYTUJV2
-	XiqPrZomfYX4cmr4GrKDSY+VTTOn21223ngLU2xRxuXFmsNdxSzCGQ6PiPhFW4kEYwW7boJdzKk
-	b1S9Ime5gid1k4sH8rZE1D21B/4sKiOFgc8rbl0e2q4A2tEzhcoXiSO67Cfwhd+aix29oVEck8q
-	wVWjcjdZfzRcBzjeyyYuMIzIG6TsGAXcxb8NmWDVg25Y=
-X-Received: by 2002:a05:6512:3b14:b0:5bc:b659:2d99 with SMTP id
- 2adb3069b0e04-5bccc6b4c21mr705952e87.1.1791295173932; Tue, 06 Oct 2026
- 06:59:33 -0700 (PDT)
+        bh=1lgDiGiDkESTunf7jYG2kAM7tCOtBYTh+K/PRaEYgo0=;
+        b=djHTFaBQn+Y4D7/oFYB23cvfVCjKILar8vYS7ncpuwdl7tWULBaeKcORX2dHNG8eTI
+         BxRRUl3djpYxLCIiGgY6homxun4ghQuHfklomysnOUXl+uXpam/myxhj6clg6Zq3Dg9c
+         28IPuYppx2htC+DdCEvoOczSf7syqehAnO92OpljguwZbTMyz4teCbCN/MzifoebDQiu
+         +8I+C3RlVFijglXM12R1euu7tasex8kKZq4GwlKvClLZjs8Y/6q9n+sZO/NkaHVkAxol
+         7ubWEdEwKyoVQBZyyUs6XyuJggSGb6R/qTf004JRFMsS4x4BzGDaJWC1qO945XpoE/Pc
+         X+pg==
+X-Forwarded-Encrypted: i=1; AKwUvBxwY2qfjdNVVruOzkLVV1RqExkW/BRTvrZg8p/UcvC2VFWVSwsRz7Vd7Q1kPFaPICJ5DXQGLrjBYPB4@vger.kernel.org
+X-Gm-Message-State: AFuF++mcuzbWF5QgRwmuSfkfGoVUmjlXyyR9ke6YmzjC8TvlvdRGQ+VK
+	zXytWHvQ28RYD1PGmAzOZ88PSvObDLc3O38MvX+pMmoSEIsoNIiepXOB
+X-Gm-Gg: AYBFou2kyoM5JEBtbrS1Rqwbk4Ip1I076mVYoKcdY0tLJMOf0lzvnzAYt2VV/iW4yhO
+	Cgmk0qvu+mKBNy45QLcYd4tphrwEKD4KviH+uzHIUWTgNxoJCOHHdpEVmrpwGXYj4+LynNxZcAX
+	7u3wSf+CWFRs03fGVFB3BnmL/yRmxdRlugCrkVUiDSkbdZ/kltsQYkeHxnTmx7mpZpJxvCbjWTw
+	79+bGtp3zbcCem4TbULe16YY7O88iPZxNZAY/bEykKmqT8iK6hrpkRlOj6WKUrDspe9ODepLoL5
+	TngrjNAWaMN+m7SL/BiBMQI4Z5XfU7O2ALtNqrSggg8UU3TX+LK6Y6oJsdNPSGxx8mKFo4CwMV3
+	Go+biSUIX6uZ7TPZkoVOVBUzK2rx1x7J80uTHvbCKqjEArwh8UsRX6z4Gc+ekNabrjgLH/xrR+R
+	r/lfzEXSgt8vMd2PKwTC0hWeMhg6nwSrj3I7IYq+Atok0Mx++UFi3RS/vN1/jPYPYSDhs=
+X-Received: by 2002:a05:6a00:3319:b0:882:ace7:88e2 with SMTP id d2e1a72fcca58-890ddffc726mr1294423b3a.12.1791295198063;
+        Tue, 06 Oct 2026 06:59:58 -0700 (PDT)
+Received: from ehlo.thunderbird.net ([2603:c021:8000:9500:233::14])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-88b0d04ed92sm5001409b3a.51.2026.10.06.06.59.56
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 06 Oct 2026 06:59:57 -0700 (PDT)
+Date: Tue, 06 Oct 2026 21:59:49 +0800
+From: Coia Prant <coiaprant@gmail.com>
+To: Rob Herring <robh@kernel.org>
+CC: Jakub Kicinski <kuba@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
+ Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>,
+ David Wu <david.wu@rock-chips.com>, netdev@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: =?US-ASCII?Q?Re=3A_=5BPATCH_net-next_v10_1/6=5D_dt-bindings=3A_?=
+ =?US-ASCII?Q?net=3A_pcs=3A_add_rockchip=2Crk3568-xpcs_support?=
+User-Agent: K-9 Mail for Android
+In-Reply-To: <20261006132428.GA1659963-robh@kernel.org>
+References: <20261005223011.1124347-1-coiaprant@gmail.com> <20261005223011.1124347-2-coiaprant@gmail.com> <20261006132428.GA1659963-robh@kernel.org>
+Message-ID: <96FA84EA-3C0E-4FAC-963F-2A8165538748@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261006132512.2246196-1-alexander.stein@ew.tq-group.com>
- <20261006132512.2246196-2-alexander.stein@ew.tq-group.com>
- <asT7yvlCeQl1rfrS@SMW015318> <5021357.mvXUDI8C0e@steina-w>
-In-Reply-To: <5021357.mvXUDI8C0e@steina-w>
-From: Fabio Estevam <festevam@gmail.com>
-Date: Tue, 6 Oct 2026 10:59:22 -0300
-X-Gm-Features: AclHuK-G83UF_cmuikg5GvtRML0WChn-CSBfbzHsfZjgKlTszPVDr547oglwPQQ
-Message-ID: <CAOMZO5AJiSoFb5Fy-LR4=MDqQqhJPvtzLT+-18es8j_HvYqt6w@mail.gmail.com>
-Subject: Re: [PATCH 2/3] arm64: dts: imx8mn-tqma8mqnl: restrict clock for
- SPI-NOR flash
-To: Alexander Stein <alexander.stein@ew.tq-group.com>
-Cc: Frank Li <Frank.li@oss.nxp.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Markus Niebel <Markus.Niebel@ew.tq-group.com>, linux@ew.tq-group.com, 
-	devicetree@vger.kernel.org, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain;
+ charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 
-Hi Alexander,
-
-On Tue, Oct 6, 2026 at 10:50=E2=80=AFAM Alexander Stein
-<alexander.stein@ew.tq-group.com> wrote:
+On October 6, 2026 9:24:28 PM GMT+08:00, Rob Herring <robh@kernel=2Eorg> wr=
+ote:
+>On Tue, Oct 06, 2026 at 06:30:03AM +0800, Coia Prant wrote:
+>> Add device tree binding documentation for the Synopsys DesignWare
+>> XPCS integrated on the Rockchip RK3568 SoC=2E
+>>=20
+>> The XPCS is accessed over the APB3 bus and internally connected to
+>> a Naneng Combo SerDes PHY=2E  It supports 1000BASE-X, SGMII, and
+>> QSGMII modes, with four MII ports=2E
+>>=20
+>> The four MII ports are described as ethernet-pcs-mii@N child nodes,
+>> consumed by the Rockchip XPCS glue driver later in this series=2E
+>>=20
+>> phys and phy-names are required because dtbs_check only validates
+>> required properties for enabled nodes=2E The SerDes link is a board-lev=
+el
+>> design choice (combphy1 on some boards, combphy2 on others), so these
+>> properties must be provided by the board device tree, not the SoC dtsi=
+=2E
+>>=20
+>> The CRU reset lines (SRST_XPCS*) are intentionally not described: no
+>> in-tree user requests them, and bring-up relies on the PD_PIPE power
+>> domain, the SerDes PHY and the in-IP soft reset=2E They can be added
+>> later as optional without breaking ABI=2E
+>>=20
+>> Signed-off-by: Coia Prant <coiaprant@gmail=2Ecom>
+>> ---
+>>  =2E=2E=2E/net/pcs/rockchip,rk3568-xpcs=2Eyaml         | 110 ++++++++++=
+++++++++
+>>  1 file changed, 110 insertions(+)
+>>  create mode 100644 Documentation/devicetree/bindings/net/pcs/rockchip,=
+rk3568-xpcs=2Eyaml
+>>=20
+>> diff --git a/Documentation/devicetree/bindings/net/pcs/rockchip,rk3568-=
+xpcs=2Eyaml b/Documentation/devicetree/bindings/net/pcs/rockchip,rk3568-xpc=
+s=2Eyaml
+>> new file mode 100644
+>> index 0000000000000=2E=2E703fcff0e3f70
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/net/pcs/rockchip,rk3568-xpcs=2E=
+yaml
+>> @@ -0,0 +1,110 @@
+>> +# SPDX-License-Identifier: (GPL-2=2E0-only OR BSD-2-Clause)
+>> +%YAML 1=2E2
+>> +---
+>> +$id: http://devicetree=2Eorg/schemas/net/pcs/rockchip,rk3568-xpcs=2Eya=
+ml#
+>> +$schema: http://devicetree=2Eorg/meta-schemas/core=2Eyaml#
+>> +
+>> +title: Rockchip RK3568 Synopsys DesignWare Ethernet PCS
+>> +
+>> +maintainers:
+>> +  - Coia Prant <coiaprant@gmail=2Ecom>
+>> +
+>> +description: |
+>> +  Rockchip RK3568 SoC integrates a Synopsys DesignWare Ethernet Physic=
+al
+>> +  Coding Sublayer (XPCS)=2E
+>> +  The PCS provides an interface between the Media Access Control (MAC)
+>> +  and the Physical Medium Attachment (PMA) sublayer through a Media
+>> +  Independent Interface (GMII)=2E
+>> +
+>> +  The XPCS is accessed over the APB3 bus and internally connected to a
+>> +  Naneng Combo SerDes PHY=2E
+>> +  It supports 1000BASE-X, SGMII and QSGMII modes=2E
+>> +
+>> +  The block contains four MII ports that can be individually enabled a=
+nd
+>> +  routed to one of the Ethernet GMAC controllers via the pcs-handle
+>> +  property in the MAC device tree node=2E
+>> +
+>> +properties:
+>> +  compatible:
+>> +    const: rockchip,rk3568-xpcs
+>> +
+>> +  reg:
+>> +    maxItems: 1
+>> +
+>> +  "#address-cells":
+>> +    const: 1
+>> +
+>> +  "#size-cells":
+>> +    const: 0
+>> +
+>> +  clocks:
+>> +    items:
+>> +      - description: APB3 bus interface clock (clk_csr_i), required fo=
+r register access
+>> +      - description: EEE clock (clk_eee_i), required for Energy Effici=
+ent Ethernet operation
+>> +
+>> +  clock-names:
+>> +    items:
+>> +      - const: csr
+>> +      - const: eee
+>> +
+>> +  phys:
+>> +    maxItems: 1
+>> +
+>> +  phy-names:
+>> +    const: serdes
 >
-> Am Dienstag, 6. Oktober 2026, 15:46:50 Mitteleurop=C3=A4ische Sommerzeit =
-schrieb Frank Li:
-> > On Tue, Oct 06, 2026 at 03:25:10PM +0200, Alexander Stein wrote:
-> > > From: Markus Niebel <Markus.Niebel@ew.tq-group.com>
-> > >
-> > > The FlexSPI controller uses quad SPI with internal clock recovery.
-> > > The clock is therefore restricted to 66.666666 MHz according to
-> > > data sheet.
-> >
-> > Which datasheet? I suppose NOR flash datasheet, can you provide link
-> > here.
+>You don't really need phy-names if there is only 1 entry=2E
 >
-> The i.MX8M Nano data sheet Rev 5 09/2022 section 3.9.1.1 "SDR mode with
-> FlexSPIn_MCR0[RXCLKSRC] =3D 0x0, 0x1, 0x2" Table 55. "FlexSPI input timin=
-g
-> in SDR mode where FlexSPIn_MCR0[RXCLKSRC] =3D 0x0" lists 66 Mhz maximum f=
-or
-> "Frequency of operation".
+>> +
+>> +  power-domains:
+>> +    maxItems: 1
+>> +
+>> +patternProperties:
+>> +  "^ethernet-pcs-mii@[0-3]$":
+>> +    type: object
+>> +    description:
+>> +      One of the four MII ports of the XPCS=2E The port is linked to a=
+n
+>> +      Ethernet MAC controller via the pcs-handle property in the MAC's
+>> +      device tree node=2E
+>> +
+>> +    properties:
+>> +      reg:
+>> +        description: MII port number=2E
+>> +        enum: [0, 1, 2, 3]
+>> +
+>> +    required:
+>> +      - reg
+>
+>Why the child nodes? They don't contain anything=2E
+>
+>Perhaps that's due to pcs-handle not supporting arg cells to pass the=20
+>port number? That's about to change[1]=2E
+>
+>Rob
+>
+>[1] https://github=2Ecom/devicetree-org/dt-schema/pull/198
 
-From the commit log, I also got the impression you were referring to
-the SPI NOR datasheet.
+Hi Rob,
 
-Please clarify that in v2.
+Both points make sense=2E
 
-Also, shouldn't all patches in the series contain a Fixes: tag?
+1=2E I'll drop phy-names since there's only a single entry=2E
+
+2=2E For the ethernet-pcs-mii child nodes: you're right that they only
+   contain 'reg'=2E The reason I used child nodes is because pcs-handle
+   arg cells are not available yet -- PR #198 is still open and in
+   RFC/change-request state=2E
+
+   The RZN1 MII converter binding does the same thing: it declares
+   MII ports as subnodes and references the PCS via pcs-handle, until
+   arg cells land=2E
+
+   So I'd like to keep the child nodes as a temporary workaround, and
+   I'll add a note in the binding that this can be simplified once
+   PR #198 is merged=2E
+
+Thanks,
+Coia
