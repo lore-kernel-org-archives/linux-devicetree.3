@@ -1,50 +1,57 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DD724418D7;
-	Tue,  6 Oct 2026 13:06:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 351BE45C6FC;
+	Tue,  6 Oct 2026 13:06:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791291973; cv=none; b=dC1XMKX8rf6fvlyiGbYoQaTqNV66l5knhSbdgeSX9EiRtBeQlFSdwoluRIq3DVFxX3EjcfyiR/f0fMkMntQzuNLX+vK6s6Q8jt127IwEG/5z+jAkYWUgbLXHzzm1BUVWRObSwhDBizCeAqrNF/Kq1E//gAuwROSUZFse1PXVGRI=
+	t=1791291998; cv=none; b=MhePL5Lwp1M+JWvnSKq2gbaZWXSIYd4XF4prPIwZCkWexDLKAQ+V1aoSBGkDkPI7IblYMuN7Y/gDXA2zJsH7Tys7PL1jOV5Ldt9nEXKvTdbrPO0qwseGapwRBudaLuFcnqqyzF44eisBJKHRSRfgrJlvoDeXWSO9ej2hlQiWxls=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791291973; c=relaxed/simple;
-	bh=L4kAmBicTl0pRpKiCQTderZIL159TxmGZUgBk9qYqrs=;
+	s=arc-20240116; t=1791291998; c=relaxed/simple;
+	bh=zhOu27oxfzwSiANFlhZ2HvPrHAiETkc90ajbDcCfLBc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Y2L5jyUvujcqbi3q+GihEhXCXzdS6huxqUL1ewQIOi0WzIZJqVTd3RlRkM9JlNIrxt80UBjYCKEZnXCl+glzMVbpUe0XrJOuyprYYMlzwAgwI3IckVFWurKkDdJZ6l2eVF+xe79cEUGs0hOfEifLiFZsXKam8oBAstTnNYO4mlI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JNuh3wEc; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=crngz9MYagxW501nTZYg5c3dSzpOPb89Wg8kuNXPYPDkQz5mauCORjkUUtcaFGmWZfMEwxEMj0Hlar8dUtvWhH6gTlv+GimMoLYYdln5v2PiYq/5ghrFcn4XmvjvxNpNiC0KcCvGwX4G9mgubNAZGQsf19ApLAZBP7ULxPVBnJ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=uZ3Ug/lK; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JNuh3wEc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6A531F000FF;
-	Tue,  6 Oct 2026 13:06:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791291972;
-	bh=/ZDE1b/ofQc5+FHYtixas/9EEglj1E+MKaqTgNZXuR8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JNuh3wEcshU+h7D3Xjy3UfNrTnrBGpRdoWxl/kSvhdeXg0tXVARBD7pYEL8gOna4X
-	 0PfDdi5aJPNyvK//QgG4uHp27aDmp8fg3vCVaxOSGkqa+Vx5MO1ci553Sc2uL/FZZR
-	 XMxmmKBM2ZLIYSgYeZrrMr/GFY6nNv98gP6RD9m6mPpleugtS3BMK9TGz2Fkr0eoDn
-	 atqljn5kRrQlyJlQGoREKyD7H+J6ZYZGzZNc83wN5cO+2L9bAWNEmXDvJ+/tzDddX8
-	 ll2rXkRNTl7yBXFtJeSOP9vwOgeo375LP06VPQ2W1nSZtvgH+BIPeKIrY9BCGNfS1a
-	 7QbyyYn4UA40Q==
-Date: Tue, 6 Oct 2026 08:06:11 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Markus Probst <markus.probst@posteo.de>
-Cc: linux-arm-kernel@lists.infradead.org,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="uZ3Ug/lK"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=6pVnrxOROFVOkwWfQdTsRuJM4AJzKzSq0bMpts2rh5I=; b=uZ3Ug/lKmjg81E6zeai+YA2uKL
+	oHBQ96jo/Zvlz+JrKSMlD77HI2rkFviDHcBL7T3sNk7KYjMArkFYEDYmRwAJ20mm0MlBJpje9i1Wc
+	JpgsLli4Yr13TPQFJcEpSxIoJeqgj0eerqWVLwPU/dPaZgyCarIH83K0eWhKWywn5fv0=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xE4sC-009GSp-Rl; Tue, 06 Oct 2026 15:06:24 +0200
+Date: Tue, 6 Oct 2026 15:06:24 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Selvamani.Rajagopal@onsemi.com
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Gregory Clement <gregory.clement@bootlin.com>,
-	devicetree@vger.kernel.org,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Michael Langer <michael.brainbug.langer@googlemail.com>,
-	Linus Walleij <linusw@kernel.org>, linux-rtc@vger.kernel.org,
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>, linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
-	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <uwe@kleine-koenig.org>
-Subject: Re: [PATCH v10 1/6] dt-bindings: rtc: Add pinctrl for S35390A
-Message-ID: <179129196974.1658029.8967859759819960854.robh@kernel.org>
-References: <20260930-rtc_s35390a_int1-v10-0-e7b1cbc50a7b@posteo.de>
- <20260930-rtc_s35390a_int1-v10-1-e7b1cbc50a7b@posteo.de>
+	Conor Dooley <conor+dt@kernel.org>,
+	Piergiorgio Beruto <pier.beruto@onsemi.com>,
+	Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
+	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Richard Cochran <richardcochran@gmail.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-doc@vger.kernel.org, Jerry Ray <jerry.ray@microchip.com>
+Subject: Re: [PATCH net-next v8 09/11] net: phy: ncn26000: Support for
+ loopback
+Message-ID: <344be351-656f-4e02-8c33-d9dde6bf80b1@lunn.ch>
+References: <20260928-s2500-mac-phy-support-v8-0-7e011aacc309@onsemi.com>
+ <20260928-s2500-mac-phy-support-v8-9-7e011aacc309@onsemi.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -53,23 +60,49 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260930-rtc_s35390a_int1-v10-1-e7b1cbc50a7b@posteo.de>
+In-Reply-To: <20260928-s2500-mac-phy-support-v8-9-7e011aacc309@onsemi.com>
 
+> @@ -2775,6 +2775,26 @@ int genphy_write_mmd_unsupported(struct phy_device *phdev, int devnum,
+>  }
+>  EXPORT_SYMBOL(genphy_write_mmd_unsupported);
+>  
+> +/**
+> + * genphy_loopback_fixed_speed - Helper to modify the PHY loopback mode
+> + * without affecting any other settings.
+> + * @phydev: The phy_device struct
+> + * @enable: Flag to enable or disable the PHY level loopback.
+> + * @speed: Speed setting. Not expected to be set. Error if it is set.
+> + *
+> + * Returns: 0 if successful, negative error code on failure.
+> + */
+> +int genphy_loopback_fixed_speed(struct phy_device *phydev, bool enable,
+> +				int speed)
+> +{
+> +	if (enable && speed)
+> +		return -EOPNOTSUPP;
+> +
+> +	return phy_modify(phydev, MII_BMCR, BMCR_LOOPBACK,
+> +			  enable ? BMCR_LOOPBACK : 0);
+> +}
+> +EXPORT_SYMBOL(genphy_loopback_fixed_speed);
 
-On Wed, 30 Sep 2026 15:31:46 +0000, Markus Probst wrote:
-> Synology NAS devices use the output pin for interrupt signal 1 to wake up
-> the system.
-> 
-> Move devicetree bindings for sii,s35390a into its own file.
-> Add necessary properties to configure the individual pins via pinctrl,
-> which allows the interrupt signal 1 to be used for wakeup alarm.
-> 
-> Signed-off-by: Markus Probst <markus.probst@posteo.de>
-> ---
->  .../devicetree/bindings/rtc/sii,s35390a.yaml       | 118 +++++++++++++++++++++
->  .../devicetree/bindings/rtc/trivial-rtc.yaml       |   2 -
->  2 files changed, 118 insertions(+), 2 deletions(-)
-> 
+Please could you place it next to genphy_loopback()
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+> +
+>  int genphy_suspend(struct phy_device *phydev)
+>  {
+>  	return phy_set_bits(phydev, MII_BMCR, BMCR_PDOWN);
+> diff --git a/include/linux/phy.h b/include/linux/phy.h
+> index 7c5098a0dd6c..c1b9bc305c82 100644
+> --- a/include/linux/phy.h
+> +++ b/include/linux/phy.h
+> @@ -2327,6 +2327,8 @@ int genphy_read_mmd_unsupported(struct phy_device *phdev, int devad,
+>  				u16 regnum);
+>  int genphy_write_mmd_unsupported(struct phy_device *phdev, int devnum,
+>  				 u16 regnum, u16 val);
+> +int genphy_loopback_fixed_speed(struct phy_device *phydev, bool enable,
+> +				int speed);
 
+and this next to genphy_loopback().
+
+	Andrew
