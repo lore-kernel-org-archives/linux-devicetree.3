@@ -1,210 +1,113 @@
-Received: from sonic312-22.consmr.mail.bf2.yahoo.com (sonic312-22.consmr.mail.bf2.yahoo.com [74.6.128.84])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41FAE1B78F3
-	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 04:18:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.6.128.84
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E218356747
+	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 04:28:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791260286; cv=none; b=nryW79fs6W6l1Tyv1ZwU6JHR76/rGV/8tNl661WY0/pohz8iRIz49khRtc0TD6F+DCJm9uSn23jtKTx4Q6133ZLQ9IJr6uAh3gJP/af9MHWJ0QfNWqEB7R98UT2o1BajNPSyj/hlUsDWrJDIQ89OFnVqwZaRrf8kx3T7yRQayEI=
+	t=1791260921; cv=none; b=Wb9U+9gwiWs+q+DTuTxumjWWIQWkTDvxRhj53h3SiNoxO+/Z195gL45LunZdtxOZbID/odTFaY7nH0sduJsIjfYqaWXPEaJYE6o5ce3vHKqbJ0fIR0EvOz7O9hpiywH+n7Tl7LxEzlLhiUFTJnet4/9Q91J5cQR/QHLfErrcoyo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791260286; c=relaxed/simple;
-	bh=o9GEaIpo4Tk/4/pMUTALBMy9vOnA6rh/r9pgoPzbjz4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:References; b=tTJOMh93wrb8Sn0VvVJxRPjB6S2KmcxtfuvlaNDN5S5yKGQ/UkXxlckYAZIqxcT0djaINsLOBwMCAmJVRz1CSXvwHNhc0ajNFX1MLPG0gkON9b3JV1R0v/QI/eDPBI5zxObFiUq/lMCtoOstZaQWb171iiRinoN7QxCA0L2j1bA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=EwaFz09m; arc=none smtp.client-ip=74.6.128.84
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
+	s=arc-20240116; t=1791260921; c=relaxed/simple;
+	bh=bo2X3hDeI4pBnunTcHhhTv7/UJwW6YG6gQ9h4NZtf1c=;
+	h=From:To:Cc:In-Reply-To:Subject:Date:Message-ID:MIME-Version:
+	 Content-Type:References; b=GV2VJv3z9gFmucfP1Nlkp3PvfR5HG2diHu5e1QsGD750zSTo9k9b8ROBIxwm7XNvCX8SPMY4+LWI+IRBG9cZ3quiZAEJB1uGLW1dI+3F+cXfCXwflGEClTB+mIKmjpg/QQNZlfMutrx1lXTmwdgLBTkZBjfeezmuvGZ7vchFPNQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=az278A1A; arc=none smtp.client-ip=203.254.224.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="EwaFz09m"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791260284; bh=w4I8ZXaJUUT/qNwcfw4dbGwkZTp3g2dvFI/so9RtbJw=; h=From:To:Cc:Subject:Date:References:From:Subject:Reply-To; b=EwaFz09mubru5mlITzQUPlgu95C23dIkfn2v8zUEHxdXm/o9DzKvuFhey0odNv6pxu3fbYIMhBwYdnNc7vXFwFGUwEThmpJQamiIsNHvk0g2CH7LfOLHgh4m8I0PfTmdJRBa/mmRlxCjqoKaf4OgkbPM59pflYsUgVL5D6cphlVWR2fyuNHlg1W7gmNgFUBlkUjvQ25UH2dUqEdZ35PW0Qy0aJIxPr4NC4TmKl4GeHd+oIiI7iXakt4bdtDe1wFy3E748PJToZmlEouI9otYj3+bMz4L84wEPJIHIoo5N82mrR0+SAzj5JysufQgSAVb38qE042DspBI73m6zs2vEQ==
-X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791260284; bh=TFV/6AsWFXr/ivUFnBT+7NvFuCxbYPOrZzvtn+Jgwke=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=nO/xftemx9uMuUAh3O8yeLF42tYB8pjZzvvfCoFeU0AONYi32jfCUGoiYZSKP7JEePXFtkBZgIgokBdK21mwmZ6RCiRNAJ4bH35J7EjwbecZ1munnGw/rfE5skUu5s2/ks3kVAjaKscZk8R5qm/JaufO/ZeNXHuHxK2x+3MXM3JXoazG9ZNexmdtITT/8sbjw1t44wwOAD9ge3Z0Qzjt4LevkG53EA3uQKhqVIoUxFLjxlHFfD9wBzc3NWvQULaeoZg5jh8AphLg7tZ5xkCe00omjTw7/J22WoF/GjCXwWBWrPt63fE17rzhQKI3sahpGG90jLj0WB0f1tiOzs21jw==
-X-YMail-OSG: Uv1RxzgVM1nnIh78FtrYv2sIGQb3waRwmGU67JJjEOTkN6lY.ajYrwGevyu5oJo
- GxVz_vjSZe_zyvLI5j6iCYDSHH6vJI_MAhHrggt.alVlPZSb8MYg..71GeUzO3fdGw6VD1aLwO1l
- MLAYnnedHtOC6vow539AW3MinepNgL07hvb76pgS69OQxdUaNZcn2RZJb.7WvBIw0XoKUG4yuBhd
- qOEdYv09I7QAwzvhdT09TbiY3OvLrwwTA0umuz5scAfDlYo5TobhFZs1Mz8izR.VvfHIxll4fUvr
- fBFeBzEmAFFMA7_d0lEW4BEQv_OsDaRZDkAqVVTk_p.cH_igcha2j7pWsKY1qDKjUUyq_uJ7YyAu
- mTsHluH51i0i7JNQX_juk4zzZGd.S4etJ4uU17P5vl.dS1IO8FAN3nF5SHwtgaBSiwf.IK_IhrHN
- 9En6zgTZMRiV.K3O4JQskRnCP7piubRHGSmjUSMIWPlOacMr.uB0.PW_CvjQG8_.aeqyRkgWkbao
- jbsWrPqcuZXkG2wZtt5ynfEq7hElH3nC9HiJ1Gvdntzd3ilnqKA5oBmfQXI8LwHghbiOwvkujG2v
- P.vkGVkFKy2gYZZ6h7ncdhLsqWmYghsuvmS5C4sulyDCDLnmBLDL4vVAxZqv55xKBAUxaMX1FpKu
- 5pLOkhlf7ZR5sD0_kZaIsDh_YT_F225009EVmdpGSd9lfy4V4pQhcxYCDNGSgqLGZ7pDiPpbY0Af
- be55ZnGFkrlCO4HFK_jPImR49BdgU2rk._uaQrdRXwEA4AzDRX5WjF32SaXMm_KF9IchcJ5AJvLB
- gowZcfebch4TmkymmkC85QMNrzLCxBHFdvNCOWhjvmdbQDDUzzenHB_nhlI4KO.24Ohcb4QImZFI
- pcFSK5JuiZv5PJ6wdYzx6yhQxQ_5PKVBvo_CZQbHCAAk_yMa2rOQRjnW9jiwlWGun7OYtkK5qKhh
- n7CWfPd06yTIxRb1GoWLqLUyufDbnF.I4BE7TSKom_NU3itASRrOzfNBjnKBK6r72ykciWtyhOq6
- OXd44QCqMD8y3AhVIkZV2DF4NvOB3yut2g8srUbYkAc5btNOQbfxtVn0AbgJG_o4YWI04_GXJOIT
- qVd0qezJPFAsI2yF6uDeVoMiqZzqY8Xwcgg1Gn39DpxSk97UIqbt5IyBPEafq0kNdrnWS4KIBlQM
- ybkdI.GWT0nTtYvceoCrUCWTJIO_WesVN0zPX0W4bwW0IleRb0zR5oQx3H_C8D1RH21laqdnsHSe
- uiHqkB0H5PPd4uNiS8n5bV8aJXVNRN.5V8t15c8cqzJ3.33LAIH2IwYmhCBx_tm0tiDb8DS.jQeu
- 9RQUB4lngNHQl7XQigaLxQYhFpcwrH7pBhZhjFQQ1XBFNzXw875NFr792NmFL8dFYvP_kVzjuon2
- EDKrxoKtu1w4IIs_oD6V75o.qoP_oNMVP3654_L5iBNsHoD7EdWIPK8NktM4EiyIbh6T53m_PQZd
- vhjARTdCcPWUHgYweGcC_eEuWtCK24hbisCAZ08t_x2EKG_QdoNwkCx2Zs6necFIv0qgPDkZHhAU
- 7l60PXXhxjlhAgr0Pf9spmpBJrmypw59GPQGgrNm0O2sTDtL8bf4uSpDCOyCjyUQ477WYwAof1TK
- 6D8MCHX5SI402xyY1ZLkMp6Gmsgxq6u6K7lyQ03oHLadsbedHlOfD7.3P_dYX0brYBSeeP0Seefq
- tDBSBtV46u4oRTta5tnYVPKrBApOy1RsNORC173WgFSFPGKQxZrrTH0nZ1IHWA7sdkFuhiydnxfn
- wChiDsyud.Q2r6NhjCxPSSa6EGPeoLMPmhq62OKAz1dwmAIkmUEUh7.33f8SkqaeUceQl88Cg_6R
- WSXCJ3uaIlzexxiQxZk.mPqG7wR1crWQp3aGywIeqkG5UoHaYRXRqu6j_Gdv1dkAq1_HWSClgS.h
- k8DvyzJRUY2sHtWmLigIgXkhwXc6GVo3meVqmDgUNtBgjG.qp5E9Vh0Oc.Gx37KBgDKh4GqYBKd9
- nUACF0mqHZqylJjaX9agzGSyM6Dsb8B0p2HnCJikH.L8z1L._MB9GlO7orLJfVngp34VhRbv6yW3
- fxpWft3gobFA1auF5q643en5ylKGy7pr8b3PRfrnh2XRv1miP70_FxYV2tUxFPzo69KWWOVi4a1W
- SA7c8hqh9akxcX8mC2HLIysDwRb2NXKWzicDd09j.6aLbktjnyLNGRBhv1UU.k.46AeJtzVQp8VK
- OY11nTbF7M1.AtYmxxJhth_pRa21pTgBewIjINqQ2eNiOfJ8ZWBMMrAkdgA--
-X-Sonic-MF: <deaner92@yahoo.com>
-X-Sonic-ID: 4e63f676-19bc-40cd-beef-4c4f5ba32c5d
-Received: from sonic.gate.mail.ne1.yahoo.com by sonic312.consmr.mail.bf2.yahoo.com with HTTP; Tue, 6 Oct 2026 04:18:04 +0000
-Received: by hermes--production-bf1-6d6877594b-8262h (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID 119945a1ab88cc8a53fdba40fa374bce;
-          Tue, 06 Oct 2026 03:35:31 +0000 (UTC)
-From: Jeremy Dean <deaner92@yahoo.com>
-To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-pwm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Jeremy Dean <deaner92@yahoo.com>
-Subject: [PATCH] dt-bindings: pwm: Convert NXP PCA9685 PWM controller to DT schema
-Date: Tue,  6 Oct 2026 03:35:18 +0000
-Message-ID: <20261006033518.34332-1-deaner92@yahoo.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="az278A1A"
+Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
+	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20261006042836epoutp028365024025bfba6a1302777b5bbd837e~b1lAv9Vi42700227002epoutp02d
+	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 04:28:36 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20261006042836epoutp028365024025bfba6a1302777b5bbd837e~b1lAv9Vi42700227002epoutp02d
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1791260916;
+	bh=LgntyPCT6mbiDQeIW6B53O9DRHxz2wX1AyNTwm4lHi4=;
+	h=From:To:Cc:In-Reply-To:Subject:Date:References:From;
+	b=az278A1AT5woz2LO9nCwKc56yOcJp2CKzCO033T58bFlnVZ5IbgAYglFDQcik64tV
+	 ssUF2dQgmftHgqF5d8kXAsQmDCq5esefw9ccB51LnrKLnGvb/RSPUQF8OYUtPCgpbj
+	 GgIz4lndLDTBNieNw+a/Xg02xCjbRZPagyx7S6hY=
+Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
+	epcas5p2.samsung.com (KnoxPortal) with ESMTPS id
+	20261006042835epcas5p24a08e2017b6d2f377eb2245a203597c7~b1k-SGrtO1183111831epcas5p2Z;
+	Tue,  6 Oct 2026 04:28:35 +0000 (GMT)
+Received: from epcas5p4.samsung.com (unknown [182.195.38.89]) by
+	epsnrtp01.localdomain (Postfix) with ESMTP id 4hzNYG2vjjz6B9mD; Tue,  6 Oct
+	2026 04:28:34 +0000 (GMT)
+Received: from epsmtip1.samsung.com (unknown [182.195.34.30]) by
+	epcas5p4.samsung.com (KnoxPortal) with ESMTPA id
+	20261006042833epcas5p4ce0e831af9c9d099e022ee6fc6e8ec79~b1k9_G1RV0768007680epcas5p4Y;
+	Tue,  6 Oct 2026 04:28:33 +0000 (GMT)
+Received: from INBRO002756 (unknown [107.122.3.168]) by epsmtip1.samsung.com
+	(KnoxPortal) with ESMTPA id
+	20261006042832epsmtip1b09d3016748e0b94bfd2d6f288100092~b1k8bE5mJ0554705547epsmtip10;
+	Tue,  6 Oct 2026 04:28:31 +0000 (GMT)
+From: "Alim Akhtar" <alim.akhtar@samsung.com>
+To: "'Peter Griffin'" <peter.griffin@linaro.org>
+Cc: <krzk@kernel.org>, <robh@kernel.org>, <conor+dt@kernel.org>,
+	<linusw@kernel.org>, <linux-samsung-soc@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-watchdog@vger.kernel.org>, <linux@roeck-us.net>,
+	<hajun.sung@samsung.com>, <wim@linux-watchdog.org>
+In-Reply-To: <CADrjBPrXYX4_d9dJ=SUqHf-eMDyuSpSChkuTsrPHfo2ZNh2mMw@mail.gmail.com>
+Subject: RE: [PATCH v2 2/2] watchdog: s3c2410_wdt: Add support for
+ Exynos8855 SoC
+Date: Tue, 6 Oct 2026 09:58:30 +0530
+Message-ID: <18b901dd554b$259eb890$70dc29b0$@samsung.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-References: <20261006033518.34332-1-deaner92.ref@yahoo.com>
+Content-Transfer-Encoding: 7bit
+X-Mailer: Microsoft Outlook 16.0
+Thread-Index: AQJaA0b9OUQoKjNfig97L7/y+bvwowH+CJFiAXoAkAkBm/b0zbXN73ow
+Content-Language: en-us
+X-CMS-MailID: 20261006042833epcas5p4ce0e831af9c9d099e022ee6fc6e8ec79
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+CMS-TYPE: 105P
+cpgsPolicy: CPGSC10-543,Y
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20260927150943epcas5p1fb1720070f2bdca2c6cd32094dde895c
+References: <CGME20260927150943epcas5p1fb1720070f2bdca2c6cd32094dde895c@epcas5p1.samsung.com>
+	<20260927152738.3673504-1-alim.akhtar@samsung.com>
+	<20260927152738.3673504-2-alim.akhtar@samsung.com>
+	<CADrjBPrXYX4_d9dJ=SUqHf-eMDyuSpSChkuTsrPHfo2ZNh2mMw@mail.gmail.com>
 
-Convert the NXP PCA9685 PWM controller binding to DT schema format.
+Hi Peter
 
-Changes from the text binding:
+> -----Original Message-----
+> From: Peter Griffin <peter.griffin@linaro.org>
+> Sent: Friday, October 2, 2026 8:32 PM
+> To: Alim Akhtar <alim.akhtar@samsung.com>
+> Cc: krzk@kernel.org; robh@kernel.org; conor+dt@kernel.org;
+> linusw@kernel.org; linux-samsung-soc@vger.kernel.org; linux-
+> kernel@vger.kernel.org; devicetree@vger.kernel.org; linux-
+> watchdog@vger.kernel.org; linux@roeck-us.net; hajun.sung@samsung.com;
+> wim@linux-watchdog.org
+> Subject: Re: [PATCH v2 2/2] watchdog: s3c2410_wdt: Add support for
+> Exynos8855 SoC
+> 
+> On Sun, 27 Sept 2026 at 16:09, Alim Akhtar <alim.akhtar@samsung.com>
+> wrote:
+> >
+> > Watchdog IP on this SoC is similar to Exynos850/ExynosAutov{9/920}.
+> > This does not have CNT_EN_WDT bit in PMU and offset of RST_STAT is
+> > different then the previously support SoC.
+> > Reuse the offset as much as from already supported SoC
+> >
+> > Signed-off-by: Alim Akhtar <alim.akhtar@samsung.com>
+> > ---
+> 
+> Small nit: If you send another version, the last sentence could be updated
+> slightly for clarity. Something like "Reuse the offsets as much as possible
+> from already supported SoCs"
+> 
+Sure, will update
 
-Document the 'reg' property and make it required. It was missing
-from the text binding, although the example used it and the device
-cannot work without the I2C address.
-
-Rename the example node to the generic 'pwm', as required by
-pwm.yaml.
-
-Describe both cells of the PWM specifier, and state that 'invert'
-and 'open-drain' apply to all outputs, as per the datasheet (INVRT
-and OUTDRV bits in MODE2).
-
-Assisted-by: LLM
-Signed-off-by: Jeremy Dean <deaner92@yahoo.com>
----
-The schema was generated with an AI assistant (Claude).
-I verified the properties against the driver source, the PCA9685
-datasheet, and the text binding. Passes make dt_binding_check.
- .../bindings/pwm/nxp,pca9685-pwm.txt          | 27 --------
- .../bindings/pwm/nxp,pca9685-pwm.yaml         | 62 +++++++++++++++++++
- 2 files changed, 62 insertions(+), 27 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.txt
- create mode 100644 Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.yaml
-
-diff --git a/Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.txt b/Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.txt
-deleted file mode 100644
-index f21b55c95738..000000000000
---- a/Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.txt
-+++ /dev/null
-@@ -1,27 +0,0 @@
--NXP PCA9685 16-channel 12-bit PWM LED controller
--================================================
--
--Required properties:
--  - compatible: "nxp,pca9685-pwm"
--  - #pwm-cells: Should be 2. See pwm.yaml in this directory for a description of
--    the cells format.
--    The index 16 is the ALLCALL channel, that sets all PWM channels at the same
--    time.
--
--Optional properties:
--  - invert (bool): boolean to enable inverted logic
--  - open-drain (bool): boolean to configure outputs with open-drain structure;
--		       if omitted use totem-pole structure
--
--Example:
--
--For LEDs that are directly connected to the PCA, the following setting is
--applicable:
--
--pca: pca@41 {
--	compatible = "nxp,pca9685-pwm";
--	#pwm-cells = <2>;
--	reg = <0x41>;
--	invert;
--	open-drain;
--};
-diff --git a/Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.yaml b/Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.yaml
-new file mode 100644
-index 000000000000..36b312ac0be9
---- /dev/null
-+++ b/Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.yaml
-@@ -0,0 +1,62 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/pwm/nxp,pca9685-pwm.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: NXP PCA9685 16-channel 12-bit PWM LED controller
-+
-+maintainers:
-+  - Jeremy Clifton <deaner92@yahoo.com>
-+
-+allOf:
-+  - $ref: pwm.yaml#
-+
-+properties:
-+  compatible:
-+    const: nxp,pca9685-pwm
-+
-+  reg:
-+    maxItems: 1
-+
-+  "#pwm-cells":
-+    const: 2
-+    description:
-+      The first cell is the PWM channel index, from 0 to 15, or 16 for the
-+      ALLCALL channel, which sets all PWM channels at the same time. The
-+      second cell is the PWM period in nanoseconds.
-+
-+  invert:
-+    type: boolean
-+    description:
-+      Invert the logic state of all outputs (INVRT bit in the MODE2
-+      register). The setting applies to the whole chip, not to individual
-+      channels, and is typically used when the outputs drive an external
-+      driver stage.
-+
-+  open-drain:
-+    type: boolean
-+    description:
-+      Configure all outputs with an open-drain structure (OUTDRV bit in the
-+      MODE2 register). If omitted, the outputs use a totem-pole structure.
-+
-+required:
-+  - compatible
-+  - reg
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        pwm@41 {
-+            compatible = "nxp,pca9685-pwm";
-+            reg = <0x41>;
-+            #pwm-cells = <2>;
-+            invert;
-+            open-drain;
-+        };
-+    };
-
-base-commit: bf1ee2bd5c2da8992f33c8950ef194aaff74ed6c
--- 
-2.43.0
+> Reviewed-by: Peter Griffin <peter.griffin@linaro.org>
+> 
+Thank you!
 
