@@ -1,52 +1,65 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2331446849;
-	Tue,  6 Oct 2026 12:57:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57FD3456E1A
+	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 13:03:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791291457; cv=none; b=nTsPnsQSoWg2k8uEOe73q7biA4ElcsRNQ+5ov+JPjxyLwnzDW5VQWuP8oEjcq2KS376T37+Uu03LNaONd3ARtMeKVp+Ngz1jscZnI3OV13ffcojsQ9egNoCpvnYtlnjDyjjfsf4Hi34L1rn0sXs9cBDAJ+wugVdZxDFlzN9TDG0=
+	t=1791291819; cv=none; b=XYzEKL2NPLLpkqWQHiukViS5G4mfB3nqu2Jtts+Mltyp1O2Zc6ZmuK+a5MRf450ItQk8LakGHHKtsvwJLRmkDA6s2airUkPHxJxkwkVJkwIOPHjLurWZXWNi9NR0ufeDcqkn8IEdwb4MnClqVo8n1jDF04VtMq16us9LnFOKsNY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791291457; c=relaxed/simple;
-	bh=+Q3Zno1VCYhLi025pNDCmJZ5SJkmktbvvlNyIe3ul58=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=KV9UQgfDItj1RoboaXcImWx+xgJqAWkOrjIKCNfegrdOCHrnpDHhQqDOX+ruTRv1tYD37eEz3pp/hW0xaMLBDsZR0XX/tYvv51/YVyX+OQglXHsBDHTvxB/2/QdoHgu/Ntm3JlfmKnqxK4CM6UY2GHi6xmhD1RYC+SSPK7ysvrQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=IKQI4Pc3; arc=none smtp.client-ip=68.232.154.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1791291819; c=relaxed/simple;
+	bh=an8RRqaHB41r0ebVeLgeXHHwXpS6JRCN4uHoaw5ZiSU=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=m3uw+6z3FnmTNZHcEIv0DYrCb8rsatuYKffqHsea8rFC/SdCou8upXTy/DA0oKwnwzWCgMXh09z12ABvRaD9tMTxQYKd/gSdmhw66HTD22Ia1BTHyBtAmkX3N41sX/YNXWvzyATlcUrBw2dHL7so1tsyRR+esYEExBnZApDd/T0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=wUWDC7Kj; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="IKQI4Pc3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1791291455; x=1822827455;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:references:in-reply-to:to:cc;
-  bh=+Q3Zno1VCYhLi025pNDCmJZ5SJkmktbvvlNyIe3ul58=;
-  b=IKQI4Pc3Fh22o34AHmzqM1a9Wo+lGaV/9bwtVw0Aaf3h99AGZnVXoiPv
-   lm+ywAPq1vnYcNxOl4CnhNFtO+urK0mzwXEOd14Y/J+X7oar4Yt7XKu5J
-   jdDSYmi9WTlrzNPUoyHe5hKWrO9ft9FxWw06+G3K5AMtswTuEinLHy1Lf
-   YeS3SFbJf8O3pc7soxdVyzuVwlUQ3TRT2TEmpj4jqKHqcEOK+rWRFDKAe
-   AIog+1ebUzmPnYU7gWUszBabel8eUQ3m0EsEbJI4fAoxRz/lKZxNIa/Ko
-   M/CBKbWtskRi8IZbZ1YEkecWa5y0wo3sIg7wJIKWtPAuFx8N6i8pkFR0v
-   Q==;
-X-CSE-ConnectionGUID: vU3/LpuqTP+rAwCQWYX82Q==
-X-CSE-MsgGUID: 4W1bAGaSTt+THGjIvn7Ggg==
-X-IronPort-AV: E=Sophos;i="6.27,143,1787036400"; 
-   d="scan'208";a="231739361"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa6.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 06 Oct 2026 05:57:33 -0700
-Received: from chn-vm-ex04.mchp-main.com (10.10.87.151) by
- chn-vm-ex3.mchp-main.com (10.10.87.32) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.49; Tue, 6 Oct 2026 05:57:32 -0700
-Received: from ROU-LL-M19942.mpu32.int (10.10.85.11) by
- chn-vm-ex04.mchp-main.com (10.10.85.152) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Tue, 6 Oct 2026 05:57:28 -0700
-From: Cyrille Pitchen <cyrille.pitchen@microchip.com>
-Date: Tue, 6 Oct 2026 14:56:37 +0200
-Subject: [PATCH v9 5/5] ARM: configs: at91_dt_defconfig: enable GFX2D
- driver
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="wUWDC7Kj"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a1698ea378so5750335e9.2
+        for <devicetree@vger.kernel.org>; Tue, 06 Oct 2026 06:03:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1791291816; x=1791896616; darn=vger.kernel.org;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=bZZmp3CRIOdGFj58JHDnDs9xiyHh/RfAbGLo8F1+ehk=;
+        b=wUWDC7KjcEKRPexMyJyfi/B8HUR6AVii85AdT5Ef5pAaVZLL0hZQ96YF2sLI1M70LE
+         bDBPSfTMhV8up0z8svDoZ1jtxLPrwehLplqq4EB5jPXhWVeuJHms/kjuMyvTsXnnbKOM
+         fh9+FABUA3LtBkbnxAreIft49gwPD2oDspFnmFB4A6twayVhn3wm+xbrdWZUYLzx03Ca
+         sOlrBYIV3oRH7M8MDZLfcA57qJbULKVGqELO/tyK4UAI4bN/1axuZzUmUbsMvAl/bUNl
+         7T0aXgNdgzBDikXDrhkT55yWaHMHv+LZkOAv1T8f3s0hu59WXmWc2vmm90lROwDvNyP9
+         bJmg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791291816; x=1791896616;
+        h=message-id:date:references:in-reply-to:cc:to:from:subject
+         :content-transfer-encoding:content-type:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bZZmp3CRIOdGFj58JHDnDs9xiyHh/RfAbGLo8F1+ehk=;
+        b=d09ZItkuqgr3GwcGzVh7ZPpifb3XiGw4tshkUtFW4OAAm3ZYuxPahXL/4/ktVJ0qlx
+         NTYIWuv4mZx6LNRD/JyF4Wau82nML0ohBnoLbgQlV5OQ7ENuS1Us3JOsiDCqk5s01tz/
+         UsgF88jOCzfzcJrbBdWMGNHGLlsubAImWUJVg0agXV5p9sypxc3xaUZbO+ri5xJN2b5k
+         bo7xktx2aaYfA19w+i18DoKTqmtgQDxeDB/5FwFJoTkolZGd03l/fJ7OckDxlxllpJk7
+         uDpGJHfIjR3WU7Tnfi9lHytz79piNgb/fczk0YkImFglsYrw9wKLnjJDtwA+0v7LnGpV
+         0j4w==
+X-Forwarded-Encrypted: i=1; AKwUvBygo4sx/BliqtoNPa/15+G64YXeZ0UXxI9juuih7+/cN2EjQelYZ5FAhQCBFyWvYXmN/zOZy11QX8e/@vger.kernel.org
+X-Gm-Message-State: AFuF++k9qiDk70DhvCwvMEYtEYqf6IHIbx3NHaqyOSJu63MQdeyYqPAd
+	NUZbDuz9TJyWkMeCLCZRk0g5fZjBf2QOO+1aGIXsmpCOk7lBezDu3uyflvjrO8rFnrA=
+X-Gm-Gg: AYBFou1qaB0PHcE1E8a8ZIqC6JmUtTEGjtSVcmxJFN4a8qXmY9JfN83l/yKjMMwuAj+
+	5gsbLVWCWKp82HwsAD/zybRxsFfFh54U2bVexm59DEq8347sGFKKdegdwe7uIli3syWZNcsxQ6A
+	3meNKRtUIAwZygFWElISkuhIzAwBaw4c5eMhkC8MYWzQA83sLQ2wEKwBdmPWn9Zt7IC/HT0QtMG
+	Kfly+yqOOOXi1oH2hRhKGQgs5zqt6G3trB7hcsnkx+0WnX3H9i7swMl/AGaBPkvC7OX7d+f/sHE
+	ff+vXt1wPUxRhR+RCRXcqgLRFcSw5Zqs0Tup/lKA3oHpxYn60eGJR2WzyvI79Qol2IlDhSL6TSf
+	8uHDfr4HVq3w0QS07a/gu4+hczs5YRpeOI9UJARrs2cBAEOGDtgYBy2HvB+v1F5mAGaii8LRPnL
+	E9Cs8bMS1Wo5na9gdEINzSKiPidUgTAKbVYHY6RPpvqeIoARRCNcY61fA45reCaCE458VhIalm2
+	Pne7AA0LJo+QnVlK6n3
+X-Received: by 2002:a05:600c:c490:b0:49f:f9d1:e618 with SMTP id 5b1f17b1804b1-4a17b53656amr21782015e9.17.1791291816314;
+        Tue, 06 Oct 2026 06:03:36 -0700 (PDT)
+Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:52eb:f6ff:feb3:451a])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a178caf832sm81042065e9.4.2026.10.06.06.03.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 06 Oct 2026 06:03:35 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -55,53 +68,67 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-ID: <20261006-cpitchen-mainline_gfx2d-v9-5-74bd3df2e183@microchip.com>
-References: <20261006-cpitchen-mainline_gfx2d-v9-0-74bd3df2e183@microchip.com>
-In-Reply-To: <20261006-cpitchen-mainline_gfx2d-v9-0-74bd3df2e183@microchip.com>
-To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	"Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, Maxime Ripard
-	<mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Nicolas Ferre <nicolas.ferre@microchip.com>,
-	"Alexandre Belloni" <alexandre.belloni@bootlin.com>, Claudiu Beznea
-	<claudiu.beznea@tuxon.dev>, Russell King <linux@armlinux.org.uk>
-CC: <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	Cyrille Pitchen <cyrille.pitchen@microchip.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=806;
- i=cyrille.pitchen@microchip.com; h=from:subject:message-id;
- bh=+Q3Zno1VCYhLi025pNDCmJZ5SJkmktbvvlNyIe3ul58=;
- b=owGbwMvMwCXmf6yzKqEsVIbxtFoSQ9aRD4p2EQ+sn1r1z5g9e2HVkWmaHibf3uiu/Xxh1c+fl
- 1xVVGad7yhlYRDjYpAVU2Q59GZrb+bxV4/tXolKwcxhZQIZwsDFKQATyZ3AyPBq9+L8nXeXVrzN
- fC749XS0u6FP13SWw3VMFc4H9U73tNUyMvyMOL/z3qJFljFOvlNVyqpcnt7XSbATebfWt2mqAM+
- iUk4A
-X-Developer-Key: i=cyrille.pitchen@microchip.com; a=openpgp;
- fpr=7A21115D7D6026585D0E183E0EF12AA1BFAC073D
+Subject: Re: [PATCH] arm64: dts: amlogic: meson-sm1-odroid-hc4: add the fan
+ tachometer
+From: Neil Armstrong <neil.armstrong@linaro.org>
+To: Igor Velkov <iav@iav.lv>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Christian Hewitt <christianshewitt@gmail.com>, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <179126094299.1095177.4869656735733059341@iav.lv>
+References: <20261006-hc4-fan-tach-v1-1-4e7cecf0b45b@iav.lv>
+ <20261006041733.8C4081F000FF@smtp.kernel.org>
+ <179126094299.1095177.4869656735733059341@iav.lv>
+Date: Tue, 06 Oct 2026 15:03:29 +0200
+Message-Id: <179129180999.592940.1230542534490853306.b4-reply@b4>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1010;
+ i=neil.armstrong@linaro.org; h=from:subject:message-id;
+ bh=an8RRqaHB41r0ebVeLgeXHHwXpS6JRCN4uHoaw5ZiSU=;
+ b=owEBbQKS/ZANAwAKAXfc29rIyEnRAcsmYgBqxPGmrDte5eWAM2zYZCOxW+dCQx8lZh15pobaMzdK
+ 8mhJRwOJAjMEAAEKAB0WIQQ9U8YmyFYF/h30LIt33NvayMhJ0QUCasTxpgAKCRB33NvayMhJ0XryD/
+ 48bpmUXwaPrcjsq5bMH5cKzGfT54W2AWi9J6zlK/7uVia8sMg1eGMfQciIz96Z9EguvHk1CpDiEL1g
+ UkGmSjQE6v7C8p31NwNiO4Wmv04iLWsQc3HCW9nFuJLTkD05DVmXQW76hrxq8Fks+4Twyj+lQr1UPx
+ LLqWXxFvdwh4wOTenYpKuUGlAXYizzthnQkilSyO6nqdz+WpIj9sQCr5gYi60L+LhJfNeZ1VsCGaAZ
+ SQ4oFW4pi0ZBiplW0d739hCWQ+IaX/BIzQ0BrTxiHM3eMwJAI5h49uDpyp1fOzJfExphssTAwc4YQD
+ /C2A8wTq3eVk5DIsQRBLb3iSe0+O+dOOMDIXy47U5isY0WWgNwubBC7fkmA3b8dawfZwOdbT/rSQ4l
+ uJTdQxz4VpKNvk+fdGmiBUjSJxiwwbgowIOPu4mwOo8qztFd6S7HpUH6cKZzEL0Sny/8kgmodOXyTG
+ dpbxnoekOMkmqmghcLsQWAoWKPC9gcSbWw5WL7d7KvnmTdeS2jRFef84NmI1ys10EtS8IfsAHc9Oav
+ 3uOP4tnpM+b+4Ew67j4fQm1wb/dFuG2o/fJfwssqHNrg+6KMCnXDrD906eLuPlzRlqeb8sXBuUnOqC
+ l/XQMQw5ZPbpbyyF5p8bBfHZqmv5wAg56d9JBitTQ12lYBC5g1xU2vid+g/Q==
+X-Developer-Key: i=neil.armstrong@linaro.org; a=openpgp;
+ fpr=89EC3D058446217450F22848169AB7B1A4CFF8AE
 
-The GFX2D GPU is embedded in both SAM9X60 and SAM9X75; enable the
-driver to use it.
+On 2026-10-06 07:29:02+03:00, Igor Velkov wrote:
+> On Tue, 06 Oct 2026 04:17:33 +0000, sashiko-bot@kernel.org wrote:
+> 
+> > Without an explicit pinctrl-0 property in the fan0 node, will the fan
+> > tachometer silently fail to read the fan speed (always reporting 0) on systems
+> > where the bootloader leaves GPIOX_7 configured as an alternate function (such
+> > as uart_b_rx or pwm_f_x) instead of a GPIO input?
+> 
+> Checked on the board: with GPIOX_7 muxed to uart_b_rx, the interrupt
+> counts edges as it does with the pin as GPIO (452 vs 445 in 5 s).
+> U-Boot leaves the pin as GPIO. The PHY interrupt on this board is
+> described the same way, without pinctrl.
 
-Acked-by: Nicolas Ferre <nicolas.ferre@microchip.com>
-Reviewed-by: Claudiu Beznea <claudiu.beznea@tuxon.dev>
-Signed-off-by: Cyrille Pitchen <cyrille.pitchen@microchip.com>
----
- arch/arm/configs/at91_dt_defconfig | 1 +
- 1 file changed, 1 insertion(+)
+Actually on Amlogic platforms the GPIO Interrup HW block
+directly gets the pin input directly from the pin, so
+the pin doesn't need to be set as input.
 
-diff --git a/arch/arm/configs/at91_dt_defconfig b/arch/arm/configs/at91_dt_defconfig
-index 830c6c0dbdaf..2a4a2d4c1865 100644
---- a/arch/arm/configs/at91_dt_defconfig
-+++ b/arch/arm/configs/at91_dt_defconfig
-@@ -142,6 +142,7 @@ CONFIG_VIDEO_OV2640=m
- CONFIG_VIDEO_OV7740=m
- CONFIG_DRM=y
- CONFIG_DRM_ATMEL_HLCDC=y
-+CONFIG_DRM_MICROCHIP_GFX2D=y
- CONFIG_DRM_MICROCHIP_LVDS_SERIALIZER=y
- CONFIG_DRM_PANEL_SIMPLE=y
- CONFIG_DRM_PANEL_EDP=y
+Nevertheless, so be sure there's no remaining pull-up
+or pull-down remaining on the pin, it's safer to add
+a pinctrl mux node for the pin.
 
--- 
-2.53.0
+Thamks,
+Neil
+
+> 
+> Igor
+
 
