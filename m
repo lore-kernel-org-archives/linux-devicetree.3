@@ -1,74 +1,65 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010027.outbound.protection.outlook.com [52.101.69.27])
+Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2122.outbound.protection.partner.outlook.cn [139.219.146.122])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D304D3DC4D7;
-	Tue,  6 Oct 2026 08:19:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.27
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E96A33C3BE0;
+	Tue,  6 Oct 2026 08:34:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.122
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791274753; cv=fail; b=Pc0Nib0YbgYY6j8by0Tur0tFLEz5sUqi53WR9DNQcUdzkQMl6pi2zgrDW1Sxi9EaiccSbecocAH+SAUm31Vbi9l1hyNa5SuYhfimGwd/jo0MDLvh9/M/lk94zCwt4x55D4ePfsnog2tSK3UIC/VnbOInY418kSjv2YMDRTa52iU=
+	t=1791275649; cv=fail; b=jaEbay6g9vEFVxEJwghQQ2u5cdYredvm6PFGGIFF6+A1UMo4ZUS6V1cwMON2Gp7hfz5yRUFZYD454n62yP+HkK9Xc80CVOmi04OGz3B8vqsbD4WqT+tYAY8ZXPOfYHUQQ5GcR7y4LzQF5KruLUrt0r9nATCKRkEsSTvc0ZyHIn8=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791274753; c=relaxed/simple;
-	bh=So4mg7oVwQx+KJrbOi+HPdHw2KTrV3W76oNFMaSBda4=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=UgQkaJORGUgirCRZFuSbbmTo9CQtYK0jsBOTw1c0nnt0DkcQwntSNnAfyLgErhz5+v/dj7iWCFqny6X43cydwYACcrlcqxWh78YgkoFpdv9qF/3Io8lxX8oFF3qgWbRMDXjCbxM/CcIu/Ms/HwkWzmV3Q+6rO6p7t4T5FR+qREw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=LAxjV/0z; arc=fail smtp.client-ip=52.101.69.27
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="LAxjV/0z"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ljjVFipCA9Vmsoh3AELrut9Df5WkcB9U6NUbZeJq+uZVx7u21hsyikFF9HYxHgpBSFo+Be0sk9ntC7yui058A/2ZDcK5wL34luEdfGM3t/FxQbqEOofxGDvnikP3UtoDJLnrKXBNnK935zO/0U6/vxO+GUGGBf7CIZzq7DfYuzPjnGaUNn7vldHoP933Ko8zg/eUnUS7Sj1sny5bD7SUKvvbyvpDO4yo0FpfG2c5BjA2PXMeWwwMhTsenfa+a4EmCo2N7Ws1eoWrhLyx3HlIqaN7GC8eaE6Ad8qR/z1O5Lje+HSX1m98CPoJSTHATG8epwXFGOULaA+lN3kfH6W0+w==
+	s=arc-20240116; t=1791275649; c=relaxed/simple;
+	bh=51cRp3dC9Qrh+oRLClqfEPZN+mFx2ZvZ/Q7v2jE97WY=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=M6HmPMJrpgHGJV2wMaoQstQM35+putrzzmEoOiEuHl/wx+eLqBUGNIVfMOAyBe7KrQs1n7H2rGoYDqnlO+fioAO5JkqshPe2oe5NETQzR56fmAzKC1v8yD9cnaYwO1xRk0Psc89dICTspi2z8ZOp083uiMB4wOxO67zY6BBkLwk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.122
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=X/ozdqZGudldRlu+PYyhk62grTqcVkgZTh1zP+mNq9VoQQIDG6fUIFKlZlzyB1ThGBnE3fXcd3t9TvHOXfqx8OTu4moOi+6XzERzETIk6+P40lJwRTa9HCuf6Hl9H9o+nA0FCzWEoSNkd/aDXH4DnzeA80gG6IbREo0VWxGlo5zfrPdGgX+c+g1+g6cl5AgP5xK2H5QsbWtQRjx3yJWioZVpMpPdPeNeaxW3AIpYwk436i9djnI78e3EceOgEQ+hI4gNXEkLIBrAV9V/tF1OMMm5mmHUxok7zwVHaejg5JfYqTyRGev/f/9SrYhb6xOfScRVpXnVFurmDlhAx7U0AA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
+ s=arcselector9901;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DRzNkkSp+X4qVCV/3gi28dTbhxG3vpTRtxd7swhK/s0=;
- b=wpwNl8XWnQ31jd8O8/J+erKCguEKpT75/cU+6PL4xSktivkHYOe38zDb7z+H+NemUszpszt5QbnWDUvf9fhs+rPdOkpj9BeNQJaEMbW+vwaLSVUUdJjDEqPyskCKH/P7o4+r4oZuRXPGSlT3wlHwJ0rEmnAoo6wGMLskUagr69lxrDL1Dd5GDuvbIJqNQ1xPJQHhUiNlJ3YRMVDq2F+7qo92SMFox3w3+RgqplvW3Shx8/kD+xsjYGaJocamw9ev8D9y360oApEtCJfrgQCmFPvGPQMvZhiDdC5BmC74LjGyul3bZWR3CeKRCDQ/mfup/+mJK9Zy6pMs7XzpVORPcw==
+ bh=pMPcPSL6G5oku3VTrja91cfgfcO7GsXJnURK/TBCChI=;
+ b=ZYAq/d+KBUlEsnaesASWBysjAvAHazdYyiMz16r0hrfIrVkcpkvP2i/GdIp/rVeJesZC+Yv58TkoCXqSQgW35GyNPnIJXa8t+x0q3rI5g/XJFUt6jTUHOCBcbPj7SmdN8B+7QLtVlsHDYIaEEToJ+FxGqOO91GL8Cbl3cKBZQ4VsfvWmMtUpXDkJwoqRWRg4osA7mw5qzuAwoFtkQCCavgyF/Ha7EcG9O5tKi4vuWPI1QdYVrwcyvN0QhnBJEkI/YMsIrGeDEqZZGKwf/dcWGXUWly2Jc1USDbU4QMDLLgzxYpIlfCIiIw+1mf6W5YyFYhqQzYN/XQ5ccTAqRzk7jQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DRzNkkSp+X4qVCV/3gi28dTbhxG3vpTRtxd7swhK/s0=;
- b=LAxjV/0zXncXuUPyKlp4W9Lgy416tLVrk81ECSs4iHNgZ6aD2VtkZKfXBj7Z0zhXo6F0dh9ZfMVly5HBBQcC3d3KlaaQRdwXeNgCyC8hT7TSnA1vNLxNobeLdV/06QN9Pe3l7UOAgU9lyR+1qiG9d4uy0wJAPZOhFFtg2UtvEew4sKOSikOxIWBAbHi4idK5cQPE++mTgc+5h/4tmzv+BbWXFL3/+IK9SbFktMqD188uRW75IvLhLsJv9PIEwS+zfRiTiKInXtLbXBxx+JufNxEW5dreBhd+kxQNgOoFsyrVLt+VNVggeR6NMAEXLQnypOMGwBzuIDCXN8u2ggitWQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from PA6PR04MB11910.eurprd04.prod.outlook.com
- (2603:10a6:102:516::16) by GV1PR04MB9198.eurprd04.prod.outlook.com
- (2603:10a6:150:29::11) with Microsoft SMTP Server (version=TLS1_2,
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from SH0PR01MB0841.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c311:20::14) by SH0PR01MB0556.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c311:8::23) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.20; Tue, 6 Oct
- 2026 08:19:04 +0000
-Received: from PA6PR04MB11910.eurprd04.prod.outlook.com
- ([fe80::d3f0:3c24:f717:4989]) by PA6PR04MB11910.eurprd04.prod.outlook.com
- ([fe80::d3f0:3c24:f717:4989%6]) with mapi id 15.21.0472.016; Tue, 6 Oct 2026
- 08:19:03 +0000
-Message-ID: <7fde4308-f177-4031-bca0-de576ce69a7e@nxp.com>
-Date: Tue, 6 Oct 2026 10:19:01 +0200
-User-Agent: Mozilla Thunderbird
-Subject: [PATCH v10 5/9] media: Documentation: uapi: Add qcom-camss ISP params
- documentation
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Kees Cook <kees@kernel.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Bryan O'Donoghue <bod@kernel.org>,
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-hardening@vger.kernel.org
-References: <20260925-camss-isp-ope-v10-0-2622411034cb@oss.qualcomm.com>
- <20260925-camss-isp-ope-v10-5-2622411034cb@oss.qualcomm.com>
-Content-Language: en-US
-From: Antoine Bouyer <antoine.bouyer@nxp.com>
-In-Reply-To: <20260925-camss-isp-ope-v10-5-2622411034cb@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: AS8P251CA0026.EURP251.PROD.OUTLOOK.COM
- (2603:10a6:20b:2f2::17) To PA6PR04MB11910.eurprd04.prod.outlook.com
- (2603:10a6:102:516::16)
+ 2026 08:33:53 +0000
+Received: from SH0PR01MB0841.CHNPR01.prod.partner.outlook.cn
+ ([fe80::435e:52b5:c524:459c]) by
+ SH0PR01MB0841.CHNPR01.prod.partner.outlook.cn ([fe80::435e:52b5:c524:459c%3])
+ with mapi id 15.21.0472.016; Tue, 6 Oct 2026 08:33:53 +0000
+From: Joshua Yeong <joshua.yeong@starfivetech.com>
+To: broonie@kernel.org,
+	lgirdwood@gmail.com,
+	rahul@summations.net,
+	anup@brainfault.org,
+	lftan.linux@gmail.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu
+Cc: alex@ghiti.fr,
+	joshua.yeong@starfivetech.com,
+	linux-riscv@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/3] Add RISC-V RPMI voltage service support
+Date: Tue,  6 Oct 2026 16:32:56 +0800
+Message-ID: <20261006083259.2206001-1-joshua.yeong@starfivetech.com>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: NT0PR01CA0008.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510::13) To SH0PR01MB0841.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c311:20::14)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -76,289 +67,187 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA6PR04MB11910:EE_|GV1PR04MB9198:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1f054540-2649-4000-c4a6-08df23827ba5
+X-MS-TrafficTypeDiagnostic: SH0PR01MB0841:EE_|SH0PR01MB0556:EE_
+X-MS-Office365-Filtering-Correlation-Id: f73d298b-6802-4cf7-d501-08df23848d79
 X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|19092799006|7416014|23010399003|366016|921020|6133799003|18002099003|22082099003|3023799007|4143699003|11063799006|10067099003|56012099006|260925021311599003|260925021911599003|260925022911599003;
+	BCL:0;ARA:13230040|376014|52116014|7416014|1800799024|23010399003|366016|6133799003|18002099003|10067099003|3023799007|921020|56012099006|38350700014|5023799004;
 X-Microsoft-Antispam-Message-Info:
-	jiVyHB8jwQYbUnCo8v1RO7vGL7522VhflhtEfqoHWeQq+BDJjYQpQ5Zs/Iqr8shGClVce7Bge33zhWDB1IWbQ7l78QSJkzsnPKAjTe0lx5H5UOksIdeIa4AEaJRFFgJ4H8/5iXyzmr4vXtEGA5uEThMQRLpGBgBfpWxcJc/3SUEOKsez8N6oL63QFC0oPcBG9voGxrdcKSWiWs9a3Qee96iGNCR88wXrRB1BLPzcedkEHTN44TOrcKjJreSdHYwVV9I7FO0KiNsl+72F8r64ua3YfVRgXdDIgwN5xPxNxEv+7wBAA630zM7opIiPCmISLOrEqQDJ+XqtTXVvSyS5hamHimhdVk89ezKB9oXLuSXyvCbRT/g1hQZMVGuBeIsu7SQlCjhvh4L2c7cEOG4cvC2GIRIctCoECCSLrCM/2RoK5/m4QuhJQXsOepeqn2tH3sIqQAf7IxRJkiiZiVDHqPjUgrAtqq8Bql6QNDX/VJdQ/OasFFipph8pV7FKSkfgxcermC3N1ufojU/mzI11Gon9gGRUAeFT1zhamBENr6DuTpSCBrpVTFb64tJTZ9bA5/jm1YsmS4qoldBc346nbbCka5Qk9PSqCsxTEouesDmGH9D/W56BzRjfQ5RHjJ7zdUCH3zZxyGYWZVz/lqhQdZBQQ3662Isp/I12/bTTCjo0JYRv/qe6N2h4zUjcdeG/qn5TbHctrnjrk/xCswWgJA==
+	hox3JxMLATtw0wPG7Z/yVOXOwnkc/AyhO/mO0qvP7Rh5AL4CGPJCijgcYEdiX1grQf1D7tMAvMmlAf0yMb56/Vn3c/IjGN+J42qbyWhXyeF8Jl2XR4zx9U1bO8e/8yeSDzkkr8MzJUit9Ig/zneHnrZHl6V3XmTq+TJnVYUm32pr2czn3L8aroboY/wuvsPkpAyFi6vHguuBNHHiLPZSbv5gIkc8+1v1KxrYeynsTcEHbEXMsBFWOWYjD7AjhhG8uLwY4m/Vi7FjeOX5G9NMcEYg2zAEJDHryTeNie/FNLbFv91Mu+78emHnk4NUyBylpGA1t55abilZOCmFXM8qATWM6x44A+NHWf6Erg2fclZLlnVHYWhcJp5q6X1Q65EvJOKycGtqdRn4bjzT+rpvE6w3GdFHX1/yGrRyXc12LzHt4bHqxF47rtuxDCgAW0EtN+bIEzjiCM5eAM8qgdJco7RfNlbSt5ACP6OX4sDlJHuK+7Xq6CIJ5b7T9YJeG1hMvJhTiyhdjsHnYLRGcEDQctu+2V6tAmJPSsX5ocTLTWLdMLkPZugxAjvZ8Ab1Bafu2rpmFIpv2/OBsvDUhB5npQ==
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA6PR04MB11910.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(19092799006)(7416014)(23010399003)(366016)(921020)(6133799003)(18002099003)(22082099003)(3023799007)(4143699003)(11063799006)(10067099003)(56012099006)(260925021311599003)(260925021911599003)(260925022911599003);DIR:OUT;SFP:1101;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SH0PR01MB0841.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(376014)(52116014)(7416014)(1800799024)(23010399003)(366016)(6133799003)(18002099003)(10067099003)(3023799007)(921020)(56012099006)(38350700014)(5023799004);DIR:OUT;SFP:1102;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?cTJycTB5NjVaczVmZXNIWUR2Z3dNR2FiZXpvdE1yZGh3MG1TaG9adkozWnAz?=
- =?utf-8?B?VkgzR1lhdXJvczg3Y2N3V2NlVnI4UFZwQmVmWi8yYmFiVUI2ZlF4akIrNTI1?=
- =?utf-8?B?bk5qK0R3TmU4SWtNcjc3cHZkV3pOTFBrTWltOEViMjJObWxVQjBMVHhzQW1F?=
- =?utf-8?B?dk51aEhFVW1jREpjK29ONXVpNXlJMjk3MXhVcmt4ZllXQSt2S1JkSmd1UmxG?=
- =?utf-8?B?TXhhOUV4a3VrUXNLUWJJd00rSTJIYjk4YmM1M3o2U3F1R05yNkdUK1RFWmto?=
- =?utf-8?B?Wnh6ZHU1R2l0TDBCZnlhVFlBVy9zbUx3STlnZ0o1Q3VCYklYeHVud2FzdWxi?=
- =?utf-8?B?UVplejJMSzZMV24rbU9FQXNjaGdzWlhaTUd4bXhqK3E5MzFxM3dBWEdhM1Bk?=
- =?utf-8?B?YjI0R1l1QzAwekhRczNtUFAvYnJXQ0pmQ2VkZHRHZGwzSjRnZVFlMDlQZGhh?=
- =?utf-8?B?VEVjcDJZUzQzR0JmZUdLTDVTdnhIaDM3Wjkvc0Z6QlJzMUYySC9uT3NDSFpH?=
- =?utf-8?B?c0wwcmVCNkY5azJnZXFSdUZramtmaEJFWG4yaFZONFRnUkZYQjZncGxtenVi?=
- =?utf-8?B?b01FSGtKR096bGs0amJSUHpNcjN5RUExRStNU0NtQWY4T3ZScGRiOWFtbjlB?=
- =?utf-8?B?SE9EbEF2OFNBTVM2ejQ3TnVTZ0VZNzh1a01pSmlIeTY4eTdWM0RjejRQSG9v?=
- =?utf-8?B?U1BlTENROEw3eURkNDI2YlduSEZYQU03ZFQ0OTF2TisrVHI3K1BhM3BXTE5P?=
- =?utf-8?B?ZXk3eXM3U3J6cTBMQ09wSTJnKzdwdnVNSUZqV3A4Q3hmYUZQR0xHelVhVEtH?=
- =?utf-8?B?bEFhaWNNWFVJQTRqVjJHZ2hQTGtMczZpWklvWUk0bExGYk9HekYvRnVEZVpL?=
- =?utf-8?B?bnc0cGE0aVQvVkk3Tkt5SXlCeXYzNGZtNDdPa1VhTTJ5NXJlV1l6VWZRRTg5?=
- =?utf-8?B?N2JiVTU5QUlZN3I1cXE2eVVXOTNyZmlYNWp4VXRBdjNLNGVRNmNWTVFUekdK?=
- =?utf-8?B?MjBSdXlkUDl1N2pzMDVUS1BQTkI5WFN2RGlobXlJRm10eUxzZFVycVJHU0FF?=
- =?utf-8?B?ekVqSmd4ZkZWOW9mY0JBTDBjR0JoR1ozalJmWW5La1NoeVBhaHpBT3hodThQ?=
- =?utf-8?B?blFQbnRybUNHRTNsYWRnL0E1SXM0c0VHQllwNjFZd3VTYnNxYVhtRG50a1BT?=
- =?utf-8?B?OXVBMVlBbDBlZlV0MHBBaFFyTWdJL0JTUk9lMXBHUnF1cWRLN29PWTZYYmdK?=
- =?utf-8?B?QTQzMmJuM2xGSnVvbFhnTnpoQnk3enlMdFU0TFFZVUt3anNRV1FMWm10M0lt?=
- =?utf-8?B?a3RYNzZNcy91dzNkenhpUWgwaUY5amlZNTFDbTc2RnlVOVlRdzZLZXB2L1JP?=
- =?utf-8?B?dHlQSUp2UGFBbVZidEQ4d3pFYmpTTldPUVdOcVNSUFFySTBrR3R2SjVlL1k0?=
- =?utf-8?B?ZDBiVkZSaENxV1Q5bDJsWVdTT2Mxb1hIanNaanBJMnRVVDZadDJROHA3MXFY?=
- =?utf-8?B?ZFhpQWdXd09UY0xmUWtqZEg5NFR5a2ZuTFNHR3luS3lHN0paeWd2YzNxS0ZY?=
- =?utf-8?B?ZmN3MHNEcEwrQkJkWGVDMVArK3hFWkZhUXNWcVpUTkhMWDBqakNoQ1FMRC9M?=
- =?utf-8?B?NUJ4UDZidTJreTBOMGZVL3VkeXFGdlg2VDUxL0p1L2p0VGd5MThZOUd4aXdp?=
- =?utf-8?B?a3I2UjEwSFhYSnQ5QktGMVo4NDVlOFJ4MHF1czRPVkliWHBCNUhxZ2hQY0Zh?=
- =?utf-8?B?dnhQK1B2RkU3TUtBZ3dwcXF2SS9NcHBUSEt2OE1PZkJhdlBRWGZUNHN4NXU2?=
- =?utf-8?B?bUdPVURqL09PZVluQXpEekFNUTFReVoxVm93US9tZFFkbHpRbkJ2NlBFQlVx?=
- =?utf-8?B?QndvTE56SFNqWnZUOWFqcFJaOXVwaktFOGZGcjB4bXFZS1FKNVAwMW9DZjNk?=
- =?utf-8?B?SERmN2lsU0hDdUkzZ08zY1NUMGFGbHAxbVRmK1hXOW9HUGFkK05Da29iYXYy?=
- =?utf-8?B?MWFaeUcwR0tjMWpiS0lXcnhZTWV5cit2c0d4aDBaKy95NytmWlVYT0xzbDg4?=
- =?utf-8?B?MUUvdUJMUzVVMzhLeG5pOEtiZjlOY3NBVnlUaGpqdGNKbW5PZzVJcG8ybFVx?=
- =?utf-8?B?dHN0b0MzMW9jZllDN2U5OVF4YjEyZVplVzNPOUFrK0NNYkZQeUo2QXN6WWtZ?=
- =?utf-8?B?enJoNGJHc0RaYjQ4VHBaVXM3U1B5Uno0d3JRRVRiNTNLc0xZTFJPSFlHcWls?=
- =?utf-8?B?VGJHU1dRQUxmWW4yVG81dnRYeDdLb09ZV3psaXMzMWJuNEN3RnE3SkNwcWI5?=
- =?utf-8?B?blRIazBveXNNSWF4Rk1aYWpabVI2K1pBQ3EyNzFCYW1zMldadUNGdz09?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1f054540-2649-4000-c4a6-08df23827ba5
-X-MS-Exchange-CrossTenant-AuthSource: PA6PR04MB11910.eurprd04.prod.outlook.com
+	=?us-ascii?Q?mOsgKsYTF6DxwnUoUMneu+2tgMxKqaQe9liQJlSXL+5JyqfOubceBCtf2TyO?=
+ =?us-ascii?Q?BiUi+L0g/UqIcYIrn2Z5eBOPMeF9SDGTyEBC7lyYjKFd5zYvLu+h5k+8M4ea?=
+ =?us-ascii?Q?Y4BAS2mqZ0IRAdm3Fbr9SfBWHGC7by33M3nk+PFFud4GAGrqPjk//iLcvpU/?=
+ =?us-ascii?Q?XxCBi8t96osfR2yW0qu8eN5R1BPvt1gqFuPh0HmzUREN+D16Bsb5OXV94fox?=
+ =?us-ascii?Q?4Hv+6O7kL/fLAIIVpHCoGraudld9ZshNQhDkBEKaPkcPGkSSadSTYXgzOA7Z?=
+ =?us-ascii?Q?AO2nZNdRtvWFTcGePcRAWpmes6rMaLccK2qvdBdVPeL6x+5IljwLTLDqUSW0?=
+ =?us-ascii?Q?ZBt1hPjs2znv9RGFaiGxcVorlpLEIvB49h5ZoqleVpBZr7Vpn9hinXOds7yK?=
+ =?us-ascii?Q?7lrVpdPIvHar+2wQ/Ddhd085+FWfU42vdeKRAhHlhTx1CU9BdYvVrF1wYh26?=
+ =?us-ascii?Q?mWkcMAEWldaqjuc1C1lOuPXLSBCrCpGsJAR5sR00QXM9z0eu/e1QabKHV58b?=
+ =?us-ascii?Q?RmiMNTLR/fNMjoy1rYf/Rc7uZudY6BcF7xrA38CrzHCYFBZCv4dliIIn+Moa?=
+ =?us-ascii?Q?d2wWfKXkljJuteLamKPYzi/2p88kqb8P5CacP49IOsoStuTePzzRjO98Ny9Z?=
+ =?us-ascii?Q?x8zv9RhiOVaWjIpTNKgO57lAmlSmSbwenOhDG2hjrsMoiuyh+/wrDgyu+DYx?=
+ =?us-ascii?Q?DBiIL8UmitAMexfa2ppNTAu1SagheMzBwJtn7xiffcfzSrNAvxNtwPv6Flmf?=
+ =?us-ascii?Q?aAL3RzFm9l6HqwurYpPaxY2Dscl7+4hLuf7c64FtWn5nzz34hJ2127qMP5jq?=
+ =?us-ascii?Q?qUS3NOiqRzGoWrgkwsKhO79chjJF607DQuT0r9lVisO6wLSSuTPP/N12sevk?=
+ =?us-ascii?Q?LxcvxUxLr02ukslaOiUt4voJtdrcIdshA5z8mCI2tpIS5voCZ3tYS12zB7L1?=
+ =?us-ascii?Q?8bJKm0uBNiIPhkcDTaRpS6d/NqEBAYtuwqjzOJ2h9vaV6pYxqodXfBS9N9vS?=
+ =?us-ascii?Q?0UaT4cfViNNbyw5wYDfiwxBOBfdu8zZyPVqfGa0t0kHTd0vz+Qf+RQjrOtir?=
+ =?us-ascii?Q?nOQVmT0pJSN4hMn+A4UqF/1fa9ohJtEn12n/8uI9fqWAaWrtdkyysx1hAsR/?=
+ =?us-ascii?Q?+sy8AtZu4Bt47eXoNMLIFFJLNC8zCnt3l8DKJWWWiVEphS6IgSgXB10/nvXO?=
+ =?us-ascii?Q?q1OpklwfyXFb5KtxBC/UlpsZbgQ6h8sdM+mtVQ7JE5r4BpN/IolVTrHiLkY0?=
+ =?us-ascii?Q?yQssgfdnXomUFwA1Np8eocMQqRnf7SxgAaVCl1H6/51ZjBnpCq0RDXsz0yAE?=
+ =?us-ascii?Q?bwq64Q1IbQRfBRvIjEMPvu/BrjuMmFKNq2jzucDFMN63zm4JzHoI+5DBa7Xp?=
+ =?us-ascii?Q?u+70NU3m2UMDqWf+opaVBOpP+qxkGouoj4LELBPmkL7YuSuvROlcEJvTc7zC?=
+ =?us-ascii?Q?vET6dEr4BUG5/rRUIfUxjWt7iD+ontBy3ajSVDCls1pZIqW+MCMM5RL+Hamx?=
+ =?us-ascii?Q?qwxegJmAvoOZPD/llrHDEj8Kh/g67X7ZuHulTyDFwewl6P0TrLmF7cP7q9Dq?=
+ =?us-ascii?Q?qm0uNKlqIKNDLXQNxWg/JRvC3Hx2RWFPFuZhOVqMA3D/lqXia0oigfL5HI45?=
+ =?us-ascii?Q?VwMaX0BRHzGs/TA/y777vVaTzffb1xLKqkJ6PlrnlNYlFWHbeV/Pwgtqf0Ib?=
+ =?us-ascii?Q?8RRZql4d5vEOs3PjB73d3WozhPZlHOfojvyhmUW0doQZ/r/noueB6/WutldC?=
+ =?us-ascii?Q?19mRo9KUDBCY5QUeMW+6yYVhMdXym0k=3D?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f73d298b-6802-4cf7-d501-08df23848d79
+X-MS-Exchange-CrossTenant-AuthSource: SH0PR01MB0841.CHNPR01.prod.partner.outlook.cn
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 08:19:03.8565
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Oct 2026 08:33:53.1602
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 3vF0lo+gIVWsE+CIIhNPWSjLCfbDedSF28sbktcckrSsn3oM8uWPQQA8tWXk2QrDlfrOFQY9AIHaDcez4qyZog==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB9198
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8GWEPuhaZhLURChWQV+8ZxdIwGiNAdq9PKKjjGFgaqepwKPoJoVjKhI99ZxlzkrZOeAUahs/V5mSNTqUY1Sl+4ULbTRylq3p9k5PpAg1duA=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SH0PR01MB0556
 
-Hi Loic,
+The RISC-V Platform Management Interface (RPMI) specification defines a
+modular and extensible messaging protocol between the supervisor software
+and a platform microcontroller (PuC). Among the service groups it defines
+is the voltage service group (service group ID 0x00007), which allows the
+supervisor to enumerate the voltage domains managed by the PuC, query
+their attributes and supported levels, switch them on and off, and
+get/set their voltage level.
 
-On 9/25/26 11:09 AM, Loic Poulain wrote:
-> 
-> 
-> Add documentation for the Qualcomm CAMSS ISP parameters metadata format
-> (V4L2_META_FMT_QCOM_ISP_PARAMS). The format is built on the V4L2
-> extensible ISP parameters system, with per-block structs defined in the
-> qcom-camss-config.h uAPI header, and is designed to be shared by any
-> CAMSS ISP engine exposing a parameters metadata output video node. The
-> Offline Processing Engine (OPE) ope_params node is the first consumer,
-> with additional engines expected to add their own parameter blocks in
-> the future.
-> 
-> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-> ---
->   .../userspace-api/media/v4l/meta-formats.rst       |   1 +
->   .../userspace-api/media/v4l/metafmt-qcom-isp.rst   | 147 +++++++++++++++++++++
->   MAINTAINERS                                        |   1 +
->   3 files changed, 149 insertions(+)
-> 
-> diff --git a/Documentation/userspace-api/media/v4l/meta-formats.rst b/Documentation/userspace-api/media/v4l/meta-formats.rst
-> index b5455229837e707c24e134438d5e2fd12cb3bf37..25b46af4d9f7faab37000076c530e9aad5b4a076 100644
-> --- a/Documentation/userspace-api/media/v4l/meta-formats.rst
-> +++ b/Documentation/userspace-api/media/v4l/meta-formats.rst
-> @@ -20,6 +20,7 @@ These formats are used for the :ref:`metadata` interface only.
->       metafmt-intel-ipu3
->       metafmt-pisp-be
->       metafmt-pisp-fe
-> +    metafmt-qcom-isp
->       metafmt-rkisp1
->       metafmt-rppx1
->       metafmt-uvc
-> diff --git a/Documentation/userspace-api/media/v4l/metafmt-qcom-isp.rst b/Documentation/userspace-api/media/v4l/metafmt-qcom-isp.rst
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..2f3654a9ba897d0d1481d38a7117be8e84b1a99e
-> --- /dev/null
-> +++ b/Documentation/userspace-api/media/v4l/metafmt-qcom-isp.rst
-> @@ -0,0 +1,147 @@
-> +.. SPDX-License-Identifier: GPL-2.0
-> +.. c:namespace:: V4L
-> +
-> +.. _v4l2-meta-fmt-qcom-isp-params:
-> +
-> +**************************************
-> +V4L2_META_FMT_QCOM_ISP_PARAMS ('QCIP')
-> +**************************************
-> +
-> +Configuration Parameters
-> +========================
-> +
-> +The ``V4L2_META_FMT_QCOM_ISP_PARAMS`` format carries image processing
-> +configuration for the ISP engines found in the Qualcomm Camera Subsystem
-> +(CAMSS). It is passed to a metadata output video node using the
-> +:c:type:`v4l2_meta_format` interface.
-> +
-> +Rather than a single struct containing sub-structs for each configurable area
-> +of the ISP, parameters use the :ref:`v4l2-isp` parameters system, through which
-> +groups of parameters are defined as distinct structs or "blocks" which may be
-> +added to the data member of :c:type:`v4l2_isp_params_buffer`. Userspace is
+This series adds supervisor-side support for that service group:
 
-`v4l2_isp_buffer` can be used now, which is common for both parameters 
-and statistics buffer types. `v4l2_isp_params_buffer` is kept for 
-compatibility with legacy drivers. But now, common structure should be 
-used instead. CC'ing Jacopo who helped on the common structure introduction.
+ - DT bindings for the regulator controller exposed to the supervisor
+   ("riscv,rpmi-voltage") and for the SBI MPXY channel that the SBI
+   implementation uses to expose the service group to the supervisor
+   ("riscv,rpmi-mpxy-voltage"). The name, level format, supported
+   levels and always-on capability of each domain are discovered at
+   runtime, so none of them is described in DT. A consumer names a
+   domain through a "<name>-supply" phandle to a child of the optional
+   "regulators" container, whose "reg" is the RPMI DOMAIN_ID. A child
+   may also give the board's regulator-min-microvolt and
+   regulator-max-microvolt, which the PuC has no way to express.
 
-> +responsible for populating the data member with the blocks that need to be
-> +configured by the driver. Each block-specific struct embeds
-> +:c:type:`v4l2_isp_params_block_header` as its first member and userspace must
+ - A regulator driver, drivers/regulator/riscv-rpmi-regulator.c, which
+   talks to the PuC over an SBI MPXY mailbox channel. At probe it
+   checks the RPMI and service group versions, queries
+   VOLT_GET_NUM_DOMAINS, then for each domain VOLT_GET_ATTRIBUTES and
+   VOLT_GET_SUPPORTED_LEVELS and registers it as a regulator. Both
+   level formats the specification defines are supported: discrete
+   levels become a voltage table and linear (min, max, step) ranges
+   become linear ranges. The constraints are built from the discovered
+   levels and the always-on flag, with the transition latency as the
+   settling time, and a DT child can only narrow them. Enable and
+   disable go through VOLT_SET_CONFIG and voltage selection through
+   VOLT_SET_LEVEL and VOLT_GET_LEVEL.
 
-This is also valid for header structure. Now you can use common 
-`v4l2_isp_block_header` instead.
+ - A MAINTAINERS update adding the driver and its bindings to the RPMI
+   device power entry, renamed "RISC-V RPMI DEVICE POWER AND VOLTAGE
+   DRIVERS".
 
-> +populate the type member with a value from :c:type:`camss_params_block_type`.
-> +Populated blocks must be placed consecutively in the data member, and the
-> +combined size of all populated blocks must be set in the data_size member of
-> +:c:type:`v4l2_isp_params_buffer`.
-> +
-> +The set of supported blocks depends on the CAMSS engine consuming the buffer.
-> +The block definitions themselves are shared across CAMSS ISPs; currently the
-> +Offline Processing Engine (OPE) is the only engine consuming them, through its
-> +``ope_params`` metadata output video node. Additional engines and blocks may be
-> +added to this format in the future.
-> +
-> +A block carrying ``V4L2_ISP_PARAMS_FL_BLOCK_DISABLE`` bypasses the
-> +corresponding hardware module. Any other block updates the module's
-> +configuration and leaves it enabled. Blocks omitted from a buffer keep their
-> +previously programmed configuration and enable state; until userspace submits
-> +a block for a given module, the driver's default configuration applies.
-> +
-> +OPE processing pipeline
-> +=======================
-> +
-> +The OPE is a memory-to-memory engine that reads a Bayer RAW frame from its
-> +``ope_input`` node and writes a YUV frame to its ``ope_disp_output`` node. The
-> +parameter blocks configure fixed-function hardware modules that the frame data
-> +passes through, in the following order:
-> +
-> +.. code-block:: none
-> +
-> +        Bayer RAW in            RGB domain                      YUV domain      YUV out
-> +        (8/10-bit)   +------+   +------+   +------+   +------+   +------+   +------+   (NV12/NV16/
-> +         ----------> |  WB  |-->| DEMO |-->|  CC  |-->| GLUT |-->|CHROMA|-->| DSC  |----------->
-> +                     +------+   +------+   +------+   +------+   |ENHAN |   +------+    NV24/GREY)
-> +                                                                +------+
-> +
-> +The stages, and the parameter block that configures each one, are:
-> +
-> +.. flat-table:: OPE pipeline stages
-> +    :header-rows: 1
-> +    :stub-columns: 0
-> +
-> +    * - Stage
-> +      - Module
-> +      - Parameter block
-> +      - Function
-> +    * - WB
-> +      - CLC_WB
-> +      - :c:type:`camss_params_wb_gain`
-> +      - Per-channel white balance gains and black-level / pedestal offsets,
-> +        applied to the raw Bayer data.
-> +    * - DEMO
-> +      - CLC_DEMO
-> +      - *(none)*
-> +      - Demosaic: reconstructs a full-resolution RGB image from the Bayer
-> +        mosaic. Always enabled; not configurable through this format.
-> +    * - CC
-> +      - CLC_CC
-> +      - :c:type:`camss_params_color_correct`
-> +      - Color correction matrix applied in the RGB domain.
-> +    * - GLUT
-> +      - CLC_GLUT
-> +      - :c:type:`camss_params_gamma`
-> +      - Per-channel gamma correction curves (256-entry LUTs).
-> +    * - CHROMA_ENHAN
-> +      - CLC_CHROMA_ENHAN
-> +      - :c:type:`camss_params_chroma_enhan`
-> +      - RGB to YUV color transfer matrix.
-> +    * - DSC
-> +      - Downscaler
-> +      - *(none)*
-> +      - Chroma (and, when required, luma) downscaling to produce the requested
-> +        YUV subsampling, e.g. YUV 4:4:4 to 4:2:2 (NV16) or 4:2:0 (NV12).
-> +
-> +The input node accepts 8-bit and 10-bit packed Bayer RAW formats (for example
-> +``V4L2_PIX_FMT_SRGGB8`` and ``V4L2_PIX_FMT_SRGGB10P``). The output node
-> +produces semi-planar YUV (``V4L2_PIX_FMT_NV12`` / ``NV21`` / ``NV16`` /
-> +``NV61`` / ``NV24`` / ``NV42``) or luma-only ``V4L2_PIX_FMT_GREY``. A
-> +configurable stage is bypassed while its block carries
-> +``V4L2_ISP_PARAMS_FL_BLOCK_DISABLE``.
-> +
-> +The following example populates an OPE parameters buffer with a white balance
-> +and a gamma correction block:
-> +
-> +.. code-block:: c
-> +
-> +       struct v4l2_isp_params_buffer *params =
-> +               (struct v4l2_isp_params_buffer *)buffer;
-> +
-> +       params->version = V4L2_ISP_PARAMS_VERSION_V1;
+The series has a prerequisite: the RPMI device power series ("Add
+RISC-V RPMI device power service support"), which has been applied for
+next:
 
-so as common version: V4L2_ISP_VERSION_V1
+  https://lists.infradead.org/pipermail/linux-riscv/2026-September/099498.html
 
-There are multiple occurrences in your series. But I only highlight some 
-of them.
+Patch 2 needs it for include/linux/mailbox/riscv-rpmi-message.h, where
+the voltage service group definitions are added next to the device
+power ones that series introduces. Patch 3 also extends the MAINTAINERS
+entry it adds. The base-commit and prerequisite-patch-id lines below
+identify the tree the series applies to.
 
-Best regards
-Antoine
+Changes in v3:
+ - Drop "#voltage-domain-cells" and naming a domain by DOMAIN_ID through
+   "voltage-domains". A consumer now names a domain only through a
+   "<name>-supply" phandle to its child in the "regulators" container.
+   The regulator core and fw_devlink already follow that phandle, so
+   such a consumer is also ordered after the provider without any help
+   from the driver. With it go devm_rpmi_voltage_supply_alias(), the
+   provider list it searched, the per-domain supply name it aliased to,
+   and include/linux/regulator/riscv-rpmi-regulator.h together with its
+   MAINTAINERS entry.
+ - Make the driver depend on "RISCV || COMPILE_TEST" and on MAILBOX
+   separately, as the RPMI device power driver does, so a COMPILE_TEST
+   build no longer selects it without MAILBOX.
+ - Rebase onto v7.3-rc6.
 
-> +       params->data_size = sizeof(struct camss_params_wb_gain) +
-> +                           sizeof(struct camss_params_gamma);
-> +
-> +       __u8 *data = params->data;
-> +
-> +       struct camss_params_wb_gain *wb =
-> +               (struct camss_params_wb_gain *)data;
-> +
-> +       memset(wb, 0, sizeof(*wb));
-> +       wb->header.type = CAMSS_PARAMS_WB_GAIN;
-> +       wb->header.flags = V4L2_ISP_PARAMS_FL_BLOCK_ENABLE;
-> +       wb->header.size = sizeof(struct camss_params_wb_gain);
-> +
-> +       /* Unity gain on all three channels (15uQ10, 1024 = 1.0) */
-> +       wb->g_gain = 1024;
-> +       wb->b_gain = 1024;
-> +       wb->r_gain = 1024;
-> +
-> +       data += sizeof(struct camss_params_wb_gain);
-> +
-> +       struct camss_params_gamma *gamma =
-> +               (struct camss_params_gamma *)data;
-> +
-> +       memset(gamma, 0, sizeof(*gamma));
-> +       gamma->header.type = CAMSS_PARAMS_GAMMA;
-> +       gamma->header.flags = V4L2_ISP_PARAMS_FL_BLOCK_ENABLE;
-> +       gamma->header.size = sizeof(struct camss_params_gamma);
-> +
-> +       /* Identity curve (pass-through, gamma 1.0) */
-> +       for (unsigned int i = 0; i < CAMSS_GAMMA_LUT_SIZE; i++)
-> +               gamma->glut[i] = gamma->blut[i] = gamma->rlut[i] = i;
-> +
-> +Qualcomm CAMSS ISP uAPI data types
-> +==================================
-> +
-> +.. kernel-doc:: include/uapi/linux/qcom-camss-config.h
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 3a19da74d00c9dfb48e900df71a86d4686d3ec2c..b5593f814b60fcbcd88f4b4aad25880d19825dc0 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -22363,6 +22363,7 @@ L:      linux-media@vger.kernel.org
->   S:     Maintained
->   F:     Documentation/admin-guide/media/qcom_camss.rst
->   F:     Documentation/devicetree/bindings/media/qcom,*camss*
-> +F:     Documentation/userspace-api/media/v4l/metafmt-qcom-isp.rst
->   F:     drivers/media/platform/qcom/camss/
-> 
->   QUALCOMM CLOCK DRIVERS
-> 
-> --
-> 2.34.1
-> 
-> 
+v1: https://lore.kernel.org/r/20260922161156.1088153-1-joshua.yeong@starfivetech.com
+v2: https://lore.kernel.org/r/20260923070014.1340761-1-joshua.yeong@starfivetech.com
+
+Testing
+=======
+
+The series was tested under QEMU with the RPMI voltage service
+implemented in firmware.
+
+Components:
+
+ - OpenSBI: v1.9
+   https://github.com/riscv-software-src/opensbi
+
+ - QEMU: the RPMI-enabled tree at
+   https://github.com/yeongjoshua/qemu/tree/rpmi-v11.1.0
+
+Kernel config: enable CONFIG_REGULATOR_RISCV_RPMI (default y on RISC-V
+when MAILBOX is enabled) along with the SBI MPXY mailbox driver.
+
+Run with:
+
+  qemu-system-riscv64 \
+      -M virt -m 2G -smp 4 \
+      -bios fw_dynamic.bin \
+      -kernel Image \
+      -M rpmi=true \
+      -nographic \
+      -initrd rootfs-busybox.cpio \
+      -append "root=/dev/ram rw console=ttyS0,115200 no_console_suspend mem=2048M earlycon=uart8250,mmio,0x10000000"
+
+The emulated PuC advertises eight voltage domains, covering both level
+formats, always-on and switchable domains, and domains the board
+constrains in DT. They show up under /sys/class/regulator/ and in
+/sys/kernel/debug/regulator/regulator_summary. Consumer test drivers,
+kept out of this series, walked each domain to its highest and lowest
+level, switched the switchable ones off and back on, and checked board
+ranges and requests from several consumers sharing a rail, each naming
+it through "<name>-supply", including requests carried by an OPP table.
+All checks passed.
+
+Joshua Yeong (3):
+  dt-bindings: regulator: Add RPMI voltage service bindings
+  regulator: Add RPMI voltage service
+  MAINTAINERS: Add RISC-V RPMI voltage driver
+
+ .../regulator/riscv,rpmi-mpxy-voltage.yaml    |  65 ++
+ .../regulator/riscv,rpmi-voltage.yaml         | 130 +++
+ MAINTAINERS                                   |   5 +-
+ drivers/regulator/Kconfig                     |  14 +
+ drivers/regulator/Makefile                    |   1 +
+ drivers/regulator/riscv-rpmi-regulator.c      | 893 ++++++++++++++++++
+ include/linux/mailbox/riscv-rpmi-message.h    |  14 +
+ 7 files changed, 1121 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/devicetree/bindings/regulator/riscv,rpmi-mpxy-voltage.yaml
+ create mode 100644 Documentation/devicetree/bindings/regulator/riscv,rpmi-voltage.yaml
+ create mode 100644 drivers/regulator/riscv-rpmi-regulator.c
+
+
+base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
+prerequisite-patch-id: 907ffadca74a65c93ad38f428e002d2b34341067
+prerequisite-patch-id: 5a4df94e66de2f63697891a0f1382fabd9df7b6f
+prerequisite-patch-id: 0827a7050d08fea7deaab8e82f2dd16acdca507d
+-- 
+2.43.0
 
