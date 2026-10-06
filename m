@@ -1,268 +1,593 @@
-Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2F533E63AE
-	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 23:47:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.176
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791330468; cv=pass; b=oEEFilaSrarv8LWObQ6UIcrqRleO9vJWgjSHxzRehlQ7w16j431AZjhRGpE0y9PCmo2tTrSLlFNtZZAhTp4T2q83LqEK+nn/faRX4zhzPiigZiBkCKg1e+u3gEOgAdHD7LqXNPk6LFqFON8d9IM97oxztXXCVWo8RALEpReM9F8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791330468; c=relaxed/simple;
-	bh=gexAZAM9D3qySWszn5uyjGHra9XjdPZHkujc4evGP1U=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=MKwT40CbFr3EYxeRzVo0zJkAvGTcwaTE1yz7eiz4TZnB/qkG1en9FIBCZlOqkRA83GgG3ojgh/ID1jnEHQmTVv/RWWPGpe6bIHZfgSXkBvQRwq4s9ku8REoNTkMDpZicIMmfIs7tV8kVG8hm+y/D6Fr/yuIhEp0xFepnF5+OrEk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=k5uSQHkJ; arc=pass smtp.client-ip=209.85.128.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3D1F282F3E
+	for <devicetree@vger.kernel.org>; Tue,  6 Oct 2026 23:51:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791330702; cv=none; b=G0CePgzTAwc7TaKaqUTu/YXVF8v51qlJi5mStUSg87Zu0YYKsu0EMKUmt1SrJyOZ4dWL+U8gVKiXX39WBy+nwG+68TRhnMf7OcF9nTQpGi2ZrB5orRN+yM31VqIgdKdrSOhviHmnzDKewCVgs0QiCYl8jKBNlAdmmSy1K+q/FLY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791330702; c=relaxed/simple;
+	bh=JRCWWvoeBkR1EqOOI850qAIqGo3i2IaJrNESPB1OpRk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=MFb9PuOPBL98Pk6TdYSmO7amYccz9a1OTynaxNGiZnIECy5DenC/xy+Y+rsbhNGb9uiF8eDwAdovi4QSCmafkNSeSRDT5JH5CC8jsYdw+9rYHJsi9nH9lP3quy2goN1fbNyBzmouzI1RavLaFqAVHfu+3ghhY6iSzlAfwb3XHSw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Gvm3Wh4I; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jIKWk2g1; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="k5uSQHkJ"
-Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-8ae8541a2f0so13383457b3.3
-        for <devicetree@vger.kernel.org>; Tue, 06 Oct 2026 16:47:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791330466; cv=none;
-        d=google.com; s=arc-20260327;
-        b=XXs2NMjK5mJUGOjFfzQx/+bp9P0of7WSuoLG2TRbiLP5sjVR9GhRXQwNz45TfIARyN
-         lHIO+jR4+hQ2EKk4o8eaAHvZ9NmkKXA7AAmsFlc7fAAwBNRbf4swpXJ3OaPfv/RaSdpa
-         XDIwyTBrmwiM4zsjYjCy1e6JGaINn59itUWt4R7/x9stdZTitk3ObiuydzqX9qwGP4yi
-         DT8hOAd3g9KsYE5HIZQcNO5pswxM17FLS/InGQ+JsR8MOdCxU37UhpSHjT068WflUa7e
-         UomzLKZdVCzCIOD3oRmEcJXdyApSB3redS7APMsHDkTBSDhN1oJHrW2/hIN+F3YDYJWC
-         0Glg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=AACY6eEKMK9EhfCO/Rpu9ez/h9G33RdZtnEBeVV09lI=;
-        fh=C6VLmjV44ymJNWcE+ePq54XXusWgKZoIMt8HQyr+6q0=;
-        b=R8qDf/nRPEIILCc9DMDXBGhU2eZ6/FOYR8GFIuZRPAx99tKW6+Kly7GPT5jgezoA6s
-         BMXHc+J4MPcfw1VvXCX74gZWwzuE44N2HdFi1q3D5/wHpuys60Ecu+ger+dAOy2YkFry
-         zYMHe3YCHwxzD0pg5NC6LhCP9nYYby2NR6S7GA7gv/pNkpvHWfjnDETbVJY1E3jQNcd+
-         b96iuK7Nu40/d5kR4puvRtCRCAKQbfNyiYUdLMFMnY53SlQdhEf3YCtp8Wh0Ci6YQ6u3
-         G9qG1CnpSEsxVbm9QnqL+khoqI1NpHLtcxxDsJtnGU3s6qr/3ncwi8Z3mW6AFU9k5wpP
-         DmuQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Gvm3Wh4I";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jIKWk2g1"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 696LeNYQ1195961
+	for <devicetree@vger.kernel.org>; Tue, 6 Oct 2026 23:51:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	KUOCSJmnYcO+ianQu42+sOwe7Nnzm0XvP5PxD1AQSYQ=; b=Gvm3Wh4IBfUa8CF7
+	ctTQuhUcJTj5ODzVdPUrGnvBj0CRjrP2WSad9T43bUWFJbHJscamICTTXwZUNGwA
+	YxoAaZTnDf3v70C7sgc65RoZFVsLEKwXbmmZEww1u/HyeBF58Roy15DkglSispP1
+	sUT+mkjjB3qaTHcC3lbqw5W2RNgIXk+UG6JnDmKidEeZmjqWOgQA2NOA+nT5XoVJ
+	I3D+L7/KH/V2lX1DePxbxhiKOuqZwRf46SP8VuMMJd4Uiswt6ex11xrj1pvxWrCl
+	M9jlOLXRCFhEWWewlEnHpKymmgU9BHZMnqteN60GEjEK68QUm7P1vyvMUWrPEfYb
+	r1r2hw==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h4vmrumuq-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 06 Oct 2026 23:51:39 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-34bbf2e3c5cso5474173eec.0
+        for <devicetree@vger.kernel.org>; Tue, 06 Oct 2026 16:51:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791330466; x=1791935266; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=AACY6eEKMK9EhfCO/Rpu9ez/h9G33RdZtnEBeVV09lI=;
-        b=k5uSQHkJUU5uCBUJ2iMCeuQk6NXZ3sTuNH1HFWHUTegxMX0jy9NBHan909SUQ0+ulL
-         Mg4ZB3qqs2+sFYz6Ql8v/Xs+/ZQFclh+EBoDt+F5dsheXmjl9/9npo92PCaDoDms8eTD
-         esdlek1oi0tHoUibqyvwWKxfcY+dYxN6DzksCWOjtNKINrrnvU1ZmNlxDhob62hHROES
-         zfPFKAquppldgh2dL0v+kI+jZkr/hRMMdFLJ/7lNyyeMR6LAzZ1guAywK2LukAlsmQD6
-         8EfcBLPT1P+8/CMsC2bqv8PP6LOSYBjDkZ1wbGKJ3YT0sUlAfTiU7BuCMSSynAA6XFmh
-         36CQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791330466; x=1791935266;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1791330699; x=1791935499; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=AACY6eEKMK9EhfCO/Rpu9ez/h9G33RdZtnEBeVV09lI=;
-        b=jcfVdavhgBJxE96/uGuY6AYkc2uaxHabnNwEl3a+TzH+U7xggfgRf2toFaN0mGxxIW
-         sYnrzGgE6k1lG1J1D3phArfiRviYx/rghvZsjSRWbQh1YxdHQ6MYIijmVUi9N1H0DQe0
-         YMLyVfA7TdwLm0c+ZfAaS7KoL73Cp5A3KaKvN5jS80ch0jp1XqV0LphwHrffVmRpJNIF
-         pMC4F4dqid/oTe+09pyg2rYCSuFUOUd8CM4jGR1aGIL33QxtgE15ochu8JjVx07ZOZ4S
-         wCuqz6FpohHnqDHW6D21ALQygRlz6XPe4qtiW0UhRtC8LrQQ31+WBZ8Y5GM827bdLqn7
-         N0lg==
-X-Forwarded-Encrypted: i=1; AKwUvBwfgTJyceTL6RKM9H4snYX0DUYY4NaGILaa/xjjbZHgdO1S4tISVEnGuhDTWWPsQtymD9DcWRKqHYmX@vger.kernel.org
-X-Gm-Message-State: AFq9FYIoFVW714d0d9bIFU5/A9Lxirk3ZS5+55lMUqEm3oUJH3f1RAT6
-	BvQzTdj1wR1Z8LSBydri5f8lj5Kcmaoc613oigkhB+i4tkrizE5+OpwEwcBsag438b4gXE5BHbA
-	lNwk5Uub+X8+vKGNy4CEvR1S/jPAzWfrOcVJ0xCSOJg==
-X-Gm-Gg: AYBFou2WvIRnhrpdu4TEKGnesxKQAkoxrMJLt+cx0NmMziUARqHdZh8i0Ooh3XGB2M5
-	69Ip2RTmab9ydqDiSbp4dxoG+SBgK4eAhz889zAr5W7P5okuUC3SE9jprAwecP3Sut4zDJxjtsJ
-	XYqAmWr0jyc1WWGKIzm3HRaaXXwH2pKl49Zrie96FBkuAzEq1zQLprBt1d1PPr4SrqovTH0afRa
-	XH6EXSlm5D6iwRYtRlGZwLMYyEfn0gz9KMKKEWh+ea+Uoe7fqBwVPCoyEZD2QlJObR5JzWG8PPR
-	noArf2/cSQKdXa5XnBdscQgFhO8vwfaHMqYmPiPz4ZC4eASnLi/5S+VQI3/Wd/d5KH/N9jbSTvf
-	zkohmwV6waNzdGw==
-X-Received: by 2002:a05:690c:47c9:b0:8ae:91b3:f0a2 with SMTP id
- 00721157ae682-8b05b01c13dmr5311187b3.20.1791330465608; Tue, 06 Oct 2026
- 16:47:45 -0700 (PDT)
+        bh=KUOCSJmnYcO+ianQu42+sOwe7Nnzm0XvP5PxD1AQSYQ=;
+        b=jIKWk2g1ysV28jsV0Ttry8xg/DwdAmr11RZuQRYXDjAxBjuKM4+1L6Bay786laFPcx
+         DxZbc+BzC2fu5r39fkpSPtxwT6mZrsaHNlyIob1k1J5BKcnsrhfG6e1ZUumWRzR3Tddc
+         Ghq9Bgx1bTbjuK49GRGFJoeYVeqC+Fm+VT+dgmXQZE504t5HifDD9nK7vtIHDl1P6vaN
+         EDomY3/eaYDEX6bVe6XNbHRymWL7sKtrD91eEihG/N4pP2NsbECfo1mUyROpNHCT4MSq
+         aQjrLLKOnFZgAYLFH44jCaF+LCg0DeuiIlTOFJ4YFxVkJl7SsPwbxnycCJUdD1ZArFjT
+         bMWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791330699; x=1791935499;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KUOCSJmnYcO+ianQu42+sOwe7Nnzm0XvP5PxD1AQSYQ=;
+        b=rg2pQ2XxbbXd81NwlfknlLwZtU0qz3Yt/7Hq6egdyOXO08KO5ScQ6w0m6/i12XiaJi
+         rMY68R7iMPeuS0ihhRdNx538+nKKnqKmtQNhWSZIIT71ChpprMXDoxzUJd7P5UCxDXTV
+         fxoHrmqTaG0B8II65VF8j0kGYlBgIeqVUiNgMZeDqAMQXBryEBfhsomVmuFDR1+ISMD6
+         eCAOh0Jvtg6rEXX04LP85hKdWPS6kM36hksMAgBx4uwekNMo+R1BazQ0ZUG2UpTBgjyh
+         HWxHyezhCp+pyqduNlRQwUoidLjnRvTX2r8ebWjgewfLDPdQ6RebsB6GpqUY4KC1Euhg
+         tFXw==
+X-Forwarded-Encrypted: i=1; AKwUvByNb4Km8c6XciREK+QmF8OfH5YszMCApJtcn9BOcAcH7dZWtRdodvRddQACMomGhEvGblyOf5MJXqAr@vger.kernel.org
+X-Gm-Message-State: AFq9FYK/A1rCnKzVeq4vD65OpKVOLWEqxaZwVJUOwlU1R7pHWNUeRBeL
+	QobABHkAXgvbBylz4kCU/tAoD0LP66IKPgOlvZuYpckPlk5HFglvQvCRm+fD92uLFJDnYP94lKc
+	IcFE5snNXHQjlYNNqo5Ji1FRACfJ4AKN1A9m5PhSxnB6KOCDEZzsN2VkD+g11ijlM
+X-Gm-Gg: AYBFou1dKF0du7AlVI/YcxmMfApBOZ6ZE9Kkbq/e8gejHv5aI+U3eQGDN/XC1mSegqz
+	AUg6NvfNOfBXhsKEPQTFPWBrbRhbrOlkyCftL6d391Y4CC4fxNeh1nbTj+oc08UYg4HOsa9jmUM
+	kktBeq4GPdoOkVVWaAJZ7vxYjJ5FMIszYRSMaWbDPmHz60C08Z/I3sHZYkjg50EbOGlzFky4MV9
+	V2uGHL61scUb4aB4aKK2L7DEVBba5fgDAZu3L5mlIoXM3VdQ1eMmNgmBIhlCdJfA6FDLeCZSsgx
+	GuauD4PrnBeOUL7HvauIIYu6TbECIDEuOxVbBLLRdMZl/t/w7h0VXqdkqvUsVsRQKhvBvHkvL+h
+	BP2mFSiIBlb9lZaIyDbILNn0iUlcjXz8F1GPyO+CStwJD50zLceVEOSEHo4ABa+vd
+X-Received: by 2002:a05:7300:559c:b0:351:1e3f:810f with SMTP id 5a478bee46e88-3515de5f36cmr362653eec.28.1791330699122;
+        Tue, 06 Oct 2026 16:51:39 -0700 (PDT)
+X-Received: by 2002:a05:7300:559c:b0:351:1e3f:810f with SMTP id 5a478bee46e88-3515de5f36cmr362613eec.28.1791330698181;
+        Tue, 06 Oct 2026 16:51:38 -0700 (PDT)
+Received: from [10.71.184.34] (i-global254.qualcomm.com. [199.106.103.254])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3515affdc9bsm1796252eec.25.2026.10.06.16.51.37
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 06 Oct 2026 16:51:37 -0700 (PDT)
+Message-ID: <fed665c5-3062-462b-928d-ab60976ce839@oss.qualcomm.com>
+Date: Tue, 6 Oct 2026 16:51:36 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260929-exynos850-acpm-firmware-support-v3-0-473a69fc8a3d@linaro.org>
- <20260929-exynos850-acpm-firmware-support-v3-1-473a69fc8a3d@linaro.org>
-In-Reply-To: <20260929-exynos850-acpm-firmware-support-v3-1-473a69fc8a3d@linaro.org>
-From: Sam Protsenko <semen.protsenko@linaro.org>
-Date: Tue, 6 Oct 2026 18:47:33 -0500
-X-Gm-Features: AclHuK8biRi6brKVjnQsgRrEOJZ8txDP9zLFZXlunl0eP3sSkOkiUAUTUCWs2z8
-Message-ID: <CAPLW+4m57BbhsuVaJb382af6b9Ek-raHoftEO9m8z62Z=DEzkQ@mail.gmail.com>
-Subject: Re: [PATCH v3 1/2] dt-bindings: firmware: google,gs101-acpm-ipc:
- document Exynos850 compatible
-To: Alexey Klimov <alexey.klimov@linaro.org>
-Cc: Tudor Ambarus <tudor.ambarus@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Krzysztof Kozlowski <krzk@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
-	Peter Griffin <peter.griffin@linaro.org>, Sylwester Nawrocki <s.nawrocki@samsung.com>, 
-	Chanwoo Choi <cw00.choi@samsung.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
-	linux-samsung-soc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-clk@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/6] soc: qcom: qpace: Add Qualcomm Page Compression
+ Engine driver
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+        Georgi Djakov <georgi.djakov@oss.qualcomm.com>
+Cc: andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org,
+        robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+        minchan@kernel.org, senozhatsky@chromium.org, axboe@kernel.dk,
+        rostedt@goodmis.org, mhiramat@kernel.org,
+        mathieu.desnoyers@efficios.com, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-block@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
+        djakov@kernel.org
+References: <20260930145215.3380977-1-georgi.djakov@oss.qualcomm.com>
+ <20260930145215.3380977-3-georgi.djakov@oss.qualcomm.com>
+ <20261001-hopping-belligerent-spider-876e7b@quoll>
+Content-Language: en-US
+From: Oreoluwa Babatunde <oreoluwa.babatunde@oss.qualcomm.com>
+In-Reply-To: <20261001-hopping-belligerent-spider-876e7b@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=XZ4cX455 c=1 sm=1 tr=0 ts=6ac5898b cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=xgJ8PqIMSwnDUBfTh2kA:9 a=QEXdDO2ut3YA:10
+ a=6Ab_bkdmUrQuMsNx7PHu:22
+X-Proofpoint-GUID: mXkY3K_ZTTW5vG31w_ZGiZgPnmIUOay0
+X-Proofpoint-ORIG-GUID: mXkY3K_ZTTW5vG31w_ZGiZgPnmIUOay0
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDA5NSBTYWx0ZWRfX9I7C2bLm+B68
+ nK83nS4HUMOBga2q62ilDyWueNdAbdxBo9V0DIXtRmjW7COQ1IYyD+ajPfedekH2whg3wQcUCkm
+ +Z3mrVswRKzy73cpoDuKKqbM7ewKuRLNm4d1fXz24ex6Oe2+YoLt92PfVJgNsGFzIaiuXComoxI
+ b1+TZl5Fh2Se2AM9T7d5mgXFQJEjvHS1raDJpuivZqCYrMbsaz4+VF/ipOW7+wDNGO4k0ANXkL6
+ MtSvLG4UuaTyyR5Qf8Zx3eUnqpLCPnE2T9oVf0mNBvgMN/DvdCoCO7iG5SLuRnaBKOVo6sJ4XbD
+ Epo1vBbXgFdyzrwZIWN8vlW/v7oXIP1JOL2APbrTTQO/NPFSDWh1Xgwggdaibh5wjIjxIfuKHT/
+ FgPWhkpr8J9xQuvWs660YwD9OkuPDacH0jegw0YH49yzXxKDv47wseVyPMN8jTmEE6f31ou5AOt
+ pN7T3YWx0SUPoElaENg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDA5NSBTYWx0ZWRfX3G/RQdZ7+b14
+ a3LFbbv73rTO8GdCyg86Wnk0xCOpCw3MvIXmcj6uXceBDPRUripKu+WpU+UVLnzG45etQPk+7i2
+ 7c57bKk7Cg8Qv7Pcwh9CPcl5BscyjU8=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-06_05,2026-10-06_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 spamscore=0 priorityscore=1501 adultscore=0
+ suspectscore=0 impostorscore=0 bulkscore=0 clxscore=1015 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610060095
 
-On Mon, Sep 28, 2026 at 9:11=E2=80=AFPM Alexey Klimov <alexey.klimov@linaro=
-.org> wrote:
->
-> The Exynos850 SoC incorporates an APM co-processor. Communication with th=
-is
-> hardware block is done using the ACPM protocol, which handles IPC message=
-s
-> for clocks, power, thermal management and PMIC control. In this
-> architecture, the ACPM firmware running on the APM acts as the central
-> supervisor or arbiter for shared system resources, handling requests from
-> clients or agents such as an OSPM. In this design, the OSPM is one of
-> several clients or agents communicating with APM.
->
-> Dedicated compatible string is required for the Exynos850 because
-> its firmware utilizes a different initialisation data base offset
-> (0x7000) compared to the existing GS101 implementation (0xa000).
->
-> Additionally, the ACPM firmware implementation on Exynos850 does not cove=
-r
-> all clock management operations (such as clock rate reads over ACPM IPC).
-> To allow the OSPM to resolve rates for these ACPM clock IDs or sometimes
-> called domains, add 'clocks' and 'clock-names' properties to reference th=
-e
-> underlying physical clocks.
->
-> Add the "samsung,exynos850-acpm-ipc" compatible string, binding defines f=
-or
-> Exynos850 ACPM clock IDs, clock property constraints, and disallow GS101-
-> specific PMIC child nodes for Exynos850.
->
-> Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
-> ---
+On 10/1/2026 1:50 AM, Krzysztof Kozlowski wrote:
+> On Wed, Sep 30, 2026 at 07:52:11AM -0700, Georgi Djakov wrote:
+>> Add a platform driver for the Qualcomm Page Compression Engine (QPaCE), a
+>> hardware block that accelerates compression and decompression of memory
+>> pages.
+>>
+>> Provide the urgent command path for synchronous single-page compression and
+>> decompression. This exposes the low-latency operations needed by
+>> compressed-memory users such as zram, especially for page decompression on
+>> the read path.
+>>
+>> Signed-off-by: Georgi Djakov <georgi.djakov@oss.qualcomm.com>
+>> ---
+>>   drivers/soc/qcom/Kconfig          |  14 +
+>>   drivers/soc/qcom/Makefile         |   1 +
+>>   drivers/soc/qcom/qpace.c          | 764 ++++++++++++++++++++++++++++++
+>>   drivers/soc/qcom/qpace_internal.h |  84 ++++
+>>   include/linux/soc/qcom/qpace.h    | 154 ++++++
+>>   5 files changed, 1017 insertions(+)
+>>   create mode 100644 drivers/soc/qcom/qpace.c
+>>   create mode 100644 drivers/soc/qcom/qpace_internal.h
+>>   create mode 100644 include/linux/soc/qcom/qpace.h
+>>
+>> diff --git a/drivers/soc/qcom/Kconfig b/drivers/soc/qcom/Kconfig
+>> index 535c8619197b..6bcb86dcd726 100644
+>> --- a/drivers/soc/qcom/Kconfig
+> 
+> Sorry, but no. Soc is not a dumping ground. This has clear function of
+> compression offload, so it should have some dedicated maintainers like
+> other offload engines.
 
-Reviewed-by: Sam Protsenko <semen.protsenko@linaro.org>
+The reason for putting this in soc/qcom is because this is a qcom HW 
+block driver. As per your comments below we will check and see if we can 
+make use of existing crypto framework and respond back on this.
 
->  .../bindings/firmware/google,gs101-acpm-ipc.yaml   | 56 ++++++++++++++++=
-+++++-
->  include/dt-bindings/clock/samsung,exynos850-acpm.h | 21 ++++++++
->  2 files changed, 76 insertions(+), 1 deletion(-)
->
-> diff --git a/Documentation/devicetree/bindings/firmware/google,gs101-acpm=
--ipc.yaml b/Documentation/devicetree/bindings/firmware/google,gs101-acpm-ip=
-c.yaml
-> index e68f9c3ca5e2..0eaa9c881f6f 100644
-> --- a/Documentation/devicetree/bindings/firmware/google,gs101-acpm-ipc.ya=
-ml
-> +++ b/Documentation/devicetree/bindings/firmware/google,gs101-acpm-ipc.ya=
-ml
-> @@ -22,7 +22,9 @@ description: |
->
->  properties:
->    compatible:
-> -    const: google,gs101-acpm-ipc
-> +    enum:
-> +      - google,gs101-acpm-ipc
-> +      - samsung,exynos850-acpm-ipc
->
->    "#clock-cells":
->      const: 1
-> @@ -33,6 +35,20 @@ properties:
->        appropriately with the clock scaling. The argument is the ID of th=
-e
->        clock contained by the firmware messages.
->
-> +  clocks:
-> +    minItems: 1
-> +    maxItems: 9
-> +    description:
-> +      List of the underlying clocks associated with each ACPM clock doma=
-in.
-> +      This property relates to ACPM firmware variants where not all cloc=
-k
-> +      operations are implemented.
-> +
-> +  clock-names:
-> +    minItems: 1
-> +    maxItems: 9
-> +    description:
-> +      Names of the ACPM clock domains corresponding to entries in 'clock=
-s'.
-> +
->    mboxes:
->      maxItems: 1
->
-> @@ -77,6 +93,44 @@ required:
->    - mboxes
->    - shmem
->
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: google,gs101-acpm-ipc
-> +    then:
-> +      properties:
-> +        clocks: false
-> +        clock-names: false
-> +
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: samsung,exynos850-acpm-ipc
-> +    then:
-> +      properties:
-> +        clock-names:
-> +          items:
-> +            enum:
-> +              - mif
-> +              - int
-> +              - cpucl0
-> +              - cpucl1
-> +              - g3d
-> +              - aud
-> +              - cam
-> +              - disp
-> +              - cp
-> +          uniqueItems: true
-> +        pmic: false
-> +        pmic-1: false
-> +        pmic-2: false
-> +      required:
-> +        - clocks
-> +        - clock-names
-> +
->  additionalProperties: false
->
->  examples:
-> diff --git a/include/dt-bindings/clock/samsung,exynos850-acpm.h b/include=
-/dt-bindings/clock/samsung,exynos850-acpm.h
-> new file mode 100644
-> index 000000000000..87fc6ccc1d99
-> --- /dev/null
-> +++ b/include/dt-bindings/clock/samsung,exynos850-acpm.h
-> @@ -0,0 +1,21 @@
-> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-> +/*
-> + * Copyright 2026 Linaro Ltd.
-> + *
-> + * Device Tree binding constants for Exynos850 ACPM clock controller.
-> + */
-> +
-> +#ifndef _DT_BINDINGS_CLOCK_SAMSUNG_EXYNOS850_ACPM_H
-> +#define _DT_BINDINGS_CLOCK_SAMSUNG_EXYNOS850_ACPM_H
-> +
-> +#define EXYNOS850_CLK_ACPM_DVFS_MIF                    0
-> +#define EXYNOS850_CLK_ACPM_DVFS_INT                    1
-> +#define EXYNOS850_CLK_ACPM_DVFS_CPUCL0                 2
-> +#define EXYNOS850_CLK_ACPM_DVFS_CPUCL1                 3
-> +#define EXYNOS850_CLK_ACPM_DVFS_G3D                    4
-> +#define EXYNOS850_CLK_ACPM_DVFS_AUD                    5
-> +#define EXYNOS850_CLK_ACPM_DVFS_CAM                    6
-> +#define EXYNOS850_CLK_ACPM_DVFS_DISP                   7
-> +#define EXYNOS850_CLK_ACPM_DVFS_CP                     8
-> +
-> +#endif /* _DT_BINDINGS_CLOCK_SAMSUNG_EXYNOS850_ACPM_H */
->
-> --
-> 2.51.0
->
+>> +++ b/drivers/soc/qcom/Kconfig
+>> @@ -288,6 +288,20 @@ config QCOM_PBS
+>>   	  This module provides the APIs to the client drivers that wants to send the
+>>   	  PBS trigger event to the PBS RAM.
+>>   
+>> +config QCOM_PAGE_COMPRESSION_ENGINE
+>> +	tristate "Qualcomm Page Compression Engine (QPaCE)"
+>> +	depends on ARM64
+> 
+> Why this can't be built on other archs? This is really odd and I do not
+> see any asm headers included.
+ACK. We will remove this so that it can be built on other architectures.
+
+> 
+>> +	depends on ARCH_QCOM || COMPILE_TEST
+>> +	depends on OF
+>> +	depends on INTERCONNECT
+>> +	help
+>> +	  Enable support for the Qualcomm Page Compression Engine (QPaCE),
+>> +	  a hardware accelerator that provides high-throughput page compression,
+>> +	  decompression, and DMA copy operations.
+>> +
+>> +	  The engine is used as a hardware backend for compressed-memory
+>> +	  subsystems such as zram. If unsure, say N.
+>> +
+> 
+> ...
+> 
+> 
+>> +	ret = FIELD_GET(URG_CMD_0_ED_STAT_SIZE, stat_reg);
+>> +out:
+>> +	return ret;
+>> +}
+>> +EXPORT_SYMBOL_GPL(qpace_urgent_compress);
+>> +
+>> +int qpace_urgent_decompress(dma_addr_t input_addr,
+>> +			    dma_addr_t output_addr,
+>> +			    size_t input_size,
+>> +			    struct qpace_algorithm *algo)
+> 
+> You need kerneldoc for every export.
+
+ACK
+
+>> +{
+>> +	int urg_reg_num;
+>> +	int stat_reg;
+>> +	u32 stat_reg_val;
+>> +	int ret;
+>> +
+>> +	ret = qpace_get();
+>> +	if (ret)
+>> +		goto out;
+>> +
+>> +	urg_reg_num = get_cpu() % NUM_TRS_ERS_URG_CMD_REGS;
+>> +	qpace_write_urg_cmd_ctx(qpace_priv, QPACE_URG_CMD_0_CFG_CNTXT_SIZE_n_OFFSET,
+>> +				urg_reg_num, algo->urg_decomp_cntxt,
+>> +				FIELD_PREP(URG_CMD_0_CFG_CNTXT_SIZE_SIZE, input_size));
+>> +	stat_reg = qpace_urgent_command_trigger(input_addr, output_addr, urg_reg_num,
+>> +						algo->urg_decomp_cntxt);
+>> +	put_cpu();
+>> +
+>> +	qpace_put();
+>> +
+>> +	if (stat_reg < 0) {
+>> +		ret = stat_reg;
+>> +		goto out;
+>> +	}
+>> +
+>> +	stat_reg_val = FIELD_GET(URG_CMD_0_ED_STAT_COMP_CODE, stat_reg);
+>> +	if (stat_reg_val != OP_OK) {
+>> +		pr_err("%s: register %d failed with %u\n",
+>> +		       __func__, urg_reg_num, stat_reg_val);
+>> +		ret = -EINVAL;
+>> +		goto out;
+>> +	}
+>> +
+>> +	ret = FIELD_GET(URG_CMD_0_ED_STAT_SIZE, stat_reg);
+>> +out:
+>> +	return ret;
+>> +}
+>> +EXPORT_SYMBOL_GPL(qpace_urgent_decompress);
+>> +
+> 
+> So singleton? For what reason exactly? Random drivers will be getting
+> the reference to compress something? If so, aren't you duplicating
+> existing infrastructure/API for in-kernel hardware offloaded
+> compression (e.g. drivers/crypto/)?
+> 
+
+We will check and see if we can use existing crypto framework and 
+respond back on this.
+
+> You miss proper comments (see checkpatch --strict) explaining lock
+> usage.
+
+ACK
+
+> 
+> 
+>> +static DEFINE_MUTEX(qpace_ref_lock);
+>> +
+>> +static void _get_qpace(void)
+>> +{
+>> +	lockdep_assert_held(&qpace_ref_lock);
+>> +	if (!qpace_priv->active_rings) {
+>> +		reinit_completion(&qpace_priv->no_active_refs);
+>> +		pm_stay_awake(qpace_priv->dev);
+>> +		cpu_latency_qos_update_request(&qpace_priv->qos_req, 300);
+>> +		program_urg_command_contexts_v2();
+>> +		program_decomp_core_cfg();
+>> +	}
+>> +	qpace_priv->active_rings++;
+>> +}
+>> +
+>> +static void _put_qpace(void)
+>> +{
+>> +	lockdep_assert_held(&qpace_ref_lock);
+>> +	if (!--qpace_priv->active_rings) {
+>> +		cpu_latency_qos_update_request(&qpace_priv->qos_req, PM_QOS_DEFAULT_VALUE);
+>> +		pm_relax(qpace_priv->dev);
+>> +		complete(&qpace_priv->no_active_refs);
+>> +	}
+>> +}
+>> +
+>> +int qpace_get(void)
+>> +{
+>> +	int ret = 0;
+>> +
+>> +	mutex_lock(&qpace_ref_lock);
+>> +	if (qpace_priv->suspended || READ_ONCE(qpace_priv->broken))
+>> +		ret = -EBUSY;
+>> +	else
+>> +		_get_qpace();
+>> +	mutex_unlock(&qpace_ref_lock);
+>> +	return ret;
+>> +}
+>> +EXPORT_SYMBOL_GPL(qpace_get);
+>> +
+>> +void qpace_put(void)
+>> +{
+>> +	mutex_lock(&qpace_ref_lock);
+>> +	_put_qpace();
+>> +	mutex_unlock(&qpace_ref_lock);
+>> +}
+>> +EXPORT_SYMBOL_GPL(qpace_put);
+>> +
+>> +static irqreturn_t urgent_interrupt_handler(int irq, void *unused)
+>> +{
+>> +	pr_debug("Urgent interrupt handled\n");
+>> +	return IRQ_HANDLED;
+>> +}
+>> +
+>> +static int qpace_hw_init(void)
+>> +{
+>> +	u32 reg_val;
+>> +
+>> +	/* Select CPU SCID for our system cache slice. */
+>> +	reg_val = qpace_read_gen(qpace_priv, QPACE_CORE_QNS4_CFG_OFFSET);
+>> +	reg_val = u32_replace_bits(reg_val, 0x1, CORE_QNS4_CFG_CACHEINDEX);
+>> +	qpace_write_gen(qpace_priv, QPACE_CORE_QNS4_CFG_OFFSET, reg_val);
+>> +
+>> +	/* QMB2 register configurations. */
+>> +	reg_val = qpace_read_gen(qpace_priv, QPACE_CORE_GEN_CFG_OFFSET);
+>> +	reg_val = u32_replace_bits(reg_val, 0x48, CORE_GEN_CFG_QMB2_MAX_RD_OUTST_LIMIT);
+>> +	reg_val = u32_replace_bits(reg_val, 0x48, CORE_GEN_CFG_QMB2_MAX_WR_OUTST_LIMIT);
+>> +	qpace_write_gen(qpace_priv, QPACE_CORE_GEN_CFG_OFFSET, reg_val);
+>> +
+>> +	/* DECOMP_CORE_CFG init steps. */
+>> +	program_decomp_core_cfg();
+>> +
+>> +	/* Below settings help save power since all decomp cores are set to sync. */
+>> +	reg_val = qpace_read_gen_core(qpace_priv, QPACE_CORE_OPER_CFG_OFFSET);
+>> +	reg_val |= CORE_OPER_CFG_COMP_MEM_PWR_DWN_1;
+>> +	qpace_write_gen_core(qpace_priv, QPACE_CORE_OPER_CFG_OFFSET, reg_val);
+>> +
+>> +	reg_val = qpace_read_comp_core(qpace_priv, QPACE_COMP_CORE_CFG_OFFSET);
+>> +	reg_val = u32_replace_bits(reg_val, 0x8, COMP_CORE_CFG_DMA_RD_MAX_OT);
+>> +	reg_val = u32_replace_bits(reg_val, 0x8, COMP_CORE_CFG_DMA_WR_MAX_OT);
+>> +	qpace_write_comp_core(qpace_priv, QPACE_COMP_CORE_CFG_OFFSET, reg_val);
+>> +
+>> +	/* Set all COMP engines to bulk mode. */
+>> +	reg_val = qpace_read_comp_core(qpace_priv, QPACE_COMP_CORE_BULK_MODE_OFFSET);
+>> +	reg_val |= COMP_CORE_BULK_MODE_ALL_CORES;
+>> +	qpace_write_comp_core(qpace_priv, QPACE_COMP_CORE_BULK_MODE_OFFSET, reg_val);
+>> +
+>> +	/* URG CMD register configurations. */
+>> +	program_urg_command_contexts_v2();
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +enum qpace_interrupts {
+>> +	QPACE_IRQ_URGENT
+>> +};
+>> +
+>> +static int qpace_register_interrupts(struct platform_device *pdev)
+>> +{
+>> +	struct device *dev = &pdev->dev;
+>> +	int irq, ret;
+>> +
+>> +	irq = platform_get_irq(pdev, QPACE_IRQ_URGENT);
+>> +	if (irq < 0)
+>> +		return irq;
+>> +
+>> +	ret = devm_request_irq(dev, irq, urgent_interrupt_handler,
+>> +			       0, "qpace-urgent-irq", NULL);
+>> +	if (ret)
+>> +		dev_err(dev, "failed to request urgent interrupt\n");
+>> +
+>> +	return ret;
+>> +}
+>> +
+>> +static inline bool _qpace_power_on(void)
+>> +{
+>> +	u32 ready_status;
+>> +
+>> +	qpace_write_gen_core(qpace_priv, QPACE_CORE_OPER_CORE_RUN_STOP_OFFSET, QPACE_RUN);
+>> +
+>> +	if (readl_poll_timeout(qpace_priv->gen_core_regs +
+>> +			       QPACE_CORE_OPER_CORE_READY_OFFSET,
+>> +			       ready_status, ready_status,
+>> +			       1000, 5 * QPACE_STATE_CHANGE_TIMEOUT_US)) {
+>> +		pr_err("Timeout in waiting for QPaCE to turn on\n");
+>> +		return false;
+>> +	}
+>> +
+>> +	return true;
+>> +}
+>> +
+>> +static int qpace_power_on(struct device *dev)
+>> +{
+>> +	int ret, ret2;
+>> +
+>> +	qpace_priv->interconnect = devm_of_icc_get(dev, "qpace-mem");
+>> +	if (IS_ERR_OR_NULL(qpace_priv->interconnect)) {
+>> +		ret = PTR_ERR_OR_ZERO(qpace_priv->interconnect);
+>> +		pr_err("%s: devm_of_icc_get() failed with %d\n", __func__, ret);
+> 
+> use dev_err, not pr_err
+
+ACK.
+
+> 
+>> +		return qpace_priv->interconnect ? ret : -EINVAL;
+>> +	}
+>> +
+>> +	ret = device_init_wakeup(dev, true);
+>> +	if (ret) {
+>> +		pr_err("%s: device_init_wakeup() failed with %d\n", __func__, ret);
+>> +		return ret;
+>> +	}
+>> +
+>> +	cpu_latency_qos_add_request(&qpace_priv->qos_req, PM_QOS_DEFAULT_VALUE);
+>> +
+>> +	icc_set_tag(qpace_priv->interconnect, QCOM_ICC_TAG_ACTIVE_ONLY);
+>> +
+>> +	ret = icc_set_bw(qpace_priv->interconnect, 0, 1);
+>> +	if (ret) {
+>> +		pr_err("Failed to turn on QPaCE VCD: %d\n", ret);
+>> +		goto rm_qos;
+>> +	}
+>> +
+>> +	if (!_qpace_power_on()) {
+>> +		pr_err("Failed to start QPaCE\n");
+>> +		ret = -EINVAL;
+>> +		goto rm_bw;
+>> +	}
+>> +
+>> +	return 0;
+>> +
+>> +rm_bw:
+>> +	ret2 = icc_set_bw(qpace_priv->interconnect, 0, 0);
+>> +	if (ret2)
+>> +		pr_err("Failed to remove QPaCE VCD vote: %d\n", ret2);
+>> +rm_qos:
+>> +	cpu_latency_qos_remove_request(&qpace_priv->qos_req);
+>> +	device_init_wakeup(dev, false);
+>> +
+>> +	return ret;
+>> +}
+>> +
+>> +static inline bool _qpace_power_off(void)
+>> +{
+>> +	u32 ready_status;
+>> +
+>> +	qpace_write_gen_core(qpace_priv, QPACE_CORE_OPER_CORE_RUN_STOP_OFFSET, QPACE_STOP);
+>> +
+>> +	if (readl_poll_timeout(qpace_priv->gen_core_regs +
+>> +			       QPACE_CORE_OPER_CORE_READY_OFFSET,
+>> +			       ready_status, !ready_status,
+>> +			       1000, 5 * QPACE_STATE_CHANGE_TIMEOUT_US)) {
+>> +		pr_err("Timeout in waiting for QPaCE to turn off\n");
+>> +		return false;
+>> +	}
+>> +
+>> +	return true;
+>> +}
+>> +
+>> +static void qpace_power_off(struct device *dev)
+>> +{
+>> +	int ret;
+>> +
+>> +	/* If this fails we can still remove our vote for the VCD to turn QPaCE off */
+>> +	if (!_qpace_power_off())
+>> +		pr_err("Failed to stop QPaCE\n");
+>> +
+>> +	ret = icc_set_bw(qpace_priv->interconnect, 0, 0);
+>> +	if (ret)
+>> +		pr_err("Failed to turn off QPaCE VCD: %d\n", ret);
+>> +
+>> +	cpu_latency_qos_remove_request(&qpace_priv->qos_req);
+>> +
+>> +	device_init_wakeup(dev, false);
+>> +}
+>> +
+>> +static inline int qpace_register_ioremap(struct platform_device *pdev)
+>> +{
+>> +	qpace_priv->gen_regs = devm_platform_ioremap_resource(pdev, 0);
+>> +	if (IS_ERR(qpace_priv->gen_regs))
+>> +		return PTR_ERR(qpace_priv->gen_regs);
+>> +
+>> +	qpace_priv->gen_core_regs = qpace_priv->gen_regs + QPACE_GEN_CORE_REGS_OFFSET;
+>> +	qpace_priv->comp_core_regs = qpace_priv->gen_regs + QPACE_COMP_CORE_REGS_OFFSET;
+>> +	qpace_priv->decomp_core_regs = qpace_priv->gen_regs + QPACE_DECOMP_CORE_REGS_OFFSET;
+>> +	qpace_priv->urg_regs = qpace_priv->gen_regs + QPACE_URG_REGS_OFFSET;
+>> +
+>> +	return 0;
+>> +}
+>> +
+>> +bool qpace_is_dev_available(void)
+>> +{
+>> +	return static_branch_likely(&qpace_drv_probed) &&
+>> +	       !READ_ONCE(qpace_priv->broken);
+>> +}
+>> +EXPORT_SYMBOL_GPL(qpace_is_dev_available);
+>> +
+>> +struct device *qpace_get_dma_dev(void)
+>> +{
+>> +	return qpace_priv->dev;
+>> +}
+>> +EXPORT_SYMBOL_GPL(qpace_get_dma_dev);
+>> +
+>> +static int qpace_probe(struct platform_device *pdev)
+>> +{
+>> +	struct device *dev = &pdev->dev;
+>> +	struct qpace_priv *priv;
+>> +	int ret;
+>> +
+>> +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+>> +	if (!priv)
+>> +		return -ENOMEM;
+>> +
+>> +	priv->dev = dev;
+>> +	/* Starts already complete since active_rings == 0 at init. */
+>> +	init_completion(&priv->no_active_refs);
+>> +	complete(&priv->no_active_refs);
+>> +	INIT_WORK(&priv->disable_work, qpace_disable_work_fn);
+>> +	qpace_priv = priv;
+>> +	platform_set_drvdata(pdev, priv);
+>> +
+>> +	ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(64));
+>> +	if (ret)
+>> +		return dev_err_probe(dev, ret, "failed to set DMA mask\n");
+>> +
+>> +	ret = qpace_register_ioremap(pdev);
+>> +	if (ret)
+>> +		return dev_err_probe(dev, ret, "failed to map QPaCE registers\n");
+>> +
+>> +	ret = qpace_power_on(dev);
+>> +	if (ret)
+>> +		return dev_err_probe(dev, ret, "failed to power on QPaCE\n");
+>> +
+>> +	/* Get QPaCE HW version. */
+>> +	qpace_priv->hw_version = qpace_read_gen(qpace_priv, QPACE_CORE_HW_VERSION_OFFSET);
+>> +	if (qpace_priv->hw_version != QPACE_HW_VERSION_V2) {
+>> +		dev_err(dev, "Unsupported QPaCE HW version returned: 0x%x\n",
+>> +			qpace_priv->hw_version);
+>> +		ret = -EINVAL;
+>> +		goto power_off;
+>> +	}
+>> +
+>> +	ret = qpace_hw_init();
+>> +	if (ret) {
+> 
+> How is this possible?
+
+ACK. This can be removed.
+
+> 
+>> +		dev_err(dev, "init failed: (%d)\n", ret);
+>> +		goto power_off;
+>> +	}
+>> +
+>> +	ret = qpace_register_interrupts(pdev);
+>> +	if (ret) {
+>> +		dev_err(dev, "failed to register interrupts\n");
+> 
+> Do not print same error multiple times.
+
+ACK.
+
+> 
+>> +		goto power_off;
+>> +	}
+>> +
+>> +	static_branch_enable(&qpace_drv_probed);
+>> +
+>> +	return ret;
+>> +
+>> +power_off:
+>> +	qpace_power_off(dev);
+>> +
+>> +	return ret;
+>> +}
+> 
+> Best regards,
+> Krzysztof
+
