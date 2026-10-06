@@ -1,65 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1877D3F1ACE;
-	Tue,  6 Oct 2026 14:35:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7B4537FF46;
+	Tue,  6 Oct 2026 14:46:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791297357; cv=none; b=u5bWSANwRAjZ1hhIuTwYiPkArmRH/dZAD74hLF0/k4MHfQ1dEsTl1QQ4rt/r4Tz/cIDrF8DUVnqGDTMQ34xIZhhQ+wX9Fm/1k4c/76oxoiQMhGIqMRo4IzJA/C+RPc+DhhMEBQ3yy6KRan3RY+nBB0Jtc7GwcAdEAhNI+BTQiM0=
+	t=1791297987; cv=none; b=YyfCWCzsmPjfaqRsUikoEjGYl7OHg0Q7RA0t/AtW4jFEeRE2fTcV8P3YRGJTr8MCYoUQ/2Uueyrj+mKA52uMMpTQXYCDh6w70DUV8GtaW76oXEPCssfF8FpvHpTpnQ5++MunueO89cN5RAPF2lABCqmMKjo4f4LjF4W2REEvQik=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791297357; c=relaxed/simple;
-	bh=WKyjJo0ctDdDpRtfBNoImhZUouSnE7D4e9wIb82XiVQ=;
+	s=arc-20240116; t=1791297987; c=relaxed/simple;
+	bh=zamFwhdLiuEW4kitGtycKJPuFi8Vryp8GQZC7CK22vE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cf5e69n2j54uifJFsZ+BVAUwpEUW7WQTc2MBHkCr2/BWe6vlzzVEpjz5XQVJZr3x7TGorW84Mg6v9BaGKk4Ol4ZS7dPo1xINlbpB7o5pctBYCcT2vhXgiqEfczXieGCjb+PigNoHJEvI/VwVfJhRPBfmbJVb0jY/0tvIxwzreRU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BvXdGDK1; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=eD+8hGhdEnpV+16BirmU9tOm0XIleoqI4128m9r8sajp8qmdUSS7TPvtYiNr++VeaiAsJ2E+FWxeWkZrqiOjWSf40B2FBMjJjsgr8Qefy7Bi3NhxBLMt8xbSTojo7EwyAyjW9YRALdF6+nwaLdxvMsKHAR3swnxMqw0XPobDsd4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IKU03Imf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BvXdGDK1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02DCC1F0089B;
-	Tue,  6 Oct 2026 14:35:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IKU03Imf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3776F1F0089B;
+	Tue,  6 Oct 2026 14:46:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791297355;
-	bh=U1L8jykox/avQocIULNmCLTZ8y9+zM/0S8Z42jWufDM=;
+	s=k20260515; t=1791297986;
+	bh=jrEgrOy1SQblcRUZ/5k3rGkL+cG0qO8/Q38RH6jd7Xg=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BvXdGDK1YwBTmfBMPwEf8IFYL007+JRcPJuME3P2Nita0OLXh/mfsdPULxUMPb5kg
-	 mS7as+zUWe+7e+Yp8opbOXi0KstRi60uJybcaGLDsDYa9B0axaxKI89Ebezd4SUhYz
-	 Z4TZ86oCLJBOEl95dp6dGye62RFqhdvbOWBXcSM1waI/obfEqL0Q2w5B/dNrf7GBuI
-	 k6L1cJQMuwIcViz0XrniedgIFkosG2Ae0q4zq9Qqfc1qY8xY0qvAwW9aC/IdSi3F+k
-	 2PzmYlch3jT089e1FhbWE47ty9r9pYjMAEwpenMfzUUs0uUv8c/TQKYC4xIDpVii9j
-	 vQCzlmbsnR3tQ==
-Date: Tue, 6 Oct 2026 09:35:54 -0500
+	b=IKU03ImfddeGvNot7jJLJdZS1YuxH9AEqSIcffHp32XrXx1FHK1v+dUCV4Lz+dnYA
+	 JtOrtP49ShX6RdQQ0plKmhwXWXJCYmVtLICdD6c410tIlSVGWPSz0TGOLg4S/qnStc
+	 tmc+6HVI/8cyujJMIYlcSsUrQZE/7WIvaHr5DdK9O0vaXBrruT1jzXgpN6X08CLErO
+	 KAQ0d+b3t8VN3X6nazn/jzOKNipxB9Wi1I5PoztGhnprZMitGitwakWEccUM61wjc6
+	 EWjLKvaT0d8eFezPlW6EHsnTUmEV4UHbFBNXGL1IAHmYX3EpVkH932CE7SmfBps1r0
+	 Y1XTreYqse3yQ==
+Date: Tue, 6 Oct 2026 09:46:25 -0500
 From: Rob Herring <robh@kernel.org>
-To: Kyrie Wu <kyrie.wu@mediatek.com>
-Cc: Tiffany Lin <tiffany.lin@mediatek.com>,
-	Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
-	Yunfei Dong <yunfei.dong@mediatek.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	Ricardo Ribalda <ribalda@chromium.org>, Kees Cook <kees@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Fei Shao <fshao@chromium.org>,
-	Haoxiang Li <haoxiang_li2024@163.com>,
-	Chen-Yu Tsai <wenst@chromium.org>,
-	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
-	Tomasz Figa <tfiga@chromium.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Benjamin Gaignard <benjamin.gaignard@collabora.com>,
-	Qianfeng Rong <rongqianfeng@vivo.com>,
-	Irui Wang <irui.wang@mediatek.com>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Fan Wu <fanwu01@zju.edu.cn>, linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	Sakari Ailus <sakari.ailus@linux.intel.com>
-Subject: Re: [PATCH v7 08/14] Add the MT8196 compatible string to the
- MediaTek vcodec subdev decoder binding.
-Message-ID: <20261006143554.GA2123458-robh@kernel.org>
-References: <20260923024258.257846-1-kyrie.wu@mediatek.com>
- <20260923024258.257846-9-kyrie.wu@mediatek.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: bus: Add HiSilicon local bus
+Message-ID: <20261006144625.GA2194299-robh@kernel.org>
+References: <20261005205310.2079198-1-robh@kernel.org>
+ <20261005210035.1FD341F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -68,48 +42,44 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260923024258.257846-9-kyrie.wu@mediatek.com>
+In-Reply-To: <20261005210035.1FD341F000FF@smtp.kernel.org>
 
-On Wed, Sep 23, 2026 at 10:42:51AM +0800, Kyrie Wu wrote:
-> Compared to previous ICs, the MT8196 supports a 10-bit decoder
-> and has a decoding capability of 4K@120fps. It also supports
-> 36-bit DRAM IOVA address and Video Power Control to optimize
-> bandwidth and voltage usage.
-
-Please fix your subject.
-
+On Mon, Oct 05, 2026 at 09:00:34PM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Low] dt-bindings: missing `required` block allows nodes without `reg` to pass
+> --
 > 
-> Signed-off-by: Kyrie Wu <kyrie.wu@mediatek.com>
-> Acked-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
-> ---
->  .../media/mediatek,vcodec-subdev-decoder.yaml | 50 ++++++++++++++++++-
->  1 file changed, 49 insertions(+), 1 deletion(-)
+> commit 31cf8e8c992601dbcd36de1b649ef5c513febf6f
+> Author: Rob Herring (Arm) <robh@kernel.org>
 > 
-> diff --git a/Documentation/devicetree/bindings/media/mediatek,vcodec-subdev-decoder.yaml b/Documentation/devicetree/bindings/media/mediatek,vcodec-subdev-decoder.yaml
-> index d1d209cbb..618be8c52 100644
-> --- a/Documentation/devicetree/bindings/media/mediatek,vcodec-subdev-decoder.yaml
-> +++ b/Documentation/devicetree/bindings/media/mediatek,vcodec-subdev-decoder.yaml
-> @@ -76,6 +76,7 @@ properties:
->        - mediatek,mt8186-vcodec-dec
->        - mediatek,mt8188-vcodec-dec
->        - mediatek,mt8195-vcodec-dec
-> +      - mediatek,mt8196-vcodec-dec
->  
->    reg:
->      minItems: 1
-> @@ -96,6 +97,12 @@ properties:
->        The node of system control processor (SCP), using
->        the remoteproc & rpmsg framework.
->  
-> +  mediatek,vcp:
-> +    $ref: /schemas/types.yaml#/definitions/phandle
-> +    description: |
+> dt-bindings: bus: Add HiSilicon local bus
+> 
+> This commit introduces a new device tree binding schema for the HiSilicon local
+> bus. It sets up validation constraints for the compatible string and registers.
+> 
+> > diff --git a/Documentation/devicetree/bindings/bus/hisilicon,hisi-localbus.yaml b/Documentation/devicetree/bindings/bus/hisilicon,hisi-localbus.yaml
+> > new file mode 100644
+> > index 0000000000000..cd9ecea88269f
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/bus/hisilicon,hisi-localbus.yaml
+> 
+> [ ... ]
+> 
+> > +properties:
+> > +  compatible:
+> > +    items:
+> > +      - const: hisilicon,hisi-localbus
+> > +      - const: simple-bus
+> > +
+> > +  reg:
+> > +    maxItems: 1
+> > +
+> > +unevaluatedProperties: false
+> 
+> [Severity: Low]
+> Should this schema include a required array to enforce the presence of the
+> compatible and reg properties?
 
-Don't need '|'
-
-> +      The node of video companion processor (VCP), using
-> +      the remoteproc & rpmsg framework.
-
-Please say what the VCP provides, not the Linux subsystem it uses.
+compatible is implied, but will add 'reg' when applying.
 
 Rob
