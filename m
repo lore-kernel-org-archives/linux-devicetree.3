@@ -1,62 +1,64 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44088391E6D
-	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 07:26:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B24B40BCCE
+	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 07:26:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791358015; cv=none; b=XTwBDiwOpFNJgC1927eezllt9Wab5/+OLz4/VUpwh6D2Zy+mNqSjOP9IfuWhrN4U5Xx0FeP3c0Z11OkPDbMwxVtU5GcwPBK7OC/eikAkg3H9QIidXHdJaAYE1AT0yARNMhIrPmVXIfVEWpiwmuCgqKHjVYLqskAIbdX9RSFi5BY=
+	t=1791358017; cv=none; b=tMj2GqXoqpP2vU/JTXrHteh76TyYOKTOP5aAJbm+zdWxRu8GAY02ZJiOrMkmXBuEVg6wLqmjGm5+WXN3YeELVwkryRuYxpFCUfF+U+vje2zfHFtfHQX6IJKt/jjIe7bYHN72dhMrGiVkCwkeT/kZHf4siMoDCUFM8AFx2ErlFH0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791358015; c=relaxed/simple;
-	bh=1JFQJnNJb8HOzAJcaEyU8N13syfiBe5jP0AHNIkfpdA=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=fqropDWNJLOXkuB5lkF7a80Q+KCrXRXB4LWNNWpnoJR3NJSr8uT9w/4mRYdtkYQeBHptUuOgEgiUtVvArSzeCGGt1qullbmdlBqFGxNS6rpC36PlMkdYf8UpQZR8h7PWxQpM0c5agAEOKk2Cscn08Onp6Cuow4xwwMaoVEF4ER0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hRfQftHD; arc=none smtp.client-ip=209.85.128.49
+	s=arc-20240116; t=1791358017; c=relaxed/simple;
+	bh=huBJV7d5iTiZTlgwFSE14Dr2+v21pxG51EetGZRmP4Y=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=W+KWzyqdKeKGoqMAoa3H00FieMw5zbFLpSdDOd9puC33HcWgWG3LDVYjPza5cxmmuHZnSkt2+bQktf+AQwlf/okgGiihLHud51GBD93Q3SIHkx4Vd6Dmnf2y8RMTX+KMOF//VHNlU7ziepnofya8BHVswn4Oph61AyBc9tErxuo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=US0cYCZ+; arc=none smtp.client-ip=209.85.128.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hRfQftHD"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4a018792ab3so14097405e9.0
-        for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 00:26:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="US0cYCZ+"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-49d05d51553so26344525e9.2
+        for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 00:26:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791358012; x=1791962812; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Xc/cMb4XXA+asGhPB5InH/DIUsg9LCc2YMy7yfxc9os=;
-        b=hRfQftHDw5QhSEGI1CpgzG8h7nJX08b4SlC58sO/aXkNfUVpHBtNgmY+TIfZUdp1ti
-         qgM1UN+eh1dSYQCnCimBB3cO/hyKfJmkU56QsGwUKrOIsWprhTPEN9dV9ABxMzM1iYtO
-         X1tb31+RKY0ktwm/fTX43QGISly+us/ZMVZzGaouUb3QGoAcZrm1tFBxBogbaIIPboE6
-         05zOqbzy4PjPeQ3ZH8ZdEDO6v/RSU8fohh/H5oUxLvFWwufLy62/4ubYyfFUwXtOXd5s
-         CUrXNFWs1G82FoqSBiOIeVwGojN40xxLDZI0fdb4ToFrLFj17tw0JA7UoGtrZB0YPNpf
-         /NUg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791358012; x=1791962812;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1791358014; x=1791962814; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Xc/cMb4XXA+asGhPB5InH/DIUsg9LCc2YMy7yfxc9os=;
-        b=kTKnPXXZhGxvBpm70DenBv8hXaweRglBd8eWTN7CIN0eMqXlfcdLPHzwdzwUghTUIe
-         KaR76HQ5mxJwWeQWYVV7NCbiwgs4ycNey89bIBx73ZiS+1oTtJ87BzeCnsUMsR4/Io/I
-         5hH8ydZt9wgS3A9PiNaRrTMACP9KcQk0J3zmYr8+jWWWWBJK8Tn5JkaUj/mmU2uhK/FH
-         b4Zcs0q8fMe1DMbGmtVEwgzBmafCB5amnAn53gvnzGGu1qfHScQkZFzVwACQWSsfwUbw
-         BkrmNr8Y3AlxMzQBoO1cP+YgRLMLbwrx51AH3Jc8YWvMK52jFTR2hSBLt2o216UWy2Oa
-         kTLA==
-X-Forwarded-Encrypted: i=1; AKwUvByOULiPSqqGHulXlUwhLFEbOEbsFQTw7GDURIHuM4IOGhL4qrYprgxHvsIWvVKq/vQeKdhjAMNIHtBi@vger.kernel.org
-X-Gm-Message-State: AFuF++mbEJF7AO2SvnyUxYHAcjbhQO4H0x7tCYOzGPxoUwQRKhjTbnDK
-	00WXLa4f0s9B7p7SanfIG06sa4w8gIkaSCTC5Vts/HEDeukxGuK38DHB
-X-Gm-Gg: AYBFou2b3yiq132dw7+H01sUbLm5OOiM2ay1TCBM6g1aflb5fPKjbEFjIDaOfnBhnho
-	GcQqs3LhW5id8fVGE0RhSni0dPAYaqhwWVM4QVQyqDXQxO8+qwbkk7cZmJClseP0vQm9ds465hj
-	jPfb8g1+r+89a40sQw0S363CFODFPkcluTLVxSku7iNtjOaMb6v+lz6Dl/IHvNdWKdpY0gdyPkx
-	iqyGkt9uETejDEKiE6R8ZEczs6h3alBzovF92ruWgXgeJGxsi8X1WcJk1aq1JN4PJHMrealFcHC
-	MIR40iceLwd1dGaGWz1Q9k/RUSVmopaUBOeUuwpu0wSKIdLmedTA/+A+hOOv2McMq+6OXO2KveD
-	500KrrfUZ6hLSkqj/RNoqt6I2L0BhLYpGOcDAG8C00a5i4EazhbEUiUe+BxMTaQ1uFc3VMQQfXf
-	9RJz/iSrnbGco/2aivZsZIqJUYxRbS58nvLb4PxOOZS71jLpS29DxBX7vX77bP5jV/nyCbRNErD
-	NFwW23Cq9YJarIIV6s=
-X-Received: by 2002:a05:600c:524f:b0:4a1:6d35:779a with SMTP id 5b1f17b1804b1-4a1800d1ca4mr18145295e9.3.1791358012318;
-        Wed, 07 Oct 2026 00:26:52 -0700 (PDT)
+        bh=9wOw3fCxE0SXZHLWAQtQQ3cRE40r3r/0aGFaPTR+0DY=;
+        b=US0cYCZ+sOP4U9KF8rcoOZnZghRkmjDXU/6ISVFjTpGo4FVMdxsikSvfqKFnstIKXI
+         HocQAt5sZYzXV62o5BvafgIZMhaYK3sOIvNGXVoXx404lC2nD6kdXn2jIGNgFkef0U/D
+         qJMjnvEkN0gLGx4nMWxB+mp9kA9iyyYPaClEY9ZbqLJJn+waxY7H1R1/YI3ugbGjQCuk
+         qWVWoWp7KWxrv/jITrpBKnayeA/XS5IIL0C4q23VdMQN5quuqQVWoLpydSFErJk9UeNP
+         TzbSXhBVeFHyPdkW1pYWj3gGEYvkydHlFkixbxOWbhdbyTkk7WUPGY4l3yiJi1JUG+4H
+         UBsQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791358014; x=1791962814;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9wOw3fCxE0SXZHLWAQtQQ3cRE40r3r/0aGFaPTR+0DY=;
+        b=dI7Y7UWPrqj5bGhmxON/Q48sGipCI+NoRK8rF9kw1+xYbiBqMkska951MB5XOLmy6s
+         5I8MOtfpwbbfCKgoN+CjeXaBL0vUgLulZRAKkugQrYXTfOS/C9fZsdw/b+PctMjBvcC4
+         Y2QruOGjZ+YdAJwWH+qhnFCbGGf3n1UyDmgD7ZD7RxfIoToDU190O2yrRPWrJruN4w/j
+         hW8hwj4DzrXbeVWjaQwBiQRUGa32tn77ytoLIXuiaAveKGXPTC/hcm897rKnDr27ZjqY
+         TWiYX1JX3XvDAir8YoafzYFj5hBEI91pRQ6J+Fq1GjMHBbDwIDw84xlEbkoudJH5ndjX
+         BuYQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxWeqZaChrMAOUhLI4Qdq276p0iDyGPndxeikE0gI1lwNw6sN8CATr27DePU6nd+P2yafIkM71zZQbC@vger.kernel.org
+X-Gm-Message-State: AFuF++nIUeVg/W2kK/oIwJfyC9IHOefMa29eWdlBRIMFWNYKcyoGrpRQ
+	EDVylbsRm0jjGnR796KfgLAPmEyIWi/NY0kIctOU+/iHEBImUKDJT4Q6
+X-Gm-Gg: AYBFou1nl34HV+vsQz2MHELsg+WjqDZrqigJrE/hQ3bWSrLo3TN5ds1qirYAkRyBHgj
+	oAxzTKm+/iV76NKDcKrzxPd+9CCIkpFAJQFo9Eb2TnbY2jpc5X99St1CNeP4jg7qv0trZZeYFA0
+	+hams5EKgxbsPTrHLgvjuSHn2DMC3h6F2nY6avXc31i4C17WsyUtUhrP6koNlzRk/tcQpB8hrAf
+	doreitsfLoCOKjJHzVdkA63mx8ibEdz9H93MZMUKo9fSmIoPZwVX7PoMW/mB1LcWTl+JxemL2e3
+	mvGVPZ90YvReq/FZY2ZvnvgGJcp7T83Hrf3A+HzuEc98NVqwBZdVD7wl6UuGJIHsv+UsWddCQqX
+	P3dLnCcNhUP06auldwPwGyRML7lGnVQnnRQJNTtYCEEIB62+BdqEyh4Ayo6G/p8oOhpXVNQZrMs
+	OJlTO67AXegegRZb4Ck2qkWpip2rimVlLZYcyWYloqFoI7oAyvv7KQPE+cL/Urye0Vy4GFiW88v
+	QIwQYrr
+X-Received: by 2002:a05:600c:8b51:b0:4a1:7d56:663b with SMTP id 5b1f17b1804b1-4a18066ca69mr16269955e9.24.1791358014554;
+        Wed, 07 Oct 2026 00:26:54 -0700 (PDT)
 Received: from taln60.nuvoton.co.il ([212.199.177.18])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a180310c9fsm29912955e9.4.2026.10.07.00.26.50
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a180310c9fsm29912955e9.4.2026.10.07.00.26.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 00:26:51 -0700 (PDT)
+        Wed, 07 Oct 2026 00:26:53 -0700 (PDT)
 From: Tomer Maimon <tmaimon77@gmail.com>
 To: andrew@codeconstruct.com.au,
 	robh@kernel.org,
@@ -71,10 +73,12 @@ Cc: openbmc@lists.ozlabs.org,
 	venture@google.com,
 	yuenn@google.com,
 	benjaminfair@google.com
-Subject: [PATCH RESEND v10 0/6] arm64: dts: nuvoton: add NPCM845 SoC and EVB support
-Date: Wed,  7 Oct 2026 10:26:39 +0300
-Message-Id: <20261007072645.1618147-1-tmaimon77@gmail.com>
+Subject: [PATCH RESEND v10 1/6] arm64: dts: nuvoton: npcm845: Drop redundant timer clock-names
+Date: Wed,  7 Oct 2026 10:26:40 +0300
+Message-Id: <20261007072645.1618147-2-tmaimon77@gmail.com>
 X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261007072645.1618147-1-tmaimon77@gmail.com>
+References: <20261007072645.1618147-1-tmaimon77@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -83,95 +87,27 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series fixes the remaining timer binding issue and adds device tree
-support for peripherals on the Nuvoton NPCM845 SoC and its Evaluation
-Board (EVB).
+The NPCM845 timer0 node references a single clock, but its clock-names
+property is not described by the timer binding. Drop the undocumented
+name so the DTS matches the binding.
 
-The first patch drops the undocumented timer0 clock-names property.
-The second patch splits the two APB address windows into separate bus
-nodes before any peripheral nodes are added.
-The third patch reorders timer0 and PECI so the APB child nodes stay in
-ascending unit-address order.
-The fourth patch introduces peripheral nodes for Ethernet, MMC, SPI,
-USB, RNG, ADC, PWM-FAN, I2C, and OP-TEE firmware in the NPCM845 SoC
-device tree.
-The fifth patch cleans up the pre-existing NPCM845 EVB DTS property
-ordering to match strict dt-check-style expectations.
-The sixth patch enables the NPCM845-EVB peripherals, adding MDIO nodes,
-reserved memory, aliases, and board-specific configurations such as PHY
-modes and SPI flash partitions.
+Signed-off-by: Tomer Maimon <tmaimon77@gmail.com>
+---
+ arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi | 1 -
+ 1 file changed, 1 deletion(-)
 
-The NPCM8XX device tree was tested on the NPCM845 evaluation board.
-
-Changes since version 9:
-        - Split the F0000000 and FFF00000 APB address windows in a
-          separate patch before adding any peripheral nodes.
-        - Add peripheral nodes directly under their final APB bus.
-        - Renumber the timer/PECI ordering and peripheral patches.
-        - Renumber the EVB coding-style and peripheral patches.
-
-Changes since version 8:
-        - Split the EVB changes into a DTS coding-style cleanup patch
-          for the pre-existing board file and a separate peripheral
-          enablement patch.
-        - Fix strict dt-check-style issues in the EVB DTS by reordering
-          properties and nodes, normalizing blank lines and continuation
-          alignment, and lowercasing hex literals.
-        - Drop the unused tip_reserved label.
-        - Keep patches 1-3 unchanged.
-        - The remaining refclk unused-label report is a false positive
-          because the label is referenced from the included common DTSI.
-
-Changes since version 7:
-        - Move timer0 to keep APB child nodes in unit-address order.
-        - Add PSPI to the commit message.
-
-Changes since version 6:
-        - Remove IPMI I2C device.
-        - Add FIX enable property.
-        - Keep patches 1-3 unchanged.
-
-Changes since version 5:
-        - Add no-map to the tip_reserved firmware memory region.
-        - Drop the unsupported snps,eee-force-disable property from
-          gmac1.
-        - Rework the FIU0 boot flash layout into nested fixed-partitions
-          under the bmc container.
-        - Keep patches 1-3 unchanged.
-
-Changes since version 4:
-        - Split the timer0 clock-names cleanup into a separate first
-          patch.
-        - Remove nuvoton,sysgcr from udc8 and udc9.
-        - Rename apb: bus@f0000000 back to apb.
-        - Rename spix-mode to nuvoton,spix-mode.
-        - Keep cooling-levels as 32-bit cells while encoding fan-tach-ch
-          as /bits/ 8.
-
-Changes since version 3:
-        - Remove tmp100.
-
-Changes since version 2:
-        - Fix DTS warning.
-        - Arrange node order by ascending unit address.
-
-Changes since version 1:
-        - Fix commit message.
-        - Fix dtbs_check warnings.
-
-Tomer Maimon (6):
-  arm64: dts: nuvoton: npcm845: Drop redundant timer clock-names
-  arm64: dts: nuvoton: npcm845: Split APB address ranges
-  arm64: dts: nuvoton: npcm845: Reorder timer0 and PECI nodes
-  arm64: dts: nuvoton: npcm845: Add peripheral nodes
-  arm64: dts: nuvoton: npcm845-evb: Fix DTS coding style
-  arm64: dts: nuvoton: npcm845-evb: Add peripheral nodes
-
- .../dts/nuvoton/nuvoton-common-npcm8xx.dtsi   | 731 +++++++++++++++++-
- .../boot/dts/nuvoton/nuvoton-npcm845-evb.dts  | 441 ++++++++++-
- .../boot/dts/nuvoton/nuvoton-npcm845.dtsi     |   6 +
- 3 files changed, 1155 insertions(+), 23 deletions(-)
-
+diff --git a/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi b/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi
+index 35fa206..ab8a01c 100644
+--- a/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi
++++ b/arch/arm64/boot/dts/nuvoton/nuvoton-common-npcm8xx.dtsi
+@@ -73,7 +73,6 @@
+ 				interrupts = <GIC_SPI 32 IRQ_TYPE_LEVEL_HIGH>;
+ 				reg = <0x8000 0x1C>;
+ 				clocks = <&refclk>;
+-				clock-names = "refclk";
+ 			};
+ 
+ 			serial0: serial@0 {
 -- 
 2.34.1
 
