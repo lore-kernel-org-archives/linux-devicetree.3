@@ -1,182 +1,322 @@
-Received: from mx0b-001ae601.pphosted.com (mx0b-001ae601.pphosted.com [67.231.152.168])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0DAD47252C;
-	Wed,  7 Oct 2026 14:24:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=67.231.152.168
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791383077; cv=fail; b=qd5ZU8zHA/tuXAvYd2nL8WnpldDWEbAvSyGaubVPEUpy2gAI9MKIK94BRVXF7G26ITN5LBc0xR2bkWh/H8lONTU16w/09/VLYs7ogkxO3jtDdnBblzjQtN9XUKcH7yefs7tvqSGxDwyTFjkVJc88DuFsJZuXNOgxHsiIdZpxdd8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791383077; c=relaxed/simple;
-	bh=taKDVMgYEje/n0JXqpnX0yXVD6sC0Glp6qIihyeZGLs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tMbrXBmQjAEUB0J3/eUyA+bS8IjMF+VP04QhZTH16fLj6sdGsXBEmRDoV42pMoO46+2Xhu09uAlFPAKX1jENiuCKLpq6TNTgaO66jE/aM6dYKVQamr+U1zzwFKEhRBTe2N4dFrffyemECCorPJVAd/Y9QVuj4jQjNgHi1SzEEdY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com; spf=pass smtp.mailfrom=opensource.cirrus.com; dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b=Bs/zF2Ka; dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b=dr8ajU5p; arc=fail smtp.client-ip=67.231.152.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=opensource.cirrus.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=opensource.cirrus.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22C9748FF88;
+	Wed,  7 Oct 2026 14:29:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791383363; cv=none; b=aRWpGg+/BJ4T/xMr734q+w2HOccS6zidGI4kUO+bUPuzQtj5qUYLwDvJG9JrVO2h8rYNT+rinLO1zRBNgFjZsO7U+S4hw5z9WJengk1/2OWH445O8UXovRShyrlbO8dRnxMqDv2IikD2Lve+qDJWjKspG6FzLdhYE7WIO5gMcAc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791383363; c=relaxed/simple;
+	bh=ji0Ea4gf07hlWO9VngK2StEqx5iVuENiFLVyL4ysbQA=;
+	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=bQbceRf5HN69H4jZ/499ApnGL/hdLt53T6VSKl/eEbeN6Kz7Xszet9vscA1aSkc1IraExwBi5fOvfZ9b/7hG95yviSd0w/JGKvBoIEbuphwwZvmTXbCnY/OvqfP1JLHst+UkB9KNQdu3BKY8G5jb54GtegKyL59kiJyyoW7Ntso=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=jZG3tSKR; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cirrus.com header.i=@cirrus.com header.b="Bs/zF2Ka";
-	dkim=pass (1024-bit key) header.d=cirrus4.onmicrosoft.com header.i=@cirrus4.onmicrosoft.com header.b="dr8ajU5p"
-Received: from pps.filterd (m0077474.ppops.net [127.0.0.1])
-	by mx0b-001ae601.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 697CoLUh2398219;
-	Wed, 7 Oct 2026 09:23:49 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cirrus.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	PODMain02222019; bh=6Faa6YUyXq+pnrQ5HT+FC1I+shDJgaDiAddmHkErmWw=; b=
-	Bs/zF2KagLRPyMMPSJEbHW6V1/BS22LsOhU3tjiyitfbBJn1eLBVZcVOD6EQsT6B
-	smB+c4C1V6/+oqb3LU2joUyoMQYMl2TlXPyr813wYRVfg2gf/9gfJPzaDU5e76FS
-	0VvxdzqAPOgXUjuV+grJikkV39gyFZCn0wHZWDq02NFLEj/sC/rYbHQbTsAeSjJE
-	UfISmrBLOI64H8gMHweQ/PdezLds+Xf6tWeEvTpSenMJjhmkz1PgZy9wo88rCoJC
-	6N4QA3RzWFnbUc30dO1dn4vmE+1KPN/SwQzxritY9hiAnF0gNjtB9IfTLstMGrhv
-	eKmzFItZ+tO0wvqzmJlnkw==
-Received: from mw6pr02cu001.outbound.protection.outlook.com (mail-westus2azon11022093.outbound.protection.outlook.com [52.101.48.93])
-	by mx0b-001ae601.pphosted.com (PPS) with ESMTPS id 4h2x4hded6-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 07 Oct 2026 09:23:49 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mTc+GWOkAkRAUnTagDhD8l2F0GxQ9eAvY+t7xTjO3tL4unDkqiTOoekbs1wxnsnvtjkkMGoEgu5oBUTVb24cg97T5RVdFsqwuKq+6WypbP6r0DM6JyRuAMruogVK8HsxBFFp5ERJBbXwR6+Nu9sDMzl5WR8pjf9hecKF9fSMvFPOP4+9fq438a3zXcR+09VO5Xlx6AJLH7IbiYRIv8id3X063NlJ6pqpIXfaj5rfy4BJIiX1nS3IjDlhOaICkKZydqbDdtXo06KFHGVfblFmMLhBBgVTxUTwHTSDtHxEUEk22CdMafCJKNahVLkv1Un27pMWtFs/98oq+sXpO/ZQTw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6Faa6YUyXq+pnrQ5HT+FC1I+shDJgaDiAddmHkErmWw=;
- b=PjbiEnsmg6NiBb8576jaBRmaQCW9uPL9iZ4wxrsofMrJAJJ0mISrp7iZ1+PnPTHCiCEe4X7mq7VB69BXnn45RM6M+0Z5DFCn7AmC3iMNWetkLsemn1obDSk6snys4cJS4E3ILbCEAzpGkFQw5E9RUZ9BZkFkgq6bFQRKRkPOf/Z4Dy5Qgo9m9ZfRtBFJvhMxFNig4ddKzDf2tX8niiQKNMRNf/2mkvZKj++cC5UIVYhNLXC/NoD9Je875x78453Pl+hmgp/ampDdhH0eEN5gqn4bOC13CrAukx+WS448WVG1LLNZ3HQo7F8fZ09W1RIPuIzoovPDWJlinZVmlMRoig==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=softfail (sender ip
- is 84.19.233.75) smtp.rcpttodomain=cirrus.com
- smtp.mailfrom=opensource.cirrus.com; dmarc=fail (p=reject sp=reject pct=100)
- action=oreject header.from=opensource.cirrus.com; dkim=none (message not
- signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=cirrus4.onmicrosoft.com; s=selector2-cirrus4-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6Faa6YUyXq+pnrQ5HT+FC1I+shDJgaDiAddmHkErmWw=;
- b=dr8ajU5poWR90ajLZfYfePI0E2itadGODl8xA53WZpJTkxUPVPIkhcInU1u2+Hi9l+D1d6DUCBEJ0jrlTrtKIGeWYr3NhFmMuFJ4bbWtQSXxFAq0CQ7TPe5XhWApFrxPB1vQz+Bw1pUpY9Qb35/gTGNpbEVSIGz1Vrg1Rl80sK0=
-Received: from BLAPR03CA0102.namprd03.prod.outlook.com (2603:10b6:208:32a::17)
- by CO6PR19MB4739.namprd19.prod.outlook.com (2603:10b6:5:347::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Wed, 7 Oct
- 2026 14:23:45 +0000
-Received: from BN2PEPF0000A98D.namprd04.prod.outlook.com
- (2603:10b6:208:32a:cafe::5d) by BLAPR03CA0102.outlook.office365.com
- (2603:10b6:208:32a::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Wed, 7
- Oct 2026 14:23:45 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=softfail (sender
- IP is 84.19.233.75) smtp.mailfrom=opensource.cirrus.com; dkim=none (message
- not signed) header.d=none;dmarc=fail action=oreject
- header.from=opensource.cirrus.com;
-Received-SPF: SoftFail (protection.outlook.com: domain of transitioning
- opensource.cirrus.com discourages use of 84.19.233.75 as permitted sender)
-Received: from edirelay1.ad.cirrus.com (84.19.233.75) by
- BN2PEPF0000A98D.mail.protection.outlook.com (10.167.248.132) with Microsoft
- SMTP Server (version=TLS1_3, cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.14
- via Frontend Transport; Wed, 7 Oct 2026 14:23:45 +0000
-Received: from ediswmail9.ad.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
-	by edirelay1.ad.cirrus.com (Postfix) with ESMTPS id 43D9F406544;
-	Wed,  7 Oct 2026 14:23:44 +0000 (UTC)
-Received: from opensource.cirrus.com (ediswmail9.ad.cirrus.com [198.61.86.93])
-	by ediswmail9.ad.cirrus.com (Postfix) with ESMTPSA id 283FF82024C;
-	Wed,  7 Oct 2026 14:23:44 +0000 (UTC)
-Date: Wed, 7 Oct 2026 15:23:42 +0100
-From: Charles Keepax <ckeepax@opensource.cirrus.com>
-To: James Calligeros <jcalligeros99@gmail.com>
-Cc: David Rhodes <david.rhodes@cirrus.com>,
-        Richard Fitzgerald <rf@opensource.cirrus.com>,
-        Martin =?utf-8?Q?Povi=C5=A1er?= <povik+lin@cutebit.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>,
-        Matthias Brugger <matthias.bgg@gmail.com>,
-        AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-        Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
-        Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
-        Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
-        Neal Gompa <neal@gompa.dev>, asahi@lists.linux.dev,
-        linux-sound@vger.kernel.org, patches@opensource.cirrus.com,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org,
-        linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH v2 08/21] ASoC: card: Let 'fixup_controls' return errors
-Message-ID: <asZV7oBh7jQ6wk/g@opensource.cirrus.com>
-References: <20261004-macaudio-v2-0-7b47ed6335a8@gmail.com>
- <20261004-macaudio-v2-8-7b47ed6335a8@gmail.com>
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="jZG3tSKR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1791383356; x=1822919356;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=ji0Ea4gf07hlWO9VngK2StEqx5iVuENiFLVyL4ysbQA=;
+  b=jZG3tSKRFIccpdJbMzYMnE6kV9++SD1RiR5QcXVoMGUTGYWf2LDvVtxQ
+   cUtxUPPPkWElgqAqvT7Kb5LBckyrztnxwCZYiBiokCk1EK8HSCR+4ZXEj
+   wiQUhZ25EerHxmDX0pWV20eeoR4cqN/zY7Oh+Zs4TF8PSmgqu30r+nwAR
+   GSEBNa1LuIHQKn81bfWuJUbP9crK6WpA9HJzW8fE1DfsoJdCf8eHc11Ao
+   DqqmEUxQn3f6Fih0KCf3KLc5odJB5nKeWhaLiEctnvfqrswF2lZMHbo9o
+   lYzDa5oXV2meBDVEcj1/y52aHkuJfaagShI8jlCuzejs3eCExfbBZiB3r
+   g==;
+X-CSE-ConnectionGUID: bpAL12EnSIyGMrGkYRvvXw==
+X-CSE-MsgGUID: sryc8U6AQ62tMFwV1yqDJA==
+X-IronPort-AV: E=Sophos;i="6.27,144,1787036400"; 
+   d="scan'208";a="74988234"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa1.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 07 Oct 2026 07:29:09 -0700
+Received: from chn-vm-ex03.mchp-main.com (10.10.87.152) by
+ chn-vm-ex4.mchp-main.com (10.10.87.33) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.49; Wed, 7 Oct 2026 07:29:09 -0700
+Received: from DEN-DL-M77643.microsemi.net (10.10.85.11) by
+ chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Wed, 7 Oct 2026 07:29:05 -0700
+Message-ID: <f37288168c35a3bcb59f29af0abec3c5f43042fe.camel@microchip.com>
+Subject: Re: [PATCH net-next v13 9/9] net: dsa: lan9645x: add port statistics
+From: Jens Emil Schulz Ostergaard <jensemil.schulzostergaard@microchip.com>
+To: <netdev-bot+sashiko@kernel.org>
+CC: <UNGLinuxDriver@microchip.com>, <andrew@lunn.ch>, <olteanv@gmail.com>,
+	<davem@davemloft.net>, <edumazet@google.com>, <kuba@kernel.org>,
+	<pabeni@redhat.com>, <horms@kernel.org>, <robh@kernel.org>,
+	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <woojung.huh@microchip.com>,
+	<linux@armlinux.org.uk>, <Steen.Hegelund@microchip.com>,
+	<daniel.machon@microchip.com>, <geert+renesas@glider.be>,
+	<magnus.damm@gmail.com>, <linux-kernel@vger.kernel.org>,
+	<netdev@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-renesas-soc@vger.kernel.org>
+Date: Wed, 7 Oct 2026 16:29:05 +0200
+In-Reply-To: <179097566660.434549.17651613804901292493@kernel.org>
+References: <20260929-dsa_lan9645x_switch_driver_base-v13-9-827c2d3617f2@microchip.com>
+	 <179097566660.434549.17651613804901292493@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.44.4-0ubuntu2.1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20261004-macaudio-v2-8-7b47ed6335a8@gmail.com>
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF0000A98D:EE_|CO6PR19MB4739:EE_
-X-MS-Office365-Filtering-Correlation-Id: f42c41f5-93ee-49c5-b1e3-08df247e988a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|61400799027|82310400026|36860700016|376014|23010399003|7416014|56012099006|10067099003|11063799006|4143699003|22082099003|18002099003|16102099003;
-X-Microsoft-Antispam-Message-Info:
-	owyP5CetnvCblmJhgtDF+/GSvHj4++Cz3zdL+Ohr6NTM11634kK2EBIS9p6W+zmPMXzpFyEgkk3/gIrY0iJgpld/JdkKTbNQS8V3EYiTraExhExm14/tqm3t9r6HhJaeTFGJN8f95sPoT+Nc9ky0z3tKJMLycGu+y/81EuD5SadkUYKh2PmMCAlmFwaxXJrQyJXmkJqstxT5oSGwOjnqfA0+Y/m9+y9Rfx83ro9RTOjHqV9X1Wi4zP/lJALBs2GeD2r3A95S0LFPusssyUok5A7jGKwKcEQHE+8wO4Zvv5X2h4MMbAEqufRwKkM33MrecXVQssA4Mhe+mVR/6U9LngNDbzbxd2WiGwgdXwnyvjAyH710GiV65iRvEDoccW2sv/GXAqtaH4GIlVy3r8bVh76+q3fO/yf6Grlv4yDhU0L0fH+CvbPrCSGI+onWl5TaeQCbVW/1CrH4JhU7rcVxbfWGD9v1ssUbkiDwlzNUDJK1+WYXbfW+OYPH5+ZfFByUkIWkfwEuEPcDOz/RZHfwLIwJPGfh9TuW2ud1qLJRWZ8SgD7B5vVQ0fbi30hPeR6iaHmK2wyLdH/naA7FtHExzpaDH7pLwVPtYpVDxYqXu2Dd0Y5J9iyX8DvcQK1e8dyEbgyLmmyDent0ead4yDbhs9XxO7HeHYAp46iFrJCYo4NmgggYevI6AFuY0qCPbG/f22iAcqsVkjnr9mvfs4fFRQ==
-X-Forefront-Antispam-Report:
-	CIP:84.19.233.75;CTRY:GB;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:edirelay1.ad.cirrus.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(61400799027)(82310400026)(36860700016)(376014)(23010399003)(7416014)(56012099006)(10067099003)(11063799006)(4143699003)(22082099003)(18002099003)(16102099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	ic6UJq6y5yyr9Hg0xI/jgsvkjpx3fo5plglbCkCGem1zy9NjtwpiQfnS5oeaDZnou2Y4eFgxML006I3uZph9M+7iDByV7yPY0SzFpfp2IPGaTYlVRZaMQlpk81MvkFOi2r5d8+ozzCkubG2+wjYFpoaV5uMAx3+MiUx/ZNGiXcze1Fl9uhOz/lbWJM1hq/XPisYIOHOiAtwo4qOWUiuwbz/jcQ8wqFwSo5PzbUp4kyy0khB/iKHpSFWRPRT6kpY6kp63mHJOHxtu6ayhyZ8YlkGEYn/NXHkTMGR1JsqtzsSVluskDiP5M69Q8kn6vmakmfGTR4KGUQsXxycombmovlXtUiKMsDhLyfHTVmuN97vugErdMAhHChzhYGyoZ3bqaxz8Ds2EGrehU/s2FR/wN7wlHa0VbGg+DLkJRlfPkdpTGUFfNoCtVTXFHxsPILRP
-X-Exchange-RoutingPolicyChecked:
-	UIXRT2PTQg9n3W63CLBYZ7A1bk/nHHPS9KbJT3fnIqdrSAgfoFqPB5Wk17lkxPZQskCRVV/xNkqjt/sNN260TekRD9s+0tbO89UNKDf03GNMcdMVxKQJhY59YtEosiSjiL5bQAQRqevn4oun96Jro/Ic4u+Fe9cmw6Y9NHDOnN669ejPCLLu/R6gi/xFvP7B8iSpZqGsjDuzSoQgnxz0q3XcEbZUM3cNiezxRuQYoVGx/lLj34JB+VqaZCUrH6ounPd4akAlGYmjLxBD1zhvch8lIHkClsWg5ye7nxC5xeU6bJ5kYu96W9K5BNhvedP6/66QjnzNAG8gLYnToK4pxQ==
-X-OriginatorOrg: opensource.cirrus.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 14:23:45.1469
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: f42c41f5-93ee-49c5-b1e3-08df247e988a
-X-MS-Exchange-CrossTenant-Id: bec09025-e5bc-40d1-a355-8e955c307de8
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=bec09025-e5bc-40d1-a355-8e955c307de8;Ip=[84.19.233.75];Helo=[edirelay1.ad.cirrus.com]
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TreatMessagesAsInternal-BN2PEPF0000A98D.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR19MB4739
-X-Authority-Analysis: v=2.4 cv=DuLDa2/+ c=1 sm=1 tr=0 ts=6ac655f5 cx=c_pps
- a=9VIIl2UxNuoJMDRiX/J/iA==:117 a=h1hSm8JtM9GN1ddwPAif2w==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s63m1ICgrNkA:10 a=RWc_ulEos4gA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=iX4cTi3TZMoOKdANLEfx:22 a=KfkQE9S9VqCBgivYGm0O:22
- a=NwbpVL58AAAA:8 a=pGLkceISAAAA:8 a=XBVY-aag_y0Ah50fz88A:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=zgiPjhLxNE0A:10 a=tNWvAHffTtQgx3ZTRG8Q:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDA1NyBTYWx0ZWRfX9YHDzlg7QNWT
- d4I0KTQexbcGL1xNFXA/9ij58vIdQUZ19J4ZiA/hOVFX9y1/SzNU7IRNJvLndzPji5tAY9cYJmM
- xzEX69X+hg/NcjOLDItDenNK5nISe4bSxN7XZZ9mZoNGzKYEYZlGXQ5vfEd14oe4hLJvIh+hu9X
- 72mQ0yb5rLEfswNdnUpy277M7ebaIjMAShxrjYBjbqpBGqnTWG99jqPdHVUwBDwPXNs6gZ43kKM
- 2tN2PTltBjchIyiEb4O2LuMZfU7PFtNcTPMtrZFgi2D81zAg6Ag5UOpkgWFOKBPAHrvtSr+qBWg
- 5WT+iuQVTYsK+wg8hvzEP9XrREhfJ8ZAlzRx9V9/R2+IJQLWaaqld6wCSvV2auXEOUMT+gmq4Mg
- 7UFy/8qtlqOxCiRnB/95tZ1Nn4lrOPyfqKbKPIE9cVE6vu+Chsvb5lXA9wKZhFElKQp6JnZDqwQ
- uJdc7W72898rngbnWcQ==
-X-Proofpoint-ORIG-GUID: KJCXY8_g7A9Ocx1CQO_JX0pHQGpG-bLM
-X-Proofpoint-GUID: KJCXY8_g7A9Ocx1CQO_JX0pHQGpG-bLM
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDA1NyBTYWx0ZWRfX1oMak7kooLJr
- YKFu+46X+agAFo7teGWz4PogUHG9x6FEfqMYnYnb1Q0SD/roGV6ZMmPlD/8QEUg0ifvuc8UL03f
- 2j85LQm9i/s2X6BhPyRa668M02j8zuU=
-X-Proofpoint-Spam-Reason: safe
 
-On Sun, Oct 04, 2026 at 04:03:35PM +1000, James Calligeros wrote:
-> From: Martin Povišer <povik+lin@cutebit.org>
-> 
-> Let the 'fixup_controls' card method return error values which will roll
-> back the half-done binding of the card.
-> 
-> Signed-off-by: Martin Povišer <povik+lin@cutebit.org>
-> Signed-off-by: James Calligeros <jcalligeros99@gmail.com>
-> ---
->  include/sound/soc-card.h                 |  2 +-
->  include/sound/soc.h                      |  2 +-
->  .../soc/mediatek/mt8188/mt8188-mt6359.c  |  4 +++-
->  sound/soc/soc-card.c                     | 12 +++++++++---
->  sound/soc/soc-core.c                     |  5 ++++-
+On Fri, 2026-10-02 at 21:14 +0000, netdev-bot+sashiko@kernel.org wrote:
+> EXTERNAL EMAIL: Do not click links or open attachments unless you know th=
+e content is safe
+>=20
+> Thank you for your contribution! Sashiko AI review found 4 potential
+> issue(s) to consider.
+>=20
+> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 3 =C2=B7 Low: 1
+>=20
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
+>=20
+> - [Medium] lan9645x_stats_get_sset_count() returns -EOPNOTSUPP (-95) for
+>   every string set other than ETH_SS_STATS.
+> - [Medium] lan9645x_stats_get_stats64() counts bad frames in rx_packets.
+> - [Medium] The eMAC and pMAC FRAG counters are handled inconsistently.
+> - [Low] The commit message says 'The eMAC and pMAC counter sources are
+>   decoded, but only the aggregate source is reachable for now'.
+>=20
+> --
+>=20
+> net: dsa: lan9645x: add port statistics
+>=20
+> This adds port counter support to the lan9645x DSA driver. The 32 bit
+> hardware counters are copied into 64 bit software counters by a poller
+> that runs every three seconds. They are reported through ethtool -S, the
+> standard ethtool statistics groups and ndo_get_stats64.
+>=20
+> > The eMAC and pMAC counter sources are decoded, but only the aggregate
+> > source is reachable for now, until MAC merge support is added.
+>=20
+> [Severity: Low]
+> Is this sentence still accurate? None of these read the ->src field of th=
+e
+> structure they fill in:
+>=20
+>   lan9645x_stats_get_eth_mac_stats()
+>   lan9645x_stats_get_rmon_stats()
+>   lan9645x_stats_get_pause_stats()
+>   lan9645x_stats_get_eth_phy_stats()
+>   lan9645x_stats_get_eth_ctrl_stats()
+>=20
+> All of them always return the eMAC plus pMAC sum.
+>=20
+> The v12 changelog says "Drop the unreachable mac merge related code", so
+> the per-source decoding seems to have been removed. This has no runtime
+> effect today, because without .get_mm ethtool only allows the aggregate
+> source.
+>=20
+> Could the message say instead that the pMAC counters are summed into the
+> aggregate, and that per-source reporting is not implemented yet?
+>=20
 
-Fixup is missing here for sound/soc/sdca/sdca_class_function.c
+Correct, the sentence was left over from before the per-source code was
+dropped. v14 says that the pMAC counters are summed into the aggregate
+source, and that per-source reporting is not implemented yet.
 
-Thanks,
-Charles
+
+> > diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_stats.c b/driv=
+ers/net/dsa/microchip/lan9645x/lan9645x_stats.c
+> > new file mode 100644
+> > index 0000000000000..1253f77489931
+> > --- /dev/null
+> > +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_stats.c
+> > @@ -0,0 +1,856 @@
+>=20
+> [ ... ]
+>=20
+> > +int lan9645x_stats_get_sset_count(struct lan9645x *lan9645x, int port,=
+ int sset)
+> > +{
+> > +     if (sset !=3D ETH_SS_STATS)
+> > +             return -EOPNOTSUPP;
+>=20
+> [Severity: Medium]
+> Can this negative return value corrupt the sset counts that the conduit
+> netdev reports? DSA replaces the conduit's get_sset_count with
+> dsa_conduit_get_sset_count(). For every sset, that function calls:
+>=20
+> net/dsa/conduit.c:dsa_conduit_append_port_sset_count() {
+>         if (ds->ops->get_sset_count)
+>                 *count +=3D ds->ops->get_sset_count(ds, port, sset);
+> }
+>=20
+> Nothing checks for a negative value. For ETH_SS_TEST, ETH_SS_PRIV_FLAGS
+> and ETH_SS_PHY_STATS, the conduit therefore reports its own count minus
+> 95.
+>=20
+> If the conduit has fewer than 95 entries, the count is negative. Then
+> ethtool -t, the netlink priv-flags path and ETHTOOL_GSTRINGS on the
+> conduit fail with a bogus errno. The conduit's self-tests and private
+> flags also drop out of ethtool -i and the netlink strset reply.
+>=20
+> If the conduit has 95 or more entries, the result is zero or a smaller
+> positive value. ethtool_self_test(), ethtool_get_phy_stats_ethtool() and
+> strset_prepare_set() size their buffers from that value, but the
+> conduit's own callbacks still write their full number of entries. No real
+> NIC has that many entries, so this part is theoretical.
+>=20
+> Most other DSA drivers (hellcreek, lan9303, gswip, mt7530, qca8k, a5psw,
+> vsc73xx, and others) return 0 for unsupported ssets. Should this return 0
+> as well?
+>=20
+
+
+Correct, v14 returns 0 for the other string sets, as other DSA drivers
+do.
+
+> > +
+> > +     return ARRAY_SIZE(lan9645x_port_ethtool_stats);
+> > +}
+>=20
+> [ ... ]
+>=20
+> > +     r->undersize_pkts =3D c[SCNT_RX_SHORT] +
+> > +                         c[SCNT_RX_PMAC_SHORT];
+> > +     r->oversize_pkts =3D c[SCNT_RX_LONG] +
+> > +                        c[SCNT_RX_PMAC_LONG];
+> > +     /* SCNT_RX_FRAG counts frames received after the port is paused, =
+and
+> > +      * increments when pause frames arrive from the link partner.
+> > +      * It counts neither undersize frames nor errors, so it is left o=
+ut here
+> > +      * and out of rx_packets, unlike lan966x which adds it to rx_erro=
+rs.
+> > +      * SCNT_RX_PMAC_FRAG does count number of runt frames with invali=
+d CRC.
+> > +      */
+> > +     r->fragments =3D c[SCNT_RX_PMAC_FRAG];
+>=20
+> [Severity: Medium]
+> Can fragments be non-zero without MAC merge support? The pMAC receives no
+> traffic until MAC merge is supported, so RMON fragments always reads 0 in
+> lan9645x_stats_get_rmon_stats(). That includes the case where runts with
+> a bad CRC arrive on the eMAC.
+>=20
+> Documentation/networking/statistics.rst says drivers should leave fields
+> they do not report at ETHTOOL_STAT_NOT_SET, not overwrite them with 0. If
+> no accurate eMAC fragment count exists, would it be better to leave
+> fragments unset?
+>=20
+> The two MACs are also treated differently in lan9645x_stats_get_stats64()=
+.
+> rx_packets includes c[SCNT_RX_PMAC_FRAG] but not c[SCNT_RX_FRAG]. As a
+> result, a bad-CRC runt is counted in rx_packets only when the pMAC
+> receives it.
+>=20
+> Does the hardware really use different meanings for the counters at
+> offset 0x5 and offset 0x35, which is the same position in the pMAC block?
+> If not, could both MACs be handled the same way?
+>=20
+
+The two counters do differ in hardware. c_rx_frag (0x05) counts runts
+with an invalid CRC only on half-duplex links, on full-duplex links it
+counts frames received after the port is paused and increments on
+received pause frames. c_rx_pmac_frag (0x35) always counts runts with an
+invalid CRC. That is also why only the pMAC counter is part of
+rx_packets. I will leave RMON fragments unset, since reporting fragments
+from the pMAC alone is misleading
+
+
+> [ ... ]
+>=20
+> > +void lan9645x_stats_get_stats64(struct lan9645x *lan9645x, int port,
+> > +                             struct rtnl_link_stats64 *stats)
+> > +{
+>=20
+> [ ... ]
+>=20
+> > +     stats->rx_packets =3D c[SCNT_RX_SHORT] +
+> > +                         c[SCNT_RX_JABBER] +
+> > +                         c[SCNT_RX_SZ_64] +
+> > +                         c[SCNT_RX_SZ_65_127] +
+> > +                         c[SCNT_RX_SZ_128_255] +
+> > +                         c[SCNT_RX_SZ_256_511] +
+> > +                         c[SCNT_RX_SZ_512_1023] +
+> > +                         c[SCNT_RX_SZ_1024_1526] +
+> > +                         c[SCNT_RX_SZ_JUMBO] +
+> > +                         c[SCNT_RX_LONG] +
+>=20
+> [Severity: Medium]
+> Should rx_packets include SCNT_RX_SHORT, SCNT_RX_JABBER and SCNT_RX_LONG,
+> and their pMAC equivalents? The same function counts all of them in
+> rx_errors below, and counts JABBER and LONG in rx_length_errors too.
+>=20
+> include/uapi/linux/if_link.h describes rx_packets as "Number of good
+> packets received by the interface".
+>=20
+> The SZ_* buckets also include frames with a bad FCS. The v5 changelog
+> says: "remove rx_crc, rx_symbol_err from rx_packets, as they are already
+> counted in SZ_* buckets".
+>=20
+> So when a link partner sends a runt, jabber, oversized or bad-FCS frame,
+> it shows up in both rx_packets and rx_errors. ocelot and lan966x use a
+> similar formula.
+>=20
+> Would the RX_UC, RX_MC and RX_BC good frame counters, which already feed
+> FramesReceivedOK, be a better source here?
+
+Dismissed, intentional. This follows mscc/ocelot, which computes
+rx_packets the same way. The hardware has no good-frames-only octet
+counter, c_rx_oct counts octets in good and bad frames, so rx_bytes
+cannot follow the uapi description either. rx_packets is therefore made
+to count the same frames rx_bytes counts octets for: the size buckets
+cover good and bad frames from 64 bytes up to MAXLEN, and short, jabber
+and long frames fall outside that range, so every received frame is
+counted exactly once. Bad frames are also reported in rx_errors.
+
+
+>=20
+> > +                         c[SCNT_RX_PMAC_SHORT] +
+> > +                         c[SCNT_RX_PMAC_FRAG] +
+> > +                         c[SCNT_RX_PMAC_JABBER] +
+> > +                         c[SCNT_RX_PMAC_SZ_64] +
+> > +                         c[SCNT_RX_PMAC_SZ_65_127] +
+> > +                         c[SCNT_RX_PMAC_SZ_128_255] +
+> > +                         c[SCNT_RX_PMAC_SZ_256_511] +
+> > +                         c[SCNT_RX_PMAC_SZ_512_1023] +
+> > +                         c[SCNT_RX_PMAC_SZ_1024_1526] +
+> > +                         c[SCNT_RX_PMAC_SZ_JUMBO] +
+> > +                         c[SCNT_RX_PMAC_LONG];
+> > +
+> > +     stats->multicast =3D c[SCNT_RX_MC] + c[SCNT_RX_PMAC_MC];
+> > +
+> > +     stats->rx_errors =3D c[SCNT_RX_SHORT] +
+> > +                        c[SCNT_RX_JABBER] +
+> > +                        c[SCNT_RX_CRC] +
+> > +                        c[SCNT_RX_LONG] +
+> > +                        c[SCNT_RX_PMAC_SHORT] +
+> > +                        c[SCNT_RX_PMAC_JABBER] +
+> > +                        c[SCNT_RX_PMAC_CRC] +
+> > +                        c[SCNT_RX_PMAC_LONG];
+> > +
+> > +     stats->rx_length_errors =3D c[SCNT_RX_JABBER] +
+> > +                               c[SCNT_RX_LONG] +
+> > +                               c[SCNT_RX_PMAC_JABBER] +
+> > +                               c[SCNT_RX_PMAC_LONG];
+>=20
+> [ ... ]
+>=20
+> --
+> Sashiko AI review =C2=B7 https://netdev-ai.bots.linux.dev/sashiko/#/patch=
+set/20260929-dsa_lan9645x_switch_driver_base-v13-0-827c2d3617f2%40microchip=
+.com
+
