@@ -1,68 +1,68 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 889C2481648
-	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 09:01:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9223480DCF
+	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 09:01:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791363738; cv=none; b=sD6MJey7O2YWkVk8NdpSj61BmdR0l6ZxbSTZ9An1Dc/CZ7gOPT6MUxXFGbbDTSRMOApmwusbc68QskcoI0r0/70gD1bloDJ3udoge5hxtN++YutY1Pxd109xTRXaLHyeq09qmC5fe6O3jli9BA8tJabUXsdZPLnhlDszXAWoR88=
+	t=1791363738; cv=none; b=Ij6S7PYmViDdvN6L7L3c4Qnqlw5FCFor7nNm9og+On3FFfL1whygV0h8XnZ9zB2N+3FjTGJ8ZHjzcMXzD8Bi8xCiWMHMcXXv6aX1psgZ6Xb3gfP+fSRUOv4Ya01dysk8+VYb+lc9SVMLRWxLWRx/19/SzI+7yUOhxKDUFO6b9aQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791363738; c=relaxed/simple;
-	bh=2hKc1ZoGqwUQh1gTMahm7DabCTCAHzhOeNtSIJ0Xy6M=;
+	bh=vM0EwhbARsu2KYt3Br6pX+ijG+DEketIDBsRYlzlhE0=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=WtsAXpAla+oQb2S/zTEjimFA9H9XsDJYvzEBkkmZslLN/NnT+YAqiaJupWv1vkcLX22NUav6mPaLHeMqnZ/pnJMdlwTDLplUJoAF6VQzoSsLXh30ncsqyPUE4hsEW/XxdZzYqrigpzYzoYhFlB+3oW+nhiP9/pJ1el2quu24MGQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=fail (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JpnrMpEh reason="signature verification failed"; arc=none smtp.client-ip=205.220.168.131
+	 MIME-Version; b=I7k00QbI5BiyGUgbbJCbPHS5rzqck+xQmLiiLwMOUqc6b+VwX2ua/IaAq4Wzx51hchJ+23Vur863OAL2HcXFtdWTnEuM4QVqQz/EzYE6Wy80/wKBhyjOhqDeI9y3aGorjHjJW3ntL+2/Hl5u0NRq4q5gpJjpNBC9VNf83Bx9T6A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=fail (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=gHzzJ3GK reason="signature verification failed"; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JpnrMpEh"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6977jpxv2711530
-	for <devicetree@vger.kernel.org>; Wed, 7 Oct 2026 09:01:45 GMT
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="gHzzJ3GK"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6977jfLk3334695
+	for <devicetree@vger.kernel.org>; Wed, 7 Oct 2026 09:01:44 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=JYdD8egJwrL
-	g7NcyXfZXtIAdt/Efnj+hzcMMsvzKWN4=; b=JpnrMpEhHqaVTBSWO80gjUmeIAm
-	ZhGPGVOC/KovI46EwfvXfNWUY1RDPFcIR5Md5vLtBCJbSmDXnIWLPJdhitEeDF2X
-	psnlG8El5uWUDD/4sd/Ex/Y0tZmNMglpi4jaxhzJ6Yoc76Jjg8eZ/EZ8OWXqr1Ml
-	ngNxzV7CEvU+Ija8Xc/ayjQ5KEwONqQjJvRX82KcoSKMPO4z4ANu18ZW1zuEhFGB
-	z2qbmxDpi83zOZp9PPoUbuhKsFiM67OXdcg0M9IW4hZU8uAu/ZugFOIqBvrE33gd
-	kQLS80m5+ATVj0v22BwyfAlVIjQd6sbxs2sW4A3wEZViXeCkygvX3FTqZiA==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5c1s1d3x-1
+	:mime-version:references:subject:to; s=qcppdkim1; bh=V7aQkaIwwMO
+	nBDWn2MdMRVdz4QUOz9HQ2TkkLsW+DyE=; b=gHzzJ3GKX62dJNb3GrqFZQBVgbv
+	b3QfjRUFUsQ0RwKR7OZMG2nSyJHO/C0AL5LaQLG8oynLJLUCNWY27binJ5OsXKCP
+	Uj+cNTx6pAJFl9Yqstjlqsr0YgUowX6ggsza8Hc/SrwOIKkRK2wAbWBYZrfAc9C7
+	9Cs0L8Wzjumff5VCmzM2xteVvYCeekfMIg20FoxFJMUTH+L2Ee2CM6wwkJSTm89u
+	3p7aWWVDQsySKpgGGwlpWvyQOUnN9sUlm95eeFRs77IKmJLivRQf0U6i7oqmh68Z
+	jnWE2IUhqLyxnjSUO8ikP5QJuuDo7Z0lFW5NTkhaZNWOZ3SyUFYqbkzxXRQ==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h54623arv-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 09:01:45 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93e46b4b700so635849585a.1
-        for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 02:01:45 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 09:01:43 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-9179a2035a4so37008056d6.1
+        for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 02:01:43 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791363704; x=1791968504;
+        d=1e100.net; s=20260707; t=1791363702; x=1791968502;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=JYdD8egJwrLg7NcyXfZXtIAdt/Efnj+hzcMMsvzKWN4=;
-        b=EybSHfcM1H10+nHFMJLmc61rubx+ZQkFSthsaABpYx4gX5GZca4vIA0RnnukdaqsRr
-         jaA7AI8Klb+pSFLgvXD0VafI7zVvmJiqYFpSfXw20qBAEaXH1nSAaWDyAWkecpBP+1N5
-         EkmZtccrbhlabGuIw+ePb2gO4+3/zPVi8awceFqItKKdBdFhoqH8mO4zit88/8YNGbX3
-         JTIk6a3k/gJpMyVV2ZXUeso4K1/bwOj/qribrXuF2qvOmUhr4nzTfAhUwUIXlT9qtRta
-         2v0GOEqYpNz7halM0YySxj3k+4yK+dgp1oKmxAMf5R0HiU7LNTl12e7k/EJggmsFyE3S
-         mKPg==
-X-Forwarded-Encrypted: i=1; AKwUvBz0c457G7BENqRHYi1OiSbGc2BvueeNAtoSDqXLTc5JMLlJOEQAoi9zRoxk6+S+9cAw4uugh26xWJPV@vger.kernel.org
-X-Gm-Message-State: AFuF++nCSCCymqfzPqxFKPz2a1aAEstqpsHdbdY2YDt6xtUxiUPIPRHM
-	Yiq+OKK/c9dTAFhYroi6FLNjEJczYDF2WMDwuBz3YD3cspMQCiZ+YXxpKmu5RvUrbLue2v50Kzx
-	Qsa3KRZ3dw6he9iJL8D+IRguL/r0QC3jEALYIQ1Fs99tj8472DqI38Y69vwwRdAiG
-X-Gm-Gg: AYBFou1hvshm6UO/CwOfTmBH3tiJLLSZ3+koXJ+HOfYarCKqmadMvS9+xZsnZwmk9Zh
-	39NQhXzaZHdyA1i/sdZW13J0bg7VgRCMOZ0BlVaMetw83xNNp/12ux8xZqhrVG2MQtXfjWUfwWW
-	x1Cz1M8NUYNy477qvuZd7J6i+mu23W/lMV7t+li/MeqfR+yBpC5dNJa3BUiFZgEAgpZQCe3L/AC
-	SKPheNjLfnXJMBHEfDmeZW06dtam7txXYFiwph23iPAODchIJ3MTY9X1CYpUx6F9B/sNOY08yiX
-	wKZI/e5ZHdtpTUFSQpGiKEXriWsYLKdKOn9eY44jM8P6hDZMzz9wtt/Hpjs=
-X-Received: by 2002:a05:620a:3904:b0:93c:6417:f9c8 with SMTP id af79cd13be357-93e9b74bc43mr301642985a.29.1791363704272;
-        Wed, 07 Oct 2026 02:01:44 -0700 (PDT)
-X-Received: by 2002:a05:620a:3904:b0:93c:6417:f9c8 with SMTP id af79cd13be357-93e9b74bc43mr301638185a.29.1791363703693;
-        Wed, 07 Oct 2026 02:01:43 -0700 (PDT)
+        bh=V7aQkaIwwMOnBDWn2MdMRVdz4QUOz9HQ2TkkLsW+DyE=;
+        b=A5jeTKDMvzVi99Me35NOOSGp+Al+ha6MjfozsOMVLBxsFL9VOTKhsRjpLKKF00mVGE
+         NP/IFNVZqYw79k8jIJGiHwQQ0Ob1vE3HOL6cCKrwSSneuE1kfeFkLzsys8K3jeUgixjN
+         Ocm/uyLRSVDE83RgHhx4Mlsw7uOU+OQOcpU0z9UK+kKDyQmXmx2/g1xk9XQR13+pgGxX
+         avu4+NDup61sJXjDOJsgDGiMp7zQBG+/0IlfuyT6ckwQSsaC9RifZbCVF4T0HA+NY5Og
+         bpZVD1j0GHg+MtX/h4cfKoGdq5swpnpZEJ0xS41Gh/TRnY0uAv2eJ0wdiElHD6fxdkR7
+         uaEA==
+X-Forwarded-Encrypted: i=1; AKwUvBxZxOGdVkoE8PhEPe6eLnIHCPyHP8o2njdXv94G1k1q9h849mlrROM7V43AAum2gl/w4CLm1a3vjYiF@vger.kernel.org
+X-Gm-Message-State: AFuF++lwHpSDdtatjs1A41Z2zw58TsshY8VEx1zwP2bDj0qw35SjbV1y
+	rkFI7+YzfM/OFGChMgv5ROPGqryAAt/cZ8M7kwmitUriMCdE+KsvYJboWZ1FqMR/C/9cLVBCU6v
+	bppnlR2sjwBIzjKKzTOoJKiUCj12/32cOnwi4fEAtP7OQx9ov0u1Sin8VE3mX7NqU
+X-Gm-Gg: AYBFou3CyWM28OZPVTjbzvcVkyQZiDjjlHkRvBFn+PJsJq1nG0mlSzAOktSdmJz4DIR
+	I8N21W24sY8bESeJunvmXlhHJLhVZmuIBk9Zv2ubsGcJUsqDLvxs9PwAIG6PA6Wu1YvhDK2TBWP
+	hBP9Y97TeAeSP3+WB5N7RidO+0mjP3M2gckg7/o4r3V1ksxk+yLUCL9jWBd/cZBQMeDNEyAUiAQ
+	mGRdGQWCZGU5C0zqn0s1fAmJLllsUGfOpYyswje4jtmU2zlWrrD9d9LlP4RhUpMa0ZgReUH0Viu
+	CGLOix4kSzj+B3T75pPWMY0wbhAKb6D66/kOI2XjjiMA5UywJubY76WPmrY=
+X-Received: by 2002:a05:620a:4808:b0:939:fe55:402a with SMTP id af79cd13be357-93e860dc342mr1016298385a.31.1791363701809;
+        Wed, 07 Oct 2026 02:01:41 -0700 (PDT)
+X-Received: by 2002:a05:620a:4808:b0:939:fe55:402a with SMTP id af79cd13be357-93e860dc342mr1016287285a.31.1791363700760;
+        Wed, 07 Oct 2026 02:01:40 -0700 (PDT)
 Received: from lin-0843.qualcomm.com ([212.136.9.4])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3188d412besm4197366b.80.2026.10.07.02.01.41
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3188d412besm4197366b.80.2026.10.07.02.01.37
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 02:01:42 -0700 (PDT)
+        Wed, 07 Oct 2026 02:01:39 -0700 (PDT)
 From: Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com
 To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
         Mauro Carvalho Chehab <mchehab@kernel.org>
@@ -90,9 +90,9 @@ Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
         pshrotri@qti.qualcomm.com, johannes.goede@oss.qualcomm.com,
         linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
         devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: [PATCH RESEND 16/45] media: qcom: camss: integrate IFE devices
-Date: Wed,  7 Oct 2026 12:00:12 +0300
-Message-Id: <20261007090041.3732717-17-gjorgji.rosikopulos@oss.qualcomm.com>
+Subject: [PATCH RESEND 15/45] media: qcom: camss: add common IFE subdevice core
+Date: Wed,  7 Oct 2026 12:00:11 +0300
+Message-Id: <20261007090041.3732717-16-gjorgji.rosikopulos@oss.qualcomm.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261007090041.3732717-1-gjorgji.rosikopulos@oss.qualcomm.com>
 References: <20261007090041.3732717-1-gjorgji.rosikopulos@oss.qualcomm.com>
@@ -103,662 +103,1799 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: pZDg1QpBzaO8RFezkaOI1xheBx7r_okg
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDAzNSBTYWx0ZWRfXw80oyZD2/JJh
- KdIP6VmhfZhCyJcnUkD6f/toMARIyDSDb26HhGO3udizabVbPZ8gIxi0F+m74qJX3c/4Fq+dz1i
- mC5pHJATBc1nnz52oEpJSOEoD2gl7QdM+83OyBEV1TSrRNI1exWF4KNAKJy8rg36TXxfBPsBdTF
- T6FbYJg/BrjGaEUpINwh9oZsJnuei9Gqi5//flWiuYvDzsr6Vk7KHGvAhwDuprO3oKsWZziSRFz
- tv/JW9+0/n8zLK0ofP15AZNcxGTqTBcUfFU8tboggwtR5Kz8fZrrCulAbZ84UHYrT3FoF9PyWDR
- lfVgr3XxK72Ba4c/21Fjvq2mnljOHwuLxtuqlrTw3wMjI4Y5ep6mB4GLuRhavxC/x5gmteeg9UF
- fjBIMjpcNU2uQfE3Ye1hqIigLKU/sQOAG3YmBPTJxtexXvdBfuhdfV1+siF6R4reJ+K6Hma3G3o
- wGR+LTvai38KKi7WWKA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDAzNSBTYWx0ZWRfXwL8+M5Ye9YmV
- HwI+vgImUkzQm1p2OJbj23DYzdm7vOoH44aJ869SR8zOiczNosX0VryyJvgoz0jSUH3dqYMWp6+
- /HqD1TwJ1+0pa6jr5iUl8S9BoaVwQeo=
-X-Proofpoint-GUID: pZDg1QpBzaO8RFezkaOI1xheBx7r_okg
-X-Authority-Analysis: v=2.4 cv=NatzRGD4 c=1 sm=1 tr=0 ts=6ac60a79 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
+X-Proofpoint-GUID: dCj03O8B-rQPRrPQq8oGPWTDjK_2nSNC
+X-Authority-Analysis: v=2.4 cv=ZZiIpcVA c=1 sm=1 tr=0 ts=6ac60a77 cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
  a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8 a=mQKNiLCmDEPOf1wI07oA:9
- a=NFOGd7dJGGMPyQGDc5-O:22
+ a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8 a=s0U3kRtrIjIIz645ZGwA:9
+ a=pJ04lnu7RYOZP9TFuWaZ:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDAzNSBTYWx0ZWRfXwGgPr3i7H5KB
+ Q6s5QskEcmip0YwebnOa0V0VFW3szx5UmwlwD/AdsY/pe48/ePsBqka9MwTh7D3Y+rwNt6u155Q
+ AlozzqNoXpL5AZztzb6py7O74JnswnQ=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDAzNSBTYWx0ZWRfXzZ3x9SeKBzG7
+ ltXEuRHir4JD9LPNHA1yFX/6wzuA0VJk3IQn51beVrXgxLvHlTijLl/1ekx1cOV4GaoZH4FWpFQ
+ 4F/uFtxPmSMKNFOv+fa+3J+8JxJyXrXKfrqRryZtElee/15kU5Mg4E2V9TN+o2P4+7D2val3PwP
+ 4BOwiB9/qVOfZn3mF2Rsx4g0NHJEvCG0bklqN6iyxtgX8B2V7Aqd2A5p972zAvTyZGMxR3OCdzk
+ 9b199wHg98RjMN/glcXBuYYPZFvgT6zWoatJi3FpVuyZ20RWH5EQqUWCFkHcKPNvXkuIodKi4p0
+ iQSKqhQ3Ev6jpo0e1k2Nn4zSg4HmiWUn+LZoVdwDG8s3mpl00CQMqEXSeMBrhpkMXEMQ+LR3kPe
+ szjeJk10/lbt07oDLOT6Kub7Y147Lmxzlez/8YX3yE9wZqrBfYCVB3jJIH/6JLBclyxNjaX1L+O
+ pgTr+eyyEPjL/tBMdDw==
+X-Proofpoint-ORIG-GUID: dCj03O8B-rQPRrPQq8oGPWTDjK_2nSNC
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-07_03,2026-10-06_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 adultscore=0 lowpriorityscore=0 suspectscore=0 spamscore=0
- clxscore=1015 priorityscore=1501 impostorscore=0 phishscore=0 malwarescore=0
+ malwarescore=0 spamscore=0 priorityscore=1501 impostorscore=0 bulkscore=0
+ phishscore=0 lowpriorityscore=0 suspectscore=0 clxscore=1015 adultscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070035
 
 From: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
 
-Integrate IFE devices with CAMSS probe, power management, media entity
-registration, and performance management. Keep the legacy VFE path
-unchanged.
+Add the common IFE subdevice core. It manages routed streams and
+formats. It also handles buffers, hardware pipelines, and media
+entities.
 
 Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
 ---
- drivers/media/platform/qcom/camss/camss.c | 471 +++++++++++++++++++++-
- 1 file changed, 460 insertions(+), 11 deletions(-)
+ drivers/media/platform/qcom/camss/Makefile    |    1 +
+ drivers/media/platform/qcom/camss/camss-ife.c | 1617 +++++++++++++++++
+ drivers/media/platform/qcom/camss/camss.h     |   46 +
+ 3 files changed, 1664 insertions(+)
+ create mode 100644 drivers/media/platform/qcom/camss/camss-ife.c
 
-diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-index 1f662b1caf5a..7c355003c957 100644
---- a/drivers/media/platform/qcom/camss/camss.c
-+++ b/drivers/media/platform/qcom/camss/camss.c
-@@ -32,6 +32,9 @@
- #define CAMSS_CLOCK_MARGIN_NUMERATOR 105
- #define CAMSS_CLOCK_MARGIN_DENOMINATOR 100
- 
-+/* Number of pixels fetched per clock cycle */
-+#define CAMSS_NUM_OF_PIXELS_PER_CYCLE	2
-+
- static const struct parent_dev_ops vfe_parent_dev_ops;
- 
- static const struct camss_subdev_resources csiphy_res_8x16[] = {
-@@ -4653,6 +4656,108 @@ s64 camss_get_link_freq(struct media_entity *entity, unsigned int bpp,
- 	return v4l2_get_link_freq(sensor_pad, bpp, 2 * lanes);
- }
- 
-+static int camss_get_num_lanes(struct media_entity *entity,
-+			       unsigned int *lanes)
-+{
-+	struct media_pad *pad;
-+
-+	while (1) {
-+		struct v4l2_subdev *sd;
-+
-+		pad = &entity->pads[0];
-+		if (!(pad->flags & MEDIA_PAD_FL_SINK))
-+			return -ENODEV;
-+
-+		pad = media_pad_remote_pad_first(pad);
-+		if (!pad || !is_media_entity_v4l2_subdev(pad->entity))
-+			return -ENODEV;
-+
-+		sd = media_entity_to_v4l2_subdev(pad->entity);
-+		if (sd->grp_id == CSIPHY_GRP_ID) {
-+			struct csiphy_lanes_cfg *lane_cfg;
-+			struct csiphy_device *csiphy;
-+
-+			csiphy = v4l2_get_subdevdata(sd);
-+			if (!csiphy->cfg.csi2)
-+				return -ENODEV;
-+
-+			lane_cfg = &csiphy->cfg.csi2->lane_cfg;
-+			if (!lane_cfg->num_data)
-+				return -EINVAL;
-+
-+			*lanes = lane_cfg->num_data;
-+			return 0;
-+		}
-+
-+		entity = pad->entity;
-+	}
-+}
-+
-+static int camss_get_pixel_clock_from_link_freq(struct media_entity *entity,
-+						unsigned int bpp,
-+						u64 *pixel_clock)
-+{
-+	struct media_pad *sensor_pad;
-+	unsigned int lanes;
-+	s64 link_freq;
-+	int ret;
-+
-+	if (!bpp)
-+		return -EINVAL;
-+
-+	sensor_pad = camss_find_sensor_pad(entity);
-+	if (!sensor_pad)
-+		return -ENODEV;
-+
-+	ret = camss_get_num_lanes(entity, &lanes);
-+	if (ret)
-+		return ret;
-+
-+	link_freq = v4l2_get_link_freq(sensor_pad, bpp, 2 * lanes);
-+	if (link_freq < 0)
-+		return link_freq;
-+
-+	*pixel_clock = div_u64(link_freq * 2 * lanes, bpp);
-+
-+	return 0;
-+}
-+
-+/*
-+ * camss_get_pixel_clock - Get pixel clock rate from sensor
-+ * @entity: Media entity in the current pipeline
-+ * @bpp: Number of bits per pixel for the current format
-+ * @pixel_clock: Received pixel clock value
-+ *
-+ * Return 0 on success or a negative error code otherwise
+diff --git a/drivers/media/platform/qcom/camss/Makefile b/drivers/media/platform/qcom/camss/Makefile
+index 547da75b24b4..057c171e08b9 100644
+--- a/drivers/media/platform/qcom/camss/Makefile
++++ b/drivers/media/platform/qcom/camss/Makefile
+@@ -14,6 +14,7 @@ qcom-camss-objs += \
+ 		camss-csiphy-2ph-1-0.o \
+ 		camss-csiphy-3ph-1-0.o \
+ 		camss-format.o \
++		camss-ife.o \
+ 		camss-ife-bus-v20x.o \
+ 		camss-ife-camif-v10x.o \
+ 		camss-ife-lite-top-v10x.o \
+diff --git a/drivers/media/platform/qcom/camss/camss-ife.c b/drivers/media/platform/qcom/camss/camss-ife.c
+new file mode 100644
+index 000000000000..cf1474e5bce4
+--- /dev/null
++++ b/drivers/media/platform/qcom/camss/camss-ife.c
+@@ -0,0 +1,1617 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright (c) 2023, The Linux Foundation. All rights reserved.
++ * Copyright (c) 2023 Qualcomm Technologies, Inc.
 + */
-+int camss_get_pixel_clock_bpp(struct media_entity *entity, unsigned int bpp,
-+			      u64 *pixel_clock)
++
++#include <linux/align.h>
++#include <linux/minmax.h>
++#include <linux/pm_runtime.h>
++#include <media/v4l2-common.h>
++#include <media/v4l2-event.h>
++
++#include "camss.h"
++#include "camss-csid.h"
++#include "camss-ife.h"
++
++#define CAMSS_IFE_PREFIX "ife"
++#define CAMSS_IFE_IRQ_NAME "msm_vfe"
++
++#define IFE_IMAGE_SINK_PAD	0
++#define IFE_FIRST_SOURCE_PAD	1
++
++static bool is_rdi_hw_pipe(enum camss_ife_hw_pipe pipe)
 +{
-+	struct media_pad *sensor_pad;
-+	struct v4l2_subdev *subdev;
-+	struct v4l2_ctrl *ctrl;
-+	int ret;
++	return pipe == CAMSS_IFE_HW_PIPE_RDI0 ||
++	       pipe == CAMSS_IFE_HW_PIPE_RDI1 ||
++	       pipe == CAMSS_IFE_HW_PIPE_RDI2 ||
++	       pipe == CAMSS_IFE_HW_PIPE_RDI3;
++}
 +
-+	ret = camss_get_pixel_clock_from_link_freq(entity, bpp, pixel_clock);
-+	if (!ret)
-+		return 0;
++static bool is_pix_hw_pipe(enum camss_ife_hw_pipe pipe)
++{
++	return pipe == CAMSS_IFE_HW_PIPE_PP;
++}
 +
-+	sensor_pad = camss_find_sensor_pad(entity);
-+	if (!sensor_pad)
-+		return -ENODEV;
++u32 camss_ife_stream_id_for_pipe(int nstreams,
++				 const struct camss_ife_stream *streams,
++				 enum camss_ife_hw_pipe hw_pipe)
++{
++	int i;
 +
-+	subdev = media_entity_to_v4l2_subdev(sensor_pad->entity);
-+
-+	ctrl = v4l2_ctrl_find(subdev->ctrl_handler, V4L2_CID_PIXEL_RATE);
-+
-+	if (!ctrl)
-+		return -EINVAL;
-+
-+	*pixel_clock = v4l2_ctrl_g_ctrl_int64(ctrl);
++	for (i = 0; i < nstreams; i++) {
++		if (streams[i].pipe == hw_pipe)
++			return streams[i].id;
++	}
 +
 +	return 0;
 +}
 +
- /*
-  * camss_get_pixel_clock - Get pixel clock rate from sensor
-  * @entity: Media entity in the current pipeline
-@@ -4746,6 +4851,156 @@ static const struct parent_dev_ops vfe_parent_dev_ops = {
- 	.get_base_address = vfe_parent_dev_ops_get_base_address
- };
- 
-+static const u32 cam_cc_sbi_clk_rates[] = {
-+	19200000, 350000000, 475000000, 576000000, 680000000,
-+};
-+
-+static int camss_set_perf_level(struct camss *camss, struct ife_device *ife)
++enum camss_ife_hw_pipe
++camss_ife_pipe_for_stream_id(int nstreams,
++			     const struct camss_ife_stream *streams,
++			     u32 id)
 +{
-+	enum camss_perf_mode perf_max = CAMSS_PERF_MAX_MODES - 1;
-+	u64 freq_min, pixel_clock = 0;
-+	u32 sink_pad = ife->sink_pad;
-+	int pixelformat, fmt_index, i;
-+	u8 bits_per_pixel = 0;
-+	int ret;
++	int i;
 +
-+	fmt_index = camss_get_pixfmt_index(ife->pads[sink_pad].fmt.code,
-+					   ife->pads[sink_pad].desc->sup_fmts.formats,
-+					   ife->pads[sink_pad].desc->sup_fmts.nformats);
-+	if (fmt_index < 0) {
-+		dev_err(camss->dev, "%s Can't find requested format index: 0x%x\n", __func__,
-+			ife->pads[sink_pad].fmt.code);
-+		return fmt_index;
++	for (i = 0; i < nstreams; i++) {
++		if (streams[i].id == id)
++			return streams[i].pipe;
 +	}
 +
-+	pixelformat = ife->pads[sink_pad].desc->sup_fmts.formats[fmt_index].pixelformat;
++	return CAMSS_IFE_HW_PIPE_INVALID;
++}
 +
-+	ret = camss_get_pixfmt_depth(pixelformat, Y_PLANE, &bits_per_pixel);
-+	if (ret) {
-+		dev_err(camss->dev, "%s Unknown pixel format: 0x%x\n", __func__,
-+			pixelformat);
-+		return ret;
++static bool is_stats_type(const struct ife_pad_desc *pad)
++{
++	return pad->buf_type == V4L2_BUF_TYPE_META_CAPTURE;
++}
++
++static bool is_meta_type(const struct ife_pad_desc *pad)
++{
++	return is_stats_type(pad);
++}
++
++static void ife_pp_notify_sof_event(struct ife_device *ife, u32 seq_number)
++{
++	struct v4l2_event event = {0};
++
++	event.type = V4L2_EVENT_FRAME_SYNC;
++	event.u.frame_sync.frame_sequence = seq_number;
++
++	v4l2_subdev_notify_event(&ife->sd, &event);
++}
++
++static int ife_event_subscribe(struct v4l2_subdev *sd, struct v4l2_fh *fh,
++			       struct v4l2_event_subscription *sub)
++{
++	if (sub->type != V4L2_EVENT_FRAME_SYNC)
++		return -EINVAL;
++
++	/* V4L2_EVENT_FRAME_SYNC doesn't require an id, so zero should be set */
++	if (sub->id != 0)
++		return -EINVAL;
++
++	return v4l2_event_subscribe(fh, sub, 0, NULL);
++}
++
++static inline bool is_ife_hw_wm_fifo_full(struct ife_video_pad *vid_pad)
++{
++	const struct ife_pad_desc *dsc = vid_pad->ife->pads[vid_pad->pad_index].desc;
++	const struct ife_hw_buswr_ops *buswr_ops = vid_pad->ife->res->buswr_ops;
++
++	return buswr_ops->is_fifo_full(&vid_pad->ife->buswr_ctx, dsc->wm[0]);
++}
++
++static struct camss_buffer *__ife_hw_wm_dqbuf(struct ife_video_pad *vid_pad)
++{
++	struct camss_buffer *buf;
++
++	lockdep_assert_held(&vid_pad->ife->bufs_lock);
++
++	if (list_empty(&vid_pad->processing_bufs))
++		return NULL;
++
++	/* Add check with last processing buffer in WM */
++	buf = list_first_entry(&vid_pad->processing_bufs, struct camss_buffer,
++			       queue);
++	list_del(&buf->queue);
++
++	return buf;
++}
++
++static void __ife_hw_wm_qbuf(struct ife_video_pad *vid_pad,
++			     struct camss_buffer *buf)
++{
++	const struct ife_pad_desc *dsc = vid_pad->ife->pads[vid_pad->pad_index].desc;
++	const struct ife_hw_buswr_ops *buswr_ops = vid_pad->ife->res->buswr_ops;
++
++	lockdep_assert_held(&vid_pad->ife->bufs_lock);
++
++	buswr_ops->queue_buf(&vid_pad->ife->buswr_ctx, dsc->num_wms, dsc->wm, buf->addr);
++	INIT_LIST_HEAD(&buf->queue);
++	list_add_tail(&buf->queue, &vid_pad->processing_bufs);
++}
++
++static bool __ife_hw_wm_queue_next_pending_buf(struct ife_video_pad *vid_pad)
++{
++	struct camss_buffer *buf;
++
++	lockdep_assert_held(&vid_pad->ife->bufs_lock);
++
++	if (!list_empty(&vid_pad->pending_bufs) && !is_ife_hw_wm_fifo_full(vid_pad)) {
++		buf = list_first_entry(&vid_pad->pending_bufs,
++				       struct camss_buffer, queue);
++		list_del(&buf->queue);
++
++		__ife_hw_wm_qbuf(vid_pad, buf);
++
++		return true;
 +	}
 +
-+	ret = camss_get_pixel_clock_bpp(&ife->sd.entity, bits_per_pixel,
-+					&pixel_clock);
-+	if (ret) {
-+		camss->perf_mode = CAMSS_PERF_MODE_NOM;
-+		return 0;
++	return false;
++}
++
++static bool __ife_hw_wm_queue_all_pending_bufs(struct ife_video_pad *vid_pad)
++{
++	bool buffers_queued = false;
++	bool next_buf_queued;
++
++	lockdep_assert_held(&vid_pad->ife->bufs_lock);
++
++	for ( ;; ) {
++		next_buf_queued = __ife_hw_wm_queue_next_pending_buf(vid_pad);
++		buffers_queued |= next_buf_queued;
++		if (!next_buf_queued || is_ife_hw_wm_fifo_full(vid_pad))
++			break;
 +	}
 +
-+	freq_min = pixel_clock * bits_per_pixel / CAMSS_NUM_OF_PIXELS_PER_CYCLE / BITS_PER_BYTE;
-+	camss->perf_mode = perf_max;
++	return buffers_queued;
++}
 +
-+	for (i = 0; i < ARRAY_SIZE(cam_cc_sbi_clk_rates); i++) {
-+		if (freq_min <= cam_cc_sbi_clk_rates[i]) {
-+			camss->perf_mode = min_t(u8, i, perf_max);
++static void ife_hw_wm_queue_all_pending_bufs(struct ife_video_pad *vid_pad)
++{
++	struct ife_device *ife = vid_pad->ife;
++	unsigned long flags;
++
++	spin_lock_irqsave(&ife->bufs_lock, flags);
++	__ife_hw_wm_queue_all_pending_bufs(vid_pad);
++	spin_unlock_irqrestore(&ife->bufs_lock, flags);
++}
++
++static void ife_hw_reg_update(struct ife_video_pad *vid_pad)
++{
++	const struct ife_pad_desc *dsc = vid_pad->ife->pads[vid_pad->pad_index].desc;
++	const struct ife_hw_top_ops *top_ops = vid_pad->ife->res->top_ops;
++	struct ife_top_ctx *top_ctx = &vid_pad->ife->top_ctx;
++
++	top_ops->reg_update(top_ctx, dsc);
++}
++
++static void ife_hw_wm_add_pending_buf(struct ife_video_pad *vid_pad,
++				      struct camss_buffer *buf)
++{
++	struct ife_device *ife = vid_pad->ife;
++	bool buffers_queued = false;
++	unsigned long flags;
++
++	spin_lock_irqsave(&ife->bufs_lock, flags);
++	INIT_LIST_HEAD(&buf->queue);
++	list_add_tail(&buf->queue, &vid_pad->pending_bufs);
++	if (vid_pad->streaming)
++		buffers_queued = __ife_hw_wm_queue_all_pending_bufs(vid_pad);
++	if (buffers_queued)
++		ife_hw_reg_update(vid_pad);
++	spin_unlock_irqrestore(&ife->bufs_lock, flags);
++}
++
++static void ife_hw_wm_flush_bufs(struct ife_video_pad *vid_pad,
++				 enum vb2_buffer_state state)
++{
++	struct ife_device *ife = vid_pad->ife;
++	struct camss_buffer *buf;
++	struct camss_buffer *tmp;
++	unsigned long flags;
++
++	spin_lock_irqsave(&ife->bufs_lock, flags);
++
++	list_for_each_entry_safe(buf, tmp, &vid_pad->processing_bufs, queue) {
++		vb2_buffer_done(&buf->vb.vb2_buf, state);
++		list_del(&buf->queue);
++	}
++
++	list_for_each_entry_safe(buf, tmp, &vid_pad->pending_bufs, queue) {
++		vb2_buffer_done(&buf->vb.vb2_buf, state);
++		list_del(&buf->queue);
++	}
++
++	spin_unlock_irqrestore(&ife->bufs_lock, flags);
++}
++
++static void ife_hw_isr_reg_update(struct ife_video_pad *vid_pad)
++{
++	if (__ife_hw_wm_queue_all_pending_bufs(vid_pad))
++		ife_hw_reg_update(vid_pad);
++}
++
++static void ife_hw_isr_wm_done(struct ife_device *ife, struct ife_video_pad *vid_pad)
++{
++	const struct ife_pad_desc *dsc = vid_pad->ife->pads[vid_pad->pad_index].desc;
++	u32 done_addr = ife->res->buswr_ops->consumed_addr(&ife->buswr_ctx, dsc->wm[0]);
++	struct camss_buffer *buf;
++	dma_addr_t buf_addr;
++
++	do {
++		buf = __ife_hw_wm_dqbuf(vid_pad);
++		if (!buf) {
++			dev_err_ratelimited(ife->camss->dev,
++					    "Ouch wm done without buffer! on video %s",
++					    dsc->video_name);
 +			break;
 +		}
++
++		buf_addr = buf->addr[0];
++
++		if (buf_addr == done_addr)
++			buf->vb.sequence = ife->camif_data[dsc->hw_pipe].next_seq - 1;
++		else
++			dev_err_ratelimited(ife->camss->dev,
++					    "Stall buffer found! %s  %x  %x  wm %d",
++					    dsc->video_name,
++					    (u32)buf_addr, done_addr, dsc->wm[0]);
++
++		buf->vb.vb2_buf.timestamp = ktime_get_ns();
++		vb2_buffer_done(&buf->vb.vb2_buf, VB2_BUF_STATE_DONE);
++	} while (buf_addr != done_addr);
++
++	if (__ife_hw_wm_queue_next_pending_buf(vid_pad))
++		ife_hw_reg_update(vid_pad);
++}
++
++static void ife_hw_isr_buswr(struct ife_device *ife, u32 bus_status)
++{
++	unsigned long flags;
++	int i;
++
++	spin_lock_irqsave(&ife->bufs_lock, flags);
++
++	for (i = 0; i < ife->npads; i++) {
++		if (ife->pads[i].vid_pad && ife->pads[i].vid_pad->streaming) {
++			const struct ife_pad_desc *dsc = ife->pads[i].desc;
++			struct ife_video_pad *vpad = ife->pads[i].vid_pad;
++
++			if (bus_status & dsc->rup_group_mask)
++				ife_hw_isr_reg_update(vpad);
++
++			if (bus_status & dsc->comp_group_mask)
++				ife_hw_isr_wm_done(ife, vpad);
++		}
++	}
++
++	spin_unlock_irqrestore(&ife->bufs_lock, flags);
++}
++
++static irqreturn_t ife_hw_top_isr(int irq, void *dev)
++{
++	u32 status[IFE_TOP_STATUS_MAX] = {0};
++	struct ife_device *ife = dev;
++
++	ife->res->top_ops->irq_status(&ife->top_ctx, status);
++	if (status[IFE_TOP_STATUS_ID0] & IFE_HW_TOP_IRQ0_RST_DONE) {
++		complete(&ife->reset_complete);
++		return IRQ_HANDLED;
++	}
++
++	/* Handle first SOF, EPOCH and at the end bus IRQ's */
++	if (status[IFE_TOP_STATUS_ID1] & IFE_HW_TOP_IRQ1_RDI0_SOF)
++		ife->camif_data[CAMSS_IFE_HW_PIPE_RDI0].next_seq++;
++
++	if (status[IFE_TOP_STATUS_ID1] & IFE_HW_TOP_IRQ1_RDI1_SOF)
++		ife->camif_data[CAMSS_IFE_HW_PIPE_RDI1].next_seq++;
++
++	if (status[IFE_TOP_STATUS_ID1] & IFE_HW_TOP_IRQ1_RDI2_SOF)
++		ife->camif_data[CAMSS_IFE_HW_PIPE_RDI2].next_seq++;
++
++	if (status[IFE_TOP_STATUS_ID1] & IFE_HW_TOP_IRQ1_RDI3_SOF)
++		ife->camif_data[CAMSS_IFE_HW_PIPE_RDI3].next_seq++;
++
++	if (status[IFE_TOP_STATUS_ID1] & IFE_HW_TOP_IRQ1_PP_SOF) {
++		ife_pp_notify_sof_event(ife, ife->camif_data[CAMSS_IFE_HW_PIPE_PP].next_seq);
++		ife->camif_data[CAMSS_IFE_HW_PIPE_PP].next_seq++;
++	}
++
++	if (status[IFE_TOP_STATUS_ID0] & IFE_HW_TOP_IRQ0_BUSWR) {
++		u32 bus_status = ife->res->buswr_ops->irq_status(&ife->buswr_ctx);
++
++		ife_hw_isr_buswr(ife, bus_status);
++	}
++
++	if (status[IFE_TOP_STATUS_ID2]) {
++		dev_err_ratelimited(ife->camss->dev,
++				    "Violation on ife%d status 0x%x", ife->id,
++				    status[IFE_TOP_STATUS_ID2]);
++	}
++
++	return IRQ_HANDLED;
++}
++
++static void ife_del_pm_domain_link(struct ife_device *ife)
++{
++	struct camss *camss = ife->camss;
++
++	if (!camss->ife_genpd_link || ife->id >= camss->res->ife_num ||
++	    ife->id >= camss->genpd_num)
++		return;
++
++	device_link_del(camss->ife_genpd_link[ife->id]);
++}
++
++static int ife_add_pm_domain_link(struct ife_device *ife)
++{
++	struct camss *camss = ife->camss;
++
++	if (!camss->ife_genpd || ife->id >= camss->res->ife_num ||
++	    ife->id >= camss->genpd_num)
++		return 0;
++
++	camss->ife_genpd_link[ife->id] =
++		device_link_add(camss->dev, camss->ife_genpd[ife->id],
++				DL_FLAG_STATELESS | DL_FLAG_PM_RUNTIME |
++				DL_FLAG_RPM_ACTIVE);
++	if (!camss->ife_genpd_link[ife->id])
++		return -EINVAL;
++
++	return 0;
++}
++
++static int ife_set_clock_rates(struct ife_device *ife)
++{
++	struct camss *camss = ife->camss;
++	int ret, i;
++
++	for (i = 0; i < ife->nclocks; i++) {
++		struct camss_clock *clock = &ife->clock[i];
++		long round_rate;
++		u8 freq_idx;
++
++		if (!clock->nfreqs)
++			continue;
++
++		freq_idx = min_t(u8, camss->perf_mode, clock->nfreqs - 1);
++		round_rate = clk_round_rate(clock->clk, clock->freq[freq_idx]);
++		if (round_rate < 0) {
++			dev_err(camss->dev, "Clock round rate failed: %ld\n", round_rate);
++			return -EINVAL;
++		}
++
++		ret = clk_set_rate(clock->clk, round_rate);
++		if (ret < 0) {
++			dev_err(camss->dev, "Clock set rate failed: %d\n", ret);
++			return ret;
++		}
 +	}
 +
 +	return 0;
 +}
 +
-+static int camss_core_get(struct camss *camss, u8 entity_id)
++static int ife_clr_clock_rates(struct ife_device *ife)
++{
++	struct camss *camss = ife->camss;
++	int ret, i;
++
++	for (i = 0; i < ife->nclocks; i++) {
++		struct camss_clock *clock = &ife->clock[i];
++
++		if (!clock->nfreqs)
++			continue;
++
++		ret = clk_set_rate(clock->clk, clock->freq[0]);
++		if (ret < 0) {
++			dev_err(camss->dev, "Clock set rate failed: %d\n", ret);
++			return ret;
++		}
++	}
++
++	return 0;
++}
++
++int ife_get(struct ife_device *ife)
 +{
 +	int ret;
 +
-+	if (atomic_inc_return(&camss->perf_ref_count) > 1)
-+		return 0;
-+
-+	ret = camss_set_perf_level(camss, &camss->ife[entity_id]);
++	ret = ife->camss->core_get(ife->camss, ife->id);
 +	if (ret)
-+		dev_warn(camss->dev, "Cannot configure the performance level\n");
-+
-+	ret = pm_runtime_resume_and_get(camss->dev);
-+	if (ret < 0) {
-+		dev_err(camss->dev, "Core domain cannot be acquired\n");
-+		atomic_dec(&camss->perf_ref_count);
 +		return ret;
-+	}
 +
-+	return 0;
++	ret = ife_set_clock_rates(ife);
++	if (ret)
++		return ret;
++
++	return camss_enable_clocks(ife->nclocks, ife->clock, ife->camss->dev);
 +}
 +
-+static int camss_core_put(struct camss *camss)
++void ife_put(struct ife_device *ife)
 +{
++	camss_disable_clocks(ife->nclocks, ife->clock);
++	ife->camss->core_put(ife->camss);
++}
++
++static int ife_core_s_power(struct v4l2_subdev *sd, int on)
++{
++	struct ife_device *ife = v4l2_get_subdevdata(sd);
 +	int ret;
 +
-+	if (atomic_dec_if_positive(&camss->perf_ref_count))
-+		return 0;
-+
-+	ret = pm_runtime_put_sync(camss->dev);
-+	if (ret < 0) {
-+		dev_err(camss->dev, "Core domain cannot be released\n");
-+		return ret;
-+	}
-+
-+	camss->perf_mode = CAMSS_PERF_MODE_MINSVS;
-+
-+	return 0;
-+}
-+
-+static int ife_parent_dev_ops_get(struct camss *camss, int id)
-+{
-+	int ret = -EINVAL;
-+
-+	if (id < camss->res->ife_num + camss->res->ife_lite_num) {
-+		struct ife_device *ife = &camss->ife[id];
-+
++	if (on) {
 +		ret = ife_get(ife);
-+	}
-+
-+	return ret;
-+}
-+
-+static int ife_parent_dev_ops_put(struct camss *camss, int id)
-+{
-+	if (id < camss->res->ife_num + camss->res->ife_lite_num) {
-+		struct ife_device *ife = &camss->ife[id];
-+
++		if (ret < 0)
++			return ret;
++	} else {
 +		ife_put(ife);
++		ife_clr_clock_rates(ife);
 +	}
 +
 +	return 0;
 +}
 +
-+static void __iomem
-+*ife_parent_dev_ops_get_base_address(struct camss *camss, int id)
-+{
-+	if (id < camss->res->ife_num + camss->res->ife_lite_num) {
-+		struct ife_device *ife = &camss->ife[id];
-+
-+		return ife->top_ctx.base;
-+	}
-+
-+	return NULL;
-+}
-+
-+static const struct parent_dev_ops ife_parent_dev_ops __maybe_unused = {
-+	.get = ife_parent_dev_ops_get,
-+	.put = ife_parent_dev_ops_put,
-+	.get_base_address = ife_parent_dev_ops_get_base_address
++static const struct v4l2_subdev_core_ops ife_core_ops = {
++	.s_power = ife_core_s_power,
++	.subscribe_event = ife_event_subscribe,
++	.unsubscribe_event = v4l2_event_subdev_unsubscribe,
 +};
 +
-+int camss_attach_host_data(struct camss *camss, struct v4l2_subdev *sd,
-+			   bool is_sensor, int id)
++static int ife_setup_vid_full(struct ife_video_pad *vid_pad,
++			      struct v4l2_pix_format_mplane *pix_mp,
++			      struct camss_ife_wm_config *wm_cfg)
 +{
-+	struct camss_host_priv_data *host_data;
-+	struct device *dev = camss->dev;
-+
-+	host_data = devm_kzalloc(dev, sizeof(*host_data), GFP_KERNEL);
-+	if (!host_data)
-+		return -ENOMEM;
-+
-+	host_data->is_sensor = is_sensor;
-+	host_data->id = id;
-+
-+	v4l2_set_subdev_hostdata(sd, host_data);
-+
-+	return 0;
-+}
-+
- /*
-  * camss_parse_endpoint_node - Parse port endpoint node
-  * @dev: CAMSS device
-@@ -4833,6 +5088,46 @@ static int camss_parse_ports(struct camss *camss)
- 	return ret;
- }
- 
-+static int camss_init_csid_subdevices(struct camss *camss)
-+{
-+	const struct camss_resources *res = camss->res;
-+	unsigned int i;
++	const struct ife_pad_desc *dsc = vid_pad->ife->pads[vid_pad->pad_index].desc;
++	const struct v4l2_format_info *info = v4l2_format_info(pix_mp->pixelformat);
++	u8 depth = 0;
 +	int ret;
 +
-+	for (i = 0; i < res->csid_num; i++) {
-+		ret = msm_csid_subdev_init(camss, &camss->csid[i],
-+					   &res->csid_res[i], i);
-+		if (ret < 0) {
-+			dev_err(camss->dev, "Failed to init csid%d sub-device: %d\n",
-+				i, ret);
-+			return ret;
-+		}
-+	}
++	wm_cfg[Y_PLANE].mode_config = dsc->mode_config;
++	wm_cfg[Y_PLANE].packing_fmt = dsc->packing_fmt;
++	wm_cfg[C_PLANE].mode_config = dsc->mode_config;
++	wm_cfg[C_PLANE].packing_fmt = dsc->packing_fmt;
 +
-+	return 0;
-+}
-+
-+static int camss_init_ife_subdevices(struct camss *camss)
-+{
-+	const struct camss_resources *res = camss->res;
-+	unsigned int i;
-+	int ret;
-+
-+	for (i = 0; i < camss->ife_total_num; i++) {
-+		void __iomem *csid_base = camss->csid[i].base;
-+
-+		ret = camss_ife_subdev_init(camss, &camss->ife[i],
-+					    &res->ife_res[i], i, csid_base);
-+		if (ret < 0) {
-+			dev_err(camss->dev, "Fail to init ife%d sub-device: %d\n",
-+				i, ret);
-+			return ret;
-+		}
-+	}
-+
-+	return 0;
-+}
-+
- /*
-  * camss_init_subdevices - Initialize subdev structures and resources
-  * @camss: CAMSS device
-@@ -4882,6 +5177,11 @@ static int camss_init_subdevices(struct camss *camss)
- 		}
- 	}
- 
-+	if (camss->ife_total_num > res->csid_num) {
-+		dev_err(camss->dev, "IFE resources require one CSID per IFE\n");
-+		return -EINVAL;
-+	}
-+
- 	/* Get optional CSID wrapper regs shared between CSID devices */
- 	if (res->csid_wrapper_res) {
- 		char *reg = res->csid_wrapper_res->reg;
-@@ -4893,15 +5193,20 @@ static int camss_init_subdevices(struct camss *camss)
- 		camss->csid_wrapper_base = base;
- 	}
- 
--	for (i = 0; i < camss->res->csid_num; i++) {
--		ret = msm_csid_subdev_init(camss, &camss->csid[i],
--					   &res->csid_res[i], i);
--		if (ret < 0) {
--			dev_err(camss->dev,
--				"Failed to init csid%d sub-device: %d\n",
--				i, ret);
-+	if (res->embedded_csid) {
-+		ret = camss_init_ife_subdevices(camss);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	ret = camss_init_csid_subdevices(camss);
++	ret = camss_get_pixfmt_depth(pix_mp->pixelformat, Y_PLANE, &depth);
 +	if (ret)
 +		return ret;
 +
-+	if (!res->embedded_csid) {
-+		ret = camss_init_ife_subdevices(camss);
-+		if (ret)
- 			return ret;
--		}
- 	}
- 
- 	ret = msm_ispif_subdev_init(camss, res->ispif_res);
-@@ -4942,6 +5247,9 @@ static int camss_link_entities(struct camss *camss)
- 	int i, j, k;
- 	int ret;
- 
-+	if (camss->ife_total_num)
-+		return camss->res->link_entities(camss);
++	wm_cfg[Y_PLANE].width	= pix_mp->width;
++	wm_cfg[Y_PLANE].height	= pix_mp->height;
++	wm_cfg[Y_PLANE].bytes	= wm_cfg[Y_PLANE].width * depth / BITS_PER_BYTE;
++	wm_cfg[Y_PLANE].stride	= pix_mp->plane_fmt[Y_PLANE].bytesperline;
++	wm_cfg[Y_PLANE].lines	= pix_mp->height;
 +
- 	for (i = 0; i < camss->res->csiphy_num; i++) {
- 		for (j = 0; j < camss->res->csid_num; j++) {
- 			ret = media_create_pad_link(&camss->csiphy[i].subdev.entity,
-@@ -5126,8 +5434,24 @@ static int camss_register_entities(struct camss *camss)
- 		}
- 	}
- 
-+	for (i = 0; i < camss->ife_total_num; i++) {
-+		ret = ife_register_entities(&camss->ife[i],
-+					    &camss->v4l2_dev);
-+		if (ret < 0) {
-+			dev_err(camss->dev,
-+				"Failed to register ife%d entities: %d\n",
-+				i, ret);
-+			goto err_reg_ife;
-+		}
-+	}
++	ret = camss_get_pixfmt_depth(pix_mp->pixelformat, C_PLANE, &depth);
++	if (ret)
++		return ret;
 +
- 	return 0;
- 
-+err_reg_ife:
-+	for (i--; i >= 0; i--)
-+		ife_unregister_entities(&camss->ife[i]);
++	wm_cfg[C_PLANE].width	= pix_mp->width / info->hdiv;
++	wm_cfg[C_PLANE].bytes	= wm_cfg[C_PLANE].width * depth / BITS_PER_BYTE;
++	wm_cfg[C_PLANE].stride	= pix_mp->plane_fmt[Y_PLANE].bytesperline;
++	wm_cfg[C_PLANE].height	= pix_mp->height  / info->vdiv;
++	wm_cfg[C_PLANE].lines	= wm_cfg[C_PLANE].height;
 +
-+	i = camss->res->vfe_num;
- err_reg_vfe:
- 	for (i--; i >= 0; i--)
- 		msm_vfe_unregister_entities(&camss->vfe[i]);
-@@ -5180,6 +5504,9 @@ static void camss_unregister_entities(struct camss *camss)
- 
- 	for (i = 0; i < camss->res->vfe_num; i++)
- 		msm_vfe_unregister_entities(&camss->vfe[i]);
++	return 0;
++}
 +
-+	for (i = 0; i < camss->ife_total_num; i++)
-+		ife_unregister_entities(&camss->ife[i]);
- }
- 
- static int camss_subdev_notifier_bound(struct v4l2_async_notifier *async,
-@@ -5193,6 +5520,20 @@ static int camss_subdev_notifier_bound(struct v4l2_async_notifier *async,
- 	struct csiphy_device *csiphy = &camss->csiphy[id];
- 
- 	csiphy->cfg.csi2 = &csd->interface.csi2;
-+
-+	if (camss->ife_total_num) {
-+		int ret;
-+
-+		ret = camss_attach_host_data(camss, subdev, true, id);
-+		if (ret) {
-+			dev_err(camss->dev,
-+				"Failed to alloc host private data: %d\n", ret);
-+			return ret;
-+		}
-+
-+		return 0;
-+	}
-+
- 	subdev->host_priv = csiphy;
- 
- 	return 0;
-@@ -5210,6 +5551,16 @@ static int camss_subdev_notifier_complete(struct v4l2_async_notifier *async)
- 		unsigned int i;
- 		int ret;
- 
-+		if (camss->ife_total_num) {
-+			struct camss_host_priv_data *host_data;
-+
-+			host_data = v4l2_get_subdev_hostdata(sd);
-+			if (!host_data || !host_data->is_sensor)
-+				continue;
-+
-+			csiphy = &camss->csiphy[host_data->id];
-+		}
-+
- 		if (!csiphy)
- 			continue;
- 
-@@ -5247,6 +5598,53 @@ static const struct media_device_ops camss_media_ops = {
- 	.link_notify = v4l2_pipeline_link_notify,
- };
- 
-+static int camss_configure_ife_pd(struct camss *camss)
++static void ife_setup_vid_rdi(struct ife_video_pad *vid_pad,
++			      const struct camss_ife_pipeline_cfg *pipeline_cfg,
++			      struct camss_ife_wm_config *wm_cfg)
 +{
-+	struct device *dev = camss->dev;
++	const struct ife_pad_desc *dsc = vid_pad->ife->pads[vid_pad->pad_index].desc;
++
++	wm_cfg[Y_PLANE].mode_config	= dsc->mode_config;
++	wm_cfg[Y_PLANE].packing_fmt	= dsc->packing_fmt;
++	wm_cfg[Y_PLANE].width		= pipeline_cfg->in_width;
++	wm_cfg[Y_PLANE].height		= pipeline_cfg->in_height;
++}
++
++static int ife_vid_pad_enable(struct ife_video_pad *vid_pad,
++			      const struct camss_ife_wm_config *wm_cfg,
++			      bool *first_ife_output)
++{
++	struct ife_device *ife = vid_pad->ife;
++	bool streaming_started = false;
 +	int i;
++
++	mutex_lock(&ife->state_mutex);
++
++	if (!vid_pad->streaming) {
++		const struct ife_pad_desc *dsc = vid_pad->ife->pads[vid_pad->pad_index].desc;
++		const struct ife_hw_buswr_ops *buswr_ops = ife->res->buswr_ops;
++
++		for (i = 0; i < dsc->num_wms; i++) {
++			buswr_ops->wm_config(&ife->buswr_ctx, dsc->wm[i], &wm_cfg[i]);
++			buswr_ops->wm_enable(&ife->buswr_ctx, dsc->wm[i]);
++		}
++
++		/* Enqueue all the buffers for processing on pending queue */
++		vid_pad->streaming = true;
++		ife->stream_count++;
++		*first_ife_output = ife->stream_count == 1;
++		streaming_started = true;
++	}
++
++	mutex_unlock(&ife->state_mutex);
++
++	if (streaming_started)
++		ife_hw_wm_queue_all_pending_bufs(vid_pad);
++
++	return 0;
++};
++
++static bool ife_vid_pad_disable(struct ife_video_pad *vid_pad,
++				bool *last_ife_output)
++{
++	struct ife_device *ife = vid_pad->ife;
++	bool output_stopped = false;
++	int i;
++
++	mutex_lock(&ife->state_mutex);
++
++	if (vid_pad->streaming) {
++		const struct ife_pad_desc *dsc = vid_pad->ife->pads[vid_pad->pad_index].desc;
++		const struct ife_hw_buswr_ops *buswr_ops = ife->res->buswr_ops;
++
++		for (i = 0; i < dsc->num_wms; i++)
++			buswr_ops->wm_disable(&ife->buswr_ctx, dsc->wm[i]);
++		/* Enqueue all the buffers for processing on pending queue */
++		vid_pad->streaming = false;
++		if (ife->stream_count)
++			ife->stream_count--;
++		*last_ife_output = !ife->stream_count;
++		output_stopped = true;
++	}
++
++	mutex_unlock(&ife->state_mutex);
++
++	return output_stopped;
++};
++
++static bool ife_hw_pipe_get(struct ife_device *ife, enum camss_ife_hw_pipe hw_pipe)
++{
++	bool first_output;
++
++	mutex_lock(&ife->state_mutex);
++	first_output = !ife->camif_data[hw_pipe].stream_count++;
++	mutex_unlock(&ife->state_mutex);
++
++	return first_output;
++}
++
++static bool ife_hw_pipe_put(struct ife_device *ife, enum camss_ife_hw_pipe hw_pipe)
++{
++	bool last_output = false;
++
++	mutex_lock(&ife->state_mutex);
++	if (ife->camif_data[hw_pipe].stream_count) {
++		ife->camif_data[hw_pipe].stream_count--;
++		last_output = !ife->camif_data[hw_pipe].stream_count;
++	}
++	mutex_unlock(&ife->state_mutex);
++
++	return last_output;
++}
++
++static int ife_hw_pipe_enable(struct ife_device *ife, const struct ife_pad_desc *dsc,
++			      const struct camss_ife_wm_config *wm_cfg, bool *first_output)
++{
++	const struct camss_ife_pipeline_cfg *pipeline_cfg = &ife->pipeline_cfg[dsc->hw_pipe];
++	const struct ife_hw_top_ops *top_ops = ife->res->top_ops;
 +	int ret;
 +
-+	camss->ife_genpd = devm_kcalloc(dev, camss->genpd_num,
-+					sizeof(*camss->ife_genpd), GFP_KERNEL);
-+	if (!camss->ife_genpd)
++	*first_output = ife_hw_pipe_get(ife, dsc->hw_pipe);
++
++	ret = top_ops->pipe_config(&ife->top_ctx, dsc, pipeline_cfg, wm_cfg);
++	if (ret)
++		goto error_pipe_put;
++
++	if (!*first_output)
++		return 0;
++
++	if (is_pix_hw_pipe(dsc->hw_pipe) && ife->res->mod_ops) {
++		const struct camss_pp_cfg pp_cfg = {
++			.width   = pipeline_cfg->in_width,
++			.height  = pipeline_cfg->in_height,
++			.in_code = pipeline_cfg->in_code,
++		};
++
++		ife->res->mod_ops->config(&ife->pp_ctx, &pp_cfg);
++	}
++
++	ret = top_ops->pipe_enable(&ife->top_ctx, dsc);
++	if (ret)
++		goto error_pipe_put;
++
++	if (is_pix_hw_pipe(dsc->hw_pipe) && ife->res->mod_ops)
++		ife->res->mod_ops->enable(&ife->pp_ctx);
++
++	ife->camif_data[dsc->hw_pipe].next_seq = 0;
++
++	return 0;
++
++error_pipe_put:
++	ife_hw_pipe_put(ife, dsc->hw_pipe);
++	return ret;
++}
++
++static void ife_hw_pipe_disable(struct ife_device *ife, const struct ife_pad_desc *dsc)
++{
++	if (is_pix_hw_pipe(dsc->hw_pipe) && ife->res->mod_ops)
++		ife->res->mod_ops->disable(&ife->pp_ctx);
++
++	ife->res->top_ops->pipe_disable(&ife->top_ctx, dsc);
++}
++
++static int ife_output_enable(struct ife_device *ife, struct ife_subdev_pads *pad,
++			     const struct camss_ife_wm_config *wm_cfg, bool first_pipe_output)
++{
++	bool first_stream = false;
++	int ret;
++
++	ret = ife_vid_pad_enable(pad->vid_pad, wm_cfg, &first_stream);
++	if (ret)
++		return ret;
++
++	if (first_stream) {
++		ife->res->buswr_ops->irq_enable(&ife->buswr_ctx);
++		ife->res->top_ops->prepare(&ife->top_ctx);
++	}
++
++	ife_hw_reg_update(pad->vid_pad);
++	if (first_pipe_output)
++		ife->res->top_ops->enable(&ife->top_ctx, pad->desc->hw_pipe);
++
++	return 0;
++}
++
++static void ife_stream_disable(struct ife_video_pad *vid_pad)
++{
++	struct ife_device *ife = vid_pad->ife;
++	const struct ife_pad_desc *dsc = ife->pads[vid_pad->pad_index].desc;
++	bool last_stream = false;
++
++	ife_vid_pad_disable(vid_pad, &last_stream);
++	ife_hw_pipe_disable(ife, dsc);
++	ife_hw_reg_update(vid_pad);
++	ife->res->top_ops->disable(&ife->top_ctx, dsc->hw_pipe);
++	if (last_stream)
++		ife->res->buswr_ops->irq_disable(&ife->buswr_ctx);
++}
++
++static bool is_ife_vid_pad_streaming(struct ife_video_pad *vid_pad)
++{
++	struct ife_device *ife = vid_pad->ife;
++	bool is_streaming;
++
++	mutex_lock(&ife->state_mutex);
++	is_streaming = vid_pad->streaming;
++	mutex_unlock(&ife->state_mutex);
++
++	return is_streaming;
++};
++
++static int ife_init_state(struct v4l2_subdev *sd, struct v4l2_subdev_state *state)
++{
++	struct ife_device *ife = v4l2_get_subdevdata(sd);
++	struct v4l2_subdev_krouting routing = { };
++	int i, ri;
++	int ret;
++
++	for (i = 0; i < ife->npads; i++) {
++		struct ife_video_pad *vpad = ife->pads[i].vid_pad;
++
++		if (vpad)
++			routing.num_routes++;
++	}
++
++	if (!routing.num_routes)
++		return 0;
++
++	routing.len_routes = routing.num_routes;
++	routing.routes = kcalloc(routing.num_routes, sizeof(*routing.routes), GFP_KERNEL);
++	if (!routing.routes)
 +		return -ENOMEM;
 +
-+	camss->ife_genpd_link = devm_kcalloc(dev, camss->genpd_num,
-+					     sizeof(*camss->ife_genpd_link),
-+					     GFP_KERNEL);
-+	if (!camss->ife_genpd_link)
-+		return -ENOMEM;
++	for (i = 0, ri = 0; i < ife->npads; i++) {
++		struct ife_video_pad *vpad = ife->pads[i].vid_pad;
++		const struct ife_subdev_resources *res = ife->res;
++		struct v4l2_subdev_route *route;
++		u32 sid;
 +
-+	for (i = 0; i < camss->genpd_num; i++) {
-+		camss->ife_genpd[i] = dev_pm_domain_attach_by_id(dev, i);
-+		if (IS_ERR(camss->ife_genpd[i])) {
-+			ret = PTR_ERR(camss->ife_genpd[i]);
-+			goto fail_pm;
++		if (!vpad)
++			continue;
++
++		sid = camss_ife_stream_id_for_pipe(res->num_sink_streams, res->sink_streams,
++						   ife->pads[i].desc->hw_pipe);
++
++		route = &routing.routes[ri++];
++		route->sink_pad		= ife->sink_pad;
++		route->sink_stream	= sid;
++		route->source_pad	= vpad->pad_index;
++		route->source_stream	= 0;
++		route->flags		= V4L2_SUBDEV_ROUTE_FL_ACTIVE;
++	}
++
++	ret = v4l2_subdev_routing_validate(sd, &routing, V4L2_SUBDEV_ROUTING_NO_N_TO_1);
++	if (ret) {
++		dev_err(ife->camss->dev, "Fail to validate ife routing %d", ret);
++		goto out;
++	}
++
++	ret = v4l2_subdev_set_routing(sd, state, &routing);
++	if (ret) {
++		dev_err(ife->camss->dev, "Fail to set routing");
++		goto out;
++	}
++
++out:
++	kfree(routing.routes);
++
++	return ret;
++};
++
++static void ife_apply_constraints(u32 in_width, u32 in_height, u32 *out_width, u32 *out_height,
++				  const struct ife_pad_limits *limits)
++{
++	*out_width = clamp(*out_width, limits->min_width, limits->max_width);
++	if (limits->max_h_ratio)
++		*out_width = max(*out_width, in_width / limits->max_h_ratio);
++
++	*out_height = clamp(*out_height, limits->min_height, limits->max_height);
++	if (limits->max_v_ratio)
++		*out_height = max(*out_height, in_height / limits->max_v_ratio);
++}
++
++static inline void ife_apply_attributes(struct v4l2_mbus_framefmt *fmt, u32 field, u32 colorspace)
++{
++	fmt->field = field;
++	fmt->colorspace = colorspace;
++	fmt->ycbcr_enc = V4L2_MAP_YCBCR_ENC_DEFAULT(fmt->colorspace);
++	fmt->quantization = V4L2_MAP_QUANTIZATION_DEFAULT(true, fmt->colorspace, fmt->ycbcr_enc);
++	fmt->xfer_func = V4L2_MAP_XFER_FUNC_DEFAULT(fmt->colorspace);
++}
++
++static int ife_pad_try_format(struct ife_device *ife, const struct ife_pad_desc *desc,
++			      struct v4l2_mbus_framefmt *fmt)
++{
++	const struct camss_ife_pipeline_cfg *pipeline_cfg;
++	const struct camss_formats *sup_fmts = &desc->sup_fmts;
++	unsigned int i;
++	u32 in_height;
++	u32 in_width;
++
++	for (i = 0; i < sup_fmts->nformats; i++)
++		if (fmt->code == sup_fmts->formats[i].code)
++			break;
++
++	/* If not found set first format as default */
++	if (i >= sup_fmts->nformats)
++		i = 0;
++
++	fmt->code = sup_fmts->formats[i].code;
++
++	pipeline_cfg = &ife->pipeline_cfg[desc->hw_pipe];
++	in_width = desc->pad_flags & MEDIA_PAD_FL_SOURCE ? pipeline_cfg->in_width : fmt->width;
++	in_height = desc->pad_flags & MEDIA_PAD_FL_SOURCE ? pipeline_cfg->in_height : fmt->height;
++
++	ife_apply_constraints(in_width, in_height,
++			      &fmt->width, &fmt->height, desc->limits);
++
++	if (is_pix_hw_pipe(desc->hw_pipe)) {
++		const struct v4l2_format_info *info;
++		u32 min_height = desc->limits->min_height;
++		u32 min_width = desc->limits->min_width;
++
++		info = v4l2_format_info(sup_fmts->formats[i].pixelformat);
++		if (info) {
++			if (desc->limits->max_h_ratio)
++				min_width = max(min_width,
++						DIV_ROUND_UP(in_width,
++							     desc->limits->max_h_ratio));
++			if (desc->limits->max_v_ratio)
++				min_height = max(min_height,
++						 DIV_ROUND_UP(in_height,
++							      desc->limits->max_v_ratio));
++
++			min_width = roundup(min_width, info->hdiv);
++			min_height = roundup(min_height, info->vdiv);
++			fmt->width = max(round_down(fmt->width, info->hdiv), min_width);
++			fmt->height = max(round_down(fmt->height, info->vdiv), min_height);
 +		}
 +	}
 +
-+	if (camss->genpd_num > camss->res->ife_num) {
-+		i = camss->genpd_num - 1;
-+		camss->ife_genpd_link[i] =
-+			device_link_add(dev, camss->ife_genpd[i],
-+					DL_FLAG_STATELESS | DL_FLAG_PM_RUNTIME |
-+					DL_FLAG_RPM_ACTIVE);
-+		if (!camss->ife_genpd_link[i]) {
-+			ret = -EINVAL;
-+			i = camss->genpd_num;
-+			goto fail_pm;
++	ife_apply_attributes(fmt, V4L2_FIELD_NONE, V4L2_COLORSPACE_SRGB);
++
++	return i;
++}
++
++static int ife_pad_get_fmt(struct v4l2_subdev *sd, struct v4l2_subdev_state *state,
++			   struct v4l2_subdev_format *sd_fmt)
++{
++	struct ife_device *ife = v4l2_get_subdevdata(sd);
++	struct ife_subdev_pads *pad;
++	enum camss_ife_hw_pipe pipe;
++
++	if (sd_fmt->pad >= ife->npads)
++		return -EINVAL;
++
++	memset(&sd_fmt->reserved, 0, sizeof(sd_fmt->reserved));
++
++	pad = &ife->pads[sd_fmt->pad];
++
++	if (sd_fmt->which == V4L2_SUBDEV_FORMAT_TRY) {
++		ife_pad_try_format(ife, pad->desc, &sd_fmt->format);
++	} else {
++		ife_apply_attributes(&pad->fmt, V4L2_FIELD_NONE, V4L2_COLORSPACE_SRGB);
++		sd_fmt->format = pad->fmt;
++
++		if (sd_fmt->pad == ife->sink_pad && ife->res->num_sink_streams) {
++			pipe = camss_ife_pipe_for_stream_id(ife->res->num_sink_streams,
++							    ife->res->sink_streams,
++							     sd_fmt->stream);
++			if (pipe == CAMSS_IFE_HW_PIPE_INVALID)
++				return -EINVAL;
++
++			sd_fmt->format.code = ife->pipeline_cfg[pipe].in_code;
++			sd_fmt->format.width = ife->pipeline_cfg[pipe].in_width;
++			sd_fmt->format.height = ife->pipeline_cfg[pipe].in_height;
++		}
++	}
++
++	memset(&sd_fmt->reserved, 0, sizeof(sd_fmt->reserved));
++
++	return 0;
++}
++
++static void ife_update_src_pads_fmt(struct ife_device *ife, struct v4l2_mbus_framefmt *sink_fmt,
++				    enum camss_ife_hw_pipe pipe)
++{
++	int i;
++
++	for (i = 0; i < ife->npads; i++) {
++		struct ife_video_pad *vpad = ife->pads[i].vid_pad;
++		struct v4l2_mbus_framefmt new_fmt = *sink_fmt;
++		struct ife_subdev_pads *pad = &ife->pads[i];
++		int fi;
++
++		if (!(pad->desc->pad_flags & MEDIA_PAD_FL_SOURCE) || is_meta_type(pad->desc))
++			continue;
++
++		if (pipe != CAMSS_IFE_HW_PIPE_INVALID && pad->desc->hw_pipe != pipe)
++			continue;
++
++		fi = ife_pad_try_format(ife, pad->desc, &new_fmt);
++
++		if (vpad) {
++			struct v4l2_pix_format_mplane *pix_mp = &vpad->video.active_fmt.fmt.pix_mp;
++			const struct camss_format_info *info = &pad->desc->sup_fmts.formats[fi];
++
++			/* Update video pad V4L2 format */
++			v4l2_fill_pixfmt_mp(pix_mp, info->pixelformat, new_fmt.width,
++					    new_fmt.height);
++		}
++
++		/* Update source pad format with modified format */
++		pad->fmt = new_fmt;
++	}
++}
++
++static int ife_pad_set_fmt(struct v4l2_subdev *sd, struct v4l2_subdev_state *state,
++			   struct v4l2_subdev_format *sd_fmt)
++{
++	struct ife_device *ife = v4l2_get_subdevdata(sd);
++	struct ife_subdev_pads *pad;
++	enum camss_ife_hw_pipe pipe;
++	unsigned int i;
++
++	if (sd_fmt->pad >= ife->npads)
++		return -EINVAL;
++
++	memset(&sd_fmt->reserved, 0, sizeof(sd_fmt->reserved));
++
++	pad = &ife->pads[sd_fmt->pad];
++
++	ife_pad_try_format(ife, pad->desc, &sd_fmt->format);
++
++	if (sd_fmt->which == V4L2_SUBDEV_FORMAT_ACTIVE) {
++		/* Update current pad format */
++		pad->fmt = sd_fmt->format;
++		/* If it is a sink pad, update the corresponding source formats. */
++		if (ife->mpads[sd_fmt->pad].flags == MEDIA_PAD_FL_SINK) {
++			if (!ife->res->num_sink_streams) {
++				for (i = 0; i < CAMSS_IFE_HW_PIPE_INVALID; i++) {
++					ife->pipeline_cfg[i].in_code = sd_fmt->format.code;
++					ife->pipeline_cfg[i].in_width = sd_fmt->format.width;
++					ife->pipeline_cfg[i].in_height = sd_fmt->format.height;
++				}
++				ife_update_src_pads_fmt(ife, &sd_fmt->format,
++							CAMSS_IFE_HW_PIPE_INVALID);
++			} else {
++				pipe = camss_ife_pipe_for_stream_id(ife->res->num_sink_streams,
++								    ife->res->sink_streams,
++								     sd_fmt->stream);
++				if (pipe == CAMSS_IFE_HW_PIPE_INVALID)
++					return -EINVAL;
++
++				ife->pipeline_cfg[pipe].in_code = sd_fmt->format.code;
++				ife->pipeline_cfg[pipe].in_width = sd_fmt->format.width;
++				ife->pipeline_cfg[pipe].in_height = sd_fmt->format.height;
++				ife_update_src_pads_fmt(ife, &sd_fmt->format, pipe);
++			}
 +		}
 +	}
 +
 +	return 0;
++}
 +
-+fail_pm:
-+	while (i--)
-+		dev_pm_domain_detach(camss->ife_genpd[i], true);
++static int ife_pad_mbus_enum_code(struct v4l2_subdev *sd, struct v4l2_subdev_state *state,
++				  struct v4l2_subdev_mbus_code_enum *code)
++{
++	struct ife_device *ife = v4l2_get_subdevdata(sd);
++	struct ife_subdev_pads *pad;
++
++	if (code->pad >= ife->npads)
++		return -EINVAL;
++
++	memset(&code->reserved, 0, sizeof(code->reserved));
++
++	pad = &ife->pads[code->pad];
++
++	if (pad->desc->pad_flags == MEDIA_PAD_FL_SINK ||
++	    pad->desc->hw_pipe == CAMSS_IFE_HW_PIPE_PP) {
++		if (code->index >= pad->desc->sup_fmts.nformats)
++			return -EINVAL;
++
++		code->code = pad->desc->sup_fmts.formats[code->index].code;
++	} else {
++		/*
++		 * RDI pipeline does not have capabilities for format
++		 * conversions. It always follows the sink pad format.
++		 */
++		if (code->index > 0)
++			return -EINVAL;
++
++		code->code = ife->pipeline_cfg[pad->desc->hw_pipe].in_code;
++	}
++
++	return 0;
++}
++
++static int ife_pad_enum_framesizes(struct v4l2_subdev *sd, struct v4l2_subdev_state *state,
++				   struct v4l2_subdev_frame_size_enum *fse)
++{
++	struct ife_device *ife = v4l2_get_subdevdata(sd);
++	struct ife_subdev_pads *pad;
++	int i;
++
++	if (fse->pad >= ife->npads)
++		return -EINVAL;
++
++	if (fse->index != 0)
++		return -EINVAL;
++
++	pad = &ife->pads[fse->pad];
++
++	for (i = 0; i < pad->desc->sup_fmts.nformats; i++) {
++		if (pad->desc->sup_fmts.formats[i].code == fse->code)
++			break;
++	}
++	if (i >= pad->desc->sup_fmts.nformats)
++		return -EINVAL;
++
++	fse->max_width	= pad->desc->limits->max_width;
++	fse->max_height	= pad->desc->limits->max_height;
++
++	if (pad->desc->pad_flags == MEDIA_PAD_FL_SINK) {
++		fse->min_width	= pad->desc->limits->min_width;
++		fse->min_height	= pad->desc->limits->min_height;
++	} else {
++		const struct camss_ife_pipeline_cfg *pipeline_cfg;
++
++		pipeline_cfg = &ife->pipeline_cfg[pad->desc->hw_pipe];
++
++		/* Ife does not support upscaling. */
++		if (pipeline_cfg->in_width < fse->max_width)
++			fse->max_width = pipeline_cfg->in_width;
++
++		if (pipeline_cfg->in_height < fse->max_height)
++			fse->max_height = pipeline_cfg->in_height;
++
++		ife_apply_constraints(fse->max_width, fse->max_height,
++				      &fse->min_width, &fse->min_height, pad->desc->limits);
++	}
++
++	return 0;
++}
++
++static int ife_output_configure(struct ife_device *ife, struct ife_subdev_pads *pad,
++				struct camss_ife_wm_config *wm_cfg)
++{
++	const struct camss_ife_pipeline_cfg *pipeline_cfg;
++
++	pipeline_cfg = &ife->pipeline_cfg[pad->desc->hw_pipe];
++	wm_cfg[Y_PLANE].wm_id = pad->desc->wm[Y_PLANE];
++	wm_cfg[C_PLANE].wm_id = pad->desc->wm[C_PLANE];
++
++	if (is_rdi_hw_pipe(pad->desc->hw_pipe)) {
++		ife_setup_vid_rdi(pad->vid_pad, pipeline_cfg, wm_cfg);
++		return 0;
++	}
++
++	if (is_pix_hw_pipe(pad->desc->hw_pipe))
++		return ife_setup_vid_full(pad->vid_pad, &pad->vid_pad->video.active_fmt.fmt.pix_mp,
++					  wm_cfg);
++
++	return 0;
++}
++
++static int ife_enable_remote_streams(struct ife_device *ife, struct v4l2_subdev_state *state,
++				     struct media_pad *remote_pad, u32 pad, u64 streams_mask)
++{
++	u64 sink_streams;
++
++	sink_streams = v4l2_subdev_state_xlate_streams(state, pad, ife->sink_pad, &streams_mask);
++
++	return v4l2_subdev_enable_streams(media_entity_to_v4l2_subdev(remote_pad->entity),
++					  remote_pad->index, sink_streams);
++}
++
++static int ife_pad_enable_streams(struct v4l2_subdev *sd, struct v4l2_subdev_state *state,
++				  u32 pad_index, u64 streams_mask)
++{
++	struct ife_device *ife = v4l2_get_subdevdata(sd);
++	struct camss_ife_wm_config wm_cfg[IFE_HW_PLANES] = {0};
++	struct media_pad *remote_pad;
++	struct ife_subdev_pads *pad;
++	bool first_pipe_output;
++	int ret;
++
++	if (pad_index >= ife->npads)
++		return -EINVAL;
++
++	pad = &ife->pads[pad_index];
++
++	if (ife->mpads[pad_index].flags == MEDIA_PAD_FL_SINK)
++		return -EOPNOTSUPP;
++
++	remote_pad = media_pad_remote_pad_first(&ife->mpads[ife->sink_pad]);
++	if (!remote_pad)
++		return -ENOLINK;
++
++	if (!pad->vid_pad) {
++		dev_err(ife->camss->dev, "Invalid video node for source pad[%d]\n",
++			pad_index);
++		return -EIO;
++	}
++
++	ret = ife_output_configure(ife, pad, wm_cfg);
++	if (ret)
++		return ret;
++
++	ret = ife_hw_pipe_enable(ife, pad->desc, wm_cfg, &first_pipe_output);
++	if (ret)
++		return ret;
++
++	ret = ife_output_enable(ife, pad, wm_cfg, first_pipe_output);
++	if (ret)
++		goto error_pipe_disable;
++
++	if (first_pipe_output) {
++		ret = ife_enable_remote_streams(ife, state, remote_pad, pad_index, streams_mask);
++		if (ret)
++			goto error_stream_disable;
++	}
++
++	return 0;
++
++error_stream_disable:
++	ife_stream_disable(pad->vid_pad);
++	goto error_pipe_put;
++error_pipe_disable:
++	if (first_pipe_output)
++		ife_hw_pipe_disable(ife, pad->desc);
++error_pipe_put:
++	ife_hw_pipe_put(ife, pad->desc->hw_pipe);
++	return ret;
++}
++
++static int ife_pad_disable_streams(struct v4l2_subdev *sd, struct v4l2_subdev_state *state,
++				   u32 pad_index, u64 streams_mask)
++{
++	struct ife_device *ife = v4l2_get_subdevdata(sd);
++	const struct ife_hw_buswr_ops *buswr_ops = ife->res->buswr_ops;
++	const struct ife_hw_top_ops *top_ops = ife->res->top_ops;
++	struct media_pad *remote_pad;
++	struct ife_subdev_pads *pad;
++	bool last_pipe_output;
++	bool last_stream = false;
++	u64 sink_streams;
++	int ret = 0;
++
++	if (pad_index >= ife->npads)
++		return -EINVAL;
++
++	pad = &ife->pads[pad_index];
++
++	if (ife->mpads[pad_index].flags == MEDIA_PAD_FL_SINK)
++		return -EOPNOTSUPP;
++
++	remote_pad = media_pad_remote_pad_first(&ife->mpads[ife->sink_pad]);
++	sink_streams = v4l2_subdev_state_xlate_streams(state, pad_index,
++						       ife->sink_pad, &streams_mask);
++
++	if (!pad->vid_pad || !ife_vid_pad_disable(pad->vid_pad, &last_stream))
++		return 0;
++
++	last_pipe_output = ife_hw_pipe_put(ife, pad->desc->hw_pipe);
++	if (last_pipe_output && remote_pad) {
++		ret = v4l2_subdev_disable_streams(media_entity_to_v4l2_subdev(remote_pad->entity),
++						  remote_pad->index, sink_streams);
++		if (ret)
++			dev_err(ife->camss->dev,
++				"Failed to disable stream on remote pad: %d\n", ret);
++	}
++
++	if (last_pipe_output) {
++		ife_hw_pipe_disable(ife, pad->desc);
++		top_ops->disable(&ife->top_ctx, pad->desc->hw_pipe);
++	}
++	if (last_stream)
++		buswr_ops->irq_disable(&ife->buswr_ctx);
 +
 +	return ret;
 +}
 +
- static int camss_configure_pd(struct camss *camss)
- {
- 	const struct camss_resources *res = camss->res;
-@@ -5271,6 +5669,9 @@ static int camss_configure_pd(struct camss *camss)
- 	if (camss->genpd_num == 1)
- 		return 0;
- 
-+	if (camss->ife_total_num)
-+		return camss_configure_ife_pd(camss);
++static const struct v4l2_subdev_pad_ops ife_pad_ops = {
++	.enum_mbus_code	 = ife_pad_mbus_enum_code,
++	.enum_frame_size = ife_pad_enum_framesizes,
++	.get_fmt	 = ife_pad_get_fmt,
++	.set_fmt	 = ife_pad_set_fmt,
++	.enable_streams	 = ife_pad_enable_streams,
++	.disable_streams = ife_pad_disable_streams,
++};
 +
- 	/* count the # of VFEs which have flagged power-domain */
- 	for (vfepd_num = i = 0; i < camss->res->vfe_num; i++) {
- 		if (res->vfe_res[i].vfe.has_pd)
-@@ -5351,6 +5752,20 @@ static void camss_genpd_subdevice_cleanup(struct camss *camss)
- 		msm_vfe_genpd_cleanup(&camss->vfe[i]);
- }
- 
-+static void camss_ife_genpd_cleanup(struct camss *camss)
++static const struct v4l2_subdev_internal_ops ife_v4l2_internal_ops = {
++	.init_state = ife_init_state,
++};
++
++static const struct media_entity_operations ife_media_ops = {
++	.link_validate = v4l2_subdev_link_validate,
++};
++
++static const struct v4l2_subdev_ops ife_v4l2_ops = {
++	.core	= &ife_core_ops,
++	.pad	= &ife_pad_ops,
++};
++
++static int ife_video_start_streaming(struct camss_video *vid,
++				     unsigned int count)
++{
++	struct media_pad *src_pad;
++
++	src_pad = media_pad_remote_pad_first(&vid->vdev.entity.pads[0]);
++	if (!src_pad || !is_media_entity_v4l2_subdev(src_pad->entity))
++		return -ENOLINK;
++
++	return v4l2_subdev_enable_streams(media_entity_to_v4l2_subdev(src_pad->entity),
++					  src_pad->index, BIT_ULL(0));
++}
++
++static void ife_video_stop_streaming(struct camss_video *vid)
++{
++	struct ife_video_pad *vid_pad =
++		container_of(vid, struct ife_video_pad, video);
++	struct media_pad *src_pad;
++	int ret;
++
++	src_pad = media_pad_remote_pad_first(&vid->vdev.entity.pads[0]);
++	if (!src_pad || !is_media_entity_v4l2_subdev(src_pad->entity))
++		return;
++
++	ret = v4l2_subdev_disable_streams(media_entity_to_v4l2_subdev(src_pad->entity),
++					  src_pad->index, BIT_ULL(0));
++	if (ret)
++		dev_err(vid_pad->ife->camss->dev,
++			"Video pipeline disable streams failed: %d\n", ret);
++}
++
++static int ife_queue_buffer(struct camss_video *vid, struct camss_buffer *buf)
++{
++	struct ife_video_pad *vid_pad =
++		container_of(vid, struct ife_video_pad, video);
++
++	ife_hw_wm_add_pending_buf(vid_pad, buf);
++
++	return 0;
++}
++
++static int ife_flush_buffers(struct camss_video *vid, enum vb2_buffer_state state)
++{
++	struct ife_video_pad *vid_pad =
++		container_of(vid, struct ife_video_pad, video);
++
++	if (is_ife_vid_pad_streaming(vid_pad))
++		return -EINVAL;
++
++	ife_hw_wm_flush_bufs(vid_pad, state);
++
++	return 0;
++}
++
++static const struct camss_video_ops camss_video_ops = {
++	.start_streaming = ife_video_start_streaming,
++	.stop_streaming	= ife_video_stop_streaming,
++	.queue_buffer	= ife_queue_buffer,
++	.flush_buffers	= ife_flush_buffers,
++};
++
++static int ife_init_pad_indices(struct ife_device *ife)
++{
++	const struct ife_pads_descriptors *pads = ife->res->pads;
++	bool found_extra_sink = false;
++	unsigned int i;
++
++	if (pads->num_desc < 2) {
++		dev_err(ife->camss->dev, "IFE resources define too few pads\n");
++		return -EINVAL;
++	}
++
++	if (!(pads->desc[IFE_IMAGE_SINK_PAD].pad_flags & MEDIA_PAD_FL_SINK)) {
++		dev_err(ife->camss->dev, "IFE resources define no image sink pad\n");
++		return -EINVAL;
++	}
++
++	if (!(pads->desc[IFE_FIRST_SOURCE_PAD].pad_flags & MEDIA_PAD_FL_SOURCE)) {
++		dev_err(ife->camss->dev, "IFE resources define no source pad after image sink\n");
++		return -EINVAL;
++	}
++
++	for (i = IFE_FIRST_SOURCE_PAD; i < pads->num_desc; i++) {
++		u16 flags = pads->desc[i].pad_flags;
++
++		if (flags & MEDIA_PAD_FL_SINK) {
++			found_extra_sink = true;
++			continue;
++		}
++
++		if (!(flags & MEDIA_PAD_FL_SOURCE)) {
++			dev_err(ife->camss->dev, "IFE resources define invalid pad %u\n", i);
++			return -EINVAL;
++		}
++
++		if (found_extra_sink) {
++			dev_err(ife->camss->dev,
++				"IFE resources define source pad %u after an extra sink pad\n", i);
++			return -EINVAL;
++		}
++	}
++
++	ife->sink_pad = IFE_IMAGE_SINK_PAD;
++
++	return 0;
++}
++
++static int camss_ife_first_source_pad(struct media_entity *entity)
++{
++	if (entity->num_pads < 2)
++		return -EINVAL;
++
++	if (!(entity->pads[IFE_IMAGE_SINK_PAD].flags & MEDIA_PAD_FL_SINK))
++		return -EINVAL;
++
++	if (!(entity->pads[IFE_FIRST_SOURCE_PAD].flags & MEDIA_PAD_FL_SOURCE))
++		return -EINVAL;
++
++	return IFE_FIRST_SOURCE_PAD;
++}
++
++int camss_ife_subdev_init(struct camss *camss, struct ife_device *ife,
++			  const struct camss_subdev_resources *res, u8 id,
++			  void __iomem *csid_base)
++{
++	struct device *dev = camss->dev;
++	struct platform_device *pdev = to_platform_device(dev);
++	void __iomem *base;
++	int i, j;
++	int rc;
++
++	if (!camss->ife_total_num || id >= camss->ife_total_num)
++		return -EINVAL;
++
++	ife->res = &res->ife;
++	ife->camss = camss;
++	ife->id = id;
++
++	rc = ife_init_pad_indices(ife);
++	if (rc)
++		return rc;
++
++	init_completion(&ife->reset_complete);
++	mutex_init(&ife->state_mutex);
++	spin_lock_init(&ife->bufs_lock);
++
++	/* Memory */
++	base = devm_platform_ioremap_resource_byname(pdev, res->reg[0]);
++	if (IS_ERR(base)) {
++		dev_err(dev, "could not map memory\n");
++		return PTR_ERR(base);
++	}
++
++	/*
++	 * Initialise per-engine contexts. Each ops backend stores
++	 * the MMIO base and any additional state it needs.
++	 */
++	res->ife.buswr_ops->acquire(ife, base);
++	rc = res->ife.top_ops->acquire(ife, base, csid_base);
++	if (rc)
++		return rc;
++	if (ife->res->type == CAMSS_IFE_SUBDEV_TYPE_IFE)
++		res->ife.mod_ops->acquire(ife, &ife->pp_ctx, base);
++
++	/* Interrupt */
++	rc = platform_get_irq_byname(pdev, res->interrupt[0]);
++	if (rc < 0)
++		return rc;
++
++	ife->irq = rc;
++	snprintf(ife->irq_name, sizeof(ife->irq_name), "%s_%s%d", dev_name(dev),
++		 CAMSS_IFE_IRQ_NAME, id);
++	rc = devm_request_irq(dev, ife->irq, ife_hw_top_isr,
++			      IRQF_TRIGGER_RISING, ife->irq_name, ife);
++	if (rc) {
++		dev_err(dev, "request_irq failed: %d\n", rc);
++		return rc;
++	}
++
++	/* Clocks */
++	ife->nclocks = 0;
++	while (res->clock[ife->nclocks])
++		ife->nclocks++;
++
++	ife->clock = devm_kcalloc(dev, ife->nclocks, sizeof(*ife->clock),
++				  GFP_KERNEL);
++	if (!ife->clock)
++		return -ENOMEM;
++
++	for (i = 0; i < ife->nclocks; i++) {
++		struct camss_clock *clock = &ife->clock[i];
++
++		clock->clk = devm_clk_get(dev, res->clock[i]);
++		if (IS_ERR(clock->clk))
++			return PTR_ERR(clock->clk);
++
++		clock->name = res->clock[i];
++
++		clock->nfreqs = 0;
++		while (res->clock_rate[i][clock->nfreqs])
++			clock->nfreqs++;
++
++		if (!clock->nfreqs) {
++			clock->freq = NULL;
++			continue;
++		}
++
++		clock->freq = devm_kcalloc(dev, clock->nfreqs,
++					   sizeof(*clock->freq), GFP_KERNEL);
++		if (!clock->freq)
++			return -ENOMEM;
++
++		for (j = 0; j < clock->nfreqs; j++)
++			clock->freq[j] = res->clock_rate[i][j];
++	}
++
++	return 0;
++}
++
++int camss_ife_link_entities(struct camss *camss)
++{
++	int ife_id, csid_id;
++	int rc;
++
++	for (ife_id = 0; ife_id < camss->res->csiphy_num; ife_id++) {
++		for (csid_id = 0; csid_id < camss->res->csid_num; csid_id++) {
++			rc = media_create_pad_link(&camss->csiphy[ife_id].subdev.entity,
++						   MSM_CSIPHY_PAD_SRC,
++						   &camss->csid[csid_id].subdev.entity,
++						   MSM_CSID_PAD_SINK, 0);
++			if (rc) {
++				dev_err(camss->dev,
++					"Failed to link %s->%s entities: %d\n",
++					camss->csiphy[ife_id].subdev.entity.name,
++					camss->csid[csid_id].subdev.entity.name,
++					rc);
++				return rc;
++			}
++		}
++	}
++
++	for (ife_id = 0; ife_id < camss->ife_total_num; ife_id++) {
++		struct v4l2_subdev *csid = &camss->csid[ife_id].subdev;
++		struct ife_device *ife = &camss->ife[ife_id];
++		struct v4l2_subdev *sd = &ife->sd;
++		int src_pad;
++
++		src_pad = camss_ife_first_source_pad(&csid->entity);
++		if (src_pad < 0) {
++			dev_err(camss->dev, "%s does not expose sink pad 0 and source pad 1\n",
++				csid->entity.name);
++			return src_pad;
++		}
++
++		rc = media_create_pad_link(&csid->entity, src_pad, &sd->entity,
++					   ife->sink_pad, 0);
++		if (rc) {
++			dev_err(camss->dev, "Failed to link %s -> %s entities: %d\n",
++				csid->entity.name, sd->entity.name, rc);
++			return rc;
++		}
++	}
++
++	return 0;
++}
++
++int ife_register_entities(struct ife_device *ife, struct v4l2_device *v4l2_dev)
++{
++	struct v4l2_subdev *sd = &ife->sd;
++	struct camss *camss = ife->camss;
++	struct device *dev = camss->dev;
++	int ret;
++	int i;
++
++	ife->npads = ife->res->pads->num_desc;
++
++	ife->pads = devm_kcalloc(dev, ife->npads, sizeof(*ife->pads), GFP_KERNEL);
++	if (!ife->pads)
++		return -ENOMEM;
++
++	ife->mpads = devm_kcalloc(dev, ife->npads, sizeof(*ife->mpads), GFP_KERNEL);
++	if (!ife->mpads)
++		return -ENOMEM;
++
++	v4l2_subdev_init(sd, &ife_v4l2_ops);
++	sd->internal_ops = &ife_v4l2_internal_ops;
++	sd->flags |= V4L2_SUBDEV_FL_HAS_DEVNODE |
++		     V4L2_SUBDEV_FL_HAS_EVENTS |
++		     V4L2_SUBDEV_FL_STREAMS;
++
++	sd->entity.function = MEDIA_ENT_F_PROC_VIDEO_PIXEL_FORMATTER;
++	sd->entity.ops = &ife_media_ops;
++	snprintf(sd->name, ARRAY_SIZE(sd->name), "%s%d", CAMSS_IFE_PREFIX, ife->id);
++
++	v4l2_set_subdevdata(sd, ife);
++
++	for (i = 0; i < ife->npads; i++) {
++		const struct ife_pad_desc *dsc = &ife->res->pads->desc[i];
++		struct ife_subdev_pads *pad = &ife->pads[i];
++
++		pad->desc = dsc;
++		ife->mpads[i].flags = dsc->pad_flags;
++
++		pad->fmt.code = dsc->sup_fmts.formats->code;
++		if (!dsc->limits) {
++			dev_err(dev, "Missing pad[%d] constraints\n", i);
++			return -EINVAL;
++		}
++
++		pad->fmt.width	= dsc->limits->max_width;
++		pad->fmt.height	= dsc->limits->max_height;
++
++		if (dsc->video_name) {
++			char name[sizeof(((struct camss_video *)0)->vdev.name)];
++
++			pad->vid_pad = devm_kzalloc(dev, sizeof(*pad->vid_pad), GFP_KERNEL);
++			if (!pad->vid_pad)
++				goto err_msm_video_unregister;
++
++			pad->vid_pad->ife = ife;
++			pad->vid_pad->pad_index = i;
++			pad->vid_pad->streaming = false;
++
++			INIT_LIST_HEAD(&pad->vid_pad->pending_bufs);
++			INIT_LIST_HEAD(&pad->vid_pad->processing_bufs);
++
++			pad->vid_pad->video.camss	= camss;
++			pad->vid_pad->video.nformats	= dsc->sup_fmts.nformats;
++			pad->vid_pad->video.formats	= dsc->sup_fmts.formats;
++			pad->vid_pad->video.type	= dsc->buf_type;
++			pad->vid_pad->video.ops		= &camss_video_ops;
++			pad->vid_pad->video.bpl_alignment = 16;
++
++			if (dsc->mode_config == BUSWR_CLIENT_CFG_MODE_LINE_BASED)
++				pad->vid_pad->video.line_based = 1;
++			else
++				pad->vid_pad->video.line_based = 0;
++
++			snprintf(name, ARRAY_SIZE(name), "%s_%s", ife->sd.name, dsc->video_name);
++			/* Register video node */
++			ret = msm_video_register(&pad->vid_pad->video, v4l2_dev, name);
++			if (ret) {
++				dev_err(dev, "Failed to register video: %d\n", ret);
++				goto err_msm_video_unregister;
++			}
++		}
++	}
++
++	for (i = 0; i < CAMSS_IFE_HW_PIPE_INVALID; i++) {
++		ife->pipeline_cfg[i].in_code = ife->pads[ife->sink_pad].fmt.code;
++		ife->pipeline_cfg[i].in_width = ife->pads[ife->sink_pad].fmt.width;
++		ife->pipeline_cfg[i].in_height = ife->pads[ife->sink_pad].fmt.height;
++	}
++
++	ret = media_entity_pads_init(&sd->entity, ife->npads, ife->mpads);
++	if (ret) {
++		dev_err(dev, "Failed to init media entity: %d\n", ret);
++		goto err_msm_video_unregister;
++	}
++
++	ret = v4l2_subdev_init_finalize(sd);
++	if (ret) {
++		dev_err(dev, "Failed to finalize subdev: %d\n", ret);
++		goto err_media_entity_cleanup;
++	}
++
++	ret = v4l2_device_register_subdev(v4l2_dev, sd);
++	if (ret) {
++		dev_err(dev, "Failed to register subdev: %d\n", ret);
++		goto err_v4l2_subdev_cleanup;
++	}
++
++	/* Link video nodes to subdevice */
++	for (i = 0; i < ife->npads; i++) {
++		struct ife_subdev_pads *pad = &ife->pads[i];
++		struct ife_video_pad *vpad = pad->vid_pad;
++
++		if (!vpad)
++			continue;
++
++		ret = media_create_pad_link(&sd->entity, vpad->pad_index,
++					    &vpad->video.vdev.entity, 0,
++					    pad->desc->link_flags);
++		if (ret < 0) {
++			dev_err(dev, "Failed to link '%s' and '%s' entities\n", sd->entity.name,
++				vpad->video.vdev.entity.name);
++			goto err_media_entity_remove_links;
++		}
++	}
++
++	ret = ife_add_pm_domain_link(ife);
++	if (ret)
++		goto err_media_entity_remove_links;
++
++	return 0;
++
++err_media_entity_remove_links:
++	media_entity_remove_links(&sd->entity);
++	v4l2_device_unregister_subdev(sd);
++err_v4l2_subdev_cleanup:
++	v4l2_subdev_cleanup(sd);
++err_media_entity_cleanup:
++	media_entity_cleanup(&sd->entity);
++err_msm_video_unregister:
++	for (i = 0; i < ife->npads; i++) {
++		if (ife->pads[i].vid_pad)
++			msm_video_unregister(&ife->pads[i].vid_pad->video);
++	}
++
++	return ret;
++}
++
++void ife_unregister_entities(struct ife_device *ife)
 +{
 +	int i;
 +
-+	if (camss->genpd_num > camss->res->ife_num) {
-+		i = camss->genpd_num - 1;
-+		if (camss->ife_genpd_link[i])
-+			device_link_del(camss->ife_genpd_link[i]);
++	ife_del_pm_domain_link(ife);
++
++	mutex_destroy(&ife->state_mutex);
++
++	for (i = 0; i < ife->npads; i++) {
++		if (ife->pads[i].vid_pad)
++			msm_video_unregister(&ife->pads[i].vid_pad->video);
 +	}
 +
-+	for (i = 0; i < camss->genpd_num; i++)
-+		dev_pm_domain_detach(camss->ife_genpd[i], true);
++	media_entity_remove_links(&ife->sd.entity);
++	media_entity_cleanup(&ife->sd.entity);
++	v4l2_device_unregister_subdev(&ife->sd);
 +}
+diff --git a/drivers/media/platform/qcom/camss/camss.h b/drivers/media/platform/qcom/camss/camss.h
+index 1f63a32809ed..65582ff7db23 100644
+--- a/drivers/media/platform/qcom/camss/camss.h
++++ b/drivers/media/platform/qcom/camss/camss.h
+@@ -11,6 +11,7 @@
+ #define QC_MSM_CAMSS_H
+ 
+ #include <linux/device.h>
++#include <linux/regulator/consumer.h>
+ #include <linux/types.h>
+ #include <media/v4l2-async.h>
+ #include <media/v4l2-device.h>
+@@ -20,6 +21,7 @@
+ 
+ #include "camss-csid.h"
+ #include "camss-csiphy.h"
++#include "camss-ife.h"
+ #include "camss-ispif.h"
+ #include "camss-tpg.h"
+ #include "camss-vfe.h"
+@@ -44,6 +46,28 @@
+ #define CAMSS_RES_MAX 17
+ #define CAMSS_INIT_BUF_COUNT 2
+ 
++/* Per-subdev host private data attached via v4l2_set_subdev_hostdata() */
++struct camss_host_priv_data {
++	bool is_sensor;
++	u32 id;
++};
 +
- static void camss_genpd_cleanup(struct camss *camss)
- {
- 	if (camss->genpd_num == 1)
-@@ -5358,6 +5773,11 @@ static void camss_genpd_cleanup(struct camss *camss)
- 
- 	camss_genpd_subdevice_cleanup(camss);
- 
-+	if (camss->ife_total_num) {
-+		camss_ife_genpd_cleanup(camss);
-+		return;
-+	}
++/*
++ * The Camera SoC has four fixed levels of performance,
++ * and each level defines clocks and power constraints.
++ * These levels are used to set frequencies and bandwidths
++ * without the need for calculation or adjustments for
++ * each engine.
++ */
++enum camss_perf_mode {
++	CAMSS_PERF_MODE_MINSVS = 0,
++	CAMSS_PERF_MODE_LOWSVS,
++	CAMSS_PERF_MODE_SVS,
++	CAMSS_PERF_MODE_SVS_L1,
++	CAMSS_PERF_MODE_NOM,
++	CAMSS_PERF_MAX_MODES
++};
 +
- 	if (camss->genpd_link)
- 		device_link_del(camss->genpd_link);
+ struct camss_subdev_resources {
+ 	struct regulator_bulk_data regulators[CAMSS_RES_MAX];
+ 	char *clock[CAMSS_RES_MAX];
+@@ -56,6 +80,7 @@ struct camss_subdev_resources {
+ 		struct tpg_subdev_resources tpg;
+ 		struct csid_subdev_resources csid;
+ 		struct vfe_subdev_resources vfe;
++		struct ife_subdev_resources ife;
+ 	};
+ };
  
-@@ -5382,8 +5802,23 @@ static int camss_probe(struct platform_device *pdev)
+@@ -113,6 +138,7 @@ struct camss_resources {
+ 	const struct camss_subdev_resources *ispif_res;
+ 	const struct camss_subdev_resources *vfe_res;
+ 	const struct resources_wrapper *csid_wrapper_res;
++	const struct camss_subdev_resources *ife_res;
+ 	const struct resources_icc *icc_res;
+ 	const unsigned int icc_path_num;
+ 	const unsigned int csiphy_num;
+@@ -120,6 +146,10 @@ struct camss_resources {
+ 	const unsigned int csid_num;
+ 	const unsigned int vfe_num;
+ 	const bool csid_vfe_fixed_pairing;
++	const bool embedded_csid;
++	const unsigned int ife_num;
++	const unsigned int ife_lite_num;
++	int (*link_entities)(struct camss *camss);
+ };
  
- 	camss->res = of_device_get_match_data(dev);
- 
-+	if (camss->res->vfe_num &&
-+	    (camss->res->ife_num || camss->res->ife_lite_num)) {
-+		dev_err(dev, "VFE and IFE resources are mutually exclusive\n");
-+		return -EINVAL;
-+	}
+ struct camss {
+@@ -133,12 +163,21 @@ struct camss {
+ 	struct ispif_device *ispif;
+ 	struct vfe_device *vfe;
+ 	void __iomem *csid_wrapper_base;
++	struct ife_device *ife;
++	enum camss_perf_mode perf_mode;
++	unsigned int ife_total_num;
+ 	atomic_t ref_count;
+ 	int genpd_num;
+ 	struct device *genpd;
+ 	struct device_link *genpd_link;
++	struct device **ife_genpd;
++	struct device_link **ife_genpd_link;
+ 	struct icc_path *icc_path[ICC_SM8250_COUNT];
+ 	const struct camss_resources *res;
 +
-+	if ((camss->res->ife_num || camss->res->ife_lite_num) &&
-+	    !camss->res->link_entities) {
-+		dev_err(dev, "IFE resources require entity link operations\n");
-+		return -EINVAL;
-+	}
++	int (*core_get)(struct camss *camss, u8 entity_id);
++	int (*core_put)(struct camss *camss);
++	atomic_t perf_ref_count;
+ };
+ 
+ struct camss_camera_interface {
+@@ -171,6 +210,8 @@ void camss_disable_clocks(int nclocks, struct camss_clock *clock);
+ struct media_pad *camss_find_sensor_pad(struct media_entity *entity);
+ s64 camss_get_link_freq(struct media_entity *entity, unsigned int bpp,
+ 			unsigned int lanes);
++int camss_get_pixel_clock_bpp(struct media_entity *entity, unsigned int bpp,
++			      u64 *pixel_clock);
+ int camss_get_pixel_clock(struct media_entity *entity, u64 *pixel_clock);
+ int camss_pm_domain_on(struct camss *camss, int id);
+ void camss_pm_domain_off(struct camss *camss, int id);
+@@ -181,4 +222,9 @@ void camss_buf_done(struct camss *camss, int hw_id, int port_id);
+ void camss_reg_update(struct camss *camss, int hw_id,
+ 		      int port_id, bool is_clear);
+ 
++int camss_attach_host_data(struct camss *camss, struct v4l2_subdev *sd,
++			   bool is_sensor, int id);
 +
- 	atomic_set(&camss->ref_count, 0);
-+	atomic_set(&camss->perf_ref_count, 0);
- 	camss->dev = dev;
-+	camss->core_get = camss_core_get;
-+	camss->core_put = camss_core_put;
- 	platform_set_drvdata(pdev, camss);
- 
- 	camss->csiphy = devm_kcalloc(dev, camss->res->csiphy_num,
-@@ -5417,6 +5852,14 @@ static int camss_probe(struct platform_device *pdev)
- 	if (!camss->vfe)
- 		return -ENOMEM;
- 
-+	camss->ife_total_num = camss->res->ife_num + camss->res->ife_lite_num;
-+	if (camss->ife_total_num) {
-+		camss->ife = devm_kcalloc(dev, camss->ife_total_num,
-+					  sizeof(*camss->ife), GFP_KERNEL);
-+		if (!camss->ife)
-+			return -ENOMEM;
-+	}
++void camss_delete(struct camss *camss);
 +
- 	ret = camss_icc_get(camss);
- 	if (ret < 0) {
- 		dev_err(dev, "Failed to configure ICC: %d\n", ret);
-@@ -5430,8 +5873,10 @@ static int camss_probe(struct platform_device *pdev)
- 	}
- 
- 	ret = camss_init_subdevices(camss);
--	if (ret < 0)
-+	if (ret < 0) {
-+		dev_err(dev, "Failed to init subdevices: %d\n", ret);
- 		goto err_genpd_cleanup;
-+	}
- 
- 	ret = dma_set_mask_and_coherent(dev, 0xffffffff);
- 	if (ret) {
-@@ -5463,12 +5908,16 @@ static int camss_probe(struct platform_device *pdev)
- 	}
- 
- 	ret = camss_register_entities(camss);
--	if (ret < 0)
-+	if (ret < 0) {
-+		dev_err(dev, "Failed to register entities: %d\n", ret);
- 		goto err_v4l2_device_unregister;
-+	}
- 
- 	ret = camss_link_entities(camss);
--	if (ret < 0)
-+	if (ret < 0) {
-+		dev_err(dev, "Failed to link entities: %d\n", ret);
- 		goto err_register_subdevs;
-+	}
- 
- 	ret = media_device_register(&camss->media_dev);
- 	if (ret < 0) {
+ #endif /* QC_MSM_CAMSS_H */
 -- 
 2.34.1
 
