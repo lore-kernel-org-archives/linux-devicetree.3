@@ -1,379 +1,164 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1E2E35E1BC
-	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 13:15:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A05794ACC6A
+	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 13:22:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791378963; cv=none; b=kyeTHRG/RiLX0aLXT5KK9JY657YC5VMH7J83h9xxWzKJu8tvZ9tSwuJeHonOdUP23nkxeGs5kDEKeI5ZqhW/gqnTtXfU08mmasFMGDziU85R3atZoLWfoQGU656tSsQTbrzp1krzsJfYGA+Z3b59nakiaNMZv95DZqgMTI3HCRo=
+	t=1791379395; cv=none; b=Dm8aTqeGL2CXXgfJsvPEPNUIlw4fpd1U/S7jQ/hcHyxo+ggdWCPefijY3yhXgPS551om0ZoAIynI9GquqyFXuVVxkKNwV9VhnwGA3j7NtHqIKRib4EGCY2wh9MLTgvtAwKpLNagUs4W878PTF4UJbWo8i08JRilVLeZbZH+v/58=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791378963; c=relaxed/simple;
-	bh=dO7Szpz8nmFHOYpraczYn+HYQecFh07LbtxfKtIIWl0=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=PZ/CuSOnODZifzyMYs0YMi5tNj3RL+97YAIZdNib+LpfzXnvucIZYgI5qy2iUG4ChQwrmuZQ4ijeOW1eYU19ea9V7iYSIj9wfnzrw8l4ZbcaqcmHKsbq6CNlK7DDRJ2xDfkcyvLfYJnhmBkZ9Ff1YIGktTnMZ584Ip+NLFjwu7s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=a6j/jyO+; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1791379395; c=relaxed/simple;
+	bh=lcYghPYPQnAUdk2tTeEOuezyDzc0WhSPRSI7GgfJz2M=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bDzI1bEVbKug8gv7Q4eqkqteniy/YzqtiZ1j8+wwO/wtdZazxyrAQfg3jis0gbpWhNl5+KDM0svJxnDO17xD827v9mQ3okRR8PEmNHBwZ15ZfXhxPkUmDRUvG+tI5yIqyDPknwD6w/Gdk0sk3ijo+NEDCDom0TZQ3iVzik4xFb0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hQVLruBu; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RmE3Mh88; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="a6j/jyO+"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a02718da81so15210685e9.1
-        for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 06:15:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hQVLruBu";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RmE3Mh88"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 697BVHjW2970016
+	for <devicetree@vger.kernel.org>; Wed, 7 Oct 2026 13:22:56 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=BjZrN+hkuGyVx/Cflq3VwuxQ
+	GN0nui+PJTPi3KeyDmY=; b=hQVLruBuIcAcZ58hbB1ru6pS5+rp2PchQurd9mzH
+	Cjd0KVZG/NnqWGIQdyVQg288r219R/JEbMS3svvQ0klRULTlugDVr6+/w8wRqxet
+	2S6F8MD4780Vz3obRwb4BBFYOQKy9jT9f/soLNJuPyhVpAmxLcsaqhSfxOqFl5aE
+	64MCXP72bi/M+/LwZbBsyN+/sb9mNo4gUHKzk/CTYe/nEVqDQ0vac6gD7w/CLDvU
+	jaoJff+EyhomLL5I4gUXkcAaVIQlETGRMRVcZf1GlaHqcA3+pzj2mPqeRBy3PHJv
+	QzyV6/ZRtG2KoQktzO4735tsYTkeb21f5/CTeqpbnu7JcA==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5c6u2a67-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 13:22:55 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-934963b2bc0so745158885a.3
+        for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 06:22:55 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791378952; x=1791983752; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EW8X3gEVwvz8TnUlSVxnV2D6JKCoagWnFJsGsc4tElU=;
-        b=a6j/jyO+058lMsz5OfHQQnplE/yHLrv4u1qij8MLa6ubhuplnOCygdbjJ7s+lXT2wM
-         Ai8QB4qyVqnCxeZma9qzuzfcl2dYTH5gYV9VBh/VtxkwIzfd2rCPnWWRG+zacG2V0mJm
-         dpCVV4OBd6a/jLW+t9vKyX8n/C1mrFFDb5kRYo2LE4Ip0rlsPDK0JBFr9e+GdZ0zprHu
-         vKfsHXEsxX+MhCPgEdKUILLb4fydBEltiSgIY+yDvIA+8snKvKqlcSAkakZfH/adK7L7
-         RvbdfOogTcOw1v/Br/8ikW3UJzItSZY1f9gxofa7d7ZxR94/GeIqZaFe0+UIfG0/mWW4
-         QhgQ==
+        d=oss.qualcomm.com; s=google; t=1791379375; x=1791984175; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=BjZrN+hkuGyVx/Cflq3VwuxQGN0nui+PJTPi3KeyDmY=;
+        b=RmE3Mh88HO9cSGJlpPowPddd/FjDsoAgPqN74P3iX7tu4xTtC1RKFON3iMKhzNzGAg
+         O9JSsxhbMVnvLg6H2xGEir7c55CGvaioc0Wr13bBlbtSoYKwTEZlpTOd/uXL67QMPIxk
+         3fIfyftQB7P19g6JKidTXkCdwUseeYxpeed/kdg6k6D2cxDl3qn3+M2J7JdSkz8r2tx7
+         PbGmv/H4VU2mHosW3me7gBHKF1sqEPHqNeG+kabG74Q/OU5VnTIaofy2pBHBWxomg4TR
+         rYDW+aqCwVruywPQvMmchSUch1583mhDypBm3af82bd9aQWILrEYUtgh4bi7bZHrqTZU
+         b5fg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791378952; x=1791983752;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EW8X3gEVwvz8TnUlSVxnV2D6JKCoagWnFJsGsc4tElU=;
-        b=i4PXGjSNh2tMYzXL6bE8cRgTjsF9vIUt99CKswRs0jB8nBtxyY46wKVLjX7VRvQmTM
-         QB+PxgT0/JKUK4vv6VNLn2+J0kAEiCR9avZGSbfDqerfSSoyDnvkD2ClZ423sCC8CaJI
-         MBUZZKBXpD1WrIqEzUYPJhbVz3UxtJaJY5r7FJqXDiPahhHgh5Uh+x8ep72IjecSvMX2
-         u3qMvPGwnPe7XzjoziRhSfnFUd9jsAB8W6TkjRX6LTp99S34SS4Fvsr1lKHCgcS5I9od
-         JGuVCoUvhxcEjM41O9xjMB32HD9nPo8VO+tQ9VeTzse1LM+P3xZhB/iUZGfjs4/TMu/H
-         vfLg==
-X-Forwarded-Encrypted: i=1; AKwUvBxpJSlmfkvIctCLE/sAbT8VIvSRE9HyHc/BljPOsDsy6QcTNPY5I6hM80ZZo+23/+D8k2BkVo3ub/bM@vger.kernel.org
-X-Gm-Message-State: AFuF++l2ny537HwhMM0e+EX7c1Zn8B9UAcKO60URnN28Hks0ihwit9dW
-	JNwek6U8RvoZHeVgbrcgcnrO6XjptYHDNxSXxXxBnZ1DhN7dNTCJwIUlXhe5qaWPYwI=
-X-Gm-Gg: AYBFou00XLplogZX17oMs/rHFpICFdxhWFzMNvZrxXwDdtD/NpibpaGCVJ/9f/J2w9j
-	KFocLZfP88rMLI/cVNVuG6oMu+uSyYyba846OdMhbYW3fllbp8dxqXmpdy0X079WNko4XTRaYCp
-	QH5h80ReKI6wzF9FAgqzsdoIs67mxiRzPZTZ5QrnajpdKisHdNzoIVn1zQelZa9Eq03fD6mcN+f
-	13sOV6ZQYpt9qkYIBcTPrkjXij11RavE02VOw/MJ6+NwL4hJIZH/kmaZIen0alF6IvBD+V7M6cu
-	Rs/yYE/amlAWw804SxbtFDR7yA41cYm7cX4OarqRd9/0bw5RO9D5arLK/c1XvuK4I2G0uDaYjg0
-	8yYX/u8KLM8roLhZB2GnwItzc93OM45EJskUJms2ZOReoB5PM6qQOFPEcnSV3Shl2l6WEXi+pSg
-	AVxllUu9KBFXAQJj2GNY5kEe483SH/2MHNXxXApfqiEp3Q2ET21D4GvTj3oR6aEq8ot3tXMDjne
-	Kx1BsobNnGuf0zojQphI5MXnNKRsKKW
-X-Received: by 2002:a05:600c:5254:b0:4a0:1b15:8852 with SMTP id 5b1f17b1804b1-4a180310d31mr34382675e9.16.1791378951771;
-        Wed, 07 Oct 2026 06:15:51 -0700 (PDT)
-Received: from [192.168.151.46] (90-182-211-1.rcp.o2.cz. [90.182.211.1])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a178c53997sm218656225e9.12.2026.10.07.06.15.50
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 07 Oct 2026 06:15:51 -0700 (PDT)
-Message-ID: <58c28172-8275-4438-8a74-3cd9e6e0b11a@linaro.org>
-Date: Wed, 7 Oct 2026 15:15:50 +0200
+        d=1e100.net; s=20260707; t=1791379375; x=1791984175;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BjZrN+hkuGyVx/Cflq3VwuxQGN0nui+PJTPi3KeyDmY=;
+        b=vqm8L8XZSBfdfmYdFLbGBptD4Enz7/FgGcTdrJaHgqQauS+s0x/Av6b0KuNLSu6Ek/
+         QmstMyCM9zfv6f+vb4nTkQayoj2HqrE9+/Iil+0Xf8Bby+VfhnNRdvGuRsSRAD+V0KQS
+         DLFkZ0d9nDH+5oxZQV+2csBcWgWOgLZLv1dJqxnawiVICuYM7nOqPHsfD1EkuYsr6MG3
+         mqvjaje+DHIvCjxKFkVmb/K0gnfyXmT1qkO0QydAqas77OUEjK3RS/alWuhqTyqsFSWO
+         VsejFxoeYOdhaF/WdV/W/Yw/3oUOh9A4W8HKjSJFa+2PSn+SLkkA/ZStYLwMUZuH7g+E
+         hBNg==
+X-Forwarded-Encrypted: i=1; AKwUvBywRnw5CQu51idTDVAYBpnvXVtzotKcgJ4/ihJe9vHqDR2vVZZ1dqCJKc8MRz4UfgeRegIf76sYriIe@vger.kernel.org
+X-Gm-Message-State: AFuF++l8uMejsqSM51HYi0DwoTu4PiXTEXz90zD/AnNHkFZnL8dedUYk
+	K+9vrimdIEBvJOdGwqy4JbPmQgnFZYb0aPbSUFQUN/4lCg5AeOWcMD2CjCM79QAPR6B4veVh3R8
+	i4v81OYAxF7q83UH8DycjmU6sq2C37qrbVcQytcPYEN2X6vcOxAd3K3mO8IOGVgbv
+X-Gm-Gg: AYBFou1FunexYzm8Z3DkY/NXMySzZU0Em911sxt+A/ctMJpJoBK9TBaWt1Ip49S9VgK
+	046j/JLfigYSSRRVCplz96R8zrJzJ6mo2wjjpyadcGpTds8qHXGlTPekPCOrXMOqMaMQocjh8ft
+	nccUkiq5EQeUf/asrnnxXoArlVAWjkscGOrF0OIlh5WA9b0NvEAm+6MEbkUGHVJJ8K23sx8Cb4W
+	aCN3SH1Xcn/zXy1dp2mMZbOVe63pLe39YIeawJUXbGPhPFwkDlqvof57+gCOqQu8SMVAkAZsjNV
+	yi9dG5UPYT4VIjupSKsgW/R1/MyRjkHlCU2gt55ohFFdlIRBDulc4NK1wtyaD43EP97NXeHsoOL
+	Mt30bI0iPVNg9FlPeQEupWyj/SqNjSCa2e2+RUCop42zE1MLu1qUduSI+b6Pb7UNm3jp13Pe2wA
+	UmdqvOuZfR8ohC
+X-Received: by 2002:a05:620a:6408:b0:93c:6ded:4665 with SMTP id af79cd13be357-93e9b2e9408mr369822385a.1.1791379374721;
+        Wed, 07 Oct 2026 06:22:54 -0700 (PDT)
+X-Received: by 2002:a05:620a:6408:b0:93c:6ded:4665 with SMTP id af79cd13be357-93e9b2e9408mr369816585a.1.1791379374144;
+        Wed, 07 Oct 2026 06:22:54 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bcd3014cf4sm41282e87.3.2026.10.07.06.22.52
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 06:22:52 -0700 (PDT)
+Date: Wed, 7 Oct 2026 16:22:50 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Maximilian Luz <luzmaximilian@gmail.com>,
+        Hans de Goede <hansg@kernel.org>,
+        Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
+        Douglas Anderson <dianders@chromium.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
+        Pankaj Patil <pankaj.patil@oss.qualcomm.com>,
+        Rajendra Nayak <rajendra.nayak@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
+        dri-devel@lists.freedesktop.org
+Subject: Re: [PATCH 2/5] firmware: qcom: scm: Allow QSEECOM on Surface Laptop
+ 8th Edition
+Message-ID: <gfjao7xufwbu5unlqhvwri6k7h3inujospqwilwqhywqxuvs4f@gx76h6ntiqhk>
+References: <20261006-mahua-surface-laptop-v1-0-406fc042162a@oss.qualcomm.com>
+ <20261006-mahua-surface-laptop-v1-2-406fc042162a@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 2/2] drm/panel: ilitek-ili9881c: Add DCLTek 300249 5.5in
- display
-To: Marc-Olivier Champagne <marc-olivier.champagne@savoirfairelinux.com>,
- Jessica Zhang <jesszhan0024@gmail.com>
-Cc: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Hugo Villeneuve <hvilleneuve@dimonoff.com>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Jerome Oufella <jerome.oufella@savoirfairelinux.com>,
- Felix Boucher <felix.boucher@savoirfairelinux.com>,
- Quentin Lehoux <quentin.lehoux@savoirfairelinux.com>
-References: <20261006183455.2350966-1-marc-olivier.champagne@savoirfairelinux.com>
- <20261006183455.2350966-3-marc-olivier.champagne@savoirfairelinux.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20261006183455.2350966-3-marc-olivier.champagne@savoirfairelinux.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261006-mahua-surface-laptop-v1-2-406fc042162a@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDA1MyBTYWx0ZWRfX9FaUjLa1YzGy
+ +JeEKYOcgqOuy7ulFWY6RFkgdwwJVbyKTBbASWgOhkidOOOkmGvfkvB16Ok/VYRXsH9ymyEFbgL
+ xa9kuc/rXQEDm0Gpsmo+J7hciNgr1xM=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDA1MyBTYWx0ZWRfX9MOJNl27hvD5
+ I7MfLeKPwe6qDQlslN10mGYA1GnI7pwcpbdSEo+7P2r1+VbXd4clO/l1FTvUH5rRQaihxcXqR/q
+ A+1kksFvhLLpju9u47cb/kqPELSYJKAErTXMayohnwyBTm5rKCWrt9LHXvCyYjg29IrzbC51FvQ
+ G3jsXss2rCGvSm2l/W1EO36/cqyRfDN70lIL/oUl8mDezCZyFYBv2M08f95A6V43GwaXEsIevgP
+ PBHxFOAac2nvUUMY+s7w0DSWEi4lW/lVzp+cvkqbtnFjrHdWh6TxG6Km1yc/3ubd016sn1I2B/z
+ rBjNbqDI8dIZ+6oDhvRiIrAL9pvj5yjM4A8Fgi4c8QxOGBPMH/yyAOMKEgIsymnYbXANLu3LZBX
+ uhBvzORfj4sukCI5d9isp76ZAhBY0lFhv+HCXA0XGyEhT0qV+sefjuZksLVupI/B/CjjoKY8135
+ Nv75p4gfuxeTEjZokFA==
+X-Proofpoint-ORIG-GUID: iymMXjjcddB9e0ebSXqk3_GhVujZTGZ4
+X-Authority-Analysis: v=2.4 cv=T5EZ3PKQ c=1 sm=1 tr=0 ts=6ac647af cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
+ a=JbvdwL0Z4G9UtC9WzY8A:9 a=CjuIK1q_8ugA:10 a=zZCYzV9kfG8A:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-GUID: iymMXjjcddB9e0ebSXqk3_GhVujZTGZ4
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-07_04,2026-10-06_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 phishscore=0 priorityscore=1501 impostorscore=0 malwarescore=0
+ clxscore=1015 bulkscore=0 adultscore=0 spamscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070053
 
-On 10/6/26 20:34, Marc-Olivier Champagne wrote:
-> The DCLTek dt300249 is an LCD panel using the Ilitek ILI9881C controller.
-> Add the panel to the driver.
+On Tue, Oct 06, 2026 at 02:50:28AM -0700, Gopikrishna Garmidi wrote:
+> Allow the use of QSEECOM on the Mahua-based Microsoft Surface Laptop
+> 13.8" 8th Edition, giving access to the UEFI variables and the RTC
+> offset stored there.
 > 
-> Suggested-by: Hugo Villeneuve <hvilleneuve@dimonoff.com>
-> Signed-off-by: Marc-Olivier Champagne <marc-olivier.champagne@savoirfairelinux.com>
+> Signed-off-by: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
 > ---
->   drivers/gpu/drm/panel/panel-ilitek-ili9881c.c | 216 ++++++++++++++++++
->   1 file changed, 216 insertions(+)
+>  drivers/firmware/qcom/qcom_scm.c | 1 +
+>  1 file changed, 1 insertion(+)
 > 
-> diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c b/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
-> index 7bf38e96678a..acc560dc5ea5 100644
-> --- a/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
-> +++ b/drivers/gpu/drm/panel/panel-ilitek-ili9881c.c
-> @@ -2198,6 +2198,195 @@ static const struct ili9881c_instr waveshare_7inch_a_init[] = {
->   	ILI9881C_COMMAND_INSTR(0x36, 0x00),
->   };
->   
-> +static const struct ili9881c_instr dt300249_init[] = {
-> +	ILI9881C_SWITCH_PAGE_INSTR(3),
-> +	ILI9881C_COMMAND_INSTR(0x01, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x02, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x03, 0x72),
-> +	ILI9881C_COMMAND_INSTR(0x04, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x05, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x06, 0x09),
-> +	ILI9881C_COMMAND_INSTR(0x07, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x08, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x09, 0x01),
-> +	ILI9881C_COMMAND_INSTR(0x0a, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x0b, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x0c, 0x01),
-> +	ILI9881C_COMMAND_INSTR(0x0d, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x0e, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x0f, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x10, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x11, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x12, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x13, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x14, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x15, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x16, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x17, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x18, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x19, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x1a, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x1b, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x1c, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x1d, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x1e, 0x40),
-> +	ILI9881C_COMMAND_INSTR(0x1f, 0x80),
-> +	ILI9881C_COMMAND_INSTR(0x20, 0x05),
-> +	ILI9881C_COMMAND_INSTR(0x21, 0x02),
-> +	ILI9881C_COMMAND_INSTR(0x22, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x23, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x24, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x25, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x26, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x27, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x28, 0x33),
-> +	ILI9881C_COMMAND_INSTR(0x29, 0x02),
-> +	ILI9881C_COMMAND_INSTR(0x2a, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x2b, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x2c, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x2d, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x2e, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x2f, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x30, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x31, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x32, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x33, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x34, 0x04),
-> +	ILI9881C_COMMAND_INSTR(0x35, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x36, 0x2a),
-> +	ILI9881C_COMMAND_INSTR(0x37, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x38, 0x3c),
-> +	ILI9881C_COMMAND_INSTR(0x39, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x3a, 0x40),
-> +	ILI9881C_COMMAND_INSTR(0x3b, 0x40),
-> +	ILI9881C_COMMAND_INSTR(0x3c, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x3d, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x3e, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x3f, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x40, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x41, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x42, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x43, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x44, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x50, 0x01),
-> +	ILI9881C_COMMAND_INSTR(0x51, 0x23),
-> +	ILI9881C_COMMAND_INSTR(0x52, 0x45),
-> +	ILI9881C_COMMAND_INSTR(0x53, 0x67),
-> +	ILI9881C_COMMAND_INSTR(0x54, 0x89),
-> +	ILI9881C_COMMAND_INSTR(0x55, 0xab),
-> +	ILI9881C_COMMAND_INSTR(0x56, 0x01),
-> +	ILI9881C_COMMAND_INSTR(0x57, 0x23),
-> +	ILI9881C_COMMAND_INSTR(0x58, 0x45),
-> +	ILI9881C_COMMAND_INSTR(0x59, 0x67),
-> +	ILI9881C_COMMAND_INSTR(0x5a, 0x89),
-> +	ILI9881C_COMMAND_INSTR(0x5b, 0xab),
-> +	ILI9881C_COMMAND_INSTR(0x5c, 0xcd),
-> +	ILI9881C_COMMAND_INSTR(0x5d, 0xef),
-> +	ILI9881C_COMMAND_INSTR(0x5e, 0x11),
-> +	ILI9881C_COMMAND_INSTR(0x5f, 0x01),
-> +	ILI9881C_COMMAND_INSTR(0x60, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x61, 0x15),
-> +	ILI9881C_COMMAND_INSTR(0x62, 0x14),
-> +	ILI9881C_COMMAND_INSTR(0x63, 0x0e),
-> +	ILI9881C_COMMAND_INSTR(0x64, 0x0f),
-> +	ILI9881C_COMMAND_INSTR(0x65, 0x0c),
-> +	ILI9881C_COMMAND_INSTR(0x66, 0x0d),
-> +	ILI9881C_COMMAND_INSTR(0x67, 0x06),
-> +	ILI9881C_COMMAND_INSTR(0x68, 0x02),
-> +	ILI9881C_COMMAND_INSTR(0x69, 0x02),
-> +	ILI9881C_COMMAND_INSTR(0x6a, 0x02),
-> +	ILI9881C_COMMAND_INSTR(0x6b, 0x02),
-> +	ILI9881C_COMMAND_INSTR(0x6c, 0x02),
-> +	ILI9881C_COMMAND_INSTR(0x6d, 0x02),
-> +	ILI9881C_COMMAND_INSTR(0x6e, 0x07),
-> +	ILI9881C_COMMAND_INSTR(0x6f, 0x02),
-> +	ILI9881C_COMMAND_INSTR(0x70, 0x02),
-> +	ILI9881C_COMMAND_INSTR(0x71, 0x02),
-> +	ILI9881C_COMMAND_INSTR(0x72, 0x02),
-> +	ILI9881C_COMMAND_INSTR(0x73, 0x02),
-> +	ILI9881C_COMMAND_INSTR(0x74, 0x02),
-> +	ILI9881C_COMMAND_INSTR(0x75, 0x01),
-> +	ILI9881C_COMMAND_INSTR(0x76, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x77, 0x14),
-> +	ILI9881C_COMMAND_INSTR(0x78, 0x15),
-> +	ILI9881C_COMMAND_INSTR(0x79, 0x0e),
-> +	ILI9881C_COMMAND_INSTR(0x7a, 0x0f),
-> +	ILI9881C_COMMAND_INSTR(0x7b, 0x0c),
-> +	ILI9881C_COMMAND_INSTR(0x7c, 0x0d),
-> +	ILI9881C_COMMAND_INSTR(0x7d, 0x06),
-> +	ILI9881C_COMMAND_INSTR(0x7e, 0x02),
-> +	ILI9881C_COMMAND_INSTR(0x7f, 0x02),
-> +	ILI9881C_COMMAND_INSTR(0x80, 0x02),
-> +	ILI9881C_COMMAND_INSTR(0x81, 0x02),
-> +	ILI9881C_COMMAND_INSTR(0x82, 0x02),
-> +	ILI9881C_COMMAND_INSTR(0x83, 0x02),
-> +	ILI9881C_COMMAND_INSTR(0x84, 0x07),
-> +	ILI9881C_COMMAND_INSTR(0x85, 0x02),
-> +	ILI9881C_COMMAND_INSTR(0x86, 0x02),
-> +	ILI9881C_COMMAND_INSTR(0x87, 0x02),
-> +	ILI9881C_COMMAND_INSTR(0x88, 0x02),
-> +	ILI9881C_COMMAND_INSTR(0x89, 0x02),
-> +	ILI9881C_COMMAND_INSTR(0x8a, 0x02),
-> +	ILI9881C_SWITCH_PAGE_INSTR(4),
-> +	ILI9881C_COMMAND_INSTR(0x6c, 0x15),
-> +	ILI9881C_COMMAND_INSTR(0x6e, 0x2a),
-> +	ILI9881C_COMMAND_INSTR(0x6f, 0x33),
-> +	ILI9881C_COMMAND_INSTR(0x3a, 0x94),
-> +	ILI9881C_COMMAND_INSTR(0x8d, 0x1a),
-> +	ILI9881C_COMMAND_INSTR(0x87, 0xba),
-> +	ILI9881C_COMMAND_INSTR(0x26, 0x76),
-> +	ILI9881C_COMMAND_INSTR(0xb2, 0xd1),
-> +	ILI9881C_COMMAND_INSTR(0xb5, 0x06),
-> +	ILI9881C_SWITCH_PAGE_INSTR(1),
-> +	ILI9881C_COMMAND_INSTR(0x22, 0x0a),
-> +	ILI9881C_COMMAND_INSTR(0x31, 0x00),
-> +	ILI9881C_COMMAND_INSTR(0x53, 0x84),
-> +	ILI9881C_COMMAND_INSTR(0x55, 0x8f),
-> +	ILI9881C_COMMAND_INSTR(0x50, 0xae),
-> +	ILI9881C_COMMAND_INSTR(0x51, 0xae),
-> +	ILI9881C_COMMAND_INSTR(0x60, 0x28),
-> +	ILI9881C_COMMAND_INSTR(0xa0, 0x0f),
-> +	ILI9881C_COMMAND_INSTR(0xa1, 0x1b),
-> +	ILI9881C_COMMAND_INSTR(0xa2, 0x28),
-> +	ILI9881C_COMMAND_INSTR(0xa3, 0x12),
-> +	ILI9881C_COMMAND_INSTR(0xa4, 0x15),
-> +	ILI9881C_COMMAND_INSTR(0xa5, 0x28),
-> +	ILI9881C_COMMAND_INSTR(0xa6, 0x1b),
-> +	ILI9881C_COMMAND_INSTR(0xa7, 0x1e),
-> +	ILI9881C_COMMAND_INSTR(0xa8, 0x79),
-> +	ILI9881C_COMMAND_INSTR(0xa9, 0x1b),
-> +	ILI9881C_COMMAND_INSTR(0xaa, 0x27),
-> +	ILI9881C_COMMAND_INSTR(0xab, 0x69),
-> +	ILI9881C_COMMAND_INSTR(0xac, 0x19),
-> +	ILI9881C_COMMAND_INSTR(0xad, 0x18),
-> +	ILI9881C_COMMAND_INSTR(0xae, 0x4c),
-> +	ILI9881C_COMMAND_INSTR(0xaf, 0x21),
-> +	ILI9881C_COMMAND_INSTR(0xb0, 0x28),
-> +	ILI9881C_COMMAND_INSTR(0xb1, 0x52),
-> +	ILI9881C_COMMAND_INSTR(0xb2, 0x65),
-> +	ILI9881C_COMMAND_INSTR(0xb3, 0x3f),
-> +	ILI9881C_COMMAND_INSTR(0xc0, 0x04),
-> +	ILI9881C_COMMAND_INSTR(0xc1, 0x1b),
-> +	ILI9881C_COMMAND_INSTR(0xc2, 0x27),
-> +	ILI9881C_COMMAND_INSTR(0xc3, 0x13),
-> +	ILI9881C_COMMAND_INSTR(0xc4, 0x15),
-> +	ILI9881C_COMMAND_INSTR(0xc5, 0x28),
-> +	ILI9881C_COMMAND_INSTR(0xc6, 0x1c),
-> +	ILI9881C_COMMAND_INSTR(0xc7, 0x1e),
-> +	ILI9881C_COMMAND_INSTR(0xc8, 0x79),
-> +	ILI9881C_COMMAND_INSTR(0xc9, 0x1a),
-> +	ILI9881C_COMMAND_INSTR(0xca, 0x27),
-> +	ILI9881C_COMMAND_INSTR(0xcb, 0x69),
-> +	ILI9881C_COMMAND_INSTR(0xcc, 0x1a),
-> +	ILI9881C_COMMAND_INSTR(0xcd, 0x18),
-> +	ILI9881C_COMMAND_INSTR(0xce, 0x4c),
-> +	ILI9881C_COMMAND_INSTR(0xcf, 0x21),
-> +	ILI9881C_COMMAND_INSTR(0xd0, 0x27),
-> +	ILI9881C_COMMAND_INSTR(0xd1, 0x52),
-> +	ILI9881C_COMMAND_INSTR(0xd2, 0x65),
-> +	ILI9881C_COMMAND_INSTR(0xd3, 0x3f),
-> +};
-> +
->   static inline struct ili9881c *panel_to_ili9881c(struct drm_panel *panel)
->   {
->   	return container_of(panel, struct ili9881c, panel);
-> @@ -2493,6 +2682,23 @@ static const struct drm_display_mode waveshare_7inch_a_mode = {
->   	.height_mm	= 154,
->   };
->   
-> +static const struct drm_display_mode dt300249_default_mode = {
-> +	.clock		= 62000,
-> +
-> +	.hdisplay	= 720,
-> +	.hsync_start	= 720 + 10,	/* HFP = 10 */
-> +	.hsync_end	= 720 + 10 + 20,	/* HSYNC = 20 */
-> +	.htotal		= 720 + 10 + 20 + 20,	/* HBP = 20, htotal = 770 */
-> +
-> +	.vdisplay	= 1280,
-> +	.vsync_start	= 1280 + 10,	/* VFP = 10 */
-> +	.vsync_end	= 1280 + 10 + 10,	/* VSYNC = 10 */
-> +	.vtotal		= 1280 + 10 + 10 + 20,	/* VBP = 20, vtotal = 1320 */
-> +
-> +	.width_mm	= 68,
-> +	.height_mm	= 121,
-> +};
-> +
->   static int ili9881c_get_modes(struct drm_panel *panel,
->   			      struct drm_connector *connector)
->   {
-> @@ -2698,9 +2904,19 @@ static const struct ili9881c_desc waveshare_7inch_a_desc = {
->   	.lanes = 2,
->   };
->   
-> +static const struct ili9881c_desc dt300249_desc = {
-> +	.init = dt300249_init,
-> +	.init_length = ARRAY_SIZE(dt300249_init),
-> +	.mode = &dt300249_default_mode,
-> +	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_SYNC_PULSE |
-> +		      MIPI_DSI_MODE_LPM,
-> +	.lanes = 4,
-> +};
-> +
->   static const struct of_device_id ili9881c_of_match[] = {
->   	{ .compatible = "bananapi,lhr050h41", .data = &lhr050h41_desc },
->   	{ .compatible = "bestar,bsd1218-a101kl68", .data = &bsd1218_a101kl68_desc },
-> +	{ .compatible = "dcltek,dt300249", .data = &dt300249_desc },
->   	{ .compatible = "feixin,k101-im2byl02", .data = &k101_im2byl02_desc },
->   	{ .compatible = "startek,kd050hdfia020", .data = &kd050hdfia020_desc },
->   	{ .compatible = "tdo,tl050hdv35", .data = &tl050hdv35_desc },
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-Thanks,
-Neil
+
+-- 
+With best wishes
+Dmitry
