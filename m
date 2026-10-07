@@ -1,166 +1,291 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com [209.85.128.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3E6738D
-	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 00:04:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791331468; cv=none; b=kSZs3uMSA3yv/4ZgvSRaCHu6YF6FA6XqvzqeKda2nDWFjzErsFXLWW8GEVFHEzJp2PgvEbXThDZIoJ5gCdhk6Gu3BQqsjvew72iN05MjycYTXS/4njIXfYRlRuP7EKxdpz6cGUgMCXOsCNuiUpg6KA92tMsmts7T5LIbejmkONg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791331468; c=relaxed/simple;
-	bh=VO4HprmEH26bPDpYKpkRUcTkm48LKb/lQGoubvhwlB4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Xlsm4ggMu5Hc35oE3Ax3bHwMZ+KwBPRuGaB4Ij7+7xUCF8UCyZPlMFm03DEflyFz8A05C5LkMRF6OVRqCazFZwIQV+Rr5bsCCP/11l4PfobES/6L/qx3EJGDnh6UDBWa9hDGlnpNnvAjtlkO2qHBbt4Ksg1gxb+1nB3As+kcrkc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Tas6yyzW; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=c2Kc6c5o; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34ACD259C80
+	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 00:27:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.179
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791332850; cv=pass; b=rhik4m9EUD8ML1y4xGXvR7tNJuafawoba+PwQcfEcCeCrbriOhH2jyMavHyVoikpiU2h+YjV8G3tqxxHL5Ci9+JJ6WtVl3572+4kloDrzYhcmkce1slAxq670/9qe3PNGBsM6i5GRy9e8LRpVkdTfKcEpNBDyZfEDtLmsia92nE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791332850; c=relaxed/simple;
+	bh=Iyuwm3dHCbREroT6zoAZHUTDwbJXCt9kSli+dnbxdL0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=JnQPFF1Lkh+i+/cRAUUoY1I4wWaUHFuOFkctKLJ5SSEfye6OXBI6IavXe4TpBEUeyirUuG1hwwLSqAeIzS/xlEX0gQ5kdxyG3yLACRxuusgSwrsdbMkp5j+G1kjnb8VJEPPPnvPxawmR3lRw7W+6AS4VXisRfmF+DoBJ77ZQXkU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=RWyA3keN; arc=pass smtp.client-ip=209.85.128.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Tas6yyzW";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="c2Kc6c5o"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 696Lh0jx1430023
-	for <devicetree@vger.kernel.org>; Wed, 7 Oct 2026 00:04:27 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	R3JSQSkvd1It0UiMktc5j45ZpdPQLK3YDm6tjbqw98c=; b=Tas6yyzWLItqucKS
-	dl8jKUO4sIMPfRmjsoIwJHH65AtlbBDNF38QAKrvnnYDFYDVUBumtF5eBNxc8jXW
-	bYI5kMo5syUPyHzMdl7XUOCWMqPwhXIYl0WJzs8c38bj6jx2pmYgztfoUkpnEoca
-	QddmSkahpwP06C0ciybD+Fj25oizt/IXikLsx+T/ELm37UQ1ZXoAJLSVgRJofKT3
-	IbeKzchhTCEN2yNXdFgxeSzGhSO19G4mzz+TG9LCEEjMWFDUlEyoi+IBZ23FaDQ1
-	pC9zhRkxANkzOhYDAPbmlpSdwyv7UDR/sJgO7yCmdQX3BlDIJ0tAb4JKBZ9kWGxk
-	832VfQ==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h4xf7u8ae-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 00:04:26 +0000 (GMT)
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-3510a481ae9so6582150eec.1
-        for <devicetree@vger.kernel.org>; Tue, 06 Oct 2026 17:04:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="RWyA3keN"
+Received: by mail-yw1-f179.google.com with SMTP id 00721157ae682-8871ada1a26so28208167b3.1
+        for <devicetree@vger.kernel.org>; Tue, 06 Oct 2026 17:27:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791332848; cv=none;
+        d=google.com; s=arc-20260327;
+        b=NNPF/7trJXQNvg7V+B2ZjOqMU8jEXOZVI7VGDM0/8Ta/xGRU3CBGuDaqKfmy1Mx+E5
+         4Vgky6FMQEy6WK4iu3k7szEXgNO9nRqtiN2FCEXKYg8YK5Cp/RSZYu5WU3f2Iw2+TB30
+         bOfIUsRM0xU+u8pbMJu9uIpQxoRJfq+oZxsswq/hiBEfjup/bxVyT877SXhA9grXtds3
+         R8QWxXLDK6Y6h03dfB5TsmNA/CHFiI2ruo4AMe3o1NtN70Nn7+8t+gQqsp00HyrfHnaD
+         X0dVZ2UauCv0j9/2Ur2Aib5yvuXJLQbk8IXvTFLrxsqLYvCti1yjXfot5ALXK5BhRwqC
+         xcBg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=ndf5Tbs3jY61Y12tfz+GmUhm79/15f4MrnX2K4zKs/s=;
+        fh=+Rl/TBzdiZrx96lutfRxX+j6xpyJ5QVBaFmOcctTWPs=;
+        b=ga/J38H8UTUR3iVEEXctVPqEnAWwodD1Uzt72nQnnu1k2TWCbB4T5YGqohmYuR6gRA
+         5xgzciKM3Zqooo8Yfy/wY6TzqJa2Aztjmr32SD1ML0EsRUqvbATKSGJqUtpLsa0eRkWn
+         MZiqXgEuhm81QRWIk0LGcZff4l6Yrjyo2r9nTWKZVY8qTmXMF06WqrE2x+DbpHAfi9/F
+         j+R7UMjAuzxcHMReOo8ZHJceoz5jP5N8iCtTgTDSxhkIdwRUaLfKQ1lMqkIXfrlQ7h+U
+         wBFdcBUGY0C53Hbc9cKxEyEVpEaWRATfYHJJgzfRp4Ut3Unl2ffETINnSyeQ8E/b60TH
+         2D3Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791331466; x=1791936266; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=R3JSQSkvd1It0UiMktc5j45ZpdPQLK3YDm6tjbqw98c=;
-        b=c2Kc6c5ou5RO4+FG0mWtTeeoiC96247ciJc0oSjii9O3kneIlSw4YAy37QqHCsVb/r
-         grbKPnymV0Ywkuo8uOhjIoGX7cw2Ak4ZFvI2SHuArHKb8y0m97Cg03C+ss/LkY97/rK7
-         Bgb1Gl9sQNwBOgfm3bhsOYd4tHSuovX573uS6NWVdufJhk2m27mU7q6uhcgBfwRP8WDw
-         AzEtnaggAn382SDsg71PI/c9ue4xVZsoFFX2OjNX3io4KBF/z6sTgYUO9dMOswYqf2Yf
-         87N8KYPX9vzPRMf3gxpIHsb7k0xkPp61I+Ll5SUbi/J5LQVAUiQQv8a+zYqEZMJFqnZp
-         oALg==
+        d=linaro.org; s=google; t=1791332848; x=1791937648; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ndf5Tbs3jY61Y12tfz+GmUhm79/15f4MrnX2K4zKs/s=;
+        b=RWyA3keNYcFZ0fLg6GNdljYNcmn4EIZyqsEJkXNLxb3U6VIWZTTSzT/ori3qQF4Wcg
+         neFyVcZ6IuTgbpxON+9IJLplHtzila2+LpVhgAZ11pZLL7yGcVhnaekgp7FHVo4iLz7i
+         FdJU0ZQ2J544jgtgy9TVGygU1YOoBGK2RFDelHSFcZmbf146Le92btzZWR0bKv7PpPH3
+         I0ro5biYBNDZZo1S5j8zftTmJM5zQ8JsNF7DKwMfYsxX0Zt9f9wdCSboV6FDYdA23mVR
+         xfrtxIECsJspouA4735WNm5yu2MAER/jAfzmkRxi6eue3ddI4FkwQI0QOYSJD8KgG56E
+         /NfA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791331466; x=1791936266;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=R3JSQSkvd1It0UiMktc5j45ZpdPQLK3YDm6tjbqw98c=;
-        b=HZnJSOcMERMte9wNpGLIK0YTBVkaz66b0c1jgljIUTKSg0Rvnr+MDvK59fJTq3iVn6
-         z6SAQjL2cHmxr4za3/kSruEuH3ClNFF3q6jsAvq8aayPrkJn84f32PWuUwfOM8INy39A
-         qUwQ0yNBxo8v3+JpdoJQdKcUDkXmyBNk3szRPT0iwrDovSzWEW3dFSILdXJAD2WeWXq1
-         mnrTCn+/HDJygpHHq1/m61AQdlT7FdbpvN1/BT+XJGHRWvw+EdFJqtwHOE9aZDvk73nC
-         0IIwq1BVPx2/LkELG8dAWZUNup2iVuHC3QVTv+EwUV4RPaKAw4Q/dRIYA4jRoklOoGzk
-         umTg==
-X-Forwarded-Encrypted: i=1; AKwUvBz5/sDuSrerv3j9L0yNk0sCmbDYD/HXDyJHFOUjTZklr5qkq+YQanHyS3LKDCB9a9tX2fxMF4WJg8gj@vger.kernel.org
-X-Gm-Message-State: AFuF++mKk6rqS+BojDWiRQEvmNPIemZeUm+uFvni+IYeOw+Lfvwm8CS8
-	F+RIrfhbYWXTWIXVsK4rgheNC7ANRhnK+HhAa758br7RLCKA2rCKacVSB8gAFqQC7SX9rTzvdN+
-	ZiV5lvRAD6faiGffp/xDD1c5ZUm27BcEQMDnLIE0Ad7zB0XSd8wMEaun34dDFbw67
-X-Gm-Gg: AYBFou3HPggmVxAu2rJd/33WAEset+pVLg/nzhJozhezohcXup0S2FiBb/HIE1jb8Pl
-	dcWcqeFUXfCrI1to+nAzIVSCmBYSLOJXpw8BLipg2zNCHRa5NyajdzgfMqo7VmThqoxaBJn7Atx
-	wsLNeUuhdhoDfYlcK2Z4mi+cXgJ7+rqlQQakxgcnSF6BTPgTIYWuXQBPFgr2J9ULFHLoBtsY2QL
-	OmeDG9m+ZyhulRwqDqSYBzTyQ49t2kuw6Igd+l+EfDbDNXBuysP6jr7NdyEkzc/gBDYGEfAkoLN
-	IX3LBjNsafDAztQSOh4jW+LIQAdQRsoNFVBDg5rHcit6j/yUxhX/4/NOzksm0Dqs+zNS3uR0g9J
-	wDtvr661W5oc1awcN+liopTn/+T8hYNRaU2cgbxyB8noCKRDDzytULjvuI2ONimA=
-X-Received: by 2002:a05:7022:225:b0:148:8aa2:91e2 with SMTP id a92af1059eb24-16207d7ca8bmr589095c88.38.1791331466098;
-        Tue, 06 Oct 2026 17:04:26 -0700 (PDT)
-X-Received: by 2002:a05:7022:225:b0:148:8aa2:91e2 with SMTP id a92af1059eb24-16207d7ca8bmr589063c88.38.1791331465559;
-        Tue, 06 Oct 2026 17:04:25 -0700 (PDT)
-Received: from [10.71.184.34] (i-global254.qualcomm.com. [199.106.103.254])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-16166121f2asm1995815c88.4.2026.10.06.17.04.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 06 Oct 2026 17:04:24 -0700 (PDT)
-Message-ID: <27eafbb4-22cf-4706-b551-34c0c8d30ae2@oss.qualcomm.com>
-Date: Tue, 6 Oct 2026 17:04:23 -0700
+        d=1e100.net; s=20260707; t=1791332848; x=1791937648;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ndf5Tbs3jY61Y12tfz+GmUhm79/15f4MrnX2K4zKs/s=;
+        b=Pu7i2CgnZ0Hlg87ozR6RHiHzHgM2SRwE2tk2e5TQr/RgK1dnHMr9wIMFBH8tYGf4uq
+         QHD673XBAbOlxLmdvE1wrH2hk3jZzulN96jGdAp6tBgWqFqH0CHzWWX67Ovf3pybsCth
+         wGeyJw2E4Qzz/Wsc6scVnJsRYIobL8VzEezP7mqV2be1VH42gTY/Vd1oz3WlmuDldxEm
+         oxBEH2ckzNrHxTyTbql5pFf6WimxiVYIwH7Uifb8FTbnvVcFd0KGEGDRE1oXVmtIKu9k
+         32NOT5V6FwPhZF2RE+CNXr0dTGpDkqk7YsFkStzzMblp9iOpxbgmM//FqdWfUqz6p0bY
+         3cjQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy4MRYMVzb6KdqmjF2WYsiUrHVXIRsklOeYrKv7Td5jps3Dk96US36S5TBgiznP2/ka0d5+/Co8j/x0@vger.kernel.org
+X-Gm-Message-State: AFq9FYIcTpKUwOmn1IpOKqFT4BmP0XLLcquGgi8fT1RUL/VzpRbdPov9
+	dpV06LqGnUeVzuMntwEGK8mDgafawcG6xcaD0Igh/4EiKhfQm3l9nMgQWX63pLJmkNrUGWNli98
+	WbfFjOOmsFBoqjDlxjZnoyBvuHRxBHnCuAloghOx7yw==
+X-Gm-Gg: AYBFou23+OFPrmvuLg33KDCNZhk7915+pOAsO4h4hpZYnsRioKeFyrxBSUJvojIgBkB
+	Qe3IL9p1kzUyCtix4rrDG+2Pj36Z80+ip5/FLxNBG0R0wr8qQX94O8Uu6H/UlFBvFe1Cg/+oIs+
+	EhYBXldYYTkRfFkyau81AiqvAPtJRC3K7MgMPxNSZh9KYe+QNu/h3Sthnkp2sSi2AqRxsspAS9o
+	woKoUSCl84ra8jiYKWGMZM0LAWsEJIDUA7jKXIj3nUCvoUkPGyVBiWkq2fYaUNS/uuQ0XcVJYcY
+	IGSWK/XkMaGbcyUq4TC5En1DFekfFF/3Fg0oDdSbX2ooOsdhrCrQLOCLCJcueww3nfJiWLfd1qR
+	PDjvE0S2htMU/KA==
+X-Received: by 2002:a05:690c:a798:b0:8a8:4cd6:b366 with SMTP id
+ 00721157ae682-8b05b0baadfmr4463097b3.34.1791332847977; Tue, 06 Oct 2026
+ 17:27:27 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/6] zram: Add QPaCE zcomp backend
-To: Sergey Senozhatsky <senozhatsky@chromium.org>,
-        Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Georgi Djakov <georgi.djakov@oss.qualcomm.com>, andersson@kernel.org,
-        konradybcio@kernel.org, abelvesa@kernel.org, robh@kernel.org,
-        krzk+dt@kernel.org, conor+dt@kernel.org, minchan@kernel.org,
-        axboe@kernel.dk, rostedt@goodmis.org, mhiramat@kernel.org,
-        mathieu.desnoyers@efficios.com, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-block@vger.kernel.org, linux-trace-kernel@vger.kernel.org,
-        djakov@kernel.org
-References: <20260930145215.3380977-1-georgi.djakov@oss.qualcomm.com>
- <20260930145215.3380977-5-georgi.djakov@oss.qualcomm.com>
- <20261001-dramatic-hasty-pug-68ebfd@quoll> <ar4070oH8lRCJMRw@google.com>
-Content-Language: en-US
-From: Oreoluwa Babatunde <oreoluwa.babatunde@oss.qualcomm.com>
-In-Reply-To: <ar4070oH8lRCJMRw@google.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA2MDA5NSBTYWx0ZWRfX0BCurCw6yOUi
- uePPZDaMjiOtPZeLqRJpphp80jIJ12G8gL00tTB7gfdETtTI01Hwsf/Z/S1NEGe63AE7nbSoIaR
- 6eC+wEddBbnSvimwq0HcCbLirKj0haY=
-X-Authority-Analysis: v=2.4 cv=FpSQbGrq c=1 sm=1 tr=0 ts=6ac58c8a cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=UI1gRxWom6vz8qzGwdkA:9 a=QEXdDO2ut3YA:10
- a=PxkB5W3o20Ba91AHUih5:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA2MDA5NSBTYWx0ZWRfX+3CoMzimrcJC
- lnEAJrL4N7Osq3sjFPAUKDIEOTobSdUMGi2uXsovgO9VlzF+y+YrmK6bbi+eSmc1uIbIc5q21/n
- SrmpcnskGSoTXM5Wu5s2Rtzn71klFHUVag2ux5KYh04YyblU8fB4GXgmepgI8mz9GuB3pExl4vI
- UkYmb8ym6pyTF6/zb3I/IfJXHxD53OSOjPVpsvUAf7IvJxWTJ4eGI3W72rOl4FggfCaX08zSw53
- kmZy2wRAGKRYKKJOhNj9V6N1XESetreyWYF+d0TUfU2FmNP95ool28/l8qEmRXFFNkVdnoHLCmC
- VUuZwzsFGUdLs+HyUl99qHYqCTs172vxQQAPoSggRPd/IXC/B4qdm1tujzZMwTswsCxkQ+fB37E
- gVxyy2lqd8xtUYd6Tjhu9FXI5tna30OEHFVfQqzfRvbzMuQjiIupr3ot2Kc5zDhp3k1U2N1bTi2
- pWNadOfeKFxsKoI/89Q==
-X-Proofpoint-ORIG-GUID: _Q6j02eqVPjSlBvAXaDaOx-lT6_OIeiW
-X-Proofpoint-GUID: _Q6j02eqVPjSlBvAXaDaOx-lT6_OIeiW
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-06_05,2026-10-06_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 bulkscore=0 suspectscore=0 clxscore=1015 impostorscore=0
- malwarescore=0 lowpriorityscore=0 phishscore=0 adultscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610060095
+References: <20260929-exynos850-acpm-firmware-support-v3-0-473a69fc8a3d@linaro.org>
+ <20260929-exynos850-acpm-firmware-support-v3-1-473a69fc8a3d@linaro.org> <CAPLW+4m57BbhsuVaJb382af6b9Ek-raHoftEO9m8z62Z=DEzkQ@mail.gmail.com>
+In-Reply-To: <CAPLW+4m57BbhsuVaJb382af6b9Ek-raHoftEO9m8z62Z=DEzkQ@mail.gmail.com>
+From: Sam Protsenko <semen.protsenko@linaro.org>
+Date: Tue, 6 Oct 2026 19:27:16 -0500
+X-Gm-Features: AclHuK-gTMHxeLVbqLEEqthoe_YhAWKRzmo3ENLwqbF0WuTbIQb_K4cpIVT21tE
+Message-ID: <CAPLW+4=gpnHSSdZ1SWaYz4L_U12vo-OTwUvEYCt=SOSexJw+Gg@mail.gmail.com>
+Subject: Re: [PATCH v3 1/2] dt-bindings: firmware: google,gs101-acpm-ipc:
+ document Exynos850 compatible
+To: Alexey Klimov <alexey.klimov@linaro.org>
+Cc: Tudor Ambarus <tudor.ambarus@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, Alim Akhtar <alim.akhtar@samsung.com>, 
+	Peter Griffin <peter.griffin@linaro.org>, Sylwester Nawrocki <s.nawrocki@samsung.com>, 
+	Chanwoo Choi <cw00.choi@samsung.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
+	linux-samsung-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-clk@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 10/1/2026 3:27 AM, Sergey Senozhatsky wrote:
-> On (26/10/01 10:51), Krzysztof Kozlowski wrote:
->> On Wed, Sep 30, 2026 at 07:52:13AM -0700, Georgi Djakov wrote:
->>> Add a zcomp backend for the Qualcomm Page Compression Engine (QPaCE) so
->>> zram can expose qpace-lz4 as a selectable compression algorithm when the
->>> QPaCE driver is available.
->>>
->>> Compress and decompress operations are handled via the QPaCE urgent
->>> synchronous path: each request DMA-maps the source and destination
->>> buffers, issues a blocking hardware command, and returns the result size.
->>>
->>> Signed-off-by: Georgi Djakov <georgi.djakov@oss.qualcomm.com>
->>> ---
->>>   drivers/block/zram/Kconfig         |  11 +++
->>>   drivers/block/zram/Makefile        |   1 +
->>>   drivers/block/zram/backend_qpace.c | 134 +++++++++++++++++++++++++++++
->>
->> So entire qpace should go here, no? Why did you create this entire layer
->> of indirection, singleton management under drivers/soc?
-> 
-> qpace seems to be standalone/independent arch/soc specific, and can gain
-> users outside of zram (fs compression, zswap, etc.).  zram's backends
-> potentially can disappear all together, if we switch to acomp crypto API.
+On Tue, Oct 6, 2026 at 6:47=E2=80=AFPM Sam Protsenko <semen.protsenko@linar=
+o.org> wrote:
+>
+> On Mon, Sep 28, 2026 at 9:11=E2=80=AFPM Alexey Klimov <alexey.klimov@lina=
+ro.org> wrote:
+> >
+> > The Exynos850 SoC incorporates an APM co-processor. Communication with =
+this
+> > hardware block is done using the ACPM protocol, which handles IPC messa=
+ges
+> > for clocks, power, thermal management and PMIC control. In this
+> > architecture, the ACPM firmware running on the APM acts as the central
+> > supervisor or arbiter for shared system resources, handling requests fr=
+om
+> > clients or agents such as an OSPM. In this design, the OSPM is one of
+> > several clients or agents communicating with APM.
+> >
+> > Dedicated compatible string is required for the Exynos850 because
+> > its firmware utilizes a different initialisation data base offset
+> > (0x7000) compared to the existing GS101 implementation (0xa000).
+> >
+> > Additionally, the ACPM firmware implementation on Exynos850 does not co=
+ver
+> > all clock management operations (such as clock rate reads over ACPM IPC=
+).
+> > To allow the OSPM to resolve rates for these ACPM clock IDs or sometime=
+s
+> > called domains, add 'clocks' and 'clock-names' properties to reference =
+the
+> > underlying physical clocks.
+> >
+> > Add the "samsung,exynos850-acpm-ipc" compatible string, binding defines=
+ for
+> > Exynos850 ACPM clock IDs, clock property constraints, and disallow GS10=
+1-
+> > specific PMIC child nodes for Exynos850.
+> >
+> > Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
+> > ---
+>
+> Reviewed-by: Sam Protsenko <semen.protsenko@linaro.org>
+>
 
-ACK
+By the way, we discussed earlier the reason for ACPM clocks:
 
-Thanks,
-Oreoluwa
+    "PMIC might be controlled by different masters (cores), e.g. when
+Linux is asleep and doesn't control PMIC via CPU, audio co-processor
+can still be up playing audio, thus it needs to control PMIC via ACPM,
+which in turn means some clocks have to be controlled over ACPM, so
+that power supervisor (APM) can decide how to handle/arbiter those
+requests from different IP-cores."
+
+FWIW, I think it may be valuable to have this explanation added either
+in the bindings doc or in the commit message. Otherwise one might
+question why this whole ACPM thing is needed at all, as we already can
+control those clocks via the regular clock driver. It's just a
+thought, and can be done in a separate patch later.
+
+> >  .../bindings/firmware/google,gs101-acpm-ipc.yaml   | 56 ++++++++++++++=
++++++++-
+> >  include/dt-bindings/clock/samsung,exynos850-acpm.h | 21 ++++++++
+> >  2 files changed, 76 insertions(+), 1 deletion(-)
+> >
+> > diff --git a/Documentation/devicetree/bindings/firmware/google,gs101-ac=
+pm-ipc.yaml b/Documentation/devicetree/bindings/firmware/google,gs101-acpm-=
+ipc.yaml
+> > index e68f9c3ca5e2..0eaa9c881f6f 100644
+> > --- a/Documentation/devicetree/bindings/firmware/google,gs101-acpm-ipc.=
+yaml
+> > +++ b/Documentation/devicetree/bindings/firmware/google,gs101-acpm-ipc.=
+yaml
+> > @@ -22,7 +22,9 @@ description: |
+> >
+> >  properties:
+> >    compatible:
+> > -    const: google,gs101-acpm-ipc
+> > +    enum:
+> > +      - google,gs101-acpm-ipc
+> > +      - samsung,exynos850-acpm-ipc
+> >
+> >    "#clock-cells":
+> >      const: 1
+> > @@ -33,6 +35,20 @@ properties:
+> >        appropriately with the clock scaling. The argument is the ID of =
+the
+> >        clock contained by the firmware messages.
+> >
+> > +  clocks:
+> > +    minItems: 1
+> > +    maxItems: 9
+> > +    description:
+> > +      List of the underlying clocks associated with each ACPM clock do=
+main.
+> > +      This property relates to ACPM firmware variants where not all cl=
+ock
+> > +      operations are implemented.
+> > +
+> > +  clock-names:
+> > +    minItems: 1
+> > +    maxItems: 9
+> > +    description:
+> > +      Names of the ACPM clock domains corresponding to entries in 'clo=
+cks'.
+> > +
+> >    mboxes:
+> >      maxItems: 1
+> >
+> > @@ -77,6 +93,44 @@ required:
+> >    - mboxes
+> >    - shmem
+> >
+> > +allOf:
+> > +  - if:
+> > +      properties:
+> > +        compatible:
+> > +          contains:
+> > +            const: google,gs101-acpm-ipc
+> > +    then:
+> > +      properties:
+> > +        clocks: false
+> > +        clock-names: false
+> > +
+> > +  - if:
+> > +      properties:
+> > +        compatible:
+> > +          contains:
+> > +            const: samsung,exynos850-acpm-ipc
+> > +    then:
+> > +      properties:
+> > +        clock-names:
+> > +          items:
+> > +            enum:
+> > +              - mif
+> > +              - int
+> > +              - cpucl0
+> > +              - cpucl1
+> > +              - g3d
+> > +              - aud
+> > +              - cam
+> > +              - disp
+> > +              - cp
+> > +          uniqueItems: true
+> > +        pmic: false
+> > +        pmic-1: false
+> > +        pmic-2: false
+> > +      required:
+> > +        - clocks
+> > +        - clock-names
+> > +
+> >  additionalProperties: false
+> >
+> >  examples:
+> > diff --git a/include/dt-bindings/clock/samsung,exynos850-acpm.h b/inclu=
+de/dt-bindings/clock/samsung,exynos850-acpm.h
+> > new file mode 100644
+> > index 000000000000..87fc6ccc1d99
+> > --- /dev/null
+> > +++ b/include/dt-bindings/clock/samsung,exynos850-acpm.h
+> > @@ -0,0 +1,21 @@
+> > +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
+> > +/*
+> > + * Copyright 2026 Linaro Ltd.
+> > + *
+> > + * Device Tree binding constants for Exynos850 ACPM clock controller.
+> > + */
+> > +
+> > +#ifndef _DT_BINDINGS_CLOCK_SAMSUNG_EXYNOS850_ACPM_H
+> > +#define _DT_BINDINGS_CLOCK_SAMSUNG_EXYNOS850_ACPM_H
+> > +
+> > +#define EXYNOS850_CLK_ACPM_DVFS_MIF                    0
+> > +#define EXYNOS850_CLK_ACPM_DVFS_INT                    1
+> > +#define EXYNOS850_CLK_ACPM_DVFS_CPUCL0                 2
+> > +#define EXYNOS850_CLK_ACPM_DVFS_CPUCL1                 3
+> > +#define EXYNOS850_CLK_ACPM_DVFS_G3D                    4
+> > +#define EXYNOS850_CLK_ACPM_DVFS_AUD                    5
+> > +#define EXYNOS850_CLK_ACPM_DVFS_CAM                    6
+> > +#define EXYNOS850_CLK_ACPM_DVFS_DISP                   7
+> > +#define EXYNOS850_CLK_ACPM_DVFS_CP                     8
+> > +
+> > +#endif /* _DT_BINDINGS_CLOCK_SAMSUNG_EXYNOS850_ACPM_H */
+> >
+> > --
+> > 2.51.0
+> >
