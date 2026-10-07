@@ -1,87 +1,87 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33CF53F0A96
-	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 18:04:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAC6E3F39D8
+	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 18:17:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791396294; cv=none; b=d9mwF8KfHgu8fSW/zab5cPpzbWoMS0g1UV7rQ+Cnx9ICS2CvSM6VvAZb4+LzRAcayGbHNHa/qWM+abcC7X6dTFKvy7wtyxaN0+ugDTcsJcT+AxWH26gcOELrFhYNk/LNgHVkFlXiEKQUAXK9WeOtY3HnWoWBOjaAYbWHsL3BTZ4=
+	t=1791397054; cv=none; b=HE75p0Q2s5GorAAoGVQ0woAIbEDhAITlMFSOT/+GhC0ohsUX2v90rIHdWLF2TI2zq5LrroJmhd5aBgec5P39jt4IyfaaAClFdHggvEP9iv3L3PW1W3qbS0d7S9vtQxrUDMJl/qwOqwt2dF7hE5MjYl2vhFJw1wB9eIoqJtolUl0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791396294; c=relaxed/simple;
-	bh=Ixyh7XRyhmFYgTn02FEN67Vl1z80KRiOpAdNf/DUBjc=;
+	s=arc-20240116; t=1791397054; c=relaxed/simple;
+	bh=7p1E68LhKBh6yTqP7m6fWj1obK2raK41V5zAFLXEVsE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Uvkws2IBWIGagwAMNnE2PC7iL6HI0z2vgMKu1suKLZRmxVYsoLH6Nz8vw01HLVQuzUfM5TyrJoBrXRAUBfTw4hmHfCdvFCIrZFV3KDYzW79LcwykAWVMAekRZM+tdA3d8JlVWyv85ji4vT3OYUGjZomeie5xDBHaSmf3cGBK0qM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SzgIWJSP; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=eZaHuMMJ; arc=none smtp.client-ip=205.220.180.131
+	 In-Reply-To:Content-Type; b=XmTHlUloclf0qpJVzBCW+AFSZcLQVDn4/peTH/7wXJa3potKBtVPjoD2qZ8WnUlWHeu4/3Yi15fksEfMlzvXxZ4+gyIB8J1gDfbQJvnztf9sTqbvYMFfD0VBacP11ozd/snOr7Kr6fDuChgMnhKKvgt5UgZaALgbA6IxQBf4yMc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=FGEjaKTK; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=X5aiF7Vu; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SzgIWJSP";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eZaHuMMJ"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 697EtO2Z4135666
-	for <devicetree@vger.kernel.org>; Wed, 7 Oct 2026 18:04:52 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="FGEjaKTK";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="X5aiF7Vu"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 697IBEwc1494309
+	for <devicetree@vger.kernel.org>; Wed, 7 Oct 2026 18:17:33 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	JykGVcXyDXA+2TTRuO2/QCItxRpkTMleFSqXf8Cjqh4=; b=SzgIWJSPJjjem8nE
-	cushvfrvkg22fkrce0c9vfE72gWIUGPdOIWJTPKKxKMcIBBucr2MxZxm1667OsHF
-	YBbItPv71AJx0au1yTR3JPAyG4j2mb9aZ81plf0pCTVykpWFrE3dSqZ5MZl24vul
-	JdPijzTq4P6H5i9a/RF9uo1nTnv2oB7/5CxbhZX5RdgHICjlY9MskRjks/Z/NPcI
-	b4sIlrdd2kxVvPlJuw/FxTeOQ+bly1FuHRhTgaMT849TsCV5m0Ujd9erIi6Sb58B
-	mfxvDzpFx5lHNnJb50slIBd6pV+23qGsBCHoKT9vMMqJ3Tp5YgCVh31nnEQz4hxE
-	eTYXTA==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5mgr9u7y-1
+	HzfN1dEYOJJZLs2bxJwMzeI90eUiWQZ53IXN9K6O594=; b=FGEjaKTKiTMns4jc
+	ySHa7nijzGtMIzNX1sSiTKtCsnriO7FROVZ3uqr95gbCSh1QEPWJTvdAjroTzvh7
+	vYcPaHGJ6Ni6uDM+Kqv0tkvF65ayaBCtGgwTBk9gPPqQX5HrxgEOAVQtIbMNMQMj
+	Oo91QuNpT9Dnx1I0182YQ5mOj09u9Wpx0oK/t9LZzDnhtmCbBYnMGadTb8IYul7F
+	3Svyd2viG0xYmLfiWAq2CXnj9ztrwoWhjfIZQs/5z909hqEd8GRhoJ5FtXQHXuTv
+	PhFEUlCW70YfasD5eZZt+1tvYLBw8YdQm5heGuDGBChfTtry9UsR+gRyN4xv+I4o
+	b0OzSQ==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5fc5awkk-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 18:04:52 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3a4b70941efso3565756a91.0
-        for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 11:04:51 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 18:17:32 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-34d62bb27a1so18169022eec.0
+        for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 11:17:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791396291; x=1792001091; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1791397052; x=1792001852; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=JykGVcXyDXA+2TTRuO2/QCItxRpkTMleFSqXf8Cjqh4=;
-        b=eZaHuMMJEHHEzntjdYTtwVAaf96+Cff1NM2wTvYyoggo04BVWioY42sM0WE7hk9sxL
-         ORqqtVuW6t+esxDZzqGDASczFvHDpe/CVtC6UoXol2QaqMKmN4MRqm3rfG2htOeFo3yv
-         Ph9TBr12oCVm+FXNr7UiqHmxjGzYfqrVP/Wz8Pvy4BmCvqkttwO9LJIm243cQToXbms5
-         pd3YGQECsOywCn2Z6RL2UKMYxgVpsBGJkXbOOwqGChyNHtS5njAoQs68sI1Z0Gdy8F+F
-         hLQ2gQ+PYbUeBq+CD3/+lwz5LN5xUEiYfbYaHhHaaKj9XLFMGGa4eySN+rrJTX2ZmrJz
-         hZQg==
+        bh=HzfN1dEYOJJZLs2bxJwMzeI90eUiWQZ53IXN9K6O594=;
+        b=X5aiF7VufxbQ3JvAMC/hUbed3VLnfnx12umhu4tmEqd/+d3db4ce44RlTzEMbimAM7
+         NzBBY4lJgBcAbhk7zTbojhj4urguvi5sePGz17UTNx7NgDXCiuSUr+DydiWeFGA80Dli
+         NCEaKq05ii522WzO9j3JREycqldAWK+QopN2tRDEMWYpav8WmwKL6xPD/Pl/D6Ix6PMP
+         NxTQTIoS7DpEfvUH0eGNvlnM7objfscvwd06tnwFb8tfhB+c6kgPSoIsK9ncOZar8xcH
+         jbjJUG/f1b2J408LBAJIBTvN7xBZm9qaN7pvD7SBu2Q1CvpnJl5spxF8JJTAb9zL30Z/
+         FQgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791396291; x=1792001091;
+        d=1e100.net; s=20260707; t=1791397052; x=1792001852;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=JykGVcXyDXA+2TTRuO2/QCItxRpkTMleFSqXf8Cjqh4=;
-        b=wWwNPj8k50RZjgx919HO1wk4WWsPi5JezMBinMoEiFHkeJfWkGCpDyG9xM98y5Eiyp
-         Wgy81WPHLDtZq94kVRIlhaP+7iRyjAdab1dN01Qvwe3njuL5uWSvYEZize9AkBiP5zue
-         YIfCK1yPn2tc03oi5gACHl81yYceZtfuL/GsS1qoMvYLhqso840GziKI68iQWXJpbY0i
-         ou/f3xx6X6lDeR13BAbXauFGz5WPB7RtojgHT24X9nfVl0JesI0KOLQn8T3lMyj4MqF6
-         pYY2bbjcSOi//XhgPfpw10PHY8hnuBXKqbSaObyZMRhNvH9VXzGH11p8le/+6+0gvceG
-         VT8Q==
-X-Forwarded-Encrypted: i=1; AKwUvBw1VYGIxvEblRmPGbXsF0i0Gtf+ymU0bQOYNsbKk7UXJDR36i/U28ayMZ+pEFBuJCuxCrK0wwy+TdO5@vger.kernel.org
-X-Gm-Message-State: AFq9FYIurkFAWro4RPlWzPszrM8dWKZXWFlS3fWLOG8nS+qYOq44/HS5
-	oLFVtBXGwsXfWMDIwU2L9MczYCjLRIVHSBNdgZ2qmrqBjTc5uKaV4aD8sF9kNF97s1lvovYTTy3
-	+mXWdNAD85BeuAjOAI+FzkOka3SHFHdt6Mmc9nlwkixKU8cGDbRfgAB4317vB867w
-X-Gm-Gg: AYBFou1VCJalkMbF9ttNcj7DHY310POYi7VcDp6rz2j+N7bV1Ruu2w65artizOvNEn3
-	yFyWbqYQPu5KKaLzdYwJ7OMliMz2q9WInfNM005kRQrPBmct+UHXxC01luz/eVjOSe7nI56QD88
-	0LQ5cr2sj80mAziUahDMwAmW3TB/vUkTcsz1/MI4xzOn7/2iXFWScN6nxP2dgj1qkbfbgyapI7a
-	BMaGqqEeioXnIOA3U1EU129LB9S7MPyHwJk15s6E9MpiGX9mxHvzKUGBHheAkkhOjris3res0iv
-	DXW+yrTN6bNCzgPVySb8VpJI6qmreFaXuTshQWVQkvCiMW5hNvAksxyXQX7cgWofWrShHRq/0Ef
-	sHZNn7hIQTHCAzMpVr3J6KYaulzjF
-X-Received: by 2002:a17:90b:57ce:b0:3a4:fa1a:2b1d with SMTP id 98e67ed59e1d1-3a8a1c3ac39mr2378612a91.62.1791396291012;
-        Wed, 07 Oct 2026 11:04:51 -0700 (PDT)
-X-Received: by 2002:a17:90b:57ce:b0:3a4:fa1a:2b1d with SMTP id 98e67ed59e1d1-3a8a1c3ac39mr2378577a91.62.1791396290508;
-        Wed, 07 Oct 2026 11:04:50 -0700 (PDT)
+        bh=HzfN1dEYOJJZLs2bxJwMzeI90eUiWQZ53IXN9K6O594=;
+        b=ravcPxCsmy8nmiOMAP4vnU7g1dNScPFFiZdh01uaOLDmKIv0dSuzJBSApUmqCNdC9Y
+         Tva0GM/chixhPJMQl1gz2Lau+zKROrpRzzruF9LrWggi9FNuMhxWsHJjwPyWqM2MQwwH
+         tFfqakx7waDhhtd/trK7vvUqbXDi5/PcjOxj6mxhUArLcivRuH69FDk5tBndB7oRTwAM
+         OAc2MmpR7IUgbkUf4f1KqfKKmbcb6rqvwb0rL9GlTn3jz25/GzTjJaK4T2Sppl+VIZjT
+         H1gbGfHMTapYRV9LRXOjnfzqayv04aZ6ZYrIUYe9O1vVcJw0/4yWIR+QfvNg3xGweDv1
+         SpjA==
+X-Forwarded-Encrypted: i=1; AKwUvBwiQx1xByC02di915fl1qSk7Jqz0VMh821WHnKaNUInVIf+xKc7NMnNtVGK0QJKF7NA34n1nhAszCbp@vger.kernel.org
+X-Gm-Message-State: AFq9FYLAv3/uRVzorcCQ2nxmGc+MdcqnC7+pR4BEFbigCkykWv+4hI6i
+	jB4+1Ni98fV+/4tR9X+EMhbKwpk279OdaC3713d0PYfiCv99XMA/Qnn+GXZAiJsHsa8OmEd6SYT
+	IZ9fYH+Tr7aItpIyFiJUZ+wxFzGndngTOwBmKRCfOAlXmOb6v50CxoHPGTeapfxA0
+X-Gm-Gg: AYBFou22QIcawJjRNptdg+4z6Ha+PTKEyolwv68nosxE1W22G9GkL+Ea9P1c0Q2wVm0
+	+YzFqZBFXS8642+lVgouT0rHCRG6E1IHTJaURFh3rX2CM/PRmgZo5PKns65NKh9twTqFw6OzZ6S
+	rjsfv2Jxsphh7+ra7gWX+rX+8ZPwHDhs5W0QmnGZ8ytumdRg8pxsavKFcSPoKjCVTWV3YMjkw4x
+	/nyNe59U9iFgbIDDrP9Biv57iaWbPGwbSDUXmDLW3CLXRiXm7qYAfCofCzJRAcDTzzsE0uIMUc0
+	HcnLce2zyoNpdVXhdCQQS+yHV3SLpw4gxLMzwFIh6SzBS7PqJ2UVWHJbNZ326RcTPMvXtlp9/Zk
+	co/LBxJZsFoC6/fXz1dcPmV0c2j8J
+X-Received: by 2002:a05:693c:894f:20b0:351:69e8:d419 with SMTP id 5a478bee46e88-35169e8d438mr1958408eec.22.1791397052081;
+        Wed, 07 Oct 2026 11:17:32 -0700 (PDT)
+X-Received: by 2002:a05:693c:894f:20b0:351:69e8:d419 with SMTP id 5a478bee46e88-35169e8d438mr1958297eec.22.1791397050030;
+        Wed, 07 Oct 2026 11:17:30 -0700 (PDT)
 Received: from [192.168.1.12] ([223.230.93.214])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9f1a2508csm605492a91.3.2026.10.07.11.04.40
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-351735e316fsm980093eec.11.2026.10.07.11.17.20
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 07 Oct 2026 11:04:49 -0700 (PDT)
-Message-ID: <a166844a-ba68-46b2-b37b-111ce54dbba3@oss.qualcomm.com>
-Date: Wed, 7 Oct 2026 23:34:37 +0530
+        Wed, 07 Oct 2026 11:17:29 -0700 (PDT)
+Message-ID: <126c4b96-f50a-4ea3-8df3-a7118870a5a0@oss.qualcomm.com>
+Date: Wed, 7 Oct 2026 23:47:18 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,7 +89,8 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 09/21] ASoC: apple: Add macaudio machine driver
+Subject: Re: [PATCH v2 10/21] arm64: dts: apple: t8103-j274: Add
+ speaker/headset jack nodes
 To: James Calligeros <jcalligeros99@gmail.com>,
         David Rhodes <david.rhodes@cirrus.com>,
         Richard Fitzgerald <rf@opensource.cirrus.com>,
@@ -108,119 +109,85 @@ To: James Calligeros <jcalligeros99@gmail.com>,
 Cc: asahi@lists.linux.dev, linux-sound@vger.kernel.org,
         patches@opensource.cirrus.com, devicetree@vger.kernel.org,
         linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-        linux-mediatek@lists.infradead.org, Hector Martin <marcan@marcan.st>,
-        Sasha Finkelstein <k@chaosmail.tech>
+        linux-mediatek@lists.infradead.org
 References: <20261004-macaudio-v2-0-7b47ed6335a8@gmail.com>
- <20261004-macaudio-v2-9-7b47ed6335a8@gmail.com>
+ <20261004-macaudio-v2-10-7b47ed6335a8@gmail.com>
 Content-Language: en-US
 From: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
-In-Reply-To: <20261004-macaudio-v2-9-7b47ed6335a8@gmail.com>
+In-Reply-To: <20261004-macaudio-v2-10-7b47ed6335a8@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDA3MiBTYWx0ZWRfX9bLkXtm5Mdai
- BrxtnjDL3JxDaXexWwCA2AuVteNNHb5tlZlaQYsmBJVVj+wca1sr2LwZKIjw4UuZYNmKXrW9ZGd
- HJUQUotrWRDmO+ucrRiTdBY4ZayeApgHVQnRQKmfrFWNII4tX5UrvO1yndta4++UPbnc4HSnyIo
- 57R1DnCEPoRnCDZTg+1qWJUa3T+CEQfuDkjrtccHJ8RxVdXhSM2nk6gzX3Dag8TxNeW8D27I83W
- ekpMghq64E1Nx0Me/Vp6cSm+MoqRUlZovvVsibMgH8MoLiy1fzbio7W20uUgXaiX2zzE3cNhyvj
- uv/QP5cynnlw4kpAxdGd4siSQRu7Q0mIoFkJFLmvOxVrA7n0CltRfynmILpuuj+IclqH3sG0IxG
- 01krvDofz6wyhwEPe/Zu5CM34KHgrtuQzMxniQv4R00ff3lD4GA8FzYnAXH67YKoDw54hfe1hRs
- fQnlfJ7lfTl/E0GUumQ==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDA3MiBTYWx0ZWRfX1/+aqDdJJEq/
- LDdzmrkQLVBw+BfuukNV6fvdx45U3s7S7pp37VqfZbNUZKIwthL/C6yOK+jQiUgQYIRDr7oJXK5
- K8Fm0PZj7yc4ylajDTq90yC/IBA9yhQ=
-X-Proofpoint-ORIG-GUID: RBnnG80My6h7aQRCoaCSs1uOBL-28VCY
-X-Proofpoint-GUID: RBnnG80My6h7aQRCoaCSs1uOBL-28VCY
-X-Authority-Analysis: v=2.4 cv=OYkNnRTY c=1 sm=1 tr=0 ts=6ac689c4 cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=ZXy6yrx+fn+bJIgs5eQ1WQ==:17
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDA3MiBTYWx0ZWRfX0CQ/lH/dMzbh
+ y9G2gBADRlRfqIQCvrKq57AWfkwQtXlJV7WThNzSgswqiPxGtcBu+oLmWT+0fokVKIGiTY5zUPq
+ 0eb7lRX9x+3H+Ggyc+z0EwldjFAIpZo=
+X-Proofpoint-GUID: xB0zAuu1keWZfLrY_4M15yuO81nGoYYs
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDA3MiBTYWx0ZWRfX21XRBB4a/oXY
+ 7tEa1IN8JweiwBdXs5ytm0ZZB3k/vKxoBhL2FrVKN955hDFZf4VkfHJdR1GwyztWasyebyGuISG
+ 9xXF2t7xyBI8wSoe1HYzA/1CfVtaP7q6ppTFjhlbfyx6PbE+hqNQxWYctIINYwDCYKWggQm0H6T
+ zSr+o7UoR7SF6EQWM/EL2BBJ9EzsH2dcK9qHLjvSlXnbnhOkjPWPbyrqA6wl9LKXVvpmUs472XP
+ 2wfPeB6L0WiW1gj3gCk1sbfZpbG+oayFe1dJZia1s6BWXgTBDSV92QO9oJyEswSWlGDOp/B22hc
+ 8JJ9ItXICGBDixKHeuTi2giKVIky3Vynn9M0OrFqcQcYyUvAG+cdlUG4AUUVGNBwUaU3pFpN8rh
+ eXNvcHyR6fFTPr9RBNYq5xFEIMo1z4NFcwhN4rjsxARb8fw2SYcPRVufAE3i37z+R9BnQOCbg/+
+ hLqIt5vzw/+iJDjW96w==
+X-Proofpoint-ORIG-GUID: xB0zAuu1keWZfLrY_4M15yuO81nGoYYs
+X-Authority-Analysis: v=2.4 cv=a6+lZkSF c=1 sm=1 tr=0 ts=6ac68cbc cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=ZXy6yrx+fn+bJIgs5eQ1WQ==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=NwbpVL58AAAA:8 a=dOLNmq4gAAAA:8 a=pGLkceISAAAA:8 a=291MuZCLWqhcjKYDPAcA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=rl5im9kqc5Lf4LNbBjHf:22
- a=tNWvAHffTtQgx3ZTRG8Q:22 a=_m6CO-mWuQdSFutSHjXj:22
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=pGLkceISAAAA:8 a=UKJZ3Gop6vG71Bmy1WEA:9 a=QEXdDO2ut3YA:10
+ a=PxkB5W3o20Ba91AHUih5:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-07_05,2026-10-06_03,2025-10-01_01
+ definitions=2026-10-07_06,2026-10-06_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 clxscore=1015 spamscore=0 phishscore=0
- bulkscore=0 suspectscore=0 malwarescore=0 priorityscore=1501 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070072
+ priorityscore=1501 adultscore=0 suspectscore=0 malwarescore=0
+ lowpriorityscore=0 bulkscore=0 spamscore=0 clxscore=1015 impostorscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2610070072
 
 
 
 On 10/4/2026 11:33 AM, James Calligeros wrote:
-> From: Martin Povišer <povik+lin@cutebit.org>
+> The M1 Mac mini integrates Apple-specific variants of the TI TAS2770
+> and Cirrus CS42L42. Add these nodes and advertise them to the machine
+> driver via the sound node.
 > 
-> Apple Silicon Macs have a complex audio subsystem consisting
-> of an I2S peripheral (MCA) and multiple codecs of various
-> models and capabilities. Some machines have a basic mono
-> speaker with hardware downmix, while others have a very
-> intricate stereo system consisting of multiple codecs and
-> drivers per L/R channel. Some machines report voice coil
-> voltage and current information back to the SoC, and others
-> do not. All machines have a headset jack.
-> 
-> Add an ASoC machine driver for this platform.
-> 
-> To express all of this sanely, we initialise the correct
-> combinations of codecs/I2S ports as DAI backends and link
-> them to a synthetic frontend. Each frontend is linked to
-> a PCM, one for the headset codec and one for the speaker
-> system on the target machine.
-> 
-> Signed-off-by: Martin Povišer <povik+lin@cutebit.org>
-> Co-developed-by: Hector Martin <marcan@marcan.st>
-> Signed-off-by: Hector Martin <marcan@marcan.st>
-> Co-developed-by: Janne Grunau <j@jannau.net>
-> Signed-off-by: Janne Grunau <j@jannau.net>
-> Co-developed-by: Sasha Finkelstein <fnkl.kernel@gmail.com>
-> Signed-off-by: Sasha Finkelstein <fnkl.kernel@gmail.com>
-> Co-developed-by: James Calligeros <jcalligeros99@gmail.com>
 > Signed-off-by: James Calligeros <jcalligeros99@gmail.com>
 > ---
->   sound/soc/apple/Kconfig    |   18 +
->   sound/soc/apple/Makefile   |    4 +
->   sound/soc/apple/macaudio.c | 1699 +++++++++++++++++++++++++
->   3 files changed, 1721 insertions(+)
+>   arch/arm64/boot/dts/apple/t8103-j274.dts | 67 +++++++++++++++++++++++++
+>   1 file changed, 67 insertions(+)
 > 
+> diff --git a/arch/arm64/boot/dts/apple/t8103-j274.dts b/arch/arm64/boot/dts/apple/t8103-j274.dts
+> index 1212852251e0..6121e3a89a0f 100644
+> --- a/arch/arm64/boot/dts/apple/t8103-j274.dts
+> +++ b/arch/arm64/boot/dts/apple/t8103-j274.dts
+> @@ -75,4 +75,71 @@ &i2c2 {
+>   	status = "okay";
+>   };
+>   
+> +/* Audio codecs */
+> +&i2c1 {
+> +	status = "okay";
+> +
+> +	speaker: codec@31 {
+> +		compatible = "ti,tas5770l";
+> +		reg = <0x31>;
 
-> +
-> +static int macaudio_be_trigger(struct snd_pcm_substream *substream, int cmd)
-> +{
-> +	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
-> +	struct macaudio_snd_data *ma = snd_soc_card_get_drvdata(rtd->card);
-> +	struct macaudio_link_props *props = &ma->link_props[rtd->dai_link->id];
-> +
-> +	guard(mutex)(&ma->be_link_mutex);
-> +
+The binding documents "ti,tas5770l" in 
+'Documentation/devicetree/bindings/sound/ti,tas2770.yaml', but I only 
+see 'ti,tas2770' in the OF match table in 'sound/soc/codecs/tas2770.c'.
 
-This is in the DAI link `.trigger` callback, but I don't see the
-macaudio links being marked `.nonatomic = 1`.
+Is the expectation that this node should bind through the TAS2770 
+driver? If so, should this either use a generic fallback compatible, for 
+example:
 
-The default PCM trigger path can run with the stream lock held and IRQs
-disabled, so taking a normal mutex here can sleep in atomic context. If
-this state really needs a sleeping lock, should the affected links be
-marked nonatomic, or should the trigger path avoid the mutex?
+compatible = "ti,tas5770l", "ti,tas2770";
 
-> +	if (props->is_speakers && substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
-> +		switch (cmd) {
-> +		case SNDRV_PCM_TRIGGER_START:
-> +		case SNDRV_PCM_TRIGGER_RESUME:
-> +		case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
-> +			ma->bes_active |= BIT(rtd->dai_link->id);
-> +			break;
-> +		case SNDRV_PCM_TRIGGER_SUSPEND:
-> +		case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
-> +		case SNDRV_PCM_TRIGGER_STOP:
-> +			ma->bes_active &= ~BIT(rtd->dai_link->id);
-> +			break;
-> +		default:
-> +			return -EINVAL;
-> +		}
-> +
-> +		schedule_work(&ma->lock_update_work);
-> +	}
-> +
-> +	return 0;
-> +}
-> +
+or add `ti,tas5770l` to the driver's OF match table?
+
+
+> +		interrupts-extended = <&pinctrl_ap 182 IRQ_TYPE_LEVEL_LOW>;
+> +		shutdown-gpios = <&pinctrl_ap 181 GPIO_ACTIVE_HIGH>;
+> +		#sound-dai-cells = <0>;
+> +		ti,imon-slot-no = <0>;
