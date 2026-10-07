@@ -1,147 +1,95 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-192.mta1.migadu.com [95.215.58.192])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1739F4DEC3B;
-	Wed,  7 Oct 2026 18:39:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E0FA4DEC19
+	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 18:55:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.192
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791398396; cv=none; b=dxZMSd+7sk6FB5TrQ6j8DeufFAjPtZt9IoxOwg+VLkVWi2hwsEl7ve3xa/+6jBBdRWPtT3DleKbU1JY4k5gVHzucIW0u/o+WWzWI+7Zj06mf2CRI5Qpcm2PdKazyPfmOLdCpIr8Dy4aQZqQNNHP2ioMO3YrNWVDnlhqJETk43bg=
+	t=1791399343; cv=none; b=pWWqrqPwLmjvcbWsAfjTqsKflHYSIIwr+XnUPi3VoU7gdbVMnbh4ghBP4e3cmifpu4evsC8JexqOeoJc4C/7J/IObyPWY8tDDHk/cnjYkjfyNyRinm+nZxa+1kgHlKXM4j2QrxQR3Mg7YsTUz/NIEGYp0APeaiA5WJ8XJJPGfUM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791398396; c=relaxed/simple;
-	bh=yEzeEqRyzkeNneE75WHmeQNkwdywPpw0kTdt/SFmhjo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=dvhsc9Ly1fqMrNPmzk5iYmmSlPCA58IDsPKg/6TMqU9NpcP+LkJNuQFCc3hsjOaMiXOcRpXdjoTszSgXIDPZWmEm3RXVJarafwz1BRonq0LSFwS3X4tiI01qqK2fh1j/DBDtStFdobujxdubTYWEJU7WGxWkIAxlc30dUIuOMug=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C87mh4D3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791399343; c=relaxed/simple;
+	bh=NawfysQwVd6S7oix4jACaVQ2tu52ubs3uEDYi3x7Z4M=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=oHqvgszYCG8D7tbBnmuaCBvwVK7qOm3RUKLliWkXFxk4zCwFm0r+FEOl8j9ob8Cb/paOKErjjLyRy8iX8PoP6hFYPOqtq4pTAkOqNSILB4xc5BufPSifnFJOT3VzJQXLSVBYj5h+3cq9Ow2PgKkK63ajYM2xlMN4FKTgaTNwKJA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool; spf=pass smtp.mailfrom=packett.cool; dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b=cirsLo45; arc=none smtp.client-ip=95.215.58.192
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C87mh4D3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B0641F000FF;
-	Wed,  7 Oct 2026 18:39:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791398394;
-	bh=MCv2C8fY4xu/QhMyWNKnDvP7nn6RLVcj+W4fGSSQzxs=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=C87mh4D3PuE9JqnkDteZuVBp4Thf5qSVhMmXT9EErkLFZC79D+3bQfdDEAQi3P64l
-	 NnBkANyX52HKjFTYGRiNCOm8peEaM3bljXkJ/k/VZ6N4POZTZJEnrm/Ky0mRvlyICp
-	 vnC8rrMt0WADxRwijkljVbCCPJZ/56P7zqzB90ajjDBWijBWu0ITUBO/od7xZ7Ui+0
-	 6a1uREhmegJU0QP9w9d6FejXrdulI73V0xenF119lM0LfrkwjqmMzmHMIWmQmr2Z5/
-	 kElSJJIjwKMVySn6CLyPlF3yvxIDWzdn0Ilql+xF8fD6wU2rMZc4IsfYEszG1J48lY
-	 lQDgGxQrY2YkQ==
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Date: Wed, 07 Oct 2026 13:39:41 -0500
-Subject: [PATCH v3 2/2] kbuild: Support directory targets for building DTBs
+	dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b="cirsLo45"
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=NawfysQwVd6S7oix4jACaVQ2tu52ubs3uEDYi3x7Z4M=;
+ c=simple/simple; d=packett.cool;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791399338; v=1; x=1792004138;
+ b=cirsLo45FAZyWK5HLGdKvS9N0Y8DXff6ap4cAE6ap3TgNFeOq14Eg2gI6bpevDoc4zhB8tqa
+ AAOg7+A1EOdxPHK391Ori31j52wYWH5hbE4jwHrmPIcJgrOEKoMfkqXrpg/OW4e6XydVJr1CRXz
+ coxbWdZO3NTKqvYTBjt8gEXRpo8b46YWixuLm7gbcpr6Wps7RXVTkvFiOMZqHlWenpvHMr7/Njd
+ uNf+pUnvGSEjsByNv4lwDVTwuUG50M/Czhc6q/kS0gYC5vQ0faNK+hmkKSBtiFguBG5wWdoyB7U
+ uWwZNTaHifGz17X9uOKiGZz//FtV85OVsGNdofR2dHyMA==
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 44251fd1fed4f74b;
+	Wed, 07 Oct 2026 18:55:28 +0000
+X-Mizu-Trace-ID: 44251fd1fed4f74b
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <d0e24121-49f2-4002-ad4f-bf96f6fc0861@packett.cool>
+Date: Wed, 7 Oct 2026 15:55:22 -0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261007-dtb-dirs-v3-v3-2-b3ab32b64fa6@kernel.org>
-References: <20261007-dtb-dirs-v3-v3-0-b3ab32b64fa6@kernel.org>
-In-Reply-To: <20261007-dtb-dirs-v3-v3-0-b3ab32b64fa6@kernel.org>
-To: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>, 
- Saravana Kannan <saravanak@kernel.org>
-Cc: David Heidelberg <david@ixit.cz>, Arnd Bergmann <arnd@arndb.de>, 
- linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org
-X-Mailer: b4 0.16-dev
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 2/3] pmdomain: Add support for system-suspend-only states
+To: Sudeep Holla <sudeep.holla@kernel.org>,
+ Maulik Shah <maulik.shah@oss.qualcomm.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-pm@vger.kernel.org, linux-arm-msm@vger.kernel.org
+References: <20261005-s2idle_state-v1-0-3c402c66f388@oss.qualcomm.com>
+ <20261005-s2idle_state-v1-2-3c402c66f388@oss.qualcomm.com>
+ <20261006-romantic-stalwart-seriema-90e71d@sudeepholla>
+Content-Language: en-US
+From: Val Packett <val@packett.cool>
+In-Reply-To: <20261006-romantic-stalwart-seriema-90e71d@sudeepholla>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-It is useful to be able to build all the DTBs for a vendor. One can list
-all the .dts files in a directory and convert those to %.dtb targets,
-but that doesn't work for base+overlay DTB targets.
 
-The 'dtbs' and 'dtbs_check' targets can use the directory rule targets
-as well which avoids different make paths for building DTBs.
+On 10/6/26 6:15 AM, Sudeep Holla wrote:
+> On Mon, Oct 05, 2026 at 08:59:43PM +0530, Maulik Shah wrote:
+>> Some domain idle states require system-wide coordination and should not be
+>> selected during regular CPU idle. However those states remain valid for
+>> system-wide suspend like s2idle.
+>>
+>> Add a per-state system_state boolean and populate it from the system-state
+>> property. Make the genpd governor skip these states during CPU idle. Leave
+>> the system wide suspend path unchanged so s2idle can select them.
+> Instead of this I am thinking if we can QoS cpu latency setting and block
+> system level states normally. Since s2idle is user driven, it should be
+> controllable via user-space and we don't have to define bindings again
+> if systems that use platform-coordinated needs this too. They may not
+> use domain-idle-states.
 
-Assisted-by: LLM
-Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
----
-v3:
- - Reworked on top of single target rule for %.dtb
- - Make dtbs target use directory rule.
- - Move adding boot/dts subdir out of the arch code. Now supported on
-   every arch (not that useful without vendor dirs).
- - Removed the need to look at MAKECMDGOALS
- - Fixed unnecessary rebuilding DT base+overlay targets
- - Link to v2: https://lore.kernel.org/all/20251120204812.1983452-4-robh@kernel.org/
+Messing with latency sounds like a hack. It seems like some system-level 
+states are just explicitly provided for runtime idle while others are 
+only intended for system suspend. That intention should be 
+captured/documented by the device tree explicitly as well.
 
-v2:
- - Convert arm, mips and riscv. The other DT enabled arches don't have
-   vendor directories.
- - Link to v1: https://lore.kernel.org/all/20251113225952.867138-1-robh@kernel.org/
----
- Makefile               | 8 ++++----
- scripts/Makefile.build | 7 +++++++
- scripts/Makefile.dtbs  | 2 ++
- 3 files changed, 13 insertions(+), 4 deletions(-)
+I don't have access to HW docs but according to someone who did some 
+digging on Windows, it seems to be this way, e.g. on Hamoa Windows 
+enters system SS1 / "LPI" (0x02000154) at runtime all the time, but 
+reserves system SS3 / "DRIPS" (0x0200c354) for system suspend:
 
-diff --git a/Makefile b/Makefile
-index c307ee9293bc..75d290c2b7d8 100644
---- a/Makefile
-+++ b/Makefile
-@@ -1664,8 +1664,8 @@ dtbindingtree := Documentation/devicetree/bindings
- ifneq ($(dtstree),)
- 
- PHONY += dtbs dtbs_prepare dtbs_install dtbs_check
--dtbs: dtbs_prepare
--	$(Q)$(MAKE) $(build)=$(dtstree) need-dtbslist=1
-+dtbs:
-+	$(Q)$(MAKE) $(dtstree)/
- 
- # include/config/kernel.release is actually needed when installing DTBs because
- # INSTALL_DTBS_PATH contains $(KERNELRELEASE). However, we do not want to make
-@@ -2216,7 +2216,7 @@ single-goals := $(addprefix $(build-dir)/, $(single-no-ko))
- 
- # DT-only targets need host tools, but no architecture-specific preparation.
- ifneq ($(dtstree),)
--single-dt-patterns := $(addprefix $(dtstree)/,%.dtb %.dtbo)
-+single-dt-patterns := $(dtstree)/ $(addprefix $(dtstree)/,%.dtb %.dtbo %/)
- ifeq ($(filter-out $(single-dt-patterns),$(single-no-ko)),)
- single-build-prep := dtbs_prepare
- endif
-@@ -2234,7 +2234,7 @@ prepare: outputmakefile
- # Error messages still appears in the original language
- PHONY += $(build-dir)
- $(build-dir): $(single-build-prep)
--	$(Q)$(MAKE) $(build)=$@ need-builtin=1 need-modorder=1 $(single-goals)
-+	$(Q)$(MAKE) $(build)=$@ need-builtin=1 need-modorder=1 need-dtbslist=1 $(single-goals)
- 
- clean-dirs := $(addprefix _clean_, $(clean-dirs))
- PHONY += $(clean-dirs) clean
-diff --git a/scripts/Makefile.build b/scripts/Makefile.build
-index 4349108e75e1..d22b3b2d43b3 100644
---- a/scripts/Makefile.build
-+++ b/scripts/Makefile.build
-@@ -38,6 +38,13 @@ include $(srctree)/scripts/Makefile.compiler
- include $(kbuild-file)
- include $(srctree)/scripts/Makefile.lib
- 
-+# Make DT directory targets reachable for architectures with a DTS tree.
-+ifeq ($(obj),arch/$(SRCARCH))
-+ifneq ($(wildcard $(src)/boot/dts/),)
-+subdir-y += boot/dts
-+endif
-+endif
-+
- # flags that take effect in current and sub directories
- KBUILD_AFLAGS += $(subdir-asflags-y)
- KBUILD_CFLAGS += $(subdir-ccflags-y)
-diff --git a/scripts/Makefile.dtbs b/scripts/Makefile.dtbs
-index c4e466390284..c7ec2a2a308e 100644
---- a/scripts/Makefile.dtbs
-+++ b/scripts/Makefile.dtbs
-@@ -23,7 +23,9 @@ dtb-y           := $(addprefix $(obj)/, $(dtb-y))
- multi-dtb-y     := $(addprefix $(obj)/, $(multi-dtb-y))
- real-dtb-y      := $(addprefix $(obj)/, $(real-dtb-y))
- 
-+ifdef need-dtbslist
- always-y        += $(dtb-y)
-+endif
- targets         += $(real-dtb-y)
- 
- # dtbs-list
+"A Windows WPR trace (Kernel-Processor-Power |PlatformIdleVeto|) showed 
+that Windows never enters DRIPS while the screen is on. The PEP vetoes 
+it (reasons 4/5/8) and only allows platform.SS1. DRIPS is used only in 
+Modern Standby."
 
--- 
-2.53.0
+~val
 
