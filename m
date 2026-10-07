@@ -1,199 +1,265 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011015.outbound.protection.outlook.com [40.107.130.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7875B3D9DD6
-	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 07:12:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791357128; cv=none; b=IQDTYbj1tqZ/yvF2Uejukb9SQwhIIUwRwS1pfaM+xMaVovF/Vbe2gF5JI/ljvT89xg8gCF7CKQqqAhzh8SUjYmL4IMGjiTtrflOjh4pRd0D/j2MBQ8zt7ITni8d5BAPCpb/B0nXGG/1hZrh7gJy5UeHr6ZV36VyiJYinPAjbrBI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791357128; c=relaxed/simple;
-	bh=qfIGU5Nv0gjACCKSPLGWnaMvD/NktpDCP2N4rY9QGv4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YWg7yUecVRkjcIeO4uIIZMZt3inyIVi8JmzNdILn6IgW5KwU+XQc0cBL1OowrhsIBrIp8scbqi2NvIRaYgaIo7mkCjbO9Pc3eAud+adHpEe8i7Iei4vLiQexreGgkxnhPO/Mar/69vawU9yVU3PBl5c4bO6/UTTPkW4rT1b3J+I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=IP25/w94; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Y4FuEBdX; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72752361964;
+	Wed,  7 Oct 2026 07:16:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.15
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791357398; cv=fail; b=BCu8ZqXZtYkvIen1eDu/wfz7qPH5a6F6i8Iy/L5On+Zfls9ZC32YfrSuYJl0v/Helf6NsK839mS50Ioa4UZ51MO6gjtTmTnmIOz3htAFPwF/IQUvC9DcIPBUzJfhA546h+boEYAgO3AgmIWXYgJ2ZwBkO8ZJhsuGZInxWL97gn8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791357398; c=relaxed/simple;
+	bh=BJk9FptdLyGQE4SxtOivNcKm7/zL2HBfK60lWYtxWxI=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=Tzd5njDDUKGAXHy3TLhOuOWB4VcEaR76xXn8M+w8GU16Er6/lxTKgFdDwqlezm+Sg0yA1Ahibn6XlJlatToAJyNjxjmcajHhn81bxcEsxxYHzj8WL/bDgfo+LKYTqxFnZQk6P9QVGMYHOKiv/rSpNswQX2J6CUNggDUOdl8i/q4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=h7AyGos4; arc=fail smtp.client-ip=40.107.130.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="IP25/w94";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Y4FuEBdX"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69776U0x3213245
-	for <devicetree@vger.kernel.org>; Wed, 7 Oct 2026 07:12:06 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	3GX4DX9WHgkoCjexscTyxRsp0Y9v+fPY3Ro9VgKRBTc=; b=IP25/w94e84gY3+7
-	bAA0FSOYhxfaZT80uGMtUqAm36yFYmE6tYipp3D8zrmSAUXrpx4enx1uJI6qg1ta
-	hJW+JeVpJtgLdGFpVpnT+T/OBUz08P9h4fZkSD6xvd+vKAoNtL3WCgnsgEQn44fT
-	2WSB5a5sYOEDR+672T9xJPdddEmgsLlpPaUtJtS5fbw1O/j0Ipjaepdk5D5IIu/Y
-	TeP0BxnW2O3TN+na6G0Or2m9oO+sWABZXpsre+Hsum7UAJhp+c1dYqux2BzgoL91
-	PUIbC2n7JRwpANKNrCGRH9calDqkNfaizDud28fIJ0335JXW1t/CciCxW3xT5Fwr
-	wh1i7g==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5hdcr0hn-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 07:12:06 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-39512608fb1so7089244a91.1
-        for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 00:12:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791357125; x=1791961925; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3GX4DX9WHgkoCjexscTyxRsp0Y9v+fPY3Ro9VgKRBTc=;
-        b=Y4FuEBdX9SpPckmQ3YhqoCCr8/rT/X42woqrjrhAGvO2AU1WY0XtrkFW1vf+hyr9Vm
-         VGOOORal0ftD0ziomNVNfJ8N4g9vsM0sSkbdLsvb0rVK1SAtR3VVzbdCQjLepC18XGXu
-         ZmVggzi0d/E+4qclYdT8eAhRBfffadYUH8j1CqGz2AX1oJCkqi6jZgF7ZvYOwPbzRH07
-         qIvwNLaCadOVszCi+9NxJYaieOoNvF6r18fTpaWFSnL6CihSGtBMW0Kg/NIitmBYDyJw
-         wSC7piQ4Av1aDoCSkd7aFI2Omdw/H1HhqtEZGvhKCDTYa7MlcSPNScAa7gZZaYCkt6vY
-         yQ9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791357125; x=1791961925;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3GX4DX9WHgkoCjexscTyxRsp0Y9v+fPY3Ro9VgKRBTc=;
-        b=kiYW4dPQ1YvPCJOSkanxWQvDyJJat7Qwu4x4g2G8Cg8Sl5sljoNNsrEALantkbh5iO
-         UHqS8DLhAxGjqVo+4F3nQmcdAtum/2UA+gkh9ClfIKMwE0KxBogMa2TSz6ftYxbZMlaH
-         h1LuMBaRwbX60SzyS3VDx/oAkOoC2Zd+wKIxlxvK8py0vpG10DGflujEBqCjuWV0f1TW
-         bE5YgH7JU/NdW9afdCHW/luIHdZ6TX4tj8VEX45PqHJOUTR5JApMaCNOpAztWf9wPP8d
-         tpJ3MYPSjrLpXwMavWKGBgm8a5pj1rNVyMoKmSqRDYtip1HJF0abjhaHPFM+but2odRX
-         KG9w==
-X-Forwarded-Encrypted: i=1; AKwUvBwwiPzfpj34HT6Pq0zJK7J0kKojNxICsXczmVgCSBR+CPJFgUWm5FtIkzN+e8ghFkk/BpQPho87g+Iw@vger.kernel.org
-X-Gm-Message-State: AFq9FYL4ekiC4614oiiyBcssWTDs4QfbKVeh1QSWVd1vlVjRK4XJVfWp
-	i6FZmfnKkAuUTnI+SYR106pwxosnnDA1dyINBRZ8P3xegoNyo1bnwZJKJjST3POi3CQfLyPT8wf
-	t2LVIl21WSSux/ziZZw84LCSWWez5UG5Vh0RQxCXLhZS/WGmHsgupXh716WgD+UuY
-X-Gm-Gg: AYBFou0spIpk9Am0Re0qJqYZy4pseRsTqI1AAxeadcQQEAPXRDVvryWv13FWSKyyYkw
-	9o0k8pJ15L1WRojgir99iQb+Fyiw11DvYrgUsAumWkTc6O2LNyN2HwFJWM0G/Xguh6MJxMmMJYF
-	ov4rV1dseP9PxO4C4UBSoj5GACv1s3Kq3qidDkNM8LVY/IyoACkNQ2NEAYaoIVbkS4utK4ilesz
-	UPF7Fz3gG+jtahcs8X1Dg+iRhLMxuZtGPs+2nlm5DpJ2fx86mgG4KVt6hoSFY4hzQ5op2MvgzVF
-	rI4BbHLLZeuFZr3DsR6BW3HHuWsucp9kH3l4nBIWaE2N/0BE0BFg5wnBV0BgKTWjJ1O6Oe3U8RZ
-	UFfSpJZKw2JPzS1vaVuNFRfjJzXLEpIVqFIaUCXpxAHxOHNIFUX3aR/xMud2VSpF78dPzaJ3SAw
-	SYDJaUuI1Mnhux95fKrqerIGgHfWQ=
-X-Received: by 2002:a17:90b:3809:b0:3a7:8350:3faf with SMTP id 98e67ed59e1d1-3a8a17f850emr1227705a91.18.1791357125324;
-        Wed, 07 Oct 2026 00:12:05 -0700 (PDT)
-X-Received: by 2002:a17:90b:3809:b0:3a7:8350:3faf with SMTP id 98e67ed59e1d1-3a8a17f850emr1227675a91.18.1791357124810;
-        Wed, 07 Oct 2026 00:12:04 -0700 (PDT)
-Received: from [10.79.117.106] (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a897a22610sm3843683a91.0.2026.10.07.00.11.57
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 07 Oct 2026 00:12:04 -0700 (PDT)
-Message-ID: <245e5eef-e18a-4ec5-b57c-65e561101351@oss.qualcomm.com>
-Date: Wed, 7 Oct 2026 12:41:55 +0530
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="h7AyGos4"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=nFkiQG49F+QS6gVuXjzN/LHEPIveEtYOugZjapVfJNsG0qfyqB4/FxB0dgqyONsYYCXFX+ml5k2gAMFNLCwBqyAT09UliwFK7+n4M6wr6rAOxqFi5yjue+hW9d4swb8a/XJ2fMnrix4lH4yeRNpVmXOzYHaIN/MGwW8HifCvAaImHczPfcYgJJwUeZwnfrjBBs/rwu9M3ii7d6ZPdQVVXdiYklF8fwij4KOpgAq5fmFw4puBY75aIHtN7azNYfMXrNMXSEtFj6nI0e0bf6tKs9PqY++rbofJsZPsTuLwITrSMWKgpBqz0/3AnSwsfy3zXlMEgDFbxmIcl6jo4zU/nQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=BHeuMxTuJqZn1zGccXkKFl+IyCRzhnx2xP7y7UTEPRA=;
+ b=WbYHIDKOnbsOTGIChefyBcBlQTuNBUrUAD68j5P2pP48H5qK4Hfany0k0L2tJniR+5lkd62qXDkS5APqndLcWLAC6BOJZeO4GpuuV9xQkJyoK2IlvyjS4nwUD20yLvh46dDGLb4GAii6mvIwlbT54HR3vwVgJG76eTYjOzlxglA9HmR2tqK0QiUGrh5cbv49E0/A0fAfo8koj8Li0Djm6rTlaNsvYOkI3td3h8Fazqf28iWKcENlLhK/tAhPoJfNW3ZDoWIhIsoK1Qgk6JHNpZ5FDI9dN4xVrT5djYwtjs/w33uL0T96RYwxuqU2VYE+ylBeuhe0n5OKQN+MEMnpGg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=BHeuMxTuJqZn1zGccXkKFl+IyCRzhnx2xP7y7UTEPRA=;
+ b=h7AyGos4dDbtUeWai1MuPn/reA0yMZsmdni4IXAN6FbGrNTtOZTG0N33f7L64aWU4HoTjPXmKA0diAS7LLlJLJ3EcY0wr9ISGTqnRIrd4VpOE37WQBkioMCSmxvVGNdzyWxHxahkMnKkRKqIPMsht6tXUQf/9PiRg4VU++SFV84KU0Rg7ntcVKivbz7AkUzi8/Qi79Pc315ytXuXUHy/7ilAo0uPl89/5dOqxPTh9aPinZihFJ2GHp7cG314NGF9xiyFa94ufLP4psc//ZS562rUumY7IItVP4+is9TD32kdVasWBD+EP50k9AylY4a4gaUN+hdsFOGHjQVobV4nTw==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AS4PR04MB9244.eurprd04.prod.outlook.com (2603:10a6:20b:4e3::9)
+ by GVXPR04MB10539.eurprd04.prod.outlook.com (2603:10a6:150:21f::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.15; Wed, 7 Oct
+ 2026 07:16:30 +0000
+Received: from AS4PR04MB9244.eurprd04.prod.outlook.com
+ ([fe80::adaf:805c:51c5:9538]) by AS4PR04MB9244.eurprd04.prod.outlook.com
+ ([fe80::adaf:805c:51c5:9538%6]) with mapi id 15.21.0472.016; Wed, 7 Oct 2026
+ 07:16:30 +0000
+Message-ID: <cd0d4f4e-f3a0-4849-ad93-09dafbce1df5@nxp.com>
+Date: Wed, 7 Oct 2026 10:16:27 +0300
+User-Agent: Mozilla Thunderbird
+Subject: Re: Re: Re: [RFC PATCH 6/8] media: i2c: ov2312: add Omnivison OV2312
+ driver
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Rishikesh Donadkar <r-donadkar@ti.com>, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, tomi.valkeinen@ideasonboard.com,
+ mchehab@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, nm@ti.com, vigneshr@ti.com, kristo@kernel.org,
+ mripard@kernel.org, jai.luthra@linux.dev, jai.luthra@ideasonboard.com,
+ devarsht@ti.com, y-abhilashchandra@ti.com, tomas.babinec@nxp.com,
+ daniel.baluta@nxp.com, Frank Li <Frank.li@nxp.com>
+References: <20260925133001.2780868-1-r-donadkar@ti.com>
+ <20260925133001.2780868-7-r-donadkar@ti.com>
+ <e469d168-39f9-448c-a7ab-5d02b79d8cb8@nxp.com>
+ <asSk9KW-lzuiUJa3@kekkonen.localdomain>
+ <577b34a1-4c2f-487d-a4fa-e7ede2b60091@nxp.com>
+ <20261006153728.GA622105@killaraus.ideasonboard.com>
+Content-Language: en-US
+From: Mirela Rabulea <mirela.rabulea@nxp.com>
+In-Reply-To: <20261006153728.GA622105@killaraus.ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: AS4P192CA0012.EURP192.PROD.OUTLOOK.COM
+ (2603:10a6:20b:5da::20) To AS4PR04MB9244.eurprd04.prod.outlook.com
+ (2603:10a6:20b:4e3::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/5] dt-bindings: arm: qcom: Document Microsoft Surface
- Laptop 8th Edition
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Maximilian Luz
- <luzmaximilian@gmail.com>,
-        Hans de Goede <hansg@kernel.org>,
-        =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-        Douglas Anderson <dianders@chromium.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Jessica Zhang <jesszhan0024@gmail.com>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
-        Pankaj Patil <pankaj.patil@oss.qualcomm.com>
-Cc: Rajendra Nayak <rajendra.nayak@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org,
-        dri-devel@lists.freedesktop.org
-References: <20261006-mahua-surface-laptop-v1-0-406fc042162a@oss.qualcomm.com>
- <20261006-mahua-surface-laptop-v1-1-406fc042162a@oss.qualcomm.com>
-Content-Language: en-US
-From: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
-In-Reply-To: <20261006-mahua-surface-laptop-v1-1-406fc042162a@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: vZnSq0syxWIGSPGEy9gn-oeuVf4xnRxX
-X-Authority-Analysis: v=2.4 cv=aKFlOr9m c=1 sm=1 tr=0 ts=6ac5f0c6 cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=yMhMjlubAAAA:8 a=EUspDBNiAAAA:8 a=jx5OK0JlhDPw0se3NWkA:9 a=QEXdDO2ut3YA:10
- a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDAyOCBTYWx0ZWRfX/8wc5L6J+4PL
- 3kOU6Jb0uL46f05hQows0F1G6VNwTSamNDdJg2E9F4NYioZe20NMQQ3qFWwC6eOf77UmvBdUsUP
- x8V8NVlOK5ubVJT/E5NMTo/BWgIpd3g=
-X-Proofpoint-ORIG-GUID: vZnSq0syxWIGSPGEy9gn-oeuVf4xnRxX
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDAyOCBTYWx0ZWRfXybCjwf1KTVBG
- Cw/8xyzcHXCVDi64ZQHDFWIsn7gpEbWGcWA+1j+TUUyVzmhVr9PRSI+Has3FRgYuXGISWA+2wwn
- QdOyyV1l48kS0FmE9PzZnImUswfUxeV3JaDgeUoZWiUGMRAptf2sP3izAeD8gXmVxXtSaDHFnan
- moFb638Q9PmYrD7OovhdiDsX0yOk814UkDfAxgEuSHUiN6J/zMGtOUpjae4ziDzPJG9ezoggS+U
- L3g3j7rPEBvAlQY/s0Zx5PG4dOS2LVzKzYi/OMGOcBSH8aFsjSKJCvskNnRfFPjM88oLlfAH+bl
- vYqRghUOpHKyO3L9tZc1FVSK2mkirwwyMW+3OfCzs1yvQjyNB72doOL3zjlMzrIy/06gAtxIITS
- HYYfn4ovsZq/IW/tlbtNs4lROtoPawzq2uv3Sy5Ucm9k+Gu1L2OVoXrDI3J+P3Jc9n7unktfX7m
- C0dmCH3G/S6Wl4pD0eg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-07_02,2026-10-06_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 malwarescore=0 priorityscore=1501 impostorscore=0
- bulkscore=0 adultscore=0 lowpriorityscore=0 spamscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070028
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS4PR04MB9244:EE_|GVXPR04MB10539:EE_
+X-MS-Office365-Filtering-Correlation-Id: b83f1eae-a8b5-4274-6b3d-08df2442e8a1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|366016|376014|7416014|19092799006|1800799024|56012099006|11063799006|5023799004|4143699003|10067099003|18002099003|22082099003|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	wk8SMVdGqOfWTALW7PJEnbTLceMxLGKE3dUdqoTqQa+iOu+3IDLGhEqKEu1TwentN1FM4gOFlz01UukNb56D5FNEeMTEfHobKG72L6XGCzX0Al+pn0i8IGQQonMaH2v21XCdmBy8HQp7EEWMWR1+fv8GhypaYkfisJX2YSHNlZElukn3fflRw7z7Meu8k48CzwTDsSlrijlNRmZLWwEFSL4NQ5/ywjOswfb2JFukRnFGpRSxYx3m5Lr4Ga+RAhEZW/ykTUUijtdxnJkYvlD6qXYGl1gNs8yOej79yTSVcS75hNrayal8nKPWJfDyqVYc9bd4NMbYhrGySu/gHAXLQWVrzZ7AcW40Rcclut3zYBEME6TrLFNEVBqpVHXw5ouxlJ/xh46tXc9WYjCNEDHhzo7LfeMPC5wD/l/Jz3em/Ro6yQuhJ5tKwxP+2TVfct/LZUgJHgZIvTGmiJdhGNt7vRsEdgNFUHWyygGxvTrAUn9qVPHoX2dTE370WP64CeyHH8l/6A0SN/JY0evXcBiiGH+BlfE+VhYnLZ3Z22CoF89OrU1FJvO0p88lk0hIp7FWEk8ExvC0/flbFnU8u9kPZ0ead6olcTto3d7b5wV6HqlYPvcIwqYVg5naOUIczz1oLhzvv2MRNQaT7In1TDnlaqXKj/oEA5j2x7B/JgnXUnY=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AS4PR04MB9244.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(7416014)(19092799006)(1800799024)(56012099006)(11063799006)(5023799004)(4143699003)(10067099003)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?a2xUdlZhM0toWngyZGN5MkNFd3ZMRjBBMFo5RitGNU9LajFaWjhCL21yczJs?=
+ =?utf-8?B?R2dMTENDU0c5NjlKRXNxSDduY1RoNThUY3d6SSs2ZG1sYUc0UXd1V3RSa2Zt?=
+ =?utf-8?B?Q0hJdmpxVlA5dDUvRTYwUXBzVEdSVHdwaEZHYWJ2TFBKaDFIMHVONmloYTNO?=
+ =?utf-8?B?UXlFQS9pWnZhTmhRcEVYOWg2czNPNmdJL2IxbXlKblUrNWtaeDFXbkRXbWxr?=
+ =?utf-8?B?eHFzYWVNWWlOcHNIcVBKVTM5U0hKVWdhRS9wU0tjTy9NQkxxQ1ZYVEZwVWtH?=
+ =?utf-8?B?OG5MN2E5OEtyVzc2ajVZUFo4VXJDWVNaQndSejlWdjlFUFRMZWdIaW9pMUVY?=
+ =?utf-8?B?SnBHRWI5WGgwbkRoU1JuTEgrNm84NGFiMEZ6NVFpYnhSVXd2NlpXMlVOcm1K?=
+ =?utf-8?B?YnZla3ZPSEdFYVhFMkRJa1pOUUw3UVZaOHl1SDVJQ3E4RkhJYlcwc1FxMzJm?=
+ =?utf-8?B?b3hpU0tjdVBRdGhrQXJ4MjJCZGRadlJneS9ROE5UR1FOdW1yVEZMSWFFMVBv?=
+ =?utf-8?B?R2I3bVM0VjE5NDFsaVd2dSthVUxMcE50bDNwd2kwU1hEUlFJOW1zekdaUCty?=
+ =?utf-8?B?VzJYeHVIeUE2VjBObEQwbnAvR1RGVis1dTZSenZZTjREenNlUkdMODlhUDF3?=
+ =?utf-8?B?TW84UjY4V1g0N0NUYVE5TTBQSjdFb2s0VUorVitjYmsycVAvSHhvRDNsYll5?=
+ =?utf-8?B?RndqdHN4S2g5SGVaM0RHMjJaYXA2YnFBcjNwZzJuREVpNGRYVGRMTURqOFRP?=
+ =?utf-8?B?MmpITnhTUzkxL00zQzNFdlREYUp0QVdRN1NnRUZyZ1RwaHQ3VFJzZ0Fibmgv?=
+ =?utf-8?B?VkdHSVI3VDlLUlFiNHNMVHZGVEwra1RkTkZjV20xbnN2bHN4aEZsTzRNRE1E?=
+ =?utf-8?B?dXE3ZmFRWUMrT3FpenY0THBiR0xhQXBFWm5IeEwyeDdtUXVoNUxqMm5SUGRL?=
+ =?utf-8?B?TjdCS1NTWmpBbndMUi9Kd0VJblJ4WTd2bFlsbEVva0xFWHRpL3E0Q2ZJak1p?=
+ =?utf-8?B?N0VEL09WTnhNNUtQMHZzOVY0OXJQMVYwczlRTTBHSDJiQVVLZUlyTXd3UjBQ?=
+ =?utf-8?B?d2tOMzFGZVhpbTQwQVQwRStIZUhoK0FUS0NTNW1WNVJ5ZHkrVXhhNWg0Qnda?=
+ =?utf-8?B?bUNkQ1JqaEhEaTUvbUFUeHNwVWNPbFBNdXJ5bFFrWUhPYU9SUURSeEZ3RWdp?=
+ =?utf-8?B?UEhBcXVaVmlybEhnaTNPUmVGQlhoY2U0bnpkOWg2MGwzTGZ6VzZYa2JkMDR5?=
+ =?utf-8?B?T1hEcHVkTHNqeWNJaStuNkQwZjVOSjBsOFBGWVpDdHNjRmVtVHY5R0JHYTls?=
+ =?utf-8?B?M3d4dXd5Q1NTRHI0eFJURFF1TGdQZEl6TXMzU2JnMjFQU3lpc3gvOEY1WXJU?=
+ =?utf-8?B?YllQb2NSR2dVL0xlV2c1U1oxT0NWS2xMZC9oL3lkQUw1cEQrUzZzMjMxSFdr?=
+ =?utf-8?B?cHRaYjFCaTRkcHUrZmJ3bFNzc1A4M3BSQjhJN1pXeGg2NjJJYzFEV2JvdnpM?=
+ =?utf-8?B?Y1FNcHBJMVlpYS9TU2QxaEtObFlzaElFOHY3aW9LdGc0ZUlNenp3Nlh3TUZ0?=
+ =?utf-8?B?K09lRGI4Wm9lLzlDa1ZLeFFNUW9JUUdqU203dkk5SFBHUnROdTJ3SXlhQ0ll?=
+ =?utf-8?B?MFpxTXVYT0lITi80YkJiSVdrK1drUUsxVnRqQ2twRC9yVTJnMXVYSHp5TVQ5?=
+ =?utf-8?B?ZFVtdWlUcWpKWk5hRU1yTjJ4NFNMenFMM0hya1VzMkdCd2hPVCszN1BFTEVM?=
+ =?utf-8?B?blhZWnM0eW85MFpxVi8zTGhnZmZTM0IxOTZkY0hSYXVIT3NRL0hlTHZZbjQ3?=
+ =?utf-8?B?UExZL29vNXo5aldybGQzQVpZWHFqUzZkS3FOS21YSWtxV09lZm1qOUllSEFs?=
+ =?utf-8?B?dWJRckc2OWtUZDRXb0Q5OGQ1MkQ0L1kvaTBwNldGQ1g5VlFmMWRtVWFUTXlK?=
+ =?utf-8?B?eHNCVHB2MHJYT0MrY0ZJdWVIR204TElWZnFBK0FoRXMrQ2pVWnVBNGRJMnBs?=
+ =?utf-8?B?QXg2MGxJNEcwclR2dVlEd1ZWM0YrbGt2emkwQ09XRkVwVU1iZnhkOExLeW5Y?=
+ =?utf-8?B?aEsxSW1iM2J5T2xqYVE3SU1FZDdxWGdZK3FDU3JZZEJzQWRVZEJlVmp5L3FE?=
+ =?utf-8?B?aG9kVG9pazBmSUovZ056NDRBeHhPVHNwc3U1OXpIVmJxSGx5aThmVFNBdDFh?=
+ =?utf-8?B?TE51cTB3c0xhbS9tRmxYL2pQYVBBSDZEaFNYcVhoUzlzQjYzTmpnV0V6b21H?=
+ =?utf-8?B?U2dXWXJtaVRRSXFVRDI1ekhJTngxVDU2U2FETE9XQ29oSjlOa0tWQ09FVzly?=
+ =?utf-8?B?UFFYMElibUROVzZvZUJjeTJYU2RXenNWeE8xcVZ4ZUZQVVZONGY1Zz09?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b83f1eae-a8b5-4274-6b3d-08df2442e8a1
+X-MS-Exchange-CrossTenant-AuthSource: AS4PR04MB9244.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 07:16:30.2224
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 4OuxO/9CQBktgoyjEyd6Y7aUMJyUzyv0scGXOK48PMpS2/9q1H7zxZL7XmNAPomTVrPGLSRwqVmIcSLzQ5MT5A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVXPR04MB10539
 
+Hi Laurent,
 
+On 10/6/26 18:37, Laurent Pinchart wrote:
+> Hi Mirela,
+>
+> On Tue, Oct 06, 2026 at 04:55:25PM +0300, Mirela Rabulea wrote:
+>> On 10/6/26 10:36, Sakari Ailus wrote:
+>>> On Fri, Oct 02, 2026 at 07:16:11PM +0300, Mirela Rabulea wrote:
+>>>> Laurent, Hans, Sakari,
+>>>>
+>>>> did you encounter similar situations? Any comments or proposals? The concern
+>>>> here, to summarize, is: v4l2 control cannot be committed to sensor registers
+>>>> right away (even when streaming) and we are also unsure when the right
+>>>> moment to perform the register access may come.
+>>> In practice there's little the kernel overall can do about this: the timing
+>>> of everything is handled by the userspace. Drivers that aren't directly in
+>>> control of the data path don't even have frame timing information and even
+>>> if we did pass that to drivers, I²C writes always have some uncertainty
+>>> (system scheduling, I²C access failures etc.), so one needs to be prepared
+>>> to failing to do the writes in time, which would further complicate the
+>>> UAPI.
+> I think an API to group multiple writes in a buffer and trigger the I2C
+> operation would be useful. It could be software-based, but it can also
+> be useful on platforms where the I2C controller supports hardware
+> triggers. I have been told a while ago that some I2C controllers can do
+> that (I think on Nvidia chips, but don't quote me on that).
 
-On 10/6/2026 3:20 PM, Gopikrishna Garmidi wrote:
-> Document the Mahua-based Microsoft Surface Laptop 13.8" 8th Edition.
-> 
-> Signed-off-by: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
-> ---
->   Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
->   1 file changed, 1 insertion(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
-> index 121ca557ce1e..eecc00e2a718 100644
-> --- a/Documentation/devicetree/bindings/arm/qcom.yaml
-> +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
-> @@ -191,6 +191,7 @@ properties:
->   
->         - items:
->             - enum:
-> +              - microsoft,surface-laptop-8-13in
->                 - qcom,mahua-crd
->             - const: qcom,mahua
->   
+I agree, I think s_ext_ctrls would be a good candidate to fit that 
+purpose, the  problem is currently it is unavailable in the subdevice 
+interface. Since most sensor drivers are implemented as v4l2 subdevices, 
+at the present they get only the simple s_ctrl callbacks, so the sensor 
+driver is unaware when a group of controls start or end. If we address 
+this, we could also add a context-id or exposure-id in the group.
 
+I have also experienced a bit with control clusters, it was for a 
+different purpose, I was trying to keep single and multi control values 
+in sync, but it might be another way to achieve a group. Benefit from 
+the fact the v4l2 core will try/set together all the cluster (either all 
+pass or all fail), and try_ctl/set_ctl is called only for the master 
+control (first in the list).
 
+This simplifies a lot the problem of the sensor driver managing group 
+holds. It does not help though the issue of synchronization, the fact 
+remains that the sensor driver is unaware of frame start event. I heard 
+some ideas on that during yesterday LPC BoF session.
 
-Hi Krzysztof, Konrad,
+>> On the kerne side, what would help would be a way to make an atomic
+>> operation out of an i2c read (the status register to determine the
+>> active context) plus a group hold update (a few i2c register writes). I
+>> don't know if that is possible.
+> What do you mean by atomic operation here ? From an I2C point of view we
+> can probably guarantee that nothing will perform I2C access on the same
+> bus between the read and write, but only if we submit both operations
+> together. Changing the values to be written based on the read value
+> isn't possible.
+>
+> But I don't really see how that would help. The issue is about
+> performing I2C accesses at the right time, not about something else
+> preempting the I2C bus between the read and write, right ?
+By atomic I mean that we need to be sure that between the time we query 
+the current context (via an i2c register read) and the time we update 
+the group hold (via a series of i2c register writes), the context does 
+not change, otherwise we will update the wrong context (userspace will 
+see the values applied on the wrong VC). This is a problem we observed 
+under stress test conditions.
+>
+>> On the v4l2 API side, I believe the current expectation is that upon
+>> s_ctrl, if the value was accepted by the kernel, it will return success,
+>> but user-space should not assume frames will immediately reflect the new
+>> values.
+>>
+>> Traditionally, with drivers I have seen so far, if s_ctrl is applied
+>> while streaming, it is applied immediately (but fail in case of i2c
+>> access failure). Upon success, captured frames will reflect the values
+>> after N+1 or N+2.
+> The point at which the control will take effect is device-dependent.
+> Different sensors have different delays for exposure time and analog
+> gain. Increasing the delay when interleaving two groups doesn't seem to
+> be a fundamental problem. What is crucial, though, is for userspace to
+> know when the controls have taken effect.
 
-Before review, I'd appreciate your input on the naming.
-
-Surface Laptop 8th Edition comes in three sizes [1]:
-
-   - 13 inch:   Snapdragon X2 Plus (6-core), UFS storage
-   - 13.8 inch: Snapdragon X2 Plus / X2 Elite (Mahua), NVMe
-   - 15 inch:   Snapdragon X2 Plus / X2 Elite
-
-This series adds the 13.8 inch model only. I named it
-"microsoft,surface-laptop-8-13in" (mahua-microsoft-surface
--laptop-8-13in.dts), but that clashes with the real 13 inch model, which 
-is a different board (UFS instead of NVMe) and will need its own DTS.
-
-I couldn't find a codename for these, so I can't follow the Laptop 7
-scheme (romulus13/15). Could you please suggest the naming you'd prefer
-for the compatible and DTS file name? I'll update it in v2.
-
-[1] https://www.microsoft.com/en-in/surface/devices/surface-laptop
+Is there a way for userspace to to know when the controls have taken 
+effect without embedded data? From ISP statistics maybe...I'm not an 
+expert on that :(
 
 Thanks,
-Gopikrishna
+
+Mirela
+
+>
+>>> Do you have libcamera in userspace or something else?
+>> Yes, we experienced with libcamera. I can also reproduce the unwanted
+>> behavior with v4l2-ctl streaming + i2ctranfer script that stress the
+>> group hold writes.
+>>
+>> If we were to place the responsibility on userspace/libcamera, than
+>> libcamera should be able to handle this:
+>>
+>> - after a successful s_ctrl, captured frames will reflect the values
+>> after not N+2 but  X+N+2, where X can be anything because we do not know
+>> when we catch the right context to do the group hold access
+>>
+>> - do not expect s_ctrl to fail, unless the value was not accepted; i2c
+>> access failures cannot be catched, because we cannot apply the control
+>> value instantly
+>>
+>> - a control value may get accidentally applied to the wrong stream;
+>> because VC takes effect at frame N+1 and exposure and gain settings take
+>> effect at frame N+2, if the group write timing is improper, these may
+>> get out of sync; so user-space may see frames optimized for RGB on the
+>> stream that was supposed to be optimized for Ir or vice-versa, as
+>> confirmed by RishiKesh and Jai on ov2312.
+>>
+>> - embedded data information may help identify what settings were
+>> actually applied for a particular captured frame (if embedded data is
+>> available reliably)
+> We could decide that support for RGB/IR stream interleaving requires the
+> ability to capture embedded data. Some people may complain though.
+>
+> --
+> Regards,
+>
+> Laurent Pinchart
