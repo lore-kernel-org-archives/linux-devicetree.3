@@ -1,50 +1,87 @@
-Received: from out162-62-57-137.mail.qq.com (out162-62-57-137.mail.qq.com [162.62.57.137])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8B2D3B05A7;
-	Wed,  7 Oct 2026 17:40:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.137
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33CF53F0A96
+	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 18:04:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791394815; cv=none; b=Y/wHm+9Y72FRHur2eZnWk0CWwZpTyPAIUKZ9pynnUKayNPQnkEjN3C5QfaYpFOJh8FaGbSz4jJnZDtYQr77/L4/6DShM+rFRXAwb7QGykxegZUiy42vq5a/XcjEii7kCMrIAHsuwzN5rcAAvBxor2gN2ctNIPmQEEYp8TkPQdKk=
+	t=1791396294; cv=none; b=d9mwF8KfHgu8fSW/zab5cPpzbWoMS0g1UV7rQ+Cnx9ICS2CvSM6VvAZb4+LzRAcayGbHNHa/qWM+abcC7X6dTFKvy7wtyxaN0+ugDTcsJcT+AxWH26gcOELrFhYNk/LNgHVkFlXiEKQUAXK9WeOtY3HnWoWBOjaAYbWHsL3BTZ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791394815; c=relaxed/simple;
-	bh=Ozw3vU8nclQNCtLT5xSNbSPAR6gSPL4M2sGl/giVXUU=;
+	s=arc-20240116; t=1791396294; c=relaxed/simple;
+	bh=Ixyh7XRyhmFYgTn02FEN67Vl1z80KRiOpAdNf/DUBjc=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Cf8lyBazU/YbaS6hG+g1yDnGHLiRatpUutu5kcIDItRZDWffWqHtes9lgEuLu4iqzEkB8BZGRmOtC/TlqYJaaMbHd/GbQcwVtGv+RsAogRCKVZCUy6MmevAHNTX+Q2mKmUYJzCI8VSq3sgfZ72GOprnwUbxfZA2+t6nbwjyHnME=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=Q3FS22Te; arc=none smtp.client-ip=162.62.57.137
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	 In-Reply-To:Content-Type; b=Uvkws2IBWIGagwAMNnE2PC7iL6HI0z2vgMKu1suKLZRmxVYsoLH6Nz8vw01HLVQuzUfM5TyrJoBrXRAUBfTw4hmHfCdvFCIrZFV3KDYzW79LcwykAWVMAekRZM+tdA3d8JlVWyv85ji4vT3OYUGjZomeie5xDBHaSmf3cGBK0qM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SzgIWJSP; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=eZaHuMMJ; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="Q3FS22Te"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1791394800; bh=EvxKkeCz4r8K1OufXCLJN0cStPAlgS10ILxM3oLPg8w=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Q3FS22TeTsn6nQhs40C1t/C9WdhRhtwtFB11xlvF18Z/CNkjy9fYoenyNL8phz32A
-	 8FXWF8s5UbSqWvl+24mVxDRo4pVndWlq5hhY8p0vj1G2ts5oXAExojJ27uPu9yeMt6
-	 9pIbO7IJOY2OP/7tSSioE9/altYqH4+a4OebqlIc=
-Received: from [198.18.0.1] ([220.171.158.107])
-	by newxmesmtplogicsvrsza63-0.qq.com (NewEsmtp) with SMTP
-	id 923AF8DB; Thu, 08 Oct 2026 01:36:35 +0800
-X-QQ-mid: xmsmtpt1791394595t3k5iaf9j
-Message-ID: <tencent_67DE4800018C924922E62488AF02AF24E405@qq.com>
-X-QQ-XMAILINFO: MSHuecu5THA/PZQZruFFagj5YL2w1LBX6SzgVknt85gnzJKeQQfIA4kfm0Q29W
-	 FHE0j0AtcY9h9jrQOpyZp+JcBOYJyqNC1B7dmm0gX6szGuLCCSWNYI51+t4o+TnXp6xi/44R7WQE
-	 SFHgWvyRCnelJeHEGwv3JRthuo83pWWBhtVahWYezFpqjQxl0rlkOa9/tc/U28rGjh5spGjr2fae
-	 pGAeArZBqzqLp93HO6CRHt9SwgtDt9r1PdPku/td+hqdxFWHQSaTuQ/TqdzUB71fzXa5OU5XDWwI
-	 mvmmFBKlqs4IjSU6evGlwE+boI9OEi0QEswDj6LhhoDhszTflpNjDM2OyKubdL6RcFsU+EKxQ3xY
-	 jopSr1WC4hgpy33xx/icybqxgzm8V0fJxAZr3tOamZqvJqK1SRL1ITgV+ACGTQS0nbHb9shobb2W
-	 tlFjaf2SqApYssTU2xY8w2PTnU4Ynwm3Wy3RhFks1quTRcOIjfaPZTlEnULdCHdMSh6ZQqxBh05D
-	 ghPrDixwoSd4DruO4sprShqu+DK5Hp/XTinqibNfxIcg2MBWuQWRFdlC3ill2SzgcTbmtbj25k6T
-	 doDuxWBQ48tJK/tjF5myaILtYMuF0eddscjsFCmYrO4xpPhlpsofrBhJihu9LI1V0TStBwoiuVlX
-	 4XSS8fh7HcUTYJs56UCNnZ+Z9j7cDZPkbxh29iB4O9UGEXMyGQeYbIH196r4I4B71bAnA5GIuTCr
-	 8ei5/QvC4AldG5ibx/XLPK7b+gGkEuTk+HCJrTOYxevJhUa09oOD9RddSW9ThoFZDfrlL82BFVnG
-	 62S94e9Ct2lVFvOYP1S3H21Ms9WDpG9IFmPxVTHR9butYyeOGfRXbF7wvU7ZwKgtDRGsT3M61pho
-	 uyi32EblD7pMsAoE3hCGjLzFY0waUHUc77XYlYl1ZSM043fDlbSwgJWVbfeq2stxhf2q7aFQWdE9
-	 CZ+7EcsGSKnMe3jWXYstgloAfAiH5we75uEE1MIfyOuzmrxP0YIMR2Cwws1OISiZ0jV2IW8Og12c
-	 CGE1X6ubLNkREy4zIdrqwF7fCGNqwP+BbLsN0Z5R0bozbuztKJfeYqCw4qZeg=
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-X-OQ-MSGID: <8ee39555-cad7-4b01-bb65-7441acb3f282@qq.com>
-Date: Thu, 8 Oct 2026 01:36:35 +0800
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SzgIWJSP";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eZaHuMMJ"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 697EtO2Z4135666
+	for <devicetree@vger.kernel.org>; Wed, 7 Oct 2026 18:04:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	JykGVcXyDXA+2TTRuO2/QCItxRpkTMleFSqXf8Cjqh4=; b=SzgIWJSPJjjem8nE
+	cushvfrvkg22fkrce0c9vfE72gWIUGPdOIWJTPKKxKMcIBBucr2MxZxm1667OsHF
+	YBbItPv71AJx0au1yTR3JPAyG4j2mb9aZ81plf0pCTVykpWFrE3dSqZ5MZl24vul
+	JdPijzTq4P6H5i9a/RF9uo1nTnv2oB7/5CxbhZX5RdgHICjlY9MskRjks/Z/NPcI
+	b4sIlrdd2kxVvPlJuw/FxTeOQ+bly1FuHRhTgaMT849TsCV5m0Ujd9erIi6Sb58B
+	mfxvDzpFx5lHNnJb50slIBd6pV+23qGsBCHoKT9vMMqJ3Tp5YgCVh31nnEQz4hxE
+	eTYXTA==
+Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5mgr9u7y-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 18:04:52 +0000 (GMT)
+Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3a4b70941efso3565756a91.0
+        for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 11:04:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791396291; x=1792001091; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JykGVcXyDXA+2TTRuO2/QCItxRpkTMleFSqXf8Cjqh4=;
+        b=eZaHuMMJEHHEzntjdYTtwVAaf96+Cff1NM2wTvYyoggo04BVWioY42sM0WE7hk9sxL
+         ORqqtVuW6t+esxDZzqGDASczFvHDpe/CVtC6UoXol2QaqMKmN4MRqm3rfG2htOeFo3yv
+         Ph9TBr12oCVm+FXNr7UiqHmxjGzYfqrVP/Wz8Pvy4BmCvqkttwO9LJIm243cQToXbms5
+         pd3YGQECsOywCn2Z6RL2UKMYxgVpsBGJkXbOOwqGChyNHtS5njAoQs68sI1Z0Gdy8F+F
+         hLQ2gQ+PYbUeBq+CD3/+lwz5LN5xUEiYfbYaHhHaaKj9XLFMGGa4eySN+rrJTX2ZmrJz
+         hZQg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791396291; x=1792001091;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=JykGVcXyDXA+2TTRuO2/QCItxRpkTMleFSqXf8Cjqh4=;
+        b=wWwNPj8k50RZjgx919HO1wk4WWsPi5JezMBinMoEiFHkeJfWkGCpDyG9xM98y5Eiyp
+         Wgy81WPHLDtZq94kVRIlhaP+7iRyjAdab1dN01Qvwe3njuL5uWSvYEZize9AkBiP5zue
+         YIfCK1yPn2tc03oi5gACHl81yYceZtfuL/GsS1qoMvYLhqso840GziKI68iQWXJpbY0i
+         ou/f3xx6X6lDeR13BAbXauFGz5WPB7RtojgHT24X9nfVl0JesI0KOLQn8T3lMyj4MqF6
+         pYY2bbjcSOi//XhgPfpw10PHY8hnuBXKqbSaObyZMRhNvH9VXzGH11p8le/+6+0gvceG
+         VT8Q==
+X-Forwarded-Encrypted: i=1; AKwUvBw1VYGIxvEblRmPGbXsF0i0Gtf+ymU0bQOYNsbKk7UXJDR36i/U28ayMZ+pEFBuJCuxCrK0wwy+TdO5@vger.kernel.org
+X-Gm-Message-State: AFq9FYIurkFAWro4RPlWzPszrM8dWKZXWFlS3fWLOG8nS+qYOq44/HS5
+	oLFVtBXGwsXfWMDIwU2L9MczYCjLRIVHSBNdgZ2qmrqBjTc5uKaV4aD8sF9kNF97s1lvovYTTy3
+	+mXWdNAD85BeuAjOAI+FzkOka3SHFHdt6Mmc9nlwkixKU8cGDbRfgAB4317vB867w
+X-Gm-Gg: AYBFou1VCJalkMbF9ttNcj7DHY310POYi7VcDp6rz2j+N7bV1Ruu2w65artizOvNEn3
+	yFyWbqYQPu5KKaLzdYwJ7OMliMz2q9WInfNM005kRQrPBmct+UHXxC01luz/eVjOSe7nI56QD88
+	0LQ5cr2sj80mAziUahDMwAmW3TB/vUkTcsz1/MI4xzOn7/2iXFWScN6nxP2dgj1qkbfbgyapI7a
+	BMaGqqEeioXnIOA3U1EU129LB9S7MPyHwJk15s6E9MpiGX9mxHvzKUGBHheAkkhOjris3res0iv
+	DXW+yrTN6bNCzgPVySb8VpJI6qmreFaXuTshQWVQkvCiMW5hNvAksxyXQX7cgWofWrShHRq/0Ef
+	sHZNn7hIQTHCAzMpVr3J6KYaulzjF
+X-Received: by 2002:a17:90b:57ce:b0:3a4:fa1a:2b1d with SMTP id 98e67ed59e1d1-3a8a1c3ac39mr2378612a91.62.1791396291012;
+        Wed, 07 Oct 2026 11:04:51 -0700 (PDT)
+X-Received: by 2002:a17:90b:57ce:b0:3a4:fa1a:2b1d with SMTP id 98e67ed59e1d1-3a8a1c3ac39mr2378577a91.62.1791396290508;
+        Wed, 07 Oct 2026 11:04:50 -0700 (PDT)
+Received: from [192.168.1.12] ([223.230.93.214])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a9f1a2508csm605492a91.3.2026.10.07.11.04.40
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 07 Oct 2026 11:04:49 -0700 (PDT)
+Message-ID: <a166844a-ba68-46b2-b37b-111ce54dbba3@oss.qualcomm.com>
+Date: Wed, 7 Oct 2026 23:34:37 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -52,84 +89,138 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] dt-bindings: vendor-prefixes: Add ALINX vendor
- prefix
-To: Conor Dooley <conor@kernel.org>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Michal Simek <michal.simek@amd.com>, Rob Herring <robh@kernel.org>,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, andrew@lunn.ch
-References: <20261005173308.710986-1-2254650260@qq.com>
- <tencent_0512BDFB22810AB03126E3189320800AF607@qq.com>
- <20261007-92e855de534df44fbf665e4f@squawk>
+Subject: Re: [PATCH v2 09/21] ASoC: apple: Add macaudio machine driver
+To: James Calligeros <jcalligeros99@gmail.com>,
+        David Rhodes <david.rhodes@cirrus.com>,
+        Richard Fitzgerald <rf@opensource.cirrus.com>,
+        =?UTF-8?Q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>,
+        Matthias Brugger <matthias.bgg@gmail.com>,
+        AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+        Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
+        Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
+        Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
+        Neal Gompa <neal@gompa.dev>, ajay.nandam@oss.qualcomm.com
+Cc: asahi@lists.linux.dev, linux-sound@vger.kernel.org,
+        patches@opensource.cirrus.com, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+        linux-mediatek@lists.infradead.org, Hector Martin <marcan@marcan.st>,
+        Sasha Finkelstein <k@chaosmail.tech>
+References: <20261004-macaudio-v2-0-7b47ed6335a8@gmail.com>
+ <20261004-macaudio-v2-9-7b47ed6335a8@gmail.com>
 Content-Language: en-US
-From: Pufan Jin <2254650260@qq.com>
-In-Reply-To: <20261007-92e855de534df44fbf665e4f@squawk>
+From: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
+In-Reply-To: <20261004-macaudio-v2-9-7b47ed6335a8@gmail.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDA3MiBTYWx0ZWRfX9bLkXtm5Mdai
+ BrxtnjDL3JxDaXexWwCA2AuVteNNHb5tlZlaQYsmBJVVj+wca1sr2LwZKIjw4UuZYNmKXrW9ZGd
+ HJUQUotrWRDmO+ucrRiTdBY4ZayeApgHVQnRQKmfrFWNII4tX5UrvO1yndta4++UPbnc4HSnyIo
+ 57R1DnCEPoRnCDZTg+1qWJUa3T+CEQfuDkjrtccHJ8RxVdXhSM2nk6gzX3Dag8TxNeW8D27I83W
+ ekpMghq64E1Nx0Me/Vp6cSm+MoqRUlZovvVsibMgH8MoLiy1fzbio7W20uUgXaiX2zzE3cNhyvj
+ uv/QP5cynnlw4kpAxdGd4siSQRu7Q0mIoFkJFLmvOxVrA7n0CltRfynmILpuuj+IclqH3sG0IxG
+ 01krvDofz6wyhwEPe/Zu5CM34KHgrtuQzMxniQv4R00ff3lD4GA8FzYnAXH67YKoDw54hfe1hRs
+ fQnlfJ7lfTl/E0GUumQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDA3MiBTYWx0ZWRfX1/+aqDdJJEq/
+ LDdzmrkQLVBw+BfuukNV6fvdx45U3s7S7pp37VqfZbNUZKIwthL/C6yOK+jQiUgQYIRDr7oJXK5
+ K8Fm0PZj7yc4ylajDTq90yC/IBA9yhQ=
+X-Proofpoint-ORIG-GUID: RBnnG80My6h7aQRCoaCSs1uOBL-28VCY
+X-Proofpoint-GUID: RBnnG80My6h7aQRCoaCSs1uOBL-28VCY
+X-Authority-Analysis: v=2.4 cv=OYkNnRTY c=1 sm=1 tr=0 ts=6ac689c4 cx=c_pps
+ a=vVfyC5vLCtgYJKYeQD43oA==:117 a=ZXy6yrx+fn+bJIgs5eQ1WQ==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=NwbpVL58AAAA:8 a=dOLNmq4gAAAA:8 a=pGLkceISAAAA:8 a=291MuZCLWqhcjKYDPAcA:9
+ a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=rl5im9kqc5Lf4LNbBjHf:22
+ a=tNWvAHffTtQgx3ZTRG8Q:22 a=_m6CO-mWuQdSFutSHjXj:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-07_05,2026-10-06_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 clxscore=1015 spamscore=0 phishscore=0
+ bulkscore=0 suspectscore=0 malwarescore=0 priorityscore=1501 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070072
 
 
-On 2026/10/7 18:35, Conor Dooley wrote:
-> On Tue, Oct 06, 2026 at 01:33:06AM +0800, Pufan Jin wrote:
->> Add vendor prefix for ALINX (Shanghai Xin'yi Electronics Technology
->> Co., Ltd.).
-> Where does this ALINX come from? Website url?
->
->> Signed-off-by: Pufan Jin <2254650260@qq.com>
->> ---
->>   Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
->>   1 file changed, 2 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
->> index ba2002969..97e7ef340 100644
->> --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
->> +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
->> @@ -90,6 +90,8 @@ patternProperties:
->>       description: AlgolTek, Inc.
->>     "^alientek,.*":
->>       description: Guangzhou Xingyi Intelligent Technology Co., Ltd.
->> +  "^alinx,.*":
->> +    description: Shanghai Xin'yi Electronics Technology Co., Ltd. (ALINX)
->>     "^allegro,.*":
->>       description: Allegro DVT
->>     "^allegromicro,.*":
->> -- 
->> 2.55.0
 
-Hi Conor,
+On 10/4/2026 11:33 AM, James Calligeros wrote:
+> From: Martin Povišer <povik+lin@cutebit.org>
+> 
+> Apple Silicon Macs have a complex audio subsystem consisting
+> of an I2S peripheral (MCA) and multiple codecs of various
+> models and capabilities. Some machines have a basic mono
+> speaker with hardware downmix, while others have a very
+> intricate stereo system consisting of multiple codecs and
+> drivers per L/R channel. Some machines report voice coil
+> voltage and current information back to the SoC, and others
+> do not. All machines have a headset jack.
+> 
+> Add an ASoC machine driver for this platform.
+> 
+> To express all of this sanely, we initialise the correct
+> combinations of codecs/I2S ports as DAI backends and link
+> them to a synthetic frontend. Each frontend is linked to
+> a PCM, one for the headset codec and one for the speaker
+> system on the target machine.
+> 
+> Signed-off-by: Martin Povišer <povik+lin@cutebit.org>
+> Co-developed-by: Hector Martin <marcan@marcan.st>
+> Signed-off-by: Hector Martin <marcan@marcan.st>
+> Co-developed-by: Janne Grunau <j@jannau.net>
+> Signed-off-by: Janne Grunau <j@jannau.net>
+> Co-developed-by: Sasha Finkelstein <fnkl.kernel@gmail.com>
+> Signed-off-by: Sasha Finkelstein <fnkl.kernel@gmail.com>
+> Co-developed-by: James Calligeros <jcalligeros99@gmail.com>
+> Signed-off-by: James Calligeros <jcalligeros99@gmail.com>
+> ---
+>   sound/soc/apple/Kconfig    |   18 +
+>   sound/soc/apple/Makefile   |    4 +
+>   sound/soc/apple/macaudio.c | 1699 +++++++++++++++++++++++++
+>   3 files changed, 1721 insertions(+)
+> 
 
-ALINX is the brand of Xinyi Electronic Technology (Shanghai) Co., Ltd.
-(芯驿电子科技（上海）有限公司), https://www.alinx.com/ - an FPGA/SoC
-company and official partner of AMD Xilinx, Unisoc and Baidu.
+> +
+> +static int macaudio_be_trigger(struct snd_pcm_substream *substream, int cmd)
+> +{
+> +	struct snd_soc_pcm_runtime *rtd = snd_soc_substream_to_rtd(substream);
+> +	struct macaudio_snd_data *ma = snd_soc_card_get_drvdata(rtd->card);
+> +	struct macaudio_link_props *props = &ma->link_props[rtd->dai_link->id];
+> +
+> +	guard(mutex)(&ma->be_link_mutex);
+> +
 
-The board is not in the alinx.com shop because ALINX describes EdgeBoard
-as a customisation done for Baidu: Baidu owns the EdgeBoard brand and the
-sales channel, while ALINX designs and manufactures the hardware. From
-ALINX's own product documentation [1]:
+This is in the DAI link `.trigger` callback, but I don't see the
+macaudio links being marked `.nonatomic = 1`.
 
-"...as a Baidu AI partner, it has customized the Edgeboard series edge
-  devices of the domestic AI flying paddle system for Baidu."
+The default PCM trigger path can run with the stream lock held and IRQs
+disabled, so taking a normal mutex here can sleep in atomic context. If
+this state really needs a sleeping lock, should the affected links be
+marked nonatomic, or should the trigger path avoid the mutex?
 
-The FZ3A hardware manual and the schematics are authored by ALINX - the
-manual cover carries the ALINX logo, www.alinx.com and the legal name
-above, and every schematic sheet has the same ALINX title block.
-
-Since ALINX is the hardware designer, I used "alinx" as the prefix
-instead of "baidu". Happy to switch if you prefer the marketing brand.
-
-[1] 
-https://vd100-20232-v101.readthedocs.io/zh-cn/en/VD100_S1_RSTdocument_EN/00_aboutALINX_EN.html
-
-For v3:
-   - Fix the v2 description mistransliteration of the legal name:
-       "^alinx,.*":
-         description: Xinyi Electronic Technology (Shanghai) Co., Ltd. 
-(ALINX)
-   - Put the website URL in the commit message.
-
-Thanks for the ack on patch 2/3, I will carry it into v3.
-
-Best regards,
-Pufan Jin
-
-
+> +	if (props->is_speakers && substream->stream == SNDRV_PCM_STREAM_PLAYBACK) {
+> +		switch (cmd) {
+> +		case SNDRV_PCM_TRIGGER_START:
+> +		case SNDRV_PCM_TRIGGER_RESUME:
+> +		case SNDRV_PCM_TRIGGER_PAUSE_RELEASE:
+> +			ma->bes_active |= BIT(rtd->dai_link->id);
+> +			break;
+> +		case SNDRV_PCM_TRIGGER_SUSPEND:
+> +		case SNDRV_PCM_TRIGGER_PAUSE_PUSH:
+> +		case SNDRV_PCM_TRIGGER_STOP:
+> +			ma->bes_active &= ~BIT(rtd->dai_link->id);
+> +			break;
+> +		default:
+> +			return -EINVAL;
+> +		}
+> +
+> +		schedule_work(&ma->lock_update_work);
+> +	}
+> +
+> +	return 0;
+> +}
+> +
