@@ -1,81 +1,120 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAD2147D454;
-	Wed,  7 Oct 2026 13:01:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A3C648123D;
+	Wed,  7 Oct 2026 13:04:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791378113; cv=none; b=HXf1E0gVuuxlunL7V6B9OYmmkq+378loZSPRvdLmQ0I7ekblnb37hJNqVISYQjuGbqGrT1ecC4PjafTjIIFPtYnom98GEg1RfvIqspVI2GrskdQY4aodgsmp+y7PfMuFOgF0Gf4COJgzjfLjQ95g48KcPnnU+NNYHcsPpCWSBGQ=
+	t=1791378260; cv=none; b=KfhoPsE5Onxd321Km5d8MTDl7jaqB3f2D/VFeBqVWOvFZZeikcAcycbZKjhP/R0VYu3T4dBQpotJlR1K9cOKLGez20U2xTef77orwXD/ldW0nvXjSvwQ0vsWuAL8gvhJ7Z9TEY38TnIBPavfKLJYinExvDZjUtSWFWYgdmi2Pno=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791378113; c=relaxed/simple;
-	bh=O0EtaeY/6At1FiwpxnWcfkDfEcMW6xZEaO6fINS23AM=;
+	s=arc-20240116; t=1791378260; c=relaxed/simple;
+	bh=5mZkqvWfwnKehqKFwrP7aZW+mFT+j0HzqFsdn24VQTQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mNKriBR9dcM99b2DltaEO+0I+ayJQslSNCjAQRlOv/XXQWuFAfY4Sn2wlbRiyTdFLpI81YZfS4MOmFlrzFYytma0A0yncKDPJuWX2BoQH6lB74H0ly1YSbaWtNBmtBivECTeiqvnUvtq5u5HD/lPoytgUwNDbTDgGnqHamG7/Zg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=zU5ZvP25; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	 Content-Type:Content-Disposition:In-Reply-To; b=O/TNn7if229I5vWW2bHGB01nz2ziP1+UBWDzt7yGguFUpDe5KtGAwkzoCIF4U+2ekBC5IjPMjmcyH+jQKF3eUEWxn27Tc8JVzkQBIMW+jIzNHQfkPVeUmExL0AEtsmUKGmt8E0FjgF/XyOTU1OydXWCWctU3ZttXaDjTxVFTkoE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ck86f0xc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="zU5ZvP25"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=6YP3nrzHNBPV4laVHmTWlcL0xqJ7r23M87T5OozmfTM=; b=zU5ZvP25ND/Pnn0/1VuaJCdY08
-	UffRk45r/0Ba3w0c/7bsl2unFhNjUeFg2U6bjfHSZQJ2YWsy5NRyJ0lHPQf/MGkB1x1tfw2JhHfqv
-	A6/GJqeHG0rX5ehWSZOIH50Z9Nqq1h5uwQKXKf/XKsPTMyi4U8RPjpSiNQSlK+gCOSjw=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xERGy-009SZ2-8w; Wed, 07 Oct 2026 15:01:28 +0200
-Date: Wed, 7 Oct 2026 15:01:28 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Lucas Tanure <tanure@linux.com>
-Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ck86f0xc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4F1C1F0089C;
+	Wed,  7 Oct 2026 13:04:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791378249;
+	bh=84dEnMeuxrpA4ZytGyYSFXT69ied57NAHmkJ88VCEwo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ck86f0xc2CyGGyVLDv7x7A5CYBIiIREoK9vzmSZrJJoVU5Fui+jaOoBwuvPC1akts
+	 VK5Vkqyv3ceUs1NDgN2lzNiJZ/WyZ1g9fCWRhSn4CWWLfrS/Pmr1w7JOvyWMTzq2aD
+	 EQr9IXjicpH4f35gCg6N26FMrbndK4O0orx5NkbJIUpcTvAZF7ITsBuRPjREWPDP05
+	 UvdwEIDsHbnpZZOHorMYCPgIAf3gE4P1TRY+9jKlDwa7wJyivbvnXejfBaJ7CZXCg7
+	 BJk1go18+uvlkRXX98pfwLIp+AElof1cXWWFD6moSkHw5ulwXCP3yUQOJokSdaOvhw
+	 GWysHkg2VvgNA==
+Date: Wed, 7 Oct 2026 14:04:05 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Jisheng Zhang <jszhang@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH v2 0/7] Add ethernet support for the Amlogic T7
-Message-ID: <d23dfdf3-5837-459f-afd6-6c198a05c13c@lunn.ch>
-References: <20261007082627.63807-1-tanure@linux.com>
+	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-serial@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v2] dt-bindings: serial: snps-dw-apb-uart: Add Synaptics
+ sl2610 uart
+Message-ID: <20261007-450d3d9a4f4a2c07cc088067@squawk>
+References: <20261005151918.25259-1-jszhang@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="bj9ENhqRtHEDsn4P"
+Content-Disposition: inline
+In-Reply-To: <20261005151918.25259-1-jszhang@kernel.org>
+
+--bj9ENhqRtHEDsn4P
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261007082627.63807-1-tanure@linux.com>
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Oct 07, 2026 at 09:26:20AM +0100, Lucas Tanure wrote:
-> The T7 pairs a Synopsys gigabit MAC with the same glue registers the
-> G12A has, but nothing described it. This adds the binding, the driver
-> support and the device tree nodes, and enables the port on the Khadas
-> VIM4.
-> 
-> Unlike the G12A, the controller reaches DRAM through a pipeline stage
-> with a gate of its own, sys_ampipe_eth. Nothing else claims it, so
-> clk_disable_unused switches it off and transfers stop.
-> 
-> v2 changes the RGMII delays, after review. phy-mode describes the
-> board, not which chip adds the delay, so this board is rgmii-id.
-> dwmac-meson8b did the opposite, and ignored the *-internal-delay-ps
-> properties. Patch 1 fixes that. The VIM4 needs it because the RTL8211F
-> transmit delay does not work here.
+On Mon, Oct 05, 2026 at 11:19:18PM +0800, Jisheng Zhang wrote:
+> Add the compatible for the UARTs of the Synaptics SL2610, which are
+> compatible with the Synopsys DesignWare APB UART.
+>=20
+> Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
+> ---
+>=20
+> since v1:
+>  - use sl2610 instead of sl261x
+>  - send as a separate patch
+>=20
+>  .../devicetree/bindings/serial/snps-dw-apb-uart.yaml | 12 +++++++++++-
+>  1 file changed, 11 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.ya=
+ml b/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
+> index 664305de4986..a40f2737e71b 100644
+> --- a/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
+> +++ b/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
+> @@ -34,7 +34,16 @@ allOf:
+>        properties:
+>          resets:
+>            minItems: 2
+> -    else:
+> +
+> +  - if:
+> +      not:
+> +        properties:
+> +          compatible:
+> +            contains:
+> +              enum:
+> +                - starfive,jh7110-uart
+> +                - syna,sl2610-uart
 
-What is special about the RTL8211F?
+Is the number of uart resets on this device variable?
 
-     Andrew
+> +    then:
+>        properties:
+>          resets:
+>            maxItems: 1
+> @@ -80,6 +89,7 @@ properties:
+>                - starfive,jh7100-hsuart
+>                - starfive,jh7100-uart
+>                - starfive,jh7110-uart
+> +              - syna,sl2610-uart
+>                - ultrarisc,dp1000-uart
+>            - const: snps,dw-apb-uart
+>        - const: snps,dw-apb-uart
+> --=20
+> 2.53.0
+>=20
+
+--bj9ENhqRtHEDsn4P
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCasZDRQAKCRB4tDGHoIJi
+0jcSAP0TrHMLDbVz+kxj8bftwsGZujBCJhGVBfHKLKOcWYrA6AD/X6tmnmvPEqja
+kAVRwzx2SZtcrWuwhzEkVEC6gvvWswE=
+=AK5Q
+-----END PGP SIGNATURE-----
+
+--bj9ENhqRtHEDsn4P--
