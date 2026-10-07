@@ -1,119 +1,259 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f43.google.com (mail-lf1-f43.google.com [209.85.167.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18D784657E0
-	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 19:04:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEC5D4E1C7C
+	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 19:04:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791399842; cv=none; b=qFvE8gaxXqix/lDS1lr9iyANb6+AaiD/qqmRWiDFBZg/twPlVN2d/1AHl7TGGTW0JRkJsXo/VcBXlOlI9S2DzbVDqFV/AAMpF5D0O76i8eboBkCt68iOrCfS/Kq1FBB1zrNyGe6nV1eB4Hffl+Voo3cO1bS6ow+sMu+vhw9JQpw=
+	t=1791399868; cv=none; b=MmnjDPD7iTv7eN3nCQrlHUFkiU1ZxD7/+qtjZ/ChqSG6zx16nr9sxQA3Q/CwkXWoma2tPQOgT102nAfNNSmnMKBueptYVNXLyJFU458ec8htPGBDmupUtpZSKn/00pi62S/L6bByyxrTN+pWAeudXeHmy6dfrXeAi4l9vF6uZ5w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791399842; c=relaxed/simple;
-	bh=puKhUibDN4oi+DxP4V+YSbgUuVgeyYVpzlGvOCG3iyI=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=Tz1H8YsGInlk7FUsw2etnKbi9uxR3ZbQkr3UEChHQXHttp6EXkVdzwAoB56/mgdnzncSwUBn/+6AWrq4Au8pg4aMVncEDHHiyh5ikSIGZFLDInP0N8Vp/aZIJ4ZPC94VlYsGW8Mj0Jg1ln6NsVRX9ICzeDuUfK7OdY+0jjsSBC8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NuNilGqS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791399868; c=relaxed/simple;
+	bh=cZptUCkHL8vdaVMrux3BrGe96FoNmMFuicAdeg5aSsk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=SiJwnQxIxK4oTI3CYPxbGD6AKYoSlt9U1OeumIfN+zI+ifMvcDKoyWyJtT8GrXdqFkI/5tFZfwp3U9gt01rEOH9orHVfd8bObfYnm9sxBzpheZDNqnw7ezAUd7nCLU8VId6BvvNnDyj28MXPaji7LG0FWdZDLVNMTjcjW4IMup4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Wk1u145D; arc=none smtp.client-ip=209.85.167.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NuNilGqS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B50F1F000FF;
-	Wed,  7 Oct 2026 19:04:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791399840;
-	bh=0oVbSnFsYtB5zdPmmDfey6V4KohObH3xwS7nBlaRWG0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=NuNilGqSjRS+sxaRUspj6uysygQPAa+1wWYp91uWt9Aywb+oM5CcE/P/Q+bzWXV8H
-	 7gYBE5GNe4WLQzLhR+mGBO0J3jEraCXGplJ/ogife9nm+UZ7lDnjc3rFb1Smta0Rd3
-	 2AtJYpieqrVBEqTB/tFL0+yQN+LhKsIDxnPEru8sGXOrbQPuCvdMu1dbeYlKhpuoqM
-	 S7bdGaTPGGcI1+86tbM5YVuUwQrW3rGliMiGrLBLWUivDzwd7PIdg3uO2tTcE53Fqk
-	 nUaK+rpALaaL6DMMbPZNEPiWJXw7ihjMECCwNr1Jci+zPEyUV869+FaqU5qQtQ35Tz
-	 1zgZvxhOHK9QQ==
-Message-ID: <sashiko-outbox-163304@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] kbuild: Support directory targets for building
- DTBs
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?Um9iIEhlcnJpbmcgKEFybSk=?= <robh@kernel.org>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261007-dtb-dirs-v3-v3-2-b3ab32b64fa6@kernel.org>
-References: <20261007-dtb-dirs-v3-v3-0-b3ab32b64fa6@kernel.org>
- <20261007-dtb-dirs-v3-v3-2-b3ab32b64fa6@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 07 Oct 2026 19:03:59 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Wk1u145D"
+Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5b2b92065ffso3841765e87.1
+        for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 12:04:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791399865; x=1792004665; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=C9QVYI9oWKMGNOjg27TukxI9KxAe42Y0fsCI4ggTly0=;
+        b=Wk1u145Dmwa/XllG0b0Vco8evbYjEQ88kaejv/2d6BKhQAvsJIYwezc07zeJ5OmdOV
+         8rTdt5c+ZVdR5LVp8F/CQleEE1/rsz/pw4ExUj8LUmoEPDmOiOvnau+wesYF2I9mxvB7
+         uXYccZkKNZr+yzcHTUz21mAYYkC/eZxBFMfjtxbJ3/GQvSMWtflcqiM3u1oklPPOGUXJ
+         7LFhgQc4ntn/JLK8l1PMspxyq+Yk7JXHlfdxIPfUf01U+OVaq1LXAGXh+Ej9nCcr5Umx
+         G6yTL3ToVVdm8TbqlkP9Yo0IdvtgZjU2cOHTO+VI95iLo+4ELW7JfVybtGAFiUrhFJYV
+         0sEA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791399865; x=1792004665;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=C9QVYI9oWKMGNOjg27TukxI9KxAe42Y0fsCI4ggTly0=;
+        b=WbNmoGUIduIF2qTD1duIZBllW6y/zuF9Q/CYABBkiHE5y2OIFbcG2tpnZPBmqZtI+F
+         wdrFw6YZyxYXZnIv5tvfCDZs8njK2m1GrcauU33R7hicx29EpuIKX5rSO7D2DN3H2q31
+         qlKdQINjVLX5elQcmmu7SaqDEymw0r+0FltUiIOqmh/IRRJJvCIkFlIL3tbg0sYr3GR6
+         raGpHcpXz1AWJBGTyeXz7+Thspoaq2rXuXjaJZ+DO3aee20cErn+YvzcupQtgBAit+yf
+         A0ojd8XN3ffQXevQGxrm9nUTFWVmFZjSGGqlMiJWynlfPY2qcII/4lQ+cf639XW7m1KE
+         EL4g==
+X-Forwarded-Encrypted: i=1; AKwUvBzjQ5EglgUyO4ef5XHCs+lK15/aBGUpzFZw8bVRB2pqmurcDRc8BtfZGr+F35yHpVS0q8kF0bGOgruB@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ28bd5EHW+uz7AptzSjXgcU+cS0HO+Jpt7cVMh3Hx5wx5pe4CV
+	zxCCR4FCfliZyKAI8M2aGAHUBJUTaCbJoPepmEZF5v4j8yGHyigC39qS
+X-Gm-Gg: AYBFou2ndip2+f0UlV9NQ4ONtqgqW+kF5nOoStaLW4uAls3Z/JDHxBhfy7VOWKcDnuQ
+	JZPP+HAciPwRBL38FhQ2kqVdXuJ7+T4z/zK7FFtf3H3g95ern6qoG58NsBYpy8YVJJeAhrwDHuI
+	qsMzQIgWS8JIjgAmHEry81AbJrlEhQJXyEAO0abAAR7wOT6FNgYptl6m7A8QdIEFRKvlSII2iJ+
+	veHlgLF/TvEDy9vLJeOuwzqRm7JQ7BEBlfjoGUrQK43v5iczBaVKj7dgXmY7XexVoG0Eb3LZIXp
+	7k7OisQlmCIcEJmF+8Wj2K89twcoTM9CUbTvQ78pVjijH0OTeGfETHWwnZsIsiP9PgjVzX/vePl
+	zSOmGUOiSkbTNcPqs18nsB3LVhzvRwok/vg3jKV8v3yZTGokr3dsfzZWZzdv/QyvxX9iQdhJRg/
+	koU3Lui/HdMDsCFq4n8Dqc7dYpdtD0L0ZJOd2z/dcZeKc1hbOnkICQ2zH9PbCDPtsPZJ55KK3dk
+	oaeHit+ag==
+X-Received: by 2002:a05:6512:4026:b0:5b8:b2f0:b5b0 with SMTP id 2adb3069b0e04-5bcd073b11emr1053396e87.46.1791399864436;
+        Wed, 07 Oct 2026 12:04:24 -0700 (PDT)
+Received: from [192.168.0.193] ([194.183.54.57])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bcd3074a22sm320080e87.16.2026.10.07.12.04.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 07 Oct 2026 12:04:23 -0700 (PDT)
+Message-ID: <e69041a4-c03e-46ae-b83a-3d8363070e80@gmail.com>
+Date: Wed, 7 Oct 2026 21:04:22 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 3/3] leds: aat1290: Add support for AAT1270 Current
+ Regulator for Flash LEDs
+To: Svyatoslav Ryhel <clamor95@gmail.com>, Lee Jones <lee@kernel.org>,
+ Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261007085457.98762-1-clamor95@gmail.com>
+ <20261007085457.98762-4-clamor95@gmail.com>
+Content-Language: en-US
+From: Jacek Anaszewski <jacek.anaszewski@gmail.com>
+In-Reply-To: <20261007085457.98762-4-clamor95@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] kbuild: unconditional need-dtbslist=3D1 causes unnecessary dtb com=
-pilation and dtbs-list files during standard builds
---
+Hi Svyatoslav,
 
-commit 645916678e1f6dbf830062f35ddde56a42d6b0df
-Author: Rob Herring (Arm) <robh@kernel.org>
+On 10/7/26 10:54 AM, Svyatoslav Ryhel wrote:
+> The AAT1270 is quite similar to the AAT1290, but it does not support the
+> Advanced Simple Serial Control (AS2C) used in the AAT1290. The AAT1270
+> uses an earlier version of AS2C, namely Simple Serial Control, which lacks
+> address-sending capabilities.
 
-kbuild: Support directory targets for building DTBs
+It seems that it is not possible to set brightness level and flash
+timeout. Those values are controlled by the values of RSET and CT
+elements attached to the controller. Those values should be conveyed
+via Device Tree, and the LED device API should reflect that accordingly.
 
-This commit modifies the Kbuild system to allow directory targets for
-building all device tree binaries (DTBs) within a directory. It updates
-both dtbs and single-build targets to use directory rules.
+The question is whether it is worth a hassle to add support for this
+older chipset version. Could you let as know on which device it is
+present.
 
-> diff --git a/Makefile b/Makefile
-> index c307ee9293bcd..75d290c2b7d88 100644
-> --- a/Makefile
-> +++ b/Makefile
-[ ... ]
-> @@ -2234,7 +2234,7 @@ prepare: outputmakefile
->  # Error messages still appears in the original language
->  PHONY +=3D $(build-dir)
->  $(build-dir): $(single-build-prep)
-> -	$(Q)$(MAKE) $(build)=3D$@ need-builtin=3D1 need-modorder=3D1 $(single-g=
-oals)
-> +	$(Q)$(MAKE) $(build)=3D$@ need-builtin=3D1 need-modorder=3D1 need-dtbsl=
-ist=3D1 $(single-goals)
 
-[Severity: High]
-Does adding need-dtbslist=3D1 unconditionally to the $(build-dir) recipe
-cause unnecessary dtb compilation and empty dtbs-list file generation
-during standard builds?
+> Differentiate the chips by using a description structure with a flag to
+> indicate if AS2C is supported, placing all AS2C-only features under a
+> conditional check.
+> 
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> ---
+>   drivers/leds/flash/leds-aat1290.c | 66 ++++++++++++++++++++++---------
+>   1 file changed, 47 insertions(+), 19 deletions(-)
+> 
+> diff --git a/drivers/leds/flash/leds-aat1290.c b/drivers/leds/flash/leds-aat1290.c
+> index 49251cfd33509..773cdcc73a9e1 100644
+> --- a/drivers/leds/flash/leds-aat1290.c
+> +++ b/drivers/leds/flash/leds-aat1290.c
+> @@ -43,9 +43,6 @@
+>   #define AAT1290_FLASH_TM_NUM_LEVELS	16
+>   #define AAT1290_MM_CURRENT_SCALE_SIZE	15
+>   
+> -#define AAT1290_NAME			"aat1290"
+> -
+> -
+>   struct aat1290_led_config_data {
+>   	/* maximum LED current in movie mode */
+>   	u32 max_mm_current;
+> @@ -59,6 +56,13 @@ struct aat1290_led_config_data {
+>   	enum led_brightness max_brightness;
+>   };
+>   
+> +struct aat1290_led_chip_info {
+> +	/* led controller name */
+> +	const char *name;
+> +	/* Advanced Simple Serial Control support */
+> +	bool as2c;
+> +};
+> +
+>   struct aat1290_led {
+>   	/* platform device data */
+>   	struct platform_device *pdev;
+> @@ -74,6 +78,10 @@ struct aat1290_led {
+>   	struct gpio_desc *gpio_fl_en;
+>   	/* EN|SET pin  */
+>   	struct gpio_desc *gpio_en_set;
+> +
+> +	/* led controller description */
+> +	const struct aat1290_led_chip_info *info;
+> +
+>   	/* movie mode current scale */
+>   	int *mm_current_scale;
+>   	/* device mode */
+> @@ -101,15 +109,17 @@ static void aat1290_as2cwire_write(struct aat1290_led *led, int addr, int value)
+>   
+>   	udelay(AAT1290_FLEN_OFF_DELAY_TIME_US);
+>   
+> -	/* write address */
+> -	for (i = 0; i < addr; ++i) {
+> -		udelay(AAT1290_EN_SET_TICK_TIME_US);
+> -		gpiod_direction_output(led->gpio_en_set, 0);
+> -		udelay(AAT1290_EN_SET_TICK_TIME_US);
+> -		gpiod_direction_output(led->gpio_en_set, 1);
+> -	}
+> +	if (led->info->as2c) {
+> +		/* write address */
+> +		for (i = 0; i < addr; ++i) {
+> +			udelay(AAT1290_EN_SET_TICK_TIME_US);
+> +			gpiod_direction_output(led->gpio_en_set, 0);
+> +			udelay(AAT1290_EN_SET_TICK_TIME_US);
+> +			gpiod_direction_output(led->gpio_en_set, 1);
+> +		}
+>   
+> -	usleep_range(AAT1290_LATCH_TIME_MIN_US, AAT1290_LATCH_TIME_MAX_US);
+> +		usleep_range(AAT1290_LATCH_TIME_MIN_US, AAT1290_LATCH_TIME_MAX_US);
+> +	}
+>   
+>   	/* write data */
+>   	for (i = 0; i < value; ++i) {
+> @@ -150,16 +160,18 @@ static int aat1290_led_brightness_set(struct led_classdev *led_cdev,
+>   		led->movie_mode = false;
+>   	} else {
+>   		if (!led->movie_mode) {
+> -			aat1290_as2cwire_write(led,
+> -				AAT1290_MM_CURRENT_RATIO_ADDR,
+> -				AAT1290_MM_TO_FL_1_92);
+> +			if (led->info->as2c)
+> +				aat1290_as2cwire_write(led,
+> +					AAT1290_MM_CURRENT_RATIO_ADDR,
+> +					AAT1290_MM_TO_FL_1_92);
+>   			led->movie_mode = true;
+>   		}
+>   
+>   		aat1290_as2cwire_write(led, AAT1290_MOVIE_MODE_CURRENT_ADDR,
+>   				AAT1290_MAX_MM_CURR_PERCENT_0 - brightness);
+> -		aat1290_as2cwire_write(led, AAT1290_MOVIE_MODE_CONFIG_ADDR,
+> -				AAT1290_MOVIE_MODE_ON);
+> +		if (led->info->as2c)
+> +			aat1290_as2cwire_write(led, AAT1290_MOVIE_MODE_CONFIG_ADDR,
+> +					       AAT1290_MOVIE_MODE_ON);
+>   	}
+>   
+>   	mutex_unlock(&led->lock);
+> @@ -178,7 +190,8 @@ static int aat1290_led_flash_strobe_set(struct led_classdev_flash *fled_cdev,
+>   	mutex_lock(&led->lock);
+>   
+>   	if (state) {
+> -		aat1290_set_flash_safety_timer(led, timeout->val);
+> +		if (led->info->as2c)
+> +			aat1290_set_flash_safety_timer(led, timeout->val);
+>   		gpiod_direction_output(led->gpio_fl_en, 1);
+>   	} else {
+>   		gpiod_direction_output(led->gpio_fl_en, 0);
+> @@ -475,6 +488,10 @@ static int aat1290_led_probe(struct platform_device *pdev)
+>   	fled_cdev->ops = &flash_ops;
+>   	led_cdev = &fled_cdev->led_cdev;
+>   
+> +	led->info = device_get_match_data(dev);
+> +	if (!led->info)
+> +		return -ENODEV;
+> +
+>   	ret = aat1290_led_get_configuration(led, &led_cfg, &sub_node);
+>   	if (ret < 0)
+>   		return ret;
+> @@ -489,7 +506,7 @@ static int aat1290_led_probe(struct platform_device *pdev)
+>   	aat1290_init_flash_timeout(led, &led_cfg);
+>   
+>   	init_data.fwnode = of_fwnode_handle(sub_node);
+> -	init_data.devicename = AAT1290_NAME;
+> +	init_data.devicename = led->info->name;
+>   
+>   	/* Register LED Flash class device */
+>   	ret = led_classdev_flash_register_ext(&pdev->dev, fled_cdev,
+> @@ -528,8 +545,19 @@ static void aat1290_led_remove(struct platform_device *pdev)
+>   	mutex_destroy(&led->lock);
+>   }
+>   
+> +static const struct aat1290_led_chip_info aat1290_info = {
+> +	.name = "aat1290",
+> +	.as2c = true,
+> +};
+> +
+> +static const struct aat1290_led_chip_info aat1270_info = {
+> +	.name = "aat1270",
+> +	.as2c = false,
+> +};
+> +
+>   static const struct of_device_id aat1290_led_dt_match[] = {
+> -	{ .compatible = "skyworks,aat1290" },
+> +	{ .compatible = "skyworks,aat1290", .data = &aat1290_info },
+> +	{ .compatible = "skyworks,aat1270", .data = &aat1270_info },
+>   	{},
+>   };
+>   MODULE_DEVICE_TABLE(of, aat1290_led_dt_match);
 
-Because standard KBUILD_VMLINUX_OBJS targets (like built-in.a) depend
-on '.' (which evaluates to $(build-dir)), 'make vmlinux' evaluates this
-rule to recurse into the source tree. This exports need-dtbslist=3D1 into
-MAKEFLAGS, which is then inherited by all Kbuild sub-makes.
+-- 
+Best regards,
+Jacek Anaszewski
 
-> diff --git a/scripts/Makefile.dtbs b/scripts/Makefile.dtbs
-> index c4e4663902844..c7ec2a2a308ef 100644
-> --- a/scripts/Makefile.dtbs
-> +++ b/scripts/Makefile.dtbs
-> @@ -23,7 +23,9 @@ dtb-y           :=3D $(addprefix $(obj)/, $(dtb-y))
->  multi-dtb-y     :=3D $(addprefix $(obj)/, $(multi-dtb-y))
->  real-dtb-y      :=3D $(addprefix $(obj)/, $(real-dtb-y))
-> =20
-> +ifdef need-dtbslist
->  always-y        +=3D $(dtb-y)
-> +endif
->  targets         +=3D $(real-dtb-y)
-
-Because need-dtbslist=3D1 is globally inherited, it now unconditionally
-appends all device trees to always-y in every visited directory.
-
-Additionally, it triggers the generation of dtbs-list files across the
-tree via existing code further down in scripts/Makefile.dtbs:
-
-scripts/Makefile.dtbs:
-    ifdef need-dtbslist
-    subdir-dtbslist :=3D $(addsuffix /dtbs-list, $(subdir-ym))
-    dtb-y           +=3D $(subdir-dtbslist)
-    always-y        +=3D $(obj)/dtbs-list
-    endif
-
-Could this unconditionally traverse arch/$(SRCARCH)/boot/dts/ and
-compile all device trees, regressing build times, while cluttering
-unrelated directories (like fs/ or mm/) with empty dtbs-list files?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261007-dtb-dirs-v=
-3-v3-0-b3ab32b64fa6@kernel.org?part=3D2
