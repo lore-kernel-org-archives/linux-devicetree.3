@@ -1,136 +1,99 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C52A29408;
-	Wed,  7 Oct 2026 13:05:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53E5E49D5B1;
+	Wed,  7 Oct 2026 13:06:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791378317; cv=none; b=TlzTo6ZZ3jRUc98rZ/pqaY5f/RuQ4HVpW3X7Kfzh3vq0WXTtlObis0wwHWyzavIy1/yYUdV4PnJYNjdy87KrWgxLDgm47dNQPw6Wev9KKtEEn6acFwr9vxj5s1VjlrEgaLPPLnilUFFl4EvJ4Tc4xNALqKi7x4li5CWKp9L9U+M=
+	t=1791378384; cv=none; b=oJ/iYKJbrHT6kL2Eml2jv/imHzyamfG1m5h1yocnQacz6db/+INbQink9Qk6BsMOChx9ls+ekW/vgJbh80UnNWdfTp63ZoVrMostQ8fr9JrN+zatX2ikZ+qCKGce/HHGy+PKH/xgTfICZmuWBJqM2mSZ2YyKGnWMgepnNEG9dOc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791378317; c=relaxed/simple;
-	bh=2tP+ifbjocSY1XmYcSlhdCFp12TTOlHyhXW/Mu7FTRY=;
+	s=arc-20240116; t=1791378384; c=relaxed/simple;
+	bh=4YJ9Fqv+a1prb8DIM4jaQKEQUeWO3GSzk37YSQ+zLO0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OuWhxNFq5HvmDetGYzDbqbqxqDO2H5C+Xu8Nn0BjrBE+uvcRcbrED57Qtvcy9P4zaSYfGUeReUxjsnRJnAi3UhW6u8D+yBaLuQxr35qkx5o1HcCq3r/Zlp5F329Y2vFzda6ji3TjXjyIlwSzBCQU3Sj4UY1Kq7cPxD/0k2Rb7ls=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iksfkcwV; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=lRc6xb6vPPFUEkaYpDDTQzWh6po+J8EAQXl8C8paTTrez0kvGoFKOMZ7TGUF0+4+yocB84TimvDVnoIZ3KCmOWcN18nwEDY9FZbtli6YXNu34n+UBrddayeiRtxOaO+6NzumVDRqUKWC5khSI8wvQVOv+qxy8knGzllWHMbwBAY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=vxCdmjaO; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iksfkcwV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CA211F0089B;
-	Wed,  7 Oct 2026 13:05:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791378309;
-	bh=1xyFY2/qjSfzfOEEqstRe13yg3w1MmOIvKuE98LYfVs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iksfkcwV7xFdTzISErXb2Xu1BYx2pGEMxaKg71yI1MLQEgNXOSHwv2IkjDJz5HAjs
-	 7Bpp0JlaK+Zyvli16Ls0FnmcH3a+t5bKOUOpnolE0BRhO6IbT0YRWSwDhrj0zcWNNR
-	 h5FS274dckjwIrUJPXEEKVcVyEZkzHZFgFMF5mVHkMdHTomN9xSB2hpIYEQJCq7T+i
-	 Utb3ZVdl1Cn3+4BoMHMCOjErkn6QGCqm4fRq44WLzEN8xBZrcUx7SMMqrGonXOY0tC
-	 hE2m90UNaT5aSgAouLeciwD9kq+vWoFCDMEgB8kXoaApbq+EccC9kS+v8v7Il3w8bD
-	 jAG80pIB85LIQ==
-Date: Wed, 7 Oct 2026 14:05:03 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Thomas Bonnefille <thomas.bonnefille@bootlin.com>
-Cc: Puranjay Mohan <puranjay@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="vxCdmjaO"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=dM8Ub3SEr1kn1ORAaVqDqRmpkV1kv8aYkI640BFSIsY=; b=vxCdmjaO7QZi+Fum3RHxWGGW/O
+	f3nVrVz45O9O7GHhJuuD1yk6uNnxxTwSBzklwEg/niuUSTt0Ipxes2p8OYbLsTbhbWG2Z1ANWpMsH
+	1JZ9L3YdexYCnlV9dajqVdpTLndChmSFUBehbecdg8sNwAbYViijrq6DaqpPNE7+LVPs=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xERLO-009Scc-Ku; Wed, 07 Oct 2026 15:06:02 +0200
+Date: Wed, 7 Oct 2026 15:06:02 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Lucas Tanure <tanure@linux.com>
+Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	=?iso-8859-1?Q?Miqu=E8l?= Raynal <miquel.raynal@bootlin.com>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: iio: ti,tmp117: describe interrupts for
- TMP117
-Message-ID: <20261007-b011a79717a2ebec6f613c6c@squawk>
-References: <20261005-add-tmp117-notif-v1-0-c6cef6fad64c@bootlin.com>
- <20261005-add-tmp117-notif-v1-1-c6cef6fad64c@bootlin.com>
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	netdev@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH v2 3/7] dt-bindings: net: amlogic,meson-dwmac: add
+ amlogic,t7-dwmac
+Message-ID: <ba762ae7-db95-41da-bb77-b72b85b68334@lunn.ch>
+References: <20261007082627.63807-1-tanure@linux.com>
+ <20261007082627.63807-4-tanure@linux.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="ETSjIwFJfDXvsQMH"
-Content-Disposition: inline
-In-Reply-To: <20261005-add-tmp117-notif-v1-1-c6cef6fad64c@bootlin.com>
-
---ETSjIwFJfDXvsQMH
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20261007082627.63807-4-tanure@linux.com>
 
-On Mon, Oct 05, 2026 at 04:44:19PM +0200, Thomas Bonnefille wrote:
-> The TMP117 can send alerts when the temperature crosses a low or high
-> limit. This triggers an interrupt on the ALERT pin.
->=20
-> Add the optional interrupts property.
->=20
-> Signed-off-by: Thomas Bonnefille <thomas.bonnefille@bootlin.com>
+On Wed, Oct 07, 2026 at 09:26:23AM +0100, Lucas Tanure wrote:
+> The T7 has the same ethernet glue as the G12A, but the controller
+> reaches memory through a pipeline stage that this SoC inserts in the
+> bus path. That stage has a gate of its own, which no other member of
+> the family has, and nothing else in Linux claims it. It is therefore
+> switched off as unused, and the port can then no longer finish a
+> transfer.
+> 
+> Describing it needs a fourth clock, and the fourth clock of the
+> existing list drives the timing adjustment logic, which the T7 never
+> uses. So the T7 gets a list of its own with the gate in that place,
+> under the name the SD and eMMC controllers already use.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Lucas Tanure <tanure@linux.com>
 > ---
->  Documentation/devicetree/bindings/iio/temperature/ti,tmp117.yaml | 9 +++=
-++++++
->  1 file changed, 9 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/iio/temperature/ti,tmp117.=
-yaml b/Documentation/devicetree/bindings/iio/temperature/ti,tmp117.yaml
-> index 7fb3e68207919..68ee936722ded 100644
-> --- a/Documentation/devicetree/bindings/iio/temperature/ti,tmp117.yaml
-> +++ b/Documentation/devicetree/bindings/iio/temperature/ti,tmp117.yaml
-> @@ -30,6 +30,11 @@ properties:
->    reg:
->      maxItems: 1
-> =20
-> +  interrupts:
-> +    description: |
+>  .../bindings/net/amlogic,meson-dwmac.yaml     | 47 +++++++++++++++++++
+>  1 file changed, 47 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml b/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
+> index 90ef79161ab1..96118b4d1560 100644
+> --- a/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
+> +++ b/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
+> @@ -23,6 +23,7 @@ select:
+>            - amlogic,meson-gxbb-dwmac
+>            - amlogic,meson-axg-dwmac
+>            - amlogic,meson-g12a-dwmac
+> +          - amlogic,t7-dwmac
 
-Valid comment here, but I wouldn't respin for it.
+Since you are adding a new compatible, lets cleanly fix up the RGMII
+delay mess for this compatible. Skip all the existing code touching
+RGMII delays and add new code which is invoked when this compatible is
+seen.
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
-
-Cheers,
-COnor,
-
-> +      Interrupt line connected to the ALERT output of the sensor.
-> +    maxItems: 1
-> +
->    vcc-supply:
->      description: provide VCC power to the sensor.
-> =20
-> @@ -45,6 +50,8 @@ additionalProperties: false
-> =20
->  examples:
->    - |
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +
->      i2c {
->          #address-cells =3D <1>;
->          #size-cells =3D <0>;
-> @@ -52,6 +59,8 @@ examples:
->          tmp117@48 {
->              compatible =3D "ti,tmp117";
->              reg =3D <0x48>;
-> +            interrupt-parent =3D <&gpio0>;
-> +            interrupts =3D <5 IRQ_TYPE_LEVEL_LOW>;
->              vcc-supply =3D <&pmic_reg_3v3>;
->          };
->      };
->=20
-> --=20
-> 2.55.0
->=20
-
---ETSjIwFJfDXvsQMH
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCasZDfwAKCRB4tDGHoIJi
-0th3AQCowekS+yV2wRtr/tMfZMPC0FEQS9GbKJj4Gn9d8UjiyAD8DCZzJh3a+y+v
-Qh0cu4sn1ha7AjTvvYk9ivy4Y+euwQ4=
-=OXVZ
------END PGP SIGNATURE-----
-
---ETSjIwFJfDXvsQMH--
+	Andrew
