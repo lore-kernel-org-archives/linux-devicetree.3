@@ -1,46 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2C673D567F;
-	Thu,  8 Oct 2026 07:18:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DEA03D647C;
+	Thu,  8 Oct 2026 07:19:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791443914; cv=none; b=fDjDtjzF1vF3K9pZQmUXjyG28fGlrdVi/YztyEZfjC/tLrhE+enAxx0bpx3Jwnjn1bJumr5nZUQQ5ukEQefHfQmAbHMV51RzUgs9JVeSOfLFlCw/PsUEGJS9qwRUvbjoSIGDPmKFMtxWIZ4CiPOIDssDAa2U8lO0OtjH6l/AS34=
+	t=1791443949; cv=none; b=PGLjhscpLhM+VeLDVD5RmmHF+KHXhsipwx426kjsf+yiADbspYkjavQCwnB94NM9lXDtFGelt/R9+swkGwChQJ+0/3NDomVef9g71aHQCqUvx7e0O4OEnEt3TO1UbfcltzrPAUC9iGWGlTfM4NGFCwz8o5YZZudX0pT8gxW246I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791443914; c=relaxed/simple;
-	bh=TdV+HWlIgLPpyXaQywH7Oz1pJ3kWIQBUtaKLYOr1Kg4=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=TM0pMACpz6/iKOg7TuUS4syAHmjQFiSf6AEWUryZmf84u1Cf0QCzKe4H1i3WQE9hGGc/zJD4bAW4ETGMz7rIXpuC3KVGZdpCZoW63yQZBUThPa6XLyPolPYzYdUpHQfK1iwDgWVeBW9lCsA/cbMiVa/exSqxDXUDBOMoHc8+TqQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CBKdaQCC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791443949; c=relaxed/simple;
+	bh=/tBnpKW+ZW/Yi016WN0hALcaGKMA+PcAx0Wn9UnTOQU=;
+	h=From:To:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=bwlj4UEau9x52f5OdlF0qqa7l0X10q9bnvhbjzzOSW6tT11y6CEVuTzpRle7JoHvoC/JoD9KOckQnZW8SCWmbiTwdqxfycPdX40oFrjPnjqappaoE5/gvAa87FexYWCKoe9qYP5fGnHOE5CGGSnACgM4dboqTgbOlXjQ6kHDILY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oa1tNQpn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CBKdaQCC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF2561F000FF;
-	Thu,  8 Oct 2026 07:18:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oa1tNQpn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 704E71F000FF;
+	Thu,  8 Oct 2026 07:19:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791443912;
-	bh=i/+stlfT2Lq4mGo5w75oYKPCnXjZu8T9iSajrBuvcns=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=CBKdaQCCiq+NykJWI54gfNhND0k374+HwZx5OI4FZ9lQUyiAbwaLJ6N6xE9HmyNTB
-	 3O1iPRkSPvxshfZE2VAbWt8gnb1WZRAtb/aharJCALgEvjMlCON3NJ9emmut5Tmh1s
-	 MtBoCKtHRHer/N+1nygw9yvI5q2xy5nTdOFdSwpbD5RYbzc7ed+aWQIwMuU9TP0qbK
-	 Iq03VBWOu1iJP9/+FwlQaV3d/hTY6ZNwylvB6LJozmKCk0qBBzJK5lxZeav4ajfA2N
-	 vqw9s99w4jahrA829IwwP1tBONBPL3mIyOFAx2+9tiACDFWgIpVewn6F/4w+G1+9nR
-	 wlU8xe6G5msKQ==
+	s=k20260515; t=1791443945;
+	bh=XHpEnqYsiMknYcRirs4ZAfwjTk2r/VjYbrdH1wT2HWA=;
+	h=From:To:In-Reply-To:References:Subject:Date;
+	b=oa1tNQpn7DlFKmMW1BdRdEkSfUIPA43Ar9F4bSdTBiBhp1FGwOUb3UxqJWM0FtGfg
+	 vvOfFBJGkhjubuuTp4uZ5vrQ/3TecPta9C8x8chGI90q4D7Toc5JmZrovWFlMq2U3b
+	 mqA+/QP5hHMbLxos3MBaBbyPZiIxKCpAm+Xw7c7127rAt504VatAfVOypW9oRXPcWb
+	 nIxsU+pB8OLuyYlf4Y6yEyLa5aa0C9GlwuI5YVhTXrD3O9BLaqIebN+4PuZASP2vZW
+	 kUOY62q93RNMeunbRi3cngLEIP7KnH5+Z00oQvPZGe5526EHreKyZYuI0empoEDtx/
+	 GdW5KRX+8c2HA==
 From: Mark Brown <broonie@kernel.org>
-To: David Rhodes <david.rhodes@cirrus.com>, 
- Richard Fitzgerald <rf@opensource.cirrus.com>, 
- Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
+To: Jassi Brar <jassisinghbrar@gmail.com>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, 
- Takashi Iwai <tiwai@suse.com>, 
- Ricardo Rivera-Matos <rriveram@opensource.cirrus.com>
-Cc: linux-sound@vger.kernel.org, patches@opensource.cirrus.com, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-In-Reply-To: <20261001-cs35l45-ldpm-v1-0-545787a5afe5@opensource.cirrus.com>
-References: <20261001-cs35l45-ldpm-v1-0-545787a5afe5@opensource.cirrus.com>
-Subject: Re: [PATCH 0/2] ASoC: cs35l45: Adds support for LDPM feature
-Message-Id: <179137129144.2423942.14604502978432997591.b4-ty@b4>
-Date: Wed, 07 Oct 2026 13:08:11 +0200
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ Mathieu Poirier <mathieu.poirier@linaro.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Srinivas Kandagatla <srini@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Andy Gross <agross@kernel.org>, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-remoteproc@vger.kernel.org, linux-sound@vger.kernel.org, 
+ Richard Acayan <mailingradian@gmail.com>
+In-Reply-To: <20261003175659.23536-1-mailingradian@gmail.com>
+References: <20261003175659.23536-1-mailingradian@gmail.com>
+Subject: Re: (subset) [PATCH v2 00/11] ADSP for SDM670 and sound on Google
+ Pixel 3a
+Message-Id: <179137115234.2423942.7709943908182530638.b4-ty@b4>
+Date: Wed, 07 Oct 2026 13:05:52 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -50,27 +52,25 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1560; i=broonie@kernel.org;
- h=from:subject:message-id; bh=TdV+HWlIgLPpyXaQywH7Oz1pJ3kWIQBUtaKLYOr1Kg4=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqx0PBJOjDawjK4aUtqQKPKHtk4ljWO4TMwHfX4
- PgWso5MH/KJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCasdDwQAKCRAk1otyXVSH
- 0CJIB/4orVHGkGhwrQFh353DYNNe8EDA0f/U1RjPKhK1wryRs/gfL/OvDUytRbt1VUR6+W4cgis
- 37OzbdRFYNIDb3E/jx4xsSv/Azu8GiJlpxECeb7KzZSeKwLGJB2AzJB3UnYaqiKKH/bR6LUvSS+
- xxzI5TLHyZMmCv9TXctINhSRdxf2ZT5Eou3fk1wYzZWNnLYTlc4TOvt1wTjB/ynQ/tlmlmINc2q
- Hr3w5o7cJHeOhhOhCYwD6snZ7woYUfZVWHih2Q2SCQ1QOam1dZz+edBZtVCWgKniqDpUuj2AqCQ
- l+ZOn8DDqxZCDApaWMhMlNhdH+vjmlsOxCJ2nEfZ673ssIfo
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1347; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=/tBnpKW+ZW/Yi016WN0hALcaGKMA+PcAx0Wn9UnTOQU=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqx0PiNRcF/e43VxJAq825svReY/Nmi9zpO23Jl
+ vuJyxOMBFuJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCasdD4gAKCRAk1otyXVSH
+ 0OtrB/9xBNbc4hSKP7nSoUgZ/BqL2RxUPhKO3i6wkrG31XBmZFK6ePrqUnwdsUIEijyNYoT1ryD
+ rA5pZtupMsX9pObiGGnnxr9IioY/ANOh5naCOtZGIv9+cxRfXCVIAuUVWqmxRpd/MPCmvxwzg+T
+ ZgGWdjpOeH0MzbvjMUu80glJE60APhh3Lpcix913o2S1PveGZ/TE7t6u0nW3ga8q/NMx5yiOAlD
+ azKjy8fC0fnJa60lqrPXvtTGuY7N+FUFWQNuI0K2zZxhSg12MIOGfyJ8+MD1Xjmv0Dll/feWjh4
+ zVp50NaWLjdchm1Zq30XWiZrfHL63S0JUp1RugZczU9kuPu4
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Thu, 01 Oct 2026 10:14:26 -0500, Ricardo Rivera-Matos wrote:
-> ASoC: cs35l45: Adds support for LDPM feature
+On Sat, 03 Oct 2026 13:56:48 -0400, Richard Acayan wrote:
+> ADSP for SDM670 and sound on Google Pixel 3a
 > 
-> The CS35L45 has an input signal level dependent power
-> management (LDPM) feature. The feature is used to reduce
-> power consumption when the amplifier is playing sustained
-> low amplitude audio. This feature is made up of two
-> responding groups each with a distinct threshold level and
-> entry time delay.
+> This series adds a user for the SDM660 sound support code [1]. It also
+> adds the ADSP remoteproc for SDM670.
+> 
+> [1] https://lore.kernel.org/r/20260730174353.108023-1-mailingradian@gmail.com
 > 
 > [...]
 
@@ -80,10 +80,8 @@ Applied to
 
 Thanks!
 
-[1/2] ASoC: dt-bindings: cs35l45: Adds LDPM settings
-      https://git.kernel.org/broonie/sound/c/cd4c07a11ef0
-[2/2] ASoC: cs35l45: Adds support for LDPM feature
-      https://git.kernel.org/broonie/sound/c/0ad64fbbb7ed
+[05/11] ASoC: dt-bindings: msm8916-digital-codec: Add SDM670 compatible
+        https://git.kernel.org/broonie/sound/c/5b81127873ae
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
