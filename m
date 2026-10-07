@@ -1,161 +1,179 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com [209.85.167.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A94442586E
-	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 14:36:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791383794; cv=none; b=TRiydsZuHykix6FeYjKREbY+wN/MWYlLwyiYVhQrXC5y0XoX+wZeruUF/AsyKBrGF/lGlHl0zXdd+dqa+frk9ugkK3hgt/QqRMgWSeRaEsOoo0v65UHEMHwClOqfaNlbF6xebMFkDxm/8a2q5NeCLipXmb0TUmYWvSGylwrFdWg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791383794; c=relaxed/simple;
-	bh=m8BwqGpGaN5NyW0o3YS7MAF/UiHjObuWTcpN8dzIZkE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=htRIKTyxpCRBMMcMVu3dwPNf/cI2btwLV/ead7yAJ2FP/KJCapIVGESdE6HHJPSz925JWArlAAMzHdYIXmtTsx+g7KFH77yBSq1MyIxVvCDRr7E8zDHEFFvbSDlEKp5sOoWb0i6L5hpLemrXAt4M1TOrSigOtIGXDUBOy/FS0i8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=V9uBFNoI; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LWuo5Xix; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CFFF471CE1
+	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 14:39:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791383953; cv=pass; b=dX/zmJrlYNzqHrQ7B7Qz1QA5SZKnlO2nOWzpzh0afATo50SXE3axDQBdXhf4pY1zq02Iw3DyFtk+TxAr0Ytxa5zoF8oyD1dPWYGGVMqGqpURLsimXdCr+ztZoNoX8A42sU/upRTVgtwPdoPKWUVCSzXmln79BX5zE3063oR68ek=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791383953; c=relaxed/simple;
+	bh=kRDX5d4Fxp6lom54Gexo11aTEyNvY7I7wqMeKyzSVVE=;
+	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=QjQ7V68/Jx9q2xbgnf/uHbLc+f0VAC9HqnLrnMxsgi/qm3sExy79GqP2AWNBMoIdrKQgOXmfTOncFnH2a5IZcVSoTmN3wBmEnz29mZh9hrUdQDwMv5cB+rVxLHC8lx+oZsqBoKh+VMI9PCXCbHjdSiQZ17YcIKDNhcsiKzIIoNg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wetterwald.eu; spf=pass smtp.mailfrom=wetterwald.eu; dkim=pass (2048-bit key) header.d=wetterwald.eu header.i=@wetterwald.eu header.b=of8+yMho; arc=pass smtp.client-ip=209.85.167.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wetterwald.eu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wetterwald.eu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="V9uBFNoI";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LWuo5Xix"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 697BVKs04178562
-	for <devicetree@vger.kernel.org>; Wed, 7 Oct 2026 14:36:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	2eSGGmhPnLXMyz0ttXDRLcWTAD1FLKpx4rLl3gYv1Bw=; b=V9uBFNoIIsGfBCyr
-	IFLJ5olOiamecqFnaLTts2GOhTpHEymNOai/gCB0hvfnx5X1eH3dyD3O5XSMDqX4
-	rj8xP7SSbIOMMjizZBTLGREznScKUA+oY5DUvUk0Rf05jSw1fDZ6MhRC66BY4uDn
-	xmWluEYrhkXsMZwDFtv6PBxoB/aEUbhGkH09CAqUdX4KRN3Q0COgzo7dq6hXvOyy
-	snYta1slspHwZownxgV0I8NzS/dma/XU2bMZXNzMhJ8qm71OaRliuC8KG/sea2XO
-	QpguKd69sA6YzE2r3dNiLN8QpQOLxNWCsZrA8eRvkT3DueXlEIBAfpGYyfcYiKWW
-	rOjhcA==
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com [209.85.219.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5c60am8b-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 14:36:29 +0000 (GMT)
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-91235881828so92015876d6.3
-        for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 07:36:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=wetterwald.eu header.i=@wetterwald.eu header.b="of8+yMho"
+Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5ba7ed32ccdso4792780e87.0
+        for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 07:39:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791383946; cv=none;
+        d=google.com; s=arc-20260327;
+        b=EjWtqX1r0Z5yNUJq3COLf3ShtEYiA5xvrQIeV4gy6r43aoPGWcuYjVe540YpJ7PX+K
+         WQoUSVeaGMzis+Za776SkkgrILLKRIG2y532IXD0I3kmhwZ6l4VFryEw0nO2o67anIH5
+         DFTWx7ewnv259/T2yx8oMTpHcTFfGgt33EKwCj7icK8PkP4wSppaXDEig+FYWoN6wj7D
+         BNSkqCitQv7EVmb00ZLBKoMi6p+xPaVerw/VGIOZJsiHyP50mhKNx5/qaAw8AICj+yIL
+         vcjKLheSeDvfeKfReTk7pqsqqwETp8HqclAvva6GWkSXUhL4N+Fs+bnmAqPxYw3Zh87H
+         eVxg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
+        bh=Pb/ni9yGHnr9WxRdlwyNVusDKwS3wvu2r4D0LWS3qt4=;
+        fh=96Q4yk+YDa0KF9jjfhX5IeAoxKbOLwcYRPbcV/CZTFs=;
+        b=XyI+OtQnEja4Oc3NTQcvAPvuymk1x7vm5W0RNSCvNt1aHiBuiX/GRmOTO6zHbLZjdc
+         D33FdgIeRbsHsUBWViRa6JfUuxVqGyUNNOzftpr6xJjRS3W6Y8ocaL0hEAmoY8e+cWbn
+         FSUxLns7BMpiql9Ha/epy0shKRTwhWQ1H/4VuZHM4QbZZdJUgvn0EJeSYJTY/oEwsubi
+         eXihPDrtrTbEKTrLrGh0FPvke63OkmtlTfBhIfvvUdvBAn6dmSDKdqzifeandV53K0tW
+         5ZembCpnQ4dXohP8Kelnz+SHjrkHiYpMmWUsSg03yUodOoQbbdtW9UD6Pnx4Ovrtr0QZ
+         mmRQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791383789; x=1791988589; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=2eSGGmhPnLXMyz0ttXDRLcWTAD1FLKpx4rLl3gYv1Bw=;
-        b=LWuo5XixVgti4FK6odpqCNzyUUKgnDBDsnNEjbJPXSyoet7fLOvQ76D/PohaIB6Is2
-         WtO79rhSOkGV/aah9RaSrRN0o/0pveZByxQE00yYc31wdfcF4Wxtz3mBiQ4WzaI0pPxf
-         gXlPqyz+J7QLii/MYmDzgVESKPYyXRJzyHQyO0PZsS9SgGY7SAdtolOC66uj380sgpYx
-         0ABqyug7KVxTVAKyNBChcsk+JRxvJGkO5MDpabBHl9AGVDvAHbEpRpe9QQe+wssa9TnI
-         DRD441XASxXlDi2s1vtIA1oeww/MZ8LOd6ZRjs550MsDVc/uCYS4P5/PHGN+Uw1s683P
-         n7Pg==
+        d=wetterwald.eu; s=wetter; t=1791383946; x=1791988746; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Pb/ni9yGHnr9WxRdlwyNVusDKwS3wvu2r4D0LWS3qt4=;
+        b=of8+yMhoUczew89GXFWQqf1qdPVn70afHaFRCUI2xoKuTcmEsTWLrdNCHTh4TV1Fkp
+         FvfVuyZPAweEq3O8ar2vBLskBXNgmxb7XVxZcXZLR1rxf/cAABPjp52z7Hx3D3AaHzu5
+         F6WwpchiGaLgcu5n0fawAljxgdTkMKUlcWGC4XNM3+ymHMZ/80YtG7x/bpbGpSdQdlea
+         /HaDiS2rQU1E7Kv4CS+id6XDk56RaOYmARBmXhpziFN98djzc6B4bZ1EVDZKP34U3pXY
+         6ubBcexar99VE00YLqZjJ692N6BgGSo5H4SYu7q0A4UV1c+3rMi2lulu/ZUGlOMewlq+
+         Bdog==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791383789; x=1791988589;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=2eSGGmhPnLXMyz0ttXDRLcWTAD1FLKpx4rLl3gYv1Bw=;
-        b=YgaTxyqQbfqiAYzWBILq5ESqbdplj7fJ1iNqG1IcpmkRB9QzkejLOOgf5WAor2ugsS
-         9D+z8VuXTt5qUGEn7mQqNy5VfMT00Xodewluk0PaXMa1D7wDhunpHWaXehj4KdPvu+8E
-         QldJdpf6J/SN5CfNqdC3a325lMTtLCaTURicT2C6EwpDOsVP8MyDsibR+9zyBwsI78SV
-         K2WNDgQT5Wrdjh1NNoe66EW1AbGeHJZI31++QT3v2ZgkVce9XYIrYLTT3ejz0/vtjvYp
-         rk22kvv3ifAd5RmBDXG1k/Jd0UNIt2BtY/0IT6hhMPSoA3AfscWaZhWzRtY/Qr2Iq+xv
-         r0gQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxjwnBCtWXDuJuLzwoRwyfqST6FOr9aY4xJtKLsjP+UmmVR/dsreGHguEdEhW6CYRjB6EamYKssAP04@vger.kernel.org
-X-Gm-Message-State: AFuF++k91ZP/CTJ70Xz5DSDchO3/sfwNb+ajjimiA6ndTR9XKPtjbVS6
-	ut0Tking3VFcmzmGg8Jpq6c+S/0t2xWNCPrrBhsCHrbnd6Jk7Mb62b+q5CiTuZGiR0e8YgvGN4D
-	i08fFOBFOIfjUgNkRIvuv0SGXVCtMZpjAB0oVvUwoftqcFnE/aq//7C73SzOmjlke
-X-Gm-Gg: AYBFou0LpXIhJAj4MW3bxwYatCs1DajCFcOg7tNdlQ9p50T5s8F5GNFF0Jx9C7F4taA
-	Z/ZbsGLzEPoY5+w76zkIStxwnSZ8d6SXwQCn3pANhSfxymtlbRvFr6EDx6TFHGa4kP7Dk1VOxEa
-	eBvxZfRXhH+MCSq567Ws3CPiZvulMO2W8RYFkN2oDemvZfwnsqlAlbhAGPRgTviUXGwsK6Paok4
-	qAlASgFDc9tp8B4AAuEj7KwWEg24wbMyFl10bowpZhjdM1vSGcUjLUV98J4/vf8W/FGYXpcY+qI
-	JIv9tsGE99nlUM5uHweRSpVC2/EfPGZC3f5Szz0wUkce9weZj3k86RdrfXDXUxuNbqz4fvmENpM
-	KV6ucza7a2MsjCvDj1cAcOf4LmJXh8aUbfwXKHvqxustr
-X-Received: by 2002:a05:620a:454f:b0:93e:9809:270 with SMTP id af79cd13be357-93e9b87478cmr487222985a.72.1791383788440;
-        Wed, 07 Oct 2026 07:36:28 -0700 (PDT)
-X-Received: by 2002:a05:620a:454f:b0:93e:9809:270 with SMTP id af79cd13be357-93e9b87478cmr487218385a.72.1791383787932;
-        Wed, 07 Oct 2026 07:36:27 -0700 (PDT)
-Received: from [192.168.2.1] (146725694.box.freepro.com. [130.180.211.218])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c71c0b60fsm5679687f8f.8.2026.10.07.07.36.16
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 07 Oct 2026 07:36:26 -0700 (PDT)
-Message-ID: <5439d103-cfcf-4fa0-ae8b-32417e30ae95@oss.qualcomm.com>
-Date: Wed, 7 Oct 2026 16:36:10 +0200
+        d=1e100.net; s=20260707; t=1791383946; x=1791988746;
+        h=content-type:cc:to:subject:message-id:date:from:mime-version
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Pb/ni9yGHnr9WxRdlwyNVusDKwS3wvu2r4D0LWS3qt4=;
+        b=oGs2VKkRb8Xc+TxXRyzEDAxZQnPRzry4ZbLgmEhA/iYTzIxPEayoD0d5hyE+a8HYRZ
+         gSZnLrA+QIw2VIAs9FqbmyRDDgZPdVuLkBoUbNgnyOeNObFA1HG2i5BkROmbjnWT3ha9
+         0UJLFcGD1K3m9QcYc0OQu0qVmeJ7o1TyA6ao4OQ/pe+AqTPlnnPhBaxlNHgj6KIhURId
+         XDWwFPtG2z5s6YLaG0NTBAAiI8Qor8mHnBaCjf+7yyULBdrpAv9OptMBidJo2a2MBMh3
+         lHTcB2fN0KQpKos99tj+dHXJs0afHmLoWBVycjNE4Vp0nJDleSEqRDVxVkLJG+zdwc3X
+         xwKg==
+X-Forwarded-Encrypted: i=1; AKwUvByc5QEDhlSOVmeOJh2q5zsgvYpAhCDPihsGN8hb1o/AkYrEhqk1z/Q8JW2+a8Aa547xGpe2IpyDBEEi@vger.kernel.org
+X-Gm-Message-State: AFq9FYI7gGdiYtndTJbRFzN8QTr/spFBXazyyI9KL6EUABAABElLQuJ4
+	1vJTkhHfI7isRlqcrEvXN6UEcgLAkNVJgzU368WGbxgI7lp+ZZW4WhDAxd6qL0ZYsrV7BLHrztV
+	wG/qYpX7mZ1sf/cVwFoVQ9B8+4vTMW5ZkrNbO1yBz4Q==
+X-Gm-Gg: AYBFou1hJymrnVHWzdTE9v7qR+jk8t5XSh1A43Bui+hfJvtcEe6qNUOyllJsLXxSSmO
+	oPMqwAFSDXSlnJA99vFqeECETX0smkFrHKnUZfzgLbT4zcQ1NQBH3GufNNN/qqIQvpIS0MWHNDi
+	wYUvPfjjB5/MiNh8FrvKbOQvuXJn+qp7OrUtf3d4ztZU1tdVQZGdWfppAcqR/J44Rhy/6hqr4yb
+	B9rbs4NTnqdu+XSxg4/flGiJ2WYG+k511+nEI+HH5pUIfKq17Z+KjNtTF/aFS+F5YucFd0Fw76y
+	SOo9M2VOF48lwoDruGOIm4i5whF+LfXwr7Igf02x0bqPMXkUPtfLU29qWCnN6SgaqX0EvEdnqu6
+	IlGOcIEI2
+X-Received: by 2002:a05:651c:b08:b0:3a7:72ec:81a3 with SMTP id
+ 38308e7fff4ca-3a9a2c34ecdmr6211391fa.8.1791383945851; Wed, 07 Oct 2026
+ 07:39:05 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH v2 0/2] Add bus clock for t7-thermal sensor
-To: linux-kernel-dev@aliel.fr, Guillaume La Roque <glaroque@baylibre.com>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@kernel.org>,
-        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>
-Cc: Conor Dooley <conor.dooley@microchip.com>, linux-pm@vger.kernel.org,
-        linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260923-fix-t7-thermal-clock-v2-0-bff7a09eb487@aliel.fr>
-Content-Language: en-US
-From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-In-Reply-To: <20260923-fix-t7-thermal-clock-v2-0-bff7a09eb487@aliel.fr>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: cmAjA0cd31w0859fZqxWhTPMrQp5IxOB
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDA1OCBTYWx0ZWRfX74dDijJi2OQJ
- R1zF2sYnyBbvxCJXbz5qzBiWah9oNrU5FsJrY6gXpICsLrv28WnIhyu4Y+aD4cOtEGvHZpd7Njf
- mHToXGQKDTF6BIMGuHUfJI9Aook/crk=
-X-Authority-Analysis: v=2.4 cv=PM+aavqC c=1 sm=1 tr=0 ts=6ac658ed cx=c_pps
- a=wEM5vcRIz55oU/E2lInRtA==:117 a=uw/3876vWhRnNVL35W6mqQ==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=z_e_Sa1Ot6aGCMGJufgA:9 a=QEXdDO2ut3YA:10 a=OIgjcC2v60KrkQgK7BGD:22
-X-Proofpoint-GUID: cmAjA0cd31w0859fZqxWhTPMrQp5IxOB
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDA1OCBTYWx0ZWRfX0HvQf+WUzxHx
- Xf/sdMsR4n04qKLaF1sKe628ODkokAefTgRQYM3Ogr/XoZ5/5Z5slIppij1Y9n1YglDBLsgKJAV
- IFErUTzSEDgR5rzIQXJEyeTscDwIFCuzYa9XOz6bRF/hXBlg5YPs/XtPB4TMj0coTiddAGoTCEG
- QwESfdIUNxvc01sE7GAvNdW01s1mVkZ3LwsJ+gQkdhOWMZ+cAJ7JqehB42k4bqegqMFpH260YVy
- Z22qAK709QQfHKCLDCL3Tn07JOEtnIcqxAa7epqocN1m4XZIX5J17AeKpa+T0ioyVuM3WYcHlHS
- Xy5SQNUqLirAtZ4vlMCaMA5Gth+KCB1d6fEl57ycEEnRtYB2Gxhjy8nt4a2Kq9P8Vo6P9C30ja4
- +12hffYHESMXWPgwX8aU+DxyOwoQAZa42uSh+u0pYSw/KpzEH0DaF4pukjsC1XhnrdQUWsdkT7C
- Blv/RtEVJCdAitVPBYQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-07_04,2026-10-06_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 clxscore=1015 adultscore=0 bulkscore=0 phishscore=0
- malwarescore=0 suspectscore=0 priorityscore=1501 lowpriorityscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2610070058
+From: Martin Wetterwald <martin@wetterwald.eu>
+Date: Wed, 7 Oct 2026 16:38:53 +0200
+X-Gm-Features: AclHuK9LjOZDikj3APsjlF2mTduppp_g_q38pi3ZhWs0i5yvsBiQNsj3lRGM9E8
+Message-ID: <CAFERDQ3gUav1E7sw7FxsPmmt9GW=tP_Jh=7ufABs9CSaMYK6kQ@mail.gmail.com>
+Subject: [RFC] bcm2837 RPi 3B: sdhci-iproc Wi-Fi probe fails without sdhost
+ (GPIO48-53 left in alt3 by firmware)
+To: florian.fainelli@broadcom.com, robh@kernel.org
+Cc: linux-rpi-kernel@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	devicetree@vger.kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	rjui@broadcom.com, sbranden@broadcom.com, 
+	bcm-kernel-feedback-list@broadcom.com, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 9/23/26 16:37, Ronald Claveau via B4 Relay wrote:
-> The t7 thermal sensor requires a bus clock, gating register access to
-> the sensor, in addition to the functional clock that is already
-> described and shared between sensors on other Amlogic SoCs.
-> 
-> This series first extends the devicetree binding to describe this
-> second clock, making it mandatory only for the t7-thermal compatible
-> so other SoCs are unaffected, then updates the driver to use the
-> clk_bulk API instead of a single struct clk, so it can transparently
-> handle however many clocks a given compatible declares.
-> 
-> `dt_binding_check DT_SCHEMA_FILES=amlogic,thermal.yaml` is ok
-> 
->    CHKDT   ./Documentation/devicetree/bindings
-> warning: python package 'yamllint' not installed, skipping
->    STYLE   ./Documentation/devicetree/bindings
->    DTEX    Documentation/devicetree/bindings/thermal/amlogic,thermal.example.dts
->    DTC [C] Documentation/devicetree/bindings/thermal/amlogic,thermal.example.dtb
-> 
-> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
-> ---
-Applied, thanks
+Hello,
+When building a minimal kernel for the Raspberry Pi 3B which doesn't need
+sdcard access at all (root filesystem fully lives in RAM), I noticed that the
+Wi-Fi doesn't work (kernel 7.2.6 with bcm2837-rpi-3-b.dts).
+
+With:
+> CONFIG_MMC_SDHCI_IPROC=y
+> CONFIG_MMC_BCM2835=n
+Wi-Fi doesn't work with following messages:
+
+> sdhci-iproc 3f300000.mmc: allocated mmc-pwrseq
+> mmc0: SDHCI controller on 3f300000.mmc [3f300000.mmc] using PIO
+> mmc0: Failed to initialize a non-removable card
+
+With:
+> CONFIG_MMC_SDHCI_IPROC=y
+> CONFIG_MMC_BCM2835=y
+Wi-Fi works:
+
+> sdhci-iproc 3f300000.mmc: allocated mmc-pwrseq
+> mmc1: SDHCI controller on 3f300000.mmc [3f300000.mmc] using PIO
+> sdhost-bcm2835 3f202000.mmc: loaded - DMA enabled (>1)
+> mmc1: new high speed SDIO card at address 0001
+> brcmfmac: brcmf_fw_alloc_request: using brcm/brcmfmac43430-sdio for chip BCM43430/1
+> mmc0: host does not support reading read-only switch, assuming write-enable
+> mmc0: new high speed SDXC card at address d555
+> brcmfmac: brcmf_c_process_txcap_blob: no txcap_blob available (err=-2)
+> brcmfmac: brcmf_c_preinit_dcmds: Firmware: BCM43430/1 wl0: Mar 30 2021 01:12:21 version 7.45.98.118 (7d96287 CY) FWID 01-32059766
+
+So, just adding CONFIG_MMC_BCM2835 makes Wi-Fi start working.
+In my understanding, CONFIG_MMC_BCM2835 should not be needed to use the Wi-Fi.
+
+After analysis, I noticed that the Raspberry Pi firmware leaves GPIO48-53 pins
+in the alt3 state when Linux takes over (sdcard pins routed to sdhci-iproc).
+When CONFIG_MMC_BCM2835 is not compiled in, the states of those GPIOs won't be
+changed by Linux. And we end up with the sdhci-iproc controller electrically
+bound to the Wi-Fi chip and the sdcard at the same time, resulting in a probe
+error for the Wi-Fi chip.
+
+Here are the states of GPFSEL3 GPFSEL4 and GPFSEL5 tested with devmem:
+
+Register  Address     GPIOs    MMC_BCM2835=y  MMC_BCM2835=n
+--------  ----------  -------  -------------  -------------
+GPFSEL3   0x3f20000c  30-39    0x3FFFF000     0x3FFFF000
+GPFSEL4   0x3f200010  40-49    0x24200924     0x3F200924
+GPFSEL5   0x3f200014  50-59    0x00000924     0x00000FFF
+
+3 bits per pin: 4 = ALT0 (sdhost), 7 = ALT3 (sdhci-iproc)
+
+In the MMC_BCM2835=n case, we can see that GPIOs 48-53 are left on alt3.
+
+I would like to be able to compile Linux with CONFIG_MMC_SDHCI_IPROC and
+without CONFIG_MMC_BCM2835.
+What is the best approach here? Is the kernel expected to rely on the GPIO
+state left by the firmware? Or should it configure these pins itself?
+
+I tried to have both sdhost and sdhci-iproc claim GPIO48-53 in the same state
+to avoid the double routing, but it's not possible because pins can only be
+claimed by 1 owner:
+> pinctrl-bcm2835 3f200000.gpio: pin gpio48 already requested by 3f202000.mmc; cannot claim for 3f300000.mmc
+> pinctrl-bcm2835 3f200000.gpio: error -22: pin-48 (3f300000.mmc)
+> pinctrl-bcm2835 3f200000.gpio: error -22: could not request pin 48 (gpio48) from group gpio48 on device pinctrl-bcm2835
+> sdhci-iproc 3f300000.mmc: error -22: Error applying setting, reverse things back
+
+1) A solution could be to let the gpio-controller itself own those pins. I can
+propose a patch removing:
+> pinctrl-names = "default";
+> pinctrl-0 = <&sdhost_gpio48>;
+
+from the node &sdhost in the top level DTSes and make the gpio-controller
+itself change those pin states, so that no matter which SD controllers are
+compiled in, it will work.
+I tested this on a 3B in all four combinations (sdhost and sdhci-iproc each
+enabled or not), and it works. It adds one message to the dmesg:
+> /soc/gpio@7e200000: Fixed dependency cycle(s) with /soc/gpio@7e200000/sdhost-gpio48
+
+2) Or, if we can't support RPi kernels with CONFIG_MMC_SDHCI_IPROC=y and
+CONFIG_MMC_BCM2835=n, we could perhaps add a Kconfig restriction selecting
+CONFIG_MMC_BCM2835 automatically if that's really required.
+
+3) Another solution could be to ask for a firmware change, so that the states
+are cleaned before booting.
+
+What do you think of those proposals?
+Martin
