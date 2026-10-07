@@ -1,106 +1,110 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 686244749D7
-	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 10:14:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0711846C4D3;
+	Wed,  7 Oct 2026 10:15:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791368080; cv=none; b=el+cPuZ7/WhqLH1+FYcVeH+hcaBM+aqChYK/Ip8Asu8QBvLedu8yCuVD1siKQGRp4cI0xGQ/db9/fdONzPdqwCF3apf47+mGuHN6zqy2NZk1st7JStBELlZPmyRHczESwy8iAiI1QqbRGrSPw5kDgcGce3sExvvL4T5Z7T5wOxY=
+	t=1791368113; cv=none; b=PyW7zCU9cgUQgQ3tmzkoWpCa5mNrhZWFOEeYz6Ap78PDqAC5dI1jKaxX0nEjC5vbO/7vhGkiHJeOHdv6/0EwbIDRliqLB6oa+LRj0pw2F81m75Up1fEf+Rr2XQH5N363187upJAnLMgiRkOsZ8LJ4oTd/jPjt8ISdzb60wTX0fA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791368080; c=relaxed/simple;
-	bh=Rbv6dUWWHBOn43wEJl4KI5lrUlJMbMpOP3Q3hpo1lc0=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=q4K2WqljZaJwT8kg8EYY6JniLbImWJKhoW/DhUjCZ89ZrbSLvKifO87WboP++CQxNwTQ9cWFnIDgJttkzMmDVxPKRzqniM29AO4+w0Q1h7nNc3y48JjKgBx6G4bQbqAGajyi2LRZ+8hGEnzPUPUF1NLemYlHxowt4xk7BJUEILA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a3EejBD9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791368113; c=relaxed/simple;
+	bh=HuZIZieH+JysRgQB6wSjmgHKHsItWKq0YeKBpYIq8tw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JaW8D4XfSHvMg1+DmmY3OK3CLPDVeaUVlLPLjwhjCktCHRxbvAti1CFkgSPCAXhQRG6CBnwp23gggN0/cwTYSe95dfRz4crZK2qB/iLe7Jy63JTo040xxlSsWXjoHc3xIposWlo6TG2PxZJPjfse3pcNpI7EJzi25esKL2Oc3zQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h7BK6S4E; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a3EejBD9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7ACDC1F0089B;
-	Wed,  7 Oct 2026 10:14:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h7BK6S4E"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C49471F0089C;
+	Wed,  7 Oct 2026 10:15:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791368069;
-	bh=E6LklzaIGXM1ONLAG14pifBlUtIph4pbKIDnXAYZt7c=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=a3EejBD9gxoWzyO0ziIKJ02L4zUsvk4zzS5QWh+esDma/AAoeaiKFwnCwYa8fAxkg
-	 Rp0UnLvxiPD2zfn7FzJzcH6SkY+Qs/TdjWpDUFDtgVvFboNa3SW5KBw4UlwwgQkTuM
-	 PncBafs+rxc9T8C1ZLhQPZl+V4+SIXcJ/mxbWFlTlKtFnfFJaYuHYZzUgLd1f8DUj3
-	 jJQINVNCzKLqFQ5pBK/muYvFdF/nDehckprb2ca/R/8LzngJ4HdxqOrHPh6TJk/38z
-	 BrMtayRhBQp/vjP1V0m1qc2L4lWm3Pd12NPWf07QDodzDdh1aW6pwATolwYeZV5/ZU
-	 mwlDHLnStXVHQ==
-Message-ID: <sashiko-outbox-162848@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/3] regulator: Add RPMI voltage service
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Joshua Yeong" <joshua.yeong@starfivetech.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20261007100022.2512187-3-joshua.yeong@starfivetech.com>
-References: <20261007100022.2512187-1-joshua.yeong@starfivetech.com>
- <20261007100022.2512187-3-joshua.yeong@starfivetech.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 07 Oct 2026 10:14:28 +0000
+	s=k20260515; t=1791368104;
+	bh=ono3XC2jWzCtdtxm1AZV27fSUgyNe3YWPdofYixm2yg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=h7BK6S4EsPsLhtNocgRwYmx0oYvG28EVSlh+twpgHi2L3srMuxRgHtU9HQN7ijvnn
+	 0RR1zAxlBmg9bhTEbyJTtWcXMLFeuIXVB75NPh4VN787WIG6RquVkX7iCk96XHUjTA
+	 i/Eyv9GxL/C+yNdcs0dDN43pOJAQufRdNFvDSyvNOnzU9sqxQW7gOQ9jbiga5GwItO
+	 /PJS3OpTZfHAc09l7/r9brOj+ehkt/X7LMs5hdxHBuCoWSlyYes4Ys1htM7+coZb+4
+	 lZ5Qih8rmI9EYhriH5tBhhALcs8HRlr5cqQfq2i3fR7GFlnS3ntQSxSn0Td6wy0epw
+	 HhKPoDQ2HbSsw==
+Date: Wed, 7 Oct 2026 11:14:59 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Bob Hui <bg9oxa@163.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>, Kees Cook <kees@kernel.org>,
+	Tony Luck <tony.luck@intel.com>,
+	"Guilherme G. Piccoli" <gpiccoli@igalia.com>,
+	Andrew Lunn <andrew@lunn.ch>, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 1/2] dt-bindings: arm: rockchip: Add ALIENTEK
+ QuarkPi-CA2
+Message-ID: <20261007-272017d1a64ba304c82482c3@squawk>
+References: <20261007-quarkpi-ca2-v7-v7-0-a84c6d5d6ef6@163.com>
+ <20261007-quarkpi-ca2-v7-v7-1-a84c6d5d6ef6@163.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="BNFm96iWEOnTS7pl"
+Content-Disposition: inline
+In-Reply-To: <20261007-quarkpi-ca2-v7-v7-1-a84c6d5d6ef6@163.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] regulator: mpxy_reg_set_voltage_sel() rejects 0 uV and masks lis=
-t_voltage() error codes
---
+--BNFm96iWEOnTS7pl
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-commit cbc4d4861f2f3917f562d79d42a2f9d2a4373b1c
-Author: Joshua Yeong <joshua.yeong@starfivetech.com>
+On Wed, Oct 07, 2026 at 01:06:26AM +0800, Bob Hui wrote:
+> Document the ALIENTEK QuarkPi-CA2, an RK3588S based single board
+> computer.
+>=20
+> Assisted-by: Hermes:deepseek-v4-flash
+> Signed-off-by: Bob Hui <bg9oxa@163.com>
 
-regulator: Add RPMI voltage service
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-This commit adds a mailbox client based regulator driver for the RISC-V=20
-RPMI voltage service group. It enumerates voltage domains advertised by
-the platform microcontroller and registers them as regulators.
-
-> diff --git a/drivers/regulator/riscv-rpmi-regulator.c b/drivers/regulator=
-/riscv-rpmi-regulator.c
-> new file mode 100644
-> index 0000000000000..46119297e7de9
-> --- /dev/null
-> +++ b/drivers/regulator/riscv-rpmi-regulator.c
-
-[ ... ]
-
-> +static int mpxy_reg_set_voltage_sel(struct regulator_dev *rdev, unsigned=
- int selector)
-> +{
-> +	struct rpmi_reg_domain *mpxy_reg =3D rdev_get_drvdata(rdev);
-> +	struct rpmi_set_level_tx tx;
-> +	struct rpmi_set_level_rx rx =3D { };
-> +	struct rpmi_mbox_message msg;
-> +	s32 volt_uV;
-> +	int ret;
+> ---
+>  Documentation/devicetree/bindings/arm/rockchip.yaml | 5 +++++
+>  1 file changed, 5 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/arm/rockchip.yaml b/Docume=
+ntation/devicetree/bindings/arm/rockchip.yaml
+> index a799bb843f74..a3191bb909b2 100644
+> --- a/Documentation/devicetree/bindings/arm/rockchip.yaml
+> +++ b/Documentation/devicetree/bindings/arm/rockchip.yaml
+> @@ -182,6 +182,11 @@ properties:
+>            - const: alientek,clrv1126f
+>            - const: rockchip,rv1126
+> =20
+> +      - description: Alientek QuarkPi-CA2 board
+> +        items:
+> +          - const: alientek,quarkpi-ca2
+> +          - const: rockchip,rk3588s
 > +
-> +	volt_uV =3D mpxy_reg->desc.ops->list_voltage(rdev, selector);
-> +	if (volt_uV <=3D 0)
-> +		return -EINVAL;
+>        - description: Edgeble Neural Compute Module 2(Neu2) SoM based boa=
+rds
+>          items:
+>            - const: edgeble,neural-compute-module-2-io   # Edgeble Neural=
+ Compute Module 2 IO Board
+>=20
+> --=20
+> 2.34.1
+>=20
 
-[Severity: Medium]
-Does this check incorrectly drop specific error codes from the regulator
-core and prevent setting a 0 uV target?
+--BNFm96iWEOnTS7pl
+Content-Type: application/pgp-signature; name=signature.asc
 
-If list_voltage() returns a specific error code (such as -ENOTSUPP), it
-is masked by -EINVAL here, which degrades error reporting upstream.
-Additionally, if the hardware explicitly supports and advertises a 0 uV
-level (which is valid for regulators that support turning off the
-output via voltage selection), the driver will falsely reject it.
+-----BEGIN PGP SIGNATURE-----
 
-The standard regulator subsystem pattern is to check:
+iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCasYbowAKCRB4tDGHoIJi
+0poEAP0cDi8AhzthDNrWdJoqYeqtrAtg5LLLMhgZoDbWX/wPpgD+MSKXvvDtM6EM
+UqxVzz0cH9Y5SazOBJ02w2vwLh3wRAI=
+=kjo2
+-----END PGP SIGNATURE-----
 
-	if (volt_uV < 0)
-		return volt_uV;
-
-> +
-> +	tx.domain_id =3D cpu_to_le32(mpxy_reg->id);
-> +	tx.level =3D cpu_to_le32(volt_uV);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261007100022.2512=
-187-1-joshua.yeong@starfivetech.com?part=3D2
+--BNFm96iWEOnTS7pl--
