@@ -1,86 +1,89 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1F5A3F9F25
-	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 06:50:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72F0E4078FA
+	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 06:51:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791355857; cv=none; b=ulyBP+UfnXNiODgO9fG1iENOAWLoQtHG4YtuwZhmHlJtIpKSw7hVlOE2t4e7/xH1X9jszniC14T45FK1WuJtLPnQmHBYm7C47rgVEMWcmsuWYnAW+lOUoWI0bb5L4YDpXsds5o9CYxulQgq1HLq2ipW+TqehhFx2fYBDao65ynM=
+	t=1791355863; cv=none; b=TpSjQXpcyfkhGAIzBzu+rbNGd1ddsbN78pATYEFqEf+vbnc75T/c0npkoOZLa2OHCp4zPZzznqhtjJbshoKm+U3D8iekCuy16IdY78HnqGFdt2PYPAz0RD7iKcaK26l1xCPWBo2Pg3BTH6fyn/zaqI0hygHXdxhOtJQwqlga0xU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791355857; c=relaxed/simple;
-	bh=Ni1lTQeRbFImYjymCCxoP08AlDfxpAcx3Qkva4hCzAs=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=oHhqcBlGFZ75P4VGFaPlHwA2lDzuDjzH8Ug4ZO1fkLDIFhc0qjgD5T0ay7GJFXtsu10kYHZfjxFY8TP/jReEilwcOqqCV4TUVyzntlKGvKQtP0+T/Do9mjf2fJhCscXvN2K/uyOUNtGXeGUVGmTmE/LXMljhTaZs5MKl4Z/0Dh0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VtFDngL9; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bH80RO2y; arc=none smtp.client-ip=205.220.168.131
+	s=arc-20240116; t=1791355863; c=relaxed/simple;
+	bh=aqwYlbBZfPmAovG9tQvJQ34ckDn3s8ZtxB+c4NH+OBY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=En84qcSvOqK+kxS5Kmg3+TYYkO3PJcUP55p184JcJ34/H4fCz1E7X3gAhdZb+2L3XQQjdngBZjt247+ha97bcFhauVKNQhziJgYWAOGW5Sv6QGNRA+f6I3DPNTIrP0tHWiP8AjYvXUHi92cgHKcpkLugN97snECo9Hu8Fg+szH0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ASLcHgRR; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Cg7pMHTG; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VtFDngL9";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bH80RO2y"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6974U6M72916052
-	for <devicetree@vger.kernel.org>; Wed, 7 Oct 2026 06:50:55 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ASLcHgRR";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Cg7pMHTG"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6974UBQ93924060
+	for <devicetree@vger.kernel.org>; Wed, 7 Oct 2026 06:51:00 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=a11M7BngOPJoTkOyICJz2w
-	OVpKy80IFCeWDMdq/5uas=; b=VtFDngL9Xd28E4NoJrmFjjGzr8Pqu+AS18g+VG
-	pc/DFFYbIeE5u/mrUv+HZbP54JaRm/ov0XbVnhBk+LN5KFugFz009bRIZVH/b+NV
-	vOeR9HzpHfeFxPxkYvSokviYum59woQIRHfF7iLVyi63SYW7dYR0Zu89eJmiww+o
-	K2SwUQrkO6E62J+Nze89Srv+G13AVSBl49gX6uKaOv+ehrZO1wmrJb3krvmb1Zcv
-	P5dW0iPbbX+0zPgf1XzioqKLAWS0LJfuuZgxOA3X7sop/uIpS3AofjTuKwxHTS+G
-	DjL1ekgHlog64q6wJ6LQ9HdalpxhnqXL2QlgdGj+ZVFK4EjQ==
-Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h54622w4k-1
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	52nzYadmue4RW4uwDkTflPSkr2BZLVWcOLb+4ASjXtk=; b=ASLcHgRRptef5lgR
+	RwEp8AqhDOPJ9G3CrS73dkAPuI/kz0Zo1FczV9FCv/HqPaht+22y+lX8CXzxdMlT
+	wPMmLVodl1X8GhVMQrofDQnMSMMUiWpX2IRT2ReamK8YQH7KdcUpLt3fEwaTnbur
+	y+43ufPhmMEfTu2/sovHUqfkfee1O4Vq1pDUW3OqzvlkZqEFJ9LErV2COifmIRid
+	QgzcjWdBNM8FbkXWIbXUsKqqXzi4BX49ZZEQryGCTIrVLv4lo0OLNpn58kcmvAnp
+	UiLlTauM232+LsE40rxmMQVvuhpo4yk/SxlkoRlWu6N8f85ZCjdZz/Kej0tCKHOZ
+	V1doQw==
+Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5c718x9n-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 06:50:55 +0000 (GMT)
-Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-139b62317d0so13097946c88.0
-        for <devicetree@vger.kernel.org>; Tue, 06 Oct 2026 23:50:55 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 06:51:00 +0000 (GMT)
+Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-14fed306427so13365203c88.1
+        for <devicetree@vger.kernel.org>; Tue, 06 Oct 2026 23:51:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791355855; x=1791960655; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=a11M7BngOPJoTkOyICJz2wOVpKy80IFCeWDMdq/5uas=;
-        b=bH80RO2yA/QTeEGgMNg/pnv5S0j8VtESFgLkEi/eseUBBsWo4gm0f1SjYdVVRuj/kQ
-         GHLn1KNjhggvoetcIv+8Nzys9dzrCQp8gcERKu4HeFNhR4zRLlM2EN/K+R3YF02x/Nia
-         z/ZZt35mkDT6+MxJxhLlJ1Ish1/GoSllYDjoBhWyc5hLmRU0TcP+pM/813DdCx6jo1lR
-         4flRjj+M0Dywi0TYL6FEKgzbr1QuhoOYdMtXXTZiSrHOljiImwrlJHmyly8cLT9GAWl1
-         h+4a5b/xlT+eXAqhhTWxvR1CxXg4WXZQG9JhIkZdQyfpKzDWWwYuM19Ncve4j8ZNFG60
-         KZmA==
+        d=oss.qualcomm.com; s=google; t=1791355860; x=1791960660; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=52nzYadmue4RW4uwDkTflPSkr2BZLVWcOLb+4ASjXtk=;
+        b=Cg7pMHTGZRmYjOcfaEvDUjtUll+SS36QFaU37OndegXk3MxVlM8bSp/EBdHtqwSwWO
+         lkr8BF79tVbq4KZmwoZpG2EiwVG7TBhEIh2DTBugaJ6i1/zbI4kJ1whmNXjIc0uGA7eF
+         A+Pdloulmyl1xtnFKxjEjEnqYjlPiaSz9wjHFD2ejT3YKeFXYSAArt6kqdB7UTKgxOhV
+         04cXgbqRjeHanzTccntmjCCD0JRb7v5/d4tIr80nPARNJ+geKMOKn+TKpVhf4Dno6hSp
+         tPTNOougKuNKiA8ILO8IEcFTxIwZZLw58QJQPMSDz8+1vjn+KRpsV9YG8LgpCqNuiz6u
+         LcmA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791355855; x=1791960655;
-        h=cc:to:content-transfer-encoding:content-type:mime-version
-         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=a11M7BngOPJoTkOyICJz2wOVpKy80IFCeWDMdq/5uas=;
-        b=P4iW1YoSSIgW/KhXRu/UDJMhlUY2pWEUnd0hBkq0t44tT4+AJLhE76hFnD6bcV+c0H
-         BwdG4Nm6YxP000RXJbNXqtdQYoXQ8lZihmh5SRNA+6h0LXlDqdJ5UOujtNO4CAJ7Nfon
-         Kqq6qXlCAvUvKTX3ZTT+E8pNTVetkDKVx83CxO7N9QGfDV9xPxEvo8ybE0pGxBaZw5lR
-         o5IYEql7UmY4L6jF9Quvc+4t6A5vji5fonQJGFZoH/tWlga9V3Ql0bkd3+pvtv+RBgUq
-         yRwHrI72l+pjgmyJfluX6BMDnAOjTW/VI1qz+HCHES4C6K02p/VIc0WbNw2sYXkUJItd
-         tbWw==
-X-Forwarded-Encrypted: i=1; AKwUvBwDCu9rlwdE5AxVl5NP1xzorIE3QcKD4114aIZVOiCMCt7qXV4eY12+6e2KQcJFkX1GwCtDPmV6Gr9R@vger.kernel.org
-X-Gm-Message-State: AFuF++l59Di0eKdovnjIl3cht14w5uQI4Yo5lGMA6EjUCYVpV99CAl8a
-	knGCevp+sYGYayXzTnzdyQDxFdYXyWIXgJpQ9Nr2/H0nuj575THNVjM8CSJCi5yOlGWGJwDy+b7
-	gtfi7bk/uw+MBZjcqGVGpQC8KMjp7sEhDEFihmnVrDjOXiGlrRnSNZTPzrDuZ7JyF
-X-Gm-Gg: AYBFou1DNQMs1Od+41Uxk+26j17VIlUDPv0a5t4NcX2wZEYQ7RDHcQxkWxHTnppdFoc
-	9UUAOMYtARdVvNSP4OXVNmD6zs744XuAhyNXerDQ8yAFFmeFQ1RcM10YOt39p+y8XYiCxQQoFfV
-	5/XPMZAW3Uc2KUKfMloFIgnl5GfLEARMHiNZM7aFG+sfSZiFuGfoQ6YGoVBTqn4lUeeztfy2BKL
-	b/D5/7M/sRvMZCn859dbKiJQx+NIJdvVqdFW+YW7YHHUraMZQiCBD0K42+1pDAnIRLrJBB1k1gg
-	TZYiVBovzGxCTXJaEI+I7DmPuUE4ck3X5OBmeuszZ3+8G0JbH57qCPoigWKPzz+0ej1TnhFulrG
-	D7ziy/t1y0O3I5AT9w7P18cZEDkBaUvfwy02xq20dcrUrjy3Lsao6pmKlIxvS/SNgQjUrKwkV2g
-	PeHsT372LjrE9ecDnbWM4mqKPFfaC91dkZiy4=
-X-Received: by 2002:a05:7022:3a02:b0:143:26f9:33d4 with SMTP id a92af1059eb24-162079a5f27mr1774329c88.34.1791355854458;
-        Tue, 06 Oct 2026 23:50:54 -0700 (PDT)
-X-Received: by 2002:a05:7022:3a02:b0:143:26f9:33d4 with SMTP id a92af1059eb24-162079a5f27mr1774273c88.34.1791355853728;
-        Tue, 06 Oct 2026 23:50:53 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791355860; x=1791960660;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=52nzYadmue4RW4uwDkTflPSkr2BZLVWcOLb+4ASjXtk=;
+        b=ExPCxuh5fDJTo4f7ftvWgbnxM/7QRfxeVZFjYyyaqVySb0RAua+RwnyxPEfu6Lj45+
+         /u/rcmNxFDFlvHMUI6LmhC2nqHdbx/yTJk0+Ntou/AM6HgGJR6n9sm9jqxPvazqwn573
+         esM+xwHpOcfUqj+ZZSUcb80HxpkC4jSJhX54sCYw+w+Wn5Xd4WqtaW6s0lQb2HWytX9I
+         1ANXsyi91T+SV5spbCvDQ0TaEGyyNdRZ1N6mwPzTzxQme09qSKD/MzYhoxkLSyjf6WxG
+         zz21S92J4rsjizMXjsZzo2M1mqKFv66gj4zZFkqy/wQagCfQ1TNFXDuyY4scx4jTR37T
+         HvuA==
+X-Forwarded-Encrypted: i=1; AKwUvBzks/xKGCju3Q7Q+J3KE6+hkJ7VIRKbXJvC2tmwzSWtrA2CRO4xbQW9f1d8t15RUnm6CKUGfcc5Sw8b@vger.kernel.org
+X-Gm-Message-State: AFuF++mezZGErH0SVr/fr7eOsb/p2qe4SyydLT7mRGBOoywhr5safumD
+	C/0qBbeaeps8s8zfQm+d6FGG3CU2O6hwLpxy5I08LMvKS4WhNuKwAw/Royre2INvXSvTNjHPb5o
+	lTH2y09yJ5n7iWxlBHLNCFrnAQfmC86hy2ZUMCtt/rO0DNkpxeNbtR52tFz96eJ5n
+X-Gm-Gg: AYBFou1LUjGkifNEsSPnDPsc9QqfCK/zgwYeXOBBneWwzCw5+ZLbtRcGCiJ7F9SjX3f
+	v6QZD9FzGLOVHm4NdW9mZFQGSrJXvGsQ/j8Hc+lCaO1UOgtESb2ZD4TOCsXkEuzQ4GYWexfI171
+	KFEgEKoqpSjR5GANOCwYTOyhqwivPSSNSxCM2TtADSr0QW4jQjDvkGqUcz7pm0iCkvQ7olbghrP
+	iG8l6hoh45y6ZkVTxpD05ZcU353e8OLaPvLiCjrJAq28ohhCVTO+oDSsLBSnTsZjqGF0/HSVio5
+	e3Xg2v52lGxo5Otw6ytvVvBGTdd6gSXRQF/a8qcwxpfgNUpYdRAxBbWitZoLAhkl2FMf3AD0B4P
+	Vuedu5/5pJdJ1NdtkwdKPpbL2ooMP06aq7HfqWz9T63bZ3hGZb2ls5smlbz++L37SY70iTRLxCw
+	rAr7uU7Hk4OhB90iZG8lWtKbVCdEBMcwSsiZA=
+X-Received: by 2002:a05:7022:28d:10b0:144:f47b:58b0 with SMTP id a92af1059eb24-1620ab90a5cmr1315398c88.47.1791355859859;
+        Tue, 06 Oct 2026 23:50:59 -0700 (PDT)
+X-Received: by 2002:a05:7022:28d:10b0:144:f47b:58b0 with SMTP id a92af1059eb24-1620ab90a5cmr1315366c88.47.1791355859178;
+        Tue, 06 Oct 2026 23:50:59 -0700 (PDT)
 Received: from hu-kathirav-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1615f1ac8c5sm7374730c88.2.2026.10.06.23.50.48
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1615f1ac8c5sm7374730c88.2.2026.10.06.23.50.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 23:50:53 -0700 (PDT)
+        Tue, 06 Oct 2026 23:50:58 -0700 (PDT)
 From: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
-Subject: [PATCH 0/4] Add Qualcomm's IPQ9650 APSS Clock Driver Support
-Date: Wed, 07 Oct 2026 12:20:43 +0530
-Message-Id: <20261007-ipq9650_apss_clk-v1-0-fd4c2b3cbdea@oss.qualcomm.com>
+Date: Wed, 07 Oct 2026 12:20:44 +0530
+Subject: [PATCH 1/4] interconnect: icc-clk: support N:1 master-to-slave
+ topology
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,10 +92,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAMPrxWoC/yXMQQqDMBBA0avIrBtIItHaq5QiGic6VWyaURHEu
- xt1+Rb/b8AYCBleyQYBF2L6jRHqkYDtqrFFQU00aKkzWWgjyP+LzMiy8sylHXrh3FMbTNO8UQp
- i5gM6Wq/l+3Ob5/qLdjo/sO8HEqeygnQAAAA=
-X-Change-ID: 20260925-ipq9650_apss_clk-ff825e337d11
+Message-Id: <20261007-ipq9650_apss_clk-v1-1-fd4c2b3cbdea@oss.qualcomm.com>
+References: <20261007-ipq9650_apss_clk-v1-0-fd4c2b3cbdea@oss.qualcomm.com>
+In-Reply-To: <20261007-ipq9650_apss_clk-v1-0-fd4c2b3cbdea@oss.qualcomm.com>
 To: Georgi Djakov <djakov@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
         Abel Vesa <abelvesa@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
         Brian Masney <bmasney+clk@redhat.com>,
@@ -105,63 +107,165 @@ Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
         devicetree@vger.kernel.org,
         Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Proofpoint-GUID: dVe5VSpjvaRVrb4-1Kn6Gh6w3ZsNKAJi
-X-Authority-Analysis: v=2.4 cv=ZZiIpcVA c=1 sm=1 tr=0 ts=6ac5ebcf cx=c_pps
- a=kVLUcbK0zfr7ocalXnG1qA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDAyNyBTYWx0ZWRfX3+z6F8koGLP0
+ a71a4/3xV0OHJPkuoZi6ZWiS8I13zx81HlmuneeTIkwriUPM8ckBeMPBZgdncZ1CBLApZXFGgFk
+ G84zHz2tTKrcdCJSWizodN27yjnq+O4=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDAyNyBTYWx0ZWRfX8rJ8XMyXtbpM
+ wlwLJsjiMlZVrLh+UDQyyN7hC8OQpAhLskH8lVAaqtxSsfXiCJLIll59WhVUEnMaW89ti5cPVXB
+ CzNXzwKMfLC/QXRgtlhdflxFlkIyFbVHgrTmPEjP81zn2Ho62IhEO+lizHYY5JwnwKS/WHJeh1y
+ EoavuTF7ObkcbaJJeU6MDlJNsChhb6R1qRrE4MYgFx6enlRXGjWQtz7l4DeEPHkoXjzNK5XVofY
+ jY5BkkioHNfQ76R7Mr7qdb5RGAQeoQeE+er4NsYKP8OzalzPNjSSrBcxkbJvAyQBQHSHweCbcDn
+ U6ozh0ehSMpShLSFt3ItFqTGSDwzkSlBEQuzZq0GnI6mDsr+ijO2ZRZQ3zaPEsUx9B6dUiXMjUI
+ tExdkL87qXrBgYR5jetjHUWNx38atX9q5u1IJnFu6EUaYmpaJhL7s48rDU5PXXPZN/isoX9cH3I
+ 9PfiMq5T9wNIozwepOA==
+X-Proofpoint-GUID: 0PKzOwlXR3yn-VaH3m11v3KTfE5A7An1
+X-Proofpoint-ORIG-GUID: 0PKzOwlXR3yn-VaH3m11v3KTfE5A7An1
+X-Authority-Analysis: v=2.4 cv=LvYHWXdc c=1 sm=1 tr=0 ts=6ac5ebd4 cx=c_pps
+ a=SvEPeNj+VMjHSW//kvnxuw==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=mshoYkgwlum6hxNOkgkA:9 a=QEXdDO2ut3YA:10
- a=vr4QvYf-bLy2KjpDp97w:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDAyNyBTYWx0ZWRfXychac7qH6JnK
- g749KRLmMOi1SpW8Gp84F9f/zNKr0CWzSxAiWrJZPkOBdreN3k3KvojkDwjmorolulE4OODqptc
- 3bYGX+oouC7hCxK/GGK0BfuPx7NKwtA=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDAyNyBTYWx0ZWRfXxXOjcrX3OwgT
- KRvRNKBpez5uWXt+1R56RSxv8RQHXiCT/5o+T3+S051SDa59WMox/lcnMGGlUSfVdkpFv+Muoas
- ByXjuOfnfsDxfTROSaqWZRl3q0pEER6X02WkLWJuaMhsIJy7Q5dzeejHN8sB0GjzsWgujAggdIf
- sk658IUG7R3cVNnbN4nFjmMy6r9CSPGuAR1YCJrmWCNs4Fl6fxnz8Vk0IeBy+QVjTjMGPF2ID53
- Aqs6NoW1B/A56DlsueWzQ5/0/JjXWVh6AdABrKcrUlbpZpxo/GPLd2y+O/DF+hAcqNgO9kDnBET
- n4iRRPjQKRrqKmviYQXV8dWoWaN++QlxKeMRcJe8Z3dxH3qSOvcclmvOXvSVSH5wMvyMLNTNpk6
- S9reyk4e8zNDMjXW/H4ZNYRoQBCND2NWw8GoVTZUeIGeZOu2Nt5kBe7bLwBnhx4erx+3l45ph26
- 4kewhpHRfjM3VTZvE6A==
-X-Proofpoint-ORIG-GUID: dVe5VSpjvaRVrb4-1Kn6Gh6w3ZsNKAJi
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=Wq9wk9AxASzClJd40FsA:9 a=QEXdDO2ut3YA:10
+ a=Kq8ClHjjuc5pcCNDwlU0:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-07_02,2026-10-06_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 spamscore=0 priorityscore=1501 impostorscore=0 bulkscore=0
- phishscore=0 lowpriorityscore=0 suspectscore=0 clxscore=1015 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070027
+ priorityscore=1501 spamscore=0 impostorscore=0 suspectscore=0
+ lowpriorityscore=0 clxscore=1015 bulkscore=0 adultscore=0 phishscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2610070027
 
-The APSS clock controller on IPQ9650 provides the CPU and L3 clocks. The
-four Cortex-A55 cores (silver), the Cortex-A78 core (gold) and the L3
-are each clocked by their own Zonda PLL, selected through a glitch-free mux
-whose parents are XO, GPLL0 and the corresponding PLL. Since the L3 has
-to scale along with the CPUs, the controller also registers an icc-clk
-provider in which both CPU clusters vote on the L3 clock.
+icc_clk_register() assumes each icc_clk_data entry describes a unique
+master/slave pair and creates both nodes for every entry. When several
+masters share the same slave_id, the shared slave node is created and
+added again on each later entry. icc_node_create() returns the existing
+node, so icc_node_add() hits WARN_ON(node->provider):
+
+  WARNING: drivers/interconnect/core.c:1103 at icc_node_add+0x10c/0x120
+  Call trace:
+   icc_node_add+0x10c/0x120 (P)
+   icc_clk_register+0x1a4/0x214
+   devm_icc_clk_register+0x18/0x80
+   qcom_cc_really_probe+0x4c8/0x514
+   apss_ipq9650_probe+0xc0/0x108
+
+This topology is needed on IPQ9650, where the silver and gold CPU
+clusters both vote on the single L3 clock through a shared SLAVE_L3
+node.
+
+The onecell table is also filled in registration order, so xlate only
+works when the node IDs happen to match that order. Size the table by
+the highest node ID, index it by ID, and skip slave creation when the
+node is already registered.
+
+icc_clk_set() also passes only the requesting node's bandwidth to
+clk_set_rate(), so the last writer wins. A low vote from one master can
+then lower the clock below what another master asked for. Before setting
+the rate, take the highest peak bandwidth across all nodes that share
+the clock.
 
 Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
 ---
-Kathiravan Thirumoorthy (4):
-      interconnect: icc-clk: support N:1 master-to-slave topology
-      clk: qcom: clk-alpha-pll: Skip Zonda PLL configuration if already enabled
-      dt-bindings: clock: ipq9650-apss-clk: Add IPQ9650 apss clock controller
-      clk: qcom: apss-ipq9650: Add IPQ9650 APSS clock controller driver
+ drivers/interconnect/icc-clk.c | 45 +++++++++++++++++++++++++++++++++++-------
+ 1 file changed, 38 insertions(+), 7 deletions(-)
 
- .../bindings/clock/qcom,ipq9650-apss-clk.yaml      |  58 ++++
- drivers/clk/qcom/Kconfig                           |   9 +
- drivers/clk/qcom/Makefile                          |   1 +
- drivers/clk/qcom/apss-ipq9650.c                    | 385 +++++++++++++++++++++
- drivers/clk/qcom/clk-alpha-pll.c                   |   4 +
- drivers/interconnect/icc-clk.c                     |  45 ++-
- include/dt-bindings/clock/qcom,apss-ipq.h          |   5 +
- include/dt-bindings/interconnect/qcom,ipq9650.h    |   4 +
- 8 files changed, 504 insertions(+), 7 deletions(-)
----
-base-commit: eea3fef32a9cf36abcb5975a5a594e4135a6b026
-change-id: 20260925-ipq9650_apss_clk-ff825e337d11
+diff --git a/drivers/interconnect/icc-clk.c b/drivers/interconnect/icc-clk.c
+index 93c030608d3e..567d071fade8 100644
+--- a/drivers/interconnect/icc-clk.c
++++ b/drivers/interconnect/icc-clk.c
+@@ -24,7 +24,10 @@ struct icc_clk_provider {
+ 
+ static int icc_clk_set(struct icc_node *src, struct icc_node *dst)
+ {
++	unsigned long rate = icc_units_to_bps(src->peak_bw);
++	struct icc_provider *provider = src->provider;
+ 	struct icc_clk_node *qn = src->data;
++	struct icc_node *node;
+ 	int ret;
+ 
+ 	if (!qn || !qn->clk)
+@@ -45,7 +48,21 @@ static int icc_clk_set(struct icc_node *src, struct icc_node *dst)
+ 		qn->enabled = true;
+ 	}
+ 
+-	return clk_set_rate(qn->clk, icc_units_to_bps(src->peak_bw));
++	/*
++	 * Multiple master nodes can share the same underlying clock (N:1
++	 * topology, e.g. several CPU clusters voting on one L3 clock).
++	 * Aggregate the peak bandwidth across all of them before setting
++	 * the rate, otherwise the last caller wins and can undervote what
++	 * another master already asked for.
++	 */
++	list_for_each_entry(node, &provider->nodes, node_list) {
++		struct icc_clk_node *n = node->data;
++
++		if (n && clk_is_match(n->clk, qn->clk))
++			rate = max(rate, icc_units_to_bps(node->peak_bw));
++	}
++
++	return clk_set_rate(qn->clk, rate);
+ }
+ 
+ static int icc_clk_get_bw(struct icc_node *node, u32 *avg, u32 *peak)
+@@ -82,12 +99,17 @@ struct icc_provider *icc_clk_register(struct device *dev,
+ 	struct icc_provider *provider;
+ 	struct icc_onecell_data *onecell;
+ 	struct icc_node *node;
+-	int ret, i, j;
++	unsigned int max_id = 0;
++	int ret, i;
+ 
+-	onecell = devm_kzalloc(dev, struct_size(onecell, nodes, 2 * num_clocks), GFP_KERNEL);
++	/* Find the highest node ID to size the xlate lookup table */
++	for (i = 0; i < num_clocks; i++)
++		max_id = max(max_id, max(data[i].master_id, data[i].slave_id));
++
++	onecell = devm_kzalloc(dev, struct_size(onecell, nodes, max_id + 1), GFP_KERNEL);
+ 	if (!onecell)
+ 		return ERR_PTR(-ENOMEM);
+-	onecell->num_nodes = 2 * num_clocks;
++	onecell->num_nodes = max_id + 1;
+ 
+ 	qp = devm_kzalloc(dev, struct_size(qp, clocks, num_clocks), GFP_KERNEL);
+ 	if (!qp)
+@@ -106,7 +128,7 @@ struct icc_provider *icc_clk_register(struct device *dev,
+ 
+ 	icc_provider_init(provider);
+ 
+-	for (i = 0, j = 0; i < num_clocks; i++) {
++	for (i = 0; i < num_clocks; i++) {
+ 		qp->clocks[i].clk = data[i].clk;
+ 
+ 		node = icc_node_create(first_id + data[i].master_id);
+@@ -126,7 +148,16 @@ struct icc_provider *icc_clk_register(struct device *dev,
+ 		icc_node_add(node, provider);
+ 		/* link to the next node, slave */
+ 		icc_link_create(node, first_id + data[i].slave_id);
+-		onecell->nodes[j++] = node;
++		onecell->nodes[data[i].master_id] = node;
++
++		/*
++		 * Slave node may already be registered by an earlier
++		 * master in an N:1 topology (multiple masters sharing
++		 * the same slave, e.g. several CPU clusters voting on
++		 * one L3 clock).
++		 */
++		if (onecell->nodes[data[i].slave_id])
++			continue;
+ 
+ 		node = icc_node_create(first_id + data[i].slave_id);
+ 		if (IS_ERR(node)) {
+@@ -143,7 +174,7 @@ struct icc_provider *icc_clk_register(struct device *dev,
+ 
+ 		/* no data for slave node */
+ 		icc_node_add(node, provider);
+-		onecell->nodes[j++] = node;
++		onecell->nodes[data[i].slave_id] = node;
+ 	}
+ 
+ 	ret = icc_provider_register(provider);
 
-Best regards,
---  
-Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+-- 
+2.34.1
 
