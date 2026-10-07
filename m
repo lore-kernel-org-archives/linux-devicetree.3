@@ -1,80 +1,200 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B53D47F3C1
-	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 11:36:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ECCB399890
+	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 11:38:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791373031; cv=none; b=WGWBkTIEiu1s3ygCiqjF2ssJ8XNxJwQese+TKXTgsuaMEk7hN5brP3Gg4eCloZSSa4/UKViZD6Ythnt+scPhA+UMNkFDd7GixKKd/SJFsWSlV7mx5CRKtFJSRCd/xYbMsyOta5gLMb8T0L05OSz7pgEjjMQ5mlHZLnOJn5quzqM=
+	t=1791373118; cv=none; b=H9spBQJMqkHeTnF7sJGG9shJf6b1f5/kPJlYUgfDGRAnScyppRepEEPQJuyQoyVfUjoT1CHGfhZxE2ouLhvAlerCfZpjG89q1LDo9WsvASI9kQucfgr+/jvL82e9m/48Nu0g/NwkswKQuVKgnMfifvtCMXJ7oPPmFvq+SHjSQBk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791373031; c=relaxed/simple;
-	bh=TBxpXoaGQbR4eb5uSSham19NGk19XqmEGsKTZDgSljk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=dQQOZA2tcrAojp9vrSlKxUPTWJf6kwBhoz1ci7vcxKN9Bs1iS6HntpEJWPgcM4904iqKxpCI2jKu6Hw29/FDjO5g53u66eb8XKFvdBFtI5mgIPHQd91pt7hManIBtW4TFhrF/kWtvni51Auxt/pOSSaT7W5kbChutWoet75r384=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZqIzr2j9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791373118; c=relaxed/simple;
+	bh=gD+sZ/XfrHoeN0nWyfXWUolsOlsAlPdOWWDPH+/1dI0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Ub1ai3WmFHs/RT7+APeMhvhUBlCdLbFRdGY0yWzHBV3yF2BR/1+mVtF/u/zrntZImdTwAuWoYK5erJBD2JpsjVxMwDgEaCfysmXxOV5zbNl/7gEkkAaqzP/rqPiPDJvCrYL4jkDN40TI0XgHRLq0lhy/gIMwK59DrCs5Fs1zorc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=X0K3CFwz; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fBjV7OId; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZqIzr2j9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F41341F008A0
-	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 11:36:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791373003;
-	bh=TBxpXoaGQbR4eb5uSSham19NGk19XqmEGsKTZDgSljk=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=ZqIzr2j9kbE/9eBn0CzV0lGbA+Bu956qDFOMpLdkA2NmRIJEdUKmvm+zPT8P/haIH
-	 5isvPHdqgW3GxDOPoObQOgDp0e8ImA4zrK/oBqKZit1ECZ1rqZmcPUXGYPIyFI5xo8
-	 QDnBk9GRsrkg3U/PWJIHfhazDkfBr6KKZXFiB2dYGmdtZeQYVXS0iSzPgY1iT3B2hW
-	 t3mAZPKvTb1bEbL13K5pUNf82xHt9n2K8Fe6oZzj1AqcXRj5RtePvLQXo3eK0PfeRJ
-	 TlwyP/Hojb2RZLPtV3yQRrNNpeZjyW7PNtlMb9IHr8ZikVTXDJSPtb/2TUYfuRXivQ
-	 skiQLiPYjtvUQ==
-Received: by mail-oa1-f45.google.com with SMTP id 586e51a60fabf-49e20441e45so1305365fac.0
-        for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 04:36:42 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzgveIJAQ7QbHgShKs4ZgZ0uukSZFnFUndV6PjB0t3iSEJurg5mfHBGK4yI8es3MRBaqPOhLFBCXq0B@vger.kernel.org
-X-Gm-Message-State: AFq9FYKpodUqywo6tSw697iJ+9JYrYWJOeozh1RAHYsowLeHeKFqLOVK
-	izY/5Fd5yCM14qm2oJgPg8IcO+ARi7SSzAtMXzBR3TugsbDpXQq1wN6gajFBEkp1+YS/AjhOjDV
-	Djr9pAXk/uumB+ybNzX9rwn/3+jC4a3c=
-X-Received: by 2002:a05:6870:568d:b0:470:e97e:8f8a with SMTP id
- 586e51a60fabf-49f4ef2bc33mr4625121fac.26.1791373002343; Wed, 07 Oct 2026
- 04:36:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="X0K3CFwz";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fBjV7OId"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 697BV2g73687095
+	for <devicetree@vger.kernel.org>; Wed, 7 Oct 2026 11:38:08 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=SCLqHrdRMDamyWTNpn1AL8
+	6J7a2kB3ua/9lYaSuJ3BY=; b=X0K3CFwzxAayaOK1TtbGpm0N+yzvMeXqVWfYIu
+	fqST2KBf3p07VV2eXmD72p9bOZ7bmV1YdvwB/TRe97/pFIqVtZOBxDoX+V3+OKV0
+	L7An974wd4iyoyX7RCgbWasjGT1eF2b14vBQR+o92OuO3cDnlhQDoN/P4C0OICWB
+	MWHf5VWngtAAzmhy24nvuBJKLTMrnSr2i0rQt3lP9srkDUr4DDk56vuvIjc9vogD
+	m1tJ1N3ge4VHBvpAJid2MrAAL6wlNE7z/4Ut5aZ2h8ltIPFfkqVX+US9QP71PZ+b
+	HYhx9b2uLarXjeoI49RsMYqKK1pLxEHVNhWjsglaxuALu1Ng==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5mgr865r-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 11:38:08 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-398dcfabbf8so6053323a91.0
+        for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 04:38:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791373087; x=1791977887; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=SCLqHrdRMDamyWTNpn1AL86J7a2kB3ua/9lYaSuJ3BY=;
+        b=fBjV7OId4NXHZkv7o7CCkveGWdQ70RB9hRopQlbr+gFjGGP5h5EvwLBLWL5wAT35de
+         cjaCSI0G2KNlGaoirx2lGG9xBuLXPrGf/xLt9fHJgCkmoPHJBDOg6BHl93cf58p20NDh
+         wuLJ4OWh3Pj5Hoh8lrc2Jq8FduqJATIRZx46xJfMYTG3j6PEQ6SiGVlaB7uYxDq19fB7
+         QdofIIHAe1Vqj8ooq2T78Bg2Z7xgxnwEyW0ZlyAbhmv8yjDnP+wQSvMErt/gyDZ9Ff0Z
+         8/hZcf8yrzb76b3ECOXKHweHjjkeOXpTL+xd+AMENPYOsb08qzRSLtGnU2FfI2JJEmAa
+         kc8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791373087; x=1791977887;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=SCLqHrdRMDamyWTNpn1AL86J7a2kB3ua/9lYaSuJ3BY=;
+        b=g8fHqj/A3UH37utgBel/GB5z30prr5rTmMvJbDGHolAyaqj68gcWGRwmKpvxjfUk/q
+         7ush8wC4ljrCS4iB0FXe/kA0/k9Twdf3v7nQC589Uhx7rP0/BBsRkn7+gm5cKr71IolA
+         WlZXjmZaxxLIWYio8SoHwmZwmTmXtN/LjjDy6As27mhIpmh8MXTjwbuPdOoPbCicg1ha
+         tKGkJadgn8P6ugUGvdxPls12K/gq1wZBetMf6JE960LMofsYLBRF4CsBI7sodAh/yE8z
+         zLNzHtN1yA7ILvRaTol0HhTzSTogzgJOHKwx9ibawJfTiZso2IKFS7F2fQqRmFfMMpyg
+         Y61g==
+X-Forwarded-Encrypted: i=1; AKwUvBzX0W5Uf1ABgLztcsHRVVMGAl0iV/c0aUg/6X3pVg8rJQTb+yPjbap5SVPPEQ77iuvqv5FPQufpQYAs@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ19ulC/zc/OygfUSIJ4pLTKWmikNDQm+jlEpe6BBZXM3xVldrz
+	2xsqYcvEuWQHqm8G1Z8C3WpRHhbsewXv6uv2piIYImoSe60PRFKHPahPOK2gNx3UQsB2RFGAfzs
+	Qvrxfs+eizIeL+yP/H1UBZUiMWXgGYQTFcNVhEkBUAdoZ+0kDS324Gc9Eq5nJ1ncu
+X-Gm-Gg: AYBFou2T//H6ZNECAZ6MixRzXkwVYqeov3pliPtzfDpwstaBOj+TGKFUd6gCc2XOtPw
+	ggpMADEnWCPjnsaNuSmLKJbWMY9l65eeFMZXGJQo0J91aF31gL9uQNcdlhQd/795SPLNJQwEt63
+	TnkH0Po014LxplccZWEN7JgxCeMQxYBOd8IZYBE88dzRf79BBxSswnsHDjlo/45j77Hd1zi/jJJ
+	lM7fx4l7UQGwaVIgugaVvSlso9hY9M460oxHsq//oPpx18X2ARuCKeX252VLFH8knJJP6ZJCV0x
+	9xFFtl+q254UokD9DEZicl57sJgA9bBuNsuDlqX/ydluqplEoCA6QTAjsDwqKcHej69pCKl/6qT
+	xsoarWaDSVDTDwA/UhtSDk+YcR4jmId1F
+X-Received: by 2002:a17:90b:2584:b0:3a0:7cbf:b8cd with SMTP id 98e67ed59e1d1-3a8a17f8da5mr1710280a91.14.1791373087022;
+        Wed, 07 Oct 2026 04:38:07 -0700 (PDT)
+X-Received: by 2002:a17:90b:2584:b0:3a0:7cbf:b8cd with SMTP id 98e67ed59e1d1-3a8a17f8da5mr1710247a91.14.1791373086529;
+        Wed, 07 Oct 2026 04:38:06 -0700 (PDT)
+Received: from hu-vkatoch-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a8a5e0eeb6sm1454001a91.2.2026.10.07.04.38.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 04:38:05 -0700 (PDT)
+From: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+Subject: [PATCH v2 0/4] misc: fastrpc: add extended IOVA mapping support
+Date: Wed, 07 Oct 2026 17:07:47 +0530
+Message-Id: <20261007-extended-mapping-v2-0-5dca3aa2c2d3@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260930-rtc_s35390a_int1-v10-0-e7b1cbc50a7b@posteo.de> <20260930-rtc_s35390a_int1-v10-1-e7b1cbc50a7b@posteo.de>
-In-Reply-To: <20260930-rtc_s35390a_int1-v10-1-e7b1cbc50a7b@posteo.de>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 7 Oct 2026 13:36:26 +0200
-X-Gmail-Original-Message-ID: <CAD++jLnoZF3OPE-XB3UB9Lt=1gq4Ofm1Xkp49HM9DnMuzbEA3g@mail.gmail.com>
-X-Gm-Features: AclHuK_d0kcEVyhjiUf_VzWqfX-gVVSvbp1U-AR1wppeZzPfDg4E1ifmWd5pWUI
-Message-ID: <CAD++jLnoZF3OPE-XB3UB9Lt=1gq4Ofm1Xkp49HM9DnMuzbEA3g@mail.gmail.com>
-Subject: Re: [PATCH v10 1/6] dt-bindings: rtc: Add pinctrl for S35390A
-To: Markus Probst <markus.probst@posteo.de>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <uwe@kleine-koenig.org>, 
-	Andrew Lunn <andrew@lunn.ch>, Gregory Clement <gregory.clement@bootlin.com>, 
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, 
-	Michael Langer <michael.brainbug.langer@googlemail.com>, 
-	Andrew Morton <akpm@linux-foundation.org>, linux-arm-kernel@lists.infradead.org, 
-	linux-rtc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAsvxmoC/3WPS27DMAxEr2JoXQXUx6rlVe5RZCFRdCKg/kSyj
+ RSB7x7Z2WTTDcEZgMM3T5YpRcqsrZ4s0RpzHIci5FfF8OaGK/EYimYSpIFGGk6PmYZAgfdumuJ
+ w5dZD4wGVgCawcjYl6uLjiPy5vHWi+1KS57fJvMvEcez7OLdVjTpoYawB7ZWqUTXe47f1KDoEB
+ VrapmymY59EBXDnMWB5WCaeKe/cmZOTDp1DYa1u15rt/28xz2P6Oxqu4gD4v8wqOPAA2qBAb53
+ tzmPOp/vifnfeUxnssm3bC2KmB/I3AQAA
+X-Change-ID: 20260826-extended-mapping-9b08b0c3108d
+To: Srinivas Kandagatla <srini@kernel.org>,
+        Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Arnd Bergmann <arnd@arndb.de>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Bharath Kumar <bkumar@qti.qualcomm.com>,
+        Chenna Kesava Raju <chennak@qti.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791373080; l=2625;
+ i=vinayak.katoch@oss.qualcomm.com; s=20260609; h=from:subject:message-id;
+ bh=gD+sZ/XfrHoeN0nWyfXWUolsOlsAlPdOWWDPH+/1dI0=;
+ b=4f5g65+nQpadyWvy9XnL7GP5GyYDJdMYOEVAV15iwEdCkAjPxUAXj3rHuGhCzStYbAafzUT5x
+ +ZD33dIOYyuBQ6+Ix8prgKtIxSuF2v+C8jdAH5XbjAMLYUQ6VskOYxG
+X-Developer-Key: i=vinayak.katoch@oss.qualcomm.com; a=ed25519;
+ pk=UrGeKKxjIjpHZIjsbQKS/8rrVaP9KVGki69pFclCH08=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDA0NiBTYWx0ZWRfX/c12Mx4iG2k/
+ FX+FjP6lU46cqfcYx6mzhAB90EFenVKLGBXZr7BwoZhdvCQU0xXUX9r8dhnQv1OnPGN/zXWWlaO
+ n0RVKokH8rxZZ10SSyCG7r/alPd9MpH808VH3W3BWgMyOfEQVP/Y/c1lBzFj+Q8r1ZjgUVO50aU
+ W/bsRd7agBw8ZogD80LMfLeuWnoQQ5kFGiEbGR/9TAbQ1efJugbOzY+x5f9vomAstTpWd4d74yw
+ w/wCFpLgff5wYCxE+0OkLl/Klhbsy/aY7BXWmntrALum8tYyVfg42bYCtdQN44/+RZmGuRUZm8n
+ 4SzLm2dHlLim9OuGpQozVOsAb+KwQLCnV9zD8XivtLeIU5agYTEMWaS55kVpilzCoUvv+q2+Fly
+ Di0TkU1TqgBsmx7O0R97v0Qi8V/2WloSKOQSsRSGr+/mCPSQg3elYupBgiCQTyjVL4iqfnYed/+
+ c5RkjqLvsXEK03Yevaw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDA0NiBTYWx0ZWRfX2oDcv9t26uJa
+ yK3BvBImiUw4ag25K0cpnIsw5uT/k5KYTZ2d3buuSASkv5XGC5tYoaCVal7RvlEXRW5/kKcW5Gf
+ 0vNW+W5CTFSRBBPvR99zOQL34BN4iys=
+X-Proofpoint-ORIG-GUID: zAlUemCq5bCYvE-smCXOHNwBTkDfZxEC
+X-Proofpoint-GUID: zAlUemCq5bCYvE-smCXOHNwBTkDfZxEC
+X-Authority-Analysis: v=2.4 cv=OYkNnRTY c=1 sm=1 tr=0 ts=6ac62f20 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=QMnnIbI3AxnTgdsYXzkA:9 a=QEXdDO2ut3YA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-07_04,2026-10-06_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 clxscore=1015 spamscore=0 phishscore=0
+ bulkscore=0 suspectscore=0 malwarescore=0 priorityscore=1501 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070046
 
-On Wed, Sep 30, 2026 at 5:31=E2=80=AFPM Markus Probst <markus.probst@posteo=
-.de> wrote:
+FastRPC context banks on kaanapali and glymur are limited to a 34-bit
+IOVA window. Large compute workloads such as LLM inference on the CDSP
+require mapping buffers that exceed this range. Dedicated extended
+context banks exist in hardware but were unused by the driver.
 
-> Synology NAS devices use the output pin for interrupt signal 1 to wake up
-> the system.
->
-> Move devicetree bindings for sii,s35390a into its own file.
-> Add necessary properties to configure the individual pins via pinctrl,
-> which allows the interrupt signal 1 to be used for wakeup alarm.
->
-> Signed-off-by: Markus Probst <markus.probst@posteo.de>
+This series wires up end-to-end driver and binding support:
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+  - Relax the DT binding to allow 64-bit iommu-ranges values on
+    platforms that require extended addressing.
 
-Yours,
-Linus Walleij
+  - Fix SID extraction to read the correct cell of the reg property
+    on platforms with #address-cells = <2>.
+
+  - Detect extended context banks by the presence of iommu-ranges and
+    register them separately so large allocations can be directed into
+    the wider IOVA window.
+
+  - Add two UAPI flags (FASTRPC_MAP_FD_EXTENDED and
+    FASTRPC_MAP_FD_DELAYED_EXTENDED) so userspace can explicitly request
+    mapping via an extended CB.
+
+Signed-off-by: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+---
+Changes in v2:
+- Split DTS changes (kaanapali, glymur) into a separate series.
+- Fix DT binding to allow iommu-ranges on compute-cb subnodes.
+- Fix krealloc() called with GFP_KERNEL under spinlock.
+- Fix dma_set_mask() error path leaving stale ext_cb entry.
+- Fix ext_cb sessions not invalidated in fastrpc_cb_devices_destroy().
+- Fix lockless read of ext_cb[]/ext_cb_count in fastrpc_map_attach().
+- Fix fastrpc_free_map() using fl->sctx->dev for extended-CB maps.
+- Fix fastrpc_map_create() reusing a cached map with mismatched CB flags.
+- Link to v1: https://lore.kernel.org/r/20260826-extended-mapping-v1-0-d046c1cb9a9f@oss.qualcomm.com
+
+---
+Vinayak Katoch (4):
+      dt-bindings: misc: qcom,fastrpc: add iommu-ranges support for context bank
+      misc: fastrpc: handle multi-cell reg in context bank probe
+      misc: fastrpc: add extended context bank support
+      misc: fastrpc: add UAPI flags for extended IOVA mapping
+
+ .../devicetree/bindings/misc/qcom,fastrpc.yaml     |   6 +-
+ drivers/misc/fastrpc.c                             | 132 +++++++++++++++++----
+ include/uapi/misc/fastrpc.h                        |   7 ++
+ 3 files changed, 123 insertions(+), 22 deletions(-)
+---
+base-commit: 5c4d4169604b335c38bbc79bc1fc03042981fc6f
+change-id: 20260826-extended-mapping-9b08b0c3108d
+prerequisite-change-id: 20260609-dup-sessions-ea2acaac1994:v5
+prerequisite-patch-id: 425dc9414848bbc3f2a053d067195d849898e2ae
+prerequisite-patch-id: 4fea14b47d11a5a3e18065d8cf3a461841ee2b86
+prerequisite-patch-id: da0a3d55397a522ea4b77769e387df9faea8e024
+
+Best regards,
+-- 
+Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
+
