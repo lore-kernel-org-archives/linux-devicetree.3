@@ -1,152 +1,95 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64E75480DEB;
-	Wed,  7 Oct 2026 13:12:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F6E53D1ABD;
+	Wed,  7 Oct 2026 13:14:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791378787; cv=none; b=BHOI+MEHVkMvFREX6tzFAufDHcC2Cde5zuHPO20PwRiXXzdweQHXDfRttpE1oAj2esAu0FHg3ZOcuJaxYZIIPuTe/D6nMu9gPf1qLyvxTvatJifQ5w+o2arqFNf4ez7sdz1BdvTKGhYlbJDw76BwnyRSfI8RjX5gbWRqojqgTs4=
+	t=1791378867; cv=none; b=g6JGtHCPiAonF8NGXYENUITh17dHUBFJk9UE8PBuH4+zgUuA5pvrczl3yOHG3jpnbzCOsWSVkCE/p13ePRTnXt+8pMgVoKz40szprme3bdlm6zXt1FYkLD0/wCAtc/eZSarTgkPM7NDwq2XYbElaFMqCgi0RPWpaWuG3SVq04vk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791378787; c=relaxed/simple;
-	bh=y6J8mOCZqJ0rJpeIv7Dd3xs1UEfXR/MqWWM/3hAL7PE=;
+	s=arc-20240116; t=1791378867; c=relaxed/simple;
+	bh=eKwbDkO4+HnyjyvoGYwD9VulbmzTXzBokVQuiWHlvAU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=M/wHmQMJ/LHqBRr3QBxmPufB2gEIjivEyoKw0ti6DsCD6pAAsadb1Gca/leFCfHzt7ue1IYd0VI20MWlrQa8dj43osqZd+QAFckLSuXeM3N2G0VHAi4B7mvI8JhuUiHkxFHS+avAPhVIzovZcRbK2tJgPoP6c3VtvQSAcRWLYfA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LU06ATxc; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=A9hKSXxePaD575YV3Nd2Xv6apRvshKmZOokGLgBzgJzzKwvpgtGY7NUgRJ3TdIt/jkVqdJRZNoIjH3+jqjXFoIm4YvZxWo1Uv45PA7hqnyBlmKcwmP/hND4FFnWOg4Rh9D8+04qh2PdzKyAOiYQpfZAajHh+S5/9rCQErRsR5+k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=XerqC5BY; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LU06ATxc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A55B1F0089B;
-	Wed,  7 Oct 2026 13:12:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791378778;
-	bh=Kx0k0qBNIHathxhkLOSlyTa1tARm1WFDT7yHCpSRGUI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LU06ATxcWZ2nWDafWFzvHCTpqlZDNGYrgTM/9BfTYacfaHUaSdcRboiBWnknYb8OK
-	 cuCgntqyg++QhcV6DyyT1YHcJ+6IlFq4bFOU5tdsIPwBpE6qtyn7eJ5BY8P2ICM5NS
-	 G9hLDDZl2anudh01fba11n0ynTqfUQSbVOvqJWQmPGRV2uLtV/++SrGgcCDlQYzaMF
-	 TZmfD3CO05G3kLtpWEyE1v7M7ww+krCg3CcPz9t+3+E5r3S9sPmp8Af2C3Y3wqhP01
-	 mMuKeQtwR5jOUXyZlzsBaD7cCH4H4VoF76LBuvKVKOAJbr56fQ50mxmHifAwYXJ0QV
-	 Ty22q3xU6pPHg==
-Date: Wed, 7 Oct 2026 14:12:52 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-Cc: Ying Liu <victor.liu@nxp.com>, Frank Li <frank.li@oss.nxp.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Abel Vesa <abelvesa@kernel.org>, Peng Fan <peng.fan@nxp.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, linux-clk@vger.kernel.org,
-	imx@lists.linux.dev, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	dri-devel@lists.freedesktop.org
-Subject: Re: [PATCH v10 6/9] dt-bindings: clock: nxp,imx95-blk-ctl: Add ldb
- child node
-Message-ID: <20261007-cb2d638508f306f3385c3799@squawk>
-References: <20261006-dcif-upstreaming-v10-0-bcfb28de0aae@oss.nxp.com>
- <20261006-dcif-upstreaming-v10-6-bcfb28de0aae@oss.nxp.com>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="XerqC5BY"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
+	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
+	In-Reply-To:References; bh=Im4V+Rt/IisH7q38IS8cEegphTQYou0EBsEjpW96IHI=; b=Xe
+	rqC5BYl0o29eW7OAYhFXxw8MBPIeqnXXPfjjRJiwnEUMrE+LaDbyVMA/v9qv30oJ/qvgxUKzjKgG0
+	hDqeE6up/i7eu8Ha8sycwt0qk5xL5kyD6Nhp+Tuia+8sSp4YR6n7aaFrynb6BtLSOgBR1Lqz/BvAX
+	PnrivrWwm2e3o0A=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xERTB-009Sm4-Kf; Wed, 07 Oct 2026 15:14:05 +0200
+Date: Wed, 7 Oct 2026 15:14:05 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Robert Marko <robert.marko@sartura.hr>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, andrew+netdev@lunn.ch,
+	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+	pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, hkallweit1@gmail.com, lxu@maxlinear.com,
+	michael@walle.cc, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	luka.perkov@sartura.hr
+Subject: Re: [PATCH 4/5] dt-bindings: net: maxlinear: add MxL86211C lane
+ mapping support
+Message-ID: <c05a0966-35e5-4a81-8da5-8c24734a9ee2@lunn.ch>
+References: <20260930122305.293686-1-robert.marko@sartura.hr>
+ <20260930122305.293686-4-robert.marko@sartura.hr>
+ <20261001-splendid-athletic-coot-1bbbb6@quoll>
+ <CA+HBbNEOiAw+_zzQco13nNzUPdGUgo+kjcRzLFEA4LmnzF8_=A@mail.gmail.com>
+ <a2bcd146-0462-4ab1-b7be-93d6b4e05056@lunn.ch>
+ <CA+HBbNGUbR3KeZMaWoBqEqMLMkELMLxuL4taCcOG7V03VsuUEw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Z8+zZt/nTc0Rfe8E"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261006-dcif-upstreaming-v10-6-bcfb28de0aae@oss.nxp.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CA+HBbNGUbR3KeZMaWoBqEqMLMkELMLxuL4taCcOG7V03VsuUEw@mail.gmail.com>
 
---Z8+zZt/nTc0Rfe8E
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Wed, Oct 07, 2026 at 10:49:01AM +0200, Robert Marko wrote:
+> On Thu, Oct 1, 2026 at 2:33 PM Andrew Lunn <andrew@lunn.ch> wrote:
+> >
+> > > > > +++ b/Documentation/devicetree/bindings/net/maxlinear,gpy2xx.yaml
+> > > > > @@ -22,6 +22,21 @@ allOf:
+> > > > >
+> > > > >      then:
+> > > > >        properties:
+> > > > > +        maxlinear,lane-asp-map:
+> > > > > +          description: |
+> > > > > +            Mapping of the physical TPI lanes A through D to the PHY's
+> > > > > +            analog signal processing lanes (ASPs). The array index identifies
+> > > >
+> > > > Are there other lanes as well? Not ASP? What sort? data-lanes does not
+> > > > fit here?
+> > >
+> > > Hi,
+> > > I tried to keep it similar to the datasheet, but looking back, a more
+> > > appropriate
+> > > name would be ASP instances instead of lanes.
+> > >
+> > > I am not sure if data-lanes describe what it is fully but I am open to ideas.
+> >
+> > Analogue front end ports? Or even just analogue from ends?
+> >
+> > I do get what you mean with your current description, but i have more
+> > domain knowledge than your average DT writer.
+> 
+> If analog front ends are fine with you I would like to use that in
+> next revision.
+> Mybe keep the "(ASP)" so that anybody looking at datasheet knows immediately?
 
-On Tue, Oct 06, 2026 at 12:22:01PM +0000, Laurentiu Palcu wrote:
-> Since the BLK CTL registers, like the LVDS CSR, can be used to control the
-> LVDS Display Bridge controllers, add 'ldb' child node to handle
-> these use cases.
->=20
-> Signed-off-by: Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>
-> ---
->  .../bindings/clock/nxp,imx95-blk-ctl.yaml          | 24 ++++++++++++++++=
-+++++-
->  1 file changed, 23 insertions(+), 1 deletion(-)
->=20
-> diff --git a/Documentation/devicetree/bindings/clock/nxp,imx95-blk-ctl.ya=
-ml b/Documentation/devicetree/bindings/clock/nxp,imx95-blk-ctl.yaml
-> index fbbf1b3f17904..97fe816a38f94 100644
-> --- a/Documentation/devicetree/bindings/clock/nxp,imx95-blk-ctl.yaml
-> +++ b/Documentation/devicetree/bindings/clock/nxp,imx95-blk-ctl.yaml
-> @@ -51,6 +51,10 @@ patternProperties:
->      $ref: /schemas/media/fsl,imx95-csi-formatter.yaml#
->      unevaluatedProperties: false
-> =20
-> +  '^ldb@[0-9a-f]+$':
-> +    type: object
-> +    $ref: /schemas/display/bridge/fsl,ldb.yaml#
+That is O.K. with me.
 
-The class of device is bridge, why not use that here?
-
-Thanks,
-Conor.
-
-> +
->  required:
->    - compatible
->    - reg
-> @@ -63,7 +67,9 @@ allOf:
->        properties:
->          compatible:
->            contains:
-> -            const: nxp,imx95-camera-csr
-> +            enum:
-> +              - nxp,imx94-lvds-csr
-> +              - nxp,imx95-camera-csr
->      then:
->        required:
->          - '#address-cells'
-> @@ -72,8 +78,24 @@ allOf:
->        properties:
->          '#address-cells': false
->          '#size-cells': false
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          not:
-> +            contains:
-> +              const: nxp,imx95-camera-csr
-> +    then:
->        patternProperties:
->          '^formatter@[0-9a-f]+$': false
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          not:
-> +            contains:
-> +              const: nxp,imx94-lvds-csr
-> +    then:
-> +      patternProperties:
-> +        '^ldb@[0-9a-f]+$': false
-> =20
->  additionalProperties: false
-> =20
->=20
-> --=20
-> 2.53.0
-
---Z8+zZt/nTc0Rfe8E
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCasZFVAAKCRB4tDGHoIJi
-0vuvAQCMuGFOHoyiVgxFDEw2VPLnr+yYh971SizxwVmIa7EqBQD/ZJ0Jk4MloW93
-GfboWxtLy42RdX35LKACHj+5/AC6Hg0=
-=kUg8
------END PGP SIGNATURE-----
-
---Z8+zZt/nTc0Rfe8E--
+     Andrew
