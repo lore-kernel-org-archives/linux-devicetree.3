@@ -1,187 +1,75 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD355356A12
-	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 09:35:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31C673AA50A;
+	Wed,  7 Oct 2026 09:36:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791365735; cv=none; b=fGPkNh/pcscGJcJiajqYZzOOVf50iDRMmUWOIQoxF0o7EfDzYsGcMy3EzrMHlyLtw9+viugixGH5Gw8f33AgT/r7KHIGsvbxZn0JZ+s/m8WG/jKi6Q/SbvB5it9EOlVZj1k5Jpsp/HLUlPhrcqu42qvL+Na8p/9PcXuICIvxGBA=
+	t=1791365777; cv=none; b=s3q9qlFtQ7YrpZ1GpSH9HG1Iw9B7btbhTLRym+KxVPRM2iqGrAW5rq27y2YKlArQobjxFvjj9Ai1iTjP7Z1kp4BR1M3BWb5WoQ7Aa0FjAtNRUi2NvrjNl09I3J1llz9lf9rralFIluvU/0gvklKMA1fHK6n7iyrM4WkJA6eQqj4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791365735; c=relaxed/simple;
-	bh=HZ4Yai8hHKkjGNwF1DyF5ppHLfujuiudOKsOWhFEiMA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=E2rGwQLUr1tsX+ecaf4JrAY2JHFAaVHMneDYwZWYi44DU+xyz/A85l/LSqZiqxcYy9TJw2hvBRndD672zXnNNqPGsagleAr6wARpY3KcQBXye3lKutYPRp8Rp53sQFACKUaAoK0olnz/KjeN0j2Ui8sHnOEchXl+Ng2U3zxkIno=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=F6vLO8/J; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1791365777; c=relaxed/simple;
+	bh=4NGBoQERN3/+oWLSBwZd/IyCnjq8am331yzwlurbfI4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=n3AvWeGjElTje0eFbtgRrhAuxV0i23xkugG808RYyhsBBeUt5N/71VQ3885sDx02B2GLHKipESOggaxesy+HeXCHxBDi19z4Gjtpt4aKPo2UPZyMe+LHwMmdWUahx8p+836U3B/GTEpKGDeKIryT7qiqknRqZAuzV3x0hMYP78I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cXVQLQ0e; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="F6vLO8/J"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id 1177B4E410C6;
-	Wed,  7 Oct 2026 09:35:20 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id D0BCE6074B;
-	Wed,  7 Oct 2026 09:35:19 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9C9EC11D5006E;
-	Wed,  7 Oct 2026 11:35:12 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1791365718; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=xQN3wQkVGd6JZIsxjTwgNRXi/qvLUOwJEvsQFsaSMuc=;
-	b=F6vLO8/Jrxzbe/6VTfHp1fxHL49UWZ7bUNvCBV6S3aWj9qw4/Y+NYCnR+wXXtMVF21vtN8
-	6HO18hsdYrmSr3IcUe2mcYmZiNvV8UMqDzr+mA6xQj+34muF/6X8kXoalbJzvztH26FNBa
-	K5+OZbd3o0t/hlIz1fWptevr9i2LwGhB7MyPt4CWYzBcKhrRfHzLvkEgXBp/jTbEPTQObp
-	7oAGJRThN3DBQLRGYmhO2A1fjO10mSyM258NnQc7qDy09Vmq/uYJdtwgPHdNMHIZeMHZRC
-	JINJJrljNLVaiKtvTHsTbReOHINo7BhmDfAKbGYWXUNz9HNrGtFmjQExvdZfCQ==
-Message-ID: <517a0416-3c48-4b38-865c-5c0b7e5bd143@bootlin.com>
-Date: Wed, 7 Oct 2026 11:35:11 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cXVQLQ0e"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C4701F0089B;
+	Wed,  7 Oct 2026 09:36:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791365766;
+	bh=lV/Aw3UeWCVBXAcKeMTdOtHCEx4mWPb6mQo1KjZTVu0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cXVQLQ0e6EQUn4eXxvT+LyDiQCDKaJUe+JvjEmO5pZbaj9uyY0Gedv1iRws3YV1Z7
+	 65SVR+v0mPd+d3IyLlqxXHk90peLGjORBDD/hvNVXViCq7ep7DLVd7qF8JFiXrSmuW
+	 Bxx5p7WhZHzFsBaAJakoZK5bdP4zvEjsB4hFiFJ0iVNH7Y1RVukTV+LAKFQVxeTPnG
+	 j46i4e1k5GJu+poERVx4UZ3bMY6n5GLWKrn7ZlZfUGByHq1X9Hn0vvbnvYaH5i2hvX
+	 QBs/Xaj18Jzm8vtdiEArqXv8jT6msJVR7WzTK62oftZsU2PHsFWuKUHA5ougylBC4b
+	 OLYtLjLrZuAgg==
+Date: Wed, 7 Oct 2026 11:36:00 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Jishnu Prakash <jishnu.prakash@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Mark Brown <broonie@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>
+Subject: Re: [PATCH] arm64: dts: qcom: monaco-evk: Add off timing constraints
+ for vreg_l8a
+Message-ID: <finz2yjis56dh6ymk5vhqlndssxu52c3jt3ercvg5el2ynznkl@d3bsf5uo6jcl>
+References: <20261001-regulator-off-on-delay-monaco-v1-1-db0fdd69c262@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RFC PATCH v2 1/7] net: stmmac: dwmac-meson8b: let the controller
- apply the RGMII delays
-To: Lucas Tanure <tanure@linux.com>, xianwei.zhao@amlogic.com,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261007082627.63807-1-tanure@linux.com>
- <20261007082627.63807-2-tanure@linux.com>
-Content-Language: en-US
-From: Maxime Chevallier <maxime.chevallier@bootlin.com>
-In-Reply-To: <20261007082627.63807-2-tanure@linux.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20261001-regulator-off-on-delay-monaco-v1-1-db0fdd69c262@oss.qualcomm.com>
 
-Hi Lucas,
-
-On 10/7/26 10:26, Lucas Tanure wrote:
-> RGMII needs a delay on each of its two clocks. A board can get it from
-> the length of its tracks, from the PHY, or from the controller.
-> "rgmii-id" in the device tree says the delay is added inside the chips
-> but not which chip adds it, and the generic tx-internal-delay-ps and
-> rx-internal-delay-ps properties name the controller.
+On Thu, Oct 01, 2026 at 06:37:53PM +0530, Jishnu Prakash wrote:
+> UFS on the Monaco EVK can fail to initialize after probe deferral when
+> vreg_l8a is re-enabled before the supply has fully stabilized. This is
+> caused by the increased discharge and recharge time introduced by
+> additional board-level capacitance in the shared power supply design.
 > 
-> This driver ignored those properties. In the "-id" modes it switched
-> its own delays off and left the whole job to the PHY, so a board that
-> asks the controller for one of them does not get it, and a board whose
-> PHY cannot supply that delay has no usable link at all.
+> Add the hardware-required off-on-delay and enable-ramp-delay for
+> vreg_l8a to ensure proper power sequencing and reliable UFS
+> initialization across re-probe scenarios.
 > 
-> Boards not using those properties behave as before.
+> Additionally, set qcom,regulator-off-debounce-delay-us so that quick
+> disable/enable bounces across probe-defer retries don't power-cycle
+> the rail in hardware at all, rather than needing to wait out the full
+> off-on delay on every retry.
 > 
-> Assisted-by: LLM
-> Signed-off-by: Lucas Tanure <tanure@linux.com>
-> ---
->  .../ethernet/stmicro/stmmac/dwmac-meson8b.c   | 46 ++++++++++++++++++-
->  1 file changed, 44 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
-> index e4d5c41294f4..d73dfd0ac167 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
-> @@ -92,6 +92,8 @@ struct meson8b_dwmac {
->  	struct clk			*rgmii_tx_clk;
->  	u32				tx_delay_ns;
->  	u32				rx_delay_ps;
-> +	bool				mac_tx_delay;
-> +	bool				mac_rx_delay;
->  	struct clk			*timing_adj_clk;
->  };
->  
-> @@ -299,6 +301,22 @@ static int meson8b_init_rgmii_delays(struct meson8b_dwmac *dwmac)
->  		delay_config = rx_adj_config;
->  		break;
->  	case PHY_INTERFACE_MODE_RGMII_ID:
-> +		/*
-> +		 * "rgmii-id" only says the delays are internal, not which
-> +		 * side applies them. The *-internal-delay-ps properties say
-> +		 * it is this controller, so leave ours switched on.
-> +		 */
-> +		if (dwmac->mac_tx_delay || dwmac->mac_rx_delay) {
-> +			delay_config = 0;
-> +			if (dwmac->mac_tx_delay)
-> +				delay_config |= tx_dly_config;
-> +			if (dwmac->mac_rx_delay)
-> +				delay_config |= rx_adj_config;
-> +			else
-> +				cfg_rxclk_dly = 0;
-> +			break;
-> +		}
-> +		fallthrough;
->  	case PHY_INTERFACE_MODE_RMII:
->  		delay_config = 0;
->  		cfg_rxclk_dly = 0;
-> @@ -384,6 +402,7 @@ static int meson8b_dwmac_probe(struct platform_device *pdev)
->  	struct plat_stmmacenet_data *plat_dat;
->  	struct stmmac_resources stmmac_res;
->  	struct meson8b_dwmac *dwmac;
-> +	u32 tx_delay_ps;
->  	int ret;
->  
->  	ret = stmmac_get_platform_resources(pdev, &stmmac_res);
-> @@ -409,9 +428,13 @@ static int meson8b_dwmac_probe(struct platform_device *pdev)
->  	dwmac->dev = &pdev->dev;
->  	dwmac->phy_mode = plat_dat->phy_interface;
->  
-> +	/* the generic property is preferred over the vendor one */
-> +	if (!of_property_read_u32(pdev->dev.of_node, "tx-internal-delay-ps",
-> +				  &tx_delay_ps))
-> +		dwmac->tx_delay_ns = tx_delay_ps / 1000;
->  	/* use 2ns as fallback since this value was previously hardcoded */
-> -	if (of_property_read_u32(pdev->dev.of_node, "amlogic,tx-delay-ns",
-> -				 &dwmac->tx_delay_ns))
-> +	else if (of_property_read_u32(pdev->dev.of_node, "amlogic,tx-delay-ns",
-> +				      &dwmac->tx_delay_ns))
->  		dwmac->tx_delay_ns = 2;
->  
->  	/* RX delay defaults to 0ps since this is what many boards use */
-> @@ -424,6 +447,25 @@ static int meson8b_dwmac_probe(struct platform_device *pdev)
->  			dwmac->rx_delay_ps *= 1000;
->  	}
->  
-> +	/*
-> +	 * Each property names one clock this controller delays itself. The
-> +	 * PHY must be asked for whatever is left, or the two would delay the
-> +	 * same clock and push it past the window.
-> +	 */
-> +	dwmac->mac_tx_delay = of_property_present(pdev->dev.of_node,
-> +						  "tx-internal-delay-ps");
-> +	dwmac->mac_rx_delay = of_property_present(pdev->dev.of_node,
-> +						  "rx-internal-delay-ps");
-> +
-> +	if (dwmac->phy_mode == PHY_INTERFACE_MODE_RGMII_ID) {
-> +		if (dwmac->mac_tx_delay && dwmac->mac_rx_delay)
-> +			plat_dat->phy_interface = PHY_INTERFACE_MODE_RGMII;
-> +		else if (dwmac->mac_tx_delay)
-> +			plat_dat->phy_interface = PHY_INTERFACE_MODE_RGMII_RXID;
-> +		else if (dwmac->mac_rx_delay)
-> +			plat_dat->phy_interface = PHY_INTERFACE_MODE_RGMII_TXID;
-> +	}
 
-There's a helper for that :
+This last sentence gives me the impression that we only need
+'qcom,regulator-off-debounce-delay-us' and not the other two delays.
 
-phy_fix_phy_mode_for_mac_delays(), passed as parameters the mode, and wether the mac
-inserts TX/RX delays, and it returns what you should hand out to the PHY :)
+- Mani
 
-> +
->  	if (dwmac->data->has_prg_eth1_rgmii_rx_delay) {
->  		if (dwmac->rx_delay_ps > 3000 || dwmac->rx_delay_ps % 200) {
->  			dev_err(dwmac->dev,
-
-This looks better, thanks for this :)
-
-Maxime
+-- 
+மணிவண்ணன் சதாசிவம்
