@@ -1,226 +1,191 @@
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EB3344BCB5
-	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 12:35:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3E043A2E2B
+	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 12:43:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791376558; cv=none; b=cLrMxAOr/QKiQFMUGP/hlm4Co2ceotV2XvF2YuOk+paiOQvxeiJwNQxr9+tO0E7p6qGKybfhTPdM4pa8dkyZcx854KzLCzxGWbmn66PipQIjUoX37P92vLprUukEH3bzadkewjougtDKc6aUxPXdoNKCu8byntQp6bdQtz0zuqQ=
+	t=1791377032; cv=none; b=rhE1EmVtcWceFZj0gqsv9bbB+v1++CcCeJao+ukioeAyyHiNqZLmVhuslK2/fhoOAoDw/UGczkRl8lm7z+1Fs/zNwwKbNgV+4+QscnYfKLrMjOzo8WENiurmF6O9KN2im8ku/ShdSZye049/0qr1UDCq4zDk3JE2M8pVhPjYUZc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791376558; c=relaxed/simple;
-	bh=LG+u0ls6VzC7KKKN6T1gPPOh03a/2rcmPcFgIdyIVq0=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=fXB/Gj9ycguC4fKdFnkfUJUbikGCmnlrDLO7srLQXM96J7o7LIlGLa97AGUBzzo8UaWzbCrZ2FoG5aEdfAX0w48w3KonaMlGFcyWyeWQNSoHfHArYiHGglYFBzFVBRiKPhkRswWYgL6bPjA5jlCIITmtVtZO/Rm0vDi2+rSHDUE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=MER5TZR1; arc=none smtp.client-ip=209.85.221.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1791377032; c=relaxed/simple;
+	bh=ti8tCeK59NnVT6ZgdMt1nmI1QkUPgRpOvJOJIvWc1Ys=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=QNqMtDITCKhI1bA4imbOAkkSfreLIp0BiomU5zwvijm1Sd/EZ7RBGMoir1POp4mytknRS6rEygeGhMoHZZRmlQtMVPMYf+KXhuC7zdimBtmFIcogXO+naztp2Le1cVYTGlChcT1xWRe6XW5zr9Z2YE88ejRPxuNaxPOD1ZZVp7Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LWiMyYlw; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=V3bHpMQ5; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="MER5TZR1"
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48b9d8055dfso3342136f8f.3
-        for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 05:35:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LWiMyYlw";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="V3bHpMQ5"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 697BVChj3198240
+	for <devicetree@vger.kernel.org>; Wed, 7 Oct 2026 12:43:43 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=Ge4UsmaaPXwMQSgwmlgfa5
+	Y2DzK0kEKxxkf2gt3s19A=; b=LWiMyYlwaOxhzcNy+70tglvwlWuXd98z7dfN20
+	8BRFMj7t8Y+eEsUCzz7nqb0pVpJKKkuXowxzQXj8gByMp0Cg3+Y1jnRqe1nJDe4e
+	EDNrSPaCn3+0FIgK20uGlPsGwfSsEKPsUCOtrE90DXy+Qa665KUKmbvjEuBjH7fm
+	sAdJmAI7n2Xak8TAUkdLrKx5JZFY58DyHpRs5/iaxnKLdGzM3cPINVa3WHtqbKBr
+	b8qVUPQdbwmNumd1LTMcSt0bYjhnITgfFZ6DRrRQVCFMnqfWJMqMYjiygvUQAMOZ
+	odGgYEOe3TjLlX6PgduO+C5xC1ZrMLIDDzF5Y0YzNp8sLTPg==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5c1s24s9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 12:43:43 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2cfc52ddc55so42800715ad.3
+        for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 05:43:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791376548; x=1791981348; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=atVsgpDLAd3FCy/r5rwHewVKjgkttl9/HQ0eAY9dsQ8=;
-        b=MER5TZR16FnnX+q1KYf3/L+b18JwORaY3RZrf0y4tlJEPInEHPCiEH+X8trYqEPMbW
-         5bHmdl0Y2uqZzOlcFj2N91qj56OYkjsEuKpqt7RlA759t3ueMKMU638Zp6mVwDVH+Sfi
-         wlM3YwoorWKF/uTaovNFebYS4YKZPiXRlDO94mrUXWddwTRsIZ/HbrMt5yJRmRAjhsie
-         yFnVAWmiGqsBfMw6pDdjFjd0beElmjI+ojSSztNeyczipNvXVoOWcaVLWX4ItfkU9lRr
-         lqdVSXwRESbkLGsPrMSlWsJS/4Ag8FaPIFIJOz1/wj96VbPMWYg7wZWkVSAj7OPS9EAw
-         HLEA==
+        d=oss.qualcomm.com; s=google; t=1791377023; x=1791981823; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Ge4UsmaaPXwMQSgwmlgfa5Y2DzK0kEKxxkf2gt3s19A=;
+        b=V3bHpMQ5QKQ/AXE2qbGQjwlQOaVru0/5VbduBmw1ISJVrwXw3bFG9rr8/aL6bdgJA6
+         2ijtXYxK4cNdKK5q3UAykXxYPczJf60Fah3qSK0kdjD/FLBmHPGPHOZkKQRDauA0lLqr
+         a4E0LP+Qv+QUi7efJLN+pPNR4GxbTDT8NrYRzKz3rXUXgu/82Tyu5GKypEb4GOq6s1uU
+         1vbVu+c865i07UvxJdUfwHi3vRNWBcRErADb3Nf6yw9Cyxi8kta0WSzFORb4GVdr4bbx
+         ACUFwUwUqhvO5+uT7nDishQEzHRJDoGW4tKyV5GdAZ1zjQUmlzEw01x3unNCEcTLzGc9
+         niDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791376548; x=1791981348;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=atVsgpDLAd3FCy/r5rwHewVKjgkttl9/HQ0eAY9dsQ8=;
-        b=l2Uit/DuCG8RYB5JwBjnmZjOZxNK2RszitDcPm3EMp9NTX6H775XWcC44be9Z9DoJI
-         49GcUA1IAeS3WiKiODf0McQzlO4krvPyOsC9eSKZUrotIrP/cy4s9VbK2jlBnq2FqcdN
-         7i9BpWGSEHlibyOhkNTq06feVtD88lB0euvLhQATRHhw/9vmA1God5/LqfE3a3NBbJya
-         ZdC9f66W4wQwuzmCqC2d+0b4L3emGmT6oARRevX8hunThtHGC/17gg2aehyRR/+KC74j
-         FjmZM2BNg9KDsBD6zm/lrJb+luT3OafV33G4nnPyd09ITYV4Bg6SU+9CwRuIKyR4lRuT
-         fW+A==
-X-Forwarded-Encrypted: i=1; AKwUvBzPWr0+mDfuWpQ9wbdQkQlscBtslUHhDkZpyfKl4nO05azK/PBuHa65XfwROvBeB1kEa2BubnA+mF7I@vger.kernel.org
-X-Gm-Message-State: AFuF++maEXdppAashu/WlMt9iiKwIiC1V22Y3xJ8n7hyFr9FPDPA3+hs
-	JhF2UAZ7LTYb6whigk1JmEUU9aIWNRNj1sfbZuf3i3fCOoYB+aSZvnbNtC253cnjgSM=
-X-Gm-Gg: AYBFou2jZ/m285lTB85vb06d8Lxt0i3ztaQGjDMQLRafEKRHHAVCmDPXZDxVsfBnx99
-	YJXRlwUiGWHEpJTCQTfupgIzpkg7jGrA2bY8PERcHEuHVSOUaUw7mv0icuMSuu3TWIXlCQoKfWq
-	VyaQtuUr6fnxfgPxV1VTOD50sRpv47ncadFU6bQfyRiqo1Fdip7Zk/bQ4OFIj0XdZ8aHC6vsVxD
-	wYB7dl6vO8wVg/wecN5flFroybisNepq7me2FLqT7VEauqzlxMwGv1kPmYQshXZzpowGOMnxYlS
-	ciIM0STkmAxEKwWk4FfKX5aujyOmtEot3LrnFql+3wkt3qNC5eljo41JThb5rlJmf42Ju0iz3Pd
-	zXBa0GbVY28pRp3nOtkVJ8ZD8H8JeeEZtXvQae9hzR6wbiE1YXXXxz8LNrfe9Zj2H1SzoIcDw0P
-	VygBoUciMNnfNt+NYePM+LNI9fz5rOP+SSwPT6mYgt7OkXzosoHunsRWSallDZ39O1LdRKtKLon
-	LgfWvrfbfB5yvp3YGQ9Zur5M1Agkqo=
-X-Received: by 2002:a05:600c:8b54:b0:49c:fc6e:8caf with SMTP id 5b1f17b1804b1-4a18043c9b9mr34840155e9.19.1791376548113;
-        Wed, 07 Oct 2026 05:35:48 -0700 (PDT)
-Received: from [192.168.151.46] (90-182-211-1.rcp.o2.cz. [90.182.211.1])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1822af9d5sm37187375e9.15.2026.10.07.05.35.45
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 07 Oct 2026 05:35:46 -0700 (PDT)
-Message-ID: <c70d918e-7944-4229-b997-7f07d924125a@linaro.org>
-Date: Wed, 7 Oct 2026 14:35:43 +0200
+        d=1e100.net; s=20260707; t=1791377023; x=1791981823;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Ge4UsmaaPXwMQSgwmlgfa5Y2DzK0kEKxxkf2gt3s19A=;
+        b=27GzyaL/DFdqGNo94M+A431p56Psg1+jDhO9eND6PHno3Xm/CGJI1ujaGEVZicwioP
+         vCAzNSP2zH1TgCD0JH5akpmMhhtHSvlNYZgP9WV4pjbDdOMBhoOm2gvRQ8dN5xYrmP7o
+         +JdWWGqCUiP1gyjaS98JnEEJr5DnXbhtEGDBKIXr6JTNhklm+tBtStweji2li9EfQF1L
+         FJNLf2lmSXaj7lHDH4HgB4OgY4Kqx2LBx6UcTs3yado15rC3IBRQwBVErPtJNM2qI7dz
+         mMWgsihCds6CS53l10twUNw2jeZmbPGmTrL0743Tj+bs0mP7pUfcZsWq8lAnnohEDE5P
+         SfJQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzNV6daMLHh5WW68KRwD9OboZ94QXquVrKXaDGlcEeRxQ+y56r5W8VvMPNP2mY+eKqwDc7sxklaTol4@vger.kernel.org
+X-Gm-Message-State: AFq9FYJcfIrnml/Er5pRtEgldJsgCdAYTaLCFTMUmh1dnAZCxEAdrmi1
+	DJV8DOauoP2GUYLwnmf9DwHZ2Q5v26TSQ4grd4nl1zMs1pjjQ4PfiyaY8lRmwWSvi3BLOpMHaTF
+	bGGWDUBVz4igeRYEBkjwDnPVujvPF0k92ptTl/NoV4tTY4AxfWnETQNIZYeYwKAOP
+X-Gm-Gg: AYBFou2CNyp+gPPLSNv60jp65dDcneEX1aa9CTVao+13GjQ2tgZC320VT3FkvAVmi1L
+	PAzmIhC4nZPj/42SK0DwIz0nI+PsOV8oEKxToDfoBqclqrvFi32AH21hKu0eUZROIawuzqK+CfS
+	pm7/Dt9SdA72dP9rtGiR5yXid9NsObjZioKBCUSSSMnssgKjZIwf/sfoz9tTDz2x/XlBeG3Zqmz
+	eVvWmr/pbL9Lux2ssSs4EXRh67SE0zocY8DtqLK0j6HWqfZB4qQxgoHw/zazPHt0DTWMFoauZon
+	pEhFb6xIUlT3VGb8aS3RhEOmRvTG0tLyhE8/9GP6epsUL104ALle9FiAv2zAJg5EI0xMO7N3CJy
+	t5wcKKoD/jo5akUCj6/gqy/mQ
+X-Received: by 2002:a17:902:8b85:b0:2e4:a338:365e with SMTP id d9443c01a7336-2e600536b45mr13501465ad.42.1791377022915;
+        Wed, 07 Oct 2026 05:43:42 -0700 (PDT)
+X-Received: by 2002:a17:902:8b85:b0:2e4:a338:365e with SMTP id d9443c01a7336-2e600536b45mr13501295ad.42.1791377022316;
+        Wed, 07 Oct 2026 05:43:42 -0700 (PDT)
+Received: from hu-mdsor-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e604437bb7sm9680245ad.1.2026.10.07.05.43.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 05:43:40 -0700 (PDT)
+From: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
+Subject: [PATCH v4 0/2] Subject: arm64: qcom: shikra-iqs-evk: Add LT9611UXD
+ HDMI bridge support
+Date: Wed, 07 Oct 2026 18:13:25 +0530
+Message-Id: <20261007-master_lt9611uxd-v4-0-5eac97965ff8@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [RFC PATCH v2 3/7] dt-bindings: net: amlogic,meson-dwmac: add
- amlogic,t7-dwmac
-To: Lucas Tanure <tanure@linux.com>, xianwei.zhao@amlogic.com,
- Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Kevin Hilman <khilman@baylibre.com>,
- Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
- Maxime Chevallier <maxime.chevallier@bootlin.com>,
- Maxime Coquelin <mcoquelin.stm32@gmail.com>,
- Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20261007082627.63807-1-tanure@linux.com>
- <20261007082627.63807-4-tanure@linux.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20261007082627.63807-4-tanure@linux.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAG0+xmoC/5VQQWrDMBD8itG5G1ayJNs55R8lBFlaN2rjuJFkE
+ Qj5e+Q40EJPvSzMMrMzszcWKXiKbFvdWKDso5/OBci3itmjOX8QeFcwEyg0R2xgNDFROJxSpzm
+ frw56dKRlYxxywYqsN5HATuPo0yIcrNXK1aY3ClXnHOeoRKOJt2i1kAU2mrt2WKTfgQZ/faZ5Z
+ 1my/bqLc/9J9nntxQp0mUvU9KL+stxW/zFcWmFXI8Sj/woGXIK1dYSsAKElM2jVGqS63U0xbi6
+ zOS1GmzJ+DnAN6z8s5AZygQglBEoxWCek+ivd3+8PPW9l/HsBAAA=
+X-Change-ID: 20261007-master_lt9611uxd-b0de647ad012
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Mohit Dsor <mohit.dsor@oss.qualcomm.com>,
+        venkata.valluru@oss.qualcomm.com,
+        Jessica Zhang <jesszhan0024@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791377016; l=2210;
+ i=mohit.dsor@oss.qualcomm.com; s=20260808; h=from:subject:message-id;
+ bh=ti8tCeK59NnVT6ZgdMt1nmI1QkUPgRpOvJOJIvWc1Ys=;
+ b=6JiuUYs7MQe4Hvrhi0t+wwfyQ1kHu5VKZ1KccibgWMiCmz//qIzYEDw0LXYXZrU3xDUnfig4L
+ 6UlQJHkmyZkCOZcR4niBvBRHWLIY8EI5roQ8dlh7xF1vsqMWof5Y5pR
+X-Developer-Key: i=mohit.dsor@oss.qualcomm.com; a=ed25519;
+ pk=outHVBN53JhozDw1xkj3G1qrqqE5scMBP7M4WL3aHQQ=
+X-Proofpoint-ORIG-GUID: XcRozx71drMlEFj7xcU1Huw4Um96bQFa
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDA1MCBTYWx0ZWRfXx1uvvsySgoNh
+ uRccPK5tjBRhGRX5fi+qVqkKcFp1RktHR5LYfRuRd1tbluiyhEZorJNmX0482uwS07ebbOYU6yY
+ BlNtRYmu5TIgFd/dcTDj9Fbe/6ycxPiNd3C4Hs4hm8aeVpm++7MLIsthOAhiCRT0o3MAz8JwnFq
+ T1hnCZneOJ3J7sxxcv/uD82OsKkUdLPwPxRE+ujO0gZjYLiPuX1Mx3FklRRYlO/8hXSJEl6sl2s
+ Fx9S/B8ZTaAbXEiR7dLzECwfceIrqumYouh44IFNrfJgfSJhxozvAj3ejkczkQ6Vcc6mLzEgFdO
+ msSLGYcHmC+IDB6VtgVHIdO3LgkFSNT24bRF1gmXa0C5pL7ptYuXdxjarXy1XBD9BzLnUE2rBMo
+ lUEdXM9lmPhf+6oWMLRdwaZn24V1F5r2uk3yOxeSxrKcikt5TmoJrDPufHxKQa6tsgEPt1UdXCq
+ uI36535QLDzdhOyS7Ow==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDA1MCBTYWx0ZWRfX++MyRHHVOOpV
+ NgfZoElF7FmeJoJqDmluAHFsqSbpYWkOiL7kNp40Uw/NaMtWIyo0ugaKP/mUIgcRcVwScBjAGBY
+ 7eP6ABqPc4pHbjgorVXNEJV7mX8OMWg=
+X-Proofpoint-GUID: XcRozx71drMlEFj7xcU1Huw4Um96bQFa
+X-Authority-Analysis: v=2.4 cv=NatzRGD4 c=1 sm=1 tr=0 ts=6ac63e7f cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=spVTYJvaZBYa3VVWI6cA:9 a=QEXdDO2ut3YA:10
+ a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-07_04,2026-10-06_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 adultscore=0 lowpriorityscore=0 suspectscore=0 spamscore=0
+ clxscore=1015 priorityscore=1501 impostorscore=0 phishscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070050
 
-On 10/7/26 10:26, Lucas Tanure wrote:
-> The T7 has the same ethernet glue as the G12A, but the controller
-> reaches memory through a pipeline stage that this SoC inserts in the
-> bus path. That stage has a gate of its own, which no other member of
-> the family has, and nothing else in Linux claims it. It is therefore
-> switched off as unused, and the port can then no longer finish a
-> transfer.
-> 
-> Describing it needs a fourth clock, and the fourth clock of the
-> existing list drives the timing adjustment logic, which the T7 never
-> uses. So the T7 gets a list of its own with the gate in that place,
-> under the name the SD and eMMC controllers already use.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Lucas Tanure <tanure@linux.com>
-> ---
->   .../bindings/net/amlogic,meson-dwmac.yaml     | 47 +++++++++++++++++++
->   1 file changed, 47 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml b/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
-> index 90ef79161ab1..96118b4d1560 100644
-> --- a/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
-> +++ b/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
-> @@ -23,6 +23,7 @@ select:
->             - amlogic,meson-gxbb-dwmac
->             - amlogic,meson-axg-dwmac
->             - amlogic,meson-g12a-dwmac
-> +          - amlogic,t7-dwmac
->     required:
->       - compatible
->   
-> @@ -57,6 +58,47 @@ allOf:
->               - const: clkin1
->               - const: timing-adjustment
->   
-> +  # The T7 applies the RGMII RX delay through PRG_ETH1 and never enables the
-> +  # timing adjustment logic, so it has no timing-adjustment clock. What it does
-> +  # need is the gate of the pipeline stage the controller reaches DRAM through.
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            const: amlogic,t7-dwmac
-> +    then:
-> +      properties:
-> +        clocks:
-> +          items:
-> +            - description: GMAC main clock
-> +            - description: First parent clock of the internal mux
-> +            - description: Second parent clock of the internal mux
-> +            - description:
-> +                clock of the pipeline stage inserted in the bus path between
-> +                the controller and the DRAM. Without it, the controller cannot
-> +                complete DMA transfers.
-> +
-> +        clock-names:
-> +          items:
-> +            - const: stmmaceth
-> +            - const: clkin0
-> +            - const: clkin1
-> +            - const: pipeline
-> +
-> +  # Delay definitions for Meson8b and newer (including T7)
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - amlogic,meson8b-dwmac
-> +              - amlogic,meson8m2-dwmac
-> +              - amlogic,meson-gxbb-dwmac
-> +              - amlogic,meson-axg-dwmac
-> +              - amlogic,meson-g12a-dwmac
-> +              - amlogic,t7-dwmac
-> +    then:
-> +      properties:
->           amlogic,tx-delay-ns:
+Add MDSS display and LT9611UXD DSI-to-HDMI bridge support for the
+Shikra IQS EVK, and enable the LT9611C bridge driver in defconfig.
 
-Do we still want to support the vendor property on t7 ?
+Dependencies:
+https://lore.kernel.org/all/20260930-shikra-dt-changes-v5-0-8eaf658a0e38@oss.qualcomm.com/
+https://lore.kernel.org/all/20260916-lt9611c-v7-v16-0-c65042fcd245@oss.qualcomm.com/
 
-Neil
+Changes in v4:
+- Rebased on top of next-20260929 (linux-next tag).
+- Only two prerequisites remain: the display v5 series and the LT9611C
+  driver v16 series, as all other dependencies have since landed in
+  linux-next.
+- Rename lt9611-specific regulator and pinctrl labels to more generic
+  names since these will be shared with other display interfaces in DT
+  overlay.
+- Link to v3: https://lore.kernel.org/all/20260728-shikra-work-v3-0-e08c322596ac@oss.qualcomm.com/
 
->             enum: [0, 2, 4, 6]
->             default: 2
-> @@ -106,6 +148,7 @@ allOf:
->             contains:
->               enum:
->                 - amlogic,meson-g12a-dwmac
-> +              - amlogic,t7-dwmac
->       then:
->         properties:
->           rx-internal-delay-ps:
-> @@ -143,6 +186,10 @@ properties:
->                 - amlogic,meson6-dwmac
->                 - amlogic,meson8m2-dwmac
->             - const: snps,dwmac
-> +      - items:
-> +          - const: amlogic,t7-dwmac
-> +          - const: snps,dwmac-5.10a
-> +          - const: snps,dwmac
->   
->     reg:
->       items:
+Changes in v3:
+- Remove superfluous comment from pm8150_l11 regulator node.
+- Link to v2: https://lore.kernel.org/all/20260717-shikra-work-v2-0-86ae8552259e@oss.qualcomm.com/
+
+Changes in v2:
+- Removed port-select property.
+- reset and irq is aligned as per driver.
+- Rebase on top of shikra-display-v4 series to pass schema check.
+- Link to v1 [1/2]: https://lore.kernel.org/lkml/20260627-shikra-dt-changes-v1-5-449a402673d0@oss.qualcomm.com/
+- Link to v1 [2/2]: https://lore.kernel.org/lkml/20260618-shikra-work-v1-1-dc30381263f9@oss.qualcomm.com/
+
+prerequisite-message-id: <20260930-shikra-dt-changes-v5-0-8eaf658a0e38@oss.qualcomm.com>
+prerequisite-message-id: <20260916-lt9611c-v7-v16-0-c65042fcd245@oss.qualcomm.com>
+
+Signed-off-by: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
+base-commit: 6474fa070f2b8013b4b87350b775b8c3be6e8aac
+change-id: 20260618-shikra-work-ea756b564b2d
+---
+Mohit Dsor (2):
+      arm64: dts: qcom: shikra-iqs-evk: Add LT9611UXD HDMI bridge support
+      arm64: defconfig: Enable LT9611C bridge driver
+
+ arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts | 109 ++++++++++++++++++++++++++++
+ arch/arm64/configs/defconfig                |   1 +
+ 2 files changed, 110 insertions(+)
+---
+base-commit: fcc65d3aba5059dd1105276e180c624110761d8f
+change-id: 20261007-master_lt9611uxd-b0de647ad012
+
+Best regards,
+--  
+Mohit Dsor <mohit.dsor@oss.qualcomm.com>
 
