@@ -1,268 +1,126 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua1-f49.google.com (mail-ua1-f49.google.com [209.85.222.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2900C41F346;
-	Wed,  7 Oct 2026 09:31:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A290D448BB6
+	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 09:34:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791365532; cv=none; b=ZtZBfig7mrKnZovGN2fnpTY9bulKkFnMJFSJUVhGQzuTmc9Jla1qobRVAIQNxfxDJaWExi+7xK/D/xKi6YpeS09Isn2G+1DGAJFUcyRvL7pQd0lcvMUVbNXuPXb9xqjZMC0Q8jbVe/lrXmPCOTP4suSBjKg0OcXJVcmOj0isYjE=
+	t=1791365662; cv=none; b=AAba6vg5Rc24mpTd6w7mE9F1WiyZDoVPq1u8gg3P3WbOAtL3jLOGf0dqtMMh3u/HF/9/NloZ8/7ZsYoXkgW0+Kb2eaX0cX+Cx8sXFOW86dG+nplgof6lsH4/9zg3tKXG4GCeK8B22LFA3Qb+OPfF468SQz1rW7o7PBIbe19U1Cw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791365532; c=relaxed/simple;
-	bh=wDUi4KHhE5clSLNyLpTSGla06KpXCM3bFZCyUcCU/UQ=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=mMJXl+YzyI9PSQgBuLRRMgmlwNvOoIMuMQMRV66r/6L/XXD5fZH3UelifTsM3JwsOtaZaIdVJsWTrCmpFj0xl/TgEKn0+l9dJiJAj+UpFofte+skVlzs7HAukEsYJDw2m99FTLEPhTKCie+jARi3XMYbfNxViXJbKbypr5e3uJY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=rLbroE9X; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=DR/f29Z/; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1791365662; c=relaxed/simple;
+	bh=DEQoUozW/Cs8HCbMPzg7ZPhOKB0dfvcgpHAGzkIkN5g=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=rHNkFZnF8CfhWHca9f8ukNNfc/r0s1OMCJzljfxjbRlCHpdb2ai28GKnPEJb1uvgROCQWOxywyhFE6mNFszRvDugfTYyaA/cnWZdbWSKe6vAeAwI5VfmjvhOorIh3dK/fHFMGNoCnvc0ODnkDvAJtU2vHBKhyrlEcBayRwq4mzM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T5hCY+Q1; arc=none smtp.client-ip=209.85.222.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="rLbroE9X";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="DR/f29Z/"
-Message-ID: <3190d10102167d5b72add3e5831cba40756d459a.camel@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1791365513;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FZYbyyvMS986uZEblqXqfDTl4F8VXAGukgUvCIUKQ5M=;
-	b=rLbroE9XcrpMrNi3FWN41xa+80cJUFShTGdCp/5ctTG+5vwfjrTDry3Dx3BQH7gKsEfr/2
-	czampDST+wizQsG5nlTUWFosyxnSamZcV090NS5GwHimrOoWNDPHBYw50uUjuS1ogmIMGZ
-	/z8CYucvv3HhjwvzxrEKePZRxcf4ZhW1HH00j2i3BdkZpbQ7k4Cyvz/h7IHjucVWE4xVSg
-	EAQDXAtAqpy70FRtodhZMXKK+/Gym/i+6scTaEY5U856L5o2RJTtFwgJG61QcJFSXHsHOe
-	QKsOCokYwvvpFE33OkFc1Cd/oR2riTPM0HiwPS2Pm4ZE69QocAJui4a2D7LulA==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1791365513;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=FZYbyyvMS986uZEblqXqfDTl4F8VXAGukgUvCIUKQ5M=;
-	b=DR/f29Z/M7ZdoRvsrZKqD7x/o2+HeooFiiy8iBRlobau3+amAbqhiTxGUbYj6VV89CdU4C
-	xlV7Fq1AWKPCzzCg==
-Subject: Re: [PATCH net-next v3 5/8] net: mdio: Add SoC-e SWIP MDIO
- controller driver
-From: Vasilij Strassheim <v.strassheim@linutronix.de>
-To: netdev-bot+sashiko@kernel.org
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- andrew@lunn.ch,  olteanv@gmail.com, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org,  pabeni@redhat.com, horms@kernel.org,
- linux@armlinux.org.uk, andrew+netdev@lunn.ch,  hkallweit1@gmail.com,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- netdev@vger.kernel.org, martin.kaistra@linutronix.de,
- b.spranger@linutronix.de
-Date: Wed, 07 Oct 2026 11:31:52 +0200
-In-Reply-To: <179051210920.2160803.11497808586391363644@kernel.org>
-References: 
-	<20260923-devel-vstrassheim-soce-dsa-ml-v3-5-ddebafcb9ba7@linutronix.de>
-	 <179051210920.2160803.11497808586391363644@kernel.org>
-Organization: Linutronix GmbH
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T5hCY+Q1"
+Received: by mail-ua1-f49.google.com with SMTP id a1e0cc1a2514c-98c8cbdb9daso327247241.1
+        for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 02:34:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791365649; x=1791970449; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DEQoUozW/Cs8HCbMPzg7ZPhOKB0dfvcgpHAGzkIkN5g=;
+        b=T5hCY+Q1YMRifQtJNpwfpRHJrL96eu66NyO8k/fOU6xriMjkUVzewqsf+D9cDW+g2S
+         y+Z1vlokkYNXulEAg5ZorFJ5Bsd3AKNI6pOR5grOajPc9/p7m1haNxusFKr5/SGG6qIW
+         DuE7xac9VE4JG34//XrBq9thtiGBXDRKtWR6lPJNK+zgcaTFW5RmJdS6FC8pfXhyqvxc
+         RoGCL7KD+kO+5VWDsidVJqE1tb7RzrrPhGuIVOmyd8CQhpui/9kakH6dgM+7hs826n0O
+         fOhLVQ2hjPaPkjdJ3gupw+0hwXzH97/RcnF29X9h4OSOGcCzonsyE4kbsbJpqAQU87OX
+         ymDw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791365649; x=1791970449;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DEQoUozW/Cs8HCbMPzg7ZPhOKB0dfvcgpHAGzkIkN5g=;
+        b=APSqd5NtqkpaBqYe+k+zIgivLjpxBvPpbcpTd0xAheH8wPO4e1VUSOD7oKaq7WCuPo
+         YSktorr7W3/FFzAhzIfZBuwiD0SFGser54BbMUIFvrKmK18wg5c5mA/LZhHlqxkt5Gim
+         RHgH0uWLQS0BDefEvCswFfmxtCtcb7PzrOds2GFSCZk8i0tL2pBSag5jGAyCv8RDQVSQ
+         l3AhBAfAefxgRen0qyzHaOzk8E2gTauGHSFvtVWnYAkA5C2IblH5JMedPIDQxPezsueW
+         sMX7FAHRhXyZvCGd+Sp71CT/VeRWKkus8V0IyT7rSLP8XSWR0LGUAhf9ERrDO6F0ROZD
+         0epw==
+X-Forwarded-Encrypted: i=1; AKwUvBy43XndTKDwD29l50ffGfAK6eog/0I1dtIbluczH3uOhlVF5ntA1ikrppPXVgdt4s1vjo9EOFnIgsIg@vger.kernel.org
+X-Gm-Message-State: AFq9FYKmNj6BpHO19O6YHHecg1stqzLPoqD40gOCiu5X+lUwahWDHkNt
+	bjrfcSmfL/1rCMe22hc/QQQPB6NxT13oiynVobK9lTa5v5yWTyrYvSXU
+X-Gm-Gg: AYBFou0UxQMxIvE7xdehsWsT9SDPE0QNC3NW7zGPjOySRi2DuR0tTUEen0LhJfz9mP/
+	j806jP/bhXEuMuTdNBzRMkEcOisi44L45hq7O/mMApb6CN3Yee+zQxufhuv1/VTyDn9vPeBVjZz
+	2PDTDe46hV52bgGgD1je2M9BSGwrJZXTWZ5+J6bBNQ8wvKVCmlpjYm74aJTX49lSCbxEeCBNUl6
+	iwXyqq7e7nzESRSNO002LQrchKguYCMG/Ntg28Tgi2wVEfNk1HFlJ9sg0zSi9IbFvze0Qpkrqcm
+	Nuv4NboJM1IaK+74uj1Lj7HBqA+5OOAvq5xC6RmsNsT05xpDmyMChXXbVrJ43SbPm9SEVDyn/Bq
+	M1L2v8ecHWEzvbgdDToM7lBHfA9bF3Phiz4Okl/V83z+p+PJ2wpdT1ytP4AxsJr7Z0Xqoqpikib
+	x95/A33YOd8UEfasRjxAyBuWmN2xd3aXukz5WmDQ1/s51W+QNqwcRwSitHtlvyufJQJO48+aTfP
+	9HUuHfOEtmnOkLNBX9ilIV1b2CcIIeqz5zWCZ2go4aDcW27NfqGBbJNyppkxrBbo4IzMoTd6Rvp
+	qLgKwtk=
+X-Received: by 2002:a05:6102:2909:b0:7bd:732e:c615 with SMTP id ada2fe7eead31-7ca38e16ffamr456522137.26.1791365649209;
+        Wed, 07 Oct 2026 02:34:09 -0700 (PDT)
+Received: from MaquinaLab.. ([179.179.237.181])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7ca218138c6sm1319958137.12.2026.10.07.02.34.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 02:34:08 -0700 (PDT)
+From: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
+To: Andre Przywara <andre.przywara@arm.com>,
+	linux-serial@vger.kernel.org
+Cc: gregkh@linuxfoundation.org,
+	jirislaby@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	andriy.shevchenko@linux.intel.com,
+	ilpo.jarvinen@linux.intel.com,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-sunxi@lists.linux.dev,
+	Enzo Adriano <enzo.adriano.code@gmail.com>
+Subject: Re: [PATCH 3/3] serial: 8250_dw: Add Allwinner A733 UART
+Date: Wed,  7 Oct 2026 06:33:23 -0300
+Message-ID: <20261007093323.22104-1-vinicius.eduardo.pedrosa@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261006193046.540252-1-vinicius.eduardo.pedrosa@gmail.com>
+References: <20261005172538.398522-1-vinicius.eduardo.pedrosa@gmail.com> <20261005172538.398522-4-vinicius.eduardo.pedrosa@gmail.com> <603b4f40-2a60-4bc5-8b98-ada7a52fead9@arm.com> <20261006193046.540252-1-vinicius.eduardo.pedrosa@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Sun, 2026-09-27 at 12:28 +0000, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issue(s) to consider.
->=20
-> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 2 =C2=B7 Low: 0
->=20
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwor=
-k
-> know by including "pw-bot: cr" as a separate line at the end of your repl=
-y
-> (one such reply per series is enough).
->=20
-> - [Medium] soce_mdio_iomap() (drivers/net/mdio/mdio-soce.c:48) returns
->   whatever devm_ioremap() returns.
-> - [Medium] The external MDIO bus selector (bits 26:16) lives in the same
->   32-bit control register as OPSTATUS (bit 0), but the idle check does=E2=
-=80=A6
->=20
-> --
->=20
-> net: mdio: Add SoC-e SWIP MDIO controller driver
->=20
-> This adds a driver for the MDIO controller in SoC-e Ethernet switch IP
-> cores. It supports Clause 22 and Clause 45 accesses. The transaction
-> control register also holds an external MDIO bus selector in bits 26:16,
-> which a generic MMIO MDIO mux manages and which the driver preserves when
-> it starts a transaction.
->=20
-> > diff --git a/drivers/net/mdio/mdio-soce.c b/drivers/net/mdio/mdio-soce.=
-c
-> > new file mode 100644
-> > index 0000000000000..59c0b3da483eb
-> > --- /dev/null
-> > +++ b/drivers/net/mdio/mdio-soce.c
-> > @@ -0,0 +1,239 @@
->=20
-> [ ... ]
->=20
-> > +static void __iomem *soce_mdio_iomap(struct device *dev, int index)
-> > +{
-> > +	struct resource res;
-> > +	int ret;
-> > +
-> > +	ret =3D of_address_to_resource(dev->of_node, index, &res);
-> > +	if (ret)
-> > +		return IOMEM_ERR_PTR(ret);
-> > +
-> > +	return devm_ioremap(dev, res.start, resource_size(&res));
->=20
-> [Severity: Medium]
-> Can a failed mapping get past the checks in soce_mdio_probe()?
->=20
-> devm_ioremap() returns NULL on failure, not an ERR_PTR. This happens both
-> when the devres allocation fails and when ioremap() fails:
->=20
-> lib/devres.c:__devm_ioremap() {
-> 	void __iomem **ptr, *addr =3D NULL;
-> 	...
-> 	if (!ptr)
-> 		return NULL;
-> 	...
-> 	} else
-> 		devres_free(ptr);
->=20
-> 	return addr;
-> }
->=20
-> soce_mdio_probe() checks both results only with IS_ERR():
->=20
-> 	priv->data =3D soce_mdio_iomap(dev, SOCE_MDIO_DATA_IOMAP_IDX);
-> 	if (IS_ERR(priv->data))
-> 		return PTR_ERR(priv->data);
->=20
-> 	priv->ctrl =3D soce_mdio_iomap(dev, SOCE_MDIO_CTRL_IOMAP_IDX);
-> 	if (IS_ERR(priv->ctrl))
-> 		return PTR_ERR(priv->ctrl);
->=20
-> IS_ERR(NULL) is false, so probe would continue into
-> devm_of_mdiobus_register() with a NULL base.
->=20
-> The first bus access would then dereference NULL. That access comes eithe=
-r
-> from a PHY child during registration or through the mux:
->=20
-> mdio_mux_read()
->   soce_mdio_read()
->     soce_mdio_wait_for_idle()
->       readl_poll_timeout(NULL, ...)
->=20
-> Could soce_mdio_iomap() convert a NULL result into IOMEM_ERR_PTR(-ENOMEM)=
-,
-> or could probe use IS_ERR_OR_NULL()? A helper that also requests the regi=
-on
-> doesn't fit here, because the parent switch driver already requests the
-> whole range.
+Hi Andre,
 
-This was already mentioned by kernel bot. I will fix it for the next
-version. Rework for MFD will also change this code.
+Correction to my last mail: the v2 change I proposed there is wrong.
 
->=20
-> > +}
-> > +
-> > +static int soce_mdio_wait_for_idle(struct soce_mdio *priv)
-> > +{
-> > +	void __iomem *ctrl =3D priv->ctrl;
-> > +	u32 val;
-> > +
-> > +	return readl_poll_timeout(ctrl, val,
-> > +		!(val & SOCE_MDIO_CTRL_OPSTATUS), 10,
-> > +		SOCE_MDIO_TIMEOUT_US);
-> > +}
-> > +
-> > +static void soce_mdio_start(struct soce_mdio *priv, u32 command)
-> > +{
-> > +	void __iomem *ctrl =3D priv->ctrl;
-> > +
-> > +	/* Keep the currently selected MDIO bus while updating op bits. */
-> > +	command |=3D readl(ctrl) & SOCE_MDIO_CTRL_BUS_MASK;
-> > +	writel(command, ctrl);
-> > +}
-> > +
-> > +static int soce_mdio_read(struct mii_bus *bus, int phy_addr, int regnu=
-m)
-> > +{
-> > +	struct soce_mdio *priv =3D bus->priv;
-> > +	void __iomem *data =3D priv->data;
-> > +	u32 command;
-> > +	int ret;
-> > +
-> > +	ret =3D soce_mdio_wait_for_idle(priv);
-> > +	if (ret)
-> > +		return ret;
->=20
-> [Severity: Medium]
-> Does this idle check also protect the bus selector bits in the same
-> register?
->=20
-> The commit message says:
->=20
->     Return a timeout instead of waiting indefinitely, and allow a later
->     access to retry if the hardware becomes idle again.
->=20
-> So when a completion wait returns -ETIMEDOUT, the engine may still be bus=
-y.
-> Nothing aborts or resets it before mdio_lock is released, and there is no
-> mii_bus->reset callback.
->=20
-> If the next access goes through the mux to a different child bus,
-> mdio_mux_read() calls switch_fn before it calls the parent's read callbac=
-k:
->=20
-> drivers/net/mdio/mdio-mux.c:mdio_mux_read() {
-> 	...
-> 	r =3D pb->switch_fn(pb->current_child, cb->bus_number, pb->switch_data);
-> 	...
-> 	r =3D pb->mii_bus->read(pb->mii_bus, phy_id, regnum);
-> 	...
-> }
->=20
-> mdio_mux_mmioreg_switch_fn() then rewrites the selector halfword without
-> checking OPSTATUS:
->=20
-> 			x =3D ioread16(p);
-> 			y =3D (x & ~s->mask) | desired_child;
-> 			if (x !=3D y) {
-> 				iowrite16((x & ~s->mask) | desired_child, p);
->=20
-> This means soce_mdio_wait_for_idle() runs only after bits 26:16 have
-> already changed.
->=20
-> If the hardware doesn't latch the selector when a transaction starts, cou=
-ld
-> the rest of the timed-out frame be sent to a different external MDIO bus?
-> The original PHY would get a truncated frame and the newly selected bus
-> would get a fragment from the middle of it. Neither the mux's current_chi=
-ld
-> nor the return code would show that this happened.
->=20
-> soce_mdio_write() and the c45 variants have the same ordering. Does this =
-IP
-> latch the selector per transaction, or does the idle check also need to
-> cover the selector writes?
->=20
+Gating only when clk_round_rate() differs from the current rate is
+e5d6bd25f93d ("serial: 8250_dw: Do not reclock if already at correct
+rate"). 7dfae6cbadc1 reverted it because it broke the dw UARTs on Bay
+Trail and Cherry Trail. Mine compares against clk_get_rate() instead of
+p->uartclk. Peter suggested that variant in the revert thread, and Hans
+pointed out it's the same check, since uartclk comes from clk_get_rate()
+at probe.
 
-Yes, the idle check does not protect selector writes made by the generic
-mux driver. I already mentioned this in the previous version [1].
+From my reading of clk.c, the flag you mentioned seems to explain the
+regression. The LPSS "-update" gate is registered with
+CLK_SET_RATE_PARENT | CLK_SET_RATE_GATE in drivers/acpi/x86/lpss.c.
+Preparing it rate-protects the gate and its divider parent, and while
+they're protected clk_round_rate() returns the current rate. So the
+check always says there's nothing to do. The divider never gets
+reprogrammed. Hans's debug log in
+<20240317214123.34482-1-hdegoede@redhat.com> has a request for 1843200
+rounded to 153600, the rate already set. I can't test LPSS.
 
-I intentionally accept this limitation after a transaction timeout. This
-is not documented in the manual and an dedicated mux driver would be
-required just to preserve the register state.
+So on LPSS the CCF does ask for the gate, and the disable/enable in
+dw8250_set_termios() is how the driver gets clk_set_rate() past it.
 
-Imo, a new mux driver would add too much complexity solely to handle
-this error path. I will clarify the commit message so it does not imply
-that retrying through a different child bus is guaranteed to be safe.
+For v2 I'm inclined to keep SKIP_SET_RATE for the A733, like JH7100
+(b0ad20a3b64b) and SG2044 (cad4dda82c7e). The A733 bus-uart gates carry
+no rate flags, so the rate calls there are no-ops. Calling
+clk_set_rate() with the clock running and gating only on -EBUSY might
+work for everyone, but it needs BYT/CHT testing I can't do.
 
-[1] https://lore.kernel.org/netdev/ffec9201db3d12944dbd350010560f6234262bbe=
-.camel@linutronix.de/
+This is separate from DLF. v2 still uses your 2^n - 1 check for that,
+with no A733 quirk.
 
-
+Thanks,
+Vinicius
