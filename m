@@ -1,159 +1,119 @@
-Received: from fhigh-a7-smtp.messagingengine.com (fhigh-a7-smtp.messagingengine.com [103.168.172.158])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30D664E1C97
-	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 18:59:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.158
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18D784657E0
+	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 19:04:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791399602; cv=none; b=OQosn5GuR43Q6/QoiXlnJNk1eA119jiSsJCBSA0j6hkgnOW9xXoDjzJRGO3juTE3yoe9Wq2uNUYbSU4vDcsTLPjBi2UfBYPSOB8G8I9XGfeQnN7VxmItJTRNETmUh/40J0CwbwjPnYO/7qdx64oU1gX9WU1iuPWoR4C6Cvco8Mc=
+	t=1791399842; cv=none; b=qFvE8gaxXqix/lDS1lr9iyANb6+AaiD/qqmRWiDFBZg/twPlVN2d/1AHl7TGGTW0JRkJsXo/VcBXlOlI9S2DzbVDqFV/AAMpF5D0O76i8eboBkCt68iOrCfS/Kq1FBB1zrNyGe6nV1eB4Hffl+Voo3cO1bS6ow+sMu+vhw9JQpw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791399602; c=relaxed/simple;
-	bh=H//4ghOVvWRuaFQONEl2NVv9UGxnxNBHPkEebTE6LtQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=e2HzDzG8j7msxMuTgjNUPIxdFSogVUJPosZEQJXbXnC8DjJKV1HJuRiEy9NuUUfLETM7+pXuzN4NK8quGwAm1iy8Pqr1u5EDCmHQz3s7HY0dPnIpdyg01BtepJDWdtal+8/SXodBzvAuFiQB18XFLk864hVta3C22hkrFRKFI+A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=bl7fsMdc; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=LwvjnNKr; arc=none smtp.client-ip=103.168.172.158
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
+	s=arc-20240116; t=1791399842; c=relaxed/simple;
+	bh=puKhUibDN4oi+DxP4V+YSbgUuVgeyYVpzlGvOCG3iyI=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=Tz1H8YsGInlk7FUsw2etnKbi9uxR3ZbQkr3UEChHQXHttp6EXkVdzwAoB56/mgdnzncSwUBn/+6AWrq4Au8pg4aMVncEDHHiyh5ikSIGZFLDInP0N8Vp/aZIJ4ZPC94VlYsGW8Mj0Jg1ln6NsVRX9ICzeDuUfK7OdY+0jjsSBC8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NuNilGqS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="bl7fsMdc";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="LwvjnNKr"
-Received: from phl-compute-07.internal (phl-compute-07.internal [10.202.2.47])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 9CBF31400178
-	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 14:59:55 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-07.internal (MEProxy); Wed, 07 Oct 2026 14:59:55 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1791399595;
-	 x=1791485995; bh=jtRLzqX08zEUE4wMPaL6bQaLrHqTrfd8p+aue4HQy9M=; b=
-	bl7fsMdcKCmcUGkZIuvm7B4WxgE0+18MD/UmxEfx2hpyHJYmmowIQwzaBEvyNu3m
-	ydtVd+r3zS5eRrHPPijOWBtmJeuyYNZ+7YhmjtZezAEUMqEM1ysuxl94Xhet4hjp
-	UqarRkBr+0V0r3pwsFj5LJZ5TUQkpuhSU/O0hClwUNa+y+YfeZ2JA38B8gcBL8yR
-	vVxs89X2WHrW6MqjBTSwCRADOKRY/DiOnKLaib8ri6rNphF/I9eUil+efLezLHef
-	NELtxcfqqwqMKL8+0pZJ+Id1eiy2dVeGhHAMXAUQzm3EDg0dsn1vY5CAq1SbohMo
-	lcecNoy2sZEcwaV8mk5MpQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791399595; x=
-	1791485995; bh=jtRLzqX08zEUE4wMPaL6bQaLrHqTrfd8p+aue4HQy9M=; b=L
-	wvjnNKr3MbvR+2nx3oS4zWtK9vJDdUDkmlHq4bGeiCzq8jkD6V3g9zHNQP+UdpUp
-	F5zAmKmFp5K+yfNLYUknsGKewDPWIYMtt53/ghTAMNI0heNmf/k3+GQdlw3jQIrX
-	EbWLYcWepvflpOMVhjjp7Hh5gpjLimMUx84E+fvJfaTBbN/UTezO6WkjbnyK03Je
-	wnStxtAvj7rXRRexNCGiC/1MyDv09LQe17TIF6U+ZQlvb1N/si7XZiwIl2NVJh/t
-	ycMm0KILtZ7aYuDFDG6/Hm4fn47QWbimjzvzTjVOWPDJiDsGGwCyZe83WaplqryV
-	zVhJuWmHELSmF/wxBFjcA==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=ragnatech.se a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791399595; d=ragnatech.se;
-	mf=PG5pa2xhcy5zb2Rlcmx1bmRAcmFnbmF0ZWNoLnNlPg==;
-	rt=PGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnPg==;
-	s=fm1:rsa-sha256:BY7IU412MzXld2L1H0i9VJT1vfPZQgFnBkdabAlE4JqM3P5
-	E5/YICEQNzIQUmgbqmM2qIuBUQjK60pyH/Yz9kZqd41z6JyGxanvJVIiB8xU9VEn
-	C3ZYiXqU1lN2Zh8SCZNRJ7sELXoZSOeNrt5WbQWQ0YlMhrfyJXwdUV7mSJxzx1UV
-	SqstwJ3DWhVz967FwT0sVHCpNIEmpE06M6BJkjcBGidMZ3nBvXWG1vT0N/gmn3bG
-	dJyJfNBHN/g6Q09wUvEho/OVJn87m8zxhiXeMMztr1zPGGMobim96cbO3eANR2Ex
-	WoDCNWmdBfd9UkenvFm4cL1W2Xr5vCzRHdm9PAQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:3VVhQxyG4RKazyma3s4/5oO+lhv1MhQ44/+6qRY35ps=:H//4ghOVvWRuaFQONEl2NVv9UGxnxNBHPkEebTE6LtQ=;
-X-ME-Sender: <xms:q5bGam-0EyI09T_T6l3Ugp3Stf2CJj3FWUdLleTBXb5jEeNLfP4lng>
-    <xme:q5bGavco_GvnUqIJuNOS5PjX1_u47Uhv7Zhjy47HwEyKBjKVHzsw344nW2W_BbUGT
-    rOHOiQKYVtG43kzGko7WKGf6dopqPXe4BkklYhgkLiPZ01ZB9kqOAw>
-X-ME-Received: <xmr:q5bGaqt6fseyY-4Zf9Pl52ftYuk3v9R8QMre9WCi2Gv_wRTRi5qaeUj6MkkWikQLBG5QhNP8G40TGyiXW2Iy7JuREY_g3Uw>
-X-ME-Proxy-Cause: dmFkZTEe+GPPaJWDpjZdDjLEgpdDJkAW/50mgXfyDowXnz+WQjNhIXQPA8/eGnzKtDVHnp
-    FZCGmTxeDXeAYZSt12mf4cq5v6bJNhiPGdkAJ8g3AJZLcGY5QXOPaIQ2SqHn5zgA7gMdT2
-    ev9i7BAaA89HOzbgOfWF1BrwgmefNxGQS00mcKolPqCi1m+MNGRpBwlVt1w6jIOWQ5AXcv
-    l74rnH1dJGoBH7e5eTWjd2Z/nBr2zJ3ZmDoK31ioWS1tQfY/itjevej1Dxj7SMLw0v59zF
-    P6XWEEsqF221rz8IKoL6/rWvTTD4QK0MzJ015qABoASVdaTp564+GffCBc6vHOXb0MPWSS
-    CFEr08smGpj24UI7vplS55KsCjstbLO4Xnv4OcIjAauAOVRbHP+MThH7yZl3jEZHs6r1XS
-    39uRwveEj4flmAwjDvJMX/UlbUK03C4jQUGF9njR8vd18KTGrBcMK+l5h17wouD2bbiunT
-    MOqC+zEccaa8AC81aoS/oTB/32aPJ3yUkWissiO6B/gcRb8s/mpo+iN+MeGPeuki8Z76d3
-    OvxfiGIMfRx6fEkMKucIWlfQ7x7NUnjSG7vJgXg2AB7SZo2ighhUQtZ0kXcssY+Tc/y3kK
-    5usFIxksq5t2Y5mwfiLnzYXLa0b/35HnHz11PuQt0k4Axl3mfYdaCG6bUoqw
-X-ME-Proxy: <xmx:q5bGag10zlRI7vI44TjT-08zs6hUijYEQT-Rq8bYVsKyKjWvEL26Yg>
-    <xmx:q5bGavDW3XXPwetWXDBqzb0UDdjmoqd6FQ5LxHCoNnSyl6HYY9VQWQ>
-    <xmx:q5bGatfaxsfVo6t7jDwvagEdvf_069TjsXJTqUrSeqzhZINh63ypYQ>
-    <xmx:q5bGahxhIv5HT9ypXviOaI9iN0lxoutC47NzCYg3dEuO6N2lT50EZQ>
-    <xmx:q5bGapWbN_xYBXRyNUmCV2d1xFsst27xZvtqfqMISdGRZTnPmh1rOgUz>
-Feedback-ID: i80c9496c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 7 Oct 2026 14:59:54 -0400 (EDT)
-From: =?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Richard Cochran <richardcochran@gmail.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"DavidS. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
-	Sergey Shtylyov <sergei.shtylyov@gmail.com>,
-	linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org
-Cc: =?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
-Subject: [PATCH net-next v7 3/3] arm64: dts: renesas: r8a779g0: Add gPTP node
-Date: Wed,  7 Oct 2026 20:59:20 +0200
-Message-ID: <20261007185920.4042783-4-niklas.soderlund+renesas@ragnatech.se>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261007185920.4042783-1-niklas.soderlund+renesas@ragnatech.se>
-References: <20261007185920.4042783-1-niklas.soderlund+renesas@ragnatech.se>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NuNilGqS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B50F1F000FF;
+	Wed,  7 Oct 2026 19:04:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791399840;
+	bh=0oVbSnFsYtB5zdPmmDfey6V4KohObH3xwS7nBlaRWG0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=NuNilGqSjRS+sxaRUspj6uysygQPAa+1wWYp91uWt9Aywb+oM5CcE/P/Q+bzWXV8H
+	 7gYBE5GNe4WLQzLhR+mGBO0J3jEraCXGplJ/ogife9nm+UZ7lDnjc3rFb1Smta0Rd3
+	 2AtJYpieqrVBEqTB/tFL0+yQN+LhKsIDxnPEru8sGXOrbQPuCvdMu1dbeYlKhpuoqM
+	 S7bdGaTPGGcI1+86tbM5YVuUwQrW3rGliMiGrLBLWUivDzwd7PIdg3uO2tTcE53Fqk
+	 nUaK+rpALaaL6DMMbPZNEPiWJXw7ihjMECCwNr1Jci+zPEyUV869+FaqU5qQtQ35Tz
+	 1zgZvxhOHK9QQ==
+Message-ID: <sashiko-outbox-163304@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/2] kbuild: Support directory targets for building
+ DTBs
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?Um9iIEhlcnJpbmcgKEFybSk=?= <robh@kernel.org>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261007-dtb-dirs-v3-v3-2-b3ab32b64fa6@kernel.org>
+References: <20261007-dtb-dirs-v3-v3-0-b3ab32b64fa6@kernel.org>
+ <20261007-dtb-dirs-v3-v3-2-b3ab32b64fa6@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 07 Oct 2026 19:03:59 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-The gPTP module is shared between the RAVB and RTSN Ethernet devices on
-the SoC.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] kbuild: unconditional need-dtbslist=3D1 causes unnecessary dtb com=
+pilation and dtbs-list files during standard builds
+--
 
-Signed-off-by: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
----
-* Changes since v2
-- Preserve sort order by unit-address.
+commit 645916678e1f6dbf830062f35ddde56a42d6b0df
+Author: Rob Herring (Arm) <robh@kernel.org>
 
-* Changes since v1
-- Rename node ptp.
----
- arch/arm64/boot/dts/renesas/r8a779g0.dtsi | 9 +++++++++
- 1 file changed, 9 insertions(+)
+kbuild: Support directory targets for building DTBs
 
-diff --git a/arch/arm64/boot/dts/renesas/r8a779g0.dtsi b/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
-index 8a291447b904..7430b663cf92 100644
---- a/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
-+++ b/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
-@@ -606,6 +606,15 @@ mfis: system-controller@e6260000 {
- 			status = "disabled";
- 		};
- 
-+		gptp: ptp@e6449000 {
-+			compatible = "renesas,r8a779g0-gptp", "renesas,rcar-gen4-gptp";
-+			reg = <0 0xe6449000 0 0x500>;
-+			clocks = <&cpg CPG_MOD 2723>;
-+			power-domains = <&sysc R8A779G0_PD_ALWAYS_ON>;
-+			resets = <&cpg 2723>;
-+			status = "disabled";
-+		};
-+
- 		tsn0: ethernet@e6460000 {
- 			compatible = "renesas,r8a779g0-ethertsn", "renesas,rcar-gen4-ethertsn";
- 			reg = <0 0xe6460000 0 0x7000>,
--- 
-2.55.0
+This commit modifies the Kbuild system to allow directory targets for
+building all device tree binaries (DTBs) within a directory. It updates
+both dtbs and single-build targets to use directory rules.
 
+> diff --git a/Makefile b/Makefile
+> index c307ee9293bcd..75d290c2b7d88 100644
+> --- a/Makefile
+> +++ b/Makefile
+[ ... ]
+> @@ -2234,7 +2234,7 @@ prepare: outputmakefile
+>  # Error messages still appears in the original language
+>  PHONY +=3D $(build-dir)
+>  $(build-dir): $(single-build-prep)
+> -	$(Q)$(MAKE) $(build)=3D$@ need-builtin=3D1 need-modorder=3D1 $(single-g=
+oals)
+> +	$(Q)$(MAKE) $(build)=3D$@ need-builtin=3D1 need-modorder=3D1 need-dtbsl=
+ist=3D1 $(single-goals)
+
+[Severity: High]
+Does adding need-dtbslist=3D1 unconditionally to the $(build-dir) recipe
+cause unnecessary dtb compilation and empty dtbs-list file generation
+during standard builds?
+
+Because standard KBUILD_VMLINUX_OBJS targets (like built-in.a) depend
+on '.' (which evaluates to $(build-dir)), 'make vmlinux' evaluates this
+rule to recurse into the source tree. This exports need-dtbslist=3D1 into
+MAKEFLAGS, which is then inherited by all Kbuild sub-makes.
+
+> diff --git a/scripts/Makefile.dtbs b/scripts/Makefile.dtbs
+> index c4e4663902844..c7ec2a2a308ef 100644
+> --- a/scripts/Makefile.dtbs
+> +++ b/scripts/Makefile.dtbs
+> @@ -23,7 +23,9 @@ dtb-y           :=3D $(addprefix $(obj)/, $(dtb-y))
+>  multi-dtb-y     :=3D $(addprefix $(obj)/, $(multi-dtb-y))
+>  real-dtb-y      :=3D $(addprefix $(obj)/, $(real-dtb-y))
+> =20
+> +ifdef need-dtbslist
+>  always-y        +=3D $(dtb-y)
+> +endif
+>  targets         +=3D $(real-dtb-y)
+
+Because need-dtbslist=3D1 is globally inherited, it now unconditionally
+appends all device trees to always-y in every visited directory.
+
+Additionally, it triggers the generation of dtbs-list files across the
+tree via existing code further down in scripts/Makefile.dtbs:
+
+scripts/Makefile.dtbs:
+    ifdef need-dtbslist
+    subdir-dtbslist :=3D $(addsuffix /dtbs-list, $(subdir-ym))
+    dtb-y           +=3D $(subdir-dtbslist)
+    always-y        +=3D $(obj)/dtbs-list
+    endif
+
+Could this unconditionally traverse arch/$(SRCARCH)/boot/dts/ and
+compile all device trees, regressing build times, while cluttering
+unrelated directories (like fs/ or mm/) with empty dtbs-list files?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261007-dtb-dirs-v=
+3-v3-0-b3ab32b64fa6@kernel.org?part=3D2
