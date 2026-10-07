@@ -1,153 +1,138 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from sender6-pp-g123.zoho.com (sender6-pp-g123.zoho.com [165.173.180.123])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1842F3438BF
-	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 03:23:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791343418; cv=none; b=Vociu0ZXHjb2ICsTApnEiLrLGZUpM9FArUkCXnGCyPnic+JlMu+cdSqUdKajig0TW8m3tTKHZi6FgZdG90mZ4TWUGFOuCs4mn0FwTXfoupqOtKc8R3+D9nwOZIbmF6QK4BsJ2/A9RuIXE5zlCoYsXd7u24VfgzC+J2Rx3JJA+h8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791343418; c=relaxed/simple;
-	bh=Ausy8/4gz8lUdqnofFDo6hUNOeuY6YmQ2FWO2tl7+ns=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PsvLwDH9ufNiMkG+XyxtzxJu4G8u/+g5LfpjwRiDQvtileDQDGqV1LejbFFidp3Crv+H6lngbtgpLYuFuXjOZgdGjZeTQxRnfpoHKQqWhjCJ2MIMhJ7QB0hIer+El+q3XwJ6wo5BWuaskKxoyJLhfJWwX9TT3n/tL6NkI406MPQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=AOKk/AKT; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=SpKaZh73; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC3AD5B206;
+	Wed,  7 Oct 2026 03:35:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.123
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791344145; cv=pass; b=SSbeQ84WQuLAKnmprhCtqyDh20JNny4LenTg8Ed+35C5e4b9qM9lk5SK7EgCMo9YztNXhfcvXSe3NUzWN4U4EGkueylGgoYOqZzN9XRhB4jg7X//ybnOdRT4lT+lASK06ILCgzSoEG1wfaDrkBJZzwc/jiR7WBQ0PA2K9yLggf0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791344145; c=relaxed/simple;
+	bh=tT28eRbBX/xWqcGm7Vdom8PM07D1NYc0Wz80OC3tjzw=;
+	h=Mime-Version:Content-Type:Date:Message-Id:To:Cc:Subject:From:
+	 References:In-Reply-To; b=u3oVNeZPw5KD5x7pkNTXG0wIu7beprWrnY57Gmv0a5JvRQbeAnID5GsdMA3FxjVArzoG6TZ1rP3GEGsmQtAhQLMDJzPOL2v1xZ81EtBSwZeN5sus2wECqcaTaAG3Lp8eZ2M/yM+6KQL1IAUfB9AUc6cKeRgDhV4y4qejSHYE15I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech; spf=pass smtp.mailfrom=pigmoral.tech; dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b=ngjjKCMT; arc=pass smtp.client-ip=165.173.180.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pigmoral.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="AOKk/AKT";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SpKaZh73"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6971HM8H2136122
-	for <devicetree@vger.kernel.org>; Wed, 7 Oct 2026 03:23:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=KA48W7VRQ3uJFaVC9VZEckxe
-	CX/Ro12c18oCYgFj9fI=; b=AOKk/AKTQqwVwdqwJ4RHXf+UEx/9Grw0PuLX/Bh/
-	fl7qmVTYUXmKbu/7NT7+v/CcdcMsB1xLUIf3kOnGjtU69HCbuajma6LhoYQstI7b
-	+/StMXc+dK5ASKTn5EvU0nXazkyeC3FzioFavxTKdJ21ZkvOQ5ijNyEzWjLcLol9
-	HzYY1UlnJP+B2uwJp6/oSPjKpqBQ9Q9uEjZDssBxyOxW/NbqGrT3pLSdtIrhcNjv
-	4iprMdmBfYjVS7wyH9Bn573mYa8s4vDzrlvk1CbQpUtj1UeNEU9bTw2iH0lwRWZ6
-	ojdvncwWq3r3pOx1FR7EIz+qe7rXf/SPy/yro6ssnwx9pQ==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5c678csr-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 03:23:34 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-30bcb065bfdso7148754eec.0
-        for <devicetree@vger.kernel.org>; Tue, 06 Oct 2026 20:23:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791343414; x=1791948214; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=KA48W7VRQ3uJFaVC9VZEckxeCX/Ro12c18oCYgFj9fI=;
-        b=SpKaZh73N5Mpr0hItZV1SRzZsD9wRh6Vn2oJv9iKhV8YrUry1lfB8ABGtvQ8bYCZuN
-         otDRq7qTdbGhOnRUaP2d1rB7i0+vMcJwT01YJAKU2OHj5g4R/viuo0v4siwrGFVhBr1v
-         IuJqNKrRpDBSrZTSsZtZkBWMUMkYFPe6QAFxjZAwPMIi1gR1HGBMKiZHz/TsEJJ7X4E9
-         YZ3ZhdL5+klszwVcIV4qGDs9MAD1zhAP64KIVlHXyjWdjrqzlVh7LzJ96KHdC3GiC0Ti
-         AK9skj5bGdtmYwxLuz1YX/Nkwm8q4ci1289OcnWyNuTUbc6kx+CQzP8nWO+QBRJgNGrk
-         bA8g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791343414; x=1791948214;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KA48W7VRQ3uJFaVC9VZEckxeCX/Ro12c18oCYgFj9fI=;
-        b=fxi6h5sHh8uAyIa+1987uyTT83mVA3+BCTU8OPCMn6TMFP3Xe84ZojXcd3mrqWKx9j
-         1GwKFxx1Bo+t1eD/ECPImcASl4gk4eMjj9NWlRiOtHtkMNXuVCxKkZGQVsFxUwbk1UpR
-         hwDXdg0r8Uxp9UWjxaZfNB0Aus59wP0LNl0eeTRzwDNVaL/Tk9Q7E+gl/JpdqdeKfiYu
-         RC0NuNn9K0JEY9hQnsIHXLIv+BqfC3585NYZhtHl2NE2VkinNEEhLQsLufRj+HCTJiAX
-         u9ZPWk+qbsogJM8pV/UOVt2e4UkTDb8DeImQBs++vZsqtzVyFCAXDktvSfJsGyE8qoKe
-         Xuag==
-X-Forwarded-Encrypted: i=1; AKwUvByieaI7czkOYg+Hd3yzC+kzAyZi2qoX0VW5rJ5Mt7lN0SD0xbmF4VIinc+wljitU/ur9qUcV0u1IAED@vger.kernel.org
-X-Gm-Message-State: AFuF++lRmJvijkP0XmN7WxTdrV9iEbg+Cu+e3eI2cM0pa0d8YOi+nGec
-	Lks0M27BVCNtBmR5c7QGGLUef7lYOrJYo4AjoVwyxGzd1/+cCFwJpxICXt+OFCYdqlkSoCgg/Lj
-	zYN+AtT+7lpOe3tW9qXdOJJ551E3q2GgXrfVZWbJZhr3RfFI52PgzQfffQOVvfa3N
-X-Gm-Gg: AYBFou2RBufsj5L4WHc/dowJ+evUgaBzHdm+bRJ/+Z0SuFo6SZC7sAXZjYplN1VKkxa
-	pYZuI/8Jytds0k3rhwP76dIdmjlUtuJNJnT3bDj0YGzR0sDvewEU0pecsK7+bM10x2Hsr6JUnaO
-	6H8qLw9dTGJGIANfGmjchGUAs8t1CnJhl9kipc1oHmCP116ZsuvaVKDI3A7JW5mVlf+onf70mzA
-	1whV7YGUyhUKrrfkO5NTgrwcWDLMQ0pAwofxv4EtDEhL6PE00s+oyLUH2va6M5fPYKg4WemRF2a
-	pdFV6WixvZX5R5VAdq1ASW+HX7qmIdmdgvfEeujUZ9XovO1QkMZ6NVz9n1rOE9k9MZBp6yR2WS2
-	h8nSKROGpNkoK9n4Gn25ByhidcpR4zntXGVqnMPn6oA==
-X-Received: by 2002:a05:7300:c00e:10b0:34e:caae:20f5 with SMTP id 5a478bee46e88-3515de2686cmr822499eec.30.1791343413968;
-        Tue, 06 Oct 2026 20:23:33 -0700 (PDT)
-X-Received: by 2002:a05:7300:c00e:10b0:34e:caae:20f5 with SMTP id 5a478bee46e88-3515de2686cmr822477eec.30.1791343413469;
-        Tue, 06 Oct 2026 20:23:33 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3515b03da93sm2702320eec.29.2026.10.06.20.23.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 20:23:32 -0700 (PDT)
-Date: Wed, 7 Oct 2026 11:23:25 +0800
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Will Deacon <will@kernel.org>
-Cc: catalin.marinas@arm.com, mark.rutland@arm.com, kernel-team@android.com,
-        Robin Murphy <robin.murphy@arm.com>, Joerg Roedel <joro@8bytes.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>,
-        linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev,
-        devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2] dt-bindings: arm-smmu: Document Adreno SMMU for Nord
- SoC
-Message-ID: <asW7Lay9i_hiuTcP@QCOM-aGQu4IUr3Y>
-References: <20260902013858.130887-1-shengchao.guo@oss.qualcomm.com>
- <179095635040.2123203.12001281676860626455.b4-ty@kernel.org>
+	dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b="ngjjKCMT"
+ARC-Seal: i=1; a=rsa-sha256; t=1791344101; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=EMt2HxZjGxKqN3KMja356Ejlm4RJ3ba7GuoEX6EUHQ11KKvVi/AlTLXrVwZkxPQFoHXC2LwGWUjI5cwh53QZConfu700rGSNok0yINxejDfgC4WPDw5S0pJqMo6zSdJiN0CpO7ReMGrXY/KVAefrmvMEFgrCdz1MsMrReBIMc90=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1791344101; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=7EEv66TfkkqDC0vBD6k5R4XJT1WUveDu+xqFWjFMwS8=; 
+	b=l09IKvPiFoQMX2AX3F1fOIWVtTXZREcVQyzldMWz0+tZ8xOSQYyblRiDWkWmxg4EZ5zBLoXBv3b9B0s6Z0q2Fny0MWidmzBKZsDWz4s/sdjCyBYR5a6VNIQn40ecbW82JoQ9oCDbnNvyOF0d5ymxtqwYHoXTK3mqdQn+11WsUOo=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=pigmoral.tech;
+	spf=pass  smtp.mailfrom=junhui.liu@pigmoral.tech;
+	dmarc=pass header.from=<junhui.liu@pigmoral.tech>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791344101;
+	s=zmail; d=pigmoral.tech; i=junhui.liu@pigmoral.tech;
+	h=Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Date:Message-Id:Message-Id:To:To:Cc:Cc:Subject:Subject:From:From:In-Reply-To:Reply-To;
+	bh=7EEv66TfkkqDC0vBD6k5R4XJT1WUveDu+xqFWjFMwS8=;
+	b=ngjjKCMToI6FGmexYDJ/b1KiQmPlOSMsEgTrZ1Bj27Cu5QVcCjFprimUKNkf1sYU
+	A5Bksc5nvWbdRiJ5nUGNCEssIHzFQgZ9YVyrNw6nk+G1S4Q6xuauG+CvM6kkgkftsNq
+	RzjUMpRmbx+tDp0XBw4HCwVTxhtGOhNEnUh06Anw=
+Received: by smtp.zohomail.com with SMTPS id 1791344099855931.7368458013717;
+	Tue, 6 Oct 2026 20:34:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <179095635040.2123203.12001281676860626455.b4-ty@kernel.org>
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDAxMiBTYWx0ZWRfXwPh6F2WCgAvK
- AjXWL4hfNhGDHBwrkk2T/qImtpn1P1yNpW8VD4r375XUzHO1cNmLzhEwyJ7lcn5SDVujW1ufcxd
- x1f1b44GNjGZSSKCc9evXEZJLhYJmT4=
-X-Proofpoint-ORIG-GUID: 791sRB0HSFomefA_FxCSLwI4Y8i2S6CS
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDAxMiBTYWx0ZWRfX3tZEJIWVMVuY
- iqfPSimY548XsLvmWkoWcOaRlRjhQoxXSp1fDA2bWESX2nCLKq7O+ty2aWjeP5zlXfLLDdJf51g
- hZJF0ac/tYLaygBkAJ4hE9lOyFOWp400stEnthLFjI/P0qmawZSQ6Dswkbf+ZSGZtdveObY52k4
- a8kTfXwVnUneYYywTh4AVBUD1aNiH1P3iQsL2bjKsusajtwv/ZVDh9tsvgcyNljdAYfgC2Lp1Kl
- /K/XrxqqYt+HwEmb+oYp3PUgBw84+A1zxjKl9GQemwDE4VHOjujATifSgQaztr0g2AizkAC7MFG
- 3GfvaEXWDCcObz0n0RQ0QPRu+VlU6V96OWxZEFM7fF5F/vpySpbx+kz/xL1iVzsxEvzJrDw52+u
- RWfvel3WktnLaafac/ZU0DMCssXZcFPMUuDeG92DRa3drou1Espzyd9H3fSAme8aKvksXsyDz25
- O4JQboGaI+oP0iGeBzw==
-X-Authority-Analysis: v=2.4 cv=OfcNnRTY c=1 sm=1 tr=0 ts=6ac5bb36 cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=VwQbUJbxAAAA:8 a=362RFuTrwy6jnSdmp1cA:9 a=CjuIK1q_8ugA:10
- a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-GUID: 791sRB0HSFomefA_FxCSLwI4Y8i2S6CS
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-07_01,2026-10-06_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 spamscore=0 malwarescore=0 bulkscore=0 clxscore=1015
- adultscore=0 lowpriorityscore=0 suspectscore=0 impostorscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2610070012
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Wed, 07 Oct 2026 11:34:49 +0800
+Message-Id: <DLYAHDTH3129.3AYF0OSHL8RJ8@pigmoral.tech>
+To: "Vinicius Pedrosa" <vinicius.eduardo.pedrosa@gmail.com>, "Junhui Liu"
+ <junhui.liu@pigmoral.tech>, "Stephen Boyd" <sboyd@kernel.org>, "Brian
+ Masney" <bmasney+clk@redhat.com>, "Jerome Brunet"
+ <jbrunet+clk@baylibre.com>, "Rob Herring" <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>,
+ "Chen-Yu Tsai" <wens@kernel.org>, "Jernej Skrabec"
+ <jernej.skrabec@gmail.com>, "Samuel Holland" <samuel@sholland.org>,
+ "Philipp Zabel" <p.zabel@pengutronix.de>, "Paul Walmsley" <pjw@kernel.org>,
+ "Palmer Dabbelt" <palmer@dabbelt.com>, "Albert Ou" <aou@eecs.berkeley.edu>,
+ "Alexandre Ghiti" <alex@ghiti.fr>, "Richard Cochran"
+ <richardcochran@gmail.com>
+Cc: <linux-clk@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>, <linux-sunxi@lists.linux.dev>,
+ <linux-kernel@vger.kernel.org>, <linux-riscv@lists.infradead.org>,
+ <netdev@vger.kernel.org>, "Jerome Brunet" <jbrunet@baylibre.com>, "Enzo
+ Adriano" <enzo.adriano.code@gmail.com>, "Andre Przywara"
+ <andre.przywara@arm.com>, "Norman Herms" <dockseed@proton.me>
+Subject: Re: [PATCH v5 3/8] clk: sunxi-ng: a733: Add PRCM CCU
+From: "Junhui Liu" <junhui.liu@pigmoral.tech>
+X-Mailer: aerc 0.22.0
+References: <20260930-a733-clk-v5-0-11175b41cd2d@pigmoral.tech>
+ <20260930-a733-clk-v5-3-11175b41cd2d@pigmoral.tech>
+ <20261005183038.417798-1-vinicius.eduardo.pedrosa@gmail.com>
+In-Reply-To: <20261005183038.417798-1-vinicius.eduardo.pedrosa@gmail.com>
+X-ZohoMailClient: External
 
-On Fri, Oct 02, 2026 at 05:46:40PM +0100, Will Deacon wrote:
-> On Wed, 02 Sep 2026 09:38:58 +0800, Shawn Guo wrote:
-> > Add specific compatible string to document the GPU SMMU present on
-> > Nord SoC, and constrain it to the single HLOS vote clock.
-> > 
-> > 
-> 
-> Applied to iommu (arm/smmu/bindings), thanks!
-> 
-> [1/1] dt-bindings: arm-smmu: Document Adreno SMMU for Nord SoC
->       https://git.kernel.org/iommu/c/e9da5ec4a1d6
+Hi Vinicius,
 
-Hi Will,
+Thanks for testing.
 
-Could we get this into linux-next please?
+On Tue Oct 6, 2026 at 2:30 AM CST, Vinicius Pedrosa wrote:
+> Hi Junhui,
+>
+> On Wed Sep 30, 2026 at 1:26 AM CST, Junhui Liu wrote:
+>> +static SUNXI_CCU_GATE_HW(bus_r_msgbox_clk, "bus-r-msgbox", &r_ahb_clk.c=
+ommon.hw, 0x17c, BIT(0), 0);
+>
+> [...]
+>
+>> +static SUNXI_CCU_GATE_HW(bus_r_riscv_clk, "bus-r-riscv", &r_apb0_clk.co=
+mmon.hw,
+>> +			 0x21c, BIT(0), 0);
+>
+> I'm bringing up mainline on a Radxa Cubie A7Z (PCB V1.11, 1 GiB). With
+> 7.3-rc6, this series and a local common-DT integration, PSCI reboot and
+> power-off hang once unused clocks are disabled. The boot chain uses
+> vendor boot0/BL31 and source-built SCP/U-Boot.
+>
+> Keeping both of these gates enabled fixes reboot; either alone still
+> hangs. With only these two marked CLK_IS_CRITICAL, reboot returns to
+> boot0 and power-off drops DCDC1 from 3.3 V to 0.7 V and turns off the
+> green LED with power still connected. I haven't checked whether each
+> gate is needed for power-off on its own.
+>
+> My guess is that BL31 talks to the SCP for these, but I haven't traced
+> it, and it may be specific to the vendor firmware.
 
-Shawn
+Yes, it appears that the vendor SCP firmware runs on the E902 core
+instead of the ARISC OR100 core on the A733. Disabling either
+bus-r-riscv or bus-r-msgbox breaks the SCPI communication path between
+TF-A and the SCP firmware.
+
+>
+> Would it make sense to mark them CLK_IS_CRITICAL, like bus-r-cpucfg
+> already is? I can test the next revision on this board either way.
+
+Mainline TF-A uses native PSCI for reboot and power-off on the NCAT2
+family. Even if Crust is ported to the A733 in the future, I would
+expect it to run on the ARISC OR100 core rather than the E902 core.
+
+(Also see discussion in [1].)
+
+The E902 may also be supported by the Linux remoteproc and mailbox
+drivers in the future. In that case, bus-r-riscv and bus-r-msgbox
+should be managed by their respective drivers instead of being kept
+enabled globally.
+
+I don't know if marking these clocks as CLK_IS_CRITICAL just for the
+vendor SCP firmware is a good idea...
+
+[1] https://lore.kernel.org/linux-sunxi/556cd32394062960a3ea4af0011155cfa83=
+ae91f.camel@d-silva.org/T/#u
+
+>
+> Thanks,
+> Vinicius
+
+--=20
+Best regards,
+Junhui Liu
