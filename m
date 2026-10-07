@@ -1,283 +1,183 @@
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012006.outbound.protection.outlook.com [52.101.53.6])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 991044349A0;
-	Wed,  7 Oct 2026 12:20:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.6
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791375657; cv=fail; b=c66kH50+o6IrkOrdBKpiai/Ni+oqKCbgpHbMj4mtglOrxRO8LxFk/EQ8yS4vGnmcDINJjr5hXEBR8vjs7BpPCKgIIy/Un3P2FVrPQuY52uz6ulteNkWIs7wyIbdd/ZXcKnPxf8Fqj5v4v4fIinpxisCnTRMBHTjECr2nYSBHBYA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791375657; c=relaxed/simple;
-	bh=f+jDqoCrpeDWHrWOoVrgC2U4j4wvwHJgsPEnE3MDA/U=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BPF307TVt0y4eB4u5E5SWvGsEiDRcmnFkZG4coTxW7QXVSQVF6yXxPhFQvbV/FJhRshbTMz0O2WClJZVmpbiBp2j738qGik1vOhFFU18nu+TwCNjlyC4U3hzEouX6Xy5X2cwSnUjrbOXW8j+JG6NkST44iwkVtxkdBiL/FkDTyo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=oyAKxouT; arc=fail smtp.client-ip=52.101.53.6
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C67B3B38A1
+	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 12:33:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791376418; cv=none; b=pD4pMAeZsY6ZIFtxRAOP70YlWXDGmjD8en54amk/nwUfDy2L146R69+i6pgVXGZfot+M+8+PMH/Gj/YTtRN0IUlbWAagvbb697HAlzM/XcHLTaJ8GhaEt3+gEVKq4Q5Rcr31OQMPamsFuV4rblvLylIK4FD3PvzdFGpeG69ijr4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791376418; c=relaxed/simple;
+	bh=JcerM9sK/g4sUoTC/DiI4yPMBzcaqJfNy1s9cxu6Ej4=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=nPa2b6WGohZSyAcom6Srqt9Yf1ur59I0TR2VUKgUel+zZvQUqnLqSXewSRssUZD9HP+axbXJ17+LhcyOw4J5cbT2FGnlZPvKYjP+8bwm+4QGsy9AOB0y8nrJ+t9r9J447StEPk1gFlCdbrzwEnJbojr6iS7kT67Nd8O/Z5WBVYg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=UMdAPtpY; arc=none smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="oyAKxouT"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=R8V3/q0dYRGmvZO+ZPr33zNi/rBVIYwr3FyazFWkomfv5bKK6jkFiOset3lGP5AkBRO+f/UWV4iacHpq7rmvHtOHsZM0EP0so+serDVLtHfqbGr2MRj1I7LAIVORFD0Q8F5eZkoJggs4+A9/sIxr3GShaU6djzSFkDh7xHL0cmNKEicklGMNcNsmfvNR/aUaQdz0sp701SUbYNapGgO2MlXwErls3MpxSrtOCBW+VOZDWKWe8MGZH6oGVxZEerG1pKJ3679tqumr8ZCm9DT97L/pyrj4FTzacT9VHYP9YOLJCAiECt0HsteeWHc0zQxMOhstg+fHzNey893UNS91Uw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=0Dy1Pfsk1SvWncy2BC7FHFnn0B/Q5qZ/WJ2dLv4i64U=;
- b=MDuX3rlC4GGOVNih1iZQENjPlAtbiTBp067B86iCbjXmXNmEfMPoypwMK351+HzbcJZ2yTzdeSmF60RsYdSq/0osQaKpB68DzqzTmw3f7Ot5hH18KcOgf+qgz1U6v8PPylTLXGWWYLNmFlMK5AoRLPsSbkmPik3O9AZnPG+WfI3MY2shl/YqEqkQBQ5i60a4PVe0Mjd5uKs/YR3+ZsQW0ZIOX0A9Nn7aBQCe2Rfo2bM+UuwemXz1ApULe2LvtaR1ju2NCB+LYJtbmIIFlE4NCVrVy6/MT/g0r6J6b7kiTNHUHDozqhnnPOgU6PHtZKhie3y+xQVqv3gB1I4JofaXaA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=microsoft.com smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=0Dy1Pfsk1SvWncy2BC7FHFnn0B/Q5qZ/WJ2dLv4i64U=;
- b=oyAKxouT4CD8G09vI7L2QkJUFSIR3sCRJIz5V0EVP+sA05AmNnSATl6Woi7K0Be6BalHPEaoIEAzbnJlTo+u89RmaHTuWX4upmJBFNit049BwVDp17+7SOlKb4J7dVb9VPsZVB8m6V8g6NhUGd8+ztYPq4Kcp10bRAY0AZjKgws=
-Received: from DS7PR05CA0014.namprd05.prod.outlook.com (2603:10b6:5:3b9::19)
- by CH3PR12MB8353.namprd12.prod.outlook.com (2603:10b6:610:12c::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.26; Wed, 7 Oct
- 2026 12:20:38 +0000
-Received: from CY5PEPF00000E7A.namprd02.prod.outlook.com
- (2603:10b6:5:3b9:cafe::12) by DS7PR05CA0014.outlook.office365.com
- (2603:10b6:5:3b9::19) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.496.5 via Frontend Transport; Wed, 7
- Oct 2026 12:20:38 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CY5PEPF00000E7A.mail.protection.outlook.com (10.167.247.42) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.496.14 via Frontend Transport; Wed, 7 Oct 2026 12:20:37 +0000
-Received: from xsjarunbala50.xilinx.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 7 Oct
- 2026 07:20:34 -0500
-From: Jay Buddhabhatti <jay.buddhabhatti@amd.com>
-To: <git@amd.com>, <ptsm@microsoft.com>, <robh@kernel.org>,
-	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <michal.simek@amd.com>,
-	<sven@kernel.org>
-CC: Jay Buddhabhatti <jay.buddhabhatti@amd.com>, <devicetree@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH v2] arm64: dts: xilinx: versal-net: Remove CPU idle states
-Date: Wed, 7 Oct 2026 05:19:32 -0700
-Message-ID: <b9213a36eb1d28f3e7b8610592c085f627f5c7cf.1791374721.git.jay.buddhabhatti@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260727121842.3410495-1-jay.buddhabhatti@amd.com>
-References: <20260727121842.3410495-1-jay.buddhabhatti@amd.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="UMdAPtpY"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48b02a2359aso1659868f8f.0
+        for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 05:33:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1791376405; x=1791981205; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Sto7ylfghKrxF0yVdAjf8Y/DDquUXT6FEKrppsRxI2o=;
+        b=UMdAPtpYFLkRkCBvRcJTuYAxv1GWo8EufGmhcUd9CjHk16Cagb11tceIhnvwUN7br4
+         Nc0W0yIA0lERin+yT1KioikeW+c71KsHa4/HfWh3nZ38y44NFM9DdxzOmQU9Vl2spqrd
+         pbxD0Jf2Te59in0mDIfYQzNpmvjmzXt4RScCWAE05I4Q8nL2suWjOD+dEKY3i9Z8BkU+
+         eff8lGmjunMzk7siyCuT4J079SB+nhs6NrQNQfl1Q7qegGLESmb28Y6vZJAUN8/X11j8
+         tBVup9oW9ct5tL1jp6PjJkhDOPvBJW8FoYMgIaMbbgCE4FXhJ+cXCRw5RTWM6V13+doG
+         vAGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791376405; x=1791981205;
+        h=content-transfer-encoding:content-type:in-reply-to:organization
+         :autocrypt:content-language:references:cc:to:subject:reply-to:from
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Sto7ylfghKrxF0yVdAjf8Y/DDquUXT6FEKrppsRxI2o=;
+        b=TAxwzFUunxaN46CJT+kRhbHlG+unWMleM+bAy+fXjOPrkq0ymedd9oJB/mysX9hGdN
+         6VFOcZS2EBoYGkj/WEgwYpcxSncvb/8MGF/gWt1VSK4sDpgkka7hdJZtnTtX0DxQhTKA
+         Uej7pL8ymojCWnjbk8wvCugDDcQJATXsprqLB5wuP9+tZH3zAVO1W0cg6lSRF0xys4HR
+         MWz+lJ5NIz2sgbH6u2nGTB1JthkFi1qgR7jY4I7IehcXUHtKpte+MXadM5oZUNJTDhGI
+         ULLhZfprNrtWO7y5zvAz/LcH3FAsvaDwszr7Y/Y9V0kOo+sfVccWhUUd5V93DFAEUjuX
+         ZQ0A==
+X-Forwarded-Encrypted: i=1; AKwUvBzXAJx90zXRVllji/4xJzPPZkQxQ/zLcq2crOOSrhj7nt3IfnCrH8eO2CCWW4Qs9A4iThq5YmX4OK7u@vger.kernel.org
+X-Gm-Message-State: AFq9FYL/pvjarHgoA0GVzxdxjuHNgxtUFn08ltOnMj3aI1YSKb2+w7dY
+	ajbKlt1DjkxCDe2ImBwXMhgVOSI1B6dtk98wglMgSeRauv81rlpRrE2O1MLJIERR4JI=
+X-Gm-Gg: AYBFou0V5dvUJF6/G/abT+801VEZjO8ikYxdMd6MgiazNlNOu+Faut9UVp4WUB1PoSX
+	OqizF7px8uvfugHcG13E6+uVGlXiHzwVAqg0K+37vcgEPPl74c34J8WDA+02gGggTJ9tCbQMrkS
+	e9OHtMb2lBTUPOeUjz+owWRMQSQYFwDCW569KJIsTCuvkhyZ2LQGv5lzTNnzqCFprMvowyhCHJv
+	yvstI5h1uK858NGAD+Ox6IFgM6F8aUFjWhqmC7WZbN02QlWEnEZWvfZBc8mSinzVXIRrLDhVBTw
+	fKvc4xSSAkRdtHvFHMJWdCUEkLbGobed3Ie/ud+OOCXJrEomJviP1UraIuPMi0uSLH9G4Zxi5fp
+	K4o+zJDTrjIeY1dRmAocd6/8pjKiA2kQ1niyO38fx+SDVAPfLQrnKLIdNrcJwNsGOCGCmWpkkJv
+	mRaj4RZXWOZVUCBfEmOssiikpEK6cY8N7PxhHbv/U+nRuGr23z7WZWA9bFHb1ddr/mcEQn1Xx4j
+	jwBkZjhocKwykSTKN0ct4PMaVq8orAZ
+X-Received: by 2002:a5d:6184:0:b0:48c:54ec:ea3 with SMTP id ffacd0b85a97d-48c688c031amr8414035f8f.13.1791376405104;
+        Wed, 07 Oct 2026 05:33:25 -0700 (PDT)
+Received: from [192.168.151.46] (90-182-211-1.rcp.o2.cz. [90.182.211.1])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c71d3d3eesm5973138f8f.53.2026.10.07.05.33.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 07 Oct 2026 05:33:24 -0700 (PDT)
+Message-ID: <15a6f5d5-fdf2-43e2-94bc-3e87c4eea122@linaro.org>
+Date: Wed, 7 Oct 2026 14:33:20 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY5PEPF00000E7A:EE_|CH3PR12MB8353:EE_
-X-MS-Office365-Filtering-Correlation-Id: 88307661-cb89-4406-bbfa-08df246d6550
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|376014|1800799024|82310400026|23010399003|10067099003|11063799006|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	eH+OJVa3m5EZnUo9M0LaiX65I4OcPda6+iK3TwtKXsNf+33rkR3k/tRpuE9XJV+Vy5WfT28itMrNQnat0kp7PwgB7UDGptnitFR0MgcCthnpdcZeIUztRmJ/2dLTF2fj6eCYCClZqs+qvykgG/JmNu0ugkkytlCS7YG5k5uyUztH4q+X4ucGmOtZ48rPNS+vL3QL+KwqQkyWnjXTjbO/c0H9iS6HDJTB0OmC0gOrBIPjHxhWJVf2XmZTtu2rGrsDcKgeff+pfcazQZRxrWDurSYRshwq6B3iaxxgsffTBC4VOcgP2NKEWBrcOgAyMK58FVGlC9IG5NYIwdjfxRpXxiNBxkp+uZdZJp86HbtzEeyRPpWSUYbm33NpAquqU9NuiOccMdrZSAFRDkCxJDrOs/qdQw12oQUJU0tcYnpN7kKzdBWFl9dIw/5JJmsMgodJtfE0iG3uP4Pjt9nX/ip+hNtjy9pOHFEvWS6n6oe/f5xbiW/AeGc1YZ0Bmr+0ZIHhll5pocHYOCKRqqwCpCPdpUapwpUIQkL8WqjUJQFC32J/R0ulTuAmnyu7mh0MfFEL4oU+6U+iUSBlXaLxUC75GGiBRXiLL1YSpBAH5Au1kTObud+mzs2z/UHe5RpQ2RtyE3ajjBgoL2preGbSAO0g7+g7pKG+zkMuJJ89O/VFuuxNyzaBwrmeUfzQ3AUYqU24W3fJ0mLMoe5VFLfqUekQ2g==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(1800799024)(82310400026)(23010399003)(10067099003)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	Q6CrhFXJVxKTmGcVR6EcG/AnPCSelhbPxHAmM6jiUO/A1Yu2nOY+NZdjjHn8lenPmuUQiImsEwK1PrsgPVO+fGuyBN//Nv1W06ALzzGMuX1tqk+WytOKVGWOpxvPU6nYCaJ77GNcfAH/g5o0AGWSoJA3MzJytdWH6T75mu118Dc0j4Vab3C7pihci86sIECd6RAlN8rpTQkpmsdVrpwgy0cWnBNAQVBP8PZ24PLWE7sjbveMMS8p48EN/oqrgo5nyGeGlieyz/rxryF05kUHvpGpzfLggNfVuLVPwj42BXuoJGZCD5tm482q++62H8AWGEPLjN8mdGRYRBUkhYyv0GmPIhZPaR/8tB1FOxjtSuHLpKI9jdhI4K+xwoV+gifIJFCtKmnFghw41jI9v1M2euPmq0TETa48A1A4KbdDzfbYbXtkTcLM1xucFwn0SlLl
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 12:20:37.8843
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 88307661-cb89-4406-bbfa-08df246d6550
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY5PEPF00000E7A.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB8353
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v2] arm64: dts: amlogic: meson-sm1-odroid-hc4: add the fan
+ tachometer
+To: iav@iav.lv, Kevin Hilman <khilman@baylibre.com>,
+ Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Christian Hewitt <christianshewitt@gmail.com>, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20261006-hc4-fan-tach-v2-1-e27ad96e92a2@iav.lv>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20261006-hc4-fan-tach-v2-1-e27ad96e92a2@iav.lv>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-The sleep state powers down the CPU core, and the wake-up time cannot be
-guaranteed because the firmware may be busy handling other tasks at the
-time of the wake-up request. This leads to unpredictable and potentially
-high wake-up latency during CPU idle.
+On 10/6/26 18:36, Igor Velkov via B4 Relay wrote:
+> From: Igor Velkov <iav@iav.lv>
+> 
+> The fan connector routes the fan's tachometer output to GPIOX_7, but
+> the fan node does not describe it. pwm-fan therefore registers no
+> fan1_input, and the fan speed cannot be read.
+> 
+> Describe the line as the fan's interrupt, and mux the pin as a GPIO
+> input without bias: R109 on the board pulls the line up to VDDAO_3V3
+> (schematic rev1.0, sheet 31).
+> 
+> Tested on ODROID-HC4: fan1_input reads 0 with the fan stopped and
+> rises with the duty cycle, to about 4200 rpm at full speed.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Igor Velkov <iav@iav.lv>
+> ---
+> Changes in v2:
+> - Mux GPIOX_7 as a GPIO input without bias (Neil).
+> - Link to v1: https://lore.kernel.org/r/20261006-hc4-fan-tach-v1-1-4e7cecf0b45b@iav.lv
+> ---
+>   arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts | 15 +++++++++++++++
+>   1 file changed, 15 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts b/arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts
+> index 5f15c2299509..64602aff1d81 100644
+> --- a/arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts
+> +++ b/arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts
+> @@ -21,6 +21,10 @@ fan0: pwm-fan {
+>   		#cooling-cells = <2>;
+>   		cooling-levels = <0 120 170 220>;
+>   		pwms = <&pwm_cd 1 40000 0>;
+> +		interrupt-parent = <&gpio_intc>;
+> +		interrupts = <IRQID_GPIOX_7 IRQ_TYPE_EDGE_FALLING>;
+> +		pinctrl-0 = <&fan_tach_pins>;
+> +		pinctrl-names = "default";
+>   	};
+>   
+>   	leds {
+> @@ -114,6 +118,17 @@ &pcie {
+>   	reset-gpios = <&gpio GPIOH_4 GPIO_ACTIVE_LOW>;
+>   };
+>   
+> +&periphs_pinctrl {
+> +	fan_tach_pins: fan-tach {
+> +		mux {
+> +			groups = "GPIOX_7";
+> +			function = "gpio_periphs";
+> +			bias-disable;
+> +			output-disable;
+> +		};
+> +	};
+> +};
+> +
+>   &pwm_cd {
+>   	status = "okay";
+>   	pinctrl-names = "default";
+> 
+> ---
+> base-commit: b44e2be772f866985cafdf90355285069ea68495
+> change-id: 20261006-hc4-fan-tach-440c1b874a04
+> 
+> Best regards,
 
-Remove the sleep state to avoid this dependency on firmware. The default
-backend CPU idle state simply puts core in WFI and retains its context
-without being powered off. Since wake-up from WFI is handled entirely in
-hardware, it is effectively immediate (a few cycles) and does not depend
-on firmware availability.
+Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
-Signed-off-by: Jay Buddhabhatti <jay.buddhabhatti@amd.com>
----
-Changes in v2:
-- Remove the idle state instead of replacing it with a retention state.
-- Update the subject and commit description.
-
-Link to v1: https://lore.kernel.org/all/20260727121842.3410495-1-jay.buddhabhatti@amd.com/
----
- arch/arm64/boot/dts/xilinx/versal-net.dtsi | 29 ----------------------
- 1 file changed, 29 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/xilinx/versal-net.dtsi b/arch/arm64/boot/dts/xilinx/versal-net.dtsi
-index 21bb917bcba1..9b74e59fd64a 100644
---- a/arch/arm64/boot/dts/xilinx/versal-net.dtsi
-+++ b/arch/arm64/boot/dts/xilinx/versal-net.dtsi
-@@ -103,7 +103,6 @@ cpu0: cpu@0 {
- 			enable-method = "psci";
- 			reg = <0>;
- 			operating-points-v2 = <&cpu_opp_table>;
--			cpu-idle-states = <&CPU_SLEEP_0>;
- 			d-cache-size = <0x10000>; /* 64kB */
- 			d-cache-line-size = <64>;
- 			/* 4 ways set associativity */
-@@ -133,7 +132,6 @@ cpu100: cpu@100 {
- 			enable-method = "psci";
- 			reg = <0x100>;
- 			operating-points-v2 = <&cpu_opp_table>;
--			cpu-idle-states = <&CPU_SLEEP_0>;
- 			d-cache-size = <0x10000>; /* 64kB */
- 			d-cache-line-size = <64>;
- 			/* 4 ways set associativity */
-@@ -163,7 +161,6 @@ cpu200: cpu@200 {
- 			enable-method = "psci";
- 			reg = <0x200>;
- 			operating-points-v2 = <&cpu_opp_table>;
--			cpu-idle-states = <&CPU_SLEEP_0>;
- 			d-cache-size = <0x10000>; /* 64kB */
- 			d-cache-line-size = <64>;
- 			/* 4 ways set associativity */
-@@ -193,7 +190,6 @@ cpu300: cpu@300 {
- 			enable-method = "psci";
- 			reg = <0x300>;
- 			operating-points-v2 = <&cpu_opp_table>;
--			cpu-idle-states = <&CPU_SLEEP_0>;
- 			d-cache-size = <0x10000>; /* 64kB */
- 			d-cache-line-size = <64>;
- 			/* 4 ways set associativity */
-@@ -223,7 +219,6 @@ cpu10000: cpu@10000 {
- 			enable-method = "psci";
- 			reg = <0x10000>;
- 			operating-points-v2 = <&cpu_opp_table>;
--			cpu-idle-states = <&CPU_SLEEP_0>;
- 			d-cache-size = <0x10000>; /* 64kB */
- 			d-cache-line-size = <64>;
- 			/* 4 ways set associativity */
-@@ -253,7 +248,6 @@ cpu10100: cpu@10100 {
- 			enable-method = "psci";
- 			reg = <0x10100>;
- 			operating-points-v2 = <&cpu_opp_table>;
--			cpu-idle-states = <&CPU_SLEEP_0>;
- 			d-cache-size = <0x10000>; /* 64kB */
- 			d-cache-line-size = <64>;
- 			/* 4 ways set associativity */
-@@ -283,7 +277,6 @@ cpu10200: cpu@10200 {
- 			enable-method = "psci";
- 			reg = <0x10200>;
- 			operating-points-v2 = <&cpu_opp_table>;
--			cpu-idle-states = <&CPU_SLEEP_0>;
- 			d-cache-size = <0x10000>; /* 64kB */
- 			d-cache-line-size = <64>;
- 			/* 4 ways set associativity */
-@@ -313,7 +306,6 @@ cpu10300: cpu@10300 {
- 			enable-method = "psci";
- 			reg = <0x10300>;
- 			operating-points-v2 = <&cpu_opp_table>;
--			cpu-idle-states = <&CPU_SLEEP_0>;
- 			d-cache-size = <0x10000>; /* 64kB */
- 			d-cache-line-size = <64>;
- 			/* 4 ways set associativity */
-@@ -343,7 +335,6 @@ cpu20000: cpu@20000 {
- 			enable-method = "psci";
- 			reg = <0x20000>;
- 			operating-points-v2 = <&cpu_opp_table>;
--			cpu-idle-states = <&CPU_SLEEP_0>;
- 			d-cache-size = <0x10000>; /* 64kB */
- 			d-cache-line-size = <64>;
- 			/* 4 ways set associativity */
-@@ -373,7 +364,6 @@ cpu20100: cpu@20100 {
- 			enable-method = "psci";
- 			reg = <0x20100>;
- 			operating-points-v2 = <&cpu_opp_table>;
--			cpu-idle-states = <&CPU_SLEEP_0>;
- 			d-cache-size = <0x10000>; /* 64kB */
- 			d-cache-line-size = <64>;
- 			/* 4 ways set associativity */
-@@ -403,7 +393,6 @@ cpu20200: cpu@20200 {
- 			enable-method = "psci";
- 			reg = <0x20200>;
- 			operating-points-v2 = <&cpu_opp_table>;
--			cpu-idle-states = <&CPU_SLEEP_0>;
- 			d-cache-size = <0x10000>; /* 64kB */
- 			d-cache-line-size = <64>;
- 			/* 4 ways set associativity */
-@@ -433,7 +422,6 @@ cpu20300: cpu@20300 {
- 			enable-method = "psci";
- 			reg = <0x20300>;
- 			operating-points-v2 = <&cpu_opp_table>;
--			cpu-idle-states = <&CPU_SLEEP_0>;
- 			d-cache-size = <0x10000>; /* 64kB */
- 			d-cache-line-size = <64>;
- 			/* 4 ways set associativity */
-@@ -463,7 +451,6 @@ cpu30000: cpu@30000 {
- 			enable-method = "psci";
- 			reg = <0x30000>;
- 			operating-points-v2 = <&cpu_opp_table>;
--			cpu-idle-states = <&CPU_SLEEP_0>;
- 			d-cache-size = <0x10000>; /* 64kB */
- 			d-cache-line-size = <64>;
- 			/* 4 ways set associativity */
-@@ -493,7 +480,6 @@ cpu30100: cpu@30100 {
- 			enable-method = "psci";
- 			reg = <0x30100>;
- 			operating-points-v2 = <&cpu_opp_table>;
--			cpu-idle-states = <&CPU_SLEEP_0>;
- 			d-cache-size = <0x10000>; /* 64kB */
- 			d-cache-line-size = <64>;
- 			/* 4 ways set associativity */
-@@ -523,7 +509,6 @@ cpu30200: cpu@30200 {
- 			enable-method = "psci";
- 			reg = <0x30200>;
- 			operating-points-v2 = <&cpu_opp_table>;
--			cpu-idle-states = <&CPU_SLEEP_0>;
- 			d-cache-size = <0x10000>; /* 64kB */
- 			d-cache-line-size = <64>;
- 			/* 4 ways set associativity */
-@@ -553,7 +538,6 @@ cpu30300: cpu@30300 {
- 			enable-method = "psci";
- 			reg = <0x30300>;
- 			operating-points-v2 = <&cpu_opp_table>;
--			cpu-idle-states = <&CPU_SLEEP_0>;
- 			d-cache-size = <0x10000>; /* 64kB */
- 			d-cache-line-size = <64>;
- 			/* 4 ways set associativity */
-@@ -632,19 +616,6 @@ llc: l4-cache { /* LLC inside CMN */
- 			cache-size = <0x1000000>; /* 16MB */
- 			cache-unified;
- 		};
--
--		idle-states {
--			entry-method = "psci";
--
--			CPU_SLEEP_0: cpu-sleep-0 {
--				compatible = "arm,idle-state";
--				arm,psci-suspend-param = <0x40000000>;
--				local-timer-stop;
--				entry-latency-us = <300>;
--				exit-latency-us = <600>;
--				min-residency-us = <10000>;
--			};
--		};
- 	};
- 
- 	cpu_opp_table: opp-table {
--- 
-2.34.1
-
+Thanks,
+Neil
