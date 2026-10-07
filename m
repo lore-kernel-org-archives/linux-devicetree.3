@@ -1,126 +1,133 @@
-Received: from sender6-op-o15.zoho.com (sender6-op-o15.zoho.com [165.173.180.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-4.mta0.migadu.com [91.218.175.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED2AF3BCD29;
-	Wed,  7 Oct 2026 22:04:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.15
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791410660; cv=pass; b=EduY9NAcmC1Yu2ub5LTdY5Tr66yBE+xtw1QbgrdtVk6dBNGEYdjJDGq/H0OQPe7K0JbHGCMubDzNqT7L675HW0H4JkMo0wICA2QNSzxtZOLLHJlQSrJ6Kiu8I4hiRe6z9ah2kuruycXdqPaWxwz2udIEANKzU6rC2Uducm+3xg4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791410660; c=relaxed/simple;
-	bh=R1EYKHXzQIWWU4LJ0kSGSQIho58HOWSeBtf1ih4kwQw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JERXoti2lSSdGIHEBsXYFZt9ETyysBzW6UOr5oJw31MX0iDnfffUlqH7A1IwFBqkuo9T9fXWxmAdH9PkYPMUtxT5FuYibihb1kfywhgYC3T8fXeYyyissFhi8w0RTVIT8jqohDnhj0lPbe22DDJA9fpuKID1fk64gx+iNH7varo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziyao.cc; spf=pass smtp.mailfrom=ziyao.cc; dkim=pass (1024-bit key) header.d=ziyao.cc header.i=me@ziyao.cc header.b=Uj1rnfss; arc=pass smtp.client-ip=165.173.180.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ziyao.cc
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ziyao.cc
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91006495500
+	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 22:58:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.4
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791413897; cv=none; b=G7Q0KLLH0XzD7DG1WUsdts7GOsFDlTbGJdlVzp289QL0VNYWL2EJzw/YIw1KvRvtjt8u0ZL8kSz2qLw6hOJwEvwinBnA4axCpRAsvSiM7nWuj8QuiGb4D/N8f36+fch5jr1wXNFNr5oWxvmgMgBAfAFp4NcMWIkMAfIdVkONDeA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791413897; c=relaxed/simple;
+	bh=RAGAIJgpd+yNXgc/pjpoo393pq4WyBOz0tuS3p6kpL0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZAWHDwYerkPYqo/gqflygGw/6bByAleryW8nyydAyi9DtrIX1A5nfVtV3MY+JqkulfCGIP6NZdEOrxN/JdcWg/bgwZqe76IwqX/emBvi4gYQXFykAbp6hGpb8bFbsiINlmhpOFW+DcZfsigZ+74zdv8M8JRBM+Ka5Sb02VYmVco=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool; spf=pass smtp.mailfrom=packett.cool; dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b=Enkh/caw; arc=none smtp.client-ip=91.218.175.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ziyao.cc header.i=me@ziyao.cc header.b="Uj1rnfss"
-ARC-Seal: i=1; a=rsa-sha256; t=1791410635; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=gDvwZzsry72YvvN8k+UDURQWfAN1j2sErCYLGw/20kwhLuUsvkJ8D59LOj8udZ0iQZYt5dcSy8Zpm5DtposiDaQGt6Z5hw3Eyr8BA9wjAJ65Uf11pXCgsWh65b0whqZfJ7/WgJyFlzUKixJ6s9h6+KycnVrtfZ96iiZtGPvMk80=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1791410635; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=IS49IWXxuLYQK+6DYPPK3VQETMaAy08l2kK8RJEIHuU=; 
-	b=FR1uHSy8yV4hDCqVqupIIeEmc2WOTHspCTdxcUisBusAj7O6FJiUBIKsMv6PJNlFrrsNq/RcBhRRTfFEqIwr/QW1zSsIEKtoL7L3FB30yuxRC3dwqmgzsX35ZZm0AmQfSGFyBYCZyWveUcGjbTktPGqq45dzbZzKkVQ0nML9v70=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=ziyao.cc;
-	spf=pass  smtp.mailfrom=me@ziyao.cc;
-	dmarc=pass header.from=<me@ziyao.cc>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791410635;
-	s=zmail; d=ziyao.cc; i=me@ziyao.cc;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
-	bh=IS49IWXxuLYQK+6DYPPK3VQETMaAy08l2kK8RJEIHuU=;
-	b=Uj1rnfssxE581ioJvpYgmyzc9otF82Wcn1d14Wp7oOjnO6UumbDwYxxq2Y3kdchX
-	D6Cb8tSjsr8d1yGpQ8r9BGYVYAzq2fp98SwCtbYp+nPVLH5beuTEEFtn3Ta97JUCK9o
-	5HqvqvuCag1VTB0/a/R+h0lyaQ0SRJsb8aco6fCw=
-Received: by smtp.zohomail.com with SMTPS id 1791410633828889.4891558379051;
-	Wed, 7 Oct 2026 15:03:53 -0700 (PDT)
-Date: Wed, 7 Oct 2026 22:03:34 +0000
-From: Yao Zi <me@ziyao.cc>
-To: Han Gao <gaohan@iscas.ac.cn>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Jisheng Zhang <jszhang@kernel.org>,
-	Drew Fustini <fustini@kernel.org>, Guo Ren <guoren@kernel.org>,
-	Fu Wei <wefu@redhat.com>
-Cc: Han Gao <rabenda.cn@gmail.com>, devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Yao Zi <me@ziyao.cc>
-Subject: Re: [PATCH v2 2/4] riscv: dts: thead: add Milk-V Meles
-Message-ID: <asbBtj3fL0PUNGJ-@pie>
-References: <20261001-rv-meles-v2-0-c61052262f84@iscas.ac.cn>
- <20261001-rv-meles-v2-2-c61052262f84@iscas.ac.cn>
+	dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b="Enkh/caw"
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=RAGAIJgpd+yNXgc/pjpoo393pq4WyBOz0tuS3p6kpL0=;
+ c=simple/simple; d=packett.cool;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791413891; v=1; x=1792018691;
+ b=Enkh/cawuU5PU1rr2dWSpr2BD/GDAPKF6LBdp0eSiqWA6kaB7MhMzSdRfipIoUvs8PWbpW5M
+ VI7gNulmwDN5+VwZ41Hx/0dHdKUYUUnnfcIgG98igSpbu31Cn6FncMxI5hym1TTPIljRwtnAuvC
+ s4dW/idZHCp7CWVa8mNylRI2GiOKdGsQXiNVBLtbNqShSGI0lftbrEaDFJ2K3yFpjrJFpUdPjWQ
+ Vb5arhfUfsBHdkx9x2ikZVRl4/KmyqV9Wo1Q3udTBCYN73B/+SYVzeBeZTodSwyLWD9Zco0fWVK
+ Zv4zPzJuMAXML6d7pcaNY8Taj36Y6fVrE/bj22O3xUXKw==
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 66b877c89b98a8fd;
+	Wed, 07 Oct 2026 22:58:01 +0000
+X-Mizu-Trace-ID: 66b877c89b98a8fd
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <bc7730e4-8b47-4c2b-84ef-277749f2aab8@packett.cool>
+Date: Wed, 7 Oct 2026 19:57:54 -0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261001-rv-meles-v2-2-c61052262f84@iscas.ac.cn>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/291.389.60
-X-ZohoMailClient: External
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 5/8] Bluetooth: hci_qca: Support QCA2066 on M.2
+ connector via pwrseq
+To: Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Manivannan Sadhasivam <mani@kernel.org>,
+ Bartosz Golaszewski <brgl@kernel.org>, Marcel Holtmann
+ <marcel@holtmann.org>, Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-pci@vger.kernel.org, linux-pm@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-bluetooth@vger.kernel.org, devicetree@vger.kernel.org,
+ Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+References: <20261005-monza-wireless-v7-0-5a6de7662dcb@oss.qualcomm.com>
+ <20261005-monza-wireless-v7-5-5a6de7662dcb@oss.qualcomm.com>
+Content-Language: en-US
+From: Val Packett <val@packett.cool>
+In-Reply-To: <20261005-monza-wireless-v7-5-5a6de7662dcb@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Oct 01, 2026 at 03:44:11PM +0800, Han Gao wrote:
-> Add the Milk-V Meles board with UART0, eMMC, SD, Ethernet and the PWM2
-> fan. Describe the board pin assignments and the PHY on the GMAC0 MDIO
-> bus. Give GPIO banks aliases and name the exposed 40-pin header lines.
-> 
-> The eMMC I/O supply is fixed at 1.8 V. Enable DDR52 at that voltage and
-> retain the 52 MHz board limit. Describe 8 GiB as the default memory
-> size; firmware updates it to match the detected RAM capacity.
-> 
-> Reviewed-by: Drew Fustini <fustini@kernel.org>
-> Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
+
+On 10/5/26 9:21 AM, Loic Poulain wrote:
+> For QCA2066 (and other QCA chips) on M.2 connectors, the UART enable is
+> controlled by the W_DISABLE2# signal managed by the pcie-m2 power sequencer
+> rather than a dedicated BT enable GPIO.
+>
+> When the serdev controller has an OF graph (indicating it is connected to
+> an M.2 connector), acquire the 'uart' pwrseq target from the connector's
+> power sequencer and use it to control BT power instead of the bt-enable
+> GPIO. This is factored out into qca_serdev_get_m2_pwrseq().
+>
+> Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
+> Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
 > ---
->  arch/riscv/boot/dts/thead/Makefile               |   1 +
->  arch/riscv/boot/dts/thead/th1520-milkv-meles.dts | 227 +++++++++++++++++++++++
->  2 files changed, 228 insertions(+)
-> 
-> diff --git a/arch/riscv/boot/dts/thead/Makefile b/arch/riscv/boot/dts/thead/Makefile
-> index b55a17127c2bc06cbfb06d5f7c92dc7296e98437..25f7fe068368c97df2490bedc3eae70276a2e442 100644
-> --- a/arch/riscv/boot/dts/thead/Makefile
-> +++ b/arch/riscv/boot/dts/thead/Makefile
-> @@ -1,2 +1,3 @@
->  # SPDX-License-Identifier: GPL-2.0
->  dtb-$(CONFIG_ARCH_THEAD) += th1520-lichee-pi-4a.dtb th1520-beaglev-ahead.dtb
-> +dtb-$(CONFIG_ARCH_THEAD) += th1520-milkv-meles.dtb
-> diff --git a/arch/riscv/boot/dts/thead/th1520-milkv-meles.dts b/arch/riscv/boot/dts/thead/th1520-milkv-meles.dts
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..3714047190789bfccd8ff6810342d7ff865e74e4
-> --- /dev/null
-> +++ b/arch/riscv/boot/dts/thead/th1520-milkv-meles.dts
-> @@ -0,0 +1,227 @@
-> +// SPDX-License-Identifier: (GPL-2.0 OR MIT)
-> +/*
-> + * Copyright (C) 2021-2022 Alibaba Group Holding Limited.
-> + * Copyright (C) 2026 Han Gao <gaohan@iscas.ac.cn>
-> + */
-
-...
-
-> +&emmc {
-> +	bus-width = <8>;
-> +	max-frequency = <52000000>;
-> +	cap-mmc-highspeed;
-> +	mmc-ddr-1_8v;
-> +	non-removable;
-> +	no-sdio;
-> +	no-sd;
+>   drivers/bluetooth/hci_qca.c | 47 +++++++++++++++++++++++++++++++++++----------
+>   1 file changed, 37 insertions(+), 10 deletions(-)
+>
+> diff --git a/drivers/bluetooth/hci_qca.c b/drivers/bluetooth/hci_qca.c
+> index 1d27ff98034ba99d0783e48db5c605f3b31117ea..b6ec1a57248e2cf4bd138898ffc5cad45b1b4a8b 100644
+> --- a/drivers/bluetooth/hci_qca.c
+> +++ b/drivers/bluetooth/hci_qca.c
+> @@ -1875,6 +1875,9 @@ static int qca_power_on(struct hci_dev *hdev)
+>   			/* Controller needs time to bootup. */
+>   			msleep(150);
+>   		}
 > +
-> +	status = "okay";
-> +};
+> +		if (qcadev->bt_power.pwrseq)
+> +			pwrseq_power_on(qcadev->bt_power.pwrseq);
+>   	}
+>   
+>   	clear_bit(QCA_BT_OFF, &qca->flags);
+> @@ -2396,6 +2399,34 @@ static int qca_init_regulators(struct qca_power *qca,
+>   	return 0;
+>   }
+>   
+> +static void qca_serdev_put_pwrseq(void *data)
+> +{
+> +	pwrseq_put(data);
+> +}
+> +
+> +static int qca_serdev_get_m2_pwrseq(struct qca_serdev *qcadev)
+> +{
+> +	struct serdev_device *serdev = qcadev->serdev_hu.serdev;
+> +	struct pwrseq_desc *pwrseq;
+> +
+> +	if (!of_graph_is_present(dev_of_node(&serdev->ctrl->dev)))
+> +		return 0;
+Seems like of_graph_is_present does *not* return false for the existing 
+(non-connector) setup which is currently used in all the laptop device 
+trees..
+> +
+> +	/* The pwrseq is looked up on the serdev controller (which holds the
+> +	 * OF graph to the M.2 connector), but its lifetime must follow this
+> +	 * serdev consumer device, not the controller. So acquire it with the
+> +	 * non-devres pwrseq_get() and release it via a devres action bound to
+> +	 * &serdev->dev instead of using devm_pwrseq_get(&serdev->ctrl->dev).
+> +	 */
+> +	pwrseq = pwrseq_get(&serdev->ctrl->dev, "uart");
+> +	if (IS_ERR(pwrseq))
+> +		return PTR_ERR(pwrseq);
+> [..]
 
-Could you please explain the 52MHz limitation? This doesn't match what
-I saw at RevyOS' downstream kernel, which seems the only distribution
-supported by Milk-V officially.
+So this returns EPROBE_DEFER and bluetooth gets deferred forever :(
 
-Regards,
-Yao Zi
+~val
 
-[1]: https://github.com/revyos/th1520-linux-kernel/blob/a092d55649279e1c9bcda2769b8f6b4370fa2c94/arch/riscv/boot/dts/thead/th1520-milkv-meles.dts#L1012-L1023
