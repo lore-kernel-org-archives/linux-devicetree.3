@@ -1,204 +1,189 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA3843939A4
-	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 07:03:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A868633FE05;
+	Wed,  7 Oct 2026 07:05:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791356601; cv=none; b=cldIZwDojAyTOLWCEbYxlWukLE8Jp02jcR0FckbV6hW9XGbxwroMIIs1KLggH0SPerJhOpPSaSEAeMm3yb37/zIKD51TXb3iZ0NLhxbp+EWjQBR44aMegTPK5kMSW7mbltetxSppWGD3+F4yHBB1NeGyOvW1k6rzDSBZlNE4LVs=
+	t=1791356746; cv=none; b=Ak8RkDISNWJMoW945q4rJHVyVK7NktgEiBXdNJr6oR4bcgT6Zrq8fF3M3110tyS9MfAThMYo4ebLwSDt4yJkRyhSyNfRa37UVfAcyI72OM996XcWFSna9OJOhioQ+nuZa38ED1CDkYHTWKQrxdO3zuRf/0VxiUmPeIC+/i0jMac=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791356601; c=relaxed/simple;
-	bh=ogEzu6UuBrOBMLU1YQ+/foOwKAGOPzGySwOnvVrCrBo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LDT5Qo/JHVHPCPsY0D7IrYT3Ee5QCm9WBeBp/dL67stUsKJTUJXa7eeeDZVUcuUO+u+uTZFiSA9NJ15sj9EiJ8QBVh2nqfQGkZZEhGP4Mtrb/smdfpCRwHjxmHsTPADWjTjSLwYBUzLH6e3d7XBVUgmNMpmJrDpUr97dfbtkmyE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TVE1ICbm; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YBESaM6c; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791356746; c=relaxed/simple;
+	bh=plGTE4i/JKvBSg1EJp9QjiFEUlgfjg7QxfZeB3XEPQQ=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=dYAzUqlJGfoBj5nopfzHE1Consw7nXRrFGGpFwHsmA5E+OftySmGkikiHFyP5e3S1VfKe0UpoGlP6kcoGlcJd2+4csuzhwYHNY8yGqf0K2A1HG05VgYO7veOfyqiEBGxa53O8J71pfKMOXmPxOUDLyEAfPJR63BazBnnYJvURtg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M9WvsPS4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TVE1ICbm";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YBESaM6c"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6974TrJI2062045
-	for <devicetree@vger.kernel.org>; Wed, 7 Oct 2026 07:03:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=821v8tlX6UL8RPAzc5juUnjm
-	9WDDhS722BB+xkV9YBs=; b=TVE1ICbmkkYZgbIAKI8aLQQJ2Lt4g0HPSHosjhhx
-	azh1mwSx6toh4aavK/8l7SoSDOdXqJi+EripNJZkG/yjLm3Z4qX2HxNlSDATwWz4
-	R6QMGM0dBxX43rz2SRex2ANNnwkUC8EVrpemw92PtQOWg476WwSPAtlun/4JS5cr
-	xoax+OAdsjDaCyLtkszMq4f85bZXGqsvSgoolpNOvG1JJv+wB3i0Bu2kH0LN+kh7
-	SfZZBBHD5dO04iS/+1OUwlKlq7QHyLDVVBmIZInV6uk+3bR1IKtdFlx86HwOREja
-	Btvay3mRBjCCiudYaANZ5qG5uT9mxIN2LuoLYd1/RAJvZQ==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5c6u0yyj-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 07:03:19 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93e834ff4d0so532656385a.3
-        for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 00:03:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791356598; x=1791961398; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=821v8tlX6UL8RPAzc5juUnjm9WDDhS722BB+xkV9YBs=;
-        b=YBESaM6cJ1AuXWJvTp34xtcvB9eCnImE5b60bRG+hj5FrKsgRfGP/ncIbDNKAV9WKl
-         z8yiV6U6D+BZmwAPPpnm7cbolkU/9yoHY9Pb/Ct3qLjEztHPHLW3wJhg1yPden6k6NUL
-         MxEgVV5ClDy1AWFfTPQI0DpN3wUGxXr4tLUvw/CIWDtW/dPf9DsIgIGvJ+lj3E0AYbck
-         mS54szkiX4tTFzB17V5ET9czDQ5AP+yWPFriUWKmnbhj9IXSIrP+KPEcKRMLuJbpmxJ5
-         M4V3StCCHxjqS6JfX4c79jgA6j1uYYFLqEt7+mMXP5Kg32mb81/bYejMWlk8/cZlq+r0
-         fLng==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791356598; x=1791961398;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=821v8tlX6UL8RPAzc5juUnjm9WDDhS722BB+xkV9YBs=;
-        b=WfdtoFZAPEoay2nYfkaNdtZntxZ0o3n+9anI97nppeeevHsms9BkgqK+of8Q4ndH2q
-         u5+15SrtD/FoXI8KpasP67cZEakwoG8NcDmluDFpOcaIzrP+sQimwxZwERUAkY+GbvgH
-         ZUNI84ytJoFHitbNN/NH01HIq1x8O0K9JwvwYBDOd/Tuz+A/RW2dQkWJBRr1r5DsTFYX
-         16x/8TGZfImEZmoTVmTsPkqH8bXe2remQtceAyuw2RaJCoxSytpnD2HPRDtZcc2U5uH2
-         nV9jW98IXuGXcmsIEjpFM+50EaqnGOyPisq9TByi/icYeQnx/U9xBZ3SaRQqncKra5sZ
-         8alA==
-X-Forwarded-Encrypted: i=1; AKwUvBzBWdu5eZqrO5MwBG3+iHhxBi2P2pN8lkzde8XhKjxonpjttmui0yolC6UwJwtmWSodnIzePJHz02He@vger.kernel.org
-X-Gm-Message-State: AFuF++mI56RYeHsukP2WRLTNkMjqnCqnr65/z6YS4aTZpYqEiAd1fyQ6
-	TGl1g92kBHXEjlUA6GHEpPxCBLTz1ezOmWplhR+AOH5CUBrle46aoTdPxvjzLC2/7SaD1GkAoLz
-	9iIrrIk/7fvpxS303+Ns1YmsqrmAiPLI7GPXycTKY8NsPpP65mjgF66twScuAlYqW1BNs6b9Y5y
-	k=
-X-Gm-Gg: AYBFou1HZZnrZM++4JtdCCfS1JHc0x1wVxpWRrhefufVX8SGqnGX+YZa9bgZpymzn7F
-	hBcE25ClNZdAPsl51Lbrnk62J1k41PH8YZTIfvh9TkPsmwNJmEXSay1TyacVkwhSTMLqAlEyX0s
-	SmMSul4dNC1FgWSlY9jCRCHQDgMomHYICfQdCLybjn9OL0GoJ8qjNoL6rIm+7GQduRV4u54Wc4U
-	qcmFtQFau1ESUFhOpX2xj2f0GDq4ldA3Lq8cJU/wIzL0QpUii/YHF6G2r7w7sFMJd0+zA06DTJD
-	flbBD9/vxnmiDFM7tLA2kAvDWW20u0IhAAJDDev2C9sfHyT0oMcMMlWEIIP+5ZYB6MkBWwAuqw9
-	ruPDMQLvnQDkg6tQIGdKcM81XlQIL/U8zL++t1c057XvLjZakO0Q2D4LB0NMh1uDy7X3iGTiYsR
-	+E/w3ew5bLsLeg
-X-Received: by 2002:a05:620a:46a6:b0:93e:9807:9785 with SMTP id af79cd13be357-93e9b829e93mr263584085a.70.1791356598160;
-        Wed, 07 Oct 2026 00:03:18 -0700 (PDT)
-X-Received: by 2002:a05:620a:46a6:b0:93e:9807:9785 with SMTP id af79cd13be357-93e9b829e93mr263574285a.70.1791356597214;
-        Wed, 07 Oct 2026 00:03:17 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bccfe9d3e2sm417662e87.58.2026.10.07.00.03.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 00:03:15 -0700 (PDT)
-Date: Wed, 7 Oct 2026 10:03:13 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Muzaffer Kadir <muzafferkadir@mainlining.org>
-Cc: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        "Joerg Roedel (AMD)" <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Amit Kucheria <amitk@kernel.org>,
-        Thara Gopinath <thara.gopinath@gmail.com>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Daniel Lezcano <daniel.lezcano@kernel.org>,
-        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Kees Cook <kees@kernel.org>,
-        Tony Luck <tony.luck@intel.com>,
-        "Guilherme G. Piccoli" <gpiccoli@igalia.com>,
-        Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-        David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
-        linux-pm@vger.kernel.org, linux-input@vger.kernel.org
-Subject: Re: [PATCH v4 4/7] thermal: qcom: tsens: Add support for MSM8952
- tsens
-Message-ID: <ze6klawno4rge2276cqwdiutvwbcnd7yby2l2x2gubwone36sg@zk3odztmoojw>
-References: <20261006-msm8952-initial-support-v4-0-ecdcc1ac620c@mainlining.org>
- <20261006-msm8952-initial-support-v4-4-ecdcc1ac620c@mainlining.org>
- <suzsbvsdlfrfsnvaerphqdycaaaiu5inh5uw5wups4jmfozkbt@n4lsb5pfdhbw>
- <f0b58a7b-6257-4dc3-b0f3-eba76ecc774f@mainlining.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M9WvsPS4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E795E1F0089B;
+	Wed,  7 Oct 2026 07:05:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791356745;
+	bh=zE7x8mwroMqzVvZsd48PbPdzc5eCBks6/z+j6DuMqko=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=M9WvsPS4mDGVLgITZOHJqvxCbKW1I9Gba9v1n9kjeztRA45wfvP2gcz8M4wzx1FPM
+	 nT9sbwoTxR7pBEDBW7gueuN9lA6NztjD7SIlqfW8tmtO6uyfvydkvrTjTZBZcfZp3B
+	 afJ156BzKMuc9QcgkqqAqM7Yiob8DNFz76RS8WnxGtdZjr2Lb+4gsOqTQJTS6UijjI
+	 +SyHzw9MeOefLOai4hPcXKuNnY+ihhVhLNWYt1FH5ksLmJtJtRIdp3T0rgBaUZVE1E
+	 lvxCMqJyGD2vxoMKeyylaePDDouEMogueK/+zq+4yDHf0g7H3KyzxTfUC4TP0ehuk8
+	 y8teYIJJWfoSA==
+Message-ID: <sashiko-outbox-162689@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/4] interconnect: icc-clk: support N:1 master-to-slave
+ topology
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Kathiravan Thirumoorthy" <kathiravan.thirumoorthy@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, linux-clk@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261007-ipq9650_apss_clk-v1-1-fd4c2b3cbdea@oss.qualcomm.com>
+References: <20261007-ipq9650_apss_clk-v1-0-fd4c2b3cbdea@oss.qualcomm.com>
+ <20261007-ipq9650_apss_clk-v1-1-fd4c2b3cbdea@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 07 Oct 2026 07:05:44 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <f0b58a7b-6257-4dc3-b0f3-eba76ecc774f@mainlining.org>
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDAyNyBTYWx0ZWRfXz+9Mx2SgMv/h
- yYHFsBzGG+EuAO+PR+xKGP5IFD0MyXACwmX1RuCMX7ZvstxguaJl5ueN9WD0/4t2/7l5Kdn9uYd
- U43hoepG2ASHKwg3rKPHBk/oTntxjH4=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDAyNyBTYWx0ZWRfX/OqaTmKeRCtg
- nYhji/bT039ncIH4WNPPkspoaCuhjOerkuZGtgfjbxi1t+nAzWOQoPMlkJ3XNQqKGaFdo11bcCf
- lw5x96S1/VwFP4LRO0I2E03d5Da6WzThjaMYXBK6gQl161zj2Stk6L6DwZDvwhguOUr57j90Xc3
- R3v2Bna/ahFdMrtXospPFEZRbKld/yvY4PLsdiN4Ssc9WCoUri3aupiO4Ec/rSDYeFL+cRl7hZk
- yPY7UzLxq3FBM3KB1iGsXIybP1vbgTBZ+e7O5ebX400GjuBhl2RBKqCrAhs2gqxnA0uX0xkZIED
- rM9s862L14mxbPaj66pRJ0TVGvtIyqodIhqVch9D49fRdGkazdlgXM59Hq620YSwmV5bV5ghtYr
- jU6wq/M9S0fSBEMpWnoQqMx4DTbiYCXtt0HGB8v04oEDPslDi2Jql5FDWJhLxg5tMwyl+kJPlfa
- VPg/IUxA2yK+GQVWqXg==
-X-Proofpoint-ORIG-GUID: FDXljHfJeQW1XSQ2v3cV-5-Nooq7bSiI
-X-Authority-Analysis: v=2.4 cv=T5EZ3PKQ c=1 sm=1 tr=0 ts=6ac5eeb7 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=Oh2cFVv5AAAA:8
- a=OuZLqq7tAAAA:8 a=EUspDBNiAAAA:8 a=FwduPMDodLxw-pZHfsYA:9 a=CjuIK1q_8ugA:10
- a=PEH46H7Ffwr30OY-TuGO:22 a=7KeoIwV6GZqOttXkcoxL:22 a=AKGiAy9iJ-JzxKVHQNES:22
-X-Proofpoint-GUID: FDXljHfJeQW1XSQ2v3cV-5-Nooq7bSiI
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-07_02,2026-10-06_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 phishscore=0 priorityscore=1501 impostorscore=0 malwarescore=0
- clxscore=1015 bulkscore=0 adultscore=0 spamscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070027
 
-On Tue, Oct 06, 2026 at 04:49:12PM +0300, Muzaffer Kadir wrote:
-> On Tue, 6 Oct 2026 16:19:04 +0300, Dmitry Baryshkov wrote:
-> > On Tue, Oct 06, 2026 at 03:15:11PM +0300, Muzaffer Kadir via B4 Relay wrote:
-> >> From: Muzaffer Kadir <muzafferkadir@mainlining.org>
-> >>
-> >> Add support for tsens v1 block that exists on MSM8952
-> >> with 11 tsens sensors. Sensor Offsets and slope values
-> >> are taken from downstream.
-> >>
-> >> Link: https://android.googlesource.com/kernel/msm.git/+/refs/tags/android-wear-7.0.0_r0.3/drivers/thermal/msm-tsens.c#1621
-> >> Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
-> >> ---
-> >>  drivers/thermal/qcom/tsens-v1.c | 44 +++++++++++++++++++++++++++++++++++++++++
-> >>  drivers/thermal/qcom/tsens.c    |  3 +++
-> >>  drivers/thermal/qcom/tsens.h    |  2 +-
-> >>  3 files changed, 48 insertions(+), 1 deletion(-)
-> >>
-> >> diff --git a/drivers/thermal/qcom/tsens-v1.c b/drivers/thermal/qcom/tsens-v1.c
-> >> index faa5d00788ca..f4201748ea29 100644
-> >> --- a/drivers/thermal/qcom/tsens-v1.c
-> >> +++ b/drivers/thermal/qcom/tsens-v1.c
-> >> @@ -145,6 +145,37 @@ static const struct reg_field tsens_v1_regfields[MAX_REGFIELDS] = {
-> >>  	[TRDY] = REG_FIELD(TM_TRDY_OFF, 0, 0),
-> >>  };
-> >>  
-> >> +static int __init init_8952(struct tsens_priv *priv)
-> >> +{
-> >> +	for (int i = 0; i < priv->num_sensors; ++i)
-> >> +		priv->sensor[i].slope = 3200;
-> > 
-> > Where are these values coming from? The driver that you pointed out
-> > reads them from the QFPROM (like other tsens platforms do).
-> 
-> Hi Dmitry,
-> 
-> Slope is coming from this:
-> https://android.googlesource.com/kernel/msm.git/+/refs/tags/android-wear-7.0.0_r0.3/arch/arm/boot/dts/qcom/msm8952.dtsi#550
-> 
-> calib_offset values are coming from these:
-> https://android.googlesource.com/kernel/msm.git/+/refs/tags/android-wear-7.0.0_r0.3/drivers/thermal/msm-tsens.c#1756
-> https://android.googlesource.com/kernel/msm.git/+/refs/tags/android-wear-7.0.0_r0.3/drivers/thermal/msm-tsens.c#1800
-> 
-> Should I drop them?
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] icc: list corruption and data race in icc_clk_set() during concurr=
+ent unbind
+- [Medium] icc: bypassed rate aggregation leaves shared clock at high rate
+- [Medium] icc: missing error check for icc_link_create() in icc_clk_regist=
+er()
+--
 
-The slope you are setting matches the SLOPE_DEFAULT, so I guess it can
-be removed.
+commit fb3619debbc961d128e9125a7da752adeb391118
+Author: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
 
-With that in place:
+    interconnect: icc-clk: support N:1 master-to-slave topology
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+    icc_clk_register() assumes each icc_clk_data entry describes a unique
+    master/slave pair and creates both nodes for every entry. When several
+    masters share the same slave_id, the shared slave node is created and
+    added again on each later entry. icc_node_create() returns the existing
+    node, so icc_node_add() hits WARN_ON(node->provider):
 
+[ ... ]
 
--- 
-With best wishes
-Dmitry
+    This topology is needed on IPQ9650, where the silver and gold CPU
+    clusters both vote on the single L3 clock through a shared SLAVE_L3
+    node.
+   =20
+    The onecell table is also filled in registration order, so xlate only
+    works when the node IDs happen to match that order. Size the table by
+    the highest node ID, index it by ID, and skip slave creation when the
+    node is already registered.
+   =20
+    icc_clk_set() also passes only the requesting node's bandwidth to
+    clk_set_rate(), so the last writer wins. A low vote from one master can
+    then lower the clock below what another master asked for. Before setting
+    the rate, take the highest peak bandwidth across all nodes that share
+    the clock.
+
+> diff --git a/drivers/interconnect/icc-clk.c b/drivers/interconnect/icc-cl=
+k.c
+> index 93c030608d3e0..567d071fade8e 100644
+> --- a/drivers/interconnect/icc-clk.c
+> +++ b/drivers/interconnect/icc-clk.c
+> @@ -24,7 +24,10 @@ struct icc_clk_provider {
+> =20
+>  static int icc_clk_set(struct icc_node *src, struct icc_node *dst)
+>  {
+> +	unsigned long rate =3D icc_units_to_bps(src->peak_bw);
+> +	struct icc_provider *provider =3D src->provider;
+>  	struct icc_clk_node *qn =3D src->data;
+> +	struct icc_node *node;
+>  	int ret;
+> =20
+>  	if (!qn || !qn->clk)
+>  		return 0;
+> =20
+>  	if (!src->peak_bw) {
+>  		if (qn->enabled)
+>  			clk_disable_unprepare(qn->clk);
+>  		qn->enabled =3D false;
+> =20
+>  		return 0;
+>  	}
+
+[Severity: Medium]
+Will this early return circumvent the newly added aggregation logic when a
+master sets its bandwidth to zero?
+
+When multiple masters share the same clock in an N:1 topology, bypassing the
+rate aggregation loop due to an early return causes the underlying shared
+clock to remain running at the previously requested high rate instead of
+stepping down to the maximum of the remaining masters' votes. The clock sta=
+ys
+unnecessarily high until another node updates its vote.
+
+> =20
+>  	if (!qn->enabled) {
+>  		ret =3D clk_prepare_enable(qn->clk);
+>  		if (ret)
+>  			return ret;
+>  		qn->enabled =3D true;
+>  	}
+> =20
+> -	return clk_set_rate(qn->clk, icc_units_to_bps(src->peak_bw));
+> +	/*
+> +	 * Multiple master nodes can share the same underlying clock (N:1
+> +	 * topology, e.g. several CPU clusters voting on one L3 clock).
+> +	 * Aggregate the peak bandwidth across all of them before setting
+> +	 * the rate, otherwise the last caller wins and can undervote what
+> +	 * another master already asked for.
+> +	 */
+> +	list_for_each_entry(node, &provider->nodes, node_list) {
+
+[Severity: High]
+Does this list iteration race with concurrent unbind?
+
+icc_clk_set() executes as the provider->set callback holding only icc_bw_lo=
+ck.
+Concurrently, if an interconnect provider is unbound via sysfs,
+icc_node_del() removes nodes from provider->nodes using list_del() while
+holding only icc_lock:
+
+drivers/interconnect/core.c:icc_node_del() {
+    mutex_lock(&icc_lock);
+    list_del(&node->node_list);
+    mutex_unlock(&icc_lock);
+}
+
+Because the locks are disjoint, this list traversal can race with list_del(=
+),
+leading to iteration over poisoned pointers.
+
+> +		struct icc_clk_node *n =3D node->data;
+> +
+> +		if (n && clk_is_match(n->clk, qn->clk))
+> +			rate =3D max(rate, icc_units_to_bps(node->peak_bw));
+> +	}
+> +
+> +	return clk_set_rate(qn->clk, rate);
+>  }
+
+[ ... ]
+
+> @@ -126,7 +148,16 @@ struct icc_provider *icc_clk_register(struct device =
+*dev,
+>  		icc_node_add(node, provider);
+>  		/* link to the next node, slave */
+>  		icc_link_create(node, first_id + data[i].slave_id);
+> -		onecell->nodes[j++] =3D node;
+> +		onecell->nodes[data[i].master_id] =3D node;
+
+[Severity: Medium]
+Should the return value of icc_link_create() be checked here?
+
+If icc_link_create() fails to allocate memory for the links, it returns
+-ENOMEM. Because this return value is ignored, the interconnect graph links
+might silently fail to form. This can break the master-to-slave interconnect
+topology, leading to ignored bandwidth requests while driver initialization
+appears to succeed.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261007-ipq9650_ap=
+ss_clk-v1-0-fd4c2b3cbdea@oss.qualcomm.com?part=3D1
