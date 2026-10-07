@@ -1,89 +1,89 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AB3A392C21
-	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 06:51:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D8FB40B113
+	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 06:51:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791355873; cv=none; b=tN2GeXDL/mbD66i3MVnljHy1CWT5vYcNrcctsvFad8RLNNnNepRs2RidpNf6SxjvmX/W5rcMpNvvdakNGAdJq3BXBimoNwGlig3ESV2CknN8JhFGoH7ImQ1rm+xAvs81RR+9HT7NLpzVJWtnrqcTnn+tvcvfgnFrgp2nU87vTE0=
+	t=1791355880; cv=none; b=NCnNIo1qED1pjs1a3GSPnTASHAwfLu9YNbmcXpgxRZGC9P0H/hugus27jBjHJffNaIoJid5dTvxGZcloDy2XCSVDD72U0FWIuUVEgYT3qpxIIjllTM8Lo5Ja1mo1eQD5H+H+hiUwwClfPMcfGap75xBDqoNwoIoybqYtrwF5T1s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791355873; c=relaxed/simple;
-	bh=Wcv4ZLmmvdfjbZvLQSsVP39AR6mMz7RNXcdhox0hcvw=;
+	s=arc-20240116; t=1791355880; c=relaxed/simple;
+	bh=KyN5yZrFVJKthjAmmbAkJxjolAt+EZeqj8evlB0uFuo=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=fRUeU0jFxYUfWl2eSWZxEqivhnj2iMdyW3QxWZ9iFB9u80raOhBwiQaWruClwOZ/YpyK35MRKzHhczpzP0Ppbpx6Vt+pPCEPrg7/xMCm8TjQzklBR86ZjgPPicEwLQbUya1jeR3qp4lQwOIXnh629ac5Q23lBDvMQyosh6MnRVE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=HHJpZj48; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CjjXVb23; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:To:Cc; b=uvNlrCIpSUjSo9XtyczvCCBPtKYZiHFkG8IzzrmvDTkx++m/Zx1ICAYKW8FZmDMlqrvduprDZrs4l/yHwKU+Eb3eHeeNsun9EU5j4emBr/sfc9jn23Sxo1KCWAb1nbbT82QnMKFyARqsuBaFMP3uY+TcbalyFEL3e34IuxlUh3g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=eIuVN+2F; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LZVVEhlg; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="HHJpZj48";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CjjXVb23"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6974U9Qj2295211
-	for <devicetree@vger.kernel.org>; Wed, 7 Oct 2026 06:51:11 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="eIuVN+2F";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LZVVEhlg"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6974UHWU2063166
+	for <devicetree@vger.kernel.org>; Wed, 7 Oct 2026 06:51:17 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	VbnQ5UhdwkF2mB+kgRVrvAgOBOsNAgejHqFSdDqSGng=; b=HHJpZj48q/M6t8U/
-	t+Pl32OOW+6+BXS9E8/2oM7X5ul4JVr44NB8pSsRP9Xwt5c5bje/I8nCviU45FeF
-	5hFgZcWzh0OrGHmDtR+2x/ZMUoghvIDYAiKSrCXlley8Ct3E03DSmKpWvd2szOlW
-	k2ez9vJsiGvr5/eVyjrUd38TTVuIMwbGi3kKZfUs+WKCqk+szL18WcpD+CVXLY9j
-	qc5QgOcmdtB02nO9KJLAEyAeYCMbGezPJUYEZ7EjkB+RCH/6YpjtgxEUcDu81tLO
-	f9ePRaszcGIwQ3M3LI/kCJ05rn4AaoPblGpO2m1oXBT3NhrB0Gj3xKfy4Nn65Bsp
-	VbdUBA==
-Received: from mail-dl1-f70.google.com (mail-dl1-f70.google.com [74.125.82.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5c1s0yrw-1
+	Lh+LpMJSEHytBkWqz8ESY8YPUgkth8UqfG+klhzEh6M=; b=eIuVN+2FK7xX98+e
+	g73jLmYwYk5ZzkF/0sNPeBkzvhZh2MiL5mqkffeQJZzZhsvDeOBE2uKz8KUcdOBA
+	r7su/Z1U+yzZvrKL+Cfkf9r1XXkzGGIxke2UAgeWq0CHaLLesZAe3+LgDLnrsa9y
+	CfKqE7uZNfH+79aH2SZcAMXs6XewvxE5OED8pXTJgHIUjQ2vJXimhl9tGpMwqwCl
+	JbF5K/js/rqBBdHVDcQ3rcVDw5ZqYlNN+tKGe1SylJxBrr0hDFsI02Js8clSo/2y
+	jchfAYMSIp6vFsXsCRaQ2qRDPpk/bgepWFwJfplsVMHWMiIwwjj9D53yP4HXsdiu
+	ul227g==
+Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5c6u0xk5-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 06:51:11 +0000 (GMT)
-Received: by mail-dl1-f70.google.com with SMTP id a92af1059eb24-14fed306427so13365497c88.1
-        for <devicetree@vger.kernel.org>; Tue, 06 Oct 2026 23:51:11 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 06:51:17 +0000 (GMT)
+Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-1438719cc1eso5539530c88.0
+        for <devicetree@vger.kernel.org>; Tue, 06 Oct 2026 23:51:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791355871; x=1791960671; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1791355877; x=1791960677; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=VbnQ5UhdwkF2mB+kgRVrvAgOBOsNAgejHqFSdDqSGng=;
-        b=CjjXVb23D0R2i5MdDcI9+1ipswJyjcsX+mppnlAbDuaevW9NN+EzYHTJqPXHAT1mkU
-         sCC+yua6C4vUPYvgarSyDCEKRWKl+cw4Oz2gbIWS4As1K7HFXibWwV/1AWIaM1pCsTZ9
-         IIra5F8LhUHU6StyPCEvh5HsLV37a8vYAWATWLJgrdkcp4/1Ruiy5zlfdGDp5w/ZkRpv
-         6Ts7dJAan0NacKeKQY/aBPwpM2V8r+O3o+7LIRltb5yF5ZgBudCzk3jNnSMUNgzeIgQZ
-         nNqMKrpswCXv5zqOz1nOkPrjM09gHE7zENR7mkAmUsEpTVdO87/KidFzoq82ahtOZh6E
-         go5Q==
+        bh=Lh+LpMJSEHytBkWqz8ESY8YPUgkth8UqfG+klhzEh6M=;
+        b=LZVVEhlgJgsM1EJevcs9K+aDb1YKzZPXp8qKytRZftsK52fOtqHDLqTB41cxWTDah5
+         KYgEvFOxAafga02wzqhAIhaQVixqc9haoZNqxDwOKJM+wmWsZrXeWy0zppVDbV8hvHMh
+         zYrw1IXu6azy4qCxXFHz0S4sOuGQibOPXytoPtKufzLDuazJJaeMa2ZVnAwu5YNH0dPZ
+         0HJPhKu0fmbJqjHL6tPMA83Jc6JTw0Hytr7lNoyhC7OLMoaG2pbvn8s5MIvNANg2XCJk
+         6Gxd1A+0ANgu/v0c2Gtm7WE7NNhgiQcpMtA+IvqNEDWwTrm9Xl8g9Mb21aKXtPgx0xxN
+         nX5Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791355871; x=1791960671;
+        d=1e100.net; s=20260707; t=1791355877; x=1791960677;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=VbnQ5UhdwkF2mB+kgRVrvAgOBOsNAgejHqFSdDqSGng=;
-        b=xEiTJ4k1yXuTFmSX+BWy+UrfY8fdkjKS31PFnh0exotOYECmReybYpmM/rOkXQS3+D
-         kMcqaLbigAqRS3jWPjf6l06TbFYCGknEkEIYBI2DIn4Nplmkgc4AvxH/ksCzzRJR9cal
-         EB/wrevQi2/nUJoZidZDy3ENF2VaCQ6KGEWSt4kARUWWWswkPMWRS1OQI8luiSARJ1ur
-         mU0UnzgsSHxNcfxCBXWMp2Y3dCpDQJa6IeqthTG3D1+WBYVjWZQoeq0I9QRwppVfSTNQ
-         LxCCvafx0PTP617N8OFp6OVydHBJoeKlaNx0QSI3SRPINWmeOJgNjA5EP9ezaNMUxmOj
-         fAzw==
-X-Forwarded-Encrypted: i=1; AKwUvBwVbjqHeYCiA6Gm7dDZJn5pj34L/dSn256J9mPtLgCPZAdfSONRv9v3eHoDn6AoQzqSLi3BaNr5C8JP@vger.kernel.org
-X-Gm-Message-State: AFuF++kyQlhXnpY+3kakuXHFKGlXK+JsafOjUn+9YCSrBBH6NTUUzML8
-	EVtbDUGDf8tSvBcNtuv/vcyz3muLrtKu7f27idiQLT/Nyb3ZTl1cf5cHmOdHfKsrGGDbpnI3lKV
-	8H62GKwwQgjWhqzid37BoZQGAE8V1/L3jrzm6ro4gqMB3S5U8GnK8NwyGYwT/J7i+
-X-Gm-Gg: AYBFou0Xf9nVhS2AMqKSey2NSSLl09QyMIMWOSI7rLXSEUseqM81aI2nJYCMr/J51/r
-	UBzSBAE1Zm152oNOHBzj39KeRpAsA4ZKbQJibv9T2OIxGxFMQb9CVWYvWC/pPnXI1HFhnfY8yp5
-	RgKE0rR4uFRdq1MPGNKbdpkTvz0gIsJLdth64KKoh4vXdk6sYPomP10/st4JBJ5IEkRFJ3tJlic
-	efb1qlj9HBskJRwToL/QsU0/irC+4SSercRdkUSYjuDYFEG9ooGOJ5xv3Giye5J1XSfk1sH0N+5
-	/rtwKGdnVZ2Ln+rON+gfA2q2DeHSlkBg+PPuQUNosBDocu7fogKZC5mF/fya+qgrfgcPNna3RDj
-	+tH5VblyxJCHK0x2eF4ga1uXgrbgd97HFC5lb1VP9k7lXPVdDvCoiWid9QPEv6bjN3rapuWVZb3
-	7WVab/6hSmZJc3d7V+plIkoJ9F1BtOFddmN30=
-X-Received: by 2002:a05:701b:4550:10b0:151:8d26:a798 with SMTP id a92af1059eb24-16207e74c92mr1202464c88.26.1791355870673;
-        Tue, 06 Oct 2026 23:51:10 -0700 (PDT)
-X-Received: by 2002:a05:701b:4550:10b0:151:8d26:a798 with SMTP id a92af1059eb24-16207e74c92mr1202435c88.26.1791355870033;
-        Tue, 06 Oct 2026 23:51:10 -0700 (PDT)
+        bh=Lh+LpMJSEHytBkWqz8ESY8YPUgkth8UqfG+klhzEh6M=;
+        b=K/AKkP1C8L2UejpVCjTyHBoCNuKcohfgSZ4/34QwLx8ZJzNz3vX5Zz6+Ga3JcuoVZ/
+         JfofdMMBLZTA9HuIl/wQJxLnaQa+TZ4zjbzc7UHk3e18Zj2PODr8roBTre5c+8AbX9yA
+         ryrsskr5Ez6N7U2hEMXhKTGnVwItQwyAkti8uXHHArFxiuc/Pm0PjVmH2XFC7dTpWRkI
+         hLiPnCVh3gaB+s0DNW5aoeKWt0eUI3YRRdTRpoXPBqj/rQ6d0IM+SSql3ogaOwhsZ5bl
+         BpOJC1HIS27NBTfA3LyU1eIJMsn8Uf1lN/UWn83uvstzn3AuCDRwB4amTJ9Y8nM73CxY
+         pdNw==
+X-Forwarded-Encrypted: i=1; AKwUvBx9F8htDNHS4vqb57Mk1s8pt+cZTL3w8B4cWQVUnBM0FbzHEkcVO3e04Orrrv7O9SrIQYaZ1TeBwmmF@vger.kernel.org
+X-Gm-Message-State: AFuF++lFm/cAkWLruCYdb3OVoeRZ/67FVZy+85wwzdY34/Z6Xpo1QO+8
+	o+VxkY1ePLRJVEVyuD5S7q7UobOBdIFcRqoY5PCeya7K6nf5KRVvLCJDweJMriZ6qo+IIzNKew4
+	4iSmGVacgX12gtMgDCEsaRH+IEiYTx+SbqBKQp9lNWXcKQXyNFO4Wr0cJVlZV0ReE
+X-Gm-Gg: AYBFou1+JU3W+CCYiostJEMcnXVJzuNa7QVeGsD6bbnPqS0S0RBeB1eyYyt9FObwYs5
+	sIq1jL1HLG34T83C2EQ5UnV+75zju27O8y7S9Fkd8W/EIvNffPWULwUJ9wyvkbgZYc6F6rHe+dL
+	futQ1Cw06wS3q14KUeDwUJCzqDLgyUPzNyaVvcOJd1uKz5qGSiLaiJGI+EHK3ncANw0uaoVz2bB
+	U93HtMsYiTDUCWYPlkWn3ix3Kp9PETOkCOUQxOIA4HE3IuNuDRk5z/z+WKL+cNZe2kALKNlPRsA
+	3fKmuO4IbNi6QypNbsTAp5STU0d2rbVvVymKa01QkV0d5o21KyOZhYhh64Pux8KvwVsk7Ntf7U3
+	lihJMXQ/b6+n29fnrY9MRNNsEbj398/E70zLbF9t+NeZuaopzcensES3Zt2qzQ/Y6HnCxk0VR2F
+	lMz0h0xlHqxStS4yDIOfEPvCO4JBSiWLB98oE=
+X-Received: by 2002:a05:7022:f502:b0:143:7001:7645 with SMTP id a92af1059eb24-16209760be6mr1069616c88.47.1791355876622;
+        Tue, 06 Oct 2026 23:51:16 -0700 (PDT)
+X-Received: by 2002:a05:7022:f502:b0:143:7001:7645 with SMTP id a92af1059eb24-16209760be6mr1069587c88.47.1791355876026;
+        Tue, 06 Oct 2026 23:51:16 -0700 (PDT)
 Received: from hu-kathirav-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1615f1ac8c5sm7374730c88.2.2026.10.06.23.51.05
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1615f1ac8c5sm7374730c88.2.2026.10.06.23.51.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 06 Oct 2026 23:51:09 -0700 (PDT)
+        Tue, 06 Oct 2026 23:51:15 -0700 (PDT)
 From: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
-Date: Wed, 07 Oct 2026 12:20:46 +0530
-Subject: [PATCH 3/4] dt-bindings: clock: ipq9650-apss-clk: Add IPQ9650 apss
- clock controller
+Date: Wed, 07 Oct 2026 12:20:47 +0530
+Subject: [PATCH 4/4] clk: qcom: apss-ipq9650: Add IPQ9650 APSS clock
+ controller driver
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -92,7 +92,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261007-ipq9650_apss_clk-v1-3-fd4c2b3cbdea@oss.qualcomm.com>
+Message-Id: <20261007-ipq9650_apss_clk-v1-4-fd4c2b3cbdea@oss.qualcomm.com>
 References: <20261007-ipq9650_apss_clk-v1-0-fd4c2b3cbdea@oss.qualcomm.com>
 In-Reply-To: <20261007-ipq9650_apss_clk-v1-0-fd4c2b3cbdea@oss.qualcomm.com>
 To: Georgi Djakov <djakov@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
@@ -107,143 +107,474 @@ Cc: linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
         devicetree@vger.kernel.org,
         Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Proofpoint-ORIG-GUID: 7Aj7247w_BvpihaB-GvCK_hqxWW3Qf_n
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDAyNyBTYWx0ZWRfX4rFCPFZ7ivTX
- MBG7Qnb+7s7SiU4mzOAuHfTim3LLJ/dqkWbYCQ3VeIJRzRRWEjsgDeodnClfs9WbIRvRWZZyVAI
- jrt8swtuoAalIl0OShCotep2lWecBx6zFeP7ACJ3PBdnFuZ3BncBivbHhqfcVTVXakz/IQLCBH6
- 0mpRHKXY+FODoWE3QlJ308qYh4knlAR9GOEQFSYiMAlm0vfoMWG95IMZlK8+LLFFGOOWwY9ovmX
- YEOL1HZSmrddpLFELcIYr5mwmCEGMIAKZR6GLwa2euFO2XLFgnkwKZsCTY74yfSa38OQbtH80hi
- PIckkBbODIqnUm+2U/2ssbR6M46b2lQnSAHG23a66kzXhlk4Iq923ThAHIZMEsslISlybYuFKvg
- dYi9y+8BBfCqt6MwoRV+gLiloS6zIKmiCaXpBVo2ULVXokLY5foWkPEael68kiETcc9uUNXrWqd
- 4aFhLKxBMu+sjgjaYaw==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDAyNyBTYWx0ZWRfX+IAOsbULrfCQ
- AryoTwCMFQhaeWQ1R3/Yys7xzgbQfDK6IIwBa4v6rh8uKhEblCqffjzzDrHut8p8InomCSIRdGy
- HfGremhm45aMw+WuZbume86k6jt8Pu8=
-X-Proofpoint-GUID: 7Aj7247w_BvpihaB-GvCK_hqxWW3Qf_n
-X-Authority-Analysis: v=2.4 cv=NatzRGD4 c=1 sm=1 tr=0 ts=6ac5ebdf cx=c_pps
- a=SvEPeNj+VMjHSW//kvnxuw==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDAyNyBTYWx0ZWRfX/tKMWdJaLU/q
+ pHuWF4CyJWve8YqP+0bU7Vs5epB7wPpDCQoA36BvxoQaLzwyxwOUQ6VrWxoxwVtD+P/5QXzz53H
+ eq8+ecYfPsV8VU0+rnPFpt61iyQn7gU=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDAyNyBTYWx0ZWRfXz0SfsT+oAzRS
+ KE4RXb4hsCnTT33GLVqmJ5RoUOrja+yZRai2zCknLgmaTB037yPN325alop22Bei3xsmaseGdWC
+ l6HD8zBVoU9C5gTtvwE3mBsJYwnBN4k0mq7Ln0TbESxOoWnJnyuIvGx46zuB4LMxvD2ddckYvpb
+ erQHO1oJ7la9BWi+KQPsTZ/NBYDrzHlKP+pMAvlPlSf0GSXYQbZoHxlWgr0+YC9t/tTrdKFTgwo
+ uByQyCKeoO+61S1rTu7r4mv5NcxcxscLo9fGFdjv88mUDme8TAURs2PlZMKawulm3iknYSF+0s+
+ Me7OpFjtocz0tL+cpPv9rh/UgiJ/h/bKo5TE+z24vGYvzJbAVL86IFM+bUdQrV1qfLwK2hgb6zp
+ fI9JONcXOLRN1I0MUEzH12F1RJPlMxF8o8ok4/Nc5bmpmHbWIPO5Jd/57WrvQjQthWFUi1+Kq5R
+ IpdXa7BDEhV5O/Oc6tQ==
+X-Proofpoint-ORIG-GUID: tmiqyanWEMn52gjTE5NG-iJJrfT11c8R
+X-Authority-Analysis: v=2.4 cv=T5EZ3PKQ c=1 sm=1 tr=0 ts=6ac5ebe5 cx=c_pps
+ a=kVLUcbK0zfr7ocalXnG1qA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=QDl9-_pjA6WZ_EjsUeIA:9 a=QEXdDO2ut3YA:10
- a=Kq8ClHjjuc5pcCNDwlU0:22 a=sptkURWiP4Gy88Gu7hUp:22
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=ml8jbCMxnmMANGqTHqUA:9 a=QEXdDO2ut3YA:10
+ a=vr4QvYf-bLy2KjpDp97w:22
+X-Proofpoint-GUID: tmiqyanWEMn52gjTE5NG-iJJrfT11c8R
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-07_02,2026-10-06_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 adultscore=0 lowpriorityscore=0 suspectscore=0 spamscore=0
- clxscore=1015 priorityscore=1501 impostorscore=0 phishscore=0 malwarescore=0
+ suspectscore=0 phishscore=0 priorityscore=1501 impostorscore=0 malwarescore=0
+ clxscore=1015 bulkscore=0 adultscore=0 spamscore=0 lowpriorityscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070027
 
-The APSS clock controller on IPQ9650 provides the CPU and L3 clocks and
-has a register space separate from the GCC. The four Cortex-A55 cores,
-the Cortex-A78 core and the L3 are each clocked by their own Zonda PLL,
-selected through a glitch-free mux whose parents are XO, GPLL0 and the
-corresponding PLL. The L3 needs to be scaled along with the CPUs, so the
-controller is also an interconnect provider.
+The APSS clock controller on IPQ9650 provides the CPU and L3 clocks.
+The four Cortex-A55 cores (silver), the Cortex-A78 core (gold) and the
+L3 are each clocked by their own Zonda PLL. Each clock is selected
+through a glitch-free mux (GFM) whose parents are XO, GPLL0 and the
+corresponding PLL. The gold mux can also select the PLL's post-divider
+output.
 
-Add the binding, the clock indices for the Cortex-A78 (gold) cluster to
-the shared APSS header, and the interconnect IDs for the CPU and L3
-nodes.
+The L3 needs to be scaled along with the CPUs, so register an icc-clk
+provider in which both CPU clusters vote on the L3 core clock.
 
 Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
 ---
- .../bindings/clock/qcom,ipq9650-apss-clk.yaml      | 58 ++++++++++++++++++++++
- include/dt-bindings/clock/qcom,apss-ipq.h          |  5 ++
- include/dt-bindings/interconnect/qcom,ipq9650.h    |  4 ++
- 3 files changed, 67 insertions(+)
+ drivers/clk/qcom/Kconfig        |   9 +
+ drivers/clk/qcom/Makefile       |   1 +
+ drivers/clk/qcom/apss-ipq9650.c | 385 ++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 395 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/clock/qcom,ipq9650-apss-clk.yaml b/Documentation/devicetree/bindings/clock/qcom,ipq9650-apss-clk.yaml
+diff --git a/drivers/clk/qcom/Kconfig b/drivers/clk/qcom/Kconfig
+index 27d0ab24d50a..a17f661c3102 100644
+--- a/drivers/clk/qcom/Kconfig
++++ b/drivers/clk/qcom/Kconfig
+@@ -599,6 +599,15 @@ config IPQ_APSS_6018
+ 	  Say Y if you want to support CPU frequency scaling on
+ 	  ipq based devices.
+ 
++config IPQ_APSS_9650
++	tristate "IPQ9650 APSS Clock Controller"
++	depends on ARM64 || COMPILE_TEST
++	default y if IPQ_GCC_9650
++	help
++	  Support for APSS Clock controller on Qualcomm IPQ9650 platform.
++	  Say Y if you want to support CPU frequency scaling on IPQ9650 based
++	  devices.
++
+ config IPQ_CMN_PLL
+ 	tristate "IPQ CMN PLL Clock Controller"
+ 	depends on ARM64 || COMPILE_TEST
+diff --git a/drivers/clk/qcom/Makefile b/drivers/clk/qcom/Makefile
+index 6affb5073f26..ec3d8512a812 100644
+--- a/drivers/clk/qcom/Makefile
++++ b/drivers/clk/qcom/Makefile
+@@ -68,6 +68,7 @@ obj-$(CONFIG_CLK_QCM2290_GPUCC) += gpucc-qcm2290.o
+ obj-$(CONFIG_IPQ_APSS_PLL) += apss-ipq-pll.o
+ obj-$(CONFIG_IPQ_APSS_5424) += apss-ipq5424.o
+ obj-$(CONFIG_IPQ_APSS_6018) += apss-ipq6018.o
++obj-$(CONFIG_IPQ_APSS_9650) += apss-ipq9650.o
+ obj-$(CONFIG_IPQ_CMN_PLL) += ipq-cmn-pll.o
+ obj-$(CONFIG_IPQ_GCC_4019) += gcc-ipq4019.o
+ obj-$(CONFIG_IPQ_GCC_5018) += gcc-ipq5018.o
+diff --git a/drivers/clk/qcom/apss-ipq9650.c b/drivers/clk/qcom/apss-ipq9650.c
 new file mode 100644
-index 000000000000..6b47183edd56
+index 000000000000..7602f3896fe3
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/clock/qcom,ipq9650-apss-clk.yaml
-@@ -0,0 +1,58 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/clock/qcom,ipq9650-apss-clk.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++++ b/drivers/clk/qcom/apss-ipq9650.c
+@@ -0,0 +1,385 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ */
 +
-+title: Qualcomm APSS IPQ9650 Clock Controller
++#include <linux/clk-provider.h>
++#include <linux/module.h>
++#include <linux/platform_device.h>
++#include <linux/regmap.h>
++#include <linux/interconnect-provider.h>
 +
-+maintainers:
-+  - Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
++#include <dt-bindings/clock/qcom,apss-ipq.h>
++#include <dt-bindings/interconnect/qcom,ipq9650.h>
 +
-+description:
-+  The APSS clock controller provides the CPU and L3 clocks on IPQ9650 and
-+  has a register space separate from the GCC. The four Cortex-A55 cores,
-+  the Cortex-A78 core and the L3 are each clocked by their own Zonda PLL.
-+  Each clock is selected through a glitch-free mux (GFM) whose parents are
-+  XO, GPLL0 and the corresponding PLL.
++#include "clk-alpha-pll.h"
++#include "clk-branch.h"
++#include "clk-regmap.h"
++#include "common.h"
 +
-+properties:
-+  compatible:
-+    enum:
-+      - qcom,ipq9650-apss-clk
++enum {
++	DT_XO,
++	DT_GPLL0,
++};
 +
-+  reg:
-+    maxItems: 1
++static const struct pll_vco silver_pll_vco[] = {
++	{ 816000000, 1968000000, 0 },
++};
 +
-+  clocks:
-+    items:
-+      - description: Reference to the XO clock.
-+      - description: Reference to the GPLL0 clock.
++static const struct pll_vco gold_pll_vco[] = {
++	{ 696000000, 1992000000, 0 },
++};
 +
-+  '#clock-cells':
-+    const: 1
++static const struct pll_vco l3_pll_vco[] = {
++	{ 696000000, 1512000000, 0 },
++};
 +
-+  '#interconnect-cells':
-+    const: 1
++static const struct alpha_pll_config silver_apss_pll_config = {
++	.l = 0x23,
++	.config_ctl_val = 0x08200920,
++	.config_ctl_hi_val = 0x05008001,
++	.config_ctl_hi1_val = 0x04000000,
++	.user_ctl_val = 0x01000009,
++};
 +
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - '#clock-cells'
-+  - '#interconnect-cells'
++static const struct alpha_pll_config gold_apss_pll_config = {
++	.l = 0x26,
++	.config_ctl_val = 0x08200920,
++	.config_ctl_hi_val = 0x05008001,
++	.config_ctl_hi1_val = 0x04000000,
++	.user_ctl_val = 0x01000009,
++};
 +
-+additionalProperties: false
++static const struct alpha_pll_config l3_pll_config = {
++	.l = 0x1e,
++	.config_ctl_val = 0x08200920,
++	.config_ctl_hi_val = 0x05008001,
++	.config_ctl_hi1_val = 0x04000000,
++	.user_ctl_val = 0x01000009,
++};
 +
-+examples:
-+  - |
-+    #include <dt-bindings/clock/qcom,ipq9650-gcc.h>
++static struct clk_alpha_pll silver_apss_pll = {
++	.offset = 0x0,
++	.config = &silver_apss_pll_config,
++	.vco_table = silver_pll_vco,
++	.num_vco = ARRAY_SIZE(silver_pll_vco),
++	.regs = clk_alpha_pll_regs[CLK_ALPHA_PLL_TYPE_ZONDA],
++	.flags = SUPPORTS_DYNAMIC_UPDATE,
++	.clkr = {
++		.enable_reg = 0x0,
++		.enable_mask = BIT(0),
++		.hw.init = &(struct clk_init_data){
++			.name = "silver_apss_pll",
++			.parent_data = &(const struct clk_parent_data){
++				.index = DT_XO,
++			},
++			.num_parents = 1,
++			.flags = CLK_IS_CRITICAL,
++			.ops = &clk_alpha_pll_zonda_ops,
++		},
++	},
++};
 +
-+    apss_clk: clock-controller@fa80000 {
-+      compatible = "qcom,ipq9650-apss-clk";
-+      reg = <0x0fa80000 0x30000>;
-+      clocks = <&xo_board>,
-+               <&gcc GPLL0>;
-+      #clock-cells = <1>;
-+      #interconnect-cells = <1>;
-+    };
-diff --git a/include/dt-bindings/clock/qcom,apss-ipq.h b/include/dt-bindings/clock/qcom,apss-ipq.h
-index 0bb41e5efdef..c9b04f2dbb6c 100644
---- a/include/dt-bindings/clock/qcom,apss-ipq.h
-+++ b/include/dt-bindings/clock/qcom,apss-ipq.h
-@@ -15,4 +15,9 @@
- #define L3_CLK_SRC				6
- #define L3_CORE_CLK				7
- 
-+/* IPQ9650 Gold cluster clock indices */
-+#define APSS_GOLD_PLL				8
-+#define APSS_GOLD_PLL_POSTDIV			9
-+#define APSS_GOLD_CORE_CLK			10
++static struct clk_alpha_pll gold_apss_pll = {
++	.offset = 0x10000,
++	.config = &gold_apss_pll_config,
++	.vco_table = gold_pll_vco,
++	.num_vco = ARRAY_SIZE(gold_pll_vco),
++	.regs = clk_alpha_pll_regs[CLK_ALPHA_PLL_TYPE_ZONDA],
++	.flags = SUPPORTS_DYNAMIC_UPDATE,
++	.clkr = {
++		.enable_reg = 0x10000,
++		.enable_mask = BIT(0),
++		.hw.init = &(struct clk_init_data){
++			.name = "gold_apss_pll",
++			.parent_data = &(const struct clk_parent_data){
++				.index = DT_XO,
++			},
++			.num_parents = 1,
++			.flags = CLK_IS_CRITICAL,
++			.ops = &clk_alpha_pll_zonda_ops,
++		},
++	},
++};
 +
- #endif
-diff --git a/include/dt-bindings/interconnect/qcom,ipq9650.h b/include/dt-bindings/interconnect/qcom,ipq9650.h
-index 023a3878cc08..1a77609de832 100644
---- a/include/dt-bindings/interconnect/qcom,ipq9650.h
-+++ b/include/dt-bindings/interconnect/qcom,ipq9650.h
-@@ -25,4 +25,8 @@
- #define MASTER_SNOC_USB			20
- #define SLAVE_SNOC_USB			21
- 
-+#define MASTER_CPU_SILVER		0
-+#define SLAVE_L3			1
-+#define MASTER_CPU_GOLD			2
++static const struct clk_div_table gold_apss_pll_post_div_table[] = {
++	{ 0x0, 1 },
++	{ 0x1, 2 },
++	{ }
++};
 +
- #endif /* INTERCONNECT_QCOM_IPQ9650_H */
++static struct clk_alpha_pll_postdiv gold_apss_pll_postdiv = {
++	.offset = 0x10000,
++	.post_div_shift = 8,
++	.post_div_table = gold_apss_pll_post_div_table,
++	.num_post_div = ARRAY_SIZE(gold_apss_pll_post_div_table),
++	.width = 2,
++	.regs = clk_alpha_pll_regs[CLK_ALPHA_PLL_TYPE_ZONDA],
++	.clkr.hw.init = &(struct clk_init_data){
++		.name = "gold_apss_pll_postdiv",
++		.parent_hws = (const struct clk_hw*[]){
++			&gold_apss_pll.clkr.hw,
++		},
++		.num_parents = 1,
++		.flags = CLK_SET_RATE_PARENT,
++		.ops = &clk_alpha_pll_postdiv_zonda_ops,
++	},
++};
++
++static struct clk_alpha_pll l3_pll = {
++	.offset = 0x20000,
++	.config = &l3_pll_config,
++	.vco_table = l3_pll_vco,
++	.num_vco = ARRAY_SIZE(l3_pll_vco),
++	.regs = clk_alpha_pll_regs[CLK_ALPHA_PLL_TYPE_ZONDA],
++	.flags = SUPPORTS_DYNAMIC_UPDATE,
++	.clkr = {
++		.enable_reg = 0x20000,
++		.enable_mask = BIT(0),
++		.hw.init = &(struct clk_init_data){
++			.name = "l3_pll",
++			.parent_data = &(const struct clk_parent_data){
++				.index = DT_XO,
++			},
++			.num_parents = 1,
++			.flags = CLK_IS_CRITICAL,
++			.ops = &clk_alpha_pll_zonda_ops,
++		},
++	},
++};
++
++struct clk_gfm {
++	u32 mux_reg;
++	u32 mux_mask;
++	struct clk_hw hw;
++	void __iomem *base;
++};
++
++#define to_clk_gfm(_hw) container_of(_hw, struct clk_gfm, hw)
++
++static u8 clk_gfm_get_parent(struct clk_hw *hw)
++{
++	struct clk_gfm *gfm = to_clk_gfm(hw);
++	u32 val;
++
++	val = readl(gfm->base + gfm->mux_reg);
++	return val & gfm->mux_mask;
++}
++
++static int clk_gfm_set_parent(struct clk_hw *hw, u8 index)
++{
++	struct clk_gfm *gfm = to_clk_gfm(hw);
++	u32 val;
++
++	val = readl(gfm->base + gfm->mux_reg);
++	val &= ~gfm->mux_mask;
++	val |= (index & gfm->mux_mask);
++	writel(val, gfm->base + gfm->mux_reg);
++
++	return 0;
++}
++
++static const struct clk_ops clk_gfm_ops = {
++	.get_parent = clk_gfm_get_parent,
++	.set_parent = clk_gfm_set_parent,
++	.determine_rate = __clk_mux_determine_rate_closest,
++};
++
++static struct clk_gfm silver_apss_pll_gfmux = {
++	.mux_reg = 0x84,
++	.mux_mask = 0xf,
++	.hw.init = &(struct clk_init_data) {
++		.name = "silver_apss_pll_gfmux",
++		.parent_data = (const struct clk_parent_data[]) {
++			{ .index = DT_XO },
++			{ .index = DT_GPLL0 },
++			{ .hw = &silver_apss_pll.clkr.hw },
++		},
++		.num_parents = 3,
++		.ops = &clk_gfm_ops,
++		.flags = CLK_SET_RATE_PARENT,
++	},
++};
++
++static struct clk_gfm gold_apss_pll_gfmux = {
++	.mux_reg = 0x10084,
++	.mux_mask = 0xf,
++	.hw.init = &(struct clk_init_data) {
++		.name = "gold_apss_pll_gfmux",
++		.parent_data = (const struct clk_parent_data[]) {
++			{ .index = DT_XO },
++			{ .index = DT_GPLL0 },
++			{ .hw = &gold_apss_pll.clkr.hw },
++			{ .hw = &gold_apss_pll_postdiv.clkr.hw },
++		},
++		.num_parents = 4,
++		.ops = &clk_gfm_ops,
++		.flags = CLK_SET_RATE_PARENT,
++	},
++};
++
++static struct clk_gfm l3_pll_gfmux = {
++	.mux_reg = 0x20084,
++	.mux_mask = 0xf,
++	.hw.init = &(struct clk_init_data) {
++		.name = "l3_pll_gfmux",
++		.parent_data = (const struct clk_parent_data[]) {
++			{ .index = DT_XO },
++			{ .index = DT_GPLL0 },
++			{ .hw = &l3_pll.clkr.hw },
++		},
++		.num_parents = 3,
++		.ops = &clk_gfm_ops,
++		.flags = CLK_SET_RATE_PARENT,
++	},
++};
++
++static struct clk_branch apss_silver_core_clk = {
++	.halt_reg = 0x8c,
++	.clkr = {
++		.enable_reg = 0x8c,
++		.enable_mask = BIT(0),
++		.hw.init = &(struct clk_init_data) {
++			.name = "apss_silver_clk",
++			.parent_hws = (const struct clk_hw*[]) {
++				&silver_apss_pll_gfmux.hw,
++			},
++			.num_parents = 1,
++			.flags = CLK_SET_RATE_PARENT | CLK_IS_CRITICAL,
++			.ops = &clk_branch2_ops,
++		},
++	},
++};
++
++static struct clk_branch apss_gold_core_clk = {
++	.halt_reg = 0x1008c,
++	.clkr = {
++		.enable_reg = 0x1008c,
++		.enable_mask = BIT(0),
++		.hw.init = &(struct clk_init_data) {
++			.name = "apss_gold_clk",
++			.parent_hws = (const struct clk_hw*[]) {
++				&gold_apss_pll_gfmux.hw,
++			},
++			.num_parents = 1,
++			.flags = CLK_SET_RATE_PARENT | CLK_IS_CRITICAL,
++			.ops = &clk_branch2_ops,
++		},
++	},
++};
++
++static struct clk_branch l3_core_clk = {
++	.halt_reg = 0x2008c,
++	.clkr = {
++		.enable_reg = 0x2008c,
++		.enable_mask = BIT(0),
++		.hw.init = &(struct clk_init_data) {
++			.name = "l3_core_clk",
++			.parent_hws = (const struct clk_hw*[]) {
++				&l3_pll_gfmux.hw,
++			},
++			.num_parents = 1,
++			.flags = CLK_SET_RATE_PARENT | CLK_IS_CRITICAL,
++			.ops = &clk_branch2_ops,
++		},
++	},
++};
++
++static struct clk_hw *apss_hws[] = {
++	&silver_apss_pll_gfmux.hw,
++	&l3_pll_gfmux.hw,
++	&gold_apss_pll_gfmux.hw,
++};
++
++static struct clk_regmap *apss_clks[] = {
++	[APSS_PLL_EARLY] = &silver_apss_pll.clkr,
++	[APSS_SILVER_CORE_CLK] = &apss_silver_core_clk.clkr,
++	[L3_PLL] = &l3_pll.clkr,
++	[L3_CORE_CLK] = &l3_core_clk.clkr,
++	[APSS_GOLD_PLL] = &gold_apss_pll.clkr,
++	[APSS_GOLD_PLL_POSTDIV] = &gold_apss_pll_postdiv.clkr,
++	[APSS_GOLD_CORE_CLK] = &apss_gold_core_clk.clkr,
++};
++
++static const struct regmap_config apss_regmap_config = {
++	.reg_bits = 32,
++	.reg_stride = 4,
++	.val_bits = 32,
++	.max_register = 0x2fffc,
++	.fast_io = true,
++};
++
++static struct clk_alpha_pll *ipq9650_apss_plls[] = {
++	&silver_apss_pll,
++	&gold_apss_pll,
++	&l3_pll,
++};
++
++static const struct qcom_cc_driver_data ipq9650_apss_driver_data = {
++	.alpha_plls = ipq9650_apss_plls,
++	.num_alpha_plls = ARRAY_SIZE(ipq9650_apss_plls),
++};
++
++#define IPQ_APPS_PLL_ID			(9650 * 3)	/* some unique value */
++
++static const struct qcom_icc_hws_data icc_cpu_l3[] = {
++	{ MASTER_CPU_SILVER, SLAVE_L3, L3_CORE_CLK },
++	{ MASTER_CPU_GOLD, SLAVE_L3, L3_CORE_CLK },
++};
++
++static const struct qcom_cc_desc apss_desc = {
++	.config = &apss_regmap_config,
++	.clks = apss_clks,
++	.num_clks = ARRAY_SIZE(apss_clks),
++	.icc_hws = icc_cpu_l3,
++	.num_icc_hws = ARRAY_SIZE(icc_cpu_l3),
++	.icc_first_node_id = IPQ_APPS_PLL_ID,
++	.clk_hws = apss_hws,
++	.num_clk_hws = ARRAY_SIZE(apss_hws),
++	.driver_data = &ipq9650_apss_driver_data,
++};
++
++static int apss_ipq9650_probe(struct platform_device *pdev)
++{
++	const struct qcom_cc_desc *desc = &apss_desc;
++	struct regmap *regmap;
++	struct clk_gfm *gfm;
++	void __iomem *base;
++	int i;
++
++	base = devm_platform_ioremap_resource(pdev, 0);
++	if (IS_ERR(base))
++		return PTR_ERR(base);
++
++	regmap = devm_regmap_init_mmio(&pdev->dev, base,
++				       &apss_regmap_config);
++	if (IS_ERR(regmap))
++		return PTR_ERR(regmap);
++
++	for (i = 0; i < desc->num_clk_hws; i++) {
++		gfm = to_clk_gfm(apss_hws[i]);
++		gfm->base = base;
++	}
++
++	return qcom_cc_really_probe(&pdev->dev, desc, regmap);
++}
++
++static const struct of_device_id apss_ipq9650_match_table[] = {
++	{ .compatible = "qcom,ipq9650-apss-clk" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, apss_ipq9650_match_table);
++
++static struct platform_driver apss_ipq9650_driver = {
++	.probe = apss_ipq9650_probe,
++	.driver = {
++		.name = "qcom,ipq9650-apss-clk",
++		.of_match_table = apss_ipq9650_match_table,
++		.sync_state = icc_sync_state,
++	},
++};
++
++module_platform_driver(apss_ipq9650_driver);
++
++MODULE_DESCRIPTION("Qualcomm IPQ9650 APSS Clock Driver");
++MODULE_LICENSE("GPL");
 
 -- 
 2.34.1
