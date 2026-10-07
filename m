@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3C5C16F288
-	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 07:21:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 960663A383A
+	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 07:21:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791357672; cv=none; b=E7/qXrai7JXgXBEjZztQb7iTKcPbaaxlh+i1NSmyZt2+2a+etsU9VBtOfDwq6k/uKd+h/t0h74TmQsaMNZQZfp1m/JhHG5P5B4xuIyb01ljA5pgURtwqSBi4sqe95PAQ3xJChgLFhHK8tLme7gw5U4MAWbee6Mp3ryr5fV/otr8=
+	t=1791357672; cv=none; b=lYm4MqjYfqUwTnKcCQ8ZyeSCcpCYKiLfnc7bg/4jp4KJ01SHvPHeZ3DT32i2oRTEZ98agjztiWupdTgaJGD//btYkWfxEFFBjJccTao8yp6XeRcZ5+rtj/npAH9XHxT73mgvUdrJYiNOEUcD6d9bS0cxLrGGTRgtXGKZ6i1P5iU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791357672; c=relaxed/simple;
-	bh=RYDsw3VxhBafgH1Iy5mNLhcIQXMRBOnxh+OZBtl20j4=;
+	bh=4pO33OUZkg7966aP1zziHYID+++NVWa97Ak4cgg/y/0=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=KRZqUM3GoPu8YOc2g741x4E8IagSH662fpQ/PlC8u0B9or+QM0u5TmyNRxGce0wwH66chd1lh8wccO8xHagdh263zDPEc3KsgXVfqLyzxBLo9B7zQoRR9VBqhP/TDOQPTGG5iGsJ6TxwXzTE6/DvLg7ODrkNmKB1ZAk7elfy7xw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iJkENkR+; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=K93dpxr4UQEfNxN3vkGjdqQkQ1SlSQwXnQ34QnjIje1agoN3kLAU0vxWU0/jCbI2P3rt35ljDSEaxfMlOHmQoDluVFkoRSlKwCRrz4yJtYlprM9YvOIvUmoNjRWYFunzQtPf36NgzWYCqreY5r0KsMqU0u+Ep12w45GV3B6AoP0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CfqikMkz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iJkENkR+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BDA01F0089B;
-	Wed,  7 Oct 2026 07:21:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CfqikMkz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 118E01F0089C;
+	Wed,  7 Oct 2026 07:21:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791357670;
-	bh=hyvQ+OJ0KG1StZh2O2+TudUjc2hPvmWAuZr7b+VMa6g=;
+	s=k20260515; t=1791357671;
+	bh=IEPLhX3x5SSkPDRU2nMVmA232jC2s+n11696fXzZDW4=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=iJkENkR+TdZFHrbL+SzPZZ7qf/LYUvPd72hjSwITox+69G54kxSm7pmziUeUkMd3y
-	 z6pRnVu+QyVIL8PT4tTR8yll0QnLmIZJTLESdrXIRXTbZL4BZ9+YtogxHfdLb1ANo7
-	 puvQEPF1YJJ/um/NjvUQvzn2TxGRNBtJBf9FhxkOyLgRxiKICvD67xCZyuviLXIJGO
-	 wHu5TNxt3fajyeVjFAG4i7MmeJSychFXAlIbPAwqVkZRc+fEf80LEn/6JRKWDvPlRb
-	 PlOVimgFzSUbP53hHwc91QeH85PxbxZ+KhBmWijtvyzW597+AkvcharqZ4watH1P4H
-	 WsEX9Vn7m4Xgw==
-Message-ID: <sashiko-outbox-162704@kernel.org>
+	b=CfqikMkzypNBvEWTjIkjUcwutDoOaXdmy051SHSgspis5IdVcn8nbJx3RurgpufMN
+	 s+HsCCh3AJCNyRK3f0JMcljfFk4W+fHmqInV26R8ol6uccVXszuMH8uNK74quMQfmS
+	 DQAwaKPAsavUpc0V1ItscRBmPY0PSSZgsknteAQrOGYwwLdTqDhgKgIE0XyAH7XQyW
+	 vlTG0bMe56zOovR//l/MVeiMMmu9A0XZ1wcDCo0SuSTkgAGiN0JN3ij96vpublm88f
+	 tIO07cUUmi/pbqXtlxn0gHMh7gT0A8QchsgpHZDv5xUvyz6ZUW4ZQ1oX9N7Vb30ups
+	 z/4ScAuSUxTIw==
+Message-ID: <sashiko-outbox-162705@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v2 4/6] net: ftgmac100: Require phy-mode for
- AST2700
+Subject: Re: [PATCH net-next v2 1/6] dt-bindings: net: ftgmac100: Add
+ AST2700 compatible
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Jacky Chou" <jacky_chou@aspeedtech.com>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261006-support_ast2700-v2-4-36de51fb8066@aspeedtech.com>
+In-Reply-To: <20261006-support_ast2700-v2-1-36de51fb8066@aspeedtech.com>
 References: <20261006-support_ast2700-v2-0-36de51fb8066@aspeedtech.com>
- <20261006-support_ast2700-v2-4-36de51fb8066@aspeedtech.com>
+ <20261006-support_ast2700-v2-1-36de51fb8066@aspeedtech.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 07 Oct 2026 07:21:09 +0000
+Date: Wed, 07 Oct 2026 07:21:10 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,71 +47,53 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] net: unreachable phy-mode validation for AST2700 due to NULL mii=
-_bus
+- [Critical] dt-bindings: net: lethal fallback string faraday,ftgmac100 for=
+ ast2700 causes DMA corruption
 --
 
-commit 73c3274c3dceb52c26bd7913efb395eafee8af8d
+commit 41515d527e75268fa4307e89354538c296e5a3a0
 Author: Jacky Chou <jacky_chou@aspeedtech.com>
 
-net: ftgmac100: Require phy-mode for AST2700
+dt-bindings: net: ftgmac100: Add AST2700 compatible
 
-This commit modifies the PHY interface initialization for the AST2700 SoC.
-It mandates the presence of the "phy-mode" device tree property and will
-fail probing if it is missing, instead of silently defaulting to RGMII.
+Add AST2700 to the FTGMAC100 compatible list and document that its
+RMII RCLK gate matches the earlier Aspeed SoCs. Allow the reset line for
+AST2700 as it follows the same reset requirements as AST2600.
 
-> diff --git a/drivers/net/ethernet/faraday/ftgmac100.c b/drivers/net/ether=
-net/faraday/ftgmac100.c
-> index b835472da3604..2d029d1262e6f 100644
-> --- a/drivers/net/ethernet/faraday/ftgmac100.c
-> +++ b/drivers/net/ethernet/faraday/ftgmac100.c
-> @@ -1521,8 +1521,13 @@ static int ftgmac100_mii_probe(struct net_device *=
-netdev)
-> =20
->  	/* Default to RGMII. It's a gigabit part after all */
->  	err =3D of_get_phy_mode(np, &phy_intf);
-> -	if (err)
-> +	if (err) {
-> +		if (priv->mac_id =3D=3D FTGMAC100_AST2700) {
-> +			dev_err(priv->dev, "phy-mode is required for this SoC\n");
-> +			return -EINVAL;
-> +		}
+> diff --git a/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml=
+ b/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
+> index d14410018bcf6..bee9570a6f63f 100644
+> --- a/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
+> +++ b/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
+> @@ -18,6 +18,7 @@ properties:
+>                - aspeed,ast2400-mac
+>                - aspeed,ast2500-mac
+>                - aspeed,ast2600-mac
+> +              - aspeed,ast2700-mac
+>            - const: faraday,ftgmac100
 
-[Severity: Medium]
-Is this new AST2700 check unreachable in practice?
+[Severity: Critical]
+Does this fallback string introduce a regression for older kernels when
+binding to the AST2700 hardware?
 
-A few lines earlier in ftgmac100_mii_probe(), the function unconditionally
-returns -ENODEV if priv->mii_bus is NULL:
+If an older kernel without explicit aspeed,ast2700-mac support boots with a
+device tree adhering to this binding, it will bind using the enforced
+faraday,ftgmac100 fallback string.
 
-	if (!priv->mii_bus) {
-		dev_err(priv->dev, "No MDIO bus available\n");
-		return -ENODEV;
-	}
+The ftgmac100 driver assigns it the FTGMAC100_FARADAY model, which uses
+BIT(15) as the DMA ring wrap marker (edorr/edotr).
 
-Looking at ftgmac100_probe(), the driver skips calling ftgmac100_setup_mdio=
-()
-for the AST2700:
+However, Aspeed MAC hardware (including AST2700) requires BIT(30) to wrap
+the ring.
 
-	if (priv->mac_id =3D=3D FTGMAC100_FARADAY ||
-	    priv->mac_id =3D=3D FTGMAC100_AST2400 ||
-	    priv->mac_id =3D=3D FTGMAC100_AST2500) {
-		err =3D ftgmac100_setup_mdio(netdev);
-		if (err)
-			return err;
-	}
+Because the hardware fails to recognize the software-programmed BIT(15) wrap
+marker at the end of the ring, will the DMA engine overrun the ring buffer
+and continuously write incoming network packets linearly past the allocated
+buffer into arbitrary adjacent physical memory?
 
-Because ftgmac100_setup_mdio() is skipped, does priv->mii_bus remain NULL f=
-or
-the AST2700, causing ftgmac100_mii_probe() to always return -ENODEV before=
-=20
-ever reaching the newly added phy-mode validation logic?
-
->  		phy_intf =3D PHY_INTERFACE_MODE_RGMII;
-> +	}
-> =20
->  	/* Aspeed only supports these. I don't know about other IP
->  	 * block vendors so I'm going to just let them through for
+Should the fallback instead be aspeed,ast2600-mac to ensure older kernels
+correctly program the BIT(30) DMA flag?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261006-support_as=
-t2700-v2-0-36de51fb8066@aspeedtech.com?part=3D4
+t2700-v2-0-36de51fb8066@aspeedtech.com?part=3D1
