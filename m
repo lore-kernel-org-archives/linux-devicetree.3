@@ -1,64 +1,64 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EE5E374E67
-	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 08:44:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34A8C3845CB
+	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 08:48:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791362664; cv=none; b=DYqUJHimPCVLKX01JL25aIdDVhNozYMQ0qoxhGJHtFzf05XIoKq35Dq3vi87kNfL73gOfr0wsNsdOhtJRJetr72qzr4zHHqSoTonNED0fZUxDYqbrhzFPCDvB9JHvdlq3KEpe7UANC2nxYSv9fs9Y+MbvI9utevvTCEE9HFyi5U=
+	t=1791362933; cv=none; b=E/h8NlbG7OQURq7oYmmoDOjjajebX+FSD6ntg8QucqZEOh5dVPlCzdgRNY/ZBEe6PtQnhfd+c75oHvvs2V6sJ/gMvkdrb1V4ndfRjkaNi3Ow7ehHDlPw9Mr0T2ztZkPR05qbCvDC6rHOUJ5oPqCocpnTwzjQGNN+cNm8YPdiU9U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791362664; c=relaxed/simple;
-	bh=f8ppXImX9GLqJ3LzAd8aDPZLN/xG7aYwJiHdu4ZY9Wk=;
+	s=arc-20240116; t=1791362933; c=relaxed/simple;
+	bh=tvHMtWvu0zmrav+lw/jlCu2bboPKX/L6uOXISQ/b0RA=;
 	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=MWJeVWoeJRPYaT/H0QhJS4Ir0t1ex5HIr5uNA+UI9y3onXKox7Bdq5mChWzg/+kcqxPgghI4BXjdeiAQwhmLbF4IAx4L/ziBsVmCDwD+UV19p18tewmkMwk3O9s8pDxW3S4dEiErNloKOD/W/4a5I3Ypa2WMRgYH0JWBnWdVPj8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=JN3mBNSV; arc=none smtp.client-ip=209.85.128.42
+	 MIME-Version:Content-Type; b=c73ysorVtGkv+Gh3CT8sPJWwIg5hw4V/xnWiQpKJJcOkx/WK4IVroAhNX6100YuCYNyndD1ut0TJrAqAcH7gcm1r0ARDPK/WmtlvIfCgCTzSJqrstg/dU3DLL9PKbK34mAc0ssRMdbnG2kNZs4vIJgVTho0n4pfKmHpOFxkvg1I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=AfrAUEb+; arc=none smtp.client-ip=209.85.128.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="JN3mBNSV"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a161d9b8c7so11625925e9.3
-        for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 01:44:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="AfrAUEb+"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a1635f7c89so36346685e9.2
+        for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 01:48:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1791362659; x=1791967459; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1791362929; x=1791967729; darn=vger.kernel.org;
         h=content-type:mime-version:message-id:date:references:in-reply-to
          :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=xLN68owvefwcvtwIzXYYcylLx8/qFYkuAE3rLVHaimo=;
-        b=JN3mBNSVSwenIz/qJPuDq0Iqebo+wWdCZ2I3D2O9SbzYA13+eHsUoS25iQIiE67qXb
-         gmY6gal0iZY9ElfZuupbNiMrJ1ru4SX5xAwHUFWRvt7g4rKyrXjuD9TzQlukgowYpd48
-         lU46x0HNz2rg5f9DuV0lz4cM692+d67OMKuA8+uDZwQ6OhkXHF929/ud37JNzNbhx8BB
-         g9p21hvKN82RAyGJXNPJJmyOo87dUQ3z1Qz3YXv8MW85kqHs8xJs7SZlAHIyzQjYZPvt
-         3O6ML226fmuNve4t1C3vnGoBrI5LU/mkSb+6iollPVopyrWNIOq/BL3xd0J4MO8cFsNI
-         T/BA==
+        bh=L3WmTcY7Cx2LB7n34xA1mszrSAOkEucT8groA+9/JLE=;
+        b=AfrAUEb+0bmnxLbMxPSFLDRXtKdHdCVIpPxSMZwdPbo7L6KPc5mdCQKAFHskqAEf/N
+         9OZbT4VNG60HmQxW7owGfjDNpyV2xGg2UocGj6y4SwMrIS6KAanCKiP/K/pnqcDRGpBx
+         WnVGA+jC30NyfJNPbeED/nmj6YdUPGZNoq3JhrOWlHooYmBu7TGxynCpIFT7NW09AyRB
+         WGokmM8L1cgt6eTspDEb/itFAYMBO1JCuQYd5ZY9eF6/WRRPXGnmCUcGcCosMHsya1Jt
+         MxwOgiOfZq+3WZm0ElOMRzZ3tyOcxta5BacU6qUJX8tcnTIOTUy2qrgxnS+6oql5p4QK
+         l9Yw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791362659; x=1791967459;
+        d=1e100.net; s=20260707; t=1791362929; x=1791967729;
         h=content-type:mime-version:message-id:date:references:in-reply-to
          :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=xLN68owvefwcvtwIzXYYcylLx8/qFYkuAE3rLVHaimo=;
-        b=gy6iGNZY7+oyR14M4fXtBK+BzD4f5R5kTqO8eOPTPqCiKiIwmyLJZfDDuXbYlWHgQQ
-         ArUEmnBQzrlRnwGzr+t0IUwX6NCUd7R2MB5XlNufdBkf9JVRnvm0yXiITDX7lRpWvneb
-         UDcplkmPPZDLr7oX+cKqli++kbcQTeqQ/pUDkA1+G83joJLleUwj7O0MjJKJwwA+tE86
-         qqoy6JE9uUzRARkWg+FuReUO4gaW3bnt4jAc16xYpQiSsxRPVZuH6r/j+FKw8ZOs1Xzs
-         yuhQu+wiXUT/H/xkdkCDpViSY5qnZjj9cbmybJXXkgxaqt6gFZ8q9eZiKOd6eM/8YcQM
-         Oisg==
-X-Forwarded-Encrypted: i=1; AKwUvBw9bRBqlZtlFDLs3X63wM366TYJgZFFo5OnFu4XmX+6mPTlr942Fq+bExh/Oz2djaqo1y99rHrGMUmo@vger.kernel.org
-X-Gm-Message-State: AFuF++nyg0b7QJvVcckt7r/vIZf4PGpImYXR7VQoKNSWzT9h2qKBUPRD
-	/lXEYpJwzx6p21BR9mLWLFOv8OKfiYk5CnbsGq+SREkJLQbnkDkF/HpYzV/vD5Wh8dI=
-X-Gm-Gg: AYBFou1lCwY+LDanJyVnLNjXSwr2BJ+ggIXSKcpQ+pZgwJSR9gHLRlEYrn4/BkcpPmi
-	M/4DP3KXat9G0JZ5rE7QQ4/b0IimbioebtPTXevH9FNFXx9plpSCsO1SXyQxDoGd5R8tdHTTLhh
-	V7emzPihngBCupRT2UJaxwZMNwy5gB+Ld0TyONyl3x4ErgBubLpF/lhbL97bMtqeKIy7LR5/7u/
-	bV0mXDDpHZJMgli2m5iOI19RFgeaDy650hgzqmZ9h7A9qxeDeu9ven+s/99XfSSz/9sZRBBjvNs
-	VjffXsostc9oJBkUhcaE3dwrUnlsK4jXEzIHX/kckbgS1/9BElfprl28kQ9nzd/ydZoVTTiO6N4
-	uwrSQ+2ZWyDb2h6YUYU+jT9kmuEOtxyQAO7eAgNuLz3J4H6Qx/qsxRPHFx3Zg9+tZnhktni5ms6
-	rG16erSdL6nghSJL0Fz5UE51c6V8FYoo444FE9x5+wwcSTa8/uUXy0HDvFFV0j7OBJ4fp9+RbHO
-	Cn/WQtW1utFDx0=
-X-Received: by 2002:a05:600c:5397:b0:4a0:258a:b25c with SMTP id 5b1f17b1804b1-4a1806648admr20104225e9.29.1791362659071;
-        Wed, 07 Oct 2026 01:44:19 -0700 (PDT)
+        bh=L3WmTcY7Cx2LB7n34xA1mszrSAOkEucT8groA+9/JLE=;
+        b=CW65h4MsUp+ytD7HbOKP/6BEt68vrUkdYfe+/ywGz0vDG58OPVUU14BAHHDT7oQfzP
+         1kgfUMKaLmfwbv5+BDFO667T9NWYZi2KsLmN4pkLrtBcqmcd0KbnI2kK16PYgW1ifmb3
+         bRI8rK4gM3d7dL3XiPiHisg4PbTk+4tQMM+Ol5/y+tq9FpqsRRbqNn+jDe7Pq+WOCSRR
+         ag0TgbBF4XirFTrYAmU2Livv4J2vlvNCCUl0H9JTW32UeaZgIyRRDw+zjVcmhWkDhy8Q
+         dHIvb/4BCbfIFDR4JZgnbeWKOrdzRbzTifuiKRBq71jk7bz7nT5jPEVAir1GxJNCvYxS
+         YABw==
+X-Forwarded-Encrypted: i=1; AKwUvBxLCG29yybt6hhT/1SpSmC27vFa5ka0Ym7BI93CF77dSlsHPf5tDKamm2ZQ48Avsd/D9vsBYcK8VP0y@vger.kernel.org
+X-Gm-Message-State: AFuF++mbdXiLMCrKl3wjr1ROFbLjznDhJjq55LfCY98M9F9u3YU8p0+J
+	hEnmlL+I8biPSdzcgXbWf/JFAurGzmM8WbaIsmbezpp912P+/lg7tMQ1xzzkcaLn+04=
+X-Gm-Gg: AYBFou03XvwHjd4O4zBO+N1zb9NLeeNxsd4Gun0I5MPZgVqqebThs5R/MRlffIgvqlg
+	uZGN52xC4YAJzEwumB16YhO+qdhJ9V5HzSPARUInDxLQZ7fFDaWuqr9x8Agi4uEBn9gztWNEm1P
+	uvwKHPoysfplMPmsMXnVWyHJmtEFZuzEHXlY7cMKd09z++cQ8G0YY72U5gPOmwfxQEF+Vljo9BD
+	f9R76TIAWx2I7h0Js5cpPjC5hThs71xBmbLUviMkNCCQjKbXx7VEt+WmD3QCUXhxSIqsrDQA3Wx
+	SIH3T3WC1LTQD9CToJJxvoC5zd1aHOG99O17yw8vcv0z5jXIcWZJxqfUyzXoUxM/blLfg2HaXHX
+	iiJytc4h8CmbsYwG7Os8M/l4tMx3NLjdptJ9iUebWwS4wYPbBNxP86XC4BwLJJ3RHCQc1vGwUE3
+	Vox935HiCpVUzIS3jECsaaJYXoXyeY3aTp0ntQ2/ISN2SY07O9QwGOSvFm1d1FZRkSJNGJi9VcM
+	pdLIkMMJkFzzKc=
+X-Received: by 2002:a05:600c:4687:b0:4a1:7811:6cc4 with SMTP id 5b1f17b1804b1-4a180650943mr24592905e9.34.1791362929425;
+        Wed, 07 Oct 2026 01:48:49 -0700 (PDT)
 Received: from localhost (90-182-211-1.rcp.o2.cz. [90.182.211.1])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1803040cbsm25745595e9.4.2026.10.07.01.44.18
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a17f558028sm58745425e9.10.2026.10.07.01.48.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 01:44:18 -0700 (PDT)
+        Wed, 07 Oct 2026 01:48:48 -0700 (PDT)
 From: Jerome Brunet <jbrunet@baylibre.com>
 To: Valerio Setti <vsetti@baylibre.com>, Liam Girdwood
  <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring
@@ -70,13 +70,12 @@ To: Valerio Setti <vsetti@baylibre.com>, Liam Girdwood
 Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
  linux-kernel@vger.kernel.org, Valerio Setti <vsetti@baylibre.com>
-Subject: Re: [PATCH v4 3/7] ASoC: meson: aiu-encoder-i2s: ensure clk divider
- gets disabled in hw_free
-In-Reply-To: <20261001-audin-v4-3-2476646118b5@baylibre.com>
+Subject: Re: [PATCH v4 5/7] ASoC: meson: aiu: add I2S Capture DAI
+In-Reply-To: <20261001-audin-v4-5-2476646118b5@baylibre.com>
 References: <20261001-audin-v4-0-2476646118b5@baylibre.com>
- <20261001-audin-v4-3-2476646118b5@baylibre.com>
-Date: Wed, 07 Oct 2026 10:44:17 +0200
-Message-ID: <1j5wzdzyqm.fsf@starbuckisacylon.baylibre.com>
+ <20261001-audin-v4-5-2476646118b5@baylibre.com>
+Date: Wed, 07 Oct 2026 10:48:46 +0200
+Message-ID: <1j33uhzyj5.fsf@starbuckisacylon.baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -87,65 +86,61 @@ Content-Type: text/plain
 
 On Thu 01 Oct 2026 at 18:06, Valerio Setti <vsetti@baylibre.com> wrote:
 
-> A recent Sashiko review [1] on this code revealed the following problem:
+> Add capture stream to CPU_I2S_ENCODER making it able to handle both
+> playback and capture streams. Captured data is formatted from
+> "audin-formatter-i2s" widget, buffered from "audin-fifo" into an internal
+> FIFO and then bulk transmitted into RAM when the FIFO is full.
 >
->   If a user opens both streams so snd_soc_dai_active(dai) evaluates to 2,
->   and explicitly calls SNDRV_PCM_IOCTL_HW_FREE before closing them,
->   snd_soc_dai_active(dai) remains 2. This skips disabling the clock
->   divider.
->   When the streams are subsequently closed, the ALSA core skips invoking
->   hw_free again because the state was already changed to
->   SNDRV_PCM_STATE_OPEN. This would leave the clock divider permanently
->   enabled, potentially draining battery or blocking system suspend.
+> As for the naming of the stream "I2S Encoder" is kept as base following
+> the same pattern used for the playback stream and with the goal to minimize
+> changes.
 >
-> This commit resolves this problem by using the 'clk_enabled' field of
-> 'struct gx_stream'. In particular when 'hw_free()' is called on a stream
-> the code check what is the status of the other stream and then only if
-> both are off the clock divider is disabled.
+> Supported format for capture is currently limited to S16_LE because it's
+> the only one that has been tested. According to the manual also S24_LE
+> should be supported, but this is kept as follow-up.
+
+---
+
 >
-> [1]: https://lore.kernel.org/all/20260917212019.4ECE61F00893@smtp.kernel.org/
+> This capture support also takes advantage of the following commits that
+> has recently been merged:
 >
+> commit df3c987ab3d7 ("ASoC: meson: aiu-encoder-i2s: reflect bs quirk in hw constraints")
+> commit e82159384a50 ("ASoC: meson: aiu-encoder-i2s: use the core symmetric_rate handling")
+>
+> They ensure bs_quirk and rate symmetry across playback and capture streams.
+>
+
+I don't think this part of the description is necessary.
+
+Apart from that
+
+Reviewed-by: Jerome Brunet <jbrunet@baylibre.com>
+
+
 > Signed-off-by: Valerio Setti <vsetti@baylibre.com>
 > ---
->  sound/soc/meson/aiu-encoder-i2s.c | 12 +++++-------
->  1 file changed, 5 insertions(+), 7 deletions(-)
+>  sound/soc/meson/aiu.c | 7 +++++++
+>  1 file changed, 7 insertions(+)
 >
-> diff --git a/sound/soc/meson/aiu-encoder-i2s.c b/sound/soc/meson/aiu-encoder-i2s.c
-> index 58dce9f08c9d..70ea39c77b32 100644
-> --- a/sound/soc/meson/aiu-encoder-i2s.c
-> +++ b/sound/soc/meson/aiu-encoder-i2s.c
-> @@ -219,16 +219,14 @@ static int aiu_encoder_i2s_hw_free(struct snd_pcm_substream *substream,
->  				   struct snd_soc_dai *dai)
->  {
->  	struct gx_stream *ts = snd_soc_dai_get_dma_data(dai, substream);
-> +	struct gx_stream *other = snd_soc_dai_dma_data_get(dai, !substream->stream);
-
-Not sure about peeking on the other path like this :/
-
->  	struct snd_soc_component *component = dai->component;
->  
-> -	/*
-> -	 * If this is the last substream being closed then disable the i2s
-> -	 * clock divider.
-> -	 */
-> -	if (snd_soc_dai_active(dai) <= 1)
-> -		aiu_encoder_i2s_divider_enable(component, 0);
-> -
->  	if (ts->clk_enabled) {
-> +		/* Disable the clk divider only if also the other stream is not using it */
-> +		if (!other || !other->clk_enabled)
-> +			aiu_encoder_i2s_divider_enable(component, false);
-> +
-
-Looks like a race condition is possible here if one stream closes while
-the other one starts.
-
-I think you need a common structure between the 2 paths (with a counter
-possibly) and it needs to be protected by a lock. 
-
->  		clk_disable_unprepare(ts->iface->mclk);
->  		ts->clk_enabled = false;
->  	}
+> diff --git a/sound/soc/meson/aiu.c b/sound/soc/meson/aiu.c
+> index 535fbf7c1639..14d0e20a4bd6 100644
+> --- a/sound/soc/meson/aiu.c
+> +++ b/sound/soc/meson/aiu.c
+> @@ -153,6 +153,13 @@ static struct snd_soc_dai_driver aiu_cpu_dai_drv[] = {
+>  			.rates = SNDRV_PCM_RATE_8000_192000,
+>  			.formats = AIU_FORMATS,
+>  		},
+> +		.capture = {
+> +			.stream_name = "I2S Encoder Capture",
+> +			.channels_min = 2,
+> +			.channels_max = 2,
+> +			.rates = SNDRV_PCM_RATE_8000_192000,
+> +			.formats = SNDRV_PCM_FMTBIT_S16_LE,
+> +		},
+>  		.ops = &aiu_encoder_i2s_dai_ops,
+>  		.symmetric_rate = 1,
+>  	},
 >
 > -- 
 > 2.47.3
