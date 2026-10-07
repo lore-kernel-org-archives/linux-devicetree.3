@@ -1,320 +1,209 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2AE83C943B;
-	Wed,  7 Oct 2026 13:43:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF8244B126A;
+	Wed,  7 Oct 2026 13:47:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791380630; cv=none; b=sKHV1ab6BNtaQ6DjhPKtuYBA7qOYdSVd94zvVRxLoxFMe29UdnB2qE+UWLzK2folB86tBGbsm8tt1C0C04DnLWj81j4CQp4Cnm6Fi3TG3vvZcBMDPFW45cHiCJBlbAQEU9okXGY430U/A34MjVirRpW9iy3hU5MuWcU5hoJFlhE=
+	t=1791380881; cv=none; b=GK4zgdkwyfYsdJHChoiB87lhSXUleNOCiTASjKQ5fMMhPHfGkTLTsto/0RZExy/kh7vd42DkhTnV6YgP/4/dJFmxX+5sLoc914McH0q4uuPCDZOC3FhTkXKaz0PrhIXLiPXV6vNbrTvYS8wKPCC9DC0zeiVZurVdXAHiwMlwt0g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791380630; c=relaxed/simple;
-	bh=F5vfh8QHu+qtNMotNaYYtyOLccH/IQsWQtNcJcpexH0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=D9hEKyyaJCleUlm/BGEXKqmZ20oh6HSK+NZ+wAjSPhs8bsNVG8jqpITW+iHkyJPtDiOoZJxPgZhk6EYdPr8AjIFtSBnP+aR5dEV7covnX61Q+6Uztw3vt5A4OnnxqbYDqoKrdCAtyCWENHfLP9Xm50CBgH6Fpi/Zee0vIsWPf48=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DcXTCADw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791380881; c=relaxed/simple;
+	bh=zArLKlc/BPYviuyu16AzvuWjXjN7hfU2jtHhHzVZStM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BtL11Hi+ZeZuwBTMtOvHdOTRtPGwt6nA6jR4Mo8jw/o6M/kwbPoTWJTu1tyDG0wIxlYL2GNrU7XXdNMcYEJ3bpM+QEHBj+8Gm++GKA0RiNDrm4XIMPh3rm71LQNTgeqKb1PL28rb0uw1woK4TZTWtmSEmiR5QmKpfFWJaq/CjtY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O6HZBQ85; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DcXTCADw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD2E01F0089D;
-	Wed,  7 Oct 2026 13:43:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O6HZBQ85"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CA331F0089B;
+	Wed,  7 Oct 2026 13:47:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791380620;
-	bh=vgcFwCJzGbYNEURvP00GVWJD30QOYsmsKCg1eeIEYSM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=DcXTCADweRafrfJAH4iKZAg50IGJx2S4ckJc7hR2mkyhD58pR/YllqoDQ94/UOw44
-	 jwCboiMjhNe5lJvTPl54wtzxZngshNj++AQK+3ima+kgkT/2fCmXKKIomHMuN3zK3S
-	 VQl/9jcDqmti2jcxJqsfJQQvAZs3+5JsY0hXRrxQaX/AecCTTku7txfbAOR9pwQt1V
-	 bJgDB3oHZ1u07ZDeCaexBGMrU9WySij6VIODl3OR2NFLF1+wPuDgenOJYnQq8XKyY4
-	 D0h30doh31TYsLeUQJe6Aq5KOcfhzDCL0rhLcF3FWsOSUGabGr754C+o36+UnMuSnR
-	 nej/Xo1UW5KyQ==
-Message-ID: <8cd59aae-4f68-4cf8-a12c-5c63b11d29c0@kernel.org>
-Date: Wed, 7 Oct 2026 08:43:38 -0500
+	s=k20260515; t=1791380871;
+	bh=EndcDYuYZFPo86frFhMu07n5NOlKZELpWsp9/YTTj4w=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=O6HZBQ85bkZge2ZxJ5Fkhm/XMPYaxwbFiJsHQGs/JekNTNOHejiB5sTbxsdF8AQHA
+	 aBFFYFjOeu6gsfYbmsRtgwRSlcE8lVeOn5N4xbvlIH9lVYmPwrzbAdUu3Mie+iG1Rn
+	 ZD1EnlEYqSam5RIy51DCFG5p+0Qzjxg2FYB5xg0xRFIiy191eWnIkIPWKD413cqBg/
+	 45SLo6ZDABFCsX2ZgW7WhMOWHBFXhsjMjd2ktEGbXWPRHIdjutEaPKs0hyYoTm2zB4
+	 D4vobXc8ps3/MEgCAprmWV3iu+KrcKHLWDy44c8VdRMcwyewiEYZbEBmuy/+pI4+v4
+	 z+9+d1PugI2Ng==
+Date: Wed, 7 Oct 2026 08:47:50 -0500
+From: Rob Herring <robh@kernel.org>
+To: Olivier MOYSAN <olivier.moysan@foss.st.com>
+Cc: Conor Dooley <conor@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: iio: adc: add bindings for stm32 mdf
+ filter
+Message-ID: <20261007134750.GC2792240-robh@kernel.org>
+References: <20261001145702.2628429-1-olivier.moysan@foss.st.com>
+ <20261001145702.2628429-2-olivier.moysan@foss.st.com>
+ <20261001-tribesman-gauze-862e1ef0cdd8@spud>
+ <bb8af256-5a77-4215-9eeb-fbcd0cae1829@foss.st.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] arm64: dts: socfpga: agilex: add Agilex SoCDK
- multi-QSPI board
-To: genevieve.chan@altera.com, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261006025418.31931-1-genevieve.chan@altera.com>
- <20261006025418.31931-3-genevieve.chan@altera.com>
-Content-Language: en-US
-From: Dinh Nguyen <dinguyen@kernel.org>
-In-Reply-To: <20261006025418.31931-3-genevieve.chan@altera.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <bb8af256-5a77-4215-9eeb-fbcd0cae1829@foss.st.com>
 
-
-NIT: your commit header "arm64: dts: socfpga: agilex: add Agilex SoCDK 
-multi-QSPI board"
-
-Avoid using the same name multiple times. Please reword this to
-
-arm64: dts: socfpga: agilex: add SoCDK multi-QSPI board
-
-or
-
-arm64: dts: socfpga: add Agilex SoCDK multi-QSPI board
-
-
-On 10/5/26 21:54, genevieve.chan@altera.com wrote:
-> From: Genevieve Chan <genevieve.chan@altera.com>
+On Wed, Oct 07, 2026 at 11:01:28AM +0200, Olivier MOYSAN wrote:
+> Hi Conor,
 > 
-> Add a device tree for the Agilex SoCDK fitted with the multi-QSPI
-> daughter board. The daughter board replaces the single QSPI flash of
-> the default SoCDK with four Micron MT25QU02G flashes on chip selects
-> 0-3, which allows the system to use up to 1 GiB of QSPI storage.
+> Thanks for the review
 > 
-> The board is otherwise identical to the SoCDK and builds on
-> socfpga_agilex.dtsi.
+> On 10/1/26 20:32, Conor Dooley wrote:
+> > On Thu, Oct 01, 2026 at 04:56:45PM +0200, Olivier Moysan wrote:
+> > > Add bindings that describes STM32 MDF settings to support
+> > > digital filtering for Pulse Density Modulation (PDM) microphones
+> > > and analog sigma delta modulators.
+> > > 
+> > > Signed-off-by: Olivier Moysan <olivier.moysan@foss.st.com>
+> > > ---
+> > >   .../bindings/iio/adc/st,stm32-mdf-adc.yaml    | 383 ++++++++++++++++++
+> > >   1 file changed, 383 insertions(+)
+> > >   create mode 100644 Documentation/devicetree/bindings/iio/adc/st,stm32-mdf-adc.yaml
+> > > 
+> > > diff --git a/Documentation/devicetree/bindings/iio/adc/st,stm32-mdf-adc.yaml b/Documentation/devicetree/bindings/iio/adc/st,stm32-mdf-adc.yaml
+> > > new file mode 100644
+> > > index 000000000000..f2fbc3e150e8
+> > > --- /dev/null
+> > > +++ b/Documentation/devicetree/bindings/iio/adc/st,stm32-mdf-adc.yaml
+> > > @@ -0,0 +1,383 @@
+> > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > > +%YAML 1.2
+> > > +---
+> > > +$id: http://devicetree.org/schemas/iio/adc/st,stm32-mdf-adc.yaml#
+> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > +
+> > > +title: STMicroelectronics STM32 Multi-function Digital Filter (MDF) ADC
+> > > +
+> > > +maintainers:
+> > > +  - Olivier Moysan <olivier.moysan@foss.st.com>
+> > > +
+> > > +description: |
+> > > +  STM32 MDF ADC is a sigma delta analog-to-digital converter dedicated to
+> > > +  interface external sigma delta modulators to STM32 micro controllers.
+> > > +
+> > > +properties:
+> > > +  compatible:
+> > > +    enum:
+> > > +      - st,stm32mp25-mdf
+> > > +      - st,stm32mp23-mdf
+> > > +
+> > > +  reg:
+> > > +    minItems: 1
+> > > +    maxItems: 2
+> > 
+> > This needs an items list here. The size of the regions seems like crap
+> > to begin with...
+> > 
+> > > +
+> > > +  clocks:
+> > > +    maxItems: 1
+> > > +
+> > > +  clock-names:
+> > > +    description: Internal clock used for MDF digital processing.
+> > > +    items:
+> > > +      - const: ker_ck
+> > 
+> > This is pointless when you only have one.
+> > 
 > 
-> Signed-off-by: Genevieve Chan <genevieve.chan@altera.com>
-> ---
-> Changes in v2:
-> - Rename file, compatible and model to drop the "agilex7f" prefix.
-> - Reword commit message to describe the hardware.
+> I agree that it could be dropped. However, it is useful for using
+> devm_regmap_init_mmio_clk.
+
+I don't know what that function is/does, but that's not justification 
+for bindings. Maybe you need a helper that handles a single clock. Or 
+that function could take a NULL string for single clock? 
+
 > 
->   arch/arm64/boot/dts/intel/Makefile            |   1 +
->   .../intel/socfpga_agilex_socdk_multiqspi.dts  | 213 ++++++++++++++++++
->   2 files changed, 214 insertions(+)
->   create mode 100644 arch/arm64/boot/dts/intel/socfpga_agilex_socdk_multiqspi.dts
+> > > +
+> > > +  "#clock-cells":
+> > > +    enum: [0, 1]
+> > 
+> > Why is this not fixed? Also why are parts of your own device consuming
+> > the clocks?
+> > 
+> > > +
+> > > +  clock-output-names:
+> > > +    description: |
+> > > +      CCK0 and CCK1 are optional output clocks, which share the same clock frequency,
+> > > +      but can be gated independently to save power.
+> > > +    minItems: 1
+> > > +    maxItems: 2
+> > > +    oneOf:
+> > > +      - items:
+> > > +          - const: cck0
+> > > +      - items:
+> > > +          - const: cck1
+> > > +      - items:
+> > > +          - const: cck0
+> > > +          - const: cck1
+> > > +
+> > > +  clock-frequency:
+> > > +    description: |
+> > > +      Common clock frequency (Hz) for CCK0 and CCK1 output clocks.
+> > > +      The frequency must be a multiple of the "ker_ck" clock frequency.
+> > > +    maximum: 25000000
+> > 
+> > Should not be needed, the consumers request what they need.
+> > 
 > 
-> diff --git a/arch/arm64/boot/dts/intel/Makefile b/arch/arm64/boot/dts/intel/Makefile
-> index b52cd2330cef..071bad408688 100644
-> --- a/arch/arm64/boot/dts/intel/Makefile
-> +++ b/arch/arm64/boot/dts/intel/Makefile
-> @@ -2,6 +2,7 @@
->   dtb-$(CONFIG_ARCH_INTEL_SOCFPGA) += socfpga_agilex_n6000.dtb \
->   				socfpga_agilex_socdk.dtb \
->   				socfpga_agilex_socdk_emmc.dtb \
-> +				socfpga_agilex_socdk_multiqspi.dtb \
->   				socfpga_agilex_socdk_nand.dtb \
->   				socfpga_agilex3_socdk.dtb \
->   				socfpga_agilex5_socdk.dtb \
-> diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex_socdk_multiqspi.dts b/arch/arm64/boot/dts/intel/socfpga_agilex_socdk_multiqspi.dts
-> new file mode 100644
-> index 000000000000..0bf087fa7553
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/intel/socfpga_agilex_socdk_multiqspi.dts
-> @@ -0,0 +1,213 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * Copyright (C) 2026, Intel Corporation
-> + */
-> +#include "socfpga_agilex.dtsi"
-> +
-> +/ {
-> +	model = "SoCFPGA Agilex SoCDK multi-QSPI daughter board";
-> +	compatible = "intel,socfpga-agilex-socdk-multiqspi", "intel,socfpga-agilex";
-> +
-> +	aliases {
-> +		serial0 = &uart0;
-> +		ethernet0 = &gmac0;
-> +		ethernet1 = &gmac1;
-> +		ethernet2 = &gmac2;
-> +	};
-> +
-> +	chosen {
-> +		stdout-path = "serial0:115200n8";
-> +	};
-> +
-> +	leds {
-> +		compatible = "gpio-leds";
-> +		led0 {
-> +			label = "hps_led0";
-> +			gpios = <&portb 20 GPIO_ACTIVE_HIGH>;
-> +		};
-> +
-> +		led1 {
-> +			label = "hps_led1";
-> +			gpios = <&portb 19 GPIO_ACTIVE_HIGH>;
-> +		};
-> +
-> +		led2 {
-> +			label = "hps_led2";
-> +			gpios = <&portb 21 GPIO_ACTIVE_HIGH>;
-> +		};
-> +	};
-> +
-> +	memory@80000000 {
-> +		device_type = "memory";
-> +		/* We expect the bootloader to fill in the reg */
-> +		reg = <0 0x80000000 0 0>;
-> +	};
-> +};
-> +
-> +&gpio1 {
-> +	status = "okay";
-> +};
-> +
-> +&gmac0 {
-> +	status = "okay";
-> +	/* PHY delays are configured via skew properties */
-> +	phy-mode = "rgmii";
-> +	phy-handle = <&phy0>;
-> +
-> +	max-frame-size = <9000>;
-> +
-> +	mdio0 {
-> +		#address-cells = <1>;
-> +		#size-cells = <0>;
-> +		compatible = "snps,dwmac-mdio";
-> +		phy0: ethernet-phy@4 {
-> +			reg = <4>;
-> +
-> +			txd0-skew-ps = <0>; /* -420ps */
-> +			txd1-skew-ps = <0>; /* -420ps */
-> +			txd2-skew-ps = <0>; /* -420ps */
-> +			txd3-skew-ps = <0>; /* -420ps */
-> +			rxd0-skew-ps = <420>; /* 0ps */
-> +			rxd1-skew-ps = <420>; /* 0ps */
-> +			rxd2-skew-ps = <420>; /* 0ps */
-> +			rxd3-skew-ps = <420>; /* 0ps */
-> +			txen-skew-ps = <0>; /* -420ps */
-> +			txc-skew-ps = <900>; /* 0ps */
-> +			rxdv-skew-ps = <420>; /* 0ps */
-> +			rxc-skew-ps = <1680>; /* 780ps */
-> +		};
-> +	};
-> +};
-> +
-> +&mmc {
-> +	status = "okay";
-> +	cap-sd-highspeed;
-> +	broken-cd;
-> +	bus-width = <4>;
-> +	clk-phase-sd-hs = <0>, <135>;
-> +};
-> +
-> +&osc1 {
-> +	clock-frequency = <25000000>;
-> +};
-> +
-> +&uart0 {
-> +	status = "okay";
-> +};
-> +
-> +&usb0 {
-> +	status = "okay";
-> +	disable-over-current;
-> +};
-> +
-> +&watchdog0 {
-> +	status = "okay";
-> +};
-> +
-> +&qspi {
-> +	status = "okay";
-> +
-> +	flash@0 {
-> +		compatible = "micron,mt25qu02g", "jedec,spi-nor";
-> +		reg = <0>;
-> +		spi-max-frequency = <25000000>;
+> The CCKx clock frequency depends on the maximum rate supported by the sigma
+> delta converters (for instance a digital mic) and the expected decimation
+> ratio on the bitstream. Typically this determines the frequency on the SPI
+> bus.
+> This rate is defined statically and shared by the CCKx clocks. So IMHO, as
+> this rate is unique, it can look strange to let the consumer define it.
+> Moreover, it seems to me that clock-frequency is already used to configure
+> the frequency of a provider in some other bindings.
+> For instance: Documentation/devicetree/bindings/clock/silabs,si570.yaml
+> So, it's not clear for me, what is the restriction on clock-frequency
+> property.
+> > > +
+> > > +  ranges: true
+> > > +
+> > > +  clock-ranges: true
+> > > +
+> > > +  resets:
+> > > +    maxItems: 1
+> > > +
+> > > +  reset-names:
+> > > +    items:
+> > > +      - const: mdf
+> > > +
+> > > +  access-controllers:
+> > > +    $ref: /schemas/types.yaml#/definitions/phandle-array
+> > > +    description: |
+> > > +      Phandle to the rifsc device to check access right.
+> > > +
+> > > +  power-domains:
+> > > +    maxItems: 1
+> > > +
+> > > +  st,interleave:
+> > > +    description: |
+> > > +      List of phandles of interleaved filters. The indexes of interleaved filters must be
+> > > +      consecutives starting from 0 (i.e in range [0..N]). The samples from interleaved filters
+> > > +      are muxed in a single channel and retrieved through the device associated to the filter 0.
+> > > +      The filters 1..N have to be enabled, but inherit their configuration from filter 0.
+> > > +    $ref: /schemas/types.yaml#/definitions/phandle-array
+> > 
+> > No idea what these even are, but this is probably not the right way to
+> > represent the relationship between devices. They're apparently ADCs, but
+> > this is also an ADC so I'm not sure what's going on here at all.
 
-The devkit has 100 MHz, why is this card only 25M MHz?
-> +
-> +		m25p,fast-read;
-> +		cdns,read-delay = <2>;
-> +		cdns,tshsl-ns = <50>;
-> +		cdns,tsd2d-ns = <50>;
-> +		cdns,tchsh-ns = <4>;
-> +		cdns,tslch-ns = <4>;
-> +		spi-tx-bus-width = <4>;
-> +		spi-rx-bus-width = <4>;
-> +
-> +		partitions {
-> +			compatible = "fixed-partitions";
-> +			#address-cells = <1>;
-> +			#size-cells = <1>;
-> +
-> +			qspi_boot0: partition@0 {
-> +				label = "Boot and fpga data";
-> +				reg = <0x0 0x10000000>;
-> +			};
-> +		};
-> +	};
-> +
-> +	flash@1 {
-> +		compatible = "micron,mt25qu02g", "jedec,spi-nor";
-> +		reg = <1>;
-> +		spi-max-frequency = <25000000>;
-> +
-> +		m25p,fast-read;
-> +		cdns,read-delay = <2>;
-> +		cdns,tshsl-ns = <50>;
-> +		cdns,tsd2d-ns = <50>;
-> +		cdns,tchsh-ns = <4>;
-> +		cdns,tslch-ns = <4>;
-> +		spi-tx-bus-width = <4>;
-> +		spi-rx-bus-width = <4>;
-> +
-> +		partitions {
-> +			compatible = "fixed-partitions";
-> +			#address-cells = <1>;
-> +			#size-cells = <1>;
-> +
-> +			qspi_boot1: partition@0 {
-> +				label = "Boot and fpga data";
-> +				reg = <0x0 0x10000000>;
-> +			};
-> +		};
-> +	};
-> +
-> +	flash@2 {
-> +		compatible = "micron,mt25qu02g", "jedec,spi-nor";
-> +		reg = <2>;
-> +		spi-max-frequency = <25000000>;
-> +
-> +		m25p,fast-read;
-> +		cdns,read-delay = <2>;
-> +		cdns,tshsl-ns = <50>;
-> +		cdns,tsd2d-ns = <50>;
-> +		cdns,tchsh-ns = <4>;
-> +		cdns,tslch-ns = <4>;
-> +		spi-tx-bus-width = <4>;
-> +		spi-rx-bus-width = <4>;
-> +
-> +		partitions {
-> +			compatible = "fixed-partitions";
-> +			#address-cells = <1>;
-> +			#size-cells = <1>;
-> +
-> +			qspi_boot2: partition@0 {
-> +				label = "Boot and fpga data";
-> +				reg = <0x0 0x10000000>;
-> +			};
-> +		};
-> +	};
-> +
-> +	flash@3 {
-> +		compatible = "micron,mt25qu02g", "jedec,spi-nor";
-> +		reg = <3>;
-> +		spi-max-frequency = <25000000>;
-> +
-> +		m25p,fast-read;
-> +		cdns,read-delay = <2>;
-> +		cdns,tshsl-ns = <50>;
-> +		cdns,tsd2d-ns = <50>;
-> +		cdns,tchsh-ns = <4>;
-> +		cdns,tslch-ns = <4>;
-> +		spi-tx-bus-width = <4>;
-> +		spi-rx-bus-width = <4>;
-> +
-> +		partitions {
-> +			compatible = "fixed-partitions";
-> +			#address-cells = <1>;
-> +			#size-cells = <1>;
-> +
-> +			qspi_boot3: partition@0 {
-> +				label = "Boot and fpga data";
+I don't under it either, but regardless phandle-array needs constraints 
+on the items. It's really a matrix with array of phandle+args arrays.
 
-Sashiko's comment on this is valid. You give these label a unique name, 
-"Boot and fpga data 3"
-
-
-Dinh
-
+Rob
