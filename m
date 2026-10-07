@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75F6D3DAAD0
-	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 17:24:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A50A22ECE86
+	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 17:31:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791393860; cv=none; b=qd9kE9N5lIYTLjHkS9I+UFSsZmDpdLgo4w09QTgqyXYCOc2KwnJY9gIV93ihJKcAQ1q563B28K5ozHpEk38y0dBmqR8xEgEpKlx2/VbSL5jX1rwed0ieAa8xkRMAz51q04z8iM4/54WB/+hL7Jke13VwsCW6yEnzXy1P7qatPOU=
+	t=1791394302; cv=none; b=Zk9GqvHoRmhyJTk6GCvVdtiEmrXrcjUhGKirN8MmyJSk/40AkGIiRfJwt1Pq9LU2pj8nVbySaDiMuFQw/RFr81hu6xYbmGdCAA9ZQnY4+io3JS15ijOBfOkubjXVH/qOarBk2V73+Y8Xr23sDHQUsntLEDQWd24zRgWLotyRru4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791393860; c=relaxed/simple;
-	bh=Gj9whxeh/rbErTtvXKlwD1oCG1JyMexbFhxTw2ZhC1Y=;
+	s=arc-20240116; t=1791394302; c=relaxed/simple;
+	bh=13cVVRkuTD40F7/hzwkVKWp33Mq2HqOW/Wxr4q/T+Zo=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=UEZXYUu6RXfKMoAeOHiQEZUV7I01JfMGa25PZ7u7yX2kMjdXCwCz8fDFH4we8rPj+xQbE9c7BQZN/FYJDUw7ocg8rxBmMnQj/YCYzVPkrwxr4uZs6qSGHArdAaf9Iz1IrQ90iZeOjgpgB/1FbnibduxUrAGVqiLMhwvS3WRM2NA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lGmmXCMM; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=EZz0DE481927kg9pisJktQtQ5WntoNoiwLgIbZHzCBjnixRIqr11bVIhjSFLlRBBieGkoYJ57Zt4koc0VR+ycXB8ZxfQPL6rcGIj5o/qE2J0AtGbqIcOSLz3e1i4rsjr+rTtVBCNidYdpXO8GbgybduTPR+vW0D01WQIRjDQmto=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=flOwhn9S; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lGmmXCMM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D280C1F000FF;
-	Wed,  7 Oct 2026 17:24:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="flOwhn9S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB66D1F000FF;
+	Wed,  7 Oct 2026 17:31:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791393859;
-	bh=6pBCQsIVshugwFIyIDo1FKYVxT1gptZtXm77nQer1Rk=;
+	s=k20260515; t=1791394301;
+	bh=u8siuGI8twlIhxJqGJR75amLYB18yjN+UzLU6i5ty0Y=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lGmmXCMMu0Kl69ihKHxCvxB+taBJchI9e6f8appYc3uE1bokUmvlGiZzfaQZ/gL9g
-	 jvSlCMUol+S3AzjWfJU2KeYvqroUXaEC4WfNMZ6poxdnLPt+YSOFovsVrZ6AAoNYxp
-	 orELyLHryivm30ug6ZMl/Rlv8201F7Q3qlROC3v+XIkgv5TH04ndN5Er75iBYwI+AK
-	 C0WSdc3+y18CT+1Pcvwa/vS+ShRbznpHhwJ0f0Gy8zIVhCuCLXC2DtO30RUZwKLoO+
-	 ULKszuec08rKDtALCjtVVbbAab5LGD+DKkb0C+NQNNllbtw3o9dSuVaHpSvKdUalpu
-	 WNAq6SPadePPg==
-Message-ID: <sashiko-outbox-163241@kernel.org>
+	b=flOwhn9S5qdyN1agetELcsKk+Xm8/u+N+PM4qay53eABIo9roJDNPbZfxbJDZw9el
+	 nADzTjExuHaTFX4w9qVBbtl3kWG68H10DY0Be5oa1X0ClF3ew1A8dr6bc9T8DKJg1L
+	 Fh4vyQI4jMKeoyRfRojOhKhQ/ZSPVd8GXyu1opHrxGx1cWBdu/QUWzFEfVTyxgWgK4
+	 D+2VWhy0tCn+pgMLI/0jKxeXc6uxbSHkL4+57hJM30xHvwjlCh2CYKt3vEEA7bDClP
+	 vzMhg1aS1ryXIU+JLWM+78PLkJBbm3V4qeEMpwI95Y/+IokdgqQlhQt4f3k0ILaC9v
+	 gHJw/bEtusPBA==
+Message-ID: <sashiko-outbox-163247@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: glymur: add CDSP FastRPC
+Subject: Re: [PATCH v2 1/2] arm64: dts: qcom: kaanapali: add CDSP FastRPC
  extended context bank
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Vinayak Katoch" <vinayak.katoch@oss.qualcomm.com>
 Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20261007-extended-mapping-dts-v2-2-fa9e14900313@oss.qualcomm.com>
+In-Reply-To: <20261007-extended-mapping-dts-v2-1-fa9e14900313@oss.qualcomm.com>
 References: <20261007-extended-mapping-dts-v2-0-fa9e14900313@oss.qualcomm.com>
- <20261007-extended-mapping-dts-v2-2-fa9e14900313@oss.qualcomm.com>
+ <20261007-extended-mapping-dts-v2-1-fa9e14900313@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 07 Oct 2026 17:24:18 +0000
+Date: Wed, 07 Oct 2026 17:31:40 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,82 +47,90 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] dma: iommu-ranges property fails to restrict IOVA allocations
-- [Low] dt-bindings: unnecessary #address-cells and #size-cells cause DTC w=
-arnings
+- [High] dts: qcom: iommu-ranges property is unparsed, failing to restrict =
+IOVA bounds
+- [Low] dts: qcom: unit-address mismatch for compute-cb@12 and compute-cb@13
 --
 
-commit 62c300467cdba54ac064fbbf7a04d9a00a746896
+commit 1be2c80a69e840e3c302f9de578640a50eb91ac9
 Author: Vinayak Katoch <vinayak.katoch@oss.qualcomm.com>
 
-arm64: dts: qcom: glymur: add CDSP FastRPC extended context bank
+arm64: dts: qcom: kaanapali: add CDSP FastRPC extended context bank
 
-This commit wires up compute-cb@12 as a dedicated extended IOVA context bank
-by adding an iommu-ranges property to restrict allocations to the [16 GiB,
-~1 TiB) window. It also updates #address-cells, #size-cells, and the reg
-properties to accommodate 64-bit values.
+This commit wires up compute-cb@13 as a dedicated extended IOVA context bank
+by adding the iommu-ranges property to restrict allocations. It also bumps
+address and size cells to 2 to support 64-bit iommu-ranges, and updates the
+compute-cb reg entries accordingly.
 
-> diff --git a/arch/arm64/boot/dts/qcom/glymur.dtsi b/arch/arm64/boot/dts/q=
-com/glymur.dtsi
-> index de7c395d9c353..cba22314591f2 100644
-> --- a/arch/arm64/boot/dts/qcom/glymur.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/glymur.dtsi
-> @@ -8370,6 +8370,8 @@ remoteproc_cdsp: remoteproc@32300000 {
->  			qcom,qmp =3D <&aoss_qmp>;
->  			qcom,smem-states =3D <&smp2p_cdsp_out 0>;
->  			qcom,smem-state-names =3D "stop";
-> +			#address-cells =3D <2>;
-> +			#size-cells =3D <2>;
-
-[Severity: Low]
-Are these properties necessary here? Device Tree dictates that
-#address-cells and #size-cells only affect a node's direct children. Since
-glink-edge does not have a reg or ranges property, adding these properties
-to its parent is non-functional and triggers avoid_unnecessary_addr_size DTC
-warnings. It also violates strict YAML bindings.
-
-> =20
->  			status =3D "disabled";
-> =20
-> @@ -8381,17 +8383,19 @@ IPCC_MPROC_SIGNAL_GLINK_QMP
->  						IPCC_MPROC_SIGNAL_GLINK_QMP>;
->  				qcom,remote-pid =3D <5>;
->  				label =3D "cdsp";
-> +				#address-cells =3D <2>;
-> +				#size-cells =3D <2>;
-
-[Severity: Low]
-Similar to the remoteproc_cdsp node, could these properties be removed from
-the glink-edge node? The fastrpc child node lacks a reg or ranges property,
-so these will cause DTC warnings and dtbs_check failures.
+> diff --git a/arch/arm64/boot/dts/qcom/kaanapali.dtsi b/arch/arm64/boot/dt=
+s/qcom/kaanapali.dtsi
+> index 131fd2a16c545..ed5853dd3c510 100644
+> --- a/arch/arm64/boot/dts/qcom/kaanapali.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
 
 [ ... ]
 
-> @@ -8493,11 +8497,12 @@ compute-cb@11 {
+> @@ -6112,7 +6116,7 @@ compute-cb@8 {
 > =20
 >  					compute-cb@12 {
 >  						compatible =3D "qcom,fastrpc-compute-cb";
 > -						reg =3D <12>;
 > +						reg =3D <0x0 0xc 0x0 0x0>;
+
+[Severity: Low]
+Does the unit-address @12 need to be updated to match the new reg property?
+
+The device tree specification requires the unit-address to exactly match the
+first address in the reg property, formatted as hex without the 0x prefix. =
+By
+updating the reg address to 0xc but leaving the unit-address as @12, does
+this trigger a unit_address_vs_reg dtc compilation warning?
+
+>  						iommus =3D <&apps_smmu 0x196c 0x0>,
+>  							 <&apps_smmu 0x0c2c 0x00>,
+>  							 <&apps_smmu 0x0c0c 0x40>,
+> @@ -6122,12 +6126,13 @@ compute-cb@12 {
 > =20
->  						iommus =3D <&apps_smmu 0x240e 0x440>,
->  							 <&apps_smmu 0x196e 0x0>,
->  							 <&apps_smmu 0x19ce 0x0>;
+>  					compute-cb@13 {
+>  						compatible =3D "qcom,fastrpc-compute-cb";
+> -						reg =3D <13>;
+> +						reg =3D <0x0 0xd 0x0 0x0>;
+
+[Severity: Low]
+Similar to the node above, does the unit-address @13 need to be updated to =
+@d
+to match the new reg address of 0xd?
+
+>  						iommus =3D <&apps_smmu 0x196d 0x0>,
+>  							 <&apps_smmu 0x0c0d 0x40>,
+>  							 <&apps_smmu 0x0c2e 0x0>,
+>  							 <&apps_smmu 0x0c2d 0x0>,
+>  							 <&apps_smmu 0x19cd 0x0>;
 > +						iommu-ranges =3D <0x4 0x0 0xfc 0x0>;
 
 [Severity: High]
-Does this property actually restrict IOVA allocations as intended?
+Does the kernel actually parse these lower bound restrictions?
 
-The generic Linux DMA and OF subsystems only parse the standard dma-ranges
-property to establish IOVA domain geometry.
+The commit message states this restricts allocations to the [16 GiB, ~1 TiB)
+window. However, the kernel's OF/IOMMU framework exclusively parses
+dma-ranges to set up IOVA domain geometry. The custom iommu-ranges property
+is never parsed by the core kernel.
 
-The fastrpc driver only checks for the presence of iommu-ranges via
-of_property_present() to raise the DMA mask to 40 bits, but it never reads
-the base address or size values.
+Looking at drivers/misc/fastrpc.c, fastrpc_cb_init() only checks for the
+presence of iommu-ranges:
 
-Because no lower bound is configured for the IOVA domain, the allocator can
-hand out IOVAs starting from 0, potentially causing device faults or memory
-corruption if the DSP hardware requires mappings above the 16 GiB boundary.
+	if (of_property_present(dev->of_node, "iommu-ranges"))
+		is_extended_cb =3D true;
+
+Since the driver sets a 40-bit DMA mask based on this presence but complete=
+ly
+ignores the specified lower bound, will the IOMMU IOVA allocator fall back =
+to
+the default domain geometry and freely allocate addresses in the [0, 16 GiB)
+range instead?
+
+Could this lead to fatal DSP faults or memory overlap if the DSP hardware
+expects the allocations strictly in the restricted window?
 
 >  						dma-coherent;
 >  					};
@@ -130,4 +138,4 @@ corruption if the DSP hardware requires mappings above the 16 GiB boundary.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261007-extended-m=
-apping-dts-v2-0-fa9e14900313@oss.qualcomm.com?part=3D2
+apping-dts-v2-0-fa9e14900313@oss.qualcomm.com?part=3D1
