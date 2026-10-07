@@ -1,126 +1,187 @@
-Received: from mail-ua1-f49.google.com (mail-ua1-f49.google.com [209.85.222.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A290D448BB6
-	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 09:34:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD355356A12
+	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 09:35:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791365662; cv=none; b=AAba6vg5Rc24mpTd6w7mE9F1WiyZDoVPq1u8gg3P3WbOAtL3jLOGf0dqtMMh3u/HF/9/NloZ8/7ZsYoXkgW0+Kb2eaX0cX+Cx8sXFOW86dG+nplgof6lsH4/9zg3tKXG4GCeK8B22LFA3Qb+OPfF468SQz1rW7o7PBIbe19U1Cw=
+	t=1791365735; cv=none; b=fGPkNh/pcscGJcJiajqYZzOOVf50iDRMmUWOIQoxF0o7EfDzYsGcMy3EzrMHlyLtw9+viugixGH5Gw8f33AgT/r7KHIGsvbxZn0JZ+s/m8WG/jKi6Q/SbvB5it9EOlVZj1k5Jpsp/HLUlPhrcqu42qvL+Na8p/9PcXuICIvxGBA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791365662; c=relaxed/simple;
-	bh=DEQoUozW/Cs8HCbMPzg7ZPhOKB0dfvcgpHAGzkIkN5g=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rHNkFZnF8CfhWHca9f8ukNNfc/r0s1OMCJzljfxjbRlCHpdb2ai28GKnPEJb1uvgROCQWOxywyhFE6mNFszRvDugfTYyaA/cnWZdbWSKe6vAeAwI5VfmjvhOorIh3dK/fHFMGNoCnvc0ODnkDvAJtU2vHBKhyrlEcBayRwq4mzM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T5hCY+Q1; arc=none smtp.client-ip=209.85.222.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791365735; c=relaxed/simple;
+	bh=HZ4Yai8hHKkjGNwF1DyF5ppHLfujuiudOKsOWhFEiMA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=E2rGwQLUr1tsX+ecaf4JrAY2JHFAaVHMneDYwZWYi44DU+xyz/A85l/LSqZiqxcYy9TJw2hvBRndD672zXnNNqPGsagleAr6wARpY3KcQBXye3lKutYPRp8Rp53sQFACKUaAoK0olnz/KjeN0j2Ui8sHnOEchXl+Ng2U3zxkIno=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=F6vLO8/J; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T5hCY+Q1"
-Received: by mail-ua1-f49.google.com with SMTP id a1e0cc1a2514c-98c8cbdb9daso327247241.1
-        for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 02:34:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791365649; x=1791970449; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DEQoUozW/Cs8HCbMPzg7ZPhOKB0dfvcgpHAGzkIkN5g=;
-        b=T5hCY+Q1YMRifQtJNpwfpRHJrL96eu66NyO8k/fOU6xriMjkUVzewqsf+D9cDW+g2S
-         y+Z1vlokkYNXulEAg5ZorFJ5Bsd3AKNI6pOR5grOajPc9/p7m1haNxusFKr5/SGG6qIW
-         DuE7xac9VE4JG34//XrBq9thtiGBXDRKtWR6lPJNK+zgcaTFW5RmJdS6FC8pfXhyqvxc
-         RoGCL7KD+kO+5VWDsidVJqE1tb7RzrrPhGuIVOmyd8CQhpui/9kakH6dgM+7hs826n0O
-         fOhLVQ2hjPaPkjdJ3gupw+0hwXzH97/RcnF29X9h4OSOGcCzonsyE4kbsbJpqAQU87OX
-         ymDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791365649; x=1791970449;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DEQoUozW/Cs8HCbMPzg7ZPhOKB0dfvcgpHAGzkIkN5g=;
-        b=APSqd5NtqkpaBqYe+k+zIgivLjpxBvPpbcpTd0xAheH8wPO4e1VUSOD7oKaq7WCuPo
-         YSktorr7W3/FFzAhzIfZBuwiD0SFGser54BbMUIFvrKmK18wg5c5mA/LZhHlqxkt5Gim
-         RHgH0uWLQS0BDefEvCswFfmxtCtcb7PzrOds2GFSCZk8i0tL2pBSag5jGAyCv8RDQVSQ
-         l3AhBAfAefxgRen0qyzHaOzk8E2gTauGHSFvtVWnYAkA5C2IblH5JMedPIDQxPezsueW
-         sMX7FAHRhXyZvCGd+Sp71CT/VeRWKkus8V0IyT7rSLP8XSWR0LGUAhf9ERrDO6F0ROZD
-         0epw==
-X-Forwarded-Encrypted: i=1; AKwUvBy43XndTKDwD29l50ffGfAK6eog/0I1dtIbluczH3uOhlVF5ntA1ikrppPXVgdt4s1vjo9EOFnIgsIg@vger.kernel.org
-X-Gm-Message-State: AFq9FYKmNj6BpHO19O6YHHecg1stqzLPoqD40gOCiu5X+lUwahWDHkNt
-	bjrfcSmfL/1rCMe22hc/QQQPB6NxT13oiynVobK9lTa5v5yWTyrYvSXU
-X-Gm-Gg: AYBFou0UxQMxIvE7xdehsWsT9SDPE0QNC3NW7zGPjOySRi2DuR0tTUEen0LhJfz9mP/
-	j806jP/bhXEuMuTdNBzRMkEcOisi44L45hq7O/mMApb6CN3Yee+zQxufhuv1/VTyDn9vPeBVjZz
-	2PDTDe46hV52bgGgD1je2M9BSGwrJZXTWZ5+J6bBNQ8wvKVCmlpjYm74aJTX49lSCbxEeCBNUl6
-	iwXyqq7e7nzESRSNO002LQrchKguYCMG/Ntg28Tgi2wVEfNk1HFlJ9sg0zSi9IbFvze0Qpkrqcm
-	Nuv4NboJM1IaK+74uj1Lj7HBqA+5OOAvq5xC6RmsNsT05xpDmyMChXXbVrJ43SbPm9SEVDyn/Bq
-	M1L2v8ecHWEzvbgdDToM7lBHfA9bF3Phiz4Okl/V83z+p+PJ2wpdT1ytP4AxsJr7Z0Xqoqpikib
-	x95/A33YOd8UEfasRjxAyBuWmN2xd3aXukz5WmDQ1/s51W+QNqwcRwSitHtlvyufJQJO48+aTfP
-	9HUuHfOEtmnOkLNBX9ilIV1b2CcIIeqz5zWCZ2go4aDcW27NfqGBbJNyppkxrBbo4IzMoTd6Rvp
-	qLgKwtk=
-X-Received: by 2002:a05:6102:2909:b0:7bd:732e:c615 with SMTP id ada2fe7eead31-7ca38e16ffamr456522137.26.1791365649209;
-        Wed, 07 Oct 2026 02:34:09 -0700 (PDT)
-Received: from MaquinaLab.. ([179.179.237.181])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7ca218138c6sm1319958137.12.2026.10.07.02.34.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 02:34:08 -0700 (PDT)
-From: Vinicius Pedrosa <vinicius.eduardo.pedrosa@gmail.com>
-To: Andre Przywara <andre.przywara@arm.com>,
-	linux-serial@vger.kernel.org
-Cc: gregkh@linuxfoundation.org,
-	jirislaby@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	andriy.shevchenko@linux.intel.com,
-	ilpo.jarvinen@linux.intel.com,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-sunxi@lists.linux.dev,
-	Enzo Adriano <enzo.adriano.code@gmail.com>
-Subject: Re: [PATCH 3/3] serial: 8250_dw: Add Allwinner A733 UART
-Date: Wed,  7 Oct 2026 06:33:23 -0300
-Message-ID: <20261007093323.22104-1-vinicius.eduardo.pedrosa@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261006193046.540252-1-vinicius.eduardo.pedrosa@gmail.com>
-References: <20261005172538.398522-1-vinicius.eduardo.pedrosa@gmail.com> <20261005172538.398522-4-vinicius.eduardo.pedrosa@gmail.com> <603b4f40-2a60-4bc5-8b98-ada7a52fead9@arm.com> <20261006193046.540252-1-vinicius.eduardo.pedrosa@gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="F6vLO8/J"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 1177B4E410C6;
+	Wed,  7 Oct 2026 09:35:20 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id D0BCE6074B;
+	Wed,  7 Oct 2026 09:35:19 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9C9EC11D5006E;
+	Wed,  7 Oct 2026 11:35:12 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791365718; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=xQN3wQkVGd6JZIsxjTwgNRXi/qvLUOwJEvsQFsaSMuc=;
+	b=F6vLO8/Jrxzbe/6VTfHp1fxHL49UWZ7bUNvCBV6S3aWj9qw4/Y+NYCnR+wXXtMVF21vtN8
+	6HO18hsdYrmSr3IcUe2mcYmZiNvV8UMqDzr+mA6xQj+34muF/6X8kXoalbJzvztH26FNBa
+	K5+OZbd3o0t/hlIz1fWptevr9i2LwGhB7MyPt4CWYzBcKhrRfHzLvkEgXBp/jTbEPTQObp
+	7oAGJRThN3DBQLRGYmhO2A1fjO10mSyM258NnQc7qDy09Vmq/uYJdtwgPHdNMHIZeMHZRC
+	JINJJrljNLVaiKtvTHsTbReOHINo7BhmDfAKbGYWXUNz9HNrGtFmjQExvdZfCQ==
+Message-ID: <517a0416-3c48-4b38-865c-5c0b7e5bd143@bootlin.com>
+Date: Wed, 7 Oct 2026 11:35:11 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [RFC PATCH v2 1/7] net: stmmac: dwmac-meson8b: let the controller
+ apply the RGMII delays
+To: Lucas Tanure <tanure@linux.com>, xianwei.zhao@amlogic.com,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20261007082627.63807-1-tanure@linux.com>
+ <20261007082627.63807-2-tanure@linux.com>
+Content-Language: en-US
+From: Maxime Chevallier <maxime.chevallier@bootlin.com>
+In-Reply-To: <20261007082627.63807-2-tanure@linux.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Andre,
+Hi Lucas,
 
-Correction to my last mail: the v2 change I proposed there is wrong.
+On 10/7/26 10:26, Lucas Tanure wrote:
+> RGMII needs a delay on each of its two clocks. A board can get it from
+> the length of its tracks, from the PHY, or from the controller.
+> "rgmii-id" in the device tree says the delay is added inside the chips
+> but not which chip adds it, and the generic tx-internal-delay-ps and
+> rx-internal-delay-ps properties name the controller.
+> 
+> This driver ignored those properties. In the "-id" modes it switched
+> its own delays off and left the whole job to the PHY, so a board that
+> asks the controller for one of them does not get it, and a board whose
+> PHY cannot supply that delay has no usable link at all.
+> 
+> Boards not using those properties behave as before.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Lucas Tanure <tanure@linux.com>
+> ---
+>  .../ethernet/stmicro/stmmac/dwmac-meson8b.c   | 46 ++++++++++++++++++-
+>  1 file changed, 44 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c b/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
+> index e4d5c41294f4..d73dfd0ac167 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
+> @@ -92,6 +92,8 @@ struct meson8b_dwmac {
+>  	struct clk			*rgmii_tx_clk;
+>  	u32				tx_delay_ns;
+>  	u32				rx_delay_ps;
+> +	bool				mac_tx_delay;
+> +	bool				mac_rx_delay;
+>  	struct clk			*timing_adj_clk;
+>  };
+>  
+> @@ -299,6 +301,22 @@ static int meson8b_init_rgmii_delays(struct meson8b_dwmac *dwmac)
+>  		delay_config = rx_adj_config;
+>  		break;
+>  	case PHY_INTERFACE_MODE_RGMII_ID:
+> +		/*
+> +		 * "rgmii-id" only says the delays are internal, not which
+> +		 * side applies them. The *-internal-delay-ps properties say
+> +		 * it is this controller, so leave ours switched on.
+> +		 */
+> +		if (dwmac->mac_tx_delay || dwmac->mac_rx_delay) {
+> +			delay_config = 0;
+> +			if (dwmac->mac_tx_delay)
+> +				delay_config |= tx_dly_config;
+> +			if (dwmac->mac_rx_delay)
+> +				delay_config |= rx_adj_config;
+> +			else
+> +				cfg_rxclk_dly = 0;
+> +			break;
+> +		}
+> +		fallthrough;
+>  	case PHY_INTERFACE_MODE_RMII:
+>  		delay_config = 0;
+>  		cfg_rxclk_dly = 0;
+> @@ -384,6 +402,7 @@ static int meson8b_dwmac_probe(struct platform_device *pdev)
+>  	struct plat_stmmacenet_data *plat_dat;
+>  	struct stmmac_resources stmmac_res;
+>  	struct meson8b_dwmac *dwmac;
+> +	u32 tx_delay_ps;
+>  	int ret;
+>  
+>  	ret = stmmac_get_platform_resources(pdev, &stmmac_res);
+> @@ -409,9 +428,13 @@ static int meson8b_dwmac_probe(struct platform_device *pdev)
+>  	dwmac->dev = &pdev->dev;
+>  	dwmac->phy_mode = plat_dat->phy_interface;
+>  
+> +	/* the generic property is preferred over the vendor one */
+> +	if (!of_property_read_u32(pdev->dev.of_node, "tx-internal-delay-ps",
+> +				  &tx_delay_ps))
+> +		dwmac->tx_delay_ns = tx_delay_ps / 1000;
+>  	/* use 2ns as fallback since this value was previously hardcoded */
+> -	if (of_property_read_u32(pdev->dev.of_node, "amlogic,tx-delay-ns",
+> -				 &dwmac->tx_delay_ns))
+> +	else if (of_property_read_u32(pdev->dev.of_node, "amlogic,tx-delay-ns",
+> +				      &dwmac->tx_delay_ns))
+>  		dwmac->tx_delay_ns = 2;
+>  
+>  	/* RX delay defaults to 0ps since this is what many boards use */
+> @@ -424,6 +447,25 @@ static int meson8b_dwmac_probe(struct platform_device *pdev)
+>  			dwmac->rx_delay_ps *= 1000;
+>  	}
+>  
+> +	/*
+> +	 * Each property names one clock this controller delays itself. The
+> +	 * PHY must be asked for whatever is left, or the two would delay the
+> +	 * same clock and push it past the window.
+> +	 */
+> +	dwmac->mac_tx_delay = of_property_present(pdev->dev.of_node,
+> +						  "tx-internal-delay-ps");
+> +	dwmac->mac_rx_delay = of_property_present(pdev->dev.of_node,
+> +						  "rx-internal-delay-ps");
+> +
+> +	if (dwmac->phy_mode == PHY_INTERFACE_MODE_RGMII_ID) {
+> +		if (dwmac->mac_tx_delay && dwmac->mac_rx_delay)
+> +			plat_dat->phy_interface = PHY_INTERFACE_MODE_RGMII;
+> +		else if (dwmac->mac_tx_delay)
+> +			plat_dat->phy_interface = PHY_INTERFACE_MODE_RGMII_RXID;
+> +		else if (dwmac->mac_rx_delay)
+> +			plat_dat->phy_interface = PHY_INTERFACE_MODE_RGMII_TXID;
+> +	}
 
-Gating only when clk_round_rate() differs from the current rate is
-e5d6bd25f93d ("serial: 8250_dw: Do not reclock if already at correct
-rate"). 7dfae6cbadc1 reverted it because it broke the dw UARTs on Bay
-Trail and Cherry Trail. Mine compares against clk_get_rate() instead of
-p->uartclk. Peter suggested that variant in the revert thread, and Hans
-pointed out it's the same check, since uartclk comes from clk_get_rate()
-at probe.
+There's a helper for that :
 
-From my reading of clk.c, the flag you mentioned seems to explain the
-regression. The LPSS "-update" gate is registered with
-CLK_SET_RATE_PARENT | CLK_SET_RATE_GATE in drivers/acpi/x86/lpss.c.
-Preparing it rate-protects the gate and its divider parent, and while
-they're protected clk_round_rate() returns the current rate. So the
-check always says there's nothing to do. The divider never gets
-reprogrammed. Hans's debug log in
-<20240317214123.34482-1-hdegoede@redhat.com> has a request for 1843200
-rounded to 153600, the rate already set. I can't test LPSS.
+phy_fix_phy_mode_for_mac_delays(), passed as parameters the mode, and wether the mac
+inserts TX/RX delays, and it returns what you should hand out to the PHY :)
 
-So on LPSS the CCF does ask for the gate, and the disable/enable in
-dw8250_set_termios() is how the driver gets clk_set_rate() past it.
+> +
+>  	if (dwmac->data->has_prg_eth1_rgmii_rx_delay) {
+>  		if (dwmac->rx_delay_ps > 3000 || dwmac->rx_delay_ps % 200) {
+>  			dev_err(dwmac->dev,
 
-For v2 I'm inclined to keep SKIP_SET_RATE for the A733, like JH7100
-(b0ad20a3b64b) and SG2044 (cad4dda82c7e). The A733 bus-uart gates carry
-no rate flags, so the rate calls there are no-ops. Calling
-clk_set_rate() with the clock running and gating only on -EBUSY might
-work for everyone, but it needs BYT/CHT testing I can't do.
+This looks better, thanks for this :)
 
-This is separate from DLF. v2 still uses your 2^n - 1 check for that,
-with no A733 quirk.
-
-Thanks,
-Vinicius
+Maxime
