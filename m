@@ -1,68 +1,68 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C67B3B38A1
-	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 12:33:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EB3344BCB5
+	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 12:35:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791376418; cv=none; b=pD4pMAeZsY6ZIFtxRAOP70YlWXDGmjD8en54amk/nwUfDy2L146R69+i6pgVXGZfot+M+8+PMH/Gj/YTtRN0IUlbWAagvbb697HAlzM/XcHLTaJ8GhaEt3+gEVKq4Q5Rcr31OQMPamsFuV4rblvLylIK4FD3PvzdFGpeG69ijr4=
+	t=1791376558; cv=none; b=cLrMxAOr/QKiQFMUGP/hlm4Co2ceotV2XvF2YuOk+paiOQvxeiJwNQxr9+tO0E7p6qGKybfhTPdM4pa8dkyZcx854KzLCzxGWbmn66PipQIjUoX37P92vLprUukEH3bzadkewjougtDKc6aUxPXdoNKCu8byntQp6bdQtz0zuqQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791376418; c=relaxed/simple;
-	bh=JcerM9sK/g4sUoTC/DiI4yPMBzcaqJfNy1s9cxu6Ej4=;
+	s=arc-20240116; t=1791376558; c=relaxed/simple;
+	bh=LG+u0ls6VzC7KKKN6T1gPPOh03a/2rcmPcFgIdyIVq0=;
 	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=nPa2b6WGohZSyAcom6Srqt9Yf1ur59I0TR2VUKgUel+zZvQUqnLqSXewSRssUZD9HP+axbXJ17+LhcyOw4J5cbT2FGnlZPvKYjP+8bwm+4QGsy9AOB0y8nrJ+t9r9J447StEPk1gFlCdbrzwEnJbojr6iS7kT67Nd8O/Z5WBVYg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=UMdAPtpY; arc=none smtp.client-ip=209.85.221.44
+	 In-Reply-To:Content-Type; b=fXB/Gj9ycguC4fKdFnkfUJUbikGCmnlrDLO7srLQXM96J7o7LIlGLa97AGUBzzo8UaWzbCrZ2FoG5aEdfAX0w48w3KonaMlGFcyWyeWQNSoHfHArYiHGglYFBzFVBRiKPhkRswWYgL6bPjA5jlCIITmtVtZO/Rm0vDi2+rSHDUE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=MER5TZR1; arc=none smtp.client-ip=209.85.221.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="UMdAPtpY"
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48b02a2359aso1659868f8f.0
-        for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 05:33:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="MER5TZR1"
+Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-48b9d8055dfso3342136f8f.3
+        for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 05:35:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791376405; x=1791981205; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1791376548; x=1791981348; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:organization
          :autocrypt:content-language:references:cc:to:subject:reply-to:from
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Sto7ylfghKrxF0yVdAjf8Y/DDquUXT6FEKrppsRxI2o=;
-        b=UMdAPtpYFLkRkCBvRcJTuYAxv1GWo8EufGmhcUd9CjHk16Cagb11tceIhnvwUN7br4
-         Nc0W0yIA0lERin+yT1KioikeW+c71KsHa4/HfWh3nZ38y44NFM9DdxzOmQU9Vl2spqrd
-         pbxD0Jf2Te59in0mDIfYQzNpmvjmzXt4RScCWAE05I4Q8nL2suWjOD+dEKY3i9Z8BkU+
-         eff8lGmjunMzk7siyCuT4J079SB+nhs6NrQNQfl1Q7qegGLESmb28Y6vZJAUN8/X11j8
-         tBVup9oW9ct5tL1jp6PjJkhDOPvBJW8FoYMgIaMbbgCE4FXhJ+cXCRw5RTWM6V13+doG
-         vAGg==
+        bh=atVsgpDLAd3FCy/r5rwHewVKjgkttl9/HQ0eAY9dsQ8=;
+        b=MER5TZR16FnnX+q1KYf3/L+b18JwORaY3RZrf0y4tlJEPInEHPCiEH+X8trYqEPMbW
+         5bHmdl0Y2uqZzOlcFj2N91qj56OYkjsEuKpqt7RlA759t3ueMKMU638Zp6mVwDVH+Sfi
+         wlM3YwoorWKF/uTaovNFebYS4YKZPiXRlDO94mrUXWddwTRsIZ/HbrMt5yJRmRAjhsie
+         yFnVAWmiGqsBfMw6pDdjFjd0beElmjI+ojSSztNeyczipNvXVoOWcaVLWX4ItfkU9lRr
+         lqdVSXwRESbkLGsPrMSlWsJS/4Ag8FaPIFIJOz1/wj96VbPMWYg7wZWkVSAj7OPS9EAw
+         HLEA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791376405; x=1791981205;
+        d=1e100.net; s=20260707; t=1791376548; x=1791981348;
         h=content-transfer-encoding:content-type:in-reply-to:organization
          :autocrypt:content-language:references:cc:to:subject:reply-to:from
          :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Sto7ylfghKrxF0yVdAjf8Y/DDquUXT6FEKrppsRxI2o=;
-        b=TAxwzFUunxaN46CJT+kRhbHlG+unWMleM+bAy+fXjOPrkq0ymedd9oJB/mysX9hGdN
-         6VFOcZS2EBoYGkj/WEgwYpcxSncvb/8MGF/gWt1VSK4sDpgkka7hdJZtnTtX0DxQhTKA
-         Uej7pL8ymojCWnjbk8wvCugDDcQJATXsprqLB5wuP9+tZH3zAVO1W0cg6lSRF0xys4HR
-         MWz+lJ5NIz2sgbH6u2nGTB1JthkFi1qgR7jY4I7IehcXUHtKpte+MXadM5oZUNJTDhGI
-         ULLhZfprNrtWO7y5zvAz/LcH3FAsvaDwszr7Y/Y9V0kOo+sfVccWhUUd5V93DFAEUjuX
-         ZQ0A==
-X-Forwarded-Encrypted: i=1; AKwUvBzXAJx90zXRVllji/4xJzPPZkQxQ/zLcq2crOOSrhj7nt3IfnCrH8eO2CCWW4Qs9A4iThq5YmX4OK7u@vger.kernel.org
-X-Gm-Message-State: AFq9FYL/pvjarHgoA0GVzxdxjuHNgxtUFn08ltOnMj3aI1YSKb2+w7dY
-	ajbKlt1DjkxCDe2ImBwXMhgVOSI1B6dtk98wglMgSeRauv81rlpRrE2O1MLJIERR4JI=
-X-Gm-Gg: AYBFou0V5dvUJF6/G/abT+801VEZjO8ikYxdMd6MgiazNlNOu+Faut9UVp4WUB1PoSX
-	OqizF7px8uvfugHcG13E6+uVGlXiHzwVAqg0K+37vcgEPPl74c34J8WDA+02gGggTJ9tCbQMrkS
-	e9OHtMb2lBTUPOeUjz+owWRMQSQYFwDCW569KJIsTCuvkhyZ2LQGv5lzTNnzqCFprMvowyhCHJv
-	yvstI5h1uK858NGAD+Ox6IFgM6F8aUFjWhqmC7WZbN02QlWEnEZWvfZBc8mSinzVXIRrLDhVBTw
-	fKvc4xSSAkRdtHvFHMJWdCUEkLbGobed3Ie/ud+OOCXJrEomJviP1UraIuPMi0uSLH9G4Zxi5fp
-	K4o+zJDTrjIeY1dRmAocd6/8pjKiA2kQ1niyO38fx+SDVAPfLQrnKLIdNrcJwNsGOCGCmWpkkJv
-	mRaj4RZXWOZVUCBfEmOssiikpEK6cY8N7PxhHbv/U+nRuGr23z7WZWA9bFHb1ddr/mcEQn1Xx4j
-	jwBkZjhocKwykSTKN0ct4PMaVq8orAZ
-X-Received: by 2002:a5d:6184:0:b0:48c:54ec:ea3 with SMTP id ffacd0b85a97d-48c688c031amr8414035f8f.13.1791376405104;
-        Wed, 07 Oct 2026 05:33:25 -0700 (PDT)
+        bh=atVsgpDLAd3FCy/r5rwHewVKjgkttl9/HQ0eAY9dsQ8=;
+        b=l2Uit/DuCG8RYB5JwBjnmZjOZxNK2RszitDcPm3EMp9NTX6H775XWcC44be9Z9DoJI
+         49GcUA1IAeS3WiKiODf0McQzlO4krvPyOsC9eSKZUrotIrP/cy4s9VbK2jlBnq2FqcdN
+         7i9BpWGSEHlibyOhkNTq06feVtD88lB0euvLhQATRHhw/9vmA1God5/LqfE3a3NBbJya
+         ZdC9f66W4wQwuzmCqC2d+0b4L3emGmT6oARRevX8hunThtHGC/17gg2aehyRR/+KC74j
+         FjmZM2BNg9KDsBD6zm/lrJb+luT3OafV33G4nnPyd09ITYV4Bg6SU+9CwRuIKyR4lRuT
+         fW+A==
+X-Forwarded-Encrypted: i=1; AKwUvBzPWr0+mDfuWpQ9wbdQkQlscBtslUHhDkZpyfKl4nO05azK/PBuHa65XfwROvBeB1kEa2BubnA+mF7I@vger.kernel.org
+X-Gm-Message-State: AFuF++maEXdppAashu/WlMt9iiKwIiC1V22Y3xJ8n7hyFr9FPDPA3+hs
+	JhF2UAZ7LTYb6whigk1JmEUU9aIWNRNj1sfbZuf3i3fCOoYB+aSZvnbNtC253cnjgSM=
+X-Gm-Gg: AYBFou2jZ/m285lTB85vb06d8Lxt0i3ztaQGjDMQLRafEKRHHAVCmDPXZDxVsfBnx99
+	YJXRlwUiGWHEpJTCQTfupgIzpkg7jGrA2bY8PERcHEuHVSOUaUw7mv0icuMSuu3TWIXlCQoKfWq
+	VyaQtuUr6fnxfgPxV1VTOD50sRpv47ncadFU6bQfyRiqo1Fdip7Zk/bQ4OFIj0XdZ8aHC6vsVxD
+	wYB7dl6vO8wVg/wecN5flFroybisNepq7me2FLqT7VEauqzlxMwGv1kPmYQshXZzpowGOMnxYlS
+	ciIM0STkmAxEKwWk4FfKX5aujyOmtEot3LrnFql+3wkt3qNC5eljo41JThb5rlJmf42Ju0iz3Pd
+	zXBa0GbVY28pRp3nOtkVJ8ZD8H8JeeEZtXvQae9hzR6wbiE1YXXXxz8LNrfe9Zj2H1SzoIcDw0P
+	VygBoUciMNnfNt+NYePM+LNI9fz5rOP+SSwPT6mYgt7OkXzosoHunsRWSallDZ39O1LdRKtKLon
+	LgfWvrfbfB5yvp3YGQ9Zur5M1Agkqo=
+X-Received: by 2002:a05:600c:8b54:b0:49c:fc6e:8caf with SMTP id 5b1f17b1804b1-4a18043c9b9mr34840155e9.19.1791376548113;
+        Wed, 07 Oct 2026 05:35:48 -0700 (PDT)
 Received: from [192.168.151.46] (90-182-211-1.rcp.o2.cz. [90.182.211.1])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c71d3d3eesm5973138f8f.53.2026.10.07.05.33.23
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1822af9d5sm37187375e9.15.2026.10.07.05.35.45
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 07 Oct 2026 05:33:24 -0700 (PDT)
-Message-ID: <15a6f5d5-fdf2-43e2-94bc-3e87c4eea122@linaro.org>
-Date: Wed, 7 Oct 2026 14:33:20 +0200
+        Wed, 07 Oct 2026 05:35:46 -0700 (PDT)
+Message-ID: <c70d918e-7944-4229-b997-7f07d924125a@linaro.org>
+Date: Wed, 7 Oct 2026 14:35:43 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -72,17 +72,24 @@ MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Neil Armstrong <neil.armstrong@linaro.org>
 Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v2] arm64: dts: amlogic: meson-sm1-odroid-hc4: add the fan
- tachometer
-To: iav@iav.lv, Kevin Hilman <khilman@baylibre.com>,
+Subject: Re: [RFC PATCH v2 3/7] dt-bindings: net: amlogic,meson-dwmac: add
+ amlogic,t7-dwmac
+To: Lucas Tanure <tanure@linux.com>, xianwei.zhao@amlogic.com,
+ Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Kevin Hilman <khilman@baylibre.com>,
  Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Christian Hewitt <christianshewitt@gmail.com>, devicetree@vger.kernel.org,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Maxime Chevallier <maxime.chevallier@bootlin.com>,
+ Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>
+Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
  linux-kernel@vger.kernel.org
-References: <20261006-hc4-fan-tach-v2-1-e27ad96e92a2@iav.lv>
+References: <20261007082627.63807-1-tanure@linux.com>
+ <20261007082627.63807-4-tanure@linux.com>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -109,75 +116,111 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <20261006-hc4-fan-tach-v2-1-e27ad96e92a2@iav.lv>
+In-Reply-To: <20261007082627.63807-4-tanure@linux.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 10/6/26 18:36, Igor Velkov via B4 Relay wrote:
-> From: Igor Velkov <iav@iav.lv>
+On 10/7/26 10:26, Lucas Tanure wrote:
+> The T7 has the same ethernet glue as the G12A, but the controller
+> reaches memory through a pipeline stage that this SoC inserts in the
+> bus path. That stage has a gate of its own, which no other member of
+> the family has, and nothing else in Linux claims it. It is therefore
+> switched off as unused, and the port can then no longer finish a
+> transfer.
 > 
-> The fan connector routes the fan's tachometer output to GPIOX_7, but
-> the fan node does not describe it. pwm-fan therefore registers no
-> fan1_input, and the fan speed cannot be read.
-> 
-> Describe the line as the fan's interrupt, and mux the pin as a GPIO
-> input without bias: R109 on the board pulls the line up to VDDAO_3V3
-> (schematic rev1.0, sheet 31).
-> 
-> Tested on ODROID-HC4: fan1_input reads 0 with the fan stopped and
-> rises with the duty cycle, to about 4200 rpm at full speed.
+> Describing it needs a fourth clock, and the fourth clock of the
+> existing list drives the timing adjustment logic, which the T7 never
+> uses. So the T7 gets a list of its own with the gate in that place,
+> under the name the SD and eMMC controllers already use.
 > 
 > Assisted-by: LLM
-> Signed-off-by: Igor Velkov <iav@iav.lv>
+> Signed-off-by: Lucas Tanure <tanure@linux.com>
 > ---
-> Changes in v2:
-> - Mux GPIOX_7 as a GPIO input without bias (Neil).
-> - Link to v1: https://lore.kernel.org/r/20261006-hc4-fan-tach-v1-1-4e7cecf0b45b@iav.lv
-> ---
->   arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts | 15 +++++++++++++++
->   1 file changed, 15 insertions(+)
+>   .../bindings/net/amlogic,meson-dwmac.yaml     | 47 +++++++++++++++++++
+>   1 file changed, 47 insertions(+)
 > 
-> diff --git a/arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts b/arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts
-> index 5f15c2299509..64602aff1d81 100644
-> --- a/arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts
-> +++ b/arch/arm64/boot/dts/amlogic/meson-sm1-odroid-hc4.dts
-> @@ -21,6 +21,10 @@ fan0: pwm-fan {
->   		#cooling-cells = <2>;
->   		cooling-levels = <0 120 170 220>;
->   		pwms = <&pwm_cd 1 40000 0>;
-> +		interrupt-parent = <&gpio_intc>;
-> +		interrupts = <IRQID_GPIOX_7 IRQ_TYPE_EDGE_FALLING>;
-> +		pinctrl-0 = <&fan_tach_pins>;
-> +		pinctrl-names = "default";
->   	};
+> diff --git a/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml b/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
+> index 90ef79161ab1..96118b4d1560 100644
+> --- a/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
+> +++ b/Documentation/devicetree/bindings/net/amlogic,meson-dwmac.yaml
+> @@ -23,6 +23,7 @@ select:
+>             - amlogic,meson-gxbb-dwmac
+>             - amlogic,meson-axg-dwmac
+>             - amlogic,meson-g12a-dwmac
+> +          - amlogic,t7-dwmac
+>     required:
+>       - compatible
 >   
->   	leds {
-> @@ -114,6 +118,17 @@ &pcie {
->   	reset-gpios = <&gpio GPIOH_4 GPIO_ACTIVE_LOW>;
->   };
+> @@ -57,6 +58,47 @@ allOf:
+>               - const: clkin1
+>               - const: timing-adjustment
 >   
-> +&periphs_pinctrl {
-> +	fan_tach_pins: fan-tach {
-> +		mux {
-> +			groups = "GPIOX_7";
-> +			function = "gpio_periphs";
-> +			bias-disable;
-> +			output-disable;
-> +		};
-> +	};
-> +};
+> +  # The T7 applies the RGMII RX delay through PRG_ETH1 and never enables the
+> +  # timing adjustment logic, so it has no timing-adjustment clock. What it does
+> +  # need is the gate of the pipeline stage the controller reaches DRAM through.
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: amlogic,t7-dwmac
+> +    then:
+> +      properties:
+> +        clocks:
+> +          items:
+> +            - description: GMAC main clock
+> +            - description: First parent clock of the internal mux
+> +            - description: Second parent clock of the internal mux
+> +            - description:
+> +                clock of the pipeline stage inserted in the bus path between
+> +                the controller and the DRAM. Without it, the controller cannot
+> +                complete DMA transfers.
 > +
->   &pwm_cd {
->   	status = "okay";
->   	pinctrl-names = "default";
-> 
-> ---
-> base-commit: b44e2be772f866985cafdf90355285069ea68495
-> change-id: 20261006-hc4-fan-tach-440c1b874a04
-> 
-> Best regards,
+> +        clock-names:
+> +          items:
+> +            - const: stmmaceth
+> +            - const: clkin0
+> +            - const: clkin1
+> +            - const: pipeline
+> +
+> +  # Delay definitions for Meson8b and newer (including T7)
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - amlogic,meson8b-dwmac
+> +              - amlogic,meson8m2-dwmac
+> +              - amlogic,meson-gxbb-dwmac
+> +              - amlogic,meson-axg-dwmac
+> +              - amlogic,meson-g12a-dwmac
+> +              - amlogic,t7-dwmac
+> +    then:
+> +      properties:
+>           amlogic,tx-delay-ns:
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Do we still want to support the vendor property on t7 ?
 
-Thanks,
 Neil
+
+>             enum: [0, 2, 4, 6]
+>             default: 2
+> @@ -106,6 +148,7 @@ allOf:
+>             contains:
+>               enum:
+>                 - amlogic,meson-g12a-dwmac
+> +              - amlogic,t7-dwmac
+>       then:
+>         properties:
+>           rx-internal-delay-ps:
+> @@ -143,6 +186,10 @@ properties:
+>                 - amlogic,meson6-dwmac
+>                 - amlogic,meson8m2-dwmac
+>             - const: snps,dwmac
+> +      - items:
+> +          - const: amlogic,t7-dwmac
+> +          - const: snps,dwmac-5.10a
+> +          - const: snps,dwmac
+>   
+>     reg:
+>       items:
+
