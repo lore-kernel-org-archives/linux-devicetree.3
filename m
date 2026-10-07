@@ -1,67 +1,53 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4A9C3CF1E7;
-	Wed,  7 Oct 2026 21:00:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84E8438E5C5;
+	Wed,  7 Oct 2026 21:04:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791406860; cv=none; b=PEXtFboGV4ub2yZLhVo/2/I13GNW5LPWLrjwmBeaYXLX9lgosOiCuBe/mjePqcsxSJ+tBadov8SRw/BB4TW1Ie5C2iXpEoTwITJlTKFdNeKRr84skx8ZGg2+mIDOFm4T7PsJeEbil2wH/TjI9ZAuCqjwU4EwIMdDdB9HIlLwfhQ=
+	t=1791407096; cv=none; b=P+4HqmU/FytMbyQJYQAxMmu77L7j71si7Cr825t+VDfeyj0WXCdI0THHE0gxvO1dt12bsXa+cCEu65ZN8ienm7viFO25JocZKvwzqKfsO8GGHWQJCBbRjw76jiXBXWV86/d+7qZ7FneiA2q2xvUILxBQA1t5xLd4w1PbFrVneS0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791406860; c=relaxed/simple;
-	bh=DjV6pU5Ygctp/BedOBvtLifXI/+hzam3cb5J6puT2Og=;
+	s=arc-20240116; t=1791407096; c=relaxed/simple;
+	bh=Ngbr0/e+6lR9ACtFSwhQ8C3hUvupgaSrFeL3IPBKRuQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hI3sR9kuEQjxv0Sq0YQpm3O0eXPQ/g4jREcfln0urXLVdGVqPP8Kr+guycsQVDmGrvNGoRgVH1xV6JS7r9/pefYy/SJ9J7qHE1KwjeTfcNzGJQv1trLcULPQsk1+sNQqErNMTp3N9xfoCgE1yEn3WhiXYf5fyMySOgDCa0MEd9Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DlA7fxez; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=taJt2/xnRSesJbnQ+9zeMxH4W9DKWGlPeSFxOxAcByfd1p7Cvho9h321dJmTEKcRVYH5ltx/uShFo8mhnRYDJAwso91TQvkw8vfbu+rQGU1Fh17165uPUDDi9kpP0Xc+Jn5StDp8n8mgTtkFqYQlOt3TspQDHH/CTvBoP8fICh0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IMOnkCXm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DlA7fxez"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5168D1F000FF;
-	Wed,  7 Oct 2026 21:00:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IMOnkCXm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E5141F000FF;
+	Wed,  7 Oct 2026 21:04:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791406859;
-	bh=TbYPg3uQU1P6rMt+WuOLQFicMNfbSJBbie5yCmhoZc0=;
+	s=k20260515; t=1791407095;
+	bh=HTCAZdYlFLqyhq9/HWTd2FhXBlVeS9NujKKqPevSK8s=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DlA7fxezfe1z+1SnRn5LXiq7eRXTf4Wa/Mg0y9+59eWKxQT4DgzFaWCEpnRqIVNQE
-	 gN0SXj6ZmBT5Rmm3TdrmyP14EHopZyd9r0EXpEOSaFPU2vKvQToybCkN2NK3HbCHMg
-	 ST58deOjUKDl3/uZ571L1lEeLRQO0IDXxaHtEMP4+1vE+svI74ZMqDvCPm8P1tx2wK
-	 /KWbLmIpzeWWtGHiDJGBuB5wdNR2jq/xcBk7NAtcrpllfvReO7QYQQ9PEhvPB2d2UU
-	 w+Mu56IlWXzOVzF+rGDRuhrSUVAYTHRJs2lQKVfRGyK7rS/F41uzXfWm5bzzsnTD4W
-	 RHjzI02XRHE6g==
-Date: Wed, 7 Oct 2026 16:00:58 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Changhuang Liang <changhuang.liang@starfivetech.com>
-Cc: Jani Nikula <jani.nikula@intel.com>, Hanjun Guo <guohanjun@huawei.com>,
-	Mukesh Rathor <mrathor@linux.microsoft.com>,
-	Jakub Kicinski <kuba@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
-	Joel Stanley <joel@jms.id.au>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Karthikeyan KS <karthiproffesional@gmail.com>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Pengpeng Hou <pengpeng@iscas.ac.cn>, openbmc@lists.ozlabs.org,
-	devicetree@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
-	Vladimir Oltean <vladimir.oltean@nxp.com>,
-	Dan Williams <djbw@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Dave Penkler <dpenkler@gmail.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	linux-kernel@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	James Morse <james.morse@arm.com>,
-	Jonathan Cameron <jic23@kernel.org>, linux-doc@vger.kernel.org,
-	Alexandra Winter <wintera@linux.ibm.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Jonathan Corbet <corbet@lwn.net>, Breno Leitao <leitao@debian.org>,
-	Stephen Hemminger <stephen@networkplumber.org>,
-	linux-arm-kernel@lists.infradead.org,
-	Chia-Wei Wang <chiawei_wang@aspeedtech.com>,
-	Julian Braha <julianbraha@gmail.com>,
-	Alexander Usyskin <alexander.usyskin@intel.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Oskar Senft <osk@google.com>, Vitaly Lubart <lubvital@gmail.com>
-Subject: Re: [PATCH v3 3/4] dt-bindings: soc: starfive: Add StarFive JHB100
- UART routing
-Message-ID: <179140685827.281341.11055156225840359821.robh@kernel.org>
-References: <20260925050947.9900-1-changhuang.liang@starfivetech.com>
- <20260925050947.9900-4-changhuang.liang@starfivetech.com>
+	b=IMOnkCXmCWYqPahlvJ15fWPbVRBgTDXS73VZTW3FojXbwLJ7ozSXfIH19GW5moikL
+	 Nl4G0vZfcRyjftsIA5FoS9RvNLDQIBFX0ZTU0CQ389PmNAQ9kz3H2jEYumnHaP+r/5
+	 4Qzo0g31c5pyyDlBNCxM8byOuz7fPnJFmeOqb4ubUykcW8OjDiCiBMn03I7t56IuL8
+	 iot6cat47ID36kSRFT5qcK3Uk2IUcs5cXv4x/8jND+bpXdozQDKZqxeYyqOk2xTFhY
+	 aqKG1sb4MBW/DrmCguX9DEUHi7ylsmEXDsAntHjnhxEw2vatu81JD6Ay+Z+uhsyHGz
+	 kNqyxjRrSze5Q==
+Date: Wed, 7 Oct 2026 16:04:54 -0500
+From: Rob Herring <robh@kernel.org>
+To: Kyle Swenson <kyle.swenson@est.tech>
+Cc: "o.rempel@pengutronix.de" <o.rempel@pengutronix.de>,
+	"kory.maincent@bootlin.com" <kory.maincent@bootlin.com>,
+	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>,
+	"davem@davemloft.net" <davem@davemloft.net>,
+	"edumazet@google.com" <edumazet@google.com>,
+	"kuba@kernel.org" <kuba@kernel.org>,
+	"pabeni@redhat.com" <pabeni@redhat.com>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+	"conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	Roland =?iso-8859-1?Q?Kov=E1cs?= <roland.kovacs@est.tech>,
+	David =?iso-8859-1?Q?Nystr=F6m?= <david.nystrom@est.tech>
+Subject: Re: [PATCH net-next v3 1/2] dt-bindings: net: pse-pd: Add bindings
+ for LTC4266 PSE Controller
+Message-ID: <20261007210454.GA281943-robh@kernel.org>
+References: <20260927212929.593366-1-kyle.swenson@est.tech>
+ <20260927212929.593366-2-kyle.swenson@est.tech>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,24 +56,117 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260925050947.9900-4-changhuang.liang@starfivetech.com>
+In-Reply-To: <20260927212929.593366-2-kyle.swenson@est.tech>
 
-
-On Thu, 24 Sep 2026 22:09:46 -0700, Changhuang Liang wrote:
-> Add device tree binding for the StarFive JHB100 UART routing controller.
-> This controller allows dynamic routing of inputs between built-in UARTs
-> and physical serial I/O ports, enabling use cases such as Host <-> BMC
-> communication via UARTs.
+On Sun, Sep 27, 2026 at 09:29:48PM +0000, Kyle Swenson wrote:
+> Add the LTC4266 Power Sourcing Equipment controller device tree bindings
+> documentation.
 > 
-> The clocks property exists in the hardware, but the driver does not use
-> it.
-> 
-> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+> Signed-off-by: Kyle Swenson <kyle.swenson@est.tech>
 > ---
->  .../soc/starfive/starfive,uart-routing.yaml   | 46 +++++++++++++++++++
->  1 file changed, 46 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/soc/starfive/starfive,uart-routing.yaml
+>  .../bindings/net/pse-pd/lltc,ltc4266.yaml     | 180 ++++++++++++++++++
+>  1 file changed, 180 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/net/pse-pd/lltc,ltc4266.yaml
 > 
+> diff --git a/Documentation/devicetree/bindings/net/pse-pd/lltc,ltc4266.yaml b/Documentation/devicetree/bindings/net/pse-pd/lltc,ltc4266.yaml
+> new file mode 100644
+> index 000000000000..e11c9d601eee
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/net/pse-pd/lltc,ltc4266.yaml
+> @@ -0,0 +1,180 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/net/pse-pd/lltc,ltc4266.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Linear Technology LTC4266 Power Sourcing Equipment controller
+> +
+> +maintainers:
+> +  - Kyle Swenson <kyle.swenson@est.tech>
+> +
+> +allOf:
+> +  - $ref: pse-controller.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - lltc,ltc4266
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    maxItems: 1
+> +
+> +  channels:
+> +    type: object
+> +    additionalProperties: false
+> +    description:
+> +      Defines the 4 physical delivery channels on the controller that can be
+> +      referenced by PSE PIs through their "pairsets" property. The actual port
+> +      matrix mapping is created when PSE PIs reference these channels in their
+> +      pairsets.
+> +
+> +    properties:
+> +      '#address-cells':
+> +        const: 1
+> +
+> +      '#size-cells':
+> +        const: 0
+> +
+> +    patternProperties:
+> +      '^channel@[0-3]$':
+> +        type: object
+> +        additionalProperties: false
+> +
+> +        properties:
+> +          reg:
+> +            maxItems: 1
+> +
+> +          sense-resistor-micro-ohms:
+> +            description: Sense resistor connected to the channel's MOSFET, used
+> +              for current measurement and for overcurrent detection. The I_CUT
+> +              and I_LIM register encodings depend on which value is fitted, so
+> +              a wrong value programs the wrong thresholds.
+> +            enum: [250000, 500000]
+> +
+> +        required:
+> +          - reg
+> +          - sense-resistor-micro-ohms
+> +
+> +    required:
+> +      - '#address-cells'
+> +      - '#size-cells'
+> +
+> +  pse-pis:
+> +    type: object
+> +    additionalProperties: false
+> +
+> +    properties:
+> +      '#address-cells':
+> +        const: 1
+> +
+> +      '#size-cells':
+> +        const: 0
+> +
+> +    patternProperties:
+> +      '^pse-pi@[0-3]$':
+> +        type: object
+> +        additionalProperties: true
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+This cannot be true. That allows adding any property.
 
+> +        properties:
+> +          pairsets:
+> +            description: The LTC4266 delivers power to a PI over a single
+> +              pairset, driven by one of the controller's four channels. There
+> +              is no 4-pair mode spreading a PI over two channels, so exactly
+> +              one channel phandle is expected.
+> +            maxItems: 1
+> +          pairset-names:
+> +            maxItems: 1
+
+An empty node is valid? Needs 'required'.
+
+Rob
