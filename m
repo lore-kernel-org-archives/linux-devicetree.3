@@ -1,97 +1,180 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C3D149EC78;
-	Wed,  7 Oct 2026 10:50:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DEFE48C3E5;
+	Wed,  7 Oct 2026 10:53:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791370274; cv=none; b=AW6WRxozBEnAY87Ln5uIDeOO09O/NBiBxqXo2B7/ag7AveehXRJ7kPSXoLiQeKxD01TphAlMTm9aaGIPj5NiPiaYScDhUFzHh5C6EMhg3jhKq5amZ/c4i03g4j+LYocpGXU4mCf5d96ZL5shJv7mVq3pZPusoFPw3OIeA+FIccg=
+	t=1791370458; cv=none; b=lxw4aBccTvLhlkjyvedSn840uhA07rjPF1LQo+w24TDu4D1+fO8Ik5kKpv8HZO9QUo27frfv9hTGcK8QIm2bi/L75q27Lke0Xa3VxH1w3ecmFnM7OiK6n2ZNRLQN24/dnzVkqyB0r5iOI58Pv3xwkFDpGQh7DM3R129PAO73xCI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791370274; c=relaxed/simple;
-	bh=wrVJSdTwL83WhykP/s9gp+xedH5AQcJR+0ruj6chmEA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kKQsgokArXYzu+WMsecK/8mWVG2HOIwNz4Je+ExJcv7ZbBoj2mtGawUPgX/YkqyqLUE00eEjRUhIRFJsT29OevftZGKOkui+jAIq4nGet0kTolELKAH5TwX2GanQ1tZJRFsePV7xvFePPHNMEN+rEssJJxznWpjwpqv3+Zv63+4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=g9K6tA94; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1791370458; c=relaxed/simple;
+	bh=gPfrsXOhUCrnZdJNLjY+JFMVKOVLr0Q5sBBd5tb1cqY=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=nmceE8sxA88tfzxPo9RGrMSWmk0BBmnTfPZGQyx0g0giiQj7q08LCYH1QZ0iLDZTlaX4Hsh52YLkt8yJhYwxVZuPEUmCMxvTsVh5EBxRU9rLXTIshUkX4ZI+2i14McCJsIv0OWRtzQ7qyqq6UTuHnhVleEbknmbD8ygRl0AYyMg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jTPNlIr6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="g9K6tA94"
-Received: from [192.168.0.43] (chfd-03-b2-v4wan-176392-cust229.vm15.cable.virginm.net [82.19.20.230])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 6385E2C6;
-	Wed,  7 Oct 2026 12:48:40 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1791370120;
-	bh=wrVJSdTwL83WhykP/s9gp+xedH5AQcJR+0ruj6chmEA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=g9K6tA94gIpbgFV5gP/E0xEhxJ6esjM+tl1oiitf/DEnnnQ1M9KLZ4piqx1+tf0KS
-	 IJGotYv1z2CuVCzGO5DoZ9hOtEHq7b3BaBxoZmgzuUVfhdxj2/2Tn9RZ7BRhs2H06e
-	 sXlmuI+eva/V6GfH4otAw4uMlL2vUxAzcZM7g7dE=
-Message-ID: <9ed68c19-2c12-4b1e-9c58-f458eeeb9ca5@ideasonboard.com>
-Date: Wed, 7 Oct 2026 11:50:34 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jTPNlIr6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A3031F0089C;
+	Wed,  7 Oct 2026 10:53:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791370429;
+	bh=bjxJLrrRtaqHLsxVuslzL/UtblJFg/4i7z8xzj/YVOg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=jTPNlIr6btDiCnRIGGyj/NKlpSBBPP5FEgK6gdVqQ1Tx/qACKHahMiUsFrup8xjIs
+	 vHfi+gtdK9ucBgdeEChXkeJtqVTdn4sBmDxPz2uqHOOVsyq6EH8Kv+NTkuGN7By6s9
+	 zftG+tgeDEra7BqrdKSfWzPUyUIOOLhdAsFNb1J7LF/iTcI4hkRnPAryQ4bags/B0f
+	 F0i91KitM7inqSBScyT4NZ4EPZHKMY5Y86zF1C9u8PLd6l0hv4AaFXSt7cNvtuuvSI
+	 stgXYRyXRT8spnOJyTAKpSklZUFSJ44lfy/2+JPinZtB0K2G3HQYAaYp93H/1THnPn
+	 0FuB8/nv3X2bQ==
+Message-ID: <sashiko-outbox-162884@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v12 05/20] dmaengine: ti: k3-udma: move descriptor
+ management to k3-udma-common.c
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Sai Sree Kartheek Adivi" <s-adivi@ti.com>
+Cc: Frank.Li@kernel.org, vkoul@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, dmaengine@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20261007102936.2402427-6-s-adivi@ti.com>
+References: <20261007102936.2402427-1-s-adivi@ti.com>
+ <20261007102936.2402427-6-s-adivi@ti.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 07 Oct 2026 10:53:49 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 3/5] dt-bindings: media: arm,mali-c55: Add power domain
-To: Linus Walleij <linusw@kernel.org>,
- Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
- Magnus Damm <magnus.damm@gmail.com>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org
-References: <20260928-mali-c55-renesas-dts-v3-0-2cf7eb746ebb@kernel.org>
- <20260928-mali-c55-renesas-dts-v3-3-2cf7eb746ebb@kernel.org>
-Content-Language: en-US
-From: Dan Scally <dan.scally@ideasonboard.com>
-In-Reply-To: <20260928-mali-c55-renesas-dts-v3-3-2cf7eb746ebb@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-Hi Linus
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] dmaengine: ti: k3-udma: mismatched devices in dma_alloc_coherent a=
+nd dma_free_coherent
+- [High] dmaengine: ti: buffer overflow due to swapped tr_size and tr_count=
+ in cppi5_trdesc_calc_size
+- [High] dmaengine: ti: UAF and double free in udma_desc_free() during tear=
+down
+- [Low] dma: ti: k3-udma-common: missing <linux/module.h> inclusion
+--
 
-On 28/09/2026 13:21, Linus Walleij wrote:
-> Some Mali-C55 integrations place the ISP in a power domain. In
-> particular, RZ/V2H uses the CPG domain to manage its module clocks
-> through runtime PM.
-> 
-> Allow a single power domain and describe it in the example. Keep the
-> property optional for integrations that do not expose a power domain.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Linus Walleij <linusw@kernel.org>
-> ---
+commit 7926401443e76f276939e13c216c32bd4d7e7504
+Author: Sai Sree Kartheek Adivi <s-adivi@ti.com>
 
-Reviewed-by: Daniel Scally <dan.scally@ideasonboard.com>
+dmaengine: ti: k3-udma: move descriptor management to k3-udma-common.c
 
->   Documentation/devicetree/bindings/media/arm,mali-c55.yaml | 4 ++++
->   1 file changed, 4 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/media/arm,mali-c55.yaml b/Documentation/devicetree/bindings/media/arm,mali-c55.yaml
-> index 8fcc46660b75..3a11d3f8488a 100644
-> --- a/Documentation/devicetree/bindings/media/arm,mali-c55.yaml
-> +++ b/Documentation/devicetree/bindings/media/arm,mali-c55.yaml
-> @@ -36,6 +36,9 @@ properties:
->         - const: aclk
->         - const: hclk
->   
-> +  power-domains:
-> +    maxItems: 1
+Refactor the K3 UDMA driver by moving all DMA descriptor handling
+functions from k3-udma.c to a new common library, k3-udma-common.c.
+This prepares the driver for supporting new K3 UDMA v2 variant.
+
+> diff --git a/drivers/dma/ti/k3-udma-common.c b/drivers/dma/ti/k3-udma-com=
+mon.c
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/dma/ti/k3-udma-common.c
+> @@ -0,0 +1,1244 @@
+[ ... ]
+> +struct udma_desc *udma_udma_desc_from_paddr(struct udma_chan *uc,
+> +					    dma_addr_t paddr)
+> +{
+> +	struct udma_desc *d =3D uc->terminated_desc;
 > +
->     resets:
->       items:
->         - description: vclk domain reset
-> @@ -77,6 +80,7 @@ examples:
->         reg = <0x400000 0x200000>;
->         clocks = <&clk 0>, <&clk 1>, <&clk 2>;
->         clock-names = "vclk", "aclk", "hclk";
-> +      power-domains = <&power>;
->         resets = <&resets 0>, <&resets 1>, <&resets 2>;
->         reset-names = "vresetn", "aresetn", "hresetn";
->         /* Example interrupt numbers. */
-> 
+> +	if (d) {
+> +		dma_addr_t desc_paddr =3D udma_curr_cppi5_desc_paddr(d,
+> +								   d->desc_idx);
 
+[Severity: High]
+Could this result in a use-after-free? During channel teardown,
+udma_reset_rings() is called locklessly from udma_synchronize() or
+udma_free_chan_resources(), freeing uc->terminated_desc. If the DMA ring IRQ
+fires concurrently, udma_ring_irq_handler() could access d->desc_idx here
+after the descriptor has been freed.
+
+> +
+> +		if (desc_paddr !=3D paddr)
+> +			d =3D NULL;
+> +	}
+[ ... ]
+> +static void udma_free_hwdesc(struct udma_chan *uc, struct udma_desc *d)
+> +{
+> +	if (uc->use_dma_pool) {
+[ ... ]
+> +	} else if (d->hwdesc[0].cppi5_desc_vaddr) {
+> +		dma_free_coherent(uc->dma_dev, d->hwdesc[0].cppi5_desc_size,
+> +				  d->hwdesc[0].cppi5_desc_vaddr,
+> +				  d->hwdesc[0].cppi5_desc_paddr);
+
+[Severity: High]
+Is it possible to pass mismatched device pointers to the DMA mapping API he=
+re?
+In udma_alloc_tr_desc(), the coherent memory is allocated using the parent
+controller device uc->ud->dev. However, here it is freed using uc->dma_dev.
+If the channel is configured for specific coherency, uc->dma_dev differs fr=
+om
+uc->ud->dev, which could cause issues during unmapping.
+
+> +
+> +		d->hwdesc[0].cppi5_desc_vaddr =3D NULL;
+> +	}
+> +}
+[ ... ]
+> +void udma_desc_free(struct virt_dma_desc *vd)
+> +{
+> +	struct udma_dev *ud =3D to_udma_dev(vd->tx.chan->device);
+> +	struct udma_chan *uc =3D to_udma_chan(vd->tx.chan);
+> +	struct udma_desc *d =3D to_udma_desc(&vd->tx);
+> +	unsigned long flags;
+> +
+> +	if (uc->terminated_desc =3D=3D d)
+> +		uc->terminated_desc =3D NULL;
+
+[Severity: High]
+Might this lead to a double-free or list corruption? Since this check is
+performed locklessly, both udma_reset_rings() and udma_ring_irq_handler()
+could concurrently evaluate this to true and attempt to free the same
+descriptor.
+
+> +
+> +	if (uc->use_dma_pool) {
+> +		udma_free_hwdesc(uc, d);
+[ ... ]
+> +static struct udma_desc *udma_alloc_tr_desc(struct udma_chan *uc,
+> +				     size_t tr_size, int tr_count,
+> +				     enum dma_transfer_direction dir)
+> +{
+[ ... ]
+> +	if (uc->use_dma_pool) {
+> +		hwdesc->cppi5_desc_size =3D uc->config.hdesc_size;
+> +		hwdesc->cppi5_desc_vaddr =3D dma_pool_zalloc(uc->hdesc_pool,
+> +							   GFP_NOWAIT,
+> +							   &hwdesc->cppi5_desc_paddr);
+> +	} else {
+> +		hwdesc->cppi5_desc_size =3D cppi5_trdesc_calc_size(tr_size,
+> +								 tr_count);
+
+[Severity: High]
+Can this cause an out-of-bounds DMA access? The helper
+cppi5_trdesc_calc_size() expects arguments in the order of tr_count, tr_siz=
+e,
+but they are swapped here. Because the sizing formula scales differently, t=
+his
+results in a smaller allocated buffer whenever tr_count is greater than
+tr_size.
+
+> +		hwdesc->cppi5_desc_size =3D ALIGN(hwdesc->cppi5_desc_size,
+> +						uc->ud->desc_align);
+> +		hwdesc->cppi5_desc_vaddr =3D dma_alloc_coherent(uc->ud->dev,
+> +							      hwdesc->cppi5_desc_size,
+> +							      &hwdesc->cppi5_desc_paddr,
+> +							      GFP_NOWAIT);
+> +	}
+[ ... ]
+> +MODULE_DESCRIPTION("Texas Instruments K3 UDMA Common Library");
+> +MODULE_LICENSE("GPL v2");
+
+[Severity: Low]
+This isn't a bug, but there seems to be a missing include for linux/module.h
+which is required for module macros like MODULE_DESCRIPTION and
+MODULE_LICENSE.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261007102936.2402=
+427-1-s-adivi@ti.com?part=3D5
