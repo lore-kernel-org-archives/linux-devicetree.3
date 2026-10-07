@@ -1,68 +1,68 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D6A7488D91
-	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 09:02:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E62D63CF1FF
+	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 09:02:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791363769; cv=none; b=cj5AkW5BqgXBfVrGYIOmiFHyiqzwitf1Pm8UkYVJs1k0vndZSSjjIv9nb8dDocjLBxFAZS1TSXw4LAuGQsSVZPK94XTOe4B5G51QeNVcb/KZ8yWzbpwWseGklo7UQXP7qeBXk9IeEaHb0GV8YWWHxQibdoWGZiobG67zLzKnCZI=
+	t=1791363775; cv=none; b=E9QRfw3kkgMxvKLYTrr3UhVberxkbkTUg/oVlS1NM1G/4DH/8SJ8fB0ql8FL5JUZgc+3zUADExQ65drEVEcEUxizmOcpcSrXmy72tTKv7oPS1tJf8oHrjU18UJ4/DF3zbSB73ImwbpzWwNNJOFT4K+XKWFHVhqdYrBVvRMkC/L0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791363769; c=relaxed/simple;
-	bh=RuhyOjKQKg6pBFbp3gU3ApGTv0VXjIXo8m3P/9Wd9Mo=;
+	s=arc-20240116; t=1791363775; c=relaxed/simple;
+	bh=p8Ti0u4sdKq7mIREjZGqcoxubcQI7Yt6m8duN+3uyEU=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=O+jdltNBs7CqYmDILTk2udKishX4t/M6ALUcObmnYNNhaGY61d7uLs1cMZPYf7ex/rZ7AuW9aoAfeea0Ns7dg0Kn/D/FaEW2eor7q95xc25uQkV6EudpoqHvS4wCeuWUyLn5hPEAelKUTzJ9u1JPr+rCBuX56TkMGPJLI3gRdOE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=fail (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=iLyPETOS reason="signature verification failed"; arc=none smtp.client-ip=205.220.168.131
+	 MIME-Version; b=UJsa8eX19gNw5KtpBnz/SolRK84by4mN9p0urLmejygMoZFUH//mBROw8vp3dtf5xUOKIXDhj+QpZNBFM+6V2xEZbYn8Pi/DY7X4kMkm8XErxmDHxIyK4dTpwby0MJF/DpMqJDRBZJE9xfb4xJvNbw4XZ7t9XJgU46USE3OHoL4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=fail (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=klJoOTRo reason="signature verification failed"; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="iLyPETOS"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6977jeVT3334683
-	for <devicetree@vger.kernel.org>; Wed, 7 Oct 2026 09:02:16 GMT
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="klJoOTRo"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6977jmKo2711351
+	for <devicetree@vger.kernel.org>; Wed, 7 Oct 2026 09:02:23 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=RSFwFFRmZR1
-	WRsY1c9AXXEPBp3eHl/0EdS15woUz0X8=; b=iLyPETOSABKLVZ5ZARQo1uGOZIP
-	k8iVfaswVA0lqLUo0yhZG/tXkvfxyiDWDKGsR5p7ByfTwH8WGAPCb09FOrMLHc5v
-	C2IkI7mEKiSUlctwAJh/i2us0c5Wxjl4f2YvZ5A72scxj2UMAJJq5pEYLEZBjiOq
-	VqsiDT3sWKXvJQ/ZOutBsY+RT2D5IZr1nva+TsJis+w2hURPTrbEnPmcI6ZZaC3g
-	w6CHg1ZcOsQ+PK1ZWtgJ55AUNAd/NDQGHS2vV6dBcIGz0eygcpBSo3WiFsoWmM1I
-	I7/MbqK3+2EJ2nAOcVQWZQz2BuLrxE4ZyUnNDSMdRft4Zg5FewjIQVXqStA==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h54623aut-1
+	:mime-version:references:subject:to; s=qcppdkim1; bh=i2wPgEblZYI
+	w1lpVbl7SSHkOXLD426In94VaISBPMNg=; b=klJoOTRo4y2nA19tw6py9hIXPGe
+	R9K5BJWVb4sD0OKMeWFIPynJDsy5Pt/UBYzAaF38c0VGHYPb67dyoghK64rPhpx3
+	pqG7N4fpfC308CdvoGe+XZtS0orI0yxYOm8/HD9YKvY/a0XOw8gwaZBHZtQ5O3rc
+	6RWW7RmcMQJlJFZjErOBC7ENUHqGOfgHS5RcJn5FMyG+DmpxXmJsdTUOvO9DhUii
+	IRFeuh0r68b6nKaQaHDupRQ/Gi6+GKJ8+fa7B5gHMGBd/JiSNh5mjPyhzA26bn2/
+	vPVuJZ1THK6Gnns2q99FhHKtsuIl/ohxVgsuDfNoG+QlK2P3VUlMrb07uMQ==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5c1s1d6p-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 09:02:16 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93e92aad34aso276392285a.0
-        for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 02:02:16 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 09:02:23 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93e46b4b700so635943885a.1
+        for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 02:02:22 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791363735; x=1791968535;
+        d=1e100.net; s=20260707; t=1791363742; x=1791968542;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RSFwFFRmZR1WRsY1c9AXXEPBp3eHl/0EdS15woUz0X8=;
-        b=zdLpvIFqMzWS2TlKUsS5MJxs7+Jd1FZRKc+QM/SN8Z2ya0pvzWTkGXFCws7qbnf/73
-         zPTUndZUyJ3bC/4bxnj8hsUDmZLTdUf3CpZOoqN3nZc6HPwjEee1nQvc+5XVugV8efTh
-         wADVEwe6HK2Z6Eqi9DwpOGuwGONEfkNOtkDxqb+jaqFP/HWfXv/RfOX7QZ+at2sleg2T
-         f08VrMxN02XXjABc+BGbLeoaY/2I21GIINPYzcCJeZMto1xAzS1RoqsVtHHXyVKbx2Em
-         opYNVdmYC9+TUHgtZJ0f7eolsbq7C19mIdYPJ1AgTDXZCMRmQXdQdu8/jiLRHuVd34eg
-         C3Ug==
-X-Forwarded-Encrypted: i=1; AKwUvBzZEjlfIaTWfu8X2ZybWlhH8JO/H14jMXO28xquqa5fyUKEEvWt1RZe0GmK1k6Oil80wPBGUQrmpHed@vger.kernel.org
-X-Gm-Message-State: AFuF++kj5XT66LH8UFSJJCbvdjfDLtuFmbd80hd9vICgt1RCuwrCZKr3
-	rmun75d80wCkF/DMtPycOtE6ICs8dz2hHRVz9ntVTsqVA1vof53of/ms9kx8oYkqvt38O7CLXiD
-	ZThR1bBkbZE8ViReP7HtWd9dtGN1zUzKrvRfCNCSTjS6zBfG4tZNUrXcu8NNrvwK7
-X-Gm-Gg: AYBFou1r5hSLdl46WvaLFnG2MW2pwUgxZzRVy46dhW+RSU0qG1Eq6w8Z5HpVqWbPEMZ
-	iLVeEaHbWZEsZmaBGKiv18cCMqLk2tab1DBBL4B6lrPGxTF++5w/6oRGYzwNxCx7zmSDkVm54DS
-	brK3Kn7GXgOlFVITEAUjXbpVcoAk9jbrBPLaG6p7b/rdpcX/nDIN6oVRcY74S5jGbKV2GFeixOT
-	vk0Q2D9NGLZP9sCZ2J0j/neWe7D6pPknzqy3ZgRKBQUeHWSRxM64/GWEvK1X47malYbTOmzC6c0
-	a/9hk6iPpr/bP9QtpY9GbeW2IWLonKApyATON0l/Y2q/NyM+4M+QFUWaZ20=
-X-Received: by 2002:a05:620a:44c7:b0:93e:9809:3369 with SMTP id af79cd13be357-93e9b856ee4mr312955985a.74.1791363735151;
-        Wed, 07 Oct 2026 02:02:15 -0700 (PDT)
-X-Received: by 2002:a05:620a:44c7:b0:93e:9809:3369 with SMTP id af79cd13be357-93e9b856ee4mr312950285a.74.1791363734638;
-        Wed, 07 Oct 2026 02:02:14 -0700 (PDT)
+        bh=i2wPgEblZYIw1lpVbl7SSHkOXLD426In94VaISBPMNg=;
+        b=AlX6ssOGY8x6iTJZqLgKMbWymPMKVPB5U3rr6UseNCouCLyG5iwwr8Konoxww2gjtE
+         fnvHrGKKaWNDb/abCG8oxIMDL5Wsoh8CpkRf/Xle0MW8LBqH1ZU9zlRPZJ/3d6ePEjtO
+         aTYD8+IIlv7rPbEp2nVdWyuSqjF3YWk20R76hdC/qG6RsuqrRhjDGel18+dOhez0zpsD
+         ZEYvCPcbjHEDGUQZQNgXRC4ijFdOtlUTEvtoM3Qnftygn3ZFqlteXoq/riK1VqHYgGAy
+         sTYsL68W56hVaTgKzcoSJU6iNjzdfmdTvftk/UfX8pejw7Ev/IejZe2RdlAc8k37z+c3
+         ebMg==
+X-Forwarded-Encrypted: i=1; AKwUvByblocentlNyq1vZIACNnNKMUSm1vW+FlT7BxZ9foemfUPa33VkOcMJWcKSH9lMS6ikrjbMaHOLus6N@vger.kernel.org
+X-Gm-Message-State: AFuF++nP8QWqMDDjhn3jZWJUB57EKXR0AiTQ1Bqat8dutXGbaVq4aLL4
+	3shbnEqsEjTSFk3ZQNzrtKnkm6CrLtqmsqWR5iFubUl3X1IxBNByaQp9f0ciolqizvFyZltYnXp
+	PVxuzzBepKRsrBbRgJu7TxMVv+zds7gtxTihEtHHLP8k+VpIPwSWDc5NJi1B9C3dv
+X-Gm-Gg: AYBFou2Z2OEYW1Kpwsyb0qn5/kVGTIex3FShwia36V9L/OZcaumvLHxdMYaehdN8TR+
+	O8VosZtPXLZ5tnGG9928ooqWjDWOzeAYietATjP06zJgzYlvzUxSaAno6yKbhddqOyzcX+L46t7
+	wzwChPcuWHbWgymuveJtWCT8hhL5ftiMS/eN8YPAzZK9Q6z3JgPDa3jTBfXBiei8dbcodqefW00
+	FyGl1Sw96lBWDSbRoLS6Pfs41IDrRNqcmatxED8eB4jIGxDL4FBE5/FgkNNsp09xDPt/bgx0I9H
+	fB6RtxBHSe0vnY6rANeNowMu7HAc2cQ7Lk0TwakIEPZQex8/OImS4PczzFQ=
+X-Received: by 2002:a05:620a:460d:b0:93a:1b82:4962 with SMTP id af79cd13be357-93e9b802eb8mr315064485a.47.1791363741951;
+        Wed, 07 Oct 2026 02:02:21 -0700 (PDT)
+X-Received: by 2002:a05:620a:460d:b0:93a:1b82:4962 with SMTP id af79cd13be357-93e9b802eb8mr315058585a.47.1791363741424;
+        Wed, 07 Oct 2026 02:02:21 -0700 (PDT)
 Received: from lin-0843.qualcomm.com ([212.136.9.4])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3188d412besm4197366b.80.2026.10.07.02.02.12
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3188d412besm4197366b.80.2026.10.07.02.02.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 02:02:13 -0700 (PDT)
+        Wed, 07 Oct 2026 02:02:19 -0700 (PDT)
 From: Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com
 To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
         Mauro Carvalho Chehab <mchehab@kernel.org>
@@ -91,9 +91,9 @@ Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
         linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
         devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
         Prashant Shrotriya <prashant.shrotriya@oss.qualcomm.com>
-Subject: [PATCH RESEND 25/45] dt-bindings: media: qcom,sa8775p-camss: add pixel path variant
-Date: Wed,  7 Oct 2026 12:00:21 +0300
-Message-Id: <20261007090041.3732717-26-gjorgji.rosikopulos@oss.qualcomm.com>
+Subject: [PATCH RESEND 27/45] media: qcom: camss: sa8775p: add IFE scaler v2.3x
+Date: Wed,  7 Oct 2026 12:00:23 +0300
+Message-Id: <20261007090041.3732717-28-gjorgji.rosikopulos@oss.qualcomm.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261007090041.3732717-1-gjorgji.rosikopulos@oss.qualcomm.com>
 References: <20261007090041.3732717-1-gjorgji.rosikopulos@oss.qualcomm.com>
@@ -104,37 +104,36 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: B4-41O8XPPyquz_R7wDldc1MOuly69x9
-X-Authority-Analysis: v=2.4 cv=ZZiIpcVA c=1 sm=1 tr=0 ts=6ac60a98 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
+X-Proofpoint-ORIG-GUID: CM9n9npbo3MIkFRVitslQ2PdXK6z-qLT
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDAzNSBTYWx0ZWRfX8aJluU1oww1s
+ Q1uG0bzugw0gAjXtkWgy76iNnKOYp8oSRZ1jmWuREu8eKn+lwJWIUUU/LbTVncUC0rg2atesamu
+ oCE9RQIsEADzZGhIaBXbPf5+DEWNQC2FlFcCfHEk9RHMPu7L76QMTv9CQEEiqzYQJmWUVH2hs3Q
+ DWMwl9lVJDT3iXm07xNb/crzEzxUdOlstuZGdTTalYw74+FuaAws5I7nj26YMPboFqNmy7hSerC
+ uJBzxFx4Ajuqa4vg8DnJQwzNwQbJfxOMoqPy9mUOixslNmABngeubBlq5GUDsmeOoj6cg3qEMRz
+ ktaZJoZN0LLpmDeTgM6fDbvd6gnWP8XF6Sq2ZBzXAWq845UsUYQWIZK2KOXgKqVPmQkUQ/A0TXg
+ qhiSGm1GJPgqUfDm0Fi3Zf38D17/GGI8fVUJf2TAYIDLGq/b9rmJ0p1w+vo1V3j/A2bcKmVWcLh
+ W6J36/bT0CwPabfrw7A==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDAzNSBTYWx0ZWRfX7vBCO1Oc7lDN
+ kB31wuZJS7phK+UMDJQyVS8tOyZ+BBH+qGfAEY3+M9wmpr5VqKNbgzDWGrAMPDx4K9HqMlOtYUG
+ R/DdKGGWslMnuCACQ5Dgyu/mLGWOarc=
+X-Proofpoint-GUID: CM9n9npbo3MIkFRVitslQ2PdXK6z-qLT
+X-Authority-Analysis: v=2.4 cv=NatzRGD4 c=1 sm=1 tr=0 ts=6ac60a9f cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
  a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8 a=-SsTkY4pZgJ_H_-AmIoA:9
- a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDAzNSBTYWx0ZWRfX1QXVAKxEJtC0
- Fs1uIIVvNds6fr62qgw7rQRGP8/LM69oFCViVzT3D9/ZLwLKR2CL1SnvbeqWJo//W5Qr0/8T0MX
- /6YezMelkmh8E2jaomRpYjeqaJaQsco=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDAzNSBTYWx0ZWRfX9wIlPHjaCxZl
- gq1v9xvbe7N4y5wU9jbRLEg08hf5AASo0td/RvN5J9w6YIgpAbxnxdiZLkFR6DiD465Niq82vtr
- XMkNTitgJ6pT9CvNOx431H8dGjp2F9CIU4W40e5ljeUI/mEmu2BNZDRcWPvxtKsC0ZD12Puoxup
- /oNDI0n/Q8g5yz/ZLviIc701mP6KReQ4KQR75QvyhPErcLdbWSjCCaIQgqPuPnOO6ni3yjkHwh0
- YOOkSGYRkuPn7T6L5d2CR0RtijS2BzcW2ApwSPMPuXgEOBNCkHNvsaPf5DQ5EoOvdij2HI+GvpO
- eCWS7dJGy44v9ajRh+Weep+mbviMuXxEOxwrd+jIzatsuqa95hyT3Qjxpy7sdIaEU0+aR/oeonF
- 12uOqStqGO/kNM6CvcT4s9gAZXgxPFUHWc+utZFX9r+nBJCh7Z5cusCYFAwmb8QUubL791VZkSu
- 6cUD83rprqhcqddPCUQ==
-X-Proofpoint-ORIG-GUID: B4-41O8XPPyquz_R7wDldc1MOuly69x9
+ a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8 a=N-zR7XLjbuXmyhDf3rIA:9
+ a=bTQJ7kPSJx9SKPbeHEYW:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-07_03,2026-10-06_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 spamscore=0 priorityscore=1501 impostorscore=0 bulkscore=0
- phishscore=0 lowpriorityscore=0 suspectscore=0 clxscore=1015 adultscore=0
+ bulkscore=0 adultscore=0 lowpriorityscore=0 suspectscore=0 spamscore=0
+ clxscore=1015 priorityscore=1501 impostorscore=0 phishscore=0 malwarescore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070035
 
 From: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
 
-Document qcom,sa8775p-camss-pix for CAMSS configurations that use IFE
-pixel paths. Keep qcom,sa8775p-camss for the legacy VFE resources.
+Add the scaler helpers used by the IFE v4.1x pixel outputs.
 
 Co-developed-by: Vikram Sharma <vikram.sharma@oss.qualcomm.com>
 Signed-off-by: Vikram Sharma <vikram.sharma@oss.qualcomm.com>
@@ -142,24 +141,259 @@ Co-developed-by: Prashant Shrotriya <prashant.shrotriya@oss.qualcomm.com>
 Signed-off-by: Prashant Shrotriya <prashant.shrotriya@oss.qualcomm.com>
 Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
 ---
- .../devicetree/bindings/media/qcom,sa8775p-camss.yaml         | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/media/platform/qcom/camss/Makefile    |   1 +
+ .../qcom/camss/camss-ife-scale-v23x.c         | 203 ++++++++++++++++++
+ .../qcom/camss/camss-ife-scale-v23x.h         |  19 ++
+ 3 files changed, 223 insertions(+)
+ create mode 100644 drivers/media/platform/qcom/camss/camss-ife-scale-v23x.c
+ create mode 100644 drivers/media/platform/qcom/camss/camss-ife-scale-v23x.h
 
-diff --git a/Documentation/devicetree/bindings/media/qcom,sa8775p-camss.yaml b/Documentation/devicetree/bindings/media/qcom,sa8775p-camss.yaml
-index 48f280e99809..9206c7cfe197 100644
---- a/Documentation/devicetree/bindings/media/qcom,sa8775p-camss.yaml
-+++ b/Documentation/devicetree/bindings/media/qcom,sa8775p-camss.yaml
-@@ -14,7 +14,9 @@ description:
- 
- properties:
-   compatible:
--    const: qcom,sa8775p-camss
-+    enum:
-+      - qcom,sa8775p-camss-pix
-+      - qcom,sa8775p-camss
- 
-   reg:
-     maxItems: 22
+diff --git a/drivers/media/platform/qcom/camss/Makefile b/drivers/media/platform/qcom/camss/Makefile
+index 2251b57ba38b..e28b7477dab1 100644
+--- a/drivers/media/platform/qcom/camss/Makefile
++++ b/drivers/media/platform/qcom/camss/Makefile
+@@ -22,6 +22,7 @@ qcom-camss-objs += \
+ 		camss-ife-mod-v10x.o \
+ 		camss-ife-params.o \
+ 		camss-ife-scale-v10x.o \
++		camss-ife-scale-v23x.o \
+ 		camss-ife-top-v20x.o \
+ 		camss-ife-pads.o \
+ 		camss-ispif.o \
+diff --git a/drivers/media/platform/qcom/camss/camss-ife-scale-v23x.c b/drivers/media/platform/qcom/camss/camss-ife-scale-v23x.c
+new file mode 100644
+index 000000000000..13ce9cb93bb0
+--- /dev/null
++++ b/drivers/media/platform/qcom/camss/camss-ife-scale-v23x.c
+@@ -0,0 +1,203 @@
++// SPDX-License-Identifier: GPL-2.0
++/* Copyright (c) 2026 Qualcomm Innovation Center, Inc. All rights reserved. */
++
++#include <linux/bitfield.h>
++#include <linux/math.h>
++
++#include "camss-ife.h"
++#include "camss-ife-scale-v23x.h"
++
++#define CAMIF_V23X_Q21_FORMAT			21
++
++#define CAMIF_V23X_DS_MN_MODULE_CFG		0x60
++#define CAMIF_V23X_DS_MN_CFG			0x64
++#define CAMIF_V23X_DS_MN_IMAGE_SIZE_CFG		0x68
++#define CAMIF_V23X_DS_MN_H_CFG			0x6c
++#define CAMIF_V23X_DS_MN_V_CFG			0x74
++#define CAMIF_V23X_DS_MN_CROP_LINE_CFG		0x7c
++#define CAMIF_V23X_DS_MN_CROP_PIXEL_CFG		0x80
++
++#define CAMIF_V23X_DS_MN_MODULE_CFG_CROP_EN	BIT(8)
++#define CAMIF_V23X_DS_MN_MODULE_CFG_EN		BIT(0)
++#define CAMIF_V23X_DS_MN_CFG_V_SCALE_EN		BIT(10)
++#define CAMIF_V23X_DS_MN_CFG_H_SCALE_EN		BIT(9)
++#define CAMIF_V23X_DS_MN_IMAGE_SIZE_WIDTH	GENMASK(29, 16)
++#define CAMIF_V23X_DS_MN_IMAGE_SIZE_HEIGHT	GENMASK(13, 0)
++#define CAMIF_V23X_DS_MN_CFG_INTERP_RES		GENMASK(31, 30)
++#define CAMIF_V23X_DS_MN_CROP_FIRST		GENMASK(29, 16)
++#define CAMIF_V23X_DS_MN_CROP_LAST		GENMASK(13, 0)
++
++#define CAMIF_V23X_INTERP_RES_0			0
++#define CAMIF_V23X_INTERP_RES_1			1
++#define CAMIF_V23X_INTERP_RES_2			2
++#define CAMIF_V23X_INTERP_RES_3			3
++
++#define CAMIF_V23X_POST_MN_MODULE_CFG		0x60
++#define CAMIF_V23X_POST_MN_CROP_LINE_CFG	0x68
++#define CAMIF_V23X_POST_MN_CROP_PIXEL_CFG	0x6c
++#define CAMIF_V23X_POST_MN_CH0_CLAMP_MIN	0x70
++#define CAMIF_V23X_POST_MN_CH0_ROUND_CFG	0x74
++#define CAMIF_V23X_POST_MN_CH1_CLAMP_MIN	0x78
++#define CAMIF_V23X_POST_MN_CH1_ROUND_CFG	0x7c
++#define CAMIF_V23X_POST_MN_CH2_CLAMP_MIN	0x80
++#define CAMIF_V23X_POST_MN_CH2_ROUND_CFG	0x84
++#define CAMIF_V23X_POST_MN_CH0_CLAMP_MAX	0x88
++#define CAMIF_V23X_POST_MN_CH1_CLAMP_MAX	0x8c
++#define CAMIF_V23X_POST_MN_CH2_CLAMP_MAX	0x90
++
++#define CAMIF_V23X_POST_MN_EN			BIT(0)
++
++static u32 camif_v23x_calc_ds_q2(u32 src_size, u32 dst_size)
++{
++	if (src_size > 64 * dst_size)
++		return CAMIF_V23X_INTERP_RES_0;
++	else if (src_size > 32 * dst_size)
++		return CAMIF_V23X_INTERP_RES_1;
++	else if (src_size > 16 * dst_size)
++		return CAMIF_V23X_INTERP_RES_2;
++
++	return CAMIF_V23X_INTERP_RES_3;
++}
++
++static u32 camif_v23x_calc_ds_q21(u32 src_size, u32 dst_size)
++{
++	u64 rq21 = (u64)src_size << CAMIF_V23X_Q21_FORMAT;
++
++	return DIV_ROUND_CLOSEST_ULL(rq21, dst_size);
++}
++
++static void camif_v23x_crop_config(void __iomem *mod_base,
++				   const struct camss_ife_pipeline_cfg *cfg)
++{
++	u32 rval;
++
++	rval = FIELD_PREP(CAMIF_V23X_DS_MN_CROP_FIRST, cfg->ds_mn_crop->left) |
++	       FIELD_PREP(CAMIF_V23X_DS_MN_CROP_LAST, cfg->ds_mn_crop->width - 1);
++	writel_relaxed(rval, mod_base + CAMIF_V23X_DS_MN_CROP_PIXEL_CFG);
++
++	rval = FIELD_PREP(CAMIF_V23X_DS_MN_CROP_FIRST, cfg->ds_mn_crop->top) |
++	       FIELD_PREP(CAMIF_V23X_DS_MN_CROP_LAST, cfg->ds_mn_crop->height - 1);
++	writel_relaxed(rval, mod_base + CAMIF_V23X_DS_MN_CROP_LINE_CFG);
++}
++
++void camif_v23x_scale_config(void __iomem *mod_base,
++			     const struct camss_ife_pipeline_cfg *cfg,
++			     const struct camss_ife_wm_config *wm_cfg)
++{
++	u32 height;
++	u32 width;
++	u32 h_q21;
++	u32 v_q21;
++	u32 h_q2;
++	u32 v_q2;
++	u32 rval;
++
++	if (cfg->ds_mn_crop) {
++		camif_v23x_crop_config(mod_base, cfg);
++		width = cfg->ds_mn_crop->width;
++		height = cfg->ds_mn_crop->height;
++
++		rval = readl_relaxed(mod_base + CAMIF_V23X_DS_MN_MODULE_CFG);
++		rval |= CAMIF_V23X_DS_MN_MODULE_CFG_CROP_EN;
++		writel_relaxed(rval, mod_base + CAMIF_V23X_DS_MN_MODULE_CFG);
++	} else {
++		width = cfg->in_width;
++		height = cfg->in_height;
++
++		/*
++		 * Vertical scaling misbehaves unless the crop registers are
++		 * programmed to the full frame, even with crop disabled.
++		 */
++		rval = FIELD_PREP(CAMIF_V23X_DS_MN_CROP_LAST, width - 1);
++		writel_relaxed(rval, mod_base + CAMIF_V23X_DS_MN_CROP_PIXEL_CFG);
++
++		rval = FIELD_PREP(CAMIF_V23X_DS_MN_CROP_LAST, height - 1);
++		writel_relaxed(rval, mod_base + CAMIF_V23X_DS_MN_CROP_LINE_CFG);
++
++		rval = readl_relaxed(mod_base + CAMIF_V23X_DS_MN_MODULE_CFG);
++		rval &= ~CAMIF_V23X_DS_MN_MODULE_CFG_CROP_EN;
++		writel_relaxed(rval, mod_base + CAMIF_V23X_DS_MN_MODULE_CFG);
++	}
++
++	rval = FIELD_PREP(CAMIF_V23X_DS_MN_IMAGE_SIZE_WIDTH, width - 1) |
++	       FIELD_PREP(CAMIF_V23X_DS_MN_IMAGE_SIZE_HEIGHT, height - 1);
++	writel_relaxed(rval, mod_base + CAMIF_V23X_DS_MN_IMAGE_SIZE_CFG);
++
++	rval = readl_relaxed(mod_base + CAMIF_V23X_DS_MN_CFG);
++	if (wm_cfg->width < width) {
++		h_q2 = camif_v23x_calc_ds_q2(width, wm_cfg->width);
++		h_q21 = camif_v23x_calc_ds_q21(width, wm_cfg->width);
++
++		writel_relaxed(FIELD_PREP(CAMIF_V23X_DS_MN_CFG_INTERP_RES, h_q2) | h_q21,
++			       mod_base + CAMIF_V23X_DS_MN_H_CFG);
++		rval |= CAMIF_V23X_DS_MN_CFG_H_SCALE_EN;
++	} else {
++		rval &= ~CAMIF_V23X_DS_MN_CFG_H_SCALE_EN;
++	}
++	writel_relaxed(rval, mod_base + CAMIF_V23X_DS_MN_CFG);
++
++	rval = readl_relaxed(mod_base + CAMIF_V23X_DS_MN_CFG);
++	if (wm_cfg->height < height) {
++		v_q2 = camif_v23x_calc_ds_q2(height, wm_cfg->height);
++		v_q21 = camif_v23x_calc_ds_q21(height, wm_cfg->height);
++
++		writel_relaxed(FIELD_PREP(CAMIF_V23X_DS_MN_CFG_INTERP_RES, v_q2) | v_q21,
++			       mod_base + CAMIF_V23X_DS_MN_V_CFG);
++		rval |= CAMIF_V23X_DS_MN_CFG_V_SCALE_EN;
++	} else {
++		rval &= ~CAMIF_V23X_DS_MN_CFG_V_SCALE_EN;
++	}
++	writel_relaxed(rval, mod_base + CAMIF_V23X_DS_MN_CFG);
++}
++
++void camif_v23x_scale_enable(void __iomem *mod_base)
++{
++	u32 rval;
++
++	rval = readl_relaxed(mod_base + CAMIF_V23X_DS_MN_MODULE_CFG);
++	rval |= CAMIF_V23X_DS_MN_MODULE_CFG_EN;
++	writel_relaxed(rval, mod_base + CAMIF_V23X_DS_MN_MODULE_CFG);
++}
++
++void camif_v23x_scale_disable(void __iomem *mod_base)
++{
++	u32 rval;
++
++	rval = readl_relaxed(mod_base + CAMIF_V23X_DS_MN_MODULE_CFG);
++	rval &= ~CAMIF_V23X_DS_MN_MODULE_CFG_EN;
++	writel_relaxed(rval, mod_base + CAMIF_V23X_DS_MN_MODULE_CFG);
++}
++
++void camif_v23x_post_mn_config(void __iomem *base,
++			       const struct camss_ife_wm_config *cfg,
++			       bool chroma)
++{
++	writel_relaxed(cfg->height - 1, base + CAMIF_V23X_POST_MN_CROP_LINE_CFG);
++	writel_relaxed(cfg->width - 1, base + CAMIF_V23X_POST_MN_CROP_PIXEL_CFG);
++	writel_relaxed(0, base + CAMIF_V23X_POST_MN_CH0_CLAMP_MIN);
++	writel_relaxed(1023, base + CAMIF_V23X_POST_MN_CH0_CLAMP_MAX);
++	writel_relaxed(4 << 3, base + CAMIF_V23X_POST_MN_CH0_ROUND_CFG);
++
++	if (chroma) {
++		writel_relaxed(0, base + CAMIF_V23X_POST_MN_CH1_CLAMP_MIN);
++		writel_relaxed(1023, base + CAMIF_V23X_POST_MN_CH1_CLAMP_MAX);
++		writel_relaxed(4 << 3, base + CAMIF_V23X_POST_MN_CH1_ROUND_CFG);
++		writel_relaxed(0, base + CAMIF_V23X_POST_MN_CH2_CLAMP_MIN);
++		writel_relaxed(1023, base + CAMIF_V23X_POST_MN_CH2_CLAMP_MAX);
++		writel_relaxed(4 << 3, base + CAMIF_V23X_POST_MN_CH2_ROUND_CFG);
++	}
++}
++
++void camif_v23x_post_mn_enable(void __iomem *base)
++{
++	writel_relaxed(0, base + CAMIF_V23X_POST_MN_MODULE_CFG);
++}
++
++void camif_v23x_post_mn_disable(void __iomem *base)
++{
++	u32 rval;
++
++	rval = readl_relaxed(base + CAMIF_V23X_POST_MN_MODULE_CFG);
++	rval &= ~CAMIF_V23X_POST_MN_EN;
++	writel_relaxed(rval, base + CAMIF_V23X_POST_MN_MODULE_CFG);
++}
+diff --git a/drivers/media/platform/qcom/camss/camss-ife-scale-v23x.h b/drivers/media/platform/qcom/camss/camss-ife-scale-v23x.h
+new file mode 100644
+index 000000000000..d3ca6420a5c7
+--- /dev/null
++++ b/drivers/media/platform/qcom/camss/camss-ife-scale-v23x.h
+@@ -0,0 +1,19 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++/* Copyright (c) 2026 Qualcomm Innovation Center, Inc. All rights reserved. */
++
++#ifndef _CAMSS_IFE_SCALE_V23X_H_
++#define _CAMSS_IFE_SCALE_V23X_H_
++
++void camif_v23x_scale_config(void __iomem *mod_base,
++			     const struct camss_ife_pipeline_cfg *cfg,
++			     const struct camss_ife_wm_config *wm_cfg);
++void camif_v23x_scale_enable(void __iomem *mod_base);
++void camif_v23x_scale_disable(void __iomem *mod_base);
++
++void camif_v23x_post_mn_config(void __iomem *base,
++			       const struct camss_ife_wm_config *cfg,
++			       bool chroma);
++void camif_v23x_post_mn_enable(void __iomem *base);
++void camif_v23x_post_mn_disable(void __iomem *base);
++
++#endif /* _CAMSS_IFE_SCALE_V23X_H_ */
 -- 
 2.34.1
 
