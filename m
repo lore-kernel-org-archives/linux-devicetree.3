@@ -1,204 +1,186 @@
-Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB15E39A06B;
-	Wed,  7 Oct 2026 07:43:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CECC1419303
+	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 07:43:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791359013; cv=none; b=nN9gmMdv82xeqDlK+S/dp1Z0eQjiqgjEo1OYdZ/SPeUoUmb2OfMvHukKDIlgAZiSMsYsWuhd3vIAK+6lN9Xb0SAnJ3IVX5Gdezx0u9aydkfIGnP6rtiR+hLAebEvw8nOD1ayXinm4JTAPmueIbN0AqS4dM44sxXnaN6u0wXl4Og=
+	t=1791359024; cv=none; b=IhWzIzF3J+M5+p5+4Cfk7gpTikMcDDvOuVul1J9Y0MR1K8feKZnb9zAKUBr+Dapfm7n+UO8ChjIgOmINOIrqLEvC2KW87sIg4xUatmVr/AbsZADTvHv0+66hJDYqFa6gpejWBUTD1UPflpRiarZYk+WiEMXlMAtlXGWbdYzX2ZY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791359013; c=relaxed/simple;
-	bh=N5rQ1HvkbnGVZXYoYzrUqHL48aCM+AmX0NrPHUy/dKo=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=M88W+g+UtL/ru/1+w+HCgJxO1X0Zp8IO4gIKuiS/2YfWldu6wIMwArLlp5zorujzOHjuRDQTH1savE/+uGRboJVZQrAZ+nJs8mdJNqx936D28yxGRhwGUf72mcz/Lg8YrmUidrIgMeU+5fplqtzj97ifL/abTvBdkedW0SBrWpY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=AAwvb6H6; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=nLbKXV7T; arc=none smtp.client-ip=193.142.43.55
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
+	s=arc-20240116; t=1791359024; c=relaxed/simple;
+	bh=miqA6xiMgK7cuLadHlIunkZP1rECVzeUoiuWXv1Op08=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qnVdVepilmhWl9ul/l1KyYbbrDFhl63mJ6Z3gx0SCCVyZm5SrPiHzVvbaGy0E5WIL/faFlUNKDBYsBgAi2EuOqQBpODKKaGkYWVvjAYit4DAGP2oq0GIFZnrK2dxwDmUbcv/APwiZ0S1xtJ6c2iUC926JlyQU8drGKWlOG5/Cok=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CKmrYUaU; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=H/Y0ZZ9Y; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="AAwvb6H6";
-	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="nLbKXV7T"
-Message-ID: <c1f48a5caa670ece21e73458787a62f97879346f.camel@linutronix.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020; t=1791358999;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MXCuBoVHEq47ESs5wsAP5vYQrZJBRcyyNOmcXot4ByI=;
-	b=AAwvb6H6X76pmnw2SFLsGUaUN4Ris2V5y6ufDe3Jy31sBOB2ElOzEBi5YNOZG1RQaRIyHt
-	3WC1JzFmksgBwyuo7/OwgTyPSIc+Ozb2ad1CCW29J/mgA6yvML47NeAcZmgRPXu70bmNzf
-	6CwCPSh2a0Bt/zmPIn2PSQJyys7HnJLYEgRXFB5D1paMW7Vnywt9xJSC2orZTLiw4JqVjB
-	D8VaAYr0XsENVhLciVlH/aYnVE6bElfSlCf9R6zdlVkDJsmc0OFLnfmaftkURVhzQ/PuQG
-	MR1F3xa4LVjSgwgRlXCAxg9GRGCvMykJt75gK698wpyVoLLCYhY+DoiD0P4Gow==
-DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
-	s=2020e; t=1791358999;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=MXCuBoVHEq47ESs5wsAP5vYQrZJBRcyyNOmcXot4ByI=;
-	b=nLbKXV7TiIPPRLqQAZcpEEa1KC1ns92ajm6qxmSW/EmDGReOmmGFCoAoRYbpiUlvtlpHso
-	ZreauVAJKTmVviCQ==
-Subject: Re: [PATCH net-next v3 2/8] dt-bindings: net: Add SoC-e SWIP MDIO
- controller
-From: Vasilij Strassheim <v.strassheim@linutronix.de>
-To: netdev-bot+sashiko@kernel.org
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- andrew@lunn.ch,  olteanv@gmail.com, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org,  pabeni@redhat.com, horms@kernel.org,
- linux@armlinux.org.uk, andrew+netdev@lunn.ch,  hkallweit1@gmail.com,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- netdev@vger.kernel.org, martin.kaistra@linutronix.de,
- b.spranger@linutronix.de
-Date: Wed, 07 Oct 2026 09:43:18 +0200
-In-Reply-To: <179051210447.2160803.13761066598804865928@kernel.org>
-References: 
-	<20260923-devel-vstrassheim-soce-dsa-ml-v3-2-ddebafcb9ba7@linutronix.de>
-	 <179051210447.2160803.13761066598804865928@kernel.org>
-Organization: Linutronix GmbH
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CKmrYUaU";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="H/Y0ZZ9Y"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6974U5al2915977
+	for <devicetree@vger.kernel.org>; Wed, 7 Oct 2026 07:43:40 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=clJPVUXl0viASw+vzSccwoxb
+	ts2uNZ+Y1lfR96jzEPs=; b=CKmrYUaUgtKQafmZ1Ex4PS9c1Q86XcXIu3H1czts
+	o1V2PpiP3XImQAzXSGWBZfivErBqf6TrlkpRt5MrSNW4jFkCgV0BS9PVEmRbiXxu
+	3C0cPvGmdZY+8XlE4wr7Vnsd/ZzDNvSlMflfAl5vUI/PjyZlTUJU8t4/CzWm0yR8
+	zPWZw4600KfqNttxg8ndkLce88sig9Ob9Q3APe1lcahBERkV1yJIzGEeBFbEZR5g
+	lGOV1Kcm3VmprCLJKyIYE4uJH/B9Lpv95FaXhm22NS5QOQYGQ+wBGlVobWjyHVaV
+	P13XERN2/1VpPriD1YDC6A+oAkKnSfsjdDmg1FJw/ZezoA==
+Received: from mail-vs1-f71.google.com (mail-vs1-f71.google.com [209.85.217.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h546232ny-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 07:43:39 +0000 (GMT)
+Received: by mail-vs1-f71.google.com with SMTP id ada2fe7eead31-7bf45388253so3132924137.3
+        for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 00:43:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791359019; x=1791963819; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=clJPVUXl0viASw+vzSccwoxbts2uNZ+Y1lfR96jzEPs=;
+        b=H/Y0ZZ9YLQNe6UZIgcf89QMKZBoiY6XXk+Aw2GFpNFmhyAOMBc+MSGuQlq+WKcdIU7
+         pdLJYd3/P1So5OVHZXCms9v9VhVRu/jfBBeTmmsyeU9L5AEIBHDNysxDQ4mo9hfzyUXF
+         j66Q3ZhhDA3r93PJS5M6fJIa21MEPHcwvSXZOOP3nd5ujw1RQdjKcc0VE8LviXl7fqMe
+         JGLeWcTvYt8HyEXDY2Nmi71Y+QVHXWmQKALZhZNJ3I+fQNslvScRH0sDyJWvOZbxsDyN
+         pl4X+OvqWXAOr0KXtkmtNzgzML0UTLQC4EPMPvcBMEg0gE6xhpcSoGQ09ggqi0tnj7rv
+         wZ5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791359019; x=1791963819;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=clJPVUXl0viASw+vzSccwoxbts2uNZ+Y1lfR96jzEPs=;
+        b=0+QQtva30GZ0e0zEDCensz0gE6UP3rELh7E0yari7nNumjZIQeslaMrvYmE0Cy+19t
+         aP6kd+9gz/mMOZYT4wn+Ecx3D9zgRYHg+CVS7xV0qz5k3uRmHC0ENrMvITzsqGrGtKgP
+         oNKySCHoVyV2/7oNARUNMC+IHcxyXK7f6jddwsZfxzBVyLDMj1IVIzYuzY9KPj5Oywq9
+         fnXihrKHmW/ZlncLY9UUUqjWulTps+pX5rhhlLPynpKv78LeE5S7W4ReF1LZ7ZQr5pF9
+         prlU6aUw3qDEURkGzfuZuE4YF73evKeYT/LIrf8IRjO32HGVD1mHqgHox7XoeyIZUDp6
+         E/2Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzICEXwnfj98IbgmdndvXAYkgpPb/noaFwUSCKXusqjwy4yoSS8HhgT+aMheTLpeZ0ZOMPCT8kBr4b0@vger.kernel.org
+X-Gm-Message-State: AFq9FYJY2A/UFAuQlAL5cypJ3z6PMvfohU+JGR6nLSZOiQpGr7eCd9xY
+	bNY2ESbcx+M3MQ6lNZ1EtWRATFfz5SV2EV16Y6AIlOrNAnqUPa2sZk3Hp/CdAJKcilpNNpDkMfr
+	SQEjekeBZZHgxuAntfD2knJSgrWCdqAtSwBFYUhYz9jzlQeqeXbgIfqPBFdDunkmW
+X-Gm-Gg: AYBFou3kPl0nj6OsT6M8Jq8DQXtPe/jppW/JIkfr18hRNOxFsIS7c1NXLIC2mlbfmJj
+	hDTqc2bSa/borogMEd7YdilYXzSRDm+9KIIdZvU5T3cRD8WVo4yd4UJBcY5DVj/sfSLbaLEETuO
+	ymc4md43QqS5LmFkc/l65vUniaORCDei3wbBLWk0TA6npSdwJqsonxg1KKxeRj8WZyhN9WtHwG3
+	mlOfviMB0KjrKZT12v6DCSwu5MTmlcdElvbN/sivR9orQXCZcCsW9UIeLF7KGvG8ldJFBZmSFjs
+	2v9NJcxHNRs2JxcEjth6ay53Sv331llOvzpsR1wMYjSm4FRckoGzPHiCKXhq7a48cNZsN67CSlQ
+	TPmJrKFQVQbeDPxuXELfpNArsklzLovMHyuackkCVZAQgVcbp/J/g3WyxW13GpP/XDC1SJMvjlB
+	F7eK9IrN+hG5+q
+X-Received: by 2002:a05:6102:5109:b0:7c3:3f26:8785 with SMTP id ada2fe7eead31-7ca3891236fmr444214137.7.1791359018834;
+        Wed, 07 Oct 2026 00:43:38 -0700 (PDT)
+X-Received: by 2002:a05:6102:5109:b0:7c3:3f26:8785 with SMTP id ada2fe7eead31-7ca3891236fmr444204137.7.1791359018395;
+        Wed, 07 Oct 2026 00:43:38 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a9a1d3370csm3856801fa.13.2026.10.07.00.43.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 07 Oct 2026 00:43:37 -0700 (PDT)
+Date: Wed, 7 Oct 2026 10:43:33 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Pradeep P V K <pradeep.pragallapati@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Alim Akhtar <alim.akhtar@samsung.com>,
+        Avri Altman <avri.altman@sandisk.com>,
+        Bart Van Assche <bvanassche@acm.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        gopikrishna.garmidi@oss.qualcomm.com, jagadeesh.kona@oss.qualcomm.com,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>,
+        Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-scsi@vger.kernel.org,
+        nitin.rawat@oss.qualcomm.com, sibi.sankar@oss.qualcomm.com,
+        Taniya Das <taniya.das@oss.qualcomm.com>
+Subject: Re: [PATCH v3 3/5] arm64: dts: qcom: glymur: Add UFS nodes
+Message-ID: <a5p5gszuadvnvqcwffg6y55khdfhacwhegaxmmiwm72sfid6ex@cdwuo6sdmkgy>
+References: <20261007-glymur_ufs_qcb_enablement-v3-0-84cf4f861415@oss.qualcomm.com>
+ <20261007-glymur_ufs_qcb_enablement-v3-3-84cf4f861415@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261007-glymur_ufs_qcb_enablement-v3-3-84cf4f861415@oss.qualcomm.com>
+X-Proofpoint-GUID: UNAFn8My5yvMV4q5YAWAOHwGfukM_G65
+X-Authority-Analysis: v=2.4 cv=ZZiIpcVA c=1 sm=1 tr=0 ts=6ac5f82b cx=c_pps
+ a=P2rfLEam3zuxRRdjJWA2cw==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
+ a=PwKYEXKgugi0Ob49dLQA:9 a=CjuIK1q_8ugA:10 a=ODZdjJIeia2B_SHc_B0f:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDAzMCBTYWx0ZWRfXyY+g9T7FScz1
+ f+FMfY+yOxaITIQxR2Q3pMGtSNHledCknyCAHu6byPOPeIsmc+wlt37rgrO9jXYUGiyjLi0ZliW
+ CkvAy/MRsynx1H+XsKu2klpcn+C7ZI8=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDAzMCBTYWx0ZWRfX6GRtAnT5vlca
+ HcB4f5VSSvvpOQUMf/jJB3/jP2CgD8bbrJpRNJamdrpuyZo1g8JSfGK6+p/gcNHPZoKbYrjiLRa
+ 5b8MKrAIp1vYM8s7n34FzQ7FN4cT6drY7pvSitrYKPX8hvJUfYFZs0CIeoaTQb0+NAPhi3EhPDs
+ yHOGZRFjK0cWreGDpgn/W3too+0IbjQjMx1qSU1kgrydUYRkEtic1lJucGJGMmwQnwM6SuzHRIh
+ zXTfofsMyEwOhCJCrKlYr/LFJX239hDlbRMlljZD0Fqkpi46ORzZ3C+YV273eZuq8FzX+GXV82e
+ 7/93zoq1AVhkMEYU+aUh8b27ErmOgvkdzYxeLigndDp2+69Dm5pbu393rHDIPh9QwZ5UbWuZEOi
+ wj/3IPjIUpjZv+xx0pxbyiwkgavEsl8BQTAUhPMHv7gSmOg61UL6MDmIXxOhihiGIVlGSg4ag7u
+ fmlIkRVS552yFT6/xwA==
+X-Proofpoint-ORIG-GUID: UNAFn8My5yvMV4q5YAWAOHwGfukM_G65
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-07_02,2026-10-06_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 spamscore=0 priorityscore=1501 impostorscore=0 bulkscore=0
+ phishscore=0 lowpriorityscore=0 suspectscore=0 clxscore=1015 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070030
 
-On Sun, 2026-09-27 at 12:28 +0000, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issue(s) to consider.
->=20
-> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 1
->=20
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwor=
-k
-> know by including "pw-bot: cr" as a separate line at the end of your repl=
-y
-> (one such reply per series is enough).
->=20
-> - [Medium] In soce,swip-mdio.yaml the MDIO controller owns the whole
->   32-bit 'control' register (<0x200 0x4>), which the binding calls the=E2=
-=80=A6
-> - [Low] The only compatible is 'soce,swip-mdio-23-02', and neither the
->   binding nor the commit message explains the '23-02' suffix.
->=20
-> --
->=20
-> dt-bindings: net: Add SoC-e SWIP MDIO controller
->=20
-> This adds a devicetree binding for the MDIO controller built into SoC-e
-> SWIP Ethernet switch IP cores. The controller has a data register region
-> and a shared transaction control and bus selector register. It is the
-> parent bus for an MDIO mux that reaches the external MDIO interfaces.
->=20
-> > diff --git a/Documentation/devicetree/bindings/net/soce,swip-mdio.yaml =
-b/Documentation/devicetree/bindings/net/soce,swip-mdio.yaml
-> > new file mode 100644
-> > index 0000000000000..3cf4bde0508ab
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/net/soce,swip-mdio.yaml
-> > @@ -0,0 +1,47 @@
->=20
-> [ ... ]
->=20
-> > +description:
-> > +  MDIO controller integrated into SoC-e Ethernet switch FPGA IP cores.
-> > +  The controller accesses multiple external MDIO buses through a mux.
-> > +
-> > +$ref: mdio.yaml#
-> > +
-> > +properties:
-> > +  compatible:
-> > +    const: soce,swip-mdio-23-02
->=20
-> [Severity: Low]
-> What does the 23-02 suffix mean? Neither the binding nor the commit
-> message explains it. It looks like a YY-MM IP release tag. The DSA
-> driver commit in this series mentions testing an MRS 25.01 core.
->=20
-> This MDIO block is part of the larger SWIP switch. It sits at
-> 0x200-0x20f inside the switch register window.
-> Documentation/devicetree/bindings/writing-bindings.rst says:
->=20
->   For sub-blocks/components of bigger device (e.g. SoC blocks) use rather
->   device-based compatible (e.g. SoC-based compatible), instead of custom
->   versioning of that component.
->=20
-> Could the version scheme be documented, or could a device-based
-> compatible be used instead? As it stands, it isn't clear whether each
-> future IP release would need a new compatible.
+On Wed, Oct 07, 2026 at 11:59:36AM +0530, Pradeep P V K wrote:
+> Add UFS PHY and UFS host controller nodes for Glymur SoC.
+> 
+> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+> Signed-off-by: Pradeep P V K <pradeep.pragallapati@oss.qualcomm.com>
+> ---
+>  arch/arm64/boot/dts/qcom/glymur.dtsi | 125 ++++++++++++++++++++++++++++++++++-
+>  1 file changed, 122 insertions(+), 3 deletions(-)
+> 
+> @@ -4102,6 +4102,125 @@ rng: rng@10c3000 {
+>  			reg = <0x0 0x010c3000 0x0 0x1000>;
+>  		};
+>  
+> +		ufs_mem_phy: phy@1d80000 {
+> +			compatible = "qcom,glymur-qmp-ufs-phy";
+> +			reg = <0x0 0x01d80000 0x0 0x2000>;
+> +
+> +			clocks = <&rpmhcc RPMH_CXO_CLK>,
+> +				 <&gcc GCC_UFS_PHY_PHY_AUX_CLK>,
+> +				 /* UFS and PCIE4 share the same clkref */
+> +				 <&tcsr TCSR_PCIE_4_CLKREF_EN>;
+> +
+> +			clock-names = "ref",
+> +				      "ref_aux",
+> +				      "qref";
+> +
+> +			resets = <&ufs_mem_hc 0>;
+> +			reset-names = "ufsphy";
 
-I will remove this suffix. For a child of MFD "soce,swip-mdio" is
-enough.
+power-domains = <&gcc GCC_UFS_PHY_GDSC> ? Or is there
+GCC_UFS_MEM_PHY_GDSC, which is simply not described in gcc?
 
->=20
-> > +
-> > +  reg:
-> > +    items:
-> > +      - description: MDIO parameter, write data, and read data registe=
-rs
-> > +      - description: Shared MDIO transaction control and bus selection=
- register
->=20
-> [Severity: Medium]
-> Is this the right way to describe the bus selector? This node claims the
-> whole 32-bit control register at <0x200 0x4>, bus selector field
-> included. The binding gives the mux no way to reach that field. There is
-> no #mux-control-cells and no mux child node, even though the description
-> says the buses are reached through a mux.
->=20
-> Later in the series, the example in "dt-bindings: net: dsa: Add SoC-e
-> SWIP switch" covers this with a sibling mdio-mux-mmioreg node:
->=20
-> Documentation/devicetree/bindings/net/dsa/soce,swip.yaml:
->     mdio-mux@202 {
->         ...
->         reg =3D <0x202 0x2>;
->         ...
->=20
-> That range is the upper halfword of the register that mdio@204 already
-> claims as control. The driver commit "net: mdio: Add SoC-e SWIP MDIO
-> controller driver" says the same thing: the selector is bits 26:16, and
-> a generic MMIO MDIO mux manages it through the upper 16-bit halfword.
->=20
-> The result is two sibling nodes with overlapping reg ranges for one
-> hardware register. This only works because neither driver requests its
-> region exclusively. soce_mdio_iomap() in drivers/net/mdio/mdio-soce.c
-> does:
->=20
->     return devm_ioremap(dev, res.start, resource_size(&res));
->=20
-> mdio_mux_mmioreg_switch_fn() also does a plain ioremap() on every
-> switch. If either driver moved to devm_platform_ioremap_resource(),
-> probe would fail with -EBUSY.
->=20
-> Nothing fails with the current series. There is no -EBUSY today. The
-> mux's 16-bit read-modify-write and the 32-bit read-modify-write in
-> soce_mdio_start() are serialized: mdio_mux_read() and mdio_mux_write()
-> hold the parent bus mdio_lock around both switch_fn() and the parent
-> access.
->=20
-> The concern is the DT ABI. Once this binding is merged, moving to a
-> description without overlapping ranges would break compatibility. Two
-> options would avoid the overlap:
->=20
->   - make this controller a mux provider with #mux-control-cells
->   - have the controller register its child buses itself
->=20
-> Would it be better to choose one of these before the binding is merged?
->=20
+If there are none, it should be reflected in the DT bindings, together
+with the explanation in the commit message.
 
-Yes. I will address this in the MFD rework.
+> +
+> +			#clock-cells = <1>;
+> +			#phy-cells = <0>;
+> +
+> +			status = "disabled";
+> +		};
+> +
 
-The MFD parent will register both child devices, with mdio-parent-bus
-connecting the mux to the controller.
-
-As already mentioned in other thread, this overlap is wrong.
-The MDIO controller will use only the lower 16-bit half of the control
-register through readw()/writew(). The sibling mdio-mux-mmioreg node
-will use the upper half, so the resources will no longer overlap.
-
-pw-bot: cr
+-- 
+With best wishes
+Dmitry
