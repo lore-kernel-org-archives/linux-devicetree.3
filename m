@@ -1,273 +1,268 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EAA647D93B
-	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 09:29:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2900C41F346;
+	Wed,  7 Oct 2026 09:31:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791365376; cv=none; b=YGhFOdzvioWu3ObpM8AwGXNLaRFP9WvQ8aBmVpqZRLvjLdVSicujuUelAB7/TO2/Wol4pNOA45JTvjLsDu51/JQrxH/25RPX702m9uCjC+b8szXx0KFySG+z8tTWT8kpvFvIlE3TtHJ963wBkMUab1UfPWBilaDZxT0pJ7Gi4Ho=
+	t=1791365532; cv=none; b=ZtZBfig7mrKnZovGN2fnpTY9bulKkFnMJFSJUVhGQzuTmc9Jla1qobRVAIQNxfxDJaWExi+7xK/D/xKi6YpeS09Isn2G+1DGAJFUcyRvL7pQd0lcvMUVbNXuPXb9xqjZMC0Q8jbVe/lrXmPCOTP4suSBjKg0OcXJVcmOj0isYjE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791365376; c=relaxed/simple;
-	bh=nu/WPoQ0EAyEhS8CM219AvAu4yABv69H/QW5iE+j0NI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gJYHFAgIDFvgwXD9us/JeaDfDkX4SNzvxku210tN/diFiAI2RMJisSyWcUbNFGz7ROaFwfWdJwd/V0+Kgqi3rwbCLFm9PTxnLaPjMjLMcYmUodNFwvAOG6ILAwKLFSBtZyMuzIHIISKLV90EU2gFisG16EMIpyhljlBDyadicFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Ksb2JztI; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cIF127Tt; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791365532; c=relaxed/simple;
+	bh=wDUi4KHhE5clSLNyLpTSGla06KpXCM3bFZCyUcCU/UQ=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=mMJXl+YzyI9PSQgBuLRRMgmlwNvOoIMuMQMRV66r/6L/XXD5fZH3UelifTsM3JwsOtaZaIdVJsWTrCmpFj0xl/TgEKn0+l9dJiJAj+UpFofte+skVlzs7HAukEsYJDw2m99FTLEPhTKCie+jARi3XMYbfNxViXJbKbypr5e3uJY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=rLbroE9X; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=DR/f29Z/; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ksb2JztI";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cIF127Tt"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6977jeaL3334690
-	for <devicetree@vger.kernel.org>; Wed, 7 Oct 2026 09:29:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	AgoL/vrS/xBAIKFF8vFxhe4JgJTENxBcmxfV/usIkY8=; b=Ksb2JztIlZuGLagv
-	nrNPDbkhal5x3PNf3UkjP/eCfnE4a3XDW1IbngTCcrzPlGmTZeSMWfr8UBJPQsSD
-	HIzQ7rnhgnrpuuZzcYaSMYvy0aF2NRm/wwM7qVIm+Wgww18OTLmpK4HwTa1t4SJz
-	Rpm+nYsyvHix4zXuhY+oPMHsiGVg7HRT723ZNrCN7U4YLbX/azWZWKONl3k7WtEX
-	/jCA1/sygGBJh3rN7RjKWlspfFBspUfAH1MbAhHCD2jhWrQ/GQb2eRE3n8Rqs7CA
-	GhrZ6iZMejmoIJwtnoK4q3Lb1AxiAF8YPwLtUdJIVh4ATR/T8byhpKOOuRm10dXv
-	g0UHUw==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h54623e7p-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 09:29:22 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2e5cf051ca5so16699525ad.2
-        for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 02:29:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791365361; x=1791970161; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=AgoL/vrS/xBAIKFF8vFxhe4JgJTENxBcmxfV/usIkY8=;
-        b=cIF127TtXzS5ckGBrFsw9R5/lmfJD/0+PZff4q6Wvp5maZXy/Dv2y23uTnoUMnlFgp
-         ImSKynVvXP+ThLaX18zwvtcK8+JnFQvGxvqD67meJjDnBjsH0pNBjpOYRYMkoGrd2TG2
-         6UDdqtERzvQvWF4CU9yPRcnGUR/tD4TNWsBlC3Fhh55VNDgwbOBpTFYjxkfRUMgpRpmH
-         inx52r6UOlsrxSWPpa4vHUJ3zeWqdg+BVxRONhlO3Hx5HxTEhGjp2L5aZOPEFvHfawbh
-         ma0L691Z8JvzVIWVMGvEMLlMQVPguuhS93K7lZKRs716E66CrpJaHyvCCntJQ3zAT1SE
-         DK/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791365361; x=1791970161;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=AgoL/vrS/xBAIKFF8vFxhe4JgJTENxBcmxfV/usIkY8=;
-        b=I9eFqOc/fDoX8NHHFaM6+2lQWZ1lyiKesgJAZ7WJHZZbcBsL7i6z49V4C5nSAyJ6O5
-         0RjbyCLsX6Wkb9Bf6lfGSZHRbZo0SBeKmltOl4r567cxQToaGPLYQagTwlrORIjlGYqs
-         k942R+JXI2yH0xqO0E7Ekjkw96rXGWgcEQEtwxFEN3IwcmG+U1w/mJ+0lZ+4zLsPVYxY
-         4zAIyd6XVzwG8wNYQimdPUXgRPlhfoLFcwCtv6CojkmlVAY/esUBaaFScOphOP1LjMy8
-         lgwgwbTgyqYdu83sS5LStcklS8UviOTumKNHUFySTmBS/wv4b8fi9yDLnt0nQOu+Wg6k
-         KHsA==
-X-Forwarded-Encrypted: i=1; AKwUvBzGeYA+stg7Z/nZgCx5vMS6jBynGPCRy5tIpEsEj3YORFmHoKbtnLvE9AcolwydWHcEGHY7gEsoT7D1@vger.kernel.org
-X-Gm-Message-State: AFq9FYJX0xkBYf+C+3nB8FzEgJJw47DVEGzm87iVIdcRwSApMca59XsP
-	0HphqVz55lFR4ZYlWAbq9tBa1GhH24E7Rwxo/Bf8w5+uh5Gg9c93ALLL6vPX5VHpG3AUMg/MGgI
-	ubSQ46OLEiBAk4/qlLGleP4nzbqyDJqGBVj61K5FsCZ2HjbTbQc40BcHlY/Ovj+11
-X-Gm-Gg: AYBFou0Fpn5NgCAEKQTzMmiWtwKyIacOtq8X3pAKcSTBdKlaGTQv1DIBxDfB7K/134o
-	2AZmx/kjgXlwv4DbGsMdgF7VrCXV62bz5W6HLLdgBxzXTWB7nffEENsa7tZ3N0iCkqBxbq1Pz2r
-	WY5f+9q+PO6lXji23qx0tNxpJxMYrXau9jj2PFu+K54BRWTOlA1rn/90hizmFM5f8lada/NYOAR
-	KIUufuQHDlVWK2pP1u5lTRaL0lE9/fvwsh2TPhip4CxuJC6fr1jxiplP5QxF6hS5DVKrG8Q731n
-	bofSjc+tnjob044/pR5/PnfvpDnny1zlXLz5/aUrJti7uWdEu5fY9agXgPlCr3zfVyJjjQuoqjV
-	g3MtkfTPieVyw/+9OI6MOqF0qjRM=
-X-Received: by 2002:a17:902:d54c:b0:2dd:ad73:5b68 with SMTP id d9443c01a7336-2e60036c99cmr14983255ad.24.1791365361366;
-        Wed, 07 Oct 2026 02:29:21 -0700 (PDT)
-X-Received: by 2002:a17:902:d54c:b0:2dd:ad73:5b68 with SMTP id d9443c01a7336-2e60036c99cmr14983115ad.24.1791365360897;
-        Wed, 07 Oct 2026 02:29:20 -0700 (PDT)
-Received: from [10.218.18.193] ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e604720e81sm7335615ad.36.2026.10.07.02.29.15
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 07 Oct 2026 02:29:20 -0700 (PDT)
-Message-ID: <223555e8-f17c-4bd7-abe5-06d8f4406867@oss.qualcomm.com>
-Date: Wed, 7 Oct 2026 14:59:14 +0530
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="rLbroE9X";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="DR/f29Z/"
+Message-ID: <3190d10102167d5b72add3e5831cba40756d459a.camel@linutronix.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1791365513;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=FZYbyyvMS986uZEblqXqfDTl4F8VXAGukgUvCIUKQ5M=;
+	b=rLbroE9XcrpMrNi3FWN41xa+80cJUFShTGdCp/5ctTG+5vwfjrTDry3Dx3BQH7gKsEfr/2
+	czampDST+wizQsG5nlTUWFosyxnSamZcV090NS5GwHimrOoWNDPHBYw50uUjuS1ogmIMGZ
+	/z8CYucvv3HhjwvzxrEKePZRxcf4ZhW1HH00j2i3BdkZpbQ7k4Cyvz/h7IHjucVWE4xVSg
+	EAQDXAtAqpy70FRtodhZMXKK+/Gym/i+6scTaEY5U856L5o2RJTtFwgJG61QcJFSXHsHOe
+	QKsOCokYwvvpFE33OkFc1Cd/oR2riTPM0HiwPS2Pm4ZE69QocAJui4a2D7LulA==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1791365513;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=FZYbyyvMS986uZEblqXqfDTl4F8VXAGukgUvCIUKQ5M=;
+	b=DR/f29Z/M7ZdoRvsrZKqD7x/o2+HeooFiiy8iBRlobau3+amAbqhiTxGUbYj6VV89CdU4C
+	xlV7Fq1AWKPCzzCg==
+Subject: Re: [PATCH net-next v3 5/8] net: mdio: Add SoC-e SWIP MDIO
+ controller driver
+From: Vasilij Strassheim <v.strassheim@linutronix.de>
+To: netdev-bot+sashiko@kernel.org
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ andrew@lunn.ch,  olteanv@gmail.com, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org,  pabeni@redhat.com, horms@kernel.org,
+ linux@armlinux.org.uk, andrew+netdev@lunn.ch,  hkallweit1@gmail.com,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ netdev@vger.kernel.org, martin.kaistra@linutronix.de,
+ b.spranger@linutronix.de
+Date: Wed, 07 Oct 2026 11:31:52 +0200
+In-Reply-To: <179051210920.2160803.11497808586391363644@kernel.org>
+References: 
+	<20260923-devel-vstrassheim-soce-dsa-ml-v3-5-ddebafcb9ba7@linutronix.de>
+	 <179051210920.2160803.11497808586391363644@kernel.org>
+Organization: Linutronix GmbH
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/4] ASoC: cdns: Add Cadence I2S-SC controller driver
-To: joakim.zhang@cixtech.com, lgirdwood@gmail.com, broonie@kernel.org,
-        robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-        perex@perex.cz, tiwai@suse.com, p.zabel@pengutronix.de
-Cc: cix-kernel-upstream@cixtech.com, linux-sound@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-arm-kernel@lists.infradead.org
-References: <20260928053613.2158446-1-joakim.zhang@cixtech.com>
- <20260928053613.2158446-3-joakim.zhang@cixtech.com>
-Content-Language: en-US
-From: Ajay Kumar Nandam <ajay.nandam@oss.qualcomm.com>
-In-Reply-To: <20260928053613.2158446-3-joakim.zhang@cixtech.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: -8eHDs88pHnsDOWsvZtcfhR2qh-zi5jI
-X-Authority-Analysis: v=2.4 cv=ZZiIpcVA c=1 sm=1 tr=0 ts=6ac610f2 cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=TAThrSAKAAAA:8 a=v9BIAvi8InMdnKEPHzMA:9 a=QEXdDO2ut3YA:10
- a=324X-CrmTo6CU4MGRt3R:22 a=8BaDVV8zVhUtoWX9exhy:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDAzNyBTYWx0ZWRfX3j/R6Ug/CUgv
- Wjob9xrTf8LpUFcUNagslF14I8Q39+4iUTaIGWZX3anbWs8npTJJV/JvILrS1bBqlgflu1OfTov
- +MTPGNaQIvi5UMz4gwf6fUo2zz8TP3c=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDAzNyBTYWx0ZWRfX5DJrH/Nxbg3r
- QjTOV+UQ4+42wluWA+UBvTSyupCkCh7UJJTNQA85TA6LPrlithuQ+Vof6MxKC3WGBsyXMLdzJEZ
- iMxDqxIA8n67r++aDDOiyPIVV1/in9Id3rHE2IPBJhTtATswL+rhiDTitH4mVq14RlLsFjIPy9P
- hdIYpe7EQFx1euXjYj6m96E39dDmDW+5pwW7CzD6HgUP4OkmnA1okRSiHR7XiahgeLxs5hn/zLE
- Y9AlhpgHytZSyxjrNPnvEnQjnAU29Veh3PNnLkt0e0ct1+ur9w5ookECc2z2EfxK20ySCd4UhEc
- VYWFR8v/fhvOiplmTyiI7gvMA8KzFcJfVAfOEE3/lcNprpOvvXyZyaq+4CNnBV8CYtt6wbW1wbL
- /PSRKElVMFUhEOE4o64uM1oxc//DYdEn8qSVsVPO5MmIbXAQ6bQbrLeKPuAUcmzDJYtSsFkbtcp
- bhx7h8O8504LODdBB9w==
-X-Proofpoint-ORIG-GUID: -8eHDs88pHnsDOWsvZtcfhR2qh-zi5jI
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-07_03,2026-10-06_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 spamscore=0 priorityscore=1501 impostorscore=0 bulkscore=0
- phishscore=0 lowpriorityscore=0 suspectscore=0 clxscore=1015 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070037
+
+On Sun, 2026-09-27 at 12:28 +0000, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential
+> issue(s) to consider.
+>=20
+> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 2 =C2=B7 Low: 0
+>=20
+> If you believe none of the issues are legitimate, please reply to each
+> issue of Medium severity or higher and explain why the AI is wrong.
+> If any of them are legitimate and you plan to respin, please let patchwor=
+k
+> know by including "pw-bot: cr" as a separate line at the end of your repl=
+y
+> (one such reply per series is enough).
+>=20
+> - [Medium] soce_mdio_iomap() (drivers/net/mdio/mdio-soce.c:48) returns
+>   whatever devm_ioremap() returns.
+> - [Medium] The external MDIO bus selector (bits 26:16) lives in the same
+>   32-bit control register as OPSTATUS (bit 0), but the idle check does=E2=
+=80=A6
+>=20
+> --
+>=20
+> net: mdio: Add SoC-e SWIP MDIO controller driver
+>=20
+> This adds a driver for the MDIO controller in SoC-e Ethernet switch IP
+> cores. It supports Clause 22 and Clause 45 accesses. The transaction
+> control register also holds an external MDIO bus selector in bits 26:16,
+> which a generic MMIO MDIO mux manages and which the driver preserves when
+> it starts a transaction.
+>=20
+> > diff --git a/drivers/net/mdio/mdio-soce.c b/drivers/net/mdio/mdio-soce.=
+c
+> > new file mode 100644
+> > index 0000000000000..59c0b3da483eb
+> > --- /dev/null
+> > +++ b/drivers/net/mdio/mdio-soce.c
+> > @@ -0,0 +1,239 @@
+>=20
+> [ ... ]
+>=20
+> > +static void __iomem *soce_mdio_iomap(struct device *dev, int index)
+> > +{
+> > +	struct resource res;
+> > +	int ret;
+> > +
+> > +	ret =3D of_address_to_resource(dev->of_node, index, &res);
+> > +	if (ret)
+> > +		return IOMEM_ERR_PTR(ret);
+> > +
+> > +	return devm_ioremap(dev, res.start, resource_size(&res));
+>=20
+> [Severity: Medium]
+> Can a failed mapping get past the checks in soce_mdio_probe()?
+>=20
+> devm_ioremap() returns NULL on failure, not an ERR_PTR. This happens both
+> when the devres allocation fails and when ioremap() fails:
+>=20
+> lib/devres.c:__devm_ioremap() {
+> 	void __iomem **ptr, *addr =3D NULL;
+> 	...
+> 	if (!ptr)
+> 		return NULL;
+> 	...
+> 	} else
+> 		devres_free(ptr);
+>=20
+> 	return addr;
+> }
+>=20
+> soce_mdio_probe() checks both results only with IS_ERR():
+>=20
+> 	priv->data =3D soce_mdio_iomap(dev, SOCE_MDIO_DATA_IOMAP_IDX);
+> 	if (IS_ERR(priv->data))
+> 		return PTR_ERR(priv->data);
+>=20
+> 	priv->ctrl =3D soce_mdio_iomap(dev, SOCE_MDIO_CTRL_IOMAP_IDX);
+> 	if (IS_ERR(priv->ctrl))
+> 		return PTR_ERR(priv->ctrl);
+>=20
+> IS_ERR(NULL) is false, so probe would continue into
+> devm_of_mdiobus_register() with a NULL base.
+>=20
+> The first bus access would then dereference NULL. That access comes eithe=
+r
+> from a PHY child during registration or through the mux:
+>=20
+> mdio_mux_read()
+>   soce_mdio_read()
+>     soce_mdio_wait_for_idle()
+>       readl_poll_timeout(NULL, ...)
+>=20
+> Could soce_mdio_iomap() convert a NULL result into IOMEM_ERR_PTR(-ENOMEM)=
+,
+> or could probe use IS_ERR_OR_NULL()? A helper that also requests the regi=
+on
+> doesn't fit here, because the parent switch driver already requests the
+> whole range.
+
+This was already mentioned by kernel bot. I will fix it for the next
+version. Rework for MFD will also change this code.
+
+>=20
+> > +}
+> > +
+> > +static int soce_mdio_wait_for_idle(struct soce_mdio *priv)
+> > +{
+> > +	void __iomem *ctrl =3D priv->ctrl;
+> > +	u32 val;
+> > +
+> > +	return readl_poll_timeout(ctrl, val,
+> > +		!(val & SOCE_MDIO_CTRL_OPSTATUS), 10,
+> > +		SOCE_MDIO_TIMEOUT_US);
+> > +}
+> > +
+> > +static void soce_mdio_start(struct soce_mdio *priv, u32 command)
+> > +{
+> > +	void __iomem *ctrl =3D priv->ctrl;
+> > +
+> > +	/* Keep the currently selected MDIO bus while updating op bits. */
+> > +	command |=3D readl(ctrl) & SOCE_MDIO_CTRL_BUS_MASK;
+> > +	writel(command, ctrl);
+> > +}
+> > +
+> > +static int soce_mdio_read(struct mii_bus *bus, int phy_addr, int regnu=
+m)
+> > +{
+> > +	struct soce_mdio *priv =3D bus->priv;
+> > +	void __iomem *data =3D priv->data;
+> > +	u32 command;
+> > +	int ret;
+> > +
+> > +	ret =3D soce_mdio_wait_for_idle(priv);
+> > +	if (ret)
+> > +		return ret;
+>=20
+> [Severity: Medium]
+> Does this idle check also protect the bus selector bits in the same
+> register?
+>=20
+> The commit message says:
+>=20
+>     Return a timeout instead of waiting indefinitely, and allow a later
+>     access to retry if the hardware becomes idle again.
+>=20
+> So when a completion wait returns -ETIMEDOUT, the engine may still be bus=
+y.
+> Nothing aborts or resets it before mdio_lock is released, and there is no
+> mii_bus->reset callback.
+>=20
+> If the next access goes through the mux to a different child bus,
+> mdio_mux_read() calls switch_fn before it calls the parent's read callbac=
+k:
+>=20
+> drivers/net/mdio/mdio-mux.c:mdio_mux_read() {
+> 	...
+> 	r =3D pb->switch_fn(pb->current_child, cb->bus_number, pb->switch_data);
+> 	...
+> 	r =3D pb->mii_bus->read(pb->mii_bus, phy_id, regnum);
+> 	...
+> }
+>=20
+> mdio_mux_mmioreg_switch_fn() then rewrites the selector halfword without
+> checking OPSTATUS:
+>=20
+> 			x =3D ioread16(p);
+> 			y =3D (x & ~s->mask) | desired_child;
+> 			if (x !=3D y) {
+> 				iowrite16((x & ~s->mask) | desired_child, p);
+>=20
+> This means soce_mdio_wait_for_idle() runs only after bits 26:16 have
+> already changed.
+>=20
+> If the hardware doesn't latch the selector when a transaction starts, cou=
+ld
+> the rest of the timed-out frame be sent to a different external MDIO bus?
+> The original PHY would get a truncated frame and the newly selected bus
+> would get a fragment from the middle of it. Neither the mux's current_chi=
+ld
+> nor the return code would show that this happened.
+>=20
+> soce_mdio_write() and the c45 variants have the same ordering. Does this =
+IP
+> latch the selector per transaction, or does the idle check also need to
+> cover the selector writes?
+>=20
+
+Yes, the idle check does not protect selector writes made by the generic
+mux driver. I already mentioned this in the previous version [1].
+
+I intentionally accept this limitation after a transaction timeout. This
+is not documented in the manual and an dedicated mux driver would be
+required just to preserve the register state.
+
+Imo, a new mux driver would add too much complexity solely to handle
+this error path. I will clarify the commit message so it does not imply
+that retrying through a different child bus is guaranteed to be safe.
+
+[1] https://lore.kernel.org/netdev/ffec9201db3d12944dbd350010560f6234262bbe=
+.camel@linutronix.de/
 
 
-
-On 9/28/2026 11:06 AM, joakim.zhang@cixtech.com wrote:
-> From: Joakim Zhang <joakim.zhang@cixtech.com>
-> 
-> Add support for the Cadence I2S-SC controller found in the CIX SKY1
-> audio subsystem.
-> 
-> The controller provides full-duplex stereo playback and capture in
-> standard I2S, left/right-justified and DSP modes, with mono operation
-> mapped onto the left audio channel. It also supports TDM operation
-> with up to 16 slots per frame, where the PCM channels map onto the
-> active slots of the stream direction while the bit clock covers the
-> whole frame.
-> 
-> The transmitter and receiver share the transceiver enable sequence,
-> so the start/stop state machine is serialized with a spinlock against
-> independently triggered playback and capture PCMs. The driver
-> registers the dmaengine PCM helper, selects the audio reference clock
-> parent for the 8 kHz or 11.025 kHz sample rate family and keeps the
-> minimum functional-clock to bit-clock ratio required for safe clock
-> domain crossing. Runtime and system suspend/resume restore the
-> registers through the regcache.
-> 
-> Signed-off-by: Joakim Zhang <joakim.zhang@cixtech.com>
-> ---
-
-> +#include <linux/clk.h>
-> +#include <linux/delay.h>
-> +#include <linux/module.h>
-> +#include <linux/pinctrl/consumer.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/pm_runtime.h>
-> +#include <linux/regmap.h>
-> +#include <linux/reset.h>
-> +#include <sound/dmaengine_pcm.h>
-> +#include <sound/pcm_params.h>
-> +#include <sound/soc.h>
-> +
-
-> +static int cdns_i2s_sc_clks_enable(struct cdns_i2s_sc_priv *i2s_sc_priv)
-> +{
-> +	int ret;
-> +
-> +	ret = clk_prepare_enable(i2s_sc_priv->clk_hst);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = clk_prepare_enable(i2s_sc_priv->clk_i2s);
-> +	if (ret)
-> +		clk_disable_unprepare(i2s_sc_priv->clk_hst);
-> +
-> +	return ret;
-> +}
-> +
-> +static void cdns_i2s_sc_clks_disable(struct cdns_i2s_sc_priv *i2s_sc_priv)
-> +{
-> +	clk_disable_unprepare(i2s_sc_priv->clk_i2s);
-> +	clk_disable_unprepare(i2s_sc_priv->clk_hst);
-> +}
-> +
-> +static void cdns_i2s_sc_rxtx_common_config(struct cdns_i2s_sc_priv *i2s_sc_priv, bool on)
-> +{
-> +	if (on) {
-> +		/* Full-duplex mode enable */
-> +		regmap_update_bits(i2s_sc_priv->regmap, I2S_CTRL_FDX,
-> +				   I2S_CTRL_FDX_FULL_DUPLEX, I2S_CTRL_FDX_FULL_DUPLEX);
-> +
-> +		if (i2s_sc_priv->is_tdm_mode) {
-> +			/* TDM mode enable */
-> +			regmap_update_bits(i2s_sc_priv->regmap, I2S_TDM_CTRL,
-> +					   I2S_TDM_CTRL_TDM_EN, I2S_TDM_CTRL_TDM_EN);
-> +
-> +			/* Number of supported audio channels in TDM mode */
-> +			regmap_update_bits(i2s_sc_priv->regmap, I2S_TDM_CTRL,
-> +					   I2S_TDM_CTRL_CHN_NO,
-> +					   FIELD_PREP(I2S_TDM_CTRL_CHN_NO,
-> +						      i2s_sc_priv->tdm_config.slots - 1));
-
-This driver uses FIELD_PREP() in several register programming paths, but 
-it does not include <linux/bitfield.h>. A local targeted build with
-
-  M=sound/soc/cdns W=1 fails with:
-
-  error: implicit declaration of function 'FIELD_PREP'
-
-Please add the explicit bitfield.h include. After adding that include 
-locally, cdns-i2s-sc.c gets past this compile error.
-
-> +
-> +			/* TDM mode channels enable */
-> +			regmap_update_bits(i2s_sc_priv->regmap, I2S_TDM_CTRL, I2S_TDM_CTRL_CHN_EN,
-> +					   FIELD_PREP(I2S_TDM_CTRL_CHN_EN,
-> +						      i2s_sc_priv->tdm_config.rx_mask |
-> +						      i2s_sc_priv->tdm_config.tx_mask));
-> +		}
-
-> +	ret = devm_snd_dmaengine_pcm_register(&pdev->dev, NULL, 0);
-> +	if (ret)
-> +		return dev_err_probe(&pdev->dev, ret,
-> +				     "Failed to register dmaengine component\n");
-> +
-> +	pm_runtime_get_noresume(&pdev->dev);
-> +	pm_runtime_set_active(&pdev->dev);
-> +	ret = devm_pm_runtime_enable(&pdev->dev);
-> +	if (ret)
-> +		return dev_err_probe(&pdev->dev, ret, "Failed to enable runtime PM\n");
-> +
-> +	ret = cdns_i2s_sc_clks_enable(i2s_sc_priv);
-> +	if (ret) {
-> +		dev_err_probe(&pdev->dev, ret, "Failed to enable clocks\n");
-> +		pm_runtime_put_noidle(&pdev->dev);
-> +		return ret;
-> +	}
-> +
-
-After cdns_i2s_sc_clks_enable() succeeds, the platform_get_irq() failure 
-path returns directly without disabling the clocks or dropping the 
-runtime PM usage count. The devm_request_irq() failure path has a 
-similar issue: it calls pm_runtime_put_noidle(), but that will not run 
-the runtime suspend callback, so the clocks enabled manually above 
-remain prepared/enabled.
-
-Thanks
-Ajay Kumar Nandam
-
-> +	cdns_i2s_sc_rst(i2s_sc_priv);
-> +
-> +	irq = platform_get_irq(pdev, 0);
-> +	if (irq < 0)
-> +		return irq;
-> +	i2s_sc_priv->irq = irq;
-> +
-> +	ret = devm_request_irq(&pdev->dev, irq, cdns_i2s_sc_isr, 0,
-> +			       dev_name(&pdev->dev), i2s_sc_priv);
-> +	if (ret) {
-> +		dev_err(&pdev->dev, "Failed to request irq: %d\n", ret);
-> +		pm_runtime_put_noidle(&pdev->dev);
-> +		return ret;
-> +	}
