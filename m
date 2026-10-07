@@ -1,150 +1,112 @@
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E9E04A2061
-	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 12:59:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 809A5413230
+	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 12:59:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791377996; cv=none; b=NJgA9i7XqQsnhpn6EwpEn3uof60uBHxPxRmJs2bUuflTl6RurRbaRJJLk/sSmq/L1TN9lUAMvO07HP8VCpM0E2bBM5KYROVHQAE1Ou8+ZPOBoQTVEjiw7t1mmwvXoXqeFwsin3TMV4W0//U72Sn+fHi36T/9ibcac+GOYeMr4ng=
+	t=1791378003; cv=none; b=C7NUOOMvGKc6ZKL625CGH2nUtpLPC4DgCHxWOkx+q/9PqjZ7rw2tvXu+PdejYElMg7/10zseEMl+fLhe1R+6IZPNtoxUjsPJ9CgBAnPDxQau3s24N6kfgJ6dI2kwurahF+vwLurQa+z9piBYnDFkUVlgQsZp0WjLjCSfc36ZA3Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791377996; c=relaxed/simple;
-	bh=dXlEoLZn8xIfnNC7jxrPUVl7m9FtX0nbVYNpExtd+WE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=O5+tZdTCTGnEp/3xMq9uZeahT9Vh2nSLaKbMMeCMquTFKR3zE+YFTVdJJe2NCbiIpdip+3LJYqlH8frFildgUTjyB1yOfEv/dl1VCzxOYAZct8Qw82wNifZVhY+uOGqPA6ZMewVWxdz7RXQNwexAlysrhdgFRHUl9JyLcKuTbK0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=B+5KW5Mx; arc=none smtp.client-ip=209.85.218.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1791378003; c=relaxed/simple;
+	bh=WVk9mvbI1lq8ofL0doOyPRuJ+FWSn0mR7B0c7u/sjmo=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=A72PyBJsrGpdciJmTktpexsg6GUqpgvxGUdGzkGbG60wLbT0Z+QUwqaakuYXG0SBvMzEqlBhXyjmw0IsPNR0AvZFoJ0Qnp1/FaUXRtoHfTOegqDKCmzybU+eNe9B3LxSQWRbBUzOpMDE8WTDYQHzzvp322Qx1KBYQg2qfDWq8Eg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bilaY8a6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="B+5KW5Mx"
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c2e5f8fe879so270988566b.3
-        for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 05:59:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1791377983; x=1791982783; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=R+rvRY3MxyDDJlHyGuP46Q73CKubNnzJd6vSmt+6L74=;
-        b=B+5KW5Mx8TYu8VtZbOMLgAUVxdUYBD5u2qe0CTv8KoYgmHBAywSvFffRCiZyvrZagJ
-         n0jZOTQUNEjekyfnW+uszsiJLLd8ntT+Do4f80338G9JAEAjCy5J/IOdYyg2phf1rJnr
-         4z5kFx1a9D9WBi4ioKNvQXgzuE3uxm/T78PzE=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791377983; x=1791982783;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=R+rvRY3MxyDDJlHyGuP46Q73CKubNnzJd6vSmt+6L74=;
-        b=rQrrPvCRwgnY07/0NpVBcnpvdgpUWiffIWC53OGKs+aqRpN1ULtwDMUaVUsLpusBcy
-         o9bG/qfwWQH+QhIJ0Xl3DJfgIFfkw2wAbjOooHRIVeQMGAKOx0qWD7AsuYMwa1PUUm7B
-         bWZZMIJ2t5JLO0IC3lPSQ/aghviGKgJTXwzsIvlbIslWLHz4UihWsBO5WvpOA3MEEiK5
-         73RXYKJVJlslhNx6s403fDpsDN+0T6XhMlp8dRca8SKp5RD+9/+k7g8vTsX5Qb7YRYcY
-         pQG/BpMpqm8O5tfjPThsRt6zpN3TNisTuvBqKRf7wezU4IXakbOUv/frJkPt5oiuQGGe
-         Dg5A==
-X-Forwarded-Encrypted: i=1; AKwUvBwNYGSblxkQp54u9VnGWBrenXbVlNGxrnakqKVznONuYPagmSHHKlF3sCCENQ7hxgloKbCsaJMQNyzD@vger.kernel.org
-X-Gm-Message-State: AFuF++kJdb2/d1pK2j4MOahjs1CgXDqaAuZwHVb2zh0R69bLQ+SZoHCs
-	9jGgEed/GgeZ2fQyTonmltk1P75WzTkViPyOY/Cydqv2dfrOp1l3E6Rt+HwqBCBHO8xF4dzobT5
-	JORZQtuVz
-X-Gm-Gg: AYBFou0W+mM0O7rlceCWtEC6bPHUFqmI8G9JB9DgMhacY9XAKUcUluc/pSzKOVrCVm4
-	AI0xcRsg6aojjLS0sI1ntWfx1KXrVYMqS+7OnTrhm5ErS++d49wiqhfgrA1+Tb2yiTlVtPR8T4i
-	DCquq3pIRYfTnYcpq2NgSYhbmoLor0nmyBRaUArtQCNFKcwYH50/f0t/uxDPWnDAFGLsCeiU20q
-	uw3s32CnkVFoo71qlXSKmedXPFtshPiBQeYYq7gvEvWW6tNsIGYgY4lxyEJe4/n5Njli8KH58+r
-	e3L4IpXiabBczHgHeAajIWb+wyq1yrvhTd/ByCjXh+Wi06wd6XfraRbP1m2uhInM6ulULnif7yd
-	LPXOkVWoDvDyzQxqXnPrhxeeq6ifgTthAN1VaRmCemtxQNDvHcn3O9GeoW6g6iUFVHLq6KZ+RwZ
-	XpOPMmb+T+vYC+XJVeXHkg+VDYsP6+aZo+MpfGA9AOvrQBPyBPqeec27sGjV/U2XQ7ychPz8MtF
-	d/GosvXaj06t7OSX5QZkiXydFa5ujS4xCoNeNO3QXYgx4WP
-X-Received: by 2002:a17:906:f588:b0:c2a:8cd4:cf36 with SMTP id a640c23a62f3a-c317c114c74mr196623966b.34.1791377983297;
-        Wed, 07 Oct 2026 05:59:43 -0700 (PDT)
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com. [209.85.208.43])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c318ae45e19sm17232466b.61.2026.10.07.05.59.42
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 07 Oct 2026 05:59:42 -0700 (PDT)
-Received: by mail-ed1-f43.google.com with SMTP id 4fb4d7f45d1cf-6a0794669a6so2621086a12.2
-        for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 05:59:42 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBw9lbe9w9yk+cKKnF7M6tOVST+WG7qieg2WOb9fMohJmySCbwJyPOXEla2jLfnVXJmFbdUde/BJANtu@vger.kernel.org
-X-Received: by 2002:a05:6512:b83:b0:5bc:a9f9:b649 with SMTP id
- 2adb3069b0e04-5bcd06e8b11mr798936e87.31.1791377665307; Wed, 07 Oct 2026
- 05:54:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bilaY8a6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA2BC1F0089B;
+	Wed,  7 Oct 2026 12:59:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791377989;
+	bh=J7RgpLbmJ1vdUXiYbJA/R4h6PObbIt5d9Obi9yR6r0Y=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=bilaY8a6l46XWwZs1GdUhFS+wn95/S3ELvxp22/WVtTeq5e55981u9wf0xLq9PBdL
+	 uMwIPboL7ebKlmRYiRexIjdC1jzhM0999n2mSpKyUHIDM+hGZPiutbX0WBKZK7NqHj
+	 L35qmtiqP2GNVda9FOSmxn6/dYf1HojEGypVvkbmU6baibiVdbnzhHQ1c10TpHIyVU
+	 FkOAVc9+10b49kik3cnomNJlA/HHmUAjBax0uYcFC8wK+stIT5XuNyURQ0B0+dIWDt
+	 Mtzs7M3+D48n7QzSU0m0Ml8EgBIXITKaWVtxntTR8Lu3ieDTrxr84y+SQ+Icqa/uxO
+	 TiY+gREa4df+g==
+Message-ID: <sashiko-outbox-163019@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 1/2] arm64: dts: qcom: shikra-iqs-evk: Add LT9611UXD
+ HDMI bridge support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Mohit Dsor" <mohit.dsor@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261007-master_lt9611uxd-v4-1-9986704e2a7b@oss.qualcomm.com>
+References: <20261007-master_lt9611uxd-v4-0-9986704e2a7b@oss.qualcomm.com>
+ <20261007-master_lt9611uxd-v4-1-9986704e2a7b@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 07 Oct 2026 12:59:49 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20261006-mahua-surface-laptop-v1-0-406fc042162a@oss.qualcomm.com> <20261006-mahua-surface-laptop-v1-4-406fc042162a@oss.qualcomm.com>
-In-Reply-To: <20261006-mahua-surface-laptop-v1-4-406fc042162a@oss.qualcomm.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Wed, 7 Oct 2026 05:54:12 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=Vh-GRYtuGM+By9BfpO4X7skp9QOYeHRj7Rzc_tgQ0KEA@mail.gmail.com>
-X-Gm-Features: AclHuK-ILqIUiSWOn4shaOpkE4nC07lDEACeQZtcv49rxdfgv5oCmNXTTOAhHtk
-Message-ID: <CAD=FV=Vh-GRYtuGM+By9BfpO4X7skp9QOYeHRj7Rzc_tgQ0KEA@mail.gmail.com>
-Subject: Re: [PATCH 4/5] drm/panel-edp: Add Sharp LQ138P1JX61 (Surface Laptop
- 8th Ed.)
-To: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Maximilian Luz <luzmaximilian@gmail.com>, Hans de Goede <hansg@kernel.org>, 
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Sibi Sankar <sibi.sankar@oss.qualcomm.com>, Pankaj Patil <pankaj.patil@oss.qualcomm.com>, 
-	Rajendra Nayak <rajendra.nayak@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	platform-driver-x86@vger.kernel.org, dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] dts: Invalid compatible 'lontium,lt9611uxd' lacks driver support
+- [High] dts: Incorrect reset-gpios polarity holds LT9611 bridge in reset
+--
 
-On Tue, Oct 6, 2026 at 2:50=E2=80=AFAM Gopikrishna Garmidi
-<gopikrishna.garmidi@oss.qualcomm.com> wrote:
->
-> The internal eDP panel of the Microsoft Surface Laptop 13.8" 8th Edition
-> is not in edp_panels[], so panel-edp falls back to conservative timings.
->
-> EDID, read over the panel's DP AUX DDC bus:
->
->   00 ff ff ff ff ff ff 00 4d 10 72 15 a1 31 05 54
->   31 23 01 04 b5 1d 13 78 03 7d 77 ad 50 46 ad 26
->   0f 50 53 00 00 00 01 01 01 01 01 01 01 01 01 01
->   01 01 01 01 01 01 60 b6 00 a0 90 00 2b 60 30 20
->   3a 00 23 c2 10 00 00 18 60 b6 00 a0 90 00 56 66
->   30 20 3a 00 23 c2 10 00 00 18 00 00 00 fd 00 18
->   78 be be 2f 01 00 00 00 00 00 00 00 00 00 00 fc
->   00 4c 51 31 33 38 50 31 4a 58 36 31 0a 20 01 4e
->
->   02 03 0f 00 e3 05 80 00 e6 06 05 01 73 6a 0b 00
->   00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
->   00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
->   00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
->   00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
->   00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
->   00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
->   00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 aa
->
->   Manufacturer: SHP
->   Model: 0x1572
->   Made in: week 49 of 2025
->   Display Product Name: 'LQ138P1JX61'
->   DTD 1: 2304x1536 120.000329 Hz 3:2 (291 mm x 194 mm)
->   DTD 2: 2304x1536  60.000164 Hz 3:2 (291 mm x 194 mm)
->
-> No datasheet is available, so use delay_200_500_e200: it keeps the
-> 200 ms enable delay of the conservative fallback, but uses the 500 ms
-> unprepare delay of the real panels in the table. This matches the entry
-> for the closely related Sharp LQ120P1JX51 (SHP 0x15a7).
->
-> Assisted-by: LLM
-> Signed-off-by: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
-> ---
->  drivers/gpu/drm/panel/panel-edp.c | 1 +
->  1 file changed, 1 insertion(+)
+commit d181c75b1ca5c7813638aeaae19d81602f7108ef
+Author: Mohit Dsor <mohit.dsor@oss.qualcomm.com>
 
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
+arm64: dts: qcom: shikra-iqs-evk: Add LT9611UXD HDMI bridge support
 
-Pushed to drm-misc-next:
+Enable the Shikra MDSS display subsystem on the Qualcomm Shikra IQS
+EVK board and add the Lontium LT9611UXD DSI-to-HDMI bridge node.
 
-[4/5] drm/panel-edp: Add Sharp LQ138P1JX61 (Surface Laptop 8th Ed.)
-      commit: 7cf88d0a3f5324eb44c2ae9840568adb2374ec10
+> diff --git a/arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts b/arch/arm64/boo=
+t/dts/qcom/shikra-iqs-evk.dts
+> index 5df30ad8211f8..fee93410b2e43 100644
+> --- a/arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts
+> +++ b/arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts
+[ ... ]
+> @@ -23,6 +24,98 @@ aliases {
+[ ... ]
+> +&i2c4 {
+> +	status =3D "okay";
+> +
+> +	lt9611uxd: lt9611uxd@41 {
+> +		compatible =3D "lontium,lt9611uxd";
+
+[Severity: High]
+Does this compatible string have a corresponding driver implementation and =
+DT
+binding?
+
+There is no of_device_id match for "lontium,lt9611uxd" in any driver in the
+kernel (the Lontium bridge drivers in drivers/gpu/drm/bridge/ only support
+"lontium,lt9611" and "lontium,lt9611uxc"), nor is there an associated DT
+binding. Because no driver will bind to this node, the display output will
+silently fail to initialize.
+
+> +		reg =3D <0x41>;
+> +		interrupts-extended =3D <&tlmm 85 IRQ_TYPE_EDGE_FALLING>;
+> +		reset-gpios =3D <&tlmm 76 GPIO_ACTIVE_LOW>;
+
+[Severity: High]
+Does this reset polarity interact correctly with the driver's hardcoded res=
+et
+sequence?
+
+The existing Lontium bridge drivers (lt9611 and lt9611uxc) are implemented
+with an inverted reset sequence. They call
+gpiod_set_value_cansleep(reset_gpio, 1) at the end of their reset routine
+(lt9611_reset()) to take the device out of reset, assuming the DT specifies
+GPIO_ACTIVE_HIGH as a workaround.
+
+When GPIO_ACTIVE_LOW is used instead, the gpiolib subsystem translates the
+logical 1 to a physical 0 (LOW). This will drive the reset pin physically L=
+OW
+at the end of initialization, trapping the bridge in reset indefinitely and
+causing probe failures and I2C communication timeouts.
+
+> +		vcc-supply =3D <&vreg_disp_3p3>;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261007-master_lt9=
+611uxd-v4-0-9986704e2a7b@oss.qualcomm.com?part=3D1
