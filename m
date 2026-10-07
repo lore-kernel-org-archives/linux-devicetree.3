@@ -1,323 +1,253 @@
-Received: from mail-ej2-f11.google.com (mail-ej2-f11.google.com [74.125.228.139])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2092.outbound.protection.partner.outlook.cn [139.219.146.92])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C333A47D46D
-	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 10:00:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8ABE46D55C;
+	Wed,  7 Oct 2026 10:01:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.92
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791367258; cv=pass; b=mY8mcYWbf/H/l0YWytdarVcBvtPkYaWZwCo4p5T53p29D2500tIotf1XZxNhHYGyR4wkXfJ9V2LEDxHddK4kdYft7zHZtu26ktN11BlKTO/xiaV92vl5PKh6LcJP+wLbOkAxufGjECMEAnsQmap2t+w1OcJ41CvCGkycC1hpYP0=
+	t=1791367287; cv=fail; b=kOU5rLFa3hPRK8cP/aCQdLr3TJMHx3J56TQJDxBzbBIP8ymVtkyRCdJoYH74aBOKH8sZbeokoH8WSRj0B6JYlPXvruHcFsb/BfuDpdff1IoadPOoijLUDit3sZTyXqbOvY7LPIZCO57mxKnStK25jg8VLNX9Hfu0zJXyHpgKLys=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791367258; c=relaxed/simple;
-	bh=XjU0hXtNcJGjUwPx9iC1DYv0ec/khzfjn6lTjTcCAAo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=CX4lm615gSJfNC1Wmb6hNdfKnhLMg1lA12EwQGsAD4738kloYeohPFslpR+I1MscC0g3iRjXxt6Uqk5sWXV+YU+HM+aPOum5caSLtsEKZp229y/CQrGQ7/nQMPUWRB5Tm/iPGFIi++Au+PezSV01izJYtYqMf6g8+sz+TZastT4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CmXeuwVm; arc=pass smtp.client-ip=74.125.228.139
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CmXeuwVm"
-Received: by mail-ej2-f11.google.com with SMTP id a640c23a62f3a-c2e25574351so232361866b.1
-        for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 03:00:46 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791367245; cv=none;
-        d=google.com; s=arc-20260327;
-        b=bC57bXoMbeJTZNjfxvGR0YY28ng7ztngrXSALdHMChN3MQ82KymMsebDZXQLxkZVey
-         1JPqhaJ+ZvgV7HDQTmYvQtNKlXu4pjB5QzpQ9ElRbh1jS36GE/cmpsr5FNK9X5mvUqb6
-         btQZ5eh1qkObhUzHR5cBYHL03V0IEnHkNzYxuSHoRIMXJjyU48cPBXay41od5nlUXgJp
-         1TXeo33CRov3RpV8BfqpBWSshc0rHI5DQVkAxJeeCRhYuzK8WOIDk0VM/UJR9WSRsUJ5
-         9JluXFXXGwHnZKecell1Z7BAB6AnZYeVJV+Tj3UeZouwpntlcqq1QMfwTMPlnCkA+mZL
-         r39Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=WrNkpb0d4qtNovZAgW6O0CMNn2hpdnuON/KzQGIiKiQ=;
-        fh=+OKoMkpuQBiTmFDgDws5g1bu78EmKYf1SbAaAWXyMwc=;
-        b=G1UWnDhBONXcWxaI8dj+aEMQCBsds6ypVLGh2HbDuLESph1TD7P1kCrnJpXlQKLwNO
-         j6F/+LdwDvnNSmRd5P5qTzazPp2ptqtcLLo3s3BHdxktDN7AjvMgrYpn3aQD0q2qDzYK
-         bVcCcxOjEA68U9EeMkmGtjE5aVYGI2ueg3jFDpHKdlxGe6jY46H/IsbvfvJYtCi2PHpo
-         3707GXAM01LnKh1I1w0gvpriYpn21+dzNxe2lowS7XUtr9Necc/AFlBNtSwB1C454xn5
-         I26sa/6NtWWFeWflzOyJ23bG8OiDFryF9dyYZokRmDzxdXviE0ly8GY9iB691pZFfXxj
-         yTnA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791367245; x=1791972045; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=WrNkpb0d4qtNovZAgW6O0CMNn2hpdnuON/KzQGIiKiQ=;
-        b=CmXeuwVmSFDuDcs9vky2qwqsK5i0LnOOUUIPI9JdSoflykHhzY07iZvqagsFZPwQJf
-         9YkXTL2SERoue7SmpoPzj2AAKcWKp2vbrJaDxKmRgZAEMEdWM6vH1hN8uuaJ1Hq+MFoM
-         mqA4xoWgBq5Mm1gJOvPldVZxARLZQdd3/OqHQaqWuvOdcjN39R+iAJSvPDPrBs17i96g
-         WrQrY02D9MjwpfC3/ZetbA+XhHNsXp/UQX4qvM9G1995fPYXBVUqcx3r029urA6LgkCq
-         K87GAC3nB+48llKqfGIJnHryaBhsMaxMVvobqF+4zEUcgrTVYNjEq/yJ2JmQpYPN8WLz
-         DW3w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791367245; x=1791972045;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WrNkpb0d4qtNovZAgW6O0CMNn2hpdnuON/KzQGIiKiQ=;
-        b=Of5tJ5eGtnxzVvShAfW/qQfiHOPHoJmUdGEuZ0voQiw5lq6djJn7CckYnFEcGTcTnU
-         gWwbeCYAey26V72K0Medz5T/WSn6LLPvERhn7CEmxPa5FZrMHtLjqS2k8iirNCMoT4wd
-         B3eV9bn/UlEy1NEcA1lQqiiTLF0lKrPiDs1Rhp36EtQXM6QSnZFE0vGe6az7Fdya6+j4
-         P6ioZSKQSMculfT+ODKdyzFj04Gdcn1DwEeXw1lrBptbaX6TS34Mwl6OLRIh591s6a5X
-         9eVA30OpNMLth50VUScdQbY3KCg3Yu+03G9e6WANXA2eruOr0fZq8k3gfnnbiPnpqwbn
-         /wnA==
-X-Forwarded-Encrypted: i=1; AKwUvByhO2lzUdk/2YDhrT1Hbuvr15bEEE7euAvfZdq7CyP+WpBK24czbypNkTvoShIQKx5fznjEqMAYdMZj@vger.kernel.org
-X-Gm-Message-State: AFuF++l+gal8P4zrOKqe5RF4ihwIJwRpDzF2/2doBR3eKbO/zpuHEkB8
-	j1m/Li6OFtwlR7oh+QbWYNbD+BbaiNI9YfEyNhPI0HLcRKkwHvH6fVnhbX9y+1lSvAK/ojwtpIj
-	5z9/r8gvzmM4shD2QQAM44nL7q9blD3Y=
-X-Gm-Gg: AYBFou0VBE+PUnEbU5dN3LhF0oo+MxnZB2ppscUf1h6lXFJw7FcpNhGNrj1kHQypCoR
-	g+TWaUV+wSuyWHb2sKYcX09FBCgEHxTMZ90PJFBM/Tkh5qa8ow+GvvLxtVqmaLk+/RmKNNd3HVe
-	vyHavkt+HDNF75q2ZlCwqPc8OjKsDelmGEePFIgdLT1SsparhuhwdTVs0W6Wk4KWfx0Lqe6QO54
-	EzdJ71D5iPvRcNDiXxwtJIFzMr8vexl2LbtgrDBe9fZBaev2gXikzuuyBSCpLtVrZbBdnUUSGfT
-	xHl6oW4yrJnHDciSM2EQC8d0QbH/QeOXhI4aqVVGvECO/Jxjfr82f2LP3Q==
-X-Received: by 2002:a17:907:968f:b0:c31:5c2b:9e4b with SMTP id
- a640c23a62f3a-c317bd913e3mr171417966b.9.1791367244345; Wed, 07 Oct 2026
- 03:00:44 -0700 (PDT)
+	s=arc-20240116; t=1791367287; c=relaxed/simple;
+	bh=ywZojREeM0ZaYb5yqoQXJK2tphNyzmZK6tPAJ+GH9IY=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=Lw+mBW8/xAr2jgSuBniYOcYRm9KOvE6kKdwMAJs9cgVm/ib3ZL5epK4vbUuoYs0klkvzAq+JHqZ7kdF2MQb4JGe+NySBdFv6HoWo3kZnxfSOJmFfMmyJ1wB0yGfnBFwUdSTUxxyDhGF1X17aL3t2HVNqE+9oHobCBL7MueOug0M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.92
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=CJhOdg/mWFJLDAP3kM0dJgqrsjTA82gFScB2As57B774lcpsPEP4zoB9fam62wH+tWbKoRDYhUqXJxAVcmzvz4WSKkhrJt0bH5735g3pmaNys4gUGZw15PNjKwx5T0UMYU/ATIbU+pnAkiHjCj4abUflstDBZ6M1dbsdbHYVrFgnLRx0npnPfCiiRKLhuO3gQNUQy/WRkVxB2mLTN9REgf6NogG1+7ZA2ATFnBN7IbNuVFzgpQZFEVdbo/bXnLBkzQJ2D/a3uiR90I26UWGMYkg5lAtnDZ1czItsXNgr0/JBdsSLnVAklQ3QT5a1aGwDMQ2B6boID2MfNBBuf1FLPQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=IBNz1fUdwV8cMeWsu0gMUIYKazQOVP6FmepA/ApCQUY=;
+ b=nF4v+D4BUXCEOgG0zH/dSVk5s+P6Qr4hFE6/pFesVlN0T/vNQuwQmeZBHIosQIMNgtIvJmm2LFHXCxF+w+/xXVdxLSmdYnEd7Ef6GDAPkpIMUO/aZG6DcRhARMb8x5km8ghOp8enH4aWVNb9VU6P+7vzNffsBghgnxoTOWixzgn8IMOvoQkMWnywDTfe3rfSGEms71UCxjF6myp3wg6TiShN9vD1rQhm79PsdCQmOWRp1aNd0IYu1diND+teoW9/hWvyhhi1Ic905+ZBuV8xvP3MmnOM56pWq9nADHRgLj9zpkqtw7yv5ZxkG3TbgV9JVz9/bNGy7KgykLhzm8Pwqw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from SH0PR01MB0841.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c311:20::14) by SH0PR01MB0796.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c311:22::21) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.451.19; Wed, 7 Oct
+ 2026 10:01:05 +0000
+Received: from SH0PR01MB0841.CHNPR01.prod.partner.outlook.cn
+ ([fe80::435e:52b5:c524:459c]) by
+ SH0PR01MB0841.CHNPR01.prod.partner.outlook.cn ([fe80::435e:52b5:c524:459c%3])
+ with mapi id 15.21.0472.016; Wed, 7 Oct 2026 10:01:05 +0000
+From: Joshua Yeong <joshua.yeong@starfivetech.com>
+To: broonie@kernel.org,
+	lgirdwood@gmail.com,
+	rahul@summations.net,
+	anup@brainfault.org,
+	lftan.linux@gmail.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu
+Cc: alex@ghiti.fr,
+	joshua.yeong@starfivetech.com,
+	linux-riscv@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v4 0/3] Add RISC-V RPMI voltage service support
+Date: Wed,  7 Oct 2026 18:00:17 +0800
+Message-ID: <20261007100022.2512187-1-joshua.yeong@starfivetech.com>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: BJSPR01CA0024.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c211:c::36) To SH0PR01MB0841.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c311:20::14)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261005223011.1124347-1-coiaprant@gmail.com> <20261005223011.1124347-2-coiaprant@gmail.com>
- <20261006132428.GA1659963-robh@kernel.org> <96FA84EA-3C0E-4FAC-963F-2A8165538748@gmail.com>
- <20261006150831.GC2194299-robh@kernel.org> <46337722-9C86-4118-8286-A506B455B23D@gmail.com>
-In-Reply-To: <46337722-9C86-4118-8286-A506B455B23D@gmail.com>
-From: Coia Prant <coiaprant@gmail.com>
-Date: Wed, 7 Oct 2026 18:00:32 +0800
-X-Gm-Features: AclHuK8fvALioIp_2ZDF3ZkGQsmcOc_f0Q9lbyHaYtZVARGtB6mcLM_NG_T3Tgk
-Message-ID: <CALj3r0ihUKOtn4dE4=UJQG1qZbdE7EEZ76it-17N36gFHDSrzg@mail.gmail.com>
-Subject: Re: [PATCH net-next v10 1/6] dt-bindings: net: pcs: add
- rockchip,rk3568-xpcs support
-To: Rob Herring <robh@kernel.org>
-Cc: Jakub Kicinski <kuba@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Paolo Abeni <pabeni@redhat.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>, 
-	Maxime Chevallier <maxime.chevallier@bootlin.com>, Heiner Kallweit <hkallweit1@gmail.com>, 
-	Russell King <linux@armlinux.org.uk>, David Wu <david.wu@rock-chips.com>, netdev@vger.kernel.org, 
-	linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SH0PR01MB0841:EE_|SH0PR01MB0796:EE_
+X-MS-Office365-Filtering-Correlation-Id: 4e4c4a82-9b53-439e-4e1f-08df2459e696
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|52116014|366016|23010399003|1800799024|7416014|376014|921020|38350700014|56012099006|3023799007|6133799003|10067099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	6HLFwyCWoSDtixfDDdQ+SjLzmNgoUbT8jT8Vl1385+n9gLIiTrel27vxHYCLMe9MVxNYfoJFyqAkHOSqmqzFT4K+pziRdmNaSWN3XXo0BtOyMQGN6ixRRA8Ic6fhW7XkOrUlteW5IWycPMSUcI2NKlEyc76X4ekbIvuDbXCNJPM03v383AXyS9VNXXNl43a+U+88OQiK4YRCjLemP0JtVsorCBBRcpHS8nBr4ITuNnkR8glzF5vkyHFWF+0qciNjHfRQ2DolAxDa88lSMcNVFwfWt8Qyqds22UZYcTYFkrCAgcCROv06QG7pR8aiaAEfsll3+3Y4SIA88LcxuBqmY8WjoybOXPFDSrS/z7egk9PnkuGO+ioppGGkWaVlFxcIdWdc+ZR6XcXBc6VDB+bhZaqPegm6jffTokFFeJ25Uzr0EON9bCOB+QxO2/tZaO3VEIEQXuyJXCB9O5IYmJs0pj9xdlY5nm7wHMcI23O74L03+JeOUcAaLaG0CvDqjx2FtQ95y/AVQumEByOHrUGX5zixMmR/6u36mAJAO3DG8kpvHOBaI5QaRUEYkdlEXtXUCpJmXaT2AM48BMKM5/ptOQ==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SH0PR01MB0841.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(52116014)(366016)(23010399003)(1800799024)(7416014)(376014)(921020)(38350700014)(56012099006)(3023799007)(6133799003)(10067099003)(18002099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?PKof0a5Gd/G3EclgEwuDoAmL9LhLKFhK4fh4RJfjQtnh56j+yaf4/Kr2vv+q?=
+ =?us-ascii?Q?FnqtECzpK9QQK3ymlCACRW4STsE33YjQjrlts2exT+e6mO7nN3DkkwCQe+Je?=
+ =?us-ascii?Q?mhjcpy4DQ8LswLIXhsF3GAMgaGSQwl5Qa/GTcRhrcPO2sa0P27q2avReQrdk?=
+ =?us-ascii?Q?A4gglBa9Jozfq2lx8gXfraOMCRcRPSWnvmpEfVxQ1Ou8/fqyS1kveFVGIBg7?=
+ =?us-ascii?Q?7F4V+td2ivk35aJZOAi+/FKGpohu++v81y1C29NsYDHQ3H5fMCuLtDaJd39p?=
+ =?us-ascii?Q?SQYR2nCi8e3cqhKHiqMAHEoWzxGZH9QxokoaE3a6ChxqTD8s8e1MjKfvHIc2?=
+ =?us-ascii?Q?z5uvCzmm2c3uz6Frp0vhkHgir6tb4Pf+Yh9qQ7D6C8HIA/+PcdJENT/PMST9?=
+ =?us-ascii?Q?ZivycnLV/02/2zJzv9siPZs34BAFpN8EUbTL4b3Sr526ARoiDMtsiFue/tkV?=
+ =?us-ascii?Q?hg0G3ruqQiKfB9suMmud1S7v+g76R2wphPXdWZLWojww6tN+0pzrWMoGrPSS?=
+ =?us-ascii?Q?EzeSutPw270Rg8xAWalzvmR0TtkUhbc74hUTdh+lv+ct+JRoUKLYHbnk5wgG?=
+ =?us-ascii?Q?/eRddLPSp8GkPiAuXsZglDOpFel+ClEz9sdqvqi8QVmfGYuO8wAdHfJqJ4PI?=
+ =?us-ascii?Q?TVlhsWwNyCjPqc9ZpFpdZvTzUoDd5FUkOI78wG07IvhRbukIBeTGhUkdlqH5?=
+ =?us-ascii?Q?qRZu9T7aJuuz9jFoFcAQY3qHrPPi+hiqMNSsJ2AYhRs4os0+MRs6CZRv/Wnc?=
+ =?us-ascii?Q?Gj4prU4Oidf6/rQcuockzvg+HpbB8Qi95b06RN1KBbzdkVJsDb1hJ/DsZDWa?=
+ =?us-ascii?Q?FZrqjp0Irait4wpPgqCjNWSfgXq2S4HwT++nnPvMTvGNTDdVD8uG34hpvmWU?=
+ =?us-ascii?Q?jJcdXoDuDb4l1h8R/JEn9VcugxhLYquMwd85TsPmKveuk60aOfiAV5ST0IQ8?=
+ =?us-ascii?Q?cwPzD3ZXCo1evueAPqHnE0lqd3O1raNhw/XlAeRrOXTkxUMZ/QcyE7OixAAY?=
+ =?us-ascii?Q?VguREjKpPBc5E1lGwHugviLvgoht0fBe4NT+I/UlotnrO+X4SnYrbk9vj2n1?=
+ =?us-ascii?Q?nWA7nQT/cPJJwZF+2EKIAleMTX42P19oBVIN0raX2FvjQnT+mW6QuI/vxRV0?=
+ =?us-ascii?Q?a8xWWe5E/lgidHymAmH7ZCOoeiDTLWkEoh+2NOols8F413oRGdJS2LAE8mLZ?=
+ =?us-ascii?Q?N3ZmDyX1NKcsyUWg6OSTgLbk/lWu82YTUVPg9GoNjXPhLIxelH1zfWEmYR19?=
+ =?us-ascii?Q?gOAQjLR9D3PhiqU/VjAyuLEODXYzRuqeBWoXIibCqzKPL6EdiRH7z2Z3bhps?=
+ =?us-ascii?Q?uZxEtzJQ+ZXCpwZv7z8741c05Dtl1CaM2eKmHvZDqJfqgGCE3K/Vx7aH0Bl/?=
+ =?us-ascii?Q?N+/buSxMkg1uXAmiuMXkNp+L2YL817NsDokjhtAkdvewVhlxFYu33KnAR4VJ?=
+ =?us-ascii?Q?IoyfpYb1ezwOBDhrXrOIWByGP9/6n+0CXxWfgoMzQbwIuV/vGJUDC6KkGxxw?=
+ =?us-ascii?Q?1FePSDy6cb90mydXDaVG9wMvW604kZna/JBH4+upfu/xyOP9Ziu7GqIETsIO?=
+ =?us-ascii?Q?kPcaXvCMqBW4SqaBcnnKzQ4JHeIIzHsjdnXRmjzhLHmwVZ6eIpZCRzLNjvso?=
+ =?us-ascii?Q?7sGjytmgVD4+WKpPeebTLDX3IXU97MAgW4efbPyfVFEw1xRFRPBWN1z4EE47?=
+ =?us-ascii?Q?arXbaDnh97hjeN2zCZvvcR43HtKlUlAcNyZnWkY4yXsWqgbwfuz71xEdFgjL?=
+ =?us-ascii?Q?GzWkLPocIXoDuBt0j0r9tyQ+osmHl5k=3D?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4e4c4a82-9b53-439e-4e1f-08df2459e696
+X-MS-Exchange-CrossTenant-AuthSource: SH0PR01MB0841.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Oct 2026 10:01:05.1259
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 2KOHvQZk/pBB9uNcs4YjCNOFi2zwqCqDOUCt74ypoGFrg+0fkZkSI4xOBrl7JRuX0iffjrTBnqF994rIjcdcTfstGe3jWjYJRRnKdSJkw1c=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SH0PR01MB0796
 
-Coia Prant <coiaprant@gmail.com> =E4=BA=8E2026=E5=B9=B410=E6=9C=886=E6=97=
-=A5=E5=91=A8=E4=BA=8C 23:52=E5=86=99=E9=81=93=EF=BC=9A
->
-> On October 6, 2026 11:08:31 PM GMT+08:00, Rob Herring <robh@kernel.org> w=
-rote:
-> >On Tue, Oct 06, 2026 at 09:59:49PM +0800, Coia Prant wrote:
-> >> On October 6, 2026 9:24:28 PM GMT+08:00, Rob Herring <robh@kernel.org>=
- wrote:
-> >> >On Tue, Oct 06, 2026 at 06:30:03AM +0800, Coia Prant wrote:
-> >> >> Add device tree binding documentation for the Synopsys DesignWare
-> >> >> XPCS integrated on the Rockchip RK3568 SoC.
-> >> >>
-> >> >> The XPCS is accessed over the APB3 bus and internally connected to
-> >> >> a Naneng Combo SerDes PHY.  It supports 1000BASE-X, SGMII, and
-> >> >> QSGMII modes, with four MII ports.
-> >> >>
-> >> >> The four MII ports are described as ethernet-pcs-mii@N child nodes,
-> >> >> consumed by the Rockchip XPCS glue driver later in this series.
-> >> >>
-> >> >> phys and phy-names are required because dtbs_check only validates
-> >> >> required properties for enabled nodes. The SerDes link is a board-l=
-evel
-> >> >> design choice (combphy1 on some boards, combphy2 on others), so the=
-se
-> >> >> properties must be provided by the board device tree, not the SoC d=
-tsi.
-> >> >>
-> >> >> The CRU reset lines (SRST_XPCS*) are intentionally not described: n=
-o
-> >> >> in-tree user requests them, and bring-up relies on the PD_PIPE powe=
-r
-> >> >> domain, the SerDes PHY and the in-IP soft reset. They can be added
-> >> >> later as optional without breaking ABI.
-> >> >>
-> >> >> Signed-off-by: Coia Prant <coiaprant@gmail.com>
-> >> >> ---
-> >> >>  .../net/pcs/rockchip,rk3568-xpcs.yaml         | 110 ++++++++++++++=
-++++
-> >> >>  1 file changed, 110 insertions(+)
-> >> >>  create mode 100644 Documentation/devicetree/bindings/net/pcs/rockc=
-hip,rk3568-xpcs.yaml
-> >> >>
-> >> >> diff --git a/Documentation/devicetree/bindings/net/pcs/rockchip,rk3=
-568-xpcs.yaml b/Documentation/devicetree/bindings/net/pcs/rockchip,rk3568-x=
-pcs.yaml
-> >> >> new file mode 100644
-> >> >> index 0000000000000..703fcff0e3f70
-> >> >> --- /dev/null
-> >> >> +++ b/Documentation/devicetree/bindings/net/pcs/rockchip,rk3568-xpc=
-s.yaml
-> >> >> @@ -0,0 +1,110 @@
-> >> >> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> >> >> +%YAML 1.2
-> >> >> +---
-> >> >> +$id: http://devicetree.org/schemas/net/pcs/rockchip,rk3568-xpcs.ya=
-ml#
-> >> >> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> >> >> +
-> >> >> +title: Rockchip RK3568 Synopsys DesignWare Ethernet PCS
-> >> >> +
-> >> >> +maintainers:
-> >> >> +  - Coia Prant <coiaprant@gmail.com>
-> >> >> +
-> >> >> +description: |
-> >> >> +  Rockchip RK3568 SoC integrates a Synopsys DesignWare Ethernet Ph=
-ysical
-> >> >> +  Coding Sublayer (XPCS).
-> >> >> +  The PCS provides an interface between the Media Access Control (=
-MAC)
-> >> >> +  and the Physical Medium Attachment (PMA) sublayer through a Medi=
-a
-> >> >> +  Independent Interface (GMII).
-> >> >> +
-> >> >> +  The XPCS is accessed over the APB3 bus and internally connected =
-to a
-> >> >> +  Naneng Combo SerDes PHY.
-> >> >> +  It supports 1000BASE-X, SGMII and QSGMII modes.
-> >> >> +
-> >> >> +  The block contains four MII ports that can be individually enabl=
-ed and
-> >> >> +  routed to one of the Ethernet GMAC controllers via the pcs-handl=
-e
-> >> >> +  property in the MAC device tree node.
-> >> >> +
-> >> >> +properties:
-> >> >> +  compatible:
-> >> >> +    const: rockchip,rk3568-xpcs
-> >> >> +
-> >> >> +  reg:
-> >> >> +    maxItems: 1
-> >> >> +
-> >> >> +  "#address-cells":
-> >> >> +    const: 1
-> >> >> +
-> >> >> +  "#size-cells":
-> >> >> +    const: 0
-> >> >> +
-> >> >> +  clocks:
-> >> >> +    items:
-> >> >> +      - description: APB3 bus interface clock (clk_csr_i), require=
-d for register access
-> >> >> +      - description: EEE clock (clk_eee_i), required for Energy Ef=
-ficient Ethernet operation
-> >> >> +
-> >> >> +  clock-names:
-> >> >> +    items:
-> >> >> +      - const: csr
-> >> >> +      - const: eee
-> >> >> +
-> >> >> +  phys:
-> >> >> +    maxItems: 1
-> >> >> +
-> >> >> +  phy-names:
-> >> >> +    const: serdes
-> >> >
-> >> >You don't really need phy-names if there is only 1 entry.
-> >> >
-> >> >> +
-> >> >> +  power-domains:
-> >> >> +    maxItems: 1
-> >> >> +
-> >> >> +patternProperties:
-> >> >> +  "^ethernet-pcs-mii@[0-3]$":
-> >> >> +    type: object
-> >> >> +    description:
-> >> >> +      One of the four MII ports of the XPCS. The port is linked to=
- an
-> >> >> +      Ethernet MAC controller via the pcs-handle property in the M=
-AC's
-> >> >> +      device tree node.
-> >> >> +
-> >> >> +    properties:
-> >> >> +      reg:
-> >> >> +        description: MII port number.
-> >> >> +        enum: [0, 1, 2, 3]
-> >> >> +
-> >> >> +    required:
-> >> >> +      - reg
-> >> >
-> >> >Why the child nodes? They don't contain anything.
-> >> >
-> >> >Perhaps that's due to pcs-handle not supporting arg cells to pass the
-> >> >port number? That's about to change[1].
-> >> >
-> >> >Rob
-> >> >
-> >> >[1] https://github.com/devicetree-org/dt-schema/pull/198
-> >>
-> >> Hi Rob,
-> >>
-> >> Both points make sense.
-> >>
-> >> 1. I'll drop phy-names since there's only a single entry.
-> >>
-> >> 2. For the ethernet-pcs-mii child nodes: you're right that they only
-> >>    contain 'reg'. The reason I used child nodes is because pcs-handle
-> >>    arg cells are not available yet -- PR #198 is still open and in
-> >>    RFC/change-request state.
-> >>
-> >>    The RZN1 MII converter binding does the same thing: it declares
-> >>    MII ports as subnodes and references the PCS via pcs-handle, until
-> >>    arg cells land.
-> >>
-> >>    So I'd like to keep the child nodes as a temporary workaround, and
-> >>    I'll add a note in the binding that this can be simplified once
-> >>    PR #198 is merged.
-> >
-> >Bindings are an ABI. You can't merge the binding then change it. Please
-> >comment on the PR that you all need it.
-> >
-> >Rob
->
-> Hi Rob,
->
-> Understood on the ABI point, and I don't want to merge a binding we'd
-> have to change later.
->
-> Could I ask for your guidance on the practical path? This series is
-> ready, and I'd like to get it into 7.4 if possible, since OpenWrt and
-> other distros base their support on LTS kernels. Missing this window
-> means a long wait for users.
->
-> Given PR #198 is still open, I see these options:
->
-> 1. Wait for PR #198, then use pcs-handle =3D <&xpcs 0>. My concern is tha=
-t
->    I have no visibility into its timeline -- it could be weeks or much
->    longer -- and holding the whole binding on that is hard to plan
->    around.
->
-> 2. Keep the child nodes as the final ABI, RZ/N1 style, no planned
->    migration.
->
-> 3. Something else you'd prefer.
->
-> Which would you recommend? If waiting is the right call, I'll do that,
-> but I'd like to understand roughly how long PR #198 is expected to take.
->
-> Thanks,
-> Coia
+The RISC-V Platform Management Interface (RPMI) specification defines a
+modular and extensible messaging protocol between the supervisor software
+and a platform microcontroller (PuC). Among the service groups it defines
+is the voltage service group (service group ID 0x00007), which allows the
+supervisor to enumerate the voltage domains managed by the PuC, query
+their attributes and supported levels, switch them on and off, and
+get/set their voltage level.
 
-Hi Rob,
+This series adds supervisor-side support for that service group:
 
-Thanks for the feedback. I went back to the Rockchip OEM SDK to check how
-this is actually wired up, and it confirms the MII port is not an
-independent board-level configuration -- it follows the MAC the SGMII
-link is routed to (GMAC0 -> port 0, GMAC1 -> port 1).
+ - DT bindings for the regulator controller exposed to the supervisor
+   ("riscv,rpmi-voltage") and for the SBI MPXY channel that the SBI
+   implementation uses to expose the service group to the supervisor
+   ("riscv,rpmi-mpxy-voltage"). The name, level format, supported
+   levels and always-on capability of each domain are discovered at
+   runtime, so none of them is described in DT. A consumer names a
+   domain through a "<name>-supply" phandle to a child of the optional
+   "regulators" container, whose "reg" is the RPMI DOMAIN_ID. A child
+   may also give the board's regulator-min-microvolt and
+   regulator-max-microvolt, which the PuC has no way to express.
 
-So I've dropped the ethernet-pcs-mii child nodes and the phy-names
-property, and the glue driver now derives the MII port from the MAC id.
-The binding no longer needs pcs-handle argument cells, so we don't have
-to wait for PR #198.
+ - A regulator driver, drivers/regulator/riscv-rpmi-regulator.c, which
+   talks to the PuC over an SBI MPXY mailbox channel. At probe it
+   checks the RPMI and service group versions, queries
+   VOLT_GET_NUM_DOMAINS, then for each domain VOLT_GET_ATTRIBUTES and
+   VOLT_GET_SUPPORTED_LEVELS and registers it as a regulator. Both
+   level formats the specification defines are supported: discrete
+   levels become a voltage table and linear (min, max, step) ranges
+   become linear ranges. The constraints are built from the discovered
+   levels and the always-on flag, with the transition latency as the
+   settling time, and a DT child can only narrow them. Enable and
+   disable go through VOLT_SET_CONFIG and voltage selection through
+   VOLT_SET_LEVEL and VOLT_GET_LEVEL.
 
-I'll post the updated series on the 9th.
+ - A MAINTAINERS update adding the driver and its bindings to the RPMI
+   device power entry, renamed "RISC-V RPMI DEVICE POWER AND VOLTAGE
+   DRIVERS".
 
-Thanks,
-Coia
+The series has a prerequisite: the RPMI device power series ("Add
+RISC-V RPMI device power service support"), which has been applied for
+next:
+
+  https://lists.infradead.org/pipermail/linux-riscv/2026-September/099498.html
+
+Patch 2 needs it for include/linux/mailbox/riscv-rpmi-message.h, where
+the voltage service group definitions are added next to the device
+power ones that series introduces. Patch 3 also extends the MAINTAINERS
+entry it adds. The base-commit and prerequisite-patch-id lines below
+identify the tree the series applies to.
+
+Changes in v4:
+ - Serialise the RPMI transactions on the mailbox channel with a mutex.
+   All the regulators of one controller share the channel, and the
+   client does not block on transmit, so two regulator operations
+   running at once could queue the second message behind the first and
+   return, freeing the on-stack message, before it was sent. Reported
+   by the Sashiko review of v3.
+ - The other point in that review, that mpxy_reg_set_voltage_sel()
+   rejects a 0 uV level, is left as is: the regulator core reads 0 uV
+   from list_voltage() as a selector that cannot be used, and rejects
+   voltage constraints whose minimum is 0 uV.
+
+   The bindings and the MAINTAINERS patch are unchanged from v3.
+
+v1: https://lore.kernel.org/r/20260922161156.1088153-1-joshua.yeong@starfivetech.com
+v2: https://lore.kernel.org/r/20260923070014.1340761-1-joshua.yeong@starfivetech.com
+v3: https://lore.kernel.org/r/20261006083259.2206001-1-joshua.yeong@starfivetech.com
+
+Testing
+=======
+
+The series was tested under QEMU with the RPMI voltage service
+implemented in firmware.
+
+Components:
+
+ - OpenSBI: v1.9
+   https://github.com/riscv-software-src/opensbi
+
+ - QEMU: the RPMI-enabled tree at
+   https://github.com/yeongjoshua/qemu/tree/rpmi-v11.1.0
+
+Kernel config: enable CONFIG_REGULATOR_RISCV_RPMI (default y on RISC-V
+when MAILBOX is enabled) along with the SBI MPXY mailbox driver.
+
+Run with:
+
+  qemu-system-riscv64 \
+      -M virt -m 2G -smp 4 \
+      -bios fw_dynamic.bin \
+      -kernel Image \
+      -M rpmi=true \
+      -nographic \
+      -initrd rootfs-busybox.cpio \
+      -append "root=/dev/ram rw console=ttyS0,115200 no_console_suspend mem=2048M earlycon=uart8250,mmio,0x10000000"
+
+The emulated PuC advertises eight voltage domains, covering both level
+formats, always-on and switchable domains, and domains the board
+constrains in DT. They show up under /sys/class/regulator/ and in
+/sys/kernel/debug/regulator/regulator_summary. Consumer test drivers,
+kept out of this series, walked each domain to its highest and lowest
+level, switched the switchable ones off and back on, and checked board
+ranges and requests from several consumers sharing a rail, each naming
+it through "<name>-supply", including requests carried by an OPP table.
+All checks passed.
+
+Joshua Yeong (3):
+  dt-bindings: regulator: Add RPMI voltage service bindings
+  regulator: Add RPMI voltage service
+  MAINTAINERS: Add RISC-V RPMI voltage driver
+
+ .../regulator/riscv,rpmi-mpxy-voltage.yaml    |  65 ++
+ .../regulator/riscv,rpmi-voltage.yaml         | 130 +++
+ MAINTAINERS                                   |   5 +-
+ drivers/regulator/Kconfig                     |  14 +
+ drivers/regulator/Makefile                    |   1 +
+ drivers/regulator/riscv-rpmi-regulator.c      | 908 ++++++++++++++++++
+ include/linux/mailbox/riscv-rpmi-message.h    |  14 +
+ 7 files changed, 1136 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/devicetree/bindings/regulator/riscv,rpmi-mpxy-voltage.yaml
+ create mode 100644 Documentation/devicetree/bindings/regulator/riscv,rpmi-voltage.yaml
+ create mode 100644 drivers/regulator/riscv-rpmi-regulator.c
+
+
+base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
+prerequisite-patch-id: 907ffadca74a65c93ad38f428e002d2b34341067
+prerequisite-patch-id: 5a4df94e66de2f63697891a0f1382fabd9df7b6f
+prerequisite-patch-id: 0827a7050d08fea7deaab8e82f2dd16acdca507d
+-- 
+2.43.0
+
