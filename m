@@ -1,52 +1,67 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05A613AAF43;
-	Wed,  7 Oct 2026 20:54:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4A9C3CF1E7;
+	Wed,  7 Oct 2026 21:00:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791406500; cv=none; b=eppUp9eNViV++Tt0r28IdRP24JaFQR08xw0/qj8PP5k4cw9BqzLiQnpQ2pco6bdBN4Jp/arvlo0fWBIOjdjVAl5TUN/+FQ6kkrRycvxjsuiIfkiXGRMC60d0xa7qnPhjlhAWQuqBQp1T/sc8embegr5vKhmDUvYVsKYI5F9shVw=
+	t=1791406860; cv=none; b=PEXtFboGV4ub2yZLhVo/2/I13GNW5LPWLrjwmBeaYXLX9lgosOiCuBe/mjePqcsxSJ+tBadov8SRw/BB4TW1Ie5C2iXpEoTwITJlTKFdNeKRr84skx8ZGg2+mIDOFm4T7PsJeEbil2wH/TjI9ZAuCqjwU4EwIMdDdB9HIlLwfhQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791406500; c=relaxed/simple;
-	bh=dR+Xtoko4L+nnIcn1O5Scejhui0soBawQ5MqimbEJFU=;
+	s=arc-20240116; t=1791406860; c=relaxed/simple;
+	bh=DjV6pU5Ygctp/BedOBvtLifXI/+hzam3cb5J6puT2Og=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JqOAcdmeqSKpRJj1FGaaM/bVw1D3UKVMtN+U655ve3kJ+KkvhOGes1956mRhSFInu4Fykz9ZI713ecD5ODNi7bpgggWli/ZK665KUCZKIQqPQP4MaUeFKV6vJijAmW+jC7yKX2OiTZrv31c1ip/ZO2pUWlgX+g/QGG1zYPPtMCE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b/Ngthpb; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=hI3sR9kuEQjxv0Sq0YQpm3O0eXPQ/g4jREcfln0urXLVdGVqPP8Kr+guycsQVDmGrvNGoRgVH1xV6JS7r9/pefYy/SJ9J7qHE1KwjeTfcNzGJQv1trLcULPQsk1+sNQqErNMTp3N9xfoCgE1yEn3WhiXYf5fyMySOgDCa0MEd9Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DlA7fxez; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b/Ngthpb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6DDF21F000FF;
-	Wed,  7 Oct 2026 20:54:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DlA7fxez"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5168D1F000FF;
+	Wed,  7 Oct 2026 21:00:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791406498;
-	bh=QY0h4ABM1Lsl5S3xmOqk4ruDmgs7pu94V8J2UpImWYE=;
+	s=k20260515; t=1791406859;
+	bh=TbYPg3uQU1P6rMt+WuOLQFicMNfbSJBbie5yCmhoZc0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=b/NgthpbP5KxHn0r8bi5jUIcatR2v+xFhRF6TH89riTegb06UWSwp74nuIrsx+nGJ
-	 doGXmQlBB8SU5Hgfeviy9j0TV/jDmrQcwse5nd+99nf+OW6jsEkXVckCLICQ7wCC/G
-	 vNl7L3H9soFJlGi76krCVl1vAx0ntoaRaKY9klgGLLEjPhVRNB2mWl+loUuAG2dYcm
-	 yRICId+Le90LCrmOkvzvx4roEf3N2CX/iEmAx1/MHsSmTqvkV1tn2rXGdxfE+rKLAn
-	 0Gb3eHkC7sKfvAPSUJnywYVl7uwiC2S7+cejXdbBDmh4D+pXyn/2YyH47tbguSU787
-	 Em1lDwhHHXC6Q==
-Date: Wed, 7 Oct 2026 15:54:57 -0500
-From: Rob Herring <robh@kernel.org>
-To: Vasilij Strassheim <v.strassheim@linutronix.de>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
-	Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Russell King <linux@armlinux.org.uk>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
-	Martin Kaistra <martin.kaistra@linutronix.de>,
-	Benedikt Spranger <b.spranger@linutronix.de>
-Subject: Re: [PATCH net-next v3 3/8] dt-bindings: net: dsa: Add SoC-e SWIP
- switch
-Message-ID: <20261007205457.GA244932-robh@kernel.org>
-References: <20260923-devel-vstrassheim-soce-dsa-ml-v3-0-ddebafcb9ba7@linutronix.de>
- <20260923-devel-vstrassheim-soce-dsa-ml-v3-3-ddebafcb9ba7@linutronix.de>
+	b=DlA7fxezfe1z+1SnRn5LXiq7eRXTf4Wa/Mg0y9+59eWKxQT4DgzFaWCEpnRqIVNQE
+	 gN0SXj6ZmBT5Rmm3TdrmyP14EHopZyd9r0EXpEOSaFPU2vKvQToybCkN2NK3HbCHMg
+	 ST58deOjUKDl3/uZ571L1lEeLRQO0IDXxaHtEMP4+1vE+svI74ZMqDvCPm8P1tx2wK
+	 /KWbLmIpzeWWtGHiDJGBuB5wdNR2jq/xcBk7NAtcrpllfvReO7QYQQ9PEhvPB2d2UU
+	 w+Mu56IlWXzOVzF+rGDRuhrSUVAYTHRJs2lQKVfRGyK7rS/F41uzXfWm5bzzsnTD4W
+	 RHjzI02XRHE6g==
+Date: Wed, 7 Oct 2026 16:00:58 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Changhuang Liang <changhuang.liang@starfivetech.com>
+Cc: Jani Nikula <jani.nikula@intel.com>, Hanjun Guo <guohanjun@huawei.com>,
+	Mukesh Rathor <mrathor@linux.microsoft.com>,
+	Jakub Kicinski <kuba@kernel.org>, Jason Gunthorpe <jgg@ziepe.ca>,
+	Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Karthikeyan KS <karthiproffesional@gmail.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Pengpeng Hou <pengpeng@iscas.ac.cn>, openbmc@lists.ozlabs.org,
+	devicetree@vger.kernel.org, linux-aspeed@lists.ozlabs.org,
+	Vladimir Oltean <vladimir.oltean@nxp.com>,
+	Dan Williams <djbw@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Dave Penkler <dpenkler@gmail.com>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	linux-kernel@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	James Morse <james.morse@arm.com>,
+	Jonathan Cameron <jic23@kernel.org>, linux-doc@vger.kernel.org,
+	Alexandra Winter <wintera@linux.ibm.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Jonathan Corbet <corbet@lwn.net>, Breno Leitao <leitao@debian.org>,
+	Stephen Hemminger <stephen@networkplumber.org>,
+	linux-arm-kernel@lists.infradead.org,
+	Chia-Wei Wang <chiawei_wang@aspeedtech.com>,
+	Julian Braha <julianbraha@gmail.com>,
+	Alexander Usyskin <alexander.usyskin@intel.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Oskar Senft <osk@google.com>, Vitaly Lubart <lubvital@gmail.com>
+Subject: Re: [PATCH v3 3/4] dt-bindings: soc: starfive: Add StarFive JHB100
+ UART routing
+Message-ID: <179140685827.281341.11055156225840359821.robh@kernel.org>
+References: <20260925050947.9900-1-changhuang.liang@starfivetech.com>
+ <20260925050947.9900-4-changhuang.liang@starfivetech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -55,63 +70,24 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260923-devel-vstrassheim-soce-dsa-ml-v3-3-ddebafcb9ba7@linutronix.de>
+In-Reply-To: <20260925050947.9900-4-changhuang.liang@starfivetech.com>
 
-On Wed, Sep 23, 2026 at 12:39:30PM +0200, Vasilij Strassheim wrote:
-> Add a binding for SoC-e FPGA-based Ethernet switch IP cores.
+
+On Thu, 24 Sep 2026 22:09:46 -0700, Changhuang Liang wrote:
+> Add device tree binding for the StarFive JHB100 UART routing controller.
+> This controller allows dynamic routing of inputs between built-in UARTs
+> and physical serial I/O ports, enabling use cases such as Host <-> BMC
+> communication via UARTs.
 > 
-> The compatible identifies a register layout characterized by the core
-> and feature identification registers at the encoded offsets. The
-> concrete synthesis-time configuration is then autodetected from these
-> registers.
+> The clocks property exists in the hardware, but the driver does not use
+> it.
 > 
-> Describe the Ethernet ports and the optional integrated MDIO controller
-> with its generic MMIO mux and child buses.
-> 
-> Signed-off-by: Vasilij Strassheim <v.strassheim@linutronix.de>
+> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
 > ---
->  .../devicetree/bindings/net/dsa/soce,swip.yaml     | 162 +++++++++++++++++++++
->  1 file changed, 162 insertions(+)
+>  .../soc/starfive/starfive,uart-routing.yaml   | 46 +++++++++++++++++++
+>  1 file changed, 46 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/soc/starfive/starfive,uart-routing.yaml
 > 
-> diff --git a/Documentation/devicetree/bindings/net/dsa/soce,swip.yaml b/Documentation/devicetree/bindings/net/dsa/soce,swip.yaml
-> new file mode 100644
-> index 000000000000..d614fb2a29d3
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/net/dsa/soce,swip.yaml
-> @@ -0,0 +1,162 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/net/dsa/soce,swip.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: SoC-e ethernet switch IP core for FPGAs
-> +
-> +maintainers:
-> +  - Vasilij Strassheim <v.strassheim@linutronix.de>
-> +
-> +description:
-> +  SoC-e Ethernet switch IP cores are FPGA-based switches whose features
-> +  and number of ports are selected at synthesis time. Ports can connect
-> +  to CPUs, external PHYs, FPGA logic, or other switch cores. An integrated
-> +  MDIO controller accesses the per-port external buses through a mux.
-> +
-> +$ref: dsa.yaml#
 
-Doesn't look like you use any DSA properties. Can you use 
-ethernet-switch.yaml instead. Also, if you don't have any custom 
-properties, you need to ref "dsa.yaml#/$defs/ethernet-ports" instead.
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
-> +
-> +properties:
-> +  compatible:
-> +    const: soce,swip-00-04-0c-10
-> +    description:
-> +      Register layout with the core version register at offset 0x00 and
-> +      feature identification registers at offsets 0x04, 0x0c, and 0x10.
-
-Do you expect these to change? Kind of an odd compatible, but okay...
-
-> +      Switch instances using this register layout are autodetected from
-> +      these registers and use this compatible regardless of their
-> +      synthesis-time feature and port configuration.
