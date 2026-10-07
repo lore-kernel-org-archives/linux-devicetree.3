@@ -1,133 +1,96 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4303942F6FA
-	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 08:33:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BD44413799
+	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 08:34:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791362015; cv=none; b=gkh4Jgnow3s5K7uU4PmueMS01eYhUoOTbxWWkiIuLE6ZXLnSQcAkMvCoLvfhV4DhAartaxlFLd95P5H6DwsKZHOTw8fzNcl9aGgCY7wcBVRjK1ckDgbs6sxSjxflusGR0eMpcEmw9ZQVQMryfyOl59qqFYPidDjP61GftgITGLY=
+	t=1791362059; cv=none; b=jKGDRRYwcWqCMO+O0yK4HQzTawZJ47hmw3TKbyIxyKElDwhIYpewTEPcgEgozIovDuO226/tdHlHGyS/ZFr2QwuZwcooEkOcsasVEYuxir8yEIN0Q2gD+vw6Yihcs/SQIw71/Jyh9V2d0M130n4pE1T5o2oCd5ozEWjgyCl/Q5Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791362015; c=relaxed/simple;
-	bh=nAWvF0NRtn6Rb1Gw9Fb5LrsP6FPPefqqvmqVqbv1Jcc=;
+	s=arc-20240116; t=1791362059; c=relaxed/simple;
+	bh=k2LWVlEbO4mtlO7zkAsTCCHDAZ0eNseSbBPcM0qvM7c=;
 	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=AuKbs8SDIO+gBR5KhUNvjvGAgCCQNaLR3NkxQiSrR9h9NHE9Jy5q2DC8tLVLObeZSsrh6wWbfQcBVAMjI4qlial8u2TDIR6E1BT3rKK72Ph0EuTwV8cqfuDHwZHQPfwP5Ofs1iQDrPM++u/LGY4zdhXnYQAtSfPZahFaJPG0mHA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Uc+ziwdi; arc=none smtp.client-ip=209.85.221.50
+	 MIME-Version:Content-Type; b=VyNwv/5zLs1CEROgOjw6sSHMIz3m8hSyswUXZNqlKH5jgI7N2AW1sfHtMTFOhbbLf+wfKJ8gAX6xhO0ji2UGZp+NUCmuxDYvjYdJ/7iTr1zoFP1MWAledRTZV9fZo9YiPUXvfHpcr4TICLvXoUlJIoTuKmZqYuwhnf8PJ8+/DpM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=YuRYmcJB; arc=none smtp.client-ip=209.85.128.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Uc+ziwdi"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48b02b1b4cfso1063966f8f.0
-        for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 01:33:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="YuRYmcJB"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a1688d7769so23481925e9.0
+        for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 01:34:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1791362009; x=1791966809; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XxcGgnejISp1+VB6bpLIgoBBJ18yCkjKzQQ5g+qkFis=;
-        b=Uc+ziwdigLmst40jpcmnLxoqS5kSV96Gij+bUQp5966AsPvlGDKPHuyuP4oDPk60ni
-         HeuFc+wYmYHXjd7XpSuILbMigBPukwb50CL5PcfD14MhiRgTp1qm4kmymF1stsQEo2Qp
-         nEiePSGFwhwsTrBmjvzeDLZPhrvLXAjJV/scj7gQAAgszLtwTD452q1+7KseJbN2c9ZB
-         bAG91W7M+iTECzIy5rWw7aPYBuGGUPqfUZMfBMvBjCDQPpzJ24eV8V1WmqXkYm9nl1vu
-         WyGST2A+k3O+AxJDzdozWw6XWWfPphdHDe7bbUaRoTStlcME0NG3gJODcFwgwkbkD/XB
-         Ye1Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791362009; x=1791966809;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :references:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=baylibre.com; s=google; t=1791362055; x=1791966855; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=XxcGgnejISp1+VB6bpLIgoBBJ18yCkjKzQQ5g+qkFis=;
-        b=jjD1fojOsT6THM6Y7Wz2BfOVj995Djj792JHPbdkcMqbzWAinM0TxxJjJeWDpVpL9Z
-         2nn/jg1WTwdVZ2I76No02/vp8xKi+7d1VYgn5fzDGjcbPLflMLPsohll1UNt7rEXXKm9
-         kE4+is60ro6EkKiiZxISxc+X7XrCvR5UKK9Fs9FABaoJWa2NKfwC/I5IQ+O36CpCCKzV
-         EaB47FH06r84S7w9Bsu11i3rc3EUvUvfOS4V4vHIArw7yT/Og0bQcAkJ6vXOJdEwy9ai
-         D7hkqb/EjeIctbWMBuiKQjFXKcWRgtB7Dw3vdgCvX5HTPDGIMWXqK2fc8x8CoNfLX50B
-         rCSQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx9LuOfA3N0yizUVuoX0DujqOOfcuK3dc3/snLRob6+4Wi4Jz8HrL9vn2iDb+GO7flCoEXBbkZQbovd@vger.kernel.org
-X-Gm-Message-State: AFq9FYJByaNHzTTnR/KZfeeykcGiDQLjcBV1o5KDwXAOIZOvyRZoSrO8
-	dNonvJS1PmdguA7voK3TsZ/6hrfa6jTomR1klFwz6PHBTMXsMphEIto+qAgs6CD/5SVfPRDWpLu
-	J/yaBrO0=
-X-Gm-Gg: AYBFou18gCV6t0kaBfZHKWjumfaZt3WL3AEHJJ+2NKE1OD54UmUpEulJGvGRcFs4AAd
-	2rEhX4Y9a9okLND0N4yVZfDp6q9Cc7dCHKDK8NJiL6LztF334StbHxrJ9b8Qpb59qlMACW3mfZn
-	a4qdZGzdw45131w7ZUyR0BYWkf2LAW4ey7JYIgCAe8gyy4GzK+g4HUz6wQXv//EDuFCTMKX3MsZ
-	lCsBWzuVKNTcbHPeB74XgmlTysyPGuFSP+CauHAZHAva65csgVMUZPCMYi9w0hHbwflp8iZQYa/
-	iR1JqB33a3iN4qmrQRubzgpCmueEjdeJg7d48tmtqxxIw+K4t11J9T/Hc6N+Q21dqj+LgEiS+x8
-	1L0esJcq6vrU87msXi+xtfJWTR9CitnqLILU+3uQhBgjx3M3Mj5gxZKNjtLmA3Ha5uLE7OqOruw
-	7siafQEge6ihjs7YXuSiA6A9lQQnjBUcafdD47kNVO1pWdyueM/gpyBzqhSWfyy3AacW+QatqTJ
-	jNopnsq9HaZqBs=
-X-Received: by 2002:a05:6000:3cd:b0:48c:69b3:6114 with SMTP id ffacd0b85a97d-48c69b362fdmr9482875f8f.3.1791362009297;
-        Wed, 07 Oct 2026 01:33:29 -0700 (PDT)
+        bh=k2LWVlEbO4mtlO7zkAsTCCHDAZ0eNseSbBPcM0qvM7c=;
+        b=YuRYmcJBr7bRkIHW5cS3rRVHhMcU6eQfGY3vA4mJPU/9owTwr85YhgGKF+5JAu5HpS
+         xbuTq9lDL+M2NNPwbBk555eHYcgF1GoYK6Kj9vHyCRh+LioCEHbs4yHXsXrHxREIr8Qp
+         iVo7ACndj6rnzfKagReUmKm66RSfYp3ne5w5S7qEfGVRk1DQZC3JlIIpEXVXQL1BHQDR
+         K04RGFGdPRijH8kio7I7NmBHvOrWDINDmmexWQ9O0SqdfLoy8cG/mK/ccnfrOz47VC93
+         M18VY7Xz0Mde9r2oGW+C5MLlCif6wezSfBHjGIgSu/dTa4r0nqhs1LF03Y15Rz0rmWwS
+         Z6yA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791362055; x=1791966855;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=k2LWVlEbO4mtlO7zkAsTCCHDAZ0eNseSbBPcM0qvM7c=;
+        b=PLcdW+E8JxjXFKFpoZC0tL0snvxCJyrD/mvFKJEXX0DtwSIv3P9vZaFVlGhFTmCL7f
+         1fODffnp88ZTkZcNYo7/N7yrJmQkngPZ4v0mTzlfqpuLewt8LSj+7Z1faiK5xe2t2c8T
+         yScoocehE2YpHljrdleQ2y3Hxvlfj+Fnt/pDndpg0Cx/bVzOQEqI73t1LFb3E7KFW3YB
+         Hxsd2IroOvClbUWtU1uA6EybHuVcNkEbudTtN6ZOijefNPMp//gvcPUufx77LC9jlRHF
+         qwVZbPNOLT53TA6bWFt62MykiTcdG+p2C8SAl0t3YryD1RQjNVLHGDYn1Fa89+qev0my
+         HMig==
+X-Forwarded-Encrypted: i=1; AKwUvBychtpMSemCeEUQ9uv+Op4hOOXgj33GzloJJA2zH4i2L827OTEDvdKWw8avp2i5mV64xG+TiH3xT2iY@vger.kernel.org
+X-Gm-Message-State: AFuF++k3+vUXSD8VvNB9RMJIVLf8SmIGOA8S7cvTkgLcKtivYZT2503Z
+	KEIx2iKYyJvBl6pylRcwHtkYHyiYLUhhUUZErZ550aON8N9GTSxO+XPdqosBUSdQ/Ac=
+X-Gm-Gg: AYBFou2VN7lp+S7lXOtxfjzBUr0CQab2yBOZwNXKFed33YP9Xlr+rYmkTSCmELiDGPD
+	PsWX9W/0MEiyKKjb4Jx1vlLEuS5dwVmIv7d14VYXcvvYarheysg+DsvDRP+Bru0fj+Q5uJHcgWM
+	M+FX790gRyYpjUQYnTCpZoLbapvYHAF4T1bE5hh+yYItIE6ZvkokXjTia0ObzfpCkGinen0BCTv
+	hLE/SSUi3CEK6ALs7aRShfsN+YedJql6CMZFru0IONrJ8Xat4KoyCpdJtTfxLqBGGvpUkO323u0
+	jZ9IYfR1lXz6MNGQzAPFoeNzJh3mxaZhXX/+A/6zovP/XDKqvwxBAA51aestWxKmBGvQwwIUJn5
+	mB1HfJpwOim0CoVWrglzuzPU8qnOJpCF1ARToMifiGJqe7zzpVYsL5oWTuT3AAYy0pxU0EKu4dv
+	UIKAUJK59G/85gpTWnrDQrO5ZVrDhuiUP0+e8HOxhHCDcc9nHiA5YQ7SiIHH3u/xL/eCOBtUjiT
+	xTx35BcAOSozFH16dmiUgh/2A==
+X-Received: by 2002:a05:600c:5254:b0:49f:c1a1:5222 with SMTP id 5b1f17b1804b1-4a180679d9dmr19886705e9.33.1791362055220;
+        Wed, 07 Oct 2026 01:34:15 -0700 (PDT)
 Received: from localhost (90-182-211-1.rcp.o2.cz. [90.182.211.1])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c71d3b502sm4290158f8f.52.2026.10.07.01.33.28
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a17f493761sm79454375e9.2.2026.10.07.01.34.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 01:33:28 -0700 (PDT)
+        Wed, 07 Oct 2026 01:34:14 -0700 (PDT)
 From: Jerome Brunet <jbrunet@baylibre.com>
-To: sashiko-reviews@lists.linux.dev, Valerio Setti <vsetti@baylibre.com>
-Cc: robh@kernel.org, neil.armstrong@linaro.org,
- linux-amlogic@lists.infradead.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org
-Subject: Re: [PATCH v4 4/7] ASoC: meson: add AUDIN driver
-In-Reply-To: <20261001162313.4333D1F000FF@smtp.kernel.org>
+To: Valerio Setti <vsetti@baylibre.com>, Liam Girdwood
+ <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, Kevin
+ Hilman <khilman@baylibre.com>, Martin Blumenstingl
+ <martin.blumenstingl@googlemail.com>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>
+Cc: linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Valerio Setti <vsetti@baylibre.com>
+Subject: Re: [PATCH v4 2/7] ASoC: meson: build gx-formatter as a separate
+ module
+In-Reply-To: <20261001-audin-v4-2-2476646118b5@baylibre.com>
 References: <20261001-audin-v4-0-2476646118b5@baylibre.com>
- <20261001-audin-v4-4-2476646118b5@baylibre.com>
- <20261001162313.4333D1F000FF@smtp.kernel.org>
-Date: Wed, 07 Oct 2026 10:33:27 +0200
-Message-ID: <1jbj95zz8o.fsf@starbuckisacylon.baylibre.com>
+ <20261001-audin-v4-2-2476646118b5@baylibre.com>
+Date: Wed, 07 Oct 2026 10:34:14 +0200
+Message-ID: <1j8q49zz7d.fsf@starbuckisacylon.baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain
 
-On Thu 01 Oct 2026 at 16:23, sashiko-bot@kernel.org wrote:
+On Thu 01 Oct 2026 at 18:06, Valerio Setti <vsetti@baylibre.com> wrote:
 
-
->> diff --git a/sound/soc/meson/audin.c b/sound/soc/meson/audin.c
->> new file mode 100644
->> index 0000000000000..808e7d4fd31a2
->> --- /dev/null
->> +++ b/sound/soc/meson/audin.c
-> [ ... ]
->> +static const struct regmap_config audin_regmap_cfg =3D {
->> +	.reg_bits	=3D 32,
->> +	.val_bits	=3D 32,
->> +	.reg_stride	=3D 4,
->> +	.max_register	=3D 0x148,
->> +};
+> Instead of including it in 'snd-soc-meson-aiu', create a separate module
+> for it. This way it can be independently selected by either AIU or the
+> (upcoming) AUDIN.
 >
-> [Severity: Medium]
-> Will hardware state like the channel mask and endianness be lost across
-> system suspend and resume cycles?
+> Signed-off-by: Valerio Setti <vsetti@baylibre.com>
 
-It is a good question but I'd consider this a pre-existing issue, if it
-is one.
-
-Amlogic audio drivers have seen very little testing, if any, when it
-comes to suspend/resume, because the suspend support from the platforms
-them self was very limited too. I have no idea if the situation has
-improved lately but the subject is definitely not limited to this driver.
-
-IOW, the issue might exist (or not) but I do not think it should be a
-blocking point ATM.
-
->
-> ALSA calls the driver's prepare() callback to recover a suspended stream,
-> but not hw_params(). Because this regmap lacks a cache configuration, it
-> cannot automatically restore the register state configured during hw_para=
-ms()
-> when the system resumes.
->
-> --=20
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261001-audin-v4=
--0-2476646118b5@baylibre.com?part=3D4
->
-> _______________________________________________
-> linux-amlogic mailing list
-> linux-amlogic@lists.infradead.org
-> http://lists.infradead.org/mailman/listinfo/linux-amlogic
-
---=20
-Jerome
+Reviewed-by: Jerome Brunet <jbrunet@baylibre.com>
