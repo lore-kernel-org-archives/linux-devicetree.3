@@ -1,124 +1,195 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE6A63DC4AE;
-	Wed,  7 Oct 2026 10:59:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC9EC397AFF
+	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 11:00:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791370793; cv=none; b=QFF3W53QznZc1Psiwr5gyw2F3+0pd5vO4/mOrGYHN3oG2/IM1cxXDUoXooChTrRfj/yGFURGYr/IgAaFWdxwzSCrUJJNRHM7AFV2AybqWAjg+TYW6KQWkiBh40easfwGBOyBhMy6e6mvKzPua4Bowa/45Zw+PbSM91L8jfN7YcA=
+	t=1791370849; cv=none; b=uhDF9CYFvpxr2fbwKrhqNLR+4E/CC7ofFMHzD3KTgxREwC6g1mKNWvvZtG1ogsWRGaefh/59z087CtKUP1g4cmvbnKndYSxm6SGNFKX3YbnbgogWYE0sn8tG91XmZuveSmih1sWyYlPd7xP9GoaLMfNsNVRjnWKAM5cM7PZdp5c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791370793; c=relaxed/simple;
-	bh=DSp5/cjwpPBFtnHMUENvDKFsR7swL4Wl9/MC+vwJfFA=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=iEIQs/U/hWYlCJ4oUZM8d1/KM5ciOAhj15vow8NosfOUYPq/y8D83eDyzWPqwuzU8JZAwE5U6j135IjPxxgyATXngKqYMbMLiu5zhcndHZukTCVSk0bDQq9lBXgSFfQVJtHrA1cEaC2BSb9H85fpd5YIP+7jZVDLUxBNSm8NsWQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gi0Il8zl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791370849; c=relaxed/simple;
+	bh=VU/dQ6PyuT7ZXeA2t3pyo87RFBXHOriX+IpfI3AmWwc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DYFbuuUSDbrwVrvYhhcqoiV5arrwA+KTmCzhu+uSkPly0C7kaI3IPxJYB4wg5B4kx3wbiInbR/Nd8+SGLTQi4xvOmdw6CQR5TvFyDoX3ne0kgtkAYI8BH4xdS4DFD0oK+PCmNxN5okWCL+Cr4qwROX+jGN14wj+DDK8Pe31s+9A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=oU1AcnTu; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=RQcYMyor; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gi0Il8zl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C0261F0089C;
-	Wed,  7 Oct 2026 10:59:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791370767;
-	bh=XqqMoVBph5LdKWDnuUyakEvSC1AIbdMOHXs5nTupdmA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gi0Il8zlC4yBuTOjJ1XzafXVX+9jOAYzLZE4AFE6BVXueRBOBmTapesF+0o84yVb8
-	 3HYgqbm7cFlK7hmvxZQPTMfxotYb6+maEYQY+zYgEYwI3WpayNT6mEWkAqOu/QP6kB
-	 Q3HdJiFY3my+uGnPh7sJsrhSrpdMaPwCa9psBr2gLCrJVhM8v4eGiDQ1cORhYSSE1N
-	 vMoxqfxkExr8e32fbTKrhJ7v31iUMih2FrduWi6qJqYAz9dy8K/hD9rQiELPWWrr3i
-	 Vz+Ua2hPsXJVSsgrt7RJSItvpTV54EDf6GvcJ+FZrSgBUXztloRR9iXzo8UfJQgQVR
-	 yRe+0OHoZALQA==
-Message-ID: <sashiko-outbox-162900@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v12 13/20] drivers: soc: ti: k3-ringacc: handle absence
- of tisci
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sai Sree Kartheek Adivi" <s-adivi@ti.com>
-Cc: Frank.Li@kernel.org, dmaengine@vger.kernel.org, vkoul@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261007102936.2402427-14-s-adivi@ti.com>
-References: <20261007102936.2402427-1-s-adivi@ti.com>
- <20261007102936.2402427-14-s-adivi@ti.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 07 Oct 2026 10:59:27 +0000
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="oU1AcnTu";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="RQcYMyor"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6977jnik3334832
+	for <devicetree@vger.kernel.org>; Wed, 7 Oct 2026 11:00:23 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Snd8Nbf+SiQhM0aPYxj0+20rz+GkPAR7nvSsrKWQQBo=; b=oU1AcnTuBUKPMdOX
+	9jSWS530HrKrixtTyv3jinPa15dqNfDFg7UkF4MI8j56piw+vwI3Q1KmAw9K1Mxr
+	WjsEdeiT1mCL0IH3bSTjABJ7mzknGXYBmCKEZ5HkYmg3bC4uXH2nTZyo/TlgspJJ
+	SCyIvFNOdDcWsrRZjZ4WArTrfFZ2r9bNRA3xZFayD1ICpr8Yywi0QmJlg2qpVbf/
+	v/iMMOtxB3Ar+XDIl2MCqkeMm2pgB8FCgD4QOQcDhnh61/Fhdzry/8RInu9jTrO7
+	SycpXpktNObg3gZzDyBv92HTka/JRNjn20Lt9fQKDQg8mrft8HiBcD0ITOykMCFR
+	JY0MWA==
+Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h54623q0s-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 11:00:22 +0000 (GMT)
+Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc435388657so4445043a12.3
+        for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 04:00:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791370822; x=1791975622; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Snd8Nbf+SiQhM0aPYxj0+20rz+GkPAR7nvSsrKWQQBo=;
+        b=RQcYMyorVGr6kwkgU6d1UOCoRuJkSyxo26v7IO9u9n3yO6pbpvcuS1RlY0KyyW8xw5
+         cIIaPBOgc6YT1ICvjXk1hs/bj0H+Kl5Ur2zI84DJ1TSaQYLkErMuG+1h6m7WspfkgxOD
+         8r5bLsHK/94BtbZNv0b+rclrrQLwqovdXwDhz/yXq9GYntF1T8DXuuWjk/1OH5ZGMJ92
+         hG0S70b6g6IyypNNRAFXK2AqkdgEny7IKF4tCK7aV82y7HVL5WP4zkgD5O492QEWvsoP
+         qCO5dwItv2fN4C+q/0wEzpuZ4sAXXqQKyR/CbrnF8TrofrUc8Qtx02N/8cPFuWAlwOxj
+         F6Kg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791370822; x=1791975622;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Snd8Nbf+SiQhM0aPYxj0+20rz+GkPAR7nvSsrKWQQBo=;
+        b=ED/6WaMOR2IFH3Xhetgtbn0aSWtiZqkjlgTnw7KEVDPBwNiKe9q0rkXOSpF+nXOueW
+         ZEoiZ5sBZiaK+2e+1gwLoQD2EeBWCcTEHUDJWQLWR2oBecAf05kZv8QtNUpTSIpclffh
+         x0unlndHaKhWPtFyhEUG3FlzdcxOExEsDGPv66zQWg5PHzK0t1yisUAcDBUtIb80WTgu
+         DN6zgSCzOXfaURQ9rRaH0ZH15wBcJc1dQ7sb/P3jEJVpnzUmA96tdBAr1bKNQ3H4un7D
+         HaKt6FX49Uk5HW/rBNc1QfS/5hsH9lQ/jxR65y7s0AsblQyZUNtUoZlC51L4/6U9sAIe
+         NHLg==
+X-Forwarded-Encrypted: i=1; AKwUvBwgq4icg+/hXS/Oe96weeGkUA2shIRsBb6IO9ZfQUqxgDYMrW/SKGyiMSxBwi9muWzLtkfto9AGKd0L@vger.kernel.org
+X-Gm-Message-State: AFq9FYL65/UQLTq4CNCeVcSSi/g/hBE1Iv8VvZY42bRt2NNI1LPwJ7JZ
+	+32iJPIrE4xxG51KwIIGWcXqgnG+gzcIkL0TsN4UTwksLPCx9QgUQltvpF5GKeVr74kVq+3r7aE
+	5jOIf1aZVJX1vNCf8qJXxaidzYa13J0U6ZeS6uqAox1+ghR0vcKyMeWX2E9sLcSZw
+X-Gm-Gg: AYBFou2OghNLS03QuevHAmihHa5l7NdolkLsTd3k0fxYvtY3OVTEDrUFLjC1KB0DiFE
+	Vcnf6W8VQHGyejRL/IgcCUZ1YBe5YimNtuBJqE3JmwUkoMuZ2+jVblXkK8xiHdMznEaLydTtZ5d
+	hkFyFHFAxFaW3Oy7wTuu04sHDOkEKWgN5AdWjgRmoRb6f5WOBa6a7cEWlbVCehx1sQIaU+HdlLo
+	ECaJk/NZ0wBzUtLlg1FoRJwiUNkF1UN+YM86VYM/vUuJtDTablcU6Bhhp1P0oRH56z7PKu8hgOb
+	Bg7CT2vWQmqXXsTRyF/NsRdSZXm5KUqRwfm/oAI6jAVsXfb4KoXZoSdYBXD6hd1jelw+h0xE2ib
+	/EcCKVQ9Jpj/YvHz63szZLP3aMvLdvDj7LZUIVFCo
+X-Received: by 2002:a17:90b:5887:b0:3a7:250:386e with SMTP id 98e67ed59e1d1-3a8a07404admr1701794a91.22.1791370821875;
+        Wed, 07 Oct 2026 04:00:21 -0700 (PDT)
+X-Received: by 2002:a17:90b:5887:b0:3a7:250:386e with SMTP id 98e67ed59e1d1-3a8a07404admr1701772a91.22.1791370821390;
+        Wed, 07 Oct 2026 04:00:21 -0700 (PDT)
+Received: from [10.217.216.105] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd0a92d5ebesm1232959a12.12.2026.10.07.04.00.13
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 07 Oct 2026 04:00:20 -0700 (PDT)
+Message-ID: <297690cb-64d8-4e7d-9d97-66680f6a2b99@oss.qualcomm.com>
+Date: Wed, 7 Oct 2026 16:30:12 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 3/5] arm64: dts: qcom: glymur: Add UFS nodes
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong
+ <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Alim Akhtar <alim.akhtar@samsung.com>,
+        Avri Altman <avri.altman@sandisk.com>,
+        Bart Van Assche <bvanassche@acm.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        gopikrishna.garmidi@oss.qualcomm.com, jagadeesh.kona@oss.qualcomm.com,
+        Abel Vesa <abel.vesa@oss.qualcomm.com>,
+        Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-scsi@vger.kernel.org,
+        nitin.rawat@oss.qualcomm.com, sibi.sankar@oss.qualcomm.com,
+        Taniya Das <taniya.das@oss.qualcomm.com>
+References: <20261007-glymur_ufs_qcb_enablement-v3-0-84cf4f861415@oss.qualcomm.com>
+ <20261007-glymur_ufs_qcb_enablement-v3-3-84cf4f861415@oss.qualcomm.com>
+ <a5p5gszuadvnvqcwffg6y55khdfhacwhegaxmmiwm72sfid6ex@cdwuo6sdmkgy>
+Content-Language: en-US
+From: Pradeep Pragallapati <pradeep.pragallapati@oss.qualcomm.com>
+In-Reply-To: <a5p5gszuadvnvqcwffg6y55khdfhacwhegaxmmiwm72sfid6ex@cdwuo6sdmkgy>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: gcITaog22DYi0SzYzVvSJx_f9B1aUNL6
+X-Authority-Analysis: v=2.4 cv=ZZiIpcVA c=1 sm=1 tr=0 ts=6ac62646 cx=c_pps
+ a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=SwwKY9vyf4oML-p5yksA:9 a=QEXdDO2ut3YA:10
+ a=3WC7DwWrALyhR5TkjVHa:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDA0MyBTYWx0ZWRfX/tH9fVv6WliG
+ EMYrD10RHLw6fqO5RH6WCfOlg7JMShX7S6ls0DQ7XujgF6uETwMe/YuU+J9zMoGwMiZUnFE+fHc
+ NUE12j+gkZgneF9ZFCvwGfwHhJEpdHc=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDA0MyBTYWx0ZWRfX/7cx9hQMDAJu
+ lyiHCVffp4rJjMRSr6b9629zYy/89R0x1MYigP/CenPyF0wfXLolmMJn9f6+Y7tFhxY2H0aLqcc
+ wk7A321s9FnvMy1/vraz1RUy9rpDEbYqh+tAdMC6MosqLp2QAPwWxk7tarh04AWcJ37dXeUA3Xn
+ mm1cUzQrNkvhm+oPlgVzhin1nCRv/Mr/uAe8S7jOgHSKgqc+krvkJvMIOgAUFaDkJaKVh8uNJAj
+ TxwIQA8mDF3avhZ4FvnSGmhyfTjmuwFGeuJ8mE/IouGNBFUK2S3Dc9LUcfsP4FAgsWzs76z64Ts
+ nDcFquM0qdq8KJ6LIhqYQrIZmb/TAwpYhAcI6QrX4t8kVCEHdS/t/3CPr1xXzC/flvf0K8R5OX+
+ NgN/0zoTwZFWBqBQT7qXL0enK6v5U2vLPpGOEGNqrYHiEPMrjBYP9N7S0HD+lBczBHMSIpDpZUd
+ 0Yle0dnmFbtlpjv7trw==
+X-Proofpoint-ORIG-GUID: gcITaog22DYi0SzYzVvSJx_f9B1aUNL6
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-07_03,2026-10-06_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 spamscore=0 priorityscore=1501 impostorscore=0 bulkscore=0
+ phishscore=0 lowpriorityscore=0 suspectscore=0 clxscore=1015 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070043
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] dma: k3-ringacc: DMA use-after-free if hardware size clear times o=
-ut during teardown
---
 
-commit 48061d2f6a019df3afcaa81ed2b4f501e491cdef
-Author: Sai Sree Kartheek Adivi <s-adivi@ti.com>
 
-drivers: soc: ti: k3-ringacc: handle absence of tisci
+On 10/7/2026 1:13 PM, Dmitry Baryshkov wrote:
+> On Wed, Oct 07, 2026 at 11:59:36AM +0530, Pradeep P V K wrote:
+>> Add UFS PHY and UFS host controller nodes for Glymur SoC.
+>>
+>> Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+>> Signed-off-by: Pradeep P V K <pradeep.pragallapati@oss.qualcomm.com>
+>> ---
+>>  arch/arm64/boot/dts/qcom/glymur.dtsi | 125 ++++++++++++++++++++++++++++++++++-
+>>  1 file changed, 122 insertions(+), 3 deletions(-)
+>>
+>> @@ -4102,6 +4102,125 @@ rng: rng@10c3000 {
+>>  			reg = <0x0 0x010c3000 0x0 0x1000>;
+>>  		};
+>>  
+>> +		ufs_mem_phy: phy@1d80000 {
+>> +			compatible = "qcom,glymur-qmp-ufs-phy";
+>> +			reg = <0x0 0x01d80000 0x0 0x2000>;
+>> +
+>> +			clocks = <&rpmhcc RPMH_CXO_CLK>,
+>> +				 <&gcc GCC_UFS_PHY_PHY_AUX_CLK>,
+>> +				 /* UFS and PCIE4 share the same clkref */
+>> +				 <&tcsr TCSR_PCIE_4_CLKREF_EN>;
+>> +
+>> +			clock-names = "ref",
+>> +				      "ref_aux",
+>> +				      "qref";
+>> +
+>> +			resets = <&ufs_mem_hc 0>;
+>> +			reset-names = "ufsphy";
+> 
+> power-domains = <&gcc GCC_UFS_PHY_GDSC> ? Or is there
+> GCC_UFS_MEM_PHY_GDSC, which is simply not described in gcc?
+> 
+> If there are none, it should be reflected in the DT bindings, together
+> with the explanation in the commit message.
+> 
+Yes, Glymur SoC does not support UFS PHY GDSC. Sure, i will update the DT-bindings accordingly and include the explanation in the commit of next patch series.
 
-This patch handles the absence of TISCI by falling back to direct register
-writes. This adds support for platforms that do not have TISCI firmware=20
-like AM62L.
+>> +
+>> +			#clock-cells = <1>;
+>> +			#phy-cells = <0>;
+>> +
+>> +			status = "disabled";
+>> +		};
+>> +
+> 
 
-> diff --git a/drivers/soc/ti/k3-ringacc.c b/drivers/soc/ti/k3-ringacc.c
-> index 5966db4327b13..9195d91fae732 100644
-> --- a/drivers/soc/ti/k3-ringacc.c
-> +++ b/drivers/soc/ti/k3-ringacc.c
-
-[ ... ]
-
-> @@ -576,10 +665,40 @@ static void k3_ringacc_ring_free_sci(struct k3_ring=
- *ring)
->  	ring_cfg.index =3D ring->ring_id;
->  	ring_cfg.valid_params =3D TI_SCI_MSG_VALUE_RM_ALL_NO_ORDER;
-> =20
-> -	ret =3D ringacc->tisci_ring_ops->set_cfg(ringacc->tisci, &ring_cfg);
-> -	if (ret)
-> -		dev_err(ringacc->dev, "TISCI ring free fail (%d) ring_idx %d\n",
-> -			ret, ring->ring_id);
-> +	if (!ringacc->tisci) {
-> +		u32 reg;
-> +
-> +		writel(K3_RINGACC_RT_INT_ENABLE_SET_COMPLETE | K3_RINGACC_RT_INT_ENABL=
-E_SET_TR,
-> +		       &ring->intr->clr);
-> +
-> +		reg =3D readl(&ring->cfg->size);
-> +		reg &=3D ~K3_DMARING_CFG_SIZE_MASK;
-> +		writel(reg, &ring->cfg->size);
-> +
-> +		ret =3D readl_poll_timeout(&ring->cfg->size, reg,
-> +					  !(reg & K3_DMARING_CFG_SIZE_MASK),
-> +					  1, 100);
-> +		if (ret) {
-> +			dev_err(ringacc->dev, "ring %d size clear timeout\n",
-> +				ring->ring_id);
-> +			return;
-
-[Severity: High]
-If readl_poll_timeout() times out here, the early return prevents clearing
-the ring base address registers (ba_lo and ba_hi).
-
-Since the caller k3_ringacc_ring_free() subsequently frees the ring memory
-unconditionally via dma_free_coherent(), could this lead to a DMA=20
-use-after-free if the hardware continues to access those still-programmed=20
-addresses?
-
-Does the teardown path need to ensure the DMA addresses are cleared even
-if the size clearing operation times out?
-
-> +		}
-> +
-> +		reg =3D readl(&ring->cfg->size);
-> +		reg |=3D ring_cfg.count & K3_DMARING_CFG_SIZE_MASK;
-> +
-> +		writel(reg, &ring->cfg->size);
-> +
-> +		writel(ring_cfg.addr_lo, &ring->cfg->ba_lo);
-> +		writel((ring_cfg.addr_hi & K3_DMARING_CFG_ADDR_HI_MASK) +
-> +				(ring_cfg.asel << K3_DMARING_CFG_ASEL_SHIFT),
-> +				&ring->cfg->ba_hi);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261007102936.2402=
-427-1-s-adivi@ti.com?part=3D13
