@@ -1,191 +1,91 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D600920D4FC
-	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 20:32:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB4543E49C0;
+	Wed,  7 Oct 2026 20:35:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791405178; cv=none; b=aLqUwhsYHxBQfPInG9ZN4QUgH1rBgyWxw3B6tgNNaXqLyS9d3kz5qUmx0BAHMAIFis6LkshHIt6/BGm7u9BhNTy/dYs/CL8ilLwi9aWSUDfbmxIcJSVnBErAYS1v3s0095Tnt1c42rKH27WW4V/KG9ZL6JBLCQCJwZ+q3m027Ao=
+	t=1791405357; cv=none; b=am137OxuS2r5Ha/MEhjxWCYKcQB6FTsfGwe5OU4nihJ7t7Zjd9J+X/478f7XolAcztcsh5+mjCtz9i0hht9KVxD0HYqZ0FAclb4n7PavboMlNCqfUr8G/wZBTTm9casr+tRkffn718XK2YJfWUrxQgSrIfC5HqHdQhn4qcxnjrs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791405178; c=relaxed/simple;
-	bh=Nm0VkI+YKZk/40kSU1lZSLvRdgMMWWYdfkTZmHGTPWM=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=ccPejdf3xf3xLd3SwDziuVnPdmkl7twyysFMq4F+u8Essl+dQVzXHA8/m6uz76dUBGAr2jOsGGmEYi7ebozkElCSqh0t5v1642IvfgM94clDHkBnt0sdWgO19s57M5emxS7FfAGcwCdPm03Q9SPJ2hhKdh8PJTwldNvlVlSez2A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hrbpl84Z; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791405357; c=relaxed/simple;
+	bh=CrQMPQuIrP3UT/xnSnr7TdUvHO25V4vTzGjDeiouuHg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LLq7bOAJp3dmg2pqvVYLzen3jP4hVTGmHYaXJxle3VXv2Vducjg2GMs3+e2QUWQoskMiIw7HP4ra36ZWNdXGgm0uZiZGR15hdapQhdOFqIJ7Vu8NikX+uV4+3kz+lytO12+XJZtwOBdaT2wZDlEORv2sL9RRYJXMUXgYQSjTcd8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EAnTrrZ9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hrbpl84Z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D1CB1F000FF;
-	Wed,  7 Oct 2026 20:32:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EAnTrrZ9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4BAFC1F000FF;
+	Wed,  7 Oct 2026 20:35:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791405177;
-	bh=EvmHFXSoFmxGfczNgvdD0YwJkvmzBnIzkx20xRy7USo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Hrbpl84ZOz/yKQzqW39VOarlrE6phWBnrWAwKvco0Eq/Bk3brv2PDMUS8lVp57B/+
-	 QH7NktqpHc/Atb8mGdyW4w6PTe4XJB6kfmf0K3rEa/dmiB/Rr4QgSVKbr0d/VYpJeX
-	 vCk99IGAteJbS4yFXAu6yc1CSb/eYTUrAJ3bjBUMeBBwMx3JBBN68wDVHTcBat+wmo
-	 BXAPoUfFj4NNrmeD/B1m0qtd41LFRcRt66Q4rJ7343eHXjy7HHeRP2J0v9TF3JpJk6
-	 u5HGKvbrZPA5AxXQOys7jIlY+YW33rWBkIn42KILc3EqYT1s+/iBzgDf1RTn5RNHcS
-	 +vjz0Oufp0ejg==
-Message-ID: <sashiko-outbox-163341@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v17 2/2] drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI
- DSI to HDMI driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: mohit.dsor@oss.qualcomm.com
-Cc: robh@kernel.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261008-lt9611c-v7-v17-2-1e8f5f2b2f19@oss.qualcomm.com>
-References: <20261008-lt9611c-v7-v17-0-1e8f5f2b2f19@oss.qualcomm.com>
- <20261008-lt9611c-v7-v17-2-1e8f5f2b2f19@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 07 Oct 2026 20:32:56 +0000
+	s=k20260515; t=1791405356;
+	bh=iBnT7QbK9u0Gs8c95AjLx+P8e034rEiTzbi8S3Cwpwc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=EAnTrrZ9FBxijRk+eVs2T8pzlvv92TXfyUbTV4OOYhJre5ukKSsgV9PDEl3ZM+B/D
+	 UohnG4dEbUub4MM3HZ38Jz8NzciIgVZ3pdUwgnYDSHNfCyok4rFESVz8jIPMAOt+lm
+	 dLJi2vVZjTU6/qHvBm1tgWJ5EH9e6YdQCeJgHq57YAs7cqBq9Bu2WMWUiaYh+CFRoj
+	 kDX9aClQniHp9CYj9DR1YS1/4rwJcuF7H5sDiaNL3ZG/MiyEpfTNQBayP8HMjRxGEP
+	 VTC5XO9OIp2tx4YpIPk5+pAQ737aGag1CtbkztZTAz3ll2Rl2Z/egQvBmn+7T+ZbIy
+	 XKqbZAf0OIRNw==
+Date: Wed, 7 Oct 2026 15:35:55 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Stefano Radaelli <stefano.radaelli21@gmail.com>
+Cc: Heiner Kallweit <hkallweit1@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org,
+	Josua Mayer <josua@solid-run.com>,
+	Eric Dumazet <edumazet@google.com>, Frank Li <Frank.Li@nxp.com>,
+	devicetree@vger.kernel.org, Shawn Guo <shawnguo@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	"David S. Miller" <davem@davemloft.net>,
+	Mehmet Fide <mehmet.fide@screeningeagle.com>,
+	Hugo Villeneuve <hvilleneuve@dimonoff.com>,
+	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>,
+	Fabio Estevam <festevam@gmail.com>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	pierluigi.p@variscite.com, Sascha Hauer <s.hauer@pengutronix.de>,
+	Joseph Guo <qijian.guo@nxp.com>,
+	Stefan Eichenberger <eichest@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	Francesco Dolcini <francesco.dolcini@toradex.com>,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev, Conor Dooley <conor+dt@kernel.org>,
+	Markus Niebel <Markus.Niebel@ew.tq-group.com>
+Subject: Re: [PATCH v4 05/13] dt-bindings: net: micrel: Fix RMII clock select
+ property type
+Message-ID: <179140535486.208329.1445143309084105314.robh@kernel.org>
+References: <cover.1790693249.git.stefano.r@variscite.com>
+ <9a0f70dc168278a484bb336835bf2e419a9d089d.1790693249.git.stefano.r@variscite.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <9a0f70dc168278a484bb336835bf2e419a9d089d.1790693249.git.stefano.r@variscite.com>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [Critical] drm: build failure due to non-existent .atomic_create_state ho=
-ok in drm_bridge_funcs
-- [Critical] drm: type mismatch and memory corruption in atomic_enable hook=
- signature
-- [High] drm: missing mandatory initialization for HDMI bridge operations
-- [High] sysfs: NULL pointer dereference in firmware attributes due to regi=
-stration race
-- [Medium] drm/bridge: missing atomic_disable leaves LT9611C hardware power=
-ed on
---
 
-commit 0482492a2bb6e8ef5381a82384662e6858358155
-Author: Sunyun Yang <syyang@lontium.com>
+On Tue, 29 Sep 2026 17:17:32 +0200, Stefano Radaelli wrote:
+> From: Stefano Radaelli <stefano.r@variscite.com>
+> 
+> The binding describes micrel,rmii-reference-clock-select-25-mhz as a
+> boolean. dt-schema requires properties ending in -mhz to contain an
+> unsigned integer value. A bare property therefore produces a
+> property-units.yaml type warning.
+> 
+> Describe 25 MHz selection as <1> and keep the property restricted to
+> KSZ8021, KSZ8031, KSZ8081 and KSZ8091 PHYs, which have the RMII
+> reference clock select bit. The driver checks only for the property
+> presence, so this does not change runtime behavior.
+> 
+> Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
+> ---
+>  .../devicetree/bindings/net/micrel.yaml       | 27 ++++++++++++++-----
+>  1 file changed, 20 insertions(+), 7 deletions(-)
+> 
 
-drm/bridge: Add Lontium LT9611C(EX/UXD) MIPI DSI to HDMI driver
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
 
-This commit adds support for the Lontium LT9611C series MIPI DSI to HDMI
-bridge chip. It supports configuring single or dual port DSI inputs and
-provides HDMI output functionality along with audio and sysfs firmware
-update support.
-
-> diff --git a/drivers/gpu/drm/bridge/lontium-lt9611c.c b/drivers/gpu/drm/b=
-ridge/lontium-lt9611c.c
-> new file mode 100644
-> index 0000000000000..6082c89b388bf
-> --- /dev/null
-> +++ b/drivers/gpu/drm/bridge/lontium-lt9611c.c
-[ ... ]
-> +static void lt9611c_bridge_atomic_enable(struct drm_bridge *bridge,
-> +					 struct drm_atomic_commit *state)
-> +{
-> +	struct lt9611c *lt9611c =3D bridge_to_lt9611c(bridge);
-> +	struct drm_connector *connector;
-> +	struct drm_connector_state *conn_state;
-> +	struct drm_crtc_state *crtc_state;
-> +	struct drm_display_mode *mode;
-> +	int ret;
-> +
-> +	connector =3D drm_atomic_get_new_connector_for_encoder(state, bridge->e=
-ncoder);
-
-[Severity: Critical]
-Does the signature of this atomic_enable hook match what the DRM core expec=
-ts?
-
-The atomic_enable hook in drm_bridge_funcs expects the second argument to be
-a struct drm_bridge_state pointer for the old bridge state. Treating this
-argument as the top-level struct drm_atomic_commit pointer and passing it to
-drm_atomic_get_new_connector_for_encoder() casts the bridge state to a comm=
-it
-state, which can cause out-of-bounds memory access when dereferencing the
-state arrays.
-
-[ ... ]
-> +static const struct drm_bridge_funcs lt9611c_bridge_funcs =3D {
-> +	.attach =3D lt9611c_bridge_attach,
-> +	.detect =3D lt9611c_bridge_detect,
-> +	.edid_read =3D lt9611c_bridge_edid_read,
-> +	.atomic_enable =3D lt9611c_bridge_atomic_enable,
-> +	.atomic_duplicate_state =3D drm_atomic_helper_bridge_duplicate_state,
-
-[Severity: Medium]
-Is an atomic_disable hook needed here to properly power down the bridge?
-
-The driver implements atomic_enable to set up video timings and dual DSI
-ports, but lacks a corresponding atomic_disable. During display blanking
-or system DPMS off, the hardware might remain active, wasting power or
-potentially locking up when the upstream DSI host stops its clock.
-
-> +	.atomic_destroy_state =3D drm_atomic_helper_bridge_destroy_state,
-> +	.atomic_create_state =3D drm_atomic_helper_bridge_create_state,
-
-[Severity: Critical]
-Does this compile against the current drm_bridge_funcs definition?
-
-The struct drm_bridge_funcs does not contain an atomic_create_state member,
-and the assigned helper drm_atomic_helper_bridge_create_state does not exis=
-t.
-The correct hook for resetting bridge state is atomic_reset, pointing to
-drm_atomic_helper_bridge_reset. Without a valid reset hook, atomic state
-allocation for the bridge will fail.
-
-[ ... ]
-> +static ssize_t firmware_store(struct device *dev, struct device_attribut=
-e *attr,
-> +				      const char *buf, size_t len)
-> +{
-> +	struct lt9611c *lt9611c =3D dev_get_drvdata(dev);
-> +	int ret;
-> +
-> +	dev_warn(dev, "starting firmware upgrade =E2=80=94 display will be disr=
-upted\n");
-> +
-> +	ret =3D lt9611c_firmware_upgrade(lt9611c);
-
-[Severity: High]
-Can lt9611c be NULL here if the sysfs file is accessed before probe complet=
-es?
-
-The sysfs group is registered via lt9611c_driver.driver.dev_groups, which
-means the files are created by the driver core before probe runs. If usersp=
-ace
-accesses this before i2c_set_clientdata() is called, dev_get_drvdata(dev)
-will return NULL, causing an immediate crash when it is passed to
-lt9611c_firmware_upgrade().
-
-[ ... ]
-> +static ssize_t firmware_show(struct device *dev, struct device_attribute=
- *attr, char *buf)
-> +{
-> +	struct lt9611c *lt9611c =3D dev_get_drvdata(dev);
-> +
-> +	return sysfs_emit(buf, "0x%04x\n", READ_ONCE(lt9611c->fw_version));
-> +}
-
-[Severity: High]
-Similar to firmware_store, this will dereference a NULL lt9611c pointer if
-the sysfs attribute is read before the client data is set in probe, or if
-probe fails.
-
-[ ... ]
-> +	lt9611c->bridge.of_node =3D client->dev.of_node;
-> +	lt9611c->bridge.ops =3D DRM_BRIDGE_OP_DETECT |
-> +			DRM_BRIDGE_OP_EDID |
-> +			DRM_BRIDGE_OP_HPD |
-> +			DRM_BRIDGE_OP_HDMI |
-> +			DRM_BRIDGE_OP_HDMI_AUDIO;
-> +	lt9611c->bridge.type =3D DRM_MODE_CONNECTOR_HDMIA;
-
-[Severity: High]
-Since this driver sets the DRM_BRIDGE_OP_HDMI flag, does it also need to
-initialize supported_hdmi_ver, supported_formats, and max_bpc?
-
-When DRM_BRIDGE_OP_HDMI is set, leaving these uninitialized (zero) causes
-drm_bridge_add() to log a warning for an unknown HDMI version. The HDMI sta=
-te
-helpers will also reject display modes because no valid color formats or
-depths are advertised, which prevents display modesetting.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261008-lt9611c-v7=
--v17-0-1e8f5f2b2f19@oss.qualcomm.com?part=3D2
