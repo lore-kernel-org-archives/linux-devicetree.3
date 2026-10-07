@@ -1,52 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BDCD3EDE7C;
-	Wed,  7 Oct 2026 20:45:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F37463E49F7;
+	Wed,  7 Oct 2026 20:47:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791405958; cv=none; b=C2nQdwah+VdoX3UWcTVv2Wfi2+Hpq6QKMjPtladI91jO/Mor0PTE6lotX3ORlMYHTyGUgKvS2dtnmhilLLsIvZDzjUkk0Ueb2schWd5Ne4+mXosEFDFW1Fe4EA/SZpmizpDzrdS/ZnkHZy1H6cWidaWfzVlRV078nb9zvrv8MIs=
+	t=1791406068; cv=none; b=pOftSkEE0Npi30hMGCP3vCeozEy7wPSvEdPz9m3f4yJ+gBc3DoZdhE+YjLNMpBveRpOL6xbDw0mnzqN0qK3kBPkDUUKxIcAnS52BaOf+xMIPEriPfyC2ysGdnR7L0/HABe2lwk67IacSRaxgS1h9k37lBbhxo/L1YawXhgiw3QY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791405958; c=relaxed/simple;
-	bh=35tYBjTsnGfodOHVa3RLtV3lcqHyDCI4P7n/KLSx+GY=;
+	s=arc-20240116; t=1791406068; c=relaxed/simple;
+	bh=SxrGDSyEX73l7LarG93DakxyOY4pzJamaXHDM4sBiEI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GEhh19hgHc0nEubBZJT9BhXsUI5p67e2Q0YR3MIP4kwc2L6XTGxsxEO6KW+fsxcj2TubuIXKhDWQGa5ggU9RuShQrGkSCf2JNngbrLK9pb8C+aMElI89af3W3yNv6DAIc1Dt4WjDojQJlqeYg1M+RBGDD7VrnCMDiVokEheN/9o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oPjl4Jhf; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=IscsRbvz21uhiIWndttpsz07WATYnZemSmkj8wvyDUpNamoTT86QuOiOJvIYRpeDXt1POxZtvRDg1YaMagtnmv+HOmB2elb//85Xge6SgTwndpA7m+OUJYwvzgkQs80WZDLdIlq9FttqjMqjYKetdbPcxk7M5ARBDmyEjKGkzic=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c5bhswkH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oPjl4Jhf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C0A51F000FF;
-	Wed,  7 Oct 2026 20:45:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c5bhswkH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6917B1F000FF;
+	Wed,  7 Oct 2026 20:47:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791405957;
-	bh=AVegChHYiynIab6dcXIXFIdgk0jYyjoGPcciAkCI0pY=;
+	s=k20260515; t=1791406066;
+	bh=u8v09+uznNxns8CiadeSWkPY6KMiMjm7ORLmbiWyCfU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oPjl4JhfWgrA/wCXmKOiJ+6y4DmN7jFL4ndbb7AzkM0x7WjR3TJQk+upifxUqt16C
-	 rU7AxnWM2Er8iF6AMDEYfAFnHQ2unwCF/kwDVh4BnIG1PK627UQ1K2Y5eumBJRYMd2
-	 zTOlXqIShWnGKswMK1HvK3jY4BYdRIHdrPB4udsHePsj+ICBjRuk7krytkuCwCgsAX
-	 /wUSj8WstX3kSrj6Ix3jQwedl/QHg7YCOB/QZ/tlqTM/GH8W9t9xPYR6M91JZSrruU
-	 AyuRrbLkc+cC5BKaAjg0O2NY9TUsdck9tEfLf3NEKlHywn7GXPjO+XnLrHHjv7+QQS
-	 jm7wSQLzZV9DQ==
-Date: Wed, 7 Oct 2026 15:45:56 -0500
+	b=c5bhswkHMpLunPnbXDUTmHb0e9KMooSSYkFHsROS+gXOU/Kw01/a4seaLu1RHL9oK
+	 P6ffGKl30zjhP8yNVFu+oSL/tTVSfS1m0LXMTHG9do4iIxNZaMVhqUyPeykEV941yn
+	 YlL7yXtPAh24LXPw9+r21fCgTZWuHvMYo7319isDIKgS2+u7PFm8K4C6cXY6cNPK1M
+	 OL+2ATGDrIxSmpZ2EJaQQog29i22kIiIWdFuel6mX0euAd7U8VI4SOtVh6c/KzvTVt
+	 4iFTUjaEESE4n3+aOgPD18/Tjk4yxW4ZO9yolBhDQ9vKEx6gKhvMcTTGSCyLT04rIp
+	 xTl4i8bdd1LYQ==
+Date: Wed, 7 Oct 2026 15:47:45 -0500
 From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
-Cc: Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
-	Bharath Kumar <quic_bkumar@quicinc.com>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	Bjorn Andersson <andersson@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Chenna Kesava Raju <quic_chennak@quicinc.com>,
-	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Srinivas Kandagatla <srini@kernel.org>,
-	Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v4 1/2] dt-bindings: misc: qcom,fastrpc: Allow hex digits
- in compute-cb node names
-Message-ID: <179140595600.238028.12326483402772161970.robh@kernel.org>
-References: <20261007-glymur-dtfix-v4-0-31f7143e759b@oss.qualcomm.com>
- <20261007-glymur-dtfix-v4-1-31f7143e759b@oss.qualcomm.com>
+To: Ariana Lazar <ariana.lazar@microchip.com>
+Cc: linux-hwmon@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
+	Guenter Roeck <linux@roeck-us.net>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, David Lechner <dlechner@baylibre.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>
+Subject: Re: [PATCH v4 2/3] dt-bindings: iio: adc: add support for PAC1711
+Message-ID: <179140606511.243312.18354429162452985979.robh@kernel.org>
+References: <20261007-pac1711-v4-0-6ef34d7a7947@microchip.com>
+ <20261007-pac1711-v4-2-6ef34d7a7947@microchip.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -55,27 +48,40 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261007-glymur-dtfix-v4-1-31f7143e759b@oss.qualcomm.com>
+In-Reply-To: <20261007-pac1711-v4-2-6ef34d7a7947@microchip.com>
 
 
-On Wed, 07 Oct 2026 15:51:17 +0530, Ekansh Gupta wrote:
-> The patternProperties key for compute-cb subnodes used [0-9]* which
-> only matches decimal digits. However, per DTS convention, node unit
-> addresses must be the lowercase hexadecimal representation of the reg
-> value. For compute-cb nodes with reg values >= 10 (e.g. 12, 13, 14),
-> the correct node names are compute-cb@c, compute-cb@d, compute-cb@e
-> respectively, which are not matched by the current pattern.
+On Wed, 07 Oct 2026 17:41:54 +0300, Ariana Lazar wrote:
+> This is the device tree schema for Microchip PAC1711, PAC1721, PAC1811 and
+> PAC1821 single-channel power monitor with accumulator. The PAC1711 and
+> PAC1721 devices use 12-bit resolution for voltage and current measurements
+> and 24 bits for power calculations, while PAC1811 and PAC1821 have 16-bit
+> resolution and use 32 bits for power calculations. The 56-bit accumulator
+> register accumulates power (energy) or current (Coulomb counter).
 > 
-> Extend the pattern to [0-9a-f]+ to allow lowercase hex digits, making
-> it consistent with DTS unit address conventions. Also change * to +
-> to require at least one digit in the unit address.
+> PAC1711 and PAC1811 measure up to 42V Full-Scale Range, respectively 9V for
+> PAC1721 and PAC1821.
 > 
-> Reviewed-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-> Signed-off-by: Ekansh Gupta <ekansh.gupta@oss.qualcomm.com>
+> The accumulation-source property aims to specify what kind of hardware is
+> intended to be used/available for the user. There are two main cases here:
+> - the user wants to measure also the current/power consumed before the
+> driver insertion (e.g. from the boot to user control) and if this is a
+> runtime setting, the hardware accumulator will be reset by the default
+> configuration the driver starts with.
+> - the driver does not know what type of hardware it's dealing with. In
+> case the part is monitoring the charge/discharge current it does not
+> make sense in user-space to change the accumulator to calculate energy.
+> Same if the hardware is intended to calculate energy it does not make
+> sense in user-space to change to Coulomb counter. Changing the setting
+> from one mode to another will reset the hardware accumulator inside the
+> chip.
+> 
+> Signed-off-by: Ariana Lazar <ariana.lazar@microchip.com>
 > ---
->  Documentation/devicetree/bindings/misc/qcom,fastrpc.yaml | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  .../bindings/iio/adc/microchip,pac1711.yaml        | 169 +++++++++++++++++++++
+>  MAINTAINERS                                        |   6 +
+>  2 files changed, 175 insertions(+)
 > 
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 
