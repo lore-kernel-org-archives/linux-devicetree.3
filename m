@@ -1,169 +1,341 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 286474657FD
-	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 09:43:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31B9547ACE2
+	for <devicetree@vger.kernel.org>; Wed,  7 Oct 2026 09:43:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791366198; cv=none; b=KwWVzf1Q1CIa3MB24N6jU6m0+8mIAzF+cuv+fl33S4j/chocbBSeOc6WFYPjQDmEm4MndSxeNBLKuwRqvok6G3/mFZRI5Z4/pDyhy9w02oiozRacikTJ7qD7/ERvU5UgP3h4lCwGDT2QHj4MTVl6KXXtaxC1rp7dcJkz7CJvwFs=
+	t=1791366237; cv=none; b=Adl0mIETTIsAU/ctuCOekxPkUxRvUawH4baBRyRT/M8d/glB9mNeaJN//mA7MyIA6DvZQNwV2S48PQqX5F7SA13I/AJ9RAmixa60S03JcrXxnKdDf43nyDgjNjXFzr4uG7MHfREwXyNpMSnFSZeWYzk/C3ONBYCpOSkGOhpKb1U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791366198; c=relaxed/simple;
-	bh=kiFe84dyPezmzLEDiTg3RDtzBXfiX84mT6KO+DQZ1UA=;
-	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cNQAcfQpDl+YQzzVCSPhyiM5TB/tAaZ3XBsX3/BlAxV5k0Gtx4XNK1bkZvzWIzuTmPU6sDhP9qfqvW6GOzVYgydeMrZfskOUbi+NRb2/KkY0AebeTCyYd4q4Y2KyRp9wVBBj3Whyivt4slI+lTJTZuFlImKiUfpPEdRLm6RtmB8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=W6N7f0BF; arc=none smtp.client-ip=209.85.221.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791366237; c=relaxed/simple;
+	bh=APy35WtXM0aTQOARfPjmaOGp62HPvSDDlyhrnOOB614=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=ACqafkEn3VrWP+YBz67q7qE/QpYKQUMIj30fIqtbwB96GYuMAeJNm2L2Z8PJLQYGax9zlWDNZOTqOhJ/auKpvUfgoenPxEN1VGKoqbuNSHywJ6yaRJ/zUhGHFPn5kCJiSfyM/Gt5r84EGSgxbSpgoQxYW0KGH9nLXqnlNlURxlg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=fail (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jYGuSu1q reason="signature verification failed"; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="W6N7f0BF"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48441a2ba1bso2221072f8f.1
-        for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 02:43:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791366187; x=1791970987; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:subject:cc:to:from:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=fcB2VgVQ6zTdQxaTfRiH7KXquW4kD4zCj2MYVMkIYy4=;
-        b=W6N7f0BFwpPQV8Yavt+IkpBMy8GlnhZK5n4C5LVcI9wOHe3FMg7IqpcUgnTBXC6Ai4
-         UP56WNzYo7pplgJxBFHmuYReUj4SE5LqngcoMKYSqzG1G16T+5hL5lvAJ4UvpovGO5vf
-         221rnK2eR7g8dS9A6PJcfuUJKiCNsu/qzVrQpHzb2+LwJfBcvvWEA6XskoTA+4nuMCyd
-         p82n52LMDVv0/ESz6IqzX4O+l4DwIW559z7jrn4apF0fEYcZG1GajsJWUMVM18thBlwi
-         E781O1NWskrxTXM2SJ2t4myUAIDSWhGyJmwDnm8Z62JcgpbtwwCVt4e5WJMCCuthUXFz
-         /Diw==
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jYGuSu1q"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6977jnru2711459
+	for <devicetree@vger.kernel.org>; Wed, 7 Oct 2026 09:02:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=u23gRjYZxi4
+	Ye8E66szkWxu0V+sZV9asYPu3dndyBcQ=; b=jYGuSu1qIMd3HDbdU2Uu0hpLp6d
+	tvu+fNxpMZQq4TO5kJuxd/S/U+7Qn9bek7+j3hWGBgXRLXp+TtPGM2R8auy1FGIR
+	PDEGUeV3Ne9kvZcCxENRLW6I7vnrECC/cvtk2mCd6T6Up2dOMweg7hgjrn2/5Sux
+	fBw9xjS0Jzeps/HK/vdn25Ml5AMspqbo5pRhTuzLbHvs5HxczKLbWfoD6q1MkXfu
+	L598Rtcne9bJotw2qPiIaCMq4ixa4bid/ba2s5/IfpSOimY2WCX2+BwObsk/6etJ
+	6m5TJk8RbCXGQQyq756TSe7jq+9Fnu69lZ63aemWH/1FSYccoUAz6CZd3lA==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5c1s1d9d-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 09:02:51 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93bf4c0af4eso586467585a.1
+        for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 02:02:51 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791366187; x=1791970987;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:subject:cc:to:from:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fcB2VgVQ6zTdQxaTfRiH7KXquW4kD4zCj2MYVMkIYy4=;
-        b=DYY8xn4vykWSvJtxCoqw05T62R7nDZXy46wjc5BHf/cApMzbCpoCZtr9xazmMJizRp
-         yG94xUSgvIGgiHV1covDkBhNlkZ5L7ZkGdoUo/k1j4sda5l+HO05egRJRf0WfvOKUTvJ
-         BsKOg34aXzWJFyXViHQ8XrlxQ40Llx6JZBk1g7uu86oW7w315FePtNIFoQoGD0xr5sJB
-         OTT/uvFrZ7zm/Nz9OlTrzq3sC027wiv/jGA4gvUmbkv5C2uFZdmrPB17+8luwBu5Zn8u
-         ct2ORcxEr2OV5eebOrZvSBtWrAifhhMrvVoyfwzC9rlknR29PzMer5yGUm6EIJ6Os3hT
-         LR0A==
-X-Forwarded-Encrypted: i=1; AKwUvBxdQZP8fEAgJ0hygmV0uwRpBbioktgh+/dzsZTJ6Xil2jk/b0tMQwc+Ffhi3UCm/LIrctleRU0OsIr7@vger.kernel.org
-X-Gm-Message-State: AFq9FYKYgJ8lVbb8vrQWyAEltdoWwASiW9PQuHhWV0B2EVQfUxCvcHmE
-	6eiTTgOiGTJ3P/BIfMYbfc1X9AU61g58BhY52ff9i+Mved6CC12nrTCJ
-X-Gm-Gg: AYBFou3e/By4RX5fm1ursWqW9q95DzpDFHPbRgcXCBY1JbFtnf6TYIMQv2seMr4X/5R
-	43Dg/e2CsYoi/Zwy1WiGsVupotwhZhhBVFVG48cV4latR4JXwRK1KxG+7dBEQqmPCEo55NQG8oI
-	qldjmXRq6HzfutlNaVgJaDqu4tEiYyVdfaWchzFNQpZ+VGkp/Dbg1QqV/8/C0TwqKAxFyJBs0m1
-	wQEmAi6bzg4BU69UlT5cKnaw1TieqXu6a+3Ei/UxUkbUdgxDEoHgpP5QMPDgefzLjO651cBYBlu
-	SMs+tOFYk+My4ksOx+3N0JgzyZPmG9nGqMnH1W2VxTtFsyWccJbJTfgjXWNQZiXZdQXZJ+2D9VH
-	PTInI9RM2X1459ncdrE8VUD9Q2/gcAdq8NDjtwWBPkGXBbquM3eRgy2/ko0Gl11Z6346HQaT/f3
-	jhlifZIIdGVVxA0vvf4Pvmj4Jh+Vr/bGWuKlR8zGxLdjrRlB5aKhha4cjUzY5RH46IpfdNqShY2
-	qIG/onECbawcS+WXMbl9s/jsCweSN9LtqpOY/Zz/YDdd52g/QUTkzGyj7Gztc/z/a0pYfyEzHR2
-X-Received: by 2002:a05:6000:2886:b0:48b:fdd:fbe4 with SMTP id ffacd0b85a97d-48c72889c8fmr2930515f8f.21.1791366186990;
-        Wed, 07 Oct 2026 02:43:06 -0700 (PDT)
-Received: from Ansuel-XPS. (host-87-20-252-14.retail.telecomitalia.it. [87.20.252.14])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c71d2e2dcsm5072334f8f.42.2026.10.07.02.43.05
+        d=1e100.net; s=20260707; t=1791363771; x=1791968571;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=u23gRjYZxi4Ye8E66szkWxu0V+sZV9asYPu3dndyBcQ=;
+        b=TkohXPsSd7mO5XUbczbTgDic7LB50bCL+NCV7GFIch8M4YkgcB3j8pP337ce9rbwDG
+         L701A5OhW5mp2lHCAFmtKp5U1/PEaCvMhZJNrNAaXyrw4FKjK7fL+xMFPrlVnHe0EudJ
+         g9Nq+t4sNgdp83gYfT1MSA70i9BUB4E+KdevrJ0LibN2vLVmJUI5FefdwA8ifkF0dIzv
+         33dgRFmdEq5qJYiBwa10Yhha5D4si080teN2qqgLfKdzhN2Vf31aBhyclPjdrmZEUweY
+         e9wV3aPCy5f9q8WUzZlir/dMDY9lS/dJ+wYNIHZB17ql7/2R3Ejb49Ge0glgNz2dMF0n
+         q1XQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwWIlb7hhvlL7qNNI864R+64tuqtn0CjKBqCWibrWdgsh1CNaiLNsCds/hpkihX21gQ0ErWIZoLRHbs@vger.kernel.org
+X-Gm-Message-State: AFuF++m2dTh47/DjBR8UPZTK4NwuOxr5W0ZsuRK+iEP989s3uFk7Crs1
+	0o7exug9YWlbLii1U+DYxDromaTd2h2i24uSQd/PajCpgCdZlqtDkWvgHZmrdgtkSekeXPGiuWh
+	Fu6oSetfY3MuEEIxZ2Ko4vvtEc1uRDsRyQPxRONJDO7u6/Q+VM/KFXxTovaa5bkC2
+X-Gm-Gg: AYBFou3ISTiDepmKmNOU/5vPyIR+wCwCxiFq+dIYtA4uMbjga0AMI3VTMHjIwqNQP/m
+	fpsXcYr8VxMGbbDgdFn4UEFVI+bWfUTe4yEwcpXjALXra4uuc9fl0JLB9/ZYQjEjn+Hq4DnZnFr
+	k7l8/psdkZ9KD905iRcEhBFWw3yw436KAJVDUrkd0WlkmhRXhWnFl38DyZ2QGShgEMvhv/BggWK
+	VxBsxYQENxd+HRPwJXZCqC6G0EYfiePvZKGH9PuzUBhl3Jkjk1EtHlFG28eLE5T+TLbzY4Zn+p6
+	3oG5cjaCfeKxo4sMXk5PBvKIN9aATXzaSZAtyYWKAO1SfcMxheayHRygd8o=
+X-Received: by 2002:a05:620a:8803:b0:93e:64ac:5dfd with SMTP id af79cd13be357-93e85ea76bfmr1080599785a.3.1791363770524;
+        Wed, 07 Oct 2026 02:02:50 -0700 (PDT)
+X-Received: by 2002:a05:620a:8803:b0:93e:64ac:5dfd with SMTP id af79cd13be357-93e85ea76bfmr1080592385a.3.1791363770001;
+        Wed, 07 Oct 2026 02:02:50 -0700 (PDT)
+Received: from lin-0843.qualcomm.com ([212.136.9.4])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3188d412besm4197366b.80.2026.10.07.02.02.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 02:43:06 -0700 (PDT)
-Message-ID: <6ac6142a.fadcb60d.16e2b1.f951@mx.google.com>
-X-Google-Original-Message-ID: <asYUJuNkLNMrz0BW@Ansuel-XPS.>
-Date: Wed, 7 Oct 2026 11:43:02 +0200
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Felix Fietkau <nbd@nbd.name>, linux-clk@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 1/3] dt-bindings: clock: airoha: Document support for
- AN7583 clock
-References: <20260819221458.30040-1-ansuelsmth@gmail.com>
- <20260819221458.30040-2-ansuelsmth@gmail.com>
- <20260827-expert-ruby-grasshopper-954aa2@quoll>
- <6a9e82dc.8fb0a6ce.a0d71.1d0a@mx.google.com>
+        Wed, 07 Oct 2026 02:02:49 -0700 (PDT)
+From: Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Atanas Filipov <atanas.filipov@oss.qualcomm.com>,
+        Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>,
+        Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Hans Verkuil <hverkuil+cisco@kernel.org>,
+        Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+        Daniel Scally <dan.scally@ideasonboard.com>,
+        =?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
+        Sakari Ailus <sakari.ailus@linux.intel.com>,
+        Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>,
+        Yuchan Nam <entropy1110@gmail.com>,
+        Jai Luthra <jai.luthra+renesas@ideasonboard.com>,
+        Robert Foss <rfoss@kernel.org>, hariram.purushothaman@oss.qualcomm.com,
+        pshrotri@qti.qualcomm.com, johannes.goede@oss.qualcomm.com,
+        linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Prashant Shrotriya <prashant.shrotriya@oss.qualcomm.com>
+Subject: [PATCH RESEND 36/45] media: qcom: camss: sa8775p: add CCM parameters
+Date: Wed,  7 Oct 2026 12:00:32 +0300
+Message-Id: <20261007090041.3732717-37-gjorgji.rosikopulos@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20261007090041.3732717-1-gjorgji.rosikopulos@oss.qualcomm.com>
+References: <20261007090041.3732717-1-gjorgji.rosikopulos@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <6a9e82dc.8fb0a6ce.a0d71.1d0a@mx.google.com>
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-ORIG-GUID: aZBmmDyvI5L5HNpdNrlNoeJKajGVQutP
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA3MDAzNSBTYWx0ZWRfXyxEu3NejkeRD
+ XjiUCh6RPIuwrDC4z7MvXarbGczS+DvTHN/8JzhVLW7e+PIdQ3slKIGsPRD1OiIwvjlCFCVsxpW
+ c+W0AetfLvTgecqkoDGxtUevtiBZY0j0IJtMIP/NgIqzgM4jCX4RdpCjV7hN+8otTDsahasAtHD
+ cvJ1t7snKRVxVriMZzRxSDuOgZCM/lY9gnnrM6pKurfKE7TFgbndPGv+Wyx7cVKeqTVHZn6N7fM
+ wgmBQxKCtQsD9DLYAQylDXY/ClNfvGZs531fwGZt1bVrQELuB1ubkuYCJRsRmokpnqavFEe8Dye
+ UrAOLVEBP775/Wmm8+FCWZnZ0MYToq7AjYwuhSaiDBu6VD6f4IzSy16M+5/rAxlhhI3Sw9/AFWP
+ Q3V+NRmHrah0xhGTfItO4LrVWtM1KEnm9AYpxAQ+FoOUcDI5Y1tvPrGp7nzXkGKzqMSMEJ3Fk1y
+ UyjmeVG+aKBgtZMTJFw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA3MDAzNSBTYWx0ZWRfX75GxlzcSQmrl
+ fm06kIZ9Jx6ggx7Avfut4WyOFe1BzYH3CHR2ABjpSzEhCkWPg5ka6j9oS40TNlXvRSrjeU8LdFN
+ rvTLG9o2GUhNdl+elxEIr5gG1MqsJHE=
+X-Proofpoint-GUID: aZBmmDyvI5L5HNpdNrlNoeJKajGVQutP
+X-Authority-Analysis: v=2.4 cv=NatzRGD4 c=1 sm=1 tr=0 ts=6ac60abb cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=dNlqnMcrdpbb+gQrTujlOQ==:17
+ a=660iZSQnnn4A:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8 a=MPkjE9NDq9863M1uKlEA:9
+ a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-07_03,2026-10-06_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 adultscore=0 lowpriorityscore=0 suspectscore=0 spamscore=0
+ clxscore=1015 priorityscore=1501 impostorscore=0 phishscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2610070035
 
-On Mon, Sep 07, 2026 at 11:24:41AM +0200, Christian Marangi wrote:
-> On Thu, Aug 27, 2026 at 11:52:13AM +0200, Krzysztof Kozlowski wrote:
-> > On Thu, Aug 20, 2026 at 12:14:54AM +0200, Christian Marangi wrote:
-> > > Document support for Airoha AN7583 clock. This is based on the EN7523
-> > > clock schema with the new requirement of the "airoha,chip-scu".
-> > > 
-> > > Add additional binding for additional clock and reset lines.
-> > > 
-> > > Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
-> > > ---
-> > >  .../bindings/clock/airoha,en7523-scu.yaml     | 20 ++++++
-> > >  include/dt-bindings/clock/en7523-clk.h        |  3 +
-> > >  .../dt-bindings/reset/airoha,an7583-reset.h   | 65 +++++++++++++++++++
-> > >  3 files changed, 88 insertions(+)
-> > >  create mode 100644 include/dt-bindings/reset/airoha,an7583-reset.h
-> > > 
-> > > diff --git a/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml b/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml
-> > > index eb24a5687639..edecc635807b 100644
-> > > --- a/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml
-> > > +++ b/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml
-> > > @@ -30,6 +30,7 @@ properties:
-> > >    compatible:
-> > >      items:
-> > >        - enum:
-> > > +          - airoha,an7583-scu
-> > >            - airoha,en7523-scu
-> > >            - airoha,en7581-scu
-> > >            - econet,en751221-scu
-> > > @@ -50,12 +51,30 @@ properties:
-> > >      description: ID of the controller reset line
-> > >      const: 1
-> > >  
-> > > +  airoha,chip-scu:
-> > > +    $ref: /schemas/types.yaml#/definitions/phandle
-> > > +    description: phandle to the Chip SCU providing the registers required
-> > > +      for configuring the PCIe related clocks and resets.
-> > 
-> > This is the clock provider. Clock provider should not be accessing
-> > registers of other device to configure its clocks. Either you
-> > misrepresented clock hierarchy or devices.
-> > 
-> > I did search for DTS to try to understand the big pictuer - nothing, no
-> > results, no upstream submission to Linux kernel.
-> >
-> 
-> Hi, you can use en7581 as an example as the implementation is exactly the
-> same register wise.
-> 
-> The register for clock and reset for normal system and PCIe are scattered
-> between the "SCU" and "chip SCU" registers (they are 2 different register
-> block, the name is taken from the programming guide)
-> 
-> - Chip SCU provide register access to some clk gate and clk rate
-> - SCU provide register for reset, PCIe clock, other clock gate and PHY
->   SERDES.
-> 
-> Upcoming and current airoha clock driver all follow this pattern of
-> declaring one of the 2 register and use a sysconf for the other as the 2
-> register block are tighlty coupled.
-> 
-> There was a similar phandle in another series adding support for pinctrl
-> for econet EN7528.
-> 
-> This phandle is not present for en7581 just because it's hidden by a direct
-> call to the syscon with syscon_regmap_lookup_by_compatible API.
-> 
-> With AN7583 I'm trying to fix this by making it more explicit.
-> 
-> Does this makes the situation more clear? 
-> 
+From: Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
 
-Hi, I would like to send a new revision of this since the clock driver
-needs to be rebased.
+Program the color correction matrix, offsets, and Q8 shift from IFE
+parameter buffers. Enable or disable the block as requested.
 
-Any hint on this, is the syscon phandle OK after the above explainations?
+Signed-off-by: Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>
+Co-developed-by: Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+Signed-off-by: Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+Co-developed-by: Prashant Shrotriya <prashant.shrotriya@oss.qualcomm.com>
+Signed-off-by: Prashant Shrotriya <prashant.shrotriya@oss.qualcomm.com>
+Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+---
+ .../platform/qcom/camss/camss-ife-mod-v41x.c  | 139 ++++++++++++++++++
+ 1 file changed, 139 insertions(+)
 
+diff --git a/drivers/media/platform/qcom/camss/camss-ife-mod-v41x.c b/drivers/media/platform/qcom/camss/camss-ife-mod-v41x.c
+index 9f4c8ae9667e..0db88534b421 100644
+--- a/drivers/media/platform/qcom/camss/camss-ife-mod-v41x.c
++++ b/drivers/media/platform/qcom/camss/camss-ife-mod-v41x.c
+@@ -7,8 +7,14 @@
+ 
+ #include <linux/bitfield.h>
+ #include <linux/io.h>
++#include <linux/slab.h>
+ 
++#include <linux/qcom-camss-config.h>
++#include <media/v4l2-isp.h>
++
++#include "camss.h"
+ #include "camss-ife.h"
++#include "camss-ife-params.h"
+ 
+ /* Module base offsets */
+ #define IFE_MOD_V41X_WB_GAIN_OFFSET		0x4000
+@@ -108,6 +114,26 @@
+ #define IFE_MOD_V41X_AWB_BG_THRESHOLD		0x3ffff
+ #define IFE_MOD_V41X_AWB_BG_NUM_THRESHOLDS	5
+ 
++/* CCM offset, registers and bitfields */
++#define IFE_MOD_V41X_CCM_OFFSET			0x5800
++#define IFE_MOD_V41X_CCM_MODULE_CFG		0x60
++#define IFE_MOD_V41X_CCM_COEFF_A_CFG_0		0x68
++#define IFE_MOD_V41X_CCM_COEFF_A_CFG_1		0x6c
++#define IFE_MOD_V41X_CCM_COEFF_B_CFG_0		0x70
++#define IFE_MOD_V41X_CCM_COEFF_B_CFG_1		0x74
++#define IFE_MOD_V41X_CCM_COEFF_C_CFG_0		0x78
++#define IFE_MOD_V41X_CCM_COEFF_C_CFG_1		0x7c
++#define IFE_MOD_V41X_CCM_OFFSET_K_CFG_0		0x80
++#define IFE_MOD_V41X_CCM_OFFSET_K_CFG_1		0x84
++#define IFE_MOD_V41X_CCM_OFFSET_K_CFG_2		0x88
++#define IFE_MOD_V41X_CCM_SHIFT_M_CFG		0x8c
++#define IFE_MOD_V41X_CCM_CFG_EN			BIT(0)
++#define IFE_MOD_V41X_CCM_MATRIX_0		GENMASK(11, 0)
++#define IFE_MOD_V41X_CCM_MATRIX_1		GENMASK(27, 16)
++#define IFE_MOD_V41X_CCM_OFFSET_VALUE		GENMASK(31, 17)
++#define IFE_MOD_V41X_CCM_SHIFT_M_PARAM		GENMASK(1, 0)
++#define IFE_MOD_V41X_CCM_SHIFT_M_Q8		0x1
++
+ static void mod_v41x_wb_gain_config(struct ife_pp_ctx *ctx)
+ {
+ 	void __iomem *base = ctx->base + IFE_MOD_V41X_WB_GAIN_OFFSET;
+@@ -133,6 +159,81 @@ static void mod_v41x_demosaic_config(struct ife_pp_ctx *ctx)
+ 		       base + IFE_MOD_V41X_DEMOSAIC_INTERP_CLASSIFIER_CFG_1);
+ }
+ 
++static void mod_v41x_ccm_enable(struct ife_pp_ctx *ctx)
++{
++	void __iomem *base = ctx->base + IFE_MOD_V41X_CCM_OFFSET;
++	u32 value;
++
++	value = readl_relaxed(base + IFE_MOD_V41X_CCM_MODULE_CFG);
++	value |= IFE_MOD_V41X_CCM_CFG_EN;
++	writel_relaxed(value, base + IFE_MOD_V41X_CCM_MODULE_CFG);
++}
++
++static void mod_v41x_ccm_disable(struct ife_pp_ctx *ctx)
++{
++	void __iomem *base = ctx->base + IFE_MOD_V41X_CCM_OFFSET;
++	u32 value;
++
++	value = readl_relaxed(base + IFE_MOD_V41X_CCM_MODULE_CFG);
++	value &= ~IFE_MOD_V41X_CCM_CFG_EN;
++	writel_relaxed(value, base + IFE_MOD_V41X_CCM_MODULE_CFG);
++}
++
++static void mod_v41x_ccm_config(struct ife_pp_ctx *ctx,
++				const struct camss_ife_params_color_correct *cfg)
++{
++	void __iomem *base = ctx->base + IFE_MOD_V41X_CCM_OFFSET;
++	u32 value;
++
++	writel_relaxed(FIELD_PREP(IFE_MOD_V41X_CCM_SHIFT_M_PARAM,
++				  IFE_MOD_V41X_CCM_SHIFT_M_Q8),
++		       base + IFE_MOD_V41X_CCM_SHIFT_M_CFG);
++
++	/*
++	 * HW banks A/B/C each multiply one fixed input channel (A=G_in,
++	 * B=B_in, C=R_in), and HW output indices 0/1/2 are also G/B/R, not
++	 * R/G/B, same as IFE_MOD_V10X_CCM. The UAPI's coeff[out][in]/
++	 * offset[out] are R,G,B-indexed on both axes (0=R,1=G,2=B); remap
++	 * accordingly: bank X's slot N takes UAPI row (N+1)%3 (G,B,R output
++	 * order) and the column matching that bank's input channel.
++	 */
++	value = FIELD_PREP(IFE_MOD_V41X_CCM_MATRIX_0, cfg->coeff[1][1]) |
++		FIELD_PREP(IFE_MOD_V41X_CCM_MATRIX_1, cfg->coeff[2][1]);
++	writel_relaxed(value, base + IFE_MOD_V41X_CCM_COEFF_A_CFG_0);
++	writel_relaxed(FIELD_PREP(IFE_MOD_V41X_CCM_MATRIX_0, cfg->coeff[0][1]),
++		       base + IFE_MOD_V41X_CCM_COEFF_A_CFG_1);
++
++	value = FIELD_PREP(IFE_MOD_V41X_CCM_MATRIX_0, cfg->coeff[1][2]) |
++		FIELD_PREP(IFE_MOD_V41X_CCM_MATRIX_1, cfg->coeff[2][2]);
++	writel_relaxed(value, base + IFE_MOD_V41X_CCM_COEFF_B_CFG_0);
++	writel_relaxed(FIELD_PREP(IFE_MOD_V41X_CCM_MATRIX_0, cfg->coeff[0][2]),
++		       base + IFE_MOD_V41X_CCM_COEFF_B_CFG_1);
++
++	value = FIELD_PREP(IFE_MOD_V41X_CCM_MATRIX_0, cfg->coeff[1][0]) |
++		FIELD_PREP(IFE_MOD_V41X_CCM_MATRIX_1, cfg->coeff[2][0]);
++	writel_relaxed(value, base + IFE_MOD_V41X_CCM_COEFF_C_CFG_0);
++	writel_relaxed(FIELD_PREP(IFE_MOD_V41X_CCM_MATRIX_0, cfg->coeff[0][0]),
++		       base + IFE_MOD_V41X_CCM_COEFF_C_CFG_1);
++
++	writel_relaxed(FIELD_PREP(IFE_MOD_V41X_CCM_OFFSET_VALUE, cfg->offset[1]),
++		       base + IFE_MOD_V41X_CCM_OFFSET_K_CFG_0);
++	writel_relaxed(FIELD_PREP(IFE_MOD_V41X_CCM_OFFSET_VALUE, cfg->offset[2]),
++		       base + IFE_MOD_V41X_CCM_OFFSET_K_CFG_1);
++	writel_relaxed(FIELD_PREP(IFE_MOD_V41X_CCM_OFFSET_VALUE, cfg->offset[0]),
++		       base + IFE_MOD_V41X_CCM_OFFSET_K_CFG_2);
++}
++
++static void mod_v41x_ccm_apply(struct ife_pp_ctx *ctx,
++			       const struct camss_ife_params_color_correct *cfg, bool enable)
++{
++	if (enable) {
++		mod_v41x_ccm_config(ctx, cfg);
++		mod_v41x_ccm_enable(ctx);
++	} else {
++		mod_v41x_ccm_disable(ctx);
++	}
++}
++
+ static void mod_v41x_awb_bg_config(struct ife_pp_ctx *ctx,
+ 				   const struct camss_pp_cfg *cfg)
+ {
+@@ -226,12 +327,17 @@ static void mod_v41x_xform_write_channel(void __iomem *base, u32 coeff0,
+ static void mod_v41x_modules_acquire(struct ife_device *ife, struct ife_pp_ctx *ctx,
+ 				     void __iomem *base)
+ {
++	ctx->dev = ife->camss->dev;
+ 	ctx->base = base;
++	ctx->params_scratch = devm_kzalloc(ctx->dev,
++					   v4l2_isp_buffer_size(CAMSS_IFE_PARAMS_MAX_PAYLOAD),
++					   GFP_KERNEL);
+ }
+ 
+ static void mod_v41x_modules_release(struct ife_pp_ctx *ctx)
+ {
+ 	ctx->base = NULL;
++	ctx->params_scratch = NULL;
+ }
+ 
+ static void mod_v41x_modules_config(struct ife_pp_ctx *ctx,
+@@ -319,10 +425,43 @@ static void mod_v41x_modules_disable(struct ife_pp_ctx *ctx)
+ 	writel_relaxed(value, base + IFE_MOD_V41X_XFORM_MODULE_CFG);
+ }
+ 
++static void mod_v41x_params_apply_ccm(void *priv, const union camss_ife_params_block *block)
++{
++	struct ife_pp_ctx *ctx = priv;
++	bool enable = block->header.flags & V4L2_ISP_PARAMS_FL_BLOCK_ENABLE;
++
++	mod_v41x_ccm_apply(ctx, &block->color_correct, enable);
++}
++
++static const struct v4l2_isp_params_block_type_info mod_v41x_params_type_info[] = {
++	[CAMSS_IFE_PARAMS_COLOR_CORRECT] = {
++		.size = sizeof(struct camss_ife_params_color_correct),
++	},
++};
++
++static const camss_ife_params_handler_fn mod_v41x_params_handlers[] = {
++	[CAMSS_IFE_PARAMS_COLOR_CORRECT] = mod_v41x_params_apply_ccm,
++};
++
++static_assert(ARRAY_SIZE(mod_v41x_params_handlers) ==
++	      ARRAY_SIZE(mod_v41x_params_type_info));
++
++static int mod_v41x_modules_apply_params(struct ife_pp_ctx *ctx,
++					 struct vb2_buffer *vb)
++{
++	return camss_ife_params_apply(ctx->dev, vb, ctx->params_scratch,
++				      CAMSS_IFE_PARAMS_MAX_PAYLOAD,
++				      mod_v41x_params_type_info,
++				      mod_v41x_params_handlers,
++				      ARRAY_SIZE(mod_v41x_params_handlers),
++				      ctx);
++}
++
+ const struct camss_mod_ops ife_mod_v41x_ops = {
+ 	.acquire	= mod_v41x_modules_acquire,
+ 	.release	= mod_v41x_modules_release,
+ 	.config		= mod_v41x_modules_config,
+ 	.enable		= mod_v41x_modules_enable,
+ 	.disable	= mod_v41x_modules_disable,
++	.apply_params	= mod_v41x_modules_apply_params,
+ };
 -- 
-	Ansuel
+2.34.1
+
