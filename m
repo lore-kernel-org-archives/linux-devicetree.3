@@ -1,100 +1,76 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13BFE3914ED
-	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 09:26:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA51D3D75BC
+	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 09:26:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791451602; cv=none; b=WNFDjXxDeZrw8W3gFeo9dOmJ163//Rv7IV5kFb2Ie4+NLOtkIQSI05suAjzIVrD5aK1DUg41AS1IFYZJ0tRoYkW96+TTHu/ImzZ8QEsUu5XAzEyx8yywY5Yqiwvp5QYRVzXxHmbD5TuyHhuypXshDqfUdqU4GWi7LW/lP/emWhQ=
+	t=1791451611; cv=none; b=VKlxjhLh35aR6qY0fccDcNiLe8cQw4VHu2Y0Ntj2T23lkuc5m7xHciEPBoyFO8WAbU9jt7oZBF2DiEw6vUaHvVfVPL090x7N7MZa2ui7MF1Vw6AGzOoZT0t7Z7lRSTDNDRlg4GT36W0JkGXiTMXO1LMG/iWRo+Gktnwh0TDpRVE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791451602; c=relaxed/simple;
-	bh=F61iKJT9A0B94FOLVSvjcxRenoaU7p4b6bxcV6xkYL8=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=GjDdA4WdZYAeJ+LIPCCv8Ubo+HzWoCWfvTDXjRN+0hDoPsjtiN9vVksF+kcZwKiSsDr0aYpP7WrKzxgkRZXU+roATUWnrrT7/s3QqUJwDdkhYzlzc5+r22d8At/WisrIM8hfm/w5lVwH608HuZzW8tM5iZW8ag34B1Jcg647s2Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cEZfv1Ga; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791451611; c=relaxed/simple;
+	bh=Gt9wOt6ppWinNnlK25gmA8B5TgnA7EoQQNGwpQhgqhY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=MLzH4mlaumbUR03Avyt+vDpPvrGL0mNWdv8sZQ+uiYE4AzhPxfinB4PLf6wvcwo3oHz+t9yV0xIcXEFifta795+AIlEnqGIoutil3mBXShPi10AOVocRGVT8RTmvA/dYEWnBfdEccqKITA40bK9L4yDOnrKrZKWmxrbB1C9GKlM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mjz5do9c; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cEZfv1Ga"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6438A1F000FF;
-	Thu,  8 Oct 2026 09:26:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mjz5do9c"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80C6A1F008A2
+	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 09:26:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791451600;
-	bh=fqMMd74Gmx7+IBY8Cum4tagLNBzWy41hlmbboiTUip4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=cEZfv1GahPDi7+JbnK3oGuVQ37U+Q8PQi8CMBoc8zOvsuA8jly6o8G28NaNXdxFmX
-	 YqwJavl2oILmdPV4GxPy6NiVnTkXKpblz3+Z9KtoGYdjgL48eBbdAHGBvRBKjcEOq7
-	 FUaJPcHI67HtTkllqsYnwOPHjoEgTGNQ3WrQVKj5HHhO0sUWXk0/2TaOydEfMsi5El
-	 FS8SfPs5KaIG/061emOirs5RhNGtx26CPUv+xgBrpNbfxqG3JtzpnLwPgAKwj8iHuE
-	 /qW+3Z94IGiV7NgWtS+w96RdIB1f1f7Uc9bcSpuiXFAwgaKbkLQPCBbOYrKEzQvEYt
-	 wgmYM7JaOCBQg==
-Message-ID: <sashiko-outbox-163933@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 03/11] arm64: dts: qcom: ipq5210: Introduce RDP504
- NAND variant DT file
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Varadarajan Narayanan" <varadarajan.narayanan@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20261008-08-dts-v6-3-f9c4ec8664d8@oss.qualcomm.com>
-References: <20261008-08-dts-v6-0-f9c4ec8664d8@oss.qualcomm.com>
- <20261008-08-dts-v6-3-f9c4ec8664d8@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 08 Oct 2026 09:26:39 +0000
+	s=k20260515; t=1791451610;
+	bh=Gt9wOt6ppWinNnlK25gmA8B5TgnA7EoQQNGwpQhgqhY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=mjz5do9cqfDHvrm+G7S07/jhE6GVNePDHu+bXqvTdKUk+YIB8+NfkjYZOfMPvHPe1
+	 SHZmL8QQ4DUuoF2rZY2XEEv6l+rltbK7ZK/9GTUVpIwoqWz7xBZuncJXupRoUEmMjs
+	 nKvVLlYS1E62dlGwRCCpSqmnLZt7fGjsFn2E3eRZuwPyWVVbhD1fummMM8cvy2DEsd
+	 TCF53VHltwQx9u/Y00sj0cukczKm1wSDeFVOet1JjtEDTyH2++rh9dbjPjEPT20Xvk
+	 PhhFn7/5C5VBM8AvxzPhyHxgx7Vtm0G11uT8APuZhrzHyI2NRNdUiu8T2xkW+j8KEF
+	 4N5RAXcFbZsqw==
+Received: by mail-oa1-f51.google.com with SMTP id 586e51a60fabf-486f013db83so954247fac.0
+        for <devicetree@vger.kernel.org>; Thu, 08 Oct 2026 02:26:50 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByM8HnEPPoD1s9rG5jCYvO0DHRxwE6kOhE8IuXf8b6upBCoiTtVk5Y8ZNjZEVPfr+2FJKeq1JI6krui@vger.kernel.org
+X-Gm-Message-State: AFuF++nF5yKIXgEE8ZiYzmhgfRRQkWZG7OgKyeifMqkD8gKAA+hrTxn5
+	y77gJMPGdty0n7DxgwpDiouifhppS4fCPWXYfgJ81pQGwLHLJqfhr2Tu1r9PrEzg1mQISlOK26n
+	u4TTeC6FA3ONiojbO1EOdStIgdr0OfYM=
+X-Received: by 2002:a05:6871:3869:b0:49c:3eca:25ef with SMTP id
+ 586e51a60fabf-4a2591d9e5dmr3983078fac.8.1791451609827; Thu, 08 Oct 2026
+ 02:26:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260929-mali-c55-irq-supend-resume-v1-0-e3af34afff12@kernel.org> <CA+V-a8sSaGYcMUpXhX+mr2C44zLj2Hgnwj4pQS1t5YrZN1ejqQ@mail.gmail.com>
+In-Reply-To: <CA+V-a8sSaGYcMUpXhX+mr2C44zLj2Hgnwj4pQS1t5YrZN1ejqQ@mail.gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 8 Oct 2026 11:26:34 +0200
+X-Gmail-Original-Message-ID: <CAD++jLk-VZ+hv2+x++kq5K61ORxOgYgqmu_wCw_sX5k6-J2h3w@mail.gmail.com>
+X-Gm-Features: AclHuK-KUSWV_pbziOSS0NdajQVOl_Xc-5mQYGJWfN3ER9TYzr2GWSy9oAbKNzg
+Message-ID: <CAD++jLk-VZ+hv2+x++kq5K61ORxOgYgqmu_wCw_sX5k6-J2h3w@mail.gmail.com>
+Subject: Re: [PATCH 0/3] media: mali-c55: Fix IRQ lifetime and wake handling
+To: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Cc: Li Youhong <dayou5941@163.com>, Daniel Scally <dan.scally@ideasonboard.com>, 
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Hans Verkuil <hverkuil+cisco@kernel.org>, Nayden Kanchev <nayden.kanchev@arm.com>, 
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] dts: redundant property duplication in flash@0 node
---
+On Tue, Oct 6, 2026 at 1:43=E2=80=AFPM Lad, Prabhakar
+<prabhakar.csengg@gmail.com> wrote:
 
-commit 730037c043b086f6324dee42a3f417cb7d8c240b
-Author: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+> Can you please share the dependency patches or branch, as these don't
+> apply cleanly. I tried the latest 'next' and 'media/next' branches
+> with no luck.
 
-arm64: dts: qcom: ipq5210: Introduce RDP504 NAND variant DT file
+They are just based on a clean v7.3-rc1 from Torvalds:
+https://git.kernel.org/pub/scm/linux/kernel/git/linusw/linux-integrator.git=
+/log/?h=3Db4/mali-c55-irq-supend-resume
 
-This commit adds a new Device Tree file for the NAND variant of the
-IPQ5210 RDP504 board. It also updates the Makefile to include the new
-dtb target.
+I can rebase on media/next and resend if that's desirable?
 
-> diff --git a/arch/arm64/boot/dts/qcom/ipq5210-rdp504-nand.dts b/arch/arm6=
-4/boot/dts/qcom/ipq5210-rdp504-nand.dts
-> new file mode 100644
-> index 0000000000000..8b7106cbd7c6d
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/ipq5210-rdp504-nand.dts
-> @@ -0,0 +1,29 @@
-[ ... ]
-> +&qpic_nand {
-> +	status =3D "okay";
-> +
-> +	flash@0 {
-> +		compatible =3D "spi-nand";
-> +		reg =3D <0>;
-> +		#address-cells =3D <1>;
-> +		#size-cells =3D <1>;
-> +		nand-ecc-engine =3D <&qpic_nand>;
-> +		nand-ecc-strength =3D <4>;
-> +		nand-ecc-step-size =3D <512>;
-
-[Severity: Low]
-This isn't a bug, but should these properties be omitted here?
-
-They appear to be identical to the ones already present in the included
-ipq5210-rdp504-common.dtsi. Re-declaring them verbatim in the flash@0 node
-creates duplicate definitions where future updates in the common .dtsi could
-be silently overridden.
-
-Could this node just contain the new spi-rx-bus-width and spi-tx-bus-width
-properties instead?
-
-> +		spi-rx-bus-width =3D <4>;
-> +		spi-tx-bus-width =3D <4>;
-> +	};
-> +};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261008-08-dts-v6-=
-0-f9c4ec8664d8@oss.qualcomm.com?part=3D3
+Yours,
+Linus Walleij
