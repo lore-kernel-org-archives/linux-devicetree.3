@@ -1,136 +1,331 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B498305660
-	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 21:15:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46B982E737E;
+	Thu,  8 Oct 2026 21:27:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791494137; cv=none; b=OpSsKGAbzXtc04CSTJOH+wlRIsFuKGrdalh1OLtrj4nSTTBosAQbGtUL7Pr0mFeRPKV8/gu+xXvq+Pk9lv7wFIyPM3IN4z1FBkHg18xgoxZe8PlAh2tE5iEezdKypQZ2FLFiGFoRAVk0ZaGgAgiLCNRs00XdGO9zVkLJHyemCYg=
+	t=1791494858; cv=none; b=FbuuBZ7ndWg5OYa9laNGC8wbw59eRUCOr5w391vVQIdOlLAmDNkSt+oCQc4togSJ2IiAqvHTKSX3Z5JNNYVe191R9uWdXK+XPNbzrp8KSYrXFlgKoZLnbfggKX8RMW2bMXc9sSAkbzRvrvXQi9g8iqCw7i5ElKG5bQVb/BcYRZs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791494137; c=relaxed/simple;
-	bh=XYYVAe5uKZwHERIrHXUdTsSPqrgNYTMBK8DqUkipDHg=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=EvisibVyCoR9XOoIF8XRKX2QVvhkAzVcN/DBTc8P3yLeUM/M9OGs3TWdmlx836d77V97y2r2StZCh3mQ6Yq4IOltPv9A9+AN5ijSTykH103NXxmGLQO4MYVjHZSQqszhYHhmZCPXspZc34BCetppi0M6c1wfrra4cbDT79LUkcE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jHEZzyka; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791494858; c=relaxed/simple;
+	bh=XipFpLyCnRYFKzQPrRwtWlwdxCPRLG5Q5PKRfDI+DSU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZKqPBFeHgG7rIdFEDPYPaM5uvjEhfIE3zytKqDj0loZ/bT5EJ2EbEoOwJgHEtLKSwSEB6pvfXkTfzpuExlRusuhfSKaqmc8UDGpdkfSrVV7+saHvtT+jX5/8q5Y+sxLufKsyaqbooBrxPvMF2onRY33N1VnIMGpLjcrnA0L/8cQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MwFiVfzo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jHEZzyka"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 712821F000FF;
-	Thu,  8 Oct 2026 21:15:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MwFiVfzo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2F291F000FF;
+	Thu,  8 Oct 2026 21:27:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791494135;
-	bh=EUjJU4QS/nJLfIBzxcye2SlSFqIg3lZcc5WD5aB/RrM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jHEZzykaL8nevSGwEsqXYpG3n9TNIUFZEzsuCqbSTO2XQweUAFS9VEu0fsSHS4H6A
-	 EUMv/8G4a3bFnCTcHVVkOw1WIhVWfhMonP1IR4xSrmXf6Far8xAHjEbrY6XdVyqbZN
-	 5PEA7TtaX0rAj9Kd5yOQmoIVcuSsGFZa2eipD5LiPOrTwFMdXLK2+XEtgA1AQ867eB
-	 e3Lo+BWrWbsQX8vqlr+7S8gRXkrSDg42iaaxJUIGiEH4eBIwOC/7GK+V5Hf8VyLMp2
-	 n6r9x2yxikqabisrjTiuf1pSNbXFc6cj/oInzFjq2R1tDbNnrbhyJcxbN9+UQUIIFH
-	 wdk+oXiOKabBA==
-Message-ID: <sashiko-outbox-164604@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/5] arm64: dts: qcom: nord: Add GPU cooling
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Akhil P Oommen" <akhilpo@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20261009-nord-gpu1-v1-4-a06a6c57bde7@oss.qualcomm.com>
-References: <20261009-nord-gpu1-v1-0-a06a6c57bde7@oss.qualcomm.com>
- <20261009-nord-gpu1-v1-4-a06a6c57bde7@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 08 Oct 2026 21:15:34 +0000
+	s=k20260515; t=1791494856;
+	bh=vZ69U7tRzKd8oN9cqFRMvx6HdrXc7nINJFDSN6qfasw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MwFiVfzoMzddf4RuEvu/Vno0gHOrHsG+qO5rWJe8Mb/56EZsLtSAFXwQvHn2TjAYY
+	 7fSbH9gEVrNM7Mppbg6m/y3E20eyMDq3lDW1VLUSBfkmqIWcLxWdsmy/nFHSx26y0a
+	 pLPYTaY99U8Xv6bHJHbmLznBZzRESrA5pf3OWciLsuSeOgZ/6vZ/qyC0FhXWf2T33w
+	 BM3CQ4QD0IztCHLMpA4LveslO+3TGQvJr/f1GAo2mhNVQCZxCux1c81tKxRa0nL1dy
+	 3oEnCItBdP4ENOAc5CZlkuD+a6eUMh3trqfq11R0Xf7fr9+mnE7BlsMbZXiLioAFFC
+	 tNKbZF0i21cDA==
+Date: Thu, 8 Oct 2026 16:27:36 -0500
+From: Rob Herring <robh@kernel.org>
+To: Yin Li <yin.li@oss.qualcomm.com>
+Cc: James Morse <james.morse@arm.com>,
+	Shanker Donthineni <sdonthineni@nvidia.com>,
+	Ben Horgan <ben.horgan@arm.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Reinette Chatre <reinette.chatre@intel.com>,
+	Fenghua Yu <fenghuay@nvidia.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Gavin Shan <gshan@redhat.com>,
+	Andre Przywara <andre.przywara@arm.com>,
+	Drew Fustini <fustini@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Shaopeng Tan <tan.shaopeng@jp.fujitsu.com>,
+	trilok.soni@oss.qualcomm.com, aiqun.yu@oss.qualcomm.com,
+	ganapatrao.kulkarni@oss.qualcomm.com,
+	Srivathsa L Rao <srivathsa.rao@oss.qualcomm.com>,
+	Huang Yiwei <huang.yiwei@oss.qualcomm.com>,
+	linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, driver-core@lists.linux.dev,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v3 3/8] dt-bindings: arm: Add MPAM MSC binding
+Message-ID: <20261008212736.GB1318789-robh@kernel.org>
+References: <20261008-mpam-resctrl-dt-knp-support-v3-0-35196c2b43bf@oss.qualcomm.com>
+ <20261008-mpam-resctrl-dt-knp-support-v3-3-35196c2b43bf@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261008-mpam-resctrl-dt-knp-support-v3-3-35196c2b43bf@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] dts: missing cooling-device mappings for 4 GPU thermal zones
---
-
-commit be1fe5e4df785d4f2fc715cc8d3e734547b71199
-Author: Aastha Pandey <aastha.pandey@oss.qualcomm.com>
-
-arm64: dts: qcom: nord: Add GPU cooling
-
-This commit sets up GPU cooling on Nord by throttling the Adreno 753 GPU
-when it reaches 105C. It labels the GPU thermal zones and their passive trip
-points, maps them to the GPU as a cooling device, and adds polling delays.
-
-> diff --git a/arch/arm64/boot/dts/qcom/nord-embedded.dtsi b/arch/arm64/boo=
-t/dts/qcom/nord-embedded.dtsi
-> index 4379092b7bf8d..23370007c9748 100644
-> --- a/arch/arm64/boot/dts/qcom/nord-embedded.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/nord-embedded.dtsi
-
-[ ... ]
-
-> +&gpuss_2_thermal {
-> +	polling-delay-passive =3D <10>;
+On Thu, Oct 08, 2026 at 02:41:12PM +0800, Yin Li wrote:
+> From: Rob Herring <robh@kernel.org>
+> 
+> The binding is designed around the assumption that an MSC will be a
+> sub-block of something else such as a memory controller, cache controller,
+> or IOMMU. However, it's certainly possible a design does not have that
+> association or has a mixture of both, so the binding illustrates how we can
+> support that with RIS child nodes.
+> 
+> A key part of MPAM is we need to know about all of the MSCs in the system
+> before it can be enabled. This drives the need for the genericish
+> 'arm,mpam-msc' compatible. Though we can't assume an MSC is accessible
+> until a h/w specific driver potentially enables the h/w.
+> 
+> Cc: James Morse <james.morse@arm.com>
+> Signed-off-by: Rob Herring <robh@kernel.org>
+> Signed-off-by: James Morse <james.morse@arm.com>
+> [ Yin Li and Huang Yiwei: use oneOf for the compatible to allow both
+>   standalone arm,mpam-msc and the two-item combination; fix schema field
+>   order, type constraints and yamllint spacing; fix example reg addresses,
+>   add arm,mpam-device phandle and remove TODO comment ]
+> Co-developed-by: Huang Yiwei <huang.yiwei@oss.qualcomm.com>
+> Signed-off-by: Huang Yiwei <huang.yiwei@oss.qualcomm.com>
+> Signed-off-by: Yin Li <yin.li@oss.qualcomm.com>
+> ---
+>  .../devicetree/bindings/arm/arm,mpam-msc.yaml      | 202 +++++++++++++++++++++
+>  1 file changed, 202 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/arm/arm,mpam-msc.yaml b/Documentation/devicetree/bindings/arm/arm,mpam-msc.yaml
+> new file mode 100644
+> index 000000000000..3c7b13a23ff2
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/arm/arm,mpam-msc.yaml
+> @@ -0,0 +1,202 @@
+> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/arm/arm,mpam-msc.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +	cooling-maps {
-> +		map0 {
-> +			trip =3D <&gpuss2_alert0>;
-> +			cooling-device =3D <&gpu_0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-> +		};
-> +	};
-> +};
+> +title: Arm Memory System Resource Partitioning and Monitoring (MPAM)
+> +
+> +maintainers:
+> +  - Rob Herring <robh@kernel.org>
+> +
+> +description: |
+> +  The Arm MPAM specification can be found here:
+> +
+> +  https://developer.arm.com/documentation/ddi0598/latest
+> +
+> +properties:
+> +  compatible:
+> +    oneOf:
+> +      - const: arm,mpam-msc                   # Further details are discoverable
+> +      - items:
+> +          - const: arm,mpam-memory-controller-msc
 
-[Severity: Medium]
-Are the cooling device mappings for the gpuss_1_0_thermal, gpuss_1_1_therma=
-l,
-gpuss_1_2_thermal, and gpu_1_0_thermal zones intentionally omitted from this
-list?
+Why do we need this?
 
-If a sustained GPU workload creates hotspots near these unmapped sensors,
-localized heating will not trigger GPU throttling. This could allow the SoC
-to reach unsafe temperature thresholds and trigger a hardware shutdown
-before the adjacent mapped sensors become hot enough to intervene.
+> +          - const: arm,mpam-msc
+> +
+> +  reg:
+> +    maxItems: 1
+> +    description: A memory region containing registers as defined in the MPAM
+> +      specification.
+> +
+> +  interrupts:
+> +    minItems: 1
+> +    items:
+> +      - description: error (optional)
+> +      - description: overflow (optional, only for monitoring)
+> +
+> +  interrupt-names:
+> +    oneOf:
+> +      - items:
+> +          - enum: [error, overflow]
+> +      - items:
+> +          - const: error
+> +          - const: overflow
 
-These zones and their trip points are explicitly labeled in the nord.dtsi
-changes below, which suggests they should have cooling maps defined alongsi=
-de
-the other zones.
+This can be expressed as:
 
-> diff --git a/arch/arm64/boot/dts/qcom/nord.dtsi b/arch/arm64/boot/dts/qco=
-m/nord.dtsi
-> index 147d8e595a3a3..b032d1d2ad9b6 100644
-> --- a/arch/arm64/boot/dts/qcom/nord.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/nord.dtsi
+      minItems: 1
+      items:
+        - enum: [error, overflow]
+        - const: overflow
 
-[ ... ]
+> +
+> +  arm,not-ready-us:
+> +    description: The maximum time in microseconds for monitoring data to be
+> +      accurate after a settings change. For more information, see the
+> +      Not-Ready (NRDY) bit description in the MPAM specification.
+> +
+> +  numa-node-id:
+> +    $ref: /schemas/types.yaml#/definitions/uint32
+> +    description: NUMA node identifier for the memory resource this MSC controls.
+> +
+> +  '#address-cells':
+> +    const: 1
+> +
+> +  '#size-cells':
+> +    const: 0
+> +
+> +patternProperties:
+> +  '^ris@[0-9a-f]+$':
 
-> -		gpuss-1-0-thermal {
-> +		gpuss_1_0_thermal: gpuss-1-0-thermal {
->  			polling-delay-passive =3D <0>;
->  			polling-delay =3D <0>;
->  			thermal-sensors =3D <&tsens6 5>;
+Based on the 'reg' constraints, drop the '+'.
 
-[ ... ]
+> +    type: object
+> +    additionalProperties: false
+> +    description:
+> +      RIS nodes for each resource instance in an MSC. These nodes are required
+> +      for each resource instance implementing known MPAM controls
+> +
+> +    properties:
+> +      compatible:
+> +        enum:
+> +          - arm,mpam-cache
+> +          # Memory bandwidth
+> +          - arm,mpam-memory
+> +
+> +      reg:
+> +        minimum: 0
+> +        maximum: 0xf
+> +
+> +      cpus:
+> +        $ref: /schemas/types.yaml#/definitions/phandle-array
 
-> -		gpuss-1-1-thermal {
-> +		gpuss_1_1_thermal: gpuss-1-1-thermal {
->  			polling-delay-passive =3D <0>;
->  			polling-delay =3D <0>;
->  			thermal-sensors =3D <&tsens6 6>;
+Drop. 'cpus' has a type already.
 
-[ ... ]
+> +        description:
+> +          Phandle(s) to the CPU node(s) this RIS belongs to. By default, the
+> +          parent device's affinity is used.
+> +
+> +      arm,mpam-device:
+> +        $ref: /schemas/types.yaml#/definitions/phandle
+> +        description:
+> +          By default, the MPAM enabled device associated with a RIS is the MSC's
+> +          parent node. It is possible for each RIS to be associated with
+> +          different devices in which case 'arm,mpam-device' should be used.
 
-> -		gpuss-1-2-thermal {
-> +		gpuss_1_2_thermal: gpuss-1-2-thermal {
->  			polling-delay-passive =3D <0>;
->  			polling-delay =3D <0>;
->  			thermal-sensors =3D <&tsens7 5>;
+We should drop this until there's a use for it.
 
-[ ... ]
-
-> -		gpu-1-0-thermal {
-> +		gpu_1_0_thermal: gpu-1-0-thermal {
->  			polling-delay-passive =3D <0>;
->  			polling-delay =3D <0>;
->  			thermal-sensors =3D <&tsens7 6>;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009-nord-gpu1-=
-v1-0-a06a6c57bde7@oss.qualcomm.com?part=3D4
+> +
+> +    required:
+> +      - compatible
+> +      - reg
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +
+> +dependencies:
+> +  interrupts: [interrupt-names]
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    L3: cache-controller@30000000 {
+> +        compatible = "foo,a-l3-cache", "cache";
+> +        cache-level = <3>;
+> +        cache-unified;
+> +
+> +        ranges = <0x0 0x30000000 0x800000>;
+> +        #address-cells = <1>;
+> +        #size-cells = <1>;
+> +
+> +        msc@10000 {
+> +            compatible = "arm,mpam-msc";
+> +            reg = <0x10000 0x2000>;
+> +            interrupts = <1>, <2>;
+> +            interrupt-names = "error", "overflow";
+> +            arm,not-ready-us = <1>;
+> +            /* CPU affinity implied by parent cache node  */
+> +        };
+> +    };
+> +
+> +    mem: memory-controller@20000 {
+> +        compatible = "foo,a-memory-controller";
+> +        reg = <0x20000 0x1000>;
+> +
+> +        #address-cells = <1>;
+> +        #size-cells = <1>;
+> +        ranges;
+> +
+> +        msc@21000 {
+> +            compatible = "arm,mpam-memory-controller-msc", "arm,mpam-msc";
+> +            reg = <0x21000 0x1000>;
+> +            interrupts = <3>;
+> +            interrupt-names = "error";
+> +            arm,not-ready-us = <1>;
+> +            numa-node-id = <1>;
+> +        };
+> +    };
+> +
+> +    iommu@40000 {
+> +        reg = <0x40000 0x1000>;
+> +
+> +        ranges;
+> +        #address-cells = <1>;
+> +        #size-cells = <1>;
+> +
+> +        msc@41000 {
+> +            compatible = "arm,mpam-msc";
+> +            reg = <0x41000 0x1000>;
+> +            interrupts = <5>, <6>;
+> +            interrupt-names = "error", "overflow";
+> +            arm,not-ready-us = <1>;
+> +
+> +            #address-cells = <1>;
+> +            #size-cells = <0>;
+> +
+> +            ris@2 {
+> +                compatible = "arm,mpam-cache";
+> +                reg = <2>;
+> +                arm,mpam-device = <&L3>;
+> +            };
+> +        };
+> +    };
+> +
+> +    msc@80000 {
+> +        compatible = "foo,a-standalone-msc";
+> +        reg = <0x80000 0x1000>;
+> +
+> +        clocks = <&clks 123>;
+> +
+> +        ranges;
+> +        #address-cells = <1>;
+> +        #size-cells = <1>;
+> +
+> +        msc@10000 {
+> +            compatible = "arm,mpam-msc";
+> +            reg = <0x10000 0x2000>;
+> +            interrupts = <7>;
+> +            interrupt-names = "overflow";
+> +            arm,not-ready-us = <1>;
+> +
+> +            #address-cells = <1>;
+> +            #size-cells = <0>;
+> +
+> +            ris@0 {
+> +                compatible = "arm,mpam-cache";
+> +                reg = <0>;
+> +                arm,mpam-device = <&L2_0>;
+> +            };
+> +
+> +            ris@1 {
+> +                compatible = "arm,mpam-memory";
+> +                reg = <1>;
+> +                arm,mpam-device = <&mem>;
+> +            };
+> +        };
+> +    };
+> +
+> +...
+> 
+> -- 
+> 2.34.1
+> 
