@@ -1,143 +1,127 @@
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10CD33D16FC;
-	Thu,  8 Oct 2026 09:18:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F2403E49FD
+	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 09:18:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791451144; cv=none; b=hS5t57C1+J54PXftwTXMBFDFhG0mQHYhhbJwJ7aGKeXwYY37kh2EkTTSKKWwye42TWZTATkl9uQqz32YFIs+RBRr8/fL0DcTBhsGdZ5BKmiWLnepBXOmbsaKueUvw5Ts8q92mNzBwyHCcYvxKzhW25I1i9477dQ+4naz7Hj2DmU=
+	t=1791451147; cv=none; b=dgM8Di5CBKUrMX0/ztJ53OG/h2DOKLuxYNCVw9+Gne+cvmJ7sHWQP5d1rPejLO3+NYPtZXdd0Jh7dDMgk35XI2ZTet30yd+Sj/Q2150r0q1vlzT0rTGTmvo98Rs6YP5sPkUwVcL3NCxYVwFNpGNRY8FWL/wU04roVp/Tr+8D12Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791451144; c=relaxed/simple;
-	bh=g4SdGRS4oa4gLIHv7BskeiFEZvqgS8DVGutFRmPrCD4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Bx4hijrrw1IuG1VXCqvpwmLD0iugYHlj7L0CxfljmoQ2rdEwZORPRWkp177wKDOKNhEMMFEN3mrAq6kikLd+G7G2lqLXi7nyGkirv6N3z65xBT9qx7vmWRmi59nEtP4UCDUqaibZyws1nSrWpcXk8tn1JmBhyxcckaPzqiS+qk4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=TpYJ4A0C; arc=none smtp.client-ip=188.40.3.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+	s=arc-20240116; t=1791451147; c=relaxed/simple;
+	bh=an7tmUc8vsL1ICc+kKS6Dsoe5/yyvN0GoF9KC7uwFMw=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=YZl7wkEChDgfR2BoV5LpJAA8ZyEn3TMSB0FWM5E0TEC4n1w4EddTlRdD/mpdVWupD1nFZJVeYV6fOtW5s6WQ8AEvYAOtRo/8Fiwmb2mvHM0/MPfFOBkw5aJrBxfjYTnOfCFxCm4gibPMstKZt1ZBHiDCD/OI8QDsk/gey+h6L3E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GgGz3ul7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="TpYJ4A0C"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ew.tq-group.com; s=default2602; h=Content-Type:Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=LlTbJYxhoFVYu+0y/mW72tx6Dx36C0bLKSlVa0TrKGc=; b=TpYJ4A0CJ48zzojJwmlKxdxoOp
-	uQLFYZ+ghUEndbK4cPr46ox7HvJeSkKzsbai+xVlRmrZwLdIbkTtb9a7Y5ZKWyXke0PEc/DVXgElk
-	Of2jJ0WVVtWSVIEtOuJdsu0f3WryHTIdX0sLXUCPqp4Jxb6WQ7yuElpGpJSFNEs7ae6wycBw/avhP
-	lpglmhBH47mdx9ThKxogxk8Mg7V3vOxJraqQQkWNfsKn1mntZTUPFH+jtkpuAxNJpbvPk2X+Rgg/i
-	3fWlcvUrjxgffFGYJ+1GWGskgBdCUJ5k1vvLLXQOjbnna/pU+R3S0vY30R27Oc6HMeJgvtkCBfT/r
-	zD5dYzLA==;
-Received: from sslproxy03.your-server.de ([88.198.220.132])
-	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1xEkGz-000FJH-0d;
-	Thu, 08 Oct 2026 11:18:45 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy03.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1xEkGz-000AOW-0I;
-	Thu, 08 Oct 2026 11:18:44 +0200
-From: Alexander Stein <alexander.stein@ew.tq-group.com>
-To: Bough Chen <haibo.chen@oss.nxp.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>,
- Markus Niebel <Markus.Niebel@ew.tq-group.com>, linux@ew.tq-group.com,
- devicetree@vger.kernel.org, imx@lists.linux.dev,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject:
- Re: [PATCH v2 1/3] arm64: dts: imx8mm-tqma8mqml: restrict clock for SPI-NOR
- flash
-Date: Thu, 08 Oct 2026 11:18:43 +0200
-Message-ID: <6322266.lOV4Wx5bFT@steina-w>
-Organization: TQ-Systems GmbH
-In-Reply-To: <20261008083427.33iide6apbktyv6p@shlinux89>
-References:
- <20261007072017.2311818-1-alexander.stein@ew.tq-group.com>
- <20261008083427.33iide6apbktyv6p@shlinux89>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GgGz3ul7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 235981F000FF;
+	Thu,  8 Oct 2026 09:18:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791451137;
+	bh=5FsmvzdIxoAlRBDlOkTpFrOSP5x7rJhflHBaqeh5W6k=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=GgGz3ul7t1CtCTNggIKHhgX8Q486qyeTQM2tRdz0+6ggYLSfDOGGhFce58KWyoQZ1
+	 E5BZXhnVbpv9Vil8avtZzaXZHL3uENdahTAN83so0bqMKK7uxPcvG9WHk39sx+Bay0
+	 bl7M2XjFxhowSlx+HJQnQzhxLkQm9nfIWAGSy8yH5gVWj2Nom59KftLFw7bKlx0+N1
+	 BO6uwdHYykD3TUIC6OxiG2wZvnHv439Q8uJWlwl0AufgVRuudhU3qR6ezGoN6cfjkN
+	 ONpCmuaunE/IkDzXpCS5B+uacpj/roUwPTf/jwNH3/oh8sgoGaOop6NukoLmAptV5B
+	 34aFmwfsPTMxw==
+Message-ID: <sashiko-outbox-163919@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 10/11] arm64: dts: qcom: ipq5210: Add SPI node
+ definitions
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Varadarajan Narayanan" <varadarajan.narayanan@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20261008-08-dts-v6-10-f9c4ec8664d8@oss.qualcomm.com>
+References: <20261008-08-dts-v6-0-f9c4ec8664d8@oss.qualcomm.com>
+ <20261008-08-dts-v6-10-f9c4ec8664d8@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 08 Oct 2026 09:18:56 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28147/Thu Oct  8 08:24:12 2026)
 
-Hi,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] dts: incorrect reg cell count for spi0 node in ipq5210
+- [Low] dts: missing #address-cells and #size-cells in ipq5210 spi nodes
+--
 
-Am Donnerstag, 8. Oktober 2026, 10:34:27 Mitteleurop=C3=A4ische Sommerzeit =
-schrieb Bough Chen:
-> On Wed, Oct 07, 2026 at 09:20:13AM +0200, Alexander Stein wrote:
-> > From: Markus Niebel <Markus.Niebel@ew.tq-group.com>
-> >=20
-> > The FlexSPI controller uses quad SPI with internal clock recovery.
-> > The i.MX 8M Mini Applications Processor Datasheet for Industrial Produc=
-ts,
-> > Rev. 2, 11/2022 lists a maximum FlexSPI frequency of 66.666666 MHz for
-> > that mode.
-> >=20
-> > Fixes: dfcd1b6f7620 ("arm64: dts: freescale: add initial device tree fo=
-r TQMa8MQML with i.MX8MM")
->=20
-> There is already one patch to limit the clock rate based on SoCs, refer t=
-o:
-> https://patch.msgid.link/20260728-fspi-clock-v2-1-dbe786a4a6eb@nxp.com
+commit 98b0e1a28d55f7b85bc8666419066bba608f1097
+Author: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
 
-Ah, thanks. I wasn't aware of that. Despite that I don't like this just
-supports RXCLKSRC 0 and 3 (SDR/DTR), this in deed limits the frequency
-already.
+arm64: dts: qcom: ipq5210: Add SPI node definitions
 
-> I think the max frequency in the DTS flash node should describe only the
-> SPI NOR device limitation, not the host limitation.
+This commit adds SPI node definitions for the QUP SPI blocks present in the
+IPQ5210 SoC. It introduces spi0 and spi1 nodes with their basic configurati=
+ons
+including compatible strings, register addresses, clocks, and interrupts.
 
-True, before there was no limitation like that. But starting with commit
-f43579ef35005 ("spi: spi-nxp-fspi: limit the clock rate for different
-sample clock source selection") this series is no longer necessary.
+> diff --git a/arch/arm64/boot/dts/qcom/ipq5210.dtsi b/arch/arm64/boot/dts/=
+qcom/ipq5210.dtsi
+> index 50ce79219fe23..23a2e27b70fa3 100644
+> --- a/arch/arm64/boot/dts/qcom/ipq5210.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/ipq5210.dtsi
+> @@ -418,6 +418,17 @@ qupv3: geniqup@1ac0000 {
+>  			#address-cells =3D <2>;
+>  			#size-cells =3D <2>;
+> =20
+> +			spi0: spi@1a80000 {
+> +				compatible =3D "qcom,geni-spi";
+> +				reg =3D <0x1a80000 0x4000>;
 
-Thanks and best regards
-Alexander
+[Severity: Medium]
+Will this reg property cause dtc warnings and runtime probing failures?
 
-> Regards
-> Haibo Chen
-> > Signed-off-by: Markus Niebel <Markus.Niebel@ew.tq-group.com>
-> > Signed-off-by: Alexander Stein <alexander.stein@ew.tq-group.com>
-> > ---
-> > Changes in v2:
-> > * Clarify which datasheet is referred to
-> > * Add Fixes tag
-> >=20
-> >  arch/arm64/boot/dts/freescale/imx8mm-tqma8mqml.dtsi | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >=20
-> > diff --git a/arch/arm64/boot/dts/freescale/imx8mm-tqma8mqml.dtsi b/arch=
-/arm64/boot/dts/freescale/imx8mm-tqma8mqml.dtsi
-> > index 1b5ba3c47164f..48285bcbe9bbb 100644
-> > --- a/arch/arm64/boot/dts/freescale/imx8mm-tqma8mqml.dtsi
-> > +++ b/arch/arm64/boot/dts/freescale/imx8mm-tqma8mqml.dtsi
-> > @@ -60,7 +60,7 @@ &flexspi {
-> >  	flash0: flash@0 {
-> >  		compatible =3D "jedec,spi-nor";
-> >  		reg =3D <0>;
-> > -		spi-max-frequency =3D <84000000>;
-> > +		spi-max-frequency =3D <66666666>;
-> >  		spi-tx-bus-width =3D <1>;
-> >  		spi-rx-bus-width =3D <4>;
-> >  		vcc-supply =3D <&buck5_reg>;
->=20
+The parent node qupv3: geniqup@1ac0000 specifies #address-cells =3D <2>; and
+#size-cells =3D <2>;. This requires all child nodes to specify their reg
+properties with exactly 4 cells (2 for the 64-bit address, 2 for the 64-bit
+size). The newly added spi0 node only provides 2 cells, whereas the sibling
+spi1 node correctly uses 4 cells.
 
+[Severity: Low]
+Should #address-cells =3D <1>; and #size-cells =3D <0>; be added to this no=
+de?
 
-=2D-=20
-TQ-Systems GmbH | M=C3=BChlstra=C3=9Fe 2, Gut Delling | 82229 Seefeld, Germ=
-any
-Amtsgericht M=C3=BCnchen, HRB 105018
-Gesch=C3=A4ftsf=C3=BChrer: Detlef Schneider, R=C3=BCdiger Stahl, Stefan Sch=
-neider
-http://www.tq-group.com/
+SPI controller nodes typically define these properties in the SoC .dtsi so
+that board files can cleanly instantiate SPI slave devices on the bus
+without repeating them. Without these properties, when board-level device
+trees attempt to attach child SPI devices, the device tree compiler will
+emit warnings about missing #address-cells and #size-cells properties in
+the parent node.
 
+> +				clocks =3D <&gcc GCC_QUPV3_WRAP_SE0_CLK>;
+> +				clock-names =3D "se";
+> +				interrupts =3D <GIC_SPI 138 IRQ_TYPE_LEVEL_HIGH>;
+> +				assigned-clocks =3D <&gcc GCC_QUPV3_WRAP_SE0_CLK>;
+> +				assigned-clock-rates =3D <50000000>;
+> +				status =3D "disabled";
+> +			};
 
+[ ... ]
+
+> +			spi1: spi@1a90000 {
+> +				compatible =3D "qcom,geni-spi";
+> +				reg =3D <0x0 0x01a90000 0x0 0x4000>;
+> +				clocks =3D <&gcc GCC_QUPV3_WRAP_SE4_CLK>;
+
+[Severity: Low]
+Similar to the spi0 node above, should this node also include
+#address-cells =3D <1>; and #size-cells =3D <0>; to prevent dtc warnings wh=
+en
+board files attach child devices?
+
+> +				clock-names =3D "se";
+> +				interrupts =3D <GIC_SPI 142 IRQ_TYPE_LEVEL_HIGH>;
+> +				assigned-clocks =3D <&gcc GCC_QUPV3_WRAP_SE4_CLK>;
+> +				assigned-clock-rates =3D <50000000>;
+> +				status =3D "disabled";
+> +			};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261008-08-dts-v6-=
+0-f9c4ec8664d8@oss.qualcomm.com?part=3D10
