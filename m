@@ -1,187 +1,151 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEB4B3D902D
-	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 07:22:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DC183E00B8;
+	Thu,  8 Oct 2026 07:25:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791444181; cv=none; b=DCiZjCSRXx+B5FIdGzX2BpnjA5yKpvfhXLbyjajyU7/YEtpWWzTXfda7Sir4eQfwnA4QY6yHzWy1bKTyBb9HKCvxxYeCPSnKXqysVeTZte46K3P/YuYiGycyO0N6IGsQp0V71Gyyl3Yh34gD1kGPw+tvMjIY8E8wurBiE4kw4lA=
+	t=1791444329; cv=none; b=DY8QgJ8ONq4Oof8/NGDwRplXWohjSwKhT/V4HW4e3/WLh8lsT/AZPrbKN+YTjOPmSZrZHpYn4L73PqfVgIl7xK7Vzy3F05bkBX9jFDdIyt7qHI/UlojIDTh11gy98ad/5KGJ6i+M/hImFFewPHGP0qk3snbRxIijHF7yB6H4Diw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791444181; c=relaxed/simple;
-	bh=i8uF9NLjlipi2g+SaY1Sbhj1L5kPCa+uJ+n1WEcSgbI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CbV9CKsQFlW9OjuHfLjvyhGoOVbbCJO1q9oSwWbwj+xfa2V4ZJLNHPuBRHaETwY7Q/D8+fpCohmycZ7lXj1bBa6nu2UJR+0Tkqx5FU0isg2i06vE84LUeyX5FFeU9Qt45JE0yp9pyxIMHp0WqJIpbM9923UGrtZ9vSvBKDVokOo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=aEp9zmEk; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Y2YkhCZL; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791444329; c=relaxed/simple;
+	bh=x6FKyyYfGJ2ckcdf6uTGYUSOG49K90oTf9L4CfdX/Kw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ra7Ounqifb+vGNJupWh73o/mvhxxFxRglEOB6erfFjoS5MQ+zkuyw7wUd/f7W7U8ed6hp5L2MsNysoDA2OOd1e28CEz50gZSLo1XYjJDZgqVP5mrIpzqYL/1tc7VoQBs9hL7DTEQsve+ShfahWR9JPUGUsG691wstxZQdPGyvNk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q7ZHmSIx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="aEp9zmEk";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Y2YkhCZL"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6987K7LI2189885
-	for <devicetree@vger.kernel.org>; Thu, 8 Oct 2026 07:22:57 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	ppMBDp/pJ4xxrQFK4q3LpnADbn6+L74//XQw3GBFLzM=; b=aEp9zmEkzBjy027b
-	3NOlmj9O5D02wFd3a9dizNSmWW3uKE9tsrg6bJkbfQ2+nb9feFwHVCv+RYRVxz3U
-	D/B3nkhBXr+hAg8uDnhWmRW7W5rxfnUVPWXwaKhwb/ufF3xSC+KESO6Mc4xIBdX6
-	v+mLbHD0FhCExY/CaEbkftAQAYUcsJ2SyVv58i9uQq1UvMIam/nMjU0xwIikN8qR
-	RENfY5j5VlewuE8gsIOgP7S/rB6zkBtP2JdDOjfAs1gcMYJ51FV8YdjY6KTXALB5
-	7WTgrkI18bA73TTOOiN3YtC6n63vZbgqmr+qgcLrAtwNktTb36qvcnJP4i3M4x8w
-	4I4ueQ==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5xe39n7y-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 08 Oct 2026 07:22:56 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2d55d8cd938so73674765ad.1
-        for <devicetree@vger.kernel.org>; Thu, 08 Oct 2026 00:22:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791444176; x=1792048976; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=ppMBDp/pJ4xxrQFK4q3LpnADbn6+L74//XQw3GBFLzM=;
-        b=Y2YkhCZLDeQJPoobZCXFJXwL3TsFw89elbfe5rCoc+LFa2yw9s4Oss3p54qZTU1lQm
-         wmwDx37B/M8WhPQzxCynFKnSvVoT9gVT6+baSVyGb2Igcar9rsCL5ELIU5USL1yDXNbU
-         Kxf32VwT/s6HIbvWtJXYp4hbQL3IOV3Tswj3w2huj1614eDEXeQbqTeOn4t9DOyl7iTf
-         t5p48YEOhzYsvtE196eY1Qgaj77wQCTZZKTpKUyDN+4t7B/OIsDNKx1MZX9WYKymSxZX
-         4DyZxcqyiSFaVhtWpb+V2f0LxtsqPrCWtBdn3z2D6S7U4kQ2H6nPyFDto0buGg/8hEuC
-         90tQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791444176; x=1792048976;
-        h=content-transfer-encoding:content-type:in-reply-to:from:references
-         :cc:to:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ppMBDp/pJ4xxrQFK4q3LpnADbn6+L74//XQw3GBFLzM=;
-        b=sho6Z9ilrsgf4VFvhfrerfnKPmVPOFMb2gFPKsnHKJoDj/+Csoedv2zXYFrKxwN9xU
-         tA7W877FOEqAp9WPDr3STzpgtrCJopfz4E/ydO6vhClVbwSPn2aAuR5wE+VN84Kl9HBZ
-         +D9B30NcPvap8LXeI8zVRfVK/iW0zOFA8j4b4VRaHoH0CY454eeip5mt98vGJlHsmgPh
-         IE/h9KH6xI0VoAAxqw7yUZr0B0uQrZeF1Xfu1APr6vnxoXnz3Dyo3wswyIkrVQyA2mzS
-         4X7ccgMm1R13MaeuO428+hcRgFZNYt1NpU37Cu5WwQso9l+uA8OcD2bHPFJOPIEN4ebS
-         CtCA==
-X-Forwarded-Encrypted: i=1; AKwUvBw0eVogdackdyzewkiGFN3icNYDmb7rwWAQ/uANZ2jHiKmo2iRgKnQWmmHKOHbd79WwcfWKaTCBLCXX@vger.kernel.org
-X-Gm-Message-State: AFq9FYI0vlw3EtycjAh/fdL5grxTUrL/b8asJ4uPsCYR+WK6Jdq3bMTq
-	mFFJwjJvF3IQltPnvtMiDiZo0dOKvb2R6recRXdz0T9EbONV0xi4CegTi/I+V8AoZzZ6T5tc4mm
-	tBz2PeICUy3Da7do+V9Eu2iT6zE7vWvJDjDYUpLrtnLwJ6AakrxR3BDWVuzDU1XoN
-X-Gm-Gg: AYBFou25U9NAlquXkAQyCpNKIjjnSsk5NoHOgck5nlcDPlaxbDa8wnkoPNXmahBoV7+
-	qeA0wfk0kXyvC9znMVAdAIlhygSCnk92vA3dzagGx3QB4u6+270oHXcSs2Yt6AsmWsE+Sv6h9tI
-	sj0lmjduew09T2gd8sOZ2zvoSoWh8W5795BTUBDTkOSqRU/cSfPp77J2EIoDfVira20Bt0hxcwK
-	3h2SDLPVi0rlprj9TrkTjLjvs262rTahSzWDWniJzr2v11PRmPn1sbH10t03jQQVpBF4sDHP/ct
-	H6A2JL9zw8+FrFX6623X/+/iTKSOch9DlHDcmx4Rh7M1FbrVfjotVNLaEXUgkgpmVdf0EPqzgmx
-	fq0IUpcNg7pcXFaxSWwY9cXhw0oM=
-X-Received: by 2002:a17:902:f786:b0:2e8:b4a:43a4 with SMTP id d9443c01a7336-2e80b4a45cfmr10534335ad.34.1791444176223;
-        Thu, 08 Oct 2026 00:22:56 -0700 (PDT)
-X-Received: by 2002:a17:902:f786:b0:2e8:b4a:43a4 with SMTP id d9443c01a7336-2e80b4a45cfmr10534125ad.34.1791444175481;
-        Thu, 08 Oct 2026 00:22:55 -0700 (PDT)
-Received: from [10.64.68.122] ([114.94.8.21])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e604b53294sm20934665ad.83.2026.10.08.00.22.51
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 08 Oct 2026 00:22:55 -0700 (PDT)
-Message-ID: <894b56d6-ab39-4920-ba37-94a5bd0cad5d@oss.qualcomm.com>
-Date: Thu, 8 Oct 2026 15:22:50 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q7ZHmSIx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADF441F000FF;
+	Thu,  8 Oct 2026 07:25:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791444326;
+	bh=aLHGBhvDV8qZHfsFbqepqUNO/3HZNejgQir9vBHeCG0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Q7ZHmSIxEFOoAXcgQz5DBH5VsanvHmmKRNfpcwCFoVrn6rpPU/Bf/WR/oIdQ2FwoT
+	 F66OuDSPmmLN4ZhJZ8zfnhd0b0r8bPF4KW8ZU+VJxT8FuFbbHjzp1OBfav6FArpWCi
+	 yssI65aEy7mooJQHzhkDVRYF9KOPdM/UM063jm7sV0VC7i5EixlJkifRsvr9CmtYY0
+	 FZuOkacVN39UKq7YEMmEPHxqY+QgIyhjVLK/oOYiwGr0LzJb4Ajct/h7h0qwuSDee/
+	 JtnyjPt9axmgDoPflJJCH9cXZ0ez5MXoSrqGsWv5LuGgmVw58z+zNRSots9KJSLoy4
+	 9ogywKa0sheDA==
+Date: Thu, 8 Oct 2026 08:25:22 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Pufan Jin <2254650260@qq.com>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Michal Simek <michal.simek@amd.com>, Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, andrew@lunn.ch
+Subject: Re: [PATCH v2 1/3] dt-bindings: vendor-prefixes: Add ALINX vendor
+ prefix
+Message-ID: <20261008-ca435fedee2986fd4ae35087@squawk>
+References: <20261005173308.710986-1-2254650260@qq.com>
+ <tencent_0512BDFB22810AB03126E3189320800AF607@qq.com>
+ <20261007-92e855de534df44fbf665e4f@squawk>
+ <tencent_67DE4800018C924922E62488AF02AF24E405@qq.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] arm64: dts: qcom: hamoa: Add ICE node for UFS
- inline encryption
-To: Herbert Xu <herbert@gondor.apana.org.au>,
-        "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Bjorn Andersson <andersson@kernel.org>
-References: <20260728-hamoa_ufs_ice_change-v3-0-293c7c6c2ae5@oss.qualcomm.com>
- <20260728-hamoa_ufs_ice_change-v3-2-293c7c6c2ae5@oss.qualcomm.com>
-From: Wenjia Zhang <wenjia.zhang@oss.qualcomm.com>
-In-Reply-To: <20260728-hamoa_ufs_ice_change-v3-2-293c7c6c2ae5@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=J4s/fwnS c=1 sm=1 tr=0 ts=6ac744d0 cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=Uz3yg00KUFJ2y2WijEJ4bw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=HdoDP85nwEVMDcDmVcQA:9 a=QEXdDO2ut3YA:10
- a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDAyOSBTYWx0ZWRfXxp4irbilB27I
- WpbLicmyU8Dbs8NLVnn5vBZhQ2JhAmrWugnrhyCpq0Oz91fR6h7lnTmnrbZc4HnbLdbdAZOtH33
- Gm89jDPq4susRnk0HFopYaP22/9p+Cs=
-X-Proofpoint-GUID: zYyUCYBZc2dCllWQUeYLLrafxr2XcSuR
-X-Proofpoint-ORIG-GUID: zYyUCYBZc2dCllWQUeYLLrafxr2XcSuR
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDAyOSBTYWx0ZWRfX/9BfLBLtO0Id
- 5Li9HicgsPbgbskLaugdZLJi2Li0yCL599DsAm9xjPuuIsjLTJfNovDas5SMhDfw9+MWAGoreV8
- UpLVGGrNclnVD5DaZNhP6VduveGlWunMuNHdY660IcYNN+MWeLN+1J8suf5jmQcyBCIwVu6t0sv
- vuNBJr1uHNFqaNXmROsOCmVwWmi9nh6LH4AG+ZQd8z+TgEE7Z4gjBAO12YZeyj3lkTPTJP2AEKf
- 6yYUS2OOMgfBSNso8mVDZYCF2aMR9AZ3M8gELcVY9/jwWgbQToKxt/CsQg3GZkHayTdSo3kH2a9
- 4ifVNP59TQB3ZY9GqbYQBPhdI6YYeImDKOmH5GjNPl7Js0h/kZqDEcGjadOlkbgMbqNeU80AKbL
- nPHVG81irzUK//UhYAkMpK5scLX67ibRQ7DJVyV1YYyh3m93/hJnHKMArHCpRNVGhJlUAD6vcLP
- LoSeN55pfcaSftubtog==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-08_03,2026-10-06_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 phishscore=0 clxscore=1011 lowpriorityscore=0
- adultscore=0 priorityscore=1501 suspectscore=0 bulkscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610080029
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="7NoPOEN9tB3HHmhZ"
+Content-Disposition: inline
+In-Reply-To: <tencent_67DE4800018C924922E62488AF02AF24E405@qq.com>
 
+--7NoPOEN9tB3HHmhZ
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On 7/28/2026 5:53 PM, Wenjia Zhang wrote:
-> Add the Inline Crypto Engine (ICE) device node to describe the
-> hardware-accelerated inline encryption for UFS storage on the
-> Hamoa IoT EVK board (Qualcomm X1E80100 SoC).
->
-> Signed-off-by: Wenjia Zhang <wenjia.zhang@oss.qualcomm.com>
-> ---
->   arch/arm64/boot/dts/qcom/hamoa.dtsi | 13 +++++++++++++
->   1 file changed, 13 insertions(+)
->
-> diff --git a/arch/arm64/boot/dts/qcom/hamoa.dtsi b/arch/arm64/boot/dts/qcom/hamoa.dtsi
-> index 09527dcf957672b4b9658988359e79d8a432fd93..abec577c062d53952528f3bd0330638ea53b83b3 100644
-> --- a/arch/arm64/boot/dts/qcom/hamoa.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/hamoa.dtsi
-> @@ -3894,6 +3894,8 @@ &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>,
->   			phys = <&ufs_mem_phy>;
->   			phy-names = "ufsphy";
->   
-> +			qcom,ice = <&ice>;
-> +
->   			#reset-cells = <1>;
->   
->   			status = "disabled";
-> @@ -3939,6 +3941,17 @@ opp-300000000 {
->   			};
->   		};
->   
-> +		ice: crypto@1d88000 {
-> +			compatible = "qcom,x1e80100-inline-crypto-engine",
-> +				     "qcom,inline-crypto-engine";
-> +			reg = <0x0 0x01d88000 0x0 0x18000>;
-> +			clocks = <&gcc GCC_UFS_PHY_ICE_CORE_CLK>,
-> +				 <&gcc GCC_UFS_PHY_AHB_CLK>;
-> +			clock-names = "core",
-> +				      "iface";
-> +			power-domains = <&gcc GCC_UFS_PHY_GDSC>;
-> +		};
-> +
->   		cryptobam: dma-controller@1dc4000 {
->   			compatible = "qcom,bam-v1.7.4", "qcom,bam-v1.7.0";
->   			reg = <0x0 0x01dc4000 0x0 0x28000>;
+On Thu, Oct 08, 2026 at 01:36:35AM +0800, Pufan Jin wrote:
+>=20
+> On 2026/10/7 18:35, Conor Dooley wrote:
+> > On Tue, Oct 06, 2026 at 01:33:06AM +0800, Pufan Jin wrote:
+> > > Add vendor prefix for ALINX (Shanghai Xin'yi Electronics Technology
+> > > Co., Ltd.).
+> > Where does this ALINX come from? Website url?
+> >=20
+> > > Signed-off-by: Pufan Jin <2254650260@qq.com>
+> > > ---
+> > >   Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
+> > >   1 file changed, 2 insertions(+)
+> > >=20
+> > > diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b=
+/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> > > index ba2002969..97e7ef340 100644
+> > > --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> > > +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+> > > @@ -90,6 +90,8 @@ patternProperties:
+> > >       description: AlgolTek, Inc.
+> > >     "^alientek,.*":
+> > >       description: Guangzhou Xingyi Intelligent Technology Co., Ltd.
+> > > +  "^alinx,.*":
+> > > +    description: Shanghai Xin'yi Electronics Technology Co., Ltd. (A=
+LINX)
+> > >     "^allegro,.*":
+> > >       description: Allegro DVT
+> > >     "^allegromicro,.*":
+> > > --=20
+> > > 2.55.0
+>=20
+> Hi Conor,
+>=20
+> ALINX is the brand of Xinyi Electronic Technology (Shanghai) Co., Ltd.
+> (=E8=8A=AF=E9=A9=BF=E7=94=B5=E5=AD=90=E7=A7=91=E6=8A=80=EF=BC=88=E4=B8=8A=
+=E6=B5=B7=EF=BC=89=E6=9C=89=E9=99=90=E5=85=AC=E5=8F=B8), https://www.alinx.=
+com/ - an FPGA/SoC
+> company and official partner of AMD Xilinx, Unisoc and Baidu.
 
-Hi Bjorn,
-
-could you pls help to pick this DT change?
+In that case,
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
+Link: https://www.alinx.com/
 
 Thanks,
+Conor.
 
-Wenjia Zhang
+>=20
+> The board is not in the alinx.com shop because ALINX describes EdgeBoard
+> as a customisation done for Baidu: Baidu owns the EdgeBoard brand and the
+> sales channel, while ALINX designs and manufactures the hardware. From
+> ALINX's own product documentation [1]:
+>=20
+> "...as a Baidu AI partner, it has customized the Edgeboard series edge
+> =C2=A0devices of the domestic AI flying paddle system for Baidu."
+>=20
+> The FZ3A hardware manual and the schematics are authored by ALINX - the
+> manual cover carries the ALINX logo, www.alinx.com and the legal name
+> above, and every schematic sheet has the same ALINX title block.
+>=20
+> Since ALINX is the hardware designer, I used "alinx" as the prefix
+> instead of "baidu". Happy to switch if you prefer the marketing brand.
+>=20
+> [1] https://vd100-20232-v101.readthedocs.io/zh-cn/en/VD100_S1_RSTdocument=
+_EN/00_aboutALINX_EN.html
+>=20
+> For v3:
+> =C2=A0 - Fix the v2 description mistransliteration of the legal name:
+> =C2=A0 =C2=A0 =C2=A0 "^alinx,.*":
+> =C2=A0 =C2=A0 =C2=A0 =C2=A0 description: Xinyi Electronic Technology (Sha=
+nghai) Co., Ltd.
+> (ALINX)
+> =C2=A0 - Put the website URL in the commit message.
+>=20
+> Thanks for the ack on patch 2/3, I will carry it into v3.
+>=20
+> Best regards,
+> Pufan Jin
+>=20
+>=20
 
+--7NoPOEN9tB3HHmhZ
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCasdFYgAKCRB4tDGHoIJi
+0lxeAQCLYZVyUowY42l+9LTBvHVoIUXZ+KnaWz+tHxxqNQxBOgEAoMvdJwCLWqgC
+QFh0byuhggVNSNWwcj0pVi5+LoWXfgI=
+=pEKw
+-----END PGP SIGNATURE-----
+
+--7NoPOEN9tB3HHmhZ--
