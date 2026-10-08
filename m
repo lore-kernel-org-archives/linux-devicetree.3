@@ -1,139 +1,138 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C6F035AC14;
-	Thu,  8 Oct 2026 16:46:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E98123B0ADB;
+	Thu,  8 Oct 2026 16:47:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791478018; cv=none; b=FwJkPoqezd0jsInGiLbfEHnORj4/u3P5ReC/M7zPwgNbcakdJFSdxOoZIKDeFpLpAkU/aRJiWAQtHE6S1vSR5y73SFoq2qDqreIMhxIzTzPDVNuw4JaPRNPvcyeAJfzxUVH18wgCP46FA8Ac0MN5zGg6d8t0POvDn+Dl/Nk0KXE=
+	t=1791478059; cv=none; b=j3QnUvI5b/jLKqCrtdD44+Kb6DQjEc935fp4knRUhojvlonDh0L3kHZyicRB5gzdYPsSHsNh3/era1R7aoSBLfOu/yuGRT4cUKFfv18JfUVklBtkWBQvhAeYNvoSyFivo2T7xY76ygMS7BUQnd9iZJNxmGtcopWkHRlWJ/rL1Hk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791478018; c=relaxed/simple;
-	bh=y9exSn++eNilrTXWwsY6/at3Kjqr1BXo2+Q4Osb9AgA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=m79VVKJdbWZyQp5D4l/oQ0jKUaZlErzpR2X9U6GXEdbIuBHXBpDSkkz3Bt7VKPqNn37/fAkQMCDMSm8p6TXee2bhGnXJWzlWMgHA0WBL2XFgbzJzaEvtBHh6kcF3mf6Dwdu2MU8U/ehze67egkl+IOmkhhn6pVGiCT7RAyMM9gw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=bIuxar2P; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791478059; c=relaxed/simple;
+	bh=MViuzeMHvA+hxXpHNeN0idu0VY2OLXrPpmEja5teSEU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=I4WYeJ9YRMXyCFQaC1xL5SgQmi0Mrhzpsurp4/NDAM5Vj24x8hYYAB0tPIwfUV5ynPpWCFj1j11JbcPMzfA8upXADLiTD0rYwN6EqJPbI4o0gh7PzH4jS/Zofukwsxx1c92d1wKo9be4qhrrR7vh3uQPwiMPWjhy20ysoE/9/Dw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ACPbM7F6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="bIuxar2P"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791478017; x=1823014017;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=y9exSn++eNilrTXWwsY6/at3Kjqr1BXo2+Q4Osb9AgA=;
-  b=bIuxar2Pt9MqvQ+6b/+NpetNurC1Xw9UQ7XGnaSxCwtrFPEBKiF3rB9C
-   63pFqoCYNkPZGIFmoTDNlsIJEBm0BC+foKDxwCuX10ZYV9UVBViBLg87s
-   /1EkHc7ACaSDupaOjMYItQ1jUuQ06rD1FL+EAqyjoQc5+RQOse7Uo1ozc
-   xiu9pM3P+80XgeuEjVXozad+iqG4tCR8gpurbohpuYWsAbxGB+iUxoOO8
-   VHAp10wlcT2zMWFynj63oFxnxmYS3FjZdW4/O9QAgLz4DDFii3chUJ6Up
-   yP5bMI1D+7nAp2YBuz78EebuGv1BrBfiFY1rPgHYA2l5OPr2oA0DIYXEj
-   Q==;
-X-CSE-ConnectionGUID: +ie2uicEQ9WtggpnXbVB1A==
-X-CSE-MsgGUID: M3VCrLVSTwm4ZGj8hiMz1Q==
-X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="279753"
-X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
-   d="scan'208";a="279753"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 09:46:57 -0700
-X-CSE-ConnectionGUID: GbDOzSzaSVmBlV8f31DQSg==
-X-CSE-MsgGUID: uW1pO5uBRBGKnV+PCecRLg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
-   d="scan'208";a="1912917"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa012.fm.intel.com with ESMTP; 08 Oct 2026 09:46:54 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xErGc-000000004f0-2yit;
-	Thu, 08 Oct 2026 16:46:50 +0000
-Date: Fri, 9 Oct 2026 00:46:35 +0800
-From: kernel test robot <lkp@intel.com>
-To: Ariana Lazar <ariana.lazar@microchip.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: oe-kbuild-all@lists.linux.dev, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-hwmon@vger.kernel.org,
-	Ariana Lazar <ariana.lazar@microchip.com>
-Subject: Re: [PATCH v4 3/3] iio: adc: add support for PAC1711
-Message-ID: <202610090029.8WKWgYLF-lkp@intel.com>
-References: <20261007-pac1711-v4-3-6ef34d7a7947@microchip.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ACPbM7F6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2841F1F000FF;
+	Thu,  8 Oct 2026 16:47:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791478056;
+	bh=P5QqN91oq5UQdWOAGLusHuKZASEgHmUyhsRnptvmHmQ=;
+	h=From:To:Cc:Subject:Date;
+	b=ACPbM7F6MN1iZ8oNQ6xEzcyA5gR0Z2PehoZz+TkD1YJmcOc7mf+7dStRzhXapDwie
+	 KlpLbCqjGp1Cjht/TULoaKmI0MqflCUbyCAE3UVtomJmlYAe/rF/r5Xr27Q03Qacyb
+	 DwW3GUT726l9P7JysogKeO+00K208oNMn5QoZ1mwsB/ECks26AFcWk+Yexib+OaXaX
+	 +x8XHDZCSEEFoRlB0pDRdwUckKG+wOW+DSMHSlHiIjh4mhNHtyXF6/SIMaXvAyognu
+	 mh7dFEjZGBhvjXVUSYQKIlpjFX94apkQEYbVJdYkep5yhwP/gjONVJSbrFCzV2dl90
+	 Yb2MAqw240bHQ==
+From: Dinh Nguyen <dinguyen@kernel.org>
+To: linux-arm-kernel@lists.infradead.org,
+	soc@lists.linux.dev
+Cc: dinguyen@kernel.org,
+	devicetree@vger.kernel.org
+Subject: [GIT PULL 1/2] SoCFPGA DTS updates for v7.4
+Date: Thu,  8 Oct 2026 11:47:35 -0500
+Message-ID: <20261008164735.566333-1-dinguyen@kernel.org>
+X-Mailer: git-send-email 2.42.0.411.g813d9a9188
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261007-pac1711-v4-3-6ef34d7a7947@microchip.com>
+Content-Transfer-Encoding: 8bit
 
-Hi Ariana,
+The following changes since commit cee9395acd8043be0644b25c34bfa86623f2b935:
 
-kernel test robot noticed the following build warnings:
+  Linux 7.3-rc1 (2026-08-30 13:34:40 -0700)
 
-[auto build test WARNING on cee9395acd8043be0644b25c34bfa86623f2b935]
+are available in the Git repository at:
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Ariana-Lazar/iio-core-add-IIO_CHARGE-channel-type/20261007-174153
-base:   cee9395acd8043be0644b25c34bfa86623f2b935
-patch link:    https://lore.kernel.org/r/20261007-pac1711-v4-3-6ef34d7a7947%40microchip.com
-patch subject: [PATCH v4 3/3] iio: adc: add support for PAC1711
-config: s390-allyesconfig (https://download.01.org/0day-ci/archive/20261009/202610090029.8WKWgYLF-lkp@intel.com/config)
-compiler: s390-linux-gcc (GCC) 16.1.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261009/202610090029.8WKWgYLF-lkp@intel.com/reproduce)
+  git://git.kernel.org/pub/scm/linux/kernel/git/dinguyen/linux.git tags/socfpga_dts_updates_for_v7.4
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610090029.8WKWgYLF-lkp@intel.com/
+for you to fetch changes up to 1c4d22949a77d82505188bf36a4bcae0cbdf699e:
 
-All warnings (new ones prefixed by >>):
+  arm64: dts: altera: Move all SoCFPGA files to dts/altera (2026-10-08 11:25:18 -0500)
 
->> drivers/iio/adc/pac1711.c:134:51: warning: overflow in conversion from 'long unsigned int' to 'int' changes value from '18446744073667551616' to '-42000000' [-Woverflow]
-     134 |                 [PAC1711_FULL_RANGE_BIPOLAR]  = { -PAC1711_VBUS_FSR_UV, PAC1711_VBUS_FSR_UV },
-         |                                                   ^
-   drivers/iio/adc/pac1711.c:135:51: warning: overflow in conversion from 'long unsigned int' to 'int' changes value from '18446744073688551616' to '-21000000' [-Woverflow]
-     135 |                 [PAC1711_HALF_RANGE_BIPOLAR]  = { -PAC1711_VBUS_FSR_HALF_UV,
-         |                                                   ^
-   drivers/iio/adc/pac1711.c:140:51: warning: overflow in conversion from 'long unsigned int' to 'int' changes value from '18446744073700551616' to '-9000000' [-Woverflow]
-     140 |                 [PAC1711_FULL_RANGE_BIPOLAR]  = { -PAC1721_VBUS_FSR_UV, PAC1721_VBUS_FSR_UV },
-         |                                                   ^
-   drivers/iio/adc/pac1711.c:141:51: warning: overflow in conversion from 'long unsigned int' to 'int' changes value from '18446744073705051616' to '-4500000' [-Woverflow]
-     141 |                 [PAC1711_HALF_RANGE_BIPOLAR]  = { -PAC1721_VBUS_FSR_HALF_UV,
-         |                                                   ^
-   drivers/iio/adc/pac1711.c:148:42: warning: overflow in conversion from 'long unsigned int' to 'int' changes value from '18446744073709451616' to '-100000' [-Woverflow]
-     148 |         [PAC1711_FULL_RANGE_BIPOLAR] = { -PAC1711_VSENSE_FSR_UV, PAC1711_VSENSE_FSR_UV },
-         |                                          ^
-   drivers/iio/adc/pac1711.c:149:42: warning: overflow in conversion from 'long unsigned int' to 'int' changes value from '18446744073709501616' to '-50000' [-Woverflow]
-     149 |         [PAC1711_HALF_RANGE_BIPOLAR] = { -PAC1711_VSENSE_FSR_HALF_UV, PAC1711_VSENSE_FSR_HALF_UV },
-         |                                          ^
+----------------------------------------------------------------
+SoCFPGA DTS updates for v7.4
+dt-bindings:
+- Add the SOCDK eMMC and TSN config2 boards based on Agilex5
+- Update the interrupts spec for the Stratix10 Service Layer
+dts:
+- Agilex5
+   - Add FPGA manager, region, and USB3.1 node in the base DTSI
+   - Add SD/eMMC on the SoCDK OOBE card
+   - Add the SoCDK eMMC daughter board
+   - Add support for the debug daughter card
+   - Add support for the  SoCDK TSN Config2 board
+- Add SDM interrupts for Agilex and Stratix10
+- Move all Altera SoCFPGA dts files to dts/altera
 
+----------------------------------------------------------------
+Adrian Ng Ho Yin (3):
+      arm64: dts: intel: agilex5: add USB3.1 controller node
+      arm64: dts: intel: agilex5: remove usb0 in Agilex5 SoCDK
+      arm64: dts: agilex5: add support for debug daughter card
 
-vim +134 drivers/iio/adc/pac1711.c
+Dinh Nguyen (3):
+      arm64: dts: socfpga: agilex5: add FPGA manager and region nodes
+      arm64: dts: socfpga: agilex5: Add SoCDK TSN Config2 board
+      arm64: dts: altera: Move all SoCFPGA files to dts/altera
 
-   130	
-   131	static const int pac1711_vbus_range_tbl[2][3][2] = {
-   132		[PAC1711_VOLTAGE_RANGE_IDX] = {
-   133			[PAC1711_FULL_RANGE_UNIPOLAR] = { 0, PAC1711_VBUS_FSR_UV },
- > 134			[PAC1711_FULL_RANGE_BIPOLAR]  = { -PAC1711_VBUS_FSR_UV, PAC1711_VBUS_FSR_UV },
-   135			[PAC1711_HALF_RANGE_BIPOLAR]  = { -PAC1711_VBUS_FSR_HALF_UV,
-   136							  PAC1711_VBUS_FSR_HALF_UV },
-   137		},
-   138		[PAC1721_VOLTAGE_RANGE_IDX] = {
-   139			[PAC1711_FULL_RANGE_UNIPOLAR] = { 0, PAC1721_VBUS_FSR_UV },
-   140			[PAC1711_FULL_RANGE_BIPOLAR]  = { -PAC1721_VBUS_FSR_UV, PAC1721_VBUS_FSR_UV },
-   141			[PAC1711_HALF_RANGE_BIPOLAR]  = { -PAC1721_VBUS_FSR_HALF_UV,
-   142							  PAC1721_VBUS_FSR_HALF_UV },
-   143		},
-   144	};
-   145	
+Mahesh Rao (3):
+      dt-bindings: firmware: Add interrupt specification for Intel Stratix 10 Service Layer
+      dts: stratix10: Add support for SDM mailbox interrupt for Intel Stratix10 SoCFPGA
+      dts: agilex: Add support for SDM mailbox interrupt for Intel Agilex SoCFPGA
 
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Nazim Amirul (1):
+      dt-bindings: arm: altera: Add Agilex5 SoCDK TSN Config2 board
+
+Tanmay Kathpalia (4):
+      arm64: dts: agilex5: add SD/eMMC host controller
+      arm64: dts: agilex5: enable SD card on SOCDK OOBE card
+      dt-bindings: arm: altera: add Agilex5 SOCDK eMMC board variant
+      arm64: dts: agilex5: add SOCDK eMMC daughter board
+
+ Documentation/devicetree/bindings/arm/altera.yaml  |   2 +
+ .../bindings/firmware/intel,stratix10-svc.yaml     |  10 ++
+ arch/arm64/boot/dts/altera/Makefile                |  14 +-
+ .../boot/dts/{intel => altera}/socfpga_agilex.dtsi |   2 +
+ .../{intel => altera}/socfpga_agilex3_socdk.dts    |   0
+ .../dts/{intel => altera}/socfpga_agilex5.dtsi     |  61 +++++++++
+ .../boot/dts/altera/socfpga_agilex5_socdk.dts      | 146 +++++++++++++++++++++
+ .../socfpga_agilex5_socdk_013b.dts                 |   0
+ .../dts/altera/socfpga_agilex5_socdk_debug.dts     | 121 +++++++++++++++++
+ .../boot/dts/altera/socfpga_agilex5_socdk_emmc.dts | 123 +++++++++++++++++
+ .../socfpga_agilex5_socdk_modular.dts              |   0
+ .../socfpga_agilex5_socdk_nand.dts                 |   0
+ .../socfpga_agilex5_socdk_tsn_cfg2.dts}            |  40 ++++--
+ .../dts/{intel => altera}/socfpga_agilex72.dtsi    |   0
+ .../{intel => altera}/socfpga_agilex72_socdk.dts   |   0
+ .../{intel => altera}/socfpga_agilex7m_socdk.dts   |   0
+ .../dts/{intel => altera}/socfpga_agilex_n6000.dts |   0
+ .../dts/{intel => altera}/socfpga_agilex_socdk.dts |   0
+ .../socfpga_agilex_socdk_emmc.dts                  |   0
+ .../socfpga_agilex_socdk_nand.dts                  |   0
+ .../dts/{intel => altera}/socfpga_n5x_socdk.dts    |   0
+ arch/arm64/boot/dts/altera/socfpga_stratix10.dtsi  |   4 +
+ arch/arm64/boot/dts/intel/Makefile                 |  12 --
+ 23 files changed, 510 insertions(+), 25 deletions(-)
+ rename arch/arm64/boot/dts/{intel => altera}/socfpga_agilex.dtsi (99%)
+ rename arch/arm64/boot/dts/{intel => altera}/socfpga_agilex3_socdk.dts (100%)
+ rename arch/arm64/boot/dts/{intel => altera}/socfpga_agilex5.dtsi (93%)
+ create mode 100644 arch/arm64/boot/dts/altera/socfpga_agilex5_socdk.dts
+ rename arch/arm64/boot/dts/{intel => altera}/socfpga_agilex5_socdk_013b.dts (100%)
+ create mode 100644 arch/arm64/boot/dts/altera/socfpga_agilex5_socdk_debug.dts
+ create mode 100644 arch/arm64/boot/dts/altera/socfpga_agilex5_socdk_emmc.dts
+ rename arch/arm64/boot/dts/{intel => altera}/socfpga_agilex5_socdk_modular.dts (100%)
+ rename arch/arm64/boot/dts/{intel => altera}/socfpga_agilex5_socdk_nand.dts (100%)
+ rename arch/arm64/boot/dts/{intel/socfpga_agilex5_socdk.dts => altera/socfpga_agilex5_socdk_tsn_cfg2.dts} (73%)
+ rename arch/arm64/boot/dts/{intel => altera}/socfpga_agilex72.dtsi (100%)
+ rename arch/arm64/boot/dts/{intel => altera}/socfpga_agilex72_socdk.dts (100%)
+ rename arch/arm64/boot/dts/{intel => altera}/socfpga_agilex7m_socdk.dts (100%)
+ rename arch/arm64/boot/dts/{intel => altera}/socfpga_agilex_n6000.dts (100%)
+ rename arch/arm64/boot/dts/{intel => altera}/socfpga_agilex_socdk.dts (100%)
+ rename arch/arm64/boot/dts/{intel => altera}/socfpga_agilex_socdk_emmc.dts (100%)
+ rename arch/arm64/boot/dts/{intel => altera}/socfpga_agilex_socdk_nand.dts (100%)
+ rename arch/arm64/boot/dts/{intel => altera}/socfpga_n5x_socdk.dts (100%)
