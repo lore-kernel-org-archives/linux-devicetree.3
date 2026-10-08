@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 679FD3EB0E9
-	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 07:32:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FC464078FE
+	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 07:33:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791444789; cv=none; b=pcbw/rPCWNWPDJ5bEkNieK3iCVJDf+RBrNwX82wa9dcHdS6Cqo4JZdXZGU8bqgtQdcW7FAmAnHVMo6aQVHqp3bvno4WKXZGhT8jax+ERPBd7RWEF3M+73lVl2qjADcRzl9dbifyPjirIBNqaCKVcuv4FYN53EaCkVoPeMuS+TMM=
+	t=1791444819; cv=none; b=oleweT9t1trS0rKrX6mDmqeeYI95GnjXAKvFMpL+PusRmHFwqRz5Rri1GqMZvkrmA1jRqfpOaCDADLv/Bk0kiwBWNPYKE6zuy9ddEDg8J0H/9rUx64++DS/rHO1AguhpgOP35l/4za1cZuXgbsR4KKU6vR8tS1l0JldSCqyOZ8E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791444789; c=relaxed/simple;
-	bh=iMCuWnYezqWEqZ1UgJ+xdDf7SYLllLuUKICSyH49QIo=;
+	s=arc-20240116; t=1791444819; c=relaxed/simple;
+	bh=bCkyTGtJ1hp8XUK71gjJhj/ufM8CmOOC0+2iscxo9xQ=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=h9UzVG29juVfSgkCm/ut6ZIJYn6ALw5uAskhrONEfSxVtMpgBIwFjjy3FMZjhCdY/66mMUZKPeOJz+6gt1iKNiZ6eIfo+mM3YDtQoS4E0wHl9r/LsDJrfW9FJsNxpNUT1eNPhlW/8maRCaJ7exoUKLiOrEmi8Vuf/I12ET7lfzU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XHWR7bTg; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=kfO2AOl5FJEi96kmZf33kPFiBhKwivIypm0IrxvVOl2NAG1tjEGuKTtqQNT6ApcZ57+ajE7OXxMG5bSD65bdX3OZ7NjdGk7bfcohdmnjYVtUvrvatIh8cdmErSxQXlx59DVoTRwGHqT+PC0AaxBAb8QQs0C/Zj+X4tmmjn5TlMc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hVq2V9og; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XHWR7bTg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 214CE1F000FF;
-	Thu,  8 Oct 2026 07:32:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hVq2V9og"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FFDD1F000FF;
+	Thu,  8 Oct 2026 07:33:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791444775;
-	bh=qL0f3zWSOBG7sG3mN4VY8+QAxFs5hxiR8d+gHZ7b/vg=;
+	s=k20260515; t=1791444811;
+	bh=bIZpEPrVNVRZ2SEnNX0VrSAozYSX8iDwLnGd/jcY4KQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=XHWR7bTg2sHfrnnyrhwKexYeO5rO5rLgshUh3cT/Bkz+lE6RxJVM7h9nc2SeW31v/
-	 YSWMTVfGtcJ6o2JC9Ys9UU0tIKJpIlg8E1xIkGGRqgm0WopSJvxazhPutvsN/Bel/I
-	 fT3/IppnA03yNDr184jWLNRjAnoRcEwqfZJycl7RksWZU01M5w8/SUR/cZ5x/x3a8o
-	 dJUX/7JTRmXpP0ytJCemqIwwx40FaEKOtSGv2VOcJEI5T7q3phQg/ptFAfeD/ks4FN
-	 ocwMP+yOZsIS94gvVPWzQEeFPW9tkmmIDSSCYsbrVzzgexH3QS2OVVcCuRBT7947fO
-	 DoGg1zH1qfyaQ==
-Message-ID: <sashiko-outbox-163768@kernel.org>
+	b=hVq2V9ogiQW87RBfgwkaBeAVawu7YcF7aNIRPOze6oVTXVoN11GUOZPk8SfwK2NCz
+	 jHas9pk9tSTidxsL2zTK50ts0oIADZ4dQMsAe75y/20mVhxuDtoAq5IL8TIujAu4rC
+	 +kiFl5Aq0yBdqvfc9ZykHHtHRoxcMJy/m2zex5kQo14kE345CCXQre5Y/TageEt30l
+	 JCW3dEkccXFM1OEqdX8OI/qJ17xQo8DT1ZxHHW13NybPV8H8pIE8OOk734Z28QIHH9
+	 Ra8dmoLqhE6GpgZrXxbyCD02bh2+AyQT9wxKFaY1r7qe0VlMmL48RnraRsbajXj1MJ
+	 lr+5B5Y1xxdRQ==
+Message-ID: <sashiko-outbox-163769@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v19 07/12] media: qcom: camss: csid: Add support for
- CSID 1080
+Subject: Re: [PATCH v19 08/12] media: qcom: camss: vfe: Add support for VFE
+ 1080
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Hangxiang Ma" <hangxiang.ma@oss.qualcomm.com>
-Cc: vkoul@kernel.org, olteanv@gmail.com, media-ci@linuxtv.org, robh@kernel.org, neil.armstrong@linaro.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261008-kaanapali-camss-v19-7-b2c583ef50e0@oss.qualcomm.com>
+Cc: neil.armstrong@linaro.org, linux-phy@lists.infradead.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, vkoul@kernel.org, olteanv@gmail.com, media-ci@linuxtv.org
+In-Reply-To: <20261008-kaanapali-camss-v19-8-b2c583ef50e0@oss.qualcomm.com>
 References: <20261008-kaanapali-camss-v19-0-b2c583ef50e0@oss.qualcomm.com>
- <20261008-kaanapali-camss-v19-7-b2c583ef50e0@oss.qualcomm.com>
+ <20261008-kaanapali-camss-v19-8-b2c583ef50e0@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 08 Oct 2026 07:32:54 +0000
+Date: Thu, 08 Oct 2026 07:33:30 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,149 +47,130 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] media: data race on aup_update and rup_update masks between proces=
-s and IRQ context
-- [High] media: missing IRQ mask programming prevents INFO_RUP_DONE interru=
-pts
-- [Medium] media: camss: csid-1080: data race on aup_update and rup_update =
-bitmasks
+- [High] media: camss: Hardware constraint violation on AUP_UPDATE count
+- [High] media: camss: Hardcoded VFE-to-CSID mapping breaks dynamic media r=
+outing
+- [High] media: camss: Data race on csid->aup_update and csid->rup_update
 --
 
-commit c1ffc650d77cc9e495d5b9cec2dfa9e85e2f485e
+commit f4a9516b2392f133fd18f4aed515b9cb62df16ca
 Author: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
-
-media: qcom: camss: csid: Add support for CSID 1080
    =20
-Add support for the CSID 1080 hardware found on Kaanapali SoC.
-Introduce CSID 1080 hardware resource descriptions and implement the
-hardware-specific register programming, reset sequence, and BUF_DONE
-interrupt handling.
+    media: qcom: camss: vfe: Add support for VFE 1080
+   =20
+    Add support for the VFE (Video Front End) 1080 found on Kaanapali SoC.
+    In the Kaanapali camera subsystem, the front-end blocks are referred to
+    as TFEs.
 
-> diff --git a/drivers/media/platform/qcom/camss/camss-csid-1080.c b/driver=
-s/media/platform/qcom/camss/camss-csid-1080.c
+> diff --git a/drivers/media/platform/qcom/camss/camss-vfe-1080.c b/drivers=
+/media/platform/qcom/camss/camss-vfe-1080.c
 > new file mode 100644
-> index 0000000000000..46e443e05195a
+> index 0000000000000..016857cd10251
 > --- /dev/null
-> +++ b/drivers/media/platform/qcom/camss/camss-csid-1080.c
+> +++ b/drivers/media/platform/qcom/camss/camss-vfe-1080.c
 
 [ ... ]
 
-> +static void __csid_aup_rup_clear(struct csid_device *csid, int port_id)
+> +static void vfe_reg_update(struct vfe_device *vfe, enum vfe_line_id line=
+_id)
 > +{
-> +	/* Hardware clears the registers upon consuming the settings */
-> +	csid->aup_update &=3D ~CSID_RUP_AUP_RDI(port_id);
-> +	csid->rup_update &=3D ~CSID_RUP_AUP_RDI(port_id);
-> +}
+> +	int port_id =3D line_id;
 > +
-> +static void __csid_aup_update(struct csid_device *csid, int port_id)
-> +{
-> +	csid->aup_update |=3D CSID_RUP_AUP_RDI(port_id);
-> +	writel(csid->aup_update, csid->base + CSID_AUP_CMD);
-> +
-> +	__csid_aup_rup_trigger(csid);
-> +}
-> +
-> +static void __csid_reg_update(struct csid_device *csid, int port_id)
-> +{
-> +	csid->rup_update |=3D CSID_RUP_AUP_RDI(port_id);
-> +	writel(csid->rup_update, csid->base + CSID_RUP_CMD);
-> +
-> +	__csid_aup_rup_trigger(csid);
-> +}
+> +	camss_reg_update(vfe->camss, vfe->id, port_id, false);
 
 [Severity: High]
-Does this code introduce a data race between process and hard IRQ context?
+Does hardcoding vfe->id introduce a regression for dynamic media routing?
 
-In process context, csid_configure_stream() updates these variables via
-non-atomic bitwise OR (|=3D) using __csid_aup_update() and __csid_reg_updat=
-e().
+The Media Controller framework allows dynamic routing, where any CSID source
+could be linked to any VFE sink (e.g., CSID[0] to VFE[2]).
 
-Concurrently, the hardware interrupt handler csid_isr() (running in hard IRQ
-context) clears bits in these exact same variables via non-atomic bitwise A=
-ND
-NOT (&=3D ~) through __csid_aup_rup_clear().
+Here, camss_reg_update() is called with vfe->id, which indexes the CSID arr=
+ay
+directly:
 
-Because there is no spinlock or atomic bit operations protecting these
-read-modify-write sequences, an interrupt firing on the same or another CPU
-during stream configuration could cause a TOCTOU data race.
+camss.c:camss_reg_update() {
+	csid =3D &camss->csid[hw_id];
+	csid->res->hw_ops->reg_update(csid, port_id, is_clear);
+}
 
-Could this lead to lost bit updates, resulting in hardware commands being
-dropped or spuriously re-triggered?
+If CSID[0] is routed to VFE[2], the VFE buffer queue will update the
+registers of CSID[2] instead of the active CSID[0], leaving the active
+CSID without its AUP_UPDATE and stalling the stream.
+
+[Severity: High]
+Can this introduce a data race regression on the CSID shadow states?
+
+When userspace queues new buffers via vfe_queue_buffer_v2(), it executes fr=
+om
+process context and eventually calls this vfe_reg_update(). This ends up in
+__csid_aup_update() which performs an unprotected read-modify-write:
+
+camss-csid-1080.c:__csid_aup_update() {
+	csid->aup_update |=3D CSID_RUP_AUP_RDI(port_id);
+}
+
+At the same time, the CSID hardware interrupt handler csid_isr() processes
+completions and performs a similar unprotected read-modify-write:
+
+camss-csid-1080.c:__csid_aup_rup_clear() {
+	csid->aup_update &=3D ~CSID_RUP_AUP_RDI(port_id);
+}
+
+Since these modifications can interleave without locks, one CPU's state
+update could be lost, potentially corrupting the CSID_AUP_CMD register stat=
+e.
+
+> +}
 
 [ ... ]
 
-> +static irqreturn_t csid_isr(int irq, void *dev)
-> +{
-> +	struct csid_device *csid =3D dev;
-> +	u32 val, buf_done_val;
-> +	u8 reset_done;
-> +	int i;
-> +
-> +	val =3D readl(csid->base + CSID_TOP_IRQ_STATUS);
-> +	writel(val, csid->base + CSID_TOP_IRQ_CLEAR);
-> +
-> +	reset_done =3D val & INFO_RST_DONE;
-> +
-> +	buf_done_val =3D readl(csid->base + CSID_BUF_DONE_IRQ_STATUS);
-> +	writel(buf_done_val, csid->base + CSID_BUF_DONE_IRQ_CLEAR);
-> +
-> +	for (i =3D 0; i < MSM_CSID_MAX_SRC_STREAMS_1080; i++) {
-> +		if (csid->phy.en_vc & BIT(i)) {
-> +			val =3D readl(csid->base + CSID_CSI2_RDIN_IRQ_STATUS(i));
-> +			writel(val, csid->base + CSID_CSI2_RDIN_IRQ_CLEAR(i));
-> +
-> +			if (val & INFO_RUP_DONE)
-> +				csid_subdev_reg_update(csid, i, true);
-
-[Severity: High]
-Is the INFO_RUP_DONE interrupt properly unmasked?
-
-The driver relies on the INFO_RUP_DONE interrupt to clear the pending
-aup_update mask in the ISR via csid_subdev_reg_update().
-
-However, the driver never writes to CSID_CSI2_RDIN_IRQ_MASK(i) to unmask
-these interrupts, nor does it enable the corresponding top-level aggregation
-bit (CSI2_RX_IRQ_STATUS) in CSID_TOP_IRQ_MASK during setup or reset.
-
-Because the interrupts appear to be permanently masked in hardware, the
-RUP_DONE interrupt might never trigger the csid_isr() independently.
-
-Could the aup_update state be left orphaned if no BUF_DONE interrupt happens
-to fire, breaking asynchronous updates?
+> diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/medi=
+a/platform/qcom/camss/camss-vfe.c
+> index 2680a9914765f..3acef6ba97dc9 100644
+> --- a/drivers/media/platform/qcom/camss/camss-vfe.c
+> +++ b/drivers/media/platform/qcom/camss/camss-vfe.c
 
 [ ... ]
 
-> +static int csid_reset(struct csid_device *csid)
-> +{
-> +	unsigned long time;
-> +	u32 val;
-> +	int i;
+> @@ -552,7 +554,9 @@ int vfe_enable_output_v2(struct vfe_line *line)
+>  		output->gen2.active_num++;
+>  		ops->vfe_wm_update(vfe, output->wm_idx[0],
+>  				   output->buf[i]->addr[0], line);
+> -		ops->reg_update(vfe, line->id);
 > +
-> +	reinit_completion(&csid->reset_complete);
-> +
-> +	val =3D INFO_RST_DONE | BUF_DONE_IRQ_STATUS;
-> +	writel(val, csid->base + CSID_TOP_IRQ_CLEAR);
-> +	writel(val, csid->base + CSID_TOP_IRQ_MASK);
-> +
-> +	val =3D 0;
-> +	for (i =3D 0; i < MSM_CSID_MAX_SRC_STREAMS_1080; i++) {
-> +		if (csid->phy.en_vc & BIT(i)) {
-> +			/*
-> +			 * Only need to clear buf done IRQ status here,
-> +			 * RUP done IRQ status will be cleared once isr
-> +			 * strobe generated by CSID_RST_CMD
-> +			 */
-> +			val |=3D BIT(BUF_DONE_IRQ_STATUS_RDI_OFFSET + i);
-> +		}
-> +	}
-> +	writel(val, csid->base + CSID_BUF_DONE_IRQ_CLEAR);
-> +	writel(val, csid->base + CSID_BUF_DONE_IRQ_MASK);
+> +		if (!vfe->res->reg_update_after_csid_config)
+> +			ops->reg_update(vfe, line->id);
+>  	}
 
 [Severity: High]
-This appears to be where top-level masking explicitly omits
-CSI2_RX_IRQ_STATUS, and CSID_CSI2_RDIN_IRQ_MASK is never programmed,
-as noted above.
+Does this introduce a regression by violating the AUP_UPDATE hardware
+constraint?
+
+The commit message states that "the number of AUP_UPDATE requests must match
+the number of buffers queued to the write master while it is being enabled."
+
+However, if userspace only queued 1 buffer, the loop in vfe_enable_output_v=
+2()
+will break early (as it loops up to CAMSS_INIT_BUF_COUNT):
+
+	for (i =3D 0; i < CAMSS_INIT_BUF_COUNT; i++) {
+		output->buf[i] =3D vfe_buf_get_pending(output);
+		if (!output->buf[i])
+			break;
+
+This means the VFE write master gets configured with only 1 buffer.
+
+Meanwhile, csid_configure_stream() in camss-csid-1080.c unconditionally iss=
+ues
+CAMSS_INIT_BUF_COUNT updates:
+
+	for (k =3D 0; k < CAMSS_INIT_BUF_COUNT; k++)
+		__csid_aup_update(csid, i);
+
+If the CSID sends 2 AUP_UPDATE commands but the VFE is only configured with
+1 buffer, can this cause the hardware to perform out-of-bounds DMA or
+trigger an IOMMU fault?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261008-kaanapali-=
-camss-v19-0-b2c583ef50e0@oss.qualcomm.com?part=3D7
+camss-v19-0-b2c583ef50e0@oss.qualcomm.com?part=3D8
