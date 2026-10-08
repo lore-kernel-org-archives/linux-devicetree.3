@@ -1,87 +1,87 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7D46377AB3
-	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 03:28:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F178B377AB3
+	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 03:28:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791430127; cv=none; b=fpQg40jXt0ep2hsl5LT2AL5dZX3Qee20rLKp6+Rr7M6Mpp237mgYrgZamhfLd/5sQWCHlKbRDrOC2mi6ECtBQajWQWpwnohqovKcDqLfs8L2yZoTonwZhdA5M3ZKjdc/s6IL0VdgcJwCqO0Fz60729PH459jAKG1t+ukHQgyOjU=
+	t=1791430130; cv=none; b=GqvPBYd28nQC8yu5NfJ5ugYmIxK9qasFJjUKx2BEvF/3iF0XOIH+1nldw/YZS/E+o/r9ASlojCE8jy8EXxeks/JBfXJhd6dm4Nmj7CpkFhgUZ9NyadtKtINcBC8BDnvLS4MrwckXiAf5kg92dHpPmP7QhZX+Qnjc4h6tAquDZ0M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791430127; c=relaxed/simple;
-	bh=N/GoXXPvoD19zUb9BSvoUOZ49eNN/9Uv+mNF62wn3GA=;
+	s=arc-20240116; t=1791430130; c=relaxed/simple;
+	bh=dnckaR0v71Tx8067GfmIzLeziZO+82RiCABdwVnTd0U=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=SWa0ad83gYsjXfvVYWEjtEmIan+9x7I1rmGuQh68ihtdpWv129fLqsDpaX31at+a3WS7UKM5iYTCWV8Tha8XaJuBuG+I2BgLuUnn9dRWaqWPhu/AYZ/mLUb5IzPE9XIfdUENPtAXaXvJnKz+VZRdskYrhVkFwoV+DjC4wsX9ptY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=LmBibQsm; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=KHIPtJad; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:To:Cc; b=ZoePYQeQQeV8NVG+rsKUbz/CAWvu4dTdXe7jW3kk3cZ+EL5C5Lbw3Tz7fAH/wRWjKtse0x+WG4GMyNyY2/Ttigp1u+FkAPwAJq3tUFc/hWfMlKmMAixAIlk9fXgJOf2DBmRQw4/7/ZbRyvhAqJv+cIT58NL1nv1MAyu2ekKNOfE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OfiZ+NAN; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NDacL6gi; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="LmBibQsm";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="KHIPtJad"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6981heEO4186787
-	for <devicetree@vger.kernel.org>; Thu, 8 Oct 2026 03:28:45 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OfiZ+NAN";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NDacL6gi"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6981hLj01334260
+	for <devicetree@vger.kernel.org>; Thu, 8 Oct 2026 03:28:47 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	4WXFbSFSr1/RQ2vXdoBOENE9gIt1QGKOfRFfzDrKe+A=; b=LmBibQsmJgrWvl9H
-	EAX7LSU6LzffQW5TbuTzVl6YhecF6VnzDqivCZnOdzvSdd8nxdFV70PJ7evULILu
-	DH1a17ViZaW+VDl4NmO26j3aWRMiDq1xD8HDEwnrWjz20wfY02fVv7nHhh4pNipH
-	fSMtE912PlknDJrTwNreZpkQl7byBxuGBDiyaQrxZFmv3R8Qi6JpKP+toJTTrhNF
-	+PiylbhDH6+CuDtfbEYkLMAw6CiuAUVks9vSkY4+S9Zq1X/KKZ3Nl4nOINcUgmfW
-	9M+TVk4vA3rJpg7HrUUF3Qu8wQeWom5OhIilw4rei9PYUMxhxJ7Tian9DS8OqbQO
-	c7oyIQ==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5xe30un8-1
+	3LlMYlWp2TcEmoujTF0c+B3OZcUutnCnpZb9I2TwtLU=; b=OfiZ+NANuOKh9WeD
+	I3/zjfKcmSx1bArA9JF5tF0CapDuohhOzwM8GMBUPChXeCidQMlxo9SETKuGll3e
+	JOG8TU3QCGmDSIlhT97CiMcZSXzhL/qRFNCHlFAWWWgolBuHSHJtVdIWr9aLDyie
+	UocvmYJ7Be9Z2FcOWBA2QiEB4INfo9APrMq9Tev+iS+Gf+y5rKLemX6zbnzP0Lmp
+	zY/IXRzPzp6xhJrJzdbpKubThvQ4G8XrNuzfTSEKTtmcGZfyYE9fe9q9XuDPbmdr
+	5yae59b6jT0ZXFEF2M3xKVFk+1MMbkLleTfSrhFS1gypICSgFdbSnCZ/8KBJe1JS
+	NFsWkw==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5xe3gxha-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 08 Oct 2026 03:28:44 +0000 (GMT)
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-35156644c96so1993271eec.1
-        for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 20:28:44 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Thu, 08 Oct 2026 03:28:46 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-3510a481ae9so9279747eec.1
+        for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 20:28:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791430124; x=1792034924; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1791430126; x=1792034926; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=4WXFbSFSr1/RQ2vXdoBOENE9gIt1QGKOfRFfzDrKe+A=;
-        b=KHIPtJadkf3DqXa4u/VJym4/+59Wagp0ULLk8JuTxPIZIklYuL/dec41V8p2Z83IQn
-         eGKDGyM0xe/GWeDXVnPIQW+bBuO0WE+KyNehsuz8GInQa+Gv0YBXzDWwvgsqPeQpB8fL
-         OYKNZKUlVd/0tf9kLBSLJKMau4QGOc72xB2hOdl6/QX0Y1LWakaDZdRjcNC7g3CoSs7P
-         26hp/QScF1XdqBj3YtcuzJ47xdTPaQHrPSBwd+uHbzaVp9qVIUf70OKlfZ9fN+lALefC
-         t5BoXTzP6EiRdPfZtrsaTuP+vSU7rTt6jqujalbyK3Z7pt2/ujarm4LuIeJJ0uJQvGVy
-         qQJw==
+        bh=3LlMYlWp2TcEmoujTF0c+B3OZcUutnCnpZb9I2TwtLU=;
+        b=NDacL6giBKClgJS5peSHMV5fgCmY8cvE8+5hKK86k5xS50v56KOywJSP3XyBxJrihG
+         +c00zFgZbnH+lIDBUlpC01tqWO1+3tU4xI7QOxHqQbgH+OMFRV0Gjo7x+JcCmempULGi
+         sNHXDysuMy9Ls9kW5rYmYEW5pYwxvZA3i1obdq6h0SEA1x791OCffCysuu9B3shUGMnd
+         ny1QdLGDHepCSkDSWYxyP220F3CY/+ZtISCdKLnYraC3/Tr6DHP2LCFlyq3slA74vmAm
+         tJiyJH2dQmkKkw7bj2uLgpUo9AZl2rwxj2lnObAABHwqPRz/bjKDaJmK3aopjTdjr3JP
+         hBPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791430124; x=1792034924;
+        d=1e100.net; s=20260707; t=1791430126; x=1792034926;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=4WXFbSFSr1/RQ2vXdoBOENE9gIt1QGKOfRFfzDrKe+A=;
-        b=jZJdtlZh74iqrBvCqemKZkzdz7t4MeoXO0IoqkXCnMk2YVfEOLVg1aKwkso2ITQv9b
-         7tBtZn6OAsP+h+1ixhys4huRizWNFGREAKj76b/675hYPBvOjkmB0LJt06C/qkbxGMvy
-         /StS2L6F6oEeE5i3jeAI8oiVK4SA1mLPda/lcL8VjeEQY0m9YP4OayfpgzugqajF4+vW
-         8bFhAQrg+9ADDDHvFVtggG5PQUbD/6ABJsz5FrScZiHv/PkFWAtHAuV3hK8S3a2cGbjo
-         1zlNa50gZtx1n0lGe5Z2MTNZrkrflAk0gxeC7b6sGXGTh4dkbGQojxUaS7Vq8MeuhgHD
-         yR4A==
-X-Forwarded-Encrypted: i=1; AKwUvBy2xZczWz5jRxfapsB2uiXAcbPU2hdTjmLGzsqO7gPKrUFKz80R+w8GT6bnsaTUex3KpoO2sy1aJ6d/@vger.kernel.org
-X-Gm-Message-State: AFuF++mvC7oF9vOI52N39prKFQLp9by+8qkE7Ts/1335DsuFmWUbE7Tg
-	wNFtdQssTybyGirlfgHIIyyBpN812FucIpwkK7uQFsTBzbMCnx0qz9jZb/Aj+at27WaKPMU97A7
-	FbM6C0IlMreTiv4oxHkMWVrQPkFPgQ4rdLKMsVLMPm63Bvy8ci6wdBDe99BL68Do=
-X-Gm-Gg: AYBFou3RDUzRJdVkQcP9JeT6zw9Lj80ocaRYGiFo7w5Mrp++GORKYIjpekIXil2C24E
-	avBbFM7BtZMb3lOKim70lGAHTCoU1tqE0o3wVPElSz9W1slJ7XbfEFqsgN+34IuGOfIlXu4aT/y
-	zdh6o8E8QCyTUVfT5bVeeus55pajRUNxDC/JePCTNa38LwRlpiZb22BxTgk0WzV0lgtm4jy0Qei
-	pgjnjVzb6JT8Njp8R5Pdf5J1YVzoXGnD/spl10pGfaNjVVklLRQknEtPuX5copdFqOIkOfQNRvE
-	jWDPXz+SYacYHjKFiBtl37d83ZW+ABNC2HOxdQeysCXDONB+O04yCKKn4mzaxl7JYqSxd1qYKRu
-	FTqX+lfSMwcj+R97ZmKnxO+iw8ojCsleciQ0/4rr2eBUErzxxQ2iN9sFsZA==
-X-Received: by 2002:a05:7300:ff4c:b0:348:201a:6c88 with SMTP id 5a478bee46e88-351777524c7mr1305563eec.13.1791430123813;
-        Wed, 07 Oct 2026 20:28:43 -0700 (PDT)
-X-Received: by 2002:a05:7300:ff4c:b0:348:201a:6c88 with SMTP id 5a478bee46e88-351777524c7mr1305518eec.13.1791430123105;
-        Wed, 07 Oct 2026 20:28:43 -0700 (PDT)
+        bh=3LlMYlWp2TcEmoujTF0c+B3OZcUutnCnpZb9I2TwtLU=;
+        b=1ZS3ZWDc0nnwSJaogmFJ10kyHa1T8J3hswpTrI9BLq7eLHC0xCfEzgMTsv43imjaHJ
+         KYe9YuBaXL0r7ztSI38RO+H7z2iFbaFh1W8gMMIOAF9vI1djiTHsEwFIv8ZWxlsuGXqd
+         XwlPSlCkU1+h3VRVo/egecmdAtctH4MGly/QEk8GFOA5wZXYZnXVPx6ZmvM2fIvrWlZX
+         TN/sI2uPhNczYcBO0yOPkAcP90xM/5hdc85oRmZbzWNiWP6KWB/2qgSnc+7na6+FAc4Q
+         aiVvyRCiQz972qGiSXI00d1u4OyGWeCBbTUPCRRFFE8Fxl6KBWP0lIgMFBF5ECVl6xap
+         ZRrg==
+X-Forwarded-Encrypted: i=1; AKwUvBxXXzLKcg+dKNyj6i2q3aciLGV/ElFvHwGwpOX/yDU0fyIsJd+EyCFhbUrPfat8rQlqzmiMWBfEBKHQ@vger.kernel.org
+X-Gm-Message-State: AFuF++kmdxuHlSY0eNfms4n8ADkmj0rQUhUtQOG4VGDX1F6RSUwx8a78
+	UShlfmPI+LhGNWkj75FB9tVNQPC0WUE/zIiOY16hAKpiU5OCTz99hzQUySlxnm6MXrURzCeltXU
+	vx60MCjjPsdmyq+wwJ4cpo/UaoQvLWLDvO/Fw2xiKvUnUhlMsYx4y3XmIl/XMb2g=
+X-Gm-Gg: AYBFou1EUO53Ro4jzJUpCIFEAC7Nu8JZRj/m0Hgts6gSK/VY+iedzToYyj116TTHHRe
+	N2W51dUgV7z/C1Xu8AtXIOGRl5JJn+TxvPTQsCbtcEgHlCBi99xGLae3ykkwVT39GANIEaTmWzS
+	2+lEEV2F0yTwQ7b93nBmp1mVDWeT65b2qqic9GvdFC38w7B8FlZmlrVE/g47qYU3RE+wKISMRuF
+	r4qyMT6RbgmmJKqhDEc34nyDhxirLtNo1mxxQfM+q1lZTiR/7h06rUngTipWk24m0H7R2Cgf8my
+	SBrfHRq7pvl9A/dfnzxX0Ru3hVehOwYJVzhTShGI8Gya9HkOq5D67Kl3buAuwLT77FYMge7ZyU6
+	M83L09gDnCljK+ug6iSPoBLBfNzNl2qYPtEGh4ItbyKRUVlKjk8a18E3nBQ==
+X-Received: by 2002:a05:7300:6ca1:b0:351:4d2d:af26 with SMTP id 5a478bee46e88-3515d86f0aemr7081127eec.2.1791430125633;
+        Wed, 07 Oct 2026 20:28:45 -0700 (PDT)
+X-Received: by 2002:a05:7300:6ca1:b0:351:4d2d:af26 with SMTP id 5a478bee46e88-3515d86f0aemr7081071eec.2.1791430125002;
+        Wed, 07 Oct 2026 20:28:45 -0700 (PDT)
 Received: from hu-azarrabi-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35179d07566sm2168349eec.30.2026.10.07.20.28.42
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35179d07566sm2168349eec.30.2026.10.07.20.28.43
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 20:28:42 -0700 (PDT)
+        Wed, 07 Oct 2026 20:28:44 -0700 (PDT)
 From: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
-Date: Wed, 07 Oct 2026 20:27:08 -0700
-Subject: [PATCH RFC v2 02/10] mailbox: mpxy: add direct synchronous send
+Date: Wed, 07 Oct 2026 20:27:09 -0700
+Subject: [PATCH RFC v2 03/10] firmware: add RPMI TEE bus support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -90,7 +90,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261007-riscv-rpmi-tee-abi-v2-2-45939a13d223@oss.qualcomm.com>
+Message-Id: <20261007-riscv-rpmi-tee-abi-v2-3-45939a13d223@oss.qualcomm.com>
 References: <20261007-riscv-rpmi-tee-abi-v2-0-45939a13d223@oss.qualcomm.com>
 In-Reply-To: <20261007-riscv-rpmi-tee-abi-v2-0-45939a13d223@oss.qualcomm.com>
 To: Jassi Brar <jassisinghbrar@gmail.com>, Paul Walmsley <pjw@kernel.org>,
@@ -107,446 +107,402 @@ Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
         devicetree@vger.kernel.org,
         Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
 X-Mailer: b4 0.13.0
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDAxMyBTYWx0ZWRfX0yilJHmhG/k0
- wKw0T9mtox25XL+WHXZFUCl4K8Hzfk0WQ0ztyDaZHQY/Eq8+BzKVrM62K8dhq/gM0l0ax7uLAGF
- kbWkaKNyWW7WOuKNnfJA4xRPPL5hPH+SLu2NKrn5EDS9PHeYuxuUljVmnfzZ0pD2+M04f8BEHyX
- M5rfgGip8zvCVgudwn7Yu0vkT6GlOgfPGzbeYzwNG7m+0jn9lWT1xOUlY8VsUcsofnFwG7U0FKL
- +O74igu1NDsikjiWbHmmO8orndJ8J1kefq9VcD5Sc3xb8cmPe2mgcxF4ejVbSJ1VY05rHN2mz1g
- BW/Vy2LjzwHVNi1WnP4hvjdegWmksC/jpWabk6HON+Af0r6zjO+pjPBiNmen5T/23zkdfmR9Da0
- d3COBtaXv4xpVkerpYZkVsgmqABOLlu9ulZXJc3nmBYoU6kAc93fZ+ZM103FJTdmOIpd4HZIDKC
- JDb3/kYx+sm79GhZ7PQ==
-X-Proofpoint-ORIG-GUID: drYQFgB3eWpqTZVSf1eTyfICEHR0Lety
-X-Proofpoint-GUID: drYQFgB3eWpqTZVSf1eTyfICEHR0Lety
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDAxMyBTYWx0ZWRfXxUYCesJ0qOhA
- IpUEdFxhNbFvtTcpHmHSeftAG5+QFb/3RBXJKiWIu694yXX0vZt0wrQMnx99qSGR2/yrQdiOera
- mxuQPn+D52VyvKDX6cc/kShP1F8dav8=
-X-Authority-Analysis: v=2.4 cv=KcdHIgYD c=1 sm=1 tr=0 ts=6ac70dec cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+X-Authority-Analysis: v=2.4 cv=NchzRGD4 c=1 sm=1 tr=0 ts=6ac70dee cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
- a=EUspDBNiAAAA:8 a=Tu2Rjsi-ZZ_FYV3k_IYA:9 a=QEXdDO2ut3YA:10
- a=PxkB5W3o20Ba91AHUih5:22
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=EUspDBNiAAAA:8 a=IHj7fnvydjjLQZ3tJQkA:9 a=QEXdDO2ut3YA:10
+ a=scEy_gLbYbu1JhEsrz4S:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDAxMyBTYWx0ZWRfXz3//G/opp/sK
+ rZWmr5RV5pnVn2q/MOcBoQaQfqh7zd+iMELBYrqKcHJlVpceeHOiOnQ9frNhxQV/n4qLY7JDUAO
+ J7xOof6kVOjfdAjz8J/Ma2yKotwfu8Q=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDAxMyBTYWx0ZWRfX4nklACyZaPLH
+ 71W5p8Q0uWwsIis/1Y2nzw/HSr5BKllAPWE3ZAR8tuTrQ6W3S5CoNn1CCJZNhd0PPOR24hx4PMn
+ 6+FwyvP7QunfSOqfh99WZRFv9E8T40b5wx4kaumChXWN7tjIvlhIs09M45LPLTViajK927vlyV2
+ 2Q5M54F5XY3+t/9z2DbKe6dR7BQTrgzLyYQwSUUdu3yfdw17B/+YNwlftPH74fSIvzz/I24qlc1
+ yIvgSIoKhzJnO77/KP5lt5rR9PxYa2BI+um2xPTZqlljMgmaeGLFQgRBW97Y45ykmdw9uD6AxGE
+ C4zEy6jNOuDoOdjH2IlL8r57zYQjuMqsBv2ypZmJrrRIrMun31xGLHqTEVSClQWGYOYvKsiVXw+
+ U9h5YxyuNnuCyMOYyitkPJXgwCCXmmaUlTpMj6fax/WnEGIhrJGk+zqebGhzRjSiGyoLnXZNbVG
+ JHBexkQNRJOLW4tTbSQ==
+X-Proofpoint-ORIG-GUID: __jhzhmYnUM_nFda7Dmjw-4pRQc2Wp9T
+X-Proofpoint-GUID: __jhzhmYnUM_nFda7Dmjw-4pRQc2Wp9T
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-08_01,2026-10-06_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 adultscore=0 spamscore=0 lowpriorityscore=0 malwarescore=0
- phishscore=0 priorityscore=1501 clxscore=1015 impostorscore=0 suspectscore=0
+ impostorscore=0 suspectscore=0 bulkscore=0 priorityscore=1501 spamscore=0
+ malwarescore=0 adultscore=0 lowpriorityscore=0 phishscore=0 clxscore=1015
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610080013
 
-Implement send_data_sync() for RPMI MPXY channels, reusing the
-existing RPMI message dispatch and returning its status directly
-instead of going through mbox_chan_txdone().
+RPMI TEE endpoints can provide multiple services identified by UUID.
+Add a service bus so consumer drivers can bind to these services
+without depending on the underlying mailbox transport.
 
-Factor per-hart shared-memory acquisition into mpxy_shmem_get()/
-mpxy_shmem_put() so both the queued and the new synchronous path pin
-the CPU around the same per-hart buffer, keeping a request and its
-response on one hart. Calls on separate harts remain independent,
-subject to firmware support.
+Introduce device and driver registration interfaces with UUID-based
+matching. Represent each endpoint and service UUID pair as a device
+with a unique name.
 
-Add rpmi_mbox_send_message_sync() as the RPMI counterpart to
-rpmi_mbox_send_message(), for use by the upcoming TEE transport.
+Expose the endpoint ID, service UUID and modalias through sysfs, and
+provide modalias uevents for consumer modules with matching aliases.
 
 Signed-off-by: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
 ---
- drivers/mailbox/riscv-sbi-mpxy-mbox.c      | 196 ++++++++++++++++++-----------
- include/linux/mailbox/riscv-rpmi-message.h |  13 ++
- 2 files changed, 139 insertions(+), 70 deletions(-)
+ drivers/firmware/Kconfig                 |   2 +
+ drivers/firmware/Makefile                |   1 +
+ drivers/firmware/riscv_rpmi_tee/Kconfig  |   8 ++
+ drivers/firmware/riscv_rpmi_tee/Makefile |   5 +
+ drivers/firmware/riscv_rpmi_tee/bus.c    | 202 +++++++++++++++++++++++++++++++
+ include/linux/rpmi_tee.h                 |  83 +++++++++++++
+ 6 files changed, 301 insertions(+)
 
-diff --git a/drivers/mailbox/riscv-sbi-mpxy-mbox.c b/drivers/mailbox/riscv-sbi-mpxy-mbox.c
-index ea69c6b6b4f9..5ca1b6d87f5c 100644
---- a/drivers/mailbox/riscv-sbi-mpxy-mbox.c
-+++ b/drivers/mailbox/riscv-sbi-mpxy-mbox.c
-@@ -125,54 +125,83 @@ static DEFINE_PER_CPU(struct mpxy_local, mpxy_local);
- static unsigned long mpxy_shmem_size;
- static bool mpxy_shmem_init_done;
+diff --git a/drivers/firmware/Kconfig b/drivers/firmware/Kconfig
+index c183d98c1e8f..46297332288f 100644
+--- a/drivers/firmware/Kconfig
++++ b/drivers/firmware/Kconfig
+@@ -6,6 +6,8 @@
  
-+static int mpxy_shmem_get(struct mpxy_local **out)
-+{
-+	struct mpxy_local *mpxy;
+ menu "Firmware Drivers"
+ 
++source "drivers/firmware/riscv_rpmi_tee/Kconfig"
 +
-+	get_cpu();
-+	mpxy = this_cpu_ptr(&mpxy_local);
-+	if (!mpxy->shmem_active) {
-+		put_cpu();
-+		return -ENODEV;
+ source "drivers/firmware/arm_scmi/Kconfig"
+ 
+ config ARM_SCPI_PROTOCOL
+diff --git a/drivers/firmware/Makefile b/drivers/firmware/Makefile
+index a855d3696173..772fe024baab 100644
+--- a/drivers/firmware/Makefile
++++ b/drivers/firmware/Makefile
+@@ -26,6 +26,7 @@ obj-$(CONFIG_TURRIS_MOX_RWTM)	+= turris-mox-rwtm.o
+ 
+ obj-y				+= arm_ffa/
+ obj-y				+= arm_scmi/
++obj-y				+= riscv_rpmi_tee/
+ obj-y				+= broadcom/
+ obj-y				+= cirrus/
+ obj-y				+= meson/
+diff --git a/drivers/firmware/riscv_rpmi_tee/Kconfig b/drivers/firmware/riscv_rpmi_tee/Kconfig
+new file mode 100644
+index 000000000000..b0396183b87d
+--- /dev/null
++++ b/drivers/firmware/riscv_rpmi_tee/Kconfig
+@@ -0,0 +1,8 @@
++# SPDX-License-Identifier: GPL-2.0-only
++
++config RISCV_RPMI_TEE_TRANSPORT
++	tristate "RISC-V RPMI TEE service group transport"
++	depends on RISCV && OF && RISCV_SBI_MPXY_MBOX
++	help
++	  Say Y or M here to enable the transport for services provided by the
++	  RISC-V RPMI TEE service group.
+diff --git a/drivers/firmware/riscv_rpmi_tee/Makefile b/drivers/firmware/riscv_rpmi_tee/Makefile
+new file mode 100644
+index 000000000000..d80ab5bc9dc4
+--- /dev/null
++++ b/drivers/firmware/riscv_rpmi_tee/Makefile
+@@ -0,0 +1,5 @@
++# SPDX-License-Identifier: GPL-2.0
++
++rpmi-tee-bus-y = bus.o
++rpmi-tee-core-objs := $(rpmi-tee-bus-y)
++obj-$(CONFIG_RISCV_RPMI_TEE_TRANSPORT) = rpmi-tee-core.o
+diff --git a/drivers/firmware/riscv_rpmi_tee/bus.c b/drivers/firmware/riscv_rpmi_tee/bus.c
+new file mode 100644
+index 000000000000..1393adda0d3a
+--- /dev/null
++++ b/drivers/firmware/riscv_rpmi_tee/bus.c
+@@ -0,0 +1,202 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * RISC-V RPMI TEE bus
++ *
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ */
++
++#define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
++
++#include <linux/device.h>
++#include <linux/idr.h>
++#include <linux/kernel.h>
++#include <linux/module.h>
++#include <linux/rpmi_tee.h>
++#include <linux/slab.h>
++
++#define RPMI_TEE_UEVENT_MODALIAS_FMT	"rpmi_tee:%pUb"
++
++static DEFINE_IDA(rpmi_tee_bus_id);
++
++static int rpmi_tee_device_match(struct device *dev,
++				 const struct device_driver *drv)
++{
++	const struct rpmi_tee_device_id *id_table;
++	struct rpmi_tee_device *rdev = to_rpmi_tee_dev(dev);
++
++	id_table = to_rpmi_tee_drv(drv)->id_table;
++	if (!id_table)
++		return 0;
++
++	while (!uuid_is_null(&id_table->uuid)) {
++		if (uuid_equal(&rdev->uuid, &id_table->uuid))
++			return 1;
++		id_table++;
 +	}
 +
-+	*out = mpxy;
 +	return 0;
 +}
 +
-+static void mpxy_shmem_put(void)
++static int rpmi_tee_device_probe(struct device *dev)
 +{
-+	put_cpu();
++	struct rpmi_tee_driver *rdrv = to_rpmi_tee_drv(dev->driver);
++
++	return rdrv->probe(to_rpmi_tee_dev(dev));
 +}
 +
- static int mpxy_get_channel_count(u32 *channel_count)
- {
--	struct mpxy_local *mpxy = this_cpu_ptr(&mpxy_local);
--	struct sbi_mpxy_channel_ids_data *sdata = mpxy->shmem;
-+	struct mpxy_local *mpxy;
-+	struct sbi_mpxy_channel_ids_data *sdata;
- 	u32 remaining, returned;
- 	struct sbiret sret;
-+	int rc;
- 
--	if (!mpxy->shmem_active)
--		return -ENODEV;
- 	if (!channel_count)
- 		return -EINVAL;
- 
--	get_cpu();
-+	rc = mpxy_shmem_get(&mpxy);
-+	if (rc)
-+		return rc;
-+	sdata = mpxy->shmem;
- 
- 	/* Get the remaining and returned fields to calculate total */
- 	sret = sbi_ecall(SBI_EXT_MPXY, SBI_EXT_MPXY_GET_CHANNEL_IDS,
- 			 0, 0, 0, 0, 0, 0);
--	if (sret.error)
--		goto err_put_cpu;
-+	if (sret.error) {
-+		rc = sbi_err_map_linux_errno(sret.error);
-+		goto out;
-+	}
- 
- 	remaining = le32_to_cpu(sdata->remaining);
- 	returned = le32_to_cpu(sdata->returned);
- 	*channel_count = remaining + returned;
-+	rc = 0;
- 
--err_put_cpu:
--	put_cpu();
--	return sbi_err_map_linux_errno(sret.error);
-+out:
-+	mpxy_shmem_put();
-+	return rc;
- }
- 
- static int mpxy_get_channel_ids(u32 channel_count, u32 *channel_ids)
- {
--	struct mpxy_local *mpxy = this_cpu_ptr(&mpxy_local);
--	struct sbi_mpxy_channel_ids_data *sdata = mpxy->shmem;
-+	struct mpxy_local *mpxy;
-+	struct sbi_mpxy_channel_ids_data *sdata;
- 	u32 remaining, returned, count, start_index = 0;
- 	struct sbiret sret;
-+	int rc;
- 
--	if (!mpxy->shmem_active)
--		return -ENODEV;
- 	if (!channel_count || !channel_ids)
- 		return -EINVAL;
- 
--	get_cpu();
-+	rc = mpxy_shmem_get(&mpxy);
-+	if (rc)
-+		return rc;
-+	sdata = mpxy->shmem;
- 
- 	do {
- 		sret = sbi_ecall(SBI_EXT_MPXY, SBI_EXT_MPXY_GET_CHANNEL_IDS,
- 				 start_index, 0, 0, 0, 0, 0);
--		if (sret.error)
--			goto err_put_cpu;
-+		if (sret.error) {
-+			rc = sbi_err_map_linux_errno(sret.error);
-+			goto out;
-+		}
- 
- 		remaining = le32_to_cpu(sdata->remaining);
- 		returned = le32_to_cpu(sdata->returned);
-@@ -182,55 +211,61 @@ static int mpxy_get_channel_ids(u32 channel_count, u32 *channel_ids)
- 		memcpy_from_le32(&channel_ids[start_index], sdata->channel_array, count);
- 		start_index += count;
- 	} while (remaining && start_index < channel_count);
-+	rc = 0;
- 
--err_put_cpu:
--	put_cpu();
--	return sbi_err_map_linux_errno(sret.error);
-+out:
-+	mpxy_shmem_put();
-+	return rc;
- }
- 
- static int mpxy_read_attrs(u32 channel_id, u32 base_attrid, u32 attr_count,
- 			   u32 *attrs_buf)
- {
--	struct mpxy_local *mpxy = this_cpu_ptr(&mpxy_local);
-+	struct mpxy_local *mpxy;
- 	struct sbiret sret;
-+	int rc;
- 
--	if (!mpxy->shmem_active)
--		return -ENODEV;
- 	if (!attr_count || !attrs_buf)
- 		return -EINVAL;
- 
--	get_cpu();
-+	rc = mpxy_shmem_get(&mpxy);
-+	if (rc)
-+		return rc;
- 
- 	sret = sbi_ecall(SBI_EXT_MPXY, SBI_EXT_MPXY_READ_ATTRS,
- 			 channel_id, base_attrid, attr_count, 0, 0, 0);
--	if (sret.error)
--		goto err_put_cpu;
-+	if (sret.error) {
-+		rc = sbi_err_map_linux_errno(sret.error);
-+		goto out;
-+	}
- 
- 	memcpy_from_le32(attrs_buf, (__le32 *)mpxy->shmem, attr_count);
-+	rc = 0;
- 
--err_put_cpu:
--	put_cpu();
--	return sbi_err_map_linux_errno(sret.error);
-+out:
-+	mpxy_shmem_put();
-+	return rc;
- }
- 
- static int mpxy_write_attrs(u32 channel_id, u32 base_attrid, u32 attr_count,
- 			    u32 *attrs_buf)
- {
--	struct mpxy_local *mpxy = this_cpu_ptr(&mpxy_local);
-+	struct mpxy_local *mpxy;
- 	struct sbiret sret;
-+	int rc;
- 
--	if (!mpxy->shmem_active)
--		return -ENODEV;
- 	if (!attr_count || !attrs_buf)
- 		return -EINVAL;
- 
--	get_cpu();
-+	rc = mpxy_shmem_get(&mpxy);
-+	if (rc)
-+		return rc;
- 
- 	memcpy_to_le32((__le32 *)mpxy->shmem, attrs_buf, attr_count);
- 	sret = sbi_ecall(SBI_EXT_MPXY, SBI_EXT_MPXY_WRITE_ATTRS,
- 			 channel_id, base_attrid, attr_count, 0, 0, 0);
- 
--	put_cpu();
-+	mpxy_shmem_put();
- 	return sbi_err_map_linux_errno(sret.error);
- }
- 
-@@ -239,16 +274,17 @@ static int mpxy_send_message_with_resp(u32 channel_id, u32 msg_id,
- 				       void *rx, unsigned long max_rx_len,
- 				       unsigned long *rx_len)
- {
--	struct mpxy_local *mpxy = this_cpu_ptr(&mpxy_local);
-+	struct mpxy_local *mpxy;
- 	unsigned long rx_bytes;
- 	struct sbiret sret;
-+	int rc;
- 
--	if (!mpxy->shmem_active)
--		return -ENODEV;
- 	if (!tx && tx_len)
- 		return -EINVAL;
- 
--	get_cpu();
-+	rc = mpxy_shmem_get(&mpxy);
-+	if (rc)
-+		return rc;
- 
- 	/* Message protocols allowed to have no data in messages */
- 	if (tx_len)
-@@ -259,8 +295,8 @@ static int mpxy_send_message_with_resp(u32 channel_id, u32 msg_id,
- 	if (rx && !sret.error) {
- 		rx_bytes = sret.value;
- 		if (rx_bytes > max_rx_len) {
--			put_cpu();
--			return -ENOSPC;
-+			rc = -ENOSPC;
-+			goto out;
- 		}
- 
- 		memcpy(rx, mpxy->shmem, rx_bytes);
-@@ -268,22 +304,25 @@ static int mpxy_send_message_with_resp(u32 channel_id, u32 msg_id,
- 			*rx_len = rx_bytes;
- 	}
- 
--	put_cpu();
--	return sbi_err_map_linux_errno(sret.error);
-+	rc = sbi_err_map_linux_errno(sret.error);
-+out:
-+	mpxy_shmem_put();
-+	return rc;
- }
- 
- static int mpxy_send_message_without_resp(u32 channel_id, u32 msg_id,
- 					  void *tx, unsigned long tx_len)
- {
--	struct mpxy_local *mpxy = this_cpu_ptr(&mpxy_local);
-+	struct mpxy_local *mpxy;
- 	struct sbiret sret;
-+	int rc;
- 
--	if (!mpxy->shmem_active)
--		return -ENODEV;
- 	if (!tx && tx_len)
- 		return -EINVAL;
- 
--	get_cpu();
-+	rc = mpxy_shmem_get(&mpxy);
-+	if (rc)
-+		return rc;
- 
- 	/* Message protocols allowed to have no data in messages */
- 	if (tx_len)
-@@ -292,40 +331,45 @@ static int mpxy_send_message_without_resp(u32 channel_id, u32 msg_id,
- 	sret = sbi_ecall(SBI_EXT_MPXY, SBI_EXT_MPXY_SEND_MSG_WITHOUT_RESP,
- 			 channel_id, msg_id, tx_len, 0, 0, 0);
- 
--	put_cpu();
--	return sbi_err_map_linux_errno(sret.error);
-+	rc = sbi_err_map_linux_errno(sret.error);
-+	mpxy_shmem_put();
-+	return rc;
- }
- 
- static int mpxy_get_notifications(u32 channel_id,
- 				  struct sbi_mpxy_notification_data *notif_data,
- 				  unsigned long *events_data_len)
- {
--	struct mpxy_local *mpxy = this_cpu_ptr(&mpxy_local);
-+	struct mpxy_local *mpxy;
- 	struct sbiret sret;
-+	int rc;
- 
--	if (!mpxy->shmem_active)
--		return -ENODEV;
- 	if (!notif_data || !events_data_len)
- 		return -EINVAL;
- 
--	get_cpu();
-+	rc = mpxy_shmem_get(&mpxy);
-+	if (rc)
-+		return rc;
- 
- 	sret = sbi_ecall(SBI_EXT_MPXY, SBI_EXT_MPXY_GET_NOTIFICATION_EVENTS,
- 			 channel_id, 0, 0, 0, 0, 0);
--	if (sret.error)
--		goto err_put_cpu;
-+	if (sret.error) {
-+		rc = sbi_err_map_linux_errno(sret.error);
-+		goto out;
-+	}
- 	if (sret.value < 0 || mpxy_shmem_size < sizeof(*notif_data) ||
- 	    sret.value > mpxy_shmem_size - sizeof(*notif_data)) {
--		put_cpu();
--		return -EOVERFLOW;
-+		rc = -EOVERFLOW;
-+		goto out;
- 	}
- 
- 	memcpy(notif_data, mpxy->shmem, sret.value + sizeof(*notif_data));
- 	*events_data_len = sret.value;
- 
--err_put_cpu:
--	put_cpu();
--	return sbi_err_map_linux_errno(sret.error);
-+	rc = sbi_err_map_linux_errno(sret.error);
-+out:
-+	mpxy_shmem_put();
-+	return rc;
- }
- 
- static int mpxy_get_shmem_size(unsigned long *shmem_size)
-@@ -402,8 +446,8 @@ struct mpxy_mbox {
- 
- /* ====== MPXY RPMI processing ====== */
- 
--static void mpxy_mbox_send_rpmi_data(struct mpxy_mbox_channel *mchan,
--				     struct rpmi_mbox_message *msg)
-+static int mpxy_mbox_send_rpmi_data(struct mpxy_mbox_channel *mchan,
-+				    struct rpmi_mbox_message *msg)
- {
- 	msg->error = 0;
- 	switch (msg->type) {
-@@ -474,6 +518,8 @@ static void mpxy_mbox_send_rpmi_data(struct mpxy_mbox_channel *mchan,
- 		msg->error = -EOPNOTSUPP;
- 		break;
- 	}
++static void rpmi_tee_device_remove(struct device *dev)
++{
++	struct rpmi_tee_driver *rdrv = to_rpmi_tee_drv(dev->driver);
 +
-+	return msg->error;
- }
- 
- static void mpxy_mbox_peek_rpmi_data(struct mbox_chan *chan,
-@@ -516,12 +562,21 @@ static int mpxy_mbox_send_data(struct mbox_chan *chan, void *data)
- {
- 	struct mpxy_mbox_channel *mchan = chan->con_priv;
- 
--	if (mchan->attrs.msg_proto_id == SBI_MPXY_MSGPROTO_RPMI_ID) {
--		mpxy_mbox_send_rpmi_data(mchan, data);
--		return 0;
--	}
-+	if (mchan->attrs.msg_proto_id != SBI_MPXY_MSGPROTO_RPMI_ID)
-+		return -EOPNOTSUPP;
-+
-+	mpxy_mbox_send_rpmi_data(mchan, data);
-+	return 0;
++	if (rdrv->remove)
++		rdrv->remove(to_rpmi_tee_dev(dev));
 +}
 +
-+static int mpxy_mbox_send_data_sync(struct mbox_chan *chan, void *data)
++static int rpmi_tee_device_uevent(const struct device *dev,
++				  struct kobj_uevent_env *env)
 +{
-+	struct mpxy_mbox_channel *mchan = chan->con_priv;
++	const struct rpmi_tee_device *rdev = to_rpmi_tee_dev(dev);
 +
-+	if (mchan->attrs.msg_proto_id != SBI_MPXY_MSGPROTO_RPMI_ID)
-+		return -EOPNOTSUPP;
- 
--	return -EOPNOTSUPP;
-+	return mpxy_mbox_send_rpmi_data(mchan, data);
- }
- 
- static bool mpxy_mbox_peek_data(struct mbox_chan *chan)
-@@ -713,10 +768,11 @@ static void mpxy_mbox_shutdown(struct mbox_chan *chan)
- }
- 
- static const struct mbox_chan_ops mpxy_mbox_ops = {
--	.send_data = mpxy_mbox_send_data,
--	.peek_data = mpxy_mbox_peek_data,
--	.startup = mpxy_mbox_startup,
--	.shutdown = mpxy_mbox_shutdown,
-+	.send_data	= mpxy_mbox_send_data,
-+	.send_data_sync	= mpxy_mbox_send_data_sync,
-+	.peek_data	= mpxy_mbox_peek_data,
-+	.startup	= mpxy_mbox_startup,
-+	.shutdown	= mpxy_mbox_shutdown,
- };
- 
- /* ====== MPXY platform driver ===== */
-diff --git a/include/linux/mailbox/riscv-rpmi-message.h b/include/linux/mailbox/riscv-rpmi-message.h
-index d5362b5821f9..16fa85f65d80 100644
---- a/include/linux/mailbox/riscv-rpmi-message.h
-+++ b/include/linux/mailbox/riscv-rpmi-message.h
-@@ -251,4 +251,17 @@ static inline int rpmi_mbox_send_message(struct mbox_chan *chan,
- 	return ret;
- }
- 
-+static inline int rpmi_mbox_send_message_sync(struct mbox_chan *chan,
-+					      struct rpmi_mbox_message *msg)
++	return add_uevent_var(env, "MODALIAS=" RPMI_TEE_UEVENT_MODALIAS_FMT,
++			      &rdev->uuid);
++}
++
++static ssize_t endpoint_id_show(struct device *dev,
++				struct device_attribute *attr, char *buf)
 +{
++	struct rpmi_tee_device *rdev = to_rpmi_tee_dev(dev);
++
++	return sysfs_emit(buf, "0x%x\n", rdev->endpoint_id);
++}
++static DEVICE_ATTR_RO(endpoint_id);
++
++static ssize_t uuid_show(struct device *dev, struct device_attribute *attr,
++			 char *buf)
++{
++	struct rpmi_tee_device *rdev = to_rpmi_tee_dev(dev);
++
++	return sysfs_emit(buf, "%pUb\n", &rdev->uuid);
++}
++static DEVICE_ATTR_RO(uuid);
++
++static ssize_t modalias_show(struct device *dev,
++				struct device_attribute *attr, char *buf)
++{
++	struct rpmi_tee_device *rdev = to_rpmi_tee_dev(dev);
++
++	return sysfs_emit(buf, RPMI_TEE_UEVENT_MODALIAS_FMT, &rdev->uuid);
++}
++static DEVICE_ATTR_RO(modalias);
++
++static struct attribute *rpmi_tee_device_attrs[] = {
++	&dev_attr_endpoint_id.attr,
++	&dev_attr_uuid.attr,
++	&dev_attr_modalias.attr,
++	NULL,
++};
++ATTRIBUTE_GROUPS(rpmi_tee_device);
++
++const struct bus_type rpmi_tee_bus_type = {
++	.name		= "rpmi_tee",
++	.match		= rpmi_tee_device_match,
++	.probe		= rpmi_tee_device_probe,
++	.remove		= rpmi_tee_device_remove,
++	.uevent		= rpmi_tee_device_uevent,
++	.dev_groups	= rpmi_tee_device_groups,
++};
++EXPORT_SYMBOL_GPL(rpmi_tee_bus_type);
++
++int rpmi_tee_driver_register(struct rpmi_tee_driver *driver,
++			     struct module *owner, const char *mod_name)
++{
++	if (!driver->probe || !driver->id_table)
++		return -EINVAL;
++
++	driver->driver.bus = &rpmi_tee_bus_type;
++	driver->driver.name = driver->name;
++	driver->driver.owner = owner;
++	driver->driver.mod_name = mod_name;
++
++	return driver_register(&driver->driver);
++}
++EXPORT_SYMBOL_GPL(rpmi_tee_driver_register);
++
++void rpmi_tee_driver_unregister(struct rpmi_tee_driver *driver)
++{
++	driver_unregister(&driver->driver);
++}
++EXPORT_SYMBOL_GPL(rpmi_tee_driver_unregister);
++
++static void rpmi_tee_device_release(struct device *dev)
++{
++	struct rpmi_tee_device *rdev = to_rpmi_tee_dev(dev);
++
++	ida_free(&rpmi_tee_bus_id, rdev->id);
++	kfree(rdev);
++}
++
++struct rpmi_tee_device *
++rpmi_tee_device_register(const uuid_t *uuid, u32 endpoint_id,
++			 const struct rpmi_tee_ops *ops, struct device *parent)
++{
++	struct rpmi_tee_device *rdev;
++	int id;
 +	int ret;
 +
-+	/* Send message for the underlying mailbox channel synchronously */
-+	ret = mbox_send_message_sync(chan, msg);
-+	if (ret)
-+		return ret;
++	if (!uuid || !ops)
++		return ERR_PTR(-EINVAL);
 +
-+	return msg->error;
++	id = ida_alloc_min(&rpmi_tee_bus_id, 1, GFP_KERNEL);
++	if (id < 0)
++		return ERR_PTR(id);
++
++	rdev = kzalloc_obj(*rdev, GFP_KERNEL);
++	if (!rdev) {
++		ida_free(&rpmi_tee_bus_id, id);
++		return ERR_PTR(-ENOMEM);
++	}
++
++	rdev->dev.parent = parent;
++	rdev->dev.bus = &rpmi_tee_bus_type;
++	rdev->dev.release = rpmi_tee_device_release;
++	dev_set_name(&rdev->dev, "rpmi-tee-%d", id);
++
++	rdev->id = id;
++	rdev->endpoint_id = endpoint_id;
++	rdev->ops = ops;
++	uuid_copy(&rdev->uuid, uuid);
++
++	ret = device_register(&rdev->dev);
++	if (ret) {
++		put_device(&rdev->dev);
++		return ERR_PTR(ret);
++	}
++
++	return rdev;
++}
++EXPORT_SYMBOL_GPL(rpmi_tee_device_register);
++
++void rpmi_tee_device_unregister(struct rpmi_tee_device *rdev)
++{
++	if (rdev)
++		device_unregister(&rdev->dev);
++}
++EXPORT_SYMBOL_GPL(rpmi_tee_device_unregister);
++
++static int __init rpmi_tee_bus_init(void)
++{
++	return bus_register(&rpmi_tee_bus_type);
 +}
 +
- #endif /* _LINUX_RISCV_RPMI_MESSAGE_H_ */
++subsys_initcall(rpmi_tee_bus_init);
++
++static void __exit rpmi_tee_bus_exit(void)
++{
++	bus_unregister(&rpmi_tee_bus_type);
++	ida_destroy(&rpmi_tee_bus_id);
++}
++
++module_exit(rpmi_tee_bus_exit);
++
++MODULE_DESCRIPTION("RISC-V RPMI TEE bus");
++MODULE_LICENSE("GPL");
+diff --git a/include/linux/rpmi_tee.h b/include/linux/rpmi_tee.h
+new file mode 100644
+index 000000000000..c499f0427833
+--- /dev/null
++++ b/include/linux/rpmi_tee.h
+@@ -0,0 +1,83 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ *
++ * RISC-V RPMI TEE transport interface
++ */
++
++#ifndef _LINUX_RPMI_TEE_H
++#define _LINUX_RPMI_TEE_H
++
++#include <linux/device.h>
++#include <linux/module.h>
++#include <linux/types.h>
++#include <linux/uuid.h>
++
++struct rpmi_tee_ops;
++
++struct rpmi_tee_device {
++	struct device dev;
++	u32 id;
++	u32 endpoint_id;	/* RPMI endpoint identifier of the TEE. */
++	uuid_t uuid;		/* UUID identifying the TEE service. */
++	const struct rpmi_tee_ops *ops;
++};
++
++#define to_rpmi_tee_dev(d) container_of(d, struct rpmi_tee_device, dev)
++
++struct rpmi_tee_device_id {
++	uuid_t uuid;
++};
++
++struct rpmi_tee_driver {
++	const char *name;
++	int (*probe)(struct rpmi_tee_device *rdev);
++	void (*remove)(struct rpmi_tee_device *rdev);
++	/* NULL-UUID-terminated list of supported service UUIDs. */
++	const struct rpmi_tee_device_id *id_table;
++	struct device_driver driver;
++};
++
++#define to_rpmi_tee_drv(d) \
++	container_of_const(d, struct rpmi_tee_driver, driver)
++
++extern const struct bus_type rpmi_tee_bus_type;
++
++#if IS_REACHABLE(CONFIG_RISCV_RPMI_TEE_TRANSPORT)
++struct rpmi_tee_device *
++rpmi_tee_device_register(const uuid_t *uuid, u32 endpoint_id,
++			 const struct rpmi_tee_ops *ops, struct device *parent);
++void rpmi_tee_device_unregister(struct rpmi_tee_device *rdev);
++int rpmi_tee_driver_register(struct rpmi_tee_driver *driver,
++			     struct module *owner, const char *mod_name);
++void rpmi_tee_driver_unregister(struct rpmi_tee_driver *driver);
++#else
++static inline struct rpmi_tee_device *
++rpmi_tee_device_register(const uuid_t *uuid, u32 endpoint_id,
++			 const struct rpmi_tee_ops *ops, struct device *parent)
++{
++	return NULL;
++}
++
++static inline void rpmi_tee_device_unregister(struct rpmi_tee_device *rdev)
++{
++}
++
++static inline int rpmi_tee_driver_register(struct rpmi_tee_driver *driver,
++					   struct module *owner,
++					   const char *mod_name)
++{
++	return -EOPNOTSUPP;
++}
++
++static inline void rpmi_tee_driver_unregister(struct rpmi_tee_driver *driver)
++{
++}
++#endif
++
++#define rpmi_tee_register(driver) \
++	rpmi_tee_driver_register(driver, THIS_MODULE, KBUILD_MODNAME)
++#define rpmi_tee_unregister(driver) \
++	rpmi_tee_driver_unregister(driver)
++
++#endif /* _LINUX_RPMI_TEE_H */
 
 -- 
 2.34.1
