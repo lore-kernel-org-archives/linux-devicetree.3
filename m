@@ -1,83 +1,93 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 820C54C77BC;
-	Thu,  8 Oct 2026 14:54:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E71B44D597E
+	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 15:05:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791471275; cv=none; b=Acd2xcoipaP+voIFLwfC4FGh+JTBHjKrMQj2laSYLgAfGr8hOjpRCebHGkzNSy+qkjToVQIhYlTFGUrbvJ6bM7U91pRLKQ4MkFzumyERkD+n3R9Jl4jiYhvQluz39v1dFR+uH4WS3FuTWL+UOhC31/wZQxb7BtpaMILiK1TZWRA=
+	t=1791471963; cv=none; b=TuHzf4ra0taMSPjGT72wCd+oEkcfAWGDba4i76f8sP8ufBlwU5q7KUQ/LUsCFlvhpRzug+TyDJeJMh8WkdAGCx9/WUrP0vDXG1h175HGqFJjTfvoZDx7uQRsWgbLj2Od5vPGOPLUPl03UDXDAO7XquAHIAx1Fipx7JgkHAsYejU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791471275; c=relaxed/simple;
-	bh=DxOA3K04TdGKgV9RBzwq7NMB042SfZvdvrNpiga7nYU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ObD/O/800tnQSs2Ypd2sWTv28aE5rAPvFTyOFYz1A8o0cVd1Urb9EZMBCEseAq+GZE7c3Mt/oKwmYnpO8zoKM2PsJdBW7tVtDHzH13WAQEZuM2ccONUS7DVhCjyFZbALZ1fujtxe7uKOxBMXB8IJnBF4KBORZslDaXs5Nl/BxxY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EoIzxkPU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791471963; c=relaxed/simple;
+	bh=M3eh+eqPsqcE5YvVl5FSV9uki97nCFfIXkAkKL28Dxc=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=TBXm41Vsmnp0B9xJjKUYk9pj9qx0HFUKw7peSymyHQl8s5jz/gdJNINzv/ca85DrT5cpOhST5rb3ecOoFHHetuzdO4yYzL9k7RPRkRv8YDd+4A9pfmFeCrAG+A/9na6EUKCJpzxSAaCP2e4nq9r25MlcFpN07gxkd6jwvj58qJ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JZye8FHs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EoIzxkPU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF2501F000FF;
-	Thu,  8 Oct 2026 14:54:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JZye8FHs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95B901F0089F
+	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 15:05:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791471268;
-	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EoIzxkPUgogaxwEZ2p7NA5OxPZoODM6gidderU9MBF0NLEcuLoTMSfJ2mBSOR2uHD
-	 5YYegl/htA0rbm9cyEfVIKTUmcr4yFY7XRHIHuL7oM6lQz3ULlGft0+4muXQPi/gTv
-	 u5EsCyWK6rt3mphl8JnbZj7CQ8FAwnHRbumjNZ9YAA+fJG9+GaLR0BsbdauFq3ARbE
-	 bxsRQByBzKyCktim1Hia73u0UFAdXyPpP7/PL6jCMnxLCWf65Vuo0qJDRq2ygZM2Qt
-	 tTDt1bmzJaeI/x0g9yRHFH3Fq6XHW/f+f4WzqBSedtCOaMJD+Z87R0/qEPsRKJUg2l
-	 BtF9iunBiTM9w==
-From: netdev-bot+sinfo@kernel.org
-To: Luo Jie <jie.luo@oss.qualcomm.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Lei Wei <quic_leiwei@quicinc.com>,
- Suruchi Agarwal <quic_suruchia@quicinc.com>,
- Pavithra R <quic_pavir@quicinc.com>, Simon Horman <horms@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, netdev@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- quic_kkumarcs@quicinc.com, quic_linchen@quicinc.com
-Subject: Re: [PATCH net-next 00/11] net: ethernet: qualcomm: ppe: Add support
- for IPQ5424 SoC
-Date: Thu, 08 Oct 2026 14:54:26 +0000
-Message-ID: <179147126645.2527009.13829110581548714861@kernel.org>
-In-Reply-To: <20261008-qcom_ipq5424_ppe-v1-0-16caf43e44ee@oss.qualcomm.com>
-References: <20261008-qcom_ipq5424_ppe-v1-0-16caf43e44ee@oss.qualcomm.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	s=k20260515; t=1791471959;
+	bh=M3eh+eqPsqcE5YvVl5FSV9uki97nCFfIXkAkKL28Dxc=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=JZye8FHsMGO+Vhak768IyEeJ7EKz1SQUH8yovlQE0RC+CJfM6kyzx7gtXKzSUDJtT
+	 lw2phsBV2qzm/emoM9GUXUs1ZAz47wNKvWCR2GPMGq4q5G1j7j+UakCqBZp99h0gNk
+	 Ta6y2LRBQCiAoWgMqMl5iCXq3ajFAEhyuxLRkLtpeYqaK4gYaLaaGEcr399vTsDbl8
+	 O9n9wvIoLO2y6U7CA5G5enfSsELTRPH/H3wVyeDgK9UMyLU2WK6jGLe0auIXpE09PM
+	 lctSvIo87BT3yzTrAzGAfD6rKrK3J3LQI8OX7NX7UaWwdncf50p2bDlEO8oR8pwO5G
+	 vgWtxHHI6waVQ==
+Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-3a9787a156eso23887361fa.3
+        for <devicetree@vger.kernel.org>; Thu, 08 Oct 2026 08:05:59 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxWqasTYJBbXwaVjhjs5JfxRy6VJNgugz3HyNtxF5YRCKG9gN0LRL5+a1mqfq+0Fj1m+ZWAxBzGum94@vger.kernel.org
+X-Gm-Message-State: AFq9FYJiB39opNqlCeyyu0YyulOYDrTbrSpEwm/vYUCTKowNTH7quSP0
+	lNa1vW8mmpmK3fJ4Llmv0vAa/opyZN0AKhDc/mfK1OZ5fcdyk0v2oLBJAv4VSfIvo4JooDuvLyj
+	u6I0c6jVk/U0WVEoz6HxXpcFup9AAQ5gl3jfaSCvxKQ==
+X-Received: by 2002:a2e:b8c9:0:b0:3a6:95a:52a6 with SMTP id
+ 38308e7fff4ca-3a9a2d0dc0cmr14079951fa.20.1791471958269; Thu, 08 Oct 2026
+ 08:05:58 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 8 Oct 2026 17:05:56 +0200
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 8 Oct 2026 17:05:56 +0200
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <CAD++jLkPeEQN07Qk9RrmxkRf5EbMmnuwdq2yBFccwM_QpvjsLw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260929-kuno-soc-support-v7-0-530f62dc4020@oss.qualcomm.com>
+ <5555b1ee-1355-429f-b3de-f0926e4c30d6@oss.qualcomm.com> <CAD++jLkPeEQN07Qk9RrmxkRf5EbMmnuwdq2yBFccwM_QpvjsLw@mail.gmail.com>
+Date: Thu, 8 Oct 2026 17:05:56 +0200
+X-Gmail-Original-Message-ID: <CAMRc=MdTYic6qG+gnnOExXWhfgbjygi-hR0Rr-FKVAhBkw1C8w@mail.gmail.com>
+X-Gm-Features: AclHuK_vfKWdSTRB1YkJ3uHKdqAfTiQySmCCqB7eRtdQW3xirznTZ4Z9gYURvgY
+Message-ID: <CAMRc=MdTYic6qG+gnnOExXWhfgbjygi-hR0Rr-FKVAhBkw1C8w@mail.gmail.com>
+Subject: Re: [PATCH v7 0/2] Add initial support for Qualcomm Kuno SoC
+To: Linus Walleij <linusw@kernel.org>
+Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Abel Vesa <abel.vesa@oss.qualcomm.com>, 
+	Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>, Bartosz Golaszewski <brgl@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi!
+On Thu, 8 Oct 2026 15:11:31 +0200, Linus Walleij <linusw@kernel.org> said:
+> On Thu, Oct 8, 2026 at 5:12=E2=80=AFAM Hardeep Sharma
+> <hardeep.sharma@oss.qualcomm.com> wrote:
+>
+>> Hello All,
+>>
+>> Both of the following patches are ready to be picked:
+>>
+>> [PATCH v7 1/2] dt-bindings: soc: qcom,geni-se: Allow 1 or 2 address and
+>> size cells
+>> [PATCH v7 2/2] ARM: dts: qcom: Add initial device tree for Kuno SoC
+>>
+>> Could you please pick them ?
+>
+> Missing from the To: header of your mail: Bartosz, who actually maintains
+> Qualcomm pin control.
+>
+> This is likely why it has not been picked.
+>
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+Devicetree sources are Bjorn's territory. DT bindings should have probably
+been sent separately though. In any case, we're at rc6 now, so that ship ha=
+s
+sailed. Please resend after v7.4-rc1 is tagged.
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
-
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
-
- - What hardware the change was tested on. For driver fixes please
-   mention the device (and if relevant firmware version) used for
-   testing, or say that the change was not tested on real hardware.
-
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+Bartosz
