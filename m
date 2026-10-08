@@ -1,125 +1,195 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A7C23CEBA7
-	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 07:30:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 679FD3EB0E9
+	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 07:32:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791444653; cv=none; b=N2chw+LKfOZWCvXTBnFMDhPJjxZVNLIftlj1GnW+gdCuoh9G/GmDOBH50jH5fkvWZdvVinGDtJWaxIhUrlRxbYzOHioUYIoyzbx1HysGCIvw+CzOhNgYhjHc6aumGgSkLCdE9Ol3D02gpoFSYCSkwI7j9CzmHJG6v+Y0sA24WZM=
+	t=1791444789; cv=none; b=pcbw/rPCWNWPDJ5bEkNieK3iCVJDf+RBrNwX82wa9dcHdS6Cqo4JZdXZGU8bqgtQdcW7FAmAnHVMo6aQVHqp3bvno4WKXZGhT8jax+ERPBd7RWEF3M+73lVl2qjADcRzl9dbifyPjirIBNqaCKVcuv4FYN53EaCkVoPeMuS+TMM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791444653; c=relaxed/simple;
-	bh=OtIghGMdCWARL6B0CyLy5j0OZGFTzqRdcbvsk52wTvc=;
+	s=arc-20240116; t=1791444789; c=relaxed/simple;
+	bh=iMCuWnYezqWEqZ1UgJ+xdDf7SYLllLuUKICSyH49QIo=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=HkNoX4rBdG5kjPHMeHmF9Jya0nsN83zGrASTlFFljxOxILWfFyjKgoNvRWpPyG3VLQZNa3HWe2XgF6Ksi6mblNEC0/YCaodb0jNsG+f7nH+XOEadGlRoZCapIqzlj43H6HjsA8GOie7o1MsLEbmL08ylLWgsAQKrYmyPtimaoak=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bv//8vmD; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=h9UzVG29juVfSgkCm/ut6ZIJYn6ALw5uAskhrONEfSxVtMpgBIwFjjy3FMZjhCdY/66mMUZKPeOJz+6gt1iKNiZ6eIfo+mM3YDtQoS4E0wHl9r/LsDJrfW9FJsNxpNUT1eNPhlW/8maRCaJ7exoUKLiOrEmi8Vuf/I12ET7lfzU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XHWR7bTg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bv//8vmD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7CFC1F00893;
-	Thu,  8 Oct 2026 07:30:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XHWR7bTg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 214CE1F000FF;
+	Thu,  8 Oct 2026 07:32:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791444647;
-	bh=YtAY573Trop1gldQFI3m6kmIqtZQmLORC9wIKpI6iSE=;
+	s=k20260515; t=1791444775;
+	bh=qL0f3zWSOBG7sG3mN4VY8+QAxFs5hxiR8d+gHZ7b/vg=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Bv//8vmDlnc6EQrDpZ/TVEUzSgsyeunUZGo/ytOn/oklaiAmJfU21SRwc9uzLrz6G
-	 dM2jrgO1pNCMQYirVPeO44qUUIwQM27TOpEWmXX6YIOrXBoAzJsVxhm3soc9u7bnr1
-	 xFq22wG6j71v0i6pvmsohHhwKXwGW1obkVfTJy5uGi6woLwgj/ozO0U7AbWYrkhCwl
-	 BOyjW7B4cxDHkgeKkHeso+otRbvjkSKnupKWOklBN9wr6g8ihm+A88Ss2ZcPyz8FKO
-	 aziRW1Y+0k9x0qO+mY15/V1TcloBS5g+rvgZbpzCdVlRePfc/6LFLNGTIqz/5B1a2+
-	 hds6CCyuXsX8g==
-Message-ID: <sashiko-outbox-163763@kernel.org>
+	b=XHWR7bTg2sHfrnnyrhwKexYeO5rO5rLgshUh3cT/Bkz+lE6RxJVM7h9nc2SeW31v/
+	 YSWMTVfGtcJ6o2JC9Ys9UU0tIKJpIlg8E1xIkGGRqgm0WopSJvxazhPutvsN/Bel/I
+	 fT3/IppnA03yNDr184jWLNRjAnoRcEwqfZJycl7RksWZU01M5w8/SUR/cZ5x/x3a8o
+	 dJUX/7JTRmXpP0ytJCemqIwwx40FaEKOtSGv2VOcJEI5T7q3phQg/ptFAfeD/ks4FN
+	 ocwMP+yOZsIS94gvVPWzQEeFPW9tkmmIDSSCYsbrVzzgexH3QS2OVVcCuRBT7947fO
+	 DoGg1zH1qfyaQ==
+Message-ID: <sashiko-outbox-163768@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v19 06/12] media: qcom: camss: csiphy: Add support for
- v2.4.0 two-phase CSIPHY
+Subject: Re: [PATCH v19 07/12] media: qcom: camss: csid: Add support for
+ CSID 1080
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Hangxiang Ma" <hangxiang.ma@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com, devicetree@vger.kernel.org, media-ci@linuxtv.org, vkoul@kernel.org, linux-phy@lists.infradead.org, robh@kernel.org
-In-Reply-To: <20261008-kaanapali-camss-v19-6-b2c583ef50e0@oss.qualcomm.com>
+Cc: vkoul@kernel.org, olteanv@gmail.com, media-ci@linuxtv.org, robh@kernel.org, neil.armstrong@linaro.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261008-kaanapali-camss-v19-7-b2c583ef50e0@oss.qualcomm.com>
 References: <20261008-kaanapali-camss-v19-0-b2c583ef50e0@oss.qualcomm.com>
- <20261008-kaanapali-camss-v19-6-b2c583ef50e0@oss.qualcomm.com>
+ <20261008-kaanapali-camss-v19-7-b2c583ef50e0@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 08 Oct 2026 07:30:46 +0000
+Date: Thu, 08 Oct 2026 07:32:54 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] media: camss: NULL dereference in msm_csiphy_subdev_init_legacy on=
- Kaanapali
-- [Medium] doc: commit message claims to modify DPHY driver but patch diff =
-only modifies camss.c
+- [High] media: data race on aup_update and rup_update masks between proces=
+s and IRQ context
+- [High] media: missing IRQ mask programming prevents INFO_RUP_DONE interru=
+pts
+- [Medium] media: camss: csid-1080: data race on aup_update and rup_update =
+bitmasks
 --
 
-commit ee4f5ef31347740ffd64c4c9ec08e7e1f2398bfc
+commit c1ffc650d77cc9e495d5b9cec2dfa9e85e2f485e
 Author: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
 
-media: qcom: camss: csiphy: Add support for v2.4.0 two-phase CSIPHY
+media: qcom: camss: csid: Add support for CSID 1080
+   =20
+Add support for the CSID 1080 hardware found on Kaanapali SoC.
+Introduce CSID 1080 hardware resource descriptions and implement the
+hardware-specific register programming, reset sequence, and BUF_DONE
+interrupt handling.
 
-This commit adds support for the v2.4.0 two-phase CSIPHY found on
-Kaanapali, defining a new resource structure for its configuration.
+> diff --git a/drivers/media/platform/qcom/camss/camss-csid-1080.c b/driver=
+s/media/platform/qcom/camss/camss-csid-1080.c
+> new file mode 100644
+> index 0000000000000..46e443e05195a
+> --- /dev/null
+> +++ b/drivers/media/platform/qcom/camss/camss-csid-1080.c
 
->     Add support for the v2.4.0 two-phase CSIPHY found on Kaanapali, where
->     the PHY is driven by the standalone phy-qcom-mipi-csi2 DPHY driver
->     rather than by CAMSS. Add the mipi_csi2_dphy_3nm_kaanapali configurat=
-ion,
->     which reuses the x1e80100 lane sequence, clocks and supplies but sele=
-cts
->     the v2.4.0 common status offset, adds Kaanapali power domain and regi=
-ster
->     the "qcom,kaanapali-csi2-phy" compatible.
+[ ... ]
 
-[Severity: Medium]
-Does this patch omit some files, or does the commit message incorrectly
-attribute changes that belong to another patch in the series?
-
-The commit message explicitly claims to add the DPHY configuration and
-register the compatible, but the actual patch diff only modifies
-drivers/media/platform/qcom/camss/camss.c.
-
-> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/pl=
-atform/qcom/camss/camss.c
-> index fca3de214a922..eeceb79c1e863 100644
-> --- a/drivers/media/platform/qcom/camss/camss.c
-> +++ b/drivers/media/platform/qcom/camss/camss.c
-> @@ -38,6 +38,51 @@
-> =20
->  static const struct parent_dev_ops vfe_parent_dev_ops;
-> =20
-> +static const struct camss_subdev_resources csiphy_res_kaanapali[] =3D {
-> +	/* CSIPHY0 */
-> +	{
-> +		.csiphy =3D {
+> +static void __csid_aup_rup_clear(struct csid_device *csid, int port_id)
+> +{
+> +	/* Hardware clears the registers upon consuming the settings */
+> +	csid->aup_update &=3D ~CSID_RUP_AUP_RDI(port_id);
+> +	csid->rup_update &=3D ~CSID_RUP_AUP_RDI(port_id);
+> +}
+> +
+> +static void __csid_aup_update(struct csid_device *csid, int port_id)
+> +{
+> +	csid->aup_update |=3D CSID_RUP_AUP_RDI(port_id);
+> +	writel(csid->aup_update, csid->base + CSID_AUP_CMD);
+> +
+> +	__csid_aup_rup_trigger(csid);
+> +}
+> +
+> +static void __csid_reg_update(struct csid_device *csid, int port_id)
+> +{
+> +	csid->rup_update |=3D CSID_RUP_AUP_RDI(port_id);
+> +	writel(csid->rup_update, csid->base + CSID_RUP_CMD);
+> +
+> +	__csid_aup_rup_trigger(csid);
+> +}
 
 [Severity: High]
-Does this code cause a NULL pointer dereference on probe if the device tree
-lacks endpoints for the camss node?
+Does this code introduce a data race between process and hard IRQ context?
 
-If a malformed or empty device tree is provided, camss_detect_legacy_phy()
-leaves camss->legacy_phy as true.
+In process context, csid_configure_stream() updates these variables via
+non-atomic bitwise OR (|=3D) using __csid_aup_update() and __csid_reg_updat=
+e().
 
-During camss_init_subdevices(), this triggers a fallback to the legacy
-initialization:
+Concurrently, the hardware interrupt handler csid_isr() (running in hard IRQ
+context) clears bits in these exact same variables via non-atomic bitwise A=
+ND
+NOT (&=3D ~) through __csid_aup_rup_clear().
 
-camss_init_subdevices() -> msm_csiphy_subdev_init_legacy()
+Because there is no spinlock or atomic bit operations protecting these
+read-modify-write sequences, an interrupt firing on the same or another CPU
+during stream configuration could cause a TOCTOU data race.
 
-The legacy initialization unconditionally dereferences hw_ops:
+Could this lead to lost bit updates, resulting in hardware commands being
+dropped or spuriously re-triggered?
 
-ret =3D csiphy->res->hw_ops->init(csiphy);
-
-Since csiphy_res_kaanapali omits hw_ops here, wouldn't this result in an
-immediate kernel panic instead of a clean error during probe?
-
-> +			.id =3D 0,
-> +			.formats =3D &csiphy_formats_sdm845
-> +		},
-> +	},
-> +	/* CSIPHY1 */
-> +	{
 [ ... ]
+
+> +static irqreturn_t csid_isr(int irq, void *dev)
+> +{
+> +	struct csid_device *csid =3D dev;
+> +	u32 val, buf_done_val;
+> +	u8 reset_done;
+> +	int i;
+> +
+> +	val =3D readl(csid->base + CSID_TOP_IRQ_STATUS);
+> +	writel(val, csid->base + CSID_TOP_IRQ_CLEAR);
+> +
+> +	reset_done =3D val & INFO_RST_DONE;
+> +
+> +	buf_done_val =3D readl(csid->base + CSID_BUF_DONE_IRQ_STATUS);
+> +	writel(buf_done_val, csid->base + CSID_BUF_DONE_IRQ_CLEAR);
+> +
+> +	for (i =3D 0; i < MSM_CSID_MAX_SRC_STREAMS_1080; i++) {
+> +		if (csid->phy.en_vc & BIT(i)) {
+> +			val =3D readl(csid->base + CSID_CSI2_RDIN_IRQ_STATUS(i));
+> +			writel(val, csid->base + CSID_CSI2_RDIN_IRQ_CLEAR(i));
+> +
+> +			if (val & INFO_RUP_DONE)
+> +				csid_subdev_reg_update(csid, i, true);
+
+[Severity: High]
+Is the INFO_RUP_DONE interrupt properly unmasked?
+
+The driver relies on the INFO_RUP_DONE interrupt to clear the pending
+aup_update mask in the ISR via csid_subdev_reg_update().
+
+However, the driver never writes to CSID_CSI2_RDIN_IRQ_MASK(i) to unmask
+these interrupts, nor does it enable the corresponding top-level aggregation
+bit (CSI2_RX_IRQ_STATUS) in CSID_TOP_IRQ_MASK during setup or reset.
+
+Because the interrupts appear to be permanently masked in hardware, the
+RUP_DONE interrupt might never trigger the csid_isr() independently.
+
+Could the aup_update state be left orphaned if no BUF_DONE interrupt happens
+to fire, breaking asynchronous updates?
+
+[ ... ]
+
+> +static int csid_reset(struct csid_device *csid)
+> +{
+> +	unsigned long time;
+> +	u32 val;
+> +	int i;
+> +
+> +	reinit_completion(&csid->reset_complete);
+> +
+> +	val =3D INFO_RST_DONE | BUF_DONE_IRQ_STATUS;
+> +	writel(val, csid->base + CSID_TOP_IRQ_CLEAR);
+> +	writel(val, csid->base + CSID_TOP_IRQ_MASK);
+> +
+> +	val =3D 0;
+> +	for (i =3D 0; i < MSM_CSID_MAX_SRC_STREAMS_1080; i++) {
+> +		if (csid->phy.en_vc & BIT(i)) {
+> +			/*
+> +			 * Only need to clear buf done IRQ status here,
+> +			 * RUP done IRQ status will be cleared once isr
+> +			 * strobe generated by CSID_RST_CMD
+> +			 */
+> +			val |=3D BIT(BUF_DONE_IRQ_STATUS_RDI_OFFSET + i);
+> +		}
+> +	}
+> +	writel(val, csid->base + CSID_BUF_DONE_IRQ_CLEAR);
+> +	writel(val, csid->base + CSID_BUF_DONE_IRQ_MASK);
+
+[Severity: High]
+This appears to be where top-level masking explicitly omits
+CSI2_RX_IRQ_STATUS, and CSID_CSI2_RDIN_IRQ_MASK is never programmed,
+as noted above.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261008-kaanapali-=
-camss-v19-0-b2c583ef50e0@oss.qualcomm.com?part=3D6
+camss-v19-0-b2c583ef50e0@oss.qualcomm.com?part=3D7
