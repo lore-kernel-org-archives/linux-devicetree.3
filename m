@@ -1,287 +1,185 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BF1C43F0AA
-	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 08:27:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1083468C3E
+	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 08:27:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791448031; cv=none; b=VEe1feEdQiKgk4x9xBfJKeQ/Tk1bpeVMXzPJyuyeY4viJsV9YbIPUpbNau3I2cLJ4nxJ3Wp96puD5VmByvIYK8dZzA5OHP8zpZSGsh9dmMl58S+qeyeclg2MGOXp3aqF3Doy98jwyS6nPFamhP1ODtPwy1/3ULShSp4cQcC2YJA=
+	t=1791448033; cv=none; b=qOwTtqGJ6yDLROYClaNJDumBfv2Z7gZ3EDrJdmz8z93brKuR9RbQsf73ZUTLEYByUgwpS9Y3C7zW+UotZtZ8BNn6RTjUFgPGI2UrxZEeNWFUSJ487VpkUStiMNI1yIs9o+eubdLhw9rajZSlvoLow40JjcLzQdITVDU8jRB9zIY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791448031; c=relaxed/simple;
-	bh=BKfYjEQB4cQkDDvcz1hpRCv1I3xDJ6yNF0NEQxfXmdM=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=M05URBeGhI9Sb4BbIrBWaDKW4YmivRJ2yPWDP+tA7tuokBFu7jZJmzRu2euDi7uJZjfVYI5dGkMYfFc7G18lvstV9HjELajMnWFw6rDDLuXU2ZMudHU2tDbb2s1wSMGPTNnfh4+QUJaf4epKp/snHaOHiOEeGo7YzIHvraPbfVc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=r8hhoTAK; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1791448033; c=relaxed/simple;
+	bh=DvY286Kgs9LpIkD3BgrOsMV5PkiyQTq3FRBZELc+J8E=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ndeQtvXaOqidGvQz61jfsOclSjSxpiqrPkOxxPIhu8F8eeTrF13WHeiM7jxJi2weaBZ62HsdjRDh2T/k+G7M8B1KNU9U3eBGA0dxN/gFpS7Ew7Pyj0HjQ/uP5p+7+yKUru8laY3/4gDPT3j2NOY1OUtc5O3E17+aDGnxYo/JAJs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=U5uBGPQX; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=iOky1WjZ; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="r8hhoTAK"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4956869750eso16081135e9.2
-        for <devicetree@vger.kernel.org>; Thu, 08 Oct 2026 01:27:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="U5uBGPQX";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iOky1WjZ"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6987K9md1574548
+	for <devicetree@vger.kernel.org>; Thu, 8 Oct 2026 08:27:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=B37p6ZFYdaHkkMX6RKFojK
+	hCiYRU07fS2ZyvpTfamfk=; b=U5uBGPQXb2/ryfUqoopPMymvE9wwESyofzbjqZ
+	oSSLcagOnT0N26vDEpFx+Tumv0Y5lGvPwJy5wC3R/CbwKDNuKeYizIT1BAt6rwQK
+	yMlqJCPYy1kKZWhHJ70WLXzzy7Tcj7asTmYF9wJecWuvRUtzqqr5utyfTpQXRt5L
+	DII/zpSRRvpiLwaOcnagjRYyV0pNec60FCYuP3V9qX8Oga/8DXMDVfgrIp67tmje
+	AhNcsKKYnQB7lFJVPUhQcu5zSayenc41ApYqI44sCssA1Ct8mdQ7FeWfVWRK+tKo
+	GxSgwEXdvwPK0CNAYwM50zwdwfb7lpgUySIZ6y4hnkbR7/7g==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5xe51x41-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 08 Oct 2026 08:27:11 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-5358515b4easo19773981cf.0
+        for <devicetree@vger.kernel.org>; Thu, 08 Oct 2026 01:27:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791448028; x=1792052828; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=cDnEFJrAYNmZIA6bszuyNmXd6pp1X1kbMGgs/I8iGxE=;
-        b=r8hhoTAKOb/UXlYonw67hsrp+3pmc+pzuUyu1DnP0YDyUt0UVTBOTm0aJEQCWukHqS
-         60bMQU58YTZUmTTzYjFe+ufcd822EEPT07SS3PxN1dJ2tXAh+8J7IMzk/z30Gp20kZNz
-         AT4XN4bh2m1qfM9TubgJJWjmMAgalsEQZyI8aXPQS2HqwQJJlb+SFr1PFCxPAbZVap74
-         RYyb32BsuDM6rB9g/Ci1TEve6D+Un2aQR7hiBzv/NbKKkH6wPWVdkB5+97XhJwmCIbm2
-         s3Oh496xEUQn7vFQ3CfgnztgGLGVm0TZerDsjXVloZ6ouYaZM2LErezu77lkWSbfD1ka
-         KQfg==
+        d=oss.qualcomm.com; s=google; t=1791448030; x=1792052830; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=B37p6ZFYdaHkkMX6RKFojKhCiYRU07fS2ZyvpTfamfk=;
+        b=iOky1WjZ1mTQvXMp7EQvi7wJVNNRE139ygTcsCualUWq/1k9q6t6JiOL3GrzXkSO0Y
+         CGtgrVy9mXkwjVXmN+hQ9lsTsjcaNizvwho5vqsRzdUytjZnhypKivIeZBGKPMkb+EiB
+         ENrmWDOUSNvRCp5y5q0g2TPLvKMM0surd2RIW1+U16wijmu+F4DwUmR23IsZetBmg/qC
+         Moz7MQaho4VJIXdW4g0Hxj7d4VI3v4z4mY8VGV1q2OWHZkUpE4kYsLm1H4cPwwgWZCwf
+         icBj81dP5k2wIfgE+08/7mx3Md0vkOyymt762IBFrD1rdjyKUKYFx7KEFAq3qPRi0Nce
+         NjRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791448028; x=1792052828;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=cDnEFJrAYNmZIA6bszuyNmXd6pp1X1kbMGgs/I8iGxE=;
-        b=khsTIdhzhFBZlrW5a9domYa6YjP2j/pMfrYaYNoDpUHGhMENnmDzsVo3+DeIOMl30o
-         pDITQCayE96TPSw7cNOABKidQiuD9Zk8UIjDz4QYU3qaKaRbQPFtsdRWxdeFOxP4WL7v
-         SbcPYlH4BqC62/Tc8+5+gvRa5mTM8SBPbt/FZtZj/reCpsx2Ue59vwuFdN/bqnQsHWMw
-         U1HE9yfiL2KQhj/hO+T3Gt+4P4+N4gnFxcwUahZTSrVEY4s+bkbivw7hz7pHRBpuYrKa
-         MZrq4/mEC5pwagyxcD5r7wWAoIvbPWe5OCcgth5betdtLlkwKPz19aHBSUW8xKOztNRa
-         rXRA==
-X-Forwarded-Encrypted: i=1; AKwUvBz0DMEzMjb2VF5J3vTJ3qKdBIJsrAyGx69YCYbhkJKyZD0wqDp5r6mCeEZqcGe2pnUdWCiEuMpaQnnQ@vger.kernel.org
-X-Gm-Message-State: AFuF++lacm7oTkZzBPQc6Sb6zrR70D0tpSnU3W6Cfo1SoYyj2dRQQigw
-	pSOOdz6gnaoWeFQofhy6Zp2/dXhJO5RJ6/UZ+OzuxlPMBGEvEpZe7Ezxax/S6xqZG60=
-X-Gm-Gg: AYBFou1hbpL3G+lMN7ntZMejPE/CU8Z0souOx1DJjyU5lr3zIOzlt/NNYa3zydixe5y
-	Z3C1hUxGtanvgmRZUrbuOEFHibwPVaLjc/bB2FjHx7bsYdzUT0+TEC9FqZ2UBLwwuyVzvahVAxk
-	4ZJjEs5ad9Qq2YyUWPCqI8DMqcGLeOhgIgmCQRo2tL01vSlXslQIe4m5yNQ3VwL9GyMW0K5LXGO
-	cGGCw0C5yxrHbA2UhSTgI3nUGWeJ4PWHBSNeDYNHYhtBjHX7jqbEdxPGQFU7uLTQh47L1skfgUn
-	ERC17gWRZevC9po00vA7qDbd24enNtmsHYUuY4mRZgiitDuXKh3PL3/Dp/T2mpLCtQIFaljTsQM
-	/Q3MKvS/0tzTQUKJRbECY3jBDdlMp38b5T4dikgcsYTo/5OQ5LEazXxZdjBbI0OJuTOUa+X+MFj
-	aL9Yy4OtluMoKXpMbocldmMcpbmVGJBH063jEPPEyuAhzvssfL7LPlSFUc1qHIqcSIpVk3RuSoL
-	8BGQDM9XXjFhgnWuxjcafiwVvqFzBI3
-X-Received: by 2002:a05:600c:4693:b0:4a1:7e1f:21bc with SMTP id 5b1f17b1804b1-4a180648ff1mr80887095e9.29.1791448027436;
-        Thu, 08 Oct 2026 01:27:07 -0700 (PDT)
-Received: from [192.168.151.76] (90-182-211-1.rcp.o2.cz. [90.182.211.1])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1843d1e0bsm51493935e9.6.2026.10.08.01.27.06
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 08 Oct 2026 01:27:06 -0700 (PDT)
-Message-ID: <c23f91fd-a5d5-46a2-b4d7-3e33a87a348e@linaro.org>
-Date: Thu, 8 Oct 2026 10:27:05 +0200
+        d=1e100.net; s=20260707; t=1791448030; x=1792052830;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=B37p6ZFYdaHkkMX6RKFojKhCiYRU07fS2ZyvpTfamfk=;
+        b=loDsrmLS6QKJsY4HSqBPSGnPZmaD5MFsvkKOxJfJva1aPo0+POTXKXaWNlHwT3Hn0t
+         rOvkM8NdvmwZM7jE/hp2W3pRjQJzaKUZ7VzRIOJP8bO+KZMszkac4iNhnI2kFe2pTVz2
+         MrIYXwdezjgZV1EtmpVCras1mGydDlpWHfxBZZxnE4MZWb7sERI1TjIq86Mb9HmYDqCJ
+         qJtKNPg8mZZN8vJyd5Nhn/DmFqcdhEtEo5h0DOyAnsGHQa2CxY7qo6yCG5SXExYPRkit
+         XB56PnIG6FKREFxiBtYGMGV93wqjsYgQ9/7+GD1HIThRCAD4egGtvWmmD2/jWKrf/rFe
+         FDjg==
+X-Forwarded-Encrypted: i=1; AKwUvByXqDa4ImzuO5GdKzC9eNSFALSsy1ZWl18ZFzMUkzkOj0e36C9k0Y2oPwfiZRH3TsL2asA0uw9o0I07@vger.kernel.org
+X-Gm-Message-State: AFuF++lQdWZ8Ow9tSHor8G502+J20obGRjaC1GuEeOdTJZwqmnB/ciNP
+	PvWntArMkrI5LXapEXHEySwks58xV8p76hTdzspJTPiKVyilQMv7FLhyaC/dRjL4KVev83Rq9/Y
+	LYBdWbxVdpQp+EI1YXj3xNuLCU2FkmOLegq1NpF/UQ1URVg4DXu+igXM55/F4jCnR
+X-Gm-Gg: AYBFou2rXkVstCPd1a719qSovy1UJzypO4UMsazmLi+1b6LY4wN/ssJmJ0n7fFzKKAy
+	qsoXsd8cHGmC76OfWTs3UeaGUZ9jKX+Nq5YhYjRNdh9H0ifxExcS6qaoQ+FkgTNfdLdxHaLhhYn
+	x/Rq8t8dh37YZHRsFaHOkj/oqYCZEQdRmAFSB2beHPQjD8UyX93YkcXLbcpuphWWSw5Baw24kfg
+	uHnFh4nK1ucKiel0wGCEz6gVysoi0XhyXvxeRGrvPK0cNM+vm4ZdZ0/+byoTmqVegD86s8E7+9s
+	QRc47n02mco25hM1X6XxLWXRr0IWMAYXxZB5PrHzDV/9/gX98TFgTEbhvz6Sc0kJekB3jnGt4PJ
+	xqO8wdE9aUENV8gh7lHHY3dUnMGABzg/2MxUT7VmPlGYQlQV8xrm5pRRevNpirnw5NZz+
+X-Received: by 2002:a05:622a:90c:b0:535:16c1:264f with SMTP id d75a77b69052e-535753ed71dmr84042251cf.14.1791448029874;
+        Thu, 08 Oct 2026 01:27:09 -0700 (PDT)
+X-Received: by 2002:a05:622a:90c:b0:535:16c1:264f with SMTP id d75a77b69052e-535753ed71dmr84041981cf.14.1791448029301;
+        Thu, 08 Oct 2026 01:27:09 -0700 (PDT)
+Received: from WENMLIU-LAB01.ap.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com. [129.46.232.65])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5357219c5f5sm38928981cf.25.2026.10.08.01.27.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 01:27:08 -0700 (PDT)
+From: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+Subject: [PATCH v4 0/3] media: camss: add support for purwa platform
+Date: Thu, 08 Oct 2026 16:26:57 +0800
+Message-Id: <20261008-purwa_camss-v4-0-bcf11bf2c650@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v5 5/6] dt-bindings: display: Add Synaptics panel support
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Linus Walleij <linusw@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
- Jun Nie <jun.nie@linaro.org>, Rob Clark <robin.clark@oss.qualcomm.com>,
- Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar
- <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>,
- Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-References: <CAD++jLkX0m6_GJd4Pd1Ko4tghta4AXQ5ALZpLe_x-3xxqu1Cvw@mail.gmail.com>
- <668e83d0-a017-4f59-bc76-bf6c9a80b5ba@kernel.org>
- <CAD++jLkyEPY5cFg_pHb71yG52iLwS9tQDpcHu=TTBknQMeFctw@mail.gmail.com>
- <bc3e618f-2e7a-4439-9466-8cd9695242e5@linaro.org>
- <2lcpzwh7fxecpffnakpnp5lecrm3e6u64ztat7cd75nuxofxa2@clj27bzgjy3r>
- <4d053234-06d8-4268-b60a-2fccc78da654@linaro.org>
- <d3xs3kzc2wg5lkouaemdicrbtsoquff6bvmnlmuxwh4kspfs2d@b77l43axr6a4>
- <8cf6ec52-fb36-44e7-831c-2bb24214f591@linaro.org>
- <pyl6bihy4zsyhmblrgvuvov2gi2jz5ktpbcz4u3r53qw7h725y@4wzvce345wwh>
- <b48f9b77-5b11-483d-b031-81da16c5c73a@linaro.org>
- <cqo2n43vq4v7txg6j7ss6dyzpnqdbm265m5xedjtrp5tn7b56c@xlqtrwvpvoly>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <cqo2n43vq4v7txg6j7ss6dyzpnqdbm265m5xedjtrp5tn7b56c@xlqtrwvpvoly>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIANFTx2oC/23N0QqDIBQG4FcJr2eoWNau9h5jDNPTEtYsLbcRv
+ fusDSLYzYH/P5zvTMiDM+DRMZmQg2C8sY8Y+CFBqpGPG2CjY0aMsJxwUuJudE95VbL1HnORiUJ
+ UhQDKUbzoHNTmtWrnyzc76MeIDlvZGD9Y914/Brq0P5ySHR4oJhhAqzrXpS4ATtb7tB/lXdm2T
+ eNACxfYRmSU7gkWCRYXhaxKynL1h5jn+QPR+O1qBQEAAA==
+X-Change-ID: 20260409-purwa_camss-475787b87e14
+To: Bryan O'Donoghue <bod@kernel.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791448024; l=1519;
+ i=wenmeng.liu@oss.qualcomm.com; s=20250925; h=from:subject:message-id;
+ bh=DvY286Kgs9LpIkD3BgrOsMV5PkiyQTq3FRBZELc+J8E=;
+ b=VY96vHEHUrDOot2nltDp9uwKQjd8s/jdJDNM6WIGK5hDt5+b+NGF6616hnCa7QgSJLs1oZQuQ
+ 7t+V9HKK3I1AGTFrxyFNPlMSNKctKAJE39fDAVQj75WxGV8DMhZZ87q
+X-Developer-Key: i=wenmeng.liu@oss.qualcomm.com; a=ed25519;
+ pk=fQJjf9C3jGDjE1zj2kO3NQLTbQEaZObVcXAzx5WLPX0=
+X-Proofpoint-ORIG-GUID: CJMb8ZogsSkooi7dQheKk7gjyK_oL0dX
+X-Authority-Analysis: v=2.4 cv=E4dYNqdl c=1 sm=1 tr=0 ts=6ac753df cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=U4S9WEnYRaEk29xky1oA:9 a=QEXdDO2ut3YA:10
+ a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDAzMyBTYWx0ZWRfX3D+LVgsRAn7d
+ 6AIRlUSEFpQmXmI+F05W3THlIZvG6mYtWklfC8smgZ0ceeUTF+jdZYYhv0Kd2ub3B+SOBOWWHwq
+ 7paYOR+jnsJhFMuZFqZ9y/c5uq+mdHk=
+X-Proofpoint-GUID: CJMb8ZogsSkooi7dQheKk7gjyK_oL0dX
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDAzMyBTYWx0ZWRfXwJQurS9GCOEK
+ mRFm7ChVdRzJQMdLQ24uXL0z6sEXVJuwDyYJgmJtycaLF4BKP+wQdyAEPa08ufl3GXuHpF79a+5
+ E0gMff23OQ15uR22iWNl5bJQ2BI1khzae9LZbWjKX1D/ABdWHHTX5YCW/Dud/x8HLnFwSgYyIHZ
+ bxPwmMjODytnAXFTCya0bOeaC1ozbDk8ZpiMXlMoQl9NsCABRBmwh1RHdJr167iGotLv5kglbzU
+ IsRGuM6aXGlD5hOuLcgYFb59sDPecaaoxpTjWmpKuAZwsoo+s0HMNrsxWYXpncQRgouPWcffpsm
+ TnBI0g6Xpww+h5NvMndi6NlFAxaN3mczyZZ+bzH8qnWArTBGfuQTFZhOpxBh1oD9VI9a3Hj3JZU
+ KNVXdcvnYEke4oL/TuIwaYgHDrv2lrd+DRvIOAE8Ds4CY3L3n6o0Z66PFZxwgydEoaYDR9t6Lc6
+ n4Hyu5Z95HJXHCPVyww==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-08_03,2026-10-06_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 adultscore=0 phishscore=0 spamscore=0 impostorscore=0
+ clxscore=1015 priorityscore=1501 bulkscore=0 suspectscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610080033
 
-On 10/5/26 13:15, Dmitry Baryshkov wrote:
-> On Mon, Oct 05, 2026 at 10:54:41AM +0200, Neil Armstrong wrote:
->> On 10/5/26 04:22, Dmitry Baryshkov wrote:
->>> On Sun, Oct 04, 2026 at 05:51:44PM +0200, Neil Armstrong wrote:
->>>> On 10/1/26 02:43, Dmitry Baryshkov wrote:
->>>>> On Wed, Sep 30, 2026 at 09:18:55PM +0200, Neil Armstrong wrote:
->>>>>> On 9/30/26 21:04, Dmitry Baryshkov wrote:
->>>>>>> On Wed, Sep 30, 2026 at 06:43:47PM +0200, Neil Armstrong wrote:
->>>>>>>> On 9/30/26 09:44, Linus Walleij wrote:
->>>>>>>>> On Tue, Sep 29, 2026 at 3:35 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
->>>>>>>>>
->>>>>>>>>> This entire binding seems like stitching two devices together, which
->>>>>>>>>> might be fine (I don't even remember this stuff... two months old) or
->>>>>>>>>> might be artificial grouping of separate devices.
->>>>>>>>>
->>>>>>>>> I think that's a good point and fair pushback.
->>>>>>>>>
->>>>>>>>> Neil and Jun talk about it yesterday at XDC (1:15 into the stream):
->>>>>>>>> https://www.youtube.com/watch?v=6tNGW8PoSzw
->>>>>>>>>
->>>>>>>>> The current binding does not reflect the physical topology of the
->>>>>>>>> actual device, and the bindings need improvements. I have a feeling
->>>>>>>>> there is one display controller with two physical panels.
->>>>>>>>
->>>>>>>> No there's really 2 controller and 2 separate panels, but they are not
->>>>>>>> classic panel, they are a pair of panels+lens which are in front of
->>>>>>>> the eyes which forms a single "image" for the brain, so they are
->>>>>>>> technically a single display and requires to be hard synchronized.
->>>>>>>
->>>>>>> Yes. However this approach makes it impossible to share the code between
->>>>>>> the double-panel drivers and single-panel drivers. I think, that the
->>>>>>> panel driver should still reference a single glass+DDIC, while letting
->>>>>>> the DSI host driver to handle the bifurcation.
->>>>>>
->>>>>> Yes, and no, it must really be considered as a "single panel driven by 2 identical controllers",
->>>>>> and even this is really purely software implementation issue.
->>>>>
->>>>> [...]
->>>>>
->>>>>
->>>>>>>> Describing both panels into separate nodes would only be possible
->>>>>>>> if we described a "VR display complex" nodes linked to both panels
->>>>>>>> but this would probably be solved by actually describing the "display"
->>>>>>>> linked to a DDIC controller and is out of subject for this serie,
->>>>>>>> and can be added later when we properly define things.
->>>>>>>
->>>>>>> I like the VR complex idea. In the end, you have two modes which you
->>>>>>> most likely might want to support:
->>>>>>> - L+R, having double-width CRTC scanning over a double-width framebuffer
->>>>>>> - Mx2, having a single-width CRTC and a single-width framebuffer
->>>>>>>       displaying the same picture to both eyes. I can imaging that knowing
->>>>>>>       about L+R might be an explicit opt-in feature of the DRM interface.
->>>>>>>
->>>>>>
->>>>>> This makes no sense to support both modes, and this will never be used,
->>>>>> and anyway this is purely software implementation.
->>>>>>
->>>>>> We're defining bindings here, describing the real reality, not hypothetical
->>>>>> situation that will never happen.
->>>>>
->>>>> Let's ignore software issues. On the hardware side, you have two
->>>>> distinct DSI panels, each having its own set of controls, own DSI link
->>>>> and own backlight control.
->>>>>
->>>>
->>>> OK so let's see the problem in another angle, if we had 2 DS links 2 physical
->>>> controllers, 2 physically distinct panels but forms an unique display.
->>>
->>> Imaging the case: through the time the backlight LEDs on the right eye
->>> age faster than the ones on the left eye, so we need to apply dynamic
->>> correction to the backlight, dynamically calibrating the coefficient to
->>> be applied to the LED brightness (or even worse, dynamically applieing
->>> the _curve_ to compensate for the brightness difference).
->>>
->>> Note, I don't have any information here, if such a difference can exist
->>> or if it can appear through the time, or if the xR DDICs can handle it
->>> on its own via a pre-programmed LUT, so you can totally say that the
->>> argument is moot and I won't even argue here.
->>>
->>>>
->>>> Describing it in separate distincts nodes is wrong since it doesn't reflect
->>>> that it's an unified display, so either we define :
->>>> - a "combined-display" bridge defined as:
->>>>     - a separate top node in / like connectors with a graph from the DSI links to each panel
->>>>     - a DSI subnode with 2 panels as subnode, port graph from both dsi to both sub-panels
->>>> - a "R63455" panel bindings with 2 subpanels as Linus shared in https://lore.kernel.org/all/CAD++jLkyEPY5cFg_pHb71yG52iLwS9tQDpcHu=TTBknQMeFctw@mail.gmail.com/
->>>>
->>>> I think it would be interesting to have the "combined-display", with a connector-like node,
->>>> which will do all the split-dsi dual-panel logic for us and leave use implementing simple panel
->>>> drivers.
->>>>
->>>> The outline would be:
->>>>
->>>> =====><=======================================
->>>> / {
->>>>
->>>> 	xr-display {
->>>> 		compatible = "combined-display";
->>>>
->>>> 		ports {
->>>> 			port@0 {
->>>> 				combined_dsi0: endpoint {
->>>> 					remote-endpoint = <&dsi0_out>;
->>>> 				};
->>>> 			};
->>>> 			port@1 {
->>>> 				combined_dsi1: endpoint {
->>>> 					remote-endpoint = <&dsi1_out>;
->>>> 				};
->>>> 			};
->>>> 			port@2 {
->>>> 				combined_panel0: endpoint {
->>>> 					remote-endpoint = <&r63455_right_in>;
->>>> 				};
->>>> 			};
->>>> 			port@3 {
->>>> 				combined_panel1: endpoint {
->>>> 					remote-endpoint = <&r63455_left_in>;
->>>> 				};
->>>> 			};
->>>> 		};
->>>> 	};
->>>> };
->>>
->>> This is an interesting approach and it would be a requirement, if we
->>> ever have a device with 4 DSI hosts which can driver two sets of XR
->>> panels (there would be no other way to understand, which pairs of panels
->>> are bundled together). I am not sure if it needs to be an OF graph
->>> device or if it can simply reference the DSI devices. Or if it can
->>> reference panels (which is not the same).
->>
->> I mean we could imagine combine any number of panels to form a combined display,
->> 2 or 4 DSI links would be handled the same.
-> 
-> I was thinking about 2 combined display example. In this case you can't
-> figure it out in software without extra hint.
-> 
->>
->>>
->>> Another question, do we need to list any other devices here? regulators?
->>> sensors? maybe proximity sensor? cameras? I'm thinking from the
->>> 4-host-2-xr point of view, because if we don't have 4 DSI hosts, we
->>> don't need to describe anything. We already know all the hardware
->>> properies and connections, the rest is really just a software plumbing.
->>
->> The regulators would be in the panel nodes, for the associated peripherals
->> like sensors & cameras they are not physically tied to the display so
->> it's only software plumbing.
-> 
-> regulators yes, they are described. Think about the 2 XR units being
-> driven by the same "base". I think, you would at least need to link the
-> cameras to the enclosure. Otherwise you will have a 2x number of cameras
-> and no idea which of the enclosures they belong to.
-> 
+This series adds camss support for purwa platform.
 
-This is highly improbable, and I don't think it's the priority right now anyway.
+Validated on the Purwa EVK with the OG0VA1B sensor.
 
-Neil
+---
+Changes in v4:
+- Collect R-b tags from Bryan and Krzysztof on dt-bindings patch.
+- Rebase on linux-next and add Bryan`s vfe patch.
+- Link to v3: https://lore.kernel.org/all/20260930-purwa_camss-v3-0-0fe2a5b11208@oss.qualcomm.com
+
+Changes in v3:
+- Rebased on the latest CSIPHY code.
+- Link to v2: https://lore.kernel.org/r/20260511-purwa_camss-v2-0-22608ab9126c@oss.qualcomm.com
+
+Changes in v2:
+- Based on the old version of csiphy.
+- Remove Src clk. -- Bryan
+- Extend the register block of the VFE. -- Bryan
+- Add comments for IOMMU. -- Bryan
+- Link to v1: https://lore.kernel.org/r/20260410-purwa_camss-v1-0-eedcf6d9d8ee@oss.qualcomm.com
+
+---
+Bryan O'Donoghue (1):
+      media: qcom: camss: vfe: Eliminate ever expanding src_pad_code switch logic
+
+Wenmeng Liu (2):
+      dt-bindings: media: Add qcom,x1p42100-camss
+      media: qcom: camss: Add support for X1P42100 CAMSS
+
+ .../bindings/media/qcom,x1p42100-camss.yaml        | 263 +++++++++++++++++++++
+ drivers/media/platform/qcom/camss/camss-vfe.c      |  20 +-
+ drivers/media/platform/qcom/camss/camss.c          | 216 +++++++++++++++++
+ drivers/media/platform/qcom/camss/camss.h          |   1 +
+ 4 files changed, 482 insertions(+), 18 deletions(-)
+---
+base-commit: b018686719706a781c45a874ed51374a2dc4b767
+change-id: 20260409-purwa_camss-475787b87e14
+
+Best regards,
+-- 
+Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+
