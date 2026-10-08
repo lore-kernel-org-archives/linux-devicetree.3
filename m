@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA66138654F
-	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 10:41:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51A8A4973AF
+	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 10:43:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791456094; cv=none; b=YMk4vOIIeexXNgMkSuq8OxZUWnUPEijpYo7lxxfNBDKtFKoUF/8mZYnS+zSZrpRrGumzDwD24IpjMcYELZfKE+C2to6PLx9AHHjdBcXfUKnAzkKyCIjmKp/XWrPXe05Xf6a+2dxmC8n22JRbDmtg3ePXjQ+d31pAgGN2g5FrMYs=
+	t=1791456191; cv=none; b=kBpP58mkgX2Kf6zHCtzSXYZ2kHOCoJGnkkofOunDa+y+TJJ1I+8Zf1KfvUpCLyX9sApBjuthlGTSt3DJNFRl0716GK6wDy+huOehlIvc1GKZvId5Z1QhhYvteWhViRclbfZV/KRPhpO8GvCjI0vwXr34W8RGhmvciGTU8yrNbOE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791456094; c=relaxed/simple;
-	bh=vh9megH7Sj4pyMcijk8a/qAznKNprN+5HfTXfx+/7xg=;
+	s=arc-20240116; t=1791456191; c=relaxed/simple;
+	bh=WDO4iy6VQ9f79DF+r3GJK4iLJ735/EaYT57I8GKkxZg=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=R1T5Cdgaeqh17qiNfURiYBCQq32skSTpSioEi8engnA00ho+w6VJwtgpfK3N/eJnhFVMubEhu9DS2XRL6jhtxluETFaOJoUIOH2cVbmSsk3IZRIhR5bwKVKxT6LRuRJXztt2lc640qWuHlnOJR63XvhLYXPRLfRWcaAHlQvwAnw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MgUiZuAq; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=M8fHOaHYdAwp2H/XT9Vs5xmLXQFL2W59Y45/gBYIWIXhsyH3O6xRfkrRo2E0Gp0eXRsGTKJKnghBHAXt6yFb1nziexVirswLrfoXBIr7kdkNvJJNkgCMfoaRIof1bY3GsqHY1bWVuo11fX1W7X9uIeZPIGhRuscfwkt7aS+9Qhc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RY4Hz0m0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MgUiZuAq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C7671F000FF;
-	Thu,  8 Oct 2026 10:41:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RY4Hz0m0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B128A1F000FF;
+	Thu,  8 Oct 2026 10:43:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791456093;
-	bh=mOLEfweQC2q7qjJ2pDVMzshcbRalcNK71Utj3kk3aC0=;
+	s=k20260515; t=1791456190;
+	bh=GHU91XUs97lKoDApsumNSnMlJmUzTwEpmyfKSIYfJ0c=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=MgUiZuAqKdFDBGkvImoOBPHhElczRov8DrEpuDLbWAlfYhnEVORS0tHNFX9qu5+4U
-	 xz0XEmygZkmKw8vlU0lr6c6umZyUoeWgyUh4Z/jFwSHCCwLMnoA9UrXmo6o/Invfkz
-	 SwO41wQh8BQ0Umi2ioK6Wtjg2dfMAkNGQPEkxWZUEZk+wQwfe1o81bACAwSap2ZlN/
-	 4e3E7P96EGLCbq7z8JCuU3zD6yv1m7FJaCgqQy5+GWqoMl5N6fPlpbmUFA6AeXlBif
-	 cpkjPuRdXITFAjAVfEePLZGD52/o2JDu+gV5LOv0xgVH4ig7VYRf9wODn7CHLswmj9
-	 NOCXFKCRR6+IQ==
-Message-ID: <sashiko-outbox-164035@kernel.org>
+	b=RY4Hz0m0k0m5ZBd87MYmsgYawjmbI+VAaLUomxvb+oZ05tHGueNIb4rpMjphAGXCF
+	 TpFWXru3nnVCLplcTp7nXy0jHa2U9eMzkdXh+yAxiPeGRfQc/LLlQM1sbP231lYvHN
+	 rufGHrZkV9H3S9KEnJ82KwIQRmPlrl8BIwjfKyOfFAhCRT+KeggdWOIQk4qKqNKVhU
+	 x2NazQfkTJA40sk3gVSJird9ls1ilHUCCzpVvUh3E0t7CW9MFoB+QDaqJMixIoY/Xr
+	 Pmfo0AS+QXIbnMLsRXsRkU1qpPC/zQGsmq5s0jdlJjZZ2B+nd05CDuMOxmruzAA7xK
+	 d+Fht4MHuB8lw==
+Message-ID: <sashiko-outbox-164038@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH ath-next 11/17] wifi: ath12k: Add platform MSI support
- for CE
+Subject: Re: [PATCH ath-next 16/17] wifi: ath12k: Resolve userPD ID per
+ device
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Aaradhana Sahu" <aaradhana.sahu@oss.qualcomm.com>
 Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20261008-mpp_bringup-v1-11-2c5797b5e4ac@oss.qualcomm.com>
+In-Reply-To: <20261008-mpp_bringup-v1-16-2c5797b5e4ac@oss.qualcomm.com>
 References: <20261008-mpp_bringup-v1-0-2c5797b5e4ac@oss.qualcomm.com>
- <20261008-mpp_bringup-v1-11-2c5797b5e4ac@oss.qualcomm.com>
+ <20261008-mpp_bringup-v1-16-2c5797b5e4ac@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 08 Oct 2026 10:41:32 +0000
+Date: Thu, 08 Oct 2026 10:43:09 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,82 +47,61 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Resource leak of non-devm MSIs and IRQs on ath12k_ahb_probe() erro=
-r paths
+- [Low] style: inefficient NULL check inside resource loop
 --
 
-commit ad41050e8b81bf8d1dd6e4fe6253604d235fd347
+commit 1ba3501c64845782d9fd054ea266b2485861b530
 Author: Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>
 
-wifi: ath12k: Add platform MSI support for CE
+wifi: ath12k: Resolve userPD ID per device
 
-This commit adds support for configuring Copy Engine (CE) interrupts
-through platform MSI on hybrid AHB devices like the QCN6432. It introduces
-an IPCI MSI configuration, allocates MSI vectors from the platform MSI
-domain, and registers CE interrupt handlers using the allocated vectors.
+This commit resolves the userPD ID based on the device address rather than
+hardcoding it during AHB probe, which is necessary for multi-PD platforms.
+It also sets multi-PD support based on the AHB device descriptor.
 
-> diff --git a/drivers/net/wireless/ath/ath12k/pcic.c b/drivers/net/wireles=
-s/ath/ath12k/pcic.c
-> --- a/drivers/net/wireless/ath/ath12k/pcic.c
-> +++ b/drivers/net/wireless/ath/ath12k/pcic.c
+> diff --git a/drivers/net/wireless/ath/ath12k/wifi7/ahb.c b/drivers/net/wi=
+reless/ath/ath12k/wifi7/ahb.c
+> index bff48b2fe124d..86359ed1eeb2b 100644
+> --- a/drivers/net/wireless/ath/ath12k/wifi7/ahb.c
+> +++ b/drivers/net/wireless/ath/ath12k/wifi7/ahb.c
+
 [ ... ]
-> @@ -154,3 +155,157 @@ void ath12k_pcic_write32(struct ath12k_base *ab, u3=
-2 offset, u32 value)
-[ ... ]
-> +static int ath12k_pcic_ce_irq_config(struct ath12k_base *ab,
-> +				     struct msi_desc **msi_desc, int num_msi)
+
+> @@ -43,6 +47,26 @@ static const struct of_device_id ath12k_wifi7_ahb_of_m=
+atch[] =3D {
+> =20
+>  MODULE_DEVICE_TABLE(of, ath12k_wifi7_ahb_of_match);
+> =20
+> +static u32 ath12k_wifi7_ahb_get_userpd_id(struct ath12k_base *ab)
 > +{
-[ ... ]
-> +		scnprintf(ce_pipe->irq_name, sizeof(ce_pipe->irq_name),
-> +			  "pcic%u_wlan_ce_%u", userpd_id, i);
-> +		ret =3D request_irq(desc->irq, ath12k_pcic_ce_interrupt_handler,
-> +				  IRQF_SHARED, ce_pipe->irq_name, ce_pipe);
+> +	const struct ath12k_ahb_userpd_map *map;
+> +	struct resource *res;
+> +	size_t i;
+> +
+> +	res =3D platform_get_resource(ab->pdev, IORESOURCE_MEM, 0);
+> +
+> +	for (i =3D 0; i < ARRAY_SIZE(ath12k_wifi7_ahb_userpd_map); i++) {
+> +		map =3D &ath12k_wifi7_ahb_userpd_map[i];
+> +
+> +		if (res) {
 
-[Severity: High]
-Does this leak the requested IRQ on the probe error path?
+[Severity: Low]
+This isn't a bug, but could the NULL check for res be moved outside the loo=
+p?
 
-Since request_irq() is used here instead of devm_request_irq(), it requires
-explicit cleanup. This function is called by ath12k_ahb_config_irq() during
-ath12k_ahb_probe(). If a subsequent initialization step in probe fails
-(such as arch_init or core_init), the error path jumps to labels like
-err_deinit_arch or err_core_free.
+Since res is retrieved before the loop and does not change during the itera=
+tion
+in ath12k_wifi7_ahb_get_userpd_id(), checking it on every pass is redundant.
+Returning early if res is NULL might make this slightly cleaner.
 
-However, the error path in ath12k_ahb_probe() does not appear to call
-ath12k_ahb_disable_irq() or ath12k_pcic_free_irq() to free these IRQs.
-If the device context (ab) is subsequently freed by ath12k_core_free()
-while the interrupt handlers remain registered, could this lead to a
-use-after-free panic if an interrupt fires?
-
-> +		if (ret) {
-> +			ath12k_warn(ab, "failed to request irq %d: %d\n", irq_idx, ret);
-> +			ath12k_pci_free_ce_irq(ab, i);
-> +			return ret;
+> +			if (map->io_start =3D=3D res->start)
+> +				return map->upd_id;
 > +		}
-[ ... ]
-> +int ath12k_pcic_config_irq(struct ath12k_base *ab)
-> +{
-> +	int user_base_data, base_vector, num_vectors;
-> +	struct platform_device *pdev =3D ab->pdev;
-> +	int ret;
+> +	}
 > +
-> +	ab->msi.config =3D &ath12k_msi_config[ATH12K_MSI_CONFIG_IPCI];
-> +
-> +	ret =3D platform_device_msi_init_and_alloc_irqs(&pdev->dev,
-> +						      ab->msi.config->total_vectors,
-> +						      ath12k_msi_msg_handler);
-
-[Severity: High]
-Similarly, does this platform MSI domain allocation get leaked on the
-ath12k_ahb_probe() error path?
-
-platform_device_msi_init_and_alloc_irqs() is not devres managed, so the
-domain must be explicitly destroyed via platform_device_msi_free_irqs_all().
-Because ath12k_ahb_probe() does not call the corresponding free routine when
-it encounters an error after this point, are these MSI vectors leaked?
-
-> +	if (ret)
-> +		return ret;
+> +	return 0;
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261008-mpp_bringu=
-p-v1-0-2c5797b5e4ac@oss.qualcomm.com?part=3D11
+p-v1-0-2c5797b5e4ac@oss.qualcomm.com?part=3D16
