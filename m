@@ -1,107 +1,114 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B04D4A689C;
-	Thu,  8 Oct 2026 14:09:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED96149F107;
+	Thu,  8 Oct 2026 14:12:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791468549; cv=none; b=rIbyX12osj1SQ4J6r/8UJPJnpM4R2YC6TRervXqS3FJPiAA1OQ92YIMb/dcvgb9tTXM7h3vuU2KOMOeUnrw0BlQjs9PzV3SFGK30krgbr6P40bkVbGGz3WNZoN/6uhMvmBu1eglqjjPLtMd6xShsU8R+5zfOHLa0kj1K7GT+Jpw=
+	t=1791468771; cv=none; b=O6/ObKRsWMCFvzEukv2DT1tloAHArEj+ysnLARO9bLCbbUqhMxEhvODGnrlXu+oXl5HosA3QtrXR407yYpp79oV3LatCrB1pPzpfPal95kk9UywMRgWhzmK9s1DS+8ITDvsg7NdVsoI+l7HZeH8S9gMEuHm5TPFShZqI1Eb4W/Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791468549; c=relaxed/simple;
-	bh=oM5auXyuwmnVcDTrwBD6PW+dlLO6v83bTYCx3Rxxdso=;
+	s=arc-20240116; t=1791468771; c=relaxed/simple;
+	bh=l2+Dw2sl5OPeSblngQFwY5OyEBVB0Z8ra9CpUyTrnOo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=d0A5X1yii3Kv6wZR9n00Mp12I5GjA7h6mZSOyiP4cZ+yfdL9kQNDCLylmH4kFTgXouloIUc1kv9hEu2pH81Y4sn8b+ShGWV116wYrwJrH5vAMlabkNw4nyvGbeROn2MiEXhm+G0FtSjzgPOTRVjUAKBjR4NWtPcYr8OCHx0Gz48=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c6biZtrM; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=H+clkfXMjBGgmLkEcPdpbKdjkbskup/+rG8q9AWM/V2cOaVh12M5e5kNPuogh3qp61BUNI4uTigYNx/92eIWV8YXwJo/ckx/6WLPvt+07oUhTfC6cDSPYrvxSf2Bjtn4u1t6XGgyJ/FEA7kTNE2DDWML32fsoXGSgrTHzJRTu1c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bWoE9FP0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c6biZtrM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B92711F000FF;
-	Thu,  8 Oct 2026 14:09:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bWoE9FP0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0723B1F00898;
+	Thu,  8 Oct 2026 14:12:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791468547;
-	bh=/tzAXBMD0lsbju9z6QnZ2iMBJT8XPqLA/qjwrIhecMw=;
+	s=k20260515; t=1791468769;
+	bh=l2+Dw2sl5OPeSblngQFwY5OyEBVB0Z8ra9CpUyTrnOo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=c6biZtrM+lhSbEpYGGyf5l1sjO1/gz/Ybz/WPC4Wo1RWZixJcXPz3Py/jotUTCgBR
-	 hNIWeC4KwQq5q5vfJSxzyj4C8ErUrRrvDyLq7udCvcTTB+DE4f7zsGu7GFa1Hh52GK
-	 RyJ7MgwIM4lYzg6qt3Frrdq40y5D5lY+vGgLbjsLFKwBu+dXyVPV/0t/jhbsXMMLLl
-	 zPjKhztK8TBsH3/SUQRaJeSr7Gc2oV/+puPGQJ6m/Dm9cAUU7ypPUk6elD3aq8uhk+
-	 0nQEZmaSYGaYeab0T95jQNgokdOVXDvWqCKRbv1brMybo8X5j9mxlJZHmt2sicz9+E
-	 a7jZVz+WdZBYA==
-Date: Thu, 8 Oct 2026 21:49:07 +0800
-From: Jisheng Zhang <jszhang@kernel.org>
-To: Conor Dooley <conor@kernel.org>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>, Rob Herring <robh@kernel.org>,
+	b=bWoE9FP0wQV5OmBAi0qERMdgFHVZF6+BMd1JtPaH3LfzPH7DHx+jug8rzZMePt6Bo
+	 8oWlSPigSVelqXtNLkl7FQS+Qnnr4U6A5o4mSdEdXrYQKO1RUnTFjlvghrDb+kHEld
+	 EvZFNSkry6zzvz61wZpbqg9gfUvMKMY0SqMRvrjd88vCANKWkmIDquJAS7dqNLTETS
+	 Q59psaqqxlaWzPVLvclAh5/RlI8m7hR6lpKf1TjI4KhqccH4w19Q5CUYNeRqU9NMy0
+	 MSeiyzgbpRuAEkcJYg1W4bnHS8FKV2aaGafaRv/5QuRqzQrScqNwyGBB2zEhbrVAF0
+	 HtYKJZyi0sgRQ==
+Date: Thu, 8 Oct 2026 15:12:43 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Brian Masney <bmasney@redhat.com>
+Cc: Junhui Liu <junhui.liu@pigmoral.tech>, Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v2] dt-bindings: serial: snps-dw-apb-uart: Add Synaptics
- sl2610 uart
-Message-ID: <asefUxK90dlGkW8a@xhacker>
-References: <20261005151918.25259-1-jszhang@kernel.org>
- <20261007-450d3d9a4f4a2c07cc088067@squawk>
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Yixun Lan <dlan@kernel.org>, linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org
+Subject: Re: [PATCH v2 2/2] riscv: dts: anlogic: drop unused DR1V90 external
+ clocks
+Message-ID: <20261008-c59c47fb901176a0137497d9@squawk>
+References: <20261003-dr1v90-cru-dt-fix-v2-0-6e7d96612ac0@pigmoral.tech>
+ <20261003-dr1v90-cru-dt-fix-v2-2-6e7d96612ac0@pigmoral.tech>
+ <20261002-crimson-unwrapped-b067e86de38c@spud>
+ <ar_wmUWEXgIzq1XM@redhat.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="PORdzqZiVWL//Jy/"
 Content-Disposition: inline
-In-Reply-To: <20261007-450d3d9a4f4a2c07cc088067@squawk>
+In-Reply-To: <ar_wmUWEXgIzq1XM@redhat.com>
 
-On Wed, Oct 07, 2026 at 02:04:05PM +0100, Conor Dooley wrote:
-> On Mon, Oct 05, 2026 at 11:19:18PM +0800, Jisheng Zhang wrote:
-> > Add the compatible for the UARTs of the Synaptics SL2610, which are
-> > compatible with the Synopsys DesignWare APB UART.
-> > 
-> > Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
-> > ---
-> > 
-> > since v1:
-> >  - use sl2610 instead of sl261x
-> >  - send as a separate patch
-> > 
-> >  .../devicetree/bindings/serial/snps-dw-apb-uart.yaml | 12 +++++++++++-
-> >  1 file changed, 11 insertions(+), 1 deletion(-)
-> > 
-> > diff --git a/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml b/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
-> > index 664305de4986..a40f2737e71b 100644
-> > --- a/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
-> > +++ b/Documentation/devicetree/bindings/serial/snps-dw-apb-uart.yaml
-> > @@ -34,7 +34,16 @@ allOf:
-> >        properties:
-> >          resets:
-> >            minItems: 2
-> > -    else:
-> > +
-> > +  - if:
-> > +      not:
-> > +        properties:
-> > +          compatible:
-> > +            contains:
-> > +              enum:
-> > +                - starfive,jh7110-uart
-> > +                - syna,sl2610-uart
-> 
-> Is the number of uart resets on this device variable?
+--PORdzqZiVWL//Jy/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Yes, some uarts have only 1 reset, while others have two resets.
+On Fri, Oct 02, 2026 at 01:57:45PM -0400, Brian Masney wrote:
+> On Fri, Oct 02, 2026 at 05:33:24PM +0100, Conor Dooley wrote:
+> > On Sat, Oct 03, 2026 at 12:28:40AM +0800, Junhui Liu wrote:
+> > > The external CAN and watchdog clock inputs are not routed on the MLKP=
+AI
+> > > FS01, the only board currently supported. Drop the two fixed-clock
+> > > placeholders from the common dtsi, as fixed clocks require a valid
+> > > clock-frequency property.
+> > >=20
+> > > Both clock muxes select their internal parent clocks after reset, so
+> > > the CRU operates correctly without the external inputs. Keep only the
+> > > required oscillator input to the CRU.
+> > >=20
+> > > A board using these external clocks should define them in its own
+> > > board-level dts and override the clocks and clock-names properties of
+> > > the CRU node.
+> > >=20
+> > > Reported-by: Yixun Lan <dlan@kernel.org>
+> > > Fixes: 7849521aaac2 ("riscv: dts: anlogic: add clocks and CRU for DR1=
+V90")
+> > > Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+> > > Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> > > Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
+> >=20
+> > Per the v1, Brian said he would rebase the clock tree, so I'll just
+> > squash this into the original patch I think.
+>=20
+> It's already rebased, and dropped from the clk-next history.
 
-> 
-> > +    then:
-> >        properties:
-> >          resets:
-> >            maxItems: 1
-> > @@ -80,6 +89,7 @@ properties:
-> >                - starfive,jh7100-hsuart
-> >                - starfive,jh7100-uart
-> >                - starfive,jh7110-uart
-> > +              - syna,sl2610-uart
-> >                - ultrarisc,dp1000-uart
-> >            - const: snps,dw-apb-uart
-> >        - const: snps,dw-apb-uart
-> > -- 
-> > 2.53.0
-> > 
+ Cool. Note to self: 7,5 material, cos I don't have the headers to do
+ anything with "riscv: dts: anlogic: add clocks and CRU for DR1V90"
+
+ Cheers,
+ Conor.
 
 
+--PORdzqZiVWL//Jy/
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCasekzAAKCRB4tDGHoIJi
+0jgcAQCV80DNHnZs3oA4mbKQsMOiguSK3pNNz515ouRmtabi8QD9Epi9eNek5bZS
+tPAWl8KmezP6TImZIhyLE2yhXcBEIQM=
+=Bhh6
+-----END PGP SIGNATURE-----
+
+--PORdzqZiVWL//Jy/--
