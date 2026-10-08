@@ -1,159 +1,160 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF3133ACEF1
-	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 08:48:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDE4C475330
+	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 08:48:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791449317; cv=none; b=V26vtbu3Nj2MsptGhk31Llt4rjCG5NNARGRryIx7gHUoYyR4yb3oxUQeYZVxzhugC45+nJklgeauHAF2s+V2T+IuxvUHehEMWYZS434uXOOBhx2bf3RSrLg7I4/mYJ5ISwEtWmrMJOFRnP8MVl7Ap6oGrtAyDbBhfTHDrI3wy/I=
+	t=1791449320; cv=none; b=AtjxzvUo5U8BSH41KeuALAvKO7CMayb4C1Bw6nD+wVv4+N3ijDiZtvCzRV7vumGAM47OINNwMOBh+9H8lIyQzwyq2oSYj9x9JYWgM7Fgrzm0RqOtPzDGAHAE0xT2+IUEVjqyqCqcYKfhZ65M2qMYtn766Yv3aesFqpRzGIVBbuo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791449317; c=relaxed/simple;
-	bh=M38zr4UDDSTutNGbAEBqRcN/i549+qASNFRF6ZXlXao=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=GKlU8lHLNPDSA51n8jHmzwYdfcuT/YtNYx4Wn2o/kkgmJUhgCv7Q1ZZxliOR/AiBvmbz0wDZB7rRIHv88bs+rus2D2bmcKaLMaiwt3vw+v5GY4rYwntE9ZlPVdQZQp88ppFViPeDYvdNrfI/CzpObjvGN+ZYmXdYPK5GMhrPKnc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=alXGJfJJ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LA8qK3fw; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791449320; c=relaxed/simple;
+	bh=hWFbNMJjwL4k972CFZEuep/ioh5vPJezbEMEDz6EiKk=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=MILMJv+vVlRp2Gbl1qMSY/Fde4XiYLIcuSSoqj/k8eQrRLDxSShZt3RSqx5iAgMbPsHKUfqkWCMfr7e1dMaRcvlO2AjKB9F97++HGAkxxrE3fsNarap2ySO7dA+VI3Ms3LlOIGz2v+57kyxXk6/tgDZwA+LNmZGeb46amAeV7d8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iY7ntKtM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="alXGJfJJ";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LA8qK3fw"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6987KX0p1170011
-	for <devicetree@vger.kernel.org>; Thu, 8 Oct 2026 08:48:35 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=lTF1ykEwo5DXZWlyE50I/v
-	qpScUvMcBObYB/UQq3D9Y=; b=alXGJfJJsfyOMO/kf6/xMm4Yr5Q4gP5iJIqCgZ
-	6MAmJSknJQdX/ur0aYRLyAVegkWSVranv2SIvv+faX4DPQjsIOrcZtqgTifd5sYv
-	js6o7IKgc+dfDbBc6N7lDLhkXUlZccugLGm3C15pe6bL0SIcGoQXmOJUSLQbWZwA
-	wdpajQJKjUnXMhwYx2czUsaus1e2JVKCRa+0fgJLpxtWCp3FZhbBB9kXyFiVJtTg
-	2KviL7vT+9AfWad3J8nWyqOiIyLN6vwSzRiiu7wEhoVbo90hIetximT9QcPobbdG
-	0M+Ozfh5jnHaQTlQsX3JyM4exrH9N2MqNPk58fiz4bWTjaRA==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5xe39yab-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 08 Oct 2026 08:48:34 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-313d1015161so14564677eec.1
-        for <devicetree@vger.kernel.org>; Thu, 08 Oct 2026 01:48:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791449314; x=1792054114; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=lTF1ykEwo5DXZWlyE50I/vqpScUvMcBObYB/UQq3D9Y=;
-        b=LA8qK3fwwutnGy03328l4YoXRmOsQvPO0cDn9rngUj6VBFHRM1X65XD2SZR/GYqw/r
-         F8AKo0E8xKy3gJh8Y0821196Dcko2ct60CRcwPzHt6PFOFRHlZrXu1gBzdLsRApEOuvU
-         fAP+0YegYl1Q7USzJTv/ox5QbOPyE8qGC8UcwGduzLfQ8pImeNlOJl5V9MExF8Ud3Uhg
-         BymHEJ++Sj018bxz0/DNcXuPrq/nESq6HkgjSaKha1oqypg6AoeQa3amsZlbsVM4/EN0
-         /Vs4HsDP70fF/slitTd5wqhthsn7PkbV63lGEYNjND3wgdizqkAAm69FLu7zJVcUu1rs
-         AvJQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791449314; x=1792054114;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=lTF1ykEwo5DXZWlyE50I/vqpScUvMcBObYB/UQq3D9Y=;
-        b=pYbzBxVPE2ZLSiBxrbJ0K6zJWYZJW+jzySPfuKTO6XKT28uWlnSY2NeKfBYg0ia1CN
-         WW1Ky6vnVnPcayhtZ4UhCQjpgoEaMdLugwowr5r7Aa+9wILQAdmNHt5g+TrEgmaPGL/2
-         127GrhnNA/oPlyubexURSTU7Ddmx+DRu/Z3zYdVfYrMLJHjeu9+2gaM5/S3+34Fr2vIp
-         LFnAn+ashs8BZjH9gh/4H2KjgWrF8gB7g3KAXayG5zH0jSfJ5EGXwoMB3TthcAeS334J
-         9SLUvxtxmap36gsStjdAC1Z1ewDT52o1S7BC9HQebMgeyKN4T/GmHa6EwYQ60HL8sx+z
-         0Tyw==
-X-Forwarded-Encrypted: i=1; AKwUvBwM+qrlrG6vvnpXeGAtodYtfSZ91r1ATHbLWrw3hpkthHVnQ6Ob+N5LJTqQv/7N8a06R/1fMY8apaSo@vger.kernel.org
-X-Gm-Message-State: AFq9FYLMLu1y2QxGhiyzNT31i69M6MmwVa6mTcV1ZuJx6qN7/2XptOd6
-	qH7olbbPsbg6igqQmNT2vetVndfBMMLnVCkOLEDfHvWvW4/e8KySSDkUkZ/i993/oVW/Cbr9eB2
-	0+FCM5XdxmTdcj1XeUYQmEauwxA6DSu9ahauUFqlgLpbqxOh26xX3s9ZWnds6FiUX
-X-Gm-Gg: AYBFou26wZONnr8OxLq9xr6JRNY1nzZ0RJBmFHsc+NgkGklST2l3+IwNzF1BEOFhO+1
-	Kr9CEyqJznsaQ74iqxABr3m0IkvwAdIsqk1JzcwbKCy0zucHKrW0mGF0EOIOhzT9U5xf9qPMQx1
-	bMkYiRrCvXAnruSJ57WJCF3Gw0gMm0ZxES209alvZv5bkGT91kXzilSEDaEJygXVAjTykah1mcH
-	7owzzTeM8teLq6DfvFaMYFg3YoJ62lRwTihDEe0r8aOmVYoj1ykFw0VVViI3e7ueaqzbG9NvXz3
-	ekZPyXo+gYFCB330ZeJDBPLiPHez9vlSRDv8HR9JSsbDHfwGh6elBYSJuhAnJTbqSoksHxdfWIp
-	VErH5kJuQgJEoPXNuTetH3xsLTDrwOqC+ccS9LkmH9YHxxbPu/L4uJKvds4pk55wKKPIZeUYFdM
-	sU8Xo8JN1ooKx4Fngzan3TRk6L3ZgIpQ==
-X-Received: by 2002:a05:7301:670c:b0:351:5b99:5f36 with SMTP id 5a478bee46e88-3515de80f23mr7606195eec.9.1791449313195;
-        Thu, 08 Oct 2026 01:48:33 -0700 (PDT)
-X-Received: by 2002:a05:7301:670c:b0:351:5b99:5f36 with SMTP id 5a478bee46e88-3515de80f23mr7606146eec.9.1791449312571;
-        Thu, 08 Oct 2026 01:48:32 -0700 (PDT)
-Received: from hu-varada-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3515aff5dd6sm15302755eec.26.2026.10.08.01.48.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 01:48:32 -0700 (PDT)
-From: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-Date: Thu, 08 Oct 2026 14:18:24 +0530
-Subject: [PATCH] dt-bindings: crypto: qcom,prng: Document ipq5210
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iY7ntKtM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2FD41F000FF;
+	Thu,  8 Oct 2026 08:48:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791449318;
+	bh=Eg4ja9Is1/Zi4P3CbxEyasncP9EgIeifMlUMSe7kttk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=iY7ntKtMRI3/Zn3ZrDT9Olw2zEDSmui7pVMjj+qRc9EK5WpKHQFVR1nirehwyJ8aK
+	 dojlVMbAoSsYFy/0uJLaKLmEyG4vWT/3CY05RIUzKUjX/Ya2LAv4zc1gOLOFtDMBb1
+	 ZWbsQDnHOP9PPnGTQs4L013ywgAAikH8R3ldPqTKgN2wC7aLHvQz/+YQEEOHWsbtpP
+	 oLIcpwPKDN88PHaqJFytvcM8kwUhzNkR3hwBOcrXcrNOJbDTbLy6jgBAU2qvoYBhHq
+	 SGH0Gr/ZnzZiYDxOFPibRpVlgSZwznlCVD6e5xn5GYxScDMziG1ML4PH0kB1XtHTS0
+	 9WQtreEbpkPWA==
+Message-ID: <sashiko-outbox-163854@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 3/3] media: qcom: camss: Add support for X1P42100
+ CAMSS
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Wenmeng Liu" <wenmeng.liu@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <20261008-purwa_camss-v4-3-bcf11bf2c650@oss.qualcomm.com>
+References: <20261008-purwa_camss-v4-0-bcf11bf2c650@oss.qualcomm.com>
+ <20261008-purwa_camss-v4-3-bcf11bf2c650@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 08 Oct 2026 08:48:37 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261008-rng-v1-1-785580a8b48f@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIANdYx2oC/zXMSwqEMBBF0a2EGndBEvxvpXHgp9QaGLsrUQRx7
- wbF4X08zgGehMlDpQ4Q2tjz4mKYj4JuatxIyH1ssNpmRuscxY1oijJpbZqkmS0gPn9CA++38q2
- fFvqvEQvPCG3jCbtlnjlUytEe8AWhPs8LZjHjD4YAAAA=
-X-Change-ID: 20261007-rng-1894b2545628
-To: Herbert Xu <herbert@gondor.apana.org.au>,
-        "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Proofpoint-GUID: CQgjUPvFMePhFiQbOV-GTL-cNLdZMyVi
-X-Authority-Analysis: v=2.4 cv=QOz91QLL c=1 sm=1 tr=0 ts=6ac758e2 cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=8y1xNrmuCni0Qpi8TC4A:9 a=QEXdDO2ut3YA:10
- a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDAzNCBTYWx0ZWRfX+hjmEzRJtwHz
- nkNul9kC6Roal1oSnBUy8qNnkiyQ3Fta+JDatDgrGUohP6i/z0fpKB4yjvb/eAu5lOc4YyjhGr7
- Zl+HiZ+lpCX7jDbZ9VdBOIHO4kPCFOU=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDAzNCBTYWx0ZWRfX8Rm4S4ta0uNp
- FnPmne/hDX+cox6Q/afO3ffgQ3WVpogY3ORUV0Lu8cEBneP7kQRlAdMml7j6xiXdMAXNPJisAek
- nmGVRRKZILlkb2+uCZ0AYoFAaAnNQ7bRstksOZwr9Ykox7fkjjOkCd/cAxZ1s2DHUVJnwSewd4R
- laqD8dh0ueAljXJSChMSAObdW5HyWoUJs3Gxsi4UB7livAwhTK2ujFsK5mcItaTHa3RLo3YMY/d
- Ou+fHrajmYAaZWHihgxC81JpdtJ+CDRSAWOCTG4sy2dsj9Inh+K54qr8BygICYJzkjdYwcl5knl
- 7Wh8EwmsT4wmMBd8g86JhzJ1W4AGaXbur5/dKwa9EIC2dQzMpmcZgRCPIWMxKRDPcD3tSfXSQMX
- XuyB8u6F+H6aupuqJHeQMS+CUi114woXAzN5Ia8I5cUCRv7D4HtM1pBI0c/t24OQbWJswc62rT2
- v2rBJrzFOq3XB7EAA1w==
-X-Proofpoint-ORIG-GUID: CQgjUPvFMePhFiQbOV-GTL-cNLdZMyVi
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-08_03,2026-10-06_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 priorityscore=1501 lowpriorityscore=0 spamscore=0 phishscore=0
- impostorscore=0 adultscore=0 bulkscore=0 suspectscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610080034
 
-Document ipq5210 compatible for the True Random Number Generator.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] media: camss: mismatched CSID to VFE indices break power on
+- [High] media: camss: null dereference during probe with malformed DT on X=
+1P42100
+- [High] media: camss: missing bounds check on DT port number leads to OOB =
+write
+--
 
-Signed-off-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
----
- Documentation/devicetree/bindings/crypto/qcom,prng.yaml | 1 +
- 1 file changed, 1 insertion(+)
+commit ab38e0eb97dc4d60c438b6b2e2fd2590708e04a4
+Author: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
 
-diff --git a/Documentation/devicetree/bindings/crypto/qcom,prng.yaml b/Documentation/devicetree/bindings/crypto/qcom,prng.yaml
-index de323969fe64..2acb629e816c 100644
---- a/Documentation/devicetree/bindings/crypto/qcom,prng.yaml
-+++ b/Documentation/devicetree/bindings/crypto/qcom,prng.yaml
-@@ -19,6 +19,7 @@ properties:
-           - enum:
-               - qcom,glymur-trng
-               - qcom,hawi-trng
-+              - qcom,ipq5210-trng
-               - qcom,ipq5332-trng
-               - qcom,ipq5424-trng
-               - qcom,ipq9574-trng
+media: qcom: camss: Add support for X1P42100 CAMSS
 
----
-base-commit: cf4a8255a424f691f95dfa378e88336f33aa8ae4
-change-id: 20261007-rng-1894b2545628
+This commit adds CAMSS support for the Qualcomm X1P42100 (Purwa) SoC.
+It defines the X1P42100 hardware configuration, reusing existing CSID/VFE o=
+ps
+while omitting unused components like CSIPHY1-3 and one IFE.
 
-Best regards,
--- 
-Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/pl=
+atform/qcom/camss/camss.c
+> index c54185c93a8a9..7bc6b2e61438d 100644
+> --- a/drivers/media/platform/qcom/camss/camss.c
+> +++ b/drivers/media/platform/qcom/camss/camss.c
+> @@ -4452,6 +4452,205 @@ static const struct resources_wrapper csid_wrappe=
+r_res_x1e80100 =3D {
+>  	.reg =3D "csid_wrapper",
+>  };
+> =20
+> +static const struct camss_subdev_resources csiphy_res_x1p42100[] =3D {
+> +	/* CSIPHY0 */
+> +	{
+> +		.csiphy =3D {
+> +			.id =3D 0,
+> +			.hw_ops =3D &csiphy_ops_3ph_1_0,
+> +			.formats =3D &csiphy_formats_sdm845
+> +		},
+> +	},
 
+[Severity: High]
+If camss_detect_legacy_phy() falls back to legacy_phy =3D true due to a
+malformed device tree without a phy remote endpoint, camss_init_subdevices()
+invokes msm_csiphy_subdev_init_legacy().
+
+That function attempts to map memory using res->reg[0], but since this
+structure does not define .reg, it passes a NULL pointer to
+platform_get_resource_byname() which then crashes in strcmp().
+
+Additionally, csiphy_init() lacks a case for CAMSS_X1P42100, which leaves
+regs->lane_regs uninitialized in this fallback path.
+
+Will this cause a NULL pointer dereference during driver probe?
+
+> +	/* CSIPHY4 */
+> +	{
+> +		.csiphy =3D {
+> +			.id =3D 4,
+> +			.hw_ops =3D &csiphy_ops_3ph_1_0,
+> +			.formats =3D &csiphy_formats_sdm845
+> +		},
+> +	},
+> +};
+
+[Severity: High]
+When parsing endpoints from the device tree, camss_parse_endpoint_node()
+assigns the device tree port number directly to csd->interface.csiphy_id
+without bounds checking against csiphy_num.
+
+If port 4 is used in the device tree to match this hardware ID, csiphy_id
+becomes 4. Later, camss_subdev_notifier_bound() uses this unvalidated id
+to index into the camss->csiphy array.
+
+Since that array only has 2 elements allocated for X1P42100, could defining
+this with id 4 lead to an out-of-bounds memory overwrite during subdevice
+binding?
+
+[ ... ]
+
+> +static const struct camss_resources x1p42100_resources =3D {
+> +	.version =3D CAMSS_X1P42100,
+> +	.pd_name =3D "top",
+> +	.csiphy_res =3D csiphy_res_x1p42100,
+> +	.tpg_res =3D tpg_res_x1e80100,
+> +	.csid_res =3D csid_res_x1p42100,
+> +	.vfe_res =3D vfe_res_x1p42100,
+> +	.csid_wrapper_res =3D &csid_wrapper_res_x1e80100,
+> +	.icc_res =3D icc_res_x1p42100,
+> +	.icc_path_num =3D ARRAY_SIZE(icc_res_x1p42100),
+> +	.csiphy_num =3D ARRAY_SIZE(csiphy_res_x1p42100),
+> +	.tpg_num =3D ARRAY_SIZE(tpg_res_x1e80100),
+> +	.csid_num =3D ARRAY_SIZE(csid_res_x1p42100),
+> +	.vfe_num =3D ARRAY_SIZE(vfe_res_x1p42100),
+> +};
+
+[Severity: High]
+During initialization, csid->id is assigned the index from the resource
+array (0 to 4). When csid_set_power() attempts to power on its paired VFE
+using its own ID, it calls vfe_parent_dev_ops_get() which checks
+if id < camss->res->vfe_num.
+
+For IDs 3 and 4 (CSID_LITE0 and CSID_LITE1), this bounds check fails and
+unconditionally returns -EINVAL, aborting the power-up.
+
+Additionally, this 1:1 index pairing appears to cause CSID1 and CSID2 to
+incorrectly power up IFE_LITE_0 and IFE_LITE_1 instead of their expected
+components.
+
+Does the mismatch between the number of CSIDs (5) and VFEs (3) break the
+power-on sequence for the CSID blocks?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261008-purwa_cams=
+s-v4-0-bcf11bf2c650@oss.qualcomm.com?part=3D3
