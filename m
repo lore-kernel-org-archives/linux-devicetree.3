@@ -1,108 +1,187 @@
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com [209.85.210.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88B7A306768
-	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 03:52:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6E38373C1A
+	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 03:54:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791431552; cv=none; b=n7I9WHlktYKdwcGZ3qsXdLSbLZPg5j7HLnytmTprsKIOGdMXRgRjjul2uCxTypLBNG3hU88GwBx6H/m/IDBg8WjAvZP4ijCXO1NMc3TUdpoRZ9h0QUTwKXAR9N77hfd3bZfRnmLJBXqqlFIqc4dna7a/afsX+Px+gCEpSFR+kpE=
+	t=1791431644; cv=none; b=SiVhkGQrTzBoIAnYlT2EGQ3eyHmIsYehGLeHxE9sDpm08WLSNfHQGHIzFQ7UzcRGZiw99Ub3MAR966mX48Ox1Id3uboltC46cecsNkeJ4wfPVMAC84b4m/lEPVWykDPVT6xphdPw2IqshrluXjs8kHftyaJekRgJLe3lfeS1nyE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791431552; c=relaxed/simple;
-	bh=+S7+6b0tE0OmnLFC+QstPEqY3o50EFg74OIiryzh5ws=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Cb8IFaMFp6ZdQ12qtT3Wm7GLpBQ0S5VvWmu3qmYqsNqycfRQdj49M1QQITDuBAdYEEoPECcgOL35NbdWYEubbIr9aKBg5oEHB7oyQt0gByZpaPkBE/wQZ8jGMdujWqgSeV/vSCAACK7IWCdwOYzfqIBTR0WTHgp9mrKOEwqLls0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=c+JIULFa; arc=none smtp.client-ip=209.85.210.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1791431644; c=relaxed/simple;
+	bh=jNpCaVW59+iGZPbjqQ+2Gd29W3DosDB1efYU/z62hJk=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=gZA4xpDik6bvk+page13qI2LFK4zTHszalnoWghC45gjxDW6KEGlU5RLHAtJ/p2QNhWWyMz5vgPWAYeLrCbBMKX//GRi9YgIeOdy8xLbqWK47D0TL/aqo2Ayd+BmE/PBVnaKB7woR8mNLb8VGzA8QD49IpiW/Xtugt6CqSbDmgs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H/T0h30Z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="c+JIULFa"
-Received: by mail-pf1-f170.google.com with SMTP id d2e1a72fcca58-8897e83332fso108426b3a.1
-        for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 20:52:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1791431550; x=1792036350; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Vy0poknliGswHcpdQnidx1yFhBPlUDC+lTCKJfWkmRg=;
-        b=c+JIULFawh9O9VQ87fwLeM+LvkiSl70/x6DXs5EcnJs4AIMY1GEWJp8ObgBPZGJB4x
-         Mv05UncODjqv2XyRjoBKQVbMrhjwEpgHXgw9TY63vhs/aUwuE3SSQTJZSrZUcCc/8UiJ
-         ddvf+4LXB6MROmkpIb8AqBcLQdRz76QjzjoX0=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791431550; x=1792036350;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Vy0poknliGswHcpdQnidx1yFhBPlUDC+lTCKJfWkmRg=;
-        b=MvJKmlsvwFQqsN50l+cwuddOCgDSF+pifiEQx9cPmFhFdMMCGvJcnPDsrz5caiVVMs
-         3XvGccVA4+FWgTRRyaIwasE2sZnA9lhno+5q1nU078rwqWZUhCxiiul1U1atfsFUn4m3
-         izbMb5iMGdrz0vazOH44QgQj9xBwSe3Wsp1opONacT6lLCYg3Z67TDGnTfV5nLkex1Iw
-         0oGTEe4P2HQhwQOm7jVm7mviapip9VwcfmVVM9ddB+OgaR39vL6te8XgbuTOGw8chxnt
-         U2oqshQN6UDBVc0Tb5Ydwq2pMlzp4r8fTcS/9AbSLukwI/h7Lgyqxun54wE5RwqIHw5A
-         i6Kg==
-X-Forwarded-Encrypted: i=1; AKwUvBw7MY+aLLbuhz5iVdCk9YGSlhHDMc61HIUgbQl6UlWs+sDLw+0vKAenWz/myOCP+4kt18NMQuAvsfEV@vger.kernel.org
-X-Gm-Message-State: AFq9FYLUL0R24uu2Cau/ce4WTHcT0603lJbnlOD+uqwiRArVaCEd/amx
-	yy7IbJfTUHhbZZJ5aWoy4GxozNqmApcv+Mp7Mf7COZW2CK1Qh/BtJvD4Z7pARg7Xjw==
-X-Gm-Gg: AYBFou32v6ygtzmj5yJkcFNWPnDyYh9zsUENWpFK3DhW31MHZO79fbFdXsuGmTr4eIV
-	OAgiq6JslG863V3MQxiCjpHVwx+PLc+fE8IK4WyeXf+gIOdwXT6X4zb7D1vGyU6snEaGsyuZ6NT
-	hphhg1Y2jJ+GGZTgt66Ihuo4MwrrOrtshDGDiMqAPFpOoTCenFuACUlwkdvO1hHdptPgBCkZKEb
-	WLiD4NtK2DFA5gLNj6eqe4t8XOnRjJfhsrKwtgKvhBFq4Vxxt65QTTZ8NGFuO6CYlW2Rb2SQtFk
-	ruYeSxPv5Rxv4tbtkso+3/cYmE4SI5bQRU1XWJfDRG5CZ3XrP4B8TUjQoq5MBGE6gcoyp22Cs9K
-	KNCuBeLqWV5boDE8QaT09eGB9Vpm+0f/pc7KbyukrEE8hrKSQD3ZnHpaO7kKBSvWewcvUXwMbiN
-	6VKURVv71whJr8U3teileMUQkuLUDHz4KtPkDM5y6Hp0vIWXbk/es5sfu/DBJnH0mznXBZHtktR
-	WGpVpxZhWe0RYyY4kFJJ12Sw4dJRrpt8iO1pA==
-X-Received: by 2002:a05:6a00:4b4f:b0:880:f22a:b123 with SMTP id d2e1a72fcca58-8930d0045e0mr655238b3a.36.1791431549972;
-        Wed, 07 Oct 2026 20:52:29 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2031:6:97d3:292:91b3:138d])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-892bb49a188sm977281b3a.33.2026.10.07.20.52.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 20:52:29 -0700 (PDT)
-Date: Thu, 8 Oct 2026 12:52:23 +0900
-From: Sergey Senozhatsky <senozhatsky@chromium.org>
-To: Oreoluwa Babatunde <oreoluwa.babatunde@oss.qualcomm.com>
-Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, 
-	Georgi Djakov <georgi.djakov@oss.qualcomm.com>, andersson@kernel.org, konradybcio@kernel.org, 
-	abelvesa@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	minchan@kernel.org, axboe@kernel.dk, rostedt@goodmis.org, mhiramat@kernel.org, 
-	mathieu.desnoyers@efficios.com, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-block@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
-	djakov@kernel.org
-Subject: Re: [PATCH 4/6] zram: Add QPaCE zcomp backend
-Message-ID: <ascS2nPCSQJxOGDS@google.com>
-References: <20260930145215.3380977-1-georgi.djakov@oss.qualcomm.com>
- <20260930145215.3380977-5-georgi.djakov@oss.qualcomm.com>
- <ar3yt8Kl3WUV93lP@google.com>
- <4ed3f09f-74fc-4f07-8897-5c773fbde0b2@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H/T0h30Z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEA7B1F000FF;
+	Thu,  8 Oct 2026 03:54:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791431643;
+	bh=KklTKogYm2PeKcIGWkyiDFJl2Nqwg/7VRtwzLnU8suI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=H/T0h30Ze0hRjjgcmCdGA7nILInSNvjg5jcJaXn26WT1SQmcnJf56oh6et347VyfC
+	 XRxyMt0g5oHRSy5IYImaQ/I575t0QvsVNElbqNEj8vgT4slSLjgsQnpqyTi8XZBAdh
+	 SsmSXTFOgm6Mia7b3yFHyc9dH5Ikj2Ba3TxXVD8sHmLiwcE0OZcP0ZZ2Uk5V9hydA/
+	 HRVBepCll6Va0JXwrPJedAYudedRAGbF8I/D7Up5/HOwr8qQMTUpL1l+iHEvsx0V/u
+	 ljjsDYdgcn/gbRQEco+4mTcsACrsNecddIBS4X/LDGrDlZuntvOTJ1gRc+xj5ys/Cl
+	 +FyQxG/efZeiw==
+Message-ID: <sashiko-outbox-163591@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC v2 09/10] firmware: riscv: rpmi-tee: add memory
+ parcel operations
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Amirreza Zarrabi" <amirreza.zarrabi@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261007-riscv-rpmi-tee-abi-v2-9-45939a13d223@oss.qualcomm.com>
+References: <20261007-riscv-rpmi-tee-abi-v2-0-45939a13d223@oss.qualcomm.com>
+ <20261007-riscv-rpmi-tee-abi-v2-9-45939a13d223@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 08 Oct 2026 03:54:02 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <4ed3f09f-74fc-4f07-8897-5c773fbde0b2@oss.qualcomm.com>
 
-On (26/10/06 16:53), Oreoluwa Babatunde wrote:
-> On 9/30/2026 10:43 PM, Sergey Senozhatsky wrote:
-> > On (26/09/30 07:52), Georgi Djakov wrote:
-> > [..]
-> > > @@ -80,10 +87,10 @@ static const struct zcomp_ops *lookup_backend_ops(const char *comp)
-> > >   	while (backends[i]) {
-> > >   		if (sysfs_streq(comp, backends[i]->name))
-> > > -			break;
-> > > +			return backends[i];
-> > >   		i++;
-> > >   	}
-> > > -	return backends[i];
-> > > +	return NULL;
-> > >   }
-> > 
-> > This hunk looks unrelated to the patch in question.
-> ACK. Will remove this.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] rpmi-tee: segment slot leak and goto mixing in rpmi_tee_parcel_c=
+reate()
+- [Low] cleanup: mixing goto and __free() in rpmi_tee_parcel_create()
+--
 
-Thanks, if you are going to add qpace zcomp backend, please note
-that zcomp API is undergoing some architectural changes [1] (shouldn't
-be too much extra work to adapt.)
+commit cb2515b520037bb2b95420754a397f9b4e4d3e5d
+Author: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
 
-[1] https://lore.kernel.org/linux-kernel/20261005122036.718976-1-senozhatsky@chromium.org
+firmware: riscv: rpmi-tee: add memory parcel operations
+
+Add memory lending, sharing and reclamation through RPMI memory parcels
+so service drivers can exchange memory with TEE endpoints. This patch
+introduces two issues in rpmi_tee_parcel_create(): a mixture of __free()
+and goto-based cleanup, and a resource leak caused by bypassing the cleanup
+label.
+
+> diff --git a/drivers/firmware/riscv_rpmi_tee/driver.c b/drivers/firmware/=
+riscv_rpmi_tee/driver.c
+> index b43a09f5e8536..690561ed949dc 100644
+> --- a/drivers/firmware/riscv_rpmi_tee/driver.c
+> +++ b/drivers/firmware/riscv_rpmi_tee/driver.c
+[ ... ]
+> @@ -326,6 +446,355 @@ static int rpmi_tee_op_call(struct rpmi_tee_device =
+*rdev, const void *req,
+[ ... ]
+> +/* Create a memory parcel after the caller has validated its operation. =
+*/
+> +static int rpmi_tee_parcel_create(struct rpmi_tee_transport *priv,
+> +				  struct rpmi_tee_mem_args *args)
+> +{
+> +	struct rpmi_tee_parcel_create_resp resp;
+> +	struct rpmi_tee_parcel_xfer xfer;
+> +	size_t blk_off, req_len, resp_len;
+> +	bool segmented;
+> +	int ret;
+> +	u32 i;
+> +
+> +	ret =3D rpmi_tee_count_blocks_sg(args->sg, &xfer.block_count);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* BLOCK_HIGH[] follows the request header and receiver arrays. */
+> +	blk_off =3D RPMI_TEE_PARCEL_CREATE_SIZE + args->receiver_count *
+> +		RPMI_TEE_PARCEL_CREATE_RECEIVER_INFO_SIZE;
+> +
+> +	/* Limit the initial request to the parcel's actual block count. */
+> +	xfer.next_block =3D min((priv->mbox.max_msg_data_size - blk_off) /
+> +			      RPMI_TEE_PARCEL_CREATE_BLOCK_SIZE,
+> +			      xfer.block_count);
+> +
+> +	segmented =3D xfer.next_block < xfer.block_count;
+> +	if (segmented) {
+> +		if (!priv->mem.multisegment_max)
+> +			return -EOPNOTSUPP;
+> +		/* Reserve a slot against the firmware's advertised limit. */
+> +		ret =3D rpmi_tee_reserve_segment_slot(priv);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	req_len =3D blk_off + RPMI_TEE_PARCEL_CREATE_BLOCK_SIZE * xfer.next_blo=
+ck;
+> +
+> +	struct rpmi_tee_parcel_create_req *req __free(kfree) =3D
+> +		kzalloc(req_len, GFP_KERNEL);
+> +	if (!req) {
+> +		ret =3D -ENOMEM;
+> +		goto out_release_slot;
+> +	}
+
+[Severity: Low]
+Does this mix goto-based error handling with scope-based cleanup?
+
+The cleanup.md subsystem guide explicitly forbids mixing goto-based cleanup
+labels and __free() declarations in the same function because it creates
+confusing ownership semantics and leak hazards.
+
+Could this be refactored to either use scope-based cleanup for all resource=
+s or
+stick entirely to goto-based cleanup?
+
+> +
+> +	rpmi_tee_block_iter_init(&xfer.iter, args->sg);
+> +
+> +	/* INIT request. */
+> +	req->creator_id =3D cpu_to_le32(priv->self_id);
+> +	req->creator_access =3D cpu_to_le32(rpmi_tee_access(args->creator_acces=
+s));
+> +	req->receiver_count =3D cpu_to_le32(args->receiver_count);
+> +	req->flags =3D cpu_to_le32(segmented ? RPMI_TEE_PARCEL_MULTI_SEGMENT : =
+0);
+> +	req->nonce =3D cpu_to_le32(args->nonce);
+> +	req->block_count =3D cpu_to_le32(xfer.next_block);
+> +	memcpy(req->label, args->label, sizeof(req->label));
+> +
+> +	for (i =3D 0; i < args->receiver_count; i++) {
+> +		u32 tee_access =3D rpmi_tee_access(args->receivers[i].access);
+> +		/* Store RECEIVER_ID[i] and ACCESS[i]. */
+> +		rpmi_tee_put_receiver(req->data, args->receiver_count, i,
+> +				      args->receivers[i].endpoint_id,
+> +				      tee_access);
+> +	}
+> +
+> +	ret =3D rpmi_tee_fill_blocks(&xfer.iter,
+> +				   req->data + 8 * args->receiver_count,
+> +				   xfer.next_block);
+> +	if (ret)
+> +		goto out_release_slot;
+> +
+> +	resp_len =3D sizeof(resp);
+> +	ret =3D rpmi_tee_send(priv, RPMI_TEE_SRV_MEMORY_PARCEL_CREATE,
+> +			    req, req_len, &resp, &resp_len);
+> +	if (ret)
+> +		goto out_release_slot;
+> +	if (resp_len !=3D sizeof(resp))
+> +		return -EPROTO;
+
+[Severity: Medium]
+Does this direct return leak the reserved segment slot?
+
+If the firmware returns a malformed response with a valid length but not ex=
+actly
+equal to sizeof(resp), the direct return of -EPROTO bypasses the
+goto out_release_slot; cleanup path.
+
+This causes a permanent leak of the multisegment_active accounting slot, wh=
+ich
+can permanently block future multisegment memory operations with -EBUSY once
+the limit is reached.
+
+This seems to be a direct consequence of mixing __free() and goto in the sa=
+me
+function. Should this also use goto out_release_slot; to ensure the slot
+is properly released?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261007-riscv-rpmi=
+-tee-abi-v2-0-45939a13d223@oss.qualcomm.com?part=3D9
