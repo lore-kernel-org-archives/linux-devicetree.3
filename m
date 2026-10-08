@@ -1,131 +1,101 @@
-Received: from mail-pj2-f6.google.com (mail-pj2-f6.google.com [74.125.227.134])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC18640E8D7
-	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 17:53:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.134
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 950614A8A13;
+	Thu,  8 Oct 2026 18:03:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791482013; cv=none; b=M8CliC0CJ3Qw8iN/bpa4f0fs8M+k/9YO8QsCw03AA/kuyUv13RHnhec6dfyGsLTwB/R1LlaGu4A7gF3JF6iaUjo1eBCjLDZB9D3DDLHu4G+RtG8tVWFRy82GEttL/m3GGCyAdrVdhpulZS9DqIYN9l0VRCLIRHoX08yAqFrlJLQ=
+	t=1791482643; cv=none; b=Tz9t9WvqaaozmIJEt+z+VNbqIe+8r6DMRDa7JNzxE3tN9sYcrHapioRP+OoEnYbCfBrZkOFkW4TFoAd9E0BupcnR7giIEcK4CX6eAUC+9S6Js/04zmMGcOowM+RopuxjebL4Y+QfWjUbEac/blhNSqvKwZ+A4uYzIHo/co825xU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791482013; c=relaxed/simple;
-	bh=77hqLc9J7JNzbmg7AMorhPOB16l5fiuXalMgNBngkQc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CXWLO9Ex2KNMlFU0uSK3sFTlbwmobHQ2Hy1dj++w64FfCreQnJQdSyVXXkneHhCZVopHh7Fy4YgyBL88msvnG+9ySmLBlmDws3hJESkey6qlFHOpEYMD7CXd5/9fRlHLe/eP73UBWW023NfDk7FYd3wvEen4L4WbtrD1qdbi3BM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U6F464ud; arc=none smtp.client-ip=74.125.227.134
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791482643; c=relaxed/simple;
+	bh=33Z5WPnPb0fZVymC4Jp+dUAXaJ04gtLshTE7xB57lo0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XELTct+RuSJF2kG28N5bI0UOHJEplZkrrh+HvNVj7UBteU8+N6luWtXp00cgsRYCIy4umZEK51s0iPHTMCR6KwFdnF2F82mQ5jIVfxgyHvUNN/dvxr7+haCU6Kwq78cHTQ8KzDKRqMk0b/kchMVfp0cC/3sut7mS0mHFE8E0x/w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=JK35rt4h; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U6F464ud"
-Received: by mail-pj2-f6.google.com with SMTP id 98e67ed59e1d1-3964e7720afso1965631a91.1
-        for <devicetree@vger.kernel.org>; Thu, 08 Oct 2026 10:53:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791482011; x=1792086811; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=yY8SyQWcSYsDi8cm3rA+aW2F8vWLi9p/feyMtYn7Pcg=;
-        b=U6F464udNz7sAkBvHjW/0IKodXHDHrUra980xqWG7jHcPKRn97ZGLK38uhsIxr6Ady
-         2N3zhlr3Mi++REofXu3KX3v37Lhhmc1Fuhwoa2gIBd8jJpTRMgxT/c2wGcDs7SM6Ogn/
-         EcfjwhZRCYESzkZa0bWnnwheVxPhdGmL9IVB+jzleqVf+qukmbvPTV5uUu80vEkJh2Zw
-         PBc7O2ORvTld2g1fxmi+UurxtUgYRrCoriv+hjpPCTAJs0Hg+OkNuWQkjiDbldKSqmdr
-         3nkTSoWzMlKSsQp2hzloZDw6/TdV2lTvAuJCx29y6XzfYjCqJcanS6Ei2lCya6AM+Hey
-         bi6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791482011; x=1792086811;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=yY8SyQWcSYsDi8cm3rA+aW2F8vWLi9p/feyMtYn7Pcg=;
-        b=pKRqjPvRaGU5kmATFB0v+EePtkZb+FWRTPT0eaVFhtK8SDfI/tozkUOLS0ogVCKidV
-         vcIyjw/iEwB3dZfYLy8ympBlD5boyPGatNFxvlaWRBibcQy5vccpgVI8NXqJ1Sl5VRjH
-         bcVgGWKPw7wN9eevmFgOJCu2lCxxiGuvlnarArTJj1ybV/G644demF1Dmj24iJAuHYLZ
-         DFqUnpQ5WLfEDz4eS3km2gWOlUhTRumWmNup09/djEYfAFmZ+HIDbzraAjc9JUgsv63W
-         oV7sW75bcTlZ1TMeb4fMgaUloJ9YOUHnF16k5gzJDgaxVDnLA1FjmvhbH9iipvCnUOad
-         tfPg==
-X-Forwarded-Encrypted: i=1; AKwUvBz1BpMVyl/uPljlUeERBQ/V1xocmXclC3gbToy7T2QC+I6qWXbTPzsX85xjE3WPBgiIZQs8mpR8FDh0@vger.kernel.org
-X-Gm-Message-State: AFq9FYITvBcVQhG+5BeA4V3Fq/rjaGwPQDJ3AM0uHb66uWrpX2a5r1pi
-	4GX6k+rYFDCfr/1KDegxt+MopZic8o7YbYp5enuOV357JT8DjTxhSLIQ
-X-Gm-Gg: AYBFou2PaobjSA2opzfP3y0TYWp9lBSkyzsHa6Lq5IExa5WvO82TYynZs3tSjZA4SJ0
-	Lu9l5leSvGf3H1pymQ72Edd90jG0r2RAOsiVBmQ59eDLwf5MUGBXQbsaXiJhFpxfMFeJrzj2e6O
-	CNsDmiN1SL8DZQDmOFOLUt+o0lEPvoDdr38OvgRw/YDOvC9b65Cg8l2b6ffxk7FMHR6bj4y9pZl
-	DwpNhsTUxXIle2tm0hR7znhJQVeunynJ4P8YAEWFONiwVX642jFGVQLl+4GA6GHescHqQkWKfTY
-	ZvKz7PW9q/6huryH4riayHEKP8bdtKCN/zdv43r/FXA0ukQid09bQEXllO81cMgs8AWJkKY8b7i
-	xPbnTcFjet9usah//yFWShijaM79YzigpTJCNfxpljrdS3IMV7T6TvTXjIM6Lgl1C7JZANA8vkU
-	9aIVFFUD6E2ZIVDzv+TZauz8FSuaT/CdfWYm2rXBZLcCPnMmBk1crmomrt/WaPPPrS4Y/XX3WCa
-	VqYvKo=
-X-Received: by 2002:a17:90b:534f:b0:3a8:59d3:5317 with SMTP id 98e67ed59e1d1-3a8a0cd4b4emr5164503a91.32.1791482011331;
-        Thu, 08 Oct 2026 10:53:31 -0700 (PDT)
-Received: from server.lan ([168.138.199.194])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab3277c459sm144332a91.16.2026.10.08.10.53.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 10:53:30 -0700 (PDT)
-From: Coia Prant <coiaprant@gmail.com>
-To: Jakub Kicinski <kuba@kernel.org>,
-	netdev@vger.kernel.org
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	David Wu <david.wu@rock-chips.com>,
-	linux-rockchip@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Coia Prant <coiaprant@gmail.com>
-Subject: [PATCH net-next v11 6/6] MAINTAINERS: add entry for Rockchip XPCS driver
-Date: Fri,  9 Oct 2026 01:52:00 +0800
-Message-ID: <20261008175225.3375274-7-coiaprant@gmail.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20261008175225.3375274-1-coiaprant@gmail.com>
-References: <20261008175225.3375274-1-coiaprant@gmail.com>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="JK35rt4h"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
+	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
+	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
+	In-Reply-To:References; bh=6gmuge9IOAnkOJ/dm51hgQtAJL50M2OXr621hk447gg=; b=JK
+	35rt4hZpr/Mm2MMSYi39ZOkXFQ/bRhB7hfD9VsJkJ+Yf1EUbfo/swoWIO9FHw7FSFWKwHarzeueQk
+	OhkHZzLt3vLnKh9iXyOjp4o0GOFngKuoSTHuCzDi/D1HDufpcytcYacc/wuRD3t12z43XSkus/LRa
+	yuNaJgSQvpvcd5c=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xEsSJ-009fgH-3N; Thu, 08 Oct 2026 20:02:59 +0200
+Date: Thu, 8 Oct 2026 20:02:59 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Oskari =?iso-8859-1?Q?Lemmel=E4?= <oskari@lemmela.net>
+Cc: netdev-bot+sashiko@kernel.org, andrew+netdev@lunn.ch,
+	davem@davemloft.net, edumazet@kernel.org, kuba@kernel.org,
+	pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, hkallweit1@gmail.com, daniel@makrotopia.org,
+	javen_xu@realsil.com.cn, vladimir.oltean@nxp.com, olek2@wp.pl,
+	o.rempel@pengutronix.de, ih@simonwunderlich.de, amadeus@jmu.edu.cn,
+	jan@3e8.eu, f.fainelli@gmail.com, linux@armlinux.org.uk,
+	netdev@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, mensi@mensi.ch
+Subject: Re: [PATCH net-next v2 2/2] net: phy: realtek: support unaligned
+ RTL8224 PHY packages
+Message-ID: <3e5adea3-72e9-41e4-bd59-3aabb9835e07@lunn.ch>
+References: <20261005201540.913977-3-oskari@lemmela.net>
+ <179144751562.434549.8240253139319713521@kernel.org>
+ <2562030d-2508-4131-a27f-fe161961f627@lemmela.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <2562030d-2508-4131-a27f-fe161961f627@lemmela.net>
 
-Add a MAINTAINERS entry for the Rockchip RK3568 XPCS platform driver
-and its device tree binding.
+On Thu, Oct 08, 2026 at 08:12:24PM +0300, Oskari Lemmelä wrote:
+> 
+> On 10/8/26 11:18, netdev-bot+sashiko@kernel.org wrote:
+> > Thank you for your contribution! Sashiko AI review found 2 potential
+> > issue(s) to consider.
+> > 
+> > Critical: 0 · High: 0 · Medium: 1 · Low: 1
+> > 
+> > If you believe none of the issues are legitimate, please reply to each
+> > issue of Medium severity or higher and explain why the AI is wrong.
+> > If any of them are legitimate and you plan to respin, please let patchwork
+> > know by including "pw-bot: cr" as a separate line at the end of your reply
+> > (one such reply per series is enough).
+> > 
+> > - [Medium] The RTL8224 text added to realtek,rtl82xx.yaml (preceding
+> >    commit "dt-bindings: net: realtek,rtl82xx: document RTL8224 packages")…
+> > - [Low] The new RTL8224 package example in realtek,rtl82xx.yaml
+> >    (preceding commit "dt-bindings: net: realtek,rtl82xx: document RTL8224…
+> > 
+> > --
+> > 
+> The aligned-address fallback is retained for existing device trees
+> without package nodes. Without an explicit package description, the
+> driver cannot reliably distinguish aligned and unaligned layouts from
+> individual PHY addresses.
+> 
+> Would clarifying that a package node is required for unaligned RTL8224
+> layouts be sufficient to address the medium finding, while preserving
+> the fallback for existing aligned layouts?
 
-Include the relevant mailing lists (netdev and linux-rockchip) so that
-future patches are properly distributed.
+Probably. This is the AI being a bit picky. 
 
-Signed-off-by: Coia Prant <coiaprant@gmail.com>
----
- MAINTAINERS | 9 +++++++++
- 1 file changed, 9 insertions(+)
+> 
+> For the schema-coverage concern, would adding a dedicated RTL8224
+> package binding with a compatible such as "realtek,rtl8224-package"
+> be the preferred approach? This could follow the QCA807x package-binding
+> pattern and provide explicit validation of the package and child PHYs.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 65e8a4b5c90b1..2f0f46eabcf54 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -23757,6 +23757,15 @@ S:	Maintained
- F:	Documentation/devicetree/bindings/sound/rockchip,rk3576-sai.yaml
- F:	sound/soc/rockchip/rockchip_sai.*
- 
-+ROCKCHIP XPCS DRIVER
-+M:	Coia Prant <coiaprant@gmail.com>
-+L:	netdev@vger.kernel.org
-+L:	linux-rockchip@lists.infradead.org
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/net/pcs/rockchip,rk3568-xpcs.yaml
-+F:	drivers/net/pcs/pcs-xpcs-rk.c
-+F:	include/linux/pcs/pcs-xpcs-rk.h
-+
- ROCKER DRIVER
- M:	Jiri Pirko <jiri@resnulli.us>
- L:	netdev@vger.kernel.org
--- 
-2.47.3
+A dedicated realtek,rtl8224-package binding probably does make
+sense. You need some documentation anyway.
 
+       Andrew
