@@ -1,528 +1,354 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A615F2F1FF4;
-	Thu,  8 Oct 2026 22:50:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F08FF239E9B
+	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 22:56:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791499837; cv=none; b=nPa4DOMW/jTzS96Tjceks4nDUPdTkVJEZ7Dsvr3YJfy/3p6jA72pdrxDRxLwKGmw0kqxVkwPLihmzHLE0vdvhsMaru6NLqe/L55utRdVQpS7MoMk6Oncdhkr8GS3xv3s/DyOdalBTnl/JAVUNTiUYcMjAbEgTG7CmET9Vlfl3Q8=
+	t=1791500178; cv=none; b=RgejZRi0N7nRkjsN4KE16DpnY1UOg1C93/gxa2VPeRnCxp1fERREqptVhGwpKeEqRhLPGPQnooLFp9DDkCjUgxUj5DZT4n4T5Nvj9rV4a/GN98ONHMj7RaPJVlSZLcYG2QrqsObRflOKSDFyh4uyPKjqN2iIWdsb/TpAtngAvZE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791499837; c=relaxed/simple;
-	bh=xAaecHgP6fGWXXN7TJu+cBHOZb1EYwBjtQtjQJELUAw=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=pOsAzVFJ1UUlTHZNvhlhyRhEk+7T3QTe8/8+PQJAvX145RMnCuzCTvS0OKPc5Mje7g7z/ydk6Y01m6tjOwvoWpaCllxcRIK4aFCFK0OAUwj4pOW4RmGLsN2s8Y6BUSXD31kS1WlDrV4m/uSy1vWd8M8kE9q8WciaFJofU+Eq//E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mK+YqSRn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791500178; c=relaxed/simple;
+	bh=UeprysSFUyVE4ZYPJKXJLTjE00xRDklP/Q4e0L7Tt7g=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=il/xYWPyE/Z5g3NwdnmRnxnGcvdfwkPI/fgKNTn9JiBXttcsqX5cOyybOATUCmMIKldjoYE6/AnvEsdtOaGVL5BTH35llrhzA2wYnIDshQ0MkxR9ggrBOQfkRYU7tvPAblyOMHkjGhcbAnzPTyv+S4sggNA4fQFYWfsqubKH5EY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VjcnveP7; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=I03x3jaO; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mK+YqSRn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1E4C1F000FF;
-	Thu,  8 Oct 2026 22:50:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791499835;
-	bh=+7NYvexsY1Mja0UinOFt/bXxRiqJHlbpWvtEz6Zstx8=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=mK+YqSRn7fkjR4QPjex+l7Lt94hHh8q2w51vbrNTzrhNnmPJ90a/F83u5UMD+sWIo
-	 LI/rTr5G8N2FKaJr+xrroEqQGy2cqejpZPMZEDGNxGc1wTI7OZDBxu5mHqptuJWUlp
-	 y8SnGq4GKts7zS9FE1pUdh8M/OCEzx4CnUsWnPyE0HGt1sGtQuDfbr9sliQZmHnWaN
-	 MUyt1J31RoLC7fHcmbElvKHAiX6x4K45kk6tdmzmApJlpb76VPvFuZVW/hy4bBkffK
-	 kzWP50iW/MfKjweQtPWhwVLlWb89noryIZu645Pc7/9kHm7Dl5sL5bosIwqhTMMoAw
-	 Dw3wrPrAdyU5Q==
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VjcnveP7";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="I03x3jaO"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 698KxuJ3921803
+	for <devicetree@vger.kernel.org>; Thu, 8 Oct 2026 22:56:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	x1R3a3lX7xBG1rH21ZiJOz8wd4EF5DgZhVhNu/UOfns=; b=VjcnveP7FcU+lCYS
+	Ba/x4qVGtl4f31sLb2fJW9V93vtlaj1jvzXL0GZ60xmRCglZHFQWydv+f95h84j/
+	h0fSeuKGvt3SdUE1GRItOYaLsRjsiUrvbdBSn7yOVT7WIl9Ck2vCeK39JV/fmhgk
+	f6A1PDe4cvLV97WX9v6QYldbSRF8LkehVPwDZw7QOV7uIMTOQcVL2qgFjEHmr/Ze
+	GtH8y9R1W2D6VqBck9isC7qpTqpsQCeICJcUJKoJWg4UeTl3Yq7JBlhFhh3NiBDi
+	OeX4nAfMv3Npv+E2OuZNmBKoDPj5E0JhZydE/n/N878MUKtq3oDL8ClFO6E0rOnk
+	JMyvDg==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h6fxw8xn1-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 08 Oct 2026 22:56:15 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3ab2cb8d5dbso585052a91.1
+        for <devicetree@vger.kernel.org>; Thu, 08 Oct 2026 15:56:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791500174; x=1792104974; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=x1R3a3lX7xBG1rH21ZiJOz8wd4EF5DgZhVhNu/UOfns=;
+        b=I03x3jaObcrrTFsyISzVHauh34wLJe2tIzcpICXz9lu0PUsqN3HSu0AgjOZ7pw5G1w
+         sjIfOYIZDYRZnMcktiifbsfkZe7oSfTX+eqp7YC9c4a0WMu5jUC+cgD/9wyy52s1+oC8
+         sCOe1gn1KDLoOA9CDZdbXy+D1USVEBiiJYU6P0EewARSU091MvCLx6oueyo7AAcdhK0a
+         oHWod0/NXTdprQvNRcgVoEleNDX1r2OFX48tWQlu8yTaMowqnNmQ3LZt6vjFor/bFQkk
+         6ljjlP72eYHzVZpe3KXPXeph8qtX+WCjNp0hIiXrzhabuxQNHqjxauRyoaXgRXLZsgW+
+         jcMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791500174; x=1792104974;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=x1R3a3lX7xBG1rH21ZiJOz8wd4EF5DgZhVhNu/UOfns=;
+        b=bDAZ+kEqfWyoj9EY5nhgX2EPQpf548RUbCbbqHjXWsMo/920gtw4ohyUPguFIc2teg
+         k+eo/int7UuqKdj4tX/JskfzBkn0i2+zgzqhhULmN3ZJdfhLnezg3fPqC7NSwZOVLA5n
+         iy++4EP6dRJWnWsdGJteAFJd+Cghcpy155yXcM926P6oWMQCZFKt4C4TWKJ7/uZEGptA
+         tYniEST0LEKGBuMw6uIrj0P59sDaPc4Rgf8h6iLgGtRt9qEbVvEO/jSEMfhKpdPpTSn6
+         tlLvWv/fQT0VoFFw15RGD4Nx1xRXu7sJNxEoJa/Q9fLeLcOeZ3WLn1hSrKM534/UsKi0
+         Fj6Q==
+X-Forwarded-Encrypted: i=1; AKwUvByNda3zX0soL9kHhDfP3x8rAe9JiliOVDh/GNRUblYM7ydw3RPcvW9rmM9X2AoR2b9G/exI4Nay/tl0@vger.kernel.org
+X-Gm-Message-State: AFq9FYKeHp/MexdYs7zN/LOZNkggRCT45B9lfbSVwqbFsQVzmeeBBaiT
+	MTEAm2ywlkq60pWvnNFkQ500NwGMB3zpDgggQ00/E6Lt/WxuYtnN/qfjOUG+pu7mqB9gKvUSOjU
+	9WT6eLwju//cB2nAz0ymBm5LG/kTHhMrB+DJ1w+bekp273dSZ4wFPLXLi5uunUAE=
+X-Gm-Gg: AYBFou2SxBjhRgIUM/emPyt4f17ezgS3Hjnpbu6VGAmNTvb/BOnFDHJJ1u8/CfpmvGI
+	Qi5XV+BnV+gez7ADwXlR/2MkWh9piYFpEmJ/JWbtOcOSvILXe526v+k+vDDNIwSWfBsXM4pWo7q
+	7M1XYVRsL32ikTyN7cfOcCDlIZsTa3IoqgVpNPCZEZiSVzDEk32hyVLOtYngJOVlkPSSpfaJV/e
+	A0AHuOeBNs4Jpf7wxatKF0HDcHZjLFt6oc1FTHHk2J+W/J4mpjS2HEIQr63thqP1sNX7uyJQwUv
+	9+FmZxfIet458salJpEwl4yZRJIHdKXbYqXu4WMin3MgZuNETUDWt0b7IoG0d43xQwONdAR/YLu
+	mh/Mricm7nZ+En5Q6vPALvYJrA3LatGdD
+X-Received: by 2002:a17:90b:3b48:b0:3a4:dc2c:be9e with SMTP id 98e67ed59e1d1-3ab3a8d5755mr217297a91.51.1791500174395;
+        Thu, 08 Oct 2026 15:56:14 -0700 (PDT)
+X-Received: by 2002:a17:90b:3b48:b0:3a4:dc2c:be9e with SMTP id 98e67ed59e1d1-3ab3a8d5755mr217285a91.51.1791500173870;
+        Thu, 08 Oct 2026 15:56:13 -0700 (PDT)
+Received: from [192.168.1.86] ([65.181.12.250])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab38ddac6dsm549161a91.7.2026.10.08.15.56.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 08 Oct 2026 15:56:13 -0700 (PDT)
+Message-ID: <f5682a0f-a0bf-46f2-a238-faeb1333c071@oss.qualcomm.com>
+Date: Fri, 9 Oct 2026 09:56:04 +1100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v19 08/12] media: qcom: camss: vfe: Add support for VFE
- 1080
-From: bod@kernel.org
-To: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- linux-phy@lists.infradead.org, linux-media@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, jeyaprakash.soundrapandian@oss.qualcomm.com, 
- Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>, 
- Atiya Kailany <atiya.kailany@oss.qualcomm.com>
-In-Reply-To: <20261008-kaanapali-camss-v19-8-b2c583ef50e0@oss.qualcomm.com>
-References: <20261008-kaanapali-camss-v19-0-b2c583ef50e0@oss.qualcomm.com>
- <20261008-kaanapali-camss-v19-8-b2c583ef50e0@oss.qualcomm.com>
-Date: Thu, 08 Oct 2026 23:50:27 +0100
-Message-Id: <179149982796.2596899.756044515233442982.b4-reply@b4>
-X-Mailer: b4 0.17-dev-e5aa4
-X-Developer-Signature: v=1; a=openpgp-sha256; l=15114; i=bod@kernel.org;
- h=from:subject:message-id; bh=xAaecHgP6fGWXXN7TJu+cBHOZb1EYwBjtQtjQJELUAw=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqyB40XJWy3JAThkJGybqgcAXjv7YpzdL9X9AC+
- vpwbwAzoHOJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCasgeNAAKCRAicTuzoY3I
- OrLdEACIHf4u4fX8ym8SWrhHJdppcTdKQDP19aBoBYH8qNYKZKeobYEuwSeCqci8KotrYuS/Y/D
- UsoNTrrc8LK+6KBkv0eVmmoTniYNAgb57KlNsE4MgmnIstH16qyt8HsjpObk2hLA427OXhwmq48
- F62+CvGvDKIZG5j2L3Xc3/zf4uIeW8qL38p+StZZSV0rAiojmWtneAGzD2eDDs/eMCNwyUSR5dx
- DkvxeRU6qjGgZ7HTiaRoCB/1+9VKN21DO1+b6Flx//XtiiXUGNd6LC0vUciSbWq0Waf0s6nZleD
- sNw9UGyyFRhpb4KxV3Yt072yCbUYxhS/KRoo9e9cLEbskkYloTL/0CM7+0bpS9DUrVGryfb4Qmf
- IbO0pkfUtpoKjXjb9SGIU/hZiWBAUHB2qrfXL9Jf6dqzS0Sn5LKiogIw+PHWyvk0FyyYNx+YyiT
- dY572Or0wfGQmtgvGX6o+QOzfc9JOCs5PzRQ2Ou8UjIVI51PQsTgwdTR/wZ2OuRmWy2y71931zh
- kLhgofm+auJEN7OUmBSZHCD1PcV4Ckt8PK0mzGNLrY+oJyn2IFQg0uuZcZqqvHrsYY2Sg/RZPCx
- HurNAHU17jAFElI/7A63Prkbdue+tTbrfpCRJXG3MxUzqopkmA8YiEwZYCO3FqrLR6EdwtlOhWm
- 5oQ4XLI461hHAWQ==
-X-Developer-Key: i=bod@kernel.org; a=openpgp;
- fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC v2 6/8] tee: optee: execute yielding RPMI calls
+To: Jens Wiklander <jens.wiklander@oss.qualcomm.com>
+Cc: Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>,
+        Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+        Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+        Rahul Pathak <rahul@summations.net>, Anup Patel <anup@brainfault.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Marouene Boubakri <marouene.boubakri@oss.nxp.com>,
+        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        op-tee@lists.trustedfirmware.org, linux-riscv@lists.infradead.org,
+        devicetree@vger.kernel.org
+References: <20261005-rpmi-tee-service-grp-dev-v2-0-72f222e23ec1@oss.qualcomm.com>
+ <20261005-rpmi-tee-service-grp-dev-v2-6-72f222e23ec1@oss.qualcomm.com>
+ <CAGgiveUzBk0Na13cqPRnQw8y2XdQ9LLktFK5eaJLTMiQZJPc_w@mail.gmail.com>
+Content-Language: en-US
+From: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
+In-Reply-To: <CAGgiveUzBk0Na13cqPRnQw8y2XdQ9LLktFK5eaJLTMiQZJPc_w@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDA5MSBTYWx0ZWRfXwBuSwPT4LDMu
+ dUBeE69T0vWhrDQdZ3scJo4kNiCIGsjQQdeuAT1YNLYPU41v8xA6eV4WJylpGGF4JDo5sm/FCJL
+ my+U83SCKVNb8X1YKh0xOme6wBkVpUqM9M6rNW6KaQ1h/PWK1sbb7Vnmg6z4/2HgbNSJ/5TnnRC
+ tFIOgm+4LWisNhF6Z+qKmese/cZcisQ5p+/BdCabOvbL5k1mK2hpGv449xjDSVob+KXyIsxRR5I
+ QFiLTI3lQWH9nlj8g4klLgzYs6Y9p/z0UuzkKROKCSPciKS/OnbmBTu9Db3sm5p0UCsunPMQy7Y
+ xF247nPA+YyjOsRb6CEmb/5glNsEqdWQP2Cv9kjUk2rW+8Cu9j51SIdIhISaDEDiqea7BFhDL5Y
+ HElL/iA2KOfdOOOK60MqCrI4xAtWXWcPj0J4yN+BKKtKpEQy7YtizeY1pEoL12ocu1KuF8z/yV2
+ RxYUBAHnnpWg6gIXKOA==
+X-Proofpoint-GUID: bxSMh48XIkItNn0MHGixyLCGly5QTB9E
+X-Authority-Analysis: v=2.4 cv=cMB1IVeN c=1 sm=1 tr=0 ts=6ac81f8f cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=9v5PfQ1E2GNzj2RibJmqVw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=AUF5Mc4sii5JqdCOvnQA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDA5MSBTYWx0ZWRfX4z2aLtVWjuOF
+ YTAwig0Rj4cFs0l9ZLf5D5i7nYt2umV1EdSrd44Kb2tCvD6I8P67Vho7+i4jUL2gpi6ZEqS8nOF
+ +mlKhmkeOhB0V9BAyxkLYZuGsZHh/ho=
+X-Proofpoint-ORIG-GUID: bxSMh48XIkItNn0MHGixyLCGly5QTB9E
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-08_07,2026-10-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 spamscore=0 lowpriorityscore=0
+ malwarescore=0 adultscore=0 bulkscore=0 impostorscore=0 phishscore=0
+ clxscore=1015 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610020000
+ definitions=main-2610080091
 
-On 2026-10-08 00:14 -0700, Hangxiang Ma wrote:
-> Add support for the VFE (Video Front End) 1080 found on Kaanapali SoC.
+Hi Jens,
+
+On 10/8/2026 7:11 PM, Jens Wiklander wrote:
+> On Tue, Oct 6, 2026 at 2:40 AM Amirreza Zarrabi
+> <amirreza.zarrabi@oss.qualcomm.com> wrote:
+>>
+>> OP-TEE commands can span multiple exchanges with normal world. A call
+>> may yield to request an RPC service or allow interrupt processing
+>> before continuing execution in secure world.
+>>
+>> Add the RPMI yielding-call path used by the common OP-TEE session
+>> operations. Submit the command and RPC argument buffers as ranges
+>> within a shared memory parcel.
+>>
+>> Handle RPC requests while the call is suspended and resume execution
+>> using the token returned by OP-TEE until the command completes.
+>>
+>> Use the common OP-TEE call queue to wait when an initial request is
+>> rejected with RPMI_ERR_BUSY, allowing another active call to complete
+>> before retrying.
+>>
+>> Signed-off-by: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
+>> ---
+>>  drivers/tee/optee/rpmi_abi.c | 124 +++++++++++++++++++++++++++++++++++++++++++
+>>  1 file changed, 124 insertions(+)
+>>
+>> diff --git a/drivers/tee/optee/rpmi_abi.c b/drivers/tee/optee/rpmi_abi.c
+>> index 58d82678be98..6e76316794c1 100644
+>> --- a/drivers/tee/optee/rpmi_abi.c
+>> +++ b/drivers/tee/optee/rpmi_abi.c
+>> @@ -9,6 +9,7 @@
+>>  #include <linux/mailbox/riscv-rpmi-message.h>
+>>  #include <linux/overflow.h>
+>>  #include <linux/rpmi_tee.h>
+>> +#include <linux/sched.h>
+>>  #include <linux/slab.h>
+>>  #include <linux/unaligned.h>
+>>  #include "optee_private.h"
+>> @@ -560,3 +561,126 @@ static void optee_rpmi_handle_rpc_cmd(struct tee_context *ctx,
+>>                 optee_rpc_cmd(ctx, optee, arg);
+>>         }
+>>  }
+>> +
+>> +/* Handle RPC command or interrupt returns from a yielding call. */
+>> +static void optee_rpmi_handle_rpc(struct tee_context *ctx, struct optee *optee,
+>> +                                 u32 result, struct optee_msg_arg *arg)
+>> +{
+>> +       switch (result) {
+>> +       case OPTEE_RPMI_YIELDING_CALL_RETURN_RPC_CMD:
+>> +               optee_rpmi_handle_rpc_cmd(ctx, optee, arg);
+>> +               break;
+>> +       case OPTEE_RPMI_YIELDING_CALL_RETURN_INTERRUPT:
+>> +               break;
+>> +       default:
+>> +               pr_warn("Unknown RPC func 0x%x\n", result);
+>> +               break;
+>> +       }
+>> +}
+>> +
+>> +/**
+>> + * optee_rpmi_yielding_call() - submit and resume a yielding RPMI command
+>> + * @ctx: calling context
+>> + * @req: initial command request
+>> + * @rpc_arg: shared RPC argument buffer
+>> + * @system_thread: caller requests TEE system thread support
+>> + *
+>> + * Only RPMI_ERR_BUSY rejection of the initial command permits retry.
+>> + *
+>> + * Return: zero on completion, or a negative error.
+>> + */
+>> +static int optee_rpmi_yielding_call(struct tee_context *ctx,
+>> +                                   const struct optee_rpmi_call_req *req,
+>> +                                   struct optee_msg_arg *rpc_arg,
+>> +                                   bool system_thread)
+>> +{
+>> +       struct optee *optee = tee_get_drvdata(ctx->teedev);
+>> +       struct optee_rpmi_resume_req resume = {
+>> +               .op = cpu_to_le32(OPTEE_RPMI_YIELDING_CALL_RESUME),
+>> +               /* resume_token is nonzero after OP-TEE suspends the call. */
+>> +               .resume_token = 0,
 > 
-> In the Kaanapali camera subsystem, the front-end blocks are referred to
-> as TFEs (Thin Front Ends). This driver continues to use the VFE naming
-> in some places to preserve consistency with the existing code and avoid
-> unnecessary renaming. Support is currently limited to three output lines,
-> matching the constraints of the CAMSS framework.
+> I missed this when reviewing "tee: optee: define the RPMI control and
+> parcel-reference ABI". I'd prefer if the resume_token was a truly
+> opaque value, just as for the SMC and FF-A ABIs. Any reason why it's a
+> 64-bit value instead of 32-bit, as is used for the other ABI?
 > 
-> Kaanapali requires REG_UPDATE and AUP_UPDATE to be issued only after all
-> CSID configuration has completed. In addition, the number of AUP_UPDATE
-> requests must match the number of buffers queued to the write master
-> while it is being enabled.
+
+Agreed. I currently use a zero token to distinguish the initial request
+from a resume. I'll track that separately with a boolean and treat the token
+as opaque, only copying it from the response into the resume request.
+
+There is no specific reason for it to be 64-bit; I overlooked the
+existing ABI convention. I'll change it to 32-bit.
+
+>> +       };
+>> +       struct optee_rpmi_call_resp resp;
+>> +       struct optee_call_waiter waiter;
+>> +       u32 result;
+>> +       s32 status;
+>> +       int ret;
+>> +
+>> +       optee_cq_wait_init(&optee->call_queue, &waiter, system_thread);
+>> +       while (true) {
+>> +               if (resume.resume_token)
+>> +                       ret = optee_rpmi_call_with_status(optee, &resume,
+>> +                                                         sizeof(resume), &resp,
+>> +                                                         sizeof(resp), &status);
+>> +               else
+>> +                       ret = optee_rpmi_call_with_status(optee, req, sizeof(*req),
+>> +                                                         &resp, sizeof(resp),
+>> +                                                         &status);
 > 
-> Although real-time TFE traffic is routed through RT_CAMNOC, both
-> camnoc_rt_axi and camnoc_nrt_axi clocks must be enabled. This ensures
-> that the PDX_NOC, which sits downstream of both RT and NRT NOCs, exits
-> reset in a fully idle state.
+> Please fix the too-long lines above.
 > 
-> Co-developed-by: Atiya Kailany <atiya.kailany@oss.qualcomm.com>
-> Signed-off-by: Atiya Kailany <atiya.kailany@oss.qualcomm.com>
-> Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
-> ---
->  drivers/media/platform/qcom/camss/Makefile         |   1 +
->  drivers/media/platform/qcom/camss/camss-vfe-1080.c | 197 +++++++++++++++++++++
->  drivers/media/platform/qcom/camss/camss-vfe.c      |   9 +-
->  drivers/media/platform/qcom/camss/camss-vfe.h      |   2 +
->  drivers/media/platform/qcom/camss/camss.c          | 153 ++++++++++++++++
->  5 files changed, 360 insertions(+), 2 deletions(-)
+
+Ack.
+
+>> +               if (ret)
+>> +                       goto done;
+>> +
+>> +               switch (status) {
+>> +               case RPMI_SUCCESS:
 > 
-> diff --git a/drivers/media/platform/qcom/camss/Makefile b/drivers/media/platform/qcom/camss/Makefile
-> index 218ba3a95939..42a14e8fe1b7 100644
-> --- a/drivers/media/platform/qcom/camss/Makefile
-> +++ b/drivers/media/platform/qcom/camss/Makefile
-> @@ -26,6 +26,7 @@ qcom-camss-objs += \
->  		camss-vfe-340.o \
->  		camss-vfe-480.o \
->  		camss-vfe-680.o \
-> +		camss-vfe-1080.o \
+> Any particular reason why we aren't using TEE error codes here?
+> 
 
-Can't say I'm 1000000% clear on when reg_update() is supposed to happen in
-the flow of the logic you have here.
+I defined RPMI error codes consistently for all control responses in optee_rpmi.h.
+However, these statuses belong to the OP-TEE service ABI rather than the transport.
+I'll change them to TEE error codes and keep RPMI errors at the transport layer.
 
-I'm a bit suspicious of adding a new flag which skips the update but
-assumes some other bit of code executes later and does that update.
+>> +                       break;
+>> +               case RPMI_ERR_BUSY:
+>> +                       if (!resume.resume_token) {
+>> +                               optee_cq_wait_for_completion(&optee->call_queue,
+>> +                                                            &waiter);
+>> +                               continue;
+>> +                       }
+>> +
+>> +                       fallthrough;
+>> +               default:
+>> +                       ret = rpmi_to_linux_error(status);
+>> +                       goto done;
+>> +               }
+>> +
+>> +               result = get_unaligned_le32(&resp.result);
+> 
+> Why not le32_to_cpu(resp.result)?
 
-Can you explain this some more please.
+You are right, there are a couple of more of this that I missed.
+I'll fix all in the next version.
 
->  		camss-vfe-gen1.o \
->  		camss-vfe-gen3.o \
->  		camss-vfe-vbif.o \
-> diff --git a/drivers/media/platform/qcom/camss/camss-vfe-1080.c b/drivers/media/platform/qcom/camss/camss-vfe-1080.c
-> new file mode 100644
-> index 000000000000..016857cd1025
-> --- /dev/null
-> +++ b/drivers/media/platform/qcom/camss/camss-vfe-1080.c
-> @@ -0,0 +1,197 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * camss-vfe-1080.c
-> + *
-> + * Qualcomm MSM Camera Subsystem - VFE (Video Front End) Module 1080
-> + *
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + */
-> +#include <linux/interrupt.h>
-> +#include <linux/io.h>
-> +#include <linux/iopoll.h>
-> +
-> +#include "camss.h"
-> +#include "camss-vfe.h"
-> +
-> +/* VFE-1080 Bus Register Base Addresses */
-> +#define BUS_REG_BASE				(vfe_is_lite(vfe) ? 0x800 : 0x1000)
-> +
-> +#define VFE_BUS_WM_CGC_OVERRIDE			(BUS_REG_BASE + 0x08)
-> +#define		WM_CGC_OVERRIDE_ALL			(0x7FFFFFF)
-> +
-> +#define VFE_BUS_WM_TEST_BUS_CTRL		(BUS_REG_BASE + 0x128)
-> +
-> +#define VFE_BUS_WM_CFG(n)			(BUS_REG_BASE + 0x500 + (n) * 0x100)
-> +#define		WM_CFG_EN				BIT(0)
-> +#define		WM_VIR_FRM_EN				BIT(1)
-> +#define		WM_CFG_MODE				BIT(16)
-> +#define VFE_BUS_WM_IMAGE_ADDR(n)		(BUS_REG_BASE + 0x504 + (n) * 0x100)
-> +#define VFE_BUS_WM_FRAME_INCR(n)		(BUS_REG_BASE + 0x508 + (n) * 0x100)
-> +#define VFE_BUS_WM_IMAGE_CFG_0(n)		(BUS_REG_BASE + 0x50C + (n) * 0x100)
-> +#define		WM_IMAGE_CFG_0_DEFAULT_WIDTH		(0xFFFF)
-> +#define VFE_BUS_WM_IMAGE_CFG_2(n)		(BUS_REG_BASE + 0x514 + (n) * 0x100)
-> +#define		WM_IMAGE_CFG_2_DEFAULT_STRIDE		(0xFFFF)
-> +#define VFE_BUS_WM_PACKER_CFG(n)		(BUS_REG_BASE + 0x518 + (n) * 0x100)
-> +
-> +#define VFE_BUS_WM_IRQ_SUBSAMPLE_PERIOD(n)	(BUS_REG_BASE + 0x530 + (n) * 0x100)
-> +#define VFE_BUS_WM_IRQ_SUBSAMPLE_PATTERN(n)	(BUS_REG_BASE + 0x534 + (n) * 0x100)
-> +
-> +/* VFE lite has no such registers */
-> +#define VFE_BUS_WM_FRAMEDROP_PERIOD(n)		(BUS_REG_BASE + 0x538 + (n) * 0x100)
-> +#define VFE_BUS_WM_FRAMEDROP_PATTERN(n)		(BUS_REG_BASE + 0x53C + (n) * 0x100)
-> +
-> +#define VFE_BUS_WM_MMU_PREFETCH_CFG(n)		(BUS_REG_BASE + 0x560 + (n) * 0x100)
-> +#define VFE_BUS_WM_MMU_PREFETCH_MAX_OFFSET(n)	(BUS_REG_BASE + 0x564 + (n) * 0x100)
-> +
-> +/*
-> + * IFE write master client IDs
-> + *
-> + * VIDEO_FULL			0
-> + * VIDEO_DC4_Y			1
-> + * VIDEO_DC4_C			2
-> + * VIDEO_DC16_Y			3
-> + * VIDEO_DC16_C			4
-> + * DISPLAY_DS2_Y		5
-> + * DISPLAY_DS2_C		6
-> + * FD_Y				7
-> + * FD_C				8
-> + * PIXEL_RAW			9
-> + * STATS_AEC_BG			10
-> + * STATS_AEC_BHIST		11
-> + * STATS_TINTLESS_BG		12
-> + * STATS_AWB_BG			13
-> + * STATS_AWB_BFW		14
-> + * STATS_AF_BHIST		15
-> + * STATS_ALSC_BG		16
-> + * STATS_FLICKER_BAYERRS	17
-> + * STATS_TMC_BHIST		18
-> + * PDAF_0			19
-> + * PDAF_1			20
-> + * PDAF_2			21
-> + * PDAF_3			22
-> + * RDI0				23
-> + * RDI1				24
-> + * RDI2				25
-> + * RDI3				26
-> + * RDI4				27
-> + *
-> + * IFE Lite write master client IDs
-> + *
-> + * RDI0			0
-> + * RDI1			1
-> + * RDI2			2
-> + * RDI3			3
-> + * GAMMA		4
-> + * STATES_BE		5
-> + */
-> +#define RDI_WM(n) ((vfe_is_lite(vfe) ? 0x0 : 0x17) + (n))
-> +
-> +static void vfe_wm_start(struct vfe_device *vfe, u8 wm, struct vfe_line *line)
-> +{
-> +	struct v4l2_pix_format_mplane *pix =
-> +		&line->video_out.active_fmt.fmt.pix_mp;
-> +
-> +	wm = RDI_WM(wm);
-> +
-> +	/* no clock gating at bus input */
-> +	writel(WM_CGC_OVERRIDE_ALL, vfe->base + VFE_BUS_WM_CGC_OVERRIDE);
-> +
-> +	writel(0x0, vfe->base + VFE_BUS_WM_TEST_BUS_CTRL);
-> +
-> +	writel(ALIGN(pix->plane_fmt[0].bytesperline, 16) * pix->height >> 8,
-> +	       vfe->base + VFE_BUS_WM_FRAME_INCR(wm));
-> +	writel((WM_IMAGE_CFG_0_DEFAULT_WIDTH & 0xFFFF),
-> +	       vfe->base + VFE_BUS_WM_IMAGE_CFG_0(wm));
-> +	writel(WM_IMAGE_CFG_2_DEFAULT_STRIDE,
-> +	       vfe->base + VFE_BUS_WM_IMAGE_CFG_2(wm));
-> +	writel(0, vfe->base + VFE_BUS_WM_PACKER_CFG(wm));
-> +
-> +	/* no dropped frames, one irq per frame */
-> +	if (!vfe_is_lite(vfe)) {
-> +		writel(0, vfe->base + VFE_BUS_WM_FRAMEDROP_PERIOD(wm));
-> +		writel(1, vfe->base + VFE_BUS_WM_FRAMEDROP_PATTERN(wm));
-> +	}
-> +
-> +	writel(0, vfe->base + VFE_BUS_WM_IRQ_SUBSAMPLE_PERIOD(wm));
-> +	writel(1, vfe->base + VFE_BUS_WM_IRQ_SUBSAMPLE_PATTERN(wm));
-> +
-> +	writel(1, vfe->base + VFE_BUS_WM_MMU_PREFETCH_CFG(wm));
-> +	writel(0xFFFFFFFF, vfe->base + VFE_BUS_WM_MMU_PREFETCH_MAX_OFFSET(wm));
-> +
-> +	writel(WM_CFG_EN | WM_CFG_MODE, vfe->base + VFE_BUS_WM_CFG(wm));
-> +}
-> +
-> +static void vfe_wm_stop(struct vfe_device *vfe, u8 wm)
-> +{
-> +	wm = RDI_WM(wm);
-> +	writel(0, vfe->base + VFE_BUS_WM_CFG(wm));
-> +}
-> +
-> +static void vfe_wm_update(struct vfe_device *vfe, u8 wm, u32 addr,
-> +			  struct vfe_line *line)
-> +{
-> +	wm = RDI_WM(wm);
-> +	writel(addr >> 8, vfe->base + VFE_BUS_WM_IMAGE_ADDR(wm));
-> +
-> +	dev_dbg(vfe->camss->dev, "wm:%d, image buf addr:0x%x\n", wm, addr);
-> +}
-> +
-> +static void vfe_reg_update(struct vfe_device *vfe, enum vfe_line_id line_id)
-> +{
-> +	int port_id = line_id;
-> +
-> +	camss_reg_update(vfe->camss, vfe->id, port_id, false);
-> +}
-> +
-> +static inline void vfe_reg_update_clear(struct vfe_device *vfe,
-> +					enum vfe_line_id line_id)
-> +{
-> +	int port_id = line_id;
-> +
-> +	camss_reg_update(vfe->camss, vfe->id, port_id, true);
-> +}
-> +
-> +static const struct camss_video_ops vfe_video_ops_1080 = {
-> +	.queue_buffer = vfe_queue_buffer_v2,
-> +	.flush_buffers = vfe_flush_buffers,
-> +};
-> +
-> +static void vfe_subdev_init(struct device *dev, struct vfe_device *vfe)
-> +{
-> +	vfe->video_ops = vfe_video_ops_1080;
-> +}
-> +
-> +static void vfe_global_reset(struct vfe_device *vfe)
-> +{
-> +	vfe_isr_reset_ack(vfe);
-> +}
-> +
-> +static irqreturn_t vfe_isr(int irq, void *dev)
-> +{
-> +	/* nop */
-> +	return IRQ_HANDLED;
-> +}
-> +
-> +static int vfe_halt(struct vfe_device *vfe)
-> +{
-> +	/* rely on vfe_disable_output() to stop the VFE */
-> +	return 0;
-> +}
-> +
-> +const struct vfe_hw_ops vfe_ops_1080 = {
-> +	.global_reset = vfe_global_reset,
-> +	.hw_version = vfe_hw_version,
-> +	.isr = vfe_isr,
-> +	.pm_domain_off = vfe_pm_domain_off,
-> +	.pm_domain_on = vfe_pm_domain_on,
-> +	.reg_update = vfe_reg_update,
-> +	.reg_update_clear = vfe_reg_update_clear,
-> +	.subdev_init = vfe_subdev_init,
-> +	.vfe_disable = vfe_disable,
-> +	.vfe_enable = vfe_enable_v2,
-> +	.vfe_halt = vfe_halt,
-> +	.vfe_wm_start = vfe_wm_start,
-> +	.vfe_wm_stop = vfe_wm_stop,
-> +	.vfe_buf_done = vfe_buf_done,
-> +	.vfe_wm_update = vfe_wm_update,
-> +};
-> diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/media/platform/qcom/camss/camss-vfe.c
-> index 2680a9914765..3acef6ba97dc 100644
-> --- a/drivers/media/platform/qcom/camss/camss-vfe.c
-> +++ b/drivers/media/platform/qcom/camss/camss-vfe.c
-> @@ -353,6 +353,7 @@ static u32 vfe_src_pad_code(struct vfe_line *line, u32 sink_code,
->  	case CAMSS_8550:
->  	case CAMSS_8650:
->  	case CAMSS_8775P:
-> +	case CAMSS_KAANAPALI:
->  	case CAMSS_X1E80100:
->  		switch (sink_code) {
->  		case MEDIA_BUS_FMT_YUYV8_1X16:
-> @@ -525,7 +526,8 @@ int vfe_enable_output_v2(struct vfe_line *line)
->  
->  	spin_lock_irqsave(&vfe->output_lock, flags);
->  
-> -	ops->reg_update_clear(vfe, line->id);
-> +	if (ops->reg_update_clear)
-> +		ops->reg_update_clear(vfe, line->id);
+Thanks Jens for the review.
 
-What's this ? Modification to the VFE core for a callback you guys have - enumerated.
+Best Regards,
+Amir
 
-If this is to be treated as optional then, submit a patch justifying that
-change as a standalone thing.
- 
->  	if (output->state > VFE_OUTPUT_RESERVED) {
->  		dev_err(vfe->camss->dev,
-> @@ -552,7 +554,9 @@ int vfe_enable_output_v2(struct vfe_line *line)
->  		output->gen2.active_num++;
->  		ops->vfe_wm_update(vfe, output->wm_idx[0],
->  				   output->buf[i]->addr[0], line);
-> -		ops->reg_update(vfe, line->id);
-> +
-> +		if (!vfe->res->reg_update_after_csid_config)
-> +			ops->reg_update(vfe, line->id);
->  	}
->  
->  	spin_unlock_irqrestore(&vfe->output_lock, flags);
-> @@ -2013,6 +2017,7 @@ static int vfe_bpl_align_rdi(struct vfe_device *vfe)
->  	case CAMSS_8550:
->  	case CAMSS_8650:
->  	case CAMSS_8775P:
-> +	case CAMSS_KAANAPALI:
->  	case CAMSS_X1E80100:
->  		ret = 16;
->  		break;
-> diff --git a/drivers/media/platform/qcom/camss/camss-vfe.h b/drivers/media/platform/qcom/camss/camss-vfe.h
-> index ae9dad353a37..118cac5daf37 100644
-> --- a/drivers/media/platform/qcom/camss/camss-vfe.h
-> +++ b/drivers/media/platform/qcom/camss/camss-vfe.h
-> @@ -133,6 +133,7 @@ struct vfe_isr_ops {
->  
->  struct vfe_subdev_resources {
->  	bool is_lite;
-> +	bool reg_update_after_csid_config;
->  	u8 line_num;
->  	bool has_pd;
->  	char *pd_name;
-> @@ -248,6 +249,7 @@ extern const struct vfe_hw_ops vfe_ops_170;
->  extern const struct vfe_hw_ops vfe_ops_340;
->  extern const struct vfe_hw_ops vfe_ops_480;
->  extern const struct vfe_hw_ops vfe_ops_680;
-> +extern const struct vfe_hw_ops vfe_ops_1080;
->  extern const struct vfe_hw_ops vfe_ops_gen3;
->  
->  int vfe_get(struct vfe_device *vfe);
-> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-> index 261e6c837dd4..5cd9641fea94 100644
-> --- a/drivers/media/platform/qcom/camss/camss.c
-> +++ b/drivers/media/platform/qcom/camss/camss.c
-> @@ -156,6 +156,157 @@ static const struct camss_subdev_resources csid_res_kaanapali[] = {
->  	}
->  };
->  
-> +/* In Kaanapali, CAMNOC requires all CPAS_TFEX clocks
-> + * to operate on any TFE Full.
-> + */
-> +static const struct camss_subdev_resources vfe_res_kaanapali[] = {
-> +	/* VFE0 - TFE Full */
-> +	{
-> +		.clock = { "gcc_axi_hf", "cpas_ahb", "cpas_fast_ahb",
-> +			   "vfe0_fast_ahb", "vfe0",
-> +			   "cpas_vfe0", "cpas_vfe1", "cpas_vfe2",
-> +			   "camnoc_rt_axi", "camnoc_nrt_axi", "qdss_debug_xo" },
-> +		.clock_rate = { { 0 },
-> +				{ 0 },
-> +				{ 0 },
-> +				{ 0 },
-> +				{ 360280000, 480000000, 630000000, 716000000,
-> +				  833000000 },
-> +				{ 0 },
-> +				{ 0 },
-> +				{ 0 },
-> +				{ 200000000, 300000000, 400000000, 480000000 },
-> +				{ 0 },
-> +				{ 0 } },
-> +		.reg = { "vfe0" },
-> +		.interrupt = { "vfe0" },
-> +		.vfe = {
-> +			.line_num = 3,
-> +			.is_lite = false,
-> +			.reg_update_after_csid_config = true,
-> +			.has_pd = true,
-> +			.pd_name = "ife0",
-> +			.hw_ops = &vfe_ops_1080,
-> +			.formats_rdi = &vfe_formats_rdi_845,
-> +			.formats_pix = &vfe_formats_pix_845
-> +		}
-> +	},
-> +	/* VFE1 - TFE Full */
-> +	{
-> +		.clock = { "gcc_axi_hf", "cpas_ahb", "cpas_fast_ahb",
-> +			   "vfe1_fast_ahb", "vfe1",
-> +			   "cpas_vfe0", "cpas_vfe1", "cpas_vfe2",
-> +			   "camnoc_rt_axi", "camnoc_nrt_axi", "qdss_debug_xo" },
-> +		.clock_rate = { { 0 },
-> +				{ 0 },
-> +				{ 0 },
-> +				{ 0 },
-> +				{ 360280000, 480000000, 630000000, 716000000,
-> +				  833000000 },
-> +				{ 0 },
-> +				{ 0 },
-> +				{ 0 },
-> +				{ 200000000, 300000000, 400000000, 480000000 },
-> +				{ 0 },
-> +				{ 0 } },
-> +		.reg = { "vfe1" },
-> +		.interrupt = { "vfe1" },
-> +		.vfe = {
-> +			.line_num = 3,
-> +			.is_lite = false,
-> +			.reg_update_after_csid_config = true,
-> +			.has_pd = true,
-> +			.pd_name = "ife1",
-> +			.hw_ops = &vfe_ops_1080,
-> +			.formats_rdi = &vfe_formats_rdi_845,
-> +			.formats_pix = &vfe_formats_pix_845
-> +		}
-> +	},
-> +	/* VFE2 - TFE Full */
-> +	{
-> +		.clock = { "gcc_axi_hf", "cpas_ahb", "cpas_fast_ahb",
-> +			   "vfe2_fast_ahb", "vfe2",
-> +			   "cpas_vfe0", "cpas_vfe1", "cpas_vfe2",
-> +			   "camnoc_rt_axi", "camnoc_nrt_axi", "qdss_debug_xo" },
-> +		.clock_rate = { { 0 },
-> +				{ 0 },
-> +				{ 0 },
-> +				{ 0 },
-> +				{ 360280000, 480000000, 630000000, 716000000,
-> +				  833000000 },
-> +				{ 0 },
-> +				{ 0 },
-> +				{ 0 },
-> +				{ 200000000, 300000000, 400000000, 480000000 },
-> +				{ 0 },
-> +				{ 0 } },
-> +		.reg = { "vfe2" },
-> +		.interrupt = { "vfe2" },
-> +		.vfe = {
-> +			.line_num = 3,
-> +			.is_lite = false,
-> +			.reg_update_after_csid_config = true,
-> +			.has_pd = true,
-> +			.pd_name = "ife2",
-> +			.hw_ops = &vfe_ops_1080,
-> +			.formats_rdi = &vfe_formats_rdi_845,
-> +			.formats_pix = &vfe_formats_pix_845
-> +		}
-> +	},
-> +	/* VFE3 - IFE Lite */
-> +	{
-> +		.clock = { "gcc_axi_hf", "cpas_ahb", "cpas_fast_ahb",
-> +			   "vfe_lite_ahb", "vfe_lite",
-> +			   "cpas_vfe_lite", "camnoc_rt_axi",
-> +			   "camnoc_nrt_axi", "qdss_debug_xo" },
-> +		.clock_rate = { { 0 },
-> +				{ 0 },
-> +				{ 0 },
-> +				{ 0 },
-> +				{ 266666667, 400000000, 480000000 },
-> +				{ 0 },
-> +				{ 200000000, 300000000, 400000000, 480000000 },
-> +				{ 0 },
-> +				{ 0 } },
-> +		.reg = { "vfe_lite0" },
-> +		.interrupt = { "vfe_lite0" },
-> +		.vfe = {
-> +			.line_num = 3,
-
-The line count on the lites looks wrong here.
----
-bod
+> 
+> Cheers,
+> Jens
+> 
+>> +               if (result == OPTEE_RPMI_YIELDING_CALL_RETURN_DONE)
+>> +                       goto done;
+>> +
+>> +               cond_resched();
+>> +               optee_rpmi_handle_rpc(ctx, optee, result, rpc_arg);
+>> +
+>> +               resume.resume_token = resp.resume_token;
+>> +       }
+>> +done:
+>> +       optee_cq_wait_final(&optee->call_queue, &waiter);
+>> +
+>> +       return ret;
+>> +}
+>> +
+>> +/* The caller supplies SHM with room for command and RPC args. */
+>> +static int optee_rpmi_do_call_with_arg(struct tee_context *ctx,
+>> +                                      struct tee_shm *shm, u_int offs,
+>> +                                      bool system_thread)
+>> +{
+>> +       struct optee *optee = tee_get_drvdata(ctx->teedev);
+>> +       struct optee_msg_arg *arg, *rpc_arg;
+>> +       struct optee_rpmi_call_req req;
+>> +       size_t arg_size, rpc_size, rpc_offset;
+>> +       u32 parcel_id, nonce;
+>> +
+>> +       arg = tee_shm_get_va(shm, offs);
+>> +       if (IS_ERR(arg))
+>> +               return PTR_ERR(arg);
+>> +
+>> +       arg_size = OPTEE_MSG_GET_ARG_SIZE(arg->num_params);
+>> +       rpc_size = OPTEE_MSG_GET_ARG_SIZE(optee->rpc_param_count);
+>> +       rpc_offset = offs + arg_size;
+>> +       rpc_arg = tee_shm_get_va(shm, rpc_offset);
+>> +       if (IS_ERR(rpc_arg))
+>> +               return PTR_ERR(rpc_arg);
+>> +
+>> +       optee_rpmi_shm_get_identity(shm, &parcel_id, &nonce);
+>> +
+>> +       req.op = cpu_to_le32(OPTEE_RPMI_YIELDING_CALL_WITH_ARG);
+>> +       req.parcel_id = cpu_to_le32(parcel_id);
+>> +       req.nonce = cpu_to_le32(nonce);
+>> +       req.arg_offset = cpu_to_le64((u64)shm->offset + offs);
+>> +       req.rpc_offset = cpu_to_le64((u64)shm->offset + rpc_offset);
+>> +       req.arg_size = cpu_to_le32(arg_size);
+>> +       req.rpc_size = cpu_to_le32(rpc_size);
+>> +
+>> +       return optee_rpmi_yielding_call(ctx, &req, rpc_arg, system_thread);
+>> +}
+>>
+>> --
+>> 2.34.1
+>>
 
