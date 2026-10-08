@@ -1,93 +1,154 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E71B44D597E
-	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 15:05:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5B203033F7
+	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 15:10:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791471963; cv=none; b=TuHzf4ra0taMSPjGT72wCd+oEkcfAWGDba4i76f8sP8ufBlwU5q7KUQ/LUsCFlvhpRzug+TyDJeJMh8WkdAGCx9/WUrP0vDXG1h175HGqFJjTfvoZDx7uQRsWgbLj2Od5vPGOPLUPl03UDXDAO7XquAHIAx1Fipx7JgkHAsYejU=
+	t=1791472231; cv=none; b=eTPeOnQnq19NftKhbsOqlKQBMfWlhGUTRN711+kqOIvWVNIT2/mlrFH8EvCFuLIWBZ5YAkl1+UYo41FR7v5nvN4Krs0OZCP+Dl1XKR7MykpMNYTmH+GmDcE4J3IpCVDIjSMhiCmX6KDLZZGP0VYuKnfTggrzyjg39h5zdV3qZf8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791471963; c=relaxed/simple;
-	bh=M3eh+eqPsqcE5YvVl5FSV9uki97nCFfIXkAkKL28Dxc=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=TBXm41Vsmnp0B9xJjKUYk9pj9qx0HFUKw7peSymyHQl8s5jz/gdJNINzv/ca85DrT5cpOhST5rb3ecOoFHHetuzdO4yYzL9k7RPRkRv8YDd+4A9pfmFeCrAG+A/9na6EUKCJpzxSAaCP2e4nq9r25MlcFpN07gxkd6jwvj58qJ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JZye8FHs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791472231; c=relaxed/simple;
+	bh=hgmTeJLGjsNAKYAKa1DnaczoEbCEVo4pKCm9fY/MAdc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=l9MHSwT9+pqdR5gJw7R39ed23kPHK2mAf+HElrpJFFt+ThI0z2DWNu1ArBNeIGC0hDFQxzb1ps3MHrOpby/aUl4sjLQ5A8OuW+SFYXcPrMln/baEgnoRiKKrz86A3SvMXO9ETt+i3iPuGxM92w+0JbM1CuOJ8BqNa5fbJ8LHKEM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=oS54NXGn; arc=none smtp.client-ip=210.118.77.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JZye8FHs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95B901F0089F
-	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 15:05:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791471959;
-	bh=M3eh+eqPsqcE5YvVl5FSV9uki97nCFfIXkAkKL28Dxc=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=JZye8FHsMGO+Vhak768IyEeJ7EKz1SQUH8yovlQE0RC+CJfM6kyzx7gtXKzSUDJtT
-	 lw2phsBV2qzm/emoM9GUXUs1ZAz47wNKvWCR2GPMGq4q5G1j7j+UakCqBZp99h0gNk
-	 Ta6y2LRBQCiAoWgMqMl5iCXq3ajFAEhyuxLRkLtpeYqaK4gYaLaaGEcr399vTsDbl8
-	 O9n9wvIoLO2y6U7CA5G5enfSsELTRPH/H3wVyeDgK9UMyLU2WK6jGLe0auIXpE09PM
-	 lctSvIo87BT3yzTrAzGAfD6rKrK3J3LQI8OX7NX7UaWwdncf50p2bDlEO8oR8pwO5G
-	 vgWtxHHI6waVQ==
-Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-3a9787a156eso23887361fa.3
-        for <devicetree@vger.kernel.org>; Thu, 08 Oct 2026 08:05:59 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxWqasTYJBbXwaVjhjs5JfxRy6VJNgugz3HyNtxF5YRCKG9gN0LRL5+a1mqfq+0Fj1m+ZWAxBzGum94@vger.kernel.org
-X-Gm-Message-State: AFq9FYJiB39opNqlCeyyu0YyulOYDrTbrSpEwm/vYUCTKowNTH7quSP0
-	lNa1vW8mmpmK3fJ4Llmv0vAa/opyZN0AKhDc/mfK1OZ5fcdyk0v2oLBJAv4VSfIvo4JooDuvLyj
-	u6I0c6jVk/U0WVEoz6HxXpcFup9AAQ5gl3jfaSCvxKQ==
-X-Received: by 2002:a2e:b8c9:0:b0:3a6:95a:52a6 with SMTP id
- 38308e7fff4ca-3a9a2d0dc0cmr14079951fa.20.1791471958269; Thu, 08 Oct 2026
- 08:05:58 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 8 Oct 2026 17:05:56 +0200
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 8 Oct 2026 17:05:56 +0200
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <CAD++jLkPeEQN07Qk9RrmxkRf5EbMmnuwdq2yBFccwM_QpvjsLw@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="oS54NXGn"
+Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261008151020euoutp0261b2ec78de8f73b267f5d34e134c2815~cln4o4mgK0356103561euoutp02T
+	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 15:10:20 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261008151020euoutp0261b2ec78de8f73b267f5d34e134c2815~cln4o4mgK0356103561euoutp02T
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1791472220;
+	bh=p/CEeLfN16W336hJkOodyM4bPanb1U8QuIH15EGrUS4=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=oS54NXGnWESg8OmQ/iUNSPpUcdmD5JSqstt22ooyjfcQZ6rgLbtMNDxWsDsHW4cRL
+	 ef7K/aHXJfROSsQ3wIhpsDNoLGTErxaTT7hzjtbGJFWAroxWeYh/ybkiMApF2lpYu4
+	 oeROedwov5Apmqc4S/mHJQLCPTBDtxRXgwajMLsM=
+Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
+	eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+	20261008151019eucas1p26347f907cbb12ee37552797103387753~cln4RSRBW3092530925eucas1p21;
+	Thu,  8 Oct 2026 15:10:19 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20261008151019eusmtip2cf77e50b80cb40ed87be766138851542~cln3sJP_H2632026320eusmtip20;
+	Thu,  8 Oct 2026 15:10:19 +0000 (GMT)
+Message-ID: <c1f42a7d-708c-4a6c-9925-9bb9806be958@samsung.com>
+Date: Thu, 8 Oct 2026 17:10:18 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260929-kuno-soc-support-v7-0-530f62dc4020@oss.qualcomm.com>
- <5555b1ee-1355-429f-b3de-f0926e4c30d6@oss.qualcomm.com> <CAD++jLkPeEQN07Qk9RrmxkRf5EbMmnuwdq2yBFccwM_QpvjsLw@mail.gmail.com>
-Date: Thu, 8 Oct 2026 17:05:56 +0200
-X-Gmail-Original-Message-ID: <CAMRc=MdTYic6qG+gnnOExXWhfgbjygi-hR0Rr-FKVAhBkw1C8w@mail.gmail.com>
-X-Gm-Features: AclHuK_vfKWdSTRB1YkJ3uHKdqAfTiQySmCCqB7eRtdQW3xirznTZ4Z9gYURvgY
-Message-ID: <CAMRc=MdTYic6qG+gnnOExXWhfgbjygi-hR0Rr-FKVAhBkw1C8w@mail.gmail.com>
-Subject: Re: [PATCH v7 0/2] Add initial support for Qualcomm Kuno SoC
-To: Linus Walleij <linusw@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Abel Vesa <abel.vesa@oss.qualcomm.com>, 
-	Hardeep Sharma <hardeep.sharma@oss.qualcomm.com>, Bartosz Golaszewski <brgl@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH 2/2] of: reserved_mem: allocate and map the reserved_mem
+ array early
+To: Rob Herring <robh@kernel.org>
+Cc: linux-mm@kvack.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Mike Rapoport <rppt@kernel.org>, Saravana
+	Kannan <saravanak@kernel.org>, Oreoluwa Babatunde
+	<quic_obabatun@quicinc.com>, Wandun <chenwandun1@gmail.com>, Andrew Morton
+	<akpm@linux-foundation.org>
+Content-Language: en-US
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <20261008140515.GB183998-robh@kernel.org>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20261008151019eucas1p26347f907cbb12ee37552797103387753
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20261008094130eucas1p1120c66c914aa2b93fa3d7e6e494e7eea
+X-EPHeader: CA
+X-CMS-RootMailID: 20261008094130eucas1p1120c66c914aa2b93fa3d7e6e494e7eea
+References: <20261008094125.3197971-1-m.szyprowski@samsung.com>
+	<CGME20261008094130eucas1p1120c66c914aa2b93fa3d7e6e494e7eea@eucas1p1.samsung.com>
+	<20261008094125.3197971-3-m.szyprowski@samsung.com>
+	<20261008140515.GB183998-robh@kernel.org>
 
-On Thu, 8 Oct 2026 15:11:31 +0200, Linus Walleij <linusw@kernel.org> said:
-> On Thu, Oct 8, 2026 at 5:12=E2=80=AFAM Hardeep Sharma
-> <hardeep.sharma@oss.qualcomm.com> wrote:
->
->> Hello All,
+On 08.10.2026 16:05, Rob Herring wrote:
+> On Thu, Oct 08, 2026 at 11:41:23AM +0200, Marek Szyprowski wrote:
+>> Get rid of the static, limited-size reserved_mem array and replace it
+>> with array allocated by memblock_alloc_raw() and accessed through a
+>> temporary early_memremap() mapping. Such mapping is needed for some
+>> architectures (like ARM64), where linear map is not yet available during
+>> early boot scan. Having a single, writeable array with all reserved
+>> regions removes the need to perform two step initialization introduced
+>> by commit 8a6e02d0c00e ("of: reserved_mem: Restructure how the reserved
+>> memory regions are processed"), so all regions can be processed
+>> directly during the early scan again.
 >>
->> Both of the following patches are ready to be picked:
+>> Suggested-by: Mike Rapoport <rppt@kernel.org>
+>> Link: https://lore.kernel.org/all/asc6brs_g0ky0wOM@kernel.org/
+>> Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+> Assisted-by: LLM
+>
+> is the new way...
+>
+>> Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+>> ---
+>>  drivers/of/fdt.c             |   3 -
+>>  drivers/of/of_private.h      |   2 -
+>>  drivers/of/of_reserved_mem.c | 251 ++++++++++++++---------------------
+>>  3 files changed, 96 insertions(+), 160 deletions(-)
 >>
->> [PATCH v7 1/2] dt-bindings: soc: qcom,geni-se: Allow 1 or 2 address and
->> size cells
->> [PATCH v7 2/2] ARM: dts: qcom: Add initial device tree for Kuno SoC
->>
->> Could you please pick them ?
->
-> Missing from the To: header of your mail: Bartosz, who actually maintains
-> Qualcomm pin control.
->
-> This is likely why it has not been picked.
->
+>> diff --git a/drivers/of/fdt.c b/drivers/of/fdt.c
+>> index ecc923102622..a58efdcbac7f 100644
+>> --- a/drivers/of/fdt.c
+>> +++ b/drivers/of/fdt.c
+>> @@ -1283,9 +1283,6 @@ void __init unflatten_device_tree(void)
+>>  {
+>>  	void *fdt = initial_boot_params;
+>>  
+>> -	/* Save the statically-placed regions in the reserved_mem array */
+>> -	fdt_scan_reserved_mem_late();
+>> -
+>>  	/* Populate an empty root node when bootloader doesn't provide one */
+>>  	if (!fdt) {
+>>  		fdt = (void *) __dtb_empty_root_begin;
+>> diff --git a/drivers/of/of_private.h b/drivers/of/of_private.h
+>> index 0ae16da066e2..895f868b4cfa 100644
+>> --- a/drivers/of/of_private.h
+>> +++ b/drivers/of/of_private.h
+>> @@ -9,7 +9,6 @@
+>>   */
+>>  
+>>  #define FDT_ALIGN_SIZE 8
+>> -#define MAX_RESERVED_REGIONS    64
+>>  
+>>  /**
+>>   * struct alias_prop - Alias property in 'aliases' node
+>> @@ -186,7 +185,6 @@ static inline struct device_node *__of_get_dma_parent(const struct device_node *
+>>  #endif
+>>  
+>>  int fdt_scan_reserved_mem(void);
+>> -void __init fdt_scan_reserved_mem_late(void);
+>>  
+>>  bool of_fdt_device_is_available(const void *blob, unsigned long node);
+>>  
+>> diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
+>> index 300fb236ab59..6a5e53243bb7 100644
+>> --- a/drivers/of/of_reserved_mem.c
+>> +++ b/drivers/of/of_reserved_mem.c
+>> @@ -24,12 +24,14 @@
+>>  #include <linux/slab.h>
+>>  #include <linux/memblock.h>
+>>  #include <linux/kmemleak.h>
+>> +#ifdef CONFIG_GENERIC_EARLY_IOREMAP
+>> +#include <asm/early_ioremap.h>
+>> +#endif
+> These ifdefs are the only thing I don't like. early_ioremap.h is always 
+> in asm-generic, so do we need the ifdef here? Or does the arch have to 
+> do something to pick it up? I don't remember.
 
-Devicetree sources are Bjorn's territory. DT bindings should have probably
-been sent separately though. In any case, we're at rc6 now, so that ship ha=
-s
-sailed. Please resend after v7.4-rc1 is tagged.
+Those ifdefs seems to be some hallucinations I missed to fix. I will send v2 in a few
+minutes.
 
-Bartosz
+> ...
+
+Best regards
+-- 
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
+
