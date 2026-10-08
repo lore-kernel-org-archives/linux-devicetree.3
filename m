@@ -1,149 +1,160 @@
-Received: from sender6-pp-e107.zoho.com (sender6-pp-e107.zoho.com [165.173.180.107])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com [209.85.215.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91F95391E7B;
-	Thu,  8 Oct 2026 10:31:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.107
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791455479; cv=pass; b=BCHNgD6tet80iPuNhKE8+eS6axGkMnn2dfzZtBQhrrt4H/5NMJB4yuDW/S7tHUTewGIYWjmlvxraxLcNRIXg21SitQGIQLyp6xbtPAs2Y+2faC+NsYa9B1NvHScErGQC+FGVPVX3Iw7TctqWzEG0+qvdSN65U5P4z0U+/x2ohxs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791455479; c=relaxed/simple;
-	bh=HA8SGj7wkjRDNhhCWgOc+4BuevohIaoxRKoUSNRKTnI=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=meSAPH7eQv5PEhLdLbLEO0XXwwEhWboAQcS5iMCko/JqC6s4sy5hOVxMXFThH6BcOPXyBrMYztGX8JuwHOy423i+3/59Ru3UbuxFa4pyEVdqXHv2oaIBSRvxcLfpKr0TOsxWn9s0BS0I+RRD+zDvLT9VkBCGKFmbJc3wXhx3GUE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me; spf=pass smtp.mailfrom=icenowy.me; dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b=Xa4CCTGd; arc=pass smtp.client-ip=165.173.180.107
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icenowy.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DD2440A93E
+	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 10:34:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.173
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791455661; cv=none; b=I2NleoRXjB30EXrO7MPPnCSqMFw0Wd5J4/Ra2rOGG7Tmn+YYVJ3xlW9WPwSD1lPnq4vzL6SfGrF0epinKlfHQWMOv592UAhgf4E0dzrF970sXZv/QZDsW3qSchBSsKx65GLw/V8tiIjVM3zE8CikqM01nepEGpp1tiZnqaeJ6QM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791455661; c=relaxed/simple;
+	bh=NjtMmGGe9Z6SsWAnOywBj2B/KK6ioQeD8WkEr0YiNlA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=VcaxV/7sycK+M4LMqvyvYMejt3hxIb4NQgX6D2uAe2beV6/YnX44oFcVcEnJm70ytPaEOaIQYcfk6xRo4YBv2pd89lODe+zaPDAGM9+yHAl3Tv/kSpldk3ZeT9Vl9Xp8seoXRkbymgbdAYmmelSLd4CA0uNh/00/AlX+LJvBQgE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cAacpQ3a; arc=none smtp.client-ip=209.85.215.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b="Xa4CCTGd"
-ARC-Seal: i=1; a=rsa-sha256; t=1791455464; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=PXhlqnbIPeeyBMoq4zj6OsSao1PWn2yoke5wffLUsWw9+hZSA3HE8mAowQUYiWMyY0qtCoENa+kjOMJ56T+/8kdKmNUbp4qZMwYm08jJAm55Y7CHf2n1p5S5gfYGlomKC5mwQ0PMkJDbAey8lYRjL+SvKn6xWr3xKYqCcVSmk8E=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1791455464; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=TEVIQ7jUIEPxC+HGK4sUt5stotdCUh3Q7I4XuQyq/vU=; 
-	b=fXr22wZyjecSTBJj/MHndJ36pVf9nqiRyPB7zHwKZzGkKj05HnSbZjcxsKt69n2eJ50BhpTY4d7sbrCwCTNQjovej0+HKmC+B9hEdoTMBamGg7aBh+5P9DarQWekC5wvg7gqsThh8ooSsV7MgTVabyr3tjDvKeksDJzW1jkr6PE=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=icenowy.me;
-	spf=pass  smtp.mailfrom=uwu@icenowy.me;
-	dmarc=pass header.from=<uwu@icenowy.me>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791455464;
-	s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
-	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
-	bh=TEVIQ7jUIEPxC+HGK4sUt5stotdCUh3Q7I4XuQyq/vU=;
-	b=Xa4CCTGdyQqhGs5mz5XWPtLsG3z3tv3u/QC4Tm+jFyOf5gdqI08/GkVxdXDsiihg
-	M/SxIwLKYhKiq/yRo+yK7sYinL9mvGL9AdSK9JCmSDVH+ItV5tYKD8Xi9KjNqprp0uc
-	pvc+sfdr2Hsg58RX6Npl9fb0qsGzLihjTkNyOM1yyN1HCS3S3Y4QDTItjBEVCvxzOhZ
-	a0QBXFNNJi5d/IGDzMBDhs9vOfvIcHPh8M5aPjUrt/zqt75nhNefFXpitQEgPPY1GUD
-	r0hdD9TywyaqYQhr2uwSq/Zrl9O8bMD59JyL0A+3Nd3F3vffidBWaYN8WW/JI+kd7W1
-	XDv+CgxSCA==
-Received: by smtp.zohomail.com with SMTPS id 1791455462271972.5250923053629;
-	Thu, 8 Oct 2026 03:31:02 -0700 (PDT)
-Message-ID: <cbba422d4ba9bd4a036536a50fadc2760efa1ae2.camel@icenowy.me>
-Subject: Re: [PATCH v2 1/2] dt-bindings: power: spacemit: Add power domain
- controller IDs
-From: Icenowy Zheng <uwu@icenowy.me>
-To: Conor Dooley <conor@kernel.org>, Yixun Lan <dlan@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-  Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>, Paul
- Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou
- <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,  Iker Pedrosa
- <ikerpedrosam@gmail.com>, devicetree@vger.kernel.org,
- linux-riscv@lists.infradead.org, 	spacemit@lists.linux.dev,
- linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org
-Date: Thu, 08 Oct 2026 18:30:55 +0800
-In-Reply-To: <20261008-df80c21d73b287d09b6baa78@squawk>
-References: <20261008-04-k3-pm-support-v2-0-6f778a53dd2d@kernel.org>
-	 <20261008-04-k3-pm-support-v2-1-6f778a53dd2d@kernel.org>
-	 <20261008-df80c21d73b287d09b6baa78@squawk>
-Organization: Anthon Open-Source Community
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cAacpQ3a"
+Received: by mail-pg1-f173.google.com with SMTP id 41be03b00d2f7-cc74881317bso92399a12.0
+        for <devicetree@vger.kernel.org>; Thu, 08 Oct 2026 03:34:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791455660; x=1792060460; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=BRmkdeiD8ReZpDPX5N50tNchauYw/eSsVXxk7TAzHQQ=;
+        b=cAacpQ3aIoksykuxOchV5x69Sgsyn/7AjkuGm4/HLGEukwtdyGsV1MRi0wmr/0UK54
+         AKbwNJ1mr0Utyd9dy+GZQFde9ERwfkOZGflqJIKaoVkZlpEJMSMdz7mmEnsSPavmwyUC
+         ykmCj2t8QX9QVjOdA0fELEIK+otJPkcizCFIy5C8drCzOmNXssrLDOrUf4uIGeitcSCh
+         n0WmZoRJdS3yxWuacHn1oq+SNFdD7YZoIMopRbB7HoQjmh4KT6eNWYag6HRej/jKQ+2B
+         QIxa3reJOciABkFyRJmk6yVjr4YHPoQ6rC64vxVYljISWe97j+l4h5hxzdlZzb6I2kPA
+         /T4A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791455660; x=1792060460;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BRmkdeiD8ReZpDPX5N50tNchauYw/eSsVXxk7TAzHQQ=;
+        b=APBISOsI1s2eh5hsH4azb+Ys7KG1T/chMAduFM66P73rOFU7gQm/fBoJwqfniSmSMN
+         GolaifJztU6rF6RlaoVF6ppPZiCYp+GMWXVY5cyDsUMkWwYsm/oWHX/vljyROrWIKnoo
+         uu5d3hCMUbmT4/3lzdTGSWcbtGZALK41xd24DSm4IljD26c/ddA3nvEj0/XxgVhFlW2l
+         xLAtjND3FxNvnROEJX8HbHVAGrm+v96+nwDJjiLeQTNSFaUJBMeuIkuRpjDFfKCDnAzL
+         KXN5fLpOMEefx13xh++W0FCwHbDuSAezn8UBcSDuncmF6Edph2Jb+KAMsIOcbM7yTmYa
+         7Kjw==
+X-Forwarded-Encrypted: i=1; AKwUvByGLUP8ZX9Mn3DiNab5RBmLB9FxM4wiyXS9WmNCSRYLMfa3nVXT4esS+DvoOGyliuk+vyQKJkuKm1ZM@vger.kernel.org
+X-Gm-Message-State: AFq9FYJDx6LnyhGAspfWBuof4x0aH4ojt2F5Tyusd7Hr9+DBPmW1T3WZ
+	Dq90lkMk27qKqlRciay7gaDG7I8hr+sXJsP9wmJUOCPHGm1hZpMOggQh
+X-Gm-Gg: AYBFou15v0X3k6urIfeMRpjwmqBobW3TX++pXuH5f6V0KTjWme1HBEU1sm42jgBZW5k
+	jSIMMg4p7XQNNBIEDBIz5JfNWhTUghBBFkYNNUI0GixiOSp/M0uUr4tEzwY0lngPr09PSFQGLvj
+	aNibXELd98+GHuAKgeDZ9idlYD0VYvSHmL6JPNjuxqoUOldHoCKdJKNxOj3iHTJAlzqtwEGPvYv
+	K5IighIxOJm+xW4+fEkkHmA0PSH0/i+JzYJvttOIvFr39h+8APUQA1iJ1ZX1cTGQdXBu5H8BzHe
+	cRDL5lsMIes7WMxx5ynBUN/KOSWvnKM1RyeE3MKrAe9ATfOV7k+PsNm16xa2uSEoq43WUR70CGU
+	JPblGbxgTJx6OBUmRDX/3zxYwT4BmZxC87n9a61gXea9UPdk9WvtHaQOZZzwVE9zOwn8UuxKEfY
+	dHr9MVQojP57gMxNt3fKvxolss8eo7aTaQguwp+PLMsihXvC2TScvPDUQhZIN2md+XmOvJAW9HF
+	9sLl2nt3EQIWvl40Axt+sWf
+X-Received: by 2002:a17:903:1a28:b0:2da:dd0a:99e0 with SMTP id d9443c01a7336-2e7ff49616emr28797475ad.2.1791455659602;
+        Thu, 08 Oct 2026 03:34:19 -0700 (PDT)
+Received: from jfliu-sfa1411.. ([129.227.183.200])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e604b63d9bsm22860405ad.84.2026.10.08.03.34.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 03:34:19 -0700 (PDT)
+From: Jianfeng Liu <liujianfeng1994@gmail.com>
+To: kaipeng94@gmail.com
+Cc: andersson@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	konradybcio@kernel.org,
+	krzk+dt@kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	robh@kernel.org
+Subject: Re: [PATCH v4 0/2] Add device tree for Acer Swift Go Pro AI (SFA14-11)
+Date: Thu,  8 Oct 2026 18:34:11 +0800
+Message-ID: <20261008103414.6170-1-liujianfeng1994@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20261006085425.40450-1-kaipeng94@gmail.com>
+References: <20261006085425.40450-1-kaipeng94@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-=E5=9C=A8 2026-10-08=E5=9B=9B=E7=9A=84 08:27 +0100=EF=BC=8CConor Dooley=E5=
-=86=99=E9=81=93=EF=BC=9A
-> On Thu, Oct 08, 2026 at 03:44:29AM +0000, Yixun Lan wrote:
-> > Add initial power domain driver support for SpacemiT K1/K3 SoC, The
-> > Power
-> > Domain Controller is SoC internal module which is part of APMU
-> > (Advanced
-> > Power Management Unit), it is responsible for managing power across
-> > multi
-> > power domains, which includes power on/off, isolation, power-on
-> > sequence.
->=20
-> You should prob mention that this APMU is already documented
-> elsewhere.
+Hi Kaipeng,
 
-Maybe it's also meaningful to mention that APMU already has #power-
-domain-cells property, because the first reaction of me is to add such
-a property (and then found it already there).
+Thanks for working on this device! I have also been working on a device
+tree for the same laptop; my series is currently on the list:
 
-Thanks,
-Icenowy
+https://lore.kernel.org/linux-arm-msm/20260929103053.10241-1-liujianfeng1994@gmail.com/
 
-> Acked-by: Conor Dooley <conor.dooley@microchip.com>
-> pw-bot: not-applicable
->=20
-> Thanks,
-> Conor.
->=20
-> >=20
-> > Signed-off-by: Yixun Lan <dlan@kernel.org>
-> > ---
-> > =C2=A0include/dt-bindings/power/spacemit,k1-power.h | 14 ++++++++++++++
-> > =C2=A0include/dt-bindings/power/spacemit,k3-power.h | 12 ++++++++++++
-> > =C2=A02 files changed, 26 insertions(+)
-> >=20
-> > diff --git a/include/dt-bindings/power/spacemit,k1-power.h
-> > b/include/dt-bindings/power/spacemit,k1-power.h
-> > new file mode 100644
-> > index 000000000000..41ef540b5c44
-> > --- /dev/null
-> > +++ b/include/dt-bindings/power/spacemit,k1-power.h
-> > @@ -0,0 +1,14 @@
-> > +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-> > +
-> > +#ifndef _DT_BINDINGS_SPACEMIT_K1_POWER_H_
-> > +#define _DT_BINDINGS_SPACEMIT_K1_POWER_H_
-> > +
-> > +#define K1_PMDOMAIN_VPU		0
-> > +#define K1_PMDOMAIN_GPU		1
-> > +#define K1_PMDOMAIN_LCD		2
-> > +#define K1_PMDOMAIN_ISP		3
-> > +#define K1_PMDOMAIN_AUDIO	4
-> > +#define K1_PMDOMAIN_GNSS	5
-> > +#define K1_PMDOMAIN_HDMI	6
-> > +
-> > +#endif
-> > diff --git a/include/dt-bindings/power/spacemit,k3-power.h
-> > b/include/dt-bindings/power/spacemit,k3-power.h
-> > new file mode 100644
-> > index 000000000000..519fbf946312
-> > --- /dev/null
-> > +++ b/include/dt-bindings/power/spacemit,k3-power.h
-> > @@ -0,0 +1,12 @@
-> > +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-> > +
-> > +#ifndef _DT_BINDINGS_SPACEMIT_K3_POWER_H_
-> > +#define _DT_BINDINGS_SPACEMIT_K3_POWER_H_
-> > +
-> > +#define K3_PMDOMAIN_VPU		0
-> > +#define K3_PMDOMAIN_GPU		1
-> > +#define K3_PMDOMAIN_AUDIO	2
-> > +#define K3_PMDOMAIN_LCD0	3
-> > +#define K3_PMDOMAIN_LCD1	4
-> > +
-> > +#endif
-> >=20
-> > --=20
-> > 2.56.0
-> >=20
+Since we are both targeting the same hardware, I think it makes sense to
+consolidate the two efforts into a single series, as is the usual practice.
+Below is a summary of what I found while comparing our versions, hoping
+this helps us converge.
+
+A few things I noticed in your v4:
+
+The vdda-phy/vdda-pll supplies appear to be swapped on all four QMP PHYs
+(usb_1_ss0_qmpphy, usb_1_ss2_qmpphy, usb_mp_qmpphy0/1). The QMP PHY expects
+vdda-phy at ~0.88 V and vdda-pll at 1.2 V. The same issue was fixed
+recently on the Purwa boards in commit 7c1d0ef2969e1 ("arm64: dts: qcom:
+purwa: Fix swapped USB QMP PHY vdda-phy/vdda-pll supplies"), which
+includes the reference mapping used by the other X1E boards.
+
+The &tcsr QREF supplies are missing. The qcom,x1e80100-tcsr binding now
+requires the vdda-qref*/vdda-refgen* supplies, so DTBS_CHECK reports 18
+warnings without them. All other Hamoa boards have been updated with this
+block.
+
+The series is missing the QSEECOM allowlist entry for this machine
+(firmware: qcom: scm: Allow QSEECOM on ...), which is needed for
+uefisecapp / efivars access. I'm carrying that as a separate patch in
+my series.
+
+The three PTN3222 eUSB2 repeaters on i2c5 (addresses 0x47/0x4b/0x4f) are
+not described. They are present on this board and feed usb_2 (webcam) and
+the usb_mp ports.
+
+The displayport-2 DAI link is missing, so audio over the HDMI bridge
+doesn't work. My version also sets sound-name-prefix on mdss_dp0/mdss_dp2,
+which is needed for the DP audio links.
+
+Two nodes look like they may have been carried over from x1-crd.dtsi
+without being verified on this laptop — could you double-check them?
+
+  - key-vol-up: as far as I can tell this laptop has no physical volume
+    key (volume is an Fn combo on the keyboard).
+
+  - dmic23 / "VA DMIC2/3" routing: the mic array appears to be a dual-mic
+    setup beside the camera — tap-testing around the chassis only shows
+    mic response near the camera.
+
+On the naming: upstream asked me to change my compatible to
+"acer,swift-sfa14-11" (my v1 used "acer,sfa14-11", following the DMI
+product name). Acer's support site calls the machine "Swift SFA14-11", and
+I couldn't find "Swift Go Pro AI" as an official product line anywhere.
+Since our series use different compatible strings, file names and models,
+we'll need to align on one either way — I'm happy to go with whatever
+the maintainers prefer.
+One question: you enable usb_1_ss1 with its QMP PHY in USB3-only mode
+(DP input port deleted). Could you share what it is wired to on this
+machine? The only USB-C port is on usb_1_ss0 and the HDMI bridge is fed
+from usb_1_ss2_qmpphy, so I wasn't sure what ss1 connects to.
+
+By the way, your EL2-mode testing is a valuable data point — I haven't
+tested that configuration. On my side the following is verified working
+on hardware: eDP display with PWM backlight, I2C keyboard and touchpad,
+USB-A ports, USB-C with DP alt mode (video + audio), HDMI video + audio,
+speakers and headphone jack, WiFi and Bluetooth (UART), webcam, NVMe,
+GPU and battery charging.
+
+Happy to integrate any findings from your testing into my series, or to
+review and help with yours if you prefer to carry it forward — whichever
+way the maintainers would like to handle it.
+
+Best regards,
+Jianfeng
