@@ -1,151 +1,109 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DC183E00B8;
-	Thu,  8 Oct 2026 07:25:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BB463DAABE
+	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 07:27:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791444329; cv=none; b=DY8QgJ8ONq4Oof8/NGDwRplXWohjSwKhT/V4HW4e3/WLh8lsT/AZPrbKN+YTjOPmSZrZHpYn4L73PqfVgIl7xK7Vzy3F05bkBX9jFDdIyt7qHI/UlojIDTh11gy98ad/5KGJ6i+M/hImFFewPHGP0qk3snbRxIijHF7yB6H4Diw=
+	t=1791444450; cv=none; b=HaBrudV2XJ0PX8Pq+EyUlq1ErzjhmNyVowdouWhRe7rjFTLMhFJr3E+nN78t74jK2nGPnM40Mv/2QMJm2JEhqXFMXdHWP6LCsAhZQX+j6TfpIQPY/uLb1eDNO5tRfbb0/IuwXf8/ALGNft3SqgCtFtehr4Ko0uSmT9N0+9Pb5pY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791444329; c=relaxed/simple;
-	bh=x6FKyyYfGJ2ckcdf6uTGYUSOG49K90oTf9L4CfdX/Kw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ra7Ounqifb+vGNJupWh73o/mvhxxFxRglEOB6erfFjoS5MQ+zkuyw7wUd/f7W7U8ed6hp5L2MsNysoDA2OOd1e28CEz50gZSLo1XYjJDZgqVP5mrIpzqYL/1tc7VoQBs9hL7DTEQsve+ShfahWR9JPUGUsG691wstxZQdPGyvNk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q7ZHmSIx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791444450; c=relaxed/simple;
+	bh=SXWRat4UqRS0pGCXMNkWhTJepxhs4XqU6Wpmi6n+H7Y=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=CGPDq1R4DsmHs64eZLBIB504qhswoTSQElxDclcVQDsjgDXu5TqQDlHTosd2+Yhde2r/ePIWY8wbtGnHWqMWaWpbgVXisXW5Hs5q7KdJO1b5Mswtn2YogMloxPZ4QVxsiBsrjLY3XYAaglSqlRRWJ+HdPzW7LPyunPryFRzr7AY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M0eUGrEY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q7ZHmSIx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADF441F000FF;
-	Thu,  8 Oct 2026 07:25:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M0eUGrEY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44B691F00898;
+	Thu,  8 Oct 2026 07:27:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791444326;
-	bh=aLHGBhvDV8qZHfsFbqepqUNO/3HZNejgQir9vBHeCG0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Q7ZHmSIxEFOoAXcgQz5DBH5VsanvHmmKRNfpcwCFoVrn6rpPU/Bf/WR/oIdQ2FwoT
-	 F66OuDSPmmLN4ZhJZ8zfnhd0b0r8bPF4KW8ZU+VJxT8FuFbbHjzp1OBfav6FArpWCi
-	 yssI65aEy7mooJQHzhkDVRYF9KOPdM/UM063jm7sV0VC7i5EixlJkifRsvr9CmtYY0
-	 FZuOkacVN39UKq7YEMmEPHxqY+QgIyhjVLK/oOYiwGr0LzJb4Ajct/h7h0qwuSDee/
-	 JtnyjPt9axmgDoPflJJCH9cXZ0ez5MXoSrqGsWv5LuGgmVw58z+zNRSots9KJSLoy4
-	 9ogywKa0sheDA==
-Date: Thu, 8 Oct 2026 08:25:22 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Pufan Jin <2254650260@qq.com>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Michal Simek <michal.simek@amd.com>, Rob Herring <robh@kernel.org>,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, andrew@lunn.ch
-Subject: Re: [PATCH v2 1/3] dt-bindings: vendor-prefixes: Add ALINX vendor
- prefix
-Message-ID: <20261008-ca435fedee2986fd4ae35087@squawk>
-References: <20261005173308.710986-1-2254650260@qq.com>
- <tencent_0512BDFB22810AB03126E3189320800AF607@qq.com>
- <20261007-92e855de534df44fbf665e4f@squawk>
- <tencent_67DE4800018C924922E62488AF02AF24E405@qq.com>
+	s=k20260515; t=1791444448;
+	bh=AYY88Me7TA7KUYgh6xyZP+abNAUdUmSOBT0v8TqVYjA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=M0eUGrEY9jtkDOSlvH5x3Sg6184FyzBbbGP+U41qLHJHpwcr9Z6lldUnsgbVu6DJm
+	 RWpbxsU0Zakbpy2MkqmzpeMLmtWDqy+OcwZkjOjU8lfNBjru3aPfIAxpYYejU4oki6
+	 5ghX/e5ShWMmZBAEhEEXxdGz1ZFHvDNgqJ9lacxshgCNyQiTcnTf8X6zweV6urQy88
+	 oe0t6ErSeFl70ayD468o1iZabuXg2JQQVb+VwxLIxUchG1tqnTZCX4it8J6sHxE4Od
+	 gfUvh4Sll1zx/Hvy0cS/UEEwl/7ex3M5clnTqoLjUo7AGHije5PtZt5jWbQYfvh3sO
+	 zk4NeO746BevQ==
+Message-ID: <sashiko-outbox-163752@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v19 09/12] media: qcom: camss: tpg: Add support for
+ v2.4.0 TPG
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Hangxiang Ma" <hangxiang.ma@oss.qualcomm.com>
+Cc: media-ci@linuxtv.org, vkoul@kernel.org, linux-phy@lists.infradead.org, neil.armstrong@linaro.org, robh@kernel.org, devicetree@vger.kernel.org, olteanv@gmail.com, conor+dt@kernel.org
+In-Reply-To: <20261008-kaanapali-camss-v19-9-b2c583ef50e0@oss.qualcomm.com>
+References: <20261008-kaanapali-camss-v19-0-b2c583ef50e0@oss.qualcomm.com>
+ <20261008-kaanapali-camss-v19-9-b2c583ef50e0@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 08 Oct 2026 07:27:27 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="7NoPOEN9tB3HHmhZ"
-Content-Disposition: inline
-In-Reply-To: <tencent_67DE4800018C924922E62488AF02AF24E405@qq.com>
 
---7NoPOEN9tB3HHmhZ
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] media: qcom: camss: data race in __csid_configure_rx reading TPG st=
+ate
+--
 
-On Thu, Oct 08, 2026 at 01:36:35AM +0800, Pufan Jin wrote:
->=20
-> On 2026/10/7 18:35, Conor Dooley wrote:
-> > On Tue, Oct 06, 2026 at 01:33:06AM +0800, Pufan Jin wrote:
-> > > Add vendor prefix for ALINX (Shanghai Xin'yi Electronics Technology
-> > > Co., Ltd.).
-> > Where does this ALINX come from? Website url?
-> >=20
-> > > Signed-off-by: Pufan Jin <2254650260@qq.com>
-> > > ---
-> > >   Documentation/devicetree/bindings/vendor-prefixes.yaml | 2 ++
-> > >   1 file changed, 2 insertions(+)
-> > >=20
-> > > diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b=
-/Documentation/devicetree/bindings/vendor-prefixes.yaml
-> > > index ba2002969..97e7ef340 100644
-> > > --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-> > > +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-> > > @@ -90,6 +90,8 @@ patternProperties:
-> > >       description: AlgolTek, Inc.
-> > >     "^alientek,.*":
-> > >       description: Guangzhou Xingyi Intelligent Technology Co., Ltd.
-> > > +  "^alinx,.*":
-> > > +    description: Shanghai Xin'yi Electronics Technology Co., Ltd. (A=
-LINX)
-> > >     "^allegro,.*":
-> > >       description: Allegro DVT
-> > >     "^allegromicro,.*":
-> > > --=20
-> > > 2.55.0
->=20
-> Hi Conor,
->=20
-> ALINX is the brand of Xinyi Electronic Technology (Shanghai) Co., Ltd.
-> (=E8=8A=AF=E9=A9=BF=E7=94=B5=E5=AD=90=E7=A7=91=E6=8A=80=EF=BC=88=E4=B8=8A=
-=E6=B5=B7=EF=BC=89=E6=9C=89=E9=99=90=E5=85=AC=E5=8F=B8), https://www.alinx.=
-com/ - an FPGA/SoC
-> company and official partner of AMD Xilinx, Unisoc and Baidu.
+commit 0224a6f288ad77d57684837805849143fea2532e
+Author: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
 
-In that case,
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
-Link: https://www.alinx.com/
+media: qcom: camss: tpg: Add support for v2.4.0 TPG
 
-Thanks,
-Conor.
+This commit adds support for the Test Pattern Generator (TPG) on Kaanapali
+using hardware version 2.4.0. It updates control logic for test-enable and
+reset, and routes the TPG output into the CSID 1080 RX.
 
->=20
-> The board is not in the alinx.com shop because ALINX describes EdgeBoard
-> as a customisation done for Baidu: Baidu owns the EdgeBoard brand and the
-> sales channel, while ALINX designs and manufactures the hardware. From
-> ALINX's own product documentation [1]:
->=20
-> "...as a Baidu AI partner, it has customized the Edgeboard series edge
-> =C2=A0devices of the domestic AI flying paddle system for Baidu."
->=20
-> The FZ3A hardware manual and the schematics are authored by ALINX - the
-> manual cover carries the ALINX logo, www.alinx.com and the legal name
-> above, and every schematic sheet has the same ALINX title block.
->=20
-> Since ALINX is the hardware designer, I used "alinx" as the prefix
-> instead of "baidu". Happy to switch if you prefer the marketing brand.
->=20
-> [1] https://vd100-20232-v101.readthedocs.io/zh-cn/en/VD100_S1_RSTdocument=
-_EN/00_aboutALINX_EN.html
->=20
-> For v3:
-> =C2=A0 - Fix the v2 description mistransliteration of the legal name:
-> =C2=A0 =C2=A0 =C2=A0 "^alinx,.*":
-> =C2=A0 =C2=A0 =C2=A0 =C2=A0 description: Xinyi Electronic Technology (Sha=
-nghai) Co., Ltd.
-> (ALINX)
-> =C2=A0 - Put the website URL in the commit message.
->=20
-> Thanks for the ack on patch 2/3, I will carry it into v3.
->=20
-> Best regards,
-> Pufan Jin
->=20
->=20
+> diff --git a/drivers/media/platform/qcom/camss/camss-csid-1080.c b/driver=
+s/media/platform/qcom/camss/camss-csid-1080.c
+> --- a/drivers/media/platform/qcom/camss/camss-csid-1080.c
+> +++ b/drivers/media/platform/qcom/camss/camss-csid-1080.c
 
---7NoPOEN9tB3HHmhZ
-Content-Type: application/pgp-signature; name=signature.asc
+[ ... ]
 
------BEGIN PGP SIGNATURE-----
+> @@ -148,8 +151,16 @@ static void __csid_configure_rx(struct csid_device *=
+csid,
+> =20
+>  	val =3D (lane_cnt - 1) << CSI2_RX_CFG0_NUM_ACTIVE_LANES;
+>  	val |=3D phy->lane_assign << CSI2_RX_CFG0_DL0_INPUT_SEL;
+> -	val |=3D (phy->csiphy_id + CSI2_RX_CFG0_PHY_SEL_BASE_IDX)
+> -	       << CSI2_RX_CFG0_PHY_NUM_SEL;
+> +
+> +	if (camss->tpg && csid->tpg_linked &&
+> +	    camss->tpg[phy->csiphy_id].testgen.mode !=3D TPG_PAYLOAD_MODE_DISAB=
+LED) {
 
-iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCasdFYgAKCRB4tDGHoIJi
-0lxeAQCLYZVyUowY42l+9LTBvHVoIUXZ+KnaWz+tHxxqNQxBOgEAoMvdJwCLWqgC
-QFh0byuhggVNSNWwcj0pVi5+LoWXfgI=
-=pEKw
------END PGP SIGNATURE-----
+[Severity: Low]
+Does reading camss->tpg[phy->csiphy_id].testgen.mode here introduce a data
+race with concurrent V4L2 control updates?
 
---7NoPOEN9tB3HHmhZ--
+The V4L2 control framework modifies testgen.mode in tpg_s_ctrl() while
+holding the TPG control handler lock:
+
+tpg_s_ctrl() -> tpg_configure_testgen_pattern()
+
+Since __csid_configure_rx() reads this foreign subdevice state locklessly,
+it bypasses the control framework's locking. Can this trigger a race condit=
+ion
+leading to a transient stream misconfiguration during concurrent VIDIOC_S_C=
+TRL
+calls?
+
+> +		val |=3D FIELD_PREP(CSI2_RX_CFG0_TPG_MUX_SEL, phy->csiphy_id + 1);
+> +		val |=3D CSI2_RX_CFG0_TPG_MUX_EN;
+> +	} else {
+> +		val |=3D (phy->csiphy_id + CSI2_RX_CFG0_PHY_SEL_BASE_IDX)
+> +			<< CSI2_RX_CFG0_PHY_NUM_SEL;
+> +	}
+> +
+>  	writel(val, csid->base + CSID_CSI2_RX_CFG0);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261008-kaanapali-=
+camss-v19-0-b2c583ef50e0@oss.qualcomm.com?part=3D9
