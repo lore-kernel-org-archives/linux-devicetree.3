@@ -1,178 +1,139 @@
-Received: from mail-oa1-f42.google.com (mail-oa1-f42.google.com [209.85.160.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4485C3A59A8
-	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 16:37:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791477472; cv=pass; b=a83TC6cRtP0EFe97jtmYng3jYGPo3h1SAWYYa8b8R4a4BvMPG6cRh99KMWPDNwG9g9NkvW/TgAjNyuLLxKQyxCnaDwav2Ghd1nQ/a994LApkIicnq6GFqCYnRDJY+kK7tJPseccNVtQ1xYxSOUupebZ7Qg+BNrtyg92WTdLXR2k=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791477472; c=relaxed/simple;
-	bh=En5U5u49w4UmshWqOnBCL/m93syLvZU8NeEuJpf26Oo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=gS65PnT0k+4hjsz2ZWZa38VYTJoDDmSQ74grhg8fWFRzlGG9UKdaQlwyoC0xWucJwWJvEbGatC/AeiWDbFKfYWOVCA1wqovHTp3izYOoB/ZKf3SvBbFflE5+NtRmtwyxQM2xrIm0SatUjPV8KOu+yP0OkJjfu6GNEtowMJ1OZMs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XtcgEUU7; arc=pass smtp.client-ip=209.85.160.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C6F035AC14;
+	Thu,  8 Oct 2026 16:46:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791478018; cv=none; b=FwJkPoqezd0jsInGiLbfEHnORj4/u3P5ReC/M7zPwgNbcakdJFSdxOoZIKDeFpLpAkU/aRJiWAQtHE6S1vSR5y73SFoq2qDqreIMhxIzTzPDVNuw4JaPRNPvcyeAJfzxUVH18wgCP46FA8Ac0MN5zGg6d8t0POvDn+Dl/Nk0KXE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791478018; c=relaxed/simple;
+	bh=y9exSn++eNilrTXWwsY6/at3Kjqr1BXo2+Q4Osb9AgA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=m79VVKJdbWZyQp5D4l/oQ0jKUaZlErzpR2X9U6GXEdbIuBHXBpDSkkz3Bt7VKPqNn37/fAkQMCDMSm8p6TXee2bhGnXJWzlWMgHA0WBL2XFgbzJzaEvtBHh6kcF3mf6Dwdu2MU8U/ehze67egkl+IOmkhhn6pVGiCT7RAyMM9gw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=bIuxar2P; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XtcgEUU7"
-Received: by mail-oa1-f42.google.com with SMTP id 586e51a60fabf-49429181ce9so1720424fac.0
-        for <devicetree@vger.kernel.org>; Thu, 08 Oct 2026 09:37:50 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791477469; cv=none;
-        d=google.com; s=arc-20260327;
-        b=g0hCOaxqCSXOx+r5M3r9QGCogmAHj0NPUqKrwhEIVNzt5eetlTTrmaATcA8ocJxB86
-         lKbeTiWiKGbRVg2aM0qX+veLkU1jJoOh1orzhZHNjP9zWYNxrP78+W0PSkf1/Sn/kENc
-         9P1GMviHlS87GaeA373Js3gUzGJEI0yhPXaMFkJrsDTe/kxmqvm4CbGc0D/sTMKuX2YJ
-         2yfoTAFcl51/h9wLffl+xMh2C1ZRCJUPDVRYNpKXt0GsOtwniD7Bc/x4CzRD71WfWZ47
-         9WAdmEbdQQ6ibVCLPk8QDpe3OhIBL00JkSw1hvo2t8SXmNAhBhrzSgdfRsD7umWBIQHo
-         qr6w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=DWfZrABJb9vZdtlqeyCN1MT17SR0Qr3TXZnegaH4SR0=;
-        fh=htxTa+iw1X9E7xsOrGcF+JbA6le/g0nVuI1FI67CZrQ=;
-        b=UNKwmmrZmQWc4IGWffzq3xr1TTUr13FjQxdA0MF0qjpCGLgvHGeyutZsfpL6xl5vzk
-         LUAOqv4YaB1oxdyFLYHRVaXZXTcywbhWEcaBSb3p2xibjc5VqLKZ68B0hadwbtMjW1HA
-         4o2cAv2Pf4IzedBpZ7/mclLe7XK7j+w2p48lN0l/dSNFzTLNwV0D8s+7UzcewNQy1Jb9
-         5IrBdB+8oilLIp7y4e7byGGbxCxHg+6wLealNNLTGwRMGD2fm41GEB4tVU1eBKI9z+G1
-         CFY9eYXZt3YYFGOI71J0e+3Iw8yE+M3ijImsS9s7MHdGp6IMknDbQEXpqxE31mqaE8gS
-         5yZQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791477469; x=1792082269; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=DWfZrABJb9vZdtlqeyCN1MT17SR0Qr3TXZnegaH4SR0=;
-        b=XtcgEUU76y9VIuuSH8DsNQaTGx0B9Roqxzx6aOAzW4VLt3/lDIuBm2p8L/fCLjjSr8
-         0vOPN3lqoqvucYhPs9EkOoIqFKZ5lIqArsP1e2ceIUDpGFoyzYDQi0IhPVMSiRDwmt/6
-         jYFdFp7B5G0KxOoO2OBLgXOAgY2fI5YcfHN43gIjR2YGO1xZ6/VXrag3wsmGWRjfHHIa
-         bQBJrw5RCuMNOMXVdH0/uty5/jLmhaF+2o/93eXDs3G4bqyt0RqrYQa8yQszrK44B0YD
-         vxuR7RR1mVJ1DniowFmT2mmDNjazTGpuQ1QQGMS+OL3yKgVl+6lau3b2Yh9uc9tXD/3C
-         tjiA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791477469; x=1792082269;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=DWfZrABJb9vZdtlqeyCN1MT17SR0Qr3TXZnegaH4SR0=;
-        b=2XejoyHB8TCbKSgjVYXGjbyF9nJQ5YnOo1xGenXDRJa5G0H8lPA7XABCRCv00hS4Mw
-         lKfBh/tEE34LySAshFVQYoYaLJQhnirb2Ho74+b75A3nfawKOCPDAaqjCNbyfOjG280i
-         mcxBZv4SsK6ZshskR5LvCN89pRqqpJ5hewwXGLXxovEwRcvtt5YDku/JQA88l/2X1yo1
-         w9dv1gNb2dNoCraG1To2G0m01JKMULcb+7MOwfqbUW9f9FJSNATzVwzDy+bU1Tpzxehs
-         GrhdKlCSml4ZSuUpp1KQXwevlnBO04awlOj+Ew2seW83566ikLvrGqZSop24w5qon8XD
-         UUyA==
-X-Forwarded-Encrypted: i=1; AKwUvBxHArEi0WzavdStgAKKFyhpQ7xLW+3590+8HWztv17O8S9Q8ZC+3WgI8DNpklcSjoE3pOIvmBZXddUF@vger.kernel.org
-X-Gm-Message-State: AFuF++l/73Uv8R+sGtnV0CDWei/gfqedhS8eMxJW/TWDu1eggpbWzj3s
-	r5SloFmlYt6E4AoBR/J3HrV8oI9ulA8/R79tt5b6FhnKRJIwH2O7lRsoCd+V0VcTTTKTSgmUEuQ
-	W0xMiwpHJOe0nDkBQG42ig5DbjWtMVMs=
-X-Gm-Gg: AYBFou2T9/g7+w0rHBD1PzVg4qqj4kMeERAS7smQY3GbV5AOdKl1BkISDRXc8ST8p21
-	1NXYONbYXqbL9YBVf8mdp45Iq106NFAtPJzS9aj4RzOP3lNcQandzsFIio+ui2IlN34jSr8qhHh
-	TvJRcXgS+tficOoNe52JR5zXic8ObErukS7j/Mj0wvS4OqYch2R2nIc5BEdMSbfxbsXV4H5lGLu
-	ZVGWLSNZZ8Mp/F6G6+GldBFAUbciIMhxNzPG69oI75dGPHc429N0efResfqBwjGBg2qwnp0z5sd
-	q8PddWyzPonkLj7LUzfjNTuzeEf+2m05tWbiD1GjMXtNRkgyFN5CwqcBFDwmrpfDAJP4hChXgKy
-	Q/ZGPqM46nw==
-X-Received: by 2002:a05:6808:50a0:b0:4e8:18ee:eb4d with SMTP id
- 5614622812f47-4fc45d5e66fmr6923456b6e.20.1791477469015; Thu, 08 Oct 2026
- 09:37:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="bIuxar2P"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791478017; x=1823014017;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=y9exSn++eNilrTXWwsY6/at3Kjqr1BXo2+Q4Osb9AgA=;
+  b=bIuxar2Pt9MqvQ+6b/+NpetNurC1Xw9UQ7XGnaSxCwtrFPEBKiF3rB9C
+   63pFqoCYNkPZGIFmoTDNlsIJEBm0BC+foKDxwCuX10ZYV9UVBViBLg87s
+   /1EkHc7ACaSDupaOjMYItQ1jUuQ06rD1FL+EAqyjoQc5+RQOse7Uo1ozc
+   xiu9pM3P+80XgeuEjVXozad+iqG4tCR8gpurbohpuYWsAbxGB+iUxoOO8
+   VHAp10wlcT2zMWFynj63oFxnxmYS3FjZdW4/O9QAgLz4DDFii3chUJ6Up
+   yP5bMI1D+7nAp2YBuz78EebuGv1BrBfiFY1rPgHYA2l5OPr2oA0DIYXEj
+   Q==;
+X-CSE-ConnectionGUID: +ie2uicEQ9WtggpnXbVB1A==
+X-CSE-MsgGUID: M3VCrLVSTwm4ZGj8hiMz1Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11928"; a="279753"
+X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
+   d="scan'208";a="279753"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 08 Oct 2026 09:46:57 -0700
+X-CSE-ConnectionGUID: GbDOzSzaSVmBlV8f31DQSg==
+X-CSE-MsgGUID: uW1pO5uBRBGKnV+PCecRLg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
+   d="scan'208";a="1912917"
+Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
+  by fmviesa012.fm.intel.com with ESMTP; 08 Oct 2026 09:46:54 -0700
+Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1xErGc-000000004f0-2yit;
+	Thu, 08 Oct 2026 16:46:50 +0000
+Date: Fri, 9 Oct 2026 00:46:35 +0800
+From: kernel test robot <lkp@intel.com>
+To: Ariana Lazar <ariana.lazar@microchip.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: oe-kbuild-all@lists.linux.dev, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	Ariana Lazar <ariana.lazar@microchip.com>
+Subject: Re: [PATCH v4 3/3] iio: adc: add support for PAC1711
+Message-ID: <202610090029.8WKWgYLF-lkp@intel.com>
+References: <20261007-pac1711-v4-3-6ef34d7a7947@microchip.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261008155727.3801095-1-mmyangfl@gmail.com> <20261008155727.3801095-3-mmyangfl@gmail.com>
- <sashiko-outbox-164366@kernel.org>
-In-Reply-To: <sashiko-outbox-164366@kernel.org>
-From: David Yang <mmyangfl@gmail.com>
-Date: Fri, 9 Oct 2026 00:37:11 +0800
-X-Gm-Features: AclHuK9fhidRIKiHbhhSf7GOuQfr19VhGOH1frhLvA-cSkV3GxZ1gjBKfdjhS1M
-Message-ID: <CAAXyoMM_VD+g4Q3QUWfB90mjyWK4VO0xwq+MU0nwP=oN4-muUQ@mail.gmail.com>
-Subject: Re: [PATCH 2/2] regulator: histb: add voltage regulator driver
-To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261007-pac1711-v4-3-6ef34d7a7947@microchip.com>
 
-On Fri, Oct 9, 2026 at 12:06=E2=80=AFAM <sashiko-bot@kernel.org> wrote:
->
-> Thank you for your contribution! Sashiko AI review found 1 potential issu=
-e(s) to consider:
-> - [High] regulator: histb: set_voltage may apply voltage exceeding max_uV=
- constraint
-> --
->
-> commit 800fca6de780a18cd0c58b4d9fc8681fea0944fb
-> Author: David Yang <mmyangfl@gmail.com>
->
-> regulator: histb: add voltage regulator driver
->
-> Add a driver for the voltage rails on HiSilicon STB SoCs which are
-> controlled by the PMOC block through a PWM signal, as described by the
-> hisilicon,histb-volt binding.
->
-> > diff --git a/drivers/regulator/histb-regulator.c b/drivers/regulator/hi=
-stb-regulator.c
-> > new file mode 100644
-> > index 0000000000000..77073a646e493
-> > --- /dev/null
-> > +++ b/drivers/regulator/histb-regulator.c
->
-> [ ... ]
->
-> > +static int histb_regulator_set_voltage(struct regulator_dev *rdev, int=
- min_uV,
-> > +                                    int max_uV, unsigned int *selector=
-)
-> > +{
-> > +     struct histb_regulator *priv =3D rdev_get_drvdata(rdev);
-> > +     unsigned int duty;
-> > +     u32 val;
-> > +
-> > +     if (min_uV >=3D priv->max_uV)
-> > +             duty =3D 0;
-> > +     else if (min_uV <=3D priv->min_uV)
-> > +             duty =3D HISTB_PWM_PERIOD;
-> > +     else
-> > +             /* rounding down keeps the output at or above the request=
- */
-> > +             duty =3D DIV_ROUND_DOWN_ULL((u64)(priv->max_uV - min_uV) =
-*
-> > +                                       HISTB_PWM_PERIOD,
-> > +                                       priv->max_uV - priv->min_uV);
-> > +
-> > +     val =3D FIELD_PREP(HISTB_DUTY, duty + 1) |
-> > +           FIELD_PREP(HISTB_PERIOD, HISTB_PWM_PERIOD + 1);
-> > +     writel_relaxed(val, priv->base);
-> > +
-> > +     return 0;
->
-> [Severity: High]
-> Could this rounding logic result in applying an output voltage that excee=
-ds
-> the max_uV limit?
->
-> Because a smaller duty cycle yields a higher physical voltage, rounding d=
-own
-> the duty cycle ensures the output voltage is at or above min_uV. However,
-> if the exact requested voltage range does not perfectly align with one of
-> the 240 PWM steps, the resulting physical voltage might exceed the strict
-> max_uV constraint requested by the consumer.
->
-> Should the driver verify if the achieved physical voltage violates max_uV
-> and return -EINVAL here instead of applying the setting and unconditional=
-ly
-> returning success?
+Hi Ariana,
 
-The counter spans 240 steps, so a request off the grid is at most one
-step (2.3 mV over a 550 mV range) high. Rejecting a 240-step miss
-would just break DVFS: single-cell opp-microvolt is a zero-width
-window.
+kernel test robot noticed the following build warnings:
 
-> > +}
->
-> --
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261008155727.38=
-01095-1-mmyangfl@gmail.com?part=3D2
+[auto build test WARNING on cee9395acd8043be0644b25c34bfa86623f2b935]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Ariana-Lazar/iio-core-add-IIO_CHARGE-channel-type/20261007-174153
+base:   cee9395acd8043be0644b25c34bfa86623f2b935
+patch link:    https://lore.kernel.org/r/20261007-pac1711-v4-3-6ef34d7a7947%40microchip.com
+patch subject: [PATCH v4 3/3] iio: adc: add support for PAC1711
+config: s390-allyesconfig (https://download.01.org/0day-ci/archive/20261009/202610090029.8WKWgYLF-lkp@intel.com/config)
+compiler: s390-linux-gcc (GCC) 16.1.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261009/202610090029.8WKWgYLF-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202610090029.8WKWgYLF-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+>> drivers/iio/adc/pac1711.c:134:51: warning: overflow in conversion from 'long unsigned int' to 'int' changes value from '18446744073667551616' to '-42000000' [-Woverflow]
+     134 |                 [PAC1711_FULL_RANGE_BIPOLAR]  = { -PAC1711_VBUS_FSR_UV, PAC1711_VBUS_FSR_UV },
+         |                                                   ^
+   drivers/iio/adc/pac1711.c:135:51: warning: overflow in conversion from 'long unsigned int' to 'int' changes value from '18446744073688551616' to '-21000000' [-Woverflow]
+     135 |                 [PAC1711_HALF_RANGE_BIPOLAR]  = { -PAC1711_VBUS_FSR_HALF_UV,
+         |                                                   ^
+   drivers/iio/adc/pac1711.c:140:51: warning: overflow in conversion from 'long unsigned int' to 'int' changes value from '18446744073700551616' to '-9000000' [-Woverflow]
+     140 |                 [PAC1711_FULL_RANGE_BIPOLAR]  = { -PAC1721_VBUS_FSR_UV, PAC1721_VBUS_FSR_UV },
+         |                                                   ^
+   drivers/iio/adc/pac1711.c:141:51: warning: overflow in conversion from 'long unsigned int' to 'int' changes value from '18446744073705051616' to '-4500000' [-Woverflow]
+     141 |                 [PAC1711_HALF_RANGE_BIPOLAR]  = { -PAC1721_VBUS_FSR_HALF_UV,
+         |                                                   ^
+   drivers/iio/adc/pac1711.c:148:42: warning: overflow in conversion from 'long unsigned int' to 'int' changes value from '18446744073709451616' to '-100000' [-Woverflow]
+     148 |         [PAC1711_FULL_RANGE_BIPOLAR] = { -PAC1711_VSENSE_FSR_UV, PAC1711_VSENSE_FSR_UV },
+         |                                          ^
+   drivers/iio/adc/pac1711.c:149:42: warning: overflow in conversion from 'long unsigned int' to 'int' changes value from '18446744073709501616' to '-50000' [-Woverflow]
+     149 |         [PAC1711_HALF_RANGE_BIPOLAR] = { -PAC1711_VSENSE_FSR_HALF_UV, PAC1711_VSENSE_FSR_HALF_UV },
+         |                                          ^
+
+
+vim +134 drivers/iio/adc/pac1711.c
+
+   130	
+   131	static const int pac1711_vbus_range_tbl[2][3][2] = {
+   132		[PAC1711_VOLTAGE_RANGE_IDX] = {
+   133			[PAC1711_FULL_RANGE_UNIPOLAR] = { 0, PAC1711_VBUS_FSR_UV },
+ > 134			[PAC1711_FULL_RANGE_BIPOLAR]  = { -PAC1711_VBUS_FSR_UV, PAC1711_VBUS_FSR_UV },
+   135			[PAC1711_HALF_RANGE_BIPOLAR]  = { -PAC1711_VBUS_FSR_HALF_UV,
+   136							  PAC1711_VBUS_FSR_HALF_UV },
+   137		},
+   138		[PAC1721_VOLTAGE_RANGE_IDX] = {
+   139			[PAC1711_FULL_RANGE_UNIPOLAR] = { 0, PAC1721_VBUS_FSR_UV },
+   140			[PAC1711_FULL_RANGE_BIPOLAR]  = { -PAC1721_VBUS_FSR_UV, PAC1721_VBUS_FSR_UV },
+   141			[PAC1711_HALF_RANGE_BIPOLAR]  = { -PAC1721_VBUS_FSR_HALF_UV,
+   142							  PAC1721_VBUS_FSR_HALF_UV },
+   143		},
+   144	};
+   145	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
