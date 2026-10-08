@@ -1,164 +1,132 @@
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com [209.85.208.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49C5F3BE172
-	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 11:11:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69EE538AC88
+	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 11:13:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791457908; cv=none; b=WL6+jsZ5qcc0uX5e1KXZG+1Ixhn4t/ZklEQcy4MlC5zlgmaRKOcEo5q//I7YDPUuWpEY5Ay6rXZbcltfzQ0tdbXv2UWIxKCfhfZwfYiKLkMtXm7367c4aCH5qkAz0nWpR2KZ1el4Z3Pj4uo1ubgduXjy98EQf0u1Ir2ZPOOSmRg=
+	t=1791458039; cv=none; b=iW89EQNbrKuTUMxYWaEEgM4xyiEJz/nvzMjzCXYKokpqfCYkVZOy322b7+XKrKLDM1PpRXiOpPKG0gDn37o9UaJiLzr88V4JJc1gEGJ76tgmQbABZD3UVKg1A4Ijpe7eE9eWiAdbheggnAMCikWFLDIS7F7WfNjaOAtfYM+/HA0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791457908; c=relaxed/simple;
-	bh=09yRFoZuygdD45EUDMQtl/Q4C8O2MyJRR3brstd97FU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tFBHXDgs3UXdYTWBGJDxTJV9VPVdg9DEV5AooWOHj/+qhN6yYkM7S5+OMoDU2EXm13RMKjMceg2Wslw2YzI+PWkQfWq9xaP3jmeM9GNLtkUzssoxZB52ef9uYYUjxC4EHz6p48OEBM6HYJeOBXaZwlnovQERsfsGhoxLY317Uhg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=CzwByk7D; arc=none smtp.client-ip=209.85.208.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1791458039; c=relaxed/simple;
+	bh=mudWdDviHLU+eK4Sd0tY4T+jU/8HplxyIPYAdfADSTg=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=SxtuYXtdLFLtOa/O5YyYDiXPSzgvPoaFVuANSZAu83e7eqNRI5wT3OcLpDl+AKWv5XOGNFzcR7ZdNA8dCWSPdl7X2mYr/Bekfm3roSDH4BYIpqSrLLIsQMAQ9jPC1/o6gJ510sqvaz1WjbqNrO26rEhHGDRq6KNE4Wm54pzQ4Jw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KotiRgvX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="CzwByk7D"
-Received: by mail-ed1-f45.google.com with SMTP id 4fb4d7f45d1cf-6aa97edc48cso2586132a12.3
-        for <devicetree@vger.kernel.org>; Thu, 08 Oct 2026 04:11:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791457905; x=1792062705; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7xXvsj66wQM38M1X8uFAHXI+21qnaIAFX1qmFu6hhD0=;
-        b=CzwByk7DDSa6l/Fe7qcB309ljXIGtSjAIH79TqFh3EDLGT0qpOmsKsWaB4J3Fsy3JJ
-         kGtZMJ+rvDVe6J4vXP+a/d/QqY5NE2vd4YxLLVv9na6fkzMQ1D7Rn4blk+M1YjH3+RWv
-         4Ln2/Io1kIc6pRzRRusJIBhHRkQ2vgQrbrX/3gPwdXtzTQoLGGgOuZ3faJ6u/HLQucGt
-         aYl0RMHN4QCNjMWxWPAmirq3ZOuCOXXgvzlmayj/fsBAjb5D1cGixDCX2WslmRZ/w7aZ
-         oxD/cPhq4+qmJdiP409IC4DXRJk7N00cNoR9UoglyIRkrqT390lzLm42ZDOlxGER4ktk
-         vhGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791457905; x=1792062705;
-        h=content-transfer-encoding:content-type:in-reply-to:content-language
-         :from:references:cc:to:subject:user-agent:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7xXvsj66wQM38M1X8uFAHXI+21qnaIAFX1qmFu6hhD0=;
-        b=XMzOe4a5MZAmxGfHrRWJl5kAJKYf+cMp8a8YJr38HvaqCIUxe8YOdx2QNo6nf5R/Pt
-         eNJJggcAzOnVJhSVJ9bGO1tIXGUgBMoIpDc4Cf/4wSOR5P+zURaHTiu0dj7mnbGli0qT
-         5VOwb+2WXiLzXTYJ4gH4Ra61gNVHcWbPDleYG1/0GmP+k9KEuL2oRlnOP6LVYqWGkAMD
-         n01zzi7vNWBVqkrlW6RowOAEjJcRI9HnChY5ADXzMkI/424IrQA7L/yY+lqV7zi1+OaP
-         QgIP0/OL0VPgTWyn8LfEGzhzWQONJny35o5H/X7rHRdE47iB7dBQXPUxipA0fC2nWU1d
-         BzsQ==
-X-Forwarded-Encrypted: i=1; AKwUvByBDmXanCDyWTyDlR4wSfp9SkUDa7vbFa3RQtgVlpbFB0JiFhcc/3FBnzp8rB466kcK7a08UL7wEfEh@vger.kernel.org
-X-Gm-Message-State: AFq9FYKqI0PERt9Z8NGZALfN//qzD+H/eNbB2kb6fxBzcHOOc+Bu5Oze
-	jODPUlO6cb5a5znCSa7HUbzFfTNuUo1XsWEGA30UaYYTPZMgvzro42l8vuFjtz6NJTlsU7b1Ery
-	UEGFQ
-X-Gm-Gg: AYBFou1a14eKdMODPbeA00ZbDkQ2YcKNgrSTukNxxClIXY0qJ4FVkfoztPt69FlKLh0
-	SnDpG08Sk9AdnzIwpnC9JX9unB35FXozICDsr5e2STYUHiLfw8UYTfgZY2U8Z2M8Um2GEhaeeOo
-	rE02+ogE9PAgb1r3/Gics66ruWKEC4B3P8jIleFKWIoi53taKJeWLQsARx/RzO0YKNu4qkLSvJ1
-	8SVYhbqsKF5GUk3HCQEO9+4jERZ7V/ngZ2yXGWE6Hh9G7AQWX4Lp98jzcea2AI1lvwKt+zGjQvf
-	dSXODFjyEXpc8fKR17taQupmCDJ5Pg7yLCmlOr9L+yUlQmfajuS4ABB9RnfIJl0N/RZ4Pqx82Qi
-	JeI+PnQBl/zT7xwBSpt5jQL/X/Pv9R3sUe0z14gCZwqOIP0Og2r/we5NiZpod+ssZfl8SWqFG/9
-	OrX453lnfW3wHZKNmOFwtGkF3+nOLEi3adq4yIIEaWia4vtMcZ3umluGJWhRJqCuuLhgJ08lkd8
-	mNalNQgduQP
-X-Received: by 2002:a05:6402:46cc:b0:6ac:bdb6:f245 with SMTP id 4fb4d7f45d1cf-6aff47b4913mr4165062a12.24.1791457905432;
-        Thu, 08 Oct 2026 04:11:45 -0700 (PDT)
-Received: from [192.168.0.167] ([109.77.203.235])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b00aa492d2sm1245502a12.32.2026.10.08.04.11.42
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 08 Oct 2026 04:11:44 -0700 (PDT)
-Message-ID: <5d4ac08f-b525-49ca-8715-b4c2fae1c11a@linaro.org>
-Date: Thu, 8 Oct 2026 12:11:41 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KotiRgvX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFF9E1F000FF;
+	Thu,  8 Oct 2026 11:13:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791458038;
+	bh=5KIiEoFxQadhBbaAqWEZHj9ax/oi0kHfINsWIRUWnYA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=KotiRgvXCi5IEBwy6tgKUAFOSDU3qEqSF6qfkKG+x6brIii2mbgRMAXV8AVQ4ohZV
+	 VX2a8s6uWmIlneShH+VTi9EHJdJ2wt0XPhur8/RVnN3xddPvlX/Z0Om48LOegzDx/f
+	 WOeJGfz8QID5ASSqaU8f+fboDJufS2HcO7TsR9VJdSbD/oxi8b+CKW3seVF2pX0Mgf
+	 2O7u6pg/YlQpRhdIcHE3sFsjhNm9ZJh9DToJvXhSQuytbKvDTRgHb5eF66oJB/9BHC
+	 kvVC3YX8HWvO+f6l5k967V401DjD3vdV6t8JEF2o5o8BUFqMgH38Q2j8nvd17mPFZ9
+	 G3AUbbEZovTGA==
+Message-ID: <sashiko-outbox-164079@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/5] ASoC: codec: pcm1681: Add optional SCK clock and
+ runtime PM support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Mohammad Rafi Shaik" <mohammad.rafi.shaik@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20261008-nord-asoc-driver-support-v2-v2-2-0b6f7e94060d@oss.qualcomm.com>
+References: <20261008-nord-asoc-driver-support-v2-v2-0-0b6f7e94060d@oss.qualcomm.com>
+ <20261008-nord-asoc-driver-support-v2-v2-2-0b6f7e94060d@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 08 Oct 2026 11:13:57 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 3/3] media: qcom: camss: Add support for X1P42100 CAMSS
-To: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>,
- Bryan O'Donoghue <bod@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261008-purwa_camss-v4-0-bcf11bf2c650@oss.qualcomm.com>
- <20261008-purwa_camss-v4-3-bcf11bf2c650@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-GB
-In-Reply-To: <20261008-purwa_camss-v4-3-bcf11bf2c650@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 08/10/2026 09:27, Wenmeng Liu wrote:
-> +static const struct camss_subdev_resources vfe_res_x1p42100[] = {
-> +	/* IFE0 */
-> +	{
-> +		.regulators = {},
-> +		.clock = { "camnoc_rt_axi", "cpas_ahb", "cpas_fast_ahb",
-> +			   "cpas_vfe0", "vfe0_fast_ahb", "vfe0" },
-> +		.clock_rate = { { 400000000 },
-> +				{ 0 },
-> +				{ 0 },
-> +				{ 0 },
-> +				{ 0 },
-> +				{ 345600000, 432000000, 594000000, 675000000,
-> +				  727000000 }, },
-> +		.reg = { "vfe0" },
-> +		.interrupt = { "vfe0" },
-> +		.vfe = {
-> +			.line_num = 4,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] ASoC: devres lifecycle ordering bug causing I2C access after clock=
+ is gated
+--
 
-.line_num = 3 until we merge PIX support please.
-> +			.pd_name = "ife0",
-> +			.hw_ops = &vfe_ops_680,
-> +			.formats_rdi = &vfe_formats_rdi_845,
-> +			.formats_pix = &vfe_formats_pix_845
-> +		},
-> +	},
-> +	/* IFE_LITE_0 */
-> +	{
-> +		.regulators = {},
-> +		.clock = { "camnoc_rt_axi", "cpas_ahb", "vfe_lite_ahb",
-> +			   "cpas_vfe_lite", "vfe_lite", "vfe_lite_csid" },
-> +		.clock_rate = { { 400000000 },
-> +				{ 0 },
-> +				{ 0 },
-> +				{ 0 },
-> +				{ 266666667, 400000000, 480000000 },
-> +				{ 266666667, 400000000, 480000000 }, },
-> +		.reg = { "vfe_lite0" },
-> +		.interrupt = { "vfe_lite0" },
-> +		.vfe = {
-> +			.is_lite = true,
-> +			.line_num = 4,
-> +			.hw_ops = &vfe_ops_680,
-> +			.formats_rdi = &vfe_formats_rdi_845,
-> +			.formats_pix = &vfe_formats_pix_845
-> +		},
-> +	},
-> +	/* IFE_LITE_1 */
-> +	{
-> +		.regulators = {},
-> +		.clock = { "camnoc_rt_axi", "cpas_ahb", "vfe_lite_ahb",
-> +			   "cpas_vfe_lite", "vfe_lite", "vfe_lite_csid" },
-> +		.clock_rate = { { 400000000 },
-> +				{ 0 },
-> +				{ 0 },
-> +				{ 0 },
-> +				{ 266666667, 400000000, 480000000 },
-> +				{ 266666667, 400000000, 480000000 }, },
-> +		.reg = { "vfe_lite1" },
-> +		.interrupt = { "vfe_lite1" },
-> +		.vfe = {
-> +			.is_lite = true,
-> +			.line_num = 4,
+commit c3c4668080e08de3f73de6e53cea7fdcb695945c
+Author: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
 
-VFE lite has four RDIs so this stays @ 4.
+ASoC: codec: pcm1681: Add optional SCK clock and runtime PM support
 
-> +			.hw_ops = &vfe_ops_680,
-> +			.formats_rdi = &vfe_formats_rdi_845,
-> +			.formats_pix = &vfe_formats_pix_845
-> +		},
-> +	},
-> +};
+The PCM1681 requires its SCK system clock to be running before register
+access. This commit adds support for an optional sck clock and uses
+runtime PM to manage it instead of keeping it enabled permanently.
 
----
-bod
+> diff --git a/sound/soc/codecs/pcm1681.c b/sound/soc/codecs/pcm1681.c
+> index 60fdbe5c4e054..a1ccf1edf4819 100644
+> --- a/sound/soc/codecs/pcm1681.c
+> +++ b/sound/soc/codecs/pcm1681.c
+[ ... ]
+> @@ -304,34 +335,128 @@ MODULE_DEVICE_TABLE(i2c, pcm1681_i2c_id);
+> =20
+>  static int pcm1681_i2c_probe(struct i2c_client *client)
+>  {
+[ ... ]
+> +	ret =3D devm_snd_soc_register_component(dev,
+> +					      &soc_component_dev_pcm1681,
+> +					      &pcm1681_dai, 1);
+> +	if (ret) {
+> +		dev_err(dev, "Failed to register component: %d\n", ret);
+> +		goto err_pm;
+> +	}
+> +
+> +	return 0;
+> +
+> +err_pm:
+> +	pm_runtime_dont_use_autosuspend(dev);
+> +	pm_runtime_disable(dev);
+> +	if (!pm_runtime_status_suspended(dev))
+> +		clk_disable_unprepare(priv->sck);
+> +	pm_runtime_set_suspended(dev);
+> +
+> +	return ret;
+>  }
+> =20
+> +static void pcm1681_i2c_remove(struct i2c_client *client)
+> +{
+> +	struct pcm1681_private *priv =3D i2c_get_clientdata(client);
+> +	struct device *dev =3D &client->dev;
+> +
+> +	pm_runtime_dont_use_autosuspend(dev);
+> +	pm_runtime_disable(dev);
+> +	/* Runtime PM may already have gated the clock */
+> +	if (!pm_runtime_status_suspended(dev))
+> +		clk_disable_unprepare(priv->sck);
+
+[Severity: High]
+Does this devres lifecycle ordering introduce a regression where I2C bus
+timeouts occur during teardown?
+
+Since the component is registered using devm_snd_soc_register_component() in
+pcm1681_i2c_probe(), it will be unregistered during the devres phase, which
+runs after pcm1681_i2c_remove() completes.
+
+By manually disabling runtime PM and gating the hardware SCK clock here, the
+clock is turned off while the ALSA component is still fully registered. The
+subsequent devres unregistration phase will invoke ASoC DAPM teardown
+sequences, which perform regmap writes to power down widgets and lower the
+bias level.
+
+Because regcache_cache_only() is not enabled here in pcm1681_i2c_remove(),
+wouldn't these regmap accesses attempt physical I2C transactions to the
+device with a gated SCK clock, resulting in I2C timeouts or hangs?
+
+Could this be fixed by using snd_soc_register_component() and unregistering
+it explicitly at the beginning of remove(), or by using
+devm_add_action_or_reset() to manage the PM and clock teardown after the
+component is unregistered?
+
+> +	pm_runtime_set_suspended(dev);
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261008-nord-asoc-=
+driver-support-v2-v2-0-0b6f7e94060d@oss.qualcomm.com?part=3D2
