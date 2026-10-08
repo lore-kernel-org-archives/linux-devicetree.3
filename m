@@ -1,89 +1,89 @@
 Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F097049552C
-	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 10:24:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2BBB495AEF
+	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 10:24:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791455073; cv=none; b=mVn8z5Ird7RKPvOQj37Z07x0ZX2t8AZRfUu+a3FL2QYQFSKaQTbEc9hjYFMpvJiBaP371L/LjzznyHB5rGWm0PkPSHiJkqVh/+oF4XEt5/RKb760sSbAUpmcp9aYCQc47Mt3HCOjydw+XofUHDJqU1aKtqPt+oszXJhSyvGQU+g=
+	t=1791455077; cv=none; b=LuBMM4l5zRrkgAzf+0ZxW+nR626BnYsJe5sxjh8fgqjOmQA8PTgYtdp/649M0rmM9mSN49eYi8GYXWe0b34R8/cbceryBeDdHkZ+g3CR0aFVy3/9F5Tp9q0m1Te65G3aqnAUGSQYQG7Idjj+qE4XsqJ7hiyFry0CYC/cWfYehpA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791455073; c=relaxed/simple;
-	bh=JOFX2Z8zRPVe/Qn1jsMwiuZo9ZCIJeIaopeipkRwKSw=;
+	s=arc-20240116; t=1791455077; c=relaxed/simple;
+	bh=rRMM//ZnpxJltK4zSN2FHrpMTsMARWNfq6pGEEkmt8A=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=JT/ICT8BPyHpiVjnaYfQqciCFEPKRFtBzIJA2iGKAkcpbh1JLAFfQXJ3o044RVNcDZ+/mhpdrLMxCXogfueMckyHwcOAe/FaKGN21HnugynIID3xjlYDxaPB9xL62lLIQDLYlrMnyQeLx1ApP29Xhs7gDXLafCsOTGv+sID3izE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=n9x/wqRi; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Eek6k8kw; arc=none smtp.client-ip=205.220.180.131
+	 In-Reply-To:To:Cc; b=p6VRjAMaEyKJf5Rf5at5PgfJQz92cK7Q0DbWBPsqRKvk2ii+dOLy9j/OZwUUdizO1mLUUJlCo2kWYXPvAbImqWNcRa9OqTJjtvnT6CMignX4wqZZpeNVxHQTIA6btd/CTlzCa3+KReMccXIaslNIo5Ple3AYLGdjPp7TDvChLXo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=f0Djo/nk; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QNIPzsIk; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="n9x/wqRi";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Eek6k8kw"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6987KSH32167355
-	for <devicetree@vger.kernel.org>; Thu, 8 Oct 2026 10:24:31 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="f0Djo/nk";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QNIPzsIk"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6987K97Y2560095
+	for <devicetree@vger.kernel.org>; Thu, 8 Oct 2026 10:24:35 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	Yb6jb8LtpaG9aoBoetLFIOgA/OlOCRhdtmyPDaQ8Ovs=; b=n9x/wqRiwM5tM9wC
-	qdlXG5lb9ksM+FH0A4Q4XqPnoRCVvwSD6mpTNGdLBDlDM0biGUi2QtRuKUQErwQu
-	kaTPBaquooTGN086ARTuXI4H7PmJQ6frdFt2D367KerL2KJ0MVjP/ZDQhS0QwK5k
-	zX4DMbWqbmuYGFgnFe4bEeF/+GuzpgWxx77vEPpE7bG80AYfjCVLKjvFeMpS5/oa
-	qJLjtn1M04CqsKk6GiTpbLifUZ5WxbAewx1HM1haCsYDLaWrjR18BM/DTganmGTo
-	8Te4D/V4rhL34KxlwnjHdekYrPVehhChRCHnJTxtRiuiFamJncP4dSGfq0Y1hzQR
-	i1Vb4Q==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5xe2tj2u-1
+	9H3Ce4+vKYoYWvdI5qu3qKu/KamdGmH7SUP3e35shDE=; b=f0Djo/nkhyfeWena
+	rN5ES7SAAvtM/VPbN84CbdMbXue6gNseTXuNM8fs7fFU2rFdHqy1guvJaI0amlE8
+	QwEvWpF/kDmkoXMjJOO20afiR7J/bs9RFeSX6e1sotIkIpSjLFktiIa+FIqYpaWH
+	ISrrIdNhsAWhZZykASnAd4pFu2oAHPFxYPKqvLRQw368Q16q1U+LCP2sDQGTJSIf
+	r0wEpNtEmYRFS0ZJRF641Wsenfu3Caigq/MsLvFFRk1Ro74gDpNUl9v+x1AH3E2O
+	2GeGsj9ChpI7JGjh6T8ZKwk96rq0HcUvs6gEDtOHdHDX7BYZPQ0sj95EAZjbWiFi
+	ACKbvQ==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5xe82crc-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 08 Oct 2026 10:24:30 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc1eb205d31so5616543a12.2
-        for <devicetree@vger.kernel.org>; Thu, 08 Oct 2026 03:24:30 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Thu, 08 Oct 2026 10:24:34 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2d6f80c76e6so60575035ad.3
+        for <devicetree@vger.kernel.org>; Thu, 08 Oct 2026 03:24:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791455070; x=1792059870; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1791455074; x=1792059874; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=Yb6jb8LtpaG9aoBoetLFIOgA/OlOCRhdtmyPDaQ8Ovs=;
-        b=Eek6k8kwgjyqYmPZyQ3y55ZLhpnKTordznhHYDfpHkrVM3HwM6dLU3151iCsWLWDKa
-         tTsTDdbIKV8dp2+5A5PkGBgsGN+OimfHoMkWmK4t7ijtDwAM5yD7K7JOvNHkeQTvf0dV
-         kqWr4GMEfe0CAfeR0pktXsh9JhZ5W16KWvQ6LM+obqHaHdhWliyicBlwDSEa36O26O+y
-         CmeOY5rYngwKR4HGo0A4f9KkrLw0dvvRYm4sMjoP7gGsUUrCHygrDO2xBP/zbqqD0srP
-         ht7STTVBtF3o0DyQy3bo+Xi/O93I3TLIQFYU6TXCynhDd+LATqbmJ2KTukv2Zh4CJLEd
-         iqGg==
+        bh=9H3Ce4+vKYoYWvdI5qu3qKu/KamdGmH7SUP3e35shDE=;
+        b=QNIPzsIkH5SMEsOviSlJdO0FVTamco96Mdhc2wAtF/Alc+b7c1dZvLYuU6yrk59cb4
+         yioHc9N2eAH79PF6NwcEnXrdBlKcg9yIJ7Kvbt49j8KqPmghy82UfjVwVx6ra7OCd2gw
+         92kD1+nkUBsUajsFPnIWT7aLamjv3GRLg6+Q1sU3bldCpJZlKf1aprk9pxBQbHLDddlz
+         muXcjMEp4epejPYvBwmUROfcQ9EJJxl0bjsaiykhNBtrBQVGvsIwvdOnd7HMM9LLbSB4
+         OhNEkDYYKbk4HVe3Y/dEO8EAlT2codrEelIwlTvRhDvZ8uh7rKNIGD0XnHMjK4yo/l8c
+         mwsQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791455070; x=1792059870;
+        d=1e100.net; s=20260707; t=1791455074; x=1792059874;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Yb6jb8LtpaG9aoBoetLFIOgA/OlOCRhdtmyPDaQ8Ovs=;
-        b=1SSkciEZxlB3eFF0fimBewz/84RM1jgWuHSR4b+3NTDnCoqr6PNAv1evm/mrbCf+ML
-         ttK2uxon11zNxBs/rYAOO09irVleTWeZTVeYKGsSvhHvjA1XRXdZU4GGoXHk8Qr2e/TW
-         y02JJe8bjy1XXnolwbiVhTZw40sn7K5QqX+6X3hj7sNEHLVPy76HqG579T2yo/wPqA5g
-         pOd9BSIrsXDoDp1v8I8b24I4TEtKphV3OF2jUCIzMLvXaUMrrW7JdBqnCl4OQg/bF0F2
-         uzcaF2ebVxDDpbdIr1O7I9iClfmQ8e/wdwK5EF4gyykNu5jzxXZ5hQ6iJhCEsnbMjH0O
-         R01A==
-X-Forwarded-Encrypted: i=1; AKwUvBydNZEJOsD7nv8vi2M2vYdwoSRKrflwAkZigFcukGeDFPuFwLMvY/9m1q2BLzY41CcOMYJv95GLckol@vger.kernel.org
-X-Gm-Message-State: AFq9FYLwoBdTxjuw6qRO0hActSdS+Gs7OKCwpLUIPaWvyuHq+ymprm7E
-	GqSmkx8Id95xQPqheBupJ3LTbzG1JPHxqNjqgrdhBxg9Dfu2ylRu3NBX9A3VnCMG854e30BMsjb
-	YNnErvGGFiDqJv3EdCz4nrUHhw7V9whejzvmNGJmjW2gnRpShJl8gGrNh76ib6k7Z
-X-Gm-Gg: AYBFou0Pq94xvpx40zdiJDdKPrxH6X+myJBdL9azXtKHFnd4vDX/e6i/tAGKKzgmhYU
-	6d/lZTeICpdmTFvm3mHsy9LfdCwyTB6d5K1lV49DWAyDFwlZMi43YfaW+XlR52BydhiEMEDBpMV
-	AfExSwj2t4d8xcL70W9WFev1gJo+nMkjZSsIDoLGQv6WsYvhjtk61UZRoPya/XC9Wl4IS/Gl45F
-	r3k339jdM61kPtKRhlxEnZDyqtvMJ/S6yop0w0mrXqFFWB6P82NrJ3/p88VMNMFUBwF5xkS5foc
-	kb8duJBu9wyplb2HsLY3G8WbGnvvXJ+6Km4lc04QA4AGByZOQ34eMVyncwLXEG2tF7KFwfysxoC
-	eg5QUzCiUIm2q6oiMd0syFiuKIPRFA1eYmpRYne/WY8hQVAq8KWl2gdnO9Ds9Afdf63LYS6/EO2
-	7K+hby5nCc7rLVOjk7Kg9Azw==
-X-Received: by 2002:a17:902:cf4c:b0:2dd:c100:943e with SMTP id d9443c01a7336-2e6005979d8mr43173475ad.60.1791455069793;
-        Thu, 08 Oct 2026 03:24:29 -0700 (PDT)
-X-Received: by 2002:a17:902:cf4c:b0:2dd:c100:943e with SMTP id d9443c01a7336-2e6005979d8mr43173285ad.60.1791455069288;
-        Thu, 08 Oct 2026 03:24:29 -0700 (PDT)
+        bh=9H3Ce4+vKYoYWvdI5qu3qKu/KamdGmH7SUP3e35shDE=;
+        b=itKMSyOiEyqhHG2vZHrvrIrh/5LZTRg0SkOqbikIuHtsLdVYX5Zsn9ALAqDbT2+nMw
+         80Lxj5DSZv2TIW+UzYl7C+UyrSwNuAoMrXTFt4HJILkib933CD2f4v5fTBAHhQIFct7L
+         YvHc5lnAzSIImyY3g9tMez2fnsWGQQq0BeiiDu8xBxGLw14MCJ1Mh+x/juKOP122Csqu
+         O3K7WmfiICUnnfevgWsslDirp0SbLQDSkwer06xyUut7NIsVUn+CpFQigPcYyIpjjmG8
+         jVSFKqcgShouk1aHJBEGuFt1oa1718CFgvGDMKJdO30jOqI4cK113jRZfAb9uAf5rCmA
+         Fx3Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwGT6D9uMQXRsRcI0fxTFgHwXOpeSbPQayrkaJJCXR+X/jk6P6HbuyETW19kQhEhiBkw3GH2HjWsFO+@vger.kernel.org
+X-Gm-Message-State: AFq9FYICIOVub9oeRhBeceNoRHIqiaOhKE+m+GoVgil3t6woLJ4SSLr9
+	0AdyqgTyK/pVI2/RCWUspn4N7gLr53tqc8y2h/JE9cu8swA5KxkffWoEo9oG3xV5gliAvwuSWpW
+	Nvo3pMVx6XzdxKlKhvz5U2FBcqCAOj4X3JhX1zNpf7MCaQHIdFb2c13W3EsKUOtqD
+X-Gm-Gg: AYBFou1QDNsHvUkZxjDB+cspip6zPxpaI44V5rlHmgHK7BZ78011Qf4X5bZCkfT05rH
+	hWcQx+QXUjahWyn/ZC3UToyzIpajJhgA50gC9C89bIZRKqfp4iHUil8A1TJeqY0cdmpWuaU/hLs
+	t/mIKNalwZScIdUe0c79h7nW9Oqj7eq5TfogjvNUV/dRxMKEoxyC4T39ExunSS4BdTMi1/ZaFEB
+	OlpDXKhreb2aRMFjIds6P1wDSpFflAChomV50NN1r9YPk7lAHGXLBIdoomfVtO4n9aTdXH6Zl5Q
+	wBrxZ8IKFRPnd/aaWNUf3nWq8B92pYV3mnEXWvjgPqfqZjqwN7NiejpHmraG2VJdk8uoCkD2tyF
+	M+KjYdOPP5M9XtGgVSL4R7/0sN4cI2JFRfUVSbVfuFhfiGYnEafQfZhGayef39HgjejC662bj1N
+	No3cb9ADw0vpXxRciGLXZaUA==
+X-Received: by 2002:a17:902:e74d:b0:2e6:13b1:e196 with SMTP id d9443c01a7336-2e613b1f621mr33978095ad.74.1791455073917;
+        Thu, 08 Oct 2026 03:24:33 -0700 (PDT)
+X-Received: by 2002:a17:902:e74d:b0:2e6:13b1:e196 with SMTP id d9443c01a7336-2e613b1f621mr33977965ad.74.1791455073445;
+        Thu, 08 Oct 2026 03:24:33 -0700 (PDT)
 Received: from hu-aarasahu-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e6046fe39csm22081655ad.16.2026.10.08.03.24.24
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e6046fe39csm22081655ad.16.2026.10.08.03.24.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 03:24:27 -0700 (PDT)
+        Thu, 08 Oct 2026 03:24:32 -0700 (PDT)
 From: Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>
-Date: Thu, 08 Oct 2026 15:54:01 +0530
-Subject: [PATCH ath-next 05/17] wifi: ath12k: add hardware registers for
- QCN6432
+Date: Thu, 08 Oct 2026 15:54:02 +0530
+Subject: [PATCH ath-next 06/17] wifi: ath12k: move multi MSI vector flag to
+ ath12k_dev_flags
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -92,7 +92,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261008-mpp_bringup-v1-5-2c5797b5e4ac@oss.qualcomm.com>
+Message-Id: <20261008-mpp_bringup-v1-6-2c5797b5e4ac@oss.qualcomm.com>
 References: <20261008-mpp_bringup-v1-0-2c5797b5e4ac@oss.qualcomm.com>
 In-Reply-To: <20261008-mpp_bringup-v1-0-2c5797b5e4ac@oss.qualcomm.com>
 To: Johannes Berg <johannes@sipsolutions.net>, Rob Herring <robh@kernel.org>,
@@ -100,183 +100,205 @@ To: Johannes Berg <johannes@sipsolutions.net>, Rob Herring <robh@kernel.org>,
         Conor Dooley <conor+dt@kernel.org>, Jeff Johnson <jjohnson@kernel.org>
 Cc: linux-wireless@vger.kernel.org, devicetree@vger.kernel.org,
         linux-kernel@vger.kernel.org, ath12k@lists.infradead.org,
-        Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>,
-        Sowmiya Sree Elavalagan <quic_ssreeela@quicinc.com>
+        Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Authority-Analysis: v=2.4 cv=AbMkjHXG c=1 sm=1 tr=0 ts=6ac76f5e cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDA0MSBTYWx0ZWRfX2qS4YfDAkfMD
+ KW0NFO09CYgQ+X+y+nG7w5CIrG3iPILzIXUVJCVdYKN8QIn9vqQNCsPcaetItG+9+O6vNND2eb1
+ F0pu4CqvZ3Rm2IBLJS6kqcZj0vQWggbm7000Z4147yagg/+hHV0QhIWfXxJrKDMu+E03O0vCgIc
+ GMWwz/C9u2FYVV9O6iXfo+qj4FVCu32nEOSW7UTtLaV3bKEx3L45itBa35EIP4OM0xtN479gziK
+ 8n+dyOZPfdE61Rc91BGEoxp7yw+SZ6o3HrorPON03NVbOLFMqSrKidWLDYd09anMTq9rnqUjNqJ
+ uxKiX0ZtQVdRUvGgoHSm8qRkBQ1UTdGxC8lbymu/fckzLuaUIA+hXihNzvtbCT5ZX0y66anrsB3
+ COttOFko7cU/xxg6FzOXBCKgYLqLx+FJtBatVtSDVNWumlnzhzMmSb1HyflUuBPh0IGVIJtVhA8
+ AdxNzZhfe2P1s9Orkug==
+X-Proofpoint-GUID: yIVflWq7gm2t80wngv9Yw5tMEikjrNH3
+X-Proofpoint-ORIG-GUID: yIVflWq7gm2t80wngv9Yw5tMEikjrNH3
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDA0MSBTYWx0ZWRfXwAjv0xVs7uLM
+ RI8aWM5ZdGxUAJB7h4E9K8eNu4CsZ4HPTcfYCZKVIKTkfhDpiZsqPH8PzkrhVm9Ap9mScLEBhD6
+ M1/ibErWj6iYfYWjXvVDb9bGkjlDB5k=
+X-Authority-Analysis: v=2.4 cv=MPT1C8Zl c=1 sm=1 tr=0 ts=6ac76f63 cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=COk6AnOGAAAA:8 a=EUspDBNiAAAA:8 a=4ETC605TzGOYwJmJ72kA:9 a=QEXdDO2ut3YA:10
- a=3WC7DwWrALyhR5TkjVHa:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-GUID: Chml3da7MnVBpZo3BuD0KE-0cZRrgOEC
-X-Proofpoint-ORIG-GUID: Chml3da7MnVBpZo3BuD0KE-0cZRrgOEC
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDA0MSBTYWx0ZWRfX9TlEgzzf01ap
- Bedn6OZRyO3FhFG8WoYmfK9KpohNIn2QA3J85/UBCPD9uZHVlftneeCvHseZWEz/8V3CLi0jQ2w
- g8EWvx1RyZpdNXL1jIV+y2g6IAayEUY=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDA0MSBTYWx0ZWRfX0/ibHV9uv0Tv
- UT1pfmkkZ0TafgKmatck/oEE6LkWhwfYW83X8PAsbYQo+R1N1xeGVWvOEODywaDRRpxewm/3H1i
- wo1tewYfq6J7/Fbm6eCO2slVqpDyi9iR6kCsJbQySigBSNQ2UXXP+uN69nsribr+xMVzeSmYC3n
- wTjATCl0L0/Pgul0sb53n2x1RwPvya6M+fT4CtoPxJcu4M2FOFgGH0qq1oWAbV3jwyDXYleht3F
- S4AstCGugzQYByTFZuecZ3gizfJYwyX/d7Ehp5pNKPGP2+gb7xXNjyziehk4j7fp4alqDty+JI2
- xFAiZt5KiU/MwhpgTNVxXy4v7E9AmTLO80kbS94/TWVnkHoHLSBT3GaK3LEkdVhmp99K3BRftYN
- IV4C5OvwIe744whOHVjkIBBRM/yvWCSRBUx2X+5/eqS54Gj1g7DZGS/8nwI7M1hIe8apQF85x/e
- ADGB3ePE/Mobn19jTQw==
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=jN1JcmgayTw_7mYEAw8A:9 a=QEXdDO2ut3YA:10
+ a=324X-CrmTo6CU4MGRt3R:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-08_03,2026-10-06_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 clxscore=1015 suspectscore=0 lowpriorityscore=0 spamscore=0
- impostorscore=0 malwarescore=0 adultscore=0 phishscore=0 priorityscore=1501
+ spamscore=0 bulkscore=0 adultscore=0 priorityscore=1501 suspectscore=0
+ malwarescore=0 phishscore=0 lowpriorityscore=0 clxscore=1015 impostorscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610080041
 
-From: Sowmiya Sree Elavalagan <quic_ssreeela@quicinc.com>
+QCN6432 uses MSI vectors, but although it is a PCIe device, it is
+attached to the WCSS Q6 processor and registered as an AHB platform
+device. As a result, it does not have a valid ab_pci context while
+still reusing PCI IRQ APIs.
 
-Add hardware registers and populate the hw_regs field in
-ath12k_wifi7_hw_ver_map for QCN6432.
-
-Also populate the HAL operations, HAL descriptor size, and HAL parameters
-using the same values as QCN9274.
+Move ATH12K_PCI_FLAG_MULTI_MSI_VECTORS from ath12k_pci_flags to
+ath12k_dev_flags so it can be used without relying on PCI-specific context.
+Rename it to ATH12K_FLAG_MULTI_MSI_VECTORS accordingly.
 
 Tested-on: QCN9274 hw2.0 PCI WLAN.WBE.1.6-01243-QCAHKSWPL_SILICONZ-1
 Tested-on: IPQ5332 hw1.0 AHB WLAN.WBE.1.6-01322-QCAHKSWPL_SILICONZ-1
 Tested-on: QCN6432 hw1.0 AHB WLAN.WBE.1.6-01322-QCAHKSWPL_SILICONZ-1
 
-Signed-off-by: Sowmiya Sree Elavalagan <quic_ssreeela@quicinc.com>
 Signed-off-by: Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>
 ---
- drivers/net/wireless/ath/ath12k/wifi7/hal.c        |  7 ++
- .../net/wireless/ath/ath12k/wifi7/hal_qcn9274.c    | 85 ++++++++++++++++++++++
- .../net/wireless/ath/ath12k/wifi7/hal_qcn9274.h    |  1 +
- 3 files changed, 93 insertions(+)
+ drivers/net/wireless/ath/ath12k/core.h |  1 +
+ drivers/net/wireless/ath/ath12k/mhi.c  |  4 ++--
+ drivers/net/wireless/ath/ath12k/pci.c  | 22 ++++++++++------------
+ drivers/net/wireless/ath/ath12k/pci.h  |  1 -
+ 4 files changed, 13 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/net/wireless/ath/ath12k/wifi7/hal.c b/drivers/net/wireless/ath/ath12k/wifi7/hal.c
-index a0a1902fb491..7c468159085f 100644
---- a/drivers/net/wireless/ath/ath12k/wifi7/hal.c
-+++ b/drivers/net/wireless/ath/ath12k/wifi7/hal.c
-@@ -57,6 +57,13 @@ static const struct ath12k_hw_version_map ath12k_wifi7_hw_ver_map[] = {
- 		.hal_params = &ath12k_hw_hal_params_ipq5332,
- 		.hw_regs = &ipq5424_regs,
- 	},
-+	[ATH12K_HW_QCN6432_HW10] = {
-+		.hal_ops = &hal_qcn9274_ops,
-+		.hal_desc_sz = sizeof(struct hal_rx_desc_qcn9274_compact),
-+		.tcl_to_wbm_rbm_map = ath12k_hal_tcl_to_wbm_rbm_map_qcn9274,
-+		.hal_params = &ath12k_hw_hal_params_ipq5332,
-+		.hw_regs = &qcn6432_regs,
-+	},
+diff --git a/drivers/net/wireless/ath/ath12k/core.h b/drivers/net/wireless/ath/ath12k/core.h
+index d87c59f68c12..eaea601ab32d 100644
+--- a/drivers/net/wireless/ath/ath12k/core.h
++++ b/drivers/net/wireless/ath/ath12k/core.h
+@@ -278,6 +278,7 @@ enum ath12k_dev_flags {
+ 	ATH12K_FLAG_QMI_FW_READY_COMPLETE,
+ 	ATH12K_FLAG_FTM_SEGMENTED,
+ 	ATH12K_FLAG_FIXED_MEM_REGION,
++	ATH12K_FLAG_MULTI_MSI_VECTORS,
  };
  
- int ath12k_wifi7_hal_init(struct ath12k_base *ab)
-diff --git a/drivers/net/wireless/ath/ath12k/wifi7/hal_qcn9274.c b/drivers/net/wireless/ath/ath12k/wifi7/hal_qcn9274.c
-index 052b59265af8..34f6be922479 100644
---- a/drivers/net/wireless/ath/ath12k/wifi7/hal_qcn9274.c
-+++ b/drivers/net/wireless/ath/ath12k/wifi7/hal_qcn9274.c
-@@ -572,6 +572,91 @@ const struct ath12k_hw_regs ipq5424_regs = {
- 		HAL_IPQ5424_CE_WFSS_REG_BASE,
- };
+ struct ath12k_tx_conf {
+diff --git a/drivers/net/wireless/ath/ath12k/mhi.c b/drivers/net/wireless/ath/ath12k/mhi.c
+index ee87f00bc5de..56e697fbdad5 100644
+--- a/drivers/net/wireless/ath/ath12k/mhi.c
++++ b/drivers/net/wireless/ath/ath12k/mhi.c
+@@ -86,7 +86,7 @@ static int ath12k_mhi_get_msi(struct ath12k_pci *ab_pci)
  
-+const struct ath12k_hw_regs qcn6432_regs = {
-+	/* SW2TCL(x) R0 ring configuration address */
-+	.tcl1_ring_id = 0x00000918,
-+	.tcl1_ring_misc = 0x00000920,
-+	.tcl1_ring_tp_addr_lsb = 0x0000092c,
-+	.tcl1_ring_tp_addr_msb = 0x00000930,
-+	.tcl1_ring_consumer_int_setup_ix0 = 0x00000940,
-+	.tcl1_ring_consumer_int_setup_ix1 = 0x00000944,
-+	.tcl1_ring_msi1_base_lsb = 0x00000958,
-+	.tcl1_ring_msi1_base_msb = 0x0000095c,
-+	.tcl1_ring_base_lsb = 0x00000910,
-+	.tcl1_ring_base_msb = 0x00000914,
-+	.tcl1_ring_msi1_data = 0x00000960,
-+	.tcl2_ring_base_lsb = 0x00000988,
-+	.tcl_ring_base_lsb = 0x00000b68,
-+
-+	/* TCL STATUS ring address */
-+	.tcl_status_ring_base_lsb = 0x00000d48,
-+
-+	/* REO DEST ring address */
-+	.reo2_ring_base = 0x00000578,
-+	.reo1_misc_ctrl_addr = 0x00000b9c,
-+	.reo1_sw_cookie_cfg0 = 0x0000006c,
-+	.reo1_sw_cookie_cfg1 = 0x00000070,
-+	.reo1_qdesc_lut_base0 = 0x00000074,
-+	.reo1_qdesc_lut_base1 = 0x00000078,
-+	.reo1_ring_base_lsb = 0x00000500,
-+	.reo1_ring_base_msb = 0x00000504,
-+	.reo1_ring_id = 0x00000508,
-+	.reo1_ring_misc = 0x00000510,
-+	.reo1_ring_hp_addr_lsb = 0x00000514,
-+	.reo1_ring_hp_addr_msb = 0x00000518,
-+	.reo1_ring_producer_int_setup = 0x00000524,
-+	.reo1_ring_msi1_base_lsb = 0x00000548,
-+	.reo1_ring_msi1_base_msb = 0x0000054c,
-+	.reo1_ring_msi1_data = 0x00000550,
-+	.reo1_aging_thres_ix0 = 0x00000b28,
-+	.reo1_aging_thres_ix1 = 0x00000b2c,
-+	.reo1_aging_thres_ix2 = 0x00000b30,
-+	.reo1_aging_thres_ix3 = 0x00000b34,
-+
-+	/* REO Exception ring address */
-+	.reo2_sw0_ring_base = 0x000008c0,
-+
-+	/* REO Reinject ring address */
-+	.sw2reo_ring_base = 0x00000320,
-+	.sw2reo1_ring_base = 0x00000398,
-+
-+	/* REO cmd ring address */
-+	.reo_cmd_ring_base = 0x000002a8,
-+
-+	/* REO status ring address */
-+	.reo_status_ring_base = 0x00000aa0,
-+
-+	/* WBM idle link ring address */
-+	.wbm_idle_ring_base_lsb = 0x00000d3c,
-+	.wbm_idle_ring_misc_addr = 0x00000d4c,
-+	.wbm_r0_idle_list_cntl_addr = 0x00000240,
-+	.wbm_r0_idle_list_size_addr = 0x00000244,
-+	.wbm_scattered_ring_base_lsb = 0x00000250,
-+	.wbm_scattered_ring_base_msb = 0x00000254,
-+	.wbm_scattered_desc_head_info_ix0 = 0x00000260,
-+	.wbm_scattered_desc_head_info_ix1 = 0x00000264,
-+	.wbm_scattered_desc_tail_info_ix0 = 0x00000270,
-+	.wbm_scattered_desc_tail_info_ix1 = 0x00000274,
-+	.wbm_scattered_desc_ptr_hp_addr = 0x0000027c,
-+
-+	/* SW2WBM release ring address */
-+	.wbm_sw_release_ring_base_lsb = 0x0000037c,
-+
-+	/* WBM2SW release ring address */
-+	.wbm0_release_ring_base_lsb = 0x00000e08,
-+	.wbm1_release_ring_base_lsb = 0x00000e80,
-+
-+	/* PCIe base address */
-+	.pcie_qserdes_sysclk_en_sel = 0x01e0c0a8,
-+	.pcie_pcs_osc_dtct_config_base = 0x01e0d45c,
-+
-+	/* CE base address */
-+	.umac_ce0_src_reg_base = 0x01b80000,
-+	.umac_ce0_dest_reg_base = 0x01b81000,
-+	.umac_ce1_src_reg_base = 0x01b82000,
-+	.umac_ce1_dest_reg_base = 0x01b83000,
-+};
-+
- static inline
- bool ath12k_hal_rx_desc_get_first_msdu_qcn9274(struct hal_rx_desc *desc)
+ 	msi_data = base_vector;
+ 	for (i = 0; i < num_vectors; i++) {
+-		if (test_bit(ATH12K_PCI_FLAG_MULTI_MSI_VECTORS, &ab_pci->flags))
++		if (test_bit(ATH12K_FLAG_MULTI_MSI_VECTORS, &ab->dev_flags))
+ 			irq[i] = ath12k_pci_get_msi_irq(ab->dev,
+ 							msi_data++);
+ 		else
+@@ -248,7 +248,7 @@ int ath12k_mhi_register(struct ath12k_pci *ab_pci)
+ 		goto free_controller;
+ 	}
+ 
+-	if (!test_bit(ATH12K_PCI_FLAG_MULTI_MSI_VECTORS, &ab_pci->flags))
++	if (!test_bit(ATH12K_FLAG_MULTI_MSI_VECTORS, &ab->dev_flags))
+ 		mhi_ctrl->irq_flags = IRQF_SHARED | IRQF_NOBALANCING;
+ 
+ 	mhi_ctrl->iova_start = 0;
+diff --git a/drivers/net/wireless/ath/ath12k/pci.c b/drivers/net/wireless/ath/ath12k/pci.c
+index 736e40492b41..e6fe891e58b1 100644
+--- a/drivers/net/wireless/ath/ath12k/pci.c
++++ b/drivers/net/wireless/ath/ath12k/pci.c
+@@ -341,13 +341,12 @@ static void ath12k_pci_free_irq(struct ath12k_base *ab)
+ 
+ static void ath12k_pci_ce_irq_enable(struct ath12k_base *ab, u16 ce_id)
  {
-diff --git a/drivers/net/wireless/ath/ath12k/wifi7/hal_qcn9274.h b/drivers/net/wireless/ath/ath12k/wifi7/hal_qcn9274.h
-index 03cf3792d523..5c593773109d 100644
---- a/drivers/net/wireless/ath/ath12k/wifi7/hal_qcn9274.h
-+++ b/drivers/net/wireless/ath/ath12k/wifi7/hal_qcn9274.h
-@@ -18,6 +18,7 @@ extern const struct ath12k_hw_regs qcn9274_v1_regs;
- extern const struct ath12k_hw_regs qcn9274_v2_regs;
- extern const struct ath12k_hw_regs ipq5332_regs;
- extern const struct ath12k_hw_regs ipq5424_regs;
-+extern const struct ath12k_hw_regs qcn6432_regs;
- extern const struct ath12k_hal_tcl_to_wbm_rbm_map
- ath12k_hal_tcl_to_wbm_rbm_map_qcn9274[DP_TCL_NUM_RING_MAX];
- extern const struct ath12k_hw_hal_params ath12k_hw_hal_params_qcn9274;
+-	struct ath12k_pci *ab_pci = ath12k_pci_priv(ab);
+ 	u32 irq_idx;
+ 
+ 	/* In case of one MSI vector, we handle irq enable/disable in a
+ 	 * uniform way since we only have one irq
+ 	 */
+-	if (!test_bit(ATH12K_PCI_FLAG_MULTI_MSI_VECTORS, &ab_pci->flags))
++	if (!test_bit(ATH12K_FLAG_MULTI_MSI_VECTORS, &ab->dev_flags))
+ 		return;
+ 
+ 	irq_idx = ATH12K_MSI_IRQ_CE0_OFFSET + ce_id;
+@@ -356,13 +355,12 @@ static void ath12k_pci_ce_irq_enable(struct ath12k_base *ab, u16 ce_id)
+ 
+ static void ath12k_pci_ce_irq_disable(struct ath12k_base *ab, u16 ce_id)
+ {
+-	struct ath12k_pci *ab_pci = ath12k_pci_priv(ab);
+ 	u32 irq_idx;
+ 
+ 	/* In case of one MSI vector, we handle irq enable/disable in a
+ 	 * uniform way since we only have one irq
+ 	 */
+-	if (!test_bit(ATH12K_PCI_FLAG_MULTI_MSI_VECTORS, &ab_pci->flags))
++	if (!test_bit(ATH12K_FLAG_MULTI_MSI_VECTORS, &ab->dev_flags))
+ 		return;
+ 
+ 	irq_idx = ATH12K_MSI_IRQ_CE0_OFFSET + ce_id;
+@@ -427,13 +425,13 @@ static irqreturn_t ath12k_pci_ce_interrupt_handler(int irq, void *arg)
+ 
+ static void ath12k_pci_ext_grp_disable(struct ath12k_ext_irq_grp *irq_grp)
+ {
+-	struct ath12k_pci *ab_pci = ath12k_pci_priv(irq_grp->ab);
++	struct ath12k_base *ab = irq_grp->ab;
+ 	int i;
+ 
+ 	/* In case of one MSI vector, we handle irq enable/disable
+ 	 * in a uniform way since we only have one irq
+ 	 */
+-	if (!test_bit(ATH12K_PCI_FLAG_MULTI_MSI_VECTORS, &ab_pci->flags))
++	if (!test_bit(ATH12K_FLAG_MULTI_MSI_VECTORS, &ab->dev_flags))
+ 		return;
+ 
+ 	for (i = 0; i < irq_grp->num_irq; i++)
+@@ -462,13 +460,13 @@ static void __ath12k_pci_ext_irq_disable(struct ath12k_base *ab)
+ 
+ static void ath12k_pci_ext_grp_enable(struct ath12k_ext_irq_grp *irq_grp)
+ {
+-	struct ath12k_pci *ab_pci = ath12k_pci_priv(irq_grp->ab);
++	struct ath12k_base *ab = irq_grp->ab;
+ 	int i;
+ 
+ 	/* In case of one MSI vector, we handle irq enable/disable in a
+ 	 * uniform way since we only have one irq
+ 	 */
+-	if (!test_bit(ATH12K_PCI_FLAG_MULTI_MSI_VECTORS, &ab_pci->flags))
++	if (!test_bit(ATH12K_FLAG_MULTI_MSI_VECTORS, &ab->dev_flags))
+ 		return;
+ 
+ 	for (i = 0; i < irq_grp->num_irq; i++)
+@@ -626,7 +624,7 @@ static int ath12k_pci_ext_irq_config(struct ath12k_base *ab)
+ static int ath12k_pci_set_irq_affinity_hint(struct ath12k_pci *ab_pci,
+ 					    const struct cpumask *m)
+ {
+-	if (test_bit(ATH12K_PCI_FLAG_MULTI_MSI_VECTORS, &ab_pci->flags))
++	if (test_bit(ATH12K_FLAG_MULTI_MSI_VECTORS, &ab_pci->ab->dev_flags))
+ 		return 0;
+ 
+ 	return irq_set_affinity_and_hint(ab_pci->pdev->irq, m);
+@@ -762,7 +760,7 @@ static int ath12k_pci_msi_alloc(struct ath12k_pci *ab_pci)
+ 					    PCI_IRQ_MSI);
+ 
+ 	if (num_vectors == msi_config->total_vectors) {
+-		set_bit(ATH12K_PCI_FLAG_MULTI_MSI_VECTORS, &ab_pci->flags);
++		set_bit(ATH12K_FLAG_MULTI_MSI_VECTORS, &ab->dev_flags);
+ 		ab_pci->irq_flags = IRQF_SHARED;
+ 	} else {
+ 		num_vectors = pci_alloc_irq_vectors(ab_pci->pdev,
+@@ -773,7 +771,7 @@ static int ath12k_pci_msi_alloc(struct ath12k_pci *ab_pci)
+ 			ret = -EINVAL;
+ 			goto reset_msi_config;
+ 		}
+-		clear_bit(ATH12K_PCI_FLAG_MULTI_MSI_VECTORS, &ab_pci->flags);
++		clear_bit(ATH12K_FLAG_MULTI_MSI_VECTORS, &ab->dev_flags);
+ 		ab->msi.config = &msi_config_one_msi;
+ 		ab_pci->irq_flags = IRQF_SHARED | IRQF_NOBALANCING;
+ 		ath12k_dbg(ab, ATH12K_DBG_PCI, "request MSI one vector\n");
+@@ -1152,7 +1150,7 @@ int ath12k_pci_start(struct ath12k_base *ab)
+ 
+ 	set_bit(ATH12K_PCI_FLAG_INIT_DONE, &ab_pci->flags);
+ 
+-	if (test_bit(ATH12K_PCI_FLAG_MULTI_MSI_VECTORS, &ab_pci->flags))
++	if (test_bit(ATH12K_FLAG_MULTI_MSI_VECTORS, &ab->dev_flags))
+ 		ath12k_pci_aspm_restore(ab_pci);
+ 	else
+ 		ath12k_info(ab, "leaving PCI ASPM disabled to avoid MHI M2 problems\n");
+diff --git a/drivers/net/wireless/ath/ath12k/pci.h b/drivers/net/wireless/ath/ath12k/pci.h
+index 47c8760536e4..3097afb03432 100644
+--- a/drivers/net/wireless/ath/ath12k/pci.h
++++ b/drivers/net/wireless/ath/ath12k/pci.h
+@@ -100,7 +100,6 @@ enum ath12k_pci_flags {
+ 	ATH12K_PCI_FLAG_INIT_DONE,
+ 	ATH12K_PCI_FLAG_IS_MSI_64,
+ 	ATH12K_PCI_ASPM_RESTORE,
+-	ATH12K_PCI_FLAG_MULTI_MSI_VECTORS,
+ };
+ 
+ struct ath12k_pci_ops {
 
 -- 
 2.34.1
