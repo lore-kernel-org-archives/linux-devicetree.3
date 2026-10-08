@@ -1,312 +1,167 @@
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50EFC447807
-	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 08:15:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.178
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791447322; cv=pass; b=WC/df7Vg0l1YPJffmM2tgMdt01UIO/ev/6tvLc31w4WXd3uWTVaGQaZ4xiKVUkgxkA3Sq9PN9rMH2lCd6Qq+8/tai5d+ElbqqOhxJxQdujLRXhnELdnfkQnqxGQSCkFzKZ5u5BkAbBgaEUGYke7AP7uVsOzi4XAt6PT/N5fUNBI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791447322; c=relaxed/simple;
-	bh=5cnw4MgwQFZdLGMn6q6mk8Zr2/rF6j4AwXXpyNou4n4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BzsrTX89V0tNyoazH0Wz/KrnWlpvtFRyAMTepa49SpyRGIy+i5GNyEVv6BDXszrRwVJfAg5A0PS1AUhyXKm77NSidcQwuGNmHZiZB8CqsKjlgiYDNcM0qgE0K5obDalCiY595raPiTUNpjliB17Wb6q7bN4HV/dIQGGbxipe/7I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=baogCcxx; arc=pass smtp.client-ip=74.125.82.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA3BA3BD225;
+	Thu,  8 Oct 2026 08:18:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791447516; cv=none; b=toMqPcCkBz150tekP2eOFCMAkUl3uNAFEakwlF+wgpgC2Za5IO5bIo2b01PJrPrAcZf7f+dogQU1DN8NAmsZzQGPy8c0c5fo1iR6BZ8teItFRUaXuU0QGyflLItKdHUC5mJ0l6mKCgDMGLQgBpX7XHL7hWYldQc3qoHaK1Odhro=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791447516; c=relaxed/simple;
+	bh=4TvBOCc9PvLboK/gz7ukwvoZMNEZzYpVEb5lLaHqwbI=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Nr8nh4T8SL5mr03fJOj/aaExG77R5CGUl3lMX/719blf0KY0+L05ToQfDz0U8cbEWKMq442YoAFd0pEQBaQ5u5HI9ww5PzTAsACUsIlZJtOuymzcu/JvAnCCrlolyo9lhlHmkWfboqxGR7GVnW5uY5uXgQRJTWOqoCt9RHN2O4Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RWZOFv3C; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="baogCcxx"
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-34ca2d54925so7641506eec.0
-        for <devicetree@vger.kernel.org>; Thu, 08 Oct 2026 01:15:16 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791447315; cv=none;
-        d=google.com; s=arc-20260327;
-        b=rpDGtWMM/BMgghle9+Z/t/Ke+2kGAX4/0WJGBxLSQNNy4cTgjjHw6agRH0Yo7oPJjR
-         2baNswd9thkiSXOdJ5etjuy+Yd0ZWPhGHFd78eiQnik6s8Z61ZcPhqpgt7r9+TGBUwpQ
-         RMH9DZRuQjvcllArph2p1QCCo4LHQx0OkWkkO0z2yf/8Ha5RPPz/PT2Ln8g7ge6G1P+R
-         zI5nHyLZ4akYiAbwxoAp7n/bVGEVPQDb/AsiEaUkvt4gtm8OP1vxFZINF70zJIqKOWBG
-         W7KlTb8mgOSTBC80cmTrZQdfsz0P+H+e9qo5IowWPgfXat+5kGwIS6IbsslJoaOyPEQq
-         XykA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=pL3azhN+e8+Ll8Q2wR7Y9QWc8pVlu6BuKJTaisy1mTE=;
-        fh=hoPJRsMOZbyh2MSqdbsBn1qJBs28R0xRV0pn7H1aG/4=;
-        b=rWt3n6FOkj2EVOk/ZsiI93ladD3fk+PBxK1+XKsWco4A6lIu9fOtHyLxw+XQKE4Mdp
-         tblo0hv1rWkYteO0ER8cEyPoxqbl/4CzrIBVRhgpQaqFK4lGvt0oKb4j/960U+S3eXiR
-         fuiCE799c8RB0s9b+shhuJg1x9H+iixcrWvh+HH/qMPhJa8J+RjldUIkEDNVRzP5RJTn
-         79efaFptjnrnFTZalitFD8db+Bkb5sSzbljDTlLoRTcEbJEK7gzxVaUXi++0euVXyUsU
-         8k36zM7nLUEUBdIr7DNoKSq0lZp0y0N1aqmNfpm9qaY7VgOqDcMAZJGdx/vudJnIPsVb
-         951A==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791447315; x=1792052115; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pL3azhN+e8+Ll8Q2wR7Y9QWc8pVlu6BuKJTaisy1mTE=;
-        b=baogCcxxNvfktxl+YBzBdr+5XsgiYnzFN5vfPudgGddX1mCcyo+wcNh+RrQneDWzSt
-         m/vHHwoErfmnctYYQ7M23D96l7Bhj5mKrEuFv5A7mr1fsUJZc+AorNF+WGEgUODXkylr
-         8nx4E7MflZ3JwS9SKo1t3INQkUBPsIJW+3l31TuZE9ig6zlgQF3lGhTESnuVqRs37bUc
-         ACvYLkmgmwV0JrpNb2MGZ+YI43HTJP0kEtYsqTMLYPpH3IIePkYTXUkMCka1CliPxxAI
-         6KCJMgtvIx8WNdru+6PNbgdGweUfwHkELkcvJb65LruFS78QRMExgrrRIQEjl8VZrVEq
-         4HAA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791447315; x=1792052115;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pL3azhN+e8+Ll8Q2wR7Y9QWc8pVlu6BuKJTaisy1mTE=;
-        b=SUwAGcMmcN08MohPMm7j9bNMofg3Qnh13fBXraNGqy/xcB6H31Ldh6FTkOYXpfzQL4
-         aWXPQMxVMfYYg6VKBvY+wDHxgYiDAG4fBzu2JltZgfxzLWHD8AVZ9dXrEq1f+YO4BjVR
-         xQJdvXvuWLR85Nqjhe1kDo2ZEM+uEulj3cAtESiXY1/IXiUlMKAUGcFd7J8JgdtFSMbX
-         udAdUOuFTbL/E+8QcI7wOhUVUEN2zii0cPA7z4m6sG0ALlSSwPnX2IzodjQ1+XsouCC9
-         gNQlcweHO8tpfllCaGOjbkYvGuUtfmsnxp7wpZYAs1gmBGpzzamBSe0iC2K5WiapSGO+
-         grAw==
-X-Forwarded-Encrypted: i=1; AKwUvBxDRkGv+6UO0pCZvAyyJNCtJQn91qo7hPBUhT0MKkg1h9SLyGEosyhDF9DOc/aO3HJit/YHlRiROg5N@vger.kernel.org
-X-Gm-Message-State: AFq9FYKkZ640f07XC7C4tbHH7IBvBtiXRuIRw1+06q1zE2xDioyLYHZy
-	u05W554jaJ/lAmzi4km13E6P0a1r1i+G0nEPr58Q9J4H40Az3vED3bmD5j0b2awMyeINBCQov8D
-	l/nVtdUXe9qn2M7eVL6O6iJFulPo07+o=
-X-Gm-Gg: AYBFou2S/XJk0Lw3f/R7b7NyXoplR/K++SOGG4rhoHfAn59wmVhLw5Og+cmZFM/Qr8A
-	Ny55f7+dLg865bL8YqnyWkbn8xqweJ0y68yskjgi6bUO4ecl0mtJB+ZQraNdAhjUcCTG64fOFY0
-	0/DZQ4duDJZU6i9Pqss10Wl6L82KniOBwi647LNbSBI91YDuJZt2gJz0hD3jvhSPdiSvi1Lanl9
-	NcGDeMks1och79kV2YJDUolunMfKYtK2SBxFQ9rPVhBKV6P3Vl4VEV5AwCSA5BDAq9c08QowQf2
-	CUg1dHlOZph/MCjwtCNP9i5X0GkviwiCNtuwBhhNavOt1BgR+/mmE/Q9geYMTNVRtv7rZPgpwOV
-	XtU6x95WM/5OUf3pUENlcF/Ob
-X-Received: by 2002:a05:693c:20cb:20b0:351:62ef:7cfe with SMTP id
- 5a478bee46e88-35162ef8211mr4800802eec.11.1791447314716; Thu, 08 Oct 2026
- 01:15:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RWZOFv3C"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B1041F000FF;
+	Thu,  8 Oct 2026 08:18:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791447515;
+	bh=u0B6bXMn/46hV1IF9kkgPWYk3PJmCZ6sZG2kxLipFKc=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=RWZOFv3C68aCEZ7kzw+oBv5b+7x4SyNrt0y9YsYhKICCHnpT00EOtjXXK7UQngjuE
+	 Czc/5BL5Jx32rnGwkd4ZV2osmA2wZIbbNEnENAnWBDEgj+oYTEW6EEXUpmi4V3LwkC
+	 /aUJrFNYYx4P8DVC8KJhsHDsAhZ69KYaouHX/5vVBl0nuFIVidJPoWzeIQZzkEO2bK
+	 57uijpjQPu+rrTiodNfbwnUI7KVob/+MC5XKZzTkUQQl+bGLomAPDgZ59839rt/B39
+	 +d5xwNnvnRDLSvXKPLtgKvJXWk4ZdV4X3IKEwI+WQHCcjKafmHwnuiT/v71D3wWNYY
+	 pvfRslJXaGohw==
+Subject: Re: [PATCH net-next v2 1/2] dt-bindings: net: realtek,rtl82xx:
+ document RTL8224 packages
+From: netdev-bot+sashiko@kernel.org
+To: oskari@lemmela.net
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
+ kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, hkallweit1@gmail.com, daniel@makrotopia.org,
+ javen_xu@realsil.com.cn, vladimir.oltean@nxp.com, olek2@wp.pl,
+ o.rempel@pengutronix.de, ih@simonwunderlich.de, amadeus@jmu.edu.cn,
+ jan@3e8.eu, f.fainelli@gmail.com, linux@armlinux.org.uk, andrew@lunn.ch,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, mensi@mensi.ch
+Date: Thu, 08 Oct 2026 08:18:33 +0000
+Message-ID: <179144751377.434549.17815693541329607238@kernel.org>
+In-Reply-To: <20261005201540.913977-2-oskari@lemmela.net>
+References: <20261005201540.913977-2-oskari@lemmela.net>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261007085457.98762-1-clamor95@gmail.com> <20261007085457.98762-4-clamor95@gmail.com>
- <e69041a4-c03e-46ae-b83a-3d8363070e80@gmail.com>
-In-Reply-To: <e69041a4-c03e-46ae-b83a-3d8363070e80@gmail.com>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Thu, 8 Oct 2026 11:15:02 +0300
-X-Gm-Features: AclHuK8oO-wrh3Vky1FNjCoz08eeII-MlKBmUclvEYuGK-wSYsHn_Xcl26MdxN8
-Message-ID: <CAPVz0n2t5tcQB+YhNCFoQCStizEjTdyx7pDzLHtYkoz=B2MPwg@mail.gmail.com>
-Subject: Re: [PATCH v1 3/3] leds: aat1290: Add support for AAT1270 Current
- Regulator for Flash LEDs
-To: Jacek Anaszewski <jacek.anaszewski@gmail.com>
-Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-leds@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-=D1=81=D1=80, 7 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 22:04=
- Jacek Anaszewski <jacek.anaszewski@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> Hi Svyatoslav,
->
-> On 10/7/26 10:54 AM, Svyatoslav Ryhel wrote:
-> > The AAT1270 is quite similar to the AAT1290, but it does not support th=
-e
-> > Advanced Simple Serial Control (AS2C) used in the AAT1290. The AAT1270
-> > uses an earlier version of AS2C, namely Simple Serial Control, which la=
-cks
-> > address-sending capabilities.
->
-> It seems that it is not possible to set brightness level and flash
-> timeout. Those values are controlled by the values of RSET and CT
-> elements attached to the controller.
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-This is not entirely true. S2C allows setting brightness level
-perfectly fine, I have tested it on my LG Optimus 2X P990 (star) that
-has this LED flash driver. Flash timeout is fixed, that is true, but
-both AAT1270 and AAT1290 feature mandatory flash inhibit logic which
-is not implemented by this driver and can be used to set emergency
-flash disable.
+Low priority / nit picks for your consideration:
 
-> Those values should be conveyed
-> via Device Tree, and the LED device API should reflect that accordingly.
->
+- [Low] Not a bug in the final series state; dismissed after
+  verification.
+- [Low] In Documentation/devicetree/bindings/net/realtek,rtl82xx.yaml,
+  the new RTL8224 example gives each PHY node only compatible =…
 
-They are calculated same way as AAT1290 does and set in the device
-tree. Being fixed does not mean they should be removed. Device tree
-describes hardware and those values are part of hw description.
+--
 
-> The question is whether it is worth a hassle to add support for this
-> older chipset version. Could you let as know on which device it is
-> present.
->
+dt-bindings: net: realtek,rtl82xx: document RTL8224 packages
 
-LG Optimus 2X P990 (star). It is a Tegra smartphone, it is not yet
-supported by mainline Linux kernel, but it will be in near future. I
-am currently upstreaming missing parts for better support.
+This patch documents how RTL8224 parts are described with the existing
+ethernet-phy-package binding. Each part has four PHYs at consecutive MDIO
+addresses, and the package base need not be a multiple of four. It also
+adds an example with a package that starts at MDIO address 1.
 
->
-> > Differentiate the chips by using a description structure with a flag to
-> > indicate if AS2C is supported, placing all AS2C-only features under a
-> > conditional check.
-> >
-> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > ---
-> >   drivers/leds/flash/leds-aat1290.c | 66 ++++++++++++++++++++++--------=
--
-> >   1 file changed, 47 insertions(+), 19 deletions(-)
-> >
-> > diff --git a/drivers/leds/flash/leds-aat1290.c b/drivers/leds/flash/led=
-s-aat1290.c
-> > index 49251cfd33509..773cdcc73a9e1 100644
-> > --- a/drivers/leds/flash/leds-aat1290.c
-> > +++ b/drivers/leds/flash/leds-aat1290.c
-> > @@ -43,9 +43,6 @@
-> >   #define AAT1290_FLASH_TM_NUM_LEVELS 16
-> >   #define AAT1290_MM_CURRENT_SCALE_SIZE       15
-> >
-> > -#define AAT1290_NAME                 "aat1290"
-> > -
-> > -
-> >   struct aat1290_led_config_data {
-> >       /* maximum LED current in movie mode */
-> >       u32 max_mm_current;
-> > @@ -59,6 +56,13 @@ struct aat1290_led_config_data {
-> >       enum led_brightness max_brightness;
-> >   };
-> >
-> > +struct aat1290_led_chip_info {
-> > +     /* led controller name */
-> > +     const char *name;
-> > +     /* Advanced Simple Serial Control support */
-> > +     bool as2c;
-> > +};
-> > +
-> >   struct aat1290_led {
-> >       /* platform device data */
-> >       struct platform_device *pdev;
-> > @@ -74,6 +78,10 @@ struct aat1290_led {
-> >       struct gpio_desc *gpio_fl_en;
-> >       /* EN|SET pin  */
-> >       struct gpio_desc *gpio_en_set;
-> > +
-> > +     /* led controller description */
-> > +     const struct aat1290_led_chip_info *info;
-> > +
-> >       /* movie mode current scale */
-> >       int *mm_current_scale;
-> >       /* device mode */
-> > @@ -101,15 +109,17 @@ static void aat1290_as2cwire_write(struct aat1290=
-_led *led, int addr, int value)
-> >
-> >       udelay(AAT1290_FLEN_OFF_DELAY_TIME_US);
-> >
-> > -     /* write address */
-> > -     for (i =3D 0; i < addr; ++i) {
-> > -             udelay(AAT1290_EN_SET_TICK_TIME_US);
-> > -             gpiod_direction_output(led->gpio_en_set, 0);
-> > -             udelay(AAT1290_EN_SET_TICK_TIME_US);
-> > -             gpiod_direction_output(led->gpio_en_set, 1);
-> > -     }
-> > +     if (led->info->as2c) {
-> > +             /* write address */
-> > +             for (i =3D 0; i < addr; ++i) {
-> > +                     udelay(AAT1290_EN_SET_TICK_TIME_US);
-> > +                     gpiod_direction_output(led->gpio_en_set, 0);
-> > +                     udelay(AAT1290_EN_SET_TICK_TIME_US);
-> > +                     gpiod_direction_output(led->gpio_en_set, 1);
-> > +             }
-> >
-> > -     usleep_range(AAT1290_LATCH_TIME_MIN_US, AAT1290_LATCH_TIME_MAX_US=
-);
-> > +             usleep_range(AAT1290_LATCH_TIME_MIN_US, AAT1290_LATCH_TIM=
-E_MAX_US);
-> > +     }
-> >
-> >       /* write data */
-> >       for (i =3D 0; i < value; ++i) {
-> > @@ -150,16 +160,18 @@ static int aat1290_led_brightness_set(struct led_=
-classdev *led_cdev,
-> >               led->movie_mode =3D false;
-> >       } else {
-> >               if (!led->movie_mode) {
-> > -                     aat1290_as2cwire_write(led,
-> > -                             AAT1290_MM_CURRENT_RATIO_ADDR,
-> > -                             AAT1290_MM_TO_FL_1_92);
-> > +                     if (led->info->as2c)
-> > +                             aat1290_as2cwire_write(led,
-> > +                                     AAT1290_MM_CURRENT_RATIO_ADDR,
-> > +                                     AAT1290_MM_TO_FL_1_92);
-> >                       led->movie_mode =3D true;
-> >               }
-> >
-> >               aat1290_as2cwire_write(led, AAT1290_MOVIE_MODE_CURRENT_AD=
-DR,
-> >                               AAT1290_MAX_MM_CURR_PERCENT_0 - brightnes=
-s);
-> > -             aat1290_as2cwire_write(led, AAT1290_MOVIE_MODE_CONFIG_ADD=
-R,
-> > -                             AAT1290_MOVIE_MODE_ON);
-> > +             if (led->info->as2c)
-> > +                     aat1290_as2cwire_write(led, AAT1290_MOVIE_MODE_CO=
-NFIG_ADDR,
-> > +                                            AAT1290_MOVIE_MODE_ON);
-> >       }
-> >
-> >       mutex_unlock(&led->lock);
-> > @@ -178,7 +190,8 @@ static int aat1290_led_flash_strobe_set(struct led_=
-classdev_flash *fled_cdev,
-> >       mutex_lock(&led->lock);
-> >
-> >       if (state) {
-> > -             aat1290_set_flash_safety_timer(led, timeout->val);
-> > +             if (led->info->as2c)
-> > +                     aat1290_set_flash_safety_timer(led, timeout->val)=
-;
-> >               gpiod_direction_output(led->gpio_fl_en, 1);
-> >       } else {
-> >               gpiod_direction_output(led->gpio_fl_en, 0);
-> > @@ -475,6 +488,10 @@ static int aat1290_led_probe(struct platform_devic=
-e *pdev)
-> >       fled_cdev->ops =3D &flash_ops;
-> >       led_cdev =3D &fled_cdev->led_cdev;
-> >
-> > +     led->info =3D device_get_match_data(dev);
-> > +     if (!led->info)
-> > +             return -ENODEV;
-> > +
-> >       ret =3D aat1290_led_get_configuration(led, &led_cfg, &sub_node);
-> >       if (ret < 0)
-> >               return ret;
-> > @@ -489,7 +506,7 @@ static int aat1290_led_probe(struct platform_device=
- *pdev)
-> >       aat1290_init_flash_timeout(led, &led_cfg);
-> >
-> >       init_data.fwnode =3D of_fwnode_handle(sub_node);
-> > -     init_data.devicename =3D AAT1290_NAME;
-> > +     init_data.devicename =3D led->info->name;
-> >
-> >       /* Register LED Flash class device */
-> >       ret =3D led_classdev_flash_register_ext(&pdev->dev, fled_cdev,
-> > @@ -528,8 +545,19 @@ static void aat1290_led_remove(struct platform_dev=
-ice *pdev)
-> >       mutex_destroy(&led->lock);
-> >   }
-> >
-> > +static const struct aat1290_led_chip_info aat1290_info =3D {
-> > +     .name =3D "aat1290",
-> > +     .as2c =3D true,
-> > +};
-> > +
-> > +static const struct aat1290_led_chip_info aat1270_info =3D {
-> > +     .name =3D "aat1270",
-> > +     .as2c =3D false,
-> > +};
-> > +
-> >   static const struct of_device_id aat1290_led_dt_match[] =3D {
-> > -     { .compatible =3D "skyworks,aat1290" },
-> > +     { .compatible =3D "skyworks,aat1290", .data =3D &aat1290_info },
-> > +     { .compatible =3D "skyworks,aat1270", .data =3D &aat1270_info },
-> >       {},
-> >   };
-> >   MODULE_DEVICE_TABLE(of, aat1290_led_dt_match);
->
-> --
-> Best regards,
-> Jacek Anaszewski
->
+> diff --git a/Documentation/devicetree/bindings/net/realtek,rtl82xx.yaml b/Documentation/devicetree/bindings/net/realtek,rtl82xx.yaml
+> index 07b39ef1fc624..ca52c3ae19f7a 100644
+> --- a/Documentation/devicetree/bindings/net/realtek,rtl82xx.yaml
+> +++ b/Documentation/devicetree/bindings/net/realtek,rtl82xx.yaml
+> @@ -12,7 +12,17 @@ maintainers:
+
+[ ... ]
+
+> +  The RTL8224 contains four PHYs at consecutive MDIO addresses. Its PHY
+> +  nodes may be grouped under an ethernet-phy-package node as described
+> +  in ethernet-phy-package.yaml. The package reg must identify the first
+> +  PHY's MDIO address, even if that PHY has no child node. This address
+> +  need not be a multiple of four. Each child PHY reg is its absolute
+> +  MDIO address, not an offset from the package base.
+
+[Severity: Low]
+At this commit, can the driver handle a package whose base is not a
+multiple of four? rtl8224_probe() in drivers/net/phy/realtek/realtek_main.c
+ignores the package reg and works out the base itself:
+
+    devm_phy_package_join(dev, phydev, phydev->mdio.addr & ~3, 0)
+
+Also, rtl8224_mdi_config_order() and rtl8224_mdi_config_polarity() pick
+the port lane with addr & 3.
+
+The example below has a package at 1 with PHYs 1-4. With that layout:
+
+- PHYs 1-3 would join a package at base 0.
+- PHY 4 would join a separate package at base 4.
+- The VEND1 0xa90/0xa94 read-modify-writes would go to MDIO address 0.
+- The lane bits would be wrong.
+
+The next patch in the series, "net: phy: realtek: support unaligned RTL8224
+PHY packages", fixes this:
+
+- It reads the package reg into base_addr.
+- It joins through devm_of_phy_package_join().
+- It sets priv->port_offset = phydev->mdio.addr - base_addr for the MDI
+  helpers.
+
+With the full series applied, this layout is handled correctly. Merging the
+binding before the driver change is also the usual order.
+
+[ ... ]
+
+> @@ -90,9 +100,45 @@ examples:
+
+[ ... ]
+
+> +  - |
+> +    mdio {
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +
+> +        ethernet-phy-package@1 {
+> +            reg = <1>;
+> +            #address-cells = <1>;
+> +            #size-cells = <0>;
+> +
+> +            ethernet-phy@1 {
+> +                compatible = "ethernet-phy-ieee802.3-c45";
+
+[Severity: Low]
+Are these nodes ever checked against this schema? Their only compatible
+is "ethernet-phy-ieee802.3-c45", and that string is not in this binding's
+compatible enum.
+
+realtek,rtl82xx.yaml has no explicit select, so dtschema builds one from
+that enum. As a result, the four ethernet-phy@N nodes never match this
+schema during dt_binding_check.
+
+Only two schemas check these nodes:
+
+- ethernet-phy.yaml, which selects on $nodename.
+- ethernet-phy-package.yaml, which has additionalProperties: true.
+
+That means this schema's own constraints never run on the new example.
+This includes unevaluatedProperties: false, the leds conditional and the
+realtek,* properties. The example also has nothing that marks the device
+as an RTL8224.
+
+Would a compatible like this work instead?
+
+    compatible = "ethernet-phy-id001c.cad0", "ethernet-phy-ieee802.3-c45";
+
+> +                reg = <1>;
+> +                enet-phy-pair-order = <0>;
+> +            };
+
+[ ... ]
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261005201540.913977-1-oskari%40lemmela.net
