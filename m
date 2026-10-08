@@ -1,110 +1,237 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f11.google.com (mail-pj2-f11.google.com [74.125.227.139])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8938135AC14
-	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 17:41:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA4313B2FCC
+	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 17:52:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791481295; cv=none; b=MXxGCo4ka2sbFW+RxQSTkD1T6GutDR7OTNreCqH3pK1CUxKLwisAasCrtVs9wN3xcuolTOloEGCd0bHNUwJwsTJajVKwre6XTEGXqdldxc3PxYtgICXntxqb/JF1EX9l6zrToGrIMy/Yfpt7b1VOyodh2lndKbX0TpiZl8sjt8c=
+	t=1791481975; cv=none; b=hDWabawXAFOOjAVgB/B8wAwAb7CVyxQS26+Ku+hXlBBOFSDr1IH8DrFUiwzoqsQnCtfNoWU8QWNWzDTbGjNVOw7PxKapSi0vNCaGphTIwACGqgbJ83orIp9A6w90/VIqiAiv49NNZnY+sqNU0mRwyauydPJ04Xi/RB6bbu9sQE0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791481295; c=relaxed/simple;
-	bh=tJyXfCgQWKJoJW+jidNyd1FNACSo0ZNPY5I2bQmtnms=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jESBMvXi1e1F9NP4+AI0y5vSpHktB1oULR9tLe4tpqXubL59xXO8rmHccspt7vzEyF3aG3odnDX09JsKgXVPAAjEWSeRksJs3uthhz9cqWoLyMWq8ZF5T2g2QPkHfm8+GKQgoLdbQxXab9PeU0FnYLTeQPhJqqtJ41kCeB4lCpI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QfpLiDo+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791481975; c=relaxed/simple;
+	bh=prJ7nICdPY2rXNL3i/aciFMCMxkYdjelmYxtge20GFU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=eNn/FcehYNAMcUVQdooDekOxM+xERYas5dZ2efLqMvFlsGB4LXBZRJRK1I9jqYX2lN9h2SigNaDt4C3QxpIxfIfAiVIrlpvVTqY4YGAR4fzrrBDYLoHaRldFIMmvmJQaHwBHPNfjMXVIMzfyr+KunZQcOgmD+wtXQG+8Ov6mmHQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FQUk8/Zo; arc=none smtp.client-ip=74.125.227.139
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QfpLiDo+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6143A1F000FF
-	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 17:41:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791481294;
-	bh=5i+jUBNJvJIFB5HiIYZuQDmQj7HbLmugYNNn4gZkj88=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=QfpLiDo+ScFtGJGP/5JODLI0pv8v5KZVTe3aJRCgmwNneXmkgfhJBnTBTYaSE+lTT
-	 +nZwnnkZq3F682cP6EqkDvLOAmz6rEvskLWzPF+Qz6cUZHR0oqmArJVkOL8+ypYJBJ
-	 tEksKTJ7nr5OGgwE6kEJKpEbyJsSfseOrtKGq+gqPa9EanBqd8g0deddbYDuBD2Vpw
-	 2B2piO9VomrzAyAoubg5+a+CsmEO/iy++UgxqNVbbWCyoDlpbRyUxxgi0pepT48rF0
-	 ve7ESnP+YoqLfYBd8ZdS7lxCAlp4v+SEG48ztNI+pTxA0/FHwnqlItwIJ3uXrn452X
-	 pcIwYkuYyQ83w==
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c2e5e090746so324942366b.0
-        for <devicetree@vger.kernel.org>; Thu, 08 Oct 2026 10:41:34 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzkK8se6V9RDr1qv5IDCL7o65LFAeBPLz0Fp+8x8YgDFJCcCprWVYczqQWrfV/U8+qiF6A1EQNmuSHp@vger.kernel.org
-X-Gm-Message-State: AFuF++n7Xtavvw0ayP8Fe9HC5Xemr8jI5/Xwnu7kflnPX25IIiiI24RQ
-	1gggyB1lzH4D0US2Mub200/tq6Em6h/ePck8H1GfMzdzwMH06t1q5y9ovzLjwzIAXeE7YlMARk5
-	jbjzS1f2JvUZ2cQXaLneQkZxlg7582Q==
-X-Received: by 2002:a17:907:961e:b0:c2a:34fe:ea4d with SMTP id
- a640c23a62f3a-c317c0b85e3mr582174866b.25.1791481292967; Thu, 08 Oct 2026
- 10:41:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FQUk8/Zo"
+Received: by mail-pj2-f11.google.com with SMTP id 98e67ed59e1d1-398a384b5f7so892764a91.0
+        for <devicetree@vger.kernel.org>; Thu, 08 Oct 2026 10:52:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791481973; x=1792086773; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9BwFMzvpnh5keZRavPMezlpByqLkrvmuKFAvrVdTgl0=;
+        b=FQUk8/ZoC9+Z/mevJiI1tlQXfhzUHTKYzrPjC95Jj+LBNLSmeA254fYpeDZkbZf5Nm
+         CuHWtYR3imVERY23bmB3N4pIMWOT00o3xigNFRByeTMFLbkBALPbf/eHuNzlpBDLHoeN
+         2sveRS006wQHMhZ7l74WHGS1oYvnInpevcAe09M1L4sqSszDXGEasZqFnrpp23LrpoyM
+         LRSXmUphgZQ4nHifh6am9JOIi0w6GDzJX7XYw8PYSWfswU7+siK6+P/OS5/iwGskoVFx
+         exb73RdCza1ZfrqnuJqaWYrl/mXMznf0P8ajAMaVMP51vQjv+iLOTsh1MgxalL8yIQNN
+         dBYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791481973; x=1792086773;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=9BwFMzvpnh5keZRavPMezlpByqLkrvmuKFAvrVdTgl0=;
+        b=K67nr3tcR0bkzRz0G7798ZCON7s6MFCOHKBFAfjBvtjJU5e6Ww2/2rq2aNvzqrZAPu
+         mTJsu1W2sDafXxTXTEhSNu6Eki2eRp+k6QO44JZGBwWVX5uaov+6VVoCb1LwI3b4lRy7
+         DnDgcaZWPhhN/9S0RPhWoRu/UofFCqQcMESSwiblDV+z2X88/YJHj61ZUKIzTOhUx37U
+         W5hgEwuJRg6bw8AOo107OZTnsSFkZYWVWv3pn1P0Ic40NHElodGS9n9ZlJMoFopG0jU0
+         fRF5/x5s0wOFWWZ3hpf/9ZuHUzGdS+DNSeilGtlmqC1pqQDm+tzvuYTc+w5ODm0jrjg7
+         pXxw==
+X-Forwarded-Encrypted: i=1; AKwUvBzZoKXav7jNpmC0J6PeTWVyYYMEiBYBaP2/hwb2jPp6PafVLqTdteG4Mg8jg9Il/NRNWRqTi1qKlqRa@vger.kernel.org
+X-Gm-Message-State: AFq9FYJCADfcBgeZHrhgAsN3g2deUqE6GVmuGFbaUEr9fDGwlF2XDJIX
+	yiGSE2TRDJTtVrbXOFJDxHZ4qVjthLmLCrE+jJ5eoGiQf/ZpFd5n+g9r
+X-Gm-Gg: AYBFou1WzZf4uFCVm8qvgF0u8vZ/hFZ1aEUPYWnfr91Md1yPKkCL/G7L5xV5lQx+5zk
+	7E04CE1YqVjHB3FB7bdf2lbqre/QCv+uYZ9ZSLdaQ4dUpckvqEGHs/jiMgn0PIcB3rQDtKyekru
+	Rn55z8u4QXmSHekwM8Uuy3Wc0hsnaSd9wF85xGwyjzTakoCbI38B0n1Pk97yAqHtHVCsC9CN9I5
+	7+S9md4w+PNRZV+CondhIz+iTno07eOPGz9xBLQ2WiOn+FmweRdTZV2lQXrQ4XGwnI9OysIiUbW
+	7fJGJm3NYN1jQ5dmybDuxxNxP8LrtPe9UgHxGuEkyGUSr4JaLtSkRuScQjvW797nSHzSB7YhD9J
+	bp30V3ekMpJqq4xfawzQNfQcbSvbrB/cIeHDM7LkcT0OiSs6M+gDHfIftYDe0Y04oGSLa/Uub3q
+	byO8Tu/Jwa6EVJb7UvLFzMViPJ44N4UeIPWrfc1Hw7aXaW0mMTagmbJFWjmWQlROdHslnS
+X-Received: by 2002:a17:90b:288c:b0:3a6:fec5:c186 with SMTP id 98e67ed59e1d1-3a8a0f3be3emr5184679a91.46.1791481968566;
+        Thu, 08 Oct 2026 10:52:48 -0700 (PDT)
+Received: from server.lan ([168.138.199.194])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab3277c459sm144332a91.16.2026.10.08.10.52.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 10:52:48 -0700 (PDT)
+From: Coia Prant <coiaprant@gmail.com>
+To: Jakub Kicinski <kuba@kernel.org>,
+	netdev@vger.kernel.org
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	David Wu <david.wu@rock-chips.com>,
+	linux-rockchip@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Coia Prant <coiaprant@gmail.com>
+Subject: [PATCH net-next v11 0/6] net: pcs: add basic support for RK3568 XPCS
+Date: Fri,  9 Oct 2026 01:51:54 +0800
+Message-ID: <20261008175225.3375274-1-coiaprant@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921-ux500-power-domains-v7-1-v3-0-9352be6b86b1@kernel.org> <20260921-ux500-power-domains-v7-1-v3-5-9352be6b86b1@kernel.org>
-In-Reply-To: <20260921-ux500-power-domains-v7-1-v3-5-9352be6b86b1@kernel.org>
-From: Rob Herring <robh@kernel.org>
-Date: Thu, 8 Oct 2026 12:41:21 -0500
-X-Gmail-Original-Message-ID: <CAL_Jsq+1O+os8=YGUoKg6zCm-r0gQ35baKX=z65uTQNB0i=RVQ@mail.gmail.com>
-X-Gm-Features: AclHuK9f1ZliBZPCj2LPLQU47t9EaM2IftpsDD1GQ_Z1aWMRTo5dRurMLb5PWy0
-Message-ID: <CAL_Jsq+1O+os8=YGUoKg6zCm-r0gQ35baKX=z65uTQNB0i=RVQ@mail.gmail.com>
-Subject: Re: [PATCH v3 05/18] dt-bindings: display: ste,mcde: Allow power domains
-To: Linus Walleij <linusw@kernel.org>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Ulf Hansson <ulfh@kernel.org>, Mark Brown <broonie@kernel.org>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, Lee Jones <lee@kernel.org>, 
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-pm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	dmaengine@vger.kernel.org, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Sun, Sep 20, 2026 at 5:48=E2=80=AFPM Linus Walleij <linusw@kernel.org> w=
-rote:
->
-> Document the MCDE power domain.
->
-> Keep the legacy EPOD regulator binding unchanged for now.
->
-> Assisted-by: LLM
-> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> Signed-off-by: Linus Walleij <linusw@kernel.org>
-> ---
->  Documentation/devicetree/bindings/display/ste,mcde.yaml | 5 +++++
->  1 file changed, 5 insertions(+)
->
-> diff --git a/Documentation/devicetree/bindings/display/ste,mcde.yaml b/Do=
-cumentation/devicetree/bindings/display/ste,mcde.yaml
-> index 7a12d0b817e6..05e7e4ebc882 100644
-> --- a/Documentation/devicetree/bindings/display/ste,mcde.yaml
-> +++ b/Documentation/devicetree/bindings/display/ste,mcde.yaml
-> @@ -35,6 +35,9 @@ properties:
->    resets:
->      maxItems: 1
->
-> +  power-domains:
-> +    maxItems: 1
-> +
->    epod-supply:
->      description: a phandle to the EPOD regulator
->
-> @@ -109,6 +112,7 @@ examples:
->    - |
->      #include <dt-bindings/interrupt-controller/irq.h>
->      #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    #include <dt-bindings/arm/ux500_pm_domains.h>
->      #include <dt-bindings/mfd/dbx500-prcmu.h>
->      #include <dt-bindings/gpio/gpio.h>
->
-> @@ -116,6 +120,7 @@ examples:
->        compatible =3D "ste,mcde";
->        reg =3D <0xa0350000 0x1000>;
->        interrupts =3D <GIC_SPI 48 IRQ_TYPE_LEVEL_HIGH>;
-> +      power-domains =3D <&pm_domains DOMAIN_B2R2_MCDE>;
+This series adds proper SGMII support for the Rockchip RK3568 SoC
+using the integrated Synopsys DesignWare XPCS, along with necessary
+fixes and refactoring in the stmmac core and XPCS driver.
 
-This patch is in next, but the define is not breaking dt_binding_check.
+Motivation
+==========
+The RK3568 integrates a DW XPCS accessed via APB3 and connected to
+a Naneng Combo SerDes PHY.  Several boards (e.g., Ariaboard
+Photonicat) use this interface for Gigabit Ethernet.  However, the
+current upstream stmmac driver does not support this configuration,
+and the XPCS driver has issues in SGMII poll mode that cause the
+link to be reported incorrectly.
 
-Rob
+This series addresses these issues by:
+- Adding ANRESTART support for SGMII link recovery
+- Adding a Rockchip XPCS platform glue driver and wiring it up in
+  dwmac-rk
+
+Series overview
+===============
+
+RK3568 XPCS/SGMII:
+  Patch 1: add ANRESTART support for SGMII link recovery
+  Patch 2: DT binding for Rockchip RK3568 XPCS
+  Patch 3: implement the Rockchip XPCS platform glue driver
+  Patch 4: DT binding for Rockchip DWMAC PCS
+  Patch 5: wire up SGMII support in dwmac-rk
+  Patch 6: update MAINTAINERS
+
+Dependencies
+============
+- Generic PM domain (genpd) changes:
+  https://lore.kernel.org/all/20260925041751.495818-1-coiaprant@gmail.com/
+- PHY binding+driver (Naneng Combo PHY SGMII MAC selection):
+  https://lore.kernel.org/all/20261006162807.2843858-1-coiaprant@gmail.com/
+- stmmac XPCS lifetime management fix:
+  https://lore.kernel.org/all/20261005221749.1104430-1-coiaprant@gmail.com/
+
+The DTS changes using the PHY property are sent separately to
+Heiko/linux-rockchip. There is no hard build dependency; the pieces
+can converge during the merge window.
+
+Changelog
+=========
+
+Changes since v10:
+
+- XPCS binding: drop the ethernet-pcs-mii child nodes and the phy-names
+  property. The MII port used by SGMII is derived from the MAC it is
+  routed to (GMAC0 -> port 0, GMAC1 -> port 1), so the ports do not need
+  to be described.
+
+- dwmac binding: require phy-mode for rockchip,rk3568-gmac, and require
+  pcs-handle only when phy-mode is "sgmii". Without the explicit
+  required: [ phy-mode ], the "if" would match even when phy-mode is
+  absent (Rob).
+
+- XPCS glue driver: use pdev->dev.links.status instead of
+  link->supplier->links.status, and drop the unused reg argument from
+  the read remapping helper.
+
+- dwmac-rk: document that the MII port passed to xpcs_rk_create() is the
+  GMAC id, matching the hardware routing. Rewrite the in-band vs
+  out-of-band section of the commit message to match the driver
+  behavior and the actual clock rates.
+
+- DTS: drop the ethernet-pcs-mii sub-nodes; pcs-handle now points at the
+  XPCS node itself.
+
+- Commit messages updated.
+
+Key design decisions
+====================
+- The stmmac core now delegates XPCS creation entirely to platform
+  drivers via pcs_init/pcs_exit.  This is necessary because the
+  generic XPCS creation logic would override any XPCS set up by the
+  platform driver.
+
+- The Rockchip XPCS driver creates a virtual MDIO bus over the APB3
+  registers and implements address remapping.  The generic XPCS core
+  handles all PCS configuration via phylink_pcs_ops.
+
+- On RK3568 in SGMII mode, the MAC clock is fixed at 125 MHz and
+  cannot be dynamically changed.  In-band mode is used, and the
+  generic stmmac set_clk_tx_rate callback is disabled to prevent
+  incorrect clock updates that would break RX.
+
+- The SerDes and power domain are attached to the XPCS device tree
+  node rather than the MAC node. This reflects the actual hardware
+  topology and simplifies the dwmac-rk driver by keeping all PCS-related
+  resources self-contained. It also prepares for possible future QSGMII
+  support, where a single SerDes serves multiple MACs and would be
+  more naturally managed under the XPCS node.
+
+Testing
+=======
+Board: Ariaboard Photonicat (RK3568)
+OS: Armbian (trixie)
+Kernel: 6.18 (backports)
+Result: The SGMII interface obtains an IP address, SSH works, and
+        ping traffic passes without loss.
+
+Notes
+=====
+- When testing out-band mode with set_clk_tx_rate, only 1000Mbps
+  works on both TX/RX; 10/100Mbps only works on TX side.
+
+Acknowledgments
+===============
+This work was inspired by and builds upon the excellent work of others:
+- Serge Semin's Synopsys DesignWare XPCS platform driver (pcs-xpcs-plat.c)
+- Clément Léger's Renesas MIIC driver (pcs-rzn1-miic.c)
+- The Rockchip TRM and downstream OEM drivers
+
+Thanks in advance,
+Coia Prant
+---
+Coia Prant (6):
+  net: pcs: xpcs: add ANRESTART support for SGMII link recovery
+  dt-bindings: net: pcs: add rockchip,rk3568-xpcs support
+  net: pcs: xpcs: add Rockchip RK3568 platform glue driver
+  dt-bindings: net: rockchip-dwmac: document pcs-handle
+  net: stmmac: dwmac-rk: add SGMII support for RK3568
+  MAINTAINERS: add entry for Rockchip XPCS driver
+
+ .../net/pcs/rockchip,rk3568-xpcs.yaml         |  69 ++
+ .../bindings/net/rockchip-dwmac.yaml          |  27 +
+ MAINTAINERS                                   |   9 +
+ drivers/net/ethernet/stmicro/stmmac/Kconfig   |   1 +
+ .../net/ethernet/stmicro/stmmac/dwmac-rk.c    | 131 +++-
+ drivers/net/pcs/Kconfig                       |  25 +
+ drivers/net/pcs/Makefile                      |   5 +-
+ drivers/net/pcs/pcs-xpcs-rk.c                 | 598 ++++++++++++++++++
+ drivers/net/pcs/pcs-xpcs.c                    |  35 +-
+ include/linux/pcs/pcs-xpcs-rk.h               |  11 +
+ 10 files changed, 883 insertions(+), 28 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/net/pcs/rockchip,rk3568-xpcs.yaml
+ create mode 100644 drivers/net/pcs/pcs-xpcs-rk.c
+ create mode 100644 include/linux/pcs/pcs-xpcs-rk.h
+
+-- 
+2.47.3
+
