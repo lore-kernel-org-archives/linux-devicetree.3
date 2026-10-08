@@ -1,108 +1,119 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAA563AE197
-	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 03:39:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0729C36F91F;
+	Thu,  8 Oct 2026 03:44:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791430790; cv=none; b=nwhWKDrIu4ni7dogoTLeamvgE119Y8TwZZ7jFbq93h+21WMG+EITNBrr8NQAuF62ffNLcodIcWHNKBJuC4OdzV4W9EAoY3ns6vAgxzjYhh76lSki43NKIvKXsjcYq/TkhfXuRSRMxR27Z9KsC+3s1G3VfT5IKev70A7eUJf/Q6M=
+	t=1791431093; cv=none; b=LW3xKp/n8Xzx6C0Ez+ftU2y9rWHEcSPteJusi8qNqU1byUleIZ/e8h/WWvPgTFVVJENeMP6soH/rJdQTD2ouDy6O8F503vtnjixOiYPHZnGWpYS21rs0UvGz1kSnNVPkOncidEKj41OLZbsSo2q/7zy+Q6tGpQKbR/+bZwM+nZQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791430790; c=relaxed/simple;
-	bh=Qu7nbVzHhR5+uzhex5LLXHgcVGa7q3IGOu8GP9G0PSM=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=gQQWhxkDx7HNQ5/1Y/Aub0SZDN64HOQ1q1AQ0N2brpfBcMxJgmCboBkVqoX7LvdadguNidrghChnPoM0TQ3zQYmT97PW42JC1mSTL150XaMcONOm+Js1V0pGHbscCWmv9GrPi/9KIu+9s3Y334SgP2tY/MP2LyZG049HPLURfzk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nSNhoETK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791431093; c=relaxed/simple;
+	bh=l8FGwTF2AqdaoQ0RvXAoKk8wuM5SPe0apwnGvih3fuI=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=izx/RCOkbBwc5MRCtxaJYxdFz/ed/GuNsB/aSPtCm8itJW5seSuqgw+SeVzRIwXmegOjfQfFFoMqkmIarQ4gOepMbvy6irhkGFAWSq285ggl5sYKodvmdXyzD5EUivSu10mXHBuwYVf0H6rdEbEp2sYh8LkIM/7OTv89dcdg6kU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lVYZFyax; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nSNhoETK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F9C01F000FF;
-	Thu,  8 Oct 2026 03:39:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lVYZFyax"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6B7B1F000FF;
+	Thu,  8 Oct 2026 03:44:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791430789;
-	bh=llobzcLl4mEEZptuPLyKw2+X549onMu7dkpok1gk7U8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=nSNhoETKVMuj1ST3rPD2LnROi+ZfaJ4pChbPaboedtggVhfrMxRddyA/9RWP6hthl
-	 U6TxmQstq3hwWQJWdM60PdioFWCVM8rqJfc9j6r/FLxGMd5OnyKA9CXx6Y/+T6Q4Vr
-	 WHlYuAaq1UdFsQxrdhuq+8LmcNoB1/cCiVzGWSZ268/vSW1AM9x2c9K7Vpfq4jVEEz
-	 tu066EpuOwhDzvDruXmYRkERaAOulnfKoA1jannvVRw4P/gLYrWeZg4VN+aI26CyQb
-	 2lLLRzjV1ANrCHu0y2RjT1ZPD0fXctFVDISu+a8WffOiQQyhCaK4hmjaX9QSVrjMZ7
-	 35qQ79BKCRByg==
-Message-ID: <sashiko-outbox-163569@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC v2 01/10] mailbox: add direct synchronous send
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Amirreza Zarrabi" <amirreza.zarrabi@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20261007-riscv-rpmi-tee-abi-v2-1-45939a13d223@oss.qualcomm.com>
-References: <20261007-riscv-rpmi-tee-abi-v2-0-45939a13d223@oss.qualcomm.com>
- <20261007-riscv-rpmi-tee-abi-v2-1-45939a13d223@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 08 Oct 2026 03:39:48 +0000
+	s=k20260515; t=1791431091;
+	bh=aVCywcmTgZV0JLf3OiewVcrZqNd7Lr+G7Z98xka/5po=;
+	h=From:Subject:Date:To:Cc;
+	b=lVYZFyaxUSQCaabUnuhzn6w4zrpT47hgyOpbVAkXbmNZu+YHoh0ldFHtRgfKCx+EE
+	 7hFIQPkmq7xrUzbTBWbJtaqvRoUXF2N1RtZCZoCzQ9+eX75/Zvc2wDRR2E4B/DKerV
+	 7/Te1Vl0PYMMuxmF+kb/c2tfoHk4pIdfb1XEoy0vp+kDSxY23++UWZNiN+AKfwa6rw
+	 Lg0W6bKZvlP9AU3CUjBfC6Wu47Pe6BqH7YBdAU62Mw5fDiwZzCwcCnayDAZNQ1Ggyg
+	 HwwIWmfG+BlAl0qg0kmqUuO8qAgPEwGVxZEu+1spk3MuUKgD9hhI8TLSxE5aZiksN2
+	 YgMqAOcdzt/AQ==
+From: Yixun Lan <dlan@kernel.org>
+Subject: [PATCH v2 0/2] PM: spacemit: Add power domain support
+Date: Thu, 08 Oct 2026 03:44:28 +0000
+Message-Id: <20261008-04-k3-pm-support-v2-0-6f778a53dd2d@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQqDMBBA4avIrB0Yovh3ldKFmkmdFjVktBQkd
+ zfa5bd47wDlIKzQZQcE/orKuiSYPINx6pcXo9hkMGQqaqlFKvFToJ9Rd+/XsCEN7Eripna2hpT
+ 5wE5+9/Lx/Fv34c3jdn0gxhMzQmkYdAAAAA==
+X-Change-ID: 20260909-04-k3-pm-support-0bef40e87fd7
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
+Cc: Icenowy Zheng <uwu@icenowy.me>, Iker Pedrosa <ikerpedrosam@gmail.com>, 
+ devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ spacemit@lists.linux.dev, linux-pm@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Yixun Lan <dlan@kernel.org>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1909; i=dlan@kernel.org;
+ h=from:subject:message-id; bh=l8FGwTF2AqdaoQ0RvXAoKk8wuM5SPe0apwnGvih3fuI=;
+ b=owEB6QIW/ZANAwAKATGq6kdZTbvtAcsmYgBqxxGmCApwz/x2lwt/8Lmrh1k9FSkd+J/kZiLik
+ VBNNGSb2kOJAq8EAAEKAJkWIQS1urjJwxtxFWcCI9wxqupHWU277QUCascRphsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDJfFIAAAAAALgAoaXNzdWVyLWZwckBub3RhdGlvbnMub3BlbnBncC5
+ maWZ0aGhvcnNlbWFuLm5ldEI1QkFCOEM5QzMxQjcxMTU2NzAyMjNEQzMxQUFFQTQ3NTk0REJCRU
+ QACgkQMarqR1lNu+3hpRAAg9q7RKB8tNhnOWOn+sPugundTYNccTp5gk+xKOAs2LD2DWJl91QB+
+ 2bewwtCnFl288cYCJccAhDi//jXoKoovT8JWiJE93g0OftvXte2vwWxgNgVc2UyYgcKk+c02/ba
+ KWyTLhJzvVnxaFLfLsCwbLnTAYXBbjurV+gviPfqauLycq9W7kNFeNcxHJWDsZ9MRSEgofOQTlH
+ mhsQ7KusX4vybJ6YNZRzGOukKHEUtBx/badTbMxljWSQpUnNoCbLlgCriC47z9u1CFgaZGhGdXK
+ +v6GyaE/OGnx9E6SzBYtXkj5ICLRcEEhaDMa2Y47wjJeADaivNcmyuGWiPe/yxJrLJ4ju0adYrQ
+ FLyhgjpVrB2KgklMfmLsibMPJlQPm5y2JHP7QsPIUvqrjj4bHN+CgnxJOugh8DU2wtb7aHsyI1e
+ TQ/zTvE/wEg0U8H/peN8pMS06P6VmO1c3oCRYG4Ag1fwsnl+BdgKiDqr/K7dwcAyVcrWzPDUHu9
+ 9mBueT3klB67dC64mYGRIDbpleccoHR3v/E297nolPBH5KZiemSC7G8FrxzX/futoJtMS+v7qUB
+ IfUYIy8NiN99M8kTNi+JGlleIiO7xUP4X9iy0mnM6c6w1L4kgAjaHBgWb0SVyRymRTqIIzlKfEt
+ 87Tf45/ULix0bM9sKujB7wQXDITIFo=
+X-Developer-Key: i=dlan@kernel.org; a=openpgp;
+ fpr=50B03A1A5CBCD33576EF8CD7920C0DBCAABEFD55
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] mbox: missing check for send_data ops when binding async clients c=
-auses NULL dereference
---
+In this series, we try to add a Power Domain driver support for SpacemiT
+K1/K3 SoCs, the driver implement the power-switch functionaly which support
+power on/off, and it's based on Linux Generic PM Domain framework and
+similiar to vendor K1's implementation, but unlike the K3's vendor
+version which is more complicated.
 
-commit 32ed128a065b48b8882da987a95570f9f1da93f8
-Author: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
+  The DTS patch is obsolete, so drop it. For devices required PM property,
+the DT part can be sent in separate patch.
 
-mailbox: add direct synchronous send support
+  In order to test this series, a prerequisite CCU patches are needed,
+which can be found here [1].
 
-This commit introduces a direct synchronous send path, allowing controllers
-to complete transactions within the calling context without the TX state
-machine. It adds the send_data_sync operation and validates that clients
-requesting synchronous transmission are bound to compatible controllers.
+Link: https://lore.kernel.org/spacemit/20261008-04-k3-clk-pm-aux-v1-0-8372d7307694@kernel.org/ [1]
+Signed-off-by: Yixun Lan <dlan@kernel.org>
+---
+Changes in v2:
+- convert to auxilary driver
+- no need dt-binding doc, drop it
+- drop dts patch
+- support to build as module
+- set always on for K3 audio pm 
+- no global variable for struct spacemit_pmu
+- no force to do power-off in spacemit_pd_power_on()
+- check return value of pm_genpd_init()
+- adjust license header format
+- Link to v1: https://patch.msgid.link/20260918-04-k3-pm-support-v1-0-0acd2b36b96f@kernel.org
 
-> diff --git a/drivers/mailbox/mailbox.c b/drivers/mailbox/mailbox.c
-> index efacd24a085d1..c640b19de6080 100644
-> --- a/drivers/mailbox/mailbox.c
-> +++ b/drivers/mailbox/mailbox.c
+---
+Yixun Lan (2):
+      dt-bindings: power: spacemit: Add power domain controller IDs
+      pmdomain: spacemit: Add power domain driver
 
-[ ... ]
+ drivers/pmdomain/Kconfig                        |   1 +
+ drivers/pmdomain/Makefile                       |   1 +
+ drivers/pmdomain/spacemit/Kconfig               |  21 ++
+ drivers/pmdomain/spacemit/Makefile              |   1 +
+ drivers/pmdomain/spacemit/spacemit-pm-domains.c | 413 ++++++++++++++++++++++++
+ include/dt-bindings/power/spacemit,k1-power.h   |  14 +
+ include/dt-bindings/power/spacemit,k3-power.h   |  12 +
+ 7 files changed, 463 insertions(+)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260909-04-k3-pm-support-0bef40e87fd7
 
-> @@ -355,6 +412,14 @@ static int __mbox_bind_client(struct mbox_chan *chan=
-, struct mbox_client *cl)
->  	struct device *dev =3D cl->dev;
->  	int ret;
-> =20
-> +	if (cl->tx_sync) {
-> +		if (!chan->mbox->ops->send_data_sync)
-> +			return -EOPNOTSUPP;
-> +
-> +		if (cl->tx_block || cl->tx_tout || cl->knows_txdone)
-> +			return -EINVAL;
-> +	}
-> +
+Best regards,
+--  
+Yixun Lan <dlan@kernel.org>
 
-[Severity: High]
-If a controller implements only the new send_data_sync path, could a legacy
-asynchronous client (where cl->tx_sync is false) successfully bind to it?
-
-If this happens, wouldn't mbox_send_message() unconditionally execute
-chan->mbox->ops->send_data() inside msg_submit():
-
-drivers/mailbox/mailbox.c:msg_submit() {
-    ...
-		if (chan->cl->tx_prepare)
-			chan->cl->tx_prepare(chan->cl, data);
-		/* Try to submit a message to the MBOX controller */
-		err =3D chan->mbox->ops->send_data(chan, data);
-		if (!err) {
-    ...
-}
-
-Will this cause a NULL pointer dereference? Does __mbox_bind_client() need a
-reciprocal check to ensure chan->mbox->ops->send_data exists when
-cl->tx_sync is false?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261007-riscv-rpmi=
--tee-abi-v2-0-45939a13d223@oss.qualcomm.com?part=3D1
