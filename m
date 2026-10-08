@@ -1,90 +1,60 @@
-Received: from mout01.posteo.de (mout01.posteo.de [185.67.36.65])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55CBD3914ED
-	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 11:44:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.65
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C013B3E9C29;
+	Thu,  8 Oct 2026 11:45:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791459842; cv=none; b=TPYWJFuVgZrGhExAGyaVzAsv7/76tRt2Pa71R8mjpqjeewkJmNxkQ56clzbrbSvpUCciVMJ51SRQP1qJCCSXRdbATnD3ja8+ZVjjqs7imnbRywccV4bxCJawWsa0OcZ66cJHORSX7bIP47J6gLI0IdFpNA+noMWwAUrISFK0ikA=
+	t=1791459943; cv=none; b=kXYAGuYtp/Zf0cUUPljtdGa+AKZxqtn2iTJ9uuFbs92xZdutl0m1JE6xSYlBIpH/WkFc1bHVLAHWQ+pCeudmhlRdzvoR/qECJToXrPkNGqsOfbP9GrGaO/xeHMl/KiQf38vtPXhj5XO9ypVfvSDGZHWLhn5XJgkJX5xXKWGvAcA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791459842; c=relaxed/simple;
-	bh=jUPxCUFc3aTBCASOlFZdGH03w0fcbvkjqzP15izyvIg=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=fzXfw1HICnhQYt96RdZwpMczQHJwcMCYKWOv3cZB1Z32jvw+sLngUJpy4HhpCO1MuHJ0mx1p5qk2Gf7+fJd11Fg0tNiVlHzeZpr48IkBOBBHpHAxGys+Pa/0pj+Gv9yhU2Vxn+i8LdXJgHuB1Wmxt9KyAvZpQrwRZP6CflzgiEw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.net; spf=pass smtp.mailfrom=posteo.net; dkim=pass (2048-bit key) header.d=posteo.net header.i=@posteo.net header.b=cphJCRxP; arc=none smtp.client-ip=185.67.36.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.net
+	s=arc-20240116; t=1791459943; c=relaxed/simple;
+	bh=7EEQFvlAGmOtu0HQHcl8cbhgxaDudJ0ablK+tuJQxfM=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=VL95eK+G52ZkKbyCR0EC79eNW7m3t+NE+HGFEAk1dX9YHKhhF0d4NWyFJ/jAI47NIT+0b8wh55i/1Qg6y0C95woIywzpU+lTCFgoZrHuc1y7BW3kR62MpdXJxlEAY0EiyXuHGAd8SeJy4DVcUhfeJhczMw3bT4QDKebqHIfDpWw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RPPKOwX0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=posteo.net header.i=@posteo.net header.b="cphJCRxP"
-Received: from submission (posteo.de [185.67.36.169]) 
-	by mout01.posteo.de (Postfix) with ESMTPS id 69367240027
-	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 13:43:57 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.net;
-	s=1984.8680eb; t=1791459837;
-	bh=QA4a4/0qY83QQNCueloKQP2TPYFXj/uUC4YZjubeRHI=;
-	h=MIME-Version:Date:From:To:Cc:Subject:Message-ID:Content-Type:
-	 Content-Transfer-Encoding:From;
-	b=cphJCRxPquv5vT62es7asTSu3dFCCXplZYii8lZ1hCkMRsOjSLW87+8ufdG+M/0Te
-	 U77+zlgHzBFXs7bzLELYs5Hp/k/QjycwA8tSEovzyqs2Byf8Uwsc4XxZ9ZPLM8IHK1
-	 1Kz+qiNz476D8JBmGKgMrEgT6f5cueC9F5nM7Qfcpl/rCmrZ100V53qNPo6OK+mWwV
-	 uhKb3ln48oZabYtOmktnob0Fwc76oNKZLtbqfyBhNp7eUVQ5WrfjwA+s3m51fWfD85
-	 lBh1u5mx2ynlyO4J1jZYQWGzPM8O8YrKRcyUyQBC2D4JymDlHvQLc0vrxBvFdjuQt+
-	 sqQjdTruvD2pw==
-Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4j0p6h1JRTz6ty0;
-	Thu,  8 Oct 2026 13:43:55 +0200 (CEST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RPPKOwX0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 145971F000FF;
+	Thu,  8 Oct 2026 11:45:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791459942;
+	bh=7EEQFvlAGmOtu0HQHcl8cbhgxaDudJ0ablK+tuJQxfM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=RPPKOwX0rBIt+ESdOp5MW8Tj3/VvL1Iyeh4KB+ztDICpnXhn9g1gmWfoW8GUBLkJw
+	 J6GvSuHg5NJHAarHg9uP2Y02vtokAZpxCMoPelS29KpjQL9rKonslzcrZFybsCpufX
+	 gq7rjmYbQ4/ozwhCiG4i5updqy7UhAVPN0pHwbUP53UceauglQ0QXUt0eE4Dip71j3
+	 5CnKc066D+Ny1TgZodU1kWEpyWk0n8ZzZxiCkyEwBDl2GEds+YSs6akec9eEGys/Re
+	 k07EAHVzidyR0DYGHWNEG7X1fK5Ewo1HN1pMjBB9Qp1jaRddnOByhGJi5J+8TBjfIF
+	 emm63WjYHzSzA==
+Message-ID: <sashiko-outbox-164101@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 1/6] dt-bindings: peci: Add StarFive JHB100 PECI
+ controller
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Changhuang Liang" <changhuang.liang@starfivetech.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, linux-hwmon@vger.kernel.org
+In-Reply-To: <20261008100623.7085-2-changhuang.liang@starfivetech.com>
+References: <20261008100623.7085-1-changhuang.liang@starfivetech.com>
+ <20261008100623.7085-2-changhuang.liang@starfivetech.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 08 Oct 2026 11:45:41 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Date: Thu, 08 Oct 2026 11:43:56 +0000
-From: mateusz.nowicki@posteo.net
-To: Patrick DELAUNAY <patrick.delaunay@foss.st.com>
-Cc: Alexandre Torgue <alexandre.torgue@foss.st.com>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: st: mark main supplies always-on on
- stm32mp257f-dk
-In-Reply-To: <aaedc962-63ab-431b-8b27-b4ac9c11d16e@foss.st.com>
-References: <20261004112421.47158-1-mateusz.nowicki@posteo.net>
- <aaedc962-63ab-431b-8b27-b4ac9c11d16e@foss.st.com>
-Message-ID: <1baaa8cb024104ee6d201d55467f6718@posteo.net>
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: quoted-printable
 
-Hi Patrick,
-
-On 07.10.2026 11:22, Patrick DELAUNAY wrote:
-> For STMicroelectronics boards, the STPMIC always-on regulator are
-> managed on SCMI server side in OP-TEE.
+> Add device tree bindings for the Platform Environment Control Interface
+> (PECI) controller found on StarFive JHB100 SoC.
 >=20
-> So no need to manage this constraint in Linux device tree.
->=20
-> This always-on=C2=A0 regulator are exposed only for information or to be
-> used are supply for some IP.
+> Co-developed-by: Mason Huo <mason.huo@starfivetech.com>
+> Signed-off-by: Mason Huo <mason.huo@starfivetech.com>
+> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
 
-Thanks, that makes sense. OP-TEE keeps these rails on no matter what
-Linux asks for, and the board keeps running fine.
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-The part I found confusing is what Linux reports. Since nothing in
-Linux uses these regulators, the regulator core turns them off about
-30 seconds after boot:
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261008100623.7085=
+-1-changhuang.liang@starfivetech.com?part=3D1
 
-    [   31.713597] v1v8: disabling
-    [   31.716454] v3v3: disabling
-
-The SCMI call succeeds, so from then on regulator_summary shows
-vddcore, v1v8 and v3v3 with a use count of 0, as if they were off.
-In reality they are still powered.
-
-With regulator-always-on, what Linux shows matches the hardware.
-Would you still prefer to keep it out of the board DT? If so, I'm
-happy to drop the patch.
-
-Thanks,
-Mateusz
