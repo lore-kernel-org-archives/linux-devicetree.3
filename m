@@ -1,119 +1,346 @@
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62953414A11
-	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 09:43:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B55E4848BE
+	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 09:47:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791452595; cv=none; b=MbXDRHpy+614mItFG2XPj1B1U9tnnbj+DiSXc811WimPEhICnEXHDz7KuztQrdvYCl9eGfVso5nGNk3oGeCryQoQwrRAXMpOHhaj3GEoi9xuTJS1gQD9suTr8wb66HL120DYDZGg8JYXlttmXrI/k5SGsQtxLJqeF0S7W5VqSy0=
+	t=1791452852; cv=none; b=kqhSnWoDZk1zWCAtsFEMCofmCWwbTMvkK+Kp8CJEtu3eQOKGvVbeEiVfO8zxKCRzgwf5XSp9T5i5s1VB12D+Xsv5wRuDEiDLnZ+PAPsquH71fJoPCaLXpO2mhvYDa2nDgogTkgm4vL6EVJ9iMmPaNTOKKOayudqwMjsdP5LJzHg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791452595; c=relaxed/simple;
-	bh=OLQLPaWJw7XppWYwcxYfmvI/mXWhlgZYI5H6dgeasww=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
-	 Content-Type:References; b=l051OyhVechX9gRO+4qg0W1SgO7SGB/bC5DUGDxlno4GUlZvmyRb5FZAv/HGsQojH+S/xmdzrLGHfdc1cztr/8sZnPURqCXoBLn3m5DWc9jFrOzrZazVE/XRoZhrTa0UEXEH298pJQJFjYDuVtHco02/D1/CALhMUv29fS9wIq8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=PbgH3VY5; arc=none smtp.client-ip=210.118.77.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
+	s=arc-20240116; t=1791452852; c=relaxed/simple;
+	bh=GR+H9oCzwYidt77KsB0/Uu5pnDITa+rGzx5RFxX4oKU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=imEETDT+lfW14HtXIe9GGIVDcoDburByQVm/kMJ6QuzXVy0Cf/R7cA8EbhlKk4Ta+kPGDerfTJtRaKp6b1Vj0N/04Ah55S7wPHM/YPbW+OL44nR/018SsF/soqyILNvdNgOji5wOrI4J5x/0mZ+q90t/cxTXcl7WpeQ6ngn+iSM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Wmp39Y1w; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=C+c+aTuJ; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="PbgH3VY5"
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20261008094311euoutp01dee1f833ab2193f7f59832692a9cdd41~chKPwXeXx2722927229euoutp01j
-	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 09:43:11 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20261008094311euoutp01dee1f833ab2193f7f59832692a9cdd41~chKPwXeXx2722927229euoutp01j
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1791452591;
-	bh=nJNnHPGG4mNQooWPuJ2KoNzlsArMHoPuRSotZ7wNxxI=;
-	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
-	b=PbgH3VY5H2lL1x3cW1EYzRMsvXBfnGZD66HPLDIegw38L8M/Ylhmpg0gnsFxXzm12
-	 rXoJE1UUssw/hNOLBLOVEna1pFXZnwlpFoCFFYrzfy+1UpkiLGMWksbKaG4In8YiGQ
-	 fs97ketcN/775lV7DxP2TVq9KZ/k2Xat6DOpVv+Q=
-Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
-	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
-	20261008094311eucas1p1d640b4ffd81730e0ee429aef7e8412b4~chKPgpifp2015020150eucas1p1J;
-	Thu,  8 Oct 2026 09:43:11 +0000 (GMT)
-Received: from [106.210.134.192] (unknown [106.210.134.192]) by
-	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
-	20261008094310eusmtip1d8898c71d330dd4bbb9e00e90ce133cc~chKOulU4o1455814558eusmtip1R;
-	Thu,  8 Oct 2026 09:43:10 +0000 (GMT)
-Message-ID: <1813f0d0-1e0d-4cec-8132-cf1f8731a8e6@samsung.com>
-Date: Thu, 8 Oct 2026 11:43:09 +0200
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Wmp39Y1w";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="C+c+aTuJ"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6987KAlv2560098
+	for <devicetree@vger.kernel.org>; Thu, 8 Oct 2026 09:47:30 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	LADOL3hVYZcuOgoRDbr+9VUKRaoDf0lpVHeS2HKIIdM=; b=Wmp39Y1wpOTjwc4l
+	9xUHQuT2Da/uJzbP3ncQJWxbSFAs7tr2EuTHsXxsCWOEIaENIKG9eWA968WDE3Cw
+	+vPOBSaz8y6f5EQP6KdVLH2vFHzeHSQr3SBUl5plXbCbx6m1aMbfKuIEGtz5awXJ
+	j4YiO/XGOeMmcrP3zFjIMbOxowBqKOd6Bkyk8/rzlC95iEDl7iilVKVaP/uNxUBf
+	jFQv563MsR+kr9g2yWhIstU/wxacpgzC74WZS7/cC1gnJFEOF0Ip1LJsebI5XAM0
+	/dL4tMJQw1RbYgNsqdkp6p6iKs7IZL5lnmcUxkTC5IHyh1y95+ZeHB7Hav9QlkwB
+	pkOHgw==
+Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5xe827pq-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 08 Oct 2026 09:47:30 +0000 (GMT)
+Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-5337ed1ba44so99222951cf.3
+        for <devicetree@vger.kernel.org>; Thu, 08 Oct 2026 02:47:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791452849; x=1792057649; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=LADOL3hVYZcuOgoRDbr+9VUKRaoDf0lpVHeS2HKIIdM=;
+        b=C+c+aTuJThV7w7IS25Zy0STyD7llIxWnKmkq0XhNyDLa9/c2jDzJ18Rn/NYIhoPzW4
+         6PREc7i5rXQMFo0vAuap7/MMnKtHpC53fGcTOd9DH/UmUMBEe/nsCt7MaEY7o8GXhERr
+         DcDIwTRnP5Mgq7BtSdgEBcxuXuzXIOhKZkRB/XQhWr430BRBoDjC55ldbL1HC9F1JdAT
+         bwrmZWJmL/JUvwcF/5F2IJIuxOW1BGnXGUyiQTig+k9cQ/n91zvxC+N2k2UcIZhzs1By
+         1d7AwEJis8bEvRy1Lfoicuui9LSk4JADA3khXLlloutDJUW3/15QSMwciDC9ylvil36q
+         fsLA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791452849; x=1792057649;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=LADOL3hVYZcuOgoRDbr+9VUKRaoDf0lpVHeS2HKIIdM=;
+        b=0WdvF2cfUS+wCc9taS1jcpXIRyao/zuBvUjEXeIkGgzkJ9VgqiEKH3GZXDRNPVSksJ
+         W5otUB8Wno5MkwmZ2UvWlAAqmDLXAT+++feMMDQ/TNjs5S4hpKl0psiFsAl0sdJtorAz
+         ZYFz8ecf4IB0F1ZjQl+o98pLSUQmPWvEAT24IeKEenTN+lqbTKO+rFTjoSrLiMheCj9+
+         pcDB5pqTLGQxbcuiP/9WZIVgsxFNN/Bd7luY8FMOTdGeQsF9U+0DpOTk+FJ88KVvATps
+         p2hV3ksgHsDzmk9SNy866Wfz4wlWPFAuoW7YkEi75vfIaoCYAcb8fXowp9IO3wo7mI6s
+         SgVg==
+X-Forwarded-Encrypted: i=1; AKwUvBz/nPGmYNlIN9Hw/+fP8jYZZZe4aPb2dekk+ibwUStVZ1Q2eCq5jAhbYL3wGc6YbvO3ldvocjEDL2cw@vger.kernel.org
+X-Gm-Message-State: AFuF++mu0Pj8wXcdAMggdtdRmYpo1O5BG//KyEa9rMGKc5is6+Y4cYnY
+	XHM95BBZOoSJx60A2dAmc9owKbTX5BfZiP3ztq34j/DaGyA2VMYjD4+o5XWy8lXvQbxWSVh3unF
+	d51ifJ4R1Ag0DB73yTHXAnr8IhC+tAhqA7B6sycA/gv+2c8xFXZmrFdhJk/OsCHGY0WF+165vzh
+	4=
+X-Gm-Gg: AYBFou1TfaK2H8S3VcbE+rQSfxD9ny1RrfsD0LkGxnbYbrmhG5mA++heczKVEgesyKz
+	AVgVEMIcbYrPhxou6ZsdMQ8dIMQPp/dfyDupTd71mYQH+U4Y4aiE/cDIgYcFlzBG35qivRNT5AY
+	a4xdAisjo56CKVfqXJylTBaeCXhvZtDRm9q9dTWKqNMCCbQYePdKsMQwwdCUFdFOoCgaLh05OxC
+	txoMszZlz5fzQNDhcJpi7m5L1mMIe8FtmNMU6IyU0nxU5ZJsZoI3tc+vy307xBbVm/6h21Iy6W6
+	xBiLtrSl/v0Z6oRJ8S1ZXE75Lk/uX0tC/ky6/GNPWIchH9wzzvdOqT/vmQncMsFUSFAdMfLOp0+
+	y0MUTzo9Lm7aHotc7oQmuQPEj5VUADju7cb67jcL1o0WKdZYj/qpyJ8Dzr09b4ABfBNTxhatfLB
+	ByTofyVo0tqQ8i
+X-Received: by 2002:a05:620a:4011:b0:93e:6c02:d181 with SMTP id af79cd13be357-93e9b71bf0cmr994959085a.14.1791452849299;
+        Thu, 08 Oct 2026 02:47:29 -0700 (PDT)
+X-Received: by 2002:a05:620a:4011:b0:93e:6c02:d181 with SMTP id af79cd13be357-93e9b71bf0cmr994951685a.14.1791452848445;
+        Thu, 08 Oct 2026 02:47:28 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bcd3074bb0sm1042941e87.21.2026.10.08.02.47.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 02:47:27 -0700 (PDT)
+Date: Thu, 8 Oct 2026 12:47:25 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Linus Walleij <linusw@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>,
+        Jun Nie <jun.nie@linaro.org>, Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v5 5/6] dt-bindings: display: Add Synaptics panel support
+Message-ID: <d4mel72zic3olxmtf6vx57yajlmjwtrvdcaucfkpmlnkxodqkf@h4yzg6ntqs4r>
+References: <CAD++jLkyEPY5cFg_pHb71yG52iLwS9tQDpcHu=TTBknQMeFctw@mail.gmail.com>
+ <bc3e618f-2e7a-4439-9466-8cd9695242e5@linaro.org>
+ <2lcpzwh7fxecpffnakpnp5lecrm3e6u64ztat7cd75nuxofxa2@clj27bzgjy3r>
+ <4d053234-06d8-4268-b60a-2fccc78da654@linaro.org>
+ <d3xs3kzc2wg5lkouaemdicrbtsoquff6bvmnlmuxwh4kspfs2d@b77l43axr6a4>
+ <8cf6ec52-fb36-44e7-831c-2bb24214f591@linaro.org>
+ <pyl6bihy4zsyhmblrgvuvov2gi2jz5ktpbcz4u3r53qw7h725y@4wzvce345wwh>
+ <b48f9b77-5b11-483d-b031-81da16c5c73a@linaro.org>
+ <cqo2n43vq4v7txg6j7ss6dyzpnqdbm265m5xedjtrp5tn7b56c@xlqtrwvpvoly>
+ <c23f91fd-a5d5-46a2-b4d7-3e33a87a348e@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH v3 0/5] of: reserved_mem: several fixes about reserved
- memory
-To: Mike Rapoport <rppt@kernel.org>
-Cc: Wandun <chenwandun1@gmail.com>, robh@kernel.org, saravanak@kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org, akpm@linux-foundation.org
-Content-Language: en-US
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-In-Reply-To: <asc6brs_g0ky0wOM@kernel.org>
-Content-Transfer-Encoding: 7bit
-X-CMS-MailID: 20261008094311eucas1p1d640b4ffd81730e0ee429aef7e8412b4
-X-Msg-Generator: CA
-Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261003080438eucas1p2bdb68c248ecad088559285a4f736bfe5
-X-EPHeader: CA
-X-CMS-RootMailID: 20261003080438eucas1p2bdb68c248ecad088559285a4f736bfe5
-References: <20260920092852.614973-1-chenwandun1@gmail.com>
-	<arJA6fOMetzoBhDH@kernel.org>
-	<060fb694-ba1d-40e7-8a18-f32d5a4039ab@gmail.com>
-	<CGME20261003080438eucas1p2bdb68c248ecad088559285a4f736bfe5@eucas1p2.samsung.com>
-	<asC3DBvtlcO5AVsz@kernel.org>
-	<5dccea9b-a9e1-44f5-84d9-bc9efe04edee@samsung.com>
-	<asc6brs_g0ky0wOM@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <c23f91fd-a5d5-46a2-b4d7-3e33a87a348e@linaro.org>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDAzOCBTYWx0ZWRfX6/6CflRwlKoG
+ 6MaQGOMpGfdcqrNVtYZoi6BfaxPVmy609miefRH76f9me1P6M2QBqAQU70iBkksPa1ecpQ6Chus
+ BrXOAUk4TkmvRkH+z+AGxAPr06s3kpvTMbRjH6nwlbq4RyoaKK+IZhnrOsoh5HKDZRCiwwEnc2d
+ eJJIuxYRYCfaEmNsanmkj9IVD+PpMp1UkZQPx59+oVQ3xwUiqKSUaMmYmTHjW3kzLwP56jKHH3E
+ 6VcQicfsh+vEBbzydFMNPNkwp0xvXjYDVVa8sknXdaCJUR2CWtfm42VU8v8QvBFT2fexsjemQ+f
+ keayfo8y/1pdh21yhmdpk0S8jyQ5VU/8aGA6hLOTy2MEk+8x3seT49IB0RIqKon+St8/nJiEYYD
+ x93iW32yR08/ooaa0OdBBzDhpQbxPIuMbV0XFHcza6/CiGAUgp25CkgWabbG/H0sKtwihFIeo1r
+ 7kGNoy3E8OStT5pi7kA==
+X-Proofpoint-GUID: YkjYr0RbYxcvqerOxRECTvmlsMx7q9vT
+X-Proofpoint-ORIG-GUID: YkjYr0RbYxcvqerOxRECTvmlsMx7q9vT
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDAzOCBTYWx0ZWRfX5l1T+3EfTi0N
+ aHYHLAdKi4o8hZPhyUf5+jkk40j7a6osYva1AY5sANt4kLN1p4vDsDvG431xXK7oC6dKx/khiK9
+ 4FMkYi7ZzDtofBGH7FWQTyaWz9MCOzc=
+X-Authority-Analysis: v=2.4 cv=MPT1C8Zl c=1 sm=1 tr=0 ts=6ac766b2 cx=c_pps
+ a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=vnREMb7VAAAA:8
+ a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=ntJHeUTpt5IsPa3yjLsA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=uxP6HrT_eTzRwkO_Te1X:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-08_03,2026-10-06_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 bulkscore=0 adultscore=0 priorityscore=1501 suspectscore=0
+ malwarescore=0 phishscore=0 lowpriorityscore=0 clxscore=1015 impostorscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610080038
 
-On 08.10.2026 08:38, Mike Rapoport wrote:
-> On Tue, Oct 06, 2026 at 03:26:21PM +0200, Marek Szyprowski wrote:
->> On 03.10.2026 10:04, Mike Rapoport wrote:
->>> On Tue, Sep 22, 2026 at 05:24:32PM +0800, Wandun wrote:
->>>>>> From: Wandun Chen <chenwandun@lixiang.com>
->>>>>>
->>>>>> This series fixes several error-handling issues in the reserved-memory
->>>>>> initialization paths.
->>>>>>
->>>>>> v2 --> v3:
->>>>>> 1. Rework the mechanism that checks in the late scan whether the early
->>>>>>    reservation succeeded (patches 3-5, suggested by Marek, thanks).
->>>>>>
->>>>>>    Patch 3 adds a new memblock flag MEMBLOCK_RSRV_RMEM, which is set when
->>>>>>    the early reservation of a static region succeeds and checked in the
->>>>>>    late scan.
->>>>> Can we keep this local to of_reserved_mem please?
->>>> Probably not. I do not see a way to keep this entirely local to
->>>> of_reserved_mem while handling the issue robustly.
->>>>
->>>> I previously implemented an approach in of_reserved_mem that records
->>>> static reserved-memory nodes whose early reservation failed in a local
->>>> array [1]. However, the early scan runs before paging_init(), so the array
->>>> cannot be dynamically expanded. If the number of failed nodes exceeds
->>>> the array size, some failures cannot be recorded and the issue remains,
->>>> and that is why Marek said "partial solution", although in practice
->>>> having that many failed nodes is unlikely.
->>> Even before paging_init() there is memblock_alloc().
->> One can call it, but such memory cannot be dereferenced/accessed for example
->> on ARM64, because it is not yet mapped in the linear map.
-> Can't we use early_memremap() for it?
+On Thu, Oct 08, 2026 at 10:27:05AM +0200, Neil Armstrong wrote:
+> On 10/5/26 13:15, Dmitry Baryshkov wrote:
+> > On Mon, Oct 05, 2026 at 10:54:41AM +0200, Neil Armstrong wrote:
+> > > On 10/5/26 04:22, Dmitry Baryshkov wrote:
+> > > > On Sun, Oct 04, 2026 at 05:51:44PM +0200, Neil Armstrong wrote:
+> > > > > On 10/1/26 02:43, Dmitry Baryshkov wrote:
+> > > > > > On Wed, Sep 30, 2026 at 09:18:55PM +0200, Neil Armstrong wrote:
+> > > > > > > On 9/30/26 21:04, Dmitry Baryshkov wrote:
+> > > > > > > > On Wed, Sep 30, 2026 at 06:43:47PM +0200, Neil Armstrong wrote:
+> > > > > > > > > On 9/30/26 09:44, Linus Walleij wrote:
+> > > > > > > > > > On Tue, Sep 29, 2026 at 3:35 PM Krzysztof Kozlowski <krzk@kernel.org> wrote:
+> > > > > > > > > > 
+> > > > > > > > > > > This entire binding seems like stitching two devices together, which
+> > > > > > > > > > > might be fine (I don't even remember this stuff... two months old) or
+> > > > > > > > > > > might be artificial grouping of separate devices.
+> > > > > > > > > > 
+> > > > > > > > > > I think that's a good point and fair pushback.
+> > > > > > > > > > 
+> > > > > > > > > > Neil and Jun talk about it yesterday at XDC (1:15 into the stream):
+> > > > > > > > > > https://www.youtube.com/watch?v=6tNGW8PoSzw
+> > > > > > > > > > 
+> > > > > > > > > > The current binding does not reflect the physical topology of the
+> > > > > > > > > > actual device, and the bindings need improvements. I have a feeling
+> > > > > > > > > > there is one display controller with two physical panels.
+> > > > > > > > > 
+> > > > > > > > > No there's really 2 controller and 2 separate panels, but they are not
+> > > > > > > > > classic panel, they are a pair of panels+lens which are in front of
+> > > > > > > > > the eyes which forms a single "image" for the brain, so they are
+> > > > > > > > > technically a single display and requires to be hard synchronized.
+> > > > > > > > 
+> > > > > > > > Yes. However this approach makes it impossible to share the code between
+> > > > > > > > the double-panel drivers and single-panel drivers. I think, that the
+> > > > > > > > panel driver should still reference a single glass+DDIC, while letting
+> > > > > > > > the DSI host driver to handle the bifurcation.
+> > > > > > > 
+> > > > > > > Yes, and no, it must really be considered as a "single panel driven by 2 identical controllers",
+> > > > > > > and even this is really purely software implementation issue.
+> > > > > > 
+> > > > > > [...]
+> > > > > > 
+> > > > > > 
+> > > > > > > > > Describing both panels into separate nodes would only be possible
+> > > > > > > > > if we described a "VR display complex" nodes linked to both panels
+> > > > > > > > > but this would probably be solved by actually describing the "display"
+> > > > > > > > > linked to a DDIC controller and is out of subject for this serie,
+> > > > > > > > > and can be added later when we properly define things.
+> > > > > > > > 
+> > > > > > > > I like the VR complex idea. In the end, you have two modes which you
+> > > > > > > > most likely might want to support:
+> > > > > > > > - L+R, having double-width CRTC scanning over a double-width framebuffer
+> > > > > > > > - Mx2, having a single-width CRTC and a single-width framebuffer
+> > > > > > > >       displaying the same picture to both eyes. I can imaging that knowing
+> > > > > > > >       about L+R might be an explicit opt-in feature of the DRM interface.
+> > > > > > > > 
+> > > > > > > 
+> > > > > > > This makes no sense to support both modes, and this will never be used,
+> > > > > > > and anyway this is purely software implementation.
+> > > > > > > 
+> > > > > > > We're defining bindings here, describing the real reality, not hypothetical
+> > > > > > > situation that will never happen.
+> > > > > > 
+> > > > > > Let's ignore software issues. On the hardware side, you have two
+> > > > > > distinct DSI panels, each having its own set of controls, own DSI link
+> > > > > > and own backlight control.
+> > > > > > 
+> > > > > 
+> > > > > OK so let's see the problem in another angle, if we had 2 DS links 2 physical
+> > > > > controllers, 2 physically distinct panels but forms an unique display.
+> > > > 
+> > > > Imaging the case: through the time the backlight LEDs on the right eye
+> > > > age faster than the ones on the left eye, so we need to apply dynamic
+> > > > correction to the backlight, dynamically calibrating the coefficient to
+> > > > be applied to the LED brightness (or even worse, dynamically applieing
+> > > > the _curve_ to compensate for the brightness difference).
+> > > > 
+> > > > Note, I don't have any information here, if such a difference can exist
+> > > > or if it can appear through the time, or if the xR DDICs can handle it
+> > > > on its own via a pre-programmed LUT, so you can totally say that the
+> > > > argument is moot and I won't even argue here.
+> > > > 
+> > > > > 
+> > > > > Describing it in separate distincts nodes is wrong since it doesn't reflect
+> > > > > that it's an unified display, so either we define :
+> > > > > - a "combined-display" bridge defined as:
+> > > > >     - a separate top node in / like connectors with a graph from the DSI links to each panel
+> > > > >     - a DSI subnode with 2 panels as subnode, port graph from both dsi to both sub-panels
+> > > > > - a "R63455" panel bindings with 2 subpanels as Linus shared in https://lore.kernel.org/all/CAD++jLkyEPY5cFg_pHb71yG52iLwS9tQDpcHu=TTBknQMeFctw@mail.gmail.com/
+> > > > > 
+> > > > > I think it would be interesting to have the "combined-display", with a connector-like node,
+> > > > > which will do all the split-dsi dual-panel logic for us and leave use implementing simple panel
+> > > > > drivers.
+> > > > > 
+> > > > > The outline would be:
+> > > > > 
+> > > > > =====><=======================================
+> > > > > / {
+> > > > > 
+> > > > > 	xr-display {
+> > > > > 		compatible = "combined-display";
+> > > > > 
+> > > > > 		ports {
+> > > > > 			port@0 {
+> > > > > 				combined_dsi0: endpoint {
+> > > > > 					remote-endpoint = <&dsi0_out>;
+> > > > > 				};
+> > > > > 			};
+> > > > > 			port@1 {
+> > > > > 				combined_dsi1: endpoint {
+> > > > > 					remote-endpoint = <&dsi1_out>;
+> > > > > 				};
+> > > > > 			};
+> > > > > 			port@2 {
+> > > > > 				combined_panel0: endpoint {
+> > > > > 					remote-endpoint = <&r63455_right_in>;
+> > > > > 				};
+> > > > > 			};
+> > > > > 			port@3 {
+> > > > > 				combined_panel1: endpoint {
+> > > > > 					remote-endpoint = <&r63455_left_in>;
+> > > > > 				};
+> > > > > 			};
+> > > > > 		};
+> > > > > 	};
+> > > > > };
+> > > > 
+> > > > This is an interesting approach and it would be a requirement, if we
+> > > > ever have a device with 4 DSI hosts which can driver two sets of XR
+> > > > panels (there would be no other way to understand, which pairs of panels
+> > > > are bundled together). I am not sure if it needs to be an OF graph
+> > > > device or if it can simply reference the DSI devices. Or if it can
+> > > > reference panels (which is not the same).
+> > > 
+> > > I mean we could imagine combine any number of panels to form a combined display,
+> > > 2 or 4 DSI links would be handled the same.
+> > 
+> > I was thinking about 2 combined display example. In this case you can't
+> > figure it out in software without extra hint.
+> > 
+> > > 
+> > > > 
+> > > > Another question, do we need to list any other devices here? regulators?
+> > > > sensors? maybe proximity sensor? cameras? I'm thinking from the
+> > > > 4-host-2-xr point of view, because if we don't have 4 DSI hosts, we
+> > > > don't need to describe anything. We already know all the hardware
+> > > > properies and connections, the rest is really just a software plumbing.
+> > > 
+> > > The regulators would be in the panel nodes, for the associated peripherals
+> > > like sensors & cameras they are not physically tied to the display so
+> > > it's only software plumbing.
+> > 
+> > regulators yes, they are described. Think about the 2 XR units being
+> > driven by the same "base". I think, you would at least need to link the
+> > cameras to the enclosure. Otherwise you will have a 2x number of cameras
+> > and no idea which of the enclosures they belong to.
+> > 
+> 
+> This is highly improbable, and I don't think it's the priority right now anyway.
 
-I didn't know that this is a valid, allowed use case for early_memremap(). If so, then
-this is definitely the best approach, as it also removes the horrible two pass
-initialization introduced by commit 8a6e02d0c00e ("of: reserved_mem: Restructure how
-the reserved memory regions are processed").
+Yes. But if we are trying to define the ABI (and DT is an ABI). I'm
+using this usecase as an example of what needs to be defined as a part
+of the enclosure. Otherwise the case becomes a bit strange: we are
+defining XR enclosure, but only for the sake of defining that there are
+two panels and one of them is the left one. From my point of view, if we
+are defining the enclosure, it should be a (more or less) complete
+definition. If we say that we know all the details for now (because the
+whole system is the XR headset), then we also don't seem to require
+defining the panels setup.
 
-I've backed such refactor with LLM and it looks very promising:
+Having that in mind, I'd still ask you to try the following experiment:
 
-https://lore.kernel.org/all/20261008094125.3197971-1-m.szyprowski@samsung.com/
+Add two separate panels, each describing one eye. Add msm-specific
+connector driver, proxying both panels. If possible proxy bridges
+instead of panels. The primary goal would be to handle get_modes() in a
+consistent way. I still suggest using a DRM_MODE_FLAG_3D_foo to describe
+the mode. Maybe we need to a new 3D_XR flag for the cases where the
+panels don't provide an L-R picture without significant additional
+processing on the host side. I'd still suggest having a single-eye
+resolution mode too, just to let non-XR compositors to display
+_something_ on the screen (even if it will be mostly unusable). Use this
+connector instead of drm_bridge_connector. This should let MSM DSI
+driver to clearly use the dimensions of the panel for DSC calculation
+instead of depending on extra flags to derive them from the CRTC mode.
 
+One of the ideas that was briefly discussed during LPC would be to
+define ROI for the connector and use two connectors for a single CRTC
+(each specifying its own region to be displayed). I think, this might
+clean up a lot of the hacky code. For example, each of the connectors
+would have its own backlight, each of them will have its own mode and
+its own bridge chain. The major drawback is that from the userspace
+point of view both connectors are independent. It would be a big
+question, how the kernel should behave if the userspace would try
+lighting up only a single connector out of two.
 
-It works fine on ARM, ARM64 and RiscV64. :)
-
-Best regards
 -- 
-Marek Szyprowski, PhD
-Samsung R&D Institute Poland
-
+With best wishes
+Dmitry
