@@ -1,82 +1,177 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fhigh-a6-smtp.messagingengine.com (fhigh-a6-smtp.messagingengine.com [103.168.172.157])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 067E837DAAD;
-	Thu,  8 Oct 2026 19:49:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB5E93D3002
+	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 19:56:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.157
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791488944; cv=none; b=YFb0IcnRUHk/GtoEVygOb7SKdwUUCaAtPkRyIGoG+x1u8XUij3uHvlWybToaJ5FG4G7MEz2SOqB1KR64kDlxNuPcb6ZxGGQ/yufeG4D+kM1iL+5iIm44LkW8BSDNaKYfbmt2XHpB8A6QCcbjBL/Ic36b+TFO41leRG2apPR3GRg=
+	t=1791489394; cv=none; b=Dl/FeAIlnAdQLRBNZXNXgt+YoszXtnK8RMsHLydmdMBwHT3soplU9OZ2lE8de9nyP8u/KK67dkkXqx5yh/IuYBoA6Xa8jU1BmOjPcgqfXW84bJCsYnKc2efcH7NspxUw9pAStpj9witqetS7CyMhI3omq33qppjp8WssrFd1fb8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791488944; c=relaxed/simple;
-	bh=HFZ46q3xWOru5PAaBx57+vcpP8UN1FHSmkuwkSpWZLk=;
+	s=arc-20240116; t=1791489394; c=relaxed/simple;
+	bh=jGrURUcFHDA0+GbueQInVLfJCt4hwt/v2A3U6hHZjXE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=dJ5CVe0Cux9dk8WicHgD8ddS7uaKc+NhziwYTjJ6Yi8ZoykY+elIfGYIhgI5faT8k8LNKFmCI89KhrBKp0B2YvRL+NAI4iRGrcM5CPoYORVnkGG0ZjtfMXU0Mmrmx05EE8Qi3yMETwpHMu/61opzAveR7KRbzFJ5/uRqJ2SKKG4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ffnt4+yj; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=sP7w7M24NUiwXDJsNajyctUnsu5zZDI8ht6uPni1pqPCDcwrpQR5op6wHjB0EmCBe4CcKaZDJRk9lN4hop2FvA4pEIV14iAX6j4ulY66zbV6AcXrA1u6LeYz5kbaOzUdLM/fiFovgxRht5F2fcUN1yz9kt9MQ+7QN+BG0eedLhI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=Mt4zpc0O; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=bEsqLIl3; arc=none smtp.client-ip=103.168.172.157
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ffnt4+yj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73F181F000FF;
-	Thu,  8 Oct 2026 19:49:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791488943;
-	bh=meYWKD1sLEB62RcggqKaZB6N1gJxWM3izFsfIW09Zzk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ffnt4+yjuiH0J4ZTGn/Kxiw546K4hoOxC2VdvB5L4PjmJTyNEnQst6tHITLc1mKVz
-	 dmGIE+3TwwtyR8BlA5IYmNhBnwmtzbbl0Q6XAumzSpg7n/hRPxexi4GD5L79IPulBP
-	 ofEPrVazAwmJ5RJjIn30LrGlyYaP3Y8lDwhpLRyWtx603l1n2bz9q1B3xj2Cj+Yx7E
-	 UfLbc+6AnlKEaMhECxuOLPTvbvckvqJLkNR7fczk+99AUj+9RTUfIFf/kkFYtMFZoc
-	 31uU68sXZfDc85umx0/60K7TUSbw9ItUsfHZe1NwWdvevys1aWPH1dnT7ZatTIizwQ
-	 3LoBPYXAUszjA==
-Date: Thu, 8 Oct 2026 14:49:02 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Luo Jie <jie.luo@oss.qualcomm.com>
-Cc: Paolo Abeni <pabeni@redhat.com>, Lei Wei <quic_leiwei@quicinc.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, linux-arm-msm@vger.kernel.org,
-	netdev@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
-	quic_kkumarcs@quicinc.com, Shuah Khan <skhan@linuxfoundation.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	"David S. Miller" <davem@davemloft.net>,
-	Jonathan Corbet <corbet@lwn.net>, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	Suruchi Agarwal <quic_suruchia@quicinc.com>,
-	devicetree@vger.kernel.org, Simon Horman <horms@kernel.org>,
-	quic_linchen@quicinc.com, Pavithra R <quic_pavir@quicinc.com>,
-	Randy Dunlap <rdunlap@infradead.org>
-Subject: Re: [PATCH net-next 01/11] dt-bindings: net: qcom,ipq9574-ppe: Split
- EDMA reset into sys and apb
-Message-ID: <179148894202.902946.10212431273678375384.robh@kernel.org>
-References: <20261008-qcom_ipq5424_ppe-v1-0-16caf43e44ee@oss.qualcomm.com>
- <20261008-qcom_ipq5424_ppe-v1-1-16caf43e44ee@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="Mt4zpc0O";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="bEsqLIl3"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 1738814001CC
+	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 15:56:31 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-04.internal (MEProxy); Thu, 08 Oct 2026 15:56:31 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1791489391;
+	 x=1791575791; bh=N7SBK0vh3ULmPqqgzaG+2tmusZDnFNTt0FJGRL2fTag=; b=
+	Mt4zpc0Ol5cLHdfk0AWhgfAPXAIXE+xy/qMjb/P3tz0E6uohm/bE+Il0Sz2NfEXi
+	vD5zCf4hmryP6p9cAPgbPp6BtNJnvrOVNMq/VZO/jQhwSftVYrSdvn/7tG1kWj/2
+	cTB/YDY3pCBsY1cYGE54uV8kfR39UEQNiiy4Zt40zPkczUNng4UWhP+zP6rafby1
+	LjQA/YrQaIdZBiSOjJewAAXci1gGM0o87Drcibi4RBqWC1TkyPjW/K8tfswKaWzG
+	fuF4AEkiE1WfZ266LhT/Kk+rT2pnJEv47YQc86RGeidDnczcNd71exOpuL/piI8T
+	EOG85w1U5I++5eNdVS9J4Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791489391; x=
+	1791575791; bh=N7SBK0vh3ULmPqqgzaG+2tmusZDnFNTt0FJGRL2fTag=; b=b
+	EsqLIl3V5ECJxNTTb3OedAqnm1Y1Q3aY/TJD/bedyHA3gKlhciYRR1lh4jp6Sp43
+	+/5LiOmr3OpXQ2XQqvUFgeuFpxwDyfJr+8oJfhBi0kvzeDOyZznJXMxNmm7M0+BH
+	hXCBSUVlDqkJn645mTQR9afDHcABvWLYyBgIKeJVJBthHOLeGIVw5dGEYgfZ8TiU
+	W+EriJ8YFBYEozhgZh7Nx3RTP5kCIxTqBuB9v0KJKbLGPX1rga+918e0AhunKYj8
+	CPYWSx3qUruBVbLdJZpSXu9HHM+uG/h67COvdcaLapTZf4ZnrOME1BY7E+ukvFN5
+	fobeXg6OFLjBtVlJ5JScw==
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=sign d=ragnatech.se a=rsa-sha256;
+DKIM2-Signature: i=1; m=1; t=1791489391; d=ragnatech.se;
+	mf=PG5pa2xhcy5zb2Rlcmx1bmQrcmVuZXNhc0ByYWduYXRlY2guc2U+;
+	rt=PGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnPg==;
+	s=fm1:rsa-sha256:et8ew30rxR6+S9979Z6MCJkc/Sn1kFgceG7QqOeRI1WyEQM
+	59SOgSd9C0DCai/jPFeDmA04OdoKEZfkH9SbWr6Io7zam2BX4Sie3ldIR7WMYd0H
+	YyRJKj7taluQme2/tz4UWevC5XrY3TGiksalk3aue0gE0VnW6yWy2qXVTFemJtLS
+	4PUqz7Tvy6Od2hr+q1VrVrnsVqi/HeIzTQJcH+WT42S0ByUozPNYbvQwb330k+er
+	6VC+7JSm5j/9HddCgY0+68b6B2eX3YcCLr9jGLwFrMOqIQGC7/vhSlMxor/271Kd
+	p7Mz8NYSevvfriBlW1Ibli/DrTDukVziWN3psvQ==;
+X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
+	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
+	action=mi-m=1; hc=13;
+	hn=cc,content-disposition,content-transfer-encoding,
+	content-type,date,feedback-id,from,in-reply-to,message-id,
+	mime-version,references,subject,to;
+Message-Instance: m=1; h=sha256:4vLTtmz9no8NlirtoArdP6sjsXesZgvradwDROJyMj8=:jGrURUcFHDA0+GbueQInVLfJCt4hwt/v2A3U6hHZjXE=;
+X-ME-Sender: <xms:bvXHanKjDQyfz2RffJZlpFlqgebs58aqBr2zUUSvWacmPZKHkHFCsg>
+    <xme:bvXHasotYHH8uYJAqvB1NVc3-ErKkwvw7k6Lx-KpJBiHxlPm3wdHA0OvcGqAZnos0
+    FQHDwDnrIlbshQHcIkbRMf8hJ6MKRDN3CfT8LZ513UpPpDaahLP49JX>
+X-ME-Received: <xmr:bvXHavy3ZEZi0RE-TVa1KZg63BCRBPYY1ZCWJ12kSU7H7hxbxiusBZ8nNbbqsU1djLYMGkk43azbtLAu1QLEjxjazN9TQ9o>
+X-ME-Proxy-Cause: dmFkZTFFjWIW6/RUJWMYmeco20bLf3m00dfBRlgVLOq+QkzpXnRLihf2wO9KpbocSPGeCz
+    uNr4EAbVC35KUTCAH49UiyN01U/YQqKAltiCVbZy/a94JHTFhYR1G2+w1Or7qYOYs1adiP
+    b+sMA0DkE4TuU7Ja8lq1/OoARUzcb+X+U8E7YbnSZorGHE3CQz7lqGJ3L/+fpf1nOtnH+p
+    tZHL8RqcLbBRN0HG9NuB0vePXBlUeGJcjfDLvE8If+shIhqL3iSHxADGhs8drjeIGVhYsD
+    r6pnoXokzbWbJU9hV0/3foriGGm3xXIss25NSpMQ2qjCgFmFVBFtQh1M59sy6pS0lKj/dp
+    ekMDyXVWGzOqFMBrBeQb6iaMFQE853FfpzAmuYcVfOekqta+U9tgPh0jwkCVc9MfaPuegc
+    21x/JKpVGoMgv30gEkAUcIsXnQxSOm2x9sIttFrttV1MqO55m3by942OsCQh4aGHyfyfqz
+    tdaemnHc7B7OeQPRiSxX4FPuFdVvm+M4E+BGcDjYpMgf3AfkJFwY9aT29RU6iZAaJzfo34
+    xSjwNDeAnrDzxAHweG64xKDzsg2AdHJ+2YmsSCq0+SfpKXL2D+pHxLV3e5oDFIpAGHtDf/
+    JGgRyVUutPXeAh3WXcWxG0R3CsM3c0TG8qPUSGZG2e0Wn2KTVRC1pQDqVxUw
+X-ME-Proxy: <xmx:bvXHagMYe57Z186YAL8X61r_63NbszHGp3kRO2YYJvKRrcGGomhMMg>
+    <xmx:bvXHak4z-SQEnZeaw3pajGn0YGnbZotOtjopldmz82cJxhjqHENWvw>
+    <xmx:bvXHapktjInx_PmGQFtW9UvLl-0rriwIcwqpJzaBwvA2DLjjx9-Iog>
+    <xmx:bvXHatQ6doEjbhLI-2GRfzb2AHsrrq6l8KOwUTnjEKTJ8DOBLNQdOw>
+    <xmx:b_XHaiYFStlp2rUysNRjuveXp0qVbKSq4FdGnwS5PtX8jSxzSlwNbhy9>
+Feedback-ID: i80c9496c:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 8 Oct 2026 15:56:30 -0400 (EDT)
+Date: Thu, 8 Oct 2026 21:56:24 +0200
+From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, wsa+renesas@sang-engineering.com,
+	devicetree@vger.kernel.org, conor+dt@kernel.org
+Subject: Re: [PATCH net-next v7 1/3] dt-bindings: ptp:
+ renesas,rcar-gen4-gptp: Add R-Car Gen4
+Message-ID: <20261008195624.GA474315@ragnatech.se>
+References: <20261007185920.4042783-1-niklas.soderlund+renesas@ragnatech.se>
+ <20261007185920.4042783-2-niklas.soderlund+renesas@ragnatech.se>
+ <sashiko-outbox-164484@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261008-qcom_ipq5424_ppe-v1-1-16caf43e44ee@oss.qualcomm.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <sashiko-outbox-164484@kernel.org>
 
+On 2026-10-08 19:00:01 +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [High] ptp: devm_ioremap_resource() conflict with rtsn Ethernet driver
+> --
+> 
+> commit 2999d29f8c3c04d8ff6cdf49a3fa0d43c2a42ee4
+> Author: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
+> 
+> dt-bindings: ptp: renesas,rcar-gen4-gptp: Add R-Car Gen4
+> 
+> This commit adds device tree bindings for the R-Car Gen4 gPTP timer. The
+> timer provides clock synchronization and is shared among different Ethernet
+> devices across Gen4 platforms.
+> 
+> > diff --git a/Documentation/devicetree/bindings/ptp/renesas,rcar-gen4-gptp.yaml b/Documentation/devicetree/bindings/ptp/renesas,rcar-gen4-gptp.yaml
+> > new file mode 100644
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/ptp/renesas,rcar-gen4-gptp.yaml
+> 
+> [ ... ]
+> 
+> > +examples:
+> > +  - |
+> > +    #include <dt-bindings/clock/r8a779g0-cpg-mssr.h>
+> > +    #include <dt-bindings/power/r8a779g0-sysc.h>
+> > +
+> > +    ptp@e6449000 {
+> > +            compatible = "renesas,r8a779g0-gptp", "renesas,rcar-gen4-gptp";
+> > +            reg = <0xe6449000 0x500>;
+> 
+> [Severity: High]
+> Does this new node's memory region conflict with the existing Ethernet TSN
+> driver?
 
-On Thu, 08 Oct 2026 07:51:33 -0700, Luo Jie wrote:
-> The EDMA reset is described in the binding as a single reset, but the
-> hardware has two separate EDMA resets, the system reset and the APB reset.
-> The reset used in the example is a combined reset that covers both of them.
-> 
-> Describe the EDMA resets as two separate entries named "sys" and "apb", in
-> the same way as the EDMA clocks, and update the example accordingly.
-> 
-> The EDMA driver has not been merged upstream yet, and no in-tree device
-> tree uses the ethernet-dma node, so there is no existing user of this
-> binding and it is safe to update it without breaking the ABI.
-> 
-> Fixes: 1898fc572118 ("dt-bindings: net: Add PPE for Qualcomm IPQ9574 SoC")
-> Signed-off-by: Luo Jie <jie.luo@oss.qualcomm.com>
-> ---
->  .../devicetree/bindings/net/qcom,ipq9574-ppe.yaml        | 16 +++++++++++++---
->  1 file changed, 13 insertions(+), 3 deletions(-)
-> 
+Yes it does, please read the cover letter to see why.
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+> 
+> The existing renesas,ethertsn binding also claims this exact same memory
+> region for the generalized Precision Time Protocol target.
+> 
+> During probe in drivers/net/ethernet/renesas/rtsn.c:rtsn_probe(), the
+> existing Ethernet driver requests this region:
+> 
+>         res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "gptp");
+>         ...
+>         priv->gptp = devm_ioremap_resource(&pdev->dev, res);
+> 
+> Because both drivers use devm_ioremap_resource(), which attempts to acquire
+> exclusive access to the underlying physical memory via
+> devm_request_mem_region(), whichever driver probes second will fail with
+> -EBUSY. This will cause a driver probe failure and make the device unusable.
+> 
+> How should this shared memory resource be managed so both drivers can probe
+> successfully?
+> 
+> > +            clocks = <&cpg CPG_MOD 2723>;
+> > +            power-domains = <&sysc R8A779G0_PD_ALWAYS_ON>;
+> > +            resets = <&cpg 2723>;
+> > +    };
+> 
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/20261007185920.4042783-1-niklas.soderlund+renesas@ragnatech.se?part=1
 
+-- 
+Kind Regards,
+Niklas Söderlund
