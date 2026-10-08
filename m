@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69EE538AC88
-	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 11:13:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43B4F331EA6
+	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 11:15:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791458039; cv=none; b=iW89EQNbrKuTUMxYWaEEgM4xyiEJz/nvzMjzCXYKokpqfCYkVZOy322b7+XKrKLDM1PpRXiOpPKG0gDn37o9UaJiLzr88V4JJc1gEGJ76tgmQbABZD3UVKg1A4Ijpe7eE9eWiAdbheggnAMCikWFLDIS7F7WfNjaOAtfYM+/HA0=
+	t=1791458153; cv=none; b=J7oyBvycbwu5XVtTe7t3fYzVu2krU6eF40ir41Pb6F1DBeMg9xdAJbdxDiL6P+H76bidBRahoCJoEh3iUMoWBuJqgEpFjXZ+vTpa3RGYMazWK8ZNCtcfHYnUYP+XJwwYBoRJgyv15brV5A0Z85e9Sygbhz/LJTYkr2Ys6qIhJyQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791458039; c=relaxed/simple;
-	bh=mudWdDviHLU+eK4Sd0tY4T+jU/8HplxyIPYAdfADSTg=;
+	s=arc-20240116; t=1791458153; c=relaxed/simple;
+	bh=FGk9eJPHr3lkcS9k8ro+PVsJLRl6uRbL4ju9NHeX0vo=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=SxtuYXtdLFLtOa/O5YyYDiXPSzgvPoaFVuANSZAu83e7eqNRI5wT3OcLpDl+AKWv5XOGNFzcR7ZdNA8dCWSPdl7X2mYr/Bekfm3roSDH4BYIpqSrLLIsQMAQ9jPC1/o6gJ510sqvaz1WjbqNrO26rEhHGDRq6KNE4Wm54pzQ4Jw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KotiRgvX; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=tOiDS9/Ya91Xo1mm46cDgQsZv8ZdrmEjPVonyfxGrG7/OvaBFMdmF4qO9jA3YpmMiOPyffTnIv005YbW2gVyTaPveyf30Zy2Fbm4Vup4MFbvqZHGDvVj4AkQm40JV27+Bs9uPQ6mZwDPmDzbv6YQDavU/8VZeXNhR6fRL2F4Des=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e+xn11ab; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KotiRgvX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFF9E1F000FF;
-	Thu,  8 Oct 2026 11:13:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e+xn11ab"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCDF31F000FF;
+	Thu,  8 Oct 2026 11:15:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791458038;
-	bh=5KIiEoFxQadhBbaAqWEZHj9ax/oi0kHfINsWIRUWnYA=;
+	s=k20260515; t=1791458151;
+	bh=yW5gPjG+pVWAwRpEHEelm1XqdZp+vobLJL1kYG0/QQw=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=KotiRgvXCi5IEBwy6tgKUAFOSDU3qEqSF6qfkKG+x6brIii2mbgRMAXV8AVQ4ohZV
-	 VX2a8s6uWmIlneShH+VTi9EHJdJ2wt0XPhur8/RVnN3xddPvlX/Z0Om48LOegzDx/f
-	 WOeJGfz8QID5ASSqaU8f+fboDJufS2HcO7TsR9VJdSbD/oxi8b+CKW3seVF2pX0Mgf
-	 2O7u6pg/YlQpRhdIcHE3sFsjhNm9ZJh9DToJvXhSQuytbKvDTRgHb5eF66oJB/9BHC
-	 kvVC3YX8HWvO+f6l5k967V401DjD3vdV6t8JEF2o5o8BUFqMgH38Q2j8nvd17mPFZ9
-	 G3AUbbEZovTGA==
-Message-ID: <sashiko-outbox-164079@kernel.org>
+	b=e+xn11abOVuudlYCd0jC8abkVraiPTcIny0l30RiMztLFPDMYQy0/XzUA1PVwbg3u
+	 nyJLhb9WUOKAYly3JwyKGJ/+GJHpUZApwr2mzOqZA008izbGxeN23pVGEOgi/Dn+n9
+	 9PlNlEn5JmDPeKLr3DnLX3K1iqsBEl5x97GazAY0TKdx3NlSoH33rjZRsvO7we59DL
+	 sLIZCgcxFlSdf10f6t0jWkEF4WsThu6uW9FPIFw4G0P6i7eN4HARsth1sEfM8/xWS/
+	 QaIWIOLmvxXvEqnD0jX1c159qmAn/UbV7LqwBYNhkynfWKwDuOMJp10gvQqyMKt+LZ
+	 d/eriD0vuJZMg==
+Message-ID: <sashiko-outbox-164081@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/5] ASoC: codec: pcm1681: Add optional SCK clock and
- runtime PM support
+Subject: Re: [PATCH v2 5/5] ASoC: qcom: sc8280xp: Add Nord sound card
+ support
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Mohammad Rafi Shaik" <mohammad.rafi.shaik@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20261008-nord-asoc-driver-support-v2-v2-2-0b6f7e94060d@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20261008-nord-asoc-driver-support-v2-v2-5-0b6f7e94060d@oss.qualcomm.com>
 References: <20261008-nord-asoc-driver-support-v2-v2-0-0b6f7e94060d@oss.qualcomm.com>
- <20261008-nord-asoc-driver-support-v2-v2-2-0b6f7e94060d@oss.qualcomm.com>
+ <20261008-nord-asoc-driver-support-v2-v2-5-0b6f7e94060d@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 08 Oct 2026 11:13:57 +0000
+Date: Thu, 08 Oct 2026 11:15:50 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,86 +47,47 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] ASoC: devres lifecycle ordering bug causing I2C access after clock=
- is gated
+- [Low] ASoC: qcom: Codec internal enums hardcoded in machine driver
 --
 
-commit c3c4668080e08de3f73de6e53cea7fdcb695945c
+commit 2721d92879dd4f31b8adcd325b2322e0930198bc
 Author: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+ASoC: qcom: sc8280xp: Add Nord sound card support
 
-ASoC: codec: pcm1681: Add optional SCK clock and runtime PM support
+This commit adds support for the Nord Ride and RRD sound cards by
+introducing the qcom,nord-sndcard compatible and associated
+platform-specific data. It configures the codec DAI format for DSP_A
+operation and enables MI2S bit clock handling. It also adds a
+platform-specific sound card initialization callback to configure the
+ADAU1979 capture codec to use LRCLK as its system clock source.
 
-The PCM1681 requires its SCK system clock to be running before register
-access. This commit adds support for an optional sck clock and uses
-runtime PM to manage it instead of keeping it enabled permanently.
-
-> diff --git a/sound/soc/codecs/pcm1681.c b/sound/soc/codecs/pcm1681.c
-> index 60fdbe5c4e054..a1ccf1edf4819 100644
-> --- a/sound/soc/codecs/pcm1681.c
-> +++ b/sound/soc/codecs/pcm1681.c
-[ ... ]
-> @@ -304,34 +335,128 @@ MODULE_DEVICE_TABLE(i2c, pcm1681_i2c_id);
+> diff --git a/sound/soc/qcom/sc8280xp.c b/sound/soc/qcom/sc8280xp.c
+> index b5d367486d56a..a759ae9511b6b 100644
+> --- a/sound/soc/qcom/sc8280xp.c
+> +++ b/sound/soc/qcom/sc8280xp.c
+> @@ -25,6 +25,10 @@
+>  #define I2S_BIT_RATE(rate, channels, format) \
+>  	((rate) * (channels) * (format))
 > =20
->  static int pcm1681_i2c_probe(struct i2c_client *client)
->  {
+> +#define ADAU1977_SYSCLK 0
+> +#define ADAU1977_SYSCLK_SRC_MCLK 0
+> +#define ADAU1977_SYSCLK_SRC_LRCLK 1
+
+[Severity: Low]
+Does duplicating these magic values from the codec driver create a brittle
+dependency?
+
+When nord_snd_init() passes these hardcoded macros to
+snd_soc_component_set_sysclk(), it relies on the internal integer values of
+the ADAU1977/ADAU1979 codec's clock definitions matching these definitions.
+If the codec driver maintainers change the enum values, the machine driver
+will silently configure the wrong clock and cause audio capture failures.
+
+Could these identifiers be exposed through a shared header in include/sound/
+instead of being duplicated in the machine driver?
+
 [ ... ]
-> +	ret =3D devm_snd_soc_register_component(dev,
-> +					      &soc_component_dev_pcm1681,
-> +					      &pcm1681_dai, 1);
-> +	if (ret) {
-> +		dev_err(dev, "Failed to register component: %d\n", ret);
-> +		goto err_pm;
-> +	}
-> +
-> +	return 0;
-> +
-> +err_pm:
-> +	pm_runtime_dont_use_autosuspend(dev);
-> +	pm_runtime_disable(dev);
-> +	if (!pm_runtime_status_suspended(dev))
-> +		clk_disable_unprepare(priv->sck);
-> +	pm_runtime_set_suspended(dev);
-> +
-> +	return ret;
->  }
-> =20
-> +static void pcm1681_i2c_remove(struct i2c_client *client)
-> +{
-> +	struct pcm1681_private *priv =3D i2c_get_clientdata(client);
-> +	struct device *dev =3D &client->dev;
-> +
-> +	pm_runtime_dont_use_autosuspend(dev);
-> +	pm_runtime_disable(dev);
-> +	/* Runtime PM may already have gated the clock */
-> +	if (!pm_runtime_status_suspended(dev))
-> +		clk_disable_unprepare(priv->sck);
-
-[Severity: High]
-Does this devres lifecycle ordering introduce a regression where I2C bus
-timeouts occur during teardown?
-
-Since the component is registered using devm_snd_soc_register_component() in
-pcm1681_i2c_probe(), it will be unregistered during the devres phase, which
-runs after pcm1681_i2c_remove() completes.
-
-By manually disabling runtime PM and gating the hardware SCK clock here, the
-clock is turned off while the ALSA component is still fully registered. The
-subsequent devres unregistration phase will invoke ASoC DAPM teardown
-sequences, which perform regmap writes to power down widgets and lower the
-bias level.
-
-Because regcache_cache_only() is not enabled here in pcm1681_i2c_remove(),
-wouldn't these regmap accesses attempt physical I2C transactions to the
-device with a gated SCK clock, resulting in I2C timeouts or hangs?
-
-Could this be fixed by using snd_soc_register_component() and unregistering
-it explicitly at the beginning of remove(), or by using
-devm_add_action_or_reset() to manage the PM and clock teardown after the
-component is unregistered?
-
-> +	pm_runtime_set_suspended(dev);
-> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261008-nord-asoc-=
-driver-support-v2-v2-0-0b6f7e94060d@oss.qualcomm.com?part=3D2
+driver-support-v2-v2-0-0b6f7e94060d@oss.qualcomm.com?part=3D5
