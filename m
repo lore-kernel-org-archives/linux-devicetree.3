@@ -1,101 +1,109 @@
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1B494F4D0C
-	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 18:46:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 408774F55D2
+	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 19:00:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791485219; cv=none; b=US226TtfJcGgaPwh9di8vMh6KFmlf/84cEG3DE3BGSz3/3qMD7t/eHJfM794B3tELtqEIm/Jjo1lmqG7wg8PWuYVDlaJm5CFziJ9rx1t8A4A8hzQv42x3/Qs4wbjbKm4BOu0TES3g3e+5SqpMu/S1uFtiOFQ7S9hZtFVs7Cwmog=
+	t=1791486006; cv=none; b=GXWPQVvNccfJ9infZfNuUkTYYKDUwpFif2KNtyZ9qRQFfaRidcEyfimDB0v6pRD3S/IbTFVtaZCG6JZLGj6JoLx8G+376Dt0omAq2dKuGvrnQZspgO4Zw5vDlv4NY2CQAoffzYjomchip7Pr3j44OXO0Auto0pNLeMCzroevc3g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791485219; c=relaxed/simple;
-	bh=WqUMFMPWZ746lMssxYdDiHwYphMtVzEwwCmluHImrxE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lklS2oRTKmEDmAAY1YRi0qA26/Cbah1jB7rvrZ1IZ1A3xHY6DOFARh4J9JCpAtlOey9LcxYPzbvSqPqB5L6zcH+H2Ciyb9cNqsyB83yb66pS5/FWE03WYIpQ5WuKrMcfMskC8DRkMX8vpifFrgQUUuyiy347XygZdS3PkdHcFTI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=fym3bOV5; arc=none smtp.client-ip=194.117.254.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	s=arc-20240116; t=1791486006; c=relaxed/simple;
+	bh=dDcXvDkXFpq3uMLkc0F91YmSoqfkmfIEKhJbze8B3AM=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=B2vsFTaPU+miGOArjGwFgndx43wBx1gn6Y45xeHwpEvLSELTtibX7DSPaCrrPahfKKXpHYbH1cmbFIsEyU+2Tnbt1N48PF/Koa0QRMLxpadSYix/KBKKh8ojfRdqpmhFSgcRJ9YbeMFiRDgO+hN/v94sbbcaxXffu8We4+JNrQU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ae590Gkn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="fym3bOV5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=WqUM
-	FMPWZ746lMssxYdDiHwYphMtVzEwwCmluHImrxE=; b=fym3bOV5SNdgJdg5WnnA
-	3R4Aw8nE/L3VuD1g9ikUnccSIC6ox0UVfUCFJ5kmsoSVvpKMwunqNy0bHw/I4aRA
-	fJeqyXyFbBVYyUbnzu5FpCVqdmLkZSnoGVze+jDgIhOinwupAKs5CmQpwscB2f8y
-	PhRSv/vH1xBs9aPkYfJoCOCyMrW3eO6bFRbNKeojAkUOwPdFti8yoGTw/pSsWqzs
-	U6NW2lBZaBGCcHqY+Gm41YTQLsT4YFhTvEDAa4VaegmdHPU/LhNOBcuIKcFofUcs
-	WO3U49iXOasp8EjqKck8UD6MOiiq2xNDmCxExM3vBXPwIx3GWPjglt4posoM4JtB
-	Og==
-Received: (qmail 862361 invoked from network); 8 Oct 2026 20:40:07 +0200
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 8 Oct 2026 20:40:07 +0200
-X-UD-Smtp-Session: l3s3148p1@YqeNj1hdwLXDesiu
-Date: Thu, 8 Oct 2026 20:40:07 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: linux-renesas-soc@vger.kernel.org, Vinod Koul <vkoul@kernel.org>
-Cc: Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	dmaengine@vger.kernel.org, Frank Li <Frank.Li@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>,
-	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
-Subject: Re: [PATCH v2 0/4] dmaengine: sh: rcar-dmac: add R-Car Gen5 X5H
- support
-Message-ID: <asfjhlIEVX2P1xya@shikoro>
-References: <20260909094009.2167-6-wsa+renesas@sang-engineering.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ae590Gkn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6CD91F000FF;
+	Thu,  8 Oct 2026 19:00:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791486004;
+	bh=jNxV/aI6ajI1vxguyUArK59U0rHe6biyvcPLOFioqU0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ae590Gkn5YZVCCtzAKlKBYVUIpbCwBOBiX4uD/48yc6LAu/YxN4DLPopGplCmTJKg
+	 3IwC3U51oPrPS1g2SLSGHwzeT17wHzOnMFTY3aApOZ2Bqi1Qyg8ZfmRFjCns00X9j0
+	 uHQNp82TvVlflJRUs93EVcU4zMFs7IVX0u9Q8as3H/P4BW18PZSqREZ0xzbn/np1Y5
+	 t/M56wERGSHOGghkQTGKYzCSObKbI/XIM4J1cQI088LYWmnsMBKJdAmmdLyvC95k9Z
+	 xBTNX0kSkfYjnSR5hhVI1gAjVdGrwTAq05u0PTqPrWJa8DoGgglmL0BZLjDNHKCWOg
+	 FvopF8fRY+AsQ==
+Message-ID: <sashiko-outbox-164484@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next v7 1/3] dt-bindings: ptp:
+ renesas,rcar-gen4-gptp: Add R-Car Gen4
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?TmlrbGFzIFPDtmRlcmx1bmQ=?= <niklas.soderlund+renesas@ragnatech.se>
+Cc: robh@kernel.org, wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261007185920.4042783-2-niklas.soderlund+renesas@ragnatech.se>
+References: <20261007185920.4042783-1-niklas.soderlund+renesas@ragnatech.se>
+ <20261007185920.4042783-2-niklas.soderlund+renesas@ragnatech.se>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 08 Oct 2026 19:00:01 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="fjv2SOTvqNyKNWTR"
-Content-Disposition: inline
-In-Reply-To: <20260909094009.2167-6-wsa+renesas@sang-engineering.com>
 
---fjv2SOTvqNyKNWTR
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] ptp: devm_ioremap_resource() conflict with rtsn Ethernet driver
+--
 
-On Wed, Sep 09, 2026 at 11:40:09AM +0200, Wolfram Sang wrote:
-> Here is a small series with the needed driver updates to support R-Car
-> Gen5 and X5H for the SYSC-DMAC. Details are in the patch descriptions,
-> but it is all small stuff.
->=20
-> It has been tested on an Ironhide board (X5H) and a SparrowHawk (V4H)
-> for regression testing. The testing branch can be found here:
->=20
-> git://git.kernel.org/pub/scm/linux/kernel/git/wsa/linux.git renesas/x5h/i=
-2c-experimental
->=20
-> The patches here are based on linux-next as of 20260908. DT checks have
-> also been passed.
->=20
-> Looking forward to comments or approval!
+commit 2999d29f8c3c04d8ff6cdf49a3fa0d43c2a42ee4
+Author: Niklas S=C3=B6derlund <niklas.soderlund+renesas@ragnatech.se>
 
-Every patch reviewed and tagged twice (thank you, guys!), no complaints
-=66rom Sashiko even - can we have this in 7.4 pretty please?
+dt-bindings: ptp: renesas,rcar-gen4-gptp: Add R-Car Gen4
 
+This commit adds device tree bindings for the R-Car Gen4 gPTP timer. The
+timer provides clock synchronization and is shared among different Ethernet
+devices across Gen4 platforms.
 
---fjv2SOTvqNyKNWTR
-Content-Type: application/pgp-signature; name=signature.asc
+> diff --git a/Documentation/devicetree/bindings/ptp/renesas,rcar-gen4-gptp=
+.yaml b/Documentation/devicetree/bindings/ptp/renesas,rcar-gen4-gptp.yaml
+> new file mode 100644
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/ptp/renesas,rcar-gen4-gptp.yaml
 
------BEGIN PGP SIGNATURE-----
+[ ... ]
 
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmrH44YACgkQFA3kzBSg
-KbYuPQ/+M5/jRv3uKEzc2vj5XCf0ehBO4E/vr01TuDrEhOAu6EnIyQKMUcTiSSEA
-+6jv9iTq5GIK7bKBaQZ9MwuYe5Ed46CLbywxV4qErtFPD/Cr8p+KDjvFul+gu+cI
-Yvvy3PJmz2k0zE4VWZqR+8dnBykNP3CRhvc2+yKO1YwiES+nfATAYfAUaxRiBqNV
-sfDF7Q+Ct5DPAB3j10pJufKdTDoYwCJ3CFCb07BIkZ8YHYCyLqtxsx4HAvap59SL
-KrPeB/Z1xYt6SMyiGON69L2zWZS/VrQtM7ZUXgvnRPjugC8tLx+qpU69wjl8tppV
-8sRcXUrso0IguwqcbTKZ5tXDTEkJVZS85uMLBXF2RtMrvI4NLgh5vRnI1urjQV/I
-Z+7/A5aJfoVABS6R6iLEw2KVGMAN51WU5WTRmpMzWNoAxfmVzH12z89TsAKf22ij
-FKGXCQ7AZFVXJZXjVE170Qq3GqGZdVNPR6rrzmPq7N2jolCUYcjHEPIRMOG8hIoV
-h+TtRxNXwacskIg1FC7UPMspFXezoJkuy//6HaHBayAZerST/DxrCurmr4+cO/NM
-ZSVNtU4jXPz8/eyxFWnIBsdx7RwI1WzFIwIjbIXs0UMyPL69fI2m0iLBCW+Jg6qZ
-IFeDE/QCRPv/ikiWAFpInPqiRSeVftQZInLKPD05HCNmSMT3nWw=
-=/9FF
------END PGP SIGNATURE-----
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/r8a779g0-cpg-mssr.h>
+> +    #include <dt-bindings/power/r8a779g0-sysc.h>
+> +
+> +    ptp@e6449000 {
+> +            compatible =3D "renesas,r8a779g0-gptp", "renesas,rcar-gen4-g=
+ptp";
+> +            reg =3D <0xe6449000 0x500>;
 
---fjv2SOTvqNyKNWTR--
+[Severity: High]
+Does this new node's memory region conflict with the existing Ethernet TSN
+driver?
+
+The existing renesas,ethertsn binding also claims this exact same memory
+region for the generalized Precision Time Protocol target.
+
+During probe in drivers/net/ethernet/renesas/rtsn.c:rtsn_probe(), the
+existing Ethernet driver requests this region:
+
+        res =3D platform_get_resource_byname(pdev, IORESOURCE_MEM, "gptp");
+        ...
+        priv->gptp =3D devm_ioremap_resource(&pdev->dev, res);
+
+Because both drivers use devm_ioremap_resource(), which attempts to acquire
+exclusive access to the underlying physical memory via
+devm_request_mem_region(), whichever driver probes second will fail with
+-EBUSY. This will cause a driver probe failure and make the device unusable.
+
+How should this shared memory resource be managed so both drivers can probe
+successfully?
+
+> +            clocks =3D <&cpg CPG_MOD 2723>;
+> +            power-domains =3D <&sysc R8A779G0_PD_ALWAYS_ON>;
+> +            resets =3D <&cpg 2723>;
+> +    };
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261007185920.4042=
+783-1-niklas.soderlund+renesas@ragnatech.se?part=3D1
