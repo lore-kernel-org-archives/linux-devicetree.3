@@ -1,366 +1,119 @@
 Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com [210.118.77.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59C5B3EB80E
-	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 09:41:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62953414A11
+	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 09:43:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791452501; cv=none; b=aEkIGYGAp9JE4x6yDxkwPuFSSOHza8NGX9ffhtz17OEVNnvwZzMt8C4RvgvJXHbBcwmD6gHMo09AhCWTv8ni2hvC8tqMao8FNjR782D50BykO3p+REFBgIvGwuCr+8olDBSOhr1Jln030Kv7qrcKku7MobSY0Nv1bimh3rREMrA=
+	t=1791452595; cv=none; b=MbXDRHpy+614mItFG2XPj1B1U9tnnbj+DiSXc811WimPEhICnEXHDz7KuztQrdvYCl9eGfVso5nGNk3oGeCryQoQwrRAXMpOHhaj3GEoi9xuTJS1gQD9suTr8wb66HL120DYDZGg8JYXlttmXrI/k5SGsQtxLJqeF0S7W5VqSy0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791452501; c=relaxed/simple;
-	bh=GD7+lc13Wlr4p6ZT9k5NWOWaYamzMVeCZ2xVQUgMMUI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:MIME-Version:
-	 Content-Type:References; b=Z7l188lyMUUKsqLM3S0X8APE/fGjO+rpx1EqwavxYX4slDVkbBk526OeTwl8dJAM3qGAM+egqBUobA3HKinXQ05kEOvihihvNScXDkvSqpboAPP1Y+SBFSBCCwzIKNhYcu6qBf6uViCj9K0AIPX4y7CekGxfCjTdMq83M7KOGho=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=uk1cBAH6; arc=none smtp.client-ip=210.118.77.11
+	s=arc-20240116; t=1791452595; c=relaxed/simple;
+	bh=OLQLPaWJw7XppWYwcxYfmvI/mXWhlgZYI5H6dgeasww=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=l051OyhVechX9gRO+4qg0W1SgO7SGB/bC5DUGDxlno4GUlZvmyRb5FZAv/HGsQojH+S/xmdzrLGHfdc1cztr/8sZnPURqCXoBLn3m5DWc9jFrOzrZazVE/XRoZhrTa0UEXEH298pJQJFjYDuVtHco02/D1/CALhMUv29fS9wIq8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=PbgH3VY5; arc=none smtp.client-ip=210.118.77.11
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="uk1cBAH6"
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="PbgH3VY5"
 Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
-	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20261008094129euoutp0183efb55476e05c95ff946d4da03cf1aa~chIxOqNPn2722927229euoutp01B
-	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 09:41:29 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20261008094129euoutp0183efb55476e05c95ff946d4da03cf1aa~chIxOqNPn2722927229euoutp01B
+	by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id 20261008094311euoutp01dee1f833ab2193f7f59832692a9cdd41~chKPwXeXx2722927229euoutp01j
+	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 09:43:11 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com 20261008094311euoutp01dee1f833ab2193f7f59832692a9cdd41~chKPwXeXx2722927229euoutp01j
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1791452489;
-	bh=Gh/D/XtcwOEb2lFDL9N6ZsPr2jYj9OKQH3ofJmvD4TU=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=uk1cBAH6NjDLaNZNUt5pvyqiWwZNL8GO3Ou9+60tp7LcN+gRm3Yr3z1XUcb1ZR/wo
-	 yzZvZpPRfQeB0c5EWfoTY4HGxz/9UnFgMdATpgebPO6qP4VLb4uqc0CmFZ5Ql5yOHW
-	 LYGU/x+XWY+fiJnY15/MmOOat3Zncby1fDnb7kAA=
-Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
+	s=mail20170921; t=1791452591;
+	bh=nJNnHPGG4mNQooWPuJ2KoNzlsArMHoPuRSotZ7wNxxI=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=PbgH3VY5H2lL1x3cW1EYzRMsvXBfnGZD66HPLDIegw38L8M/Ylhmpg0gnsFxXzm12
+	 rXoJE1UUssw/hNOLBLOVEna1pFXZnwlpFoCFFYrzfy+1UpkiLGMWksbKaG4In8YiGQ
+	 fs97ketcN/775lV7DxP2TVq9KZ/k2Xat6DOpVv+Q=
+Received: from eusmtip1.samsung.com (unknown [203.254.199.221]) by
 	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
-	20261008094129eucas1p1070329b8d0a61d3b7f0cafa9ccaced8c~chIw9yIWR1979819798eucas1p1u;
-	Thu,  8 Oct 2026 09:41:29 +0000 (GMT)
-Received: from AMDC4653.digital.local (unknown [106.120.51.32]) by
-	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20261008094129eusmtip25b23f369c0045728ed33f581406eff74~chIwe21NW1207512075eusmtip2K;
-	Thu,  8 Oct 2026 09:41:29 +0000 (GMT)
-From: Marek Szyprowski <m.szyprowski@samsung.com>
-To: linux-mm@kvack.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Marek Szyprowski <m.szyprowski@samsung.com>, Mike Rapoport
-	<rppt@kernel.org>, Rob Herring <robh@kernel.org>, Saravana Kannan
-	<saravanak@kernel.org>, Oreoluwa Babatunde <quic_obabatun@quicinc.com>,
-	Wandun <chenwandun1@gmail.com>, Andrew Morton <akpm@linux-foundation.org>
-Subject: [PATCH 1/2] of: reserved_mem: group allocation helpers together
-Date: Thu,  8 Oct 2026 11:41:22 +0200
-Message-ID: <20261008094125.3197971-2-m.szyprowski@samsung.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261008094125.3197971-1-m.szyprowski@samsung.com>
+	20261008094311eucas1p1d640b4ffd81730e0ee429aef7e8412b4~chKPgpifp2015020150eucas1p1J;
+	Thu,  8 Oct 2026 09:43:11 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+	eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
+	20261008094310eusmtip1d8898c71d330dd4bbb9e00e90ce133cc~chKOulU4o1455814558eusmtip1R;
+	Thu,  8 Oct 2026 09:43:10 +0000 (GMT)
+Message-ID: <1813f0d0-1e0d-4cec-8132-cf1f8731a8e6@samsung.com>
+Date: Thu, 8 Oct 2026 11:43:09 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261008094129eucas1p1070329b8d0a61d3b7f0cafa9ccaced8c
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH v3 0/5] of: reserved_mem: several fixes about reserved
+ memory
+To: Mike Rapoport <rppt@kernel.org>
+Cc: Wandun <chenwandun1@gmail.com>, robh@kernel.org, saravanak@kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org, akpm@linux-foundation.org
+Content-Language: en-US
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <asc6brs_g0ky0wOM@kernel.org>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20261008094311eucas1p1d640b4ffd81730e0ee429aef7e8412b4
 X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
-X-RootMTR: 20261008094129eucas1p1070329b8d0a61d3b7f0cafa9ccaced8c
+X-RootMTR: 20261003080438eucas1p2bdb68c248ecad088559285a4f736bfe5
 X-EPHeader: CA
-X-CMS-RootMailID: 20261008094129eucas1p1070329b8d0a61d3b7f0cafa9ccaced8c
-References: <20261008094125.3197971-1-m.szyprowski@samsung.com>
-	<CGME20261008094129eucas1p1070329b8d0a61d3b7f0cafa9ccaced8c@eucas1p1.samsung.com>
+X-CMS-RootMailID: 20261003080438eucas1p2bdb68c248ecad088559285a4f736bfe5
+References: <20260920092852.614973-1-chenwandun1@gmail.com>
+	<arJA6fOMetzoBhDH@kernel.org>
+	<060fb694-ba1d-40e7-8a18-f32d5a4039ab@gmail.com>
+	<CGME20261003080438eucas1p2bdb68c248ecad088559285a4f736bfe5@eucas1p2.samsung.com>
+	<asC3DBvtlcO5AVsz@kernel.org>
+	<5dccea9b-a9e1-44f5-84d9-bc9efe04edee@samsung.com>
+	<asc6brs_g0ky0wOM@kernel.org>
 
-Move __reserved_mem_alloc_in_range() and __reserved_mem_alloc_size() right
-after __reserved_mem_reserve_reg(), so the functions that reserve reserved
-regions are grouped together and defined before their use.
+On 08.10.2026 08:38, Mike Rapoport wrote:
+> On Tue, Oct 06, 2026 at 03:26:21PM +0200, Marek Szyprowski wrote:
+>> On 03.10.2026 10:04, Mike Rapoport wrote:
+>>> On Tue, Sep 22, 2026 at 05:24:32PM +0800, Wandun wrote:
+>>>>>> From: Wandun Chen <chenwandun@lixiang.com>
+>>>>>>
+>>>>>> This series fixes several error-handling issues in the reserved-memory
+>>>>>> initialization paths.
+>>>>>>
+>>>>>> v2 --> v3:
+>>>>>> 1. Rework the mechanism that checks in the late scan whether the early
+>>>>>>    reservation succeeded (patches 3-5, suggested by Marek, thanks).
+>>>>>>
+>>>>>>    Patch 3 adds a new memblock flag MEMBLOCK_RSRV_RMEM, which is set when
+>>>>>>    the early reservation of a static region succeeds and checked in the
+>>>>>>    late scan.
+>>>>> Can we keep this local to of_reserved_mem please?
+>>>> Probably not. I do not see a way to keep this entirely local to
+>>>> of_reserved_mem while handling the issue robustly.
+>>>>
+>>>> I previously implemented an approach in of_reserved_mem that records
+>>>> static reserved-memory nodes whose early reservation failed in a local
+>>>> array [1]. However, the early scan runs before paging_init(), so the array
+>>>> cannot be dynamically expanded. If the number of failed nodes exceeds
+>>>> the array size, some failures cannot be recorded and the issue remains,
+>>>> and that is why Marek said "partial solution", although in practice
+>>>> having that many failed nodes is unlikely.
+>>> Even before paging_init() there is memblock_alloc().
+>> One can call it, but such memory cannot be dereferenced/accessed for example
+>> on ARM64, because it is not yet mapped in the linear map.
+> Can't we use early_memremap() for it?
 
-No functional change.
+I didn't know that this is a valid, allowed use case for early_memremap(). If so, then
+this is definitely the best approach, as it also removes the horrible two pass
+initialization introduced by commit 8a6e02d0c00e ("of: reserved_mem: Restructure how
+the reserved memory regions are processed").
 
-Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
----
- drivers/of/of_reserved_mem.c | 262 +++++++++++++++++------------------
- 1 file changed, 130 insertions(+), 132 deletions(-)
+I've backed such refactor with LLM and it looks very promising:
 
-diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
-index 8c9d6395d6a3..300fb236ab59 100644
---- a/drivers/of/of_reserved_mem.c
-+++ b/drivers/of/of_reserved_mem.c
-@@ -178,6 +178,136 @@ static int __init __reserved_mem_reserve_reg(unsigned long node,
- 	return 0;
- }
- 
-+/*
-+ * __reserved_mem_alloc_in_range() - allocate reserved memory described with
-+ *	'alloc-ranges'. Choose bottom-up/top-down depending on nearby existing
-+ *	reserved regions to keep the reserved memory contiguous if possible.
-+ */
-+static int __init __reserved_mem_alloc_in_range(phys_addr_t size,
-+	phys_addr_t align, phys_addr_t start, phys_addr_t end, bool nomap,
-+	phys_addr_t *res_base)
-+{
-+	bool prev_bottom_up = memblock_bottom_up();
-+	bool bottom_up = false, top_down = false;
-+	int ret, i;
-+
-+	for (i = 0; i < reserved_mem_count; i++) {
-+		struct reserved_mem *rmem = &reserved_mem[i];
-+
-+		/* Skip regions that were not reserved yet */
-+		if (rmem->size == 0)
-+			continue;
-+
-+		/*
-+		 * If range starts next to an existing reservation, use bottom-up:
-+		 *	|....RRRR................RRRRRRRR..............|
-+		 *	       --RRRR------
-+		 */
-+		if (start >= rmem->base && start <= (rmem->base + rmem->size))
-+			bottom_up = true;
-+
-+		/*
-+		 * If range ends next to an existing reservation, use top-down:
-+		 *	|....RRRR................RRRRRRRR..............|
-+		 *	              -------RRRR-----
-+		 */
-+		if (end >= rmem->base && end <= (rmem->base + rmem->size))
-+			top_down = true;
-+	}
-+
-+	/* Change setting only if either bottom-up or top-down was selected */
-+	if (bottom_up != top_down)
-+		memblock_set_bottom_up(bottom_up);
-+
-+	ret = early_init_dt_alloc_reserved_memory_arch(size, align,
-+			start, end, nomap, res_base);
-+
-+	/* Restore old setting if needed */
-+	if (bottom_up != top_down)
-+		memblock_set_bottom_up(prev_bottom_up);
-+
-+	return ret;
-+}
-+
-+/*
-+ * __reserved_mem_alloc_size() - allocate reserved memory described by
-+ *	'size', 'alignment'  and 'alloc-ranges' properties.
-+ */
-+static int __init __reserved_mem_alloc_size(unsigned long node, const char *uname)
-+{
-+	phys_addr_t start = 0, end = 0;
-+	phys_addr_t base = 0, align = 0, size;
-+	int i, len;
-+	const __be32 *prop;
-+	bool nomap;
-+	int ret;
-+
-+	prop = of_get_flat_dt_prop(node, "size", &len);
-+	if (!prop)
-+		return -EINVAL;
-+
-+	if (len != dt_root_size_cells * sizeof(__be32)) {
-+		pr_err("invalid size property in '%s' node.\n", uname);
-+		return -EINVAL;
-+	}
-+	size = dt_mem_next_cell(dt_root_size_cells, &prop);
-+
-+	prop = of_get_flat_dt_prop(node, "alignment", &len);
-+	if (prop) {
-+		if (len != dt_root_addr_cells * sizeof(__be32)) {
-+			pr_err("invalid alignment property in '%s' node.\n",
-+				uname);
-+			return -EINVAL;
-+		}
-+		align = dt_mem_next_cell(dt_root_addr_cells, &prop);
-+	}
-+
-+	nomap = of_get_flat_dt_prop(node, "no-map", NULL) != NULL;
-+
-+	ret = fdt_validate_reserved_mem_node(node, &align);
-+	if (ret && ret != -ENODEV)
-+		return ret;
-+
-+	prop = of_flat_dt_get_addr_size_prop(node, "alloc-ranges", &len);
-+	if (prop) {
-+		for (i = 0; i < len; i++) {
-+			u64 b, s;
-+
-+			of_flat_dt_read_addr_size(prop, i, &b, &s);
-+
-+			start = b;
-+			end = b + s;
-+
-+			base = 0;
-+			ret = __reserved_mem_alloc_in_range(size, align,
-+					start, end, nomap, &base);
-+			if (ret == 0) {
-+				pr_debug("allocated memory for '%s' node: base %pa, size %lu MiB\n",
-+					uname, &base,
-+					(unsigned long)(size / SZ_1M));
-+				break;
-+			}
-+		}
-+	} else {
-+		ret = early_init_dt_alloc_reserved_memory_arch(size, align,
-+							0, 0, nomap, &base);
-+		if (ret == 0)
-+			pr_debug("allocated memory for '%s' node: base %pa, size %lu MiB\n",
-+				uname, &base, (unsigned long)(size / SZ_1M));
-+	}
-+
-+	if (base == 0) {
-+		pr_err("failed to allocate memory for node '%s': size %lu MiB\n",
-+		       uname, (unsigned long)(size / SZ_1M));
-+		return -ENOMEM;
-+	}
-+
-+	fdt_fixup_reserved_mem_node(node, base, size);
-+	fdt_init_reserved_mem_node(node, uname, base, size);
-+
-+	return 0;
-+}
-+
- /*
-  * __reserved_mem_check_root() - check if #size-cells, #address-cells provided
-  * in /reserved-memory matches the values supported by the current implementation,
-@@ -316,8 +446,6 @@ void __init fdt_scan_reserved_mem_late(void)
- 	__rmem_check_for_overlap();
- }
- 
--static int __init __reserved_mem_alloc_size(unsigned long node, const char *uname);
--
- /*
-  * fdt_scan_reserved_mem() - reserve and allocate memory occupied by
-  * reserved memory regions.
-@@ -393,136 +521,6 @@ int __init fdt_scan_reserved_mem(void)
- 	return 0;
- }
- 
--/*
-- * __reserved_mem_alloc_in_range() - allocate reserved memory described with
-- *	'alloc-ranges'. Choose bottom-up/top-down depending on nearby existing
-- *	reserved regions to keep the reserved memory contiguous if possible.
-- */
--static int __init __reserved_mem_alloc_in_range(phys_addr_t size,
--	phys_addr_t align, phys_addr_t start, phys_addr_t end, bool nomap,
--	phys_addr_t *res_base)
--{
--	bool prev_bottom_up = memblock_bottom_up();
--	bool bottom_up = false, top_down = false;
--	int ret, i;
--
--	for (i = 0; i < reserved_mem_count; i++) {
--		struct reserved_mem *rmem = &reserved_mem[i];
--
--		/* Skip regions that were not reserved yet */
--		if (rmem->size == 0)
--			continue;
--
--		/*
--		 * If range starts next to an existing reservation, use bottom-up:
--		 *	|....RRRR................RRRRRRRR..............|
--		 *	       --RRRR------
--		 */
--		if (start >= rmem->base && start <= (rmem->base + rmem->size))
--			bottom_up = true;
--
--		/*
--		 * If range ends next to an existing reservation, use top-down:
--		 *	|....RRRR................RRRRRRRR..............|
--		 *	              -------RRRR-----
--		 */
--		if (end >= rmem->base && end <= (rmem->base + rmem->size))
--			top_down = true;
--	}
--
--	/* Change setting only if either bottom-up or top-down was selected */
--	if (bottom_up != top_down)
--		memblock_set_bottom_up(bottom_up);
--
--	ret = early_init_dt_alloc_reserved_memory_arch(size, align,
--			start, end, nomap, res_base);
--
--	/* Restore old setting if needed */
--	if (bottom_up != top_down)
--		memblock_set_bottom_up(prev_bottom_up);
--
--	return ret;
--}
--
--/*
-- * __reserved_mem_alloc_size() - allocate reserved memory described by
-- *	'size', 'alignment'  and 'alloc-ranges' properties.
-- */
--static int __init __reserved_mem_alloc_size(unsigned long node, const char *uname)
--{
--	phys_addr_t start = 0, end = 0;
--	phys_addr_t base = 0, align = 0, size;
--	int i, len;
--	const __be32 *prop;
--	bool nomap;
--	int ret;
--
--	prop = of_get_flat_dt_prop(node, "size", &len);
--	if (!prop)
--		return -EINVAL;
--
--	if (len != dt_root_size_cells * sizeof(__be32)) {
--		pr_err("invalid size property in '%s' node.\n", uname);
--		return -EINVAL;
--	}
--	size = dt_mem_next_cell(dt_root_size_cells, &prop);
--
--	prop = of_get_flat_dt_prop(node, "alignment", &len);
--	if (prop) {
--		if (len != dt_root_addr_cells * sizeof(__be32)) {
--			pr_err("invalid alignment property in '%s' node.\n",
--				uname);
--			return -EINVAL;
--		}
--		align = dt_mem_next_cell(dt_root_addr_cells, &prop);
--	}
--
--	nomap = of_get_flat_dt_prop(node, "no-map", NULL) != NULL;
--
--	ret = fdt_validate_reserved_mem_node(node, &align);
--	if (ret && ret != -ENODEV)
--		return ret;
--
--	prop = of_flat_dt_get_addr_size_prop(node, "alloc-ranges", &len);
--	if (prop) {
--		for (i = 0; i < len; i++) {
--			u64 b, s;
--
--			of_flat_dt_read_addr_size(prop, i, &b, &s);
--
--			start = b;
--			end = b + s;
--
--			base = 0;
--			ret = __reserved_mem_alloc_in_range(size, align,
--					start, end, nomap, &base);
--			if (ret == 0) {
--				pr_debug("allocated memory for '%s' node: base %pa, size %lu MiB\n",
--					uname, &base,
--					(unsigned long)(size / SZ_1M));
--				break;
--			}
--		}
--	} else {
--		ret = early_init_dt_alloc_reserved_memory_arch(size, align,
--							0, 0, nomap, &base);
--		if (ret == 0)
--			pr_debug("allocated memory for '%s' node: base %pa, size %lu MiB\n",
--				uname, &base, (unsigned long)(size / SZ_1M));
--	}
--
--	if (base == 0) {
--		pr_err("failed to allocate memory for node '%s': size %lu MiB\n",
--		       uname, (unsigned long)(size / SZ_1M));
--		return -ENOMEM;
--	}
--
--	fdt_fixup_reserved_mem_node(node, base, size);
--	fdt_init_reserved_mem_node(node, uname, base, size);
--
--	return 0;
--}
--
- extern const struct of_device_id __reservedmem_of_table[];
- static const struct of_device_id __rmem_of_table_sentinel
- 	__used __section("__reservedmem_of_table_end");
+https://lore.kernel.org/all/20261008094125.3197971-1-m.szyprowski@samsung.com/
+
+
+It works fine on ARM, ARM64 and RiscV64. :)
+
+Best regards
 -- 
-2.43.0
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
 
