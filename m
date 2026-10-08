@@ -1,177 +1,136 @@
-Received: from fhigh-a6-smtp.messagingengine.com (fhigh-a6-smtp.messagingengine.com [103.168.172.157])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB5E93D3002
-	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 19:56:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.157
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C05D3AA50B
+	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 19:57:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791489394; cv=none; b=Dl/FeAIlnAdQLRBNZXNXgt+YoszXtnK8RMsHLydmdMBwHT3soplU9OZ2lE8de9nyP8u/KK67dkkXqx5yh/IuYBoA6Xa8jU1BmOjPcgqfXW84bJCsYnKc2efcH7NspxUw9pAStpj9witqetS7CyMhI3omq33qppjp8WssrFd1fb8=
+	t=1791489429; cv=none; b=ktJoDFB5rZGtsEwad9OLZrIxRelr1jqWMH2m9R1uW3rQf6NiGPS7gAOVpv+Db6rwpgG1RCuXBQgfPnZ6ARnFFsK5G2CtnfdR0FJWGeOVwI+22S7iw2CSmgceI9zKTWI06gDgFbLz+QL95FE/3zP+TdMTdoeE+nDmEGDuArwYa5s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791489394; c=relaxed/simple;
-	bh=jGrURUcFHDA0+GbueQInVLfJCt4hwt/v2A3U6hHZjXE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sP7w7M24NUiwXDJsNajyctUnsu5zZDI8ht6uPni1pqPCDcwrpQR5op6wHjB0EmCBe4CcKaZDJRk9lN4hop2FvA4pEIV14iAX6j4ulY66zbV6AcXrA1u6LeYz5kbaOzUdLM/fiFovgxRht5F2fcUN1yz9kt9MQ+7QN+BG0eedLhI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se; spf=pass smtp.mailfrom=ragnatech.se; dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b=Mt4zpc0O; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=bEsqLIl3; arc=none smtp.client-ip=103.168.172.157
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ragnatech.se
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ragnatech.se
+	s=arc-20240116; t=1791489429; c=relaxed/simple;
+	bh=t45JZa4asJQY5m2Xan0mfGL+lA9Sq2vCHMCGDDsr/6M=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=e5+Gmb9rlxSO+oKYepWAJ8HTuqLpoa9R3CxvTuWa07KfDlU3dSvwNN5TsNk+Garc29r/pzHd12ZmovoMx1GX1hTUSVgAJ5uOg/8Cng7lKeukl2xtc9VEL7VOnnpXVOkUennmcYKHHyihPKMc0GTN0mkNVQOn3v9V833BxP0iAjM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=crG9U/iL; arc=none smtp.client-ip=209.85.208.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ragnatech.se header.i=@ragnatech.se header.b="Mt4zpc0O";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="bEsqLIl3"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 1738814001CC
-	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 15:56:31 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-04.internal (MEProxy); Thu, 08 Oct 2026 15:56:31 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ragnatech.se; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1791489391;
-	 x=1791575791; bh=N7SBK0vh3ULmPqqgzaG+2tmusZDnFNTt0FJGRL2fTag=; b=
-	Mt4zpc0Ol5cLHdfk0AWhgfAPXAIXE+xy/qMjb/P3tz0E6uohm/bE+Il0Sz2NfEXi
-	vD5zCf4hmryP6p9cAPgbPp6BtNJnvrOVNMq/VZO/jQhwSftVYrSdvn/7tG1kWj/2
-	cTB/YDY3pCBsY1cYGE54uV8kfR39UEQNiiy4Zt40zPkczUNng4UWhP+zP6rafby1
-	LjQA/YrQaIdZBiSOjJewAAXci1gGM0o87Drcibi4RBqWC1TkyPjW/K8tfswKaWzG
-	fuF4AEkiE1WfZ266LhT/Kk+rT2pnJEv47YQc86RGeidDnczcNd71exOpuL/piI8T
-	EOG85w1U5I++5eNdVS9J4Q==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791489391; x=
-	1791575791; bh=N7SBK0vh3ULmPqqgzaG+2tmusZDnFNTt0FJGRL2fTag=; b=b
-	EsqLIl3V5ECJxNTTb3OedAqnm1Y1Q3aY/TJD/bedyHA3gKlhciYRR1lh4jp6Sp43
-	+/5LiOmr3OpXQ2XQqvUFgeuFpxwDyfJr+8oJfhBi0kvzeDOyZznJXMxNmm7M0+BH
-	hXCBSUVlDqkJn645mTQR9afDHcABvWLYyBgIKeJVJBthHOLeGIVw5dGEYgfZ8TiU
-	W+EriJ8YFBYEozhgZh7Nx3RTP5kCIxTqBuB9v0KJKbLGPX1rga+918e0AhunKYj8
-	CPYWSx3qUruBVbLdJZpSXu9HHM+uG/h67COvdcaLapTZf4ZnrOME1BY7E+ukvFN5
-	fobeXg6OFLjBtVlJ5JScw==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=ragnatech.se a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791489391; d=ragnatech.se;
-	mf=PG5pa2xhcy5zb2Rlcmx1bmQrcmVuZXNhc0ByYWduYXRlY2guc2U+;
-	rt=PGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnPg==;
-	s=fm1:rsa-sha256:et8ew30rxR6+S9979Z6MCJkc/Sn1kFgceG7QqOeRI1WyEQM
-	59SOgSd9C0DCai/jPFeDmA04OdoKEZfkH9SbWr6Io7zam2BX4Sie3ldIR7WMYd0H
-	YyRJKj7taluQme2/tz4UWevC5XrY3TGiksalk3aue0gE0VnW6yWy2qXVTFemJtLS
-	4PUqz7Tvy6Od2hr+q1VrVrnsVqi/HeIzTQJcH+WT42S0ByUozPNYbvQwb330k+er
-	6VC+7JSm5j/9HddCgY0+68b6B2eX3YcCLr9jGLwFrMOqIQGC7/vhSlMxor/271Kd
-	p7Mz8NYSevvfriBlW1Ibli/DrTDukVziWN3psvQ==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=13;
-	hn=cc,content-disposition,content-transfer-encoding,
-	content-type,date,feedback-id,from,in-reply-to,message-id,
-	mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:4vLTtmz9no8NlirtoArdP6sjsXesZgvradwDROJyMj8=:jGrURUcFHDA0+GbueQInVLfJCt4hwt/v2A3U6hHZjXE=;
-X-ME-Sender: <xms:bvXHanKjDQyfz2RffJZlpFlqgebs58aqBr2zUUSvWacmPZKHkHFCsg>
-    <xme:bvXHasotYHH8uYJAqvB1NVc3-ErKkwvw7k6Lx-KpJBiHxlPm3wdHA0OvcGqAZnos0
-    FQHDwDnrIlbshQHcIkbRMf8hJ6MKRDN3CfT8LZ513UpPpDaahLP49JX>
-X-ME-Received: <xmr:bvXHavy3ZEZi0RE-TVa1KZg63BCRBPYY1ZCWJ12kSU7H7hxbxiusBZ8nNbbqsU1djLYMGkk43azbtLAu1QLEjxjazN9TQ9o>
-X-ME-Proxy-Cause: dmFkZTFFjWIW6/RUJWMYmeco20bLf3m00dfBRlgVLOq+QkzpXnRLihf2wO9KpbocSPGeCz
-    uNr4EAbVC35KUTCAH49UiyN01U/YQqKAltiCVbZy/a94JHTFhYR1G2+w1Or7qYOYs1adiP
-    b+sMA0DkE4TuU7Ja8lq1/OoARUzcb+X+U8E7YbnSZorGHE3CQz7lqGJ3L/+fpf1nOtnH+p
-    tZHL8RqcLbBRN0HG9NuB0vePXBlUeGJcjfDLvE8If+shIhqL3iSHxADGhs8drjeIGVhYsD
-    r6pnoXokzbWbJU9hV0/3foriGGm3xXIss25NSpMQ2qjCgFmFVBFtQh1M59sy6pS0lKj/dp
-    ekMDyXVWGzOqFMBrBeQb6iaMFQE853FfpzAmuYcVfOekqta+U9tgPh0jwkCVc9MfaPuegc
-    21x/JKpVGoMgv30gEkAUcIsXnQxSOm2x9sIttFrttV1MqO55m3by942OsCQh4aGHyfyfqz
-    tdaemnHc7B7OeQPRiSxX4FPuFdVvm+M4E+BGcDjYpMgf3AfkJFwY9aT29RU6iZAaJzfo34
-    xSjwNDeAnrDzxAHweG64xKDzsg2AdHJ+2YmsSCq0+SfpKXL2D+pHxLV3e5oDFIpAGHtDf/
-    JGgRyVUutPXeAh3WXcWxG0R3CsM3c0TG8qPUSGZG2e0Wn2KTVRC1pQDqVxUw
-X-ME-Proxy: <xmx:bvXHagMYe57Z186YAL8X61r_63NbszHGp3kRO2YYJvKRrcGGomhMMg>
-    <xmx:bvXHak4z-SQEnZeaw3pajGn0YGnbZotOtjopldmz82cJxhjqHENWvw>
-    <xmx:bvXHapktjInx_PmGQFtW9UvLl-0rriwIcwqpJzaBwvA2DLjjx9-Iog>
-    <xmx:bvXHatQ6doEjbhLI-2GRfzb2AHsrrq6l8KOwUTnjEKTJ8DOBLNQdOw>
-    <xmx:b_XHaiYFStlp2rUysNRjuveXp0qVbKSq4FdGnwS5PtX8jSxzSlwNbhy9>
-Feedback-ID: i80c9496c:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 8 Oct 2026 15:56:30 -0400 (EDT)
-Date: Thu, 8 Oct 2026 21:56:24 +0200
-From: Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, wsa+renesas@sang-engineering.com,
-	devicetree@vger.kernel.org, conor+dt@kernel.org
-Subject: Re: [PATCH net-next v7 1/3] dt-bindings: ptp:
- renesas,rcar-gen4-gptp: Add R-Car Gen4
-Message-ID: <20261008195624.GA474315@ragnatech.se>
-References: <20261007185920.4042783-1-niklas.soderlund+renesas@ragnatech.se>
- <20261007185920.4042783-2-niklas.soderlund+renesas@ragnatech.se>
- <sashiko-outbox-164484@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="crG9U/iL"
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6aa9164072cso3197457a12.2
+        for <devicetree@vger.kernel.org>; Thu, 08 Oct 2026 12:57:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791489427; x=1792094227; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6lpUD8jRO1S8/Isf95iV6WJCsldqW7LIOSCg3AW5Tl8=;
+        b=crG9U/iLrp57vUJWrIFLBqU71dyGxfgBHWxtNWcVxkb5mJ/a0JOxYghPYcjHmUseMS
+         j4Q8bOjUA1o+yVYRHaOOoadzI8BX1ZNkXiTqlBH/Pufo/Hxtr/Yw3x0fC+6wpcx1Ah5C
+         nl5gxPbRe1YOVTR2Kxx7EL5S6Ia+oFJGkYjtqJTzkOXDa0V+r32nhtQxzumUsS557gMP
+         rb4bqWmpgRV9oWAby36bbnx5wQ2aYI2dysG20VQ4EML+mlUqpItsoV9bZVnd/08f7flf
+         JGqFnUuMKT9Okekhb46geAwXBNR0SGdT4fvQuFXpZqX0ZgrTgdoIdxNSaJS5NjcMIPkH
+         eJbw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791489427; x=1792094227;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=6lpUD8jRO1S8/Isf95iV6WJCsldqW7LIOSCg3AW5Tl8=;
+        b=FdHxmlWkSEuuSHj86FqNQTULOEu5nSOXVbtN4TWzYzDMhwhwADOu8pYbNRh7fY2xcy
+         laAQRm7fSNMCtYBcgz0Lg72Q3wRn9VsMaW96Q0wcX0VEiy5DdbRu8AY9KWYRbsUVJlZK
+         EkU3plXZ6j7b5/YgzjRr8HFz313hNXludt3BhvBuuFTrRwsvZwcwTgPUBQHA9ODHMWMH
+         rghPfNayLY7T7GKoxtoSl4rR3pDlfu4eg+OkqZwgmQTV0222UwtoAFZvpkTy3LF7C0wJ
+         3JhYBCYgnj4dwh2NGA38q/wojVJiaRwENdVZkX2aTq6QLdtnE/urTELE/d1W2Gzh19CZ
+         IQSw==
+X-Forwarded-Encrypted: i=1; AKwUvByhyzZ7B5pF0+tCt5cw7ZhXQMDKJ4oIPQAvZ1xGg4Qw6XBV5Xie3ciKpxndkUYn/wtrORGcAuoM0BR2@vger.kernel.org
+X-Gm-Message-State: AFq9FYKP48eQImmwPTOf0kKnN54r3bHVtYrKhESioSwjxaUHNU7N7sKY
+	pKpf9L+cOpGTSP0d0b0454Zghfvue19GrIWAG/QmmFZD9cy78peKTwyn
+X-Gm-Gg: AYBFou3OSDK3i9GHhnD6cQz/H+7915n7/P/qhW66mojTNjX6UY+qYBjweRHsGb6szy2
+	inbZapR5bhzl7UmXIpLNSRJHLsvQSpLkepWoin3wwhErLSELbDw+n6ff6DYJTsGxmbMrlgZ7YQ0
+	VkWpesFeQqfvkYb2Ztbin171NCKZBUspaB+7raSeMEIry5HVMgaDN9J/ZEICTQqa9UpDcOdyhXg
+	K5v6lWyHtCdLvlHHjztD/lbpezK+U4zHy9kKfmU2KlC4/fFbAH5FY/QxmXWPYG0pdlPYEo+U/1M
+	Q4lBdnFoKuQ3ieobHLkWe9I110dgRDksE/9xM/ULarobpsfJwbHjhTkugPrOU9U1hbeGw//QGH8
+	HujG7Rj3eFH/SfSW4r5ZQXxanjDwDpBUNuAcvdpMua+udFlDW3lQ2zhm/uAn6c/SDW7cQ93tcFQ
+	zKU1YOQiS4xC/5y4+u6nZP2sNI5pTaCz4NxgniFAFEpFl18DpG3m1nhiUO53R7hrNqHtrMf2NmH
+	kp8OL435Q==
+X-Received: by 2002:a05:6402:11cb:b0:6ac:73f8:2e4f with SMTP id 4fb4d7f45d1cf-6aff47d1960mr6234217a12.29.1791489426354;
+        Thu, 08 Oct 2026 12:57:06 -0700 (PDT)
+Received: from [192.168.0.193] ([194.183.54.57])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b178d1605fsm48335a12.2.2026.10.08.12.57.03
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 08 Oct 2026 12:57:04 -0700 (PDT)
+Message-ID: <18da135d-dc3f-4975-a36a-c680926fac40@gmail.com>
+Date: Thu, 8 Oct 2026 21:57:03 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 3/3] leds: aat1290: Add support for AAT1270 Current
+ Regulator for Flash LEDs
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-leds@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261007085457.98762-1-clamor95@gmail.com>
+ <20261007085457.98762-4-clamor95@gmail.com>
+ <e69041a4-c03e-46ae-b83a-3d8363070e80@gmail.com>
+ <CAPVz0n2t5tcQB+YhNCFoQCStizEjTdyx7pDzLHtYkoz=B2MPwg@mail.gmail.com>
+Content-Language: en-US
+From: Jacek Anaszewski <jacek.anaszewski@gmail.com>
+In-Reply-To: <CAPVz0n2t5tcQB+YhNCFoQCStizEjTdyx7pDzLHtYkoz=B2MPwg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <sashiko-outbox-164484@kernel.org>
 
-On 2026-10-08 19:00:01 +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [High] ptp: devm_ioremap_resource() conflict with rtsn Ethernet driver
-> --
+On 10/8/26 10:15 AM, Svyatoslav Ryhel wrote:
+> ср, 7 жовт. 2026 р. о 22:04 Jacek Anaszewski <jacek.anaszewski@gmail.com> пише:
+>>
+>> Hi Svyatoslav,
+>>
+>> On 10/7/26 10:54 AM, Svyatoslav Ryhel wrote:
+>>> The AAT1270 is quite similar to the AAT1290, but it does not support the
+>>> Advanced Simple Serial Control (AS2C) used in the AAT1290. The AAT1270
+>>> uses an earlier version of AS2C, namely Simple Serial Control, which lacks
+>>> address-sending capabilities.
+>>
+>> It seems that it is not possible to set brightness level and flash
+>> timeout. Those values are controlled by the values of RSET and CT
+>> elements attached to the controller.
 > 
-> commit 2999d29f8c3c04d8ff6cdf49a3fa0d43c2a42ee4
-> Author: Niklas Söderlund <niklas.soderlund+renesas@ragnatech.se>
-> 
-> dt-bindings: ptp: renesas,rcar-gen4-gptp: Add R-Car Gen4
-> 
-> This commit adds device tree bindings for the R-Car Gen4 gPTP timer. The
-> timer provides clock synchronization and is shared among different Ethernet
-> devices across Gen4 platforms.
-> 
-> > diff --git a/Documentation/devicetree/bindings/ptp/renesas,rcar-gen4-gptp.yaml b/Documentation/devicetree/bindings/ptp/renesas,rcar-gen4-gptp.yaml
-> > new file mode 100644
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/ptp/renesas,rcar-gen4-gptp.yaml
-> 
-> [ ... ]
-> 
-> > +examples:
-> > +  - |
-> > +    #include <dt-bindings/clock/r8a779g0-cpg-mssr.h>
-> > +    #include <dt-bindings/power/r8a779g0-sysc.h>
-> > +
-> > +    ptp@e6449000 {
-> > +            compatible = "renesas,r8a779g0-gptp", "renesas,rcar-gen4-gptp";
-> > +            reg = <0xe6449000 0x500>;
-> 
-> [Severity: High]
-> Does this new node's memory region conflict with the existing Ethernet TSN
-> driver?
+> This is not entirely true. S2C allows setting brightness level
+> perfectly fine, I have tested it on my LG Optimus 2X P990 (star) that
+> has this LED flash driver. Flash timeout is fixed, that is true, but
+> both AAT1270 and AAT1290 feature mandatory flash inhibit logic which
+> is not implemented by this driver and can be used to set emergency
+> flash disable.
+OK, let me try to perform more thorough review, after consulting data
+sheet, in the coming days.
 
-Yes it does, please read the cover letter to see why.
+>> Those values should be conveyed
+>> via Device Tree, and the LED device API should reflect that accordingly.
+>>
+> 
+> They are calculated same way as AAT1290 does and set in the device
+> tree. Being fixed does not mean they should be removed. Device tree
+> describes hardware and those values are part of hw description.
+> 
+>> The question is whether it is worth a hassle to add support for this
+>> older chipset version. Could you let as know on which device it is
+>> present.
+>>
+> 
+> LG Optimus 2X P990 (star). It is a Tegra smartphone, it is not yet
+> supported by mainline Linux kernel, but it will be in near future. I
+> am currently upstreaming missing parts for better support.
 
-> 
-> The existing renesas,ethertsn binding also claims this exact same memory
-> region for the generalized Precision Time Protocol target.
-> 
-> During probe in drivers/net/ethernet/renesas/rtsn.c:rtsn_probe(), the
-> existing Ethernet driver requests this region:
-> 
->         res = platform_get_resource_byname(pdev, IORESOURCE_MEM, "gptp");
->         ...
->         priv->gptp = devm_ioremap_resource(&pdev->dev, res);
-> 
-> Because both drivers use devm_ioremap_resource(), which attempts to acquire
-> exclusive access to the underlying physical memory via
-> devm_request_mem_region(), whichever driver probes second will fail with
-> -EBUSY. This will cause a driver probe failure and make the device unusable.
-> 
-> How should this shared memory resource be managed so both drivers can probe
-> successfully?
-> 
-> > +            clocks = <&cpg CPG_MOD 2723>;
-> > +            power-domains = <&sysc R8A779G0_PD_ALWAYS_ON>;
-> > +            resets = <&cpg 2723>;
-> > +    };
-> 
-> -- 
-> Sashiko AI review · https://sashiko.dev/#/patchset/20261007185920.4042783-1-niklas.soderlund+renesas@ragnatech.se?part=1
+Ack.
 
 -- 
-Kind Regards,
-Niklas Söderlund
+Best regards,
+Jacek Anaszewski
+
