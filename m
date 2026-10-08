@@ -1,112 +1,160 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44E553CB543
-	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 06:55:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791442513; cv=none; b=YIimDt5WLukdAI7gQFSHj9icQuo8v+D+NS4VLbktrrzxSbKV+Dyz4kjbbPML/IWaa4h40zKQD7YrwdxA34J1PVCvZK1npwHRFxE/1fvPH02kZGJCxMN+icqiikehwV6baqdBMzclv5/OWOtsAtyy/54hF7P3gKUT7u75aMGSuP8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791442513; c=relaxed/simple;
-	bh=2GklmAllz2E7hor+pfFwH1V81WgYj7U4ccgb49XqGw0=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=qUGEPzZ0WLtsdbeOWf79GFUi4qfmAlftdFFqGt6mCMDGx76tEYnB8N8quhzQ1mONOCCzW89tIxdluM9O24GGpiNHxBn5F3G6BGBjil3fOP8kAWQnPzT6VM2KGb8sMQ86NUmJQY3gZlj3bfdE8Wtv3kXsZSNGjC4YO/odGJkQTpQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iUwBuWmv; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 100563CF046
+	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 06:55:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.180
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791442519; cv=pass; b=RjObqNVD+Az0YlWJ62WppAxbKegOJ3DIF+gqfir8LzUcdwKUsBKZPqY2QNXrSUIbRcFdnkAqB51y7RaFrJyyPWSxgtEiPvlgmhOyJcz7uWc7lRpn7ZX/wAF/0sUeHVB2dUb50ZD9h65wec+92DEBuBuEgzkZnjXlSkRGg09OKxA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791442519; c=relaxed/simple;
+	bh=LAU+lAaONCsbyhUKz3NVx/NrIoGX2BWhWJ83XVPrkW0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=QF1KTZAPMz3m2GpT8p8X7R+n5L0dBNqlikSNGm8WDofGpXaWRSyTccx3m1dGkL/D621PWCwnCYtrFXM0p4AWVfdKkgof6+0w7LjLnhxl0t+z37hLGkNNfp/a5vkUqn4sefL81eC4MxeAeFIqm/9WxSA5mWCJ176ywNkDtQJWr20=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JfA82dpf; arc=pass smtp.client-ip=209.85.210.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iUwBuWmv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8538B1F000FF;
-	Thu,  8 Oct 2026 06:55:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791442511;
-	bh=hUONKwsAv096Gvy2wCxZiRrEVezA6acTTaVPK93BDhs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=iUwBuWmv3POVvzGGPdIjKfJvgJkMpcKGYA2ruy4oRAgedg8ltL+aHvm9ZRAgMEJmt
-	 5Y50i4LVX0Frb09NXo060vdo3ejXg3zBnQdLtTRQBetBnxr3J1mR7dhcq8xWQRsuN6
-	 pV/VnVYVCJAedXpRRKH9aFkuVzkqPU76BPBcR9mReDEpf38eoBqa9sWiEOGSc0Olf9
-	 ads1oaItlRbK61dxQSUB7CftyyE+cF3wKJJaSFFviGflv/1av15Ui5xLE6i02hFfOs
-	 5Du92CYOFrroN4Z+bLaWUiLUlY8d41imWk2i7dq7CLrePdWIYauKuoAvLOdbV428GY
-	 /ss1uuPsAwCyA==
-Message-ID: <sashiko-outbox-163719@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH DNM v3 8/8] arm64: dts: qcom: kaanapali: Add MPAM MSC
- nodes for the L2 caches
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yin Li" <yin.li@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261008-mpam-resctrl-dt-knp-support-v3-8-35196c2b43bf@oss.qualcomm.com>
-References: <20261008-mpam-resctrl-dt-knp-support-v3-0-35196c2b43bf@oss.qualcomm.com>
- <20261008-mpam-resctrl-dt-knp-support-v3-8-35196c2b43bf@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 08 Oct 2026 06:55:11 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JfA82dpf"
+Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-881269371acso163522b3a.0
+        for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 23:55:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791442517; cv=none;
+        d=google.com; s=arc-20260327;
+        b=BPcQV0oyvwatx1uXMHMPG6U1v8DekenJ8dtal1mKm74GQ03Xup7mVc7lufVsf8L1uO
+         GiGXdf9d98dShUexV7XeZhM31bTKTKG2VQVaNdTyJU3Gp63ijCggpOVBZgdRI0mMcWju
+         pEmzC3yKYx7j60VdNbYLQhEZ7RJLkG+jCXymJc4ZlSK/ByVTzBaQIXr/fH2WuFsW5SbA
+         x8/MQKS+f43l2NoB+lQtZIGIQEZ5LUYaaSNWBv+qdqAaYNncDRLrdLUKHwckeYLO8a0H
+         /rbgg6TqxlGnUQh5i8dFyPa7yxOYmVoUJKtsL8kQvIMojFhH595vaZrYGz84+i8apo5I
+         k46A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=GwVHKedpjNUKuB2nBCCOQbetrG9q4vZVX+BP70vaR40=;
+        fh=CysMMY9IPll46RrGcEd3n25UsaEbgvYFnYQt4umxXOU=;
+        b=XquzC2V4bstOZ89GYBxQfJvl5YI/VC1tnJ3Ooc2qbmOwoSlYNz6LwZcTdnXgFntrLO
+         gLVEfBzFlxKQWjrRfya+b3EgmUT3r05fkdPCT2BdusnOJ87sWJ3ozn/xs6ubOwciAwto
+         fNqu4PHA607z+YNErg9bxL28dmwes7nTqQlFoI0wnJQhrE/xcKL6vNLC6T6+DPFfczJN
+         qZ9l6o5qcpcZB9g+/Si56695IkmTYZFNqwFQqphKvGRweLnqXAgBijOfI2nsc1Xg2xJw
+         17vzLY97+He68/3wpN43pN9M8ei0Yb7f/gLfL9sBOhl1+5uEND5JBakscRBxsjDjHImP
+         nhvQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791442517; x=1792047317; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=GwVHKedpjNUKuB2nBCCOQbetrG9q4vZVX+BP70vaR40=;
+        b=JfA82dpfOuVdgDazmoj+VL39H28VT2HM/BiZqQZJLKkhrONqnBZQI1g2IBB/YAezCp
+         6L2ubSBVe7N+kSpJVblp3DxCS3QFHffRp7ePqiVmBSfI1V/vjwFIBlMd1qJ4l4kBQIv4
+         Opbe/QAL89fcInWCeq/8guMlRNDWPIlLPp2agXMGzHX3kkQg1o/eTc4BpI804+3EKajh
+         I1+qVcp7TiVFxpRrFeQSiHHyhMZgA7R5+Cn4dfaxcaqdNZfUzVEnizuh5hm+2RT5/bQE
+         6FHQm5V6Qstlbv1jjfx7+8ntKfjKbTlKdt4MagxOtQ1q7B+zXWjJEO8vL3ZYs4YpJ/lZ
+         Dauw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791442517; x=1792047317;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GwVHKedpjNUKuB2nBCCOQbetrG9q4vZVX+BP70vaR40=;
+        b=xi/cR7Pqok1S7OvFG9WynRwQVllSqYGcuflId7yFL1BIoUk2XuuKyfszSmISdKhj6D
+         orFAEc+Jwwsf1nPqu7AeZHNofefQYNGYkpa5lTbPpiQFpdaclB1fbfVflHcGq1BQIoqe
+         demyf1Mj2P05aekjnK2rpDClWQu5Om/Iri3rYx3vz3kGVelwAr2XbMHIx7tD8vYqXkn/
+         V4Hfg17ZRWIiwoBnNsb+CCYOmQZaKMpiom8zQO8N8vCXjET5TdfMGxAK15Ouq2CN74tx
+         KfC0CFerZYjL6KKb+9350GStclSnKs3vAz9Yo0/OgPWhKhxqOaS0J1HDHT0GHlq+QAzV
+         z6/Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzJiuzFVMJaQETNijIUUfp9ZdBK2agXrQZ63m13oAJAQ/CBtvTEZPNZC9gzAEZARt9byRVzkq5IRLHo@vger.kernel.org
+X-Gm-Message-State: AFuF++n4xqx1RfQY2ICwO48v3ST0dCpjVDiUF9bf2fVa4rksnZWyWT09
+	cmB1Dlq5sDFO9VHsxFRNlTC3sozZzusEZxrQSS7GZaqSlKPuvHpr0PkoQktCjUTz2mzQ52+bLgV
+	IZLbvU8zLOfbC+H6bGI9NiXuBiSCkrcg=
+X-Gm-Gg: AYBFou38Cn5EjKr3cPyFQBj7vi9aHQrOWzX3ZiaOx6VKVYMmEaafG1PFXfNY20B0UDI
+	ahEemZyhfUZMoTZA28daDPrwSaJi1Tj1OGC8VCcyyoxeeNRi34MsywfXItELMMWtSz5IN8MpTWL
+	AKSDkxL8bNko/mO3eFVKYFQYtnd4PjLfwG0x34HI2H+Dj8eqDNeR+vk5gM4iQhIGSv+Zus9+MRY
+	73Q5+HuiqW+7Rks1HJaBHegad1lObBf/Vv6lbfirunQPv2mZxfCEcwDUCdESIMIwePMPvrcIzuG
+	R3bHrvrY9KGVXwMBOqIf8nEx6HsE1q4zEU8yZIA7TfKC5bGF0GZlpQaCW03aE3TBn0d8i58=
+X-Received: by 2002:a05:6a21:3e09:b0:3de:3bfb:dc65 with SMTP id
+ adf61e73a8af0-3e14c5a1255mr1132038637.34.1791442517344; Wed, 07 Oct 2026
+ 23:55:17 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20261005202731.153971-1-pmazzini@gmail.com> <20261005202731.153971-4-pmazzini@gmail.com>
+ <20261007211626.GA338242-robh@kernel.org>
+In-Reply-To: <20261007211626.GA338242-robh@kernel.org>
+From: Pablo Mazzini <pmazzini@gmail.com>
+Date: Thu, 8 Oct 2026 07:54:59 +0100
+X-Gm-Features: AclHuK9HNWmbYmgrwOCN8Dj1r6Aaf0O489JwabVju8_e_8zgAdvV8DQG3O2TPc8
+Message-ID: <CAAxh=jsoFDfNGEtcWvxe5VNH-knf8LZg9aVh800LF9t-7m1qbA@mail.gmail.com>
+Subject: Re: [PATCH v3 03/11] dt-bindings: pinctrl: sun4i-a10: add Allwinner B288
+To: Rob Herring <robh@kernel.org>, andre.przywara@arm.com
+Cc: Chen-Yu Tsai <wens@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Linus Walleij <linusw@kernel.org>, Maxime Ripard <mripard@kernel.org>, 
+	Samuel Holland <samuel@sholland.org>, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-sunxi@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] dts: merging example code explicitly marked as not intended for =
-upstream
---
+Hi Rob,
 
-commit 9a283550c6d64193c89c11f63f98ea9257487934
-Author: Yin Li <yin.li@oss.qualcomm.com>
+The B288 uses the same scheme as the A523, and the A733 queued for
+7.4, which the shared pinctrl-sunxi-dt helper parses, so I'd rather
+stay consistent with them.
+Andre, what do you think?
 
-arm64: dts: qcom: kaanapali: Add MPAM MSC nodes for the L2 caches
+Thanks,
+Pablo
 
-This commit adds disabled MPAM MSC device nodes under the L2 caches in the
-Kaanapali device tree. These nodes are intended to allow direct MMIO access
-to the MSCs in local test setups where production firmware restrictions are
-bypassed.
-
-> The nodes are disabled by default. Production firmware does not expose
-> MSC register access to the OS, so these nodes can only be enabled on a
-> local test setup where firmware permits direct MMIO access to the MSCs.
-> This DTS is therefore only an example for other platform DT authors and
-> is not intended to be merged.
-
-[Severity: Medium]
-Is this patch intended for mainline inclusion? The commit message explicitly
-states that this is an example for local test setups and is not intended to
-be merged.
-
-> diff --git a/arch/arm64/boot/dts/qcom/kaanapali.dtsi b/arch/arm64/boot/dt=
-s/qcom/kaanapali.dtsi
-> index 131fd2a16c545..b1dcb1e9c570c 100644
-> --- a/arch/arm64/boot/dts/qcom/kaanapali.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
-[ ... ]
-> @@ -531,6 +519,44 @@ soccp_smp2p_in: slave-kernel {
->  		};
->  	};
-> =20
-> +	l2_0: l2-cache-0 {
-> +		compatible =3D "cache";
-> +		cache-level =3D <2>;
-> +		cache-unified;
-> +		cache-size =3D <0xc00000>;
-> +		ranges;
-> +
-> +		#address-cells =3D <2>;
-> +		#size-cells =3D <2>;
-> +
-> +		msc@19870000 {
-> +			compatible =3D "arm,mpam-msc";
-> +			reg =3D <0x0 0x19870000 0x0 0x10000>;
-> +			arm,not-ready-us =3D <1>;
-> +			status =3D "disabled";
-> +		};
-
-[Severity: Medium]
-Should these test-only nodes be dropped to avoid polluting the production
-device tree? Since production firmware does not expose MSC register access =
-to
-the OS, describing this inaccessible hardware configuration seems strictly =
-tied
-to local debug environments rather than an upstream hardware description.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261008-mpam-resct=
-rl-dt-knp-support-v3-0-35196c2b43bf@oss.qualcomm.com?part=3D8
+On Wed, Oct 7, 2026 at 10:16=E2=80=AFPM Rob Herring <robh@kernel.org> wrote=
+:
+>
+> On Mon, Oct 05, 2026 at 09:27:23PM +0100, Pablo Mazzini wrote:
+> > The B288 driver takes its mux values from the DT, so allwinner,pinmux
+> > becomes an allowed property here, required for this compatible only.
+> >
+> > Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
+> > ---
+> >  .../pinctrl/allwinner,sun4i-a10-pinctrl.yaml  | 22 +++++++++++++++++++
+> >  1 file changed, 22 insertions(+)
+> >
+> > diff --git a/Documentation/devicetree/bindings/pinctrl/allwinner,sun4i-=
+a10-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/allwinner,sun4=
+i-a10-pinctrl.yaml
+> > index 45b7a0b6c626..b1f093d218f5 100644
+> > --- a/Documentation/devicetree/bindings/pinctrl/allwinner,sun4i-a10-pin=
+ctrl.yaml
+> > +++ b/Documentation/devicetree/bindings/pinctrl/allwinner,sun4i-a10-pin=
+ctrl.yaml
+> > @@ -39,6 +39,7 @@ properties:
+> >        - allwinner,sun8i-a33-pinctrl
+> >        - allwinner,sun8i-a83t-pinctrl
+> >        - allwinner,sun8i-a83t-r-pinctrl
+> > +      - allwinner,sun8i-b288-pinctrl
+> >        - allwinner,sun8i-h3-pinctrl
+> >        - allwinner,sun8i-h3-r-pinctrl
+> >        - allwinner,sun8i-r40-pinctrl
+> > @@ -120,6 +121,15 @@ patternProperties:
+> >          $ref: /schemas/types.yaml#/definitions/uint32
+> >          enum: [10, 20, 30, 40]
+> >
+> > +      allwinner,pinmux:
+> > +        $ref: /schemas/types.yaml#/definitions/uint32-array
+> > +        description:
+> > +          Pinmux selector value, for each pin. Only used by SoCs whose
+> > +          driver takes the mux values from the DT instead of an in-dri=
+ver
+> > +          table. Almost every time this value is the same for all pins=
+, so
+> > +          any array shorter than the number of pins will repeat the la=
+st
+> > +          value, to allow just specifying a single cell, for all cells=
+.
+>
+> Perhaps new platforms should move to the common 'pinmux' property?
+>
+> Rob
