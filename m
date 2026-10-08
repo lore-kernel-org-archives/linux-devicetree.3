@@ -1,115 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E64583939DA;
-	Thu,  8 Oct 2026 15:38:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 075F74EDCDA
+	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 15:57:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791473919; cv=none; b=Gfq82EIXIOnahnnRv3RydRPvScI+SUqf9D+LUuUSxWt8ddvl1e0k8LpIrVmuBhkFAmQPAE1RokZTVGtmsWRGioHYI6xGBlZW3U4AJPyc1yDeGa1oNUPMRY6WzwMkCGkIJts3zZX7HaIigdv0kr0P7Ivj5nV6MUWMoDkV7TbIVd0=
+	t=1791475059; cv=none; b=MfXvHHDNc0BMRK+cR6LMoEZk7nzO60Ibon5+O9cUoZ5LeYBk9Y1nq34bUsrXTWmM6al/8azrUOkHvhky/epT2lcc9sALrkxgsbuoKcWxQodkgUbCW3xxmov/Ef5CY4OoxVwP9xSLdegVrC92xA2w/tbCq+11Q7XAS9g6lJj1M3Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791473919; c=relaxed/simple;
-	bh=IdjkUm2rEYtd4L3rKKMYLJ+OlOFm/l6+RvlNoj3CY/Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Hs8dmDmCAmzvpY6cBAZ3wkl25iHY2MIQLDGqvYTWX55CIfHCHNLqfgg70durghsIEZgnSwjxoS7mBY1Q0u8vQ7gf2WtQhL1ZMpVlp1ZM5KZecX36KjEckrffPE28LQwUQPiCthP0snaL7R95iHLFk51p8e2UqqWmWigdNT2wPzY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IS6es9ML; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791475059; c=relaxed/simple;
+	bh=g87w9t8vnCLzrZ5kYjjQ10CHlRMA3AZMTXdHP6HQ6dA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Q51ggWwoXjDktFUxP62wRUUpuImxERWZWcMhgFP1POs1reL+P7QL34+WX78yGj30ieXGQwCZC6dNIycJbVJ7nIrt1j2OzlA3OANBbSXtru/Seumm5cD3xZ6/InXdVxg/Wgz0uxU9EG8A+yekKFSEPCDbg4rx/+rB93KZ1MPxfZg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Xnq/CdA4; arc=none smtp.client-ip=209.85.215.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IS6es9ML"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57AA51F000FF;
-	Thu,  8 Oct 2026 15:38:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791473918;
-	bh=MXdITqxLgSSUpRhxRccAsJ6d7ByUZdAQeqa9bUFE0gI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IS6es9MLS3+ErVgCpFiORPEMyWhwf7m5tMxXtrnzAdIEuQ0Vo3dzX21yhPYbiVnbM
-	 2exihNTALChxOpPBsu843E+WVXp/AYJqeumreLhTbftgXu+q10pHrXm/Nn70XuoLkZ
-	 5uB64Qtnd6vOVoN7uWZpXTyGueH9CBTl8MNArlefSTkvmItiu15I0SfpjfTUvd3iV5
-	 6M1nKptXLj2VqGXBCrUipbF0YGavCtBxg1SK8mkPcGDhR/C1H8ywvoKwmg73YnV1D+
-	 SQxVzh16pDNunADTgNqjPCNNyVRsemQhv7KgUoTdlaraImWHNjgdX1IGbPugY9YAtN
-	 gSQKZ483I9X4Q==
-Date: Thu, 8 Oct 2026 10:38:37 -0500
-From: Rob Herring <robh@kernel.org>
-To: Nathan Chancellor <nathan@kernel.org>, Nicolas Schier <nsc@kernel.org>,
-	Saravana Kannan <saravanak@kernel.org>
-Cc: David Heidelberg <david@ixit.cz>, Arnd Bergmann <arnd@arndb.de>,
-	linux-kbuild@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Xnq/CdA4"
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cc4b1f7e8f4so1553106a12.1
+        for <devicetree@vger.kernel.org>; Thu, 08 Oct 2026 08:57:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791475056; x=1792079856; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Pvd67Pj74nWibOAWBO1VBH/KQr45t03+WGbHxBJCBV4=;
+        b=Xnq/CdA4rwWXL59MOKFfbFlktylPJWrMeUjMIoyMZrSEuRpTHvNu9Y/ONPTIi/en4r
+         rZRAH5nBz+BD3MSlG+VKRpQ466MlcGMEJknPkz5UmRHrrvry/dipyXUOsyNsv3GCtE47
+         R+VcUoanA2jdgelgwxQiD5tuhabQTkmQnGw36jmceCc6uIjCNWFZFQtEg0xtLPpKXWfo
+         PL2mxqPtyrX+2uW813EaQfs99SN9vPvlh8lnsLgIVSoS/C5FS4nkt2PzYJFhsamU3SQ8
+         H/0/aE/HleJnmxeKPDgbnfrNwS6eIk41n5WgaSBCFnNdyu4d2Qr+LKtEbkwHjYlUwtA0
+         yRww==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791475056; x=1792079856;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Pvd67Pj74nWibOAWBO1VBH/KQr45t03+WGbHxBJCBV4=;
+        b=P4tS06BLBXpLoL8z1jldwMxF4FkaiRzGahligYpEVa7RN8DZj55p6TPd5Vgu4Mhv8g
+         6+QiSEgVLkWIpIOzYzN2rJemkh+LQ1rFKvvT2HmB7UxZpD/V4GKU2T4cjR3Od0hXbhht
+         661uctJnImstIB6ux7ZgckpDvt9F3Fka1r8SgV4a1ApfiAKq9FW7E21EY7vJ+RTXGjco
+         hUnj1w3ZTsSFFLAE+2yhkw0RCXthkdY/3p3zOqLt2+eCTnrUdOFLpwU9yLpOHYaFouq8
+         eymb0CBk0X12yI+Ues1sPOe0ZfsMHanBTLyn1D9BMXVoAQ8FdV+I855Hg4OXeMssjWjX
+         PMhg==
+X-Forwarded-Encrypted: i=1; AKwUvBxPJ9IpBBIyJXdxW+Mb+Jg6Fzvo35G14PCcUtAGLJ+vxuIVZcXdkt16mKKDnj91GUboaUHX7vSoWNnQ@vger.kernel.org
+X-Gm-Message-State: AFq9FYL7pv6Vjv+bLInvKj4lXZmqGSR2rM5+garNhqoGYqFMBhSP8Syx
+	uNXCsKCtzv2Z0YJh3zyHJkAotINCtI+QsESIyAX01PMNzzrUaJfNuZOZ
+X-Gm-Gg: AYBFou1nIOG2COgI3JbhofuEl5kT4Uwhz3NhkiNh3zNW04oZPnGhxzxp5cUjppnVNJb
+	JlXnblO8AK/u9IRa9vCilOb+LZhC1AdBiCkVGCbT2PBIBAI6nfpFe+wD223z+v0mL5lYhlQnSED
+	8UGkygGQ6PrmzekzySjbeIeXqBmlRUnOxd4fzlpPTGd49+3BqxxXYddbHE80i/SB5kX+2FjGlp7
+	fQnD1mdQbU4coC4efL5nCh3EemKiRKWgbsWtNOpod4rK5zY0+ZLJ5j+ZWZtPnBpX24O8idI8rSi
+	waC0YdgRHCLw7ZiDOrx0wsYvTtPEpkY9qalHFQEblVPy/gRUGQWeCtgiYcIi6nSxqEmCZv/YPIQ
+	4WC6Fzw7nZVunzLjgF8tyynIwSDVMgKO2yJlQhjfpF4bpw6+kKRNFj3K+fbHqhxuwAV7O+CyN0Y
+	20u5X5z7ZTepspCwWXoFgtp85n4W7m5PX1oNjTaiuoxP5D3E6ToDycddGy6xCNd6yTWKah+bzgo
+	lhcIsE4zWA4kwkbabLA6ITqhg==
+X-Received: by 2002:a17:903:2a84:b0:2e1:2ed2:7cee with SMTP id d9443c01a7336-2e600540d3bmr43995655ad.52.1791475055891;
+        Thu, 08 Oct 2026 08:57:35 -0700 (PDT)
+Received: from d.home.yangfl.dn42 ([2a09:bac5:661c:1246::1d2:d1])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e6046fe0aesm27694045ad.28.2026.10.08.08.57.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 08 Oct 2026 08:57:35 -0700 (PDT)
+From: David Yang <mmyangfl@gmail.com>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>
+Cc: David Yang <mmyangfl@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-kernel@vger.kernel.org,
 	devicetree@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] kbuild: Support directory targets for building
- DTBs
-Message-ID: <20261008153837.GC183998-robh@kernel.org>
-References: <20261007-dtb-dirs-v3-v3-0-b3ab32b64fa6@kernel.org>
- <20261007-dtb-dirs-v3-v3-2-b3ab32b64fa6@kernel.org>
+Subject: [PATCH 0/2] regulator: support the HiSilicon STB PMOC voltage rails
+Date: Thu,  8 Oct 2026 23:57:23 +0800
+Message-ID: <20261008155727.3801095-1-mmyangfl@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261007-dtb-dirs-v3-v3-2-b3ab32b64fa6@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Oct 07, 2026 at 01:39:41PM -0500, Rob Herring (Arm) wrote:
-> It is useful to be able to build all the DTBs for a vendor. One can list
-> all the .dts files in a directory and convert those to %.dtb targets,
-> but that doesn't work for base+overlay DTB targets.
-> 
-> The 'dtbs' and 'dtbs_check' targets can use the directory rule targets
-> as well which avoids different make paths for building DTBs.
-> 
-> Assisted-by: LLM
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
-> ---
-> v3:
->  - Reworked on top of single target rule for %.dtb
->  - Make dtbs target use directory rule.
->  - Move adding boot/dts subdir out of the arch code. Now supported on
->    every arch (not that useful without vendor dirs).
->  - Removed the need to look at MAKECMDGOALS
->  - Fixed unnecessary rebuilding DT base+overlay targets
->  - Link to v2: https://lore.kernel.org/all/20251120204812.1983452-4-robh@kernel.org/
-> 
-> v2:
->  - Convert arm, mips and riscv. The other DT enabled arches don't have
->    vendor directories.
->  - Link to v1: https://lore.kernel.org/all/20251113225952.867138-1-robh@kernel.org/
-> ---
->  Makefile               | 8 ++++----
->  scripts/Makefile.build | 7 +++++++
->  scripts/Makefile.dtbs  | 2 ++
->  3 files changed, 13 insertions(+), 4 deletions(-)
-> 
-> diff --git a/Makefile b/Makefile
-> index c307ee9293bc..75d290c2b7d8 100644
-> --- a/Makefile
-> +++ b/Makefile
-> @@ -1664,8 +1664,8 @@ dtbindingtree := Documentation/devicetree/bindings
->  ifneq ($(dtstree),)
->  
->  PHONY += dtbs dtbs_prepare dtbs_install dtbs_check
-> -dtbs: dtbs_prepare
-> -	$(Q)$(MAKE) $(build)=$(dtstree) need-dtbslist=1
-> +dtbs:
-> +	$(Q)$(MAKE) $(dtstree)/
->  
->  # include/config/kernel.release is actually needed when installing DTBs because
->  # INSTALL_DTBS_PATH contains $(KERNELRELEASE). However, we do not want to make
-> @@ -2216,7 +2216,7 @@ single-goals := $(addprefix $(build-dir)/, $(single-no-ko))
->  
->  # DT-only targets need host tools, but no architecture-specific preparation.
->  ifneq ($(dtstree),)
-> -single-dt-patterns := $(addprefix $(dtstree)/,%.dtb %.dtbo)
-> +single-dt-patterns := $(dtstree)/ $(addprefix $(dtstree)/,%.dtb %.dtbo %/)
->  ifeq ($(filter-out $(single-dt-patterns),$(single-no-ko)),)
->  single-build-prep := dtbs_prepare
->  endif
-> @@ -2234,7 +2234,7 @@ prepare: outputmakefile
->  # Error messages still appears in the original language
->  PHONY += $(build-dir)
->  $(build-dir): $(single-build-prep)
-> -	$(Q)$(MAKE) $(build)=$@ need-builtin=1 need-modorder=1 $(single-goals)
-> +	$(Q)$(MAKE) $(build)=$@ need-builtin=1 need-modorder=1 need-dtbslist=1 $(single-goals)
+HiSilicon STB SoCs regulate their CPU and core supplies with PWM outputs of
+the PMOC block feeding an external converter on the board. This adds the
+binding for those registers and a driver for them.
 
-sashiko points out that this creates dtblist files in every directory. 
-Will make it conditional on having DTB targets.
+David Yang (2):
+  dt-bindings: regulator: add HiSilicon STB voltage regulator
+  regulator: histb: add voltage regulator driver
 
-Rob
+ .../regulator/hisilicon,histb-volt.yaml       |  58 +++++++
+ MAINTAINERS                                   |   7 +
+ drivers/regulator/Kconfig                     |   7 +
+ drivers/regulator/Makefile                    |   1 +
+ drivers/regulator/histb-regulator.c           | 163 ++++++++++++++++++
+ 5 files changed, 236 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/regulator/hisilicon,histb-volt.yaml
+ create mode 100644 drivers/regulator/histb-regulator.c
+
+-- 
+2.53.0
+
