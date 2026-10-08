@@ -1,68 +1,68 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAAE045D5E7
-	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 08:24:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9009746C855
+	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 08:25:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791447882; cv=none; b=I92BWyjDjYxm4tB+tck2ugwptzTPjritxKw1lPhSmquPJ9sSP26tEqlxNNiOxtKokMW1IcoD/mOnnNLOtA/C/QRINMt5EMPiWnZb5I/7Dt9kiRXzsOl+iEx5Pe9Is5AP6qUFCOY+O1DCAdCgUfGByt8GKCrnVHKWgqMtDZFKiVk=
+	t=1791447908; cv=none; b=pkW7vhEAfe6+qlfuQwQfSZZAmWlNH9+zduJeimG1kIlAeiHhB9yJGAcn3IGlWBObjKQWELeUVbn1WgOc38pIjwrU4PGNibSUSfbshECC+ZUusGnPtUU/G3A3LYIzIz9ZCdXXy1f9eQTbEjLUfDhrdkBIluLWSI1K3CkT9qrR+qo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791447882; c=relaxed/simple;
-	bh=R19lXHv3qObauzbjTU4gwaYFk2HryBGzM3LG4AIi0Q0=;
+	s=arc-20240116; t=1791447908; c=relaxed/simple;
+	bh=k4EH924NdUEPU8L9M6Y1T9XBlcq8j4usVoJDeJarmuI=;
 	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=mgFfrG2L0FidP0aD+UvlKfGEvzYfmFHwtAGoDc3EgKg4DOcCbd3TKUmKuM/soBr6aBRw9lNDvL9Vv4ZFnzTC1Jx1d6+3yWL9U2oIN8izwZ1a8LlPMgfeSQf4j7c3piIQmNvGLVcUajWL4Mu/3xQtbPO/Y2O2ONWymbNk9cBcA+E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=VPqSJjo1; arc=none smtp.client-ip=209.85.128.44
+	 In-Reply-To:Content-Type; b=MfyGI/8o65GMtYma+W/WZxzDMH7jd2qEnqqUor4lu73I8eOHhL1J/7jo+IinhngEndxUbL3pd5JZKeFEgk3i1+xyIZr0aGnVBc+LxefP37uVHCpjG4QCWlLxXehiRfMK6O07aurXroNKMuwK4Q9Bg4FLeQ32SVLiRFkikMrquDs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=OOPjs/17; arc=none smtp.client-ip=209.85.221.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="VPqSJjo1"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso49441495e9.3
-        for <devicetree@vger.kernel.org>; Thu, 08 Oct 2026 01:24:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="OOPjs/17"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48441a2ba1bso2886116f8f.1
+        for <devicetree@vger.kernel.org>; Thu, 08 Oct 2026 01:25:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791447879; x=1792052679; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1791447905; x=1792052705; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:organization
          :autocrypt:content-language:references:cc:to:subject:reply-to:from
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=M6ASayUKoMdn/Pu+VkK60Fyzl8gQVjykNVGO1atxmUU=;
-        b=VPqSJjo1D6Ye4jlJ41V+/Q5kylyaXwDzIpBQHzjjpHV6T+pgjd8ZJC0ERRFeWFwPsl
-         bo7mWQHBxtNkLkX7yaJL70pOvrEmGWwMjURAReqJaUEp8H7bePKqIzcUmfmx7pV3T2QQ
-         sRyvvu/YJdVGbvYQuexKlR8DoMiWX2ooNhKL1UewFk2z1//5u/JISd/PER7LqjqQA6rg
-         IV0E/4PTp2rcgDxV3ACH8wPmoDx8J283FYFJJB9X6D3QfSkYR2jPWAPjViv9LqmG93mV
-         ekGL1TeTKaKi+Eyr7r1iXsVSna5NtgpCXnLFx1onT8eta8sqQbDaN7w8Njws1J/lTlmK
-         P7Sg==
+        bh=W42EnwmE67etDA5kP9Ha0QuiGDOcv6prx44pdv7jZT8=;
+        b=OOPjs/17rAgSBoHvE9NGkQOuiDCVlTu4oMYsXCPPSPHNTUMRr0gYR/ETJJYJziCoQX
+         smBmm8bbNBczOWQ2vJoD2rYIQQ8gn6K7vkeNfixLNSXo1DijLmB3X1Z8P9vtO2fYLQPE
+         lT6vznhaoKCnqhxEMQOzUxma6QlxaF2k46wMUy9ms7FPjBFhGeQHMuvI0lQgNhc/nPYv
+         ShuuJMo18wNYJisEZPk0t76lfWiSbUOORWD6NuPZmVeMnNtyCqojv2neR7zFRtCz22/U
+         mdMoIJZ/qPvXzmkLJ8ZwOebw6O4Eam3qJQyRDSVy51qXNSNsFlWUogl3tJq7zI69ZXmx
+         /RRQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791447879; x=1792052679;
+        d=1e100.net; s=20260707; t=1791447905; x=1792052705;
         h=content-transfer-encoding:content-type:in-reply-to:organization
          :autocrypt:content-language:references:cc:to:subject:reply-to:from
          :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=M6ASayUKoMdn/Pu+VkK60Fyzl8gQVjykNVGO1atxmUU=;
-        b=BK+hLmYF5DJClxxIOTq0+94ejS1ytwPGrA25ue4LFQYbH2GpfZnU+a2jChQuYSChQO
-         InODAlNvNo+tXhl4BHhs75nsTb/vymIx4dKSo3lnAuc+Nc3wkAqh9FRMhmFJxqfZ1ywG
-         eUl8LpQPhfb8Yx9Yxcf3stAWVS6dPOi8S5JjKg4ovfIhJMPi8flCGJbvarUU/7FWaEyA
-         hHBpOZkJBarurbm1b4TO7vzae+xjSYc022itOwynpIuaGFfKe3xuAFtvbMmTPuZuO9C0
-         CaJutpMFLmVv+ng1cK/HzhBdZyKixypyHvAyrFYy7B1L21tEoy+Noufddfwu9zL/qagO
-         BwKQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzir0OYMyqbtgB60OJ/ubrtdtOkJCxwchmU0wMXYpTofz/d6H/qKIsr16CUB1rkojZysX3koyYbWpmc@vger.kernel.org
-X-Gm-Message-State: AFuF++n5BTnYazYu7MHoG0PorVjiDhR8mgrbyZyw98AmeCv8S7WxAmpN
-	Htnxx4OZtg8xIW6OaBhqNJqVQ0Fqnig7RjsVLoDQ43mISf/ovibonLT9Q+JKPo7b5A8=
-X-Gm-Gg: AYBFou1pUYqcXUsPlshS1FRmLBZREQoxoz7Hvz0YokG8OPHyl/LjBbeMO/L8L6xOfmr
-	r91/lLp6kCO6xNc8kBs2x4JEhEzmGtIfOSpmUDVkPx3XdvBwU3nLaYGpoQE4ZWdGiOLNDBhotyR
-	WboCFpPEKJM9aUTbflmYrKy1ZjhNX1bGoSH8A7WwNFrmx1PlCKmFNWb97swYkzCGUhXnDMK/87e
-	nU7rPyA9loPAUapyChk1z1KXLzuZchY4HTD372HyH7Z9A0Or22w5fAWW2Y5daKpQR1IutC7kQ5Q
-	xa10U7SB4zEayii1XrEEaQjmzg08piU4pv9BDg0ZhjeRb9X8Fa5u9yHoDWz/h4dv4JKwh/Mdhjs
-	4X+xJzXh9CTXoyxVMxwywgxiuYfjOb0qHIJfRntNrc5MKAC89xNJETY8buEM8iKaRAK/kqbUnzs
-	8E9SiCIye0kuCtJRmYgu/PRog77RwVL3I6h/qQtiAaHZOAqV1pevqym06N3/Te16UCLY4UVCv0O
-	Q/VISzZKyZ0UdeUkKrE3bqVflt3sC4=
-X-Received: by 2002:a05:600c:810c:b0:4a1:7163:3e41 with SMTP id 5b1f17b1804b1-4a1804234ffmr77254905e9.9.1791447878231;
-        Thu, 08 Oct 2026 01:24:38 -0700 (PDT)
+        bh=W42EnwmE67etDA5kP9Ha0QuiGDOcv6prx44pdv7jZT8=;
+        b=vYIOpEjPmXORksP2TFK7I84SHMM3qNKvVqM9ac5EZ5TXbjwB/lnVMuda4ttS36PHGW
+         XmJUxcIOj5TLR0OX+1MZVZCeN7DsmbpOECJZGiU7Ytq+4dBmSlq6HrK4o6tHvVDiMCZO
+         wEaOk20G4ansRQZ2dcING+xtmyd7DqQuEtrSxtYxxaQQYJkD0mK7HG3yrPmht7T/y/md
+         9yGXha+W7qZ3N4EPFc6oxCHSRogdq0E8CeGq1FNhpdzXhhpWxK1sE5qg6XAI0sJ4Jasf
+         Z0iKb//eGlWbN0rPBO5bjzpQOefao+PC4M+7sjON1lP+9UOFdAhK/MJMcWshn2KT7xAO
+         m5gw==
+X-Forwarded-Encrypted: i=1; AKwUvBy30mdw+xGBh/+/cWvJBMbvZCvBwB0xX0CGjqEszYzhwyyFixwJvxRkaxIqHH3UrJrwbH98SGXFGEiS@vger.kernel.org
+X-Gm-Message-State: AFq9FYIml0c8Dr6ih/+GXAiVivm+0k01eWmsLmZPl1Cw/SEwHPsKcxib
+	ZjYi0lXFUAE7/7FbmofCtAAFnxZecKEMxjSG7TWfX9ECPQqtBwxgaF8yKhe7sjb7jVc=
+X-Gm-Gg: AYBFou2cA4UKjIFic06Iu7UU2aXzuX7NO6Ku6FW8uepyeUUXE2ii7CiOFT0zeXnY8mJ
+	oRdjRUDggsws9+FUZcWozIFHdjnqFzs9wvBKU6jzebUVU9ra1PzYvAVX5VpInfC3ZyPNrPgpBdK
+	+L6lyGAuWTeQwDV9eZe0DaMaSOnIC8+NRJQ5GESQcbCXFAoMLg7131WhcUuE2Md7YgQ8qVv1DFq
+	2BIJ6DmmEx58NSp866XTNkGxEeaGVFkiTXigiLdrCvF0Y9TlHLeZwzFNBhjzJrX9S2iD22czSfw
+	B5OeQPqHj09nqryyYMBsTkNfxH+fD9AehmTj/QRA3w2+uuFO4+DacW6T46QABWbp1ZA3oGaQbMi
+	eloYeU7CsFqFmywAXwcCNYihGzXAc+sylyfMwrFisPyG42O52u97dJnTnnR50RdHxk9Jq3iXMYo
+	yWpD356YP79FhYT2JUsfC+pF8+kHZKwHhJmKS7Q668jjmj760vrZ6g8Q7jzFVkNnFht1cdX+JXk
+	twyebqJlk6moz1xl9iSgFqsoN1ervs=
+X-Received: by 2002:a05:6000:4818:b0:488:8751:e78e with SMTP id ffacd0b85a97d-48c72788373mr8448347f8f.16.1791447904535;
+        Thu, 08 Oct 2026 01:25:04 -0700 (PDT)
 Received: from [192.168.151.76] (90-182-211-1.rcp.o2.cz. [90.182.211.1])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1843d1e0bsm51322805e9.6.2026.10.08.01.24.36
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c71d2044fsm10204091f8f.31.2026.10.08.01.25.03
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 08 Oct 2026 01:24:37 -0700 (PDT)
-Message-ID: <fa64131e-52a3-4058-9655-e1a4c36de47d@linaro.org>
-Date: Thu, 8 Oct 2026 10:24:36 +0200
+        Thu, 08 Oct 2026 01:25:04 -0700 (PDT)
+Message-ID: <2c1dc2eb-4404-4985-8263-22caab44485c@linaro.org>
+Date: Thu, 8 Oct 2026 10:25:02 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -72,7 +72,7 @@ MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Neil Armstrong <neil.armstrong@linaro.org>
 Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 2/4] drm/panel: st7703: move init commands to prepare()
+Subject: Re: [PATCH 4/4] drm/panel: st7703: Add DCLTek 300248 10.25in display
 To: Marc-Olivier Champagne <marc-olivier.champagne@savoirfairelinux.com>,
  Jessica Zhang <jesszhan0024@gmail.com>, =?UTF-8?Q?Guido_G=C3=BCnther?=
  <agx@sigxcpu.org>
@@ -88,7 +88,7 @@ Cc: Ondrej Jirman <megi@xff.cz>, Purism Kernel Team <kernel@puri.sm>,
  Felix Boucher <felix.boucher@savoirfairelinux.com>,
  Quentin Lehoux <quentin.lehoux@savoirfairelinux.com>
 References: <20261007201859.3709656-1-marc-olivier.champagne@savoirfairelinux.com>
- <20261007201859.3709656-3-marc-olivier.champagne@savoirfairelinux.com>
+ <20261007201859.3709656-5-marc-olivier.champagne@savoirfairelinux.com>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -115,81 +115,135 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <20261007201859.3709656-3-marc-olivier.champagne@savoirfairelinux.com>
+In-Reply-To: <20261007201859.3709656-5-marc-olivier.champagne@savoirfairelinux.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 10/7/26 22:18, Marc-Olivier Champagne wrote:
-> The panel init sequence is currently sent from enable(), i.e. after
-> the DSI host has started the video stream. Not all DSI hosts accept
-> command packets in that state, so the init sequence may never reach
-> the panel.
-> 
-> Move the init sequence to prepare(), right after the panel reset, to
-> ensure it is sent before the host enables the video stream.
-> 
-> Since the init sequence can now fail in prepare(), power the panel
-> back down on error: the panel core does not call unprepare() when
-> prepare() fails, leaving the power supplies enabled.
-> 
-> Both patterns are already used by other DSI panel drivers.
+> The DCLTek dt300248 is an LCD panel using the Sitronix ST7703
+> controller. Add the panel to the driver.
 > 
 > Suggested-by: Hugo Villeneuve <hvilleneuve@dimonoff.com>
 > Signed-off-by: Marc-Olivier Champagne <marc-olivier.champagne@savoirfairelinux.com>
 > ---
->   drivers/gpu/drm/panel/panel-sitronix-st7703.c | 18 +++++++++++++++---
->   1 file changed, 15 insertions(+), 3 deletions(-)
+>   drivers/gpu/drm/panel/panel-sitronix-st7703.c | 97 +++++++++++++++++++
+>   1 file changed, 97 insertions(+)
 > 
 > diff --git a/drivers/gpu/drm/panel/panel-sitronix-st7703.c b/drivers/gpu/drm/panel/panel-sitronix-st7703.c
-> index 368c57591817..f4635a7327de 100644
+> index f4635a7327de..b3abfe8c9ed9 100644
 > --- a/drivers/gpu/drm/panel/panel-sitronix-st7703.c
 > +++ b/drivers/gpu/drm/panel/panel-sitronix-st7703.c
-> @@ -774,8 +774,6 @@ static int st7703_enable(struct drm_panel *panel)
->   	struct mipi_dsi_device *dsi = to_mipi_dsi_device(ctx->dev);
->   	struct mipi_dsi_multi_context dsi_ctx = {.dsi = dsi};
+> @@ -768,6 +768,102 @@ static const struct st7703_panel_desc ayaneo_pocket_ds_lower_desc = {
+>   	.init_sequence = ayaneo_pocket_ds_lower_init_sequence,
+>   };
 >   
-> -	ctx->desc->init_sequence(&dsi_ctx);
-> -
->   	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
->   
->   	/* It takes the controller 120 msec to wake up after sleep. */
-> @@ -784,7 +782,7 @@ static int st7703_enable(struct drm_panel *panel)
->   	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
->   
->   	if (!dsi_ctx.accum_err)
-> -		dev_dbg(ctx->dev, "Panel init sequence done\n");
-> +		dev_dbg(ctx->dev, "Panel enable done\n");
->   
->   	return dsi_ctx.accum_err;
->   }
-> @@ -819,6 +817,8 @@ static int st7703_unprepare(struct drm_panel *panel)
->   static int st7703_prepare(struct drm_panel *panel)
+> +static void dcltek_dt300248_init_sequence(struct mipi_dsi_multi_context *dsi_ctx)
+> +{
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETEXTC, 0xf1, 0x12, 0x87);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETDISP, 0xe0, 0x05, 0xf8);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETRGBIF, 0x10, 0x10, 0x28,
+> +				     0x28, 0x03, 0xff, 0x00, 0x00, 0x00, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETCYC, 0x80);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETBGP, 0x0d, 0x0b);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETVCOM, 0x6d, 0x6d);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETPOWER_EXT, 0x25, 0x62,
+> +				     0x20, 0x03);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETMIPI,
+> +				     0x33, 0x81, 0x05, 0xf9, 0x0e, 0x0e, 0x20, 0x00,
+> +				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x44, 0x25,
+> +				     0x00, 0x91, 0x0a, 0x00, 0x00, 0x01, 0x4f, 0x01,
+> +				     0x00, 0x00, 0x37);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETVDC, 0x47);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_UNKNOWN_BF,
+> +				     0x02, 0x10, 0x00, 0x80, 0x04);
+> +
+> +	mipi_dsi_msleep(dsi_ctx, 20);
+> +
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETSCR,
+> +				     0x73, 0x73, 0x50, 0x50, 0xa0, 0x00, 0x12, 0x53,
+> +				     0x00);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETPOWER,
+> +				     0x25, 0x00, 0x32, 0x32, 0x77, 0xe4, 0x77, 0x77,
+> +				     0xcc, 0xcc, 0xff, 0xff, 0x11, 0x11, 0x00, 0x00,
+> +				     0x32);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETIO,
+> +				     0x10, 0x00, 0x0a, 0x00, 0x00, 0x00, 0x00, 0x00,
+> +				     0xed, 0xc5, 0x00, 0xa5);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETCABC,
+> +				     0x10, 0x40, 0x1e, 0x03);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETPANEL, 0x07);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETGAMMA,
+> +				     0x00, 0x13, 0x1a, 0x2c, 0x34, 0x3f, 0x4f, 0x3f,
+> +				     0x06, 0x0c, 0x0d, 0x14, 0x15, 0x13, 0x13, 0x11,
+> +				     0x19, 0x00, 0x13, 0x1a, 0x2c, 0x34, 0x3f, 0x4f,
+> +				     0x3f, 0x06, 0x0c, 0x0d, 0x14, 0x15, 0x13, 0x13,
+> +				     0x11, 0x19);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_UNKNOWN_E1,
+> +				     0x11, 0x11, 0x91, 0x00, 0x00, 0x00, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETEQ,
+> +				     0x07, 0x07, 0x0b, 0x0b, 0x0b, 0x0b, 0x00, 0x00,
+> +				     0x00, 0x00, 0x2f, 0x04, 0xc0, 0x10);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETGIP1,
+> +				     0xc8, 0x10, 0x0a, 0x10, 0x0e, 0x80, 0x38, 0x12,
+> +				     0x31, 0x23, 0x4f, 0x86, 0x80, 0x38, 0x47, 0x08,
+> +				     0x00, 0x0c, 0x04, 0x00, 0x00, 0x00, 0x00, 0x0c,
+> +				     0x04, 0x00, 0x00, 0x00, 0x8f, 0x44, 0x60, 0x28,
+> +				     0xba, 0x02, 0x88, 0x88, 0x88, 0x88, 0x88, 0x8f,
+> +				     0x45, 0x71, 0x38, 0xba, 0x13, 0x88, 0x88, 0x88,
+> +				     0x88, 0x88, 0x00, 0x00, 0x00, 0x01, 0x00, 0x80,
+> +				     0x38, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_SETGIP2,
+> +				     0x96, 0x18, 0x00, 0x00, 0x00, 0xb4, 0x01, 0x0b,
+> +				     0x41, 0x01, 0x02, 0x00, 0xf8, 0x43, 0x17, 0x58,
+> +				     0xba, 0x31, 0x88, 0x88, 0x88, 0x88, 0x88, 0xf8,
+> +				     0x42, 0x06, 0x48, 0xba, 0x20, 0x88, 0x88, 0x88,
+> +				     0x88, 0x88, 0x23, 0x00, 0x00, 0x00, 0xd7, 0x00,
+> +				     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+> +				     0x00, 0x00, 0x07, 0x8b, 0x00, 0x00, 0x40, 0x80,
+> +				     0x81, 0x40, 0x80, 0x81, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(dsi_ctx, ST7703_CMD_UNKNOWN_EF,
+> +				     0xff, 0xff, 0x01);
+> +}
+> +
+> +static const struct drm_display_mode dcltek_dt300248_mode = {
+> +	.clock		= (440 + 8 + 32 + 40) * (1920 + 41 + 8 + 6) * 60 / 1000,
+> +
+> +	.hdisplay	= 440,
+> +	.hsync_start	= 440 + 8,
+> +	.hsync_end	= 440 + 8 + 32,
+> +	.htotal		= 440 + 8 + 32 + 40,
+> +
+> +	.vdisplay	= 1920,
+> +	.vsync_start	= 1920 + 41,
+> +	.vsync_end	= 1920 + 41 + 8,
+> +	.vtotal		= 1920 + 41 + 8 + 6,
+> +
+> +	.width_mm	= 58,
+> +	.height_mm	= 253,
+> +	.flags		= DRM_MODE_FLAG_NHSYNC | DRM_MODE_FLAG_NVSYNC,
+> +};
+> +
+> +static const struct st7703_panel_desc dcltek_dt300248_desc = {
+> +	.mode = &dcltek_dt300248_mode,
+> +	.lanes = 4,
+> +	.mode_flags = MIPI_DSI_MODE_VIDEO |
+> +		MIPI_DSI_MODE_VIDEO_BURST | MIPI_DSI_MODE_VIDEO_SYNC_PULSE |
+> +		MIPI_DSI_MODE_LPM,
+> +	.format = MIPI_DSI_FMT_RGB888,
+> +	.init_sequence = dcltek_dt300248_init_sequence,
+> +};
+> +
+>   static int st7703_enable(struct drm_panel *panel)
 >   {
 >   	struct st7703 *ctx = panel_to_st7703(panel);
-> +	struct mipi_dsi_device *dsi = to_mipi_dsi_device(ctx->dev);
-> +	struct mipi_dsi_multi_context dsi_ctx = {.dsi = dsi};
->   	int ret;
->   
->   	dev_dbg(ctx->dev, "Resetting the panel\n");
-> @@ -843,6 +843,18 @@ static int st7703_prepare(struct drm_panel *panel)
->   	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
->   	usleep_range(15000, 20000);
->   
-> +	ctx->desc->init_sequence(&dsi_ctx);
-> +
-> +	if (dsi_ctx.accum_err) {
-> +		gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-> +		regulator_disable(ctx->iovcc);
-> +		regulator_disable(ctx->vcc);
-> +
-> +		return dsi_ctx.accum_err;
-> +	}
-> +
-> +	dev_dbg(ctx->dev, "Panel init sequence done\n");
-> +
->   	return 0;
->   }
->   
+> @@ -1026,6 +1122,7 @@ static void st7703_remove(struct mipi_dsi_device *dsi)
+>   static const struct of_device_id st7703_of_match[] = {
+>   	{ .compatible = "anbernic,rg353v-panel-v2", .data = &rg353v2_desc },
+>   	{ .compatible = "ayaneo,pocket-ds-lower-panel", .data = &ayaneo_pocket_ds_lower_desc },
+> +	{ .compatible = "dcltek,dt300248", .data = &dcltek_dt300248_desc },
+>   	{ .compatible = "gameforce,chi-panel", .data = &gameforcechi_desc },
+>   	{ .compatible = "powkiddy,rgb10max3-panel", .data = &rgb10max3_panel_desc },
+>   	{ .compatible = "powkiddy,rgb30-panel", .data = &rgb30panel_desc },
 
 Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
