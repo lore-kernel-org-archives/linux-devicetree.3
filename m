@@ -1,88 +1,58 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 320514ACC7D
-	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 13:26:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4FF749A3A0;
+	Thu,  8 Oct 2026 13:37:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791465994; cv=none; b=KA2GA5Drbd83Hfjysakiy43CWAOsjDNnZZu1AxlVFHg6LpNVkXQ3oRDmqf2Lu2/IWukHKMPvtLJ19G1HFVi6Px1O5erzvg/WN0nLBJ1IwWx2xTE3wjodDGmXr11/ihDDgtLDL9V9opN8idIZyT+hTdDvqV6zxnUiBYFHakl8oig=
+	t=1791466639; cv=none; b=sl6hBzIHW43ecb200+toQ8so02b7CwqMMAvOvhhX7meaKZGZW/3nWj6bVXiJ3RMS5xr+miUIgcVCTmox5bx3Sr/vpFsyywJNTD618XO3sJ31xHb2Du2V6+GCNWREmRU75d8F4ogW2k9cSs1MctVvCcdzwxSYNeWlIBpG/IELBZ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791465994; c=relaxed/simple;
-	bh=rHTgJInrraLbaAI9Fq7EqTpz1oTXGx96B7KGAkoD3WU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=rxGhxXgWFI7UR8Ar+I/oypm2bvr0+qeFvZ1x4O9KDrCcFFOREIttGaGOnmnDvHTB7a0vC2gB0rfqNmQtwWNgnG4DUhZpCxcqvJFGB5YU3A3ObiXq+sYxAVF2Dc/gwCXdOcaCpBvXE4xhTfoX0iFw2F+AMronjjSodvU36oXl4c0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H1q0YnhN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791466639; c=relaxed/simple;
+	bh=bXuDHAESQYveM+ddfeipUXC2d0GypSSSZh+yw2r9iUA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nvEO0d4kNfUqDl6qxE/i2pxcWLqVl+PHqgIpXO8aEwddHtb1tmmiY3VCdsHyKQxWAIi0I+Otj0/bFklKI2ySEV8wR125gJLajtsvOfN/7dAni/jNtoR5GBfrypMcEfeasHGOV/HR5BEBBxijm9aoiQlxafkzkfhGrcAAOnD/ByQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y2OwjCO+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H1q0YnhN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2CDB1F00898
-	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 13:26:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y2OwjCO+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA59A1F000FF;
+	Thu,  8 Oct 2026 13:37:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791465991;
-	bh=TI+5D22ueYdVZr31isBC+dn7ZaNBTi8w4WkTml9p8wc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=H1q0YnhNqujp+LmoTjllt5jjZ1EsPIkt01NfS1VlIu7+DDnh6ECRnhec3CJXsltzf
-	 Bq457BpBwrIX9IZZgIb0csMJqOzemnTvLyyA9M/+U6W/+TJtml6vqaUgGVa5q4Qpia
-	 GgB7sz08qxRJatNXdxNI91XviffAf5trzpnHaUx3QxG/3Pt5eE+DV9k01d+CWS19BD
-	 JzO0GiL6YO3tIhJZ2CtD7vHMNAJkGlQ0cpMvD+vRULFOt05H38MPX38wnzKrT3ny28
-	 +Sby/70MTPS9tQ/kVOQgMKddQdnUCHwJUVPI4/WLnsRPo3LX/QVah3+gj151MaVOqg
-	 YIHpVOMlBsoOg==
-Received: by mail-oo1-f50.google.com with SMTP id 006d021491bc7-6ddef424972so4146981eaf.3
-        for <devicetree@vger.kernel.org>; Thu, 08 Oct 2026 06:26:31 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByzaadQEuSeDrkIlUpDcCDM8+ch14LNQA/fKgPEBR4eIcxllhPULgJycY6uCZ+XgJN1sXx0CZUpbhbp@vger.kernel.org
-X-Gm-Message-State: AFuF++lxVe6fs4ccF+PP+qs89mLQ8nC4yNZJWKw/PskWCaar+HB4KrZc
-	WVK+06X5s2GFQvwVaaj8cKTPUK2lOnI9rWj2q0gg9/9A15dp5jedf3Ai7WSHqIysuGYDPN9a4K6
-	AkK49+dpkzbypa0FubOvh4TWEMCdU85A=
-X-Received: by 2002:a05:6820:2917:b0:6de:9b73:3799 with SMTP id
- 006d021491bc7-6e7a65d6ce5mr5784707eaf.30.1791465991184; Thu, 08 Oct 2026
- 06:26:31 -0700 (PDT)
+	s=k20260515; t=1791466638;
+	bh=UO9BIEliwCrka/QBUERN6qrORL7los73DuQd/M2lROw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Y2OwjCO+Sh8htYbtD0lk4Y5GxK8D6VbRxVflBa3bC8x+rKoQQyZfwSGMf6Y3sjz8a
+	 ngalOvo5K84tgm2nH9kGhtifBtjOnIbyWTInlF+5EoQ0VmLnbiqT3m5W6YrJ9y8Yzb
+	 8hQwBAH90GpF7JpdivDfuLzjjr5xnBWYhuCi/HOVI6vQf2497APRirJWj+nDqtWl9o
+	 9TE7XcDihuv/jXcMjRvYwqjCXRPyJ2ay8nXro/an/ywJWVm8SjirDDqrCZcC7WLK7D
+	 7nc19k+JOWTMFsDYFjOfGgpYqtB3mSokY70rDm6AZJKVlNG4z0/mgQgcw7CJ3EVH2E
+	 ztsKGEApMfd2A==
+Date: Thu, 8 Oct 2026 15:37:14 +0200
+From: Andi Shyti <andi.shyti@kernel.org>
+To: nina_kuo@novatek.com.tw
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	ben_huang@novatek.com.tw, toby_chui@novatek.com.tw, shihpei_hsu@novatek.com.tw
+Subject: Re: [PATCH v9 0/3] i2c: Add Novatek NT72676 SoC I2C controller
+Message-ID: <asecW-z2RwOR3OxQ@zenone.zhora.eu>
+References: <20260910030123.215609-1-nina_kuo@novatek.com.tw>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260928-mali-c55-renesas-dts-v3-0-2cf7eb746ebb@kernel.org>
- <20260928-mali-c55-renesas-dts-v3-2-2cf7eb746ebb@kernel.org> <5bc1553b-465b-42d1-a4b0-66a514b897d3@ideasonboard.com>
-In-Reply-To: <5bc1553b-465b-42d1-a4b0-66a514b897d3@ideasonboard.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 8 Oct 2026 15:26:14 +0200
-X-Gmail-Original-Message-ID: <CAD++jLmBbMUjO-tbiQ=+G8tf=4RyKQ+=h2y=o2C+g+NY7HsqQQ@mail.gmail.com>
-X-Gm-Features: AclHuK-IZevOrGcp4TO3XcH0yKfWCnAkoUReD-v7uxPQWatf-GdnKg5lWQK69Sg
-Message-ID: <CAD++jLmBbMUjO-tbiQ=+G8tf=4RyKQ+=h2y=o2C+g+NY7HsqQQ@mail.gmail.com>
-Subject: Re: [PATCH v3 2/5] dt-bindings: media: arm,mali-c55: Describe DMA
- line-tick interrupts
-To: Dan Scally <dan.scally@ideasonboard.com>
-Cc: Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260910030123.215609-1-nina_kuo@novatek.com.tw>
 
-On Wed, Oct 7, 2026 at 12:49=E2=80=AFPM Dan Scally <dan.scally@ideasonboard=
-.com> wrote:
+Hi Nina,
 
-> >     interrupts:
-> > -    maxItems: 1
-> > +    minItems: 1
-> > +    items:
-> > +      - description: Combined ISP core interrupt
-> > +      - description: Full-resolution DMA writer line-tick interrupt
-> > +      - description: Full-resolution UV DMA writer line-tick interrupt
->
-> As with the IVC, perhaps an interrupt-names entry would also be useful?
+> Ben Huang (3):
+>   dt-bindings: i2c: Add Novatek NT72676 I2C controller
+>   i2c: nt72676: Add Novatek NT72676 I2C controller driver
+>   MAINTAINERS: Add entry for Novatek NT72676 I2C controller driver
 
-I think interrupt-names are only used if you have say 100
-possible interrupts and only want to specify 2. So you can
-look up the 2 you need by name.
+pushed to i2c/i2c.
 
-I don't see any situation where sparse interrupt supply
-would be applicable for this IP? It's just 3 of them.
-
-(But let's allow the DT binding maintainers an opportunity
-to slap me on the fingers about this one...)
-
-Yours,
-Linus Walleij
+Thanks,
+Andi
