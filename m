@@ -1,40 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD8043D16FC
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADDB23D668E
 	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 09:23:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791451443; cv=none; b=PUryXK8G8qbgw4anR8+Vish5mgnB2xKU9AO+QyzxYFzL3y9/+YoM8EkJZB+XV/jPgP667kbMYgLK6XnIC78EbiF3e79FvaKAeOG9mK9R8rE+QKvlWxiWgkMDYLb1ZWkKVPhQUMJWhGsSK7RS/b7rkobeUzumazxCw63CLt44KxQ=
+	t=1791451444; cv=none; b=YUYnDki3ayw08ZVKX+RNowajIEiVLRSSd3CrzLfTcrd6Az32MB+pv8bjLfB7tKm74zuWGhI5vjpvD4cjTCE/h7cJYXaJPe16i/A7jf8kzJkCQr7yprZTnkPIYaUyi2g6MmJcvQbpozNG2wMeb43JA7Xd04MbbljvwByZoTAUW2c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791451443; c=relaxed/simple;
-	bh=iYR19gTPeZ+0mKxlq6YtuJ3afIts1ruLM4nqVfqzFGU=;
+	s=arc-20240116; t=1791451444; c=relaxed/simple;
+	bh=fSFbMUUasm2o2nmwa9iquRjJazC14r/XqeqjsBBLBCA=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=KCbq/kFzMcm2+XU4ijaXX3CeyJuBpR3FJnj0IovNcA8p0uWO0K+274/EHIKKxTz8UhUpOU12DF7frJ88K5FAebn4G68ASUDAd7Fuf/W/5jLrhiL14X/qdlyyv42YsFIk9+lafp7Jb1w6bWvvrzrGgk/5T3kh9PWhaC0UHK5/9Xo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VRZxZOAg; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=DdVPoJciYGoC1hSO28J1tixLbI9UK3Wp80TIt1fquBprm4UsxuaTCrhBWUYwGkifwoXH8IVh9Vx8hXS/EyKYMVByqQjZl8bzf0+RUw9TOsG8RXz72q5k9VhK4mj95PnDoasOWF609Niy9HtFrtqcGPDmzGb/9X2OnZ0cA+psdBA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k2+CWmJF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VRZxZOAg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B14E81F000FF;
-	Thu,  8 Oct 2026 09:23:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k2+CWmJF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 488FF1F00893;
+	Thu,  8 Oct 2026 09:23:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791451438;
-	bh=vGBXaOW46LYPSlG/0ajmIwbaPWZx2V53Be/RKprSEAw=;
+	s=k20260515; t=1791451439;
+	bh=dfR38gV8CIYECTWIvkIHTjDSbyo4ORbsogbvtNJYQtY=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=VRZxZOAggo0KuHWNOwc3mrMhW+wSsyu6WEY+eqEHXuN2SUQoCiUP/dP6kmjE8wB5+
-	 JMib5lkkurO3QdGZp7r/7dHSdPxZCtj8ksmlQ7aYEtwHxQpgOwlPZvfkYvU5zeMQeM
-	 OdxQWIVo/pCX00hRPiI87RB3rAP5uRd/xfv6PentKwq9y1Bu582hn4cU3c0DEBbTDX
-	 69V0+fOC6FYETHyvTGIQY/G8E3CxEQTpI3hxFz/sAIhMAC4sHHZLlwg2lQR9HlC5nN
-	 RLgiIWIKwveYJeMEypQdZPHM8AIuU9wqefqLZXY5MqA2J49XHOQukRKKml0ynrG/YJ
-	 3fcCzHNGXvqiw==
-Message-ID: <sashiko-outbox-163931@kernel.org>
+	b=k2+CWmJF9Uobgn2qEzTuMq6TsLj6tWDJSj57Oa8WYWAh+C9txSLPN078ZJQPSuZ4d
+	 gho5tQ3fNMQtu8vnakrKZNH8dZh8MLFDPGevJcZFjgq0kMPnO4dpTw/MXMxJEqZ5kf
+	 j/be3C5UWgzDNUNLY7y2i7xF1yLO4W7Q7gpzcvmMdiI5fosxo9+yOxr3EzvvsEEmoc
+	 tyVG/P7DFsmbRL4x5TQLgqFzeMmIgv4B1VjK4LFJFmANBMuQ03Dg/HDQk2emiZk7nw
+	 h14pqjdFlGnAqTEzQ1iVRqNMm0+EmbT1ocL7l92DQoGL09LluxRxgdjuIBSsEj8QsS
+	 /YuHqm9bHZB1w==
+Message-ID: <sashiko-outbox-163932@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 4/7] firmware: riscv: Add RPMI performance service
+Subject: Re: [PATCH v2 5/7] cpufreq: Add RISC-V RPMI cpufreq driver
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Joshua Yeong" <joshua.yeong@starfivetech.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20261008091032.2832333-5-joshua.yeong@starfivetech.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20261008091032.2832333-6-joshua.yeong@starfivetech.com>
 References: <20261008091032.2832333-1-joshua.yeong@starfivetech.com>
- <20261008091032.2832333-5-joshua.yeong@starfivetech.com>
+ <20261008091032.2832333-6-joshua.yeong@starfivetech.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 Date: Thu, 08 Oct 2026 09:23:58 +0000
@@ -46,125 +46,138 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] firmware: riscv: Silent truncation of 64-bit physical addresses on=
- 32-bit platforms
-- [High] firmware: riscv: UAF on manual unbind of RPMI performance driver
+- [High] cpufreq: data race on global driver_data during concurrent probe c=
+auses NULL dereference
+- [Medium] cpufreq: uninitialized stack memory read of args.args[0] on malf=
+ormed DT
 --
 
-commit 3fe9e4964a54e548bf390b9011dab852e2cb26bb
+commit d5239b6ffbfd0e1e9bde3c75990dec71b8fdd74f
 Author: Joshua Yeong <joshua.yeong@starfivetech.com>
 
-firmware: riscv: Add RPMI performance service
+cpufreq: Add RISC-V RPMI cpufreq driver
 
-This commit adds a mailbox client based core for the RISC-V RPMI performance
-service group. It manages the mailbox channel, enumerates performance
-domains, and exports interfaces for front-end drivers.
+This patch adds a cpufreq driver for RISC-V platforms utilizing the RPMI
+performance service group. The driver serves as a front-end over the RPMI
+core to manage frequency switching and registers an energy model based on
+the power cost of each level.
 
-> diff --git a/drivers/firmware/riscv/riscv-rpmi-performance.c b/drivers/fi=
-rmware/riscv/riscv-rpmi-performance.c
-> index 0000000000000..d44802f07ab0a 100644
+> diff --git a/drivers/cpufreq/riscv-rpmi-cpufreq.c b/drivers/cpufreq/riscv=
+-rpmi-cpufreq.c
+> new file mode 100644
+> index 0000000000000..1a5d0248f879e
 > --- /dev/null
-> +++ b/drivers/firmware/riscv/riscv-rpmi-performance.c
+> +++ b/drivers/cpufreq/riscv-rpmi-cpufreq.c
+> @@ -0,0 +1,294 @@
 [ ... ]
-> +static int rpmi_perf_extract_attributes(struct rpmi_perf_get_fast_channe=
-l_attributes_rx *rx,
-> +					struct rpmi_perf_domain *domain,
-> +					struct rpmi_fc_info *fc, u32 service_id)
+> +static int rpmi_perf_init(struct cpufreq_policy *policy)
 > +{
-> +	u64 region_size =3D domain->perf->fast_channel.size;
-> +	u64 phys_offset, phys_addr, db_phys_addr;
-[ ... ]
-> +	phys_addr =3D domain->perf->fast_channel.addr + phys_offset;
+> +	struct cpufreq_frequency_table *freq_table;
+> +	struct rpmi_perf_cpufreq_data *data;
+> +	struct rpmi_perf_domain *domain;
+> +	struct platform_device *pdev =3D cpufreq_get_driver_data();
+> +	struct rpmi_perf **mpxy_perf =3D dev_get_platdata(&pdev->dev);
+> +	struct of_phandle_args args;
+> +	int ret, nr_opp;
+> +	struct device *cpu_dev;
 > +
-> +	addr =3D devm_ioremap(domain->dev, phys_addr, size);
-
-[Severity: High]
-Does this code silently truncate the 64-bit physical address on 32-bit plat=
-forms?
-
-The variables phys_addr and db_phys_addr are 64-bit u64 values. However,
-devm_ioremap() takes a resource_size_t as its second argument. On 32-bit
-RISC-V platforms without CONFIG_PHYS_ADDR_T_64BIT, resource_size_t is 32-bi=
-t.
-If the firmware supplies an address above 4GB, the upper 32 bits are silent=
-ly
-truncated, mapping the wrong physical memory. This could lead to memory
-corruption on subsequent fast channel or doorbell iowrite32 operations.
-
-Should the driver explicitly validate that phys_addr and db_phys_addr do not
-exceed (resource_size_t)~0ULL?
-
-> +	if (!addr) {
-> +		dev_err(domain->dev,
-> +			"failed to get fastchannel virtual addr in domain: %d\n",
-> +			domain->id);
-> +		return -EADDRNOTAVAIL;
+> +	cpu_dev =3D get_cpu_device(policy->cpu);
+> +	if (!cpu_dev) {
+> +		pr_err("failed to get cpu%d device\n", policy->cpu);
+> +		return -ENODEV;
 > +	}
 > +
-> +	switch (service_id) {
-> +	case RPMI_PERF_SRV_GET_LEVEL:
-> +		fc->get_addr =3D addr;
-> +		break;
-> +	case RPMI_PERF_SRV_SET_LEVEL:
-> +		if (SUPPORTS_DOORBELL(flags)) {
-> +			db =3D devm_kzalloc(domain->dev,
-> +					  sizeof(struct rpmi_fc_db_info),
-> +					  GFP_KERNEL);
-> +			if (!db) {
-> +				ret =3D -ENOMEM;
-> +				goto err_unmap;
-> +			}
+> +	data =3D kzalloc(sizeof(*data), GFP_KERNEL);
+> +	if (!data)
+> +		return -ENOMEM;
 > +
-> +			db_addr_width =3D 1 << (DOORBELL_REG_WIDTH(flags) + 3);
-> +			db_phys_addr =3D le32_to_cpu(rx->db_addr_low);
-> +			db_phys_addr |=3D (u64)le32_to_cpu(rx->db_addr_high) << 32;
+> +	ret =3D of_perf_domain_get_sharing_cpumask(policy->cpu,
+> +						 "performance-domains",
+> +						 "#performance-domain-cells",
+> +						 policy->cpus, &args);
+> +	if (ret) {
+> +		dev_err(cpu_dev, "%s: failed to get performance domain info: %d\n",
+> +			__func__, ret);
+> +		goto out_free_priv;
+> +	}
 > +
-> +			/* The doorbell can be any register; map only its width. */
-> +			db_addr =3D devm_ioremap(domain->dev, db_phys_addr,
-> +					       db_addr_width / BITS_PER_BYTE);
+> +	/* A domain ID only means something to the provider the CPU names. */
+> +	if (args.np !=3D dev_of_node(pdev->dev.parent)) {
+> +		dev_err(cpu_dev, "performance domain of %pOF, not of %pOF\n",
+> +			args.np, dev_of_node(pdev->dev.parent));
+> +		of_node_put(args.np);
+> +		ret =3D -ENODEV;
+> +		goto out_free_priv;
+> +	}
+> +
+> +	domain =3D rpmi_perf_domain_by_id(*mpxy_perf, args.args[0]);
 
-[Severity: High]
-Does this face the same 64-bit to 32-bit silent truncation issue as phys_ad=
-dr
-above when passed to devm_ioremap()?
+[Severity: Medium]
+Does this read uninitialized stack memory if the device tree is malformed or
+specifies #performance-domain-cells =3D <0>?
 
-> +			if (!db_addr) {
-> +				devm_kfree(domain->dev, db);
-> +				ret =3D -EADDRNOTAVAIL;
-> +				goto err_unmap;
-> +			}
+If of_perf_domain_get_sharing_cpumask() resolves the phandle but
+args.args_count is 0, the args.args array will be left uninitialized since
+struct of_phandle_args args was declared on the stack.
+
+Unconditionally consuming args.args[0] could leak uninitialized kernel stack
+memory into the domain ID lookup, potentially logging garbage values on
+failure and causing erratic domain resolution.
+
+> +	of_node_put(args.np);
+> +	if (!domain) {
+> +		dev_err(cpu_dev, "performance domain %u is not usable\n",
+> +			args.args[0]);
+> +		ret =3D -EINVAL;
+> +		goto out_free_priv;
+> +	}
 [ ... ]
-> +static struct platform_driver rpmi_perf_platdrv =3D {
-> +	.driver =3D {
-> +		.name =3D "riscv-rpmi-performance",
-> +		.of_match_table =3D rpmi_perf_of_match,
-> +	},
-> +	.probe =3D rpmi_perf_probe,
-> +};
+> +static int rpmi_cpufreq_probe(struct platform_device *pdev)
+> +{
+> +	struct rpmi_perf **mpxy_perf =3D dev_get_platdata(&pdev->dev);
+> +	struct device *dev =3D &pdev->dev;
+> +	int ret;
+> +
+> +	if (!mpxy_perf || !*mpxy_perf)
+> +		return -EINVAL;
+> +
+> +	/*
+> +	 * There is one cpufreq driver for the whole system, so only one
+> +	 * provider can drive the CPUs. Refuse another one rather than point
+> +	 * the registered driver at its domains.
+> +	 */
+> +	if (rpmi_perf_cpufreq_driver.driver_data)
+> +		return dev_err_probe(dev, -EBUSY,
+> +				     "CPUs are already driven by another provider\n");
+> +
+> +	rpmi_perf_cpufreq_driver.driver_data =3D pdev;
+> +
+> +	ret =3D cpufreq_register_driver(&rpmi_perf_cpufreq_driver);
+> +	if (ret) {
+> +		rpmi_perf_cpufreq_driver.driver_data =3D NULL;
+> +		return dev_err_probe(dev, ret, "registering cpufreq failed\n");
+> +	}
 
 [Severity: High]
-Does this driver allow manual sysfs unbinding which could lead to a
-use-after-free?
+Is this check-and-set sequence protected against concurrent probing?
 
-If a privileged user unbinds the riscv-rpmi-performance driver (or its chil=
-d)
-via sysfs while consumers are still attached, pm_genpd_remove() returns -EB=
-USY
-and leaves the domain registered in the PM core. Because the error is ignor=
-ed,
-devres proceeds to free the provider and genpd structs, as well as the
-rpmi_perf_domain structures, and unmaps the fast channels. When a consumer
-later transitions its performance state, it dereferences the freed memory a=
-nd
-crashes the kernel.
+If multiple riscv-rpmi-cpufreq platform devices probe concurrently (such as
+from asynchronous probing or manual sysfs binds), multiple threads might
+bypass the initial if (rpmi_perf_cpufreq_driver.driver_data) check and
+overwrite driver_data.
 
-Should the platform driver set .suppress_bind_attrs =3D true to prevent man=
-ual
-sysfs unbinds?
+Both threads would then attempt to register the driver. The cpufreq core's
+internal locks would cause the second thread to fail with -EEXIST.
 
-> +
-> +module_platform_driver(rpmi_perf_platdrv);
+The failing thread would execute this error path and set driver_data to NUL=
+L,
+corrupting the state established by the successful thread.
+
+Later, when the cpufreq core invokes rpmi_perf_init(), it calls
+cpufreq_get_driver_data(), which would return NULL. The function then attem=
+pts
+to access pdev->dev.parent, which could lead to a NULL pointer dereference.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261008091032.2832=
-333-1-joshua.yeong@starfivetech.com?part=3D4
+333-1-joshua.yeong@starfivetech.com?part=3D5
