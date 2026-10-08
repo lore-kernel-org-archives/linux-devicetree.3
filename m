@@ -1,953 +1,175 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2100.outbound.protection.partner.outlook.cn [139.219.146.100])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66E8C381EA7
-	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 03:28:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791430141; cv=none; b=Z8aY5s9g2ndda7JJ9TV5OODbSKLWXU51av/zi5D1gwTQACjkslFn/xWcZrDOyf2LhzKAk59ULI49z59Yzq6Uxw9Heo4dApQtZkdI9+Dzy0dIPGFRWDQLxZk6TzUI3ocs8TPPXbrF7ag7lDAyY17CE2Ncvrwbn8+7pF86nIXTumQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791430141; c=relaxed/simple;
-	bh=JnNvI0ROVbZ4/iBbuzrOguXx3ENoG4ZYua0GfS7sBNM=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=P+Rn585qa9aEx/1uPZZqJ/9F6Jv3PTEwCvGbEXwAAxyZkK9N5aeBQKCUvjXdX7U2M+pFjdeHDttDB9y7mXYoZV/QQlUEQBcBhp0BE4UlsoHw36XiVouAQUoF5EwYh2u9YaIFtj4L0zAU4S1F0PdFt/cPWalodzB+tx7mqeGO4JA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=UmN1Kj39; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=PNre3a+c; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="UmN1Kj39";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="PNre3a+c"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6981hRFV1454321
-	for <devicetree@vger.kernel.org>; Thu, 8 Oct 2026 03:28:56 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	duFdmTXcDjkm0mujzzm2BSo2d/76Xz98Eq27N7LBrpw=; b=UmN1Kj39mbehwriA
-	Ug0JKty17Yr/zLu0eh2x0dvnrR0VyhZsQbBMKI6AvDfWP8gus6kXeti5nGLvXJDl
-	KIO5qkWGbhH3NiJWXPHx4sltIVmIhBK4dBuJFv4S6WGoLKytM29YP9Ei1i4h455/
-	fBDvVGL/wCdMJYZPE0JOvPdSnvFC0E97LwYfCVzkmy0SlVqAjVwNkcOGall7ZNzc
-	6UVTBMilTTW+bvJPZy/OqQOghM1eNumFGZf5q8XWjTc0iWsMvOS3TAbKIPnqzCyr
-	fXDBSXd8PefYb5el0Z4NPPZOCJmOHyXTB1yuaffdIAEdDV9ruQ3E8u6WQEpHqvmf
-	NbDryg==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h5xe38vbp-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 08 Oct 2026 03:28:56 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-33713e5e6daso5790725eec.0
-        for <devicetree@vger.kernel.org>; Wed, 07 Oct 2026 20:28:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791430136; x=1792034936; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=duFdmTXcDjkm0mujzzm2BSo2d/76Xz98Eq27N7LBrpw=;
-        b=PNre3a+cB6t5zEqaKrxc/iPpnq1kWK/ns9ZmjIJSc/jmaT9TAOlJypyELnTgaLTkgX
-         ZtePjIgi8gnXKM42gqakhwQPvUrk88GBPXBUwci5aJajFZnP9Z7mZ1OFAtUmaWd0bKbu
-         +U0ts1T1czNDGdPvILkRAQfKQA1vbQiFILyAhLa4M2dIDKrzeC1TQ47Xno6z3mkJkN+P
-         qMty/sgjpp93mobQvlmEF+imtwcrVuPWkfGNk9e4tq16IP7PvR39QyniBmNgy+kca0mM
-         otiNYJ5OkBBQWtsCWhImRA/LXDcbSATMTR0p9LcdB15g2TwarF9nGSGxAYD+nPGuZXWT
-         YyVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791430136; x=1792034936;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=duFdmTXcDjkm0mujzzm2BSo2d/76Xz98Eq27N7LBrpw=;
-        b=AUO3I4a6jMiBMCFAWEvRsalUkqfAhIELXejQ7BNCNd7Jpvoxy3cu1zbvbjx+rGZKlE
-         zmAygffkFESJJnxtBeHcPwTMwCPUSu8cnJb8p9bP6bE6gyj4Jdj+soAxeKSWH+cMGaTj
-         B9JebGXZ7wV2i5oV1WHC2gIHnctVc1nawiCfA4mC/YbrwWSNU7ZvHBFUqoVKAU7TKLK9
-         lwZI5a0SbGLI6C8v/ZyjICWCEYpdhI87198/xpY1zPu4GLG9rUG2DtjbMcB74NEBPReF
-         3QGcTFGvA/58Bk1dLQqj3H2Xf3zJlXM4tYmfeJk9jRXw1QBeH2ZaoT6C6UMyiggKAJPV
-         M8JA==
-X-Forwarded-Encrypted: i=1; AKwUvByun4XWhyfLJav04yfHSWuXELAUxF+cVMCWbxJ2wwhZ6ZlmiiNLrSD1XCwlQHqvJ/rNU83LY0KXnUX4@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ7SCRmmjzOUvpTn9rcGvhSXQ3U9rlCwmzOn7EhjOubb8uO3M4V
-	EK2mJXKl90N28fddlCrYxbsnr0/zLJh/YE1TpUI10GuuHAL1h8FHwSKL2wU6VXjVOzGVFoD+IT5
-	lRjmVc2E57BcE6+0mA2GnPEWE6jpH1gsdhrk26+00CxrNqN9gpZNfjugLNm+qsNk=
-X-Gm-Gg: AYBFou0T3Ls0QY3Fwz74rpa7MktmgS/eugC+QkuK9shWR9hQTzkLu/r8z7TJUFHi//R
-	hnDXYKfj33j02RYE3eZvnPUVZ+nR21M33rW/CwwPkOCwk/kVY896cMN5xQvGAVbX1VNnvBZGfzO
-	oUjED6ZnDE3N/KFYdgup608N05ZF1fC3sKatlwfwGAvAYvv3CA4GaDEnj1hQhL/XTzotCwXTWdm
-	TNszBaDQa0ZP3nEImmpEhkXHlJbdy0z/jz4UNXc0Nb0txLytvhl4nvQ23dw0d5baoLihqFHAAg0
-	9XpWoKVPBYoHBwjTgSLNGv6VQzsbJCn3JXCvfVmX6Kqz/vIIxnIyXZkWUtfbLl2twsL3GEcTBDn
-	bQq4TGSpXe2QfLm64388h5pGJl6Nh8VzBdL+B6e9PPngqXuJanuZw480MjA==
-X-Received: by 2002:a05:7301:670a:b0:351:595:750b with SMTP id 5a478bee46e88-3515dec9a10mr8252570eec.36.1791430135220;
-        Wed, 07 Oct 2026 20:28:55 -0700 (PDT)
-X-Received: by 2002:a05:7301:670a:b0:351:595:750b with SMTP id 5a478bee46e88-3515dec9a10mr8252508eec.36.1791430134484;
-        Wed, 07 Oct 2026 20:28:54 -0700 (PDT)
-Received: from hu-azarrabi-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35179d07566sm2168349eec.30.2026.10.07.20.28.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 07 Oct 2026 20:28:53 -0700 (PDT)
-From: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
-Date: Wed, 07 Oct 2026 20:27:16 -0700
-Subject: [PATCH RFC v2 10/10] firmware: riscv: rpmi-tee: add signal bus
- support
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0062736B93B;
+	Thu,  8 Oct 2026 03:30:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.100
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791430259; cv=fail; b=jWOPXDqtiCDJLNqFnPrnQyqEteVLgtoqbkHuTOxO0Ct+RjR7ci+cWWLHLDxr6iA4J7ffvoL7LkpB3Q3tK4fHDzKhZWWg5uET7/cpLyKc1LeR4a3aUKqw36fIJ4E4K77IMCUpPEVL+b0jEoXYieIbFtxNWDQkpdNVcacDETyxmao=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791430259; c=relaxed/simple;
+	bh=bAL33paeM4Z/ZRx9aV/td1HAHXRuMBIHSj1MulnrnkE=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=RQ8jAO+uLI5jGtnp8UMtpgMh1VZdqsEiM2TV27FiC13Fy9gtciTsBkxDXycX5kEYR4M25nYqHUjys+1EFHnPiav81+oDAB5nv7DGt+9Lei0+I61QWmLgUAckngSa9h0hvBNwV3jtxPH2v6EeGbAqZeVAOdwYMy4SLrKw5r5JPXs=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.100
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=VdcH/9RO/vSp4qMZxTCuNTm7lf4HGd7EzcYMbJSuFFFL43g0LkVmyQFUtd2QrpB6lqkRGXHtjGNg5un5KCtn0TbB9WyULiJzBT608Jyh/TRifzdfQbLQ9ol+WDUb3ZGSvAdzRYQe4s4GnhTmkzARh2SC+ecigJUwibvMf6U/wPrIv345rLZ3HyxG7/4Rr6HHPtBb/lLjq9oGEoPQGGr+NcAeCBmIpQt0Te4PBXxnYKzC7iLBbjE8TmeGcyYD2Ykh5M6SBwbEx7KObSGJ+0bv+CZTZkCguFCdSwEuHksJjpL3itPei8kOY3o0WZNm1F/9IOfpKMLWbfvcbG5e/hNNBg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=A2Y/Em41Atgv8hyRlVMFMU6Az/HfQv0Eftxoqga4lNk=;
+ b=JnSwBV2xSMMwk2+BSHzQDPUEso5TUI6cmmCNsXvoNpyd+xzyEfZSjXCJPxmhYrP6kl0VIJGokagVRSxMgyo7tmKcpj8VhQ8d+Y8UMjKzeCXU26Izn48Wu4YGuD1qOIhZ5XSDFD0qp7EzXIpcBiIOLNUR6V2ZuUzwuiOk2QUFM5bD3lOIO6vJQL77FzzQlsCO+VOBNI1Z8jU70F7FXeM58zN6UU8U5xTDYIgba4ZGSsefmXvjwq28OoKfw2BFaWwAm0auKHntHam4lBylyBibkLFylUCtlno77pSiP1xuh6l0Dd0xQKPjy5kns0E08kFeIMoJ9bXDMePI47LoUUbFsQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6) by ZQ4PR01MB1313.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:13::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.16; Thu, 8 Oct
+ 2026 02:57:01 +0000
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e7d4:256c:b066:850d]) by
+ ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
+ with mapi id 15.21.0496.015; Thu, 8 Oct 2026 02:57:00 +0000
+From: Changhuang Liang <changhuang.liang@starfivetech.com>
+To: Jerome Brunet <jbrunet@baylibre.com>
+CC: Michael Turquette <mturquette@baylibre.com>, Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>, Stephen Boyd <sboyd@kernel.org>, Brian Masney
+	<bmasney@redhat.com>, Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt
+	<palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti
+	<alex@ghiti.fr>, Philipp Zabel <p.zabel@pengutronix.de>, Emil Renner Berthing
+	<kernel@esmil.dk>, Chen Wang <unicorn_wang@outlook.com>, Inochi Amaoto
+	<inochiama@gmail.com>, Alexey Charkov <alchark@gmail.com>, Thomas
+ Bogendoerfer <tsbogend@alpha.franken.de>, Keguang Zhang
+	<keguang.zhang@gmail.com>, "linux-clk@vger.kernel.org"
+	<linux-clk@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-riscv@lists.infradead.org"
+	<linux-riscv@lists.infradead.org>, Hal Feng <hal.feng@starfivetech.com>
+Subject: Re: [PATCH v5 2/8] clk: starfive: Add system-0 domain PLL clock
+ driver
+Thread-Topic: [PATCH v5 2/8] clk: starfive: Add system-0 domain PLL clock
+ driver
+Thread-Index: AQHdNtN7NA8V7U+etEm3PQ/xHlQDfLbnBYkAgATaQaCAAwgzAIAES7tg
+Date: Thu, 8 Oct 2026 02:57:00 +0000
+Message-ID:
+ <ZQ4PR01MB1202E24B7DC2817AF0C691F3F2932@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+References: <20260828095608.19955-1-changhuang.liang@starfivetech.com>
+ <20260828095608.19955-3-changhuang.liang@starfivetech.com>
+ <179075859479.1471718.5492634704694937513.b4-reply@b4>
+ <ZQ4PR01MB120246C3208C10BDEFD32BCFF2882@ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn>
+ <1jh5j07bbd.fsf@starbuckisacylon.baylibre.com>
+In-Reply-To: <1jh5j07bbd.fsf@starbuckisacylon.baylibre.com>
+Accept-Language: zh-CN, en-US
+Content-Language: zh-CN
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1313:EE_
+x-ms-office365-filtering-correlation-id: fe9205a4-635c-4966-4c0b-08df24e7d324
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|7416014|366016|1800799024|23010399003|376014|38070700021|56012099006|4143699003|10067099003|18002099003|22082099003;
+x-microsoft-antispam-message-info:
+ t5tC0esNDD5euEu8oVx3jzOsQ+eZcpAfu4t5cXmECc1zO3Qf0Y1V4Ydjb9niWCyx8V0eu1QCxXBNG/qT7HXFG4+xxav26PEXm88ynH4MosSEqawZlIQTiuB+TmDB4bS+F8zKLdhqn/I6L49S87hYwVxl1OI8U1R/HtmC+DfpV+oLXw+/iVTv8ETZ5ZLkJ99NpjmiJy7mwDh3btvCyLced78YZXRkq5m90C25AQMOWP3wlGWzIhX3ZRKFNCypV4tJlZNz/rEe2meELhlprQ12bLk/5Lq/Ik+Ky1P13HRMsJ+/6DQnude0C914G05zshqYBgubydTw6+UDV/DBwPpx701y06eFNn76dtwJHIqq9GHh2E+8FTsI27Rheld8zZuvwiE0ARbl2DcMswb/zpID0/ta4u6F8XaEC13T+Oc16TZvF8jPDqOerkStOWEpSBBa65KJz1MEUaPqhtRb8nWyTX/GKDeHCZj8nHfDX7oXvWTqQ9Yj6jF58RPet0e9M65uKZ7JKrxiQ+AUYbKiomvvy20PyyV+PobyBabzCd1V+dUKIf6pcUqJCaT4fS2rCYZh
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(1800799024)(23010399003)(376014)(38070700021)(56012099006)(4143699003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?cuMRrnJpb2NlCF84FDKGqIj1Uao82DJ6b1HfOsgonznzwxQ0I9hwk9BKWArl?=
+ =?us-ascii?Q?zJBvrbrTqsBi1/EWtO7zygZoob38rzkQAGLhVsdYaBk5hTHsxJZaCE4PH6ty?=
+ =?us-ascii?Q?SgzwY2eJfYJHtICNb6dQf8PIOvUfeqjEHNLk323P6wggxdmUjWqrc+PRzhM3?=
+ =?us-ascii?Q?F0Xd/2bPisdpQJgbqsqnwNBifABz37WmxOscyvOARf2sNJtTWfmiGTA3VAqO?=
+ =?us-ascii?Q?rDTFM2AdN+UBeG/yXNuzFGEI6Ue/DbrfD5Mt/fTi6hS0U3ehNX2pzsZPyD1X?=
+ =?us-ascii?Q?ANRvfk2ThMm5k+yrxnadUpZvYDuAxIO2fyQ+jzNPzwas7UEzwkCxgbwuBgWf?=
+ =?us-ascii?Q?5LYjM8dBXVmMQ35Eut9lyc8MyelDYO5/jWyE6RzjGw/IPSK5971vDXbLOL5K?=
+ =?us-ascii?Q?B/Mh01fywPa/ps8R+qbprYrtR51qERhR67ElsGf7+AMc7Y4KevlCqnAzzG3P?=
+ =?us-ascii?Q?QEGrofly6S8CyiIpSPzSwNru6VSQWJltzReByO97Jio02qL/qYDfNL/QYy7d?=
+ =?us-ascii?Q?uAuAzczO1oX6kNAXBJgoZkga9eGTJTicTa+yl+cPwtsbVxz6ItvtRwQMKbB3?=
+ =?us-ascii?Q?YGYzxWP6EJQISxqJTbiquRJRYcjxNZ5Uhy20PVEH90nG8JHchsvrF2+RW8Sy?=
+ =?us-ascii?Q?1FVNIrvo1rcdmjUEJIST0+hQRiB2SAyi3tKwT0wcEo1bomtwBUYMxWJgXyRy?=
+ =?us-ascii?Q?qZWtrY8v2PiX1IT0TKyOGMXaSw7i3E8IbcJQ+h1aSCrWVkkA7tOEAA8tE+Ud?=
+ =?us-ascii?Q?fhjHauUcXefEkfK4wvt4+d+qaoUFIU/aJ6DGFbFQvT0DYriwsYy8yoY+hHgt?=
+ =?us-ascii?Q?P4DrODLeS+Xg4ZZWi6xfqDOUQg5caNEBwts0vM/jicPWZrUka585Jzc4lYwQ?=
+ =?us-ascii?Q?NT4f0GWFA7kioYaGggrQT5pidhsctlmIOb4X+BlsM3vG/lG02IP5DTlZ/2jy?=
+ =?us-ascii?Q?4esFM0C2mGcOpgHknASPqIUkGxSMKiRzMf+sHprxmQOojg+4Pbx9wslse1Mk?=
+ =?us-ascii?Q?18G2harmB0VRlw6S2mdCukZkGTb8ZtYVn8GYbbzph7SbvYbmsdgRoof9GHJi?=
+ =?us-ascii?Q?Hf5JIwJZ9k6EtACGU2XX76BQpl9bau+pnMw9lHLCC0EnoeZiN8w7POI5kRJr?=
+ =?us-ascii?Q?Br+XJupNR/zuBt6jhq0yNK/BFYnzl5ZDd5JHEfic0NNCNefRqsENVMW8i5pQ?=
+ =?us-ascii?Q?c9XjI8I30wj2alBrOFafI4e//3JwvaEs+5bUm4u29hSuZI8bslTuPyWikmoz?=
+ =?us-ascii?Q?cHaVKh+t8rfUTRYToiFwacywIkg3lhaZVWHOJ764yd/lxRetAW4OjDJEPNO9?=
+ =?us-ascii?Q?uLzBXCTWFZlKwj7rNIIG2FWPmFSjmm9Fv6HWVfjgDtuv3ZaoS2dfSCi79FAz?=
+ =?us-ascii?Q?gzHMNg7MN0RJ/+cWgKIuCJbVfrvpiCAfmWVIOs/leW+2yq/6EFnn1Zm8VCaT?=
+ =?us-ascii?Q?X7PkGSaLX+PBFSCR4/33bXhYuxegetbn8dcemsc/a7tXObAqZIdAcmxVP5W8?=
+ =?us-ascii?Q?Iy+B7RfODFveglprou0G2/QJ9gs3HmEVHk3AU1O7RUEoXTuQRTxdcRm3yvTd?=
+ =?us-ascii?Q?+//z4Mq0rXvRxV6TiajHrzhgvrgQUiN8pIt06I9ioU65kRNZ9pMlALgryWXG?=
+ =?us-ascii?Q?2l4UN9EYl/JS+YHIMCKEv0uiKJR+2nMODvHcOjtH2ooB6aoVU3+oi0C6PtZ3?=
+ =?us-ascii?Q?jELU6whogxMiAUhW2xHStuANZDK/vDxyYLt4iyp+yLBeowlNSvQnRVg0W8AF?=
+ =?us-ascii?Q?XoBLB/xuk/Kl7LuL8HQzGns5zKAxWBE=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261007-riscv-rpmi-tee-abi-v2-10-45939a13d223@oss.qualcomm.com>
-References: <20261007-riscv-rpmi-tee-abi-v2-0-45939a13d223@oss.qualcomm.com>
-In-Reply-To: <20261007-riscv-rpmi-tee-abi-v2-0-45939a13d223@oss.qualcomm.com>
-To: Jassi Brar <jassisinghbrar@gmail.com>, Paul Walmsley <pjw@kernel.org>,
-        Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
-        Alexandre Ghiti <alex@ghiti.fr>, Rahul Pathak <rahul@summations.net>,
-        Anup Patel <anup@brainfault.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Amirreza Zarrabi <amrzar@gmail.com>,
-        Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>,
-        Marouene Boubakri <marouene.boubakri@oss.nxp.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-riscv@lists.infradead.org, op-tee@lists.trustedfirmware.org,
-        devicetree@vger.kernel.org,
-        Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
-X-Mailer: b4 0.13.0
-X-Authority-Analysis: v=2.4 cv=J4s/fwnS c=1 sm=1 tr=0 ts=6ac70df8 cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=mv-pW7Q0PFkwfj-mGbgA:9 a=QEXdDO2ut3YA:10
- a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDAxMyBTYWx0ZWRfX5vpu18Q34fmN
- gh+4OIMNp8jmh/7qzPDOv3cSIzY3qJZwTof8RnLzknZDfFPgbOXeNPtqWOiKTJFuF/kn1PHqCQB
- 0B0olAg59KVZDW71dMPOv+lxQG3fs1c=
-X-Proofpoint-GUID: -ggaUM1bZ7z3cL17gNTD4V5JV-baYE57
-X-Proofpoint-ORIG-GUID: -ggaUM1bZ7z3cL17gNTD4V5JV-baYE57
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDAxMyBTYWx0ZWRfX8GOjgwGZK0EG
- Je0Ixqc0ARyVR992e6LThq+Fi7OX6TeWD0IKn+zpqspjTmDjQnWSrdqwp7ZdQoXPu3DU+zgIPSb
- h7zFXqxtjtnPCadar8X3ca9RLXPjSxOLqgXcJDiKJ9ZtGNcXz4dosHZgOKSFzi8O4fHytfAvfnl
- irbIhP3JJX+JxqBhKJYNpA311hPiw/EvVnKj3kFjkW84LFaI5gg/2r7/alDU+YIkepEWUdTpoGP
- EkzxaEVL5d90QLuttPLKFZzbHD+MRjeVtKc42wwTyLre7aBE4JsYrvb/VgfBIjIYZxGX03EuRqA
- os38ziCZXVN34iYIjmy+xGxPAH9GkW5/yJuYOP83fZaR8LlU5Lr147qxESfL+SuNK7wg9dDDepr
- A3aLIcBvrsIP9vrhXeHUfemO5aiy0LIEKErBLZkPs6Mf6+VVumD+cGOqoVhvA8/h88i3KaDp3HR
- yNYjWHpkXxeYD5UOjtg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-08_01,2026-10-06_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 phishscore=0 clxscore=1015 lowpriorityscore=0
- adultscore=0 priorityscore=1501 suspectscore=0 bulkscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610080013
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-Network-Message-Id: fe9205a4-635c-4966-4c0b-08df24e7d324
+X-MS-Exchange-CrossTenant-originalarrivaltime: 08 Oct 2026 02:57:00.8017
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: R7wiSPDWBF3WPcRNIQkVMAESPtENKPHRscAzib+J4WBHT0PQ357gy2jjz7WjyYJAecdzcpYxl2apAgoJBPEy4lqQF/SD3tkcZbMx5gw3A3sUsEtmTs+cC3PVaWzL1k1p
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1313
 
-Add signal buses for asynchronous notifications between Linux and TEE
-endpoints, using the firmware-reported System MSI for interrupt delivery.
+Hi, Jerome
 
-Allow service drivers to reserve and relinquish incoming signals and
-raise outgoing signals. Dispatch incoming notifications through client
-callbacks.
+> On Sat 03 Oct 2026 at 11:02, Changhuang Liang
+> <changhuang.liang@starfivetech.com> wrote:
+>=20
+> >> > +static const struct jhb100_pll_info jhb100_sys0_pll_info[] =3D {
+> >> > +	JHB100_PLL(JHB100_SYS0PLL_PLL2_OUT, "pll2_out",
+> >> jhb100_pll2_presets,
+> >> > +		   ARRAY_SIZE(jhb100_pll2_presets), JHB100_PLL2_OFFSET,
+> false),
+> >> > +	_JHB100_PLL(JHB100_SYS0PLL_PLL3_OUT, "pll3_out",
+> >> jhb100_pll3_presets,
+> >> > +		    ARRAY_SIZE(jhb100_pll3_presets), JHB100_PLL3_OFFSET,
+> >> > +		    CLK_IS_CRITICAL, false),
+> >> > +	_JHB100_PLL(JHB100_SYS0PLL_PLL4_OUT, "pll4_out", NULL, 0,
+> >> > +		    JHB100_PLL4_OFFSET, CLK_IGNORE_UNUSED, true),
+> >>
+> >> Please comment when adding CLK_IGNORE_UNUSED so people have an
+> idea
+> >> why it is needed and how it can be removed
+> >
+> > OK, I understand that there is an intention to remove this flag. On
+> > our SoC, some clocks are typically not referenced by any driver, but
+> > we don't want them to be turned off. We currently use
+> > CLK_IGNORE_UNUSED to preserve their hardware-default enabled state.
+> Perhaps in the next version we will replace it with CLK_IS_CRITICAL.
+>=20
+> CLK_IGNORE_UNUSED and CLK_IS_CRITICAL do not express the same thing
+> both equally need to be commented so a few years from now, we are not lef=
+t
+> wondering why this was added.
+>=20
+> You do not have a driver for this clock today. The fact you still *need* =
+that
+> clock show maybe you should have one and maybe someone, someday, will fix
+> this.
+>=20
 
-Drain notification callbacks before removing service devices, while
-keeping the mailbox and signal buses available until client removal
-completes.
+OK, I will add comments according to the current flag.
 
-Signed-off-by: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
----
- drivers/firmware/riscv_rpmi_tee/driver.c           | 599 ++++++++++++++++++++-
- drivers/firmware/riscv_rpmi_tee/rpmi_tee_private.h |  26 +
- include/linux/rpmi_tee.h                           |  24 +
- 3 files changed, 647 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/firmware/riscv_rpmi_tee/driver.c b/drivers/firmware/riscv_rpmi_tee/driver.c
-index 690561ed949d..36a5ad651351 100644
---- a/drivers/firmware/riscv_rpmi_tee/driver.c
-+++ b/drivers/firmware/riscv_rpmi_tee/driver.c
-@@ -8,14 +8,20 @@
- #include <linux/mailbox_client.h>
- #include <linux/mailbox/riscv-rpmi-message.h>
- #include <linux/cleanup.h>
-+#include <linux/bitfield.h>
-+#include <linux/interrupt.h>
-+#include <linux/irqdomain.h>
- #include <linux/list.h>
- #include <linux/module.h>
- #include <linux/of.h>
-+#include <linux/of_irq.h>
- #include <linux/platform_device.h>
- #include <linux/rpmi_tee.h>
- #include <linux/scatterlist.h>
- #include <linux/slab.h>
- #include <linux/unaligned.h>
-+#include <linux/workqueue.h>
-+#include <linux/xarray.h>
- 
- #include "rpmi_tee_private.h"
- 
-@@ -42,6 +48,15 @@
- 
- /* TEE_MEMORY_SEGMENT_SEND flags. */
- #define RPMI_TEE_SEGMENT_LAST		BIT(31)
-+
-+/* TEE_SIGNAL_BUS_SETUP feature value and TEE_SIGNAL_RETRIEVE flags. */
-+#define RPMI_TEE_SIGNAL_MODE_MASK	GENMASK(1, 0)
-+#define RPMI_TEE_SIGNAL_WIDTH_MASK	GENMASK(11, 2)
-+#define RPMI_TEE_SIGNAL_INDEX_MASK	GENMASK(31, 12)
-+
-+#define RPMI_TEE_SIGNAL_MODE_SYSTEM_MSI	1
-+#define RPMI_TEE_SIGNAL_MORE_AVAILABLE	BIT(31)
-+
- /**
-  * struct rpmi_tee_probe_features_req - TEE_PROBE_FEATURES request
-  * @feature_id: TEE feature identifier to query.
-@@ -180,6 +195,87 @@ struct rpmi_tee_parcel_reclaim_resp {
- 	__le32 flags;
- } __packed;
- 
-+/**
-+ * struct rpmi_tee_signal_bus_setup_req - SIGNAL_BUS_SETUP request
-+ * @target_id: TEE endpoint identifier that owns the signal bus.
-+ * @bus_width: Total number of signal IDs in the bus.
-+ * @sender_signals: Number of signal IDs reserved for the endpoint sender.
-+ */
-+struct rpmi_tee_signal_bus_setup_req {
-+	__le32 target_id;
-+	__le32 bus_width;
-+	__le32 sender_signals;
-+} __packed;
-+
-+/**
-+ * struct rpmi_tee_signal_bus_teardown_req - SIGNAL_BUS_TEARDOWN request
-+ * @target_id: TEE endpoint identifier that owns the signal bus.
-+ */
-+struct rpmi_tee_signal_bus_teardown_req {
-+	__le32 target_id;
-+} __packed;
-+
-+/**
-+ * struct rpmi_tee_signal_raise_req - SIGNAL_RAISE request prefix
-+ * @target_id: TEE endpoint identifier that owns the signal bus.
-+ * @signal_count: Number of signal IDs in @signals.
-+ * @signals: Signal IDs to raise.
-+ */
-+struct rpmi_tee_signal_raise_req {
-+	__le32 target_id;
-+	__le32 signal_count;
-+	__le32 signals[];
-+} __packed;
-+
-+/**
-+ * struct rpmi_tee_signal_raise_one_req - Single-signal SIGNAL_RAISE request
-+ * @target_id: TEE endpoint identifier that owns the signal bus.
-+ * @signal_count: Must be one.
-+ * @signal: Signal ID to raise.
-+ */
-+struct rpmi_tee_signal_raise_one_req {
-+	__le32 target_id;
-+	__le32 signal_count;
-+	__le32 signal;
-+} __packed;
-+
-+/**
-+ * struct rpmi_tee_signal_retrieve_resp - SIGNAL_RETRIEVE response prefix
-+ * @status: RPMI completion status.
-+ * @flags: Response flags.
-+ * @target_id: TEE endpoint identifier that owns the signal bus.
-+ * @signal_count: Number of signal IDs in @signals.
-+ * @signals: Retrieved signal IDs.
-+ */
-+struct rpmi_tee_signal_retrieve_resp {
-+	__le32 status;
-+	__le32 flags;
-+	__le32 target_id;
-+	__le32 signal_count;
-+	__le32 signals[];
-+} __packed;
-+
-+enum rpmi_tee_signal_state {
-+	RPMI_TEE_SIGNAL_ACTIVE,
-+	RPMI_TEE_SIGNAL_RELEASING,
-+};
-+
-+struct rpmi_tee_signal_reservation {
-+	struct rpmi_tee_device *rdev;
-+	rpmi_tee_notifier_cb cb;
-+	void *cb_data;
-+	enum rpmi_tee_signal_state state;
-+};
-+
-+struct rpmi_tee_signal_bus {
-+	struct list_head node;	/* Link in the notification signal-bus list. */
-+	struct mutex lock;	/* Serializes reservation state and lifetime. */
-+	struct xarray reservations;
-+	u32 endpoint_id;
-+	u32 width;
-+	u32 tee_to_ree_count;
-+};
-+
- struct rpmi_tee_child {
- 	struct list_head node;
- 	struct rpmi_tee_device *rdev;
-@@ -795,6 +891,280 @@ static int rpmi_tee_op_memory_share(struct rpmi_tee_device *rdev,
- 	return rpmi_tee_op_parcel_create(rdev, args, false);
- }
- 
-+static struct rpmi_tee_signal_bus *
-+__rpmi_tee_find_signal_bus(struct rpmi_tee_transport *priv, u32 endpoint_id)
-+{
-+	struct rpmi_tee_signal_bus *bus;
-+
-+	list_for_each_entry(bus, &priv->notif.buses, node) {
-+		if (bus->endpoint_id == endpoint_id)
-+			return bus;
-+	}
-+
-+	return NULL;
-+}
-+
-+static struct rpmi_tee_signal_bus *
-+rpmi_tee_find_signal_bus(struct rpmi_tee_transport *priv, u32 endpoint_id)
-+{
-+	lockdep_assert_held(&priv->notif.ops_lock);
-+	/* Do not access signal buses after notification shutdown starts. */
-+	if (priv->notif.shutting_down)
-+		return NULL;
-+
-+	return __rpmi_tee_find_signal_bus(priv, endpoint_id);
-+}
-+
-+/* Invoke an active signal callback without holding the bus lock. */
-+static int rpmi_tee_dispatch_signal(struct rpmi_tee_signal_bus *bus,
-+				    u32 signal)
-+{
-+	struct rpmi_tee_signal_reservation *resv;
-+	rpmi_tee_notifier_cb cb = NULL;
-+	struct rpmi_tee_device *rdev = NULL;
-+	void *cb_data = NULL;
-+
-+	if (signal >= bus->tee_to_ree_count)
-+		return -EPROTO;
-+
-+	scoped_guard(mutex, &bus->lock) {
-+		resv = xa_load(&bus->reservations, signal);
-+		if (resv && resv->state == RPMI_TEE_SIGNAL_ACTIVE) {
-+			cb = resv->cb;
-+			cb_data = resv->cb_data;
-+			rdev = resv->rdev;
-+		}
-+	}
-+
-+	if (cb)
-+		cb(rdev, signal, cb_data);
-+
-+	return 0;
-+}
-+
-+/* Release signal IDs that have passed the empty-retrieval barrier. */
-+static void rpmi_tee_signal_bus_drop_releasing(struct rpmi_tee_signal_bus *bus)
-+{
-+	struct rpmi_tee_signal_reservation *resv;
-+	unsigned long index;
-+
-+	guard(mutex)(&bus->lock);
-+	xa_for_each(&bus->reservations, index, resv) {
-+		if (resv->state != RPMI_TEE_SIGNAL_RELEASING)
-+			continue;
-+
-+		xa_erase(&bus->reservations, index);
-+		kfree(resv);
-+	}
-+}
-+
-+/**
-+ * rpmi_tee_retrieve_signals() - Drain pending TEE-to-REE signals
-+ * @priv: RPMI TEE transport
-+ *
-+ * Retrieve and dispatch signals until the firmware reports no pending data.
-+ * Return relinquished signal IDs to their buses only after that empty
-+ * retrieval.
-+ *
-+ * Return: 0 on success, or a negative error code.
-+ */
-+static int rpmi_tee_retrieve_signals(struct rpmi_tee_transport *priv)
-+{
-+	size_t resp_len = priv->mbox.max_msg_data_size;
-+	u32 flags, endpoint_id, signal_count, i;
-+	struct rpmi_tee_signal_bus *bus;
-+	s32 status;
-+	int ret;
-+
-+	struct rpmi_tee_signal_retrieve_resp *resp __free(kfree) =
-+		kzalloc(resp_len, GFP_KERNEL);
-+	if (!resp)
-+		return -ENOMEM;
-+
-+	for (;;) {
-+		scoped_guard(mutex, &priv->notif.ops_lock) {
-+			/* Stop retrieving so shutdown can drain the worker. */
-+			if (priv->notif.shutting_down)
-+				return 0;
-+
-+			resp_len = priv->mbox.max_msg_data_size;
-+			ret = rpmi_tee_send_with_status(priv,
-+					RPMI_TEE_SRV_SIGNAL_RETRIEVE,
-+					NULL, 0, resp, &resp_len, &status);
-+			/*
-+			 * A signal may be raised after a clear MORE_AVAILABLE
-+			 * response and before relinquish. Reusing the ID could
-+			 * deliver it to the wrong client.
-+			 * Reuse relinquished IDs only after an empty retrieve.
-+			 */
-+			if (!ret && status == RPMI_ERR_NO_DATA) {
-+				struct rpmi_tee_signal_bus *bus;
-+
-+				list_for_each_entry(bus, &priv->notif.buses, node)
-+					rpmi_tee_signal_bus_drop_releasing(bus);
-+			}
-+		}
-+
-+		if (ret)
-+			return ret;
-+		/* The firmware has no more pending signals. */
-+		if (status == RPMI_ERR_NO_DATA)
-+			return 0;
-+		if (status)
-+			return rpmi_to_linux_error(status);
-+		if (resp_len < sizeof(*resp))
-+			return -EPROTO;
-+
-+		flags = get_unaligned_le32(&resp->flags);
-+		endpoint_id = get_unaligned_le32(&resp->target_id);
-+		signal_count = get_unaligned_le32(&resp->signal_count);
-+
-+		/* Validate the response flags and its variable-length signal array. */
-+		if ((flags & ~RPMI_TEE_SIGNAL_MORE_AVAILABLE) || !signal_count ||
-+		    signal_count != (resp_len - sizeof(*resp)) / sizeof(__le32))
-+			return -EPROTO;
-+
-+		bus = __rpmi_tee_find_signal_bus(priv, endpoint_id);
-+		if (!bus || signal_count > bus->tee_to_ree_count)
-+			return -EPROTO;
-+
-+		for (i = 0; i < signal_count; i++) {
-+			u32 signal = get_unaligned_le32(&resp->signals[i]);
-+
-+			ret = rpmi_tee_dispatch_signal(bus, signal);
-+			if (ret)
-+				return ret;
-+		}
-+	}
-+}
-+
-+static void rpmi_tee_notif_work(struct work_struct *work)
-+{
-+	struct rpmi_tee_notif_state *notif =
-+		container_of(work, struct rpmi_tee_notif_state, work);
-+	struct rpmi_tee_transport *priv =
-+		container_of(notif, struct rpmi_tee_transport, notif);
-+	int ret;
-+
-+	ret = rpmi_tee_retrieve_signals(priv);
-+	if (ret)
-+		dev_warn(priv->dev, "failed to retrieve signals: %d\n", ret);
-+}
-+
-+static irqreturn_t rpmi_tee_notif_irq_handler(int irq, void *data)
-+{
-+	struct rpmi_tee_transport *priv = data;
-+
-+	queue_work(priv->notif.wq, &priv->notif.work);
-+	return IRQ_HANDLED;
-+}
-+
-+/* Reserve a TEE-to-REE signal for a notification consumer. */
-+static int rpmi_tee_op_notify_request(struct rpmi_tee_device *rdev,
-+				      rpmi_tee_notifier_cb cb, void *cb_data,
-+				      u32 *signal)
-+{
-+	struct rpmi_tee_transport *priv = rpmi_tee_device_to_transport(rdev);
-+	struct rpmi_tee_signal_bus *bus;
-+	u32 id;
-+
-+	if (!cb || !signal)
-+		return -EINVAL;
-+
-+	guard(mutex)(&priv->notif.ops_lock);
-+	bus = rpmi_tee_find_signal_bus(priv, rdev->endpoint_id);
-+	if (!bus)
-+		return -EOPNOTSUPP;
-+
-+	struct rpmi_tee_signal_reservation *resv __free(kfree) =
-+		kzalloc_obj(*resv, GFP_KERNEL);
-+	if (!resv)
-+		return -ENOMEM;
-+
-+	resv->rdev = rdev;
-+	resv->cb = cb;
-+	resv->cb_data = cb_data;
-+	scoped_guard(mutex, &bus->lock) {
-+		int ret;
-+
-+		ret = xa_alloc(&bus->reservations, &id, resv,
-+			       XA_LIMIT(0, bus->tee_to_ree_count - 1),
-+			       GFP_KERNEL);
-+		if (ret)
-+			return ret == -EBUSY ? -ENOSPC : ret;
-+	}
-+
-+	*signal = id;
-+	/* xa_alloc owns resv. */
-+	retain_and_null_ptr(resv);
-+
-+	return 0;
-+}
-+
-+/* Relinquish a previously reserved TEE-to-REE signal. */
-+static int rpmi_tee_op_notify_relinquish(struct rpmi_tee_device *rdev,
-+					 u32 signal)
-+{
-+	struct rpmi_tee_transport *priv = rpmi_tee_device_to_transport(rdev);
-+	struct rpmi_tee_signal_bus *bus;
-+
-+	guard(mutex)(&priv->notif.ops_lock);
-+	bus = rpmi_tee_find_signal_bus(priv, rdev->endpoint_id);
-+	if (!bus)
-+		return -EOPNOTSUPP;
-+
-+	if (signal >= bus->tee_to_ree_count)
-+		return -EINVAL;
-+
-+	scoped_guard(mutex, &bus->lock) {
-+		struct rpmi_tee_signal_reservation *resv;
-+
-+		resv = xa_load(&bus->reservations, signal);
-+		if (!resv)
-+			return -ENOENT;
-+		/* Release only if @signal belongs to @rdev. */
-+		if (resv->rdev != rdev)
-+			return -EPERM;
-+		if (resv->state == RPMI_TEE_SIGNAL_RELEASING)
-+			return -EALREADY;
-+
-+		resv->state = RPMI_TEE_SIGNAL_RELEASING;
-+	}
-+
-+	queue_work(priv->notif.wq, &priv->notif.work);
-+
-+	return 0;
-+}
-+
-+/* Raise an REE-to-TEE signal. */
-+static int rpmi_tee_op_signal_raise(struct rpmi_tee_device *rdev, u32 signal)
-+{
-+	struct rpmi_tee_transport *priv = rpmi_tee_device_to_transport(rdev);
-+	struct rpmi_tee_signal_raise_one_req req = {
-+		.target_id = cpu_to_le32(rdev->endpoint_id),
-+		.signal_count = cpu_to_le32(1),
-+		.signal = cpu_to_le32(signal),
-+	};
-+	struct rpmi_tee_signal_bus *bus;
-+
-+	guard(mutex)(&priv->notif.ops_lock);
-+	bus = rpmi_tee_find_signal_bus(priv, rdev->endpoint_id);
-+	if (!bus)
-+		return -EOPNOTSUPP;
-+
-+	if (signal < bus->tee_to_ree_count || signal >= bus->width)
-+		return -EINVAL;
-+
-+	return rpmi_tee_send(priv, RPMI_TEE_SRV_SIGNAL_RAISE, &req,
-+			     sizeof(req), NULL, NULL);
-+}
-+
-+static const struct rpmi_tee_notifier_ops rpmi_tee_notifier_ops = {
-+	.notify_request = rpmi_tee_op_notify_request,
-+	.notify_relinquish = rpmi_tee_op_notify_relinquish,
-+	.signal_raise = rpmi_tee_op_signal_raise,
-+};
-+
- static const struct rpmi_tee_info_ops rpmi_tee_info_ops = {
- 	.msg_limits_get = rpmi_tee_op_msg_limits_get,
- };
-@@ -813,6 +1183,7 @@ static const struct rpmi_tee_ops rpmi_tee_ops = {
- 	.info_ops = &rpmi_tee_info_ops,
- 	.msg_ops = &rpmi_tee_msg_ops,
- 	.mem_ops = &rpmi_tee_mem_ops,
-+	.notifier_ops = &rpmi_tee_notifier_ops,
- };
- 
- static void rpmi_tee_unregister_devices(struct rpmi_tee_transport *priv)
-@@ -826,6 +1197,212 @@ static void rpmi_tee_unregister_devices(struct rpmi_tee_transport *priv)
- 	}
- }
- 
-+static void rpmi_tee_signal_bus_destroy_resvs(struct rpmi_tee_signal_bus *bus)
-+{
-+	struct rpmi_tee_signal_reservation *resv;
-+	unsigned long index;
-+
-+	xa_for_each(&bus->reservations, index, resv) {
-+		xa_erase(&bus->reservations, index);
-+		kfree(resv);
-+	}
-+
-+	xa_destroy(&bus->reservations);
-+}
-+
-+static void rpmi_tee_teardown_signal_buses(struct rpmi_tee_transport *priv)
-+{
-+	struct rpmi_tee_signal_bus *bus, *tmp;
-+
-+	list_for_each_entry_safe(bus, tmp, &priv->notif.buses, node) {
-+		struct rpmi_tee_signal_bus_teardown_req req = {
-+			.target_id = cpu_to_le32(bus->endpoint_id),
-+		};
-+		int ret;
-+
-+		/* Completion includes the target TEE's teardown acknowledgment. */
-+		ret = rpmi_tee_send(priv, RPMI_TEE_SRV_SIGNAL_BUS_TEARDOWN, &req,
-+				    sizeof(req), NULL, NULL);
-+		if (ret)
-+			dev_warn(priv->dev, "failed to tear down signal bus for %#x: %d\n",
-+				 bus->endpoint_id, ret);
-+
-+		rpmi_tee_signal_bus_destroy_resvs(bus);
-+		list_del(&bus->node);
-+		kfree(bus);
-+	}
-+}
-+
-+/* Drain callbacks, remove clients, then tear down notification resources. */
-+static void rpmi_tee_teardown_endpoints(struct rpmi_tee_transport *priv)
-+{
-+	/* Initiate a notification shutdown. */
-+	scoped_guard(mutex, &priv->notif.ops_lock)
-+		priv->notif.shutting_down = true;
-+
-+	if (priv->notif.irq_requested) {
-+		free_irq(priv->notif.irq, priv);
-+		priv->notif.irq_requested = false;
-+	}
-+
-+	if (priv->notif.wq) {
-+		destroy_workqueue(priv->notif.wq);
-+		priv->notif.wq = NULL;
-+	}
-+
-+	/* Clients can still send final TEE_CALLs while signal buses exist. */
-+	rpmi_tee_unregister_devices(priv);
-+
-+	/* Public notification operations and callbacks have stopped. */
-+	rpmi_tee_teardown_signal_buses(priv);
-+
-+	if (priv->notif.irq) {
-+		irq_dispose_mapping(priv->notif.irq);
-+		priv->notif.irq = 0;
-+	}
-+}
-+
-+/* Set up an RPMI signal bus for one @endpoint_id TEE endpoint. */
-+static int rpmi_tee_setup_ep_signal_bus(struct rpmi_tee_transport *priv,
-+					u32 endpoint_id)
-+{
-+	struct rpmi_tee_signal_bus_setup_req req;
-+	u32 max_width, width, tee_to_ree_count;
-+
-+	/* Avoid duplicate signal bus for endpoint. */
-+	if (__rpmi_tee_find_signal_bus(priv, endpoint_id))
-+		return 0;
-+
-+	if (priv->mbox.max_msg_data_size <
-+	    sizeof(struct rpmi_tee_signal_retrieve_resp))
-+		return -EMSGSIZE;
-+
-+	max_width = FIELD_GET(RPMI_TEE_SIGNAL_WIDTH_MASK,
-+			      priv->notif.feature);
-+	width = min(max_width,
-+		    2 * ((priv->mbox.max_msg_data_size -
-+			  sizeof(struct rpmi_tee_signal_retrieve_resp)) /
-+			 sizeof(__le32)) + 1);
-+	if (width < 2)
-+		return -EMSGSIZE;
-+
-+	/* Use half available signals for TEE-to-REE range. */
-+	tee_to_ree_count = width / 2;
-+
-+	struct rpmi_tee_signal_bus *bus __free(kfree) =
-+		kzalloc_obj(*bus, GFP_KERNEL);
-+	if (!bus)
-+		return -ENOMEM;
-+
-+	mutex_init(&bus->lock);
-+	xa_init_flags(&bus->reservations, XA_FLAGS_ALLOC);
-+	bus->endpoint_id = endpoint_id;
-+	bus->width = width;
-+	bus->tee_to_ree_count = tee_to_ree_count;
-+
-+	req.target_id = cpu_to_le32(endpoint_id);
-+	req.bus_width = cpu_to_le32(width);
-+	req.sender_signals = cpu_to_le32(tee_to_ree_count);
-+	/* Publish the local bus only after the target TEE accepts setup. */
-+	if (rpmi_tee_send(priv, RPMI_TEE_SRV_SIGNAL_BUS_SETUP, &req,
-+			  sizeof(req), NULL, NULL))
-+		return -EOPNOTSUPP;
-+
-+	list_add_tail(&no_free_ptr(bus)->node, &priv->notif.buses);
-+
-+	return 0;
-+}
-+
-+static int rpmi_tee_map_signal_irq(struct rpmi_tee_transport *priv)
-+{
-+	struct device_node *np;
-+	struct of_phandle_args oirq = {};
-+	u32 mode, index;
-+	int irq;
-+
-+	mode = FIELD_GET(RPMI_TEE_SIGNAL_MODE_MASK, priv->notif.feature);
-+	if (mode != RPMI_TEE_SIGNAL_MODE_SYSTEM_MSI)
-+		return 0;
-+
-+	for_each_compatible_node(np, NULL, "riscv,rpmi-system-msi") {
-+		if (of_device_is_available(np))
-+			break;
-+	}
-+
-+	if (!np)
-+		return 0;
-+	if (!irq_find_host(np)) {
-+		of_node_put(np);
-+		return -EPROBE_DEFER;
-+	}
-+
-+	index = FIELD_GET(RPMI_TEE_SIGNAL_INDEX_MASK, priv->notif.feature);
-+	oirq.np = np;
-+	oirq.args_count = 1;
-+	oirq.args[0] = index;
-+	irq = irq_create_of_mapping(&oirq);
-+
-+	of_node_put(np);
-+
-+	return irq;
-+}
-+
-+/**
-+ * rpmi_tee_setup_signal_bus() - Set up signal notification delivery
-+ * @priv: RPMI TEE transport
-+ * @system: Discovered TEE endpoints that may own signal buses
-+ *
-+ * Map the signal interrupt, then set up a bus for each endpoint. Endpoint
-+ * setup failures are nonfatal, allowing notifications for the remaining
-+ * endpoints. Register the interrupt handler only when at least one bus is
-+ * available.
-+ *
-+ * Return: 0 on completion, or -EPROBE_DEFER when the System MSI IRQ domain
-+ * is not ready.
-+ */
-+static int
-+rpmi_tee_setup_signal_bus(struct rpmi_tee_transport *priv,
-+			 const struct rpmi_tee_discovery *system)
-+{
-+	struct rpmi_tee_discovered_endpoint *ep;
-+	int ret;
-+
-+	priv->notif.irq = rpmi_tee_map_signal_irq(priv);
-+	if (priv->notif.irq < 0)
-+		return priv->notif.irq;
-+	if (!priv->notif.irq)
-+		return 0;
-+
-+	list_for_each_entry(ep, &system->eps, node) {
-+		ret = rpmi_tee_setup_ep_signal_bus(priv, ep->ep_id);
-+		if (ret)
-+			dev_warn(priv->dev, "failed to set up signal bus for %#x: %d\n",
-+				 ep->ep_id, ret);
-+	}
-+
-+	if (list_empty(&priv->notif.buses))
-+		goto out_failed;
-+
-+	ret = request_irq(priv->notif.irq, rpmi_tee_notif_irq_handler, 0,
-+			  dev_name(priv->dev), priv);
-+	if (ret) {
-+		dev_warn(priv->dev, "failed to request signal IRQ: %d\n", ret);
-+		rpmi_tee_teardown_signal_buses(priv);
-+		goto out_failed;
-+	}
-+
-+	priv->notif.irq_requested = true;
-+
-+	return 0;
-+
-+out_failed:
-+	/* Failures are nonfatal; only disable notification. */
-+	irq_dispose_mapping(priv->notif.irq);
-+	priv->notif.irq = 0;
-+
-+	return 0;
-+}
-+
- static struct rpmi_tee_device *
- rpmi_tee_find_device(struct rpmi_tee_transport *priv, const uuid_t *uuid,
- 		     u32 endpoint_id)
-@@ -881,14 +1458,19 @@ static int rpmi_tee_setup_endpoints(struct rpmi_tee_transport *priv)
- 	if (ret)
- 		return ret;
- 
-+	ret = rpmi_tee_setup_signal_bus(priv, &system);
-+	if (ret)
-+		goto out_failed;
-+
- 	list_for_each_entry(ep, &system.eps, node) {
- 		ret = rpmi_tee_register_devices(priv, ep);
- 		if (ret) {
--			rpmi_tee_unregister_devices(priv);
-+			rpmi_tee_teardown_endpoints(priv);
- 			break;
- 		}
- 	}
- 
-+out_failed:
- 	rpmi_tee_free_discovery(&system);
- 
- 	return ret;
-@@ -907,7 +1489,11 @@ static int rpmi_tee_transport_probe(struct platform_device *pdev)
- 	priv->dev = &pdev->dev;
- 	platform_set_drvdata(pdev, priv);
- 	INIT_LIST_HEAD(&priv->devices);
-+	INIT_LIST_HEAD(&priv->notif.buses);
- 	mutex_init(&priv->mem.lock);
-+	mutex_init(&priv->notif.ops_lock);
-+	INIT_WORK(&priv->notif.work, rpmi_tee_notif_work);
-+
- 	priv->mbox.client.dev = &pdev->dev;
- 	priv->mbox.client.tx_sync = true;
- 	priv->mbox.chan = mbox_request_channel(&priv->mbox.client, 0);
-@@ -915,6 +1501,7 @@ static int rpmi_tee_transport_probe(struct platform_device *pdev)
- 		return dev_err_probe(&pdev->dev, PTR_ERR(priv->mbox.chan),
- 				     "failed to request mailbox channel\n");
- 
-+	/* Validate the RPMI mailbox transport. */
- 	ret = rpmi_tee_check_transport(priv);
- 	if (ret) {
- 		dev_err_probe(&pdev->dev, ret,
-@@ -944,6 +1531,12 @@ static int rpmi_tee_transport_probe(struct platform_device *pdev)
- 	if (ret)
- 		goto out_failed;
- 
-+	priv->notif.wq = alloc_workqueue("rpmi_tee_notif", WQ_UNBOUND, 0);
-+	if (!priv->notif.wq) {
-+		ret = -ENOMEM;
-+		goto out_failed;
-+	}
-+
- 	ret = rpmi_tee_setup_endpoints(priv);
- 	if (ret) {
- 		dev_err_probe(&pdev->dev, ret,
-@@ -954,6 +1547,8 @@ static int rpmi_tee_transport_probe(struct platform_device *pdev)
- 	return 0;
- 
- out_failed:
-+	if (priv->notif.wq)
-+		destroy_workqueue(priv->notif.wq);
- 	mbox_free_channel(priv->mbox.chan);
- 
- 	return ret;
-@@ -963,7 +1558,7 @@ static void rpmi_tee_transport_remove(struct platform_device *pdev)
- {
- 	struct rpmi_tee_transport *priv = platform_get_drvdata(pdev);
- 
--	rpmi_tee_unregister_devices(priv);
-+	rpmi_tee_teardown_endpoints(priv);
- 	mbox_free_channel(priv->mbox.chan);
- }
- 
-diff --git a/drivers/firmware/riscv_rpmi_tee/rpmi_tee_private.h b/drivers/firmware/riscv_rpmi_tee/rpmi_tee_private.h
-index 4df47d52724a..4d302f8ca16a 100644
---- a/drivers/firmware/riscv_rpmi_tee/rpmi_tee_private.h
-+++ b/drivers/firmware/riscv_rpmi_tee/rpmi_tee_private.h
-@@ -11,6 +11,7 @@
- #include <linux/mutex.h>
- #include <linux/types.h>
- #include <linux/uuid.h>
-+#include <linux/workqueue.h>
- 
- /* TEE service group and the services used by this module. */
- #define RPMI_SRVGRP_TEE		0x10
-@@ -20,12 +21,37 @@
- #define RPMI_TEE_SRV_PROBE_DOMAIN	0x04
- #define RPMI_TEE_SRV_PROBE_ENDPOINT	0x05
- #define RPMI_TEE_SRV_CALL		0x18
-+#define RPMI_TEE_SRV_SIGNAL_BUS_SETUP		0x0a
-+#define RPMI_TEE_SRV_SIGNAL_BUS_TEARDOWN	0x0b
-+#define RPMI_TEE_SRV_SIGNAL_RAISE		0x0c
-+#define RPMI_TEE_SRV_SIGNAL_RETRIEVE		0x0d
- #define RPMI_TEE_SRV_MEMORY_PARCEL_CREATE	0x0e
- #define RPMI_TEE_SRV_MEMORY_PARCEL_RECLAIM	0x11
- #define RPMI_TEE_SRV_MEMORY_SEGMENT_SEND	0x12
- 
-+/**
-+ * struct rpmi_tee_notif_state - Signal notification state
-+ * @buses: List of signal buses established for TEE endpoints.
-+ * @work: Retrieves and dispatches pending TEE-to-REE signals.
-+ * @wq: Workqueue used for @work.
-+ * @ops_lock: Serializes public notification operations with signal-bus
-+ *	    teardown. It prevents new operations after @shutting_down is set and
-+ *	    serializes rpmi_tee_op_notify_relinquish() with the empty
-+ *	    SIGNAL_RETRIEVE release barrier.
-+ * @feature: SIGNAL feature value reported by the transport.
-+ * @irq: Linux IRQ assigned to the signal notification interrupt.
-+ * @irq_requested: Whether @irq has been requested.
-+ * @shutting_down: Prevents public notification operations during teardown.
-+ */
- struct rpmi_tee_notif_state {
-+	struct list_head buses;
-+	struct work_struct work;
-+	struct workqueue_struct *wq;
-+	struct mutex ops_lock;
- 	u32 feature;
-+	int irq;
-+	bool irq_requested;
-+	bool shutting_down;
- };
- 
- struct rpmi_tee_mbox {
-diff --git a/include/linux/rpmi_tee.h b/include/linux/rpmi_tee.h
-index 10f6cae4a3a7..f392b75ecaef 100644
---- a/include/linux/rpmi_tee.h
-+++ b/include/linux/rpmi_tee.h
-@@ -127,11 +127,35 @@ struct rpmi_tee_mem_ops {
- 	int (*memory_reclaim)(struct rpmi_tee_device *rdev, u32 parcel_id);
- };
- 
-+typedef void (*rpmi_tee_notifier_cb)(struct rpmi_tee_device *rdev,
-+				     u32 signal, void *cb_data);
-+
-+/* RPMI TEE signal notification operations. */
-+struct rpmi_tee_notifier_ops {
-+	/**
-+	 * @notify_request: Allocate a TEE-to-REE signal and associate it with
-+	 *	@cb and @cb_data. The allocated signal is returned through @signal.
-+	 */
-+	int (*notify_request)(struct rpmi_tee_device *rdev,
-+			      rpmi_tee_notifier_cb cb, void *cb_data, u32 *signal);
-+	/**
-+	 * @notify_relinquish: Stop dispatching a TEE-to-REE @signal previously
-+	 *	allocated for @rdev. The release is asynchronous and a callback may
-+	 *	relinquish its own signal.
-+	 */
-+	int (*notify_relinquish)(struct rpmi_tee_device *rdev, u32 signal);
-+	/**
-+	 * @signal_raise: Raise an REE-to-TEE @signal selected by the TEE service.
-+	 */
-+	int (*signal_raise)(struct rpmi_tee_device *rdev, u32 signal);
-+};
-+
- /* RPMI TEE transport operation groups. */
- struct rpmi_tee_ops {
- 	const struct rpmi_tee_info_ops *info_ops;
- 	const struct rpmi_tee_msg_ops *msg_ops;
- 	const struct rpmi_tee_mem_ops *mem_ops;
-+	const struct rpmi_tee_notifier_ops *notifier_ops;
- };
- 
- extern const struct bus_type rpmi_tee_bus_type;
-
--- 
-2.34.1
-
+Best Regards,
+Changhuang
