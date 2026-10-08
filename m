@@ -1,176 +1,229 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2100.outbound.protection.partner.outlook.cn [139.219.146.100])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FC464078FE
-	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 07:33:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791444819; cv=none; b=oleweT9t1trS0rKrX6mDmqeeYI95GnjXAKvFMpL+PusRmHFwqRz5Rri1GqMZvkrmA1jRqfpOaCDADLv/Bk0kiwBWNPYKE6zuy9ddEDg8J0H/9rUx64++DS/rHO1AguhpgOP35l/4za1cZuXgbsR4KKU6vR8tS1l0JldSCqyOZ8E=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791444819; c=relaxed/simple;
-	bh=bCkyTGtJ1hp8XUK71gjJhj/ufM8CmOOC0+2iscxo9xQ=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=kfO2AOl5FJEi96kmZf33kPFiBhKwivIypm0IrxvVOl2NAG1tjEGuKTtqQNT6ApcZ57+ajE7OXxMG5bSD65bdX3OZ7NjdGk7bfcohdmnjYVtUvrvatIh8cdmErSxQXlx59DVoTRwGHqT+PC0AaxBAb8QQs0C/Zj+X4tmmjn5TlMc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hVq2V9og; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hVq2V9og"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FFDD1F000FF;
-	Thu,  8 Oct 2026 07:33:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791444811;
-	bh=bIZpEPrVNVRZ2SEnNX0VrSAozYSX8iDwLnGd/jcY4KQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hVq2V9ogiQW87RBfgwkaBeAVawu7YcF7aNIRPOze6oVTXVoN11GUOZPk8SfwK2NCz
-	 jHas9pk9tSTidxsL2zTK50ts0oIADZ4dQMsAe75y/20mVhxuDtoAq5IL8TIujAu4rC
-	 +kiFl5Aq0yBdqvfc9ZykHHtHRoxcMJy/m2zex5kQo14kE345CCXQre5Y/TageEt30l
-	 JCW3dEkccXFM1OEqdX8OI/qJ17xQo8DT1ZxHHW13NybPV8H8pIE8OOk734Z28QIHH9
-	 Ra8dmoLqhE6GpgZrXxbyCD02bh2+AyQT9wxKFaY1r7qe0VlMmL48RnraRsbajXj1MJ
-	 lr+5B5Y1xxdRQ==
-Message-ID: <sashiko-outbox-163769@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v19 08/12] media: qcom: camss: vfe: Add support for VFE
- 1080
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Hangxiang Ma" <hangxiang.ma@oss.qualcomm.com>
-Cc: neil.armstrong@linaro.org, linux-phy@lists.infradead.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, vkoul@kernel.org, olteanv@gmail.com, media-ci@linuxtv.org
-In-Reply-To: <20261008-kaanapali-camss-v19-8-b2c583ef50e0@oss.qualcomm.com>
-References: <20261008-kaanapali-camss-v19-0-b2c583ef50e0@oss.qualcomm.com>
- <20261008-kaanapali-camss-v19-8-b2c583ef50e0@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 08 Oct 2026 07:33:30 +0000
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDD6040862F;
+	Thu,  8 Oct 2026 07:35:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.100
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791444922; cv=fail; b=XXLlSH7LjlpP0XBdyHm4jzqmWa7GbVMhPl7APk7kHtjzzrGz016ZaVL7pxXudUC6i3T1/aSaAh4oW937xkafov2lg1PQOINnRpYtlnN6pUNmwaf181HCvSnJT7dgW0+9D9FGbvSaB1SDA7GqhYjOQ54xTKWZE9d/2pHA1qFUfNQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791444922; c=relaxed/simple;
+	bh=D77Eh2bM6FTrLMWEP06+BZr0cxCIBQ5ZiOkbXnA3Ng8=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=SSeJQMXo/kRxJMtjZLwORhxWE6cUuFDeop7aRrQfOd3Xj+GLdw/Xaw4xgj3C+OnjufR2UyikKW4ZDW790XBmMruWv42eDE/0vJ5jkFDzk7jyqu+423Pl6XegN3EAB1FwfroMEzUpCSS/DNrmklyP92Y0afk0nVf+mkCPWigQS+w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.100
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=L/mHfYe/gXcSkCibDb4C4x5N12Ojsxsj+ZFZewVQpESAev8n1fer7Hhmb9XBVIH0P0mq1fI8mlrDxb6hyt/bPRCC9E4ymc+qnRXEwZa4frD0IccmeoIf88UEa2b5FvicRMXbOzsgEDccanVexlftgYAh1vrFneK3rpGghfZ/ak8A9VvtQqKDUwFjOgIlp43P3x6sAXAaWmk39OqZx0XnqbUDqmAuy2mPPv1wdQCnp9k16hzmSZ9sehYQxSX0n2O+fFcBBiH+97etGeHSf5xPGKw8XZZrglGHZ+cVGaITINNzcp2F4apGb29R3jgyw+pu2AaCI7lp+pFedzq4/aasMQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5vwoPSExpKsE3lwtLO6vjGK1dDSo3BAz6C9vztgQAHw=;
+ b=SlUyBUrI1k8geqoXJbTaVcZaCoGIuK2Zz4T/deAZKoY+JLcY5zxBbqbzJZ4P3P8BMZmVSXl1Z6Qo0cKGdonRROWCC6/aBNmaEvlkagZKvV9x1criD9rxhVgEaMCBNhTIrgyXw0+7N5/9PK5UVcoo60+st7RGPiVEx3dluOaeKs8br+ck2pRubVUk5aZzIfhCFYjrOOduTsR2CKIqfP40Kv7NCvA/CPe7Wl/1ZJwxkr+xkZm6B+o6Jfi/lfpMvJzbiBy1jKL49YNUUKt7tvC6HNOK2fOOTERkfyL1m/T3U+iZnoOSBv6lDoi9VAxsvhyx56VJGqtUmsWx04+D0fNvJQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6) by ZQ4PR01MB1220.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:14::7) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Thu, 8 Oct
+ 2026 07:20:11 +0000
+Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ ([fe80::e7d4:256c:b066:850d]) by
+ ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%4])
+ with mapi id 15.21.0496.015; Thu, 8 Oct 2026 07:20:11 +0000
+From: Changhuang Liang <changhuang.liang@starfivetech.com>
+To: Guenter Roeck <linux@roeck-us.net>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	Changhuang Liang <changhuang.liang@starfivetech.com>
+Subject: [PATCH v6 1/2] dt-bindings: hwmon: Add starfive,jhb100-pwm-fan
+Date: Thu,  8 Oct 2026 00:19:49 -0700
+Message-Id: <20261008071950.4772-2-changhuang.liang@starfivetech.com>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20261008071950.4772-1-changhuang.liang@starfivetech.com>
+References: <20261008071950.4772-1-changhuang.liang@starfivetech.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SH0PR01CA0018.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c311:5::30) To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:17::6)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1220:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7ce968c7-b018-486f-5f38-08df250c96cb
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|376014|52116014|23010399003|38350700014|56012099006|10067099003|22082099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	S0Ibt+9YGIxWdT9UZd0VL+fVpaqbBoZuMGjXXWdtSmgJXUQItmC935ei2gi3wnSPkTZgIgS0SvwRhMvnOXECmFKq/inQYu5wgqt6NT3dKr1QPYNJCoJGZrececcXMTNVfrP5qP1bdp8+g/cjKg35pewJ3c0QGJprELrTqO7r+8JuLXdfmyqbtC1HbtBXmGuQnlgYYn9YuBa8LfdlsFwvjjEZCvOzbXWNYhhTyxvknJMyAiO+Y1tThXQ4FnLz2JpeLnioWKx7+5R/DrmQNyEpwXLjBcHtL6PO2ueGH/nh/INV6krnSvnQxVZR8wegOoCbFIroKSxh6iVRt4z/MqjCfoZxuPEkY2A3/41lUJeHMAgIKv1rN2GOGucpGWc5mk8XxnkVB/p1QcT35bQS274nnJY7I+sy04RkcfbBS5M6E1ch0uIJRx0zD8Bq3wOtQzHuOgUyOkTjH6q1gg6CC4Evz2HoquwFccshN6t8YV8K2zP+9OhY5EbrPPiCUthvpVYD5fQKocdDN2KmFk2Q/e/Hhp9ZhCEGYywYQAJORVfeDUHKYtxFPKpjyHsZiWioxiME
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(52116014)(23010399003)(38350700014)(56012099006)(10067099003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?HNBT0r7FSe4zATzxqekZQ8Y7lbR5LCm5+2wS4UcmUSuY1DGANsuGFXBLhSpf?=
+ =?us-ascii?Q?9gCz4qVrQrGIQXdE/hS636qVL8u0Rq1ZFPowaUPCBMHDsw/YTUZ8NEfGlYBA?=
+ =?us-ascii?Q?VNOxdK/Ny3GMS99p5k+w2XuWlCzYu8oYEETFom1/yhOiUE21fz3F6hHxrT5y?=
+ =?us-ascii?Q?08LWk/WDQWP61bVpbkj6HlKA5bFsrb78Q4Pof2Bizv1tdRSHBls992Cw2bhe?=
+ =?us-ascii?Q?c+xPPrT8gLGgxNaTRWXfDTGst/uGTYc/VqPRiFaHj/5YUeM1zDT/ewZwtKqX?=
+ =?us-ascii?Q?KMEbH3w56nEecV4vZQ8mI4uNvwENilEh/HFGFH8ZgfjKofTIWhXWLSXUz1VA?=
+ =?us-ascii?Q?J/lXzw9Kf8oMA8I+J8Lb9DQ650PEhnq/Ea0X/kWI7h8pfwE0aA51oGO+ZPhb?=
+ =?us-ascii?Q?N9bjhJBNkH3Mz9kSJlPyvBo0E6Q1GZx+Tq7iev4LV82JwKUGau19Z/7pEJ79?=
+ =?us-ascii?Q?CM1ZbzL8laRXI8ocV2ikaEdDf6KZvsdnHAb1+w4mYuB+ADhfkZz47dKGYZM6?=
+ =?us-ascii?Q?qweAzBGvZSQK5Aq+LQm/3mI308WR7thrJsC1uAby4cDB/enHLbxLE3Y/rD5i?=
+ =?us-ascii?Q?zS+bcoweaFjXZg4glsrcGFcorJYyubST/++m0zZrAYIcpFvhJ77fiIrD6OIE?=
+ =?us-ascii?Q?bFeES5tphy+JVguR3HDT2ffrMERrCYrL3uBaHIoG/JhjFdmpWDq+JpARLY2N?=
+ =?us-ascii?Q?PtcJViuXQ+AVLCvXfWqDFP/PzXXeG0YRI0upk1hNbaYbIHFvLXNtHMG6chZX?=
+ =?us-ascii?Q?WE6QkwkKJb40PESJDEdZoDTLFnMvY2s2+wkUUXJ1xagfqCQ3JJ8BtogwFm89?=
+ =?us-ascii?Q?ekxad9DI1xQV8T59rjPys7u6GMIy4H3/CDTSLJ9Ma9M8Sw3hnSA/BufqyzC9?=
+ =?us-ascii?Q?F1D1kLY068dMVlIyh1C0Ua8+Q1wZhkg3WPnRAeUVPqSt5MQBLlW9kLB8V3cL?=
+ =?us-ascii?Q?k4sy9ziZhleTPkp9SKxxKr+vtRaBjq/DhDfU0jQo1dajfCmKS+/xWu0Z+ct/?=
+ =?us-ascii?Q?/Kc0M1p6rvrE4UbjcEw19eXu6aZb42swVuzxLpwFUEp9MJwob2n1bUWGxdtA?=
+ =?us-ascii?Q?YP1fAQScrmdoPOU54so6NtPtxL6BLBJvUHInEUmHdoYMFfmxY7He231iUjqX?=
+ =?us-ascii?Q?AX+7daWKSTzIQhKS343lv78NhNj+zxyBKnU3Wo0Z7dtooei/rgV7HmG9RvVs?=
+ =?us-ascii?Q?pOUPu/HSRY7Xi7AG3GqSV6pHur5rIJ+lnrRiUX/mqDoDnvEmJgckh702t4fZ?=
+ =?us-ascii?Q?+PZ6KMGeA8x2dCG3GudxsFgPmpIv+C7XY/Xd/AxTuzipY5FRwqbKuV0miYAO?=
+ =?us-ascii?Q?DHkmhtNYYzqQ3MabPk3Ol2vm5u6UMcw5Ya961Kxrxf4MXIW1eY1pWyvPQttF?=
+ =?us-ascii?Q?OWRonZRgkGEDHpQtOXG/rAvbdJMj4vlR1tl0PeOr0F7T0kdLT9VSn41qDL4U?=
+ =?us-ascii?Q?xs9+dD71i7tRJ68W4fJiVU9YfN1gfMFDX6cI/H5AwvFSqFrMhfsHp1al05JV?=
+ =?us-ascii?Q?RvQDDEqn6F0W0IgBem6qZRoCoswDXhaKOWA2KDlcf4/x1yi7oFd6eYEaWJy1?=
+ =?us-ascii?Q?xD94TFqu08g0jMjeTwcBJHG48/u/3VRc35kWykP104RveYRvDy6X1db3rCfc?=
+ =?us-ascii?Q?BdctFqACts6MnEUHDOYWE4RL80XW3e5Du2z3mDBwCzX3CTN6NCjBVInwGlYT?=
+ =?us-ascii?Q?tvhZNkILiSE0i8mRAOQjnx4CtApzX5XJNoD6xR5A4gFSZNE3BLseVkNEX2yo?=
+ =?us-ascii?Q?3Mjp+0IhnpTSpBXirKBWk8icL5Dr7hud7vr1xacJ5bTQsqsZvgL+?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7ce968c7-b018-486f-5f38-08df250c96cb
+X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Oct 2026 07:20:11.0802
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Ev19sBId7ArKZFddo/7oSb15fCo6cNCL8am0DzPLPP9eB7SXqUtz48rdl8Cuo1bAEApOiHl3kWI+6uxOoXKXnApZskwTBb3XPVZDXtJb0dCObMASXju+2ytRyIlSpquZ
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1220
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] media: camss: Hardware constraint violation on AUP_UPDATE count
-- [High] media: camss: Hardcoded VFE-to-CSID mapping breaks dynamic media r=
-outing
-- [High] media: camss: Data race on csid->aup_update and csid->rup_update
---
+Add a binding for the StarFive JHB100 PWM fan controller. The controller
+has a hardware tachometer block with 16 tachometer inputs, while fan
+speed is controlled through 8 PWM channels supplied by an external PWM
+controller.
 
-commit f4a9516b2392f133fd18f4aed515b9cb62df16ca
-Author: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
-   =20
-    media: qcom: camss: vfe: Add support for VFE 1080
-   =20
-    Add support for the VFE (Video Front End) 1080 found on Kaanapali SoC.
-    In the Kaanapali camera subsystem, the front-end blocks are referred to
-    as TFEs.
+One PWM channel can drive up to two fans, so each fan-N child node
+references one PWM channel and lists the tachometer inputs wired to the
+fans it drives.
 
-> diff --git a/drivers/media/platform/qcom/camss/camss-vfe-1080.c b/drivers=
-/media/platform/qcom/camss/camss-vfe-1080.c
-> new file mode 100644
-> index 0000000000000..016857cd10251
-> --- /dev/null
-> +++ b/drivers/media/platform/qcom/camss/camss-vfe-1080.c
+Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+---
+ .../hwmon/starfive,jhb100-pwm-fan.yaml        | 87 +++++++++++++++++++
+ 1 file changed, 87 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/hwmon/starfive,jhb100-pwm-fan.yaml
 
-[ ... ]
+diff --git a/Documentation/devicetree/bindings/hwmon/starfive,jhb100-pwm-fan.yaml b/Documentation/devicetree/bindings/hwmon/starfive,jhb100-pwm-fan.yaml
+new file mode 100644
+index 000000000000..b05789867c0e
+--- /dev/null
++++ b/Documentation/devicetree/bindings/hwmon/starfive,jhb100-pwm-fan.yaml
+@@ -0,0 +1,87 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/hwmon/starfive,jhb100-pwm-fan.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: StarFive JHB100 PWM Fan Controller
++
++maintainers:
++  - Changhuang Liang <changhuang.liang@starfivetech.com>
++
++description:
++  The StarFive JHB100 fan controller uses a hardware tachometer block with
++  16 tachometer inputs to measure fan speed. Fan speed is controlled through
++  8 PWM channels supplied by an external PWM controller, and one PWM channel
++  can drive up to two fans. Each fan child node references the PWM channel
++  driving the fan(s) and lists the tachometer inputs wired to them.
++
++properties:
++  compatible:
++    const: starfive,jhb100-pwm-fan
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++
++  resets:
++    maxItems: 1
++
++  interrupts:
++    maxItems: 1
++
++patternProperties:
++  "^fan-[0-7]$":
++    $ref: fan-common.yaml#
++    unevaluatedProperties: false
++
++    properties:
++      pulses-per-revolution:
++        minimum: 1
++        default: 2
++
++      tach-ch:
++        description:
++          The tachometer input(s) wired to the fan(s) driven by the PWM
++          channel. One PWM channel can drive up to two fans.
++        minItems: 1
++        maxItems: 2
++        items:
++          maximum: 15
++
++    required:
++      - pwms
++      - tach-ch
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - resets
++  - interrupts
++
++additionalProperties: false
++
++examples:
++  - |
++    fan-controller@11be0000 {
++        compatible = "starfive,jhb100-pwm-fan";
++        reg = <0x11be0000 0x400>;
++        interrupts = <128>;
++        clocks = <&per2crg 33>;
++        resets = <&per2crg 5>;
++
++        fan-0 {
++            pwms = <&pwm0 0 40000 0>;
++            tach-ch = /bits/ 8 <0x0 0x8>;
++            pulses-per-revolution = <2>;
++        };
++
++        fan-1 {
++            pwms = <&pwm1 0 40000 0>;
++            tach-ch = /bits/ 8 <0x1 0x9>;
++        };
++    };
++...
+-- 
+2.25.1
 
-> +static void vfe_reg_update(struct vfe_device *vfe, enum vfe_line_id line=
-_id)
-> +{
-> +	int port_id =3D line_id;
-> +
-> +	camss_reg_update(vfe->camss, vfe->id, port_id, false);
-
-[Severity: High]
-Does hardcoding vfe->id introduce a regression for dynamic media routing?
-
-The Media Controller framework allows dynamic routing, where any CSID source
-could be linked to any VFE sink (e.g., CSID[0] to VFE[2]).
-
-Here, camss_reg_update() is called with vfe->id, which indexes the CSID arr=
-ay
-directly:
-
-camss.c:camss_reg_update() {
-	csid =3D &camss->csid[hw_id];
-	csid->res->hw_ops->reg_update(csid, port_id, is_clear);
-}
-
-If CSID[0] is routed to VFE[2], the VFE buffer queue will update the
-registers of CSID[2] instead of the active CSID[0], leaving the active
-CSID without its AUP_UPDATE and stalling the stream.
-
-[Severity: High]
-Can this introduce a data race regression on the CSID shadow states?
-
-When userspace queues new buffers via vfe_queue_buffer_v2(), it executes fr=
-om
-process context and eventually calls this vfe_reg_update(). This ends up in
-__csid_aup_update() which performs an unprotected read-modify-write:
-
-camss-csid-1080.c:__csid_aup_update() {
-	csid->aup_update |=3D CSID_RUP_AUP_RDI(port_id);
-}
-
-At the same time, the CSID hardware interrupt handler csid_isr() processes
-completions and performs a similar unprotected read-modify-write:
-
-camss-csid-1080.c:__csid_aup_rup_clear() {
-	csid->aup_update &=3D ~CSID_RUP_AUP_RDI(port_id);
-}
-
-Since these modifications can interleave without locks, one CPU's state
-update could be lost, potentially corrupting the CSID_AUP_CMD register stat=
-e.
-
-> +}
-
-[ ... ]
-
-> diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/medi=
-a/platform/qcom/camss/camss-vfe.c
-> index 2680a9914765f..3acef6ba97dc9 100644
-> --- a/drivers/media/platform/qcom/camss/camss-vfe.c
-> +++ b/drivers/media/platform/qcom/camss/camss-vfe.c
-
-[ ... ]
-
-> @@ -552,7 +554,9 @@ int vfe_enable_output_v2(struct vfe_line *line)
->  		output->gen2.active_num++;
->  		ops->vfe_wm_update(vfe, output->wm_idx[0],
->  				   output->buf[i]->addr[0], line);
-> -		ops->reg_update(vfe, line->id);
-> +
-> +		if (!vfe->res->reg_update_after_csid_config)
-> +			ops->reg_update(vfe, line->id);
->  	}
-
-[Severity: High]
-Does this introduce a regression by violating the AUP_UPDATE hardware
-constraint?
-
-The commit message states that "the number of AUP_UPDATE requests must match
-the number of buffers queued to the write master while it is being enabled."
-
-However, if userspace only queued 1 buffer, the loop in vfe_enable_output_v=
-2()
-will break early (as it loops up to CAMSS_INIT_BUF_COUNT):
-
-	for (i =3D 0; i < CAMSS_INIT_BUF_COUNT; i++) {
-		output->buf[i] =3D vfe_buf_get_pending(output);
-		if (!output->buf[i])
-			break;
-
-This means the VFE write master gets configured with only 1 buffer.
-
-Meanwhile, csid_configure_stream() in camss-csid-1080.c unconditionally iss=
-ues
-CAMSS_INIT_BUF_COUNT updates:
-
-	for (k =3D 0; k < CAMSS_INIT_BUF_COUNT; k++)
-		__csid_aup_update(csid, i);
-
-If the CSID sends 2 AUP_UPDATE commands but the VFE is only configured with
-1 buffer, can this cause the hardware to perform out-of-bounds DMA or
-trigger an IOMMU fault?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261008-kaanapali-=
-camss-v19-0-b2c583ef50e0@oss.qualcomm.com?part=3D8
