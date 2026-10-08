@@ -1,87 +1,87 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BAFF46AF2C
-	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 23:10:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B63A33DD86A
+	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 23:21:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791501033; cv=none; b=NPR4AxWcEmEz3CWJuQV1dEMbrDajHKa22TWvhgJmVbTaa5kfbZ8Quv9mIaMDmO52Zg1WCjQcHm4j+X1UC4Ri3oToJIZEpDjyt1Y40ipsU/cFGAg7jgnCOEUbd21uCPeshRYF6lv6R3aG6yiyNDBgR8Bl+gN146F/hoW7+dM0JQc=
+	t=1791501679; cv=none; b=Paz771igPIHaTByJlBOYShHIykdfYHq+1yhEk97O/qCKQ+3QMe+bFlq/MMC3ItYAoTOiUPQvNxQRL2eopD7QJDbivoVS1Fltf0O0ZBtYTa7+gKxC8jhxIzKJnzdXGeZhtBvwlZLkUFKZLWu30XOCCqqEe2jtpduEBB67o4/NVaU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791501033; c=relaxed/simple;
-	bh=3JPoUSC2KZfTrEBFZXcobUlut49MAPzO6HJRSmSUFI0=;
+	s=arc-20240116; t=1791501679; c=relaxed/simple;
+	bh=4MJaZrtR4RgWJ4ai+292z6IPnXEaTKNgBrsy96VIl90=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hiYp9Or+g48Vr0mOTzlWcv5CUbf8Xy3Efj4VM+ZmGNU8z1W5hjqdZJ4yDYlkwkJ+/bL91KcVsS1YEyNCrOGvljogmJFxqlynf4RCKob+B045ipbA6AFJ5z3Hk+cxuZ7y4Ptg6S4kdC4W9Vvev2YdEF6/ZRHCVQcov4QzMRObMp4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SipJQauG; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MnEztZO/; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:Content-Type; b=cZP6gB5ZT23SZZTT9tcMMoGx87V6SyyEVHBFPhuNqAg/UiBkHYkoNd140pUi18sx2hhkmABkrP3DM2OCeY01DhOrN3XP5GS2jcS1mE93AlG1cv0hAWRatikPX8bKIZbxU4X/uuI08pxpcREmxsICVg8W9tjHvktOzaYLPkNAUrY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SLjXGBrb; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NzOs/gCE; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SipJQauG";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MnEztZO/"
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SLjXGBrb";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NzOs/gCE"
 Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 698KxsYE3151640
-	for <devicetree@vger.kernel.org>; Thu, 8 Oct 2026 23:10:31 GMT
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 698KxvJg3151668
+	for <devicetree@vger.kernel.org>; Thu, 8 Oct 2026 23:21:17 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	gSq6/6XQj4OlzZaKrS745qYxJEneJToNIcTrfWhxKIU=; b=SipJQauGRBvUuWV5
-	L6+ZVzCDV6B7V9e9dl2SKdn/rt6o9lCtnK5KllBS0naYzeY+QWUskw6ImECe4R4j
-	zQgFjCT8T0ICamqGoPV+K01rhiSwZeEehXjXDDaA02tuQEC5ZGeCwR2kIC39N+Yi
-	KWie2F5ASFqIXwjwIdRCHhzlu+35vg8BcVvB3ZJBqgx0anTK+SchzgqTkeh030hA
-	JhCky7R6TwwKZggr6iBZmPsRCbYFAbQeVeUkFKrF1Pw+leCUndqgPOOYV60xy71G
-	2PYxmr9jkyS/D+wMNh5v41WYuLaEdJWB3JhGu6jPTTYSfV9ewMQDt3E+OpK+w4WN
-	ahYsbA==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h6fxk10ae-1
+	+FLWS/ZRP3JLphZpvTJtWhtqU29QF4WSDgFqxaK31HQ=; b=SLjXGBrbBBAi4t92
+	w9IuXEF7bg+FSKwz4LD/g1g1A2x7E/F13/y98/gjLoyTsxflKTwylO1nHy1X6SOQ
+	bp8QvVXgF3cOqj6whYo7QYAhr35HouczPYyI+RJAGDD8BAQ2TJ5yauTCPj+cL5Hw
+	PZAYYHHG0MowVKN8CBKx3aczXFfL8qjBmKalqhOO4bJXh1uWCv65hYRQqteWNFBt
+	jT2tbuRpR9SuAIhIXLskeXWOd6YJFEn0n84KIniTIL6Bolk5CWtNggP5Ri4whc2p
+	v1rozX9bszMkCgFYDmhvrba5t4u0upcnlLmIjd1dvN+hn+nvomBBKsnt3Ibw2FTQ
+	XmfJAQ==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h6fxk1151-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 08 Oct 2026 23:10:31 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-3965ba1ba3eso7197004a91.2
-        for <devicetree@vger.kernel.org>; Thu, 08 Oct 2026 16:10:31 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Thu, 08 Oct 2026 23:21:16 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2df8484f12cso62245525ad.3
+        for <devicetree@vger.kernel.org>; Thu, 08 Oct 2026 16:21:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791501030; x=1792105830; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1791501676; x=1792106476; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=gSq6/6XQj4OlzZaKrS745qYxJEneJToNIcTrfWhxKIU=;
-        b=MnEztZO/1BBwTmHOolhCPVMRqwCa4ezRneoSMuQewx6ohcApQklsKbgENcBdE5R/gm
-         wmQNUFtzhx5L6sDBO+HeY2e9eQ/KD4192HDCXffj4Z7/+oXuslv0Xsl441AwI0I4vKAm
-         6I+klL5OmmiA1WE17MSD5eAVJ31p2xejNziw/WX+EOwuigdtSFHlB7CZvpjxbV+iR2Jk
-         2xA62QlBXlkRiu4p/sVfgn2bsd0lLtKlH2DKA8/usimWshZdH8v9YrvN3dBlQKLiWlFy
-         plRV3kCTZWpv5TvlCKfBWWZC7L07JKtfk2geqknMvLwRVhBAKk3l42R6PxEUP7vbuxiy
-         bKGw==
+        bh=+FLWS/ZRP3JLphZpvTJtWhtqU29QF4WSDgFqxaK31HQ=;
+        b=NzOs/gCE1YCbj/rwFWjn/2ElvzOrY5ZYDegXI/+KayagzVNPBw/pZPJLdtNhX4K1eS
+         VpRtA5ePvfeGN0S04B37fhrss+3TxycSh4EdCUbDwu/7LFkunXoW8QBpCzoM3T08fVe8
+         2xImSwyGaejsn9A79cj9wdFr0UL1Ao4Cnne40//fW2XzBijmd7JmG8JM4NTYf0+7hCzm
+         dBGsRJ0XvYgMKN/TypUvxjoBBAfEwzS93hkFmvsWBPVC3ylS6y0QKDJJR9NuKsbcEZ7/
+         JgPhjlxr4cDb+qc3eFOKenUEguqJMmjBJiSKTUgqqFnSR7FK4krW7hrVH/ogiYnDrCd3
+         o7NA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791501030; x=1792105830;
+        d=1e100.net; s=20260707; t=1791501676; x=1792106476;
         h=content-transfer-encoding:content-type:in-reply-to:from
          :content-language:references:cc:to:subject:user-agent:mime-version
          :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=gSq6/6XQj4OlzZaKrS745qYxJEneJToNIcTrfWhxKIU=;
-        b=N1cNlstjRD1xHmQapTmWNmWQcEXkYKw8yS2m6imjE1QAmPTYtK5ZFpmDqyPzHeIzAX
-         lf7O7Z2cu1kBtFLc2CXicK2gkKK10b6g03eFB3t/B0heWhYDb/qGhO8WI/KD7M7zGXDc
-         aziDi6nBfb0qNK8UM/wPO6NXewfoFG0/RZXzRzgVK2c0Tku1lUCTPvhV7/eGCoeWmEER
-         /v5TCUO6pdhUyNzkjbYXPpjFAAaKjRMRLRQNZTqQh7oQ27z/kK/tJd+XjJSSwaVKMWF+
-         gCAVeJUu1PtsUuWxTB/l/BczTRQ2B8mkFTInqMJjpFwxPmudyUavwqVBhXEFG9z0CS7V
-         QKfw==
-X-Forwarded-Encrypted: i=1; AKwUvBy9VvTdI0Nwwp2V1wJLqd6oHAGyAjppsfguZpa+r33k1GOh1dZNrhcQcaXUco+DUn7Y59bCkr+lwApD@vger.kernel.org
-X-Gm-Message-State: AFq9FYIp/LOppQna4LFHv8tr3LmnZXMMSOpbW7VFPm32TmZ49L+WnA3/
-	KJy0/sWfB2mZ833hi7A/H8vz7bIbV3+Ch1vkqFiw8bzgqtgsS+6JwQv2TNwQh0luANK8D0GoyA2
-	1WyCyMGEfiko3EbWyBExS822N2jzDN1F+bkgUBpOxuN+EDmM6MgIW8E0tW94PaiM=
-X-Gm-Gg: AYBFou1QJOxsNvN+bW+q8UTOrNbQTrtO1LW/RWmzRGZSPhOnIXe+QzaTjqvzYnV5feu
-	FAY8k698x1dGKT+0yuOOj0TtR8Ui/yITvusyvMxc436WaIYm23Bx7zUbhGICrswRbns9OWvAtFf
-	ezQXeeqxxzvszHQYJ/YwHOx7qPrKjHvjZgzwPGDgcW4gFEjC2ur/h3JfKIosGWnZcq2tUYfBWf3
-	4+2Bc+Rf4KuQ21mQcpvw8ZCFeCig/AvIoBypwiFce/SDQHhtZkYAjmqRU1eqQONsWTzc4yPdHTL
-	cQhpsvVFgIdZp9F/NayVUY/DeUhQIMih/HTZiODlKnuXuT5H6uh5mpfGFA/9uc8LGRbs7J8OOr1
-	xkJScSpfLLo59eQiOkNZXZ+CAqw1s/ZwG
-X-Received: by 2002:a17:90b:4a45:b0:3aa:9a32:504f with SMTP id 98e67ed59e1d1-3ab3a359e32mr241834a91.7.1791501030306;
-        Thu, 08 Oct 2026 16:10:30 -0700 (PDT)
-X-Received: by 2002:a17:90b:4a45:b0:3aa:9a32:504f with SMTP id 98e67ed59e1d1-3ab3a359e32mr241797a91.7.1791501029663;
-        Thu, 08 Oct 2026 16:10:29 -0700 (PDT)
+        bh=+FLWS/ZRP3JLphZpvTJtWhtqU29QF4WSDgFqxaK31HQ=;
+        b=qP1HmZrNRj1vWy0R01uD5pyiXWuFS+f/sK9kDdl6T73i1VVv2OH80y5J5Paz3ce2t2
+         8GabcF8POPsUJPO1evpKGgCXfKlmOUnXlOf9pG/4n9Mc1smTP0RV171HgAANiK9FyZ8J
+         PjQZms2nXOwy0/4LKfZQs34rZ3GTiARKxiuoE7JJ8EBlz3Ck3A5ZPb2hxezJYrLqMtNb
+         jClptg6F/izsYiBGgmO4czy/s5smobfh5hR/0eF7NpMjSqs63Dyj19ITz6KrPoyT1XP+
+         rE8Ng9H/6z1L4LxeTGSC/+XqOMoJ5zDc2B8Bx71vVpRFulieUUMBZAbqcMFN2ogpeycH
+         yetA==
+X-Forwarded-Encrypted: i=1; AKwUvBwq3kKwEqaKGhXjIzbBrcVZMaV6Y0jyeEO/lPsXeiwUKWiXKOgEnD2hynPX0/XzfsbSQRoleUdXhrbP@vger.kernel.org
+X-Gm-Message-State: AFq9FYKrT3WH9do+GNYsYTv+ZxyGVtG12II74FOAzQmaX/i9IT/db8QW
+	5Mip92ycVNEtvW9qIeFPqJWQIOt0mav+5TN99bgg5V79fLrYBWDY2Z0dMj41x2Z+4fm+4KVAHyK
+	jRuznQz0rGccGFDYVVLsWGvFNdJouDrrVSudQCDc3ujRLGNW68lcUC8Po54GnPVE=
+X-Gm-Gg: AYBFou3i1H/JwTOudotssui/VnCQ8AHjH2JzFbN2Cxzu88AAaAlLfhOXuUfb1et2YPD
+	kt5nnvzjuHJsLFIqlAGZ5+AJX8ld14CIjEqs4Ldy/XVBtsAag/k/qgZFsk1L866WO8hk4erOKZT
+	1XFBHSSYIWKZs+/fXr56pzES0TqOQEj2kZPaMBLd8urRrSeo/4RW93r+KJHt5eK9J1W3xPrIIUv
+	5t7maGTrIJYsEntJJ5GIxOWyjmfEQctmvX63lgEm+beYUcT51aOP8Xk52N+gBPxslZhwhAbnIvs
+	s2trxy504i9WUrlMjBAUbyTHVeRA4S9Y4qFCJpR2poQz2O1NifPEweAklDfjWR1eKuv3K707y/c
+	HPnaegx4JXB0tUhlkoQyj52ZpRk7e/mQM
+X-Received: by 2002:a17:903:1b0e:b0:2e8:21a7:dd0a with SMTP id d9443c01a7336-2e842e0b04bmr1070355ad.63.1791501676156;
+        Thu, 08 Oct 2026 16:21:16 -0700 (PDT)
+X-Received: by 2002:a17:903:1b0e:b0:2e8:21a7:dd0a with SMTP id d9443c01a7336-2e842e0b04bmr1069975ad.63.1791501675602;
+        Thu, 08 Oct 2026 16:21:15 -0700 (PDT)
 Received: from [192.168.1.86] ([65.181.12.250])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab36ed0daesm717974a91.5.2026.10.08.16.10.23
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cd3d9d49af2sm145399a12.2.2026.10.08.16.21.08
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 08 Oct 2026 16:10:29 -0700 (PDT)
-Message-ID: <f9e91a7d-1628-4746-b2e7-03c7b1be11cc@oss.qualcomm.com>
-Date: Fri, 9 Oct 2026 10:10:19 +1100
+        Thu, 08 Oct 2026 16:21:14 -0700 (PDT)
+Message-ID: <2a3b8bdb-0f75-40ca-a653-3e4d45c9d358@oss.qualcomm.com>
+Date: Fri, 9 Oct 2026 10:21:06 +1100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -89,8 +89,7 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC v2 7/8] tee: optee: bind RPMI services and negotiate
- backend capabilities
+Subject: Re: [PATCH RFC v2 0/8] tee: optee: add RPMI backend support on RISC-V
 To: Jens Wiklander <jens.wiklander@oss.qualcomm.com>
 Cc: Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>,
         Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
@@ -104,32 +103,31 @@ Cc: Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>,
         op-tee@lists.trustedfirmware.org, linux-riscv@lists.infradead.org,
         devicetree@vger.kernel.org
 References: <20261005-rpmi-tee-service-grp-dev-v2-0-72f222e23ec1@oss.qualcomm.com>
- <20261005-rpmi-tee-service-grp-dev-v2-7-72f222e23ec1@oss.qualcomm.com>
- <CAGgiveU+8d-MmPL4n_ADimkrthsE1sU4QHJoBeh==sxLZmdrFw@mail.gmail.com>
+ <CAGgiveXJXXaRNyfq6Gxk4moOHqM-vBuptugn5bHK5x9EeeGSQA@mail.gmail.com>
 Content-Language: en-US
 From: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
-In-Reply-To: <CAGgiveU+8d-MmPL4n_ADimkrthsE1sU4QHJoBeh==sxLZmdrFw@mail.gmail.com>
+In-Reply-To: <CAGgiveXJXXaRNyfq6Gxk4moOHqM-vBuptugn5bHK5x9EeeGSQA@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=fKesTpae c=1 sm=1 tr=0 ts=6ac822e7 cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=9v5PfQ1E2GNzj2RibJmqVw==:17
+X-Authority-Analysis: v=2.4 cv=fKesTpae c=1 sm=1 tr=0 ts=6ac8256c cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=9v5PfQ1E2GNzj2RibJmqVw==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
  a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=b14n5p5ovfXgHId7m2sA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-GUID: YtCTjhuH3Nb7mRjG1EfQ8N2oP_ovxyWM
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDA5MiBTYWx0ZWRfX/nFwQqPoLQQh
- 72LYLllKGtChJGojegs+qRiebcIrM8WkG+bGLExW11HRUKheUwpmGjNbkhDcg6o9snev+7ph0nW
- gpOzmm/gpVlH502iWnBTp35li2t57YY=
-X-Proofpoint-ORIG-GUID: YtCTjhuH3Nb7mRjG1EfQ8N2oP_ovxyWM
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDA5MiBTYWx0ZWRfX+83vPpPC+PNl
- LQH1eSKso7EREtzrk/ER/8SacRqIYFty52jHKMZJcodZz0cC5i9WMVrSWxu1l21EbR5ptd1vxWB
- NH3wV5mmT0Jryo1GvwTUhsKYnpTWUJH+zV42zWn3veLS8Nu2WA2MyDQmq7T/wUyZAhfZyyRnVVx
- FA2L/08BH3FnzbUm2H+lrspjbwyhAvMOgEHidG/yPhrmcugkdrc2PAH9pymaHXmkA2LnJv11C7u
- yKmUZrOuA8sQYDFxmud/IbkqaDaX/PbfwK6v2WiY5o6miChooLiUCV4ldVNTpxWGt8ckz+fNXRT
- NCx+A0wgra7jjYgvTvc9bl74ilcoh5pIwvgPwuwAhcC3CJ3/TZBJNCq2ZagSPC3y97zRUaQ4Nnp
- YiQMaaivTfmIOVS3h35/FXxZ7tlIAXnCp0CD6JUZHd2s8j6o5bqlM9hya5LvDO0zKiKg3hVPoQ+
- CAKuRNuPVYYv9BDoMcQ==
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=4N8_HuqegsxoWIsicYAA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-GUID: UG2QA2x4bPOPg_xgT7rHsaCiz-pyKFC2
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDA5MiBTYWx0ZWRfX9dPDcEttevB+
+ PNqKZEU1D8r01wLI6scHjBrml1OVVbrkyKbgzhRWADK9qQ0Snm6S6TCbX4YUIknfTMBxFAJC4OY
+ hmLuHm7rifvWn46pcLxfxZ0I1CtTcCI=
+X-Proofpoint-ORIG-GUID: UG2QA2x4bPOPg_xgT7rHsaCiz-pyKFC2
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDA5MiBTYWx0ZWRfX1Xi3RmcaitWa
+ kOvXHII7Se+GZizhuXomyNFy+tc8mRb2LMKcpjWgLYd13FUGQqNMrd9XNqBk1mwvj9W2SNa982A
+ X4Cfms02dSnE4YEtYNU66LrgyMGtuP5lVpVEdkwYZdXtP1mhTgrmeZEPMcBQ3EVUuGV7G8LUsNk
+ UY4CDazpNUXQ/vmVAoA1l9avXxTUPYBHwDniYZ5RM8CDgyQnh5+ySuFZ8oIM5oHNtR59Zv10pX3
+ P5ozdRZ5sX8SrldETfRdV+Q5OQzdlIsUC+/jNWOjToGPM/cmweLqV5mGC0mdbwZPOWIKirhYGk4
+ ZdpUoykXJyt2N5LKm4qzO2BkRIusYSYx+37foSXxgaoyCQBS81hLpnZ11Ov9mlXfFVuyFj233DQ
+ Bj8HciVERzpxQT2fi75wCpWs2JvEmk6fyOxB1eF86CQxixdfi65kwIgy6jQhrEDkm/72zj72wnY
+ 4ADR1Oskmr3/I+bq8nA==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-08_07,2026-10-08_01,2025-10-01_01
@@ -139,470 +137,117 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610080092
 
-Hi jens,
+Hi Jens,
 
-On 10/8/2026 7:20 PM, Jens Wiklander wrote:
+On 10/8/2026 5:15 PM, Jens Wiklander wrote:
 > Hi Amir,
 > 
-> On Tue, Oct 6, 2026 at 2:40 AM Amirreza Zarrabi
+> On Tue, Oct 6, 2026 at 2:39 AM Amirreza Zarrabi
 > <amirreza.zarrabi@oss.qualcomm.com> wrote:
 >>
->> Register an RPMI service driver matching the OP-TEE service UUID and
->> integrate it with OP-TEE module initialization and removal.
+>> This series adds an RPMI backend to the OP-TEE driver for RISC-V.
+>> It builds on the separately posted RPMI TEE transport series [1],
+>> which provides service discovery, synchronous calls, memory parcels
+>> and asynchronous signals.
 >>
->> Check the service API version, query the trusted OS revision, and
->> obtain the RPC parameter and logical notification counts. Initialize
->> shared-memory tracking, the call queue, supplicant state and internal
->> context before publishing the client and supplicant TEE devices.
+>> This revision is effectively a full rewrite of the original RFC.
+>> The generic RPMI transport has been separated from the OP-TEE backend,
+>> and the backend has been reworked around the service bus and a new
+>> OP-TEE control ABI.
 >>
->> Connect the RPMI backend to the common OP-TEE operations and enumerate
->> trusted application devices. Enable in-kernel RPMB routing when the
->> RPMB subsystem is reachable.
+>> Unlike v1, the OP-TEE backend no longer manages SBI MPXY mailbox
+>> channels or implements RPMI TEE service-group operations directly.
+>> It binds to the OP-TEE service UUID on the RPMI TEE bus and uses the
+>> transport's public operations. No additional OP-TEE device-tree node
+>> is required.
 >>
->> Add removal and probe failure cleanup for the backend resources.
+>> The backend reuses the common OP-TEE session, shared-memory, argument
+>> cache, call queue and RPC infrastructure. Shared memory is represented
+>> by RPMI parcel IDs and nonces. Yielding calls pass command and RPC
+>> buffer ranges within a parcel and resume suspended execution using
+>> an opaque token returned by OP-TEE.
+>>
+>> The OP-TEE control ABI uses fixed-width little-endian messages carried
+>> in TEE_CALL payloads rather than reproducing FF-A's register-based
+>> message layout. Asynchronous notifications use an allocated TEE-to-REE
+>> signal as a bottom-half doorbell, while ordinary logical notifications
+>> continue through the common RPC path.
+>>
+>> Matching OP-TEE OS support for this ABI has not yet been implemented.
+>> This remains an RFC for review of the backend integration and the
+>> Linux-to-OP-TEE protocol.
+>>
+>> [1] RPMI TEE transport dependency:
+>> https://lore.kernel.org/op-tee/20260928-riscv-rpmi-tee-abi-v1-0-04908b81d885@oss.qualcomm.com/
 >>
 >> Signed-off-by: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
 >> ---
->>  drivers/tee/optee/core.c          |  10 +-
->>  drivers/tee/optee/optee_private.h |  21 ++-
->>  drivers/tee/optee/rpmi_abi.c      | 286 ++++++++++++++++++++++++++++++++++++++
->>  3 files changed, 312 insertions(+), 5 deletions(-)
+>> Changes in v2:
+>> - Effectively rewrite the backend around the separately posted RPMI
+>>   TEE transport and a new OP-TEE control ABI.
+>> - Remove backend-owned per-hart mailbox channels and the OP-TEE-specific
+>>   device-tree binding.
+>> - Replace the register-like control payload with fixed-width messages,
+>>   explicit command/RPC buffer ranges and opaque resume tokens.
+>> - Add a parcel-reference parameter layout carrying the parcel ID,
+>>   nonce, and 64-bit offset and size without changing parameter size.
+>> - Make argument-offset support part of the baseline ABI and retain
+>>   the common shared argument cache.
+>> - Use a transport-allocated signal for asynchronous bottom-half
+>>   notifications.
+>> - Link to v1: https://lore.kernel.org/r/20260912-rpmi-tee-service-grp-dev-v1-0-1d1d35c2a859@oss.qualcomm.com
 >>
->> diff --git a/drivers/tee/optee/core.c b/drivers/tee/optee/core.c
->> index a52c1f498b99..8a44a25ebc66 100644
->> --- a/drivers/tee/optee/core.c
->> +++ b/drivers/tee/optee/core.c
->> @@ -220,6 +220,7 @@ void optee_remove_common(struct optee *optee)
+>> ---
+>> Amirreza Zarrabi (8):
+>>       tee: optee: allow RPMI transport builds on RISC-V
+>>       tee: optee: define the RPMI control and parcel-reference ABI
+>>       tee: optee: add RPMI shared-memory and parameter support
+>>       tee: optee: add RPMI dynamic shared-memory pool
+>>       tee: optee: add RPMI RPC handling
+>>       tee: optee: execute yielding RPMI calls
+>>       tee: optee: bind RPMI services and negotiate backend capabilities
+>>       tee: optee: support RPMI asynchronous notification doorbells
 >>
->>  static int smc_abi_rc;
->>  static int ffa_abi_rc;
->> +static int rpmi_abi_rc;
->>  static bool intf_is_regged;
->>
->>  static int __init optee_core_init(void)
->> @@ -245,14 +246,15 @@ static int __init optee_core_init(void)
->>
->>         smc_abi_rc = optee_smc_abi_register();
->>         ffa_abi_rc = optee_ffa_abi_register();
->> +       rpmi_abi_rc = optee_rpmi_abi_register();
->>
->> -       /* If both failed there's no point with this module */
->> -       if (smc_abi_rc && ffa_abi_rc) {
->> +       /* Keep the module if any supported transport registered successfully. */
->> +       if (smc_abi_rc && ffa_abi_rc && rpmi_abi_rc) {
->>                 if (IS_REACHABLE(CONFIG_RPMB)) {
->>                         rpmb_interface_unregister(&rpmb_class_intf);
->>                         intf_is_regged = false;
->>                 }
->> -               return smc_abi_rc;
->> +               return -EOPNOTSUPP;
->>         }
->>
->>         return 0;
->> @@ -270,6 +272,8 @@ static void __exit optee_core_exit(void)
->>                 optee_smc_abi_unregister();
->>         if (!ffa_abi_rc)
->>                 optee_ffa_abi_unregister();
->> +       if (!rpmi_abi_rc)
->> +               optee_rpmi_abi_unregister();
->>  }
->>  module_exit(optee_core_exit);
->>
->> diff --git a/drivers/tee/optee/optee_private.h b/drivers/tee/optee/optee_private.h
->> index 2422caf3c883..07c27e322a71 100644
->> --- a/drivers/tee/optee/optee_private.h
->> +++ b/drivers/tee/optee/optee_private.h
->> @@ -188,6 +188,8 @@ struct rpmi_tee_device;
->>   * @rdev: owning RPMI service device
->>   * @shm_rht_lock: protects parcel lookup, insertion, removal and publication
->>   * @shm_rht: lookup by the host-endian parcel ID and nonce pair
->> + * @sec_caps: negotiated optional OPTEE_RPMI_CAP_* features
->> + * @notification_count: negotiated nonzero number of logical notification keys
->>   *
->>   * Callers keep their tee_shm alive while using its registration. Lookup
->>   * returns a raw pointer; the mutex does not protect its lifetime after
->> @@ -199,6 +201,8 @@ struct optee_rpmi {
->>         /* Protects parcel lookup, insertion, removal and publication. */
->>         struct mutex shm_rht_lock;
->>         struct rhashtable shm_rht;
->> +       u32 sec_caps;
->> +       u32 notification_count;
+>>  drivers/tee/Kconfig               |    3 +-
+>>  drivers/tee/optee/Kconfig         |    3 +-
+>>  drivers/tee/optee/Makefile        |    1 +
+>>  drivers/tee/optee/call.c          |    2 +
+>>  drivers/tee/optee/core.c          |   10 +-
+>>  drivers/tee/optee/optee_msg.h     |   38 +-
+>>  drivers/tee/optee/optee_private.h |   54 +-
+>>  drivers/tee/optee/optee_rpmi.h    |  234 ++++++++
+>>  drivers/tee/optee/rpmi_abi.c      | 1059 +++++++++++++++++++++++++++++++++++++
+>>  9 files changed, 1389 insertions(+), 15 deletions(-)
 > 
-> Why are these two needed?
+> The rpmi changes in the optee driver harmonize quite well with the
+> rest of the driver, but there are two things I'd like fixed:
+> - avoid <linux/cleanup.h> macros. They are distracting.
+> - use rc for the trivial int ERRNO values.
 > 
 
-Neither needs to be retained in the instance state: sec_caps is currently unused,
-and notification_count is consumed during probe. I'll remove both fields.
-I thought it would be nice to keep them.
+I'll make these changes.
 
->>  };
->>  #endif
->>
->> @@ -211,8 +215,8 @@ struct optee;
->>   * @os_build_id:       OP-TEE OS build identifier (0 if unspecified)
->>   *
->>   * Values come from OPTEE_SMC_CALL_GET_OS_REVISION (SMC ABI) or
->> - * OPTEE_FFA_GET_OS_VERSION (FF-A ABI); this is the trusted OS revision, not an
->> - * FF-A ABI version.
->> + * OPTEE_FFA_GET_OS_VERSION (FF-A ABI) or OPTEE_RPMI_GET_OS_VERSION (RPMI ABI).
->> + * This is the trusted OS revision, not a transport ABI version.
->>   */
->>  struct optee_revision {
->>         u32 os_major;
->> @@ -490,5 +494,18 @@ static inline void optee_ffa_abi_unregister(void)
->>  }
->>  #endif
->>
->> +#if IS_REACHABLE(CONFIG_RISCV_RPMI_TEE_TRANSPORT)
->> +int optee_rpmi_abi_register(void);
->> +void optee_rpmi_abi_unregister(void);
->> +#else
->> +static inline int optee_rpmi_abi_register(void)
->> +{
->> +       return -EOPNOTSUPP;
->> +}
->> +
->> +static inline void optee_rpmi_abi_unregister(void)
->> +{
->> +}
->> +#endif
->>
->>  #endif /*OPTEE_PRIVATE_H*/
->> diff --git a/drivers/tee/optee/rpmi_abi.c b/drivers/tee/optee/rpmi_abi.c
->> index 6e76316794c1..db541f3de425 100644
->> --- a/drivers/tee/optee/rpmi_abi.c
->> +++ b/drivers/tee/optee/rpmi_abi.c
->> @@ -684,3 +684,289 @@ static int optee_rpmi_do_call_with_arg(struct tee_context *ctx,
->>
->>         return optee_rpmi_yielding_call(ctx, &req, rpc_arg, system_thread);
->>  }
->> +
->> +/* Query and store the trusted OS revision. */
->> +static int optee_rpmi_get_os_version(struct optee *optee)
->> +{
->> +       struct optee_rpmi_probe_req req = {
->> +               .op = cpu_to_le32(OPTEE_RPMI_GET_OS_VERSION),
->> +       };
->> +       struct optee_rpmi_os_resp os;
->> +       int ret;
->> +
->> +       ret = optee_rpmi_call(optee, &req, sizeof(req), &os, sizeof(os));
->> +       if (ret)
->> +               return ret;
->> +
->> +       optee->revision.os_major = get_unaligned_le32(&os.major);
->> +       optee->revision.os_minor = get_unaligned_le32(&os.minor);
->> +       optee->revision.os_build_id = get_unaligned_le64(&os.build_id);
->> +
->> +       if (optee->revision.os_build_id)
->> +               pr_info("revision %u.%u (%016llx)\n",
->> +                       optee->revision.os_major, optee->revision.os_minor,
->> +                       optee->revision.os_build_id);
->> +       else
->> +               pr_info("revision %u.%u\n", optee->revision.os_major,
->> +                       optee->revision.os_minor);
->> +
->> +       return 0;
->> +}
->> +
->> +/* Query and store secure-world capabilities and buffer limits. */
->> +static int optee_rpmi_exchange_caps(struct optee *optee)
->> +{
->> +       struct optee_rpmi_probe_req req = {
->> +               .op = cpu_to_le32(OPTEE_RPMI_EXCHANGE_CAPABILITIES),
->> +       };
->> +       struct optee_rpmi_caps_resp caps;
->> +       u32 rpc_count, sec_caps, notif_count;
->> +       int ret;
->> +
->> +       ret = optee_rpmi_call(optee, &req, sizeof(req), &caps, sizeof(caps));
->> +       if (ret)
->> +               return ret;
->> +
->> +       sec_caps = get_unaligned_le32(&caps.secure_caps);
->> +       rpc_count = get_unaligned_le32(&caps.rpc_param_count);
->> +       notif_count = get_unaligned_le32(&caps.notification_count);
->> +       if (!notif_count || !rpc_count)
->> +               return -EPROTO;
->> +
->> +       optee->rpc_param_count = rpc_count;
->> +       optee->rpmi.sec_caps = sec_caps;
->> +       optee->rpmi.notification_count = notif_count;
->> +       optee->in_kernel_rpmb_routing = IS_REACHABLE(CONFIG_RPMB);
-> 
-> What if OP-TEE is built without RPMB support?
+> I would be great with a QEMU-based end-to-end prototype to demonstrate
+> that the ABI works.
 > 
 
-I discussed this with Sumit, and the intention was to make RPMB probing
-part of the baseline for the new ABI rather than negotiate it separately.
-I can enable the capability bit if it should remain optional.
+The OP-TEE side implementation is nearly complete. I'll incorporate your
+comments here and update the OP-TEE code accordingly. I haven't started
+the OpenSBI changes yet. Getting a QEMU-based end-to-end prototype working
+is my first priority before moving the series out of RFC.
 
->> +
->> +       return 0;
->> +}
->> +
->> +static int optee_rpmi_api_is_compatible(struct optee *optee)
->> +{
->> +       struct optee_rpmi_probe_req req = {
->> +               .op = cpu_to_le32(OPTEE_RPMI_GET_API_VERSION),
->> +       };
->> +       struct optee_rpmi_api_resp api;
->> +       int ret;
->> +
->> +       ret = optee_rpmi_call(optee, &req, sizeof(req), &api, sizeof(api));
->> +       if (ret)
->> +               return ret;
->> +
->> +       if (get_unaligned_le32(&api.major) != OPTEE_RPMI_VERSION_MAJOR)
->> +               return -EPROTONOSUPPORT;
->> +
->> +       /* Version 1.0 has no minimum minor revision beyond zero. */
->> +       return 0;
->> +}
->> +
->> +static void optee_rpmi_get_version(struct tee_device *teedev,
->> +                                  struct tee_ioctl_version_data *vers)
->> +{
->> +       *vers = (struct tee_ioctl_version_data) {
->> +               .impl_id = TEE_IMPL_ID_OPTEE,
->> +               .gen_caps = TEE_GEN_CAP_GP | TEE_GEN_CAP_REG_MEM |
->> +                           TEE_GEN_CAP_MEMREF_NULL,
->> +       };
->> +}
->> +
->> +static int optee_rpmi_open(struct tee_context *ctx)
->> +{
->> +       return optee_open(ctx, true);
->> +}
->> +
->> +static const struct tee_driver_ops optee_rpmi_clnt_ops = {
->> +       .get_version = optee_rpmi_get_version,
->> +       .get_tee_revision = optee_get_revision,
->> +       .open = optee_rpmi_open,
->> +       .release = optee_release,
->> +       .open_session = optee_open_session,
->> +       .close_session = optee_close_session,
->> +       .invoke_func = optee_invoke_func,
->> +       .cancel_req = optee_cancel_req,
->> +       .shm_register = optee_rpmi_shm_register,
->> +       .shm_unregister = optee_rpmi_shm_unregister,
->> +};
->> +
->> +static const struct tee_driver_ops optee_rpmi_supp_ops = {
->> +       .get_version = optee_rpmi_get_version,
->> +       .get_tee_revision = optee_get_revision,
->> +       .open = optee_rpmi_open,
->> +       .release = optee_release_supp,
->> +       .supp_recv = optee_supp_recv,
->> +       .supp_send = optee_supp_send,
->> +       .shm_register = optee_rpmi_shm_register,
->> +       .shm_unregister = optee_rpmi_shm_unregister_supp,
->> +};
->> +
->> +static const struct tee_desc optee_rpmi_clnt_desc = {
->> +       .name = DRIVER_NAME "-rpmi-clnt",
->> +       .ops = &optee_rpmi_clnt_ops,
->> +       .owner = THIS_MODULE,
->> +};
->> +
->> +static const struct tee_desc optee_rpmi_supp_desc = {
->> +       .name = DRIVER_NAME "-rpmi-supp",
->> +       .ops = &optee_rpmi_supp_ops,
->> +       .owner = THIS_MODULE,
->> +       .flags = TEE_DESC_PRIVILEGED,
->> +};
->> +
->> +static const struct optee_ops optee_rpmi_ops = {
->> +       .do_call_with_arg = optee_rpmi_do_call_with_arg,
->> +       .to_msg_param = optee_rpmi_to_msg_param,
->> +       .from_msg_param = optee_rpmi_from_msg_param,
->> +};
->> +
->> +/* Keep callback state and memory tables alive until all TEE users release. */
->> +static void optee_rpmi_remove(struct rpmi_tee_device *rdev)
->> +{
->> +       struct optee *optee = dev_get_drvdata(&rdev->dev);
->> +
->> +       optee_remove_common(optee);
->> +       optee_rpmi_shm_rht_uninit(optee);
->> +       kfree(optee);
->> +}
->> +
->> +static int optee_rpmi_probe(struct rpmi_tee_device *rdev)
->> +{
->> +       struct tee_device *teedev;
->> +       struct tee_context *ctx;
->> +       int ret;
->> +
->> +       struct optee *optee __free(kfree) = kzalloc_obj(*optee);
-> 
-> The cleanup macros should, if I understand it correctly, not be used
-> in functions using gotos for cleanup.
+Apologies for the obvious oversights and bugs in this version. So far,
+I've only compile-tested the code; it still needs end-to-end validation.
 
-I'll remove all cleanup.h related macros as requested.
+> More comments to come in the individual patches.
 
-> 
->> +       if (!optee)
->> +               return -ENOMEM;
->> +
->> +       optee->rpmi.rdev = rdev;
->> +       optee->ops = &optee_rpmi_ops;
->> +
->> +       ret = optee_rpmi_api_is_compatible(optee);
->> +       if (ret)
->> +               return ret;
->> +
->> +       ret = optee_rpmi_get_os_version(optee);
->> +       if (ret)
->> +               return ret;
->> +
->> +       ret = optee_rpmi_exchange_caps(optee);
->> +       if (ret)
->> +               return ret;
->> +
->> +       optee->pool = optee_rpmi_shm_pool_alloc();
-> 
-> Perhaps it's just me, but it seems a bit odd to store an err pointer
-> in a struct like this.
-> 
+Thanks, Jens, for the early comments and feedback. They are very helpful
+in shaping the final code and guiding the direction of the implementation.
 
-Ack.
-
->> +       if (IS_ERR(optee->pool))
->> +               return PTR_ERR(optee->pool);
->> +
->> +       ret = optee_rpmi_shm_rht_init(optee);
->> +       if (ret)
->> +               goto err_pool;
->> +
->> +       optee_cq_init(&optee->call_queue, 0);
->> +       optee_supp_init(&optee->supp);
->> +       optee_shm_arg_cache_init(optee, OPTEE_SHM_ARG_SHARED);
->> +       mutex_init(&optee->rpmb_dev_mutex);
->> +       INIT_WORK(&optee->rpmb_scan_bus_work, optee_bus_scan_rpmb);
->> +       optee->rpmb_intf.notifier_call = optee_rpmb_intf_rdev;
->> +       ret = optee_notif_init(optee, optee->rpmi.notification_count);
->> +       if (ret)
->> +               goto err_common;
->> +
->> +       /* Allocate all keys, then restrict the inclusive bound to the last key. */
->> +       optee->notif.max_key = optee->rpmi.notification_count - 1;
-> 
-> Why? Do you have any plans for that?
-> 
-
-The comment is misleading; there is no additional restriction intended.
-The ABI currently reports a key count, while the common notification code uses an
-inclusive maximum key. I'll change the ABI to report the maximum key instead
-and remove this adjustment.
-
-Thanks Jens for the review.
-
-Best Regards,
+Best regards,
 Amir
 
+> 
 > Cheers,
 > Jens
-> 
->> +
->> +       teedev = tee_device_alloc(&optee_rpmi_clnt_desc, &rdev->dev,
->> +                                 optee->pool, optee);
->> +       if (IS_ERR(teedev)) {
->> +               ret = PTR_ERR(teedev);
->> +               goto err_notif;
->> +       }
->> +       optee->teedev = teedev;
->> +
->> +       teedev = tee_device_alloc(&optee_rpmi_supp_desc, &rdev->dev,
->> +                                 optee->pool, optee);
->> +       if (IS_ERR(teedev)) {
->> +               ret = PTR_ERR(teedev);
->> +               goto err_devices;
->> +       }
->> +       optee->supp_teedev = teedev;
->> +
->> +       optee_set_dev_group(optee);
->> +
->> +       /* Internal RPC allocation must be ready before userspace can enter. */
->> +       ctx = teedev_open(optee->teedev);
->> +       if (IS_ERR(ctx)) {
->> +               ret = PTR_ERR(ctx);
->> +               goto err_devices;
->> +       }
->> +
->> +       optee->ctx = ctx;
->> +       dev_set_drvdata(&rdev->dev, optee);
->> +       if (optee->in_kernel_rpmb_routing)
->> +               blocking_notifier_chain_register(&optee_rpmb_intf_added,
->> +                                                &optee->rpmb_intf);
->> +
->> +       ret = tee_device_register(optee->teedev);
->> +       if (ret)
->> +               goto err_initialized;
->> +
->> +       ret = tee_device_register(optee->supp_teedev);
->> +       if (ret)
->> +               goto err_initialized;
->> +
->> +       ret = optee_enumerate_devices(PTA_CMD_GET_DEVICES);
->> +       if (ret)
->> +               goto err_initialized;
->> +
->> +       dev_info(&rdev->dev, "OP-TEE RPMI %u.%u initialized\n",
->> +                optee->revision.os_major, optee->revision.os_minor);
->> +       retain_and_null_ptr(optee);
->> +
->> +       return 0;
->> +
->> +err_initialized:
->> +       /* The remove path owns and frees the published backend state. */
->> +       retain_and_null_ptr(optee);
->> +       optee_rpmi_remove(rdev);
->> +
->> +       return ret;
->> +err_devices:
->> +       tee_device_unregister(optee->supp_teedev);
->> +       tee_device_unregister(optee->teedev);
->> +       optee_shm_arg_cache_uninit(optee);
->> +err_notif:
->> +       optee_notif_uninit(optee);
->> +err_common:
->> +       optee_supp_uninit(&optee->supp);
->> +       mutex_destroy(&optee->call_queue.mutex);
->> +       rpmb_dev_put(optee->rpmb_dev);
->> +       mutex_destroy(&optee->rpmb_dev_mutex);
->> +       optee_rpmi_shm_rht_uninit(optee);
->> +err_pool:
->> +       tee_shm_pool_free(optee->pool);
->> +
->> +       return ret;
->> +}
->> +
->> +static const struct rpmi_tee_device_id optee_rpmi_device_ids[] = {
->> +       { OPTEE_RPMI_SERVICE_UUID },
->> +       {}
->> +};
->> +
->> +static struct rpmi_tee_driver optee_rpmi_driver = {
->> +       .name = DRIVER_NAME "-rpmi",
->> +       .probe = optee_rpmi_probe,
->> +       .remove = optee_rpmi_remove,
->> +       .id_table = optee_rpmi_device_ids,
->> +};
->> +
->> +int optee_rpmi_abi_register(void)
->> +{
->> +       return rpmi_tee_register(&optee_rpmi_driver);
->> +}
->> +
->> +void optee_rpmi_abi_unregister(void)
->> +{
->> +       rpmi_tee_unregister(&optee_rpmi_driver);
->> +}
->> +
->> +MODULE_ALIAS("rpmi_tee:486178e0-e7f8-11e3-bc5e-0002a5d5c51b");
->>
->> --
->> 2.34.1
->>
 
