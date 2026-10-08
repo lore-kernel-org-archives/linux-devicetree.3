@@ -1,149 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BE544EFFDD;
-	Thu,  8 Oct 2026 18:36:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1B494F4D0C
+	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 18:46:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791484608; cv=none; b=YfaFD/5oINreE2mHFArZXdiUF20fCq1PVIs5hkUXDqhRcyi3X5Z68wvyhtMWC3RxXUp7UT3RQDPo+ETsZ9j80JyNl0XCZ0mUsUtfwF0Ky9TpAWQXYwxrF7ob+cz76MdpvJ5+dD317e1BWin6CcyT9ASS3AOZ5s8LZFgZUkwjr5U=
+	t=1791485219; cv=none; b=US226TtfJcGgaPwh9di8vMh6KFmlf/84cEG3DE3BGSz3/3qMD7t/eHJfM794B3tELtqEIm/Jjo1lmqG7wg8PWuYVDlaJm5CFziJ9rx1t8A4A8hzQv42x3/Qs4wbjbKm4BOu0TES3g3e+5SqpMu/S1uFtiOFQ7S9hZtFVs7Cwmog=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791484608; c=relaxed/simple;
-	bh=Wnj54q8YUgvlpsEvWnXl3VYDgMrDTSqTXzx0TYVY7V4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZfIxAHWIl8jKyl1dhvjAOhQFltErkvhzP2A1HCp28xMDnKEz8yHjNbZjEs2O8B7AA8zoGgUMYiWXkkSEE+IOMDMK71E05wlAEM32BFACaQYMhpZNM5lGos7nC8V0PL0mTmbIerZamaPg50Rst7nlZzDXn2paQkX3lyGao9wiwFM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bRbMa3oY; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791485219; c=relaxed/simple;
+	bh=WqUMFMPWZ746lMssxYdDiHwYphMtVzEwwCmluHImrxE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lklS2oRTKmEDmAAY1YRi0qA26/Cbah1jB7rvrZ1IZ1A3xHY6DOFARh4J9JCpAtlOey9LcxYPzbvSqPqB5L6zcH+H2Ciyb9cNqsyB83yb66pS5/FWE03WYIpQ5WuKrMcfMskC8DRkMX8vpifFrgQUUuyiy347XygZdS3PkdHcFTI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=fym3bOV5; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bRbMa3oY"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 055E2C2BCFA;
-	Thu,  8 Oct 2026 18:36:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791484608;
-	bh=Wnj54q8YUgvlpsEvWnXl3VYDgMrDTSqTXzx0TYVY7V4=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=bRbMa3oYhT2iwf/7AGcrh6N5b/PB8QWTYAqED9i6hmmpVY7S3bdD1r/Uqpaz/zgEs
-	 yxs1ptYLx6Yz1tW8HtSk4nQ1/mivXXLLUBW2n9gKLB6QvhGT2ZyV8Ve+NKcCAMxRIr
-	 JHJcSbU/o3Qwogd7iActm684jQG0M0xYiKAJLW6+HOd1o0UY1NYa2b6utpHZqzvS2X
-	 RZGn2rHxDnonlyjyTlG23i1hVFkUzEY8Yn2ysOqh5hpc3LyjoWzRX2wC2bflfz9wGl
-	 BgdQl7rYF3gnIziXXteHonMn9Shj5SKl9IIX3fYwsg/dm2qi2TEDT1Pdnrgh6GjR8l
-	 A2P61LXVcia8A==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D67EBCA600D;
-	Thu,  8 Oct 2026 18:36:47 +0000 (UTC)
-From: Juerg Haefliger via B4 Relay <devnull+juerg.haefliger.canonical.com@kernel.org>
-Date: Thu, 08 Oct 2026 20:34:45 +0200
-Subject: [PATCH 1/2] arm64: dts: qcom: x1-hp-omnibook-x14: Consolidate
- pmics and chassis
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="fym3bOV5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=WqUM
+	FMPWZ746lMssxYdDiHwYphMtVzEwwCmluHImrxE=; b=fym3bOV5SNdgJdg5WnnA
+	3R4Aw8nE/L3VuD1g9ikUnccSIC6ox0UVfUCFJ5kmsoSVvpKMwunqNy0bHw/I4aRA
+	fJeqyXyFbBVYyUbnzu5FpCVqdmLkZSnoGVze+jDgIhOinwupAKs5CmQpwscB2f8y
+	PhRSv/vH1xBs9aPkYfJoCOCyMrW3eO6bFRbNKeojAkUOwPdFti8yoGTw/pSsWqzs
+	U6NW2lBZaBGCcHqY+Gm41YTQLsT4YFhTvEDAa4VaegmdHPU/LhNOBcuIKcFofUcs
+	WO3U49iXOasp8EjqKck8UD6MOiiq2xNDmCxExM3vBXPwIx3GWPjglt4posoM4JtB
+	Og==
+Received: (qmail 862361 invoked from network); 8 Oct 2026 20:40:07 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 8 Oct 2026 20:40:07 +0200
+X-UD-Smtp-Session: l3s3148p1@YqeNj1hdwLXDesiu
+Date: Thu, 8 Oct 2026 20:40:07 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: linux-renesas-soc@vger.kernel.org, Vinod Koul <vkoul@kernel.org>
+Cc: Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	dmaengine@vger.kernel.org, Frank Li <Frank.Li@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>,
+	Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
+Subject: Re: [PATCH v2 0/4] dmaengine: sh: rcar-dmac: add R-Car Gen5 X5H
+ support
+Message-ID: <asfjhlIEVX2P1xya@shikoro>
+References: <20260909094009.2167-6-wsa+renesas@sang-engineering.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261008-dts-qcom-hp-omnibook-x14-cleanup-v1-1-9702f7c6f9a0@canonical.com>
-References: <20261008-dts-qcom-hp-omnibook-x14-cleanup-v1-0-9702f7c6f9a0@canonical.com>
-In-Reply-To: <20261008-dts-qcom-hp-omnibook-x14-cleanup-v1-0-9702f7c6f9a0@canonical.com>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Juerg Haefliger <juerg.haefliger@canonical.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2242;
- i=juerg.haefliger@canonical.com; s=F9F8B48C; h=from:subject:message-id;
- bh=j7pMf26hX8bJSWnw8uEGTbwJEDfsrIEGVVZIkhhh8uo=;
- b=owEBbQKS/ZANAwAKAQ/TiwkLpkK3AcsmYgBqx+K+R2lBpLey6me2EmAd3V4hxEyjkr0eM9VQ+
- itHGCEL1HSJAjMEAAEKAB0WIQSFl9T3oi6mu+It14sP04sJC6ZCtwUCasfivgAKCRAP04sJC6ZC
- t5U5EACcu6My0DQzXypIkBrRF7Eu9omv95F5oCCZPyDcjlKsu1x3XxyAwZEGvt3CVGHV+6VztTp
- nPgSsr7+AOgZO1Bq6LVDwnx8CACex01PJRhwK76Hd/omQkaXefrLjCwhhkbt8WP1/5lCScZYi9+
- 4w6j8fHMBFg2yEvBBy4fSxWUIOITdbQV2FXzVniby08xpPAu/LjeJnUTHHNwju8tLA8x/ayb4vt
- w/voxcwjYMER8jFwG1jrFWKCejfxehD+pcDZhrOYgMZ6TC+fYdC+9zAm0Oi+HS5Nezth7KKXg6B
- jgGUqhZ5Z7/LToQlZHmY5oYXCpW5qIUP6Pm4JfD3VbxAjtZtxxTfI7dj6Hg0JgeOlq80YyQq1El
- znom09+M2Osqki+uRRegZaIHHd43DXzS4iTayIh7dNffEcM+DsxUuUlN2TMszegzkVZC3Qm8R/y
- /XDTk78ThM3yo33zvdqAuHJPua2DJEkIRHX4R2uAGAtIYu7PdYuzSE4EXThsatxvVVG+SNV7Ght
- 868ALpKYXGXIVBaW5pVua5k98eom9Snm44yeUa3h+Nw+YmgsI3wFt4G+z6N3Bp2k7iYMr4JAAb2
- 803Arp04y6LfDjXZ2rLsfC8cOmb3kkEArxr3fPGH37nlL9OaWnpv0F6DX4bYkdCswAoX5XElcdZ
- 34TX8/a7AM/PqFw==
-X-Developer-Key: i=juerg.haefliger@canonical.com; a=openpgp;
- fpr=52B5BDD2A6EDC76A0FE0AB4A754C3A96F9F8B48C
-X-Endpoint-Received: by B4 Relay for juerg.haefliger@canonical.com/F9F8B48C
- with auth_id=1135
-X-Original-From: Juerg Haefliger <juerg.haefliger@canonical.com>
-Reply-To: juerg.haefliger@canonical.com
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="fjv2SOTvqNyKNWTR"
+Content-Disposition: inline
+In-Reply-To: <20260909094009.2167-6-wsa+renesas@sang-engineering.com>
 
-From: Juerg Haefliger <juerg.haefliger@canonical.com>
+--fjv2SOTvqNyKNWTR
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-hamoa-pmics.dtsi and chassis-type are identical across the HP Omnibook X14
-boards that include this shared dtsi, so move them there.
+On Wed, Sep 09, 2026 at 11:40:09AM +0200, Wolfram Sang wrote:
+> Here is a small series with the needed driver updates to support R-Car
+> Gen5 and X5H for the SYSC-DMAC. Details are in the patch descriptions,
+> but it is all small stuff.
+>=20
+> It has been tested on an Ironhide board (X5H) and a SparrowHawk (V4H)
+> for regression testing. The testing branch can be found here:
+>=20
+> git://git.kernel.org/pub/scm/linux/kernel/git/wsa/linux.git renesas/x5h/i=
+2c-experimental
+>=20
+> The patches here are based on linux-next as of 20260908. DT checks have
+> also been passed.
+>=20
+> Looking forward to comments or approval!
 
-Signed-off-by: Juerg Haefliger <juerg.haefliger@canonical.com>
----
- arch/arm64/boot/dts/qcom/x1-hp-omnibook-x14.dtsi      | 4 ++++
- arch/arm64/boot/dts/qcom/x1e80100-hp-omnibook-x14.dts | 2 --
- arch/arm64/boot/dts/qcom/x1p42100-hp-omnibook-x14.dts | 3 +--
- 3 files changed, 5 insertions(+), 4 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/qcom/x1-hp-omnibook-x14.dtsi b/arch/arm64/boot/dts/qcom/x1-hp-omnibook-x14.dtsi
-index 443901a09d4c..1ae68a71bb3e 100644
---- a/arch/arm64/boot/dts/qcom/x1-hp-omnibook-x14.dtsi
-+++ b/arch/arm64/boot/dts/qcom/x1-hp-omnibook-x14.dtsi
-@@ -10,7 +10,11 @@
- #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
- #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
- 
-+#include "hamoa-pmics.dtsi"
-+
- / {
-+	chassis-type = "laptop";
-+
- 	aliases {
- 		serial0 = &uart21;
- 		serial1 = &uart14;
-diff --git a/arch/arm64/boot/dts/qcom/x1e80100-hp-omnibook-x14.dts b/arch/arm64/boot/dts/qcom/x1e80100-hp-omnibook-x14.dts
-index b79e59e1c413..5630ed1181ca 100644
---- a/arch/arm64/boot/dts/qcom/x1e80100-hp-omnibook-x14.dts
-+++ b/arch/arm64/boot/dts/qcom/x1e80100-hp-omnibook-x14.dts
-@@ -7,13 +7,11 @@
- /dts-v1/;
- 
- #include "hamoa.dtsi"
--#include "hamoa-pmics.dtsi"
- #include "x1-hp-omnibook-x14.dtsi"
- 
- / {
- 	model = "HP Omnibook X 14-fe0";
- 	compatible = "hp,omnibook-x14", "qcom,x1e80100";
--	chassis-type = "laptop";
- };
- 
- &gpu_zap_shader {
-diff --git a/arch/arm64/boot/dts/qcom/x1p42100-hp-omnibook-x14.dts b/arch/arm64/boot/dts/qcom/x1p42100-hp-omnibook-x14.dts
-index 0e4dfb0f0a2a..53a3ede856f0 100644
---- a/arch/arm64/boot/dts/qcom/x1p42100-hp-omnibook-x14.dts
-+++ b/arch/arm64/boot/dts/qcom/x1p42100-hp-omnibook-x14.dts
-@@ -3,8 +3,8 @@
- /dts-v1/;
- 
- #include "purwa.dtsi"
--#include "hamoa-pmics.dtsi"
- #include "x1-hp-omnibook-x14.dtsi"
-+
- /delete-node/ &pmc8380_6;
- /delete-node/ &pmc8380_6_thermal;
- /delete-node/ &pmc8380_6_die_temp;
-@@ -12,7 +12,6 @@
- / {
- 	model = "HP Omnibook X 14-fe1";
- 	compatible = "hp,omnibook-x14-fe1", "qcom,x1p42100";
--	chassis-type = "laptop";
- };
- 
- &gpu_zap_shader {
-
--- 
-2.53.0
+Every patch reviewed and tagged twice (thank you, guys!), no complaints
+=66rom Sashiko even - can we have this in 7.4 pretty please?
 
 
+--fjv2SOTvqNyKNWTR
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmrH44YACgkQFA3kzBSg
+KbYuPQ/+M5/jRv3uKEzc2vj5XCf0ehBO4E/vr01TuDrEhOAu6EnIyQKMUcTiSSEA
++6jv9iTq5GIK7bKBaQZ9MwuYe5Ed46CLbywxV4qErtFPD/Cr8p+KDjvFul+gu+cI
+Yvvy3PJmz2k0zE4VWZqR+8dnBykNP3CRhvc2+yKO1YwiES+nfATAYfAUaxRiBqNV
+sfDF7Q+Ct5DPAB3j10pJufKdTDoYwCJ3CFCb07BIkZ8YHYCyLqtxsx4HAvap59SL
+KrPeB/Z1xYt6SMyiGON69L2zWZS/VrQtM7ZUXgvnRPjugC8tLx+qpU69wjl8tppV
+8sRcXUrso0IguwqcbTKZ5tXDTEkJVZS85uMLBXF2RtMrvI4NLgh5vRnI1urjQV/I
+Z+7/A5aJfoVABS6R6iLEw2KVGMAN51WU5WTRmpMzWNoAxfmVzH12z89TsAKf22ij
+FKGXCQ7AZFVXJZXjVE170Qq3GqGZdVNPR6rrzmPq7N2jolCUYcjHEPIRMOG8hIoV
+h+TtRxNXwacskIg1FC7UPMspFXezoJkuy//6HaHBayAZerST/DxrCurmr4+cO/NM
+ZSVNtU4jXPz8/eyxFWnIBsdx7RwI1WzFIwIjbIXs0UMyPL69fI2m0iLBCW+Jg6qZ
+IFeDE/QCRPv/ikiWAFpInPqiRSeVftQZInLKPD05HCNmSMT3nWw=
+=/9FF
+-----END PGP SIGNATURE-----
+
+--fjv2SOTvqNyKNWTR--
