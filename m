@@ -1,93 +1,170 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CA31411FBE
-	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 09:21:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD8043D16FC
+	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 09:23:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791451323; cv=none; b=RT9QkAKn5CaE1Hjo97qCthObXWrITYZsZbY4O7wI+gE4aDENuBajNCb7ZNUH0PBZi0xy6Pjt+7wWzcN+3OdRswSEki8pXlTeFrmB/zUbeYJu6InnoCGMwF8SvOpcV23yaG16yKGQAaRdgt4B1e01WsHoCTz32XUTwAYOdeoZXRk=
+	t=1791451443; cv=none; b=PUryXK8G8qbgw4anR8+Vish5mgnB2xKU9AO+QyzxYFzL3y9/+YoM8EkJZB+XV/jPgP667kbMYgLK6XnIC78EbiF3e79FvaKAeOG9mK9R8rE+QKvlWxiWgkMDYLb1ZWkKVPhQUMJWhGsSK7RS/b7rkobeUzumazxCw63CLt44KxQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791451323; c=relaxed/simple;
-	bh=oFPXGKpY3pOjoAbiz1VXsbR0IHBy67O4YlMMZGIWudw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tMXlxqzPc+i1z3Ut5KJnDw5iq0cSu6qOj+nfcJph7/L/ogQVP+AeG/Ejzyt8aT66/0PzKsYsAJREWnC4/Mt/qcINePreqHDRP8KsQcEOSBjUMlgE7o26FpnRMR6q+h6N542XGfM0VBI3mzTa8RIu1GWYEQjV8UQXzy50jkBXVLs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O/wmSj2u; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791451443; c=relaxed/simple;
+	bh=iYR19gTPeZ+0mKxlq6YtuJ3afIts1ruLM4nqVfqzFGU=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=KCbq/kFzMcm2+XU4ijaXX3CeyJuBpR3FJnj0IovNcA8p0uWO0K+274/EHIKKxTz8UhUpOU12DF7frJ88K5FAebn4G68ASUDAd7Fuf/W/5jLrhiL14X/qdlyyv42YsFIk9+lafp7Jb1w6bWvvrzrGgk/5T3kh9PWhaC0UHK5/9Xo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VRZxZOAg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O/wmSj2u"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F2FF1F0089C
-	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 09:21:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VRZxZOAg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B14E81F000FF;
+	Thu,  8 Oct 2026 09:23:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791451315;
-	bh=GWFUUUrBgiIzK+gqT3tOqpmacYA8GLgSjw0YdluaFDU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=O/wmSj2uEqcTYn0JsiBAWBr1mTy1i3Hhhg2zHwNy5LCc0R5LVdyYNByVtp+5RbDqC
-	 yu8jRuG5tiXQdJN/6h9C/DVJY89tihoWqhAlsGqYjHDPg4npgnBgqrYQeUWUtBDxJK
-	 7Pbzsr/NxhfmK06/fYZrX9D3q1bai1sVVseMAomdyOzesc/wUoURGv6rxDKQgCh9z2
-	 zyYl8gs4z60qQTOe7AMTe4Tatn7ccmD7+jvPpg0HsdRPRgt4ZHw8zK0rXBUJeecEJ4
-	 HRhyMN7xHrY9sEIEeVl73kwad285NnnlG6JYbgIBRLXs8TgyLFcJpFjSwfQom3VAiF
-	 g1hvtPUbbL9EA==
-Received: by mail-oa1-f44.google.com with SMTP id 586e51a60fabf-48ed0b68895so1623046fac.1
-        for <devicetree@vger.kernel.org>; Thu, 08 Oct 2026 02:21:55 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxuPTQpFv8tO0WtOIRpOoG2VWZRUI3HLg+hfPjhTAujRdpxk85uSAMmDidEfSLMs5lnBAPWrni/nDUu@vger.kernel.org
-X-Gm-Message-State: AFuF++kV+CmW0FYGWgWmz3am6Wg9YF78TGSr0yPEa6ngnrYWSisqUmqA
-	DcgL7CGSDK0DFcc8YdD7fq2y6NGHxUzfVvxLVMvT5PWCvKfBn9rKbb884GeVvwMOBcuQSrnKM03
-	qMaEI7H+AjzzE9MxPDVNSBg0qboxS47U=
-X-Received: by 2002:a05:6870:1425:b0:49e:691c:1bdb with SMTP id
- 586e51a60fabf-4a259412f13mr4800707fac.32.1791451314370; Thu, 08 Oct 2026
- 02:21:54 -0700 (PDT)
+	s=k20260515; t=1791451438;
+	bh=vGBXaOW46LYPSlG/0ajmIwbaPWZx2V53Be/RKprSEAw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=VRZxZOAggo0KuHWNOwc3mrMhW+wSsyu6WEY+eqEHXuN2SUQoCiUP/dP6kmjE8wB5+
+	 JMib5lkkurO3QdGZp7r/7dHSdPxZCtj8ksmlQ7aYEtwHxQpgOwlPZvfkYvU5zeMQeM
+	 OdxQWIVo/pCX00hRPiI87RB3rAP5uRd/xfv6PentKwq9y1Bu582hn4cU3c0DEBbTDX
+	 69V0+fOC6FYETHyvTGIQY/G8E3CxEQTpI3hxFz/sAIhMAC4sHHZLlwg2lQR9HlC5nN
+	 RLgiIWIKwveYJeMEypQdZPHM8AIuU9wqefqLZXY5MqA2J49XHOQukRKKml0ynrG/YJ
+	 3fcCzHNGXvqiw==
+Message-ID: <sashiko-outbox-163931@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 4/7] firmware: riscv: Add RPMI performance service
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Joshua Yeong" <joshua.yeong@starfivetech.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20261008091032.2832333-5-joshua.yeong@starfivetech.com>
+References: <20261008091032.2832333-1-joshua.yeong@starfivetech.com>
+ <20261008091032.2832333-5-joshua.yeong@starfivetech.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 08 Oct 2026 09:23:58 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20261005202731.153971-1-pmazzini@gmail.com> <20261005202731.153971-4-pmazzini@gmail.com>
- <20261007211626.GA338242-robh@kernel.org> <6bb97a9e-cc9c-48c0-bf6d-3a1c6e8048f2@arm.com>
-In-Reply-To: <6bb97a9e-cc9c-48c0-bf6d-3a1c6e8048f2@arm.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 8 Oct 2026 11:21:40 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=5XbF11=B8Ek0sEXbBthDvMXntsS1B3g=hVj3tvJrJ8Q@mail.gmail.com>
-X-Gm-Features: AclHuK8MDx9mBKh-LkXc2Y_EmzTnr-w652rPt-NhKQsERmYINlS6dZoVxe0T-gI
-Message-ID: <CAD++jL=5XbF11=B8Ek0sEXbBthDvMXntsS1B3g=hVj3tvJrJ8Q@mail.gmail.com>
-Subject: Re: [PATCH v3 03/11] dt-bindings: pinctrl: sun4i-a10: add Allwinner B288
-To: Andre Przywara <andre.przywara@arm.com>
-Cc: Rob Herring <robh@kernel.org>, Pablo Mazzini <pmazzini@gmail.com>, Chen-Yu Tsai <wens@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Maxime Ripard <mripard@kernel.org>, 
-	Samuel Holland <samuel@sholland.org>, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-sunxi@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 8, 2026 at 9:50=E2=80=AFAM Andre Przywara <andre.przywara@arm.c=
-om> wrote:
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] firmware: riscv: Silent truncation of 64-bit physical addresses on=
+ 32-bit platforms
+- [High] firmware: riscv: UAF on manual unbind of RPMI performance driver
+--
 
-> If you mean to just drop the allwinner prefix: this has been discussed,
-> but NAKed, because the generic property carries a different semantic.
-> And implementing that generic behaviour in the existing sunxi pinctrl
-> driver would be quite some effort (read: a rewrite), without any obvious
-> win, so we decided back then to not boil the ocean here, and just go
-> with a special property.
+commit 3fe9e4964a54e548bf390b9011dab852e2cb26bb
+Author: Joshua Yeong <joshua.yeong@starfivetech.com>
 
-The point to switch over to the generic "pinmux" property would be
-when a completely new SoC series with new hardware arrives, so that
-it is significantly different from earlier iterations.
+firmware: riscv: Add RPMI performance service
 
-I don't know which semantic with the standard "pinmux" property you
-got hung up on though remind me?
+This commit adds a mailbox client based core for the RISC-V RPMI performance
+service group. It manages the mailbox channel, enumerates performance
+domains, and exports interfaces for front-end drivers.
 
-The bindings just state this:
+> diff --git a/drivers/firmware/riscv/riscv-rpmi-performance.c b/drivers/fi=
+rmware/riscv/riscv-rpmi-performance.c
+> index 0000000000000..d44802f07ab0a 100644
+> --- /dev/null
+> +++ b/drivers/firmware/riscv/riscv-rpmi-performance.c
+[ ... ]
+> +static int rpmi_perf_extract_attributes(struct rpmi_perf_get_fast_channe=
+l_attributes_rx *rx,
+> +					struct rpmi_perf_domain *domain,
+> +					struct rpmi_fc_info *fc, u32 service_id)
+> +{
+> +	u64 region_size =3D domain->perf->fast_channel.size;
+> +	u64 phys_offset, phys_addr, db_phys_addr;
+[ ... ]
+> +	phys_addr =3D domain->perf->fast_channel.addr + phys_offset;
+> +
+> +	addr =3D devm_ioremap(domain->dev, phys_addr, size);
 
-  pinmux:
-    description:
-      The list of numeric pin ids and their mux settings that properties in=
- the
-      node apply to (either this, "pins" or "groups" have to be specified)
-    $ref: /schemas/types.yaml#/definitions/uint32-array
+[Severity: High]
+Does this code silently truncate the 64-bit physical address on 32-bit plat=
+forms?
 
-It's just an opaque u32 array controlling all muxing for a device.
-There could be one single element in the array.
+The variables phys_addr and db_phys_addr are 64-bit u64 values. However,
+devm_ioremap() takes a resource_size_t as its second argument. On 32-bit
+RISC-V platforms without CONFIG_PHYS_ADDR_T_64BIT, resource_size_t is 32-bi=
+t.
+If the firmware supplies an address above 4GB, the upper 32 bits are silent=
+ly
+truncated, mapping the wrong physical memory. This could lead to memory
+corruption on subsequent fast channel or doorbell iowrite32 operations.
 
-Yours,
-Linus Walleij
+Should the driver explicitly validate that phys_addr and db_phys_addr do not
+exceed (resource_size_t)~0ULL?
+
+> +	if (!addr) {
+> +		dev_err(domain->dev,
+> +			"failed to get fastchannel virtual addr in domain: %d\n",
+> +			domain->id);
+> +		return -EADDRNOTAVAIL;
+> +	}
+> +
+> +	switch (service_id) {
+> +	case RPMI_PERF_SRV_GET_LEVEL:
+> +		fc->get_addr =3D addr;
+> +		break;
+> +	case RPMI_PERF_SRV_SET_LEVEL:
+> +		if (SUPPORTS_DOORBELL(flags)) {
+> +			db =3D devm_kzalloc(domain->dev,
+> +					  sizeof(struct rpmi_fc_db_info),
+> +					  GFP_KERNEL);
+> +			if (!db) {
+> +				ret =3D -ENOMEM;
+> +				goto err_unmap;
+> +			}
+> +
+> +			db_addr_width =3D 1 << (DOORBELL_REG_WIDTH(flags) + 3);
+> +			db_phys_addr =3D le32_to_cpu(rx->db_addr_low);
+> +			db_phys_addr |=3D (u64)le32_to_cpu(rx->db_addr_high) << 32;
+> +
+> +			/* The doorbell can be any register; map only its width. */
+> +			db_addr =3D devm_ioremap(domain->dev, db_phys_addr,
+> +					       db_addr_width / BITS_PER_BYTE);
+
+[Severity: High]
+Does this face the same 64-bit to 32-bit silent truncation issue as phys_ad=
+dr
+above when passed to devm_ioremap()?
+
+> +			if (!db_addr) {
+> +				devm_kfree(domain->dev, db);
+> +				ret =3D -EADDRNOTAVAIL;
+> +				goto err_unmap;
+> +			}
+[ ... ]
+> +static struct platform_driver rpmi_perf_platdrv =3D {
+> +	.driver =3D {
+> +		.name =3D "riscv-rpmi-performance",
+> +		.of_match_table =3D rpmi_perf_of_match,
+> +	},
+> +	.probe =3D rpmi_perf_probe,
+> +};
+
+[Severity: High]
+Does this driver allow manual sysfs unbinding which could lead to a
+use-after-free?
+
+If a privileged user unbinds the riscv-rpmi-performance driver (or its chil=
+d)
+via sysfs while consumers are still attached, pm_genpd_remove() returns -EB=
+USY
+and leaves the domain registered in the PM core. Because the error is ignor=
+ed,
+devres proceeds to free the provider and genpd structs, as well as the
+rpmi_perf_domain structures, and unmaps the fast channels. When a consumer
+later transitions its performance state, it dereferences the freed memory a=
+nd
+crashes the kernel.
+
+Should the platform driver set .suppress_bind_attrs =3D true to prevent man=
+ual
+sysfs unbinds?
+
+> +
+> +module_platform_driver(rpmi_perf_platdrv);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261008091032.2832=
+333-1-joshua.yeong@starfivetech.com?part=3D4
