@@ -1,107 +1,93 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCE4E3859F5
-	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 09:21:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CA31411FBE
+	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 09:21:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791451310; cv=none; b=imOayFbixf52cVD8ga6RnIWF00hoMhlDW/AFFFNcCRG3l1M46Cm9vElpEiZyL1Y9Xw2RMGrZo9H+/U3W2/nAJulc6LsotEPdFUcASxHT8LhG1SzaNPKfh3UrMSwF1/6uEDF9b89uZu65+NWUxY0IJA5GJ+cy96/CuS7V/05IFIM=
+	t=1791451323; cv=none; b=RT9QkAKn5CaE1Hjo97qCthObXWrITYZsZbY4O7wI+gE4aDENuBajNCb7ZNUH0PBZi0xy6Pjt+7wWzcN+3OdRswSEki8pXlTeFrmB/zUbeYJu6InnoCGMwF8SvOpcV23yaG16yKGQAaRdgt4B1e01WsHoCTz32XUTwAYOdeoZXRk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791451310; c=relaxed/simple;
-	bh=WcKQJkF3nojUAwMZhVXNUskbKMssC6LAmZB0sXsN3es=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=upXX8Mzp7C7og9hNz+R3AUlREH+c/7EIgmr83daLLO0wry2GBfDhJafw8GHZnc1D3yPf0KmoxGR+wuqlW+j8I4TYh9PEnQRyPcjKhzUbKRv1k2ScYlBJiCmEkdr+0DaQOixzEo5cin9gq5HXw5upzN/cAgTyhEJFMEVcjy0TV6s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l/a/skY0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791451323; c=relaxed/simple;
+	bh=oFPXGKpY3pOjoAbiz1VXsbR0IHBy67O4YlMMZGIWudw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=tMXlxqzPc+i1z3Ut5KJnDw5iq0cSu6qOj+nfcJph7/L/ogQVP+AeG/Ejzyt8aT66/0PzKsYsAJREWnC4/Mt/qcINePreqHDRP8KsQcEOSBjUMlgE7o26FpnRMR6q+h6N542XGfM0VBI3mzTa8RIu1GWYEQjV8UQXzy50jkBXVLs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O/wmSj2u; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l/a/skY0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 227C61F000FF;
-	Thu,  8 Oct 2026 09:21:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O/wmSj2u"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F2FF1F0089C
+	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 09:21:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791451301;
-	bh=FWpuYGz+qN93y5t+97jnqZcIUbZGLbH2mZpK0ZBBapI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=l/a/skY0PF8quh9BoFNVLOF9iBXH1nX8nTDqaJEF5NwE3I7gk/fWzisCDV9Rh7Rcp
-	 S6UZhAGMIvRgFv+XNhGNey6SIAPn5hPuQ2a/AA2oU0kuwmAvKIyhnk9CqTOiH0SgOG
-	 mMDGY9+YBvZMs2GyFk+jQgQ33i9KTcLeVpabzxZWYKdoXXiKPnAUcQTR+Bg+9/C1i+
-	 pQM1i157HcM62NUCCDKR5vsL+4hnquktmlYZ9jzhOwmxhmJqb+eZ6VPWtNm1O2Ret8
-	 U2FqURhgGOXX6Gkd3NeBAqxsHTcxJBlqkS0F1a8fVoBibW7ZSVpNFyZcFwjG1LaCck
-	 35hqfbnVYy4cw==
-Message-ID: <sashiko-outbox-163927@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 02/11] arm64: dts: qcom: ipq5210: Introduce RDP504
- common DT file
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Varadarajan Narayanan" <varadarajan.narayanan@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20261008-08-dts-v6-2-f9c4ec8664d8@oss.qualcomm.com>
-References: <20261008-08-dts-v6-0-f9c4ec8664d8@oss.qualcomm.com>
- <20261008-08-dts-v6-2-f9c4ec8664d8@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 08 Oct 2026 09:21:40 +0000
+	s=k20260515; t=1791451315;
+	bh=GWFUUUrBgiIzK+gqT3tOqpmacYA8GLgSjw0YdluaFDU=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=O/wmSj2uEqcTYn0JsiBAWBr1mTy1i3Hhhg2zHwNy5LCc0R5LVdyYNByVtp+5RbDqC
+	 yu8jRuG5tiXQdJN/6h9C/DVJY89tihoWqhAlsGqYjHDPg4npgnBgqrYQeUWUtBDxJK
+	 7Pbzsr/NxhfmK06/fYZrX9D3q1bai1sVVseMAomdyOzesc/wUoURGv6rxDKQgCh9z2
+	 zyYl8gs4z60qQTOe7AMTe4Tatn7ccmD7+jvPpg0HsdRPRgt4ZHw8zK0rXBUJeecEJ4
+	 HRhyMN7xHrY9sEIEeVl73kwad285NnnlG6JYbgIBRLXs8TgyLFcJpFjSwfQom3VAiF
+	 g1hvtPUbbL9EA==
+Received: by mail-oa1-f44.google.com with SMTP id 586e51a60fabf-48ed0b68895so1623046fac.1
+        for <devicetree@vger.kernel.org>; Thu, 08 Oct 2026 02:21:55 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxuPTQpFv8tO0WtOIRpOoG2VWZRUI3HLg+hfPjhTAujRdpxk85uSAMmDidEfSLMs5lnBAPWrni/nDUu@vger.kernel.org
+X-Gm-Message-State: AFuF++kV+CmW0FYGWgWmz3am6Wg9YF78TGSr0yPEa6ngnrYWSisqUmqA
+	DcgL7CGSDK0DFcc8YdD7fq2y6NGHxUzfVvxLVMvT5PWCvKfBn9rKbb884GeVvwMOBcuQSrnKM03
+	qMaEI7H+AjzzE9MxPDVNSBg0qboxS47U=
+X-Received: by 2002:a05:6870:1425:b0:49e:691c:1bdb with SMTP id
+ 586e51a60fabf-4a259412f13mr4800707fac.32.1791451314370; Thu, 08 Oct 2026
+ 02:21:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20261005202731.153971-1-pmazzini@gmail.com> <20261005202731.153971-4-pmazzini@gmail.com>
+ <20261007211626.GA338242-robh@kernel.org> <6bb97a9e-cc9c-48c0-bf6d-3a1c6e8048f2@arm.com>
+In-Reply-To: <6bb97a9e-cc9c-48c0-bf6d-3a1c6e8048f2@arm.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 8 Oct 2026 11:21:40 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=5XbF11=B8Ek0sEXbBthDvMXntsS1B3g=hVj3tvJrJ8Q@mail.gmail.com>
+X-Gm-Features: AclHuK8MDx9mBKh-LkXc2Y_EmzTnr-w652rPt-NhKQsERmYINlS6dZoVxe0T-gI
+Message-ID: <CAD++jL=5XbF11=B8Ek0sEXbBthDvMXntsS1B3g=hVj3tvJrJ8Q@mail.gmail.com>
+Subject: Re: [PATCH v3 03/11] dt-bindings: pinctrl: sun4i-a10: add Allwinner B288
+To: Andre Przywara <andre.przywara@arm.com>
+Cc: Rob Herring <robh@kernel.org>, Pablo Mazzini <pmazzini@gmail.com>, Chen-Yu Tsai <wens@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Maxime Ripard <mripard@kernel.org>, 
+	Samuel Holland <samuel@sholland.org>, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-sunxi@lists.linux.dev
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] arm64: dts: qcom: undocumented SoC-wide thermal limit reduction
---
+On Thu, Oct 8, 2026 at 9:50=E2=80=AFAM Andre Przywara <andre.przywara@arm.c=
+om> wrote:
 
-commit 0651d4639f9454796e2f9ce2439efba04746c6c9
-Author: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+> If you mean to just drop the allwinner prefix: this has been discussed,
+> but NAKed, because the generic property carries a different semantic.
+> And implementing that generic behaviour in the existing sunxi pinctrl
+> driver would be quite some effort (read: a rewrite), without any obvious
+> win, so we decided back then to not boil the ocean here, and just go
+> with a special property.
 
-arm64: dts: qcom: ipq5210: Introduce RDP504 common DT file
+The point to switch over to the generic "pinmux" property would be
+when a completely new SoC series with new hardware arrives, so that
+it is significantly different from earlier iterations.
 
-This commit refactors the RDP504 board configuration to extract common sett=
-ings
-into a new shared file. It enables board-specific peripherals like USB, PCI=
-e,
-and SPI NAND.
+I don't know which semantic with the standard "pinmux" property you
+got hung up on though remind me?
 
-> diff --git a/arch/arm64/boot/dts/qcom/ipq5210.dtsi b/arch/arm64/boot/dts/=
-qcom/ipq5210.dtsi
-> index 161b5bb5a7f74..3183182d1cc71 100644
-> --- a/arch/arm64/boot/dts/qcom/ipq5210.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/ipq5210.dtsi
-> @@ -823,7 +823,7 @@ ethphy-thermal {
-> =20
->  			trips {
->  				ethphy-critical {
-> -					temperature =3D <125000>;
-> +					temperature =3D <120000>;
+The bindings just state this:
 
-[Severity: Medium]
-The commit message solely describes extracting common board configurations =
-for
-the RDP504 board and enabling board-specific peripherals.
-
-Is it intentional that this modifies the base SoC device tree file to lower=
+  pinmux:
+    description:
+      The list of numeric pin ids and their mux settings that properties in=
  the
-critical temperature trip point for ethphy-thermal?
+      node apply to (either this, "pins" or "groups" have to be specified)
+    $ref: /schemas/types.yaml#/definitions/uint32-array
 
-This alters the thermal characteristics for all IPQ5210-based boards. Should
-this undocumented SoC-wide thermal limit reduction be separated into its own
-commit to avoid unexpected regressions on other boards?
+It's just an opaque u32 array controlling all muxing for a device.
+There could be one single element in the array.
 
-[ ... ]
-
-> @@ -859,13 +859,13 @@ cpu0-thermal {
-> =20
->  			trips {
->  				cpu-critical {
-> -					temperature =3D <120000>;
-> +					temperature =3D <115000>;
-
-[Severity: Medium]
-Does this intentionally lower the critical temperature for cpu0-thermal in
-ipq5210.dtsi?
-
-This impacts performance throttling and shutdown limits for all boards using
-this SoC, rather than just the RDP504 board described in the commit message.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261008-08-dts-v6-=
-0-f9c4ec8664d8@oss.qualcomm.com?part=3D2
+Yours,
+Linus Walleij
