@@ -1,68 +1,68 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8BD94657E0
-	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 08:24:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAAE045D5E7
+	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 08:24:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791447855; cv=none; b=ZuM3VaQOMniPN+gSzGaOlbbd3+Wf3htcX0NpBS3ynurZCV8zvYAgYcXmIe7PYfNfdB18dVxgxpi+mknZfrlgRgutAHWfuLl5ZjU1MpcL2KB9xoGMbuNJf4fSarrHrQVrzP3TX5VfuLsKKys6OlXKz44Kd4KSRMUdypBQP9daGjY=
+	t=1791447882; cv=none; b=I92BWyjDjYxm4tB+tck2ugwptzTPjritxKw1lPhSmquPJ9sSP26tEqlxNNiOxtKokMW1IcoD/mOnnNLOtA/C/QRINMt5EMPiWnZb5I/7Dt9kiRXzsOl+iEx5Pe9Is5AP6qUFCOY+O1DCAdCgUfGByt8GKCrnVHKWgqMtDZFKiVk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791447855; c=relaxed/simple;
-	bh=lcJ2Jx4jRzbxqtaMyX7nQoruuHUG1mlcWlaJ6b9elOg=;
+	s=arc-20240116; t=1791447882; c=relaxed/simple;
+	bh=R19lXHv3qObauzbjTU4gwaYFk2HryBGzM3LG4AIi0Q0=;
 	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=Q5wapiT3OmpVM7Hxy84J9aMsuika8Hq6h4AhiL907Qg7MnJOVUwcLAOOsjOyAtpUO2lcghWV8ajOFrTNEs2LNmtxvUm0Cf4hJlDxe9gYKBdIHkgNxjy+HDsNGwXzrvwpZk6BhmqyvzcsqKW5ssGLirqEhpiEGyURtUMFYQvW6jo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=VXeMwpRi; arc=none smtp.client-ip=209.85.128.50
+	 In-Reply-To:Content-Type; b=mgFfrG2L0FidP0aD+UvlKfGEvzYfmFHwtAGoDc3EgKg4DOcCbd3TKUmKuM/soBr6aBRw9lNDvL9Vv4ZFnzTC1Jx1d6+3yWL9U2oIN8izwZ1a8LlPMgfeSQf4j7c3piIQmNvGLVcUajWL4Mu/3xQtbPO/Y2O2ONWymbNk9cBcA+E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=VPqSJjo1; arc=none smtp.client-ip=209.85.128.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="VXeMwpRi"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a1698ea378so23006165e9.2
-        for <devicetree@vger.kernel.org>; Thu, 08 Oct 2026 01:24:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="VPqSJjo1"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso49441495e9.3
+        for <devicetree@vger.kernel.org>; Thu, 08 Oct 2026 01:24:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791447852; x=1792052652; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1791447879; x=1792052679; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:organization
          :autocrypt:content-language:references:cc:to:subject:reply-to:from
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=mBycP8p7SGKiJlPKrsQosdM3WVmZLo/n5T15mL/kfEI=;
-        b=VXeMwpRiwtESGECJ718k83+ABw403G/m+fLxliTEn+ozumP9NI2PsDSlhxXQqB+uzY
-         vIvA3JG+FmtnEE7eHYyjx1UUw/DN0e1LAIiWOs150eztZZnDPD3K8ntCird2pIDai1HU
-         tfOsrOrlFy+DjQy7YyG2d+Q8+L3BkAHApbNpiFL4cMOeTNrSng2Fk7Yy7RpkgwXBrLBP
-         tROESmi5/aro/o3pOTkRtjbHq/abc8Yj1wB60y8VO84C0pxSA6NhIiRLNlFq6KVE6DMe
-         be4in5mwDriA1OSI3vzav4FbhYep9xP80r6gpidO52UUdZua65R+PscpCY3cNpFZQGfg
-         zUMA==
+        bh=M6ASayUKoMdn/Pu+VkK60Fyzl8gQVjykNVGO1atxmUU=;
+        b=VPqSJjo1D6Ye4jlJ41V+/Q5kylyaXwDzIpBQHzjjpHV6T+pgjd8ZJC0ERRFeWFwPsl
+         bo7mWQHBxtNkLkX7yaJL70pOvrEmGWwMjURAReqJaUEp8H7bePKqIzcUmfmx7pV3T2QQ
+         sRyvvu/YJdVGbvYQuexKlR8DoMiWX2ooNhKL1UewFk2z1//5u/JISd/PER7LqjqQA6rg
+         IV0E/4PTp2rcgDxV3ACH8wPmoDx8J283FYFJJB9X6D3QfSkYR2jPWAPjViv9LqmG93mV
+         ekGL1TeTKaKi+Eyr7r1iXsVSna5NtgpCXnLFx1onT8eta8sqQbDaN7w8Njws1J/lTlmK
+         P7Sg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791447852; x=1792052652;
+        d=1e100.net; s=20260707; t=1791447879; x=1792052679;
         h=content-transfer-encoding:content-type:in-reply-to:organization
          :autocrypt:content-language:references:cc:to:subject:reply-to:from
          :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=mBycP8p7SGKiJlPKrsQosdM3WVmZLo/n5T15mL/kfEI=;
-        b=c/sLKOpwyRw7LnHObVGjQqjMifZpacJ5yU/jDnW0s7OQytS/sSm1zs6bx6XTUaI8dC
-         VtekDbzsjzE1YFYjeQ+7i+OM1USrXEzkC6jO8/OqFB4CJ7PrmzuY5leHOE/hvY4wHMlx
-         6wAC0TikKNthP8XT34FSHQwZ2kUMae7CZMVSzd03b1azcdpl2Z3uY+6X3he2rc+PCRBI
-         0MX8H3bir2PnjqFZilZ8hf3zFRlKsYGTkTm0glSVk+e9AmeaAa+VV/wSiX9YbPXbWfky
-         q/xxQjPd+Rjx6U2ZhxfKFbfEIWTHiWJ4q6JiJ9vWYFvBhXhtdTv2StUXke+sY9xdKj/8
-         i1UQ==
-X-Forwarded-Encrypted: i=1; AKwUvByLDCzePcHMm1KOvwuAzKcNadPl6J62vS/yJUh82IKHkkYBKciO9D7hMRqJjUraDjQcjegedIP+g+3b@vger.kernel.org
-X-Gm-Message-State: AFuF++neD9KbrclAHC1Kh3jVtbskYHElNlgxNmG7Fi4biR0ssPDfI42s
-	aCMpJwT2O0cVogKFR3winTgL0SoiQ+4VYyq5KFHoezfHIQNaM5r4BLVKK8waGIMjIPg=
-X-Gm-Gg: AYBFou2s2bCdWFKFv+ENCDLPij4M2h+HJzHB371NTB+tnepeLMvleFHrcdnpejV+NKj
-	ztzkx2ACvkJcF5UqMZgWdc8UxHNhiU48iSyfgrcZOEmDK9kWe4okQtIRljiOJGNshAhM3NoiB61
-	+HGlEPiWFBv1cs7OH4KM7o1oSOXjBNWYRihaHWrIwR1XrLrFyv1zhpPowgLGGfUVizXDi8I0SGm
-	oWDbHlVaDkVrmDaXrbvEeNzCl/vBhh5WCuntqCLx36O0gge1hN60PGxnBPmfVkr+97YQaNfXCjo
-	seLDAMFt833OkWIWv5bt2fq25HE3Gg7zBkTxak51FLWoYWt2FDckeNac4soTAEeAyQrN/agHNtx
-	Yz9hXSLXkuyjifXH+zjddaCI/bq+rIdMj7PLZZbQ84zKddW1/i98bdTFXVQCjSclKvH1Kbcqfss
-	fHhPwtbaasKC2F849Rg2Q17+nkfQT2AfPrq5tQn4YQ96T3P/Rz7MrNX/k6eAI5aC3TmAsMLBvGO
-	/SDniGA8lihnRUEH6bWhShJ1nqrAe8=
-X-Received: by 2002:a05:600c:8b18:b0:49c:fa21:e749 with SMTP id 5b1f17b1804b1-4a180455775mr77142395e9.31.1791447850014;
-        Thu, 08 Oct 2026 01:24:10 -0700 (PDT)
+        bh=M6ASayUKoMdn/Pu+VkK60Fyzl8gQVjykNVGO1atxmUU=;
+        b=BK+hLmYF5DJClxxIOTq0+94ejS1ytwPGrA25ue4LFQYbH2GpfZnU+a2jChQuYSChQO
+         InODAlNvNo+tXhl4BHhs75nsTb/vymIx4dKSo3lnAuc+Nc3wkAqh9FRMhmFJxqfZ1ywG
+         eUl8LpQPhfb8Yx9Yxcf3stAWVS6dPOi8S5JjKg4ovfIhJMPi8flCGJbvarUU/7FWaEyA
+         hHBpOZkJBarurbm1b4TO7vzae+xjSYc022itOwynpIuaGFfKe3xuAFtvbMmTPuZuO9C0
+         CaJutpMFLmVv+ng1cK/HzhBdZyKixypyHvAyrFYy7B1L21tEoy+Noufddfwu9zL/qagO
+         BwKQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzir0OYMyqbtgB60OJ/ubrtdtOkJCxwchmU0wMXYpTofz/d6H/qKIsr16CUB1rkojZysX3koyYbWpmc@vger.kernel.org
+X-Gm-Message-State: AFuF++n5BTnYazYu7MHoG0PorVjiDhR8mgrbyZyw98AmeCv8S7WxAmpN
+	Htnxx4OZtg8xIW6OaBhqNJqVQ0Fqnig7RjsVLoDQ43mISf/ovibonLT9Q+JKPo7b5A8=
+X-Gm-Gg: AYBFou1pUYqcXUsPlshS1FRmLBZREQoxoz7Hvz0YokG8OPHyl/LjBbeMO/L8L6xOfmr
+	r91/lLp6kCO6xNc8kBs2x4JEhEzmGtIfOSpmUDVkPx3XdvBwU3nLaYGpoQE4ZWdGiOLNDBhotyR
+	WboCFpPEKJM9aUTbflmYrKy1ZjhNX1bGoSH8A7WwNFrmx1PlCKmFNWb97swYkzCGUhXnDMK/87e
+	nU7rPyA9loPAUapyChk1z1KXLzuZchY4HTD372HyH7Z9A0Or22w5fAWW2Y5daKpQR1IutC7kQ5Q
+	xa10U7SB4zEayii1XrEEaQjmzg08piU4pv9BDg0ZhjeRb9X8Fa5u9yHoDWz/h4dv4JKwh/Mdhjs
+	4X+xJzXh9CTXoyxVMxwywgxiuYfjOb0qHIJfRntNrc5MKAC89xNJETY8buEM8iKaRAK/kqbUnzs
+	8E9SiCIye0kuCtJRmYgu/PRog77RwVL3I6h/qQtiAaHZOAqV1pevqym06N3/Te16UCLY4UVCv0O
+	Q/VISzZKyZ0UdeUkKrE3bqVflt3sC4=
+X-Received: by 2002:a05:600c:810c:b0:4a1:7163:3e41 with SMTP id 5b1f17b1804b1-4a1804234ffmr77254905e9.9.1791447878231;
+        Thu, 08 Oct 2026 01:24:38 -0700 (PDT)
 Received: from [192.168.151.76] (90-182-211-1.rcp.o2.cz. [90.182.211.1])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48c71b786d8sm9975943f8f.0.2026.10.08.01.24.08
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1843d1e0bsm51322805e9.6.2026.10.08.01.24.36
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 08 Oct 2026 01:24:09 -0700 (PDT)
-Message-ID: <51fec579-a74a-4bfd-8b5d-2e7308405211@linaro.org>
-Date: Thu, 8 Oct 2026 10:24:08 +0200
+        Thu, 08 Oct 2026 01:24:37 -0700 (PDT)
+Message-ID: <fa64131e-52a3-4058-9655-e1a4c36de47d@linaro.org>
+Date: Thu, 8 Oct 2026 10:24:36 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -72,7 +72,7 @@ MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Neil Armstrong <neil.armstrong@linaro.org>
 Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 1/4] drm/panel: st7703: set prepare_prev_first
+Subject: Re: [PATCH 2/4] drm/panel: st7703: move init commands to prepare()
 To: Marc-Olivier Champagne <marc-olivier.champagne@savoirfairelinux.com>,
  Jessica Zhang <jesszhan0024@gmail.com>, =?UTF-8?Q?Guido_G=C3=BCnther?=
  <agx@sigxcpu.org>
@@ -88,7 +88,7 @@ Cc: Ondrej Jirman <megi@xff.cz>, Purism Kernel Team <kernel@puri.sm>,
  Felix Boucher <felix.boucher@savoirfairelinux.com>,
  Quentin Lehoux <quentin.lehoux@savoirfairelinux.com>
 References: <20261007201859.3709656-1-marc-olivier.champagne@savoirfairelinux.com>
- <20261007201859.3709656-2-marc-olivier.champagne@savoirfairelinux.com>
+ <20261007201859.3709656-3-marc-olivier.champagne@savoirfairelinux.com>
 Content-Language: en-US, fr
 Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
@@ -115,33 +115,81 @@ Autocrypt: addr=neil.armstrong@linaro.org; keydata=
  4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
  QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
 Organization: Linaro
-In-Reply-To: <20261007201859.3709656-2-marc-olivier.champagne@savoirfairelinux.com>
+In-Reply-To: <20261007201859.3709656-3-marc-olivier.champagne@savoirfairelinux.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 10/7/26 22:18, Marc-Olivier Champagne wrote:
-> The DSI host must be enabled for the panel to be initialized in
-> prepare(). Set the prepare_prev_first flag to guarantee this.
+> The panel init sequence is currently sent from enable(), i.e. after
+> the DSI host has started the video stream. Not all DSI hosts accept
+> command packets in that state, so the init sequence may never reach
+> the panel.
+> 
+> Move the init sequence to prepare(), right after the panel reset, to
+> ensure it is sent before the host enables the video stream.
+> 
+> Since the init sequence can now fail in prepare(), power the panel
+> back down on error: the panel core does not call unprepare() when
+> prepare() fails, leaving the power supplies enabled.
+> 
+> Both patterns are already used by other DSI panel drivers.
 > 
 > Suggested-by: Hugo Villeneuve <hvilleneuve@dimonoff.com>
 > Signed-off-by: Marc-Olivier Champagne <marc-olivier.champagne@savoirfairelinux.com>
 > ---
->   drivers/gpu/drm/panel/panel-sitronix-st7703.c | 2 ++
->   1 file changed, 2 insertions(+)
+>   drivers/gpu/drm/panel/panel-sitronix-st7703.c | 18 +++++++++++++++---
+>   1 file changed, 15 insertions(+), 3 deletions(-)
 > 
 > diff --git a/drivers/gpu/drm/panel/panel-sitronix-st7703.c b/drivers/gpu/drm/panel/panel-sitronix-st7703.c
-> index 70f7282471e6..368c57591817 100644
+> index 368c57591817..f4635a7327de 100644
 > --- a/drivers/gpu/drm/panel/panel-sitronix-st7703.c
 > +++ b/drivers/gpu/drm/panel/panel-sitronix-st7703.c
-> @@ -973,6 +973,8 @@ static int st7703_probe(struct mipi_dsi_device *dsi)
->   	if (ret < 0)
->   		return dev_err_probe(&dsi->dev, ret, "Failed to get orientation\n");
+> @@ -774,8 +774,6 @@ static int st7703_enable(struct drm_panel *panel)
+>   	struct mipi_dsi_device *dsi = to_mipi_dsi_device(ctx->dev);
+>   	struct mipi_dsi_multi_context dsi_ctx = {.dsi = dsi};
 >   
-> +	ctx->panel.prepare_prev_first = true;
+> -	ctx->desc->init_sequence(&dsi_ctx);
+> -
+>   	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
+>   
+>   	/* It takes the controller 120 msec to wake up after sleep. */
+> @@ -784,7 +782,7 @@ static int st7703_enable(struct drm_panel *panel)
+>   	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
+>   
+>   	if (!dsi_ctx.accum_err)
+> -		dev_dbg(ctx->dev, "Panel init sequence done\n");
+> +		dev_dbg(ctx->dev, "Panel enable done\n");
+>   
+>   	return dsi_ctx.accum_err;
+>   }
+> @@ -819,6 +817,8 @@ static int st7703_unprepare(struct drm_panel *panel)
+>   static int st7703_prepare(struct drm_panel *panel)
+>   {
+>   	struct st7703 *ctx = panel_to_st7703(panel);
+> +	struct mipi_dsi_device *dsi = to_mipi_dsi_device(ctx->dev);
+> +	struct mipi_dsi_multi_context dsi_ctx = {.dsi = dsi};
+>   	int ret;
+>   
+>   	dev_dbg(ctx->dev, "Resetting the panel\n");
+> @@ -843,6 +843,18 @@ static int st7703_prepare(struct drm_panel *panel)
+>   	gpiod_set_value_cansleep(ctx->reset_gpio, 0);
+>   	usleep_range(15000, 20000);
+>   
+> +	ctx->desc->init_sequence(&dsi_ctx);
 > +
->   	ret = drm_panel_of_backlight(&ctx->panel);
->   	if (ret)
->   		return ret;
+> +	if (dsi_ctx.accum_err) {
+> +		gpiod_set_value_cansleep(ctx->reset_gpio, 1);
+> +		regulator_disable(ctx->iovcc);
+> +		regulator_disable(ctx->vcc);
+> +
+> +		return dsi_ctx.accum_err;
+> +	}
+> +
+> +	dev_dbg(ctx->dev, "Panel init sequence done\n");
+> +
+>   	return 0;
+>   }
+>   
 
 Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
 
