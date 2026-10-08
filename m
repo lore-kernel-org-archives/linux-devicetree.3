@@ -1,137 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A013A3B7B93
-	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 07:38:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 996BB3D5236;
+	Thu,  8 Oct 2026 07:50:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791445120; cv=none; b=l+h18pzBLhvmwpd1clhQFgytQ0OrvMxY3q2sr06vV2lqA9cwB5AHgZlA785UIJ7fauksP9dAQedb3feJ9X4jrXt68fGZ7RxjAJvz9kWv1yggm/69JUXbxTiJ21mViLGwEQr2V7ArHAXbaLn0Dzih+g5wBVTEefAOlCvHwFTeEUk=
+	t=1791445853; cv=none; b=d2jVC1K9gJ/mrMuY0+BHsS1GM442+nAG78LZ1Jrg4INVUMjCqjFzcparKibaAI6aGoISidQ/zZ4NB/EDI67jVl01qciMbrspFd9R0Y3AqMJfMJSqfQc3NObGQrr5eZpJr7tlvYywi75d0ntVcFNBakefst0csuchtJQ3so7m3dg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791445120; c=relaxed/simple;
-	bh=1lb8xbW38NGNB9zgrvSXbPga7sobIId/EfHZGsRYr/M=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=AdW5nom4Ooqx1zfHghhNhoSRAFsZgQwg5QlHyqldZqP6V+d/iUn1DNVEq3TrDJ7XoH7fFIKGyj+SsE6vSw5eYTKQk2xQbWRf5YiB4UbnrBYB/cEYlTyF+HSl/WXCRMUzTvDoNZIt5EcV0fxAhg08xgLveAyAQmdFEsH08TczLwg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ioZJo469; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791445853; c=relaxed/simple;
+	bh=M7FNo7bgBUiaWI/HcaQdIdCBXfKJLk20mb3qyz9nUno=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ObD4j4bMPzxM88/ZA60pfWMyDDui/3bHFlK9u5WY2A6uFLlkkUII6y94Ff4rMSNXNfDSYxssks1SJnZpR+HlkSude40Mx1jmW9K0+ak1Livde4qQMjKOLrjRse4Gt8p8gaciD6ZlxDA2pXrX5J4t5iDH7qlxMgOsUUUaS7CWg08=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=WruXY8bo; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ioZJo469"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECAB11F000FF;
-	Thu,  8 Oct 2026 07:38:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791445117;
-	bh=fD5/VzPOP285tieFjJYzmjPCcIpVKLL0xt86IeL/mic=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ioZJo469BuFcNtLdK0rPqLD7dzSO/3TIgGQb7q2wxp+bPMqvE3GoOrFb1yW9eegCR
-	 VrpSuJ923URVcx8A8eVvU1I5soMbUEdC1VNwBMunJu02XOJCm80LOj/QRvScirAG+P
-	 TZpzgihG2sCEx5PdJnYpfkujuxHvK6pzWQAspV1YZrwQ/O0TGsyjobqoLSjHjPZVKp
-	 MVuGn01KpjZCYPVuk+CCNmlexBJSE4dlm0kdi9Q4/NBdv0C4wKyww2CRBrNPQ5j+II
-	 dIOcR2PPlNQJw3k+SaxlCmi3b9ruTe9HsVeqNqbOFpEkskhdcxwnvtPATvL0tQOPyC
-	 g2NY1tihtfGlg==
-Message-ID: <sashiko-outbox-163772@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v19 10/12] arm64: dts: qcom: kaanapali: Add CAMSS and
- CSIPHY block definitions
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Hangxiang Ma" <hangxiang.ma@oss.qualcomm.com>
-Cc: neil.armstrong@linaro.org, robh@kernel.org, olteanv@gmail.com, conor+dt@kernel.org, vkoul@kernel.org, media-ci@linuxtv.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org
-In-Reply-To: <20261008-kaanapali-camss-v19-10-b2c583ef50e0@oss.qualcomm.com>
-References: <20261008-kaanapali-camss-v19-0-b2c583ef50e0@oss.qualcomm.com>
- <20261008-kaanapali-camss-v19-10-b2c583ef50e0@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 08 Oct 2026 07:38:36 +0000
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="WruXY8bo"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 906B61516;
+	Thu,  8 Oct 2026 00:50:47 -0700 (PDT)
+Received: from [192.168.178.72] (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 919353F959;
+	Thu,  8 Oct 2026 00:50:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1791445850; bh=M7FNo7bgBUiaWI/HcaQdIdCBXfKJLk20mb3qyz9nUno=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=WruXY8bopBSNctghFvI9GjTqI11dUVfJNNXm7mmPDtfD+stzVxn15wyrJqYoJoAbM
+	 dc4UCzdiloByiV4ihV+DpAtpow+9tmDOHN1OmU15LZfRMWAy3cv/FyXuqNNgmC33Af
+	 38uGRqrsjRkL7XEBmLtEKfw5g8VV96G9cwXmkj/U=
+Message-ID: <6bb97a9e-cc9c-48c0-bf6d-3a1c6e8048f2@arm.com>
+Date: Thu, 8 Oct 2026 09:50:46 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 03/11] dt-bindings: pinctrl: sun4i-a10: add Allwinner
+ B288
+To: Rob Herring <robh@kernel.org>, Pablo Mazzini <pmazzini@gmail.com>
+Cc: Chen-Yu Tsai <wens@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ Maxime Ripard <mripard@kernel.org>, Samuel Holland <samuel@sholland.org>,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-sunxi@lists.linux.dev
+References: <20261005202731.153971-1-pmazzini@gmail.com>
+ <20261005202731.153971-4-pmazzini@gmail.com>
+ <20261007211626.GA338242-robh@kernel.org>
+Content-Language: en-GB
+From: Andre Przywara <andre.przywara@arm.com>
+In-Reply-To: <20261007211626.GA338242-robh@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] dts: missing SoC-internal OF graph links between camss and standal=
-one csiphy nodes
---
+Hi,
 
-commit a63685b077e80fcbb61d58b04d437addeb277a93
-Author: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+On 10/7/26 23:16, Rob Herring wrote:
+> On Mon, Oct 05, 2026 at 09:27:23PM +0100, Pablo Mazzini wrote:
+>> The B288 driver takes its mux values from the DT, so allwinner,pinmux
+>> becomes an allowed property here, required for this compatible only.
+>>
+>> Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
+>> ---
+>>   .../pinctrl/allwinner,sun4i-a10-pinctrl.yaml  | 22 +++++++++++++++++++
+>>   1 file changed, 22 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/pinctrl/allwinner,sun4i-a10-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/allwinner,sun4i-a10-pinctrl.yaml
+>> index 45b7a0b6c626..b1f093d218f5 100644
+>> --- a/Documentation/devicetree/bindings/pinctrl/allwinner,sun4i-a10-pinctrl.yaml
+>> +++ b/Documentation/devicetree/bindings/pinctrl/allwinner,sun4i-a10-pinctrl.yaml
+>> @@ -39,6 +39,7 @@ properties:
+>>         - allwinner,sun8i-a33-pinctrl
+>>         - allwinner,sun8i-a83t-pinctrl
+>>         - allwinner,sun8i-a83t-r-pinctrl
+>> +      - allwinner,sun8i-b288-pinctrl
+>>         - allwinner,sun8i-h3-pinctrl
+>>         - allwinner,sun8i-h3-r-pinctrl
+>>         - allwinner,sun8i-r40-pinctrl
+>> @@ -120,6 +121,15 @@ patternProperties:
+>>           $ref: /schemas/types.yaml#/definitions/uint32
+>>           enum: [10, 20, 30, 40]
+>>   
+>> +      allwinner,pinmux:
+>> +        $ref: /schemas/types.yaml#/definitions/uint32-array
+>> +        description:
+>> +          Pinmux selector value, for each pin. Only used by SoCs whose
+>> +          driver takes the mux values from the DT instead of an in-driver
+>> +          table. Almost every time this value is the same for all pins, so
+>> +          any array shorter than the number of pins will repeat the last
+>> +          value, to allow just specifying a single cell, for all cells.
+> 
+> Perhaps new platforms should move to the common 'pinmux' property?
 
-arm64: dts: qcom: kaanapali: Add CAMSS and CSIPHY block definitions
+If you mean to just drop the allwinner prefix: this has been discussed, 
+but NAKed, because the generic property carries a different semantic. 
+And implementing that generic behaviour in the existing sunxi pinctrl 
+driver would be quite some effort (read: a rewrite), without any obvious 
+win, so we decided back then to not boil the ocean here, and just go 
+with a special property.
 
-This commit describes the CAMSS and CSIPHY blocks on the Kaanapali SoC.
-It adds 6 CSIPHYs, 3 TPGs, 3 CSIDs, 2 CSID Lites, 3 VFEs, and 2 VFE Lites
-to enable camera pipelines on board device trees.
+Cheers,
+Andre
 
-> diff --git a/arch/arm64/boot/dts/qcom/kaanapali.dtsi b/arch/arm64/boot/dt=
-s/qcom/kaanapali.dtsi
-> index e48a179d07220..7e5106865e7ee 100644
-> --- a/arch/arm64/boot/dts/qcom/kaanapali.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/kaanapali.dtsi
-
-[ ... ]
-
-> @@ -3597,6 +3598,307 @@ usb_dp_qmpphy_dp_in: endpoint {
->  			};
->  		};
-> =20
-> +		camss: isp@9253000 {
-> +			compatible =3D "qcom,kaanapali-camss";
-
-[ ... ]
-
-> +			status =3D "disabled";
-> +
-> +			ports {
-> +				#address-cells =3D <1>;
-> +				#size-cells =3D <0>;
-> +
-> +				port@0 {
-> +					reg =3D <0>;
-> +				};
-> +
-> +				port@1 {
-> +					reg =3D <1>;
-> +				};
-
-[Severity: High]
-Will the CAMSS driver be able to find the CSIPHY devices with these empty
-port definitions?
-
-The CAMSS driver (msm_csiphy_subdev_init in camss-csiphy.c) discovers its
-PHYs by traversing the OF graph using of_graph_get_endpoint_by_regs on the
-camss node's ports, following it to the remote endpoint's parent, and calli=
-ng
-devm_phy_get_by_of_node.
-
-Because these ports lack endpoint definitions linking back to the CSIPHY
-outputs, the lookup will return NULL and silently skip PHY initialization.
-This leaves the phy uninitialized and prevents the PHYs from powering on
-during streaming.
-
-[ ... ]
-
-> +			};
-> +		};
-> +
-> +		csiphy0: phy@9523000 {
-> +			compatible =3D "qcom,kaanapali-csi2-phy";
-> +			reg =3D <0x0 0x09523000 0x0 0x2000>;
-> +
-> +			clocks =3D <&camcc CAM_CC_CSIPHY0_CLK>,
-
-[Severity: High]
-Does this standalone csiphy0 node also need a ports structure to define its
-CAMSS output endpoint?
-
-Without a ports definition in the csiphy nodes, the OF graph traversal from
-the camss node cannot resolve the remote endpoint, breaking the internal
-SoC routing required to initialize the PHYs.
-
-Since these are hardwired SoC-internal connections between the PHY output
-and the CAMSS input, shouldn't they be defined here in the .dtsi rather
-than forcing downstream board .dts files to manually construct the internal
-SoC routing?
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261008-kaanapali-=
-camss-v19-0-b2c583ef50e0@oss.qualcomm.com?part=3D10
