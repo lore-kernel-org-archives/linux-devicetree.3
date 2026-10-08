@@ -1,63 +1,80 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C212437E5FD;
-	Thu,  8 Oct 2026 19:45:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B99B37DAAD;
+	Thu,  8 Oct 2026 19:46:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791488752; cv=none; b=flkSsHlb9Ux3bwS752c64OPXTNMfXkrSZISoFZg7+FfKKRIwJOHdrMkI5RCu2ZBk0pvL2YQepCFus+aHoCJiMZHNVRqwuM/bie7RddS9jKGll0hJafBslCcg5fBLQ64+9MGv1CQDVbEsrThw9TypsNilEnl3bxJA9tOjiNPopmI=
+	t=1791488817; cv=none; b=lVTXkuno7mqyuK29iaD6yIegk4lobDQVufAQGKUFedoyPFOj0jrXrqhbVDWMDfzAGtz8WrIXT3sNH4B982805GfyUvCTSjTvsP6emlsf8EgsTZjawtd+WEfiw/MdlWSgWOctRyhS5uvMzD608n3HJgEAJfBsmaTr2qZRGqavUE8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791488752; c=relaxed/simple;
-	bh=4UyLTIS/qxKCt1AXo4psa9BmH2o3OMVTVJCtzcrSsJ4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=no6TBu24ndzY96ynJRbqPc/RQYv/kMJaB0FmWyP7YsyIrbJtvbNIE1vw5BS4grArdGqXQ71skrw0GSRgy2Eu1DjBceST7JK2TCF+cFxuEeCkl8QkpUP/LiRc3sGp/xVgcKtG1Gloy2+fo+fgQ4iWBIQMR1fb2Lf4uBqSkk9Wx+o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mJ7v8JTK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791488817; c=relaxed/simple;
+	bh=TzGSYNIQECguVj+Yn6KeWD7D+472pF9yVr2EknBGUsY=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=G/Q/f7/IRLhj2pC8qxg78azgaGKAtbTfWEfDOcwvEWfoGgFjP22m0+78nF7K9T3zKDOtlylYqrJnC5Flz2vqiny2+U3f9zh4W4Z4yQG25tA39DSd2YdZL55wGl5OaSJ7RypeGiHK54ZsyxkMaQky4n9SCtn+4xcmKXcgORIlZtw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aN+Snzfd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mJ7v8JTK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 37E311F000FF;
-	Thu,  8 Oct 2026 19:45:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aN+Snzfd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4CFCE1F000FF;
+	Thu,  8 Oct 2026 19:46:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791488751;
-	bh=q+Q6stYCq6cZJyDhEdIvVjO7t8cw3BzIFyIxVu6yjX0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mJ7v8JTK0w2/G5CsjU6uURxIXMgNZXsxT4rY8s8Zoh+oQf3qwUovZu5EsU0asJeET
-	 5tSzG1uAu4u6XgbePbaAuG/DsMY62h//8TI1Kbwc5eMaFUAwpeeXJd/psQuw4W4wTz
-	 KJ3SSf3tjxzDox8N6YRCqVvV5on1Kj/DN6TIxstzqwOcRJ0wvc3YfNRDnD/l/QEIc8
-	 T8dQa4jvTncfKzIfVSuVNWexZBefKR/5z6TesWjw/J3VY2F/TLUY+lzZ34aI0W88lD
-	 UpAua6vZ0J6tkNL4x+sfbdVi3quExEJzfBgy4fPqXnLQz9LqPSHDKMWFM1Edr8NOEs
-	 hDVKmwOmeabYA==
-Date: Thu, 8 Oct 2026 14:45:50 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-Cc: Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <ukleinek@kernel.org>,
-	linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	George Moussalem <george.moussalem@outlook.com>
-Subject: Re: [PATCH] dt-bindings: pwm: add IPQ5210 binding
-Message-ID: <179148874952.892086.1972349791589080283.robh@kernel.org>
-References: <20261008-pwm-v1-1-0b8776398632@oss.qualcomm.com>
+	s=k20260515; t=1791488815;
+	bh=k/2puUMOQV5M98h+Sa72R8DYJEfL5+feVDZUKEw+8YU=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=aN+SnzfdCANo7AE3v2irg+Z8j/dIELbHTR8gg583+p5ElUHvQ537p8n1uW1K+rL67
+	 H2Xhtc+c5Q5bOe2CIf2mVkwbPMzJHUzAf6Ni8ufT4o8IUt9+LvfZVZmPGGz8WhFI9+
+	 VB1d63skLOOYZrCnIn/AWgrEiqMXhe92t5A+rEUlx09e8ewOhuesT0kIPTuV7B47ih
+	 b8oAofEvsmxm83xn6GUWgk5grvSdllrkuU2mqZRlZfYbEblC8HzoSq8ZMGPFur6Ij7
+	 v0wwrT9qpgPl9NAQGMXFda2zBorRf8jh0p6TRjpdkqS9IzVV0c7qawKlkrlec9pXyu
+	 U5d9qVNVa21kA==
+From: Vinod Koul <vkoul@kernel.org>
+To: linux-renesas-soc@vger.kernel.org, 
+ Wolfram Sang <wsa+renesas@sang-engineering.com>
+Cc: Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
+ dmaengine@vger.kernel.org, Frank Li <Frank.Li@kernel.org>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Yoshihiro Shimoda <yoshihiro.shimoda.uh@renesas.com>
+In-Reply-To: <20260909094009.2167-6-wsa+renesas@sang-engineering.com>
+References: <20260909094009.2167-6-wsa+renesas@sang-engineering.com>
+Subject: Re: [PATCH v2 0/4] dmaengine: sh: rcar-dmac: add R-Car Gen5 X5H
+ support
+Message-Id: <179148881195.509321.530268466663787780.b4-ty@kernel.org>
+Date: Thu, 08 Oct 2026 21:46:51 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261008-pwm-v1-1-0b8776398632@oss.qualcomm.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.14.3
 
 
-On Thu, 08 Oct 2026 14:14:00 +0530, Varadarajan Narayanan wrote:
-> Add DT binding for the PWM block in Qualcomm IPQ5210 SoC with
-> qcom,ipq6018-pwm as the fallback.
+On Wed, 09 Sep 2026 11:40:09 +0200, Wolfram Sang wrote:
+> Here is a small series with the needed driver updates to support R-Car
+> Gen5 and X5H for the SYSC-DMAC. Details are in the patch descriptions,
+> but it is all small stuff.
 > 
-> Signed-off-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/pwm/qcom,ipq6018-pwm.yaml | 1 +
->  1 file changed, 1 insertion(+)
+> It has been tested on an Ironhide board (X5H) and a SparrowHawk (V4H)
+> for regression testing. The testing branch can be found here:
 > 
+> [...]
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Applied, thanks!
+
+[1/4] dmaengine: sh: rcar-dmac: fix style in struct initialization
+      commit: a416b656798317f1c6eb69d7a034b4dc392b3781
+[2/4] dmaengine: sh: rcar-dmac: SMMU doesn't need IPMMU workaround
+      commit: 73812307647a90234cbc1e474f2dec4bfa4ad34f
+[3/4] dt-bindings: renesas,rcar-dmac: Add support for R-Car X5H SoC
+      commit: 8d4237d153174af7cda2b3e45f4f47586a04dc95
+[4/4] dmaengine: sh: rcar-dmac: Add support for R-Car Gen5 SoCs
+      commit: 1d8ae2003de08f61095e4e928b1b8cce6c23cabd
+
+Best regards,
+-- 
+~Vinod
+
 
