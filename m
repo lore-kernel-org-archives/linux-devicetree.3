@@ -1,349 +1,312 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDE7E448B8E
-	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 08:11:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50EFC447807
+	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 08:15:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.178
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791447105; cv=pass; b=sFLV/knVTEvNcR4OBhpo6+DR4W84J84SGz8hLaxE+dJN78KIkHRO7yavtbht50aX+Piud8cX09P6pHDBwFjsv/OqHOPcdJuVgS2pGPF6zFfGfEn2MR82KPko93rh3y82PuOHo8UAP/dqSxcnP2bCnWCfxhrn8jYqKsr/z9F1QeI=
+	t=1791447322; cv=pass; b=WC/df7Vg0l1YPJffmM2tgMdt01UIO/ev/6tvLc31w4WXd3uWTVaGQaZ4xiKVUkgxkA3Sq9PN9rMH2lCd6Qq+8/tai5d+ElbqqOhxJxQdujLRXhnELdnfkQnqxGQSCkFzKZ5u5BkAbBgaEUGYke7AP7uVsOzi4XAt6PT/N5fUNBI=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791447105; c=relaxed/simple;
-	bh=D7UiphtT6EBwO/k/ikf2NWjb/RYMvUOnxloV2AvhWw0=;
+	s=arc-20240116; t=1791447322; c=relaxed/simple;
+	bh=5cnw4MgwQFZdLGMn6q6mk8Zr2/rF6j4AwXXpyNou4n4=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=LLdveXQC3qTXGYIJqlD1+MNPbDsCE3C1pEDT6rujsQ6IDaUhXvemH36w3FxUa0qwWH8MeAE5KNHyZeQ6rMGpPmUpoXwp3wsRWgHuHWS0Afi/GhWB4Sh/Qv92QH42cpzGgA1gyKENxBdv81ecYOt8rUEafW1ZWyWcbeIdUaFkxqc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=lvENMn6W; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cPuJfmAl; arc=pass smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 To:Cc:Content-Type; b=BzsrTX89V0tNyoazH0Wz/KrnWlpvtFRyAMTepa49SpyRGIy+i5GNyEVv6BDXszrRwVJfAg5A0PS1AUhyXKm77NSidcQwuGNmHZiZB8CqsKjlgiYDNcM0qgE0K5obDalCiY595raPiTUNpjliB17Wb6q7bN4HV/dIQGGbxipe/7I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=baogCcxx; arc=pass smtp.client-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="lvENMn6W";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cPuJfmAl"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6987KQBC3308488
-	for <devicetree@vger.kernel.org>; Thu, 8 Oct 2026 08:11:42 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	JItcqZCTTZ5Tr3DrlkTjE4P6dQhLoTOAQJPbjV6HDlQ=; b=lvENMn6WoMDZJeJH
-	01RdZR9gO8z+f/cXd2he/jnQUB2R8Xqeb3nw4iaPPwOttG3a26yJqZCpdD3uhOsG
-	9dv454H28YeDbtIDbJNw6vmfZe4Pp5/SWvOyXQv2DddRCN/p72q60CHRngiL0nm0
-	HB7i3KeAdrgd16ZFXWONK4Hegqyx/Y7hBTujduBGtoQ+dcdHkZDg1pfJ5EOtEV2W
-	4j/FDmq0kxszm3QUrral1g168QvpxlWcIOeqN0QaNOVDJnoEii9Q+ZI7XqOIN/XR
-	xK8GVS0+tg/72OYeqfInTymZIClV2yHOpJiJyt5ruO+0LNj3iymWfDmUjuakz/3j
-	Scwa8g==
-Received: from mail-yx1-f69.google.com (mail-yx1-f69.google.com [74.125.224.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h60sg9e90-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 08 Oct 2026 08:11:42 +0000 (GMT)
-Received: by mail-yx1-f69.google.com with SMTP id 956f58d0204a3-6768c955661so4896874d50.3
-        for <devicetree@vger.kernel.org>; Thu, 08 Oct 2026 01:11:42 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791447101; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="baogCcxx"
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-34ca2d54925so7641506eec.0
+        for <devicetree@vger.kernel.org>; Thu, 08 Oct 2026 01:15:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791447315; cv=none;
         d=google.com; s=arc-20260327;
-        b=E4/jvWt1Vol7PTJ3QSseA2IYY695d909+J79//5oI3wTANmYOkDG0oqszctPNAYZ/r
-         MQyMkNLvLJgLmsKmtpvVn/Vl7nks4TD90n2AnpueTOGsnWFeG2q4SIh2OkEIHvgTpl3Y
-         wwcybrOtiECRLAr+YeK3Lb+jeNEyCUx3vvYjpFTQx6LfLOZTbfAbhIcN6Bucvef0ffL0
-         bQF/HbWPqZmz0fIXIwTj2QHUwcYjRv0CreQKv5fyHRgYwIwDRFJ9PZW9czRiXlitXFYH
-         GpH4N/mSCS71qqK7vpMNpkox44fN3+6Vor+dRxj0H2sPJDJiXMvF8n2NofyDhpE/EEW4
-         gzmg==
+        b=rpDGtWMM/BMgghle9+Z/t/Ke+2kGAX4/0WJGBxLSQNNy4cTgjjHw6agRH0Yo7oPJjR
+         2baNswd9thkiSXOdJ5etjuy+Yd0ZWPhGHFd78eiQnik6s8Z61ZcPhqpgt7r9+TGBUwpQ
+         RMH9DZRuQjvcllArph2p1QCCo4LHQx0OkWkkO0z2yf/8Ha5RPPz/PT2Ln8g7ge6G1P+R
+         zI5nHyLZ4akYiAbwxoAp7n/bVGEVPQDb/AsiEaUkvt4gtm8OP1vxFZINF70zJIqKOWBG
+         W7KlTb8mgOSTBC80cmTrZQdfsz0P+H+e9qo5IowWPgfXat+5kGwIS6IbsslJoaOyPEQq
+         XykA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=JItcqZCTTZ5Tr3DrlkTjE4P6dQhLoTOAQJPbjV6HDlQ=;
-        fh=TudL+lf9swebHLCIx5Q8UBD/bPBl93gW/0h/prVrhHo=;
-        b=ILxZ+M+L2DmUTzteh4fXeCxXhI9okyNpB+sLeTZ6vtwL76piCL643Nrh9Qx1yr0YTV
-         l2uI82Brpg3beGZLAy8+jqutJZQGeJOTZgArigv/YYetcGhDRLvmB2sgL1o3D82HUbGV
-         cHizFd7oITftlGJa1r6rjKOhQZv+7Q33y95lR/+2i4lnlNkxGHCaRY7SFfN9umVTPhpU
-         IT73SvAfQW+xYAo6Hvf9AC3AtF8BRJYYgtCrDz7X6w2Jsve80M+Is0YkJOJiVGEnwqSQ
-         ABnsVrEmAaYDqAUvLd5ZkrqLkgjXT7suQeSgk18X9UthRxQmN2RExpX2AAR4wwS8gzCs
-         lEgQ==;
+        bh=pL3azhN+e8+Ll8Q2wR7Y9QWc8pVlu6BuKJTaisy1mTE=;
+        fh=hoPJRsMOZbyh2MSqdbsBn1qJBs28R0xRV0pn7H1aG/4=;
+        b=rWt3n6FOkj2EVOk/ZsiI93ladD3fk+PBxK1+XKsWco4A6lIu9fOtHyLxw+XQKE4Mdp
+         tblo0hv1rWkYteO0ER8cEyPoxqbl/4CzrIBVRhgpQaqFK4lGvt0oKb4j/960U+S3eXiR
+         fuiCE799c8RB0s9b+shhuJg1x9H+iixcrWvh+HH/qMPhJa8J+RjldUIkEDNVRzP5RJTn
+         79efaFptjnrnFTZalitFD8db+Bkb5sSzbljDTlLoRTcEbJEK7gzxVaUXi++0euVXyUsU
+         8k36zM7nLUEUBdIr7DNoKSq0lZp0y0N1aqmNfpm9qaY7VgOqDcMAZJGdx/vudJnIPsVb
+         951A==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791447101; x=1792051901; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791447315; x=1792052115; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=JItcqZCTTZ5Tr3DrlkTjE4P6dQhLoTOAQJPbjV6HDlQ=;
-        b=cPuJfmAlDmRAR0o23MONYD5SHbwg6aqDhkseWn/Z21fLItX+/VzVMFtNtFzh/tgyAV
-         9hrcMuUq2xQCUgjfBgX2fzFT1VDHEqxuQ6KBTCQuBSO8izCN2o2r6Rf+PVnUHxCosbzn
-         v6TH1b98DKkzcbP9cxbLR5FuqC0GD2E/uTe0MgdoUZWp7pvMo+8dHqm9GrCn7fmV3cYh
-         ZVUDgRtSsoWNitYQ9VRcv/PT3S0jBrstOUwO+k4IhPMhSzfKJqlWoK9bORCnu5Z/1OPf
-         y7S9pmgAf45Icb3DAoedMxYLhjt+wDP+rUqASy7AZi5W8f06XjOJaV3eKF3LpfriHi8a
-         aZQA==
+        bh=pL3azhN+e8+Ll8Q2wR7Y9QWc8pVlu6BuKJTaisy1mTE=;
+        b=baogCcxxNvfktxl+YBzBdr+5XsgiYnzFN5vfPudgGddX1mCcyo+wcNh+RrQneDWzSt
+         m/vHHwoErfmnctYYQ7M23D96l7Bhj5mKrEuFv5A7mr1fsUJZc+AorNF+WGEgUODXkylr
+         8nx4E7MflZ3JwS9SKo1t3INQkUBPsIJW+3l31TuZE9ig6zlgQF3lGhTESnuVqRs37bUc
+         ACvYLkmgmwV0JrpNb2MGZ+YI43HTJP0kEtYsqTMLYPpH3IIePkYTXUkMCka1CliPxxAI
+         6KCJMgtvIx8WNdru+6PNbgdGweUfwHkELkcvJb65LruFS78QRMExgrrRIQEjl8VZrVEq
+         4HAA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791447101; x=1792051901;
+        d=1e100.net; s=20260707; t=1791447315; x=1792052115;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=JItcqZCTTZ5Tr3DrlkTjE4P6dQhLoTOAQJPbjV6HDlQ=;
-        b=enZm4kXZ6ZxpWmGZOsVyeUNFwccxNrJQXamgqbJCDb5nurwJUd8jFM3ngtXmixt2jR
-         kEz21K3izE8JrHPJqdLfDNprv4SXoLbVXvtugH9NETKm+So6vLOqrsvnilJ89LoZYrOL
-         5nOnFgSOSXTkW13Gw8D8ZPPB/W+Njjx1vtyKq0k93tqZEnvqmK81MNLdWUeElOnWCq3P
-         FGkdEaXbaVnO83/tExhmEvRs+gXmCO8x22tWYPtJGjaiaR59IMy79IMk7O4FvPEvPbYb
-         bb/imYh30EWWoXKtDEwPHvzHy2EIFjLk/v2Y+NwuDiE/RPbZj8vhxgZ+c1pbC0K8RlZa
-         ZsZg==
-X-Forwarded-Encrypted: i=1; AKwUvByj4WgjBEFdSg2VBw9Q31We/4WnppHtFDka3aHfifP1CstqmW0lzLa0MOpKWeaSTUAS+LzFkdZJ8GRp@vger.kernel.org
-X-Gm-Message-State: AFq9FYKoZDvdhHSZnGKjKkkwZ+JnzsMPBwbgpWVldyEUpeV92LI4FHQS
-	i4xOYxo3atA8GqjPxHL6g4q4nUOJSi3/7zkTP/xgUaUQ63COygVMYOH6FfX4dsyq1zEQPbXor53
-	SgcJ5AOmWeJGK/oJ9LZFw07xGdEwKMdBR/IP9JQwZOKOEiaH8Ynca7QL/m4dRexb4NxohhWNeOa
-	OtAfls8hwMJ5/K6NSroECVfElcoBo4Ng4AVmpn1Wc=
-X-Gm-Gg: AYBFou0AfezL7R2gNhxYr+CHQ3GYTwyO84HSlUtW2jttDQWDbpJvyY/lRPpF9SdJkKF
-	sJCgwHcmpoxIkzGNmc35mIfBC10nmWWWWq7gGTgRBXGmJfweJlSW3ZMDG2obLSzWEJvLv7o9YbM
-	EQ2LEBMKD/7oBHJSwLsjO8of/6dcKkReOQ2Qdabw+QQWESjxnEIacrhIM=
-X-Received: by 2002:a05:690e:43d1:b0:677:d251:ccb2 with SMTP id 956f58d0204a3-6790a3ba2b6mr1617783d50.15.1791447101132;
-        Thu, 08 Oct 2026 01:11:41 -0700 (PDT)
-X-Received: by 2002:a05:690e:43d1:b0:677:d251:ccb2 with SMTP id
- 956f58d0204a3-6790a3ba2b6mr1617763d50.15.1791447100494; Thu, 08 Oct 2026
- 01:11:40 -0700 (PDT)
+        bh=pL3azhN+e8+Ll8Q2wR7Y9QWc8pVlu6BuKJTaisy1mTE=;
+        b=SUwAGcMmcN08MohPMm7j9bNMofg3Qnh13fBXraNGqy/xcB6H31Ldh6FTkOYXpfzQL4
+         aWXPQMxVMfYYg6VKBvY+wDHxgYiDAG4fBzu2JltZgfxzLWHD8AVZ9dXrEq1f+YO4BjVR
+         xQJdvXvuWLR85Nqjhe1kDo2ZEM+uEulj3cAtESiXY1/IXiUlMKAUGcFd7J8JgdtFSMbX
+         udAdUOuFTbL/E+8QcI7wOhUVUEN2zii0cPA7z4m6sG0ALlSSwPnX2IzodjQ1+XsouCC9
+         gNQlcweHO8tpfllCaGOjbkYvGuUtfmsnxp7wpZYAs1gmBGpzzamBSe0iC2K5WiapSGO+
+         grAw==
+X-Forwarded-Encrypted: i=1; AKwUvBxDRkGv+6UO0pCZvAyyJNCtJQn91qo7hPBUhT0MKkg1h9SLyGEosyhDF9DOc/aO3HJit/YHlRiROg5N@vger.kernel.org
+X-Gm-Message-State: AFq9FYKkZ640f07XC7C4tbHH7IBvBtiXRuIRw1+06q1zE2xDioyLYHZy
+	u05W554jaJ/lAmzi4km13E6P0a1r1i+G0nEPr58Q9J4H40Az3vED3bmD5j0b2awMyeINBCQov8D
+	l/nVtdUXe9qn2M7eVL6O6iJFulPo07+o=
+X-Gm-Gg: AYBFou2S/XJk0Lw3f/R7b7NyXoplR/K++SOGG4rhoHfAn59wmVhLw5Og+cmZFM/Qr8A
+	Ny55f7+dLg865bL8YqnyWkbn8xqweJ0y68yskjgi6bUO4ecl0mtJB+ZQraNdAhjUcCTG64fOFY0
+	0/DZQ4duDJZU6i9Pqss10Wl6L82KniOBwi647LNbSBI91YDuJZt2gJz0hD3jvhSPdiSvi1Lanl9
+	NcGDeMks1och79kV2YJDUolunMfKYtK2SBxFQ9rPVhBKV6P3Vl4VEV5AwCSA5BDAq9c08QowQf2
+	CUg1dHlOZph/MCjwtCNP9i5X0GkviwiCNtuwBhhNavOt1BgR+/mmE/Q9geYMTNVRtv7rZPgpwOV
+	XtU6x95WM/5OUf3pUENlcF/Ob
+X-Received: by 2002:a05:693c:20cb:20b0:351:62ef:7cfe with SMTP id
+ 5a478bee46e88-35162ef8211mr4800802eec.11.1791447314716; Thu, 08 Oct 2026
+ 01:15:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261005-rpmi-tee-service-grp-dev-v2-0-72f222e23ec1@oss.qualcomm.com>
- <20261005-rpmi-tee-service-grp-dev-v2-6-72f222e23ec1@oss.qualcomm.com>
-In-Reply-To: <20261005-rpmi-tee-service-grp-dev-v2-6-72f222e23ec1@oss.qualcomm.com>
-From: Jens Wiklander <jens.wiklander@oss.qualcomm.com>
-Date: Thu, 8 Oct 2026 10:11:29 +0200
-X-Gm-Features: AclHuK_ulwLbOdiOwhVLyKYI0w-jUZto9bQrzFykzb9tv-znqnJpL93tMSNQoQQ
-Message-ID: <CAGgiveUzBk0Na13cqPRnQw8y2XdQ9LLktFK5eaJLTMiQZJPc_w@mail.gmail.com>
-Subject: Re: [PATCH RFC v2 6/8] tee: optee: execute yielding RPMI calls
-To: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
-Cc: Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>,
-        Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-        Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-        Rahul Pathak <rahul@summations.net>, Anup Patel <anup@brainfault.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Marouene Boubakri <marouene.boubakri@oss.nxp.com>,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        op-tee@lists.trustedfirmware.org, linux-riscv@lists.infradead.org,
-        devicetree@vger.kernel.org
+References: <20261007085457.98762-1-clamor95@gmail.com> <20261007085457.98762-4-clamor95@gmail.com>
+ <e69041a4-c03e-46ae-b83a-3d8363070e80@gmail.com>
+In-Reply-To: <e69041a4-c03e-46ae-b83a-3d8363070e80@gmail.com>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Thu, 8 Oct 2026 11:15:02 +0300
+X-Gm-Features: AclHuK8oO-wrh3Vky1FNjCoz08eeII-MlKBmUclvEYuGK-wSYsHn_Xcl26MdxN8
+Message-ID: <CAPVz0n2t5tcQB+YhNCFoQCStizEjTdyx7pDzLHtYkoz=B2MPwg@mail.gmail.com>
+Subject: Re: [PATCH v1 3/3] leds: aat1290: Add support for AAT1270 Current
+ Regulator for Flash LEDs
+To: Jacek Anaszewski <jacek.anaszewski@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-leds@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-GUID: bjwKFwboPg-_3wY_vnQl1yfqZtWzEE0H
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA4MDAzMiBTYWx0ZWRfXwUkrMXLhVYmv
- Z6P3B5F7YCMt92/ouhK9c0OAO+iVEpVsDXAHiVxTeWaPrjuMSIr0BTt0PI8lc44RwHDVVCAgDr0
- s67IntK/mCQ60nR0mrccezaYiGHkacY=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA4MDAzMiBTYWx0ZWRfX9Hcjv6IV2oWJ
- dyYgtoFL7WUsblY4O+HSpd3Mm/l30L8PJB9YJrzlbsW48cJARatgKGV/7QsdLxjhzhbJgxL/d6I
- 06J1N8FCUGyUWbKndKvnupFyckkx7zXJ0HWJ1/1yN5oNePjCexIXgcdYxJxCqz3LdL1P6szrwQZ
- LNMsXyMIFnTlVWWMD2qx3OqHKCeV080LChMl4aBCAXkxfg3tvdRrMPz1iwGFhddudZJjkT+FgKp
- AslDSOfxvt6OR1r0HWxY/GnOVpaJQeVWK+kadHS3KP0TaXzM1eXhwuK2xkOyqFU5BuiZqZBW7f+
- qD/SBdaa2DuDIHzRv+CsD21p/N0lNsgqiRTXylfVwk9xwLgHEJW8fkNuvLvUWgmyfzCF8+zZ96m
- BwKYijpLJU06VBE/OsErHcybSKKz32xDebXaDm6vCPoekFtvJADunb4Vyza0PW6W5xLaGh2Xfz1
- SFenp4eISqT8XweKspA==
-X-Authority-Analysis: v=2.4 cv=DfWCOftW c=1 sm=1 tr=0 ts=6ac7503e cx=c_pps
- a=J+5FMm3BkXb42VdG8aMU9w==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=eoimf2acIAo5FJnRuUoq:22 a=EUspDBNiAAAA:8 a=ErwVIQJsGMf6Wn3gpasA:9
- a=QEXdDO2ut3YA:10 a=Epx66wHExT0cjJnnR-oj:22
-X-Proofpoint-ORIG-GUID: bjwKFwboPg-_3wY_vnQl1yfqZtWzEE0H
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-08_03,2026-10-06_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 malwarescore=0 bulkscore=0 phishscore=0 clxscore=1015
- priorityscore=1501 suspectscore=0 spamscore=0 impostorscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610080032
 
-On Tue, Oct 6, 2026 at 2:40=E2=80=AFAM Amirreza Zarrabi
-<amirreza.zarrabi@oss.qualcomm.com> wrote:
+=D1=81=D1=80, 7 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 22:04=
+ Jacek Anaszewski <jacek.anaszewski@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
 >
-> OP-TEE commands can span multiple exchanges with normal world. A call
-> may yield to request an RPC service or allow interrupt processing
-> before continuing execution in secure world.
+> Hi Svyatoslav,
 >
-> Add the RPMI yielding-call path used by the common OP-TEE session
-> operations. Submit the command and RPC argument buffers as ranges
-> within a shared memory parcel.
+> On 10/7/26 10:54 AM, Svyatoslav Ryhel wrote:
+> > The AAT1270 is quite similar to the AAT1290, but it does not support th=
+e
+> > Advanced Simple Serial Control (AS2C) used in the AAT1290. The AAT1270
+> > uses an earlier version of AS2C, namely Simple Serial Control, which la=
+cks
+> > address-sending capabilities.
 >
-> Handle RPC requests while the call is suspended and resume execution
-> using the token returned by OP-TEE until the command completes.
+> It seems that it is not possible to set brightness level and flash
+> timeout. Those values are controlled by the values of RSET and CT
+> elements attached to the controller.
+
+This is not entirely true. S2C allows setting brightness level
+perfectly fine, I have tested it on my LG Optimus 2X P990 (star) that
+has this LED flash driver. Flash timeout is fixed, that is true, but
+both AAT1270 and AAT1290 feature mandatory flash inhibit logic which
+is not implemented by this driver and can be used to set emergency
+flash disable.
+
+> Those values should be conveyed
+> via Device Tree, and the LED device API should reflect that accordingly.
 >
-> Use the common OP-TEE call queue to wait when an initial request is
-> rejected with RPMI_ERR_BUSY, allowing another active call to complete
-> before retrying.
+
+They are calculated same way as AAT1290 does and set in the device
+tree. Being fixed does not mean they should be removed. Device tree
+describes hardware and those values are part of hw description.
+
+> The question is whether it is worth a hassle to add support for this
+> older chipset version. Could you let as know on which device it is
+> present.
 >
-> Signed-off-by: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
-> ---
->  drivers/tee/optee/rpmi_abi.c | 124 +++++++++++++++++++++++++++++++++++++=
-++++++
->  1 file changed, 124 insertions(+)
+
+LG Optimus 2X P990 (star). It is a Tegra smartphone, it is not yet
+supported by mainline Linux kernel, but it will be in near future. I
+am currently upstreaming missing parts for better support.
+
 >
-> diff --git a/drivers/tee/optee/rpmi_abi.c b/drivers/tee/optee/rpmi_abi.c
-> index 58d82678be98..6e76316794c1 100644
-> --- a/drivers/tee/optee/rpmi_abi.c
-> +++ b/drivers/tee/optee/rpmi_abi.c
-> @@ -9,6 +9,7 @@
->  #include <linux/mailbox/riscv-rpmi-message.h>
->  #include <linux/overflow.h>
->  #include <linux/rpmi_tee.h>
-> +#include <linux/sched.h>
->  #include <linux/slab.h>
->  #include <linux/unaligned.h>
->  #include "optee_private.h"
-> @@ -560,3 +561,126 @@ static void optee_rpmi_handle_rpc_cmd(struct tee_co=
-ntext *ctx,
->                 optee_rpc_cmd(ctx, optee, arg);
->         }
->  }
-> +
-> +/* Handle RPC command or interrupt returns from a yielding call. */
-> +static void optee_rpmi_handle_rpc(struct tee_context *ctx, struct optee =
-*optee,
-> +                                 u32 result, struct optee_msg_arg *arg)
-> +{
-> +       switch (result) {
-> +       case OPTEE_RPMI_YIELDING_CALL_RETURN_RPC_CMD:
-> +               optee_rpmi_handle_rpc_cmd(ctx, optee, arg);
-> +               break;
-> +       case OPTEE_RPMI_YIELDING_CALL_RETURN_INTERRUPT:
-> +               break;
-> +       default:
-> +               pr_warn("Unknown RPC func 0x%x\n", result);
-> +               break;
-> +       }
-> +}
-> +
-> +/**
-> + * optee_rpmi_yielding_call() - submit and resume a yielding RPMI comman=
-d
-> + * @ctx: calling context
-> + * @req: initial command request
-> + * @rpc_arg: shared RPC argument buffer
-> + * @system_thread: caller requests TEE system thread support
-> + *
-> + * Only RPMI_ERR_BUSY rejection of the initial command permits retry.
-> + *
-> + * Return: zero on completion, or a negative error.
-> + */
-> +static int optee_rpmi_yielding_call(struct tee_context *ctx,
-> +                                   const struct optee_rpmi_call_req *req=
-,
-> +                                   struct optee_msg_arg *rpc_arg,
-> +                                   bool system_thread)
-> +{
-> +       struct optee *optee =3D tee_get_drvdata(ctx->teedev);
-> +       struct optee_rpmi_resume_req resume =3D {
-> +               .op =3D cpu_to_le32(OPTEE_RPMI_YIELDING_CALL_RESUME),
-> +               /* resume_token is nonzero after OP-TEE suspends the call=
-. */
-> +               .resume_token =3D 0,
-
-I missed this when reviewing "tee: optee: define the RPMI control and
-parcel-reference ABI". I'd prefer if the resume_token was a truly
-opaque value, just as for the SMC and FF-A ABIs. Any reason why it's a
-64-bit value instead of 32-bit, as is used for the other ABI?
-
-> +       };
-> +       struct optee_rpmi_call_resp resp;
-> +       struct optee_call_waiter waiter;
-> +       u32 result;
-> +       s32 status;
-> +       int ret;
-> +
-> +       optee_cq_wait_init(&optee->call_queue, &waiter, system_thread);
-> +       while (true) {
-> +               if (resume.resume_token)
-> +                       ret =3D optee_rpmi_call_with_status(optee, &resum=
-e,
-> +                                                         sizeof(resume),=
- &resp,
-> +                                                         sizeof(resp), &=
-status);
-> +               else
-> +                       ret =3D optee_rpmi_call_with_status(optee, req, s=
-izeof(*req),
-> +                                                         &resp, sizeof(r=
-esp),
-> +                                                         &status);
-
-Please fix the too-long lines above.
-
-> +               if (ret)
-> +                       goto done;
-> +
-> +               switch (status) {
-> +               case RPMI_SUCCESS:
-
-Any particular reason why we aren't using TEE error codes here?
-
-> +                       break;
-> +               case RPMI_ERR_BUSY:
-> +                       if (!resume.resume_token) {
-> +                               optee_cq_wait_for_completion(&optee->call=
-_queue,
-> +                                                            &waiter);
-> +                               continue;
-> +                       }
-> +
-> +                       fallthrough;
-> +               default:
-> +                       ret =3D rpmi_to_linux_error(status);
-> +                       goto done;
-> +               }
-> +
-> +               result =3D get_unaligned_le32(&resp.result);
-
-Why not le32_to_cpu(resp.result)?
-
-Cheers,
-Jens
-
-> +               if (result =3D=3D OPTEE_RPMI_YIELDING_CALL_RETURN_DONE)
-> +                       goto done;
-> +
-> +               cond_resched();
-> +               optee_rpmi_handle_rpc(ctx, optee, result, rpc_arg);
-> +
-> +               resume.resume_token =3D resp.resume_token;
-> +       }
-> +done:
-> +       optee_cq_wait_final(&optee->call_queue, &waiter);
-> +
-> +       return ret;
-> +}
-> +
-> +/* The caller supplies SHM with room for command and RPC args. */
-> +static int optee_rpmi_do_call_with_arg(struct tee_context *ctx,
-> +                                      struct tee_shm *shm, u_int offs,
-> +                                      bool system_thread)
-> +{
-> +       struct optee *optee =3D tee_get_drvdata(ctx->teedev);
-> +       struct optee_msg_arg *arg, *rpc_arg;
-> +       struct optee_rpmi_call_req req;
-> +       size_t arg_size, rpc_size, rpc_offset;
-> +       u32 parcel_id, nonce;
-> +
-> +       arg =3D tee_shm_get_va(shm, offs);
-> +       if (IS_ERR(arg))
-> +               return PTR_ERR(arg);
-> +
-> +       arg_size =3D OPTEE_MSG_GET_ARG_SIZE(arg->num_params);
-> +       rpc_size =3D OPTEE_MSG_GET_ARG_SIZE(optee->rpc_param_count);
-> +       rpc_offset =3D offs + arg_size;
-> +       rpc_arg =3D tee_shm_get_va(shm, rpc_offset);
-> +       if (IS_ERR(rpc_arg))
-> +               return PTR_ERR(rpc_arg);
-> +
-> +       optee_rpmi_shm_get_identity(shm, &parcel_id, &nonce);
-> +
-> +       req.op =3D cpu_to_le32(OPTEE_RPMI_YIELDING_CALL_WITH_ARG);
-> +       req.parcel_id =3D cpu_to_le32(parcel_id);
-> +       req.nonce =3D cpu_to_le32(nonce);
-> +       req.arg_offset =3D cpu_to_le64((u64)shm->offset + offs);
-> +       req.rpc_offset =3D cpu_to_le64((u64)shm->offset + rpc_offset);
-> +       req.arg_size =3D cpu_to_le32(arg_size);
-> +       req.rpc_size =3D cpu_to_le32(rpc_size);
-> +
-> +       return optee_rpmi_yielding_call(ctx, &req, rpc_arg, system_thread=
+> > Differentiate the chips by using a description structure with a flag to
+> > indicate if AS2C is supported, placing all AS2C-only features under a
+> > conditional check.
+> >
+> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > ---
+> >   drivers/leds/flash/leds-aat1290.c | 66 ++++++++++++++++++++++--------=
+-
+> >   1 file changed, 47 insertions(+), 19 deletions(-)
+> >
+> > diff --git a/drivers/leds/flash/leds-aat1290.c b/drivers/leds/flash/led=
+s-aat1290.c
+> > index 49251cfd33509..773cdcc73a9e1 100644
+> > --- a/drivers/leds/flash/leds-aat1290.c
+> > +++ b/drivers/leds/flash/leds-aat1290.c
+> > @@ -43,9 +43,6 @@
+> >   #define AAT1290_FLASH_TM_NUM_LEVELS 16
+> >   #define AAT1290_MM_CURRENT_SCALE_SIZE       15
+> >
+> > -#define AAT1290_NAME                 "aat1290"
+> > -
+> > -
+> >   struct aat1290_led_config_data {
+> >       /* maximum LED current in movie mode */
+> >       u32 max_mm_current;
+> > @@ -59,6 +56,13 @@ struct aat1290_led_config_data {
+> >       enum led_brightness max_brightness;
+> >   };
+> >
+> > +struct aat1290_led_chip_info {
+> > +     /* led controller name */
+> > +     const char *name;
+> > +     /* Advanced Simple Serial Control support */
+> > +     bool as2c;
+> > +};
+> > +
+> >   struct aat1290_led {
+> >       /* platform device data */
+> >       struct platform_device *pdev;
+> > @@ -74,6 +78,10 @@ struct aat1290_led {
+> >       struct gpio_desc *gpio_fl_en;
+> >       /* EN|SET pin  */
+> >       struct gpio_desc *gpio_en_set;
+> > +
+> > +     /* led controller description */
+> > +     const struct aat1290_led_chip_info *info;
+> > +
+> >       /* movie mode current scale */
+> >       int *mm_current_scale;
+> >       /* device mode */
+> > @@ -101,15 +109,17 @@ static void aat1290_as2cwire_write(struct aat1290=
+_led *led, int addr, int value)
+> >
+> >       udelay(AAT1290_FLEN_OFF_DELAY_TIME_US);
+> >
+> > -     /* write address */
+> > -     for (i =3D 0; i < addr; ++i) {
+> > -             udelay(AAT1290_EN_SET_TICK_TIME_US);
+> > -             gpiod_direction_output(led->gpio_en_set, 0);
+> > -             udelay(AAT1290_EN_SET_TICK_TIME_US);
+> > -             gpiod_direction_output(led->gpio_en_set, 1);
+> > -     }
+> > +     if (led->info->as2c) {
+> > +             /* write address */
+> > +             for (i =3D 0; i < addr; ++i) {
+> > +                     udelay(AAT1290_EN_SET_TICK_TIME_US);
+> > +                     gpiod_direction_output(led->gpio_en_set, 0);
+> > +                     udelay(AAT1290_EN_SET_TICK_TIME_US);
+> > +                     gpiod_direction_output(led->gpio_en_set, 1);
+> > +             }
+> >
+> > -     usleep_range(AAT1290_LATCH_TIME_MIN_US, AAT1290_LATCH_TIME_MAX_US=
 );
-> +}
+> > +             usleep_range(AAT1290_LATCH_TIME_MIN_US, AAT1290_LATCH_TIM=
+E_MAX_US);
+> > +     }
+> >
+> >       /* write data */
+> >       for (i =3D 0; i < value; ++i) {
+> > @@ -150,16 +160,18 @@ static int aat1290_led_brightness_set(struct led_=
+classdev *led_cdev,
+> >               led->movie_mode =3D false;
+> >       } else {
+> >               if (!led->movie_mode) {
+> > -                     aat1290_as2cwire_write(led,
+> > -                             AAT1290_MM_CURRENT_RATIO_ADDR,
+> > -                             AAT1290_MM_TO_FL_1_92);
+> > +                     if (led->info->as2c)
+> > +                             aat1290_as2cwire_write(led,
+> > +                                     AAT1290_MM_CURRENT_RATIO_ADDR,
+> > +                                     AAT1290_MM_TO_FL_1_92);
+> >                       led->movie_mode =3D true;
+> >               }
+> >
+> >               aat1290_as2cwire_write(led, AAT1290_MOVIE_MODE_CURRENT_AD=
+DR,
+> >                               AAT1290_MAX_MM_CURR_PERCENT_0 - brightnes=
+s);
+> > -             aat1290_as2cwire_write(led, AAT1290_MOVIE_MODE_CONFIG_ADD=
+R,
+> > -                             AAT1290_MOVIE_MODE_ON);
+> > +             if (led->info->as2c)
+> > +                     aat1290_as2cwire_write(led, AAT1290_MOVIE_MODE_CO=
+NFIG_ADDR,
+> > +                                            AAT1290_MOVIE_MODE_ON);
+> >       }
+> >
+> >       mutex_unlock(&led->lock);
+> > @@ -178,7 +190,8 @@ static int aat1290_led_flash_strobe_set(struct led_=
+classdev_flash *fled_cdev,
+> >       mutex_lock(&led->lock);
+> >
+> >       if (state) {
+> > -             aat1290_set_flash_safety_timer(led, timeout->val);
+> > +             if (led->info->as2c)
+> > +                     aat1290_set_flash_safety_timer(led, timeout->val)=
+;
+> >               gpiod_direction_output(led->gpio_fl_en, 1);
+> >       } else {
+> >               gpiod_direction_output(led->gpio_fl_en, 0);
+> > @@ -475,6 +488,10 @@ static int aat1290_led_probe(struct platform_devic=
+e *pdev)
+> >       fled_cdev->ops =3D &flash_ops;
+> >       led_cdev =3D &fled_cdev->led_cdev;
+> >
+> > +     led->info =3D device_get_match_data(dev);
+> > +     if (!led->info)
+> > +             return -ENODEV;
+> > +
+> >       ret =3D aat1290_led_get_configuration(led, &led_cfg, &sub_node);
+> >       if (ret < 0)
+> >               return ret;
+> > @@ -489,7 +506,7 @@ static int aat1290_led_probe(struct platform_device=
+ *pdev)
+> >       aat1290_init_flash_timeout(led, &led_cfg);
+> >
+> >       init_data.fwnode =3D of_fwnode_handle(sub_node);
+> > -     init_data.devicename =3D AAT1290_NAME;
+> > +     init_data.devicename =3D led->info->name;
+> >
+> >       /* Register LED Flash class device */
+> >       ret =3D led_classdev_flash_register_ext(&pdev->dev, fled_cdev,
+> > @@ -528,8 +545,19 @@ static void aat1290_led_remove(struct platform_dev=
+ice *pdev)
+> >       mutex_destroy(&led->lock);
+> >   }
+> >
+> > +static const struct aat1290_led_chip_info aat1290_info =3D {
+> > +     .name =3D "aat1290",
+> > +     .as2c =3D true,
+> > +};
+> > +
+> > +static const struct aat1290_led_chip_info aat1270_info =3D {
+> > +     .name =3D "aat1270",
+> > +     .as2c =3D false,
+> > +};
+> > +
+> >   static const struct of_device_id aat1290_led_dt_match[] =3D {
+> > -     { .compatible =3D "skyworks,aat1290" },
+> > +     { .compatible =3D "skyworks,aat1290", .data =3D &aat1290_info },
+> > +     { .compatible =3D "skyworks,aat1270", .data =3D &aat1270_info },
+> >       {},
+> >   };
+> >   MODULE_DEVICE_TABLE(of, aat1290_led_dt_match);
 >
 > --
-> 2.34.1
+> Best regards,
+> Jacek Anaszewski
 >
