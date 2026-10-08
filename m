@@ -1,113 +1,89 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C63BE4A012F;
-	Thu,  8 Oct 2026 13:19:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8559E472077
+	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 13:22:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791465601; cv=none; b=irOzV/qg8Cc4xT28kU3haXOGNLhK8WywhL+JFAQyU0cHV6anftBL8Icbp6ptCrL+J2Rzn8zsV+CPMYN8BshuVWOY6ymNvDiFNTFBV9EsVg4pW78i6LGyOLuTdAHxNVCaxfLW12qH0YEnvVvfxn4sIGVK/ySnaHkekilqS4sJOhY=
+	t=1791465755; cv=none; b=gbOK8sNbofyuToyzLsOyLbPzVGmTE80wt2t/wrjM4aTRg0q29KNKQQ8XYLRf+4Yy4c2ckW1H7HHq3Njgv1Hi3gwr6TDjINRedKL6gjUIHqwGNnQpEkgSFf6XdKVpW7eNdHfRSNLCGhYynHgmQFhmyU1hP7OPfGtByVPgk7T7NmU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791465601; c=relaxed/simple;
-	bh=+u2grcbCdhxCd975l0htRzcuvftDxE2QAvyE3v3OQ9Y=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=mUp7QxfgbS8BR8nYq6O0eMG8LuT9NxXwqfcIPPXiNVUn2SUvkbJPmkA7e+hTck/uCW1/s9z8maa5B2K2UUGZNZ2HQ8DyBC2N83StSCQvb6x+1A4hY9opIeci7GJEtqenO1ddJwz6W4gvgRctDL7ABKED9fgmM8GxnfGNDO36eMg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=u+b7roC3; arc=none smtp.client-ip=68.232.154.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1791465755; c=relaxed/simple;
+	bh=WBXtropSzprUTX2O5FwhoUwgPtwsDDIyB2/KMKt3/lE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=axKvx3DzxMmshe4MWG1lfhm/USkaN1/ylsGMMctJ6++W1KxARqrOPUumYAPLw/44qGtMMbJ/Ch6JSinag0dj0sylu0LCOQtMdvCIOjdtZODGw3iAPe7+c8w8kI5jtWPpF6SvnUFyswWZ0zjsJ7azk8zZUk1wbwmAs6uIS8awUXA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RVrQodrv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="u+b7roC3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1791465599; x=1823001599;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:references:in-reply-to:to:cc;
-  bh=+u2grcbCdhxCd975l0htRzcuvftDxE2QAvyE3v3OQ9Y=;
-  b=u+b7roC39+gJzxR1uPHHXttbloXnkYaavhBC4FzEMwz3PCb+VZSuduoO
-   iJF5Ey4/53b+8Ew+zlfC9bvUbxN2qRH8CN6mm0cyrPWghD7fd2fEp12EU
-   dY+R5WUuIgS3r1CaNC1IHGPv+gbPbQ2v1ERyYSCDemQQo3YR2uK3Jxh3f
-   b8Ngp+x9zW1ls9fWtaQJl+pDyr4IFoPPpETYrb7ZD4qMrvOlgxVKnHkmR
-   6/GAbmnzfCUNcN7JOrmv/LldqJ5UgLJMC1iWPD1nbwVU5a9rdMsqdoWh1
-   ldy9rRtSl40xC9BfM7JBGZ48Ig6qD/JXRKPhye3dQHkgwEdMjXefctLdG
-   A==;
-X-CSE-ConnectionGUID: L6K/bHZ6TFaHAjy0vIlGwA==
-X-CSE-MsgGUID: UGxlOntCQYisPTRiN9YAqA==
-X-IronPort-AV: E=Sophos;i="6.27,146,1787036400"; 
-   d="scan'208";a="65038497"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa2.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256; 08 Oct 2026 06:19:59 -0700
-Received: from chn-vm-ex03.mchp-main.com (10.10.85.151) by
- chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.58; Thu, 8 Oct 2026 06:19:38 -0700
-Received: from ROU-LL-M19942.mpu32.int (10.10.85.11) by
- chn-vm-ex03.mchp-main.com (10.10.85.151) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Thu, 8 Oct 2026 06:19:34 -0700
-From: Cyrille Pitchen <cyrille.pitchen@microchip.com>
-Date: Thu, 8 Oct 2026 15:19:03 +0200
-Subject: [PATCH v10 3/5] ARM: dts: microchip: sam9x60: Add GFX2D GPU
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RVrQodrv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B93F1F0089A
+	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 13:22:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791465754;
+	bh=WBXtropSzprUTX2O5FwhoUwgPtwsDDIyB2/KMKt3/lE=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=RVrQodrvfX8BLyPmA1KAw/5Y8/NZCTIw0S/hv0SelcX3h92+ckfFvi3SAWVX9htgu
+	 7/yfEZ35v95BqA1MUxukZ5fT9oUbyhyh0o4YaElq7FA9/tjWLkxRU4t3zf8Ebdb2GU
+	 3QLPD8+N+jVA156qJUZZaZlrRQ401v5ICeC7wQPC74dRUVukh9SnOQEfFPz/hN1dEw
+	 oqOYyfg+11CnADhC4GoieryKVucWfk6FQZ579l7iwN/Aip/moNIvSySf0M5E8BeNW7
+	 w75KP5Y5VgjEXZZIgBIZSSHkKkGPOkwQ1Rz7ZrUwDE82UpH4cjh8KiBWk8rSKESKqg
+	 0qpIhEv4IsVTA==
+Received: by mail-oa1-f43.google.com with SMTP id 586e51a60fabf-49e53ba03f5so834331fac.3
+        for <devicetree@vger.kernel.org>; Thu, 08 Oct 2026 06:22:34 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwfLuBEVC1DVuepK4juvv6bcTe08IoxVvzSPQd7LE9AZ2AeHlUjFnhTsm9Ni2FZdUf/E5ODpYNT0VU3@vger.kernel.org
+X-Gm-Message-State: AFuF++n+KyzCt8L4Bd0GvdvQTkTGsZOLW53ry/pb5ci1TLnLRhEXXKbw
+	1p+qNh16rafXXlCUBTOLa3xxbQv0dBMpFZIEYhuEqJmXHSGx7ffAMiUrt/Z43ez6zMl6vgdnmg7
+	Kx5+wO7RquwasRX1Ze2Tw13x1e3ZsBYs=
+X-Received: by 2002:a05:6871:b2c:b0:47d:a12f:3951 with SMTP id
+ 586e51a60fabf-4a259661200mr4847200fac.39.1791465753534; Thu, 08 Oct 2026
+ 06:22:33 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20261008-cpitchen-mainline_gfx2d-v10-3-67ca2477b3d5@microchip.com>
-References: <20261008-cpitchen-mainline_gfx2d-v10-0-67ca2477b3d5@microchip.com>
-In-Reply-To: <20261008-cpitchen-mainline_gfx2d-v10-0-67ca2477b3d5@microchip.com>
-To: David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	"Maarten Lankhorst" <maarten.lankhorst@linux.intel.com>, Maxime Ripard
-	<mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring
-	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
-	<conor+dt@kernel.org>, Nicolas Ferre <nicolas.ferre@microchip.com>,
-	"Alexandre Belloni" <alexandre.belloni@bootlin.com>, Claudiu Beznea
-	<claudiu.beznea@tuxon.dev>, Russell King <linux@armlinux.org.uk>
-CC: <dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	Cyrille Pitchen <cyrille.pitchen@microchip.com>, Manikandan Muralidharan
-	<manikandan.m@microchip.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=993;
- i=cyrille.pitchen@microchip.com; h=from:subject:message-id;
- bh=+u2grcbCdhxCd975l0htRzcuvftDxE2QAvyE3v3OQ9Y=;
- b=owGbwMvMwCXmf6yzKqEsVIbxtFoSQ9bxGaFzTv35OaNl3weNoxJKm7n8+x7ItC48OTWg5McDs
- VN2dbeLO0pZGMS4GGTFFFkOvdnam3n81WO7V6JSMHNYmUCGMHBxCsBE3FUZ/qdKnMly+1gZyLiH
- ySIj8D6Df8WJpxkHFj/ccuvVp5LTU1kZ/kdcuXeem+fOvruLr/MWTrq/suH/pml855a8Ynj4WPt
- iwyR2AA==
-X-Developer-Key: i=cyrille.pitchen@microchip.com; a=openpgp;
- fpr=7A21115D7D6026585D0E183E0EF12AA1BFAC073D
+References: <20260929-mali-c55-irq-supend-resume-v1-0-e3af34afff12@kernel.org>
+ <20260929-mali-c55-irq-supend-resume-v1-1-e3af34afff12@kernel.org> <f7987857-7516-4184-9a50-2b42a2d01234@ideasonboard.com>
+In-Reply-To: <f7987857-7516-4184-9a50-2b42a2d01234@ideasonboard.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Thu, 8 Oct 2026 15:22:18 +0200
+X-Gmail-Original-Message-ID: <CAD++jLnP1+aV99QkVRUX=7L67z10WuUSfqvxDZ8d44FJcVZ-Qw@mail.gmail.com>
+X-Gm-Features: AclHuK8rWtCgLBExYEFVtV6YJ_L_wVK9_y0rwU4QnsM7FeH0zmh-80QUTN8UTes
+Message-ID: <CAD++jLnP1+aV99QkVRUX=7L67z10WuUSfqvxDZ8d44FJcVZ-Qw@mail.gmail.com>
+Subject: Re: [PATCH 1/3] dt-bindings: media: mali-c55: Allow wakeup source
+To: Dan Scally <dan.scally@ideasonboard.com>
+Cc: Li Youhong <dayou5941@163.com>, Jacopo Mondi <jacopo.mondi@ideasonboard.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Hans Verkuil <hverkuil+cisco@kernel.org>, Nayden Kanchev <nayden.kanchev@arm.com>, 
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add support for the GFX2D GPU.
+On Wed, Oct 7, 2026 at 11:29=E2=80=AFAM Dan Scally <dan.scally@ideasonboard=
+.com> wrote:
 
-Reviewed-by: Manikandan Muralidharan <manikandan.m@microchip.com>
-Reviewed-by: Claudiu Beznea <claudiu.beznea@tuxon.dev>
-Signed-off-by: Cyrille Pitchen <cyrille.pitchen@microchip.com>
----
- arch/arm/boot/dts/microchip/sam9x60.dtsi | 8 ++++++++
- 1 file changed, 8 insertions(+)
+> On 29/09/2026 13:02, Linus Walleij wrote:
+> > The Mali-C55 interrupt can be wired as a wake source on platforms that
+> > support it. Use the standard wakeup-source property.
+>
+> That's interesting! How's that work, though? In the RZ/V2H particularly t=
+he ISP is in an offline
+> mode, so I'm struggling to see how one could trigger the interrupt whilst=
+ the device is suspended,
+> since you'd need to instruct the IVC to queue a frame.
 
-diff --git a/arch/arm/boot/dts/microchip/sam9x60.dtsi b/arch/arm/boot/dts/microchip/sam9x60.dtsi
-index e708b3df4ccd..1155f4f997f8 100644
---- a/arch/arm/boot/dts/microchip/sam9x60.dtsi
-+++ b/arch/arm/boot/dts/microchip/sam9x60.dtsi
-@@ -351,6 +351,14 @@ AT91_XDMAC_DT_PERID(26))>,
- 				status = "disabled";
- 			};
- 
-+			gpu: gpu@f0018000 {
-+				compatible = "microchip,sam9x60-gfx2d";
-+				reg = <0xf0018000 0x100>;
-+				interrupts = <36 IRQ_TYPE_LEVEL_HIGH 0>;
-+				clocks = <&pmc PMC_TYPE_PERIPHERAL 36>;
-+				status = "disabled";
-+			};
-+
- 			i2s: i2s@f001c000 {
- 				compatible = "microchip,sam9x60-i2smcc";
- 				reg = <0xf001c000 0x100>;
+The implementation is IP-neutral and doesn't really ask this question.
 
--- 
-2.53.0
+The typical silicon solution would be if the IP was synthesized into
+and always-on power domain on the chip. This means the CPU
+which runs Linux is powered off, while the ISP is still powered
+on, and could generate a wakeup IRQ. This is how e.g. GPIO
+units that can wake up the system work: they are always
+powered in some sense.
 
+I don't know if that makes any *sense* from a system engineering
+point of view, but it is something that can be done.
+
+Yours,
+Linus Walleij
