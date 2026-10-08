@@ -1,216 +1,128 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47AD2496D3C;
-	Thu,  8 Oct 2026 10:41:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA66138654F
+	for <devicetree@vger.kernel.org>; Thu,  8 Oct 2026 10:41:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791456068; cv=none; b=jbVoP4ZVkBrQP1mMjbGrOwWZhkXy66hWYessHTdjdbObqfdwfZhAgcgvHQivu36VaKv1s0nt4dq8jo/dh9OcOuYSL/Hh096wB1nvOQketzRmzmePQpAumPOvGP982jx45V3k+lZ8U/tYlNcb5Spdo2s6Bj2luqRNX6IGqKRlucs=
+	t=1791456094; cv=none; b=YMk4vOIIeexXNgMkSuq8OxZUWnUPEijpYo7lxxfNBDKtFKoUF/8mZYnS+zSZrpRrGumzDwD24IpjMcYELZfKE+C2to6PLx9AHHjdBcXfUKnAzkKyCIjmKp/XWrPXe05Xf6a+2dxmC8n22JRbDmtg3ePXjQ+d31pAgGN2g5FrMYs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791456068; c=relaxed/simple;
-	bh=RD+41Prv2YBVEcszEbTrjKHioJWroWvXmK1RbDFydcQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jSLJdizz0M/Igf4so3N5Tvk7Au5DYNspYFrGwyxINsRcY5AlU5wbQ5M0M0B8V2dlOY55TuCsD4H7DWuTIUS+RC9duxzqSR5/LNEK2QZ7kmiAyaY2+Ppd73tbWyS8ScUwxPPJxckaOCJqkoNnNcUTpmw/RVHtvMPwIETLIJUajZs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A0101qdY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791456094; c=relaxed/simple;
+	bh=vh9megH7Sj4pyMcijk8a/qAznKNprN+5HfTXfx+/7xg=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=R1T5Cdgaeqh17qiNfURiYBCQq32skSTpSioEi8engnA00ho+w6VJwtgpfK3N/eJnhFVMubEhu9DS2XRL6jhtxluETFaOJoUIOH2cVbmSsk3IZRIhR5bwKVKxT6LRuRJXztt2lc640qWuHlnOJR63XvhLYXPRLfRWcaAHlQvwAnw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MgUiZuAq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A0101qdY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 221DF1F000FF;
-	Thu,  8 Oct 2026 10:41:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MgUiZuAq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C7671F000FF;
+	Thu,  8 Oct 2026 10:41:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791456066;
-	bh=CtJ3sX2t+k7O4SihyHn6wnh9lqmM5VVL6sBh7af1M/4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=A0101qdYFBu0hUVMqtM+aCFz4o+0NWpEnRDNdaj/I8FD5Xhzxqf/1ZOCj3D/V64qb
-	 MIRYuo7DOzLQ8vee5yJD3Cs/VMw+3uvclyQWbROOSSbOx8HNkWJ5t6aT5su1T/zPSU
-	 y7QARURDdMneNgMtCkB/YmlPEfD9i+rlISonSDPe2V3g5KyA3UeMXTOIzptrKhL5Z6
-	 cFLON65qhOeFcUrucEP5mWiUPP+upav+fE59jV+BBliO0ip3Z79pBtWJoc7mYeiIEs
-	 6i/uXx30dBWfsuKTRS7maSircJRMMehivTLDRsKzcBXy81f6IJ+oHClXbuREmW4Lq6
-	 C5mcS4T6pSJGQ==
-Date: Thu, 8 Oct 2026 11:41:00 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Joshua Yeong <joshua.yeong@starfivetech.com>
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
-	rafael@kernel.org, viresh.kumar@linaro.org, ulfh@kernel.org,
-	rahul@summations.net, anup@brainfault.org, lftan.linux@gmail.com,
-	alex@ghiti.fr, linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/7] dt-bindings: dvfs: Add RPMI performance service
- bindings
-Message-ID: <20261008-3b6200fdf4f51048d888b4f5@squawk>
-References: <20261008091032.2832333-1-joshua.yeong@starfivetech.com>
- <20261008091032.2832333-3-joshua.yeong@starfivetech.com>
+	s=k20260515; t=1791456093;
+	bh=mOLEfweQC2q7qjJ2pDVMzshcbRalcNK71Utj3kk3aC0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=MgUiZuAqKdFDBGkvImoOBPHhElczRov8DrEpuDLbWAlfYhnEVORS0tHNFX9qu5+4U
+	 xz0XEmygZkmKw8vlU0lr6c6umZyUoeWgyUh4Z/jFwSHCCwLMnoA9UrXmo6o/Invfkz
+	 SwO41wQh8BQ0Umi2ioK6Wtjg2dfMAkNGQPEkxWZUEZk+wQwfe1o81bACAwSap2ZlN/
+	 4e3E7P96EGLCbq7z8JCuU3zD6yv1m7FJaCgqQy5+GWqoMl5N6fPlpbmUFA6AeXlBif
+	 cpkjPuRdXITFAjAVfEePLZGD52/o2JDu+gV5LOv0xgVH4ig7VYRf9wODn7CHLswmj9
+	 NOCXFKCRR6+IQ==
+Message-ID: <sashiko-outbox-164035@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH ath-next 11/17] wifi: ath12k: Add platform MSI support
+ for CE
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Aaradhana Sahu" <aaradhana.sahu@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20261008-mpp_bringup-v1-11-2c5797b5e4ac@oss.qualcomm.com>
+References: <20261008-mpp_bringup-v1-0-2c5797b5e4ac@oss.qualcomm.com>
+ <20261008-mpp_bringup-v1-11-2c5797b5e4ac@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 08 Oct 2026 10:41:32 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="gR/v5yiG/AmM4XPJ"
-Content-Disposition: inline
-In-Reply-To: <20261008091032.2832333-3-joshua.yeong@starfivetech.com>
 
---gR/v5yiG/AmM4XPJ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Resource leak of non-devm MSIs and IRQs on ath12k_ahb_probe() erro=
+r paths
+--
 
-On Thu, Oct 08, 2026 at 05:10:26PM +0800, Joshua Yeong wrote:
-> Add device tree bindings for the RPMI performance service group based
-> controller for the supervisor software.
->=20
-> A CPU names its performance domain through "performance-domains". Any
-> other device names it through "power-domains": the controller is also a
-> power domain provider, with one power domain per performance domain and
-> the levels the domain advertises as the performance states of that
-> power domain.
->=20
-> The RPMI performance service group is defined by the RISC-V Platform
-> Management Interface (RPMI) specification.
->=20
-> Signed-off-by: Joshua Yeong <joshua.yeong@starfivetech.com>
-> ---
->  .../bindings/dvfs/riscv,rpmi-performance.yaml | 88 +++++++++++++++++++
->  1 file changed, 88 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/dvfs/riscv,rpmi-per=
-formance.yaml
->=20
-> diff --git a/Documentation/devicetree/bindings/dvfs/riscv,rpmi-performanc=
-e.yaml b/Documentation/devicetree/bindings/dvfs/riscv,rpmi-performance.yaml
-> new file mode 100644
-> index 000000000000..ec7856cb7257
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/dvfs/riscv,rpmi-performance.yaml
-> @@ -0,0 +1,88 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/dvfs/riscv,rpmi-performance.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: RISC-V RPMI performance service group
-> +
-> +maintainers:
-> +  - Joshua Yeong <joshua.yeong@starfivetech.com>
-> +
-> +description: |
-> +  The RISC-V Platform Management Interface (RPMI) [1] defines a modular =
-and
-> +  extensible messaging protocol for platform management functions. The s=
-upervisor
-> +  software can send and receive RPMI messages via SBI MPXY extension [2]
-> +  or via a dedicated supervisor-mode RPMI transport.
-> +
-> +  The RPMI specification [1] defines performance service group (performa=
-nce
-> +  domain) for accessing and controlling platform-managed performance-rel=
-ated
-> +  resources, as implemented by a platform microcontroller. Supervisor so=
-ftware
-> +  can interact with the RPMI performance service group through an SBI MP=
-XY
-> +  channel or through a dedicated supervisor-mode RPMI transport.
-> +
-> +  The node is a performance domain provider. A CPU references its domain
-> +  through the generic "performance-domains" property described in
-> +  dvfs/performance-domain.yaml.
-> +
-> +  The node can also be a power domain provider, with one power domain fo=
-r each
-> +  performance domain. Any other device that runs in one of the domains
-> +  references it through "power-domains", and each level the domain adver=
-tises
-> +  is a performance state of that power domain.
-> +
-> +  For example, with the provider labelled "performance", a CPU that runs=
- in
-> +  domain 0 and a device that runs in domain 1 reference their domains as:
-> +
-> +    cpu@0 {
-> +        ...
-> +        performance-domains =3D <&performance 0>;
-> +    };
-> +
-> +    gpu@40000000 {
-> +        ...
-> +        power-domains =3D <&performance 1>;
-> +    };
-> +
-> +  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> +  References
-> +  =3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> +
-> +  [1] RISC-V Platform Management Interface (RPMI) v1.0 (or higher)
-> +      https://github.com/riscv-non-isa/riscv-rpmi/releases
-> +
-> +  [2] RISC-V Supervisor Binary Interface (SBI) v3.0 (or higher)
-> +      https://github.com/riscv-non-isa/riscv-sbi-doc/releases
-> +
-> +properties:
-> +  compatible:
-> +    description:
-> +      Intended for use by the supervisor software.
-> +    const: riscv,rpmi-performance
-> +
-> +  mboxes:
-> +    maxItems: 1
-> +    description:
-> +      Mailbox channel of the underlying RPMI transport or SBI message pr=
-oxy channel.
-> +
-> +  "#performance-domain-cells":
-> +    const: 1
-> +
-> +  "#power-domain-cells":
-> +    const: 1
-> +
-> +required:
-> +  - compatible
-> +  - mboxes
-> +  - "#performance-domain-cells"
+commit ad41050e8b81bf8d1dd6e4fe6253604d235fd347
+Author: Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>
 
-Why is performance-domain-cells mandatory? Is it not possible for a
-domain to only control non-cpu devices? If that's the case, this should
-be relaxed to require that either cells property is present I think.
+wifi: ath12k: Add platform MSI support for CE
 
-Also, all other rpmi/mpxy series have been written such that there's
-both M and S mode bindings in a single file. Why has that approach not
-been taken here?
+This commit adds support for configuring Copy Engine (CE) interrupts
+through platform MSI on hybrid AHB devices like the QCN6432. It introduces
+an IPCI MSI configuration, allocates MSI vectors from the platform MSI
+domain, and registers CE interrupt handlers using the allocated vectors.
 
-Thanks,
-Conor.
+> diff --git a/drivers/net/wireless/ath/ath12k/pcic.c b/drivers/net/wireles=
+s/ath/ath12k/pcic.c
+> --- a/drivers/net/wireless/ath/ath12k/pcic.c
+> +++ b/drivers/net/wireless/ath/ath12k/pcic.c
+[ ... ]
+> @@ -154,3 +155,157 @@ void ath12k_pcic_write32(struct ath12k_base *ab, u3=
+2 offset, u32 value)
+[ ... ]
+> +static int ath12k_pcic_ce_irq_config(struct ath12k_base *ab,
+> +				     struct msi_desc **msi_desc, int num_msi)
+> +{
+[ ... ]
+> +		scnprintf(ce_pipe->irq_name, sizeof(ce_pipe->irq_name),
+> +			  "pcic%u_wlan_ce_%u", userpd_id, i);
+> +		ret =3D request_irq(desc->irq, ath12k_pcic_ce_interrupt_handler,
+> +				  IRQF_SHARED, ce_pipe->irq_name, ce_pipe);
 
-     =20
-  -
+[Severity: High]
+Does this leak the requested IRQ on the probe error path?
+
+Since request_irq() is used here instead of devm_request_irq(), it requires
+explicit cleanup. This function is called by ath12k_ahb_config_irq() during
+ath12k_ahb_probe(). If a subsequent initialization step in probe fails
+(such as arch_init or core_init), the error path jumps to labels like
+err_deinit_arch or err_core_free.
+
+However, the error path in ath12k_ahb_probe() does not appear to call
+ath12k_ahb_disable_irq() or ath12k_pcic_free_irq() to free these IRQs.
+If the device context (ab) is subsequently freed by ath12k_core_free()
+while the interrupt handlers remain registered, could this lead to a
+use-after-free panic if an interrupt fires?
+
+> +		if (ret) {
+> +			ath12k_warn(ab, "failed to request irq %d: %d\n", irq_idx, ret);
+> +			ath12k_pci_free_ce_irq(ab, i);
+> +			return ret;
+> +		}
+[ ... ]
+> +int ath12k_pcic_config_irq(struct ath12k_base *ab)
+> +{
+> +	int user_base_data, base_vector, num_vectors;
+> +	struct platform_device *pdev =3D ab->pdev;
+> +	int ret;
 > +
-> +additionalProperties: false
+> +	ab->msi.config =3D &ath12k_msi_config[ATH12K_MSI_CONFIG_IPCI];
 > +
-> +examples:
-> +  - |
-> +    rpmi-performance {
-> +        compatible =3D "riscv,rpmi-performance";
-> +        mboxes =3D <&mpxy_mbox 0x1003 0x0>;
-> +        #performance-domain-cells =3D <0x01>;
-> +        #power-domain-cells =3D <0x01>;
-> +    };
-> +...
-> --=20
-> 2.43.0
->=20
+> +	ret =3D platform_device_msi_init_and_alloc_irqs(&pdev->dev,
+> +						      ab->msi.config->total_vectors,
+> +						      ath12k_msi_msg_handler);
 
---gR/v5yiG/AmM4XPJ
-Content-Type: application/pgp-signature; name=signature.asc
+[Severity: High]
+Similarly, does this platform MSI domain allocation get leaked on the
+ath12k_ahb_probe() error path?
 
------BEGIN PGP SIGNATURE-----
+platform_device_msi_init_and_alloc_irqs() is not devres managed, so the
+domain must be explicitly destroyed via platform_device_msi_free_irqs_all().
+Because ath12k_ahb_probe() does not call the corresponding free routine when
+it encounters an error after this point, are these MSI vectors leaked?
 
-iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCasdzOwAKCRB4tDGHoIJi
-0uhVAP9nNf2cQXzey6OUbr27FRH3piqVaIY+SNqdVwz/4k9OhgEAgbUoO/rGaoWG
-Di7inGBeW+S88LtFFpy6dE23NMe2ew0=
-=ch7d
------END PGP SIGNATURE-----
+> +	if (ret)
+> +		return ret;
 
---gR/v5yiG/AmM4XPJ--
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261008-mpp_bringu=
+p-v1-0-2c5797b5e4ac@oss.qualcomm.com?part=3D11
