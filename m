@@ -1,194 +1,127 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D2644CDA1C
-	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 11:39:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791545969; cv=pass; b=KR9Pj44wNLzOr/QvSvSZADeHQZarzTm6DqBNQiQsKK/41zpMow9U5ZuDtNs7f1PdM27jrQ3JhxLVGSz4nDm8wtL+8IHUeUkiB1ydghEppHnAzv61FULilDHxaERhiZKI69WfPmopKuUiiRzseBWRAJDJ8nbVf9KbIAUkH+I8L9Y=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791545969; c=relaxed/simple;
-	bh=C53y5eHVm02NRhVf3GQWkstdsW5FKQKH/LzQH4a4y1s=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Hmbo0kbyld2NrGCjDubCWaViVKqXfqikdqZEqKnaoK3DCWaB2FvgMMsfG8VYwQecEO/dHl9KDPCY0EUVmfhOhi7fhR8ELOXUnWyrFbCinPMvwvjG5L2Baa8Gc2Qm3KU6MmaxSP9ERDYole89QqUD0k17Vr/kAFzQ6w7QzF0RifQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CD9syIPz; arc=pass smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73CDB3CF1F2;
+	Fri,  9 Oct 2026 11:41:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791546118; cv=none; b=ApzhCv/oCGvKFXI2JBM4MkQQrn5zmzkRJ2Jh4XazKwxXG0GdsYlzJ1aIUFjYnd0ri+VaceZLWtkxHcdcNB3K03I3Axge2PLhU95+GQf8w6uLENzJYAwFRoZ+CuYImWYmwhsdmPMCajauCvbTZ5eiKrW7gH/OT5Myw/AplVCNkO4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791546118; c=relaxed/simple;
+	bh=s2K7f19kPNEjxBg6xyW7B+Zcm5HQHtRpR9zS7zMrTT8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=uXFD9Crg+UWLN44LUO3U+xElWfctP1N79BYh5qy0S4OpQzdzaL6uBdCh7G2UcR4VCS08lpfaEIAQ8C7uI+k47TNQru3KaZi3iv/rYQdtclvLKg2e1ajRGppqSPt2vNNKBdcAEWcixZw+VICkISDu1YwBXy5Qmb/XtcOOM3KxdlI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AhZRCR2G; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CD9syIPz"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a166199820so10399675e9.1
-        for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 04:39:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791545960; cv=none;
-        d=google.com; s=arc-20260327;
-        b=cRAa3MvKLS5C2KUMYUDrE5n6IALFETtL+EEReg43iJwpzxecsSFDAclA7FMWNPvok0
-         zLGDrs4Gc10QI4wym8TPmiY24TaG5+PTGVAO8W7htqU8tdW1sukPKf686GJttpAS26Sb
-         scLk3gGfBpgti7lMvMuwp3elDxKMcDfqzych5wbm7gm+BwJxNhPwxf4tU/U+745rgjoj
-         AeRoMm6uvVS+AmNVHRINwsZXyYdMtmdJCo0mgJRNIdE6WLg0c7wzHPWxQiJhDIBMZF+N
-         3x/D8b+/2cNs5Sr8ZEEG+rai8FgwUX05uBk8fnYu+Hp8LdRWD7JpTlb1rp68QZPm3ds6
-         +C7Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Zimi7cKuxcUlgp7UpEfU2fGEv64UYy0GKgKjfilsD2U=;
-        fh=RU8nSI2EijC2y8B6rypEW77WbkjZMPjN4LQs4UIPXKo=;
-        b=hyCJ8DBa59RyTj2sUCpXB4t1Hkn5D4lqdFRteMhGlDae6Acv5O89fWEbrzQzQTEyDX
-         TFIACvIWQoRo9U47Do17fX9U3/6T/Y/bR0bc4UqFJsDCxuyVBr/rqWY1Jc9mHLC8xO4c
-         gI0QySXXy6ajl6QcPtRo4Dczse4/LYY3hCcNc63AJ+q5WMbucC4o6cePMHE1UYWbFObK
-         JXltzOBM2bA9h/ty6rQhhTIwv1WhCFw5PgZ2rMoAqEygnvwcamXCMt2A8c/ia8O+UUHe
-         jX/hx/xKa5q+yfLsOdnbTu5GgPv2qYEgMTZcjc6s/SS4lNijYFHa7COo5SYjQIC82vYB
-         RSUw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791545960; x=1792150760; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Zimi7cKuxcUlgp7UpEfU2fGEv64UYy0GKgKjfilsD2U=;
-        b=CD9syIPzcuz2KYYF7bRbeNJ7DHQwXFDUvI8nru9CBh/OtzjNQjM7VW7teuRSFZf/5Y
-         CIHSIho2zfbm1yjOGjNgGn2H+/lojDBK8KTNXvM2ybwUDOUvHEJ/PvsSSEAx0oCW/fa/
-         iaybOyzc75cOilRx/PwbR4Vgg7qV8RXsuEMxOskExFkyhRldwKt3Xx3rZBL71QBoB4eh
-         ZR2rJsrKaRhM56R1H3PMauZvAN1as4C98SbhfYjx3OTfVLgVA0WHybncB/jvkknuK395
-         n1sRE6U6ILXCODXprjIUQACTe7Mf/1zX9n/uJwdHylOpCMPr0NXnC2h5hoGRaqXkapgi
-         VOgQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791545960; x=1792150760;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Zimi7cKuxcUlgp7UpEfU2fGEv64UYy0GKgKjfilsD2U=;
-        b=jvs5Do0/zCJ5th92X4fkIWUtnOXpgwuIkzLCNshiK8BHbBDjwXH1jY7tJ5Iq/LZHBf
-         TnUIzlZ4Dul23lhXZlkQi7NF6GJcMsMn/zalqKfokELNJALffC/RyrOPFY5eBwoJb+SY
-         c92hXKERHJJhIQMfHNPJ6wr3NAPTH36pBni8HErYyc+95XJnTUbauP0XnjkifVw2DZRY
-         Ab+zrHpvLBLZYMV/IompR8eixkP4FEpVhNbOvSrhMoS/gtlXe98gRqX6liD5kJ7thI+j
-         l0VDt8ASy8yrm5Ojhw0nQYA2cY85ajkRuT42a3nc+bmuMKWGOEDfqj5o3+r9M6DGSiEG
-         TTxQ==
-X-Gm-Message-State: AFuF++n8liOgWQXT0JTTgTt15JxixRQG6gJyzXkxHyiDaQBuZp0+Zana
-	q97tLvfRp4ZODh7emeYUZMkGSgB171vTuNTom1YMJLZsNwErWMbVR7GAt3mTY6qYleGATu9lP3K
-	lTzn/rwyxxgSvLtbW8UVldHCQOIFKFX0=
-X-Gm-Gg: AYBFou0Sz+YXYTmwNjovf9TdYktlqP05KLv6zsps3FquDBIeaOzRZ80FpMIz1QNg1QT
-	vZZyQcMGj2smr4Q9vIQgOyh6jbtU1KK9leAMISO5g42TNk2t6444TYsyS4LuBrFRWDuoEKt2FOX
-	vLmIANadTNAReyEZNZ0YXBune1KmnymNLP/Gsg6Xb7dImKy979TF7JDE2y5jE+jxd3PsUxDrRtb
-	VkPjB6D69LwRYD4pHnrgJmEtAbv9JTzVPhKAT3Qzd5jeRnF2+JBnTQO3AUuB9gGgIlQkyzSRq8J
-	twBADqMK6Txe30diK6snDYEVb2tkbULdS6JaZwHiCP9Wzww3ImwClg68YbiA0RdtE6w1o4giJw0
-	I291cWybFmcxdm4lpKt+jB2B+xwl0nIbhgPquxsw/f6QPVzOuqigvCp7Oo331ETsfNsziV+11xQ
-	==
-X-Received: by 2002:a05:600c:a219:b0:49d:2589:d8e9 with SMTP id
- 5b1f17b1804b1-4a18dcc9696mr23982235e9.11.1791545960167; Fri, 09 Oct 2026
- 04:39:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AhZRCR2G"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E41D1F00893;
+	Fri,  9 Oct 2026 11:41:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791546111;
+	bh=kZ03PGi5IJmAQN8tSWlHSDbeCc5ja0BkUfUbILLNAHc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=AhZRCR2GTJ0XLlVyWFqaze+yW/ZUAPWRyy/XePuzppd5ReOQLkDoB0q5p5ss+YdIj
+	 wVXay557gykBI1+3CyALbq43tiq54rLgSpIG7141C1RbX6DUrKVOMxUX9th5O+N38t
+	 nTLtMf6NgxWZ/sdGRFQzpL+75aGRmrkqjlPLbuK0RZCHxEdVKyxWnfrgrfLjTZ8Raj
+	 0XqdU6tvKHTBgb9Z5uRNnvxlgfHWn6tRQnqKs0I0To3oXgS7PXkBtCDs0F3jtrBzsY
+	 B9xAMBQ9WQ3lTyU43WWcGAIsFXik8rP5xNoiOK14UZ6ie8w/d9uJkH5pk1yR/J1N3o
+	 WnzyvP4vBLMnQ==
+Message-ID: <9a2f4dd8-c300-4ec7-b45c-a9f7df4d0bd3@kernel.org>
+Date: Fri, 9 Oct 2026 13:41:39 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260929124248.237032-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20260929124248.237032-5-prabhakar.mahadev-lad.rj@bp.renesas.com> <20260929125807.35C131F000FF@smtp.kernel.org>
-In-Reply-To: <20260929125807.35C131F000FF@smtp.kernel.org>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Fri, 9 Oct 2026 12:38:52 +0100
-X-Gm-Features: AclHuK8-9CW2XbXbQxya7GHaAMIQisQ-m3E94Ic3jTqTyMe54MVLfxYt1EYvEIQ
-Message-ID: <CA+V-a8v-s_zQLfG-Vm7z465ZEEH=XFdnjhGCsMF_Z-eRw4gHBA@mail.gmail.com>
-Subject: Re: [PATCH 4/8] iio: adc: rzt2h: Add optional reset support
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, 
-	wsa+renesas@sang-engineering.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/4] dt-bindings: display: bridge: simple: document
+ Chrontel CH7218A
+To: Xilin Wu <sophon@radxa.com>, Bjorn Helgaas <bhelgaas@google.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Bartosz Golaszewski
+ <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org,
+ Stephen Chen <stephen@radxa.com>, Junhao Xie <bigfoot@radxa.com>,
+ dragon@radxa.com, Krzysztof Kozlowski
+ <krzysztof.kozlowski@oss.qualcomm.com>,
+ Daniele Briguglio <hello@superkali.me>
+References: <20261009-q8b-dts-v2-0-eda11e5dea8b@radxa.com>
+ <20261009-q8b-dts-v2-1-eda11e5dea8b@radxa.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20261009-q8b-dts-v2-1-eda11e5dea8b@radxa.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi,
+On 09/10/2026 09:55, Xilin Wu wrote:
+> The Chrontel CH7218A is a DisplayPort 1.4 to HDMI 2.1 protocol converter.
+> 
+> The device contains an embedded microcontroller and on-chip flash. It
+> automatically boots its firmware and requires no host-side configuration
+> for the on-board use case, so it can be represented by the simple bridge
+> binding.
+> 
+> Document the chrontel,ch7218a compatible.
+> 
+> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Tested-by: Daniele Briguglio <hello@superkali.me>
 
-On Tue, Sep 29, 2026 at 1:58=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
->
-> Thank you for your contribution! Sashiko AI review found 1 potential issu=
-e(s) to consider:
-> - [High] iio: pm: shared reset_control deassert_count leak on driver unbi=
-nd
-> --
->
-> commit 2c9879cdb042266b9cb867be82cd949d29dd6f14
-> Author: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
->
-> iio: adc: rzt2h: Add optional reset support
->
-> Prepare the driver for RZ/V2H(P), where the ADC has a module reset line
-> that is not present on RZ/T2H. Asserts the optional reset when the ADC is
-> runtime-suspended and deasserts it on runtime resume before calibration.
-> Uses a shared reset control to support SoCs where the reset line is share=
-d.
->
-> > diff --git a/drivers/iio/adc/rzt2h_adc.c b/drivers/iio/adc/rzt2h_adc.c
-> > index f1a830da6f9b7..4726f892da232 100644
-> > --- a/drivers/iio/adc/rzt2h_adc.c
-> > +++ b/drivers/iio/adc/rzt2h_adc.c
-> [ ... ]
-> > @@ -706,6 +708,10 @@ static int rzt2h_adc_probe(struct platform_device =
-*pdev)
-> >
-> >       platform_set_drvdata(pdev, adc);
-> >
-> > +     adc->rstc =3D devm_reset_control_get_optional_shared(dev, NULL);
-> > +     if (IS_ERR(adc->rstc))
-> > +             return PTR_ERR(adc->rstc);
-> > +
-> >       ret =3D rzt2h_adc_parse_properties(adc);
-> >       if (ret)
-> >               return ret;
-> [ ... ]
-> > @@ -767,10 +773,22 @@ static const struct of_device_id rzt2h_adc_match[=
-] =3D {
-> >  };
-> >  MODULE_DEVICE_TABLE(of, rzt2h_adc_match);
-> >
-> > +static int rzt2h_adc_pm_runtime_suspend(struct device *dev)
-> > +{
-> > +     struct rzt2h_adc *adc =3D dev_get_drvdata(dev);
-> > +
-> > +     return reset_control_assert(adc->rstc);
-> > +}
->
-> [Severity: High]
-> Does this driver leak the shared reset control's deassert count when unbo=
-und?
->
-> If the driver is unbound (e.g., via sysfs or module unload) while the dev=
-ice
-> is in the RPM_ACTIVE state, devm_pm_runtime_enable() merely calls
-> pm_runtime_disable() which forcibly cancels pending autosuspends without
-> invoking the runtime suspend callback.
->
-That's not true; see the code below:
+Drop the tag, not true.
 
-static void pm_runtime_disable_action(void *data)
-{
-        pm_runtime_dont_use_autosuspend(data);
-        pm_runtime_disable(data);
-}
-
-The action disables autosuspend and calls runtime disable which will
-asserts the reset back.
-
-Cheers,
-Prabhakar
-
-> This RPM_ACTIVE state is reliably reached if unbind happens while the IIO
-> buffer is active (where IIO core triggers an asynchronous
-> pm_runtime_put_autosuspend), or within 300ms (the autosuspend delay) afte=
-r a
-> single-channel read_raw operation.
->
-> Since the driver lacks a .remove callback or custom devm action to
-> synchronously suspend the device on teardown, this
-> rzt2h_adc_pm_runtime_suspend() is completely bypassed and
-> reset_control_assert() is missed.
->
-> Will this cause a permanent denial of service for shared hardware resourc=
-es,
-> preventing the physical reset line from being asserted for other ADC inst=
-ances
-> until a reboot?
->
-> --
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260929124248.23=
-7032-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D4
+Best regards,
+Krzysztof
