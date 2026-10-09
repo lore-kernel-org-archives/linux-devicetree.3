@@ -1,85 +1,109 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B16B415B74;
-	Fri,  9 Oct 2026 13:19:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BC6A3BED7F
+	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 13:20:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791551945; cv=none; b=EHIxk9OUjAXP2OPg8bo/yVBniSLFTMdIeIdlMmm9BZ99C0zFJ8+WIL8xvCZ1D/ZKZeBtgj4YsmwKbfIidMvwJWaX6FRSk1ZhV/pchS8g/DasNWC7zt4ViHgqcyrdHtfFRBpAABowbxjXTBL1zxpxXhmhCRbC3jA5LhQQJ20Dzj4=
+	t=1791552052; cv=none; b=K5fQATtSsq0U0wxNqkDitdFFcQpHOgagU66n/zlpSOfrpj1Bz9MBp7J8HBr6/SgP+NwDxpxRcQmvmvt18ZW9ar+coXJNaGIR6uDQB9VHmyPm8Xb0aHN/jHaOOEHAloy4I/EbUgqAJ8wM621dEtP4bqLS8ftm+JJ98/OlPprDnEM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791551945; c=relaxed/simple;
-	bh=swFdVr1GBByCIob+w+yLjGMyV17EFa45b0c4FnVIqns=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rITfckyCM7Bg7wdMbwLF1Z+29HQlM0Oz90acZikL2VSGIFlpTi2g9u4AfZsAK5WR5ryXgYrZfVXkISWoIRzzj7ySVrlmm0VwdQmNVNnaO1VSBOsiKwiohAB3k5mIU/yquhiWyWpXJQxdpQSs5PeTxKwXPeUOa6cVGw5rgrk3yKo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KG+fv9sO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791552052; c=relaxed/simple;
+	bh=P313hdxyerC/X8JBzDhFARfUeN2N427LEWxBRMFOqY4=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=GgZoxtg7rBnT2U33PkcfqWeYjsYbgL0in8fRFpnDTO9BTSuZlZv/mSbKZ0aZT8OxLBd5RZO6EYB+9lnuKrpILy537kSL4GKzb8MpSu8k1hRaGS2DMgxMQBrakR/XQYSldGUBWV0CKW1JssiKWUFY6ISR7gmcVdGw4sAw8o7xC1I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nvQI16jF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KG+fv9sO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B5371F000FF;
-	Fri,  9 Oct 2026 13:19:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nvQI16jF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC3311F000FF;
+	Fri,  9 Oct 2026 13:20:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791551943;
-	bh=MeTS903UniSorg3O8uRqhtVLu+zdRHCgvqD8Aqg8dOc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KG+fv9sO2cWKt4tryxYl9sx9h2ufhePBXN76r4zzjyrBgFguj7pOE04vRVGxCyv3v
-	 JQ1KqKdSFTGzboGMuYlxUQv6VlXRe85zzx8xT1/rUlDLjDWMbkgXMKVA2or7ZhmdmM
-	 X14KqQGpWaQYMngsSJr3moRRB+VeF+GU1Y8imhiRq95bKVHnqq7WIv9yQDeOk9IftP
-	 kGfvxewAtGzUleRXZHE/nVc8Gd9N5rCPcL38QFTjeH7q8biFEAbk3EbjfWOpZZ9DZm
-	 QpaS8zmz7zl6VuAJGNqjMHhNZgEd0LWeDSOcMg2gIV8C3BtYDy7nzJyGogT3dsOsEV
-	 6mw4GowjjDgFg==
-Date: Fri, 9 Oct 2026 08:19:02 -0500
-From: Rob Herring <robh@kernel.org>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Ulf Hansson <ulfh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Mark Brown <broonie@kernel.org>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	Lee Jones <lee@kernel.org>, linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-pm@vger.kernel.org,
-	dri-devel@lists.freedesktop.org, dmaengine@vger.kernel.org,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v3 05/18] dt-bindings: display: ste,mcde: Allow power
- domains
-Message-ID: <20261009131902.GA1195061-robh@kernel.org>
-References: <20260921-ux500-power-domains-v7-1-v3-0-9352be6b86b1@kernel.org>
- <20260921-ux500-power-domains-v7-1-v3-5-9352be6b86b1@kernel.org>
- <CAL_Jsq+1O+os8=YGUoKg6zCm-r0gQ35baKX=z65uTQNB0i=RVQ@mail.gmail.com>
- <CAD++jLm+yRo9e1UDhnaYrdPq28mdyYKQZ6tdKuUa3UG85imkNA@mail.gmail.com>
+	s=k20260515; t=1791552050;
+	bh=ice9KRx0n3ii33JIUrbU2ONw1IGvFHMbg83UV7dGZvY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=nvQI16jFLDh61YisPrGqhmPxRb13u2cCADriTRinnFwSU4JmnWY8cfCU2uk2wVyrz
+	 5sFEP/z6OP8RwrxjChlZJnkXA2pQsAHylewqMFlNFjNqsZqld6sUN6knsaYK4XdcSZ
+	 4wGRBfx8RiHTkQoy5qnpDVRSdU19bEMAr+Ph+XvuPUUAzylgLZHgEzq6T6h8uDjxGZ
+	 AvaqVaYTFUPRS49hFdiqIz/z7JQo1FOr0EXLSWzLQfrSb5jJq5AWrEHw4++llAMMm/
+	 wZavUDyoJ2Gju0iwGDxmjnSgXWdsjNmJ8CF+ZZe8Cp9X8jc5osLwJGj1n8MW6kZpla
+	 sD7y72LImTIQg==
+Message-ID: <sashiko-outbox-165620@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 3/7] ASoC: codec: pcm1681: Add TDM support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Mohammad Rafi Shaik" <mohammad.rafi.shaik@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261009-nord-asoc-driver-support-v3-v3-3-0c1897f21ccf@oss.qualcomm.com>
+References: <20261009-nord-asoc-driver-support-v3-v3-0-0c1897f21ccf@oss.qualcomm.com>
+ <20261009-nord-asoc-driver-support-v3-v3-3-0c1897f21ccf@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 09 Oct 2026 13:20:50 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAD++jLm+yRo9e1UDhnaYrdPq28mdyYKQZ6tdKuUa3UG85imkNA@mail.gmail.com>
 
-On Fri, Oct 09, 2026 at 07:05:46AM +0200, Linus Walleij wrote:
-> On Thu, Oct 8, 2026 at 7:41 PM Rob Herring <robh@kernel.org> wrote:
-> 
-> > > +      power-domains = <&pm_domains DOMAIN_B2R2_MCDE>;
-> >
-> > This patch is in next, but the define is not breaking dt_binding_check.
-> 
-> I screwed up, I forgot the dependency on the new define :(
-> 
-> I asked Ulf to merge the prerequisite which would resolve it:
-> https://lore.kernel.org/linux-pm/CAD++jL=gFt9kKZH9T-m8B_pbwRvzc35tTrMn5V238d3528DpUg@mail.gmail.com/
-> 
-> Is it very urgent so I should just revert it? I could also just merge
-> the single patch adding the defines into the drm-misc tree if
-> Ulf is OK with that.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] ASoC: missing regmap_update_bits error check in pcm1681_set_deemph()
+--
 
-'make dt_binding_check' errors out. That kills my bot for anything based 
-on next which is most patches.
+commit c7cf94fd54a2248eb129e6005f0299fa2844892f
+Author: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
 
-You could also just remove the define from the example.
+ASoC: codec: pcm1681: Add TDM support
 
-(Note that drm folks require a revert be posted and acked or they will 
-revert your revert. I learned the hard way.)
+The PCM1681 selects the audio interface format using FMT[3:0] in the format
+register. This commit adds support for SND_SOC_DAIFMT_DSP_A and programs the
+PCM1681 I2S TDM format when it is selected. It also corrects the reset
+default for the format register to match the hardware reset value.
 
-Rob
+> diff --git a/sound/soc/codecs/pcm1681.c b/sound/soc/codecs/pcm1681.c
+> index a1ccf1edf4819..3675b2236d663 100644
+> --- a/sound/soc/codecs/pcm1681.c
+> +++ b/sound/soc/codecs/pcm1681.c
+
+[ ... ]
+
+> @@ -217,6 +217,9 @@ static int pcm1681_hw_params(struct snd_pcm_substream=
+ *substream,
+>  	case SND_SOC_DAIFMT_LEFT_J:
+>  		val =3D 0x05;
+>  		break;
+> +	case SND_SOC_DAIFMT_DSP_A:
+> +		val =3D 0x06;
+> +		break;
+>  	default:
+>  		dev_err(component->dev, "Invalid DAI format\n");
+>  		return -EINVAL;
+
+[Severity: Low]
+Does this code ignore the return value of the first regmap_update_bits() ca=
+ll
+in pcm1681_set_deemph()?
+
+When pcm1681_hw_params() finishes successfully, it calls pcm1681_set_deemph=
+():
+
+sound/soc/codecs/pcm1681.c:pcm1681_set_deemph() {
+    ...
+	if (val !=3D -1) {
+		regmap_update_bits(priv->regmap, PCM1681_DEEMPH_CONTROL,
+				   PCM1681_DEEMPH_RATE_MASK, val << 3);
+		enable =3D 1;
+	} else {
+    ...
+}
+
+If the first register update to set the de-emphasis rate fails due to a
+transient bus error, its return value is ignored before executing the
+subsequent update.
+
+If the subsequent transaction to enable it succeeds, the codec will have
+de-emphasis enabled with an incorrect or default rate, potentially causing
+minor audio distortion.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009-nord-asoc-=
+driver-support-v3-v3-0-0c1897f21ccf@oss.qualcomm.com?part=3D3
