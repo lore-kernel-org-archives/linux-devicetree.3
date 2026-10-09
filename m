@@ -1,202 +1,174 @@
-Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com [209.85.219.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C66A93DC4AE
-	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 14:24:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BF974E50AC
+	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 14:24:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791555848; cv=none; b=YWJ4Zfjb1OyheMxMJ+TwMvHEY9f5USIRIuirGldxfurm3BNTIjoQ01Ok5VFkC8X55lR/C7awj4EGYW/OHOckDd2LuhwI17tK8UHwFZnhbLtemLhnaxlSFvOSnnwgGCpMjLLo8MjJ3Zqn7RuSVn1Hc7EujYaSSgB5xjJ32mh0MLs=
+	t=1791555849; cv=none; b=ANRU4XOQbfCTz8ngK95qx7F72in5HcWsNPbuIJ9P8vOssIcQW0E7paii0wzQXfWo8BmxyF+ctf4PrHjkn6QgK8TNbAk+eii+PA0cPAGPskmRJ4lDkhEYdhvze06OSq7uMJ06u1CQ0WIbFUtUWk7xodaDKFEpEOIrlA+Fm2yoplQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791555848; c=relaxed/simple;
-	bh=5afvs8MvB8g8cyiV0dvhk0wts/9RLtB6TmHb87Dw3Ug=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=C6aU933V6BnM24VYUQgy7hv1cOk3qfcZaz+7Aq07bWcxEfeKa7sT9GYmq2d33Fp3BLVYnDFgxxPH4Ycq76PUaqY6lfC6bph/155kDJE7psNoMY5K/ia5Wz9L7mrDdFD6uSG568kecWnwwMlTSe/DGwfOtNMrgQDM2Cu8Bd/EF60=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=P+umFAKd; arc=none smtp.client-ip=209.85.219.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	s=arc-20240116; t=1791555849; c=relaxed/simple;
+	bh=ERxpC1H+cx1EPZxuWv3UDFOE9M8QI9bFXuuiBPeT/ec=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=SGXs2nooPXobMAeWI0TqLYFXewMftFPLZlClsHiuZMLmvjb4mOtPPZpfArmjMADQgGadmfuJqbrR9jMRXNrTxEzipczLCgAq8o3Y0aAbg/5o25WB64BpZsEBdWfGu0uIH5WHOzH998YdIrw0zVZqz9h2CQKntp3p2HIUzbhp+L0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ezd6SEL3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="P+umFAKd"
-Received: by mail-qv1-f49.google.com with SMTP id 6a1803df08f44-917a64f28d0so24800576d6.0
-        for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 07:24:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1791555843; x=1792160643; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aHhnSl5etYVacPAAIx+gDocb5CfPyv6BoCMmkWUozsk=;
-        b=P+umFAKdn9MfAbB62Bqe6Jys+RsjWl2LwVRDDG/uz13/lPDJFGEa5ORtAmA2EcWk/S
-         TGVt1/Aj7+lGEpUHa3LUj1CqdcnNGVsMXqM5Id773/N5CH938hcD/V6gyLLLVqIlCEk6
-         vEiKKlI1OKH/MdpZiN/FhMVtBOthkHEEdzNcyevspMAVlUdMLhyA3HZZFEwXcoSKZiEh
-         a5TWsewDZZbyZx4LqZQGPm07zkq+0kf6ghk+3ihhmNHcwe6b+8fm7uzJ3V+7w/HTTLdh
-         l1J9/zvS0/nGNnJvUjVWoKAC4EGeJFm/wzr0mIQTRiHnvotZrADu/oR754e3Ey405Bra
-         Z0EQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791555843; x=1792160643;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aHhnSl5etYVacPAAIx+gDocb5CfPyv6BoCMmkWUozsk=;
-        b=o1FQxeIqLDYSoYj55UMIrdO7+6ZbmMpCBuZIbHtOvcVvlKqzKF69rqRSWXBLJmQzDH
-         YB7k4KLqafSoOsjdDYGEgYvGDKXNrh+vnMxLOi8Hh2oLN0P/IV9+mFnGaM8zMJmGLqdV
-         XWqM3Sw0cc6+mpsuSIHxOh1g5uE+pB5WknxCdyW9vNuaA0rtdxmXSy7coU5pmLI9rPKq
-         crV/UaGbfr/eCPaLhv1MqJnlAZZlRG7zhMXU/U16GUUStN8kxt942rcevIFxm8Q6xaBo
-         ssae+SuWhokhbfkbYj1ZZ+K50xt+wBpvdRIe2bcnZ/UOKRIxK9vb6eRyrhRvNvIgvHrX
-         Jy4Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzB59afk3an8FQFlbPpK/VIAIcivNgT1oKsHVbCzfzrQO9xLuc6sLpvxgFLDdZ4gV9ZZFDDHBImeQG6@vger.kernel.org
-X-Gm-Message-State: AFq9FYLFGuDbWetYXZ5ANKfiawSnTDa/uaOIF9rOd+Zi+N8SwL6SmYfj
-	c+hCAlHDG+ma3rBtgm7BkEhA6Mchu7aOrF8DIDVCrnlVj9FQ/FKSGlcj4s2W3YdweRA=
-X-Gm-Gg: AYBFou3FMIy1oFegzyL2FpXBwlZ2Hlv29O98jTaJxnfGJd51wzuH0kskY13p9Ot6Ncn
-	0VqcuO7gpKtPA5hjjJ+GBmcuakmpfI+3rBnV3ddIyCsTbci789qeZC/hc+NZz71oYxhnpOWUdfU
-	0Ma7V+YbVMmCsQhX3k0TDRTXBOwh+pQKc2S0MJeIJVyft3rvenrkZ5dNYezgfWXPM/rDxF24B+C
-	gbH5EHVI8Li3uIYhyachVq9kcg12dUOz0teT/LXC5iaZCgjx5LFrXSqqB62oRuA8wz9upqFmW4T
-	d9Dvzv7NBq4B+tHyqMEcPXtaUi1BJZD5RTIiB1ziNLzcXqwao1uiMWz+wNmYYjou2jh1GIqrRbf
-	/AoA4PLjqVP+bz3tgluohFwJC+SDorMIzDOjBkXqvbhrfc5CheWB+EqDesXNbw91Go1k2hEVaIo
-	+ii8OZiTwdREwU1TMA4WKRROmy+Rwi2ze0w/qZIOxKinw+K7/3J9SdLfNQCzFSy7IchxWsBnU=
-X-Received: by 2002:a05:6214:410c:b0:91b:5d85:6521 with SMTP id 6a1803df08f44-91b5d8571e7mr20208846d6.24.1791555842704;
-        Fri, 09 Oct 2026 07:24:02 -0700 (PDT)
-Received: from [172.22.22.28] ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b54e832edsm19562406d6.4.2026.10.09.07.23.59
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 09 Oct 2026 07:24:01 -0700 (PDT)
-Message-ID: <77dacc46-7294-47c8-899a-fd56b6a2af55@riscstar.com>
-Date: Fri, 9 Oct 2026 09:23:59 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ezd6SEL3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A8B21F000FF;
+	Fri,  9 Oct 2026 14:24:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791555848;
+	bh=q2h/ts5/IXc3Rk9UKoGCmzVkf+lV1AXvmTFZMSWlD2o=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Ezd6SEL3/xG/8HfjMdLao63rK+Z0aemI2ON5awMvLUXdIBK/uGkE7ehXZXlWPKN6B
+	 rHLTOfOT+aNKaC7L5iEbJSCu6w6uwUngpEEQA6qhKI0Ydy9DxDZsTA4wapGYKFwEoC
+	 5GyKPVgvRS7Cm4yhLA/fAsLdrSb2/bGHfd3fqL7bCAR8xe0SfT6Ps4x79fB2SykzEl
+	 xDpKmry24ywGwdQCRLKkzpHXQAYIF9asZw7xAMp9sRQOP/Ys1a3u+Rsn0X3YM4+5PS
+	 W1mnDat2f8zrNXlzfCoOG8ZYihyF1NcVYjLJYbpixgcheVZbQbJWPr4EVxDDVHQIyq
+	 xVXULeUlOudfw==
+Message-ID: <sashiko-outbox-165703@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 5/6] iio: imu: inv_icm42607: Implement MREGx register
+ access
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Kanak Shilledar" <kanak.shilledar@axis.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20261009-b4-inv_icm42370p-v6-5-e53884f185ff@axis.com>
+References: <20261009-b4-inv_icm42370p-v6-0-e53884f185ff@axis.com>
+ <20261009-b4-inv_icm42370p-v6-5-e53884f185ff@axis.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 09 Oct 2026 14:24:07 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] dt-bindings: clock: introduce
- toshiba,tc9564-clock.yaml
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org,
- kees@kernel.org, gustavoars@kernel.org, mohd.anwar@oss.qualcomm.com,
- lorenzo.bianconi@oss.qualcomm.com, danielt@kernel.org,
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-hardening@vger.kernel.org,
- linux-kernel@vger.kernel.org, Daniel Thompson <daniel@riscstar.com>
-References: <20261005230927.2000398-1-elder@riscstar.com>
- <20261005230927.2000398-2-elder@riscstar.com>
- <20261009-gifted-stylish-tortoise-95b14d@quoll>
- <b190fe58-364b-4b94-9cab-c5f81f874289@riscstar.com>
- <aafe2703-bfb8-43da-8472-b1dfa36fa8f9@kernel.org>
-Content-Language: en-US
-From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <aafe2703-bfb8-43da-8472-b1dfa36fa8f9@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 10/9/26 8:56 AM, Krzysztof Kozlowski wrote:
-> On 09/10/2026 15:44, Alex Elder wrote:
->> On 10/9/26 4:31 AM, Krzysztof Kozlowski wrote:
->>> On Mon, Oct 05, 2026 at 06:09:24PM -0500, Alex Elder wrote:
->>>> Define the binding for the clock controller functionality present in
->>>> the Toshiba TC9564 SoC.
->>>>
->>>> Co-developed-by: Daniel Thompson <daniel@riscstar.com>
->>>> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
->>>> Signed-off-by: Alex Elder <elder@riscstar.com>
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] build: SPI driver fails to link when I2C is disabled due to missin=
+g regmap_config
+- [High] iio: resume failure due to regcache_sync() attempting bulk writes =
+on MREG registers
+- [Low] iio: INV_ICM42607_REG_ZG_ST_DATA is defined as max_register but is =
+not readable
+--
 
-. . .
+commit 402c5b10cd3776a6da15b9bcc49baac45dadfdbb
+Author: Kanak Shilledar <kanak.shilledar@axis.com>
 
->>>> +properties:
->>>> +  compatible:
->>>> +    const: toshiba,tc9564-clock
->>>> +
->>>> +  toshiba,config-syscon:
->>>> +    $ref: /schemas/types.yaml#/definitions/phandle
->>>> +    description:
->>>> +      Phandle for the configuration space system controller.
->>>
->>> I do not see my previous comment addressed - you have no resources here,
->>> so this belongs to the parent. You responded something about pci-ep, but
->>> the parent is not pci-ep. Open your code:
->>> https://lore.kernel.org/lkml/20260918165234.687224-5-elder@riscstar.com/
->>>
->>> I clearly see code like:
->>>     syscon {
->>>       clock@ {
->>>       };
->>>     };
->>>
->>> so I do not understand what pci-ep has anything to do here.
->>
->> What I have now (about to send) looks like this:
->>
->>       syscon@0 {
->>           compatible = "syscon", "simple-mfd";
->>           reg = <0x0 0x2000>;
->>
->>           clock {
->>               compatible = "toshiba,tc9564-clock";
->>               #clock-cells = <1>;
->>           };
->>       };
->>
->> A reset node will also go inside the syscon, so there is another
->> function for that MFD.
->>
->> The regmap belongs to the parent, and is looked up this way:
->>
->>       regmap = syscon_node_to_regmap(dev_of_node(dev->parent));
-> 
-> That's driver code, so irrelevant. So how does this solve my comment
-> from v1?
+iio: imu: inv_icm42607: Implement MREGx register access
 
-I'm trying Krzysztof.
+The device supports indirect register access to different banks. A
+specific routine needs to be followed when accessing the registers in
+another bank as documented in the datasheet (section 13). This is
+required for accessing registers configured via the user and
+implementing buffer support.
 
-The clock controller uses two registers, 0x1004 and 0x100c,
-to manage whether a set of clock signals are enabled or not.
-(The reset controller uses two adjacent registers, 0x1008
-and 0x1010, to manage whether a set of reset signals are
-asserted or not.)
+Link: https://www.invensense.tdk.com/en-us/products/3-axis/icm-42370-p
+Link: https://www.lcsc.com/product-detail/C5129967.html
 
-You said "no resources except a small address space" and I
-guess it's not clear to me what size is "big enough" to
-warrant representing something as a separate device.
+> --- a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
+> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
+> @@ -18,63 +18,255 @@
 
-*One* of the managed clocks is a 25 MHz clock, exposed
-through a pin on the SoC.  That one clock signal is
-therefore usable by the platform (although on the RB3gen2
-it's not used).
+[ ... ]
 
-Rather than expose the register addresses in the clock
-node, a syscon is defined, covering 8 KB, and the actual
-offsets used are just defined in the clock and reset
-driver source code.
+> +static int inv_icm42607_mreg_write(struct regmap *map, unsigned int reg,
+> +				   const u8 *data, size_t count)
+> +{
+> +	bool idle_set;
+> +	int ret, ret2;
+> +	u8 blk_sel;
+> +
+> +	/* MREG access is one byte per transaction, no burst support. */
+> +	if (count !=3D 1)
+> +		return -EINVAL;
 
-If that's not the right thing to do, please say that.
+[Severity: High]
+Does this strict size check cause system resume to fail?
 
->>> What's more, I still do not see any usage of these clocks outside. And I
->>> still did not receive actual answers (or I missed them) how these clocks
->>> are routed OUTSIDE of the connector. You said for example:
->>> "Ultimately the TC9564 SoC has a single 25 MHz input clock,"
-. . .
+If a user reads or writes USER0 through USER8 registers via debugfs, they a=
+re
+cached and can become dirty. During system resume, inv_icm42607_resume() ca=
+lls
+regcache_mark_dirty() followed by regcache_sync(). Because the regcache uses
+REGCACHE_MAPLE and the config below omits .use_single_write =3D true,
+regcache_sync() will group contiguous dirty MREG registers into a single bu=
+lk
+write. This bulk write is then passed to inv_icm42607_mreg_write(), which w=
+ill
+return -EINVAL, causing regcache_sync() and the resume process to fail.
 
->> The single exposed clock *might* justify presenting the
->> clock controller device in devicetree.  There are also
->> resets exposed externally via GPIOs, and these control
->> external entities (PHYs).
-> 
-> I cannot find any of these exposed. Please point me to DTS code showing
-> this.
+[ ... ]
 
-It is not used by this platform, but is available for other
-platforms to use.  Its name is "REFCLKO" and is exposed on
-ball C17 of the SoC, if a platform designer decided to use it.
+> +static bool inv_icm42607_is_readable_reg(struct device *dev, unsigned in=
+t reg)
+> +{
+> +	switch (reg) {
+> +	case INV_ICM42607_REG_MCLK_RDY ... INV_ICM42607_REG_INT_CONFIG:
+> +	case INV_ICM42607_REG_TEMP_DATA1 ... INV_ICM42607_REG_TMST_FSYNCL:
+> +	case INV_ICM42607_REG_APEX_DATA4 ... INV_ICM42607_REG_INTF_CONFIG1:
+> +	case INV_ICM42607_REG_INT_STATUS_DRDY ... INV_ICM42607_REG_FIFO_DATA:
+> +	case INV_ICM42607_REG_WHOAMI:
+> +	case INV_ICM42607_REG_OFFSET_USER0 ... INV_ICM42607_REG_OFFSET_USER8:
+>  		return true;
+>  	}
+> =20
+>  	return false;
+>  }
 
-I only mention its existence as a reason to justify defining
-the clock as a separate device, but I realize you are arguing
-that I should do it somehow differently.
+[ ... ]
 
-					-Alex
+> +static const struct regmap_config inv_icm42607_virt_regmap_config =3D {
+> +	.name =3D "banks",
+> +	.reg_bits =3D 16,
+>  	.val_bits =3D 8,
+>  	.writeable_reg =3D inv_icm42607_is_writeable_reg,
+>  	.readable_reg =3D inv_icm42607_is_readable_reg,
+>  	.volatile_reg =3D inv_icm42607_is_volatile_reg,
+> -	.max_register =3D INV_ICM42607_REG_WHOAMI,
+> +	.max_register =3D INV_ICM42607_REG_ZG_ST_DATA,
+>  	.cache_type =3D REGCACHE_MAPLE,
+>  };
 
-> 
-> Best regards,
-> Krzysztof
+[Severity: Low]
+Does this prevent INV_ICM42607_REG_ZG_ST_DATA from actually being accessed?
 
+While INV_ICM42607_REG_ZG_ST_DATA is defined as .max_register, it is missing
+from the switch statements in both inv_icm42607_is_readable_reg() and
+inv_icm42607_is_writeable_reg(). Will this cause the regmap core to block a=
+ny
+attempts to read or write it, returning an error like -EIO?
+
+> -EXPORT_SYMBOL_NS_GPL(inv_icm42607_regmap_config, "IIO_ICM42607");
+
+> --- a/drivers/iio/imu/inv_icm42607/inv_icm42607_i2c.c
+> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_i2c.c
+> @@ -12,6 +12,12 @@
+> =20
+>  #include "inv_icm42607.h"
+> =20
+> +const struct regmap_config inv_icm42607_regmap_config =3D {
+> +	.reg_bits =3D 8,
+> +	.val_bits =3D 8,
+> +};
+> +EXPORT_SYMBOL_NS_GPL(inv_icm42607_regmap_config, "IIO_ICM42607");
+> +
+
+[Severity: High]
+Does this break the build when the SPI driver is compiled without I2C suppo=
+rt?
+
+Because inv_icm42607_regmap_config was moved exclusively to the I2C-specific
+file, compiling the kernel with CONFIG_INV_ICM42607_SPI=3Dy and
+CONFIG_INV_ICM42607_I2C=3Dn will skip compiling inv_icm42607_i2c.c. Since t=
+he SPI
+driver still references this configuration via devm_regmap_init_spi(), will=
+ it
+cause an undefined reference linker error?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009-b4-inv_icm=
+42370p-v6-0-e53884f185ff@axis.com?part=3D5
