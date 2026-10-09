@@ -1,392 +1,125 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com [209.85.208.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA21C318B9B;
-	Fri,  9 Oct 2026 08:39:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9BB03DAC13
+	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 08:40:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791535171; cv=none; b=HbuMBGdS8wcr6/p/q6xMzEChIyme1JgCjgW5LKRCXzaAsdc3l0NK70zAyOjA1JFtky9VM2ePbF4tGSHpw4KQhx0bOEQctgNPKE0yavHd0qPBqofQPa2PcYt0lR2Uf2fDRfES6GbgABXmSmSPwYEPNyagh/x7EUkoA+PyOx2be24=
+	t=1791535234; cv=none; b=uOzAelCxijA/T6uRONNeftNhKXh/4+rGycO75DB7X4kGjJYd4sr2pFApu6gKB6+eJOWr1nOjJYcgt74MLxXBks5bsc51SZ5PWKw35DIC95lralJwy+mIk1h1dEAG094Onq9rxZk6QZ1AVX71ljikGwoTTH1Df92EpvQJE2frqsM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791535171; c=relaxed/simple;
-	bh=Ek0Ev7kge84bu1PET5jYEBIebPmFy/wtj0z1m5U9z44=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=vEIDS72qIKShbCGmhSVSabnr8CJKnUphmikDa1RilXBMwhTVz4BKKvLMEt2CcP5UyVjKy+uqL2NSjlReyerpSwLbcneMGG/F3RvkHduwU6KL2ssaGLK2KudymfUy3XLNFb98DkLgcL6yugm7YyloJurHL/+1/Gt26WrwJhPklig=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ykw/RM0L; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791535234; c=relaxed/simple;
+	bh=ErHS1o9w9dfqEkjc8XU/LM68Lx+ef5IJwQKQG4bY2Ic=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cn6+xq+d0Nq/cWiKlFF9EwuTbecTJnm+TqVdvZSdrcGodyX1OQG2lAu/RJE6J/jIWE0pYqgAgu4x3R3fIGEHwuwo7Lyn9Kwa2HxE+MNMp0kiz8128h1Ko1W0jZIHOAGeClHwTBdEJNV2vrJ9U6LomTZmoXSkXa/FB60gP2rTmmI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=V/qDGQdb; arc=none smtp.client-ip=209.85.208.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ykw/RM0L"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20F201F000FF;
-	Fri,  9 Oct 2026 08:39:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791535169;
-	bh=iCOfB4v4TOWPCDQGVyTwpBbkk/pMrmULcUAOdNMUHtk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Ykw/RM0L6EqxjBQ7pIaUXDSU8lyxMFqyVk3UIRPw4LBIRgODxNlVZWPCsrtj1lZvu
-	 rqf7xUmp8yD4PfgdcmL33iDF27j3wOxkRzB+J/ncxQJMEspy/1a9jUd3pPt0XyXeaD
-	 1g/kO5xYV8xJtjg52Uy5R9O+qKa//oQZ5fcO5IFXoz9gsmQHcGIUWEijXnzqg/SktC
-	 96O+n0G+cPVlfJOzaY4Naqis+GHPesauyf/RO2h15OPIcRL9jQy8IYMYEmQdK5pcFN
-	 jYHK+OACUNYdRiwEDPLiiVVlLOsWupZmibhgmic//KU4V+L7szjz05Vgs6MNHTbcFT
-	 G45P7lsFJDnIw==
-Message-ID: <sashiko-outbox-165099@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 2/2] serial: wk2xxx: Add WK2xxx SPI UART driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: zjzhao@edatec.cn
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, linux-serial@vger.kernel.org
-In-Reply-To: <20261009082530.248219-2-zjzhao@edatec.cn>
-References: <cover.20261009.wk2xxx.v5@edatec.cn>
- <20261009082530.248219-2-zjzhao@edatec.cn>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 09 Oct 2026 08:39:28 +0000
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="V/qDGQdb"
+Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-6acb9c018ffso2638534a12.1
+        for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 01:40:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1791535231; x=1792140031; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=a3s76qkdukLICqlg6Em16V7dzhtvzS9YFXiNuwW4824=;
+        b=V/qDGQdbz6/iD4Km7EymrAwEOqSe1LEMyXiFtQN7pvTYbwKqlcsPF8X0pD4X0N/gjB
+         wjBYl/oo5uWkMpqqE2N5QXXNLXx4BqSB8Rah561eKCVjjKsoQ/2wNzGF1sUUMnKkNKe3
+         L8WGV8ZOsG66WXO9VB7mJP7CTd5BT6dMg5oKyoch7SE2y+uWcOAaw2UBaWMyhNsU8eTB
+         wQ3DM+Hdsq6e1LPvCdjJwkVvZ9ttdno93X4ljoCXjvjcObrfdzSmF/VuBunpgElMPEdJ
+         HcVgkSYWGqlkh+72XVQQJAoMuaeqiImJ9O4edDnNeW5SozxeNv8VrtvxCnc7y73YUZzv
+         WytQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791535231; x=1792140031;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=a3s76qkdukLICqlg6Em16V7dzhtvzS9YFXiNuwW4824=;
+        b=yl3GQzDAiNGm8pYLur7Hp/EkH/LdcTRI2rNN4+f/7CqhAI7UHGzj9cbkiBiQeJTsKD
+         +iZqm43zrZcRsLu/VV6uZsVkEb7YhXrSMJKpK3rPLhwKiNl/vZfBDaG5UHx/8qhR+9n0
+         bTRG8KXt9TEunn27PXhsfUL23dlauc37dHLmCvpGSSscEMeXve5yst+dVE7v7uBcJ5ie
+         pFtlYM0s3G2NUj1BrwD5MUPQhR56U3I3bMf5CdD/c5GBw9nVTqEO01refI49CClMGJwO
+         TUyV79pZk0rfdvdTFlgh0L6D/vfM0yeADwMsW4tgR8g8PncZHlm9ZAzeDM1Izz/QvT0j
+         jeKA==
+X-Forwarded-Encrypted: i=1; AKwUvBwhvFX9fiChUESeuhnH+q269jIsl5lAW+2DDtT6V1vKJlSMCorYO7i67r9uOMnaqOdiS79wRHqQvZdC@vger.kernel.org
+X-Gm-Message-State: AFq9FYIgorZKFICMCDy/43DbANOkC6P9LULQmeoH6BZjQU21jM4axU1j
+	NgqYP906u92wqC4TC0YoAy7R2sjkYGTBRwOmiMFFokpRCfWMtw4REHMPdCD/Dns4Y7M=
+X-Gm-Gg: AYBFou11e+qXRksQUcHYIiTEd263RFg8PkHHJ26RpSYgJs/f9dLUbOTKxywRyhfnicO
+	8Bi3clwFCHm5Nxjf/hkQjKMi6pY2O2Pa9mI6h4xPE4nl/SjNeopS1xibH/ER3MIkraLAi9IT3JP
+	Uu5a2gWHRTRW8Dr+KbAbdmb3JOnQ0/mRUl/uhvxMx1pYQW9IhjBKBP2RR7H37X0VjrxrhlthI3g
+	hm5P1ILB4oKQMGeWHLDlNsKXEbuZnw1xnpOtW7/WSGQvscTAGPn+6ZvPvBbThCjyRaZDXt0ZJgu
+	9TFGIVg5GHGTChZb1ziUNNIe8h19lIobUpKtCNrTaMTnC56Gaq14gjrHIwU9ZaQfhZlGMQxg88W
+	0wb0cpTVB8oXETYlEpw3VWfOUy0kAiI4475iVr55AsuMAdwAe+GJXXVT44VTp6qySrw52J7pgfZ
+	S/tpxA9mp4wsLta9/C9FHqq72vzwyW4pCkbf7x/FGrUUPZsUX/GN8p5NV0hDJtUilda1DVWoN9B
+	gJILp/JMrwO6v7+8ce6
+X-Received: by 2002:a05:6402:234d:b0:6af:d794:4a8 with SMTP id 4fb4d7f45d1cf-6b17c2a3834mr926471a12.12.1791535231094;
+        Fri, 09 Oct 2026 01:40:31 -0700 (PDT)
+Received: from [192.168.0.167] ([109.77.78.86])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b179de7913sm781218a12.23.2026.10.09.01.40.29
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 09 Oct 2026 01:40:30 -0700 (PDT)
+Message-ID: <82d48200-f13d-4b14-8cc4-4b1b2dd2bb37@linaro.org>
+Date: Fri, 9 Oct 2026 09:40:29 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v19 10/12] arm64: dts: qcom: kaanapali: Add CAMSS and
+ CSIPHY block definitions
+To: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
+ Bryan O'Donoghue <bod@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
+Cc: linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, jeyaprakash.soundrapandian@oss.qualcomm.com,
+ Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>
+References: <20261008-kaanapali-camss-v19-0-b2c583ef50e0@oss.qualcomm.com>
+ <20261008-kaanapali-camss-v19-10-b2c583ef50e0@oss.qualcomm.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20261008-kaanapali-camss-v19-10-b2c583ef50e0@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 13 potential issue=
-(s) to consider:
-- [High] tty: Bus error hides handled interrupts, risking IRQ storm disable=
-ment
-- [High] tty: UART ports exposed to userspace before IRQ handler registrati=
-on
-- [High] tty: wk2xxx_shutdown lacks synchronization with concurrent IRQ han=
-dler
-- [High] tty: Shared register lock held while sleeping blocks entire chip
-- [High] tty: FIFO burst read applies single error status to all characters
-- [High] tty: Shared threaded IRQ requested without primary handler fails
-- [High] tty: SPI register read before device clock is enabled
-- [Medium] tty: Initial RS485 config silently discarded before port opens
-- [Medium] tty: Hardware flow control cannot be disabled once enabled
-- [Medium] tty: Missing uart_read_port_properties() call in probe
-- [Medium] tty: Data race in one->config.flags update without port->lock
-- [Medium] tty: Truncation of intermediate fractional baud rate calculation
-- [Medium] tty/serial: data race in wk2xxx_handle_rx() during port->icount =
-updates
---
-
-commit bdebcf784ac6f738394efad39bd16c7783d79d1f
-Author: Zi Jie Zhao <zjzhao@edatec.cn>
-
-serial: wk2xxx: Add WK2xxx SPI UART driver
-
-This commit adds a driver for WK2xxx SPI-to-UART bridge ICs, supporting
-up to four full-duplex UART channels over a single SPI interface. The
-driver registers the ports, handles interrupts via a kthread worker, and
-supports device tree properties.
-
-> diff --git a/drivers/tty/serial/wk2xxx.c b/drivers/tty/serial/wk2xxx.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/tty/serial/wk2xxx.c
-[ ... ]
-> +static void wk2xxx_ier_set(struct uart_port *port, u8 bit)
-> +{
-> +	struct wk2xxx_one *one =3D to_wk2xxx_one(port, port);
-> +	struct wk2xxx_port *s =3D dev_get_drvdata(port->dev);
+On 08/10/2026 08:14, Hangxiang Ma wrote:
+> +		csiphy0: phy@9523000 {
+> +			compatible = "qcom,kaanapali-csi2-phy";
+> +			reg = <0x0 0x09523000 0x0 0x2000>;
 > +
-> +	lockdep_assert_held_once(&port->lock);
+> +			clocks = <&camcc CAM_CC_CSIPHY0_CLK>,
+> +				 <&camcc CAM_CC_CSI0PHYTIMER_CLK>,
+> +				 <&camcc CAM_CC_CORE_AHB_CLK>;
+> +			clock-names = "core",
+> +				      "timer",
+> +				      "ahb";
 > +
-> +	one->config.flags |=3D WK2XXX_RECONF_IER;
-[ ... ]
-> +static int wk2xxx_config_rs485(struct uart_port *port, struct ktermios *=
-termios,
-> +			       struct serial_rs485 *rs485)
-> +{
-> +	struct wk2xxx_one *one =3D to_wk2xxx_one(port, port);
-> +	struct wk2xxx_port *s =3D dev_get_drvdata(port->dev);
-[ ... ]
-> +	/*
-> +	 * RTS is driven by hardware and its timing cannot be influenced
-> +	 * from the driver. Non-zero RTS delays are rejected (sanitized to
-> +	 * zero) by the serial core.
-> +	 */
-> +	one->config.flags |=3D WK2XXX_RECONF_RS485;
-
-[Severity: Medium]
-Is there a data race on the config.flags field here?
-
-The serial core can invoke the rs485_config callback without holding
-port->lock. In wk2xxx_config_rs485(), the driver modifies one->config.flags
-locklessly. Concurrently, functions like wk2xxx_ier_set() modify the exact
-same field while holding port->lock.
-
-If these run concurrently, could we silently drop either the RS485
-configuration flag or the interrupt mask update?
-
-[ ... ]
-> +static void wk2xxx_reg_proc(struct kthread_work *ws)
-> +{
-> +	struct wk2xxx_one *one =3D to_wk2xxx_one(ws, reg_work);
-> +	struct wk2xxx_port *s =3D dev_get_drvdata(one->port.dev);
-> +	struct wk2xxx_one_config config;
-> +	unsigned long irqflags;
+> +			interrupts = <GIC_SPI 477 IRQ_TYPE_EDGE_RISING>;
 > +
-> +	uart_port_lock_irqsave(&one->port, &irqflags);
-> +	config =3D one->config;
-> +	memset(&one->config, 0, sizeof(one->config));
-> +	uart_port_unlock_irqrestore(&one->port, irqflags);
-> +	if (!READ_ONCE(one->active))
-> +		return;
-
-[Severity: Medium]
-Will the initial RS485 configuration from the device tree be discarded here?
-
-During probe, uart_add_one_port() invokes wk2xxx_config_rs485() to apply
-device tree settings, which queues reg_work. If the worker thread runs
-wk2xxx_reg_proc() before the port is opened (meaning wk2xxx_startup() hasn't
-been called and active is false), the early return skips the SPI writes and
-clears the pending config flags, permanently losing the RS-485 mode
-configuration.
-
-[ ... ]
-> +static void wk2xxx_handle_rx(struct uart_port *port)
-> +{
-[ ... ]
-> +	if (fsr & WK2XXX_FSR_ERR_MASK) {
-> +		if (fsr & WK2XXX_FSR_RFPE_BIT) {
-> +			port->icount.parity++;
-> +			lsr |=3D WK2XXX_LSR_PE_BIT;
-> +			flag =3D TTY_PARITY;
-> +		}
-> +		if (fsr & WK2XXX_FSR_RFFE_BIT) {
-> +			port->icount.frame++;
-> +			lsr |=3D WK2XXX_LSR_FE_BIT;
-> +			flag =3D TTY_FRAME;
-> +		}
-
-[Severity: Medium]
-Are these lockless updates to the port->icount fields safe?
-
-When wk2xxx_handle_rx() processes received data, it increments icount fields
-and calls uart_insert_char() without acquiring port->lock. Concurrently, a
-userspace application invoking the TIOCGICOUNT ioctl calls uart_get_icount(=
-),
-which acquires port->lock and copies the entire structure. Without locking =
-on
-the writer side, could concurrent reads cause torn or inconsistent statisti=
-cs?
-
-[ ... ]
-> +	for (i =3D 0; i < rxlen; ++i) {
-> +		u8 ch =3D one->rx_buf[i];
-> +		u8 overrun =3D overrun_pending ? WK2XXX_LSR_OE_BIT : 0;
+> +			operating-points-v2 = <&csiphy_mxc_opp_table>;
 > +
-> +		if (uart_handle_sysrq_char(port, ch))
-> +			continue;
+> +			power-domains = <&camcc CAM_CC_TITAN_TOP_GDSC>,
+> +					<&rpmhpd RPMHPD_MMCX>,
+> +					<&rpmhpd RPMHPD_MXC>;
+> +			power-domain-names = "top",
+> +					     "mmcx",
+> +					     "mx";
 > +
-> +		uart_insert_char(port, lsr, overrun, ch, flag);
-> +		overrun_pending =3D false;
-> +	}
+> +			status = "disabled";
+> +		};
 
-[Severity: High]
-Does this apply a single FSR error status to every character in the FIFO
-burst?
+These PHYs should have their ports defined.
 
-The driver reads the FIFO status register once, then performs a burst read
-of up to 256 bytes. If any error bit is set in that single snapshot, the
-corresponding flag is applied to every character in the burst when calling
-uart_insert_char(). Could a single flawed character cause the entire block
-of valid characters to be flagged as erroneous?
-
-[ ... ]
-> +static irqreturn_t wk2xxx_irq(int irq, void *dev_id)
-> +{
-[ ... ]
-> +	do {
-> +		u8 gifr;
-> +		int i;
-> +
-> +		keep_polling =3D false;
-> +
-> +		if (wk2xxx_reg_read(s, WK2XXX_GIFR_REG, &gifr))
-> +			return IRQ_NONE; /* Bus error; treat the interrupt as spurious. */
-
-[Severity: High]
-If an interrupt is successfully handled in a previous loop iteration, does
-returning IRQ_NONE here discard that handled state?
-
-If handled gets lost because of a subsequent SPI bus error, the core IRQ
-subsystem will log the interrupt as unhandled. Repeated occurrences could
-cause the kernel to permanently disable the shared interrupt line.
-
-[ ... ]
-> +static void wk2xxx_conf_port(struct uart_port *port, u8 lcr, u8 fwcr,
-> +			     u8 baud0, u8 baud1, u8 pres)
-> +{
-[ ... ]
-> +	guard(mutex)(&s->reg_lock);
-> +
-> +	wk2xxx_raw_port_read(s, portno, WK2XXX_SIER_REG, &sier);
-> +	wk2xxx_raw_port_write(s, portno, WK2XXX_SIER_REG, 0);
-> +
-> +	timeout_us =3D max_t(unsigned long, jiffies_to_usecs(uart_fifo_timeout(=
-port)),
-> +			   WK2XXX_TX_TIMEOUT_US);
-> +	ret =3D read_poll_timeout(wk2xxx_raw_port_read, read_ret,
-> +				(read_ret || !(fsr & WK2XXX_FSR_TBUSY_BIT)),
-> +				WK2XXX_TX_POLL_US, timeout_us, false, s, portno,
-> +				WK2XXX_FSR_REG, &fsr);
-
-[Severity: High]
-Will holding s->reg_lock while sleeping block the entire chip?
-
-The reg_lock serializes all SPI communication, and read_poll_timeout() can
-sleep for potentially hundreds of milliseconds waiting for the TX FIFO to
-drain. Since the lock is held across this sleep, wouldn't it prevent all
-other sub-UARTs from being serviced, causing massive latency spikes and RX
-FIFO overruns on other active ports?
-
-[ ... ]
-> +	wk2xxx_raw_port_write(s, portno, WK2XXX_LCR_REG, lcr);
-> +
-> +	if (fwcr) {
-> +		wk2xxx_raw_port_write(s, portno, WK2XXX_FWCR_REG, fwcr);
-> +		wk2xxx_raw_port_write(s, portno, WK2XXX_SPAGE_REG, 1);
-> +		/* FWTH and FWTL are the flow-control stop and resume thresholds. */
-> +		wk2xxx_raw_port_write(s, portno, WK2XXX_FWTH_REG, 0xf0);
-> +		wk2xxx_raw_port_write(s, portno, WK2XXX_FWTL_REG, 0x80);
-> +		wk2xxx_raw_port_write(s, portno, WK2XXX_SPAGE_REG, 0);
-> +	}
-
-[Severity: Medium]
-If hardware flow control is later disabled by userspace, fwcr will be 0.
-Since there is no else branch to write 0 to WK2XXX_FWCR_REG, how does the
-driver clear a previously enabled hardware flow control state?
-
-[ ... ]
-> +static void wk2xxx_calc_divisor(unsigned long clk, unsigned int baud,
-> +				u8 *baud0, u8 *baud1, u8 *pres)
-> +{
-[ ... ]
-> +	rem =3D clk % (baud * 16);
-> +	*pres =3D (u32)div_u64((u64)rem * 100, baud);
-> +	*pres =3D (*pres + 50) / 100;
-> +}
-
-[Severity: Medium]
-Is the intermediate calculation truncated here?
-
-The div_u64() call produces a value that can be larger than 255, but
-assigning it directly to the u8 pointer *pres truncates it to 8 bits. The
-subsequent division by 100 operates on this truncated value, which seems li=
-ke
-it could produce a wildly incorrect fractional divisor at high baud rates.
-
-[ ... ]
-> +static void wk2xxx_shutdown(struct uart_port *port)
-> +{
-> +	struct wk2xxx_one *one =3D to_wk2xxx_one(port, port);
-> +	struct wk2xxx_port *s =3D dev_get_drvdata(port->dev);
-> +	unsigned int portno =3D port->iobase;
-> +	u8 reg;
-> +
-> +	WRITE_ONCE(one->active, false);
-> +	kthread_cancel_work_sync(&one->tx_work);
-> +	kthread_cancel_work_sync(&one->reg_work);
-> +	kthread_cancel_delayed_work_sync(&one->tx_empty_work);
-
-[Severity: High]
-Does wk2xxx_shutdown() need synchronization with the threaded IRQ handler?
-
-It sets active =3D false and cancels workers, but without synchronize_irq()=
- or
-disable_irq(), the handler can run concurrently. If the handler evaluates t=
-he
-active check before this clears it, could it re-queue workers or update
-buffers after the logical shutdown is complete?
-
-[ ... ]
-> +static int wk2xxx_request_irq(struct wk2xxx_port *s)
-> +{
-> +	struct device *dev =3D &s->spi->dev;
-> +	int ret;
-> +
-> +	ret =3D request_threaded_irq(s->spi->irq, NULL, wk2xxx_irq,
-> +				   IRQF_TRIGGER_LOW | IRQF_SHARED | IRQF_ONESHOT,
-> +				   dev_name(dev), s);
-
-[Severity: High]
-Will this request_threaded_irq() call always fail with -EINVAL?
-
-The core IRQ subsystem forbids requesting an IRQF_SHARED threaded IRQ with a
-NULL primary handler, because it needs to verify if the shared interrupt
-belongs to the device before waking the thread. This failure would force the
-driver into the fallback edge-triggered path, potentially causing missed
-interrupts.
-
-[ ... ]
-> +static int wk2xxx_probe(struct spi_device *spi)
-> +{
-[ ... ]
-> +	/*
-> +	 * The WK2xxx has no identification register, so the best we can do
-> +	 * is to check that communication is at all possible.
-> +	 */
-> +	ret =3D wk2xxx_reg_read(s, WK2XXX_GENA_REG, &val);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to read GENA register\n");
-> +
-> +	s->clk =3D devm_clk_get_enabled(dev, NULL);
-
-[Severity: High]
-Is it safe to perform the SPI register read before enabling the device cloc=
-k?
-
-Internal logic and SPI interfaces often require the core clock to be active.
-Without it, this initial read might time out or return garbage, causing pro=
-be
-to fail erroneously.
-
-[ ... ]
-> +		/*
-> +		 * Temporarily retarget dev's fwnode to the per-port subnode
-> +		 * so uart_get_rs485_mode() picks up the per-port properties.
-> +		 */
-> +		ret =3D 0;
-> +		if (port_np && devtype->has_rs485) {
-> +			device_set_node(dev, of_fwnode_handle(port_np));
-> +			ret =3D uart_get_rs485_mode(&s->p[i].port);
-> +			device_set_node(dev, saved_fwnode);
-> +		}
-> +		of_node_put(port_np);
-> +		if (ret)
-> +			goto out_ports;
-> +
-> +		ret =3D uart_add_one_port(&wk2xxx_uart, &s->p[i].port);
-> +		if (ret)
-> +			goto out_ports;
-> +
-> +		port_registered[i] =3D true;
-> +	}
-> +
-> +	/*
-> +	 * Request the IRQ only after every port is registered so that an early
-> +	 * interrupt can never reach a port whose port->state is not ready yet.
-> +	 * We first try to acquire the IRQ line as a level IRQ; if that
-> +	 * succeeds, we can allow sharing the interrupt as well.  In case the
-> +	 * interrupt controller doesn't support that, we fall back to a
-> +	 * non-shared falling-edge trigger.
-> +	 */
-> +	if (!s->polling) {
-> +		ret =3D wk2xxx_request_irq(s);
-
-[Severity: Medium]
-The commit message mentions applying "serial and RS-485 properties from each
-serial@N DT subnode". While uart_get_rs485_mode() handles the RS-485
-properties, it looks like a call to uart_read_port_properties() is missing
-here. Does this mean standard properties like clock-frequency, fifo-size,
-and the serial alias will be ignored?
-
-[Severity: High]
-Could exposing ports to userspace via uart_add_one_port() before registering
-the IRQ handler in wk2xxx_request_irq() be risky?
-
-If a process opens the port immediately, wk2xxx_startup() will enable
-hardware interrupts on the device. Since the OS handler is not yet
-registered, an asserted interrupt would be unhandled, potentially resulting
-in an interrupt storm that disables the shared IRQ line.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009082530.2482=
-19-1-zjzhao@edatec.cn?part=3D2
+---
+bod
