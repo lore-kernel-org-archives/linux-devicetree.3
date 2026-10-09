@@ -1,93 +1,154 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 828621A2545;
-	Fri,  9 Oct 2026 12:13:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8726C2737F9;
+	Fri,  9 Oct 2026 12:14:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791548033; cv=none; b=UqJhAeV93KL8/z+LCffZsJLxbB+QiF/vGXPmVWGTIy7LNaODDwfsPF3U/AHWTTNihfUb/NuLwb/QeiK86SpU6FlDQDCMx8ejMsbp0TOO+RXZP105CXI5wJG0vC1/2dC6zosk3j5NqktbvKai0neSduJKeVdp8cBBbpB/Zuu/9OQ=
+	t=1791548068; cv=none; b=B2jP5m/STfLZy/nS1Sxb6MgLJexbcqeRU97KTl6TvIsLBj3KMrTsW0EvEVJRGQzP/+/ogdXm4/vKTORpF77P4Kyp0C/H3lpYQfjNZTIQivgsyMNy6Of3uRAE7gPnIfP9xa+dlfpHqNsU/CPjmyg/UBAmOOBqi6RvhQsA4rnLByk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791548033; c=relaxed/simple;
-	bh=ZEOOr0h2KmQngFhv//6cIoONgVkd+R+SnXyQvfgJrlk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QGXqhe+z7Oo8ajGIFGGd9FSWaE/lpQuvkIXrLohdmYZq1GhXL+ASj/VH/HzUGi+a3J14lhlM+S7fTj2kZQZvSDemdTbMom7nDBoHjobFleRcDKXeaIiuR/zbbnxM6nv3CjAErXtvBTs4yooF3VeIwrsdmboAy+3REA8F1yCXJPU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=tzeHbJbf; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1791548068; c=relaxed/simple;
+	bh=TCNF0jpWRYJV9Gun1t6oM5yVbdSbaQ3sVeBoo6D3+Os=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=m7BLky5YAsmfDv7P6S9D/ON1UA+r8afhi/8de4s4EkhFdtSzH69q7iiCEuSoxyDuOFmaij7omxzbJuf1Y2+N2HjxzNyzs0Q2GaLIamn3P/xqVGMnlTn+TSkXzdYn5nnylfIpSkSUgikWtLZltm1zXeKb/1nulqScQCDu4rDWXDc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nLOUuAoQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="tzeHbJbf"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Transfer-Encoding:Content-Disposition:
-	Content-Type:MIME-Version:References:Message-ID:Subject:Cc:To:From:Date:From:
-	Sender:Reply-To:Subject:Date:Message-ID:To:Cc:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Content-ID:Content-Description:Content-Disposition:
-	In-Reply-To:References; bh=iYqcn+lw0qC/zQadO5fheUsN/NkKlBYECjVpCgptZMM=; b=tz
-	eHbJbfn2hJXhR7bctqrOQsxWGFsATvqH5M7FqEGjCw/KIWeIC4TlP70keu4PnxMShE7R1Ghh/x90I
-	4T5wSY81La24TnQgk+SKelca7e0mnBsktaMOF1VvENjiTXcdre/8LuPXR37vafMP1+H1RTzD2lY6Y
-	X4HQUO3qpsENWVI=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1xF9TY-009mY5-CL; Fri, 09 Oct 2026 14:13:24 +0200
-Date: Fri, 9 Oct 2026 14:13:24 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Lucas Tanure <tanure@linux.com>
-Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH v2 0/7] Add ethernet support for the Amlogic T7
-Message-ID: <3a037c87-e4c5-4a4e-9522-cf505e1c6399@lunn.ch>
-References: <20261007082627.63807-1-tanure@linux.com>
- <d23dfdf3-5837-459f-afd6-6c198a05c13c@lunn.ch>
- <CAJX_Q+2au4x99kj=UBqn4joQCM3-D2kbaJ0zro9Y4RXka7ePvQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nLOUuAoQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF9431F000FF;
+	Fri,  9 Oct 2026 12:14:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791548058;
+	bh=m/M79T0qSkGDFGaGmp2E8WidSUwZc+ebzrY+W9q8Ijg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=nLOUuAoQ67S2R4qPGDZWblM6Rxpr7nCEzu4+Zb1hPYGYJLBmq+OVMZNOwqzuk3lxn
+	 TZR2CkUAcxSfBt6kOyF/zmGhngKnYgNfUAYVO1v2S+t+ETJNDh0kMqgGFbkN/NMTrN
+	 7ktngULJeW35Yg0320TAgp2QtjDYVKMZguo2mEo03/a7Xh+TZGu+aDZDboirPSuTQd
+	 WdkDYUPaOTcBqB1c7C2jnwOVRzUm6UbBU965fOIqB7AhnmJ2xDFLZwzHfOg9oC//Bq
+	 cd4OnPYBwIL/LJ8AVp5z2gWwWxN1anl1IrPXanfNZREqAY2cF8G9c7vRzb/xHHtgDm
+	 veYYYeamG8Ufg==
+Message-ID: <sashiko-outbox-165498@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 3/3] hwmon: (lm75) add MAX31875 support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "John Erasmus Mari Geronimo" <johnerasmusmari.geronimo@analog.com>
+Cc: linux-hwmon@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20261009115617.1976-4-johnerasmusmari.geronimo@analog.com>
+References: <20261009115617.1976-1-johnerasmusmari.geronimo@analog.com>
+ <20261009115617.1976-4-johnerasmusmari.geronimo@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 09 Oct 2026 12:14:17 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAJX_Q+2au4x99kj=UBqn4joQCM3-D2kbaJ0zro9Y4RXka7ePvQ@mail.gmail.com>
 
-On Fri, Oct 09, 2026 at 06:59:49AM +0100, Lucas Tanure wrote:
-> On Wed, Oct 7, 2026 at 2:01 PM Andrew Lunn <andrew@lunn.ch> wrote:
-> >
-> > On Wed, Oct 07, 2026 at 09:26:20AM +0100, Lucas Tanure wrote:
-> > > The T7 pairs a Synopsys gigabit MAC with the same glue registers the
-> > > G12A has, but nothing described it. This adds the binding, the driver
-> > > support and the device tree nodes, and enables the port on the Khadas
-> > > VIM4.
-> > >
-> > > Unlike the G12A, the controller reaches DRAM through a pipeline stage
-> > > with a gate of its own, sys_ampipe_eth. Nothing else claims it, so
-> > > clk_disable_unused switches it off and transfers stop.
-> > >
-> > > v2 changes the RGMII delays, after review. phy-mode describes the
-> > > board, not which chip adds the delay, so this board is rgmii-id.
-> > > dwmac-meson8b did the opposite, and ignored the *-internal-delay-ps
-> > > properties. Patch 1 fixes that. The VIM4 needs it because the RTL8211F
-> > > transmit delay does not work here.
-> >
-> > What is special about the RTL8211F?
-> Maybe nothing, it may be this board. I cannot tell from here.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] hwmon: lm75: unconditional 16-bit polarity mask corrupts max31875 =
+conversion rate
+- [Medium] hwmon: lm75: Fix incorrect bit mask for MAX31875 conversion rate
+- [Medium] hwmon: lm75: max31875 state desynchronization on probe
+--
 
-Yes, look at my other reply. The RTL8211F is very likely correct. It
-is the MAC drivers handling of delays which is broken. You get to fix
-it for this new device.
+commit 5136e5422ce7bd39a8f47ef8a45e61f3dcdb4cf8
+Author: John Erasmus Mari Geronimo <johnerasmusmari.geronimo@analog.com>
 
-   Andrew
+hwmon: (lm75) add MAX31875 support
+
+This commit adds support for the Maxim MAX31875 I2C temperature sensor
+by extending the lm75 driver. The new device supports a 16-bit
+configuration register with configurable resolutions and selectable
+conversion rates.
+
+> diff --git a/drivers/hwmon/lm75.c b/drivers/hwmon/lm75.c
+> index 2d2d752aeac9d..cda28b9b093c1 100644
+> --- a/drivers/hwmon/lm75.c
+> +++ b/drivers/hwmon/lm75.c
+
+[ ... ]
+
+> @@ -222,6 +223,14 @@ static const struct lm75_params device_params[] =3D {
+>  		.default_resolution =3D 16,
+>  		.default_sample_time =3D MSEC_PER_SEC / 20,
+>  	},
+> +	[max31875] =3D {
+> +		.config_reg_16bits =3D true,
+> +		.default_resolution =3D 10,
+> +		.default_sample_time =3D 4000,
+> +		.num_sample_times =3D 4,
+> +		.sample_times =3D (unsigned int []){ 125, 250, 1000, 4000 },
+> +		.alarm =3D true,
+> +	},
+
+[Severity: High]
+Does setting .config_reg_16bits to true for max31875 cause a regression
+where the conversion rate is corrupted during initialization?
+
+In lm75_generic_probe(), the polarity mask is unconditionally set to BIT(10)
+for 16-bit chips:
+
+    if (!data->params->config_reg_16bits)
+        pol_mask =3D LM75_ALERT_POLARITY_HIGH_8_BIT;
+    else
+        pol_mask =3D LM75_ALERT_POLARITY_HIGH_16_BIT;
+
+This mask is then applied to the configuration register:
+
+    clr_mask =3D data->params->clr_mask | pol_mask;
+    ...
+    err =3D lm75_write_config(data, set_mask, clr_mask);
+
+Because the max31875 conversion rate mask includes BIT(10) and BIT(9),
+could probing the max31875 forcefully clear or set the MSB of its
+conversion rate, causing mutual corruption between the alarm polarity and
+conversion rate settings?
+
+[Severity: Medium]
+Since .set_mask and .clr_mask are not defined here, does this result in a
+state desynchronization on probe?
+
+In lm75_generic_probe(), the software state is unconditionally initialized =
+to
+the defaults:
+
+    data->sample_time =3D data->params->default_sample_time;
+    data->resolution =3D data->params->default_resolution;
+
+But since the configuration masks are 0, lm75_write_config() fails to
+enforce these defaults on the hardware.
+
+If a bootloader or prior system state configured the conversion rate or
+resolution differently, will the driver state become desynchronized from the
+actual hardware state?
+
+[ ... ]
+
+> @@ -494,6 +506,13 @@ static int lm75_update_interval(struct device *dev, =
+long val)
+>  			return err;
+>  		data->sample_time =3D data->params->sample_times[index];
+>  		break;
+> +	case max31875:
+> +		err =3D regmap_update_bits(data->regmap, LM75_REG_CONF,
+> +					 0x0600, (3 - index) << 9);
+
+[Severity: Medium]
+Is the bit mask for the MAX31875 conversion rate correct here?
+
+Because lm75_i2c_reg_read() uses i2c_smbus_read_word_data() for 16-bit
+configuration registers, the chip's MSB is placed in the lower 8 bits of the
+returned value to maintain compatibility with 8-bit standard LM75 features.
+
+This means D10 and D9 map to bits 2 and 1 of regval.
+
+Using the mask 0x0600 and shifting by 9 modifies bits 10 and 9 of regval,
+which alters bits D2 and D1 of the chip's LSB instead of setting the
+conversion rate.
+
+Should the mask be 0x0006 and the shift be 1?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009115617.1976=
+-1-johnerasmusmari.geronimo@analog.com?part=3D3
