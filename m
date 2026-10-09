@@ -1,474 +1,113 @@
-Received: from mail-pj2-f9.google.com (mail-pj2-f9.google.com [74.125.227.137])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11DB13195FE
-	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 02:16:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.137
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9AEF530BF4F;
+	Fri,  9 Oct 2026 02:57:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791512214; cv=none; b=CIDOiWQ6eh1kkZuNtP5GghtTHGgJgsX/9z3CHSRxE+wASXrbqT21k+Dry9yfGPqTIn4TduZU+SFDCwkTh7sXf4YH2iit3iBR5W14E+PNXMYhpepaqUKqjPFVyOb+wCAKywOvOQrDFobEUa47izltjuiIVr8Iq3Br5tJw4LIIK7I=
+	t=1791514644; cv=none; b=u2exe0WTGNSxTS9gx4sLXEWh8QMrMXaSUg3nhWKamtxJ1vJh05gQp8zRrog86HeVkZtl1xOH2PLlvITngqopAFDiuf5yK26NlrT2U/XFJIEwGL9edoDyVVyiwTwZcLmYy5TpOD1+mHqnV9ShTHNCRUNJ/Pj/qFE3hCb9S1EhCI4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791512214; c=relaxed/simple;
-	bh=RgfS304p5sNqkKLM5WXwpFaV9IC+O6sYdi07k4m47TY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kKOJN447l3/TO6tgLa2RRobzqTzj5PxP3AciL5NO8fp3DxwgRLvjKLuiGHEdHxo/ir8ZSnLLDH7q9LI3iUjBqoN8TcM4uMv/ab1WNoJ4vl2ocDPufpc3A2QE8olxI5e5q2LWWuJ11uilN5tPonclmJubF6zIr2y/GK7zv2pcEtI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=flUtDwnH; arc=none smtp.client-ip=74.125.227.137
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="flUtDwnH"
-Received: by mail-pj2-f9.google.com with SMTP id 98e67ed59e1d1-3a51696a650so3260058a91.1
-        for <devicetree@vger.kernel.org>; Thu, 08 Oct 2026 19:16:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791512211; x=1792117011; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3HzF21b7wH+OCi6BgDNq8o3oZ/2tI5ENlGWlmHfz0R4=;
-        b=flUtDwnHsqUfPppsWxHIIOWVeGy04k0lXEII4Xm74a4mWqGHlcQhwq7WM5YwDSLYhT
-         wTvhoXzvEfKJ7ZHYY497rYDY35GnE5qoU1R52idWPzZkP1pfry+XMtjjpk7NXGnesMI7
-         F7u342Y3vhPV8LvWzVA8UKBT7RxHePsdkjO5Z0VF4713077aH+FsYfbG1Fszsw7pmvKJ
-         8/xyaXzKN630pcmFCItA/u1buHHemLIUDtgg/OCHAvZWHpa4X5/81nlSYO1CHzsYoWTR
-         gX8xZphgYlBOlgb0vJHoq5qt9XPG7KfYUxdg8ktRlTJh0saq0To1JwJz/wCscIg8kKl1
-         nlmA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791512211; x=1792117011;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3HzF21b7wH+OCi6BgDNq8o3oZ/2tI5ENlGWlmHfz0R4=;
-        b=SFDJguWqE2sZyVkb0BC/159dlYJ9BOz/UO5r920jk67trRp6088FPsEpDQ13SJpTxl
-         vyJ/1HgrlZb+kduUEPosq8xBwEPBxNWKxbI6/S12QG3G4k6XmgQX4gC8gn7bZrjpNcfX
-         NDySou8YhfrEYRYRhLIA4J92maRGoGKcjBXfznFJmvlfTBUxB0DFx0QXi3ezDW+BhBbG
-         8/RJ5WQqRcBzwL6KyQ6QwDaJmhpIx5rm3Dr9XtoREcQfK5ICAgdSql+qaMj/Bs+/capE
-         WKhRqNb/IBj1vJL4VkWxVTXIj4HT6fcVRwNwFt1UBxvyNaAHdFNGCnKhkIRXrRxU9fRW
-         43eQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxukkUuAkN7YNvFkKhSRhaxZ+nC+s2vw8Gl8ca+XvWjGtYYcdkG+tX3oar7n7MGWRkOmS6gyZ2+EvV8@vger.kernel.org
-X-Gm-Message-State: AFq9FYI76z7U1Vj5NH4hghXmjw6tsbsm+zY4JhcK9NfIt61/Qsgb6ACW
-	nch1d/0hiEljcopBfMlXXmo/+Lby5+xP/qI+S7YzSdaDS7u4QrXPpj5d
-X-Gm-Gg: AYBFou1W1lhFsj49sj5GjSxQEfqSVMnYUH0k8dDww/ewA944Qxr3D9XKh6LnNT7JAh6
-	NLL47R9PeOnwxP8a8Xl2+Z3kwP9wAPHrr1OXmC0i4s6ba6y5bNTpTpl2sr8Y28pBnr8o5EIADtO
-	fs0DT9WGO0oHtLkA837KJFH7sVPzhOwP2mZesgWxC0RZtUUmYxGT3UMFY2wUSbpZ9ERIOf5DN20
-	0X1jF13zo/360WuiWv8bj0Hh11rbLKupvXoyEMPmtmB56ljp9ZLaYNLktC9aa/ullN9uLyElUG2
-	uohgvYzszBjsjwnnSs7sqdQk35tdGUZQknq+gsWGIi90e4f/LIdkSgs7T046MFLBM6XlNGUTPlG
-	YVuTdCL2l0YkYNIbOYBhsNyIaAV/Wr0hniTpuaKiHRkNeD+sIcMEorpTfyi+yQhFLzpYkBfLoJw
-	7np2OM2lllI7rY86meLSuUmZ6dpmxvb7qMYlnJ8wJiG1X8kdI0chsr0knh+xhSxrvqha3tiLh12
-	hLQ7Q==
-X-Received: by 2002:a17:90b:1d4f:b0:3aa:6b5d:a00a with SMTP id 98e67ed59e1d1-3ab3ac7912fmr583653a91.53.1791512211401;
-        Thu, 08 Oct 2026 19:16:51 -0700 (PDT)
-Received: from [10.125.112.22] ([122.11.210.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab36ed040dsm1605868a91.6.2026.10.08.19.16.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 08 Oct 2026 19:16:50 -0700 (PDT)
-Message-ID: <a8ac6daa-e721-4cba-bef3-3333643db23d@gmail.com>
-Date: Fri, 9 Oct 2026 10:16:44 +0800
+	s=arc-20240116; t=1791514644; c=relaxed/simple;
+	bh=yl0TJHDzu98frW9uc9TMTi8QQB5q74ARsjqKyCP9KRg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=pIsRM/dvcXV0xYhw3CU/9HMdfOro/epstuyKv/oZQ0Zqu8V+VhqlA0sO+QmaADasGcMhR5ogMam4jyUim0JoHvIyC2rjzmSDCLIcxGqoihkdM8tdgEZsaMFEUuTsHknEWcm0aQiOqhJMIyC2UmlDRZe0/5+jsV7wHJpghPZYt48=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [223.64.68.159])
+	by gateway (Coremail) with SMTP id _____8DxpvARWMhqB_wTAA--.58582S3;
+	Fri, 09 Oct 2026 10:57:21 +0800 (CST)
+Received: from kernelserver (unknown [223.64.68.159])
+	by front1 (Coremail) with SMTP id qMiowJAx2c0KWMhqikwqAA--.24079S3;
+	Fri, 09 Oct 2026 10:57:20 +0800 (CST)
+From: Binbin Zhou <zhoubinbin@loongson.cn>
+To: Binbin Zhou <zhoubb.aaron@gmail.com>,
+	Huacai Chen <chenhuacai@loongson.cn>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Yinbo Zhu <zhuyinbo@loongson.cn>,
+	zhanghongchen <zhanghongchen@loongson.cn>,
+	"Rafael J . Wysocki" <rafael@kernel.org>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Zhang Rui <rui.zhang@intel.com>,
+	Lukasz Luba <lukasz.luba@arm.com>
+Cc: Huacai Chen <chenhuacai@kernel.org>,
+	Xuerui Wang <kernel@xen0n.name>,
+	loongarch@lists.linux.dev,
+	devicetree@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	Binbin Zhou <zhoubinbin@loongson.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH v7 1/8] thermal/drivers/loongson2: Fix negative temperature conversion in set_trips
+Date: Fri,  9 Oct 2026 10:57:04 +0800
+Message-ID: <38f8e7cde8e454e7c6b72cb1b9a1c54e67c8a7fa.1791512067.git.zhoubinbin@loongson.cn>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <cover.1791512067.git.zhoubinbin@loongson.cn>
+References: <cover.1791512067.git.zhoubinbin@loongson.cn>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] of: reserved_mem: allocate and map the
- reserved_mem array early
-To: Marek Szyprowski <m.szyprowski@samsung.com>, linux-mm@kvack.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Mike Rapoport <rppt@kernel.org>, Rob Herring <robh@kernel.org>,
- Saravana Kannan <saravanak@kernel.org>,
- Oreoluwa Babatunde <oreoluwa.babatunde@oss.qualcomm.com>,
- Andrew Morton <akpm@linux-foundation.org>
-References: <20261008152403.766439-1-m.szyprowski@samsung.com>
- <CGME20261008152450eucas1p1d5517eadc2c1d684ff6d4ddc010f6331@eucas1p1.samsung.com>
- <20261008152403.766439-3-m.szyprowski@samsung.com>
-Content-Language: en-US
-From: Wandun <chenwandun1@gmail.com>
-In-Reply-To: <20261008152403.766439-3-m.szyprowski@samsung.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJAx2c0KWMhqikwqAA--.24079S3
+X-CM-SenderInfo: p2kr3uplqex0o6or00hjvr0hdfq/1tbiAQEPCGrIS3YAyAAAsQ
+X-Coremail-Antispam: 1Uk129KBj93XoW7Cw4xuFy3XFWxGw17ZF18JFc_yoW8AFyxpa
+	y3C34qkrZrJr4DZw1DAayrXFZ8A34ftFZrWF4xGw13C398J34agrWUJFy5X3ySkryUXFyY
+	vr95KrWDCFWDA3gCm3ZEXasCq-sJn29KB7ZKAUJUUUU7529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUBYb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r126r13M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
+	Gr0_Gr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYI
+	kI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUtVWr
+	XwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI4
+	8JMxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j
+	6r4UMxCIbckI1I0E14v26r1Y6r17MI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwV
+	AFwI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv2
+	0xvE14v26r4j6ryUMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4
+	v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AK
+	xVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8W89tUUUUU==
 
+The `MILLI` is defined as an unsigned long constant. When the
+temperatures passed to loongson2_thermal_set_trips() are negative, the
+expression `low / MILLI` triggers implicit conversion of the signed
+operand to unsigned long, and the division is then carried out in
+unsigned arithmetic.
 
+For example, with a low trip of -40000 (milli-degree Celsius):
 
-On 10/8/26 23:24, Marek Szyprowski wrote:
-> Get rid of the static, limited-size reserved_mem array and replace it
-> with array allocated by memblock_alloc_raw() and accessed through a
-> temporary early_memremap() mapping. Such mapping is needed for some
-> architectures (like ARM64), where linear map is not yet available during
-> early boot scan. Having a single, writeable array with all reserved
-> regions removes the need to perform two step initialization introduced
-> by commit 8a6e02d0c00e ("of: reserved_mem: Restructure how the reserved
-> memory regions are processed"), so all regions can be processed
-> directly during the early scan again.
+    -40000 / 1000UL = 18446744073709511   /* unsigned long */
 
-One concern about the ordering here: the new memblock_alloc_raw() for the
-reserved_mem array runs *before* the static ("reg") regions are reserved,
-so the array can be allocated from inside one of them which makes the
-subsequent static region reservation fail.
+After truncation to the 32-bit register field this becomes
+1271310379, instead of the expected 60 (i.e. -40 + HECTO). Writing such
+bogus value into the trip register leaves most of the upper bits set,
+which may hit status/trigger bits and cause spurious thermal interrupts.
 
+Fix this by explicitly casting MILLI to int so that the division is
+performed in signed arithmetic.
 
-Best regards,
-Wandun
+Cc: stable@vger.kernel.org
+Fixes: e7e3a7c35791 ("thermal/drivers/loongson-2: Add thermal management support")
+Signed-off-by: Binbin Zhou <zhoubinbin@loongson.cn>
+---
+ drivers/thermal/loongson2_thermal.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-> 
-> Suggested-by: Mike Rapoport <rppt@kernel.org>
-> Link: https://lore.kernel.org/all/asc6brs_g0ky0wOM@kernel.org/
-> Assisted-By: LLM
-> Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
-> ---
->  drivers/of/fdt.c             |   3 -
->  drivers/of/of_private.h      |   2 -
->  drivers/of/of_reserved_mem.c | 247 +++++++++++++----------------------
->  3 files changed, 92 insertions(+), 160 deletions(-)
-> 
-> diff --git a/drivers/of/fdt.c b/drivers/of/fdt.c
-> index ecc923102622..a58efdcbac7f 100644
-> --- a/drivers/of/fdt.c
-> +++ b/drivers/of/fdt.c
-> @@ -1283,9 +1283,6 @@ void __init unflatten_device_tree(void)
->  {
->  	void *fdt = initial_boot_params;
->  
-> -	/* Save the statically-placed regions in the reserved_mem array */
-> -	fdt_scan_reserved_mem_late();
-> -
->  	/* Populate an empty root node when bootloader doesn't provide one */
->  	if (!fdt) {
->  		fdt = (void *) __dtb_empty_root_begin;
-> diff --git a/drivers/of/of_private.h b/drivers/of/of_private.h
-> index 0ae16da066e2..895f868b4cfa 100644
-> --- a/drivers/of/of_private.h
-> +++ b/drivers/of/of_private.h
-> @@ -9,7 +9,6 @@
->   */
->  
->  #define FDT_ALIGN_SIZE 8
-> -#define MAX_RESERVED_REGIONS    64
->  
->  /**
->   * struct alias_prop - Alias property in 'aliases' node
-> @@ -186,7 +185,6 @@ static inline struct device_node *__of_get_dma_parent(const struct device_node *
->  #endif
->  
->  int fdt_scan_reserved_mem(void);
-> -void __init fdt_scan_reserved_mem_late(void);
->  
->  bool of_fdt_device_is_available(const void *blob, unsigned long node);
->  
-> diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
-> index 300fb236ab59..8d8fa7242d4a 100644
-> --- a/drivers/of/of_reserved_mem.c
-> +++ b/drivers/of/of_reserved_mem.c
-> @@ -24,12 +24,12 @@
->  #include <linux/slab.h>
->  #include <linux/memblock.h>
->  #include <linux/kmemleak.h>
-> +#include <asm/early_ioremap.h>
->  
->  #include "of_private.h"
->  
-> -static struct reserved_mem reserved_mem_array[MAX_RESERVED_REGIONS] __initdata;
-> -static struct reserved_mem *reserved_mem __refdata = reserved_mem_array;
-> -static int total_reserved_mem_cnt = MAX_RESERVED_REGIONS;
-> +static struct reserved_mem *reserved_mem __refdata;
-> +static int total_reserved_mem_cnt;
->  static int reserved_mem_count;
->  
->  static int __init early_init_dt_alloc_reserved_memory_arch(phys_addr_t size,
-> @@ -59,56 +59,46 @@ static int __init early_init_dt_alloc_reserved_memory_arch(phys_addr_t size,
->  }
->  
->  /*
-> - * alloc_reserved_mem_array() - allocate memory for the reserved_mem
-> - * array using memblock
-> + * reserved_mem_array_map() - make the freshly allocated reserved_mem array
-> + * accessible during early boot
->   *
-> - * This function is used to allocate memory for the reserved_mem
-> - * array according to the total number of reserved memory regions
-> - * defined in the DT.
-> - * After the new array is allocated, the information stored in
-> - * the initial static array is copied over to this new array and
-> - * the new array is used from this point on.
-> + * On some architectures (i.e. ARM64) the linear mapping is not yet usable when
-> + * the reserved memory regions are scanned, so the array has to be accessed
-> + * through a temporary early mapping.
->   */
-> -static int __init alloc_reserved_mem_array(void)
-> +static struct reserved_mem * __init reserved_mem_array_map(struct reserved_mem *array,
-> +							   size_t size)
->  {
-> -	struct reserved_mem *new_array;
-> -	size_t alloc_size, copy_size, memset_size;
-> -	int ret;
-> +	if (IS_ENABLED(CONFIG_GENERIC_EARLY_IOREMAP))
-> +		return early_memremap(__pa(array), size);
-> +	else
-> +		return array;
-> +}
->  
-> -	if (!total_reserved_mem_cnt)
-> -		return 0;
-> +static void __init reserved_mem_array_unmap(struct reserved_mem *map, size_t size)
-> +{
-> +	if (IS_ENABLED(CONFIG_GENERIC_EARLY_IOREMAP))
-> +		early_memunmap(map, size);
-> +}
->  
-> -	alloc_size = array_size(total_reserved_mem_cnt, sizeof(*new_array));
-> -	if (alloc_size == SIZE_MAX) {
-> -		ret = -EOVERFLOW;
-> -		goto fail;
-> -	}
-> +/*
-> + * count_reserved_mem_nodes() - count the nodes that might need an entry in the
-> + * reserved_mem array
-> + */
-> +static int __init count_reserved_mem_nodes(const void *fdt, int node)
-> +{
-> +	int child, len, count = 0;
->  
-> -	new_array = memblock_alloc(alloc_size, SMP_CACHE_BYTES);
-> -	if (!new_array) {
-> -		ret = -ENOMEM;
-> -		goto fail;
-> -	}
-> +	fdt_for_each_subnode(child, fdt, node) {
-> +		if (!of_fdt_device_is_available(fdt, child))
-> +			continue;
->  
-> -	copy_size = array_size(reserved_mem_count, sizeof(*new_array));
-> -	if (copy_size == SIZE_MAX) {
-> -		memblock_free(new_array, alloc_size);
-> -		ret = -EOVERFLOW;
-> -		goto fail;
-> +		/* static regions use 'reg', dynamic ones use 'size' */
-> +		if ((of_flat_dt_get_addr_size_prop(child, "reg", &len) && len) ||
-> +		    (of_get_flat_dt_prop(child, "size", &len) && len))
-> +			count++;
->  	}
-> -
-> -	memset_size = alloc_size - copy_size;
-> -
-> -	memcpy(new_array, reserved_mem, copy_size);
-> -	memset(new_array + reserved_mem_count, 0, memset_size);
-> -
-> -	reserved_mem = new_array;
-> -	return 0;
-> -
-> -fail:
-> -	pr_err("Failed to allocate memory for reserved_mem array with err: %d", ret);
-> -	reserved_mem_count = 0;
-> -	return ret;
-> +	return count;
->  }
->  
->  static void fdt_init_reserved_mem_node(unsigned long node, const char *uname,
-> @@ -169,6 +159,7 @@ static int __init __reserved_mem_reserve_reg(unsigned long node,
->  
->  	if (size && early_init_dt_reserve_memory(base, size, nomap) == 0) {
->  		fdt_fixup_reserved_mem_node(node, base, size);
-> +		fdt_init_reserved_mem_node(node, uname, base, size);
->  		pr_debug("Reserved memory: reserved region for node '%s': base %pa, size %lu MiB\n",
->  			 uname, &base, (unsigned long)(size / SZ_1M));
->  	} else {
-> @@ -381,143 +372,89 @@ static void __init __rmem_check_for_overlap(void)
->  	}
->  }
->  
-> -/**
-> - * fdt_scan_reserved_mem_late() - Scan FDT and initialize remaining reserved
-> - * memory regions.
-> - *
-> - * This function is used to scan again through the DT and initialize the
-> - * "static" reserved memory regions, that are defined using the "reg"
-> - * property. Each such region is then initialized with its specific init
-> - * function and stored in the global reserved_mem array.
-> - */
-> -void __init fdt_scan_reserved_mem_late(void)
-> -{
-> -	const void *fdt = initial_boot_params;
-> -	phys_addr_t base, size;
-> -	int node, child;
-> -
-> -	if (!fdt)
-> -		return;
-> -
-> -	node = fdt_path_offset(fdt, "/reserved-memory");
-> -	if (node < 0) {
-> -		pr_info("Reserved memory: No reserved-memory node in the DT\n");
-> -		return;
-> -	}
-> -
-> -	/* Attempt dynamic allocation of a new reserved_mem array */
-> -	if (alloc_reserved_mem_array())
-> -		return;
-> -
-> -	if (__reserved_mem_check_root(node)) {
-> -		pr_err("Reserved memory: unsupported node format, ignoring\n");
-> -		return;
-> -	}
-> -
-> -	fdt_for_each_subnode(child, fdt, node) {
-> -		const __be32 *prop;
-> -		const char *uname;
-> -		u64 b, s;
-> -		int ret;
-> -		int len;
-> -
-> -		if (!of_fdt_device_is_available(fdt, child))
-> -			continue;
-> -
-> -		prop = of_flat_dt_get_addr_size_prop(child, "reg", &len);
-> -		if (!prop || !len)
-> -			continue;
-> -
-> -		ret = fdt_validate_reserved_mem_node(child, NULL);
-> -		if (ret && ret != -ENODEV)
-> -			continue;
-> -
-> -		of_flat_dt_read_addr_size(prop, 0, &b, &s);
-> -		base = b;
-> -		size = s;
-> -
-> -		if (size) {
-> -			uname = fdt_get_name(fdt, child, NULL);
-> -			fdt_init_reserved_mem_node(child, uname, base, size);
-> -		}
-> -	}
-> -
-> -	/* check for overlapping reserved regions */
-> -	__rmem_check_for_overlap();
-> -}
->  
->  /*
->   * fdt_scan_reserved_mem() - reserve and allocate memory occupied by
->   * reserved memory regions.
->   *
-> - * This function is used to scan through the FDT and mark memory occupied
-> - * by all static (defined by the "reg" property) reserved memory regions.
-> - * Then memory for all dynamic regions (defined by size & alignment) is
-> - * allocated, a region specific init function is called and region information
-> - * is stored in the reserved_mem array.
-> + * This function is used to scan through the FDT and count the number of
-> + * reserved memory regions, so the reserved_mem array can be allocated with
-> + * the exact size. Then all static (defined by the "reg" property) reserved
-> + * memory regions are marked as reserved, memory for all dynamic regions
-> + * (defined by size & alignment) is allocated, a region specific init function
-> + * is called and region information is stored in the reserved_mem array.
->   */
->  int __init fdt_scan_reserved_mem(void)
->  {
-> -	int node, child;
-> -	int dynamic_nodes_cnt = 0, count = 0;
-> -	int dynamic_nodes[MAX_RESERVED_REGIONS];
-> +	struct reserved_mem *array, *map;
-> +	size_t array_bytes;
-> +	int node, child, cnt;
->  	const void *fdt = initial_boot_params;
->  
->  	node = fdt_path_offset(fdt, "/reserved-memory");
-> -	if (node < 0) {
-> -		total_reserved_mem_cnt = 0;
-> +	if (node < 0)
->  		return -ENODEV;
-> -	}
->  
->  	if (__reserved_mem_check_root(node) != 0) {
->  		pr_err("Reserved memory: unsupported node format, ignoring\n");
-> -		total_reserved_mem_cnt = 0;
->  		return -EINVAL;
->  	}
->  
-> -	fdt_for_each_subnode(child, fdt, node) {
-> -		const char *uname;
-> -		int err;
-> +	/* First pass: count the entries needed for the reserved_mem array */
-> +	cnt = count_reserved_mem_nodes(fdt, node);
-> +	if (!cnt)
-> +		return 0;
->  
-> -		if (!of_fdt_device_is_available(fdt, child))
-> -			continue;
-> +	array_bytes = array_size(cnt, sizeof(*array));
-> +	array = memblock_alloc_raw(array_bytes, SMP_CACHE_BYTES);
-> +	if (!array) {
-> +		pr_err("Failed to allocate memory for reserved_mem array\n");
-> +		return -ENOMEM;
-> +	}
->  
-> -		uname = fdt_get_name(fdt, child, NULL);
-> +	map = reserved_mem_array_map(array, array_bytes);
-> +	if (!map) {
-> +		pr_err("Failed to map memory for reserved_mem array\n");
-> +		memblock_free(array, array_bytes);
-> +		return -ENOMEM;
-> +	}
-> +	memset(map, 0, array_bytes);
->  
-> -		err = __reserved_mem_reserve_reg(child, uname);
-> -		if (!err)
-> -			count++;
-> +	reserved_mem = map;
-> +	total_reserved_mem_cnt = cnt;
->  
-> -		/*
-> -		 * Save the nodes for the dynamically-placed regions
-> -		 * into an array which will be used for allocation right
-> -		 * after all the statically-placed regions are reserved
-> -		 * or marked as no-map. This is done to avoid dynamically
-> -		 * allocating from one of the statically-placed regions.
-> -		 */
-> -		if (err != -ENOENT || !of_get_flat_dt_prop(child, "size", NULL))
-> +	/* Second pass: reserve and initialize the static regions */
-> +	fdt_for_each_subnode(child, fdt, node) {
-> +		if (!of_fdt_device_is_available(fdt, child))
->  			continue;
->  
-> -		if (dynamic_nodes_cnt == MAX_RESERVED_REGIONS) {
-> -			pr_err("too many defined dynamic regions, skip '%s'\n",
-> -			       uname);
-> +		__reserved_mem_reserve_reg(child,
-> +					   fdt_get_name(fdt, child, NULL));
-> +	}
-> +
-> +	/*
-> +	 * Allocate the dynamically-placed regions only after all the
-> +	 * statically-placed regions are reserved or marked as no-map. This
-> +	 * is done to avoid dynamically allocating from one of the
-> +	 * statically-placed regions.
-> +	 */
-> +	fdt_for_each_subnode(child, fdt, node) {
-> +		int len;
-> +
-> +		if (!of_fdt_device_is_available(fdt, child) ||
-> +		    (of_flat_dt_get_addr_size_prop(child, "reg", &len) && len))
->  			continue;
-> -		}
->  
-> -		dynamic_nodes[dynamic_nodes_cnt] = child;
-> -		dynamic_nodes_cnt++;
-> -	}
-> -	for (int i = 0; i < dynamic_nodes_cnt; i++) {
-> -		const char *uname;
-> -		int err;
-> -
-> -		child = dynamic_nodes[i];
-> -		uname = fdt_get_name(fdt, child, NULL);
-> -		err = __reserved_mem_alloc_size(child, uname);
-> -		if (!err)
-> -			count++;
-> +		__reserved_mem_alloc_size(child,
-> +					  fdt_get_name(fdt, child, NULL));
->  	}
-> -	total_reserved_mem_cnt = count;
-> +
-> +	/* check for overlapping reserved regions */
-> +	__rmem_check_for_overlap();
-> +
-> +	/* Switch to the permanent address of the array */
-> +	reserved_mem_array_unmap(map, array_bytes);
-> +	reserved_mem = array;
->  	return 0;
->  }
->  
+diff --git a/drivers/thermal/loongson2_thermal.c b/drivers/thermal/loongson2_thermal.c
+index 4d40fc706a53..f5ff0cac1442 100644
+--- a/drivers/thermal/loongson2_thermal.c
++++ b/drivers/thermal/loongson2_thermal.c
+@@ -108,7 +108,7 @@ static int loongson2_thermal_set_trips(struct thermal_zone_device *tz, int low,
+ {
+ 	struct loongson2_thermal_data *data = thermal_zone_device_priv(tz);
+ 
+-	return loongson2_thermal_set(data, low/MILLI, high/MILLI, true);
++	return loongson2_thermal_set(data, low / (int)MILLI, high / (int)MILLI, true);
+ }
+ 
+ static const struct thermal_zone_device_ops loongson2_2k1000_of_thermal_ops = {
+-- 
+2.52.0
 
