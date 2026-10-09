@@ -1,77 +1,83 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99FA821FF25;
-	Fri,  9 Oct 2026 01:02:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 551BE22E3F0;
+	Fri,  9 Oct 2026 01:04:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.225
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791507768; cv=none; b=uBqf7I8QhftWbAGu8/TBUwrcFbdVu3CVaSt/Pf73KX5dc5md8NvIEZjLUABd6CIuWgZlkqkfrMk3SmErja5AG56TjSPlrqIqdtu9TLTTaSGiI/4n73ZVe0lbJjKyg1/G+SkZPvu1OGWiyKTG6Rjn9aBodxjr6yjsGOeuD5C+Wm4=
+	t=1791507854; cv=none; b=KmkjPnS6hL/j0VPnd2dBzxXTrGHxT46WaDHdIN3kGLJtHoJoxLWyEeX58wt+ncPc3a/9KgyPXBwNzY8AI69Oxr8NNfqrPTNLniwdmJLPUod4McB2dCC7CTF/RKyW0dDL8zXZu7Jb1Gf0J3VmxorQM0fk2XFiaZMG+Kp+fNUxBZU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791507768; c=relaxed/simple;
-	bh=f3hsDkn3q3GLR103Ty5mEaKbwJSiI2QYFcN63LcZi2g=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=N6fkD00olQdrRTOmitlQjw6k6kT0TKe0uFALOLThfrL2dFwSeA16MUTy2S25CxpeuDWKm6yO2RyXKsXKBMV3dfYdME8FhQtbN83qgRs9ddEAQYvA8ij8vL0TUNdhbht1TXgS/1cIJpZDRV6nJpiyTehUCAs+5SeLPihZbNxe6i4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J01HyTwN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791507854; c=relaxed/simple;
+	bh=KGG2Ktpt0yP6Q+5/+9UZusVn4jNj3Et6yKj1+F4L0FA=;
+	h=Message-ID:Date:From:MIME-Version:To:CC:Subject:References:
+	 In-Reply-To:Content-Type; b=RWrNyny0cToJNdV4fB9dJMqEzsh5NM29q1BBizwXyzGl7q7b475z7s2XzQd3p+fL/8MpYZyappB89bsEimBZAcXiWFy8lNFW7qIJMUYq3phKftK3XVdEz1aYbPANN5bKr++lqb0K06VNm+fl+9BLOlXIw2lMP+LUyrI5jhBC+68=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=hisilicon.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=Yi2bjh/K; arc=none smtp.client-ip=113.46.200.225
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=hisilicon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J01HyTwN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 073DD1F000FF;
-	Fri,  9 Oct 2026 01:02:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791507767;
-	bh=f3hsDkn3q3GLR103Ty5mEaKbwJSiI2QYFcN63LcZi2g=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=J01HyTwN74hU4s8seSqaup1LLV13S4Y1n1F2dwVkFXQZmAqbUPGF8lQfiL2DpMAm/
-	 jY6h2tNTDITqSmQ86G4riHZOkJJ9bdTn0VugJzm3A6lgQvp2goLV7UspQUjX/SirbL
-	 8F8HSqpifWoa2Fi9wBG00vSxgrHRKEQpspr7Hl3WGtMl2mpdEIpH4V21c+xuhP7KpB
-	 aRcZgMKzV41fXTy696IPNrjUXn3eIKmA96IdzdwDDaMPqffm6NNMCGLrHZufDYOJAg
-	 z24rIfOrBXGN0O0HD7t0b7q8mtetkVIVp9VjVQjR61waJaFwjhkL+C/T4/MsNAtnsZ
-	 C2e8klZu1QanQ==
-Message-ID: <sashiko-outbox-164693@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/3] hwmon: (pmbus/fs1412) Add TDK FS1412 driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Abdurrahman Hussain" <abdurrahman@nexthop.ai>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, linux-hwmon@vger.kernel.org
-In-Reply-To: <20261008-hwmon-pmbus-fs1412-v1-3-0ae7e5ee4e41@nexthop.ai>
-References: <20261008-hwmon-pmbus-fs1412-v1-0-0ae7e5ee4e41@nexthop.ai>
- <20261008-hwmon-pmbus-fs1412-v1-3-0ae7e5ee4e41@nexthop.ai>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 09 Oct 2026 01:02:46 +0000
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="Yi2bjh/K"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=Rjq55+eOA9/1rvCud0HIBA7S3CKPm/bRJnQetVTrwZA=;
+	b=Yi2bjh/KHDywomzaT0FjOJo8ntpiMwuJfT3Mr0C867BVqec4Q5pIS5j8S4u/UHVwIiZcMbtGf
+	Dn8SS2cLU34cqyMHiJnNnuhA9MHuVxCcKZ0F9cCPH02Q1slBPyp25S/T7PIVpYKFqBSL0e9ACT9
+	VwCoCEoCnmOApdd5ExoTygY=
+Received: from mail.maildlp.com (unknown [172.19.163.214])
+	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4j17bn1kXzz1K9B0;
+	Fri,  9 Oct 2026 08:51:49 +0800 (CST)
+Received: from kwepemk200006.china.huawei.com (unknown [7.202.194.72])
+	by mail.maildlp.com (Postfix) with ESMTPS id 6A8F74056C;
+	Fri,  9 Oct 2026 09:04:04 +0800 (CST)
+Received: from [10.67.112.178] (10.67.112.178) by
+ kwepemk200006.china.huawei.com (7.202.194.72) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Fri, 9 Oct 2026 09:04:03 +0800
+Message-ID: <6AC83D83.8000102@hisilicon.com>
+Date: Fri, 9 Oct 2026 09:04:03 +0800
+From: Wei Xu <xuwei5@hisilicon.com>
+User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64; rv:24.0) Gecko/20100101 Thunderbird/24.2.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+To: Leo Yan <leo.yan@arm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, Mike
+ Leach <mike.leach@arm.com>, James Clark <james.clark@linaro.org>, Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>, Mathieu Poirier <mathieu.poirier@linaro.org>, Michal
+ Simek <michal.simek@amd.com>, Bjorn Andersson <andersson@kernel.org>, Konrad
+ Dybcio <konradybcio@kernel.org>
+CC: <coresight@lists.linaro.org>, <linux-arm-kernel@lists.infradead.org>,
+	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-arm-msm@vger.kernel.org>
+Subject: Re: [PATCH 3/5] arm64: dts: hisilicon: Drop PCLK from static CoreSight
+ links
+References: <20261002-arm_coresight_hi3660_remove_dynamic_funnel_clocks-v1-0-c3edca1c480b@arm.com> <20261002-arm_coresight_hi3660_remove_dynamic_funnel_clocks-v1-3-c3edca1c480b@arm.com>
+In-Reply-To: <20261002-arm_coresight_hi3660_remove_dynamic_funnel_clocks-v1-3-c3edca1c480b@arm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
+ kwepemk200006.china.huawei.com (7.202.194.72)
 
-> The TDK FS1412 is a 12A uPOL regulator with PMBus telemetry for input
-> voltage, output voltage and temperature, plus the matching status
-> registers. It has over-current and over-temperature protection with
-> programmable fault limits but no current telemetry: READ_IOUT is not in
-> its command table. Its MFR_ID reads "KDT", which the driver checks
-> before binding.
->=20
-> VOUT_MODE reads 0x98: LINEAR mode with exponent -8 and bit 7 set. The
-> datasheet defines the output voltage limits relative to the output
-> voltage with a resolution of 1/256, so 0x0133 against a 0.6V command is
-> a 120% over-voltage limit. The PMBus core takes bits [7:5] as the mode
-> and rejects the device, so the driver reports VOUT_MODE with bit 7
-> cleared and converts the four VOUT limits to and from absolute voltages
-> against VOUT_COMMAND.
->=20
-> OT_WARN_LIMIT is not in the command table either. The register answers,
-> but the part has no warning threshold and reports OT_WARNING at room
-> temperature, so the driver hides the register from the core and only
-> the OT_FAULT_LIMIT based attributes are provided.
->=20
-> READ_VOUT reports the voltage at the feedback pin, so boards that set
-> the output with a resistor divider scale in2_input in user space.
->=20
-> Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
+Hi Leo,
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+On 2026/10/2 23:07, Leo Yan wrote:
+> The static links don't need to program registers, therefore apb_pclk
+> reference is unnecessary, remove the pclk properties from those nodes.
+> 
+> Assisted-by: Codex:gpt-6
+> Signed-off-by: Leo Yan <leo.yan@arm.com>
+> ---
+>  arch/arm64/boot/dts/hisilicon/hi3660-coresight.dtsi | 4 ----
+>  arch/arm64/boot/dts/hisilicon/hi6220-coresight.dtsi | 2 --
+>  2 files changed, 6 deletions(-)
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261008-hwmon-pmbu=
-s-fs1412-v1-0-0ae7e5ee4e41@nexthop.ai?part=3D3
+Thanks!
+LKTM.
 
+Reviewed-by: Wei Xu <xuwei5@hisilicon.com>
+
+Best Regards,
+Wei
