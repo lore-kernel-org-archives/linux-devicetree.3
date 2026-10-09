@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCEB1425CEE
-	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 09:06:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAB1A357CEA
+	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 09:06:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791536799; cv=none; b=bFSURRzOeCrxI2Tl24k1n3t/YpE8ARRMMKmVN83r/DEm3l8DqFBUS6EscwhYiNEj/CbwVYsdCZzFXmwIZ/ymKuPKsXHPwAozAVsrmriYyxYHD4Sl6wlFpVZhyOCkkI8KfwIsxU26zYX2TCrbs6ku/cHfo9EFRDTdi/MaOqlCuIE=
+	t=1791536808; cv=none; b=F1iv9jsxNuceNRf+xRGzE5FdufVGRgmAp0JKi4GPKSJmKkjbMOilZ4ksaB7lKWi1o9D2IXJsCfwZnTE4NqYJWYHdh3uqyQ4nmo5IhejSzLnjK8g9oziMHOkt/HQbBqpUDreuoQr/g6CHMUXBVHwl5oxehgeiOgS+kHqa7VJ71g8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791536799; c=relaxed/simple;
-	bh=RFaiWIH1BwtuUau8dnPXskxgqkWsdc/x3cRXs5WAvis=;
+	s=arc-20240116; t=1791536808; c=relaxed/simple;
+	bh=HKpXVpszDTaONVATFR40+3E2LVcP8oKE7zWDTK7+j2I=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=NFJ1S4xlJ9SpLSgO28tJLn87lkRaTkpXbJqbX7ifT9FCEfGHm0YElPJVv1l/e8y+S2mwa9oPeB5jmz7VybZhIr1icyfSNgSccOSe0TEiABBmod+waOHJkdZ8kUmq2d7idc918Y3ax81A1sxVd3hY8WqZOI0ViB9DBfyGVNp56MA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HxZCeB3j; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=TUvnxr8ztreM+oRgR+fJyIK5CEtn+YIIUF/HqT28CKyEUgwZbe9lTGF2H7/T9XAny2g+/3ezEsh7HKNZ8IgT7SXvQPMiRAOrCjqVWPydtEamzpZZl09vxU42Yu06FVsJSdnV+cPEopGiQWscQOctmKgKpO/8cvB7J6KjIjzhOgs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dSAMb4MS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HxZCeB3j"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 167591F000FF;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dSAMb4MS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E06B61F00893;
 	Fri,  9 Oct 2026 09:06:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791536794;
-	bh=djb2dqmPHbFDmpB9+F29fDzVOpfHHWyMyeZH1BLHKK0=;
+	s=k20260515; t=1791536795;
+	bh=kT65nsPoLJ42ZhCQnQIjtlPcww8t3WU8dDo8b4sMrbA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=HxZCeB3jQo5jDs4ZVykoTrJEekcOGK1oeuC+KepOt+erFA/lVqRMTj4f/3Q071amF
-	 2Sn9Pav0PQotfkHY8pTKV4zaSOJVi1nJaIvyWx+NylMNi2378E/5I0aq6CSlmMOrmj
-	 T50AJYaRleXbwjMeI0i2IWILk5k+dMHJ2BMreS9gFlIrkO1vTIzEScIxlj95l4dAts
-	 T7aJ3r07x+TQig5UwDF32LqL3hLvRsiAo3BcCESjR+xLrcsrTrXGXlFfmEhVj5kljz
-	 FRadzKWQ0IU0jSsayjUuEYnx9S14n81EeIBTcncYjB89aVNCLIrg7C54ShjenVMlHl
-	 +lj5dvWqbb8Hg==
-Message-ID: <sashiko-outbox-165121@kernel.org>
+	b=dSAMb4MSvMmUjUHJITN8MSXh20Qm41xmLWneo2ik33PcxnXbiyGy361mt71TQNrSI
+	 kGy2ZZglI6IQyrc+YUWrNdSO0OyNpTrZ/VyVa57SrenYmLv8AeP3QiLIgavNbZg1l5
+	 Ag60Cs3NFDdfvCDlTSrra4SAUjnIXw/mDuy1nhZYNzJLhGqPoZjfc52+ysodmh9f0a
+	 evRyvMDSecwXrteUoLMfu9+zl1bKtRJecN8Dof19g77hPH1Jp3S4jpuyiaIQ2EzAjD
+	 /u0xVaLWYPdQGlOGBCjgLjohHsCLbmFdo+PHFoRkt2HhJUDWDVVb4bSEqb/t+uJPqR
+	 TvDqecWOPjCZw==
+Message-ID: <sashiko-outbox-165129@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v14 1/9] net: dsa: add tag driver for LAN9645X
+Subject: Re: [PATCH net-next v14 9/9] net: dsa: lan9645x: add port
+ statistics
 Reply-To: sashiko-reviews@lists.linux.dev
 To: =?utf-8?b?SmVucyBFbWlsIFNjaHVseiDDmHN0ZXJnYWFyZA==?= <jensemil.schulzostergaard@microchip.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com
-In-Reply-To: <20261008-dsa_lan9645x_switch_driver_base-v14-1-3d2a72661213@microchip.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com, robh@kernel.org
+In-Reply-To: <20261008-dsa_lan9645x_switch_driver_base-v14-9-3d2a72661213@microchip.com>
 References: <20261008-dsa_lan9645x_switch_driver_base-v14-0-3d2a72661213@microchip.com>
- <20261008-dsa_lan9645x_switch_driver_base-v14-1-3d2a72661213@microchip.com>
+ <20261008-dsa_lan9645x_switch_driver_base-v14-9-3d2a72661213@microchip.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 09 Oct 2026 09:06:33 +0000
+Date: Fri, 09 Oct 2026 09:06:34 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,65 +47,84 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] net/dsa: lan9645x: Stale skb->mac_header and skb->network_header=
- after vlan_remove_tag()
+- [High] net: dsa: lan9645x: spin_lock deadlock between process context and=
+ ndo_get_stats64
 --
 
-commit 2bf43370c466c901725bcb460aaa53654797d172
+commit eaa26add9ac1e5f091f43891f8f2f615b10f01f1
 Author: Jens Emil Schulz =C3=98stergaard <jensemil.schulzostergaard@microch=
 ip.com>
-Subject: net: dsa: add tag driver for LAN9645X
 
-This commit adds a tag driver for the LAN9645x family of switches, using a
-front port configured as an NPI port for CPU traffic. It handles frame
-extraction and injection using internal frame headers and prefix formatting.
+net: dsa: lan9645x: add port statistics
 
-Link: None provided
+This commit adds support for port statistics counters. It handles overflows
+in 32-bit hardware registers by maintaining a 64-bit software cache.
 
-> diff --git a/net/dsa/tag_lan9645x.c b/net/dsa/tag_lan9645x.c
-> new file mode 100644
-> index 0000000000000..00339daecfcbd
+> diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_stats.c b/driver=
+s/net/dsa/microchip/lan9645x/lan9645x_stats.c
 > --- /dev/null
-> +++ b/net/dsa/tag_lan9645x.c
+> +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_stats.c
+
 [ ... ]
-> +static struct sk_buff *lan9645x_xmit_get_vlan_info(struct sk_buff *skb,
-> +						   struct net_device *br,
-> +						   u32 *vlan_tci,
-> +						   u32 *tag_type)
-> +{
+
+> @@ -321,11 +321,11 @@ static void __lan9645x_stats_view_idx_update(struct=
+ lan9645x *lan9645x,
+>  					     enum lan9645x_view_stat_type vtype,
+>  					     int idx)
+>  {
+>  	struct lan9645x_stats *s =3D lan9645x->stats;
+> =20
+>  	lockdep_assert_held(&s->hw_lock);
+> =20
+>  	if (!__lan9645x_stats_view_idx_hw_read(lan9645x, vtype, idx)) {
+>  		spin_lock(&s->sw_lock);
+
+[Severity: High]
+Can this cause a deadlock? The periodic stats update workqueue and ethtool
+queries run in process context and acquire s->sw_lock here without disabling
+softirqs. Process-context lock acquisitions must use spin_lock_bh() to
+prevent a deadlock if a softirq tries to take the lock on the same CPU.
+
+>  		__lan9645x_stats_view_idx_transfer(lan9645x, vtype, idx);
+>  		spin_unlock(&s->sw_lock);
+>  	}
+>  }
+
 [ ... ]
-> +		hdr =3D skb_vlan_eth_hdr(skb);
-> +		if (ntohs(hdr->h_vlan_proto) =3D=3D proto &&
-> +		    ntohs(hdr->h_vlan_TCI) & VLAN_VID_MASK) {
-> +			vlan_remove_tag(skb, &tci);
-> +			*vlan_tci =3D tci;
 
-[Severity: Medium]
-When calling vlan_remove_tag() here, are the skb mac_header and
-network_header metadata offsets left pointing to stale locations?
+> @@ -536,11 +536,11 @@ void lan9645x_stats_get_stats64(struct lan9645x *la=
+n9645x, int port,
+>  				struct rtnl_link_stats64 *stats)
+>  {
+>  	struct lan9645x_stats *s =3D lan9645x->stats;
+>  	u64 *c;
+> =20
+>  	c =3D lan9645x_stat_counters(lan9645x, LAN9645X_STAT_PORTS, port);
+> =20
+>  	/* ndo_get_stats64 may run in non-sleepable context (under
+>  	 * rcu_read_lock, or with a callers spinlock held as in bonding), so
+>  	 * unlike the ethtool paths we must not take the hw_lock mutex or touch
+>  	 * hardware here.
+>  	 * sw_lock is never taken from softirq/IRQ context by any path, so a
+>  	 * plain spin_lock is sufficient, as in ocelot and ksz.
+>  	 */
+>  	spin_lock(&s->sw_lock);
 
-The vlan_remove_tag() function removes the vlan tag and moves the payload,
-but it expects the caller to update skb->mac_header and skb->network_header.
-This is why the standard helper __skb_vlan_pop() is usually preferred.
+[Severity: High]
+Could this lead to a deadlock on s->sw_lock?
 
-Because this tag driver does not adjust skb->mac_header, the offset becomes
-stale. After lan9645x_xmit() pushes the 28-byte internal frame header,
-won't skb_mac_header(skb) incorrectly point to bytes inside the new header
-rather than the actual start of the destination address?
+The comment indicates the lock is never taken from softirq/IRQ context, but
+ndo_get_stats64 can be called from atomic/softirq context (for example, when
+queried by bonding or netfilter).=20
 
-If the conduit device driver or network stack relies on skb_mac_header(skb)
-for transmit processing, this could cause it to read incorrect bytes for
-packets that had a vlan tag stripped.
+If a softirq fires on the same CPU while the preempted process-context thre=
+ad
+holds the lock (from __lan9645x_stats_view_idx_update), it will spin forever
+trying to acquire s->sw_lock.
 
-> +		}
-> +	}
-> +
-> +	*tag_type =3D (proto !=3D ETH_P_8021Q) ? LAN9645X_IFH_TAG_TYPE_S :
-> +					     LAN9645X_IFH_TAG_TYPE_C;
-> +
-> +	return skb;
-> +}
+> =20
+>  	stats->rx_bytes =3D c[SCNT_RX_OCT] + c[SCNT_RX_PMAC_OCT];
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261008-dsa_lan964=
-5x_switch_driver_base-v14-0-3d2a72661213@microchip.com?part=3D1
+5x_switch_driver_base-v14-0-3d2a72661213@microchip.com?part=3D9
