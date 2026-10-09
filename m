@@ -1,109 +1,89 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA1374156C6;
-	Fri,  9 Oct 2026 10:15:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75168457E73;
+	Fri,  9 Oct 2026 10:18:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791540947; cv=none; b=Ao0/BbMtoVyIYdXQIsGj+yhRJWvY2hn/ijnpPuBnM48k4A8xcQKvUas5GOXEwu0MCCtvNMISQxVbIqqsK9wH+7b0ezMdSYMXWm7joVrAM2aluoBRhSY4cufc8KywGk32pQSCiUeNxo0c/9DmxQUW58OvUizPmgCBDOQSOXDE9Jk=
+	t=1791541088; cv=none; b=u8cPul5hRa0nGT1dkUPL+jpjeOJtSvu+hXe9foNGuYKaTV5q/whEBHh3WRXpBaJ5LMqk/1BfSgGNY9gqJtZRZGbMtAtf7BkbGz0x3+aKNIoPF1aowXJ9L5yfR6/TVonYoh3ALA5pszoTFKe4iHx6RWSBbKN6VUhIkq2u+UNWDkw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791540947; c=relaxed/simple;
-	bh=W9YNJO3eljMQBQL7ue5+YRNPjGzFYVCg2stqGwzF9Yw=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=bnoLyBedA1IX1qfXA+IMIgZVZ8sixv72DOdgYNuTFYPTp2hm8qYwTGDrNFb2BpFyK034KiX9CDPChH1/8yc7UF5aDekvs7rZvZIB45miFzZ1vhyVlauP7r0xbWZhtztqxY6hH8qHHpigkYF3YFA1GZmNBukO3a7ajvbdmIZN84w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ERhJyKGR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791541088; c=relaxed/simple;
+	bh=+DNKmuouHw3F2sUn7rERptXulQELLgYCH592z3UCDWQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=erJhTaC72LtU990G8ZeBMmOTS69eCKyEfoaVgBAt8jRfl/7gAqS1MLDwtkOdB509Bgud8vVSy+F0tvx7PgUGkEr/Z1sKfElRHNS6fUbCkjwi4HTzP13EX8mzWp8+9ZIm8899Pg43j5DXSqYxaMIwdbcEPVOSvBCQ9y8Dgik459c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MIDk5/IU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ERhJyKGR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76D011F000FF;
-	Fri,  9 Oct 2026 10:15:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MIDk5/IU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AE501F000FF;
+	Fri,  9 Oct 2026 10:18:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791540945;
-	bh=8W9qCexqUVmaVinPYhv9VyvBOcprigHB/jfrVeAlC08=;
-	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=ERhJyKGRuMNw9sZJnfpafppp799szSml1Fwgv4JtilN7OQEKquC79zDWu1cy7QO2B
-	 aMpn9omCpcMb1Yl3mQfKFGT1WglkG6YDiKNfFPke5Ci/bDDlDCWK7iPUnpRpBIPh0O
-	 /lbfBvo1dPd/HC7oOqLwItEBx0NqXZvI4O53pB6PjvsBcsa4Cj5uwqeZuWfrC/WlAV
-	 8xp6+FTbLG5fXRFdL1ULU2rIhLo/lAClm2uf+Z6dhXGqFMr9jhdANUU5WOv3QLNpJP
-	 1Gakb8v+uTRhSAMbDkFH7BuXt3KQHavHOke9w05hE+szaKU0sGTZY40SvEq2c/L7dT
-	 m0X6+8bdje/HA==
-Message-ID: <ca27b076-1814-4780-80f1-d022183736cf@kernel.org>
-Date: Fri, 9 Oct 2026 12:15:42 +0200
+	s=k20260515; t=1791541087;
+	bh=2IK08WvoWJC1h6DlgEI7ITQrkIpsRhrwFymhPxbueT8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MIDk5/IU6tP3YARpKWHfyeeG7ABschktkAyCEp43D1TgmMbNhOnbWuBEzKUe9lWMR
+	 /CeFpSIl8ufe90s/Wj6YSXA790NYrCVsD/XaiFPrAXIUoy5zv077JDbwfOGfBHnyE/
+	 sYHwIJ6/3zjaaO/jmSOCGbNfKnCqX4PMK8LZEGaoxVzmJ0SWiD3f9xAnAAu3gdQZsl
+	 rP020XSgCfBZJozzUCXHBjZlzD9pHyfe1LVKQZcyQU+wwfTu4KrSPWEs2Tv7/4Jpv5
+	 hsvQXwOCt7ynkBKCapGo5icvAj5mPENhu6iEZFYuyLRzhlSD6Chd9NXO7gQtP/ABb1
+	 3FJyzVLyxAj7A==
+Date: Fri, 9 Oct 2026 12:18:03 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Tim Kuo <Tim.Kuo@mediatek.com>
+Cc: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, linux-spi@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-mediatek@lists.infradead.org, Steven Liu <Steven.Liu@mediatek.com>, 
+	Sky Huang <Skylake.Huang@mediatek.com>, Sam Shih <Sam.Shih@mediatek.com>
+Subject: Re: [PATCH v3 1/2] spi: dt-bindings: mediatek,spi-mt65xx: add
+ MT7987/MT7989 compatibles
+Message-ID: <20261009-tricky-fine-aardwolf-cca31a@quoll>
+References: <20261008085332.802898-1-Tim.Kuo@mediatek.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Subject: Re: [PATCH 3/3] arm64: dts: qcom: ipq5018-tplink-archer-ax55-v1: use
- 'ipq0518' prefix for dts
-To: Gabor Juhos <j4g8y7@gmail.com>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261007-tplink-ax55-v1-ipq0518-v1-0-0ef058756596@gmail.com>
- <20261007-tplink-ax55-v1-ipq0518-v1-3-0ef058756596@gmail.com>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261007-tplink-ax55-v1-ipq0518-v1-3-0ef058756596@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261008085332.802898-1-Tim.Kuo@mediatek.com>
 
-On 07/10/2026 18:59, Gabor Juhos wrote:
-> The TP-Link Archer AX55 v1 board is based on the IPQ0518 SoC.
-> Change the prefix of the board dts to reflect that.
+On Thu, Oct 08, 2026 at 04:53:31PM +0800, Tim Kuo wrote:
+> The MT7987 and MT7989 SPI IPs are IPM designs, so they keep
+> "mediatek,spi-ipm" as their fallback compatible, but they widen the tick
+> delay field of SPI_CMD_REG and therefore need compatibles of their own.
 > 
-> Signed-off-by: Gabor Juhos <j4g8y7@gmail.com>
+> Signed-off-by: Tim Kuo <Tim.Kuo@mediatek.com>
 > ---
->  arch/arm64/boot/dts/qcom/Makefile                                       | 2 +-
->  ...5018-tplink-archer-ax55-v1.dts => ipq0518-tplink-archer-ax55-v1.dts} | 0
+> v2: Add mt7987 and mt7989 real device compatible
+> v3:
+>  - Drop "mediatek,spi-ipm-v59" 
+>  - Move compatible of mt7987 and mt7989 to group of spi-ipm fallback
+> 
+>  Documentation/devicetree/bindings/spi/mediatek,spi-mt65xx.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/spi/mediatek,spi-mt65xx.yaml b/Documentation/devicetree/bindings/spi/mediatek,spi-mt65xx.yaml
+> index 3bf3eb1f8728..63b23928c734 100644
+> --- a/Documentation/devicetree/bindings/spi/mediatek,spi-mt65xx.yaml
+> +++ b/Documentation/devicetree/bindings/spi/mediatek,spi-mt65xx.yaml
+> @@ -35,8 +35,10 @@ properties:
+>            - enum:
+>                - mediatek,mt7981-spi-ipm
+>                - mediatek,mt7986-spi-ipm
+> +              - mediatek,mt7987-spi
+>                - mediatek,mt7988-spi-quad
+>                - mediatek,mt7988-spi-single
+> +              - mediatek,mt7989-spi
+>                - mediatek,mt8188-spi-ipm
+>            - const: mediatek,spi-ipm
 
-No, this just breaks whatever scripts people have for no real gain.
-Assuming 0518 exists, then still 5018 is as good prefix.
+Nope. How is this a specific compatible?
+
+Look at git or even read the REST of this file.
 
 Best regards,
 Krzysztof
+
