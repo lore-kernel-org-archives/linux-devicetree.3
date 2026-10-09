@@ -1,186 +1,227 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 087FE3D4123
-	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 07:33:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24E4E3D4123
+	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 07:33:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791531214; cv=none; b=plxS9ChOCsC0FcNuDddSia16Nt1XUsADSRLJVHIgCM3FWFj9Ml7vIMmOIaX92acAK5kjdKao6BkfdkVcoOf+AxIcGzkgpKIyyQP5ay+IoAiYV5QlWv7GxCLDfusPnJw7Feplyx8Ley8PxLDX4oV9H6BVZ7d58p4a2IXEEj3DhRc=
+	t=1791531221; cv=none; b=oidRchRJt7bQyw1cSfKXC+hwwGu2fqNdp5Y+E+W25RIKOvHfjvWQVaquv4goU/Fjc7KBKhjbfKQFvaFLQTgdRuaSBh5JGLb3nBcCerh/v/akkM53W6ChED+kcBV8qk09uO2P3pnrlGfLNbL0LryNxplsJcHn2E2/T4KWLOoMYy0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791531214; c=relaxed/simple;
-	bh=wD/KeacrH+3CU87EMUoPlO07cxr7e1oHySpBrOZCxAg=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=tZGDZIMLH3G16QAjGWbKonhg105y5Bs2l9SwJ/a2OC5q/eNz0K7k1Ip8XMFtpwgYRgz6/b1lMnDpKnGTyfcohK3mYsEOl+9VHYxeQLYJh66aLIx6VIKOgAU4WYMI9xZdMOGlCavII0tbcMtpKaNd567AKpzbj/hOb5CSo/qpiPM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xvq1xcPF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791531221; c=relaxed/simple;
+	bh=5mJcWpPhz5V4cVbv/UViMTOOd0qIceb8QnAN5ZLKMmg=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Ye4boiJVMHBYxaeRbQCFCcD/PE4l99CppeGOFip7s+JERk7VvwvvTHcW743jYw6xM7dRwWghdZSDp+NbS47GWk/3XJ5yK9sqt6ns+pfi/xIzhM/fW6+Y1Fhbc3m/5o32bW69mYuHk3Fq3XmEhuXiQo7WK0T047nyo4Y0bchCTt8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FqF0jwma; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xvq1xcPF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A1E91F000FF;
-	Fri,  9 Oct 2026 07:33:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791531212;
-	bh=ROht3u5Bofks8XMukSShKiGmfTJd8lIHv2ZWJDBHEnA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Xvq1xcPFdmET9cV7aMCenTxHoQskhq7Sg5QeAX7C/SRcJWg18l3iriqXt5gLmqsUE
-	 Z27JjCCjwLjin0j9D519ZaS7jOoJ0NYJlmif9KkIBD39NeH2LcGroO3sLHLG2M/t1J
-	 5YRdLijtBUArN5k9A9rpbX1yObmr+WRZSwh7W8TtjtIfmO8eQbOz8M3RKp9umN0UX6
-	 Jm0kE1IwBXXW2RwzRi0r15iC3BGEi6KXNi8wtRPlCM3Z066ulP86lonlK7D/0VP8Bt
-	 3PLzK0AhJJ/wAi9gj/kBsxvWocjKbwvlYXc2bZ4csB3q6cynRs5PODmd7zi3wxMM9n
-	 2gybqsG46ykHw==
-Message-ID: <sashiko-outbox-165007@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/4] remoteproc: qcom: pas: Add Glymur OOBMSS coredump
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Anvesh Jain P" <anvesh.p@oss.qualcomm.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261009-oob-support-glymur-v1-4-96cc8ffcced3@oss.qualcomm.com>
-References: <20261009-oob-support-glymur-v1-0-96cc8ffcced3@oss.qualcomm.com>
- <20261009-oob-support-glymur-v1-4-96cc8ffcced3@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 09 Oct 2026 07:33:31 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FqF0jwma"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a1688d7769so38064975e9.0
+        for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 00:33:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791531218; x=1792136018; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=0GMj/PCcw0jRmoExFmKfgop12tPuP6GJMya0pF2cELQ=;
+        b=FqF0jwma4IP5kwzsKggDkN+pLFqQXtFGl0jp5cwO9x1Z+9bRm3sBM9yFNhl6OTLGvO
+         j7IP8+ewM33sDskMf9eEKtJYXzmQxaXL8k15yWBvRQooZXhBhWmWehYIQPWfxgEZcnLO
+         d2I3b7GN1fTvEkOy4InEbcILDxkS45HTE8MO0zZL/qO8+osqkDRfu5rWCiHaCyFrF2WO
+         I0AjMwFO52oczxLKH2xAEUkg03Wurgq8QS29rPDZywg8gbhbFBWuxaWHL8hLnPQ985KA
+         4BKKuu4MEjNsnI8It3UFdyiBI6IcIV8fDGU04B4FQmYhomHeRSDjNfNKWxg9AlP+y3jR
+         f20g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791531218; x=1792136018;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=0GMj/PCcw0jRmoExFmKfgop12tPuP6GJMya0pF2cELQ=;
+        b=giybFjJWwf8Kw3jflP415JWx3Sqa62EEO1KY2oaRIEWii7jz7ng6qEsEJqS8YuXma1
+         8C9oY8X8/Gl6HbvJIpr/AonBTJqoRQc/jtZNhtabZwx6V2UtqOGP4Yov4Pawm+MIa+z7
+         eLlSgkpGlp8DEt5lYLT7SSDjOWZiEr1Ves2qgY94Wsv32Ylb5tRjcSSzR5nF8H1Vlle2
+         k37d8u0R5508jkhw9fCrauaJDS9izc5ql/7Cv7MDI3sRerrVZJU0t9pCHxT3+TiNZX0e
+         R9pbAn4r7QFu5O7rMDHkkW0u2W8jHeMfLb7WH55QZfHBCjUQ2Z8iDfKzq3iyI3G7/Ug6
+         ycEg==
+X-Forwarded-Encrypted: i=1; AKwUvBzWNI1oMKxdQAnjsO/cpBjTrAfAb2tYO6mm3rNgPKAatTNAFnK7wgBCjGp6TYZbPv5tQV5lcYSjr2I8@vger.kernel.org
+X-Gm-Message-State: AFuF++nlo+8onaeUaZaHI8rQMW+7rFGyUX0rTotX1isOcLhwHBq+99oh
+	EdkywWWpwhoD+2IxSQd1hZBPY8Zoq21QQYql1col6vcMZpCQWoljno79
+X-Gm-Gg: AYBFou1QzMVNzVxd24C6YXLUdwkluL6aj6XcG5M0izDXEvvd16Yr8OZvsURbkynt+wQ
+	WfAVwDS0dPj0nE22CIux47Sn2WSXv5QYGtDgaufQSlEgKCNZpwm+hEhqT0A8mXSgnaeNS0iZNLT
+	tAdKPOgDlExn++rxX+0bGMzZlm9g/Ex0DyKTWU6qFRMpUU0x8EG4NDxRGoR+EqjG7pbS+GhOsdx
+	5qVit2+lzJfjV+G+QMuggWyyxRoAMd7Ow9NPuouZ6jb6PlNgPdaXAfxu9iN5tS5uuLcoWHj4a0u
+	zQvwUDr5e8HCwTS1IeXIHEfQc0SVgOq5J5M3S4qKj12UKDNtamiQSbvMVuUyLrCtj/XxbRzSj8P
+	wsA7z3qn0SVZo2rK8Q/18nbXSqtuj5TTDCO8DhDxk86arg6+njklJ+Tcrjay5VZiWQceOJD6J7B
+	D2JMosWns+ss9fjcmWm+fSOvBBSSze2z0XwsqGHZsccEA/koT0Z5fkAwxPMmdcVeai6QCtA6KIY
+	mR1qY+8WjuegNF9X3bWPdKRAk/7ltQGIGRp2fRkeggY9jM7byC9Q39FXYFs/b2ZDMv7Zbv5RL8f
+	8eF0g4slStIVtucS3Q==
+X-Received: by 2002:a05:600c:198c:b0:4a0:1c0e:b136 with SMTP id 5b1f17b1804b1-4a18e4cdbfbmr17253525e9.29.1791531218222;
+        Fri, 09 Oct 2026 00:33:38 -0700 (PDT)
+Received: from Ansuel-XPS24.localdomain (host-213-45-9-252.retail.telecomitalia.it. [213.45.9.252])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a18be96549sm55116365e9.6.2026.10.09.00.33.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 00:33:37 -0700 (PDT)
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: MyungJoo Ham <myungjoo.ham@samsung.com>,
+	Kyungmin Park <kyungmin.park@samsung.com>,
+	Chanwoo Choi <cw00.choi@samsung.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 1/2] dt-bindings: devfreq: Document support for Airoha Subsystem Scale
+Date: Fri,  9 Oct 2026 09:33:28 +0200
+Message-ID: <20261009073330.18175-2-ansuelsmth@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261009073330.18175-1-ansuelsmth@gmail.com>
+References: <20261009073330.18175-1-ansuelsmth@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] remoteproc: qcom_pas: Use-After-Unmap race in qcom_pas_da_to_va du=
-ring concurrent coredump
-- [Medium] remoteproc: qcom: coredump failure for relocatable firmware
-- [Medium] mm: memory leak of rproc_dump_segment objects on module unload
---
+Airoha SoC contains multiple subsystems that are scaled to a
+specific OPP taking the CPU clock as reference. Such subsystem
+can enter idle or performance state based on the system load
+and power consumption conditions.
 
-commit 7e66e9e1579da74dff881b896ffcf919220e337d
-Author: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+Example of such subsystems are GSW (Gigabit Switch), NPU (Custom
+Risc Co-Processor for Network acceleration), SOE (Crypto Module) BUS...
 
-remoteproc: qcom: pas: Add Glymur OOBMSS coredump support
+Document all the required property and provide examples for the various
+subsystem OPP + subsystem scale nodes.
 
-Add coredump support for the secure and non-secure OOBMSS carveouts.
-Register fixed dump segments at probe time for attached-state recovery.
+Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+---
+ .../devfreq/airoha,subsystem-scale.yaml       | 114 ++++++++++++++++++
+ 1 file changed, 114 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/devfreq/airoha,subsystem-scale.yaml
 
-> diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom=
-_q6v5_pas.c
-> index 31fdde351beda..0dc9985f01f94 100644
-> --- a/drivers/remoteproc/qcom_q6v5_pas.c
-> +++ b/drivers/remoteproc/qcom_q6v5_pas.c
+diff --git a/Documentation/devicetree/bindings/devfreq/airoha,subsystem-scale.yaml b/Documentation/devicetree/bindings/devfreq/airoha,subsystem-scale.yaml
+new file mode 100644
+index 000000000000..2cf7f23a926c
+--- /dev/null
++++ b/Documentation/devicetree/bindings/devfreq/airoha,subsystem-scale.yaml
+@@ -0,0 +1,114 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/devfreq/airoha,subsystem-scale.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Airoha SoC Subsystem Scale Driver
++
++maintainers:
++  - Christian Marangi <ansuelsmth@gmail.com>
++
++description:
++  Airoha SoC contains multiple subsystems that are scaled to a
++  specific OPP taking the CPU clock as reference. Such subsystem
++  can enter idle or performance state based on the system load
++  and power consumption conditions.
++
++  Example of such subsystems are GSW (Gigabit Switch), NPU (Custom
++  Risc Co-Processor for Network acceleration), SOE (Crypto Module) BUS...
++
++properties:
++  compatible:
++    const: airoha,an7581-subsystem-scale
++
++  clocks:
++    maxItems: 1
++
++  operating-points-v2:
++    description:
++      OPP table of the related subsystem supported rates that referenced
++      clocks will be scaled to.
++
++required:
++  - compatible
++  - clocks
++  - operating-points-v2
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/en7523-clk.h>
++
++    npu_opp_table: opp-table-npu {
++        compatible = "operating-points-v2";
++
++        npu_low: opp-400000000 {
++           opp-hz = /bits/ 64 <400000000>;
++        };
++
++        npu_high: opp-720000000 {
++           opp-hz = /bits/ 64 <720000000>;
++        };
++    };
++
++    emi_opp_table: opp-table-emi {
++        compatible = "operating-points-v2";
++
++        emi_low: opp-400000000 {
++            opp-hz = /bits/ 64 <400000000>;
++        };
++
++        emi_high: opp-540000000 {
++           opp-hz = /bits/ 64 <540000000>;
++        };
++    };
++
++    bus_opp_table: opp-table-bus {
++        compatible = "operating-points-v2";
++
++        bus_low: opp-200000000 {
++           opp-hz = /bits/ 64 <200000000>;
++        };
++
++        bus_high: opp-300000000 {
++           opp-hz = /bits/ 64 <300000000>;
++        };
++    };
++
++    gsw_opp_table: opp-table-gsw {
++        compatible = "operating-points-v2";
++
++        gsw_low: opp-200000000 {
++            opp-hz = /bits/ 64 <200000000>;
++        };
++
++        gsw_high: opp-500000000 {
++           opp-hz = /bits/ 64 <500000000>;
++        };
++    };
++
++    npu-subsystem {
++        compatible = "airoha,an7581-subsystem-scale";
++        operating-points-v2 = <&npu_opp_table>;
++        clocks = <&scuclk EN7523_CLK_NPU>;
++    };
++
++    emi-subsystem {
++        compatible = "airoha,an7581-subsystem-scale";
++        operating-points-v2 = <&emi_opp_table>;
++        clocks = <&scuclk EN7523_CLK_EMI>;
++    };
++
++    bus-subsystem {
++        compatible = "airoha,an7581-subsystem-scale";
++        operating-points-v2 = <&bus_opp_table>;
++        clocks = <&scuclk EN7523_CLK_BUS>;
++    };
++
++    gsw-subsystem {
++        compatible = "airoha,an7581-subsystem-scale";
++        operating-points-v2 = <&gsw_opp_table>;
++        clocks = <&scuclk EN7523_CLK_GSW>;
++    };
+-- 
+2.55.0
 
-[ ... ]
-
-> @@ -162,6 +163,28 @@ static void qcom_pas_segment_dump(struct rproc *rpro=
-c,
->  	memcpy_fromio(dest, pas->mem_region + total_offset, size);
->  }
-> =20
-> +static bool qcom_pas_has_secondary(const struct qcom_pas *pas)
-> +{
-> +	return pas->secondary_pas_id && pas->secondary_dtb_pas_id;
-> +}
-> +
-> +static int qcom_pas_register_dump_segments(struct rproc *rproc,
-> +					   struct qcom_pas *pas)
-> +{
-> +	int ret;
-> +
-> +	ret =3D rproc_coredump_add_segment(rproc, pas->mem_phys, pas->mem_size);
-
-[Severity: Medium]
-Will this regression cause a coredump failure for relocatable firmware?
-
-The segments are registered with the device address (da) set to the absolute
-physical address (pas->mem_phys and pas->secondary_mem_phys). However, for
-relocatable firmware, pas->mem_reloc is updated to a low virtual device
-address (e.g., 0) during firmware loading.
-
-This causes the bounds check in qcom_pas_da_to_va() to fail because the
-calculation da - pas->mem_reloc will overflow the carveout's size, preventi=
-ng
-the coredump from being generated.
-
-> +	if (ret)
-> +		return ret;
-
-[ ... ]
-
-> @@ -572,16 +595,29 @@ static int qcom_pas_stop(struct rproc *rproc)
->  static void *qcom_pas_da_to_va(struct rproc *rproc, u64 da, size_t len, =
-bool *is_iomem)
->  {
->  	struct qcom_pas *pas =3D rproc->priv;
-> -	int offset;
-> +	phys_addr_t base;
-> +	void __iomem *region;
-> +
-> +	if (da >=3D pas->mem_reloc && len <=3D pas->mem_size &&
-> +	    da - pas->mem_reloc <=3D pas->mem_size - len) {
-> +		base =3D pas->mem_reloc;
-> +		region =3D pas->mem_region;
-> +	} else if (da >=3D pas->secondary_mem_reloc &&
-> +		   len <=3D pas->secondary_mem_size &&
-> +		   da - pas->secondary_mem_reloc <=3D pas->secondary_mem_size - len) {
-> +		base =3D pas->secondary_mem_reloc;
-> +		region =3D pas->secondary_mem_region;
-> +	} else {
-> +		return NULL;
-> +	}
-> =20
-> -	offset =3D da - pas->mem_reloc;
-> -	if (offset < 0 || offset + len > pas->mem_size)
-> +	if (!region)
->  		return NULL;
-> =20
->  	if (is_iomem)
->  		*is_iomem =3D true;
-> =20
-> -	return (__force void *)pas->mem_region + offset;
-> +	return (__force void *)region + (da - base);
->  }
-
-[Severity: High]
-Does returning a direct pointer to transiently mapped I/O memory introduce a
-use-after-unmap regression during a concurrent coredump?
-
-When a coredump is active, region (pas->mem_region or
-pas->secondary_mem_region) is transiently mapped. The debugfs trace reader
-rproc_trace_read() calls qcom_pas_da_to_va() and accesses the returned
-pointer locklessly via strnlen().
-
-If the concurrent coredump finishes and executes iounmap() in
-qcom_pas_coredump() while the trace reader is still accessing the string,
-it will cause a system crash when userspace dereferences the unmapped I/O
-memory.
-
-[ ... ]
-
-> @@ -1130,6 +1192,12 @@ static int qcom_pas_probe(struct platform_device *=
-pdev)
->  	if (desc->early_boot)
->  		pas->rproc->state =3D RPROC_DETACHED;
-> =20
-> +	if (qcom_pas_has_secondary(pas)) {
-> +		ret =3D qcom_pas_register_dump_segments(rproc, pas);
-> +		if (ret)
-> +			goto remove_ssr_sysmon;
-> +	}
-> +
-
-[Severity: Medium]
-Does proactively allocating the dump segments during probe cause a memory l=
-eak
-regression on module unload if the remoteproc is never started?
-
-If the rproc remains in the RPROC_DETACHED or RPROC_OFFLINE state, module
-unload calls rproc_del() -> __rproc_shutdown(). However, __rproc_shutdown()
-bails out early for these states and skips the rproc_resource_cleanup() call
-that would free the dump segments, causing the kzalloc() allocations to leak
-permanently.
-
->  	ret =3D rproc_add(rproc);
->  	if (ret)
->  		goto remove_ssr_sysmon;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009-oob-suppor=
-t-glymur-v1-0-96cc8ffcced3@oss.qualcomm.com?part=3D4
