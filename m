@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2C414E3242
-	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 14:52:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A145367B8F;
+	Fri,  9 Oct 2026 14:53:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791557534; cv=none; b=YeTxuBMcNNpB+Eb22irZ0RuskkhvFgrGSR69KbKYypPJzpAQHd8ilxGeCstKF7/erWKRnvs5QAdS8uGyXGJiCN1kO3n5HNHLgL8fnvbHaosRe3gz0DKpkQPODR0VW7s1/brKVbZwmQ4D1trwLdPpq35oeuvKNqIAMtYydUownzw=
+	t=1791557595; cv=none; b=OcGSVwtGTkzdMHmowciVWKjY8rXXyDDl+f42fqbTUZAi1UnxoL1qJWMJURVGmOXEqaWnVRb9cBec0w5v5a/etIIUFfpgqWRB1SAp7N8tjEsZ/H9ReklbRMvMGfkJq+CB6A9h7rnqdSmAlXHqMT8qM1d2P/XBaQh4NZw0zuUwAH8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791557534; c=relaxed/simple;
-	bh=kjkOibQQtlwp5EKG1aNjfyMKQ5UtdSHywhkHqv/xiAk=;
+	s=arc-20240116; t=1791557595; c=relaxed/simple;
+	bh=DakRWxWFkNizGKcTPVZer5CghHXS1js43OIDtmqBEfc=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=A9tZ/7dhMFrg9m25xTpLNMaCYKXe9rbVyHxr3kmpY9di54Ehi5wbFZlTwf5/KcO3kPWt6I+80A3JBRBpvR2vQ+VzTgBGSUoI4+RUH7b30Zh3PgRctVK73FtlW4xkZuPi7viHzaxvLHcCUkBza8BDoHo0Qi4wzLX9euyVhXe6tEs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N4ayLtPf; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=PoMKCq00mLE+q887o0hZylQpstOE9YW0njSrPYoh4fvHddvFjDOkFZ5SroEB2MYvRd0Yq2ipFIlz0SFKxMV5fPtk0HyAOXD5PC517n2BDrVfX9a/M2YnACnVYOXM0xfOiTvKlBI5KkBAWkZIuNJ6gEef7rNXj+a36aBJTdthQRo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BgKAHvda; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N4ayLtPf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2204B1F00899;
-	Fri,  9 Oct 2026 14:52:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BgKAHvda"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F18F71F000FF;
+	Fri,  9 Oct 2026 14:53:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791557533;
-	bh=AFC5/t/T6JL+5wP1rU0nl1IXSSmC/JLU9B9BMjEDi9E=;
+	s=k20260515; t=1791557594;
+	bh=3w7ua7fOk6ZBm9HBGvhU+2G2jOJ3R2EbZ1ld9mXT050=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=N4ayLtPfiBq6i4dopR/dEiVRNIinbP+E3lnLD9JcFuZH4aWEc+9OaWUb+8NcZE+iK
-	 0f0M5R7iybZ7CEqtydE+J2vF8NoZPM59cdwss1/c/UEuMCrcuUp5SZP3sWjNzIkko6
-	 TkYfMXe5+gmsxf/2CLqHRY+ihilZeSf8GcTF7QTuwgCEKYlrbr/YW1e4FR+TZlcu34
-	 qb7pTASfICyC5e7hn69dVg2HjcGuA24ZZkHbmBaMDixR7mmyQhDF8jmSHQTqeRT/0M
-	 sk/1E9UJf8S509K+uflBDQxvHK526SDH3QdcNsXkXKCW++dpSero0UpNy2xZicHDER
-	 xIugqENSPzQSw==
-Message-ID: <sashiko-outbox-165734@kernel.org>
+	b=BgKAHvdaNomN8Mk/wQaTpUdAbwG5vKqqSeimnyB/s1OmQZM9dN9+AtGlFLqu/r3B/
+	 XKzfyXYbjYv1X2gWCXJdVuSwaOT/ukhjoC/Vx3chTZ80Bk9Z9zaHIYpjMPkHg6OLTL
+	 qsqCzgb/TTMTUO6zBMsSQX1jhBQVX3viCgSLgl8WpUIG9+YIqbcaUXZIhN9XRkiFyi
+	 K+Oj6oHhwDTLB2FcIhOiR9ome5lButyscBXtB1yYHeQJkBF3jT0TqI6gxyaDiLgrOr
+	 /rWrzSlU3CvZpiP2OsedTenRJ1AZa+m+8wnigXGicQw7Hc8sVJGevw0bzdg5cKulef
+	 CbIMCGw9piQWA==
+Message-ID: <sashiko-outbox-165743@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next 07/11] net: ethernet: qualcomm: ppe: Add
- IPQ5424 QM configuration
+Subject: Re: [PATCH 3/3] Input: add Nsiway NS2009 resistive touchscreen
+ driver
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Luo Jie" <jie.luo@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20261008-qcom_ipq5424_ppe-v1-7-16caf43e44ee@oss.qualcomm.com>
-References: <20261008-qcom_ipq5424_ppe-v1-0-16caf43e44ee@oss.qualcomm.com>
- <20261008-qcom_ipq5424_ppe-v1-7-16caf43e44ee@oss.qualcomm.com>
+To: "Miotsuki Mizuno" <founder@crepuse.com>
+Cc: dmitry.torokhov@gmail.com, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, linux-input@vger.kernel.org
+In-Reply-To: <20261009144729.85832-4-founder@crepuse.com>
+References: <20261009144729.85832-1-founder@crepuse.com>
+ <20261009144729.85832-4-founder@crepuse.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 09 Oct 2026 14:52:12 +0000
+Date: Fri, 09 Oct 2026 14:53:13 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,73 +47,46 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] ppe: debugfs queue counter iteration reads nonexistent queues on I=
-PQ5424 causing bus errors
+- [Low] i2c: missing named initializer in i2c_device_id array
 --
 
-commit 4fb437e4b3cf979efa2cd54481de8f5ac5e4963f
-Author: Luo Jie <jie.luo@oss.qualcomm.com>
+commit 22cbbc5b42325e09804bb86ec6c548c4fefefb81
+Author: Miotsuki Mizuno <founder@crepuse.com>
 
-net: ethernet: qualcomm: ppe: Add IPQ5424 QM configuration
+Input: add Nsiway NS2009 resistive touchscreen driver
 
-This commit adds the Quality of Service (QM) configuration for the
-IPQ5424 PPE. It configures the unicast and multicast queues, noting
-that IPQ5424 has fewer PPE ports and thus lacks multicast queues
-284 to 299.
+Add polling support for the Nsiway NS2009 I2C touchscreen controller using
+the input polling API and managed input allocation. Read 12-bit X/Y ADC
+values and report BTN_TOUCH from the raw Z1 contact threshold.
 
-> diff --git a/drivers/net/ethernet/qualcomm/ppe/ppe_config.c b/drivers/net=
-/ethernet/qualcomm/ppe/ppe_config.c
-> index 3afa571193238..dec8eed772539 100644
-> --- a/drivers/net/ethernet/qualcomm/ppe/ppe_config.c
-> +++ b/drivers/net/ethernet/qualcomm/ppe/ppe_config.c
-> @@ -314,6 +314,37 @@ static const struct ppe_qm_queue_config ipq9574_ppe_=
-qm_queue_config[] =3D {
->  	},
->  };
-> =20
-> +/* Multicast queues are dedicated per PPE port. IPQ5424 has only 3 physi=
-cal
-> + * PPE ports, versus IPQ9574's 6 PPE ports, so multicast queues 284 to 2=
-99
-> + * are not available on IPQ5424, and the buffer pool assigned to the gen=
-eral
-> + * 'group0' is larger here, 2010 versus IPQ9574's 2000.
-> + */
+Link: https://lore.kernel.org/all/20170315155140.54518-4-icenowy@aosc.xyz/
 
-[Severity: High]
-Since multicast queues 284 to 299 are not available on IPQ5424, will reading
-or writing the debugfs counters for these queues cause a bus error?
+> diff --git a/drivers/input/touchscreen/ns2009.c b/drivers/input/touchscre=
+en/ns2009.c
+> new file mode 100644
+> index 0000000000000..d5c1f9f96bb6b
+> --- /dev/null
+> +++ b/drivers/input/touchscreen/ns2009.c
 
-In drivers/net/ethernet/qualcomm/ppe/ppe_debugfs.c:ppe_queue_counter_get(),
-the code loops up to PPE_QUEUE_TX_COUNTER_TBL_ENTRIES (300):
+[ ... ]
 
-	for (i =3D 0; i < PPE_QUEUE_TX_COUNTER_TBL_ENTRIES; i++) {
-		...
-		} else {
-			int mq_offset =3D i - PPE_AC_UNICAST_QUEUE_CFG_TBL_ENTRIES;
-			...
-			if (mq_offset < PPE_P0_MULTICAST_QUEUE_NUM) {
-				reg =3D PPE_CPU_PORT_MULTICAST_FORCE_DROP_CNT_TBL_ADDR(mq_offset);
-			} else {
-				mq_offset -=3D PPE_P0_MULTICAST_QUEUE_NUM;
+> +static const struct i2c_device_id ns2009_id[] =3D {
+> +	{ "ns2009" },
 
-				reg =3D PPE_P1_MULTICAST_DROP_CNT_TBL_ADDR;
-				reg +=3D (mq_offset / PPE_MULTICAST_QUEUE_NUM) *
-					PPE_MULTICAST_QUEUE_PORT_ADDR_INC;
+[Severity: Low]
+Should this array element use a named initializer?
 
-For queues 284-299, this calculates an MMIO address for non-existent logical
-ports 4, 5, and 6 on IPQ5424.  Does this lead to an unmapped register access
-and a kernel panic when a user reads the 'qm' debugfs file?
+The I2C subsystem guidelines specify that initialized arrays of type
+struct i2c_device_id must be declared const and use named initializers
+(e.g., { .name =3D "ns2009" }).
 
-A similar unconditional loop occurs in ppe_packet_counter_write() up to que=
-ue
-299:
-
-	case PPE_CNT_QM:
-		for (i =3D 0; i < PPE_QUEUE_TX_COUNTER_TBL_ENTRIES; i++) {
-
-Could this also trigger a panic when writing to the 'qm' debugfs file?
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(i2c, ns2009_id);
+> +
+> +static const struct of_device_id ns2009_of_match[] =3D {
+> +	{ .compatible =3D "nsiway,ns2009" },
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261008-qcom_ipq54=
-24_ppe-v1-0-16caf43e44ee@oss.qualcomm.com?part=3D7
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009144729.8583=
+2-1-founder@crepuse.com?part=3D3
