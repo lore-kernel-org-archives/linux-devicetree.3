@@ -1,41 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C16F435200F
-	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 17:53:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD077136672
+	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 17:53:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791568428; cv=none; b=TBbnlrqHRTnsc3efN+8j316haDE/hiq3CN4s2Dkl0Xy0/aAlj1Em0+RVLQqo4oMSQqYtRuMWtK9GvsI0bXTLt3rFECRjYz38f84+34NacSbBd+3JOyQdyyOdgdFTfrWMSLZEXi4yN1vcYevyy1MmTsOVpCKJVLlalrpjm8rZsac=
+	t=1791568429; cv=none; b=HNv/JX1Kf0WsDe4Y/1OuhaSoC18tcExUy/04bJxaMtCH4DUiUW7YIhDq2EvpI0DU/JmeEgj9blzqV+nNAc4o+BqsHzgICdMsV4Ewn+stWb50bjB2y3/ttuyJ0js435BMuqqjXr4sZYFQ6iFcSruGkXIdtzFKodPXQcgV0vVCbk4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791568428; c=relaxed/simple;
-	bh=iowyLZgNAongVrqMEDK2sfiwEOsPQVLYKXqHZwU6fnM=;
+	s=arc-20240116; t=1791568429; c=relaxed/simple;
+	bh=61DI+M7JfCK16572qA3XEh8ctEVOYK3INMZFCMH+rLQ=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=kiISqzWZu3k8V+cMrn946HOIr83IjBZcLbiOx83nMYF+yEJx/ESUDyX8ZcQ0DujX12V5V5nhQuSj2JK+WEYXPzylYD6IC3kYQTGPKP5PYE/lEGznBV5rpMIOdrhlW+SBJ2tBbBveoaWfU9fgYrnqoYS9An2bHUb8mwHG7FBYMYA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X3+baSHM; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=dQhrNtCSuZmQgn2tFCNzcAx0C+O99gH9iVU/LbrxpzhY804VMS74zWTlMQmoRQLPkObdfWiSDf0ELQGK1St6Rq1cmaLsin5ekoP4JjkpBNrzXfEqeDtUYjuK9p4fL1lByvuVe3JxXNkXvOi6tc5auofPfz4dwMXZmXXdlv5VxZA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OxkUDiBF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X3+baSHM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 609221F00893;
-	Fri,  9 Oct 2026 17:53:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OxkUDiBF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43E841F00898;
+	Fri,  9 Oct 2026 17:53:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791568427;
-	bh=NlmxAezlbbDavXiUF5iKxTYkqWQlhBKyMuc3lLrdJcU=;
+	s=k20260515; t=1791568428;
+	bh=maOeANmJfxQHydF160xOibnoHFrHeJwQmv/BDKU12Ho=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=X3+baSHMNhfXtiZXHX+XcZ/+O16dO2YzFGY0W9QMZ2bpWP3Trt2T70XxWVWIDDW2f
-	 7CkPm2CrAddFeCXpyJzt69lCCsKP6+ISx2Ala4dvIq6oemaE2lGYWHaHSAFygfSwDK
-	 UwLM/VtmURZsLtO5KE0pryXRqYnMkUOenioIIvFKxdvhO5kINxrCuamzi6O0X54S1W
-	 UgSAoYkz7TzMQKW7I9o3l5SbNkk3m+rKbg8NglXDpB47HFdbqO6Hxrv821CvIfIBav
-	 3u1ESv6ROo8cWlnsvY38EppcZ9FokBsWCPi+SOS9v42Ato7zDHfRaCraJDVgutoRtt
-	 X5nNVCErfMW4Q==
-Message-ID: <sashiko-outbox-165904@kernel.org>
+	b=OxkUDiBF/XlaZhZph+AIvsGOFDiL1693BNL4z3dYyGY5RFQ7FR+gKtjzqMMAnZ/1Q
+	 hE9bINg80jLMbJx/DdwrxhA4aMpeYFn1moPos1LisMw7TCwl2qylALxKNtIYz9dqQ8
+	 t/5PT0PTkaqk4z+qiHSUDyOpPCXkqeKez7iJXwdl7qrCG6cy6RBq763p2dxUPanWLv
+	 q0Mtqmcj+2cMMxXrwlOGKUIePmJ7/xgUWbVSLEPJZm8l3Iarck1efmqGRMjKd3w4+p
+	 UOBxm5ItkYv2STbZWHuSEfTUqQKsK45jmm4QJlHivfwuiwr51yPzhATefQmSTl+JXn
+	 CdvIJYrzeSqEQ==
+Message-ID: <sashiko-outbox-165905@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v11 5/6] net: stmmac: dwmac-rk: add SGMII
- support for RK3568
+Subject: Re: [PATCH net-next v11 3/6] net: pcs: xpcs: add Rockchip RK3568
+ platform glue driver
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Coia Prant" <coiaprant@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20261008175225.3375274-6-coiaprant@gmail.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20261008175225.3375274-4-coiaprant@gmail.com>
 References: <20261008175225.3375274-1-coiaprant@gmail.com>
- <20261008175225.3375274-6-coiaprant@gmail.com>
+ <20261008175225.3375274-4-coiaprant@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 Date: Fri, 09 Oct 2026 17:53:47 +0000
@@ -45,86 +45,103 @@ List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [High] net: stmmac: dw_xpcs memory leak and overwrite in stmmac_pcs_setup
+- [Medium] pm: PD_PIPE powers off on suspend breaking MAC WoL
+- [Medium] pm: missing pm_runtime_disable() on driver unbind
+- [Medium] pm: missing pm_runtime_disable() on driver unbind
+- [Low] pm: unbalanced pm_runtime_enable() due to missing pm_runtime_disabl=
+e()
 --
 
-commit de93d801ba1c997500b23cca54a77392e6107f28
+commit 10f6065a84e9613f4b783ffc88353c7a176a3fcd
 Author: Coia Prant <coiaprant@gmail.com>
 
-net: stmmac: dwmac-rk: add SGMII support for RK3568
+    net: pcs: xpcs: add Rockchip RK3568 platform glue driver
+   =20
+    The RK3568 SoC integrates a Synopsys DesignWare XPCS that is accessed
+    via APB3 memory-mapped registers.  This driver provides the glue logic
+    to make the XPCS accessible to the generic pcs-xpcs core.
 
-The RK3568 SoC integrates a Synopsys DesignWare XPCS that can be connected
-to GMAC0 or GMAC1 in SGMII mode. This commit adds the necessary glue logic
-to support this configuration in the dwmac-rk driver.
+    Link: https://dl.radxa.com/rock3/docs/hw/datasheet/Rockchip%20RK3568%20=
+TRM%20Part1%20V1.1-20210301.pdf (Page 59, CRU_CLKSEL_CON29)
+    Link: https://dl.radxa.com/rock3/docs/hw/datasheet/Rockchip%20RK3568%20=
+TRM%20Part2%20V1.1-20210301.pdf (Page 2078)
 
-Link: https://dl.radxa.com/rock3/docs/hw/datasheet/Rockchip%20RK3568%20TRM%=
-20Part1%20V1.1-20210301.pdf (Page 386)
-
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c b/drivers/net=
-/ethernet/stmicro/stmmac/dwmac-rk.c
-> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-rk.c
+> diff --git a/drivers/net/pcs/pcs-xpcs-rk.c b/drivers/net/pcs/pcs-xpcs-rk.c
+> index 0000000000000..698a43b753341
+> --- /dev/null
+> +++ b/drivers/net/pcs/pcs-xpcs-rk.c
 [ ... ]
-> @@ -1211,6 +1239,44 @@ static void rk_phy_powerdown(struct rk_priv_data *=
-bsp_priv)
-[ ... ]
-> +static int rk_pcs_init(struct stmmac_priv *priv)
+> +static void xpcs_rk_exit_clk(void *data)
 > +{
-> +	struct rk_priv_data *bsp_priv =3D priv->plat->bsp_priv;
-> +	struct device_node *node =3D priv->device->of_node;
-> +	struct device_node *pcs_node;
-> +	struct dw_xpcs *xpcs;
+> +	struct dw_xpcs_rk *pxpcs =3D data;
+> +	struct device *dev =3D &pxpcs->pdev->dev;
 > +
-> +	pcs_node =3D of_parse_phandle(node, "pcs-handle", 0);
-> +	if (!pcs_node)
-> +		return -ENODEV;
+> +	pm_runtime_force_suspend(dev);
+> +	clk_disable_unprepare(pxpcs->eee_clk);
+> +}
 > +
-> +	xpcs =3D xpcs_rk_create(priv->device, pcs_node, bsp_priv->id);
-> +	of_node_put(pcs_node);
-> +	if (IS_ERR(xpcs))
-> +		return PTR_ERR(xpcs);
+> +static int xpcs_rk_init_clk(struct dw_xpcs_rk *pxpcs)
+> +{
+> +	struct device *dev =3D &pxpcs->pdev->dev;
+> +	unsigned long rate;
+> +	u64 mult;
+> +	int ret;
+[ ... ]
+> +	pm_runtime_set_suspended(dev);
+> +	pm_runtime_enable(dev);
 > +
-> +	priv->hw->xpcs =3D xpcs;
+> +	ret =3D devm_add_action_or_reset(dev, xpcs_rk_exit_clk, pxpcs);
+
+[Severity: Medium]
+Will this leave the pm runtime disable_depth unbalanced when the driver is
+unbound?
+
+The driver calls pm_runtime_enable() in xpcs_rk_init_clk(), but the teardown
+action xpcs_rk_exit_clk() doesn't call pm_runtime_disable() to unwind it.
+Leaving runtime PM enabled after the device is unbound breaks the runtime PM
+core's tracking and can trigger an "Unbalanced pm_runtime_enable!" warning
+if the device is probed again.
+
+Should devm_pm_runtime_enable() be used, or pm_runtime_disable() be
+added to the cleanup function?
+
+[ ... ]
+> +static int xpcs_rk_system_suspend(struct device *dev)
+> +{
+> +	/*
+> +	 * Keep the PD_PIPE power domain on during system suspend.
+> +	 *
+> +	 * PD_PIPE is shared with SATA/PCIe and would be powered down by
+> +	 * genpd once all its consumers are suspended, killing the SerDes
+> +	 * and breaking MAC WoL.  Mark the XPCS as part of the wakeup path
+> +	 * so genpd keeps the domain on.  Unconditional because the XPCS
+> +	 * core has no callback to convey the MAC WoL state.
+> +	 */
+> +	device_set_wakeup_path(dev);
+
+[Severity: Medium]
+Does genpd actually keep the power domain on when device_set_wakeup_path()
+is called here?
+
+The commit message notes this relies on the Rockchip power domain driver
+setting GENPD_FLAG_ACTIVE_WAKEUP on PD_PIPE. However, looking at
+drivers/pmdomain/rockchip/pm-domains.c:
+
+rk3568_pm_domains[] {
+	...
+	[RK3568_PD_PIPE] =3D DOMAIN_RK3568("pipe", BIT(8), BIT(11), false, false),
+	...
+}
+
+The wakeup parameter is false, which means GENPD_FLAG_ACTIVE_WAKEUP is not
+set. Because this flag is missing, won't genpd ignore the wakeup path and
+power off the domain anyway, breaking MAC WoL?
+
 > +	return 0;
 > +}
 
-[Severity: High]
-Does this code leak the newly allocated XPCS instance when interacting with
-stmmac_pcs_setup() in the core driver?
-
-Looking at stmmac_pcs_setup() in drivers/net/ethernet/stmicro/stmmac/stmmac=
-_mdio.c,
-it declares a local xpcs variable initialized to NULL:
-
-int stmmac_pcs_setup(struct net_device *ndev)
-{
-	struct dw_xpcs *xpcs =3D NULL;
-	...
-	if (priv->plat->pcs_init) {
-		ret =3D priv->plat->pcs_init(priv);
-	...
-	priv->hw->xpcs =3D xpcs;
-
-	return 0;
-}
-
-Because rk_pcs_init() successfully allocates the XPCS and assigns it direct=
-ly
-to priv->hw->xpcs, it returns 0.
-
-The local variable xpcs in stmmac_pcs_setup() remains NULL. At the end of
-stmmac_pcs_setup(), it unconditionally overwrites the newly allocated point=
-er
-in priv->hw->xpcs with NULL.
-
-Will this cause the MAC to lose its PCS reference and break SGMII link
-negotiation?
-
-Additionally, does this leak the dw_xpcs object memory, since teardown
-functions like rk_pcs_exit() will see a NULL pointer and exit early?
-
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261008175225.3375=
-274-1-coiaprant@gmail.com?part=3D5
+274-1-coiaprant@gmail.com?part=3D3
