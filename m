@@ -1,135 +1,114 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48B5A3C276E
-	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 18:58:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9519D2673AA
+	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 19:02:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791572283; cv=none; b=kmwYganZJ93JJ+569nl2VgoH1kCyVM1tDpSzO+l8JblAjfrkcw+Gs8VuYx8wsEboaOvMHyC54pDy/QVAtIelA22nJZjkVm1+NEkbrjzNBsUq6rtk1jB1N4zWr6zSZYcnkj3vh/51I3EKuEwsruf4VKxAnU6NjD5Un8Ua87bt9GQ=
+	t=1791572551; cv=none; b=FG5/HDJSyw/I+posKO5ILZaQb6VutH4XATaSQ+OP6Cc7ZCPE3Z8DhHW9PPj5UEEFIdn0bOKRdwdsFfP3qRNFFpKGA18cUY0Oh4m0SIBG0cZyyknM6s7WQg6sjfEI/7KvXLS1bPz7Xu43sFpRo4SffSU1l3pttbmuPDQPoSVtd7Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791572283; c=relaxed/simple;
-	bh=CImErCK453/2jtS/jVyzggFVcO9aeFsBNs1Imd7DWps=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=h4NhAt2WAEF8LO2oo2V+ui7UPD40RaVJd/GPBpgxDtkhZLC94hgFt9bjOK+LOXjKR7JofdFYPZhj3qxFs9jem3Awr+gsuMp3OZSYhZXxyVpa74lR0B0D13trswwQt6OG4tspUTrCPuZJol63ocXJSvNdZOScJ7QMz4Nr0DBPHsg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=YHcbyLfs; arc=none smtp.client-ip=209.85.216.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1791572551; c=relaxed/simple;
+	bh=Cn/LMR4HrWBRp2wUH4PduCEEj/cSWAwTTT9M1tEN9m8=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=LTTHpvZyTFwZVJioQJCn6FlC1vF8qyyRolqSfk/d/2KaMToSNT7wQqh4CefvwH31hetl7/gTWrFEc5dKtm01NUc35GgFdLLEVYdVH/CwMvrhcXbJfYuaJTj4PUPxsP0FPeWyS/ChH2ddJPbt1a0ZYkU4KruopACnjtk5PIzi0m0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EbJddK4p; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="YHcbyLfs"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3ab60ff4273so709954a91.0
-        for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 11:58:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1791572281; x=1792177081; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=voQnsCMf54BeM6EKGprlzbES0+jYHxFzIpzAIjrxSoc=;
-        b=YHcbyLfsATTi27I5DB3mBTZ4Pr+dHoum8ZgLbLz4hKwL/h72KmIO2k2J+nmNVA8TIg
-         HBBQZLAND14TTBn5PLv1aLP572i8KtT+R8Jd8aMwPJtAYgKt0ZUY949aJn0vs5D9sa+z
-         QJNA4+9by9/g42t9fg+IH7PhwpwmfMS7pNgH38as8bfMBPavPVxsMP0cbzza8oK8vAfX
-         e7JWKpimiy13/e9ksyj6iU5HVLVZqoQNFrpNAz/xCfNTMNmuKu9ISwi2minPZUpDpKr9
-         MsnCWu+mdCQESWi+oMTkV2bUTD6uNN5yf1LhfpzfoWu8uEb4erXYDdkTf2MjUTFKBHWC
-         Nilw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791572281; x=1792177081;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=voQnsCMf54BeM6EKGprlzbES0+jYHxFzIpzAIjrxSoc=;
-        b=mSXXKK3M8ru1i4I5LyFL9Yrx0ljrrKs5c3Zy2C+4esgoZFS28Dpk5oUwsIvmuouYem
-         oZubiKtMt423z7J2n0lqX2pU9RiEWH30sEOVN+tK7RSyPPvlW6McxXwbfJUX6o2JBC3v
-         7pJmFIuYtsSGwNilemBlxX5zTduHKDN8fSZA5OYuZOYTk7dSWN7sRgEc5htmPtt6kkVS
-         i3tKO7bFLwbLREyE2Yml9L5A5a8xM7PjlpFWN1yQtdp79dYyiVwU3V4aEUReuNnDS5j/
-         gWtH1rpAhUZjCwpFUons/163QFn74HsDWFiLeZtFqA3XLkIU78+mERjzcmxLLK59F+s1
-         IDQA==
-X-Forwarded-Encrypted: i=1; AKwUvBxrhaBtlfrssoTVzgTgFOGoPq8iCdJ03Mx55ooToC9lDKnLIGYmlZapAkyUtvxUKZTPC0D4/gBKdy7y@vger.kernel.org
-X-Gm-Message-State: AFq9FYKFD5sYF6RQXYRBHACCixqbhLYJHiAXuW7CD0+N9qxwxAb/nGEQ
-	V2MwdsEXyGGB6RGqEBlAPLxyK0pF9avNz0dPSY9UPrumTK3zjK17WeYmMd7H4kAdog==
-X-Gm-Gg: AYBFou3foSDw0EYr5UZQ5nby5eGFfOqRudeFlcQS1ZwRBHCSueKkL9e02jHOkOx2VrA
-	dUukmS0kkyyBijQZt2EbcrTKy6bp2ru1c8sRaMYG0ZR+mDbWoAe5+A7/8FZD9UnElT9RnVzmoDM
-	QhuDG1kh/qY+btD6ccXclpZA74wNkKU3E7s3LFWfkHAAh8ZAj4rlImw9HhKMY4FdaCRK1iX4o3p
-	LqLTmNBVjVHA3NLDoWx8W79t+qfhI/gNjq8L4pyt7vJGfHf+oO7qSwe0YwLm3iQRkpZOGxjwGt9
-	TAzpoZOvcnxVdqrcqbJvNPbTvHCjWuymnX5N2buMtb1P9ReQ/YXjoeVIK0eV+5JDrZJ7GrJ11Kx
-	RRBmY2ZKa3917P07H4923UIWv8WHBPzAlal9Wcvkyh4GqfyJoBEmbXJVvbV/VZEYYNqJ21a+GVp
-	NOnDCJCj22lKUcNtENdCBZmDNHBMrYH2PlnyCySu5Ij0O7xiNuLCb/GzLixbYecTvkaCsR4iJbc
-	oo2/FmNHUl+x+jY+sFC6BqPXDVYonQoI+hJ5XUvqYK04GsNZSnAenHlVqCEZ9wWDVFGKVl6OF2i
-	UPozzaBJ0fu/wihya15Fxb8FXSjmk/X7Stj3AAjA
-X-Received: by 2002:a17:90b:5887:b0:3a4:a383:f9cf with SMTP id 98e67ed59e1d1-3ab3a9a78f8mr3010368a91.38.1791572281011;
-        Fri, 09 Oct 2026 11:58:01 -0700 (PDT)
-Received: from ?IPV6:2a00:79e0:2e7c:8:3cac:e69a:a0e2:88af? ([2a00:79e0:2e7c:8:3cac:e69a:a0e2:88af])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab36ed040dsm5852181a91.6.2026.10.09.11.58.00
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 09 Oct 2026 11:58:00 -0700 (PDT)
-Message-ID: <9046b5d6-ca6b-4466-bd8f-73f034234caf@google.com>
-Date: Fri, 9 Oct 2026 11:57:57 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EbJddK4p"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB39A1F000FF;
+	Fri,  9 Oct 2026 19:02:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791572550;
+	bh=mP4q+RW8YoGIK09fv0V0N/rZaBIsy0jcFB71heqKAuw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=EbJddK4pUtqRrA7gUFyuB762YwAwG+ECGEEvDZqF74pLJQcxzH7mDHci+aOAGcxqa
+	 iEdMwzDVCokf9jeptaoOQsnbaG3k37+0n7lZ/gRRJWEUXfqkYon1toShkejtdR9dQG
+	 4UYH0T0Oi2L432ZMTc956b4obMBI/Gvf6klZYT2bpv0SGgrk+JBwcITW+MgDh+q4JB
+	 bGfxIU+/pSjCGJE++qd53bYJ43/4LtTuBtNhSeA8haHG9RTWcbfR0cmdiA4/gu+Zsa
+	 bcD72Ts5duNcPq+Ab/pUKSeNJFFftZcvu/SVegXN2CwveczJqXHV9aowmiPWvHkBSK
+	 WxHdjh66KrkbA==
+Message-ID: <sashiko-outbox-165990@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 8/8] iio: adc: rzt2h: Add support for RZ/V2H(P) SoC
+Reply-To: sashiko-reviews@lists.linux.dev
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org
+In-Reply-To: <20261009184122.1378797-9-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20261009184122.1378797-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20261009184122.1378797-9-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 09 Oct 2026 19:02:29 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: connector: Add time property for
- tSenderResponse
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-References: <20261004-tcpm-sender-response-time-v1-0-3f8b43084acc@google.com>
- <20261004-tcpm-sender-response-time-v1-1-3f8b43084acc@google.com>
- <20261004030531.9D32A1F0089B@smtp.kernel.org>
-Content-Language: en-US
-From: Amit Sunil Dhamne <amitsd@google.com>
-In-Reply-To: <20261004030531.9D32A1F0089B@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-Hi,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] pm: hardware stabilization delay is bypassed for SoCs without cali=
+bration
+--
 
-On 10/3/26 8:05 PM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Low] dt-bindings: missing schema constraints for sender-response-time-ms
-> --
-> 
-> commit eb9d81bbfb13df2dbe09db76aefbc40c815abe01
-> Author: Amit Sunil Dhamne <amitsd@google.com>
-> 
-> dt-bindings: connector: Add time property for tSenderResponse
-> 
-> Add the sender-response-time-ms property to allow platforms to specify
-> the tSenderResponse timer value, i.e. the max time a port waits for the
-> port partner to respond to a message that requires a response.
-> 
->> diff --git a/Documentation/devicetree/bindings/connector/usb-connector.yaml b/Documentation/devicetree/bindings/connector/usb-connector.yaml
->> index 8ca0292490a2c..52dbdd738db64 100644
->> --- a/Documentation/devicetree/bindings/connector/usb-connector.yaml
->> +++ b/Documentation/devicetree/bindings/connector/usb-connector.yaml
->> @@ -283,6 +283,15 @@ properties:
->>       maximum: 200
->>       default: 200
->>   
->> +  sender-response-time-ms:
->> +    description: Represents the max time in ms that a Type-C port waits for
-> 
-> [Severity: Low]
-> Is this new property missing minimum, maximum, or default constraints?
-I could add the min, max & default for this property. Will send a v2.
+commit b9111d7d4d36117212882ae96747fcfe15f3bdd8
+Author: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+iio: adc: rzt2h: Add support for RZ/V2H(P) SoC
 
-Thanks,
-Amit
+Add support for the ADC found on the Renesas RZ/V2H(P) SoC, which shares
+the RZ/T2H ADC IP but differs in channel count, sampling, calibration and
+resolution support.
 
-> 
-> Unlike other timers in this schema (such as sink-wait-cap-time-ms), the lack
-> of boundaries means offline schema validation (dt_binding_check) will silently
-> accept arbitrary values. Should this have explicit numerical limits to prevent
-> accidentally violating USB PD timing requirements?
-> 
->> +      the port partner to respond to a message that requires a response. This
->> +      timer starts when the port's PHY layer receives the last bit of the
->> +      GoodCRC EOP corresponding to the message requiring a response. This timer
->> +      stops when the last bit of the EOP of the expected response message is
->> +      received by the PHY layer. A timeout leads to a soft or hard reset by the
->> +      port.
->> +
-> 
+> diff --git a/drivers/iio/adc/rzt2h_adc.c b/drivers/iio/adc/rzt2h_adc.c
+> index 0703c2025e3fc..be8273f3b61d3 100644
+> --- a/drivers/iio/adc/rzt2h_adc.c
+> +++ b/drivers/iio/adc/rzt2h_adc.c
 
+[ ... ]
+
+> @@ -818,6 +1005,12 @@ static int rzt2h_adc_pm_runtime_resume(struct devic=
+e *dev)
+>  	if (ret)
+>  		return ret;
+> =20
+> +	ret =3D pwrseq_enable(adc->pwrseq);
+> +	if (ret) {
+> +		reset_control_assert(adc->rstc);
+> +		return ret;
+> +	}
+> +
+>  	if (!(chip_info->features & RZT2H_ADC_FEATURE_CALIBRATION))
+>  		return 0;
+
+[Severity: High]
+The datasheet note below indicates a 0.5 =C2=B5s delay is required after
+releasing the module-stop state before starting A/D conversion.
+
+With the newly added RZ/V2H(P) SoC that lacks the calibration feature,
+rzt2h_adc_pm_runtime_resume() returns early here, completely bypassing the
+stabilization delay.
+
+Will this lead to hardware being accessed before the analog circuit has
+settled, potentially resulting in corrupted or inaccurate data on this new
+SoC?
+
+> =20
+>  	/*
+>  	 * Datasheet Page 2810, Section 41.5.6:
+>  	 * After release from the module-stop state, wait for at least
+>  	 * 0.5 =C2=B5s before starting A/D conversion.
+>  	 */
+>  	fsleep(1);
+> =20
+>  	ret =3D rzt2h_adc_calibrate(adc);
+> -	if (ret)
+> +	if (ret) {
+> +		pwrseq_disable(adc->pwrseq);
+>  		reset_control_assert(adc->rstc);
+> +	}
+> =20
+>  	return ret;
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009184122.1378=
+797-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D8
