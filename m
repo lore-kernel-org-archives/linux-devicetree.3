@@ -1,161 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f172.google.com (mail-dy1-f172.google.com [74.125.82.172])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E9342D592D
-	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 21:52:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96E1D502566
+	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 22:04:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791582765; cv=none; b=QRQDiPQGHNo4W7Fbkez1Zw8+JdbrzmjZZQFyFlqlasheL8HfPB7mwiDZewvaWtYBLu/RwRfy1NQRjiuPNDaQcjSt39Z6oialssIHeZ1ni8q7dg0hKwTaQHfSvPX+M7HNeNy/ZbsFUV466yVFZCJeTB84u/3F94J8SKJRTAXRw+o=
+	t=1791583445; cv=none; b=Tq7rwcSoKiLoGTReWTQdMMxRRsq1HaxluAXPgOcRFrLTS3umfLChMgghIoQQdKGy0STD4/TESESWxQtx6aF8QysvgVod3FId4oHwzWzrMb5cSsq08zrShfkm3CJ4yogJVUjSHDmOSJXTLPhqCQiAWzMKXniOhk+aakEccBH5wDI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791582765; c=relaxed/simple;
-	bh=32Ov3gzbJTmldi9SSZz5cTh4jnWeVDs+WKpDDmYX79Q=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=CNXyeAKNxgRI8r2pIjmLizDhqPbe4LIqdgnsokvDoMcgtJ4yxtE3lOVOEnNC3FeUQItjnV0CApE191iV1vTGAi8RGrp50VqcOFlhDIWueK5UtSEXRBrqhnx9ewhZNCG2isFUqdsyiBxzFTeGRmZIbOPHKFvZv+efUTTqcwcXcSo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X1hc1hJ3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791583445; c=relaxed/simple;
+	bh=tHszEtQ6qUPfNkfp/Y3nptpIWt+shu7FTTyhBIFxA3c=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=DCzT0zw0PKwCuCbAUoe4myk3YGJD/LJks9BD7dVUHxKJtdD88EP21RDPDpCOT5dS7B31CUBNXiK9Bg84P2ZVq4b/Vy1ndhy1+RMxDD50VJkBlSaztTxck8Qnz3TVGtnY37GDW9vHIqVo5Pbh3B5GnXwTdK5npmcAoA6aL+jsEKg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=alAeGzM1; arc=none smtp.client-ip=74.125.82.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X1hc1hJ3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8212C1F000FF;
-	Fri,  9 Oct 2026 21:52:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791582764;
-	bh=zXIyGn9ki7zUhhL6EfuRff/jI+Qi/I9WkE8uiCRycj4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=X1hc1hJ3Ch3ZTfMbd1q6LebM9R2eKTtrSpDRDWDw2yyiAEU6FfV+TkDT5XHU4YP6k
-	 +XXiCcGbOs6qfSMUaJl+SToxOlW5rEc7Iu4pFUy95JupHu3K5ItXQwBi2SNUbejrnE
-	 cimcksT9eSJv/B/xznkKi6ICEBA8hE2Xwel6iVqUgwwQFPoNx+lQSCzxNuDbQSwnGA
-	 j0VmfS2R2TO38LxE3fZqwtWvDmhMarzvi8fxz70jv9tMgzd3ZptyzcttMwCsZgKxoS
-	 ipm2c6ZRWUsBN6wMnFxB0LRPS0kGPBXKAwWkSD2ARXrHvoE8jo1sn1RPjoH79WNUBP
-	 UUY6FXTX8UGhA==
-Message-ID: <sashiko-outbox-166096@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/2] regulator: dt-bindings: add hi3798cv200
- regulator
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "David Yang" <mmyangfl@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261009214404.722628-2-mmyangfl@gmail.com>
-References: <20261009214404.722628-1-mmyangfl@gmail.com>
- <20261009214404.722628-2-mmyangfl@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 09 Oct 2026 21:52:42 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="alAeGzM1"
+Received: by mail-dy1-f172.google.com with SMTP id 5a478bee46e88-3518cbe59b0so113390eec.0
+        for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 15:04:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791583444; x=1792188244; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Oz+mubEJi9OTuwRjam7n0ruAb9lpR9EULifx4BafNbY=;
+        b=alAeGzM1hy9XS6SGy9x2/oep749Ae41M7wq6Lk+uWiQgKsya8pBLPrS12odbI3Ks86
+         +db/4pZkxitmn7UaQ0uspROUA5HeBtax74QqwDube7H7G7KDFt2nYlkN+24IfMj2pGsn
+         5vtMmvmyRctLxT6V9+JALs5OuQujUKu6pZ37SdrDF2WReFe7poYAPfa+/CW2zyWL1RD5
+         I2RoRPoCIWiFZxRxA+sB4a3nNGJpYY610WdEFPi8Gj8PldTRnGttH9t9s8G7YWhFztgE
+         d3sTbKrpiHa+chc51+hKzmq8wKwqLifZMkYKY6ZN7ahBSFfaJZZ/qHLfj2WFDa9BDfzF
+         sM4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791583444; x=1792188244;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Oz+mubEJi9OTuwRjam7n0ruAb9lpR9EULifx4BafNbY=;
+        b=W65rP2Tanmm/nzMFbvNahHxkNMOlCK8mpMzykr05aNWtM3NJK9HMbm9xEI6woL1v9Z
+         12bxHCywhIVPUOiuNHLNKR8Bk9cBgHBO1VMK313EZXNODost6FzPXIlaKsSDYYnFhmwY
+         E6pFBs17bEZ9rVxcyz5Vn/Dniks/QY9DqISWMIAwAMh+vnax+PMA/LaJh3+zi5T++Sry
+         8guPZ7LWG8QWeKkTJIuVTIpqiP1XPT3SaxdDXKyB7peQfQhf8+prTxKRXfVq1qFMBhqk
+         RCf/f5zpP8ycWLxuS4gDaTLbuoHMIFWpNGih5pY6cixTCFEk95iQplD55j8cA2GEPN+n
+         jrjg==
+X-Forwarded-Encrypted: i=1; AKwUvBym564KsKDQ8xowocGPUoDi64T8p1p100ynW5yxY0cGtJ3l6GAPnsSi7Q5dPk4CwDsSBxsjciRWWqC4@vger.kernel.org
+X-Gm-Message-State: AFq9FYIDiITKxDsAPXN0u6KguF9srOWhdqiLQhsSrtkL2T78HVd+226q
+	A5NMmbwdpLKi6zLjRH+eBl/sKn0PKVzqzm+3vKgnjPS4iZu5AQvCH/Kc
+X-Gm-Gg: AYBFou0Cz6bE96sy9uhWy3JVNt4IWzBujOxdQ3iSwYXYOouVw89fwn6iYozAE4LpknR
+	seaEXGGQiLNfUXApIGFIJ+97fK1jjTenkB6esiULbgqSZw5vHghf9XVZR+8P8YUjp90vStTpzjr
+	Ss8KYFnTHLb5ASGWkb5TRXAl9Iu+MhHYV+9vn4SK/kwK0JPYwk5NuXAR/OC/PrJRl7ZbMYRY3ON
+	Yvd6EcIT/aqP6MMFwIrdqsK5wl2UIYyZ9eiTKzHiyMosRPb2CgL3FA48s6tfpVZxLRmFocTjorj
+	cTJtiNzXHx8ckjZuw+QCdmvxQVCtuXrrAXpzjwqImIemejsVQIDA2k3YI2W0lDs9mf65CfdUwLp
+	j3mTXsHknUGeO9TJxzagmfan1mvAuUPwCwSxUoTtDXTfqZxUX52Wnty0Nno7ol5JFDRDKipxA9P
+	cITZ7O5U5J1LDTSH4QZp/v/57etH0tlssb9PO2FG5igo8GRAxkipEXO/56VGzgCzVS1PR1AI7jh
+	X2XuY59EIbmFwcr1p/Pe9sCT3be/qkusH1uMDBB3JI=
+X-Received: by 2002:a05:693c:821a:b0:357:ee3a:267a with SMTP id 5a478bee46e88-357ee3a2dd9mr962923eec.2.1791583443330;
+        Fri, 09 Oct 2026 15:04:03 -0700 (PDT)
+Received: from DESKTOP-1E7V4GR.lan ([190.177.131.57])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cb2fd33sm8279558eec.28.2026.10.09.15.03.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 15:04:02 -0700 (PDT)
+From: Cristian Papa <pcristian292@gmail.com>
+To: benjamin.larsson@genexis.eu
+Cc: Landen.Chao@mediatek.com,
+	andrew@lunn.ch,
+	angelogioacchino.delregno@collabora.com,
+	arinc.unal@arinc9.com,
+	chester.a.unal@arinc9.com,
+	cjd@cjdns.fr,
+	conor+dt@kernel.org,
+	daniel@makrotopia.org,
+	davem@davemloft.net,
+	devicetree@vger.kernel.org,
+	dqfext@gmail.com,
+	edumazet@google.com,
+	krzk+dt@kernel.org,
+	kuba@kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	linux@armlinux.org.uk,
+	matthias.bgg@gmail.com,
+	naseefkm@gmail.com,
+	netdev@vger.kernel.org,
+	olteanv@gmail.com,
+	pabeni@redhat.com,
+	robh@kernel.org,
+	sean.wang@mediatek.com
+Subject: Re: [PATCH v2 net-next 7/7] net: dsa: mediatek: support EN751221 switch
+Date: Fri,  9 Oct 2026 19:03:48 -0300
+Message-ID: <20261009220348.4531-1-pcristian292@gmail.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <4310cd4d-d9e5-4bc4-bdee-7f6f6b3a2409@genexis.eu>
+References: <4310cd4d-d9e5-4bc4-bdee-7f6f6b3a2409@genexis.eu>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] dt-bindings: regulator: missing hardware calibration properties ca=
-uses overvoltage
-- [Medium] dt-bindings: compatible restricts to single SoC despite supporti=
-ng multiple variants
---
+On Sun, 20 Sep 2026 12:33:21 +0200, Benjamin Larsson wrote:
+> Thus I suggest that dts property also is added and that the calibration
+> is performed if that property is not present.
+>
+> The original SDK and production units seem to have a fixed setting and
+> user testing also indicate that a fixed value results in a working
+> trgmii link.
 
-commit e41927e1676c51346b08990a591c57b883a2a88d
-Author: David Yang <mmyangfl@gmail.com>
+Some of that user testing may be mine (fixed RX taps on an XR500v in
+Matheus Sampaio Queiroga's airoha tree, airoha/kernel PR #54 on his
+Gitea, https://sirherobrine23.com.br/airoha/kernel/pulls/54 - viewing
+it needs a login there), so here are the numbers behind it. One unit:
+TP-Link Archer XR500v v1 (EN7526G, on-die switch plus MCM), running
+that tree's driver on Linux 6.18, not v2.
 
-regulator: dt-bindings: add hi3798cv200 regulator
+That driver uses the same PLL frequency (362.5 MHz) and TX drive values
+as v2, but the rest of the sequence differs. v2 sets the MCM TX delay
+to 0 (it reads 8 here), writes RCK_RTT and 0x7a14 on the on-die side
+and disables SSC on the MCM; that driver does none of that and instead
+writes the full vendor MTRAP word (0x01017e8f, between TOP_SIG_CTRL 0
+and 1) on both switches, where v2 only changes individual MTRAP bits,
+and the vendor CKGCR value (0x30f0 = 0x1e02) on the MCM, which v2 does
+not touch. So the taps may shift with v2.
 
-The PMOC block of the HiSilicon STB SoCs (Hi3798cv200/mv100/mv200)
-drives an external converter with a PWM signal. Add dt-binding doc.
+With the 0x55 pattern, sweeping RD_TAP from 1, all five lanes pass up
+to tap 37-45 for SoC->MCM and up to tap 16-18 for MCM->SoC (one boot).
+The eye with real traffic is much narrower. With all lanes on the same
+tap, iperf3 through the cascade and the RX CRC counter of the receiving
+port (same result on two boots):
 
-> diff --git a/Documentation/devicetree/bindings/regulator/hisilicon,hi3798=
-cv200-regulator.yaml b/Documentation/devicetree/bindings/regulator/hisilico=
-n,hi3798cv200-regulator.yaml
-> new file mode 100644
-> index 0000000000000..812d94aca1f59
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/regulator/hisilicon,hi3798cv200-r=
-egulator.yaml
+  SoC->MCM (MCM port 6):    clean up to tap 24, nearly dead at 28
+                            (1-6 Mbit/s with CRC errors), dead from 32
+  MCM->SoC (on-die port 5): clean up to tap 10, CRC errors at 12,
+                            unusable from 14 to 64, and a second
+                            narrow eye around 72
 
-[ ... ]
+Tap 1, the lowest I tried, was clean in both directions, so the lower
+edge of the eye never showed up. The midpoints of the 0x55 windows
+(19-23 and 8-9 here) are only 1-5 and 1-2 taps below the last clean
+tap measured.
 
-> +description: |
-> +  HiSilicon STB SoCs (Hi3798cv200/mv100/mv200) provide PWM outputs in th=
-e PMOC
-> +  block which drive an external converter.
-> +
-> +  The voltage range depends on the board design: reference designs speci=
-fy
-> +  0.65 V to 1.15 V for the Hi3798cv200, and 0.7 V to 1.25 V for the Hi37=
-98mv200;
-> +  a customized board has to figure out its own. The regulator itself has=
- no
-> +  other source of calibration.
-> +
-> +properties:
-> +  compatible:
-> +    const: hisilicon,hi3798cv200-regulator
+That driver uses RX tap 4 in both directions (for SoC->MCM the 0x55
+sweep still runs, as a check). With it, 12 boots (8 warm reboots and 4
+power cycles of about 30 s) had 0 CRC errors on both cascade ports
+after 6 s of iperf3 each way, 29k-101k frames per direction. One value
+(4) works for both directions here, although the margin to the last
+clean tap differs (about 20 taps vs 6).
 
-[Severity: Medium]
-Will this strict constraint reject device trees for the other supported SoC=
-s?
+Separately: an out-of-tree U-Boot port for this board (since fixed)
+left the on-die switch's PHY auto-polling on (AP_EN in PPSC, 0x7018).
+With it on, 8 of 240 TFTP boots trained no SoC->MCM lane until the
+switch was re-probed, and a stress test found repeated tap writes
+landing in the MCM's 0x7a04 (4 of 4 boots, 0 of 4 with AP_EN off).
+Clearing AP_EN before registering the MDIO bus gave 120 of 120 boots
+with all lanes trained. In v2 the on-die switch is set up (and reset)
+before the MCM, which should clear it, but I have not tested that; it
+may matter if v3 touches the MCM earlier.
 
-The description explicitly mentions support for multiple HiSilicon STB SoCs
-(Hi3798cv200/mv100/mv200) which have different voltage reference designs.
-However, restricting the compatible property to a single exact value
-(hisilicon,hi3798cv200-regulator) rejects device trees that use SoC-specific
-compatible strings (e.g., hisilicon,hi3798mv200-regulator) or fallback list=
-s.
+Per-boot logs on request. Happy to test whichever approach v3 takes.
 
-This prevents the proper representation of the other supported hardware var=
-iants
-without failing schema validation (dt_binding_check).
-
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - regulator-min-microvolt
-> +  - regulator-max-microvolt
-> +
-> +allOf:
-> +  - $ref: regulator.yaml#
-> +
-> +unevaluatedProperties: false
-
-[Severity: High]
-Does the lack of hardware calibration properties here cause overvoltage
-in the driver?
-
-By not including properties to describe the physical hardware bounds (e.g.,
-duty-cycle mappings or pwm-regulator integration), strict validation preven=
-ts
-defining these board-specific calibration values in the device tree.
-
-As a result, the follow-up commit "regulator: histb: add voltage regulator
-driver" relies on the standard OS policy constraints (regulator-min-microvo=
-lt
-and regulator-max-microvolt) as physical 100% and 0% duty cycle calibration
-boundaries:
-
-drivers/regulator/histb-regulator.c:histb_regulator_probe() {
-    ...
-	priv->min_uV =3D init_data->constraints.min_uV;
-	priv->max_uV =3D init_data->constraints.max_uV;
-    ...
-}
-
-If a device tree author specifies a tighter policy constraint to protect
-hardware (e.g., a maximum of 1.0V when the physical maximum is 1.15V),
-a legitimate request for 1.0V outputs a 0% duty cycle:
-
-drivers/regulator/histb-regulator.c:histb_regulator_set_voltage() {
-    ...
-	if (min_uV >=3D priv->max_uV)
-		duty =3D 0;
-    ...
-}
-
-This configures the hardware to physically deliver the unconstrained maximum
-of 1.15V, completely bypassing the intended safety bounds and potentially
-damaging connected components.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009214404.7226=
-28-1-mmyangfl@gmail.com?part=3D1
+Thanks,
+Cristian
