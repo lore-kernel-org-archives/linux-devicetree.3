@@ -1,44 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D46433AD53F
-	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 12:23:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ACFA44C64C;
+	Fri,  9 Oct 2026 12:23:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791548608; cv=none; b=g4wi9Ns+d42VY8eMtjeL1Mvfy7qCaVWOjgqTrDLqa9vTQ5vbJDREpcPIJXkfMpiNN9OhFd0H4mfijZCJu6rdg/w0BfQajNN5faWixtKt3p1aafAJT2eNSP1UOF6Jd39LkKKwXNlRE5266ZsohbQyxnyG1sOLDg1zXwJSDtKewrA=
+	t=1791548616; cv=none; b=OrWdaQ+tYb9Ui8iTHv3s6AGKdHqWeLy/PkEUjkHf580LemHif3hMkuuHo/djURFD1Km0vHeF8daQSK92DiPPsva29j4HQWtmBP52GtP+ExJnBl1J6nfCoJVULElQm6fHAgFx2aCh6YzsBiuJiGWpSEFTs/noghzd20b+V4xfoec=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791548608; c=relaxed/simple;
-	bh=W0v5YE46mtsUt2R/ZDQ2S37Ca4sN7cqPth6WmLkckAs=;
+	s=arc-20240116; t=1791548616; c=relaxed/simple;
+	bh=9E6xDv8B73d6yOC6DdN0OYa0oarvT5tkN+QM97fzrI8=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=NnaJQvfc4rnKIN+olL0jK7QJi+1J/6qTV0AYsbDvdBGcbWoxHuDdKZUPzuiMf9Ntwc/Fx4FXkrPB6vwBDh6qVXaSpvoMZNKfJku9uPbr5nej4Rgkj4oELeG5NHhFzqHknEUbR2laIfFCfhKETYTetaKsEYxBYqeWGSr1dmbwqkw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RVQ5q47I; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=QlKjbk9jWciJnbnmv47b9JgDugZPU/QzoZL6qUCRncYHM41b4M3WWKqCJXZGyEIcN+cmqzWDmE5+RJLkhe/kAwbkOFw4OX2K8l5VuqnM/Iz+4+lE0KAkJGSZ5aFA3BHdHusTvRR1bHdWqPBvecPIGyNHXGaiuIdz2LVWjL4hvfM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fF+plmVG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RVQ5q47I"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1774C1F000FF;
-	Fri,  9 Oct 2026 12:23:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fF+plmVG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD5511F000FF;
+	Fri,  9 Oct 2026 12:23:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791548601;
-	bh=zZsYcIqLxg0OAkcAKLbc2gV52UTsbPaItZkbN001vq8=;
+	s=k20260515; t=1791548612;
+	bh=90IM5mFfCV2icDQTI8DaZNbppeicpnEz6Uh34ZazFDE=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=RVQ5q47IJXbdCJ33IhFhCqoxPNWZvkHSjS9V/IYBH2Sz7aFrMMv2nHXcD+Dvw8riE
-	 8cPBQ9YN6e4ho9q5d1/yH90jUTppGatEfSo97GepPKfiZf9wUQxxk09MyEFyZ0upNy
-	 Ls4jKIHaifo/QI3aCvFcw31OVSjUzWVcI1xvi8Ke+gwQ5Exh+ixS3zcNQDXu4Ud6Wu
-	 Z4RZqYQ6IqJgYYbiMbP+rLvufbxciojxhSbKg1O47SHJKWOPThOODvORuQ8sQk63jY
-	 LEnot/4/R2EPGQFKzJNo+n7swFavBbEYpDMdt91xcT5Vh9sz0R07/13RCQ8k7k7neS
-	 r00evXOBlcDnw==
-Message-ID: <sashiko-outbox-165529@kernel.org>
+	b=fF+plmVGBiA2mR9DmRo5ti13+72xImTa3gesGFgfioNhE2FFuOAbm8brCmR4EBjco
+	 VE3DD6mvh4egQbWUrnnYqBgQ4fUu6MouS6k2B6tlXnMlJ3Hpy4ut0U+VxukSpz4sWF
+	 QB5tvlvmMqUUf9jCpNkRnE8oLjvQthR4lj42HwQQU59ZLWxi4dF9tt6B39Z5rXMjuM
+	 GwzkGg0T6Ul0XtN4CTwJ2yZK781WkDGPCYz9JQNLc6f/kz1B2SJGqdntCbg16gmDKD
+	 cLzM+/e+JwSfY0naOJR0MPz/VFt7uovUIdgKMUnPYSfmOuRYzyuYhHCWs9Dd5/Sq+P
+	 uiJ9Le8l+W4Rg==
+Message-ID: <sashiko-outbox-165530@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: power: Convert Ux500 PM domains to
- schema
+Subject: Re: [PATCH v2 08/14] clk: samsung: exynos8855: add block peris
+ clock support
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Linus Walleij" <linusw@kernel.org>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261009-ux500-power-domains-v7-3-rc1-redux-v1-1-5eb1b90bc35e@kernel.org>
-References: <20261009-ux500-power-domains-v7-3-rc1-redux-v1-0-5eb1b90bc35e@kernel.org>
- <20261009-ux500-power-domains-v7-3-rc1-redux-v1-1-5eb1b90bc35e@kernel.org>
+To: "Raghav Sharma" <raghav.s@samsung.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, linux-clk@vger.kernel.org
+In-Reply-To: <20261009120137.2801911-9-raghav.s@samsung.com>
+References: <20261009120137.2801911-1-raghav.s@samsung.com>
+ <CGME20261009114353epcas5p2ab971c641319dc38209c55619e8c8ed9@epcas5p2.samsung.com>
+ <20261009120137.2801911-9-raghav.s@samsung.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 09 Oct 2026 12:23:20 +0000
+Date: Fri, 09 Oct 2026 12:23:31 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,70 +48,71 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] dt-bindings: node name pm_domains0 violates generic power-domain.ya=
-ml pattern
+- [High] clk: missing CLK_IS_CRITICAL on system-critical gate clocks
 --
 
-commit e036f4f6150d2ad689c2435137c3f93e75ad275c
-Author: Linus Walleij <linusw@kernel.org>
-Subject: dt-bindings: power: Convert Ux500 PM domains to schema
+commit 717955d4667d1084ee3be06cb476ef2408019f3e
+Author: Raghav Sharma <raghav.s@samsung.com>
 
-Convert the legacy Ux500 power domain text binding to YAML. Move it under
-bindings/power. Reference the generic power-domain schema.
+clk: samsung: exynos8855: add block peris clock support
 
-> diff --git a/Documentation/devicetree/bindings/power/stericsson,ux500-pm-=
-domains.yaml b/Documentation/devicetree/bindings/power/stericsson,ux500-pm-=
-domains.yaml
-> new file mode 100644
-> index 0000000000000..bf83ce3326746
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/power/stericsson,ux500-pm-domains=
-.yaml
-> @@ -0,0 +1,41 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
+Register compatible and cmu_info data to support clocks.
+CMU_PERIS, this provides clocks for PERIS.
 
+> diff --git a/drivers/clk/samsung/clk-exynos8855.c b/drivers/clk/samsung/c=
+lk-exynos8855.c
+> index 5394706d214c9..2bf889a478bc9 100644
+> --- a/drivers/clk/samsung/clk-exynos8855.c
+> +++ b/drivers/clk/samsung/clk-exynos8855.c
 [ ... ]
-
-> +allOf:
-> +  - $ref: power-domain.yaml#
-> +
-
-[Severity: Low]
-Does referencing the generic power-domain.yaml cause dtbs_check to fail for
-existing device trees?
-
-By referencing the generic power-domain schema, this binding strictly enfor=
-ces
-its node name pattern:
-^(power-controller|power-domain|performance-domain)([@-].*)?$
-
-However, the existing device tree node in arch/arm/boot/dts/st/ste-dbx5x0.d=
-tsi
-is named pm_domains0:
-
-		pm_domains: pm_domains0 {
-			compatible =3D "stericsson,ux500-pm-domains";
-			#power-domain-cells =3D <1>;
-		};
-
-While the example below was updated to power-controller to pass local
-dt_binding_check, the corresponding .dtsi file was omitted from this patch.
-Should the .dtsi file be updated in this series to prevent a lingering
-dtbs_check validation regression?
-
+> @@ -1094,6 +1096,99 @@ static const struct samsung_cmu_info peric_cmu_inf=
+o __initconst =3D {
 [ ... ]
+> +static const struct samsung_gate_clock peris_gate_clks[] __initconst =3D=
+ {
+> +	/* System will hang if this critical clock is gated */
+> +	GATE(CLK_GOUT_CMU_PERIS, "gout_cmu_peris",
+> +	     "dout_clkcmu_peris_nocp",
+> +	     CMU_PERIS_CLK_CON_GAT_BLK_PERIS_UID_CMU_PERIS_IPCLKPORT_PCLK,
+> +	     21, 0, 0),
 
-> +examples:
-> +  - |
-> +    #include <dt-bindings/arm/ux500_pm_domains.h>
-> +
-> +    pm_domains: power-controller {
-> +        compatible =3D "stericsson,ux500-pm-domains";
-> +        #power-domain-cells =3D <1>;
-> +    };
+[Severity: High]
+Does this code expose the clock tree to fatal disablement by
+clk_disable_unused()?
+
+Even though .auto_clock_gate =3D true provides a no-op .disable callback fo=
+r leaf
+clocks, the Linux clock framework will still transition its software state =
+to
+DISABLED and decrement the reference counts of the entire parent chain (e.g=
+.,
+dout_clkcmu_peris_nocp -> mout_clkcmu_peris_noc_user -> ... ->
+fout_shared0_pll).
+
+Because root parents like PLLs use real hardware .disable operations, they =
+will
+be physically powered off when their reference count hits zero.
+
+Should the CLK_IS_CRITICAL flag be explicitly passed in the flags parameter
+here to artificially bump the reference count and keep the entire parent tr=
+ee
+active forever?
+
+A parallel block introduced earlier in this patch series has the same issue:
+
+drivers/clk/samsung/clk-exynos8855.c:
+static const struct samsung_gate_clock peric_gate_clks[] __initconst =3D {
+	/* System will hang if this critical clock is gated */
+	GATE(CLK_GOUT_CMU_PERIC, "gout_cmu_peric",
+	     "dout_clkcmu_peric_nocp",
+	     CMU_PERIC_CLK_CON_GAT_BLK_PERIC_UID_CMU_PERIC_IPCLKPORT_PCLK,
+	     21, 0, 0),
+        ...
+};
+
+Should it also be updated with the CLK_IS_CRITICAL flag to prevent system
+hangs?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009-ux500-powe=
-r-domains-v7-3-rc1-redux-v1-0-5eb1b90bc35e@kernel.org?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009120137.2801=
+911-1-raghav.s@samsung.com?part=3D8
