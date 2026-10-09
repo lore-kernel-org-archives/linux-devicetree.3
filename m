@@ -1,116 +1,89 @@
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8EC23C0607
-	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 09:47:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A71BF47206A;
+	Fri,  9 Oct 2026 09:48:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791539268; cv=none; b=XMsu9yXpBpBNQFZiUg7UjHVLRwIx8oZFB56lj916r9QAbh8XhJQXNQ0etevHktnDzF7ENIFoXyW9frtVZjVtOn4j83UN8ZrGbJfTjfUQZaSv6X6HNStVWzXDDnCpmDrqXH6Ri0aG2sb1ynfFJeFCyG11iiiF9KX6ctlSLUyJhgY=
+	t=1791539297; cv=none; b=aZMhmOHHA2YHjE2UykzEVKBtc1yGCo+FEDVrTqR5NwBvjQy24L9Pue532AP7W4Lzcd1Q2X9VVgxzdG8hqxLhhedpZhzm0dp2GoVYOyiSqp+KJqRzTJwUbcUemNM1F035ZuE3vrfm2ZgBnIycY75jOip/ZiVbm8UYbP7XfOZ3OTY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791539268; c=relaxed/simple;
-	bh=B4rpVl4mptJjkcyRtvFrb+ksh0rsTg1kk1VMkeNJfyM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=r9QABuvfBc16ubktELEN7txCVVY4MwephruV62shwdrWDPx0smkc9JRJ0NEoNJBWdExYq9lpQhdyCRmHUj8WFYZ3LiZ5yEfRUwYEPKXl56DTP8HEQisYEH6OmQPfwelRfxan9WCWG2VSB2b8BYGV5XuVEPKx6eVKIjc8yeDwsSE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k6+nEOuq; arc=none smtp.client-ip=209.85.214.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791539297; c=relaxed/simple;
+	bh=gfEPROF6FaM3ERcpvy9TR34icGdTIQB2rVjhJsjHZNA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=B88CgC+rtmisiMcB21ubfBnyC8zF7NwLK/TQq91HQ/7Rpe/bkDBFL46NzGw2m5Sx77eyp2/AEQUiNL+uyS44sIXtUp4bnr13T+ifq6uqeRXMsgR4XSE/Qtr3rRa/918szbaVp7N9iJrJGbfSctL4l7neRlmCjflat8rJ05BHSfI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LI8lH4zB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k6+nEOuq"
-Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2d6d28aa26cso30386035ad.2
-        for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 02:47:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791539265; x=1792144065; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=TrPTdcZ/njH2i3/j2LZUGAT14iJIsacuNVj54+laGas=;
-        b=k6+nEOuqK4IAjrktw65AHdhSink7++M5Nr8mckpwX6roTe1dztn07+ax0krKldOFL0
-         mCRaCZmMPqBms3gApgkoP1VORum0AVBhyZp1k8yxcxhn/un8X//bB7CnxcCgTV3wc2Go
-         rZnx2EHEAf3KjY/tqlmDa0k4xFPI91A/xdB5JIcMgMcmDVZCGoWk1ZmuOvAgHxvyAnOk
-         tpTKbUXMzLfOcVNGP9utuwbY7JeuE1/U2T4hvWVZnFh+OuanX0u7CHKSIwL0duGvgPN5
-         BiGLfOMOFvI6se2lERN9/9KiUuT5EgjLYfXFlp3HFgvCK8fvS2zNq7U9cGAwWUr/g326
-         T8bg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791539265; x=1792144065;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=TrPTdcZ/njH2i3/j2LZUGAT14iJIsacuNVj54+laGas=;
-        b=AnRbEJb6RDGeXikq0gqGakWdgfBdaxhUEdgRk7brGko7Uy1/TU1puNKHna2rMxAfvZ
-         xsTO6kLqW3KCCdb9Y7Mxs2Osk/owaOQGetsL7gIPV98Bw4XqO/3dXWjTzACoFH2E7Zfo
-         GkSYoA3cJlm0x27Fo1nNRHOzbaUG9A//+NvqOZJyO0OYJDsEUDWO1QWJWYAxn9O/76Tg
-         YDPSHFF9Vfm3ITqU88tn79y1iqJrViVJ9N6/Fd2vOw1JSlppI8XaAsTFeFBLe86tRt6Q
-         kI+QCJNbicQFgpIqRlDfLojDB0T+gGUrQfA3gh6eIgkOV0rDPcLPaXHQw6vraQ2lzcJV
-         p9yQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx4SeiK2Uj6aLFwucT6Q6K1lrBmOtUzwo0o/Ed6JgyBGvwpT9Wk3qYejAikeFYdXBE5NVQmjqAD4iuA@vger.kernel.org
-X-Gm-Message-State: AFq9FYKg16hmLQtVx0pBsa3C0K7OczI9PpGknauIKEHmKR3ucVIgynyN
-	tuDGbTq0g6m2dajzhDbdy4oluWKLczX3yEzKlytPxtk5zkEtSRcmDdhM
-X-Gm-Gg: AYBFou3Rxmf2sFTrQ0Bt1hdTxhV0K7jxdK446rozmTPA+Y47rzXYpVBnK3L8TaqJPOd
-	GTRGsJ8PUNgzfZ74i1tUU17mFtFwtvJ+rClbmv9PBn8LcqM2sFqbEo16uEVUonnP8T2ROMd3WQs
-	yQ1RngzldidegQhaUzI2WNNXoOlQht86McW8grgTvQ5ShpAU0MSqxWawfAeWA1QpirDfHvuA/JN
-	IRFAJ7709PIechfjd8fhsyRwWBfQDrW/Jw5m0wakmYXVv28QTeShIqLFhu8TpqyYLv+qVu4OKAh
-	cK1n876myDFHzrTF7dBw6pUA1CjX2EoKQOezpkdXL6XfxKeSrpwKCYw1EN6poE0rKInBao10sQQ
-	ygIFxlSwnfsGPX16fAaf+GK+eOcTcUOepi3EXO4xpgyt57wrXYoAXv4fkK35Gb3TcdlTX3SSo0q
-	KuIijXocwnZfpMuZ6k6B8laeTMoffMvCPvJ2vktjuZzwYhFNk5jRHsWCv7FF5dwbWeRsHI
-X-Received: by 2002:a17:90b:224c:b0:3aa:faf6:a951 with SMTP id 98e67ed59e1d1-3ab3a9a93b8mr1318325a91.37.1791539265069;
-        Fri, 09 Oct 2026 02:47:45 -0700 (PDT)
-Received: from localhost ([2001:19f0:8000:3e6e:5400:6ff:fe38:3d01])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab38b981b9sm2638018a91.5.2026.10.09.02.47.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 02:47:44 -0700 (PDT)
-From: Inochi Amaoto <inochiama@gmail.com>
-To: Mark Brown <broonie@kernel.org>,
-	Longbin Li <looong.bin@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Chen Wang <chen.wang@linux.dev>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Han Gao <gaohan@iscas.ac.cn>
-Cc: Inochi Amaoto <inochiama@gmail.com>,
-	Han Gao <rabenda.cn@gmail.com>,
-	Hangfan Li <lihangfan@iscas.ac.cn>,
-	linux-spi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	sophgo@lists.linux.dev,
-	linux-riscv@lists.infradead.org
-Subject: Re: (subset) [PATCH v2 0/4] spi: sophgo: Fix SPI NOR errors and clock limits
-Date: Fri,  9 Oct 2026 17:47:08 +0800
-Message-ID: <179153921379.259252.17749060045138037060.b4-ty@b4>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261001-fix-sg204xspi-v2-0-014dbaf22b5e@iscas.ac.cn>
-References: <20261001-fix-sg204xspi-v2-0-014dbaf22b5e@iscas.ac.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LI8lH4zB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E3CF1F000FF;
+	Fri,  9 Oct 2026 09:48:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791539295;
+	bh=JXtlX5hG95mG5lTIoT3TYQ8tfcWfZ8/oiEVQ0P2zHBE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LI8lH4zB6RNEp4VnHe3Q9j6YqKvwT8rdL3KS2YbEHKoK+U2j+dKfZ0ukdoVyP068H
+	 M3sNhzr6at4bKcOu/hL3KcfB5WgEmVnq1QUQ08+QBELcUnMDRp5jek4MZobX6H2hM2
+	 aBtbFsypg75OCKF/+hyYNl0yiesW0Vz+vhb303zXZPtCbgOuAdvFr+vBTWJT5lL+9D
+	 5sTY5MlzOZFC5YCjgFJB91nAiiv3k7WzLCs8d4n5l/0WDCgxVFlKeQBKhakkzYED/q
+	 s47LX+OKYx6RipXe+++CPw491G3oehXPLhVkqLg2VWyAQ1s50yFPbTAYCC6V1ONPjv
+	 XPsHKgUfgnykg==
+Date: Fri, 9 Oct 2026 11:48:12 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com
+Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+	Loic Poulain <loic.poulain@oss.qualcomm.com>, Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+	Atanas Filipov <atanas.filipov@oss.qualcomm.com>, Jigarkumar Zala <jigarkumar.zala@oss.qualcomm.com>, 
+	Gjorgji Rosikopulos <gjorgji.rosikopulos@oss.qualcomm.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Vikram Sharma <vikram.sharma@oss.qualcomm.com>, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Daniel Scally <dan.scally@ideasonboard.com>, 
+	Niklas =?utf-8?Q?S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Deepa Guthyappa Madivalara <deepa.madivalara@oss.qualcomm.com>, Yuchan Nam <entropy1110@gmail.com>, 
+	Jai Luthra <jai.luthra+renesas@ideasonboard.com>, Robert Foss <rfoss@kernel.org>, 
+	hariram.purushothaman@oss.qualcomm.com, pshrotri@qti.qualcomm.com, johannes.goede@oss.qualcomm.com, 
+	linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RESEND 24/45] arm64: dts: qcom: use SM8250 IFE resources
+Message-ID: <20261009-wisteria-hare-of-realization-6cc5ac@quoll>
+References: <20261007090041.3732717-1-gjorgji.rosikopulos@oss.qualcomm.com>
+ <20261007090041.3732717-25-gjorgji.rosikopulos@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261007090041.3732717-25-gjorgji.rosikopulos@oss.qualcomm.com>
 
-On Thu, 01 Oct 2026 02:22:49 +0800, Han Gao wrote:
-> The SG204x SPI NOR driver ignores transfer errors and clock limits.
-> Fix both, enable SPI NOR on SRD3-10, and use 12.5 MHz on SRD3-10 and
-> SG2042 to match EDK2 and the vendor kernel, respectively.
+On Wed, Oct 07, 2026 at 12:00:20PM +0300, Gjorgji.Rosikopulos.gjorgji.rosikopulos@oss.qualcomm.com wrote:
+> From: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
 > 
-> Tested on SRD3-12 at 12.5 MHz: both flashes identify correctly, SFDP
-> reads succeed, and two full 64 MiB reads per flash match.
+> Signed-off-by: Atanas Filipov <atanas.filipov@oss.qualcomm.com>
+
+This patchset is horrible. You did not even run checkpatch on this.
+
+
+> ---
+>  arch/arm64/boot/dts/qcom/sm8250.dtsi | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 > 
-> [...]
+> diff --git a/arch/arm64/boot/dts/qcom/sm8250.dtsi b/arch/arm64/boot/dts/qcom/sm8250.dtsi
+> index 90f8b091634e..21550d25ebe8 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8250.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/sm8250.dtsi
+> @@ -4487,7 +4487,7 @@ cci1_i2c1: i2c-bus@1 {
+>  		};
+>  
+>  		camss: camss@ac6a000 {
+> -			compatible = "qcom,sm8250-camss";
+> +			compatible = "qcom,sm8250pix-camss";
 
-Applied to for-next, thanks!
+NAK
 
-[3/4] riscv: dts: sophgo: Enable SPI NOR on SRD3-10
-      https://github.com/sophgo/linux/commit/0fe449e8ff7b383a8375e85ebca40133a02f3348
-[4/4] riscv: dts: sophgo: Limit SG2042 SPI NOR to 12.5 MHz
-      https://github.com/sophgo/linux/commit/a3a8c25c59f8024eb70a460767ff0d7bcb213338
 
-Thanks,
-Inochi
+Best regards,
+Krzysztof
 
