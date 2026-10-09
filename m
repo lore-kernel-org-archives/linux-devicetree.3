@@ -1,134 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpbg151.qq.com (smtpbg151.qq.com [18.169.211.239])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DD803559C9;
-	Fri,  9 Oct 2026 07:15:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 547743ACF1F
+	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 07:16:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=18.169.211.239
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791530122; cv=none; b=g1K+FDdShz/v1hgzASV8Ej0K3NxlPC4ah9u/So9GIFrhoAkJIMw09kqH/ESVFPr+kkTIPcyayCweWujsFqeBztwmArqJwhQuat8gJNeLJxIlRPf1Utt91F1KdPzRyQvnuA3BLARFPLpdTGXBsTdvdWdcr++xbtX2aoeIS2KVZac=
+	t=1791530183; cv=none; b=GOanLawtccp+vnneAPhUDeBz9/hhciaXyJdSzxz9lbJcmeP2jJVRObkOuTQwWcALbSUyER+lrB6hUavbEJsh+6VKRUUI2WkgeOCrEtupITPA04MyyxYRJfA2UQnfnu5LFo8a31ryre2uHCSjGComvVEbZx0yow5WMj8BVGVAJ/Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791530122; c=relaxed/simple;
-	bh=AmKyi1hyMFnINkmMB1DwHjQ2GJTDaFZzhrMibXeB3Zk=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=FiQQ1Hu3q2myC3QpOW6+3avOTnKa2vYg79kpSgDAt7sx15HrCZUR1/PMiZMtyFuD/Be9XcI6wFtvkIHaozoeO7BlGnov0VYJmwRin4kKai2O1RpoDCVRWf7NTKkCZVlDVrtEG2EEjKAz+IjrMeMTHiPZKpOryAmilyiYaqZElFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ONebPO/c; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791530183; c=relaxed/simple;
+	bh=fPAvCvMkvS82SGNBTuLFU7mtu1DS+RQRnEno1GUhy7c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=uoyls84I8acCYYkncZV7iISLnWrxDsBSYpl9euTr181Bf8I3SyLFzuQGQWNmAZdVi6gY4a24BKBBii5EF1fxFYn3PgWccY8wVTBtXxCHAy+RZlom4I6ePZ054Sl5D3RohrBdKO8xGSJrWuBCT0ET+m8vj+j86Gl3WorKRuoUrEI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=FtzlXQZi; arc=none smtp.client-ip=18.169.211.239
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ONebPO/c"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C28F01F000FF;
-	Fri,  9 Oct 2026 07:15:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791530121;
-	bh=6rZG5uEV3Afnge/6hmmiReEg45xb/AVM5DFIOvLBUjM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ONebPO/cXmPmbGQYsFla1iycxmvvyFriKHug04/mxjbJBoMCXRiur3SgHextdHJ61
-	 nZPjt78UzqaO2BT2axlsFxoPnVsdBAg/ChukkQTFNFcRkUITP8HrBPo8DYZYSph+vz
-	 uaDrmv1JdR0RPGlf83zcyB2ggTEo3vC7WQx6s05rdq3rPsGp+YCPZumMS+X58FFKfL
-	 zsGbRm6rkih1bfm6mzJ/GUtOxdPJe++i+kurYzlQLkp/u+wQiqkEduRQfitl4LMlUm
-	 277E2G7CjD1ecHdeEz2gRaYqMjxrCsE7wpK9+xXKxKo8XEVdD96Zbx/i6jvCpqxS/w
-	 D4WXwpC194+Yw==
-Message-ID: <sashiko-outbox-164987@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 3/3] clk: en7523: add support for Airoha AN7583 clock
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Christian Marangi" <ansuelsmth@gmail.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, linux-clk@vger.kernel.org
-In-Reply-To: <20261009070725.13196-4-ansuelsmth@gmail.com>
-References: <20261009070725.13196-1-ansuelsmth@gmail.com>
- <20261009070725.13196-4-ansuelsmth@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 09 Oct 2026 07:15:20 +0000
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="FtzlXQZi"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1791530173;
+	bh=5Sbve23T2nM2tzDYXLYF+bZA1hmEj/GkRMM29V+yUkw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:From;
+	b=FtzlXQZi/w2OEBCsGjpr9cAp5ZFt6b+BgiVKKLLEcpTW3fjiXXfREPSh2Xwbi/WiC
+	 CadEdZEesT0BYMi9cJtKxFILLZfa4tauo8q/KLC24dEOl6FU+BWTvauZceWcKrdnUK
+	 qlIA+Ke43O1j5jaPKSTe+EMP4/+NOCwkbNW/z6k8=
+X-QQ-mid: esmtpgz13t1791530168t2d291361
+X-QQ-Originating-IP: khSeAFlHEEgU33IJubM1BqqYTdCyduUbyBl99wc8zk4=
+Received: from [192.168.1.100] ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 09 Oct 2026 15:16:06 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 10654036301431491844
+Message-ID: <FDA9F931EC8B8D5F+e3ce2a41-637e-45a6-b46e-6bfdeab5076e@linux.spacemit.com>
+Date: Fri, 9 Oct 2026 15:16:05 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 1/8] dt-bindings: usb: ci-hdrc-usb2: add
+ spacemit,k1-usb2 compatible
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
+ Xu Yang <xu.yang_2@nxp.com>, Peng Fan <peng.fan@nxp.com>,
+ Peter Chen <peter.chen@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
+Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+ spacemit@lists.linux.dev, Conor Dooley <conor.dooley@microchip.com>,
+ Ze Huang <huang.ze@linux.dev>
+References: <20260927-b4-spacemit-k1-usb2-v3-0-ce7095896039@linux.spacemit.com>
+ <20260927-b4-spacemit-k1-usb2-v3-1-ce7095896039@linux.spacemit.com>
+ <bcd2df4f-9ff6-4d30-8735-573d661bf367@kernel.org>
+Content-Language: en-US
+From: Junzhong Pan <panjunzhong@linux.spacemit.com>
+In-Reply-To: <bcd2df4f-9ff6-4d30-8735-573d661bf367@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz5b-2
+X-QQ-XMAILINFO: MPAlP4yRn0xgAWIYGM92J8UK4U4zUV1zNnaFXS8m5wJ3ehp6wTvBCBGf
+	O5RTe3cRqhZrzugRqWaZsKh44+hIOp7gqWS+efNW3FOe5Z4yvtGckWbjcNp/A8JAKfLrzFb
+	+t+nLxPxA4HZvgtHlmS2j3M4EuRLL1XCD1EJW/X9Ty84uE/E9rIOXbb4NelsDTtXXUNG4F3
+	fs4seTzjiHvDQHJ7Q0qLh6ha3pMBbuUrDWuCGlhO6EmKUzfgRbxiw/tRzN6tgZK3sW3bDoC
+	p/oaQY1PPxOsTHDPQhmqrBg3emPGdkv5kV2HUeDj3fGTV/lYNMYOmXzkq8J2AcOOYXo+h4U
+	wSXAUH/xA0HHpVH5G01DNvmf5q4vo8YH1Don3aHARSzmri7WVolMrg7e+RFLoiRG/VVhcPs
+	uCgYz8qfwNkYsLOO1iuvXy9Zee770YX683IXTntTCjD1mpy787ioHEeAwxxbA+CS40yGTmu
+	S0PhrKl7CJWgfjhnBUBWp8ksa/bvBVsw6ETNsb73Kax39Hn315nY/Tyu3ZKw+BEClzuZ+YH
+	Xs213HCUtK/AQtWlctaUNKVHRR7JCYp1T7Zk55Otdmwyd9hk41zYhBPeaImDjvW/CWqfE7d
+	g+o+KxVcJdNE83CSJXyTMt1BjDjja+3x4kxWgu59c+3CGKYKHFKLb7IRxvxqVpwmWkJ4528
+	FMhZkyIFg9huu4xkmtgiQmyGBz0Z3wc5W0vxYl7yNKdO1N6PWtjO+GYZFbWA1xXackqXwDL
+	zFZmGLvRc+kMHvYlTqTk/GU7xb3hZNhKDy5hLrl0j3moBmDcbSdJzrPnQY9L92lW2XgZmzp
+	BU4J/gbI6k9W5hE/GulseC7U8Q7ZNDSnWYXYFC8jcgwrFNdP8w3XDpBTvbBAarCll3Oto47
+	YrWLRj1SS6QSlthFkQRmVSppKpQnQYgbHl3i2GeDlquSUH/H7pSBvW4XLCTNnRKaPBuVK0v
+	8eLZQmmG94x+6d4utVQ87OFAJnFV4+QUDitvNqcqErdfMcRFTdwYlgWe0rw3E5fDuPrBnF7
+	v0peeyKYixP3EvABbnFbzpGeEwRoyPvdbI7c55q9qctqnw6eNn
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+X-QQ-RECHKSPAM: 0
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] clk: en7523: NULL pointer dereference in PHY ops due to missing pr=
-iv->base initialization
---
 
-commit 37bd1589683423a3a7795bb6de626bc15702ea39
-Author: Christian Marangi <ansuelsmth@gmail.com>
 
-clk: en7523: add support for Airoha AN7583 clock
-   =20
-Add support for Airoha AN7583 clock and reset.
-   =20
-Airoha AN7583 SoC have the same register address of EN7581 but implement
-different bits and additional base clocks. Also reset are different with
-the introduction of 2 dedicated MDIO line and drop of some reset lines.
+On 10/6/2026 11:09 PM, Krzysztof Kozlowski wrote:
+> On 27/09/2026 13:40, Junzhong Pan wrote:
+>> The USB2.0 controller on the SpacemiT K1 SoC is dual-role capable but
+>> has no internal OTG registers, this requires flags which disable
+>> related features set in platform data. Add a compatible string to match
+>> the platform data.
+>>
+>> Chipidea USB2 Controller on SpacemiT K1 requires 1 clock and 1 reset to
+>> work, add constraints for it.
+>>
+>> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+>> Tested-by: Ze Huang <huang.ze@linux.dev>
+> 
+> This is a fake test, you cannot test bindings how we understand Linux
+> kernel testing. Please drop such blanket-fake test tags from all patches
+> where this is not relevant.
+> 
 
-> diff --git a/drivers/clk/clk-en7523.c b/drivers/clk/clk-en7523.c
-> index ec66a504d4c55..d3a273b46c8f0 100644
-> --- a/drivers/clk/clk-en7523.c
-> +++ b/drivers/clk/clk-en7523.c
+Okay, I used b4 before and I thought it should be collected in whole series.
 
-[ ... ]
+I will drop irrelevant ones, only keep those in patches truely tested by Ze's
+setup and send v4.
 
-> @@ -1088,6 +1287,40 @@ static int en7581_clk_hw_init(struct platform_devi=
-ce *pdev,
->  	return en7581_serdes_phy_register(&pdev->dev);
->  }
-> =20
-> +static int an7583_clk_hw_init(struct platform_device *pdev,
-> +			      struct clk_hw_onecell_data *clk_data)
-> +{
-> +	struct device *dev =3D &pdev->dev;
-> +	struct regmap *map;
-> +	void __iomem *base;
-> +	u32 val;
-> +	int ret;
-> +
-> +	map =3D syscon_regmap_lookup_by_phandle(dev->of_node, "airoha,chip-scu"=
-);
-> +	if (IS_ERR(map))
-> +		return PTR_ERR(map);
-> +
-> +	base =3D devm_platform_ioremap_resource(pdev, 0);
-> +	if (IS_ERR(base))
-> +		return PTR_ERR(base);
-> +
-> +	en7581_register_clocks(dev, clk_data, map, base);
+Thanks!
+> 
+> Best regards,
+> Krzysztof
+> 
+> 
 
-[Severity: High]
-Are we missing a step to retrieve the driver data and assign priv->base =3D=
- base
-here, similar to what is done in en7581_clk_hw_init()?
-
-Without this initialization, when the PHY is later configured,
-en7581_serdes_phy_set_mode() will attempt to access the mapped resource:
-
-drivers/clk/clk-en7523.c:en7581_serdes_phy_set_mode() {
-    ...
-	spin_lock_irqsave(&priv->lock, flags);
-	val =3D readl(priv->base + reg);
-	val &=3D ~mask;
-    ...
-}
-
-Because priv was zero-allocated during probe, priv->base will be NULL here,
-which could lead to a NULL pointer dereference when readl is called.
-
-> +
-> +	val =3D readl(base + REG_RST_CTRL1);
-> +	val |=3D REG_PCIE_HB_RST;
-> +	writel(val, base + REG_RST_CTRL1);
-> +	val &=3D ~REG_PCIE_HB_RST;
-> +	writel(val, base + REG_RST_CTRL1);
-> +
-> +	ret =3D en7581_reset_register(dev, base, an7583_rst_map,
-> +				    ARRAY_SIZE(an7583_rst_map),
-> +				    en7581_rst_ofs);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return en7581_serdes_phy_register(dev);
-> +}
-> +
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009070725.1319=
-6-1-ansuelsmth@gmail.com?part=3D3
