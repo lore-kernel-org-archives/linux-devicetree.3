@@ -1,88 +1,87 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 222394DD3D6
-	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 13:13:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43AA24DD6DB
+	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 13:13:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791551610; cv=none; b=Tn5zpnMfnwMYyuV74KmkkqDTYLBKXIbILdn2+PiCaNd/ClENob2UMR8HRxY10XUH1P6WuEXbHh4YGRhTAzFGdmIgAaOvN88scmAQAzW7FKcyjC+uXK7FTds0ZlhyQ6zIil4yoKMjyRy9zhy+MiMh/wd6ySE9bfVwgITFf/FsbjY=
+	t=1791551617; cv=none; b=MaLd1euy9y8wDv8Sf48J9mgunj67FeOQr9JJiORbW8dAsTsTxaoSVMBZjyD8iTEizH4x94lomnn+rIJ53L5XnW0ntvucWWUx8O/YlIkekM95wpXAPwIUSbd/j2gALpkPCwF9LoT1CMNpSvemf4Tk4fDg4rhxObKyw51Xa6PxTNA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791551610; c=relaxed/simple;
-	bh=nOdZ4dJi4CLhoIaxTZa04AzcpHb/EaKg/lezdA5JK/I=;
+	s=arc-20240116; t=1791551617; c=relaxed/simple;
+	bh=ZwUqGQcfk6A8AMkbVhhLt/3nAUTH/gARFozvZNrREck=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=uO7nSw92PNtk72q71XiouarEJxNbOKOl9P7HOJRT3ErHdMwDCHlHx7WXy/xXG+LaiV0jIhG4HlZi1f9SJHxleSf+wKmh90VcDp3iN1INtzOXygaFr1xXW+b0u0r9fWOSo7o6XsEMC5fFeH3SyHrV3ZEV3wwrfcH7ibnUmLG9Aw8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GYqKdFNA; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MeQpHO92; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:To:Cc; b=i10bAIHS0DYn7mb4/dcKRv3pHDwge1WB2jesTeEyCS07FfUdOxk/fXrr3YdHwVIx/LwIbh9NJjtYcLlIb3lUlg0yGlON9vrDV1CUPfGOuUCfzlCX+oEbd2mnwFyBy1taRcmNAcjXMPrcsr+sIKMJOiX8BLUzQ5hujXucggA26ho=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Gm+TZFEu; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=LCts4h4U; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GYqKdFNA";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MeQpHO92"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6998KFbZ642365
-	for <devicetree@vger.kernel.org>; Fri, 9 Oct 2026 13:13:26 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Gm+TZFEu";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="LCts4h4U"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6998KLjf1746950
+	for <devicetree@vger.kernel.org>; Fri, 9 Oct 2026 13:13:33 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	c3OozHMDKL9LuB/ECNG3iM90iusYb3/LluZS0Rot1V8=; b=GYqKdFNA1hPHi5Ne
-	AJ1xZy4Lgooj6UAjMbcvVaPh1+nqsghXxm5WTDzjdY+n+o/TcozKRY/FqP+dBJFA
-	0swNTZL+h1szolwRccPOcWfpVo2NbeBaRK+m/Hgh62LjHT1fY+2Ya4/MIZi0ZOCA
-	pu42Nb4upV+xrxfaBxTzwYfNAhsbOY6BMwaS5uoc6Bai04DQ+ISG4nLQVYmpkpuq
-	FlYHHu0Qa8PbWy/ke4VRFshIO0E9BWj8RNssczujSon4I0EIhB9nqc0vqxuVWCm2
-	9Mj81Y9ackzhXwBmuohVGiYet+UqWp+KUQWsKnKwGNUINn3OKk40VgJsfpP3vpFm
-	1iBxxw==
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h6fxruqa2-1
+	ovAtjVylzCtvs0ocdhdGM61fkRLi9pS9EMibasV4DE4=; b=Gm+TZFEuM6+nCu+i
+	4brH74Mnws8MgL1+eIpNPFaYq8m6wRji9gKvliZlx1D/PwQ7mcNT4+wzWcNjs4MS
+	3SKiEcoBa1ubdJZ7Fs6SsDft3eds6jLGTmQzZyVZAlAcsycI8060L72KKf5K88b2
+	ogeWLLvt4i5TDsbXv5nOlDpwHPgq50oTJ4jjWJ3LrM0uGtku+jX6kYkGJ3OJB/OK
+	We2YFK4G17Cg3+QW3TGmpwhPTn/Zgul3TvlLZfBJo7jtol1JusDl8ViYAzb60PM4
+	6AyGd9r44mSx1ZOWyB0/0kh7zy8RnDlgwfo9sw1dNPv8fAGGFLsIsBMMMnSFSIJC
+	mDc4SQ==
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h6ekvbyq0-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 13:13:26 +0000 (GMT)
-Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-887faaedb46so9020359b3a.1
-        for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 06:13:26 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 13:13:33 +0000 (GMT)
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-88d2d26a8d5so1696433b3a.0
+        for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 06:13:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791551606; x=1792156406; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1791551612; x=1792156412; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=c3OozHMDKL9LuB/ECNG3iM90iusYb3/LluZS0Rot1V8=;
-        b=MeQpHO92iFLHSnJTA3TgvYtbgLhK3Q6bHdCFWaDfkETuUJL9cNHaEOrlYmhsWd4azO
-         i+1tYO7D66SaClejU4PhourFpIcRGIAkdyss7JEhxO1Wev5ayFQbBWz3SBHYkCKTsDnP
-         +uIeA5qUAe5w/C8hO0+/GjwXWU37hKS0XV9dN9l4lQtilhLkMgcVT18NMP4TWkXFPMxf
-         mO3HzZToV+CzOfwRWfU9WaZXGAYFVyKmzIk2i0+02ktRbczrn76QRllWPtKakLnGM8jv
-         9ZYCbYcafh56lM8usnIxTKWnI3jZWysMgqLuZpmAgAPXeW6GvAgXk5mtC5+62SjI7wBh
-         1gyQ==
+        bh=ovAtjVylzCtvs0ocdhdGM61fkRLi9pS9EMibasV4DE4=;
+        b=LCts4h4UEaMUr0MROVCQ4gH92V/mS3+o8OIFPVPGFdFGATxBPkUwC06VavX37GyYQS
+         1XpEhJdc/arLJOxUs+Y77n0AeFQz+nw9aUCXyrdQ6NV1jzofW7s6nkYRydUMFZ/ob8zT
+         KWnN0dojJgaWzLmNKxvJxXdwhOWbIGYozHd3yNehcwBjSJhCd7l5Pm1HVsCDWTA6VOfM
+         5tr8IfMcL50pqTsiaOke5e6RglDbIPAoI1agDneHpIJhFdSRQLqpvAb7FNMuhCbLxG8/
+         PgKDpu7dMWdytaFrmYTJZ8G/Zu9jHe/xTVyCPMY5Oy7/8U8Ong10nhX3I9ep6k+fziTG
+         0j4g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791551606; x=1792156406;
+        d=1e100.net; s=20260707; t=1791551612; x=1792156412;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=c3OozHMDKL9LuB/ECNG3iM90iusYb3/LluZS0Rot1V8=;
-        b=VK9hkEYh8cyhv3vwF5TqoYzgOtGiVKJl0zLB6suGeDZUVQRzC2ObvrVr0e+qtY/KDo
-         alHdmiY6fhT6FC9J4o7PkQisOOMbkCPIzPYJojDz+E/+VQ2t/aVcQUma5pXu9yPebAz+
-         zZgU4BPXs7oWVqrxfpnD3GEQu0dfTc1p5dnV9Fuv57HhBubjJgVs2HpCeUXWqUAAcpWl
-         00I4gHn5e/CH7TLhR4AWuQFS6dTIqBg4mfSdLDw46SST1IskTGDtNP7BrUfUbMesFlu5
-         +4SI0fYmgZFome393jWOP4fcl9x9pYUdMPohDfoqsScITnPnOsHNz2g+egtU3+X1J0uL
-         ZoNw==
-X-Forwarded-Encrypted: i=1; AKwUvBxIRH8bsM4XIeUQ4cWbZg9pzWkvwFi0LZM6U6oWCwAVqmT7GH+vhmHdFgUg40QgIhmrGtyo5HcT+wpO@vger.kernel.org
-X-Gm-Message-State: AFq9FYI97RKSOKtjqcibx5T4LepeiV0PmXe7EnJF0c+GB2n/2bwkqHwb
-	lUMdlSyPKADXU3GlAm+H9euXBAS0tZlcO/KK/RlJXBBv9Fi7SKlyt/6jpejlVZ2EuJKFXwqPFWD
-	kgMkPAQHWqdID45JSarhK8Xq+dMp8pcBNnKXjVWitrWc10wnZizmq5zUIZAkaqcW9
-X-Gm-Gg: AYBFou0AJ/lKuqUqYwn8JOByGJqxYvV7rKLbEC086Fmrc8nJZfoV1qmeexw7u0eHQgj
-	ytrOBE4Pw5pZtfnoUyIBHC8IUNJjiJAl8SLgOh7pZrJn2aDAy+n9B7J6oDvoQEk3pOl7ZYyap5E
-	7pwPLZwXdDzlKae6h83xExEGIBB+tDKM9IfeJpQG4/9ZCjgmTqHLKujTK+o5UXmK84sdlmtb0nv
-	RZdARy9oZxjLoVymEfQG0p8TnChdBjMxnOuuwvIUqEaU/WiMncjtG7FdZXnu1ZMZjLZZQwh0L7a
-	5nRcKwLbXROBEE8xmtZ7pp+ufjUo3H7WSnLFH+k95+todcEFDykjAZLouWLT6riZytwBmUXG7ZX
-	wPCC18d7qHnZAXiheW+RzLxSu1VCUHAhDP2OM
-X-Received: by 2002:a05:6a00:4c9a:b0:882:be9:b779 with SMTP id d2e1a72fcca58-897c85aa47emr1623646b3a.57.1791551605594;
-        Fri, 09 Oct 2026 06:13:25 -0700 (PDT)
-X-Received: by 2002:a05:6a00:4c9a:b0:882:be9:b779 with SMTP id d2e1a72fcca58-897c85aa47emr1623607b3a.57.1791551605027;
-        Fri, 09 Oct 2026 06:13:25 -0700 (PDT)
+        bh=ovAtjVylzCtvs0ocdhdGM61fkRLi9pS9EMibasV4DE4=;
+        b=jZXbv8+ADX/PAX4A5wLyJQhZnk8pAz6nIG7mJCHeYFPWSuj57KAuKhBl8M3AC2G3Zu
+         q8RfZg1eI8VtD/CRTXO41GNOBbN8UDBQtVCjSapifyq36KS7LXHlbh3fnk1qkdwuxbpT
+         7Kil5IMnyZLwrtfV380k02ilzPLgJ5Rp63xAMNK7sLZzHMtFDXtSxHHxqd4XvSQyWonw
+         PoK2pG4F9G5dvFLOiCcY+Xvnmf/0xBNXbzCpKEGz47JSuWKwKILmhSFWgxw1A3HsMs/p
+         xGgtZUDloLzVEJBLf5Hp+hJDzNfvWPZg14c3lRzGxFof8Z/iK4xA951Ij3gZy45MTG9e
+         YacA==
+X-Forwarded-Encrypted: i=1; AKwUvBwZ6SFzYkZrfzoyTH3oxW+6MjzODERGTRk9VdJrKF37vP+emeaPepz4TrD69w6IhBkB2TlssRjjzGpn@vger.kernel.org
+X-Gm-Message-State: AFq9FYKaOACsfUUfJ9NqTupRtqJn/foo6WHL/IzGdOB26kb34i/E0gP/
+	qCNyldwXkxNH6KWHY8aA574lNULgY+UNiBx4fU0WBHdJEwwPOnwpkD7kuNb/6T/NTF0YhgKiKsC
+	3Kz4R+iNRNWyIpZskfk27tvw1wcp6FGmcLk2UrPQLf5irBa2X8ObTqyX46LPm4sTK
+X-Gm-Gg: AYBFou2dPUyh6WfaTEP2PJtArBxDEV3BBgBN+1M3g2jtrT2IB+wDMS3QU47cSsnIOCW
+	ZUVR/ZmZzvN9dfEhBN6KwF6HYsyYDyaTQoqFW6xbrO13RhuL2BQc6QOZnH0PwAZozp9xDt83C0n
+	LneRwujzN9yuuIFl2Wpa+vPDd+nZpTP8Rj86GkldOHkPdxP6JLkTnzZseI2PRaRDhWSR83MV4V4
+	5A5M8UmggJowWOEfuOiyDNL8WOfmluvKIJp1dYA/Jmgz2HwdTaVJv9SGVmGzszgfjvM16qD+FuQ
+	26TPypZezgQpXZb7TjRDpArKrIimdn8qgyYMPs9hKMcgVnn0wO5rq/d2oLdyhLQ4ZFHl7N8ECCm
+	OpPB9e+jqXN+Ren7+xdoKVpCnhGY65oSqMxoA
+X-Received: by 2002:a05:6a00:148b:b0:886:490b:f1d2 with SMTP id d2e1a72fcca58-897d4da001dmr1112676b3a.23.1791551611917;
+        Fri, 09 Oct 2026 06:13:31 -0700 (PDT)
+X-Received: by 2002:a05:6a00:148b:b0:886:490b:f1d2 with SMTP id d2e1a72fcca58-897d4da001dmr1112640b3a.23.1791551611411;
+        Fri, 09 Oct 2026 06:13:31 -0700 (PDT)
 Received: from hu-mohs-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-896c4b8ec86sm939053b3a.61.2026.10.09.06.13.16
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-896c4b8ec86sm939053b3a.61.2026.10.09.06.13.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 06:13:22 -0700 (PDT)
+        Fri, 09 Oct 2026 06:13:30 -0700 (PDT)
 From: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-Date: Fri, 09 Oct 2026 18:42:48 +0530
-Subject: [PATCH v3 2/7] ASoC: codec: pcm1681: Add optional SCK clock and
- runtime PM support
+Date: Fri, 09 Oct 2026 18:42:49 +0530
+Subject: [PATCH v3 3/7] ASoC: codec: pcm1681: Add TDM support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -91,7 +90,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20261009-nord-asoc-driver-support-v3-v3-2-0c1897f21ccf@oss.qualcomm.com>
+Message-Id: <20261009-nord-asoc-driver-support-v3-v3-3-0c1897f21ccf@oss.qualcomm.com>
 References: <20261009-nord-asoc-driver-support-v3-v3-0-0c1897f21ccf@oss.qualcomm.com>
 In-Reply-To: <20261009-nord-asoc-driver-support-v3-v3-0-0c1897f21ccf@oss.qualcomm.com>
 To: Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
@@ -106,284 +105,98 @@ Cc: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
         linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
         linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791551582; l=7870;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791551582; l=2096;
  i=mohammad.rafi.shaik@oss.qualcomm.com; s=20260424;
- h=from:subject:message-id; bh=nOdZ4dJi4CLhoIaxTZa04AzcpHb/EaKg/lezdA5JK/I=;
- b=njuWqfiz2ozyEy+tL5Oa98VOOrZ6Wc2MUGR1IAALaOG9vEpnUKSukYdq2FWAjv+7rS/qH6C3N
- EqYIVsnqaryC68tw/AByIKKrfxgbgr+HuHs/xVzUi1P8oIUBYuHWdqe
+ h=from:subject:message-id; bh=ZwUqGQcfk6A8AMkbVhhLt/3nAUTH/gARFozvZNrREck=;
+ b=3ScPKzIVVT1eAuET9LkmRhmrjVKlmZP1mVyPtyRNy+K5LKlssV4/8R1U0OPFC44kvcXZPUsTX
+ i9YEZ/rvH9JDwp0Lv5EUC1KX5ZBb5pfId0GdPKw8I2hYbY6mq6BYyWz
 X-Developer-Key: i=mohammad.rafi.shaik@oss.qualcomm.com; a=ed25519;
  pk=KZedmYgMGYOzuTpLGv56tdrL+pTLDP8pdmfQ91xemiA=
-X-Authority-Analysis: v=2.4 cv=E+1YNqdl c=1 sm=1 tr=0 ts=6ac8e876 cx=c_pps
- a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+X-Proofpoint-ORIG-GUID: P6iKReheTGSH5XPj8ZTbFeZqKw5Qp4sN
+X-Authority-Analysis: v=2.4 cv=csYOAF4i c=1 sm=1 tr=0 ts=6ac8e87d cx=c_pps
+ a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=4Eonb4LKoOtaKfZtrqEA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=2VI0MkxyNR6bbpdq8BZq:22
-X-Proofpoint-GUID: Y9-fI53rAo5bXtky9CM6Ml9eyiZ5OlC5
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDA1MiBTYWx0ZWRfX9qxqJ3bLJJzS
- royQEM00ycQyi68Xsh+OFFZbm2ToR7/5ICT7VzxHhRnjgqZxDdjZQj1POJWMYf5BRo8/+XtwU4J
- Xlz743VaMQ5ofm+SCrlXtN2nGPu4GIqYzImjij1b6IP3Ehf7+EYFjQiGMM8rZVOSIUv28x3EIsV
- cNetGEcZ3GCnyqVw42L6+cl3gdYspOGWnua+WVhtZDtqb8oTGVJ9gPaHxPpmtBM4oRcfPE/DywE
- 7uHimFqRZ4iFYbsYctsbJxSRTS0KfTB9rDrnsjEYR0l52RThlmaqW+olwOpiEH0Wm2Q6P31RHub
- OrxAxo4YtRhTMRwJOO2s7ugxSOsBEBuGOGAWkv3yMq6tARJRt7CCNU65loDuiHlAIyaPlTatFGc
- jHiH1pHwNVo8FQWFABSkSQKGaGZExQRYEOlOMK9AL2QQXYF/41ARquF/HNVfpv8MW+jwjfq250J
- uwgM5ezUEBhZg86guTw==
-X-Proofpoint-ORIG-GUID: Y9-fI53rAo5bXtky9CM6Ml9eyiZ5OlC5
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDA1MiBTYWx0ZWRfX+W2jdtuvkD7P
- f7H4uN8dccXtaxd1w7niqpY6D5TnqeOnWYoYY87PeqbKC1IGeklYL3BLuXGXRywWT3MtftLN61r
- 8Xn3z+zREL4e5E8lGeCrjKyEEeXNWsY=
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=4Rug7fo5hNcZ0wX2R6IA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=IoOABgeZipijB_acs4fv:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDA1MiBTYWx0ZWRfX0HpF9vJ7gvgy
+ uJUlfyg4AyqbgylrRGJCRgCx57LINd7agIRXkyUYXm2dSeN0ptUc7dq0cj/e24PXX+s5dKdjV4r
+ Tw1gUvP+uEquPQ1x4E67sB4hGdhcVxP44efoW72lRkaq+HEnV2khSREiMLMR0Ash7JP1yAnhsq9
+ Q671z8BD1253mqSf9+GnBhBrEusxiO1EzRLTYCF8d1g7KJMGUw0427w3uavyuSo9gWJ0iW82ZS7
+ B03tFrKSLa1pzFDxvI97qWi4JdidCgJqaZsiSgNNkYOAAnUS8gaC68e9DuFdlN8kFNIweipUmAC
+ DKLccokUWsOTAW3It+IfwuqEAwchTO6Fj/T8Qb4AM823pUvSy7llDiLMiVceWDAp7Mb7VZAASc9
+ nDS6crCTPw1dYZObRmPUJAM9W5yqU4Ho+5joaHHA6hlh9BCsJb6fMFA7kNWg+L7fGljH80WmZaW
+ qZSfU0zK/S6VZ4+IdJg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDA1MiBTYWx0ZWRfX+obZvdnmhMCp
+ POOuX5+OfCaARRK8nVLF6dZYVZ++aNF+DSEhtsvbRwj13NXafoNaIfO/ywSjRMCWUbhnFlYaFR9
+ kv3VlPdYwaPlUJm7kcbbxRBh07NALcE=
+X-Proofpoint-GUID: P6iKReheTGSH5XPj8ZTbFeZqKw5Qp4sN
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-09_03,2026-10-08_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 impostorscore=0 suspectscore=0 malwarescore=0 spamscore=0
- phishscore=0 bulkscore=0 lowpriorityscore=0 clxscore=1015 adultscore=0
+ impostorscore=0 spamscore=0 clxscore=1015 priorityscore=1501 suspectscore=0
+ lowpriorityscore=0 adultscore=0 phishscore=0 bulkscore=0 malwarescore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610090052
 
-The PCM1681 requires its SCK system clock to be running before register
-access. On platforms where SCK is provided by a gateable clock, register
-access may fail when the clock is disabled.
+The PCM1681 selects the audio interface format using FMT[3:0] in the
+format register. The driver currently supports only I2S, left-justified,
+and right-justified formats, preventing a machine driver from selecting
+TDM mode.
  
-Add support for an optional "sck" clock and enable it before accessing the
-device. After enabling SCK, wait for the required 65536 system clock cycles
-to allow the device to complete its internal reset sequence.
+Add support for SND_SOC_DAIFMT_DSP_A and program the PCM1681 I2S TDM
+format when it is selected. Also advertise DSP_A in the selectable DAI
+formats.
  
-Use runtime PM to manage SCK instead of keeping it enabled for the lifetime
-of the device. Disable the clock during runtime suspend and restore it on
-runtime resume. Use autosuspend to avoid unnecessary clock toggling between
-closely spaced accesses.
+While adding TDM support, correct the reset default for the format
+register from 0x06 to 0x05. The current default does not match the
+hardware reset value. Although this has no effect while regmap caching
+is disabled, it could cause the TDM format write to be skipped if
+regmap caching is enabled in the future.
  
-Since the device register state may be lost when SCK is disabled, enable
-the regmap cache. Switch regmap to cache-only mode and mark the cache
-dirty on runtime suspend, then synchronize the cached register state after
-SCK is restored on runtime resume. Mark the zero-detect status register
-volatile since it is updated by hardware.
- 
-Drop idle_bias_on so that the component can reach SND_SOC_BIAS_OFF and
-runtime suspend can gate SCK.
+The existing I2S, left-justified, and right-justified formats remain
+unchanged.
 
 Assisted-by: LLM
 Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
 ---
- sound/soc/codecs/pcm1681.c | 137 +++++++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 131 insertions(+), 6 deletions(-)
+ sound/soc/codecs/pcm1681.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
 diff --git a/sound/soc/codecs/pcm1681.c b/sound/soc/codecs/pcm1681.c
-index 60fdbe5c4..a1ccf1edf 100644
+index a1ccf1edf..3675b2236 100644
 --- a/sound/soc/codecs/pcm1681.c
 +++ b/sound/soc/codecs/pcm1681.c
-@@ -12,6 +12,8 @@
- #include <linux/i2c.h>
- #include <linux/regmap.h>
- #include <linux/of.h>
-+#include <linux/clk.h>
-+#include <linux/pm_runtime.h>
- #include <sound/pcm.h>
- #include <sound/pcm_params.h>
- #include <sound/soc.h>
-@@ -36,6 +38,12 @@
- #define PCM1681_DEEMPH_CONTROL	0x0a	/* De-emphasis control */
- #define PCM1681_ZERO_DETECT_STATUS	0x0e	/* Zero detect status reg */
+@@ -53,7 +53,7 @@ static const struct reg_default pcm1681_reg_defaults[] = {
+ 	{ 0x06,	0xff },
+ 	{ 0x07,	0x00 },
+ 	{ 0x08,	0x00 },
+-	{ 0x09,	0x06 },
++	{ 0x09,	0x05 },
+ 	{ 0x0A,	0x00 },
+ 	{ 0x0B,	0xff },
+ 	{ 0x0C,	0x0f },
+@@ -217,6 +217,9 @@ static int pcm1681_hw_params(struct snd_pcm_substream *substream,
+ 	case SND_SOC_DAIFMT_LEFT_J:
+ 		val = 0x05;
+ 		break;
++	case SND_SOC_DAIFMT_DSP_A:
++		val = 0x06;
++		break;
+ 	default:
+ 		dev_err(component->dev, "Invalid DAI format\n");
+ 		return -EINVAL;
+@@ -232,7 +235,8 @@ static int pcm1681_hw_params(struct snd_pcm_substream *substream,
+ static const u64 pcm1681_selectable_formats =
+ 	SND_SOC_POSSIBLE_DAIFMT_I2S	|
+ 	SND_SOC_POSSIBLE_DAIFMT_RIGHT_J	|
+-	SND_SOC_POSSIBLE_DAIFMT_LEFT_J;
++	SND_SOC_POSSIBLE_DAIFMT_LEFT_J |
++	SND_SOC_POSSIBLE_DAIFMT_DSP_A;
  
-+/*
-+ * The DAC requires 65536 system clock cycles after the clock is supplied to
-+ * complete its internal reset sequence before it is ready to be used.
-+ */
-+#define PCM1681_SCK_SETTLE_CYCLES	65536
-+
- static const struct reg_default pcm1681_reg_defaults[] = {
- 	{ 0x01,	0xff },
- 	{ 0x02,	0xff },
-@@ -67,6 +75,12 @@ static bool pcm1681_writeable_reg(struct device *dev, unsigned int reg)
- 		(reg != PCM1681_ZERO_DETECT_STATUS);
- }
- 
-+static bool pcm1681_volatile_reg(struct device *dev, unsigned int reg)
-+{
-+	/* Status is updated by the hardware and must never be cached */
-+	return reg == PCM1681_ZERO_DETECT_STATUS;
-+}
-+
- struct pcm1681_private {
- 	struct regmap *regmap;
- 	unsigned int format;
-@@ -74,8 +88,24 @@ struct pcm1681_private {
- 	unsigned int deemph;
- 	/* Current rate for deemphasis control */
- 	unsigned int rate;
-+	struct clk *sck;
- };
- 
-+/* Wait for the DAC to come out of its internal reset after sck is enabled */
-+static void pcm1681_sck_settle(struct pcm1681_private *priv)
-+{
-+	unsigned long rate = clk_get_rate(priv->sck);
-+
-+	/*
-+	 * sck is optional, so there may be no clock to wait on, and its rate
-+	 * is not always discoverable. Only wait when the cycle count can be
-+	 * converted into a delay.
-+	 */
-+	if (rate)
-+		fsleep(DIV_ROUND_UP_ULL(PCM1681_SCK_SETTLE_CYCLES *
-+					(u64)USEC_PER_SEC, rate));
-+}
-+
- static const int pcm1681_deemph[] = { 44100, 48000, 32000 };
- 
- static int pcm1681_set_deemph(struct snd_soc_component *component)
-@@ -282,6 +312,8 @@ static const struct regmap_config pcm1681_regmap = {
- 	.num_reg_defaults	= ARRAY_SIZE(pcm1681_reg_defaults),
- 	.writeable_reg		= pcm1681_writeable_reg,
- 	.readable_reg		= pcm1681_accessible_reg,
-+	.volatile_reg		= pcm1681_volatile_reg,
-+	.cache_type		= REGCACHE_MAPLE,
- };
- 
- static const struct snd_soc_component_driver soc_component_dev_pcm1681 = {
-@@ -291,7 +323,6 @@ static const struct snd_soc_component_driver soc_component_dev_pcm1681 = {
- 	.num_dapm_widgets	= ARRAY_SIZE(pcm1681_dapm_widgets),
- 	.dapm_routes		= pcm1681_dapm_routes,
- 	.num_dapm_routes	= ARRAY_SIZE(pcm1681_dapm_routes),
--	.idle_bias_on		= 1,
- 	.use_pmdown_time	= 1,
- 	.endianness		= 1,
- };
-@@ -304,34 +335,128 @@ MODULE_DEVICE_TABLE(i2c, pcm1681_i2c_id);
- 
- static int pcm1681_i2c_probe(struct i2c_client *client)
- {
-+	struct device *dev = &client->dev;
- 	int ret;
- 	struct pcm1681_private *priv;
- 
--	priv = devm_kzalloc(&client->dev, sizeof(*priv), GFP_KERNEL);
-+	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
- 	if (!priv)
- 		return -ENOMEM;
- 
-+	priv->sck = devm_clk_get_optional(dev, "sck");
-+	if (IS_ERR(priv->sck))
-+		return dev_err_probe(dev, PTR_ERR(priv->sck),
-+				     "Failed to get sck\n");
-+
- 	priv->regmap = devm_regmap_init_i2c(client, &pcm1681_regmap);
- 	if (IS_ERR(priv->regmap)) {
- 		ret = PTR_ERR(priv->regmap);
--		dev_err(&client->dev, "Failed to create regmap: %d\n", ret);
-+		dev_err(dev, "Failed to create regmap: %d\n", ret);
- 		return ret;
- 	}
- 
-+	/* Must be set before runtime PM is enabled, the callbacks use it */
- 	i2c_set_clientdata(client, priv);
- 
--	return devm_snd_soc_register_component(&client->dev,
--		&soc_component_dev_pcm1681,
--		&pcm1681_dai, 1);
-+	ret = clk_prepare_enable(priv->sck);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "Failed to enable sck\n");
-+
-+	pcm1681_sck_settle(priv);
-+
-+	/* The clock is on, so hand the now-active device over to runtime PM */
-+	pm_runtime_set_autosuspend_delay(dev, 100);
-+	pm_runtime_use_autosuspend(dev);
-+	pm_runtime_set_active(dev);
-+	pm_runtime_enable(dev);
-+	pm_runtime_idle(dev);
-+
-+	ret = devm_snd_soc_register_component(dev,
-+					      &soc_component_dev_pcm1681,
-+					      &pcm1681_dai, 1);
-+	if (ret) {
-+		dev_err(dev, "Failed to register component: %d\n", ret);
-+		goto err_pm;
-+	}
-+
-+	return 0;
-+
-+err_pm:
-+	pm_runtime_dont_use_autosuspend(dev);
-+	pm_runtime_disable(dev);
-+	if (!pm_runtime_status_suspended(dev))
-+		clk_disable_unprepare(priv->sck);
-+	pm_runtime_set_suspended(dev);
-+
-+	return ret;
- }
- 
-+static void pcm1681_i2c_remove(struct i2c_client *client)
-+{
-+	struct pcm1681_private *priv = i2c_get_clientdata(client);
-+	struct device *dev = &client->dev;
-+
-+	pm_runtime_dont_use_autosuspend(dev);
-+	pm_runtime_disable(dev);
-+	/* Runtime PM may already have gated the clock */
-+	if (!pm_runtime_status_suspended(dev))
-+		clk_disable_unprepare(priv->sck);
-+	pm_runtime_set_suspended(dev);
-+}
-+
-+static int pcm1681_runtime_suspend(struct device *dev)
-+{
-+	struct pcm1681_private *priv = dev_get_drvdata(dev);
-+
-+	/*
-+	 * Registers lose their contents once the clock is gated, so serve
-+	 * further access from the cache and replay it on resume.
-+	 */
-+	regcache_cache_only(priv->regmap, true);
-+	regcache_mark_dirty(priv->regmap);
-+
-+	clk_disable_unprepare(priv->sck);
-+
-+	return 0;
-+}
-+
-+static int pcm1681_runtime_resume(struct device *dev)
-+{
-+	struct pcm1681_private *priv = dev_get_drvdata(dev);
-+	int ret;
-+
-+	ret = clk_prepare_enable(priv->sck);
-+	if (ret) {
-+		dev_err(dev, "Failed to enable sck: %d\n", ret);
-+		return ret;
-+	}
-+
-+	pcm1681_sck_settle(priv);
-+
-+	regcache_cache_only(priv->regmap, false);
-+	ret = regcache_sync(priv->regmap);
-+	if (ret) {
-+		dev_err(dev, "Failed to sync regcache: %d\n", ret);
-+		regcache_cache_only(priv->regmap, true);
-+		clk_disable_unprepare(priv->sck);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static DEFINE_RUNTIME_DEV_PM_OPS(pcm1681_pm_ops, pcm1681_runtime_suspend,
-+				 pcm1681_runtime_resume, NULL);
-+
- static struct i2c_driver pcm1681_i2c_driver = {
- 	.driver = {
- 		.name	= "pcm1681",
- 		.of_match_table = of_match_ptr(pcm1681_dt_ids),
-+		.pm	= pm_ptr(&pcm1681_pm_ops),
- 	},
- 	.id_table	= pcm1681_i2c_id,
- 	.probe		= pcm1681_i2c_probe,
-+	.remove		= pcm1681_i2c_remove,
- };
- 
- module_i2c_driver(pcm1681_i2c_driver);
+ static const struct snd_soc_dai_ops pcm1681_dai_ops = {
+ 	.set_fmt	= pcm1681_set_dai_fmt,
 
 -- 
 2.34.1
