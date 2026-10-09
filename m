@@ -1,169 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 228903101D0
-	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 08:28:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B65739768D
+	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 08:29:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791534511; cv=none; b=NJb01KuCYRR2Bb3TEIHqfbKCN/kVyNgpVyoZwvD2x/hXqK7OX7wHTNTno88gIf2e9HmNjNK8P+F3wZfW1mDgANUI6hE0OQKTYol7eLKH4516XvNh5kyFAJ/hb7YMhwJ/9HjoMp8d95EArDOpPT4M9J4pPtbqj7BSSng08fl/Hu8=
+	t=1791534558; cv=none; b=FJ+RYD/ls70hUTo1pBtYKDJpRfcWR9uVwbUBSn8ggOd9IPFKps7GoB4hYDY5aaqBmNPpEGPD+z4K70Gk/2P2wzdE/eSJNwo5Ubsku2Il1idXm/CUwk6A5ltpVAvMcVjNiwvzchjp1nh02agdNz6VmxizzVzjCrBvGwZe02gkCIA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791534511; c=relaxed/simple;
-	bh=AJd7dXjedglPZBJosK8gRUgqIZYpfPLu5BhGv6DUtgU=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=JpLCCR+OJ/rhaQN9hzLFfVjKHRzApkaOiPq7pqTUyCsrTkHHj3JTO46IsyHfGYx7bTY40PjfUtevtFCUJ7pvWN40ipy1zTR7EFi4YmS6YVSrjnG4/YTfrNuDhk8RvUjCBRQgSBBgHJz1xYOpADpBrOJzLrZxeaIB+NHEv++Fm04=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ae3QGpgs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791534558; c=relaxed/simple;
+	bh=/SOBR0Ps2BnUTRiVud7w3FAIdcUaSqQ8Mu+izs62k5w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cTPxYLaMMvyLBywSQajdzNl76skQVBqzr3R15ScEO/Q+Ft4zpogB7u4Q2WSBIdaBOhNjaYszFoVoYXnyb6bIivw8FaVnp67SC14lxN7zBvuf8KAORzoAf8Z1ROCa/SrWtYHYsrOXZTzi3Suwb9BBlZ6yFd7macvr2+UKT6muYDA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZwbGWNR6; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=D7fWI+y3; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ae3QGpgs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 551DB1F000FF;
-	Fri,  9 Oct 2026 08:28:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791534509;
-	bh=6WTvQFTMQb6XSy56A4WnVj0COY+gOWiviCd/X/rqekw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Ae3QGpgsz+HOQ3v2xN5S174O4GpktY+v7zqGfeo6kPNN+Cb+1B08xAdQ7EcHM56hO
-	 QPWK0SqNnzoEvikgAVQPQTv1WyoppmmvVN0eknCAJGLwkXA0XSAZl6+IY2RzKO816c
-	 HbGS2CEulW7jMa8/p1avAWV/pPG3qjAcsCxsMZz0D6yae/eG1fUHhLIfcRtRrnGyCm
-	 Q7p5gAGIab1RHJYPRx4Np52yYu26EJc8RMmfUNePKtnTvfKws3an6yG2QEJnlNMabJ
-	 fhd4E3hy1l8EiEGQna3RtVzsDsGt2aIhvJFKUyHU0L0yhplSCrbG09FxosxTJJdAIf
-	 CRoTLerXklGww==
-Message-ID: <sashiko-outbox-165088@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 3/3] media: qcom: camss: Add support for X1P42100
- CAMSS
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Wenmeng Liu" <wenmeng.liu@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261009-purwa_camss-v5-3-58c13dc7c4d2@oss.qualcomm.com>
-References: <20261009-purwa_camss-v5-0-58c13dc7c4d2@oss.qualcomm.com>
- <20261009-purwa_camss-v5-3-58c13dc7c4d2@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 09 Oct 2026 08:28:28 +0000
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZwbGWNR6";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="D7fWI+y3"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6998KIvF231144
+	for <devicetree@vger.kernel.org>; Fri, 9 Oct 2026 08:29:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=lXGhk/a8780ZR6oMz9Rsju0v
+	1tiLizXrFKOLc8mUmHM=; b=ZwbGWNR6D867cmEY0fujoxLXXXMdO9GZAdrDv8/+
+	e0SNERucHwLT383fDLSthPXNF1KAzFyvNhpQJhUBAHsaS1eGMckECBE7r894XQQk
+	Hf8rFodpCNW3gHgJDjdoNX1LSzr3ij1M30w0HEd85UsXcuScuTVqri5o+TBEZumM
+	9PtTghEn+2LgCbzKbix7XtgLs3CLFmBWNbsGZfOHxaRcTJghYulP70xg88KJRKQg
+	riZl51lXyfJoHW12Jk9lZkgES4oFXNX2aq5hxnlCE/3hCvN7N15IEZlNVSAWJNH4
+	Xci8lMxRItpQyQ+eog1RXbPullYLbdbfnT93pQ2GRngLww==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h6fxu2ne5-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 08:29:16 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93cb71b1443so1204591585a.2
+        for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 01:29:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791534556; x=1792139356; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=lXGhk/a8780ZR6oMz9Rsju0v1tiLizXrFKOLc8mUmHM=;
+        b=D7fWI+y3/fIqxduMitPaHyEEUGN83TeEZ4QwiaDixyf9Sgse5saZwmtGBYbk1CejPm
+         HwSl/+3Mz0uRTGycvRTuXqzct9f6AB3OCaAM35f9aQjL//dbwqNWGAaKHdj53tYzilAH
+         mjCrPPSfOZPlsXDy/Zed+whH03bQ1sX9qijt1MKdlzPR9Mz65gTFHEYRUXotMoYzciYA
+         M4JNgReGHFimsX4gU8dlD1408G0yIw1xX+FcU20FHw/UdiRdabUdv56jrUsLUpvjHjSg
+         TWEEtmvdB7BEAUnh+81pq05PFMiIrsnsX0YBxkfWa70BHuJuOnqUEFq+13S9s3Lp5ImL
+         REVw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791534556; x=1792139356;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=lXGhk/a8780ZR6oMz9Rsju0v1tiLizXrFKOLc8mUmHM=;
+        b=A6E/Y/DPQWl+9d0kEaGBwuRZHiSRQL3cggbsR26rEvO4Sjkiv6ErYv1czyGTVy1HAU
+         KG7TpbziAtjVL34JsBy5swZicgPVQguv+KnGJw/LNc0fa5tVqT5cmHCc4IdGo0Q6tbXO
+         BxTB5yt6W2s0GtPSxRA0pdS+shOIsjsBI9P8EffUKXHgwwr0or3Ix6vLnNd0ISjQ17Kf
+         vd2pcpBrAOQD+6g8mZ1m3WpRgyyQnnoO+SxQUIYOd32UflCgU4N5Qxt7TSnk6PcjmRDn
+         gwp5ky3v+sw9GyJzijEY9IqQPrfnIoFhPQacHX/vzh7IDAFFss8Eoyy+Rr1W9L+ofPoJ
+         Sk9A==
+X-Forwarded-Encrypted: i=1; AKwUvBx57M2AC15fYjoIoJFYXMKhsN9QTinNiklglu944k6ZCGKM2ioI+IKDpMFSef3lVxT9Sn/T8QNB0y46@vger.kernel.org
+X-Gm-Message-State: AFuF++n+ecqOTLf95CYMXIzajns/78lmlhK60gOCTqVzJ98Lqib1gsn+
+	3lI5cOul70k2cmNptqYscX/ultnDBn4fkEYoqe+se/yIG4xJTjs3Wb0NHINtKmRZ1G43fh2jlTd
+	YJ/sl5Cz16HD3/obvjAYFqinRpmlgXw7OCB0A8n6zsEnODQbdrXNTp3eevMCPpPjg2zknuiUFHZ
+	E=
+X-Gm-Gg: AYBFou3N/S2XhoRsN/Gy74rkJl/0t/ZWRSTGv0jynrL9mKhnUwazRw9/EcUjDkkQ95I
+	UUbpJtkiqustdF8ZMjy4j0ySGsdJqnZsPJS+9K+vo867e3MFnmoRUveZ1JhQBP1KyEKLdgfIMIv
+	3u9lgL7IQqbnQvuf9eO0+R3dnteAZDxDFsoUuETfyszSI9Tg05O7VWCNtyI28gijXRt27xQJ61p
+	GEyfUVRTFatzDFCLG7WYWXI0aZV9nH21tmrdgNBIVnrbM09lcEPExqZ1/onQYGmY6nryFSbzjlD
+	/cUqSq6ahZcWZTBEAKECTPkMYV6evqIGsVE93FKPu3CA9UmzzBt7aIWyPOZECAhLQZnzr5F/vI6
+	wTel+mOxKKuM43l+1aMnUzl2ZbXadVYoNVJv4+MtFeSZDvTbiISYGAmQvduk50ijQsKP5OK4Nc9
+	6sIg6nhl4gvQ6T
+X-Received: by 2002:a05:620a:2985:b0:93c:9d56:a860 with SMTP id af79cd13be357-93ebd228f3dmr162556585a.19.1791534555630;
+        Fri, 09 Oct 2026 01:29:15 -0700 (PDT)
+X-Received: by 2002:a05:620a:2985:b0:93c:9d56:a860 with SMTP id af79cd13be357-93ebd228f3dmr162546085a.19.1791534554149;
+        Fri, 09 Oct 2026 01:29:14 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bcdde9bde3sm435232e87.42.2026.10.09.01.29.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 01:29:12 -0700 (PDT)
+Date: Fri, 9 Oct 2026 11:29:11 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Balaji Kalkonda <balaji.kalkonda@oss.qualcomm.com>
+Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Kuogee Hsieh <quic_khsieh@quicinc.com>,
+        Yongxing Mou <yongxing.mou@oss.qualcomm.com>,
+        Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>,
+        Mahadevan P <mahadevan.p@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
+        freedreno@lists.freedesktop.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/5] drm/msm/dp: Add DisplayPort controller for Kaanapali
+Message-ID: <ayqjh5syjbnayfu7wp647tclaer6vd3jbtfuoj32tlpqjyhfal@2uh543ydchm3>
+References: <20261005-kaanapali_dp-v1-0-6faeac3a6d59@oss.qualcomm.com>
+ <20261005-kaanapali_dp-v1-2-6faeac3a6d59@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261005-kaanapali_dp-v1-2-6faeac3a6d59@oss.qualcomm.com>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDAzMiBTYWx0ZWRfX0QGdtBDrSMOR
+ Gkk0a78TBhAVz315imXbfUWOg+u1jgrpBdZmD/07dxZ6rZ3GqiZ483ZeqARaMpnsaKhNyICZB+a
+ iYZa8y7R0TcppCiXjTZG44jq/2zKh/1Upb1fAiwkJePmXdy7sjBLaXURKllDmzzHD7BPVcU5AGm
+ fzGFjTBmJMiITy09AEhN1vT/rIpSZPgi+FVjxkk9SrAWN+fEbEXtcqPsnmnGTXo6f+vfmw1HbeX
+ ZPJY229Wdhj9d+r4HilcXuCc85G9fG533grPnb+67ilJ6rx0W4/kI4CtD6OCreFoWN919dKBB/3
+ wc9qVrOsZ+zuCNzBxpxxZBUcXNB5dO9HCRPFqXSPejDHvb1xrAhBTyJFGvcGtsroyrvbgb47ssP
+ YJc7PmOkuMOFO2Tqnm6FwbQjE21VX0zRzuu4j/hzMuXR3I9j27DCxPJzxwGS0nSBbPhJ4Up1ZIS
+ PYNwMY883GIshnumJ6g==
+X-Authority-Analysis: v=2.4 cv=QbjzLcbv c=1 sm=1 tr=0 ts=6ac8a5dc cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
+ a=OHVtJ8ySOF6wsxM0GN0A:9 a=CjuIK1q_8ugA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-GUID: PUILy7WCjC7H0YOvEHYAMavZc0EMibZ4
+X-Proofpoint-ORIG-GUID: PUILy7WCjC7H0YOvEHYAMavZc0EMibZ4
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDAzMiBTYWx0ZWRfX+u2im7IpYRqd
+ d1eTvJYPmtHkk9KVrdKMbk5xpLiRVg4guNSc2BjFeRb9fZYae8oeCnjdFZ4sxU9rembcJtTjzjX
+ PwVhZMwfVfeDGArUr1cKCUQXrvUKM9w=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-09_03,2026-10-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 spamscore=0 priorityscore=1501 malwarescore=0 clxscore=1015
+ bulkscore=0 phishscore=0 impostorscore=0 suspectscore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610090032
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] media: qcom: camss: CSID_LITE power on failure and incorrect VFE m=
-apping due to 1:1 ID assumption
-- [High] media: qcom: camss: NULL ptr deref in legacy init on malformed DT
-- [High] media: qcom: camss: OOB array access due to missing DT port bounds=
- check
---
+On Mon, Oct 05, 2026 at 12:54:27PM +0530, Balaji Kalkonda wrote:
+> The Qualcomm Kaanapali platform comes with a DisplayPort controller
+> with a different base offset than the previous SM8650 SoC, add support
+> for this in the DisplayPort driver.
+> 
+> Signed-off-by: Balaji Kalkonda <balaji.kalkonda@oss.qualcomm.com>
+> ---
+>  drivers/gpu/drm/msm/dp/dp_display.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
+> 
 
-commit f107a0f6644c97e69bdf263cd7e5e868d13b9438
-Author: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-media: qcom: camss: Add support for X1P42100 CAMSS
 
-Add CAMSS support for the Qualcomm X1P42100 (Purwa) SoC.
-
-> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/pl=
-atform/qcom/camss/camss.c
-> index c54185c93a8a9..5f0e5cadc06d5 100644
-> --- a/drivers/media/platform/qcom/camss/camss.c
-> +++ b/drivers/media/platform/qcom/camss/camss.c
-> @@ -36,6 +36,13 @@
->  /* Top-level CAMSS version register */
->  #define CAMSS_HW_VERSION		0x0
-> =20
-> +/* CSIPHY resources for PHY API devices, only id and formats are needed =
-*/
-> +#define CAMSS_CSIPHY_RES_PHY_API(_id, _formats)		\
-> +	.csiphy =3D {					\
-> +		.id =3D (_id),				\
-> +		.formats =3D (_formats),			\
-> +	}
-
-[Severity: High]
-Does this macro leave the hw_ops pointer uninitialized?
-
-If a device tree is malformed or lacks endpoints, camss_detect_legacy_phy()
-will leave camss->legacy_phy as true. This causes camss_init_subdevices() to
-use the legacy initialization path:
-
-camss_init_subdevices()
-    msm_csiphy_subdev_init_legacy()
-        csiphy->res->hw_ops->init(csiphy);
-
-Since this macro does not set hw_ops, will this result in a NULL pointer
-dereference during driver probe when legacy_phy defaults to true?
-
-[ ... ]
-
-> +static const struct camss_subdev_resources csiphy_res_x1p42100[] =3D {
-> +	/* CSIPHY0 */
-> +	{
-> +		CAMSS_CSIPHY_RES_PHY_API(0, &csiphy_formats_sdm845),
-> +	},
-> +	/* CSIPHY4 */
-> +	{
-> +		CAMSS_CSIPHY_RES_PHY_API(4, &csiphy_formats_sdm845),
-> +	},
-> +};
-
-[Severity: High]
-Can a device tree mapping for CSIPHY4 cause an out-of-bounds array access?
-
-camss_parse_endpoint_node() assigns the device tree port endpoint directly =
-to
-csd->interface.csiphy_id without checking bounds:
-
-    csd->interface.csiphy_id =3D vep.base.port;
-
-Later, camss_subdev_notifier_bound() uses this unvalidated ID to index the
-dynamically allocated camss->csiphy array:
-
-    u8 id =3D csd->interface.csiphy_id;
-    struct csiphy_device *csiphy =3D &camss->csiphy[id];
-
-Since the X1P42100 SoC has a csiphy_num of 2, mapping CSIPHY4 to port@4 in =
-the
-device tree would cause an out-of-bounds access at camss->csiphy[4] during
-device probe.
-
-[ ... ]
-
-> +	/* CSID_LITE0 */
-> +	{
-> +		.regulators =3D {},
-> +		.clock =3D { "gcc_axi_hf", "cpas_ahb", "cpas_fast_ahb",
-> +			   "csid", "csid_csiphy_rx" },
-> +		.clock_rate =3D { { 0 },
-> +				{ 64000000, 80000000 },
-> +				{ 80000000,  100000000, 200000000,
-> +				  300000000, 400000000 },
-> +				{ 300000000, 400000000, 480000000 },
-> +				{ 300000000, 400000000, 480000000 }, },
-> +		.reg =3D { "csid_lite0" },
-> +		.interrupt =3D { "csid_lite0" },
-> +		.csid =3D {
-> +			.is_lite =3D true,
-> +			.hw_ops =3D &csid_ops_680,
-> +			.parent_dev_ops =3D &vfe_parent_dev_ops,
-
-[Severity: High]
-Will CSID_LITE0 fail to power on because its ID is too high?
-
-When powering on a CSID, csid_set_power() calls:
-    csid->res->parent_dev_ops->get(camss, csid->id);
-
-For vfe_parent_dev_ops_get(), it checks if the ID is strictly less than
-camss->res->vfe_num. The vfe_num for X1P42100 is 3, but CSID_LITE0 has an ID
-of 3, and CSID_LITE1 has an ID of 4.
-
-Since 3 < 3 and 4 < 3 are false, vfe_parent_dev_ops_get() will return -EINV=
-AL.
-Additionally, this direct 1:1 index mapping seems to incorrectly pair CSID1
-and CSID2 with IFE_LITE_0 and IFE_LITE_1 instead of full IFEs.
-
-> +			.formats =3D &csid_formats_gen2
-> +		}
-> +	},
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009-purwa_cams=
-s-v5-0-58c13dc7c4d2@oss.qualcomm.com?part=3D3
+-- 
+With best wishes
+Dmitry
