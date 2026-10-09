@@ -1,67 +1,68 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com [209.85.214.177])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87F314E4C5E
-	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 17:59:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48C134F055D
+	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 18:00:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791568794; cv=none; b=jsAZyV/Wja8gQxNqYn5T/gw4G1UUIAGsmh4xC7x6ZrNYnVouK7BfR82EF5hLJEXLnqppzG/c14ldJuCc5sjgdY+GclfQBQ2GhVljCMtv1ZW4eRPAP9TJEB/2FIVnWFPczttogfHkGLFuDCbKfAAEKzi7Yr+tPhDbaib63wJws5M=
+	t=1791568801; cv=none; b=hQW6mdPvCtV32WvovG4uOrc4rUe0Lq/dTPBCihmnV4h6GHJXi2YiuqGfY2KX3SEqR/XkdXXDeDgEzH7ymy4fcXTnvRZNklJqpDRRz2toliGCNeudxS70QoW8C+OO48ItyRQHRod3xJO0X0wtfz3IIDpxN/FYcyjfiRqkPXbz13I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791568794; c=relaxed/simple;
-	bh=rzbk2MxA3bmBuvl4Feh4G/Vzg97qanUbygWm4jUMOcc=;
+	s=arc-20240116; t=1791568801; c=relaxed/simple;
+	bh=Gti7K1/QhSFZ+eoHXW5S9feHyQSr76WRiZbHs3IHiuk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=A1rwu1hdTIet3QVzEUcjwTQmQ+zvHye2G+hR80f7QhVn4NslB2VHDdNoNKDOHKa7dlLT8htCTJGuGpH9YURg7gcpLcVtwsvENYjGsN9ZTV6bM/3WdW4e6xwpQ9/TMi59WPwFsrkD0aRLOX7afU/NWsLvq6vzTGOajdSolqEJU8s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T/lKRNP2; arc=none smtp.client-ip=209.85.214.172
+	 MIME-Version; b=jSwJhhGPnS6PpyfnseSnYD5+P7OxD3u/AvGWz7mm8sYeHpMdauDM719TT38GLvYBaMNQfs2f+b6ifmvJ1/egjKis5Wf9PWA9Olt8Et1BvuHfU9lSGiuUlywVJLv0gvdNOnIITaH8FD1jfWMsDSXbaaOBeJ+QvUyXDx6iTO9sgeY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CZXClu4B; arc=none smtp.client-ip=209.85.214.177
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T/lKRNP2"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2dd9cbb661bso36204795ad.3
-        for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 10:59:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CZXClu4B"
+Received: by mail-pl1-f177.google.com with SMTP id d9443c01a7336-2e7006bbf77so14905ad.0
+        for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 11:00:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791568793; x=1792173593; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791568800; x=1792173600; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=1VT+ejyWafsXKR5vefLCF5m4HpAS0Vj6O8SOoRARlLI=;
-        b=T/lKRNP2zB5JLneN6JCpCLQ+FzrJhKB4jErDB61N3v23EeuLWnox+jZZshBs7cyuxU
-         XvZxk6bubtQiBV+qOCAWRe5b9OQsL4OMcqzCb9sANCcfPiJ5J31Td4SHhaFUNSwSO2PT
-         zWOjaO2VGCWgKIvAgwE6iZqx5J3bW5vFBES1ekCxO/3MBYn8PR12MquFGpoyvwKHAzFq
-         rftgEmQJu7haP5EDtGvonNGOaRjSvDNTiEE3Wfl0pwKBb7J4DsszeGoeMrPhEgo9SnTk
-         9cR6fRxIThvkAbDzwg+JdN4m97LcGandDGbAGZn0i0DCPy0bMGOTnJxegF0f7gCS+A/K
-         rAkg==
+        bh=MvJvV0aRiulY6uBfalnUL+2S3Yp/YxHHNwR6ZIhHX3M=;
+        b=CZXClu4BhIRDHZQx0u5Owf273gdg82RSyVaX4XTrnqWXuscNhRCiPMGQ+CsK26egPq
+         ukS4gv1pYLedlevClDjwsa+9Liqqwd0W6sxgtxwCe8TbJKptYXPydooa2hVdp3wlkJZj
+         1ilN+C8rgh5dETYVpsAAAQVKwWHe4Zlbg1ztDzcamBv8WtV2tlaRHEEzN+f0U815mfUx
+         HyGBd68emKevW8nthP3XMIYSltSsPtJa6cm2lUR1viMRltP83fSRa2QpSwNCvhRHvWFt
+         dseoa2v0ol1ARTm+AiVL3d81A1w0rjUteMmtzxSBciuaYXGPxCn/XwVWcKvWkOrMGKT/
+         KQ4A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791568793; x=1792173593;
+        d=1e100.net; s=20260707; t=1791568800; x=1792173600;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1VT+ejyWafsXKR5vefLCF5m4HpAS0Vj6O8SOoRARlLI=;
-        b=UFd3hK0sReKkCSMzKylpLnYg56W9kYIEXKH6U42wDOp2bcnvfPokwEDdcVbHGuQlJI
-         XcZ5NGDzCqbDbUPzQaAT2yfneJyMW2fYtavBM4ZOhzGqfJXLGYzbWK8sHGBWA4kXqEM9
-         lrzrJCbtR1ieqC1Q5jqfTD5IPlhDCTS+v9LWw7tcDhx9qS927kdbaQC8+2iWUE2SKJpa
-         qEsX8k37chCGkklDekM8+V4bZDDvLX69v55vJZBOAa1hM9usvon++GnBGdlXfHwf7cD5
-         DU8Mhe2vfSCSgBykGE+sjTnUphESQaxHwUm+53HZHO4W5fhRIX2GiXdiNaI+7LQ+hg1t
-         wUnQ==
-X-Forwarded-Encrypted: i=1; AKwUvByRIjfYQPIpOC6MNOeYemRDdBuFUSoGsHjOtdd8RYBhk/Nyy7Deg7lgfl/J5r+Pbnga1zX4fB/TzI5k@vger.kernel.org
-X-Gm-Message-State: AFq9FYJf29gKB05flGAu83f67H6gaRk4Eh94PPv6HbNvSqL7vgIFkxor
-	k48/fBhNysW9trUkWNkvElarpyW7GqtaUs1gnD/u40Dw7hE0FOTbVX+0
-X-Gm-Gg: AYBFou3cOsF58dWGQUkcSSVYqVHy0IWyNTm/FL3mRkWDFWsaYx5kgzAXfLkcdwbtdrt
-	GUK2Z8GwG68syAusz+/SrJQ4Sfo/ptGoxvZ8/o/lTETjltUWrSqfwHyyUhjoyuOBTkwogLEvNsE
-	aSBa99GG0YInUfGJ5r0V210Ag9lzasGm3e4U64jq/HPoKiUkkRPFQlYm7Hmxo+/N8ysjZyA/1jq
-	STOeNpZ7cCHkkzn7NR8VaqXl8C9xhAgk52XOrfMl3kZtm5MEdhDPoIwQRQG0xAYwexEs2UXfgq4
-	qbj6zeACEz7/0Rmj8/AGG136Ddy32z9ymeUDcXNIYuQTXUKqxYOWHbZZGW1V17xSU4+OwedcpDu
-	lwgLjv+SsSR4rt0J/OA8uzqtqeM2KWd1tCZ9teWm7Bkx1lywoLpEsA/s5TzfCmJgg8VgmIJ9s00
-	Eh3X2u0deauGAgvify4XwlBJYva3Gp1JQCLJLc4/eKCX3YcUGKyMspSxlEpRsWz+uJbuNxV4ksQ
-	7LawTdLpwScp33+YrMdCB8org==
-X-Received: by 2002:a17:902:cf08:b0:2e2:c79e:5462 with SMTP id d9443c01a7336-2e8429a5740mr24238575ad.10.1791568792691;
-        Fri, 09 Oct 2026 10:59:52 -0700 (PDT)
+        bh=MvJvV0aRiulY6uBfalnUL+2S3Yp/YxHHNwR6ZIhHX3M=;
+        b=0L9FNn/cRDHxRc3ASmUjh2Rgo26R1R4c13lETOhHgZS+cjX0ky4jKa86lh9nfW3jw7
+         PQf89HPiO26xh6AoyD0E7e+2BFqH0mht7bDQ+KazuSuHZwCvE7SVBYAPNkf9d5DA98to
+         lAA5IBxHR4wZ3EGAeMtBMnMClKDNkb7ayKrcESMB5PG03eiFumOQ68+MxergV2u3jeL7
+         6fI73G02EZdSHGTSSdfqA6RpkVwcuxFPTOtMfAIuGvbirHtDEa31fYScDDq5elaVc7XE
+         BTd6IO+cWfjZPMB6TJdotH2gfrpy0x8tENM8ECJyz6ATmMzZNK4zQDf4oi4voIIoEtHk
+         0Z6g==
+X-Forwarded-Encrypted: i=1; AKwUvBwWZJIAs5d8dVq2Cdup4gQKxowzjdmJwkfeT8J2QWcIo1L0+LAEs3DsJdVFKImC9QaAuqZmiz4eHEtm@vger.kernel.org
+X-Gm-Message-State: AFq9FYL8bztgxdgTr+NlrX+0Spef1O5HaTh0QHgm2dPzu211/7lBl7GF
+	Dp94b8s27r9LvF4q8YkeDJ9XiIHUfq+zK1g3trKwty1aXFvLWPDgraxf
+X-Gm-Gg: AYBFou1vg3BpvdpieCAS0yCfogl24q0d4iCIinCcjDIuraw2amjgOVbDFxS9RTPe0Dl
+	P6NEqPGvnulR6nxTQzS7Ee2UDjwnlXInAq2+b3mP/MWRuJ/79iEszmXf/9fvxPVdrqjky96HXE7
+	f+NK9t10qtifPJ7d6eaSmfhNhlvOpejuMcXMJ5vzK5mUfN4LQkpb9ilUMPnz//97w9msfKB6nJO
+	Sbivl8Cs2Bnj+//07YTUwYPdaL8ISaioVYEkFpDpbST2mtlzjin8Qz339t5B6NDw6Lst6dMw7N3
+	fhZswhjIJyzXGDQCPy+Cet6PKC3T+McVIiwvwQn2Ymxf7hDxHvs3ssgqw/EfrTFfvY4Btjf6EQc
+	Vy2W2l+u/W+amyWX1s4E1XThTxStmuVqRYzG/YO6jDlu9+gzT1dkJ6aTZX2WkcLH0pp3e+dTYNh
+	hLs2OEvZyYEWJgELqUeVgqrYWUVuiuvMygAjJcD/1tRMof4R4XsXb4Cpv8mYr+Q6gQXFE9ngi2R
+	zFjus92s60nsDp1AI1sxicRFw==
+X-Received: by 2002:a17:902:ccd1:b0:2e5:a350:34f5 with SMTP id d9443c01a7336-2e842dfe6c1mr25314525ad.51.1791568799559;
+        Fri, 09 Oct 2026 10:59:59 -0700 (PDT)
 Received: from d.home.yangfl.dn42 ([2a09:bac5:661c:1246::1d2:d1])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e84219e74asm14167105ad.29.2026.10.09.10.59.46
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e84219e74asm14167105ad.29.2026.10.09.10.59.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 10:59:51 -0700 (PDT)
+        Fri, 09 Oct 2026 10:59:56 -0700 (PDT)
 From: David Yang <mmyangfl@gmail.com>
 To: netdev@vger.kernel.org
 Cc: David Yang <mmyangfl@gmail.com>,
+	Andrew Lunn <andrew@lunn.ch>,
 	Frank <Frank.Sae@motor-comm.com>,
 	Andrew Lunn <andrew+netdev@lunn.ch>,
 	"David S. Miller" <davem@davemloft.net>,
@@ -75,9 +76,9 @@ Cc: David Yang <mmyangfl@gmail.com>,
 	Russell King <linux@armlinux.org.uk>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v3 1/3] dt-bindings: net: motorcomm: Add YT861x PHY compatible
-Date: Sat, 10 Oct 2026 01:59:30 +0800
-Message-ID: <20261009175936.428256-2-mmyangfl@gmail.com>
+Subject: [PATCH net-next v3 2/3] net: phy: motorcomm: Add driver entry for internal YT861x PHYs
+Date: Sat, 10 Oct 2026 01:59:31 +0800
+Message-ID: <20261009175936.428256-3-mmyangfl@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261009175936.428256-1-mmyangfl@gmail.com>
 References: <20261009175936.428256-1-mmyangfl@gmail.com>
@@ -89,27 +90,118 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The YT861x GbE PHYs integrated in YT921x switches honour the
-"motorcomm,auto-sleep-disabled" device property like the other
-Motorcomm PHYs. Add ethernet-phy-id01e0.4281.
+The YT921x switches integrate GbE PHYs of the YT861x family on the
+switch-internal MDIO bus exposed by the yt921x DSA driver. Add a driver
+entry for them.
+
+The PHY ID 0x01e04281 is live captured from the switch-internal MDIO
+bus. The switch SerDes PCS does follow the pattern, 0x4f51e899, though.
 
 Signed-off-by: David Yang <mmyangfl@gmail.com>
+Reviewed-by: Andrew Lunn <andrew@lunn.ch>
 ---
- Documentation/devicetree/bindings/net/motorcomm,yt8xxx.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/net/phy/Kconfig     |  3 ++-
+ drivers/net/phy/motorcomm.c | 39 +++++++++++++++++++++++++++++++++++--
+ 2 files changed, 39 insertions(+), 3 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/net/motorcomm,yt8xxx.yaml b/Documentation/devicetree/bindings/net/motorcomm,yt8xxx.yaml
-index 26688e2302ea..85d01690c856 100644
---- a/Documentation/devicetree/bindings/net/motorcomm,yt8xxx.yaml
-+++ b/Documentation/devicetree/bindings/net/motorcomm,yt8xxx.yaml
-@@ -15,6 +15,7 @@ allOf:
- properties:
-   compatible:
-     enum:
-+      - ethernet-phy-id01e0.4281
-       - ethernet-phy-id4f51.e91a
-       - ethernet-phy-id4f51.e91b
+diff --git a/drivers/net/phy/Kconfig b/drivers/net/phy/Kconfig
+index d3835597e379..30e9d22c8d1a 100644
+--- a/drivers/net/phy/Kconfig
++++ b/drivers/net/phy/Kconfig
+@@ -363,7 +363,8 @@ config MOTORCOMM_PHY
+ 	tristate "Motorcomm PHYs"
+ 	help
+ 	  Enables support for Motorcomm network PHYs.
+-	  Currently supports YT85xx Gigabit Ethernet PHYs.
++	  Currently supports YT85xx Gigabit Ethernet PHYs, YT861x PHYs
++	  integrated in YT921x switches, and YT8821 2.5Gbps PHYs.
  
+ config NATIONAL_PHY
+ 	tristate "National Semiconductor PHYs"
+diff --git a/drivers/net/phy/motorcomm.c b/drivers/net/phy/motorcomm.c
+index 90a4f86f2758..7078c4a0225d 100644
+--- a/drivers/net/phy/motorcomm.c
++++ b/drivers/net/phy/motorcomm.c
+@@ -1,6 +1,6 @@
+ // SPDX-License-Identifier: GPL-2.0+
+ /*
+- * Motorcomm 8511/8521/8522/8531/8531S/8821 PHY driver.
++ * Motorcomm 8511/8521/8522/8531/8531S/861x/8821 PHY driver.
+  *
+  * Author: Peter Geis <pgwipeout@gmail.com>
+  * Author: Frank <Frank.Sae@motor-comm.com>
+@@ -18,6 +18,8 @@
+ #define PHY_ID_YT8522		0x4f51e928
+ #define PHY_ID_YT8531		0x4f51e91b
+ #define PHY_ID_YT8531S		0x4f51e91a
++/* Live captured from YT921x switch internal MDIO bus */
++#define PHY_ID_INT861X		0x01e04281
+ #define PHY_ID_YT8821		0x4f51ea19
+ /* YT8521/YT8531S/YT8821 Register Overview
+  *	UTP Register space	|	FIBER Register space
+@@ -2538,6 +2540,29 @@ static int yt8521_get_features(struct phy_device *phydev)
+ 	return ret;
+ }
+ 
++/**
++ * yt861x_config_init() - apply the auto sleep setting to the PHY
++ * @phydev: a pointer to a &struct phy_device
++ *
++ * Auto sleep is enabled by default and a BMCR soft reset does not restore it,
++ * so apply the setting from config_init. It can be disabled with the
++ * "motorcomm,auto-sleep-disabled" device property.
++ *
++ * Returns: 0 or negative errno code
++ */
++static int yt861x_config_init(struct phy_device *phydev)
++{
++	bool sleep;
++
++	sleep = !device_property_read_bool(&phydev->mdio.dev,
++					   "motorcomm,auto-sleep-disabled");
++
++	return ytphy_modify_ext_with_lock(phydev,
++					 YT8521_EXTREG_SLEEP_CONTROL1_REG,
++					 YT8521_ESC1R_SLEEP_SW,
++					 sleep ? YT8521_ESC1R_SLEEP_SW : 0);
++}
++
+ /**
+  * yt8821_get_features - read mmd register to get 2.5G capability
+  * @phydev: target phy_device struct
+@@ -3173,6 +3198,15 @@ static struct phy_driver motorcomm_phy_drvs[] = {
+ 		.suspend	= yt8521_suspend,
+ 		.resume		= yt8521_resume,
+ 	},
++	{
++		PHY_ID_MATCH_EXACT(PHY_ID_INT861X),
++		.name			= "YT861x Internal Gigabit Ethernet",
++		.flags			= PHY_IS_INTERNAL,
++		.config_init		= yt861x_config_init,
++		.soft_reset		= genphy_soft_reset,
++		.suspend		= genphy_suspend,
++		.resume			= genphy_resume,
++	},
+ 	{
+ 		PHY_ID_MATCH_EXACT(PHY_ID_YT8821),
+ 		.name			= "YT8821 2.5Gbps PHY",
+@@ -3194,7 +3228,7 @@ static struct phy_driver motorcomm_phy_drvs[] = {
+ 
+ module_phy_driver(motorcomm_phy_drvs);
+ 
+-MODULE_DESCRIPTION("Motorcomm 8511/8521/8531/8531S/8821 PHY driver");
++MODULE_DESCRIPTION("Motorcomm 8511/8521/8531/8531S/861x/8821 PHY driver");
+ MODULE_AUTHOR("Peter Geis");
+ MODULE_AUTHOR("Frank");
+ MODULE_LICENSE("GPL");
+@@ -3205,6 +3239,7 @@ static const struct mdio_device_id __maybe_unused motorcomm_tbl[] = {
+ 	{ PHY_ID_MATCH_EXACT(PHY_ID_YT8522) },
+ 	{ PHY_ID_MATCH_EXACT(PHY_ID_YT8531) },
+ 	{ PHY_ID_MATCH_EXACT(PHY_ID_YT8531S) },
++	{ PHY_ID_MATCH_EXACT(PHY_ID_INT861X) },
+ 	{ PHY_ID_MATCH_EXACT(PHY_ID_YT8821) },
+ 	{ /* sentinel */ }
+ };
 -- 
 2.53.0
 
