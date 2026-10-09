@@ -1,474 +1,170 @@
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013066.outbound.protection.outlook.com [52.101.83.66])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACF623C4563;
-	Fri,  9 Oct 2026 04:23:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.66
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791519801; cv=fail; b=P1bcIrMjAYa5KsbfHFe8lDjBJQkqQF+Dv0PU1n9rH6FTnCr+LSFhjqx/33xKijcNXCP2ALTMg22Z+KBzLXgEd2jfZUd9h0rR9MMGmdZ6qLzu8YdKjnON8xi3XKSibftbArRNDYpNOKxwm+5uYfTJGYVxpbMF5VOG40k4HKCLLo4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791519801; c=relaxed/simple;
-	bh=/teaRfJ0FQJ8HCBKuXaC4e7CIPnRxWk88MtjZPT1gmw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=QsDhCH7pgZAVSXzzv8SC3YLGXEHXCkhfd7froPeLy0EwNpX7lPjRx/mlBzMvuhtx5BsZPxqPdFKwyUPFLTpn0h6uVvxGH/iaKxfKVGJHaqPGbjBuIrMx8BtObqAXM45FhFSqEU9/2maGj6qy7Y0jLpj/O7gquAs00/3jXGDCDbc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=b9AEOfPm; arc=fail smtp.client-ip=52.101.83.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C94063A1695
+	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 04:26:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791520014; cv=none; b=Dk2pUJDF9p1erkw9MGUUvVwac1AYit+k+UXL+6iKYy7TLQBJlpAht2PJ6h+06q6dyT/bNeRtVQnvaBnJQTNDPbLJBcp0qAo69RQSzLmkeuO5l9mG/wDCBbX5+RhJ/6OU1chhmCx96oFl6zukoBRg1xYjN8jC/YV9hjvvjXdQjAE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791520014; c=relaxed/simple;
+	bh=iHO4b/uaO+gCN+zq2Bsard44BMW+7Do4OTbQ9oIW7i0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ePD1P/KSdZYxBD6OMHE8C1iaKpWsH3OTfYmTHm7+++DxV18Ivrc7d9MG7/8jZQ1/pUhjnn+b4oAJlao/Z3il0JCFE8xKca8D2B5aimxl9jwGpgaPH4I127hxb4OglApX+llUZ9x7tbz1rIZa1IxJ6kPC/Cq4SDDzkln7HP/fro8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=gdAWzzNt; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WsKQCCz1; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="b9AEOfPm"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=w5eMruy/wHNjH4EDNrPakYnFiJ1sFIhtXECOiCGMDTYvj8RIYQUKabkJisD+QXIwrVXBy4akAdIaQsyMFJbbSvIAkXV0OeNxZMe50rFUTB2hdshzSCOQsf4cTTZFV9nj1f4UIFuILd37UHcu0lkA25uoUPzxx8Rdms3YbZ+EAPH0RT7TfGJSTyCYGlwSP/q+Z3qNUEbh9VdL8KhGwEWU5XRaJb2cN8eXFZ+S6t2tk1H1VL1bsoiAZi57mCqYTKimv9E9iJ+H3oL4IdzD2US/eafvHVFaa+V5jlNaMao62B0rtuzA0huZXmRzdrRHQnurnb9S5B5xQ2nYVePRg5/Cbg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TQCpNshqSh0LAzFaaWerENiJo+pM83yCqyLNpgaXzHM=;
- b=JOJEm4lMzn5mQ5Fk/XM4988zWLo6YY1FsKghcX36USipYmAIWLBp4dOmXET2OdLpfyZ+KPKm0DEWKya/Ikd1egxk+T/2Q/f3uK6/3HsWKCEnB8v6zo78/g1tkix6oH8EX2IU+Xa8lPAYDAyvDrvRYSuRjZ4mu/qpugK/M4jClQz2PMyPWcoGS/txgxrJwHzlmbvQWWhWOCoStvN4ENpk8H9JVxgTJPPbF3VNFD771JO6cM7LUQR72yVozRJh+S7Gj8P645YJJa3vV2OLRYh50FuchH4N7VL12xHRXh/cJLacPerB8FJE1xsPs38DHqATtOpmaGy6fEAx4VeX3jZNiQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TQCpNshqSh0LAzFaaWerENiJo+pM83yCqyLNpgaXzHM=;
- b=b9AEOfPmEFBInq0DDdpiureMDJrijlsNBBxXFYRqS0h2JZ62suSpmZrP4nsVKATubPuCHRjetbyq6vmWj0ritpS2A2LnzMnkcSxSABL8has7bqMPHRnTJf6j9XT1/Q0zZL+EB1Evz/OaP+PwysVGc1klQ65LuTS/AGn+5604iHpMCR2fmLowuMD7aOaFIagVJu1VMDgZM8Xymhk0gcjfl/vkp43vpX2QaO7sFm+zRo2CUm8wcotTNogVd7A15KgsUZVxEyly8NQWfQowaj48jE25ZYoN2cQM0ek5NwFK7osWV9GkZuTmJPlbxqbL3CG1ZKt8S7Uujkr9OeuV2bd8MQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com (2603:10a6:20b:24d::9)
- by GV4PR04MB206370.eurprd04.prod.outlook.com (2603:10a6:150:401::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Fri, 9 Oct
- 2026 04:23:05 +0000
-Received: from AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9]) by AM8PR04MB7874.eurprd04.prod.outlook.com
- ([fe80::ac38:1699:6f18:c5d9%6]) with mapi id 15.21.0496.010; Fri, 9 Oct 2026
- 04:23:04 +0000
-Date: Fri, 9 Oct 2026 12:27:37 +0800
-From: Peng Fan <peng.fan@oss.nxp.com>
-To: Francesco Valla <francesco@valla.it>
-Cc: Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Bjorn Andersson <andersson@kernel.org>, Kees Cook <kees@kernel.org>,
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>,
-	Marek Szyprowski <m.szyprowski@samsung.com>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Peng Fan <peng.fan@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, virtualization@lists.linux.dev,
-	imx@lists.linux.dev, iommu@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH RFC 12/12] PoC: arm64: dts: imx93-11x11-frdm: add
- multiple vdevs
-Message-ID: <ashtOTx/xhTsMnQ3@shlinux89>
-References: <20260916-remoteproc_virtio_map-v1-0-dac8c5eb4aa9@valla.it>
- <20260916-remoteproc_virtio_map-v1-12-dac8c5eb4aa9@valla.it>
- <arKiOCGrWAKyc-bc@p14s>
- <arLawAw6kgFT2e0W@bywater>
- <arP06mWDehsIDh5s@p14s>
- <arP5AvA51GHrI8aN@bywater>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <arP5AvA51GHrI8aN@bywater>
-X-ClientProxiedBy: SI2PR06CA0014.apcprd06.prod.outlook.com
- (2603:1096:4:186::11) To AM8PR04MB7874.eurprd04.prod.outlook.com
- (2603:10a6:20b:24d::9)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="gdAWzzNt";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WsKQCCz1"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6993H8Vh3942587
+	for <devicetree@vger.kernel.org>; Fri, 9 Oct 2026 04:26:49 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	jsGEDyIaWW4FbdgRDyevRPLQTh2H5+7i12alkIu6WYw=; b=gdAWzzNtcPZmV0a7
+	bwfl5SBDpVIKI31yt36Xq8zLvBJ6/ZqQlFIcx6tXZ/YkYB1jsefLVLld/yHY4aUD
+	bP9rz6z2Lu4w1R3dVWIJF0h2XTAxkWL1hw7Wpg+bzVuG5ryn5bDDAgDJjg1kjAOX
+	1UPKTXMAMC267AkfyAIYOuzxxcOIjPJ7O+lgRVzEfdGYdBc4YJraco7M1352DwHz
+	vYS4xzRLuvDmEYc26bQVyeGYrzY1dcPzzjMDE+5XtulzlyxbTWRmFtvo0KZX1SGg
+	rzcRKhBA0yfuHsa1aV6je06BvcFwudenyI4lNtbthjSGvRKnGOouU9een+Grd3Bm
+	Mg83lA==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h6fxk1vua-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 04:26:49 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-341eff9e381so11413792eec.1
+        for <devicetree@vger.kernel.org>; Thu, 08 Oct 2026 21:26:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791520008; x=1792124808; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=jsGEDyIaWW4FbdgRDyevRPLQTh2H5+7i12alkIu6WYw=;
+        b=WsKQCCz1VFspcB9bXA+4WK5tiRnwkIc9ZLoA0l06DeBCeg+2HEON1qIuqvbSV+TC26
+         zDCZmHIV9Fxzt+JIX1wu47J1vicf4tD37E1uSeleh+JtHRte99C7jhaAHj3/xpAJUfAc
+         /Yw5+hb16mkoevDaUkPUYIt9gV7+ufQORL37BMxrfmmMlF61a83cfeWL18Yoty+EJttN
+         eMvtDTlXjPRP/er2idAChSJYTWDwMhdJI47Dh8sluB7KgL88hLTEEhndS6Z7UKre2BRh
+         fVsA1oLQXDdpfLnEgJcKnMN+de/lPyEwXBkU2m2K+i7syVfXE7EdGmTPphk+2mGWNi8Q
+         XqCg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791520008; x=1792124808;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=jsGEDyIaWW4FbdgRDyevRPLQTh2H5+7i12alkIu6WYw=;
+        b=tnANdSRAKSB/XRDqJYTC9NWfYggVZ3J2vAQ/ovrDpyUep0aEIgHh1i8ILMIQjc+eUd
+         kvEtilwDaJ0+CSWrG1MvFEsWWXccpkTMpocgwtTbYSZATBJKyE/Wba2ZyrzZj46Uc3On
+         UncSPJ0GBFlSPyUCAg9LOqAyWDY10gbB3zdtjOMwIZ5FtSRXmUW58+MSx6VuF6D4i4QZ
+         uDAC43LGRBw3uziyBxghEkmUSvcHKG11vpMBWwV4rPNeKul9UGCk+5xJViEaOQya2uxO
+         KLzjlHGtmi8d4AXd0BtBUKwR6IHGbh5/8685hLs9h1lfGAyZQngdIYzzrThO6zXfWUL2
+         o45Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxCZFSCuHVAs6nYQTN8tdIKfv0ZXwydK3OZK/Jg/7fABFZuBm1TuJUR3E5kopz8/yxqpuyY3IOVdb0K@vger.kernel.org
+X-Gm-Message-State: AFuF++mWCiUfttJtBypA1iYOGFxyxyRiVFvkd9ulx/Vw1zFd9Uv1LTJf
+	EfhxP6yFnn70Ss5o1JhNOg71WaPhy7YspN1ALJBHhMO3u10ZMRLQYcRnsSm34woNtC8996NP4Or
+	lse17sU6N1CizFjPVfMmpeot3w/VY0iyUkotnNikqt6KBj1olybGozWPdnkaW/m+H
+X-Gm-Gg: AYBFou3YF0cxYiPlQIn1aqvM+dSjLmqDkU5r7MtqPthWCZ1MvIwPblXiatCr+NaUbco
+	7DtdVFxcgRmKHDo4YBX6tbYDhLfZDoSfklNCngDtdQddXYK8C47QyYJ0YSUZD2656YswYVsddgy
+	r/bhmZ/Q06EALo4S97os/RLyONZ+dhnQn8MrJFrHEiKEPqz3OBHcj2RoiEunFvfRDdRsEFIHBOb
+	NivC0vGTbqaA/O2RKwmtMRd/9T49NC9CAnUNuXQ/+lPJ+WRrINauZDCziuwYtmOXvLb/AbY7SKr
+	4HQotXOSbAFiORo7cHNExI7PJIN8tMjypoS2NvvKIzYZXkT8+nlaQbmfZSOo+WlrZrtb5erUqQO
+	TrRVs4CuDsQalILJihVkw/OQTBQ==
+X-Received: by 2002:a05:7022:e888:b0:168:6ad8:e89d with SMTP id a92af1059eb24-16a5dbfe727mr1098610c88.11.1791520008260;
+        Thu, 08 Oct 2026 21:26:48 -0700 (PDT)
+X-Received: by 2002:a05:7022:e888:b0:168:6ad8:e89d with SMTP id a92af1059eb24-16a5dbfe727mr1098573c88.11.1791520007645;
+        Thu, 08 Oct 2026 21:26:47 -0700 (PDT)
+Received: from [10.217.216.28] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a567aef5sm2624403c88.19.2026.10.08.21.26.42
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 08 Oct 2026 21:26:46 -0700 (PDT)
+Message-ID: <148c0577-8153-44b8-b26f-681b71f62647@oss.qualcomm.com>
+Date: Fri, 9 Oct 2026 09:56:40 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM8PR04MB7874:EE_|GV4PR04MB206370:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1e0ec283-7a50-41b1-aaa2-08df25bd0338
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|23010399003|7416014|376014|19092799006|56012099006|4143699003|11063799006|10067099003|18002099003|22082099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	DreUnbXauPvsIOTtxnw08ffuSDpOMuRerxy3ipceHJSWlOhqP8EJqilwq7h58oDfjA91W+tPDKEFbIxDAo/3y4y2xnHKRotopFCA5soo7znon2Nnj1N8hhmrcM3FLvBgLj/QMudIEm78zyikORTFxJfmSAE5bqRm+3aepqTtYVFrd4ATHR8V7mD/AwjMZ0pUEQzuSsOj656llxy0xbt5/+lk9cNV68gEfYfvS+AxP0SaX4mh2fyfwfr2RzqFo7e6U4RXD11ijSaYeZGJK/mxyKfOiNhMc4AfOT5pge6YAaXXIyzU709c6fuPTIUxIMko9txCGU1FcOuuikaa/tApVvgCTxMVP+7Z8zh8PmWdHJ9fz4ybceJTJIpU26zMmscaFdKadHT2dgnTtC6JqD7Zyam0GmCdv3pzyo4IySx5wxmWAvbILC833EJsrWr4aKpg5+WUZ5AmAK8FqtFgm8dvAYfhbdX4KvqdsWH1jOuNmf00quUZ6PqCywLshIFeIklocLpPe911k07RCG0KEXp/oKTYlxMkbsLEwaVIrX5mGP1lDNC/3utg9f9xL7iCwWEwi/dWtyqu1mIhh9ttTqJdb5I6nV476ldJ5negbju/xQSnwAVFMdO0k/4TPVY/0cYQ
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM8PR04MB7874.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(7416014)(376014)(19092799006)(56012099006)(4143699003)(11063799006)(10067099003)(18002099003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?p16KU7KyOuELt+VFp9QACACg0WFvXZ0uRlZY4g9CpTgAXDLic0KYmP1g5CWv?=
- =?us-ascii?Q?ePmVS+Ei7CuNMUqrbjTpfNlGZMSo0xu6Aku9LTt+wRCFqJM6uXF83a/a7lOS?=
- =?us-ascii?Q?Gg5/r9cmtSYuOmq3AJ6+mZ/hyHYWXASCqV5GBmwJm7TLpBN+63a4pOKrSMnI?=
- =?us-ascii?Q?FlkqSZOK8pIdGZrYxtgVbLkmcpr9CtA31xI8yCVQR0OJlqCUUx2lOic9cSLj?=
- =?us-ascii?Q?zIEGDsVUGyM4olMyjMRUA79e9wsbkPEwcSJnUWDm9Se00xaw0NzXyx5hRPO6?=
- =?us-ascii?Q?XhtptwYHtiUSvVbLyj2MNVAm5Paow3CbQo7S+qRRO1wpnBtboiH/Fa88P4rf?=
- =?us-ascii?Q?a8czQc87oECJJOATAZDWhpJGqUIp/L9hOta8OPVKhIoVvvPo9dhpI8Dg1Vw5?=
- =?us-ascii?Q?u+GfY0GT4rlygdFxTSWd+3P+jlE14g1ssf8rXudCa3Aks/c9xXjQ7Y9WV9cH?=
- =?us-ascii?Q?/QSR2ciY+tcKS3b1XN3weiVb2J/YHp1xxrmyBF9uuW7GqHBf66dVNUjQwiOw?=
- =?us-ascii?Q?wfRNNj23AvLbqAygcuxWu7DmsljVlfLeWOfFBDK+YPuY8o1GYPxm3H/TV6bm?=
- =?us-ascii?Q?YC4xEBR2b81aZQqTX+8abOaI76QXQO1UFvV5V/NfVh4svboXYDVDHbzODqrr?=
- =?us-ascii?Q?NXU5XidyqhVUuGhB5KfHuXoj7g/zyXfDFTqKotmhEkoyjt/6LbqjCJrbSPfv?=
- =?us-ascii?Q?YGFhpzNKK543bloknzTf54OYOh068DcXgI7UoX46f5QhxUuEEN1XxclgwSE/?=
- =?us-ascii?Q?WtspJLo/5nyeQtpEb+4vCaguTXl3/kmSRanNqCfqwYGOc+V6P3thkj5HkX8R?=
- =?us-ascii?Q?kp7ufMtPBvgiqr/ZwrtqzLnntUshMYEg9mP9O/q6LLc5SHLTgjMxkzmpaAEM?=
- =?us-ascii?Q?3bdY9Uvl6gQfB4Ki4ZUqzG9mxD9DDsXbrc885O8QsJkkr8/Y9GNxsGaJ+6EG?=
- =?us-ascii?Q?CMam3+cXaZZkzxYQ7j3sjvV8WKS8xebUMQ1D6kQaCjgIkMxTznaHqd05wxf5?=
- =?us-ascii?Q?Rg6xhM+FCV5kWg28TIUIGH3VBfkigDJzh9ID003NKYzvfBUNpgkTKPIvCO/y?=
- =?us-ascii?Q?zZL3NvOM1r64MkVDSv8/cWoAfFQK33Z+vwPVp73KXhH389sUfUlYzb8li5gP?=
- =?us-ascii?Q?2iOYd9RtbZh+KjHMLsYIy8S7bBwOP8AfUitJwO0DKwcW4iyc6OOKNbbbRHbt?=
- =?us-ascii?Q?Aw1Z3/4NeWpt1ITWhcprCk9k1ZTSK84JlIE0K5POZHdBPcTQvwqs0/7OwGZO?=
- =?us-ascii?Q?ne/SZIzvBXc6JTzY2t1A8BySA78xhjCoSGHAqXGMScX/8NzzDv+Ev6bteD6J?=
- =?us-ascii?Q?/LJE3ypWs+AHBZFFdxoLRhX5V3WSF0dY2+dLW+at/q7buinueBxLFguegpgr?=
- =?us-ascii?Q?7bjr3gv5+HsI25++rpsHlOXjKmaXyAYSAc6KVXGmG1xQOWRa2DU+QOJC1KQm?=
- =?us-ascii?Q?NX6H23pGeKMzadeVECJpp9UvnCvJicB64T9Ji93W3ydQL2xrFzW4qPYXdOFf?=
- =?us-ascii?Q?dpQtnklo72DFDiuR30xXoYCdFUywq2whVg03k6HzqDC3t43WMiCxYTE7Spnf?=
- =?us-ascii?Q?FsxdP+t6Ikn2Vtw25KhCyB/1x74Nghu7QpTpN+8+7fVEUgo8XgAvrt9Yf9nc?=
- =?us-ascii?Q?wi/7vYUwmXy0b0qbcv8ruqNlE3pWdvXLKNPbN363mGB3bK+AyvyoDjFgKt77?=
- =?us-ascii?Q?GIn2np7wIgLopnZtcqC6TYvIrQoi0vsgp/SuRjHE7762pMBng0dRPwbGXtPp?=
- =?us-ascii?Q?6fykMyqX+bC/htdl+23U2+1ETjRzLwIu6dQsgaG/Sf5mWy4CUb6o?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1e0ec283-7a50-41b1-aaa2-08df25bd0338
-X-MS-Exchange-CrossTenant-AuthSource: AM8PR04MB7874.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 04:23:04.6323
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LGy7XcJQZ5ZiWpJOGL557XCcZVwXUdGzqQQGy86SGHSkjc0hAdluAJyfCgZt5mhbrYIOsSFRrWzgzLUobebH1domIm5EWfL0Rjplj5YkqZ2ROMNlBXqlgSN9KeqPNNoF
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV4PR04MB206370
-
-On Wed, Sep 23, 2026 at 08:42:23PM +0200, Francesco Valla wrote:
->On Wed, Sep 23, 2026 at 09:48:58AM -0600, Mathieu Poirier wrote:
->> On Tue, Sep 22, 2026 at 10:19:48PM +0200, Francesco Valla wrote:
->> > On Tue, Sep 22, 2026 at 09:43:52AM -0600, Mathieu Poirier wrote:
->> > > On Wed, Sep 16, 2026 at 11:10:57PM +0200, Francesco Valla wrote:
->> > > > Add rings for multiple vdevs, as well as the required virtio nodes for
->> > > > I2C, SPI and GPIO functionalities. On top of that, add example
->> > > > peripherals using all of them.
->> > > > 
->> > > > NOTE: this is a Proof-Of-Concept, not meant to be integrated!
->> > > > 
->> > > > Signed-off-by: Francesco Valla <francesco@valla.it>
->> > > > ---
->> > > >  arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts | 128 +++++++++++++++++++--
->> > > >  1 file changed, 119 insertions(+), 9 deletions(-)
->> > > > 
->> > > > diff --git a/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts b/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts
->> > > > index bd14ba28690c..dfa3b122ac5f 100644
->> > > > --- a/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts
->> > > > +++ b/arch/arm64/boot/dts/freescale/imx93-11x11-frdm.dts
->> > > > @@ -53,6 +53,32 @@ button-k3 {
->> > > >  		};
->> > > >  	};
->> > > >  
->> > > > +	gpio-keys-virtio {
->> > > > +		compatible = "gpio-keys-polled";
->> > > > +		poll-interval = <100>;
->> > > > +
->> > > > +		button-v1 {
->> > > > +			label = "Button V1";
->> > > > +			linux,code = <BTN_3>;
->> > > > +			gpios = <&v_gpio 23 GPIO_ACTIVE_LOW>;
->> > > > +		};
->> > > > +
->> > > > +		button-v2 {
->> > > > +			label = "Button V2";
->> > > > +			linux,code = <BTN_4>;
->> > > > +			gpios = <&v_gpio 24 GPIO_ACTIVE_LOW>;
->> > > > +		};
->> > > > +	};
->> > > > +
->> > > > +	leds {
->> > > > +		compatible = "gpio-leds";
->> > > > +
->> > > > +		led {
->> > > > +			gpios = <&v_gpio 18 GPIO_ACTIVE_HIGH>;
->> > > > +			label = "LED V";
->> > > > +		};
->> > > > +	};
->> > > > +
->> > > >  	reg_usdhc2_vmmc: regulator-usdhc2 {
->> > > >  		compatible = "regulator-fixed";
->> > > >  		off-on-delay-us = <12000>;
->> > > > @@ -89,11 +115,6 @@ linux,cma {
->> > > >  			linux,cma-default;
->> > > >  		};
->> > > >  
->> > > > -		rsc_table: rsc-table@2021e000 {
->> > > > -			reg = <0 0x2021e000 0 0x1000>;
->> > > > -			no-map;
->> > > > -		};
->> > > > -
->> > > 
->> > > Why is the resource table removed?  There is no mention of that in the
->> > > changelog...
->> > >
->> > 
->> > You are obviously right, the commit message here should have been a
->> > poem, not a form of hermetic poetry. My bad.
->> > 
->> > The resource table here is causing problems with how Zephyr is managing
->> > it at its side. If it is kept in a separate memory location and copied
->> > there at runtime by the remote processor firmware during its startup
->> > (which is the current Zephyr behavior), then there might be a race
->> > condition when the aforesaid firmware is loaded and started by Linux
->> > *and* at least one of the vdev drivers (here including rpmsg_bus) is
->> > built-in. In this case, the copy of the resource table done by the
->> > remote processor might - depending on the async execution of the two
->> > processors - overwrite the status bit set by the Linux driver:
->> > 
->> >   Firmware load and startup (echo start > /sys/.../state)
->> >                            |
->> > 			   |
->> > 			   V
->> >   The vdev devices get registered (by register_virtio_device())
->> >                            |
->> > 			   |
->> > 			   V
->> >   If a driver is built-in, it probes and sets the vdev status
->> >   inside the resource table @rsc-table.
->> >                            .
->> > 			   . (in the mean time)
->> > 			   .
->> >   The remote processor starts up and copies the resource table from its
->> >   dedicated section to @rsc-table.
->> > 
->> > Depending on the system load and the complexity of the firmware, the two
->> > operations can happen in whatever sequence, causing a race condition.
->> 
->> This would happen regardless of this patchset.
->>
->
->Correct, *if* the remote processor is copying the resource table to a
->specific location and expects the host to use that. On Zephyr (which is
->clearly outside the scope here) this can be enabled through the
->CONFIG_OPENAMP_COPY_RSC_TABLE option. I am keeping that disabled, and
->removing the rsc-table node here.
->
->I am planning to reason on this and propose a proper fix in a separate
->patchset.
-
-The previous workaround for this was to add a delay in start function.
-
-https://lore.kernel.org/all/20221102112451.128110-1-peng.fan@oss.nxp.com/
-https://lore.kernel.org/linux-remoteproc/20230707232444.374431-1-marex@denx.de/
-
->
->> > 
->> > This is somewhat masked if vdev drivers are built as modules, as the
->> > devices does not probe immediately but only after the modules have been
->> > loaded, giving the remote processor time to start. Note that this is not
->> > a solution! but a workaround.
->> > 
->> > If the rsc-table node is not there, the startup logic falls back to the
->> > classic rproc_elf_find_loaded_rsc_table().
->> 
->> We can't remove @rsc-table to make a problem go away.  
->> 
->
->I need to re-take a look at the NXP SDK to understand what's the real
->purpose of having the rsc-table here. Judging from the commit message
->that introduced support for such facility [1], it seems the SDK is not
->really using it.
->
->Maybe someone from NXP can comment on this?
-
-Linux needs to parse resource table to setup vring. When RPROC(remote processor)
-is booted by ROM or System Manager, there is no elf for Linux to use, so a
-pre-defined address is used rsc-table.
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: qcom: nord: Wire UFS PHY symbol clocks to
+ NEGCC
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>,
+        Bjorn Andersson <andersson@kernel.org>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261008085640.3512895-1-shengchao.guo@oss.qualcomm.com>
+Content-Language: en-US
+From: Taniya Das <taniya.das@oss.qualcomm.com>
+In-Reply-To: <20261008085640.3512895-1-shengchao.guo@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=fKesTpae c=1 sm=1 tr=0 ts=6ac86d09 cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=k7uThIiA5Jd16I7bieEA:9 a=QEXdDO2ut3YA:10
+ a=bBxd6f-gb0O0v-kibOvt:22
+X-Proofpoint-GUID: ObxKK9S3qNpm1vF9Ffkz2VnRwr-af2jv
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDAxNyBTYWx0ZWRfX3sxeFW5OPqB2
+ 3vEyNQ6Cd17IJKbSAmvlZO5YSPKFZA2FX29S3cFyOhXyUGrPB4P0rAC8RJkuo+7CYgvjKBq3nf8
+ nYxraS7E1U9vm8PoN3Rk3yKir6r0QaU=
+X-Proofpoint-ORIG-GUID: ObxKK9S3qNpm1vF9Ffkz2VnRwr-af2jv
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDAxNyBTYWx0ZWRfXypUypBCfhXIl
+ lOQgl+tVx0Zuqy+8fbVu4wkrPz7yTgBK+8CUlUWJB7mUTRIppadFCdHFNpeub8Z+LL2hDULADU8
+ PTSN4SiJ2B5U7UDhprlb2hGrpMdnF5nsp+GVjhWkjd9yTNfT9CNeVmMYmnavotcwmTgBW6wiUqH
+ P0kMFTMkWTlpSUshR5lh3SOxOarbXQEGXrZNQoa0/3kWAvYESCBS0+vVKSBZQ3zYbPGd0nilVHy
+ 6P9eUcAgMM8hWQynYmYePCrDzgtryKdokjjxlwe7UliRcs6Qeluk+X3fFdtKPF/jqWHHmxb4076
+ /QSFrazzW8It+rbukG13Q8AFaF0uzVHxdGJ8P4xbRms3qzC2UYJXuo3y3lP08xthYJ0nsp76Lvv
+ j4Ezm0bx8A7SXWYZGgN6xZ602+8eIvGRU3zZ4UibdVA2F+DpANVYQY3z78FqkwTy6YNJ/fkwUO1
+ DxMYTNB2gzKcVOTd27Q==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-09_02,2026-10-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 malwarescore=0 clxscore=1015 suspectscore=0 adultscore=0
+ priorityscore=1501 impostorscore=0 bulkscore=0 lowpriorityscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610090017
 
 
-If RPROC is booted by Linux using remoteproc, rsc-table in DT is not needed.
-But RPROC is not aware it is booted by ROM, U-Boot, Linux. So it will always
-publish the resource table to rsc-table address.
 
-And we need one DTB/Image to support mutiple boot cases.
+On 10/8/2026 2:26 PM, Shawn Guo wrote:
+> Pass UFS PHY symbol clocks to NEGCC rather than leaving the NEGCC UFS
+> symbol muxes orphaned.
+> 
+> Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+> ---
+>  arch/arm64/boot/dts/qcom/nord-embedded.dtsi | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/nord-embedded.dtsi b/arch/arm64/boot/dts/qcom/nord-embedded.dtsi
+> index 1ab7d9bc3cfe..5cf90c77838e 100644
+> --- a/arch/arm64/boot/dts/qcom/nord-embedded.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/nord-embedded.dtsi
+> @@ -799,9 +799,9 @@ negcc: clock-controller@8900000 {
+>  		reg = <0x0 0x08900000 0x0 0xf4200>;
+>  		clocks = <&bi_tcxo_div2>,
+>  			 <&sleep_clk>,
+> -			 <0>,
+> -			 <0>,
+> -			 <0>,
+> +			 <&ufs_mem_phy 0>,
+> +			 <&ufs_mem_phy 1>,
+> +			 <&ufs_mem_phy 2>,
+>  			 <0>,
+>  			 <0>;
 
-Hope this explains.
 
-Regards
-Peng
->
->> > 
->> > This is specific to i.MX platforms [1] and is probably not normally an
->> > issue because - as stated in [1] - the offical SDK from NXP seems not
->> > to check the status inside the resource table.
->> > 
->> > > >  		vdev0vring0: vdev0vring0@a4000000 {
->> > > >  			reg = <0 0xa4000000 0 0x8000>;
->> > > >  			no-map;
->> > > > @@ -105,12 +126,42 @@ vdev0vring1: vdev0vring1@a4008000 {
->> > > >  		};
->> > > >  
->> > > >  		vdev1vring0: vdev1vring0@a4010000 {
->> > > > -			reg = <0 0xa4010000 0 0x8000>;
->> > > > +			reg = <0 0xa4010000 0 0x1000>;
->> > > > +			no-map;
->> > > > +		};
->> > > > +
->> > > > +		vdev2vring0: vdev2vring0@a4011000 {
->> > > > +			reg = <0 0xa4011000 0 0x2000>;
->> > > > +			no-map;
->> > > > +		};
->> > > > +
->> > > > +		vdev2vring1: vdev2vring1@a4013000 {
->> > > > +			reg = <0 0xa4013000 0 0x2000>;
->> > > > +			no-map;
->> > > > +		};
->> > > > +
->> > > > +		vdev3vring0: vdev3vring0@a4015000 {
->> > > > +			reg = <0 0xa4015000 0 0x2000>;
->> > > > +			no-map;
->> > > > +		};
->> > > > +
->> > > > +		vdev4vring0: vdev4vring0@a4017000 {
->> > > > +			reg = <0 0xa4017000 0 0x4000>;
->> > > > +			no-map;
->> > > > +		};
->> > > > +
->> > > > +		vdev5vring0: vdev5vring0@a401B000 {
->> > > > +			reg = <0 0xa401B000 0 0x2000>;
->> > > > +			no-map;
->> > > > +		};
->> > > > +
->> > > > +		vdev5vring1: vdev5vring1@a401D000 {
->> > > > +			reg = <0 0xa401D000 0 0x2000>;
->> > > >  			no-map;
->> > > >  		};
->> > > >  
->> > > > -		vdev1vring1: vdev1vring1@a4018000 {
->> > > > -			reg = <0 0xa4018000 0 0x8000>;
->> > > > +		vdev5vring2: vdev5vring2@a401F000 {
->> > > > +			reg = <0 0xa401F000 0 0x1000>;
->> > > >  			no-map;
->> > > >  		};
->> > > >  
->> > > > @@ -149,8 +200,67 @@ &cm33 {
->> > > >  		 <&mu1 3 1>;
->> > > >  	mbox-names = "tx", "rx", "rxdb";
->> > > >  	memory-region = <&vdevbuffer>, <&vdev0vring0>, <&vdev0vring1>,
->> > > > -			<&vdev1vring0>, <&vdev1vring1>, <&rsc_table>;
->> > > > +			<&vdev1vring0>, <&vdev2vring0>, <&vdev2vring1>,
->> > > > +			<&vdev3vring0>, <&vdev4vring0>,
->> > > > +			<&vdev5vring0>, <&vdev5vring1>, <&vdev5vring2>;
->> > > 
->> > > Who is using vdev5 vrings?  
->> > > 
->> > 
->> > Another thing that should have been in the commit message. Vdevs are
->> > defined, in the Zephyr application I am using as PoC, as follows:
->> > 
->> >  - vdev0: RPMSG (tx and rx vrings)
->> 
->> To be backward compatible, there has to be a way to make vdev0 defaulting to
->> RPMSG.  It would also be nice if bindings were define for RPMSG so that it can
->> show up in the list of remoteproc-virtio devices like i2c, gpio and others.
->>
->
->What vdev type is inside vdev0 is up to the resource table (i.e., to the
->firmware running on the remote processor), not the remoteproc-virtio
->framework.
->
->Defining bindings for rpmsg would today be... pointless? Since no
->hardware needs to be described for it. The same goes for virtio-can and
->virtio-entropy.
->
->> 
->> >  - vdev1: entropy (single request vring)
->> >  - vdev2: GPIO (request and event vrings)
->> >  - vdev3: I2C (single request vring)
->> >  - vdev4: SPI (single request vring)
->> >  - vdev5: CAN (tx, rx and control vrings)
->> > 
->> > vdev5 is not represented inside the devicetree because the can-virtio
->> > driver registers a single CAN network device and has thus no need for
->> > such representation.
->> 
->> Then why is it part of the remoteproc's memory-regions?
->> 
->
->Because a vring description needs to be present for it, or the
->remoteproc-virtio won't be able to fill the entry inside the resource
->table.
->
->> > 
->> > > >  	status = "okay";
->> > > > +
->> > > > +	virtio {
->> > > > +		#address-cells = <1>;
->> > > > +		#size-cells = <0>;
->> > > > +
->> > > > +		vdev@2 {
->> > > > +			reg = <2>;
->> > > > +
->> > > > +			v_gpio: gpio {
->> > > > +				compatible = "virtio,device29";
->> > > > +				gpio-controller;
->> > > > +				#gpio-cells = <2>;
->> > > > +				interrupt-controller;
->> > > > +				#interrupt-cells = <2>;
->> > > > +			};
->> > > > +		};
->> > > > +
->> > > > +		vdev@3 {
->> > > > +			reg = <3>;
->> > > > +
->> > > > +			i2c {
->> > > > +				compatible = "virtio,device22";
->> > > > +				#address-cells = <1>;
->> > > > +				#size-cells = <0>;
->> > > > +
->> > > > +				eeprom@50 {
->> > > > +					compatible = "atmel,24c1025";
->> > > > +					reg = <0x50>;
->> > > > +				};
->> > > > +			};
->> > > > +		};
->> > > > +
->> > > > +		vdev@4 {
->> > > > +			reg = <4>;
->> > > > +
->> > > > +			spi {
->> > > > +				compatible = "virtio,device2d";
->> > > > +				#address-cells = <1>;
->> > > > +				#size-cells = <0>;
->> > > > +
->> > > > +				sram@0 {
->> > > > +					compatible = "microchip,mchp23k256";
->> > > > +					reg = <0>;
->> > > > +					spi-max-frequency = <20000000>;
->> > > > +				};
->> > > > +
->> > > > +				lcd@1 {
->> > > > +					compatible = "adafruit,yx240qv29", "ilitek,ili9341";
->> > > > +					reg = <1>;
->> > > > +					spi-max-frequency = <10000000>;
->> > > > +					dc-gpios = <&v_gpio 21 GPIO_ACTIVE_HIGH>;
->> > > > +					reset-gpios = <&v_gpio 20 GPIO_ACTIVE_HIGH>;
->> > > > +					rotation = <90>;
->> > > > +				};
->> > > > +			};
->> > > > +		};
->> > > > +	};
->> > > >  };
->> > > >  
->> > > >  &eqos {
->> > > > 
->> > > > -- 
->> > > > 2.55.0
->> > > >
->> > 
->> > Thank you!
->> > 
->> > Regards,
->> > Francesco
->> > 
->> > 
->
->Thank you for the discussion - is helping in defining further
->requirements and constraints.
->
->Regards,
->Francesco
->
->[1] https://lore.kernel.org/all/20240719-imx_rproc-v2-2-10d0268c7eb1@nxp.com/
->
->
->
+Reviewed-by: Taniya Das <taniya.das@oss.qualcomm.com>
+
+-- 
+Thanks,
+Taniya Das
+
