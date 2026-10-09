@@ -1,159 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 292BA3F54BD;
-	Fri,  9 Oct 2026 12:19:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15AC44BB806
+	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 12:21:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791548371; cv=none; b=TvwqlOMWO2u+qLlBylF5XDHL2kXP8eWk+AmBlz86ycLp+h32yfU0hD5qTw6RkxAIZZsX30bEDOPNBj3UCF9vq6ASjy/SZEbsKCPz4Mz3Yoz5H5ZbA3pyTwE90jPPrgcPyIXxbLl5t+7dMQbSsHND5yjjsfdQK5r55Z3v2l8wMLE=
+	t=1791548468; cv=none; b=RWA5n8OUsVgUFEoHnFdIpRjE1d+tsbVdsaKGnpKOFpFkUnLA5ZeHmUH96wI5B3vxn/Q5qpiKnQTT6+UGbK98uvNr063vfbeKLQEsIa5Kx1AbbcpzeEPR7Phyq1Rg//XJJomQy7q0PKJQ5e5/8isEYx3vxTCHa01tKgi9sBc9cdA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791548371; c=relaxed/simple;
-	bh=sdWtTQgIHKiNefzEPfn0lDmHP+2mMTZz8RVexsIh8eU=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=AkL8pmm7Lm91MHuqp7iV9cIgqHWeCVcr5ovmyy9IBtWNf8UTVxlVzio3K2EN8DrFrO3RVwAD9hl9gf6IyeXdokBfSZ859WbeTgPDAr4JNNyAvGH9bEInBHNmkdPl/HN20SEE1x1LtwfkhO98wapIB/67miiMql6yJCBhcqW5xqw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AZIzTWFk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791548468; c=relaxed/simple;
+	bh=Cl4LBCNyYjfLcA8M9pFp0MGm50fZVlfvAIPstVNB9dY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DJwu9GU/Ktf9b0xVzFz8B8o2SfkMaLT0RkFF/9AWk2J/ANlkLzmxjTWztv78bdlLGYw9uMAoBQj6wI9YiahDBnVXzfVPi1ocBSGkNVkbThDhFKF+PCf5oOl1XecyB2zI+ACHH/14u6ITHcwMCI5LJI80p2WRWx5AV/PU1Y0coQk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RWD3R2K5; arc=none smtp.client-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AZIzTWFk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F2851F000FF;
-	Fri,  9 Oct 2026 12:19:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791548363;
-	bh=CcfwOShsx0laJwIhvuEtut8EDI2FI8xZxgJUimEifFo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=AZIzTWFkOqSxuQ5StNKSBGiLrVBV2y3+7rnSvA6UddMM34N3SQPVDy/mMPeuslXHt
-	 hBmz/ZGATOblb5s2hy0Bj3N8h71LY53/M70SW+XBXXYFvyLaoTy7J+C0qdSbIgoDxe
-	 tY4YnVeQgNX9eoGmuzgRXVTKBL/x7klHkV/LDKhK6eUPHeukCjhxffM7/6OkxAo6W+
-	 q0uBRRndSEyBvVJ2PcQ6gZgNzQwPhNVhUlwZ2ptHW6KbFRFz0T+55ueNvQRhSaltxo
-	 LolccVDZCrqhSM1YgHBRK++Q3aD5CGPZJX5ZskKykm8get/jIdZlIgQ2/mjwfjnsw1
-	 NocYke2ODEnbg==
-Message-ID: <sashiko-outbox-165517@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: input: add OnePlus pogo-pin keyboard
- binding
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yibo Wang" <wyibo6109@gmail.com>
-Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org, dmitry.torokhov@gmail.com, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261009121143.550498-2-2024312277@stu.hit.edu.cn>
-References: <20261009121143.550498-1-2024312277@stu.hit.edu.cn>
- <20261009121143.550498-2-2024312277@stu.hit.edu.cn>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 09 Oct 2026 12:19:22 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RWD3R2K5"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2e8246b13cbso11162435ad.2
+        for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 05:21:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791548460; x=1792153260; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XEWrIzKLR6ifRFKivyWaAxL1i189Pekuk8YqMPtRbiE=;
+        b=RWD3R2K55OrXY7x3cnfUhdGFsatYiKZk1Ys85Ji/hWfRWbVNLqhgoe4zXbLjChWDPk
+         Sv5WGUpsQQ/eBS4+IKwIyrPjNxFwgtm5xZ7v8sUOwfZ05VSzOLzmh5lZnCG4zGPVAGZJ
+         GpYlmnT2Sn1REyzZ7+9TqlV5OaRCUCTvS4TDIiX9moSHZ9uBcXqu39lHXEHMzOdKj8sR
+         VS4axbhcn50xKS00p3iWLia/CUj4xSVdS+/NTTdjCWOFE35ghk93duMeFLY7VClJ4sVx
+         DIizjn0sKIoexSz6Q7esY8R2pJcJDNTiVmaT0X5VDsi1HpJeWBoD5CDTncSWAIP57hvq
+         TWXA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791548460; x=1792153260;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XEWrIzKLR6ifRFKivyWaAxL1i189Pekuk8YqMPtRbiE=;
+        b=DIBUtkX+cndJrYWT6Vn8oeYkfEoKAQCq6fs8eUVJakOQCqDRdNKc3aSYICATXZhdeR
+         7Yi24AXRHFHLN/36q7wWgDTAIjfJS7WfMxwKxc2Qg7+z4/aVOH4feuD/OvRYD/dQ9Y87
+         xhni5qoC6jzMODxIzpD5ZmESID56qceLKr58jFo0ajvu54JaAJnsuJsJeyRYsWFZQKfK
+         EA/Ip2mv7bW0vUmbS2ZkO4hqmTl/VaOKS00Qr2FQ8mqC2aVfQSkIwXf5o/+0daAjwQSr
+         pQJSx8fz2wjDSymbZAM14NbZXHczUQnqRbFhvi0JsGdtTATAJGIBm1Hah1S7r3NkDwgg
+         buXA==
+X-Forwarded-Encrypted: i=1; AKwUvBxoBPJgP9qoKifkgjBddVmy966O6v5AiC2fLrrFmpQAB0qUR+AiASPOmauuACxUyl/P+3MLAib+U6A/@vger.kernel.org
+X-Gm-Message-State: AFq9FYKxcz47ypZzS65hwcvuDVC5mAqsF5QryIRXHAM8+aBetkmZ0NqX
+	71BAIUhKADJ15skcb1lXvd3EeNRqm9eIaZhXAiHwW7W+1jAkBGvSp27o
+X-Gm-Gg: AYBFou0g9kolXvzsPkghv0EyZUPTJPcoft7FikhJlzqu+VW7SJHcSDeQzRds9my/bQM
+	Xd9OGEqYils93+7l1eoI1hn2I46oMT857E0AVvqAjofxWOAZzvLAGyEwee5H9nsJXwZWGjnPVL9
+	2T0vdsy3bvMHOZGbxlfL+AMmNYa+VhkQxztmQzu8H6JrRJQvElHBQR8UYm9x1mz8dblARcH7MKm
+	NB5z2XRF2D4vhj4fzDY99Qb9H4mA5FUbzj2XvILOkdeNrOkdX2vSlL0603W8k24IKechx4/PFwB
+	T+s6k9PR8s8hVzi3lAm2WTMBs3A6zpkxBQCrXCtAzLZcyvOGmh208ufkeOupif5cfQZtbAL+zJ1
+	Q3UNtCFxm7LEqLIr4Lqc+Q3nd8haBzbEieHHb3A87BQ1cQHDqeLEihLSGNQRBHMw6JbXBEfdo4S
+	9WWWSNltW/5LTICeBi7dOBvh7pjQQ6K7bddRuNtRXA4Q1D85iC8YCQ+qF0etU4fbAa22g=
+X-Received: by 2002:a17:902:f683:b0:2dd:ad74:ac7f with SMTP id d9443c01a7336-2e842aafe0amr16027565ad.26.1791548459661;
+        Fri, 09 Oct 2026 05:20:59 -0700 (PDT)
+Received: from wyb-ms7e59 ([38.55.195.146])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8421b15f4sm7622505ad.45.2026.10.09.05.20.56
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 05:20:59 -0700 (PDT)
+From: wyibo6109@gmail.com
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	linux-input@vger.kernel.org
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yibo Wang <wyibo6109@gmail.com>
+Subject: [PATCH 0/2] Input: add support for OnePlus/OPPO Pad pogo-pin keyboards
+Date: Fri,  9 Oct 2026 07:20:44 -0500
+Message-ID: <20261009122046.551915-1-wyibo6109@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Medium] dt-bindings: incorrect use of additionalProperties: false with a=
-llOf $ref
-- [Medium] dt-bindings: custom properties lack vendor prefix and explicit t=
-ype reference
-- [Low] dt-bindings: unnecessary #address-cells and #size-cells in example =
-serial node
---
+From: Yibo Wang <wyibo6109@gmail.com>
 
-commit 9e61ffe1ac817966b2b3b703148b7060c7724704
-Author: Yibo Wang <wyibo6109@gmail.com>
+This series adds support for the magnetic pogo-pin smart keyboards of
+the OnePlus Pad 3 Pro / Pad 4 and the OPPO Pad 5 Pro.  The keyboard is
+built around a Tinno MCU attached to a tablet UART.  Both sides share a
+single data wire, so the host gates its transmission onto the bus with a
+PMIC GPIO for the duration of a frame, and every host frame is echoed
+back on RX.
 
-dt-bindings: input: add OnePlus pogo-pin keyboard binding
+The MCU speaks a framed "one wire bus" protocol over the half-duplex
+921600 8N1 UART: 8x 0x55 preamble, 0xF1, src/dst addresses, command,
+length, payload, CRC16-IBM (poly 0x8005, init 0xC596), 0xFE and 4x 0xAA.
+The protocol was reverse engineered from the vendor kernel driver; this
+is a clean-room serdev reimplementation that replaces the downstream
+platform driver, which depends on a private msm_geni_serial callback and
+a user-space held tty fd.
 
-Adds device tree bindings for the Tinno keyboard MCU used by OnePlus and
-OPPO tablets over a serial bus.
+Patch 1 adds the DT binding for the "oneplus,pogo-keyboard" device,
+describing the supply, TX-gate and wake GPIOs and the touchpad geometry,
+with a MAINTAINERS entry.
 
-> diff --git a/Documentation/devicetree/bindings/input/oneplus,pogo-keyboar=
-d.yaml b/Documentation/devicetree/bindings/input/oneplus,pogo-keyboard.yaml
-> new file mode 100644
-> index 0000000000000..3086a2c4e2895
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/input/oneplus,pogo-keyboard.yaml
-[ ... ]
-> +allOf:
-> +  - $ref: /schemas/serial/serial-peripheral-props.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: oneplus,pogo-keyboard
-[ ... ]
-> +  wake-gpios:
-> +    description: GPIO signalling attach/detach, also used as the wake li=
-ne.
-> +    maxItems: 1
-> +
-> +  touchpad-xy-max:
-> +    description: Touchpad maximum X and Y coordinates in units.
-> +    items:
-> +      - description: maximum X
-> +      - description: maximum Y
-> +    minItems: 2
-> +    maxItems: 2
-> +
-> +  touchpad-xy-resolution:
-> +    description: Touchpad X and Y resolution in units per millimetre.
-> +    items:
-> +      - description: X resolution
-> +      - description: Y resolution
-> +    minItems: 2
-> +    maxItems: 2
+Patch 2 adds the driver: keyboard matrix, touchpad, function and URL
+keys, caps-lock LED, attach detection through the wake GPIO plus a
+100 ms heartbeat timeout, and the keyboard backlight as a
+"pogo-keyboard::kbd_backlight" LED class device so UPower and the
+desktop keyboard-backlight controls drive it through the standard
+interface (the level is cached while detached and restored on
+re-attach).  A sysfs battery level is exported for the keyboards that
+carry a battery.
 
-[Severity: Medium]
-Do these custom properties need a vendor prefix and an explicit type
-definition?
+Tested on the OnePlus Pad 4 (iceland) running Linux 7.2.0-sm8850
+(v7.2-based iceland tree).
 
-Device tree guidelines mandate that non-standard, device-specific properties
-must include a vendor prefix to avoid namespace collisions. These should
-probably be oneplus,touchpad-xy-max and oneplus,touchpad-xy-resolution.
+---
 
-Also, because they do not end in a standard recognized suffix, dt-schema
-validation cannot infer their types. Should they include an explicit type
-reference to /schemas/types.yaml#/definitions/uint32-array to prevent
-dt_binding_check from emitting a missing type definition warning?
+ .../bindings/input/oneplus,pogo-keyboard.yaml |   81 ++
+ MAINTAINERS                                   |    7 +
+ drivers/input/keyboard/Kconfig                |   11 +
+ drivers/input/keyboard/Makefile               |    1 +
+ drivers/input/keyboard/oneplus-pogo-kbd.c     | 1109 +++++++++++++++++
+ 5 files changed, 1209 insertions(+)
 
-> +
-> +required:
-> +  - compatible
-> +  - power-gpios
-> +  - tx-enable-gpios
-> +  - wake-gpios
-> +
-> +additionalProperties: false
-
-[Severity: Medium]
-Will this block properties inherited from the serial-peripheral-props.yaml
-reference?
-
-Since the schema references the serial properties via an allOf block earlie=
-r,
-using additionalProperties: false strictly limits allowed properties to only
-those defined in this file's properties block.
-
-Should this be changed to unevaluatedProperties: false to allow standard
-serial properties like max-speed?
-
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +
-> +    serial {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-
-[Severity: Low]
-Are these address size properties necessary for this example?
-
-The child keyboard node does not contain a reg property, nor does its name
-include a unit-address. Declaring address cells without any addressable
-children triggers an avoid_unnecessary_addr_size warning from dtc when
-evaluating the example.
-
-> +
-> +        keyboard {
-> +            compatible =3D "oneplus,pogo-keyboard";
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009121143.5504=
-98-1-2024312277@stu.hit.edu.cn?part=3D1
+-- 
+2.53.0
