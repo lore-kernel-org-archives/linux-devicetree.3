@@ -1,83 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB9DF3CF1E1
-	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 21:16:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1880F339B41
+	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 21:45:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791580609; cv=none; b=rQV8txGCM1efgsrgx8KKYFrnSUlmCZM2zxpKy4b3C6+5VzknS1ms21Qk86gz+ocmb+Wy4u7hm7p4wnma797tJiOL+XsqTkhHanhaGxMVH7hkE6fkwysXcEmgaMEKjQpI2Dl7z/RVbmtp1eJW+wlZN1TGDIU2RmgcooB1PU5dlfA=
+	t=1791582348; cv=none; b=C8B/Mr4/lcSaCZaelN8fY0ml6dbe51zgOOc50+4hkyBrdjjD+korZtCroE50CzDjNjNEbaNk2eqSCkMFzaF/ivepnUTkFLDb9XgNsyVAJWX/ih5r06DLNNAixJtEqhS2jaP/A4P+ZcKKs7vM1NPxsoTweZt52U7YHXKvZR2UIOQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791580609; c=relaxed/simple;
-	bh=pOjh8O8Oq6aRVh6JgsLLuSInkH3+kGN0eVIPZ+j+jmc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=mRLBUpxnx+3z+z6Yo+sS6Tyy9WPqWlrBJa/QZPnMPdD1alnNnL+ebd2TmHGCNrQWnaq//yeUB4C2GoqP/wxYnyIVs/PxgUIl8Re22X8K2YK6p7EnrUd2wpytRVUx2lxXwC2QgOWwAsWuvVGWIxJhrIwP7BgfqW0a/s9DEqlr3/k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cG+2CrOd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791582348; c=relaxed/simple;
+	bh=ASEmCLfRwgQbxLWnkf5or2hRdg6uzSekK3ayF6wdI2s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=gW4JCBJby+Ka9U/u9ag0ZTIboNTfKZHuZ45/rm/F4zYueCIEBhBBxNH9l8HNKQS1ThfIsr0TC0xHEnXWGbssJBN0jKl73gFW866NwkA87R3p3ZCQSe3QC69XbyWOpqsrotiLsY4h2/JCqCTUBnvi81q2w4bBRf8fOm2y8SZtRA4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TSk+mZjl; arc=none smtp.client-ip=209.85.214.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cG+2CrOd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A442F1F00898
-	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 21:16:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791580608;
-	bh=pOjh8O8Oq6aRVh6JgsLLuSInkH3+kGN0eVIPZ+j+jmc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=cG+2CrOd/QgTwToV1AwTrkzyFuPmqfc73GdFV7wNvYOFnXZWbZWW/rrgmv46M8QYd
-	 /coo1iRKTKUtKMdYTOT9l2sZy7jyZF6JHKG42SK9Yvohzctg1HD/lqYGjIZ9leOfAE
-	 tV94AUotzs5KkNtvmqM0jwdlURnWerRBOt1KAvdHH9uVLTv8lBAUYBGp+WV/73feVu
-	 SP0MhUlNc6O/DtAyJEWAWEmsKbt5y5f2OTFgYewpx1UmHilkQ/atenLnBQ23ZWxisa
-	 wVylB5egjye+9e7J6pojE2czF6KCRzjr2GjzIFc1QRrtLA3ggcgPhYLStpTLCEqGG6
-	 z3/NcrfY8ydGg==
-Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-3a7858d3a20so2153751fa.0
-        for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 14:16:48 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwIOEvJ1IsW00SzVAmZz03W8VnL6qug0zDY5YiSxXMF454zBM6JUitC4HN6xe4y85Ui4X+L18+2R+HN@vger.kernel.org
-X-Gm-Message-State: AFq9FYKlhyTugVewh1kYovTYB8aA+wCVO/tf7V1DFzY9lHAIQ2oL7yVT
-	KHCzkFC6SmLg2r8GWlb8tC0x6zJQ56Q0O7R4BfazTGahKQphjUOu6LAC4BVqH1M2qvey7MJk6Uo
-	b+P0QEHw+vm2P/dZ+FnMAopk1l3IqnXE=
-X-Received: by 2002:a05:651c:198f:b0:3a7:69bd:80ad with SMTP id
- 38308e7fff4ca-3a9c5253754mr7279251fa.6.1791580607219; Fri, 09 Oct 2026
- 14:16:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TSk+mZjl"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2dd76b1361dso910645ad.1
+        for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 14:45:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791582346; x=1792187146; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yJGj1uJaimgWxWRNZxMFXky2zyOGTWtfYM2CHs6J2DQ=;
+        b=TSk+mZjl3xaPFvAWLtW8KYyK22M0FFTRc67nNbFKjtfuHPaFawfcNgmcPat7X1TXdV
+         YkRnXZ2p7ofIZDUIvkVT5u7r4UW0w6Hnlc8x9GKPn1Ksf5qYmJNiYsPANxyrogHuU9+/
+         6BDMVBhNYvtmVE+DUWFDAX8UqGl1bT2YQIN7889ujsybOpbH6U9SlmPLgDX7w55UbSU4
+         dqn5dvCZtXJz6oTWqIgLyyhA7QVT66KzfAI7IG8J9kFYdbHOIo5aeg369xz+N7SezaCU
+         OwzZt/RLGMFuZyuttkWo7WGBf5AV6JPeHzFPT2Jrmi73njH2oO/FmDUCAS32U5jLCobP
+         jnaw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791582346; x=1792187146;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yJGj1uJaimgWxWRNZxMFXky2zyOGTWtfYM2CHs6J2DQ=;
+        b=Xtv8lpJUao10zHU1Y5Egn7o4k1kjZt96j3XPGbb7r/Z2HdnhGlJx4IaQlj63vGWG7O
+         n0Y8jtpdlCLW9pv5qH1mi2Oqt2qLU7+nAJ7c4IxdluV140EqPZz2fPYkMzI1triMKGbS
+         RoC+FHW0Re8VNGgxTLhBl03KXRnAFJ0avXevBImhVYVre054e7MoPYZSnsz4+UZkMper
+         hhO836siXErr+BAFL1yqL+mOFKy04V2zdSvJEPuRz76YNII+RSEGXErVsVPNMTVUbXMY
+         lkHT2N40J0RMTPCzYuLtzVlvuwYQTsml38EIQI98g474r3EjVT9Kmx/b5E9uXlmCsWNW
+         QgbQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwUynUqmeKZG8SPZqWwD9zqkI5JU2Q3tGF83fL+qWy/yLwiJ+VuXr4KyWzgZBBbMrO4ZpkxUyd42bGt@vger.kernel.org
+X-Gm-Message-State: AFq9FYJiAh3opL5l8z1GE2OmAGMniuMXGzBSTHwpSaNoA+yDD+vt0BWJ
+	V1Sj6evg3z3sciIQ1T3aUMcLiy/DKZdfJR16yRvLIuEvYbKQQMHVfqO8
+X-Gm-Gg: AYBFou3lhByrh7eSnNLsyclvm4XqpDQXE5Gj/L89NjI/eXgfJfCjRXvW9JM5bUjllzG
+	ERyHDWE5BR4fDt2bkAVd3rbDmz/fPTG4S+1ApxfkoRF1IKvpAoflRyAHlcu0tBUkrodeY74GPYT
+	KhhZXS3LCjJE3By8ba5il6Ud6IHa7Dg8uezZ+drJcP+OOCPlwX7Gqcusg36mT5/vGBJZRA204ju
+	MyRAN0hJlVhh8QscbxIsf5L58jKkLD+KUbqP1GWJt62DfC+smFknNhuXxvGD31dv3X15erQIVHK
+	rFNQPUa+L50GhgO2hKJy+IVOJMPjecBfj9Mp8c/rcXmvLxcVG4GGS0sWaqTbAtBQFqN66nXZco1
+	CaMaaCA0VKoBCnxV883CQQUkjAQsj6YsHX4WAZtzYJH9GdM5XBCDZ08y5tcK++YyaxdozEW9gB7
+	5AP7QvknHVVw1oKK5Xyk2VDnIRSvRcKOTDs/dbmZYbkl0921xBJNt0ddk04QCE1WplXxnrKe6xu
+	ODJGUcOlSh/s/bBd8LLMBALrGSEtXv/UCClnXKoxJjBvZIl
+X-Received: by 2002:a17:902:db12:b0:2da:e967:7953 with SMTP id d9443c01a7336-2e842ab81abmr25712755ad.12.1791582346293;
+        Fri, 09 Oct 2026 14:45:46 -0700 (PDT)
+Received: from d.home.yangfl.dn42 ([104.28.215.164])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e84219e54asm16615975ad.13.2026.10.09.14.45.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 14:45:45 -0700 (PDT)
+From: David Yang <mmyangfl@gmail.com>
+To: Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>
+Cc: David Yang <mmyangfl@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: [PATCH v2 0/2] regulator: support the HiSilicon STB PMOC voltage rails
+Date: Sat, 10 Oct 2026 05:43:38 +0800
+Message-ID: <20261009214404.722628-1-mmyangfl@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921-ux500-power-domains-v7-1-v3-0-9352be6b86b1@kernel.org>
- <20260921-ux500-power-domains-v7-1-v3-5-9352be6b86b1@kernel.org>
- <CAL_Jsq+1O+os8=YGUoKg6zCm-r0gQ35baKX=z65uTQNB0i=RVQ@mail.gmail.com>
- <CAD++jLm+yRo9e1UDhnaYrdPq28mdyYKQZ6tdKuUa3UG85imkNA@mail.gmail.com>
- <20261009131902.GA1195061-robh@kernel.org> <CAPx+jO9F6wUG9M_cV-xiF-KAKD5kJ02n+yE6L9vocs=KWaKFTw@mail.gmail.com>
-In-Reply-To: <CAPx+jO9F6wUG9M_cV-xiF-KAKD5kJ02n+yE6L9vocs=KWaKFTw@mail.gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Fri, 9 Oct 2026 23:16:34 +0200
-X-Gmail-Original-Message-ID: <CAD++jLkkWUpkg6gwZuRzwwLU5E_9AsLiv8PSjT04dvNFj4DBBA@mail.gmail.com>
-X-Gm-Features: AclHuK9p2mVaeX7VK8JUI4a76kwVWB2K8tlFEwycQPwaH1SFyM2rvP_ArIybIGc
-Message-ID: <CAD++jLkkWUpkg6gwZuRzwwLU5E_9AsLiv8PSjT04dvNFj4DBBA@mail.gmail.com>
-Subject: Re: [PATCH v3 05/18] dt-bindings: display: ste,mcde: Allow power domains
-To: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Cc: Rob Herring <robh@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Mark Brown <broonie@kernel.org>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Vinod Koul <vkoul@kernel.org>, 
-	Frank Li <Frank.Li@kernel.org>, Lee Jones <lee@kernel.org>, 
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-pm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
-	dmaengine@vger.kernel.org, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 9, 2026 at 4:38=E2=80=AFPM Ulf Hansson <ulf.hansson@oss.qualcom=
-m.com> wrote:
+HiSilicon STB SoCs regulate their CPU and core supplies with PWM outputs of
+the PMOC block feeding an external converter on the board. This adds the
+binding for those registers and a driver for them.
 
-> I have queued up three patches [1] for next from Linus via my pmdomain
-> tree. The patches are also available for you to pull via my immutable
-> dt branch. I assume that should resolve this problem?
+v2:
+ - naming and doc changes
+v1: https://lore.kernel.org/r/20261008155727.3801095-1-mmyangfl@gmail.com
 
-Way quicker than sending and having a revert accepted, and
-way way more productive :D
+David Yang (2):
+  regulator: dt-bindings: add hi3798cv200 regulator
+  regulator: histb: add voltage regulator driver
 
-Thanks Ulf!
+ .../hisilicon,hi3798cv200-regulator.yaml      |  48 ++++++
+ MAINTAINERS                                   |   7 +
+ drivers/regulator/Kconfig                     |   7 +
+ drivers/regulator/Makefile                    |   1 +
+ drivers/regulator/histb-regulator.c           | 162 ++++++++++++++++++
+ 5 files changed, 225 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/regulator/hisilicon,hi3798cv200-regulator.yaml
+ create mode 100644 drivers/regulator/histb-regulator.c
 
-Yours,
- Linus Walleij
+-- 
+2.53.0
+
