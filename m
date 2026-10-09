@@ -1,128 +1,252 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24C3F328610;
-	Fri,  9 Oct 2026 17:10:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4372737C92D;
+	Fri,  9 Oct 2026 17:12:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791565829; cv=none; b=of5I5BDiJxt9b6fcKQxiiCs46sRAeKlm+kPrkpZ4e0hGuQG/EMasOahJ2SgcpAFzXQEPbjvQH6qOQVUU/g8yDYtzafOeZkVwKmUzrTLrD359qZH1u8f0vlxF6+igmifiGitn+9pG8Jz/Ujs1nuaKS/u1ItUccJx0YWy15jlk/W8=
+	t=1791565946; cv=none; b=bfHJmjEEQdMHI2qXdb/RaPYPE8XEnWxIEFkm3K8ktUoRIi3gwptNwvSsGSSG8HyZ0XJNZFMXRIiLih/kE39XzumpTG8TUX96th53PkIHZSu42GIZS4KELqeHht00A/l1fjYoRQ/xfvDcLFxIN6+kOq5GCEYLOrVEOuvV2QGvg1c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791565829; c=relaxed/simple;
-	bh=S1yiruj1Bl53UmxXG/p0iUk6DARn+XM9wVtHfc60myg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZqCH4uA8MTvvDe3Xy1N9c2OdTzyFoyhrBKoa06J1KPceIjXkQC7zdR3w2/6IhVD2gNYmZYE4eamnEt8whDT7+gqb/SuP0BAwGtoZnCU5eXv1v9OEMr3UutJRdZ40b4nZJdwuQcbEfQZ0/8xy2Ll+Z3BWSN3N1+3O0oSvgClgSeU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q1Nhseao; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791565946; c=relaxed/simple;
+	bh=o8aP55ckY0Hvu3IMepSl4Cjlxkhhnh/FFNuvCiWZTXw=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=S0DZl0KeddBcCxnydumRvnPLI57AE91MhUcUoDYjfReQq4eWUk7IN71WVaWqszMRpq58dLZetucIDhPxjSiAvwiyc95e6VqYAS6345SCXXfaybJiyNkJxdn2I2ssydTDAMtGKWY0/ZoMEvQXBQc4OHFwGEfqgZ7rzih1/Pi1pcs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bZEVy+Ng; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q1Nhseao"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86F951F000FF;
-	Fri,  9 Oct 2026 17:10:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791565827;
-	bh=kAD7jZL3WT2oDggDD/W1Uk0YnF3NERQV17t5J8hJ8+M=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Q1Nhseaoa+rDmPgv3RV88Xq/keczcbIu4FLYepJnBvD2cRWQ9lipkpUB7/oP4GWM2
-	 FtecI4n/MNfujCQ2qyTF3wHtE8IruMwItFTLmIBKKeC3vlmY0G1hsyyVZAtoiwWou8
-	 P3DbUqJp9Xmpt/k5D8+TZwqQdKWqiN19Lf+AJ3W0+6UWmvY9NsCpCPQCR2qUhmOLIC
-	 8Ojr7flTBUGp+qSaJwC9QVMRhzWedJSGwa8czVneuywDeGOD4MwdC3oFvmjdVrC/MQ
-	 pQQu6ro5HclX1M3k8qO/i9gCSAbnfYwfDkfc5jGddIzvabPGzItOqeLhZ1tE9Uequ/
-	 TaRWxOs50oK2g==
-Date: Fri, 9 Oct 2026 12:10:27 -0500
-From: Rob Herring <robh@kernel.org>
-To: Mike Rapoport <rppt@kernel.org>
-Cc: Wandun <chenwandun1@gmail.com>, baoquan.he@linux.dev,
-	m.szyprowski@samsung.com, catalin.marinas@arm.com, will@kernel.org,
-	mark.rutland@arm.com, chenhuacai@kernel.org, kernel@xen0n.name,
-	pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
-	alex@ghiti.fr, tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
-	dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
-	saravanak@kernel.org, akpm@linux-foundation.org,
-	pasha.tatashin@soleen.com, pratyush@kernel.org,
-	ruirui.yang@linux.dev, robin.murphy@arm.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org, kexec@lists.infradead.org,
-	linux-mm@kvack.org, iommu@lists.linux.dev
-Subject: Re: [PATCH v7 0/9] kdump: reduce vmcore size and capture time
-Message-ID: <20261009171027.GA2734758-robh@kernel.org>
-References: <20260922084256.1515554-1-chenwandun1@gmail.com>
- <ar9ogXc12cLjziHS@kernel.org>
- <80af60db-8c39-461c-a488-3dfee990bce8@gmail.com>
- <askVvEPHyrhpF8aw@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bZEVy+Ng"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id E701DC2BCF4;
+	Fri,  9 Oct 2026 17:12:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791565946;
+	bh=o8aP55ckY0Hvu3IMepSl4Cjlxkhhnh/FFNuvCiWZTXw=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=bZEVy+NgZcprklOfZzUOHqffP3zA/35x1UfjnZouYQxA49+jLyeOjtaP5Rhe6xatY
+	 palgkvCcBJ04MYYcHTDqVcAtc1V1AFHkQvEPZVkxTi2AR8O4+CE5uww9dJF2QXUxH/
+	 sgWAnayCbIuF7sQyzgrBurn6cNzCJBg+DNLH+Jt4derS2KTD9LdupBlvzzt5MxXNWh
+	 wCsGoDRwjXg3QglidaVSgXdktTdDBFAozF2sksVSj/juCKhlBJbXr8jvZfPDhCgp5N
+	 9xb7UecdDeSP0+OY/9duwDg+VEM23X2ClTI1i2a1J77S/RBhgdoO8/GEC1Ss4KmjDJ
+	 PAwK0T4rR7VEg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id B84AECA9EBE;
+	Fri,  9 Oct 2026 17:12:25 +0000 (UTC)
+From: Selvamani Rajagopal via B4 Relay <devnull+Selvamani.Rajagopal.onsemi.com@kernel.org>
+Subject: [PATCH net-next v9 00/11] Support for onsemi's S2500 10Base-T1S
+ MAC-PHY
+Date: Fri, 09 Oct 2026 10:12:20 -0700
+Message-Id: <20261009-s2500-mac-phy-support-v9-0-dcefe1d0bf0d@onsemi.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <askVvEPHyrhpF8aw@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAHUgyWoC/3XOTW7DIBAF4KtErEvFnxnoqveousB4XFPJxgJiJ
+ Yp89xK3UlJZXo5m3vfmRjKmgJm8nW4k4RJyiFMd7MuJ+MFNX0hDV2cimNBMM06zaBijo/N0Hq4
+ 0n+c5pkJVLx1awfoWJKnZOWEfLpv7QSYsdMJLIZ+/m3xuv9GXO3u/HUIuMV23Fxa1Jf7amoO2R
+ VFGO6xtnkuvO/Mep4xjePVx3EqW5onh6ohpKmOsAdWC6EE0O0Y/McIeMboy3HgEW9cS+I6BBwP
+ MHDFQGQXGGwDnuLM7xjwYKw4ZUxlAxrlz3kv2n1nX9Qe0pl/s8wEAAA==
+To: Selva Rajagopal <selvamani.rajagopal@onsemi.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Parthiban Veerasooran <parthiban.veerasooran@microchip.com>, 
+ Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Randy Dunlap <rdunlap@infradead.org>, 
+ Richard Cochran <richardcochran@gmail.com>, Andrew Lunn <andrew@lunn.ch>, 
+ Heiner Kallweit <hkallweit1@gmail.com>, 
+ Russell King <linux@armlinux.org.uk>, Eric Dumazet <edumazet@kernel.org>, 
+ Piergiorgio Beruto <piergiorgio.beruto@gmail.com>, 
+ Eric Dumazet <edumazet@kernel.org>
+Cc: Selva Rajagopal <Selvamani.Rajagopal@onsemi.com>, 
+ netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+ Jerry Ray <jerry.ray@microchip.com>, 
+ Ciprian Regus <ciprian.regus@analog.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791565943; l=7973;
+ i=Selvamani.Rajagopal@onsemi.com; s=20260531; h=from:subject:message-id;
+ bh=o8aP55ckY0Hvu3IMepSl4Cjlxkhhnh/FFNuvCiWZTXw=;
+ b=omP3AdDZhVu0JUuuh2mF6hup9HkRPjaotmsxcHLfQC3vbNWFaVmOCdIZYzS0XeYzdhI1GfF2g
+ 7tLQaI4AOZPAqvddxtHx/kdGb4dAw5Wpgac5Ts0wwPCxsut5RdCBsrd
+X-Developer-Key: i=Selvamani.Rajagopal@onsemi.com; a=ed25519;
+ pk=5QRdM0HS/LGWWcUZZ9hVfZ+qbPQGZCumcTXOiN7Fyug=
+X-Endpoint-Received: by B4 Relay for
+ Selvamani.Rajagopal@onsemi.com/20260531 with auth_id=803
+X-Original-From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
+Reply-To: Selvamani.Rajagopal@onsemi.com
 
-On Fri, Oct 09, 2026 at 06:26:36PM +0200, Mike Rapoport wrote:
-> On Fri, Oct 09, 2026 at 11:04:47AM +0800, Wandun wrote:
-> > On 10/2/26 16:17, Mike Rapoport wrote:
-> > > Hi Wandun,
-> > > 
-> > > On Tue, Sep 22, 2026 at 04:42:47PM +0800, Wandun Chen wrote:
-> > >> From: Wandun Chen <chenwandun@lixiang.com>
-> > >>
-> > >> On SoCs that carve out large firmware-owned reserved memory (GPU,
-> > >> camera ISP, ...), kdump currently dumps those carveouts as part of
-> > >> system RAM even though their contents are firmware state that is not
-> > >> useful for kernel crash analysis.
-> > >>
-> > >> This series introduces a MEMBLOCK_NODUMP flag in memblock to filter
-> > >> reserved memory on DT-based architectures (arm64, riscv, loongarch).
-> > >> Reserved regions are marked MEMBLOCK_NODUMP by default so kdump omits
-> > >> them; reusable CMA regions are different because their pages are handed
-> > >> back to the buddy allocator and may carry crash-relevant data.
-> > >>
-> > >> ACPI systems already filter reserved memory out of the vmcore through
-> > >> their existing path; only DT-based systems currently fail to filter these
-> > >> regions, which is what this series addresses. The flag lives in memblock
-> > >> itself rather than in a DT-only structure, so both ACPI and DT systems
-> > >> can benefit from it (suggested by Rob, thanks).
-> > > 
-> > Hi Mike,
-> > 
-> > Thanks for the review.
-> > 
-> > > Can you elaborate how ACPI systems filter their reserved memory?
-> > 
-> > In the EFI memory map, firmware carveouts are reported with the type
-> > EFI_RESERVED_TYPE. This type of memory gets the nomap flag set in
-> > memblock.memory (is_usable_memory() returns false in reserve_regions()
-> > and mark these regions with nomap flag), during prepare_elf_headers(),
-> > for_each_mem_range() filters out these nomap regions. Therefore, the
-> > memory reserved on ACPI based systems will not be dumped into the vmcore.
-> > 
-> > I will add these description in next version.
-> > 
-> > > With your patches, the memblock flag becomes a part of DT-only
-> > > infrastructure, so that claim that both ACPI and DT benefit from it does
-> > > not hold, doesn't it?
-> > 
-> > You are right, the wording was misleading. Let me clarify what I meant.
-> > 
-> > In this series only DT marks regions as MEMBLOCK_NODUMP:
-> > /reserved-memory and /memreserve/ entries are tagged in the OF
-> > paths (of_reserved_mem.c, fdt.c). ACPI does not set the flag and
-> > keeps filtering its reserved memory through the existing path, as
-> > described above.
-> > 
-> > 
-> > What I intended to convey is that the flag itself lives in memblock
-> > rather than on the DT-only struct reserved_mem, so it is available
-> > for reuse. If an ACPI system ever needed to exclude a firmware-owned
-> > region from the vmcore, it could mark that region with MEMBLOCK_NODUMP
-> > the same way DT does, instead of having to invent a parallel mechanism.
-> > That is a future option, not something this series enables for ACPI
-> > today.
-> 
-> So, EFI uses NOMAP for the same purpose, right?
-> Why when we need a new memblock flag then?
+This patch series brings support for onsemi's S2500 that iss
+IEEE 802.3cg compliant Ethernet transceiver with an integrated
+Media Access Controller (MAC-PHY)
 
-IIUC, NOMAP implies NODUMP (for EFI and DT), but NODUMP is needed for 
-some mapped (!NOMAP) regions.
+Driver implementation is compatible and works with OA TC6
+framework that is already present. S2500 driver supports
+hardware timestamping. Along with this driver, OA TC6
+frame work is also changed to add hardware timestamping
+support.
 
-Rob
+Driver has support for running selftest and loopback tests.
+Through ethtool, it can provide traffic stats, rmon stats,
+and timestamping related traffic stats.
+
+As S2500 has an internal PHY, changes have been added
+to onsemi's PHY driver to support this device.
+
+To: Andrew Lunn <andrew@lunn.ch>
+To: Heiner Kallweit <hkallweit1@gmail.com>
+To: Russell King <linux@armlinux.org.uk>
+To: David S. Miller <davem@davemloft.net>
+To: Eric Dumazet <edumazet@google.com>
+To: Jakub Kicinski <kuba@kernel.org>
+To: Paolo Abeni <pabeni@redhat.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>
+To: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>
+To: Selva Rajagopal <selvamani.rajagopal@onsemi.com>
+To: Richard Cochran <richardcochran@gmail.com>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Simon Horman <horms@kernel.org>
+To: Jonathan Corbet <corbet@lwn.net>
+To: Shuah Khan <skhan@linuxfoundation.org>
+To: Randy Dunlap <rdunlap@infradead.org>
+Cc: netdev@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-doc@vger.kernel.org
+Cc: Jerry Ray <jerry.ray@microchip.com>
+Cc: Ciprian Regus <ciprian.regus@analog.com>
+Signed-off-by: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
+
+Changes in v9:
+- Renamed the new phy API from having "fixed_speed" to "no_speed"
+- Fixed compilation issue due to having changes in the wrong patch
+- Added the MAINTAINERS changes to where files were introduced.
+- Fixed coding style issues reported.
+- Moved the order of patches so that selftest changes goes after
+  s2500 support.
+- Made Pier's email ID consistent across to be consistent across 
+  the codebase.
+
+- Link to v8: https://lore.kernel.org/r/20260928-s2500-mac-phy-support-v8-0-7e011aacc309@onsemi.com
+
+Changes in v8:
+- Modified to use newer MMD based read/write APIs
+- clean up by removing unused definitions/initializations
+- Better handling of timestamp capture events by using
+  bit fields so that we don't lose any event
+- timestamp skb queue is protected with spinlock
+- added reset-gpio in YAML file as support is recently added
+- removed ioctl from OA TC6 framework as it is not needed.
+
+- Link to v7: https://lore.kernel.org/all/20260708-s2500-mac-phy-support-v7-0-478c877aa1a9@onsemi.com
+
+Changes in v7:
+- Fixed compiler warning due to prototype mismatch
+- Moved the order of patches to ensure dt-bindings comes first
+  before it is being used
+- Added missing review tag
+- Added missing MODULE_DEVICE_TABLE
+- OA_TC6 framework enables 64 bit timestamping mode by default.
+
+- Compiler related warnings fixed.
+- Link to v6: https://lore.kernel.org/r/20260629-s2500-mac-phy-support-v6-0-18ce79500371@onsemi.com
+
+Changes in v6:
+- Changes to ensure onsemi code stay within 80 columns.
+- Fixed the error of "not described in comments section"
+  in comments section.
+
+- Fixed compiler warnings.
+- Link to v5: https://patch.msgid.link/20260614-s2500-mac-phy-support-v5-0-89874b72f725@onsemi.com
+
+Changes in v5:
+ - kernel doc related changes in oa_tc.c, onsemi driver files and
+  oa tc6 rst file
+- Link to v4: https://lore.kernel.org/r/20260605-s2500-mac-phy-support-v4-0-de0fbc13c6d8@onsemi.com
+
+Changes in v4:
+ - Added return value comment for genphy_read/write_phy_mmd functions
+ - Added genphy_loopback_fixed_speed helper function to be used in
+   set_loopback callbacks
+ - Updated networking documentation for OA TC6 framework to elaborate
+   on what is expected in the ptp_clock_info structure for registration.
+ - added spi-max-frequency in YAML file based on alert from sashiko-bot
+ - Removed model/version from the onsemi driver's private structure as
+   they were useful as "information-only" data.
+ - Replaced the non-standard selftest with Linux's standard selftest
+   and made it as a separate patch
+ - Changed bit manipulation, shift operations to use macros so that
+   it is clean and readable.
+ - added new read_register and write_register apis with _mms postfix
+   so that MMS (memory map selector) can be given as a parameter.
+ - Fixed the wrong condition check with NETIF_F_RXFCS to subtract
+   FCS size from the length of the frame.
+ - Link to v3: https://lore.kernel.org/r/CY8PR02MB92499C9080614FA3CEB8CD0483162@CY8PR02MB9249.namprd02.prod.outlook.com
+
+Changes in v3:
+ - Moved OA TC6 framework to its own directory.
+ - Split changes to smaller patches based on feedback.
+ - Added PHY loopback support as a separate patch.
+ - New, read and write register APIs with extra parameter MMS
+ - Link to v2: https://lore.kernel.org/r/CY8PR02MB924920C8825C7AE5D22EFA4483382@CY8PR02MB9249.namprd02.prod.outlook.com
+
+Changes in v2:
+ - API to add vendor specific MMS to mdio device map.
+ - Link to v1: https://lore.kernel.org/r/CY8PR02MB9249D083B637477C254F9B0583322@CY8PR02MB9249.namprd02.prod.outlook.com
+
+---
+Selvamani Rajagopal (11):
+      dt-bindings: net: add onsemi's S2500
+      Documentation: networking: Add timestamp related APIs to OA TC6 framework
+      net: ethernet: oa_tc6: Move oa_tc6.c to its own directory
+      net: ethernet: oa_tc6: Move constant definitions to header file
+      net: ethernet: oa_tc6: Support for hardware timestamp
+      net: ethernet: oa_tc6: Support for vendor specific MMS
+      net: phy: ncn26000: Enable enhanced noise immunity
+      onsemi: s2500: Add driver support for S2500 MAC-PHY
+      onsemi: s2500: Added selftest support to onsemi's S2500 driver
+      net: phy: ncn26000: Support for onsemi's S2500 internal phy
+      net: phy: ncn26000: Support for loopback
+
+ .../devicetree/bindings/net/onnn,s2500.yaml        |  71 +++
+ Documentation/networking/oa-tc6-framework.rst      |  59 +++
+ MAINTAINERS                                        |  11 +-
+ drivers/net/ethernet/Kconfig                       |  13 +-
+ drivers/net/ethernet/Makefile                      |   3 +-
+ drivers/net/ethernet/adi/Kconfig                   |   1 +
+ drivers/net/ethernet/microchip/lan865x/Kconfig     |   1 +
+ drivers/net/ethernet/oa_tc6/Kconfig                |  17 +
+ drivers/net/ethernet/oa_tc6/Makefile               |   7 +
+ drivers/net/ethernet/{ => oa_tc6}/oa_tc6.c         | 429 ++++++++++++-----
+ drivers/net/ethernet/oa_tc6/oa_tc6_ptp.c           |  65 +++
+ drivers/net/ethernet/oa_tc6/oa_tc6_std_def.h       | 172 +++++++
+ drivers/net/ethernet/oa_tc6/oa_tc6_tstamp.c        | 224 +++++++++
+ drivers/net/ethernet/onsemi/Kconfig                |  22 +
+ drivers/net/ethernet/onsemi/Makefile               |   7 +
+ drivers/net/ethernet/onsemi/s2500/Kconfig          |  21 +
+ drivers/net/ethernet/onsemi/s2500/Makefile         |   7 +
+ drivers/net/ethernet/onsemi/s2500/s2500_ethtool.c  | 383 +++++++++++++++
+ drivers/net/ethernet/onsemi/s2500/s2500_hw_def.h   | 160 +++++++
+ drivers/net/ethernet/onsemi/s2500/s2500_main.c     | 523 +++++++++++++++++++++
+ drivers/net/ethernet/onsemi/s2500/s2500_ptp.c      | 174 +++++++
+ drivers/net/phy/dp83867.c                          |  11 +-
+ drivers/net/phy/ncn26000.c                         |  61 ++-
+ drivers/net/phy/phy_device.c                       |  22 +
+ include/linux/oa_tc6.h                             |  25 +
+ include/linux/phy.h                                |   2 +
+ 26 files changed, 2345 insertions(+), 146 deletions(-)
+---
+base-commit: d8674294aefef02266c4d47ad10131f1bffbe534
+change-id: 20260601-s2500-mac-phy-support-4f3ae920fb73
+
+Best regards,
+-- 
+Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
+
+
