@@ -1,87 +1,214 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8289A305695;
-	Thu,  8 Oct 2026 23:40:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 397C118859B;
+	Fri,  9 Oct 2026 00:40:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791502815; cv=none; b=PWTt3ZPY0Wt6WQI3tnm0zFZ0a9SlqPpIkG4p9g4wC06R0+aXqCHz+KD74IzA3y4Ozy7uL5+lYt0kBfJfMvWmu5d9AaQHpDhkvxzAC8/QNuUCybohYnXDQ4GNUbsAt9Cwycxm5JTXyGA2r63pnFO/xzZ+9O7BWSLl5mkCx6QXGKk=
+	t=1791506451; cv=none; b=P1qtc+VFlwIGSrWflxX5a+5mcae9nTeDek6NE9XzgPokQODXSl0jt4NNcDOHNHdlMCD3gntzRhgefqDdmhFSDQOaQywxcI7fs6GbS42tjCck7orteMyQhqi3IZb4T9/2ehyOwa5Quf/v2Lj3PsSw/EM/ZbPousTuf89FyaBjoMA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791502815; c=relaxed/simple;
-	bh=4htzrZaJ/PID1NRHDqE2nzZnYloIrATNFerd+1j2U5Y=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=kQ2bKySta1q+1Z+4oUF/h7PcgT/5CbjmUMx69WzgQOPW+ShV2qyrFIKb0f/3PAG0aqce6KIbpYlDWwLWbO+FMH4fiGiS2YLVv3nfJYdgAxsvxbJDxitEUXoJfadknz10Ad2mF8OWQysJKspzUJRBQ7v+hbSIeHaTWmTAuYaN1Mw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BNMtWPTI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791506451; c=relaxed/simple;
+	bh=VnrNQ9zGJkyaVBWNIw32C16safpgXzhhXh0aiiukAk8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=MpLcyf7YlP6aMfUk1sBE4K3zVO+4TXY4nTDomp34QysY/JAdTCcqhuJ4pGWPW1JS22rG7XlykB18EL2zT91QZQLZ3WkSBHFJLmjyyg6d5C4RgyjOdVsum9reFBjWgLxDGd/fNcAhGsBx/j1XQ56Bvz/U/cfeIIVWsYnylX/qnxY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LN71k/Nl; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BNMtWPTI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BDDE1F000FF;
-	Thu,  8 Oct 2026 23:40:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791502814;
-	bh=xxXb5XwAcH9S11N19Y66Uia5rWboylK7c85aGLZoJ18=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=BNMtWPTIpJ4Q2kEtGwlndZuJrn1U5T4WiNOfcjrsmME+fVel3jH0fHVzKFnj+lBOG
-	 kJ7Rl2rupeRb3lLyABYpbGd5d5PCqcOorerUgzlE1vC4hWDyM/fngnnXxkowWBrXpl
-	 WqTiNBat+gZR3YNg6x7rWZgzPQISNEDGGJosPnq2EnTvf9V+PgV7uUvISwC+WhikDN
-	 7C5Gm9/1Iu7+ruKeaE82XyOcZ3BQhY4Mo/ckkHhCED7VyyLf81K2+4PfPpRXPpibgZ
-	 GOh5m507nopzOQtKucj+/yXNubvrVgs/cRJuSzHwC+yt0oXYlXWjZrUiIzY1OLt6lU
-	 6xipy/lLKJviA==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id F151E380AA60;
-	Thu,  8 Oct 2026 23:40:13 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LN71k/Nl"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A32D8C2BCF5;
+	Fri,  9 Oct 2026 00:40:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791506450;
+	bh=VnrNQ9zGJkyaVBWNIw32C16safpgXzhhXh0aiiukAk8=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=LN71k/NlerXB2ztqXtHqNP3cb/xNPuOkSE8VTjtoBHaajWkbBLdnJFSnEkTw4shwc
+	 T4Zh5TZN1CZRutAIWvZe33lKHhqgW/+pq6k3G3uqvtYBsuzHOaDwkRk6cocF+mKW7n
+	 4GVo1Jae7LGDCppbqPtCrE/vyuRV9N8mA7Zh4atHNQRcNHgT+OcZ2yymcfCFn2C/xk
+	 YVSgCDBzW4e6rclvzI/ofyev0GIrsOmcEQswyjIxsAo3rf1WkAQnq8ioanSjtNZtM9
+	 TN52TVEyfB9NZjunDwdQWR80OQNBxBDI3UZEk0g60iKhDuMMkqB0lFc9rASxrOgpSX
+	 0hYdvEW17HSYA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8E309CA6018;
+	Fri,  9 Oct 2026 00:40:50 +0000 (UTC)
+From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
+Date: Fri, 09 Oct 2026 03:40:48 +0300
+Subject: [PATCH] arm64: dts: rockchip: Add the front panel LEDs to Kobol
+ Helios64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next v5 0/5] net: mdio: realtek-rtl9300: add bus
- frequency
- handling
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <179150281262.481494.17430896222307600212.git-patchwork-notify@kernel.org>
-Date: Thu, 08 Oct 2026 23:40:12 +0000
-References: <20261005074908.1273383-1-markus.stockhausen@gmx.de>
-In-Reply-To: <20261005074908.1273383-1-markus.stockhausen@gmx.de>
-To: Markus Stockhausen <markus.stockhausen@gmx.de>
-Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- netdev@vger.kernel.org, chris.packham@alliedtelesis.co.nz, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261009-helios64-leds-v1-1-6c58a66bf0c6@iav.lv>
+X-B4-Tracking: v=1; b=H4sIAA84yGoC/x3MQQqAIBBA0avErBNUUqqrRAvJKQdEw4EIxLsnL
+ d/i/wqMhZBhHSoUfIgppw41DnAEly4U5LtBS22VlIsIGCmznUREz8JqMxvnDEqroTd3wZPe/7f
+ trX1dI/j4XwAAAA==
+To: Heiko Stuebner <heiko@sntech.de>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, Igor Velkov <iav@iav.lv>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4250; i=iav@iav.lv;
+ h=from:subject:message-id;
+ bh=llv6HX0uCXXdfUD/WPDPaPRAv2BcF+iTEvDdVmnTS6Q=;
+ b=owGbwMvMwCVmNH1q96v4SmbG02pJDFknLASb34RJzE5PU/V3Ob7jnGXD7KyG4+tuCU9I14/yX
+ afoPm9XRykLgxgXg6yYIsuEQxq3MpZc/evvYf4AZg4rE8gQBi5OAZhIihcjw/cYHUsmx6CEKTcr
+ T+m4qRd2bGryqU9L+mxZuCnKue5ZBsN/9z//Htzb8z9z0yLv+7kzReoeuV76x/DQpY9TUfWD7J1
+ WHgA=
+X-Developer-Key: i=iav@iav.lv; a=openpgp;
+ fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
+X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
+X-Original-From: Igor Velkov <iav@iav.lv>
+Reply-To: iav@iav.lv
 
-Hello:
+From: Igor Velkov <iav@iav.lv>
 
-This series was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+Besides the system LEDs, the front panel of Helios64 has a network, a
+USB and five SATA error LEDs. Each is switched by a MOSFET from a GPIO,
+active high: NETW_ACT_LED_ON on GPIO0_A4, USB3_ACT_LED_ON on GPIO0_B3
+and SATA_ERR0 to SATA_ERR4 on GPIO2_A2 to GPIO2_A6. The Kobol wiki
+gives the colours: activity LEDs are blue, error LEDs are red.
 
-On Mon,  5 Oct 2026 09:49:03 +0200 you wrote:
-> The Realtek Otto switch platform consists of four different series
-> 
-> - RTL838x aka maple   : 28 port 1G Switches
-> - RTL839x aka cypress : 52 port 1G Switches
-> - RTL930x aka longan  : 28 port 1G/2.5G/10G Switches
-> - RTL931x aka mango   : 56 port 1G/2.5G/10G Switches
-> 
-> [...]
+Describe them next to the system LEDs. The panel labels the disks
+HDD 1 to HDD 5, so the error LEDs are numbered from 1.
 
-Here is the summary with links:
-  - [net-next,v5,1/5] dt-bindings: net: realtek,rtl9301-mdio: restrict MDIO buses by family
-    https://git.kernel.org/netdev/net-next/c/d5b2fb6761ae
-  - [net-next,v5,2/5] dt-bindings: net: realtek,rtl9301-mdio: add clock-frequency
-    https://git.kernel.org/netdev/net-next/c/dbaa9e9e05eb
-  - [net-next,v5,3/5] net: mdio: realtek-rtl9300: convert "fwnode" left-overs to "of"
-    https://git.kernel.org/netdev/net-next/c/d2d69812552b
-  - [net-next,v5,4/5] net: mdio: realtek-rtl9300: reject duplicate MDIO bus IDs
-    https://git.kernel.org/netdev/net-next/c/808c15994074
-  - [net-next,v5,5/5] net: mdio: realtek-rtl9300: support non-default clock frequencies
-    https://git.kernel.org/netdev/net-next/c/72356fed7965
+Assisted-by: LLM
+Signed-off-by: Igor Velkov <iav@iav.lv>
+---
+Schematic, sheets 29, 30 and 35:
+https://wiki.kobol.io/helios64/files/schematics/Helios64_Schematics_Rev1.2.pdf
+Front panel LED colours:
+https://wiki.kobol.io/helios64/front-panel/
+---
+ .../boot/dts/rockchip/rk3399-kobol-helios64.dts    | 78 +++++++++++++++++++++-
+ 1 file changed, 77 insertions(+), 1 deletion(-)
 
-You are awesome, thank you!
+diff --git a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts b/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
+index d146e5075b4f..25f0ba5a47ac 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
+@@ -12,6 +12,7 @@
+ 
+ /dts-v1/;
+ #include <dt-bindings/input/input.h>
++#include <dt-bindings/leds/common.h>
+ #include "rk3399.dtsi"
+ 
+ / {
+@@ -107,7 +108,8 @@ button-user1 {
+ 	leds {
+ 		compatible = "gpio-leds";
+ 		pinctrl-names = "default";
+-		pinctrl-0 = <&sys_grn_led_on &sys_red_led_on>;
++		pinctrl-0 = <&sys_grn_led_on &sys_red_led_on &netw_act_led_on
++			     &usb3_act_led_on &sata_err_led_on &sata_act_led>;
+ 
+ 		led-0 {
+ 			label = "helios64:green:status";
+@@ -120,6 +122,60 @@ led-1 {
+ 			gpios = <&gpio0 RK_PB5 GPIO_ACTIVE_HIGH>;
+ 			default-state = "keep";
+ 		};
++
++		led-2 {
++			color = <LED_COLOR_ID_BLUE>;
++			function = LED_FUNCTION_LAN;
++			gpios = <&gpio0 RK_PA4 GPIO_ACTIVE_HIGH>;
++		};
++
++		led-3 {
++			color = <LED_COLOR_ID_BLUE>;
++			function = LED_FUNCTION_USB;
++			gpios = <&gpio0 RK_PB3 GPIO_ACTIVE_HIGH>;
++		};
++
++		led-4 {
++			color = <LED_COLOR_ID_RED>;
++			function = LED_FUNCTION_DISK_ERR;
++			function-enumerator = <1>;
++			gpios = <&gpio2 RK_PA2 GPIO_ACTIVE_HIGH>;
++		};
++
++		led-5 {
++			color = <LED_COLOR_ID_RED>;
++			function = LED_FUNCTION_DISK_ERR;
++			function-enumerator = <2>;
++			gpios = <&gpio2 RK_PA3 GPIO_ACTIVE_HIGH>;
++		};
++
++		led-6 {
++			color = <LED_COLOR_ID_RED>;
++			function = LED_FUNCTION_DISK_ERR;
++			function-enumerator = <3>;
++			gpios = <&gpio2 RK_PA4 GPIO_ACTIVE_HIGH>;
++		};
++
++		led-7 {
++			color = <LED_COLOR_ID_RED>;
++			function = LED_FUNCTION_DISK_ERR;
++			function-enumerator = <4>;
++			gpios = <&gpio2 RK_PA5 GPIO_ACTIVE_HIGH>;
++		};
++
++		led-8 {
++			color = <LED_COLOR_ID_RED>;
++			function = LED_FUNCTION_DISK_ERR;
++			function-enumerator = <5>;
++			gpios = <&gpio2 RK_PA6 GPIO_ACTIVE_HIGH>;
++		};
++
++		led-9 {
++			color = <LED_COLOR_ID_BLUE>;
++			function = LED_FUNCTION_DISK_ACTIVITY;
++			gpios = <&gpio4 RK_PD4 GPIO_ACTIVE_HIGH>;
++			default-state = "on";
++		};
+ 	};
+ 
+ 	hdd_a_power: regulator-hdd-a-power {
+@@ -500,6 +556,22 @@ gphy_reset: gphy-reset {
+ 	};
+ 
+ 	leds {
++		netw_act_led_on: netw-act-led-on {
++			rockchip,pins = <0 RK_PA4 RK_FUNC_GPIO &pcfg_pull_down>;
++		};
++
++		sata_act_led: sata-act-led {
++			rockchip,pins = <4 RK_PD4 RK_FUNC_GPIO &pcfg_pull_down>;
++		};
++
++		sata_err_led_on: sata-err-led-on {
++			rockchip,pins = <2 RK_PA2 RK_FUNC_GPIO &pcfg_pull_down>,
++					<2 RK_PA3 RK_FUNC_GPIO &pcfg_pull_down>,
++					<2 RK_PA4 RK_FUNC_GPIO &pcfg_pull_down>,
++					<2 RK_PA5 RK_FUNC_GPIO &pcfg_pull_down>,
++					<2 RK_PA6 RK_FUNC_GPIO &pcfg_pull_down>;
++		};
++
+ 		sys_grn_led_on: sys-grn-led-on {
+ 			rockchip,pins = <0 RK_PB4 RK_FUNC_GPIO &pcfg_pull_down>;
+ 		};
+@@ -507,6 +579,10 @@ sys_grn_led_on: sys-grn-led-on {
+ 		sys_red_led_on: sys-red-led-on {
+ 			rockchip,pins = <0 RK_PB5 RK_FUNC_GPIO &pcfg_pull_down>;
+ 		};
++
++		usb3_act_led_on: usb3-act-led-on {
++			rockchip,pins = <0 RK_PB3 RK_FUNC_GPIO &pcfg_pull_down>;
++		};
+ 	};
+ 
+ 	pcie {
+
+---
+base-commit: 36b190eca882ecd39b5354f7ee995f939dc6d885
+change-id: 20261009-helios64-leds-62585aa5e062
+
+Best regards,
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+Igor Velkov <iav@iav.lv>
 
 
