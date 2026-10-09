@@ -1,44 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D85949D5B1;
-	Fri,  9 Oct 2026 10:30:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 757E448A8D3;
+	Fri,  9 Oct 2026 10:31:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791541809; cv=none; b=W94Nt2XKHkCBVi3TgC/+sxNdB77Xb2yYU4ILhmlM4Hn1P/k67jqO/zrZnIrkHPaUUH1GlQo6JfnP8chrsNC5ATiuv/Yzp/R1HMCI+TPozDaag/NERNh/RC1j9UN2kW/qhe6LH/zY1izkEb1h+bPzS/1eupluCcokoeDvjkHZE1g=
+	t=1791541889; cv=none; b=q4ePvipKy+vDovkguEpkSQ/4vYo/LvNbbQCSI8oXTugPh8gdBOZAXRlGQcdAl20p+tCPiA/THb+bA+fk8Ab275Z1WxShFyM308autPYkQ8RMH0Es9PjGcpzPMNLBKWVi1Nk2wmf5plr3zcpPcZPN6xnr4eHIrmXxXHsDmC8HK3o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791541809; c=relaxed/simple;
-	bh=wUKKD5uvsh1V47TRX60qialTIpDacu+370UBlWliLQM=;
+	s=arc-20240116; t=1791541889; c=relaxed/simple;
+	bh=GtyHm+xBm2xJUQCd5UyzY97V1vkV2j3WS6JjUjQGmC4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fya7muJ15lpN1GeE9u3UKA1Tm3N+bXlOklr65KVNa4VcS9mf3LWG0tSVvxaQtq+d6ohQlLL9oLnqbN/u4zdIrSWVcug2hEyJAeIgoUeSyiYuD9u2+fJ06nmhZ9+Dr+hwb5ZUJs/iSWids1ntnaND1A/H/3WzJNqh9KfslsekThk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R6e2Qf0e; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Y6LJOYsDT570wiC3rzvPaZ1ZmyJW8Nw/pK/7jhP9ThalAPLk29mdTXzpoXfZNLdH/mwgonv1COq8Q0VYA1b1WzT45SSab0BbNXGFJz3qGqjMhfAVohAKaRtzNKvqKuj+EjR4LL3ZK7MhWGsbi+Tay40sxcwH5EO47YSvwlBSeHs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K/kRAwFY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R6e2Qf0e"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E6241F000FF;
-	Fri,  9 Oct 2026 10:30:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K/kRAwFY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B30B1F000FF;
+	Fri,  9 Oct 2026 10:31:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791541807;
-	bh=gBkCeYVqmSb3prSHngCK69WNaY6mX9aeLJas4Zai/rc=;
+	s=k20260515; t=1791541888;
+	bh=g12nnmx2URm15ceIKI7TQ1hob+O8zuALvg+ycI7aBOQ=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=R6e2Qf0eWYTgeySbgvyFPddjgtR3ExeP/Xp0JQc0LklEF2alM100T1WG7UwBX5Uca
-	 TKN2QY0qD/mV6jUvSipzC9bSV4r580y6NU/OMkHCPLxMHLxZU1imTrA+2u3UkrCWO8
-	 mfkc1XVJAG5Vn1VRfrXz6UG6Y/733EMcEEo3/xtUfYfYCBZzvGnGhcuuCsldBDpKua
-	 Qgz6SRQldFvH73lyfWMinJ3sAHucgtg5sItzTwNbd+yF1/pXZJ88dnnTVkLfAFqwNF
-	 DM+h49+3z5nnsNkOxiDBLwbnrVMy3uMrODCeth2kE3efVKDYxJlgN180Wh1Rp84yaI
-	 AjivVt8fFdcIA==
-Date: Fri, 9 Oct 2026 12:30:04 +0200
+	b=K/kRAwFY9Q+MWWgCT3W+Q7iElzNrv5q3mGba5eAbc6Du5nrDbhqp/oigOYRxiacmj
+	 9z2DF366U6XE8r7IyKSUN7iRHmRpidMGrqBMCqyUP79gV62mJnezWlYkx+jyqL51WS
+	 6D4XUbh9TqgnTmejUj21EENabGH685/KDjgmrxURCp630//qOCi5V1ukDYraKdXFBb
+	 e5I44YFaI0srFzYCgEgsF1LQ4QMIZrIygxeU/nCEWr3Ma6e570+40g2DVFx85JOpNa
+	 tefA6Irn7hqOLqh4wO7bLvMM8XxrIvP6u2dzZcbB+bLAuO5GwoaD80UxkEjAddWmZc
+	 CzXcukw7iQ08w==
+Date: Fri, 9 Oct 2026 12:31:24 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>
-Cc: Johannes Berg <johannes@sipsolutions.net>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Jeff Johnson <jjohnson@kernel.org>, 
-	linux-wireless@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	ath12k@lists.infradead.org
-Subject: Re: [PATCH ath-next 01/17] dt-bindings: net: wireless: Add QCN6432
- device tree binding documentation
-Message-ID: <20261009-brainy-alpaca-of-focus-31fbbd@quoll>
-References: <20261008-mpp_bringup-v1-0-2c5797b5e4ac@oss.qualcomm.com>
- <20261008-mpp_bringup-v1-1-2c5797b5e4ac@oss.qualcomm.com>
+To: Jacky Chou <jacky_chou@aspeedtech.com>
+Cc: Vinod Koul <vkoul@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Joel Stanley <joel@jms.id.au>, Andrew Jeffery <andrew@codeconstruct.com.au>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Ryan Chen <ryan_chen@aspeedtech.com>, 
+	Billy Tsai <billy_tsai@aspeedtech.com>, linux-aspeed@lists.ozlabs.org, linux-phy@lists.infradead.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: phy: aspeed: Add ASPEED PCIe PHY
+Message-ID: <20261009-vehement-mature-mackerel-f7bc87@quoll>
+References: <20261008-aspeed_pcie_phy-v1-0-96764937aef0@aspeedtech.com>
+ <20261008-aspeed_pcie_phy-v1-1-96764937aef0@aspeedtech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,56 +49,31 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261008-mpp_bringup-v1-1-2c5797b5e4ac@oss.qualcomm.com>
+In-Reply-To: <20261008-aspeed_pcie_phy-v1-1-96764937aef0@aspeedtech.com>
 
-On Thu, Oct 08, 2026 at 03:53:57PM +0530, Aaradhana Sahu wrote:
-> Add Devicetree binding documentation for the Qualcomm QCN6432 IEEE 802.11be
-> wireless device.
+On Thu, Oct 08, 2026 at 07:28:19PM +0800, Jacky Chou wrote:
+> Introduce device-binding for ASPEED AST2600/2700 PCIe PHY.
+> The PHY provides the physical layer used by the PCIe
+> controller when operating in root complex mode.
 > 
-> QCN6432 is attached to the WCSS Q6 subsystem and is represented as an AHB
-> platform device, even though the Wi-Fi hardware interfaces over PCIe.
-> Document the compatible string and the resources, including the Q6 remote
-> processor phandle, MSI interrupts, SMEM states and memory regions.
+> Describe the compatible strings, register range, clocks and
+> phy-cells value required by the PHY provider.
 > 
-> Signed-off-by: Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>
+> Signed-off-by: Jacky Chou <jacky_chou@aspeedtech.com>
 > ---
->  .../bindings/net/wireless/qcom,qcn6432-wifi.yaml   | 149 +++++++++++++++++++++
->  1 file changed, 149 insertions(+)
+>  .../bindings/phy/aspeed,ast2600-pcie-phy.yaml      | 49 ++++++++++++++++++++++
+>  1 file changed, 49 insertions(+)
 > 
-> diff --git a/Documentation/devicetree/bindings/net/wireless/qcom,qcn6432-wifi.yaml b/Documentation/devicetree/bindings/net/wireless/qcom,qcn6432-wifi.yaml
+> diff --git a/Documentation/devicetree/bindings/phy/aspeed,ast2600-pcie-phy.yaml b/Documentation/devicetree/bindings/phy/aspeed,ast2600-pcie-phy.yaml
 > new file mode 100644
-> index 000000000000..97d8885333fa
+> index 000000000000..686b2e3d9457
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/net/wireless/qcom,qcn6432-wifi.yaml
-> @@ -0,0 +1,149 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +# Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/net/wireless/qcom,qcn6432-wifi.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Qualcomm Technologies QCN6432 wireless device
-> +
-> +maintainers:
-> +  - Jeff Johnson <jjohnson@kernel.org>
-> +
-> +description: |
+> +++ b/Documentation/devicetree/bindings/phy/aspeed,ast2600-pcie-phy.yaml
 
-Do not need '|' unless you need to preserve formatting.
-
-> +  Qualcomm Technologies QCN6432 is an IEEE 802.11be Wi-Fi device
-> +  associated with the WCSS Q6 subsystem. The device is represented
-> +  as a platform device and uses MSI interrupts for its Copy Engine
-> +  (CE) and Data Path (DP) rings.
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - qcom,qcn6432-wifi
-
-Is there qcn6432-something-else as well? Neither commit msg nor
-description explain that.
+What? v9 here:
+https://lore.kernel.org/all/20260115-upstream_pcie_rc-v9-1-d6c82a1556a7@aspeedtech.com/
+from the same person, reviewed, but you ask us to do the same work
+second time? Really?
 
 Best regards,
 Krzysztof
