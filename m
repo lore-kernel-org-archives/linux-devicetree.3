@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8527EA59
-	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 03:07:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62A252609C5
+	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 03:09:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791515275; cv=none; b=G0Tat9VB11Z9b+9hTXFS3v8N3CJ4urfpoO35hRH6cQhCmK0wliTRgTAxNJCwK+A7ire4wgdzo0uF9W0YNJmo2rftEME+NhKlFVgqwqVYMOEYW9fxt/u5vo1cWoqrotZkHA5p/knr2DF6V0AT+GC/57hElcDSy7r/T8+Ow4v6ENY=
+	t=1791515351; cv=none; b=mlczgnIem7HGuVPcvtgwzvSZcHBw3sHCEGygHxfHgUrRoFN8NWfInZA4OZg0hDrhRxCRqtbzdlElQdBHo19gzNd/BZPv0KqQDNjQOlZAe61XwwDqmamSErc9PNcBu4hhpqQXwdYqIsweBPKoJiXtFp8GrW99A/1TSB0phs03oJo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791515275; c=relaxed/simple;
-	bh=KlXOGi59fgxkXRexQSFGEhpu2j1VWBgJZRIUOM5tkOs=;
+	s=arc-20240116; t=1791515351; c=relaxed/simple;
+	bh=7GYtc2TbYZF2i4fITGX1xW2jvhSpsjGEJvn10krbPAA=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=m+cqlImBOQLXmen8PnkItGkzmAPL6ZcBkndXPKLSLQGHdsinBvwPJTjpqqPY54EzsVAEz3PPo8Ow2vn/29TH1u6hUL9RnUsLlF5vllD8vqWHDVNzVUAbw6pyYfMIy+GlxkRk6ZDSnhcNtOnVhUys0S2taL7mmDbqc3Fo7vCb/Uc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JvIAffTF; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=AgVZC5N+LV2C4xVC5wCEnCYEcoIka5PH+D/9iTeeYAMTHzn0xx0gZl2uiYeOY4kLK9h/oTd2dyykNPrMaNdUzVhLu5nws9RxyBFjUQhg4ri+EkzbmErpW+w4/RWBEmvwu8pAF3paN5ZsRIRm+TFyLZPp4pByi7R/npPtZJ3mP94=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HPluAx/u; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JvIAffTF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB65D1F000FF;
-	Fri,  9 Oct 2026 03:07:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HPluAx/u"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A443B1F000FF;
+	Fri,  9 Oct 2026 03:09:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791515274;
-	bh=f7bINOkd2S8gzWkCLcMkzOBsMmujigpgHLqJ7qhaZZo=;
+	s=k20260515; t=1791515349;
+	bh=zG6s8UIljRM1gSEYRfraKTjHWgTRI7RWDsEkWZvPLh8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=JvIAffTFBeLiPHK+xBTEE6onAKpkGiUxJ+uygW6YMD+fDDX2H9NkX5SmMQnTl2C+i
-	 oUYFj1nAofWsm90XAhv1zkGQMte4v9+4KVfquUaSJqR06iPhrJo/Z8sGO4FpZJzi8l
-	 Ih/9npIznNJg3PW7jbtVAkpHU4Daan/cUpj0uUnPdMvKQ/znmok5I7MdDMh1dzsmha
-	 6EZpovgOyPTlZIE4ATr9NoJMjdCAdMifbR8Z2dxUI+u3VoYKmbayY1t6ki0caAOodt
-	 13M9Bno+sFqw0pPYpux4ZNsp8lIiOWjVGTTwXhbP87lCPn6pR7vhfb7x9iffQHIlwN
-	 e9nchM3Kv9ykQ==
-Message-ID: <sashiko-outbox-164748@kernel.org>
+	b=HPluAx/uLcPg1chWH4pw97/5hLuPmRXf2g8hxyTilJFQKhpc8nDIgwl/0omvFj9QB
+	 x2jDhnBmEXNpBAyHIHf8lnX2F8iUEsbCsJjyqf+TWSqkeuJT4I78Eeu+hZER9ojWsg
+	 w9V2VbdRLWA2VZk3KIkMgiyKrXN2/uQ2sIZmsO4uN8dCwHJ2KwCYKKRrV4B5Ar433m
+	 ufKO1bqx2q7IW98MYTy9CWGbZrXFHQzOK/vin8k+ydUwb9CBPvceDbH5rXA1B/ZV0y
+	 9l2EmtzCS+fiQEpiCcbxGpR+CbmQhfzvd3ajryHfaV3fYt8+84KjlFqsjYWlcZJdbh
+	 vQgsFRa0mVQMg==
+Message-ID: <sashiko-outbox-164751@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 8/8] thermal/drivers/loongson2: Add Loongson-2K0300
- support
+Subject: Re: [PATCH v7 5/8] thermal/drivers/loongson2: Use bitfields and
+ per-SoC thermal ops
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Binbin Zhou" <zhoubinbin@loongson.cn>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <93002842dcf01ec651a9711075f5967026b95987.1791512067.git.zhoubinbin@loongson.cn>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <1375bd12403bffc496261953772a45833f9b5a3e.1791512067.git.zhoubinbin@loongson.cn>
 References: <cover.1791512067.git.zhoubinbin@loongson.cn>
- <93002842dcf01ec651a9711075f5967026b95987.1791512067.git.zhoubinbin@loongson.cn>
+ <1375bd12403bffc496261953772a45833f9b5a3e.1791512067.git.zhoubinbin@loongson.cn>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 09 Oct 2026 03:07:53 +0000
+Date: Fri, 09 Oct 2026 03:09:09 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,65 +47,79 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] thermal: loongson2: missing delay before reading ADC after initi=
-alization
+- [Low] thermal: loongson2: API misuse of FIELD_PREP triggers potential BUI=
+LD_BUG_ON
 --
 
-commit 97ab3025b749644e2a07310bc78907ed2d3b519c
+commit 9fa005fd4a6e6873cf9a1897453c930665ef1a63
 Author: Binbin Zhou <zhoubinbin@loongson.cn>
-Subject: thermal/drivers/loongson2: Add Loongson-2K0300 support
 
-This commit adds support for the Loongson-2K0300 thermal sensor, configuring
-it with calibration data read from the syscon CHIP ID registers. It also
-introduces a fallback mechanism to use an old fuse formula if the initial
-calibrated temperature reading is outside of a valid range.
+thermal/drivers/loongson2: Use bitfields and per-SoC thermal ops
+   =20
+This commit replaces open-coded masks and shifts with GENMASK() and FIELD_*=
+=20
+helpers. It also separates the temperature read and thermal zone ops into=20
+SoC-specific variants to prepare for further expansion.
 
 > diff --git a/drivers/thermal/loongson2_thermal.c b/drivers/thermal/loongs=
 on2_thermal.c
-> index dbfb03aa08338..1db61509dbf37 100644
+> index 94259d88da8a0..02f7545eaac1b 100644
 > --- a/drivers/thermal/loongson2_thermal.c
 > +++ b/drivers/thermal/loongson2_thermal.c
+
 [ ... ]
-> @@ -83,6 +118,101 @@ static int loongson2_thermal_set_trips(struct therma=
-l_zone_device *tz, int low,
-[ ... ]
-> +static int ls2k0300_thermal_hw_init(struct platform_device *pdev,
-> +				    struct loongson2_thermal_data *data)
-> +{
-> +	struct device *dev =3D &pdev->dev;
-> +	int ret;
-> +
-> +	data->regmap_cfg =3D syscon_regmap_lookup_by_phandle(dev->of_node, "loo=
-ngson,chipid");
-> +	if (IS_ERR(data->regmap_cfg))
-> +		return PTR_ERR(data->regmap_cfg);
-> +
-> +	ret =3D ls2k0300_thermal_read_calib(data);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to read calibration data");
-> +
-> +	writel(LS2K0300_THSENS_INIT_MASK, data->ctrl_reg + LS2K0300_THSENS_CFG_=
-REG);
-> +
-> +	ls2k0300_thermal_detect_old_fuse(dev, data);
 
-[Severity: Medium]
-Will this immediate ADC read return uninitialized or stale data?
+> @@ -121,17 +135,18 @@ static void ls2k2000_thermal_set_trips_regs(struct =
+loongson2_thermal_data *data,
+>  					    int temp, bool low, bool enable)
+>  {
+>  	unsigned int sel =3D data->chip_data->thermal_sensor_sel;
+>  	int hi_reg, ctrl_reg, val, gate;
+> =20
+> -	gate =3D (temp + 311) * 0x4000 / 820;
+> +	gate =3D (temp + LS2K2000_TEMP_OFFSET) * LS2K2000_TEMP_DIV / LS2K2000_T=
+EMP_MUL;
+> =20
+>  	/* Low byte of the gate value goes to the control register */
+>  	ctrl_reg =3D low ? LOONGSON2_THSENS_CTRL_LOW_REG : LOONGSON2_THSENS_CTR=
+L_HI_REG;
+> -	val =3D gate & 0xff;
+> -	val |=3D enable ? 0x100 : 0;
+> -	val |=3D sel << 10;
+> +	val =3D FIELD_PREP(LOONGSON2_THSENS_CTRL_GATE_MASK, gate) |
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The sensor is initialized by writing LS2K0300_THSENS_INIT_MASK, and on the
-very next instruction ls2k0300_thermal_detect_old_fuse() reads the ADC
-output without polling a readiness bit or applying a small delay.
+[Severity: Low]
+Could this FIELD_PREP() macro usage break the build? It appears to pass a
+16-bit value (gate) into an 8-bit mask (LOONGSON2_THSENS_CTRL_GATE_MASK
+which is defined as GENMASK(7, 0)).
 
-If the hardware requires conversion latency, reading a 0 or stale value here
-would produce a deeply negative temperature that spuriously satisfies the
-temp < LOONGSON2_LOWEST_VALID_TEMP condition. Does this risk incorrectly
-discarding valid calibration data and permanently enabling the uncalibrated
-fallback logic for the boot session?
+The FIELD_PREP() macro strictly expects the value to fit inside the mask
+boundary. For ls2k2000, the calculated gate value is a 16-bit integer (for
+example, at 0 degrees Celsius, it calculates to 6213).
 
-> +
-> +	return 0;
-> +}
+If the compiler performs speculative devirtualization or constant propagati=
+on
+(such as during LTO across loongson2_thermal_probe() calling
+loongson2_thermal_set_trip_temp(data, 0, 0, false)), __builtin_constant_p(g=
+ate)
+would evaluate to true. This can trigger the BUILD_BUG_ON_MSG("value too la=
+rge
+for the field") in bitfield.h and fail compilation.
+
+> +	      FIELD_PREP(LOONGSON2_THSENS_CTRL_INTEN, enable) |
+> +	      FIELD_PREP(LOONGSON2_THSENS_CTRL_SEL_MASK, sel);
+>  	writew(val, data->ctrl_reg + ctrl_reg + sel * 2);
+> =20
+>  	/* High byte of the gate value goes to the low byte of the HI_GATE regi=
+ster */
+>  	hi_reg =3D low ? LS2K2000_THSENS_HI_GATE_LOW_REG : LS2K2000_THSENS_HI_G=
+ATE_HI_REG;
+> -	val =3D (gate >> 8) & 0xff;
+> +	val =3D FIELD_GET(GENMASK(15, 8), gate);
+>  	writeb(val, data->ctrl_reg + hi_reg + sel);
+>  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1791512067.gi=
-t.zhoubinbin@loongson.cn?part=3D8
+t.zhoubinbin@loongson.cn?part=3D5
