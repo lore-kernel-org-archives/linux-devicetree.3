@@ -1,78 +1,186 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8711847140C;
-	Fri,  9 Oct 2026 07:33:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 087FE3D4123
+	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 07:33:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791531202; cv=none; b=hJJXmF3jD8mEWoo0Oib0/eY1R6HiV4MhFNPQeYGREal74yydNObWJyDdOSjkc5gOjkF0ojF+7JB9GXTOmSU1rHADNX6Kh/m6jxZeeqG+MXGvSvNb/mSAQysw987q392d3QzG+GBcpoMXdG71P+s9+dLs7WQC0a2ZXKv9YnayTJ4=
+	t=1791531214; cv=none; b=plxS9ChOCsC0FcNuDddSia16Nt1XUsADSRLJVHIgCM3FWFj9Ml7vIMmOIaX92acAK5kjdKao6BkfdkVcoOf+AxIcGzkgpKIyyQP5ay+IoAiYV5QlWv7GxCLDfusPnJw7Feplyx8Ley8PxLDX4oV9H6BVZ7d58p4a2IXEEj3DhRc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791531202; c=relaxed/simple;
-	bh=37OUBGS2uFs3wvBBPdS1uehQFWEB9JeIk4fOaQkONx4=;
+	s=arc-20240116; t=1791531214; c=relaxed/simple;
+	bh=wD/KeacrH+3CU87EMUoPlO07cxr7e1oHySpBrOZCxAg=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=S7aQr6pjzVBZRsKv1RBPrdSy1NN5Uzvppa80g+5qqMrEMPINiY+R8PC/XIMRzwPw05viKd16z5MqVwBWY8ogBX0GZqh5igWRJUWOONtI38zt774NF0Dwybqg4tF6mG1daRmKt2XYV1U705AzOdv8Y8IBlzFbV0ovb0FIkzQDMEg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cPR3QBWW; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=tZGDZIMLH3G16QAjGWbKonhg105y5Bs2l9SwJ/a2OC5q/eNz0K7k1Ip8XMFtpwgYRgz6/b1lMnDpKnGTyfcohK3mYsEOl+9VHYxeQLYJh66aLIx6VIKOgAU4WYMI9xZdMOGlCavII0tbcMtpKaNd567AKpzbj/hOb5CSo/qpiPM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xvq1xcPF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cPR3QBWW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9ACF1F000FF;
-	Fri,  9 Oct 2026 07:33:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xvq1xcPF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A1E91F000FF;
+	Fri,  9 Oct 2026 07:33:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791531201;
-	bh=37OUBGS2uFs3wvBBPdS1uehQFWEB9JeIk4fOaQkONx4=;
+	s=k20260515; t=1791531212;
+	bh=ROht3u5Bofks8XMukSShKiGmfTJd8lIHv2ZWJDBHEnA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=cPR3QBWW64xrLGCfvasZj0U1kOCExeGph3pqiEWNg7bqPw2H0efRxUVGPt85PV846
-	 Vj/R/moWzzGHr6q46GduBDLj4xhlpYSMb0iLJ4Q62zCvx5ombLn8S4tDi8w/UBJ09F
-	 YRc35wRpCuwmomvGgRzbcniWUTR6vSZIyC+4BA+lNcPHXsnwuqCDOP5plK3Xtr+e9i
-	 Pme5V98PKHJX4yN+Jj/WyLtD0kJx+qGFcSxYVH+lkqu7VRLfD29hLe8HsUxX9orBzs
-	 yciBQ8Or10Lwca1bWYreZo/qt5ghc04EGytArQcoHzf9Nvjyv7dFKcD6QVC71p5AXm
-	 kLvS4HTd469vg==
-Message-ID: <sashiko-outbox-165006@kernel.org>
+	b=Xvq1xcPFdmET9cV7aMCenTxHoQskhq7Sg5QeAX7C/SRcJWg18l3iriqXt5gLmqsUE
+	 Z27JjCCjwLjin0j9D519ZaS7jOoJ0NYJlmif9KkIBD39NeH2LcGroO3sLHLG2M/t1J
+	 5YRdLijtBUArN5k9A9rpbX1yObmr+WRZSwh7W8TtjtIfmO8eQbOz8M3RKp9umN0UX6
+	 Jm0kE1IwBXXW2RwzRi0r15iC3BGEi6KXNi8wtRPlCM3Z066ulP86lonlK7D/0VP8Bt
+	 3PLzK0AhJJ/wAi9gj/kBsxvWocjKbwvlYXc2bZ4csB3q6cynRs5PODmd7zi3wxMM9n
+	 2gybqsG46ykHw==
+Message-ID: <sashiko-outbox-165007@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] PCI: of: Avoid config reads for disabled bridge
- nodes
+Subject: Re: [PATCH 4/4] remoteproc: qcom: pas: Add Glymur OOBMSS coredump
+ support
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Xilin Wu" <sophon@radxa.com>
-Cc: devicetree@vger.kernel.org, linux-pci@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261009-pci-of-disabled-bridges-v1-2-08708f9e1802@radxa.com>
-References: <20261009-pci-of-disabled-bridges-v1-0-08708f9e1802@radxa.com>
- <20261009-pci-of-disabled-bridges-v1-2-08708f9e1802@radxa.com>
+To: "Anvesh Jain P" <anvesh.p@oss.qualcomm.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261009-oob-support-glymur-v1-4-96cc8ffcced3@oss.qualcomm.com>
+References: <20261009-oob-support-glymur-v1-0-96cc8ffcced3@oss.qualcomm.com>
+ <20261009-oob-support-glymur-v1-4-96cc8ffcced3@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 09 Oct 2026 07:33:20 +0000
+Date: Fri, 09 Oct 2026 07:33:31 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-> The TC9563 PCI power-control driver powers off external downstream ports
-> whose device tree nodes have status =3D "disabled". On the Radxa Dragon Q=
-8B,
-> reading the Vendor ID of one of these powered-off port functions during
-> PCI enumeration raises an Arm SError and prevents the board from booting.
->=20
-> A Configuration Read request to an unavailable port receives no
-> completion and results in a Completion Timeout. The PCIe Root Complex
-> reports that timeout as an AXI bus error, which triggers an SError on the
-> CPU. The link between the Root Port and the switch upstream port remains
-> up, so blocking config accesses only when the Root Port link is down
-> does not prevent these accesses.
->=20
-> Commit 1a8c251cff20 ("PCI: move OF status =3D "disabled" detection to
-> dev->match_driver") kept disabled PCI functions discoverable so that PCI
-> fixups could still run, while suppressing driver binding later. Preserve
-> [ ... ]
-> Link: https://lore.kernel.org/all/fsrr5xg4plfknfcvv5co4ciklz5pywa5bbfxbth=
-wsnjevysr5v@myghuxblnend/
-> Link: https://lore.kernel.org/all/r22to3joold7ugzwolni4qahyumcekbyugrl2bm=
-s3xmiysqtgo@hu5s3dnyqwsj/
-> Acked-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-> Tested-by: Daniele Briguglio <hello@superkali.me>
-> Signed-off-by: Xilin Wu <sophon@radxa.com>
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] remoteproc: qcom_pas: Use-After-Unmap race in qcom_pas_da_to_va du=
+ring concurrent coredump
+- [Medium] remoteproc: qcom: coredump failure for relocatable firmware
+- [Medium] mm: memory leak of rproc_dump_segment objects on module unload
+--
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+commit 7e66e9e1579da74dff881b896ffcf919220e337d
+Author: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+
+remoteproc: qcom: pas: Add Glymur OOBMSS coredump support
+
+Add coredump support for the secure and non-secure OOBMSS carveouts.
+Register fixed dump segments at probe time for attached-state recovery.
+
+> diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom=
+_q6v5_pas.c
+> index 31fdde351beda..0dc9985f01f94 100644
+> --- a/drivers/remoteproc/qcom_q6v5_pas.c
+> +++ b/drivers/remoteproc/qcom_q6v5_pas.c
+
+[ ... ]
+
+> @@ -162,6 +163,28 @@ static void qcom_pas_segment_dump(struct rproc *rpro=
+c,
+>  	memcpy_fromio(dest, pas->mem_region + total_offset, size);
+>  }
+> =20
+> +static bool qcom_pas_has_secondary(const struct qcom_pas *pas)
+> +{
+> +	return pas->secondary_pas_id && pas->secondary_dtb_pas_id;
+> +}
+> +
+> +static int qcom_pas_register_dump_segments(struct rproc *rproc,
+> +					   struct qcom_pas *pas)
+> +{
+> +	int ret;
+> +
+> +	ret =3D rproc_coredump_add_segment(rproc, pas->mem_phys, pas->mem_size);
+
+[Severity: Medium]
+Will this regression cause a coredump failure for relocatable firmware?
+
+The segments are registered with the device address (da) set to the absolute
+physical address (pas->mem_phys and pas->secondary_mem_phys). However, for
+relocatable firmware, pas->mem_reloc is updated to a low virtual device
+address (e.g., 0) during firmware loading.
+
+This causes the bounds check in qcom_pas_da_to_va() to fail because the
+calculation da - pas->mem_reloc will overflow the carveout's size, preventi=
+ng
+the coredump from being generated.
+
+> +	if (ret)
+> +		return ret;
+
+[ ... ]
+
+> @@ -572,16 +595,29 @@ static int qcom_pas_stop(struct rproc *rproc)
+>  static void *qcom_pas_da_to_va(struct rproc *rproc, u64 da, size_t len, =
+bool *is_iomem)
+>  {
+>  	struct qcom_pas *pas =3D rproc->priv;
+> -	int offset;
+> +	phys_addr_t base;
+> +	void __iomem *region;
+> +
+> +	if (da >=3D pas->mem_reloc && len <=3D pas->mem_size &&
+> +	    da - pas->mem_reloc <=3D pas->mem_size - len) {
+> +		base =3D pas->mem_reloc;
+> +		region =3D pas->mem_region;
+> +	} else if (da >=3D pas->secondary_mem_reloc &&
+> +		   len <=3D pas->secondary_mem_size &&
+> +		   da - pas->secondary_mem_reloc <=3D pas->secondary_mem_size - len) {
+> +		base =3D pas->secondary_mem_reloc;
+> +		region =3D pas->secondary_mem_region;
+> +	} else {
+> +		return NULL;
+> +	}
+> =20
+> -	offset =3D da - pas->mem_reloc;
+> -	if (offset < 0 || offset + len > pas->mem_size)
+> +	if (!region)
+>  		return NULL;
+> =20
+>  	if (is_iomem)
+>  		*is_iomem =3D true;
+> =20
+> -	return (__force void *)pas->mem_region + offset;
+> +	return (__force void *)region + (da - base);
+>  }
+
+[Severity: High]
+Does returning a direct pointer to transiently mapped I/O memory introduce a
+use-after-unmap regression during a concurrent coredump?
+
+When a coredump is active, region (pas->mem_region or
+pas->secondary_mem_region) is transiently mapped. The debugfs trace reader
+rproc_trace_read() calls qcom_pas_da_to_va() and accesses the returned
+pointer locklessly via strnlen().
+
+If the concurrent coredump finishes and executes iounmap() in
+qcom_pas_coredump() while the trace reader is still accessing the string,
+it will cause a system crash when userspace dereferences the unmapped I/O
+memory.
+
+[ ... ]
+
+> @@ -1130,6 +1192,12 @@ static int qcom_pas_probe(struct platform_device *=
+pdev)
+>  	if (desc->early_boot)
+>  		pas->rproc->state =3D RPROC_DETACHED;
+> =20
+> +	if (qcom_pas_has_secondary(pas)) {
+> +		ret =3D qcom_pas_register_dump_segments(rproc, pas);
+> +		if (ret)
+> +			goto remove_ssr_sysmon;
+> +	}
+> +
+
+[Severity: Medium]
+Does proactively allocating the dump segments during probe cause a memory l=
+eak
+regression on module unload if the remoteproc is never started?
+
+If the rproc remains in the RPROC_DETACHED or RPROC_OFFLINE state, module
+unload calls rproc_del() -> __rproc_shutdown(). However, __rproc_shutdown()
+bails out early for these states and skips the rproc_resource_cleanup() call
+that would free the dump segments, causing the kzalloc() allocations to leak
+permanently.
+
+>  	ret =3D rproc_add(rproc);
+>  	if (ret)
+>  		goto remove_ssr_sysmon;
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009-pci-of-dis=
-abled-bridges-v1-0-08708f9e1802@radxa.com?part=3D2
-
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009-oob-suppor=
+t-glymur-v1-0-96cc8ffcced3@oss.qualcomm.com?part=3D4
