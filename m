@@ -1,115 +1,130 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D633383987
-	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 09:12:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9596337F00D;
+	Fri,  9 Oct 2026 09:18:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791537125; cv=none; b=V3KL9g7JEgNIX9AQfUmuByLK1riOO08jv3PQFe5gDJ0xq2lWfe3koiVYb7ld94tE6AEBR7k5t3omPnA+z8b64XP4SF+eo/TwyFagbFMYUQHyWnn3etzgD3djK4sqkoyq67+sIKFBYt4PBD+hwo2jJHgFP/XCS9fMDHwTsCvbLmE=
+	t=1791537516; cv=none; b=e0SvkDL+YEikV285f4xYjnOTkSL8Q5edrUZqS+jPE3ttivksKdIMBHLCHoSM0ehI6WifcDbYgHdMJDF1oPY4AlW8kawidWj6+gCp+s3BoXau7l5g048fPa1rX9KeUqoWTN46fbTRdwT2x9xvRvAzPt23XhuZrE2yk5Aj85ySZik=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791537125; c=relaxed/simple;
-	bh=2jOTo03S9NcG12F0jHWqJe3c9v4xqRzeI+Gj2zsa1gE=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=bHQUAdKVIW2HicgPjoPUT6HZ9gb7Bs9g8klpOC43s5aTcZUQBb/kDxVNLwNGK8JXfL12zQkdmQp+bneyLt234udzWDwSRrfivTOnvEaUUlbyRWkjW4FBJw3ZY4ZGTzFK3XCySon8gCVPeSsElTdrLjcBdC0nC0Tj6hpBgPReQBk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kYy+n5Vr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791537516; c=relaxed/simple;
+	bh=wZGfux+RJCBoEcaO2QXcXedF6RI/XWSgw2HK/SNfAL8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qr4CzfJ3DNNryfMfSmXLf2jDAEtsZvzFJqJR005i3kPdmWlyh5LxHRTwFx5LFW5nj6oMqLvlakKcfOJO8zzDncO/0lS437hSFGl1ZNst6qWeOS84wKZQasnxRrvVJ82SgBN9Nc3nXn+azCnPyFZxIMpbEQrjXqCjkjUPCDAWZC4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dWCpTL3C; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kYy+n5Vr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E25BC1F000FF;
-	Fri,  9 Oct 2026 09:12:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dWCpTL3C"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 502DD1F000FF;
+	Fri,  9 Oct 2026 09:18:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791537123;
-	bh=/tYIftieEEGQIBRwgZ9wQZw0EdBBvp8uhS/hWQXLuyc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kYy+n5Vro/UVipNy9xxm8mUEInIXeFzAYVq4WgRZ0g0o8b/tuG857pUZNPEp5ESUz
-	 UWZszpoJrUt/x9fXa81gaEafrIHvEsKN7Gb8c1vfDxqjx5KB2EvrnJ2sAR/fIHdMzN
-	 gWpnuMAgv/17wCkUQNyWaria4aKYMs7PEuqSCWd29vuKVlYhsjAaizyT5k7dnVwJ9c
-	 XEUVE/+cXuRkahWRQTDwQ47pKgMnpEBC2ctolHzEx/ox9y8EqyLhPgW0U3RvInLPBV
-	 csbUYdiYh9+VR9VYZefjTe4hxf8WGs84mcWkqD+/Yk1VYp80QWTAsxd68NfrtWI0Pl
-	 sIavnAdrUwgow==
-Message-ID: <sashiko-outbox-165134@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] phy: add a driver for T-Head TH1520 USB PHY
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Icenowy Zheng" <zhengxingda@iscas.ac.cn>
-Cc: linux-phy@lists.infradead.org, conor+dt@kernel.org, vkoul@kernel.org, olteanv@gmail.com, neil.armstrong@linaro.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20261009090444.3319517-3-zhengxingda@iscas.ac.cn>
-References: <20261009090444.3319517-1-zhengxingda@iscas.ac.cn>
- <20261009090444.3319517-3-zhengxingda@iscas.ac.cn>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 09 Oct 2026 09:12:02 +0000
+	s=k20260515; t=1791537514;
+	bh=8V2ERjKtSLfKnEPamcJI6FnYs8kOZCA7Itt0xiEdW4E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dWCpTL3CraRR6djZDPxbnrRJwPegxCucLpT7dDue9wYchS4Zfmj9Ta6aOJZEvB3b/
+	 VwPqP3lIQQRVPvkJ/S8PG5lOh7OkYd5mSi4xw5++B4lMfJ33210jPnxV5QiaNWz9/u
+	 KjVN7PeF2ZejaqO1yU/xSllHVuYclBPm525QI/2BxhxC76BW0tN4pf0oApK0bku5jK
+	 08v/UGBZZtrBqWaYmA8/ZZhSZaK/fSrGUttenBUq73z/gyiZ9JVwa0P6oSKjaU3AXW
+	 xY8MqDBj4u53o1hDoyPLlDQTXaLbbPIfV0Wt/jw9y/Mt+/qEg5ZlxXqeDWhMq3NR/0
+	 K+9DWayjYGj6w==
+Date: Fri, 9 Oct 2026 11:18:30 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Oskari Lemmela <oskari@lemmela.net>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiner Kallweit <hkallweit1@gmail.com>, Daniel Golle <daniel@makrotopia.org>, 
+	Javen Xu <javen_xu@realsil.com.cn>, Vladimir Oltean <vladimir.oltean@nxp.com>, 
+	Aleksander Jan Bajkowski <olek2@wp.pl>, Oleksij Rempel <o.rempel@pengutronix.de>, 
+	Issam Hamdi <ih@simonwunderlich.de>, Chukun Pan <amadeus@jmu.edu.cn>, Jan Hoffmann <jan@3e8.eu>, 
+	Florian Fainelli <f.fainelli@gmail.com>, Russell King <linux@armlinux.org.uk>, 
+	Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Manuel Stocker <mensi@mensi.ch>
+Subject: Re: [PATCH net-next v2 1/2] dt-bindings: net: realtek,rtl82xx:
+ document RTL8224 packages
+Message-ID: <20261009-tentacled-magnificent-okapi-d5a173@quoll>
+References: <20261005201540.913977-1-oskari@lemmela.net>
+ <20261005201540.913977-2-oskari@lemmela.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261005201540.913977-2-oskari@lemmela.net>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] phy: state machine desync on reset_control_assert error in exit
---
-
-commit ec20f3d159c3233e7ce6e058ab085a7384393e38
-Author: Icenowy Zheng <zhengxingda@iscas.ac.cn>
-
-phy: add a driver for T-Head TH1520 USB PHY
-
-This commit introduces a new USB PHY driver for the T-Head TH1520 SoC.
-It manages basic PHY configuration through a regmap, along with handling
-the required reference clock and reset controllers.
-
-> diff --git a/drivers/phy/thead/phy-th1520-usb.c b/drivers/phy/thead/phy-t=
-h1520-usb.c
-> index 0000000000000..6cb0e51401374 100644
-> --- /dev/null
-> +++ b/drivers/phy/thead/phy-th1520-usb.c
-
-[ ... ]
-
-> +static int th1520_usb_phy_exit(struct phy *phy)
-> +{
-> +	struct th1520_usb_phy *th1520_phy =3D phy_get_drvdata(phy);
-> +	int ret;
+On Mon, Oct 05, 2026 at 11:15:39PM +0300, Oskari Lemmela wrote:
+> RTL8224 packages contain four PHYs at consecutive MDIO addresses,
+> but the first address need not be a multiple of four. Document how
+> to describe these packages using the existing ethernet-phy-package
+> binding so their base address is explicit.
+> 
+> Clarify that child PHY addresses are absolute and that MDI pair
+> order and polarity properties describe the individual ports. Add
+> an example with a package starting at address 1.
+> 
+> Signed-off-by: Oskari Lemmela <oskari@lemmela.net>
+> ---
+>  .../bindings/net/realtek,rtl82xx.yaml         | 52 +++++++++++++++++--
+>  1 file changed, 49 insertions(+), 3 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/net/realtek,rtl82xx.yaml b/Documentation/devicetree/bindings/net/realtek,rtl82xx.yaml
+> index 07b39ef1fc62..ca52c3ae19f7 100644
+> --- a/Documentation/devicetree/bindings/net/realtek,rtl82xx.yaml
+> +++ b/Documentation/devicetree/bindings/net/realtek,rtl82xx.yaml
+> @@ -12,7 +12,17 @@ maintainers:
+>    - Heiner Kallweit <hkallweit1@gmail.com>
+>  
+>  description:
+> -  Bindings for Realtek RTL82xx PHYs
+> +  Bindings for Realtek RTL82xx PHYs.
 > +
-> +	ret =3D reset_control_assert(th1520_phy->phy_reset);
-> +	clk_disable_unprepare(th1520_phy->ref_clk);
+> +  The RTL8224 contains four PHYs at consecutive MDIO addresses. Its PHY
+> +  nodes may be grouped under an ethernet-phy-package node as described
+> +  in ethernet-phy-package.yaml. The package reg must identify the first
+> +  PHY's MDIO address, even if that PHY has no child node. This address
+> +  need not be a multiple of four. Each child PHY reg is its absolute
+> +  MDIO address, not an offset from the package base.
 > +
-> +	return ret;
-> +}
+> +  The enet-phy-pair-order and enet-phy-pair-polarity properties belong
+> +  to the individual PHY nodes and describe each port's MDI wiring.
+>  
+>  properties:
+>    compatible:
+> @@ -90,9 +100,45 @@ examples:
+>          #address-cells = <1>;
+>          #size-cells = <0>;
+>  
+> -        ethphy1: ethernet-phy@1 {
+> +        ethernet-phy@1 {
+>              reg = <1>;
+> -            realtek,clkout-disable;
+>              realtek,aldps-enable;
+> +            realtek,clkout-disable;
+> +        };
+> +    };
+> +  - |
+> +    mdio {
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +
+> +        ethernet-phy-package@1 {
+> +            reg = <1>;
+> +            #address-cells = <1>;
+> +            #size-cells = <0>;
+> +
+> +            ethernet-phy@1 {
+> +                compatible = "ethernet-phy-ieee802.3-c45";
 
-[Severity: Medium]
-If reset_control_assert() fails and returns a negative error code, this
-code still disables the reference clock but propagates the error to the
-caller.
+I don't fully get why you are adding to the example generic compatibles,
+not relevant to this binding.
 
-Looking at the PHY core in phy_exit(), if the driver's exit callback
-returns an error, it skips decrementing the initialization counter:
+> +                reg = <1>;
+> +                enet-phy-pair-order = <0>;
+> +            };
 
-drivers/phy/phy-core.c:phy_exit() {
-    ...
-	ret =3D phy->ops->exit(phy);
-	if (ret < 0 && ret !=3D -ENOTSUPP)
-		goto out;
+Best regards,
+Krzysztof
 
-	--phy->init_count;
-    ...
-out:
-	mutex_unlock(&phy->mutex);
-	return ret;
-}
-
-This leaves the core's software state tracking the PHY as initialized
-(init_count > 0), while the actual physical hardware has its reference
-clock disabled.=20
-
-A subsequent call to phy_init() by a consumer would then see
-init_count > 0, returning success immediately without re-enabling the clock
-via the init callback, leaving the PHY permanently broken.
-
-Could this create a state machine desync if the reset controller fails?
-Would it be safer to return 0 and ignore the reset failure here to ensure
-proper teardown accounting in the core?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009090444.3319=
-517-1-zhengxingda@iscas.ac.cn?part=3D2
