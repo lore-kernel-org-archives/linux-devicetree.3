@@ -1,214 +1,99 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 397C118859B;
-	Fri,  9 Oct 2026 00:40:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28386277CA5
+	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 00:44:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791506451; cv=none; b=P1qtc+VFlwIGSrWflxX5a+5mcae9nTeDek6NE9XzgPokQODXSl0jt4NNcDOHNHdlMCD3gntzRhgefqDdmhFSDQOaQywxcI7fs6GbS42tjCck7orteMyQhqi3IZb4T9/2ehyOwa5Quf/v2Lj3PsSw/EM/ZbPousTuf89FyaBjoMA=
+	t=1791506681; cv=none; b=qwDUhUt6UkK+NVBjvsfnxrHh5aM3RFKAJvyKdDkaWAjUO78O5iHjlfTrcfdTfA7n4c29zM9GqRXj6lexJtBcXjuAX4Lmk8MB+VDlW3PlBhPWjY/oSX+Tws5/Wm5+okumBOhQLp2PfT35dgywt2HkKRAFLbPXk19XrdvqsjtpXWY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791506451; c=relaxed/simple;
-	bh=VnrNQ9zGJkyaVBWNIw32C16safpgXzhhXh0aiiukAk8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=MpLcyf7YlP6aMfUk1sBE4K3zVO+4TXY4nTDomp34QysY/JAdTCcqhuJ4pGWPW1JS22rG7XlykB18EL2zT91QZQLZ3WkSBHFJLmjyyg6d5C4RgyjOdVsum9reFBjWgLxDGd/fNcAhGsBx/j1XQ56Bvz/U/cfeIIVWsYnylX/qnxY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LN71k/Nl; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791506681; c=relaxed/simple;
+	bh=eaRex/mZ8IevZZJmFGYhNIY21CPFyUzjgfZZefyym4w=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=WdKXkcJeYCAoht2B5w7O8yGFKCXa4cponiAbjn/0H/JZ7bWBlvnLWngwrk8t963YOeFrNsnFbqcHK3vTumJC4nsf0JkaixhISuAgSH4la++4507/6oA0u9s5bv1R0wiGJ6tpxibRkr+lBkXl3Jv48cNNDWx0/CLVQ4EcNjhgl0g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XFGBbrCP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LN71k/Nl"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id A32D8C2BCF5;
-	Fri,  9 Oct 2026 00:40:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791506450;
-	bh=VnrNQ9zGJkyaVBWNIw32C16safpgXzhhXh0aiiukAk8=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=LN71k/NlerXB2ztqXtHqNP3cb/xNPuOkSE8VTjtoBHaajWkbBLdnJFSnEkTw4shwc
-	 T4Zh5TZN1CZRutAIWvZe33lKHhqgW/+pq6k3G3uqvtYBsuzHOaDwkRk6cocF+mKW7n
-	 4GVo1Jae7LGDCppbqPtCrE/vyuRV9N8mA7Zh4atHNQRcNHgT+OcZ2yymcfCFn2C/xk
-	 YVSgCDBzW4e6rclvzI/ofyev0GIrsOmcEQswyjIxsAo3rf1WkAQnq8ioanSjtNZtM9
-	 TN52TVEyfB9NZjunDwdQWR80OQNBxBDI3UZEk0g60iKhDuMMkqB0lFc9rASxrOgpSX
-	 0hYdvEW17HSYA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 8E309CA6018;
-	Fri,  9 Oct 2026 00:40:50 +0000 (UTC)
-From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
-Date: Fri, 09 Oct 2026 03:40:48 +0300
-Subject: [PATCH] arm64: dts: rockchip: Add the front panel LEDs to Kobol
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XFGBbrCP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 897D91F000FF;
+	Fri,  9 Oct 2026 00:44:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791506679;
+	bh=3fkap40j+8zZppltPXZvILjzELWUapPHhXz0Dc8o+jg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=XFGBbrCPZ3DQ5zud5nd2VxqbEtMU0YvKkYRvGtCNjX41CUcPLXhOwRr0lTQ6Fgp/+
+	 7SyewB8s0BKidQapzRgEsyleK1ILoKhCOzDuwlUSgDTt4muXt1xZz+D6IhOs2w0XV9
+	 twZ8Bk70TYW5xsstPw0WVFTF0zfl2Z21VUdVZkFbKL0zFpaxMJD4AzxfStIwLaSWSF
+	 t1lahX13usFxv7q9GGutAnqjba6yuI5Npfxjq/v0ruzUaMtJpvWieR/C3e+uK3NzQa
+	 qJyICwHhjAmSGWIbJ3qh73RvrMK6D8PrJMl3VaI1W+RK6m1jrdfz9wwfHlfr+w69Wp
+	 hIB/NT/Hw4m0Q==
+Message-ID: <sashiko-outbox-164681@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] arm64: dts: rockchip: Add the front panel LEDs to Kobol
  Helios64
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Igor Velkov" <iav@iav.lv>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20261009-helios64-leds-v1-1-6c58a66bf0c6@iav.lv>
+References: <20261009-helios64-leds-v1-1-6c58a66bf0c6@iav.lv>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 09 Oct 2026 00:44:39 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-helios64-leds-v1-1-6c58a66bf0c6@iav.lv>
-X-B4-Tracking: v=1; b=H4sIAA84yGoC/x3MQQqAIBBA0avErBNUUqqrRAvJKQdEw4EIxLsnL
- d/i/wqMhZBhHSoUfIgppw41DnAEly4U5LtBS22VlIsIGCmznUREz8JqMxvnDEqroTd3wZPe/7f
- trX1dI/j4XwAAAA==
-To: Heiko Stuebner <heiko@sntech.de>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Igor Velkov <iav@iav.lv>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4250; i=iav@iav.lv;
- h=from:subject:message-id;
- bh=llv6HX0uCXXdfUD/WPDPaPRAv2BcF+iTEvDdVmnTS6Q=;
- b=owGbwMvMwCVmNH1q96v4SmbG02pJDFknLASb34RJzE5PU/V3Ob7jnGXD7KyG4+tuCU9I14/yX
- afoPm9XRykLgxgXg6yYIsuEQxq3MpZc/evvYf4AZg4rE8gQBi5OAZhIihcjw/cYHUsmx6CEKTcr
- T+m4qRd2bGryqU9L+mxZuCnKue5ZBsN/9z//Htzb8z9z0yLv+7kzReoeuV76x/DQpY9TUfWD7J1
- WHgA=
-X-Developer-Key: i=iav@iav.lv; a=openpgp;
- fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
-X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
-X-Original-From: Igor Velkov <iav@iav.lv>
-Reply-To: iav@iav.lv
 
-From: Igor Velkov <iav@iav.lv>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] dts: undocumented SATA activity led-9 addition
+--
 
-Besides the system LEDs, the front panel of Helios64 has a network, a
-USB and five SATA error LEDs. Each is switched by a MOSFET from a GPIO,
-active high: NETW_ACT_LED_ON on GPIO0_A4, USB3_ACT_LED_ON on GPIO0_B3
-and SATA_ERR0 to SATA_ERR4 on GPIO2_A2 to GPIO2_A6. The Kobol wiki
-gives the colours: activity LEDs are blue, error LEDs are red.
+commit 3279f02d863433a09e5dbd918d375fd5550e3671
+Author: Igor Velkov <iav@iav.lv>
 
-Describe them next to the system LEDs. The panel labels the disks
-HDD 1 to HDD 5, so the error LEDs are numbered from 1.
+arm64: dts: rockchip: Add the front panel LEDs to Kobol Helios64
 
-Assisted-by: LLM
-Signed-off-by: Igor Velkov <iav@iav.lv>
----
-Schematic, sheets 29, 30 and 35:
-https://wiki.kobol.io/helios64/files/schematics/Helios64_Schematics_Rev1.2.pdf
-Front panel LED colours:
-https://wiki.kobol.io/helios64/front-panel/
----
- .../boot/dts/rockchip/rk3399-kobol-helios64.dts    | 78 +++++++++++++++++++++-
- 1 file changed, 77 insertions(+), 1 deletion(-)
+This commit adds definitions for the front panel LEDs to the Kobol Helios64
+device tree. It maps the network, USB, and five SATA error LEDs to their
+respective GPIO pins based on the hardware schematic.
 
-diff --git a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts b/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
-index d146e5075b4f..25f0ba5a47ac 100644
---- a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
-@@ -12,6 +12,7 @@
- 
- /dts-v1/;
- #include <dt-bindings/input/input.h>
-+#include <dt-bindings/leds/common.h>
- #include "rk3399.dtsi"
- 
- / {
-@@ -107,7 +108,8 @@ button-user1 {
- 	leds {
- 		compatible = "gpio-leds";
- 		pinctrl-names = "default";
--		pinctrl-0 = <&sys_grn_led_on &sys_red_led_on>;
-+		pinctrl-0 = <&sys_grn_led_on &sys_red_led_on &netw_act_led_on
-+			     &usb3_act_led_on &sata_err_led_on &sata_act_led>;
- 
- 		led-0 {
- 			label = "helios64:green:status";
-@@ -120,6 +122,60 @@ led-1 {
- 			gpios = <&gpio0 RK_PB5 GPIO_ACTIVE_HIGH>;
- 			default-state = "keep";
- 		};
-+
-+		led-2 {
-+			color = <LED_COLOR_ID_BLUE>;
-+			function = LED_FUNCTION_LAN;
-+			gpios = <&gpio0 RK_PA4 GPIO_ACTIVE_HIGH>;
-+		};
-+
-+		led-3 {
-+			color = <LED_COLOR_ID_BLUE>;
-+			function = LED_FUNCTION_USB;
-+			gpios = <&gpio0 RK_PB3 GPIO_ACTIVE_HIGH>;
-+		};
-+
-+		led-4 {
-+			color = <LED_COLOR_ID_RED>;
-+			function = LED_FUNCTION_DISK_ERR;
-+			function-enumerator = <1>;
-+			gpios = <&gpio2 RK_PA2 GPIO_ACTIVE_HIGH>;
-+		};
-+
-+		led-5 {
-+			color = <LED_COLOR_ID_RED>;
-+			function = LED_FUNCTION_DISK_ERR;
-+			function-enumerator = <2>;
-+			gpios = <&gpio2 RK_PA3 GPIO_ACTIVE_HIGH>;
-+		};
-+
-+		led-6 {
-+			color = <LED_COLOR_ID_RED>;
-+			function = LED_FUNCTION_DISK_ERR;
-+			function-enumerator = <3>;
-+			gpios = <&gpio2 RK_PA4 GPIO_ACTIVE_HIGH>;
-+		};
-+
-+		led-7 {
-+			color = <LED_COLOR_ID_RED>;
-+			function = LED_FUNCTION_DISK_ERR;
-+			function-enumerator = <4>;
-+			gpios = <&gpio2 RK_PA5 GPIO_ACTIVE_HIGH>;
-+		};
-+
-+		led-8 {
-+			color = <LED_COLOR_ID_RED>;
-+			function = LED_FUNCTION_DISK_ERR;
-+			function-enumerator = <5>;
-+			gpios = <&gpio2 RK_PA6 GPIO_ACTIVE_HIGH>;
-+		};
-+
-+		led-9 {
-+			color = <LED_COLOR_ID_BLUE>;
-+			function = LED_FUNCTION_DISK_ACTIVITY;
-+			gpios = <&gpio4 RK_PD4 GPIO_ACTIVE_HIGH>;
-+			default-state = "on";
-+		};
- 	};
- 
- 	hdd_a_power: regulator-hdd-a-power {
-@@ -500,6 +556,22 @@ gphy_reset: gphy-reset {
- 	};
- 
- 	leds {
-+		netw_act_led_on: netw-act-led-on {
-+			rockchip,pins = <0 RK_PA4 RK_FUNC_GPIO &pcfg_pull_down>;
-+		};
-+
-+		sata_act_led: sata-act-led {
-+			rockchip,pins = <4 RK_PD4 RK_FUNC_GPIO &pcfg_pull_down>;
-+		};
-+
-+		sata_err_led_on: sata-err-led-on {
-+			rockchip,pins = <2 RK_PA2 RK_FUNC_GPIO &pcfg_pull_down>,
-+					<2 RK_PA3 RK_FUNC_GPIO &pcfg_pull_down>,
-+					<2 RK_PA4 RK_FUNC_GPIO &pcfg_pull_down>,
-+					<2 RK_PA5 RK_FUNC_GPIO &pcfg_pull_down>,
-+					<2 RK_PA6 RK_FUNC_GPIO &pcfg_pull_down>;
-+		};
-+
- 		sys_grn_led_on: sys-grn-led-on {
- 			rockchip,pins = <0 RK_PB4 RK_FUNC_GPIO &pcfg_pull_down>;
- 		};
-@@ -507,6 +579,10 @@ sys_grn_led_on: sys-grn-led-on {
- 		sys_red_led_on: sys-red-led-on {
- 			rockchip,pins = <0 RK_PB5 RK_FUNC_GPIO &pcfg_pull_down>;
- 		};
-+
-+		usb3_act_led_on: usb3-act-led-on {
-+			rockchip,pins = <0 RK_PB3 RK_FUNC_GPIO &pcfg_pull_down>;
-+		};
- 	};
- 
- 	pcie {
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts b/arc=
+h/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
+> index d146e5075b4f8..25f0ba5a47ac6 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
+> +++ b/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
 
----
-base-commit: 36b190eca882ecd39b5354f7ee995f939dc6d885
-change-id: 20261009-helios64-leds-62585aa5e062
+[ ... ]
 
-Best regards,
--- 
-Igor Velkov <iav@iav.lv>
+> @@ -120,6 +122,60 @@ led-1 {
 
+[ ... ]
 
+> +		led-8 {
+> +			color =3D <LED_COLOR_ID_RED>;
+> +			function =3D LED_FUNCTION_DISK_ERR;
+> +			function-enumerator =3D <5>;
+> +			gpios =3D <&gpio2 RK_PA6 GPIO_ACTIVE_HIGH>;
+> +		};
+> +
+> +		led-9 {
+> +			color =3D <LED_COLOR_ID_BLUE>;
+> +			function =3D LED_FUNCTION_DISK_ACTIVITY;
+> +			gpios =3D <&gpio4 RK_PD4 GPIO_ACTIVE_HIGH>;
+> +			default-state =3D "on";
+> +		};
+>  	};
+
+[Severity: Medium]
+The commit message lists a total of 7 LEDs being added (one network, one US=
+B,
+and five SATA error LEDs). However, this code block adds an 8th LED for SATA
+activity on gpio4 RK_PD4.
+
+Was this SATA activity LED intended to be included in this patch, and if so,
+could the commit message be updated to mention it?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009-helios64-l=
+eds-v1-1-6c58a66bf0c6@iav.lv?part=3D1
