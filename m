@@ -1,161 +1,190 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 080B93385A5
-	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 01:50:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6569B33C1BE
+	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 02:01:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791510647; cv=none; b=HTRiHjeH0fMs6b8/JiCRWUbj2R0r4qztd6Iwy+7rRqhckaebWrk6q+hv1s75pzD4G56pNMv+C+9Y7i4jopBjwVur8xId0ntxPSTL2h6LzK17/b+eOb7h/eJaZ0m/M0qOZ05YMISOgo2SB3MkCXzFyJGowy/ABMEDhzF4I3Lr70Y=
+	t=1791511275; cv=none; b=CAor5vqPHKX4vasMWlFqY2JDEMP770M9T7ijW6BB2zBSh8BDJQQigU2B32u0ogiAIoexQMj6kdeYGh0k9lIltIovVgmyvvpuRbrwHwMfIbz4eeWRM3mVSN5PE6vaF6l3+ri4Z+YK5VAheNQtL7dxoHFNxmpP3BBuCPJPMkd+lBw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791510647; c=relaxed/simple;
-	bh=bzyXo88bbpqY6OVmCc6w30E/dMqXq6juRHJb1N+nFEI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qdCrPkPcXXelZgoWp7ASweyA+d5lt/Lb8d7C01R8taLdcEsJHt2QzagSxJjVmCyXtN/mSUNGVsyyBMX3xe5pNNRL/7qYt1WCcgCpMpSQWFiY1LGREYS/edMn43FLbuUlMh/FtfZiiBZpgiYkZTnQNqJ6UNdKTc6qNGqy9KvkcrA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=mDikJI8G; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Gh8Ei2Nd; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791511275; c=relaxed/simple;
+	bh=BF39Imc0aPpJB6sjFuVtuEzAu8i/MJ+OvJYj+kpDXRw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Fw7y2LWOzgliOY2TOJhfefCfn45eriMXDZ5tgPQF4ZDQv7Ovb9mwc28+l4ZFO73rSO77/B7p+GRvebbL+HVQU9Ifb7o1sPenp7Rib64z4+TUQ7SvUo9O08k8FHoTEqrIoiAB16mM8X9zbsdopmolN9GXV0UuN3tuVUPaDUHMoJk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VijgIgw9; arc=none smtp.client-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="mDikJI8G";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Gh8Ei2Nd"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6990Pxha4080190
-	for <devicetree@vger.kernel.org>; Fri, 9 Oct 2026 01:50:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=Zgph80WKQsUMtMvcVbFtnTyy
-	4Q4vF5zHhNaoDpXMoq4=; b=mDikJI8GxcLLKgxXBKKWu8cDydPp3g9muiOhAy7n
-	6j2g/HzdKW9MpFjmAm4N6RtwhaVpSxwV+u4ixXxdmEr8wS/HjcyFiplMGY57oImm
-	1Df2Y5nvIsUSMXKTw0IQpnlC8KQiUppSxx9/HBmhHj3aqlPB3Yr7liNa5C6Q2qQk
-	MHSm295wVijXkXbXpWtZYkhpK+HVgogAj5Eh5RKr4Lvy6ZL1Xe4ZcabsddIK13V8
-	VokyfqkNkZip2gCpTbv9+Jzie7OuyxCEYKR3evXc8JuBNqY5Wfa398yjAE2ZfS4M
-	Sx5NGA5jOiErD+AQfIV6OZwsD6qYyweSoHk+sKYznLLAdw==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h6fmqsg2k-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 01:50:44 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-34d62bb27a1so2318679eec.0
-        for <devicetree@vger.kernel.org>; Thu, 08 Oct 2026 18:50:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VijgIgw9"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3a706146559so2745647a91.2
+        for <devicetree@vger.kernel.org>; Thu, 08 Oct 2026 19:01:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791510644; x=1792115444; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Zgph80WKQsUMtMvcVbFtnTyy4Q4vF5zHhNaoDpXMoq4=;
-        b=Gh8Ei2NdkHbL75p12EPxrTxD+4Yea+bX8I99kSvkW/3FEq1u+bOcMWqMt1fBlwzxp4
-         93+jcvR86MHGsPgXyyghPnToTc19fXVYkpKai5aYgnbz3Z6pIJqA32f3q5yfD8W1YWOv
-         2ixJipETLP6DOhk3zqatlan++K1N5QnT2lzWaJOyoymnNNKyAYYSclhB3Q69H1WD3XNU
-         gxckb/uOkJs9MVRlS+aNzAcXpvpcGQ+f5NPaZ42yHRjTICTT5GIX34TSO4+jZll4acL4
-         3pxfT7/G/EHLJY9L/T6GilkbRpteseektledOCyh4eRDN3T6vJxUDAT15zmc1IFqyKyH
-         opeA==
+        d=gmail.com; s=20251104; t=1791511271; x=1792116071; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=2fDuH5AqlzghdgOw85VEEM3nScrcIHTb70P6L+D1SRk=;
+        b=VijgIgw99PNAoM+VIWgJDLrm8xwBJ4zYVDz3+JjLF62ebs8jVIqNx15Mnyv13FqKok
+         zXdQdO7ve7Bvho5/9YFqpK5NQ1N4+EMs0JrJwIYnL4pS/4kfw/Ugze9KVpH9BvGojYQ7
+         x2nPe5eiBOYv6lM6PdMBTys/SmdPaUCRoxW34yfhsQqCuV1smWrrPdblMoecRw9LUUjo
+         yWSHFdX5YWa7U1/EIgQHJ3Yx3ufZdTbmLKaMPRquHkTzLXtAg9F8zaQ0zNaO8NZEIhG6
+         4E7TG73rV+kr/DMDA4h6neYwCi8NsDFqofhrkFSX9DTCRDgeTelm3rwRNgtDtwpuqnXv
+         tk3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791510644; x=1792115444;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Zgph80WKQsUMtMvcVbFtnTyy4Q4vF5zHhNaoDpXMoq4=;
-        b=n4Tz0aOhSUIlOMl0UQachZb4suRCWxn4kQzwNVuKLv2u2Y/2wPN9ohGM+nTIf+RNtQ
-         gU4m2x2MS8nXTQYFWl6MFOyZFFI96ZrdtWRdAO7hc/i2hn50nin+cYaVlKTy8ljP7mfs
-         DqahOAgO7IQ/mX1UPPx0JTmOYlwmHg9TDHF1e8B055DWDSOWibvayItmz5I5uMFXQsQb
-         VGeGPdC9x+uCdsVb+1t6g/NasamqmWQErBvSLEPbGJAdc5+HkuXd1YPxrcit2mTp4lNT
-         PcddNO3zYfxX0yII66Dall6nv/G+d+c+kBGjChKkzr+YTr46ljkqTjWNmCpZTA/HZK2R
-         T8VQ==
-X-Forwarded-Encrypted: i=1; AKwUvBx++Y646fgSNBpD/G017Uy8+EHpHJE9frNszNsZooi3RNRqHLA4KCOX6ov7GocVQLqVbbuivnol9/qX@vger.kernel.org
-X-Gm-Message-State: AFq9FYKwTY8E36HC9SH39R46OxHt6GqoFKAVFXa9XEfBoAbx1k6Uc/uu
-	fPwlBgIkhycy1ezNa6AC5yc4UMzKSBrmRhxM5vX1DG1aFU0nQk3fw9Ngj9sSYKScMw8yP3eoI4J
-	v6+k2t1cnfbeEKobwFl36IT7/FSspbuV36GANe25AAgFd8gRqAlt8N/KMPoDhphZe
-X-Gm-Gg: AYBFou0slN09Pe7G5a/wbLebp2pNkG47bfJNwOc3jm+ctSznhI9/rQfzfEe9U4K5CKC
-	ig/UlJnAd5l8LvQJzNc3rCq2m5VBIRVfOyEJ2qTZsE5Cn7v2VZ8dKsZ/IJhcqe4AnwIWdmsZi7Q
-	bLXE8pmU3WPGxQA4W8gZwieTTIAgvEiRx9dYH1UP9s0vfE9QvmYJKTsm5dD6ejmoKL9LVg44M30
-	JKCBxYiUuFzdWUXtnffjpQvLHB1FN+rJ5qANIlSs4nGuCOQrb6Bz/ZQooM6f6UqHWuItTz/UHys
-	JSFR13jMI2TRMB58Xlpqnj7Ik/ibx7izUBV8R6s1pfgmdQI25lgl9MKufdpVUNDnaS7/9j3619t
-	+oWw1rgbu7bXNxB4rQfapOA/jNFRkYkh+mFR6QMvNZg==
-X-Received: by 2002:a05:7300:81:b0:353:81a3:9032 with SMTP id 5a478bee46e88-35381a391eamr216570eec.39.1791510643702;
-        Thu, 08 Oct 2026 18:50:43 -0700 (PDT)
-X-Received: by 2002:a05:7300:81:b0:353:81a3:9032 with SMTP id 5a478bee46e88-35381a391eamr216532eec.39.1791510643172;
-        Thu, 08 Oct 2026 18:50:43 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cb2954bsm1964083eec.26.2026.10.08.18.50.38
+        d=1e100.net; s=20260707; t=1791511271; x=1792116071;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=2fDuH5AqlzghdgOw85VEEM3nScrcIHTb70P6L+D1SRk=;
+        b=pTD0OBn37gRtPoDB+JSA1P9bwBu7H91lwPloUms2+DxlveOdHEGhj5EQ+VFhJPnWqN
+         Hhd3ug4t3L6OeCqnCkKiM18KmZGYTevWU3JlIFVkRvgeRX+kN89dlR7ehlcK3mT0kdZJ
+         UlWlE/ZSI3Z8BIoyhQoMnS7IJU5x8/DUuH6bH60yXyf8HmZNEqdQk4W8Hd2yAwa4TSLy
+         bPBc1Uh7DAEnqnv6ED6agC0foDnJpDRR26koBpVlmFf4q5hROjayjLLdHsz0JpPNR7qY
+         yevwGDshB3eifWlkzRgJFyxmMOn1Gi/ZYnRlCXaSCcSJBdUen4ZdKQxRpalghlVGciPN
+         HbzA==
+X-Forwarded-Encrypted: i=1; AKwUvBxSeNPa5AhdzVoQgDYuKjO0w8MWGPMsrKz5dgdIZhRV16MCDPeSU/Zox/r81/rGrCSmP9WJDt9YTTHi@vger.kernel.org
+X-Gm-Message-State: AFq9FYJeZ61XakAwDmf2skdcjrVUShokENHsBn/jxlB9gxxWpAaZC7gc
+	EFwYoJKiQj1zz8W7N+NcgGXMu1EVRZXqczz/7HDD2rVtpHjzdI3Iyb/O
+X-Gm-Gg: AYBFou1YH+y1hWHj7cGDh9+4AJuHLn58+AANh31IxujlfZkTadkoICt9yk/9X2ekT8C
+	PtyWibFCi/shUW2g/aGq2xDrOHfJlKRWFkUZHWqM7mryE1r47HAHNyI6Sy+Wt+GPqUGSPw/vqtK
+	aLSxWuCMkxq1h7hJxTWhHk22GkOwT+f50a4X4vpaSiGQo8ZpMxSoke+1k4gI/UFKuFCDjl8zPso
+	0GY2sMMDyCQJIPtQ6eEoxyAfs4miLVGE0t7CqVV+jhAcJdRg7cG72mhJ2K/cRxOt0+tk2gFd35K
+	aZYH2iE66EPRC6RjDWC7wLfCMQuKh8jEqZF9fIqMdr6Jtz8sPhFiI+cPbw5v+giyyM4pbeg91h+
+	vrPq3g2bmysUChj4tRgh6NvXdMKDrd5nZjqhEjJQFmEI/GG5eu+xyIF7qKza4ra2eX9APi34u6j
+	TBuPlWAzoHe6jILT++ZEv/8IqeMPLNOdXEaRYz89qvzLJ1uheCIBXJZXh024sNxvxriTdg8MX6I
+	n5exEU=
+X-Received: by 2002:a17:90a:e707:b0:3a8:796e:ca18 with SMTP id 98e67ed59e1d1-3ab3ace27f1mr572130a91.59.1791511271485;
+        Thu, 08 Oct 2026 19:01:11 -0700 (PDT)
+Received: from arch.localdomain ([161.33.202.10])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab38fc9e52sm1095770a91.13.2026.10.08.19.01.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 08 Oct 2026 18:50:42 -0700 (PDT)
-Date: Fri, 9 Oct 2026 09:50:36 +0800
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-Cc: Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
-        Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
-        Takashi Iwai <tiwai@suse.com>, Srinivas Kandagatla <srini@kernel.org>,
-        linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH v2 0/5] ASoC: qcom: Add Nord audio support
-Message-ID: <ashIbH52KeAcHeML@QCOM-aGQu4IUr3Y>
-References: <20261008-nord-asoc-driver-support-v2-v2-0-0b6f7e94060d@oss.qualcomm.com>
+        Thu, 08 Oct 2026 19:01:11 -0700 (PDT)
+From: Jun Yan <jerrysteve1101@gmail.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Liang Chen <cl@rock-chips.com>
+Cc: Jun Yan <jerrysteve1101@gmail.com>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2] arm64: dts: rockchip: Add dma-names to RK356x UART nodes
+Date: Fri,  9 Oct 2026 10:01:02 +0800
+Message-ID: <20261009020103.364498-1-jerrysteve1101@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261008-nord-asoc-driver-support-v2-v2-0-0b6f7e94060d@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDAwNyBTYWx0ZWRfX6786QhkqvAY7
- mqIsFXZIO7aqMHb71GqNV8Jsioa0nRgFFv/WxOUSJJCVeyD5He7aCRPwvFOw0G/QLz+xgXvnyIM
- zwXihxNeBwI3B/6f44RUOtXKCljNFsQ=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDAwNyBTYWx0ZWRfX3Da4JZdDsmND
- Q64aBvbDdtMkCEalq4FD2m33Nd+Hsv2yeSZjsvHTaHCS4vpSCet0lfFMlalQCLwFrwT9955Jqxw
- Lk++YTyPoIXaBzOzgbQUUw12RID3nr2QyBS3bRvILkEYnRmb6/W8ZTgHzgEuFwmATNi1uLD3/W7
- Z75z+hkEIACA6bXj5npaivJahX2reL5/Cf4j9xC8ZRr/WXf6Izs/FpulK2AGVxSwewlLrsrLt+a
- s0BrZ8NNhmjqpYW5/7cl0MMXxY5BC+S3EzSIECc9gdgUPvThStj53NhukgFUklTNxno0XMxD+Fs
- OKHmQiHzd2LfuY4SmB3n0jwdRL5F6pVouyTyiwyAotYolojkrpE2ORKD0U1Ly8IHygOfmidWfR6
- ikEw1qyGQ3z/O9fpU1MEKN58SHzpBd+8uwJICXrqy1g0JEvJ7MzOJWlBtIyPQMWI4l/JHDlWBRx
- BkKuCB/EOoC2oCNg/1A==
-X-Proofpoint-GUID: M_cpKx9s8PjddeofrF1a5DHMPyF8ec4f
-X-Proofpoint-ORIG-GUID: M_cpKx9s8PjddeofrF1a5DHMPyF8ec4f
-X-Authority-Analysis: v=2.4 cv=IqCL47/g c=1 sm=1 tr=0 ts=6ac84874 cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=VwQbUJbxAAAA:8 a=PeLITbGe0R9p4Ny4VdEA:9
- a=CjuIK1q_8ugA:10 a=scEy_gLbYbu1JhEsrz4S:22 a=FO4_E8m0qiDe52t0p3_H:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-09_01,2026-10-08_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0 bulkscore=0 clxscore=1015 suspectscore=0
- adultscore=0 impostorscore=0 priorityscore=1501 lowpriorityscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610020000
- definitions=main-2610090007
+Content-Transfer-Encoding: 8bit
 
-On Thu, Oct 08, 2026 at 04:36:40PM +0530, Mohammad Rafi Shaik wrote:
-> This series adds audio support for the Qualcomm Nord Ride and
-> RRD boards and includes the required machine driver, device tree
-> binding updates, and codec improvements needed for the board's
-> external audio codec configuration.
-> 
-> Nord Ride uses a PCM1681 DAC for playback and an ADAU1979 ADC for capture.
-> Compared to other SC8280XP based platforms, Nord Ride requires
-> board-specific DAI format and codec clock configuration to support
-> the external PCM1681 DAC and ADAU1979 ADC.
-> 
-> Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
-> ---
-> Changes in v2:
-> - Dropped patch 1 from v1, as the ADAU1979 codec change has already been applied.
-> - Moved the compatible string from the board-specific file to the SoC file, as suggested by Shawn.
-> - Added runtime PM support to the PCM1681 codec to manage the SCK clock sequence.
-> - Added TDM support to the PCM1681 codec.
-> - Added the required POR delay to the PCM1681 codec, as suggested by Mark Brown.
-> - Replaced LPASS DAI IDs with QAIF DAI IDs.
-> - Link to v1: https://patch.msgid.link/20260907-nord-asoc-driver-support-v1-0-997d3b20cf43@oss.qualcomm.com
+The RK356x UART nodes define a dmas property but omit the matching
+dma-names property, so the 8250 driver fails to request a DMA channel
+and falls back to PIO, logging:
 
-I expect some PCM1681 driver changes in v2 to address Konrad's
-comment [1]. Or do I miss something?
+  of_dma_request_slave_channel: dma-names property of node
+  '/serial@fe650000' missing or empty
 
-Shawn
+Add the missing dma-names = "tx", "rx" to uart0 through uart9,
+matching other Rockchip SoCs such as the RK3588.
 
-[1] https://lore.kernel.org/all/d2d2feff-4823-43dc-9014-099e69195280@oss.qualcomm.com/
+Fixes: a3adc0b9071d ("arm64: dts: rockchip: add core dtsi for RK3568 SoC")
+Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
+---
+Changes in v2:
+  - Add Fixes tag for the commit that introduced the dmas property.
+
+v1: https://lore.kernel.org/all/20261008153620.238580-1-jerrysteve1101@gmail.com/
+
+ arch/arm64/boot/dts/rockchip/rk356x-base.dtsi | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
+index a5832895bd39..098493c04ecc 100644
+--- a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
+@@ -443,6 +443,7 @@ uart0: serial@fdd50000 {
+ 		clocks = <&pmucru SCLK_UART0>, <&pmucru PCLK_UART0>;
+ 		clock-names = "baudclk", "apb_pclk";
+ 		dmas = <&dmac0 0>, <&dmac0 1>;
++		dma-names = "tx", "rx";
+ 		pinctrl-0 = <&uart0_xfer>;
+ 		pinctrl-names = "default";
+ 		reg-io-width = <4>;
+@@ -1449,6 +1450,7 @@ uart1: serial@fe650000 {
+ 		clocks = <&cru SCLK_UART1>, <&cru PCLK_UART1>;
+ 		clock-names = "baudclk", "apb_pclk";
+ 		dmas = <&dmac0 2>, <&dmac0 3>;
++		dma-names = "tx", "rx";
+ 		pinctrl-0 = <&uart1m0_xfer>;
+ 		pinctrl-names = "default";
+ 		reg-io-width = <4>;
+@@ -1463,6 +1465,7 @@ uart2: serial@fe660000 {
+ 		clocks = <&cru SCLK_UART2>, <&cru PCLK_UART2>;
+ 		clock-names = "baudclk", "apb_pclk";
+ 		dmas = <&dmac0 4>, <&dmac0 5>;
++		dma-names = "tx", "rx";
+ 		pinctrl-0 = <&uart2m0_xfer>;
+ 		pinctrl-names = "default";
+ 		reg-io-width = <4>;
+@@ -1477,6 +1480,7 @@ uart3: serial@fe670000 {
+ 		clocks = <&cru SCLK_UART3>, <&cru PCLK_UART3>;
+ 		clock-names = "baudclk", "apb_pclk";
+ 		dmas = <&dmac0 6>, <&dmac0 7>;
++		dma-names = "tx", "rx";
+ 		pinctrl-0 = <&uart3m0_xfer>;
+ 		pinctrl-names = "default";
+ 		reg-io-width = <4>;
+@@ -1491,6 +1495,7 @@ uart4: serial@fe680000 {
+ 		clocks = <&cru SCLK_UART4>, <&cru PCLK_UART4>;
+ 		clock-names = "baudclk", "apb_pclk";
+ 		dmas = <&dmac0 8>, <&dmac0 9>;
++		dma-names = "tx", "rx";
+ 		pinctrl-0 = <&uart4m0_xfer>;
+ 		pinctrl-names = "default";
+ 		reg-io-width = <4>;
+@@ -1505,6 +1510,7 @@ uart5: serial@fe690000 {
+ 		clocks = <&cru SCLK_UART5>, <&cru PCLK_UART5>;
+ 		clock-names = "baudclk", "apb_pclk";
+ 		dmas = <&dmac0 10>, <&dmac0 11>;
++		dma-names = "tx", "rx";
+ 		pinctrl-0 = <&uart5m0_xfer>;
+ 		pinctrl-names = "default";
+ 		reg-io-width = <4>;
+@@ -1519,6 +1525,7 @@ uart6: serial@fe6a0000 {
+ 		clocks = <&cru SCLK_UART6>, <&cru PCLK_UART6>;
+ 		clock-names = "baudclk", "apb_pclk";
+ 		dmas = <&dmac0 12>, <&dmac0 13>;
++		dma-names = "tx", "rx";
+ 		pinctrl-0 = <&uart6m0_xfer>;
+ 		pinctrl-names = "default";
+ 		reg-io-width = <4>;
+@@ -1533,6 +1540,7 @@ uart7: serial@fe6b0000 {
+ 		clocks = <&cru SCLK_UART7>, <&cru PCLK_UART7>;
+ 		clock-names = "baudclk", "apb_pclk";
+ 		dmas = <&dmac0 14>, <&dmac0 15>;
++		dma-names = "tx", "rx";
+ 		pinctrl-0 = <&uart7m0_xfer>;
+ 		pinctrl-names = "default";
+ 		reg-io-width = <4>;
+@@ -1547,6 +1555,7 @@ uart8: serial@fe6c0000 {
+ 		clocks = <&cru SCLK_UART8>, <&cru PCLK_UART8>;
+ 		clock-names = "baudclk", "apb_pclk";
+ 		dmas = <&dmac0 16>, <&dmac0 17>;
++		dma-names = "tx", "rx";
+ 		pinctrl-0 = <&uart8m0_xfer>;
+ 		pinctrl-names = "default";
+ 		reg-io-width = <4>;
+@@ -1561,6 +1570,7 @@ uart9: serial@fe6d0000 {
+ 		clocks = <&cru SCLK_UART9>, <&cru PCLK_UART9>;
+ 		clock-names = "baudclk", "apb_pclk";
+ 		dmas = <&dmac0 18>, <&dmac0 19>;
++		dma-names = "tx", "rx";
+ 		pinctrl-0 = <&uart9m0_xfer>;
+ 		pinctrl-names = "default";
+ 		reg-io-width = <4>;
+-- 
+2.56.0
+
