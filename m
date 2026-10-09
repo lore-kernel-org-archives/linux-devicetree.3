@@ -1,139 +1,211 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26F2043DEC7;
-	Fri,  9 Oct 2026 13:11:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC923415B74
+	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 13:13:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791551462; cv=none; b=rIls2nW6ivNHF1Vr30PgeFk3lJD2f4hvNk5SfDP0BHT3e+BULk70vV0Sl5hwvGOGi+1se4xJbn7HNFgP7I2cVFTK4Hs8h84I5XW1Ox0Nm+AasxKCY0dZf027/yVHIhDm+Z/vGZwxXfV5JjntW2PLB9MjYUDEHzhUAQi7NC1Jlfk=
+	t=1791551594; cv=none; b=qQDbRQXzTuy8ycj86v6ncd/t8G8ABUUaxuvDZej4L7pf9NmI0sLaGgKtNLfTncnXfm9dfYKqyj7E02JmyHIlIKjtFICshbyVF1/hln6jx94YbJ17FVLVlyyEVtzKv+8wV8Bkh5ynWvv912Xu16ApE8jUn8dwrYQ360gwji0MlZY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791551462; c=relaxed/simple;
-	bh=/wQ1zn73xroNfiWIcvfm1HB77YiiUBSLBW7ZyGzgMQA=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=PIl9VBrk5Z2Ma9yJxZHjytasO2Yr7KoWKzhGvFkLxjAaPhQYlcuLat+l1BvVVSC0EllOMJr9Vf5Lrhf2mjZd0zO4cCnY97TPcSZSpPCdBlD2c0GJWH5zJAZiOvPCSkVtmaKu801AotmRxxBK9fHlidMFl33JP92wkWYeya1yECs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JCMIENLS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791551594; c=relaxed/simple;
+	bh=UEbmskBorYmmQbDJ+gVJYn7vft9oRXM2EpvvWF/gsyc=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=V0gJyfKehEJusTztlmXiXCKCzFebZw9hfjepZuHdWsaoxu9V6bSzrBn/KuoWPP2HetwperNyDJ8P8XRSG6m3rKy/dP0gC1fU/+25dP3yb3Afteka4ro2v6Zi5m2WjmujOt0Vj4Vkyzo5aye/tRj5J2DlDlpIWLsiOHETcl/ytd4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SgOestXW; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JzkKT3xq; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JCMIENLS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 807D01F000FF;
-	Fri,  9 Oct 2026 13:11:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791551460;
-	bh=InxXSENapAzRVXW4MI0tLdncN62pm7XXo9U5afURNAc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=JCMIENLSb+jcD2eiqanGy4K5wwUk95Itv2q5NbMQybRLykkX/TNHk7+Z5Ac1+z9xN
-	 fMKwtdnXRe2WV7hVS20OmygBaNpIrfIHxb+DBmEPmtBYkHM+HBh2tGbrYG4RMhQsHA
-	 aswbP8ARapaxAskABIWSsMkP2uRk/8H9djbdvNXhmmKfhHvTv7AppIPTJ78Mqqn+D4
-	 shUzY+kIjkfJQBvtGF5TIyrTw1gOLGBjn4XnOq2f943hRkLzEx0XKPdG5BhkyJQFxr
-	 PWWaChkC+KACKQa6/ZghoKhCZ+sLvIIjyXJkmRUGHffANn/5ZOW3Psr64X0qsnmcN0
-	 HVoVsO6ILWlkQ==
-Message-ID: <sashiko-outbox-165602@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 13/14] arm64: dts: exynos8855: add cmu_hsi clock DT
- nodes
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Raghav Sharma" <raghav.s@samsung.com>
-Cc: linux-clk@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20261009120137.2801911-14-raghav.s@samsung.com>
-References: <20261009120137.2801911-1-raghav.s@samsung.com>
- <CGME20261009114408epcas5p343508b4fd7022f917fcdda74e58ab154@epcas5p3.samsung.com>
- <20261009120137.2801911-14-raghav.s@samsung.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 09 Oct 2026 13:11:00 +0000
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SgOestXW";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JzkKT3xq"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6998KIse1746837
+	for <devicetree@vger.kernel.org>; Fri, 9 Oct 2026 13:13:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=Y39uACIITAm3E86iuyCJQO
+	h04AK3pIwWRty/9TUNn4g=; b=SgOestXW8KQ7k3easDcL6nYb3wUjQIYZo8F9dt
+	ZjR8waHgtDWl5oubLJJyOxMhng0Xp7Gj9pG/ATFPJPT1IP8g1iIZlyQcHO5K7foJ
+	TVPMKEArVefQvizentDt2O1yPNVnf/lILsdFiQ3xJCVZIbu9ht3Jm52gs88L4uy9
+	r9V7TRDgUsoxEbxqiKDang3CIOGAMC/gR0OzDcq4TKcz/X4kBgQXr9gUK7hf8mIR
+	GC/wUtB1qARkf53XMtkqe4wzxL8OU3S9z9mpscc8LxsPLfqlqRu2i3Ebg6+B0IQj
+	wEGAiJhgqWV88ijQwiC3z7+WQ7R+nDUrQjzHa+MXzq3PDzDA==
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h6ekvbynd-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 13:13:11 +0000 (GMT)
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-88b59692e0dso5529098b3a.3
+        for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 06:13:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791551591; x=1792156391; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Y39uACIITAm3E86iuyCJQOh04AK3pIwWRty/9TUNn4g=;
+        b=JzkKT3xq+mrQImXN65l1TDRgbj9lGR+uFEy1riREtAGZ8oexFjv7ArbZAUG1k4rL+I
+         e548J863v+DcIMU+v55SgsRJR7F0bfs8eOxDAXEBL2nsmzVSBrQ/fEz4x/js4guUEuqu
+         7WdLONa0IwibiAg9B5xd6POVR+2akhH5LbjEH/TVqu+5U8MznirupzfpqquLUsK/h5dY
+         LqYKNFvDKSmQRj0NoDnRng/CmDKf03kIgTMc0zrndY3IUdVqEGwqAowiTjg2vHexlmnM
+         5lctgV9ANJVXqCiolwhJDEhUsjV1XZIxNQNjvAylUt9ahtLpEKnlUjjWi54+bWrsxE9Y
+         CDQw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791551591; x=1792156391;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=Y39uACIITAm3E86iuyCJQOh04AK3pIwWRty/9TUNn4g=;
+        b=gW4yukRzCO7tzf8Mp4swYgz/EL7JjvBB4m6NlPDj0nhOuuy49NepzFLfMTaUWHeK/R
+         0KH8ozGe1JYkLdZ+Krd3iDLx5bQeQJxlmtECUoVplrC+vb/mUyZVAvRExbneAk+JXxNe
+         32Rlsk9YsOPByhnCDFnc0ubtqj8pe1lbaN193xF27NEoA0FuF5eEhd05aXp0glTQL7cE
+         lODL6bM4S60Ks6vAETgZbLZAKngZKKj/IKD3RgB3nC0xRvSFCv+AMEodStAt+GXjkwTy
+         Tx0+hWPpAVe9neVr4jgAjQWMBTggGng/x/F9qgibGjaTxNjNG6Q9l8uyVdIDZMoO3d0Z
+         IDcw==
+X-Forwarded-Encrypted: i=1; AKwUvBz7QuZ++GhBBFgFuerwA1U1gPTAW/JbiwrvAiBd1mjoVYL6+Odx3Rlf2/BrkOMICalOJ3LHnmQwRhaz@vger.kernel.org
+X-Gm-Message-State: AFq9FYKwl7/JnfarhOZjD5xXZOvIHL+wir6S358b+v9SOk+U+hQqt9Lq
+	HAxYGenxMgraaYbBfIc6PK3RuaXM7NVq2K+aj9W9EZXotjP/P/wVMhzFhfR4RpduAxUcroJE/ZQ
+	kADStJNXtIPpPzpsKOE7ND3TbbZJuKcftmGc2SKUCU5f4O/j45dkErBaBrOI4ge55
+X-Gm-Gg: AYBFou1Q9OmV91IAeBs4gJCGGy6Z0JHJIcadqP/jzXlJLHPtmSYI+TZsdrro2feo/Bx
+	EZOcdFcOJHpmTqcq0LlMuaSXBY9bhCGf5iyjD/l9NwLsukkfAl8IG5iLDuvYvFFY+D/fLl7z/PH
+	0QyDwQZuduIGWel/7uZiaMfUpMwvzmkwMbny8EjdQ7+PUOioX+Bz/RY+H3Yi6t5THU5lv8cT6Au
+	E3FMzR6mQLDvFwQQ0uJUlBrkgpwrqrpa8ooBWLvUrNiCIdqMiV4afzItXS+lvMES4Q1JweyI/RK
+	cRYBTNAbvYYMWLAMSI6llCb5PLI/X4H5YDq0YMntNlm+033lT+nhP+E/FnGSDBwazGsqiD6SB2i
+	BCXuOmZ1cLfsUHcOi8Z7Uymio5IHymaeZfYzq
+X-Received: by 2002:a05:6a00:18a2:b0:890:b18c:521f with SMTP id d2e1a72fcca58-897c7cd32b7mr1816394b3a.50.1791551590516;
+        Fri, 09 Oct 2026 06:13:10 -0700 (PDT)
+X-Received: by 2002:a05:6a00:18a2:b0:890:b18c:521f with SMTP id d2e1a72fcca58-897c7cd32b7mr1816365b3a.50.1791551590026;
+        Fri, 09 Oct 2026 06:13:10 -0700 (PDT)
+Received: from hu-mohs-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-896c4b8ec86sm939053b3a.61.2026.10.09.06.13.02
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 06:13:09 -0700 (PDT)
+From: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+Subject: [PATCH v3 0/7] ASoC: qcom: Add Nord audio support
+Date: Fri, 09 Oct 2026 18:42:46 +0530
+Message-Id: <20261009-nord-asoc-driver-support-v3-v3-0-0c1897f21ccf@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAE7oyGoC/32NzQqDMBAGX0Vy7kr8IWpPfY/iQZO1plRjd1Vax
+ HdvYum1sCwMfMxsgpEssjhHmyBcLVs3eshOkdB9M94QrPEsUpmqRMoKRkcGGnYaDNkVCXiZJkc
+ zrBkUCbamKotcaiW8YSLs7OuwX+sv89LeUc9BGRa95dnR+8ivSdj9SuWfUhpOgmxVV2CVSyXNx
+ THHz6V5aDcMsX+i3vf9A7npFzDfAAAA
+X-Change-ID: 20261009-nord-asoc-driver-support-v3-71ebd98740c6
+To: Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
+        Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+        Takashi Iwai <tiwai@suse.com>, Srinivas Kandagatla <srini@kernel.org>,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
+        linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791551582; l=2975;
+ i=mohammad.rafi.shaik@oss.qualcomm.com; s=20260424;
+ h=from:subject:message-id; bh=UEbmskBorYmmQbDJ+gVJYn7vft9oRXM2EpvvWF/gsyc=;
+ b=JyJx1aPN6oQlpiEa8pgospxLDqs5jow+1PRDhP0bSYgmWIwNtrwMMSEx3p5JVXhM7Fy5gUkc/
+ A4+kS7/HySHDoQBfy9kIoivfARDL2fw83bB8w2/wNhYlROwNBiXQAif
+X-Developer-Key: i=mohammad.rafi.shaik@oss.qualcomm.com; a=ed25519;
+ pk=KZedmYgMGYOzuTpLGv56tdrL+pTLDP8pdmfQ91xemiA=
+X-Proofpoint-ORIG-GUID: XYzFwFebsUtSPCjT-eqjHFhxAkkHbmIN
+X-Authority-Analysis: v=2.4 cv=csYOAF4i c=1 sm=1 tr=0 ts=6ac8e867 cx=c_pps
+ a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=sozttTNsAAAA:8 a=pGLkceISAAAA:8
+ a=VwQbUJbxAAAA:8 a=iox4zFpeAAAA:8 a=3s0VHmhASnHXix99wlEA:9 a=QEXdDO2ut3YA:10
+ a=IoOABgeZipijB_acs4fv:22 a=FO4_E8m0qiDe52t0p3_H:22 a=WzC6qhA0u3u7Ye7llzcV:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDA1MiBTYWx0ZWRfXxTfw2sp23x5f
+ RhTMRL9XbcE18HVWirxQ02DS5APOOUAs4231qcibMWDBC+hP2qcu0OLZwd8w03pu18Xu3/Rw9Ii
+ RAACNFkcpo6wW4Q7ilAxkWR+jWyOaCkHRdHOIYCs3O7/GAlPvHul56JfJTOi38VxK6aa8PmTo5/
+ ZA7BKjkou/uNEtdeYxAyJYTwLRsKLk+7zPNU2zhxPk4FtsoctzkSRo31IDYRONCAEIWUVjGBMqX
+ X2nExTcywTVYBT9TAPCxEENXHgxVnG2W0uefjFHv2KVC7nfh2Fv7pHMhViu0xkpye0tk36EAjnh
+ mE0mqC4aGlxEIZBfyPbITP1hdzM6oY/p9KJf1k+Tzxg1hiVPzZRVUKsIbtI0dWW33JQuRUUXK9R
+ sgkVtuKq5zrIVXB7CjSP3I6FReaeWkZWfB6S6qTtL5eS2ihA6zZyhQZGJ2KFlYHJe46bTJHlWZC
+ r6m7GwhKDs2nlfl1qyg==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDA1MiBTYWx0ZWRfX8VpWIe/0Pqqq
+ o2dnPYjRCdOT4vFKPcM+yp60HmZkus+4oJNE5EI8X18H31GTvly+B22kmzgvY+1WufcmUrJg57L
+ Tli5QzA6bmit6OsA23Xo9r7fmtQZhcI=
+X-Proofpoint-GUID: XYzFwFebsUtSPCjT-eqjHFhxAkkHbmIN
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-09_03,2026-10-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 spamscore=0 clxscore=1015 priorityscore=1501 suspectscore=0
+ lowpriorityscore=0 adultscore=0 phishscore=0 bulkscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610090052
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] clk: samsung: exynos8855: heap buffer overflow during cmu_hsi regi=
-stration
-- [Low] dt-bindings: clock: samsung,exynos8855: missing samsung,sysreg prop=
-erty in schema
---
+This series adds audio support for the Qualcomm Nord Ride and
+RRD boards and includes the required machine driver, device tree
+binding updates, and codec improvements needed for the board's
+external audio codec configuration.
 
-commit bbcbd2201fb19f5e477dc2859ff29864327a9378
-Author: Raghav Sharma <raghav.s@samsung.com>
+Nord Ride uses a PCM1681 DAC for playback and an ADAU1979 ADC for capture.
+Compared to other SC8280XP based platforms, Nord Ride requires
+board-specific DAI format and codec clock configuration to support
+the external PCM1681 DAC and ADAU1979 ADC.
 
-arm64: dts: exynos8855: add cmu_hsi clock DT nodes
+Signed-off-by: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+---
+Changes in v3:
+- Enabled PCM1681 VCC1, VCC2 and VDD supplies, as suggested Konrad.
+- Link to v2: https://patch.msgid.link/20261008-nord-asoc-driver-support-v2-v2-0-0b6f7e94060d@oss.qualcomm.com
 
-This commit adds the required dt node for the cmu_hsi block. It also adds
-the sysreg_hsi node which contains bits for DRCG and MEMCLK that are used
-by the clock driver.
+Changes in v2:
+- Dropped patch 1 from v1, as the ADAU1979 codec change has already been applied.
+- Moved the compatible string from the board-specific file to the SoC file, as suggested by Shawn.
+- Added runtime PM support to the PCM1681 codec to manage the SCK clock sequence.
+- Added TDM support to the PCM1681 codec.
+- Added the required POR delay to the PCM1681 codec, as suggested by Mark Brown.
+- Replaced LPASS DAI IDs with QAIF DAI IDs.
+- Link to v1: https://patch.msgid.link/20260907-nord-asoc-driver-support-v1-0-997d3b20cf43@oss.qualcomm.com
 
-> diff --git a/arch/arm64/boot/dts/exynos/exynos8855.dtsi b/arch/arm64/boot=
-/dts/exynos/exynos8855.dtsi
-> index b461de6a75483..3dd7a4c4c609f 100644
-> --- a/arch/arm64/boot/dts/exynos/exynos8855.dtsi
-> +++ b/arch/arm64/boot/dts/exynos/exynos8855.dtsi
+To: Shenghao Ding <shenghao-ding@ti.com>
+To: Kevin Lu <kevin-lu@ti.com>
+To: Baojun Xu <baojun.xu@ti.com>
+To: Sen Wang <sen@ti.com>
+To: Liam Girdwood <lgirdwood@gmail.com>
+To: Mark Brown <broonie@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Jaroslav Kysela <perex@perex.cz>
+To: Takashi Iwai <tiwai@suse.com>
+To: Srinivas Kandagatla <srini@kernel.org>
+To: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+Cc: linux-sound@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org
 
-[ ... ]
+---
+Mohammad Rafi Shaik (5):
+      ASoC: dt-bindings: ti,pcm1681: Document the optional SCK clock
+      ASoC: codec: pcm1681: Add optional SCK clock and runtime PM support
+      ASoC: codec: pcm1681: Add TDM support
+      ASoC: dt-bindings: qcom,sm8250: Add Nord sound card
+      ASoC: qcom: sc8280xp: Add Nord sound card support
 
-> @@ -241,6 +241,27 @@ pinctrl_pericmmc: pinctrl@154f0000 {
->  			interrupts =3D <GIC_SPI 395 IRQ_TYPE_LEVEL_HIGH>;
->  		};
-> =20
-> +		cmu_hsi: clock-controller@17000000 {
+Shawn Guo (2):
+      ASoC: dt-bindings: ti,pcm1681: Document the PCM1681 supplies
+      ASoC: codec: pcm1681: Enable the PCM1681 supplies
 
-[Severity: High]
-Does exposing this node in the device tree trigger a heap buffer overflow
-during driver probe?
+ .../devicetree/bindings/sound/qcom,sm8250.yaml     |   1 +
+ .../devicetree/bindings/sound/ti,pcm1681.yaml      |  16 +++
+ sound/soc/codecs/pcm1681.c                         | 157 +++++++++++++++++++--
+ sound/soc/qcom/sc8280xp.c                          |  51 +++++++
+ 4 files changed, 217 insertions(+), 8 deletions(-)
+---
+base-commit: 62d9f9ffdfd44e88010412bf8f23732f0a93a9be
+change-id: 20261009-nord-asoc-driver-support-v3-71ebd98740c6
 
-Looking at the cmu_hsi clock provider in
-drivers/clk/samsung/clk-exynos8855.c, the array size for the hardware
-pointers is defined as:
+Best regards,
+--  
+Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
 
-#define CLKS_NR_HSI                     (CLK_GOUT_SYSREG_HSI  + 1)
-
-Since CLK_GOUT_SYSREG_HSI evaluates to 4, this allocates an array of 5 elem=
-ents
-during samsung_clk_init(). However,
-include/dt-bindings/clock/samsung,exynos8855.h defines higher clock IDs
-for this provider:
-
-#define CLK_GOUT_SYSREG_HSI                4
-#define CLK_GOUT_UFS_EMBD_ACLK_HSI         5
-#define CLK_GOUT_UFS_EMBD_UNIPRO_HSI       6
-
-When samsung_clk_register_gate() iterates over hsi_gate_clks and registers
-IDs up to 6 (CLK_GOUT_UFS_EMBD_UNIPRO_HSI), it appears it will write out of
-bounds:
-
-drivers/clk/samsung/clk.c:samsung_clk_add_lookup() {
-    ...
-    ctx->clk_data.hws[id] =3D clk_hw;
-    ...
-}
-
-Should CLKS_NR_HSI be defined using the highest clock ID instead to prevent
-memory corruption when this node probes?
-
-> +			compatible =3D "samsung,exynos8855-cmu-hsi";
-> +			reg =3D <0x17000000 0x10000>;
-> +			#clock-cells =3D <1>;
-> +
-> +			clocks =3D <&oscclk>,
-> +				 <&cmu_top CLKCMU_DOUT_HSI_NOC>,
-> +				 <&cmu_top CLKCMU_DOUT_HSI_UFS_EMBD>;
-> +			clock-names =3D "oscclk",
-> +				      "bus",
-> +				      "ufs_embd";
-> +			samsung,sysreg =3D <&sysreg_hsi>;
-
-[Severity: Low]
-Will this cause a device tree schema validation failure when running
-make dtbs_check?
-
-The samsung,sysreg property does not appear to be defined in the schema at
-Documentation/devicetree/bindings/clock/samsung,exynos8855-clock.yaml,
-which restricts additions globally via additionalProperties: false.
-
-> +		};
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009120137.2801=
-911-1-raghav.s@samsung.com?part=3D13
