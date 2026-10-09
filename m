@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86AFB4D09EA;
-	Fri,  9 Oct 2026 11:32:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BE9F386441;
+	Fri,  9 Oct 2026 11:32:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791545542; cv=none; b=c0274MJlYtEV+FsT8FidZmnuwDXjGQYHi251GpaUjkHVENRgC08QDQI0JHptfv8pMsEhnb4d1i5kzZPCOv9ndvJJuwKm2UiD7LkkLfp1+FwvGVZ+IjhtGRZa2/Nu/yKCVwmXiG92pA/Os7/N/BfFRhahlxY9BgUI2y1hFZaibTE=
+	t=1791545547; cv=none; b=gvYJ144lX0kJHOsJkjl3J8JeVZ+dXlVAMRT0HShxhZC+n0M6Liaar/dvgtLX+kxat5HQJrbo6dJjwG7aAse5jLYwTU7/NJbuFO40GX6IHt/CLkVBaTH+L7EkRZ+zj43iLo5+nCb1+GzxrGN0UVD27abE3NtpcuUUHz+rA+ScSww=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791545542; c=relaxed/simple;
-	bh=5xXolIfGSLSP6PUCaK/0qKG1nRxCzWHMGvCUTUcuYS8=;
+	s=arc-20240116; t=1791545547; c=relaxed/simple;
+	bh=E69jiQ2nISn+JHu/wyX5TtxPQP8dU2v+0riPZKGEhl8=;
 	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=dEgDB+fm0Tvc12CdEDYL9OFZMJw71Sv9nFvK8StXMa0JM0aia4AM6b5pXe9LcO9vrQRIDe6IISerVA940RVlmACAbp3kWUPzQE1rO6jErurVcNnr12Aoj3OpQY7UYuvKYsNRGmSwSG4qh/t7Aql8aUUX7HC73NxtB0ImHPPOAsg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YSfHiyAi; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=QSYruNb6X6pCdF84aJ3F/W4I3TIgyR1H30ZCrCSCauEeksetvNiuJD0WTZjdWX3j73jDMOglw35KaTR8VcUvXd4xHVzAiYlnecJ05i2lXh8Ejsia2oT8MWaeF8x+O4njHcv7hTstmYTij7N5/sfS9FF7mSxwpao4VJK+aUUzT/U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SUtLqUrY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YSfHiyAi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57B381F000FF;
-	Fri,  9 Oct 2026 11:32:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SUtLqUrY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54AE41F00898;
+	Fri,  9 Oct 2026 11:32:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791545529;
-	bh=H4gaV997NOoYug7TIGgsYgEBKZ7q0bs48xyultfcPKE=;
+	s=k20260515; t=1791545537;
+	bh=2/l6rLucsEuzWwe5pgFYjwPnNugIDoAs2GTFUF4weas=;
 	h=Date:From:Subject:To:Cc:References:In-Reply-To;
-	b=YSfHiyAid7lB6+KDkJHuARtSIqvhoQQIKXFT2uU50znYSLn3gBUFhL13XmEZTQKtR
-	 Uu3QApGSbpiazhByfPkdipnJ2EnQLA1TDiXkDVaOgWsYzC237fZKLu/oshG2e/xnKa
-	 dB9i13vRezslv/15pQpExFPDK+kFlSzZKQlrwvbhSsA8T7ZwrmGeKrnvHIxOJG5Uqy
-	 4in+Vj2jjXCMZHi1Ew+izl2/vxhrXL8iFDVasBmRmT16/cigYPOga/S8HzfLRAZuVh
-	 YgRk9hoLf35YJsIdHBy8cp4GeRoQiTqOt7pDqZsesCgffz4U8ax42GlN2PLW0SBa2M
-	 SVK1D82Me6MDw==
-Message-ID: <3bf2dbd1-51c5-4e50-ae97-b9de97320746@kernel.org>
-Date: Fri, 9 Oct 2026 13:32:00 +0200
+	b=SUtLqUrYuQ7Xg9FiQ9adP/AN0HLULzNoUKqwruWR8at0bjCoYsOD6jbJSmBFVHhVD
+	 l9X1KS91PAvHvV81KKKwJ4OdHW1pDA1FA/Ly3GGTzP8Px7KFMRI0BjnHYjey4hysEi
+	 tRmQrlZOrPwQTcJ0mPYZ27bdFuj8I8+a72OCFHddyRfRxJm9t/FQJi/QMyxDZVHu94
+	 jqeywsxeK7EANkxZ3ApY1xQzRm5LsiF6rhVsHZtNQSbs4TQoAESAjevfP+wi/82HKh
+	 ph1bb6+wjhSxDcYXvSnEX0BgtpYVj+No84/7SVBojuU9TNXkkcPjj3tEiMCCJt+R4/
+	 UQZx9msusnCeQ==
+Message-ID: <006e25c8-8058-4785-a11d-facb95de6e13@kernel.org>
+Date: Fri, 9 Oct 2026 13:32:07 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -36,17 +36,17 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 From: Krzysztof Kozlowski <krzk@kernel.org>
-Subject: Re: [PATCH 1/2] dt-bindings: clock: add Ambarella CV75 RCT
-To: longzhao@ambarella.com, Michael Turquette <mturquette@baylibre.com>,
- Stephen Boyd <sboyd@kernel.org>, linux-clk@vger.kernel.org
-Cc: Jerome Brunet <jbrunet@baylibre.com>,
+Subject: Re: [PATCH 0/7] gpio: add Ambarella CV75 PL061 support
+To: longzhao@ambarella.com, Bartosz Golaszewski <brgl@kernel.org>,
+ linux-gpio@vger.kernel.org
+Cc: Linus Walleij <linusw@kernel.org>, Michael Walle <mwalle@kernel.org>,
  Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
  Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- Long Zhao <zl020895@163.com>, linux-kernel@vger.kernel.org
-References: <20261009-cv75-clk-v1-0-6959b4da83c5@ambarella.com>
- <20261009-cv75-clk-v1-1-6959b4da83c5@ambarella.com>
+ Long Zhao <zl020895@163.com>, linux-kernel@vger.kernel.org,
+ Conor Dooley <conor.dooley@microchip.com>, Chanho Min <chanho.min@lge.com>
+References: <20261009-cv75-gpio-v1-0-5836bd438423@ambarella.com>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -91,29 +91,20 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261009-cv75-clk-v1-1-6959b4da83c5@ambarella.com>
+In-Reply-To: <20261009-cv75-gpio-v1-0-5836bd438423@ambarella.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 09/10/2026 13:00, Long Zhao via B4 Relay wrote:
-> From: Long Zhao <longzhao@ambarella.com>
+On 09/10/2026 12:57, Long Zhao via B4 Relay wrote:
+> Split from the combined CV75 bring-up series. These patches convert
+> the ARM PL061 data path to regmap, then add the CV75 layout.
 > 
-> Document the CV75 RCT clock controller and the clock ID header used by
-> DT consumers.
+> Please take this series through the GPIO tree. The quirk, the PL061
+> conversion and the Ambarella layout belong together.
 > 
-> Document #reset-cells for the RCT reset-provider role. Soft-reset line
-> IDs and the reset provider driver are deferred; this series has no
-> resets= consumers.
-> 
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> Signed-off-by: Long Zhao <longzhao@ambarella.com>
-> ---
->  .../bindings/clock/ambarella,cv75-rct.yaml         | 64 ++++++++++++++++++++++
->  include/dt-bindings/clock/ambarella,cv75-rct.h     | 14 +++++
->  2 files changed, 78 insertions(+)
 
-
-This should not be split from original patchset.
+Here - in the most visible place - you document the dependencies or
+merging restrictions.
 
 Best regards,
 Krzysztof
