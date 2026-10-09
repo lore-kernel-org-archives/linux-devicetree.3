@@ -1,119 +1,87 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9DEB27B340
-	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 01:19:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09E111429D;
+	Fri,  9 Oct 2026 01:44:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791508760; cv=none; b=CHo3jm6d7x6YTgCFe7oq5EmK/+bvAIz1obhyPP6+/aIe3UYCD9QSPaSev/WCEK9QQHOHegckV35Xjc/eJ8CxX4DqxNKLpPYpbJB4ygCV1vrt2VqWao5KPdIb1BN7BLhmQTFKDusAHdgxSRyNC5/7bXgL6rhlVTDbAQbT+ijtRA8=
+	t=1791510295; cv=none; b=QJddFEIbmgNTaup3h7PfEEeANK7I/HntaoNrFmPg0uQsweuaxjEdEwPLwjaJ+lb9Q07sh/LAaUebZRWJbfzKNFZ9NAJMg4tNXoDiAfVoHRcMmoj5cYoKZhKB/2cVuNRwY0vO9RC8HjqhjBdjCU3OEi8rfX+LvxJHkeMCnLvLFgw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791508760; c=relaxed/simple;
-	bh=34jIuH0rxY8MsFTeVq/GxheA+Y9LPiuV67Y4KOPeOPc=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=EmBLcmF/nCY/N/pScDXkvg8rGbvwGkCE+q4j/OBduqMTonfAe+c3O8BQzoSsBkE93fWU8IKqW5kcIfg1SkDJfm24dx8PrllNVaD+d7vmAq77S65Ji4E3y7ZYlUqavsq1hiA1zTKJpe8cD/mjTwDVovINxufKtHQ8+d+zelHvpi0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l0XSk/z8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791510295; c=relaxed/simple;
+	bh=ps36k8CjuoTjZMV2brFGNLq/m90OAIIYoSzr+cqNdJY=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ZxkuFgCbw+Cakuwt8rCx1jcTJza1gezQfH+nePbvdXUrkh1iF9wzKTNWD0oA6cU1LDpb4CzAgkkVXM8wrk1Y99ISHnnD4oEYbCv8ERlcsTz9gP/qPFvt6MHBRbLLYst2ojYKmDaDQ8/3ISa62MqHLBu0vwQg1s0jVhLaVQkgvuo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nb9teZNs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l0XSk/z8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 538AB1F000FF;
-	Fri,  9 Oct 2026 01:19:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nb9teZNs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDA991F000FF;
+	Fri,  9 Oct 2026 01:44:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791508759;
-	bh=GuGZRAq0PnHSXqf4ZJPkdwwiVEPluTBDPLewmDbgrYg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=l0XSk/z8niMlgAM8fjGhCRtqJ6nALhdO6WlVx7K3ft9+sa+RP4r5gBgUqJ+uiVfiI
-	 AKXh6MpFCeynmYrrboWQ/IZpdS+oN6vEEHjV/VsHwePqJsZcAPEH7yWwRIx9aRdiyY
-	 9iyDNiT1Jf+TrW3w02fdfHvrW9b2UVU3oDgoYnhc6ejJhbTOsGCBrGJkbTmVORZMX5
-	 paw/yWVkxAYC43CTPRB6HwaAH8Z/xqiaO4P8IiPEYNwgK8HWxo5heyORQHM0mhvv01
-	 kAUZhIzUoPWUcIiA4HnohztCeAb9WlwKq/aiacsNitKlcbJs4Tuzm3WUGyOgWebUVg
-	 gk6xvZSvFAM3Q==
-Message-ID: <sashiko-outbox-164696@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] of/irq: Document of_irq_init() device node refcount
- contract
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Radu Rendec" <radu@rendec.net>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261009011324.1503697-1-radu@rendec.net>
-References: <20261009011324.1503697-1-radu@rendec.net>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 09 Oct 2026 01:19:18 +0000
+	s=k20260515; t=1791510294;
+	bh=33ru3Gxhk6Gm0/9IKmIgi6zRS1VwEU25zdzjDfJ2KD8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=nb9teZNs7TgdIun2s8u4WHb+8A0a37JNFbsPtXbso1NfpxgrQxcmSs8cs6rNqH3Yb
+	 0vys8vn3SQFECa2C6658Wckyh+B99xEHYoaZMT3KmIvqEALKIovmgleV0gqRq1N9TJ
+	 weIVYpa7U9e+Ts9XU/wrhQzvb8RekoOtuCxh+D9RovZquyplJZenPmKv71frxsPyYP
+	 F0398g3sIKaAzrEDCu2UjVSl37ivGdH5apro0pva5e34zvtXISqOB0qFLSPpZ42ziy
+	 Glv/A/VGtu+PU9Jy88OmAnAcYvcrGyh7tff43mxTJxebkMQESnfhvcU5Rpi9pkpRLI
+	 5wKyno4Aa+eFg==
+Date: Thu, 8 Oct 2026 18:44:53 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: =?UTF-8?B?Q2zDqW1lbnQgTMOpZ2Vy?= <clement.leger@bootlin.com>, Andrew
+ Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, "David S.
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, Paolo
+ Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Simon
+ Horman <horms@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, Russell
+ King <linux@armlinux.org.uk>, Geert Uytterhoeven <geert+renesas@glider.be>,
+ Magnus Damm <magnus.damm@gmail.com>, linux-renesas-soc@vger.kernel.org,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Prabhakar
+ <prabhakar.csengg+renesas@gmail.com>, Biju Das
+ <biju.das.jz@bp.renesas.com>, Fabrizio Castro
+ <fabrizio.castro.jz@renesas.com>, Lad Prabhakar
+ <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH net-next v2 10/12] net: dsa: rzn1-a5psw: Add fixed frame
+ length workaround for management port
+Message-ID: <20261008184453.3e0374d1@kernel.org>
+In-Reply-To: <20261001154326.754314-11-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20261001154326.754314-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+	<20261001154326.754314-11-prabhakar.mahadev-lad.rj@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] of/irq: false API contract documentation encourages use-after-fr=
-ee
---
+On Thu,  1 Oct 2026 16:43:23 +0100 Prabhakar wrote:
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+> 
+> The ETHSW IP used in SoCs such as RZ/T2H and RZ/N2H has a hardware issue
+> where the internal mgmt_tag_vld signal is asserted as a level instead of
+> a single-cycle pulse. This causes the frame length counter on the
+> management (CPU) port to over-increment, so valid frames are falsely
+> detected as oversized and dropped.
+> 
+> The recommended workaround is to program the maximum frame length
+> register (FRM_LENGTH) of the management port with a fixed, large value.
+> 
+> Add a management_port_fixed_frame_len member to struct a5psw_of_data to
+> hold the SoC-specific value. When it is set, program A5PSW_FRM_LENGTH
+> for the CPU port with this value in a5psw_setup(), and skip updating
+> FRM_LENGTH for the CPU port in a5psw_port_change_mtu() so that MTU
+> changes do not override the workaround.
+> 
+> No functional change for existing SoCs, which leave the value unset.
 
-commit 553b68f6aa4fe4b4ead9f98bb63dfba3cbd9c9a9
-Author: Radu Rendec <radu@rendec.net>
+drivers/net/dsa/rzn1_a5psw.c:212:24: error: initializing 'struct a5psw_of_data *' with an expression of type 'const struct a5psw_of_data *' discards qualifiers [-Werror,-Wincompatible-pointer-types-discards-qualifiers]
+  212 |         struct a5psw_of_data *of_data = a5psw->of_data;
+      |                               ^         ~~~~~~~~~~~~~~
+-- 
+pw-bot: cr
 
-of/irq: Document of_irq_init() device node refcount contract
 
-This commit adds documentation to of_irq_init() claiming that the device
-node refcount is intentionally never dropped upon successful initialization.
-
-> diff --git a/drivers/of/irq.c b/drivers/of/irq.c
-> index ef1ed9743907b..bf277781cdb6c 100644
-> --- a/drivers/of/irq.c
-> +++ b/drivers/of/irq.c
-> @@ -647,6 +647,15 @@ struct of_intc_desc {
->   *
->   * This function scans the device tree for matching interrupt controller=
- nodes,
->   * and calls their initialization functions in order with parents first.
-> + *
-> + * The initialization functions are called while holding a refcount on t=
-he
-> + * device node corresponding to the device that is being initialized (pa=
-ssed
-> + * as the first parameter). If an initialization function is successful,=
- the
-> + * device node refcount is *not* dropped (ever); this is intentional and
-> + * guarantees that the pointer passed to the initialization function is =
-valid
-> + * not only while the function runs, but also for the rest of the kernel
-> + * lifetime (i.e. it is safe for a driver to store the device node point=
-er
-> + * and use it *after* the initialization function returns).
->   */
->  void __init of_irq_init(const struct of_device_id *matches)
->  {
-
-[Severity: Medium]
-Does this documentation accurately reflect the code's behavior?
-
-Looking at the end of of_irq_init() in drivers/of/irq.c, there is a cleanup
-loop that explicitly drops the device node refcounts for successfully
-initialized controllers remaining in the parent list:
-
-	list_for_each_entry_safe(desc, temp_desc, &intc_parent_list, list) {
-		list_del(&desc->list);
-		of_node_put(desc->interrupt_parent);
-		of_node_put(desc->dev);
-		kfree(desc);
-	}
-
-Any successfully initialized leaf interrupt controller, and any sibling
-controllers remaining in intc_parent_list when intc_desc_list becomes empty,
-will have their references dropped by this final drain loop.
-
-The documentation appears to mistake a pre-existing memory leak (where pare=
-nt
-controllers popped during the while loop leak their references) for an
-intentional, universal API contract, while ignoring this final drain loop t=
-hat
-cleans up the remaining nodes.
-
-If driver authors rely on this newly documented contract, they might assume
-they do not need to take their own reference on the device node. Could this
-lead to a use-after-free when the final loop drops the reference?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009011324.1503=
-697-1-radu@rendec.net?part=3D1
