@@ -1,109 +1,253 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5431D4EFFDA;
-	Fri,  9 Oct 2026 16:33:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791563597; cv=none; b=PrZRoXSoRFMymNG8gbyZPEdSADZChV5nCDJszgIP13JcsDh5GYZZ7u8ll40T9MgHecbkiwXlOfkzLniJoIqjDsMW0p4EVfHW0+/XnUAFptW9jcTqF09BQU5RJ3jMJtk/hO/lH/9Ylz+qsU8Xk05U+KR9nCPc4ydeX/733V46j2E=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791563597; c=relaxed/simple;
-	bh=F6AyFgzv16cqGbXFJ2cxxeaCtvR7M1nQ6viGm1YMP0E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JCdjxHeJb8uHw3AZtzVZ/dXvyjGwXYhvqUwBzOp9XzRapf9u5ad0hGytFbRCzPaT8GDcrNQLpDRsvKzfzAOQLnaezP2Q8zuPgWFWRunjiVAwcPODRWSedof7umQX1Pt95dTpXBkooLkTrL1owdG5wsZzfzZ2T+aClfhm9wypm78=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kmGWrWLU; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C4194E77EA
+	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 16:40:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791564022; cv=pass; b=E33d0JBOAy3zITqj90NeeFLYOSMjUh+jlL0SdvKXTmYqVrs09bI0c+7XxlVszyOac6a4ZSP7smqH1OuoNqkUcjuFjN8z/fxWXCU7KIDoWzeBuxm5c4cfyaOUaHuWyHq8D+Ly0Yvydd6z8U4Kyi2s0ICzbk6eiB5bnSdkQPNe1dA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791564022; c=relaxed/simple;
+	bh=O8BZgU9vbT9VzKGigoj0YhIQo4ixHDL264tHQrF7gDU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=cDSZdAJXHQbUxJsE/GDhG46cCLojB3+ACt7MRgqkFRH74EEfSYSejVevpFXC6TSo65JwxulG29qgfcgOy96jA0xJsIjaedYkxBGjRInuj46dRs5GF6ExLkNJAPQVpS69LZMAgQjoYmj9U6AtSbRNK+CyKcTGFWuuBy0C98PfVXE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=BzVoZ3gE; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fBs2swyv; arc=pass smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kmGWrWLU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C89A1F0089A;
-	Fri,  9 Oct 2026 16:33:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791563594;
-	bh=/Bszsd3iUrw0nt6uD6LUCDula8MPPcWL6b4iIIrrHD0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kmGWrWLUURe+wS5+lnhtDahN0CpEWQCi+ZD9emfKqd9YB8i+j7hMpB6WIwWCbgdno
-	 WxzUbFmjvfiCvd7PeRAm6EBAU8lGdEBwyFOXtpEw2qL8SEEFQokPpm4w2cUC8NeUS7
-	 eHw5wrAU29DLoJoMLg8ggHKJ4deExL0IHWNjhaYFbVfcwYHrTh3UtQ8I95CXd1H35p
-	 i9wUUELCfZbA2q4AZlolhedEYNWlku3/sK4scHWzVsWpp83edhlrer2VJ2wG5H6uUj
-	 CXocyne3N9V/e/9UFEmVw7DuQPf2T8Ep7XS1oY+/hbkCR4OWg7lCu2MKe3bYNwXTCh
-	 x/IUMdg9BUKiQ==
-Date: Fri, 9 Oct 2026 18:33:08 +0200
-From: Brian Masney <masneyb@kernel.org>
-To: "Christian Marangi (Ansuel)" <ansuelsmth@gmail.com>
-Cc: Brian Masney <bmasney@redhat.com>, Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Felix Fietkau <nbd@nbd.name>,
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, Vinod Koul <vkoul@kernel.org>
-Subject: Re: [PATCH v2 0/2] clk: en7523: Add support for selecting SCU serdes
-Message-ID: <askXRONt8Si264ve@x1g10>
-References: <20260915125226.20579-1-ansuelsmth@gmail.com>
- <179000484817.707534.5059164498545591038.b4-ty@b4>
- <CA+_ehUzrL9qHe92tE0CeaOMAD1LXGuK79t5mZGv+bp2sCas_sA@mail.gmail.com>
- <asZD79RRF4u5OJdn@x1g10>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="BzVoZ3gE";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fBs2swyv"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 699Gbj1B3350206
+	for <devicetree@vger.kernel.org>; Fri, 9 Oct 2026 16:40:20 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	03cV0/SHCir8TBf41ccHk0p543FbvOFeT/DumSE7PMQ=; b=BzVoZ3gENy1gF6ye
+	qYehjQ26tYEkKPZmjWraQwf4erIChnc9V+zoKmw5bLBu/exRPi7Q4fQrYx3ftdoI
+	K41uJG5h4TUThUzDcLqOKWXAZRWXwdyxHqyKdtPeGgIVQxaUQwckq2o981X/uk2P
+	QMvc/NRZdN2sNRQIqMu8j4KW6cwuGjwHBGdUi9xWWEK47GmlC/04OS94KmujDl68
+	iH6EB+Ce1KfP0MgEASzew9nXIUkc2wFJsB/uRNB50GfOwmEsXqfgSgZ4/uku8L/w
+	x3X6Yb+LnS4+2cNJR5+V/SpJgJwA4Wlr/PtgkwG7jY4hYmBeF3Rc2nYg0s4dRhAk
+	35WfOQ==
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h6nufu9sh-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 16:40:19 +0000 (GMT)
+Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93e46b4b700so1154829985a.1
+        for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 09:40:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791564019; cv=none;
+        d=google.com; s=arc-20260327;
+        b=pDYIOsNzkWMDpYzp61NQeNnqgo6oNxO6Jp1mzKzsrtjMqd3Ijaj5ZZOg1ve6RDLuGg
+         ZUdcSvERcxdxft6aGMukKr3//5kSlmwbifi+4uMDfq6+rU5y7d+o/qASE2wOrBrQyKQ5
+         bf8tDP3gR/HTjSIGNEiUqFcQ18iCB5xx/KpRCuMCPlSzDqTIP0FVGso1RsJZg99LUmvI
+         p2E3i9E0uehgMXkWt2GwkpExHlep3T309B7zXcrUOmrAWr2Z4VNEuq4YX8+Izlhkdjt/
+         xkiWLdSGkGRxdjbykAaf5ye3B1YPvChfKiKH6gG9STUjJFzwmPXvgzC/7dSlVGU226ok
+         qTtw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=03cV0/SHCir8TBf41ccHk0p543FbvOFeT/DumSE7PMQ=;
+        fh=m8wy4DCnT16DwJF9/aHdVLbhUBimmtcAPB1dSWPlG38=;
+        b=q7hHNyA7u6dzb+xD3w4JhfrHbIBfDEee2r5PjJvxGK5UhIZreJHQLF9hABbs5Bzbf4
+         kduynNQuvPMH4BZMN0yBjJ4zQOpG1jMQQRHmGqj0ZL28jAt/hJ94YMKdirCMp2eEXxmS
+         lFxbvxAqrxBKTVTa8oiFYsLBRaDbNLd1WeUhTv42JFEjmItwfkIxeJ8f5b9KitFDnOjZ
+         sobl75XYE5niNjm+xoykAIsQUGSm4yXlL9ONdBwISkT8CnnPFokIdYbBbv7VBaJeabrN
+         diJ0R/b+kb/SNJnovthNPFbDUoFuAfxGz19kxeCit2Ac8iSDNXx9KTkwSzvLFz/0MrqL
+         oLuw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791564019; x=1792168819; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=03cV0/SHCir8TBf41ccHk0p543FbvOFeT/DumSE7PMQ=;
+        b=fBs2swyvZBOfk2KVO5FEc04xYgLuhAZMmXCuuPsSJu9J0LoO1mXm+ZSW/ovI6u/zmD
+         NeHYZrYGip/ndFzhL3P7Wh1nTOAjaRQ/aYrzrMpUBQMmHJYdekLLzFBkUQz1YO20dyLR
+         ACK2jkA1gg8UJc1d0JFdFAKSYHui4ICO4aHWYjcqdvr35QdJlCji6o94e/Dl0oBizIeu
+         2uJYW2swCJcxv4o+fi+prOewV1nTP/ErPYml8l26JmmvKLoTyhHmblZXuIMeDaRF+Aw+
+         4wTM1HxkgegNyl7wZF5hU+0xHPKINBQr966bKVbFCD1M7tTfWIykR1iKPW8tjczMgdpF
+         s+EQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791564019; x=1792168819;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=03cV0/SHCir8TBf41ccHk0p543FbvOFeT/DumSE7PMQ=;
+        b=1HfETWGHJmTEbekP8uvu3C17yy774QlMxLwVlWhmthK9BBjP8GVEJwwLy0axgILWAR
+         HB0Sp9FHamigHtP+URjek5CaBzCde1CKVFRR34xUIj/uXGfn1LRBClEjDG+A9PGgZqjf
+         K/+ev4Hx5Ma694pk+f7p8zq8gJmkb7qI6hfZut6k3ohBT3l7EhlEsGtdPrF+81wuy1Ll
+         xQEv9NDHaANVEalAICA/kG2mzNkhOCJkNLeOOYIsddRfjS1tWBciQB9DJlcNk9Tr7S+3
+         5UfG+7yoBKep41BsiPlxd8BE950dEVLCYKDv/n/TZOK0rJE+y2MNCTGUQUlHkYtdvGSz
+         0vNw==
+X-Forwarded-Encrypted: i=1; AKwUvBx2QBH7EN6Rr0g/LoXYwdDNNWKQNMAebLTzqyo2MoOzoafGbTgWExl4F+ajKrEIUUHdzngwgNkYGo+x@vger.kernel.org
+X-Gm-Message-State: AFuF++mM0hk7v1oVVqx/Sp9gFsHQFMBiLqQtzq6qYHLjj5ATwqJ1QjoA
+	sXeKpu3lKh+QuINxnCSvSyD9xYCYjhHUMahayEQjWrtjBK9HhU8z+oVk8gDNnIBLIDP7vPwSKeU
+	84HcP4rXPdf+mvHVTsWuAKguLYvnmossoYRir0DBQlxM1dS2JnHIj/wPiGf7lxtDB2pjSFiqwe0
+	yMsgYaYURUOimPhzXljqRozOla5O999J6a2JBoGtY=
+X-Gm-Gg: AYBFou3pYQJtYv0UYzZXjAYrpdERS7+GCdqZmXKwd8YGj7TN4uDzJ8Ck1n9GZ6h6DTx
+	Q1tudKfuGBE9wp++hIcF7wgq3RCtwOHQJgyIWRzO7jp4zsI9l5GzdQv/QrVo6G7uVCXIjAoosXJ
+	/c4oR+f5xlF3t1VF1ObGJGa5W878IH5baYhDPJZTgFsYaEgSyLOkopmpIIP/xjgWdprLjcGyDFk
+	YikJ3WdXeBe6kHamDa3K75ZTHI1WCTeMG/1KCXup7oT0rmXUFUwipkGtt7W1caJJot77YL0ryUY
+X-Received: by 2002:a05:620a:269a:b0:939:13a7:70f0 with SMTP id af79cd13be357-93ebd0c260amr388805785a.5.1791564018702;
+        Fri, 09 Oct 2026 09:40:18 -0700 (PDT)
+X-Received: by 2002:a05:620a:269a:b0:939:13a7:70f0 with SMTP id
+ af79cd13be357-93ebd0c260amr388800385a.5.1791564018141; Fri, 09 Oct 2026
+ 09:40:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <asZD79RRF4u5OJdn@x1g10>
-User-Agent: Mutt/2.4.2 (2026-08-30)
+References: <20261005-monza-wireless-v7-0-5a6de7662dcb@oss.qualcomm.com>
+ <20261005-monza-wireless-v7-5-5a6de7662dcb@oss.qualcomm.com> <bc7730e4-8b47-4c2b-84ef-277749f2aab8@packett.cool>
+In-Reply-To: <bc7730e4-8b47-4c2b-84ef-277749f2aab8@packett.cool>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Fri, 9 Oct 2026 18:40:06 +0200
+X-Gm-Features: AclHuK9ldJgKtc_xURMW1e6eF51wDo8WFdbnPxmGKItG6GLqTwM1Bp8vW5CtXNc
+Message-ID: <CAFEp6-3Mt-CCJEz=RAJUh6pxH-Ssgkqfx3QQfyzvS9HwzFp9QQ@mail.gmail.com>
+Subject: Re: [PATCH v7 5/8] Bluetooth: hci_qca: Support QCA2066 on M.2
+ connector via pwrseq
+To: Val Packett <val@packett.cool>
+Cc: Manivannan Sadhasivam <mani@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Marcel Holtmann <marcel@holtmann.org>,
+        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-pci@vger.kernel.org,
+        linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org,
+        devicetree@vger.kernel.org,
+        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Authority-Analysis: v=2.4 cv=afn0Dhot c=1 sm=1 tr=0 ts=6ac918f3 cx=c_pps
+ a=qKBjSQ1v91RyAK45QCPf5w==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=Um2Pa8k9VHT-vaBCBUpS:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
+ a=Zz9X-WFLHu0qX2yPYA4A:9 a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDA2NiBTYWx0ZWRfXy+G30erAq38+
+ pZQxVmL6SyGimB3kzX43jbs5oDYJX5HVKQpDg6uzhsFaXu5HYr22ETVQ/4pBBuVmbNWOl9AnwuS
+ rb5jNDFK/IgwOCxiPHmjbkDEPdUq39I=
+X-Proofpoint-GUID: dZmprFZJrvFhgfzjF3hWtIDj0wckYuVC
+X-Proofpoint-ORIG-GUID: dZmprFZJrvFhgfzjF3hWtIDj0wckYuVC
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDA2NiBTYWx0ZWRfXwShErUJtGB7s
+ 0VImJbOlv10+8HODtV/KFbUbeDSCyYOzyZtqmwLjyUdOr2nzRnmNnQZjCJzSikw+kXWpjD1+SQ/
+ EYlRTBQ7ZFYM5dMExW8EYhmwRU+sD80euyVFZbwh8VEOlZmxjA2y+TyW2j7glDwhWtkRUcx4TVp
+ Ky0Q8WJLyh+Z33fhJ8lyPxWcIQQBUekyazIM3Sm7CFNKq0pxEPsSWEZI4fzMgYTR7FE5tnpibCn
+ pIqSQud8dsLi0/qh2IrLsxyU+Ps0Rk3/jMex5mnwBkUT69LVfcjVZq1uKtgloAog7bYdez1vDL+
+ ZjAxZm7TRZK/rqcQBCubFHxfoKe1h8jcok2rYXII4zjjs9SP1KVoiSqUDiAB+5ceZwkzHQpTCXK
+ ncB2D+GyqEUXFToA8BVvWl8q27LCldSBgasAJzkvrbpiWWg8bnCurBVF0UUHt8SXXB5iWIS1kHM
+ 0+wD5g5TfyWl8qUjBzw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-09_04,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 adultscore=0 suspectscore=0 impostorscore=0 bulkscore=0
+ phishscore=0 clxscore=1015 priorityscore=1501 spamscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610090066
 
-Hi Christian and Vinod,
+Hi Val,
 
-On Wed, Oct 07, 2026 at 03:06:55PM +0200, Brian Masney wrote:
-> On Tue, Oct 06, 2026 at 01:23:36PM +0200, Christian Marangi (Ansuel) wrote:
-> > Il giorno lun 21 set 2026 alle ore 17:34 Brian Masney
-> > <bmasney@redhat.com> ha scritto:
-> > >
-> > >
-> > > On Tue, 15 Sep 2026 14:52:22 +0200, Christian Marangi wrote:
-> > > > clk: en7523: Add support for selecting SCU serdes
-> > > >
-> > > > This small series is a split from the Airoha AN7581 USB PHY series [1].
-> > > >
-> > > > [1] https://lore.kernel.org/all/20260702093812.15918-1-ansuelsmth@gmail.com/
-> > > >
-> > > > Changes v2:
-> > > > - Rebase on top of linux-next
-> > > > - Add review tag for Documentation patch
-> > > >
-> > > > [...]
-> > >
-> > > Applied, thanks!
-> > >
-> > > [1/2] dt-bindings: clock: airoha: Add PHY binding for Serdes port
-> > >       commit: 11952173d8a180ac05641775f80bd6946327478f
-> > > [2/2] clk: en7523: Add support for selecting the Serdes port in SCU
-> > >       commit: 4e39820b601221997cb2220edc830f92367cdfc2
-> > >
-> > 
-> > is it possible to have a stable branch/signed tag for phy subsystem?
-> > Commit 11952173d8a180ac05641775f80bd6946327478f is needed
-> > to permit correct compilation of a airoha usb phy driver.
-> 
-> Yes. I'll have to rebase the clk-next tree but it's no big deal.
-> 
-> I'm at Linux Plumbers right now and I'll send out an immutable tag in a
-> day or two.
+On Thu, Oct 8, 2026 at 12:58=E2=80=AFAM Val Packett <val@packett.cool> wrot=
+e:
+>
+>
+> On 10/5/26 9:21 AM, Loic Poulain wrote:
+> > For QCA2066 (and other QCA chips) on M.2 connectors, the UART enable is
+> > controlled by the W_DISABLE2# signal managed by the pcie-m2 power seque=
+ncer
+> > rather than a dedicated BT enable GPIO.
+> >
+> > When the serdev controller has an OF graph (indicating it is connected =
+to
+> > an M.2 connector), acquire the 'uart' pwrseq target from the connector'=
+s
+> > power sequencer and use it to control BT power instead of the bt-enable
+> > GPIO. This is factored out into qca_serdev_get_m2_pwrseq().
+> >
+> > Reviewed-by: Manivannan Sadhasivam <mani@kernel.org>
+> > Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> > Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> > Signed-off-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
+> > ---
+> >   drivers/bluetooth/hci_qca.c | 47 +++++++++++++++++++++++++++++++++++-=
+---------
+> >   1 file changed, 37 insertions(+), 10 deletions(-)
+> >
+> > diff --git a/drivers/bluetooth/hci_qca.c b/drivers/bluetooth/hci_qca.c
+> > index 1d27ff98034ba99d0783e48db5c605f3b31117ea..b6ec1a57248e2cf4bd13889=
+8ffc5cad45b1b4a8b 100644
+> > --- a/drivers/bluetooth/hci_qca.c
+> > +++ b/drivers/bluetooth/hci_qca.c
+> > @@ -1875,6 +1875,9 @@ static int qca_power_on(struct hci_dev *hdev)
+> >                       /* Controller needs time to bootup. */
+> >                       msleep(150);
+> >               }
+> > +
+> > +             if (qcadev->bt_power.pwrseq)
+> > +                     pwrseq_power_on(qcadev->bt_power.pwrseq);
+> >       }
+> >
+> >       clear_bit(QCA_BT_OFF, &qca->flags);
+> > @@ -2396,6 +2399,34 @@ static int qca_init_regulators(struct qca_power =
+*qca,
+> >       return 0;
+> >   }
+> >
+> > +static void qca_serdev_put_pwrseq(void *data)
+> > +{
+> > +     pwrseq_put(data);
+> > +}
+> > +
+> > +static int qca_serdev_get_m2_pwrseq(struct qca_serdev *qcadev)
+> > +{
+> > +     struct serdev_device *serdev =3D qcadev->serdev_hu.serdev;
+> > +     struct pwrseq_desc *pwrseq;
+> > +
+> > +     if (!of_graph_is_present(dev_of_node(&serdev->ctrl->dev)))
+> > +             return 0;
+> Seems like of_graph_is_present does *not* return false for the existing
+> (non-connector) setup which is currently used in all the laptop device
+> trees..
 
-I looked into creating an immutable branch, however as I mentioned it's
-going to require rebasing clk-next (actually clk-pile). I'm willing to
-do that, however I realized after I sent my last email that the laptop
-I'm working on right now in Europe only has access to my kernel.org
-account. So I'd have to rebase all of the prior commits and add my korg
-Signed-off-by since it's going to change the committer on lots of
-commits from my Red Hat to korg account.  I don't want to do that.
+If I understand the issue correctly, this can only occur when a UART
+'port' is left unconnected, in which case the failure is legitimate.
+The laptop device trees should be fixed accordingly, either by
+connecting the port to the corresponding M.2 device or by using the
+usual Bluetooth UART child-node approach. I don't see this issue in
+mainline.
 
-Given that we're this close to the merge window, I'd like to avoid any
-kind of risky operations on the tree this close to assembling a pull for
-Linus. If I can be convinced this is particularly pressing for v7.4 I'm
-willing to entertain the request, but I wouldn't be able to do it until
-Monday when I'm back in the US.
+Regards,
+Loic
 
-Brian
+
+> > +
+> > +     /* The pwrseq is looked up on the serdev controller (which holds =
+the
+> > +      * OF graph to the M.2 connector), but its lifetime must follow t=
+his
+> > +      * serdev consumer device, not the controller. So acquire it with=
+ the
+> > +      * non-devres pwrseq_get() and release it via a devres action bou=
+nd to
+> > +      * &serdev->dev instead of using devm_pwrseq_get(&serdev->ctrl->d=
+ev).
+> > +      */
+> > +     pwrseq =3D pwrseq_get(&serdev->ctrl->dev, "uart");
+> > +     if (IS_ERR(pwrseq))
+> > +             return PTR_ERR(pwrseq);
+> > [..]
+>
+> So this returns EPROBE_DEFER and bluetooth gets deferred forever :(
+>
+> ~val
+>
