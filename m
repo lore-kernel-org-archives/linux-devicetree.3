@@ -1,178 +1,164 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C0D93559C9
-	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 07:29:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB0C729A309;
+	Fri,  9 Oct 2026 07:29:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791530979; cv=none; b=UJhVooB3JIG/DjkorKaOOqsWjKyDF9/NeNM5TYslLNw4qRgwYu6E/ad3ujz3y+Y+OA0JK+lH3+uYN6g46dTtLNm80iQGGmOXZ5sqtXqrlD1BPwXWwX6jewIAYSR4c2gu7XgeUoGeGnLr52o8YTjFAEtEDgdXfPyyZVBNDLan8Gk=
+	t=1791530989; cv=none; b=cMV8g/Ngdk081hyfTzrYvGLYjMEK/cUquv7Y4H28T5DCk8+muwcd0JNA9y2oN/lUKSX0fFFzcDJBxs2h8BxezRdB4QH0D8llM/fu9GyZkKDbRCdUexfuLnFMpEddEZDidgSKk3PL9Lo/KAY1rcrWQRIxBNLxtqUOcV0Lp1YfHVY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791530979; c=relaxed/simple;
-	bh=4CtHkp71LZFj5VQvk/DT1QEIUjw8Grwx/I4uTnmHnpA=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=Zb0p2sgSHH6zB5qsOva9NdCk9/EgK6Z/v3wFsa/LJm4GuV+/q9ZhVGDMOzfA9Xv6r8VzRWUKojP4HjgQNQemuRCd7THKNtgeW+l7bDUYqaQlqPvAuUufy1B26m+gifY7zAioNy45bbR2P+wda2Dn2eyDL3KJDNeHTQYSZJpuoec=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j8EPIY5o; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791530989; c=relaxed/simple;
+	bh=gIdGvVerVBjlAY5FJTnRGxSGodZbvv30G71GWfeeVgc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=YlUMtY6QKH5ZLMS0Whj5nTgpSaQrX8R+16u0YMqf/aSczdxD5xyYgOTmRrmgt7U2UifSB7Uh7eRWJ3UZUXELrwNrS+uQcfUcHCJZozj+9wysM6qY6egLAgxP5QeZgktKOlQ32h366x3UKW8XpA+jK8U7QcvwL86cA5SBTd1CI5Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ASsMTGOC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j8EPIY5o"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EF7A1F000FF;
-	Fri,  9 Oct 2026 07:29:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ASsMTGOC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F6661F00893;
+	Fri,  9 Oct 2026 07:29:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791530978;
-	bh=YAFZvTBNtgcDynCmTgSwqyR6MaPIUdCci0AXh6EIvfI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=j8EPIY5otTMo0Ai6wsxkqXPVvBHk4Ndb0N+2pzD3igb0jb2cQPxXHhCgUlsMIo662
-	 Xbvukww1GwssokH70+pNTEB77A6xNzBvDLaeNPvvwVT2P5MrLKCW1anO5OENqBXtrG
-	 B+bfXIIZXu6yb65BnIMswL7ZUrG12x2zRukDguET42nllkVoTyy28vBKH9GWB1PR9x
-	 hkmKS+AUH2C/cx8Moo0apuRpt/IduLdJBk0ejl95jFisDSUAvu6PQMZRbUX8JMVw+D
-	 +pl/FZwl7eF2mxmeacwIgPwOWiG8dYcTBcmts7jAHOU+2dYvK+tf2gYxJZED+bI4HA
-	 OV3KbyGQQXz2Q==
-Message-ID: <sashiko-outbox-165002@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/4] remoteproc: qcom: pas: Support secondary images
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Anvesh Jain P" <anvesh.p@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20261009-oob-support-glymur-v1-2-96cc8ffcced3@oss.qualcomm.com>
-References: <20261009-oob-support-glymur-v1-0-96cc8ffcced3@oss.qualcomm.com>
- <20261009-oob-support-glymur-v1-2-96cc8ffcced3@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 09 Oct 2026 07:29:37 +0000
+	s=k20260515; t=1791530988;
+	bh=/s3Lbiloemf0P5lVKd7CO+NXtdjl9lXaZ6C19RxmqW0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=ASsMTGOC32s6aRYigVMmUQeV7zp1Hf6b3fNWY7FBM2nbBfgHAMV0hvTq1FOMmt3uC
+	 AlDWrO9PdjPggh+EZRE0M0wnwCzlSwqWv6A1q3KAVnoVM9FXOzO+uIb4CQ6RL5QEd4
+	 XrMbkj9im5A5QvpbPvmNIvS4k84VdKLgVUU1zFHHhmngSXIS1uTz3nhM0dJlBPyHNr
+	 /oc97sd/SgVvE4L0LanE9bTeqVoBtrjgKWLhLHhYtgkttzsXUaZN38FtC23D2PeSyX
+	 oNrmADhUd8uxUReUGYyfjaLgQSq76RI4e+S4vkslAAqopjnFFKOxCtxHm4ZLt+RZ9L
+	 FX0q6iUolIGmg==
+Message-ID: <2d7acd00-0cb5-4002-9663-a39dc4e55ad3@kernel.org>
+Date: Fri, 9 Oct 2026 09:29:38 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 05/21] ASoC: dt-bindings: Add binding for Apple Silicon
+ Mac audio
+To: James Calligeros <jcalligeros99@gmail.com>
+Cc: David Rhodes <david.rhodes@cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ =?UTF-8?Q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
+ Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
+ Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
+ Neal Gompa <neal@gompa.dev>, asahi@lists.linux.dev,
+ linux-sound@vger.kernel.org, patches@opensource.cirrus.com,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+References: <20261004-macaudio-v2-0-7b47ed6335a8@gmail.com>
+ <20261004-macaudio-v2-5-7b47ed6335a8@gmail.com>
+ <20261009-daring-objective-flounder-c0b66d@quoll>
+ <rT1KWd0SSiuQLd7MLQWREA@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <rT1KWd0SSiuQLd7MLQWREA@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] remoteproc: missing shutdown of auxiliary processors on start fail=
-ure
-- [Medium] remoteproc: TrustZone metadata leak on start error path
-- [Low] remoteproc: unconditional PAS ID assignment breaks conditional logic
---
+On 09/10/2026 09:21, James Calligeros wrote:
+> On Friday, 9 October 2026 5:17:53 pm Australian Eastern Standard Time 
+> Krzysztof Kozlowski wrote:
+>> On Sun, Oct 04, 2026 at 04:03:32PM +1000, James Calligeros wrote:
+>>> +examples:
+>>> +  - |
+>>> +    sound {
+>>> +      compatible = "apple,j416-macaudio", "apple,j316-macaudio";
+>>> +      model = "MacBook Pro J416";
+>>> +
+>>> +      #address-cells = <1>;
+>>> +      #size-cells = <0>;
+>>> +
+>>> +      dai-link@0 {
+>>> +        reg = <0>;
+>>> +        link-name = "Speakers";
+>>> +
+>>> +        dai-tdm-idle-mode-0 = "zero";
+>>> +        dai-tdm-idle-mode-3 = "zero";
+>>> +        dai-tdm-slot-tx-idle-mask-0 = <0xf0f0f0>;
+>>> +        dai-tdm-slot-tx-idle-mask-3 = <0x0f0f0f>;
+>>> +
+>>> +        codec {
+>>> +          sound-dai = <&speaker_left_woof1>,
+>>> +                      <&speaker_left_tweet>,
+>>> +                      <&speaker_left_woof2>,
+>>> +                      <&speaker_right_woof1>,
+>>> +                      <&speaker_right_tweet>,
+>>> +                      <&speaker_right_woof2>;
+>>> +        };
+>>> +
+>>> +        cpu {
+>>> +          sound-dai = <&mca 0>, <&mca 1>;
+>>> +        };
+>>> +      };
+>>> +
+>>> +      dai-link@1 {
+>>> +        reg = <1>;
+>>> +        link-name = "Headphone Jack";
+>>> +
+>>> +        codec {
+>>> +          sound-dai = <&jack_codec>;
+>>> +        };
+>>> +
+>>> +        cpu {
+>>> +          sound-dai = <&mca 2>;
+>>
+>> Example looks incomplete, you miss TDM slot properties.
+> 
+> The machine driver generates the TDM slot assignments for the DAIs
+> and sets them at runtime.
 
-commit 3e8f99d1a610c4628e17e809412591bdc8f4873f
-Author: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+Ah, I found them in dai-link node, one level up.
 
-remoteproc: qcom: pas: Support secondary images
-
-The PAS remoteproc driver currently supports one primary image and its
-optional DTB. OOBMSS additionally requires the secondary image and DTB
-to be loaded, authenticated, mapped, shut down, and released through
-their own PAS identifiers and carveouts. This commit adds generic PAS
-support for these secondary images.
-
-> diff --git a/drivers/remoteproc/qcom_q6v5_pas.c b/drivers/remoteproc/qcom=
-_q6v5_pas.c
-> index ca8e61254c449..604dfa947340e 100644
-> --- a/drivers/remoteproc/qcom_q6v5_pas.c
-> +++ b/drivers/remoteproc/qcom_q6v5_pas.c
-[ ... ]
-> @@ -326,7 +417,7 @@ static int qcom_pas_start(struct rproc *rproc)
->  	ret =3D qcom_mdt_pas_load(pas->pas_ctx, pas->firmware, rproc->firmware,
->  				&pas->mem_reloc);
->  	if (ret)
-> -		goto release_pas_metadata;
-> +		goto unmap_dtb_carveout;
-
-[Severity: Medium]
-Does this code leak TrustZone metadata if the primary firmware load fails?
-
-In qcom_pas_start(), qcom_mdt_pas_load() allocates TrustZone metadata via
-__qcom_mdt_pas_init(). If segment copying fails subsequently, this metadata
-needs to be explicitly released.
-
-By changing the jump from goto release_pas_metadata to goto unmap_dtb_carve=
-out,
-the release_pas_metadata cleanup label is bypassed, leaving the pas_ctx
-metadata allocated.
-
-If rproc_start() fails during a crash recovery (rproc_boot_recovery()), the
-core does not automatically invoke the ops->unprepare() hook. Consequently,
-can this cause the TrustZone memory to leak until the system is fully
-rebooted?
-
-> =20
->  	qcom_pil_info_store(pas->info_name, pas->mem_phys, pas->mem_size);
-[ ... ]
-> @@ -361,12 +456,27 @@ static int qcom_pas_start(struct rproc *rproc)
->  	qcom_pas_unmap_carveout(rproc, pas->mem_phys, pas->mem_size);
->  release_pas_metadata:
->  	qcom_pas_metadata_release(pas->pas_ctx);
-> -	if (pas->dtb_pas_id)
-> -		qcom_pas_metadata_release(pas->dtb_pas_ctx);
-> -
->  unmap_dtb_carveout:
->  	if (pas->dtb_pas_id)
-> -		qcom_pas_unmap_carveout(rproc, pas->dtb_mem_phys, pas->dtb_mem_size);
-> +		qcom_pas_unmap_carveout(rproc, pas->dtb_mem_phys,
-> +					pas->dtb_mem_size);
-> +release_dtb_metadata:
-> +	if (pas->dtb_pas_id)
-> +		qcom_pas_metadata_release(pas->dtb_pas_ctx);
-> +unmap_secondary_carveout:
-> +	if (pas->secondary_pas_id)
-> +		qcom_pas_unmap_carveout(rproc, pas->secondary_mem_phys,
-> +					pas->secondary_mem_size);
-
-[Severity: High]
-Does this error path rip away backing memory without halting the successful=
-ly
-started auxiliary processors?
-
-In qcom_pas_start(), multiple PAS components are authenticated and booted
-sequentially via qcom_pas_prepare_and_auth_reset(). If a later component
-fails to load, the code jumps to these error labels to unmap the memory.
-
-However, there is no call to qcom_pas_shutdown() on this error path before
-unmapping the carveout. Since the remoteproc core does not call ops->stop()
-if ops->start() fails, will the processors be left executing in TrustZone
-while their backing memory is removed, potentially leading to fatal memory
-translation faults?
-
-> +release_secondary_metadata:
-> +	if (pas->secondary_pas_id)
-> +		qcom_pas_metadata_release(pas->secondary_pas_ctx);
-> +unmap_secondary_dtb_carveout:
-> +	if (pas->secondary_dtb_pas_id)
-> +		qcom_pas_unmap_carveout(rproc, pas->secondary_dtb_mem_phys,
-> +					pas->secondary_dtb_mem_size);
-[ ... ]
-> @@ -868,6 +1055,8 @@ static int qcom_pas_probe(struct platform_device *pd=
-ev)
->  	pas->pas_id =3D desc->pas_id;
->  	pas->lite_pas_id =3D desc->lite_pas_id;
->  	pas->lite_dtb_pas_id =3D desc->lite_dtb_pas_id;
-> +	pas->secondary_pas_id =3D desc->secondary_pas_id;
-> +	pas->secondary_dtb_pas_id =3D desc->secondary_dtb_pas_id;
-
-[Severity: Low]
-Can this unconditional assignment break device probe if the firmware name
-property is missing?
-
-Here, pas->secondary_pas_id and secondary_dtb_pas_id are unconditionally
-assigned from the descriptor. Later in qcom_pas_probe(), the exact same
-assignments are duplicated inside conditional blocks:
-
-    if (secondary_fw_name) {
-        pas->secondary_firmware_name =3D secondary_fw_name;
-        pas->secondary_pas_id =3D desc->secondary_pas_id;
-    }
-
-Because of the initial unconditional assignment, if a valid descriptor
-provides an ID but the firmware name property is missing or NULL,
-pas->secondary_firmware_name remains NULL while pas->secondary_pas_id is
-non-zero.
-
-Will this cause qcom_pas_load() to later call request_firmware() with a NULL
-name, failing with -EINVAL and preventing boot instead of gracefully
-disabling the absent secondary features?
-
->  	pas->info_name =3D desc->sysmon_name;
->  	pas->smem_host_id =3D desc->smem_host_id;
->  	pas->decrypt_shutdown =3D desc->decrypt_shutdown;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009-oob-suppor=
-t-glymur-v1-0-96cc8ffcced3@oss.qualcomm.com?part=3D2
+Best regards,
+Krzysztof
