@@ -1,95 +1,229 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A64C4C7539;
-	Fri,  9 Oct 2026 10:48:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 189FD4BE451;
+	Fri,  9 Oct 2026 10:54:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791542948; cv=none; b=bXUvxH444gzrYNSGAOLKvf3cTqo60qCc9565rIQHFDPnb+zeF87+TcX0jnPYC+keVWehBfnbiARWailgLMCSSze1DXrMV/N1sjfaJuo2r9dbrI9AACaRJ2WDl0cPGhgRNmBz0iEZNab+bKm7VWkXPWS2ttBBBXMFnI+/gsILaeY=
+	t=1791543259; cv=none; b=Kf+35I7ONZJsNb2D1F7VARAx4NP6dmSf+pOtnmCcuXBdnKpZDwKrkSXxAH9ybwHdGMx3MZL3AkzlbdaNt8AGvCHcgpOyDMTGh3FFK+oOIBc+nCrE7OBddRJtVbw9fgXYhrgKM27cIhFJjcOQWI88FTTkLm29lDwPAg3dPq7DU7w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791542948; c=relaxed/simple;
-	bh=S5Rm6sueVRCXfqjuLrrZ/vJbfMOZpVhiglmxRWFBrAY=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=PIEDyZYVc4brCZRquv9GTVdKSRDgK8hdPONbNpQ9nbIrLweolremKzNkCaQ78eSED7ZoHzPVY8/Sem5LMQSOX238QKgnCAqkgv22a44lcB+VSd1vRqEpaV6BUC3ATHjePLgOwrH5hSwgt/KkL8TU34Lvwz6txqLjQC5B7LKzlss=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PfjkJgxd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791543259; c=relaxed/simple;
+	bh=w/txRNxnmPrNw4TG7aUycpIsCYyczBIRXTmWOLGgVeI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=PBoevyR/kxbHiq3RMoRRTX7VZOWRI9QeVWCgCQOBh+JiPdpY4X8ElwXe/wdbmh//UsPg+VvlHsJ2dBc9LBn3uWBW6sVpek9rlJYxxzNbbA5lGqwd6QyrEDUol7BDzvy76Okk09OVblFC2aFRU1npgVtKwUjYvg9XbR1cPm3+oU4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=VT+bQSog; arc=none smtp.client-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PfjkJgxd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C26B1F0089B;
-	Fri,  9 Oct 2026 10:48:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791542931;
-	bh=Yj19hqBWFoDeHd/sJCxG3+F2qK0LAHRVQu3vZzeZC7I=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=PfjkJgxdsuX6q2hLoJZDnS1a/CAy6DompnqdspvlCUqsnS+65D+3pWtUSXhM8HRNL
-	 kiUWO887e5jIDjDv/fR3Xnuqb0Er2WzAMs/5CHGk6KQHwR6CA5xtfdIcvdKArblYpX
-	 7m9QEs/Iujy0238Bc/cA77jl9gH2qPcAIW2qMfXbBNeF/xAwkfynhU5OL6RaFcjAPM
-	 fUYM9azg2LN2jFQ8bWoQKT8Ij0XfHr4TTeQp1PGdqdjmlAezfMmOzgjT9/Q+MR3jt3
-	 hF/uPi5H9B8j7wGg2MxGCSaJKpt0UWA4S66cti+APmI6wSDtbUgiEUQxQg3eHcq5lX
-	 Sr+lXgbbWLa+g==
-Message-ID: <sashiko-outbox-165269@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/5] scsi: ufs: qcom: dt-bindings: Document Glymur
- UFS controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Pradeep P V K" <pradeep.pragallapati@oss.qualcomm.com>
-Cc: vkoul@kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, robh@kernel.org, linux-scsi@vger.kernel.org, conor+dt@kernel.org, olteanv@gmail.com, neil.armstrong@linaro.org
-In-Reply-To: <20261009-glymur_ufs_qcb_enablement-v4-2-9a6ce83195b7@oss.qualcomm.com>
-References: <20261009-glymur_ufs_qcb_enablement-v4-0-9a6ce83195b7@oss.qualcomm.com>
- <20261009-glymur_ufs_qcb_enablement-v4-2-9a6ce83195b7@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 09 Oct 2026 10:48:50 +0000
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="VT+bQSog"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=N0
+	UHDUvgrExzuUIvmY5lEGVvWVWCcps+KEQmmx2+7ZE=; b=VT+bQSog2Vc3eQqB/9
+	zWXZTMr9fPxRidBEqBlPtMTM8/1OhW7M+BU24xFuuyBGgn5oon9RHBYmx0yBFxCE
+	2WuqVAC3EHbOZg7CiblJ6NAW6FABdpFYPUCthn/FKBdItuNqHIHnD7eIFBrx7Hrn
+	4303yk+jlv3f3OA68mHYkb1CE=
+Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
+	by gzsmtp2 (Coremail) with SMTP id PSgvCgC3fLnAx8hqSa9RDQ--.50503S3;
+	Fri, 09 Oct 2026 18:53:54 +0800 (CST)
+From: Quchaosheng <quchaosheng000406@163.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-omap@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Chaosheng Qu <quchaosheng000406@163.com>
+Subject: [PATCH 1/3] dt-bindings: display: ti,tpd12s015: Convert to DT schema
+Date: Fri,  9 Oct 2026 18:53:50 +0800
+Message-ID: <20261009105352.300149-2-quchaosheng000406@163.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261009105352.300149-1-quchaosheng000406@163.com>
+References: <20261009105352.300149-1-quchaosheng000406@163.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:PSgvCgC3fLnAx8hqSa9RDQ--.50503S3
+X-Coremail-Antispam: 1Uf129KBjvJXoWxCFyDtr1xCr1UZF1rCr45Wrg_yoWruryxpF
+	n5Gas7uFy8WFyaqw40yr1kCa1rAFykAF40kF1xJFy5Ja10qF48tF13Krn8XFy5Ga4xZay2
+	qF47Ww17Kwn7C3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piRnmiUUUUU=
+X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC4wLuZGrIx8LVBAAA3d
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] dt-bindings: ufs: missing corresponding QMP PHY binding for glymur
---
+From: Chaosheng Qu <quchaosheng000406@163.com>
 
-commit a93bc22aa0502f012705cac0afb0fdda1f1052cf
-Author: Pradeep P V K <pradeep.pragallapati@oss.qualcomm.com>
+Convert the TPD12S015 HDMI level shifter binding to DT schema.
 
-scsi: ufs: qcom: dt-bindings: Document Glymur UFS controller
+The TI TPD12S015 is an HDMI companion chip that combines a level shifter
+and ESD protection circuitry. Document the two ports it exposes between
+the HDMI transmitter and the connector.
 
-This commit documents the UFS Host Controller on the Glymur SoC. It adds the
-qcom,glymur-ufshc compatible string to the QCOM SM8650 UFS host controller
-schema.
+The tpd12s016 is software compatible with the tpd12s015 and is listed as
+a fallback compatible by am57xx-idk-common.dtsi, so accept it as a
+fallback of "ti,tpd12s015". The driver matches on "ti,tpd12s015" only, so
+a board using the tpd12s016 must list both compatibles.
 
-> diff --git a/Documentation/devicetree/bindings/ufs/qcom,sm8650-ufshc.yaml=
- b/Documentation/devicetree/bindings/ufs/qcom,sm8650-ufshc.yaml
-> index d03295806657f..f132b1a9ebc28 100644
-> --- a/Documentation/devicetree/bindings/ufs/qcom,sm8650-ufshc.yaml
-> +++ b/Documentation/devicetree/bindings/ufs/qcom,sm8650-ufshc.yaml
-> @@ -16,6 +16,7 @@ select:
->        contains:
->          enum:
->            - qcom,eliza-ufshc
-> +          - qcom,glymur-ufshc
+Assisted-by: LLM
+Signed-off-by: Chaosheng Qu <quchaosheng000406@163.com>
+---
+ .../bindings/display/ti/ti,tpd12s015.txt      | 44 ---------
+ .../bindings/display/ti/ti,tpd12s015.yaml     | 90 +++++++++++++++++++
+ 2 files changed, 90 insertions(+), 44 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
+ create mode 100644 Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
 
-[Severity: Low]
-UFS hardware on Qualcomm SoCs requires both a host controller and a
-corresponding QMP PHY.
+diff --git a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
+deleted file mode 100644
+index 26e6d32e3f20..000000000000
+--- a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
++++ /dev/null
+@@ -1,44 +0,0 @@
+-TPD12S015 HDMI level shifter and ESD protection chip
+-====================================================
+-
+-Required properties:
+-- compatible: "ti,tpd12s015"
+-
+-Optional properties:
+-- gpios: CT CP HPD, LS OE and HPD gpios
+-
+-Required nodes:
+-- Video port 0 for HDMI input
+-- Video port 1 for HDMI output
+-
+-Example
+--------
+-
+-tpd12s015: encoder@1 {
+-	compatible = "ti,tpd12s015";
+-
+-	gpios = <&gpio2 28 GPIO_ACTIVE_HIGH>,	/* 60, CT CP HPD */
+-		<&gpio2 9 GPIO_ACTIVE_HIGH>,	/* 41, LS OE */
+-		<&gpio2 31 GPIO_ACTIVE_HIGH>;	/* 63, HPD */
+-
+-	ports {
+-		#address-cells = <1>;
+-		#size-cells = <0>;
+-
+-		port@0 {
+-			reg = <0>;
+-
+-			tpd12s015_in: endpoint@0 {
+-				remote-endpoint = <&hdmi_out>;
+-			};
+-		};
+-
+-		port@1 {
+-			reg = <1>;
+-
+-			tpd12s015_out: endpoint@0 {
+-				remote-endpoint = <&hdmi_connector_in>;
+-			};
+-		};
+-	};
+-};
+diff --git a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
+new file mode 100644
+index 000000000000..1927da3bd736
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
+@@ -0,0 +1,90 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/ti/ti,tpd12s015.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: TI TPD12S015 HDMI level shifter and ESD protection chip
++
++maintainers:
++  - Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
++
++description: |
++  The TPD12S015 is an HDMI companion chip that combines a level shifter and
++  ESD protection circuitry. It sits between an HDMI transmitter and the HDMI
++  connector, and provides control over the level shifter enable and the
++  hot-plug detect signals.
++
++properties:
++  compatible:
++    oneOf:
++      - const: ti,tpd12s015
++      - items:
++          - const: ti,tpd12s016
++          - const: ti,tpd12s015
++
++  gpios:
++    description:
++      The CT CP HPD, LS OE and HPD GPIOs, in that order. The first controls
++      the level shifter, the second enables the level shifter outputs and
++      the third reads the hot-plug detect line.
++    maxItems: 3
++
++  ports:
++    $ref: /schemas/graph.yaml#/properties/ports
++
++    properties:
++      port@0:
++        $ref: /schemas/graph.yaml#/$defs/port-base
++        unevaluatedProperties: false
++        description: HDMI input from the transmitter.
++
++      port@1:
++        $ref: /schemas/graph.yaml#/$defs/port-base
++        unevaluatedProperties: false
++        description: HDMI output to the connector.
++
++    required:
++      - port@0
++      - port@1
++
++required:
++  - compatible
++  - ports
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    encoder1 {
++        compatible = "ti,tpd12s015";
++
++        gpios = <&gpio2 28 GPIO_ACTIVE_HIGH>,    /* 60, CT CP HPD */
++                <&gpio2 9 GPIO_ACTIVE_HIGH>,    /* 41, LS OE */
++                <&gpio2 31 GPIO_ACTIVE_HIGH>;    /* 63, HPD */
++
++        ports {
++            #address-cells = <1>;
++            #size-cells = <0>;
++
++            port@0 {
++                reg = <0>;
++
++                tpd12s015_in: endpoint {
++                    remote-endpoint = <&hdmi_out>;
++                };
++            };
++
++            port@1 {
++                reg = <1>;
++
++                tpd12s015_out: endpoint {
++                    remote-endpoint = <&hdmi_connector_in>;
++                };
++            };
++        };
++    };
++
++...
+-- 
+2.43.0
 
-This commit adds the host controller compatible string qcom,glymur-ufshc, a=
-nd
-a subsequent patch in this series introduces the PHY driver support for
-qcom,glymur-qmp-ufs-phy in drivers/phy/qualcomm/phy-qcom-qmp-ufs.c.
-
-However, does this series also need to add qcom,glymur-qmp-ufs-phy to the P=
-HY
-device tree bindings? As it stands, device tree authors cannot validly decl=
-are
-the PHY node for the Glymur SoC without failing schema validation.
-
->            - qcom,hawi-ufshc
->            - qcom,kaanapali-ufshc
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009-glymur_ufs=
-_qcb_enablement-v4-0-9a6ce83195b7@oss.qualcomm.com?part=3D2
