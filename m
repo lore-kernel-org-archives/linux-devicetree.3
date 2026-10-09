@@ -1,65 +1,65 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE355518130
-	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 18:29:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B69650AC20
+	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 18:29:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791570597; cv=none; b=iTVS/cWGiMOjGfIhQFKelcPDoPppi6kZ6eWhquUj50G+ghJQQy7qdYcKCpb94w5uUlW6gUPSzF74lUQ8bjNk+gEnIlV9HnB0h/Ug9H7/bR0xUi6vhOnmNsEMPnpGsN5L7FCtSLlfXxJMX1SduoqVqR73bXYkMV2ffZ4/deN3rZI=
+	t=1791570601; cv=none; b=HvIkHGbn4fjW5ox+gHcKY/HPZl8PkbPmXYNoEOWqeBdQ2AsjwI0Je4eZGh6FRM5RBIEiZbzC8jri7CnMlD4+YONrJxL1mj5G/Jv24d75xLPoVfzrCr85cp7G77XceBr2ZJNr60LtPq0Rt2IS8+Xna4P2wMJl4EM9OpDuJdBUqN4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791570597; c=relaxed/simple;
-	bh=I/1PyQTs9JiOymPOiuzFhvwhZ7XqmQsZMTD56HnUL+U=;
+	s=arc-20240116; t=1791570601; c=relaxed/simple;
+	bh=809ruaTMybxoBOwSxW5LNdKvnaeznfCg43/YlBzIRDs=;
 	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=iOmXdLT7ddL4+ZfmvC/qyHGyDI+Rl3oddkRn/VolukCS+VydcO3uo8g4VZWllc6BLInCjfmV27qCZufisRX1a2id6ClPvYsQbhFch5mgV+waJ0ZIdXeN7QwpNWB4TiO7ObHCj5dhgo5Vp9GYqzO8ZJaiehwhVy2tbzbzaHgIRtU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=fq+rJ0PU; arc=none smtp.client-ip=209.85.128.45
+	 References:Date:Message-Id; b=KwUMK5P5yDlcayRO8Abfm6otIW7XM+Jdbdx+OaUP2N9dJoMH5tm6CfvAeX5CNXdBYqO3V1Bj39av9AGylB4gxZZPYcBS9PoCxWco4Ux+hkTPhv7ADpNRCfx1eHmiO6JLZ3fbzC574zCQOB7OPoIhihDf5dzAffxtobqwoMKOr5E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=olu8H1ZP; arc=none smtp.client-ip=209.85.128.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="fq+rJ0PU"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a16c1608faso2237425e9.0
-        for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 11:29:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="olu8H1ZP"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4a1682bff3cso722295e9.1
+        for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 11:29:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1791570588; x=1792175388; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1791570589; x=1792175389; darn=vger.kernel.org;
         h=message-id:date:references:in-reply-to:cc:to:from:subject
          :content-transfer-encoding:content-type:mime-version:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=6eTdAycFKzyoelmWzAqDQwOHsmx7MWbf93DwQ7V1xow=;
-        b=fq+rJ0PUlWlOWB4iC0dwXZptaajulIkFu6QKtycdSqqlImipv3M8/wFuulbWaruG7A
-         PU5fhjqIm7VfsuJVNXP4D88exrObvRvyuiu6dQIjR8uRJCyuw5sPOfjAL+e0rCJ4181H
-         T6jy3+04ar7xE5YnW3NATjif5BaGRzwpEwEXvAo32JjTlwZY6eHY0YqS2XVbzDCQC6p4
-         W1KaDwYw66fhpSUU7xvvgzraiQ+gO6rYTgOyROu0x54+ZYIAyRtxS2eGOttlJPe+mxE4
-         chYr5ZRolaLR9tZHTnj775qztB4WiOQ8wDsu2g/XiIkd81PQjKENIps8yT4I2aqc5BAO
-         /Qag==
+        bh=kpO1tCG5HIv/cqzOAWJivVcwy5OOomh9LxwQpEYV4mI=;
+        b=olu8H1ZP2F9ofx8bANTSZ/xbDwAf/R9DqO+PpJjuN/+ah3QNpCe2FZ6MbJ7rzLb+fW
+         bmC2XdNtFNVqdX7oSLwg+cgFoA37PmlXrcgsVNjyVCzz56IFnDQESpyPsNiG8VRdxGH2
+         H5CNS0QkD63LgLBDZzXybnyBrzaOhcHBv3ICRYAGGfActagZGlwrIPBkB4XiV35rEq88
+         gSRMHQCSU6Ww2L7ReP2cMgn6tPyahzjXUJ9dfymBrlvuCDIAIMn7+sO9YNNPhsD/hQMu
+         FZoDsV2B2pG60y+OZkjjCVINFXyPjE8fWIMxpkgS/j55cnV3rhc3p8ZExonea0ocF08y
+         EvnQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791570588; x=1792175388;
+        d=1e100.net; s=20260707; t=1791570589; x=1792175389;
         h=message-id:date:references:in-reply-to:cc:to:from:subject
          :content-transfer-encoding:content-type:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=6eTdAycFKzyoelmWzAqDQwOHsmx7MWbf93DwQ7V1xow=;
-        b=UqZ+DnP7Z2Tn6K0c89cueKy4s4oWE0RpJHUVF9NwxP/AsR4B2EEXorsEtoU98Jjgsl
-         0zqq/+Vs0ZPfUuv8uCvS+gcpxg5eqwmuLuEryea0v2Fb8XYA8/4BsJ01EoeXsrcoxigw
-         UW1Q2kMu9Mzp+tbRxvQ9i31HWFYJ0rwq0PCNIuJcxE+3SbRT3aVom/MbtDaG/N+6EExh
-         dusquIcOyICgBkF7tnhrtJ31Zb06xAwMSviw9zavwRiOv3QM6TdJcG1Z9s9evMBr20f9
-         /UajSayyd4qN5OfG8d6UXHE+eZTTmkw8Oxd6isG+CFhO0x+yfncjgrCZ5HkRkTLgJpgC
-         oi7A==
-X-Forwarded-Encrypted: i=1; AKwUvBy1v1QKOtdeBj+Bg7ED/JnLJ8OF4WwtXe3/YT7Fiis/ikkq505r+ZyRhOg+Q3Is7fC7FOK3OnTg/oK+@vger.kernel.org
-X-Gm-Message-State: AFuF++mjTLuqxqPi+kOdxkSNIxIqmVQ+YEa+SSS2GEMJ2OU/2n41xHu9
-	7h83gftPBCPgYL7S7TC1RpUbOgdv23yX2cbu+A6ygJhYsc5dkh4K/S+NBO0WnO7YrBY=
-X-Gm-Gg: AYBFou3thkBbKC43VZNSWpPtnolOyd2eMjJW8fXyNU1oRrZ+OJ1ccICriuTAtEVseVZ
-	Sla3yFkYWoIm7PiQg5YWu4pjRF47YFw567bn+tdY7rxQDjRamtIroMw88QBGzx+2jQwFoAX5TLZ
-	iRC5yye2cLL6FDvVA91b6GYqq6QHEdTul624LUDSHDnooiTkuDgxCDOaPaVI9bE1kTzVNk+XVJ9
-	9flbWyeICTYwh0KaN1y9s4k6YoJ+Qy060ICPjFM48G2dkKP/EbFfvKHQ6SO5lIUAOv12Aci6m0b
-	mmdUqk9d17IplP4V8bSEb5gZDITEbANSyoVw3GkZ5owVnDiPrP/isqFDhpX85fJzzXdD49bh7Z9
-	XkpoJozmcNwZmocjd14aaPHf6OoutNr5L/Qe3jBZf0W3fmTTuX2/3ezxj9HIj9CbsBOgx2zj3zx
-	NCdhzbeUCASVdsZpbwUqHgB/s/LXkxSuFsUuG19uiOiNBtZH+MNvl4vtkm3P5xezugkl4Ww6Tmq
-	Ej5d7A2sSluyoBWPQ==
-X-Received: by 2002:a05:600c:3146:b0:4a0:34a:588c with SMTP id 5b1f17b1804b1-4a18e4a7cb9mr54978795e9.14.1791570588129;
-        Fri, 09 Oct 2026 11:29:48 -0700 (PDT)
+        bh=kpO1tCG5HIv/cqzOAWJivVcwy5OOomh9LxwQpEYV4mI=;
+        b=r46V8bQErjp7fBOcVN2sqMhmNgGWNzFalXbr2vt+KIEWTvnhHl2cXwHNY79oA3sW2H
+         7HIvoQdB+jekDolKKN5wreFIwqv73ESqOc5par6sxc4cTVddltuwqubObMZld8FI08QY
+         UdZ+/2QwDpvt62zpeFdcnP8WzhVKNBrfmILJQaVvNDqdzhFTjFi4/xTMpYivMHWQp7oq
+         gO6FSSLQCFsAZJJ9htb3wUdiAp7YoipBILd9w4C2Uhe187ZwPEZ9ckHdjA3c591wWmia
+         +97GI/jIXUrXyd+a2w/r2i+qeeFQjILTVkgb/C3XkgqyKWSMxb4KbOZb58OrkSywivhm
+         nH8g==
+X-Forwarded-Encrypted: i=1; AKwUvByQzI1bwBGeoUpMjYXBegH91JX1AWSu9bUHo5vKl2WvWD2Dgmc5UGvQomNL/wzeXCwQrck2oO9/Iply@vger.kernel.org
+X-Gm-Message-State: AFuF++kBM4Ma/BoxMNU5HjQ4FpI/enDzqJWeRvXvnMeG2ldPb41lwR1e
+	3T8pQNWPi6uJhQpE6TPYWCR4tupbDJ0ty4t2iZVLTDxTJzgoFh3VcNXB2OAzTqkadDQ=
+X-Gm-Gg: AYBFou17H7sp3LGNZPPGZrFW5s0imglHErKMU12EtbPIZ2CSxdydzLPAm68vqZqqqKU
+	kzFIIhd7EYHmGztM0/WnYV2LsJsAcvzrfk0TBMM/j4ATM+AlNX/XY5qMhYZgDXMH7bBJBsfg1Sn
+	A8H3+adGJW4XmfC8BfoQaXSwfbsVkUVxpqKksVPPiRdxVdK918SHbIThLDimCGq9cy2i1pCsxba
+	37Rk/B9d1UejlHKQA0Kucl7CLjPqrTJ355IKWuPHhR48RjsedTEvpLJYuZvC9oHAFhaOn4ShS66
+	5Sz1VPUqzczDX04FYY8Pqj8zf6scwYjyYRHEda6J1jNEfevGjS1JvOTotQbsrSSPwxpx5gRtU6t
+	RRbTWVe9hWr4xQmdMTuiUwgjBOursEZPx7z+zckwOTvr2kg3ezIp/gxhLpFrmzzuYGyAgK3aTqz
+	thZp/J3Fu8di1DkuR2L2KYEw89Mtl+9yhqrBJwP8F0EruGquEplQZLWkwa4MkTY7kaf3ltJZB7E
+	a8r1S/saiTo0CB12A==
+X-Received: by 2002:a05:600c:609a:b0:4a1:717b:7976 with SMTP id 5b1f17b1804b1-4a18e4b15e5mr55128945e9.35.1791570589461;
+        Fri, 09 Oct 2026 11:29:49 -0700 (PDT)
 Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18be97d1esm111362245e9.8.2026.10.09.11.29.47
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bea0f1csm114582245e9.9.2026.10.09.11.29.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 11:29:47 -0700 (PDT)
+        Fri, 09 Oct 2026 11:29:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -68,7 +68,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v15 09/11] clk: realtek: Add RTD1625-CRT clock
+Subject: Re: [PATCH v15 10/11] clk: realtek: Add RTD1625-ISO clock
  controller driver
 From: Jerome Brunet <jbrunet@baylibre.com>
 To: Yu-Chun Lin <eleanor.lin@realtek.com>
@@ -80,36 +80,80 @@ Cc: jbrunet+clk@baylibre.com, sboyd@kernel.org, robh@kernel.org,
  linux-arm-kernel@lists.infradead.org, linux-realtek-soc@lists.infradead.org, 
  james.tai@realtek.com, cy.huang@realtek.com, stanley_chang@realtek.com, 
  Brian Masney <bmasney@redhat.com>
-In-Reply-To: <20261002074331.3066919-10-eleanor.lin@realtek.com>
+In-Reply-To: <20261002074331.3066919-11-eleanor.lin@realtek.com>
 References: <20261002074331.3066919-1-eleanor.lin@realtek.com>
- <20261002074331.3066919-10-eleanor.lin@realtek.com>
+ <20261002074331.3066919-11-eleanor.lin@realtek.com>
 Date: Fri, 09 Oct 2026 20:29:35 +0200
-Message-Id: <179157057524.266328.2343186062671086748.b4-review@b4>
+Message-Id: <179157057525.266328.2342228871690409432.b4-review@b4>
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1049; i=jbrunet@baylibre.com;
- h=from:subject:message-id; bh=I/1PyQTs9JiOymPOiuzFhvwhZ7XqmQsZMTD56HnUL+U=;
- b=owGbwMvMwCW2VtK+WnvWU3HG02pJDFknjaY+v5c248QzibkLb21kunR8D1/LituXzsQ2tD9P/
- iV/+gZPXEcpC4MYF4OsmCJLDXe1+DtJrS+zpuvchpnDygQyhIGLUwAm4m/M8N83YEvPuYu5lRa9
- ehNe/CzZ+37h77KfreL6/8P4p29eEnaHkeEn7y8J9Q2/r2i8u3L2os2d9b8eB5n3+86QuZjLJtM
- +fycfAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2619; i=jbrunet@baylibre.com;
+ h=from:subject:message-id; bh=809ruaTMybxoBOwSxW5LNdKvnaeznfCg43/YlBzIRDs=;
+ b=owGbwMvMwCW2VtK+WnvWU3HG02pJDFknjaalPH3NE2e0yVH3ywbj/cU+LJf2Wv+Lbl9w5tQLk
+ 95SgX19HaUsDGJcDLJiiiw13NXi7yS1vsyarnMbZg4rE8gQBi5OAZjIq16GP7zHCkMuaij6vE4R
+ b+Ccd8/F7X+5hcDml62ex02ePJoewMjwT33THh+p0KV5z6X4exWsLCetKYj4Unk0aG+CsF1j3Bo
+ eRgA=
 X-Developer-Key: i=jbrunet@baylibre.com; a=openpgp;
  fpr=F29F26CF27BAE1A9719AE6BDC3C92AAF3E60AED9
 
-> +static const char * const clk_gpu_parents[] = {"pll_gpu", "clk_sys"};
-> +static RTK_CLK_REGMAP_MUX(clk_gpu, clk_gpu_parents, CLK_SET_RATE_PARENT | CLK_SET_RATE_NO_REPARENT,
-> +			  0x28, 12, 0x1);
-> +static const char * const clk_ve_parents[] = {"pll_vodma", "clk_sysh", "pll_ve1", "pll_ve2"};
-> +static RTK_CLK_REGMAP_MUX(clk_ve1, clk_ve_parents, CLK_SET_RATE_PARENT | CLK_SET_RATE_NO_REPARENT,
-> +			  0x4c, 0, 0x3);
-> +static RTK_CLK_REGMAP_MUX(clk_ve2, clk_ve_parents, CLK_SET_RATE_PARENT | CLK_SET_RATE_NO_REPARENT,
-> +			  0x4c, 3, 0x3);
-> +static RTK_CLK_REGMAP_MUX(clk_ve4, clk_ve_parents, CLK_SET_RATE_PARENT | CLK_SET_RATE_NO_REPARENT,
-> +			  0x4c, 6, 0x3);
-> +static RTK_CLK_REGMAP_GATE(clk_en_misc, "clk_sys", CLK_IS_CRITICAL, 0x50, 0, 1);
+> Add support for the ISO (Isolation) domain clock controller on the Realtek
+> RTD1625 SoC. This controller manages clocks in the always-on power domain,
+> ensuring essential services remain functional even when the main system
+> power is gated.
+> 
+> Because the reset controller shares the same register space with this ISO
+> clock controller, this driver also acts as the parent device and registers
+> the reset controller as an auxiliary device on the auxiliary bus.
+> 
+> Signed-off-by: Cheng-Yu Lee <cylee12@realtek.com>
+> Co-developed-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+> Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
+> Reviewed-by: Brian Masney <bmasney@redhat.com>
+>
+> diff --git a/drivers/clk/realtek/Makefile b/drivers/clk/realtek/Makefile
+> index 52d5d1b18104..e8d9017098d3 100644
+> --- a/drivers/clk/realtek/Makefile
+> +++ b/drivers/clk/realtek/Makefile
+> @@ -9,3 +9,4 @@ clk-rtk-y += freq_table.o
+>  
+>  clk-rtk-$(CONFIG_RTK_CLK_PLL_MMC) += clk-pll-mmc.o
+>  obj-$(CONFIG_CLK_RTD1625) += clk-rtd1625-crt.o
+> +obj-$(CONFIG_CLK_RTD1625) += clk-rtd1625-iso.o
+> diff --git a/drivers/clk/realtek/clk-rtd1625-iso.c b/drivers/clk/realtek/clk-rtd1625-iso.c
+> new file mode 100644
+> index 000000000000..cd520c6e1259
+> --- /dev/null
+> +++ b/drivers/clk/realtek/clk-rtd1625-iso.c
+> @@ -0,0 +1,140 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (C) 2024-2026 Realtek Semiconductor Corporation
+> + * Author: Cheng-Yu Lee <cylee12@realtek.com>
+> + */
+> +
+> +#include <dt-bindings/clock/realtek,rtd1625-clk.h>
+> +#include <linux/array_size.h>
+> +#include <linux/module.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/property.h>
+> +#include "clk-regmap-gate.h"
+> +
+> +#define RTD1625_ISO_CLK_MAX	19
+> +#define RTD1625_ISO_S_CLK_MAX	5
+> +
+> +static RTK_CLK_REGMAP_GATE(clk_en_usb_p4, "clk_sys", 0, 0x8c, 0, 0);
+> +static RTK_CLK_REGMAP_GATE(clk_en_usb_p3, "clk_sys", 0, 0x8c, 1, 0);
+> +static RTK_CLK_REGMAP_GATE(clk_en_misc_cec0, "clk_en_misc", 0, 0x8c, 2, 0);
+> +static RTK_CLK_REGMAP_GATE(clk_en_cbusrx_sys, "clk_sys", 0, 0x8c, 3, 0);
+> +static RTK_CLK_REGMAP_GATE(clk_en_cbustx_sys, "clk_sys", 0, 0x8c, 4, 0);
+> +static RTK_CLK_REGMAP_GATE(clk_en_cbus_sys, "clk_sys", 0, 0x8c, 5, 0);
+> +static RTK_CLK_REGMAP_GATE(clk_en_cbus_osc, "osc27m", 0, 0x8c, 6, 0);
 
-You are using the using the old global names but there does not seem
-to be a good reason for this. Your driver is entirely static so the hw are known at compile time
-and you can use them. Use .parent_hws or parent_data when appropriate. Not parent_names please.
+You are requesting your input by global here. This is wrong.
+DT names are stable, internal CCF are not. You should not rely on this.
+
+Either give it a name in your bindings and use fw_name or use index
+
+Same applies to the other controller
 
 -- 
 Jerome
