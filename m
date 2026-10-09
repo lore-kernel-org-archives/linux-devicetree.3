@@ -1,102 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi1-f173.google.com (mail-oi1-f173.google.com [209.85.167.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C7D7376BF7;
-	Fri,  9 Oct 2026 20:52:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8984439CCFE
+	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 21:00:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791579137; cv=none; b=mU/Ctk/A9qBZldDx3BsfpHbLnWOrmns/+f5Sapu7hEoJDyVBapBcXuKWFyF6AWQS2WteqZqdLsmSvQzZ0qpaYd1/MHKxwbDtaKxLM4ANw7a9l0Umcm48q5I7qjc0j527xqhYEjdTmrnFbKZhEnnKxwMs1eQlBBqVv/kVZ8NG6yo=
+	t=1791579621; cv=none; b=ImD26IK4nksstn4ZVcSCqHdsFkWF6ZWj6415IgH0qxDbHpdY1KVIWHDYaU9wrmP0qhEpq2gXhBFYSyDKSrvPr89rYOJLBJYnixcQnFdZpn5lXpfpOrAcJazqc6rDd1DXggudu48v4IibsGV06nCxkubVXKGk95kwoAlreNkTLG4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791579137; c=relaxed/simple;
-	bh=tFAcM9pwBLsZx+0hPctjfOn4qkn71MK/uKDJJPQfSKw=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=WFkbnyFZ/meTGMAa2ekdawJ+I9hy2vs4IP4iXhYwyzKR1T84Bpi1U8RSktSVfWhAtXzkfdgRNx2bGRNULASmJqolBIutyQIlkzk124SRrnZSyc+KGa72V5jejwRJNAgBO8mevDSyvv/GcGLq+nRAXU1yt2x63ejmYgz63YhCoBc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CcAfyisP; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CcAfyisP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9225F1F000FF;
-	Fri,  9 Oct 2026 20:52:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791579135;
-	bh=u/yflDokCIfrGsrSSSBn3TxJ7nj008VrRH9fkKo6NUU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CcAfyisPybvzZqTelbcg8n17jJovHz9v8T8ZR6707k3Pwzj9TiWJ3ekM94triooZQ
-	 9Pe2NzEGSadgJDur1M2v8ed39Zno1atmUNnxcdNaq4rLrGj+ZkfYUnrzPAGjBke3hD
-	 1Ku3yJQYgfneR+xQzdt7meFKuYJVz0D7QZRdzgI4yX93NSuIvIBwcdThG30EzOOpJl
-	 PY8J68iqu8d4eGtjDCE8+t80qLYuorGM4spJeL77YSzhj323Mh54CmzNTf5/BU7Zsg
-	 cKvoOpTZL54ugfZPVjqEjESQscI2s3hgO772ePxehh6cOk33msDfaeCxrz6+RVg/HX
-	 i4h0aDnCJWjXQ==
-Message-ID: <sashiko-outbox-166062@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] arm64: dts: rockchip: Add the GPIO expander to
- Kobol Helios64
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Igor Velkov" <iav@iav.lv>
-Cc: linux-gpio@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20261009-helios64-pca9655-v1-2-673ee4432650@iav.lv>
-References: <20261009-helios64-pca9655-v1-0-673ee4432650@iav.lv>
- <20261009-helios64-pca9655-v1-2-673ee4432650@iav.lv>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 09 Oct 2026 20:52:14 +0000
+	s=arc-20240116; t=1791579621; c=relaxed/simple;
+	bh=3le5P+h/KiA8eq2M8tVprosyJ+rYeh5W5GrP/Ck16/4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=aYaaHhb/NNn+Gz6uqL2yXanKFIPzsAzOZ/ftM2fgM6dhgJr05ioViqTGseKILuXbdhDZh+BElntj7j1v5ViZW+6HmZBPex2ItOQgPIXMo8/p92UprIJC+HUvubYgmDK6rGSeS6n760MnrZSov5oUdlDTTQB/E4gDeIMBz1tvyY4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.167.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-oi1-f173.google.com with SMTP id 5614622812f47-4b21f71613fso128475b6e.2
+        for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 14:00:19 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791579618; x=1792184418;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=CRIIxOajP0yzIY23BtbyoAhj2PBRdU9IpmRdYvRMNJ4=;
+        b=lDOr1IRcYzt/5HrnlnEBs3j3d75wgmN8x9tmNbG0EDlL7LmyU4letQZRQuCAV/zDZK
+         fpU3Z3mmTESgPDqJDw7PjX7tldrbjgni/rF7YdhCGjas3bch37DHTov0lpmUo9/AXccm
+         G8OGUMQLljMWZitL6Hlti9uX7LXY8Xru3nAMGGkkduekWnH7audAnq01iIMPZqbDNshq
+         yVwPxXq5P38loEOCn1MkFZKJ67cekZYsmsgs3Cdtz9a2TCSjUoBerKLcx/MaXqqltdcK
+         JmwkhcSH89A9ei+nc0SMzhYjefD9YMUqFSPTHTZ60UPk8y3puc41Mu8SHi+KrFKLe1dx
+         /K/w==
+X-Forwarded-Encrypted: i=1; AKwUvBwrZ9gAo1tzs+d7cYuvl0vJg6fCJJi6fpS0ZzpGnKFHelLlMeajOXC064ZEQQVBHznmRpyMHeTlyTmB@vger.kernel.org
+X-Gm-Message-State: AFuF++mfeFZzcCtvSqtaAHPeAPKlRwsJC28tyC00OKk7X/+IhofhfqRQ
+	Z3x0YdSwEzeLt5v0sdeUHydyMOwEXiNYethdh3nE+k5IFVr2eoyRLc86xFsOnTwibD8=
+X-Gm-Gg: AYBFou0D3sIrNutsnEe3sc91FL6oyIYX1HnIGfInF21HXLeg/jtkVSPd0kQQxEaPqOj
+	MvNAWTlrVLPyNoQeWqi5EBC4C9I9V9woEmE+TuaJceHkEx9netLziLYoaM+x4FGo1uh5qtDUFFC
+	tSO31ospvSuM5EEqe+/kY4ib+iaKQmP1z3ZOrwwcP6BUBpPurJBTYECMei7c3V0pKSpwwsQe0bL
+	Ci4wRKNhhyx0//UDLitWT8JU2ZyFI5V7xiZI4ihmM6f3kni+jafkypK5MvAHKLvGzB2Ug7Vlu9Q
+	x5Tu9r3tfVAY6I6HdpAS5q1BHV+bmAUGamumHvPepXm49NznWeV3A9jIk5wMbBHLZEgXTG7VYqe
+	Tv4hyTYgVbRvJYnXdl7m1eP9zMk6yC0Fz1LWJC5pqOQgjWnyFup7vjGJxW6voCNC/2QSzBVj0j/
+	hVRZs9EJ73Lck5bMZaDgs7axI/v7mNlaquG0sKFVfDVTT7gCp0fKCC1Tr1j8cH7wUcuYVCHNw3C
+	iztrfRwqzBWZOqF8KxBYBi8qo4v3icMC61CnN9cbYxI83vEey3EDqR5b9hi85sGmRKipC86rlCE
+	hg==
+X-Received: by 2002:a05:6808:338a:b0:4f4:3790:6615 with SMTP id 5614622812f47-50c4c7a747cmr2615579b6e.11.1791579617974;
+        Fri, 09 Oct 2026 14:00:17 -0700 (PDT)
+Received: from mail-oi1-f174.google.com (mail-oi1-f174.google.com. [209.85.167.174])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-50c1815e5aasm3081432b6e.8.2026.10.09.14.00.17
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 09 Oct 2026 14:00:17 -0700 (PDT)
+Received: by mail-oi1-f174.google.com with SMTP id 5614622812f47-4af81963f35so134960b6e.0
+        for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 14:00:17 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByqsjAp7WtT2EJrETKO0trXUIITdjAs7hNxZeb/dbTHgnruJIQN93cBRNZqIdELnv3uiJQ4syOtv3sg@vger.kernel.org
+X-Received: by 2002:a05:690e:440f:b0:677:d3d8:990 with SMTP id
+ 956f58d0204a3-67936768725mr589216d50.6.1791579173056; Fri, 09 Oct 2026
+ 13:52:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20261007082627.63807-1-tanure@linux.com> <d23dfdf3-5837-459f-afd6-6c198a05c13c@lunn.ch>
+ <CAJX_Q+2au4x99kj=UBqn4joQCM3-D2kbaJ0zro9Y4RXka7ePvQ@mail.gmail.com> <3a037c87-e4c5-4a4e-9522-cf505e1c6399@lunn.ch>
+In-Reply-To: <3a037c87-e4c5-4a4e-9522-cf505e1c6399@lunn.ch>
+Reply-To: tanure@linux.com
+From: Lucas Tanure <tanure@linux.com>
+Date: Fri, 9 Oct 2026 21:52:41 +0100
+X-Gmail-Original-Message-ID: <CAJX_Q+22tckoRKsEt9_oakAsN=+cwHdX+WPcaGWR9_3EMqM5ow@mail.gmail.com>
+X-Gm-Features: AclHuK_m9bgs2ZxoWfD-m6qDBIuQp5RI_xHW6gmLTuflU7vtLwdOlVbkLA0qUf0
+Message-ID: <CAJX_Q+22tckoRKsEt9_oakAsN=+cwHdX+WPcaGWR9_3EMqM5ow@mail.gmail.com>
+Subject: Re: [RFC PATCH v2 0/7] Add ethernet support for the Amlogic T7
+To: Andrew Lunn <andrew@lunn.ch>
+Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
+	Jerome Brunet <jbrunet@baylibre.com>, 
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+	Maxime Chevallier <maxime.chevallier@bootlin.com>, Maxime Coquelin <mcoquelin.stm32@gmail.com>, 
+	Alexandre Torgue <alexandre.torgue@foss.st.com>, netdev@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] dt-bindings: gpio: undocumented compatible string 'onnn,pca9655' br=
-eaks schema validation
---
+On Fri, Oct 9, 2026 at 1:13=E2=80=AFPM Andrew Lunn <andrew@lunn.ch> wrote:
+>
+> On Fri, Oct 09, 2026 at 06:59:49AM +0100, Lucas Tanure wrote:
+> > On Wed, Oct 7, 2026 at 2:01=E2=80=AFPM Andrew Lunn <andrew@lunn.ch> wro=
+te:
+> > >
+> > > On Wed, Oct 07, 2026 at 09:26:20AM +0100, Lucas Tanure wrote:
+> > > > The T7 pairs a Synopsys gigabit MAC with the same glue registers th=
+e
+> > > > G12A has, but nothing described it. This adds the binding, the driv=
+er
+> > > > support and the device tree nodes, and enables the port on the Khad=
+as
+> > > > VIM4.
+> > > >
+> > > > Unlike the G12A, the controller reaches DRAM through a pipeline sta=
+ge
+> > > > with a gate of its own, sys_ampipe_eth. Nothing else claims it, so
+> > > > clk_disable_unused switches it off and transfers stop.
+> > > >
+> > > > v2 changes the RGMII delays, after review. phy-mode describes the
+> > > > board, not which chip adds the delay, so this board is rgmii-id.
+> > > > dwmac-meson8b did the opposite, and ignored the *-internal-delay-ps
+> > > > properties. Patch 1 fixes that. The VIM4 needs it because the RTL82=
+11F
+> > > > transmit delay does not work here.
+> > >
+> > > What is special about the RTL8211F?
+> > Maybe nothing, it may be this board. I cannot tell from here.
+>
+> Yes, look at my other reply. The RTL8211F is very likely correct. It
+> is the MAC drivers handling of delays which is broken. You get to fix
+> it for this new device.
+>
+>    Andrew
 
-commit 668c971a564e2ffdacc4bbee425f902a28c78be0
-Author: Igor Velkov <iav@iav.lv>
+Doing exactly that. v3 leaves the existing delay code alone and adds a
+path used only by the T7 compatible, built on Maxime's
+phy_fix_phy_mode_for_mac_delays(). Testing it now, then I will send
+it.
 
-arm64: dts: rockchip: Add the GPIO expander to Kobol Helios64
-
-This commit adds the ON Semiconductor PCA9655E 16-bit GPIO expander at 0x20
-on I2C2 for the Kobol Helios64 board.
-
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts b/arc=
-h/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
-> index d146e5075b4f8..a860bd2b3afc0 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
-> +++ b/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
-> @@ -453,6 +453,20 @@ &i2c2 {
->  	i2c-scl-falling-time-ns =3D <30>;
->  	status =3D "okay";
-> =20
-> +	gpio@20 {
-> +		compatible =3D "onnn,pca9655", "nxp,pca9555";
-
-[Severity: Low]
-Will this compatible string array in the gpio@20 node cause a dt-bindings
-schema validation warning?
-
-The "onnn,pca9655" string does not appear to be documented in the dt-bindin=
-gs
-for PCA95xx.
-
-Additionally, schema files typically restrict "nxp,pca9555" to be a standal=
-one
-string via a single-item enum. Using an array of two strings could violate =
-the
-length and content restrictions when running make dtbs_check.
-
-> +		reg =3D <0x20>;
-> +		gpio-controller;
-> +		#gpio-cells =3D <2>;
-> +		interrupt-controller;
-> +		#interrupt-cells =3D <2>;
-> +		interrupt-parent =3D <&gpio0>;
-> +		interrupts =3D <RK_PB1 IRQ_TYPE_LEVEL_LOW>;
-> +		pinctrl-names =3D "default";
-> +		pinctrl-0 =3D <&exp16_int_l>;
-> +		vcc-supply =3D <&vcc3v3_sys_s3>;
-> +	};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009-helios64-p=
-ca9655-v1-0-673ee4432650@iav.lv?part=3D2
+Thanks,
+Lucas
