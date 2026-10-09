@@ -1,178 +1,134 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B5DB44E037;
-	Fri,  9 Oct 2026 13:22:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8947443C24
+	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 13:23:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791552137; cv=none; b=dhzu9FptNsOw+N8Tl5yNWAwddbPq4FGh9eNaW3cZB1/Djh5J3tEwLZxCK+IbHuQ6hnEVn7ZV3F18ds+4qg7an5qyhZyHan3/Q6XulKuxL3GeKaGEa6te4k/r2XhKInCT9Zp3u7tKkxc6FQlJLhxfKct8yhxpzkWNKBEkzqWvMNs=
+	t=1791552214; cv=none; b=ZGAs/WhPSsufNcTbLjp+hlFDGbq2aLFSGiPE9206qwRYCyIxs5HRKfFDZkmc/KoFJEw7X0sEnSXKEfyrhJtu0eO6LaUUmTdQs6PEX/3INvxb8jw4aEHBcHjXeA1i4Jrx6XO/rHPgpkfnVIGiwj1e4MTPdGaX5HiSRaF9eV8YVkM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791552137; c=relaxed/simple;
-	bh=8qdU8cuLjGqqFd+/MED18daRxRSHDFMgb3xSEwS55Tc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=XoM3oSPBp+hsI7NUOxBwB/M3jNEEay4reccgbOZr5P9+9AxtpJAuOe4HYOE0LRJCYnpbNTLqO1DlMrmKNbD/JeYZch6a5wySngcMuwx0/GSGU6dcpBJJP3G9a8uEMe9rGvEQ61srh6FgzUMD4jLXISkFmfOEjL08k40WuvzSzOk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d7UgMt2W; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791552214; c=relaxed/simple;
+	bh=vZmadhl8HovBFuoYSgJ0l6yYPPai9xg7lnCos4x01KM=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=Ip03l1+5qkgnHf+RWpPOhb09/UoNNyF+B8F63vgvjgiNLP0mNdGMJWTmLD2wARAa9V9VF5rsnsPEqRMW8cUjqDlj+zS17tWhjPzlbdXvM0zPTUGOYrS/mgDAndhBNwfHzZNx0i4dSCPgJ8oMwgmMeSDcoh3QE2LRFedv9AMZ7mo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mMpOJOCq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d7UgMt2W"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B02551F000FF;
-	Fri,  9 Oct 2026 13:22:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mMpOJOCq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FE241F00893;
+	Fri,  9 Oct 2026 13:23:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791552135;
-	bh=4WWqvJFHHfgVldJDJeEk1X97sBKOxnPJkE2IGIR0ioc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=d7UgMt2WI6B5pPIypbTGL29L/nUnl1aDsyeJSFykn9mIHgLJTunYhFQtzabKoNUZT
-	 XESAG7fTxzwQTnE98D7N7zXgMaylrf2132d9OZpzDitlCsxRkmntdV59ecAmrco36E
-	 +ctBBEVI04mzpOaWJv4qMOGNfgwHFEipx5tKSunDISYD7Mpf3emJAEV6e+Wv+DkN3e
-	 pf4IohDc/SOm8dgOz0GppCZU0PrZ08Pl9z6e9PHulSVFlFzjWA337NefNeqRB5XuRo
-	 zsgVTK8V6Hm5VCX+9TkFC3B957Q7uBPi+7aUw/6Xh0ZEps55rMSiZCZGfoq9IpwYsh
-	 I2USibefOaK+Q==
-Message-ID: <3541554a-ddac-494d-84ac-c8d485023bd3@kernel.org>
-Date: Fri, 9 Oct 2026 15:22:09 +0200
+	s=k20260515; t=1791552213;
+	bh=4dxBjR0nMtZsiqCjM5ZazNzkdxHWcJqn8BaJ2q+Oclw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=mMpOJOCq0C/vxQoKMieBHnmeDDlLY5WMVScu5lZ/5mF/mEggW9R75hr0SXs7pRlA/
+	 OKbCyRlj3DsEiEhl0YW0rKW3NbS+HFv81W5Qbpo1tiobAm+xNJMbSG19QgmwUuEHj8
+	 mTB6rMo6nKpvvEiWlPxzcXLaddxt5tCyporUBCa2dDUdsVlovSAg56q6R3Hcs8jA91
+	 ure4vzloqE1GulY3aka3uIhBV9Zw2QJBSueAAEMQCcn7gpdf5iBYqCacz2Iy1moEv3
+	 MSNAe9CaxqA1C60pSP/PBO2Fw/Rb314YGTVz+mctHtLVBtB7fP7uVWD9xTrUMyuqEW
+	 JX7YRBZQGZ58w==
+Message-ID: <sashiko-outbox-165625@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/7] ASoC: codec: pcm1681: Add optional SCK clock and
+ runtime PM support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Mohammad Rafi Shaik" <mohammad.rafi.shaik@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20261009-nord-asoc-driver-support-v3-v3-2-0c1897f21ccf@oss.qualcomm.com>
+References: <20261009-nord-asoc-driver-support-v3-v3-0-0c1897f21ccf@oss.qualcomm.com>
+ <20261009-nord-asoc-driver-support-v3-v3-2-0c1897f21ccf@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 09 Oct 2026 13:23:32 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] dt-bindings: input: add OnePlus pogo-pin keyboard
- binding
-To: wyibo6109@gmail.com, Dmitry Torokhov <dmitry.torokhov@gmail.com>,
- linux-input@vger.kernel.org
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261009122046.551915-1-wyibo6109@gmail.com>
- <20261009122046.551915-2-wyibo6109@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261009122046.551915-2-wyibo6109@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 09/10/2026 14:20, wyibo6109@gmail.com wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] snd: soc: pcm1681: Devres teardown ordering bug leaves component a=
+ccessible with gated clock
+--
 
-A nit, subject: drop second/last, redundant "binding". The "dt-bindings"
-prefix is already stating that these are bindings.
-See also:
-https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
+commit 0a50ee85ef797e0816bf4c1d1aa2f3b04e25ef3c
+Author: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
 
+ASoC: codec: pcm1681: Add optional SCK clock and runtime PM support
 
-> +  touchpad-xy-max:
-> +    description: Touchpad maximum X and Y coordinates in units.
-> +    items:
-> +      - description: maximum X
-> +      - description: maximum Y
-> +    minItems: 2
-> +    maxItems: 2
+This commit adds support for an optional sck clock and runtime PM to the
+PCM1681 codec driver. It enables the clock before accessing the device, wai=
+ts
+for a reset sequence, and uses runtime PM autosuspend to manage the clock s=
+tate
+alongside regmap caching.
 
-None of this was tested. Anyway, use existing properties from
-touchscreen schema for example or actually better explain why this is
-not deducible from the compatible.
-
+> diff --git a/sound/soc/codecs/pcm1681.c b/sound/soc/codecs/pcm1681.c
+> index 60fdbe5c4e054..a1ccf1edf4819 100644
+> --- a/sound/soc/codecs/pcm1681.c
+> +++ b/sound/soc/codecs/pcm1681.c
+[ ... ]
+>  static int pcm1681_i2c_probe(struct i2c_client *client)
+>  {
+[ ... ]
+> +	ret =3D devm_snd_soc_register_component(dev,
+> +					      &soc_component_dev_pcm1681,
+> +					      &pcm1681_dai, 1);
+> +	if (ret) {
+> +		dev_err(dev, "Failed to register component: %d\n", ret);
+> +		goto err_pm;
+> +	}
 > +
-> +  touchpad-xy-resolution:
-> +    description: Touchpad X and Y resolution in units per millimetre.
-> +    items:
-> +      - description: X resolution
-> +      - description: Y resolution
-> +    minItems: 2
-> +    maxItems: 2
+> +	return 0;
 > +
-> +required:
-> +  - compatible
-> +  - power-gpios
-> +  - tx-enable-gpios
-> +  - wake-gpios
+> +err_pm:
+> +	pm_runtime_dont_use_autosuspend(dev);
+> +	pm_runtime_disable(dev);
+> +	if (!pm_runtime_status_suspended(dev))
+> +		clk_disable_unprepare(priv->sck);
+> +	pm_runtime_set_suspended(dev);
 > +
-> +additionalProperties: false
+> +	return ret;
+>  }
+> =20
+> +static void pcm1681_i2c_remove(struct i2c_client *client)
+> +{
+> +	struct pcm1681_private *priv =3D i2c_get_clientdata(client);
+> +	struct device *dev =3D &client->dev;
 > +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +
-> +    serial {
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
+> +	pm_runtime_dont_use_autosuspend(dev);
+> +	pm_runtime_disable(dev);
+> +	/* Runtime PM may already have gated the clock */
+> +	if (!pm_runtime_status_suspended(dev))
+> +		clk_disable_unprepare(priv->sck);
 
-Drop node
+[Severity: High]
+Does this devres teardown ordering leave the component accessible while its
+clock is gated?
 
-> +
-> +        keyboard {
-> +            compatible = "oneplus,pogo-keyboard";
-> +            power-gpios = <&pmic_gpios 12 GPIO_ACTIVE_HIGH>;
-> +            tx-enable-gpios = <&pmic2_gpios 6 GPIO_ACTIVE_HIGH>;
-> +            wake-gpios = <&tlmm 151 GPIO_ACTIVE_LOW>;
-> +            touchpad-xy-max = <2560 1440>;
-> +            touchpad-xy-resolution = <24 25>;
-> +        };
-> +    };
-> +...
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 8014b9f82..e978a26c1 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -20149,6 +20149,13 @@ S:	Maintained
->  T:	git git://linuxtv.org/media.git
->  F:	drivers/media/i2c/ov9734.c
->  
-> +ONEPLUS POGO-PIN KEYBOARD DRIVER
-> +M:	Yibo Wang <wyibo6109@gmail.com>
-> +L:	linux-input@vger.kernel.org
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/input/oneplus,pogo-keyboard.yaml
-> +F:	drivers/input/keyboard/oneplus-pogo-kbd.c
+In pcm1681_i2c_probe() in sound/soc/codecs/pcm1681.c, the component is
+registered via devm_snd_soc_register_component(), which defers unregistrati=
+on
+until after pcm1681_i2c_remove() completes. However, pcm1681_i2c_remove()
+manually disables runtime PM and gates the sck clock.
 
-There is no such file.
+When the ASoC core later unregisters the component during the devres cleanup
+phase, it may attempt to power down DAPM widgets or mute the codec, resulti=
+ng
+in physical regmap_write() calls. Since the clock is already gated and the
+regmap cache is not marked as cache-only here, this regression could cause
+these transactions to fail, potentially leading to I2C timeouts, bus hangs,=
+ or
+kernel warnings.
 
-> +
->  ONBOARD USB HUB DRIVER
->  M:	Matthias Kaehlcke <mka@chromium.org>
->  L:	linux-usb@vger.kernel.org
+Should devm_pm_runtime_enable() or a custom devm action be used for PM and
+clock cleanup to ensure proper ordering, or should the component registrati=
+on be
+changed to the non-devres variant?
 
+> +	pm_runtime_set_suspended(dev);
+> +}
 
-Best regards,
-Krzysztof
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009-nord-asoc-=
+driver-support-v3-v3-0-0c1897f21ccf@oss.qualcomm.com?part=3D2
