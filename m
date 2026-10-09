@@ -1,47 +1,47 @@
-Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
+Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 459274E36C1
-	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 11:44:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E55F44E431B
+	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 11:44:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.254.224.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791546261; cv=none; b=O8OML03pEGJ19rfokIe6c2jI8ds8dAlSh4ZsRHssT+fzhvgdiYE9OMxg/kW7zvStPbclra7wlU2pddwZRoGW0yUk18U+DlY3QoddgzE9XgFcwMYELqRZj+8dp4aWt1CaWODJkWm7+LXgpVtUedfMna+OykmS+G/NRaTAHU07+hk=
+	t=1791546264; cv=none; b=NI6KLZDD3/L5LnFGE4vicma9JJCqGmIEJRBHbSp47WmwW+UCRjlh+AVLoqj5/tnkS3NsAKiTzEzCCyv/xq/QNcIkuVc7640FAmW4sm97wiIZ5pziBfgLBGOLKl4pTPftti53RQiF2VeJa6amDUPdPNkp+uufwENIJrBG/FcxOT0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791546261; c=relaxed/simple;
-	bh=Q50MEg24S2vqQJ+3HOBxHjgRF7KDzYZMdg5Ys/VQreM=;
+	s=arc-20240116; t=1791546264; c=relaxed/simple;
+	bh=xVi5RA+Rov7RAycQMnQm11vo6KBBXVWrcTZKlPlQt10=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:MIME-Version:
-	 Content-Type:References; b=oKF0tN6i7OQfCK5ak4jyGYwos2wUOlsFVqNk04vDau2V6kS+/dyuHnrTOGE+AKJCrV7BQqqEMev74z1xzRpY8eCZqrR7jzzi7USXPb60AXiubzf6jdbOHlxSBe5yAtFra2DF+txgLKsgA/sTuEtXSSgxjcHVxT6QAkYLOXfKCD4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=gQN1tHd9; arc=none smtp.client-ip=203.254.224.33
+	 Content-Type:References; b=ishRb4LhnuWCoShfA890DSRBVcRBnXh7Hrvr28dVSjiVahWQ7vKAps3XlEpnSF6qzWoPDvdI7Kdrpf6pLjwADTWgZKqNIOXfNNACEOk+h7OEXY+/cYiq8UcexNxAttJINgdkgdqmSiy+/sc7tXzBooB+mtEXuZ51FsYxw3Mlk5o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=JejaQsog; arc=none smtp.client-ip=203.254.224.25
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="gQN1tHd9"
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="JejaQsog"
 Received: from epcas5p1.samsung.com (unknown [182.195.41.39])
-	by mailout3.samsung.com (KnoxPortal) with ESMTP id 20261009114402epoutp03c622d232513b0a2e90de957fd1476b4f~c2dC1j71E2493224932epoutp03C
-	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 11:44:02 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com 20261009114402epoutp03c622d232513b0a2e90de957fd1476b4f~c2dC1j71E2493224932epoutp03C
+	by mailout2.samsung.com (KnoxPortal) with ESMTP id 20261009114406epoutp02e91f996a55482da4218aafcb096c3628~c2dGaHHBn1702317023epoutp02f
+	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 11:44:06 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com 20261009114406epoutp02e91f996a55482da4218aafcb096c3628~c2dGaHHBn1702317023epoutp02f
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
-	s=mail20170921; t=1791546242;
-	bh=ySeRjjT1bYVtRGC/o4/umKPGHAVanArpzajQhf7JQqk=;
+	s=mail20170921; t=1791546246;
+	bh=CttS6bLkCRkmCK7/rWH8vIsMnUvlXcALwNj2LzjHU/g=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=gQN1tHd9069xNSgAMnqD4uqcoDsOphrWXENEPaVm7thgg/ByoKRvr54B5TLxHWhRx
-	 WX+FNX8QbwvtlgpL01QX9EHYPUf3PmTXCUWxkqmJKm0VB4VQL0ihqIQRkR5kBY7KvU
-	 DxtMhdxp3LCSHXS9AmlykPNM6ON4Fz1GL5RBiNmI=
-Received: from epsnrtp01.localdomain (unknown [182.195.42.153]) by
-	epcas5p2.samsung.com (KnoxPortal) with ESMTPS id
-	20261009114401epcas5p294aaecd82a4e0be3fe2f83d296c5516a~c2dCICySG0267702677epcas5p2b;
-	Fri,  9 Oct 2026 11:44:01 +0000 (GMT)
-Received: from epcas5p2.samsung.com (unknown [182.195.38.87]) by
-	epsnrtp01.localdomain (Postfix) with ESMTP id 4j1Q4J2hYYz6B9m9; Fri,  9 Oct
-	2026 11:44:00 +0000 (GMT)
+	b=JejaQsog3P1XDIL1wwbFySJXuhahdlzhz4CaAyuwf+ExkdQL94M381LHjj3g40NMt
+	 SyJfLhTLePvEnCnjROiGvDZBMNuTO6WGcYZ/mH99oKQyXUKQzcRDChrRImz+Vz9p4N
+	 yO+54Q4sTe5GKtPh8AegL0OFMxb/XGAZmySpE6R4=
+Received: from epsnrtp04.localdomain (unknown [182.195.42.156]) by
+	epcas5p1.samsung.com (KnoxPortal) with ESMTPS id
+	20261009114404epcas5p12fe1e7a5ec738807b90b49447a218357~c2dFWxUCt2444624446epcas5p13;
+	Fri,  9 Oct 2026 11:44:04 +0000 (GMT)
+Received: from epcas5p1.samsung.com (unknown [182.195.38.86]) by
+	epsnrtp04.localdomain (Postfix) with ESMTP id 4j1Q4M32H5z6B9m6; Fri,  9 Oct
+	2026 11:44:03 +0000 (GMT)
 Received: from epsmtip2.samsung.com (unknown [182.195.34.31]) by
-	epcas5p3.samsung.com (KnoxPortal) with ESMTPA id
-	20261009114359epcas5p36e3efa42b4c80144cbdfdac6cbb687f6~c2dAJUYl91310413104epcas5p37;
-	Fri,  9 Oct 2026 11:43:59 +0000 (GMT)
+	epcas5p2.samsung.com (KnoxPortal) with ESMTPA id
+	20261009114402epcas5p22abf62d79b588db3e9f66641ed22fbd9~c2dCyhcAt0267702677epcas5p2f;
+	Fri,  9 Oct 2026 11:44:02 +0000 (GMT)
 Received: from bose.samsungds.net (unknown [107.108.83.9]) by
 	epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
-	20261009114356epsmtip27cbb60f6031e077b14e2fa9183e71665~c2c91Wuxe3087430874epsmtip2V;
-	Fri,  9 Oct 2026 11:43:56 +0000 (GMT)
+	20261009114359epsmtip2ecb22b45ccd1c024f3e21e26d08382fa~c2dAYPHFr3087430874epsmtip2Y;
+	Fri,  9 Oct 2026 11:43:59 +0000 (GMT)
 From: Raghav Sharma <raghav.s@samsung.com>
 To: krzk@kernel.org, s.nawrocki@samsung.com, cw00.choi@samsung.com,
 	peter.griffin@linaro.org, alim.akhtar@samsung.com, sboyd@kernel.org,
@@ -51,10 +51,10 @@ Cc: linux-samsung-soc@vger.kernel.org, linux-clk@vger.kernel.org,
 	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org, is.gandhi@samsung.com, ts.amit@samsung.com,
 	pokala.reddy@samsung.com
-Subject: [PATCH v2 10/14] clk: samsung: exynos8855: add block usb clock
- support
-Date: Fri,  9 Oct 2026 17:31:33 +0530
-Message-Id: <20261009120137.2801911-11-raghav.s@samsung.com>
+Subject: [PATCH v2 11/14] arm64: dts: exynos8855: add cmu_top & cmu_peric
+ clock DT nodes
+Date: Fri,  9 Oct 2026 17:31:34 +0530
+Message-Id: <20261009120137.2801911-12-raghav.s@samsung.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20261009120137.2801911-1-raghav.s@samsung.com>
 Precedence: bulk
@@ -64,134 +64,82 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CMS-MailID: 20261009114359epcas5p36e3efa42b4c80144cbdfdac6cbb687f6
+X-CMS-MailID: 20261009114402epcas5p22abf62d79b588db3e9f66641ed22fbd9
 X-Msg-Generator: CA
 Content-Type: text/plain; charset="utf-8"
 CMS-TYPE: 105P
 cpgsPolicy: CPGSC10-543,Y
 X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20261009114359epcas5p36e3efa42b4c80144cbdfdac6cbb687f6
+X-CMS-RootMailID: 20261009114402epcas5p22abf62d79b588db3e9f66641ed22fbd9
 References: <20261009120137.2801911-1-raghav.s@samsung.com>
-	<CGME20261009114359epcas5p36e3efa42b4c80144cbdfdac6cbb687f6@epcas5p3.samsung.com>
+	<CGME20261009114402epcas5p22abf62d79b588db3e9f66641ed22fbd9@epcas5p2.samsung.com>
 
-Register compatible and cmu_info data to support clocks.
-CMU_USB, this provides clocks for USB
+Add required dt node for cmu_top & cmu_peric block.
+This also add sysreg_peric node. sysreg_peric contains
+DRCG and MEMCLK SFRs bits which are used in clock driver.
 
-Co-developed-by: Alim Akhtar <alim.akhtar@samsung.com>
 Signed-off-by: Alim Akhtar <alim.akhtar@samsung.com>
 Signed-off-by: Raghav Sharma <raghav.s@samsung.com>
 ---
- drivers/clk/samsung/clk-exynos8855.c | 78 ++++++++++++++++++++++++++++
- 1 file changed, 78 insertions(+)
+ arch/arm64/boot/dts/exynos/exynos8855.dtsi | 32 ++++++++++++++++++++++
+ 1 file changed, 32 insertions(+)
 
-diff --git a/drivers/clk/samsung/clk-exynos8855.c b/drivers/clk/samsung/clk-exynos8855.c
-index 16d71db11ad0..010ca79116d3 100644
---- a/drivers/clk/samsung/clk-exynos8855.c
-+++ b/drivers/clk/samsung/clk-exynos8855.c
-@@ -20,11 +20,13 @@
- #define CLKS_NR_PERIC                   (CLK_GOUT_USI_PERIC + 1)
- #define CLKS_NR_PERIS                   (CLK_GOUT_WDT1_PERIS + 1)
- #define CLKS_NR_HSI                     (CLK_GOUT_SYSREG_HSI  + 1)
-+#define CLKS_NR_USB                     (CLK_GOUT_SYSREG_USB + 1)
+diff --git a/arch/arm64/boot/dts/exynos/exynos8855.dtsi b/arch/arm64/boot/dts/exynos/exynos8855.dtsi
+index 0333b80eba84..2e5dc79d66bc 100644
+--- a/arch/arm64/boot/dts/exynos/exynos8855.dtsi
++++ b/arch/arm64/boot/dts/exynos/exynos8855.dtsi
+@@ -10,6 +10,7 @@
+  */
  
- #define EXYNOS8855_HSI_GATE_DBG_OFFSET      0x2000
- #define EXYNOS8855_PERIS_GATE_DBG_OFFSET      0x2004
- #define EXYNOS8855_PERIC_GATE_DBG_OFFSET      0x2024
- #define EXYNOS8855_TOP_GATE_DBG_OFFSET      0x20A0
-+#define EXYNOS8855_USB_GATE_DBG_OFFSET      0x2004
+ #include <dt-bindings/interrupt-controller/arm-gic.h>
++#include <dt-bindings/clock/samsung,exynos8855.h>
  
- #define EXYNOS8855_DRCG_EN_OFFSET       0x104
- #define EXYNOS8855_MEMCLK_OFFSET        0x108
-@@ -1261,6 +1263,79 @@ static const struct samsung_cmu_info hsi_cmu_info __initconst = {
- 	.memclk_offset          = EXYNOS8855_MEMCLK_OFFSET,
- };
+ / {
+ 	compatible = "samsung,exynos8855";
+@@ -170,12 +171,43 @@ pinctrl_cmgp: pinctrl@12030000 {
+ 			interrupts = <GIC_SPI 114 IRQ_TYPE_LEVEL_HIGH>;
+ 		};
  
-+/* ---- CMU_USB --------------------------------------------------------- */
++		cmu_top: clock-controller@13900000 {
++			compatible = "samsung,exynos8855-cmu-top";
++			reg = <0x13900000 0x10000>;
++			#clock-cells = <1>;
++			clocks = <&oscclk>;
++			clock-names = "oscclk";
++		};
 +
-+/* Register Offset definitions for CMU_USB (0x13000000) */
-+#define CMU_USB_PLL_CON0_MUX_CLKCMU_USB_NOC_USER                   0x600
-+#define CMU_USB_PLL_CON0_MUX_CLKCMU_USB_USB20DRD_USER              0x610
-+#define CMU_USB_CLK_CON_MUX_CLK_USB_USB20DRD                       0x1000
-+#define CMU_USB_CLK_CON_DIV_CLK_USB_NOC_DIV3                       0x1800
-+#define CMU_USB_CLK_CON_GAT_BLK_USB_UID_CMU_USB_IPCLKPORT_PCLK     0x2000
-+#define CMU_USB_CLK_CON_GAT_BLK_USB_UID_SYSREG_USB_IPCLKPORT_PCLK  0x2030
-+#define CMU_USB_CONTROLLER_OPTION0_CMU_CTRL                        0x800
+ 		pinctrl_usi: pinctrl@15030000 {
+ 			compatible = "samsung,exynos8855-pinctrl";
+ 			reg = <0x15030000 0x1000>;
+ 			interrupts = <GIC_SPI 440 IRQ_TYPE_LEVEL_HIGH>;
+ 		};
+ 
++		cmu_peric: clock-controller@15400000 {
++			compatible = "samsung,exynos8855-cmu-peric";
++			reg = <0x15400000 0x10000>;
++			#clock-cells = <1>;
 +
-+static const unsigned long usb_clk_regs[] __initconst = {
-+	CMU_USB_PLL_CON0_MUX_CLKCMU_USB_NOC_USER,
-+	CMU_USB_PLL_CON0_MUX_CLKCMU_USB_USB20DRD_USER,
-+	CMU_USB_CLK_CON_MUX_CLK_USB_USB20DRD,
-+	CMU_USB_CLK_CON_DIV_CLK_USB_NOC_DIV3,
-+	CMU_USB_CLK_CON_GAT_BLK_USB_UID_CMU_USB_IPCLKPORT_PCLK,
-+	CMU_USB_CLK_CON_GAT_BLK_USB_UID_SYSREG_USB_IPCLKPORT_PCLK,
-+	CMU_USB_CONTROLLER_OPTION0_CMU_CTRL,
-+};
++			clocks = <&oscclk>,
++				 <&cmu_top CLKCMU_DOUT_PERIC_NOC>,
++				 <&cmu_top CLKCMU_DOUT_PERIC_MMC_CARD>,
++				 <&cmu_top CLKCMU_DOUT_PERIC_IP>;
++			clock-names = "oscclk",
++				      "bus",
++				      "mmc_card",
++				      "ip";
++			samsung,sysreg = <&sysreg_peric>;
++		};
 +
-+/* List of parent clocks for Muxes in CMU_USB */
-+PNAME(mout_clkcmu_usb_noc_user_p) = { "oscclk", "dout_clkcmu_usb_noc" };
-+PNAME(mout_clkcmu_usb_usb20drd_user_p) = { "oscclk", "dout_clkcmu_usb_usb20drd" };
-+PNAME(mout_clk_usb_usb20drd_p) = { "oscclk_usb_link", "mout_clkcmu_usb_usb20drd_user" };
++		sysreg_peric: syscon@15420000 {
++			compatible = "samsung,exynos8855-peric-sysreg",
++				      "syscon";
++			reg = <0x15420000 0x10000>;
++			clocks = <&cmu_peric CLK_GOUT_SYSREG_PERIC>;
++		};
 +
-+static const struct samsung_mux_clock usb_mux_clks[] __initconst = {
-+	MUX(CLK_MOUT_USB_NOC_USER, "mout_clkcmu_usb_noc_user",
-+	    mout_clkcmu_usb_noc_user_p, CMU_USB_PLL_CON0_MUX_CLKCMU_USB_NOC_USER, 4, 1),
-+	MUX(CLK_MOUT_USB_USB20DRD_USER, "mout_clkcmu_usb_usb20drd_user",
-+	    mout_clkcmu_usb_usb20drd_user_p, CMU_USB_PLL_CON0_MUX_CLKCMU_USB_USB20DRD_USER, 4, 1),
-+	MUX(CLK_MOUT_USB_USB20DRD, "mout_clk_usb_usb20drd",
-+	    mout_clk_usb_usb20drd_p, CMU_USB_CLK_CON_MUX_CLK_USB_USB20DRD, 0, 1),
-+};
-+
-+static const struct samsung_div_clock usb_div_clks[] __initconst = {
-+	DIV(CLK_DOUT_USB_NOC_DIV3, "dout_clkcmu_usb_noc_div3",
-+	    "mout_clkcmu_usb_noc_user", CMU_USB_CLK_CON_DIV_CLK_USB_NOC_DIV3,
-+	    0, 4),
-+};
-+
-+static const struct samsung_gate_clock usb_gate_clks[] __initconst = {
-+	/* System will hang if this critical clock is gated */
-+	GATE(CLK_GOUT_CMU_USB, "gout_cmu_usb",
-+	     "mout_clkcmu_usb_noc_user",
-+	     CMU_USB_CLK_CON_GAT_BLK_USB_UID_CMU_USB_IPCLKPORT_PCLK,
-+	     21, 0, 0),
-+	GATE(CLK_GOUT_SYSREG_USB, "gout_sysreg_usb",
-+	     "mout_clkcmu_usb_noc_user",
-+	     CMU_USB_CLK_CON_GAT_BLK_USB_UID_SYSREG_USB_IPCLKPORT_PCLK,
-+	     21, 0, 0),
-+};
-+
-+static const struct samsung_cmu_info usb_cmu_info __initconst = {
-+	.mux_clks               = usb_mux_clks,
-+	.nr_mux_clks            = ARRAY_SIZE(usb_mux_clks),
-+	.div_clks               = usb_div_clks,
-+	.nr_div_clks            = ARRAY_SIZE(usb_div_clks),
-+	.gate_clks              = usb_gate_clks,
-+	.nr_gate_clks           = ARRAY_SIZE(usb_gate_clks),
-+	.nr_clk_ids             = CLKS_NR_USB,
-+	.clk_regs               = usb_clk_regs,
-+	.nr_clk_regs            = ARRAY_SIZE(usb_clk_regs),
-+	.sysreg_clk_regs	= dcrg_memclk_sysreg,
-+	.nr_sysreg_clk_regs	= ARRAY_SIZE(dcrg_memclk_sysreg),
-+	.clk_name               = "bus",
-+	.auto_clock_gate        = true,
-+	.gate_dbg_offset        = EXYNOS8855_USB_GATE_DBG_OFFSET,
-+	.option_offset          = CMU_USB_CONTROLLER_OPTION0_CMU_CTRL,
-+	.drcg_offset            = EXYNOS8855_DRCG_EN_OFFSET,
-+	.memclk_offset          = EXYNOS8855_MEMCLK_OFFSET,
-+};
-+
- static int __init exynos8855_cmu_probe(struct platform_device *pdev)
- {
- 	const struct samsung_cmu_info *info;
-@@ -1285,6 +1360,9 @@ static const struct of_device_id exynos8855_cmu_of_match[] = {
- 	}, {
- 		.compatible = "samsung,exynos8855-cmu-top",
- 		.data = &top_cmu_info,
-+	}, {
-+		.compatible = "samsung,exynos8855-cmu-usb",
-+		.data = &usb_cmu_info,
- 	},
- 	{ }
- };
+ 		pinctrl_peric: pinctrl@15440000 {
+ 			compatible = "samsung,exynos8855-pinctrl";
+ 			reg = <0x15440000 0x1000>;
 -- 
 2.34.1
 
