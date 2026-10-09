@@ -1,108 +1,104 @@
-Received: from mail-yx1-f47.google.com (mail-yx1-f47.google.com [74.125.224.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail2.kuutio.org (mail2.kuutio.org [91.107.195.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E36C13D8900
-	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 17:23:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791566617; cv=pass; b=u+wWwXRpWuMZLX//UTy6CLIGuPZVWuv40VuU4pxXarFHFRmTZlA+5ANUgW+Ehdj4rhcS+Pzmv7aMIhoU8t6Ejes5WaG5e1RXlgeM8cydXzFGpEuIkXgyLUnAcqfQAO03eeN7kuQY4gFKzhWZEw92fuv6V4FHEmVMIq/tkdnwAiw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791566617; c=relaxed/simple;
-	bh=G2jxbatKwQbZzM49tr63rk6J2FHSq0Eo1YA3a+2vpVg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=dV7dRgulkAUEQOgAN4Ws8ytycJe+TkkGPPAe5dKDGgbTQRtJU/YUgCt9fETAFZmLRZJn3QoSdP7ub6+kPJhVF4WrxF6gQA4lL5aFJRS7vFgk8cvD4e91V2+ODY/UP0ypU+y30urKi260rxHYX9+gUzGyTFE5tpkqA5IKI4Wl5/Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DcJNa8ya; arc=pass smtp.client-ip=74.125.224.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DcJNa8ya"
-Received: by mail-yx1-f47.google.com with SMTP id 956f58d0204a3-67694513f2fso4327980d50.1
-        for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 10:23:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791566615; cv=none;
-        d=google.com; s=arc-20260327;
-        b=iXc3CHE2BtMwXLR0G5hctZL9vzE9My4mxbIyOVjuiuk4M4CwnOJG6u9PtoCBmcno+n
-         wY9yp+W45Ahhlff69sVoHKtvTL8I2Hl6RQMV6yrV9ue6OPIulvZJ6NJBERpsn8WZ2rzu
-         5NemQyCSB05WlFwd9aYz02sDyGIMqQZhY0Omz80mpx3genJiG8tsiIAwt9yV9wma7/c8
-         LbzHht5cPwUEaP3sniZLkzavyXm8lizA6gLcqSBXslxE1ehoF0dQEZwD/F+g8FA2LkTx
-         ql9ZFj+dGxXiEsF8UqNwnPiYd+sdhzgcfRKjnpr7EJ6jgrCDUTHEaaA+8yLd2J/S3jn7
-         gO/Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=G2jxbatKwQbZzM49tr63rk6J2FHSq0Eo1YA3a+2vpVg=;
-        fh=dH2ttAVb6t8c62+VjKwDgmA1aubmNxSzRlRKLU6GTFU=;
-        b=gf4ihRRpkcWJEXZSjWkXAUHnJlYzxjOZfGaRjS8wu5CFGe8VeItlY1YtxF4AKDvPHy
-         6s1ln+ZxRza38gEnlUt02ASWlJMy0Cr0YOdGKL0Lbd8YkMIRBa2Nc7ZrGbnDy2yfLOr4
-         +Al2gmNxhiyl4a8Nph+7BZD5lm7/hI6P+hwRQJLVmIfIwn9NUOgN3eQTkSmyTfl0Hz2+
-         +8vls6pEq8UZy+5bwRYfhNaUF+DMghtpTqahS6wYdtGhVrwkjrEfbGf7k1fXyXIHAEW0
-         sJGLoRA/nZiP6KQ4v/VWMC7ROo7NpftwjKIgJuK2LjmVRCawF49X4CTp6FXdwBKxfdAg
-         hpzQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791566615; x=1792171415; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=G2jxbatKwQbZzM49tr63rk6J2FHSq0Eo1YA3a+2vpVg=;
-        b=DcJNa8yaRGkTNfc5n+yZJlUfiZiqIn7hfBJVpaV2A/uzuelRa1Q0IIhOLtQP4WUGpR
-         gZOBUKeKNHPWCDb6ID0CANwB/aIfR446pSEH3KXl7YK1CUsBBael7zcf3btBXCXNidvQ
-         0zZaNQuHOcPqjrj1CEzjgEyV/chixJe0kUpnZRIy3oj1x2H4IecbAA9wVqymQ+mXrWrz
-         BD4UbqzePLfVuJAzQlWAhAYCdf1V7NNKAI/2gGLLfT2Sr3kWR+dkqhG3A7poHGNH4j70
-         ELln9UTkS6yeMZO6jSXuOQ9iZzEKBOeqBsm/6voSaU+D9LGTVKDqILhQ6IORg/tOkBJ9
-         g0Zw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791566615; x=1792171415;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=G2jxbatKwQbZzM49tr63rk6J2FHSq0Eo1YA3a+2vpVg=;
-        b=hI7oFspSi+S312TQNaYGapHIGdO+IIP5zSb1CjCLogh9DcX1Q/H/jVJ63P8unBPUa8
-         3beljkH9K8tRzpd7oX68ol6GwqgnwtGxKJjwIhNwkCxtzRcu4penc6DmE+coLGZXiEW8
-         086Z5hDiSWzrnTcO6xUIzcvB3NTy9PT6QpZV6ZNixCJzF+raszqCcDOo+RAscs2UsQst
-         oxDFgDgwh/XJKlYkiGqYVNbXaCr4bNiRRW/mNh1u07Awnkrgj+t/UcXrML5+1Kqaa5/m
-         OXYx0N8y2sscpPDFKhRVuB6mi06Qimuv6ony9Sn/iz03Qd54IUE47mXNCO95WFYI9vHh
-         fl1Q==
-X-Forwarded-Encrypted: i=1; AKwUvBztyDo9b3iNfv126M6pxSwLR3jiGPDCiCljAreh+N2pEP6l290/Vddi5vPux9pMhAt5mJA3+uyo+8me@vger.kernel.org
-X-Gm-Message-State: AFq9FYL7mnghwsIngRq4mutNn4BdSM9cUzNz2olEqMR9rNdvazbEVfuB
-	iSIOnFSJ5h4+YfjOGNVyKkDm8SZioTzlfQqhKIIIHUZHYsWSLBrsi9BX9YFAlX/uni8Gh6bUEmx
-	GusYORhIKp4VEI58AijXsxDEi9z/4YBc=
-X-Gm-Gg: AYBFou1K8H4NLmvj8/4Cf44ZxsLtu97vPtERdTEqJ8HS2Z8Wzt8959eoCNKymE3qhu7
-	EjiwJrN5o3s7YRwdlHkZZ3IuAIZlCR6EpRJDfsXKwcwk8Nq5/OOvNVijmO0RbIp/QEhIXSi8b1x
-	3Z9JZIOW5zaxMIFRRsnWDcv3fBfUiZ26SXNPAqcuGqe85n36CEoFMcQlrEiyyZ9Y9imoQk8RTPY
-	ColTX4HIB/1p7EFIRPHQhPqo3tNAZJGkKDWCbPWThYJwdzXzVbhFUmNarjhZeHqM45pOfARPxsf
-	ybLCTKS4qJYXrwVFtIgt/X7XzVFHCV9mHIaEsIrEu8fnwoZ+qomm/j5israOhOKOayqVPCWawSu
-	EYZdzwNWIeuk4LgDo02trSZw=
-X-Received: by 2002:a05:690e:13cf:b0:677:d251:ccd3 with SMTP id
- 956f58d0204a3-67935f20994mr785504d50.13.1791566614782; Fri, 09 Oct 2026
- 10:23:34 -0700 (PDT)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93DB6314B6E;
+	Fri,  9 Oct 2026 17:24:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.107.195.44
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791566649; cv=none; b=JhUW3PXy7/h5rS9k8RtTz9GILJPsUO97QUEntbfTmhbaOtEvrT9idwL/ObmBEhG1T8pCSmY5wzzTW6EB3OtnCjnqloFCfg0USWjYnUPfxzHuElSzOAZGA0siuEGAfiAC1Bt4c2IJyf6KIBJKRYj6CpQv8zaJbv/cpFQxXyKVmB8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791566649; c=relaxed/simple;
+	bh=oF9hTyVe3cCLnrWfkkQN4TjCEJJxhdKESRmDjW1CGTU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Pdx6lBbWCyg+/63CDpxqfcsabfafyxn+rmgqrgDqW9JXMi3+vijNY8LCRTwJL9AOZClUySS4wVi3R19XemjbnAbATYdURzBsxpPHhzOzGgCpvEAovVHOP1EPUz6sftDiBypSD1qk1oXULwKnT8s90ReQoy5R880n3tDM3p7l9wk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lemmela.net; spf=pass smtp.mailfrom=lemmela.net; arc=none smtp.client-ip=91.107.195.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lemmela.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lemmela.net
+Received: from localhost (mail2.kuutio.org [127.0.0.1])
+	by mail2.kuutio.org (Postfix) with ESMTP id BEBE62040A;
+	Fri,  9 Oct 2026 17:24:05 +0000 (UTC)
+X-Virus-Scanned: amavis at kuutio.org
+Received: from mail2.kuutio.org ([127.0.0.1])
+ by localhost (mail2.kuutio.org [127.0.0.1]) (amavis, port 10024) with LMTP
+ id 6_KnS5cnMtum; Fri,  9 Oct 2026 17:24:04 +0000 (UTC)
+Received: from [IPV6:2001:99a:adc:6a00::8be] (nbqchc6j3dhrbnnpubi-1.v6.elisa-laajakaista.fi [IPv6:2001:99a:adc:6a00::8be])
+	by mail2.kuutio.org (Postfix) with ESMTPSA id 8E8B41FD49;
+	Fri,  9 Oct 2026 17:24:03 +0000 (UTC)
+Message-ID: <94ed7592-cc4d-4a0d-8738-bfbe480e479e@lemmela.net>
+Date: Fri, 9 Oct 2026 20:24:02 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261009070725.13196-1-ansuelsmth@gmail.com> <20261009070725.13196-2-ansuelsmth@gmail.com>
- <20261009-b41aedc4c5583a8a94926925@squawk>
-In-Reply-To: <20261009-b41aedc4c5583a8a94926925@squawk>
-From: "Christian Marangi (Ansuel)" <ansuelsmth@gmail.com>
-Date: Fri, 9 Oct 2026 19:23:19 +0200
-X-Gm-Features: AclHuK9ImRwdPwJQHAaZVf0ijPl9QjRVdptD4lXqbW_LJijH32tMCETZU-OfmLA
-Message-ID: <CA+_ehUxMyx-aejgcve4+naou=LQ8-OOSTPMHvSNVhCEiEiw3Vw@mail.gmail.com>
-Subject: Re: [PATCH v7 1/3] dt-bindings: clock: airoha: Document support for
- AN7583 clock
-To: Conor Dooley <conor@kernel.org>
-Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>, 
-	Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Felix Fietkau <nbd@nbd.name>, linux-clk@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v2 1/2] dt-bindings: net: realtek,rtl82xx:
+ document RTL8224 packages
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Heiner Kallweit <hkallweit1@gmail.com>,
+ Daniel Golle <daniel@makrotopia.org>, Javen Xu <javen_xu@realsil.com.cn>,
+ Vladimir Oltean <vladimir.oltean@nxp.com>,
+ Aleksander Jan Bajkowski <olek2@wp.pl>,
+ Oleksij Rempel <o.rempel@pengutronix.de>, Issam Hamdi
+ <ih@simonwunderlich.de>, Chukun Pan <amadeus@jmu.edu.cn>,
+ Jan Hoffmann <jan@3e8.eu>, Florian Fainelli <f.fainelli@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, Andrew Lunn <andrew@lunn.ch>,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Manuel Stocker <mensi@mensi.ch>
+References: <20261005201540.913977-1-oskari@lemmela.net>
+ <20261005201540.913977-2-oskari@lemmela.net>
+ <20261009-tentacled-magnificent-okapi-d5a173@quoll>
+Content-Language: en-US
+From: =?UTF-8?Q?Oskari_Lemmel=C3=A4?= <oskari@lemmela.net>
+In-Reply-To: <20261009-tentacled-magnificent-okapi-d5a173@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Il giorno ven 9 ott 2026 alle ore 17:12 Conor Dooley
-<conor@kernel.org> ha scritto:
->
-> Acked-by: Conor Dooley <conor.dooley@microchip.com>
-> pw-bot: not-applicable
+On 10/9/26 12:18, Krzysztof Kozlowski wrote:
+> On Mon, Oct 05, 2026 at 11:15:39PM +0300, Oskari Lemmela wrote:
+>> +    mdio {
+>> +        #address-cells = <1>;
+>> +        #size-cells = <0>;
+>> +
+>> +        ethernet-phy-package@1 {
+>> +            reg = <1>;
+>> +            #address-cells = <1>;
+>> +            #size-cells = <0>;
+>> +
+>> +            ethernet-phy@1 {
+>> +                compatible = "ethernet-phy-ieee802.3-c45";
+> 
+> I don't fully get why you are adding to the example generic compatibles,
+> not relevant to this binding.
+> 
 
-Just for my own info, what is the meaning of not-applicable in this context?
+The generic C45 compatible explicitly requests Clause 45 discovery,
+matching the management path used by the RTL8224 driver. Without it,
+discovery starts with Clause 22 and may rely on the conditional C45
+fallback, so I retained it to specify the intended discovery method.
+
+However, I see that this string does not select realtek,rtl82xx.yaml,
+so the example does not exercise this binding's constraints.
+
+Andrew suggested that a dedicated RTL8224 package binding would make
+sense. Would moving the package documentation and example into a
+binding selected by "realtek,rtl8224-package" be appropriate? The child
+PHYs would retain their C45 compatibles and be validated directly by
+the package binding's child-node schema.
+
+Thanks,
+Oskari
+
+>> +                reg = <1>;
+>> +                enet-phy-pair-order = <0>;
+>> +            };
+> 
+> Best regards,
+> Krzysztof
+> 
+
