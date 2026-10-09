@@ -1,174 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B6413CEB9D
-	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 09:03:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8DEC3E5A26;
+	Fri,  9 Oct 2026 09:05:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791536593; cv=none; b=m944AlaX0fCOdVtlo6j3gHZ8h2sMurNOxAiDdECTP1IuARRB8JNmua4hhinINmHGazxVhFbSuxj4C+fI5fJZxQsyNmNDfPvCopI7up8vguYnxIgXJJJ2vcbve1DpgDPTohCX3QrGWbVyfGxNb2GW93yNccxxsbn5ZWWhWZOi6mU=
+	t=1791536707; cv=none; b=cZmysN8WRnWfy72px+SvSgmkVYXFqi+D/Dm00JGpim9AIQr8AjnDr/7xl7OMYbRzfgx/+pHAG6CYRis4zbQOHzrPrf/dOQhp6VcdPrpG9AW01AewYdNbvDWQLjj1ay6YwNIn13HjZGRleiaQigrjLJTjw2krwJ9AvqMeQYr/FwE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791536593; c=relaxed/simple;
-	bh=R1+YfW46c5ApA1KMVDTkFihckX/R/tUDjnjqObpu9FM=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=lxTdVF7n6vLy29b/d/z+KInzTRbjTJRhMB0q+C7dTRxNAiRe3OwlDo3EKQICySi6VkJkZiW1rkp4bcmf5C2rOr1JKDfyLN3UzS4sUuNIwLfYynwKksa+/PrPkIMq3efd+JEc4tuB4Wjv9b4eJhHktySD2fgL1Dp4xDXoGHhsb5A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GnFf+Cg0; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GnFf+Cg0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B41431F00893;
-	Fri,  9 Oct 2026 09:03:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791536592;
-	bh=3BoExyb3vqynVWlKTink29dF+apuuxIFS28/aMLZJE0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=GnFf+Cg0JVMo6WVIq6SSs/bst7NzV6HsBrArb0ydZnwBxIxMXwIbeCD+edQ2oOvpl
-	 IUiT1yfzRpI+kj3nQ6ixMbBMBozJKZo5HgM3NPKR7JrLZEsDC9B+wfhsOqi8UAaP2z
-	 TMtgXerlKdnqyq++RdSMnSWGrc3nCt8e3hzXlV3imiRC1j3EmZCrRvsCb7HFSRCcIG
-	 q04S4ycun1wvDaSSxD3PFkJsutU4udLKLlovKm/8osnSaUBPo2PNGGbHtiqpjLQuhI
-	 ZQm5A96YH9KfM34hlZc/ymaTKaXdMYfh97S3zDqeWV4wZVUB98CxmDUG7Xx0hAzjGl
-	 O/GNbFqnOUNgA==
-Message-ID: <sashiko-outbox-165120@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: sm7225-fairphone-fp4: Add Sony IMX576
- front camera support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Himanshu Bhavani" <himanshu.bhavani@siliconsignals.io>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20261009085041.181160-1-himanshu.bhavani@siliconsignals.io>
-References: <20261009085041.181160-1-himanshu.bhavani@siliconsignals.io>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 09 Oct 2026 09:03:11 +0000
+	s=arc-20240116; t=1791536707; c=relaxed/simple;
+	bh=D0Li7d85ZcwOoQMd8M2nSMg6m4X+yRHj5puTwa7WRR8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LUslBPJuAmfxs/E3XPbgg+2LzLXhWrBqqSLhQWUVDwSFWoITK7yhHBaG80H+70Z2mcvWuc5hI8KfIGghS1I+Qj83rRKmcZR2/wHLmnoAeKvTC1YNycm3K+soeRoPnuFf0oONzfQqekFxsIIMo4q8wOvz3YiEC7vQXH3p/BwqBY0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.100.127])
+	by APP-03 (Coremail) with SMTP id rQCowADn5zUyrshqvgohCg--.407S2;
+	Fri, 09 Oct 2026 17:04:51 +0800 (CST)
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Wei Fu <wefu@redhat.com>,
+	Drew Fustini <dfustini@tenstorrent.com>
+Cc: linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	Icenowy Zheng <uwu@icenowy.me>,
+	Han Gao <rabenda.cn@gmail.com>,
+	Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Subject: [PATCH v3 0/2] phy: add support for TH1520 USB PHY
+Date: Fri,  9 Oct 2026 17:04:42 +0800
+Message-ID: <20261009090444.3319517-1-zhengxingda@iscas.ac.cn>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowADn5zUyrshqvgohCg--.407S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7GFy7Wry3Gr43XryDAFy7ZFb_yoWDJrXEka
+	48urW7A3WDuas5GFWjyr1xXrWqyF43XFykJFySqry3Zr1fZryY9348ury3WF4DGr45WFn5
+	J34kZF18ArnFgjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUb3xFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
+	Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
+	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
+	n2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4
+	AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE
+	17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMI
+	IF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4l
+	IxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvf
+	C2KfnxnUUI43ZEXa7VUbGQ6JUUUUU==
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [Low] dts: missing video-interface-devices.h header breaks build
-- [Low] dts: undefined &camss label reference breaks build
-- [Low] dts: missing reg property on unit-addressed port@3 node
-- [Low] dts: undocumented compatible string sony,imx576
---
+This patchset is splitted from the "Add TH1520 USB support" patchset,
+with only the PHY binding/driver part.
 
-commit e48e7d28c163e33e1162a6d841602d728e3532e7
-Author: Hardevsinh Palaniya <hardevsinh.palaniya@siliconsignals.io>
+Conor, could you re-check whether your R-b still apply? (Although I
+think this should be trivial because only reg is added to the required
+properties list when comparing with v1).
 
-arm64: dts: qcom: sm7225-fairphone-fp4: Add Sony IMX576 front camera support
+Icenowy Zheng (2):
+  dt-bindings: phy: add binding for T-Head TH1520 USB PHY
+  phy: add a driver for T-Head TH1520 USB PHY
 
-This commit adds device tree support for the Sony IMX576 front camera
-sensor and connects it to CAMSS via CSIPHY3.
+ .../bindings/phy/thead,th1520-usb-phy.yaml    |  75 ++++++++
+ drivers/phy/Kconfig                           |   1 +
+ drivers/phy/Makefile                          |   1 +
+ drivers/phy/thead/Kconfig                     |  12 ++
+ drivers/phy/thead/Makefile                    |   2 +
+ drivers/phy/thead/phy-th1520-usb.c            | 181 ++++++++++++++++++
+ 6 files changed, 272 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/phy/thead,th1520-usb-phy.yaml
+ create mode 100644 drivers/phy/thead/Kconfig
+ create mode 100644 drivers/phy/thead/Makefile
+ create mode 100644 drivers/phy/thead/phy-th1520-usb.c
 
-[ ... ]
-> diff --git a/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts b/arch/arm=
-64/boot/dts/qcom/sm7225-fairphone-fp4.dts
-> index 5d20ad93b0c54..b0c9b103cdc9c 100644
-> --- a/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
-> +++ b/arch/arm64/boot/dts/qcom/sm7225-fairphone-fp4.dts
-> @@ -17,6 +17,8 @@
->  #include <dt-bindings/iio/qcom,spmi-adc7-pmk8350.h>
->  #include <dt-bindings/input/input.h>
->  #include <dt-bindings/leds/common.h>
-> +#include <dt-bindings/media/video-interfaces.h>
-> +#include <dt-bindings/media/video-interface-devices.h>
+-- 
+2.55.0
 
-[Severity: Low]
-Is it possible this include breaks the device tree compilation? The
-dt-bindings/media/video-interface-devices.h header does not seem to exist in
-the tree, and the C preprocessor will fail to find it.
-
->  #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
->  #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
->  #include <dt-bindings/sound/qcom,q6asm.h>
-> @@ -547,6 +549,29 @@ vreg_bob: bob {
->  	};
->  };
-> =20
-> +&camss {
-
-[Severity: Low]
-Does this node reference an undefined label? The camss label does not appear
-to be defined in sm6350.dtsi, sm7225.dtsi, or any other included device tree
-file, which would result in a fatal device tree compiler error.
-
-> +	vdd-csiphy0-0p9-supply =3D <&vreg_l18a>;
-> +	vdd-csiphy0-1p25-supply =3D <&vreg_l22a>;
-> +	vdd-csiphy1-0p9-supply =3D <&vreg_l18a>;
-> +	vdd-csiphy1-1p25-supply =3D <&vreg_l22a>;
-> +	vdd-csiphy2-0p9-supply =3D <&vreg_l18a>;
-> +	vdd-csiphy2-1p25-supply =3D <&vreg_l22a>;
-> +	vdd-csiphy3-0p9-supply =3D <&vreg_l18a>;
-> +	vdd-csiphy3-1p25-supply =3D <&vreg_l22a>;
-> +
-> +	status =3D "okay";
-> +
-> +	ports {
-> +		port@3 {
-
-[Severity: Low]
-Should this unit-addressed node include a reg property? Device tree
-specifications require nodes with a unit address like port@3 to have a
-corresponding reg or ranges property. Omitting it causes a dtc warning
-(unit_address_vs_reg) and fails schema validation.
-
-> +			csiphy3_ep: endpoint {
-> +				data-lanes =3D <0 1 2 3>;
-> +				bus-type =3D <MEDIA_BUS_TYPE_CSI2_DPHY>;
-> +				remote-endpoint =3D <&camera_imx576_ep>;
-> +			};
-> +		};
-> +	};
-> +};
-> +
-[ ... ]
-> @@ -581,7 +606,34 @@ &cci1 {
->  };
-> =20
->  &cci1_i2c0 {
-> -	/* Front cam (Sony IMX576) @ 0x10 */
-> +	camera@10 {
-> +		compatible =3D "sony,imx576";
-
-[Severity: Low]
-Is this compatible string missing from the device tree bindings? There is no
-corresponding YAML schema for sony,imx576 in Documentation/devicetree/bindi=
-ngs,
-which will cause dtbs_check validation to fail.
-
-> +		reg =3D <0x10>;
-> +
-> +		vana-supply =3D <&vreg_l3p>;
-> +		vif-supply =3D <&vreg_l6p>;
-> +		vdig-supply =3D <&vreg_32m_cam_dvdd_1p05>;
-> +
-> +		clocks =3D <&camcc CAMCC_MCLK1_CLK>;
-> +		assigned-clocks =3D <&camcc CAMCC_MCLK1_CLK>;
-> +		assigned-clock-rates =3D <24000000>;
-> +
-> +		reset-gpios =3D <&tlmm 35 GPIO_ACTIVE_LOW>;
-> +		pinctrl-0 =3D <&cam_mclk1_default>;
-> +		pinctrl-names =3D "default";
-> +
-> +		orientation =3D <MEDIA_ORIENTATION_FRONT>;
-
-[Severity: Low]
-Will this macro correctly expand? MEDIA_ORIENTATION_FRONT relies on the
-dt-bindings/media/video-interface-devices.h header, which as noted earlier
-is missing from the kernel tree and will cause a build failure.
-
-> +		rotation =3D <90>;
-> +
-> +		port {
-> +			camera_imx576_ep: endpoint {
-> +				data-lanes =3D <1 2 3 4>;
-> +				bus-type =3D <MEDIA_BUS_TYPE_CSI2_DPHY>;
-> +				link-frequencies =3D /bits/ 64 <1017000000>;
-> +				remote-endpoint =3D <&csiphy3_ep>;
-> +			};
-> +		};
-> +	};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009085041.1811=
-60-1-himanshu.bhavani@siliconsignals.io?part=3D1
