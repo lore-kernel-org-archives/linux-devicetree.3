@@ -1,122 +1,198 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A74AA361651;
-	Fri,  9 Oct 2026 15:36:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E96A33AD8B;
+	Fri,  9 Oct 2026 15:38:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791560213; cv=none; b=Oyjt+cWyzR3A16+byfZyLdLKwdxRwPYIRVBEgOJt9N0b+rEx1CjD3ruhychHbnDhnHr4cw5SMddqfxtMgb9PMYybmhxkeixPiMDvQ4daj1KXTvI+wOVSSCjH8yR9DxZ+9+A+d9RXUvXqZb+s4yGhP2TqrazNpwkowRGQOa62ydw=
+	t=1791560340; cv=none; b=uVJ30owGeZBtjKSWlLfDEocigQT3HHEEu2+XoWbTgg9yiADiW4C09Yp0tUCwmFvr3Jnw46S2LoTDJOtzqwVA4eNc5WnGO/WjQIRRHTT6cxcGEPIWE1Id7k+WigPB5bD4KwsEhgwUJpG4QBQpAG/D/n2lqcqDZHdKHFjliJYXML4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791560213; c=relaxed/simple;
-	bh=84hAe/1TSuKK66QqhSZq5idGiTsPqshLum2RSxTO+RE=;
+	s=arc-20240116; t=1791560340; c=relaxed/simple;
+	bh=fnMnrukx9Glf3GXBIbnRudycMsbdTuWzE0WiXwuRgL8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=e6/tB0hqw9ESlWzWXS6eHWog5rr3EDdMxKHMr9YmpxfPzOo6OFLjS+XeDtAtOLlbyt8bVUsCyByR3LMlob7xly3ylcrtUg8sXNWZ5wA7zzFqqrjqcq3o5ynePG5jAkhh3nEyi+tpbAbArnTJeXna5P5tTZbjVceMNpAacTPVbhw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lXHIK1/r; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=t+PVKX++E3Yl1HTetsnMM+Kxu1/xnDCny57M77onnwMEi+fuLF0N4R8pIzT5Sn/lSvkT+jz8AvvCJMvbPlcRbhfgVrlHOXJ2rXzec57b9XyNvPBFrGGuOrYlWDa2Ad/kedMcMj46bV8iu3TCi3W5CAqyiDukgm0quC4NJEGfOr8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XHxTJXV6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lXHIK1/r"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03D991F000FF;
-	Fri,  9 Oct 2026 15:36:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XHxTJXV6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98CF51F000FF;
+	Fri,  9 Oct 2026 15:38:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791560212;
-	bh=qEJJ+7mD4Baz1SpzT1AGFxKG4IHPQFBm1jwu2Ji5JI4=;
+	s=k20260515; t=1791560338;
+	bh=EyYI5Bvz0oSkR9/M8GqMlgc8PLg+HxYsg2cxJ36I6hA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lXHIK1/reBVeGnlsaBujeu/7RMEPkWbJe/SMH1OVqOCq2Ud4LFiMx9eeXAxmKI2/j
-	 Y7o5bxgp+2EhsNGgg3VdYYfFC+JfLUufUmRSVUvyCMnlZRvjqvd+6VAWTiTDOyz/mB
-	 zwzothjRfR6Ee+KzTSp28t7mKFw63nIXMG78+zzUNz+EIDd+UmB4Nv4RLj4goJxEKQ
-	 kVl3I8TQx/Tars23dqUT4DTrMN7z3L6QPSJ13Y2qCFNFBrcanAh3kw3Zui51frsSPD
-	 FHljlBVJf1p7a7tnfQP09iQPr2yHxypWocM7dakpt6YIvkw1JUnY0+/GUGEuz/q10D
-	 ccVwz0il9hUng==
-Date: Fri, 9 Oct 2026 16:36:43 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Cc: linux-renesas-soc@vger.kernel.org,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Rob Herring <robh@kernel.org>,
+	b=XHxTJXV6LhebRwBQbr22QEuSv0ftXtEBZTHx7yK2dU6dmmmuTqyK6ekFQ5h5LNt2a
+	 RBbB1gfPVKOUXlbEfz2C3rS3ASpMlEAI12bj+t8bMEQJf9j2X10yakpRvzRX+MfAD1
+	 y7hgB3v8Za7bhdwET4SglQiBrS5Way11BTqokd2NUXyuy2PjCjzSBrjq0KOx+TostC
+	 I32B2gN3+1zQv5QeuZcf9KTjWJUKhtwzO3AegZZ2hdLO6pYYPZPaiwyoOYyIziggSi
+	 vQyDKZttOZwOrDPRDocNEOwtedEpaSpDLnZWaJfY4dLn8fJb/FhTLUbJnMX5KxigqN
+	 jH8GnLydkadBQ==
+Date: Fri, 9 Oct 2026 10:38:57 -0500
+From: Rob Herring <robh@kernel.org>
+To: Quchaosheng <quchaosheng000406@163.com>
+Cc: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Magnus Damm <magnus.damm@gmail.com>, linux-rtc@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: rtc: rzn1: add resets property
-Message-ID: <20261009-7b4b54034fafb7ad60ea917d@squawk>
-References: <20261008201953.34307-2-wsa+renesas@sang-engineering.com>
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+	linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: display: ti,tpd12s015: Convert to DT
+ schema
+Message-ID: <20261009153857.GA1690986-robh@kernel.org>
+References: <20261009105601.301891-1-quchaosheng000406@163.com>
+ <20261009105601.301891-2-quchaosheng000406@163.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="FWfzAmcVSQzNSq7T"
-Content-Disposition: inline
-In-Reply-To: <20261008201953.34307-2-wsa+renesas@sang-engineering.com>
-
---FWfzAmcVSQzNSq7T
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20261009105601.301891-2-quchaosheng000406@163.com>
 
-On Thu, Oct 08, 2026 at 10:16:53PM +0200, Wolfram Sang wrote:
-> The RTC on R-Car X5H does have a reset unlike the other versions.
->=20
-> Suggested-by: Geert Uytterhoeven <geert+renesas@glider.be>
-> Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+On Fri, Oct 09, 2026 at 06:55:59PM +0800, Quchaosheng wrote:
+> From: Chaosheng Qu <quchaosheng000406@163.com>
+> 
+> Convert the TPD12S015 HDMI level shifter binding to DT schema.
+> 
+> The TI TPD12S015 is an HDMI companion chip that combines a level shifter
+> and ESD protection circuitry. Document the two ports it exposes between
+> the HDMI transmitter and the connector.
+> 
+> The tpd12s016 is software compatible with the tpd12s015 and is listed as
+> a fallback compatible by am57xx-idk-common.dtsi, so accept it as a
+> fallback of "ti,tpd12s015". The driver matches on "ti,tpd12s015" only, so
+> a board using the tpd12s016 must list both compatibles.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Chaosheng Qu <quchaosheng000406@163.com>
 > ---
->=20
-> Passes both DT checks. Kind of fixes 3b3fdc9fd40d ("dt-bindings: rtc:
-> rzn1: add R-Car X5H support") in -next, but we don't use Fixes: for
-> bindings, or?
-
-If you want, make it more obvious IMO that this is a correction.
-
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
-
->=20
->  .../devicetree/bindings/rtc/renesas,rzn1-rtc.yaml          | 7 +++++++
->  1 file changed, 7 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/rtc/renesas,rzn1-rtc.yaml =
-b/Documentation/devicetree/bindings/rtc/renesas,rzn1-rtc.yaml
-> index b448725671ec..5a869e6c0ae7 100644
-> --- a/Documentation/devicetree/bindings/rtc/renesas,rzn1-rtc.yaml
-> +++ b/Documentation/devicetree/bindings/rtc/renesas,rzn1-rtc.yaml
-> @@ -51,6 +51,9 @@ properties:
->    power-domains:
->      maxItems: 1
-> =20
-> +  resets:
-> +    maxItems: 1
+>  .../bindings/display/ti/ti,tpd12s015.txt      | 44 ---------
+>  .../bindings/display/ti/ti,tpd12s015.yaml     | 90 +++++++++++++++++++
+>  2 files changed, 90 insertions(+), 44 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
+>  create mode 100644 Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
+> deleted file mode 100644
+> index 26e6d32e3f20..000000000000
+> --- a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
+> +++ /dev/null
+> @@ -1,44 +0,0 @@
+> -TPD12S015 HDMI level shifter and ESD protection chip
+> -====================================================
+> -
+> -Required properties:
+> -- compatible: "ti,tpd12s015"
+> -
+> -Optional properties:
+> -- gpios: CT CP HPD, LS OE and HPD gpios
+> -
+> -Required nodes:
+> -- Video port 0 for HDMI input
+> -- Video port 1 for HDMI output
+> -
+> -Example
+> --------
+> -
+> -tpd12s015: encoder@1 {
+> -	compatible = "ti,tpd12s015";
+> -
+> -	gpios = <&gpio2 28 GPIO_ACTIVE_HIGH>,	/* 60, CT CP HPD */
+> -		<&gpio2 9 GPIO_ACTIVE_HIGH>,	/* 41, LS OE */
+> -		<&gpio2 31 GPIO_ACTIVE_HIGH>;	/* 63, HPD */
+> -
+> -	ports {
+> -		#address-cells = <1>;
+> -		#size-cells = <0>;
+> -
+> -		port@0 {
+> -			reg = <0>;
+> -
+> -			tpd12s015_in: endpoint@0 {
+> -				remote-endpoint = <&hdmi_out>;
+> -			};
+> -		};
+> -
+> -		port@1 {
+> -			reg = <1>;
+> -
+> -			tpd12s015_out: endpoint@0 {
+> -				remote-endpoint = <&hdmi_connector_in>;
+> -			};
+> -		};
+> -	};
+> -};
+> diff --git a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
+> new file mode 100644
+> index 000000000000..1927da3bd736
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
+> @@ -0,0 +1,90 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/display/ti/ti,tpd12s015.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
->  required:
->    - compatible
->    - reg
-> @@ -85,7 +88,11 @@ allOf:
->        properties:
->          interrupts: false
->          interrupt-names: false
-> +      required:
-> +        - resets
->      else:
-> +      properties:
-> +        resets: false
->        required:
->          - interrupts
->          - interrupt-names
-> --=20
-> 2.53.0
->=20
+> +title: TI TPD12S015 HDMI level shifter and ESD protection chip
+> +
+> +maintainers:
+> +  - Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+> +
+> +description: |
 
---FWfzAmcVSQzNSq7T
-Content-Type: application/pgp-signature; name=signature.asc
+Don't need '|'.
 
------BEGIN PGP SIGNATURE-----
+> +  The TPD12S015 is an HDMI companion chip that combines a level shifter and
+> +  ESD protection circuitry. It sits between an HDMI transmitter and the HDMI
+> +  connector, and provides control over the level shifter enable and the
+> +  hot-plug detect signals.
+> +
+> +properties:
+> +  compatible:
+> +    oneOf:
+> +      - const: ti,tpd12s015
+> +      - items:
+> +          - const: ti,tpd12s016
+> +          - const: ti,tpd12s015
+> +
+> +  gpios:
+> +    description:
+> +      The CT CP HPD, LS OE and HPD GPIOs, in that order. The first controls
+> +      the level shifter, the second enables the level shifter outputs and
+> +      the third reads the hot-plug detect line.
+> +    maxItems: 3
 
-iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaskKCwAKCRB4tDGHoIJi
-0q+hAP9dLmw044mVRadnXQzaTwUaybi6fjTRy4wkphrhQ+x5zAD8DrhowHwPYqOj
-W+ilXoW9KA9RS6akP20Z8eR8OaqVMgM=
-=Ajk1
------END PGP SIGNATURE-----
+Use this form instead:
 
---FWfzAmcVSQzNSq7T--
+items:
+  - description: ...
+  - description: ...
+  - description: ...
+ 
+> +
+> +  ports:
+> +    $ref: /schemas/graph.yaml#/properties/ports
+> +
+> +    properties:
+> +      port@0:
+> +        $ref: /schemas/graph.yaml#/$defs/port-base
+> +        unevaluatedProperties: false
+
+No extra properties, so use:
+
+$ref: /schemas/graph.yaml#/properties/port
+
+(and no need for unevaluatedProperties)
+
+> +        description: HDMI input from the transmitter.
+> +
+> +      port@1:
+> +        $ref: /schemas/graph.yaml#/$defs/port-base
+> +        unevaluatedProperties: false
+> +        description: HDMI output to the connector.
+
+Same here.
+
+Rob
