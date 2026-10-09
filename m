@@ -1,61 +1,159 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F7B44772A8;
-	Fri,  9 Oct 2026 07:35:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C32D478E38
+	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 07:35:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791531314; cv=none; b=oXbJ8LVjsL+PL0O9oplkwL0dXYXaLZ4A364t7r6bzQkDVfxcAfXog2ZBy04sfEszB1CSJGe3c76187zlNNq3Gep2PofOjwJOAHFf4QP2CaGP6zJR0x+5aKmKtTja1DxzM8GHIbAlWYzBk7LLwDl0ujPUQ0T/QnyhsCnTuhkMf3M=
+	t=1791531349; cv=none; b=JB6jjVDVUCv2Pgz5c+E8clKKlrHUBp/ift/96N4TJtuLMDZuqLQEWaTvD+MQ20yWgqu0dw3XmMcni/U1tkj2s6SGjQFr+Y/nKjjxUeDZEgp7+8qKYau7Hxm0OkAqcAJVf5uWoBWnuAoTgxEm5ELnJLOXLmHaYpqhplgNTBGtA7s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791531314; c=relaxed/simple;
-	bh=6LGE7jmMaSe5h9TuOjFKg1kzwl3G/hd82vTvRitIjWI=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=f4PSOqe82oOJUq5M9alaUArZqiAYhyDkapttA5AP/6lie87OSfFikihPNGnx7f6pta9S4Bj3xVo2gjD3Cr3LRqJwMuzcb0yzA2uVVCVcmEn7KMP3fzGtonMtcH5g4bqo2g28xxP77z8/kDIoKHXGh0elq1gVJBGEz64pXxPibbA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A4yTqub5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791531349; c=relaxed/simple;
+	bh=A8Q0G9RYTiBHUt9HkBBuffrTETErXzLM1/xZEC/1Hac=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=pb1Y5/dZrrf7XYjJYeFLjHqUjzZJgt1tL+9d31BiFB9fZ0Nw9FaQLtG8IwF/78XTrhNeS17IVoKKqm/PKZXQAmoYcyJFN0vx9qY918Jf2B+eLl5VFcDGgnR3oxpiBrKgw0CKGt0X70fEKTQWNLG60vfum/GNXh2IjB/F4Tz0u+4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WhbeYWBH; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=bY4CyXSl; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A4yTqub5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8343B1F000FF;
-	Fri,  9 Oct 2026 07:35:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791531310;
-	bh=6LGE7jmMaSe5h9TuOjFKg1kzwl3G/hd82vTvRitIjWI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=A4yTqub55PhoTLu2E0asTSDytsEro9omJ65omPXyF5H2/FQSVLPwtwDrhwxOLizkA
-	 wgieut5yAIYYE7Hj58dCNN+eGE1dfO8qXfkxARr3SnUSt2LLpeB5QlQggFL+xsqNRZ
-	 2WKg5JHh4QwO9yGkYNgW8yyjS7vYnSxTv836uQ/EcE2RB5HgrFUJCqDHP4oHGKGNOJ
-	 ddxDRoiR7sY0GlpIlyJ+wZGEBWNrmLyVQR2KUaBqPUKfqyZ7AjTx+gdwjhoX8YHRnQ
-	 tDWX9No9GPefGTOOyoRJguzIO51T2+VbkhnA4tOpkbRNTGtKiVnmveHz0vvsChfKXQ
-	 4h9wYf2+ZYifg==
-Message-ID: <sashiko-outbox-165010@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 7/8] riscv: dts: spacemit: enable USB2.0 controllers
- on OrangePi RV2
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Junzhong Pan" <panjunzhong@linux.spacemit.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, linux-usb@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261009-b4-spacemit-k1-usb2-v4-7-2d98e5324d9a@linux.spacemit.com>
-References: <20261009-b4-spacemit-k1-usb2-v4-0-2d98e5324d9a@linux.spacemit.com>
- <20261009-b4-spacemit-k1-usb2-v4-7-2d98e5324d9a@linux.spacemit.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 09 Oct 2026 07:35:10 +0000
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WhbeYWBH";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="bY4CyXSl"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6993HUgK1089606
+	for <devicetree@vger.kernel.org>; Fri, 9 Oct 2026 07:35:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=PRGTcjOJL8YJLa7aIAW0+Z
+	7YGILGnThcUoLje4G0jxQ=; b=WhbeYWBHMQHa1tVqyE7f5on24w88W/FIAcCnRA
+	X6EUffna+XwZrcb13aOPCHRtnWFmgdNnc+y/Jyvv+AKq3531lgWjl5W1QlmV/XF/
+	BoiJmNpszEqZualoeFYJnfzc1sXPPdwdDT9W/KZisP0YkgdDAPm0ExsjKTf4HfSJ
+	9fcssUKC8SD5GZfEiRevNkJBX0cdK2InKiSlt83hVEPEeLbjOyM59glJYUg0cXDr
+	jbWo0lxuXhZWOlC681xV76I6jSkl1SF1Kc5JRcU6w2I3C7hOZeWfYqsvnrmVInQ/
+	N8uvW12mD9s6tkbu3EgkuHXRIrE25CUOXbpU6wh/h9UUYgBg==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h6ekvat24-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 07:35:46 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-35156644c96so3190529eec.1
+        for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 00:35:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791531345; x=1792136145; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=PRGTcjOJL8YJLa7aIAW0+Z7YGILGnThcUoLje4G0jxQ=;
+        b=bY4CyXSlfvNjoKDC6Jpi97flTB/nV6TcVY//oYtMeEZCasRZYXiy19dfkz9GSXZycq
+         iw2KP0iYGmcMpDGpb5X6fyX2TsuQezC4DktMqhxF/goVH6id8p02lrspbSkAGqf54JQU
+         pWxoa4ugxJP1ITeuMh3/Z5rLyfeO99mNz82VwqdRG3d0NUnvwiS8jRYJHQid5xrtv5BP
+         8tduIzaXVUtLldm8kQdT6wEnMgZ9B/ijfc43ppyd9W83dm66nwwdxuBUuVbplEHKVBCm
+         rR9H0DshInMtu+pWMkVh/00lPm0nBWGxtnAtSX9izn1od5jOBJBvebAr743/02SGG1dE
+         W4/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791531345; x=1792136145;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=PRGTcjOJL8YJLa7aIAW0+Z7YGILGnThcUoLje4G0jxQ=;
+        b=PQs+ptP7NWug/BA/RLjktjqyB4fXrGxYVZhrZMTTd0VSh8Ez1nRFdnQUCMTZ3OIQF8
+         BRZuwVm1FZ8tHgiyuAURE779sjfZRwBQRgVzSfFlxnKlBNXHaJUM8LEOhm22jnuHBS5P
+         fx2YxUp0kPKZtvXOGwSlKUbTViHohEqDV0GLnxBU7kp0todnuTA1ZZqgy3A2jPMGlr6b
+         eygxqOzh/lFimZiGf7aPOY80Vobv9z+J/gP1Ds5Vcwfh65DsZGAx25Q4/2IOr6HRAa66
+         +ji3rtEmV3VchGwW2PELNL3JmSLpd/44usraCtG8MIftXxN//aMJ/aBFG5fPH6JyP7Xe
+         XIGg==
+X-Forwarded-Encrypted: i=1; AKwUvBz0o/9FtwiyT82yYgZPy0u1i0RmFBowMkZwKXkl9PoijSPzIr8Vb1zwCHLo0mOkd9zt2lY+oahbLOce@vger.kernel.org
+X-Gm-Message-State: AFq9FYKaDoFBnRFoE6WO66i2rONvMOJbYCkV/sJNTw/iIwC5n1wlhhmm
+	OucthmGw3Jb8+HoaQl4UfpuT3+477o4MgqKo0fY/Vf85/4co9lYYo1kS34hgXXFYogYkN6pVRQw
+	YfRAnaRcXKz9wgEIBQoaQH/F1fYpas0sfwXjidnQgzDQB8m3VhslAcdUMyeZ5+sk9xR9346EROe
+	s=
+X-Gm-Gg: AYBFou2h3bV2bCiwvoH0KpLpUR4U6+cr/FMYg6S28/booyTNAe98m4D/pEVjjMAet3q
+	Ym4c23J4nBU/8AUPwcq2f+lNVh6JvgJhnXprmuzGwoyia9PCvsLj5t4SgQ8V0QLQld1PsykMiX7
+	umYbxFWcB2JV7NuroR2mRDGJY2l8u10VNRxxztMyy5oWdQqMWPdTmJ97/+QYOWA4lJbGl0a/XSl
+	m1SIwhsgzdGuC/kIyHvL/jXiRfvRznoLkj9dtWx1y/yZhn4+PPt9+hqyKcI5pzpAppKMjmp9Der
+	AsxTNME23dCpwjN3hA1g1tWSt7LfQMdiPxWfKA0Wy5P8eLW8WldA7jgAEMd0g3BqAs0dwaIzjgh
+	8f7l7IPOTTmCLxjnYp1V8T4CIlWcntHNEqdfA
+X-Received: by 2002:a05:7301:488e:b0:351:7ec4:8e41 with SMTP id 5a478bee46e88-3537e011139mr1776471eec.10.1791531345109;
+        Fri, 09 Oct 2026 00:35:45 -0700 (PDT)
+X-Received: by 2002:a05:7301:488e:b0:351:7ec4:8e41 with SMTP id 5a478bee46e88-3537e011139mr1776435eec.10.1791531344419;
+        Fri, 09 Oct 2026 00:35:44 -0700 (PDT)
+Received: from hu-apateriy-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca7133asm5658974eec.14.2026.10.09.00.35.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 00:35:44 -0700 (PDT)
+From: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
+Subject: [PATCH 0/2] Add binding and driver for Nord SoCCP
+Date: Fri, 09 Oct 2026 13:05:38 +0530
+Message-Id: <20261009-soccp_driver_dtbinding-v1-0-40862f7fc58b@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAEqZyGoC/x3MMQqAMAxA0atIZgttFVGvIiKxiZqlSioiiHe3O
+ L7h/wcSq3CCvnhA+ZIke8xwZQFhw7iyEcoGb33jrG1N2kM4JlK5WCc6Z4kkcTVIrnKItceuhhw
+ fyovc/3gY3/cDjZ/QhmgAAAA=
+To: Bjorn Andersson <andersson@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Jingyi Wang <jingyi.wang@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        shengchao.guo@oss.qualcomm.com,
+        Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
+X-Mailer: b4 0.13.0
+X-Proofpoint-ORIG-GUID: 8wElQyIZs-2En187T0ThfDD8g1km-Vvw
+X-Authority-Analysis: v=2.4 cv=csYOAF4i c=1 sm=1 tr=0 ts=6ac89952 cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=EUspDBNiAAAA:8 a=UK07lOcsehyZGIaRmRAA:9 a=QEXdDO2ut3YA:10
+ a=PxkB5W3o20Ba91AHUih5:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDAzMCBTYWx0ZWRfXxd4RH+berp1x
+ Iu7l06illWw6KiZXFUrzjLtpHMhrt7df/drfWl5mAuJmuG7ebvH0llguurM/Xglhgf8zGZEZ3hy
+ O2cj9aVWxJbS6V14MGCrCfB0ZpKrcdSqFMtympN0q3UNO7SxN3p6RXtExOdjpbjWCV3etUd1qXA
+ DaJbZdXjJ97o7OzqHsBh5KLTkX/lH7cSwXDP9wQb+TyBSd17Hk0RPPFr6diyzApFIhpxh2p4OVi
+ kA/7OArpta6MJCvb4IldwNTTD/vu3BvrozKf/+Lh1GOqoepiyOdoxk/Lzh4EKvZS+eA1ELVevq1
+ tvJh1EX+Hs3bSBYoDXKsOopjqvegTI+TWybmONh69mlUQYgyrgtTEdGAJiwFgp66AyJBozOA93I
+ /qEosFUKIPENTW8GakZ1nvPtPun993schZNGCxILTKcjtefR7vbF45A+QzvsZhEtHq/UIuqxEOT
+ bQ6Jdl0V9kqDVsTF/4A==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDAzMCBTYWx0ZWRfX9qX6k2vH7pyr
+ 6hmR3sRzmQFQnfjEbASBN8Y9YcpS9YrA2xAMJsj8dzkxhvgaHhdHdiG4KsjDnANyvK3yBAOInSy
+ WkYW70Gi67Hqbo3ciA7JAJ/OQwsCsyY=
+X-Proofpoint-GUID: 8wElQyIZs-2En187T0ThfDD8g1km-Vvw
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-09_02,2026-10-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 spamscore=0 clxscore=1015 priorityscore=1501 suspectscore=0
+ lowpriorityscore=0 adultscore=0 phishscore=0 bulkscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610090030
 
-> On OrangePi RV2, usb2_0 is connected to a Type-A connector at host
-> mode, its vbus output is controlled by gpio 126. And the usb2_1 is
-> connected to the USB2.0 connector pins onboard.
->=20
-> Tested-by: Ze Huang <huang.ze@linux.dev>
-> Reviewed-by: Yixun Lan <dlan@kernel.org>
-> Signed-off-by: Junzhong Pan <panjunzhong@linux.spacemit.com>
+This series adds System on Chip Control Processor (SOCCP) remoteproc
+support for the Nord platform. SOCCP is a dedicated control processor
+that handles hardware fencing for display and other use cases on
+Nord-based devices, sharing interrupts, SMP2P states, power domains,
+and clock with Kaanapali SoCCP. However, its firmware ships without
+a separate SoCCP devicetree image. It therefore takes a single
+firmware-name and memory-region, and cannot use the Kaanapali 
+compatible as fallback.
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+Signed-off-by: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
+---
+Anurag Pateriya (2):
+      dt-bindings: remoteproc: qcom,kaanapali-soccp-pas: Add Nord SoCCP
+      remoteproc: qcom_q6v5_pas: Add remoteproc support for SOCCP on Nord
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009-b4-spacemi=
-t-k1-usb2-v4-0-2d98e5324d9a@linux.spacemit.com?part=3D7
+ .../remoteproc/qcom,kaanapali-soccp-pas.yaml         | 20 ++++++++++++++++++++
+ drivers/remoteproc/qcom_q6v5_pas.c                   | 15 +++++++++++++++
+ 2 files changed, 35 insertions(+)
+---
+base-commit: 0312234a60912d65819167631115e39c7e8f9621
+change-id: 20261008-soccp_driver_dtbinding-ad131aa42a94
+
+Best regards,
+-- 
+Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
 
