@@ -1,105 +1,95 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com [210.118.77.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DAE64C650B;
-	Fri,  9 Oct 2026 11:27:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44BAC4CDDD8
+	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 11:27:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.118.77.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791545244; cv=none; b=WNN7ttfW9AimLpmxsCaQgs0dK+OUnXb3rpZRAmqfbIHbIhMhDxDBsT1RQXH+bsPRjbiKsFM7JPfS5ShrhJx1s9Geh7mE5yhjLIqY9/aKfbCUmZWZSPaz26qfiXSz5dHUn1/i/WjENDHoymAIhJNierTqqXHdVLOfEsuwXzCBEI8=
+	t=1791545263; cv=none; b=PO6+389nEewXkYTWCJA761uKk0LnL0Bx1USXtUCdebFCAuknueV/aSSMhlxtfYcvXYHDXgB9s1hFLh1nxcR0hZSiBlJcfnb6g2kBXp3qnolr7i7et0UZHjgmxE6J176dNJlj2u4dbjRBNyBJKh+AVw5osma/QKSHf9wWIQZM+S0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791545244; c=relaxed/simple;
-	bh=l0vYMRi4bMydeWty5yPKwaYLMOBhsEAlhAmPQZbX43Q=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=UnFepvOXp4PD6jFxm6tYmTf8Zoe+XVkSgu/Xl+LvIh4nn6ZOhbIAP64qF9Q1y7HcfNWDc+pf16SLoOLXqmSYEGwYbcFMWn3wHTLJIWqRhY+h9iZwd7u6f91vfER6Jt68x2DnECxrYeY/FeHFdJzJaGyLpY6YIw2F2Fzil8Yn9wM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cr9/6Y3k; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791545263; c=relaxed/simple;
+	bh=NeHpq2sH0N/tD/x3BuchI19QrNvAWROybqMth+/QPvg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:From:In-Reply-To:
+	 Content-Type:References; b=hKJISydjmnSDmRGLpbu3SIFygV7L6UqNMJQzw/tHplPWmy240qmicpKtnIr2IWKlG+K0ZPSMKMSrN1GPFUjwbrteQJOp+Rb4qhNXIfMkRLeaR8FLcdpiLvWvAj6zrDAk2vNNafPLYQB/hbGH7bupeatQ4Q2s+YxkB/10l//6lCs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com; spf=pass smtp.mailfrom=samsung.com; dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b=eh8QHMkE; arc=none smtp.client-ip=210.118.77.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=samsung.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=samsung.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cr9/6Y3k"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C530E1F000FF;
-	Fri,  9 Oct 2026 11:27:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791545236;
-	bh=OVtPrF3V5ziQrs/6S9GBcEMyEm0qlKiaDAVZsKdUW9I=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Cr9/6Y3kLk+FqMB6Ek42ByYsZ9uHu4x+IrDKWLLg36UMU6v1k2y861AI53XsnF7yY
-	 L3ZSePie/qYW+Qp6lhbyDiFE8MYAe2WIGkysYQ3oM2vxPPLuNr+g434kCwqDbrJAP2
-	 BFCJsxjMXJWzZAMyszpcTnvtmL1Bo2rtMfwrpalZsd6pmvXCU9nyn69cPeOTe+01vN
-	 +o+7wZilZbTfPcb7MhGkc/eTiEy4Skh00h/HHYmBsXJ1bllQFQoD0nUQ7qdjtEz9Wp
-	 Xan/FKTHMgqGmOnSF9USENdfnGAbAnLfO6pZUiWsRoB1LM8LMV46Nxg/Sp2aQAH90J
-	 CvVFaRz1zgTYA==
-Message-ID: <sashiko-outbox-165371@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/7] gpiolib: regmap: add
- GPIO_REGMAP_QUIRK_SET_AFTER_DIR
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Long Zhao" <longzhao@ambarella.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, linux-gpio@vger.kernel.org
-In-Reply-To: <20261009-cv75-gpio-v1-2-5836bd438423@ambarella.com>
-References: <20261009-cv75-gpio-v1-0-5836bd438423@ambarella.com>
- <20261009-cv75-gpio-v1-2-5836bd438423@ambarella.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 09 Oct 2026 11:27:15 +0000
+	dkim=pass (1024-bit key) header.d=samsung.com header.i=@samsung.com header.b="eh8QHMkE"
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+	by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id 20261009112731euoutp0273974bde7f8cc7403d11c454c16d7c91~c2On1ssPA2319423194euoutp02M
+	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 11:27:31 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com 20261009112731euoutp0273974bde7f8cc7403d11c454c16d7c91~c2On1ssPA2319423194euoutp02M
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=samsung.com;
+	s=mail20170921; t=1791545251;
+	bh=sd29WIiqfdVWcWcizPFVJr9wsS2+jLlXGujHLrFRB5g=;
+	h=Date:Subject:To:Cc:From:In-Reply-To:References:From;
+	b=eh8QHMkEFgU8Sy6/PcFUtjJwUoiVOeRsuISS9DdNDMXzr4/dd5rCvbl1agE354YXu
+	 IQa6IB8mokguVKD/BFtqyA2b4KX15ZWKZRXbd53ZoMxMuTrqWf0JOvFFiKPGt8hpG7
+	 bl9LHhiPnQc0C1zED5y0d78Q/oZ6/V/T5JYWBn7Q=
+Received: from eusmtip2.samsung.com (unknown [203.254.199.222]) by
+	eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+	20261009112730eucas1p1f516da70272a6482ddd5a6e5c90ba395~c2Onj92gJ0217302173eucas1p1R;
+	Fri,  9 Oct 2026 11:27:30 +0000 (GMT)
+Received: from [106.210.134.192] (unknown [106.210.134.192]) by
+	eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
+	20261009112729eusmtip2bd8329823fee0d3259af1274218235e5~c2OmuwG6m2544925449eusmtip2N;
+	Fri,  9 Oct 2026 11:27:29 +0000 (GMT)
+Message-ID: <81d6c6be-d03b-4fa8-be30-1425c4d1ad40@samsung.com>
+Date: Fri, 9 Oct 2026 13:27:29 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH v2 2/2] of: reserved_mem: allocate and map the
+ reserved_mem array early
+To: Wandun <chenwandun1@gmail.com>, linux-mm@kvack.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: Mike Rapoport <rppt@kernel.org>, Rob Herring <robh@kernel.org>, Saravana
+	Kannan <saravanak@kernel.org>, Oreoluwa Babatunde
+	<oreoluwa.babatunde@oss.qualcomm.com>, Andrew Morton
+	<akpm@linux-foundation.org>
+Content-Language: en-US
+From: Marek Szyprowski <m.szyprowski@samsung.com>
+In-Reply-To: <a8ac6daa-e721-4cba-bef3-3333643db23d@gmail.com>
+Content-Transfer-Encoding: 7bit
+X-CMS-MailID: 20261009112730eucas1p1f516da70272a6482ddd5a6e5c90ba395
+X-Msg-Generator: CA
+Content-Type: text/plain; charset="utf-8"
+X-RootMTR: 20261008152450eucas1p1d5517eadc2c1d684ff6d4ddc010f6331
+X-EPHeader: CA
+X-CMS-RootMailID: 20261008152450eucas1p1d5517eadc2c1d684ff6d4ddc010f6331
+References: <20261008152403.766439-1-m.szyprowski@samsung.com>
+	<CGME20261008152450eucas1p1d5517eadc2c1d684ff6d4ddc010f6331@eucas1p1.samsung.com>
+	<20261008152403.766439-3-m.szyprowski@samsung.com>
+	<a8ac6daa-e721-4cba-bef3-3333643db23d@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] gpio: regmap: missing return value check for gpio_regmap_set in =
-direction_output
---
+On 09.10.2026 04:16, Wandun wrote:
+> On 10/8/26 23:24, Marek Szyprowski wrote:
+>> Get rid of the static, limited-size reserved_mem array and replace it
+>> with array allocated by memblock_alloc_raw() and accessed through a
+>> temporary early_memremap() mapping. Such mapping is needed for some
+>> architectures (like ARM64), where linear map is not yet available during
+>> early boot scan. Having a single, writeable array with all reserved
+>> regions removes the need to perform two step initialization introduced
+>> by commit 8a6e02d0c00e ("of: reserved_mem: Restructure how the reserved
+>> memory regions are processed"), so all regions can be processed
+>> directly during the early scan again.
+> One concern about the ordering here: the new memblock_alloc_raw() for the
+> reserved_mem array runs *before* the static ("reg") regions are reserved,
+> so the array can be allocated from inside one of them which makes the
+> subsequent static region reservation fail.
 
-commit 4dfbff55c3fbea74424f90710c5b76efb22f738e
-Author: Long Zhao <longzhao@ambarella.com>
+Well, that's what Sashiko already reported. It will be trivial to process
+'static' regions before doing the reserved_mem allocation, but this in turn
+returns us to the point of not being able to handle their reservation
+failures. I wonder what's worse...
 
-gpiolib: regmap: add GPIO_REGMAP_QUIRK_SET_AFTER_DIR
+Best regards
+-- 
+Marek Szyprowski, PhD
+Samsung R&D Institute Poland
 
-Some controllers ignore output writes while a line is still an input.
-Add a behaviour flag so the output value is written after the direction
-change. This is a legacy quirk. New hardware must not use it.
-
-> diff --git a/drivers/gpio/gpio-regmap.c b/drivers/gpio/gpio-regmap.c
-> index 51b4d69b87403..0a44deae3d01e 100644
-> --- a/drivers/gpio/gpio-regmap.c
-> +++ b/drivers/gpio/gpio-regmap.c
-
-[ ... ]
-
-> @@ -271,9 +272,17 @@ static int gpio_regmap_direction_output(struct gpio_=
-chip *chip,
->  			return ret;
->  	}
-> =20
-> -	gpio_regmap_set(chip, offset, value);
-> +	if (!(gpio->quirks & GPIO_REGMAP_QUIRK_SET_AFTER_DIR))
-> +		gpio_regmap_set(chip, offset, value);
-> =20
-> -	return gpio_regmap_set_direction(chip, offset, true);
-> +	ret =3D gpio_regmap_set_direction(chip, offset, true);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (gpio->quirks & GPIO_REGMAP_QUIRK_SET_AFTER_DIR)
-> +		gpio_regmap_set(chip, offset, value);
-> +
-> +	return 0;
->  }
-
-[Severity: Medium]
-Does this code silently ignore hardware or bus errors?
-
-If gpio_regmap_set() fails due to an underlying I2C/SPI bus timeout or NACK,
-it returns a negative error code. However, the return value is dropped in t=
-he
-newly added GPIO_REGMAP_QUIRK_SET_AFTER_DIR path, just as it is in the
-pre-existing path.
-
-Could this falsely signal to the gpiolib framework that the output pin was
-successfully configured, leaving the hardware in an undefined state and
-masking the error from consumers?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009-cv75-gpio-=
-v1-0-5836bd438423@ambarella.com?part=3D2
