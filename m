@@ -1,99 +1,74 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender-op-o17.zoho.eu (sender-op-o17.zoho.eu [136.143.169.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28386277CA5
-	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 00:44:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791506681; cv=none; b=qwDUhUt6UkK+NVBjvsfnxrHh5aM3RFKAJvyKdDkaWAjUO78O5iHjlfTrcfdTfA7n4c29zM9GqRXj6lexJtBcXjuAX4Lmk8MB+VDlW3PlBhPWjY/oSX+Tws5/Wm5+okumBOhQLp2PfT35dgywt2HkKRAFLbPXk19XrdvqsjtpXWY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791506681; c=relaxed/simple;
-	bh=eaRex/mZ8IevZZJmFGYhNIY21CPFyUzjgfZZefyym4w=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=WdKXkcJeYCAoht2B5w7O8yGFKCXa4cponiAbjn/0H/JZ7bWBlvnLWngwrk8t963YOeFrNsnFbqcHK3vTumJC4nsf0JkaixhISuAgSH4la++4507/6oA0u9s5bv1R0wiGJ6tpxibRkr+lBkXl3Jv48cNNDWx0/CLVQ4EcNjhgl0g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XFGBbrCP; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD190220698;
+	Fri,  9 Oct 2026 00:53:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.169.17
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791507184; cv=pass; b=VAGTqRVCWIqmTPrR/0PmLnGnRp8hDUmXKB08bnu1pArZmyNfI+SgIWYXLxVpZyjSOMCZntb4uJ+n2QrHkJqTjtLviNAw54PTp5RE/W0SchydJu6x2H2x8sJPHOwUmTrR9+Px4PB3XApP2hqRTXLAehviGMmx6g04eMA6XpQk5FA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791507184; c=relaxed/simple;
+	bh=rda02Gc68Kl74aLnTEh3OCGRglkdPe0qoMqyF8ilaJQ=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 Content-Type:MIME-Version; b=WviI+gC36qTx+1tLhEjaRRUrkig0phye1TVMEIuUkquRQ9K9ikPdaM89GxjzVcNTsgrxFHZydrCezIgp3OzYturbgL3+xEI3hxHNXZ2k6sIZMFjd44Xu+Y0OFTp/OOqeuab5++QMyCIH2udVadE07oyGVRzo7UeNDzG/cRToHZw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv; spf=pass smtp.mailfrom=iav.lv; dkim=pass (1024-bit key) header.d=iav.lv header.i=iav@iav.lv header.b=Gp0kSxNx; arc=pass smtp.client-ip=136.143.169.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iav.lv
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iav.lv
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XFGBbrCP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 897D91F000FF;
-	Fri,  9 Oct 2026 00:44:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791506679;
-	bh=3fkap40j+8zZppltPXZvILjzELWUapPHhXz0Dc8o+jg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=XFGBbrCPZ3DQ5zud5nd2VxqbEtMU0YvKkYRvGtCNjX41CUcPLXhOwRr0lTQ6Fgp/+
-	 7SyewB8s0BKidQapzRgEsyleK1ILoKhCOzDuwlUSgDTt4muXt1xZz+D6IhOs2w0XV9
-	 twZ8Bk70TYW5xsstPw0WVFTF0zfl2Z21VUdVZkFbKL0zFpaxMJD4AzxfStIwLaSWSF
-	 t1lahX13usFxv7q9GGutAnqjba6yuI5Npfxjq/v0ruzUaMtJpvWieR/C3e+uK3NzQa
-	 qJyICwHhjAmSGWIbJ3qh73RvrMK6D8PrJMl3VaI1W+RK6m1jrdfz9wwfHlfr+w69Wp
-	 hIB/NT/Hw4m0Q==
-Message-ID: <sashiko-outbox-164681@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] arm64: dts: rockchip: Add the front panel LEDs to Kobol
- Helios64
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Igor Velkov" <iav@iav.lv>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20261009-helios64-leds-v1-1-6c58a66bf0c6@iav.lv>
+	dkim=pass (1024-bit key) header.d=iav.lv header.i=iav@iav.lv header.b="Gp0kSxNx"
+ARC-Seal: i=1; a=rsa-sha256; t=1791507154; cv=none; 
+	d=zohomail.eu; s=zohoarc; 
+	b=VEFxDxRU3N6c2y5xEyriWFwc3v1F+9vo5rYzynqQcN581vaKmA6+aJtA+Lt0FPXa9gqU6EUbU22+Lr5hfJvXWJsNX6djwd8Plpem7inpE3V8a17LHyWleeI+eZSrgTI2YGHUkGlGAqBRsxckW8rRoREUGx/b9uOaEGO34vl87oA=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.eu; s=zohoarc; 
+	t=1791507154; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=rda02Gc68Kl74aLnTEh3OCGRglkdPe0qoMqyF8ilaJQ=; 
+	b=IFXBwAh8PFQPPo1birbNlqW8GAJDkrdC2fzsJKLjdv5bgSzWIKw9CYx8VpTSxTONngWPKZA90ttIesY26JLf8nrjz/eXHufJmLHdFGF9kslGDWlAy9xYPkx70DbvWQ1w5MY6SFtqb7WH1eP9q5gCb5sBAhAA3w0KuZI5o58cxl0=
+ARC-Authentication-Results: i=1; mx.zohomail.eu;
+	dkim=pass  header.i=iav.lv;
+	spf=pass  smtp.mailfrom=iav@iav.lv;
+	dmarc=pass header.from=<iav@iav.lv>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791507154;
+	s=zoho; d=iav.lv; i=iav@iav.lv;
+	h=From:From:To:To:Cc:Cc:Subject:Subject:In-Reply-To:Date:Date:Message-ID:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
+	bh=rda02Gc68Kl74aLnTEh3OCGRglkdPe0qoMqyF8ilaJQ=;
+	b=Gp0kSxNxlSkVAUuTYYBLPw2Jbmll1dOlqhZTGzYnGO3MUsZ3gCaN6PJ+Q6Yfcz+o
+	j8I9mxhsWf1iuOx4kkCkClcLmHLB2xDfF2OWB3MXAr6peVNA0MdkWrCaE7FoJaGhGFB
+	+wH90u9JGK/JZZmM8L3g8XSuMENSXKNUm6tVzozo=
+Received: by smtp.zoho.eu with SMTPS id 179150715145367.99786079727983;
+	Fri, 9 Oct 2026 02:52:31 +0200 (CEST)
+From: Igor Velkov <iav@iav.lv>
+To: Heiko Stuebner <heiko@sntech.de>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org, sashiko-reviews@lists.linux.dev,
+ Igor Velkov <iav@iav.lv>
+Subject: Re: [PATCH] arm64: dts: rockchip: Add the front panel LEDs to Kobol Helios64
+In-Reply-To: <sashiko-outbox-164681@kernel.org>
 References: <20261009-helios64-leds-v1-1-6c58a66bf0c6@iav.lv>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 09 Oct 2026 00:44:39 +0000
+ <sashiko-outbox-164681@kernel.org>
+Date: Fri, 09 Oct 2026 03:52:02 +0300
+Message-ID: <1791507122667359270.h64-leds-sashiko@iav.lv>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] dts: undocumented SATA activity led-9 addition
---
+On Fri, Oct 09, 2026 at 00:44 UTC, sashiko-bot@kernel.org wrote:
+> The commit message lists a total of 7 LEDs being added (one network, one USB,
+> and five SATA error LEDs). However, this code block adds an 8th LED for SATA
+> activity on gpio4 RK_PD4.
+>
+> Was this SATA activity LED intended to be included in this patch, and if so,
+> could the commit message be updated to mention it?
 
-commit 3279f02d863433a09e5dbd918d375fd5550e3671
-Author: Igor Velkov <iav@iav.lv>
+Yes, it was. The eighth one is LED5 on the board, "HDD Activity" in the
+Kobol wiki [1]; the panel has no such LED. GPIO4_D4 only gates it: the
+JMB585 activity outputs light it, and a low GPIO keeps it dark
+(schematic, sheet 30). Hence default-state = "on".
 
-arm64: dts: rockchip: Add the front panel LEDs to Kobol Helios64
-
-This commit adds definitions for the front panel LEDs to the Kobol Helios64
-device tree. It maps the network, USB, and five SATA error LEDs to their
-respective GPIO pins based on the hardware schematic.
-
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts b/arc=
-h/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
-> index d146e5075b4f8..25f0ba5a47ac6 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
-> +++ b/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
-
-[ ... ]
-
-> @@ -120,6 +122,60 @@ led-1 {
-
-[ ... ]
-
-> +		led-8 {
-> +			color =3D <LED_COLOR_ID_RED>;
-> +			function =3D LED_FUNCTION_DISK_ERR;
-> +			function-enumerator =3D <5>;
-> +			gpios =3D <&gpio2 RK_PA6 GPIO_ACTIVE_HIGH>;
-> +		};
-> +
-> +		led-9 {
-> +			color =3D <LED_COLOR_ID_BLUE>;
-> +			function =3D LED_FUNCTION_DISK_ACTIVITY;
-> +			gpios =3D <&gpio4 RK_PD4 GPIO_ACTIVE_HIGH>;
-> +			default-state =3D "on";
-> +		};
->  	};
-
-[Severity: Medium]
-The commit message lists a total of 7 LEDs being added (one network, one US=
-B,
-and five SATA error LEDs). However, this code block adds an 8th LED for SATA
-activity on gpio4 RK_PD4.
-
-Was this SATA activity LED intended to be included in this patch, and if so,
-could the commit message be updated to mention it?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009-helios64-l=
-eds-v1-1-6c58a66bf0c6@iav.lv?part=3D1
+[1] https://wiki.kobol.io/helios64/led/
