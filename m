@@ -1,164 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB0C729A309;
-	Fri,  9 Oct 2026 07:29:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC5D247140C;
+	Fri,  9 Oct 2026 07:31:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.59.177.22
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791530989; cv=none; b=cMV8g/Ngdk081hyfTzrYvGLYjMEK/cUquv7Y4H28T5DCk8+muwcd0JNA9y2oN/lUKSX0fFFzcDJBxs2h8BxezRdB4QH0D8llM/fu9GyZkKDbRCdUexfuLnFMpEddEZDidgSKk3PL9Lo/KAY1rcrWQRIxBNLxtqUOcV0Lp1YfHVY=
+	t=1791531099; cv=none; b=aAP6XkV9LBhBKmI5WMpt0RDLz3Be8yBYeF3ASvAdLHq96fOVG88Nz1B4y4ug9zpetnthjEjoXNo91H5tyP6GlLal0AlkdQj0xqpA20c/3t+0Bz2xYhabP0YqbtVXtLEs1+ZO+PlpGS2MVwVWX7pdBqhGM8xxR7vwAcLkfKjGMP0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791530989; c=relaxed/simple;
-	bh=gIdGvVerVBjlAY5FJTnRGxSGodZbvv30G71GWfeeVgc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YlUMtY6QKH5ZLMS0Whj5nTgpSaQrX8R+16u0YMqf/aSczdxD5xyYgOTmRrmgt7U2UifSB7Uh7eRWJ3UZUXELrwNrS+uQcfUcHCJZozj+9wysM6qY6egLAgxP5QeZgktKOlQ32h366x3UKW8XpA+jK8U7QcvwL86cA5SBTd1CI5Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ASsMTGOC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791531099; c=relaxed/simple;
+	bh=vJgNan3VXHrPIUL1xi2lNNcRCVH0/pu/PtlpRHIGzOA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=C9uovxH/SGefXrDagDQ85Xef7tX3+dp03i7gtIE+qXh3avD5drxtxcsXvZBhXN9d8sMdaSD3xi7AQqTNYqYomC4WTfIbyUOfzih6wR7b1Z2gav7/QbeP7P2xqh+v0XxWS6RoHAjiIrrWtZbSyM3ua9ehO1SMq84yDGvUHr0IOYs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com; spf=none smtp.mailfrom=linux.spacemit.com; dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b=XNUQsiFy; arc=none smtp.client-ip=52.59.177.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux.spacemit.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=linux.spacemit.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ASsMTGOC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F6661F00893;
-	Fri,  9 Oct 2026 07:29:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791530988;
-	bh=/s3Lbiloemf0P5lVKd7CO+NXtdjl9lXaZ6C19RxmqW0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ASsMTGOC32s6aRYigVMmUQeV7zp1Hf6b3fNWY7FBM2nbBfgHAMV0hvTq1FOMmt3uC
-	 AlDWrO9PdjPggh+EZRE0M0wnwCzlSwqWv6A1q3KAVnoVM9FXOzO+uIb4CQ6RL5QEd4
-	 XrMbkj9im5A5QvpbPvmNIvS4k84VdKLgVUU1zFHHhmngSXIS1uTz3nhM0dJlBPyHNr
-	 /oc97sd/SgVvE4L0LanE9bTeqVoBtrjgKWLhLHhYtgkttzsXUaZN38FtC23D2PeSyX
-	 oNrmADhUd8uxUReUGYyfjaLgQSq76RI4e+S4vkslAAqopjnFFKOxCtxHm4ZLt+RZ9L
-	 FX0q6iUolIGmg==
-Message-ID: <2d7acd00-0cb5-4002-9663-a39dc4e55ad3@kernel.org>
-Date: Fri, 9 Oct 2026 09:29:38 +0200
+	dkim=pass (1024-bit key) header.d=linux.spacemit.com header.i=@linux.spacemit.com header.b="XNUQsiFy"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.spacemit.com;
+	s=mxsw2412; t=1791531038;
+	bh=WyrNoNNu/NB86HpPrgRxwPVRhvTuGwuFy/4c8+oY+lk=;
+	h=From:Date:Subject:MIME-Version:Message-Id:To;
+	b=XNUQsiFybJfb8GOUgjS0GOc+WwgD5NzSD2lA8ObZAH8f3zQMgPlx8AA8rY1wl+GSw
+	 ocpmgbzvnR+Y11tKJE0gPwbEEJDnJIOEzkQirz56d3z3+1m8HCaOYRyjcVn1jjBMXu
+	 iEGYfOC6BhQCd0kS2Nj6cNxec0CFHKaIjVvq9fwA=
+X-QQ-mid: esmtpgz13t1791531030te91ea3d4
+X-QQ-Originating-IP: GG4F2ullY74Zcb31mcORZE2+mBiBAStiIiUm9OvXucQ=
+Received: from LT-PANJUNZHONG.dc.com ( [120.237.158.181])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Fri, 09 Oct 2026 15:30:28 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 18415433431050836106
+EX-QQ-RecipientCnt: 20
+From: Junzhong Pan <panjunzhong@linux.spacemit.com>
+Date: Fri, 09 Oct 2026 15:30:24 +0800
+Subject: [PATCH v4 1/8] dt-bindings: usb: ci-hdrc-usb2: add
+ spacemit,k1-usb2 compatible
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 05/21] ASoC: dt-bindings: Add binding for Apple Silicon
- Mac audio
-To: James Calligeros <jcalligeros99@gmail.com>
-Cc: David Rhodes <david.rhodes@cirrus.com>,
- Richard Fitzgerald <rf@opensource.cirrus.com>,
- =?UTF-8?Q?Martin_Povi=C5=A1er?= <povik+lin@cutebit.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>, Matthias Brugger <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
- Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
- Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
- Neal Gompa <neal@gompa.dev>, asahi@lists.linux.dev,
- linux-sound@vger.kernel.org, patches@opensource.cirrus.com,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
-References: <20261004-macaudio-v2-0-7b47ed6335a8@gmail.com>
- <20261004-macaudio-v2-5-7b47ed6335a8@gmail.com>
- <20261009-daring-objective-flounder-c0b66d@quoll>
- <rT1KWd0SSiuQLd7MLQWREA@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <rT1KWd0SSiuQLd7MLQWREA@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261009-b4-spacemit-k1-usb2-v4-1-2d98e5324d9a@linux.spacemit.com>
+References: <20261009-b4-spacemit-k1-usb2-v4-0-2d98e5324d9a@linux.spacemit.com>
+In-Reply-To: <20261009-b4-spacemit-k1-usb2-v4-0-2d98e5324d9a@linux.spacemit.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
+ Xu Yang <xu.yang_2@nxp.com>, Peng Fan <peng.fan@nxp.com>, 
+ Peter Chen <peter.chen@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
+Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ spacemit@lists.linux.dev, Junzhong Pan <panjunzhong@linux.spacemit.com>, 
+ Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791531025; l=1574;
+ i=panjunzhong@linux.spacemit.com; s=20260306; h=from:subject:message-id;
+ bh=vJgNan3VXHrPIUL1xi2lNNcRCVH0/pu/PtlpRHIGzOA=;
+ b=+OeOzx25lSmWLBlsntQ3Q20ZIemLbGeUyRoRTeLDri726JgjOjbjWGJ3bZMviwvhrFS2AiFOO
+ 1lQjxbCoGCqDGVZQQGnLZQ44Ppx17V3MZDMG0U4QI9PwRvH0xHMtiBd
+X-Developer-Key: i=panjunzhong@linux.spacemit.com; a=ed25519;
+ pk=bY08BOg2T9H93/jG8fEE/tVmdXoQQMp9M2rtzPFoyJg=
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpgz:linux.spacemit.com:qybglogicsvrgz:qybglogicsvrgz5b-2
+X-QQ-XMAILINFO: Njm7hxZIEajZJSZcEk86J/60G5hi0Yq+EbXRDxVp1Ar7+Jexr3VR6JaD
+	Pdfyr1ocHCaUD6+FmvF6eaFYlAFFLLiq2SZSBhe9fX15YdtqrdwY+AvEfaTkB3cl9gQgihA
+	9aaas1v2yy3we6od3zJteVVzF84E+BrUlzTMAt0DeAZWof+s3y0ycKPfQ3blC6jbOtx/c4t
+	GyXMULxwwWknGxzm8U6ya4ehb7/n7YPYi9HrrsoTH8q+CMRZehczuKHPBk/SB5aHQhc4S2U
+	BXqYDrXpOrDwmgUVeiuQ7VPz1foADgVN7IU8A1Xo+4/u5SNZzB1ABZT6ZEryda/oQmgnHu/
+	2Mcjk0UNskvy0jW7dWSgLQCJ/4SIuhlmjmIpLIRbsBx4vN1BdPXKhTJ4YYyqz+IZtLqfMMz
+	MWsazHhDPxm6XsAwSROZaUqzIxlfP1LwFWGsL7uPNFMoa60JtQw8EI9t2vHtOLQbZpY888P
+	+nn6e8ftBCrrWjp2T4FZkRS9gdNucbF0ZpPSrI95xFJGmoMOkfH+YGdqnR5CAVp17uDLyTG
+	xtNtSb6LTK14QMaeRA42HqsfGl+fduaZx9kXc/LswvqOhRsOYLSt0wknS9ygQw0uQutFjZe
+	Boj09CGaU2aBsmapocNP8/fXJQBaco65/NfpHxUwBmcznSLZZQHw/dCb+HH0HGvtSgHUXKY
+	yhvtwtbr8T8iQZEg7rNxovQisDmfQXSTEXpw1s8gGhzqj8II/Qr4dd6O75w8o2TgYSSYSgR
+	ybIkruR+slr/gg8nl2a4Ndesr+rsRTF3463TFcNOOEhdoA7wajgJS+ySUqa+1p6JeoXTxEH
+	3tNWTh1xXMy4AxuQhUtLas4PY/0GYq5q96GUUKL71qrelfuhgiT6pIqoFnLAf7YKJRWvlig
+	rr86aYDqPiEjEl98k+S62imV/cLEmxVDS7b3Y1F2XOCTenReuR7dSGY/ioN0+af5B8DffDy
+	yiufB2HxdesamE8fkAFZFSY13t5rzctudGDXC1+O9rUiPKys37sMRH/icZ60sNbU7CbDVo3
+	9fcmNTzevIvPDr4KKGpV/fK5olcrw87N4wIdxdtATrRj6qsKxYIFEatQnKEWlibx0zlkNhB
+	JjciRsoK7P6hLAY1/F8JtCodGqF6B7OMo+XWFo+9l87FRVJYDEWuGo7z69y58N6/SeMRSbo
+	WTAXP+oTuhUGICI5iQdqQuofzqOdvh8Bc5dB
+X-QQ-XMRINFO: MPJ6Tf5t3I/ylTmHUqvI8+Wpn+Gzalws3A==
+X-QQ-RECHKSPAM: 0
 
-On 09/10/2026 09:21, James Calligeros wrote:
-> On Friday, 9 October 2026 5:17:53 pm Australian Eastern Standard Time 
-> Krzysztof Kozlowski wrote:
->> On Sun, Oct 04, 2026 at 04:03:32PM +1000, James Calligeros wrote:
->>> +examples:
->>> +  - |
->>> +    sound {
->>> +      compatible = "apple,j416-macaudio", "apple,j316-macaudio";
->>> +      model = "MacBook Pro J416";
->>> +
->>> +      #address-cells = <1>;
->>> +      #size-cells = <0>;
->>> +
->>> +      dai-link@0 {
->>> +        reg = <0>;
->>> +        link-name = "Speakers";
->>> +
->>> +        dai-tdm-idle-mode-0 = "zero";
->>> +        dai-tdm-idle-mode-3 = "zero";
->>> +        dai-tdm-slot-tx-idle-mask-0 = <0xf0f0f0>;
->>> +        dai-tdm-slot-tx-idle-mask-3 = <0x0f0f0f>;
->>> +
->>> +        codec {
->>> +          sound-dai = <&speaker_left_woof1>,
->>> +                      <&speaker_left_tweet>,
->>> +                      <&speaker_left_woof2>,
->>> +                      <&speaker_right_woof1>,
->>> +                      <&speaker_right_tweet>,
->>> +                      <&speaker_right_woof2>;
->>> +        };
->>> +
->>> +        cpu {
->>> +          sound-dai = <&mca 0>, <&mca 1>;
->>> +        };
->>> +      };
->>> +
->>> +      dai-link@1 {
->>> +        reg = <1>;
->>> +        link-name = "Headphone Jack";
->>> +
->>> +        codec {
->>> +          sound-dai = <&jack_codec>;
->>> +        };
->>> +
->>> +        cpu {
->>> +          sound-dai = <&mca 2>;
->>
->> Example looks incomplete, you miss TDM slot properties.
-> 
-> The machine driver generates the TDM slot assignments for the DAIs
-> and sets them at runtime.
+The USB2.0 controller on the SpacemiT K1 SoC is dual-role capable but
+has no internal OTG registers, this requires flags which disable
+related features set in platform data. Add a compatible string to match
+the platform data.
 
-Ah, I found them in dai-link node, one level up.
+Chipidea USB2 Controller on SpacemiT K1 requires 1 clock and 1 reset to
+work, add constraints for it.
 
-Best regards,
-Krzysztof
+Reviewed-by: Yixun Lan <dlan@kernel.org>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Signed-off-by: Junzhong Pan <panjunzhong@linux.spacemit.com>
+---
+ Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml b/Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml
+index 620b564914d4..5c2b7eb1a6ff 100644
+--- a/Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml
++++ b/Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml
+@@ -25,6 +25,7 @@ properties:
+           - nvidia,tegra124-udc
+           - nxp,s32g2-usb
+           - qcom,ci-hdrc
++          - spacemit,k1-usb2
+       - items:
+           - enum:
+               - nvidia,tegra114-ehci
+@@ -113,6 +114,20 @@ allOf:
+           maxItems: 2
+         clock-names:
+           maxItems: 2
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: spacemit,k1-usb2
++    then:
++      properties:
++        clocks:
++          maxItems: 1
++        resets:
++          minItems: 1
++      required:
++        - clocks
++        - resets
+ 
+ unevaluatedProperties: false
+ 
+
+-- 
+2.34.1
+
