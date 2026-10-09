@@ -1,224 +1,336 @@
-Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com [209.85.219.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4B3C4E8E03
-	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 15:27:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1057449B5A5;
+	Fri,  9 Oct 2026 15:30:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791559684; cv=none; b=jgAfA9w5fCSYrj88cjhaz228IgEA71KtCgmpqKxzl45CREHLVyGKU6ykPq5F34p8JoB3p6sXr6oirDpKUvdPc5bl2EKPzYTvIszIj0sFsVuCfUWKqQxO9FeimI3akmEleGhgaMoZ1v45kQhA7qvHeiBqsPM3nMRFps3u/wCrdqY=
+	t=1791559807; cv=none; b=JUz30PLear3HmAICC50hZ/XxXSyi+1F5LGol5xmdw47TNj2UboaO9hEGczFJhIb0R2kqEJQz3oJVHqgav5Sbx/jKiJvArK3MAZzoKrPQDoCFpfp2tfySs/72pt2ULmupcm2gahTUURjj9qflNGsmeBja8YEu4xfODbnQ8Pe5a74=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791559684; c=relaxed/simple;
-	bh=jfmaWnctqSBU1dtFJUXd14G5f+Bwt3u2QsKEHr4Doww=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=A65Pnk+xhE2MTZbOu1FA16FIxahAdVPAI6FzhkL7tSIivcbP5o3INikRahrp1NlxeWRChvMoaPkfGaBnY4RtPAw+43mB6zvEMVI4KvUuRWybgV6rjjFlsc/3P61S7C0BLscUFv46fi41aCK57bzTmObn0gw/VFSeEygugV3zQSA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=GFVMesmy; arc=none smtp.client-ip=209.85.219.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	s=arc-20240116; t=1791559807; c=relaxed/simple;
+	bh=m0RhGxev/BhsWz7QzzazxcVZzwWiWxWC2wyl9VcpJcs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rrqJc4KyheHvrJyVXiglzsPH2lk3YQN9hAFJO9U0oXoml4HuSpvhmkr67SWQRMmnG9vDdYlQvbaCD7R/IqkM4CpMxPbVVHHict1tGXvZ7rhhkuKa2WGscFPRzGhf6LFfIJyf9PjMCAUrhAgZquN0OfeKaUwr5EAu5/I8bTbJ6kA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O/fhp2Po; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="GFVMesmy"
-Received: by mail-qv1-f54.google.com with SMTP id 6a1803df08f44-917a6dccc60so21363796d6.0
-        for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 08:27:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1791559677; x=1792164477; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=XWJIKajLi/Hl+bQHGE1r4qQlOKx5Aox6GAQJinOVg0Q=;
-        b=GFVMesmyH/+lK1De9S/UhUOIGuSowSZ/JWylB+TNI4NI/iPlruc1C0JL8EuM3j16GS
-         X2sOChe2yOk/4e8sQBL7IhdvnFWFHPo0u+M8P9OBQgLA0qfSNBb//NaIrmIhIBaiL1Sn
-         IkZTNerL3Lx07Y1n9NJXbzsm+QOphGUeKmY5wYr1rorCc8MNJ+q0OR6LyW4uwG9LfAqz
-         Qdhin89//2pCvCMusLmSrv22Nkqlk72pfKS0yKXVEKDVG3o0KYo4JV1y49/WtwhG6+u2
-         KvfRzvb7RkixU5jz39hoXBosxxwpKopWAUM2Ao+L61jk0VCjgg1XIfGaeJcb8aw0HkFo
-         7aHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791559677; x=1792164477;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=XWJIKajLi/Hl+bQHGE1r4qQlOKx5Aox6GAQJinOVg0Q=;
-        b=1K1UhmGk1u6tXvHwF7eZoLVefmZx2nCwqqSustwP7RLSJU+Ym+96cOCNybR/7WrA5R
-         1jWWXLCHxddzpRqJu93i1qxS4kd9CqOuyYBwv6SDoRkM3BQHSdZjvq5t/OxLbEe1NeVl
-         oKwqHFhjpAEAkGRFphTjnREesUFmBzsMnsaSGn9kRmuZWWRPuruK9YEiMcO71JH3C+0H
-         0HTBHPewTA2ISZMle80uvJ/cPWWHyhQyEdCr9quTRXSSBVLc9RpetAQrDkIqeTT2XXcW
-         xzn3BiZk/5G4xorqvO5RD/TLyHV2+XPM8hzVR+hQbvBBN6/u92mEfPipjlPH1BgGCkoW
-         1npw==
-X-Forwarded-Encrypted: i=1; AKwUvBwOpJDrN5lRuwlnLozxkzuM1xyZVlFOGDjU0vDMHYWGlfkPrr4YX0dUWweRbbOWp+zG1ZkS3WyejyIT@vger.kernel.org
-X-Gm-Message-State: AFq9FYJuEun/g9w40tDNMBOhLn3XJ1CEvYSXUwMZMYSzhFU4UUid3f0R
-	qIzNpFC3chYlhkfoMSRXqAlGP44cxfdOvGlD5cRTbrvBI1jdr/S9pLZ8rCz8B+hZCaA=
-X-Gm-Gg: AYBFou0z5p1WZwxBIpt1IiSxybIwlyMB7L7vHZKBcf7fYlrxnXD0UDOeEjtW1Sfm0RC
-	SKYno5FWKmdjTSKfZhP5kGgNcf82tqNQrDGiWjc91ZPnL9XSuOA1jVz2DSmIerw57VyPjnWoqqB
-	9l3AmaO3HokWTS7syhuEJ5iEX6MnxVOec3H4pwjLW8w1yXRoZ7lc4gliqjPoqU2ek5ayOxHjfQ1
-	OGRI8VIItYKew2Wa2+lTW5v85Oemx1tMzEDrd0L2eaPTf9AwKsyFJTMvJArJYTxj4QM1blZu+Kj
-	eSjlJ8er73EfQKMsnpkl22TD70JvgV0+5FfJyWPN76boyc0O9vecGUBG3pVrhuXzZHkmOdiSaT/
-	wallTPUxoGkOmmXslksJu3IXV5+8YMAYNl8kKo1PSHsUsmY43IkTuXmCSIaDfQr4wXpDkdJiTlO
-	MuIIwc3Xg+T35OZIAlhKQpB4JxN98nvQRRrPrSj1W121rPu+Ika5mN33tVCKKZfLCiCLz72Pk=
-X-Received: by 2002:a05:6214:3015:b0:917:99d1:bda2 with SMTP id 6a1803df08f44-91b5d4bd16dmr23896676d6.8.1791559677476;
-        Fri, 09 Oct 2026 08:27:57 -0700 (PDT)
-Received: from [172.22.22.28] ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b55091fd4sm21019796d6.36.2026.10.09.08.27.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 09 Oct 2026 08:27:57 -0700 (PDT)
-Message-ID: <4a1dacc9-7642-48e4-b9e9-6a20c0e6aa43@riscstar.com>
-Date: Fri, 9 Oct 2026 10:27:55 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O/fhp2Po"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 286931F00893;
+	Fri,  9 Oct 2026 15:30:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791559805;
+	bh=ooYYuk1Cy4x+W8huu6O7UYsT7otaLLBYI4dQg9LYTtk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=O/fhp2PoLqu3C4wVKPpP56enw6aXaDmI5AT+evyiXKdFAbbW0QMTn2RBwiFX+H++h
+	 fPVx1+XxoW4xvcfLXjNEcMIOrVvvVrKkxRhPG1hb0Po0SnDnVNc3BoyIYrXmNTPpKW
+	 0DQrrkTWowVk0MwnfI3B95jchRgX+hOgbW/dIGRe1FYcLEs4qfVBK4jzKwnBXi/sXA
+	 iamxUMLjrvR9jifPvR49+DTthL2LerWNTdGR449AqHKURTyjOub7I0H20gWN6jWd5o
+	 gBsfKfxJvt2Caof0aItD68krwlclaY/O5FZi7j0dW6AzKgt8sIBwMm5KaoiawJnmZq
+	 nAkOEf2+tVMKw==
+Date: Fri, 9 Oct 2026 16:29:57 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Jelly Jia <Jelly.Jia@cixtech.com>
+Cc: vkoul@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, robin.murphy@arm.com,
+	devicetree@vger.kernel.org, Frank.Li@kernel.org,
+	cix-kernel-upstream@cixtech.com, dmaengine@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 5/6] dmaengine: arm-dma350: Add CIX Sky1 integration
+ support
+Message-ID: <20261009-9c6b706f0d1a46183205dd08@squawk>
+References: <20260907033404.596839-1-Jelly.Jia@cixtech.com>
+ <20261009051846.1115962-1-Jelly.Jia@cixtech.com>
+ <20261009051846.1115962-6-Jelly.Jia@cixtech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] dt-bindings: clock: introduce
- toshiba,tc9564-clock.yaml
-To: Jerome Brunet <jbrunet@baylibre.com>,
- Krzysztof Kozlowski <krzk@kernel.org>
-Cc: sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org,
- kees@kernel.org, gustavoars@kernel.org, mohd.anwar@oss.qualcomm.com,
- lorenzo.bianconi@oss.qualcomm.com, danielt@kernel.org,
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-hardening@vger.kernel.org,
- linux-kernel@vger.kernel.org, Daniel Thompson <daniel@riscstar.com>
-References: <20261005230927.2000398-1-elder@riscstar.com>
- <20261005230927.2000398-2-elder@riscstar.com>
- <20261009-gifted-stylish-tortoise-95b14d@quoll>
- <b190fe58-364b-4b94-9cab-c5f81f874289@riscstar.com>
- <aafe2703-bfb8-43da-8472-b1dfa36fa8f9@kernel.org>
- <77dacc46-7294-47c8-899a-fd56b6a2af55@riscstar.com>
- <1jcxtjos65.fsf@starbuckisacylon.baylibre.com>
-Content-Language: en-US
-From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <1jcxtjos65.fsf@starbuckisacylon.baylibre.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="VwPst8/3K+MyQlA1"
+Content-Disposition: inline
+In-Reply-To: <20261009051846.1115962-6-Jelly.Jia@cixtech.com>
 
-On 10/9/26 9:38 AM, Jerome Brunet wrote:
-> On ven. 09 oct. 2026 at 09:23, Alex Elder <elder@riscstar.com> wrote:
-> 
->> On 10/9/26 8:56 AM, Krzysztof Kozlowski wrote:
->>> On 09/10/2026 15:44, Alex Elder wrote:
->>>> On 10/9/26 4:31 AM, Krzysztof Kozlowski wrote:
->>>>> On Mon, Oct 05, 2026 at 06:09:24PM -0500, Alex Elder wrote:
->>>>>> Define the binding for the clock controller functionality present in
->>>>>> the Toshiba TC9564 SoC.
->>>>>>
->>>>>> Co-developed-by: Daniel Thompson <daniel@riscstar.com>
->>>>>> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
->>>>>> Signed-off-by: Alex Elder <elder@riscstar.com>
->>
->> . . .
->>
->>>>>> +properties:
->>>>>> +  compatible:
->>>>>> +    const: toshiba,tc9564-clock
->>>>>> +
->>>>>> +  toshiba,config-syscon:
->>>>>> +    $ref: /schemas/types.yaml#/definitions/phandle
->>>>>> +    description:
->>>>>> +      Phandle for the configuration space system controller.
->>>>>
->>>>> I do not see my previous comment addressed - you have no resources here,
->>>>> so this belongs to the parent. You responded something about pci-ep, but
->>>>> the parent is not pci-ep. Open your code:
->>>>> https://lore.kernel.org/lkml/20260918165234.687224-5-elder@riscstar.com/
->>>>>
->>>>> I clearly see code like:
->>>>>      syscon {
->>>>>        clock@ {
->>>>>        };
->>>>>      };
->>>>>
->>>>> so I do not understand what pci-ep has anything to do here.
->>>>
->>>> What I have now (about to send) looks like this:
->>>>
->>>>        syscon@0 {
->>>>            compatible = "syscon", "simple-mfd";
->>>>            reg = <0x0 0x2000>;
->>>>
->>>>            clock {
->>>>                compatible = "toshiba,tc9564-clock";
->>>>                #clock-cells = <1>;
->>>>            };
->>>>        };
->>>>
->>>> A reset node will also go inside the syscon, so there is another
->>>> function for that MFD.
->>>>
->>>> The regmap belongs to the parent, and is looked up this way:
->>>>
->>>>        regmap = syscon_node_to_regmap(dev_of_node(dev->parent));
->>>
->>> That's driver code, so irrelevant. So how does this solve my comment
->>> from v1?
->>
->> I'm trying Krzysztof.
->>
->> The clock controller uses two registers, 0x1004 and 0x100c,
->> to manage whether a set of clock signals are enabled or not.
->> (The reset controller uses two adjacent registers, 0x1008
->> and 0x1010, to manage whether a set of reset signals are
->> asserted or not.)
->>
->> You said "no resources except a small address space" and I
->> guess it's not clear to me what size is "big enough" to
->> warrant representing something as a separate device.
->>
->> *One* of the managed clocks is a 25 MHz clock, exposed
->> through a pin on the SoC.  That one clock signal is
->> therefore usable by the platform (although on the RB3gen2
->> it's not used).
->>
->> Rather than expose the register addresses in the clock
->> node, a syscon is defined, covering 8 KB, and the actual
->> offsets used are just defined in the clock and reset
->> driver source code.
->>
->> If that's not the right thing to do, please say that.
->>
->>>>> What's more, I still do not see any usage of these clocks outside. And I
->>>>> still did not receive actual answers (or I missed them) how these clocks
->>>>> are routed OUTSIDE of the connector. You said for example:
->>>>> "Ultimately the TC9564 SoC has a single 25 MHz input clock,"
->> . . .
->>
->>>> The single exposed clock *might* justify presenting the
->>>> clock controller device in devicetree.  There are also
->>>> resets exposed externally via GPIOs, and these control
->>>> external entities (PHYs).
->>>
->>> I cannot find any of these exposed. Please point me to DTS code showing
->>> this.
->>
->> It is not used by this platform, but is available for other
->> platforms to use.  Its name is "REFCLKO" and is exposed on
->> ball C17 of the SoC, if a platform designer decided to use it.
->>
->> I only mention its existence as a reason to justify defining
->> the clock as a separate device, but I realize you are arguing
->> that I should do it somehow differently.
->>
->> 					-Alex
-> 
-> While on the topic of description, I'm little bit concerned that this
-> controller does not any input ? Does it have an on-board oscillator
-> somehow ?
+--VwPst8/3K+MyQlA1
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-No, it has an external fixed 25 MHz input, and this is a good
-point, that should be represented.
+On Fri, Oct 09, 2026 at 01:18:45PM +0800, Jelly Jia wrote:
+> The CIX Sky1 SoC integrates DMA-350 controllers whose DMA masters see
+> peripheral resources at different addresses than the CPU, and whose
+> channel interrupts are gated by a subsystem register block before they
+> reach the AP interrupt controller.
+>=20
+> Add match data for the "cix,sky1-dma350" compatible, describing the
+> interrupt routing register, and use it to bring the controller up:
+> enable the clock, reset the controller, and route the channel
+> interrupts through the register block. Routing is redone after system
+> resume because that block may lose its state.
+>=20
+> The address translation is described in the device tree, not in the
+> driver: a bus node wrapping the controller carries the dma-ranges of
+> the integration, the OF core builds dev->dma_range_map from them, and
+> the DMA API applies the translation to both buffers and resources, so
+> slave resources are mapped with dma_map_resource() like on any other
+> device. Integrations without such a bus node keep the identity mapping.
+>=20
+> The controller may also be attached to a reserved memory region, for
+> integrations whose DMA master cannot reach all of system memory.
+>=20
+> Assisted-by: LLM checkpatch sparse dt_binding_check dtbs_check
+> Signed-off-by: Jelly Jia <Jelly.Jia@cixtech.com>
+> ---
+> v1 -> v2:
+> - Merged the Sky1 integration into arm-dma350.c: the SoC resources are
+>   managed by the DMA-350 driver itself, matched through the
+>   "cix,sky1-dma350" compatible.
+> - Slave resources are mapped with dma_map_resource() and translated by
+>   the standard DMA API through the dma-ranges of the parent bus node.
+> - Dropped drivers/dma/cix-sky1-dma350.c and its MAINTAINERS entry.
+> - ARM_DMA350 now selects MFD_SYSCON for the interrupt router syscon.
+>  drivers/dma/Kconfig      |  4 ++
+>  drivers/dma/arm-dma350.c | 92 ++++++++++++++++++++++++++++++++++++++++
+>  2 files changed, 96 insertions(+)
+>=20
+> diff --git a/drivers/dma/Kconfig b/drivers/dma/Kconfig
+> index ae6a682c9f76..efa6d280bb36 100644
+> --- a/drivers/dma/Kconfig
+> +++ b/drivers/dma/Kconfig
+> @@ -97,9 +97,13 @@ config ARM_DMA350
+>  	depends on ARM || ARM64 || COMPILE_TEST
+>  	select DMA_ENGINE
+>  	select DMA_VIRTUAL_CHANNELS
+> +	select MFD_SYSCON
+>  	help
+>  	  Enable support for the Arm DMA-350 controller.
+> =20
+> +	  Some integrations need to poke a syscon to route the channel
+> +	  interrupts, so MFD_SYSCON is selected here.
+> +
+>  config AT_HDMAC
+>  	tristate "Atmel AHB DMA support"
+>  	depends on ARCH_AT91 || COMPILE_TEST
+> diff --git a/drivers/dma/arm-dma350.c b/drivers/dma/arm-dma350.c
+> index e3fbfcce66e8..e443a9c3189b 100644
+> --- a/drivers/dma/arm-dma350.c
+> +++ b/drivers/dma/arm-dma350.c
+> @@ -4,14 +4,21 @@
+> =20
+>  #include <linux/bitfield.h>
+>  #include <linux/bitops.h>
+> +#include <linux/clk.h>
+>  #include <linux/dmaengine.h>
+>  #include <linux/dma-mapping.h>
+>  #include <linux/io.h>
+> +#include <linux/mfd/syscon.h>
+>  #include <linux/of.h>
+>  #include <linux/of_dma.h>
+> +#include <linux/of_reserved_mem.h>
+>  #include <linux/module.h>
+>  #include <linux/overflow.h>
+>  #include <linux/platform_device.h>
+> +#include <linux/pm.h>
+> +#include <linux/property.h>
+> +#include <linux/regmap.h>
+> +#include <linux/reset.h>
+>  #include <linux/scatterlist.h>
+>  #include <linux/slab.h>
+> =20
+> @@ -158,6 +165,9 @@
+> =20
+>  #define D350_SLAVE_CMD_WORDS	14
+> =20
+> +#define SKY1_DMA350_CRU_DMAC_AP_IRQ	0x54
+> +#define SKY1_DMA350_IRQ_ROUTE_MASK	0xff
+> +
+>  enum ch_ctrl_donetype {
+>  	CH_CTRL_DONETYPE_NONE =3D 0,
+>  	CH_CTRL_DONETYPE_CMD =3D 1,
+> @@ -222,6 +232,13 @@ struct d350_chan_map {
+>  	bool needs_unmap;
+>  };
+> =20
+> +struct d350;
+> +
+> +struct d350_data {
+> +	u32 irq_route_reg;
+> +	u32 irq_route_mask;
 
-> None of the clocks described in your driver take a parent from what I
-> can see. It is as if the clocks of this device are generated out of thin
-> air. Is it really how this works ?
+Since this is a fixed value, there's little point having it as part of
+your match data. Ditto the reg value, for the same reason. The user is
+called directly from your probe code, so you can use the defines
+directly.
 
-No, you're right to point this out.  Thank you.
+That said, should you actually be doing this from here? It feels like
+a bit of a problem with abstractions where you're fiddling with another
+device. Syscon stuff is okay when you're changing something internal to
+your device's functionality or something "downstream" of your device -
+between you and the output pins. But this is something "upstream" of our
+device and I dunno if this is the right way to do it. If you need to set
+some sort of interrupt routing, should you actually do something like
+microchip,mpfs-irqmux or renesas,rzn1-gpioirqmux and preserve the
+abstraction/separation between devices?
 
-					-Alex
->>>
->>> Best regards,
->>> Krzysztof
->>
-> 
+Cheers,
+Conor.
 
+> +};
+> +
+>  struct d350_chan {
+>  	struct virt_dma_chan vc;
+>  	struct d350_desc *desc;
+> @@ -241,6 +258,8 @@ struct d350_chan {
+> =20
+>  struct d350 {
+>  	struct dma_device dma;
+> +	const struct d350_data *data;
+> +	struct regmap *irq_router;
+>  	int nchan;
+>  	int nreq;
+>  	struct d350_chan channels[] __counted_by(nchan);
+> @@ -256,6 +275,16 @@ static inline struct d350_desc *to_d350_desc(struct =
+virt_dma_desc *vd)
+>  	return container_of(vd, struct d350_desc, vd);
+>  }
+> =20
+> +static int d350_route_irqs(struct d350 *dmac)
+> +{
+> +	if (!dmac->irq_router)
+> +		return 0;
+> +
+> +	return regmap_update_bits(dmac->irq_router, dmac->data->irq_route_reg,
+> +				  dmac->data->irq_route_mask,
+> +				  dmac->data->irq_route_mask);
+> +}
+> +
+>  static void d350_free_cmds(struct device *dev, struct d350_desc *desc)
+>  {
+>  	if (desc->cmds) {
+> @@ -1089,12 +1118,40 @@ static void d350_free_chan_resources(struct dma_c=
+han *chan)
+>  static int d350_probe(struct platform_device *pdev)
+>  {
+>  	struct device *dev =3D &pdev->dev;
+> +	const struct d350_data *data =3D device_get_match_data(dev);
+> +	struct reset_control *reset;
+> +	struct regmap *irq_router =3D NULL;
+> +	struct clk *clk;
+>  	struct d350 *dmac;
+>  	void __iomem *base;
+>  	u32 reg;
+>  	int ret, nchan, dw, aw, r, p;
+>  	bool coherent, memset;
+> =20
+> +	clk =3D devm_clk_get_optional_enabled(dev, NULL);
+> +	if (IS_ERR(clk))
+> +		return dev_err_probe(dev, PTR_ERR(clk),
+> +				     "failed to enable clock\n");
+> +
+> +	reset =3D devm_reset_control_get_optional_exclusive(dev, NULL);
+> +	if (IS_ERR(reset))
+> +		return dev_err_probe(dev, PTR_ERR(reset),
+> +				     "failed to get reset\n");
+> +
+> +	if (data && data->irq_route_mask &&
+> +	    of_property_present(dev->of_node, "cix,irq-router")) {
+> +		irq_router =3D
+> +			syscon_regmap_lookup_by_phandle(dev->of_node,
+> +							"cix,irq-router");
+> +		if (IS_ERR(irq_router))
+> +			return dev_err_probe(dev, PTR_ERR(irq_router),
+> +					     "failed to get IRQ router\n");
+> +	}
+> +
+> +	ret =3D reset_control_reset(reset);
+> +	if (ret)
+> +		return ret;
+> +
+>  	base =3D devm_platform_ioremap_resource(pdev, 0);
+>  	if (IS_ERR(base))
+>  		return PTR_ERR(base);
+> @@ -1118,8 +1175,14 @@ static int d350_probe(struct platform_device *pdev)
+>  	if (!dmac)
+>  		return -ENOMEM;
+> =20
+> +	dmac->data =3D data;
+> +	dmac->irq_router =3D irq_router;
+>  	dmac->nchan =3D nchan;
+> =20
+> +	ret =3D d350_route_irqs(dmac);
+> +	if (ret)
+> +		return ret;
+> +
+>  	reg =3D readl_relaxed(base + DMAINFO + DMA_BUILDCFG1);
+>  	dmac->nreq =3D FIELD_GET(DMA_CFG_NUM_TRIGGER_IN, reg);
+> =20
+> @@ -1201,6 +1264,13 @@ static int d350_probe(struct platform_device *pdev)
+>  		dmac->dma.device_prep_dma_memset =3D d350_prep_memset;
+>  	}
+> =20
+> +	if (of_property_present(dev->of_node, "memory-region")) {
+> +		ret =3D of_reserved_mem_device_init(dev);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret,
+> +					     "failed to attach reserved memory\n");
+> +	}
+> +
+>  	platform_set_drvdata(pdev, dmac);
+> =20
+>  	ret =3D dma_async_device_register(&dmac->dma);
+> @@ -1223,9 +1293,30 @@ static void d350_remove(struct platform_device *pd=
+ev)
+> =20
+>  	of_dma_controller_free(pdev->dev.of_node);
+>  	dma_async_device_unregister(&dmac->dma);
+> +	of_reserved_mem_device_release(&pdev->dev);
+> +}
+> +
+> +static int __maybe_unused d350_resume_noirq(struct device *dev)
+> +{
+> +	struct d350 *dmac =3D dev_get_drvdata(dev);
+> +
+> +	if (!dmac)
+> +		return 0;
+> +
+> +	return d350_route_irqs(dmac);
+>  }
+> =20
+> +static const struct dev_pm_ops d350_pm =3D {
+> +	SET_NOIRQ_SYSTEM_SLEEP_PM_OPS(NULL, d350_resume_noirq)
+> +};
+> +
+> +static const struct d350_data d350_sky1_data =3D {
+> +	.irq_route_reg =3D SKY1_DMA350_CRU_DMAC_AP_IRQ,
+> +	.irq_route_mask =3D SKY1_DMA350_IRQ_ROUTE_MASK,
+> +};
+> +
+>  static const struct of_device_id d350_of_match[] __maybe_unused =3D {
+> +	{ .compatible =3D "cix,sky1-dma350", .data =3D &d350_sky1_data },
+>  	{ .compatible =3D "arm,dma-350" },
+>  	{}
+>  };
+> @@ -1235,6 +1326,7 @@ static struct platform_driver d350_driver =3D {
+>  	.driver =3D {
+>  		.name =3D "arm-dma350",
+>  		.of_match_table =3D of_match_ptr(d350_of_match),
+> +		.pm =3D pm_sleep_ptr(&d350_pm),
+>  	},
+>  	.probe =3D d350_probe,
+>  	.remove =3D d350_remove,
+> --=20
+> 2.54.0
+>=20
+
+--VwPst8/3K+MyQlA1
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaskIdQAKCRB4tDGHoIJi
+0r7sAP9M+VO4g4x2/yu88IbmEjE4Ju1MtashQbBxdSJRuiN4UQD9FGJTCm0kEyWZ
+a5TyZPXwo5ZRmeg0TbpLWTOCR5claA0=
+=dSs+
+-----END PGP SIGNATURE-----
+
+--VwPst8/3K+MyQlA1--
