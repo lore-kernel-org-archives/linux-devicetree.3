@@ -1,189 +1,207 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012050.outbound.protection.outlook.com [52.101.53.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 926323A3E9A
-	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 03:42:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791517369; cv=none; b=XNndYSzmy9MlD/UNzx1hbmpchWZjGVPQhTsnrPA3fSyXwuurLG8toqS05jpwURdPVmkWcaDheTapW3FbpIXF1x/d1GRiq5xjNUSBNDH98vIAHA+zLZvFwFXsbBtvAbsUjsue2s+pe8XgCIhbqOHgn29rZtMeuluKq8Yg6B9Lw84=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791517369; c=relaxed/simple;
-	bh=oMmbNnz932x0fDcbEC3ogsWJcritc4/OIAiDDCwdyVo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cNZure9Y4KQEKUXGpUUAxOXYe15WS/O298rj0smnn0bVnApJWAjihRcFR/chc5758a9MCN8l2mD8RAhWHRUvoLo/PSA5Hcn6e3L8Q6zLoOh0l9hWPSpA85M9hBJABWEtcllGz5CjsR3YM/mFm3I0m8S4Qup4CJAa8V0Oc6XwZ68=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=E5KBbTJR; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=h0y8PikE; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4359A357D17;
+	Fri,  9 Oct 2026 04:00:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791518445; cv=fail; b=CHqAO7d/yGa8OdKFldWhdkZFRaJveEvin4wa4tGu1DFpIP9OdqiPBqfbywI0uiZ/P0M0OscvrpRHNxfQXenVZIKB1sCOeUu/RsTm1Mb0qhdot/M1fwT3G0rrSQN4Abrq1prGW4+QHk5ewJ+8ujD+MA6ki16ogT43S/vLfuT6UCQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791518445; c=relaxed/simple;
+	bh=W/FtfKXNk9otc2PcxhUpJR0gjsjSmbWWSZqcnil5Amg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
+	 In-Reply-To:To:CC; b=TDxzXXpsemPTfssXvwAZtpRKva66+L3zNT7IgZvPLv3Ff4ah0ln946fk8Bus7SNh3CLWBpqQDKgkawqef77+LCEB6oOWp4gXxMrzQ65BUW/pehs8mdFXj/oEM0Jx/Dv28XcPUkhWbGaolKFebWYJlW/Um1M38z2pPG1oyEji2jg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=MZiLAJId; arc=fail smtp.client-ip=52.101.53.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="E5KBbTJR";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="h0y8PikE"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6993HMZ2594550
-	for <devicetree@vger.kernel.org>; Fri, 9 Oct 2026 03:42:42 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	t1z7NeV5zzw+Qh/Xy7bTSMaYqP4hRm0zEwpbgCNxVr4=; b=E5KBbTJRdB/IPv5L
-	HPEJG1sGFDtiA8Ok8DX7DysczMA7y/EvzCmu9GobIIJShNphngiMCcgHBCMvSxCQ
-	zI8UET9o3q9qLtpnwJvBrP30Oa5eE7zZIDmOtPYUM30HMOvCZ87eWWkAzfnm/H1p
-	Pta8NHDJFoVR51mIbqn1fl2e2FN6dRoRO0CENgkTqyJwSw2Qlt+E+GsYAHoMT7RC
-	O+9n/DzRb1Pp0bEJVwdgbaFQLeYoWp2jWpfN6ltAVQH+TN4rfoHv4gcuWHzsqb0n
-	5EcWPKSwqV1TwdxcmAGuMws4LLoQ4PQmUjeAkogsMkOBz843AqH6qPsQh1iS4UOM
-	KTtcWA==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h6baj2xc0-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 03:42:41 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3a46f0f158dso1295738a91.1
-        for <devicetree@vger.kernel.org>; Thu, 08 Oct 2026 20:42:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791517361; x=1792122161; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=t1z7NeV5zzw+Qh/Xy7bTSMaYqP4hRm0zEwpbgCNxVr4=;
-        b=h0y8PikEJRfd/tlSt9uvx8MRehvGxtY5XzIJMeP60YR5sipv6P1aGvgwSPVclo4Rh2
-         AmfsB3gsUmDsCgN3yP1QnlF5WMaUcZ4wke0qdMfcm2k/+NWlEweGKnzR61bfWX4ZPiRC
-         PJqRdBIOXAs7h4TE9LGpt8IvnxIXix0XOY9jUgB1agLfG28Xx3tr2TUulm3Z86oJ2qbl
-         3Wx/Fjto1ipK49161pfr4lrJEDz1KAHMKaVCwYhYMeM36Y2lffIRGReRfxzSQpvP/Lae
-         mv0wOOmry0Cg4Be0teiOu1a0ib/yB7txZ0x5dlaYCJN6Xiez2rFeYwjmhcqTevX9bLJx
-         0dNA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791517361; x=1792122161;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=t1z7NeV5zzw+Qh/Xy7bTSMaYqP4hRm0zEwpbgCNxVr4=;
-        b=o3ZIsYrYP0D9CNc3TfEFRP1V/XVRIRYxbbAyC4V4I6U7t3CqE2b87FADeN3ZmkLmVa
-         aZ/qtA+49gjaQSS4pirnLMdfzGN3MhlIv0hzqE5j1y/bfbrxKrmXnaC9q7kjLWfQb5XT
-         gT/LElLFChcCj0VZmoEq8uE1gRZQBYMv8d3vfoz0qKdPbv8Abh6h1sK3LyfwnLMIo6Hs
-         xOQeVPtnU2LtmTmsx9RJsIHHqFt2lEkroaHHnd0660X5LkMVAFwBvaJVMeu0D3po3kyd
-         ZoiME4n8Yemw2RK8cebCUYnCBwxWeeeyAqewRfu/d9wmy+xWf/1yjj68Iw68XnrP5FEG
-         u1AA==
-X-Forwarded-Encrypted: i=1; AKwUvBxj2IgrFhtnlf2Bw45Wn9KNxlpGGeZ12hS4HHcDLiTL4AjorRpz0W5VxQQoxUq/MNuqbKwtXmt7i4X+@vger.kernel.org
-X-Gm-Message-State: AFq9FYKNc4fgZe5CMUG99a4LHZUuRspseH1P1zBdFQkbkfQMiIdgXx9b
-	Ih+3TgDJXRIsVIOJeDL77LFgr0jUOIfyBroGVbAMhizjnIc0QHm7oRJN9HJe8D/ChUy9+x5FD7R
-	sUSzaMXMO4Hk4daI7NTJfQmbtJdzct5DuHyj7S1f0IkfrNjS3/4Y+pQnm/86p/9Ho
-X-Gm-Gg: AYBFou1mQW5ytxLM/tM4Ch7IYRczlWLMv6LxN9qByIjjSZayPv/UHDs4Ep8HBrahCC3
-	Wg6mRDMADKWXEVs97hGTY3QcbAhCf+n6J3U1AagFRkUEdOwxqlKvtVS0BkZtZcBV1HMmtUXLTaN
-	l5K8RAwFdjwgymdEDS2ctIYILnAKWjOHrlu5P7KBQcrHtoBTBHpigyGjjTAhN5wdAU6C7ua2EEN
-	i5nUCSkYI9hPYv+NX0QjU7fVqJYYVwm7BNORIL16KKQdKMqBVuf8M0OmtVhTRRsAM88PtNLZAC5
-	wcCEn7lugkda2kMgX2z0C2Xvqidkn/ACOjbKN3u7S4/QD/TwoH7X4VqzgOK50lkVSy76ahy+z4L
-	MwDg9yLb6n6lJyLx/blWx
-X-Received: by 2002:a17:90b:2d82:b0:39e:6c68:fd91 with SMTP id 98e67ed59e1d1-3ab3acdc391mr403441a91.38.1791517361035;
-        Thu, 08 Oct 2026 20:42:41 -0700 (PDT)
-X-Received: by 2002:a17:90b:2d82:b0:39e:6c68:fd91 with SMTP id 98e67ed59e1d1-3ab3acdc391mr403427a91.38.1791517360547;
-        Thu, 08 Oct 2026 20:42:40 -0700 (PDT)
-Received: from [10.92.18.229] ([114.94.8.36])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab38ddac6dsm1351959a91.7.2026.10.08.20.42.34
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 08 Oct 2026 20:42:40 -0700 (PDT)
-Message-ID: <4272947d-a9df-4cf2-b890-c2b2392800e5@oss.qualcomm.com>
-Date: Fri, 9 Oct 2026 11:42:33 +0800
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="MZiLAJId"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=uWxrlYB5ojlPA2+6nxTnNfwkx9vjEmvPm7zGtsoXZjCgb/NAtaMGFou2EDmsbTlPsnEo7/dD2Y+WiCLRn7Tb01wk0KWckD/Tm526cOHEJi+7pTYwN7jaixTpDh7jMBSa6gc3SxRLdrcV5ZQsJNUoW0dOJghJweaYI/6zgvJMRzprwhAfNL1Md+i6OZ2MQcczlgVYDOQxwHp94CIjFiN1DBlyWetJGuxGxfD2cGFXFVtmBOrFlZ6DL4OFNSvbFYbTm1LoMk2r1s/naHbgEJZtTj0CJUbLZa21C5oyuT/hg+gYP1KIIPuKfFFFqYkzcnWm7TGQt2uef2DZwK1J5TR+Mw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5CwMtfXsjsdoJFC0NxBg31b8ZuvRC7S7ZIXiaL+PRZw=;
+ b=IsrTrzXRKKXHyYMtvDV46JAu5aBWx2+P+Z9KzpWGMgstj5d4KqqMVpvisrS7clyx/XSvfO7MBmKUQsmm6XIgpIrf5err6Ll7tI89JNgcg1bOl7GAZuryxb8LWcIKnwt2R6xUck2b7bgqU3ROxdEYMTBWwmvglLKa9Gknln9njowxklOfmvbxiuLPcWcAZuCMpPiFK9nuqamXzl2VieWDNpBebamr2i2JZMiB6QD7lCM6sbCJ55PSeC3CG2hsMlf1CpIkUojMzJ9IybfMYhvgJwaWBSDcRa90YDpZS9LoKt/406fRwubn+jSJdUH5zMlmjuT38Z/9Q7WVOLvsmDLkZA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5CwMtfXsjsdoJFC0NxBg31b8ZuvRC7S7ZIXiaL+PRZw=;
+ b=MZiLAJIdWjpWpBhNRuuHB1MxnGtW6K4IgZCdIw6/gvYNgFsX58b/7jeTiA2kwi0xVVJz2v10J2mEBw52kWlE23Ha1Oh0FzCafi/xImwvVa8BRhO5qjXdlQu7s2vHu7miEzlh105rcQNG0acNOB1kiFRlUG+uDheG7f/ScpGGN34=
+Received: from BY1P220CA0050.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:59e::12)
+ by CH4PR12MB026689.namprd12.prod.outlook.com (2603:10b6:610:506::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Fri, 9 Oct
+ 2026 04:00:31 +0000
+Received: from SJ1PEPF00001CE7.namprd03.prod.outlook.com
+ (2603:10b6:a03:59e:cafe::71) by BY1P220CA0050.outlook.office365.com
+ (2603:10b6:a03:59e::12) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.21 via Frontend Transport; Fri, 9
+ Oct 2026 04:00:31 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ SJ1PEPF00001CE7.mail.protection.outlook.com (10.167.242.23) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.522.6 via Frontend Transport; Fri, 9 Oct 2026 04:00:31 +0000
+Received: from Satlexmb09.amd.com (10.181.42.218) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 8 Oct
+ 2026 23:00:26 -0500
+Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb09.amd.com
+ (10.181.42.218) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 8 Oct
+ 2026 23:00:25 -0500
+Received: from xhdnaggolla50x.amd.com (10.180.168.240) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.49 via Frontend
+ Transport; Thu, 8 Oct 2026 23:00:21 -0500
+From: Golla Nagendra <nagendra.golla@amd.com>
+Date: Fri, 9 Oct 2026 09:30:11 +0530
+Subject: [PATCH v4 2/6] PM: runtime: Add pm_runtime_if_active guard and
+ conditional variant
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 00/11] net: ethernet: qualcomm: ppe: Add support
- for IPQ5424 SoC
-To: netdev-bot+sinfo@kernel.org
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
-        "David S. Miller"
- <davem@davemloft.net>,
-        Eric Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>,
-        Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Lei Wei <quic_leiwei@quicinc.com>,
-        Suruchi Agarwal <quic_suruchia@quicinc.com>,
-        Pavithra R <quic_pavir@quicinc.com>, Simon Horman <horms@kernel.org>,
-        Jonathan Corbet <corbet@lwn.net>,
-        Shuah Khan <skhan@linuxfoundation.org>,
-        Randy Dunlap <rdunlap@infradead.org>, netdev@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
-        quic_kkumarcs@quicinc.com, quic_linchen@quicinc.com
-References: <20261008-qcom_ipq5424_ppe-v1-0-16caf43e44ee@oss.qualcomm.com>
- <179147126645.2527009.13829110581548714861@kernel.org>
-Content-Language: en-US
-From: Jie Luo <jie.luo@oss.qualcomm.com>
-In-Reply-To: <179147126645.2527009.13829110581548714861@kernel.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDAxNCBTYWx0ZWRfXzzRFHSF/kNNW
- 8nte3v2dzRmDaZvZ4/6qFinLn+Hij/B/KgNMOsyByZJg9JR7lu169D8WE3CQ06+x86EPgbQ5Ck9
- SeyKVefbsXkk96ig+HJWWWLGxnjsrVqawdCMTPE6wm0No83wLCW86F54JK46AIbns0DWjG8pjoL
- jZ630B84a1nNMDyyiYBk32EvIWISrKjgK2y0adUgO7i7x4PNZCYwJBGnUrVU/6L6ux59HyCTLue
- 19Nggbr7N8R3owcFvkqnXJ+/IOdxUrE97Aes7Rv4kkTmTAbjnPBconjEPnVIHSkdWdHftE9hMmK
- CXsRx41TK8bzUW9oSu5J9X+qThP4H7BZQUSQMjxfhlbUFuGhuMRFDA5RNGIvUEqof9eIUzq0gFF
- m7FYRB+wLwcFfRpFeaC2YRerfPXROwwCCWzN9M88iXSduFsvLy8hN1zuhoGxS5/SoH8ngfzzIm1
- cxJS+usqbpr+UtyKGNg==
-X-Proofpoint-GUID: RKTFEHAPc5nb3fg16EVJzBXUZDlliRvz
-X-Authority-Analysis: v=2.4 cv=H/dOUOYi c=1 sm=1 tr=0 ts=6ac862b1 cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=+dQloWKbpC4JZN4npCJT8A==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=VwQbUJbxAAAA:8 a=wfrYX8O7EWgUh0Dss7UA:9 a=QEXdDO2ut3YA:10
- a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-ORIG-GUID: RKTFEHAPc5nb3fg16EVJzBXUZDlliRvz
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDAxNCBTYWx0ZWRfX6oZD5/OV1yL5
- y4L0J7YiB7wzRbLDeKw6SUsAKmQwsOZ+RjC0VwLAWBoibGBeKkLf9LA7NyzmWdaWhanr6DDvKpS
- 1qXlHvSvCzGP5K5SQ1p2xtAXl/b5V/U=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-09_02,2026-10-08_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 spamscore=0 phishscore=0 bulkscore=0 suspectscore=0
- lowpriorityscore=0 priorityscore=1501 malwarescore=0 clxscore=1015
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610020000
- definitions=main-2610090014
+Message-ID: <20261009-adma-pm-fix-and-per-channel-reset-v4-2-55f5fe409c55@amd.com>
+References: <20261009-adma-pm-fix-and-per-channel-reset-v4-0-55f5fe409c55@amd.com>
+In-Reply-To: <20261009-adma-pm-fix-and-per-channel-reset-v4-0-55f5fe409c55@amd.com>
+To: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, "Michal
+ Simek" <michal.simek@amd.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
+	Kedareswara rao Appana <appana.durga.rao@xilinx.com>, Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>, Michael Tretter <m.tretter@pengutronix.de>, "Harini
+ Katakam" <harini.katakam@amd.com>, Shyam Pandey <radhey.shyam.pandey@amd.com>
+CC: <dmaengine@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, <linux-pm@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <git@amd.com>, Golla Nagendra
+	<nagendra.golla@amd.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791518416; l=3597;
+ i=nagendra.golla@amd.com; s=20261008; h=from:subject:message-id;
+ bh=W/FtfKXNk9otc2PcxhUpJR0gjsjSmbWWSZqcnil5Amg=;
+ b=O24pGi5SfDFoJT477thCqrJgC1Zub1cvoFmYQ4u6mgcuD+LJAwEysDG9kIuA6R5wqN/AbKwxG
+ B+r+f/DgdDRCytHEhJcw5c7QoQJ6IBkZpYptVsY/kRH/rj6dMPS2k7h
+X-Developer-Key: i=nagendra.golla@amd.com; a=ed25519;
+ pk=pCRGj/0mb0C3aDMpVVZeyBqOIQZUKGJjCKL4QZTu7nQ=
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00001CE7:EE_|CH4PR12MB026689:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9f8d5b3b-45ca-44dd-f577-08df25b9dcf2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|82310400026|7416014|36860700016|376014|23010399003|10067099003|18002099003|22082099003|921020|11063799006|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	zQBcyZ/DYrZ5Ai59LpYwVL1d4XNC7TgYW313IFqqA1XYBBocHYWOKZGLec2VUPl9A8ScnYtnyr9ch3/F5JTiARcWx8F+GAlSeKDNmcNPZXzzLkAkJloO+e5uR5kkg6fuUk/FbTTEE8n++qj1JjyddF9AKnZtF9MCTmupBQu7cm2NMSx7uvEdo8gZERykUIbvlmVR91yN0D+iG7CjXnwVj30zjyysURbr6/amD6KscaKBxj735/l4SbIvAQRCG1dkrqSozv4FwBesk9iMGMtHrDYQzirq6tPU9MTRl4yuQJANb1GdPQB2ma6dcgTfrMDXfdLTmdcMZ9O6ytLX5f/6oH+zeXjEmFigPbMr1MitJqYId+ByxbAkOeOHUdOZ+7ggIaxKebJZpb13opp/Sxxvh+qfHdj/jlGfsc2/LjFsf0lRXN11PpfRyQ0sZ9/Ja97XxX/02OQhKpxDdNohxgNQcmlK+CJunFMUkp/KC20RJjArTV3GvaF8hpC+6FdBgDRYHJNzOT9RFYU8LELmC5h0b87FN++3t7+N+klk4HtENWwjQgUHqS+hnItlOEO+E/joze5oala1ykEU/BWOnvQj5SRBmhDUNgR4Aw/8YNJ5T+1nCVGg6o/aGs9serFbr8rKnsDiR4PvEjpPTJkXJxS5oX6b6nhaKHlEErGITmcq3/c2XjVMmEn5c2+AqPtEj3f5DcH57LIMJCH/3ZOuK+fpC4HbZgMkTxX10VN0PefaBGuMMGDksZu1X0Hunmt8GBha
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(7416014)(36860700016)(376014)(23010399003)(10067099003)(18002099003)(22082099003)(921020)(11063799006)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	/pJgerksaHongF/5yoFXRbIwfpu3SK2ToNG1npz2on/vewr8+gdG+YcPdkVjDrUJHoHylqo66wy5dhR515YBOOURNdurm1US/vlp0zEE2UlF0GoC8JfHgRztefUPSpGWj7lj27zXDHAa4dRuEoOWdo3qMC0aKhduehxPMUjcHC/HrTJv6auTohJsSeQk092V1GFd7nD1kSOt27zTpXVqWWJIRXFNv1Ns6UyRxnaJba8kph2pw23WxuB8LR1kgqEx5bCl+HGo1aeXOKJYtck/1HWAzx9BtRl4fGS3UJPVZVXucuSAyuWKoQFCbV2yKj+pie+R2G7bM1PUGymDZ7WR0RwjLgJJ50wwZbhI3Yf79UStajiRbm+N9zSdVk6+qGFIhnilw684bSIUczxMidy69Z+etklMSFII4B09cnPf16lacH1dMhPjjDFmGfl3Sb0Z
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Oct 2026 04:00:31.5201
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9f8d5b3b-45ca-44dd-f577-08df25b9dcf2
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF00001CE7.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH4PR12MB026689
 
+Add a pm_runtime_if_active base guard and its _try conditional variant
+to pm_runtime.h for drivers that need to conditionally acquire a runtime
+PM reference only when the device is already active.
 
+The base guard must not be used directly via guard()/scoped_guard()
+because pm_runtime_get_if_active() only acquires a reference when it
+returns 1; the destructor unconditionally calls pm_runtime_put(), which
+would underflow usage_count on a suspended device. The base guard
+exists solely to back the DEFINE_GUARD_COND _try variant.
 
-On 10/8/2026 10:54 PM, netdev-bot+sinfo@kernel.org wrote:
-> Hi!
-> 
-> This is an automated message. This series looks like a fix, but its
-> commit messages seem to be missing some information:
-> 
->  - How the issue was discovered, e.g. hit in production, hit during
->    development, syzbot report, manual code inspection, LLM or static
->    analysis tool scan.
-> 
->  - Whether the issue was actually triggered, or is only theoretical
->    (e.g. found by code inspection). If it was triggered please include
->    the symptoms, like the stack trace or error messages.
-> 
->  - What hardware the change was tested on. For driver fixes please
->    mention the device (and if relevant firmware version) used for
->    testing, or say that the change was not tested on real hardware.
-> 
-> Please do not repost the series just to address the above. Instead,
-> reply to this email with the missing information, so that reviewers
-> can take it into account. If the series needs another revision for
-> other reasons, please include the information in the commit messages
-> then.
-> 
-> The evaluation is done by an LLM so it may be wrong, if you think
-> that is the case please reply and explain.
+The _try variant (used via PM_RUNTIME_ACQUIRE_IF_ACTIVE) satisfies the
+_try API contract that guards must not produce an error when runtime PM
+is disabled for the device. When pm_runtime_get_if_active() returns
+-EINVAL (runtime PM disabled), the expression calls
+pm_runtime_get_noresume() to pre-balance the destructor's unconditional
+pm_runtime_put(), then returns 1 so the guard condition succeeds
+(bypass). This mirrors the behaviour of pm_runtime_active_try which
+uses RPM_TRANSPARENT for the same purpose. When the device is genuinely
+runtime-suspended (return value 0), the guard condition fails and
+ACQUIRE_ERR returns true, allowing callers such as interrupt handlers to
+skip MMIO accesses.
 
-Both issues are theoretical. Neither was hit in production or reported
-by users.
+Signed-off-by: Golla Nagendra <nagendra.golla@amd.com>
+---
+ include/linux/pm_runtime.h | 27 +++++++++++++++++++++++++++
+ 1 file changed, 27 insertions(+)
 
-Patch 1 (dt-bindings: Split EDMA reset into sys and apb): [found by
-manual code inspection while developing the IPQ524 PPE driver]. EDMA
-driver is not upstream yet, and no in-tree device tree uses the
-ethernet-dma node, so the issue cannot be triggered today.
+diff --git a/include/linux/pm_runtime.h b/include/linux/pm_runtime.h
+index 64921b10ac74..ae2a8740ffb3 100644
+--- a/include/linux/pm_runtime.h
++++ b/include/linux/pm_runtime.h
+@@ -609,6 +609,13 @@ DEFINE_GUARD(pm_runtime_active, struct device *,
+ 	     pm_runtime_get_sync(_T), pm_runtime_put(_T));
+ DEFINE_GUARD(pm_runtime_active_auto, struct device *,
+ 	     pm_runtime_get_sync(_T), pm_runtime_put_autosuspend(_T));
++/*
++ * Do not use directly -- the destructor calls pm_runtime_put()
++ * unconditionally, which underflows if no reference was acquired.
++ * Use only via the _try variant below.
++ */
++DEFINE_GUARD(pm_runtime_if_active, struct device *,
++	     pm_runtime_get_if_active(_T), pm_runtime_put(_T));
+ /*
+  * Use the following guards with ACQUIRE()/ACQUIRE_ERR().
+  *
+@@ -624,6 +631,23 @@ DEFINE_GUARD_COND(pm_runtime_active_auto, _try,
+ 		  pm_runtime_get_active(_T, RPM_TRANSPARENT), _RET == 0)
+ DEFINE_GUARD_COND(pm_runtime_active_auto, _try_enabled,
+ 		  pm_runtime_resume_and_get(_T), _RET == 0)
++/*
++ * The _try contract is that no error is produced when runtime PM is disabled,
++ * so bypass the guard when pm_runtime_get_if_active() returns -EINVAL: take a
++ * reference with pm_runtime_get_noresume() to pre-balance the destructor's
++ * pm_runtime_put() and return 1 so the guard condition succeeds. Interrupt
++ * handlers then keep servicing interrupts when runtime PM is disabled for the
++ * device or CONFIG_PM is not enabled.
++ */
++DEFINE_GUARD_COND(pm_runtime_if_active, _try,
++		  ({
++			int _r = pm_runtime_get_if_active(_T);
++
++			if (_r == -EINVAL)
++				pm_runtime_get_noresume(_T);
++			_r == -EINVAL ? 1 : (_r ?: -EAGAIN);
++		  }),
++		  _RET == 1)
+ 
+ /* ACQUIRE() wrapper macros for the guards defined above. */
+ 
+@@ -639,6 +663,9 @@ DEFINE_GUARD_COND(pm_runtime_active_auto, _try_enabled,
+ #define PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(_dev, _var)	\
+ 	ACQUIRE(pm_runtime_active_auto_try_enabled, _var)(_dev)
+ 
++#define PM_RUNTIME_ACQUIRE_IF_ACTIVE(_dev, _var)	\
++	ACQUIRE(pm_runtime_if_active_try, _var)(_dev)
++
+ /*
+  * ACQUIRE_ERR() wrapper macro for guard pm_runtime_active.
+  *
 
-Patch 2 (ppe: Fix multicast queue config table index): found by the code
-inspection. It was not seen as a crash or an error message; [the
-multicast queue thresholds are left unconfigured without any visible
-failure].
+-- 
+2.43.7
 
-The series was tested on the Qualcomm IPQ9574 RDP433 and IPQ5424 RDP466
-boards.
