@@ -1,415 +1,263 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E6E94E13EF
-	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 13:54:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791554077; cv=pass; b=S/cHyxaATOyQ4oODxXEh1BkGLM0vXfiY/TlprBeVqwIR5g27QRvoH1dXQMn2PdrYWzhpo6tybjwJtqtqs/atQ1jcTdW91POmZs0Eq/i/q83mdB8VuGMn2qjb27GJF8sIxx3iHSMH5jT0kuRb5wlLDx11+0M4wFrHPUwcFD+Zt68=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791554077; c=relaxed/simple;
-	bh=xdUlWmFUprIdsNTdyfPx4FHMo9eSBbvRA+21qOUbaak=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Vjbm8ZgSLOlU88fHyS5Ng5/oYLKJWUQHi+wQ151omV6UwgYGYdCMvvqlZkNgMMSBJCjTKv089FtFe4n7DufdrE8vPWw72Xp5DxiScjui+KXT9V31EJAbhDFtS38MNiJAQAvj9Z7tV6uFGdnGV9h3Uzpz9yzHP+ACjolKg1g1xYg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KfhVLPxM; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=UTjdpQ1F; arc=pass smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 047F24A7CA0;
+	Fri,  9 Oct 2026 13:56:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791554175; cv=none; b=MeanliDoWe8FOpUmUpmrks3cNZuB6viVVFsZ38V8kTAhBZ8G3cHqlqmnCqfp1ZRNdRPjphAn3PebeJKcr2FcD8t4ROgzvcghdFWP/ylR8KVYhwB9CfmB605E4tKCrYesjkbr/NRt//ujMKIhqlo/DAjSjvGX7Rf6aiIyES05Spc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791554175; c=relaxed/simple;
+	bh=MPjbQE/OEp3RfABQDN3aEJoRDPy5FBYbL6yuafzhE08=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LUb0CkLYyjIJbJgRKIl+VMJ6g3mrYNSrY+bXbAmUGlgI5bAj/UlHN0hYDQUNp0TC8KYrzX0QkNgVdYdQekKXMiTWioWkwWnQwiHvfg/HbdvSx2nxQGcSFwuMRKqW6B9mkS8tQHa9zx0SXKfIc48EOqO9Nifq6MB7UsJ7/96E6WA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m5jbHCM0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KfhVLPxM";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UTjdpQ1F"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 699DK4hA1908357
-	for <devicetree@vger.kernel.org>; Fri, 9 Oct 2026 13:54:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	KvpmX/1Q3IU4m40umxn2XOTD9p41yiv+dwDT4rC7IA4=; b=KfhVLPxMrDc8IQnM
-	lJMZGedco6PE8Is3R6J6SkEi3i0jX5WdJ0HpR3pYqvWdlIcFbvM7juTvpxIq+JRh
-	87sdx6mj5f9ZwyzEdYyRbyaAq284RJBP9xxhv/xpqFjk0s7b8CcrW2Exkrm/c2hD
-	19KmizLvsnSRIYIrW5GJiKGyuQRnKKVzCRjZaA9+xEyAZMsUGN8p7VHXnauI0TTy
-	4XsvKZ4rq8Vep1rNHj/a/oF4s8iZWRsPejgnhpjuwK2E/l/C28bX/hHQ/T8dJFMh
-	c6GtM0QUf0tkpdAPBDtjEx46kMB8bSJuxNKFzfQmFypfjZiXpGgXF42Z/6XWme8A
-	WnEahA==
-Received: from mail-yw1-f199.google.com (mail-yw1-f199.google.com [209.85.128.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h6yk7gfkb-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 13:54:33 +0000 (GMT)
-Received: by mail-yw1-f199.google.com with SMTP id 00721157ae682-8adfca4de94so90041787b3.1
-        for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 06:54:32 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791554072; cv=none;
-        d=google.com; s=arc-20260327;
-        b=DqDTAtQ1hOh+LgK8ZIqQlwTDU7Hm8/EwBptIkJrHKf1F4JG52ZCEs8Vfu0ieOGYRAj
-         plzDJwv238u/Pi+QBcOkaJLrbeKV9CTEThUlKSOs4FQjKuVU5ZPJESAVyBbOPxmPGsql
-         PEVtofnkPMnOK+KRi0xjXnmF2Q0/JjQyduoiehmaDH1imzbI+gqB1Bp/WOM1N2xqyQXS
-         lI/u+Z/a09gLEOWaUfBHDUHzS22Ey4B1BUXQA6Pd9avMwanjPPvlBY8zMMPR1YX5DoyS
-         C8cY2vYoLL19nkSzp3rgti8ZQHZ35wdSb9QS5X9rXw+aySO7dvVex9VjgpDLyOiGVsEK
-         rg7A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=KvpmX/1Q3IU4m40umxn2XOTD9p41yiv+dwDT4rC7IA4=;
-        fh=Ri/Y4CIFBXGfHwrZfjxBCSEHWKuAiVrcH8iJXPcTees=;
-        b=pUDOMOsJ+qymz6u0uzNGgTHmUR23SXwrUB1Dkt1/vMeo0z9f7ajXM5MAPvOKGezIeO
-         SpDXposKXhWsfoh6eaZxGRrSXBcTym8lmn7HGYZ8lxV8x10nCpgKmLmwunOMXp4sCK8Y
-         dfopYJNaw+XKKsfuS9R5pJl8lC9UdqzWJzptBJFvQ9Q6Hi/5JgJCInimCkFMfVkhplle
-         aSAKujty9jvD0alUN04oR/WmKXtWCVoWlJ3m5T5sPAfnCp2U3aKU8ANn2umNQ6k6Umy+
-         J3HNC7RIo1Azo4kjgr8mcYOo3KLoWfzT+N3eDA8cexfC5lW61ZBh4se6hQp70RQoSrsZ
-         WegQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791554072; x=1792158872; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=KvpmX/1Q3IU4m40umxn2XOTD9p41yiv+dwDT4rC7IA4=;
-        b=UTjdpQ1FE9NxaVC8otN5JDhKN3YYX4yEf+8DFTZoeFzY3bk0b3I/3gdVLOnSHu0MBs
-         ORTifl8N+d4rVkuRPhhcwiSUvmWMO8TDtHX6k+PrnGd2rHftfQ7P8iHxna18FiexnRBg
-         E9yGHEV9uRxCWc2StQzT5IZJnmTJiVB9tdV/n2HPRn2n96gWoTwslIxjlI8DPjX+EAkb
-         c2nnngR6wX1aErUaLiPj88/GiVQO+6V2SrMXP1m7i3i3ssE7DIC3G4nwUvyflqSCFKZD
-         s0ikjTMkyWGhlDevrpo6cusMaMJcZT5SGFuSiO9Vd90UyAFyKCuCMr7e07aUgD2anDIJ
-         7otA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791554072; x=1792158872;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KvpmX/1Q3IU4m40umxn2XOTD9p41yiv+dwDT4rC7IA4=;
-        b=0V1cFWVyyqtK7Iu6p3OhkL2lb7DFCEghEt7zvecNPUSXeiZYTp0WTCNEebc2NDCXo0
-         z1MrxIwDkRp0XIxoLMpUZLvrJQ8w/s+ZpoC9fHkRe42WaC7koiQ1bYxYkcq2WaMTFMUc
-         tu67M2tebt7XCwMQCTW6lyOWtsIDMW7sr7mi1i0VRruLzDIF8GHGc9zpKD/2jBH0so3G
-         G8XMshhAlh3PPNddBY/e/4CVPdrCwr++E/LDu5a7mZKppST8EPv2xuxd5IRfp1kX7/tT
-         Yfxa1+CQgtNiinFGcA0NiPHmRvJLcgWg02NEl8DL1DdQKt968vz7nzvRIhRMUGPCbb4A
-         cHYA==
-X-Forwarded-Encrypted: i=1; AKwUvBzg1xANqy1E2he1UPSMa6lW4VNLJ5Eb89+7vVgnT1Jduce9WG5nf5AdjCoLKbSEdEcFqQ7wWQwKzdGq@vger.kernel.org
-X-Gm-Message-State: AFq9FYIzG+hYKlbFJuF5kF6FoRsIoQzE+dB/L2Q9ByPpeQi7S5ZhbdCN
-	jUmZhOSD8CYr6aX9dQeVJHJVyRF6mXkZpQuipWe29SUJS0D4LQGvSt8WPabNTpOofMMFLNDqN3C
-	7+QlsmtMJGvAAtSytD7e9xGFQ/98GIOP8GHgSQ1THKmieTxrmBMtugNhN48CZAUjH6VPgF2A804
-	pKhoL797Z8elO+juNIPkmVJx1QHvHBs5F/reF15f0=
-X-Gm-Gg: AYBFou15cv0QYmkY/zDFVF9vvVecgBJUYrcGR2g9mc8XhtfDNpthyJZbkT6KfQGdamx
-	GRRudL54oTGqB+KYDRZuSzqAEKbBNISYUvSGa9z8rc0Fl/ewDwir0q6tXcbON5/+Qa2yIzN7yxg
-	rrxRBt+XXsOBTWOcop83yMEdPpalWICbsvy4BZt7Wy3WZluifp+BMccmk=
-X-Received: by 2002:a53:d015:0:b0:677:b9d8:a475 with SMTP id 956f58d0204a3-6793633bd6emr535592d50.147.1791554071721;
-        Fri, 09 Oct 2026 06:54:31 -0700 (PDT)
-X-Received: by 2002:a53:d015:0:b0:677:b9d8:a475 with SMTP id
- 956f58d0204a3-6793633bd6emr535575d50.147.1791554071017; Fri, 09 Oct 2026
- 06:54:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m5jbHCM0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1EDB1F000FF;
+	Fri,  9 Oct 2026 13:56:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791554173;
+	bh=DtJF/GweLIbUbR7hLO3F/tfaCi8SaxiyqPsE9UseAwA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=m5jbHCM0WZali60BtOLW4t5nKpQACD91YWLUvfKX82tf0ZA/JpTI+ED+gSe6T9SOl
+	 Cd4iwdr6AlsO3AegonNOeZtWHfCFiRM3M88Moa0DVG1HuYKHkXIn5k9yzlAlHeM4a8
+	 0u5GGNwWUJVp003BSxHbZgoMYjkcKuC+6K5HxcQtLuP8ovV4XcrRalv5PN2aKEg43u
+	 dhSR+TiGQsRZv4ezqNcfg5/MDRpc1/Rf8E3/y3GpNaozOD874KkhTgKmdh8fTlaGqV
+	 2ha0idH9F657czAEi4TJ3bljkh+iAmTSGayuyN8qkv6i+HvfTpl/AziNZWr7TWShUh
+	 LoCFWyzXH4Dtw==
+Message-ID: <aafe2703-bfb8-43da-8472-b1dfa36fa8f9@kernel.org>
+Date: Fri, 9 Oct 2026 15:56:03 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261005-rpmi-tee-service-grp-dev-v2-0-72f222e23ec1@oss.qualcomm.com>
- <20261005-rpmi-tee-service-grp-dev-v2-2-72f222e23ec1@oss.qualcomm.com>
- <CAGgiveUB4ETEbcfCvagfj6q__jsfPmJoeT_w0xA-9NOZpGNwfQ@mail.gmail.com> <630aac65-bf8a-4334-8187-0e7eb0e25217@oss.qualcomm.com>
-In-Reply-To: <630aac65-bf8a-4334-8187-0e7eb0e25217@oss.qualcomm.com>
-From: Jens Wiklander <jens.wiklander@oss.qualcomm.com>
-Date: Fri, 9 Oct 2026 15:54:20 +0200
-X-Gm-Features: AclHuK9fYnXbSdIG_QneNDrOHxWZzqswhBgQC4kZW9p0xYrZTiG8kyqxYxfRAtY
-Message-ID: <CAGgiveXzQKdLKX3W3N5PDV+t8FW6yMvDTK1rN=rn59zQ0TgC+w@mail.gmail.com>
-Subject: Re: [PATCH RFC v2 2/8] tee: optee: define the RPMI control and
- parcel-reference ABI
-To: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
-Cc: Jens Wiklander <jenswi@kernel.org>, Sumit Garg <sumit.garg@kernel.org>,
-        Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-        Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-        Rahul Pathak <rahul@summations.net>, Anup Patel <anup@brainfault.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Marouene Boubakri <marouene.boubakri@oss.nxp.com>,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        op-tee@lists.trustedfirmware.org, linux-riscv@lists.infradead.org,
-        devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-X-Authority-Analysis: v=2.4 cv=D63SufRj c=1 sm=1 tr=0 ts=6ac8f219 cx=c_pps
- a=72HoHk1woDtn7btP4rdmlg==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8 a=wjuEhBAy9pTyS6C4czwA:9
- a=QEXdDO2ut3YA:10 a=kA6IBgd4cpdPkAWqgNAz:22
-X-Proofpoint-GUID: vNpkOZcFj0CGyjD3k9S0L33NplAsErAS
-X-Proofpoint-ORIG-GUID: vNpkOZcFj0CGyjD3k9S0L33NplAsErAS
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDA1NSBTYWx0ZWRfX4wOroa+zjeSP
- G1ahIgeYc4IIl25a3quVpmG77vn4znagm8RgDFed72rtOIied/GSHzoyS2t84jEOoTKMwea9nl2
- ZZw4ht+KEUZNgr2iinIRgdCCbonkWhqhIp2IfhpBxhNtE+SeZXPkZcfxUJp8np0RsDZ0NnNCKlg
- sCCah1OkxfuZQauOD/Ea+HpUOMGsV66N2zJsy3NAwjzaSS8XBnoFMJpiM33kn1HkImO+ju2AsOr
- uAgBq64o10vpC+Dx+VxxGJ66O5VU3+px3fQrX2d8grkkWfRrEroxntUB2cAZZ28XQ8WDLqLCdYc
- zr0K1r1Jd2L60G6VaBr1+fmKfW/h+8JMeer8OcTt1i3eq2QO0SFu3EenRugxu7TwmeIKmPNp7AQ
- wuP1zHTQoG3pgO/My7mOmLeeRKY3pbkJxXZeaASG5vUn08/FeqmbIeJENdOfG5KirPJRjH3Kw93
- sR5Jzb3F5RGCoIB7UJA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDA1NSBTYWx0ZWRfXyN0EnjqDZCYH
- 71FtYV4sA19WhXuYLA3z9JUswU0yROwlpEfPsho+JMDLzYGQifDT8GY5yFni1Jtm2HowUkgt/rh
- E9jil2F6dh08RKaGuqtXC9T6L0M89lg=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-09_04,2026-10-08_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 adultscore=0 phishscore=0 malwarescore=0 bulkscore=0
- priorityscore=1501 clxscore=1015 impostorscore=0 spamscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610090055
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/3] dt-bindings: clock: introduce
+ toshiba,tc9564-clock.yaml
+To: Alex Elder <elder@riscstar.com>
+Cc: sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org,
+ kees@kernel.org, gustavoars@kernel.org, mohd.anwar@oss.qualcomm.com,
+ lorenzo.bianconi@oss.qualcomm.com, danielt@kernel.org,
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-hardening@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Daniel Thompson <daniel@riscstar.com>
+References: <20261005230927.2000398-1-elder@riscstar.com>
+ <20261005230927.2000398-2-elder@riscstar.com>
+ <20261009-gifted-stylish-tortoise-95b14d@quoll>
+ <b190fe58-364b-4b94-9cab-c5f81f874289@riscstar.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <b190fe58-364b-4b94-9cab-c5f81f874289@riscstar.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Amir,
+On 09/10/2026 15:44, Alex Elder wrote:
+> On 10/9/26 4:31 AM, Krzysztof Kozlowski wrote:
+>> On Mon, Oct 05, 2026 at 06:09:24PM -0500, Alex Elder wrote:
+>>> Define the binding for the clock controller functionality present in
+>>> the Toshiba TC9564 SoC.
+>>>
+>>> Co-developed-by: Daniel Thompson <daniel@riscstar.com>
+>>> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
+>>> Signed-off-by: Alex Elder <elder@riscstar.com>
+> 
+> I'm just about to send version 3 of this series (and
+> then a new reset series derived from the code that was
+> previously combined with the clock code).  Some things
+> related to what you mention have changed.  I show that
+> below, but also respond to your other comments, and try
+> to advocate for the approach used.
+>>> ---
+>>> v2: - Only define clock information, not reset information
+>>>      - Reworded description to avoid talking about software
+>>>      - Clock IDs are now consecutive (no more commented-out values)
+>>>
+>>>   .../bindings/clock/toshiba,tc9564-clock.yaml  | 54 +++++++++++++++++++
+>>>   MAINTAINERS                                   |  7 +++
+>>>   include/dt-bindings/clock/toshiba,tc9564.h    | 34 ++++++++++++
+>>>   3 files changed, 95 insertions(+)
+>>>   create mode 100644 Documentation/devicetree/bindings/clock/toshiba,tc9564-clock.yaml
+>>>   create mode 100644 include/dt-bindings/clock/toshiba,tc9564.h
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/clock/toshiba,tc9564-clock.yaml b/Documentation/devicetree/bindings/clock/toshiba,tc9564-clock.yaml
+>>> new file mode 100644
+>>> index 0000000000000..329b8f002cf2d
+>>> --- /dev/null
+>>> +++ b/Documentation/devicetree/bindings/clock/toshiba,tc9564-clock.yaml
+>>> @@ -0,0 +1,54 @@
+>>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>>> +%YAML 1.2
+>>> +---
+>>> +$id: http://devicetree.org/schemas/clock/toshiba,tc9564-clock.yaml#
+>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>>> +
+>>> +title: Toshiba TC9564 Clock Controller
+>>> +
+>>> +maintainers:
+>>> +  - Alex Elder <elder@riscstar.com>
+>>> +  - Daniel Thompson <daniel@riscstar.com>
+>>> +
+>>> +description:
+>>> +  The Toshiba TC9564 is an SoC accessed by a host system through the
+>>> +  upstream PCIe port on the PCIe switch it implements.  The switch
+>>> +  includes an embedded PCIe endpoint that provides access to various
+>>> +  SoC peripherals (including a clock controller) via its BARs.
+>>> +
+>>> +  A total of 21 clocks are implemented, though two of these are not
+>>> +  controllable.  Access to the clock controller relies on PCIe being
+>>> +  functional, so the PCIe clock is assumed to be always on.  Similarly,
+>>> +  the PCIe controller relies on I2C, so the I2C clock is also assumed
+>>> +  to be always on.
+>>> +
+>>> +  Clock ids are defined in <dt-bindings/clock/toshiba,tc9564.h>.
+>>> +
+>>> +properties:
+>>> +  compatible:
+>>> +    const: toshiba,tc9564-clock
+>>> +
+>>> +  toshiba,config-syscon:
+>>> +    $ref: /schemas/types.yaml#/definitions/phandle
+>>> +    description:
+>>> +      Phandle for the configuration space system controller.
+>>
+>> I do not see my previous comment addressed - you have no resources here,
+>> so this belongs to the parent. You responded something about pci-ep, but
+>> the parent is not pci-ep. Open your code:
+>> https://lore.kernel.org/lkml/20260918165234.687224-5-elder@riscstar.com/
+>>
+>> I clearly see code like:
+>>    syscon {
+>>      clock@ {
+>>      };
+>>    };
+>>
+>> so I do not understand what pci-ep has anything to do here.
+> 
+> What I have now (about to send) looks like this:
+> 
+>      syscon@0 {
+>          compatible = "syscon", "simple-mfd";
+>          reg = <0x0 0x2000>;
+> 
+>          clock {
+>              compatible = "toshiba,tc9564-clock";
+>              #clock-cells = <1>;
+>          };
+>      };
+> 
+> A reset node will also go inside the syscon, so there is another
+> function for that MFD.
+> 
+> The regmap belongs to the parent, and is looked up this way:
+> 
+>      regmap = syscon_node_to_regmap(dev_of_node(dev->parent));
 
-On Fri, Oct 9, 2026 at 12:03=E2=80=AFAM Amirreza Zarrabi
-<amirreza.zarrabi@oss.qualcomm.com> wrote:
->
-> Hi Jens,
->
-> On 10/8/2026 5:51 PM, Jens Wiklander wrote:
-> > Hi Amir,
-> >
-> > On Tue, Oct 6, 2026 at 2:40=E2=80=AFAM Amirreza Zarrabi
-> > <amirreza.zarrabi@oss.qualcomm.com> wrote:
-> >>
-> >> Define the OP-TEE service protocol carried by RPMI TEE_CALL payloads.
-> >> Add operations for version and capability queries, shared-memory
-> >> unregistration, asynchronous notification enablement, and yielding-cal=
-l
-> >> start and resume. Use fixed-width little-endian control fields and RPM=
-I
-> >> error codes for control responses.
-> >>
-> >> Add a parcel memory-reference layout to the common message parameter
-> >> union. Identify shared memory by its parcel ID and nonce, with a 64-bi=
-t
-> >> byte offset and size, without changing the message parameter size.
-> >> Encode NULL references with a zero parcel ID and nonce, leaving parcel
-> >> ID zero usable with a nonzero nonce.
-> >>
-> >> Document the wire layouts and ownership rules for matching Linux and
-> >> OP-TEE implementations.
-> >>
-> >> Signed-off-by: Amirreza Zarrabi <amirreza.zarrabi@oss.qualcomm.com>
-> >> ---
-> >>  drivers/tee/optee/optee_msg.h  |  38 +++++--
-> >>  drivers/tee/optee/optee_rpmi.h | 234 ++++++++++++++++++++++++++++++++=
-+++++++++
-> >>  2 files changed, 264 insertions(+), 8 deletions(-)
-> >>
-> >> diff --git a/drivers/tee/optee/optee_msg.h b/drivers/tee/optee/optee_m=
-sg.h
-> >> index 6c3043f8da33..028f8cd95fdd 100644
-> >> --- a/drivers/tee/optee/optee_msg.h
-> >> +++ b/drivers/tee/optee/optee_msg.h
-> >> @@ -31,6 +31,9 @@
-> >>  #define OPTEE_MSG_ATTR_TYPE_FMEM_INPUT         OPTEE_MSG_ATTR_TYPE_RM=
-EM_INPUT
-> >>  #define OPTEE_MSG_ATTR_TYPE_FMEM_OUTPUT                OPTEE_MSG_ATTR=
-_TYPE_RMEM_OUTPUT
-> >>  #define OPTEE_MSG_ATTR_TYPE_FMEM_INOUT         OPTEE_MSG_ATTR_TYPE_RM=
-EM_INOUT
-> >> +#define OPTEE_MSG_ATTR_TYPE_PMEM_INPUT         OPTEE_MSG_ATTR_TYPE_RM=
-EM_INPUT
-> >> +#define OPTEE_MSG_ATTR_TYPE_PMEM_OUTPUT                OPTEE_MSG_ATTR=
-_TYPE_RMEM_OUTPUT
-> >> +#define OPTEE_MSG_ATTR_TYPE_PMEM_INOUT         OPTEE_MSG_ATTR_TYPE_RM=
-EM_INOUT
-> >>  #define OPTEE_MSG_ATTR_TYPE_TMEM_INPUT         0x9
-> >>  #define OPTEE_MSG_ATTR_TYPE_TMEM_OUTPUT                0xa
-> >>  #define OPTEE_MSG_ATTR_TYPE_TMEM_INOUT         0xb
-> >> @@ -149,6 +152,23 @@ struct optee_msg_param_fmem {
-> >>         u64 global_id;
-> >>  };
-> >>
-> >> +/**
-> >> + * struct optee_msg_param_pmem - RPMI parcel memory reference
-> >> + * @offs: full-width byte offset from the parcel's first byte
-> >> + * @size: logical reference size, or required size for a short-buffer=
- response
-> >> + * @parcel_id: firmware-assigned parcel identifier
-> >> + * @nonce: nonzero REE nonce supplied when sharing the parcel
-> >> + *
-> >> + * A zero parcel ID and nonce encode a NULL reference. Its offset mus=
-t be zero;
-> >> + * its size is preserved. Parcel ID zero remains valid with a nonzero=
- nonce.
-> >> + */
-> >> +struct optee_msg_param_pmem {
-> >
-> > Without an internal offset like in struct optee_msg_param_fmem, an
-> > explicit register SHM call into OP-TEE is needed before it can be
-> > used. You'd still need the TEE_MEMORY_PARCEL_CREATE, but we can save
-> > one round-trip into the secure world.
-> >
->
-> The original intenation was to use parcel-relative offsets, with the
-> secure-side memory object covers the entire parcel. OP-TEE can retrieve i=
-t
-> lazily and apply the supplied offset directly, so this design does not re=
-quire
-> an explicit SHM registration call or an additional round trip.
->
-> Since we are implementing the RPMI parcel memory-object cache independent=
-ly of
-> FF-A's cache in OP-TEE, this seems simpler: it avoids a separate
-> initial-offset property, preserves a full-width offset reference, while
-> keeping OP-TEE ignorant from the SHM concept which is a Linux side concep=
-t.
->
-> That said, I can separate the offsets to matching FF-A's memory-object
-> model. But I am not sure what we achive?
+That's driver code, so irrelevant. So how does this solve my comment
+from v1?
 
-I think it's needed, but I don't mind being proven wrong. :-)
+> 
+>> What's more, I still do not see any usage of these clocks outside. And I
+>> still did not receive actual answers (or I missed them) how these clocks
+>> are routed OUTSIDE of the connector. You said for example:
+>> "Ultimately the TC9564 SoC has a single 25 MHz input clock,"
+>>
+>> but that is input. I did not ask how this device receives clocks. I
+>> asked how the host receives the clocks from this device.
+> 
+> I was explaining that the clock input gets split into a number
+> of "output" clocks derived from that one input.  However you're
+> right, almost all of these clocks are connected to blocks
+> internal to the SoC.  There is only one 25 MHz clock that is
+> exposed externally (CLOCK_REFCLKO).
+> 
+> I think your point (or one of them) is that, even if pci-ep-bus
+> is used, the only things that warrant being described with
+> devicetree are those that can affect things outside the chip.
+> Everything else is not really variable from the perspective of
+> the platform, and inner details can be determined (and controlled)
+> by software.
+> 
+> 
+> Our original version of this code incorporated clock and reset
+> control inside the networking driver.  Rob commented that the
+> DWMAC driver should bind to the PCI functions and "everything
+> else...should be under the PCIe switch upstream node in a
+> pci-ep.bus".
+> 
+> The only driver associated with the switch inside the TC9564
+> is the special power control driver, accessed via I2C.  The
+> PCI switch functionality is otherwise provided without any
+> special handling, or is handled by generic code.
+> 
+> What *is* available is the PCI endpoint functions and their
+> BARs, so the endpoint buses use those.
+> 
+> PCI endpoint bus makes available things that devicetree
+> does that are very useful (including a standard way of
+> describing connections between blocks in the SoC).
+> 
+> 
+> I know that doesn't address the "exposed clocks" issue,
+> but it provides some background on why things were done
+> the way they were.
+> 
+> 
+> The single exposed clock *might* justify presenting the
+> clock controller device in devicetree.  There are also
+> resets exposed externally via GPIOs, and these control
+> external entities (PHYs).
 
-IIRC, this stems from TEE_IOC_SHM_REGISTER. In hindsight, I regret
-that offset. We should have kept it in userspace, but that's too late
-now.
+I cannot find any of these exposed. Please point me to DTS code showing
+this.
 
->
-> >> +       u64 offs;
-> >> +       u64 size;
-> >> +       u32 parcel_id;
-> >> +       u32 nonce;
-> >
-> > I wonder if parcel_id and nonce wouldn't be better combined into a
-> > single field. They need to be separate when preparing arguments for
-> > the TEE_MEMORY_* calls. Everywhere else, it's only an opaque memory
-> > handle, and one handle is easier to keep track of than two.
->
-> I thought about that before. This would push the conversion to the
-> firmware boundary. I was not sure if it is acceptable. I'll do that :).
 
-Sounds good to me.
-
->
-> >
-> >> +};
-> >> +
-> >>  /**
-> >>   * struct optee_msg_param_value - opaque value parameter
-> >>   * @a: first opaque value
-> >> @@ -166,18 +186,19 @@ struct optee_msg_param_value {
-> >>  /**
-> >>   * struct optee_msg_param - parameter used together with struct optee=
-_msg_arg
-> >>   * @attr:      attributes
-> >> - * @tmem:      parameter by temporary memory reference
-> >> - * @rmem:      parameter by registered memory reference
-> >> - * @fmem:      parameter by FF-A registered memory reference
-> >> - * @value:     parameter by opaque value
-> >> - * @octets:    parameter by octet string
-> >> + * @u.tmem:    parameter by temporary memory reference
-> >> + * @u.rmem:    parameter by registered memory reference
-> >> + * @u.fmem:    parameter by FF-A registered memory reference
-> >> + * @u.pmem:    parameter by RPMI parcel memory reference
-> >> + * @u.value:   parameter by opaque value
-> >> + * @u.octets:  parameter by octet string
-> >>   * @u:         union holding OP-TEE msg parameter
-> >>   *
-> >>   * @attr & OPTEE_MSG_ATTR_TYPE_MASK indicates if tmem, rmem or value =
-is used in
-> >>   * the union. OPTEE_MSG_ATTR_TYPE_VALUE_* indicates value or octets,
-> >> - * OPTEE_MSG_ATTR_TYPE_TMEM_* indicates @tmem and
-> >> - * OPTEE_MSG_ATTR_TYPE_RMEM_* or the alias PTEE_MSG_ATTR_TYPE_FMEM_* =
-indicates
-> >> - * @rmem or @fmem depending on the conduit.
-> >> + * OPTEE_MSG_ATTR_TYPE_TMEM_* indicates @u.tmem. OPTEE_MSG_ATTR_TYPE_=
-RMEM_*
-> >> + * and its FMEM/PMEM aliases indicate @u.rmem, @u.fmem or @u.pmem dep=
-ending
-> >> + * on the conduit.
-> >>   * OPTEE_MSG_ATTR_TYPE_NONE indicates that none of the members are us=
-ed.
-> >>   */
-> >>  struct optee_msg_param {
-> >> @@ -186,6 +207,7 @@ struct optee_msg_param {
-> >>                 struct optee_msg_param_tmem tmem;
-> >>                 struct optee_msg_param_rmem rmem;
-> >>                 struct optee_msg_param_fmem fmem;
-> >> +               struct optee_msg_param_pmem pmem;
-> >>                 struct optee_msg_param_value value;
-> >>                 u8 octets[24];
-> >>         } u;
-> >> diff --git a/drivers/tee/optee/optee_rpmi.h b/drivers/tee/optee/optee_=
-rpmi.h
-> >> new file mode 100644
-> >> index 000000000000..252216aad09b
-> >> --- /dev/null
-> >> +++ b/drivers/tee/optee/optee_rpmi.h
-> >> @@ -0,0 +1,234 @@
-> >> +/* SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause) */
-> >> +/*
-> >> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> >> + */
-> >> +#ifndef OPTEE_RPMI_H
-> >> +#define OPTEE_RPMI_H
-> >> +
-> >> +#include <linux/bitops.h>
-> >> +#include <linux/types.h>
-> >> +#include <linux/uuid.h>
-> >> +
-> >> +/*
-> >> + * OP-TEE service ABI over RPMI TEE_CALL.
-> >> + *
-> >> + * Requests and responses are carried in the TEE_CALL service payload=
-.
-> >> + * Control fields are little-endian. Response status fields contain s=
-igned
-> >> + * RPMI error codes, distinct from the outer TEE_CALL status and the =
-GP
-> >> + * command result in optee_msg_arg.ret.
-> >> + */
-> >> +#define OPTEE_RPMI_SERVICE_UUID \
-> >> +       UUID_INIT(0x486178e0, 0xe7f8, 0x11e3, \
-> >> +                 0xbc, 0x5e, 0x00, 0x02, 0xa5, 0xd5, 0xc5, 0x1b)
-> >> +
-> >> +#define OPTEE_RPMI_VERSION_MAJOR               1
-> >> +#define OPTEE_RPMI_VERSION_MINOR               0
-> >> +
-> >> +/**
-> >> + * struct optee_rpmi_probe_req - request without operation-specific a=
-rguments
-> >> + * @op: GET_API_VERSION, GET_OS_VERSION or EXCHANGE_CAPABILITIES
-> >> + */
-> >> +struct optee_rpmi_probe_req {
-> >> +       __le32 op;
-> >> +} __packed;
-> >> +
-> >> +/**
-> >> + * struct optee_rpmi_status_resp - response carrying only an RPMI sta=
-tus
-> >> + * @status: signed RPMI error code
-> >> + */
-> >> +struct optee_rpmi_status_resp {
-> >> +       __le32 status;
-> >> +} __packed;
-> >> +
-> >> +/*
-> >> + * Return the service API version.
-> >> + *
-> >> + * Request:  struct optee_rpmi_probe_req
-> >> + * Response: struct optee_rpmi_api_resp
-> >> + */
-> >> +#define OPTEE_RPMI_GET_API_VERSION     0
-> >> +
-> >> +/**
-> >> + * struct optee_rpmi_api_resp - GET_API_VERSION response
-> >> + * @status: signed RPMI error code
-> >> + * @major: incompatible protocol revision
-> >> + * @minor: compatible protocol revision
-> >> + */
-> >> +struct optee_rpmi_api_resp {
-> >> +       __le32 status;
-> >> +       __le32 major;
-> >> +       __le32 minor;
-> >> +} __packed;
-> >
-> > Why do these communication structs have to be packed? With careful
-> > design of the layout, padding, alignment, etc, it shouldn't be an
-> > issue.
->
-> Agreed. The structures already have naturally aligned fields and
-> explicit reserved fields where needed, so `__packed` is unnecessary for
-> their current layouts. I'll remove it and keep the wire layout explicitly
-> defined, retaining unaligned access helpers where transport-buffer alignm=
-ent
-> is not guaranteed.
-
-Good.
-
-Cheers,
-Jens
+Best regards,
+Krzysztof
