@@ -1,109 +1,230 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD20F4C650B
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B2764C10D1
 	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 11:14:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791544477; cv=none; b=gNoGxNrUx9w6P3WQ+CarvZWQMSs0o0Mt/2MN46moIc5A0x5dD84eB0lYHbcm+eZdy4KdgrJ5WybBgrbasO+U5ije0WlvF3UpOhGNH0DH6IVPzSm1jricJkvBsVRUXDck75qehk6yTBlK+YaTOk+PDykCq6SFWCYquaLZ/hS1Q6k=
+	t=1791544479; cv=none; b=jbHUyRgsEEkEH4qITy2DNXn8eGQUVABQ4RuMFxjZEKNuKZ99f/sq03TbVPoGUICbxgwvIz0pCV7QtcB4RV2oSU3sK2g3qzgGQ9a2koyXiJ84LiUtqy/0iu14Ab5bBttxQ4ODy8TwTG6kX75thil8IA5CVmak9G/B9Vg9CB2YrzE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791544477; c=relaxed/simple;
-	bh=NV9QihphD6gTfDyqkbikkVBGVpXx2wuzv3xFVZngB9g=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=P2+/53vsqJsfcNsooniJX7mmN9jnAYLasIkC9AXhrCD6CZEYFmVvwUrKdADFwkOSDfP8C32MPahEs4DkiCTwUvPtt1HJmQuARUcL/1fGJMdDo+wV/vQ5eHJsecP+tyGaAJF6iHqY+XVrrEl6vPykgp3iaroy9TWsHIwIlZTvi7k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P96Vx3HG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791544479; c=relaxed/simple;
+	bh=P2S2YL9lOzP4PisLpp+V5WbwauQ63zNIBD6O0OWtFnA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=mrpGyHQ8XslHQMrCeAvtv9RwnfNvLQxBlu1tVTcY7p0qXfnUQc2l2RmYeqk+2sp1Ai0xyKxllPzY1HBTqXHsLAO7cqE/trZ0Uj8xDLVEzBAwWaNfuVg0g3Q7BO7a8CMoWT5CKDW4dj/mLZk3wCKyt5kXKyffPed1QKmEln4ctBY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WU/rR5XP; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QWzWC6tJ; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P96Vx3HG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F26EE1F000FF;
-	Fri,  9 Oct 2026 11:14:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791544468;
-	bh=wAlmfTO1x8ZGuIrBVnjfCIbThBR9a4CfW10WL3eQS7M=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=P96Vx3HGBtOYuWHSnBl8hVuig9QLG7UyK8EDObvwgJBfuB/QmmBDPaK8cQDB8PBMa
-	 JbIZlb9gDD7cRfa1gmsSjpE2B6zti95nLR8g/IR/ynRYVi0aicL1BjP2iQJQ9RsdlP
-	 AXZA8y7i6NC93LKx7PV+tXIYk+kn5tAscrv9x5GubMOGVtxT1QN0TtSLcGFWmklQt8
-	 Ics8hnLFKmzf485VHwIaVv+JBuuR6NSLngtdhg9fLrEpfsLnEQOgbUs20rGrdRw5xn
-	 SMcYpPXQzhqeC4y8bPybn/2LSDqgiLb1yBFXVD1ZjVKl/RFrbR6SonelaTJhEI44pT
-	 Gu+PE6reFhT4w==
-Message-ID: <sashiko-outbox-165335@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: display: ti,tpd12s015: Convert to DT
- schema
-Reply-To: sashiko-reviews@lists.linux.dev
-To: Quchaosheng <quchaosheng000406@163.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20261009105601.301891-2-quchaosheng000406@163.com>
-References: <20261009105601.301891-1-quchaosheng000406@163.com>
- <20261009105601.301891-2-quchaosheng000406@163.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 09 Oct 2026 11:14:27 +0000
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WU/rR5XP";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QWzWC6tJ"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6998KObm3977816
+	for <devicetree@vger.kernel.org>; Fri, 9 Oct 2026 11:14:27 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	L/4FqmR92zRJCg4Pa51Uy/gXBiH7SnkiLGj42T8GY/k=; b=WU/rR5XPmztIEQm7
+	uH3cCV3RrViBH5JwGf1XxGOvAukMOixNRTf9WKq08dLbuKdPkLV/EuVJzVaIlCUD
+	HWTNOD81lFq9fF+9G0jPAhYIpblPngzoTU0EylSzJS7hjsECr6yispjiL7LRdcEj
+	ZbC3encsyCLg6KVy0BaDAfiCl602QOQoFHa7nSviFOhWaeBuUB1fsplccSru0ifR
+	8gAoQnv88yegzTFBmXNxnQBRJaV+lYwC1KQHaf8R1NpXosH9cSl5S2lVNMxdxsrg
+	x/9nN0XySuQf3X+MoKag558Vn6IBY9VevXUfp8Wd2boMxfc/rlgWZu/vQsQzCMMi
+	yGLE1A==
+Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h6ev5bhfu-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 11:14:27 +0000 (GMT)
+Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-33713e5e6daso7643375eec.0
+        for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 04:14:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791544467; x=1792149267; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=L/4FqmR92zRJCg4Pa51Uy/gXBiH7SnkiLGj42T8GY/k=;
+        b=QWzWC6tJiSKsruBQK6MiTXyTaqEqjs9EJhKfs3Av371EwsvMggfMOfcMnGzwS+aTH0
+         egPqHF9Gfbk4seFGIuWVEi0YaG0tJOBmFytglFHhWxBhG+FcJDN/N/wPrJudJHZQruzy
+         mqtC3P/IVlAiAHbmCixCx2aKkia7Q5tFdpT2DUnNl8YZqVz7ytT2TzCUjpN7pz7N7MIQ
+         Q9brbGeWHgNt1ifm9frPElaaAyhuldPwzWNC9cJamqHACM0f0YrLwKnIEWAXLwdEmeJY
+         vo0dv77QOK3VNAYfAbHiZcXyKw6QFOqCkW58IrsbRD6PZrMqxoUMUL/L+CPyqq19uCv4
+         2npw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791544467; x=1792149267;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=L/4FqmR92zRJCg4Pa51Uy/gXBiH7SnkiLGj42T8GY/k=;
+        b=c6LONZ2x+BxZ3szQVPnrNLNXC1kGdgjCCZ9DsSPzgtJ/JZGzNZXKI2qx8jjHtjJdbT
+         b32hP6wDfz/vakXVsXo5i6Yeyt5l4yFxhkuU20+UKtlOKS1ylDRpzuBnwwo4wZrDXdY1
+         qFhmj09KbRztwdGWHifwfOKMw9YImObZmO4xOdMIvZydSlUS+25CZ4rAzMqhcHI3DkDF
+         wJGO64iO2AW75b1JYOjcP78jnw/kJlVskbDIK0EgHnD0TcJ8YQZSnY4hojYAR6mKIYlb
+         Le8p8kdvTiASuq8mgKKOqcFJI6kq4G891nMPWBkK7+9BIOv85cKuo/pLsyykS4l9NueI
+         ZXWA==
+X-Forwarded-Encrypted: i=1; AKwUvBxBUoKY1xs+nfg/LBRAdQDzZi4MByVOE41oV4vebcP16AV9/M8zK2MHaOiABUXbdrqYxYp4Nq2uSvvN@vger.kernel.org
+X-Gm-Message-State: AFuF++kNksNpCZnQp/A3tuajjGPahY1iHdHQnK94P4IDAW7o+zxIGn/x
+	X/WKbsVGI5j4fw5rR1EHa2RxO2jtIb/wTiiwV3n4CXVYoGKB8nuz55JnHCLa0tT5QKNYWGx6Um8
+	p/gibbm3CvpqzIl3SnVzND0sjxi341iV2oC2GPJxkexayhf/klcahga7fv4N56R5y
+X-Gm-Gg: AYBFou1aO3wPHJwKkjlFLvuN7AXIdx03aI5JOz+64xMPMKJKMlUBexsgPq5J2862EuW
+	rdmJ2aqM+6yB16G0EAjEj7KuVPFKKNe86DL8S3x8wpIBfG10pe9PaPh8VCYL0+mbm9/xvjIDg3L
+	vnG7DKItyI8W6J/C89JyH0J9nMjIzSd0frjyXJ57v6jMk49uI2nYE7D2Y9EsXk4cblHpU+4SPDr
+	dGPWlJvz/gj9IR6QniXpNt+ulqcCnKy9gBpSbmJZgJ/JTI0QMO4rxPHbqHEM89NITj8OQ4U3V7x
+	mDMXInNOCNHeE72RWRNtrwevHGnQASiG0LjmAuQMFJZNjXoB7ZUM4VvXZc1U/YopgbttWpltir7
+	+kl+YcKnwgbrbQQJvgz66UcQMigjx45Y=
+X-Received: by 2002:a05:7300:ce02:b0:351:4d3f:723f with SMTP id 5a478bee46e88-3537e03ef20mr2147654eec.13.1791544466435;
+        Fri, 09 Oct 2026 04:14:26 -0700 (PDT)
+X-Received: by 2002:a05:7300:ce02:b0:351:4d3f:723f with SMTP id 5a478bee46e88-3537e03ef20mr2147625eec.13.1791544465755;
+        Fri, 09 Oct 2026 04:14:25 -0700 (PDT)
+Received: from [10.206.101.140] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537ca1b556sm9109354eec.9.2026.10.09.04.14.23
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 09 Oct 2026 04:14:25 -0700 (PDT)
+Message-ID: <9b15a39a-eca2-d26e-e060-d32879179b00@oss.qualcomm.com>
+Date: Fri, 9 Oct 2026 16:44:21 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [PATCH v5 06/13] media: iris: Route buffers to the matching
+ context bank device
+Content-Language: en-US
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: sashiko-reviews@lists.linux.dev,
+        Vikash Garodia <vikash.garodia@oss.qualcomm.com>, media-ci@linuxtv.org,
+        devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+References: <20260926-vpu_iommu_iova_handling-v5-0-0322ca5dc10c@oss.qualcomm.com>
+ <20260926-vpu_iommu_iova_handling-v5-6-0322ca5dc10c@oss.qualcomm.com>
+ <20260926064921.976721F000FF@smtp.kernel.org>
+ <4befec0d-2e6e-ede6-64d7-58e1123eb1b5@oss.qualcomm.com>
+ <txowl3kctv2oca5gqqtiuabh3bffqbb5ntbsfeele5bclzaxrx@4pfvzkccpybj>
+From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+In-Reply-To: <txowl3kctv2oca5gqqtiuabh3bffqbb5ntbsfeele5bclzaxrx@4pfvzkccpybj>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDA0NCBTYWx0ZWRfX0/bgBvfXFwPX
+ xLdbKacfsddY4MUWvkbv3x4ucDO9vzcR7igf/j6GfJaMNcagQGijgWhtDLjFtv14rbABaLJ5ycM
+ /Uo3ntfihVmgcVSaEwM7YL/rDPtQ2cI=
+X-Authority-Analysis: v=2.4 cv=MMT1C8Zl c=1 sm=1 tr=0 ts=6ac8cc93 cx=c_pps
+ a=Uww141gWH0fZj/3QKPojxA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Lh3Vmvx1oRNcEU0KFpoA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=PxkB5W3o20Ba91AHUih5:22
+X-Proofpoint-GUID: 97LwYXm37U4T982wB_HG0pyVvbGkA2Tv
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDA0NCBTYWx0ZWRfX45OTblcMrJs7
+ 8stBpvnokDhaMb0M79M8SB7JG9l48zYJc65fWsWe0EQHPMeExoxx6lvVRm175qerILjzY1qC2rU
+ D+DuTMO9PE22pXtH2zJza0EHVeZLTE9kiDvqe15TjOl2TK4YmOulHpCfKdooWa1YjbidzCrd6va
+ r7zbihbwYZ5xmipbj06eHcRq/DiQpl3vd6c+4p7e47BzMoKST69bdtiBcGMo84T36yt6xecBCai
+ 4Z0hQVZFjKdXkSen9IVl7607VzVSb8wBx+QSSRPP2F3E/pTsGIsSuIHAhGwnWNpSJBu50h0IoDS
+ PP/3q6ei845ahMmK64XgCjQaxkPx/QBhG8Ut9V/1mh2ISXMPc9KyrGL1rV2+VNjzE5UQ0w14DwD
+ JhpFcDy0r0ASmzOAhIzaC9La0Jc27VL2vu3MCeVP/Ta7cKT9XYO3jD8VhfatgFReA01iE1Xt2K2
+ POxCdPAad2IF/Gidcjg==
+X-Proofpoint-ORIG-GUID: 97LwYXm37U4T982wB_HG0pyVvbGkA2Tv
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-09_03,2026-10-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 phishscore=0 clxscore=1015 spamscore=0
+ lowpriorityscore=0 adultscore=0 suspectscore=0 bulkscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610020000 definitions=main-2610090044
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] dt-bindings: display: ti,tpd12s015: gpios lacks minItems: 3 and is =
-not required
---
 
-commit 0e47bb58ccd4af1df6d3ff49895c7cf9fbc75cb8
-Author: Chaosheng Qu <quchaosheng000406@163.com>
+On 10/8/2026 3:48 PM, Dmitry Baryshkov wrote:
+> On Sat, Sep 26, 2026 at 02:01:21PM +0530, Vishnu Reddy wrote:
+>>
+>> On 9/26/2026 12:19 PM, sashiko-bot@kernel.org wrote:
+>>> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+>>> - [High] media: use-after-free of context bank devices during deferred V4L2 cleanup
+>>> --
+>>>
+>>> commit 720de65140e46882c5d0651161ef771fcb1189a2
+>>> Author: Vikash Garodia <vikash.garodia@oss.qualcomm.com>
+>>>
+>>> media: iris: Route buffers to the matching context bank device
+>>>
+>>> The VPU issues DMA through several SMMU streams, and the hardware does
+>>> not give every stream the same addressable range. The non-pixel stream
+>>> cannot address the low 600MB of IOVA space, while the pixel stream can
+>>> address the full range.
+>>> Add iris_get_cb_dev(), which maps a buffer type to the owning context
+>>> bank device. Bitstream and internal buffers (BIN, ARP, COMV, LINE,
+>>> NON_COMV, PERSIST) belong to the non-pixel device, and uncompressed
+>>> buffers (DPB, PARTIAL, SCRATCH_1, SCRATCH_2, VPSS) to the pixel device.
+>>> BUF_INPUT and BUF_OUTPUT depend on direction and are resolved from
+>>> inst->domain: for a decoder the input is non-pixel and the output pixel,
+>>> and the other way round for an encoder.
+>>> Fall back to core->dev whenever the relevant context bank device is
+>>> absent, so platforms still describing "iommus" on the parent iris node
+>>> behave exactly as before to maintain backward compatibility.
+>>>
+>>>> diff --git a/drivers/media/platform/qcom/iris/iris_buffer.c b/drivers/media/platform/qcom/iris/iris_buffer.c
+>>>> index eb8de60c1177f..6e03d13ac1a79 100644
+>>>> --- a/drivers/media/platform/qcom/iris/iris_buffer.c
+>>>> +++ b/drivers/media/platform/qcom/iris/iris_buffer.c
+>>>> @@ -531,7 +531,7 @@ static int iris_create_internal_buffer(struct iris_inst *inst,
+>>>>  				       enum iris_buffer_type buffer_type, u32 index)
+>>>>  {
+>>>>  	struct iris_buffers *buffers = &inst->buffers[buffer_type];
+>>>> -	struct iris_core *core = inst->core;
+>>>> +	struct device *dev = iris_get_cb_dev(inst, buffer_type);
+>>> [Severity: High]
+>>> Does this acquire the context bank device for DMA mapping without taking a
+>>> reference to guarantee its lifetime matches the buffer?
+>>>
+>>> If iris_remove() explicitly calls platform_device_unregister() on these
+>>> devices upon sysfs driver unbind, and no standard buffers are active, their
+>>> refcount can drop to 0 and they will be freed.
+>> This is not true. Remove callback cannot complete if driver module->refcnt,
+>> refcounted during open, and not decremented with corresponding close call.
+>> iris_close() would call iris_destroy_internal_buffers() to free up the buffers
+>> before un-registering the device.
+> I don't follow this comment. There is nothing about module removal.
+> Sashiko here (and in several other comments) tells about using the
+> `unbind` file in sysfs to unbind the driver from the device. The module
+> is still present in the memory, the module refcount is not decremented.
 
-dt-bindings: display: ti,tpd12s015: Convert to DT schema
+Thanks for clarifying the comment. Detaching the driver from device at runtime
+might leave the interaction with hardware unclosed.
+Would prefer adding something like this
+    .suppress_bind_attrs = true;
 
-Convert the TPD12S015 HDMI level shifter binding to DT schema.
+Again, this is not just applicable to sub-node devices, but to parent device
+too. Sashiko should classify this as a pre-existing issue.
 
-> diff --git a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.ya=
-ml b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
-> new file mode 100644
-> index 0000000000000..1927da3bd7361
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
-[ ... ]
-> +properties:
-> +  compatible:
-> +    oneOf:
-> +      - const: ti,tpd12s015
-> +      - items:
-> +          - const: ti,tpd12s016
-> +          - const: ti,tpd12s015
-> +
-> +  gpios:
-> +    description:
-> +      The CT CP HPD, LS OE and HPD GPIOs, in that order. The first contr=
-ols
-> +      the level shifter, the second enables the level shifter outputs and
-> +      the third reads the hot-plug detect line.
-> +    maxItems: 3
-
-[Severity: Low]
-Does this schema accurately reflect the requirements for the GPIOs?
-
-If a device tree node defines fewer than 3 GPIOs or omits the property
-entirely, it will pass schema validation since maxItems is set to 3 without
-minItems: 3, and gpios is omitted from the required block below.
-
-However, both the DRM and FBDEV drivers unconditionally fetch index 2 (the
-HPD GPIO) and fail probe if it is missing:
-
-drivers/gpu/drm/bridge/ti-tpd12s015.c:tpd12s015_probe() {
-	...
-	gpio =3D devm_gpiod_get_index(&pdev->dev, NULL, 2, GPIOD_IN);
-	if (IS_ERR(gpio))
-		return PTR_ERR(gpio);
-	...
-}
-
-Should the schema include minItems: 3 under gpios and add gpios to the
-required list to ensure device tree configurations that pass validation don=
-'t
-silently fail during driver probe?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009105601.3018=
-91-1-quchaosheng000406@163.com?part=3D1
+>>>>  	struct iris_buffer *buffer;
+>>>>  
+>>>>  	if (!buffers->size)
+>>> [ ... ]
+>>>
+>>>> @@ -650,10 +650,10 @@ int iris_queue_internal_buffers(struct iris_inst *inst, u32 plane)
+>>>>  
+>>>>  void iris_destroy_internal_buffer(struct iris_inst *inst, struct iris_buffer *buffer)
+>>>>  {
+>>>> -	struct iris_core *core = inst->core;
+>>>> +	struct device *dev = iris_get_cb_dev(inst, buffer->type);
+>>>>  
+>>>>  	list_del(&buffer->list);
+>>>> -	dma_free_attrs(core->dev, buffer->buffer_size, buffer->kvaddr,
+>>>> +	dma_free_attrs(dev, buffer->buffer_size, buffer->kvaddr,
+>>> [Severity: High]
+>>> Can this result in a use-after-free of the context bank device during
+>>> deferred V4L2 cleanup?
+>>>
+>>> If standard buffers are active, videobuf2 holds a reference. However, during
+>>> deferred cleanup in iris_close(), v4l2_m2m_ctx_release() frees standard
+>>> buffers before iris_destroy_all_internal_buffers() runs. This drops the
+>>> final refcount, freeing the devices.
+>> iris_destroy_all_internal_buffers() frees the internal buffers which is managed
+>> within the driver outside the scope of v4l2_m2m_ctx_release().
+>>
+>>> Will this fetch and dereference the freed device pointer, passing it to
+>>> dma_free_attrs()? Additionally, does the devm-allocated core also get freed
+>>> on unbind, making inst->core a dangling pointer here?
+>> Unbind will not happen until iris_close() completes(explained above), which
+>> avoids this scenario.
+>>
