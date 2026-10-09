@@ -1,134 +1,143 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8947443C24
-	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 13:23:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 889614DE736;
+	Fri,  9 Oct 2026 13:23:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791552214; cv=none; b=ZGAs/WhPSsufNcTbLjp+hlFDGbq2aLFSGiPE9206qwRYCyIxs5HRKfFDZkmc/KoFJEw7X0sEnSXKEfyrhJtu0eO6LaUUmTdQs6PEX/3INvxb8jw4aEHBcHjXeA1i4Jrx6XO/rHPgpkfnVIGiwj1e4MTPdGaX5HiSRaF9eV8YVkM=
+	t=1791552217; cv=none; b=cEtAqu1K9XWoxRzCvCzMyEdLl/BiqVbuOfstRl5E6f4259O2MKtAkDEhE6VsUtB5il4RniahZr7FDzN6vDZoRRqSRVHNdAWXIHT3HbZUkl+wLJtmEU5Hue/IRELwH7SgS2SqzgdQHsRmlmTjuLwxTwu90XGms7WCeLcpCcXdgnc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791552214; c=relaxed/simple;
-	bh=vZmadhl8HovBFuoYSgJ0l6yYPPai9xg7lnCos4x01KM=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=Ip03l1+5qkgnHf+RWpPOhb09/UoNNyF+B8F63vgvjgiNLP0mNdGMJWTmLD2wARAa9V9VF5rsnsPEqRMW8cUjqDlj+zS17tWhjPzlbdXvM0zPTUGOYrS/mgDAndhBNwfHzZNx0i4dSCPgJ8oMwgmMeSDcoh3QE2LRFedv9AMZ7mo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mMpOJOCq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791552217; c=relaxed/simple;
+	bh=QsxfZ8eY/u5oqqRo0YvTnNMZvQV/Z3ldiRd4SjmtWig=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jdbkxclHp0y5KvZ3+y8IE3T0g71sbLBflYh7p8u2f7KE83wFeD0iGJQ28NXI1onsvdtLiU1WNFhxcerMRYz/HJ6jBR4xGK6Z7LHkAW5YUmJymsY6tuQUYYtSYLRI+lKWT8dCE1jPRc7rRpoiy6pH1y/6lR31/QhXTLkIvq3Rl1s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DlndcKfK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mMpOJOCq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FE241F00893;
-	Fri,  9 Oct 2026 13:23:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DlndcKfK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30D791F000FF;
+	Fri,  9 Oct 2026 13:23:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791552213;
-	bh=4dxBjR0nMtZsiqCjM5ZazNzkdxHWcJqn8BaJ2q+Oclw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=mMpOJOCq0C/vxQoKMieBHnmeDDlLY5WMVScu5lZ/5mF/mEggW9R75hr0SXs7pRlA/
-	 OKbCyRlj3DsEiEhl0YW0rKW3NbS+HFv81W5Qbpo1tiobAm+xNJMbSG19QgmwUuEHj8
-	 mTB6rMo6nKpvvEiWlPxzcXLaddxt5tCyporUBCa2dDUdsVlovSAg56q6R3Hcs8jA91
-	 ure4vzloqE1GulY3aka3uIhBV9Zw2QJBSueAAEMQCcn7gpdf5iBYqCacz2Iy1moEv3
-	 MSNAe9CaxqA1C60pSP/PBO2Fw/Rb314YGTVz+mctHtLVBtB7fP7uVWD9xTrUMyuqEW
-	 JX7YRBZQGZ58w==
-Message-ID: <sashiko-outbox-165625@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/7] ASoC: codec: pcm1681: Add optional SCK clock and
- runtime PM support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mohammad Rafi Shaik" <mohammad.rafi.shaik@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20261009-nord-asoc-driver-support-v3-v3-2-0c1897f21ccf@oss.qualcomm.com>
-References: <20261009-nord-asoc-driver-support-v3-v3-0-0c1897f21ccf@oss.qualcomm.com>
- <20261009-nord-asoc-driver-support-v3-v3-2-0c1897f21ccf@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 09 Oct 2026 13:23:32 +0000
+	s=k20260515; t=1791552216;
+	bh=L9uZ5IM93p9LQ2JNQAbeyuJbzgESpCWqW5xXr/uLn2U=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=DlndcKfKKoYCEuluI4HyXha6iddxom8RCvvKh8jt6E/P/5eaAbdRfM60zuyBZIqGD
+	 p/YtD+LIKqZqmyRyFVlne9YKHkgd7YVjCT/YnIhlcG9ukuiWCSYlaBRvv5/HozfMEk
+	 oWzx2F1AkiyD3oJsjaufRetf7Zl2+FzXZxz3bKL3ug1C1Ih+h8iwsI1h2pTtEplFzh
+	 2ecTP3bKS974qca4o8V7Hnq8vPWclYUkjNflYuXaK8DDuf6YC0ziZSCPC392ynawsM
+	 TFNqdlX8N0a9PXJT704ul3KJGEInh9Tt/gMXuMk1uy0+Ad6i/tkPXpq+/CIQ8jUVLj
+	 4Lz9tnt2egttQ==
+Message-ID: <97851eb8-669c-426e-9a03-a73de471ae00@kernel.org>
+Date: Fri, 9 Oct 2026 15:23:22 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: (subset) [PATCH v2 0/4] arm64: dts: qcom: Add support for Radxa
+ Dragon Q8B
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Bjorn Helgaas <bhelgaas@google.com>,
+ Andrzej Hajda <andrzej.hajda@intel.com>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, David Airlie <airlied@gmail.com>,
+ Simona Vetter <simona@ffwll.ch>,
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Bartosz Golaszewski
+ <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ Xilin Wu <sophon@radxa.com>, linux-pci@vger.kernel.org,
+ linux-kernel@vger.kernel.org, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-gpio@vger.kernel.org, Stephen Chen <stephen@radxa.com>,
+ Junhao Xie <bigfoot@radxa.com>, dragon@radxa.com,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Daniele Briguglio <hello@superkali.me>
+References: <20261009-q8b-dts-v2-0-eda11e5dea8b@radxa.com>
+ <179153455955.2970577.14103639336377928226.b4-ty@b4>
+ <b8cc8683-d114-48c8-af60-ecd8e16bdf46@kernel.org>
+ <zzl3xo6njlmuujbscy3djy37vwbs46uzborf7zpziwfegkgdy5@x5jybhyqpwny>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <zzl3xo6njlmuujbscy3djy37vwbs46uzborf7zpziwfegkgdy5@x5jybhyqpwny>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] snd: soc: pcm1681: Devres teardown ordering bug leaves component a=
-ccessible with gated clock
---
+On 09/10/2026 15:20, Dmitry Baryshkov wrote:
+> On Fri, Oct 09, 2026 at 01:43:09PM +0200, Krzysztof Kozlowski wrote:
+>> On 09/10/2026 10:29, Dmitry Baryshkov wrote:
+>>> On Fri, 09 Oct 2026 15:55:05 +0800, Xilin Wu wrote:
+>>>> The Radxa Dragon Q8B is a single-board computer based on the Qualcomm
+>>>> Snapdragon 8cx Gen 3 (SC8280XP) platform.
+>>>>
+>>>> The board provides UFS and microSD storage, two M.2 M-key slots, an M.2
+>>>> E-key slot, a QPS615/TC9563 PCIe switch, USB Type-C ports with DisplayPort
+>>>> alternate mode, USB Type-A ports, HDMI 2.1 output, headset audio and
+>>>> a 40-pin expansion header.
+>>>>
+>>>> [...]
+>>>
+>>> Applied to drm-misc-next, thanks!
+>>>
+>>> [1/4] dt-bindings: display: bridge: simple: document Chrontel CH7218A
+>>>       commit: 377682cf917027396211426c509cae5785305ba8
+>>
+>> So the fake tag gets applied. Having 12 minutes to respond to this
+>> posting is NOT enough.
+> 
+> It had your a-b.
 
-commit 0a50ee85ef797e0816bf4c1d1aa2f3b04e25ef3c
-Author: Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>
+True and then fake tag was added, to which I responded only three hours
+later. Even if patch has necessary acks, a few hours to respond to new
+version is useful.
 
-ASoC: codec: pcm1681: Add optional SCK clock and runtime PM support
-
-This commit adds support for an optional sck clock and runtime PM to the
-PCM1681 codec driver. It enables the clock before accessing the device, wai=
-ts
-for a reset sequence, and uses runtime PM autosuspend to manage the clock s=
-tate
-alongside regmap caching.
-
-> diff --git a/sound/soc/codecs/pcm1681.c b/sound/soc/codecs/pcm1681.c
-> index 60fdbe5c4e054..a1ccf1edf4819 100644
-> --- a/sound/soc/codecs/pcm1681.c
-> +++ b/sound/soc/codecs/pcm1681.c
-[ ... ]
->  static int pcm1681_i2c_probe(struct i2c_client *client)
->  {
-[ ... ]
-> +	ret =3D devm_snd_soc_register_component(dev,
-> +					      &soc_component_dev_pcm1681,
-> +					      &pcm1681_dai, 1);
-> +	if (ret) {
-> +		dev_err(dev, "Failed to register component: %d\n", ret);
-> +		goto err_pm;
-> +	}
-> +
-> +	return 0;
-> +
-> +err_pm:
-> +	pm_runtime_dont_use_autosuspend(dev);
-> +	pm_runtime_disable(dev);
-> +	if (!pm_runtime_status_suspended(dev))
-> +		clk_disable_unprepare(priv->sck);
-> +	pm_runtime_set_suspended(dev);
-> +
-> +	return ret;
->  }
-> =20
-> +static void pcm1681_i2c_remove(struct i2c_client *client)
-> +{
-> +	struct pcm1681_private *priv =3D i2c_get_clientdata(client);
-> +	struct device *dev =3D &client->dev;
-> +
-> +	pm_runtime_dont_use_autosuspend(dev);
-> +	pm_runtime_disable(dev);
-> +	/* Runtime PM may already have gated the clock */
-> +	if (!pm_runtime_status_suspended(dev))
-> +		clk_disable_unprepare(priv->sck);
-
-[Severity: High]
-Does this devres teardown ordering leave the component accessible while its
-clock is gated?
-
-In pcm1681_i2c_probe() in sound/soc/codecs/pcm1681.c, the component is
-registered via devm_snd_soc_register_component(), which defers unregistrati=
-on
-until after pcm1681_i2c_remove() completes. However, pcm1681_i2c_remove()
-manually disables runtime PM and gates the sck clock.
-
-When the ASoC core later unregisters the component during the devres cleanup
-phase, it may attempt to power down DAPM widgets or mute the codec, resulti=
-ng
-in physical regmap_write() calls. Since the clock is already gated and the
-regmap cache is not marked as cache-only here, this regression could cause
-these transactions to fail, potentially leading to I2C timeouts, bus hangs,=
- or
-kernel warnings.
-
-Should devm_pm_runtime_enable() or a custom devm action be used for PM and
-clock cleanup to ensure proper ordering, or should the component registrati=
-on be
-changed to the non-devres variant?
-
-> +	pm_runtime_set_suspended(dev);
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009-nord-asoc-=
-driver-support-v3-v3-0-0c1897f21ccf@oss.qualcomm.com?part=3D2
+Best regards,
+Krzysztof
