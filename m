@@ -1,158 +1,135 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F0253CF1FF
-	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 18:53:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48B5A3C276E
+	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 18:58:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791572010; cv=none; b=kYc/1Gmxzo54DK2AnM0HsaCVXXkCqAA3mc9EJmwKErRLZ2zGIg04FQc0WnyZHi9sNSD7xp0zSVIv/YtIHP/A3BWQaYcClnE/8Msrx9dZ5nDAILHvOLr6i7FjuwGyIdhvgFrkBsAWyKSxPuJ2Kz4M5QUP5wmOgnmzKtKgxlUZw+s=
+	t=1791572283; cv=none; b=kmwYganZJ93JJ+569nl2VgoH1kCyVM1tDpSzO+l8JblAjfrkcw+Gs8VuYx8wsEboaOvMHyC54pDy/QVAtIelA22nJZjkVm1+NEkbrjzNBsUq6rtk1jB1N4zWr6zSZYcnkj3vh/51I3EKuEwsruf4VKxAnU6NjD5Un8Ua87bt9GQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791572010; c=relaxed/simple;
-	bh=15xAuwM7X8m8ujQVGT8AX0DROcZLmJy1rNy4NSKHl5Y=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=pgv72Eqrjnm6eda8j/911Fpd88qSQud8EnkBFJKLl9cxwQlJBzoQu1n7rtmFp7fQzmp0GNZmnVdNA3l+ftGeogieK+j2bCyEO52GwwGm2RfIQ0C+sjJzpF0OyoTbPqVwmjXJL3njpTjHTSdbLNcv/YnHt6eyBth4Y/bPQ8hiELA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IW3n2SSf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791572283; c=relaxed/simple;
+	bh=CImErCK453/2jtS/jVyzggFVcO9aeFsBNs1Imd7DWps=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=h4NhAt2WAEF8LO2oo2V+ui7UPD40RaVJd/GPBpgxDtkhZLC94hgFt9bjOK+LOXjKR7JofdFYPZhj3qxFs9jem3Awr+gsuMp3OZSYhZXxyVpa74lR0B0D13trswwQt6OG4tspUTrCPuZJol63ocXJSvNdZOScJ7QMz4Nr0DBPHsg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=YHcbyLfs; arc=none smtp.client-ip=209.85.216.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IW3n2SSf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66CFA1F000FF;
-	Fri,  9 Oct 2026 18:53:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791572008;
-	bh=iCc9e2bOvhIDVqGbTGQQUZT4yq3Nde5sSMDx+8au+Fo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=IW3n2SSfFwKcAwdAc1GsdPtdJVklX3T3tZr225cdZoRT9xvaCMEu2TnL4Fex4o3au
-	 Ap8U2q+hRkMGlm160NoQpbOrJ38bPEc2bI0sr75sGQQRUawsxvohe3XAaRLWnpCFJZ
-	 BOFmuykaWf8xEW4Zx0ldIa4kwArb10ZXuykGh9lxZcw/QJpgnEhz4XiDxhGIzt1g8l
-	 FVB+s6nhLrLtjIORLPQ4iRRuFdrqppPdzz1c34+CrtQ5VokfK3wH2+vnBG7awW+KeD
-	 ogf2zROwr2MpIVIdbmMoFS2LT44ICPZs+PEMRSvHykcapLT69BkApRxbgQ6tp6b4Wk
-	 u69nOwswnIT8w==
-Message-ID: <sashiko-outbox-165988@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 4/8] iio: adc: rzt2h: Add optional reset support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: wsa+renesas@sang-engineering.com, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20261009184122.1378797-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20261009184122.1378797-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20261009184122.1378797-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 09 Oct 2026 18:53:27 +0000
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="YHcbyLfs"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3ab60ff4273so709954a91.0
+        for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 11:58:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1791572281; x=1792177081; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=voQnsCMf54BeM6EKGprlzbES0+jYHxFzIpzAIjrxSoc=;
+        b=YHcbyLfsATTi27I5DB3mBTZ4Pr+dHoum8ZgLbLz4hKwL/h72KmIO2k2J+nmNVA8TIg
+         HBBQZLAND14TTBn5PLv1aLP572i8KtT+R8Jd8aMwPJtAYgKt0ZUY949aJn0vs5D9sa+z
+         QJNA4+9by9/g42t9fg+IH7PhwpwmfMS7pNgH38as8bfMBPavPVxsMP0cbzza8oK8vAfX
+         e7JWKpimiy13/e9ksyj6iU5HVLVZqoQNFrpNAz/xCfNTMNmuKu9ISwi2minPZUpDpKr9
+         MsnCWu+mdCQESWi+oMTkV2bUTD6uNN5yf1LhfpzfoWu8uEb4erXYDdkTf2MjUTFKBHWC
+         Nilw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791572281; x=1792177081;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=voQnsCMf54BeM6EKGprlzbES0+jYHxFzIpzAIjrxSoc=;
+        b=mSXXKK3M8ru1i4I5LyFL9Yrx0ljrrKs5c3Zy2C+4esgoZFS28Dpk5oUwsIvmuouYem
+         oZubiKtMt423z7J2n0lqX2pU9RiEWH30sEOVN+tK7RSyPPvlW6McxXwbfJUX6o2JBC3v
+         7pJmFIuYtsSGwNilemBlxX5zTduHKDN8fSZA5OYuZOYTk7dSWN7sRgEc5htmPtt6kkVS
+         i3tKO7bFLwbLREyE2Yml9L5A5a8xM7PjlpFWN1yQtdp79dYyiVwU3V4aEUReuNnDS5j/
+         gWtH1rpAhUZjCwpFUons/163QFn74HsDWFiLeZtFqA3XLkIU78+mERjzcmxLLK59F+s1
+         IDQA==
+X-Forwarded-Encrypted: i=1; AKwUvBxrhaBtlfrssoTVzgTgFOGoPq8iCdJ03Mx55ooToC9lDKnLIGYmlZapAkyUtvxUKZTPC0D4/gBKdy7y@vger.kernel.org
+X-Gm-Message-State: AFq9FYKFD5sYF6RQXYRBHACCixqbhLYJHiAXuW7CD0+N9qxwxAb/nGEQ
+	V2MwdsEXyGGB6RGqEBlAPLxyK0pF9avNz0dPSY9UPrumTK3zjK17WeYmMd7H4kAdog==
+X-Gm-Gg: AYBFou3foSDw0EYr5UZQ5nby5eGFfOqRudeFlcQS1ZwRBHCSueKkL9e02jHOkOx2VrA
+	dUukmS0kkyyBijQZt2EbcrTKy6bp2ru1c8sRaMYG0ZR+mDbWoAe5+A7/8FZD9UnElT9RnVzmoDM
+	QhuDG1kh/qY+btD6ccXclpZA74wNkKU3E7s3LFWfkHAAh8ZAj4rlImw9HhKMY4FdaCRK1iX4o3p
+	LqLTmNBVjVHA3NLDoWx8W79t+qfhI/gNjq8L4pyt7vJGfHf+oO7qSwe0YwLm3iQRkpZOGxjwGt9
+	TAzpoZOvcnxVdqrcqbJvNPbTvHCjWuymnX5N2buMtb1P9ReQ/YXjoeVIK0eV+5JDrZJ7GrJ11Kx
+	RRBmY2ZKa3917P07H4923UIWv8WHBPzAlal9Wcvkyh4GqfyJoBEmbXJVvbV/VZEYYNqJ21a+GVp
+	NOnDCJCj22lKUcNtENdCBZmDNHBMrYH2PlnyCySu5Ij0O7xiNuLCb/GzLixbYecTvkaCsR4iJbc
+	oo2/FmNHUl+x+jY+sFC6BqPXDVYonQoI+hJ5XUvqYK04GsNZSnAenHlVqCEZ9wWDVFGKVl6OF2i
+	UPozzaBJ0fu/wihya15Fxb8FXSjmk/X7Stj3AAjA
+X-Received: by 2002:a17:90b:5887:b0:3a4:a383:f9cf with SMTP id 98e67ed59e1d1-3ab3a9a78f8mr3010368a91.38.1791572281011;
+        Fri, 09 Oct 2026 11:58:01 -0700 (PDT)
+Received: from ?IPV6:2a00:79e0:2e7c:8:3cac:e69a:a0e2:88af? ([2a00:79e0:2e7c:8:3cac:e69a:a0e2:88af])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab36ed040dsm5852181a91.6.2026.10.09.11.58.00
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 09 Oct 2026 11:58:00 -0700 (PDT)
+Message-ID: <9046b5d6-ca6b-4466-bd8f-73f034234caf@google.com>
+Date: Fri, 9 Oct 2026 11:57:57 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: connector: Add time property for
+ tSenderResponse
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+References: <20261004-tcpm-sender-response-time-v1-0-3f8b43084acc@google.com>
+ <20261004-tcpm-sender-response-time-v1-1-3f8b43084acc@google.com>
+ <20261004030531.9D32A1F0089B@smtp.kernel.org>
+Content-Language: en-US
+From: Amit Sunil Dhamne <amitsd@google.com>
+In-Reply-To: <20261004030531.9D32A1F0089B@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] iio: adc: rzt2h: Shared reset control leaked if unbound while acti=
-ve
-- [Medium] iio: adc: rzt2h: hardware settling delay bypassed when calibrati=
-on is unsupported
---
+Hi,
 
-commit 1e05a1801dd44e25bef73244db6d8173cc097ea8
-Author: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+On 10/3/26 8:05 PM, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Low] dt-bindings: missing schema constraints for sender-response-time-ms
+> --
+> 
+> commit eb9d81bbfb13df2dbe09db76aefbc40c815abe01
+> Author: Amit Sunil Dhamne <amitsd@google.com>
+> 
+> dt-bindings: connector: Add time property for tSenderResponse
+> 
+> Add the sender-response-time-ms property to allow platforms to specify
+> the tSenderResponse timer value, i.e. the max time a port waits for the
+> port partner to respond to a message that requires a response.
+> 
+>> diff --git a/Documentation/devicetree/bindings/connector/usb-connector.yaml b/Documentation/devicetree/bindings/connector/usb-connector.yaml
+>> index 8ca0292490a2c..52dbdd738db64 100644
+>> --- a/Documentation/devicetree/bindings/connector/usb-connector.yaml
+>> +++ b/Documentation/devicetree/bindings/connector/usb-connector.yaml
+>> @@ -283,6 +283,15 @@ properties:
+>>       maximum: 200
+>>       default: 200
+>>   
+>> +  sender-response-time-ms:
+>> +    description: Represents the max time in ms that a Type-C port waits for
+> 
+> [Severity: Low]
+> Is this new property missing minimum, maximum, or default constraints?
+I could add the min, max & default for this property. Will send a v2.
 
-iio: adc: rzt2h: Add optional reset support
-   =20
-Prepare the driver for RZ/V2H(P), where the ADC has a module reset line
-that is not present on RZ/T2H. Assert the optional reset when the ADC is
-runtime-suspended and deassert it on runtime resume before performing
-calibration. Use a shared reset control to support SoCs such as RZ/V2N where
-the reset line is shared between multiple ADC instances.
+Thanks,
+Amit
 
-> diff --git a/drivers/iio/adc/rzt2h_adc.c b/drivers/iio/adc/rzt2h_adc.c
-> index 58e33fd0249c9..62120d2185152 100644
-> --- a/drivers/iio/adc/rzt2h_adc.c
-> +++ b/drivers/iio/adc/rzt2h_adc.c
+> 
+> Unlike other timers in this schema (such as sink-wait-cap-time-ms), the lack
+> of boundaries means offline schema validation (dt_binding_check) will silently
+> accept arbitrary values. Should this have explicit numerical limits to prevent
+> accidentally violating USB PD timing requirements?
+> 
+>> +      the port partner to respond to a message that requires a response. This
+>> +      timer starts when the port's PHY layer receives the last bit of the
+>> +      GoodCRC EOP corresponding to the message requiring a response. This timer
+>> +      stops when the last bit of the EOP of the expected response message is
+>> +      received by the PHY layer. A timeout leads to a soft or hard reset by the
+>> +      port.
+>> +
+> 
 
-[ ... ]
-
-> @@ -710,6 +712,10 @@ static int rzt2h_adc_probe(struct platform_device *p=
-dev)
-> =20
->  	platform_set_drvdata(pdev, adc);
-> =20
-> +	adc->rstc =3D devm_reset_control_get_optional_shared(dev, NULL);
-> +	if (IS_ERR(adc->rstc))
-> +		return PTR_ERR(adc->rstc);
-> +
-
-[Severity: High]
-Because this driver acquires a shared reset control and enables runtime PM =
-via
-devm_pm_runtime_enable() without providing a custom unbind action or .remove
-callback to synchronously suspend the device, could this leak the shared re=
-set
-control's deassert count?
-
-If the driver unbinds while the device is in RPM_ACTIVE (for instance, due =
-to
-a concurrent sysfs read or a user setting power/control to "on"), the devres
-cleanup calls pm_runtime_disable() which leaves the device active.=20
-
-This would bypass rzt2h_adc_pm_runtime_suspend() entirely, meaning
-reset_control_assert() is never called, and the deassert count is permanent=
-ly
-leaked. Other driver instances sharing this reset line would then be unable
-to assert it, potentially breaking their power management transitions.
-
->  	ret =3D rzt2h_adc_parse_properties(adc);
-
-[ ... ]
-
-> @@ -771,10 +777,22 @@ static const struct of_device_id rzt2h_adc_match[] =
-=3D {
->  };
->  MODULE_DEVICE_TABLE(of, rzt2h_adc_match);
-> =20
-> +static int rzt2h_adc_pm_runtime_suspend(struct device *dev)
-> +{
-> +	struct rzt2h_adc *adc =3D dev_get_drvdata(dev);
-> +
-> +	return reset_control_assert(adc->rstc);
-> +}
-> +
->  static int rzt2h_adc_pm_runtime_resume(struct device *dev)
->  {
->  	struct rzt2h_adc *adc =3D dev_get_drvdata(dev);
->  	const struct rzt2h_adc_chip_info *chip_info =3D adc->chip_info;
-> +	int ret;
-> +
-> +	ret =3D reset_control_deassert(adc->rstc);
-> +	if (ret)
-> +		return ret;
-> =20
->  	if (!(chip_info->features & RZT2H_ADC_FEATURE_CALIBRATION))
->  		return 0;
->=20
->  	/*
->  	 * Datasheet Page 2810, Section 41.5.6:
->  	 * After release from the module-stop state, wait for at least
->  	 * 0.5 =C2=B5s before starting A/D conversion.
->  	 */
->  	fsleep(1);
-
-[Severity: Medium]
-Does this early return bypass the required hardware settling delay for
-devices without the calibration feature?=20
-
-When rzt2h_adc_pm_runtime_resume() is called for hardware lacking
-RZT2H_ADC_FEATURE_CALIBRATION, returning 0 immediately skips the fsleep(1)
-that follows. This means the IIO core can immediately start A/D conversions=
- on
-the newly-resumed hardware before the datasheet-mandated 0.5 us module-stop
-release delay has elapsed, potentially resulting in unreliable initial ADC
-conversions.
-
-> =20
-> -	return rzt2h_adc_calibrate(adc);
-> +	ret =3D rzt2h_adc_calibrate(adc);
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009184122.1378=
-797-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D4
