@@ -1,114 +1,89 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1B305012AC
-	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 18:43:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E44B435523;
+	Fri,  9 Oct 2026 18:46:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791571437; cv=none; b=pJpywkUfHIRp6c8Hq0iTJdhT+haBD7nmrfNwSH6zB4V9+xrA0m1Ela3dKFI2l2hyW83RbLRfMrbuJ3RzXGN4tFFDT17LWCEiq1PTx0jlzhfDWS0eeYzVUf3ltd/E1VRuExUJCAAYMbtxvhlCxpdLZCLuc1KMQlVNWB62th9BU/E=
+	t=1791571582; cv=none; b=GBvgdjwReuFZ0eF5XSL8XmcCF42xkRb6PFhFMNF8oQ0li1cMxgcSKyjQFBnKvPE7CWUzaQZIb3vQYvLM/25WI4Wtb5BXlasbtwQL12idypDepo+5fZv8uc4a5wbuUoj/u4OWpBpUFCMUzq0hRo/GGOq7gJhSFxGVuXY1s43+JDM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791571437; c=relaxed/simple;
-	bh=Rr2QomhkdUgG3+a9IiXhwNUKcyOhQUXyMhH5Yll2BxM=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=oIXLcifyhT0B1Zg/xECg2PGxIRHIbR4ze/+dKy6ujsXOnFV+3oCC9er+89zQph0n5NuCBN0pABeldcwgm4g2TVKwhSgpp3sUCcFsZO0vl5bn39JDdz//MFEPzcg0BBOU+De+NN3Rv5Oa6NxN+QsqKMXYu+KzgJ78l02843F/BDk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lQqXc4jU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791571582; c=relaxed/simple;
+	bh=dBVJHBnSjpblWHttUEpKV/Gla9dxr+ZGqyjY8WLu+Fc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jJsqqVR7awlY3aAYTvkbYTQpJ7IxKk+yCl4/XzgYPC6F2veO3A7nVXwWnbUZd8jLDrkNzK/z22HBXX2FrauQ0ki+EvTc2gBhW+PyrxXjKZA+LpLYbKSVVfZjXorooqYVtk3by1LWKDW/Y/QYpoJTqiptEwL/vsleSrp4jPen5Xo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=erOEblbH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lQqXc4jU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C8771F00893;
-	Fri,  9 Oct 2026 18:43:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="erOEblbH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 266D71F000FF;
+	Fri,  9 Oct 2026 18:46:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791571435;
-	bh=pyNsu+hBbF0eB3cCc3m+bzEFELSrrkxMdUq/9Ctu6Cs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lQqXc4jUG894PgBhUpOCDlURuII5rLkauQNYSEyqt/dTtOzYNpKMKDvVcNAtDs0RK
-	 qF/jMC3LK74POBqjMkPdp/Z1VRz2Y/Ll2seKbECZvqbBhStvARktAb0JHWm1I1axXy
-	 Jr5dk9LWD7Jz5qDt8PQCW3dk0qSYRogOVqZ2lYWxZ0ujr0r9/XiMwkh5NApa6GIkng
-	 kaoSLi36jT+15q/rrtLl+g1aREwj1EoBOYW1qDL732SCiQ2xsaWGfwqRQYenZTgBmw
-	 EDGOIm1OCfVGUPPMoOD2u0RSPuU3SGGIzzqAyMSYbzPYocLUz85rwPQvnEAsDq2ITi
-	 JJn9hLBfsF/kw==
-Message-ID: <sashiko-outbox-165965@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] cpufreq: mediatek: Enter system sleep at the
- suspend OPP
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ryan Brue" <ryanbrue.dev@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20261009-rbrue-suez-upstreaming-mtk-cpufreq-suspend-opp-v1-1-9100f79b4080@gmail.com>
-References: <20261009-rbrue-suez-upstreaming-mtk-cpufreq-suspend-opp-v1-0-9100f79b4080@gmail.com>
- <20261009-rbrue-suez-upstreaming-mtk-cpufreq-suspend-opp-v1-1-9100f79b4080@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 09 Oct 2026 18:43:53 +0000
+	s=k20260515; t=1791571581;
+	bh=dBVJHBnSjpblWHttUEpKV/Gla9dxr+ZGqyjY8WLu+Fc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=erOEblbHGRMD+4jrGI5a6S7ey6al2e0ViAa1SaW52cvuBtAUKIGjRKR7uhIHwOKe1
+	 +e4Sl5ca9skE498BKj1398WgQCGJbUIX+ABj3gEpMlqmwlCXQkPGAXzgawu9TXGr1K
+	 PcffrsX5bjq8Kw8/kD17uTd1kwpxuxKXw9U5qKqgLs6brcKX8BNfuJAL3F9+JiEE7b
+	 sUuqbSIu58Ta8u+3ApN6r5o+rVrzHDR5SwcaHIlZNYJQ8ef0arnCmsJu6JBOIzh33E
+	 Eu6DmevKVSsHZY1fQId4qwBUX8VZMDdau7x5I4rV0uhj6VacF5armrrzQrdHkq62xC
+	 zeYxot/VWjNeQ==
+Date: Fri, 9 Oct 2026 19:46:13 +0100
+From: Conor Dooley <conor@kernel.org>
+To: "Christian Marangi (Ansuel)" <ansuelsmth@gmail.com>
+Cc: Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Felix Fietkau <nbd@nbd.name>, linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 1/3] dt-bindings: clock: airoha: Document support for
+ AN7583 clock
+Message-ID: <20261009-0f838c3bfc48bd3a79f6d013@squawk>
+References: <20261009070725.13196-1-ansuelsmth@gmail.com>
+ <20261009070725.13196-2-ansuelsmth@gmail.com>
+ <20261009-b41aedc4c5583a8a94926925@squawk>
+ <CA+_ehUxMyx-aejgcve4+naou=LQ8-OOSTPMHvSNVhCEiEiw3Vw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="iPrU6NC3mE2h2aw8"
+Content-Disposition: inline
+In-Reply-To: <CA+_ehUxMyx-aejgcve4+naou=LQ8-OOSTPMHvSNVhCEiEiw3Vw@mail.gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] opp: UAF and data race on opp_table->suspend_opp
---
+--iPrU6NC3mE2h2aw8
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-commit e45cc103dadbac91ac1b6c64b8b61a195f1c5f95
-Author: Ryan Brue <ryanbrue.dev@gmail.com>
+On Fri, Oct 09, 2026 at 07:23:19PM +0200, Christian Marangi (Ansuel) wrote:
+> Il giorno ven 9 ott 2026 alle ore 17:12 Conor Dooley
+> <conor@kernel.org> ha scritto:
+> >
+> > Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> > pw-bot: not-applicable
+>=20
+> Just for my own info, what is the meaning of not-applicable in this conte=
+xt?
 
-cpufreq: mediatek: Enter system sleep at the suspend OPP
+It's for the bot running against the dt patchwork, so that it removes
+the patch from our queue. I guess "not applicable to Rob's tree"? The
+alternate options are handled elsewhere which is applied to drivers by
+us, changes requested which means you need a new revision :)
 
-This commit updates the mediatek-cpufreq driver to use the generic
-suspend-frequency support. It allows the driver to enter system sleep at the
-suspend OPP, reducing power consumption during suspend-to-RAM.
+--iPrU6NC3mE2h2aw8
+Content-Type: application/pgp-signature; name=signature.asc
 
-> diff --git a/drivers/cpufreq/mediatek-cpufreq.c b/drivers/cpufreq/mediate=
-k-cpufreq.c
-> index 052ca7cd2f4fd..f9b1eca176eb8 100644
-> --- a/drivers/cpufreq/mediatek-cpufreq.c
-> +++ b/drivers/cpufreq/mediatek-cpufreq.c
-> @@ -603,6 +603,7 @@ static int mtk_cpufreq_init(struct cpufreq_policy *po=
-licy)
->  	policy->freq_table =3D freq_table;
->  	policy->driver_data =3D info;
->  	policy->clk =3D info->cpu_clk;
-> +	policy->suspend_freq =3D dev_pm_opp_get_suspend_opp_freq(info->cpu_dev)=
- / 1000;
+-----BEGIN PGP SIGNATURE-----
 
-[Severity: High]
-Is it safe to call dev_pm_opp_get_suspend_opp_freq() here?
+iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCask2dQAKCRB4tDGHoIJi
+0rBHAP9aC5phLRdhUdQMCupjcnEI5SBaRrlnoPWRrq8WkxT/8gEAsBdjt5lTUcGz
+m0yqWBt7dZGO3qLJj0oFcA8G9Spy+w8=
+=tSeO
+-----END PGP SIGNATURE-----
 
-In drivers/opp/core.c, dev_pm_opp_get_suspend_opp_freq() locklessly
-dereferences opp_table->suspend_opp:
-
-	if (opp_table->suspend_opp && opp_table->suspend_opp->available)
-		freq =3D dev_pm_opp_get_freq(opp_table->suspend_opp);
-
-However, in drivers/opp/of.c, _opp_add_static_v2() modifies
-opp_table->suspend_opp dynamically without holding opp_table->lock, creatin=
-g a
-data race:
-
-				opp_table->suspend_opp->suspend =3D false;
-				new_opp->suspend =3D true;
-				opp_table->suspend_opp =3D new_opp;
-
-Furthermore, when an OPP is removed, _opp_kref_release() in drivers/opp/cor=
-e.c
-frees the dev_pm_opp object without checking or clearing
-opp_table->suspend_opp:
-
-	_of_clear_opp(opp_table, opp);
-	opp_debug_remove_one(opp);
-	kfree(opp);
-
-This leaves a permanent dangling pointer if opp_table->suspend_opp pointed =
-to
-the dying OPP. Any subsequent call to dev_pm_opp_get_suspend_opp_freq()
-will locklessly dereference the now-dangling pointer, potentially causing a
-use-after-free.
-
-> =20
->  	return 0;
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009-rbrue-suez=
--upstreaming-mtk-cpufreq-suspend-opp-v1-0-9100f79b4080@gmail.com?part=3D1
+--iPrU6NC3mE2h2aw8--
