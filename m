@@ -1,41 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2035E4E0B83
-	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 14:52:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F24604E1C9F
+	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 14:52:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791557533; cv=none; b=Nh4B/JzfZ/mscXrSXhS42H2I38X0XPlklItDO6UO/t54X6PGe2HQuu/y8jOuO033O0u3Be03mPVrhiEYU0+PTIF8R4tz7bzGRQYtokFpggDZ0pTabdTN33J97G+1FvIL1nEqGLBNzbVbnyvziZ4oRL3XQcl0b5TGkvY4s3HCJzY=
+	t=1791557534; cv=none; b=LgPfwoExjimkDB0h3XsMUJokCf6/eILym3aEnRLlODbPVHEqbeAhPHqqXthTY6uL3rYrCkr3W9FHKA7LXR9tDF3hM/cNQ0b88TUtbHhGI9xumGHDytX1xWOeWgSDRtZ0GBvX9k7V6OG5oYwjtV5JagLvjjVcntT65ZEAovA67Sw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791557533; c=relaxed/simple;
-	bh=e/gf79CX7/GRkpKVwMfzbZ7h0ztwaOJZ3DwtfcsXQ08=;
+	s=arc-20240116; t=1791557534; c=relaxed/simple;
+	bh=b6P0GNiLWT5uqJwZhJb7SKZUWvV/rupk7H5WwN5/jlE=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=phkOk6Z/5jXK5hPrh0i9qZq0NGAXpYp8kDy6YromVqgNdbOVdtphm5q0evN3TnUJTR0SmMWjFZDa07IDLtK/whOPq9rXy/P3Wf6UdXaN7fKg0Jc68Jr0QTBY37SP0wR1kbP98BrLfXC06JYDqrsksgDVjJhP/SsMKaGYLuQaKPg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gotGfzNC; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=ghptmeAPD4ItNg7Ie0WpQHVE4vHY7zw4ZaJ4rbiGEqykQckmmr8dy7dyL0Z+xLOjrwlGkDEnM/NqizuQ3g8FcGio9uoTBQm0VXyT/y+eermtCgZlnZdzoF7KFNmUo0Wkg/B8pNH47skwjpt3QcwrErbZi05WpmCwi88Y+wbVYGU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hGFR9g9L; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gotGfzNC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81CFD1F000FF;
-	Fri,  9 Oct 2026 14:52:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hGFR9g9L"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4D84A1F00898;
+	Fri,  9 Oct 2026 14:52:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791557531;
-	bh=p8xKfRbmihEhZGkaj4OoFzjw9r6HqnZn593Dzi9s84I=;
+	s=k20260515; t=1791557532;
+	bh=lKiZYoJGGwyxfR/pC7NdXKdxsBEYFOGIQTrMb8TohG8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gotGfzNCQ58mNy6I0D305fP3lLQLgcw55l3j6LXmdmw6L8yhOhkAPLJupJJB3lqbJ
-	 yPQupMhGAlSHaVVbFiMy/FFEWObZI2NQCtbG5h0dz4AXj+tHCCfQmx6Y0wEANwQWhR
-	 rfm0snoUm0QT4aq67BZNKTQq++msLbmDvCj1yuUrWl4bozG+sJn8Y11n0r9Ipqm12u
-	 JNL7rkCK67J8jiVU5IpG2xbt+xVoA9s0TtWfMSO4EhfqoThxYOneO6o+CioKSe1JNc
-	 PhxBsYZO95Mo/OGVS8poPL8Dro/oXgHI6UcA7xiOd/o4vWUu2UXx6BWztv9WoDB3wN
-	 wrG6JbL87857g==
-Message-ID: <sashiko-outbox-165731@kernel.org>
+	b=hGFR9g9LSpsQrXlarkuumLv2wiPT+vxqTb8uc0AIfCqOKR/RrkqfodBehrnKETapb
+	 7ljLs5L/0rtSWP6j+OtwGXtWZ8uu3ft2qGQWT4t4JBZUDkGxV4NFbqYfmHlU9mpgpI
+	 ULnZ/qdEMzuj/fXdTE4nPWdWf+TnDA9i2E+u7b6iLRYn5+9m9puw9sALWI81i7pYEp
+	 AovprxKjYtnV1q8R1Vt8xmwzYztGV1W0NM7XA7+69RpqH2ttaYKjh4+hUViw1+QEYm
+	 zcq/3Rtflb2P9doa5zQHeK+NOLl6X4U7byjZ0IZqWfIamixZUw4GKQA/IqHcjug3Ve
+	 wYRzxqj6MlNRA==
+Message-ID: <sashiko-outbox-165733@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next 02/11] net: ethernet: qualcomm: ppe: Fix
- multicast queue config table index
+Subject: Re: [PATCH net-next 03/11] dt-bindings: net: qcom,ipq9574-ppe: Add
+ IPQ5424 PPE support
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Luo Jie" <jie.luo@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20261008-qcom_ipq5424_ppe-v1-2-16caf43e44ee@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20261008-qcom_ipq5424_ppe-v1-3-16caf43e44ee@oss.qualcomm.com>
 References: <20261008-qcom_ipq5424_ppe-v1-0-16caf43e44ee@oss.qualcomm.com>
- <20261008-qcom_ipq5424_ppe-v1-2-16caf43e44ee@oss.qualcomm.com>
+ <20261008-qcom_ipq5424_ppe-v1-3-16caf43e44ee@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 Date: Fri, 09 Oct 2026 14:52:11 +0000
@@ -45,72 +45,132 @@ List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] net: ethernet: qualcomm: out-of-bounds regmap access due to inco=
-rrect multicast_queue_cfg size
+- [Medium] dt-bindings: missing minItems/maxItems in conditionals allows in=
+correct array lengths
+- [Low] dt-bindings: incomplete ethernet-ports restriction allows out-of-bo=
+unds ports
 --
 
-commit e63c30c06634bbba4d742f77aae5726bcf70fb62
+commit dead4fe7fe0227c2a98000bdee56dfba287669d7
 Author: Luo Jie <jie.luo@oss.qualcomm.com>
 
-net: ethernet: qualcomm: ppe: Fix multicast queue config table index
+dt-bindings: net: qcom,ipq9574-ppe: Add IPQ5424 PPE support
 
-PPE queues 0-255 are unicast queues and queues from 256 onwards are
-multicast queues. The multicast queue configuration table has its own
-index, starting from 0 for the first multicast queue. The driver previously
-used the absolute queue ID as the index, which was out of range. This commit
-fixes it by converting the queue ID to the correct multicast table index.
+This commit adds the IPQ5424 compatible to the IPQ9574 PPE binding. It
+describes the interconnect paths for each SoC and limits the Ethernet ports
+for IPQ5424 to ports 1-3.
 
-> diff --git a/drivers/net/ethernet/qualcomm/ppe/ppe_config.c b/drivers/net=
-/ethernet/qualcomm/ppe/ppe_config.c
-> index 125b73be92b13..8a553902ffad1 100644
-> --- a/drivers/net/ethernet/qualcomm/ppe/ppe_config.c
-> +++ b/drivers/net/ethernet/qualcomm/ppe/ppe_config.c
-> @@ -1530,8 +1530,13 @@ static int ppe_config_qm(struct ppe_device *ppe_de=
-v)
->  				if (ret)
->  					goto qm_config_fail;
->  			} else {
-> +				/* The multicast queue table is indexed from 0 for
-> +				 * the first multicast queue, which follows the
-> +				 * unicast queues.
-> +				 */
->  				reg =3D PPE_AC_MULTICAST_QUEUE_CFG_TBL_ADDR +
-> -				      PPE_AC_MULTICAST_QUEUE_CFG_TBL_INC * queue_id;
-> +				      PPE_AC_MULTICAST_QUEUE_CFG_TBL_INC *
-> +				      (queue_id - PPE_AC_UNICAST_QUEUE_CFG_TBL_ENTRIES);
+> diff --git a/Documentation/devicetree/bindings/net/qcom,ipq9574-ppe.yaml =
+b/Documentation/devicetree/bindings/net/qcom,ipq9574-ppe.yaml
+> --- a/Documentation/devicetree/bindings/net/qcom,ipq9574-ppe.yaml
+> +++ b/Documentation/devicetree/bindings/net/qcom,ipq9574-ppe.yaml
+[ ... ]
+> @@ -236,6 +233,62 @@ required:
 > =20
->  				ret =3D regmap_bulk_read(ppe_dev->regmap, reg,
->  						       multicast_queue_cfg,
->  						       ARRAY_SIZE(multicast_queue_cfg));
+>  allOf:
+>    - $ref: ethernet-switch.yaml
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: qcom,ipq9574-ppe
+> +    then:
+> +      properties:
+> +        interconnects:
+> +          items:
+> +            - description: Bus interconnect path leading to PPE switch c=
+ore function
+> +            - description: Bus interconnect path leading to PPE register=
+ access
+> +            - description: Bus interconnect path leading to QoS generati=
+on
+> +            - description: Bus interconnect path leading to timeout refe=
+rence
+> +            - description: Bus interconnect path leading to NSS NOC from=
+ memory NOC
+> +            - description: Bus interconnect path leading to memory NOC f=
+rom NSS NOC
+> +            - description: Bus interconnect path leading to enhanced mem=
+ory NOC from NSS NOC
 
 [Severity: Medium]
-In ppe_config_qm(), multicast_queue_cfg is declared as a 5-element array:
+Does this array need explicit minItems and maxItems to strictly enforce the
+length?
 
-    u32 multicast_queue_cfg[5];
+According to standard JSON Schema rules, an items array inside a conditional
+block validates the matching indices but does not enforce the array length
+unless minItems and maxItems are explicitly declared.=20
 
-This means ARRAY_SIZE(multicast_queue_cfg) evaluates to 5 words (20 bytes).
-However, the hardware table entry increment
-(PPE_AC_MULTICAST_QUEUE_CFG_TBL_INC) is only 4 words (16 bytes).
+Since the global schema allows minItems: 5, could an incomplete IPQ9574
+node with only 5 interconnects falsely pass validation here?
 
-Since this patch changes the index to correctly target the multicast queue
-configuration table, does this regmap_bulk_read() over-read by 1 word into
-the next queue's entry?
+> +
+> +        interconnect-names:
+> +          items:
+> +            - const: ppe
+> +            - const: ppe_cfg
+> +            - const: qos_gen
+> +            - const: timeout_ref
+> +            - const: nssnoc_memnoc
+> +            - const: memnoc_nssnoc
+> +            - const: memnoc_nssnoc_1
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: qcom,ipq5424-ppe
+> +    then:
+> +      properties:
+> +        interconnects:
+> +          items:
+> +            - description: Bus interconnect path leading to PPE switch c=
+ore function
+> +            - description: Bus interconnect path leading to PPE register=
+ access
+> +            - description: Bus interconnect path leading to CE AXI
+> +            - description: Bus interconnect path leading to CE APB
+> +            - description: Bus interconnect path leading to NSS CSR acce=
+ss
 
-Additionally, a few lines later, regmap_bulk_write() also writes 5 words:
+[Severity: Medium]
+Similarly, should minItems and maxItems be explicitly set to 5 here?
 
-    ret =3D regmap_bulk_write(ppe_dev->regmap, reg,
-                            multicast_queue_cfg,
-                            ARRAY_SIZE(multicast_queue_cfg));
+Without these limits, an IPQ5424 node could declare 7 interconnects and pass
+because it satisfies the global maxItems: 7 constraint, leaving the trailing
+2 elements unchecked.
 
-For the final queue in the loop, wouldn't writing 20 bytes overflow the
-16-byte boundary and write 4 bytes past the end of the entire multicast
-queue configuration table?
+> +
+> +        interconnect-names:
+> +          items:
+> +            - const: ppe
+> +            - const: ppe_cfg
+> +            - const: nssnoc_ce_axi
+> +            - const: nssnoc_ce_apb
+> +            - const: nssnoc_nss_csr
+> +
+> +        ethernet-ports:
+> +          patternProperties:
+> +            "^ethernet-port@[1-3]$":
+> +              properties:
+> +                reg:
+> +                  maximum: 3
+> +            "^ethernet-port@[4-6]$": false
 
-Can this out-of-bounds register access trigger a bus error or system abort
-on the SoC?
+[Severity: Low]
+Does this workaround fully restrict the out-of-bounds ports for IPQ5424?
+
+The top-level ethernet-ports container lacks an unevaluatedProperties: false
+constraint. Because ethernet-switch.yaml (included via allOf) dynamically
+matches any port matching ^(ethernet-)?port@[0-9a-f]+$ as a generic object,
+out-of-bounds nodes like ethernet-port@7 would pass ethernet-switch.yaml's
+checks.
+
+Since this block explicitly sets ^ethernet-port@[4-6]$: false but does not
+cap the container itself, will ports 7 and above silently pass schema
+validation?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261008-qcom_ipq54=
-24_ppe-v1-0-16caf43e44ee@oss.qualcomm.com?part=3D2
+24_ppe-v1-0-16caf43e44ee@oss.qualcomm.com?part=3D3
