@@ -1,65 +1,63 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24E4E3D4123
-	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 07:33:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C1A5472774
+	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 07:33:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791531221; cv=none; b=oidRchRJt7bQyw1cSfKXC+hwwGu2fqNdp5Y+E+W25RIKOvHfjvWQVaquv4goU/Fjc7KBKhjbfKQFvaFLQTgdRuaSBh5JGLb3nBcCerh/v/akkM53W6ChED+kcBV8qk09uO2P3pnrlGfLNbL0LryNxplsJcHn2E2/T4KWLOoMYy0=
+	t=1791531222; cv=none; b=nSxTUp1cif3TsqpjAUhcNk8bWGEqprUX1/l85jAWg1FjPPOzqjMsKlSRnkuk5ROjrWcpD1UdSKzX2ztlQWpphcg+KhhfFkGQJUGpTBjxi2x1mlt14NToLIEfOzvw+r6jTnsq+CWIAnrsasUVoGk5o+v0nGVVooY+I3XzxUa5XMg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791531221; c=relaxed/simple;
-	bh=5mJcWpPhz5V4cVbv/UViMTOOd0qIceb8QnAN5ZLKMmg=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ye4boiJVMHBYxaeRbQCFCcD/PE4l99CppeGOFip7s+JERk7VvwvvTHcW743jYw6xM7dRwWghdZSDp+NbS47GWk/3XJ5yK9sqt6ns+pfi/xIzhM/fW6+Y1Fhbc3m/5o32bW69mYuHk3Fq3XmEhuXiQo7WK0T047nyo4Y0bchCTt8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FqF0jwma; arc=none smtp.client-ip=209.85.128.42
+	s=arc-20240116; t=1791531222; c=relaxed/simple;
+	bh=DNeUKDQc6MOqH1ADnGtMgjyCzwqfg807JsDXZXD8PdE=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version; b=KSVR+ZgWB6xaRUgWUfjQt4AGAiiGnmG+12VBhOpP+B9r2q59/+a2H68S38uY+0FSg2yQR04suABuS7XmaMQJxYlOli5fescuyRK9lzcTsotgihc82skkz0jb3RMoE+aI2k+NXGrQOBI6CZoVpiRDPX+DXtPPrS0X5a6rlnG6sj0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WmEO44SE; arc=none smtp.client-ip=209.85.128.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FqF0jwma"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a1688d7769so38064975e9.0
-        for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 00:33:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WmEO44SE"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-4a061a13884so32577945e9.3
+        for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 00:33:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791531218; x=1792136018; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=0GMj/PCcw0jRmoExFmKfgop12tPuP6GJMya0pF2cELQ=;
-        b=FqF0jwma4IP5kwzsKggDkN+pLFqQXtFGl0jp5cwO9x1Z+9bRm3sBM9yFNhl6OTLGvO
-         j7IP8+ewM33sDskMf9eEKtJYXzmQxaXL8k15yWBvRQooZXhBhWmWehYIQPWfxgEZcnLO
-         d2I3b7GN1fTvEkOy4InEbcILDxkS45HTE8MO0zZL/qO8+osqkDRfu5rWCiHaCyFrF2WO
-         I0AjMwFO52oczxLKH2xAEUkg03Wurgq8QS29rPDZywg8gbhbFBWuxaWHL8hLnPQ985KA
-         4BKKuu4MEjNsnI8It3UFdyiBI6IcIV8fDGU04B4FQmYhomHeRSDjNfNKWxg9AlP+y3jR
-         f20g==
+        d=gmail.com; s=20251104; t=1791531217; x=1792136017; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=kxQ45OeQSc5IyxmrCu5z0MqBw+JjYn7NVXImWxo9iSQ=;
+        b=WmEO44SEUdt2owfjB9YzQUatK8n2baFMrDOnhEHIU0pts+OSglFWH4l00AqJ7kiqqZ
+         0mCb3GF19TXkzwtpEd/9hotq7VKKSeQ2YmMtxHUBPydWWrJM1l6ZeG4Dlx0YhAQRXkDj
+         juhg7d9BN+Y9vacAkr9kIMSLJdDuETNB63YccKnAhA9wXX0y0S0z2l9gG285C7M+ETOH
+         /YdTtvmZs2J6msVcHf3yOgEpfdHYB3JrnZiJyRfpfdAEjPafsZWtikiyVn6qPfXC/ejb
+         OeJbkC/Rtnkg53MsLOfs0QeW438LZk1MrUNMPiBb1qJsJwZL1V2PMdFGU87PMKPWkZMk
+         i/uA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791531218; x=1792136018;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=0GMj/PCcw0jRmoExFmKfgop12tPuP6GJMya0pF2cELQ=;
-        b=giybFjJWwf8Kw3jflP415JWx3Sqa62EEO1KY2oaRIEWii7jz7ng6qEsEJqS8YuXma1
-         8C9oY8X8/Gl6HbvJIpr/AonBTJqoRQc/jtZNhtabZwx6V2UtqOGP4Yov4Pawm+MIa+z7
-         eLlSgkpGlp8DEt5lYLT7SSDjOWZiEr1Ves2qgY94Wsv32Ylb5tRjcSSzR5nF8H1Vlle2
-         k37d8u0R5508jkhw9fCrauaJDS9izc5ql/7Cv7MDI3sRerrVZJU0t9pCHxT3+TiNZX0e
-         R9pbAn4r7QFu5O7rMDHkkW0u2W8jHeMfLb7WH55QZfHBCjUQ2Z8iDfKzq3iyI3G7/Ug6
-         ycEg==
-X-Forwarded-Encrypted: i=1; AKwUvBzWNI1oMKxdQAnjsO/cpBjTrAfAb2tYO6mm3rNgPKAatTNAFnK7wgBCjGp6TYZbPv5tQV5lcYSjr2I8@vger.kernel.org
-X-Gm-Message-State: AFuF++nlo+8onaeUaZaHI8rQMW+7rFGyUX0rTotX1isOcLhwHBq+99oh
-	EdkywWWpwhoD+2IxSQd1hZBPY8Zoq21QQYql1col6vcMZpCQWoljno79
-X-Gm-Gg: AYBFou1QzMVNzVxd24C6YXLUdwkluL6aj6XcG5M0izDXEvvd16Yr8OZvsURbkynt+wQ
-	WfAVwDS0dPj0nE22CIux47Sn2WSXv5QYGtDgaufQSlEgKCNZpwm+hEhqT0A8mXSgnaeNS0iZNLT
-	tAdKPOgDlExn++rxX+0bGMzZlm9g/Ex0DyKTWU6qFRMpUU0x8EG4NDxRGoR+EqjG7pbS+GhOsdx
-	5qVit2+lzJfjV+G+QMuggWyyxRoAMd7Ow9NPuouZ6jb6PlNgPdaXAfxu9iN5tS5uuLcoWHj4a0u
-	zQvwUDr5e8HCwTS1IeXIHEfQc0SVgOq5J5M3S4qKj12UKDNtamiQSbvMVuUyLrCtj/XxbRzSj8P
-	wsA7z3qn0SVZo2rK8Q/18nbXSqtuj5TTDCO8DhDxk86arg6+njklJ+Tcrjay5VZiWQceOJD6J7B
-	D2JMosWns+ss9fjcmWm+fSOvBBSSze2z0XwsqGHZsccEA/koT0Z5fkAwxPMmdcVeai6QCtA6KIY
-	mR1qY+8WjuegNF9X3bWPdKRAk/7ltQGIGRp2fRkeggY9jM7byC9Q39FXYFs/b2ZDMv7Zbv5RL8f
-	8eF0g4slStIVtucS3Q==
-X-Received: by 2002:a05:600c:198c:b0:4a0:1c0e:b136 with SMTP id 5b1f17b1804b1-4a18e4cdbfbmr17253525e9.29.1791531218222;
-        Fri, 09 Oct 2026 00:33:38 -0700 (PDT)
-Received: from Ansuel-XPS24.localdomain (host-213-45-9-252.retail.telecomitalia.it. [213.45.9.252])
-        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a18be96549sm55116365e9.6.2026.10.09.00.33.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        d=1e100.net; s=20260707; t=1791531217; x=1792136017;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:to
+         :from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=kxQ45OeQSc5IyxmrCu5z0MqBw+JjYn7NVXImWxo9iSQ=;
+        b=KVSS0wqcrk5GdoWX0s/gJKo4LJl4q8o6s3xRqeFgPwqZ79kXbJwhL8MFjaamCXRtIS
+         o/2Wh7g99xFsSQ93f44r+uMa5HjgySE71IPo62Nz2coYn6IE2MDi+9xD1r4Lqoq+VZbg
+         3xzjsWk2NffM0nrWx19el1+u8o0wMa/0/R0eOIZIhyDqVQ8MgzNBlClAiZL0OA6SR0F9
+         4hsm5htDJ7C+sjzMCvsDN6/pjkv4YPqGAwD0mLVEgbDnlljq58giIbmgGE3o8Bqnzzal
+         gd9t+/erQK4meZgu2xJyasrn3vAt5oiJKERVEHyJHDDsNrA8v1wREG6mxdRKVLGoZF97
+         jkAQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxbAjdLTqSxVA+MSrmeeq2BTL0HzC2raI1cgxXAeUaehdFcuZl7HDMkGc0OHGiwo7gFJkk9myypHlfm@vger.kernel.org
+X-Gm-Message-State: AFuF++krn14YzbSiVd25UnJUhOPsXeh2OUpJhvaLMbDjl+vHNfOyZArF
+	uUhtH6kbRyOM6/5mxYt07shAgI81dEpAG74UQ9cdm2fc6AODUFqVBLUB
+X-Gm-Gg: AYBFou0rU/FhTCmmeJW/dZ5Hy6+rX0tFi7dImTrXfGOR5sa3XsLO1kVrJQ1nx00De35
+	1yQQtCasIAblX9jVsnsGqekoEHtPDSEPlREC7gw4zlkVdgkDYaVlU7THie6tlZOYp59u7xGGxfb
+	4yGeN6LqpvQuT561XkactzA8340uvCou3YqbQQw8hRTWMnkkKbA6WrmPefuLF6hwkFX1diBU+h5
+	YZX2DO2U5okC/hgwK3m04mW8hiDZnisN8lj1CLSmDoktqMb3vNi9XEXT1p9VSdzN2uGfBraMhbf
+	It7g4CL6qcqc5yLFTaSsTtJ0wu94G80cyJjqVEGhGp4M0muWkQCnMHV48oYTKYDufX6kxNJEWAr
+	3Q24QtP2154X2MfBzsbjpTnWso9DKI7HqjWvNb3597LyAHkkyq+IMZo5LgXdfeOTyMWAVAsnN+e
+	RDx1zBm1o3Mog7F3thttLo4TI0jtvtdhH0Ck10ulbrojnZBgGHiGouy3fxiy8UFOy2yl1Pknk5q
+	2kEmv/9K0pZCmuXPZDzYEzAInjCYRXuwavvUK0/cvbDnGp/smhqJDVKErjLUQMt8X0n66v4jPWM
+	fknIY90jBmiwQkvjbw==
+X-Received: by 2002:a05:600c:3b29:b0:49f:ce78:3561 with SMTP id 5b1f17b1804b1-4a18e49c420mr17004555e9.18.1791531217099;
         Fri, 09 Oct 2026 00:33:37 -0700 (PDT)
+Received: from Ansuel-XPS24.localdomain (host-213-45-9-252.retail.telecomitalia.it. [213.45.9.252])
+        by smtp.googlemail.com with ESMTPSA id 5b1f17b1804b1-4a18be96549sm55116365e9.6.2026.10.09.00.33.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 00:33:36 -0700 (PDT)
 From: Christian Marangi <ansuelsmth@gmail.com>
 To: MyungJoo Ham <myungjoo.ham@samsung.com>,
 	Kyungmin Park <kyungmin.park@samsung.com>,
@@ -71,12 +69,10 @@ To: MyungJoo Ham <myungjoo.ham@samsung.com>,
 	linux-pm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/2] dt-bindings: devfreq: Document support for Airoha Subsystem Scale
-Date: Fri,  9 Oct 2026 09:33:28 +0200
-Message-ID: <20261009073330.18175-2-ansuelsmth@gmail.com>
+Subject: [PATCH v2 0/2] PM / devfreq: add Airoha SoC Subsystem scale support
+Date: Fri,  9 Oct 2026 09:33:27 +0200
+Message-ID: <20261009073330.18175-1-ansuelsmth@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20261009073330.18175-1-ansuelsmth@gmail.com>
-References: <20261009073330.18175-1-ansuelsmth@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -85,143 +81,31 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Airoha SoC contains multiple subsystems that are scaled to a
-specific OPP taking the CPU clock as reference. Such subsystem
+Airoha SoC contains multiple subsystem that are scaled to a
+specific OPP taking the CPU clock as reference. Such sybsystem
 can enter idle or performance state based on the system load
 and power consumption conditions.
 
-Example of such subsystems are GSW (Gigabit Switch), NPU (Custom
+Example of such subsystem are GSW (Gigabit Switch), NPU (Custom
 Risc Co-Processor for Network acceleration), SOE (Crypto Module) BUS...
 
-Document all the required property and provide examples for the various
-subsystem OPP + subsystem scale nodes.
+Changes v2:
+- Rename to a more symbolic name
+- Address some sashiko bot warning
+- Better describe the use of this devfreq driver
 
-Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
----
+Christian Marangi (2):
+  dt-bindings: devfreq: Document support for Airoha Subsystem Scale
+  PM / devfreq: add Airoha SoC Subsystem devfreq driver
+
  .../devfreq/airoha,subsystem-scale.yaml       | 114 ++++++++++++++++++
- 1 file changed, 114 insertions(+)
+ drivers/devfreq/Kconfig                       |  10 ++
+ drivers/devfreq/Makefile                      |   1 +
+ drivers/devfreq/airoha-subsystem-devfreq.c    | 100 +++++++++++++++
+ 4 files changed, 225 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/devfreq/airoha,subsystem-scale.yaml
+ create mode 100644 drivers/devfreq/airoha-subsystem-devfreq.c
 
-diff --git a/Documentation/devicetree/bindings/devfreq/airoha,subsystem-scale.yaml b/Documentation/devicetree/bindings/devfreq/airoha,subsystem-scale.yaml
-new file mode 100644
-index 000000000000..2cf7f23a926c
---- /dev/null
-+++ b/Documentation/devicetree/bindings/devfreq/airoha,subsystem-scale.yaml
-@@ -0,0 +1,114 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/devfreq/airoha,subsystem-scale.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Airoha SoC Subsystem Scale Driver
-+
-+maintainers:
-+  - Christian Marangi <ansuelsmth@gmail.com>
-+
-+description:
-+  Airoha SoC contains multiple subsystems that are scaled to a
-+  specific OPP taking the CPU clock as reference. Such subsystem
-+  can enter idle or performance state based on the system load
-+  and power consumption conditions.
-+
-+  Example of such subsystems are GSW (Gigabit Switch), NPU (Custom
-+  Risc Co-Processor for Network acceleration), SOE (Crypto Module) BUS...
-+
-+properties:
-+  compatible:
-+    const: airoha,an7581-subsystem-scale
-+
-+  clocks:
-+    maxItems: 1
-+
-+  operating-points-v2:
-+    description:
-+      OPP table of the related subsystem supported rates that referenced
-+      clocks will be scaled to.
-+
-+required:
-+  - compatible
-+  - clocks
-+  - operating-points-v2
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/clock/en7523-clk.h>
-+
-+    npu_opp_table: opp-table-npu {
-+        compatible = "operating-points-v2";
-+
-+        npu_low: opp-400000000 {
-+           opp-hz = /bits/ 64 <400000000>;
-+        };
-+
-+        npu_high: opp-720000000 {
-+           opp-hz = /bits/ 64 <720000000>;
-+        };
-+    };
-+
-+    emi_opp_table: opp-table-emi {
-+        compatible = "operating-points-v2";
-+
-+        emi_low: opp-400000000 {
-+            opp-hz = /bits/ 64 <400000000>;
-+        };
-+
-+        emi_high: opp-540000000 {
-+           opp-hz = /bits/ 64 <540000000>;
-+        };
-+    };
-+
-+    bus_opp_table: opp-table-bus {
-+        compatible = "operating-points-v2";
-+
-+        bus_low: opp-200000000 {
-+           opp-hz = /bits/ 64 <200000000>;
-+        };
-+
-+        bus_high: opp-300000000 {
-+           opp-hz = /bits/ 64 <300000000>;
-+        };
-+    };
-+
-+    gsw_opp_table: opp-table-gsw {
-+        compatible = "operating-points-v2";
-+
-+        gsw_low: opp-200000000 {
-+            opp-hz = /bits/ 64 <200000000>;
-+        };
-+
-+        gsw_high: opp-500000000 {
-+           opp-hz = /bits/ 64 <500000000>;
-+        };
-+    };
-+
-+    npu-subsystem {
-+        compatible = "airoha,an7581-subsystem-scale";
-+        operating-points-v2 = <&npu_opp_table>;
-+        clocks = <&scuclk EN7523_CLK_NPU>;
-+    };
-+
-+    emi-subsystem {
-+        compatible = "airoha,an7581-subsystem-scale";
-+        operating-points-v2 = <&emi_opp_table>;
-+        clocks = <&scuclk EN7523_CLK_EMI>;
-+    };
-+
-+    bus-subsystem {
-+        compatible = "airoha,an7581-subsystem-scale";
-+        operating-points-v2 = <&bus_opp_table>;
-+        clocks = <&scuclk EN7523_CLK_BUS>;
-+    };
-+
-+    gsw-subsystem {
-+        compatible = "airoha,an7581-subsystem-scale";
-+        operating-points-v2 = <&gsw_opp_table>;
-+        clocks = <&scuclk EN7523_CLK_GSW>;
-+    };
 -- 
 2.55.0
 
