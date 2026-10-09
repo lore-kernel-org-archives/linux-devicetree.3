@@ -1,90 +1,123 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9072D471D1F;
-	Fri,  9 Oct 2026 07:11:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7601247207D;
+	Fri,  9 Oct 2026 07:14:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791529910; cv=none; b=I8cRwz907VA/iEgcdqtNpRaMY4w6PeB7hTaCWUgfNQOzWb5abkyNIWpOmXbm+BoG/gigbMMXoaCQD9VzHhite0QO80M9b9J6dMZkcZtshRov26O3xtPymdu5Sj1YrpD91r+R1EyojaDJ8nQTHR5o/eUDvkaiffIoQzkFRLA+Aio=
+	t=1791530091; cv=none; b=ZxaiU0S3eqaNulCUYTFyN7LLRDNH0QZCZIW6cSoOdEwI3onSqvTFqZofBEpcsPGcoznGeA+wva1ASxxNh85+EF9M50JgT3mJx8ZcBt8NTTlykaz3nWvA9+Io6QF3Tj9AcclVsJfIj+8EzQCfJNVIzfD951PlNHv7cVeB1OCXt54=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791529910; c=relaxed/simple;
-	bh=ZTTeEfKO0JQYilSrfkLNFEbkGh5wzdDZPBQrwtai6kc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=p7J7u+XEsWH+USwhcoXxfstW4LoiZrFJ5JfYWdW5d7vq0yjOcNQRFXzFKjSWQrG4jmAq2I1Lpqk8v5jn1aM8zm30Hg3hG2M8J7MfhKX9mkoqL5ApqbB/k2dUapSaqceQbldjH6GfrZWiEK7BZSP7KgGrK2WZOoa0Ice/UoYRsjI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JBLCCVAR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791530091; c=relaxed/simple;
+	bh=x+8W1o5iZDCBupsgJB3lFuWHobzYAATxT41tVh4ICck=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=DEPBPQ49UBcM1fjRmm5Py8W0SnwgoahWE8TleTiG7C66be9+PWHhu4ycDH68kwnjnSPtIMriZPkk/FN/nIfgy5HMRof94ZsexZUmHYC6bKLO0mrM/jTL5P7sDgulsQgVbOlsPbznrEqFK6NLYull+4qLFC+98RjKr45C7Z8nAoM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J7CCJyoh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JBLCCVAR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D48A1F00893;
-	Fri,  9 Oct 2026 07:11:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J7CCJyoh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB1A61F000FF;
+	Fri,  9 Oct 2026 07:14:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791529909;
-	bh=ev/NmiRklbf7MpR6x3GqJ6NVg6ju9b3tRe0belW+GrQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JBLCCVARNQZjCVwaKE7AvOVM94/5/weCbcxR8bc5UFMLbCNAcLT/fTp5h4pbn08qW
-	 8NJd5dgSEgtr/9G4nUmxjnOXqgjKeMErK1T6cw8RuntpPSkJfW7bCflwQHvlLCrNj+
-	 HLkBOizDCX2+nPGTiS4yf+j+J3HmG7eqDZBTkY6F+/Cd4Ki/+4/qQW14Aaihkln3J5
-	 oK5ea3QtI+UtDG9k3NIF9Ktot8Bw0NTAM+gIubWxSzyNCDEY/BYS6//6abYBBWftwj
-	 hwf28Ds5v+9ZRTA+vi7WXeJTX9u28mGwkRFX8zcWjjNowUVW82JDXNc1i+3xX4NZzN
-	 BzGF1rBnZSEEQ==
-Date: Fri, 9 Oct 2026 09:11:46 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: James Calligeros <jcalligeros99@gmail.com>
-Cc: David Rhodes <david.rhodes@cirrus.com>, 
-	Richard Fitzgerald <rf@opensource.cirrus.com>, Martin =?utf-8?Q?Povi=C5=A1er?= <povik+lin@cutebit.org>, 
-	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>, 
-	Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>, Sven Peter <sven@kernel.org>, 
-	Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>, asahi@lists.linux.dev, 
-	linux-sound@vger.kernel.org, patches@opensource.cirrus.com, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH v2 04/21] ASoC: dt-bindings: cs42l42: Document
- sound-name-prefix property
-Message-ID: <20261009-festive-able-nautilus-b92ffd@quoll>
-References: <20261004-macaudio-v2-0-7b47ed6335a8@gmail.com>
- <20261004-macaudio-v2-4-7b47ed6335a8@gmail.com>
+	s=k20260515; t=1791530090;
+	bh=Hd2krHgbG00KRkAofUP5NXgFZrqY28aMU+kwhWJNQEk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=J7CCJyohYE5rsJBZXtsSPq4B5Aj5l7n0BrdXOoNhPVVNt12WeSM/tCHhqr8qGYQgr
+	 7QsRjLLE2NgIwaKjrTr81X8LFnXkpNAiymzCx8vk5Yf5evopdYEpzwGvpImCuTkrwg
+	 cOW5VsujVbgbvYp2MUxD6mqAXS2vF0LN3QpmYVkLIwKbWdJb6f7oUkQtgkbF0oKcnF
+	 ahNNopnOblL1nI3XSkg0QcC2C0OmSrQmf/0g1/71Yx+FKPGdz64tYuV1C3SlhQAzwj
+	 7gvH2CwQ7zktq7XPZMXPkJ4B89uKKhTD13c+aPyPC6PU4Subq7KS0Bn6p4lj7BZlWE
+	 sM8S16UdXcM2A==
+Message-ID: <sashiko-outbox-164985@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 1/3] dt-bindings: clock: airoha: Document support for
+ AN7583 clock
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Christian Marangi" <ansuelsmth@gmail.com>
+Cc: linux-clk@vger.kernel.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261009070725.13196-2-ansuelsmth@gmail.com>
+References: <20261009070725.13196-1-ansuelsmth@gmail.com>
+ <20261009070725.13196-2-ansuelsmth@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 09 Oct 2026 07:14:49 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261004-macaudio-v2-4-7b47ed6335a8@gmail.com>
 
-On Sun, Oct 04, 2026 at 04:03:31PM +1000, James Calligeros wrote:
-> Some consumers may wish to prepend the codec's name with a known value
-> to identify a specific codec among many. Enable this with the common
-> sound-name-prefix property.
-> 
-> Signed-off-by: James Calligeros <jcalligeros99@gmail.com>
-> ---
->  .../bindings/sound/cirrus,cs42l42.yaml   | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/cirrus,cs42l42.yaml b/Documentation/devicetree/bindings/sound/cirrus,cs42l42.yaml
-> index bc759eaadeca..035463be1456 100644
-> --- a/Documentation/devicetree/bindings/sound/cirrus,cs42l42.yaml
-> +++ b/Documentation/devicetree/bindings/sound/cirrus,cs42l42.yaml
-> @@ -29,6 +29,9 @@ properties:
->    '#sound-dai-cells':
->      const: 0
->  
-> +  sound-name-prefix:
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Low] dt-bindings: missing #reset-cells required constraint for an7583-scu
+- [Low] dt-bindings: semantic mismatch in airoha,chip-scu property descript=
+ion
+--
 
-No. You reference respective schemas.
+commit c28c3ce960f1267fadf690b955c513b03dbd1a46
+Author: Christian Marangi <ansuelsmth@gmail.com>
 
-> +    $ref: component-common.yaml#/properties/sound-name-prefix
+dt-bindings: clock: airoha: Document support for AN7583 clock
 
-git grep 'properties/sound-name-prefix'
+Document support for the Airoha AN7583 clock. This is based on the EN7523
+clock schema with the new requirement of the "airoha,chip-scu" phandle.
+The patch also adds additional bindings for clock and reset lines.
 
-You cannot find such code. This should give you a hint, that you are
-doing something odd.
+> diff --git a/Documentation/devicetree/bindings/clock/airoha,en7523-scu.ya=
+ml b/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml
+> index fc37786ac7ed8..8b94113d00ab7 100644
+> --- a/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml
+> +++ b/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml
+[ ... ]
+> @@ -57,12 +58,34 @@ properties:
+>        available serdes port.
+>      const: 1
+> =20
+> +  airoha,chip-scu:
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +    description: phandle to the Chip SCU providing the registers required
+> +      for configuring the PCIe related clocks and resets.
 
-Best regards,
-Krzysztof
+[Severity: Low]
+Is this description accurate regarding PCIe configuration?
 
+The commit message states that the Chip SCU provides access to some clock
+gates and rates, while the SCU provides registers for resets and PCIe clock=
+s.
+
+This description attributes PCIe clocks and resets to the Chip SCU rather
+than the main SCU. Could this description be updated to match the hardware
+architecture outlined in the commit message?
+
+> +
+>  required:
+>    - compatible
+>    - reg
+>    - '#clock-cells'
+> =20
+>  allOf:
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          const: airoha,an7583-scu
+> +
+> +    then:
+> +      properties:
+> +        reg:
+> +          maxItems: 1
+> +
+> +      required:
+> +        - airoha,chip-scu
+
+[Severity: Low]
+Does this new compatible string also need to require #reset-cells?
+
+The patch introduces dedicated reset line definitions in
+include/dt-bindings/reset/airoha,an7583-reset.h, indicating this variant ac=
+ts
+as a reset provider.
+
+When a hardware variant acts as a provider, the corresponding standard
+cell-count property should be explicitly added to the required list.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009070725.1319=
+6-1-ansuelsmth@gmail.com?part=3D1
