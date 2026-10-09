@@ -1,157 +1,227 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AE8C1E7C2E
-	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 08:41:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5262B3EFD21
+	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 08:42:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791535313; cv=none; b=O4HVXKbEdKRhXoAXy1+ssplIbQ91i7n8MYC7OwyAW6Jyp+XXpDuN8/bPtlaBH2a5ncLpJGs7FuSirtfSr0YmoEm9loEHlygUIJIqfWFpN7LTAiBRnBkzCOUEY+Hi9yksBlTaInTnZFcHWca1YEOf+CaPjAGfm1BssAVosO2QwXE=
+	t=1791535336; cv=none; b=WUZPe9IVnrY+sUmF+a5EV5AMB8enZ3lONYvox2/ifNBQK926SmkvYnUlnItJT12H3+uEJuqtqIln62AGnYx8p1YGYvpPT99FrjpiN3MI2v3NpAgVWtyC7xkx94vJN4QojziDG+BRDJOh74BLL1xbSB4hXACyVYDL/5CirqOOTiY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791535313; c=relaxed/simple;
-	bh=qt4NROSh+/Rj7ta/4J1JCt/wwRJVXnXOqe5ksJfpco8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=YX4wrW209I5dihN0oqeYo0xiIGSYNGkD/U5L3L5AjEaJ2iyRS0xLveXQIFghPyy3i5F4JC6fRjspZxdnPMQ8y+v69jaWWbEedqkqEC7Xj43x46OXQN/ht5znbFNNQhLMQxfAA2CxEdlHCKZJ5BEGL3H0N8MkfQXZzCyOnpr7bn0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Nvi/+Bh3; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OJ6EJJ7c; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791535336; c=relaxed/simple;
+	bh=iQjeIeuE0TrRXjzq/4BN2JXwMS5sWSC0KsOOoHnJAa0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=PmACklvziFn2yeqbz/LFeO2E8cMO4M3g0rJopNwT+8OY7B8EvHFxJ4SDWwNzPj54f5IfTAWhem7OOv1UU4eD/gqnLDV6p8ODhICKdxp3SCl+dw5nV0HqQdga99LD+y1Deed7Z+CKLKPzw16jIzUbZl0Gw2gE/7W4FgLpBU+qNVk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=SBIPSvD/; arc=none smtp.client-ip=209.85.208.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Nvi/+Bh3";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OJ6EJJ7c"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6998KM0X1223195
-	for <devicetree@vger.kernel.org>; Fri, 9 Oct 2026 08:41:51 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=CfN7f1pufqYbZZVQo+rvWY8E
-	+8qMr4fBv7KyLGvbv9U=; b=Nvi/+Bh3YltzaPxX5L3au2Ca5kiPUufb2lUIehwL
-	XmfCUhwgRs5kuvSwXHHim/tl2QyJ+Jj1sp9md6HSMuRweTo+NkU7qjSaSny/G7wT
-	Ma2BtTIvKrlx0Os5l6XCiLgTdKMhK6T42OAPKE4WRUBeEvdPUBHUkNgnT8xRW8Os
-	+b7jB7iRY7ANWEVCmxO49n3RwcLqIZScvkKaq7LxR2QuVsyc55BXK+lhbPhCVrqq
-	teTHcMOZX3rTbuMSMo9TK5lkZinC8dG6msSx12POt1+RH33xu06KzbBzeEA6ITP9
-	jaAcX2gWH6VM5nqZ1+/ebSiXEO7fX+M/lfpjUivhb0B+Xw==
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h6fxkamwu-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 08:41:51 +0000 (GMT)
-Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-917b7dd3f1dso102494776d6.3
-        for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 01:41:50 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="SBIPSvD/"
+Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-6acbdbc1725so8730240a12.3
+        for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 01:42:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791535310; x=1792140110; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=chromium.org; s=google; t=1791535333; x=1792140133; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=CfN7f1pufqYbZZVQo+rvWY8E+8qMr4fBv7KyLGvbv9U=;
-        b=OJ6EJJ7cyBHWPCMcpw0QET2yAX3jB6okGj07dt4/BYl2Ue7tPEKLbeFiZaddJTRiN3
-         GDyiY7W4wd5DdGUpHlSGShpjb7gWYzmOGffeZDoqyBhcBTQiAW5kdJac+//V9HD1CwBc
-         i05VJ1CaDEVIVia4cJQ+H4ifd9U8N/olA1/KQjtwHh2I4PjzU5uYmYaNdcGBVunVZ6Ko
-         ILqJsqDNA3Zd2kGxhfAtAbiUpFBRo7IGG/WAcenmUgxe+qKdvijetf1xYTG+S3I7na/t
-         KTBHfSwNsyQaK65tDIP6QZjb+H+9fUv0SEfMC0HlYCYa5SGTCks0laLiYPXIJk8Z606J
-         T0/g==
+        bh=TpL9JdRnQWjZohyDj5gd2hk16XdjjZ4+ynUw0iwS7Uk=;
+        b=SBIPSvD/rJXg02G30MHmAvT6nPeNgpb/ZfXgAmAUEVRNVA99Ipi2BM9PICqmX6uUAH
+         hxBKrHu1/uy7WlG1dWzhXRvuB2iuUS0PDTwcirKdtJRUr59UQB9T6tzJxWiJMo0kKKGI
+         AIKqLW/ko1a6jsfPykbeAz74/ha0JDYtDhEjw=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791535310; x=1792140110;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1791535333; x=1792140133;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=CfN7f1pufqYbZZVQo+rvWY8E+8qMr4fBv7KyLGvbv9U=;
-        b=E9JGqQ/AEcmUgqcfCIpXTBM6mODr05CTp6rGf3+EY+j1E+sZwQxxhN9HquSH9lU68a
-         +q+4PIl6lCIRg0xf+JbXFP338ND9cL7LVyAwrdEKMr44oL7hHMY51vn1mPnnSlJNCm0C
-         iRntU01DJywhaTr6pAROGx4EZ4mul8wpFAdnTen4d82OBum8u8ulFUURFwKpQODBk+Lx
-         9jKUWsiQJmqk1j3hTzPe1udHfJMoSApiDLeTNteIOqt/vJy6iyAnZR9+WqVxB1JK0iqb
-         w8Z71fVh63fMjziHT24LNsKjKgjxsOYDKjdKpCdRIFeGmmsvau4lIa8NVDWntqKbIZ5O
-         m0tg==
-X-Forwarded-Encrypted: i=1; AKwUvBxuBqspzuZDTPcG7nxSLbpB48KXGc5qu6LKGH/zjo7zF+jXmddxrxFKkh73usdsnxrViaZll1/mIbEE@vger.kernel.org
-X-Gm-Message-State: AFuF++kliHI1SKvP4onCJ47nS09Mqdk8BOcPoXrqLhHXDmz4vVCUpdSC
-	v4nrvfr0Hn6HuQsZzp57d3SBWgP9lgVK3cklrqlv4tYJqC3kfWwzr0OSe49f5QJpxFGACvB3CNs
-	tHzWPu+KzLNP7r//duz7IBvYQahz24QDRy9mYTejpTzGsmMApHDGI2GMlSrA5fdEp
-X-Gm-Gg: AYBFou1LvSWeY6LPUw4mbb9FUTleSH9yeffnzs4bD1+P5ENJIF01W8CcXCTtvAmRYYu
-	Z6mS9Ano+E9ys3ZrzN6xs+MvAuE6xDp1Nuwl5KYQ/5oHPwaC595tbeVfInpCgF2jrQB0eSFkYoQ
-	WIcfvoLh7YDdvVMQja8gv8RYvqTnhgPfaalbnjg0DiCxn34MZuOCUHvxSlggrtiU71fNA70GTQS
-	BskqAYbnR90pJ0Ba1iqTqZRDVqmW46H9sVp4rWgAMd8LZUkwXVHquKxQGajmyrRbJxWk14o8JYc
-	7ND7CrnuqPWyRxe9r7AzLUETdiOVImUBGbYUZ7gA0Z5lrKC6dmfGyvP29+nPfNaU8CtYchp1gnJ
-	8XgbFvhx0gq37O3aYlZkpzXoNAr99C62vc2JB+Z20LbanA/tkCGZE5xup7ZFxUad7I0zFqp5IVv
-	bLtCFKZD80FVo/
-X-Received: by 2002:a05:620a:46aa:b0:93e:b729:879e with SMTP id af79cd13be357-93ebd211b26mr189346585a.23.1791535310355;
-        Fri, 09 Oct 2026 01:41:50 -0700 (PDT)
-X-Received: by 2002:a05:620a:46aa:b0:93e:b729:879e with SMTP id af79cd13be357-93ebd211b26mr189343185a.23.1791535309780;
-        Fri, 09 Oct 2026 01:41:49 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a9c3cf7ffesm4278611fa.41.2026.10.09.01.41.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 01:41:48 -0700 (PDT)
-Date: Fri, 9 Oct 2026 11:41:46 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Richard Acayan <mailingradian@gmail.com>
-Cc: Jassi Brar <jassisinghbrar@gmail.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Mathieu Poirier <mathieu.poirier@linaro.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>,
-        Srinivas Kandagatla <srini@kernel.org>,
-        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Andy Gross <agross@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-        linux-sound@vger.kernel.org
-Subject: Re: [PATCH v2 06/11] remoteproc: qcom: pas: Add SDM670 ADSP support
-Message-ID: <7brlveujfarxtixe3g4yusb6sov52jzxlno4cpjjzghon3ijpm@ef2u2oplwsmr>
-References: <20261003175659.23536-1-mailingradian@gmail.com>
- <20261003175659.23536-7-mailingradian@gmail.com>
+        bh=TpL9JdRnQWjZohyDj5gd2hk16XdjjZ4+ynUw0iwS7Uk=;
+        b=Qi2JLsTJSOEaiZxksbmNM93499qc/UG03NAqYTeHgugnfFh9vyfeOw4ZKtS8yw/xG6
+         EK+aorPStN+p6Ljy5pwndG3hRP1TLx3SBTZgZrgLy7IiDUs+8dWmHt4165RO0tO6mzF9
+         w65082Y++lL3jOmidPCOZYG7FWp6LtaSv2dPoG9U927Qm0TVmSItYYoimS86AG42huf8
+         Yazp5IoiSLPHU7N0pAHls/MCUgXv5wY2KxImAu7FzAU0A5TAS+PJUrznCjvnfmZnz988
+         1wU54m3DVwh2MfR/fgHsmFH1QWatBYtkji8K9q8MYuycCF4x1Yov1r4iGZULxr0OBhr5
+         WREg==
+X-Forwarded-Encrypted: i=1; AKwUvBxrgUn4HrPktsq6Q3k7WseQf6EFpzQ4qCkPz6uwcr5+gzwC5jmZSETMAJocZ2BImof2sngDSxKVpw0X@vger.kernel.org
+X-Gm-Message-State: AFq9FYLmIPU+NgABXn6idrP16fGb1P9fgJm9oIdKqdeFQ1d0cRuRUw3n
+	H3zzMsOIFwB53bPKPe0qz36nUK5WPv/NVLNVUCAAUtBXZFsemVYva3/5k0O0IKd1jFrW2c7GR+Y
+	cHWNOpw==
+X-Gm-Gg: AYBFou1nuz9qEG1MYGcUJMkmqRojs5KUkHF2ZtWPDcFhl7s1gt3gndEfCCe41SU2jk2
+	3ZPSR+JHhiHfPmgcrzglK8O89Pe3umcObltkmh6adTKCKPvCNsuJN56h4CVnq7J+NrMzyJ6X8NY
+	cwz2qJGmhrhDXH1cwUxQlWuqNbVov5rTO1F+vbJHpXoM31X+djPvpwj8augOpLJB/ryVLS+Qphz
+	/VU07p6GxRJMKDoA7EKaOPdX32szj5byT/rahS+8Ipay8k6pZ6u3hsBbYQJJXnzMLBCXa74zNFm
+	yA4oyDdigqL6rW34X79qw/j+iCgIkW/H8zYlW0BArTs+0utkjrCahsSfVbH/wCOtT15mKflBBbE
+	NuqdCoSrTlhK7opWsInJK3BIlNIKs9NYn4rOi08HTVEdtMg4JbS/ZcATcohT3hDoHztCVjXK1NZ
+	X79OF9zUKSOmy6KAZVh6QpQcqMCNa+11CTNeRgx/CLfI1sHYKksQdTi/IuwT/kLE60o6CWDYG6z
+	PImo3AY3LeE4oPy/JANNFZ+t+nj6C1jvkAQTRI=
+X-Received: by 2002:a05:6402:248b:b0:6af:f8c2:f8b8 with SMTP id 4fb4d7f45d1cf-6b17c28f5cdmr947632a12.38.1791535333402;
+        Fri, 09 Oct 2026 01:42:13 -0700 (PDT)
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com. [209.85.128.51])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b179de8afbsm788832a12.28.2026.10.09.01.42.09
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 09 Oct 2026 01:42:11 -0700 (PDT)
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso63439515e9.3
+        for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 01:42:09 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxtDgn/AUwu1nz75sU6H96w+8K8uuzmrPCR5Dx4iBRdJyjC+MGnTOihuA3dndpTWvxhh0nwX5ZO9Wwp@vger.kernel.org
+X-Received: by 2002:a05:600c:4ecb:b0:4a1:6916:798 with SMTP id
+ 5b1f17b1804b1-4a18e4a3f69mr19100085e9.14.1791535327953; Fri, 09 Oct 2026
+ 01:42:07 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261003175659.23536-7-mailingradian@gmail.com>
-X-Proofpoint-GUID: rfurqpG8bohNB19OMdJJSJsfyWx_Z4Vi
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDAzNCBTYWx0ZWRfX8vY6JubSGhuE
- QE70d4us9kuV62+x40vh/OnLprbpBAv8uNFqngklPvH6ISKnmRQRoQ8jCrRgNDnvxperF9zw+7B
- ElZ9IHfC1EZRmL3qs1uLQiEeSU6xzYs=
-X-Authority-Analysis: v=2.4 cv=Cs0q4X4D c=1 sm=1 tr=0 ts=6ac8a8cf cx=c_pps
- a=UgVkIMxJMSkC9lv97toC5g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=pGLkceISAAAA:8
- a=EUspDBNiAAAA:8 a=vbmOaEBQJOqfsUEg3iQA:9 a=CjuIK1q_8ugA:10
- a=1HOtulTD9v-eNWfpl4qZ:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDAzNCBTYWx0ZWRfX+U3HqPL0NJ05
- Uyd59Tc9gNCZFx9seHeJyRq53IpXPvZQ/51Dh65dIg/d4NbJgnTADANn6xYMOirg+M5DGHUf2pg
- EgDqsesJ5yPMm5Sy8xlpXOTAD5+h5nfrnjbtLtqfHz8Aiae+A6d/my7tDnJCMcog4RO0S7nDnGq
- 9Rd9qhNCbuLpivtodRX0UEWv9ngB8/iq3iUnv8ztww8D7AQtIYF7NbGXiEy6g0WpzoyDaGyDTUx
- PEsFb0fzSdSSDswRXleQXM3oaE2v5aEbNPUH5ebHnO7NfDXCI0/37FcviL11ZBYRoebjI4Pj1Gi
- bs+zS5DUClFfcHJjI03yrOJngofiR+3Nw8Ar0kBWz82ZlFO+8FNAHkcGzSM9Os1N6BAwSPmXIkU
- Pqg714TUOsPYOxpPDSdxjMSnlm5A/A4HMnbcOCw81sLEImFkweNDcUpKcIpIMLXIpILX6aASP7N
- RCGBEWNR55+wWR56Tgw==
-X-Proofpoint-ORIG-GUID: rfurqpG8bohNB19OMdJJSJsfyWx_Z4Vi
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-09_03,2026-10-08_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0 bulkscore=0 clxscore=1015 adultscore=0
- priorityscore=1501 lowpriorityscore=0 impostorscore=0 spamscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610020000
- definitions=main-2610090034
+References: <20260714222338.2965707-1-dianders@chromium.org>
+ <CAD=FV=X-fAJp=EG_yTAg+QQgNYRCt25947oHGHZuq-FEyirK0g@mail.gmail.com>
+ <CABb+yY2CH5A1ixfX9czgtEwsP95FN-2JVzN_wmRDRNsSuZY5PQ@mail.gmail.com>
+ <CAD=FV=XiguzS7nH1sE=BkXt+7G6-hhqyz5u3sjc4zAA9H7KqJg@mail.gmail.com>
+ <CABb+yY2_AvcnaTDmpL8gP4H2_Pp3HddrtNr5gvL4GCW2DPPvOw@mail.gmail.com>
+ <CAD=FV=VzJCb1nz+q5EZ33G5U6KZM_tXi8snL=KbUM3C5yymG4g@mail.gmail.com>
+ <CABb+yY2omp+g13UgZfiKWLux9J1P+=ed0U3F8AhS0iQK=kpN8w@mail.gmail.com>
+ <CAD=FV=WA2wFbk0=qFE0aZs9E5jg-EXzcrkPCk6VOMhbDroOQCw@mail.gmail.com>
+ <CABb+yY0W+244qaXqHdfEq9XFuQXBez7PVcDNrKooV9cFS8TS_Q@mail.gmail.com>
+ <CAD=FV=VW2h1zWDYWQ6LknX3O+3=EY665jde35Ly+UQzuscXy=Q@mail.gmail.com>
+ <CABb+yY2Cc9YGKb0ej7CZ_LQLw-iMQOtcAwLPier+X2ej1fWcJQ@mail.gmail.com>
+ <CAD=FV=U1DAuDN4eR_hZ2bbGoGkgkszDLPUDiosxh1aKg7Y1T=A@mail.gmail.com>
+ <CABb+yY3n3QmxTPOyAuHz9JkOKbhRqKok+24THc_JfdxwzROWDw@mail.gmail.com>
+ <CAD=FV=XGka_QqGt5iK53vU704ZsvCrXUWvJ9ewo1=TCiepfz-g@mail.gmail.com> <b1f088eb-7c77-4079-9b05-20729fcfd612@kernel.org>
+In-Reply-To: <b1f088eb-7c77-4079-9b05-20729fcfd612@kernel.org>
+From: Doug Anderson <dianders@chromium.org>
+Date: Fri, 9 Oct 2026 01:41:54 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=VSSEZykDpu48XVwDzNWKAhZjsPm3PNweTqeHv_DxiykQ@mail.gmail.com>
+X-Gm-Features: AclHuK_I9OeBRY02WEee3vuFJa_eA7foPBEu58USBohXW5y9EM2eolVWe-MVbbg
+Message-ID: <CAD=FV=VSSEZykDpu48XVwDzNWKAhZjsPm3PNweTqeHv_DxiykQ@mail.gmail.com>
+Subject: Re: [PATCH 7/7] mailbox: goog-mba: Introduce the goog-mba mailbox driver
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Jassi Brar <jassisinghbrar@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Saravana Kannan <saravanak@kernel.org>, Joonwon Kang <joonwonkang@google.com>, 
+	Subhash Jadavani <sjadavani@google.com>, Tudor Ambarus <tudor.ambarus@linaro.org>, 
+	Lucas Wei <lucaswei@google.com>, Brian Norris <briannorris@chromium.org>, 
+	Peter Griffin <peter.griffin@linaro.org>, =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-samsung-soc@vger.kernel.org, 
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Sat, Oct 03, 2026 at 01:56:54PM -0400, Richard Acayan wrote:
-> The ADSP is used to control audio and sensors on the SDM670 SoC. Add the
-> compatible for it, with the same data as SDM845 since the driver
-> requires the load_state.
-> 
-> Signed-off-by: Richard Acayan <mailingradian@gmail.com>
-> ---
->  drivers/remoteproc/qcom_q6v5_pas.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
+Hi,
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+On Thu, Oct 8, 2026 at 11:36=E2=80=AFPM Krzysztof Kozlowski <krzk@kernel.or=
+g> wrote:
+>
+> On 28/09/2026 23:34, Doug Anderson wrote:
+> >
+> > ```C
+> > static struct mbox_chan *goog_mba_fw_xlate(struct mbox_controller *mbox=
+,
+> >                                       const struct fwnode_reference_arg=
+s *sp)
+> > {
+> >   int i;
+> >
+> >   if (sp->nargs)
+> >     return ERR_PTR(-EINVAL);
+> >
+> >   for (i =3D 0; i < mbox->num_chans; i++) {
+> >     if (!mbox->chans[i].cl)
+> >       return &mbox->chans[i];
+> >   }
+> >
+> >   return ERR_PTR(-EBUSY);
+> > }
+> > ```
+> >
+> > Then the client loops around and requests the same channel over and
+> > over again until it gets -EBUSY? Like:
+> >
+> > ```C
+> > for (i =3D 0; i < FIFO_MAX; i++) {
+> >   client
+> >   chan[i] =3D mbox_request_channel(client[i], TX_CHAN);
+> >   if (IS_ERR(chan[i]) && PTR_ERR(chan[i]) =3D=3D -EBUSY)
+> >     break;
+> > }
+> > fifo_depth =3D i;
+> > ```
+> >
+> > I _guess_ that works, but it still feels like a bit of a hack to me.
+> > You said you were worried about people abusing the "has_queue" API.
+> > The above feels like it's abusing the "fw_xlate" API, turning it from
+> > something that is normally a "lookup" into an allocator function.
+> >
+> > +Rob, Saravana, and devicetree@vger.kernel.org. DT folks: is the above
+> > something that looks right to you?
+>
+> There is no allocation in your xlate code above, so this is not that
+> terrible as we talked on LPC.
+>
+> >
+> >
+> > I researched whether other upstream drivers use of_xlate() /
+> > fw_xlate() as an "allocator" like this. I did find "exynos-mailbox,"
+> > which appears to be doing something similar. However, upon deeper
+> > digging it seems like "exynos-mailbox" isn't using this dynamic
+> > allocation for any compelling reason. It looks like, really,
+> > "exynos-mailbox" should just be returning one channel. The client
+> > (exynos-acpm) could just use the same channel for everything since:
+> > * It actually gets the _real_ channel ID out of the data.
+> > * It doesn't care about txdone.
+> > * All it does is ring a doorbell and there's no queueing.
+> >
+> >
+> > In any case, if using fw_xlate() as an allocator is truly the only way
+> > to proceed, I'll finish my prototype and send a v2, but I'm still
+>
+> Why fw_xlate() would be an allocator? Can you extend your code to show th=
+at?
+>
+> I think doing any allocation in xlate() is calls is fundamentally wrong.
+> These should not modify the state of the device, so no allocations, no
+> device_link_add() etc.
 
-> 
+It's not _calling_ an allocator, it _is_ an allocator. It is walking
+through the array of channels and returning the first free one. Then
+that free channel is "allocated" to the client.
 
--- 
-With best wishes
-Dmitry
+
+> Why? There is simply no corresponding xlate_destroy() call. It's also
+> confusing, because the meaning is to translate from one domain resource
+> to another, not perform actual resource allocation.
+
+In this case, there is no leak because it's relying on knowledge of
+how the mailbox core will be using fw_xlate() to finish the allocation
+and then relying on the knowledge of the mailbox core to free. It
+works like this (simplfied, see mbox_request_channel() for full code):
+
+```
+scoped_guard(mutex, &con_mutex) {
+  list_for_each_entry(mbox, &mbox_cons, node) {
+    if (device_match_fwnode(mbox->dev, fwspec.fwnode)) {
+      // The below "allocates" the first free channel associated w/ the nod=
+e.
+      chan =3D mbox->fw_xlate(mbox, &fwspec);
+      if (!IS_ERR(chan))
+        break;
+    }
+  }
+  if (!IS_ERR(chan))
+    // This finishes the allocation.
+    chan->cl =3D client;
+}
+```
+
+Said more simply, in the mailbox driver, there is an array of channels
+associated with a given "fw_node". These are "allocated" like this:
+1. mbox_request_channel() grabs its global lock.
+2. The mailbox driver's fw_xlate() is called to find the first "free"
+channel associated with the fw_node (a channel with no "client").
+3. mbox_request_channel() sets the "client" field in the channel to
+finish allocation.
+4. mbox_request_channel() drops its global lock.
+
+Does that make sense?
+
+Is that a design that looks good to you? If DT folks have no
+objections to that, I'll send a new patch that works like that.
+
+-Doug
