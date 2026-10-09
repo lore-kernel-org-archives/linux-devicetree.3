@@ -1,130 +1,257 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1566337E2E9;
-	Fri,  9 Oct 2026 12:23:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791548617; cv=pass; b=IgAToC4TOFSiqTcOjHY0g+pAh1akU5Sa9LdBd+9AqgG2x/go7ueiU/JEat+esI++KXL66tCGbEJ7BiOF9ycHG7v8rjtQ5P9AP/ZfQ44k7nAyOP6qcmOXNb7X2+/OBBmsw/XX5AnYWWSORTxU6RJtykdUCroKnTp9410Jju3yq0o=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791548617; c=relaxed/simple;
-	bh=bDjswRz2nKNZEO15TWlHQ2LQc2x4BOd4bIxtqUgNqWk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ql+s8Ng8rbSs1oPlfw6QoGxMdqnoOITPV3DSQU5gdWDAgoOndDFXmQ80M2fcr9LMijWsDBSc0AuzPljxj+ZR0Q4Aqs4gHnIr4ZP53BsG8cT+FtuyokxdNgvNsBc23OotzUYs9/HToEMsCC9i24lGbsS/85o8jkrkGr/R88SVX48=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=cQWk8JMO; arc=pass smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9572C468C2C;
+	Fri,  9 Oct 2026 12:24:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791548686; cv=none; b=csTRJ9AElOoEglypNOprK3PmBp8jLCrqtZJ+dKO3UY68AKcGilaKW9LomgCa8pgT0oy4KTSzQ6ORNgUHbkzaJMbShvyg85qd/AIxtt/xlyBLp3zgkU2DxNFOTZG8RV/ebsU2R8m4ls4tcRlZ5kRgjb3rskE70UTRfDrVUFF6fI4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791548686; c=relaxed/simple;
+	bh=3Zw35r4K9LVHNRHDezY8A90tYkmVlFWWVFXqgdJSKsQ=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=P1E7o6GqQVWm0PqBbiFGV1nnPPP5jvjvs0UjUJuMKzZ5mREdlNLzBqVrOvGaNxoEQA93cvBk1ka7/JUeeA9QIMfslZ491GSdglnvVOUeETJLwhfJyZCBCe5CDroiKsb/2gYF4akGpwi/aDs5Cf5yEadffI+fD9GQBY9AC4ZzAq4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R0PeDuH1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="cQWk8JMO"
-Received: from drehscheibe.grey.stw.pengutronix.de (drehscheibe.grey.stw.pengutronix.de [IPv6:2a0a:edc0:0:c01:1d::a2])
-	(Authenticated sender: relay-from-drehscheibe.grey.stw.pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id E3B9A202342;
-	Fri, 09 Oct 2026 14:23:30 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1791548610;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=QJFlkRJZ93HR5PSvJ5lzD+Fgi1OrHX7JBTtx7M9wPWs=;
-	b=cQWk8JMO2YDk0rjRcgLB2H86KNKaswTIGSvTajLEYNw3WFkWQNfPBS6ik0IzfWqnO1LNzR
-	roiyq23LH2UpdXn+jnkCyoyw6J8iLL4G4bdgRUWmiS3x6oRKAE1mYGZi6qZpgpSlrgw7wP
-	ZTskseTf51v9QDn/lZCSR6bV0l1G8GKFkXb5IQ0RiIhwxcK+vvzSiBTSqK1V7fHDwRbrin
-	8wyHt6Jrg/L8q3RCGFXPaeYxBvkM22Zi59NsIBY8JR82e+b68DExJFZwQxFUs5zdriBIcS
-	1HaRmwG0nPbXkx5zGw8Q+BOtGCcS6o5m2hJUmWKGMOw+0Rv/LUDkzsUsoRIdGw==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1791548610; a=rsa-sha256;
-	cv=none;
-	b=IhAwq4oMN38sDId5oupwkri7G+6MGT6f7YiwWzKji6k7TYOeUerfmowGhGeOu0u1QS6Kri
-	Hz1S32wqQtVrWp3mYESbyKs3XnmVoULbbco6vUZ9urL3p/r65jCkbCQx65uYskMLEdJ+mH
-	jSK18/zR10or2kInLmVSZG5QhEYo4i+nR9xJJtLW0SZYnudZbgooqJ24qLJhXRZsCvwjVz
-	Y1uhjy0Cx7tGGaDIe95Cp+gmnTx+3u+YixfnnrJkkB4UmFDLb8AqbKOA/bcRQrOSGCZNgL
-	HKxGPhRhZGGauF8EzAsfXaub08znJH7FXMkFPk7NKaf238qQjGOTsdc7Yp8HYg==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=relay-from-drehscheibe.grey.stw.pengutronix.de smtp.mailfrom=mkl@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1791548610;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=QJFlkRJZ93HR5PSvJ5lzD+Fgi1OrHX7JBTtx7M9wPWs=;
-	b=I8EbBTfQ84KLIA7dKxphNv/PAAZeBhfZDkRHwVyKm/1BTaYXvxh3UYu1URw3cjDuu5TH7C
-	zVvWqeBWlHU2Kgkt0uNDLG/qz0IZX/3aiz/Wc15arwyxqr8rtnxvExB1LpJPeP60jFTyCX
-	rw4GGByPAAwAKBpjKzy+CsEQFhN3DmcMlHo/0DmPzfiMx93izRO+OpFPhtqtjyitW136EC
-	nAgP5S8EoF+I96f8SWCT/KqM7Mbx5/nEurBe9nwln8bEgwL/RkmvQPDysQlsugcK9g+5eJ
-	vavGr71kA6ZWKH3lSRel0XJZoVvBKQyP/GgK7CnuY7MEoWIoqwsnzmrOzJqNMQ==
-Received: from moin.white.stw.pengutronix.de ([2a0a:edc0:0:b01:1d::7b] helo=bjornoya.blackshift.org)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mkl@pengutronix.de>)
-	id 1xF9dK-0052mJ-2g;
-	Fri, 09 Oct 2026 14:23:30 +0200
-Received: from pengutronix.de (90-182-211-1.rcp.o2.cz [90.182.211.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(Client did not present a certificate)
-	(Authenticated sender: mkl-all@blackshift.org)
-	by smtp.blackshift.org (Postfix) with ESMTPSA id 404C95BD767;
-	Fri, 09 Oct 2026 12:23:30 +0000 (UTC)
-Date: Fri, 9 Oct 2026 14:23:29 +0200
-From: Marc Kleine-Budde <mkl@pengutronix.de>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Vincent Mailhol <mailhol@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, linux-can@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: can: renesas,rcar-canfd: Restrict resets in
- top-level
-Message-ID: <20261009-holistic-warping-puffin-3b92fe-mkl@pengutronix.de>
-References: <20261001060825.53335-2-krzysztof.kozlowski@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R0PeDuH1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4DBC1F000FF;
+	Fri,  9 Oct 2026 12:24:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791548678;
+	bh=6xK93ThS1pvc+cHk8A0twTBxTI5RD6Xpj6qM6Y/oskU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=R0PeDuH1pcDv031b8zBHl/FGEVIH4aaTslNNfduNQeI4P2vp4pn4TpalCRNICV6GQ
+	 9MK6Vdzem5vqqOBzc0+P/35yecQagCNbefsG3m/5zh3fG+502IBvExB0yR0g38O5Ra
+	 CCn9txJ6chpimH9PLn9GKVKj+Ektyq7eO832+XNQ87s94V5nALn2BVFR3XY0RsSm9K
+	 eS0Lk2yC5Qchfylt6JUpBQyRaoEqW9ssc09m/AB0AmR7D+kD1vqAxRJcEvC9fb5swv
+	 tG3ku9CYTzUCuwpRM0AU3GEPtHNGz8cExVD0gUyPWAhooxEI1f0vPlMfC15OAXeLRH
+	 H+8PbxSoUtRZA==
+Message-ID: <sashiko-outbox-165533@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] Input: add OnePlus/OPPO Pad pogo-pin keyboard
+ serdev driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Yibo Wang" <wyibo6109@gmail.com>
+Cc: robh@kernel.org, dmitry.torokhov@gmail.com, conor+dt@kernel.org, devicetree@vger.kernel.org, linux-input@vger.kernel.org
+In-Reply-To: <20261009121143.550498-3-2024312277@stu.hit.edu.cn>
+References: <20261009121143.550498-1-2024312277@stu.hit.edu.cn>
+ <20261009121143.550498-3-2024312277@stu.hit.edu.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 09 Oct 2026 12:24:37 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="iisb6fhlj2ggl6pj"
-Content-Disposition: inline
-In-Reply-To: <20261001060825.53335-2-krzysztof.kozlowski@oss.qualcomm.com>
 
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
+- [High] input: Use-After-Free in workqueues due to incorrect teardown sequ=
+ence
+- [High] input: Resource leak and UAF due to race between plug_work and pow=
+er_off
+- [Medium] input: Data race and corruption on kb->resp buffer in UART RX pa=
+th
+- [Medium] input: Data race on wake_irq_enabled state causing permanent IRQ=
+ disablement
+- [Medium] input: Missing Kconfig dependencies for INPUT_MT and LEDS_CLASS
+- [Low] input: Success logging in probe path violates subsystem guidelines
+--
 
---iisb6fhlj2ggl6pj
-Content-Type: text/plain; protected-headers=v1; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] dt-bindings: can: renesas,rcar-canfd: Restrict resets in
- top-level
-MIME-Version: 1.0
+commit 3f827ef8e9c7e47ecd0b1c17c9418abab787c03c
+Author: Yibo Wang <wyibo6109@gmail.com>
 
-On 01.10.2026 08:08:26, Krzysztof Kozlowski wrote:
-> Properties varying per variant of the device should still have the
-> broadest constraints set in the top level, so add such for the "resets".
-> Since top-level part says "reset-names" cannot accept one item, disallow
-> it for the two variants which do not use it in practice.
->
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Input: add OnePlus/OPPO Pad pogo-pin keyboard serdev driver
+   =20
+Clean-room serdev driver for the Tinno keyboard MCU used by the OnePlus
+Pad 3 Pro / Pad 4 and OPPO Pad 5 Pro smart keyboards, replacing the
+vendor platform driver that depends on a downstream msm_geni_serial
+callback and a user-space held tty fd.
 
-Applied to linux-can-next.
+> diff --git a/drivers/input/keyboard/Kconfig b/drivers/input/keyboard/Kcon=
+fig
+> --- a/drivers/input/keyboard/Kconfig
+> +++ b/drivers/input/keyboard/Kconfig
+> @@ -768,4 +768,15 @@ config KEYBOARD_CYPRESS_SF
+>  	  To compile this driver as a module, choose M here: the
+>  	  module will be called cypress-sf.
+> =20
+> +config KEYBOARD_ONEPLUS_POGO
+> +	tristate "OnePlus/OPPO Pad pogo-pin keyboard"
+> +	depends on SERIAL_DEV_BUS && GPIOLIB
 
-Thanks,
-Marc
+[Severity: Medium]
+Should this Kconfig entry select CONFIG_INPUT_MT and depend on
+CONFIG_LEDS_CLASS?
+
+The driver explicitly calls input_mt_init_slots() and
+devm_led_classdev_register_ext(). If CONFIG_INPUT_MT is disabled, the kernel
+will fail to link. If CONFIG_LEDS_CLASS is configured as a module and this
+driver is built-in, it will cause a linker error or silently drop
+functionality. Standard kernel practices require this Kconfig to select
+CONFIG_INPUT_MT and depend on CONFIG_LEDS_CLASS.
+
+> diff --git a/drivers/input/keyboard/oneplus-pogo-kbd.c b/drivers/input/ke=
+yboard/oneplus-pogo-kbd.c
+> --- /dev/null
+> +++ b/drivers/input/keyboard/oneplus-pogo-kbd.c
+[ ... ]
+> +static int pogo_xfer(struct pogo_kbd *kb, u8 cmd, const u8 *payload, u8 =
+len,
+> +		     u8 *resp, unsigned int resp_size)
+> +{
+[ ... ]
+> +		if (wait_for_completion_timeout(&kb->resp_done,
+> +				msecs_to_jiffies(POGO_RESP_TIMEOUT_MS))) {
+> +			unsigned int n =3D min(kb->resp_len, resp_size);
+> +
+> +			memcpy(resp, kb->resp, n);
+> +			ret =3D n;
+> +			break;
+> +		}
+> +		dev_dbg(kb->dev, "cmd 0x%02x: no reply\n", cmd);
+> +		ret =3D -ETIMEDOUT;
+> +	}
+> +	WRITE_ONCE(kb->tx_pending, false);
+> +	mutex_unlock(&kb->io_lock);
+> +
+> +	return ret;
+> +}
+
+[Severity: Medium]
+Is there a data race on kb->resp when timeouts occur?
+
+If wait_for_completion_timeout() times out, it proceeds to the next loop
+iteration and calls reinit_completion(&kb->resp_done) without setting
+kb->tx_pending =3D false.
+
+If a delayed reply from the previous attempt arrives concurrently, the
+serdev RX callback pogo_handle_frame() sees kb->tx_pending =3D=3D true and
+writes the payload into kb->resp locklessly:
+
+    if (READ_ONCE(kb->tx_pending) && cmd =3D=3D kb->tx_cmd + 1) {
+        kb->resp_len =3D min_t(unsigned int, len + 2, sizeof(kb->resp));
+        memcpy(kb->resp, &f[3], kb->resp_len);
+
+This can overwrite kb->resp while pogo_xfer() is concurrently reading from
+it, or it can spuriously complete the new iteration before the packet is
+even sent.
+
+[ ... ]
+> +static void pogo_wake_irq_enable(struct pogo_kbd *kb, bool enable)
+> +{
+> +	if (enable =3D=3D kb->wake_irq_enabled)
+> +		return;
+> +	if (enable)
+> +		enable_irq(kb->wake_irq);
+> +	else
+> +		disable_irq(kb->wake_irq);
+> +	kb->wake_irq_enabled =3D enable;
+> +}
+
+[Severity: Medium]
+Does updating the state after enabling the IRQ cause a race condition?
+
+If the wake line is already asserted, the IRQ can fire immediately on anoth=
+er
+CPU as soon as enable_irq() executes. The ISR pogo_wake_isr() would then ru=
+n,
+call disable_irq_nosync(), and assign kb->wake_irq_enabled =3D false.
+
+When the original CPU resumes, it unconditionally assigns
+kb->wake_irq_enabled =3D true, overwriting the ISR's state update. The
+software state now claims the IRQ is enabled, while the hardware IRQ is
+actually disabled.
+
+Subsequent calls to pogo_wake_irq_enable() will return early without enabli=
+ng
+the IRQ, leaving the keyboard permanently asleep.
+
+[ ... ]
+> +static void pogo_power_off(struct pogo_kbd *kb)
+> +{
+> +	dev_dbg(kb->dev, "power off\n");
+> +	kb->powered =3D false;
+> +	gpiod_set_value_cansleep(kb->power_gpio, 0);
+> +	if (kb->connected) {
+> +		kb->connected =3D false;
+> +		pogo_unregister_inputs(kb);
+> +		dev_info(kb->dev, "keyboard detached\n");
+> +	}
+> +}
+
+[Severity: High]
+Can a race between pogo_plug_work() and pogo_power_off() leak input devices?
+
+In pogo_plug_work(), device registration proceeds outside the lock:
+
+    if (!kb->kbd) {
+        ret =3D pogo_register_inputs(kb);
+
+Concurrently, pogo_hb_work() can call pogo_power_off(), which sets
+kb->connected =3D false and calls pogo_unregister_inputs(). Since plug_work
+has not yet assigned kb->kbd under the lock, pogo_unregister_inputs() does
+nothing.
+
+After plug_work completes registration and assigns kb->kbd, if the driver
+is unbound, pogo_remove() calls pogo_power_off(). Because kb->connected is
+already false, it skips unregistering the devices.
+
+This leaks the input devices, and their private data pointers retain the
+freed kb struct, causing a use-after-free when accessed by userspace.
+
+[ ... ]
+> +static int pogo_probe(struct serdev_device *serdev)
+> +{
+[ ... ]
+> +	/* evaluate the current attach state; enables the irq when idle */
+> +	schedule_delayed_work(&kb->detect_work,
+> +			      msecs_to_jiffies(POGO_DETECT_DEBOUNCE_MS));
+> +
+> +	dev_info(dev, "pogo keyboard link ready (wake irq %d)\n", kb->wake_irq);
+> +	return 0;
+> +}
+
+[Severity: Low]
+Should this success message be removed to match subsystem guidelines?
+
+The driver prints an explicit success log message upon normal completion of
+the probe sequence. The LED and Input maintainer guidelines request that
+drivers only log errors or warnings.
+
+[ ... ]
+> +static void pogo_remove(struct serdev_device *serdev)
+> +{
+> +	struct pogo_kbd *kb =3D serdev_device_get_drvdata(serdev);
+> +
+> +	pogo_wake_irq_enable(kb, false);
+> +	cancel_delayed_work_sync(&kb->detect_work);
+> +	cancel_delayed_work_sync(&kb->hb_work);
+> +	cancel_work_sync(&kb->plug_work);
+> +	cancel_work_sync(&kb->led_work);
+> +	pogo_power_off(kb);
+> +}
+
+[Severity: High]
+Could this teardown sequence leave a window for use-after-free bugs?
+
+First, cancel_work_sync(&kb->led_work) is called before pogo_power_off(kb)
+unregisters the input devices. Userspace can trigger pogo_kbd_event() via
+sysfs/evdev and queue led_work after the cancellation.
+
+Second, the serdev port is managed via devm_serdev_device_open(), so it
+remains open until devres cleanup runs after pogo_remove() returns. An
+incoming UART frame could trigger pogo_receive_buf() and queue plug_work
+on the freed memory.
+
+Third, detect_work and hb_work can schedule each other. Sequentially
+cancelling them without a state flag (e.g., kb->quitting =3D true) allows
+hb_work to queue detect_work immediately after detect_work is cancelled.
+
+Also, if pogo_probe() fails after opening the serdev, plug_work is never
+cancelled before devres cleanup.
 
 --=20
-Pengutronix e.K.                 | Marc Kleine-Budde          |
-Embedded Linux                   | https://www.pengutronix.de |
-Vertretung N=C3=BCrnberg              | Phone: +49-5121-206917-129 |
-Amtsgericht Hildesheim, HRA 2686 | Fax:   +49-5121-206917-9   |
-
---iisb6fhlj2ggl6pj
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQSl+MghEFFAdY3pYJLMOmT6rpmt0gUCasjcvwAKCRDMOmT6rpmt
-0pG1APwPttD1RcoVGSyWM1sNX7bucXyxzpxQdlZFDug/BFTkIwEAv11b5f8V9HEj
-FQAl1XBOu9750fpX58+T0JO/xaWgfgQ=
-=LcM7
------END PGP SIGNATURE-----
-
---iisb6fhlj2ggl6pj--
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009121143.5504=
+98-1-2024312277@stu.hit.edu.cn?part=3D2
