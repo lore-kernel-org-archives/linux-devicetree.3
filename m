@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DB84175A74
-	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 11:03:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDDB54C6515
+	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 11:05:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791543845; cv=none; b=Ake8UODFxvKGpIibyJQPH+CX4+B8YS8WP3CCrENSHkv2n2B9vLW7229de6c8oI3xaxT5r0fT/ZAhcEVDWxIJvBNAuozET5za7Ab2eIwxtYa6wwLVJNw+csqA9Pd805bPoh2fXAAN1NgDB6hCIHnqG2maU2A52W42UNVkRlz4yhk=
+	t=1791543925; cv=none; b=ZeXRF89lgVU1vOJ9L/SBymHYi7aYDIbh0uD1tFyCot530lYUaIvBO7Q78FseB1SI/FuKEe0Qc0aZdhorz8CHTXtUFL7vMAYblD7PLSOwl0BhgWVNqid/x7wUaPNk5y2jCP4LWdUwy7aU5FyMoPTlSBQNE3CnTZ3tTUt+mzWXHiw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791543845; c=relaxed/simple;
-	bh=4oB9TyLA9CryYUDyKKZoOWJLSgVXibBzGJYy7srBvgA=;
+	s=arc-20240116; t=1791543925; c=relaxed/simple;
+	bh=u6e+w1kUBl2vZbuHYOmN2xzBeUnaFqtWlhoH2+3+kPk=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=jjjqMc83QP4wSoZxADcvkVfORlK4oazfckHAswpseoAj2talyIYEanfww4ZOL2fytwFL4GuSnCYfIBCNSlw9myWf0sPb5Rnp61EYgykBAUhqqjJsKKYNKifsI9ocqJIs/Hv7pF//c8/CPMpxhkA+6nypYz75Tf29FQOrsPpHMnw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B2reEFgz; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=c80aUtemXWAMtubmq2iaopZd65yL+ms/ah6lw9ZPjQVAuRlZF9CG0Pt+pfpAi3Fa3rS6eaCYn8H89gfFFailVPusWaTZCzpySvieldVMrmb5DuAV+TiXZnOX7xnk03GWwn7n17uhCKDwo4V0dcZUe/39LLGLmMiemDYl30QdYYM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H4mPPC8p; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B2reEFgz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A1791F00893;
-	Fri,  9 Oct 2026 11:03:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H4mPPC8p"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 129121F000FF;
+	Fri,  9 Oct 2026 11:05:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791543837;
-	bh=eCR2rVOxljXIgaUHxUERrq3IAIM7n1o13GUJ6/FeG0I=;
+	s=k20260515; t=1791543914;
+	bh=x65TjIpWN8ajfaY2CqtSSYJd3oa+IIXjQW8wYvciUKc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=B2reEFgzgDrXm8laDOTo/HqkQTpR27aNEwkD/ANN9gVY3WliWPn3aa5MBW+8REmY1
-	 cp3WQst26on6jClVjGRxhyPnYmr63FFnVdqH6gE/5WLQpb9THYQEGQPrxaVru2Wsr+
-	 IUsBIehDHFsFJnH4/4y4LXWNKRvkl5Fqk9MQzS6Bz7mCtt119/inECA+QiDoAZBCNV
-	 0cHpt+kmKC7TKH1GvnRi2zEzudAM3gjVXoeHu9mS/eBo5SsA9TKaheb7j9Gcg7G/pf
-	 xvcRf/ynqT6EJud9GWvjf4mAMrBXa1R7HDj1ZTlc0vpLc0TYYbMRVgSWco6IVO56E4
-	 +oMSj4xwrAtog==
-Message-ID: <sashiko-outbox-165306@kernel.org>
+	b=H4mPPC8pMeNNf+VY1grDP+sP6XIPjjPBEuHTYTHkDrvRz9VXeUTgA4M5mr1e3R+AI
+	 ub5ypwD+PXiMExp9uK07I2iH9ahJivyibary/PkGlnLZFIXYWkxxrRKLAJpPsuOx4K
+	 vhOyB10xyBii1qmUbXU0WN/haYOOqUfwdn9FbWrSFyBWwXTQo8ufOv8VpSsV0Flzwf
+	 GQbS4B3hTAnoynmnW9XCA2sxe5BGaFFp5sz5ScYXlJedTYHWUCgZSy+acE0a3+oTfG
+	 4Ws3jCxHOY1KAW6fRof3qVtrjEIpLZwjoXihyedJHaqdu1Vvyy4E6HtigwWuA9UE9u
+	 4ENRiO4/J77xg==
+Message-ID: <sashiko-outbox-165310@kernel.org>
 From: sashiko-bot@kernel.org
 Subject: Re: [PATCH 1/3] dt-bindings: display: ti,tpd12s015: Convert to DT
  schema
 Reply-To: sashiko-reviews@lists.linux.dev
 To: Quchaosheng <quchaosheng000406@163.com>
-Cc: conor+dt@kernel.org, dri-devel@lists.freedesktop.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20261009105356.300188-2-quchaosheng000406@163.com>
-References: <20261009105356.300188-1-quchaosheng000406@163.com>
- <20261009105356.300188-2-quchaosheng000406@163.com>
+Cc: robh@kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20261009105412.300338-2-quchaosheng000406@163.com>
+References: <20261009105412.300338-1-quchaosheng000406@163.com>
+ <20261009105412.300338-2-quchaosheng000406@163.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 09 Oct 2026 11:03:57 +0000
+Date: Fri, 09 Oct 2026 11:05:13 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,16 +47,18 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] dt-bindings: display: ti,tpd12s015: missing minItems: 3 for gpios
+- [Low] dt-bindings: ti,tpd12s015: missing minItems: 3 constraint for gpios=
+ property
 --
 
-commit d5e502558b023b930dba87dd54c3fb7121502833
+commit 93e133f1119a3271ab3e48f347188c3580055f0b
 Author: Chaosheng Qu <quchaosheng000406@163.com>
 
 dt-bindings: display: ti,tpd12s015: Convert to DT schema
-   =20
-Convert the TPD12S015 HDMI level shifter binding to DT schema, documenting
-the ports and compatible fallbacks.
+
+Convert the TPD12S015 HDMI level shifter binding to DT schema. Document the
+two ports it exposes between the HDMI transmitter and the connector, and
+add the tpd12s016 as a fallback compatible.
 
 > diff --git a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.ya=
 ml b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
@@ -64,9 +66,21 @@ ml b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
 > index 0000000000000..1927da3bd7361
 > --- /dev/null
 > +++ b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
+> @@ -0,0 +1,90 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
 
 [ ... ]
 
+> +properties:
+> +  compatible:
+> +    oneOf:
+> +      - const: ti,tpd12s015
+> +      - items:
+> +          - const: ti,tpd12s016
+> +          - const: ti,tpd12s015
+> +
 > +  gpios:
 > +    description:
 > +      The CT CP HPD, LS OE and HPD GPIOs, in that order. The first contr=
@@ -76,20 +90,20 @@ ols
 > +    maxItems: 3
 
 [Severity: Low]
-Does this property need a minItems: 3 constraint?
+Does this gpios property also need a minItems: 3 constraint to prevent
+incomplete device trees from passing schema validation?
 
-If a device tree developer omits the first two optional GPIOs without using
-<0> placeholders, the array will have fewer than 3 elements. This will pass
-YAML schema validation.
+Since maxItems is 3 and minItems is omitted, the schema compiler defaults
+minItems to 1.
 
-However, the drivers handling this device (both ti-tpd12s015.c and
-encoder-tpd12s015.c) unconditionally request the HPD GPIO at index 2 using
-devm_gpiod_get_index(&pdev->dev, NULL, 2, GPIOD_IN).
+The driver ti-tpd12s015.c unconditionally attempts to retrieve the third
+pin by its explicit index:
 
-If the array has fewer than 3 elements, the driver probe will immediately
-fail at runtime with -ENOENT. Adding minItems: 3 would ensure the dt-schema
-validation catches incomplete arrays earlier.
+    devm_gpiod_get_index(&pdev->dev, NULL, 2, GPIOD_IN)
+
+If a device tree provides 1 or 2 GPIOs, it will pass schema validation but
+the driver probe will fail at runtime with -ENOENT.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009105356.3001=
-88-1-quchaosheng000406@163.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009105412.3003=
+38-1-quchaosheng000406@163.com?part=3D1
