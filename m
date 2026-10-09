@@ -1,73 +1,121 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA263175A74;
-	Fri,  9 Oct 2026 15:41:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 882A8340A57;
+	Fri,  9 Oct 2026 15:42:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791560510; cv=none; b=oR0Vw4JVWMw+5GBgi6tJavJuS3sLGpJp1zvX7HuwOPBrX+Y8slIpMqbo1ZnnqADjb1mQ1lceuc2IN5eeyYLhZOb9ARXUV356+Ckp7Xc38SX7AL3jAPSftBTEO/ASs069PRz6eTvtQMThIGhM8tkc/v63OrIqhUrVq9U+Jn79Wek=
+	t=1791560532; cv=none; b=YYal1oarN3G12CsSvRSpvemUK3Cd1AikIMnl/NFfRxdwwBAP83xy7hyqFttNp3+f+SSzO8oJOJsEm+o/50EWzw5aUFGF6mjfjrIdMPTtQOckSa+o2+qe+bTimIXDWK2u/FaIJG9g7rTh45hPTygST5BKNJNjnqHE3pff4v2bi3E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791560510; c=relaxed/simple;
-	bh=dUWZmZOch5Qb4AzmbYv9GLjnStjLEJtXiqFclZadx5M=;
+	s=arc-20240116; t=1791560532; c=relaxed/simple;
+	bh=HW59q6Yn0OslPF3Els2Dkx+G+MOVrvpGDU0AOpiMs5A=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=XkhRAF+MZUw+uUYgfBOsfkAM/80iCwA2pZrRj1a8XUI/ms5u3pACvS1Xyl2xIXa4dBxdWoKP+5aqGUdwrynFxjN/bSOT0IJR2J6H+bU4/DBrRTkeM0nPIv1L6Pxnj6A7KtxMAP1FgM27iosYehQtbwPlrskCJJBP9gMexMSlmNw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HDsIToSK; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=mjVKzyq3zIFCJOi9ygPaBMISwj+aGRoQ7o1ufWN2JEQ58Ge0+IieWr8BgX+eGlfAJD+swrR/6SuTKOqS4swU0xEOy/by3+SXGe2f1hpwXuHF4SKWjRVP7e8khcwty9D9dApFVvWWe6WbdDJb4cnD1WETyHZH772+xG/BqWxapdM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TP8RuDRh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HDsIToSK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 021F51F000FF;
-	Fri,  9 Oct 2026 15:41:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TP8RuDRh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E65251F000FF;
+	Fri,  9 Oct 2026 15:42:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791560509;
-	bh=m7+KzHXqKWMyDE/8urLgeEGgBfz4aMSR0uxlEDv1yNs=;
+	s=k20260515; t=1791560530;
+	bh=HW59q6Yn0OslPF3Els2Dkx+G+MOVrvpGDU0AOpiMs5A=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HDsIToSKhlKo1OKsP5MwpHPGh84Kvc1vLzR6nGW7O8qXWJpXHoDSLMw0IuYjsUMc/
-	 fYtdZ3u6P1zcTjGs0IiM3FJauq/x/+6jJr7veGtiyOjNhgA1W2XDvXqJ6Nu8YyT5mM
-	 BbzH6VWCwycy0pJiqpt3+K6/FmIo2Wt80f4voy3h7hU9H3UMDNwBAfj2MGfZTyYDq8
-	 JUwxcTONqgf2btIozJnkFRwPEobSd396Am6c2zfnU2boR/cRVVsM9r4ogtzOzf6j5Z
-	 eXW76I+F94BFSiuwyFLNGKbjj+K7rwTqMQQLMkxEX1KNjYgGT14aDUEkdu9o7vAO/i
-	 yr8fp8Z4mUuWg==
-Date: Fri, 9 Oct 2026 10:41:48 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Christian Marangi <ansuelsmth@gmail.com>
-Cc: Jaroslav Kysela <perex@perex.cz>,
+	b=TP8RuDRhfHpTVUdPOYlk0cIai3NHcEJgnKN6+dQM5aM4V2sN0c1RJn+LEudiFDrkx
+	 dxScbsVCXK/W/4tJ088RvzIyIV4tcX65/nuH9IbLVfzP1O0w/fPilJaufUYPI5Fg5C
+	 OeGTmYEozM6KgPwCKm1yctQX089jK86OD+Q6445gfjut+OH+ojDM0OJ9+2wQdQttII
+	 ea4mSor3ZZPSpSlPWNsGESj4hSjJ+7W/nhqBdJXGVeYuAY49DAOltFhqV0oMpSh0p4
+	 aNrSJHhvyLXiCcTuidBjxn3JMDSlIw3uS5sa/2sm7OfmUhh7PfK5uelxDHP4XYiGk2
+	 3dTzg8vgb7Q7A==
+Date: Fri, 9 Oct 2026 16:42:01 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Quchaosheng <quchaosheng000406@163.com>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Takashi Iwai <tiwai@suse.com>, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-sound@vger.kernel.org,
-	Conor Dooley <conor+dt@kernel.org>
-Subject: Re: [PATCH v3 1/2] ASoC: dt-bindings: airoha: Add AN7581 PCM
- controller
-Message-ID: <179156050784.2261655.11183119560977756251.robh@kernel.org>
-References: <20261009111334.23522-1-ansuelsmth@gmail.com>
- <20261009111334.23522-2-ansuelsmth@gmail.com>
+	Conor Dooley <conor+dt@kernel.org>,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+	linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: display: ti,tpd12s015: Convert to DT
+ schema
+Message-ID: <20261009-db35f1d74028d0d0a34f1106@squawk>
+References: <20261009105601.301891-1-quchaosheng000406@163.com>
+ <20261009105601.301891-2-quchaosheng000406@163.com>
+ <20261009-2f34bbada2c463c78b2c05a7@squawk>
+ <20261009144434.GD622105@killaraus.ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="+lGluAYOQ0yvN+I2"
+Content-Disposition: inline
+In-Reply-To: <20261009144434.GD622105@killaraus.ideasonboard.com>
+
+--+lGluAYOQ0yvN+I2
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261009111334.23522-2-ansuelsmth@gmail.com>
+Content-Transfer-Encoding: quoted-printable
+
+On Fri, Oct 09, 2026 at 04:44:34PM +0200, Laurent Pinchart wrote:
+> On Fri, Oct 09, 2026 at 03:25:49PM +0100, Conor Dooley wrote:
+> > On Fri, Oct 09, 2026 at 06:55:59PM +0800, Quchaosheng wrote:
+> > > From: Chaosheng Qu <quchaosheng000406@163.com>
+> > >=20
+> > > Convert the TPD12S015 HDMI level shifter binding to DT schema.
+> > >=20
+> > > The TI TPD12S015 is an HDMI companion chip that combines a level shif=
+ter
+> > > and ESD protection circuitry. Document the two ports it exposes betwe=
+en
+> > > the HDMI transmitter and the connector.
+> > >=20
+> > > The tpd12s016 is software compatible with the tpd12s015 and is listed=
+ as
+> > > a fallback compatible by am57xx-idk-common.dtsi, so accept it as a
+> > > fallback of "ti,tpd12s015". The driver matches on "ti,tpd12s015" only=
+, so
+> > > a board using the tpd12s016 must list both compatibles.
+> > >=20
+> > > Assisted-by: LLM
+> > > Signed-off-by: Chaosheng Qu <quchaosheng000406@163.com>
+> >=20
+> > No idea if the sashiko reply is valid, because I have no clue if
+> > providing a subset of the gpios is functional. Really this should have
+> > multiple different gpios properties,
+>=20
+> Definitely.
+>=20
+> > but this binding is really old and
+> > not worth changing IMO.
+> > Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> > pw-bot: not-applicable
+>=20
+> I'm getting annoyed be the LLM-assisted individual conversions. Can we
+> start requiring people who convert text bindings to YAML to at least
+> handle whole groups in one go ? If they're going to do a bad job, I'd
+> rather have to review it once only.
+
+Or do one, and take the learnings into all the remaining patches - but
+with LLM conversions I don't think there's really much learning going on
+at all.
+
+I guess bunching them is fine, provided it is for one subsystem. I
+definitely don't want to see a set of 15 patches across 9 subsystems,
+at least with one subsystem it's likely to be the same common problems
+across the bunch.
 
 
-On Fri, 09 Oct 2026 13:13:31 +0200, Christian Marangi wrote:
-> The Airoha AN7581 SoC provides a PCM interface for VoIP applications,
-> supporting playback and capture at sample rates of 8 kHz and 16 kHz.
-> The driver configures the PCM bit clock to 2.048 MHz and supports
-> 8-bit and 16-bit samples, with up to 32 channels.
-> 
-> Document the related compatible and required interrupt/reset and provide an
-> example for it.
-> 
-> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
-> ---
->  .../bindings/sound/airoha,an7581-pcm.yaml     | 52 +++++++++++++++++++
->  1 file changed, 52 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/airoha,an7581-pcm.yaml
-> 
+--+lGluAYOQ0yvN+I2
+Content-Type: application/pgp-signature; name=signature.asc
 
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+-----BEGIN PGP SIGNATURE-----
 
+iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaskLSQAKCRB4tDGHoIJi
+0oOqAP9/cjJoHwDyuvhTJ9sGUQQFM7+QGVx4YCXrySUHlraVRgD/awI23g7lMVjK
+P89dAe3GuVNwufd8hjuhcHxiA7qK/g4=
+=bjaF
+-----END PGP SIGNATURE-----
+
+--+lGluAYOQ0yvN+I2--
