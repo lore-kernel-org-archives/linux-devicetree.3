@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACDDD4CDDD6;
-	Fri,  9 Oct 2026 10:59:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57CF64CC262;
+	Fri,  9 Oct 2026 11:00:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791543580; cv=none; b=s+WiMBFtP6qBPCYg0+PwMOsftE7adR/A1fJrQKBjyZccICxdx4WtutVLvNQzny85NN2o7X81PDX4RBLLGz1eQSQw0X2Bp6RWZNrZZbNmtnZFyGzEQzuAg9jJjJs9d3U6YAwbBUTHLJ1q9OAaHuMWbgWk07TgEwNdrObEdxOFmDs=
+	t=1791543604; cv=none; b=gx6TDcCjHxt0dnMN+cy6yl7eB1dDLGrEeQeYdkUdqMrvcNraS5IiVj/l1efycX5JRNlvNeYXbmBPxS9Mjjc9oHejVQzkhX5WJRCumZW4UEXYuVuXLFqujfs7pkCeCdprtwJLKQV6mHdhe8qAimwdJlmjCPup/G+J+CEJ7d7oH3c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791543580; c=relaxed/simple;
-	bh=85eIT4o/M2rEJoeOnVqScMNsV0MTYTeAJ3ECPzfcYCU=;
+	s=arc-20240116; t=1791543604; c=relaxed/simple;
+	bh=5GFqfQIbCg2UdEeRrw8f0OXijIQlOGnsXzu/vsVQh9g=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ZphXM327I3I9nQiAvwr+xdOK8M6z5JV7/oXcCsNF6O1nG3DwDTbENb+0RAEgdtH4x2zitWYGmLjBXJbv+67xYVtKYIxhaDpVESUmJitBsWu9OofNkDPocF06NxHibYElyWsyjoSEHmIrESZ6qD41acGvcLVo6G9/JOwhx7xYAUg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DxY/aGoJ; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=OF/C44CDDNxKUDoAS2CCtR+2bZ22F16GQXe1U+AA9qyo31O3D1ZyI/7j7mEkJPmwOx8fcaRr6uIb30PBILbpyZ5l10n6KFrawrUFqvW8xNuHSl2UfA6uMdk36bdsFLPS6yRcnT8Y4WjgxIawOjt640AQrZwroVp3bJPib7zQjPs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Oa7eGbat; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DxY/aGoJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 24F9FC2BD05;
-	Fri,  9 Oct 2026 10:59:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Oa7eGbat"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 6BEB7C4AF09;
+	Fri,  9 Oct 2026 11:00:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791543580;
-	bh=85eIT4o/M2rEJoeOnVqScMNsV0MTYTeAJ3ECPzfcYCU=;
+	s=k20201202; t=1791543603;
+	bh=5GFqfQIbCg2UdEeRrw8f0OXijIQlOGnsXzu/vsVQh9g=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=DxY/aGoJCsV5nQ9nYN4DHJDBAUGeMIaI+H3nDHkF1o3hAdiAct3IKJ9+iYVZawq9w
-	 JI/rGQgE0pT709uqM3w8198EOZe609QPTyk9DaVBd2h4RFElG/7uZE0kFBwYRbn3hw
-	 R9BU1H6HzIT1Z6Pk5QdP8UOmga6lvXA4e+K9Hs+tujuMIVCDLDI4a+RLnwuQ+F51kc
-	 4rtjMUyUIGvgMD9/R00fDoUqFU/+dJgiOJQ4y7huSBoQEsiLVDc2NII7vTEioEVo8k
-	 tf/UpNCYJytIbB2Ass69O12Ixx46DpIHWCGrvrnjW1vFG4uTzG3OhPHT7g5t5EAoBl
-	 SFXNd5hix+ang==
+	b=Oa7eGbateNU8RyS+9ll2MZKkirPYtR3ZpbZhhailvxRaBJFh76wKxLPKbSWneDjyt
+	 2JFoIe7cNaEG6i20DuqMInbQOovvM3iN77M/X1O9mCNNMI6Wg4qEFQ78qWXR1OezLe
+	 2QJoxegry2AfgusDY5tW+6DTPPU6HOM2/XcuOeqNQ5iBgoGqyFTxqFpLWeX/hcV5qg
+	 rKiFB9AjNQfRQGOcbkK3/aXkPj5zJSk+//FmYJy0/x+uQFeziJ/MEGQ/cuN01SZqul
+	 uOsVnC/X0RsCooTaxkhPVCFbGnWGLF70abOPyBEt01+oElDgv5zHlzThfpWpJTOL3u
+	 LcMqXkEodpMBg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0EEE9CA6012;
-	Fri,  9 Oct 2026 10:59:40 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4F7CACA601E;
+	Fri,  9 Oct 2026 11:00:03 +0000 (UTC)
 From: Long Zhao via B4 Relay <devnull+longzhao.ambarella.com@kernel.org>
-Date: Fri, 09 Oct 2026 18:58:00 +0800
-Subject: [PATCH 7/7] gpio: pl061: add Ambarella register-layout variant
+Date: Fri, 09 Oct 2026 18:59:59 +0800
+Subject: [PATCH 2/2] serial: 8250_dw: add Ambarella CV75 quirks
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -39,13 +39,15 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261009-cv75-gpio-v1-7-5836bd438423@ambarella.com>
-References: <20261009-cv75-gpio-v1-0-5836bd438423@ambarella.com>
-In-Reply-To: <20261009-cv75-gpio-v1-0-5836bd438423@ambarella.com>
-To: Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org
-Cc: Linus Walleij <linusw@kernel.org>, Michael Walle <mwalle@kernel.org>, 
+Content-Transfer-Encoding: 8bit
+Message-Id: <20261009-cv75-uart-v1-2-38c098efaa99@ambarella.com>
+References: <20261009-cv75-uart-v1-0-38c098efaa99@ambarella.com>
+In-Reply-To: <20261009-cv75-uart-v1-0-38c098efaa99@ambarella.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, linux-serial@vger.kernel.org
+Cc: Linus Walleij <linusw@kernel.org>, 
  Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
@@ -53,11 +55,11 @@ Cc: Linus Walleij <linusw@kernel.org>, Michael Walle <mwalle@kernel.org>,
  Long Zhao <longzhao@ambarella.com>, Long Zhao <zl020895@163.com>, 
  linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791543577; l=4039;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791543601; l=3394;
  i=longzhao@ambarella.com; s=20260730; h=from:subject:message-id;
- bh=+ZFH91SYcTapEqs5zs5i2KILpZNRDsWCcR4WyIWoj1g=;
- b=lgiv1XQ95H1EuTo549U19EvPh4CZp7GqJQnHRZea+XYQ0emIUKS5rf91b3ixaeUxloDtBLrB9
- 1Mziqr0c+F0BjKB1fQDX44Bu52ZIj10RfACCQ13Sscc8jKbFw5QJHQD
+ bh=r8t/FG9wW+i95rGWMVag4aWVspLRurIpWPfr+INLVog=;
+ b=hv7yDdv8ftrjIZ71bzvGTmVvggxkbx5wiX6jR+t+LikCzqq6/aACh1DAvEnC9I2wZw06ojkCk
+ VB6RFtmbUSkA55Zxuns057H+2D/ZyvASUSjSTMuWoOqwssQNiNnNIwp
 X-Developer-Key: i=longzhao@ambarella.com; a=ed25519;
  pk=/xGhPTOX0/eYsyTWzyjjgAIW1Z/YD+IlnOnvcdRozow=
 X-Endpoint-Received: by B4 Relay for longzhao@ambarella.com/20260730 with
@@ -67,141 +69,101 @@ Reply-To: longzhao@ambarella.com
 
 From: Long Zhao <longzhao@ambarella.com>
 
-Add a 32-bit, 32-line layout with DAT/DIR/IS/IBE/IEV/IE/MIS/IC plus
-MASK and ENABLE. Probe unmasks the bank and enables the controller.
-IRQ type changes also clear the pending bit. This derivative does not
-need write-after-direction or system suspend save/restore.
+The Ambarella CV75 UART is Ambarella IP, not a Synopsys DesignWare
+licensed block. At the register level it is close enough to DW APB UART
+that a full custom UART driver is unnecessary: reuse 8250_dw with a
+small platform quirk.
 
-Cache DAT (REGCACHE_FLAT_S, not volatile) so gpio_set() updates one
-bit from the output shadow instead of read-modify-writing the pin
-level across the bank.
+Quirks:
+- keep IER ETOI (bit 5) set for RX timeout behaviour
+- skip set_rate; baud clock is managed outside the UART block
 
-Match the part with designer AMBA_VENDOR_AMBARELLA (JEP106 identity
-0x68, bit 7 set) and part number 0x061.
-
+Reviewed-by: Linus Walleij <linusw@kernel.org>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
 Signed-off-by: Long Zhao <longzhao@ambarella.com>
 ---
- drivers/gpio/gpio-pl061.c | 59 +++++++++++++++++++++++++++++++++++++++++++++++
- include/linux/amba/bus.h  |  1 +
- 2 files changed, 60 insertions(+)
+ drivers/tty/serial/8250/8250_dw.c | 32 ++++++++++++++++++++++++++++++++
+ 1 file changed, 32 insertions(+)
 
-diff --git a/drivers/gpio/gpio-pl061.c b/drivers/gpio/gpio-pl061.c
-index ba3350a8971c..ccadeb118305 100644
---- a/drivers/gpio/gpio-pl061.c
-+++ b/drivers/gpio/gpio-pl061.c
-@@ -38,6 +38,18 @@
- #define PL061_MIS		0x418
- #define PL061_IC		0x41c
+diff --git a/drivers/tty/serial/8250/8250_dw.c b/drivers/tty/serial/8250/8250_dw.c
+index 5fba913f3301..06f03e893346 100644
+--- a/drivers/tty/serial/8250/8250_dw.c
++++ b/drivers/tty/serial/8250/8250_dw.c
+@@ -43,6 +43,9 @@
+ #define RZN1_UART_xDMACR_8_WORD_BURST	(2 << 1)
+ #define RZN1_UART_xDMACR_BLK_SZ(x)	((x) << 3)
  
-+#define AMBARELLA_GPIO_NR	32
-+#define AMBARELLA_DAT		0x00
-+#define AMBARELLA_DIR		0x04
-+#define AMBARELLA_IS		0x08
-+#define AMBARELLA_IBE		0x0c
-+#define AMBARELLA_IEV		0x10
-+#define AMBARELLA_IE		0x14
-+#define AMBARELLA_MIS		0x20
-+#define AMBARELLA_IC		0x24
-+#define AMBARELLA_MASK		0x28
-+#define AMBARELLA_ENABLE	0x2c
++/* Ambarella IER: receive timeout interrupt enable */
++#define AMBARELLA_UART_IER_ETOI		BIT(5)
 +
- struct pl061_regs {
- 	unsigned int dat;
- 	unsigned int dir;
-@@ -318,6 +330,17 @@ static bool pl061_arm_volatile_reg(struct device *dev, unsigned int reg)
- 	}
+ /* Quirks */
+ #define DW_UART_QUIRK_OCTEON		BIT(0)
+ #define DW_UART_QUIRK_ARMADA_38X	BIT(1)
+@@ -60,6 +63,7 @@
+ 
+ struct dw8250_platform_data {
+ 	u8 usr_reg;
++	u8 ier_mask;
+ 	u32 cpr_value;
+ 	unsigned int quirks;
+ };
+@@ -572,6 +576,25 @@ static void dw8250_prepare_rx_dma(struct uart_8250_port *p)
+ 	dw8250_writel_ext(up, RZN1_UART_RDMACR, val);
  }
  
-+static bool pl061_ambarella_volatile_reg(struct device *dev, unsigned int reg)
++static int dw8250_ier_mask_startup(struct uart_port *p)
 +{
-+	switch (reg) {
-+	case AMBARELLA_MIS:
-+	case AMBARELLA_IC:
-+		return true;
-+	default:
-+		return false;
-+	}
++	struct dw8250_data *d = to_dw8250_data(p->private_data);
++	struct uart_8250_port *up = up_to_u8250p(p);
++	int ret;
++
++	ret = serial8250_do_startup(p);
++	if (ret)
++		return ret;
++
++	/*
++	 * Ambarella keeps variant IER bits (e.g. ETOI) set for correct RX
++	 * timeout behaviour.
++	 */
++	up->ier |= d->pdata->ier_mask;
++
++	return 0;
 +}
 +
- static const struct regmap_config pl061_arm_regmap_config = {
- 	.reg_bits = 16,
- 	.val_bits = 8,
-@@ -329,6 +352,17 @@ static const struct regmap_config pl061_arm_regmap_config = {
- 	.use_raw_spinlock = true,
- };
- 
-+static const struct regmap_config pl061_ambarella_regmap_config = {
-+	.reg_bits = 32,
-+	.val_bits = 32,
-+	.reg_stride = 4,
-+	.max_register = AMBARELLA_ENABLE,
-+	.volatile_reg = pl061_ambarella_volatile_reg,
-+	.cache_type = REGCACHE_FLAT_S,
-+	.fast_io = true,
-+	.use_raw_spinlock = true,
-+};
-+
- static const struct pl061_regs pl061_arm_regs = {
- 	.dir	= PL061_DIR,
- 	.is	= PL061_IS,
-@@ -339,6 +373,19 @@ static const struct pl061_regs pl061_arm_regs = {
- 	.ic	= PL061_IC,
- };
- 
-+static const struct pl061_regs pl061_ambarella_regs = {
-+	.dat	= AMBARELLA_DAT,
-+	.dir	= AMBARELLA_DIR,
-+	.is	= AMBARELLA_IS,
-+	.ibe	= AMBARELLA_IBE,
-+	.iev	= AMBARELLA_IEV,
-+	.ie	= AMBARELLA_IE,
-+	.mis	= AMBARELLA_MIS,
-+	.ic	= AMBARELLA_IC,
-+	.mask	= AMBARELLA_MASK,
-+	.enable	= AMBARELLA_ENABLE,
-+};
-+
- static const struct pl061_drvdata pl061_arm = {
- 	.regmap_config		= &pl061_arm_regmap_config,
- 	.regs			= &pl061_arm_regs,
-@@ -348,6 +395,13 @@ static const struct pl061_drvdata pl061_arm = {
- 	.reg_mask_xlate		= pl061_arm_reg_mask_xlate,
- };
- 
-+static const struct pl061_drvdata pl061_ambarella = {
-+	.regmap_config		= &pl061_ambarella_regmap_config,
-+	.regs			= &pl061_ambarella_regs,
-+	.ngpio			= AMBARELLA_GPIO_NR,
-+	.clear_irq_on_type	= true,
-+};
-+
- static int pl061_probe(struct amba_device *adev, const struct amba_id *id)
+ static void dw8250_quirks(struct uart_port *p, struct dw8250_data *data)
  {
- 	struct device *dev = &adev->dev;
-@@ -515,6 +569,11 @@ static const struct amba_id pl061_ids[] = {
- 		.mask	= 0x000fffff,
- 		.data	= (void *)&pl061_arm,
- 	},
-+	{
-+		.id	= (AMBA_VENDOR_AMBARELLA << 12) | 0x061,
-+		.mask	= 0x000fffff,
-+		.data	= (void *)&pl061_ambarella,
-+	},
- 	{ 0, 0 },
- };
- MODULE_DEVICE_TABLE(amba, pl061_ids);
-diff --git a/include/linux/amba/bus.h b/include/linux/amba/bus.h
-index 80a74cd2da7e..411533bfa61d 100644
---- a/include/linux/amba/bus.h
-+++ b/include/linux/amba/bus.h
-@@ -98,6 +98,7 @@ enum amba_vendor {
- 	AMBA_VENDOR_ST = 0x80,
- 	AMBA_VENDOR_QCOM = 0x51,
- 	AMBA_VENDOR_LSI = 0xb6,
-+	AMBA_VENDOR_AMBARELLA = 0xe8,
+ 	unsigned int quirks = data->pdata->quirks;
+@@ -606,6 +629,8 @@ static void dw8250_quirks(struct uart_port *p, struct dw8250_data *data)
+ 		p->serial_in = dw8250_serial_in32;
+ 		data->uart_16550_compatible = true;
+ 	}
++	if (data->pdata->ier_mask)
++		p->startup = dw8250_ier_mask_startup;
+ }
+ 
+ static void dw8250_reset_control_assert(void *data)
+@@ -879,6 +904,12 @@ static const struct dw8250_platform_data dw8250_intc10ee = {
+ 	.quirks = DW_UART_QUIRK_IER_KICK,
  };
  
- extern const struct bus_type amba_bustype;
++static const struct dw8250_platform_data dw8250_ambarella_cv75_data = {
++	.usr_reg = DW_UART_USR,
++	.ier_mask = AMBARELLA_UART_IER_ETOI,
++	.quirks = DW_UART_QUIRK_SKIP_SET_RATE,
++};
++
+ static const struct dw8250_platform_data dw8250_ultrarisc_dp1000_data = {
+ 	.usr_reg = DW_UART_USR,
+ 	.cpr_value = FIELD_PREP_CONST(DW_UART_CPR_ABP_DATA_WIDTH, 2) |
+@@ -890,6 +921,7 @@ static const struct dw8250_platform_data dw8250_ultrarisc_dp1000_data = {
+ 
+ static const struct of_device_id dw8250_of_match[] = {
+ 	{ .compatible = "snps,dw-apb-uart", .data = &dw8250_dw_apb },
++	{ .compatible = "ambarella,cv75-uart", .data = &dw8250_ambarella_cv75_data },
+ 	{ .compatible = "cavium,octeon-3860-uart", .data = &dw8250_octeon_3860_data },
+ 	{ .compatible = "marvell,armada-38x-uart", .data = &dw8250_armada_38x_data },
+ 	{ .compatible = "renesas,rzn1-uart", .data = &dw8250_renesas_rzn1_data },
 
 -- 
 2.34.1
