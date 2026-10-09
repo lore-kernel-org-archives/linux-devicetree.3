@@ -1,130 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9596337F00D;
-	Fri,  9 Oct 2026 09:18:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1E1B13D9541;
+	Fri,  9 Oct 2026 09:19:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791537516; cv=none; b=e0SvkDL+YEikV285f4xYjnOTkSL8Q5edrUZqS+jPE3ttivksKdIMBHLCHoSM0ehI6WifcDbYgHdMJDF1oPY4AlW8kawidWj6+gCp+s3BoXau7l5g048fPa1rX9KeUqoWTN46fbTRdwT2x9xvRvAzPt23XhuZrE2yk5Aj85ySZik=
+	t=1791537599; cv=none; b=dCpiqzyJbFI4AvA2rvMxxyEpq75rMhnpUDmmtRpycsB+larx3qkinOqCgyXyQ307cAEsIHVafjTTy2uCA7+dvf7LMQht4qsjY+wggpg/60gBQ0QLraER5eiFTPQE7fFmgHQMgEq3oGqPr8FuMVDL9o9lI8mswX9y25Obzim5hqs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791537516; c=relaxed/simple;
-	bh=wZGfux+RJCBoEcaO2QXcXedF6RI/XWSgw2HK/SNfAL8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qr4CzfJ3DNNryfMfSmXLf2jDAEtsZvzFJqJR005i3kPdmWlyh5LxHRTwFx5LFW5nj6oMqLvlakKcfOJO8zzDncO/0lS437hSFGl1ZNst6qWeOS84wKZQasnxRrvVJ82SgBN9Nc3nXn+azCnPyFZxIMpbEQrjXqCjkjUPCDAWZC4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dWCpTL3C; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dWCpTL3C"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 502DD1F000FF;
-	Fri,  9 Oct 2026 09:18:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791537514;
-	bh=8V2ERjKtSLfKnEPamcJI6FnYs8kOZCA7Itt0xiEdW4E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dWCpTL3CraRR6djZDPxbnrRJwPegxCucLpT7dDue9wYchS4Zfmj9Ta6aOJZEvB3b/
-	 VwPqP3lIQQRVPvkJ/S8PG5lOh7OkYd5mSi4xw5++B4lMfJ33210jPnxV5QiaNWz9/u
-	 KjVN7PeF2ZejaqO1yU/xSllHVuYclBPm525QI/2BxhxC76BW0tN4pf0oApK0bku5jK
-	 08v/UGBZZtrBqWaYmA8/ZZhSZaK/fSrGUttenBUq73z/gyiZ9JVwa0P6oSKjaU3AXW
-	 xY8MqDBj4u53o1hDoyPLlDQTXaLbbPIfV0Wt/jw9y/Mt+/qEg5ZlxXqeDWhMq3NR/0
-	 K+9DWayjYGj6w==
-Date: Fri, 9 Oct 2026 11:18:30 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Oskari Lemmela <oskari@lemmela.net>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiner Kallweit <hkallweit1@gmail.com>, Daniel Golle <daniel@makrotopia.org>, 
-	Javen Xu <javen_xu@realsil.com.cn>, Vladimir Oltean <vladimir.oltean@nxp.com>, 
-	Aleksander Jan Bajkowski <olek2@wp.pl>, Oleksij Rempel <o.rempel@pengutronix.de>, 
-	Issam Hamdi <ih@simonwunderlich.de>, Chukun Pan <amadeus@jmu.edu.cn>, Jan Hoffmann <jan@3e8.eu>, 
-	Florian Fainelli <f.fainelli@gmail.com>, Russell King <linux@armlinux.org.uk>, 
-	Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Manuel Stocker <mensi@mensi.ch>
-Subject: Re: [PATCH net-next v2 1/2] dt-bindings: net: realtek,rtl82xx:
- document RTL8224 packages
-Message-ID: <20261009-tentacled-magnificent-okapi-d5a173@quoll>
-References: <20261005201540.913977-1-oskari@lemmela.net>
- <20261005201540.913977-2-oskari@lemmela.net>
+	s=arc-20240116; t=1791537599; c=relaxed/simple;
+	bh=nhG3/rieSjC5NNr0qWIYRx/E2bze2PWXFEaFpLXt8rE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uVMyiPeqKVzwfzYu/YPsgn3OfIuLHEefShffi7WKXB1lCIdHijLjvQ3GNpbFMBoKIx5TqIM9rJTT4bwfcmWEfYFZSQe8fONnPWNwBo6+lDWJuoydjcjwyBj3zV88Jr/LiWSnHwHohPf5yx0vBIsrUDTbQtMtiTRmG+f1+/wQHKM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [223.64.68.159])
+	by gateway (Coremail) with SMTP id _____8CxutG7schqZhUUAA--.58736S3;
+	Fri, 09 Oct 2026 17:19:55 +0800 (CST)
+Received: from kernelserver (unknown [223.64.68.159])
+	by front1 (Coremail) with SMTP id qMiowJDxBc22schqA2cqAA--.61825S2;
+	Fri, 09 Oct 2026 17:19:51 +0800 (CST)
+From: Binbin Zhou <zhoubinbin@loongson.cn>
+To: Binbin Zhou <zhoubb.aaron@gmail.com>,
+	Huacai Chen <chenhuacai@loongson.cn>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Vinod Koul <vkoul@kernel.org>,
+	Frank Li <Frank.Li@kernel.org>,
+	dmaengine@vger.kernel.org
+Cc: Huacai Chen <chenhuacai@kernel.org>,
+	Xuerui Wang <kernel@xen0n.name>,
+	loongarch@lists.linux.dev,
+	devicetree@vger.kernel.org,
+	Keguang Zhang <keguang.zhang@gmail.com>,
+	Binbin Zhou <zhoubinbin@loongson.cn>
+Subject: [PATCH v2 0/3] Add Loongson-2K0300 APB DMA mux support
+Date: Fri,  9 Oct 2026 17:19:31 +0800
+Message-ID: <cover.1791535540.git.zhoubinbin@loongson.cn>
+X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261005201540.913977-2-oskari@lemmela.net>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJDxBc22schqA2cqAA--.61825S2
+X-CM-SenderInfo: p2kr3uplqex0o6or00hjvr0hdfq/1tbiAQEPCGrIS3YGyAAAsW
+X-Coremail-Antispam: 1Uk129KBj93XoW7CF1DZFW8XFW8uw18JF13trc_yoW8try5pa
+	9xC3yakFyUtFy7Aws5Ja48Zr4rZ3sxJa42gayaqw1qka9xG34qq3WIyF1jvr17Cr18AFW2
+	vFykCFW8GF17ZrcCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUkSb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AK
+	xVW8Jr0_Cr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx
+	1l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv
+	67AKxVWxJVW8Jr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxAIw28Icx
+	kI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2Iq
+	xVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42
+	IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY
+	6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Cr0_Gr1UMIIF0xvEx4A2js
+	IEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjxUFyCJUUUUU
 
-On Mon, Oct 05, 2026 at 11:15:39PM +0300, Oskari Lemmela wrote:
-> RTL8224 packages contain four PHYs at consecutive MDIO addresses,
-> but the first address need not be a multiple of four. Document how
-> to describe these packages using the existing ethernet-phy-package
-> binding so their base address is explicit.
-> 
-> Clarify that child PHY addresses are absolute and that MDI pair
-> order and polarity properties describe the individual ports. Add
-> an example with a package starting at address 1.
-> 
-> Signed-off-by: Oskari Lemmela <oskari@lemmela.net>
-> ---
->  .../bindings/net/realtek,rtl82xx.yaml         | 52 +++++++++++++++++--
->  1 file changed, 49 insertions(+), 3 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/net/realtek,rtl82xx.yaml b/Documentation/devicetree/bindings/net/realtek,rtl82xx.yaml
-> index 07b39ef1fc62..ca52c3ae19f7 100644
-> --- a/Documentation/devicetree/bindings/net/realtek,rtl82xx.yaml
-> +++ b/Documentation/devicetree/bindings/net/realtek,rtl82xx.yaml
-> @@ -12,7 +12,17 @@ maintainers:
->    - Heiner Kallweit <hkallweit1@gmail.com>
->  
->  description:
-> -  Bindings for Realtek RTL82xx PHYs
-> +  Bindings for Realtek RTL82xx PHYs.
-> +
-> +  The RTL8224 contains four PHYs at consecutive MDIO addresses. Its PHY
-> +  nodes may be grouped under an ethernet-phy-package node as described
-> +  in ethernet-phy-package.yaml. The package reg must identify the first
-> +  PHY's MDIO address, even if that PHY has no child node. This address
-> +  need not be a multiple of four. Each child PHY reg is its absolute
-> +  MDIO address, not an offset from the package base.
-> +
-> +  The enet-phy-pair-order and enet-phy-pair-polarity properties belong
-> +  to the individual PHY nodes and describe each port's MDI wiring.
->  
->  properties:
->    compatible:
-> @@ -90,9 +100,45 @@ examples:
->          #address-cells = <1>;
->          #size-cells = <0>;
->  
-> -        ethphy1: ethernet-phy@1 {
-> +        ethernet-phy@1 {
->              reg = <1>;
-> -            realtek,clkout-disable;
->              realtek,aldps-enable;
-> +            realtek,clkout-disable;
-> +        };
-> +    };
-> +  - |
-> +    mdio {
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +
-> +        ethernet-phy-package@1 {
-> +            reg = <1>;
-> +            #address-cells = <1>;
-> +            #size-cells = <0>;
-> +
-> +            ethernet-phy@1 {
-> +                compatible = "ethernet-phy-ieee802.3-c45";
+Hi all:
 
-I don't fully get why you are adding to the example generic compatibles,
-not relevant to this binding.
+Loongson-2K0300 integrates a CMC DMA controller with 8 physical
+channels. Peripheral DMA requests are not hard-wired to these channels;
+they are routed through the CHIP_CTRL13/14/15 DMA_MAP fields.
 
-> +                reg = <1>;
-> +                enet-phy-pair-order = <0>;
-> +            };
+This series adds support for that DMA request router.
 
-Best regards,
-Krzysztof
+Patch 1 adds the DT binding constants for the peripheral request IDs.
+Patch 2 adds the DT binding documentation for the DMA mux.
+Patch 3 adds the driver, Kconfig symbol and Makefile entry.
+
+The driver registers with of_dma_router_register(). In the route
+allocation callback it validates the <request> <channel> <flags>
+specifier, programs the SoC-specific route register, and forwards
+<channel> <flags> to the parent CMC DMA controller.
+
+Thanks.
+Binbin.
+
+=========
+V2:
+Patch(1/3):
+ - Drop LS2K0300_DMA_REQ_MAX as it is not part of the ABI;
+Patch(2/3):
+ - More detailed description of `dma-cells`;
+ - Add the `dma_requests` constraint
+Patch(3/3):
+ - Drop loongson2_dmamux_map->shift;
+ - Move of_parse_phandle() into loongson2_dmamux_route_allocate() avoid
+   UAF;
+ - Drop loongson2_dmamux->dma_np;
+ - Check dma_requests;
+ - Add devm_add_action_or_reset() instead of .remove();
+ - Replace `metux()` with `spinlock()`, which has lower overhead;
+ - Add loongson2_dmamux_route_free().
+
+Link to V1:
+https://lore.kernel.org/all/cover.1790068409.git.zhoubinbin@loongson.cn/
+
+Binbin Zhou (3):
+  dt-bindings: dma: loongson: Add Loongson-2 DMA mux request IDs
+  dt-bindings: dma: loongson: Add Loongson-2K0300 DMA mux support
+  dmaengine: loongson: Add Loongson-2K0300 APB DMA mux driver
+
+ .../dma/loongson,ls2k0300-dmamux.yaml         |  72 ++++
+ MAINTAINERS                                   |   3 +
+ drivers/dma/loongson/Makefile                 |   1 +
+ drivers/dma/loongson/loongson2-apb-dmamux.c   | 398 ++++++++++++++++++
+ .../dt-bindings/dma/loongson,ls2k-dmamux.h    |  53 +++
+ 5 files changed, 527 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/dma/loongson,ls2k0300-dmamux.yaml
+ create mode 100644 drivers/dma/loongson/loongson2-apb-dmamux.c
+ create mode 100644 include/dt-bindings/dma/loongson,ls2k-dmamux.h
+
+
+base-commit: 1d8ae2003de08f61095e4e928b1b8cce6c23cabd
+-- 
+2.52.0
 
