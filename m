@@ -1,77 +1,113 @@
-Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA7EB4D9F76;
-	Fri,  9 Oct 2026 12:49:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.121.34.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33CC83D9526;
+	Fri,  9 Oct 2026 12:57:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791550188; cv=none; b=U74O6R49QodTU476j1PyfhFuELpbblzqZgFidetfUV3F/q3CWjEVtH5aS2r7U2IJODuXRJmS6v3URNGEDwYs3X2a4IVAa8neDVvLlD5yfJC/ZwVPuPRyZIy80t+vWO4j0/Z3pqMWkUkHsM/nb+1cIszjfTw6RZXrEShaWnC4rL4=
+	t=1791550663; cv=none; b=GsbtUnIwPmh0aw/SPv65bNef/iO7DkEusMRRATnmojPBI64P1rHb3H+E/DngS4+QwhYTFO/vxZWQq/VKTADO40mPOzGbfgH+VYlCKsevWLdnDiPnm/wnhnOTVeAY+vGs0dizpdAyeuYWjadejRAwXP23nF9SvoBBSxnjmXyMfUc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791550188; c=relaxed/simple;
-	bh=1XBsJBnzofYErpaoeoKCSDs1HqT3DWsfGEqap0XFLjs=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=o08PXdpVcgKB2ed2ri4jY2dNgc/hEsOnT56QBr7YbQWqOK2tbCxDzQTeUtZ/gd2+o2u2B0CE1LUQBSQXe1g5vXQcW93DdhrF1OA6fCQz9CU2yxdTTGw+n0O+alOeLUUGg2Vgu19W962PWYrNHVYpr8dGNa3wuCmvGeeYMBKZtew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; arc=none smtp.client-ip=92.121.34.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
-Received: from inva020.nxp.com (localhost [127.0.0.1])
-	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 49B9B1A02F5;
-	Fri,  9 Oct 2026 14:40:42 +0200 (CEST)
-Received: from inva024.eu-rdc02.nxp.com (inva024.eu-rdc02.nxp.com [134.27.226.22])
-	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id 3C4411A0002;
-	Fri,  9 Oct 2026 14:40:42 +0200 (CEST)
-Received: from lsv15141.swis.ro-buh01.nxp.com (lsv15141.swis.ro-buh01.nxp.com [10.162.246.138])
-	by inva024.eu-rdc02.nxp.com (Postfix) with ESMTP id 8F8002037D;
-	Fri,  9 Oct 2026 14:40:40 +0200 (CEST)
-From: Claudiu Manoil <claudiu.manoil@nxp.com>
-To: netdev@vger.kernel.org
-Cc: s32@nxp.com,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH net-next v1 4/5] arm64: dts: s32n79-rdb: enable NETC IEP18
-Date: Fri,  9 Oct 2026 15:40:33 +0300
-Message-Id: <23e77c8e48f84c67af8ec24bfde712baf64eec54.1791548316.git.claudiu.manoil@nxp.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cover.1791548316.git.claudiu.manoil@nxp.com>
-References: <cover.1791548316.git.claudiu.manoil@nxp.com>
+	s=arc-20240116; t=1791550663; c=relaxed/simple;
+	bh=Tyrq/xjXiv1plUEH212fv1+CETzN5rlenbbvRTMBiIQ=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=FOZHUwPsRL4u6M+mmP7hdURhRpq/tQLd8M6mIHR1HVaVIyvfULA88mc3ExCpV/E2xEl+hfFUPy6OwOo1431+hHAD+HSqSQXs6OVjWHVjLtFD5LuQC9V1W2T2Afbb0JMMq9wA5A5grIyrkUsYItSkNes4JtF88/ZnpSo9wfWzwqw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vh4YjXeu; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vh4YjXeu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 713481F000FF;
+	Fri,  9 Oct 2026 12:57:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791550661;
+	bh=lXESbwQHtM0asBnKwsagY2fIN0QxF2+vnXwn4xKzrDA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Vh4YjXeuxQbRLb597mgaVgqRf+u9DSTrWONzXhe9IkLTVKQay5Q4fWBclcaJV2MiH
+	 0TeyEs7/m2c2qEvub4cG84V9T5sYw+JIX/UupWywMqX2PGh9BJjpPlNOQ8S2BXyzhX
+	 xjyWOKYOYiLSzHs/AQN+mo829lPd7PhZvy5OD28m6R5/qxNItT97fKaJFexXIJA4on
+	 HBrRLbjWXYyYn61lX1F2ljtq7RgWXzoLtwKLfkMFMRfVFHOfc/+7epo+SB5QQ3+GbS
+	 Grf20Z/Ok1ZfjgiZ8X6AzDnXKs5qwOqz4xDa18XKuXon1VeOIg32mNw/2HCKBQZjzo
+	 GeLfy3z6XoC+Q==
+Message-ID: <sashiko-outbox-165576@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 11/14] arm64: dts: exynos8855: add cmu_top &
+ cmu_peric clock DT nodes
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Raghav Sharma" <raghav.s@samsung.com>
+Cc: linux-clk@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20261009120137.2801911-12-raghav.s@samsung.com>
+References: <20261009120137.2801911-1-raghav.s@samsung.com>
+ <CGME20261009114402epcas5p22abf62d79b588db3e9f66641ed22fbd9@epcas5p2.samsung.com>
+ <20261009120137.2801911-12-raghav.s@samsung.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 09 Oct 2026 12:57:40 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Virus-Scanned: ClamAV using ClamSMTP
 
-Enable the NETC v4 ECAM bus #18 on the S32N79-RDB board so that the
-ENETC v4 Pseudo-MAC port (PPM) PF and VF instances are probed.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] dts: missing samsung,sysreg in exynos8855-clock DT binding schema
+--
 
-Signed-off-by: Claudiu Manoil <claudiu.manoil@nxp.com>
----
- arch/arm64/boot/dts/freescale/s32n79-rdb.dts | 4 ++++
- 1 file changed, 4 insertions(+)
+commit 66386d316c3e67ff06e1d52fb1215f90cf5a7e17
+Author: Raghav Sharma <raghav.s@samsung.com>
 
-diff --git a/arch/arm64/boot/dts/freescale/s32n79-rdb.dts b/arch/arm64/boot/dts/freescale/s32n79-rdb.dts
-index 1feccd61258e..897ba24ac03a 100644
---- a/arch/arm64/boot/dts/freescale/s32n79-rdb.dts
-+++ b/arch/arm64/boot/dts/freescale/s32n79-rdb.dts
-@@ -68,3 +68,7 @@ &usdhc0 {
- 	no-sdio;
- 	status = "okay";
- };
-+
-+&netc_iep18 {
-+	status = "okay";
-+};
--- 
-2.34.1
+arm64: dts: exynos8855: add cmu_top & cmu_peric clock DT nodes
 
+This commit adds the required device tree nodes for the cmu_top and
+cmu_peric blocks. It also adds the sysreg_peric node, which contains
+the DRCG and MEMCLK SFR bits used in the clock driver.
+
+> diff --git a/arch/arm64/boot/dts/exynos/exynos8855.dtsi b/arch/arm64/boot=
+/dts/exynos/exynos8855.dtsi
+> index 0333b80eba845..2e5dc79d66bc7 100644
+> --- a/arch/arm64/boot/dts/exynos/exynos8855.dtsi
+> +++ b/arch/arm64/boot/dts/exynos/exynos8855.dtsi
+[ ... ]
+> @@ -170,12 +171,43 @@ pinctrl_cmgp: pinctrl@12030000 {
+[ ... ]
+> +		cmu_peric: clock-controller@15400000 {
+> +			compatible =3D "samsung,exynos8855-cmu-peric";
+> +			reg =3D <0x15400000 0x10000>;
+> +			#clock-cells =3D <1>;
+> +
+> +			clocks =3D <&oscclk>,
+> +				 <&cmu_top CLKCMU_DOUT_PERIC_NOC>,
+> +				 <&cmu_top CLKCMU_DOUT_PERIC_MMC_CARD>,
+> +				 <&cmu_top CLKCMU_DOUT_PERIC_IP>;
+> +			clock-names =3D "oscclk",
+> +				      "bus",
+> +				      "mmc_card",
+> +				      "ip";
+> +			samsung,sysreg =3D <&sysreg_peric>;
+
+[Severity: Low]
+Does this undocumented property cause make dtbs_check validation to fail?
+
+The samsung,sysreg property is assigned here in the cmu_peric device tree
+node, but it does not appear to be defined in the corresponding binding sch=
+ema
+Documentation/devicetree/bindings/clock/samsung,exynos8855-clock.yaml.
+
+Since the schema enforces additionalProperties: false, adding an undocument=
+ed
+property here violates the schema. It also appears follow-up patches in the
+series continue to add samsung,sysreg properties for other CMU blocks (e.g.,
+sysreg_usb, sysreg_peris) without updating the schema to allow it. Should t=
+he
+binding schema be updated to define samsung,sysreg?
+
+> +		};
+> +
+> +		sysreg_peric: syscon@15420000 {
+> +			compatible =3D "samsung,exynos8855-peric-sysreg",
+> +				      "syscon";
+> +			reg =3D <0x15420000 0x10000>;
+> +			clocks =3D <&cmu_peric CLK_GOUT_SYSREG_PERIC>;
+> +		};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009120137.2801=
+911-1-raghav.s@samsung.com?part=3D11
