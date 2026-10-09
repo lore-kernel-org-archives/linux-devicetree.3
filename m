@@ -1,121 +1,200 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com [209.85.210.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 882A8340A57;
-	Fri,  9 Oct 2026 15:42:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791560532; cv=none; b=YYal1oarN3G12CsSvRSpvemUK3Cd1AikIMnl/NFfRxdwwBAP83xy7hyqFttNp3+f+SSzO8oJOJsEm+o/50EWzw5aUFGF6mjfjrIdMPTtQOckSa+o2+qe+bTimIXDWK2u/FaIJG9g7rTh45hPTygST5BKNJNjnqHE3pff4v2bi3E=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791560532; c=relaxed/simple;
-	bh=HW59q6Yn0OslPF3Els2Dkx+G+MOVrvpGDU0AOpiMs5A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mjVKzyq3zIFCJOi9ygPaBMISwj+aGRoQ7o1ufWN2JEQ58Ge0+IieWr8BgX+eGlfAJD+swrR/6SuTKOqS4swU0xEOy/by3+SXGe2f1hpwXuHF4SKWjRVP7e8khcwty9D9dApFVvWWe6WbdDJb4cnD1WETyHZH772+xG/BqWxapdM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TP8RuDRh; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B7FF4E77EF
+	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 15:43:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791560615; cv=pass; b=rh13p9yRZFhVaTBOI4psF9e8WZ/toAyIDl07yJo/H/cTD8zBSxQ0a1ylhzkBgYmvrnbnrG5/0KOd3RPj0hYnfzcoLOzi7TIPSqS2L+cdbHhY/g1SzTu/9xvjpWqGlMonzsNITM8uJVibJoTFkKzhpJJPi5fM7Jpru8mO9B+G38c=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791560615; c=relaxed/simple;
+	bh=zx2j5RAhzB4SxO38lj6J7oJt413F43gvw2W6oYAdPvo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=MU3Lntt0jwgS8BmumucM/P+0Y9EMhIwQsYt2EQDG0DSjpfN0+jqa12ORgm0Kj5hEOUad+HcIcWxte5+CQWWEILf9U3DHeU5muetBTQmpV+ArRkpM6AA+jSa2+Aysx3eVjGTSbsf235WbduXEPIlcCHicG2T8k7k7fjU69rXJXBA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H2CjXMyh; arc=pass smtp.client-ip=209.85.210.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TP8RuDRh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E65251F000FF;
-	Fri,  9 Oct 2026 15:42:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791560530;
-	bh=HW59q6Yn0OslPF3Els2Dkx+G+MOVrvpGDU0AOpiMs5A=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TP8RuDRhfHpTVUdPOYlk0cIai3NHcEJgnKN6+dQM5aM4V2sN0c1RJn+LEudiFDrkx
-	 dxScbsVCXK/W/4tJ088RvzIyIV4tcX65/nuH9IbLVfzP1O0w/fPilJaufUYPI5Fg5C
-	 OeGTmYEozM6KgPwCKm1yctQX089jK86OD+Q6445gfjut+OH+ojDM0OJ9+2wQdQttII
-	 ea4mSor3ZZPSpSlPWNsGESj4hSjJ+7W/nhqBdJXGVeYuAY49DAOltFhqV0oMpSh0p4
-	 aNrSJHhvyLXiCcTuidBjxn3JMDSlIw3uS5sa/2sm7OfmUhh7PfK5uelxDHP4XYiGk2
-	 3dTzg8vgb7Q7A==
-Date: Fri, 9 Oct 2026 16:42:01 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Quchaosheng <quchaosheng000406@163.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
-	linux-omap@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: display: ti,tpd12s015: Convert to DT
- schema
-Message-ID: <20261009-db35f1d74028d0d0a34f1106@squawk>
-References: <20261009105601.301891-1-quchaosheng000406@163.com>
- <20261009105601.301891-2-quchaosheng000406@163.com>
- <20261009-2f34bbada2c463c78b2c05a7@squawk>
- <20261009144434.GD622105@killaraus.ideasonboard.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H2CjXMyh"
+Received: by mail-ot1-f47.google.com with SMTP id 46e09a7af769-82621039b6bso3980234a34.1
+        for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 08:43:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791560612; cv=none;
+        d=google.com; s=arc-20260327;
+        b=pmmeGQnZ/B7NHpuucHmCENYEXvIpEjEzJbyyt4BInXJYyM59eZz63Ie43z1fGqceoG
+         9P+jWSo1ZtJzlPoAI3uc3cvdLKQKVnd0zAdq41uP/Oa6zAGteaZ+kN5vGWXIzRSzt+t+
+         H67ZvBzgvWZSa6c1UzJ/FgBbt4ea5Q2ViyiLvdpHrDknvzWZAN8bNrqxRdAUQzcNKShz
+         4h1YB/TV7rNUw8HoijybbktwONEEie7fTYKjxKzjYp62coongTT979Jx6UTTRla1LuGn
+         +xA9DMu/FRWFX4sOiPvqRi3rmC0Kx58HscNPBWQg4WwHdlB/dfiWaSpyHXrrWHxFlC6f
+         lfGQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=30V3aYAGacnfDe5Uw314wkUS1h4m5vyY1WpctMWa5as=;
+        fh=cxgju8DKhiLOJm+AiSd5yQi8V9NJQzf4sWqvSA5sKag=;
+        b=g7dq4qm0qSbqqo9ojuAEesN2LE1EKg+2GgVPFReqmJvYG+eD2apERW5X253HjWI5wh
+         dR1bKvvZDBeFqu9Ir75Mof4SXiViAUJ1+fIGUR4ZzcJ5BzPr6XPsBZedmph2pSECr1B3
+         KdLKQEVHI1DD7i526R3MWgbfr/pYzehOskh+xxWQ1kXSI21faQ0jIaUuCuzFPpgCKsgV
+         nK6FO2qKyi4BY9RQwvePofLIS9d1ruLioHEs5uC+Wv/ZrCBCyNTT3L0PVQK7icENNZHB
+         Xg28Zv8DHPCdkIxTCubl+vLWBpeQe6iB1u7k497pSeZn1E+E88z14A/ClTUg1PRHSt4U
+         +emg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791560612; x=1792165412; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=30V3aYAGacnfDe5Uw314wkUS1h4m5vyY1WpctMWa5as=;
+        b=H2CjXMyhqCC6QqV+f0sWmmLR3zKCPMX3+pvSiwM2n7GRHZ85zFjFRh0ei2srHnnGk8
+         oDRum1EF/wgjTZcwm2eyrGYXB7CSITG97li3/OBebvwFflNoTAjJXdNdEK9Gp8W0DZKp
+         d6dKPCgesx4Awq5FJzNBLcOGd5ODjTwRu24VY+5ediAvqG5L48kwhPxmR4wSvHGU1NVo
+         k217LVDV3i3Sl4+/epWLnxXY+5q4PnwaPrtaDRFlh1JHXLQReaTi21IHHlNw54nb6jcA
+         0DlynOtM5h6pfHHPsWMHGkdhpoVeP5zKf43ymkrldxvc0DT+xW+Mjiuxu8k43/mNO745
+         FUyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791560612; x=1792165412;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=30V3aYAGacnfDe5Uw314wkUS1h4m5vyY1WpctMWa5as=;
+        b=rHe34FBIDDpiTubxprxauU079QK+KlXvM/pGopbhWvEmgz0ymvHLx26Lwf3PJt6sgt
+         LesQFRXx3yDf/jfO7alPMNIm8cHHL6KsXxo6FkYBMcs6X9eJ4946C8UWH7qegq0I9uC1
+         Hq7XTb4Nz7ovMR5qXkmkafyi4UwEdCbo7v8WEgV2u9w2Dn3LM/wKH8p43PaVSzshZYjR
+         FyRgu2w+PeDo89NPn0RUHEp2JHLoKgfIZNBNUinXkW88GObhzW5dvmeW21ugRfbJhPIi
+         CHXs/IjpRJpvpHAWOUMufI86zI7HNELZWU+kEGrtO1TQxoHWunx5MHyED+S8ZkAJZBmy
+         v2zA==
+X-Forwarded-Encrypted: i=1; AKwUvBz8vRmY1rt3+dlLVNs+ZTzuZd7n5GlKSuBFuWMmCR82ZKkIVLNxsYNGBCD7rg8f559wvSiaQC6irmsY@vger.kernel.org
+X-Gm-Message-State: AFuF++nfuFSqIPmLyt9txhooA4zb5vlYqghMR6h6PZfFuHt9tCWRTy3T
+	dLow7qqDbHjTa8b8ZLOCnQBI1DrDyzGRjlTdJyyilCkqRy8RehFslFpkV2GXtc1+B8SSBtowDOi
+	6sUKle/mLTonS3nYMbIStPSfrzGt1RqA=
+X-Gm-Gg: AYBFou1BtQbFPz16Z9Di8nIwABQ5CTYuXQJyHq09CIqogwKI/k6Wk0KieR1S4VmInmj
+	yj8sozaSeL/ymZwI/FwEl6JpJ9khqcAy8oSJKyQ63ZgBFUuXZyAA/iLkGDRpFufVJj58jW5vBvj
+	SZkC4FHOHiBXQgFhk+u/lZP2i+2C0STRse0wzd/Ka/TvUF5xeSQ3OmlhdU+/sXvj+fanpbaqD1V
+	3svIcZjpmYbx1uXzqJ+rE/opP35TVK45wkjLg+vkjh1uoc66Pexa1d0RWl9VVTD8bQwsfbMP6jr
+	QZDMyXwJkUF/R83Yi9mDZykSMcazaWUMIcUExoM7azbPmmCYF1DrS1w=
+X-Received: by 2002:a05:6820:1992:b0:6e0:84b2:edb8 with SMTP id
+ 006d021491bc7-6ef08c7c614mr1702776eaf.1.1791560612403; Fri, 09 Oct 2026
+ 08:43:32 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="+lGluAYOQ0yvN+I2"
-Content-Disposition: inline
-In-Reply-To: <20261009144434.GD622105@killaraus.ideasonboard.com>
-
---+lGluAYOQ0yvN+I2
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <20260714222338.2965707-1-dianders@chromium.org>
+ <CAD=FV=X-fAJp=EG_yTAg+QQgNYRCt25947oHGHZuq-FEyirK0g@mail.gmail.com>
+ <CABb+yY2CH5A1ixfX9czgtEwsP95FN-2JVzN_wmRDRNsSuZY5PQ@mail.gmail.com>
+ <CAD=FV=XiguzS7nH1sE=BkXt+7G6-hhqyz5u3sjc4zAA9H7KqJg@mail.gmail.com>
+ <CABb+yY2_AvcnaTDmpL8gP4H2_Pp3HddrtNr5gvL4GCW2DPPvOw@mail.gmail.com>
+ <CAD=FV=VzJCb1nz+q5EZ33G5U6KZM_tXi8snL=KbUM3C5yymG4g@mail.gmail.com>
+ <CABb+yY2omp+g13UgZfiKWLux9J1P+=ed0U3F8AhS0iQK=kpN8w@mail.gmail.com>
+ <CAD=FV=WA2wFbk0=qFE0aZs9E5jg-EXzcrkPCk6VOMhbDroOQCw@mail.gmail.com>
+ <CABb+yY0W+244qaXqHdfEq9XFuQXBez7PVcDNrKooV9cFS8TS_Q@mail.gmail.com>
+ <CAD=FV=VW2h1zWDYWQ6LknX3O+3=EY665jde35Ly+UQzuscXy=Q@mail.gmail.com>
+ <CABb+yY2Cc9YGKb0ej7CZ_LQLw-iMQOtcAwLPier+X2ej1fWcJQ@mail.gmail.com>
+ <CAD=FV=U1DAuDN4eR_hZ2bbGoGkgkszDLPUDiosxh1aKg7Y1T=A@mail.gmail.com>
+ <CABb+yY3n3QmxTPOyAuHz9JkOKbhRqKok+24THc_JfdxwzROWDw@mail.gmail.com>
+ <CAD=FV=XGka_QqGt5iK53vU704ZsvCrXUWvJ9ewo1=TCiepfz-g@mail.gmail.com>
+ <b1f088eb-7c77-4079-9b05-20729fcfd612@kernel.org> <CAD=FV=VSSEZykDpu48XVwDzNWKAhZjsPm3PNweTqeHv_DxiykQ@mail.gmail.com>
+In-Reply-To: <CAD=FV=VSSEZykDpu48XVwDzNWKAhZjsPm3PNweTqeHv_DxiykQ@mail.gmail.com>
+From: Jassi Brar <jassisinghbrar@gmail.com>
+Date: Fri, 9 Oct 2026 10:43:20 -0500
+X-Gm-Features: AclHuK_n4jA48VU427LdptzIuvcXkvRmkA34iUq3fGa6NHmP0M26irsb0xZMW1I
+Message-ID: <CABb+yY0yaXZX7=0L8Tt5P4u-GTX=unmgBMePoNTVQ5BHKzLM3g@mail.gmail.com>
+Subject: Re: [PATCH 7/7] mailbox: goog-mba: Introduce the goog-mba mailbox driver
+To: Doug Anderson <dianders@chromium.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Saravana Kannan <saravanak@kernel.org>, Joonwon Kang <joonwonkang@google.com>, 
+	Subhash Jadavani <sjadavani@google.com>, Tudor Ambarus <tudor.ambarus@linaro.org>, 
+	Lucas Wei <lucaswei@google.com>, Brian Norris <briannorris@chromium.org>, 
+	Peter Griffin <peter.griffin@linaro.org>, =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-samsung-soc@vger.kernel.org, 
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, Oct 09, 2026 at 04:44:34PM +0200, Laurent Pinchart wrote:
-> On Fri, Oct 09, 2026 at 03:25:49PM +0100, Conor Dooley wrote:
-> > On Fri, Oct 09, 2026 at 06:55:59PM +0800, Quchaosheng wrote:
-> > > From: Chaosheng Qu <quchaosheng000406@163.com>
-> > >=20
-> > > Convert the TPD12S015 HDMI level shifter binding to DT schema.
-> > >=20
-> > > The TI TPD12S015 is an HDMI companion chip that combines a level shif=
-ter
-> > > and ESD protection circuitry. Document the two ports it exposes betwe=
-en
-> > > the HDMI transmitter and the connector.
-> > >=20
-> > > The tpd12s016 is software compatible with the tpd12s015 and is listed=
- as
-> > > a fallback compatible by am57xx-idk-common.dtsi, so accept it as a
-> > > fallback of "ti,tpd12s015". The driver matches on "ti,tpd12s015" only=
-, so
-> > > a board using the tpd12s016 must list both compatibles.
-> > >=20
-> > > Assisted-by: LLM
-> > > Signed-off-by: Chaosheng Qu <quchaosheng000406@163.com>
-> >=20
-> > No idea if the sashiko reply is valid, because I have no clue if
-> > providing a subset of the gpios is functional. Really this should have
-> > multiple different gpios properties,
->=20
-> Definitely.
->=20
-> > but this binding is really old and
-> > not worth changing IMO.
-> > Acked-by: Conor Dooley <conor.dooley@microchip.com>
-> > pw-bot: not-applicable
->=20
-> I'm getting annoyed be the LLM-assisted individual conversions. Can we
-> start requiring people who convert text bindings to YAML to at least
-> handle whole groups in one go ? If they're going to do a bad job, I'd
-> rather have to review it once only.
+Hi Doug,
 
-Or do one, and take the learnings into all the remaining patches - but
-with LLM conversions I don't think there's really much learning going on
-at all.
+On Fri, Oct 9, 2026 at 3:42=E2=80=AFAM Doug Anderson <dianders@chromium.org=
+> wrote:
+> > >
+> > >   for (i =3D 0; i < mbox->num_chans; i++) {
+> > >     if (!mbox->chans[i].cl)
+> > >       return &mbox->chans[i];
+> > >   }
+> > >
+> > >   return ERR_PTR(-EBUSY);
+> > > }
+> > > ```
+> > >
+> > > Then the client loops around and requests the same channel over and
+> > > over again until it gets -EBUSY? Like:
+> > >
+> > > ```C
+> > > for (i =3D 0; i < FIFO_MAX; i++) {
+> > >   client
+> > >   chan[i] =3D mbox_request_channel(client[i], TX_CHAN);
+> > >   if (IS_ERR(chan[i]) && PTR_ERR(chan[i]) =3D=3D -EBUSY)
+> > >     break;
+> > > }
+> > > fifo_depth =3D i;
+> > > ```
+> > >
+> > > I _guess_ that works, but it still feels like a bit of a hack to me.
+> > > You said you were worried about people abusing the "has_queue" API.
+> > > The above feels like it's abusing the "fw_xlate" API, turning it from
+> > > something that is normally a "lookup" into an allocator function.
+> > >
+> > > +Rob, Saravana, and devicetree@vger.kernel.org. DT folks: is the abov=
+e
+> > > something that looks right to you?
+> >
+> > There is no allocation in your xlate code above, so this is not that
+> > terrible as we talked on LPC.
+> >
+> > >
+> > >
+> > > I researched whether other upstream drivers use of_xlate() /
+> > > fw_xlate() as an "allocator" like this. I did find "exynos-mailbox,"
+> > > which appears to be doing something similar. However, upon deeper
+> > > digging it seems like "exynos-mailbox" isn't using this dynamic
+> > > allocation for any compelling reason. It looks like, really,
+> > > "exynos-mailbox" should just be returning one channel. The client
+> > > (exynos-acpm) could just use the same channel for everything since:
+> > > * It actually gets the _real_ channel ID out of the data.
+> > > * It doesn't care about txdone.
+> > > * All it does is ring a doorbell and there's no queueing.
+> > >
+> > >
+> > > In any case, if using fw_xlate() as an allocator is truly the only wa=
+y
+> > > to proceed, I'll finish my prototype and send a v2, but I'm still
+> >
+> > Why fw_xlate() would be an allocator? Can you extend your code to show =
+that?
+> >
+> > I think doing any allocation in xlate() is calls is fundamentally wrong=
+.
+> > These should not modify the state of the device, so no allocations, no
+> > device_link_add() etc.
+>
+> It's not _calling_ an allocator, it _is_ an allocator. It is walking
+> through the array of channels and returning the first free one. Then
+> that free channel is "allocated" to the client.
+>
+You mean _assigned_.
+Allocation means when there are some resources reserved that must be
+released at some point later .... which is what the mailbox controller
+driver does in probe() and remove().
+In xlate() the platform just decides which channel to assign to the
+incoming request -- some platforms take the hint from device-tree,
+your platform has flexibility and can simply assign the first free
+found.
 
-I guess bunching them is fine, provided it is for one subsystem. I
-definitely don't want to see a set of 15 patches across 9 subsystems,
-at least with one subsystem it's likely to be the same common problems
-across the bunch.
+I will try to explain in detail your questions in your last post, but
+I am still not convinced you need to modify the api.
 
-
---+lGluAYOQ0yvN+I2
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaskLSQAKCRB4tDGHoIJi
-0oOqAP9/cjJoHwDyuvhTJ9sGUQQFM7+QGVx4YCXrySUHlraVRgD/awI23g7lMVjK
-P89dAe3GuVNwufd8hjuhcHxiA7qK/g4=
-=bjaF
------END PGP SIGNATURE-----
-
---+lGluAYOQ0yvN+I2--
+Regards,
+Jassi
