@@ -1,85 +1,192 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EDFD30C157;
-	Fri,  9 Oct 2026 08:07:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0B494949EC
+	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 08:11:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791533262; cv=none; b=D4DNloQlI8qlE5GRq/mqcll3ZcUIGnZMN5e2PrVL0hlcPRbTYN5j3Bo4sywIOfOhrFTgFQ9T7W/XaktILbcB/I6Dv1mL+76CGbvvb3u17btdIqHdmgfIwPRKInZT3/LaLi+vd6NlD9VoE6xj1m4Iza2lTPYqxa2Ah6n/lNz+dyY=
+	t=1791533515; cv=none; b=ckjs1SJA6LztDRxylG5uidF6pvu+nTi+P0nz79vcYJ4/4ycHSvbV3YHz0m48yzCtl6FA+tJR9FRuLJJUdOP+3wrfOgwxxQh9y1+DnwAv9vy1YZDUYxLVzRPCkOKf25dZSQIEwOFbwSTF7zpTxWEoPStr7PzDo9cYvfsOej+OE1I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791533262; c=relaxed/simple;
-	bh=/qqvs4XSDIENh5BFTmEIXbC7YVVgc7goDh6mscL0QBM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nH2yqUbbCz86+1GiEYUeq1QyV5SvE5awRydlMRSSXE1aOFGv1ZZq71b5WjTSSIkvH2Szx1as98AzcfYKejxuUoh6fUI6xQ1X1s+dJ6rYBs1cm73jPbL/aaWPB8YMgOo2u/pgkUrRoCKvP7BKGyBjCqPOVW/xoGiirRvdZRbOAwU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eTwnynhJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791533515; c=relaxed/simple;
+	bh=dChm9VOA+VD/Rg/cZCdywnhal/7ZxoZLcoaTrSokokk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=D8tKYlEZJdEeKfqST1c7mf20+7T/gEw9Fid4tFRwxmMYR3KQMfs4QTc3MctVDwPbLAcjxQERId5MAK52dcxtjpMfHsS7AX68pifhcu4Y/wzI84GxeyAGZrnA8X5DxgeEpRFVq4JyNCG167eqXDcpRWJ15Hnsy/R705AfdzvHWsI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RoIhEb7N; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CQPrxeLA; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eTwnynhJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E4301F000FF;
-	Fri,  9 Oct 2026 08:07:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791533259;
-	bh=/kNvVp8JCnz6l3mxn462kmLGkEwADtkdhDAdyThKQWs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=eTwnynhJ2mbNCajjri09cvqUnOACHMgfWrg1HOStcTmcjjcH+9d+WmZAeVwhyRGh4
-	 jxG4zMtAfeFNoon4vfW/eCV/6owf7seqRYpqmmNJmZxIbJ1gYKzlWAgx8j4GzLpHlJ
-	 JnfRUhMeuv3ZjKecKansZNntPtru1QVRwuktSDeaTtXKDUD9Nv2YA33pePtIW5zwm0
-	 zmcWDWmvCNQIT565yG0/pRes5JuejP18Vo8cBGSlEuqPoxwcERNPDorGhSwQVVnrcn
-	 +JOIA8jk/1fRO/PmV4rfj4Uv54sPLPYOTFFaGU+rd75zK8ip3UwCxEveTPAKKvvjPq
-	 EteXXs6neOmNw==
-Date: Fri, 9 Oct 2026 10:07:36 +0200
-From: Vinod Koul <vkoul@kernel.org>
-To: Jon Hunter <jonathanh@nvidia.com>
-Cc: Manivannan Sadhasivam <mani@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	JC Kuo <jckuo@nvidia.com>,
-	Thierry Reding <thierry.reding@gmail.com>,
-	Wayne Chang <waynec@nvidia.com>, linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org
-Subject: Re: [PATCH v3 3/3] phy: tegra: Add support for Tegra238 XUSB pad
- controller
-Message-ID: <asigyGqnlLUGpfo-@parshuram>
-References: <20261007-tegra-phy-v3-0-d501de414710@nvidia.com>
- <20261007-tegra-phy-v3-3-d501de414710@nvidia.com>
- <y7p44oeut66usohn3hdfsx2fndlxhup6osok6uo27c5xreyjvv@uyk37kiedv3u>
- <25b96f0f-afc6-493c-9428-ab00a0bd9aff@nvidia.com>
- <576e4762-4ced-4abb-99ef-a895415e30af@nvidia.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RoIhEb7N";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CQPrxeLA"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6993HTqi966602
+	for <devicetree@vger.kernel.org>; Fri, 9 Oct 2026 08:11:48 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=OGfdOS5UK7/UzF/cCS7Hsr
+	vQSu/ecExyfLjubj6ULfA=; b=RoIhEb7NCJwa6PSN0icknXA5cRsqPi4e6mPv+y
+	+X+p21w1LjCsLFrt1cSAplHeWMJF+QJoXahWC5IrUTtJ7yePZwnbMwJ2B05vpZYq
+	1Ntrb5qBXtzH30vR0pzP3XfK/GgIA1osFngASq6g2kbGS0jboaxI1m2mQgk2I4L3
+	p4VV/ULkL7vMnZzAql38dhyLgv2nx9rx/ehpENnyIJf9kxMvmVJ2drSOD5facJOs
+	vcAagp0U/UTfN8Yrxe/XbqZcaowHzM4hmNNzBHZD71EmQxvnJVYzn5WbtA4riIyX
+	PXroxsjKHNWi4jVOPPyB0Z7Km6qwvQzIm1LOtpVMb7niJezw==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h6fyj2k5g-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 08:11:48 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93caa0ce0cdso781621585a.2
+        for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 01:11:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791533508; x=1792138308; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=OGfdOS5UK7/UzF/cCS7HsrvQSu/ecExyfLjubj6ULfA=;
+        b=CQPrxeLAwZyxDR+s8hSMjIbr4SoShy+SUFOHKvmGq67nQou1nxDv8dfDi8oj5pVtt5
+         dBq9FndQ0Rx884hxY8cxeEtSEMyZfU8FB9yRGLMNuD4Csnut9fMXcrmHnfpmcVjUCVTb
+         TA8fQuhPPV4fAVg6Gtg9kQM2xZvw32iC6T/Vy85wEhi9QSHKQ3IVd9fkUT8t/IdZJvR4
+         ph2VMW7J1eg5yvJpLG13p3h7VpEhBkXot1GPDPDGGtc+PPYQI4SxfDe0fjzI/GJG2d69
+         4eoGnYE0cZqirh4zl618A7s0hILY72Wrn23bFG+HGgJksQC9aQE3im3yVERfmr1o7VS3
+         DwuA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791533508; x=1792138308;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=OGfdOS5UK7/UzF/cCS7HsrvQSu/ecExyfLjubj6ULfA=;
+        b=KINBt9L2PhFzKMeTovr1QlWORUwAmx82AG5K+rzv+RkkHRhptTyZyPvsIWJnsEeUtw
+         IqElo5b8Zx3LuitJ3wZACQ8y+MyIC46Ahpgldza7Myhe7Sq0XTdwYVQwXcner7tx+btW
+         Zpd6oZCY8Ehq6h1KVSlPvBj7GaMo+m70nhyEgMKJB0qLHqItDGSQWBRrapG0LwEShkUx
+         NG8RmKMlYFaofQZcYJ1tja7Qh4oCkGXUlJmyk5qAIWpBqoxK6/4tiS+bNAymF9LxSeRE
+         c4TRPxEhAKVEgMFn2s4W1Ng34xbIhO6ueytgKa1e+9XD0Fmk8HUfm01GlpPrA1fUTaP2
+         ZNgw==
+X-Forwarded-Encrypted: i=1; AKwUvBxSB+QRqyhv4I3qupq0Ub5laSxbac2jkEJHgLUobWL0fO4CX9psbJQbvvwzX83A3EVX4pjiLXY5rMB3@vger.kernel.org
+X-Gm-Message-State: AFuF++lSowc0dE/cx+XT2W91LBLaDKfKHvMpQ6XiW7prwqFgBicDso2U
+	jh3L0y0cmY15kNN1MD9fGJ2kbDMJWTELXK1MeUTrGL8pVfK6IuEOG1abzbUodazAaOuzmooZyku
+	AfV5nccwK4Tx7tCuQEud2kW8EP1awVJqzT6GG2m8WBv4FNg8OihGAB5rDkOysJx/8
+X-Gm-Gg: AYBFou2sd5vI2y9J2L+J2vlMKC3OAvplKxgUBB/lQTQbrtEE5Vjn8OnhGAYAosXcyWv
+	AROZpGRJnOWmaLEXzTeLIAibQtMYDOFjNJctZcXpEd1i4rEwlgrKO3w3mqa6IKumfcmdSBNYtmE
+	H2z7XJOXQrEXUxNQwKRVx3+seDzRZsACNaNJNld1OMazpeSYGQsdzuf6dGb6KnGL5YBCytcq3OK
+	tApr/2WRX0u4CVvh7dXF3qoQd+c6i37velIzYBmBE0KWNQoQkT9iKTot9spDhcZWg9lMwtSa8UC
+	w5V8jl9eGrEBwY4DHKigud51YKXH7n67tDfT7PJ6mmK0JnTqCK3TmW6nLpHrd5OdjBQLjZwd0Em
+	BVkCieNYChfwV5XFEiNNVo76RP6V881gg8fnb4OhFZ9+yX69ijiy2XbQFfz+ohNJLWyBW
+X-Received: by 2002:a05:620a:6086:b0:93c:b7f3:9f5b with SMTP id af79cd13be357-93ebd24cda0mr142743985a.45.1791533507705;
+        Fri, 09 Oct 2026 01:11:47 -0700 (PDT)
+X-Received: by 2002:a05:620a:6086:b0:93c:b7f3:9f5b with SMTP id af79cd13be357-93ebd24cda0mr142742685a.45.1791533507245;
+        Fri, 09 Oct 2026 01:11:47 -0700 (PDT)
+Received: from WENMLIU-LAB01.ap.qualcomm.com (Global_NAT1_IAD_FW.qualcomm.com. [129.46.232.65])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93eb986c0c4sm130780685a.18.2026.10.09.01.11.42
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 09 Oct 2026 01:11:46 -0700 (PDT)
+From: Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+Subject: [PATCH v5 0/3] media: camss: add support for purwa platform
+Date: Fri, 09 Oct 2026 16:11:19 +0800
+Message-Id: <20261009-purwa_camss-v5-0-58c13dc7c4d2@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <576e4762-4ced-4abb-99ef-a895415e30af@nvidia.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAKehyGoC/3XN0QqCMBQG4FeRXTfZGVNnV71HRMx5zEGmbmqF+
+ O5Ni0SomwP/fzjfGYlDa9CRfTASi4Nxpr75EO0Cokt1uyA1uc+EMx4zwVLa9PauzlpVzlGRRIl
+ MMpkgCOIvGouFeSza8fTOFtveo91alsZ1tX0uHweY2w8ObIMPQBlFzHUR52kuEQ+1c2Hbq6uuq
+ yr0g8zcwFciAtgS3BPcL6TKUuCx/kOILwGMyS0hPJHpAiAruI4j9oOYpukFyILKW0gBAAA=
+X-Change-ID: 20260409-purwa_camss-475787b87e14
+To: Bryan O'Donoghue <bod@kernel.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791533502; l=1793;
+ i=wenmeng.liu@oss.qualcomm.com; s=20250925; h=from:subject:message-id;
+ bh=dChm9VOA+VD/Rg/cZCdywnhal/7ZxoZLcoaTrSokokk=;
+ b=vowzy00V+SLNjzf+x4+zMTFrE+EGQpOHhliyvfzobgjVd84IKThh4I13jiyhXMPDmrhIRiycS
+ ZeY4bFs1tCqDU4gkpo7AFI2vP/VtZdO7Rz36zQxt8W3m76Vi5VPkWPW
+X-Developer-Key: i=wenmeng.liu@oss.qualcomm.com; a=ed25519;
+ pk=fQJjf9C3jGDjE1zj2kO3NQLTbQEaZObVcXAzx5WLPX0=
+X-Authority-Analysis: v=2.4 cv=BfpNQbt2 c=1 sm=1 tr=0 ts=6ac8a1c4 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=C3Dk8TwHQYyIj7nOf9RCJw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=U4S9WEnYRaEk29xky1oA:9 a=QEXdDO2ut3YA:10
+ a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-ORIG-GUID: DgjVy1rjtq2N2LFGyr57QmVn4sOMui8c
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDA5MDAzMiBTYWx0ZWRfX29V5ZRMXOH0i
+ UWkCnz0FZg6uIlAb3ODU4T5oEQ3SeW16L0XA62uik/e0oQ+Pqc4Z3xpVmQ+ZnyCDWCELY/S+qWf
+ ewCH2Fak0GfpGL57ZzSU3459miYlx/ppmNUE+no3Jfj/SsqsGoH1i+jlymLVbQSdEfwvAv8ggtg
+ 7B6kSUWmfs5iLkMJFIfq55rIiK9IELqz6XB6qbN9IspxDHsTUV6JzO2yz2YKr2+DlJa/Sxr0ZE4
+ 6ITb3uY+ZGsXgXf0FlbrRnWlhYqjnm+m8gYQSuhdTTJVdMzqRsO1/8Dx7xELRUhGMfWIuKKY34J
+ Y80nLfa+VoqoqN5ubtytm+cPJXQFAvotXDf8t+r1m8Jqp1NFnhjNDQfm9QtVSJFgywBKM822/L0
+ +obJY4sGM07UNfG9dMzl5C2r9lS3QPJ7C1pE5jnlz3FfPN4HDnXIPllWBIZExhyD8VQGWin+JRY
+ lX4RcicM9D0Zr6du2cw==
+X-Proofpoint-GUID: DgjVy1rjtq2N2LFGyr57QmVn4sOMui8c
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDA5MDAzMiBTYWx0ZWRfXzchjP2xziluI
+ qCod8gW12cfe8zHcym3aq+xnJf97dSHbXYFBC9+X7GKQq6QP9FAjoF+8uA6CXzYOndSCwb3vSEw
+ 0np0Z6zuXISUKNGEqQ0hjqLDTKluZRo=
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-09_02,2026-10-08_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 malwarescore=0 impostorscore=0 phishscore=0
+ lowpriorityscore=0 spamscore=0 bulkscore=0 adultscore=0 clxscore=1015
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610020000
+ definitions=main-2610090032
 
-On 08-10-26, 13:09, Jon Hunter wrote:
-> 
-> On 07/10/2026 17:27, Jon Hunter wrote:
-> > 
-> > On 07/10/2026 16:20, Manivannan Sadhasivam wrote:
-> > > On Wed, Oct 07, 2026 at 03:44:43PM +0100, Jon Hunter wrote:
+This series adds camss support for purwa platform.
 
-> > > 
-> > > This is just a mess. As a followup patch, could you please please switch to
-> > > generic ARCH_TEGRA Kconfig option as done in this commit, 6b5e2f70a95c
-> > > ("PCI: dwc: tegra194: Broaden architecture dependency")?
-> > 
-> > Yes that would be a good idea and yes I can do that as a follow-up.
-> I did see the latest sashiko warning:
-> 
-> "Does this cause missing declaration warnings (-Wmissing-declarations or
-> -Wmissing-prototypes)".
-> 
-> I am not seeing any warnings but I can also address that in the
-> follow-up.
+Validated on the Purwa EVK with the OG0VA1B sensor.
 
-Thanks, would appreciate if you folks can get this sorted. I have picked
-this one though...
+---
+Changes in v5:
+- Set line_num of IFE0 to 3. -- Bryan
+- Introduce CAMSS_CSIPHY_RES_PHY_API() to describe PHY API based csiphy
+  resources and use it for X1P42100. -- Bryan
+- Link to v4: https://lore.kernel.org/r/20261008-purwa_camss-v4-0-bcf11bf2c650@oss.qualcomm.com
 
+Changes in v4:
+- Collect R-b tags from Bryan and Krzysztof on dt-bindings patch.
+- Rebase on linux-next and add Bryan`s vfe patch.
+- Link to v3: https://lore.kernel.org/all/20260930-purwa_camss-v3-0-0fe2a5b11208@oss.qualcomm.com
+
+Changes in v3:
+- Rebased on the latest CSIPHY code.
+- Link to v2: https://lore.kernel.org/r/20260511-purwa_camss-v2-0-22608ab9126c@oss.qualcomm.com
+
+Changes in v2:
+- Based on the old version of csiphy.
+- Remove Src clk. -- Bryan
+- Extend the register block of the VFE. -- Bryan
+- Add comments for IOMMU. -- Bryan
+- Link to v1: https://lore.kernel.org/r/20260410-purwa_camss-v1-0-eedcf6d9d8ee@oss.qualcomm.com
+
+---
+Bryan O'Donoghue (1):
+      media: qcom: camss: vfe: Eliminate ever expanding src_pad_code switch logic
+
+Wenmeng Liu (2):
+      dt-bindings: media: Add qcom,x1p42100-camss
+      media: qcom: camss: Add support for X1P42100 CAMSS
+
+ .../bindings/media/qcom,x1p42100-camss.yaml        | 263 +++++++++++++++++++++
+ drivers/media/platform/qcom/camss/camss-vfe.c      |  20 +-
+ drivers/media/platform/qcom/camss/camss.c          | 215 +++++++++++++++++
+ drivers/media/platform/qcom/camss/camss.h          |   1 +
+ 4 files changed, 481 insertions(+), 18 deletions(-)
+---
+base-commit: b018686719706a781c45a874ed51374a2dc4b767
+change-id: 20260409-purwa_camss-475787b87e14
+
+Best regards,
 -- 
-~Vinod
+Wenmeng Liu <wenmeng.liu@oss.qualcomm.com>
+
