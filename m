@@ -1,192 +1,162 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B98AE3AD53F;
-	Fri,  9 Oct 2026 12:38:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8104F440622;
+	Fri,  9 Oct 2026 12:48:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791549540; cv=none; b=FEhS471ewKc5SwFc96S083jla049tDSfx+6x+Cms+6Q24FOw92YOtgLztVC3J+N42/o5y65zprcSiIO32t342rAQpGfV5AKshQJXbNOlwdupNlUSerga/rYjcppbqvPg/BJ8Cwxgfk6Z6HxfggFrhWx3sHmt+LylIVc5DJ6N9f8=
+	t=1791550142; cv=none; b=PwTSz/Y6vUG1Nw12cFljt2ShZaaAagvzzuwQlJfjDQbOVegVQc+ALcM1cNDKvt1ZlscqqajDXg7pI7ybChWszbrce+dFU1dcYPjdLrpb+fWojT4Y4rfKVbLth/WsQIiEkZoqrI+wgEoQCzt3JLkk3fiLKp979rrB1lTLpDr/Gec=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791549540; c=relaxed/simple;
-	bh=mYJeETVCNP2+H5ciwRB8prpvI8n8SWmD+UM2Lh8j4vE=;
+	s=arc-20240116; t=1791550142; c=relaxed/simple;
+	bh=1gmCRl5yG2iTeU/h0MDzKGFSFmMIxp2EdCvNurN/Vwc=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=HE0dsQIo0GojV4ChFKOpTiRTKEp0ziqfnz9qjd+b43U2jRRE2ssUqgnAx5Hl7W/soo+4Dk56gZXcyBZEwRkGNXzyJdo2KCr7G4UotzStNVwzYTNvBZvO14sdHBLIxaMLnRv0mHIoIADUTax9w8pet/bp52AhIH0LfdbDRzQfckM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nm4KH86I; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=YR4PhwY5GXP+UoGiLKYKkj0Q0pRv/lPwgnQTjvYfJNdIvKBM68HpW+puhXDCYg77/ClqMaZQ5Y2V9htn4CSSEZJhYUQ316KvFlOYK6LLd+uUDlc3/m321b9CbFr2xZkvCc0WA3f/ciw2PsmkYIgD8rzRH+DhXELf8wT2rlox7lA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FV9GtJOl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nm4KH86I"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE3231F000FF;
-	Fri,  9 Oct 2026 12:38:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FV9GtJOl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 769231F000FF;
+	Fri,  9 Oct 2026 12:48:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791549532;
-	bh=I6TzdPelictgj+or68X6V1FsAGHB0pBRmiHcq2fTJ5o=;
+	s=k20260515; t=1791550136;
+	bh=2g3NbG/86hO7ppVkSmZQ5BB/XZeuzpVHqFw/u/VRcIE=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Nm4KH86IVIrg/SL7KYWCWR2LEbEEYbRP1z9k0gWk4ry02ly4WK655BRQCxzRJuaMZ
-	 3oBo1vzwvO4F6D1mQI1UYYxx61Vjd1wGQUWeLg6rO+yYrAJ0F6D6sum09TtPhD2rxg
-	 O4NvxBb47oSa74m6v+Rvv1Jtbw9QPs30kwgvxMSzbGdc8E1dkg56kHwr6q9+Kb+2Ph
-	 2lljACrp9AOdM3VfFPx4Brk/Qljw6VwWGrIexLBML11ig1GqS9mblxzuT8ILhQb+ww
-	 7M8gNU0SEQsepG2xgfI4FLDo3WO7atdLSRMRbNeagYZnanvJ1DAYWi6WrQkLL863yp
-	 ULjPo5Mv2yl1w==
-Message-ID: <sashiko-outbox-165548@kernel.org>
+	b=FV9GtJOlDdgsJLivBQtZ6wGxKmXwJmsUWKkVMDRdQeEoBNRenRlODYi/99qQ5YNIh
+	 uz60fMz64HzbWExmUkHWI2s/bOGhpWU+j/EzBFfDFLc35vO1FT1wQy6mszcxEKkUFe
+	 ZHZBXuo+g4Ku1+0gye72WSBguF7+H+Q80ZCWv0SMNVy3DNlkpOoX+a5hke2lZedZYv
+	 CXWWhc3+WsJ2QFRvgJTSiObwdUiAwnSHCeDQPIPcENAkft3GgpIElsGTWDiqXEX90p
+	 EmSf49/VOI1S+nw78JXdQoqWpr+11uHN8Q0++32s4BUjaF+DmREQN4AXC0YevjWxJu
+	 axv8n7TrVHr+A==
+Message-ID: <sashiko-outbox-165562@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] Input: add OnePlus/OPPO Pad pogo-pin keyboard
- serdev driver
+Subject: Re: [PATCH v2 10/14] clk: samsung: exynos8855: add block usb clock
+ support
 Reply-To: sashiko-reviews@lists.linux.dev
-To: wyibo6109@gmail.com
-Cc: conor+dt@kernel.org, robh@kernel.org, linux-input@vger.kernel.org, devicetree@vger.kernel.org, dmitry.torokhov@gmail.com
-In-Reply-To: <20261009122046.551915-3-wyibo6109@gmail.com>
-References: <20261009122046.551915-1-wyibo6109@gmail.com>
- <20261009122046.551915-3-wyibo6109@gmail.com>
+To: "Raghav Sharma" <raghav.s@samsung.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, linux-clk@vger.kernel.org
+In-Reply-To: <20261009120137.2801911-11-raghav.s@samsung.com>
+References: <20261009120137.2801911-1-raghav.s@samsung.com>
+ <CGME20261009114359epcas5p36e3efa42b4c80144cbdfdac6cbb687f6@epcas5p3.samsung.com>
+ <20261009120137.2801911-11-raghav.s@samsung.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 09 Oct 2026 12:38:51 +0000
+Date: Fri, 09 Oct 2026 12:48:56 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] input: UAF in led_work due to teardown ordering
-- [High] serdev: UAF in plug_work due to active port during devres teardown
-- [High] workqueue: UAF due to detect_work and hb_work cyclic dependency
-- [High] workqueue: UAF due to pogo_wake_irq_enable missing synchronize_irq
-- [High] input: Race between plug_work and power_off leaks input devices
-- [Low] leds: Success logging in probe violates guidelines
+- [High] clk: samsung: incorrect gate_dbg_offset causes double-offset memor=
+y reads
 --
 
-commit 0ce1872d7cb39e14970c678cd47393649379aea8
-Author: Yibo Wang <wyibo6109@gmail.com>
+commit 8e0eb8d00c0f187c13c3ca956facb4eb6bd98db3
+Author: Raghav Sharma <raghav.s@samsung.com>
 
-Input: add OnePlus/OPPO Pad pogo-pin keyboard serdev driver
+clk: samsung: exynos8855: add block usb clock support
+   =20
+Register compatible and cmu_info data to support clocks.
+CMU_USB, this provides clocks for USB
 
-Adds a serdev driver for the Tinno keyboard MCU used by OnePlus and OPPO
-Pad smart keyboards. Communication happens over a half-duplex UART using
-a custom framed protocol. The driver exposes touchpad, keys, and backlight
-controls to userspace.
-
-> diff --git a/drivers/input/keyboard/oneplus-pogo-kbd.c b/drivers/input/ke=
-yboard/oneplus-pogo-kbd.c
-> index 0000000000000..589f31ecef848
-> --- /dev/null
-> +++ b/drivers/input/keyboard/oneplus-pogo-kbd.c
-> @@ -778,7 +778,7 @@
->  static void pogo_wake_irq_enable(struct pogo_kbd *kb, bool enable)
->  {
->  	if (enable =3D=3D kb->wake_irq_enabled)
->  		return;
-
-[Severity: High]
-If pogo_wake_isr() fires concurrently, sets kb->wake_irq_enabled =3D false,
-and then pogo_remove() calls pogo_wake_irq_enable(kb, false), will this
-return early and bypass disable_irq()?
-
-Since disable_irq() also acts as a synchronize_irq(), missing it might
-allow the preempted ISR to resume and queue detect_work after it has
-already been cancelled in pogo_remove().
+> diff --git a/drivers/clk/samsung/clk-exynos8855.c b/drivers/clk/samsung/c=
+lk-exynos8855.c
+> index 16d71db11ad06..010ca79116d30 100644
+> --- a/drivers/clk/samsung/clk-exynos8855.c
+> +++ b/drivers/clk/samsung/clk-exynos8855.c
+> @@ -20,11 +20,13 @@
+>  #define CLKS_NR_PERIC                   (CLK_GOUT_USI_PERIC + 1)
+>  #define CLKS_NR_PERIS                   (CLK_GOUT_WDT1_PERIS + 1)
+>  #define CLKS_NR_HSI                     (CLK_GOUT_SYSREG_HSI  + 1)
+> +#define CLKS_NR_USB                     (CLK_GOUT_SYSREG_USB + 1)
+> =20
+>  #define EXYNOS8855_HSI_GATE_DBG_OFFSET      0x2000
+>  #define EXYNOS8855_PERIS_GATE_DBG_OFFSET      0x2004
+>  #define EXYNOS8855_PERIC_GATE_DBG_OFFSET      0x2024
+>  #define EXYNOS8855_TOP_GATE_DBG_OFFSET      0x20A0
+> +#define EXYNOS8855_USB_GATE_DBG_OFFSET      0x2004
+> =20
+>  #define EXYNOS8855_DRCG_EN_OFFSET       0x104
+>  #define EXYNOS8855_MEMCLK_OFFSET        0x108
+> @@ -1261,6 +1263,79 @@ static const struct samsung_cmu_info hsi_cmu_info =
+__initconst =3D {
+>  	.memclk_offset          =3D EXYNOS8855_MEMCLK_OFFSET,
+>  };
+> =20
+> +/* ---- CMU_USB --------------------------------------------------------=
+- */
+> +
+> +/* Register Offset definitions for CMU_USB (0x13000000) */
+> +#define CMU_USB_PLL_CON0_MUX_CLKCMU_USB_NOC_USER                   0x600
+> +#define CMU_USB_PLL_CON0_MUX_CLKCMU_USB_USB20DRD_USER              0x610
+> +#define CMU_USB_CLK_CON_MUX_CLK_USB_USB20DRD                       0x1000
+> +#define CMU_USB_CLK_CON_DIV_CLK_USB_NOC_DIV3                       0x1800
+> +#define CMU_USB_CLK_CON_GAT_BLK_USB_UID_CMU_USB_IPCLKPORT_PCLK     0x2000
+> +#define CMU_USB_CLK_CON_GAT_BLK_USB_UID_SYSREG_USB_IPCLKPORT_PCLK  0x2030
+> +#define CMU_USB_CONTROLLER_OPTION0_CMU_CTRL                        0x800
 
 [ ... ]
 
-> @@ -849,10 +849,10 @@
->  static void pogo_plug_work(struct work_struct *work)
->  {
->  	struct pogo_kbd *kb =3D container_of(work, struct pogo_kbd, plug_work);
->  	int ret;
-> =20
->  	if (!kb->powered || !kb->connected)
->  		return;
-> =20
->  	if (!kb->kbd) {
->  		ret =3D pogo_register_inputs(kb);
+> +static const struct samsung_gate_clock usb_gate_clks[] __initconst =3D {
+> +	/* System will hang if this critical clock is gated */
+> +	GATE(CLK_GOUT_CMU_USB, "gout_cmu_usb",
+> +	     "mout_clkcmu_usb_noc_user",
+> +	     CMU_USB_CLK_CON_GAT_BLK_USB_UID_CMU_USB_IPCLKPORT_PCLK,
+> +	     21, 0, 0),
+> +	GATE(CLK_GOUT_SYSREG_USB, "gout_sysreg_usb",
+> +	     "mout_clkcmu_usb_noc_user",
+> +	     CMU_USB_CLK_CON_GAT_BLK_USB_UID_SYSREG_USB_IPCLKPORT_PCLK,
+> +	     21, 0, 0),
+> +};
+> +
+> +static const struct samsung_cmu_info usb_cmu_info __initconst =3D {
+> +	.mux_clks               =3D usb_mux_clks,
+> +	.nr_mux_clks            =3D ARRAY_SIZE(usb_mux_clks),
+> +	.div_clks               =3D usb_div_clks,
+> +	.nr_div_clks            =3D ARRAY_SIZE(usb_div_clks),
+> +	.gate_clks              =3D usb_gate_clks,
+> +	.nr_gate_clks           =3D ARRAY_SIZE(usb_gate_clks),
+> +	.nr_clk_ids             =3D CLKS_NR_USB,
+> +	.clk_regs               =3D usb_clk_regs,
+> +	.nr_clk_regs            =3D ARRAY_SIZE(usb_clk_regs),
+> +	.sysreg_clk_regs	=3D dcrg_memclk_sysreg,
+> +	.nr_sysreg_clk_regs	=3D ARRAY_SIZE(dcrg_memclk_sysreg),
+> +	.clk_name               =3D "bus",
+> +	.auto_clock_gate        =3D true,
+> +	.gate_dbg_offset        =3D EXYNOS8855_USB_GATE_DBG_OFFSET,
 
 [Severity: High]
-Can a race between pogo_plug_work() and pogo_power_off() leak input
-devices?
+Could this offset result in reading incorrect physical addresses when check=
+ing
+auto-clock-gating state?
 
-If pogo_plug_work() evaluates kb->connected as true, and concurrently
-pogo_power_off() sets kb->connected =3D false (unregistering nothing since
-kb->kbd is still NULL):
+Looking at the CCF framework, the gate debug register address is computed by
+adding the gate's absolute offset and the gate_dbg_offset:
 
-- pogo_plug_work() would then allocate and register the input devices.
-- The state becomes desynchronized: kb->connected is false, but devices
-  are registered.
+drivers/clk/samsung/clk.c:
+		reg_offs =3D ctx->reg_base + list->offset;
 
-When the driver unbinds, pogo_remove() calls pogo_power_off(), which will
-skip unregistering the devices because kb->connected is false. Will this
-leave the input devices leaked and pointing to freed memory?
+		if (ctx->auto_clock_gate && ctx->gate_dbg_offset)
+			clk_hw =3D samsung_register_auto_gate(ctx->dev, NULL,
+				list->name, list->parent_name, NULL, NULL,
+				list->flags, reg_offs + ctx->gate_dbg_offset,
+				list->bit_idx, list->gate_flags, &ctx->lock);
 
-[ ... ]
+If list->offset is already an absolute offset like 0x2000
+(CMU_USB_CLK_CON_GAT_BLK_USB_UID_CMU_USB_IPCLKPORT_PCLK), and we add 0x2004=
+ to
+it, the final address becomes reg_base + 0x4004 instead of 0x2004. This wou=
+ld
+read unmapped or incorrect hardware registers.
 
-> @@ -1074,6 +1074,6 @@
->  	/* evaluate the current attach state; enables the irq when idle */
->  	schedule_delayed_work(&kb->detect_work,
->  			      msecs_to_jiffies(POGO_DETECT_DEBOUNCE_MS));
-> =20
->  	dev_info(dev, "pogo keyboard link ready (wake irq %d)\n", kb->wake_irq);
+Should EXYNOS8855_USB_GATE_DBG_OFFSET be a relative shift (like 0x4) instead
+of an absolute offset?
 
-[Severity: Low]
-This isn't a bug, but does this success log violate the LED subsystem
-guidelines? The guidelines suggest only logging errors or warnings during
-probe, to avoid cluttering the kernel log with success messages.
-
->  	return 0;
->  }
-
-[ ... ]
-
-> @@ -1084,7 +1084,7 @@
->  static void pogo_remove(struct serdev_device *serdev)
->  {
->  	struct pogo_kbd *kb =3D serdev_device_get_drvdata(serdev);
-> =20
->  	pogo_wake_irq_enable(kb, false);
->  	cancel_delayed_work_sync(&kb->detect_work);
->  	cancel_delayed_work_sync(&kb->hb_work);
-
-[Severity: High]
-Because detect_work and hb_work can queue each other, and neither checks a
-shared teardown flag (like kb->going_away), could hb_work re-arm
-detect_work after detect_work was cancelled?
-
-If hb_work is running concurrently during pogo_remove():
-1. cancel_delayed_work_sync() for detect_work returns.
-2. hb_work calls schedule_delayed_work() for detect_work.
-3. cancel_delayed_work_sync() for hb_work waits for hb_work to finish.
-
-This leaves detect_work pending after pogo_remove() returns, which would
-lead to a use-after-free when devres frees the kb structure.
-
->  	cancel_work_sync(&kb->plug_work);
-
-[Severity: High]
-Since the serdev port is managed by devm_serdev_device_open(), the UART
-receiver remains active until devres cleanup, which executes after
-pogo_remove() returns.
-
-Could an incoming UART frame trigger pogo_handle_sync() and re-queue
-plug_work after this cancellation? If the work remains queued after devres
-frees the kb memory, it would cause a use-after-free.
-
-Similarly, if pogo_probe() fails after devm_serdev_device_open(), could an
-incoming frame schedule the work on the error path where it is never
-cancelled? Does the UART receiver need to be closed or the callback
-disabled prior to work cancellation?
-
->  	cancel_work_sync(&kb->led_work);
->  	pogo_power_off(kb);
-
-[Severity: High]
-Because pogo_power_off(kb) is called after cancelling led_work, the input
-devices are still fully registered and active during cancellation.
-
-Can a concurrent EV_LED event routed by the input core trigger
-pogo_kbd_event(), which unconditionally calls schedule_work() for
-led_work? If led_work is re-armed after it was cancelled, it will execute
-on freed memory once devres cleans up. Should the input devices be
-unregistered before cancelling led_work?
-
->  }
+This problem wasn't introduced by this patch, but it appears the existing
+EXYNOS8855_PERIC_GATE_DBG_OFFSET and other definitions also specify absolute
+offsets, which would incorrectly double the offset for those gates as well.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009122046.5519=
-15-1-wyibo6109@gmail.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009120137.2801=
+911-1-raghav.s@samsung.com?part=3D10
