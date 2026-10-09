@@ -1,170 +1,158 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BF0F386C25;
-	Fri,  9 Oct 2026 18:50:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F0253CF1FF
+	for <devicetree@vger.kernel.org>; Fri,  9 Oct 2026 18:53:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791571842; cv=none; b=ZGrXBAa6yJ5WNa3OWDpVttV450GEmwUZnQyLz4gGhgpDfVu7DLmCihTehKpPtDWMb9PNOWUR0bVMGgW7nNqVU56P7HV0ilCYxbjdK9fO4vJxgEUxwb7DymoOmKWRpeKkvu8b7gwvHDcKIJNA9dNlW+rmiPgxR8/IBRY1BQ5NXAI=
+	t=1791572010; cv=none; b=kYc/1Gmxzo54DK2AnM0HsaCVXXkCqAA3mc9EJmwKErRLZ2zGIg04FQc0WnyZHi9sNSD7xp0zSVIv/YtIHP/A3BWQaYcClnE/8Msrx9dZ5nDAILHvOLr6i7FjuwGyIdhvgFrkBsAWyKSxPuJ2Kz4M5QUP5wmOgnmzKtKgxlUZw+s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791571842; c=relaxed/simple;
-	bh=DIsEnPUtL7XTpURL99i8Skm9ugQHnsIOtTbzfAGtDNM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WA51VZeR7cpfyBsxvkQc/aQIYKBlWvCVkmUoEWSLrCwuEq2giQU/vlopJDS289Ul+ll/HuNePv3pvnpVaKwCZQt5O/w1kUreDAahVGfrnGc/K2mhy6k8dSdsLklxJ3a0F0X9j1LpNjetUFu3i1ANsn/567s7BUnaAQBnISd1+x8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ohcerbpn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791572010; c=relaxed/simple;
+	bh=15xAuwM7X8m8ujQVGT8AX0DROcZLmJy1rNy4NSKHl5Y=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=pgv72Eqrjnm6eda8j/911Fpd88qSQud8EnkBFJKLl9cxwQlJBzoQu1n7rtmFp7fQzmp0GNZmnVdNA3l+ftGeogieK+j2bCyEO52GwwGm2RfIQ0C+sjJzpF0OyoTbPqVwmjXJL3njpTjHTSdbLNcv/YnHt6eyBth4Y/bPQ8hiELA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IW3n2SSf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ohcerbpn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5D401F000FF;
-	Fri,  9 Oct 2026 18:50:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IW3n2SSf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66CFA1F000FF;
+	Fri,  9 Oct 2026 18:53:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791571841;
-	bh=jrqV/n+TqKy/kfvI9DLbi8FaoaYEB6YCnTwVMN3d9TU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=OhcerbpnfDYqW2tc3Kg9BsM2eCGAZ/sEE2pmLJBLJjQWbr0vjQa7kwV7FqqQA5dw3
-	 NogTiO/1XfJp6lxfsWq9Id3pROzHG+utb87wrPczpSc/xcRWHrkNrWkUDD2K1u8TrA
-	 N9kdGOD2p/CwBjz50g1BjsldgubXEQ/bzpeZ1RnqW0+w/LZg90eYkwzNRxQ7S/dDLS
-	 AKs1/IsLeCVj0Phgajjy8W+1TU6CWqDKVjC+YC1XTH4+nlwZmQlJQn7MQy9IUtcQBU
-	 Ca2CZESx+GWMl/WPHlJm68CEFITdZVMs+vTfl9Se9BwVA4MvLydKEO+PMSzfQ1A+HV
-	 Dfg92Tq2FnH/A==
-Date: Fri, 9 Oct 2026 19:50:34 +0100
-From: Conor Dooley <conor@kernel.org>
-To: David Yang <mmyangfl@gmail.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: regulator: add HiSilicon STB voltage
- regulator
-Message-ID: <20261009-eed393135cdd51563ca8c077@squawk>
-References: <20261008155727.3801095-1-mmyangfl@gmail.com>
- <20261008155727.3801095-2-mmyangfl@gmail.com>
+	s=k20260515; t=1791572008;
+	bh=iCc9e2bOvhIDVqGbTGQQUZT4yq3Nde5sSMDx+8au+Fo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=IW3n2SSfFwKcAwdAc1GsdPtdJVklX3T3tZr225cdZoRT9xvaCMEu2TnL4Fex4o3au
+	 Ap8U2q+hRkMGlm160NoQpbOrJ38bPEc2bI0sr75sGQQRUawsxvohe3XAaRLWnpCFJZ
+	 BOFmuykaWf8xEW4Zx0ldIa4kwArb10ZXuykGh9lxZcw/QJpgnEhz4XiDxhGIzt1g8l
+	 FVB+s6nhLrLtjIORLPQ4iRRuFdrqppPdzz1c34+CrtQ5VokfK3wH2+vnBG7awW+KeD
+	 ogf2zROwr2MpIVIdbmMoFS2LT44ICPZs+PEMRSvHykcapLT69BkApRxbgQ6tp6b4Wk
+	 u69nOwswnIT8w==
+Message-ID: <sashiko-outbox-165988@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 4/8] iio: adc: rzt2h: Add optional reset support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: wsa+renesas@sang-engineering.com, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20261009184122.1378797-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20261009184122.1378797-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+ <20261009184122.1378797-5-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 09 Oct 2026 18:53:27 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="gKIUqrF4WDduldKY"
-Content-Disposition: inline
-In-Reply-To: <20261008155727.3801095-2-mmyangfl@gmail.com>
 
---gKIUqrF4WDduldKY
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] iio: adc: rzt2h: Shared reset control leaked if unbound while acti=
+ve
+- [Medium] iio: adc: rzt2h: hardware settling delay bypassed when calibrati=
+on is unsupported
+--
 
-On Thu, Oct 08, 2026 at 11:57:24PM +0800, David Yang wrote:
-> The PMOC block of the HiSilicon STB SoCs drives an external converter
-> with a PWM signal. Document the binding.
+commit 1e05a1801dd44e25bef73244db6d8173cc097ea8
+Author: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+
+iio: adc: rzt2h: Add optional reset support
+   =20
+Prepare the driver for RZ/V2H(P), where the ADC has a module reset line
+that is not present on RZ/T2H. Assert the optional reset when the ADC is
+runtime-suspended and deassert it on runtime resume before performing
+calibration. Use a shared reset control to support SoCs such as RZ/V2N where
+the reset line is shared between multiple ADC instances.
+
+> diff --git a/drivers/iio/adc/rzt2h_adc.c b/drivers/iio/adc/rzt2h_adc.c
+> index 58e33fd0249c9..62120d2185152 100644
+> --- a/drivers/iio/adc/rzt2h_adc.c
+> +++ b/drivers/iio/adc/rzt2h_adc.c
+
+[ ... ]
+
+> @@ -710,6 +712,10 @@ static int rzt2h_adc_probe(struct platform_device *p=
+dev)
+> =20
+>  	platform_set_drvdata(pdev, adc);
+> =20
+> +	adc->rstc =3D devm_reset_control_get_optional_shared(dev, NULL);
+> +	if (IS_ERR(adc->rstc))
+> +		return PTR_ERR(adc->rstc);
+> +
+
+[Severity: High]
+Because this driver acquires a shared reset control and enables runtime PM =
+via
+devm_pm_runtime_enable() without providing a custom unbind action or .remove
+callback to synchronously suspend the device, could this leak the shared re=
+set
+control's deassert count?
+
+If the driver unbinds while the device is in RPM_ACTIVE (for instance, due =
+to
+a concurrent sysfs read or a user setting power/control to "on"), the devres
+cleanup calls pm_runtime_disable() which leaves the device active.=20
+
+This would bypass rzt2h_adc_pm_runtime_suspend() entirely, meaning
+reset_control_assert() is never called, and the deassert count is permanent=
+ly
+leaked. Other driver instances sharing this reset line would then be unable
+to assert it, potentially breaking their power management transitions.
+
+>  	ret =3D rzt2h_adc_parse_properties(adc);
+
+[ ... ]
+
+> @@ -771,10 +777,22 @@ static const struct of_device_id rzt2h_adc_match[] =
+=3D {
+>  };
+>  MODULE_DEVICE_TABLE(of, rzt2h_adc_match);
+> =20
+> +static int rzt2h_adc_pm_runtime_suspend(struct device *dev)
+> +{
+> +	struct rzt2h_adc *adc =3D dev_get_drvdata(dev);
+> +
+> +	return reset_control_assert(adc->rstc);
+> +}
+> +
+>  static int rzt2h_adc_pm_runtime_resume(struct device *dev)
+>  {
+>  	struct rzt2h_adc *adc =3D dev_get_drvdata(dev);
+>  	const struct rzt2h_adc_chip_info *chip_info =3D adc->chip_info;
+> +	int ret;
+> +
+> +	ret =3D reset_control_deassert(adc->rstc);
+> +	if (ret)
+> +		return ret;
+> =20
+>  	if (!(chip_info->features & RZT2H_ADC_FEATURE_CALIBRATION))
+>  		return 0;
 >=20
-> Signed-off-by: David Yang <mmyangfl@gmail.com>
-> ---
->  .../regulator/hisilicon,histb-volt.yaml       | 58 +++++++++++++++++++
->  1 file changed, 58 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/regulator/hisilicon=
-,histb-volt.yaml
->=20
-> diff --git a/Documentation/devicetree/bindings/regulator/hisilicon,histb-=
-volt.yaml b/Documentation/devicetree/bindings/regulator/hisilicon,histb-vol=
-t.yaml
-> new file mode 100644
-> index 000000000000..34deee17d034
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/regulator/hisilicon,histb-volt.ya=
-ml
-> @@ -0,0 +1,58 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/regulator/hisilicon,histb-volt.yaml#
+>  	/*
+>  	 * Datasheet Page 2810, Section 41.5.6:
+>  	 * After release from the module-stop state, wait for at least
+>  	 * 0.5 =C2=B5s before starting A/D conversion.
+>  	 */
+>  	fsleep(1);
 
-Filename matching a compatible please.
-pw-bot: changes-requested
+[Severity: Medium]
+Does this early return bypass the required hardware settling delay for
+devices without the calibration feature?=20
 
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: HiSilicon STB voltage regulator
-> +
-> +maintainers:
-> +  - David Yang <mmyangfl@gmail.com>
-> +
-> +description: |
-> +  HiSilicon STB SoCs provide PWM outputs in the PMOC block which drive an
-> +  external converter. The signal is filtered into a DC level between 0 V=
- and
-> +  3.3 V which is summed into the feedback input of the converter, so a r=
-ail
-> +  follows the average level of the PWM signal and its voltage is set by =
-the duty
-> +  cycle.
-> +
-> +  Where the duty cycle maps to in volts is a property of the board, not =
-of the
-> +  SoC: the endpoints come from the resistors of the filter and from the
-> +  reference voltage of the converter. The datasheets therefore tabulate a
-> +  different pair of endpoints for each converter of their reference desi=
-gns
-> +  (0.65 V to 1.15 V for the Hi3798cv200, 0.7 V to 1.25 V for the Hi3798m=
-v200),
-> +  and a board built to its own schematic has to describe its own.
-> +  regulator-min-microvolt and regulator-max-microvolt are those endpoint=
-s of
-> +  the linear range, and the regulator has no other source of calibration.
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - hisilicon,hi3798cv200-volt
-> +      - hisilicon,hi3798mv100-volt
-> +      - hisilicon,hi3798mv200-volt
+When rzt2h_adc_pm_runtime_resume() is called for hardware lacking
+RZT2H_ADC_FEATURE_CALIBRATION, returning 0 immediately skips the fsleep(1)
+that follows. This means the IIO core can immediately start A/D conversions=
+ on
+the newly-resumed hardware before the datasheet-mandated 0.5 us module-stop
+release delay has elapsed, potentially resulting in unreliable initial ADC
+conversions.
 
-Please note in your commit message what makes the programming model of
-these devices incompatible, otherwise please make use of fallback
-compatibles.
+> =20
+> -	return rzt2h_adc_calibrate(adc);
+> +	ret =3D rzt2h_adc_calibrate(adc);
 
-Thanks,
-Conor.
+[ ... ]
 
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - regulator-min-microvolt
-> +  - regulator-max-microvolt
-> +
-> +allOf:
-> +  - $ref: regulator.yaml#
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    vddcpu: regulator@8a23018 {
-> +        compatible =3D "hisilicon,hi3798mv200-volt";
-> +        reg =3D <0x8a23018 0x4>;
-> +        regulator-name =3D "vdd-cpu";
-> +        regulator-min-microvolt =3D <700000>;
-> +        regulator-max-microvolt =3D <1250000>;
-> +        regulator-always-on;
-> +    };
-> --=20
-> 2.53.0
->=20
-
---gKIUqrF4WDduldKY
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEARYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCask3eQAKCRB4tDGHoIJi
-0soyAP0QbXb1poJKh/TpWFDxievwkhd5csYKUxtcS5awtCTVXgD8CzrIK/GrwGGk
-UYyAYPG1OngMl/z+p0wW3Dx10Nvh2gw=
-=pJSx
------END PGP SIGNATURE-----
-
---gKIUqrF4WDduldKY--
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009184122.1378=
+797-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D4
