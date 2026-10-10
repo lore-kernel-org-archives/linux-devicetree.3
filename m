@@ -1,205 +1,128 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29DF74A1DEA
-	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 13:11:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FFCA4AA02B
+	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 13:12:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791637911; cv=none; b=c3xg/306dE4mi7DFtZ+2aNB9zZvl3dRBO3G3CEqhXGEHubeuoyDL8nGZsP518CyfLlgI8fKQ3jz6n+NCKbSRAnXmdVcu7chZkGvltDccqWoFOhvyebAgCpkabuy4vrUW6NZXzz5l7aPREAypbi4NBVn8tV8/uIFFz4BXL4bYhvA=
+	t=1791637923; cv=none; b=Ua5/VSJB7rBBsBsoT4TBAP0F0QD19xvrJmqFK01ogoCRghSxyDma4E9qIkoohtgs7EwPYpMuOU5Yyg1iltBuhH3i1bryWEO5ASTl0m4oxvxoQSeZJYQXvZ3R2niP5jAHQIOlwACuEinR+50Y1uOdP6Z0cC+jw4OoYx6cN5LRyNk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791637911; c=relaxed/simple;
-	bh=3fscxGL6D/x6Q1EHXOxP43wRrCw1B1vyyNqZpekZmK8=;
+	s=arc-20240116; t=1791637923; c=relaxed/simple;
+	bh=1iXXP/WQaM5OFEikpq0IqX0SyLKGsxfucjHby6MeeJI=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=UMr5xW2pGqOA1RSeGxUGuQk8VFhDc334HSYLnk2KGJx/DjHujNNJ31KWI6DfYfRBzf51H1qR/c8o8p0fD3yLiVyWfqZQqOyoIvi9HCV56vpn1dfP7bus8NriXHoBxMcuqFSZTRK2r2KRoos9AtIPa/1F1biL6B9BuFSxEfpUn0Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NthThA3E; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=i2XhGXMxLvf8C/a3Kbr1UmtwnyXSBv/bJkZPt6dsfqKTc1NLEzKn3PEUFND6kL47cV2L3gybonAzX6PsTKCbniZ3czOgy+k51q2Or7DkaRTesctFbyIXFp+TjZ19KjMnYmNgXjZWp6qz4TQduulKubUx0e31G9CB9o1q6b5dzb4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cpc0TgDB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NthThA3E"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5FDAA1F000FF;
-	Sat, 10 Oct 2026 13:11:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cpc0TgDB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A60E1F000FF;
+	Sat, 10 Oct 2026 13:12:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791637909;
-	bh=xmZ2KumSDm4dwYR6o09H4qyV2pbpvH1kp+otB0ub9Ec=;
+	s=k20260515; t=1791637920;
+	bh=iDUrYjH4fqVF+FKPmUccA+Cgrd7FR/iFbJETZkQ7bsI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=NthThA3E4zUyorocxB9ZV5zdmf02O3oUmSIIbXkmAXPRxdHrWQuulJ2EvRJVCDJYm
-	 Z78dTf0lyloFRYka3oQyjcfeuitcRsQTZAa1rlFKZLgUoTJcYOLn79jgSf2jJn4aMH
-	 1zbZoamG2ObKcPANyPXA8zzNt3yk7Jf/y4nW9lRhzKgzSi21YmIOui+02nSAIZJiQL
-	 jp+E9xsJ/aVulpREWGjs4C6kYSQaB8a4hPNzqaNc6sdxGC7L4v6SGyf+VEjvXs9gIc
-	 vjtrnEuiH8glpv2SUxS67WevnoyKmxy2NJsq6jmy4kuhB8iyTtm+0NcpZmDBKr7Jid
-	 f19r8VyvyZUcg==
-Message-ID: <sashiko-outbox-166571@kernel.org>
+	b=cpc0TgDBAMaQ9/yhHhlne3iZNYZK4GLMA4fPg3ggOpgB1hyzIAPN2DH8VTUdelqrM
+	 XyhH/Fe7KIQbsGBOBVz8O6OHeFK07b8uuy1XWVTUioBQqgvYQ55HAikG5vF+nc1SsN
+	 35aERUySHhw9MOq+Oul51FLuPG9dnivszuszjULefs1B5QAnBwwRTbVALyBfR/6JjZ
+	 8hRQGNrldkcDOFPvl774kEA1aCDCJ5im2C0jUMTVEMZwsuykg/ryhrUj+cZ0PtClfa
+	 zvVV29mGeRLh3KU6U1inJ4c6ptOcf4/bwzTdmgI05iUvABU5DRG0OBqK5SqwF08rQj
+	 p9bVY5U5D+PTA==
+Message-ID: <sashiko-outbox-166573@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 20/24] spi: Add ZTE ZX279128S SPI flash controller
+Subject: Re: [PATCH 15/24] net: mdio: Add ZTE ZX279128S MDIO controller
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Navid Ghahremani" <ghahramani.navid@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261010130024.177503-21-ghahramani.navid@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20261010130024.177503-16-ghahramani.navid@gmail.com>
 References: <20261010130024.177503-1-ghahramani.navid@gmail.com>
- <20261010130024.177503-21-ghahramani.navid@gmail.com>
+ <20261010130024.177503-16-ghahramani.navid@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 10 Oct 2026 13:11:48 +0000
+Date: Sat, 10 Oct 2026 13:11:59 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] spi: zx279128s: Endianness corruption in FIFO byte stream access
-- [Medium] spi: zx279128s: hardware register overwrite while controller is =
-busy
+- [Medium] hw: Ineffective MDIO status clear using writel(0)
 --
 
-commit 4810c7a0849d088839c80d7f592b0dcb4167dff5
+commit 45a7d41335201ba838e0dc1def510a6cce8f6d73
 Author: Navid Ghahremani <ghahramani.navid@gmail.com>
 
-spi: Add ZTE ZX279128S SPI flash controller
+net: mdio: Add ZTE ZX279128S MDIO controller
 
-This commit adds support for the SPI flash controller of the ZTE
-zx279128s SoC, implementing the spi-mem interface for bounded SPI-memory
-operations.
+This commit adds a new MDIO controller driver for the ZTE zx279128s SoC. It
+provides bounded Clause 22 transactions and managed clock and MDIO-bus
+registration.
 
-> diff --git a/drivers/spi/spi-zx279128s-spifc.c b/drivers/spi/spi-zx279128=
-s-spifc.c
+> diff --git a/drivers/net/mdio/mdio-zx279128s.c b/drivers/net/mdio/mdio-zx=
+279128s.c
 > new file mode 100644
+> index 0000000000000..4c4a9ada68f98
 > --- /dev/null
-> +++ b/drivers/spi/spi-zx279128s-spifc.c
-
+> +++ b/drivers/net/mdio/mdio-zx279128s.c
 [ ... ]
-
-> +static int zx_spifc_read_fifo(struct zx_spifc *spifc, u8 *buf,
-> +			      unsigned int len)
+> +static int zx279128s_mdio_xfer(struct mii_bus *bus, u32 op, int addr,
+> +			       int regnum, u16 data)
 > +{
-> +	unsigned int i;
-> +	u32 word;
+> +	struct zx279128s_mdio *priv =3D bus->priv;
+> +	void __iomem *base =3D priv->base;
+> +	u32 cmd, val;
 > +	int ret;
 > +
-> +	for (i =3D 0; i < len; i +=3D 4) {
-> +		ret =3D zx_spifc_wait_fifo(spifc, SPIFC_FIFO_RX_AVAIL);
-> +		if (ret)
-> +			return ret;
-> +		word =3D readl(spifc->base + SPIFC_FIFO_DATA);
-> +		memcpy(buf + i, &word, min(4U, len - i));
-
-[Severity: High]
-Does this code cause byte-order corruption on big-endian architectures?
-
-The readl() accessor implicitly performs CPU-to-little-endian byteswapping.
-When used with memcpy() to handle a byte stream, this byteswapping reverses
-the byte order within each 32-bit word on big-endian systems.
-
-Could stream accessors like readsl() or ioread32_rep() be used here
-instead to preserve memory byte order without endianness conversions?
-
-> +	}
-> +
-> +	return 0;
-> +}
-
-[ ... ]
-
-> +static int zx_spifc_write_fifo(struct zx_spifc *spifc, const u8 *buf,
-> +			       unsigned int len)
-> +{
-> +	unsigned int i =3D 0;
-> +	bool started =3D false;
-> +	u32 word;
-> +	int ret;
-> +
-> +	while (i < len) {
-> +		if (!(readl(spifc->base + SPIFC_FIFO_STATUS) &
-> +		      SPIFC_FIFO_TX_FREE)) {
-> +			if (!started) {
-> +				zx_spifc_start(spifc);
-> +				started =3D true;
-> +			}
-> +			ret =3D zx_spifc_wait_fifo(spifc, SPIFC_FIFO_TX_FREE);
-> +			if (ret)
-> +				return ret;
-> +		}
-> +		word =3D 0;
-> +		memcpy(&word, buf + i, min(4U, len - i));
-> +		writel(word, spifc->base + SPIFC_FIFO_DATA);
-
-[Severity: High]
-Similarly, does this writel() call reverse the byte order of the outgoing
-stream on big-endian systems?
-
-Could writesl() or iowrite32_rep() be used to avoid unintended
-byteswapping during flash writes?
-
-> +		i +=3D 4;
-> +	}
-> +
-> +	if (!started)
-> +		zx_spifc_start(spifc);
-> +
-> +	return 0;
-> +}
-
-[ ... ]
-
-> +static int zx_spifc_exec_op(struct spi_mem *mem, const struct spi_mem_op=
- *op)
-> +{
-> +	struct zx_spifc *spifc =3D spi_controller_get_devdata(mem->spi->control=
-ler);
-> +	void __iomem *base =3D spifc->base;
-> +	u32 fmt0 =3D 0, fmt1 =3D 0, val;
-> +	int ret;
-> +
-> +	ret =3D zx_spifc_set_speed(spifc, op->max_freq ?: mem->spi->max_speed_h=
-z);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (op->addr.nbytes) {
-> +		fmt0 |=3D SPIFC_FMT0_ADDR;
-> +		fmt1 |=3D FIELD_PREP(SPIFC_FMT1_ADDR_BYTES, op->addr.nbytes - 1);
-> +	}
-> +	if (op->dummy.nbytes) {
-> +		fmt0 |=3D SPIFC_FMT0_DUMMY;
-> +		fmt1 |=3D FIELD_PREP(SPIFC_FMT1_DUMMY_BYTES, op->dummy.nbytes);
-> +	}
-> +	if (op->data.nbytes) {
-> +		fmt0 |=3D op->data.dir =3D=3D SPI_MEM_DATA_IN ? SPIFC_FMT0_DATA_IN :
-> +							  SPIFC_FMT0_DATA_OUT;
-> +		fmt1 |=3D FIELD_PREP(SPIFC_FMT1_DATA_LINES,
-> +				   zx_spifc_lines(op->data.buswidth));
-> +	}
-> +
-> +	zx_spifc_ack(spifc);
-> +	writel(op->cmd.opcode, base + SPIFC_OPCODE);
-> +	writel(fmt0, base + SPIFC_FMT0);
+> +	/* Clear the previous command and its status */
+> +	writel(readl(base + ZX_MDIO_CMD) & ~ZX_MDIO_CMD_START,
+> +	       base + ZX_MDIO_CMD);
+> +	writel(0, base + ZX_MDIO_STATUS);
 
 [Severity: Medium]
-Does this code overwrite active controller registers while the hardware is
-still busy?
+If the ZX_MDIO_STATUS register uses Write-1-to-Clear (W1C) semantics for its
+status bits, will writing 0 have any effect?
 
-If a previous SPI operation times out, the hardware's busy flag might
-still be active. When zx_spifc_ack() is called, it observes the busy state
-and skips the acknowledge:
+If the DONE bit remains set, would the subsequent polling loop below
+immediately succeed and return without actually waiting for the hardware,
+potentially leading to corrupt reads or dropped writes?
 
-    static void zx_spifc_ack(struct zx_spifc *spifc)
-    {
-        u32 val =3D readl(spifc->base + SPIFC_ACK);
-        if (!(val & SPIFC_ACK_BUSY))
-            writel(val | SPIFC_ACK_DONE, spifc->base + SPIFC_ACK);
-    }
+> +
+> +	cmd =3D readl(base + ZX_MDIO_CMD);
+> +	cmd &=3D ~(ZX_MDIO_CMD_WR | ZX_MDIO_CMD_RD | ZX_MDIO_CMD_ADDR |
+> +		 ZX_MDIO_CMD_REG);
+> +	cmd |=3D op | FIELD_PREP(ZX_MDIO_CMD_ADDR, addr) |
+> +	       FIELD_PREP(ZX_MDIO_CMD_REG, regnum);
+> +
+> +	if (op =3D=3D ZX_MDIO_CMD_WR)
+> +		writel(data, base + ZX_MDIO_DATA_WR);
+> +	writel(cmd | ZX_MDIO_CMD_START, base + ZX_MDIO_CMD);
+> +
+> +	ret =3D readl_poll_timeout(base + ZX_MDIO_STATUS, val,
+> +				 val & ZX_MDIO_STATUS_DONE, ZX_MDIO_POLL_US,
+> +				 ZX_MDIO_TIMEOUT_US);
+> +	if (ret) {
+> +		dev_err_ratelimited(&bus->dev, "timeout (addr %d, reg %d)\n",
+> +				    addr, regnum);
+> +		return ret;
+> +	}
+> +
+> +	writel(0, base + ZX_MDIO_STATUS);
 
-However, execution immediately continues and unconditionally writes new
-configuration to SPIFC_OPCODE and SPIFC_FMT0. Modifying active controller
-registers while the hardware state machine is processing a previous
-transaction could lead to undefined behavior or bus lockups.
+[Severity: Medium]
+Similar to the above, does writing 0 properly clear the ZX_MDIO_STATUS_DONE
+bit here?
 
-Should the driver ensure the hardware is idle or properly reset before
-starting a new operation here?
+While we don't have access to the ZTE ZX279128S datasheet to confirm, other
+IPs on the same SoC (such as the SPI controller via zx_spifc_ack) use an
+explicit writel(val | SPIFC_ACK_DONE, ...) pattern rather than writing 0 to
+clear status bits.
 
-> +	writel(fmt1, base + SPIFC_FMT1);
-> +	writel(op->data.nbytes ? op->data.nbytes - 1 : 0, base + SPIFC_LEN);
-> +	writel(op->addr.nbytes ? op->addr.val : 0, base + SPIFC_ADDR);
+> +	writel(readl(base + ZX_MDIO_CMD) & ~ZX_MDIO_CMD_START,
+> +	       base + ZX_MDIO_CMD);
+> +
+> +	return 0;
+> +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261010130024.1775=
-03-1-ghahramani.navid@gmail.com?part=3D20
+03-1-ghahramani.navid@gmail.com?part=3D15
