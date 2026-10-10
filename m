@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 996833A6B6C
-	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 17:12:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3EF03955C6;
+	Sat, 10 Oct 2026 17:12:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791652355; cv=none; b=TDVbzWg1EXQcK9F/Qi6Yh638A3giYqIHIAlcBefqdmAp/+tJd+15vHirMl54/3Ne3HzBTGAN6wYDkkGlXXJLXk4VTX7vbKsMM+X365LlxXOuZBVOmnjjAB1r0A1q4OH9Qj6Qlcc7l50fnMiCyiGXDb8ffthDACvHTUuajyVLYe8=
+	t=1791652367; cv=none; b=owITvI4QBMSXHssMwQnmKkR+c/rs1fXO6xIA6E2gl1CAn1IrS55gvye/5qEioJtGR/TRCu1g+BdvP5GghYDEuq5TMTeGqEw99v5jLvfJtjVnUPAMTTotoLyVG2/35CIzkkbe85wI7EuVzyDr+GoGkdd38tpKTc6AMp9D/OjK6LM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791652355; c=relaxed/simple;
-	bh=UXZiBLRmmHqLBYPlNiCigu99pKWzJmkFsuG0BB/fd+U=;
+	s=arc-20240116; t=1791652367; c=relaxed/simple;
+	bh=+5H7yiIEi5Q8OLUtHlffSAEI6hXwBQ5sls6nR4QlOnU=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=H5ee2JpxzYuZck4Mt4AYjo5z2OlGEXdHvMJEeQFAXFudslIqMaIqKTmcIuYfTgLn8s0bZhZ48hzY+UvUGjIQT8rENVE64uRQ0eTmwtmMdFaF7UjBbqDHpeXiU5u87Xhc22NtMJ9x3jtuph34B+QoFn0hMkAKnZbXHzMPpKFarMA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kUHs6PED; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=l2WhngFEzj6l45j1967fkWxZnnZBvQQGVO1INogivFsmgC2U9uMNIXJ+oJ/R41D9NM/32RVut0+dT8UcjwobyrMNZCfv9Tkj9AbV58vE2MDW6hOIdsJ2zBW7N+oP7pYLMqxXzd6sWnUXjQiJYnNer/NjbgIe0vnSnWFMW753Yvk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fTIxu9Im; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kUHs6PED"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 324531F00893;
-	Sat, 10 Oct 2026 17:12:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fTIxu9Im"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 209EF1F000FF;
+	Sat, 10 Oct 2026 17:12:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791652354;
-	bh=h7ecmj00wQ0rYaVxlVBSfyRmSH0iNBnkx9wKteCVvek=;
+	s=k20260515; t=1791652365;
+	bh=zvAq8zd2quCIhs8nIAwwz5nsasE7YMQo5SRBtNa7Ztk=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kUHs6PEDST5T8yOlP9CEzc+K5O9fvIK4OOkwB1+ms1vYss4I4L7ck3+KV1bv+VNYJ
-	 Y7PYSg9+MOHR1L8bBr9zsoD99f4rTV9PRwnqAbCc7Xsie3tTBFZnFUQkXDK6G4sXYq
-	 mywX+C2T6LKwtr3RpJSKZWFba0EDVSW4sfAmFZsXT7TCYknE30WtLGNaFbmG6L905a
-	 kCpwwcZUmknIdjSnbDYklnN64nWo6yHCpwL84Y3uXKqNk3/eGxeHlTJVYaCOKMlRtQ
-	 EZstIfOSA1+4wl0Ohh994FCYGryF7ubjPvGaFbX2hg8hRJ/UjUSBUzlWnV7wjmVPNI
-	 +HttsgJszZvTw==
-Message-ID: <sashiko-outbox-166772@kernel.org>
+	b=fTIxu9ImZUS08UGL7lVhWQy5aHyHe/kCzqgIqcqCb6AZp0xLlEFIhqpHEO30f0LBP
+	 drVUBIal14SnpHn9duXchJc4ZDxxAlbvjyEDHCXm1gNtlQcSn3kp36mBE00ajqLfjL
+	 91Lds4niyxZfhvyaB5mf0czbxJNFlAs5cV1iDVCxp/LqgEf3ycfMzJn1FGw5vPUAmK
+	 SOm7OFzNG+yh7vGR3+PErJmsKfFrIftaaBmoaheLT4sgi1Lft/id8z/5XtzwytsGYn
+	 SyLh58E/uN1753I4Tdq3tsCbzn3YO3bERksZHtHIAUUDidRNmEuKRK6O5KDJc1y23v
+	 vpMgJtFyvEMuA==
+Message-ID: <sashiko-outbox-166773@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v9 08/11] onsemi: s2500: Add driver support for
- S2500 MAC-PHY
+Subject: Re: [PATCH 09/10] dt-bindings: arm: apple: Add M4 Pro/Max based
+ devices
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Selvamani Rajagopal" <Selvamani.Rajagopal@onsemi.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20261009-s2500-mac-phy-support-v9-8-dcefe1d0bf0d@onsemi.com>
-References: <20261009-s2500-mac-phy-support-v9-0-dcefe1d0bf0d@onsemi.com>
- <20261009-s2500-mac-phy-support-v9-8-dcefe1d0bf0d@onsemi.com>
+To: "Yureka Lilian" <yureka@cyberchaos.dev>
+Cc: linux-watchdog@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org
+In-Reply-To: <20261010-apple-m4-pro-max-initial-devicetrees-v1-9-781fb3f2d9f6@cyberchaos.dev>
+References: <20261010-apple-m4-pro-max-initial-devicetrees-v1-0-781fb3f2d9f6@cyberchaos.dev>
+ <20261010-apple-m4-pro-max-initial-devicetrees-v1-9-781fb3f2d9f6@cyberchaos.dev>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 10 Oct 2026 17:12:33 +0000
+Date: Sat, 10 Oct 2026 17:12:44 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,77 +47,76 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] net: ptp: max_adj exceeds 32-bit scaled_ppm limit
-- [Low] net: ethtool: duplication of standard rx_dropped stat
+- [Low] dt-bindings: missing blank line before M4 Pro/Max list in descripti=
+on
+- [Low] dt-bindings: orphaned t6050-aic3 compatible in aic2 schema
 --
 
-commit 00c8e30757f8b1220a6ef1275c224d8bbca5148c
-Author: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
+commit fae2108ff5a60b40ae253b364d3bc3ad16bac012
+Author: Yureka Lilian <yureka@cyberchaos.dev>
 
-    onsemi: s2500: Add driver support for S2500 MAC-PHY
-   =20
-    Support for onsemi's S2500, 802.3 cg compliant Ethernet transceiver with
-    integrated MAC-PHY.
+dt-bindings: arm: apple: Add M4 Pro/Max based devices
 
-diff --git a/drivers/net/ethernet/onsemi/s2500/s2500_ethtool.c b/drivers/ne=
-t/ethernet/onsemi/s2500/s2500_ethtool.c
---- /dev/null
-+++ b/drivers/net/ethernet/onsemi/s2500/s2500_ethtool.c
-[ ... ]
-> +static const char s2500_mac_stat_strings[][ETH_GSTRING_LEN] =3D {
-> +	"rx_mismatch_drops",
-> +};
-> +
-> +static const u8 s2500_mac_stat_map[S2500_NUM_MAC_STATS] =3D {
-> +	S2500_MSTRXDROPPED_IDX,
-> +};
+This commit adds device tree compatibles for the M4 Pro and M4 Max
+based MacBook Pro, Mac mini, and Mac Studio devices. It updates the
+top-level device listing and defines the required matching properties
+for these platforms.
+
+> diff --git a/Documentation/devicetree/bindings/arm/apple.yaml b/Documenta=
+tion/devicetree/bindings/arm/apple.yaml
+> --- a/Documentation/devicetree/bindings/arm/apple.yaml
+> +++ b/Documentation/devicetree/bindings/arm/apple.yaml
+> @@ -144,6 +144,14 @@ description: |
+>    - MacBook Pro (16-inch, M3 Max, 2023)
+>    - Mac Studio (M3 Ultra, 2025)
+> =20
+> +  Devices based on the "M4 Pro" and "M4 Max" SoCs:
 
 [Severity: Low]
-Does this regression duplicate a standard uAPI statistic? The network core
-guidelines indicate that counters with standard representations must not be
-exposed as private ethtool -S strings. Since there is a standard representa=
-tion
-for dropped frames, could this private string be removed to avoid duplicati=
-on?
+Is there a missing blank line before this heading?
+
+Most prior generation entries in this description block separate the
+generation heading and device list with a blank line for readability.
+Adding a blank line before this heading would keep the text formatting
+consistent.
+
+> +  - MacBook Pro (14-inch, M4 Pro, 2024)
+> +  - MacBook Pro (14-inch, M4 Max, 2024)
 
 [ ... ]
-diff --git a/drivers/net/ethernet/onsemi/s2500/s2500_hw_def.h b/drivers/net=
-/ethernet/onsemi/s2500/s2500_hw_def.h
---- /dev/null
-+++ b/drivers/net/ethernet/onsemi/s2500/s2500_hw_def.h
-[ ... ]
-> +/* Frequency adjust magnitude, 1 LSB =3D 0.000125 ppm =3D 1/8 ppb */
-> +#define S2500_PTP_ADJ_MAX		GENMASK(27, 0)
-> +#define S2500_PTP_MAX_ADJ_PPB		(S2500_PTP_ADJ_MAX / 8)
-[ ... ]
-diff --git a/drivers/net/ethernet/onsemi/s2500/s2500_ptp.c b/drivers/net/et=
-hernet/onsemi/s2500/s2500_ptp.c
---- /dev/null
-+++ b/drivers/net/ethernet/onsemi/s2500/s2500_ptp.c
-[ ... ]
-> +int s2500_ptp_register(struct s2500_info *priv)
-> +{
-> +	struct ptp_clock_info *info =3D &priv->ptp_clock_info;
-> +	int ret;
-> +
-> +	info->max_adj =3D S2500_PTP_MAX_ADJ_PPB;
 
-[Severity: Medium]
-Will this regression cause the max_adj value to overflow on 32-bit
-architectures? The driver advertises a max_adj of 268435455 / 8 =3D 33,554,=
-431
-PPB. The PTP subsystem converts PPB to scaled_ppm by multiplying by 65.536 =
-and
-passes the result as a signed long to the driver's adjfine callback.
+> diff --git a/Documentation/devicetree/bindings/interrupt-controller/apple=
+,aic2.yaml b/Documentation/devicetree/bindings/interrupt-controller/apple,a=
+ic2.yaml
+> --- a/Documentation/devicetree/bindings/interrupt-controller/apple,aic2.y=
+aml
+> +++ b/Documentation/devicetree/bindings/interrupt-controller/apple,aic2.y=
+aml
+> @@ -134,6 +136,7 @@ allOf:
+>                - apple,t6000-aic
+>                - apple,t6020-aic
+>                - apple,t6031-aic3
+> +              - apple,t6050-aic3
+>      then:
+>        properties:
 
-On 32-bit architectures, 33554431 * 65.536 =3D 2199023243, which exceeds the
-32-bit signed long maximum of 2147483647.
+[Severity: Low]
+Does this compatible string also need to be in the top-level enum list?
 
-Could this mathematical wrap-around directly cause large positive frequency
-adjustments to be passed as negative values into s2500_ptp_adjfine(), drivi=
-ng
-severe clock drift in the opposite direction?
+This compatible string was added to the conditional block here in an earlier
+commit in this series, but it appears to be completely missing from the
+top-level properties:compatible enum definition.
+
+Any device tree attempting to use apple,t6050-aic3 will fail schema
+validation at the top-level compatible check, which makes this condition
+effectively dead code.
+
+While t6041-aic3 correctly uses 3 interrupt cells and does not belong in th=
+is
+4-cell branch, the apple,t6050-aic3 string added here has no matching
+top-level enum. Should it be added to the top-level list, or was this string
+included here by mistake?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009-s2500-mac-=
-phy-support-v9-0-dcefe1d0bf0d@onsemi.com?part=3D8
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261010-apple-m4-p=
+ro-max-initial-devicetrees-v1-0-781fb3f2d9f6@cyberchaos.dev?part=3D9
