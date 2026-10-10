@@ -1,106 +1,110 @@
-Received: from mail.cyberchaos.dev (mail.cyberchaos.dev [195.39.247.168])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43F6D3BE633;
-	Sat, 10 Oct 2026 17:11:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.39.247.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C0A1298CAB
+	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 17:12:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791652306; cv=none; b=hGoWoK+sypHPuE+6ENXwmEPzjTpxaHGkoIXHj6k5l2WsELax1s1JVuiyo1d+Npws+lI0QgnmLijWmsMzcfYYepJB6rG84vZ+SeijbN8ATHQei1S20uMewUqMo3Pob4wJuskiaU5JLHs5v3zN24Mge1CVUZy7iseTVahrvEb+DEM=
+	t=1791652351; cv=none; b=Tq61TYqBfOUHo3Tq1N4oBoNf0t0bdD8D3hvNlp5apNSQyEtUKA4Fu0o3+DkRCEbFOwMWq+CIA9XE0fMlq9F/LcSq3jZL1NafvyrIaTOc1IEibBbaAMoKxwbUYHvFhIgvp4ydK2RnrvyLd+m68B31HMQIziGSUxF+MJbQK7u04KE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791652306; c=relaxed/simple;
-	bh=8QGjyTRLdTBhk4Iz3QJMepcprxh+1GRSW1VXMEPmScI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Qm21V41UiYvBj6cpoPrAVferpgOR+JPVPkMPP5nUAW11zxxwVZbO9i+e7cV2E0v7/AEpYINhNBdfNC7lwk7JBgPFsQGVZVVE2WHRUZz+eZj1CWdJgT95g2f/9cchT4C2zX4GvTXnDX2gsy0BnTlQf7zwrqjx+Q5kjTD36DKPlxU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev; spf=pass smtp.mailfrom=cyberchaos.dev; dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b=maHCfN9r; arc=none smtp.client-ip=195.39.247.168
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cyberchaos.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cyberchaos.dev
+	s=arc-20240116; t=1791652351; c=relaxed/simple;
+	bh=eOmQjlZnBfTJ/VvMmrrzWZLHMz+hm52zGL9wVFt1bU4=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=jT8+IqQig1SwzecbM/Unf6H0IIKKop02tzX9Qa0pKqeNKMLNP5Q9+Q74Dv4fMdyq2UP4OlN0D/toLzrb1XlHnjAiFKF1qu9yFPckESUlKDkwN/IEjESpm9cvaxi+RWDTRJWB4g/yGoYLeSvdGUqR6vSDG9KTGTQECuLJqxRGy0U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZPn19Laj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cyberchaos.dev header.i=@cyberchaos.dev header.b="maHCfN9r"
-Message-ID: <119cdaf0-e631-4d33-a7a1-85d10b87d78f@cyberchaos.dev>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cyberchaos.dev;
-	s=mail; t=1791652303;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=F5fZ9xMeWb13PFHx7PqGpTj4Gd+/TFWRgOl7WsIogwE=;
-	b=maHCfN9rFLAqX/oqjbAa8JPK8g5ikCzI3UD1ufj0d5LNm5EzndRpozUExeYoxkTEYtsYNu
-	Em7JvCyAm+KFKzUfeT5DtkovgSo+XLSmbvoO54148bxTtYAaH2LWNVg6l9oN3Midef0bpr
-	vrj2HAVqxD3XrtMVYnuC+SFZFwVHU6g=
-Date: Sat, 10 Oct 2026 19:11:39 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZPn19Laj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5201F1F000FF;
+	Sat, 10 Oct 2026 17:12:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791652350;
+	bh=kCQLnVsvYI68ReCqcx7SPR8Gf11byMiNdTGSzrqVSOY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZPn19LajwdGA8qJHCrLlxsnkSGEGIMLMbj4CjnlGXkZ3HBa5QUy3nU5d2thCLN2qj
+	 EDEj3NBfMl6Dt3HqRo9eUDw0XUzDWhWyDT9J1OrwBC6/tlPzbI3hhYipW/VaqNfta8
+	 xJF65dDFoJx126bLk1+Jm86/Z1oQzg7Bi2E2/sIbV0oeoa3cPHArD5/m9nXs2Z/tuV
+	 fjTit06OnPnrZOWf2TdjgxMTdO+mG/fNrEOwDnmav6X4X4iDGS03CBwOn5yNfytwIl
+	 bdmXu5BS5+x0dY+Qhs7lo8ArqHJGHto27A7VH8cszx5f+YBwHFzJuSvXwfRBYpVuSt
+	 wXnmDzCkMmPMA==
+Message-ID: <sashiko-outbox-166764@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net-next v9 04/11] net: ethernet: oa_tc6: Move constant
+ definitions to header file
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Selvamani Rajagopal" <Selvamani.Rajagopal@onsemi.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20261009-s2500-mac-phy-support-v9-4-dcefe1d0bf0d@onsemi.com>
+References: <20261009-s2500-mac-phy-support-v9-0-dcefe1d0bf0d@onsemi.com>
+ <20261009-s2500-mac-phy-support-v9-4-dcefe1d0bf0d@onsemi.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 10 Oct 2026 17:12:28 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Subject: Re: [PATCH 02/10] dt-bindings: interrupt-controller: apple,aic2: Add
- t6041 compatible
-To: Yureka Lilian <yureka@cyberchaos.dev>, Sven Peter <sven@kernel.org>,
- Janne Grunau <j@jannau.net>, Neal Gompa <neal@gompa.dev>,
- Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck
- <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
- Radu Rendec <radu@rendec.net>, Lorenzo Pieralisi <lpieralisi@kernel.org>,
- Hector Martin <marcan@marcan.st>, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
- <ukleinek@kernel.org>, Sasha Finkelstein <k@chaosmail.tech>,
- Linus Walleij <linusw@kernel.org>, Mark Kettenis <kettenis@openbsd.org>,
- Andi Shyti <andi.shyti@kernel.org>
-Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-pwm@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-i2c@vger.kernel.org
-References: <20261010-apple-m4-pro-max-initial-devicetrees-v1-0-781fb3f2d9f6@cyberchaos.dev>
- <20261010-apple-m4-pro-max-initial-devicetrees-v1-2-781fb3f2d9f6@cyberchaos.dev>
-Content-Language: en-US
-From: Yureka Lilian <yureka@cyberchaos.dev>
-In-Reply-To: <20261010-apple-m4-pro-max-initial-devicetrees-v1-2-781fb3f2d9f6@cyberchaos.dev>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 10/10/26 18:59, Yureka Lilian wrote:
-> The Apple t604x (M4 Pro/Max) SoCs use an AIC3 as interrupt controller,
-> same as the previous M3-M4 SoCs.
->
-> Acked-by: Rob Herring (Arm) <robh@kernel.org>
-> Reviewed-by: Sven Peter <sven@kernel.org>
-> Signed-off-by: Yureka Lilian <yureka@cyberchaos.dev>
-> ---
->   Documentation/devicetree/bindings/interrupt-controller/apple,aic2.yaml | 3 +++
->   1 file changed, 3 insertions(+)
->
-> diff --git a/Documentation/devicetree/bindings/interrupt-controller/apple,aic2.yaml b/Documentation/devicetree/bindings/interrupt-controller/apple,aic2.yaml
-> index e3cadc5ad39d..fa9d89cb40b1 100644
-> --- a/Documentation/devicetree/bindings/interrupt-controller/apple,aic2.yaml
-> +++ b/Documentation/devicetree/bindings/interrupt-controller/apple,aic2.yaml
-> @@ -37,6 +37,7 @@ properties:
->       oneOf:
->         - items:
->             - enum:
-> +              # Do not add additional SoC to this list.
->                 - apple,t6000-aic
->                 - apple,t6020-aic
->                 - apple,t8112-aic
-> @@ -45,6 +46,7 @@ properties:
->             - enum:
->                 - apple,t6030-aic3
->                 - apple,t6031-aic3
-> +              - apple,t6041-aic3
->                 - apple,t8132-aic3
->                 - apple,t8140-aic3
->             - const: apple,t8122-aic3
-> @@ -134,6 +136,7 @@ allOf:
->                 - apple,t6000-aic
->                 - apple,t6020-aic
->                 - apple,t6031-aic3
-> +              - apple,t6050-aic3
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] oa_tc6: oa_tc6_std_def.h is not self-contained
+--
 
-As noted by Sashiko, this hunk does not belong in this commit. However, 
-apple,t6041-aic3 is intentionally not listed here, as there are no 
-multi-die t604x SoCs.
+commit dc8b82e8ffa11bb2c910dd9a4dd8439a0dd981ef
+Author: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
 
->       then:
->         properties:
->           '#interrupt-cells':
->
+net: ethernet: oa_tc6: Move constant definitions to header file
+
+To help other source files within the module share the constant definitions,
+some of the definitions from oa_tc6.c are moved to a header file. This head=
+er
+file is still private to OA TC6 framework.
+
+> diff --git a/drivers/net/ethernet/oa_tc6/oa_tc6_std_def.h b/drivers/net/e=
+thernet/oa_tc6/oa_tc6_std_def.h
+> new file mode 100644
+> index 0000000000000..403a9c22b5f14
+> --- /dev/null
+> +++ b/drivers/net/ethernet/oa_tc6/oa_tc6_std_def.h
+> @@ -0,0 +1,125 @@
+> +/* SPDX-License-Identifier: GPL-2.0+ */
+[ ... ]
+> +#include <linux/ptp_clock_kernel.h>
+> +#include <linux/net_tstamp.h>
+> +#include <linux/netdevice.h>
+> +#include <linux/spi/spi.h>
+> +#include <linux/skbuff.h>
+> +#include <linux/sched.h>
+> +#include <linux/wait.h>
+> +#include <linux/phy.h>
+> +
+> +/* Control command header */
+> +#define OA_TC6_CTRL_HEADER_DATA_NOT_CTRL	BIT(31)
+
+[Severity: Low]
+Does this header need to include <linux/bits.h>?
+
+It looks like the BIT and GENMASK macros are used here, but the required
+header is not explicitly included.
+
+[ ... ]
+> +/* Internal structure for MAC-PHY drivers */
+> +struct oa_tc6 {
+[ ... ]
+> +	bool int_flag;
+> +	bool disable_traffic;
+> +	bool prot_ctrl;
+> +	enum oa_tc6_quirk_flag quirk_flags;
+
+[Severity: Low]
+Should this header also include <linux/oa_tc6.h>?
+
+It appears the full definition of enum oa_tc6_quirk_flag is required here
+to determine the size of struct oa_tc6.
+
+Could this missing dependency cause compilation errors if other C files
+include this header without first including <linux/oa_tc6.h>?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009-s2500-mac-=
+phy-support-v9-0-dcefe1d0bf0d@onsemi.com?part=3D4
