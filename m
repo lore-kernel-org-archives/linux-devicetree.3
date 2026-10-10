@@ -1,92 +1,137 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B33331D5CFE
-	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 00:48:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 741E01DB95E;
+	Sat, 10 Oct 2026 01:37:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791593333; cv=none; b=TV5495B3iMuEbwPEE+f+XNXA9q5ZVtHjg/hXJV35w8B+OyRr4T1qYCOLsQZdtU23xsPJS0hddI2kHk7zwR6Al4aa2+qLdH7/AFQqTBPkcrXGvakZo7CQkezNHbQbnMItK+sz7rpLg6by+UR2Kbm1NFvMO1rcbLCwusQPDqEXIS4=
+	t=1791596278; cv=none; b=n9Nb5rcr1LE3a8lH/EHMLVgRIJ8ex1eylD3Arub7uOsg+anVqeM/o83kf3J7hg9kVMcntJ5w44/WiVgeIF1KleZms2ubTkS+OCQHLSLnzM81kJqcD5EMEk9YizRYJZZ+/rDjG/Vmcqb1/wIKoIkMsAyf1HXlp8YbwNmqzpeLNnM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791593333; c=relaxed/simple;
-	bh=ebpVnBIy+hnWB+VFuK747CkuGRFENohpUlisQzcondY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=n4nzmNvEMgKvaIpE3pYS26SD9ITaxUP/HJcBhbxLAgb9dH/4dpUmQWx8Lpw0366u7OkJNsewL8YnSaqbLZYY163kvkXR1J0kJbaoHPuBvnpmkBwEw+kNdViUH31DYZn2vDh5CineouoVKwZkJnBfHHRPzc8ByIcHcRn01tQBmR8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=ENOs0Vmk; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791596278; c=relaxed/simple;
+	bh=TnI2qyglFEvUhnqtMG9SAop4rziNGML2SJ/uwtQ4YWY=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=qcyIY03CkX7gvLsf89CBYvwwoKf8GYWbXdLdvo+LQAgTtce1lvKm0C8X+5V+JvkQq3aGcqkGmZrYa+LInXOGXes1BO2reK5N2HQKCiyWHiJt+P8jsXvjO7WNl0ivq3bRXtIKciSZ5hIi/BMEVgW2FlxmkFQ+3ZIzDNLRqorJTyg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PCzvBhHv; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="ENOs0Vmk"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=fa
-	ux+tZRy2uLgA5HLcPYxm69xVVfboZqhcLtg+UrKKg=; b=ENOs0Vmk1B/ken0OCU
-	pfjunLvqDfqb6QTDtEx1JS390GvkjHMHM7ZSeQ/U6JTPncV4N2H38Vp+HVVfxxpp
-	hDjj8Rw+pOJzL12S0hbbay7AApUOmNskK9J+qew6QFu8tWX9e4YXp4cZCWv9cI0W
-	J3bpqrTo0Jj0yok8pe42GKLfw=
-Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
-	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wC3D3Rdi8lqW_JnDQ--.22135S2;
-	Sat, 10 Oct 2026 08:48:30 +0800 (CST)
-From: Quchaosheng <quchaosheng000406@163.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Conor Dooley <conor@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: display: ti,tpd12s015: Convert to DT schema
-Date: Sat, 10 Oct 2026 08:48:30 +0800
-Message-ID: <20261010004830.36014-1-quchaosheng000406@163.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261009144434.GD622105@killaraus.ideasonboard.com>
-References: <20261009144434.GD622105@killaraus.ideasonboard.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PCzvBhHv"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 18A92C2BCF7;
+	Sat, 10 Oct 2026 01:37:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791596278;
+	bh=TnI2qyglFEvUhnqtMG9SAop4rziNGML2SJ/uwtQ4YWY=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=PCzvBhHvT3kMpq0OtjjeWPo6n0UaqJH1Jr2u68+vEjoI7eQwc0sLCV69pirxxsdIK
+	 ttfrBCyVmvsyOv90/hJ88Q1db6POVAAjuc3eUnb04AH/AujjVyf3NHq+VSv77SKc0o
+	 mVsHTXl8DVtlIZNUQjmdNIujBhiNh8lLewpFoSYZuyEQmh+WMBwUPkwV4PFlYvhq1F
+	 XlEKYMS4bDTPRQDig0IkgRK+rc/quJEMZUg8fZSpLhk8XNHTISwS3LTAAPz4Ly0a40
+	 TamM/zc+R2DYkk5OdjwMdjp0ykMsgeBhJyDJ2WbLQ4l1XQXFFqbrmY9MsRWOw298Fy
+	 IwGwK3UwN4PeA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id ED56FCA9EC0;
+	Sat, 10 Oct 2026 01:37:57 +0000 (UTC)
+From: Amit Sunil Dhamne via B4 Relay <devnull+amitsd.google.com@kernel.org>
+Date: Sat, 10 Oct 2026 01:37:37 +0000
+Subject: [PATCH v2 1/2] dt-bindings: connector: Add time property for
+ tSenderResponse
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wC3D3Rdi8lqW_JnDQ--.22135S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7tw47GrWfGw4UJw43Xw1kXwb_yoW8WFW8pF
-	Zxtw17K3yDJrW2k3ykAF4UWas5Aw43CFW2qrn0yrW5A3y5tayjgr9rt3yFq3Wa9rWkWryq
-	9ay0ka4kZ398Z3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRd9N-UUUUU=
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC-x4HfGrJi16qTgAA3I
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261010-tcpm-sender-response-time-v2-1-67ea364a21d7@google.com>
+References: <20261010-tcpm-sender-response-time-v2-0-67ea364a21d7@google.com>
+In-Reply-To: <20261010-tcpm-sender-response-time-v2-0-67ea364a21d7@google.com>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Badhri Jagan Sridharan <badhri@google.com>, 
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-usb@vger.kernel.org, RD Babiera <rdbabiera@google.com>, 
+ Kyle Tso <kyletso@google.com>, Amit Sunil Dhamne <amitsd@google.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791596277; l=3123;
+ i=amitsd@google.com; s=20241031; h=from:subject:message-id;
+ bh=FL1PG6Q8jNcDKHxKV05v81lJ0z959GjQmYchXFifxbA=;
+ b=JkSV9DUT2Ao6dhQnVTsmooSFEYzmlk6TZ05+S26KNp+VchDzCNfPsdjek40eTiHK3srSNHl9F
+ PGIrFhfMlfbAgzyJGL2IgEAFvzL4LtyctvnRNvYMMftOKbF5rlZBdZy
+X-Developer-Key: i=amitsd@google.com; a=ed25519;
+ pk=wD+XZSST4dmnNZf62/lqJpLm7fiyT8iv462zmQ3H6bI=
+X-Endpoint-Received: by B4 Relay for amitsd@google.com/20241031 with
+ auth_id=262
+X-Original-From: Amit Sunil Dhamne <amitsd@google.com>
+Reply-To: amitsd@google.com
 
-Hello,
+From: Amit Sunil Dhamne <amitsd@google.com>
 
-The v5 I am about to send is not a re-send, and I would rather explain
-the two things you both raised before it lands, because both are fair.
+Add the sender-response-time-ms property to allow platforms to specify
+the tSenderResponse timer value, i.e. the max time a port waits for the
+port partner to respond to a message that requires a response.
 
-On the flooding: the v1..v4 postings on 2026-10-09 went out within ten
-minutes with no version number in the subject. That was not four
-revisions, it was one revision sent four times by a bug in my sending
-script. It had no record of what it had already sent, so each invocation
-sent the whole queue again. It now hashes each group and refuses to send
-the same content twice. Sorry for the noise.
+As per the PD specifications, the tSenderResponse values are:
 
-Rob, on the schema points, both are fixed in v5 and both were my
-mistakes:
++--------+----------+----------+
+| Spec   | Min (ms) | Max (ms) |
++--------+----------+----------+
+| PD 2.0 | 24       | 30       |
+| PD 3.2 | 27       | 33       |
++--------+----------+----------+
 
-  - the gpios property is back to "maxItems: 3" alone. I had added
-    "minItems: 3" and a required entry because sashiko flagged it, but
-    as you said, dt-schema makes the two bounds equal when only one is
-    given, so maxItems: 3 already means exactly three. Adding minItems
-    was wrong and I have reverted it.
+Set the minimum value to 24 ms (the lowest minimum across the PD
+specifications). Both the default and maximum values are intentionally
+relaxed to 60 ms to maintain interoperability with slower port partners,
+while allowing platforms to configure stricter spec-compliant timeouts.
 
-  - the two ports now reference "/schemas/graph.yaml#/properties/port"
-    with the unevaluatedProperties lines dropped.
+Also update the max33359 example to showcase the new property.
 
-Laurent, on the wider point, that one-at-a-time LLM conversions cost
-more review time than they return: I agree, and this series is the last
-one I send on its own. The remaining text-binding conversions I have
-queued are all device tree, so I will send them as one group, per
-subsystem as Conor suggested, so that the same class of mistake is
-reviewed once instead of fifteen times.
+Assisted-by: LLM
+Signed-off-by: Amit Sunil Dhamne <amitsd@google.com>
+Reviewed-by: Badhri Jagan Sridharan <badhri@google.com>
+---
+ .../devicetree/bindings/connector/usb-connector.yaml         | 12 ++++++++++++
+ Documentation/devicetree/bindings/usb/maxim,max33359.yaml    |  1 +
+ 2 files changed, 13 insertions(+)
 
-If the view is that this conversion should not be carried at all -
-Eduard Bostina posted the same conversion on 2026-07-30,
-<20260730092245.52034-1-egbostina@gmail.com> - say so and I will drop
-mine rather than add another one.
+diff --git a/Documentation/devicetree/bindings/connector/usb-connector.yaml b/Documentation/devicetree/bindings/connector/usb-connector.yaml
+index 8ca0292490a2c..272181e375694 100644
+--- a/Documentation/devicetree/bindings/connector/usb-connector.yaml
++++ b/Documentation/devicetree/bindings/connector/usb-connector.yaml
+@@ -283,6 +283,18 @@ properties:
+     maximum: 200
+     default: 200
+ 
++  sender-response-time-ms:
++    description: Represents the max time in ms that a Type-C port waits for
++      the port partner to respond to a message that requires a response. This
++      timer starts when the port's PHY layer receives the last bit of the
++      GoodCRC EOP corresponding to the message requiring a response. This timer
++      stops when the last bit of the EOP of the expected response message is
++      received by the PHY layer. A timeout leads to a soft or hard reset by the
++      port.
++    minimum: 24
++    maximum: 60
++    default: 60
++
+   sink-bc12-completion-time-ms:
+     description: Represents the max time in ms that a port in sink role takes
+       to complete Battery Charger (BC1.2) Detection. BC1.2 detection is a
+diff --git a/Documentation/devicetree/bindings/usb/maxim,max33359.yaml b/Documentation/devicetree/bindings/usb/maxim,max33359.yaml
+index 003c0b7130688..61d8fc6607032 100644
+--- a/Documentation/devicetree/bindings/usb/maxim,max33359.yaml
++++ b/Documentation/devicetree/bindings/usb/maxim,max33359.yaml
+@@ -78,6 +78,7 @@ examples:
+                                        PDO_FIXED_DUAL_ROLE)
+                                        PDO_FIXED(9000, 2000, 0)>;
+                 sink-bc12-completion-time-ms = <500>;
++                sender-response-time-ms = <29>;
+                 pd-revision = /bits/ 8 <0x03 0x01 0x01 0x08>;
+                 sink-load-step = <150>;
+                 sink-load-characteristics = /bits/ 16 <SINK_LOAD_CHAR(0, 1, 1, 2)>;
 
---
-Chaosheng Qu
+-- 
+2.56.0.385.gd3acb90ef8-goog
+
 
