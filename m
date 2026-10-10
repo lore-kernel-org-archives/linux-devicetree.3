@@ -1,148 +1,129 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f47.google.com (mail-yx1-f47.google.com [74.125.224.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC41E32142B;
-	Sat, 10 Oct 2026 21:53:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791669183; cv=none; b=E13Yo0VmuYfLsnxSd2V22vZ+vksf95WiujC44qlmOfgQGvhNAheXJNjKIUx+qforO+t6GNtUr7yTbWJOPDybpwvG69qsMtLMH6H0513rCFyHgm697rbfd0SCgFfUNZzAUvHFVns4QKgecg3PJ7SdCPpwfTGJ+9F+Xo6iSflSG04=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791669183; c=relaxed/simple;
-	bh=SB4ZAuEiQKRXeywG/ez21/G2gN88L39KmM6wGar9fao=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=qW9oEfnUEojdH9l7z8y7+nvxxTiP46YfPI7apFYHxc9v+cQXEHwPbAiqQx7lcZ5vCYfhqzZWewbP2hwcCBMlwcxerFaau6kqYtIHWiqab75SdKIybf3/YveoJ0WOMS6DIIDKmr0Okw8jMfUwJnSAxhS39O154y1qyNXU9ku+4YY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EprNz6NO; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AC1D33F394
+	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 22:00:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791669653; cv=pass; b=fhcluy1gBJ+bW1ktw4tJt6YTchz4SXFEHhqBEmyFoOmoUnlW0bdWE6Z3y82y8PwiEY8Q3SjcY+29sNzcmtW3qb1Z974aQDbkUI7KK/9NSdy89EImUgw0LfkHG2JiwwfMUwGb6tvp6ZRAwTJTc5R7pia9fb9OHKkcTbVn6WABUsU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791669653; c=relaxed/simple;
+	bh=VsLa3yNmPbqAsvOEv+girJFBtwqO7wp3UAIL92BqneU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=hYNIjx9KWzThH8uo7qORl5vU8xKnixrMd/+m3IyK2oGpJKA1ltXdKvZwnvNBYxAlPVHPKpe5BIu1mJqtqUE1SgCAJX3gAuRyu7imrRDK/4sOsFCxrWsxdfrjZMNK97tpmvQkHzxukvfPgkHM/Zi4af/Z1JhwwDkg4QU4s4uPkSM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=Z+P3lxY2; arc=pass smtp.client-ip=74.125.224.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EprNz6NO"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 6C1FCC2BCB9;
-	Sat, 10 Oct 2026 21:53:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791669183;
-	bh=SB4ZAuEiQKRXeywG/ez21/G2gN88L39KmM6wGar9fao=;
-	h=From:Date:Subject:To:Cc:Reply-To:From;
-	b=EprNz6NOKutoSUawMRz+SITbTbEiRm31R1ihhg3H2XwxlDF3CKXwoTz2NbX/K3XTV
-	 XG7gUu2kelfn5BuJ8NK15TrfBgatr730n7+7xmAqjiteYB5yrmQWYcZsaKLGGl1Fl+
-	 1vfLhGAuJwoAtTlJh4I4JBMlxszOn0A155T926lQh7IdzAKBLNCHivxs7AxVhEIJwv
-	 5MpbEJx1+UuxyRBMYXoHRRzuFSWXu4uId1I+AMSPr+WGf2kEnhQ3htbvfRX0wlD6gP
-	 cZwyT8qfg5vIcp0KS/AKE2G5VQVjZobxWdahsgBuuC/013flJbvRk4Tzl5zPeo4WbZ
-	 SUMy/ebzYm0DA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 5B2ADCA9ECA;
-	Sat, 10 Oct 2026 21:53:03 +0000 (UTC)
-From: Igor Velkov via B4 Relay <devnull+iav.iav.lv@kernel.org>
-Date: Sun, 11 Oct 2026 00:53:01 +0300
-Subject: [PATCH] arm64: dts: rockchip: Add the GPU to Kobol Helios64
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="Z+P3lxY2"
+Received: by mail-yx1-f47.google.com with SMTP id 956f58d0204a3-677dbe051d4so647119d50.0
+        for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 15:00:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791669651; cv=none;
+        d=google.com; s=arc-20260327;
+        b=lZyEQuInos408pRL8AtXoXMl0Yj4V2bZrKEajUGw9twIlDVXez44aztFCYWmqN7jdT
+         SObAdgNzs0RcseCcXfvIX+OE8/u5l4JJpJTllHzRKW0IJmqaE7xqon5zcpMuIZSC/f3b
+         22WQhOQv8fGuM7YFPxlH01TC/6u3ufGleEmyzsOcOgaJ7FRhvAReZZ4AIEYrXaQboeq9
+         VQT7FuABHA4Hb5BSWeBliEsSQ56AMcKCvg36kgLDsuCZegfrIPT00tx5Fz3ODhnHHSlB
+         jW3jTSkh0uJXclA070bUvHi4z9TrJ6K/DymzXVPGrkZQJJGcbvKcw28KlVoWSgOMae4V
+         rRiA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=viEI3bB6GOdsd4kqZvlb/IfnNxfAW1h37zzw5ogvS/U=;
+        fh=qN8mRw1ijOmlNPibHTcP0deTLmuPAK9sBo5m7tXFs6Y=;
+        b=AesXe0YJ2wHLs7/BoYr+sdAhU64TKiGGf1at8BfZRcYb7H79NM0l333/vgIMrEKXD5
+         QPj+e1eCplQMybmXbgMUnb7OYhCYPTwRuBy0vG1ydbBXUoXyxVmm1wcTRNLR2vJGJZ00
+         114jzmi44V+3aOmIfTDAVT3S7G9Tygvn8lduOHnEKUD4S+R/e5ISgr4nqnc3kNCVda+O
+         iUqlI99qG99hX0iQLzBdJ2rnC4yFn7qqjUIfSuIUo1aitsEgbYdP3zA2oRSFyhAG4V3K
+         qSPN75EY0ooVvnUlfD+86wcSAnw23ou3jl/6FYfB/PsAV3Ug65YxEXTu8DIZjoNBy01e
+         nqBw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20251104; t=1791669651; x=1792274451; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=viEI3bB6GOdsd4kqZvlb/IfnNxfAW1h37zzw5ogvS/U=;
+        b=Z+P3lxY2zcf3Kb5thIym1/9pShU4pcsu19c2lYcYTIM4vhCVFK51rQVCb7734VU41k
+         dqI+fbGue/8Cucl8f9uyXI/zYAaAJ4Fv2gm5rFFrCsQOhLi5VOF1Eow9TdguabLJmH8h
+         brz9+JrfAF4RkW0hKjsku/7aCEZUpRN9iON6kmJX2PCVFWv662FKwFkAirHlwxLrser/
+         xGyaQ+GHPIyhCTSzVa2cLL8pmlcM/ulykrmnT/OiyOXfJFJVXr0AgpU4ybSVQ+b9R7IR
+         YkUg/AyxCu6sFxqOKZE+3HrmYiscDx+dDICnmpJ6YoFm+ElDyi3gOTlwPFat5FeCBNa8
+         8PBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791669651; x=1792274451;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=viEI3bB6GOdsd4kqZvlb/IfnNxfAW1h37zzw5ogvS/U=;
+        b=wAEYT4l10EKqTey/xA7Er9nVQhny1GbDhM0UUUlTFkNayVcbJ6aIUDri7FSISJazJD
+         IDV/4YOhrOZPAQX+S50oh8z6rC0okKbKGM3U99PBQ77s6csRr3qoEEn2GpR5umwqkqbc
+         mU1ZGYRsX4y34Kl1HSFhnEn3Y97n2U+Y2Nl61raT9jSZRlAgT1FbfmRApvtn5irS9zpA
+         PR58CQQYTdp7/fg/UrVQkgCl41N1UdyFknQlloID79CcdDVC5cPAhcrhJbqVTy+b63Ih
+         KjQSntlJ2meahUQWzgcqfzMfYH4XEMtXHc6hsUYsmATF9Ss0KZ3H5+jEzuRePfjlSkKv
+         NRKQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx1lrPTR4Td2xBu8Wfp3TbQumzMnTD/qYFF1j5wMG8659v1wFJyWzBXFO1XZDNgX/xCqfKf9MM3158Z@vger.kernel.org
+X-Gm-Message-State: AFq9FYLdCLQ6N2qZZ+X1a0db8x8AwcYlwpRkb/GWKYTvWpJ1dr5tDpC6
+	R6DzR7NntvxUAt4KTqswLzhp6T88rNpDSEA6ikjqMnsfKJJahx/OtNmxlTyYQRotj2IRNyROYqQ
+	zAjQlhvPFWGzHeOhi+ANxpyBErY1hlXs=
+X-Gm-Gg: AYBFou38VYjc9k43pJKHQEbA1X4XcTFw9AmF3pGTKRlBOCNyKa62zC4KV0VStvjDVmO
+	vZ+M0sW4H8sNOo03GvUz3jau/PHNrZcLv0Makwh4/t+F5Ue6mM+N9kFtLl/jHfC2w6yuDJdoPTE
+	sptCoajoS930k1Vyn5RFO7iD3n3xRXw156OyTzMduPnx+00NDGG8OPLZd6XRqiwfcdYsZbSa4hB
+	CzZ5CczCLZq9whqxP+epM5z9Gh3q0XpBKVLP5wBFQQNCKwkuseoo/bngJe0qhMyGCp3LqjlguaB
+	7kjcaAq+lCjThC3Y4dXKRjrXrrzXw1mUfPsRz216R6d6/W97J4LqezrmSN644bKSvquMHTBlqLK
+	p4lnIBXUFNeJq
+X-Received: by 2002:a05:690e:810:20b0:671:5206:72f2 with SMTP id
+ 956f58d0204a3-67936049a53mr1141845d50.56.1791669651100; Sat, 10 Oct 2026
+ 15:00:51 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261011-b4-helios64-gpu-v1-1-bd83c6ecd19e@iav.lv>
-X-B4-Tracking: v=1; b=H4sIALyzymoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
- vPSU3UzU4B8JSMDIzNDA0MD3SQT3YzUnMz8YjMT3fSCUl0jizQTY0vj1KRUU3MloK6CotS0zAq
- widGxtbUAwYhAdmEAAAA=
-To: Heiko Stuebner <heiko@sntech.de>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
- linux-kernel@vger.kernel.org, Igor Velkov <iav@iav.lv>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2291; i=iav@iav.lv;
- h=from:subject:message-id;
- bh=QC0ldbg5vEEp/9pOfxvQQHo+177uJ6uj3YQwTElyKdA=;
- b=kA0DAAoWMpeVi+pfeQMByyZiAGrKs76jR2bGxizOiVPl+2Tkq9d9BhPKXJXtt97sdU9l4TP3Q
- Yh1BAAWCgAdFiEEkMIo2mik1f1PSDfgMpeVi+pfeQMFAmrKs74ACgkQMpeVi+pfeQOp0AEAlPVZ
- fa0yZOz1Z8GnX32xqyA7QSrRld40rIphRKp9DroA/0OkglmIjvWGiZ1QMVZ5LC3vUV3Xuj7CFVE
- rOCLpC+UO
-X-Developer-Key: i=iav@iav.lv; a=openpgp;
- fpr=90C228DA68A4D5FD4F4837E03297958BEA5F7903
-X-Endpoint-Received: by B4 Relay for iav@iav.lv/default with auth_id=1060
-X-Original-From: Igor Velkov <iav@iav.lv>
-Reply-To: iav@iav.lv
+References: <20261010105900.247342-1-tanure@linux.com> <20261010105900.247342-8-tanure@linux.com>
+In-Reply-To: <20261010105900.247342-8-tanure@linux.com>
+From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Date: Sun, 11 Oct 2026 00:00:40 +0200
+X-Gm-Features: AclHuK-1AFCBBfJ7Kfb5Ikey6DbHIu9yDPTfwBVIgnuMS2JnhjeqsjRPSCAltBs
+Message-ID: <CAFBinCC8iKESoc2zEXJMEmqk0cwWbVap-a2KcAtB7-KFKO9Atg@mail.gmail.com>
+Subject: Re: [PATCH v3 7/8] arm64: dts: amlogic: t7: khadas-vim4: enable the
+ ethernet port
+To: Lucas Tanure <tanure@linux.com>
+Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
+	Jerome Brunet <jbrunet@baylibre.com>, Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Igor Velkov <iav@iav.lv>
-
-The GPU core of Helios64 is supplied by U12, a Silergy SYR838 on i2c0
-at 0x41, with its VSEL pin on GPU_SLEEP_H (GPIO1_B6). Describe it as
-silergy,syr828, the way vdd_cpu_b (a SYR837) is described as
-silergy,syr827, and enable the GPU.
-
-Assisted-by: LLM
-Signed-off-by: Igor Velkov <iav@iav.lv>
----
-Schematic, sheet 7:
-https://wiki.kobol.io/helios64/files/schematics/Helios64_Schematics_Rev1.2.pdf
-
-Tested on mainline: panfrost probes, devfreq moves vdd_gpu from 825 mV
-at 200 MHz to 1100 mV at 800 MHz, glmark2-es2-wayland under headless
-weston scores 548-577 in three runs. Two of them logged one panfrost
-job timeout each; the Armbian DT gave none in three runs.
----
- .../boot/dts/rockchip/rk3399-kobol-helios64.dts    | 28 ++++++++++++++++++++++
- 1 file changed, 28 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts b/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
-index 63ad79b4c8ac..1f50982291bf 100644
---- a/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3399-kobol-helios64.dts
-@@ -339,6 +339,11 @@ &gmac {
- 	status = "okay";
- };
- 
-+&gpu {
-+	mali-supply = <&vdd_gpu>;
-+	status = "okay";
-+};
-+
- &i2c0 {
- 	clock-frequency = <400000>;
- 	i2c-scl-rising-time-ns = <168>;
-@@ -453,6 +458,25 @@ regulator-state-mem {
- 			regulator-off-in-suspend;
- 		};
- 	};
-+
-+	vdd_gpu: regulator@41 {
-+		compatible = "silergy,syr828";
-+		reg = <0x41>;
-+		fcs,suspend-voltage-selector = <1>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&vsel2_pin>;
-+		regulator-name = "vdd_gpu";
-+		regulator-always-on;
-+		regulator-boot-on;
-+		regulator-min-microvolt = <712500>;
-+		regulator-max-microvolt = <1500000>;
-+		regulator-ramp-delay = <1000>;
-+		vin-supply = <&vcc5v0_sys>;
-+
-+		regulator-state-mem {
-+			regulator-off-in-suspend;
-+		};
-+	};
- };
- 
- &i2c2 {
-@@ -538,6 +562,10 @@ pmic {
- 		pmic_int_l: pmic-int-l {
- 			rockchip,pins = <0 RK_PB2 RK_FUNC_GPIO &pcfg_pull_none>;
- 		};
-+
-+		vsel2_pin: vsel2-pin {
-+			rockchip,pins = <1 RK_PB6 RK_FUNC_GPIO &pcfg_pull_down>;
-+		};
- 	};
- 
- 	power {
-
----
-base-commit: d2abcbb905b0e4b2e06b257fa1e5bcf4faa6dbda
-change-id: 20261010-b4-helios64-gpu-28f4393ebe57
-
-Best regards,
--- 
-Igor Velkov <iav@iav.lv>
-
-
+On Sat, Oct 10, 2026 at 12:59=E2=80=AFPM Lucas Tanure <tanure@linux.com> wr=
+ote:
+[...]
+> RGMII needs a delay on each of its two clocks, and on this board
+> both come from inside the chips, not from the board traces. The PHY
+> adds the one on receive. Its transmit delay does not work here, so the
+> controller adds that one.
+[...]
+> +&ethmac {
+> +       status =3D "okay";
+> +       pinctrl-0 =3D <&eth_pins>, <&eth_rgmii_pins>;
+> +       pinctrl-names =3D "default";
+> +       phy-mode =3D "rgmii-id";
+> +       phy-handle =3D <&external_phy>;
+> +       tx-internal-delay-ps =3D <2000>;
+You're stating that RTL8211F's TX delay doesn't work but not explaining why=
+.
+I haven't come across this behavior before and I'm worried that that's
+an issue with a batch of RTL8211F.
+What if the previous/next batch of RTL8211F will have working TX delay
+again - wouldn't that mean 4ns delay in total unless the RTL8211F
+driver is changed?
