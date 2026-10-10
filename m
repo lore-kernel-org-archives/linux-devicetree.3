@@ -1,162 +1,173 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from e234-58.smtp-out.ap-northeast-1.amazonses.com (e234-58.smtp-out.ap-northeast-1.amazonses.com [23.251.234.58])
+	(using TLSv1.2 with cipher AES128-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4B75382F07
-	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 16:25:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74F503AFB11;
+	Sat, 10 Oct 2026 16:57:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.251.234.58
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791649553; cv=none; b=O48kebNACBPnHC8TZq7UuqmsydgcGMVqteZlDXAyr9ym28fbwREXL7nr9q/eUJ5AfN1NJsO14n3cA3YrhsBXoeQVPO41Ccv1r83S70MEofPS93kzkRri5CjFZ5ZFLCwNQCbCVYHiwDWJBxRBELsj6mqTEmmw5Ahl4VMrh1GQ5Yo=
+	t=1791651465; cv=none; b=k0ye3tSDmjzoFDJTVhiKuMYUXjcybdk15fX7o8RJiEgaA+mpcWcSoTi7UUwfKivuv06r0nmAOqsq9vQrmW9COVUTZ+6Gkqzjjr82gX/y+Rg/3u111gn78kio8f6ZlG3Gg/wRux9ufyNfQcolivt1uTW3cr7LBP1gdRNwZZ3DWHc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791649553; c=relaxed/simple;
-	bh=80EPWBsZX25JmeAOEW1OTO9vbAOytTWmIw+jnGuzRXo=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=ZloQxZPuskXA1CMsGvGtEME2CKuxtgHGLflBzyUOnxvETlOJC8PUp4Umo46YW3LjL4O3+Vol9yaBvMOol+t0/yh5fCMStvoc62k5Dj2fGMwci/foWiVzLkbAdMrMmOl2F3umvFf98tkkSq7ma5zCuQATt9qdphENq+dVOqK0AFg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CtAKnH5t; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791651465; c=relaxed/simple;
+	bh=p/tF3G3a+TLsowBSVsXALkTY/BOveEkt3yyKKtsTZlw=;
+	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Date:
+	 MIME-Version:Content-Type; b=Momrc71bPGXKPG1Rty9Sl3Rm32QXEKPdzdfMKZTzcWibql04VX5ccyOBpyPlgBPbg1mSoYbTR0ryCW7ZA4UkkefVTw8bi3f6U0L80dK6NsYE84ESgNsXaJEK9z3GwfZtqdgzgkYSCrTpsfwThGBOQwR7oDcOe2mGSksbYoKa41Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fqwqf.xyz; spf=pass smtp.mailfrom=send.fqwqf.xyz; dkim=pass (1024-bit key) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.b=2wXy5Fts; dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b=gQgSmMRQ; arc=none smtp.client-ip=23.251.234.58
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fqwqf.xyz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=send.fqwqf.xyz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CtAKnH5t"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7C011F000FF;
-	Sat, 10 Oct 2026 16:25:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791649552;
-	bh=9BQoPNpg/BuzHBZB4mO3d/+THaNd9C2XTiHsMc60QaY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CtAKnH5tK5prTd7sikrq+hsrzJFXD4KQPW8uWMIXGIAR+0YktZqvH+qX6hknBIWL3
-	 XwdAvvi4Yz9C8YvxWFM2Wnce1RDYVXUEMboz9zLe2WIV5pl2loQJhAK0KJRukLL6Y/
-	 FnUox1zaibUQQ8RCZ3hWjqqP3Im8FR8g3efqF6xWqmnfF9M2VeqXLDGLtgkUh1W2BO
-	 jf6qph7SQAeyA9KqDuWkgMAqQv8YRDdHb4Z3yeflBJHE6W0NJyHVnwiSEj9/WoSXl5
-	 dY/Ud52M7Rg/9xx3qF6N1Kl+SsIzvrEJo+Z5SrEK1PGEnEVMqli87CaX7+h8kHFgWa
-	 S5bdLBUCx3gDw==
-Message-ID: <sashiko-outbox-166736@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v20 08/13] media: qcom: camss: vfe: Add support for VFE
- 1080
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Hangxiang Ma" <hangxiang.ma@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, olteanv@gmail.com, vkoul@kernel.org, neil.armstrong@linaro.org, linux-phy@lists.infradead.org, robh@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261010-kaanapali-camss-v20-8-63e98ce9ac0c@oss.qualcomm.com>
-References: <20261010-kaanapali-camss-v20-0-63e98ce9ac0c@oss.qualcomm.com>
- <20261010-kaanapali-camss-v20-8-63e98ce9ac0c@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
+	dkim=pass (1024-bit key) header.d=fqwqf.xyz header.i=@fqwqf.xyz header.b="2wXy5Fts";
+	dkim=pass (1024-bit key) header.d=amazonses.com header.i=@amazonses.com header.b="gQgSmMRQ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple; s=resend;
+	d=fqwqf.xyz; t=1791651463;
+	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type;
+	bh=p/tF3G3a+TLsowBSVsXALkTY/BOveEkt3yyKKtsTZlw=;
+	b=2wXy5FtsUrbUwCq1GDuKsk/BKkb9ezEMQW0buEDi/BXeaI4p97Jzv26gIlSTrMmd
+	2gANYGMG0n8a6PwXn7VAyI52jnWyR3qjw5DPN0S6ijGZ+i+25XFNf4ImuFhwJe3yqxK
+	/sLc6WqgjUqrAdbd9pTjaTb97MGmZ3BkA9qvmcPs=
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/simple;
+	s=zh4gjftm6etwoq6afzugpky45synznly; d=amazonses.com; t=1791651463;
+	h=In-Reply-To:References:From:To:Cc:Subject:Message-ID:Content-Transfer-Encoding:Date:MIME-Version:Content-Type:Feedback-ID;
+	bh=p/tF3G3a+TLsowBSVsXALkTY/BOveEkt3yyKKtsTZlw=;
+	b=gQgSmMRQaVoo9YnyyBVvum1rxqlxNOp3XrkOWmhEjba8ir7JNxODM9kR0SbnKbMi
+	Xod8uXzm+mp09oxE0hF/rpUTRweBIjMeIyQrdvNUwIQ5He2jhTfTxuleesWAZfIFzT8
+	M2g4OhHq4G1FtktzjDM9mJb3zlrgqbJXXww9ZOiM=
+In-Reply-To: <20261009-send-upstream-v5-0-384af01da3ee@chromium.org>
+References: <20261009-send-upstream-v5-0-384af01da3ee@chromium.org>
+X-Mailer: git-send-email 2.53.0
+From: fQwQf <fqwqf@fqwqf.xyz>
+To: jingyliang@chromium.org
+Cc: jikos@kernel.org, bentiss@kernel.org, dmitry.torokhov@gmail.com, 
+	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	daleyo@gmail.com, broonie@kernel.org, linux-spi@vger.kernel.org, 
+	devicetree@vger.kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org
+Subject: [RFC PATCH 0/6] HID: spi-hid: add Romulus13 quad-SPI support on v5
+Message-ID: <010601a126bfbf4d-27ca6d8c-0c4e-4191-a92d-6dc7d3fbac60-000000@ap-northeast-1.amazonses.com>
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 10 Oct 2026 16:25:51 +0000
+Date: Sat, 10 Oct 2026 16:57:43 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Feedback-ID: :1.ap-northeast-1.6BGMgStFQE7EJYq5syaCRzdneEHVt/+DAaGDrqUmDs9QLO4/SllUBZ3fHvnZ8rcAX/3IjUyTRgi5JFZsWrikFHwlPJqCkqEMlxDFM4JXh+ycxH/J5Tudg5bGdz6h4331g1L1EFsGR8kuYNfGLsrxz4Nym4YXoPcZxeVkrHry4Zx21n8vEVLEjc7s+OCM8PU9:1.ap-northeast-1.DTXDV/V9GPBWozcllKo8innbNB2qs2O/3F8XZSzd9ZM=:AmazonSES
+X-SES-Outgoing: 2026.10.10-23.251.234.58
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] media: vfe: AUP_UPDATE mismatch during stream enable violates hard=
-ware constraint
-- [High] media: csid: lockless read-modify-write race on csid->aup_update f=
-rom process and hardirq
-- [Medium] media: vfe: hardcoded vfe->id mapping breaks Media Controller cr=
-oss-routing
---
+Hi Jingyuan and Dale,
 
-commit d6f09b2d35220bf1f91873f665e2de70196c2e83
-Author: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+This ports my Surface Laptop 7 (Romulus13) additions=
+ onto the complete
+v5 SPI-HID series, preserving v5's request serialization=
+, response
+matching and IRQ/PM model. It follows the two error-handling =
+fixes sent
+separately in this thread.
 
-media: qcom: camss: vfe: Add support for VFE 1080
+The main addition is a spi-mem =
+transport for the touchpad's 1-4-4 reads
+and writes. Reads use eight dummy =
+clocks; writes supply the opcode and
+address separately from the report =
+data. Dedicated aligned TX/RX regions
+keep streaming DMA away from protocol=
+ parsing buffers. The managed
+allocation is overallocated, with its base =
+kept separately from the
+explicitly ARCH_DMA_MINALIGN-aligned view. =
+Single-lane transfers retain
+spi_sync()/spi_write(), including their =
+existing short-write behavior.
 
-Add support for the VFE (Video Front End) 1080 found on Kaanapali SoC.
-The driver continues to use VFE naming, and Kaanapali requires REG_UPDATE
-and AUP_UPDATE to be issued only after CSID configuration.
+A spi_mem_driver can bind controllers =
+without mem_ops. For supported
+operations, spi_mem_exec_op() falls back to =
+ordinary SPI messages when
+mem_ops are absent; this driver's single-lane =
+path calls the SPI helpers
+directly. The SPI_MEM build dependency is still =
+required.
 
-> diff --git a/drivers/media/platform/qcom/camss/camss-vfe-1080.c b/drivers=
-/media/platform/qcom/camss/camss-vfe-1080.c
-> new file mode 100644
-> index 0000000000000..016857cd10251
-> --- /dev/null
-> +++ b/drivers/media/platform/qcom/camss/camss-vfe-1080.c
+The series also adds bounded DATA fragmentation and the Romulus =
+timing,
+opcodes, binding and reset behavior. On this device, a reset loses =
+the
+heatmap mode selected by iptsd while leaving the report descriptor
+unchanged. Recreating the HID device after descriptor refresh lets
+hidraw consumers reconnect and select that mode again. Other devices
+retain v5's CRC-based reuse behavior. Romulus still waits for the reset
+handshake and schedules recovery on timeout; READY and the old HID resume
+callback are deferred until re-probe, including failed-suspend rollback.
 
-[ ... ]
+Software tests compile actual driver functions under ASan/UBSan,
+covering transport phases/errors, 65,536 header lengths, 5,048 fragment
+combinations and resume/descriptor-refresh paths, including missing
+Romulus handshakes and failed-suspend rollback. Both RFC 3/6 and the
+complete series compile with W=3D1 on ARM64 against the stated v5 base.
+The allocator tests include five DMA alignments with storage aligned to
+only eight bytes, resize failures and capacity rollback. Short writes are =
+accepted on single-lane SPI and
+rejected on quad SPI.
 
-> +static void vfe_reg_update(struct vfe_device *vfe, enum vfe_line_id line=
-_id)
-> +{
-> +	int port_id =3D line_id;
-> +
-> +	camss_reg_update(vfe->camss, vfe->id, port_id, false);
-> +}
+The previous revision of this v5 integration boots and works in normal
+use on SL7. Across two logged s2idle cycles, the touchpad was re-enumerated
+and iptsd reconnected automatically, with READY and zero transport or
+regulator errors afterward. This revision's allocation, short-write and
+Romulus handshake changes have build and software-test coverage.
 
-[Severity: Medium]
-The CAMSS driver framework allows flexible stream routing, meaning userspace
-can link any CSID pad to any VFE pad via the Media Controller graph (e.g.,
-routing csid0 to vfe1).
+The local test kernel retains the downstream GENI/GPI QSPI controller
+and Romulus DT integration. Those dependencies are outside this HID
+series. This RFC is for transport/interface review; in particular, I
+would appreciate feedback on registering both frontends through
+spi-mem (which adds a SPI_MEM dependency), and on the device-specific
+HID rebind after reset.
 
-By hardcoding the hardware ID to the local VFE's ID (vfe->id), if csid0 is
-routed to vfe1, vfe_reg_update() will look up csid1 and incorrectly issue t=
-he
-buffer AUP_UPDATE commands to the csid1 hardware instead of the active csid=
-0.
+Base: the v5 series plus the two error-handling =
+fixes.
+https://lore.kernel.org/all/20261009-send-upstream-v5-0-384af01da3ee=
+@chromium.org/
 
-Could this drop queued buffers on the active stream and corrupt the register
-state of the inactive CSID?
+Best regards,
+Jizhou Tong
 
-[Severity: High]
-This wires up vfe_reg_update() to camss_reg_update(), bridging VFE's buffer
-queue path into the CSID register update path.
+fQwQf (6):
+  HID: spi-hid: isolate DMA transfers from protocol buffers
+  HID: spi-hid: add spi-mem quad-SPI transfers
+  HID: spi-hid: assemble =
+bounded fragmented input reports
+  dt-bindings: input: describe the =
+Romulus13 QSPI touchpad
+  HID: spi-hid: support the Romulus13 QSPI touchpad
+  HID: spi-hid: expose readiness for reset diagnostics
 
-vfe_queue_buffer_v2() executes in process context and acquires
-vfe->output_lock (which disables local interrupts but does not prevent
-execution on other CPUs), and it triggers vfe_reg_update() ->
-__csid_aup_update(). This performs a non-atomic read-modify-write on shared
-state:
+ .../ABI/testing/sysfs-bus-spi-devices-spi-hid |  30 +++
+ .../input/microsoft,romulus13-touchpad.yaml   |  86 ++++++++
+ MAINTAINERS                                   |   7 +
+ drivers/hid/spi-hid/Kconfig                   |   2 +-
+ drivers/hid/spi-hid/spi-hid-acpi.c            |  28 +--
+ drivers/hid/spi-hid/spi-hid-core.c            | 207 ++++++++++++++----
+ drivers/hid/spi-hid/spi-hid-core.h            |   8 +
+ drivers/hid/spi-hid/spi-hid-of.c              |  55 +++--
+ drivers/hid/spi-hid/spi-hid.h                 |   8 +-
+ 9 files changed, 355 insertions(+), 76 deletions(-)
+ create mode 100644 Documentation/ABI/testing/sysfs-bus-spi-devices-spi-hid
+ create mode 100644 Documentation/devicetree/bindings/input/microsoft,=
+romulus13-touchpad.yaml
 
-    csid->aup_update |=3D CSID_RUP_AUP_RDI(port_id);
 
-Concurrently, csid_isr() can execute in hardirq context on another CPU. It
-calls __csid_aup_rup_clear(), which modifies the exact same variable
-locklessly:
-
-    csid->aup_update &=3D ~CSID_RUP_AUP_RDI(port_id);
-
-Since __csid_aup_update() and __csid_aup_rup_clear() use non-atomic standard
-bitwise operators (|=3D and &=3D) from competing contexts without a shared
-spinlock, does this form a TOCTOU data race that will corrupt
-csid->aup_update? Could this result in lost register updates, dropped buffe=
-rs,
-and pipeline stalls?
-
-[ ... ]
-
-> diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/medi=
-a/platform/qcom/camss/camss-vfe.c
-> index 2680a9914765f..5710fdbe41b3e 100644
-> --- a/drivers/media/platform/qcom/camss/camss-vfe.c
-> +++ b/drivers/media/platform/qcom/camss/camss-vfe.c
-
-[ ... ]
-
-> @@ -552,7 +553,9 @@ int vfe_enable_output_v2(struct vfe_line *line)
->  		output->gen2.active_num++;
->  		ops->vfe_wm_update(vfe, output->wm_idx[0],
->  				   output->buf[i]->addr[0], line);
-> -		ops->reg_update(vfe, line->id);
-> +
-> +		if (!vfe->res->reg_update_after_csid_config)
-> +			ops->reg_update(vfe, line->id);
->  	}
-
-[Severity: High]
-The commit message states that "the number of AUP_UPDATE requests must match
-the number of buffers queued to the write master while it is being enabled."
-Here in vfe_enable_output_v2(), the loop fetching queued buffers breaks ear=
-ly
-if fewer than CAMSS_INIT_BUF_COUNT (2) buffers are available, meaning it is
-valid for userspace to queue only 0 or 1 buffers.
-
-However, csid_configure_stream() in camss-csid-1080.c indiscriminately loops
-and issues exactly 2 AUP_UPDATE requests unconditionally, ignoring the VFE's
-actual active_num.
-
-Does this mismatch violate the hardware constraint and cause the VFE Write
-Master to fetch uninitialized buffer addresses (0x0) for the missing update=
-s,
-potentially leading to DMA faults or physical memory corruption?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261010-kaanapali-=
-camss-v20-0-63e98ce9ac0c@oss.qualcomm.com?part=3D8
+base-commit: ee9c669f9bf5fd2c24206746ded9382fe810=
+df89
+prerequisite-patch-id: b401890d766019f0677a572f18bb389cd8827721
+prerequisite-patch-id: beaf91cb29f3a735559a3251092ac0ac17810b10
+prerequisite-patch-id: 909ee816b83e0bc8bb4b560f8c7cc0c8109c4516
+prerequisite-patch-id: 8b60145a9a853a32881af27181c26dff0e82a33e
+prerequisite-patch-id: bcb36384a391e48222f0924b0c571fb0eac19ae7
+prerequisite-patch-id: 816dfccf7d35ea041c0d7c08c7bfbe061a45c7dc
+prerequisite-patch-id: 67a41d4cb6bfa41248d89a8f967d4414cff2da2e
+prerequisite-patch-id: d0bf155ff4d70a3aeb88ec0232f04a4b2edb3598
+prerequisite-patch-id: f18d9032e5ed5713beb37527dba225ec79589b31
+prerequisite-patch-id: 854affdd16efb5696f9ed1d2a8cdb50dababe724
+prerequisite-patch-id: 248c986cba937716c739b804039376ac3823f618
+prerequisite-patch-id: 24df0c559e4b401af9acd4bc7bad99dd4b4724d4
+prerequisite-patch-id: 2827fd11c245e7f91c73506b9c7c392b44f8d9f3
