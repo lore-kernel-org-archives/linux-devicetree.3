@@ -1,199 +1,410 @@
-Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2095.outbound.protection.partner.outlook.cn [139.219.17.95])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0BBD3B4E9A;
-	Sat, 10 Oct 2026 11:15:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.95
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791630951; cv=fail; b=lWaDuwxAfTEI2GkFCFbKyJmzr8JEDl+q+++Zj9SkTJjkY3BhnNTtxThpJnPR1AeaPiGJBMcFB5hOptLw4K7746qrPXg+TySxleQajKW5/VkaNHxS3ssySqV2QG4QdfyYWMy/JIxP+/PW4InhhmmBjmsU5X9S/Ua1vJnYHeeoMd0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791630951; c=relaxed/simple;
-	bh=mJT4e5t1xy8DpVpdIvoonq0fntN4rU82Quv2T+3Vyo0=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Xg/iNqRVp50E7eeQGsta33IHZVuL7dsKDakbMp1wjiJlQX/cyU0iDazRiAWxViXJ1VjBnkkj2DIh1Mc+zV5rLhWVznN336pjJvMwUUGK5DBuU99foZecy+T5AjE+PGT5o2BdFJJ5rh7sRZLu+A4q6DfH/7NFl3VbVjxCOnJCa3A=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=jG1P5FNNJnzqyctVZ5GD0II8+HC6dHFzh9UkyEhD1kriXg+i720y07/0tYpTnVbu8i61ttWN3RRHtHVyaN8lCYYkJ89xfuJvFdVgTNe3SSpBZUtZrdhNGk2UmSBFtpx+P6K+dttiSPv88LiOjPfFa0pMBXoxAeSmddpknNAeMt8w3a0UZJUB/uxMO1vdnLqYV9+joif3SNUb+q1f6o9LmcZ5xW5eyMinTaPY1Zt0uKbKH6oOFO6vWa3vL6eHaMK0rOiYQ11+iIJhJnWbddhC2NReG7OrkHuCyLgAHms4ZU0I6AiAzFtdwc8i4oQ364JsDhpJDex5Ham8Tc1vkz9WVA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=M3t/WhCTY1wDf1FsjCCwHDuGuPrVGaRI1pbruis7xQE=;
- b=f7zk1HPa7K+aG9Ry4r5LYMbjH1g+Ucl8NMSgVOsDbChDxZKW/GoZ/CrKhV+wpL8u1M6xZwlFkMKrNRh0eSDcGCKYoM+kO68lmedsirmbZ0ODZdZB8q+zZJYLsaqAosE28BhOQG/HJO3UxdPLrHG5j9ig9361pcdPM0HppJ1s7KC6W0nDSZXNcCgRrUEYVQDSLoI/YJWPrafXCv1UdQ3e5xWWyvXg5Jomwxj3dTYuyPhrLN05SHW9pbZIMGkHOznRiyvP0sEBDuLO6wW0YfBrtzsWmRv/scjOiAImZgk3FcmIOBdhm4bPQc098KlGDMHj/D/dk7XOKmeHpfax5py1zQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-Received: from NT0PR01MB1216.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c510:11::9) by NT0PR01MB1005.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c510:6::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.9; Sat, 10 Oct
- 2026 10:59:40 +0000
-Received: from NT0PR01MB1216.CHNPR01.prod.partner.outlook.cn
- ([fe80::1666:48e8:19e9:ad29]) by
- NT0PR01MB1216.CHNPR01.prod.partner.outlook.cn ([fe80::1666:48e8:19e9:ad29%4])
- with mapi id 15.21.0496.017; Sat, 10 Oct 2026 10:59:40 +0000
-From: Changhuang Liang <changhuang.liang@starfivetech.com>
-To: Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Emil Renner Berthing <kernel@esmil.dk>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	Changhuang Liang <changhuang.liang@starfivetech.com>,
-	Hal Feng <hal.feng@starfivetech.com>
-Subject: [PATCH v6 3/5] clk: starfive: Add Peripheral-1 domain PLL clock driver
-Date: Sat, 10 Oct 2026 03:58:57 -0700
-Message-Id: <20261010105859.19505-4-changhuang.liang@starfivetech.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261010105859.19505-1-changhuang.liang@starfivetech.com>
-References: <20261010105859.19505-1-changhuang.liang@starfivetech.com>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16EE536A033;
+	Sat, 10 Oct 2026 11:55:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791633344; cv=none; b=MMnlnsG42mc3FfsKQWbSbBHxGaINM7RYsHgfe7bAUyKLdAuQqY7GkAHWu03QyzcSMsPJBKQ3BzUKgjxmHlZmbydQnjGTm40rJ2OOd0XuaTBPO+I80Am5QEyrcNj23kOogMtwg82BGldjBT6IERcDxglFowLpPxYKg8M310D87Zg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791633344; c=relaxed/simple;
+	bh=PhEKCgJ7fqEmIMDLwZnuYdgbGSXBncyq7U26etSroPA=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=YAUXxyBMT+FHA31SrCQE+6FT7STKCArcS/ZKOHQOfK7bRS113+2BYxizeyRGkRCZjASL11fVY8Bbbd0mRfxxHSII+9bKY70utItKWOVIXKzivRkbtqbDBWMOnX8c4BKgT2zH3HbghYb+JDHap7At43vhzsoH5fuYeXdc3P8Zg7o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rxg/1PC5; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rxg/1PC5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C83CE1F000FF;
+	Sat, 10 Oct 2026 11:55:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791633342;
+	bh=xsPG4zfcNkAT6dXyjDki77ZwX/x2nyD+OqM/cCf911c=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=Rxg/1PC5iZ3AffgdkfcDam6BRspq7ROgwaQivsxC5BEL3uvrfKvIGPZds34iZERWS
+	 MnKbgH2v4SMVfHZ8PdYcHNZ1xK3GNCdXP7MhTGoOeSnUGEvd+cEM5mW6Fd5QvwB8Ra
+	 Gk2cbNfH57if/85w5IDhl4aDO0MS7YhSthC6Z1sn9H8ocED312jOGNbMPzSAE/TKFH
+	 k/KqAMdt41CrCP/fyk88cQBAg8/4WW5/GEFjam9Uyv3mdALnGezD9+8jDz618r04ye
+	 sMSzrTo8G1VQFSH8f40P6GznmU49zqjhCogGGFw2H5TyFLdEPNiWUxXdvElpx99DS5
+	 pRTje/vcByMqg==
+Subject: Re: [PATCH net-next v4 1/6] net: xilinx: axienet: Introduce
+ axienet_config for MAC-specific ops
+From: netdev-bot+sashiko@kernel.org
+To: suraj.gupta2@amd.com
+Cc: radhey.shyam.pandey@amd.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, michal.simek@amd.com,
+ linux@armlinux.org.uk, netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Date: Sat, 10 Oct 2026 11:55:41 +0000
+Message-ID: <179163334130.434549.15131171299292504182@kernel.org>
+In-Reply-To: <20261006110550.1990213-2-suraj.gupta2@amd.com>
+References: <20261006110550.1990213-2-suraj.gupta2@amd.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: ZQ0PR01CA0036.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:2::20) To NT0PR01MB1216.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c510:11::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: NT0PR01MB1216:EE_|NT0PR01MB1005:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9d3d09c8-26f0-43ca-8557-08df26bd9553
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|52116014|7416014|376014|23010399003|22082099003|18002099003|10067099003|261009223027099003|38350700014|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	IMTbiRuGbK7T0ACUqXYPwcI32PY24j21325Dm5K+ZR/JiQDXbfi35mSBDMBaj9PrxR1VN9yJaTYQPCLM8GoQogZCah6k2hEQgWHWg1A6ceNzX5S8E2YCbuPvfxesHmwXVhp41uIkYBImSl30Jxgqnn57sGC7L4nBLLDuj5e2Shymsm9nFjB7ZOYl96slR9wT8qCw5D4180Qa8NOwA6Ir68bn0tkXbCcscuGCcd2hy7bsvjyUNK+NecrYTkWYn0t1cSDWLgtuRH0QIGZPCL6xhG4bNB3mzEnyTqXc/zNPWRlivGnx6mhtRYUIQCZ8TrRxWcLoOP2cXW5R2Yo5xT1fIbOofk11RNvvkLceabSfAo/RUeaRaLFZPszXBxY9bJiAgXQhBZ4d57YliPxOfkcBtkJe3th2udySpXmPM+naE8MFX5be24ThMZNk0r384MalmmJ0i/YpywePBtGlB+/xVYVYmO3C5EcDTErxKYpuakaEqNtF+OfNmBqP0CrnhItzxlhHkBDY//XHJ96MPBEQMmFvJti2aJ7VTRXgC9STsvVKvgqNzrpzdbszldJvbcGP
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:NT0PR01MB1216.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(52116014)(7416014)(376014)(23010399003)(22082099003)(18002099003)(10067099003)(261009223027099003)(38350700014)(56012099006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?7Gg5LLY3vjorFAqbLOuh7NAxpHxPKDCCGDU7cTknyCW2nkp8ApjyKxMtLe39?=
- =?us-ascii?Q?7Z7V/GDbTG3sn+meSwBNaeg+gl8ebPN1lM3jyuE+lcRpI6mit89NaQ5YPxqZ?=
- =?us-ascii?Q?tsIwSm7lEoGgQFluOUps0CXUjajicm17vSTTX8nnxCBY4tfAPHZcU8075fEF?=
- =?us-ascii?Q?Dx0IMa9ehmRn0I59dPxw5YcmfF4MrMctl5BkTMqGR1TkVEw+FlOVLds9zrff?=
- =?us-ascii?Q?cpRJS92sZX5MzHk15TDuONPMgTX1pT5JGnpIyRbx6+fV6nHQ3MO+YpAUru0r?=
- =?us-ascii?Q?Vqenmh1xdX9YdZsIHztVJtHri9fab4+f+epHZcn7TqAybQNWwG8XhLMmzE1V?=
- =?us-ascii?Q?3XJLf+J6KuAl7m+dC4iOQ72ey3esQz3wTrWHvuiHH9ESSqIRcNtqBMHoXPbw?=
- =?us-ascii?Q?NiZJbgpLCyJdSPrxoYnVVsNVwi/EVzz3Gi73EsJW/Soi7fWMVbCNurFYG4zy?=
- =?us-ascii?Q?qQZYFOCZBwV+Y2P+gtoCvthf5sicNWqP+hfz1XVpPwsVAaGMB0jS3nbg5HzG?=
- =?us-ascii?Q?oawG44WqRJPufbu7QMoDIlFb/hSPBWtqU+uadMKCHlYrNhf0hX9v/haOjOae?=
- =?us-ascii?Q?uvE5J0IxYqzqkV+A/Rbun6/nEywVKV6F/x13AjuPwMFHYkxsOHPaeieEnStw?=
- =?us-ascii?Q?0wyEV4Rx/Tq9G8Tg5ebgq3Ja9g2LCTbdaf+TAgEgDaT+7vRTQf8/o6yLGEXL?=
- =?us-ascii?Q?grs7IfA9kqtWUW5WKh7FYmkaHmvR2dJqd7rIvWczbq99AO9CYBsvOMWjc182?=
- =?us-ascii?Q?eFN6wAC2RdWShl3Yc/gV2YKJi4uM2taqgtUl0fTJn68PetmyInnU7CNlcIEf?=
- =?us-ascii?Q?QXVS5nyczSqpY6C1+AxQ/WkpR41i2UHeoY9yGw//X5vlVNqVljZuXozzqjbg?=
- =?us-ascii?Q?/6zrJGZtR9Xay7LHYifm37AwY13QXO+dX5fQjnl22NOuspWFMp31wHul22HK?=
- =?us-ascii?Q?YbnPQWbKAdr3WganREEIpnhXrbCW4N9wgU09BVdCEt9CR1UiNuVCqSod960C?=
- =?us-ascii?Q?bwrMZJxD+vrVehWKcO3hfSxd8q3Ov1Rls2A47E6E0t2bgBqcTfdSQvoa1wQu?=
- =?us-ascii?Q?TY6sVilhK3EKcu9480acM6MIxKxcFrXk7cvDpIDSekgpxJd6jKx6LWKer3Wi?=
- =?us-ascii?Q?c97i9yprxaFKnCEF5p0RSnxg/LttMtMTrlDs/xTguq+TilVi8OjWZnKNRU3O?=
- =?us-ascii?Q?eq0k+m3aHwv4Bxjc23i3UT9mXhigSHNQmJQ3I86blpPmfqXcohYLJ1cEpzoj?=
- =?us-ascii?Q?4vCpsSKqbkPLUS4UMLgzl6NFIcljEbhs3RO9Y5BwQkTBhFSSPQHZMUgA3S5N?=
- =?us-ascii?Q?zeFrabhWUOuqDEwTUr9ffEiZHFjHeHKVXaWGiEH15681GDQ87Aqxlx5iNm3h?=
- =?us-ascii?Q?dJR/q6Wao3OI5bBsamRfhx8YA9DG1dxns+ollR7kgv1YHBR6J1s78eE9qoHO?=
- =?us-ascii?Q?M3TEYMHJo4pvy4dHk5enOtPdPver2FdwHiTwHgf/JsS9mWUmlGAClPrlh86g?=
- =?us-ascii?Q?BpdQ0Jd7KOkT3Yp6TJyGu40ao8iIAeIs9L4BzO7A6a9oNB3QWZGxlmkkIT8Y?=
- =?us-ascii?Q?KoznYHxccxqxaac13fT7eQfYdJSdzGHOVT7lmhKqWFsBStOqHZoqk/5ND0Z5?=
- =?us-ascii?Q?1ggG+AzjqRPbev+mO6h4nFRqUDDYnofTtiDt4dbfUUb0badDzGXgWwkjoHGx?=
- =?us-ascii?Q?qCbofB3Xt3so8/MLwqiFkzuKRv35+pyS1l6ZPRX/QPQYR05hMdI1xxAzSP8Q?=
- =?us-ascii?Q?hyOYc6CiO2ufpb33TlOMLxtFAPM5d3CKdEfirie23agUyAYVJF+7?=
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9d3d09c8-26f0-43ca-8557-08df26bd9553
-X-MS-Exchange-CrossTenant-AuthSource: NT0PR01MB1216.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Oct 2026 10:59:40.7153
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HC8M1rDWa3RVBhU5yD4gUTgH8R6bNIhUrjqoO3TCSTiIvTxJk2GVLA0KubbwsfMxDaW2xhTezV3HSXXH0mo6PlvxGr5OKYtAiSvWSsmdOEj3dQidjX5Fju2FwImK2FH7
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: NT0PR01MB1005
 
-Add Peripheral-1 domain PLL clock driver support for StarFive JHB100
-SoC. The peripheral PLL driver now also binds to the per1 system
-controller node and registers PLL7 using the JHB100 PLL library.
+Thank you for your contribution! Sashiko AI review found 6 potential
+issue(s) to consider.
 
-Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
----
- drivers/clk/starfive/Kconfig                  |  8 ++++----
- .../starfive/clk-starfive-jhb100-per-pll.c    | 19 +++++++++++++++++++
- 2 files changed, 23 insertions(+), 4 deletions(-)
+Critical: 0 (1) · High: 0 · Medium: 1 (3) · Low: 5
 
-diff --git a/drivers/clk/starfive/Kconfig b/drivers/clk/starfive/Kconfig
-index 00c46f5ec976..1bf64f1b6c58 100644
---- a/drivers/clk/starfive/Kconfig
-+++ b/drivers/clk/starfive/Kconfig
-@@ -120,10 +120,10 @@ config CLK_STARFIVE_JHB100_PER_PLL
- 	select MFD_SYSCON
- 	default ARCH_STARFIVE
- 	help
--	  Say yes here to support the PLL6 clock generator found in the
--	  peripheral-0 system controller of the StarFive JHB100 SoC. It
--	  provides the parent clock of the peripheral-0 clock
--	  controller.
-+	  Say yes here to support the PLL6 and PLL7 clock generators found
-+	  in the peripheral-0 and peripheral-1 system controllers of the
-+	  StarFive JHB100 SoC. They provide the parent clocks of the
-+	  peripheral-0 and peripheral-1 clock controllers.
- 
- config CLK_STARFIVE_JHB100_PLL
- 	bool
-diff --git a/drivers/clk/starfive/clk-starfive-jhb100-per-pll.c b/drivers/clk/starfive/clk-starfive-jhb100-per-pll.c
-index d38116f16935..ef01f7d1d5f6 100644
---- a/drivers/clk/starfive/clk-starfive-jhb100-per-pll.c
-+++ b/drivers/clk/starfive/clk-starfive-jhb100-per-pll.c
-@@ -19,6 +19,7 @@
- #include "clk-starfive-jhb100-pll.h"
- 
- #define JHB100_PLL6_OFFSET		0x00
-+#define JHB100_PLL7_OFFSET		0x40
- 
- struct jhb100_per_pll_data {
- 	const struct jhb100_pll_info *info;
-@@ -39,6 +40,20 @@ static const struct jhb100_per_pll_data jhb100_per0_pll_data = {
- 	.num = ARRAY_SIZE(jhb100_per0_pll_info),
- };
- 
-+static const struct jhb100_pll_mult jhb100_pll7_mults[] = {
-+	{ .fbdiv = 156, .frac = 0, .refdiv = 1 },
-+};
-+
-+static const struct jhb100_pll_info jhb100_per1_pll_info[] = {
-+	JHB100_PLL(JHB100_PER1PLL_PLL7_OUT, "pll7", JHB100_PLL7_OFFSET,
-+		   jhb100_pll7_mults, ARRAY_SIZE(jhb100_pll7_mults)),
-+};
-+
-+static const struct jhb100_per_pll_data jhb100_per1_pll_data = {
-+	.info = jhb100_per1_pll_info,
-+	.num = ARRAY_SIZE(jhb100_per1_pll_info),
-+};
-+
- static int jhb100_per_pll_probe(struct platform_device *pdev)
- {
- 	const struct jhb100_per_pll_data *data;
-@@ -62,6 +77,10 @@ static const struct of_device_id jhb100_per_pll_match[] = {
- 		.compatible = "starfive,jhb100-per0-syscon",
- 		.data = &jhb100_per0_pll_data,
- 	},
-+	{
-+		.compatible = "starfive,jhb100-per1-syscon",
-+		.data = &jhb100_per1_pll_data,
-+	},
- 	{ /* sentinel */ }
- };
- 
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
+
+- [Medium] The commit message says "No functional change intended for the
+  existing 1G path", but the patch changes 1G behaviour in…
+- [Low] axienet_dma_err_handler() ignores the return value of the new
+  int-returning mac_init callback, then re-enables TX/RX through…
+- [Low] The new axienet_config::jumbo flag is documented as "MAC supports
+  jumbo frames", but only axienet_device_reset() reads it, and only to…
+- [Low] Mismatches between the kernel-doc and the code for the optional
+  members of struct axienet_config.
+- [Low] The sw_padding and tx_csum capability flags are honoured in
+  axienet_start_xmit_dmaengine() but not in the legacy…
+- [Low] On the non-dmaengine path, axienet_device_reset() returns early
+  when mac_init() fails, after axienet_dma_bd_init() has already…
+
+Pre-existing issues:
+- [Critical] This problem wasn't introduced by this patch, but
+  axienet_start_xmit_dmaengine() increments lp->tx_ring_head before…
+- [Medium] xlnx,axi-ethernet.yaml lists the interrupt order as Ethernet
+  core, Tx DMA, Rx DMA.
+- [Medium] axienet_open() discards the return value of
+  axienet_device_reset() by overwriting ret with…
+- [Medium] On the legacy-DMA path, the BD rings and mapped RX skbs
+  allocated by axienet_device_reset() are leaked when axienet_open()…
+
+--
+
+net: xilinx: axienet: Introduce axienet_config for MAC-specific ops
+
+This commit adds struct axienet_config, which holds capability flags and
+per-MAC callbacks and is filled in from the OF match table. The shared
+axienet paths now use it instead of open-coded 1G behaviour, to prepare
+for more MAC types. The commit says no functional change is intended for
+the existing 1G path.
+
+> diff --git a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
+> index ae8ed4495ea0e..5af48d5cbed3b 100644
+> --- a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
+> +++ b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
+
+[ ... ]
+
+> @@ -711,19 +744,23 @@ static void axienet_dma_stop(struct axienet_local *lp)
+>   */
+>  static int axienet_device_reset(struct net_device *ndev)
+>  {
+
+[ ... ]
+
+>  	if (ndev->mtu > XAE_MTU && ndev->mtu <= XAE_JUMBO_MTU) {
+>  		lp->max_frm_size = ndev->mtu + VLAN_ETH_HLEN +
+>  					XAE_TRL_SIZE;
+>  
+> -		if (lp->max_frm_size <= lp->rxmem)
+> +		if (lp->max_frm_size <= lp->rxmem && lp->axienet_config->jumbo)
+>  			lp->options |= XAE_OPTION_JUMBO;
+>  	}
+
+[Severity: Low]
+Should the new jumbo flag also limit the MTU range? The kernel-doc says
+@jumbo means "MAC supports jumbo frames", but this is the only place the
+flag is read. The MTU limits do not check it:
+
+axienet_probe() {
+    ...
+	ndev->max_mtu = XAE_JUMBO_MTU;
+    ...
+}
+
+axienet_change_mtu() {
+    ...
+	if ((new_mtu + VLAN_ETH_HLEN +
+		XAE_TRL_SIZE) > lp->rxmem)
+		return -EINVAL;
+    ...
+}
+
+So a MAC with .jumbo = false would still accept an MTU of up to 9000,
+limited only by xlnx,rxmem. axienet_device_reset() would then raise
+max_frm_size to mtu + VLAN_ETH_HLEN + XAE_TRL_SIZE without setting
+XAE_OPTION_JUMBO.
+
+Later in the series, axienet_10g25g_config leaves .jumbo unset but still
+gets a max_mtu of 9000.
+
+Is the @jumbo description wrong for XXV, or should max_mtu and
+axienet_change_mtu() check .jumbo?
+
+[ ... ]
+
+> @@ -740,26 +777,18 @@ static int axienet_device_reset(struct net_device *ndev)
+>  		}
+>  	}
+>  
+
+[ ... ]
+
+> +	ret = lp->axienet_config->mac_init(ndev);
+> +	if (ret)
+> +		return ret;
+
+[Severity: Low]
+On the non-dmaengine path, axienet_dma_bd_init() has already allocated
+the BD rings, mapped the RX skbs and started the DMA by the time this
+early return runs. If mac_init() fails, does this leak the BD rings and
+the mapped RX skbs?
+
+None of the configs in this series can hit this. Only axienet_1g_config
+allows non-dmaengine mode, and axienet_1g_mac_init() always returns 0. A
+future MAC with both non_dmaengine set and a mac_init() that can fail
+would hit it.
+
+[Severity: Medium]
+This is a pre-existing issue, but at this point in the series callers of
+axienet_open() never see the new mac_init() error:
+
+axienet_open() {
+    ...
+	ret = axienet_device_reset(ndev);
+	axienet_unlock_mii(lp);
+
+	ret = phylink_fwnode_phy_connect(lp->phylink, dev_fwnode(lp->dev), 0);
+    ...
+}
+
+The result of axienet_device_reset() is overwritten before anything
+checks it. axienet_1g_mac_init() always returns 0, so this patch adds no
+new failure.
+
+The later patch "net: xilinx: axienet: Add 10G/25G (XXV) ethernet
+support" in this series adds the missing check.
+
+[Severity: Medium]
+This isn't a bug introduced by this patch, but on the legacy DMA path,
+does axienet_open() leak the BD rings and mapped RX skbs that
+axienet_device_reset() allocated if a later step fails?
+
+A phylink_fwnode_phy_connect() failure returns straight away:
+
+	ret = phylink_fwnode_phy_connect(lp->phylink, dev_fwnode(lp->dev), 0);
+	if (ret) {
+		dev_err(lp->dev, "phylink_of_phy_connect() failed: %d\n", ret);
+		return ret;
+	}
+
+The err_phy unwind, used for the request_irq() failures in
+axienet_init_legacy_dma(), also calls neither axienet_dma_stop() nor
+axienet_dma_bd_release():
+
+err_phy:
+	cancel_work_sync(&lp->rx_dim.work);
+	cancel_delayed_work_sync(&lp->stats_work);
+	phylink_stop(lp->phylink);
+	phylink_disconnect_phy(lp->phylink);
+	return ret;
+
+ndo_stop is not called after ndo_open fails, and the next open
+overwrites tx_bd_v and rx_bd_v.
+
+[ ... ]
+
+> @@ -941,19 +977,21 @@ axienet_start_xmit_dmaengine(struct sk_buff *skb, struct net_device *ndev)
+>  		goto xmit_error_drop_skb;
+>  
+>  	/* Fill up app fields for checksum */
+
+[ ... ]
+
+[Severity: Critical]
+This is a pre-existing issue and was not introduced by this patch. Can
+the error paths in axienet_start_xmit_dmaengine() knock the TX ring out
+of sync? The producer index moves forward before the steps that can
+fail:
+
+	lp->tx_ring_head++;
+	sg_init_table(skbuf_dma->sgl, sg_len);
+	ret = skb_to_sgvec(skb, skbuf_dma->sgl, 0, skb->len);
+	if (ret < 0)
+		goto xmit_error_drop_skb;
+
+Neither xmit_error_unmap_sg nor xmit_error_drop_skb rolls it back. The
+skipped slot has no DMA transaction behind it. Its skb and sg_len still
+hold the previous lap's values, or NULL on the first lap.
+
+axienet_dma_tx_cb() consumes slots strictly in order:
+
+	skbuf_dma = axienet_get_tx_desc(lp, lp->tx_ring_tail++);
+	len = skbuf_dma->skb->len;
+	...
+	dev_consume_skb_any(skbuf_dma->skb);
+
+So the next completion would process the skipped slot. On the first lap
+that is a NULL pointer dereference. On later laps it calls dma_unmap_sg()
+on an sgl that is already unmapped, reports a stale length to BQL, and
+frees an skb that has already been freed. The off-by-one then stays for
+the rest of the ring's lifetime.
+
+Normal load seems enough to trigger this. xilinx_dma_prep_slave_sg()
+returns NULL when xilinx_axidma_alloc_tx_segment() runs out of its
+XILINX_DMA_NUM_DESCS (512) segments, while the axienet ring allows up to
+TX_BD_NUM_MAX (4096) entries in flight. dma_map_sg() can also fail when
+swiotlb or IOMMU space runs out.
+
+The problem is still there at the end of the series.
+
+[ ... ]
+
+> @@ -2759,29 +2819,114 @@ static void axienet_dma_err_handler(struct work_struct *work)
+>  
+>  	axienet_dma_start(lp);
+>  
+
+[ ... ]
+
+> +	lp->axienet_config->mac_init(ndev);
+
+[Severity: Low]
+Should the return value of mac_init() be checked here, as it is in
+axienet_device_reset()? The handler re-enables TX and RX through
+setoptions(ndev, lp->options) either way.
+
+This handler only runs on the non-dmaengine path, which only the 1G
+config can use, and axienet_1g_mac_init() always returns 0. The later XXV
+patch in this series adds a comment at this call site saying so. It may
+be clearer to add that comment here, where mac_init() first gets an int
+return type.
+
+[ ... ]
+
+> @@ -2943,7 +3075,17 @@ static int axienet_probe(struct platform_device *pdev)
+>  		return -EINVAL;
+>  	}
+>  
+> +	if (lp->axienet_config->probe_init)
+> +		lp->axienet_config->probe_init(lp);
+> +
+>  	if (!of_property_present(pdev->dev.of_node, "dmas")) {
+> +		/* Non-dmaengine mode is only supported by some MACs */
+> +		if (!lp->axienet_config->non_dmaengine) {
+> +			dev_err(&pdev->dev,
+> +				"Non-dmaengine mode not supported by this MAC, use dmaengine\n");
+> +			return -EINVAL;
+> +		}
+> +
+
+[Severity: Low]
+This isn't a bug, but some of the new capability flags only take effect
+on the dmaengine paths:
+
+- sw_padding and tx_csum are checked in axienet_start_xmit_dmaengine()
+  but not in axienet_start_xmit().
+- mac_irq is checked in the dmaengine probe branch but not in this
+  non-dmaengine branch.
+
+Because of this gate, only axienet_1g_config reaches those paths today,
+and its flags match what the legacy code does unconditionally. A future
+config with non_dmaengine set and different flags would quietly get the
+1G behaviour.
+
+>  		/* Find the DMA node, map the DMA registers, and decode the DMA IRQs */
+>  		np = of_parse_phandle(pdev->dev.of_node, "axistream-connected", 0);
+>  
+
+[Severity: Medium]
+This is a pre-existing issue and not introduced by this patch. The
+interrupt order in Documentation/devicetree/bindings/net/xlnx,axi-ethernet.yaml
+doesn't seem to match what this branch reads when the DMA resources are
+on the Ethernet node.
+
+The binding lists Ethernet core, Tx DMA, Rx DMA. The driver does:
+
+			lp->rx_irq = platform_get_irq(pdev, 1);
+			lp->tx_irq = platform_get_irq(pdev, 0);
+			lp->eth_irq = platform_get_irq_optional(pdev, 2);
+
+Would a device tree written to match the binding text end up with its
+IRQs misrouted?
+
+[ ... ]
+
+> @@ -3109,23 +3256,21 @@ static int axienet_probe(struct platform_device *pdev)
+>  			goto cleanup_mdio;
+>  		}
+>  		of_node_put(np);
+> -		lp->pcs.ops = &axienet_pcs_ops;
+> +		lp->pcs.ops = lp->axienet_config->pcs_ops;
+> +		lp->pcs.poll = true;
+> +	}
+> +
+> +	if (lp->axienet_config->internal_pcs) {
+> +		lp->pcs.ops = lp->axienet_config->pcs_ops;
+>  		lp->pcs.poll = true;
+>  	}
+
+[Severity: Low]
+This isn't a bug, but a few kernel-doc entries for struct axienet_config
+don't quite match how the members are used:
+
+- @pcs_ops is documented as "or NULL if unused", but it is assigned to
+  lp->pcs.ops here without a NULL check. Every config in the series sets
+  it, so nothing breaks today.
+- @stats_update is NULL-checked in axienet_refresh_stats() but isn't
+  documented as optional.
+- @internal_pcs says "MAC always drives an internal PCS", but
+  axienet_mac_select_pcs() picks the PCS by interface mode only. By the
+  end of the series it also handles 10GBASER and 25GBASER, which covers
+  XXV.
+
+[ ... ]
+
+> @@ -3168,7 +3313,8 @@ static void axienet_remove(struct platform_device *pdev)
+>  	if (lp->pcs_phy)
+>  		put_device(&lp->pcs_phy->dev);
+>  
+> -	axienet_mdio_teardown(lp);
+> +	if (lp->mii_bus)
+> +		axienet_mdio_teardown(lp);
+>  }
+
+[Severity: Medium]
+The commit message says:
+
+  No functional change intended for the existing 1G path.
+
+This hunk does change 1G remove behaviour, though. Before the patch, a
+failed axienet_mdio_setup() left lp->mii_bus NULL:
+
+drivers/net/ethernet/xilinx/xilinx_axienet_mdio.c:axienet_mdio_setup() {
+    ...
+unregister:
+	of_node_put(mdio_node);
+	mdiobus_free(bus);
+	lp->mii_bus = NULL;
+	return ret;
+}
+
+axienet_probe() only warns and carries on. A 1G device using a
+fixed-link, or a PHY on another bus, could therefore probe without an
+MDIO bus. Unbinding it then went through:
+
+axienet_remove()->axienet_mdio_teardown()->mdiobus_unregister(NULL)
+
+and mdiobus_unregister() dereferences bus->state.
+
+So the new check fixes a NULL pointer dereference. Could it be split out
+as a separate fix for net with a Fixes: tag, so it can reach stable, and
+the commit message here updated?
+
 -- 
-2.25.1
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261006110550.1990213-1-suraj.gupta2%40amd.com
