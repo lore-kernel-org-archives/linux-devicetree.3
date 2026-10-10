@@ -1,110 +1,113 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C0A1298CAB
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 410D935C691
 	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 17:12:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791652351; cv=none; b=Tq61TYqBfOUHo3Tq1N4oBoNf0t0bdD8D3hvNlp5apNSQyEtUKA4Fu0o3+DkRCEbFOwMWq+CIA9XE0fMlq9F/LcSq3jZL1NafvyrIaTOc1IEibBbaAMoKxwbUYHvFhIgvp4ydK2RnrvyLd+m68B31HMQIziGSUxF+MJbQK7u04KE=
+	t=1791652352; cv=none; b=Wg5mzd0QEo3bfa/nQHLgglfk4w7u+D3FKoCsmiVq0qzyq4XegNogwCO+5KLh5068zvX9HsQFWXEgDogOIEHqU/DVP44M9eb/RPD9pyy4mNrMV+0HeoFj5Ago189+uc+XXWs0EzeBlSPkryTCdg82y7qtwK5nRU9N+VB+EiCPSzE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791652351; c=relaxed/simple;
-	bh=eOmQjlZnBfTJ/VvMmrrzWZLHMz+hm52zGL9wVFt1bU4=;
+	s=arc-20240116; t=1791652352; c=relaxed/simple;
+	bh=JkWiZeGxlP1NnY0L2xPVcGQFKVO0AzpUV/0zJcpPTzE=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=jT8+IqQig1SwzecbM/Unf6H0IIKKop02tzX9Qa0pKqeNKMLNP5Q9+Q74Dv4fMdyq2UP4OlN0D/toLzrb1XlHnjAiFKF1qu9yFPckESUlKDkwN/IEjESpm9cvaxi+RWDTRJWB4g/yGoYLeSvdGUqR6vSDG9KTGTQECuLJqxRGy0U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZPn19Laj; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=tOeDYmzF6x28n2Y/3KzPT6YHedtBVeyHEhj0i1GkMs0T6BVQTG2KwgcTDmSvvtyJY39Q4kTxW27KAQZaRbTlBj7Fvic+Ru6nIrDywg3vAnFps/z5l7xu3pjqrUxNo0rFz4vXOBvgBS5bTbkUQWWKktLWjYLj+3rAs7lJlf4IDZ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XIRLfdWM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZPn19Laj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5201F1F000FF;
-	Sat, 10 Oct 2026 17:12:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XIRLfdWM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89ADF1F00893;
+	Sat, 10 Oct 2026 17:12:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1791652350;
-	bh=kCQLnVsvYI68ReCqcx7SPR8Gf11byMiNdTGSzrqVSOY=;
+	bh=JkWiZeGxlP1NnY0L2xPVcGQFKVO0AzpUV/0zJcpPTzE=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ZPn19LajwdGA8qJHCrLlxsnkSGEGIMLMbj4CjnlGXkZ3HBa5QUy3nU5d2thCLN2qj
-	 EDEj3NBfMl6Dt3HqRo9eUDw0XUzDWhWyDT9J1OrwBC6/tlPzbI3hhYipW/VaqNfta8
-	 xJF65dDFoJx126bLk1+Jm86/Z1oQzg7Bi2E2/sIbV0oeoa3cPHArD5/m9nXs2Z/tuV
-	 fjTit06OnPnrZOWf2TdjgxMTdO+mG/fNrEOwDnmav6X4X4iDGS03CBwOn5yNfytwIl
-	 bdmXu5BS5+x0dY+Qhs7lo8ArqHJGHto27A7VH8cszx5f+YBwHFzJuSvXwfRBYpVuSt
-	 wXnmDzCkMmPMA==
-Message-ID: <sashiko-outbox-166764@kernel.org>
+	b=XIRLfdWMG8cSZpOvLJmxcg1fYuYRbf29HfQEIkT03ESGFNdhbV9wKFubE8U4DPggp
+	 a2Dl8gFfp9t90y4vSgFD2CAKzZ5KXt+mBc+VjwDqJyPPPg3C1bq/F7I8lsrgA/s+Ar
+	 m3Asp4F/Oyhe1ojkVE38jktb9vUxbc3njoAyZvI+AtTNr9Bfzk0R0iH0exaWqgvXtf
+	 MdiOK4KVZ5ezSsf+6Kv/LUm09lksZrv4ojVH2j2xIioU4fcT0YflREf9p6UULhqYyq
+	 GSDpD3vgBfPDuTzfNLE0YN45xepVI82OyzHpDyPK+nI2ZKLfyTZUb+QKp6BW6CgsD7
+	 C3PZSkgYTxJkQ==
+Message-ID: <sashiko-outbox-166765@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v9 04/11] net: ethernet: oa_tc6: Move constant
- definitions to header file
+Subject: Re: [PATCH net-next v9 03/11] net: ethernet: oa_tc6: Move oa_tc6.c
+ to its own directory
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Selvamani Rajagopal" <Selvamani.Rajagopal@onsemi.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20261009-s2500-mac-phy-support-v9-4-dcefe1d0bf0d@onsemi.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20261009-s2500-mac-phy-support-v9-3-dcefe1d0bf0d@onsemi.com>
 References: <20261009-s2500-mac-phy-support-v9-0-dcefe1d0bf0d@onsemi.com>
- <20261009-s2500-mac-phy-support-v9-4-dcefe1d0bf0d@onsemi.com>
+ <20261009-s2500-mac-phy-support-v9-3-dcefe1d0bf0d@onsemi.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 10 Oct 2026 17:12:28 +0000
+Date: Sat, 10 Oct 2026 17:12:30 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Low] oa_tc6: oa_tc6_std_def.h is not self-contained
+- [Medium] build: module rename from oa_tc6.ko to oa_tc6_mod.ko breaks user=
+space ABI
+- [Low] build: incorrect use of immediate assignment :=3D for obj- variables
 --
 
-commit dc8b82e8ffa11bb2c910dd9a4dd8439a0dd981ef
+commit 0bfed8040741146a241b85eae9b49a4eb898b379
 Author: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
 
-net: ethernet: oa_tc6: Move constant definitions to header file
+net: ethernet: oa_tc6: Move oa_tc6.c to its own directory
 
-To help other source files within the module share the constant definitions,
-some of the definitions from oa_tc6.c are moved to a header file. This head=
-er
-file is still private to OA TC6 framework.
+This commit moves the existing oa_tc6.c file to a dedicated oa_tc6
+subdirectory under drivers/net/ethernet. It updates the Kconfig and Makefile
+structures to accommodate this new location. The change is intended to
+prepare for adding more files related to hardware timestamps and PTP APIs.
 
-> diff --git a/drivers/net/ethernet/oa_tc6/oa_tc6_std_def.h b/drivers/net/e=
-thernet/oa_tc6/oa_tc6_std_def.h
+[ ... ]
+
+> diff --git a/drivers/net/ethernet/oa_tc6/Makefile b/drivers/net/ethernet/=
+oa_tc6/Makefile
 > new file mode 100644
-> index 0000000000000..403a9c22b5f14
+> index 0000000000000..f24aae852ef27
 > --- /dev/null
-> +++ b/drivers/net/ethernet/oa_tc6/oa_tc6_std_def.h
-> @@ -0,0 +1,125 @@
-> +/* SPDX-License-Identifier: GPL-2.0+ */
-[ ... ]
-> +#include <linux/ptp_clock_kernel.h>
-> +#include <linux/net_tstamp.h>
-> +#include <linux/netdevice.h>
-> +#include <linux/spi/spi.h>
-> +#include <linux/skbuff.h>
-> +#include <linux/sched.h>
-> +#include <linux/wait.h>
-> +#include <linux/phy.h>
+> +++ b/drivers/net/ethernet/oa_tc6/Makefile
+> @@ -0,0 +1,7 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +#
+> +# Makefile for OA TC6 10BASE-T1x MAC-PHY
+> +#
 > +
-> +/* Control command header */
-> +#define OA_TC6_CTRL_HEADER_DATA_NOT_CTRL	BIT(31)
+> +obj-$(CONFIG_OA_TC6) :=3D oa_tc6_mod.o
 
 [Severity: Low]
-Does this header need to include <linux/bits.h>?
+Is it correct to use the immediate assignment operator :=3D here?
 
-It looks like the BIT and GENMASK macros are used here, but the required
-header is not explicitly included.
+Using :=3D instead of the standard Kbuild append operator +=3D for obj- var=
+iables
+clobbers any prior assignments. While this currently works because there are
+no other entries in this new subdirectory Makefile, it breaks Kbuild
+composability.
+
+> +oa_tc6_mod-objs :=3D oa_tc6.o
+
+[Severity: Medium]
+Does this break userspace ABI by renaming the resulting kernel module?
+
+The patch changes the target object name from oa_tc6.o to oa_tc6_mod.o,
+causing the resulting kernel module to be named oa_tc6_mod.ko instead of
+oa_tc6.ko.
+
+Module names are part of the kernel's userspace ABI. Renaming an existing
+kernel module breaks userspace configurations that explicitly reference the
+old name, such as initramfs scripts, modprobe configurations
+(/etc/modprobe.d/), and autoload lists (/etc/modules-load.d/).
+
+To preserve the module name while supporting multiple source files, the
+original oa_tc6.c could be renamed (e.g., to oa_tc6_core.c or oa_tc6_main.c)
+and the Makefile could use obj-$(CONFIG_OA_TC6) +=3D oa_tc6.o alongside
+oa_tc6-y :=3D oa_tc6_core.o.
 
 [ ... ]
-> +/* Internal structure for MAC-PHY drivers */
-> +struct oa_tc6 {
-[ ... ]
-> +	bool int_flag;
-> +	bool disable_traffic;
-> +	bool prot_ctrl;
-> +	enum oa_tc6_quirk_flag quirk_flags;
-
-[Severity: Low]
-Should this header also include <linux/oa_tc6.h>?
-
-It appears the full definition of enum oa_tc6_quirk_flag is required here
-to determine the size of struct oa_tc6.
-
-Could this missing dependency cause compilation errors if other C files
-include this header without first including <linux/oa_tc6.h>?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009-s2500-mac-=
-phy-support-v9-0-dcefe1d0bf0d@onsemi.com?part=3D4
+phy-support-v9-0-dcefe1d0bf0d@onsemi.com?part=3D3
