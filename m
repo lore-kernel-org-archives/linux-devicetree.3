@@ -1,69 +1,69 @@
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 681C0424D6A
-	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 06:53:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 175BD431E74
+	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 06:53:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791615236; cv=none; b=cCOHYSXQGGKM1f2N5FjYQgK0Wg8OYs76VeCZ0CLIXV9K1ZfUV83g0z+AVY0L5nTA9BiLrOebR5aqRPcKY1JnWZCxthgcr/bq769pu127qg2GYpMl59SW6143RElGYG3IdkRDJrm3DmwOK53e4Cgoca72iKvnZ76tvipYRT7m3Zo=
+	t=1791615239; cv=none; b=IjZYqGunupTArnn1TqrIkUyFwcspWhIjW/z/60DCPaxPrXBKC20ZBRT6eiBkgjKWuWbX1w1p1efP7K8SevvjFWMKuy6gF8wwK5OyGpxj6pkAo5fuK74toE0PX9V7CsaQTIKzu8qu9UYq8l0gC3m1OeTcQrvgw5kmFA+W6S0Jbkk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791615236; c=relaxed/simple;
-	bh=B/kHXVE12QnA9mi1Z6GgRqHoK7Ayw7XLiDZ492DM+tM=;
+	s=arc-20240116; t=1791615239; c=relaxed/simple;
+	bh=KCiU9H7oAsfJb+wOCJGHY+ftuBOqit3svB97TjTz8Ps=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=WT67wyiI//BnzuCF2uWKVT6+lX61zVok9khj3ivuIJVf7cEhlnapNdB6Xirlyjpy4Hp3AqpUOt1NMAsRDh6z1RAMu60gCZBXFlvu00cYaKRn9OOe19zkLiw4Hxhay4GWLB4q2j9hcQr7HYtJxMFHH3J20dCH65oXq94hk5JfbIQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DzfqXZpX; arc=none smtp.client-ip=74.125.82.178
+	 In-Reply-To:To:Cc; b=bh8fopsVxU1O0J5JiVm4sNjZKUX2+zfIsT2UrFcRRXG3vcGm6hMmqxfbd3fKJbnfRM8uOBuAFurNrvycmZlzIVffXmMvz3KpjYJEtZUdng1wpDo7S94DnSHas6he9QYpmsB8kDBY1El437nilOJZggi/+S+QVsoMPj2FTLH7gUw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cjYTGa9a; arc=none smtp.client-ip=74.125.82.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DzfqXZpX"
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-3518cbe59b0so265532eec.0
-        for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 23:53:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cjYTGa9a"
+Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-14394530ec6so344600c88.1
+        for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 23:53:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791615234; x=1792220034; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791615237; x=1792220037; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=AFImlOZb2wbRTDKx/9iuFhDiHEuwy5A5BWStW8aQ1JU=;
-        b=DzfqXZpX+L6JaL1MPfrfzXs+8yIl1YFByisaqktQPf7ZHZmMHkxOOzwTugmHDau0v6
-         v27gVN74TzqRm8MmXAeOFa5lHurhWc6aSms0JuVfOoITM0frj4wWTLCBjayvH9gxzSCL
-         byzZ0Yin9hlUzUQrT2giKVJkY1KyxySRa7Olx0vgXByhIhqcvIf+gQULUzAeqUy9zR9j
-         FOhVIWTXuXGcCMrwQrvEWWrSElOUrXrAZECTcAVSizL7t0oHPbE7H2ZXyz5mlZpoKLUo
-         cI49Z0OeL1ia4NLfv3VTjINu3rQnP1LPxBdxq+Em94uiG26nlzTzWHMhi6TPaDmRU619
-         V/2A==
+        bh=JbdiTE9cW05Ir8fGL9rCBVCwwyaDuqPvBVhKoWrKJGI=;
+        b=cjYTGa9ae2WwjSfLPM3nmEiW8Okrdn2JhaFUWC3E8pr0WU+tSQAV/wJOFQdve0S68W
+         Dbz7g7S0LH5INJxbrNsp33XSFkfO06LaaMQcvuCHFSn1Xld12eR/btSQHtOjVVVMAj7s
+         A9kZ1pUcdjqmk/PfGGnQV3p524U2sWA97CYvN4Lvh85YNLhKaUBF2vlxXAnhvuSKY0xy
+         UPqWE5z/Ml0wjdL1KyuodYKDuaG/PhMVmmbnO821/xtA3kjBt83xvNkvNer437bLOEvr
+         oFMmgaEOHFkYgNTx4y/FOubxyy3KyTvL7Hf2pZotjwn5HwJMiefysPj6pC5iPFb/WaCG
+         +DyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791615234; x=1792220034;
+        d=1e100.net; s=20260707; t=1791615237; x=1792220037;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=AFImlOZb2wbRTDKx/9iuFhDiHEuwy5A5BWStW8aQ1JU=;
-        b=CaExXIjwGfsBWTSfZAhaYHNT/OSqwXirLlwlZ3bjI+iVLPHIgo4/UARZmSbhz/yH/E
-         GZt2o6sJyHOv8oyPSMoibHKrBOI8Kb6oa2GEJeUbOfwrFQfBvaJAyVwqTtwSNg5sHZqj
-         FPFLVfWCIe+DCCEm3sQsNJEUUw0XcONxR7F+PPTSXuwPZoaTiWjjWs4gcqWPs5tVJpS6
-         dBIX6uNT5ypA4TJeWaGE9LLxqJ8bFXNznAvP7Vsx6KL2GdU+Sif+FglE8/i5Q6Rq5FkL
-         eE0pCA38JEFr95RFwsdmrM7aipD9e6XVEALo2w80Zmm6PTIn7C4+OJbKDQNdgC3C7m1M
-         puCw==
-X-Forwarded-Encrypted: i=1; AKwUvBys+Uq/en9E+xP26DsU077avUZuxpNs4Movmsw1IcQsyTB19OKsOXQrkZrxClQDx8qCMAIWkcYmPLaV@vger.kernel.org
-X-Gm-Message-State: AFq9FYIEn4v/aaT0YzXSsG5jGh+7LkD8b4rMsyn9jvHRIA7Ch4iPbvrw
-	nJJoiddwY8CKTR3bUqSKXvG8nJb3sPVMH9drlMeK0oOpNW4/l7dNKVlA
-X-Gm-Gg: AYBFou1I0HFLApHxFsnJ9+7VYrmqRR5J+p9gK3yI5MTFWSeA4+WUd004MWJmtZlPRce
-	PPnE1OGm6Xa+O08emzPpphULtLZsmoakFscGMD8+x260u5zwhHIwk+Q6Z0ZgpdLiI3ljFLcvkx4
-	Ozab13obsvnYy4VV9UrW5mBJzB2ZIOQid6g1ht26qbDUsKzqnDDaYFxfqIcdlyNvSEl1vHNcoiM
-	WbzJ4pkTZh/+Jqrk4Z17nmLAiH95lPXsLeib7TWAOI6S2mAQA8xOjP2pSB1qEYvFGsk2IhpCYHs
-	k9nilmApEK5l1dLH2PA3l7RRZugEJKC2ne8SnuQY4QCVUqw89m+yRshZkibd9My9KFfUjl/IB9V
-	1L8r7S8aUKdwMs/hLPru5ZKX7Ci5SgHJ294BQZvKsX6IsxYpDKzSuhIIw7SeIixLcL65oclRB6I
-	NVmumZECOhQLeCQ3NFAENuS0uw/+ovdPIjRWwHGeVyRcijq5Zz5YQyKXfYvgw/ccBkSnnWjsTFF
-	MGJjuc2L1lzt/OQ86pR8A7etVpGwn90KAuKVyU=
-X-Received: by 2002:a05:693c:4151:20b0:34c:5841:3e12 with SMTP id 5a478bee46e88-3537dfec887mr6030970eec.9.1791615234389;
-        Fri, 09 Oct 2026 23:53:54 -0700 (PDT)
+        bh=JbdiTE9cW05Ir8fGL9rCBVCwwyaDuqPvBVhKoWrKJGI=;
+        b=OrYCnTQ22p148iMTEWC2zSs8y8U2My7jWIl+/pcjYnCyrsGT60gmNzEYigQGs/QmIb
+         u5pi1aiKouuhLSdyO34IxYPAJdOEMx08dWRRsCD2bIDVZ9oEASi6kirL1rh1rWdeMmRC
+         YW2mMUSOnDN1ubvzEjqN+2Hs9o33L4jFjUuJks1XFQMYzx3iU/a42ozkr1H0sFILTKx/
+         qqqEXzMt7gPZsG5TmqeJSEX1332hZk7LI5a/3pLxwup9UPXhS1NWjBEgC/73sQXXODly
+         ToYdAE5NzWoxRT/RMA88Z4ttuQw6NwEGN1HPpymFR2Nlz52sbHnMofUFOHKpDQaSe0sI
+         1kTA==
+X-Forwarded-Encrypted: i=1; AKwUvBwbBPqhpAMuFSGrtMG3CezRZR6N1WvM4DOVF6ss1Jf8gEBwaREDHLGaLKQzdsVlKs4MBiIDRq+Xw8wv@vger.kernel.org
+X-Gm-Message-State: AFq9FYKzTzslKmO1FeL4EIx7A5MH0ArOr0ol2hEkEukFG5TuwFjyJ0Bp
+	KY8FB1z+91jxyAz8I88HLeQ0UQigS3voIWgPtfxg0ETCixLDeyPcKgWK
+X-Gm-Gg: AYBFou2xLK6yA+4vQuB9bbCUekL3aYyNEh/d5jVL78D6jR7sg36MPyQs5c1JcHxJIL9
+	htKOiRKMpu3RlEKtEL1mzXHIU51fTqM5itRmTAUo6xhi/3o1bXoSjJVFwpHBKCrBA5neSByqhHk
+	82REOKr3Teinap+8LCsz63hU1rD/S0gyp59pxyPCaBcP06Mv+KnfRP4rt5C61qfoBjNIvmlwyoK
+	CawllklAmP07toEyr55TOPjYiFz7zz3hZ69bsVTYvWQFpjaV8f7UvuRAasrZqA3dI7iaVuy1PwB
+	RRrXozcvG3Tr2DVMb+7qkkvNZoXOZ+B4J+nnStUUJh7ouccCnzxho3IFgXBwhfV9w5zFve0YUCm
+	sKCPiizBpIIPEEp0vE6Jli4b7zP0ox4neKkQ0tI/g/D/Sbc7Vi/Yr8tVyWe/4OeR/tjfTmaswu6
+	QVbriqPIkxJ5RUICvF6kxXXjTogBCee68osfz1uLyEV8XNh7CwV0x/jBXXyJ1D0n+yH1VNrMHWi
+	3hB/FCzqzUzhl4FPRP04sGY/e3rWNbPEQzrtF4=
+X-Received: by 2002:a05:701b:2906:b0:168:6ad8:e89e with SMTP id a92af1059eb24-16a63d21e08mr4178604c88.45.1791615236985;
+        Fri, 09 Oct 2026 23:53:56 -0700 (PDT)
 Received: from [192.168.100.70] (host-200-61-172-117.iplanisp.com.ar. [200.61.172.117])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cacb5e9sm13009650eec.20.2026.10.09.23.53.51
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cacb5e9sm13009650eec.20.2026.10.09.23.53.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 23:53:53 -0700 (PDT)
+        Fri, 09 Oct 2026 23:53:56 -0700 (PDT)
 From: Kurt Borja <kuurtb@gmail.com>
-Date: Sat, 10 Oct 2026 03:52:48 -0300
-Subject: [PATCH v5 09/10] iio: adc: ti-ads1262: support REFOUT and VBIAS
- regulators
+Date: Sat, 10 Oct 2026 03:52:49 -0300
+Subject: [PATCH v5 10/10] iio: adc: ti-ads1262: support common mode
+ supplies
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -72,7 +72,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261010-ads126x-v5-9-49e331cb2fed@gmail.com>
+Message-Id: <20261010-ads126x-v5-10-49e331cb2fed@gmail.com>
 References: <20261010-ads126x-v5-0-49e331cb2fed@gmail.com>
 In-Reply-To: <20261010-ads126x-v5-0-49e331cb2fed@gmail.com>
 To: Kurt Borja <kuurtb@gmail.com>, Jonathan Cameron <jic23@kernel.org>, 
@@ -82,175 +82,94 @@ Cc: =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
  Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org, 
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4743; i=kuurtb@gmail.com;
- h=from:subject:message-id; bh=B/kHXVE12QnA9mi1Z6GgRqHoK7Ayw7XLiDZ492DM+tM=;
- b=kA0DAAoWFmBDOPSf1GYByyZiAGrJ4ObItW+k+56RRDGBpsBYh0Goz3F/yEpQAVc+RmLO0fjU8
- oh1BAAWCgAdFiEEh2Ci9uJabu1OwFXfFmBDOPSf1GYFAmrJ4OYACgkQFmBDOPSf1GYFhgD7BWpD
- WOvRz34uayTSGwQV28ZFz0RaMZJyDN5bTgbfjj8A/2zp0MiA1jYleD9jlbVVORPRVoSiQCze86v
- pbHO2DcUB
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2778; i=kuurtb@gmail.com;
+ h=from:subject:message-id; bh=KCiU9H7oAsfJb+wOCJGHY+ftuBOqit3svB97TjTz8Ps=;
+ b=owGbwMvMwCUmluBs8WX+lTTG02pJDFknHzz77dK1n8X0pfahdSv6X2ZNUDC6qdJmevSzkITFY
+ ueT6qprO0pZGMS4GGTFFFnaExZ9exSV99bvQOh9mDmsTCBDGLg4BWAiR0MYGVp+bharN+WTX/4s
+ ojv93Ikti4vNp65V7q5kXlO4bavwg52MDL/yas4FZNqtWfwz4gu/jaHVATvLto7X04+62vjoHKl
+ 7zQoA
 X-Developer-Key: i=kuurtb@gmail.com; a=openpgp;
  fpr=54D3BE170AEF777983C3C63B57E3B6585920A69A
 
-Register the "refout" and "vbias" regulators to be able to use them as
-common mode supplies.
+Enable common mode regulators. The usual configuration is to have our
+own 'vbias' regulator connected internally as common mode voltage on the
+AINCOM pin.
 
 Signed-off-by: Kurt Borja <kuurtb@gmail.com>
 ---
- drivers/iio/adc/Kconfig      |   1 +
- drivers/iio/adc/ti-ads1262.c | 120 +++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 121 insertions(+)
+ drivers/iio/adc/ti-ads1262.c | 37 +++++++++++++++++++++++++++++++++++++
+ 1 file changed, 37 insertions(+)
 
-diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
-index 6d5df9c041ac..1d05ba6e9886 100644
---- a/drivers/iio/adc/Kconfig
-+++ b/drivers/iio/adc/Kconfig
-@@ -1904,6 +1904,7 @@ config TI_ADS1262
- 	tristate "Texas Instruments ADS1262"
- 	depends on SPI
- 	select REGMAP
-+	select REGULATOR
- 	select IIO_BUFFER
- 	select IIO_TRIGGERED_BUFFER
- 	help
 diff --git a/drivers/iio/adc/ti-ads1262.c b/drivers/iio/adc/ti-ads1262.c
-index 0606e712feec..5bb41b70353f 100644
+index 5bb41b70353f..66a7fedfefde 100644
 --- a/drivers/iio/adc/ti-ads1262.c
 +++ b/drivers/iio/adc/ti-ads1262.c
-@@ -24,6 +24,7 @@
- #include <linux/property.h>
- #include <linux/regmap.h>
- #include <linux/regulator/consumer.h>
-+#include <linux/regulator/driver.h>
- #include <linux/spi/spi.h>
- #include <linux/string.h>
- #include <linux/types.h>
-@@ -1122,6 +1123,121 @@ static irqreturn_t ads1262_irq_handler(int irq, void *dev_id)
+@@ -241,6 +241,7 @@ struct ads1262 {
+ 	u32 rref_ohms[ADS1262_EXT_REF_COUNT][ADS1262_EXT_REF_COUNT];
+ 	int refp_uV[ADS1262_EXT_REF_COUNT];
+ 	int refn_uV[ADS1262_EXT_REF_COUNT];
++	int common_mode_uV[ADS1262_INPMUX_AINCOM + 1];
+ 	IIO_DECLARE_BUFFER_WITH_TS(__be32, scan_buffer,
+ 				   ADS1262_FW_CHANNEL_COUNT +
+ 				   ADS1262_MON_CHANNEL_COUNT);
+@@ -690,6 +691,13 @@ static int ads1262_read_raw(struct iio_dev *indio_dev,
+ 						      scale * ADS1262_TEMP_SLOPE_uV_C);
+ 			iio_val_s64_decompose(offset, val, val2);
+ 
++			return IIO_VAL_INT_64;
++
++		case IIO_VOLTAGE:
++			offset = mul_u64_u64_div_u64(st->common_mode_uV[chan->channel2],
++						     NANO, scale);
++			iio_val_s64_decompose(offset, val, val2);
++
+ 			return IIO_VAL_INT_64;
+ 		default:
+ 			return -EOPNOTSUPP;
+@@ -1123,6 +1131,28 @@ static irqreturn_t ads1262_irq_handler(int irq, void *dev_id)
  	return IRQ_HANDLED;
  }
  
-+static int ads1262_vbias_enable(struct regulator_dev *rdev)
-+{
-+	struct ads1262 *st = rdev_get_drvdata(rdev);
-+
-+	guard(mutex)(&st->xfer_lock);
-+
-+	return regmap_set_bits(st->regmap, ADS1262_POWER_REG,
-+			       ADS1262_POWER_VBIAS_MASK);
-+}
-+
-+static int ads1262_vbias_disable(struct regulator_dev *rdev)
-+{
-+	struct ads1262 *st = rdev_get_drvdata(rdev);
-+
-+	guard(mutex)(&st->xfer_lock);
-+
-+	return regmap_clear_bits(st->regmap, ADS1262_POWER_REG,
-+				 ADS1262_POWER_VBIAS_MASK);
-+}
-+
-+static int ads1262_vbias_is_enabled(struct regulator_dev *rdev)
-+{
-+	struct ads1262 *st = rdev_get_drvdata(rdev);
-+
-+	guard(mutex)(&st->xfer_lock);
-+
-+	return regmap_test_bits(st->regmap, ADS1262_POWER_REG,
-+				ADS1262_POWER_VBIAS_MASK);
-+}
-+
-+static int ads1262_vbias_get_voltage(struct regulator_dev *rdev)
-+{
-+	struct ads1262 *st = rdev_get_drvdata(rdev);
-+
-+	if (!st->avdd_uV)
-+		return -EINVAL;
-+
-+	return DIV_ROUND_CLOSEST(st->avdd_uV + st->avss_uV, 2);
-+}
-+
-+static const struct regulator_ops ads1262_vbias_regulator_ops = {
-+	.enable = ads1262_vbias_enable,
-+	.disable = ads1262_vbias_disable,
-+	.is_enabled = ads1262_vbias_is_enabled,
-+	.get_voltage = ads1262_vbias_get_voltage,
-+};
-+
-+static int ads1262_refout_is_enabled(struct regulator_dev *rdev)
-+{
-+	struct ads1262 *st = rdev_get_drvdata(rdev);
-+
-+	guard(mutex)(&st->xfer_lock);
-+
-+	return regmap_test_bits(st->regmap, ADS1262_POWER_REG,
-+				ADS1262_POWER_INTREF_MASK);
-+}
-+
-+static int ads1262_refout_get_voltage(struct regulator_dev *rdev)
-+{
-+	struct ads1262 *st = rdev_get_drvdata(rdev);
-+
-+	/* The internal reference 2.5 V is measured above AVSS */
-+	return st->avss_uV + ADS1262_INTERNAL_REFERENCE_uV;
-+}
-+
-+static const struct regulator_ops ads1262_refout_regulator_ops = {
-+	.is_enabled = ads1262_refout_is_enabled,
-+	.get_voltage = ads1262_refout_get_voltage,
-+};
-+
-+static const struct regulator_desc ads1262_vbias_regulator_desc = {
-+	.name = "vbias",
-+	.of_match = "vbias",
-+	.regulators_node = "regulators",
-+	.supply_name = "avdd",
-+	.ops = &ads1262_vbias_regulator_ops,
-+	.type = REGULATOR_VOLTAGE,
-+	.owner = THIS_MODULE,
-+};
-+
-+static const struct regulator_desc ads1262_refout_regulator_desc = {
-+	.name = "refout",
-+	.of_match = "refout",
-+	.regulators_node = "regulators",
-+	.supply_name = "avdd",
-+	.ops = &ads1262_refout_regulator_ops,
-+	.type = REGULATOR_VOLTAGE,
-+	.owner = THIS_MODULE,
-+};
-+
-+static int ads1262_register_regulators(struct ads1262 *st)
++static int ads1262_parse_common_mode_supplies(struct ads1262 *st)
 +{
 +	struct device *dev = &st->spi->dev;
-+	struct regulator_config config = {
-+		.dev = dev,
-+		.driver_data = st,
-+	};
-+	struct regulator_dev *rdev;
++	char name[sizeof("aincom")];
++	int ret;
 +
-+	struct fwnode_handle *reg_node __free(fwnode_handle) =
-+		device_get_named_child_node(dev, "regulators");
-+	if (!reg_node)
-+		return 0;
++	for (unsigned int i = 0; i <= ADS1262_INPMUX_AINCOM; i++) {
++		if (i < ADS1262_INPMUX_AINCOM)
++			scnprintf(name, sizeof(name), "ain%u", i);
++		else
++			scnprintf(name, sizeof(name), "aincom");
 +
-+	rdev = devm_regulator_register(dev, &ads1262_refout_regulator_desc,
-+				       &config);
-+	if (IS_ERR(rdev))
-+		return PTR_ERR(rdev);
++		ret = devm_regulator_get_enable_read_voltage(dev, name);
++		if (ret < 0 && ret != -ENODEV)
++			return dev_err_probe(dev, ret,
++					     "failed to get common mode supply: %s\n", name);
++		st->common_mode_uV[i] = ret != -ENODEV ? ret : 0;
++	}
 +
-+	rdev = devm_regulator_register(dev, &ads1262_vbias_regulator_desc,
-+				       &config);
-+
-+	return PTR_ERR_OR_ZERO(rdev);
++	return 0;
 +}
 +
- static int ads1262_dev_configure(struct ads1262 *st)
+ static int ads1262_vbias_enable(struct regulator_dev *rdev)
  {
- 	struct device *dev = &st->spi->dev;
-@@ -1907,6 +2023,10 @@ static int ads1262_spi_probe(struct spi_device *spi)
- 	if (ret)
- 		return dev_err_probe(dev, ret, "failed to configure device\n");
+ 	struct ads1262 *st = rdev_get_drvdata(rdev);
+@@ -1876,6 +1906,9 @@ static int ads1262_parse_channels(struct iio_dev *indio_dev)
+ 		spec->info_mask_separate_available = BIT(IIO_CHAN_INFO_SAMP_FREQ) |
+ 						     BIT(IIO_CHAN_INFO_SCALE);
  
-+	ret = ads1262_register_regulators(st);
++		if (!chan->is_resistance && !spec->differential)
++			spec->info_mask_separate |= BIT(IIO_CHAN_INFO_OFFSET);
++
+ 		i++;
+ 	}
+ 
+@@ -2027,6 +2060,10 @@ static int ads1262_spi_probe(struct spi_device *spi)
+ 	if (ret)
+ 		return ret;
+ 
++	ret = ads1262_parse_common_mode_supplies(st);
 +	if (ret)
 +		return ret;
 +
