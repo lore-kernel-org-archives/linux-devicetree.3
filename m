@@ -1,229 +1,126 @@
-Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2129.outbound.protection.partner.outlook.cn [139.219.146.129])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28CC440D59C;
-	Sat, 10 Oct 2026 10:59:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.129
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E0F942E438
+	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 11:12:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.48
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791630002; cv=fail; b=Q2cI8vZwM1iwAsq0TbdngWZLkvWLFbF1k++Se1V9NVfBM87dGoupX5NPCdKwLRmRg9P7It4nh7rUbXNJIqieItejFtmpMXzY3ncuQr86zsIyNGeuNKSIX44m9InvLUyUBAUfgMLyXHN0L1gbX85/6OB2SUey30M76yCbEw9LB20=
+	t=1791630736; cv=pass; b=TAeTTEW06rVitFWtVcAkT0Pnb0tVFDMnn5736Iu3k5bxBrYTrVxn/CcRO7s+mpoJqXGlEsIdV54Dm77MerfqF7cpRUQxxSmYjPyK5GBhdmRjnYAKlRC0/u/33BXpfx5Qh0xMFxDqi3a9uCktVSOTy77o0mnLCMwK6F0yS62RFiU=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791630002; c=relaxed/simple;
-	bh=H4GaQYMwVt9ZAb6NWNj12jAy+7rDiWn4PPT7i1dh8lc=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=tJzTOBp0g7J+zXsmclpcocGDbE30XFsQtBNWA/nswJg2KrWqtNmRlIMbFu7mStl3CuPQ+q7lX1UAp1vuF02/Ng9XwDz1OAMl1FoGbEpLjQlAgihUThifbaphy9RrzToz6oisrEIveQWwrNfXWQpfuFGjdjYlBdubM36rnvbKvqY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.129
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=PUOjlpHozFF/JcHYwQYYHCQK7RNI2X8Zxri7wDeVv526asItXIVF4mu42hRmNQk3RzPAq4je0mbL9mR0nva81oaT7ESL+8jHDN13UY9IOqZLLzCJEU6/t7bib9+QbfqSES3bNhRee3/nFJ4VraqpRVi+vRuwZwxnjPve01TkG0Q8R7RZNDvBEfvkJdzu2zHR8CENMPhPni4IAox3HPrzJQXKIyMe0D6KulwtNbUAqGnd427p2EUbYtOIC5XZE2a2/YwOO2MNCxCtKoka6XbUUSd+CSQtZWnloXyvhFfOCf+n+gdoaXfDmjlC7Uo/hBVKr7R62wOXz4Q8t69yCV5+yA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=owlEn9+C6tAUjFoWxNHCGkX/WpjDr/sOLYI6BqO1NA8=;
- b=MG3lXKMgj3Mbq1XrGAf8SSKsPKT4o7cg7kLNsJYlqWa5+vZ8mZOc8QqU+vaf5lzeNxKxVZMi7gPFhswm+kNX2MDJbPQPeUrCfaAL55xUS3sTAvY1cdxQUsEbcUBcy8bes05PyVg5LV+tSgnZsSz6VXbFI8cspdnyqryLPScRGyHPdZRbPljXIek5ceIU9YpGLCn/ENljOLpH3ODGcuHjXDkfmco1HT7pIaHLh8eaJ1qsLKWoF6n+W/f4scXF/Yqy2zLbI+IrApMjikVpGMwHunsTuSM38Die4SNsSRBoQyJ9EbxeDzCKeAEGhHhGj1+hWqemQk71GVUyuZCaNNp+cw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-Received: from NT0PR01MB1216.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c510:11::9) by NT0PR01MB1005.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c510:6::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.9; Sat, 10 Oct
- 2026 10:59:44 +0000
-Received: from NT0PR01MB1216.CHNPR01.prod.partner.outlook.cn
- ([fe80::1666:48e8:19e9:ad29]) by
- NT0PR01MB1216.CHNPR01.prod.partner.outlook.cn ([fe80::1666:48e8:19e9:ad29%4])
- with mapi id 15.21.0496.017; Sat, 10 Oct 2026 10:59:44 +0000
-From: Changhuang Liang <changhuang.liang@starfivetech.com>
-To: Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Emil Renner Berthing <kernel@esmil.dk>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	Changhuang Liang <changhuang.liang@starfivetech.com>,
-	Hal Feng <hal.feng@starfivetech.com>
-Subject: [PATCH v6 5/5] reset: starfive: Add syscon reset driver support
-Date: Sat, 10 Oct 2026 03:58:59 -0700
-Message-Id: <20261010105859.19505-6-changhuang.liang@starfivetech.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261010105859.19505-1-changhuang.liang@starfivetech.com>
-References: <20261010105859.19505-1-changhuang.liang@starfivetech.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: ZQ0PR01CA0036.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:2::20) To NT0PR01MB1216.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c510:11::9)
+	s=arc-20240116; t=1791630736; c=relaxed/simple;
+	bh=md5oQoJphQol66QfbURRgT/HHzUasbyHUn6RkFFz5Dk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=BSK8F3sbcSX9YzefWKy42zsWuBXmIdcjTjQzCUnpw1yHE6/S0g1GMg1M52PUOcuddM3wrdwlxr7r9L8CW/jcy31ocUygBum+S8JcXKXp2yb+AgIpN31TrdcHBpP/ITb5FHUJLjOyHVYLnA5DSU4tBD1CB6Byr9fl5XFKYjfi8vE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=nigauri.org; spf=none smtp.mailfrom=nigauri.org; dkim=pass (2048-bit key) header.d=nigauri-org.20251104.gappssmtp.com header.i=@nigauri-org.20251104.gappssmtp.com header.b=jMQIHL3d; arc=pass smtp.client-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=nigauri.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=nigauri.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=nigauri-org.20251104.gappssmtp.com header.i=@nigauri-org.20251104.gappssmtp.com header.b="jMQIHL3d"
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48afcfc4bf5so499273f8f.1
+        for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 04:12:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791630731; cv=none;
+        d=google.com; s=arc-20260327;
+        b=aT0UwvcKSELS59zSdVBAgK7nEJoY+hv5A4TvMknR489WExcAgsnqdId8Q2t9qaq8k+
+         BD1CskRdXVjUN1WGldw8/XyCHYlsbBVEF24m8bQXqWWJcXBC5OLc3IXcrJHQXlDgdZUp
+         n0wtCWt9Z7VMh0JfYZsk2C/S/cO+pwQzfJc2vjKdEAzwD1URUYGPTUu85p+qopadg+2c
+         pgmGK7hhgHW81CdNjpqUGlXK7pob7ERgOxYCH07Rk3CNq3c5fnSFQHQl53+tAU47kbmL
+         C8ySfvZatXWnALUZhiwxwBfoLIN0oa9Hv4F6yr7Xe8LIXH/A4QQSqi8XTMzxPZyoXjdS
+         LOig==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=2iYyP1LxibJML28p8CbELojx4hp1/pLAXT4X+K0jWjU=;
+        fh=WQgOkbmml8C+qNDBvrDqNbn/Gu34yOUAOgf0XFnBokY=;
+        b=cbj4t2ohU4uAZ2VWqLFvI2ZCLYabUdfBwRNsZqTBrkHqVn0GTuiVqSwZ5mCwzV6Zfo
+         TRuQNraqrPTpgluAy9LBfGpFWXC+7c9PeUHytn8V0u3JMHlKZvwajItqrSkGoEf/fqYJ
+         SVGnHep8V9AchTwyHR7XZ6s5Hhg7inpvT/99lxCDOzJX/qEh5N5Pc8RiXHQclqu9G8je
+         CpR9jphH/lCwU3sD8B9WQ69Pb/0BAhqbCJXSmh2+AGl1xpmJMG/+bUt864J/umjih/Ae
+         vj08+V2qB5TIk85DgyZQpbpAivAsY+sGQHzM8WcyG8oTa33CQdcf05SSoL2H0yODLGJc
+         0+7g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nigauri-org.20251104.gappssmtp.com; s=20251104; t=1791630731; x=1792235531; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=2iYyP1LxibJML28p8CbELojx4hp1/pLAXT4X+K0jWjU=;
+        b=jMQIHL3d/ahvcQ6BsHBNrBAF4nYP56SS9YAm4AmPAFL6DmFkjmZnSgHRE2wt7fYiuP
+         T3Xctl/ZSBF+2OyFt9KabgQYzHTNrD20cU6R2CETxh5n9y2PU/JFM0A6ZfF+4qTYfDPi
+         rHx6C1aY0AMRP4Th1ZHJwsOnP+otfYFKvLgHPL33eXl9wsBgF7S/r+HGKU+4PFN/aCdK
+         6+gAwKsABnZIBooJvK60M1rr0YbKcjrGWmgqXC5XpEAUX7Sfu5yGH1GGdcEyRAlSlhgh
+         Z4HAwuETuRxBWurYXbr/m9CsFGXTvgrdU/5BbYm8RhxUN1kzHB9MmSQpjzx0/tR3/8nu
+         LlhA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791630731; x=1792235531;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=2iYyP1LxibJML28p8CbELojx4hp1/pLAXT4X+K0jWjU=;
+        b=roJ5fmOMGzkZHuxjlekayusVdBl5HK1WjYD0FGXt+iETqsVWmG/olHJQBJKhsbRezR
+         8peueYJ/NI9mUIVmom39pwkw8gNEL92c2CTlpC4Gmdk0Zd0V1lywQzqLoEvsvvqWaeOK
+         qleWc5nwpc3bdmt+fpn2wH/P9mpBpNhlYXgk7m9MChmDSAwQ2JkNqX5yNe9NuDuurlIt
+         KATXYnxs7Cs9CS927ZMDooK5AEbM/QW2vnffQO+eciXEs8gdmABQLXhyE2UhM2YzfeOF
+         pwkdhTzMU6wrK3EukB4k97U+itO8Gm4QCiaNY/jfwsdiQqUKqzt1quIenrvcGv4A9+OX
+         Wl8Q==
+X-Forwarded-Encrypted: i=1; AKwUvBw9oX1TQTKkhk70P6bIRDhMvLrWvMjuRai74hc2VwU+9nCbzUkqybEyCdFwS9OMqCl1f1zeDpCJ2jgW@vger.kernel.org
+X-Gm-Message-State: AFq9FYKrHMODssrdEnXRAgWB5uIYCpSkzdTuZCUQoG90vEzL8cKMUaai
+	4HCqK+QTDiF67sPbPRaLL7G4dbEe8iOPeWzVEkMI0UBADDuBV6kVJ7fO3FlN4LZdv2us6m2x2EG
+	6x8r9AERKz+g4V1oP8iYvVKJ5Bz32qvYG9dBfU68=
+X-Gm-Gg: AYBFou0IIt6S4uupON+1VD70c5JvT5uu47a3aZ3rLltMQvlmVgSvZ0xhjLUgY4hoo2X
+	mZ6Yo4H7SVq7A4Wlf33hxqfWjm3jWxmP9GCv1biy+35P9M7FTliRy0lmvdgf17JiYCOhXvAAkim
+	VAlZGblfOoxL9oQWkC0AApzjLEH259fx4axj7thRHE/IRhx5q/uKgOv28UArpohkb0/2XG8gZZf
+	0Cw/RL4zNXxeG0JdRm4tsBvpABjbyFvSprumHYaVdtrMhY6bxSilZuI4lpeRvI2gQNZlt0iLqDn
+	vft0uJ+XxKiWPYLXoEuQmwewzr366JZL1/YIJxqbvZBKunRpupY2AUyCTQEbM9SARQ==
+X-Received: by 2002:a5d:5291:0:b0:486:f3db:e0f2 with SMTP id
+ ffacd0b85a97d-48dbaade0b3mr6036971f8f.14.1791630731034; Sat, 10 Oct 2026
+ 04:12:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: NT0PR01MB1216:EE_|NT0PR01MB1005:EE_
-X-MS-Office365-Filtering-Correlation-Id: 01dc00e9-26bd-4edf-598f-08df26bd97a2
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|52116014|7416014|376014|23010399003|22082099003|18002099003|10067099003|261009223027099003|38350700014|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	pY0iu1hivDzAKaddK5Kr/RC07FwRdJzb7rG3fuP62yURSof1L8ePPq2EtIICEypZiTcVvOzaiL+zNgtJxiWj/ZMbfReUcEyc74ylfpNQyV+BexO7G+/659t4cEK/TgfikSB4kr4SdYv/6OEwwoX4IEWMoZoUeZbo6xlVFkdnhvPS/M/Abw9iMmadYXBvE7AnwdEAP1MPQUAYzSQx0vG9bwY2FBa+mWQIfdOEqWNOQy9FqF74+E9ujzHagE8VqLeSG8F0UJ6cOFjtQWDgg2Sr/55q9eMG3dVT1CT7nmCRwnHEL1eGS//eVqf5nrw7x2NFxI1Gt/k+kP0DiDMJiHcZ+Nj4D2dIJsrDtM/1ov5AGoszpAtzzS7cMvDYTXmgmJK8u9PHze4gPPzDcV+O3j8w6zLhsPmAEpqD2TfM2T8uwtLXpHQwpmkwswK3eixMKosXqNfMACVQSJObfDQQtqtCnFOT1oZG6UBSnMbBl0C0u18E0puzNPzm661gaR8tyMgeKF2WSaemo8+JCqmscUVzPuey4GhWVZm4En0AK9ozeaMi7Rd2n7dADThRW3LODkVl
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:NT0PR01MB1216.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(52116014)(7416014)(376014)(23010399003)(22082099003)(18002099003)(10067099003)(261009223027099003)(38350700014)(56012099006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?6s1gTW1wx6Rzuo7HSTJF8GkSq2lLhIQISzMRNIniiDrwgklfIL6UxA4tbk2w?=
- =?us-ascii?Q?O3HWcXdKRpnrFNsjsQ6o98P//3Z93O4VlKiROjeB3H6B1zAgwhJgE7RdSgZ6?=
- =?us-ascii?Q?q6w/B7xePbXvzo+/0/eVgYh88P3w5UvkUxZwvG07VPMkkHyW+t7nK2kVMGap?=
- =?us-ascii?Q?ZvjM4ol81jJ1BayS+h6CApH04MOjXVZyW6JZBrewnxTvfN76PL3sCACyQMl1?=
- =?us-ascii?Q?+nW3zaFvEygqGKapwGE+7k90adLRUs5WiAAuxisTQ1tYWjgK+pRSN1XyW08a?=
- =?us-ascii?Q?mAWAQAaEPVUrw0et18TshQz+OHgguMQ6KoQazKf1n+nS+jepHzRCDF5ykrMd?=
- =?us-ascii?Q?sPwakJprEJDKLWyUF/gulM+2Wv5TztQjxPWfTKEkqaLUOOGs1F6ZLCr+Ig9n?=
- =?us-ascii?Q?9yQXUARs/taW50IfIEO4jYwaYeJ8o0q4hQ0fJTHIB6L3ZIVKblOaGqOUz4qB?=
- =?us-ascii?Q?2j0vW+lN9mCCeLWLrlrp3dK2eQece3ufTPYN+wkGGUXZAJeiLTF8tkvUTbZP?=
- =?us-ascii?Q?Jv2FK38UeGHU6zlcJHGLvLgM25suMtw7sOAOfevrr3zJMpDlSV48GQu9hAFb?=
- =?us-ascii?Q?VBI6skb92GXZbr21JCgNh3NI9FPB8OlsIS79G5MheD4y5+W+MSrmjE71FzV+?=
- =?us-ascii?Q?qQcBAlJGDxhJlw2q1qOFAj7VDH/F00MEeO8xtqq16BDj/J3jlb2p1kdgqeID?=
- =?us-ascii?Q?0FxwwXrSyNjj/bZfhR0uJt06q4X5gXh1FI2Jh/+TPfeis1GBecrmEHdoZmw9?=
- =?us-ascii?Q?3Be24RfdA8GESNnNP+T0byfN3HcUH9yBj0K3oTPqcokuwb6Y9xalzRXVO0wF?=
- =?us-ascii?Q?i7oXaoso5PRVCeUaO827Zmpqirb1bp37C3EW2+AojmcUC3726CMxbI2DM8xf?=
- =?us-ascii?Q?MvE5gtCevbC/LUzWxEzpWcTyw79X1roNVoYTVY/QRi8x9t9chx1VGUGqro4p?=
- =?us-ascii?Q?Xb+Oah7jUHY0FZdrS0D56txFzuIrYdwyaeKQB3pO2NvntH0MGlpEEyB/p20s?=
- =?us-ascii?Q?9wX4QoA9Cim+A2gPlL3Kp5XWtjRT3amkaNumNrPg18tXI2GSAyCscNgX4Y0s?=
- =?us-ascii?Q?vaA4YRMd0M6yy6pMlHZLUUSSPzwuwGPbCKPE3HieUnGkH9yUlvxP+zaL6C1m?=
- =?us-ascii?Q?3zwY76GQISPND/97mARilDQvSzjgI265+EdZvYP3Gsm4hzj5QjshH2F/FuuT?=
- =?us-ascii?Q?JItfix0otBQ0B5oCits83LhjOOB78MqyQPr87mwyjGSVyQ6Z/2VoHFE3xGIQ?=
- =?us-ascii?Q?A94cvVe1+Aj4NacTGIX3Ixnmfs3KRg+P+fiBZNZEPs8pCo7/8/p4idesi2wv?=
- =?us-ascii?Q?0qLaLdrhlABRKgZ6L2VDgTwNH8dWodXOgSalErpefDnTT6hYlaPPRghBCDFx?=
- =?us-ascii?Q?/2EbbgryQQRxk1YKbVBYSQJ6HWauT0cU1JSEF8kGq/5ZGo0dUJuvs7u2PALJ?=
- =?us-ascii?Q?YTEyv+JWLN1sjM5/K/ngk5PoPr8fZ8EgcofEXK5PUXYTHbbGlwNGqHkcSC26?=
- =?us-ascii?Q?kZqiWk8l63CXdVDsHJ/da94vmreXQ7SGwXVf484rTTHrzMhLyUQbpL+JjJeG?=
- =?us-ascii?Q?ZYkFaH7Qb4+uT9Rmu/kaWxCMMDU5NUxTUDH1bKl25ZLf11BpOcjYg3ClW7cK?=
- =?us-ascii?Q?m/ceGyRUgAjzB80e39hRPxELusxy2UDS5LZQCrzGGjZyrR+MEJtezhSlGtby?=
- =?us-ascii?Q?41DAO4n/Bx7GQ1+pmCQrJXRdL5s2zR5sQc8KkxqfYiPT7un1LoezjAZZCML/?=
- =?us-ascii?Q?GRDXe9OPBJ9cbPz/YraZhEgRsdl7l6Rj3hFzNpuadOwckIvwhSuH?=
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 01dc00e9-26bd-4edf-598f-08df26bd97a2
-X-MS-Exchange-CrossTenant-AuthSource: NT0PR01MB1216.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Oct 2026 10:59:44.5992
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5YvRA0ccbge/sRL1m9O8LZeIT3s61O7c/3Dr0y0lzaD6yTUrMkLMkiGaK2ecD+Z5Rrt2FIpWB3ynqpwr4DS+mLJWGENyZ5wq0J2K/lGBTQx89GOH2nz3Er2B32CBKsIq
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: NT0PR01MB1005
+References: <20261008201953.34307-2-wsa+renesas@sang-engineering.com>
+In-Reply-To: <20261008201953.34307-2-wsa+renesas@sang-engineering.com>
+From: Nobuhiro Iwamatsu <iwamatsu@nigauri.org>
+Date: Sat, 10 Oct 2026 20:11:43 +0900
+X-Gm-Features: AclHuK-PSyRsX8cggYxKA7ZFI2xxYlvObXFkyui2LHRAXrkPEmOXGux92QpuC2w
+Message-ID: <CABMQnV+U1xFSctKwkUkjriJwarD6QwGJi5tzQTerrK5Rio7e8A@mail.gmail.com>
+Subject: Re: [PATCH] dt-bindings: rtc: rzn1: add resets property
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Cc: linux-renesas-soc@vger.kernel.org, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Miquel Raynal <miquel.raynal@bootlin.com>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, linux-rtc@vger.kernel.org, 
+	devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Add syscon reset driver for JHB100 SoC.
+Hi,
 
-Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
----
- drivers/reset/starfive/Kconfig                |  9 +++
- drivers/reset/starfive/Makefile               |  1 +
- .../starfive/reset-starfive-jhb100-syscon.c   | 61 +++++++++++++++++++
- 3 files changed, 71 insertions(+)
- create mode 100644 drivers/reset/starfive/reset-starfive-jhb100-syscon.c
+2026=E5=B9=B410=E6=9C=889=E6=97=A5(=E9=87=91) 5:20 Wolfram Sang <wsa+renesa=
+s@sang-engineering.com>:
+>
+> The RTC on R-Car X5H does have a reset unlike the other versions.
+>
+> Suggested-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+> ---
+>
+> Passes both DT checks. Kind of fixes 3b3fdc9fd40d ("dt-bindings: rtc:
+> rzn1: add R-Car X5H support") in -next, but we don't use Fixes: for
+> bindings, or?
+>
+>  .../devicetree/bindings/rtc/renesas,rzn1-rtc.yaml          | 7 +++++++
+>  1 file changed, 7 insertions(+)
+>
 
-diff --git a/drivers/reset/starfive/Kconfig b/drivers/reset/starfive/Kconfig
-index 84baefbaee14..be948b855c79 100644
---- a/drivers/reset/starfive/Kconfig
-+++ b/drivers/reset/starfive/Kconfig
-@@ -28,3 +28,12 @@ config RESET_STARFIVE_JHB100
- 	default ARCH_STARFIVE
- 	help
- 	  This enables the reset controller driver for the StarFive JHB100 SoC.
-+
-+config RESET_STARFIVE_JHB100_SYSCON
-+	tristate "StarFive JHB100 SYSCON Reset Driver"
-+	depends on ARCH_STARFIVE || COMPILE_TEST
-+	select RESET_STARFIVE_JH71X0
-+	default m if ARCH_STARFIVE
-+	help
-+	  This enables the SYSCON reset controller driver for the StarFive
-+	  JHB100 SoC.
-diff --git a/drivers/reset/starfive/Makefile b/drivers/reset/starfive/Makefile
-index d781103355d3..f568938d0219 100644
---- a/drivers/reset/starfive/Makefile
-+++ b/drivers/reset/starfive/Makefile
-@@ -4,3 +4,4 @@ obj-$(CONFIG_RESET_STARFIVE_JH71X0)		+= reset-starfive-jh71x0.o
- obj-$(CONFIG_RESET_STARFIVE_JH7100)		+= reset-starfive-jh7100.o
- obj-$(CONFIG_RESET_STARFIVE_JH7110)		+= reset-starfive-jh7110.o
- obj-$(CONFIG_RESET_STARFIVE_JHB100)		+= reset-starfive-jhb100.o
-+obj-$(CONFIG_RESET_STARFIVE_JHB100_SYSCON)	+= reset-starfive-jhb100-syscon.o
-diff --git a/drivers/reset/starfive/reset-starfive-jhb100-syscon.c b/drivers/reset/starfive/reset-starfive-jhb100-syscon.c
-new file mode 100644
-index 000000000000..16b2333d27fe
---- /dev/null
-+++ b/drivers/reset/starfive/reset-starfive-jhb100-syscon.c
-@@ -0,0 +1,61 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * SYSCON Reset driver for the StarFive JHB100 SoC
-+ *
-+ * Copyright (C) 2025 StarFive Technology Co., Ltd.
-+ */
-+
-+#include <dt-bindings/reset/starfive,jhb100-crg.h>
-+#include <linux/module.h>
-+#include <linux/platform_device.h>
-+#include <linux/property.h>
-+
-+#include "reset-starfive-jh71x0.h"
-+
-+static const struct jh71x0_reset_info jhb100_pcierp_info = {
-+	.nr_resets = (JHB100_PCIERP_SYSCONRST_PE2RST_OUT + 1),
-+	.assert_offset = 0x14c,
-+	.status_offset = 0x14c,
-+	.active_low = true,
-+};
-+
-+static int jhb100_syscon_reset_probe(struct platform_device *pdev)
-+{
-+	const struct jh71x0_reset_info *info;
-+	void __iomem *base;
-+
-+	base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(base))
-+		return PTR_ERR(base);
-+
-+	info = device_get_match_data(&pdev->dev);
-+	if (!info)
-+		return -ENODEV;
-+
-+	return reset_starfive_jh71x0_register_with_info(&pdev->dev, pdev->dev.of_node,
-+							base + info->assert_offset,
-+							base + info->status_offset,
-+							NULL, info, THIS_MODULE);
-+}
-+
-+static const struct of_device_id jhb100_syscon_reset_dt_ids[] = {
-+	{
-+		.compatible = "starfive,jhb100-pcierp-syscon",
-+		.data = &jhb100_pcierp_info,
-+	},
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, jhb100_syscon_reset_dt_ids);
-+
-+static struct platform_driver jhb100_syscon_reset_driver = {
-+	.probe = jhb100_syscon_reset_probe,
-+	.driver = {
-+		.name = "jhb100-syscon-reset",
-+		.of_match_table = jhb100_syscon_reset_dt_ids,
-+	},
-+};
-+module_platform_driver(jhb100_syscon_reset_driver);
-+
-+MODULE_AUTHOR("Changhuang Liang <changhuang.liang@starfivetech.com>");
-+MODULE_DESCRIPTION("StarFive JHB100 SYSCON reset driver");
-+MODULE_LICENSE("GPL");
--- 
-2.25.1
+Reviewed-by: Nobuhiro Iwamatsu <iwamatsu@nigauri.org>
 
+--=20
+Nobuhiro Iwamatsu
+   iwamatsu at {nigauri.org / debian.org / kernel.org}
+   GPG ID: 32247FBB40AD1FA6
