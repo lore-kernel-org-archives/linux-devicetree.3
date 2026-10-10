@@ -1,169 +1,219 @@
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011064.outbound.protection.outlook.com [40.107.208.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F86D3955E4;
-	Sat, 10 Oct 2026 09:11:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.64
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791623520; cv=fail; b=RZoctbH6Sv+Zx2rz5mb8zYWF7GN6h+LFUxZxX88o5XHpJFT1QyLq+ojmJSY9CyE8C6VQZ0Ix80oAJgyB78rUDvS3EGAgTtDCkXr5KoOWfoq1dQLAArI7AJJTjPolalbiL2RsXpYpKAT5Vxkejg7xqKUMXLroVKrLKN8pIx1PCNQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791623520; c=relaxed/simple;
-	bh=rG9XeD4ITr1/MbX1VK5JbHjWlXyBGwfb0mJXZL9QPrw=;
-	h=From:Date:Subject:Content-Type:Message-Id:To:Cc:MIME-Version; b=VnjnuBETb2du+RVvBAYeODhOX3fS7vFdxRvQeuHUcQc7pePxDnWhah0wyXCVuZS34yKjxfC7Mk7YDbGPs954vHbgT6QPJVIlHgfcisoW7duTH24fB5QGhz/cIhazXkyPsu94TQjJqa9YISfqFEHPtiNbXc6KrBW5QCelWJNRwKc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=K7dDd9xI; arc=fail smtp.client-ip=40.107.208.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0B9D33EB10
+	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 09:16:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.45
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791623815; cv=none; b=r5/cMzqCX/IgBTSQo/EeGSEi4pi8xs+2IXjYGZUpPxyU28yDT2RgPJMNo7dhoFPgLmS299gIgsYfEWPxgKv30Q/CMZBi0aZ0de7qGSjUWfqkLb8WKyP3hN5CxNW2X94kpp7gGrsmy69O48Gr0PCW9OyVYzBL4LCCRq6OXLFCrQA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791623815; c=relaxed/simple;
+	bh=26f9vS9ZqT4zzaBLJMhopaILCcL/YIkV08ebrTJF/vc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=sdkNRnIVzd/bnaQqSupAPRpPEEv+9V55p0NNVjn7luQwZWZbZc59biLCmLcRmPq1oKFUkmTrAalwmp7J2iUZaj5xjXe/BscVN2zZCO/ypQJfQmFYmOZ3uu9ud7fAqGMmOYgvefqR6c8zyXZ9vxY3SiTID4m00K6oM4sXaSuAi5g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=NZDTeYTd; arc=none smtp.client-ip=209.85.218.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="K7dDd9xI"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ED7zrIaAMYXnfDlxpyALCV25vCKqAH/bMRMmlWcmKPivopt3wSzHx16irqdKP6n4K9YXS+l6KUiPbv44AaTBdldBJDR1hAjpmt7ZeT+mT8ibSXsG2A+AK3BJYZFzN/T4jUaDPf+BxBGsqNF8x+CE8Q9xmnmJPckLcjqvNTKiAT5J2WA+jUPiHYJKswKogFVzg22rPCRL/JWVnpVWi2rXJpOkysrXGaRjuEwPfWoEOMwb9QWqcFZKDpu2zJAhvpT5jYYSdL2nZ5W26xIZnLwpyQsvvPN6MGtipJLtCR4NktJCQXSleJP/04lyvLZMJS4WQafNsqYzFBU6FMHAZUSEZw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=4s4gqxwWp498s3XeOOsfn024RsnjakXIeKJLhiXph5s=;
- b=EPQJ4m2HcyLfYfXGn9DiWxUhMMC1P2F63ciALoytMFJrrP88fj9714u6KTNaO+zjAbX9PlGcf2Q3nt3wvCiF/VLZnm2Saag6UTnou0VGjZmjFO+O3GPS4oHDaC04oht8zdoVbW1OH78POaHqtDMF4uzZW/w2ftLMJwgRGhYt8myqW4Zjic7UBdaVqpT9iRNnbvX/ykvO0c156R5dYfqBnsWlRo+4PyCYOW34Jz4FzTkVY11EU/GDKSDBpcJoQ87ovPjGrmNgbh+4txxh0TtOwTImUWyDApTupbm9hj0sGUSETu8mIqFAU2qhlwVDP4uEeYGyekQ6vBxCGIj78Eg3+A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=4s4gqxwWp498s3XeOOsfn024RsnjakXIeKJLhiXph5s=;
- b=K7dDd9xIWVJEdqwVOlsyg/UYD9v+07jCokzpasMpjiE3EcfNPMufvjQ50IpHlvCrfzXXgC50YhR4yYqlsN01IwaMACgriosgNk1Mng+6GwSDbrLjHSf+qTtMnLxQnISI2EtqcOVxOtRgdmA5uQ7ZGJPK9dC4AnkS4ersoTWdsh4h6dB+3efMUMqpW88CaFjirJrB+CcZ6FXHKl/AQ9NrWChHyx42jkahMU6tZZMBKDvcjw1MyYtHJDcrLNST3j1Nj5fRK5mpwJqmbV+PS6HR2cYJ1TKcEf8A810nMqowxfWzMre2yyNb2fXcMId1yVDIulJUQZ78agrrpXx/segihQ==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
- by DS5PPF5C0B6C3B6.namprd12.prod.outlook.com (2603:10b6:f:fc00::64e) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Sat, 10 Oct
- 2026 09:11:56 +0000
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017%5]) with mapi id 15.21.0496.015; Sat, 10 Oct 2026
- 09:11:55 +0000
-From: Mikko Perttunen <mperttunen@nvidia.com>
-Date: Sat, 10 Oct 2026 18:11:25 +0900
-Subject: [PATCH] arm64: tegra: Override ethernet FIFO sizes on Tegra194
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261010-b4-t194-stmmac-debug-202610-v1-1-dbee21235296@nvidia.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQrCMBBA0auUWTuQtGlEryJdJJOxjtAqmVSE0
- rsb2+Xjw19BOQsrXJsVMn9E5TVX2FMD9AjzyCipGlrTemusweiw2ItDLdMUCBPHZcSjYt+l4N2
- ZUucJ6uGd+S7f/X4bDusSn0zlv4Rt+wHUsatVfwAAAA==
-X-Change-ID: 20261010-b4-t194-stmmac-debug-202610-53da647cd36c
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Thierry Reding <thierry.reding@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>
-Cc: devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Mikko Perttunen <mperttunen@nvidia.com>
-X-Mailer: b4 0.16-dev
-X-ClientProxiedBy: TY4P286CA0113.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:405:37c::8) To SJ2PR12MB9161.namprd12.prod.outlook.com
- (2603:10b6:a03:566::20)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="NZDTeYTd"
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-c2e26719a0fso49415866b.3
+        for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 02:16:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1791623812; x=1792228612; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=7T5vK42CKAAeKGAbtMXBKyH6AjLD+rScPsMFR15QqdY=;
+        b=NZDTeYTdoKBl1eumQR15eqyhvmGdrVHhu1wAr2F/HfWElgzgvCjc4BxYjz8Fwdcnn8
+         MZtr6wSX6ozkoYVgMYCjbMkKIrwvi3KzS4mVEmNL/27tDfZ9pq7jSPwuLOCUCq9IUEHE
+         BZMauDs+IKt94X14ZDHSlEeENy38bt9NlH9Us=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791623812; x=1792228612;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=7T5vK42CKAAeKGAbtMXBKyH6AjLD+rScPsMFR15QqdY=;
+        b=etSZtY7aj2RXh5xNwxwp+8A+b/Fg/FgA2xq87bYWgwsj8ovWCt41FRaN9Pk65xG/MF
+         3EZ5idO/fDi9PZxGzAjdxFqb6Xkv9QNjnL6Pm67nuYDCKhkIe2yc23ywZsKrnLMT/HDW
+         QgpVPB8pYeRJleYl+Rk1GT4YtK8E6bvgvWRwF4F00AiQmzon1B9iar8YmjfnM77L+zep
+         81k6qIxBGVdmOnPPBc/gyHfkNDnBXBHFP0TV2DY1e6jycXAnRzDRddIVWQOWggeUR4zR
+         tjKvOrUKHJ0s6hMlS5ef9Cu1/X4EholPcj9MLtZl6jPfRaN2BDHuyq9nypMMUtS1B849
+         1s4Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwIHdUNVr8TOmTnVc3eHhXis5YstEGLwvzVYdaje6zQyo0WcSqB5Oin/UmqxkyNPBNoYpubZnEVuMrG@vger.kernel.org
+X-Gm-Message-State: AFq9FYIjdB2iMHYZl+2e/Wj0UCPQEItvClElOgFslrS3/UGVlgxcomcU
+	Dwi4VdK0mV3VXzzSXb0EAg6BZwDNwruenRNkyxQfSS4EbdlKuxmltQVlk6eqFB7BDZ+MF8oK55v
+	pEZE=
+X-Gm-Gg: AYBFou2tApFxZbRqiU/K7ftmE06mCGMaJRPjbM4qdkxm9ayux9NuUs0ut0pS0iz+98b
+	WYt2xWI78WXxpR+t6LMrWe4FX79zCM8l03US6oxvWG7U5NREplsR83HjNze19eTREILzYA/xc/y
+	FTULjFRFfcKn8bUOdvBGhZDw9PF+A6Fly+VMdwZFIveKawL2ZqUX2fUBU7Y00x/mFNmKMsSuOaT
+	Run8OWmyZ83A9ADLTJSKQnrV7c6GCP5SZvck2cxO4LWky3WJ6ARCmslprJ81p/087ACZXAj7lAl
+	I0cJ4XyS5stQfUKkTE4fcEknBv35c2pxA7XWD9t5jeQ46jPs9o1N07m9a0941HTYCk9VdtQ6qG5
+	yUzdVe9jHIKHioTwmgkrIwNY1F3OGangao9ssCIe/LcKaH90xUjQEI3yd+k5U879SPYXl13+PxU
+	9H52qS7DpNRW3dHBGBDp3pEQampcH4+aguG/mhXqacBlTJUBjQBmKpoD89UOxIxjuCwslLeAo4D
+	0Zltwt86qH+Uj/TawsXEDtwDyD3R8la+A7Bsg==
+X-Received: by 2002:a17:907:3ea6:b0:c2e:7ba6:12ed with SMTP id a640c23a62f3a-c31aa085c00mr418720066b.36.1791623812065;
+        Sat, 10 Oct 2026 02:16:52 -0700 (PDT)
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com. [209.85.128.43])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9a7b988sm224692466b.46.2026.10.10.02.16.49
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 10 Oct 2026 02:16:51 -0700 (PDT)
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a16c399641so5003115e9.2
+        for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 02:16:49 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByspnr/3N9ysrjGt6p3+mMpTfFx0wxPalt7HKiPhClBuE1MlUZKuPLSkcDE1qDT+0cRsCYDeLaXhx/G@vger.kernel.org
+X-Received: by 2002:a05:600c:19c8:b0:4a1:7bae:d80a with SMTP id
+ 5b1f17b1804b1-4a18e47ad49mr89287935e9.9.1791623808250; Sat, 10 Oct 2026
+ 02:16:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|DS5PPF5C0B6C3B6:EE_
-X-MS-Office365-Filtering-Correlation-Id: d60cfaa7-78d6-420e-fd71-08df26ae87aa
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|10070799003|376014|366016|1800799024|56012099006|11063799006|10067099003|18002099003|261009223027099003;
-X-Microsoft-Antispam-Message-Info:
-	ht7nsBHqU+S7EZ79bGrjh3V6lxkeDqSYlyhEsVQq6vszjN+3rE7MPJpu4Jpqx8OwKW2sIZ9q54bL8+eOwgOBVdLdCjZWT7xdIvkkKU7pHMrZ3v2zcTxWgYc7s/lUFBbIW8stCdDcBs1v28Ou9hzBC3+6ZVYhNsKg/2XrwEez0cQDdgLrelfdaDTGn16318qdtIWmKCpUKPKRpcHA2uH6+i6vHIn5ZKiKz8nJ15jSTIS7/yEL3dpG0sSlnlAIJLAKjLzMP3JkM77KPNKKjgbrKSJ6j4pYFwnKNyDPFrm+QIpHPL6a/uN6BO3j+Z0hcwTGHfiO1/8RQ90jprbfFBbaofNRe8QZPYF5nkylpr8DTm9ZpdJ2L3vOgnMg/Y7JTvx14Sybeq4Uja3e9mVwDNKFnamCU5AEE/kAvBKnAIKKzV0hbo0XbldVIAiOFSVUUEaIhjU9e6lnt4hCC/3y1oUZu0skYPL5ouJ4rkcUembze9R48hoeawuNGx2xOvN12fweK0DBGeVS9gtAhwSWo/4mTVqqdImojnbxwaJKd/yEMGDkSFvrfFYZYDNRv+1tD50hYltFNqS/BND/zwfMrCv9wy6Qzfwq5odCPiKn4xR5CFiwv9EbhykIEdldIxhub2qOW6hSp6zXZ6CRxO7D/khvlaNKVSPBsc+5ey5ASsh7YRI=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB9161.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(10070799003)(376014)(366016)(1800799024)(56012099006)(11063799006)(10067099003)(18002099003)(261009223027099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Tm9wRWRlZUxYQThvN2swU1hGTHg4UnpzRHZkRHpKeFBWS2IyUlFTY0tURmU0?=
- =?utf-8?B?MXdNYnNGbkxkRENMZWc2VzVYUE5NejJWNTdOOUVYNWV2WElDdzY5REIrR3o5?=
- =?utf-8?B?TTByVlZmTHEyc01BUERvTlBiYW9JUWdDd3h2SFZmWGZjbXY4OW42SHlDMDNj?=
- =?utf-8?B?WVdoNE1YNC9uRlNqVElWSVp3NWRsQmVwaVBTVk9obmNVejBLUWZZQUVEdjJ4?=
- =?utf-8?B?QlM3bU1MUjZLZ2o2RnZJOEdvaFlMaWk1R3pPV05XcG5Wc0J4bjlidDdOeHA3?=
- =?utf-8?B?azF5YWJGWXhRd0JlQVRsUEVLa2dSejl4dEZodU5PaXg4VzZJTEpDMDFsNmln?=
- =?utf-8?B?aTZjcktPKytZcXF6WkZxb1JTeXIwNmlLbERtend5eUVsbHd6Y0p0UmdQZFN3?=
- =?utf-8?B?S3lrZkxNZElYTW1rd1NMNlFaT2cxTEp1TTRKUzZQZ0hGdW02THN6UFpWdlpD?=
- =?utf-8?B?dE51Uk83ZWJVdDl5MmVxV0dNM0t4Y3o0MjlGVnBxbXY1aDcwWHBhOTU1Z2wz?=
- =?utf-8?B?d28rRDZhek81RU5MZXpqZTlCRHE3bE1FbjIvU3FDbGkrRE8wNUY2RGt4Qmxu?=
- =?utf-8?B?Sm5NNkFQa3dWTmdZOFJkSjVWbHRmWVJEeDV6R29RTXFpdGJFdmhYTElTNEw3?=
- =?utf-8?B?S0NxUGYyQ0NLTkVqVWVwdXcwc1J0bFBXRFJNYUt1THIrMENJbzlFR0FQS2VO?=
- =?utf-8?B?dGVGL2ZPUjRGOG5MMnhFNWpOVVBBaHJpcUMyRVN5MFh1TzBZRkJ2cUpwYy95?=
- =?utf-8?B?aUkzN3FyUDBDREw0TUkzVExkaDZaMjJEQjNGMlllQ1RUd08zZmJZeVlNQmkr?=
- =?utf-8?B?YkoxWmc2bWhFK1JSOTlUQ21UZXM2bU9CeExHZklkOUxjTk5wb3QxcVJwVkZ2?=
- =?utf-8?B?Vy9seVpKakZRZ0pTclpsTk04Z0VWT3hoS3owWWZUK1lUZWRPOFF6TjUyL3hR?=
- =?utf-8?B?MmEvSUp1Vm9IZzU3K3Zlb1dvdWVmWjhXbTNxdWtHd3FlR2NLZ2ZaVGtra1NP?=
- =?utf-8?B?alZ1RHFnY2RqakpCckkyTndZTHZpZm9QZUs1Vm5qbGVnLytNTVZpZjNsNUQx?=
- =?utf-8?B?VTE3VEVSM1YrWGJJZGtuSUlBNXU0Z3lIWUdVQmpKR3lRN0lDbW13WC9QL01X?=
- =?utf-8?B?RU9ORk5pNVYvNDB5MUx2R25NaExZYXVHK2JXOU1FcFdaWDI0Y0RRV2dyTzNj?=
- =?utf-8?B?N0taWFdxS1lrWUFURWNRTjN1ODFXV1IvMTAxOWxrSTRZQkxUUHNtU0JaM3BU?=
- =?utf-8?B?bHoyTXg2TkZlV1B5RXkxWjJsQUZpT3YrRmN3cG1wRmdYdloyYlcwWGYzU3Ju?=
- =?utf-8?B?Y1pLaGZDcHpWVXU0b2VKVkkrUmlMNGsycmtqSjZJUUVBNmRCRUF1VGN5b0ZN?=
- =?utf-8?B?blhiMG1BV3c4Y1Y4ZWxQeWpSa2dGek11WEVSTlNETllHY2Z0Qm44WWYyS295?=
- =?utf-8?B?VEI4d1pCWlZnb3oxSFhOZWU4bGVIaHlSOGR1UEFuaXJQYm5WQ3A0SE9wL2Ro?=
- =?utf-8?B?ZlRhbVQwYlR5dU5UZUtOalpqektIVm1vWVZLZ2RsTWJhUkZEU0xwaEt1RlFi?=
- =?utf-8?B?WXZDZjV5S3hIbStuL3ZIYzVSdkNuUFhzV0dHcnlXNDUwakFnbm1FRnpGcnRL?=
- =?utf-8?B?V0xLSGZWOHM3cVpBYnFON0dBQVg1TzFWVjMwdXltMWIxWVZhK252WDBnM2Z0?=
- =?utf-8?B?aXcrb003dWV1Ry9FSGNyN0ROYWJmTXNUMmNVNUs0K1hwL0xEK0V0YkFwV3l0?=
- =?utf-8?B?VkdrRUhna0JkYVBsZ1piNTRJRVJRRG5oWXQwVUJwNjJkbGUrZCtwZEVWMkZi?=
- =?utf-8?B?M2h0UmFTU28vUHZFUmdjenVSWUkrbXVlY21wNnd4WHgvRXNNMUFxUkgzSUFN?=
- =?utf-8?B?NnpCTFZnZ2o4OFIwelFJdHpLQWdsS2V2UEZpTzBoS1N4QXpBcEVrWkFlaXR1?=
- =?utf-8?B?ZUhtN2RuQTUwRzVFMVRmck1RNVU5K3EyYkJxQ0dhQ0JDV1BPczkrTVBhZzhN?=
- =?utf-8?B?TnNxWDE5UVV0Z1hTZytzSElFL2pRNW9CZXVaR2VlemJjQmlVYTVaUVdrOTQv?=
- =?utf-8?B?dHpGN3FQdzFjZXVpZ3VOYmdoSFFjV0JoL3YyZkhKeDVKcGh0Y2hTK0txYU4r?=
- =?utf-8?B?by9mZ1h4b0M0dEEzdVY2a3l0UUtxLzZpUjNZczBXdFRDTXZKdXRoQkFrRUJw?=
- =?utf-8?B?cmo4Z2Vpby84d0ZsWDBFMmFDckI1eUhJYWVKNHlmT052dC9ZdENpQWtnUEc4?=
- =?utf-8?B?QUFDM1V3NG9YR3FoTDg2Nk04YWJQV0VabHkySWYvSFBhU3hDZ096R0RCeXlO?=
- =?utf-8?B?Q1hMb0c0enl6MVBLUmpFU1JvWkJ1bHBsVSszMXdrZFQxdDJ6OGswdlI5WlNI?=
- =?utf-8?Q?fnoZtnrD/cbXkRBkVFLw+aepVkLOp6BWzqeIpCKNtuT1L?=
-X-MS-Exchange-AntiSpam-MessageData-1: Nnks77D6R5Kbwg==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d60cfaa7-78d6-420e-fd71-08df26ae87aa
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Oct 2026 09:11:55.3596
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5t1LpOTuzgDczwWDIlsJ01XedrHjKL2YgQNgmQPfSGk7i3ujlSbdZ3fc1B0qIhbmtZi6B4ivFmK+43qCD4tM0Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS5PPF5C0B6C3B6
+References: <20260714222338.2965707-1-dianders@chromium.org>
+ <CAD=FV=X-fAJp=EG_yTAg+QQgNYRCt25947oHGHZuq-FEyirK0g@mail.gmail.com>
+ <CABb+yY2CH5A1ixfX9czgtEwsP95FN-2JVzN_wmRDRNsSuZY5PQ@mail.gmail.com>
+ <CAD=FV=XiguzS7nH1sE=BkXt+7G6-hhqyz5u3sjc4zAA9H7KqJg@mail.gmail.com>
+ <CABb+yY2_AvcnaTDmpL8gP4H2_Pp3HddrtNr5gvL4GCW2DPPvOw@mail.gmail.com>
+ <CAD=FV=VzJCb1nz+q5EZ33G5U6KZM_tXi8snL=KbUM3C5yymG4g@mail.gmail.com>
+ <CABb+yY2omp+g13UgZfiKWLux9J1P+=ed0U3F8AhS0iQK=kpN8w@mail.gmail.com>
+ <CAD=FV=WA2wFbk0=qFE0aZs9E5jg-EXzcrkPCk6VOMhbDroOQCw@mail.gmail.com>
+ <CABb+yY0W+244qaXqHdfEq9XFuQXBez7PVcDNrKooV9cFS8TS_Q@mail.gmail.com>
+ <CAD=FV=VW2h1zWDYWQ6LknX3O+3=EY665jde35Ly+UQzuscXy=Q@mail.gmail.com>
+ <CABb+yY2Cc9YGKb0ej7CZ_LQLw-iMQOtcAwLPier+X2ej1fWcJQ@mail.gmail.com>
+ <CAD=FV=U1DAuDN4eR_hZ2bbGoGkgkszDLPUDiosxh1aKg7Y1T=A@mail.gmail.com>
+ <CABb+yY3n3QmxTPOyAuHz9JkOKbhRqKok+24THc_JfdxwzROWDw@mail.gmail.com>
+ <CAD=FV=XGka_QqGt5iK53vU704ZsvCrXUWvJ9ewo1=TCiepfz-g@mail.gmail.com>
+ <b1f088eb-7c77-4079-9b05-20729fcfd612@kernel.org> <CAD=FV=VSSEZykDpu48XVwDzNWKAhZjsPm3PNweTqeHv_DxiykQ@mail.gmail.com>
+ <CABb+yY0yaXZX7=0L8Tt5P4u-GTX=unmgBMePoNTVQ5BHKzLM3g@mail.gmail.com>
+In-Reply-To: <CABb+yY0yaXZX7=0L8Tt5P4u-GTX=unmgBMePoNTVQ5BHKzLM3g@mail.gmail.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Sat, 10 Oct 2026 02:16:35 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=WUw70BjakAWsbtJ-qnGGXB7vo8x7G939_jeyGKagVWyg@mail.gmail.com>
+X-Gm-Features: AclHuK_QaW90rrHDoR3w9K6oMhgGdn--oULAhnah8n8uC4OdTYJMsL3yEKTzFlM
+Message-ID: <CAD=FV=WUw70BjakAWsbtJ-qnGGXB7vo8x7G939_jeyGKagVWyg@mail.gmail.com>
+Subject: Re: [PATCH 7/7] mailbox: goog-mba: Introduce the goog-mba mailbox driver
+To: Jassi Brar <jassisinghbrar@gmail.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Saravana Kannan <saravanak@kernel.org>, Joonwon Kang <joonwonkang@google.com>, 
+	Subhash Jadavani <sjadavani@google.com>, Tudor Ambarus <tudor.ambarus@linaro.org>, 
+	Lucas Wei <lucaswei@google.com>, Brian Norris <briannorris@chromium.org>, 
+	Peter Griffin <peter.griffin@linaro.org>, =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-samsung-soc@vger.kernel.org, 
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The eqos ethernet device on Tegra194 has 36KiB of each of RX and TX FIFO
-memory. The hardware registers that report the sizes to the driver only
-work in powers of two, and are rounding up to 64KiB, causing
-intermittent network hangs.
+Hi,
 
-Fix this by overriding the FIFO sizes to 36KiB here in the device tree.
+On Fri, Oct 9, 2026 at 8:43=E2=80=AFAM Jassi Brar <jassisinghbrar@gmail.com=
+> wrote:
+>
+> Hi Doug,
+>
+> On Fri, Oct 9, 2026 at 3:42=E2=80=AFAM Doug Anderson <dianders@chromium.o=
+rg> wrote:
+> > > >
+> > > >   for (i =3D 0; i < mbox->num_chans; i++) {
+> > > >     if (!mbox->chans[i].cl)
+> > > >       return &mbox->chans[i];
+> > > >   }
+> > > >
+> > > >   return ERR_PTR(-EBUSY);
+> > > > }
+> > > > ```
+> > > >
+> > > > Then the client loops around and requests the same channel over and
+> > > > over again until it gets -EBUSY? Like:
+> > > >
+> > > > ```C
+> > > > for (i =3D 0; i < FIFO_MAX; i++) {
+> > > >   client
+> > > >   chan[i] =3D mbox_request_channel(client[i], TX_CHAN);
+> > > >   if (IS_ERR(chan[i]) && PTR_ERR(chan[i]) =3D=3D -EBUSY)
+> > > >     break;
+> > > > }
+> > > > fifo_depth =3D i;
+> > > > ```
+> > > >
+> > > > I _guess_ that works, but it still feels like a bit of a hack to me=
+.
+> > > > You said you were worried about people abusing the "has_queue" API.
+> > > > The above feels like it's abusing the "fw_xlate" API, turning it fr=
+om
+> > > > something that is normally a "lookup" into an allocator function.
+> > > >
+> > > > +Rob, Saravana, and devicetree@vger.kernel.org. DT folks: is the ab=
+ove
+> > > > something that looks right to you?
+> > >
+> > > There is no allocation in your xlate code above, so this is not that
+> > > terrible as we talked on LPC.
+> > >
+> > > >
+> > > >
+> > > > I researched whether other upstream drivers use of_xlate() /
+> > > > fw_xlate() as an "allocator" like this. I did find "exynos-mailbox,=
+"
+> > > > which appears to be doing something similar. However, upon deeper
+> > > > digging it seems like "exynos-mailbox" isn't using this dynamic
+> > > > allocation for any compelling reason. It looks like, really,
+> > > > "exynos-mailbox" should just be returning one channel. The client
+> > > > (exynos-acpm) could just use the same channel for everything since:
+> > > > * It actually gets the _real_ channel ID out of the data.
+> > > > * It doesn't care about txdone.
+> > > > * All it does is ring a doorbell and there's no queueing.
+> > > >
+> > > >
+> > > > In any case, if using fw_xlate() as an allocator is truly the only =
+way
+> > > > to proceed, I'll finish my prototype and send a v2, but I'm still
+> > >
+> > > Why fw_xlate() would be an allocator? Can you extend your code to sho=
+w that?
+> > >
+> > > I think doing any allocation in xlate() is calls is fundamentally wro=
+ng.
+> > > These should not modify the state of the device, so no allocations, n=
+o
+> > > device_link_add() etc.
+> >
+> > It's not _calling_ an allocator, it _is_ an allocator. It is walking
+> > through the array of channels and returning the first free one. Then
+> > that free channel is "allocated" to the client.
+> >
+> You mean _assigned_.
+> Allocation means when there are some resources reserved that must be
+> released at some point later .... which is what the mailbox controller
+> driver does in probe() and remove().
+> In xlate() the platform just decides which channel to assign to the
+> incoming request -- some platforms take the hint from device-tree,
+> your platform has flexibility and can simply assign the first free
+> found.
 
-Fixes: f89b58ce71a9 ("arm64: tegra: Add ethernet controller on Tegra194")
-Cc: stable@vger.kernel.org
-Signed-off-by: Mikko Perttunen <mperttunen@nvidia.com>
----
- arch/arm64/boot/dts/nvidia/tegra194.dtsi | 3 +++
- 1 file changed, 3 insertions(+)
+In this case, mbox_request_channel() plus the fw_xlate() seem to me to
+act like an allocator. There is a pool of channels and each call
+allocates one. mbox_release_channel() releases the channel. This is in
+contrast to normal cases where fw_xlate() always returns the same
+channel. Sure, I guess in that case it still "allocates" that one
+slot, but that feels more like someone requesting/reserving a channel
+rather than allocating the next free channel.
 
-diff --git a/arch/arm64/boot/dts/nvidia/tegra194.dtsi b/arch/arm64/boot/dts/nvidia/tegra194.dtsi
-index 43d82841b3cd..fe2a3b81c829 100644
---- a/arch/arm64/boot/dts/nvidia/tegra194.dtsi
-+++ b/arch/arm64/boot/dts/nvidia/tegra194.dtsi
-@@ -156,6 +156,9 @@ ethernet@2490000 {
- 			iommus = <&smmu TEGRA194_SID_EQOS>;
- 			status = "disabled";
- 
-+			rx-fifo-depth = <36864>;
-+			tx-fifo-depth = <36864>;
-+
- 			snps,write-requests = <1>;
- 			snps,read-requests = <3>;
- 			snps,burst-map = <0x7>;
+...but I guess the root of the problem is that it just seems
+unexpected to me that fw_xlate() is taking the same input "fw_node"
+and then is returning different mailboxes.
 
----
-base-commit: bf1ee2bd5c2da8992f33c8950ef194aaff74ed6c
-change-id: 20261010-b4-t194-stmmac-debug-202610-53da647cd36c
+If this is what everyone wants then I agree that it can work. I just
+want to confirm since it doesn't feel very clean to me.
 
+
+> I will try to explain in detail your questions in your last post, but
+> I am still not convinced you need to modify the api.
+
+Sure, anything you can do to clarify is appreciated! I'd love to be
+able to send a v2 and move forward, but I don't want to do so while
+things are still unresolved.
+
+-Doug
