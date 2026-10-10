@@ -1,137 +1,182 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42F1F2F619D
-	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 08:23:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FB39231829
+	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 08:24:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791620621; cv=none; b=IbKMEHmPRIDyBxL4d1wItLzUY83mseEiyeKwy5ToPN4l8cYsPITDRFiL6WNnBzzr3W/6mErs9kOQwzH85LD4wTjw8fBB7EKKtS+HOyDcIfKe4sJWoUoVV7PWqsDumcEbfmaMQWRgZmNiAcuTDaP+5ebPOLp1oWzF9stPyAWnAsc=
+	t=1791620652; cv=none; b=Y/ys9ZkSNAlY/DU2qfHoO+YzFENRu/at6903tyueDdyGDD9tvc63G+7TCCBF57dutPWlheDajgf30IQbaKoy0v9Zdmo3sLOFZ79ok7LL/YCL+a6Za13qIZgrq3wkfpjPMntQmU6ZssTjGfZFBHgnuJdMU31SA2HHvqsMR0jhcDA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791620621; c=relaxed/simple;
-	bh=ku7E7Ou3rG8nL5RuWpcUZ6CIHFJ7XEvwYNhHVYfAIfY=;
+	s=arc-20240116; t=1791620652; c=relaxed/simple;
+	bh=EHV1Qq1ZuRTMxouwzWk8SBb3EiTmKv/VzvHVbx+AqXQ=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=vAHqHTLs0CctQJLcf4QALHqkwhdfTGVNlGdfuq7EH//nstBEGmU8uzpm0XH5FSPF4XXK87Z9bcgV+83oMryVQ7t6v7lnrClLsG3mj2XMe2jVLfnwt/ybMoPiltACnBzXICH91FwNxVfacLbf2l3X0M1zFDVhuy9EsKHt5PXtP58=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hWXRLcxc; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=EZ9/o4tcSsLeSPCpR3cm8vRwl8qkRtOkuyU+r12LK6MI8HS++6PO5bXbEtWndOeieG4LpukfwonocERi7bxT2v9Q3gBfk6S+y6V5l4madkZHZcbChZZN0iRE493Wxfu42mBiScit9/ciNypqPhhhdpVl2ENDX6kRfLSxD4YMtWk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bs7p7aQK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hWXRLcxc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50ADD1F000FF;
-	Sat, 10 Oct 2026 08:23:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bs7p7aQK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5CB201F000FF;
+	Sat, 10 Oct 2026 08:24:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791620619;
-	bh=UBw1ITdccw7R3jQFofWfurvib8bbkiE63XFu7MWyS7Q=;
+	s=k20260515; t=1791620650;
+	bh=Y1MLgGvgtXr9zv7ZFaZ03NdkXifbvh6W554GnZp8De4=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hWXRLcxctJ0beKGEWhkEdQ9BvbffAiO0JDlnX/WAOl3hABcI+hqb7neckNuKnmcQs
-	 xbdK8j9N8oWjfHPQAL1TrFeGZ2D0MohxfK79lQAXnKrqMD/QFu48IvdTPPb9gO4Meq
-	 GX3LPaXww/1SIIVU4Xiph+017YHggg/xvnRxY+1ckD+VGHi8Ya0S1YFrFKTjwf2wtF
-	 rmiA92AlTpStgl6hP8DOf/R7iA70/5WK6QnRh70fvUM3PvZKs84fogrH4HYhEX0ruh
-	 wtmeuG7PZ4kTB6WJYiWi1L9KIa/bSQEdjwfUY/R4m3ePcqACl/7GDCv0Bcgy3oNwEZ
-	 yqLOWZ3gRICoA==
-Message-ID: <sashiko-outbox-166341@kernel.org>
+	b=Bs7p7aQKGiwL68pdn8uYd50DW4QWiKrrT7XukRtvEdxuqovtBlTvq0eZ0BaE7Tj4Y
+	 ZIxHiS4SYF5N+0qL2wu1v4FAT37QpV7gyhfno5HcfaSzW2VYCvsveBK7zGQl218+Qk
+	 CbBjHEZlxYYCVZgxw08bCRD+5493bnaaxLTm0oguNGkHfum4aJ4DXS4wNgTvtmi1vK
+	 jUV5F6xI50M8vzSHWX+/9NFEixitJrna5o+fDcRCRxAt1yx0jhowhmkEFJro502Feg
+	 1ddLuN7KY/SKzymg02ARyYX6oJQG8Ti7zcX53mkv7Df9rErVSWfvk4+OwQm9OfL4Ge
+	 SewEYLZquSAJw==
+Message-ID: <sashiko-outbox-166342@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v18 13/13] media: mediatek: jpeg: add jpeg smmu sid
- setting
+Subject: Re: [PATCH v18 05/13] media: mediatek: jpeg: Fix multi-core clk
+ suspend and resume setting
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Kyrie Wu" <kyrie.wu@mediatek.com>
-Cc: media-ci@linuxtv.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <844186eba43ba7e3c956ad9264cd4ae41a0f2548.1791614327.git.kyrie.wu@mediatek.com>
+Cc: conor+dt@kernel.org, media-ci@linuxtv.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <0db7631b0515bea82aa47bf3599ea9878fa9bfa6.1791614327.git.kyrie.wu@mediatek.com>
 References: <cover.1791614327.git.kyrie.wu@mediatek.com>
- <844186eba43ba7e3c956ad9264cd4ae41a0f2548.1791614327.git.kyrie.wu@mediatek.com>
+ <0db7631b0515bea82aa47bf3599ea9878fa9bfa6.1791614327.git.kyrie.wu@mediatek.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 10 Oct 2026 08:23:38 +0000
+Date: Sat, 10 Oct 2026 08:24:09 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [High] media: mtk-jpeg: UAF and OOB write on smmu_init probe failure
-- [High] media: mtk-jpeg: stack and heap overflow due to unbounded DT child=
- nodes
+- [Critical] media: mediatek: jpeg: system suspend disables clock while HW =
+is running
+- [High] media: mediatek: jpeg: Unsafe PM suspend forced while hardware is =
+active
+- [High] media: mediatek: jpeg: M2M queue unpaused before components resume
+- [Low] media: mediatek: jpeg: dev_pm_ops assigned unconditionally causing =
+dead code
 --
 
-commit 5c85022fd040c3aae35226e60e232c6d2771df6e
+commit 4893ce2818141ce09ed0c83da36108870b5d7724
 Author: Kyrie Wu <kyrie.wu@mediatek.com>
+Subject: media: mediatek: jpeg: Fix multi-core clk suspend and resume setti=
+ng
 
-media: mediatek: jpeg: add jpeg smmu sid setting
-
-This commit adds a configuration to set the JPEG decoder and encoder SMMU S=
-ID.
+This patch updates clock management and power management suspend/resume
+callbacks for multi-hardware component devices, leaving single-core
+callbacks on the master device. It aims to synchronize job suspension
+using v4l2_m2m_suspend() before disabling component clocks. Runtime PM
+references are used to keep clocks enabled until a job completes or times o=
+ut.
 
 > diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c b/dri=
 vers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c
 > --- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c
 > +++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_dec_hw.c
 [ ... ]
-> @@ -665,6 +684,10 @@ static int mtk_jpegdec_hw_probe(struct platform_devi=
-ce *pdev)
->  	master_dev->reg_decbase[i] =3D dev->reg_base;
->  	dev->master_dev =3D master_dev;
-> =20
-> +	ret =3D mtk_jpegdec_smmu_init(dev);
-> +	if (ret)
+> +static int mtk_jpegdec_suspend(struct device *dev)
+> +{
+> +	struct mtk_jpegdec_comp_dev *jpeg =3D dev_get_drvdata(dev);
+> +
+> +	/* Stop new jobs and wait for the current job before clock-off. */
+> +	v4l2_m2m_suspend(jpeg->master_dev->m2m_dev);
+
+[Severity: Critical]
+Does this wait mechanism function correctly if v4l2_m2m_job_finish() is
+called immediately after starting the hardware?
+
+In mtk_jpegdec_worker(), v4l2_m2m_job_finish() is invoked right after
+mtk_jpeg_dec_start(), which clears the active M2M context early to allow
+scheduling on other cores. Consequently, v4l2_m2m_suspend() will see no
+active job and return immediately without waiting.
+
+This can lead to pm_runtime_force_suspend() abruptly shutting off hardware
+clocks while the hardware is still actively processing a frame, which can
+lock up the bus.
+
+Additionally, if the hardware is left running without clocks, the pending
+job_timeout_work scheduled on the system workqueue will eventually fire. Wh=
+en
+it calls mtk_jpeg_dec_reset(), it will attempt to access unclocked device
+registers, which can trigger a synchronous external abort and crash the
+system.
+
+> +
+> +	return pm_runtime_force_suspend(dev);
+> +}
+> +
+> +static int mtk_jpegdec_resume(struct device *dev)
+> +{
+> +	struct mtk_jpegdec_comp_dev *jpeg =3D dev_get_drvdata(dev);
+> +	int ret;
+> +
+> +	ret =3D pm_runtime_force_resume(dev);
+> +	if (ret < 0)
 > +		return ret;
 > +
+> +	v4l2_m2m_resume(jpeg->master_dev->m2m_dev);
 
 [Severity: High]
-If mtk_jpegdec_smmu_init() returns an error (such as -EPROBE_DEFER
-when the SMMU isn't ready), the probe function returns immediately.
+Can this unpause the global M2M queue before all hardware components are
+fully resumed?
 
-Will this leave a dangling pointer in the global master_dev->dec_hw_dev[i]
-array after devm frees the dev structure?
+During system resume, the PM core sequentially resumes component devices.
+If the first resumed component calls v4l2_m2m_resume(), it unpauses the
+global M2M queue and schedules the worker thread on a non-freezable
+workqueue.=20
 
-Additionally, master_dev->hw_index is incremented via atomic_add_return()
-before this initialization step. Because it is not decremented on this
-error path, could subsequent probe retries keep incrementing hw_index and
-eventually cause an out-of-bounds write on the fixed-size dec_hw_dev array?
+The worker thread could execute immediately, select a sibling component
+that is still suspended, and call pm_runtime_resume_and_get(). If this
+occurs concurrently with the PM core executing pm_runtime_force_resume() on
+that same component, the runtime PM call fails with -EACCES, resulting in
+dropped V4L2 frames.
 
->  	platform_set_drvdata(pdev, dev);
->  	pm_runtime_enable(&pdev->dev);
-[ ... ]
+> +
+> +	return 0;
+> +}
+> +
+> +static const struct dev_pm_ops mtk_jpegdec_pm_ops =3D {
+> +	SYSTEM_SLEEP_PM_OPS(mtk_jpegdec_suspend, mtk_jpegdec_resume)
+> +	RUNTIME_PM_OPS(mtk_jpegdec_pm_suspend, mtk_jpegdec_pm_resume, NULL)
+> +};
+> +
+>  static struct platform_driver mtk_jpegdec_hw_driver =3D {
+>  	.probe =3D mtk_jpegdec_hw_probe,
+>  	.driver =3D {
+>  		.name =3D "mtk-jpegdec-hw",
+>  		.of_match_table =3D mtk_jpegdec_hw_ids,
+> +		.pm             =3D &mtk_jpegdec_pm_ops,
+
+[Severity: Low]
+Should this be wrapped with pm_ptr() to avoid compiler warnings and dead co=
+de
+retention when CONFIG_PM is disabled?
+
+>  	},
+>  };
+> =20
 > diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_enc_hw.c b/dri=
 vers/media/platform/mediatek/jpeg/mtk_jpeg_enc_hw.c
 > --- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_enc_hw.c
 > +++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_enc_hw.c
 [ ... ]
-> @@ -388,6 +407,10 @@ static int mtk_jpegenc_hw_probe(struct platform_devi=
-ce *pdev)
->  	master_dev->reg_encbase[i] =3D dev->reg_base;
->  	dev->master_dev =3D master_dev;
-> =20
-> +	ret =3D mtk_jpegenc_smmu_init(dev);
-> +	if (ret)
-> +		return ret;
+> +static const struct dev_pm_ops mtk_jpegenc_pm_ops =3D {
+> +	SYSTEM_SLEEP_PM_OPS(mtk_jpegenc_suspend, mtk_jpegenc_resume)
+> +	RUNTIME_PM_OPS(mtk_jpegenc_pm_suspend, mtk_jpegenc_pm_resume, NULL)
+> +};
 > +
+>  static struct platform_driver mtk_jpegenc_hw_driver =3D {
+>  	.probe =3D mtk_jpegenc_hw_probe,
+>  	.driver =3D {
+>  		.name =3D "mtk-jpegenc-hw",
+>  		.of_match_table =3D mtk_jpegenc_drv_ids,
+> +		.pm =3D &mtk_jpegenc_pm_ops,
 
-[Severity: High]
-Similar to the decoder probe, will returning early here on SMMU init
-failure cause a use-after-free by leaving the freed dev pointer in
-master_dev->enc_hw_dev[i]?
+[Severity: Low]
+Should this also be wrapped with pm_ptr()?
 
-Also, are there any checks to ensure the index 'i' doesn't exceed the bounds
-of the master_dev->enc_hw_dev array?
-
-The device tree child nodes are counted and assigned to jpeg->max_hw_count
-without validation. Later, in mtk_jpegenc_worker(), it appears this count is
-used to populate a fixed-size stack array:
-
-drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c:mtk_jpegenc_worker() {
-...
-	struct mtk_jpegenc_comp_dev *comp_jpeg[MTK_JPEGENC_HW_MAX];
-...
-	for (i =3D 0; i < jpeg->max_hw_count; i++)
-		comp_jpeg[i] =3D jpeg->enc_hw_dev[i];
-...
-}
-
-Could an excessively large number of DT child nodes cause a heap buffer
-overflow during probe, and subsequently a stack buffer overflow here?
-
->  	platform_set_drvdata(pdev, dev);
->  	pm_runtime_enable(&pdev->dev);
+>  	},
+>  };
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1791614327.gi=
-t.kyrie.wu@mediatek.com?part=3D13
+t.kyrie.wu@mediatek.com?part=3D5
