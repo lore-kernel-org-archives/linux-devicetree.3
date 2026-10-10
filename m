@@ -1,116 +1,152 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBB393B840E
-	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 08:57:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ADA03264F9
+	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 09:00:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791622655; cv=none; b=Cd656ktCIaW8ayYFCkrTgyhOOCZiRV4H7HPfNX1X9de4/BcuiDVwV66ldtP9cuwGVXiqZ2uH3KWOfChSmI+OzyqahkyLhruCQgrz2yqFkEjGgTL8ihKLJzaMo/EyLq4SiGw11zZOWjA2Yu8PDA/Dgr+/FWHPOunp982OY51FGUw=
+	t=1791622803; cv=none; b=rFfluTlJE8KWJ6l/URGcgZmgJ+cRZERJdKBbEMEjxa/mV/T7s6ufpvGJ/gqx7+fzPEJNQ9bJUmiQjLYQNy5DmqMiXF9OodQwQUYAa8gCpMrq/jFfxAFWMMCMtB2/97wlsrLWiLZ2R+suUgpOA8qNI+SUJSnDZTCio9SMVhJBpJk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791622655; c=relaxed/simple;
-	bh=9KpnoDMkqeVT6ZCoUHVZ0K6QpAmLhD5P1rrcqJHxVCE=;
+	s=arc-20240116; t=1791622803; c=relaxed/simple;
+	bh=GqWQRIZNtcS7VU674UKHA/0xVe7oSHjbAqfQoFINiMA=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=fUmH3GN0j/FKtuKhUWKSHN5kTOM0nfN/0ehaXTjTByLa7PltztwNq6RgVTNwK+VD9Byv/OYe9LnFGFbVJva1eIvgwa+nPbwGMtbZ6N5/jrd6qW6b32hb7cQ2YBQ0t+mwRO8PKwAwo5zSJGoEyMz+K7i1NINbXKLxM7WitVWJ0DM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TCPvIESe; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=p5ul8h/HSlpjgvAI+yJbH00zIuZB0DJnurJ1raiXbHndlb7PvYA2ifSJnhE5ZWIUl2f7UPooUZs6vMNazDz5qTNPZpmgVekGcbhuA16pW8Yua9FXr6j6GQlWbnhCFcMO/C5y6wC1sdi8o+LiXRPV5YmhYgV0w69z+ASYIc0AFjU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HK0hZHVr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TCPvIESe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D5981F000FF;
-	Sat, 10 Oct 2026 08:57:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HK0hZHVr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5F6C1F000FF;
+	Sat, 10 Oct 2026 09:00:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791622654;
-	bh=aPdA7s1t9qpCfxOjbeZNIIBMscIoLwlZztHjlKO6hf0=;
+	s=k20260515; t=1791622801;
+	bh=a+pc0Gix1v8Yzy+flzkkWQ0jRa+vwB4GPFdEWQg/q5k=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=TCPvIESeKFXzIy3lGN7X+gysiKGR7MDLFBUKg5bM4Ghgud6OG/88lJVUGggVgiWQY
-	 DqbJXJwxW3ePdwZQhL0CW5jGaCTWmi5Dl7f53uiNgMyqejCjQYtdxEMI1a7FEXFY6x
-	 OaacvHNHfYcNpWt0OV3VizKMxr29NpLeVMK9nFI+s03/kUzRIKYoYyKWzS/5kHHbkQ
-	 1F9+UlHx0PUY6IT5vkL5bmULrr/uYaEcnOkirhT/QYSRMZiba8zQi0TGj+HGcpdQW5
-	 dSeqJLifn8eE1c9kvNGFrn2ewJtqPXURo2Td7vOoZGrCm73hixrD9vL9rmxSk+ZScO
-	 /w6qr2MncvdgA==
-Message-ID: <sashiko-outbox-166382@kernel.org>
+	b=HK0hZHVrF/i7c1sKgQH/Y1rxhtRurkuLPFmjHYt8yQQOsLijlGiCVc+zA8O190yib
+	 vV1hH6hIShHidOAEU5Em7hveKkeKBHSWDgCoz9WpcJjPvPWqiVAglXu8PKVLV/Cd2r
+	 IJquZ/Z/HY5eP3vQEht3oSFXR/Xjdko5ies9ufAmZeuWRCcuxtXYp0aqD0kZvT1pUG
+	 yrKUzUbtgoVHQT/sZfpmCs0h0KvtC+pJlO0RE9Bf6DyvrMfUMoRfdyxQ+QQwObO5mz
+	 DB43vVqtuQubuzK31H7X8/FTyTxKo4eUC6LDKxGf4tCL+nyBddZO8iJa5/rBHtLPlB
+	 XVPIyMuGEPeLQ==
+Message-ID: <sashiko-outbox-166385@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 13/14] media: mediatek: decoder: fill av1 buffer size
- with picinfo
+Subject: Re: [PATCH v8 03/14] media: mediatek: vcodec: add driver to support
+ vcp encoder
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Kyrie Wu" <kyrie.wu@mediatek.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, media-ci@linuxtv.org
-In-Reply-To: <f53ccdc0c8b07fbc4150ee3b0b52b4664c0cad94.1791619743.git.kyrie.wu@mediatek.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <c2a0025b6962f96d8d05de5970863ef6329baf0e.1791619743.git.kyrie.wu@mediatek.com>
 References: <cover.1791619742.git.kyrie.wu@mediatek.com>
- <f53ccdc0c8b07fbc4150ee3b0b52b4664c0cad94.1791619743.git.kyrie.wu@mediatek.com>
+ <c2a0025b6962f96d8d05de5970863ef6329baf0e.1791619743.git.kyrie.wu@mediatek.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 10 Oct 2026 08:57:33 +0000
+Date: Sat, 10 Oct 2026 08:59:59 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [Critical] media: mtk-vcodec: OOB DMA write due to concurrent global pici=
-nfo mutation in stateless AV1 decoder
+- [High] media: mtk_vcodec: encoder initialization fails due to unmapped IP=
+I ID for VCP
+- [High] media: mtk_vcodec: delayed ACK causes protocol desynchronization i=
+n VCP IPC
+- [High] media: vcodec: vcp encoder fails to initialize due to out-of-bound=
+s ipi_id
+- [High] media: mediatek: vcodec: UAF in IPI message handlers on device clo=
+se due to IPC timeout
 --
 
-commit 4ecde7c3d617adc20b638103986012affff901df
+commit c1db7dc6cad08382fb97ce9b64a0f609116bfae6
 Author: Kyrie Wu <kyrie.wu@mediatek.com>
 
-media: mediatek: decoder: fill av1 buffer size with picinfo
+media: mediatek: vcodec: add driver to support vcp encoder
 
-This patch modifies the AV1 decoder to use the buffer sizes calculated
-in the vcp/scp, filling each frame buffer size directly from picinfo
-rather than computing it locally from the frame width and height.
+This commit adds encoder support for the VCP interface to allow communicati=
+on
+between the encoder and VCP hardware.
 
-> diff --git a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av1=
-_req_lat_if.c b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av=
-1_req_lat_if.c
-> --- a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av1_req_la=
-t_if.c
-> +++ b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av1_req_la=
-t_if.c
+> diff --git a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_=
+vcp.c b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_vcp.c
+> index 150d842c7d226..ece4e3e87e62d 100644
+> --- a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_vcp.c
+> +++ b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_vcp.c
+
 [ ... ]
-> @@ -1811,18 +1811,19 @@ static int vdec_av1_slice_setup_core_buffer(struc=
-t vdec_av1_slice_instance *inst
->  {
-[ ... ]
->  	/* frame buffer */
->  	vsi->fb.y.dma_addr =3D fb->base_y.dma_addr;
-> +
-> +	vsi->fb.y.size =3D instance->ctx->picinfo.fb_sz[0];
-> +	vsi->fb.c.size =3D instance->ctx->picinfo.fb_sz[1];
-> +
 
-[Severity: Critical]
-Does this introduce a race condition with concurrent requests?
+> @@ -223,8 +225,13 @@ static int mtk_vcodec_vcp_msg_ipi_send(struct mtk_vc=
+odec_fw *fw, int id, void *b
+>  	}
+> =20
+>  	mutex_lock(&vcp->ipi_mutex);
+> -	feature_id =3D VDEC_FEATURE_ID;
+> -	mailbox_id =3D IPI_OUT_VDEC_1;
+> +	if (fw->fw_use =3D=3D ENCODER) {
+> +		feature_id =3D VENC_FEATURE_ID;
+> +		mailbox_id =3D IPI_OUT_VENC_0;
+> +	} else {
+> +		feature_id =3D VDEC_FEATURE_ID;
+> +		mailbox_id =3D IPI_OUT_VDEC_1;
+> +	}
+> =20
+>  	timeout_jiffies =3D jiffies + msecs_to_jiffies(VCP_SYNC_TIMEOUT_MS);
 
-The driver uses an asynchronous architecture where requests are processed
-sequentially in the lat phase by mtk_vdec_worker, but core work is queued
-and executed asynchronously.
+[Severity: High]
+Will this initialization succeed for encoders?
 
-If mtk_vdec_worker processes a new request, it synchronously updates the
-global instance->ctx->picinfo to match the new sequence controls.
-Concurrently, if the core worker processing the previous request executes
-vdec_av1_slice_setup_core_buffer(), it will now read the mutated
-instance->ctx->picinfo.fb_sz instead of the request-local dimension data.
+The encoder driver appears to initialize its ID to SCP_IPI_VENC_H264 (4)
+or IPI_VENC_H264 (3), as seen in h264_enc_init():
 
->  	if (plane =3D=3D 1)
-> -		vsi->fb.c.dma_addr =3D fb->base_y.dma_addr + size;
-> +		vsi->fb.c.dma_addr =3D fb->base_y.dma_addr + vsi->fb.y.size;
+    if (is_ext)
+        inst->vpu_inst.id =3D SCP_IPI_VENC_H264;
+    else
+        inst->vpu_inst.id =3D IPI_VENC_H264;
 
-[Severity: Critical]
-Can this regression lead to an out-of-bounds dma write?
+However, earlier in mtk_vcodec_vcp_msg_ipi_send() and in=20
+mtk_vcodec_vcp_ipi_register(), the code checks mtk_vcodec_vcp_ipi_id_valid(=
+),
+which strictly requires the ID to be less than VCP_IPI_MAX.
 
-If the subsequent request specifies a larger resolution, vsi->fb.y.size here
-will be larger than the actually allocated vb2 capture buffer for the curre=
-nt
-request.
+Since VCP_IPI_MAX is 3, these encoder IDs will always fail the validation
+check, returning -EINVAL and preventing the VCP encoder from communicating.
 
-Because this calculated c-plane dma address is not validated against the
-physical capacity of the underlying vb2 buffer, the hardware could perform =
-an
-out-of-bounds write when it processes this offset. Userspace could potentia=
-lly
-trigger this by queuing sequential requests with different resolutions.
+
+[Severity: High]
+Could a delayed ACK from the firmware cause memory corruption or state
+desynchronization?
+
+When waiting for an ACK later in mtk_vcodec_vcp_msg_ipi_send(), the function
+uses a hardcoded 100ms timeout and relies on a shared boolean:
+
+wait_ack:
+    ret =3D wait_event_interruptible_timeout(*msg_wq, *msg_signaled,
+                                           msecs_to_jiffies(IPI_TIMEOUT_MS)=
+);
+
+If the firmware takes longer than 100ms to reply, the wait times out
+and returns an error. However, the firmware might still process the message
+and send the ACK later.
+
+This appears to lead to two potential issues:
+
+1. If the timeout occurs during device teardown, such as when sending a
+DEINIT message before closing the device, the driver proceeds to free
+the instance via kfree(inst). When the delayed ACK eventually arrives,
+the asynchronous message thread calls the IPI handler:
+
+vpu_enc_ipi_handler()
+    vpu =3D (struct venc_vpu_inst *)(unsigned long)msg->venc_inst;
+    mtk_venc_debug(vpu->ctx, ...);
+
+The handler extracts the freed instance from the message and dereferences
+vpu->ctx, resulting in a use-after-free.
+
+2. Because there are no sequence numbers matching ACKs to requests, a
+delayed ACK could arrive during a subsequent message on the same ID.
+The new message resets the shared flag and waits, but the delayed ACK
+from the previous message would immediately wake it up prematurely,
+desynchronizing the state between the driver and the firmware.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1791619742.gi=
-t.kyrie.wu@mediatek.com?part=3D13
+t.kyrie.wu@mediatek.com?part=3D3
