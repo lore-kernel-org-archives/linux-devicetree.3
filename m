@@ -1,138 +1,149 @@
-Received: from fhigh-b8-smtp.messagingengine.com (fhigh-b8-smtp.messagingengine.com [202.12.124.159])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com [209.85.216.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67FF6370AD5
-	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 14:28:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.159
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C974A37B023
+	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 14:38:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791642541; cv=none; b=UlSqyKg2/jrSbuzHJTbaaLJmr6iN9YpR4SWfh2TjahSc2s6nohjCfoGjdIsB+KRXEXe9M8CNbmKYY3wPwBjdiENVxnahDJ1c0bVy6X7XG1JsBpcFg6Gp/xy+LmX/BSg20MU5BidwP7+b5lWzCbW0UXchzqkiTWzNhPTnkS2MwHE=
+	t=1791643129; cv=none; b=EaxFrNeCuURv55dgDEqf2TG4hKi/q0Rt4iPCQslbgygVulYhdDMmYWzoXKYKfWOIcNzBdOaaWAgEfCjVbrQfjxhYcZBUwSe/EzOyBiDdxi1VlI2++qZavhuduYfmrYdl7Rz4bshzmJZEoOu6yiv0H6j9bHEH4G2Dpz/xsb4I6zA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791642541; c=relaxed/simple;
-	bh=9yZoRXmQQtglkDC69zeTXeUUkPPxdHTFbXEWw2qChQk=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=qnV1gLLajhv6DsJyRc9uPvqRU8emT9d2JeQaEzran2BziGXnYNXv92sbSIhciktnHK36igCIFTun+tmRFX+3zA7BxZ4Hwke3rPHJGWVmKnd7j2u2xdx6ZYjQIaZ3XqfN4ouPCWzVnYd4kX7kWRGYGRKCBZUAIsf3OWkr+Vo8shQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=jFWomILQ; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=sPU0NwE1; arc=none smtp.client-ip=202.12.124.159
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	s=arc-20240116; t=1791643129; c=relaxed/simple;
+	bh=XIR+F21hTFTrNd71D+I8BNEbEsbcq5OR1jCOUmmpFGA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=omZB1mnRlDXwLQxnxpkaIZB9tkStR50guZmEdV+9ZTwytKd3dBlH1zoKpN4ZFh3m2VSZFfiyEL/eK1I0grZ0TEkV0uBA/3mFW+6JzOBuHvu+OrmscFLRP36hj1UKoba3ewYFDf9fGJp7FST0hiyJe/TeSr1dH7tJcl0v7MrFKic=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F92XmAwm; arc=none smtp.client-ip=209.85.216.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="jFWomILQ";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="sPU0NwE1"
-Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 03FB87A0096
-	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 10:28:57 -0400 (EDT)
-Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Sat, 10 Oct 2026 10:28:58 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1791642533;
-	 x=1791728933; bh=9v+bgPkySBzc0aLhhX4V+5q7OxZcccocW4BaJrDdLNA=; b=
-	jFWomILQ5a23kATKxV5opHvM6kxextElXZNIoC5bV5Kd9IuRR/QlKjpx0lZ+Dzmq
-	sCB+9MDrSkClNP2VC5yF1n8F9TSfBkLlys7Wu8bDS71XK648H5QuH/+Pxnz+SYVU
-	DZ1dEdS4+I7AagBW24ENQ0T1AnkyKVXm+aqvitC8m1KVNbpTZXgXNzTc7zHrfhQp
-	W1I6v0HDPp8V58qJBef2shx9cQvbo0RC6hEMtPLz5pJGSzgVY8hnmEHMuG9TAfYD
-	xrdhYw9t6gELVazbbwdvOnPcf/xKiMyvnUpEU86nD4CmTLwN163L5kZOZ3y3jjbp
-	fwPxFcLthyJlq8TspW5Nhw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791642533; x=
-	1791728933; bh=9v+bgPkySBzc0aLhhX4V+5q7OxZcccocW4BaJrDdLNA=; b=s
-	PU0NwE17zIyVoH4vRdF06XvdJJ9o4RoMUHru7INjE0f87mtHAeO/MBk2c0XvNZWh
-	R2Hn3pzkxaNMUHcBrPbq7+JU/9IBTKkwB9VyJZ2SScLzQxMmKG/oRwBcPQn9SHtC
-	fuOUr0vKI5MH2/oXdGEgARDat+FefA9aYWO05ZnEdr5HDv2bpngpsbBtVlBLggRs
-	8MlmeMlcor70aes4jtGOkhILxg5wSG52Pdw+ko3nOAxHH14lxWv0VMYJaRx9bNAb
-	9IW4jlbCn+8R/Hv75Bme8ht9T9VT6YCEIgLZl7Z2nC7wkMEuMQLBbrcr5Ti3fd8i
-	lVzrLz6GYNGWQS8dSTuFQ==
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791642533; d=arndb.de;
-	mf=PGFybmRAYXJuZGIuZGU+;
-	rt=PGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnPg==;
-	s=fm1:rsa-sha256:qKNq/nH0zlX16Jqk4kiTDFZZWTb1Fkf/KZVrMWZPtGupSqm
-	3r2N8xDaHSdyRxJ9vftUPg87H7uYcxrsGPn7JYg058SPm0qaF7+1naQNb2WZUNnm
-	XxXvLri5xgGyS3sRriNSVKMx+ZPoeytgkdd14s00GtZ/QjqTiuGsSGsLnehKCJTo
-	uWNzVEnSMXg8Q+6v2NQtZZ5pNEqa7UMTKEdKw0Zm1IA4kUoPuy8PKXkwNEM/c9os
-	FxLDBkwM3N4oo8f+bdRzX5PaMn0lNw3mrLGgMeqPZWWuHH9Yg5Fr17cI+s5UXNcG
-	jiNzXgbC+stKYNODo0M7AUL2TibI+2r/7bNHKJg==;
-X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
-	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
-	action=mi-m=1; hc=12;
-	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
-	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:aV/xq7C55QCQ+urKH1wwNiqvUZ1gUoGK8FiRVFhcd4E=:9yZoRXmQQtglkDC69zeTXeUUkPPxdHTFbXEWw2qChQk=;
-X-ME-Sender: <xms:okvKaqyg97e7-Vw-xxh6O5sQLLuZB4t0F58vf7v30ctQpSC9YXEI8A>
-    <xme:okvKahHF6PAwhJ6geqQ6v-psLzO7fKZDuOkpJQSC2zK60HJuDpu82-rTJNklTxLSd
-    5DkpOCERy4NknhHJRwIWM_b20K_lpxuQ-nbuqqWYUn3mh46o7DLvds8>
-X-ME-Proxy-Cause: dmFkZTFLAfDTpiHknNrFYZyTXrnw2i7hwBBvDA63p8pgRb0WqT4uwmaQRp4EGcR7ukfzJZ
-    f5CIWh9gOF/Amyiux4ODBvMo61U3Jc3UVC5GH6RgDDma1/7U3/zzszVYlVvovFRGCIWGfw
-    eR0FSHRyq4KfzGqSx38fm4/+TW33xsPGI0rRkMb8YT6JNiQiB0og8o6tMyILtVOpdB9RB0
-    zL63lotg/Pa36txTSqrKwJsHfmQOBBnEV+R4n5wWq6ZzX4w2ZfLeDfVp9XMY/u31sGf8Gs
-    Whd8/WU38AX11634PqkCCV1/inETB5YkcD7XCwm1ixzjvsWeZGHscx93x8ujbNSijxNinv
-    u75MzmtoXKTjx0uYl2UonLYOjm9KuibX5/QW+3j1SPnStE6injzas1NPUy5IjKbmSuJQFA
-    tp0f+a353JAcAO1vvtgeNXIZgxzNy0oFndBlHzwws0BdrSJUtVsMAo+PDsMaa6+6ixeUnS
-    KP+USiRioKp1FxX+T30cSsenqYrbTyrooIyngSwlyzxVoP2KQGwhfqmOnaAbsaahHBbZ3l
-    5/Fqrxg5RMkmgsFuUSN1yduGzA7KAlLpo3lQb0Y/onn2Gf4Vd2KNcGNdlJ3IcpAti2qnzN
-    9PlzKsKehkw9K2vPJ2iJrAV/ELh0VNLY+3xIpl7IBCMt6kDO44LlSaAc2biA
-X-ME-Proxy: <xmx:o0vKaibRRskxJAQolID_pv514I4fc59uswnhRmocoHEZo9tOxMDGCQ>
-    <xmx:o0vKagBhl5ewb5h9G_jLpYArwRvG0s9MIZQbqkcH_xDn4B5mtk7MGQ>
-    <xmx:o0vKai8DPArrHyVOkViLOl_Zu33fWakIveqcbGms-vm8Je2d3d-FRw>
-    <xmx:o0vKakSRxMCigSa3AnPIAEwGBUB_Aq0wvTzrPGKdqSbhySj0DUUr6A>
-    <xmx:pUvKarbo-f_iLqF0lL3-SNQiSPItyOwqkVjEuDIN5GeCsZVBW_CaHrQ9>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 4017232A008E; Sat, 10 Oct 2026 10:28:50 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F92XmAwm"
+Received: by mail-pj1-f41.google.com with SMTP id 98e67ed59e1d1-3a7cfe8f761so1749244a91.1
+        for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 07:38:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791643128; x=1792247928; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=W4yObmjORIUS+HdWEYUQPrVnB688dbLM+egsRNt/fx4=;
+        b=F92XmAwmtZn2Lh2CCa2mCJuL6bgJgXWSi68pzSJuTIiZTXQ6tHLKEtltsIxKvGIqVS
+         1BSMeGF+KQpSNJFq7r0oRItJcJ7Bmpyv5HUYiFo+0bHLVGTRnpFc8T7KsdROJsuU2oJx
+         FBSkmuP7a+Q0DapoXpa5PqaGTuGQ6Si3vpFS6NkNf3JMbvX4/fSdDGfjXrAZeXI6ZHG4
+         57dtA7LWcCTjUP3YNRWDplzZXobQPtNthWF3PBd+oYjkKse5H7jeKT57IxE97cjc8DRw
+         2MBtkLYGYKKQWaU7BgLf38F/l2w3UaQc+MJ2CkDEV9Vju3OXkzUPzr+m7VZZj8+DuYcl
+         wCmw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791643128; x=1792247928;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=W4yObmjORIUS+HdWEYUQPrVnB688dbLM+egsRNt/fx4=;
+        b=lL2DQXn8bWkU3MQPNt5HTghdbGJT83otfcnuMCQUenlkpOU4JU6RcJFqxAa/h+FDoe
+         oFUQnk2cUQWRk/RcFVp1I3V2CzvMh9Eh+WG5MLLdN+7HlDzgwQg7DwrLmGvdvFhdnzQ2
+         85zTkUIAugVR0p1p8Hw3UF7pEut4T6baK3XMWdtG5Ncg3xm8eXXtBQ6MZTbuce91c2/q
+         pBCR7nCEZqm/cjYqC+lpwiTk8WQMkc3Un3yempzBW2K2HhZRAD7iCAoCxvjPA6wrKenx
+         1E5p7DPL8tS1KpWWRX/+QUGLlCWU51jw2zzSZbysTDu+73En3XeqNZptIcNY7Qhatzng
+         acLQ==
+X-Forwarded-Encrypted: i=1; AKwUvByTktfITiXO3ZOab8YNpsOXLyMlDux68z7pxj6SJBLf0J0CfO7nk8dcqFX2ZgQcWxM5r8B/m5btaiRD@vger.kernel.org
+X-Gm-Message-State: AFq9FYKgJILiziOTTwIVk6qpIFk7IWuHuRJI84vbGom9vN2TVyG4HerC
+	gTEgldEZnJGrKRw7kl/XTIvVnd4APW0Lzyyp6W4N8DAo9TxY12X+Q9gwrfFp1hP5vFm3xA==
+X-Gm-Gg: AYBFou0n//QjgsiVNRYLiXPGlwC21xG7BMmaeKuRBda4hyt2njV3Uwjg1av1PPblnl/
+	/w75wnjNAv7sMgY1DsmdsO1J2znUAySJKy1GHo9dzpXnbb8lYVldmHdO3d7nrHIccam4puNeZMI
+	rCA/9eGpKnCqDKQckmHFD+NqCne0pWJWjam+MH9UmSRmOKeZG0+WqYiv6ENaobZ+po9rZ457fyB
+	f212XCq4pvwrkKGLEd+nMQtsu53aCKAaG1I24QuhhMDm/49w7NPy9CY6NFKouRRb/nVklaP5GCq
+	VRFxtZSbh4eDBrnrf/UNPZNzFkA5iVU/MCvalJzJFSD0zxOwkPnafLubdQ0tLEGhdta8R/2V8/T
+	yAqEqHeb++6SMbae5HIAmW7SCj1xKI/CUHmyTqS91w4rByWI4oks/dYhAzfaaPS4AAPcHvc/OF9
+	2Vnko/DIYnzWh8HsuUU03Ei0hgr9dpvZniGZmk1S7st4jgyNASXHbCCWcfZRLLF+tzpG8A
+X-Received: by 2002:a17:90a:d44d:b0:39b:5622:d645 with SMTP id 98e67ed59e1d1-3ab3a09d2e0mr3194676a91.0.1791643128050;
+        Sat, 10 Oct 2026 07:38:48 -0700 (PDT)
+Received: from wyb-ms7e59 ([38.55.195.146])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab38f2f866sm10821859a91.10.2026.10.10.07.38.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 10 Oct 2026 07:38:47 -0700 (PDT)
+From: wyibo6109@gmail.com
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	linux-input@vger.kernel.org
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yibo Wang <wyibo6109@gmail.com>
+Subject: [PATCH v2 0/2] Input: add support for OnePlus/OPPO Pad pogo-pin keyboards
+Date: Sat, 10 Oct 2026 09:38:34 -0500
+Message-ID: <20261010143836.173883-1-wyibo6109@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261009122046.551915-1-wyibo6109@gmail.com>
+References: <20261009122046.551915-1-wyibo6109@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: A-dXEK1mihoo
-Date: Sat, 10 Oct 2026 16:28:29 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Navid Ghahremani" <ghahramani.navid@gmail.com>,
- linux-arm-kernel@lists.infradead.org
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- "Russell King" <linux@armlinux.org.uk>,
- =?UTF-8?Q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>,
- "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk@kernel.org>
-Message-Id: <5e78f63b-9479-49d9-8474-fa408135f325@app.fastmail.com>
-In-Reply-To: <20261010130024.177503-3-ghahramani.navid@gmail.com>
-References: <20261010130024.177503-1-ghahramani.navid@gmail.com>
- <20261010130024.177503-3-ghahramani.navid@gmail.com>
-Subject: Re: [PATCH 02/24] ARM: l2c: Serialize device reads with cache maintenance when
- requested
-Content-Type: text/plain
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Sat, Oct 10, 2026, at 14:59, Navid Ghahremani wrote:
-> Provide the optional lock used by the tested ZX279128S workaround. Lock-
-> off experiments hung the board; the proposed API remains subject to
-> maintainer review.
->
-> Assisted-by: LLM
-> Signed-off-by: Navid Ghahremani <ghahramani.navid@gmail.com>
+From: Yibo Wang <wyibo6109@gmail.com>
 
-Hi Navid,
+This series adds support for the magnetic pogo-pin smart keyboards of
+the OnePlus Pad 3 Pro / Pad 4 and the OPPO Pad 5 Pro.  The keyboard is
+built around a Tinno MCU attached to a tablet UART.  Both sides share a
+single data wire, so the host gates its transmission onto the bus with a
+PMIC GPIO for the duration of a frame, and every host frame is echoed
+back on RX.
 
-This seems like a very invasive change and at the same time does not
-look generic enough as it requires changes to each driver behind the
-PCIe bus.
+The MCU speaks a framed "one wire bus" protocol over the half-duplex
+921600 8N1 UART: 8x 0x55 preamble, 0xF1, src/dst addresses, command,
+length, payload, CRC16-IBM (poly 0x8005, init 0xC596), 0xFE and 4x 0xAA.
+The protocol was reverse engineered from the vendor kernel driver; this
+is a clean-room serdev reimplementation that replaces the downstream
+platform driver, which depends on a private msm_geni_serial callback and
+a user-space held tty fd.
 
-Please describe how you ended up with this version, did you copy
-the from the vendor BSP (where?) or did you arrive here by
-trial-and-error?
+Patch 1 adds the DT binding for the "oneplus,pogo-keyboard" device,
+describing the supply, TX-gate and wake GPIOs, with a MAINTAINERS entry.
 
-This looks related to the CONFIG_OUTER_CACHE_SYNC workaround,
-though I can't tell whether that means it should be connected to
-that, or if the actual symptom you see may be caused by that
-workaround. Do you have any more information here? Does the
-problem appear both with arm,outer-sync-disable enabled and
-disabled?
+Patch 2 adds the driver: keyboard matrix, touchpad, function and URL
+keys, caps-lock LED, attach detection through the wake GPIO plus a
+100 ms heartbeat timeout, and the keyboard backlight as a
+"pogo-keyboard::kbd_backlight" LED class device so UPower and the
+desktop keyboard-backlight controls drive it through the standard
+interface (the level is cached while detached and restored on
+re-attach).  A sysfs battery level is exported for the keyboards that
+carry a battery.
 
-      Arnd
+Changes in v2, addressing Krzysztof Kozlowski's review of the binding:
+
+- dropped the redundant "binding" from the dt-bindings subject;
+
+- replaced the custom oneplus,touchpad-xy-max/-resolution properties
+  with the common touchscreen properties touchscreen-size-x/y and
+  touchscreen-x-mm/y-mm, parsed with touchscreen_parse_properties() in
+  the driver: the MCU protocol has no way to query the touchpad
+  geometry and the same MCU is shipped in keyboards with different
+  touchpad matrices, so the geometry stays in DT but uses the common
+  schema instead of vendor properties;
+
+- dropped the serial wrapper node from the binding example;
+
+- the MAINTAINERS entry added with the binding references only the
+  binding file; the driver F: line is added together with the driver
+  patch.
+
+Tested on the OnePlus Pad 4 (iceland) running Linux 7.2.0-sm8850
+(v7.2-based iceland tree).
+
+Yibo Wang (2):
+  dt-bindings: input: add OnePlus pogo-pin keyboard
+  Input: add OnePlus/OPPO Pad pogo-pin keyboard serdev driver
+
+ .../bindings/input/oneplus,pogo-keyboard.yaml |   66 +
+ MAINTAINERS                                   |    7 +
+ drivers/input/keyboard/Kconfig                |   13 +
+ drivers/input/keyboard/Makefile               |    1 +
+ drivers/input/keyboard/oneplus-pogo-kbd.c     | 1196 +++++++++++++++++
+ 5 files changed, 1283 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/input/oneplus,pogo-keyboard.yaml
+ create mode 100644 drivers/input/keyboard/oneplus-pogo-kbd.c
+
+-- 
+2.53.0
+
