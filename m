@@ -1,119 +1,110 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E20013FB04E
-	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 13:10:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D17F042E410
+	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 13:11:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791637828; cv=none; b=uu5XBmOHVD9rKwyn+i6LRfnGrWGXNEs1lrTQpoOAwyr4mGxZzRSpuUeVCeZsZ0POAedAAs0xMIQYfaTR4z0T/YKQM2P0qiAIofrNCrHjMAuqXbZfbMBPeLFR0FDhlb4zUAzyQV3qK2iMZO27aj+/8cKMVmm5LGTIosdf9x62WZs=
+	t=1791637904; cv=none; b=XA1jpYATkP1q7mm+i+HrOxMjSTzYirsuFMCJqGbPFYUQXA7bQzFQeaqTDSDKtfYOpJyBvgzVvC/uXUTO3nhnNY3c4cu9jH8SOrJF3XcBcv1D+TJfFcfI4xA7/sqHduihGbo6wZ/wGwfATOvgsaUO8K3mduZdvidfNkRo05EmyEg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791637828; c=relaxed/simple;
-	bh=kf8JQy1hTADazrL2lYHM+6EZf+2TAhNAPrAwUuQAAKw=;
+	s=arc-20240116; t=1791637904; c=relaxed/simple;
+	bh=z/+IH9h4oP6OmY2V9b12e5RAkJFU2Bv5Kcm/sg+JLH8=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=hZlssI+7HhsJXvBFkGmwGGkcI444u0eRIWmgyWq8DLKBqGHxEhrnTXEunL0gDrdUYOPQy+RO7X6SNOkuMPH5730H3Gw7Dzeh4EFkyZdopoLLkDLitCoPIVJ8gD+w+ZLHDo0EY0CgIvQ0DYeFO1XcyCCH9YDWcrEA2pWPNLkNR7o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GGI0eZ2w; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=EwEFkNwFSeQsC28OoAm6FdeNtut208dyMpImyke/IPQ/91ZMvdIn67Kimh8lxYah9zKLcXTzpeEiQdIxDhAynNT64g6Zj/zDiOs1Am++GNsEOfkVeni7m9BcMkVd86IBd1x3nQXI2JjxC/VuM83vC71hH6QmVw/6zBuQPjOUimY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V+uszi1+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GGI0eZ2w"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 208321F000FF;
-	Sat, 10 Oct 2026 13:10:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V+uszi1+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5993F1F000FF;
+	Sat, 10 Oct 2026 13:11:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791637827;
-	bh=aTzZv87s3UxIvOc3OnqKRNg4LYHwGBKc8XGgdolxGrI=;
+	s=k20260515; t=1791637903;
+	bh=rUQkRSbkOi5ux3Z0GtBl/VS+xg2NHuPvihJ1KPGo6JU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=GGI0eZ2wuchp4LcXV7KoTaB1G5vx8jXbtVzAULUu8tChIJyy9sSGSuLT6ysnOiSyN
-	 d1lbRbts6jCV7mTLKzX6uaLVKIAucZjDI2uDBNbJIQpiqci3q3TUviKQr0JE9vTk0o
-	 3mq+/4/mQEbhB24qnp7umgV9dRfHbZ9vd6LukXn+53OoMDdK5YRsU2eOvLSrn1qaPT
-	 9lE0QGvnVHE9FWl9GAcqHEejmFK7oGwOUNzyoZHTPHVIkuaEziCtPvA2esH6rLJNG2
-	 3ZaosO/aIZw4EM38dA6UWbwx/a2ygd5AH1IQDyLjJReVcYRIVAtNs6wkG9WYSAP5Xk
-	 y9f3aoqPwxOaQ==
-Message-ID: <sashiko-outbox-166568@kernel.org>
+	b=V+uszi1+DengpxAVgMiEelI/y/rfrW6kWJnf8txxTbbxTBKXhyUPQNsSVcgSaq5LX
+	 pHeX4dvrHyhhV6dyIuNpnUvsYbHKMr0gCO4I+tGIdpEQrsPDkHd0jETBzExNsAO26r
+	 k1SMoy2awCB9G7zWnicXG2+ET51yQSdT0DqPr+3OjVs/Xq9rYJgvOmzSJq1GdZ1omo
+	 I9znc2jSH0FJrQ66ns1qKGZwKHYKhdr/7qSxBSfB2uW1BGrEeFeaXV0KGivpOv3vcM
+	 d2HsxIU7DaL5z20I3sVrBqFI3m+b7T6sfPVcs3Zd8xznq43ap5Ga1ex/27oK2KW/LC
+	 vDQMh+59AykxQ==
+Message-ID: <sashiko-outbox-166570@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 02/24] ARM: l2c: Serialize device reads with cache
- maintenance when requested
+Subject: Re: [PATCH 21/24] dt-bindings: usb: Add ZTE ZX279128S DWC3
+ controller
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Navid Ghahremani" <ghahramani.navid@gmail.com>
 Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20261010130024.177503-3-ghahramani.navid@gmail.com>
+In-Reply-To: <20261010130024.177503-22-ghahramani.navid@gmail.com>
 References: <20261010130024.177503-1-ghahramani.navid@gmail.com>
- <20261010130024.177503-3-ghahramani.navid@gmail.com>
+ <20261010130024.177503-22-ghahramani.navid@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 10 Oct 2026 13:10:26 +0000
+Date: Sat, 10 Oct 2026 13:11:42 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] arm: unbounded IRQ latency in L2C_IO_LOCKED_RANGE_OP wrapper
+- [Low] dt-bindings: use of deprecated snps,ref-clock-period-ns property in=
+ example
+- [Low] dt-bindings: missing minItems or items list for exactly 4 resets
 --
 
-commit 200bbafd893402f8ddb823a9bb579e0fb79d8e62
+commit cd8d3321ce805b3d8cf9f8b1e5a1c448f10bfc2c
 Author: Navid Ghahremani <ghahramani.navid@gmail.com>
 
-ARM: l2c: Serialize device reads with cache maintenance when requested
+dt-bindings: usb: Add ZTE ZX279128S DWC3 controller
 
-This commit introduces an optional lock to serialize device reads with L2C-=
-310
-maintenance operations. It works around an interconnect deadlock on some So=
-Cs by
-taking a spinlock during outer cache range operations and device reads.
+This commit introduces the device tree binding for the ZTE ZX279128S
+DesignWare USB3 controller. It documents the required compatible string,
+clocks, resets, and other properties for the hardware integration.
 
-> diff --git a/arch/arm/mm/cache-l2x0.c b/arch/arm/mm/cache-l2x0.c
-> index 470867160076f..35cc2eaf85a60 100644
-> --- a/arch/arm/mm/cache-l2x0.c
-> +++ b/arch/arm/mm/cache-l2x0.c
+> diff --git a/Documentation/devicetree/bindings/usb/zte,zx279128s-dwc3.yam=
+l b/Documentation/devicetree/bindings/usb/zte,zx279128s-dwc3.yaml
+> new file mode 100644
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/usb/zte,zx279128s-dwc3.yaml
+[ ... ]
+> +  resets:
+> +    description: The four reset bits of the controller and its PHYs, in =
+the
+> +      order they are released.
+> +    maxItems: 4
+
+[Severity: Low]
+Does this schema unintentionally allow incomplete reset configurations?
+
+The description explicitly mentions "four reset bits", but only specifying
+maxItems: 4 implicitly defaults minItems to 1. An incomplete device tree no=
+de
+specifying fewer than 4 resets could silently pass validation.
+
+Should an items list or minItems: 4 be added here?
 
 [ ... ]
+> +        resets =3D <&topcrm ZX279128S_TOP_RST_USB_B11>,
+> +                 <&topcrm ZX279128S_TOP_RST_USB_B14>,
+> +                 <&topcrm ZX279128S_TOP_RST_USB_B9>,
+> +                 <&topcrm ZX279128S_TOP_RST_USB_B10>;
+> +        dr_mode =3D "host";
+> +        snps,ref-clock-period-ns =3D <50>;
 
-> +#define L2C_IO_LOCKED_RANGE_OP(op)					\
-> +static void l2c_io_locked_##op(unsigned long start, unsigned long end)	\
-> +{									\
-> +	unsigned long flags;						\
-> +									\
-> +	raw_spin_lock_irqsave(&l2x0_io_lock, flags);			\
-> +	l2x0_io_fns.op(start, end);					\
-> +	raw_spin_unlock_irqrestore(&l2x0_io_lock, flags);		\
-> +}
-> +
-> +L2C_IO_LOCKED_RANGE_OP(inv_range)
-> +L2C_IO_LOCKED_RANGE_OP(clean_range)
-> +L2C_IO_LOCKED_RANGE_OP(flush_range)
+[Severity: Low]
+Is this deprecated property necessary in the example?
 
-[Severity: High]
-Does this introduce unbounded interrupt latency during large outer cache ra=
-nge
-operations?
+It is explicitly marked as deprecated: true in snps,dwc3-common.yaml with
+instructions to use an appropriate reference clock instead. Since the examp=
+le
+already correctly specifies the reference clock in the clocks and clock-nam=
+es
+properties, providing the deprecated property appears redundant and propaga=
+tes
+a deprecated pattern.
 
-By wrapping the entire O(N) range operation in a single
-raw_spin_lock_irqsave(), local interrupts are kept disabled for the duration
-of the operation.
-
-Standard L2C range loops natively execute with interrupts fully enabled, as=
- seen
-in __l2c210_op_pa_range():
-
-	while (start < end) {
-		writel_relaxed(start, reg);
-		start +=3D CACHE_LINE_SIZE;
-	}
-
-For functions that do take a lock internally, like
-l2c310_flush_range_erratum(), they explicitly bound interrupt latency by
-yielding every 4KB:
-
-		if (blk_end < end) {
-			raw_spin_unlock_irqrestore(lock, flags);
-			raw_spin_lock_irqsave(lock, flags);
-		}
-
-Wrapping the call defeats this latency bound completely. Could this cause
-dropped hardware events, audio dropouts, or watchdog timeouts when performi=
-ng
-DMA mapping on large buffers?
+> +    };
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261010130024.1775=
-03-1-ghahramani.navid@gmail.com?part=3D2
+03-1-ghahramani.navid@gmail.com?part=3D21
