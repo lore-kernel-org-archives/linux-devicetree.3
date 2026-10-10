@@ -1,63 +1,63 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2F7145FFDF
-	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 11:55:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2677248EC90
+	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 11:56:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791633368; cv=none; b=ubWe9VPyLyio1crKomjA1wGqQZBy2wTZQvhzuPeunPftu+iVVIAIB4B2/Ds4qcn5a3Gu6OtB0X+k9sRatxMU5BkGj5haqVnRtLx2TP5zbnrCXL0XThNIa9+b/rn0bhx+nO8xSrOROyF7yvuzQxhGucJUTl7fKMUPjvdkftu+FzY=
+	t=1791633368; cv=none; b=ExmuuCfh/0f1+K9jY315EpK3E70kYJKx9RyOiye928rQb2IRr23lGJrWw0CmaEbOHfLfpeaFywZue/QWqmFMD6s3sHspC2OoCJSXC5K1xmOWiswMusiq8LY6bfAr3+KblxLb8U439s3J5P2kgRBI7XRzMKzfVGx8ctkWtX6LJdk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791633368; c=relaxed/simple;
-	bh=U1+zvqDtizqdH7FfpZpt0y4P0XtwHkXlp6KguzW07cU=;
+	bh=oWOjt1/BP/ZrdTdhWqbWJnrKsyEqrYi+/tyFuMPW57g=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KjZHSrew2dhBYuZlNGui1707EQ9oHjuPjJZObvtyf5SFpOcFMAfM3Bjtk8IzbC/rOUDmAallah1pJru5RgV3nmBg42PY6yXRrn6be08mQjkCNUjUUVTmy/0uJp9O0OrzBXqzASD4KrX4EaNVwUVTLAHVH1IUB/0ZRVnvSIbqaGM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WWix52Ye; arc=none smtp.client-ip=209.85.221.51
+	 MIME-Version; b=tIgtHPjocFTcBA7zbYgYx9pL/rdpcipWIlcRrCL0/nTTznC240Bmt5pvFXVlDbyGjo+y2mHT6B6Smt2p6H4X+g55p0EX6CWl6Bq8S/xjD4LLsP5aF/UBG2n2TaAWTKuRKzzvKV+r+F9JdBUJ/kVZTsUGiQSkGch7hJvO7KGmnnY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UnmrbSx4; arc=none smtp.client-ip=209.85.221.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WWix52Ye"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48b060ec084so300554f8f.0
-        for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 04:55:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UnmrbSx4"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-48b02b1b4cfso1722930f8f.0
+        for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 04:56:06 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791633357; x=1792238157; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791633365; x=1792238165; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=43ruj8IeJ4ezmcyRP7zHp0NyJpifJG+F6EwmlXQyVkw=;
-        b=WWix52YeTqAMBnDfthUZeIgoxB7HalTNVqbv9m/M1iC+BUitVHtegUDxvgInjFHGIz
-         KbP/VcI5yM9PNjkzq0tE87jQ+5QyJeX2zn9/JU71SgH8HxxtBYc1tt4+nD6UOPq3pYaj
-         qlPoWDODGdafFU5g/HOZO3YGAEnOO4Q8ssWw614S1/ZnPeiyQMlubUdlJAcuetu3csdU
-         H1RMJKdkz5VsEotdZUY1vvq7j/uSEwUJC3rTVqnVgTkmjns6pRg27WfhRXse0Ub+kMfZ
-         Pak/a1xxxmPwZf9M83KaZlXP1lymjf9rAJvIEKUJsYpZb1EWLv3mF5aSeTbYvinRHHcc
-         SWLA==
+        bh=Qv9bAeFxVCYRZjcdo00nj7An4pwjaNEncFgD0tELhn8=;
+        b=UnmrbSx4gwCsF6GeA3tG7jLc9IjrJin8eP5Ex1FFWcTOsnL02w8GVhG09VYoz/vRPS
+         BKfUIF5k+DD4gOUmz2TTfxUpiAbj6ib8uK9MRnEwzIPuuQedEprfE0oPq4m2aMujrkTp
+         t6BVKVyjWYCHYv1FbSTH6J0wZtiO7sz2boIuZ+9LFuTKjuv7+z60mRO7DkVk62RJYRHd
+         hCBn158uaBHGcYqRMwcUG1GW7cvgtayeUdetUW6P1FpNuhX03vVWfwMyl9Sw4YL7AZNa
+         +odSCtIp1DTPqc54Rfad/NUiJVw6658nFgtriLX88ZcOUK3mrmk3UoVYxfS1DQ+V8Ank
+         Hf1w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791633357; x=1792238157;
+        d=1e100.net; s=20260707; t=1791633365; x=1792238165;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=43ruj8IeJ4ezmcyRP7zHp0NyJpifJG+F6EwmlXQyVkw=;
-        b=wY/Gg1YweTTF8ws+OMPmmHg3GhDpU7dAk0I7CbW1q2ArwManTMlMXXgjxWg6iC/F3n
-         Cgn5PtaGB7XFrPp+ZW3CTGdTFn1161XMCaexZP2WTLXXbj46/B7/6+MROkqgJO5E4i7I
-         C76dqSbA5emGyfwQBW8DrfqPbw5UhlwBbqxsUpJPgWuQLJegpqlkZYe/nDfHQXB2Xw6d
-         QkXk3V9BnXApO2av0xfJJUSbx0a+5Pysi9AskN4zSPGOHP5QADUa2XtC4O2Zhs4IGjFS
-         dFZLMhPvkr3Ls4jXTmx0bjyfqIzrkY/RIiA6W/CTK90oduwAf2sSVnQ8mdl6qlb8eJeb
-         IxZQ==
-X-Forwarded-Encrypted: i=1; AKwUvByUL79puMKjrl7SJTej0CRDVOjCgDBbEi0quK1VEryTYcJP5MmeJLvFev5euU6g+qKXSZSF67qQXrFT@vger.kernel.org
-X-Gm-Message-State: AFq9FYIPeIRpevmZt7UZHtd5XWnuP7jephFOm8cY5NgVOha/OfxhbrLh
-	xowztXkIdJIdJsDaQibNn2AzpeEAkza57HN32Ev7t5hVgUyIFb/g/4Il
-X-Gm-Gg: AYBFou3SiNp+DRZGqdSOYwVKw+aZvM9lkQYxfSrMGmIl7vT4yC+k2ZdKDLFvx4jiX4Z
-	YLLM6BFwx81qsvPi1aQfj5I1woNZlRNFmIx084bfzGNz9ZDNrZuVmS/3Rf0uvAsFxCVgC1KXvpQ
-	1MPxXZGLXJZs7C7+qNKPrMsS4LqM0P7xgRUFaR3I3oZhavJ+MAK/K80zepfPVVJimDHbW6mVkXD
-	65wEhPpqOt0SaPMfSTnJhLLnGU4AJyczR9ylDbnIJ8JU0MAfhkzoe5u89uftCNN1hm6XbOv/7Q9
-	0T1uzjgA3buB0ciLr4zvvYJdqi1TTtxeLUF6tzJj148yhLfbclw88o5MKUXV1s0NkByQLiWswTY
-	p9SKG8wN/tNQeBgkXz1MWHFN3cEV69rB53pnmGjISrBZFtogjuMfBFE87dLexEhyGkFeL+aoEgG
-	+VWtQKErKMkneqhVxAxbzDaV3R75m2mI70/V/OZdpkBQtzHKzEUxR1T7wdwX6akl81/Q==
-X-Received: by 2002:a5d:5f89:0:b0:488:8850:50ec with SMTP id ffacd0b85a97d-48dbacef19fmr9267461f8f.46.1791633356722;
-        Sat, 10 Oct 2026 04:55:56 -0700 (PDT)
+        bh=Qv9bAeFxVCYRZjcdo00nj7An4pwjaNEncFgD0tELhn8=;
+        b=cpDYN9h1BSNsKWxJewrKRJietODxKHqm1fIEUcsgqXKp/aRZArsmteU1JpxMRC8dol
+         +ICN13M1jDEZ7ISboDaFKN75Jfvh7vQfN0xHNIfH88YETSzUPn5kJy0EtpUQi5trmlBW
+         dGOgmKNs7PPNQhafVtPsTojXgjitXWbpRmf2qH1jR9H30vM/QaEadkRp0QtiEd6bdlIO
+         KDJ67sFE3Bwh/u7KqlEH4pIcV2XiyeaW/4YdGDIIYaahAi/cUY6dR2g7BlBl1/7Uwgr0
+         //zZiCKHZlC0ONJVL8drpJx4AA3hXlSYQJO2ZLJqKWtDtr7cExW2Wxd4gCH2ZqvQDpRb
+         xtJA==
+X-Forwarded-Encrypted: i=1; AKwUvBzzkHKWYgEYPygmgvCi74jqWcM1KuZ8jMZZsaTgqOlnUIPnZBESx9gyIdW/3mc3B2gVkvvK2HFvUmlz@vger.kernel.org
+X-Gm-Message-State: AFq9FYJFqHFN82p8FQNb6hMCKmU8uKkpP/RU5DP643+dfweycX+I7dgj
+	s/tnMcNg1ARQMgnBsDnSot8xGtuIstIzZrV4W7DxKKso4Wvwj9IS+1he
+X-Gm-Gg: AYBFou0my7fApM1aGus4IAOkio8SaMPFja9lfN5iAQN7neAZZHJgMvfLoq2+wN6nshU
+	qTSyU4ufpz67b3G+2fdxLpqsIHK2y7xC5lrr7ZEdY0MioBB4jSRJSJP6OYIl89CFud3UZmCRuD+
+	UfsgKFgH3uBLW1+dDebci8YNIapBjbVQR4YD8AVYrN12nnmZTr8IP+lskTjx2/VNzcAkSdPExWd
+	8aM7U9UsFHp+vWElL5bhDNQsRJWXRjqldu2U3AzJoskokNWUYt2c5VXdFJoWQKALQIxTGc47X7/
+	Fdnmm4niP8nTVRCBhFq8/jJ+2pDccBWP3WIOoi7SJN0SgK7sXB01Oeuay0ioy9ABlL4HxwUUsBH
+	Vq2D4lwnQCm25QoxEpAsw5VwglgRKg/3BypCsoTUn2CEvPK3aVq4KmmS7OdTbUn6YYfGdc/Ucqz
+	boxxLdaOPGgjRcihRNyPcdBvwWgKpQuN9ChtEIpAtGfFcBcZpTHJ4E8hb5fKWqt1FExQ==
+X-Received: by 2002:adf:e00b:0:10b0:48a:fff3:f9c1 with SMTP id ffacd0b85a97d-48db9482030mr6898560f8f.20.1791633364955;
+        Sat, 10 Oct 2026 04:56:04 -0700 (PDT)
 Received: from luca-vm.lan ([154.61.61.58])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db9aca657sm8746340f8f.43.2026.10.10.04.55.55
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db9aca657sm8746340f8f.43.2026.10.10.04.56.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 04:55:56 -0700 (PDT)
+        Sat, 10 Oct 2026 04:56:04 -0700 (PDT)
 From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
 To: linux-mediatek@lists.infradead.org
 Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
@@ -77,20 +77,20 @@ Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
 	Philipp Zabel <p.zabel@pengutronix.de>,
 	David Airlie <airlied@gmail.com>,
 	Simona Vetter <simona@ffwll.ch>,
-	Chen-Yu Tsai <wenst@chromium.org>,
 	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+	Chen-Yu Tsai <wenst@chromium.org>,
 	Fabien Parent <fparent@baylibre.com>,
-	CK Hu <ck.hu@mediatek.com>,
 	chunhui dai <chunhui.dai@mediatek.com>,
+	CK Hu <ck.hu@mediatek.com>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-phy@lists.infradead.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-clk@vger.kernel.org,
 	dri-devel@lists.freedesktop.org
-Subject: [PATCH 2/7] phy: mediatek: hdmi: Add support for mt8167
-Date: Sat, 10 Oct 2026 13:54:02 +0200
-Message-ID: <20261010115539.9237-3-l.scorcia@gmail.com>
+Subject: [PATCH 4/7] clk: mediatek: mt8167: Correct HDMI-related clock definitions
+Date: Sat, 10 Oct 2026 13:54:04 +0200
+Message-ID: <20261010115539.9237-5-l.scorcia@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20261010115539.9237-1-l.scorcia@gmail.com>
 References: <20261010115539.9237-1-l.scorcia@gmail.com>
@@ -102,278 +102,55 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add support for the HDMI PHY found in MediaTek mt8167.
+On the mt8167 SoC, the tvdpll_ck clock is used to clock the DPI1 pixel
+signal that is hardwired to the HDMI interface.
+The clocks used by those two blocks must match and they have to be changed
+according to the mode clock appropriate for the display resolution. Fix a
+couple of issues with the current HDMI clock definitions:
+
+- The hdmi_ref divider references the same register and offset of its
+  parent tvdpll. Make sure to flag it as a read only divider as its rate
+  must be set by the DPI driver only.
+- Both hdmi_ref and tvdpll_ck derive their clock from the same tvdpll
+  parent clock, but its rate must be set by the DPI driver only. Unset the
+  CLK_SET_RATE_PARENT flag that is implicitly set by the FACTOR() macro.
 
 Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
 ---
- drivers/phy/mediatek/Makefile              |   1 +
- drivers/phy/mediatek/phy-mtk-hdmi-mt8167.c | 217 +++++++++++++++++++++
- drivers/phy/mediatek/phy-mtk-hdmi.c        |   3 +
- drivers/phy/mediatek/phy-mtk-hdmi.h        |   1 +
- 4 files changed, 222 insertions(+)
- create mode 100644 drivers/phy/mediatek/phy-mtk-hdmi-mt8167.c
+ drivers/clk/mediatek/clk-mt8167-apmixedsys.c | 2 +-
+ drivers/clk/mediatek/clk-mt8167.c            | 6 +++++-
+ 2 files changed, 6 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/phy/mediatek/Makefile b/drivers/phy/mediatek/Makefile
-index ed0da708759b..25ede986a1f3 100644
---- a/drivers/phy/mediatek/Makefile
-+++ b/drivers/phy/mediatek/Makefile
-@@ -12,6 +12,7 @@ obj-$(CONFIG_PHY_MTK_XFI_TPHY)		+= phy-mtk-xfi-tphy.o
+diff --git a/drivers/clk/mediatek/clk-mt8167-apmixedsys.c b/drivers/clk/mediatek/clk-mt8167-apmixedsys.c
+index 3e8611991de7..a7d38c194759 100644
+--- a/drivers/clk/mediatek/clk-mt8167-apmixedsys.c
++++ b/drivers/clk/mediatek/clk-mt8167-apmixedsys.c
+@@ -87,7 +87,7 @@ static const struct mtk_pll_data plls[] = {
  
- phy-mtk-hdmi-drv-y			:= phy-mtk-hdmi.o
- phy-mtk-hdmi-drv-y			+= phy-mtk-hdmi-mt2701.o
-+phy-mtk-hdmi-drv-y			+= phy-mtk-hdmi-mt8167.o
- phy-mtk-hdmi-drv-y			+= phy-mtk-hdmi-mt8173.o
- phy-mtk-hdmi-drv-y			+= phy-mtk-hdmi-mt8195.o
- obj-$(CONFIG_PHY_MTK_HDMI)		+= phy-mtk-hdmi-drv.o
-diff --git a/drivers/phy/mediatek/phy-mtk-hdmi-mt8167.c b/drivers/phy/mediatek/phy-mtk-hdmi-mt8167.c
-new file mode 100644
-index 000000000000..2435054d4e17
---- /dev/null
-+++ b/drivers/phy/mediatek/phy-mtk-hdmi-mt8167.c
-@@ -0,0 +1,217 @@
-+// SPDX-License-Identifier: GPL-2.0
-+#include "phy-mtk-hdmi.h"
-+#include "phy-mtk-io.h"
-+
-+#define HDMI_CON0	0x00
-+#define RG_HDMITX_DRV_IBIAS		GENMASK(5, 0)
-+#define RG_HDMITX_EN_SER		GENMASK(15, 12)
-+#define RG_HDMITX_EN_SLDO		GENMASK(19, 16)
-+#define RG_HDMITX_EN_PRED		GENMASK(23, 20)
-+#define RG_HDMITX_EN_IMP		GENMASK(27, 24)
-+#define RG_HDMITX_EN_DRV		GENMASK(31, 28)
-+
-+#define HDMI_CON1	0x04
-+#define RG_HDMITX_PRED_IBIAS		GENMASK(21, 18)
-+#define RG_HDMITX_PRED_IMP		BIT(22)
-+#define RG_HDMITX_DRV_IMP		GENMASK(31, 26)
-+
-+#define HDMI_CON2	0x08
-+#define RG_HDMITX_EN_TX_CKLDO		BIT(0)
-+#define RG_HDMITX_EN_TX_POSDIV		BIT(1)
-+#define RG_HDMITX_TX_POSDIV		GENMASK(4, 3)
-+#define RG_HDMITX_EN_MBIAS		BIT(6)
-+#define RG_HDMITX_MBIAS_LPF_EN		BIT(7)
-+
-+#define HDMI_CON4	0x10
-+#define RG_HDMITX_D0_IMP		GENMASK(7, 0)
-+#define RG_HDMITX_D1_IMP		GENMASK(15, 8)
-+#define RG_HDMITX_D2_IMP		GENMASK(23, 16)
-+
-+#define HDMI_CON6	0x18
-+#define RG_HTPLL_BR			GENMASK(1, 0)
-+#define RG_HTPLL_BC			GENMASK(3, 2)
-+#define RG_HTPLL_BP			GENMASK(7, 4)
-+#define RG_HTPLL_IR			GENMASK(11, 8)
-+#define RG_HTPLL_IC			GENMASK(15, 12)
-+#define RG_HTPLL_POSDIV			GENMASK(17, 16)
-+#define RG_HTPLL_PREDIV			GENMASK(19, 18)
-+#define RG_HTPLL_FBKSEL			GENMASK(21, 20)
-+#define RG_HTPLL_RLH_EN			BIT(22)
-+#define RG_HTPLL_FBKDIV			GENMASK(30, 24)
-+#define RG_HTPLL_EN			BIT(31)
-+
-+#define HDMI_CON7	0x1c
-+#define RG_HTPLL_AUTOK_EN		BIT(23)
-+#define RG_HTPLL_DIVEN			GENMASK(30, 28)
-+
-+static int mtk_hdmi_pll_prepare(struct clk_hw *hw)
-+{
-+	struct mtk_hdmi_phy *hdmi_phy = to_mtk_hdmi_phy(hw);
-+	void __iomem *base = hdmi_phy->regs;
-+
-+	mtk_phy_set_bits(base + HDMI_CON7, RG_HTPLL_AUTOK_EN);
-+	mtk_phy_clear_bits(base + HDMI_CON6, RG_HTPLL_RLH_EN);
-+	mtk_phy_set_bits(base + HDMI_CON6, RG_HTPLL_POSDIV);
-+	mtk_phy_set_bits(base + HDMI_CON2, RG_HDMITX_EN_MBIAS);
-+	usleep_range(80, 100);
-+	mtk_phy_set_bits(base + HDMI_CON6, RG_HTPLL_EN);
-+	mtk_phy_set_bits(base + HDMI_CON2, RG_HDMITX_EN_TX_CKLDO);
-+	mtk_phy_set_bits(base + HDMI_CON0, RG_HDMITX_EN_SLDO);
-+	usleep_range(80, 100);
-+	mtk_phy_set_bits(base + HDMI_CON2, RG_HDMITX_MBIAS_LPF_EN);
-+	mtk_phy_set_bits(base + HDMI_CON2, RG_HDMITX_EN_TX_POSDIV);
-+
-+	return 0;
-+}
-+
-+static void mtk_hdmi_pll_unprepare(struct clk_hw *hw)
-+{
-+	struct mtk_hdmi_phy *hdmi_phy = to_mtk_hdmi_phy(hw);
-+	void __iomem *base = hdmi_phy->regs;
-+
-+	mtk_phy_clear_bits(base + HDMI_CON2, RG_HDMITX_EN_TX_POSDIV);
-+	mtk_phy_clear_bits(base + HDMI_CON2, RG_HDMITX_MBIAS_LPF_EN);
-+	usleep_range(80, 100);
-+	mtk_phy_clear_bits(base + HDMI_CON0, RG_HDMITX_EN_SLDO);
-+	mtk_phy_clear_bits(base + HDMI_CON2, RG_HDMITX_EN_TX_CKLDO);
-+	mtk_phy_clear_bits(base + HDMI_CON6, RG_HTPLL_EN);
-+	usleep_range(80, 100);
-+	mtk_phy_clear_bits(base + HDMI_CON2, RG_HDMITX_EN_MBIAS);
-+	mtk_phy_clear_bits(base + HDMI_CON6, RG_HTPLL_POSDIV);
-+	mtk_phy_clear_bits(base + HDMI_CON6, RG_HTPLL_RLH_EN);
-+	mtk_phy_clear_bits(base + HDMI_CON7, RG_HTPLL_AUTOK_EN);
-+	usleep_range(80, 100);
-+}
-+
-+static int mtk_hdmi_pll_determine_rate(struct clk_hw *hw,
-+				       struct clk_rate_request *req)
-+{
-+	struct mtk_hdmi_phy *hdmi_phy = to_mtk_hdmi_phy(hw);
-+
-+	hdmi_phy->pll_rate = req->rate;
-+
-+	return 0;
-+}
-+
-+static int mtk_hdmi_pll_set_rate(struct clk_hw *hw, unsigned long rate,
-+				 unsigned long parent_rate)
-+{
-+	struct mtk_hdmi_phy *hdmi_phy = to_mtk_hdmi_phy(hw);
-+	void __iomem *base = hdmi_phy->regs;
-+	u32 pos_div;
-+	u32 pre_imp_en = 0x0;
-+	u32 pre_ibias = 0xd;
-+	u32 imp_en = 0x0;
-+	u32 imp_clk = 0x1c;
-+	u32 imp_d0 = 0x1c;
-+	u32 imp_d1 = 0x1c;
-+	u32 imp_d2 = 0x1c;
-+	u32 drv_ibias = 0xa;
-+
-+	if (rate <= 27000000)
-+		pos_div = 3;
-+	else if (rate <= 74250000)
-+		pos_div = 2;
-+	else
-+		pos_div = 1;
-+
-+	mtk_phy_set_bits(base + HDMI_CON6, RG_HTPLL_PREDIV);
-+	mtk_phy_set_bits(base + HDMI_CON6, RG_HTPLL_POSDIV);
-+	mtk_phy_update_bits(base + HDMI_CON6,
-+			    RG_HTPLL_IC | RG_HTPLL_IR,
-+			    FIELD_PREP(RG_HTPLL_IC, 0x1) |
-+			    FIELD_PREP(RG_HTPLL_IR, 0x1));
-+	mtk_phy_update_field(base + HDMI_CON2, RG_HDMITX_TX_POSDIV, pos_div);
-+	mtk_phy_update_field(base + HDMI_CON6, RG_HTPLL_FBKSEL, 1);
-+	mtk_phy_update_field(base + HDMI_CON6, RG_HTPLL_FBKDIV, 19);
-+	mtk_phy_update_field(base + HDMI_CON7, RG_HTPLL_DIVEN, 0x2);
-+	mtk_phy_update_bits(base + HDMI_CON6,
-+			    RG_HTPLL_BP | RG_HTPLL_BC | RG_HTPLL_BR,
-+			    FIELD_PREP(RG_HTPLL_BP, 0xc) |
-+			    FIELD_PREP(RG_HTPLL_BC, 0x2) |
-+			    FIELD_PREP(RG_HTPLL_BR, 0x1));
-+
-+	mtk_phy_update_field(base + HDMI_CON1, RG_HDMITX_PRED_IMP, pre_imp_en);
-+	mtk_phy_update_field(base + HDMI_CON1, RG_HDMITX_PRED_IBIAS, pre_ibias);
-+	mtk_phy_update_field(base + HDMI_CON0, RG_HDMITX_EN_IMP, imp_en);
-+	mtk_phy_update_field(base + HDMI_CON1, RG_HDMITX_DRV_IMP, imp_clk);
-+	mtk_phy_update_bits(base + HDMI_CON4,
-+			    RG_HDMITX_D0_IMP | RG_HDMITX_D1_IMP | RG_HDMITX_D2_IMP,
-+			    FIELD_PREP(RG_HDMITX_D0_IMP, imp_d0) |
-+			    FIELD_PREP(RG_HDMITX_D1_IMP, imp_d1) |
-+			    FIELD_PREP(RG_HDMITX_D2_IMP, imp_d2));
-+	mtk_phy_update_field(base + HDMI_CON0, RG_HDMITX_DRV_IBIAS, drv_ibias);
-+
-+	return 0;
-+}
-+
-+static unsigned long mtk_hdmi_pll_recalc_rate(struct clk_hw *hw,
-+					      unsigned long parent_rate)
-+{
-+	struct mtk_hdmi_phy *hdmi_phy = to_mtk_hdmi_phy(hw);
-+
-+	unsigned long out_rate, val;
-+	u32 tmp;
-+
-+	tmp = readl(hdmi_phy->regs + HDMI_CON6);
-+	val = FIELD_GET(RG_HTPLL_PREDIV, tmp);
-+	switch (val) {
-+	case 0x00:
-+		out_rate = parent_rate;
-+		break;
-+	case 0x01:
-+		out_rate = parent_rate / 2;
-+		break;
-+	default:
-+		out_rate = parent_rate / 4;
-+		break;
-+	}
-+
-+	val = FIELD_GET(RG_HTPLL_FBKDIV, tmp);
-+	out_rate *= (val + 1) * 2;
-+
-+	tmp = readl(hdmi_phy->regs + HDMI_CON2);
-+	val = FIELD_GET(RG_HDMITX_TX_POSDIV, tmp);
-+	out_rate >>= val;
-+
-+	if (tmp & RG_HDMITX_EN_TX_POSDIV)
-+		out_rate /= 5;
-+
-+	return out_rate;
-+}
-+
-+static const struct clk_ops mtk_hdmi_phy_pll_ops = {
-+	.prepare = mtk_hdmi_pll_prepare,
-+	.unprepare = mtk_hdmi_pll_unprepare,
-+	.set_rate = mtk_hdmi_pll_set_rate,
-+	.determine_rate = mtk_hdmi_pll_determine_rate,
-+	.recalc_rate = mtk_hdmi_pll_recalc_rate,
-+};
-+
-+static void mtk_hdmi_phy_enable_tmds(struct mtk_hdmi_phy *hdmi_phy)
-+{
-+	void __iomem *base = hdmi_phy->regs;
-+
-+	mtk_phy_set_bits(base + HDMI_CON0,
-+			 RG_HDMITX_EN_DRV | RG_HDMITX_EN_PRED | RG_HDMITX_EN_SER);
-+	usleep_range(80, 100);
-+}
-+
-+static void mtk_hdmi_phy_disable_tmds(struct mtk_hdmi_phy *hdmi_phy)
-+{
-+	void __iomem *base = hdmi_phy->regs;
-+
-+	mtk_phy_clear_bits(base + HDMI_CON0,
-+			   RG_HDMITX_EN_DRV | RG_HDMITX_EN_PRED | RG_HDMITX_EN_SER);
-+	usleep_range(80, 100);
-+}
-+
-+struct mtk_hdmi_phy_conf mtk_hdmi_phy_8167_conf = {
-+	.flags = CLK_SET_RATE_PARENT | CLK_SET_RATE_GATE,
-+	.hdmi_phy_clk_ops = &mtk_hdmi_phy_pll_ops,
-+	.hdmi_phy_enable_tmds = mtk_hdmi_phy_enable_tmds,
-+	.hdmi_phy_disable_tmds = mtk_hdmi_phy_disable_tmds,
-+};
-+
-+MODULE_DESCRIPTION("MediaTek HDMI PHY Driver");
-+MODULE_LICENSE("GPL");
-diff --git a/drivers/phy/mediatek/phy-mtk-hdmi.c b/drivers/phy/mediatek/phy-mtk-hdmi.c
-index 52a7d525ff9b..4e167a421f0e 100644
---- a/drivers/phy/mediatek/phy-mtk-hdmi.c
-+++ b/drivers/phy/mediatek/phy-mtk-hdmi.c
-@@ -186,6 +186,9 @@ static const struct of_device_id mtk_hdmi_phy_match[] = {
- 	{ .compatible = "mediatek,mt2701-hdmi-phy",
- 	  .data = &mtk_hdmi_phy_2701_conf,
- 	},
-+	{ .compatible = "mediatek,mt8167-hdmi-phy",
-+	  .data = &mtk_hdmi_phy_8167_conf,
-+	},
- 	{ .compatible = "mediatek,mt8173-hdmi-phy",
- 	  .data = &mtk_hdmi_phy_8173_conf,
- 	},
-diff --git a/drivers/phy/mediatek/phy-mtk-hdmi.h b/drivers/phy/mediatek/phy-mtk-hdmi.h
-index 99d917e0036a..5137d1c3345b 100644
---- a/drivers/phy/mediatek/phy-mtk-hdmi.h
-+++ b/drivers/phy/mediatek/phy-mtk-hdmi.h
-@@ -49,6 +49,7 @@ struct mtk_hdmi_phy {
- struct mtk_hdmi_phy *to_mtk_hdmi_phy(struct clk_hw *hw);
+ static const struct mtk_clk_divider adj_divs[] = {
+ 	DIV_ADJ_FLAG(CLK_APMIXED_HDMI_REF, "hdmi_ref", "tvdpll",
+-		     0x1c4, 24, 3, CLK_DIVIDER_POWER_OF_TWO),
++		     0x1c4, 24, 3, CLK_DIVIDER_POWER_OF_TWO | CLK_DIVIDER_READ_ONLY),
+ };
  
- extern struct mtk_hdmi_phy_conf mtk_hdmi_phy_8195_conf;
-+extern struct mtk_hdmi_phy_conf mtk_hdmi_phy_8167_conf;
- extern struct mtk_hdmi_phy_conf mtk_hdmi_phy_8173_conf;
- extern struct mtk_hdmi_phy_conf mtk_hdmi_phy_2701_conf;
- 
+ static int clk_mt8167_apmixed_probe(struct platform_device *pdev)
+diff --git a/drivers/clk/mediatek/clk-mt8167.c b/drivers/clk/mediatek/clk-mt8167.c
+index c64d918c37de..a14f0736cdcf 100644
+--- a/drivers/clk/mediatek/clk-mt8167.c
++++ b/drivers/clk/mediatek/clk-mt8167.c
+@@ -75,7 +75,11 @@ static const struct mtk_fixed_factor top_divs[] = {
+ 	FACTOR(CLK_TOP_CLK26M, "clk26m_ck", "clk26m", 1, 1),
+ 	FACTOR(CLK_TOP_CLK26M_D2, "clk26m_d2", "clk26m", 1, 2),
+ 	FACTOR(CLK_TOP_MIPI_26M, "mipi_26m", "clk26m", 1, 1),
+-	FACTOR(CLK_TOP_TVDPLL, "tvdpll_ck", "tvdpll", 1, 1),
++	/*
++	 * The tvdpll_ck clock should not propagate rate changes to its parent
++	 * clock so the dpi driver can have full control over PLL and divider.
++	 */
++	FACTOR_FLAGS(CLK_TOP_TVDPLL, "tvdpll_ck", "tvdpll", 1, 1, 0),
+ 	FACTOR(CLK_TOP_TVDPLL_D2, "tvdpll_d2", "tvdpll_ck", 1, 2),
+ 	FACTOR(CLK_TOP_TVDPLL_D4, "tvdpll_d4", "tvdpll_ck", 1, 4),
+ 	FACTOR(CLK_TOP_TVDPLL_D8, "tvdpll_d8", "tvdpll_ck", 1, 8),
 -- 
 2.43.0
 
