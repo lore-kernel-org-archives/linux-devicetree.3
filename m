@@ -1,103 +1,70 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-4323.protonmail.ch (mail-4323.protonmail.ch [185.70.43.23])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C17F5377AB6
-	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 15:05:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58321364927;
+	Sat, 10 Oct 2026 15:07:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.70.43.23
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791644740; cv=none; b=KFnpOqDij9cj62GF5OSO9f6YkpsloU6e2RazhgYg2A4xVtkBzYXW3xfWFBfr3fBEeY9wkJfh3CiS3vBa4+tfodq13LFauH/9ziSR7kLFnvq3UjZQt95weU/5slGKQoeW2mVtmttpN4TJ00n9oVrWh464XmIL/6bctFNW1jePp08=
+	t=1791644826; cv=none; b=WxmXeoNYh+BvLTRhTh4z3kIowLO/FaJXxS6+666oxnw9VkOPCORoJuXlX76pjkoD9TwXk9yW819mN3n62I3EFQiRIkLtGc7OL/spsPn6FYyRvVhX2+G37+4f2f9pwokzeeuQW3NhFz/pmLMXx3lGTwe6x1Z3qJ0wdWKm53DK/64=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791644740; c=relaxed/simple;
-	bh=AKgVVsl6pvtIsQ/Z8vXfUWv20pi1t25xBZRN7jc0lik=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=AoS8aaF+wOaTQBAKFzoIRQHu4xVBJTU5KPHrIDPequlsmYd7QjtGKY9Wp3AGxr/eMaRFMXjCyz4jmoWBULkt0pfMz5l1fx0/TjxmXwuPGb5aT09OGnlF3tvjetcVm9vHU7cKCEEt7foXPsC4xiajHvutgiQSe7JfsuPBJWJi2Bc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HUx1mJzv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791644826; c=relaxed/simple;
+	bh=/b1Vcj7w40bsAmKhOSi3kSUq/xNeq13MvQWcDEUImrc=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=BcR40wWEmqCkjECobU6zi5CJFKeYwcsBpTXTwP2ko8pI5eMh1NIBfIFNNsyHBwyw6zooQwY/ZNWjTzK7fylNOr6tvS5bS7BxXPcWV0guNy+t2HM4WsBdWTzCY+RnsdS8NUHwHEp9RqCOfccQrMwkKSd9VUnN5rxANL68UKUYMKk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ironrobin.net; spf=pass smtp.mailfrom=ironrobin.net; dkim=pass (2048-bit key) header.d=ironrobin.net header.i=@ironrobin.net header.b=jDFbn2F0; arc=none smtp.client-ip=185.70.43.23
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ironrobin.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ironrobin.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HUx1mJzv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EC751F000FF;
-	Sat, 10 Oct 2026 15:05:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791644739;
-	bh=IwasOWH2xfPCisr7eJdbd+TmxwcD4ZfpLSgz+FT9DqY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=HUx1mJzvO86pWx40NJc+9jQ+LMfxRvv4wHibBzGO9r6WZ0D1UvixwWyLDIcsK0ykt
-	 keopbNNV96ZnlSeOMJHG8pXYWXBaBVi7YJZEfAfqINkBkklimBYruCuAI9YXB+38X5
-	 H//yESZAUqy3iqDF64j87pJauKQkFnI0/VgD8/3P5Ik7YF2KBOXh5PW+6aIOL7pwRj
-	 EyuKQt9X73ZGFRV32SpjIFScuwNmqnOAK5TB+gagG2hRfzc+fto9FlBYmrcseSP8Ez
-	 v23XySGJZ20H4l4PQR6FnBTNMrCY1PupRjZtA6Tc4NuRoCl2AhcuNvoHbDWkS433Og
-	 OeemVj2Yodocw==
-Message-ID: <sashiko-outbox-166680@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 3/3] arm64: dts: qcom: sc8280xp-x13s: Add embedded
- controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alex Robinson" <alex@ironrobin.net>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20261010145519.8370-4-alex@ironrobin.net>
-References: <20261010145519.8370-1-alex@ironrobin.net>
- <20261010145519.8370-4-alex@ironrobin.net>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 10 Oct 2026 15:05:38 +0000
+	dkim=pass (2048-bit key) header.d=ironrobin.net header.i=@ironrobin.net header.b="jDFbn2F0"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ironrobin.net;
+	s=protonmail3; t=1791644822; x=1791904022;
+	bh=/b1Vcj7w40bsAmKhOSi3kSUq/xNeq13MvQWcDEUImrc=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=jDFbn2F0sUYoNcuxCaqoPmCJlaEF1uXdTkSR1mUxLxk7LC22BIEz9AeUIsQy6dHux
+	 5qPm7OotNuGYu2u+ZrMvcMqWhaQZlJzfU01GYsRo+dUfkhvVnvqGvJe6ksE1MEGejs
+	 5Wy0CS2IpOwWJEd+jDCzF8LtF/1XzlGzLdiiPeL3ATAMWLWfzD+o3y4Dga2ISkdmlJ
+	 48tW0CzjlWQZOSGqPQf/qQQmP+0rOmlQi/9A8O7CKpxAXM/oDQbrMfEKKO9kB/zPjN
+	 LdRXLMxVcMflfBJ7Lu98veCu7e+yQ+OoKgcaZMKrmXkbb9rqRKzS4YXG8ue1FD1A/k
+	 6UNSc27HXinNg==
+Date: Sat, 10 Oct 2026 15:06:59 +0000
+To: Stephan Gerhold <stephan.gerhold@linaro.org>
+From: Alex R <alex@ironrobin.net>
+Cc: Hans de Goede <hansg@kernel.org>, =?utf-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Steev Klimaszewski <threeway@gmail.com>, platform-driver-x86@vger.kernel.org, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 2/3] platform: arm64: Add Lenovo ThinkPad X13s EC driver
+Message-ID: <1dfc1b67-3bcd-409f-9a9a-d9061abe76c9@ironrobin.net>
+In-Reply-To: <asNZw4mFy_xOmCVD@linaro.org>
+References: <20261002154231.31376-1-alex@ironrobin.net> <20261002154231.31376-3-alex@ironrobin.net> <asNZw4mFy_xOmCVD@linaro.org>
+Feedback-ID: 54785507:user:proton
+X-Pm-Message-ID: 8175722ec708fc249ed3657dccd9f24220f59fb0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] dts: dtbs_check validation failure due to forbidden input-enable pr=
-operty
---
 
-commit a33aecbbb5f75c5311ccdc6af88f07e6aaed6105
-Author: Alex Robinson <alex@ironrobin.net>
 
-arm64: dts: qcom: sc8280xp-x13s: Add embedded controller
+On 10/5/26 3:03 AM, Stephan Gerhold wrote:
+> I'm mostly just curious, is the input/hotkey functionality in the T14s
+> EC driver not relevant for the X13s or did you omit it because you don't
+> need it and/or to keep the initial driver more simple? It seems to be
+> present in the X13s ACPI similar to the T14s.
 
-This commit enables the ThinkPad X13s embedded controller to provide keyboa=
-rd
-backlight support when booting with Device Tree. It also configures the
-necessary interrupt lines and pinctrl states.
+The X13s does have EC-generated hotkey events similar to the T14s.
+I left the input functionality out intentionally to keep the initial
+driver focused on keyboard-backlight control and power management.
 
-> diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts b=
-/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
-> index 218573a97785b..1e29bab37de6d 100644
-> --- a/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
-> +++ b/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
+I've identified several X13s event codes in the ACPI DSDT, including
+the programmable F12 key and call-control keys. I think it makes sense
+to add input support as a follow-up once the event mappings and
+expected behavior have been verified on hardware.
 
-[ ... ]
+Thanks,
+Alex
 
-> @@ -1571,6 +1590,20 @@ sc-rgb-xshut-n-pins {
->  		};
->  	};
-> =20
-> +	ec_int_n: ec-int-n-state {
-> +		pins =3D "gpio103";
-> +		function =3D "gpio";
-> +		input-enable;
 
-[Severity: Low]
-Will this property trigger a device tree schema validation regression during
-make dtbs_check?
-
-The DT binding schema in Documentation/devicetree/bindings/pinctrl/qcom,tlm=
-m-common.yaml,
-which is inherited by qcom,sc8280xp-tlmm.yaml, explicitly forbids its use by
-setting input-enable: false for qcom-tlmm-state nodes.
-
-> +		bias-pull-up;
-> +	};
-> +
-> +	ec_power_state: ec-power-state {
-> +		pins =3D "gpio176";
-> +		function =3D "gpio";
-> +		drive-strength =3D <2>;
-> +		bias-disable;
-> +	};
-> +
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261010145519.8370=
--1-alex@ironrobin.net?part=3D3
