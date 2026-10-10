@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5223338D014
-	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 08:19:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53FED3451CE
+	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 08:21:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791620369; cv=none; b=NWs/72JDmHEXdfPfbZKlnPYAAD8rJ2kTYThcfkShwzFqeFBQZcazN4Zx1xIMcIsXFWXiMKzvOZu/CcK6vmC5ikZP3ZX7xszexr1tns6C1F8kdrT/tj+sEntan0hnjOU530m1iTcK1MBsWs+US9jffR63ttPrWomr+8bFBs1cV5s=
+	t=1791620489; cv=none; b=WOx4cDyRDX1KgIrybeIz/IL81MdzsT8m5N4eT4T1hOwOk6FXnChmiuf4FBPRPfgZJYEcvUThteptKW5/iSmymJ6BzUPdz1pFi4+TRnSv1MhoZ6IydZFM1rkwY6pqXgv+LjaS0nO6CjR8/s8laHY9/oJnR0bWm4Dd27+/fDu+ssM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791620369; c=relaxed/simple;
-	bh=h1aJryadrDcAb1rcXctsAGx1wX8o6WsopDimvBourpA=;
+	s=arc-20240116; t=1791620489; c=relaxed/simple;
+	bh=OH4aMVZXNXlHU79EfHmGqrRK66QK0Ka+iBk4ilPODQs=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=sXMOMvqJY91w8SOKKmt7BCw9rU71tQBoun+My5i4KRb3vqXtutQwj7b0mY59VAAEZVA7IDdYMCrsdCSOF+J1B3rvJKyNjOS8Xf3UtBu4tmA7BtiJLeJAOlqrGJ+lYSBsQMUNlBPsiBoJghmwxL6mHonprNo3s5vnzQjhLPRarHE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JYorRwh1; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=qVVmGzgEXFM9EeUK5xn2jmRd+Dw46fDQPGCbvQFKbicD3861DGfp33ocu/IzERo2E71uWUiH09ju41W0JFrsZslS5nExPer/rHGVsT218997DHZVortXMro1UpctIPKi4ZUXdpcheCUgdqLkCilPeyyaSIidp37Ampu8V83cC/M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CmdVWK6N; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JYorRwh1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5795F1F00893;
-	Sat, 10 Oct 2026 08:19:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CmdVWK6N"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0CBB1F000FF;
+	Sat, 10 Oct 2026 08:21:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791620366;
-	bh=KEBIIuqGsCq1R9jbdZ0wE8lKj/rOVQ7znNxeE1yv+I0=;
+	s=k20260515; t=1791620488;
+	bh=y/NMxZXibt+bhi4V5qgBh89d405Cxaq1s4nBQS+KBmQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=JYorRwh1m+9eBcMx9xHJAq4XZxP146MTI45BvV2ybRgM45LWQmO8ABQhxVOPolZp8
-	 38rc22ItojueTnqGs75xtFMEL0gsm6qve6MZPn/TtxytyrDXI5PD75yWWdK+kdcISo
-	 PT4DxAFgCKNF9KL7cPuMYGEsQzgDGyUEYwoi49Ei+g10vOHKaWmnRImwPJ1V917dHY
-	 +1J3L3PmHAmJD/ooh39kck5brIkKagOcoSoBPD4nHrcfDXlTVxhLIv3X7t4XJzXvdB
-	 tXdMu3FfPYHRTJXrzUkF0csmUhbvZSGu2mjJtDlIVCWpscR0bsYyAjiPfTDVixlOAu
-	 QZQDXvdZe8XKQ==
-Message-ID: <sashiko-outbox-166335@kernel.org>
+	b=CmdVWK6NzPh9vgmGkEpv3Dv8pHCvJjHyj/CLOjMuSXhc8fs0vHoi2Cq+Kqz38ItbT
+	 JeormOT7A58VfJqzLx0j8HjjGVvVtfFy72EIx/USHFLY152iD3U4s5j4I2rNMY25GE
+	 AQd1SqDbuxnQSS3lESRalDJsE8up8QKGSkHvTa3MA/Q4O0zBpVAA6s9VJQT32rHNlQ
+	 9ftky7Gaj63brkdkKwtqm/DxuQf8kyjiB/D++VEnHaoOeXatgC2ypIrwxXvVbOGMTE
+	 Q39XJkKaQvZ5tEEHJJsur1+yk0s18hUaehHVFKEuHPg2MMTKsaY69G5gzrqxnHkGH0
+	 xGqcnyY0KLQhA==
+Message-ID: <sashiko-outbox-166336@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v18 06/13] media: mediatek: jpeg: fix buffer state
- update timing
+Subject: Re: [PATCH v18 11/13] media: mediatek: jpeg: add jpeg compatible
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Kyrie Wu" <kyrie.wu@mediatek.com>
-Cc: media-ci@linuxtv.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <ce89b772dfbd5d86a3af4672dd40af41de8b6f98.1791614327.git.kyrie.wu@mediatek.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
+In-Reply-To: <34f85b6c0aef3cacad9644c81ef78a7e83575935.1791614327.git.kyrie.wu@mediatek.com>
 References: <cover.1791614327.git.kyrie.wu@mediatek.com>
- <ce89b772dfbd5d86a3af4672dd40af41de8b6f98.1791614327.git.kyrie.wu@mediatek.com>
+ <34f85b6c0aef3cacad9644c81ef78a7e83575935.1791614327.git.kyrie.wu@mediatek.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 10 Oct 2026 08:19:25 +0000
+Date: Sat, 10 Oct 2026 08:21:26 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,71 +46,69 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] media: Placebo lock and UAF in MTK JPEG worker timeout race
+- [High] media: mediatek: jpeg: incorrect STALL address extension calculati=
+on in 34-bit mode
 --
 
-commit 8295f8055bf1ad5ac4c76dd2772ead51a8aecccb
+commit ab319417645f402435984f080997cd803d5661ce
 Author: Kyrie Wu <kyrie.wu@mediatek.com>
 
-media: mediatek: jpeg: fix buffer state update timing
-
-This commit delays the update of the destination buffer state until after t=
-he
-decoder has selected a hardware core and successfully resumed its runtime PM
-state. It aims to protect the destination buffer state update with the
-hardware spinlock to avoid assigning frame tracking data to buffers that are
-returned early.
+media: mediatek: jpeg: add jpeg compatible
+   =20
+Add jpeg dec and enc compatible for mt8196
 
 > diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drive=
 rs/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-> index a5a1f6126af73..e152ebae0f219 100644
+> index 0907960db1436..8e96501a4f9fa 100644
 > --- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
 > +++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
-
-[ ... ]
-
-> @@ -1773,6 +1767,9 @@ static void mtk_jpegdec_worker(struct work_struct *=
-work)
->  			      msecs_to_jiffies(MTK_JPEG_HW_TIMEOUT_MSEC));
+> @@ -1919,6 +1919,20 @@ static struct mtk_jpeg_variant mtk8195_jpegenc_drv=
+data =3D {
+>  	.jpeg_worker =3D mtk_jpegenc_worker,
+>  };
 > =20
->  	spin_lock_irqsave(&comp_jpeg[hw_id]->hw_lock, flags);
-> +	jpeg_dst_buf =3D mtk_jpeg_vb2_to_srcbuf(&dst_buf->vb2_buf);
-> +	jpeg_dst_buf->curr_ctx =3D ctx;
-> +	jpeg_dst_buf->frame_num =3D ctx->total_frame_num;
+> +static struct mtk_jpeg_variant mtk8196_jpegenc_drvdata =3D {
+> +	.formats =3D mtk_jpeg_enc_formats,
+> +	.num_formats =3D MTK_JPEG_ENC_NUM_FORMATS,
+> +	.qops =3D &mtk_jpeg_enc_qops,
+> +	.m2m_ops =3D &mtk_jpeg_multicore_enc_m2m_ops,
+> +	.dev_name =3D "mtk-jpeg-enc",
+> +	.ioctl_ops =3D &mtk_jpeg_enc_ioctl_ops,
+> +	.out_q_default_fourcc =3D V4L2_PIX_FMT_YUYV,
+> +	.cap_q_default_fourcc =3D V4L2_PIX_FMT_JPEG,
+> +	.multi_core =3D true,
+> +	.jpeg_worker =3D mtk_jpegenc_worker,
+> +	.support_34bit =3D true,
 
 [Severity: High]
-The commit message states the lock is used so the completion path observes a
-consistent context and frame number. However, looking at the completion pat=
-hs
-in mtk_jpegdec_hw_irq_handler() and mtk_jpegdec_timeout_work(), they do not
-appear to acquire comp_jpeg[hw_id]->hw_lock. Does this lock provide any
-mutual exclusion against those paths?
+This problem wasn't introduced by this patch, but setting support_34bit to =
+true
+makes a broken 34-bit code path reachable for the first time.
 
-Also, because schedule_delayed_work() arms the timeout before the buffer st=
-ate
-is initialized, is there a risk if the worker thread is preempted immediate=
+In drivers/media/platform/mediatek/jpeg/mtk_jpeg_enc_hw.c:mtk_jpeg_set_enc_=
+dst(),
+the STALL address extension is calculated by adding the buffer size directl=
+y to
+the 2-bit extension address:
+
+	if (support_34bit) {
+		addr_ext =3D FIELD_PREP(MTK_JPEG_ADDR_MASK, upper_32_bits(dma_addr));
+		writel(addr_ext, base + JPEG_ENC_DEST_ADDR0_EXT);
+		writel(addr_ext + size, base + JPEG_ENC_STALL_ADDR0_EXT);
+	}
+
+Since size is in bytes, won't adding it to the 2-bit addr_ext write a massi=
+vely
+out-of-bounds value to the hardware extension register, rather than correct=
 ly
-after arming the timer?
+extracting the upper 32 bits of dma_addr + size?
 
-For example, could this sequence occur:
+Could this corrupt the DMA engine's STALL boundary setup and risk memory
+corruption or IOMMU faults?
 
-1. The timeout worker fires and executes without hw_lock.
-2. It reads the uninitialized frame_num.
-3. It adds the buffer to dst_done_queue, resets the hardware, and returns t=
-he
-   buffer to userspace via v4l2_m2m_buf_done().
-4. The preempted worker thread resumes and concurrently writes to
-   jpeg_dst_buf->frame_num, corrupting the buffer that is already on the
-   completion list or in userspace.
-5. It then starts the hardware via mtk_jpeg_dec_start() on the
-   already-returned buffer.
-
-Could this lead to DMA into freed memory?
-
->  	ctx->total_frame_num++;
->  	mtk_jpeg_dec_reset(comp_jpeg[hw_id]->reg_base);
->  	mtk_jpeg_dec_set_config(comp_jpeg[hw_id]->reg_base,
+> +};
+> +
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1791614327.gi=
-t.kyrie.wu@mediatek.com?part=3D6
+t.kyrie.wu@mediatek.com?part=3D11
