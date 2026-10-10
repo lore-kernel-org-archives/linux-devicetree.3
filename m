@@ -1,64 +1,64 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAFE04AA3E0
-	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 13:00:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F31E44AA1E1
+	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 13:00:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791637250; cv=none; b=r7VriDQvGN5k6ZHU78Ns3VHwsZXRdJyizEI3y/DeQK+WY32q8Sx+MdOuMiN+lETcLVK21ZD/pgvfQA3SxC5za3RtsMQy/ka0D0mlTWT8mX1nN9vXiwyPmWynTn7LwlUauFtnJVLV8sVtIZdIgKvBz3VU9TVKqoGnWYj0maIkqD8=
+	t=1791637250; cv=none; b=JqD1Zp439fQsi9e5KAKtiaAsZuLp8bB/kmF0qVM6WY5/ihedff+CsWRvwNU2RP97zwh7XsygH7Rh0FAdabFdC4b86i+sSJqyq6pKoRbiTiWbhcStN/1vFzYIryYsDKW+0ud6zsPgZP9r8rOornthnMqUMr4g9Is/xwNwrbJ/fsQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791637250; c=relaxed/simple;
-	bh=QJZVtdKmhkFlg+fowDlyB5mJJYCvltiDUGuMuER60vk=;
+	bh=LRlsp+7Wkjv4NlQijqgL+btcCaWjo6W5DhGeHyIWFqw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AQ9BVXsl6bVUmALEN8FnSdmTiwf40vBIm6Qjwn7/agGYCfrmnFBlFFO/HqaGnwESZ4WxG34gWAvnD4b9BNcEOj2Gu3TqgKQQMWdMdH1X7G/pSKDCMW+nSPcrVaY4rQTRAsUxxGZD1zmhDTqs7GYaC83nvp6OJ5rKX2ve6+eA7SA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fsxDnMpW; arc=none smtp.client-ip=209.85.128.52
+	 MIME-Version; b=EOlnJLIFjo/DBS+Ifes3EaF9q0PAMV8+kz0KEJ5zxWcprf/iaFwyAd5my7S0m8TOmeg9y14o6Kat0J97UC7G6q/RMeooL364cB/chMvWc3Gwuhr5AFF7oz6r2gyL9MU4rFrgH5T5YMX5guBBUIYtAznabso6aVXoppaMVGLf2XY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mEOfyGN0; arc=none smtp.client-ip=209.85.221.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fsxDnMpW"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-49d05d51553so3263195e9.2
-        for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 06:00:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mEOfyGN0"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48b0584ad71so305471f8f.0
+        for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 06:00:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791637244; x=1792242044; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791637243; x=1792242043; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=/ON0MFr8eOk4lIfhGI46AGmWJn585om57WClZUKBxXg=;
-        b=fsxDnMpWjmYaBLe11IROX/gK0mFtZ8YWVDivDeJTcVl3SjuFu4HpJMuvftuirdEP8/
-         2asO+iZN38NoNb14dq1TTgUyXqP2wyNPDrIlReZcX2amsrCaturaelWN65dJrsy4asnf
-         gBLpvvgQNgRwZ6Vn2VaimfrnCn+T2ZZHmHL1lJXpRzkGdW5Qp2pPhht93PJB4azZvDfk
-         mjsKI0Ny2QJSpHuG5pItrn88LskR/UTomP15MpC2p9xRAcYFs7J9Cb1785AwO5bx28aQ
-         xatpUtj0IJzSP8zNnmd24CqfMYk4cTSP3WnL6pVcErFDEoHrKDUXDasnm+oCxzIOoUJd
-         S40g==
+        bh=YO8Lfw0R/ZajnaY4WHrnUbXF7RAAHoajPla3LSdk9go=;
+        b=mEOfyGN0HmYes2TO+J4lUy69XxGTpUbQD+Kn/54g9rKzS0T+EH8qhIojbZ9R2HjHpb
+         +kXuMsuAj4ipeo2LGQF8Tvn9lyUx/Y8KYyUyfjeld0UIiWzjsuPG4TMe0eSwgRF95TuD
+         Gb+ONA863W0R8zTPYTdP+5zxNncBOna5FjuveMzQh2yF4wnYhMTM65mPpE4c/2yO38D6
+         KBAk1Dea9fngpzInJDFpt1sul0tV56oLl49reH4A3aQrl4omVsfqdJTOZ74Ta42bN1qp
+         Et70aQ0T/tu/Z0l4n3UO87K1rNAZhAttjIUcccNzI4BZD8vl7Wcp9iToZWnwKTTFRKTx
+         +Znw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791637244; x=1792242044;
+        d=1e100.net; s=20260707; t=1791637243; x=1792242043;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=/ON0MFr8eOk4lIfhGI46AGmWJn585om57WClZUKBxXg=;
-        b=YjqE5zXVL2wrmMEOtS+DrHHPu2h2+qKtml5oMSX7NQ76nWArU6YdvoyPhCJ1cdesSw
-         lZNu3Tt/pT9Oddcdh8wq81EoeIccMOK+aX6n8FSveBM4hp+olDOvWSAtzaAaGKVTLCwR
-         yaYRBw+AonZkAPVdPimY7qp9Q/UN+BekRPy3b4dn/lxiOfi5ivq0hFzSgPzRqcIi2XJi
-         kevhVUV7FLFo7d0wdJvL1nQOFgwrKFOsbFCWw2+c7pNOhQ+GuNKu+TUmOCO5VyG8f4Ak
-         xE6/mZneWaBS+Dv+BNDAHZjfMASFY9zgfcKeU2rOLy8MfNqBfM2I1TsRIZWPy0IqYFbg
-         spPQ==
-X-Gm-Message-State: AFq9FYLAhTgPOGEtNxcDUYpDqH0T3tJTq8U+oBiVfPr4O8v5L2b0Be2F
-	8xzLOQgvoX9LhF1aPwNPNG+9n8oA3zdZO85ipp2VExYD0egsFwCklb3P
-X-Gm-Gg: AYBFou0t+jnvv6Wn6dVYxWgG0x1TkEigaR36tvG+M7C4V3s8iUN1XRbHWKKz7AQovHc
-	bBklu03wxRd/T0Zrt71s5y5xQtxkZhXaDZBDzQxSlSTOeRKoYWM3PXM0kXZrttn+7CzYyqlZP5y
-	VM7esZAbUJUCzDD/7n7SJtcMNH1S6f471B3nEo4qQlCbOXDbzQGUYTnFzrw+aKAx2muzhXIuTK8
-	qXigx1NCKrQAr0D40o/5lTbIn6PgErZGGr/I0AbKDpP2tJj8wq1L2Pj7ougB18Tf4k6MW0tidwe
-	vcEUoDzdSiPy0If+S/JIkzYf2VrDAIlYUtletfysjLxgp8TTo8tj/UodJzvA2cQJ4eC5skFtMFE
-	yM0oYhJzfB5TM5T8hRUGKEM4hBS44Epl4Ah4sWSQY4K9ZwoQbsiBPkVRvKDgYJew6ILiX2ccwB8
-	qdSjVV68QgFLaU14NG+LnNg+Y31uGXNGvY8VVNJ3RrACWfTjcuysAwCDKI7pRje49TD57vKt0lz
-	NhEFvSZrNCPwv5E9nwxwNslhtXqvzw5XSGZphGaTCr1p6i05lOA83D6w8r05iQ3yEJN16wLNygQ
-	wI9cu+QNQvQYnS975bGbC4rbbGMhSF0+t3kwb3WJvQneKzCLOSu+uOhuJKuzVyQ=
-X-Received: by 2002:a05:600c:3b8b:b0:4a1:811c:8078 with SMTP id 5b1f17b1804b1-4a18e4a7cfcmr108085995e9.26.1791637243732;
-        Sat, 10 Oct 2026 06:00:43 -0700 (PDT)
+        bh=YO8Lfw0R/ZajnaY4WHrnUbXF7RAAHoajPla3LSdk9go=;
+        b=2t3fHNTi4VNF4Mi4ZTjvtE6sxiQALVilZng543tYZA5HkzO15Ydxp9LcmvPCIZjR2D
+         oh+FfA4qmbeH4vwoTYpiRL/ZNi+uNc5aOw0wMi7UjJbg6MixDWvHbl80ePszav/YiEn2
+         8yu3ViSgC64b29rAxWyPc0U9wKPx9gPlnjqE9o6zsSV5Zjx3k2K0PiV7y1C+ldDm6U0r
+         iNBtOWpLlrmT/vJE1hq32VDb7/lJ/6gVKS9gB0DsFmr6pozJj3of7xs78jf3XshOnq0z
+         5KALnJwenrYzTzwSKc2OQL6znBZxGB26phs/36cJ3fZXvrcnm6/570HwH8rOVUQCTf+F
+         Lq6Q==
+X-Gm-Message-State: AFq9FYIIJECe8RYKxCGeWt/Locy9zZolqbc3fi52F11jSCAO+0aHFx2V
+	3EZDq01hDb3e8WMsPubNBlnMYsdPQZ2491H8h8mVralsbAdQMbeQ9sW/
+X-Gm-Gg: AYBFou3rN5LBtmZpsdlpxhFzBwI6wRJNVrD93YJab4VWsUQR9/Z+OecaRrbBowtj0I1
+	rSY+36fTowAabagLIemKsiasrY9VLVSpD7aFklqW3dPzbzUwPcK4SmfzkEIyQCVCCVuEin6mbYl
+	vMjkCDE3qvJYvGUt3OrusFpFHmJi63lew0DhNVctVpT2FAKoyOaS4i6RBl0mONoDVEMPKyls+hP
+	Z8Nq54/EWFsvijmpb3FVaZHQvPZD2kYAzbZPH+hRjfVj/N5zjp6LIHi135tc73eaxxCh/e9i4ko
+	shcPPQIxEXbfVpi/l7ee41ZFReIodOQwrjCKDZbN0zTZadcequAY7huWcmeQMUbyqmyWoA+i2n8
+	XWkQZoUOq/4VvmC7qMuQ9tcecduHPSdAJRZl1UbFWtO0VHwP/bwMtfRj9zkd59oFuhX2hT/rryH
+	PO4N1zN7jLFqRH+UxJBWiKkvw8ZhbqPbjzeDGMNO+aI/PMZ/H2gkMcrV7ffO6QM8rQMa0UwqJGt
+	AIkMaNgsyXXHR1mQc4jow18wt6w4LtRWtbyIorRr+0Hz1CRtHMczDIvkth96bARyfBT6sTH23kf
+	IT60O4Al8i87D3Agt3fAglNlP8ZUi4JZhvJCcAFv36b9lohTiA71gRr9+LXq9Q==
+X-Received: by 2002:a05:600c:3ba5:b0:4a1:70d4:c69 with SMTP id 5b1f17b1804b1-4a18e4c03bbmr101466895e9.28.1791637242847;
+        Sat, 10 Oct 2026 06:00:42 -0700 (PDT)
 Received: from navid-pc ([2a01:4b00:a856:6220::a11])
         by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a190c49d5csm162309975e9.3.2026.10.10.06.00.42
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 06:00:43 -0700 (PDT)
+        Sat, 10 Oct 2026 06:00:42 -0700 (PDT)
 From: Navid Ghahremani <ghahramani.navid@gmail.com>
 To: linux-arm-kernel@lists.infradead.org
 Cc: devicetree@vger.kernel.org,
@@ -69,9 +69,9 @@ Cc: devicetree@vger.kernel.org,
 	robh@kernel.org,
 	krzk@kernel.org,
 	Navid Ghahremani <ghahramani.navid@gmail.com>
-Subject: [PATCH 15/24] net: mdio: Add ZTE ZX279128S MDIO controller
-Date: Sat, 10 Oct 2026 13:59:53 +0100
-Message-ID: <20261010130024.177503-16-ghahramani.navid@gmail.com>
+Subject: [PATCH 14/24] dt-bindings: net: Add ZTE ZX279128S MDIO controller
+Date: Sat, 10 Oct 2026 13:59:52 +0100
+Message-ID: <20261010130024.177503-15-ghahramani.navid@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261010130024.177503-1-ghahramani.navid@gmail.com>
 References: <20261010130024.177503-1-ghahramani.navid@gmail.com>
@@ -83,216 +83,89 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Provide bounded Clause 22 transactions and managed clock and MDIO-bus
-registration.
+Describe the MDIO register block and its work/register clocks. External-
+PHY pin selections use pinctrl rather than direct syscon writes.
 
 Assisted-by: LLM
 Signed-off-by: Navid Ghahremani <ghahramani.navid@gmail.com>
 ---
- drivers/net/mdio/Kconfig          |  11 +++
- drivers/net/mdio/Makefile         |   1 +
- drivers/net/mdio/mdio-zx279128s.c | 158 ++++++++++++++++++++++++++++++
- 3 files changed, 170 insertions(+)
- create mode 100644 drivers/net/mdio/mdio-zx279128s.c
+ .../bindings/net/zte,zx279128s-mdio.yaml      | 67 +++++++++++++++++++
+ 1 file changed, 67 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/net/zte,zx279128s-mdio.yaml
 
-diff --git a/drivers/net/mdio/Kconfig b/drivers/net/mdio/Kconfig
-index a05229838c..59812a082a 100644
---- a/drivers/net/mdio/Kconfig
-+++ b/drivers/net/mdio/Kconfig
-@@ -199,6 +199,17 @@ config MDIO_THUNDER
- 	  ThunderX SoCs when the MDIO bus device appears as a PCI
- 	  device.
- 
-+config MDIO_ZX279128S
-+	tristate "ZTE zx279128s MDIO bus controller"
-+	depends on ARCH_ZTE || COMPILE_TEST
-+	depends on HAS_IOMEM && OF_MDIO
-+	help
-+	  This driver supports the MDIO controller of the ZTE zx279128s
-+	  SoC. It reaches the PHYs of the integrated switch and, on boards
-+	  such as the ZTE ZXHN H3600, an external PHY.
-+
-+	  To compile this driver as a module, choose M here.
-+
- menu "MDIO Multiplexers"
- 
- config MDIO_BUS_MUX
-diff --git a/drivers/net/mdio/Makefile b/drivers/net/mdio/Makefile
-index 0485867460..ce21e1496c 100644
---- a/drivers/net/mdio/Makefile
-+++ b/drivers/net/mdio/Makefile
-@@ -26,6 +26,7 @@ obj-$(CONFIG_MDIO_REGMAP)		+= mdio-regmap.o
- obj-$(CONFIG_MDIO_SUN4I)		+= mdio-sun4i.o
- obj-$(CONFIG_MDIO_THUNDER)		+= mdio-thunder.o
- obj-$(CONFIG_MDIO_XGENE)		+= mdio-xgene.o
-+obj-$(CONFIG_MDIO_ZX279128S)		+= mdio-zx279128s.o
- 
- obj-$(CONFIG_MDIO_BUS_MUX)		+= mdio-mux.o
- obj-$(CONFIG_MDIO_BUS_MUX_BCM6368)	+= mdio-mux-bcm6368.o
-diff --git a/drivers/net/mdio/mdio-zx279128s.c b/drivers/net/mdio/mdio-zx279128s.c
+diff --git a/Documentation/devicetree/bindings/net/zte,zx279128s-mdio.yaml b/Documentation/devicetree/bindings/net/zte,zx279128s-mdio.yaml
 new file mode 100644
-index 0000000000..4c4a9ada68
+index 0000000000..49ff7e7b1a
 --- /dev/null
-+++ b/drivers/net/mdio/mdio-zx279128s.c
-@@ -0,0 +1,158 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * ZTE zx279128s MDIO controller
-+ *
-+ * Copyright (C) 2026 Navid Ghahremani <ghahramani.navid@gmail.com>
-+ */
++++ b/Documentation/devicetree/bindings/net/zte,zx279128s-mdio.yaml
+@@ -0,0 +1,67 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/net/zte,zx279128s-mdio.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+#include <linux/bitfield.h>
-+#include <linux/bits.h>
-+#include <linux/clk.h>
-+#include <linux/err.h>
-+#include <linux/io.h>
-+#include <linux/iopoll.h>
-+#include <linux/mod_devicetable.h>
-+#include <linux/module.h>
-+#include <linux/of_mdio.h>
-+#include <linux/phy.h>
-+#include <linux/platform_device.h>
++title: ZTE zx279128s MDIO controller
 +
-+#define ZX_MDIO_DATA_WR		0x04
-+#define ZX_MDIO_DATA_RD		0x08
-+#define ZX_MDIO_CFG		0x0c
-+#define ZX_MDIO_STATUS		0x10
-+#define  ZX_MDIO_STATUS_DONE	BIT(0)
-+#define ZX_MDIO_CMD		0x14
-+#define  ZX_MDIO_CMD_REG	GENMASK(4, 0)
-+#define  ZX_MDIO_CMD_ADDR	GENMASK(9, 5)
-+#define  ZX_MDIO_CMD_WR		BIT(10)
-+#define  ZX_MDIO_CMD_RD		BIT(11)
-+#define  ZX_MDIO_CMD_CLK_DIV	BIT(12)
-+#define  ZX_MDIO_CMD_BIT13	BIT(13)
-+#define  ZX_MDIO_CMD_START	BIT(14)
-+#define  ZX_MDIO_CMD_BIT15	BIT(15)
++maintainers:
++  - Navid Ghahremani <ghahramani.navid@gmail.com>
 +
-+#define ZX_MDIO_POLL_US		10
-+#define ZX_MDIO_TIMEOUT_US	2000
++description:
++  The MDIO controller of the ZTE zx279128s reaches the PHYs of the integrated
++  switch and an optional external PHY. On boards with an external PHY, the
++  default pin state connects the interface to it.
 +
-+struct zx279128s_mdio {
-+	void __iomem *base;
-+};
++allOf:
++  - $ref: mdio.yaml#
 +
-+static int zx279128s_mdio_xfer(struct mii_bus *bus, u32 op, int addr,
-+			       int regnum, u16 data)
-+{
-+	struct zx279128s_mdio *priv = bus->priv;
-+	void __iomem *base = priv->base;
-+	u32 cmd, val;
-+	int ret;
++properties:
++  compatible:
++    const: zte,zx279128s-mdio
 +
-+	/* Clear the previous command and its status */
-+	writel(readl(base + ZX_MDIO_CMD) & ~ZX_MDIO_CMD_START,
-+	       base + ZX_MDIO_CMD);
-+	writel(0, base + ZX_MDIO_STATUS);
++  reg:
++    maxItems: 1
 +
-+	cmd = readl(base + ZX_MDIO_CMD);
-+	cmd &= ~(ZX_MDIO_CMD_WR | ZX_MDIO_CMD_RD | ZX_MDIO_CMD_ADDR |
-+		 ZX_MDIO_CMD_REG);
-+	cmd |= op | FIELD_PREP(ZX_MDIO_CMD_ADDR, addr) |
-+	       FIELD_PREP(ZX_MDIO_CMD_REG, regnum);
++  clocks:
++    items:
++      - description: work clock, the source of the management clock (MDC)
++      - description: register (APB) clock
 +
-+	if (op == ZX_MDIO_CMD_WR)
-+		writel(data, base + ZX_MDIO_DATA_WR);
-+	writel(cmd | ZX_MDIO_CMD_START, base + ZX_MDIO_CMD);
++  clock-names:
++    items:
++      - const: wclk
++      - const: pclk
 +
-+	ret = readl_poll_timeout(base + ZX_MDIO_STATUS, val,
-+				 val & ZX_MDIO_STATUS_DONE, ZX_MDIO_POLL_US,
-+				 ZX_MDIO_TIMEOUT_US);
-+	if (ret) {
-+		dev_err_ratelimited(&bus->dev, "timeout (addr %d, reg %d)\n",
-+				    addr, regnum);
-+		return ret;
-+	}
++required:
++  - compatible
++  - reg
++  - clocks
++  - clock-names
 +
-+	writel(0, base + ZX_MDIO_STATUS);
-+	writel(readl(base + ZX_MDIO_CMD) & ~ZX_MDIO_CMD_START,
-+	       base + ZX_MDIO_CMD);
++unevaluatedProperties: false
 +
-+	return 0;
-+}
++examples:
++  - |
++    #include <dt-bindings/clock/zte,zx279128s-crm.h>
 +
-+static int zx279128s_mdio_read(struct mii_bus *bus, int addr, int regnum)
-+{
-+	struct zx279128s_mdio *priv = bus->priv;
-+	int ret;
++    mdio@9a101000 {
++        compatible = "zte,zx279128s-mdio";
++        reg = <0x9a101000 0x18>;
++        clocks = <&lsp1crpm ZX279128S_LSP1_MDIO_WCLK>,
++                 <&lsp1crpm ZX279128S_LSP1_MDIO_PCLK>;
++        clock-names = "wclk", "pclk";
++        #address-cells = <1>;
++        #size-cells = <0>;
++        pinctrl-names = "default";
++        pinctrl-0 = <&ext_phy_pins>;
 +
-+	ret = zx279128s_mdio_xfer(bus, ZX_MDIO_CMD_RD, addr, regnum, 0);
-+	if (ret)
-+		return ret;
++        ethernet-phy@8 {
++            reg = <8>;
++        };
 +
-+	return readl(priv->base + ZX_MDIO_DATA_RD) & 0xffff;
-+}
-+
-+static int zx279128s_mdio_write(struct mii_bus *bus, int addr, int regnum,
-+				u16 val)
-+{
-+	return zx279128s_mdio_xfer(bus, ZX_MDIO_CMD_WR, addr, regnum, val);
-+}
-+
-+static int zx279128s_mdio_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct zx279128s_mdio *priv;
-+	struct mii_bus *bus;
-+	struct clk *clk;
-+	u32 val;
-+
-+	bus = devm_mdiobus_alloc_size(dev, sizeof(*priv));
-+	if (!bus)
-+		return -ENOMEM;
-+
-+	priv = bus->priv;
-+	priv->base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(priv->base))
-+		return PTR_ERR(priv->base);
-+
-+	clk = devm_clk_get_enabled(dev, "pclk");
-+	if (IS_ERR(clk))
-+		return dev_err_probe(dev, PTR_ERR(clk),
-+				     "failed to get the register clock\n");
-+	clk = devm_clk_get_enabled(dev, "wclk");
-+	if (IS_ERR(clk))
-+		return dev_err_probe(dev, PTR_ERR(clk),
-+				     "failed to get the work clock\n");
-+
-+	val = readl(priv->base + ZX_MDIO_CMD);
-+	val &= ~(ZX_MDIO_CMD_START | ZX_MDIO_CMD_BIT15 | ZX_MDIO_CMD_BIT13);
-+	val |= ZX_MDIO_CMD_CLK_DIV;
-+	writel(val, priv->base + ZX_MDIO_CMD);
-+	writel(0, priv->base + ZX_MDIO_STATUS);
-+	writel(0, priv->base + ZX_MDIO_CFG);
-+
-+	bus->name = "zx279128s-mdio";
-+	bus->read = zx279128s_mdio_read;
-+	bus->write = zx279128s_mdio_write;
-+	snprintf(bus->id, MII_BUS_ID_SIZE, "%s", dev_name(dev));
-+	bus->parent = dev;
-+
-+	return devm_of_mdiobus_register(dev, bus, dev->of_node);
-+}
-+
-+static const struct of_device_id zx279128s_mdio_of_match[] = {
-+	{ .compatible = "zte,zx279128s-mdio" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, zx279128s_mdio_of_match);
-+
-+static struct platform_driver zx279128s_mdio_driver = {
-+	.probe = zx279128s_mdio_probe,
-+	.driver = {
-+		.name = "zx279128s-mdio",
-+		.of_match_table = zx279128s_mdio_of_match,
-+	},
-+};
-+module_platform_driver(zx279128s_mdio_driver);
-+
-+MODULE_AUTHOR("Navid Ghahremani <ghahramani.navid@gmail.com>");
-+MODULE_DESCRIPTION("ZTE zx279128s MDIO controller driver");
-+MODULE_LICENSE("GPL");
++        ethernet-phy@10 {
++            reg = <10>;
++        };
++    };
 -- 
 2.55.0
 
