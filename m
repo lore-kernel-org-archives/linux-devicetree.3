@@ -1,196 +1,173 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C71C3381EBE
-	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 18:49:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE544370D6E
+	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 18:49:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791658146; cv=none; b=Mj4EPAs/UBga54yJpcN0neTDI8fNCoTu05y021vkxHwtSzHNDbuOYIjjDht9EjYupCxNaXpv2W1LJm3Q++NGFtLqdUlkr1pm1JkzBno9Qpyp59nx6MpbqEZsOkhoH1q8KuL3xA/g7ooDjFb8kekN3HM1ZKhl8AtH6ZXNqS8SHws=
+	t=1791658147; cv=none; b=pFppPrxWf+rTeIjGjwSkDw0twqukfWt6+dSQLWhJbpPeZplDjJ5c2HF4e+SN6g7IFk8/teg7twcTI3wLdrU4+ufi7W8WCtOSAMhlyH302NU2KCuKaulTnBcWZcrEHuNZL9mPFFl0S+aoAyyST1XABVdl1sHXndP+siVpCBdPf4o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791658146; c=relaxed/simple;
-	bh=ZKWMhEn34hC3biUNW4ez/b/bH+mupaGdBSRG3dRUSOw=;
+	s=arc-20240116; t=1791658147; c=relaxed/simple;
+	bh=NtDKGKt0v3zityxWnK84/KkWaWDLqu0yq5EM16KIOsY=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=LDmH8aHLpmWUX1b2S+BlBoyp9pexp93SwIBpwCvTKuqDzoTHkLBVT1yjc2iQTQ0bcQ9DykD3ffnb99T4jvGObiXqX5Jh1H5mjIYKurvkZ2eC3RGW7Myjij1KibNCBhJL4bNREIxL9u2sZka1x+YX5CHfVsjTnKSjRan67MC/Z7g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PO3mVr9k; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=fFf1oOPkHEGRvgCRUEBw/VenyTPKx+XS1QBzWkNKH2i36+95W++V7ztbrOQSmUS6pOAkF8sBABdEHjq5ck6wLig2XZeUGfUK494RWlPwbs7l2KTMNO+31zG/w2OrKT7vxFO2Adz3yiSF1D3wayQLAR8EuqoLC5qU+EMUJ0cyf94=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Oh2JUAEt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PO3mVr9k"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53BE51F00893;
-	Sat, 10 Oct 2026 18:49:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Oh2JUAEt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 422C31F00898;
+	Sat, 10 Oct 2026 18:49:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791658145;
-	bh=panFCpEtWYd0Pm2ZXLM7MBXPqaPp6/X+gUetjDaJ8rU=;
+	s=k20260515; t=1791658146;
+	bh=AcHL9P+TF9c/g64a5HJAMvUOgspnhq1cxYHv/I0w6gU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=PO3mVr9ke9BwsCPhSKyoLQrQd4n/QFCJWtfutngBsFcR7tETSe54N9ixZNR0w/xxx
-	 P4/3eqsjyzb+pz43EB+EAK5SkeO7XUMG9ERvzTxWZQ27rydw6vPltGZxI0GE79GPGN
-	 vgKZX+s53MySfum4rqupu3hv5L+FM5VjGogBoT4ypqq7hdbfTwX6aCITTXORs5pBb1
-	 yBtsXQzWQOa8IjKIzD+S7FFKqLkYwzuIjhzTMis40efSj2uS2Y9L/MHNqfd/gapMy9
-	 pIDYescbYWD0rIoMz/1+UUuHYvzOV4l7VUkP/3REN2c2kjB1HMmstWRJVT+BXi5obG
-	 ni8QrtPNRfLow==
-Message-ID: <sashiko-outbox-166833@kernel.org>
+	b=Oh2JUAEtm/7VzRtHWCUm2xstCeKofqeEXGD278VsTljup5kVa4HYhqxv5zswqBBpj
+	 jIqkilw9a6kytZAoZOUYKkqiRORXRdezyNh8GfT7r2kD4hVAvTmkodUvR6yPgyEF3F
+	 Y4lXMzSUqBymRPolHq4KT2EdCfWg2gw8bXM+4gL02XuxgAt1epCCNL1/BI6jgY72iO
+	 7wKD+B76MMYpCgblAUa42pU8kc8QciB/enx1zPzpEkyYeD+hiDgE/4oidM3Mk+HyOD
+	 mV8tL+NjSunGl/0z8RfdjK5/kv8j++kygD3eA6eez6kU8D9Ddp8NtxiUYRIIsIqMjc
+	 8M93W8BJFJrFA==
+Message-ID: <sashiko-outbox-166836@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v18 05/12] net: phylink: support PCS provider
- release
+Subject: Re: [PATCH net-next v18 02/12] net: phylink: introduce internal
+ phylink PCS handling
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Christian Marangi" <ansuelsmth@gmail.com>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261009182836.50631-6-ansuelsmth@gmail.com>
+In-Reply-To: <20261009182836.50631-3-ansuelsmth@gmail.com>
 References: <20261009182836.50631-1-ansuelsmth@gmail.com>
- <20261009182836.50631-6-ansuelsmth@gmail.com>
+ <20261009182836.50631-3-ansuelsmth@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 10 Oct 2026 18:49:04 +0000
+Date: Sat, 10 Oct 2026 18:49:05 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Critical] phylink: self-deadlock in phylink_update_mac_pause_capabilitie=
-s()
-- [High] phylink: data race on link_config capabilities in pcs_provider_not=
-ify()
-- [Medium] phylink: pcs_provider_notify() silently destroys user-configured=
- ethtool settings
-- [Medium] phylink: data race during phylink_create() due to early notifier=
- registration
+- [High] net: phylink: UAF of phylink struct in phylink_pcs_change() during=
+ concurrent teardown
+- [Medium] net: phylink: missing validation failure when a required PCS is =
+not found
 --
 
-commit 8c217ab877306546d11683a7a0d08e4946334358
+commit 7ece69b824da0eb34269e858e3ce098347af5b79
 Author: Christian Marangi <ansuelsmth@gmail.com>
 
-net: phylink: support PCS provider release
+net: phylink: introduce internal phylink PCS handling
 
-This patch adds support for releasing a fwnode PCS from a PCS provider.
-It creates a global notifier for the PCS provider, allowing phylink
-instances using fwnode to subscribe and dynamically handle PCS removal.
+This commit introduces internal handling of PCS for phylink by migrating the
+selection logic to use a list of available PCS attached to the phylink
+instance. It updates validation and configuration functions to search this
+list if a dedicated PCS is required for the requested interface mode.
 
 > diff --git a/drivers/net/phy/phylink.c b/drivers/net/phy/phylink.c
-> index 9441afe372c33..019ce3d89da04 100644
+> index a98e62fa4bd26..1156e6c61a08b 100644
 > --- a/drivers/net/phy/phylink.c
 > +++ b/drivers/net/phy/phylink.c
-> @@ -545,11 +547,15 @@ static int phylink_validate_mac_and_pcs(struct phyl=
-ink *pl,
->  	unsigned long capabilities;
->  	int ret;
+[ ... ]
+> @@ -530,6 +549,21 @@ static int phylink_validate_mac_and_pcs(struct phyli=
+nk *pl,
+>  		pcs =3D pl->mac_ops->mac_select_pcs(pl->config, state->interface);
+>  		if (IS_ERR(pcs))
+>  			return PTR_ERR(pcs);
+> +	/*
+> +	 * Find a PCS in available PCS list for the requested interface.
+> +	 *
+> +	 * Skip searching if the MAC doesn't require a dedicated PCS for
+> +	 * the requested interface.
+> +	 */
+> +	} else if (test_bit(state->interface, pl->config->pcs_interfaces)) {
+> +		struct phylink_pcs *tmp;
+> +
+> +		list_for_each_entry(tmp, &pl->pcs_list, list) {
+> +			if (!phylink_validate_pcs_interface(tmp, state->interface)) {
+> +				pcs =3D tmp;
+> +				break;
+> +			}
+> +		}
+>  	}
 > =20
-> +	mutex_lock(&pl->state_mutex);
-
-[Severity: Critical]
-Does this new lock acquisition cause a self-deadlock?
-
-`phylink_update_mac_pause_capabilities()` explicitly acquires
-`pl->state_mutex` and then calls `phylink_validate()`, which in turn calls
-`phylink_validate_mac_and_pcs()`.
-
-Because `struct mutex` is not recursive, attempting to acquire it again from
-the same thread here results in a guaranteed self-deadlock.
-
-This will hang the system for any network driver that dynamically updates M=
-AC
-pause capabilities at runtime.
-
-[ ... ]
-
-> +static int pcs_provider_notify(struct notifier_block *self,
-> +			       unsigned long val, void *data)
-> +{
-[ ... ]
-> +	/* Refresh supported interfaces */
-> +	phy_interface_copy(pl->supported_interfaces,
-> +			   pl->config->supported_interfaces);
-> +	list_for_each_entry(pcs, &pl->pcs_list, list)
-> +		phy_interface_or(pl->supported_interfaces,
-> +				 pl->supported_interfaces,
-> +				 pcs->supported_interfaces);
-> +
-> +	mutex_unlock(&pl->state_mutex);
-> +
-> +	/* Recalculate capabilities */
-> +	linkmode_fill(pl->supported);
-> +	linkmode_fill(pl->link_config.advertising);
-
-[Severity: High]
-Does dropping `state_mutex` here introduce a data race?
-
-While the mutex is dropped, `linkmode_fill()` is executed on
-`pl->link_config.advertising`, temporarily flooding the link advertisement =
-mask
-with 1s to act as a generic starting point for validation.
-
-The validation spans multiple nested lock/unlock cycles, leaving the struct=
-ure
-in an invalid state for a prolonged window.
-
-Concurrently, the `phylink_resolve()` workqueue executes without `rtnl_lock=
-()`.
-It acquires the now-free `state_mutex` and reads `pl->link_config`.
-
-`phylink_resolve()` will copy the torn or artificially fully-set advertisem=
-ent
-mask and propagate it to the hardware, potentially resulting in undefined
-behavior or hardware crashes.
+>  	if (pcs) {
 
 [Severity: Medium]
-Will this unconditionally overwrite user-configured ethtool settings?
+If the MAC requires a dedicated PCS for the requested interface but no PCS =
+in
+pl->pcs_list supports it, pcs remains NULL. Since there is no check for !pcs
+here, the function will bypass the if (pcs) validation block and incorrectly
+return 0 (success).
 
-Users can restrict link modes (e.g., disabling Gigabit speeds) via ethtool,
-which permanently modifies `pl->link_config.advertising`.
-
-When a PCS provider is removed, executing `linkmode_fill()` before calling
-`phylink_validate_mask()` resets the advertisement mask to the maximum
-capabilities of the hardware.
-
-This entirely wipes out any manual ethtool restrictions applied by the user
-prior to the PCS removal.
+Will this cause unsupported link modes to be falsely reported as supported
+during phylink_validate()? It appears that later during
+phylink_major_config(), the exact same lookup correctly checks for !pcs and
+fatally aborts the link configuration. Should this return an error like
+-EINVAL when a required PCS is not found?
 
 [ ... ]
-
-> @@ -2152,10 +2261,18 @@ struct phylink *phylink_create(struct phylink_con=
-fig *config,
->  	__set_bit(PHYLINK_DISABLE_STOPPED, &pl->phylink_disable_state);
->  	timer_setup(&pl->link_poll, phylink_fixed_poll, 0);
+> @@ -2076,11 +2215,20 @@ EXPORT_SYMBOL_GPL(phylink_create);
+>   */
+>  void phylink_destroy(struct phylink *pl)
+>  {
+> +	struct phylink_pcs *pcs, *tmp;
+> +
+>  	sfp_bus_del_upstream(pl->sfp_bus);
+>  	if (pl->link_gpio)
+>  		gpiod_put(pl->link_gpio);
 > =20
-> +	/* First register notifier for hotplug PCS events */
-> +	if (!phy_interface_empty(config->pcs_interfaces)) {
-> +		pl->fwnode_pcs_nb.notifier_call =3D pcs_provider_notify;
-> +		register_fwnode_pcs_notifier(&pl->fwnode_pcs_nb);
+>  	cancel_work_sync(&pl->resolve);
+> +
+> +	/* Remove every PCS from phylink PCS list */
+> +	list_for_each_entry_safe(pcs, tmp, &pl->pcs_list, list) {
+> +		pcs->phylink =3D NULL;
+> +		list_del(&pcs->list);
 > +	}
 > +
->  	/* Fill the PCS list with available PCS from phylink config */
->  	ret =3D phylink_fill_available_pcs(pl, config);
+>  	kfree(pl);
+>  }
+>  EXPORT_SYMBOL_GPL(phylink_destroy);
+
+[Severity: High]
+Does this teardown path properly synchronize with concurrent PCS events?
+
+This path clears pcs->phylink and frees pl unconditionally, without an RCU
+grace period or synchronization against concurrent execution. If
+phylink_pcs_change() is called by an external PCS driver (e.g. from an
+interrupt handler) and is delayed, a concurrent MAC driver unbind could
+invoke phylink_destroy().
+
+Because the teardown frees pl without waiting for pending PCS interrupts to
+finish, this might leave readers in phylink_pcs_change() vulnerable to a
+use-after-free.
+
 [ ... ]
-> @@ -2170,13 +2287,15 @@ struct phylink *phylink_create(struct phylink_con=
-fig *config,
->  				 pl->supported_interfaces,
->  				 pcs->supported_interfaces);
+> @@ -2546,8 +2694,15 @@ void phylink_pcs_change(struct phylink_pcs *pcs, b=
+ool up)
+>  {
+>  	struct phylink *pl =3D pcs->phylink;
 > =20
-> +	mutex_unlock(&pl->state_mutex);
+> -	if (pl)
+> -		phylink_link_changed(pl, up, "pcs");
+> +	/*
+> +	 * Ignore PCS link state change if the PCS is not
+> +	 * attached to a phylink instance or the phylink
+> +	 * instance is not currently using this PCS.
+> +	 */
+> +	if (!pl || READ_ONCE(pl->pcs) !=3D pcs)
+> +		return;
 > +
->  	linkmode_fill(pl->supported);
->  	linkmode_copy(pl->link_config.advertising, pl->supported);
+> +	phylink_link_changed(pl, up, "pcs");
+>  }
+>  EXPORT_SYMBOL_GPL(phylink_pcs_change);
 
-[Severity: Medium]
-Is it safe to register the notifier before the capability bitmaps are
-initialized?
+[Severity: High]
+Can pl be a dangling pointer when this READ_ONCE() is executed?
 
-By calling `register_fwnode_pcs_notifier()` early, the phylink instance bec=
-omes
-visible to asynchronous hotplug events before initialization finishes.
-
-A concurrent `FWNODE_PCS_PROVIDER_DEL` event on another CPU could trigger
-`pcs_provider_notify()`, which recalculates and mutates `pl->supported` and
-`pl->link_config` under `rtnl_lock()`.
-
-Meanwhile, `phylink_create()` continues executing `linkmode_fill()` and
-`linkmode_copy()` on those same fields without holding `rtnl_lock()` or
-`state_mutex`.
-
-This unsynchronized data race on the capability bitmaps can corrupt the ini=
-tial
-link modes.
+As noted above in phylink_destroy(), pl could be freed if teardown happens
+concurrently after pl is read from pcs->phylink but before this READ_ONCE()
+completes, resulting in a use-after-free.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009182836.5063=
-1-1-ansuelsmth@gmail.com?part=3D5
+1-1-ansuelsmth@gmail.com?part=3D2
