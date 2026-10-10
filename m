@@ -1,321 +1,171 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28321496D3D;
-	Sat, 10 Oct 2026 11:55:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D69B483BC4
+	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 11:55:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791633355; cv=none; b=BDucN4cT65EzToMkDNJ1Dv+tfXGJy7yNRrjKwqPJdVGYfqI4U99WxoY0TMmILRL9zV9SRgcKaUuqr+tSjD30fb6WOX/8/6hz5pztrZmXazrrkJ9p6NMWM6fETjJpTA9g+nF79rrTcxewW6u0AessDgPmzXBOYHbNgROkT1N/lgY=
+	t=1791633355; cv=none; b=BdBok9Pd7xJaNmPuYv8HhKfTRZbta5JfgoNnJNi/JCc6qgV3JX323h34PcbEv8zlYbjmoDV8dX4pRbhiLAl+nptt89W1xCbbvvXXwsvUU6uTK5E66SsYMFLBvAUJHtTidBETbv+4zhRoJOeif2IY8oA2xdH+SgA9JFkjOSOhXPQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791633355; c=relaxed/simple;
-	bh=hLt1kN+v++LERGolIil3zVgHjDPIsbkbHJvcCxPOm/Y=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=WgTRsHyUIV5Tgf+geG84XaMCNRbz/H5wfM312oHVdDIwdzjI0snnqoqNTSpW5xoozwVtmX8qMKpDhhfkwzNJ/DPXb+XjKATNKahUJd9c14T9GqeCsa94LWDLmXUqRfdskOX4o8WSrXh7Wv6d8jQI/StgL4ZRbi9MP+Qgga0j27k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MSkULGJn; arc=none smtp.client-ip=100.103.45.18
+	bh=rvRwgHQvg5JZ1LUtLcvpMJdT9FYkYz/WGufe4EYyt6s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=B6wHp7edvuh16DUHkWwNAPQ7kfv1WVdPRX7jhxVVRcnSzs94Q3JXJqTaBtvfdZkLRh+t4WOpyFXRN/045AuQPBIAyh9pCAjLbX9Gu47mhTrmkmWBdEvJmd4D+AgG1psWzluDQyq2o7tZTn1+LLW5aHH5T600Wj2arhgBQ/eaVFI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X/uLWFKb; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MSkULGJn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4EF91F00898;
-	Sat, 10 Oct 2026 11:55:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791633347;
-	bh=0kQcUPDmcbyhjzCBKf8tF82Z2HjQ1YjSAwJ5NLJ+ehI=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=MSkULGJnNIcjpmplQHQYI9OcY9VF5zfis3kCl+T7sEqTg/9cfdx03my53enxjkp6p
-	 xBDuHDkxravpYoCPJCfcKj7pjRbBujVG/kBPH0dM9zSaUvnGVw/M+wbrQ2M5bK+7tB
-	 Ty+aBc//BuZcemjSl/ANy3JE0rsxC93UUKwwTkGjkAC2wASVJdMql+hDd4tDc9jzs+
-	 xHbRRi6DV0eFmnapQaBkxoM96hQcfm587y4egzYVvgpelK62fTJWkqcj70skiAzp9k
-	 Qyc0jN2pIi2wh5vX+wx9LMFaJu01pw1GLOWJfFaN9fLan9/n12rqIUTh0Hi8XVk9vW
-	 VzsGWRc+n6vhg==
-Subject: Re: [PATCH net-next v4 6/6] net: xilinx: axienet: Add statistics
- support for XXV ethernet
-From: netdev-bot+sashiko@kernel.org
-To: suraj.gupta2@amd.com
-Cc: radhey.shyam.pandey@amd.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, michal.simek@amd.com,
- linux@armlinux.org.uk, netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Date: Sat, 10 Oct 2026 11:55:46 +0000
-Message-ID: <179163334620.434549.1592021934536887221@kernel.org>
-In-Reply-To: <20261006110550.1990213-7-suraj.gupta2@amd.com>
-References: <20261006110550.1990213-7-suraj.gupta2@amd.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X/uLWFKb"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4a01933b584so5366705e9.0
+        for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 04:55:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791633348; x=1792238148; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=MUGs28pjyaKV6mm7T8DFRVWF7FBLghSbmcUfgUOr8K0=;
+        b=X/uLWFKbu+/TRM+hrDw4HzQYRKaf20P5Gr7PXI4ImcUAd09UQJ5rhaQt3DmOl1xtpr
+         YW7fnABdmvlyapQJCPQsOk0TZy4qEZf349NoRhc2sAQnxuAcIjIS03s5cQWvI9yMrkUd
+         GPuuaaMIkvDP4q9wxa4Lrw8PijPl9P3qnypWIZNRqno7C1QSTmzeFddgDbDbSYuQrmp+
+         sSh8LCeuMlV1OGT1hjgHW/5IXFH8q2WzouXTBiYhsIwTBrOVq9T0SP9P6/DHaVI2ye/J
+         UcQt45qq6RH95KxhVaDDPoPfEQ1/Rve9s4lrph4OuVJlUgrrog8tuIC99ndMLGx+oxkw
+         MXDg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791633348; x=1792238148;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=MUGs28pjyaKV6mm7T8DFRVWF7FBLghSbmcUfgUOr8K0=;
+        b=LSuuYAfhU/CQuDTIYuN6uE2wk3/hNhuyp1ys2EPsYziTOow6v5kD41sGZ4l1y9ZBKn
+         rM8hhihR3hRJCtQ2oCtQdPhnIxc2w43eXZpnUXLVrg3P/0vdaqj3mlbCY2T1Hjn+z5ER
+         /AuvZ0kiA8OgyqPqLjhpYPzpScq75C5Ypt3akHL/viAgbDxJ2uPOc91HjQa7yf0fTntZ
+         oxk2/ElMGWvWJTzisHFncSqqdJxAU43NxMpiRE5ZoxVI2wBN0csg6dQ21SeIvKf90gYM
+         RW8OGItRI+6o/nIIFcB73kluQQHMGUzfN7Qjggq/NtK7UDreazwMo77RemgsWcjjlREh
+         LV2w==
+X-Forwarded-Encrypted: i=1; AKwUvBwiFV7DRC+4DJYtc48lE2ojGK1PuNJ73jClNOhPOueum/WY4MBc84z1q2Rp1dDzxNUOGhe+M5pwbDUH@vger.kernel.org
+X-Gm-Message-State: AFq9FYI/ijB1E7W4Cvd+tNuYf/j2Pt+mIWUY1i33twHWux8wGn9DnXSc
+	hupOZY1QfvbAPZcM3POTKs5P4pEMxGD+N6ap0+j6x+buca4xlIITTHTS
+X-Gm-Gg: AYBFou0djOyQhOB0jDYFhgmrENaXKOOuoIWsZoZTmpkejnIHg8u700oQlMuoySpX1X0
+	TovBk2l9i6RMn/px0l/eaAGqdeGNJuuYxWZQo5NwuSjB8irt8L8UhvAlT1RaO7yl8/ZvCfghuRQ
+	Gb2YPhMRUUAaJNTSGpeVsuKDQAIngwXPQZiypcsfN/Ma1fBGtU5hbk1v14YduYcgON08bJCNeye
+	l6r6+dnjheJgTonumNW7k0tTnhhtsBfGYp4YH23asvJjigcVGk01BqlmdLQLLdSTe3tqTtD66Hh
+	PcUkGBomY78z1DQeRJrnEICSNSljlJk9177SFeSNYQZDuZ0Ut+kIowjPxjv1ZvEUyo7BXCZIXqD
+	dWOBdemiPPqcg6oPlWlq+IA7cRrwfZYVYtvZTJ8tUyfgCSOG7G/fnE9kq3y966ucjm6bvSTWy55
+	2Li9wSilbXbjgQCum8/fcngOT8UNwKbdNFOcgfcErGULxG6Kji00X0Y8Kbs6bWmM2BvDhCRz5Sr
+	U8tjQ==
+X-Received: by 2002:a05:600c:4e01:b0:49f:ce78:3567 with SMTP id 5b1f17b1804b1-4a18e4afc3amr83354515e9.24.1791633348096;
+        Sat, 10 Oct 2026 04:55:48 -0700 (PDT)
+Received: from luca-vm.lan ([154.61.61.58])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db9aca657sm8746340f8f.43.2026.10.10.04.55.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 10 Oct 2026 04:55:47 -0700 (PDT)
+From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+To: linux-mediatek@lists.infradead.org
+Cc: Luca Leonardo Scorcia <l.scorcia@gmail.com>,
+	Chunfeng Yun <chunfeng.yun@mediatek.com>,
+	Vinod Koul <vkoul@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney+clk@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Chun-Kuang Hu <chunkuang.hu@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>,
+	Chen-Yu Tsai <wenst@chromium.org>,
+	Fabien Parent <fparent@baylibre.com>,
+	CK Hu <ck.hu@mediatek.com>,
+	chunhui dai <chunhui.dai@mediatek.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	dri-devel@lists.freedesktop.org
+Subject: [PATCH 0/7] Add support for Mediatek mt8167 HDMI display output
+Date: Sat, 10 Oct 2026 13:54:00 +0200
+Message-ID: <20261010115539.9237-1-l.scorcia@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 5 potential
-issue(s) to consider.
+The MediaTek mt8167 SoC supports HDMI output via a dedicated HDMI PHY
+driven by the DPI1 display block.
 
-Critical: 0 · High: 0 · Medium: 1 (1) · Low: 4
+Support for HDMI output was partially upstreamed in 2021, but is currently
+not functional as it's missing its HDMI PHY driver. The HDMI PHY is
+apparently similar to the mt2701 one, but some differences in timings and
+in the initialization sequence are better expressed with a separate driver.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+* Patch 1, 2 add support for the HDMI PHY.
 
-- [Medium] The driver uses PG210 STAT_RX_BAD_FCS (0x8C0) as its only RX
-  FCS-error source.
-- [Low] The new 'final snapshot' block in axienet_stop() only checks `if
-  (lp->axienet_config->stats_update)`.
-- [Low] The struct axienet_local kernel-doc is out of date.
-- [Low] The kernel-doc for axienet_xxv_get_rmon_stats() says '@ranges:
-  Set to the RMON histogram range table', but the function always sets…
-- [Low] The 'Throwaway tick to drain pre-open counts so stats start from
-  zero' in axienet_xxv_probe_init() does not achieve what its comment…
+In addition to the HDMI PHY, a few fixes are required here and there to
+actually get HDMI output.
 
-Pre-existing issues:
-- [Medium] This problem wasn't introduced by this patch, but the new XXV
-  readers inherit it.
+* Patch 3: Some of the HDMI registers are mapped into the apmixedsys
+  syscon. Since they are manipulated inside the HDMI PHY driver, we change
+  the apmixedsys memory map to non exclusive by switching it from
+  devm_platform_ioremap_resource to of_iomap. This approach was copied
+  from mt8173 apmixedsys syscon.
 
---
+* Patch 4: Since the DPI1 interface is hardwired to the HDMI PHY, it is
+  appropriate for the HDMI PHY to control the DPI1 clocks. There is no
+  effect on DPI0 clocks as they're completely separate.
 
-net: xilinx: axienet: Add statistics support for XXV ethernet
+* Patch 5: Some MediaTek SoCs require a supervisor call to enable HDMI
+  output. mt8167 is not one of those.
 
-This commit adds statistics support for the XXV (10G/25G) MAC in the
-axienet driver. The driver writes TICK_REG to latch the PG210
-clear-on-tick counters and adds each interval's values to
-xxv_stat_base[] in software. These accumulators feed ndo_get_stats64()
-and the ethtool -S, pause, MAC and RMON callbacks.
+* Patch 6: In the common path for mt2701/mt8167, a register operation that
+  is meant to enable the HDMI_PSECUR_EN bit is actually touching some
+  other bits that are set by later operations anyway. The patch makes
+  more explicit the intent of the operation by setting only the necessary
+  bit.
 
-> diff --git a/drivers/net/ethernet/xilinx/xilinx_axienet.h b/drivers/net/ethernet/xilinx/xilinx_axienet.h
-> index 7ba2fe29e97bf..e8e9732c1c84f 100644
-> --- a/drivers/net/ethernet/xilinx/xilinx_axienet.h
-> +++ b/drivers/net/ethernet/xilinx/xilinx_axienet.h
-> @@ -549,6 +549,7 @@ struct skbuf_dma_descriptor {
->   * @rx_ring_head: RX skb ring buffer head index.
->   * @rx_ring_tail: RX skb ring buffer tail index.
->   * @xxv_ip_version: XXV IP version.
-> + * @xxv_stat_base: Software accumulators for the XXV clear-on-tick counters.
+* Patch 7: Adds the device tree nodes to the mt8167 dtsi. Since DPI1
+  is hardwired to HDMI it is possible to bind the input port of the HDMI
+  node to the output port of DPI1, but the patch that adds the DPI nodes
+  to the DTSI [1] has not been picked up yet, so we leave it disconnected
+  for now.
 
-[Severity: Low]
-This isn't a bug, but should the @hw_stats_seqcount kernel-doc be updated
-too? It still reads:
+The series was tested at all supported resolutions on the Sony PlayStation
+Classic Mini.
 
- * @hw_stats_seqcount: Sequence counter for @hw_stat_base, @hw_last_counter,
- *                     and @reset_in_progress.
+[1] https://lore.kernel.org/linux-mediatek/20260921113914.779393-5-l.scorcia@gmail.com/
 
-axienet_xxv_stats_update() now writes xxv_stat_base[] inside the
-hw_stats_seqcount write section. All of the XXV getters read it under
-read_seqcount_begin()/read_seqcount_retry().
+Luca Leonardo Scorcia (7):
+  dt-bindings: mediatek: hdmi-phy: Add compatible for mt8167
+  phy: mediatek: hdmi: Add support for mt8167
+  clk: mediatek: mt8167: Map apmixedsys iomem as shared
+  clk: mediatek: mt8167: Correct HDMI-related clock definitions
+  drm/mediatek: mtk_hdmi: Set tz_disabled for mt8167
+  drm/mediatek: mtk_hdmi: Improve the secure output bit toggle
+  arm64: dts: mediatek: mt8167: Add HDMI display nodes
 
-The new @xxv_stat_base line doesn't say what protects it either.
+ .../bindings/phy/mediatek,hdmi-phy.yaml       |   1 +
+ arch/arm64/boot/dts/mediatek/mt8167.dtsi      |  62 +++++
+ drivers/clk/mediatek/clk-mt8167-apmixedsys.c  |  26 ++-
+ drivers/clk/mediatek/clk-mt8167.c             |   6 +-
+ drivers/gpu/drm/mediatek/mtk_hdmi.c           |   3 +-
+ drivers/gpu/drm/mediatek/mtk_hdmi_regs.h      |   1 +
+ drivers/phy/mediatek/Makefile                 |   1 +
+ drivers/phy/mediatek/phy-mtk-hdmi-mt8167.c    | 217 ++++++++++++++++++
+ drivers/phy/mediatek/phy-mtk-hdmi.c           |   3 +
+ drivers/phy/mediatek/phy-mtk-hdmi.h           |   1 +
+ 10 files changed, 314 insertions(+), 7 deletions(-)
+ create mode 100644 drivers/phy/mediatek/phy-mtk-hdmi-mt8167.c
 
->   * @axienet_config: MAC-type specific configuration and operations.
->   */
->  struct axienet_local {
 
-[ ... ]
-
-> diff --git a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
-> index f4b054433df95..cbc8caf781f3d 100644
-> --- a/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
-> +++ b/drivers/net/ethernet/xilinx/xilinx_axienet_main.c
-
-[ ... ]
-
-> @@ -1789,6 +1802,13 @@ static int axienet_stop(struct net_device *ndev)
->  	lp->axienet_config->setoptions(ndev, lp->options &
->  				       ~(XAE_OPTION_TXEN | XAE_OPTION_RXEN));
->  
-> +	/* Final snapshot after RX/TX is disabled, so no frames are missed. */
-> +	if (lp->axienet_config->stats_update) {
-> +		mutex_lock(&lp->stats_lock);
-> +		lp->axienet_config->stats_update(lp);
-> +		mutex_unlock(&lp->stats_lock);
-> +	}
-
-[Severity: Low]
-Should this check lp->features & XAE_FEATURE_STATS?
-
-axienet_1g_config always sets .stats_update = axienet_1g_stats_update, but
-the statistics block is optional on 1G:
-
-axienet_1g_probe_init() {
-	if (axienet_ior(lp, XAE_ABILITY_OFFSET) & XAE_ABILITY_STATS)
-		lp->features |= XAE_FEATURE_STATS;
-}
-
-So on a 1G core built without the statistics block, every ifdown now reads
-XAE_STATS_OFFSET registers that the core doesn't implement.
-__axienet_device_reset() and the stats export callbacks all check
-XAE_FEATURE_STATS before reading these registers.
-
-axienet_refresh_stats() is also missing this check, but that was already
-true before this patch.
-
-This also changes 1G behaviour. On the 1G dmaengine path it adds a new
-register read at stop. On the 1G non-dmaengine path it repeats the
-axienet_stats_update(lp, true) that
-axienet_dma_stop()->__axienet_device_reset() already does a few lines
-later.
-
-The commit message describes the patch as XXV-only. Could it mention the
-1G change, or could this snapshot be limited to the MACs that need it?
-
-> +
->  	if (!lp->use_dmaengine) {
->  		axienet_dma_stop(lp);
->  		cancel_work_sync(&lp->dma_err_task);
-> diff --git a/drivers/net/ethernet/xilinx/xilinx_axienet_xxv.c b/drivers/net/ethernet/xilinx/xilinx_axienet_xxv.c
-> index 9f7efab84f827..4a2d03b6c480d 100644
-> --- a/drivers/net/ethernet/xilinx/xilinx_axienet_xxv.c
-> +++ b/drivers/net/ethernet/xilinx/xilinx_axienet_xxv.c
-
-[ ... ]
-
-> @@ -134,6 +199,10 @@ static void axienet_xxv_setoptions(struct net_device *ndev, u32 options)
->  static void axienet_xxv_probe_init(struct axienet_local *lp)
->  {
->  	lp->xxv_ip_version = axienet_ior(lp, XXV_CONFIG_REVISION);
-> +	lp->features |= XAE_FEATURE_STATS;
-> +
-> +	/* Throwaway tick to drain pre-open counts so stats start from zero. */
-> +	axienet_iow(lp, XXV_TICKREG_OFFSET, XXV_TICKREG_STATEN_MASK);
-
-[Severity: Low]
-Does this tick actually make the stats start from zero at open?
-
-It runs only once, from axienet_probe()->probe_init, before any GT reset
-or GTWIZ reset-done poll. axienet_xxv_poll_link_ready() says register
-access should wait for that on IP v3.2+:
-
-	/* Confirm XXV Ethernet is up: on IP v3.2+, wait for GT
-	 * reset-done before further register access, then poll until
-	 * RX PCS block lock is asserted.
-	 */
-
-Nothing between probe and the first ndo_open clears the RX/TX enables.
-The first setoptions() call that clears TXEN/RXEN is in
-axienet_device_reset() at open.
-
-If the MAC comes out of reset with RX enabled, as the PG210
-CONFIGURATION_RX_REG1 default suggests, frames received between probe and
-the first open stay in the internal accumulators. The first stats_work
-after open, queued by schedule_delayed_work(&lp->stats_work, 0) in
-axienet_open(), would then latch them into xxv_stat_base[].
-
-If the statistics clock domain isn't running yet at probe, this tick might
-not latch anything at all.
-
-Would it make more sense to drain on the open path, after GT reset-done
-and before RX/TX are enabled and stats_work is armed? Later opens look less
-affected, since axienet_stop() disables RX/TX and takes a final snapshot.
-
->  }
->  
->  /**
-> @@ -308,6 +377,198 @@ static int axienet_10g25g_clk_init(struct axienet_local *lp)
-
-[ ... ]
-
-> +static void axienet_xxv_get_stats64(struct axienet_local *lp,
-> +				    struct rtnl_link_stats64 *stats)
-> +{
-> +	unsigned int start;
-> +	u64 tx_hw_errors;
-> +
-> +	do {
-> +		start = read_seqcount_begin(&lp->hw_stats_seqcount);
-
-[Severity: Medium]
-This isn't a bug introduced by this patch, but the new XXV readers inherit
-it.
-
-hw_stats_seqcount is a seqcount_mutex_t associated with stats_lock (see
-seqcount_mutex_init() in axienet_probe()). On PREEMPT_RT, a reader that
-sees an odd sequence takes and drops the associated mutex:
-
-include/linux/seqlock.h:SEQCOUNT_LOCKNAME() {
-    ...
-	if (preemptible && unlikely(seq & 1)) {
-		__SEQ_LOCK(lockbase##_lock(s->lock));
-		__SEQ_LOCK(lockbase##_unlock(s->lock));
-    ...
-}
-
-axienet_xxv_get_stats64() is reached through dev_get_stats(). That can be
-called under rcu_read_lock() (dev_seq_show() for /proc/net/dev) or under a
-caller's spinlock (bond_get_stats()).
-
-If such a read races with the write section in axienet_xxv_stats_update()
-from stats_work or axienet_stop(), can the reader end up calling
-mutex_lock() from atomic context on RT?
-
-The 1G readers have used this seqcount the same way since before this
-series. This patch adds more readers of the same kind.
-
-> +		stats->rx_crc_errors = lp->xxv_stat_base[XXV_STAT_RX_BAD_FCS];
-> +		/* Both in-range length errors and frame-too-long (oversize)
-> +		 * frames are IEEE 802.3 length errors, so fold them together
-> +		 * into rx_length_errors; rx_over_errors is reserved for receiver
-> +		 * FIFO/ring overflow, which the XXV MAC does not expose.
-> +		 */
-> +		stats->rx_length_errors =
-> +			lp->xxv_stat_base[XXV_STAT_RX_INRANGEERR] +
-> +			lp->xxv_stat_base[XXV_STAT_RX_OVERSIZE];
-> +		stats->rx_errors = lp->xxv_stat_base[XXV_STAT_RX_UNDERSIZE] +
-> +				   lp->xxv_stat_base[XXV_STAT_RX_FRAGMENT] +
-> +				   lp->xxv_stat_base[XXV_STAT_RX_JABBER] +
-> +				   stats->rx_crc_errors +
-> +				   stats->rx_length_errors;
-
-[Severity: Medium]
-Can rx_errors count fragment and jabber frames twice here?
-
-XXV_STAT_RX_BAD_FCS_OFFSET is 0x8C0, which is stat_rx_bad_fcs in PG210. As
-far as I can tell, that counter covers every received frame with a bad FCS,
-whatever its length. It would then include fragments, which are also
-counted in STAT_RX_FRAGMENT (0x8A0), and jabbers, which are also counted in
-STAT_RX_JABBER (0x8B8).
-
-Adding RX_FRAGMENT, RX_JABBER and rx_crc_errors together would then count
-those frames twice.
-
-The same counter also feeds FrameCheckSequenceErrors in
-axienet_xxv_get_eth_mac_stats(). IEEE 802.3 aFrameCheckSequenceErrors
-excludes too-short and too-long frames.
-
-Would STAT_RX_PACKET_BAD_FCS (0x8C8, frames from 64 bytes up to the max
-packet length) be a better source for both rx_crc_errors and
-FrameCheckSequenceErrors?
-
-> +		stats->multicast = lp->xxv_stat_base[XXV_STAT_RX_MULTICAST];
-
-[ ... ]
-
-> +/**
-> + * axienet_xxv_get_rmon_stats - Fill RMON statistics and histogram ranges
-> + * @lp: Pointer to the axienet_local structure
-> + * @rmon_stats: Output ethtool_rmon_stats structure to populate
-> + * @ranges: Set to the RMON histogram range table
-> + */
-> +static void axienet_xxv_get_rmon_stats(struct axienet_local *lp,
-> +				       struct ethtool_rmon_stats *rmon_stats,
-> +				       const struct ethtool_rmon_hist_range **ranges)
-> +{
-
-[ ... ]
-
-> +	/* XXV currently exposes only aggregate RMON counters, not per-bin
-> +	 * histogram buckets. Keep ranges NULL until histogram bins are wired.
-> +	 */
-> +	*ranges = NULL;
-
-[Severity: Low]
-This isn't a bug, but the @ranges kernel-doc says it is "Set to the RMON
-histogram range table". The function always sets *ranges = NULL, and the
-comment just above says to keep it NULL until histogram bins are wired.
-
-Could the kernel-doc say that ranges is set to NULL?
-
-> +}
-
+base-commit: a90ee4305c4a5df72c11b31dacfdc76e00fcf78a
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261006110550.1990213-1-suraj.gupta2%40amd.com
+2.43.0
+
