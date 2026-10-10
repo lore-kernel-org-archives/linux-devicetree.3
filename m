@@ -1,208 +1,97 @@
-Received: from mail.mindbit.ro (xs1.mindbit.ro [80.86.107.70])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85C563546F0;
-	Sat, 10 Oct 2026 15:33:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.86.107.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 135C819DF6A;
+	Sat, 10 Oct 2026 15:54:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791646388; cv=none; b=DiXF8meoBP7ksziTNXL/O9B5JaBBr1fYwPTi3LzpgnWMvbynVoET1cGvjkVh3MVAzWZDjkifAO/5WUJefB8Z8R4bN1ncYWFtob/kZzx+BKkiXMSLDUnYXg3bgJJDadZ+/GlCsEVDUGNQ37owiZeaZSX+LQvIRK/9X6HOMjl/tfY=
+	t=1791647695; cv=none; b=ex+b5nGOctiw5dbUoWxK1qI63lxckG79SxAV6aTblqOz0OIzTy5PoRZ+2yDwlHOnk2FZrL+phK15IcnGOYYigXgoWgA26ibvCfPgTyBiaWd9Fveyy4vvfn4bdbJZSla9rf6eL5gL/QYKPW5lYt6Y1zu7fwOprUYSG6ceOVj6mII=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791646388; c=relaxed/simple;
-	bh=1eJTnYbRpv5y14vIhx4n/9KEtpt/VMaq7NzbmnEzTyk=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=LpRNkuTNLJaBtuhrMg6tzu2SgDLmTe3qglkAUhfG6wApje6r1yjc7XvBsCMJcM+UUhbVRZ/3C3XcXHs0OxJAN7P/V9SOxB74or/xRFFac5RsmjkS+KSR9yOT4w9TUL5VfG99fOvQE6vs9Sn2g8JgWQRZHAMIvQ5c7pZ9rhsoZA4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net; spf=pass smtp.mailfrom=rendec.net; dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b=QoWoitZl; arc=none smtp.client-ip=80.86.107.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rendec.net
+	s=arc-20240116; t=1791647695; c=relaxed/simple;
+	bh=0WnTX6JFAKOwNBzueJdRfq3UFsWECoWcNzTd9e4Y7Rg=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=br4xvSM6q19hW8OcaOCjRNG/Wzcu+1w+ubb2+8VWjXepTXFVdyEFe4POjY+TltUfE4OlFxuI5gawJzzo78362BTe+3M0LRwrYZXkqaMgAsgNcha6Nxra7fccfCVANukEx4IEIQ9ynIAhz1y5N/3tloFL6VcjU5mvMJR/vFCiu0c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X7XUcIsB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b="QoWoitZl"
-Received: from dog.kanata.rendec.net (pool-174-112-193-187.cpe.net.cable.rogers.com [174.112.193.187])
-	by mail.mindbit.ro (Postfix) with ESMTPSA id 30109D19E4;
-	Sat, 10 Oct 2026 18:33:03 +0300 (EEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.mindbit.ro 30109D19E4
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rendec.net;
-	s=default; t=1791646384;
-	bh=7z9Vwt1VODXBQGdsL10EccNNmzMYus5h00QizquIlEc=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=QoWoitZlKmS85zEdjZ8IuRjWJ7qmgy29touNmhQkFCWKVWhWghzVq0EWZ9EPpHprj
-	 9q01bnDNv6KWAZEkZ8mG04rYB00r2i/fyzYQEoxuWgjHg6rQKz+XgALexxdz11VmrF
-	 ajpXgVvdebzzYiVh4YqCi7Hcgt5IAUmtTF+j7GU6gSHLgRwkyonM8MTmnWDv/d3NQN
-	 DZ+Rdj0mschCN+A6zfnPTYvSZbqM1oP0ZBj+gXUqJYQ13lN7CWQRB8Qw+Utw6ie3k/
-	 uVu7QThd/Z8L531uTgrfbDznMQOzh4tEEP59i8DPGiGtktbOt1gOOZ/V04Ty0dOLcD
-	 hCF8bW8y5rltA==
-Message-ID: <c0901df657d57f2a23e606aa55c0d70b13587e45.camel@rendec.net>
-Subject: Re: [PATCH v4 3/8] irqchip/al-fic: keep the device_node instead of
- a cached name string
-From: Radu Rendec <radu@rendec.net>
-To: Eliav Farber <farbere@amazon.com>, Thomas Gleixner <tglx@kernel.org>, 
- Talel Shenhar <talel@amazon.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-  Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Sat, 10 Oct 2026 11:33:01 -0400
-In-Reply-To: <20261008090058.38591-4-farbere@amazon.com>
-References: <20261008090058.38591-1-farbere@amazon.com>
-	 <20261008090058.38591-4-farbere@amazon.com>
-Content-Type: text/plain; charset="UTF-8"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X7XUcIsB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18EA81F000FF;
+	Sat, 10 Oct 2026 15:54:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791647693;
+	bh=kag0Uy2qggUnzDfGrLenknHgY0Ukpn3ly0Z92YI9DdI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=X7XUcIsBAkomm7lMoox7C8ecbaXYKE4GRqCeLGVc8byA7/Lp7TVQxzCETpgxKo0gh
+	 4+kwBXj0JLEpyM57FR511Ym2Dd2CKJLM5OL1zPZPiefW1osRpNPLvc/kCnAROUnJEx
+	 zrGvlX/qi2j18y7o5BsN6KxgB7Cyq8FsQHbTDGJdV7RhxLYP84Vtn/aOMOkgv2UOxQ
+	 uUkkrlYfnCFu1NJObfqswOKdmZXEO5KdOKg93+mOLgTMe1By0QG89MA8NG0CJAV8ZJ
+	 ZVFDlyJgCNK91MFtMQ9Deett+6AMp/fUvo7Jw4nlw7hm4yBz6qaFGcUA6KKd2aqjBv
+	 V70HaepaU9v+w==
+Message-ID: <sashiko-outbox-166706@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 7/8] clk: sunxi-ng: a733: Add bus clock gates
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Junhui Liu" <junhui.liu@pigmoral.tech>
+Cc: linux-clk@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, linux-sunxi@lists.linux.dev
+In-Reply-To: <20261009-a733-clk-v6-7-ae8178fce7e8@pigmoral.tech>
+References: <20261009-a733-clk-v6-0-ae8178fce7e8@pigmoral.tech>
+ <20261009-a733-clk-v6-7-ae8178fce7e8@pigmoral.tech>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
+Date: Sat, 10 Oct 2026 15:54:52 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
 
-On Thu, 2026-10-08 at 09:00 +0000, Eliav Farber wrote:
-> struct al_fic cached a "const char *name" that al_fic_wire_init() receive=
-d
-> as a separate argument and set from node->name. That string aliased
-> storage inside the device_node rather than being owned by the driver, but
-> nothing in the struct expressed that dependency - al_fic just held a bare
-> pointer with no indication of what it pointed into or why it stayed valid=
-.
->=20
-> This is not fixing a lifetime bug - of_irq_init() takes a reference on
-> the node before calling the driver's init callback and never drops it on
-> a successful init, so the node is pinned for the life of the system
-> either way, and node->name was never actually at risk of dangling.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] clk: sunxi-ng: ahb_store_clk is missing CLK_IS_CRITICAL flag
+--
 
-It looks like this was *not* the intended behavior of of_irq_init()
-after all; it was a bug and it was fixed in commit 30724547b221
-("of/irq: Fix remaining refcount leaks in of_irq_init()") [1].
+commit f3ca9c131f39f726826090f6af6752e7b39c004c
+Author: Junhui Liu <junhui.liu@pigmoral.tech>
 
-When we discussed it, both of us missed this. The patch was queued in
-Rob's tree but not merged into mainline yet. I even tried to "fix" the
-documentation [2], and my patch was flagged immediately by sashiko
-(because the other patch had just made it into mainline).
+clk: sunxi-ng: a733: Add bus clock gates
 
-Anyway, you'll have to address this in v5 because it's clearly not
-going to work with that patch merged. I guess just take the refcount
-explicitly in al_fic_wire_init() where you store the pointer.
+This commit adds bus clock gates that control access to the device register
+interfaces on the Allwinner A733 SoC. It also intends to mark the ahb-store,
+mbus-store, and ahb-cpus clocks as critical to prevent access breakage to
+boot and storage devices.
 
-[1] https://lore.kernel.org/all/20260917124247.2151674-1-vulab@iscas.ac.cn/
-[2] https://lore.kernel.org/all/20261009011324.1503697-1-radu@rendec.net/
+> diff --git a/drivers/clk/sunxi-ng/ccu-sun60i-a733.c b/drivers/clk/sunxi-n=
+g/ccu-sun60i-a733.c
+> --- a/drivers/clk/sunxi-ng/ccu-sun60i-a733.c
+> +++ b/drivers/clk/sunxi-ng/ccu-sun60i-a733.c
 
-> Keeping the device_node in the struct instead of the bare name is about
-> making the dependency explicit rather than closing a real one: it holds
-> the object the name is derived from, and lets each site derive the name
-> on demand instead of carrying a pointer whose validity nothing in the
-> struct asserts.
->=20
-> The irqchip callback that has no device_node in scope now prints the
-> instance with %pOF, which formats the node on demand, and the name argume=
-nt
-> threaded through al_fic_wire_init() goes away.
->=20
-> irq_alloc_domain_generic_chips() keeps the pointer it is given, so it now
-> uses of_node_full_name(). This changes the generic chip name from the bar=
-e
-> node name (e.g. "interrupt-controller") to the full node name including
-> its unit address (e.g. "interrupt-controller@fd8a8500"), which keeps
-> instances that share a bare name distinguishable.
->=20
-> Signed-off-by: Eliav Farber <farbere@amazon.com>
-> Reviewed-by: Radu Rendec <radu@rendec.net>
-> ---
-> v4: no change.
->=20
-> v3:
-> =C2=A0- Use of_node_full_name() instead of reaching into node->full_name
-> =C2=A0=C2=A0 directly, as Radu Rendec suggested.
-> =C2=A0- Rewrite the commit message to say plainly that this patch does no=
-t fix
-> =C2=A0=C2=A0 a lifetime bug. of_irq_init() takes a reference on the node =
-before
-> =C2=A0=C2=A0 calling the driver's init callback and does not drop it on a
-> =C2=A0=C2=A0 successful init, so the node, and the storage node->name poi=
-nts into,
-> =C2=A0=C2=A0 is pinned for the life of the system either way. The value o=
-f keeping
-> =C2=A0=C2=A0 the device_node is making that dependency explicit, not clos=
-ing a
-> =C2=A0=C2=A0 real one.
->=20
-> v2: new patch. Keep the device_node in struct al_fic instead of a cached
-> =C2=A0=C2=A0=C2=A0 name string that aliased node storage. Introduced here=
- so the struct
-> =C2=A0=C2=A0=C2=A0 holds the node before the next patch requests the pare=
-nt interrupt by
-> =C2=A0=C2=A0=C2=A0 node->full_name, keeping every commit buildable on its=
- own.
->=20
-> =C2=A0drivers/irqchip/irq-al-fic.c | 13 +++++--------
-> =C2=A01 file changed, 5 insertions(+), 8 deletions(-)
->=20
-> diff --git a/drivers/irqchip/irq-al-fic.c b/drivers/irqchip/irq-al-fic.c
-> index 760bd08dcff4..ee06d0123b7a 100644
-> --- a/drivers/irqchip/irq-al-fic.c
-> +++ b/drivers/irqchip/irq-al-fic.c
-> @@ -36,7 +36,7 @@ enum al_fic_state {
-> =C2=A0struct al_fic {
-> =C2=A0	void __iomem *base;
-> =C2=A0	struct irq_domain *domain;
-> -	const char *name;
-> +	struct device_node *node;
-> =C2=A0	unsigned int parent_irq;
-> =C2=A0	enum al_fic_state state;
-> =C2=A0};
-> @@ -89,7 +89,7 @@ static int al_fic_irq_set_type(struct irq_data *data, u=
-nsigned int flow_type)
-> =C2=A0	if (fic->state =3D=3D AL_FIC_UNCONFIGURED) {
-> =C2=A0		al_fic_set_trigger(fic, gc, new_state);
-> =C2=A0	} else if (fic->state !=3D new_state) {
-> -		pr_debug("fic %s state already configured to %d\n", fic->name, fic->st=
-ate);
-> +		pr_debug("fic %pOF state already configured to %d\n", fic->node, fic->=
-state);
-> =C2=A0		return -EINVAL;
-> =C2=A0	}
-> =C2=A0	return 0;
-> @@ -142,7 +142,7 @@ static int al_fic_register(struct device_node *node,
-> =C2=A0
-> =C2=A0	ret =3D irq_alloc_domain_generic_chips(fic->domain,
-> =C2=A0					=C2=A0=C2=A0=C2=A0=C2=A0 NR_FIC_IRQS,
-> -					=C2=A0=C2=A0=C2=A0=C2=A0 1, fic->name,
-> +					=C2=A0=C2=A0=C2=A0=C2=A0 1, of_node_full_name(fic->node),
-> =C2=A0					=C2=A0=C2=A0=C2=A0=C2=A0 handle_level_irq,
-> =C2=A0					=C2=A0=C2=A0=C2=A0=C2=A0 0, 0, IRQ_GC_INIT_MASK_CACHE);
-> =C2=A0	if (ret) {
-> @@ -175,9 +175,8 @@ static int al_fic_register(struct device_node *node,
-> =C2=A0
-> =C2=A0/*
-> =C2=A0 * al_fic_wire_init() - initialize and configure fic in wire mode
-> - * @of_node: optional pointer to interrupt controller's device tree node=
-.
-> + * @node: pointer to the interrupt controller's device tree node
-> =C2=A0 * @base: mmio to fic register
-> - * @name: name of the fic
-> =C2=A0 * @parent_irq: interrupt of parent
-> =C2=A0 *
-> =C2=A0 * This API will configure the fic hardware to work in wire mode.
-> @@ -187,7 +186,6 @@ static int al_fic_register(struct device_node *node,
-> =C2=A0 */
-> =C2=A0static struct al_fic *al_fic_wire_init(struct device_node *node,
-> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 void __iomem *base,
-> -				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 const char *name,
-> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int parent_irq)
-> =C2=A0{
-> =C2=A0	struct al_fic *fic;
-> @@ -200,7 +198,7 @@ static struct al_fic *al_fic_wire_init(struct device_=
-node *node,
-> =C2=A0
-> =C2=A0	fic->base =3D base;
-> =C2=A0	fic->parent_irq =3D parent_irq;
-> -	fic->name =3D name;
-> +	fic->node =3D node;
-> =C2=A0
-> =C2=A0	/* mask out all interrupts */
-> =C2=A0	writel_relaxed(0xFFFFFFFF, fic->base + AL_FIC_MASK);
-> @@ -254,7 +252,6 @@ static int __init al_fic_init_dt(struct device_node *=
-node,
-> =C2=A0
-> =C2=A0	fic =3D al_fic_wire_init(node,
-> =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 base,
-> -			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 node->name,
-> =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 parent_irq);
-> =C2=A0	if (IS_ERR(fic)) {
-> =C2=A0		pr_err("%pOF: fail to initialize irqchip (%lu)\n",
+[ ... ]
+
+> +static SUNXI_CCU_GATE_HWS(ahb_msi_lite0_clk, "ahb-msi-lite0", ahb_hws,
+> +			  0x5c0, BIT(16), 0);
+> +
+> +/* This gate controls access to the storage controller MMIO registers. */
+> +static SUNXI_CCU_GATE_HWS(ahb_store_clk, "ahb-store", ahb_hws,
+> +			  0x5c0, BIT(24), 0);
+
+[Severity: High]
+The commit message notes that the ahb-store clock should be marked as
+critical, but the definition of ahb_store_clk here uses 0 for its flags
+parameter instead of CLK_IS_CRITICAL.
+
+During late boot, the Common Clock Framework automatically disables any
+clocks that have no active consumers holding a reference to them.
+
+Could this omission allow the framework to inadvertently gate the storage
+controller MMIO registers, leading to a system freeze or storage probe
+failures?
+
+> +static const struct clk_hw *ahb_store_hws[] =3D { &ahb_store_clk.common.=
+hw };
+> +
+> +/* Keep enabled for access to the CPUS domain registers. */
+> +static SUNXI_CCU_GATE_HWS(ahb_cpus_clk, "ahb-cpus", ahb_hws,
+> +			  0x5c0, BIT(28), CLK_IS_CRITICAL);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009-a733-clk-v=
+6-0-ae8178fce7e8@pigmoral.tech?part=3D7
