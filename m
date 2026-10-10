@@ -1,62 +1,62 @@
 Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEF454AA3FA
-	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 13:00:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 698B24A7C8C
+	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 13:00:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791637251; cv=none; b=WvplWhARVaBSc5Ih6CPszPylQ/fQ9WDpgBsWzriM9VOZSsQQtrp7CGT+46gsM4QJ0Anz341YHVue4u0Lghrchk9P4Kof5XzVjxyc7DvIJ3x6rODEfDKAVn6AkV9lfacFTzXctGHtGvxeP4uf0cfgoPHdcenaF9stuOPI4lI6+f8=
+	t=1791637251; cv=none; b=HVC3E4Rvy2b5bxPFIT0OBo+F40Ck9gJkkCLgH817an1ckIyL8h5CVKnUEn7NT1lB3wAnkWsuYGQUTJydKIAIRzL9sEySZmuODJEb6TcjHmYU5TzkMorQBCJcHvANh/O3hxkZiRl+HJqGoghOjbmcUtb7O+M8yYDckPE5KzWdMrY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791637251; c=relaxed/simple;
-	bh=YUSr1ObjN9s8cDS2Aj+ho9ixFRu5/jWUlDZQu3cdp5g=;
+	bh=8cE+kRigrC2rLbTtNcE4tzjW4qt6M+Ijxp2hlZozUug=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MU42clxGv+0F0dkuo1RqeyQ6Vf2OeS8ENJhPQ0UTntAI/sPHmuDvmHmaw/rPMmwZ4nler+wGqQvGAn/TFSRl1VR32zIQF2qGLDj1P1vvq90X4k06BpS1OK3nJkzY5KKW+Nbtw+1cHY1gREH1+XuZIGEnHOCllwwPfo63Y/GgVw8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NymcRu7P; arc=none smtp.client-ip=209.85.128.41
+	 MIME-Version; b=cd7VbhZpjZXiKKj+gKfKVOmon3+N5UfF/W4pQG5nCSXQv3eUR1fDLgqWjzAgZK0xo9aiU1+Y2g5jksh0PU8VM9xemw3ijeiF9xv+gSwzvvYVkPK3iiMBoVPbzLsrUPuRV9Wn92gjvg6uBt9JUPTFqglt2E/Jr1AIzhOw1QPWwwM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=a6wvYjMq; arc=none smtp.client-ip=209.85.128.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NymcRu7P"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4956869750eso4450985e9.2
-        for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 06:00:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="a6wvYjMq"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a1688d7769so4928355e9.0
+        for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 06:00:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20251104; t=1791637245; x=1792242045; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=5mcYJeikhf+1cs7oxJAYDuJWMVU6PVHgHphuyMhrcPo=;
-        b=NymcRu7PSYOAfMyaLc3bDmOlU6fxJnGgQfUQL17XIgt+I8L/C4Uq3LAEW0oLT/YxZY
-         N8Cjmk+u+V5HNx930Ss6bU8kSIObltRslQNZ69ljAbwF/y/3bzKctAjgXeBkKGULkRi6
-         SQSyaElZa4Le+2Uwtq6YC4Vo/v1Qd+/ssKlQ39K6grDMaz+P9T4mZ5SBEwfFuLiNKoCJ
-         w0JFItKqhjqZWQ/zoGq8u29Artkf739zkefdpEY0DNkYH+Bw/bgWKXuG1kPkyg9uUFEm
-         5fFEOWUB8DFDR/l7mzFAjEB8Oa5YPR7aNik/8Wo36InjQbuAcEHeTq13QGZDxGAfgz7j
-         qQQg==
+        bh=GoroDu6xICaIQCB3Y6XVwmspeLrCWXpr98G9YRTCm5U=;
+        b=a6wvYjMqGOOiJx9fOCfWsGphAcSj2W68dynQ9WlLrvExRGKNfuMPgI+7rV5dmQw1eG
+         WTVbFGiVLDn3k4l49u+HXpZ/Pxgp+RF+hWlWeb+QdMWFT4CkToXerOHa8K1kQ3lMypIR
+         /AX2zhtMs4vXlGeVklOyQKqPCKAzvKnzBA1fDT0FZaJswcQ/Ps553F3VYeDs4z3dTQC/
+         lO2nEX2y+ea1eArLqSuXBV+UdqptDY+s6AiYzwSr4m7GHyjhUYz5JJZypib9q0YXiESs
+         IlTomIA47dXHwoT07svtdIQFNjF7x4naez6X9dsJd4xi/hqiUVjyfCayl30ESCvW9XfZ
+         +weQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1791637245; x=1792242045;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5mcYJeikhf+1cs7oxJAYDuJWMVU6PVHgHphuyMhrcPo=;
-        b=BOi43m6BSM/iKbdwA8dSJrdJBicdNIN5ZReSYxX39TLVYoTsB1Z569oNfYTmAYs1jZ
-         sBERGogvqpzkFNXZHqWdkTdv8qoWZb/YCqAMCjoFFLa7J/IOoK6SRWxDz8W/QF3xyw+u
-         Cp5vBbkq8+MeAMdReDD4gaYhOrydqgUY51X/FsOJFZysnPlYmyJOxualetmMzcUfoDcx
-         F6eVSPpiRoXYu/Wrgmw5LFhmoKIwK2MPxO/C+CEVzZ42GxAERyAjk/zY+SwVru1xRaXg
-         lVIt5xqMG7rxZ6dRupXPHHhepGAqkB+F5NXYwZHzGAp+9Ii8ovmMjc81gID0qmmrI6bP
-         SVaw==
-X-Gm-Message-State: AFq9FYKOavHC/zn1iguOxIXeqPkPGZRLY9P1foUQcOFexGwLYIV4njX6
-	TM+QvvPMmm74q2+ydIkOSH3o7RCQoJ986MjNQqTThzmod3U20G+p5dy3dTD9C6NFJjG7fw==
-X-Gm-Gg: AYBFou3IlBOKQflwFBedDA7AcJDXKoq4CeJxNO8DMQ9v9RJTeP5hzzBWCkiUIDqRJnp
-	lRWaxmkvd05aoZsqv6vgxziQ49TPaDbZJZSS1symSWxzEX2XS432ImVDaDmds5CgloMuc7sOpJE
-	cquVkWl0tQ8pRmjzs9C3btFsyGazVhJc0JoW8JxqWI7X+g9BKFTQUvqmgOgelskLUhY+K3m0rc4
-	JC3g5rjYL7KqYALdDiqq5dVX8RJIfQ60KlX7Wj2QSVm7oNGfJu14BH9a/7Hy2GxrrbA/+ubRQ3/
-	umeD1B1NQz46XV1DxZgUaTaYsWW7CC3e7CG0TYh5GWgcv41lnfZTm/XLntyOZS7A3f9GIZV72vJ
-	B/VCb6wUfXG5DmTRwWWr7jji+aCftBoaMn+OVqQ8j56/EeMmrJryIT7/ZcNl/51YOs5YJiux7WM
-	gE2ga/i1qVkwroFvwhM08k/LPU7AM9PY2ClYhH1sRj2MDlG/TiZMlBcjB4ehYJHWF1Way2R6OJI
-	V1I7nOE3iB+BO1a9eRIeip68gBP53by4VUyGnx5O7+HdR4Tqy6WYJU/ClFjbahvq4Izm0C1IfXI
-	OtzKIpWzz2NiCLaSkNeHNjT6AvWHhhYA3m1KhEOWC94ccdd0p2HvlTdIRaG9zQ==
-X-Received: by 2002:a05:600c:c176:b0:4a0:c2a:485e with SMTP id 5b1f17b1804b1-4a18e4dce0cmr88467255e9.33.1791637244608;
-        Sat, 10 Oct 2026 06:00:44 -0700 (PDT)
+        bh=GoroDu6xICaIQCB3Y6XVwmspeLrCWXpr98G9YRTCm5U=;
+        b=kjnflU9sKfbuxgAgb2Tc4jZPZetLmg6u3XqReY2X29/CZ6+xAjxMwo78kNAxj0SuQr
+         X7Xu91cN/B9vmhtykV4HPk5UsyToykXJ9L7GjkosfcNGw6JMhIhYVXALjT3NMPZG7t2r
+         DlYLv6DcZb6+xm8TcfqT5nCBLRsPXz8vmfOPNiIqg7KG12Ysc3Djr9yO2NW3IMM4NNDT
+         bZA0eHGIxHavl1VEDqDP+P9w8ioqyHA3uPZuwJ7Tgwf6zVGY3VQYzHsd8P/rSQktoGEu
+         bEBibShePVq8Xmy90G+kZFL3X0hhgc3AkxfreIdhJnvcZLECPJkbG1nOk3kStg/zcZES
+         +4dA==
+X-Gm-Message-State: AFq9FYJ9ebSXgI5wOse9IUFBXlrdOJXqo7OrXKQZ3M6Q2cvf4gpNuO7/
+	iH/SgHtRoUvWARNJoKi6m97Ig4CWPiAq4c/Cx/tDRbsccTPcbdEqLDHG
+X-Gm-Gg: AYBFou0b7prbc/+NRwt9ub7ohjb6KytJBbytM1ynpayeh8rrct38Vay6CcLk7Vbuinj
+	LiOZbjEeqcXqmFGVTgLi8n4yyNUgIjhGUDfcWXg3iHGfbudHi1CyQtsLUrUV+qihvggd8oEZD/n
+	xq2/oOnsjSo4BXXFBBzlAb9VrWjoVlwoPyXxnMFUgYA3YpM0hI9IbP+sJKE20o2Ywr9ib8HanNj
+	uo42Co8HJERasHAvd1lRzih9b8ab4AI4RESHTyKiNaQN6Tejn3sSF1aCJHLgLrpmvIaaK/2CQ8/
+	GELQeqITgXNQfWxSE4+NGqrmu2jV2zc78W3ihbGBOVD7qE+sU8pK7QCPXhP7TvsAPl/ljIIU3U8
+	PGDlOZyqASRhkk0Za2WIgXhOyJq3RBA3jBxLWH9d6ET3l5Gs/5i9s/Ke/ckC5Whe/aZW+tTlu7Y
+	IHGmLt46KQQsoJsGJZ+IMBsur9n49mje0p1iKb7dhOJj3PHIH8RRidcArErHIvhvKbHf3gIiNSc
+	KTlCnYonlDg1aeA+Pst30b/kSYhfcavva0TlU21lH7vz00PGZHeSJZoRlFFP+3sVkAs5yCEBKmy
+	Y+G/GTcAGxPp0jXxDCglG5N8PXEOEFfXPrJaQJEMh49IZMW6qpWFi1bcGmJ0ug==
+X-Received: by 2002:a05:600c:8b06:b0:4a1:7ce1:2eaf with SMTP id 5b1f17b1804b1-4a18e4e0963mr91375015e9.34.1791637245361;
+        Sat, 10 Oct 2026 06:00:45 -0700 (PDT)
 Received: from navid-pc ([2a01:4b00:a856:6220::a11])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a190c49d5csm162309975e9.3.2026.10.10.06.00.43
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a190c49d5csm162309975e9.3.2026.10.10.06.00.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Sat, 10 Oct 2026 06:00:44 -0700 (PDT)
 From: Navid Ghahremani <ghahramani.navid@gmail.com>
@@ -69,9 +69,9 @@ Cc: devicetree@vger.kernel.org,
 	robh@kernel.org,
 	krzk@kernel.org,
 	Navid Ghahremani <ghahramani.navid@gmail.com>
-Subject: [PATCH 16/24] net: phy: Add Sanechips ZX5201 PHY support
-Date: Sat, 10 Oct 2026 13:59:54 +0100
-Message-ID: <20261010130024.177503-17-ghahramani.navid@gmail.com>
+Subject: [PATCH 17/24] dt-bindings: net: Add ZTE ZX279128S Ethernet switch
+Date: Sat, 10 Oct 2026 13:59:55 +0100
+Message-ID: <20261010130024.177503-18-ghahramani.navid@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261010130024.177503-1-ghahramani.navid@gmail.com>
 References: <20261010130024.177503-1-ghahramani.navid@gmail.com>
@@ -83,208 +83,130 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Initialize the external WAN PHY and its SerDes path; generic PHY support
-handles negotiation.
+Describe the switch, receive interrupt and per-port PHY modes and MAC
+addresses.
 
 Assisted-by: LLM
 Signed-off-by: Navid Ghahremani <ghahramani.navid@gmail.com>
 ---
- drivers/net/phy/Kconfig     |   8 ++
- drivers/net/phy/Makefile    |   1 +
- drivers/net/phy/sanechips.c | 153 ++++++++++++++++++++++++++++++++++++
- 3 files changed, 162 insertions(+)
- create mode 100644 drivers/net/phy/sanechips.c
+ .../bindings/net/zte,zx279128s-gmac.yaml      | 108 ++++++++++++++++++
+ 1 file changed, 108 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/net/zte,zx279128s-gmac.yaml
 
-diff --git a/drivers/net/phy/Kconfig b/drivers/net/phy/Kconfig
-index b4ef927fd4..63620fdfc4 100644
---- a/drivers/net/phy/Kconfig
-+++ b/drivers/net/phy/Kconfig
-@@ -416,6 +416,14 @@ config ROCKCHIP_PHY
- 	help
- 	  Currently supports the integrated Ethernet PHY.
- 
-+config SANECHIPS_PHY
-+	tristate "Sanechips Ethernet PHYs"
-+	help
-+	  Currently supports the Sanechips ZX5201 PHY, which the ZTE ZXHN
-+	  H3600 uses for its WAN port. The driver sets the PHY up so that
-+	  its SerDes interface passes traffic; everything else is handled
-+	  by the generic PHY code.
-+
- config SMSC_PHY
- 	tristate "SMSC PHYs"
- 	select CRC16
-diff --git a/drivers/net/phy/Makefile b/drivers/net/phy/Makefile
-index 25c4a3c242..666309f7d0 100644
---- a/drivers/net/phy/Makefile
-+++ b/drivers/net/phy/Makefile
-@@ -97,6 +97,7 @@ obj-$(CONFIG_QSEMI_PHY)		+= qsemi.o
- obj-$(CONFIG_REALTEK_PHY)	+= realtek/
- obj-$(CONFIG_RENESAS_PHY)	+= uPD60620.o
- obj-$(CONFIG_ROCKCHIP_PHY)	+= rockchip.o
-+obj-$(CONFIG_SANECHIPS_PHY)	+= sanechips.o
- obj-$(CONFIG_SMSC_PHY)		+= smsc.o
- obj-$(CONFIG_STE10XP)		+= ste10Xp.o
- obj-$(CONFIG_TERANETICS_PHY)	+= teranetics.o
-diff --git a/drivers/net/phy/sanechips.c b/drivers/net/phy/sanechips.c
+diff --git a/Documentation/devicetree/bindings/net/zte,zx279128s-gmac.yaml b/Documentation/devicetree/bindings/net/zte,zx279128s-gmac.yaml
 new file mode 100644
-index 0000000000..bb5129b2bb
+index 0000000000..56c81aa6e7
 --- /dev/null
-+++ b/drivers/net/phy/sanechips.c
-@@ -0,0 +1,153 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Sanechips ZX5201 Ethernet PHY
-+ *
-+ * The ZX5201 answers on two MDIO addresses: the copper PHY on its own
-+ * address and its MAC-side SerDes interface on the next one. The copper PHY
-+ * uses the standard registers and the generic PHY code; this driver only adds
-+ * the setup that the PHY needs before it passes traffic. The values come from
-+ * the vendor firmware of the ZTE ZXHN H3600, and most of them are not
-+ * documented.
-+ *
-+ * Copyright (C) 2026 Navid Ghahremani <ghahramani.navid@gmail.com>
-+ */
++++ b/Documentation/devicetree/bindings/net/zte,zx279128s-gmac.yaml
+@@ -0,0 +1,108 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/net/zte,zx279128s-gmac.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+#include <linux/mod_devicetable.h>
-+#include <linux/module.h>
-+#include <linux/phy.h>
++title: ZTE zx279128s Ethernet switch
 +
-+#define PHY_ID_ZX5201		0x84b95011
++maintainers:
++  - Navid Ghahremani <ghahramani.navid@gmail.com>
 +
-+/* Copper PHY vendor registers */
-+#define ZX5201_REG18		18
-+#define ZX5201_EXT_ADDR		16	/* extended register access: address */
-+#define ZX5201_EXT_DATA		17	/* extended register access: data */
-+#define ZX5201_REG29		29
++description:
++  The ZTE zx279128s has a five-port gigabit Ethernet switch with a traffic
++  manager, a buffer manager and a DMA engine that connects it to the CPU.
++  Each port is described by a child node of ethernet-ports and becomes its
++  own network interface, with the MAC address given in that node.
 +
-+/*
-+ * SerDes interface registers, at the PHY's MDIO address + 1. The names are
-+ * a best guess from the way the vendor firmware uses them.
-+ */
-+#define ZX5201_SDS_WDATA_LO	16
-+#define ZX5201_SDS_WDATA_HI	17
-+#define ZX5201_SDS_CMD		18
-+#define ZX5201_SDS_RDATA_LO	20
-+#define ZX5201_SDS_RDATA_HI	21
-+#define ZX5201_SDS_REG22	22
-+#define ZX5201_SDS_REG27	27
++properties:
++  compatible:
++    const: zte,zx279128s-gmac
 +
-+static int zx5201_sds_read(struct phy_device *phydev, u32 regnum)
-+{
-+	return mdiobus_read(phydev->mdio.bus, phydev->mdio.addr + 1, regnum);
-+}
++  reg:
++    maxItems: 1
 +
-+static int zx5201_sds_write(struct phy_device *phydev, u32 regnum, u16 val)
-+{
-+	return mdiobus_write(phydev->mdio.bus, phydev->mdio.addr + 1, regnum,
-+			     val);
-+}
++  interrupts:
++    maxItems: 1
++    description: The traffic manager's interrupt, which signals frames
++      received for the CPU.
 +
-+static int zx5201_ext_write(struct phy_device *phydev, u16 reg, u16 val)
-+{
-+	int ret;
++  ethernet-ports:
++    type: object
++    additionalProperties: false
 +
-+	ret = phy_write(phydev, ZX5201_EXT_ADDR, reg);
-+	if (ret)
-+		return ret;
++    properties:
++      '#address-cells':
++        const: 1
++      '#size-cells':
++        const: 0
 +
-+	return phy_write(phydev, ZX5201_EXT_DATA, val);
-+}
++    patternProperties:
++      "^port@[0-4]$":
++        type: object
++        $ref: /schemas/net/ethernet-controller.yaml#
++        unevaluatedProperties: false
 +
-+static int zx5201_config_init(struct phy_device *phydev)
-+{
-+	static const u16 led_regs[] = { 0xb409, 0xb407, 0xb406, 0xb408 };
-+	int ret, lo, hi, i;
++        properties:
++          reg:
++            description: Switch port number
++            maximum: 4
 +
-+	ret = phy_write(phydev, ZX5201_REG18, 0x8402);
-+	if (ret)
-+		return ret;
++          label: true
 +
-+	ret = zx5201_sds_write(phydev, ZX5201_SDS_REG22, 0x0a0f);
-+	if (ret)
-+		return ret;
++          phy-handle: true
 +
-+	ret = zx5201_sds_write(phydev, ZX5201_SDS_REG27, 0x0800);
-+	if (ret)
-+		return ret;
++          phy-mode:
++            description: internal for the SoC's own PHYs of ports 0-3, gmii
++              for an external PHY.
++            enum: [gmii, internal]
 +
-+	ret = phy_write(phydev, ZX5201_REG29, 0x0355);
-+	if (ret)
-+		return ret;
++        required:
++          - reg
++          - phy-handle
++          - phy-mode
 +
-+	ret = zx5201_ext_write(phydev, 0xb62d, 0x0006);
-+	if (ret)
-+		return ret;
++    required:
++      - '#address-cells'
++      - '#size-cells'
 +
-+	/*
-+	 * This looks like an indirect read-modify-write of SerDes register 4:
-+	 * read it, set bits 9-13 of its high half (bits 25-29 of the register)
-+	 * to 0b10100, and write it back.
-+	 */
-+	ret = zx5201_sds_write(phydev, ZX5201_SDS_CMD, 0x0004);
-+	if (ret)
-+		return ret;
++required:
++  - compatible
++  - reg
++  - interrupts
++  - ethernet-ports
 +
-+	hi = zx5201_sds_read(phydev, ZX5201_SDS_RDATA_HI);
-+	if (hi < 0)
-+		return hi;
++additionalProperties: false
 +
-+	lo = zx5201_sds_read(phydev, ZX5201_SDS_RDATA_LO);
-+	if (lo < 0)
-+		return lo;
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
 +
-+	ret = zx5201_sds_write(phydev, ZX5201_SDS_WDATA_HI,
-+			       (hi & 0xc1ff) | 0x2800);
-+	if (ret)
-+		return ret;
++    ethernet@92000000 {
++        compatible = "zte,zx279128s-gmac";
++        reg = <0x92000000 0x400000>;
++        interrupts = <GIC_SPI 36 IRQ_TYPE_LEVEL_HIGH>;
 +
-+	ret = zx5201_sds_write(phydev, ZX5201_SDS_WDATA_LO, lo);
-+	if (ret)
-+		return ret;
++        ethernet-ports {
++            #address-cells = <1>;
++            #size-cells = <0>;
 +
-+	ret = zx5201_sds_write(phydev, ZX5201_SDS_CMD, 0x0204);
-+	if (ret)
-+		return ret;
++            port@0 {
++                reg = <0>;
++                label = "lan1";
++                phy-handle = <&phy10>;
++                phy-mode = "internal";
++                nvmem-cells = <&macaddr 0>;
++                nvmem-cell-names = "mac-address";
++            };
 +
-+	ret = zx5201_sds_read(phydev, ZX5201_SDS_REG22);
-+	if (ret < 0)
-+		return ret;
-+
-+	ret = zx5201_sds_write(phydev, ZX5201_SDS_REG22, (ret & 0xfff3) | 0x0004);
-+	if (ret)
-+		return ret;
-+
-+	/* LED control registers, all cleared as the vendor firmware does */
-+	for (i = 0; i < ARRAY_SIZE(led_regs); i++) {
-+		ret = zx5201_ext_write(phydev, led_regs[i], 0);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static struct phy_driver sanechips_phy_driver[] = {
-+	{
-+		PHY_ID_MATCH_EXACT(PHY_ID_ZX5201),
-+		.name		= "Sanechips ZX5201",
-+		.config_init	= zx5201_config_init,
-+		.suspend	= genphy_suspend,
-+		.resume		= genphy_resume,
-+	},
-+};
-+module_phy_driver(sanechips_phy_driver);
-+
-+static const struct mdio_device_id __maybe_unused sanechips_phy_tbl[] = {
-+	{ PHY_ID_MATCH_EXACT(PHY_ID_ZX5201) },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(mdio, sanechips_phy_tbl);
-+
-+MODULE_AUTHOR("Navid Ghahremani <ghahramani.navid@gmail.com>");
-+MODULE_DESCRIPTION("Sanechips Ethernet PHY driver");
-+MODULE_LICENSE("GPL");
++            port@4 {
++                reg = <4>;
++                label = "wan";
++                phy-handle = <&phy8>;
++                phy-mode = "gmii";
++                nvmem-cells = <&macaddr 1>;
++                nvmem-cell-names = "mac-address";
++            };
++        };
++    };
 -- 
 2.55.0
 
