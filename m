@@ -1,191 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender5-pp-e105.zoho.com (sender5-pp-e105.zoho.com [165.173.182.105])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23670342510;
-	Sat, 10 Oct 2026 17:09:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791652194; cv=none; b=E3FJhGX6CgBljxydYg1tMZnasRqu2HCjPdWUbwlUIJJnnRGAc7WE3hVNWxI/yNMqbgNl9rUARYZtyqn430N0sMrYiPTiWeLNjr70yg3E2SfzgPvbM1T2pYOUSeu4+ksgHNyzIbrUSxv0taxgHtbRGdxDRNvxLg2b9zhVe81AiDA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791652194; c=relaxed/simple;
-	bh=JV50tX2bt5EvtYNweGm/iZFunqLomki9FAcSg4k1tM8=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=ht0GOOl/9rHf7dQZUTm26ntOAq0MV3ePYQGv1W89sm/5sfmIdk+5KKI9bf70+FHQE5erpM6AITuBZeiR3jvCh85p7LJFn+sQjl4401kCH8BoGE9O7q2E2w0ZDC5ojKFot5ppLKVZ4/x+/GJx0YfdjtlVTg0/0UsUlC+qV+gF2sU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZAPPrmqs; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 051C113B58C;
+	Sat, 10 Oct 2026 17:09:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.105
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791652201; cv=pass; b=eDmhORd+nbw6xOhbKJEsJTR54hXWNIGJUJgvheLWThWUcz2tNe1XresNuL0tpEMzWzPZcmt3HxpnyP5XFDpdXO8yS575yICjhOweIiVNLQ4kqBaO3xicp6jSofjO9d6mQ1Hdj70qPt17ji9jQUSydMJCVxR7kS0BDytdPBUngqU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791652201; c=relaxed/simple;
+	bh=/zxAKR58iJyDSi4nZh1eLUziL2e+4QGrhKQGoOdfmBc=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=r8VMMffEuE73C/fl6qaeom9GCMg/pK0GyzFkAQ6ljAqWVNaUEy1GwZzlyhV7vWcvr908OuWNs3B1ktbm6mTFSuUitSN21X/K/oQrFBCaRPgQDfHK67GRv8YpoDS0S9valDP6aGtanpSnZHsLeU/dbHgtr2Y55TIXRP6dCaY01ew=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech; spf=pass smtp.mailfrom=pigmoral.tech; dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b=U/uWeRZU; arc=pass smtp.client-ip=165.173.182.105
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pigmoral.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZAPPrmqs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 355A01F000FF;
-	Sat, 10 Oct 2026 17:09:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791652192;
-	bh=9loafavYlsAfLHpFI6f3pgcI3U9O4OtKC3AJ6HSvP9Y=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ZAPPrmqstsIEVFenWnzFOanTtEmw8qLrcq2C246Tzi7PFHqhpLcJEU/ufumj8gxRN
-	 pA/epc5YIHwDGUpLrtR+4tn82cagkgy+QhpKKsPY36KnlrWX7i0GFAe+3MabhbH50v
-	 P+7SwUYhdqXowAGXGrrEeLH9oD7/ZEPiAwmN+1oHAa4j21v20dhHD43NQkBGHo/8/k
-	 FIUXo3+Gg7jZuhBKCgAaqEhT+1aA8HjuhVrv0x1YCWuJ0JFut5087PCRYp1rH2Tgoz
-	 rmPxKrvk3xN3IQ01JmRKDUhVu0FevGg2QRoVyghVsmdSaQUrIQ3RflcO3jEUTdP7M2
-	 PedsVmJ8qbbLw==
-Message-ID: <sashiko-outbox-166760@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 10/10] arm64: dts: apple: Add minimal t604x (M4 Pro/Max)
- device trees
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yureka Lilian" <yureka@cyberchaos.dev>
-Cc: linux-watchdog@vger.kernel.org, linux-gpio@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20261010-apple-m4-pro-max-initial-devicetrees-v1-10-781fb3f2d9f6@cyberchaos.dev>
-References: <20261010-apple-m4-pro-max-initial-devicetrees-v1-0-781fb3f2d9f6@cyberchaos.dev>
- <20261010-apple-m4-pro-max-initial-devicetrees-v1-10-781fb3f2d9f6@cyberchaos.dev>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 10 Oct 2026 17:09:51 +0000
+	dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b="U/uWeRZU"
+ARC-Seal: i=1; a=rsa-sha256; t=1791652187; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=nxr8HfIDUaKsX7L7P2AxOfgY4psqViDeVGoegqIogZQOCSUxXSZFW0e4nQXm29ZP3qhS5FaKvcIm7zdlCldhPmgjPwpIe3b5VzjYF2+IHl7S5agdKtiKLdDIrn0a548WDmtjV7vMGwVs/OYD8Ji+APf67G6Lt0sYWFu/uQeX9rA=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1791652187; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=XI2lMiI9M516ZvoW8NXLevRqWxxdnnNPZ68nblQAcz4=; 
+	b=fvFfD9tw0tqtdPanfbTOQHdUjQt9R0DPBYZq6ZBm1hd9pY6yKrSQumieJ2gr9jTxefjYdAfbBKN12ULVw+c47xuull4Sc51LBZoPcfmyCEiMCKLO0owpZHcwxU13YC0udX6Iz9G7YBE+x6eyaVI9RDLsOOsM0jzTxozCoI0at/s=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=pigmoral.tech;
+	spf=pass  smtp.mailfrom=junhui.liu@pigmoral.tech;
+	dmarc=pass header.from=<junhui.liu@pigmoral.tech>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791652187;
+	s=zmail; d=pigmoral.tech; i=junhui.liu@pigmoral.tech;
+	h=Mime-Version:Content-Transfer-Encoding:Content-Type:Date:Date:Message-Id:Message-Id:Cc:Cc:Subject:Subject:From:From:To:To:In-Reply-To:Reply-To;
+	bh=XI2lMiI9M516ZvoW8NXLevRqWxxdnnNPZ68nblQAcz4=;
+	b=U/uWeRZUbmG6wRKALxODvJSXgzS7bSV5sVSz9yby4ojZfFMCsBPHat9mMzMFjQY6
+	Q9L7stQjMHmXwDy8PDJ691RvJ1avRR2Xx9j6Qgfl9ks2dZbX2nIyaJilhkeDat33UKG
+	DI5WV9VUZRknYv8lr1WBB5pLM/IHN1hhLWsP6UQU=
+Received: by smtp.zohomail.com with SMTPS id 179165218602419.75079290365079;
+	Sat, 10 Oct 2026 10:09:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 11 Oct 2026 01:09:39 +0800
+Message-Id: <DM1BOWOKF9OM.21QWSA1L8WH3U@pigmoral.tech>
+Cc: <linux-clk@vger.kernel.org>, <robh@kernel.org>, <conor+dt@kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-sunxi@lists.linux.dev>
+Subject: Re: [PATCH v6 7/8] clk: sunxi-ng: a733: Add bus clock gates
+From: "Junhui Liu" <junhui.liu@pigmoral.tech>
+To: <sashiko-reviews@lists.linux.dev>, "Junhui Liu"
+ <junhui.liu@pigmoral.tech>
+X-Mailer: aerc 0.22.0
+References: <20261009-a733-clk-v6-0-ae8178fce7e8@pigmoral.tech>
+ <20261009-a733-clk-v6-7-ae8178fce7e8@pigmoral.tech>
+ <sashiko-outbox-166706@kernel.org>
+In-Reply-To: <sashiko-outbox-166706@kernel.org>
+X-ZohoMailClient: External
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] dts: Apple desktop Mac devices reference disabled simple-framebuff=
-er power domains
-- [Medium] dts: CPU cache sizes lack 0x prefix, causing them to be incorrec=
-tly parsed as decimal
-- [Low] kbuild: Makefile entries for new dtbs are not sorted alphabetically
---
+On Sat Oct 10, 2026 at 11:54 PM CST, sashiko-bot wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+e(s) to consider:
+> - [High] clk: sunxi-ng: ahb_store_clk is missing CLK_IS_CRITICAL flag
+> --
+>
+> commit f3ca9c131f39f726826090f6af6752e7b39c004c
+> Author: Junhui Liu <junhui.liu@pigmoral.tech>
+>
+> clk: sunxi-ng: a733: Add bus clock gates
+>
+> This commit adds bus clock gates that control access to the device regist=
+er
+> interfaces on the Allwinner A733 SoC. It also intends to mark the ahb-sto=
+re,
+> mbus-store, and ahb-cpus clocks as critical to prevent access breakage to
+> boot and storage devices.
+>
+>> diff --git a/drivers/clk/sunxi-ng/ccu-sun60i-a733.c b/drivers/clk/sunxi-=
+ng/ccu-sun60i-a733.c
+>> --- a/drivers/clk/sunxi-ng/ccu-sun60i-a733.c
+>> +++ b/drivers/clk/sunxi-ng/ccu-sun60i-a733.c
+>
+> [ ... ]
+>
+>> +static SUNXI_CCU_GATE_HWS(ahb_msi_lite0_clk, "ahb-msi-lite0", ahb_hws,
+>> +			  0x5c0, BIT(16), 0);
+>> +
+>> +/* This gate controls access to the storage controller MMIO registers. =
+*/
+>> +static SUNXI_CCU_GATE_HWS(ahb_store_clk, "ahb-store", ahb_hws,
+>> +			  0x5c0, BIT(24), 0);
+>
+> [Severity: High]
+> The commit message notes that the ahb-store clock should be marked as
+> critical, but the definition of ahb_store_clk here uses 0 for its flags
+> parameter instead of CLK_IS_CRITICAL.
 
-commit 12545a49c68dd3594dd8e8ff795d304076ce814b
-Author: Yureka Lilian <yureka@cyberchaos.dev>
+Oops, I forgot to update the commit message accordingly. I will send a
+new version to update it.
 
-arm64: dts: apple: Add minimal t604x (M4 Pro/Max) device trees
+>
+> During late boot, the Common Clock Framework automatically disables any
+> clocks that have no active consumers holding a reference to them.
+>
+> Could this omission allow the framework to inadvertently gate the storage
+> controller MMIO registers, leading to a system freeze or storage probe
+> failures?
 
-This commit adds device trees for various Apple M4 Pro and M4 Max
-MacBook Pro, Mac mini, and Mac Studio models. It defines the SoC
-characteristics, CPU topology, power management controllers, and
-framebuffer settings.
+ahb_store_clk has already been set as the parent of the NAND, MMC, SPI,
+SPIF and UFS bus gates. Therefore, when any storage-related peripheral is
+in use, ahb_store_clk will be enabled through the clock dependency, so it
+no longer needs the CLK_IS_CRITICAL flag.
 
-> diff --git a/arch/arm64/boot/dts/apple/Makefile b/arch/arm64/boot/dts/app=
-le/Makefile
-> index 4f31beeb11ac4..12fc777405b3f 100644
-> --- a/arch/arm64/boot/dts/apple/Makefile
-> +++ b/arch/arm64/boot/dts/apple/Makefile
-> @@ -94,6 +94,12 @@ dtb-$(CONFIG_ARCH_APPLE) +=3D t6031-j516c.dtb
->  dtb-$(CONFIG_ARCH_APPLE) +=3D t6032-j575d.dtb
->  dtb-$(CONFIG_ARCH_APPLE) +=3D t6034-j514m.dtb
->  dtb-$(CONFIG_ARCH_APPLE) +=3D t6034-j516m.dtb
-> +dtb-$(CONFIG_ARCH_APPLE) +=3D t6040-j773s.dtb
-> +dtb-$(CONFIG_ARCH_APPLE) +=3D t6040-j614s.dtb
-> +dtb-$(CONFIG_ARCH_APPLE) +=3D t6040-j616s.dtb
-
-[Severity: Low]
-This isn't a bug, but device tree Makefile entries are typically kept in
-alphabetical order.
-
-Could these entries be resorted so that j614s and j616s come before j773s?
-
-[ ... ]
-
-> diff --git a/arch/arm64/boot/dts/apple/t6040-j773s.dts b/arch/arm64/boot/=
-dts/apple/t6040-j773s.dts
-> new file mode 100644
-> index 0000000000000..751c29f60d9cf
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/apple/t6040-j773s.dts
-[ ... ]
-> +/ {
-> +	model =3D "Apple Mac mini (M4 Pro, 2024)";
-> +	compatible =3D "apple,j773s", "apple,t6040", "apple,arm-platform";
-> +};
-> +
-> +&framebuffer0 {
-> +	power-domains =3D <&ps_dispext0_cpu>;
-> +};
-
-[Severity: High]
-Can this cause the simple-framebuffer driver probe to fail indefinitely?
-
-The ps_dispext0_cpu power domain provider is explicitly marked with
-status =3D "disabled" in t6041-pmgr.dtsi because it is managed by firmware.
-The generic power domain framework will refuse to bind to a disabled
-provider, leaving the system with no visible console output.
-
-Should this use an enabled frontend domain like &ps_dispext0_fe instead?
-
-[ ... ]
-
-> diff --git a/arch/arm64/boot/dts/apple/t6041-j575c.dts b/arch/arm64/boot/=
-dts/apple/t6041-j575c.dts
-> new file mode 100644
-> index 0000000000000..0bd50072e463b
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/apple/t6041-j575c.dts
-[ ... ]
-> +/ {
-> +	model =3D "Apple Mac Studio (M4 Max, 2025)";
-> +	compatible =3D "apple,j575c", "apple,t6041", "apple,arm-platform";
-> +};
-> +
-> +&framebuffer0 {
-> +	power-domains =3D <&ps_disp_cpu>;
-> +};
-
-[Severity: High]
-Similarly, can this prevent the framebuffer from working on the Mac Studio?
-
-The ps_disp_cpu domain is also disabled in t6041-pmgr.dtsi. Using an
-enabled domain like &ps_disp_fe might be needed here to avoid the screen
-staying black.
-
-[ ... ]
-
-> diff --git a/arch/arm64/boot/dts/apple/t6041.dtsi b/arch/arm64/boot/dts/a=
-pple/t6041.dtsi
-> new file mode 100644
-> index 0000000000000..258048167df63
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/apple/t6041.dtsi
-[ ... ]
-> +		cpu_e0: cpu@0 {
-> +			device_type =3D "cpu";
-> +			compatible =3D "apple,brava-e";
-> +			reg =3D <0x0 0x0>;
-> +			cpu-release-addr =3D <0 0>; /* To be filled by loader */
-> +			enable-method =3D "spin-table";
-> +
-> +			d-cache-size =3D <10000>;
-> +			i-cache-size =3D <20000>;
-> +			next-level-cache =3D <&l2_cache_0>;
-> +		};
-
-[Severity: Medium]
-Are these cache sizes intended to be parsed as decimal integers?
-
-Without the 0x prefix, the device tree compiler reads these as exactly
-10,000 bytes and 20,000 bytes. This will cause incorrect reporting of the
-cache topology to userspace and could lead to suboptimal scheduling or
-memory access patterns.
-
-Should these be prefixed with 0x (e.g. <0x10000>) to represent 64 KB and
-128 KB respectively?
-
-[ ... ]
-
-> +		cpu_p00: cpu@10100 {
-> +			device_type =3D "cpu";
-> +			compatible =3D "apple,brava-p";
-> +			reg =3D <0x0 0x10100>;
-> +			cpu-release-addr =3D <0 0>; /* To be filled by loader */
-> +			enable-method =3D "spin-table";
-> +
-> +			d-cache-size =3D <20000>;
-> +			i-cache-size =3D <30000>;
-> +			next-level-cache =3D <&l2_cache_1>;
-> +		};
-
-[Severity: Medium]
-Similar to the efficiency cores above, do these performance core cache sizes
-need a 0x prefix to be parsed correctly as 128 KB and 192 KB?
+>
+>> +static const struct clk_hw *ahb_store_hws[] =3D { &ahb_store_clk.common=
+.hw };
+>> +
+>> +/* Keep enabled for access to the CPUS domain registers. */
+>> +static SUNXI_CCU_GATE_HWS(ahb_cpus_clk, "ahb-cpus", ahb_hws,
+>> +			  0x5c0, BIT(28), CLK_IS_CRITICAL);
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261010-apple-m4-p=
-ro-max-initial-devicetrees-v1-0-781fb3f2d9f6@cyberchaos.dev?part=3D10
+Best regards,
+Junhui Liu
