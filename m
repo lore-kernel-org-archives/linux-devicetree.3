@@ -1,64 +1,64 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A5764ABBA5
-	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 13:00:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE0014A7C80
+	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 13:00:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791637253; cv=none; b=Q3SSUKt/qt8P85W/4tmrWS2gcfaVHXDIhZPPBW1oF3dPGRgqzvAiBCfTYDrA0+0w6fnOt+5fpO6cferIXep7udO5rzhom/a0fx5ZPa9nH398AQu0GV7RvhDTr6/WMjj/aj5Oq577uEm7Cru47uqXeZDVWIbOD42TCekMX8YUmlA=
+	t=1791637253; cv=none; b=q/mUIDMfZyoPFp2XlA9II9lN0XfAJmgPn7Y6f1JyP5TtTK08Qvo0i4E50Wm8R8sj0NmDeeEIxGhVq5C3DCQsx9Z7o6kij7aQiGNfylTE7YAb/0i2ll/g13AtGGkWmFUvEEp3+mEpO18DU3Xn91oa2hWpB7j3SNMBXFY6CPzykwU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791637253; c=relaxed/simple;
-	bh=KzFdJz0JEiDE6J+NmGPWd3CUy6jb9pVuVonyxEMIaIM=;
+	bh=42d9HDwBt+B8P7fHH96fvCp4pQgu6usf2SceCCjvRRo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hS7q7XQYMrfMW9IPghtrrLBEGbgVwAtSptVnyTdI8FtW8gSg0wmdbYeIXHneiZTQpocMKXWeXwbaswQp69XDOJbY6abpugGoXm0OePdfXDSKmbttMpZTv+QtfhXu2ruN4G6O84waB32qsthT2Enj9zTLis06XCEQlkUkR2L0V/c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NBeCd6Ta; arc=none smtp.client-ip=209.85.128.41
+	 MIME-Version; b=R4FuBDzJHu3HBav1MB6hF5OfrLPWEammMOG2XcYFOT7ryzOpecZ01dbijsIC1K0ksurU6VefG8f4YGZ2PEOpJPCJ6JxJ5RjJ+o1AS7FxSMVGdB7mxRKUeZjukZXi1VQ0Y2IBY21P5GC6jTWXmVOi7CasfGPImRnBJ3s96Jrso2U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IhyV6nAN; arc=none smtp.client-ip=209.85.128.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NBeCd6Ta"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49ff680331aso4916335e9.3
-        for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 06:00:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IhyV6nAN"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a01933b584so5634055e9.0
+        for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 06:00:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791637248; x=1792242048; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791637249; x=1792242049; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=beY1WFS40yvbsQcUt+5SMeOgj/o0k85KRXnrr700oe8=;
-        b=NBeCd6TagN/dKumfqNtQLbglQl7BwpbAscvLBvcaV4XdKU3gX5H5sK4QrrLkhlIn+w
-         Rt9hOP9mTco1327U0JWzWKdAIODfk9pqWyR0VMSroNebH2F4+oW2IBygWT7TDFAiHtCV
-         fGGu+wVahJtvDxKnYl2wfhzxd8l9EwfMWTikBfi2nykY5u1hlrIUvrL+DBtlLADB0tLH
-         IBgBOeg5sbaCP18Bl/zrCsw366WePTulHEcq5yPHtQehkvXFQgQl1R9AWun4KUn7jqMh
-         kos82Z/eMZBWKtzhEwXtwl7RSZv4iLZnFnzWasgZslmdvOaG9wPUGoB9IaBMv+KpdS0W
-         Dd1g==
+        bh=zPcp5ifQOKmlbhns5WaO84H4QU9w87b0LtEeq3dQOzY=;
+        b=IhyV6nAN+6ohOXdDXEzJMcl+oc3yB6wjoyREhvj1BfvTVehZJbTdwv+Tm+458YdUWX
+         EF+obN8XFrOiPFPi8u9DKx98/CHFMcGYZC1Id3Lrd81+WCx9x6mBp23WVoiaYYL5vzHU
+         IutzpAQy1XAXsLWblgg2Fc32ejCzrYsefUhPCTBJnUS2f1AitbAFXiu1kh9QPkaSnl9X
+         1+hQKysW9v0VX+fBnk1LeMmZadGV1bfLKf9rTNTccB0wjRIuP6E9MTCFRRi0MGqjngc5
+         Cm5paczR8yQyGiGvHuOm9EwRBcrPm18A6Wn+RqCJWTi7KTdLP3QRtQokzj7rJiVzB9Jl
+         H49w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791637248; x=1792242048;
+        d=1e100.net; s=20260707; t=1791637249; x=1792242049;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=beY1WFS40yvbsQcUt+5SMeOgj/o0k85KRXnrr700oe8=;
-        b=2yHi6y9bOMWtRtA38I2pUg1T0SOJOmDiG9vTlk/LbhDoXdRQuuTMOD7a0h+W7EKzk4
-         jWHlBkNkmb8iY/zHqXxcw7Vpl35Q/kRzCFqQL9v74pTOw+aLqthJ/u9EGqrELSsNSCjs
-         qLnYz3u+xBhns608d31qi8LWLty8+e7ZtGjXQ8kinhjSvm5P75N55tZvWkUuE9x2Xaxq
-         2DFfjLbBrZS8VeWOBW4hCr3VxjvQxbv1elgAbWiqUcD8qJGGJcn2KnYkWnf/Bp9z3J1j
-         TrQm2exKweYlotCH52fF5c385bm5oDxYZFNKd/6shUWn6PrxcLLbYvr6BnVIqSXEh8Wp
-         DHlA==
-X-Gm-Message-State: AFq9FYKp6whSFqopn9hVgxY0sF7dSJs2RXJRzDyZphMxujulW07PToHj
-	tvFhLHNyHTfKJK0O70PAZX7YuXx29lu+Qn7zbO/PAse6RcqwRn5wcNYO
-X-Gm-Gg: AYBFou0LlJuMVgG1D8/OYBxOcRR6UHx8vTdkFYo0EhlxQgmwNVrbfzXtx1EpVjNAmMP
-	0bmm2jeA1PzdFQxsmqMPIr/jT31yGLIBYJ2K09ZeZ5d1bPxGBRKjkbbze9vlzL9XE8WiZkcTyzZ
-	0CTgF2eG7DLdU2PAqiKFbwz4Dj15KQAAAsva1gRrilt7GvoKSVz5T5qJFKra3e8KsIBkrtTZWjX
-	tWpH5osJ9C/3y6cwDKmS6IsouQRLRWg9iov7LKMnpNvLXkSBl/8Tx37GgwyLf8pCiRe8U8jygLc
-	km2u+9pPkjA+EKLp07Oyz7PRcK+/DkK3PzfTxgWCITcfgYLePcsNgl0WKtz1o9zJjALJsLTKxUW
-	1jghweq86X1LcakdPNJZPqKTC5b74IAiimlQ39sqaCsRgEWcC+p9A+o030FvNXpbIbkJakKHcni
-	LzKb2r0lMCXI/zbI+z9KUyjkEffms+2oyHSQ8YpqdHwTYGcnQhpougbTlznzcb9xJOgDuDcegeX
-	MV4g9ADU8LPYap7SAo/qsMPh3kKGByb5g+wSXeHTNUbI77chX2YbZxHZ3jRQvQGIAg06NvR2IAS
-	J02P0uxdDkprV3CBtXl3GbUONM60gUO4Ku+gfddqol3UyBPGfzQh0hQ55vEO0Q==
-X-Received: by 2002:a05:600c:4e02:b0:4a1:7428:8195 with SMTP id 5b1f17b1804b1-4a18e4aa2c2mr95937505e9.29.1791637248037;
+        bh=zPcp5ifQOKmlbhns5WaO84H4QU9w87b0LtEeq3dQOzY=;
+        b=q+CZq1NNj8yFhFxjQRzIvTZnFa11qmH/xNWbpgYyK2NtoXU42lrEZgEz6wPZfsqw+c
+         Z3Qeb2hTUasKFdIGSCLjL0n5Qaz+RdGHM6IEbfmEuTe9tM1OzyuL1txHcEcL18wDMO3l
+         yp7OZJnRhqYWNgQG7k52Li2gAxAYpyLEGMV5weIRr7rPs8o1R0nd0w/fVtQ/79+5KH6X
+         krIpcQENUWv+cGT/WC9qhWuMIh2uFvkCeDAOwD4/gKSC96PB17ZDHyGa+G1gAJMOGCx1
+         /pMdNPSoUnNxExNXyux9FuBMJ7gB3eSZeQjxe84mIoIJbG5jGHKGxKv/yBoetwPdIP96
+         sc9w==
+X-Gm-Message-State: AFq9FYJm62McydXEKf7fglZUQk1uFFVCUKAZqqjjwbbDwJZko80PSiZN
+	IwJpTD+QZOXZnE5OcAEo+uvkZsKJ9S1t83jQGB44Rp6sWjLN8ZjHERNiAMLDD1bc8zchog==
+X-Gm-Gg: AYBFou13h+4duVUCZZ6F+yLNENWC6LtKGGcO/1Uu0iaH+TXoBQcR33zfmxzFfwAvV4E
+	ReGGnGnoaq6ExDqVPj7YBAL385fmlk/vDu2l7EIfxpODVWt8H+w/TrPaemdemt8LSw7v67j5sJN
+	n7RT5qmqFmxozx/CtXVLEXkvaisFhQD+p8sRNd+p63Jeqreimyd4G0n4ytcGBTtOfde0k8T3taD
+	mZF/pCG0s5N7J1SWUUkPIOrQnwByoYfZKPVy5FyAiDUwY5h33HwtYHmA3T3VIr0BzyMZ1chklqg
+	/3yVZrPkMAzLRuJOwqhCONp2xb5s2KzD6z2DDyKA0WySoz0Sd6OuDO+Tj0NVvL/hPxCt+8ZwFaj
+	k9NVZD1QG2dnbu90MPWrvdaB8OOrQ6yCcYfpxk9RWRyM/yCHAYArNFeQBaP2w7QB4Q2WAVnw9Bq
+	5PqUmhIRaDAwk416loJ3p+Dvvg+izJs/zQpyN/p1Klh4WNMreHwtswdl9UEnJlPsVMV+ekd0M5u
+	hMA43kDlP7lk6o1weRjZuw4afyYNVmVdnx0qthnIMDgRoJRkCa5P5kxAvk1tzaPfzYfBN3ERa/3
+	9mmDjjgP2qFvpTvfY3nel3tZ4xJeYsIU8OJRG3tTzzAJicUQR0u4JeL7RNBATA==
+X-Received: by 2002:a05:600c:4ecb:b0:4a0:c01:1902 with SMTP id 5b1f17b1804b1-4a18e43a29fmr95353065e9.2.1791637248717;
         Sat, 10 Oct 2026 06:00:48 -0700 (PDT)
 Received: from navid-pc ([2a01:4b00:a856:6220::a11])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a190c49d5csm162309975e9.3.2026.10.10.06.00.47
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a190c49d5csm162309975e9.3.2026.10.10.06.00.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 06:00:47 -0700 (PDT)
+        Sat, 10 Oct 2026 06:00:48 -0700 (PDT)
 From: Navid Ghahremani <ghahramani.navid@gmail.com>
 To: linux-arm-kernel@lists.infradead.org
 Cc: devicetree@vger.kernel.org,
@@ -69,9 +69,9 @@ Cc: devicetree@vger.kernel.org,
 	robh@kernel.org,
 	krzk@kernel.org,
 	Navid Ghahremani <ghahramani.navid@gmail.com>
-Subject: [PATCH 20/24] spi: Add ZTE ZX279128S SPI flash controller
-Date: Sat, 10 Oct 2026 13:59:58 +0100
-Message-ID: <20261010130024.177503-21-ghahramani.navid@gmail.com>
+Subject: [PATCH 21/24] dt-bindings: usb: Add ZTE ZX279128S DWC3 controller
+Date: Sat, 10 Oct 2026 13:59:59 +0100
+Message-ID: <20261010130024.177503-22-ghahramani.navid@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261010130024.177503-1-ghahramani.navid@gmail.com>
 References: <20261010130024.177503-1-ghahramani.navid@gmail.com>
@@ -83,414 +83,98 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Execute bounded SPI-memory operations through the controller FIFO. Honor
-device and operation clock limits through the CRPM divider and cap the
-validated maximum at 50 MHz.
+Describe the USB host integration with three CRM clocks and four reset
+bits.
 
 Assisted-by: LLM
 Signed-off-by: Navid Ghahremani <ghahramani.navid@gmail.com>
 ---
- drivers/spi/Kconfig               |  13 ++
- drivers/spi/Makefile              |   1 +
- drivers/spi/spi-zx279128s-spifc.c | 353 ++++++++++++++++++++++++++++++
- 3 files changed, 367 insertions(+)
- create mode 100644 drivers/spi/spi-zx279128s-spifc.c
+ .../bindings/usb/zte,zx279128s-dwc3.yaml      | 76 +++++++++++++++++++
+ 1 file changed, 76 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/usb/zte,zx279128s-dwc3.yaml
 
-diff --git a/drivers/spi/Kconfig b/drivers/spi/Kconfig
-index a0f37e2df7..f40fbbb181 100644
---- a/drivers/spi/Kconfig
-+++ b/drivers/spi/Kconfig
-@@ -1320,6 +1320,19 @@ config SPI_XTENSA_XTFPGA
- 	  16 bit words in SPI mode 0, automatically asserting CS on transfer
- 	  start and deasserting on end.
- 
-+config SPI_ZX279128S_SPIFC
-+	tristate "ZTE zx279128s SPI flash controller"
-+	depends on ARCH_ZTE || COMPILE_TEST
-+	depends on OF && HAS_IOMEM
-+	depends on SPI_MEM
-+	help
-+	  This enables support for the SPI flash controller of the ZTE
-+	  zx279128s SoC, through which it reaches its boot flash (a SPI
-+	  NAND on the ZTE ZXHN H3600).
-+
-+	  This driver does not support generic SPI. It only implements the
-+	  spi-mem interface.
-+
- config SPI_ZYNQ_QSPI
- 	tristate "Xilinx Zynq QSPI controller"
- 	depends on ARCH_ZYNQ || COMPILE_TEST
-diff --git a/drivers/spi/Makefile b/drivers/spi/Makefile
-index a18814fbde..fc93fcc991 100644
---- a/drivers/spi/Makefile
-+++ b/drivers/spi/Makefile
-@@ -170,6 +170,7 @@ obj-$(CONFIG_SPI_XCOMM)		+= spi-xcomm.o
- obj-$(CONFIG_SPI_XILINX)		+= spi-xilinx.o
- obj-$(CONFIG_SPI_XLP)			+= spi-xlp.o
- obj-$(CONFIG_SPI_XTENSA_XTFPGA)		+= spi-xtensa-xtfpga.o
-+obj-$(CONFIG_SPI_ZX279128S_SPIFC)	+= spi-zx279128s-spifc.o
- obj-$(CONFIG_SPI_ZYNQ_QSPI)		+= spi-zynq-qspi.o
- obj-$(CONFIG_SPI_ZYNQMP_GQSPI)		+= spi-zynqmp-gqspi.o
- obj-$(CONFIG_SPI_AMD)			+= spi-amd.o spi-amd-pci.o
-diff --git a/drivers/spi/spi-zx279128s-spifc.c b/drivers/spi/spi-zx279128s-spifc.c
+diff --git a/Documentation/devicetree/bindings/usb/zte,zx279128s-dwc3.yaml b/Documentation/devicetree/bindings/usb/zte,zx279128s-dwc3.yaml
 new file mode 100644
-index 0000000000..12aa22baf8
+index 0000000000..ee26915f42
 --- /dev/null
-+++ b/drivers/spi/spi-zx279128s-spifc.c
-@@ -0,0 +1,353 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * ZTE zx279128s SPI flash controller (SPIFC)
-+ *
-+ * Copyright (C) 2026 Navid Ghahremani <ghahramani.navid@gmail.com>
-+ *
-+ * The controller runs one flash operation at a time: the driver writes the
-+ * opcode, the address, a description of the operation's phases and the data
-+ * length, and starts it. Data passes through a 32-bit FIFO. The command and
-+ * address phases always use one line; the data phase can use one, two or
-+ * four. The register layout comes from the vendor boot loader's table of
-+ * flash operations.
-+ */
++++ b/Documentation/devicetree/bindings/usb/zte,zx279128s-dwc3.yaml
+@@ -0,0 +1,76 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/usb/zte,zx279128s-dwc3.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+#include <linux/bitfield.h>
-+#include <linux/clk.h>
-+#include <linux/io.h>
-+#include <linux/iopoll.h>
-+#include <linux/minmax.h>
-+#include <linux/mod_devicetable.h>
-+#include <linux/module.h>
-+#include <linux/platform_device.h>
-+#include <linux/spi/spi.h>
-+#include <linux/spi/spi-mem.h>
-+#include <linux/string.h>
++title: ZTE zx279128s DWC3 USB controller
 +
-+#define SPIFC_TRIGGER		0x04
-+#define  SPIFC_TRIGGER_START	BIT(0)
-+#define SPIFC_ACK		0x08
-+#define  SPIFC_ACK_DONE		BIT(0)	/* written while _BUSY is clear */
-+#define  SPIFC_ACK_BUSY		BIT(1)
-+#define SPIFC_XFER_CFG		0x0c
-+#define  SPIFC_XFER_CFG_BITS	0x1c440	/* set before every operation */
-+#define SPIFC_FMT0		0x10	/* the phases of the operation */
-+#define  SPIFC_FMT0_DATA_OUT	BIT(0)
-+#define  SPIFC_FMT0_DATA_IN	BIT(1)
-+#define  SPIFC_FMT0_DUMMY	BIT(2)
-+#define  SPIFC_FMT0_ADDR	BIT(4)
-+#define SPIFC_FMT1		0x14	/* and their sizes */
-+#define  SPIFC_FMT1_DATA_LINES	GENMASK(2, 0)
-+#define   SPIFC_LINES_1		0
-+#define   SPIFC_LINES_2		4
-+#define   SPIFC_LINES_4		5
-+#define  SPIFC_FMT1_ADDR_BYTES	GENMASK(6, 5)	/* bytes - 1 */
-+#define  SPIFC_FMT1_DUMMY_BYTES	GENMASK(15, 12)
-+#define SPIFC_LEN		0x18	/* data bytes - 1 */
-+#define SPIFC_ADDR		0x1c
-+#define SPIFC_OPCODE		0x20
-+#define SPIFC_TIMING		0x24
-+#define  SPIFC_TIMING_SAMPLE	GENMASK(17, 16)
-+#define SPIFC_STATUS		0x2c
-+#define  SPIFC_STATUS_DONE	BIT(0)
-+#define SPIFC_BURST		0x30
-+#define  SPIFC_BURST_VAL	0x3f
-+#define SPIFC_FIFO_STATUS	0x34
-+#define  SPIFC_FIFO_RX_AVAIL	GENMASK(12, 8)
-+#define  SPIFC_FIFO_TX_FREE	GENMASK(20, 16)
-+#define SPIFC_FIFO_DATA		0x38
++maintainers:
++  - Navid Ghahremani <ghahramani.navid@gmail.com>
 +
-+#define SPIFC_MAX_DATA		4096
-+#define SPIFC_TIMEOUT_US	20000
++description:
++  The ZTE zx279128s has a DesignWare USB3 controller (DWC_usb3 2.80a) with
++  integrated USB 2.0 and USB 3.0 PHYs, used as a host. Its clocks and resets
++  come from the top clock and reset module.
 +
-+struct zx_spifc {
-+	void __iomem *base;
-+	struct clk *wclk;
-+	unsigned long speed_hz;
-+};
++allOf:
++  - $ref: snps,dwc3-common.yaml#
 +
-+static void zx_spifc_ack(struct zx_spifc *spifc)
-+{
-+	u32 val = readl(spifc->base + SPIFC_ACK);
++properties:
++  compatible:
++    const: zte,zx279128s-dwc3
 +
-+	if (!(val & SPIFC_ACK_BUSY))
-+		writel(val | SPIFC_ACK_DONE, spifc->base + SPIFC_ACK);
-+}
++  reg:
++    maxItems: 1
 +
-+static void zx_spifc_start(struct zx_spifc *spifc)
-+{
-+	writel(readl(spifc->base + SPIFC_TRIGGER) | SPIFC_TRIGGER_START,
-+	       spifc->base + SPIFC_TRIGGER);
-+}
++  interrupts:
++    maxItems: 1
 +
-+static int zx_spifc_wait_fifo(struct zx_spifc *spifc, u32 mask)
-+{
-+	u32 val;
++  clocks:
++    items:
++      - description: 20 MHz reference clock
++      - description: bus (AXI) clock
++      - description: 32.768 kHz suspend clock
 +
-+	return readl_poll_timeout_atomic(spifc->base + SPIFC_FIFO_STATUS, val,
-+					 val & mask, 1, SPIFC_TIMEOUT_US);
-+}
++  clock-names:
++    items:
++      - const: ref
++      - const: bus_early
++      - const: suspend
 +
-+static int zx_spifc_read_fifo(struct zx_spifc *spifc, u8 *buf,
-+			      unsigned int len)
-+{
-+	unsigned int i;
-+	u32 word;
-+	int ret;
++  resets:
++    description: The four reset bits of the controller and its PHYs, in the
++      order they are released.
++    maxItems: 4
 +
-+	for (i = 0; i < len; i += 4) {
-+		ret = zx_spifc_wait_fifo(spifc, SPIFC_FIFO_RX_AVAIL);
-+		if (ret)
-+			return ret;
-+		word = readl(spifc->base + SPIFC_FIFO_DATA);
-+		memcpy(buf + i, &word, min(4U, len - i));
-+	}
++required:
++  - compatible
++  - reg
++  - interrupts
++  - clocks
++  - clock-names
++  - resets
 +
-+	return 0;
-+}
++unevaluatedProperties: false
 +
-+/* Preload the FIFO, start the operation, then keep the FIFO filled */
-+static int zx_spifc_write_fifo(struct zx_spifc *spifc, const u8 *buf,
-+			       unsigned int len)
-+{
-+	unsigned int i = 0;
-+	bool started = false;
-+	u32 word;
-+	int ret;
++examples:
++  - |
++    #include <dt-bindings/clock/zte,zx279128s-crm.h>
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
 +
-+	while (i < len) {
-+		if (!(readl(spifc->base + SPIFC_FIFO_STATUS) &
-+		      SPIFC_FIFO_TX_FREE)) {
-+			if (!started) {
-+				zx_spifc_start(spifc);
-+				started = true;
-+			}
-+			ret = zx_spifc_wait_fifo(spifc, SPIFC_FIFO_TX_FREE);
-+			if (ret)
-+				return ret;
-+		}
-+		word = 0;
-+		memcpy(&word, buf + i, min(4U, len - i));
-+		writel(word, spifc->base + SPIFC_FIFO_DATA);
-+		i += 4;
-+	}
-+
-+	if (!started)
-+		zx_spifc_start(spifc);
-+
-+	return 0;
-+}
-+
-+static u32 zx_spifc_lines(u8 buswidth)
-+{
-+	switch (buswidth) {
-+	case 4:
-+		return SPIFC_LINES_4;
-+	case 2:
-+		return SPIFC_LINES_2;
-+	default:
-+		return SPIFC_LINES_1;
-+	}
-+}
-+
-+/* The CRPM divider must never round above the flash's frequency limit. */
-+static int zx_spifc_set_speed(struct zx_spifc *spifc, unsigned int max_hz)
-+{
-+	unsigned long rate;
-+	long rounded;
-+	int ret;
-+
-+	if (!max_hz)
-+		return -EINVAL;
-+	if (spifc->speed_hz == max_hz)
-+		return 0;
-+
-+	rounded = clk_round_rate(spifc->wclk, max_hz);
-+	if (rounded < 0)
-+		return rounded;
-+	if (!rounded || rounded > max_hz)
-+		return -EINVAL;
-+
-+	ret = clk_set_rate(spifc->wclk, rounded);
-+	if (ret)
-+		return ret;
-+	rate = clk_get_rate(spifc->wclk);
-+	if (!rate || rate > max_hz)
-+		return -EINVAL;
-+	spifc->speed_hz = rate;
-+
-+	return 0;
-+}
-+
-+static int zx_spifc_setup(struct spi_device *spi)
-+{
-+	struct zx_spifc *spifc = spi_controller_get_devdata(spi->controller);
-+
-+	return zx_spifc_set_speed(spifc, spi->max_speed_hz);
-+}
-+
-+static int zx_spifc_exec_op(struct spi_mem *mem, const struct spi_mem_op *op)
-+{
-+	struct zx_spifc *spifc = spi_controller_get_devdata(mem->spi->controller);
-+	void __iomem *base = spifc->base;
-+	u32 fmt0 = 0, fmt1 = 0, val;
-+	int ret;
-+
-+	ret = zx_spifc_set_speed(spifc, op->max_freq ?: mem->spi->max_speed_hz);
-+	if (ret)
-+		return ret;
-+
-+	if (op->addr.nbytes) {
-+		fmt0 |= SPIFC_FMT0_ADDR;
-+		fmt1 |= FIELD_PREP(SPIFC_FMT1_ADDR_BYTES, op->addr.nbytes - 1);
-+	}
-+	if (op->dummy.nbytes) {
-+		fmt0 |= SPIFC_FMT0_DUMMY;
-+		fmt1 |= FIELD_PREP(SPIFC_FMT1_DUMMY_BYTES, op->dummy.nbytes);
-+	}
-+	if (op->data.nbytes) {
-+		fmt0 |= op->data.dir == SPI_MEM_DATA_IN ? SPIFC_FMT0_DATA_IN :
-+							  SPIFC_FMT0_DATA_OUT;
-+		fmt1 |= FIELD_PREP(SPIFC_FMT1_DATA_LINES,
-+				   zx_spifc_lines(op->data.buswidth));
-+	}
-+
-+	zx_spifc_ack(spifc);
-+	writel(op->cmd.opcode, base + SPIFC_OPCODE);
-+	writel(fmt0, base + SPIFC_FMT0);
-+	writel(fmt1, base + SPIFC_FMT1);
-+	writel(op->data.nbytes ? op->data.nbytes - 1 : 0, base + SPIFC_LEN);
-+	writel(op->addr.nbytes ? op->addr.val : 0, base + SPIFC_ADDR);
-+	writel(readl(base + SPIFC_XFER_CFG) | SPIFC_XFER_CFG_BITS,
-+	       base + SPIFC_XFER_CFG);
-+	writel(SPIFC_BURST_VAL, base + SPIFC_BURST);
-+
-+	if (op->data.nbytes && op->data.dir == SPI_MEM_DATA_OUT) {
-+		ret = zx_spifc_write_fifo(spifc, op->data.buf.out,
-+					  op->data.nbytes);
-+	} else {
-+		zx_spifc_start(spifc);
-+		ret = 0;
-+		if (op->data.nbytes)
-+			ret = zx_spifc_read_fifo(spifc, op->data.buf.in,
-+						 op->data.nbytes);
-+	}
-+
-+	if (!ret)
-+		ret = readl_poll_timeout_atomic(base + SPIFC_STATUS, val,
-+						val & SPIFC_STATUS_DONE, 1,
-+						SPIFC_TIMEOUT_US);
-+	zx_spifc_ack(spifc);
-+
-+	return ret;
-+}
-+
-+static bool zx_spifc_supports_op(struct spi_mem *mem,
-+				 const struct spi_mem_op *op)
-+{
-+	if (!spi_mem_default_supports_op(mem, op))
-+		return false;
-+
-+	/* Command and address are always on one line */
-+	if (op->cmd.nbytes != 1 || op->cmd.buswidth != 1)
-+		return false;
-+	if (op->addr.nbytes > 3 || (op->addr.nbytes && op->addr.buswidth != 1))
-+		return false;
-+	if (op->dummy.nbytes > 15 ||
-+	    (op->dummy.nbytes && op->dummy.buswidth != 1))
-+		return false;
-+
-+	/* The vendor code programs on one or four lines, never two */
-+	if (op->data.nbytes && op->data.dir == SPI_MEM_DATA_OUT &&
-+	    op->data.buswidth == 2)
-+		return false;
-+
-+	return true;
-+}
-+
-+static int zx_spifc_adjust_op_size(struct spi_mem *mem, struct spi_mem_op *op)
-+{
-+	op->data.nbytes = min(op->data.nbytes, SPIFC_MAX_DATA);
-+
-+	return 0;
-+}
-+
-+static const struct spi_controller_mem_caps zx_spifc_mem_caps = {
-+	.per_op_freq = true,
-+};
-+
-+static const struct spi_controller_mem_ops zx_spifc_mem_ops = {
-+	.adjust_op_size = zx_spifc_adjust_op_size,
-+	.supports_op = zx_spifc_supports_op,
-+	.exec_op = zx_spifc_exec_op,
-+};
-+
-+static int zx_spifc_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct spi_controller *ctlr;
-+	struct zx_spifc *spifc;
-+	struct clk *clk;
-+	long min_hz;
-+	u32 val;
-+
-+	ctlr = devm_spi_alloc_host(dev, sizeof(*spifc));
-+	if (!ctlr)
-+		return -ENOMEM;
-+	spifc = spi_controller_get_devdata(ctlr);
-+
-+	spifc->base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(spifc->base))
-+		return PTR_ERR(spifc->base);
-+
-+	clk = devm_clk_get_enabled(dev, "pclk");
-+	if (IS_ERR(clk))
-+		return dev_err_probe(dev, PTR_ERR(clk),
-+				     "failed to get the register clock\n");
-+	spifc->wclk = devm_clk_get_enabled(dev, "wclk");
-+	if (IS_ERR(spifc->wclk))
-+		return dev_err_probe(dev, PTR_ERR(spifc->wclk),
-+				     "failed to get the work clock\n");
-+
-+	min_hz = clk_round_rate(spifc->wclk, 1);
-+	if (min_hz <= 0)
-+		return dev_err_probe(dev, min_hz ?: -EINVAL,
-+				     "invalid minimum work clock rate\n");
-+
-+	/* The data sampling point, as the boot loader sets it */
-+	val = readl(spifc->base + SPIFC_TIMING);
-+	val &= ~SPIFC_TIMING_SAMPLE;
-+	val |= FIELD_PREP(SPIFC_TIMING_SAMPLE, 1);
-+	writel(val, spifc->base + SPIFC_TIMING);
-+
-+	ctlr->mode_bits = SPI_RX_DUAL | SPI_RX_QUAD | SPI_TX_QUAD;
-+	ctlr->mem_ops = &zx_spifc_mem_ops;
-+	ctlr->mem_caps = &zx_spifc_mem_caps;
-+	ctlr->setup = zx_spifc_setup;
-+	ctlr->min_speed_hz = min_hz;
-+	/* Faster rates have not been validated on this controller. */
-+	ctlr->max_speed_hz = 50000000;
-+	ctlr->num_chipselect = 1;
-+	ctlr->dev.of_node = dev->of_node;
-+
-+	return devm_spi_register_controller(dev, ctlr);
-+}
-+
-+static const struct of_device_id zx_spifc_of_match[] = {
-+	{ .compatible = "zte,zx279128s-spifc" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, zx_spifc_of_match);
-+
-+static struct platform_driver zx_spifc_driver = {
-+	.probe = zx_spifc_probe,
-+	.driver = {
-+		.name = "zx279128s-spifc",
-+		.of_match_table = zx_spifc_of_match,
-+	},
-+};
-+module_platform_driver(zx_spifc_driver);
-+
-+MODULE_AUTHOR("Navid Ghahremani <ghahramani.navid@gmail.com>");
-+MODULE_DESCRIPTION("ZTE zx279128s SPI flash controller driver");
-+MODULE_LICENSE("GPL");
++    usb@9100000 {
++        compatible = "zte,zx279128s-dwc3";
++        reg = <0x09100000 0x100000>;
++        interrupts = <GIC_SPI 50 IRQ_TYPE_LEVEL_HIGH>;
++        clocks = <&topcrm ZX279128S_TOP_USB_REF>,
++                 <&topcrm ZX279128S_TOP_USB_ACLK>,
++                 <&topcrm ZX279128S_TOP_USB_SUSPEND>;
++        clock-names = "ref", "bus_early", "suspend";
++        resets = <&topcrm ZX279128S_TOP_RST_USB_B11>,
++                 <&topcrm ZX279128S_TOP_RST_USB_B14>,
++                 <&topcrm ZX279128S_TOP_RST_USB_B9>,
++                 <&topcrm ZX279128S_TOP_RST_USB_B10>;
++        dr_mode = "host";
++        snps,ref-clock-period-ns = <50>;
++    };
 -- 
 2.55.0
 
