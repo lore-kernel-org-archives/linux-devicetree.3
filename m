@@ -1,156 +1,204 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F0B53451CE
-	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 08:56:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DA8E33F5A7
+	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 08:56:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791622603; cv=none; b=ZV9BrbJUIo4qL5MScE5h4C758LuyWRvq261Ervn1jERBFBDXbA+uunIHNRiA/EQz6JADfWeFDjpFWHjNb2iTFbns8x2F+mt8uTP/WZ3lJOUfQf8FoFTwftk7kpEcN1eusX9av7wP+tZPgn5g/qS1W7uClMEjNs28D/hN81E0D4Y=
+	t=1791622609; cv=none; b=UUgE+rzZwB+AFhEMiE67cJgaBGPxBM7aoh8kBOb+WHJ2dE5Y2AoWM/dpTJzeveyiTUdbsx2tuWesv6bpkGA9RI5RraZHusQRutXAHGZnjQ1IWuKmsSpfSMy+eh3QsAZSM8tzpGa7gjURU0z4gsfIejVDFajXCFEtV6ArvBRD17w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791622603; c=relaxed/simple;
-	bh=2QC91/Bt77Od6+1QV7yChBdf29cg7Wah0ctepZ8llPo=;
+	s=arc-20240116; t=1791622609; c=relaxed/simple;
+	bh=iy1wVZsL5c8bNSadOzzPJ93X2FaRoMSv5SYhNcO93rw=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=EKSv+45yWraAoOo+75ZW5flshSjEO+8mb9CR1tl1jR/OsonzqL9Q3VOZTvODLtkkTk0k3DTePS7P9FzBsHPiwg4jmAWzUMeUhR3MpRo2pOgC7bZG8NlVTsAUgrQ/oQ04XDF1Kl6YGO96FCrC4LRR743kpImncopJ4GQjAnDr9a4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jycAd3kI; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=E0xsJ7IRiKEr10RR0J47npWRQczdIhYhMxsvIDvly8KZFMSb4CG7uOev4vJ18dKQ1nbuCcMjmIrNqZAFQvQjJX+lVwjccJ5UC5hVCwFnwr06BbOpp+xy0WZzTjLOeSaKCcKgnHWcuQrlN4cB4XVXl1xD1oUm7ia9ulPJCTXQd+c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X/PvYb9e; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jycAd3kI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 532911F00893;
-	Sat, 10 Oct 2026 08:56:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X/PvYb9e"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45EFE1F00893;
+	Sat, 10 Oct 2026 08:56:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791622601;
-	bh=U3EfYK+0MDbCCywO5Z0h/r7fY6amf28PEtwJJtWtFMg=;
+	s=k20260515; t=1791622607;
+	bh=FiMBCkZan/zRcUNpJW1tImnF3WQNOPXvXa2TxpTBZuU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jycAd3kIVEuKbrdXp8ZKazojHXescSKoIojbFz4XN6jJtLKIWaN6iYy/TnSDGA7L3
-	 oaFkTuvo6hHdDN0Zy0FtFyKE9YDwSQc8xw8C/NwSwrRjYf5Z8KtbxqUSbLcBCLaNm7
-	 KUO6dgt/RjMBd164DYRX9J+O1ELpuaVJ6a5eHPiXdavME2OCsRKao3L4FRjvTs0NPe
-	 qAtIylKqL6e4O0OC0z/Bu1y374qVRx732DCKJZe0gfEBkwRkYQVI8IxLKpvhx87yfG
-	 BYls1lfHj4AMSv+pPZ0rfZB2K7OPKRQqgskSGqENeyN78D01CO8m0CR1piDEfKP8Lf
-	 AG/dKaJPLgOwQ==
-Message-ID: <sashiko-outbox-166380@kernel.org>
+	b=X/PvYb9eSl7Lc6WrFh96+NxVj3IY43TKdB3XtwrNotH53M4eNhFos/nCM9xxiuRxY
+	 LogJI+aLrwvOtNEgG3TtNz0P0KIxBtlwO/wa5FkR63y0FBQWI4Q/c2cKh9DtxzFKGq
+	 lg3zCsqerXZ3ktGKODkJr7HV2uOX+VkFanDnTp5VIfy6Os7rjHGbV96Ps0YKtYtrAu
+	 lBlqJDwnOCpxaCGOmTLSJ7e+q/yNGdLxyaa7gvYZgag0gOHIPdaGqdTtctxLlHDNgc
+	 ez22b6ujSQeZ+ODUFAUKYDQRlbVnoFh01/0Yull6L7DdnWpeS+cYuEwfYnkwA+G64l
+	 2OCFWsupfHzzw==
+Message-ID: <sashiko-outbox-166381@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 04/14] media: mediatek: vcodec: get different
- firmware ipi id
+Subject: Re: [PATCH v8 05/14] media: mediatek: vcodec: get share memory
+ address
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Kyrie Wu" <kyrie.wu@mediatek.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, media-ci@linuxtv.org
-In-Reply-To: <61d082035d1bd9f3394834963ca59defaf663370.1791619743.git.kyrie.wu@mediatek.com>
+Cc: media-ci@linuxtv.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <f935f06d722c5936862cb8c576b354432b45b45d.1791619743.git.kyrie.wu@mediatek.com>
 References: <cover.1791619742.git.kyrie.wu@mediatek.com>
- <61d082035d1bd9f3394834963ca59defaf663370.1791619743.git.kyrie.wu@mediatek.com>
+ <f935f06d722c5936862cb8c576b354432b45b45d.1791619743.git.kyrie.wu@mediatek.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 10 Oct 2026 08:56:40 +0000
+Date: Sat, 10 Oct 2026 08:56:46 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] media: mtk-vcodec: OOB write via unvalidated -EINVAL from fw_get_i=
-pi
+- [High] media: vcodec: missing IS_ERR check on fw_map_dm_addr return in VP=
+9/AV1
+- [High] media: mediatek: OOB read via unvalidated firmware sizes and VCP o=
+ffsets
 --
 
-commit b7bb8fd08e359be31186a13bf22647a6a15432b2
+commit e6e728fceb78092db0d746297086675978804b45
 Author: Kyrie Wu <kyrie.wu@mediatek.com>
 
-media: mediatek: vcodec: get different firmware ipi id
+    media: mediatek: vcodec: get share memory address
+   =20
+    This commit divides the single shared memory for the VCP architecture
+    into multiple functional areas. It introduces helpers to retrieve
+    specific memory addresses and offsets for different codec components.
 
-This commit updates the driver to get the inter-processor interrupt (IPI) ID
-dynamically based on the firmware type and hardware index. This allows
-supporting different architectures instead of using hardcoded IDs.
-
-> diff --git a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw.=
-c b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw.c
-> index 552d0d8a84444..8630e871d78e2 100644
-> --- a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw.c
-> +++ b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw.c
-> @@ -3,6 +3,20 @@
->  #include "../decoder/mtk_vcodec_dec_drv.h"
->  #include "../encoder/mtk_vcodec_enc_drv.h"
->  #include "mtk_vcodec_fw_priv.h"
-> +#include "mtk_vcodec_fw_vcp.h"
-> +
-> +int mtk_vcodec_fw_get_ipi(enum mtk_vcodec_fw_type type, int hw_id)
-> +{
-> +	switch (type) {
-> +	case SCP:
-> +		return hw_id =3D=3D MTK_VDEC_LAT0 ? SCP_IPI_VDEC_LAT : SCP_IPI_VDEC_CO=
-RE;
-> +	case VCP:
-> +		return hw_id =3D=3D MTK_VDEC_LAT0 ? VCP_IPI_LAT_DECODER : VCP_IPI_CORE=
-_DECODER;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-> +EXPORT_SYMBOL_GPL(mtk_vcodec_fw_get_ipi);
-
+> diff --git a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_=
+vcp.c b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_vcp.c
+> index ece4e3e87e62d..468c4bf4e48ba 100644
+> --- a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_vcp.c
+> +++ b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_vcp.c
 [ ... ]
-
-> diff --git a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_h26=
-4_req_multi_if.c b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec=
-_h264_req_multi_if.c
-> index 10359ce9b934e..69d60717181a6 100644
-> --- a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_h264_req_m=
-ulti_if.c
-> +++ b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_h264_req_m=
-ulti_if.c
-> @@ -1204,6 +1204,7 @@ static int vdec_h264_slice_single_decode(void *h_vd=
-ec, struct mtk_vcodec_mem *bs
-> =20
->  static int vdec_h264_slice_init(struct mtk_vcodec_dec_ctx *ctx)
->  {
-> +	enum mtk_vcodec_fw_type fw_type =3D ctx->dev->fw_handler->type;
->  	struct vdec_h264_slice_inst *inst;
->  	int err, vsi_size;
->  	unsigned char *temp;
-> @@ -1214,8 +1215,8 @@ static int vdec_h264_slice_init(struct mtk_vcodec_d=
-ec_ctx *ctx)
-> =20
->  	inst->ctx =3D ctx;
-> =20
-> -	inst->vpu.id =3D SCP_IPI_VDEC_LAT;
-> -	inst->vpu.core_id =3D SCP_IPI_VDEC_CORE;
-> +	inst->vpu.id =3D mtk_vcodec_fw_get_ipi(fw_type, MTK_VDEC_LAT0);
-> +	inst->vpu.core_id =3D mtk_vcodec_fw_get_ipi(fw_type, MTK_VDEC_CORE);
+> +static void *mtk_vcodec_vcp_dm_addr(struct mtk_vcodec_fw *fw, u32 mem_ty=
+pe)
+> +{
+> +	unsigned char *vsi_core =3D fw->vcp->vsi_core_addr;
+> +
+> +	switch (mem_type) {
+> +	case ENCODER_MEM:
+> +	case VCODEC_LAT_MEM:
+> +		return fw->vcp->vsi_addr;
+> +	case VCODEC_CORE_MEM:
+> +		return vsi_core;
+> +	case VP9_FRAME_MEM:
+> +		return vsi_core + VCODEC_VSI_LEN;
+> +	case AV1_CDF_MEM:
+> +		return vsi_core + VCODEC_VSI_LEN + VP9_FRAME_SIZE;
+> +	case AV1_IQ_MEM:
+> +		return vsi_core + VCODEC_VSI_LEN + VP9_FRAME_SIZE + AV1_CDF_SIZE;
 
 [Severity: High]
-Does this code handle cases where mtk_vcodec_fw_get_ipi() returns an error
-code?
+Does this code compute memory pointers based on hardcoded offsets without
+first verifying that the configured VCP memory size (fw->vcp->vsi_size) is
+actually large enough to contain them?
 
-If an unsupported firmware type (such as VPU) is provided,
-mtk_vcodec_fw_get_ipi() will return -EINVAL (-22), which is then assigned
-directly to inst->vpu.id and inst->vpu.core_id without validation.
+If the device tree memory region is insufficiently sized, could this expose
+the kernel to out-of-bounds reads?
 
-When this propagates to vpu_ipi_register() via vpu_dec_init():
+> +	default:
+> +		break;
+> +	}
+> +
+>  	return NULL;
+>  }
+[ ... ]
+> diff --git a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av1=
+_req_lat_if.c b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av=
+1_req_lat_if.c
+> index 756fbb7778b1f..4932ef4695946 100644
+> --- a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av1_req_la=
+t_if.c
+> +++ b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av1_req_la=
+t_if.c
+[ ... ]
+> @@ -775,7 +784,7 @@ static int vdec_av1_slice_init_cdf_table(struct vdec_=
+av1_slice_instance *instanc
+>  	ctx =3D instance->ctx;
+>  	vsi =3D instance->vpu.vsi;
+>  	remote_cdf_table =3D mtk_vcodec_fw_map_dm_addr(ctx->dev->fw_handler,
+> -						     (u32)vsi->cdf_table_addr);
+> +						     vdec_av1_get_cdf_table_addr(ctx, vsi));
 
-drivers/media/platform/mediatek/vpu/mtk_vpu.c:vpu_ipi_register() {
-    ...
-    if (id < IPI_VPU_MAX && handler) {
-        ipi_desc =3D vpu->ipi_desc;
-        ipi_desc[id].name =3D name;
-    ...
-}
+[Severity: High]
+Is memory being copied based on an untrusted size parameter
+(vsi->cdf_table_size) provided by firmware?
 
-On ARM64 (AArch64), the AAPCS64 dictates that the underlying type for an en=
-um
-whose values all fit in a signed 32-bit integer is a signed int, making
-enum ipi_id signed.
+Looking at vdec_av1_slice_init_cdf_table(), if a compromised firmware
+supplies an excessively large size, couldn't this cause the kernel to read
+out of bounds from remote_cdf_table into the dynamically sized DMA buffer?
+This seems unmitigated for non-EXT capability devices.
 
-The bounds check evaluates -22 < IPI_VPU_MAX as true. This bypasses the che=
-ck
-and executes a negative index out-of-bounds write to the ipi_desc array.
+>  	if (IS_ERR(remote_cdf_table)) {
+>  		mtk_vdec_err(ctx, "failed to map cdf table\n");
+>  		return PTR_ERR(remote_cdf_table);
+[ ... ]
+> @@ -1904,8 +1931,8 @@ static int vdec_av1_slice_init(struct mtk_vcodec_de=
+c_ctx *ctx)
+>  		goto error_vsi;
+>  	}
+>  	instance->init_vsi =3D vsi;
+> -	instance->core_vsi =3D mtk_vcodec_fw_map_dm_addr(ctx->dev->fw_handler, =
+(u32)vsi->core_vsi);
+> -
+> +	instance->core_vsi =3D mtk_vcodec_fw_map_dm_addr(ctx->dev->fw_handler,
+> +						       vdec_av1_get_core_vsi_addr(ctx, vsi));
+>  	if (!instance->core_vsi) {
 
-Could this lead to memory corruption (slab underflow) before the mtk_vpu
-struct if a malformed Device Tree pairs a stateless decoder compatible stri=
-ng
-with a VPU firmware handler?
+[Severity: High]
+Could an error pointer bypass this check when mtk_vcodec_fw_map_dm_addr()
+fails?
 
->  	inst->vpu.ctx =3D ctx;
->  	inst->vpu.codec_type =3D ctx->current_codec;
->  	inst->vpu.capture_type =3D ctx->capture_fourcc;
+Since mtk_vcodec_fw_map_dm_addr() returns ERR_PTR(-EINVAL) on VPU and SCP
+failures, it seems an error pointer would slip past this NULL check and
+lead to invalid memory accesses in subsequent memcpy operations.
+
+>  		mtk_vdec_err(ctx, "failed to get AV1 core vsi\n");
+>  		ret =3D -EINVAL;
+[ ... ]
+> diff --git a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_vp9=
+_req_lat_if.c b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_vp=
+9_req_lat_if.c
+> index b492686784ec3..ee4d1cd82426f 100644
+> --- a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_vp9_req_la=
+t_if.c
+> +++ b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_vp9_req_la=
+t_if.c
+[ ... ]
+> @@ -514,7 +523,7 @@ static int vdec_vp9_slice_init_default_frame_ctx(stru=
+ct vdec_vp9_slice_instance
+>  		return -EINVAL;
+> =20
+>  	remote_frame_ctx =3D mtk_vcodec_fw_map_dm_addr(ctx->dev->fw_handler,
+> -						     (u32)vsi->default_frame_ctx);
+> +						     vdec_vp9_get_frame_ctx_addr(ctx, vsi));
+>  	if (!remote_frame_ctx) {
+
+[Severity: High]
+Is it possible for mtk_vcodec_fw_map_dm_addr() to return an ERR_PTR here?
+
+If mapping fails, does this check miss the error pointer, allowing an
+invalid memory location to be passed to kmemdup() below?
+
+>  		mtk_vdec_err(ctx, "failed to map default frame ctx\n");
+>  		return -EINVAL;
+[ ... ]
+> @@ -1864,7 +1882,7 @@ static int vdec_vp9_slice_init(struct mtk_vcodec_de=
+c_ctx *ctx)
+>  	}
+>  	instance->init_vsi =3D vsi;
+>  	instance->core_vsi =3D mtk_vcodec_fw_map_dm_addr(ctx->dev->fw_handler,
+> -						       (u32)vsi->core_vsi);
+> +						       vdec_vp9_get_core_vsi_addr(ctx, vsi));
+>  	if (!instance->core_vsi) {
+
+[Severity: High]
+What happens if mtk_vcodec_fw_map_dm_addr() returns an error pointer?
+
+If it only checks for NULL, it appears the error pointer could be stored
+in instance->core_vsi and erroneously used as a valid memory location later.
+
+>  		mtk_vdec_err(ctx, "failed to get VP9 core vsi\n");
+>  		ret =3D -EINVAL;
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1791619742.gi=
-t.kyrie.wu@mediatek.com?part=3D4
+t.kyrie.wu@mediatek.com?part=3D5
