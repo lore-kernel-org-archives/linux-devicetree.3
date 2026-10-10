@@ -1,64 +1,65 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61AF24A99B6
-	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 13:00:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 864644A92EF
+	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 13:00:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791637240; cv=none; b=YYLYww71BIU8W+wC1pRA/O6v4elakBMeh+S4stIqu8A71+5cIK8q2xKMTgRGGAaLv5WMWruJqkJ6f2NDUnbg1J4vgZRiDeScBd/D58zFe8Gs4PhpyqBpW/4QcmLSeqPnjipdR069GjtqOX0mdO2ePhavy7SgOQAVnK3d+a1sSPs=
+	t=1791637244; cv=none; b=nOxD0rdOgvRy2zff7W1QTkeLKbK8syYXB6iV+jSCK/TfbOeym/xqYt1/aMu1tmaK+QmaaGMJmQvY1EU3jaVKarEZrZkn4C8sBaAANPOWK2Nti5Gi66lHJnrFUi2DH7DtHTNUMKJMXmh1D+A6tOc97hkiZ7Cbtws8V0/s7RH6goY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791637240; c=relaxed/simple;
-	bh=QzDIBx2QJ/WoHugMHP+vYhAOaeLSx0YONeE1rWBUfBs=;
+	s=arc-20240116; t=1791637244; c=relaxed/simple;
+	bh=jfAWyY0OJB+ehXBN2Fls1GqVNyVfXfixNe/KeitgEZM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sxSZg2bwc2mFk1t0xgvZ3x0tJqqVCij2w0iFaABZST4Dvc6H3b4nfQ+dAb7thnCp8/mp+orvOmQBxelL7Mux8GXrhOHs6YT2LsSvFL1fdVn9VSdCgLODHtWqI23f1UnCXndBa1UPrKUW3hy62f+O5G/WN5AqFLsUMqOUTzCVo+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NpM04sCC; arc=none smtp.client-ip=209.85.128.42
+	 MIME-Version:Content-Type; b=uFMhSBZWAzNqUBkGGxv4kS9oEgK8WuiXmfL95req+IFK2rJNXM7x0RyxRiJ0eErHcafvEAtx5c7nTXXXjVuUxoHFNOTG29h8En1aTwegLubmZcPROtuzdKchr8NaDO9yMPnxDpCoYUiNanwZqsGqtcUrvqrtgw9+XVS+PhzTi5s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c9MNsE4c; arc=none smtp.client-ip=209.85.128.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NpM04sCC"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4956869750eso4450215e9.2
-        for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 06:00:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c9MNsE4c"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a168355946so1949105e9.0
+        for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 06:00:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791637233; x=1792242033; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ReH6zdN/Scg2OvBXNd4w2aYQz49a0qu9tqAasA+lUVk=;
-        b=NpM04sCCCPLWZdVw0eUrFJqqUsojpxZxSPnNIy1Fq2daaWNWEdnwl1j9MT5Whx4ruP
-         t9oFxTHnnsysURxUEo46TqTmMCig84Yi/H8bmL55p8eEEqo79g7JIbHuZVIFhc+2YzbO
-         6rLNYb8IP1+RrDpNzmEU8aZkUYJXT1+engFWo75O5NaymXtoDF2pHNpKkSXjjP1h/7eV
-         dRErh459jegoFWQbKgWDuwcIYmjNIEwzGIPsyS8e8/AeZvYKR8W7c+0kajKFl5dVrQJ2
-         lLF7gjoBmPa4ivQSwPe0zgkKyqqexeEZpmG0h8g+f/ESzXqBmTqoWHCO/CUNHnXCD95n
-         zwbA==
+        d=gmail.com; s=20251104; t=1791637235; x=1792242035; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yAt/7yJPn0972Rii+WXEYTfcVi7V4uYYD90Bl15iiXM=;
+        b=c9MNsE4c3DaJnNS1AJVXyMhezKHhJcwIIK1wcbzIdddjaswvb9Dj1tTuD/svQOryb0
+         bIHAFTjSTrfxm+nZU0fkBbB0hC+4FepFz5TdT/IIZtyJWzv1H+9hoiK6NDtBW4r80yFc
+         AFp6JZKXeIf2ZsZBHsrimJda0ShoxYoi6gMiZZ/n/FWJTOoV40B9Z/r4uaJhOJuDKQEk
+         +KMOqk/0bL/IoptVS2aH6eTjtXvWa4Iv1e9q9uxHCAXvmDNJxmBtRFs8R+0H8sAy3Gm/
+         0oChghINY1PA07I4m/TD78k961KboFUXEjVYWPZq0ja7+GWIl8KodKE/khp3YVpGhmWP
+         Tkzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791637233; x=1792242033;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ReH6zdN/Scg2OvBXNd4w2aYQz49a0qu9tqAasA+lUVk=;
-        b=KOjPdBne5aGg//GmkjTEWHnDsVd+wx6H1vjW5zuYFh3RThpqyXJrL16FbBJG1osg2q
-         nEuPOfn0UtySICe4MYHpX8GxUH5lGixH8tXnIOKbI9O8AdjfWUHtiwQGCv5e+0mp4efk
-         Eb2JGdhmFvpOhKv78temVMkKwl9LpWhTGcDmB3P9hAY6jLJzjmf/Gn8P7v0ptia2dnUF
-         IcpaCVKWsfbcqC0GqmOWpngE7ogGCPt00Z8P3vLBD1yWklGeSI08YaSS9FwhWLRiWToS
-         yMGoZ60pQlBGDS24EOf9lbirgTj7SKw/FqeOtJZsUHozuMjTWiMx5x3B+6lMEjDCQZPC
-         zKEQ==
-X-Gm-Message-State: AFq9FYLwmER3RWoH/DmOzKL/jDVQteW3hPzzSkagNHGFifbhyALMrURd
-	vo1Q7Abv1cLM6NMKMPoJVbqvs9KUWNb1rmavkEFSPEjM+6A1AraZLPpM
-X-Gm-Gg: AYBFou0m/bvQ+Ze2KBRKHsbIZ5AbluUYQQVo5SLXEref9EeKlDVsjnuRy3YR1mphxBt
-	F6uw31S2tAcJDjBqjIUZL88WcBVLsmEntV0UC1/sgbj9IU9NOjfyq/GMiAgVqeN9Fd8JA+yS2zu
-	tgScNypdcq1k3NdAc2Kxg7K2CDhLOrhV27k1ur7OnjUljuKRi/z72oNu6ms+2BPBFyM4jWPNr7u
-	xeLlgfXrjUTwFXYdoNAEtcWCypNRcFV4W11liu9yTYH6gaUwkqAoIFCaJ/VVmtwJXVszJc4T7av
-	Udq4yPLC9Bw1DdvAQoTkfzY7tWQc8W8n174Kdxs7wiqPF4Dq/X4wtKDe4PrdLHzTrZaW1gteEO0
-	2mF4ej3SL94es7433BCRygIX94cBhGDF2rByv44pZH9rg3rynfw5GTuQx+fkPA+Gi9tLaBcf1UT
-	GmbE6RFlA1x9O4OaNV3jOyi3qlwyOcncBg2pTKOv0tlZShAV3NdwRGTAccTlJnV47aN0T2axQ54
-	yzbc34ZchXKtornE/Ue3kPLhQ6VCs4oQcOOmNKkZDEtM/CxtsOwwJDkVq8pAPJM4kbCISUYd2hM
-	zGPPr9ehQrzyxz8ODzIweuqCKHKJVzXbykWXExElAddbCjsF0SbcII9rphgLxeGTjU6leLAv
-X-Received: by 2002:a05:600c:19cf:b0:4a0:1c43:3c04 with SMTP id 5b1f17b1804b1-4a18e4a988dmr80690785e9.13.1791637231769;
-        Sat, 10 Oct 2026 06:00:31 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791637235; x=1792242035;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yAt/7yJPn0972Rii+WXEYTfcVi7V4uYYD90Bl15iiXM=;
+        b=2f2j6GxSjB+530JjxUts6QsET3iBa/uKebRqLrdqSEscCpM/UZykSPU6FzMjoP6z7b
+         1bUEMblpPMhuRmLnIp3L/AUwuDDK5qOo1ArVdm23c5M9vr6CnGV8b7djxEHZwEGDe3ca
+         FlgSj4kyaqOaUX0i4uCyO96821Y509a0sOnjcyOnuskb79OvrhsygtN9qQQEbmYiA9my
+         wecHR8ly+TQlAlJVmpnv61RADd78lCt2J6qiI7O1N9AFXSyP2KcO0VSg0N9S39t1B2dR
+         ehec9fC+WMac1t+HwZnHhY3abPxcKPjwMAIHt82BRY1MSILeobGKIOhu7SeoYPRRF4Z2
+         ldhw==
+X-Gm-Message-State: AFq9FYJq1rNuScRwUeisEMY+V69AoGhUIOkEZRbi+nduH8HzimnJUup+
+	my0inwRK8VY5HcKD0Ug2vlHFrkuyrZVua8G3rEQGbRpTRV08y1TrSUIg9DviO5OMw9MAtw==
+X-Gm-Gg: AYBFou0rA1Wk2TlgFIfhxEnpwF6C6JQRyYMrgXeY/jxxuuMnBAAclY6gv1FDkKGUp2V
+	pPeo+AM2SqZs/7OsNP+CRTyQo76rd7/IWDRvi9PITpyRZjqRqf7D1JI7i1V21Pu7DjYB6nPLlS6
+	qgR8s68MJRp3FExevAMyf3QobyVgRngHmpuKaN1QxOLwdEwD8zFYwfJHMEFbPf8GhZuv08+ZRfV
+	2v8JhojqVKJJKkxkajCYvlR62D5OwJlNkH9KQ/YKOKwZId3teHv+YhF8KsL/JBmj/i8zqbbQxgz
+	OKAhXB/sX2Bsc9GoO6SUKHkiJc6tB6EYUF59Sxwp0lXHjpiHpjaaZNZXp00o5qHTZnH2bHMeF7a
+	//QB2yr2tMWCB1QFJIiHgFpYJvCGq9RZBwZXb+rxr65vUrLMkPBv24gbQrsR8N7PJ+zMpDkCjv8
+	zvM8s78fJChz5kJf0NGSG+4d7yxTV5LeIp96OZIz86YfecNSwsixuv71cfIRWOTrT+DS5lQOusB
+	D2ZtjnhYPWqLyReHqKoQbyix7SzJ7Jp3cxSqjVYgXrrF/ayScKQEMkFAGpw6zhsyxzbTCjMbMC3
+	VV6CDtlrOIC9/ZI/yd/9RL8DXMV0+B/TefDAULhEMakv6XBh1W7hFiO6qryIWLxBhZzH4MXl
+X-Received: by 2002:a05:600c:4688:b0:4a1:8d46:6228 with SMTP id 5b1f17b1804b1-4a18e4a9ba5mr95803285e9.14.1791637234403;
+        Sat, 10 Oct 2026 06:00:34 -0700 (PDT)
 Received: from navid-pc ([2a01:4b00:a856:6220::a11])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a190c49d5csm162309975e9.3.2026.10.10.06.00.30
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a190c49d5csm162309975e9.3.2026.10.10.06.00.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 06:00:31 -0700 (PDT)
+        Sat, 10 Oct 2026 06:00:33 -0700 (PDT)
 From: Navid Ghahremani <ghahramani.navid@gmail.com>
 To: linux-arm-kernel@lists.infradead.org
 Cc: devicetree@vger.kernel.org,
@@ -69,9 +70,9 @@ Cc: devicetree@vger.kernel.org,
 	robh@kernel.org,
 	krzk@kernel.org,
 	Navid Ghahremani <ghahramani.navid@gmail.com>
-Subject: [PATCH 02/24] ARM: l2c: Serialize device reads with cache maintenance when requested
-Date: Sat, 10 Oct 2026 13:59:40 +0100
-Message-ID: <20261010130024.177503-3-ghahramani.navid@gmail.com>
+Subject: [PATCH 05/24] ARM: zte: Add ZX279128S platform and CPU hotplug support
+Date: Sat, 10 Oct 2026 13:59:43 +0100
+Message-ID: <20261010130024.177503-6-ghahramani.navid@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261010130024.177503-1-ghahramani.navid@gmail.com>
 References: <20261010130024.177503-1-ghahramani.navid@gmail.com>
@@ -81,189 +82,299 @@ List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Provide the optional lock used by the tested ZX279128S workaround. Lock-
-off experiments hung the board; the proposed API remains subject to
-maintainer review.
+Support the dual Cortex-A9 platform, second-CPU startup through
+bootloader SRAM and CPU hotplug. Keep existing ZX297520V3 support
+intact.
 
 Assisted-by: LLM
 Signed-off-by: Navid Ghahremani <ghahramani.navid@gmail.com>
 ---
- arch/arm/include/asm/outercache.h | 22 +++++++++
- arch/arm/mm/Kconfig               | 14 ++++++
- arch/arm/mm/cache-l2x0.c          | 81 +++++++++++++++++++++++++++++++
- 3 files changed, 117 insertions(+)
+ MAINTAINERS                           |  22 ++++
+ arch/arm/mach-zte/Kconfig             |  17 +++
+ arch/arm/mach-zte/Makefile            |   4 +
+ arch/arm/mach-zte/platsmp-zx279128s.c | 173 ++++++++++++++++++++++++++
+ arch/arm/mach-zte/zx279128s.c         |  19 +++
+ 5 files changed, 235 insertions(+)
+ create mode 100644 arch/arm/mach-zte/platsmp-zx279128s.c
+ create mode 100644 arch/arm/mach-zte/zx279128s.c
 
-diff --git a/arch/arm/include/asm/outercache.h b/arch/arm/include/asm/outercache.h
-index 3364637755..cf9552aaac 100644
---- a/arch/arm/include/asm/outercache.h
-+++ b/arch/arm/include/asm/outercache.h
-@@ -117,4 +117,26 @@ static inline void outer_resume(void) { }
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 4f72b4ac27..4d0f4e5485 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -3894,6 +3894,28 @@ F:	drivers/video/fbdev/vt8500lcdfb.*
+ F:	drivers/video/fbdev/wm8505fb*
+ F:	drivers/video/fbdev/wmt_ge_rops.*
  
- #endif
++ARM/ZTE ZX279128S SOC SUPPORT
++M:	Navid Ghahremani <ghahramani.navid@gmail.com>
++L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
++S:	Maintained
++F:	Documentation/devicetree/bindings/clock/zte,zx279128s-crm.yaml
++F:	Documentation/devicetree/bindings/gpio/zte,zx279128s-gpio.yaml
++F:	Documentation/devicetree/bindings/net/zte,zx279128s-gmac.yaml
++F:	Documentation/devicetree/bindings/net/zte,zx279128s-mdio.yaml
++F:	Documentation/devicetree/bindings/pci/zte,zx279128s-pcie.yaml
++F:	Documentation/devicetree/bindings/spi/zte,zx279128s-spifc.yaml
++F:	Documentation/devicetree/bindings/usb/zte,zx279128s-dwc3.yaml
++F:	arch/arm/boot/dts/zte/zx279128s*
++F:	arch/arm/mach-zte/*zx279128s*
++F:	drivers/clk/zte/clk-zx279128s.c
++F:	drivers/gpio/gpio-zx279128s.c
++F:	drivers/net/ethernet/zte/
++F:	drivers/net/mdio/mdio-zx279128s.c
++F:	drivers/net/phy/sanechips.c
++F:	drivers/pci/controller/dwc/pcie-zx279128s.c
++F:	drivers/spi/spi-zx279128s-spifc.c
++F:	include/dt-bindings/clock/zte,zx279128s-crm.h
++
+ ARM/ZTE ZX29 SOC SUPPORT
+ M:	Stefan Dösinger <stefandoesinger@gmail.com>
+ L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
+diff --git a/arch/arm/mach-zte/Kconfig b/arch/arm/mach-zte/Kconfig
+index d3b404ca48..ff3845f109 100644
+--- a/arch/arm/mach-zte/Kconfig
++++ b/arch/arm/mach-zte/Kconfig
+@@ -26,4 +26,21 @@ config SOC_ZX297520V3
+ 	  Please read Documentation/arch/arm/zte/zx297520v3.rst on how to boot
+ 	  the kernel.
  
-+#ifdef CONFIG_CACHE_L2X0_IO_LOCK
-+/**
-+ * outer_io_lock - serialize a device read with outer cache maintenance
++config SOC_ZX279128S
++	bool "zx279128s SoC"
++	default y
++	select ARM_AMBA
++	select ARM_GIC
++	select ARM_GLOBAL_TIMER
++	select CACHE_L2X0
++	select CACHE_L2X0_IO_LOCK
++	select CLKSRC_ARM_GLOBAL_TIMER_SCHED_CLOCK
++	select HAVE_ARM_SCU if SMP
++	select HAVE_ARM_TWD if SMP
++	help
++	  Support for the ZTE (Sanechips) zx279128s SoC, a dual-core
++	  Cortex-A9 with an L2C-310 cache controller, used in home gateways
++	  such as the ZTE ZXHN H3600. The second core is started through
++	  the on-chip SRAM, where the boot loader keeps it waiting.
++
+ endif
+diff --git a/arch/arm/mach-zte/Makefile b/arch/arm/mach-zte/Makefile
+index 1bfe4fddd6..72f518632e 100644
+--- a/arch/arm/mach-zte/Makefile
++++ b/arch/arm/mach-zte/Makefile
+@@ -1,2 +1,6 @@
+ # SPDX-License-Identifier: GPL-2.0-only
+ obj-$(CONFIG_SOC_ZX297520V3) += zx297520v3.o
++obj-$(CONFIG_SOC_ZX279128S) += zx279128s.o
++ifdef CONFIG_SMP
++obj-$(CONFIG_SOC_ZX279128S) += platsmp-zx279128s.o
++endif
+diff --git a/arch/arm/mach-zte/platsmp-zx279128s.c b/arch/arm/mach-zte/platsmp-zx279128s.c
+new file mode 100644
+index 0000000000..8285b8fb10
+--- /dev/null
++++ b/arch/arm/mach-zte/platsmp-zx279128s.c
+@@ -0,0 +1,173 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (C) 2026 Navid Ghahremani <ghahramani.navid@gmail.com>
 + *
-+ * On some SoCs a device read that is still outstanding while an outer
-+ * cache range or sync operation is issued deadlocks the interconnect.
-+ * Drivers for devices behind such a bus take this lock around their
-+ * register reads.  It is a no-op unless the platform enabled it.
++ * The boot loader runs from on-chip SRAM.  Its reset code sends every
++ * core but CPU0 into a loop: wait for an event (WFE), then jump to the
++ * start of the SRAM, where the boot loader's reset vector leads back to
++ * the WFE.  To start the second core, replace that vector with a jump to
++ * secondary_startup and send an event.
 + *
-+ * Returns the saved interrupt flags to pass to outer_io_unlock().
++ * To take the second core offline again (CPU hotplug, and kexec, which needs
++ * it), the core puts the boot loader's vector back and returns to the boot
++ * loader's loop with the MMU and caches off. That loop is outside the
++ * kernel's memory, so the core survives the kernel being replaced, and the
++ * next start works the same way as the first.
 + */
-+unsigned long outer_io_lock(void);
-+void outer_io_unlock(unsigned long flags);
-+#else
-+static inline unsigned long outer_io_lock(void)
++
++#include <linux/cacheflush.h>
++#include <linux/io.h>
++#include <linux/iopoll.h>
++#include <linux/of.h>
++#include <linux/of_address.h>
++#include <linux/smp.h>
++
++#include <asm/cp15.h>
++#include <asm/idmap.h>
++#include <asm/proc-fns.h>
++#include <asm/smp_scu.h>
++#include <asm/tlbflush.h>
++
++/* ldr pc, [pc, #-4]: jump to the address stored in the next word */
++#define ZX279128S_JUMP_INSN	0xe51ff004
++
++static void __iomem *zx279128s_smp_sram;
++static phys_addr_t zx279128s_smp_sram_phys;
++/* the boot loader's vector, as found at boot */
++static u32 zx279128s_boot_vector[2];
++
++static int zx279128s_boot_secondary(unsigned int cpu, struct task_struct *idle)
 +{
++	if (!zx279128s_smp_sram)
++		return -ENODEV;
++
++	/*
++	 * Store the address before the instruction: a core that wakes up
++	 * in between still runs the boot loader's vector and goes back to
++	 * sleep instead of jumping to a stale address.
++	 */
++	writel(__pa_symbol(secondary_startup), zx279128s_smp_sram + 4);
++	writel(ZX279128S_JUMP_INSN, zx279128s_smp_sram);
++
++	/* Complete both writes, then wake the core */
++	dsb_sev();
++
 +	return 0;
 +}
 +
-+static inline void outer_io_unlock(unsigned long flags) { }
-+#endif
++static void __init zx279128s_smp_prepare_cpus(unsigned int max_cpus)
++{
++	struct device_node *np;
++	struct resource res;
++	void __iomem *scu;
 +
- #endif	/* __ASM_OUTERCACHE_H */
-diff --git a/arch/arm/mm/Kconfig b/arch/arm/mm/Kconfig
-index 6574659dfb..871c38b435 100644
---- a/arch/arm/mm/Kconfig
-+++ b/arch/arm/mm/Kconfig
-@@ -1015,6 +1015,20 @@ config CACHE_L2X0
- 	help
- 	  This option enables the L2x0 PrimeCell.
- 
-+config CACHE_L2X0_IO_LOCK
-+	bool "Serialize device reads with L2C-310 maintenance operations"
-+	depends on CACHE_L2X0
-+	help
-+	  On some SoCs, for example the ZTE/Sanechips ZX279128S, issuing an
-+	  L2C-310 range or sync operation while a CPU read from a PCIe
-+	  endpoint is still outstanding deadlocks the interconnect.  This
-+	  option lets the L2C-310 maintenance operations take a spinlock
-+	  that drivers also hold around their device reads, through
-+	  outer_io_lock()/outer_io_unlock().  It is only active when the
-+	  cache controller node has the "zte,l2c-io-read-lock" property.
++	np = of_find_compatible_node(NULL, NULL, "arm,cortex-a9-scu");
++	if (!np) {
++		pr_err("zx279128s: no SCU node\n");
++		return;
++	}
++	scu = of_iomap(np, 0);
++	of_node_put(np);
++	if (!scu) {
++		pr_err("zx279128s: cannot map the SCU\n");
++		return;
++	}
++	scu_enable(scu);
++	iounmap(scu);
 +
-+	  If unsure, say N.
++	np = of_find_compatible_node(NULL, NULL, "zte,zx279128s-smp-sram");
++	if (!np) {
++		pr_err("zx279128s: no SMP SRAM node\n");
++		return;
++	}
++	if (of_address_to_resource(np, 0, &res)) {
++		of_node_put(np);
++		pr_err("zx279128s: no SMP SRAM address\n");
++		return;
++	}
++	zx279128s_smp_sram = of_iomap(np, 0);
++	of_node_put(np);
++	if (!zx279128s_smp_sram) {
++		pr_err("zx279128s: cannot map the SMP SRAM\n");
++		return;
++	}
++	zx279128s_smp_sram_phys = res.start;
++	zx279128s_boot_vector[0] = readl(zx279128s_smp_sram);
++	zx279128s_boot_vector[1] = readl(zx279128s_smp_sram + 4);
 +
- config CACHE_L2X0_PMU
- 	bool "L2x0 performance monitor support" if CACHE_L2X0
- 	depends on PERF_EVENTS
-diff --git a/arch/arm/mm/cache-l2x0.c b/arch/arm/mm/cache-l2x0.c
-index 4708671600..35cc2eaf85 100644
---- a/arch/arm/mm/cache-l2x0.c
-+++ b/arch/arm/mm/cache-l2x0.c
-@@ -48,6 +48,7 @@ struct l2x0_regs l2x0_saved_regs;
- 
- static bool l2x0_bresp_disable;
- static bool l2x0_flz_disable;
-+static bool l2x0_io_lock_enable __initdata;
- 
- /*
-  * Common code for all cache controllers.
-@@ -778,6 +779,81 @@ static const struct l2c_init_data l2c310_init_fns __initconst = {
- 	},
- };
- 
-+#ifdef CONFIG_CACHE_L2X0_IO_LOCK
++	/* zx279128s_cpu_die() reads these with its data cache off */
++	sync_cache_w(&zx279128s_smp_sram);
++	sync_cache_w(&zx279128s_smp_sram_phys);
++	sync_cache_w(&zx279128s_boot_vector);
++}
++
++#ifdef CONFIG_HOTPLUG_CPU
++typedef void (*phys_reset_t)(unsigned long addr, bool hvc);
++
 +/*
-+ * On some SoCs (e.g. the ZTE/Sanechips ZX279128S) a CPU read from a PCIe
-+ * endpoint that is still outstanding when an L2C maintenance or sync
-+ * operation is issued deadlocks the interconnect: both CPUs stall and only
-+ * a watchdog reset recovers.  The vendor kernel avoids this by holding one
-+ * spinlock around the L2C operations and around the drivers' device reads.
-+ * Do the same when the cache node asks for it.  Drivers take the lock
-+ * around their device reads with outer_io_lock()/outer_io_unlock().
++ * If the vector already holds a jump, an earlier kernel started the core
++ * and did not put the boot loader's vector back: the original is unknown,
++ * so the core cannot be parked safely.
 + */
-+static DEFINE_RAW_SPINLOCK(l2x0_io_lock);
-+static struct outer_cache_fns l2x0_io_fns __ro_after_init;
-+static bool l2x0_io_lock_active __ro_after_init;
-+
-+unsigned long outer_io_lock(void)
++static bool zx279128s_cpu_can_disable(unsigned int cpu)
 +{
-+	unsigned long flags = 0;
-+
-+	if (l2x0_io_lock_active)
-+		raw_spin_lock_irqsave(&l2x0_io_lock, flags);
-+	return flags;
-+}
-+EXPORT_SYMBOL_GPL(outer_io_lock);
-+
-+void outer_io_unlock(unsigned long flags)
-+{
-+	if (l2x0_io_lock_active)
-+		raw_spin_unlock_irqrestore(&l2x0_io_lock, flags);
-+}
-+EXPORT_SYMBOL_GPL(outer_io_unlock);
-+
-+#define L2C_IO_LOCKED_RANGE_OP(op)					\
-+static void l2c_io_locked_##op(unsigned long start, unsigned long end)	\
-+{									\
-+	unsigned long flags;						\
-+									\
-+	raw_spin_lock_irqsave(&l2x0_io_lock, flags);			\
-+	l2x0_io_fns.op(start, end);					\
-+	raw_spin_unlock_irqrestore(&l2x0_io_lock, flags);		\
++	return zx279128s_smp_sram &&
++	       zx279128s_boot_vector[0] != ZX279128S_JUMP_INSN;
 +}
 +
-+L2C_IO_LOCKED_RANGE_OP(inv_range)
-+L2C_IO_LOCKED_RANGE_OP(clean_range)
-+L2C_IO_LOCKED_RANGE_OP(flush_range)
-+
-+static void l2c_io_locked_sync(void)
++static void zx279128s_cpu_die(unsigned int cpu)
 +{
-+	unsigned long flags;
++	phys_reset_t phys_reset;
 +
-+	raw_spin_lock_irqsave(&l2x0_io_lock, flags);
-+	l2x0_io_fns.sync();
-+	raw_spin_unlock_irqrestore(&l2x0_io_lock, flags);
++	/* Take out a flat mapping, which keeps the kernel mappings too */
++	setup_mm_for_reboot();
++
++	/*
++	 * The boot loader's loop executes the vector, which
++	 * zx279128s_boot_secondary() changes with data writes. Stop caching
++	 * and predicting instructions, as at power-on, so that the parked
++	 * core sees the change.
++	 */
++	set_cr(get_cr() & ~(CR_I | CR_Z));
++	__flush_icache_all();
++	local_flush_bp_all();
++
++	/* Clean the caches and leave coherency with the other core */
++	v7_exit_coherency_flush(louis);
++
++	/*
++	 * Put the boot loader's vector back, instruction word last: the core
++	 * then wakes up into the boot loader's loop, and zx279128s_cpu_kill()
++	 * sees that it is about to leave the kernel.
++	 */
++	writel_relaxed(zx279128s_boot_vector[1], zx279128s_smp_sram + 4);
++	writel_relaxed(zx279128s_boot_vector[0], zx279128s_smp_sram);
++	dsb();
++
++	/* Turn the MMU off and continue at the boot loader's vector */
++	phys_reset = (phys_reset_t)virt_to_idmap(cpu_reset);
++	phys_reset(zx279128s_smp_sram_phys, false);
 +}
 +
-+static void __init l2c_io_lock_install(struct outer_cache_fns *fns)
++static int zx279128s_cpu_kill(unsigned int cpu)
 +{
-+	l2x0_io_fns = *fns;
-+	if (fns->inv_range)
-+		fns->inv_range = l2c_io_locked_inv_range;
-+	if (fns->clean_range)
-+		fns->clean_range = l2c_io_locked_clean_range;
-+	if (fns->flush_range)
-+		fns->flush_range = l2c_io_locked_flush_range;
-+	if (fns->sync)
-+		fns->sync = l2c_io_locked_sync;
-+	l2x0_io_lock_active = true;
-+	pr_info("L2C: serializing device reads with maintenance operations\n");
-+}
-+#else
-+static void __init l2c_io_lock_install(struct outer_cache_fns *fns)
-+{
-+	pr_warn("L2C: io read lock requested but CONFIG_CACHE_L2X0_IO_LOCK is disabled\n");
++	u32 val;
++
++	/* Wait until the dying core has put the vector back */
++	return !readl_poll_timeout(zx279128s_smp_sram, val,
++				   val == zx279128s_boot_vector[0], 1000,
++				   100 * USEC_PER_MSEC);
 +}
 +#endif
 +
- static int __init __l2c_init(const struct l2c_init_data *data,
- 			     u32 aux_val, u32 aux_mask, u32 cache_id, bool nosync)
- {
-@@ -859,6 +935,8 @@ static int __init __l2c_init(const struct l2c_init_data *data,
- 		pr_info("L2C: disabling outer sync\n");
- 		fns.sync = NULL;
- 	}
-+	if (l2x0_io_lock_enable)
-+		l2c_io_lock_install(&fns);
- 
- 	/*
- 	 * Check if l2x0 controller is already enabled.  If we are booting
-@@ -1198,6 +1276,9 @@ static void __init l2c310_of_parse(const struct device_node *np,
- 	if (of_property_read_bool(np, "arm,full-line-zero-disable"))
- 		l2x0_flz_disable = true;
- 
-+	if (of_property_read_bool(np, "zte,l2c-io-read-lock"))
-+		l2x0_io_lock_enable = true;
++static const struct smp_operations zx279128s_smp_ops __initconst = {
++	.smp_prepare_cpus	= zx279128s_smp_prepare_cpus,
++	.smp_boot_secondary	= zx279128s_boot_secondary,
++#ifdef CONFIG_HOTPLUG_CPU
++	.cpu_can_disable	= zx279128s_cpu_can_disable,
++	.cpu_die		= zx279128s_cpu_die,
++	.cpu_kill		= zx279128s_cpu_kill,
++#endif
++};
 +
- 	prefetch = l2x0_saved_regs.prefetch_ctrl;
- 
- 	ret = of_property_read_u32(np, "arm,double-linefill", &val);
++CPU_METHOD_OF_DECLARE(zx279128s_smp, "zte,zx279128s-smp", &zx279128s_smp_ops);
+diff --git a/arch/arm/mach-zte/zx279128s.c b/arch/arm/mach-zte/zx279128s.c
+new file mode 100644
+index 0000000000..064c76f8ad
+--- /dev/null
++++ b/arch/arm/mach-zte/zx279128s.c
+@@ -0,0 +1,19 @@
++// SPDX-License-Identifier: GPL-2.0-only
++/*
++ * Copyright (C) 2026 Navid Ghahremani <ghahramani.navid@gmail.com>
++ */
++
++#include <asm/mach/arch.h>
++#include <linux/init.h>
++
++static const char *const zx279128s_dt_compat[] __initconst = {
++	"zte,zx279128s",
++	NULL,
++};
++
++DT_MACHINE_START(ZX279128S, "ZTE zx279128s (Device Tree)")
++	.dt_compat	= zx279128s_dt_compat,
++	/* Keep the L2 cache setup of the boot loader and the device tree */
++	.l2c_aux_val	= 0,
++	.l2c_aux_mask	= ~0,
++MACHINE_END
 -- 
 2.55.0
 
