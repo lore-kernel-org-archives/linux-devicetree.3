@@ -1,98 +1,50 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from send243.i.mail.ru (send243.i.mail.ru [95.163.59.82])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97BFD40A920
-	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 05:33:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B10C137E5C9;
+	Sat, 10 Oct 2026 06:12:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.163.59.82
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791610426; cv=none; b=Yp0TVnyOeGJMbqE/Mj6CApFwdl3IXKV/nq5HHzuhub63eOBNHKYIiotWxcyL0KH/dM+T3C4qyZ+eq3gy2a8CRP9w7M4xt4UppRq11h4xsSFrD/n4zX/hs9yPGadeuzTG3o5Pe5WJLbUMbxhPXVKQYY5ZAUPdZjbRwMJcSFxroJY=
+	t=1791612760; cv=none; b=asb4KM2vbDlYh9DVpPs0qpvMkLCcWvubFJ0xw3wjCCDOurerjzrlZuhQesWsnd+sg36Jj8qaYHjLEPO1LWlXfAqnwBGIfV8sbaFhVSzyu5/WQ92poH3CdDOZzaC2hmhPmqcCLQZf29WMFGJu5NkdAfgLtXqee20MECUahA4SwDc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791610426; c=relaxed/simple;
-	bh=ki44rZqsHENfxwVaIlWsw0mriK3sPfARHJY4IeNij7o=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=LuD26L0CybxjbbcSxsGztJtujFH5sVmizHQwZ7cTU0c6rc1GKkfxdG9L3S9STo3eRjAI2uw1grC5F8JhAf2/fYhu1kXeh8qkfMufndD394IhqBV5+W9a9rJkoUv/WIin0P4Tx069Ku/bESERBS7r/Cffv9XhVRHnd3EFF5sWGXU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=YE7LAYmc; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=SWDjNrHX; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791612760; c=relaxed/simple;
+	bh=VQ03bKt1Lc9xSCPUDMHYST6N7vO5NoSZVaTHwV2YQ5Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AGNk45d6WwCbceaCvoeNXxOVpC61/Bal+ZNfF9WOwcgHG1ksTgQHkD1TcgUAyHBHZFYhq9r41zOX/8ScncTI8eRwN7Pjo1ywdlOBduLg7/7Kylgqv4zW+Y8Y5/CX/tZs5QYZedelm8FvQuNHeKE6fC2x8/DopIQgENRw/42ygKM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mail.ru; spf=pass smtp.mailfrom=mail.ru; dkim=pass (2048-bit key) header.d=mail.ru header.i=@mail.ru header.b=Sv+992xj; arc=none smtp.client-ip=95.163.59.82
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mail.ru
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mail.ru
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="YE7LAYmc";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="SWDjNrHX"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69A4drjS2402632
-	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 05:33:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=ihzh9krNeTK
-	98IzARF6nI43bHHUpOUKcTQlAoWpm/DM=; b=YE7LAYmcCTo88TujnZaF+ZJ1Mrx
-	X4sZ0y3CgpXlxtyvyse/p0u67xcdLMMH13CYJ+meD7Maf7whpr/87TBoaK5NBXdy
-	5dxahD0NmjQuCoArfxZoCxjlz18fyCGQfO4etJeaf6lzW3luJlqIzqaXKUSWmi8o
-	NGfbwk/tnWeZncbKYkJJkMVDb7tUkj3xQuQzug326MQOUCKqHsHn/nR4Px7Pb1mY
-	6HfXLuxthIJ6AqpG4HoBboezVec9yI7q1/kPQr4ZCm9NlWE8Wu6BAbqlW3KftTJV
-	/YhyhAKwqHp0KhzzAzEmoOhEDStbrjYh2FErmjRUR+iE/Bi2FsIEBiQ8oLg==
-Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h7ehjg3f7-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 05:33:44 +0000 (GMT)
-Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-88679c4f94cso235876b3a.0
-        for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 22:33:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791610424; x=1792215224; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ihzh9krNeTK98IzARF6nI43bHHUpOUKcTQlAoWpm/DM=;
-        b=SWDjNrHXMiemp36yjHdSBW2RwcN7eJ25Qxipx6uBUzaLofAkvn3kImAKTfGSkfXYAD
-         QsR5w1Jk/fcqHPoqprwajyg4AqyAq6llPdx6uXO6EddtdS6cm+OAY/22af7V6PDeEe89
-         HNvQdsCQC/Ba+dQmkR1o9gxdmv8QmbHrBV7Ixr+Dr/jg4G/JDXs6zwqNjiCOBUaXfuXz
-         SzCb7gd3GWFTqQlVutkhHbJTAZVexvP5WirvWrSe2JChaDun4WfRTg/x3XGkaAezVMtY
-         O8CiW/7rvB1jVJw+N97Qyqamv8QoXd4ChBwaqTIYkbIbBOiWLgznAHXh8m6Pzqz6563A
-         BVCQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791610424; x=1792215224;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ihzh9krNeTK98IzARF6nI43bHHUpOUKcTQlAoWpm/DM=;
-        b=1QINHBMaqVW8fEohYB5Vf4NISRf0y4OYJGuSs5LxDo1tkjk2bbohEELDoAsB4HQZfE
-         r39J0AYZXFzvtn/JQK8ZzEijGuT9/kNBbkjCRAKhgUnlbcJt+F7frLyuUlOwL1vHTtLH
-         pDeMd96hQ+h5+yWiIcm2wNEIaXq9ESaX0Y+TXESJ8/oI3Otb3so8ipKSCt9USlP4/Dj2
-         Oq6TXuDB2xlKGUt2NDtPJj0n0L+0Ht6/8A6oVLs7Er1bvXpB5kP0UzFbra3GcPrTFVu8
-         Vl9r0+dzdYlnAIPCkYmcsfz4wogHKm0+ih3abYWTyhhISYmdqnC3kxTjdsAurbC4eO69
-         PM1w==
-X-Forwarded-Encrypted: i=1; AKwUvBwiLaU8HQCvKVQDKz1k+IzUlMEkAoIa76bD8xMEf5YkYBEdABk7TEJToIQeEEwn/EDIYv61bpi4Jk7g@vger.kernel.org
-X-Gm-Message-State: AFq9FYK3746P/gkyHWUu9dO+ev4/HjMsh0PZ3DQKnEmLd/9mm3BWRGZX
-	cGeCY7lVCoY2VHzfx/mxSzjDTqDVXBGXgce+8kK29k8FyV9ox2MIwtnDwzdOMZWvnOSIU8WclQy
-	GpLY2lBcK4tKNa6CpPXEDUxoxAyWz8hDVX3or8FtoL30Dqc+T9R13ax1CtvhZTL8t
-X-Gm-Gg: AYBFou3llP1wLfRLrxwQnlLg6oGQmntTiaBiiNF0z/DpsjyYWyN64N/vUXBla99Km91
-	h7/THi73yg/BpMVYZ054wJtJRZrJpGFvXpSQKCp0MGIUomX/t3CKt1+Wlq3+lsE/k1d2j/CeHUf
-	Hce7CzoYvN96/o+Lsufph09tbFWGNTXMhB+LmR4XGfKWVyzdoDqeUXa2AWRUClSnRKer1UJHOwR
-	3C89IFiZlDaDJeVhym2JDWOK/SmkQKGqZwkiQduz4UWVMVwAqgjF0fco469SzqEdhGbuvU8FShn
-	QmNw0t0CAgOrusgfcoIQrRnD7cBaYWRbvaK5DuZ8jKDgUxcjEZUwzFhosqdL6viffCKyJbSdH/H
-	6Vsu3z1rNnYoYXicQyExEri7zvCxnYKs=
-X-Received: by 2002:a05:6a00:99f:b0:886:61e5:cfbd with SMTP id d2e1a72fcca58-897c79d7cc1mr3405937b3a.45.1791610424155;
-        Fri, 09 Oct 2026 22:33:44 -0700 (PDT)
-X-Received: by 2002:a05:6a00:99f:b0:886:61e5:cfbd with SMTP id d2e1a72fcca58-897c79d7cc1mr3405915b3a.45.1791610423647;
-        Fri, 09 Oct 2026 22:33:43 -0700 (PDT)
-Received: from hu-faisalh-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-89928fd8469sm174028b3a.61.2026.10.09.22.33.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 22:33:43 -0700 (PDT)
-From: Faisal Hassan <faisal.hassan@oss.qualcomm.com>
-To: Thinh.Nguyen@synopsys.com, gregkh@linuxfoundation.org,
-        mathias.nyman@intel.com, robh@kernel.org, krzk+dt@kernel.org,
-        conor+dt@kernel.org, p.zabel@pengutronix.de,
-        wesley.cheng@oss.qualcomm.com
-Cc: sriram.dash@oss.qualcomm.com, jack.pham@oss.qualcomm.com,
-        krishna.kurapati@oss.qualcomm.com, shazad.hussain@oss.qualcomm.com,
-        linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Faisal Hassan <faisal.hassan@oss.qualcomm.com>
-Subject: [PATCH v3 7/7] usb: dwc3: qcom: Enable VBUS override at probe for default peripheral role
-Date: Sat, 10 Oct 2026 11:02:46 +0530
-Message-Id: <20261010053246.2991984-8-faisal.hassan@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20261010053246.2991984-1-faisal.hassan@oss.qualcomm.com>
-References: <20261010053246.2991984-1-faisal.hassan@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=mail.ru header.i=@mail.ru header.b="Sv+992xj"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mail.ru;
+	s=mail4; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:Cc:
+	To:From:From:Sender:Reply-To:To:Cc:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:In-Reply-To:References:List-Id:
+	List-Help:List-Unsubscribe:List-Subscribe:List-Post:List-Owner:List-Archive:
+	X-Cloud-Ids:Disposition-Notification-To;
+	bh=xKKldkkdmRrlH3+XC2HtxbhefRTI2jE/Cn2PPdVNjdc=; t=1791612756; x=1791702756; 
+	b=Sv+992xjT4XTv/pFJcS0Zwew6OZNoJWEv4hQK47Sw7hledqNx/JJ1o7rgMlHaAt6nTC5Hf7uF2k
+	udzRmDKOGGC5ls2UoQaFdbGOeGTwfPralGZGATLlNRRzUsa94n45tCd3aRvbNZMvbljHqOtRUvkJC
+	8KaabE1a60dZtnLuBePLuvdfVqEIePLbNMQqJ5SJgrdyRa89GHvd6KR2gpxbaywEeM0L4VQF9PtBZ
+	LuqBXeMHmSan0Sj+1e9Zu7UWrRqiJW0I+s9DulNqjMzQuBdq+3VYRGad7vTijEDMR3HXPe5Bb9FJJ
+	NJw8FnGMbq3R/PBqKRz1NlBgnHljBIq82lPA==;
+Received: by exim-smtp-84d6fb566c-gbdpj with esmtpa (envelope-from <misha.zavertkin@mail.ru>)
+	id 1xFQJn-00000000RHY-1S3i; Sat, 10 Oct 2026 09:12:27 +0300
+From: Michael Zavertkin <misha.zavertkin@mail.ru>
+To: linux-i2c@vger.kernel.org
+Cc: Rustam Adilov <adilov@disroot.org>,
+	Chris Packham <chris.packham@alliedtelesis.co.nz>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Michael Zavertkin <misha.zavertkin@mail.ru>
+Subject: [PATCH v2 0/2] i2c: rtl9300: remove IO_MODE configuration
+Date: Sat, 10 Oct 2026 13:12:08 +0700
+Message-ID: <cover.1791611999.git.misha.zavertkin@mail.ru>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -100,69 +52,42 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEwMDAyMSBTYWx0ZWRfX1L2WOxupbnUS
- jlc86wTiSUQbegtrCbx/PbYY1AJ+iGtZ/gFKpsJKplbIEKkB1MklX/hOCQOJxdLaSn3/E9rHU0Z
- xKMtjBysjowCCWpE8qhoBcwYhf6nkka5qhrnX2+75osRO8C52nA52RpM9GLZ9bVrCfK3jnAuUiF
- Rd8Z0YB21G2dA5cdxZQ79SqzFpXKyTPKmCqLabJoCOACcT9oDZT/s7BIeIo97rhR/vxijHKsRFo
- krPKPBwbswxx2gXhCsNuhTxMIs+zTaG/hl/OHb7uuCdibOsXbheszRPeZqY0tjy5nQhQ4n7TFeF
- ZKR/eH8VL/4VGpwGdOznxJF1O3NqB9EtrR+YhMaLwrduR6jqjpT58ye2+0rDbhmyHb2eUAm8kgN
- V6Acwd9Es3C5r2kPWLTZSBOgJqPIWBSnEiPk0NeVQa1GmLl052fmw7huO7gu4iqnYN0PKifaLYx
- Vp8sCXasrEU9I/b/aMQ==
-X-Proofpoint-ORIG-GUID: lRIljTTlVBgoMFH_qwUgwXxaK5KLZc2q
-X-Authority-Analysis: v=2.4 cv=MpTHeGae c=1 sm=1 tr=0 ts=6ac9ce38 cx=c_pps
- a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
- a=KL4VWcfqKbbHtFUGL8sA:9 a=OpyuDcXvxspvyRM73sMx:22
-X-Proofpoint-GUID: lRIljTTlVBgoMFH_qwUgwXxaK5KLZc2q
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEwMDAyMSBTYWx0ZWRfXxohtILpeq4qD
- NnSUHAO1D7FPe3XqUvSgMAyfUsywHeVNuXMvkbmovr8qqPBQNNKeuJLsMTR8FueSC9U3w/GM8Ju
- UfRkprwzz6LuEt1wzTbhABJ2p9zNzS4=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-10_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 malwarescore=0 spamscore=0 adultscore=0 bulkscore=0
- suspectscore=0 clxscore=1015 priorityscore=1501 lowpriorityscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610100021
+Authentication-Results: exim-smtp-84d6fb566c-gbdpj; auth=pass smtp.auth=misha.zavertkin@mail.ru smtp.mailfrom=misha.zavertkin@mail.ru
+X-Mailru-Src: smtp
+X-7564579A: 646B95376F6C166E
+X-77F55803: 4F1203BC0FB41BD968B159B7CE59A0BE79D87027893E9730068DA622128DD5D4182A05F538085040C6AC82DBD7B562893DE06ABAFEAF67055E4E41E3A81E8A69135CE729D6484097B7464F346B62472A
+X-7FA49CB5: FF5795518A3D127A4AD6D5ED66289B5278DA827A17800CE72F22E6DC541F75D9EA1F7E6F0F101C67BD4B6F7A4D31EC0BCC500DACC3FED6E28638F802B75D45FF8AA50765F7900637AC83A81C8FD4AD23D82A6BABE6F325AC2E85FA5F3EDFCBAA7353EFBB5533756616B1AC507046C935DF4C00BBFB3C043D74995A4EFBB3D3B79C6F6C88131200F68EEF46B7454FC60B9742502CCDD46D0D062BEEFFB5F8EA3EF6B57BC7E64490611E7FA7ABCAF51C92176DF2183F8FC7C0AF05157F0BAFB9978941B15DA834481F9449624AB7ADAF37BA3038C0950A5D36D5E8D9A59859A8B6AC143D7F65F00CAD76E601842F6C81A1F004C906525384303E02D724532EE2C3F43C7A68FF6260569E8FC8737B5C2249EC8D19AE6D49635B68655334FD4449CB9ECD01F8117BC8BEAAAE862A0553A39223F8577A6DFFEA7C52A781257067E9B843847C11F186F3C59DAA53EE0834AAEE
+X-C1DE0DAB: 0D63561A33F958A5C250198685926CE45002B1117B3ED696AC3A97D61D6A891FB2920F75BA9A967F823CB91A9FED034534781492E4B8EEADEEA082C9A12FE455C79554A2A72441328621D336A7BC284946AD531847A6065A17B107DEF921CE79BDAD6C7F3747799A
+X-C8649E89: 1C3962B70DF3F0AD73CAD6646DEDE1918E10F71CB4DF9F9677DD89D51EBB774225B6776AC983F447FC0B9F89525902EE6F57B2FD27647F25E66C117BDB76D659F9064DE9A493218A0CC515E6CFA3C3580CE6D8858CC135DAA1C9F1EC53928A313F7E3A5EA15F1C19B8341EE9D5BE9A0A2C4CD57F0B7B53D7E1A3658CE16BAF6E0BCF0E9579C30B3052EE4E5D9E54FDA427302E973F6434AB8511FE41C8941D68F571C199C4BE91E79E69A34BD5DD98C9F0A6D2C91ED28CB6
+X-D57D3AED: 3ZO7eAau8CL7WIMRKs4sN3D3tLDjz0dLbV79QFUyzQ2Ujvy7cMT6pYYqY16iZVKkSc3dCLJ7zSJH7+u4VD18S7Vl4ZUrpaVfd2+vE6kuoey4m4VkSEu53w8ahmwBjZKM/YPHZyZHvz5uv+WouB9+ObcCpyrx6l7KImUglyhkEat/+ysWwi0gdhEs0JGjl6ggRWTy1haxBpVdbIX1nthFXOcIETfglQORZ0zpDET4ZrlAo0bq3TDyw5v+G6YiroYwQqAS+6VDYZ8=
+X-Mailru-Sender: FD65D7C492470CAE23E6ABD178607DBC318B7C7AFC912EADB951B70A5BD4BD8E6184A1D3A18F35E9140FE51BDE05C0F74B2A3C715BC1DED96EFAE8183A2EAE0D96DD28E056F58A23E3C55DE776B662A1DD77B849F69637CB3DDE9B364B0DF289AE208404248635DF
+X-Mras: Ok
 
-When the controller is in OTG mode with usb-role-switch and
-role-switch-default-mode set to peripheral, the role notifier never sees
-a transition at probe, so the QSCRATCH VBUS override is not programmed
-and the device never gets a session-valid indication.
+i2c driver for RTL9607C used to configure IO_MODE register. The register
+is global and responsible for configuring SoC pins, therefore it should
+belong to pinctrl driver.
 
-Enable the VBUS override at probe whenever the initial role is
-USB_ROLE_DEVICE.
+SoC-specific pinctrl driver is WIP (waiting for these patches in OpenWRT),
+but pinctrl-single could be used instead.
 
-Validated on SA8255P with an HS host attached: 20 unbind/bind and 20
-suspend/resume iterations completed with no failures.
+While added compatible realtek,rtl9607c-i2c relies on pinctrl driver,
+old realtek,rtl9607-i2c left for backward compatibility.
 
-Signed-off-by: Faisal Hassan <faisal.hassan@oss.qualcomm.com>
+Signed-off-by: Michael Zavertkin <misha.zavertkin@mail.ru>
 ---
- drivers/usb/dwc3/dwc3-qcom.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+Changes in v2:
+- Backward compatibility achieved by adding new compatible value. Old
+  one is marked as deprecated
+- Link to v1: https://patch.msgid.link/cover.1791127538.git.misha.zavertkin@mail.ru
+---
+Michael Zavertkin (2):
+  i2c: rtl9300: add realtek,rtl9607c-i2c compatible
+  dt-bindings: i2c: rtl9300: add 'rtl9607c-i2c'
 
-diff --git a/drivers/usb/dwc3/dwc3-qcom.c b/drivers/usb/dwc3/dwc3-qcom.c
-index 0896a323bdda..92f1223f7b21 100644
---- a/drivers/usb/dwc3/dwc3-qcom.c
-+++ b/drivers/usb/dwc3/dwc3-qcom.c
-@@ -953,10 +953,12 @@ static int dwc3_qcom_probe(struct platform_device *pdev)
- 		dwc3_qcom_vbus_override_enable(qcom, true);
- 	} else {
- 		if ((device_property_read_bool(dev, "usb-role-switch")) &&
--		    (usb_get_role_switch_default_mode(dev) == USB_DR_MODE_HOST))
-+		    (usb_get_role_switch_default_mode(dev) == USB_DR_MODE_HOST)) {
- 			qcom->current_role = USB_ROLE_HOST;
--		else
-+		} else {
- 			qcom->current_role = USB_ROLE_DEVICE;
-+			dwc3_qcom_vbus_override_enable(qcom, true);
-+		}
- 	}
- 
- 	qcom->dwc.glue_ops = &dwc3_qcom_glue_ops;
+ .../bindings/i2c/realtek,rtl9301-i2c.yaml     | 20 ++++++++++++++++++-
+ drivers/i2c/busses/i2c-rtl9300.c              | 15 ++++++++++----
+ 2 files changed, 30 insertions(+), 5 deletions(-)
+
 -- 
-2.34.1
+2.54.0
 
