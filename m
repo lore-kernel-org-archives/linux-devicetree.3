@@ -1,172 +1,181 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BB81136672
-	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 18:32:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E0CF2236FA
+	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 18:32:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791657130; cv=none; b=MYN9+LGbH/A9GVxuIBIjqxScGGjWPCC2fWZmv9s8ggbI+SGbfRMYtbdO44miHvY8D7AnYqVilu86HOQnJM+j0orNNzFQjyRDJoV9vwr6iEYy2AKutqaSlkuSdD1wlM5VXywbsu4qUo69NLqbzrvV9UG7o3r2fwDwLeZow50SDuA=
+	t=1791657130; cv=none; b=u/cjp4SVy23C0kBW0mGZcbOi4Bg0y8ky2/CgfpPi+XRnmvqcvyUH1P1hW8FEQmTyAJj5Gmg4WZ3ZN8k6e01X4zUn4wcPDKZ53BJODGrzfTZntTlO84zGu4AVAYA9IiZYkbVUOs4nA5dACPLnJDfh+t+ib4yV6sXZv+M1dkip3bI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791657130; c=relaxed/simple;
-	bh=JIZ2eTvFtHYNQhFnOS55O59RPBInFjJQM3saAKOT4Bc=;
+	bh=fxN8m1MHi8lLa/sRwkW4GXporvB45igtIfdsiGZGLPQ=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=dk1IkatC2FuCseJN4EsC38cb7zi4Bsb5/LodhCNUE3rPfxAl/ixKnecyrbS9kP/uTVsYAdtUNxvN0OIvISmSoCGLvHrzYGSW9nLmdH2W4AFMoyx0ygWO9Y2vlIJF1JzLuPqZIDBYgNc9RogFxOm03gM8ex08zsjwjR4ms9B+PyM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aEaIYmal; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=cesfytW9atT5ADcFaZJ4WdNgAls7i+9y6acKPGxxv/Wh7gk03k5VjDA/BQNcYCA5saqLGLo92ULB+2J89CVC5eIda6gx0HzGqFo0jKEwJW8xaFDaqwhZMd3kGk4mBvxPQ2Wvt4YLgGpxlrBTzy0I/pXkUTQK08iayxMPuc5PY+I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lL+iSxpU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aEaIYmal"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EFBC1F000FF;
-	Sat, 10 Oct 2026 18:32:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lL+iSxpU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15BEC1F00893;
+	Sat, 10 Oct 2026 18:32:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791657128;
-	bh=qAB7ASxjHRl6wlZjt6t1AzK92RFCpBwOUtU8iXSEI5I=;
+	s=k20260515; t=1791657129;
+	bh=vFwNyNi1p/UIobCuCjTtNdGNjNJazxfdcmhgQY0Ug0s=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=aEaIYmalOwqRJyJbeZk7UoDaig/9X7y2ge69Qh9XNboo/wiB5QAWBziCvbpIozR4+
-	 Ie9poN+C58PsMWiLUgKcXfMDULgifdKngXdbCQ4u/tc1Fk9N5q1ni2TbRwFRcWZN3E
-	 w/xtazSHzd5LpRaCnCamu394JeZ/g98SA+NTGsLfYcV+YuxyCu0gklxOhBdsIG/R73
-	 niBUEgFIJ09k3BqmWugLmEjdy7S9VCQlmLOEpOlL6kGNjDt76/lyRBEESqaYbl8n0g
-	 HDVxkAVc+Ie7JqEOdEbufKu+EOtBnITMoMMKbsYtog3kdOdD3pBMfFSqCSCurnqcSj
-	 OnqBtCUDMKUcQ==
-Message-ID: <sashiko-outbox-166805@kernel.org>
+	b=lL+iSxpUry36Dh89PgBkg2KsVrWu8W6L1MZ4aETPx+oYBGqWD5ysb4t4KdK/0TjBS
+	 TUFMc7OPi+YxIZcP4n7MxRDsTQd/Dpike+Rj1hKYfitea4UyJ5W4J8U5WmpSZOoa6b
+	 wRCM12n7V9F8ZR9fBMTl3+1cKKRjcjtLyFdQ0L+1J1VgO3yjVZg23ssOcej3PYcsHN
+	 +Cu4YahD2ZirVjqlXC5FnNMqSbEnB7L4vIy+2YTZtwZxF44JtonWrOYUJhKTsda7Or
+	 7iysIs8a7BtAPxAYM4wrTiY6kGFkMx+I+1QalsxvtAm2WDsR6NmHRRC6oVDubtSgwB
+	 BdcmdjTbrmbQg==
+Message-ID: <sashiko-outbox-166807@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v12 03/12] dpll: add basic SiTime SiT9531x
- support
+Subject: Re: [PATCH net-next v12 05/12] dpll: sit9531x: register DPLL
+ devices and pins
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Ali Rouhi" <arouhi@sitime.com>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261009183151.78497-4-arouhi@sitime.com>
+In-Reply-To: <20261009183151.78497-6-arouhi@sitime.com>
 References: <20261009183151.78497-1-arouhi@sitime.com>
- <20261009183151.78497-4-arouhi@sitime.com>
+ <20261009183151.78497-6-arouhi@sitime.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 10 Oct 2026 18:32:07 +0000
+Date: Sat, 10 Oct 2026 18:32:08 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] dpll: sit9531x: race condition in regmap cache invalidation on I=
-2C failure
+- [Low] locking: Missing multiop_lock in sit9531x_dev_state_fetch() violati=
+ng function contracts
+- [Low] build: Use of undefined kzalloc_obj macro causes compilation failure
 --
 
-commit 1fc3c6add951f10b8266bc8b2d155767ac703b33
+commit 07998476897b60ae6e981144b634fb6008fd348c
 Author: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>
 
-dpll: add basic SiTime SiT9531x support
+dpll: sit9531x: register DPLL devices and pins
 
-This commit adds basic I2C support for the SiTime SiT9531x clock generator
-family. It introduces paged regmap configuration, register access helpers,
-and device probe functionality.
+This commit registers each of the four on-chip PLLs as a DPLL device and
+exposes their respective input and output clocks as DPLL pins. It adds
+initialization for the device hardware state, pin ops mapping, and a
+periodic kthread worker to poll hardware status and notify the core of
+changes.
 
 > diff --git a/drivers/dpll/sit9531x/core.c b/drivers/dpll/sit9531x/core.c
-> new file mode 100644
-> index 0000000000000..c7c14442df922
-> --- /dev/null
+> --- a/drivers/dpll/sit9531x/core.c
 > +++ b/drivers/dpll/sit9531x/core.c
 [ ... ]
-> +int sit9531x_read_u8(struct sit9531x_dev *sitdev, unsigned int reg,
-> +		     u8 *val)
-> +{
-> +	unsigned int vreg, tmp;
-> +	int rc;
-> +
-> +	vreg =3D (SIT9531X_REG_PAGE(reg) * SIT9531X_PAGE_SIZE) +
-> +	       SIT9531X_REG_OFFSET(reg) + SIT9531X_RANGE_OFFSET;
-> +
-> +	rc =3D regmap_read(sitdev->regmap, vreg, &tmp);
-> +	if (rc) {
-> +		sit9531x_page_cache_drop(sitdev);
-
-[Severity: Medium]
-Could this create a race window during the cache invalidation?
-
-The internal regmap lock is dropped after regmap_read returns. If an I2C
-transfer fails, there is an unprotected race window between regmap dropping
-its lock and regcache_drop_region re-acquiring it inside
-sit9531x_page_cache_drop.
-
-A concurrent thread could initiate another regmap access in this window,
-observe the stale cached page selector, incorrectly assume the hardware is
-on the requested page, and perform an I2C transfer. Since the failed
-transfer may have left the hardware on a different page, the concurrent
-access could hit the wrong registers.
-
-Should the driver serialize the regmap access and the error-path cache
-invalidation within a single lock (such as sitdev->multiop_lock) to ensure
-the cache is invalidated atomically?
-
-> +		dev_err(sitdev->dev,
-> +			"Failed to read page 0x%02x reg 0x%02x: %d\n",
-> +			SIT9531X_REG_PAGE(reg), SIT9531X_REG_OFFSET(reg), rc);
-> +	} else {
-> +		*val =3D (u8)tmp;
-> +	}
-> +
-> +	return rc;
-> +}
-> +
-> +/*
-> + * sit9531x_write_u8 - write an 8-bit register
-> + * @reg:	register in SIT9531X_REG(page, offset) form
-> + * @val:	value to write
-> + */
-> +int sit9531x_write_u8(struct sit9531x_dev *sitdev, unsigned int reg,
-> +		      u8 val)
-> +{
-> +	unsigned int vreg;
-> +	int rc;
-> +
-> +	vreg =3D (SIT9531X_REG_PAGE(reg) * SIT9531X_PAGE_SIZE) +
-> +	       SIT9531X_REG_OFFSET(reg) + SIT9531X_RANGE_OFFSET;
-> +
-> +	rc =3D regmap_write(sitdev->regmap, vreg, val);
-> +	if (rc) {
-> +		sit9531x_page_cache_drop(sitdev);
-
-[Severity: Medium]
-Does this have the same race window where the internal regmap lock is
-dropped after regmap_write returns, before the cache is invalidated?
-
-> +		dev_err(sitdev->dev,
-> +			"Failed to write page 0x%02x reg 0x%02x: %d\n",
-> +			SIT9531X_REG_PAGE(reg), SIT9531X_REG_OFFSET(reg), rc);
-> +	}
-> +
-> +	return rc;
-> +}
+>  static int sit9531x_dev_state_fetch(struct sit9531x_dev *sitdev)
+>  {
 [ ... ]
-> +int sit9531x_update_pll_u8(struct sit9531x_dev *sitdev, u8 pll_idx,
-> +			   u8 offset, u8 mask, u8 val)
-> +{
-> +	u8 page =3D sit9531x_pll_page(pll_idx);
-> +	unsigned int vreg;
-> +	int rc;
-> +
-> +	vreg =3D (page * SIT9531X_PAGE_SIZE) + offset + SIT9531X_RANGE_OFFSET;
-> +
-> +	/*
-> +	 * A read-modify-write is a read and a write, and either can leave
-> +	 * the cached page selector wrong, so fail the way the single
-> +	 * accessors do.
-> +	 */
-> +	rc =3D regmap_update_bits(sitdev->regmap, vreg, mask, val);
-> +	if (rc) {
-> +		sit9531x_page_cache_drop(sitdev);
+>  	/*
+>  	 * The priority-table read walks the Page-1 registers, so it runs
+>  	 * with multiop_lock held like every other multi-register sequence.
+>  	 * Nothing can race with it here -- the DPLLs are not registered and
+>  	 * the monitor is not running yet -- but the page handling stays
+>  	 * serialized the same way as at runtime.
+>  	 */
+>  	mutex_lock(&sitdev->multiop_lock);
+>  	rc =3D sit9531x_ref_pll_mask_fetch(sitdev);
+>  	mutex_unlock(&sitdev->multiop_lock);
+>  	if (rc) {
+>  		dev_err(sitdev->dev,
+>  			"Failed to fetch input priority tables: %d\n", rc);
+>  		return rc;
+>  	}
+> =20
+>  	for (i =3D 0; i < sitdev->info->num_outputs; i++) {
+>  		rc =3D sit9531x_out_state_fetch(sitdev, i);
 
-[Severity: Medium]
-Does this also expose the same race window when regmap_update_bits releases
-its lock before the cache invalidation can happen?
+[Severity: Low]
+Does this code violate the internal locking contract?
 
-> +		dev_err(sitdev->dev,
-> +			"Failed to update page 0x%02x reg 0x%02x: %d\n",
-> +			page, offset, rc);
-> +	}
-> +
-> +	return rc;
-> +}
+The function sit9531x_out_state_fetch() calls sit9531x_output_mode_fetch(),
+which documents that the caller must hold sitdev->multiop_lock because it
+accesses multiple paged registers. While this is called during probe when
+concurrent threads might not be active yet, the lock is explicitly dropped
+just before this loop.
+
+>  		if (rc) {
+>  			dev_err(sitdev->dev,
+>  				"Failed to fetch output %u state: %d\n", i, rc);
+>  			return rc;
+>  		}
+>  	}
+> =20
+>  	for (i =3D 0; i < SIT9531X_NUM_PLLS; i++) {
+>  		rc =3D sit9531x_chan_state_fetch(sitdev, i);
+
+[Severity: Low]
+Can this lead to paged register desynchronization?
+
+Similarly, sit9531x_chan_state_fetch() calls sit9531x_prio_table_read(),
+which also requires multiop_lock to serialize page accesses. Dropping the
+lock before these state fetches breaks the driver's documented concurrency
+model for register pages.
+
+>  		if (rc) {
+>  			dev_err(sitdev->dev,
+>  				"Failed to fetch PLL%c state: %d\n",
+>  				'A' + i, rc);
+>  			return rc;
+>  		}
+>  	}
+> =20
+>  	return 0;
+>  }
+[ ... ]
+>  static struct sit9531x_dpll_pin *
+>  sit9531x_dpll_pin_alloc(struct sit9531x_dpll *sitdpll,
+>  			enum dpll_pin_direction dir, u8 id)
+>  {
+>  	struct sit9531x_dpll_pin *pin;
+> =20
+>  	pin =3D kzalloc_obj(*pin, GFP_KERNEL);
+
+[Severity: Low]
+Will this compile successfully?
+
+The kzalloc_obj macro used here receives two arguments. However,
+kzalloc_obj is not a standard kernel macro (the standard is kzalloc), and
+where it is used internally in the DPLL core, it only takes a single
+argument. This looks like a syntax error that will fail to build. Should
+this use kzalloc() instead?
+
+>  	if (!pin)
+>  		return ERR_PTR(-ENOMEM);
+> =20
+>  	pin->dpll =3D sitdpll;
+>  	pin->dir =3D dir;
+>  	pin->id =3D id;
+> =20
+>  	return pin;
+>  }
+[ ... ]
+>  struct sit9531x_dpll *sit9531x_dpll_alloc(struct sit9531x_dev *sitdev, u=
+8 ch)
+>  {
+>  	struct sit9531x_dpll *sitdpll;
+> =20
+>  	sitdpll =3D kzalloc_obj(*sitdpll, GFP_KERNEL);
+
+[Severity: Low]
+The same compilation issue with kzalloc_obj() appears here.
+
+>  	if (!sitdpll)
+>  		return ERR_PTR(-ENOMEM);
+> =20
+>  	sitdpll->dev =3D sitdev;
+>  	sitdpll->id =3D ch;
+>  	sitdpll->lock_status =3D DPLL_LOCK_STATUS_UNLOCKED;
+>  	sitdpll->lock_status_error =3D DPLL_LOCK_STATUS_ERROR_NONE;
+>  	INIT_LIST_HEAD(&sitdpll->pins);
+> =20
+>  	return sitdpll;
+>  }
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009183151.7849=
-7-1-arouhi@sitime.com?part=3D3
+7-1-arouhi@sitime.com?part=3D5
