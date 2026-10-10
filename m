@@ -1,96 +1,96 @@
-Received: from mail-yx1-f48.google.com (mail-yx1-f48.google.com [74.125.224.48])
+Received: from mail-yx1-f53.google.com (mail-yx1-f53.google.com [74.125.224.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 202B237755C
-	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 22:37:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71111394498
+	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 22:40:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.53
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791671846; cv=pass; b=jeYhev7ng9QiPDky5Ekqnqvo5dagaCNcUjOvIXVzvTdXvF2Dnf/49W2zUf302HLJlCNcSG8CWLGOZxYjJU1BnGBDxA4XpKSi8n4bnFdGzCtuF8v927hJFXKIiwArXCaamzFP4ljClVTvsZppiiSH/GAiursWtECg7ZgrY9c6bb4=
+	t=1791672055; cv=pass; b=fIsA7c/xPAxIJ95HOpLmuCDUEYw4s/NcZAXy3bA++xHvQvqGMKIpUvAcuazUiEPoUgEMMUc/ZuOaLqOeD97+vsq4i9sJDQPj+TQFQxNt53C2QIQUNkK//rDaC0qrdG/W86LZ4yRToUnO6HYSUwvn0y8wLNfMjAiB/EBEdpcC0aw=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791671846; c=relaxed/simple;
-	bh=Edn/b7yHTs0QFZu4M/RBjveqNZ3qiAFmLJfm7m0vLn8=;
+	s=arc-20240116; t=1791672055; c=relaxed/simple;
+	bh=6mEGm2u4SySep02ssBb6cSOg0RdAq/up2Jup45p2V48=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=XhZzHTGU3i2RFH34s0OnOiREob40eH4F6QJ+nyNcinvDWxbuubdEc1Y4shdyhMl45Oonkgqe496iaE6OEm8SEjtaC5L6seTlLLpNMwDkqBPfXnDtENuh+k7QlnbR1MxUjanYHL5iITq+Qw2hinANHKePPI9qW03o7DBgALsj7S8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=mQPVP+Bp; arc=pass smtp.client-ip=74.125.224.48
+	 To:Cc:Content-Type; b=aVT8Wt+CleTf0vwWupfKJD5Nbo4TovFnB99LTyP+a+0tWmAtFv+jN+UkWR7Uv+sxwrSSERUTakH28f8tPhf2ds5kjqS4X7gK8E1iFmIA4H9v4Lr33YpAOY3yPZliCoNXrAx9WQDSnf1n/9O/+sik1+f/QmOF2cDmYIZo9lMRv+g=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=hTbDXvB+; arc=pass smtp.client-ip=74.125.224.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="mQPVP+Bp"
-Received: by mail-yx1-f48.google.com with SMTP id 956f58d0204a3-677af43eed4so625713d50.0
-        for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 15:37:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791671844; cv=none;
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="hTbDXvB+"
+Received: by mail-yx1-f53.google.com with SMTP id 956f58d0204a3-677dbe051d4so657327d50.0
+        for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 15:40:54 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791672053; cv=none;
         d=google.com; s=arc-20260327;
-        b=jAEgJUJqkIZyoT6Vy4p6Yp0AYYHU5pv84slKJpG2wj+1psHYBK+eZa72X+hj+qa3Vt
-         LnhyQKx+z4GdK2gy7RnZa+dGZldw6IMmKZvmIWDmLjAQ4jv6O5xVasowHQR2/kZBT6cB
-         I/YoDZ0sKfI3tN+UJ9EfB+0Ko4bTTPYxoHWFtu3oRQm2c54Avvk3sWb6NJwJiL6HfRHe
-         bL/sBHA9SC+fWIzkvXOGhneYodcfhUA8zahcNstD+ByqBnkocT7Q6lxlP7/kEcYoLSg9
-         0wijLOxYhY5x484040aSSpZ4JSOkYX4K7Gz5Ow7NtMQ0ceyhPtmHdalqcL65E882ItBH
-         tBwQ==
+        b=HQN8yMghQGfYED4U9zTtbY9/fBDThmYUxmsslzu4vFktr40hQL06pZjzjBJj/MnaNv
+         wQIyXP0sFxzo3OHfFcV87hoYV19SwdVtUnPNlsbcPNE68KsgsTwOWO5gVtsRY2CUvmGX
+         eDQ/JeI3R8ku866VSCLbiy1IhOEiHR3liRbSVV2j9xUlkCOP6DVTG1rW6YQQAoVRQgOc
+         mRFPA3JvfiEmHXcmNDGHeHMs5TWUw6++lkqNi5MXxSymzIHDoEtQo5vTORKVT8FeUzIt
+         aq0xdO2zsXveKhEiZyzp3rwr+ERZ3Q6efYm1tIPj28ZWVOe8RD8ECqWr391luG/j2chD
+         XI0A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=aaF1dXMmLkK5pzKGy77HkgIVspRqizj4NjSYijx6kNE=;
-        fh=pFZgSqhJ3oaXqZH9NVqZhg+Itt0gehA563xtyQgRdic=;
-        b=o3q4APIOxj9fqE55i2x9aQUrnwLcAQ8nPL5ZZ3ndczMjq+xXfD/g40e1M+xmWXajsI
-         vTYNKbfw8PTvQE/zgB2bwq3xJpEQh1yTHX6ZJaDSipUMAWAsBLzJZaxWmDKTrRJgB7Rj
-         ghcetCCoW8nLZd+2ylB5qiWQKVR+jdC3hJM0tTR2l+IT62rJlnHxXT0PoeDuHTADlEsG
-         vtb8K8LDqAsJbPX/GB9QEFEvkmT4yotKHNeC8+DNs8hRiWwQPOfAm4+gV0WRoZuTG2Wr
-         xQesu1+ZVqZhBfQZ2HTSopt9aVyyLHk3z5XLJq5HBm+zrKNbZNWAfXSVr/CQxlO+m8mm
-         gQIg==;
+        bh=6mEGm2u4SySep02ssBb6cSOg0RdAq/up2Jup45p2V48=;
+        fh=WDuMdrPyzGmlgIHbgLRDaLAOkcnrDhnsHRtxOtH4y0E=;
+        b=ba7GTcCI9eGN3Y675OVmuJcOwPiLyET65nE8xYTnwIB/0MdqheZKT1TPDgb0AW7es+
+         0iLZcQG5JB99w8jyiSaY9saa3JSmvPtWfho9Qg2VUXST6pTIxix1vXQ2x9+44mrPV08c
+         YQKtBPG9NdjX9titFNoGKrez3aUImV9Y0vXJGRO+gDcPR1cYEHOWvIb88+hV6to4m4AC
+         PZqlnFQtkfLbbHHmHsgcuP9s2SmsYZWdiazGJtDKnMZZ9gV3XucB17e36f7TlIFldu0d
+         iy1HtAEbUjui/3OhRCoY0NAi/TV3Pep44/OcvHrAQeXJ4oY7ghGXu9nIV+wRf0swJT6N
+         rziw==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20251104; t=1791671844; x=1792276644; darn=vger.kernel.org;
+        d=googlemail.com; s=20251104; t=1791672053; x=1792276853; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=aaF1dXMmLkK5pzKGy77HkgIVspRqizj4NjSYijx6kNE=;
-        b=mQPVP+BprV4H0rZWB2FZDlYu6LTcaA8A7wu+OF1tcZUWLQVjN0+Gcs3eErEXTr/81e
-         WPFvXfPMTIyI9I6yuKktuw4VkaFpZ7hZGaokdQ+XyUzGIAZoBx7/bwz/TTTTAhlFeBIs
-         C3u+eFc6+Ljc6OkYA3XiJdkQnIfoxLlOZ4UFlolJwdi3T9LNVm7vcY4oebiNAvw9ctaD
-         0DijPhUbOH5X2+5i/aS5MAOKGxRtTxlar6x2+16R58Vhoy8ND/cMl2//n5hybH1qZmGI
-         ghfsm23tCFRGs7aucKptuQsxXycdlvWO/mtQIg6OqwWGyUY7m/hQS3tUKrnLooxQd032
-         CSJw==
+        bh=6mEGm2u4SySep02ssBb6cSOg0RdAq/up2Jup45p2V48=;
+        b=hTbDXvB+EroO1FpSn6zCPJhCbP3gFD8tCYQk6spnV04sD8P4ZB7CnAeyHnUWZY0brJ
+         CCNyb+U8INcbxlctmvPP1Fbl6QShI5MLkUeZ7ilq1+Jm4jcXWXweJogVeYRJSMVH9vWA
+         6dswFz9Har+uvJBV1NG4SDnf1ChzqAbMIrT01MvyOVt9oHrK+a8hpJrwsTYwlyT7kJ0Z
+         lnUnFgGmqCa2VjrIWZtdwTu1iBtDOlq8hs6gQKKLJvIZwGEadEyALFWyPsZLUHEkVy/S
+         9g2uf/C6Gaz288AxUS6rajoAcKVRYGRoFwC2bcKY+B90XfYhiOR+R7KRCrnNubF6KV6Y
+         pqxQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791671844; x=1792276644;
+        d=1e100.net; s=20260707; t=1791672053; x=1792276853;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=aaF1dXMmLkK5pzKGy77HkgIVspRqizj4NjSYijx6kNE=;
-        b=b2Fa4NZhO0mm7QuBKkSHVxbI553rFJFRsXkRTm+zHPD5S7I8etvkpo6bODMHVu/JR5
-         eas3zrXHIbHGHuP8ts+yDtg6KkY78BqdjWeLMVuNyVmRSauaXyu7qviNotFkVKYX4f7l
-         n/49+5N60rsEaUZ/GdoQZ5Bt0/4HbRCEzHBUMkKpwKmWTkplOKSorG1zXL92DLO53Ye8
-         zbcFoee3vilLB9g/TERIEBbU7kmt/me/YaIYsqzgkBANHmAqkzm0DHeeR7v9HzwA9uut
-         vwbgRcAW7V12oRqWYGjwSgY7i6a/sjY7K3GV+WTejJ+/hBY6VPqqRjiUVOvf4UDMmCfJ
-         ThIA==
-X-Forwarded-Encrypted: i=1; AKwUvBxFKGHayROVvEuCaDQQXo9gdlVrFXPf9OpYsyTZPgTznwWlF66nbN3085h+g/292UIrWWjwXo5uuJOa@vger.kernel.org
-X-Gm-Message-State: AFq9FYJD7UoSVq4+jYTWtdTFC6lUHkW2+VAZ+d80ZTqSueRgSONLPQvQ
-	Ttp2rFz4bCJaJpT7UHt3n9Lw5fg0ao2DiLykf9nxWFzb8jLADqEhodchAceFV40f8BYGyOpdLRZ
-	yykU0zbNXGsl95NG7pQ3COQu02dHxzd4=
-X-Gm-Gg: AYBFou3r6HPzn/bbq8Rvhxe4bkAZflPflgLFDP/KRR5cyBuqaDQMqeHv3IPRMGOqL6b
-	kFoPdlnTFr3y6UjUPo9wuFzL7LgHrA9kZ18aK0KFMzG6M22wisQM6zWIJsTJdZ4Qf5Ay0VOuVef
-	jTAA0RwhFdkF2Z1Bnv/RPZU/ikS4gCUrWlYA5uOU2eYqa9WITQKZfWrTnDvGoTscKzQ8E2AFDE2
-	+W1kHjkwRTltM28vVn9BOhLrp/C5qGT1e4y2EIjg8fSGoTfzzcQv9pxNsrkXUNS2UsWx4wa0jaJ
-	DYABL0GpqR03e5/55L7ctr/oPUKOuK2mCVukl9odNsEUflmj3HffJHYwgHvk4UCARVFpoH6kGdl
-	UzDvEtsb+MZcf
-X-Received: by 2002:a05:690e:4813:b0:677:c63c:ed3f with SMTP id
- 956f58d0204a3-67936a45e25mr1411453d50.69.1791671843883; Sat, 10 Oct 2026
- 15:37:23 -0700 (PDT)
+        bh=6mEGm2u4SySep02ssBb6cSOg0RdAq/up2Jup45p2V48=;
+        b=jUPHWlMJnGvnMQb84UXsnIBGTjIshI30pZk70ctXd1UF3ceecFIyPcNqqmi4kjWi6a
+         vGQ0/l4PXDI4YoP4IrfJhHAh5vOsz8zyfRiJVaTiEfT24xDMzxu37HWtqbvFSQqfHi3g
+         olxYCE0H74pQrIhuqJnWp9uHgmxpVoVhXdMRCRc5iTBKhb+q1pCMflutihUXurC7hPSv
+         v1BMzPPRkJPYgyyO4L1LEOLNJ7vIeFrFfXaq7iNYHEbruy40ucq8gp+cqPjLFxUd1gBg
+         wmzP1tYEwbgiHfe7qqnvIFZDyw7CFOK17BIUO6gamNfz79He0apmGaWWn3vQcifmKOIR
+         0wvQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwbOTh08TgVaB9Z3xZrSZbBe9+qwQLiQqKQ6t1WHfk14N9Ga9HEoDJCdD3dbeOw1IHAOfxKiXCihc5n@vger.kernel.org
+X-Gm-Message-State: AFq9FYLNlAwU/eqMo/GOvU5JGug1d5r7j2ZQawBEifciTiYrUcsGIZwp
+	sEba5sW8TObgkMJBoX/qgrUI39hwJHVbZx+ol9kdOE3UvrVu6EIl9Qr8yITlVq82CzuDTqp9STF
+	FlWMagfFSj3GiPWagmTM/7J32pnKbom4=
+X-Gm-Gg: AYBFou0uaKz5/bcxWuKsnUS8rzVawOfzGnuJTshBJ0Q5NnksNnPX3EngOdicih/kyrI
+	+ITe4QakIVFJyD8j8OyRT4GPl7pJMfEv41Gwhu1jdzTMc3gjXG8JOoEMVcPFx8mtHSjj5pNdE36
+	v06XI0HrINbc5vhOj1Zn58OjXc3At0crbsaj5Meula2UMNowIGxP4KSDjL0EZEGTUIt8YrPpnMw
+	wUreO7dISMB7Nzj10hkjwNYKH7WbbzNoQz9mU/8eLSnrPtNbwonUdlxUgBV1WE0nZNIDChbaxWD
+	Zei7lF5sHewmEqDWh8mnN8nWbnPuMdlWoJYCbvKkZPhIdEEIrkWBbA0YL+SDrzah3eHnP3vtd/1
+	5/V5Fq+UJNXnE
+X-Received: by 2002:a05:690e:12cf:b0:667:e855:ecdb with SMTP id
+ 956f58d0204a3-67935edbdd4mr1914994d50.3.1791672053242; Sat, 10 Oct 2026
+ 15:40:53 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261010105900.247342-1-tanure@linux.com> <20261010105900.247342-9-tanure@linux.com>
-In-Reply-To: <20261010105900.247342-9-tanure@linux.com>
+References: <20261010105900.247342-1-tanure@linux.com> <20261010105900.247342-4-tanure@linux.com>
+In-Reply-To: <20261010105900.247342-4-tanure@linux.com>
 From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Date: Sun, 11 Oct 2026 00:37:13 +0200
-X-Gm-Features: AclHuK83tYlY1Yg4pW9pjFmYK85k4ljD0olzP_yaTJsbdkiweyuLFexiO6_OaD4
-Message-ID: <CAFBinCB8203vL6YK3+V2zDhz=qqeAwJoufPM60cD0Vz3s-OS6g@mail.gmail.com>
-Subject: Re: [PATCH v3 8/8] dt-bindings: net: ethernet-controller: tabulate
- who adds the RGMII delays
+Date: Sun, 11 Oct 2026 00:40:42 +0200
+X-Gm-Features: AclHuK8sus9eXHW8D0kCsjiICdQbyK-pql4xQRfUyDiKVkCN64EjzyryJR6PDrA
+Message-ID: <CAFBinCCaAT8+YjSwg0=aFF8mbN=j-MQ=oWvfwUakVE8O-eu93Q@mail.gmail.com>
+Subject: Re: [PATCH v3 3/8] net: stmmac: dwmac-meson8b: add support for the
+ Amlogic T7
 To: Lucas Tanure <tanure@linux.com>
 Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>, 
 	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
@@ -105,50 +105,23 @@ Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>,
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi Andrew, Hi Lucas,
-
 On Sat, Oct 10, 2026 at 12:59=E2=80=AFPM Lucas Tanure <tanure@linux.com> wr=
 ote:
-[...]
-> +#   phy-mode    tx-internal-delay-ps  rx-internal-delay-ps  TX delay    =
-RX delay
-> +#   rgmii       -                     -                     PCB trace   =
-PCB trace
-> +#   rgmii-id    -                     -                     PHY         =
-PHY
-> +#   rgmii-id    present               -                     MAC         =
-PHY
-> +#   rgmii-id    -                     present               PHY         =
-MAC
-> +#   rgmii-id    present               present               MAC         =
-MAC
-> +#   rgmii-txid  -                     -                     PHY         =
-PCB trace
-> +#   rgmii-txid  present               -                     MAC         =
-PCB trace
-> +#   rgmii-rxid  -                     -                     PCB trace   =
-PHY
-> +#   rgmii-rxid  -                     present               PCB trace   =
-MAC
-We have some boards where the PCB traces result in part (1200ps) of
-the delay needed for RGMII (2000ps).
-The remainder (800ps) has to be added by either PHY or MAC: the
-(RTL8211F) PHY can only generate 0 or 2000ps delay so the MAC has to
-take over.
-For the three boards I have in mind, please see $ git grep
-rx-internal-delay-ps arch/arm64/boot/dts/amlogic/
-
-> +# A property for a clock the PCB already delays is not in this table.
-Can you please explain this sentence (I'm not a native English speaker)?
-How I interpret the sentence: The PCB may add delays but those are
-implicit and not part of the {rx,tx}-internal-delay-ps properties. If
-the delays added by the PCB don't cover the full 2ns requirement then
-either MAC or PHY need to add the remainder, see fine-tuning below.
-
-> +# It is either the fine tuning described next, or a mistake the MAC
-> +# should report as a fatal error.
-How can I differentiate between "fine tuning" and "mistake"?
-
-
-Best regards,
-Martin
+>
+> The glue registers on the T7 are laid out exactly as the G12A ones, RX
+> delay field included, so the T7 can reuse the G12A settings.
+>
+> What it does not share is how the controller reaches memory. That path
+> runs through a pipeline stage with a gate of its own, and no other
+> device has any use for that gate. Nothing claims it, so it is switched
+> off as unused and a transfer that has started can never finish.
+>
+> Without that gate the controller cannot do DMA at all, so it is
+> required rather than optional: a clear probe failure beats an
+> undiagnosable hang later.
+>
+> Assisted-by: LLM
+> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+> Reviewed-by: Maxime Chevallier <maxime.chevallier@bootlin.com>
+> Signed-off-by: Lucas Tanure <tanure@linux.com>
+Reviewed-by: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
