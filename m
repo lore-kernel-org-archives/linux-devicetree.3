@@ -1,90 +1,90 @@
 Received: from fhigh-b8-smtp.messagingengine.com (fhigh-b8-smtp.messagingengine.com [202.12.124.159])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DC97369D59
-	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 14:14:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67FF6370AD5
+	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 14:28:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.159
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791641657; cv=none; b=niMdBoq1ceKDslsPHAirnVloB1RcMpufX428OnCXGV42VJaP22+dOrXLvchU2C9H4WbsbzzQe1j339mMd4L0P4U4zu79qxquxTtDqmDbOGFs2u4dsYnJpV8zKZSRTM4UH4ai7MdUojZpbOcbSy2fCnDoW+tsmwt5XsORdoc2SOQ=
+	t=1791642541; cv=none; b=UlSqyKg2/jrSbuzHJTbaaLJmr6iN9YpR4SWfh2TjahSc2s6nohjCfoGjdIsB+KRXEXe9M8CNbmKYY3wPwBjdiENVxnahDJ1c0bVy6X7XG1JsBpcFg6Gp/xy+LmX/BSg20MU5BidwP7+b5lWzCbW0UXchzqkiTWzNhPTnkS2MwHE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791641657; c=relaxed/simple;
-	bh=xTBFcM9TkpWzcdbid7SiEiRR1QDxfB9ux5nHJ2vCvfg=;
+	s=arc-20240116; t=1791642541; c=relaxed/simple;
+	bh=9yZoRXmQQtglkDC69zeTXeUUkPPxdHTFbXEWw2qChQk=;
 	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=enDoqewFbAqhYD+WeYmNvR87yG6jYfOKYguboJMF///9ULxmQkqRnE99rhNsnsytQfqPgncgizPJ1CqMc9VO1zGY+rK7Uzql2Relv4jZchuimuiPYXNcNuHX5FGWiJ+b2fzgEnZE73aOOZ/nwf4Xq5h88/826QrVrBE4rAzSvyE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=m7q9Kgvz; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=M63IUeVK; arc=none smtp.client-ip=202.12.124.159
+	 Subject:Content-Type; b=qnV1gLLajhv6DsJyRc9uPvqRU8emT9d2JeQaEzran2BziGXnYNXv92sbSIhciktnHK36igCIFTun+tmRFX+3zA7BxZ4Hwke3rPHJGWVmKnd7j2u2xdx6ZYjQIaZ3XqfN4ouPCWzVnYd4kX7kWRGYGRKCBZUAIsf3OWkr+Vo8shQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=jFWomILQ; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=sPU0NwE1; arc=none smtp.client-ip=202.12.124.159
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="m7q9Kgvz";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="M63IUeVK"
+	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="jFWomILQ";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="sPU0NwE1"
 Received: from ams-compute-02.internal (ams-compute-02.internal [10.64.2.62])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 7AAD87A0074
-	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 10:14:15 -0400 (EDT)
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 03FB87A0096
+	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 10:28:57 -0400 (EDT)
 Received: from ams-imap-03 ([10.64.2.23])
-  by ams-compute-02.internal (MEProxy); Sat, 10 Oct 2026 10:14:15 -0400
+  by ams-compute-02.internal (MEProxy); Sat, 10 Oct 2026 10:28:58 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
 	:cc:content-transfer-encoding:content-type:content-type:date
 	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm1; t=1791641651;
-	 x=1791728051; bh=P5D41lw9AvoFAu/NxmqiIH7K74Pst1YSUgBSfmtz+LE=; b=
-	m7q9KgvzaoOqlvH3uyt6b3NRUrb/XshVsTwIZQ2MkfanF0l4UbzyCYCQP5QsVdO7
-	QObIizevkTWPs1J3Eyafl3+cxjni0izy+xUgCD4QSFJTAQ8NZ+IjQrl+GNKH+Sj6
-	DTZG2joS2hA8z0CRIKW6hbCDPHPqPJAMQVTTNyjjrH5ejFNLlzzbdhg2i6iCgqiw
-	ynpLL+C5qegRlpTwfli/z8PsbPObF2fc2zBJCzIvpnhvHKRumzg0vKaNGE+lWI2i
-	YdaqaQzc/KhGDjFxOxm7D6F3P9/4wtXFW5ogT6Ksw154eCSThk+cmAUjnwlwBdTL
-	FlenU3ZU3igC0stXSolVHg==
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1791642533;
+	 x=1791728933; bh=9v+bgPkySBzc0aLhhX4V+5q7OxZcccocW4BaJrDdLNA=; b=
+	jFWomILQ5a23kATKxV5opHvM6kxextElXZNIoC5bV5Kd9IuRR/QlKjpx0lZ+Dzmq
+	sCB+9MDrSkClNP2VC5yF1n8F9TSfBkLlys7Wu8bDS71XK648H5QuH/+Pxnz+SYVU
+	DZ1dEdS4+I7AagBW24ENQ0T1AnkyKVXm+aqvitC8m1KVNbpTZXgXNzTc7zHrfhQp
+	W1I6v0HDPp8V58qJBef2shx9cQvbo0RC6hEMtPLz5pJGSzgVY8hnmEHMuG9TAfYD
+	xrdhYw9t6gELVazbbwdvOnPcf/xKiMyvnUpEU86nD4CmTLwN163L5kZOZ3y3jjbp
+	fwPxFcLthyJlq8TspW5Nhw==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-transfer-encoding
 	:content-type:content-type:date:date:feedback-id:feedback-id
 	:from:from:in-reply-to:in-reply-to:message-id:mime-version
 	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791641651; x=
-	1791728051; bh=P5D41lw9AvoFAu/NxmqiIH7K74Pst1YSUgBSfmtz+LE=; b=M
-	63IUeVKUTLQXGMaaDRVP9jD1qL3IvASSLQLZtYt0//+lXu/swC0urIJwP69vAPCJ
-	2RPhlox0pNmX3eNXSgE3TfOuwYJo5EK4afJSOxfXFL2r58OBXMVZ9dGpxEiSeHnc
-	cQtud6OJnXczfu5i1XhbZf59N37iNEDYU3bezEVubu5Ou5rUTQXmXA51KYmH20Dp
-	ka3/pXMjefonMqX5UBDfs4qhvlJrGSUTlzTxFAc0qgIKlvEozD9FXFqPQnj4kmQj
-	b5iJsJ/DjLecpNj57bCm5Q7sabACuBTkvbSTWtAvCLBAl+vGCGXPoyfs/QbWbE4g
-	1I2XGdbnUWeF2V5LZqZwg==
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; t=1791642533; x=
+	1791728933; bh=9v+bgPkySBzc0aLhhX4V+5q7OxZcccocW4BaJrDdLNA=; b=s
+	PU0NwE17zIyVoH4vRdF06XvdJJ9o4RoMUHru7INjE0f87mtHAeO/MBk2c0XvNZWh
+	R2Hn3pzkxaNMUHcBrPbq7+JU/9IBTKkwB9VyJZ2SScLzQxMmKG/oRwBcPQn9SHtC
+	fuOUr0vKI5MH2/oXdGEgARDat+FefA9aYWO05ZnEdr5HDv2bpngpsbBtVlBLggRs
+	8MlmeMlcor70aes4jtGOkhILxg5wSG52Pdw+ko3nOAxHH14lxWv0VMYJaRx9bNAb
+	9IW4jlbCn+8R/Hv75Bme8ht9T9VT6YCEIgLZl7Z2nC7wkMEuMQLBbrcr5Ti3fd8i
+	lVzrLz6GYNGWQS8dSTuFQ==
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
 	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
 	action=sign d=arndb.de a=rsa-sha256;
-DKIM2-Signature: i=1; m=1; t=1791641651; d=arndb.de;
+DKIM2-Signature: i=1; m=1; t=1791642533; d=arndb.de;
 	mf=PGFybmRAYXJuZGIuZGU+;
 	rt=PGRldmljZXRyZWVAdmdlci5rZXJuZWwub3JnPg==;
-	s=fm1:rsa-sha256:oIjzidUlknl1FvcNAPZzat2zlkoCv0xMDbJufCetCog280O
-	2qgqDXnFc4eBAqJlcaPbYrNACRUIA4s2RPOM1leHH2X107iDpzpyo5zg8c0RIis8
-	wBhJeGCOrZHU3rx3PNuDtKdAHGgGnTFeuKQQ/hFv78vtwv7G1yd9WpGVQRlVtoEZ
-	LQngpEyzbnO4yDzNohN++QbrrGAYYS0j72jNeFDAyFI4ILQBM/RDgUqv/9PSeElo
-	PfHnvlF+sA9YXVKqf4xWSjMolbEJ6w6DvcXDh64DPka8JfEtSSJXUCXQ+xBwjNa3
-	KOpFMuIPsLBptsTFWuJGQpztqmElkU09Sb1OhFg==;
+	s=fm1:rsa-sha256:qKNq/nH0zlX16Jqk4kiTDFZZWTb1Fkf/KZVrMWZPtGupSqm
+	3r2N8xDaHSdyRxJ9vftUPg87H7uYcxrsGPn7JYg058SPm0qaF7+1naQNb2WZUNnm
+	XxXvLri5xgGyS3sRriNSVKMx+ZPoeytgkdd14s00GtZ/QjqTiuGsSGsLnehKCJTo
+	uWNzVEnSMXg8Q+6v2NQtZZ5pNEqa7UMTKEdKw0Zm1IA4kUoPuy8PKXkwNEM/c9os
+	FxLDBkwM3N4oo8f+bdRzX5PaMn0lNw3mrLGgMeqPZWWuHH9Yg5Fr17cI+s5UXNcG
+	jiNzXgbC+stKYNODo0M7AUL2TibI+2r/7bNHKJg==;
 X-DKIM2-Info: draft=ietf-dkim-dkim2-spec-06;
 	repo=github.com/dkim2wg/interop; date=2026-10-04; sw=lmtpprox;
 	action=mi-m=1; hc=12;
 	hn=cc,content-transfer-encoding,content-type,date,feedback-id,
 	from,in-reply-to,message-id,mime-version,references,subject,to;
-Message-Instance: m=1; h=sha256:E0iXCI5C17X7FFLF5wpNyOXtmHUPYySvSTLL/Nr0UuI=:xTBFcM9TkpWzcdbid7SiEiRR1QDxfB9ux5nHJ2vCvfg=;
-X-ME-Sender: <xms:MEjKaqDEMS5-Z4qDa-vxFYxQbwCbgjv7Q5GhXah7AisdAUWP-AjfEA>
-    <xme:MEjKavVL50CGShenTs_TEkfnp_CIQFtbhAI8U_J-cDh38mxrvCPGI-acbk5jvRrca
-    8W-eu4PAjtzObfXv28Q2zmOmotic-u-yMWROrpqztCiR9q28ZrDjBFc>
-X-ME-Proxy-Cause: dmFkZTE+WwUgTuhZ2nzPZll+5Ah43fS038CZn0JVBdoDxLdBIrf6sxasJG3xkgrPmZmn4S
-    HSz2okafCVJ1UU1wacBv64F4E4AzJqa09Wmid+lUqrRFlVxtQq5+o9SKZQkBVDS8p2U0Xe
-    ZkCVuL+d8f+2xvCMm3tYEEqqf9pbWbzbyxUylQj/AkyYsjmOO+eA/IcWRTNeZ3/SEMN/63
-    BRKYQhYRrQZ36bwzTVQb0yzoz6qjb2pLS2DVKRr9EfCvuuFP5kfxAv/DhodSQSQK5WcTcT
-    Q98csWRayBVKvHWUbdoa5rjo55vzsfCKSVcrxQgzoSIyi3L0Nx/xi2bdx6o6e3zrGca3jd
-    qMN7jcmH97a0BGjwQgNvzFUwHwjK7NyjQwXb1eOa7QiaA1LWe4HZdNyqEG9RGQsId2ewYp
-    sJtojqacXOn7DegbHl+c5dm//Xiol1oBYzekMNb+zvdVEZ+TGi/vh4YifLjOz+Sr031+XU
-    xp5INLx8XqJcWp3oqE/JWo55Pxv0mjgIsr317yMNKsFT88ez4dLYZ6fmITIB75BNr7kesL
-    ENUES6w9SddiCBsm18RmZOu69ZYJqAdBVo/59AILBbJD97kQ3v0YQ8eeakYszncABuVusA
-    MnxtTmhjQ4hQlt/KVdIHEiyzJX8MaUF4DPy1gJAZHFxTuu3x3Ncm50HpwQEA
-X-ME-Proxy: <xmx:MUjKap_lO5Jvkt0XXg630MQAcs8mUah5St7s-Xc_OQnY8g8IQMgqxw>
-    <xmx:MUjKaipU7rEH2vVmznbM6JxoQgfIXzTIilnb5w5lK12hb_Rge8J4Ow>
-    <xmx:MUjKarTBT2aLbgQW4oUoz6SoqJelhb55zBuJPQu0kHLeCyWFJ9eqEQ>
-    <xmx:MUjKatPnjvP79VNggcDZPrKOeUVkhuhGiP2IrxlW2QIN6RyzlGJv7Q>
-    <xmx:M0jKau0LLNEyKw5bAbR5ZuLzklBYbtsT-Lg4v4-X7M682hqR_OJ0lhYL>
+Message-Instance: m=1; h=sha256:aV/xq7C55QCQ+urKH1wwNiqvUZ1gUoGK8FiRVFhcd4E=:9yZoRXmQQtglkDC69zeTXeUUkPPxdHTFbXEWw2qChQk=;
+X-ME-Sender: <xms:okvKaqyg97e7-Vw-xxh6O5sQLLuZB4t0F58vf7v30ctQpSC9YXEI8A>
+    <xme:okvKahHF6PAwhJ6geqQ6v-psLzO7fKZDuOkpJQSC2zK60HJuDpu82-rTJNklTxLSd
+    5DkpOCERy4NknhHJRwIWM_b20K_lpxuQ-nbuqqWYUn3mh46o7DLvds8>
+X-ME-Proxy-Cause: dmFkZTFLAfDTpiHknNrFYZyTXrnw2i7hwBBvDA63p8pgRb0WqT4uwmaQRp4EGcR7ukfzJZ
+    f5CIWh9gOF/Amyiux4ODBvMo61U3Jc3UVC5GH6RgDDma1/7U3/zzszVYlVvovFRGCIWGfw
+    eR0FSHRyq4KfzGqSx38fm4/+TW33xsPGI0rRkMb8YT6JNiQiB0og8o6tMyILtVOpdB9RB0
+    zL63lotg/Pa36txTSqrKwJsHfmQOBBnEV+R4n5wWq6ZzX4w2ZfLeDfVp9XMY/u31sGf8Gs
+    Whd8/WU38AX11634PqkCCV1/inETB5YkcD7XCwm1ixzjvsWeZGHscx93x8ujbNSijxNinv
+    u75MzmtoXKTjx0uYl2UonLYOjm9KuibX5/QW+3j1SPnStE6injzas1NPUy5IjKbmSuJQFA
+    tp0f+a353JAcAO1vvtgeNXIZgxzNy0oFndBlHzwws0BdrSJUtVsMAo+PDsMaa6+6ixeUnS
+    KP+USiRioKp1FxX+T30cSsenqYrbTyrooIyngSwlyzxVoP2KQGwhfqmOnaAbsaahHBbZ3l
+    5/Fqrxg5RMkmgsFuUSN1yduGzA7KAlLpo3lQb0Y/onn2Gf4Vd2KNcGNdlJ3IcpAti2qnzN
+    9PlzKsKehkw9K2vPJ2iJrAV/ELh0VNLY+3xIpl7IBCMt6kDO44LlSaAc2biA
+X-ME-Proxy: <xmx:o0vKaibRRskxJAQolID_pv514I4fc59uswnhRmocoHEZo9tOxMDGCQ>
+    <xmx:o0vKagBhl5ewb5h9G_jLpYArwRvG0s9MIZQbqkcH_xDn4B5mtk7MGQ>
+    <xmx:o0vKai8DPArrHyVOkViLOl_Zu33fWakIveqcbGms-vm8Je2d3d-FRw>
+    <xmx:o0vKakSRxMCigSa3AnPIAEwGBUB_Aq0wvTzrPGKdqSbhySj0DUUr6A>
+    <xmx:pUvKarbo-f_iLqF0lL3-SNQiSPItyOwqkVjEuDIN5GeCsZVBW_CaHrQ9>
 Feedback-ID: i56a14606:Fastmail
 Received: by mailuser.ams.internal (Postfix, from userid 501)
-	id 0308532A008E; Sat, 10 Oct 2026 10:14:08 -0400 (EDT)
+	id 4017232A008E; Sat, 10 Oct 2026 10:28:50 -0400 (EDT)
 X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
@@ -92,8 +92,8 @@ List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AV9a5Jwtb8Lw
-Date: Sat, 10 Oct 2026 16:13:47 +0200
+X-ThreadId: A-dXEK1mihoo
+Date: Sat, 10 Oct 2026 16:28:29 +0200
 From: "Arnd Bergmann" <arnd@arndb.de>
 To: "Navid Ghahremani" <ghahramani.navid@gmail.com>,
  linux-arm-kernel@lists.infradead.org
@@ -101,37 +101,38 @@ Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
  "Russell King" <linux@armlinux.org.uk>,
  =?UTF-8?Q?Stefan_D=C3=B6singer?= <stefandoesinger@gmail.com>,
  "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk@kernel.org>
-Message-Id: <b6dc1056-63d9-412b-8abb-a032dae83d46@app.fastmail.com>
-In-Reply-To: <20261010130024.177503-6-ghahramani.navid@gmail.com>
+Message-Id: <5e78f63b-9479-49d9-8474-fa408135f325@app.fastmail.com>
+In-Reply-To: <20261010130024.177503-3-ghahramani.navid@gmail.com>
 References: <20261010130024.177503-1-ghahramani.navid@gmail.com>
- <20261010130024.177503-6-ghahramani.navid@gmail.com>
-Subject: Re: [PATCH 05/24] ARM: zte: Add ZX279128S platform and CPU hotplug support
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+ <20261010130024.177503-3-ghahramani.navid@gmail.com>
+Subject: Re: [PATCH 02/24] ARM: l2c: Serialize device reads with cache maintenance when
+ requested
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
 On Sat, Oct 10, 2026, at 14:59, Navid Ghahremani wrote:
-> Support the dual Cortex-A9 platform, second-CPU startup through
-> bootloader SRAM and CPU hotplug. Keep existing ZX297520V3 support
-> intact.
->=20
-> +ARM/ZTE ZX279128S SOC SUPPORT
-> +M:	Navid Ghahremani <ghahramani.navid@gmail.com>
-> +L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscriber=
-s)
-> +S:	Maintained
-...
->  ARM/ZTE ZX29 SOC SUPPORT
->  M:	Stefan D=C3=B6singer <stefandoesinger@gmail.com>
->  L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscriber=
-s)
+> Provide the optional lock used by the tested ZX279128S workaround. Lock-
+> off experiments hung the board; the proposed API remains subject to
+> maintainer review.
+>
+> Assisted-by: LLM
+> Signed-off-by: Navid Ghahremani <ghahramani.navid@gmail.com>
 
 Hi Navid,
 
-Since this is really the same platform, I would expect to have a single
-maintainer or team of maintainers. Since Stefan is already established
-here, I would ask you to work with him first on reviewing the code and
-deciding how the two of you split the responsibilities going forward,
-but I don't think that having two separate platforms with separate
-maintainers is going to work.
+This seems like a very invasive change and at the same time does not
+look generic enough as it requires changes to each driver behind the
+PCIe bus.
 
-     Arnd
+Please describe how you ended up with this version, did you copy
+the from the vendor BSP (where?) or did you arrive here by
+trial-and-error?
+
+This looks related to the CONFIG_OUTER_CACHE_SYNC workaround,
+though I can't tell whether that means it should be connected to
+that, or if the actual symptom you see may be caused by that
+workaround. Do you have any more information here? Does the
+problem appear both with arm,outer-sync-disable enabled and
+disabled?
+
+      Arnd
