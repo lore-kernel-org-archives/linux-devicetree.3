@@ -1,99 +1,171 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f11.google.com (mail-qk2-f11.google.com [74.125.230.203])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EF991D7E5C
-	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 23:37:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6941384223
+	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 23:55:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.203
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791675428; cv=none; b=fjk0wmuwwURnhtIE6kmr5O+Vsahb1B70qH2goLmV2p3DcdA9kjkWWuu4CUjyi7Nd5ZtD+fQYAApL4XjqUx+BaQ5xqYTcAscqGGpPHuBfAOwclkiFQSkScRG91tOTs0UmW+t07zSXZmGyCbrAZ1EoZlsNubc1gMnhKFCLAesb1Tw=
+	t=1791676533; cv=none; b=cnNuWJO0efzSl2WX2dfCeMbWeTRlfoQkaC2jwrKzudP7REhazQS/TCVIAkszkaR14hv/9pco6BDC4Tq1d2FluBjJH8oaPpizMTbsZJbKxyKzEIMC2jprR1iL//n0mDbT+5cRqDCLNRwAavIC6eRoxJ6lcmM7sz7Ud02PBs3UEB8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791675428; c=relaxed/simple;
-	bh=c9aKP5Ap+p7vV+nh28usO3eUYLSTbffjrFIsmMv0f5Q=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=a5svGbRD/iKuNSZAKDnwQl1sqzXos2VQAk/Tf089LtGVSYUBSNcs/bw6Zcj3BHNXEZLNgJGB8hyEvFTHJMwewfpC1nbJyajIGTM9KrBbAOIN3ZSMMY6PUrXO93zmKYPbH8RY3m+MzML/dx7yYzKbKuIT8LYtcU2qrFpWz2BWRa0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JoBXnq7x; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791676533; c=relaxed/simple;
+	bh=lUHNvRVVJKsGAF3s179NCWP69O/w7AOonPfBpTHjQoU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=pro/UJS/giTfuYHRC8cakA68VHuCYVldlSfBbBBfXjTjdbLMHru6sTeGwAhiR1FKvZOIw2We99o3gD1j128j9Yo0pgnVrCV33oBWWN7j6hbs57nbx5qVjUbD3jobhN9f2yrQ5gRuAoF7LaTFjyavuU+qxQEIhMavEleIOPUmFk8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DW9kK6Jk; arc=none smtp.client-ip=74.125.230.203
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JoBXnq7x"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F1291F000FF;
-	Sat, 10 Oct 2026 23:37:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791675427;
-	bh=3QamY1Gb8A8Ny5Yds8gfu5aA2p1komHGqOr0cDTdyZc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=JoBXnq7xU0NY6OI1bgbHI8OhqZvV4/fW7ugv0TO+Sn+09/Fa8NtguUxGz14t2gXmb
-	 IYL57s1qyheT720qRiOBcnewvRHcW4TCWABrLv/FYQtTHDZ7qQrR+MH6BRncwl/MYU
-	 B5+besDNXFT8L9LyYFfsY/udcYSDdWiG0ig8c/ttSPrOjZ7n6mvjmLHIpeF2xmpIaS
-	 vRwVunkAKwKzmllXCJnYYIwOSScpexlZy1/KOhbvfmLEse5LkH2yHtkgglY3Glwihk
-	 cjMW28BjGWizJizELecN3Fok0wYdfJg40PCYGlnMKb2U6cMU3JzihM8nX5J96y7mGQ
-	 uFA+J7z+gz8Iw==
-Message-ID: <sashiko-outbox-166934@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] arm64: dts: rockchip: Enable display on UNIHIKER
- M10 V1.2
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Miotsuki Mizuno" <founder@crepuse.com>
-Cc: robh@kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20261010232857.26950-3-founder@crepuse.com>
-References: <20261010232857.26950-1-founder@crepuse.com>
- <20261010232857.26950-3-founder@crepuse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 10 Oct 2026 23:37:06 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DW9kK6Jk"
+Received: by mail-qk2-f11.google.com with SMTP id d75a77b69052e-5350beb1d49so8784771cf.1
+        for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 16:55:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791676531; x=1792281331; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9FybNLzC2qT6eMhACQiNU/7Tni+cNIjGAb7dFyWED4A=;
+        b=DW9kK6JkRcb1S1Fa2ZPI37/h5voOXN1Z9hSyPRJkSoi6luWeA/ChLB+TRBvvVE0Hrp
+         pxaFVQR7A2F63X7xs0yUyy/pZkWK6F2EcIbSeYmzH81A0OpXje8UQnJBvHQ8iTUYZegj
+         rxZuJtjOYuHNlOn9IZDNy9YzmNzilIYNnT8+Nd0VQVKUsMFtU5YndsP0ccAGsv7tcGi1
+         cb+kKWxjd9CUIQ0WmvntF6cuf2PXnmAzaQtDyQYsHPtcyv/TNlsZiujANWs5zsD9Gy+P
+         5X7WAoaqzVHOih0KNK8Qwlvxtv99hG7dAxDwjgX/o2emFcMMHLCRoyesp+mNNZezMDqr
+         VRyA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791676531; x=1792281331;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9FybNLzC2qT6eMhACQiNU/7Tni+cNIjGAb7dFyWED4A=;
+        b=K0RfrbeQ4uSMsNMFOj0pja42Ey5ocXPZlxnw5rtKPeMhK7r0cKENI6bm7NEyYtCNK3
+         dr24jo/Ne4200Ry7Abq9qAJ9n9X2E75/xxkhXQ9GPf6ZpZE0hKS0TXrBhFV0d3TvxVdZ
+         NtBxSxZQpUIlmUaMq1PO+P0hDNSthqVigF0pK3K9nsj4WnLXLiTfo4gEmPLgP278gYRL
+         dSsx9X6mAt005mFTJ+Di5Iw+SPnpz1wcH64xRknnTV5Ms87RpRScwNus9/so0MWxEsCG
+         uElCcmUgZRpQylM0eAr2BK/gk8EbzL18jmdJgM/ARWem6rLCgC+K3To1ayCgix2I/O39
+         ZoHg==
+X-Forwarded-Encrypted: i=1; AKwUvBxofQb6dqVBPSLhxlW8lDy3lAtMCclrB2vwAJqo6aU0agi+d4IZZNlhuoQY2cmct3KOCroko4HwNscR@vger.kernel.org
+X-Gm-Message-State: AFq9FYLCOLbLjjT1ScGwcr739Ud5etgWLCCbjqBksKt1gPmiBnHoffMu
+	4JJ3QmIwAMYoDNiHVV1cGZv/Ow33crLxOVbakZNJVmdCUgBurBIp4ACb
+X-Gm-Gg: AYBFou2g7sJFLuiv6Z8atC5y1eddFSNvSoORBqf4KLgIZiTn9pC1AOUdDlvoNDvD5a5
+	oMNIpIDuzLgypC8gLHdJ++hdm+p1iVSrb3ku7TCE1EenSj/sx/MEhp373g5MAbNXIKM1zbdvpuE
+	Dc6v5Nv/j85A+G+DtWNrjengTlodTx5Z+bC3M4MBQO9UhcBbYlDpiqOnca56ApF5RCBwp4py9h1
+	n/GfBOoEhSe3+oyqls0hEDO90MrJqwqvX5TZ6y93arh3RUuIrQrz0FwzAceoMvOuDrKGb8rJsYT
+	UINWwwlQmHTf/JvJAXRetnC//jb8MaL/KS6PKziGiXJSrRxA3eGdeQCK42CA+lUXU0z1M2hwBFb
+	E8aq9g2oongxqdyIYKdcfoK0Sn0DYM7MSfiamTNLrG/ZpLRBH9KhrmrEIA6lpR2uSxEK8Uamcbm
+	pSdZw9eN3J34+Eqrj+toRwBJDlwGxNDloxPtzIYpSQDPqYwI0WlHmUHs1E9hq0Vaa04ws=
+X-Received: by 2002:a05:622a:1f8b:b0:533:96b4:8dd1 with SMTP id d75a77b69052e-5359faeacd8mr96963691cf.26.1791676530862;
+        Sat, 10 Oct 2026 16:55:30 -0700 (PDT)
+Received: from omarchy ([2601:804:8780:3df1:6ff:277e:31c7:ac13])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5359b755c35sm49184081cf.15.2026.10.10.16.55.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 10 Oct 2026 16:55:29 -0700 (PDT)
+From: zoan37 <agentzoan@gmail.com>
+To: Kyrie Wu <kyrie.wu@mediatek.com>
+Cc: Tiffany Lin <tiffany.lin@mediatek.com>,
+	Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
+	Yunfei Dong <yunfei.dong@mediatek.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Hans Verkuil <hverkuil@xs4all.nl>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Nathan Hebert <nhebert@chromium.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	Irui Wang <irui.wang@mediatek.com>,
+	George Sun <george.sun@mediatek.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Andrzej Pietrasiewicz <andrzejtp2010@gmail.com>,
+	Yilong Zhou <yilong.zhou@mediatek.com>,
+	linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH v11 00/10] Enable video decoder & encoder for MT8189
+Date: Sat, 10 Oct 2026 19:55:18 -0400
+Message-ID: <20261010235518.1078376-1-agentzoan@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <cover.1791623422.git.kyrie.wu@mediatek.com>
+References: <cover.1791623422.git.kyrie.wu@mediatek.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] dt-bindings: missing schema definition for 'dfrobot,unihiker-m10-di=
-splay'
---
+Hi Kyrie,
 
-commit 6e141ce95f426918ca0341028cd073760d1b80d9
-Author: Miotsuki Mizuno <founder@crepuse.com>
+Thanks for the series. Test report from an MT8189 Chromebook (Lenovo
+IdeaPad Slim 3 Chromebook, board "quigon" of the skywalker family):
+next-20261008 with the other posted MT8189 series and this board's DT,
+plus MT8196 decoder v8, MT8196 encoder v8 and this v11 on top, and
+linux-firmware's mediatek/mt8189/scp.img (FW version e3c0782 Jan 30
+2026; identical to the image ChromeOS ships).
 
-arm64: dts: rockchip: Enable display on UNIHIKER M10 V1.2
+VP9 decode: 240/240 frames bit-exact (1080p test stream through
+libva-v4l2-request, checked against software decoding).
 
-This commit enables the onboard SPI display for the UNIHIKER M10 V1.2 board.
-It adds device tree nodes for the backlight, LCD control pins, and the SPI
-display itself along with its timing and required properties.
+H.264 decode: the SCP hangs (watchdog timeout) and every frame is wrong.
+The firmware has 'reserved' at the end of struct
+vdec_h264_slice_info_ext (after crc[8]), not after 'timeout'; with the
+current layout every slice parameter lands 8 bytes early. With only
+this change on top of v11, H.264 decodes 240/240 frames bit-exact:
 
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3308-unihiker-m10-v1.2.dts b/=
-arch/arm64/boot/dts/rockchip/rk3308-unihiker-m10-v1.2.dts
-> index 270ea970c95a7..a3264ef23746e 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3308-unihiker-m10-v1.2.dts
-> +++ b/arch/arm64/boot/dts/rockchip/rk3308-unihiker-m10-v1.2.dts
+  	u16 timeout;
+ -	u32 reserved;
+  	u64 vdec_fb_va;
+  	u32 crc[8];
+ +	u32 reserved;
+  };
 
-[ ... ]
+I don't know which layout the MT8188/MT8195 firmware uses, so this may
+need to depend on the platform or the firmware.
 
-> @@ -211,6 +230,40 @@ &sdmmc {
->  	status =3D "okay";
->  };
-> =20
-> +&spi2 {
-> +	assigned-clocks =3D <&cru SCLK_SPI2>;
-> +	assigned-clock-parents =3D <&cru PLL_DPLL>;
-> +	assigned-clock-rates =3D <100000000>;
-> +	status =3D "okay";
-> +
-> +	display@0 {
-> +		compatible =3D "dfrobot,unihiker-m10-display", "panel-mipi-dbi-spi";
+HEVC: MT8189 is pure single core, but the firmware capability makes the
+driver advertise HEVC_SLICE (and AV1). The HEVC backend only implements
+the LAT + core flow, and setting an HEVC format (here libva-v4l2-request
+probing its profiles when ffmpeg opened the VA-API device) sends an
+init message that crashes the SCP:
 
-[Severity: Low]
-Will make dtbs_check report a validation failure here?
+  mtk-scp 1c400000.scp: SCP watchdog timeout! 0x0
+  remoteproc remoteproc0: crash detected in scp: type watchdog
+  scp ipi 14 ack time out !
+   scp_ipi_send+0x2ec/0xd5c [mtk_scp_ipi]
+   vpu_dec_init+0xe0/0x29c [mtk_vcodec_dec]
+   vdec_hevc_slice_init+0x88/0x250 [mtk_vcodec_dec]
+   vidioc_vdec_s_fmt+0x2a8/0x450 [mtk_vcodec_dec]
 
-The panel-mipi-dbi-spi driver parses the first compatible string to constru=
-ct
-the firmware filename, but the corresponding schema located at
-Documentation/devicetree/bindings/display/panel/panel-mipi-dbi-spi.yaml
-enforces an explicit list of valid compatible strings via an enum.
+Not advertising HEVC and AV1 on MTK_VDEC_PURE_SINGLE_CORE (clearing
+MTK_VDEC_FORMAT_HEVC_FRAME and MTK_VDEC_FORMAT_AV1_FRAME from
+dec_capability after reading it from the firmware) avoids it; that's
+what I run.
 
-Since dfrobot,unihiker-m10-display does not appear to be added to the schem=
-a,
-does this violate the DT binding rules?
+H.264 encode (patches 9 and 10 on MT8196 encoder v8): works. A 720p30
+test pattern at 4 Mbit/s through ffmpeg's h264_v4l2m2m gives valid High
+profile H.264, 60/60 frames, about 49 dB PSNR against the source on the
+first frames.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261010232857.2695=
-0-1-founder@crepuse.com?part=3D2
+For patches 9 and 10:
+Tested-by: zoan37 <agentzoan@gmail.com>
+
+Two board-side notes from bringing this up, in case they help whoever
+writes the MT8189 DT and multimedia clocks: the VDE0 power domain needed
+the larb4 gate as a subsys clock ("vdec-0", as in ChromeOS's
+mt8189.dtsi), otherwise only the first decode after VDE0 powered up
+worked; and the VEN1 clock controller must not use runtime PM (VEN0
+then failed to prepare its subsys clock with -EACCES in the noirq resume
+phase, genpd marked it on anyway, and every resume warned about
+"already disabled" clocks).
+
+The board's patches and notes are at
+https://github.com/zoan37/lenovo-slim3-chromebook-omarchy
+
+The testing and the fixes were done with help from an AI assistant
+(Claude).
+
+Thanks,
+zoan37
