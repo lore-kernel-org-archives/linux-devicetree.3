@@ -1,115 +1,117 @@
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54E08388879
-	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 08:19:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5223338D014
+	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 08:19:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791620358; cv=none; b=WW9txTlIiXjZ0CQDX1aLZfZGdd1a8UK0HPdxDMdLurxtQ0yKwpMp9NhxMjtXG+AyJzFgEaSjboUCw0yvyizoNxmGQf1t68bjRm76xPvc8sH7lYK2SieeU5OTNEBtGL3Dk25vKFKa2aGAc17pzDFEibt8Kn/XWae01bESdtD9WYA=
+	t=1791620369; cv=none; b=NWs/72JDmHEXdfPfbZKlnPYAAD8rJ2kTYThcfkShwzFqeFBQZcazN4Zx1xIMcIsXFWXiMKzvOZu/CcK6vmC5ikZP3ZX7xszexr1tns6C1F8kdrT/tj+sEntan0hnjOU530m1iTcK1MBsWs+US9jffR63ttPrWomr+8bFBs1cV5s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791620358; c=relaxed/simple;
-	bh=0nIngpZp+inShOASYSj886fWfbkUeZYjBtrsY8Usq7k=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=isiZ4eYTD21SXgWE1zh08LJkUZm37kZDCN8rw9yPySiIyDovIAiqTM4T4i/T06r3wRw4jao24jyrhambCQu/4eAX39dmXxb+yK4QPqk/kGyWKUQPJvpmITkRlWf9O3b+1WkisdQ7nI3oRWWe0gUOTcO7VhyIm1FqsYsQbmoPew8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bV3Fr2PU; arc=none smtp.client-ip=209.85.216.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791620369; c=relaxed/simple;
+	bh=h1aJryadrDcAb1rcXctsAGx1wX8o6WsopDimvBourpA=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=sXMOMvqJY91w8SOKKmt7BCw9rU71tQBoun+My5i4KRb3vqXtutQwj7b0mY59VAAEZVA7IDdYMCrsdCSOF+J1B3rvJKyNjOS8Xf3UtBu4tmA7BtiJLeJAOlqrGJ+lYSBsQMUNlBPsiBoJghmwxL6mHonprNo3s5vnzQjhLPRarHE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JYorRwh1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bV3Fr2PU"
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3ab3260b2cdso149563a91.1
-        for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 01:19:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791620356; x=1792225156; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6k52INFfuvMm/tjJwSTAbKQML/NWkmAz6TpJUNRMaqY=;
-        b=bV3Fr2PUmixZ6BhEY/znWdntjnSZwEiZUWaANPbSpvmnMg6VsG73BKTq1kk5H9itjN
-         CmJtUY+B1BDalspG0GEuxmZMu16ZMU4bdpVALzlKWHoiW3K8WQ/PAb20PmMZed/Z9OMb
-         hRjtDkOYHj/sWkNK2wqJFEAOsp5J5fHzYmhMaQuEioMwQloTmbmog2TrL8ti1K/k4TET
-         3BfZa/FmjevvI182MCgrjFXqUYkWJrl55Lao5vtEJSeinORdKqAzTSVjjPDprb/2otR+
-         dpXcyMbDi4irc+Ji9WniOItPigCuNphXGa98HfBPADPCzb1/nMVkQcOcHqJYqotoHE5f
-         lp1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791620356; x=1792225156;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6k52INFfuvMm/tjJwSTAbKQML/NWkmAz6TpJUNRMaqY=;
-        b=IlAI8FPLkyiA2sZaRoO1Cuv9U7ZJWxK6Pwh+9KGkKDuzImoP9nHk2k7UvA7/jw+lWC
-         ag3E6py6LzYOCPhsNfcfpQ98UJ8yJEtC7GPhIAwi7lRsEeIN6/S9MnWczVpscCFSPnNs
-         yojSx3tFi6XxZWU01fQAHh6rtLUZVqjbuJxVDwAa5aJFeR3rIGMMW0C3i8PsSCOTa2N/
-         QkyUFdKijVswcCYZ48QFLcTa/RRdNNYliotKAbZeTpgfPRlgF7BZi9Q2Ood6VmkYBtCc
-         QevRbpTcN3YqevljDXOaxfUCb92vqd1hVjvQUN/SkAHs7p+AffUuiX0JagD8lgwcReQM
-         cJXA==
-X-Forwarded-Encrypted: i=1; AKwUvBzfhRApbLZmxK7WYSocnzZFkg2SYZJ+3zILtY5bttmkaCnu+VwLwj8AqI9grieApuo6Cwzz3394IB3O@vger.kernel.org
-X-Gm-Message-State: AFq9FYLvZrvr9kkqf3aK/G8feVE71yvyZFbmM7+dIQRm9/uAaElhvGxK
-	dC8Wt0locM8yXCfVYAEnVifqJQ1Jz3cc+7lZcs3XjpBIDG/1TbbjsKQh
-X-Gm-Gg: AYBFou0KKp+Lx82QqQ5rXdnmSrAP7k8MGEUjvhXgXYrMM6+eGAQ24C/bbftwXV5LyG5
-	wANxs+Z6nJ6cf1rJAsBX57nAmL5ijWkHBVVQsXTKD1xRCnLWnsF8GeRH6bQf6LuceissktOPsO9
-	ERkwv6saTUvcA4FqjwxsduhHeyKDnv4nhqOjjyYOt7CdkQctgDJueC2GIm0WuYW6+KI4TL2Ipn8
-	ySt7d5SoTNS9MJ7+RtFMNEScPe1ZmnIiMI0NUgxcerS0mV/Hby4epJb5F5XuH0Gn0uvcukMeIgp
-	bMDskfPe7Icv1j8e7VN7sirmzbf4ojUQpL1qI6kqoDsL2xlbwlbgMCZzUH9pJhnnrwEeGGIGoZ0
-	yeg1e95jpHw/Sczs7+j8RkhmnUptGMMdB+JKLk1pyTwsNhSjKEmRnX+/64gXGSXen9GhX/o73Jq
-	dAOfzuhk2Ycf7L7+z9mDpfLNISWSYt/x7WKC3g3juibAIDXzyVpW6MozIjIlJXrNC0+xq+DDtUg
-	NdrKNU=
-X-Received: by 2002:a17:90b:2886:b0:3a6:fec5:c186 with SMTP id 98e67ed59e1d1-3ab3acf7535mr3661751a91.46.1791620355561;
-        Sat, 10 Oct 2026 01:19:15 -0700 (PDT)
-Received: from arch.localdomain ([161.33.202.10])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab36ed0332sm7744574a91.3.2026.10.10.01.19.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 01:19:15 -0700 (PDT)
-From: Jun Yan <jerrysteve1101@gmail.com>
-To: MyungJoo Ham <myungjoo.ham@samsung.com>,
-	Chanwoo Choi <cw00.choi@samsung.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Michael Auchter <michael.auchter@ni.com>
-Cc: Jun Yan <jerrysteve1101@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: [PATCH] dt-bindings: extcon: tusb320: add SGM7220 fallback compatible
-Date: Sat, 10 Oct 2026 16:19:06 +0800
-Message-ID: <20261010081907.479226-1-jerrysteve1101@gmail.com>
-X-Mailer: git-send-email 2.56.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JYorRwh1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5795F1F00893;
+	Sat, 10 Oct 2026 08:19:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791620366;
+	bh=KEBIIuqGsCq1R9jbdZ0wE8lKj/rOVQ7znNxeE1yv+I0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=JYorRwh1m+9eBcMx9xHJAq4XZxP146MTI45BvV2ybRgM45LWQmO8ABQhxVOPolZp8
+	 38rc22ItojueTnqGs75xtFMEL0gsm6qve6MZPn/TtxytyrDXI5PD75yWWdK+kdcISo
+	 PT4DxAFgCKNF9KL7cPuMYGEsQzgDGyUEYwoi49Ei+g10vOHKaWmnRImwPJ1V917dHY
+	 +1J3L3PmHAmJD/ooh39kck5brIkKagOcoSoBPD4nHrcfDXlTVxhLIv3X7t4XJzXvdB
+	 tXdMu3FfPYHRTJXrzUkF0csmUhbvZSGu2mjJtDlIVCWpscR0bsYyAjiPfTDVixlOAu
+	 QZQDXvdZe8XKQ==
+Message-ID: <sashiko-outbox-166335@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v18 06/13] media: mediatek: jpeg: fix buffer state
+ update timing
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Kyrie Wu" <kyrie.wu@mediatek.com>
+Cc: media-ci@linuxtv.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <ce89b772dfbd5d86a3af4672dd40af41de8b6f98.1791614327.git.kyrie.wu@mediatek.com>
+References: <cover.1791614327.git.kyrie.wu@mediatek.com>
+ <ce89b772dfbd5d86a3af4672dd40af41de8b6f98.1791614327.git.kyrie.wu@mediatek.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 10 Oct 2026 08:19:25 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The SGM7220 is register-compatible with the TI TUSB320, even reporting
-the same device ID, so it can be described in a device tree using
-ti,tusb320 as the fallback compatible string.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] media: Placebo lock and UAF in MTK JPEG worker timeout race
+--
 
-Link: https://www.sg-micro.com/rect/assets/bec47c84-84b4-4015-8d61-9433e0d76583/SGM7220.pdf
-Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
----
- .../bindings/extcon/extcon-usbc-tusb320.yaml           | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+commit 8295f8055bf1ad5ac4c76dd2772ead51a8aecccb
+Author: Kyrie Wu <kyrie.wu@mediatek.com>
 
-diff --git a/Documentation/devicetree/bindings/extcon/extcon-usbc-tusb320.yaml b/Documentation/devicetree/bindings/extcon/extcon-usbc-tusb320.yaml
-index 126107dd57b1..f88486c2fb09 100644
---- a/Documentation/devicetree/bindings/extcon/extcon-usbc-tusb320.yaml
-+++ b/Documentation/devicetree/bindings/extcon/extcon-usbc-tusb320.yaml
-@@ -11,9 +11,13 @@ maintainers:
- 
- properties:
-   compatible:
--    enum:
--      - ti,tusb320
--      - ti,tusb320l
-+    oneOf:
-+      - enum:
-+          - ti,tusb320
-+          - ti,tusb320l
-+      - items:
-+          - const: sgmicro,sgm7220
-+          - const: ti,tusb320
- 
-   reg:
-     maxItems: 1
--- 
-2.56.0
+media: mediatek: jpeg: fix buffer state update timing
 
+This commit delays the update of the destination buffer state until after t=
+he
+decoder has selected a hardware core and successfully resumed its runtime PM
+state. It aims to protect the destination buffer state update with the
+hardware spinlock to avoid assigning frame tracking data to buffers that are
+returned early.
+
+> diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drive=
+rs/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+> index a5a1f6126af73..e152ebae0f219 100644
+> --- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+> +++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+
+[ ... ]
+
+> @@ -1773,6 +1767,9 @@ static void mtk_jpegdec_worker(struct work_struct *=
+work)
+>  			      msecs_to_jiffies(MTK_JPEG_HW_TIMEOUT_MSEC));
+> =20
+>  	spin_lock_irqsave(&comp_jpeg[hw_id]->hw_lock, flags);
+> +	jpeg_dst_buf =3D mtk_jpeg_vb2_to_srcbuf(&dst_buf->vb2_buf);
+> +	jpeg_dst_buf->curr_ctx =3D ctx;
+> +	jpeg_dst_buf->frame_num =3D ctx->total_frame_num;
+
+[Severity: High]
+The commit message states the lock is used so the completion path observes a
+consistent context and frame number. However, looking at the completion pat=
+hs
+in mtk_jpegdec_hw_irq_handler() and mtk_jpegdec_timeout_work(), they do not
+appear to acquire comp_jpeg[hw_id]->hw_lock. Does this lock provide any
+mutual exclusion against those paths?
+
+Also, because schedule_delayed_work() arms the timeout before the buffer st=
+ate
+is initialized, is there a risk if the worker thread is preempted immediate=
+ly
+after arming the timer?
+
+For example, could this sequence occur:
+
+1. The timeout worker fires and executes without hw_lock.
+2. It reads the uninitialized frame_num.
+3. It adds the buffer to dst_done_queue, resets the hardware, and returns t=
+he
+   buffer to userspace via v4l2_m2m_buf_done().
+4. The preempted worker thread resumes and concurrently writes to
+   jpeg_dst_buf->frame_num, corrupting the buffer that is already on the
+   completion list or in userspace.
+5. It then starts the hardware via mtk_jpeg_dec_start() on the
+   already-returned buffer.
+
+Could this lead to DMA into freed memory?
+
+>  	ctx->total_frame_num++;
+>  	mtk_jpeg_dec_reset(comp_jpeg[hw_id]->reg_base);
+>  	mtk_jpeg_dec_set_config(comp_jpeg[hw_id]->reg_base,
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1791614327.gi=
+t.kyrie.wu@mediatek.com?part=3D6
