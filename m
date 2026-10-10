@@ -1,87 +1,88 @@
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E52F545562A;
-	Sat, 10 Oct 2026 10:00:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26DF83932E6;
+	Sat, 10 Oct 2026 10:01:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791626417; cv=none; b=A84Ckoe7ZnRZBvxl941eGL1u6+aOOXSEC9cN9JeMF0FkBF2zPJcBzUr/56WWGvziHMjmXiJqQHl/pg6B8NrA5WKImXMPHgGpvLMj+EkvwwbaT9qj+xXirE3mVKfqA7iQ65xy8y7WY+EXu6DrbbsVNpbi6mF2waDEmTXIZ02oZAs=
+	t=1791626493; cv=none; b=qbkm8S5YukASPJayhRZXTlCJC2EYYe4mHEpYvpBnbVvGEUhaI9yv9ok+LslyfGvzWqaXEuXqhHwPAEFwlyE3VUMhmprW/EHkLj78dzAXBHknRWlgdGGN+AlPgN2o9NgXYfQW1gFPK+ezDWclAxvol94TyXz9GtNUbtbud8pRfxE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791626417; c=relaxed/simple;
-	bh=ayZJau9OFqjACQBWnIZS/ybDW5M52l2tK1j010eNrTk=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=bJ0D39oAg6XftGJdTo7YT5yvDrCEBPmx/bPGMULL8+ArDnnJFe3hJnobpkX+PikLQqNif4wSndL/B/HgGIpyqaYWzfglWvbEAc40rRWspLqDiP5cwgDhcJYr1VvAIiO2KVrm6O54c1XxqL7VBr8X9Ua9rGqSWmho5+ZNQbNQ20I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jmu.edu.cn; spf=pass smtp.mailfrom=jmu.edu.cn; arc=none smtp.client-ip=45.254.49.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jmu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jmu.edu.cn
-Received: from Vostro-3710.. (unknown [14.220.232.127])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 508f731cf;
-	Sat, 10 Oct 2026 18:00:06 +0800 (GMT+08:00)
-From: Chukun Pan <amadeus@jmu.edu.cn>
-To: Heiko Stuebner <heiko@sntech.de>
-Cc: Rob Herring <robh@kernel.org>,
-	Chukun Pan <amadeus@jmu.edu.cn>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: [PATCH 1/1] arm64: dts: rockchip: remove FRL GPIO for 100ASK DshanPi A1
-Date: Sat, 10 Oct 2026 18:00:00 +0800
-Message-Id: <20261010100000.2236931-1-amadeus@jmu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1791626493; c=relaxed/simple;
+	bh=ZYRlipbPY8RAWD8fBo6czk6TDpS55BrQGDnKoUlam78=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CA/1qkj7ltZ6lIQsQYxSrrgQSv+20zrqfRsog6lmLnSFBHde7Oz8P4LTs59ei0DLL3pGHsahvRsZ6S62yp8gWb1MlrPJnxNfC1zpLTi6jfMJVtDbqfr/bMUpbEpJai2kTcvGbshS69K1IbtCH2rVa8DFPrJi78tnlp/pF7Oz4u4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CXv0u/LL; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CXv0u/LL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE3A51F000FF;
+	Sat, 10 Oct 2026 10:01:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791626492;
+	bh=yxghfkk9ZcOzzHrH4POV+dHpr3b3+ZDhOKp5XX6zWMA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=CXv0u/LLebHMF6g/2GK3TvCGBelT7PPH0HIRnflCf6AZ0lVwkZgTWwxvuQI+s9qMo
+	 ft7jV7D8Qxva2ItzH/MkbLDHDEbO0hANLYn5fxEXZ55ukUHdB0mGreeyNQb0gRBVoX
+	 GvDcmGzAlIjOGHFlErUh2IZlaV8eljjni7igTE2vwGw9kUGtTtHVU7D7lYZifyzzve
+	 4z5Diw9TikIM7l4mmswNF7YEcDdBlTEZfcWirr61J0mPjYl9O4asyE/fZMh9ABnACS
+	 hQuaEnLI0zSjN74PdduIr5wdHA9UxKRrDlhcwOf6tR/zJArMSWXwVbnieyTVkKv2i+
+	 bB5D41vN0Gm3w==
+Date: Sat, 10 Oct 2026 12:01:26 +0200
+From: Mike Rapoport <rppt@kernel.org>
+To: Rob Herring <robh@kernel.org>
+Cc: Marek Szyprowski <m.szyprowski@samsung.com>, linux-mm@kvack.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Saravana Kannan <saravanak@kernel.org>,
+	Oreoluwa Babatunde <quic_obabatun@quicinc.com>,
+	Wandun <chenwandun1@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>
+Subject: Re: [PATCH 2/2] of: reserved_mem: allocate and map the reserved_mem
+ array early
+Message-ID: <asoM9sKML-7BIEOY@kernel.org>
+References: <20261008094125.3197971-1-m.szyprowski@samsung.com>
+ <CGME20261008094130eucas1p1120c66c914aa2b93fa3d7e6e494e7eea@eucas1p1.samsung.com>
+ <20261008094125.3197971-3-m.szyprowski@samsung.com>
+ <20261008140515.GB183998-robh@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa125416a5a03a2kunmbe14e65c40c299
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaSUMfVh5PH0pJGRhKSkpJGVYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKT1VJSUtVSUhJVUpJTFlXWRYaDxIVHRRZQVlLVUtVS1VLWQ
-	Y+
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261008140515.GB183998-robh@kernel.org>
 
-According to the schematic [1], the 100ASK DshanPi A1 board does not
-have an hdmi_tx_on_h pin, so removed the non-existent FRL GPIO.
+On Thu, Oct 08, 2026 at 09:05:15AM -0500, Rob Herring wrote:
+> On Thu, Oct 08, 2026 at 11:41:23AM +0200, Marek Szyprowski wrote:
+> > Get rid of the static, limited-size reserved_mem array and replace it
+> > with array allocated by memblock_alloc_raw() and accessed through a
+> > temporary early_memremap() mapping. Such mapping is needed for some
+> > architectures (like ARM64), where linear map is not yet available during
+> > early boot scan. Having a single, writeable array with all reserved
+> > regions removes the need to perform two step initialization introduced
+> > by commit 8a6e02d0c00e ("of: reserved_mem: Restructure how the reserved
+> > memory regions are processed"), so all regions can be processed
+> > directly during the early scan again.
+> > 
+> > Suggested-by: Mike Rapoport <rppt@kernel.org>
+> > Link: https://lore.kernel.org/all/asc6brs_g0ky0wOM@kernel.org/
+> > Assisted-By: Claude Opus 5.5 <noreply@anthropic.com>
+> 
+> Assisted-by: LLM
+> 
+> is the new way...
 
-[1] https://dl.100ask.net/Hardware/MPU/RK3576-DshanPi-A1/DshanPi-A1-RK3576-SCH_V1.1.pdf
+Probably not any more :)
 
-Fixes: 2cd97880fbc4 ("arm64: dts: rockchip: Add frl-enable-gpios to rk3576 boards")
-Signed-off-by: Chukun Pan <amadeus@jmu.edu.cn>
----
- .../arm64/boot/dts/rockchip/rk3576-100ask-dshanpi-a1.dts | 9 ---------
- 1 file changed, 9 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/rockchip/rk3576-100ask-dshanpi-a1.dts b/arch/arm64/boot/dts/rockchip/rk3576-100ask-dshanpi-a1.dts
-index 05fb4a7f9a16..41c90414e898 100644
---- a/arch/arm64/boot/dts/rockchip/rk3576-100ask-dshanpi-a1.dts
-+++ b/arch/arm64/boot/dts/rockchip/rk3576-100ask-dshanpi-a1.dts
-@@ -278,9 +278,6 @@ &gpu {
- };
+https://lore.kernel.org/all/20261009083137.3-1-sashal@kernel.org/
  
- &hdmi {
--	frl-enable-gpios = <&gpio2 RK_PB0 GPIO_ACTIVE_LOW>;
--	pinctrl-0 = <&hdmi_txm0_pins &hdmi_tx_scl &hdmi_tx_sda &hdmi_tx_on_h>;
--	pinctrl-names = "default";
- 	status = "okay";
- };
- 
-@@ -741,12 +738,6 @@ hp_det: hp-det {
- 		};
- 	};
- 
--	hdmi {
--		hdmi_tx_on_h: hdmi-tx-on-h {
--			rockchip,pins = <2 RK_PB0 RK_FUNC_GPIO &pcfg_pull_none>;
--		};
--	};
--
- 	pcie {
- 		pcie_reset: pcie-reset {
- 			rockchip,pins = <1 RK_PB7 RK_FUNC_GPIO &pcfg_pull_none>;
+> > Signed-off-by: Marek Szyprowski <m.szyprowski@samsung.com>
+> > ---
+> >  drivers/of/fdt.c             |   3 -
+> >  drivers/of/of_private.h      |   2 -
+> >  drivers/of/of_reserved_mem.c | 251 ++++++++++++++---------------------
+> >  3 files changed, 96 insertions(+), 160 deletions(-)
+
 -- 
-2.34.1
-
+Sincerely yours,
+Mike.
