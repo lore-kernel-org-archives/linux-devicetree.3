@@ -1,183 +1,113 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2919392807
-	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 16:19:32 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EDB93B0AC3
+	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 16:21:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791649183; cv=none; b=axWRgutjdk8jgPuxQ+CdhkG1uxq426aaio0YPm3GkFUwe4QWadJu/V1fL+Ets/UK2Dcm2TcEO3mV1w1u5u5M/PVDb1784CePJ4hgplFJy7g0XhD7t2q5BrHn/IbPTFKjCl4gtwc50kAbycXF+OVX8dfxkxnzJRpduYgvYG5VpJY=
+	t=1791649319; cv=none; b=j47i8A3DqZ29xzZ1bHOLMgBXEaX9scxWZVjPovFQouV+NI3kmcffdMTy7/X94jJXh0hAMVhD11XYrI696XyG88Cz/25KUKY4nTw071Te33hfGixeIafnz51LMb7f7Zn84CzEstNvIvrrnOKg5LVIxIIiqgTTxN1/KRYxW73tGzc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791649183; c=relaxed/simple;
-	bh=Qj3Mv1KqmiTm8jzFOVgGpcujd5BKAuKFsEqgDQjGyTM=;
+	s=arc-20240116; t=1791649319; c=relaxed/simple;
+	bh=4pJUIO4P//MRzFfNZlebGIpaa+4EW6mJhKGkWdMjtbg=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=QgzM8e7S2UqU7nu5wxDiR2RJg3naHYPZU9fNz8fHGUPJ9CEIJcFOPjxl8nZHu1MzNZG8PJfaYUwl0pG9RbQQ9wyHNkvghLHSEG0yIupZnOOVgtDM0kJyE/zTC0yw1NmiUW+7KdOQ/Un1cLND2dAKC5QS6m5zAxxXS4amdKDelKE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ABSRWAri; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=QcFw+jHsAa+SnJp5n+uOSWx4/1Yzg6edWuGSgfMVyo6QdcHyjvlMb2J9NyYUKJcVkkotU1TsD2YgFFYb6me1b9CAdCElKrMgxY/hpMSn1fMbxyaOIgdoI1/Wi7xsjXbfuI+TCufKq1x98Ax2gwF8cnUFwp/YgY3Ods+H3Fkx/8E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UY+W7Bxl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ABSRWAri"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E0C71F000FF;
-	Sat, 10 Oct 2026 16:19:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UY+W7Bxl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEF3F1F000FF;
+	Sat, 10 Oct 2026 16:21:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791649172;
-	bh=oVJlSjap2M7F+7JAB6BD9119AVFpjcCAe5IkWx49Lac=;
+	s=k20260515; t=1791649318;
+	bh=SPc0/Y6iXNR/DIEa8D4WXg5MQpzuCuz1GeqRFvKKh9I=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ABSRWAriygV0rggubKJIcr4AKstcUYPqF+ns0NrgfJJHpoCM3rFHkU82rM0KPTrD+
-	 /8DObYWdQomHscJJlkmsTYDwJjTHRHXXYSc2jyTLDLty/c9HJ7LZjrLIKii+NR/cvf
-	 WFsRTiZtrr1PofJj3D75uj2TlDyd5siku/92ZrvNfkXHpXuAW9xoJe+MSzRRnOsxmv
-	 o83E9519QSjEACkP9u40CbletHz5ub9AxfIqtvxxEkGSfyKdNPEGwQeskujkGHwHMx
-	 Nul4Y47ju6QpIEEi9sFcsMS0+iVVzJXNhbjKOWmYd+Eo6Cq8aMV5rBTTAVT4x8LxL3
-	 PvsJTB9Z3/fQw==
-Message-ID: <sashiko-outbox-166731@kernel.org>
+	b=UY+W7BxlfuScPOq238MIzgEyc1sk4XMFih63d7K121fcPpuvghIsRc4CqWocf2Z0c
+	 i0hLZueMIoQLPgkiaASHQlNTnr6zztf0xehdwyot7eZZwCsEaLqDT39+0HXBdrQei0
+	 JVGcMVe6PGCG+ZwUbfl6BcWWv5xzmLg0GMyDOQQXrOpf1/FACBObR0NF8GBioOm3OV
+	 6610ZHw5jyy7qv1+1iQUZypf+fTPVbnys4SJ0oM1aS2y1mZEkF57NhCnjaqEAgIXM9
+	 Cy49zA3KOe/9Hj+J/rx31imvuTj6NjDFuyd8+PWWrX0J81Hg3tcQjAk2Ja4UIdSL9d
+	 mY/6Jop8TMR/A==
+Message-ID: <sashiko-outbox-166732@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v20 09/13] media: qcom: camss: tpg: Add support for
- v2.4.0 TPG
+Subject: Re: [PATCH v20 13/13] arm64: dts: qcom:
+ kaanapali-mtp-camera-s5kjn5: Add DT overlay
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Hangxiang Ma" <hangxiang.ma@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com, devicetree@vger.kernel.org, vkoul@kernel.org, media-ci@linuxtv.org, linux-phy@lists.infradead.org
-In-Reply-To: <20261010-kaanapali-camss-v20-9-63e98ce9ac0c@oss.qualcomm.com>
+Cc: vkoul@kernel.org, robh@kernel.org, media-ci@linuxtv.org, linux-phy@lists.infradead.org, conor+dt@kernel.org, devicetree@vger.kernel.org, olteanv@gmail.com, neil.armstrong@linaro.org
+In-Reply-To: <20261010-kaanapali-camss-v20-13-63e98ce9ac0c@oss.qualcomm.com>
 References: <20261010-kaanapali-camss-v20-0-63e98ce9ac0c@oss.qualcomm.com>
- <20261010-kaanapali-camss-v20-9-63e98ce9ac0c@oss.qualcomm.com>
+ <20261010-kaanapali-camss-v20-13-63e98ce9ac0c@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 10 Oct 2026 16:19:31 +0000
+Date: Sat, 10 Oct 2026 16:21:57 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] media: camss: CSID 1080 fallback to CSIPHY breaks graph isolation
-- [Low] media: camss: tpg_reset evaluates hw_version before it is initializ=
-ed
-- [Low] media: qcom: camss: data race on tpg->testgen.mode across subdevices
+- [Medium] dts: qcom: missing vddm-supply in s5kjn5 camera node
 --
 
-commit 74ebce0fb447af79287e1df16be3097446ecc373
+commit 0aa98e9fff565e6ca9fb3ef259881330ddffce3c
 Author: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
 
-media: qcom: camss: tpg: Add support for v2.4.0 TPG
+arm64: dts: qcom: kaanapali-mtp-camera-s5kjn5: Add DT overlay
 
-Add support for the TPG found on Kaanapali. This updates the CSID configura=
-tion
-for TPG routing and adds version checks for the TPG hardware registers.
+This commit enables the S5KJN5 image sensor via CCI on the Kaanapali MTP bo=
+ard.
+It creates a DTBO that configures the sensor on the CCI-0 interface.
 
-> diff --git a/drivers/media/platform/qcom/camss/camss-csid-1080.c b/driver=
-s/media/platform/qcom/camss/camss-csid-1080.c
-> index 46e443e05195a..851b3cd712f52 100644
-> --- a/drivers/media/platform/qcom/camss/camss-csid-1080.c
-> +++ b/drivers/media/platform/qcom/camss/camss-csid-1080.c
-
+> diff --git a/arch/arm64/boot/dts/qcom/kaanapali-mtp-camera-s5kjn5.dtso b/=
+arch/arm64/boot/dts/qcom/kaanapali-mtp-camera-s5kjn5.dtso
+> new file mode 100644
+> index 0000000000000..7b574e2ed3732
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/kaanapali-mtp-camera-s5kjn5.dtso
 [ ... ]
-
-> @@ -148,8 +151,16 @@ static void __csid_configure_rx(struct csid_device *=
-csid,
-> =20
->  	val =3D (lane_cnt - 1) << CSI2_RX_CFG0_NUM_ACTIVE_LANES;
->  	val |=3D phy->lane_assign << CSI2_RX_CFG0_DL0_INPUT_SEL;
-> -	val |=3D (phy->csiphy_id + CSI2_RX_CFG0_PHY_SEL_BASE_IDX)
-> -	       << CSI2_RX_CFG0_PHY_NUM_SEL;
+> +&cci0_i2c1 {
+> +	camera@10 {
+> +		compatible =3D "samsung,s5kjn5";
+> +		reg =3D <0x10>;
 > +
-> +	if (camss->tpg && csid->tpg_linked &&
-> +	    camss->tpg[phy->csiphy_id].testgen.mode !=3D TPG_PAYLOAD_MODE_DISAB=
-LED) {
-
-[Severity: Low]
-Is there a data race when reading testgen.mode here?
-
-The CSID subdevice directly reads this locklessly during pipeline
-configuration, but the TPG subdevice updates testgen.mode via tpg_s_ctrl()
-which only holds the TPG's local ctrls->lock.
-
-Unprivileged userspace could concurrently issue VIDIOC_S_CTRL and
-VIDIOC_STREAMON on the respective subdevices, causing a pipeline configurat=
-ion
-mismatch.
-
-> +		val |=3D FIELD_PREP(CSI2_RX_CFG0_TPG_MUX_SEL, phy->csiphy_id + 1);
-> +		val |=3D CSI2_RX_CFG0_TPG_MUX_EN;
-> +	} else {
-> +		val |=3D (phy->csiphy_id + CSI2_RX_CFG0_PHY_SEL_BASE_IDX)
-> +			<< CSI2_RX_CFG0_PHY_NUM_SEL;
+> +		reset-gpios =3D <&tlmm 3 GPIO_ACTIVE_LOW>;
+> +		pinctrl-names =3D "default";
+> +		pinctrl-0 =3D <&cam_mclk2_default &cam_reset2_default>;
+> +
+> +		clocks =3D <&cambistmclkcc CAM_BIST_MCLK_CC_MCLK2_CLK>;
+> +		assigned-clocks =3D <&cambistmclkcc CAM_BIST_MCLK_CC_MCLK2_CLK>;
+> +		assigned-clock-rates =3D <19200000>;
+> +
+> +		vddio-supply =3D <&vreg_l4n_1p8>;
+> +		vddd-supply =3D <&vreg_l1m_1p0>;
+> +		vdda-supply =3D <&vreg_l4m_2p2>;
+> +		vddio1p2-supply =3D <&vreg_l2n_1p2>;
+> +		afvdd-supply =3D <&vreg_l7m_2p8>;
 
 [Severity: Medium]
-Could this fallback break graph isolation?
+Is the vddm-supply property missing for the camera@10 node?
 
-If the user-space client links a TPG to the CSID but leaves the TPG test
-pattern control set to DISABLED, it falls back to this else block.
+The s5kjn5 driver unconditionally requests 6 regulators, including "vddm",
+via devm_regulator_bulk_get(). Because the device tree overlay omits
+vddm-supply, the regulator core will print a warning and return a dummy
+regulator, or fail with -EPROBE_DEFER if full constraints aren't applied.
 
-This configures the CSID RX PHY mux to read from physical CSIPHY
-phy->csiphy_id. If that physical CSIPHY is concurrently active (for example,
-streaming to another CSID), won't its data leak into this CSID, receiving
-stream data from a physical CSIPHY that is not linked to it in the V4L2
-media graph?
-
-> +	}
-> +
->  	writel(val, csid->base + CSID_CSI2_RX_CFG0);
-> =20
->  	val =3D CSI2_RX_CFG1_ECC_CORRECTION_EN;
-
-[ ... ]
-
-> diff --git a/drivers/media/platform/qcom/camss/camss-tpg-gen1.c b/drivers=
-/media/platform/qcom/camss/camss-tpg-gen1.c
-> index d29de5f93c18e..cabbb2638cf38 100644
-> --- a/drivers/media/platform/qcom/camss/camss-tpg-gen1.c
-> +++ b/drivers/media/platform/qcom/camss/camss-tpg-gen1.c
-
-[ ... ]
-
-> @@ -164,18 +167,26 @@ static int tpg_stream_on(struct tpg_device *tpg)
->  	}
-> =20
->  	/* Global TPG control */
-> -	val =3D FIELD_PREP(TPG_CTRL_TEST_EN, 1) |
-> -	      FIELD_PREP(TPG_CTRL_NUM_ACTIVE_LANES, lane_cnt - 1) |
-> +	val =3D FIELD_PREP(TPG_CTRL_NUM_ACTIVE_LANES, lane_cnt - 1) |
->  	      FIELD_PREP(TPG_CTRL_NUM_ACTIVE_VC, last_vc);
-> -	writel(val, tpg->base + TPG_CTRL);
-> +
-> +	if (tpg->hw_version < TPG_HW_VER_2_4_0) {
-> +		val |=3D FIELD_PREP(TPG_CTRL_TEST_EN, 1);
-> +		writel(val, tpg->base + TPG_CTRL);
-> +	} else {
-> +		writel(val, tpg->base + TPG_CTRL);
-> +		writel(TPG_CTRL_CMD_TEST_EN, tpg->base + TPG_CTRL_CMD);
-> +	}
-> =20
->  	return 0;
->  }
-> =20
->  static int tpg_reset(struct tpg_device *tpg)
->  {
-> -	writel(0, tpg->base + TPG_CTRL);
-> -	writel(1, tpg->base + TPG_CLEAR);
-> +	if (tpg->hw_version < TPG_HW_VER_2_4_0)
-> +		writel(0, tpg->base + TPG_CTRL);
-
-[Severity: Low]
-Will this evaluate to true on the first power-up for v2.4.0 hardware?
-
-Looking at tpg_set_power() in camss-tpg.c:
-
-	tpg->res->hw_ops->reset(tpg);
-	tpg->res->hw_ops->hw_version(tpg);
-
-reset() is invoked prior to hw_version(). Since the tpg_device structure is
-zero-allocated and hw_version is not initialized during probe, tpg->hw_vers=
-ion
-is 0 on the first power-up.
-
-Doesn't this cause the driver to execute the very register write it was
-intended to skip?
+If the vddm pin is not physically tied to another active supply, the sensor=
+'s
+MIPI PHY will not receive power, breaking camera streaming.
 
 > +
-> +	writel(TPG_CTRL_CMD_HW_RESET, tpg->base + TPG_CTRL_CMD);
-> =20
->  	return 0;
->  }
+> +		port {
+> +			s5kjn5_out_ep: endpoint {
+> +				data-lanes =3D <1 2 3 4>;
+> +				link-frequencies =3D /bits/ 64 <1248000000>;
+> +				remote-endpoint =3D <&csiphy2_in_ep>;
+> +			};
+> +		};
+> +	};
+> +};
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261010-kaanapali-=
-camss-v20-0-63e98ce9ac0c@oss.qualcomm.com?part=3D9
+camss-v20-0-63e98ce9ac0c@oss.qualcomm.com?part=3D13
