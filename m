@@ -1,256 +1,151 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazon11011007.outbound.protection.outlook.com [40.107.130.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7ACD32DC79B
-	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 02:56:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791600990; cv=none; b=JHPnZoYPsiTMuz4qkyTd4pTyYRaLe30iZcv1ueEouPGvkMLK5I5V0LL6LABgiLg4x3CalSyr0wF7o4X0fxAksQE+pEFERGHd/7ugqE8bw3XQT69im6pZOXZ3QPDYlE33iVQ8vGxtJeAs+Ki6k2sHYgkoxORG2kn3hpF3clIj4aA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791600990; c=relaxed/simple;
-	bh=6TmWKkSGeDBWaz8DbgLvcTRT7TOD0rj4IwvfWvpbCGE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=nFDA5EJ3fXAXyzQ4JN6pAPS0+g0IuL92DoFe0Ith57el/9DwlsEj2D6X/2U7tDDk6YxhABqEhc+fcbDEQ0EvOcv8rUoeLzvdVQwZdk2hwaT87S3SFTklYyPjXYOqX8sN7mn6Ey/cfAu7Ju2ojhN+bx2nv0oVI1KDZSOr09iZO/M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=D9Dpl1Ic; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=FAlUi9qM; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5F302DC79B;
+	Sat, 10 Oct 2026 02:57:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.130.7
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791601067; cv=fail; b=Sk4TaeF+L9VBakLCREBiqwTNZN5XQ2D1sFTR45ey907+L67rz7LeaiYyJJ2BCPCHo58LRjreewsMBOU0ilhuGC3kKeW24UMcdkyfBf2VsHLWmEvF94tkSy4HJ5IIcj+BXU/g3EAK8mLtBhrag3asCK21EGOlVRKLqfkS8XSiIzU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791601067; c=relaxed/simple;
+	bh=6q1G+3f1PSzJ97aXz7xCRdv+qJR8/S5wfyuCHw16JbQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=kKIfQncUx2saxDP4nL7EMpxq43c6Hi+yMgmwNAuUMsVkxsYIATbdb4c1xs23FplJzuDoSYbbfyic4fFNCZAk8jL2O52QmU4hcF9xD+wr1lNXIpsvHPp4B8m/bYgwoWMAs19n+xi1tyCe6hWFnS7q5rYElh5+1toVI5X7itZjxo8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=noLEXLZz; arc=fail smtp.client-ip=40.107.130.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="D9Dpl1Ic";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="FAlUi9qM"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69A2plfe4150815
-	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 02:56:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	qoFcr0nByFsncvzYnULswKwZOIHMuD+c+aAEs6lpFT0=; b=D9Dpl1IczexHoxqF
-	eYHsLdPDnRksvYvxp7c4dL+ANwnCj3txyQSGe0iUJcldda1oKUzJrYXHPYTcZAx3
-	hJuIwx0LheWUjv0h/GH1zLT4JCpDNBVx4vGSX+KzhNtQAjwuLG5CA9/nLRM6CqwR
-	V7zR1gTjveyxOUmCJaniKuUf1FzbyXUN1xjeEe9xLcZSs+YNUYxb79L+z86644cm
-	VkT1ZQF1Ju4dq8kWx3Kjt1s7jWjR/fH+W/8ynF8My1QXYlaoa3GIFPS3wSQhrJuO
-	/q2NthlweHPI0pp6DAKQyHiC816A3xuDn76AKbzvFoziyMvq9Sq/7h98hYkwQ/8N
-	otiLmg==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h7cxxg09t-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 02:56:28 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc4216aee8fso325759a12.1
-        for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 19:56:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791600987; x=1792205787; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=qoFcr0nByFsncvzYnULswKwZOIHMuD+c+aAEs6lpFT0=;
-        b=FAlUi9qMqpDcMjNDfFnOvgLXR4OBWCiVAW1ttVX5aafJaAVWDgHOEnWxPfnotnnjdB
-         VGgdzrCUQ5QXkkbGfRqZZgbDxf852JgtAac0lgnIQ7CU2GZdTQ1hftNkUSyrOEOqaUFB
-         EDvfAv1AxEaB21e9Ixs7y5q7lLndYDsvptNQQr6cKQMp5Mpbon7wzswt2Jk97Fr4ubvN
-         nbAFYyKar3KnVAKFITk4PkJuNXlOyqiM1hgjIawFTRW3VyDpmgxJnDOSfMBTjwuzyqxy
-         FhXojqdF1RNqbhD0Rx31stSf7w3nxBeGA80JB6fEKTgH9bpm6UNXruh9EDooPTuoTWix
-         QUrw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791600987; x=1792205787;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qoFcr0nByFsncvzYnULswKwZOIHMuD+c+aAEs6lpFT0=;
-        b=Bn8HXr79ccgTeK0vAjygsLTyxNWCvev0aVGhTa8wZqt45POBymSerlNlYgI9n1AquP
-         8TXZSYhMtmjTGvwazie3Gonv6mf0kqOwgY2pDUNbns82YKOrz7eyrRjxPRZG6d4F2azY
-         wFVp9SiyyNDfXl4k7YactTeUuNS+3T4j70CwrwgWlC459kbWIvhSHnrqiTEMmd06ddPf
-         dlZ22xBlKEecDu/yXYq6dcAVHMPJwqmfFphth67dlOxIH0OqVvGJ5NAdhC5cQhgbwhP4
-         kOJ/TofVHwGj2l0iiFWdiXcuiR28j+muBh4ryNqcaonGVtYtqWmx2Zse9VAradM2NEwu
-         etxg==
-X-Forwarded-Encrypted: i=1; AKwUvBwnG8QzTGRKjrEDWSflNmkoyGrIhkFwq5qdH9562S9NvcJU/Z+0fLpeBZOvArV2u5bSnJ8Whopqz2sZ@vger.kernel.org
-X-Gm-Message-State: AFq9FYLKogjwTpe8e3kgmiRZ7lcseS21tT8srYjNXj+u8Pef8Drkvv0x
-	G93KGPeS/8mYiTqQnuOX/o4++5jfs2VDfsfp4yGIubW+lggiM5NZPMNTpPxWyiCvdeXb7zsIsae
-	1jYNG7NiA5HWh3r5Yz4h8w3vPMLQIn0aa1beDpR0c33VmJwmQsFbSW0spWUbeF6hQ
-X-Gm-Gg: AYBFou0+7vk1iyGAQQjcGbEalE64MfOGBsY6stQl2tp+btT2TD7E3IwLb9moux6PiVL
-	1P1pYDWEQzrK87uHTN2MOV9x33V6dI74Qo/42cQiixQlLqVR/KnXsf2Q8GBzRcN4xnWXAR5BbiQ
-	fNQRJpeWWtD9E5Fpivv9b7bj5z7r7LiAzhmkjEQSXENVOP84ES+duIspPYkJiVogWIHIcI51nqP
-	qj8lC9SfEIv6wBcAQQY5NAp1xwu6XwelUMeDzO9qkZ3oG1hanXe4G1ZP5uKW5955XahGgEV70rf
-	r3YcobQELOaH4hfi2xs8JaHg0b53wBGAi4vzoBxSCyf2I2GkOLPOmivLQB1EubN1fZheugGvE+G
-	wUErJgIgYG64fvRJvVu1AglJ2
-X-Received: by 2002:a05:6a00:1706:b0:891:3e34:e06f with SMTP id d2e1a72fcca58-897c83afb3dmr3244439b3a.44.1791600987016;
-        Fri, 09 Oct 2026 19:56:27 -0700 (PDT)
-X-Received: by 2002:a05:6a00:1706:b0:891:3e34:e06f with SMTP id d2e1a72fcca58-897c83afb3dmr3244429b3a.44.1791600986534;
-        Fri, 09 Oct 2026 19:56:26 -0700 (PDT)
-Received: from [192.168.1.227] ([183.192.31.51])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-896c41bbb27sm1792222b3a.40.2026.10.09.19.56.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 09 Oct 2026 19:56:26 -0700 (PDT)
-Message-ID: <2befe56f-dd6b-402e-992c-a2e55ce0d1a6@oss.qualcomm.com>
-Date: Sat, 10 Oct 2026 10:56:23 +0800
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="noLEXLZz"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=xD59+79Ynlj9DvHj0l2du5ii2W9h2kbuKu5hhpxg7S+OI3Q/u3106ya1bUPPJ7yB/DvS12lMcL4Wts61HkGX/J7D7k91Ui1hUj6lOVvLM9BtK3OUPpqI/u0oWodU9JdsaSMKfOTyRW+jmKUwL2QT3upeZDODYtuezOBJzaBYnkjTtkuUFYVJsQWjXWnyG10u6ciX14S+qcpOR8yZFR7DTBVBAXG4bPJHzRD6NBloDULqx4Xm0qW6lMbr5aDEd0yzDnzKhH9v0eN1s9xAH1ACjfFb2PCzV8jhScOD490s4+U6+Eo6bWaIph7jtnrvrdtRkWjP/6vvyhXW31SMdJoEyg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6q1G+3f1PSzJ97aXz7xCRdv+qJR8/S5wfyuCHw16JbQ=;
+ b=CB/smzCPWmYEVpka01L67oPFG4kTDFgzAYMbs5DqJHY/69WH/CoUrlXZRlCTG7Ow1bV1km5IzHlLnwpwn8FDGQcsknRTYItPR02pHnVY3k1i4By0sNnHxwe0Ig719/nj9rSy2KkVtFS3v5qxJ4wLzNahfQ/VlFPZndnrcc+pNl2z53OkHxPcCYI9e8h3ydKsFYz5KR+8L87S8oMDHchaIcOu08aiCouwdPSxkrz2IblkH9I7sA6Ios5+OqN14AKmXCX7lW6h+ergWd5nMzmTbInBTKJcNZnBlUmmH7MA0hkkNUQLp8AlQ2d7bYMrZQscclqFqQo6JHQZ94W/bzs8iQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=6q1G+3f1PSzJ97aXz7xCRdv+qJR8/S5wfyuCHw16JbQ=;
+ b=noLEXLZzzEPeF9KB1w+FYm+JxeCbqe0REiUfiUVelzuOEGimw9En6qI0eiOX7qPkUEN9zt3DwLvixTBPRlamWr355GgPxPOk8TGMujLNlvV7pT/HQlQC+QqRKw+xiFnd/SYcT6LsH4KO7vtY8JTAL6vq8EnG2gKDXL3fiLPp/3w9R43QE2wcr+LlAJ+MzBO4MAfpw1fqetxY61IuaUzbGW5j1u2iLZMP6LFqGT0/TTHzpQh99mn6D9btWTiV8/pn0woCrSMOpQZzWwG+SqE+piXasg6cK+u59C+/HzpVNzWu1oY6s6aE8FBsisuz0mFMldRFgPxDtaVe37L8ZJDGqQ==
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by GV2PR04MB12630.eurprd04.prod.outlook.com (2603:10a6:150:36a::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.17; Sat, 10 Oct
+ 2026 02:57:40 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0496.015; Sat, 10 Oct 2026
+ 02:57:40 +0000
+Date: Fri, 9 Oct 2026 21:57:36 -0500
+From: Frank Li <Frank.li@oss.nxp.com>
+To: Golla Nagendra <nagendra.golla@amd.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	Michal Simek <michal.simek@amd.com>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Kedareswara rao Appana <appana.durga.rao@xilinx.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Michael Tretter <m.tretter@pengutronix.de>,
+	Harini Katakam <harini.katakam@amd.com>,
+	Shyam Pandey <radhey.shyam.pandey@amd.com>,
+	dmaengine@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org, git@amd.com
+Subject: Re: [PATCH v4 2/6] PM: runtime: Add pm_runtime_if_active guard and
+ conditional variant
+Message-ID: <asmpoK1AdF5FAT4i@SMW015318>
+References: <20261009-adma-pm-fix-and-per-channel-reset-v4-0-55f5fe409c55@amd.com>
+ <20261009-adma-pm-fix-and-per-channel-reset-v4-2-55f5fe409c55@amd.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261009-adma-pm-fix-and-per-channel-reset-v4-2-55f5fe409c55@amd.com>
+X-ClientProxiedBy: AS4P190CA0040.EURP190.PROD.OUTLOOK.COM
+ (2603:10a6:20b:5d1::20) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next 03/11] dt-bindings: net: qcom,ipq9574-ppe: Add
- IPQ5424 PPE support
-To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-References: <20261008-qcom_ipq5424_ppe-v1-0-16caf43e44ee@oss.qualcomm.com>
- <20261008-qcom_ipq5424_ppe-v1-3-16caf43e44ee@oss.qualcomm.com>
- <sashiko-outbox-165733@kernel.org>
-Content-Language: en-US
-From: Jie Luo <jie.luo@oss.qualcomm.com>
-In-Reply-To: <sashiko-outbox-165733@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: gcBBk9859plVJJCWreN0Hi2XRdcK4UsM
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEwMDAxMSBTYWx0ZWRfX0S3u3PBvQqNC
- i2hEfS4Zry/eG9vEKUU9HBafqkTUfiLvaYyA5zRFm4ZWK5QJAPd/LEg57YB6PBEYeSzuiIWCk/e
- 6TuDKk2vFXXKof+iJ1pwU30o4B3z1uU=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEwMDAxMSBTYWx0ZWRfX5g6mU2YUTUdn
- Qe5liyCcx5w+obdlnStJ0kV3euCoHypDQGfFAIIjHd4xDtviZL+6MVE98zLyYGklq4KzMrBraIn
- 6RrKM8kbNK+WommDLtpUnP5mvR5FOvg3ZyMH2Ra9+8S6mtHOY3ppGPNEPSBw9EacrdUT4mOOXBa
- pWqWfR15xPpNc+uQ9irViRg+jgI4rbt2/6dcT6n8zcFz2X+cde3YV6kd8GtUD4K09FQk84KD8WA
- Chney1XP5IWeLJYiwwclP/04xKOC7+prA9gxA/RfdbCJQtg2oyYwdtb1SJvBfFvxOxCuX2fdbp3
- xkxRq2IGKUCvji5HzejX8dBiO89aX7wwBBLG3iJ2yoQ9r2/9ulKFf3Qx+cMj2OgcD3yKPUsFGOx
- iFeWLNYBTpUIMId4zFRZNE0JwWK244Ejb8TQiJU6MQ/t6cIhAoQrvyBQq3l2EWpdjROF0iADWpg
- cpaj5QaYKZ0KsrZtO1Q==
-X-Authority-Analysis: v=2.4 cv=AsJ7T+9P c=1 sm=1 tr=0 ts=6ac9a95c cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=N18iw5ntM+1D/B/PUaPCgg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=PAOFls9YpP1Q-fK0OEoA:9 a=QEXdDO2ut3YA:10
- a=3WC7DwWrALyhR5TkjVHa:22
-X-Proofpoint-GUID: gcBBk9859plVJJCWreN0Hi2XRdcK4UsM
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-10_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0 lowpriorityscore=0 impostorscore=0 spamscore=0
- adultscore=0 priorityscore=1501 clxscore=1015 bulkscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610100011
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|GV2PR04MB12630:EE_
+X-MS-Office365-Filtering-Correlation-Id: 89ac12d2-af64-4162-9d70-08df267a3fb0
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|23010399003|1800799024|19092799006|376014|7416014|18002099003|261009223027099003|11063799006|4143699003|10067099003|56012099006|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	oMcDVvnw35qojQ/m0+nujsEqiQkd75+5UKN+O0gMx3RDPMn3e03s2EgCsaj0Sph23hje42HHR+uqQtcFMQ7nO2B2ysacGIoC0GXDQzVZWgypKt6T033tbsgwpjVU+eVgfpBmphgeY8eb6/VlErQ2Rtv3azMU+VRTEL8KYiH8Dw+oxxuBpBUkPFK1xRtnsJwmUt023YiFr6cCZpZdhnz/lbv8FqNgnDxNaXUcNbJFzF+aB2YJQsDywt853SbK4Tqj8ZLYfnY4BmwwO76aN8qydR0a/dJTD5+UuGdWnPw7kCYaGgxAf1HKatTOFdV6iaIRzhS62c/VjDxUarBtmjIidHKFSzad/7gklLpQ8wTvvRA7wqigJRd8pTQI56Z4N+4JNR7kwGfKKKmhWBoE8DEo6vx1A3/Yjy9GK+zIxY7hK6mK93TMGsCZQxeC2MVZMMTzqC3m1tRCkpsorI4/pPd8BUNiSBNJwv+mpAr/sx8eCJjcaWXHhjoia/ZF1ZvJLwMeSIkEXTzabOHnOj75X9guPMXqnJRj2DvO7Jw3aMJzy3k3ip//p4C8eJVnPEX7Od0/bTAcBjUBmzwgy5IPy6iqzrOaaihnT9yXRDEfBiFdneV2icDQ657/eXy7lZGvdOKBt8eVNw4L+IEXJJ2YB4gbkZadl+v06GHvHsYOdLMnMg0=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(19092799006)(376014)(7416014)(18002099003)(261009223027099003)(11063799006)(4143699003)(10067099003)(56012099006)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?C3FRM/NiJnkuIe6+72xB1dXWWEDfiDdoemeofr1w6n/GhrCKenPrvvQN0KBH?=
+ =?us-ascii?Q?q/rXcNGaHpLo67lNJ+BzCg1rXMuGvKlbPipcHaMzK7YQBU+k9D+rYTJfpWL4?=
+ =?us-ascii?Q?8mu1LEQU0B/il61mcvczw5KVolbVPgY/iWm8FnQVGf9o+G3E7SkObiSqlHKY?=
+ =?us-ascii?Q?53gAIrh/DteAK9aUCEASOiLgyngwy4jg+56b/Twg28UeRirKPh+4OEmvGNk8?=
+ =?us-ascii?Q?En2yXQpr2E+ghv7mS9CZv6aat+ARujYcdtQLA+2f55bH25MjmtdWUY7EBJU1?=
+ =?us-ascii?Q?EYosEbPKbliW2mdfNXT/ofm2W3EgO+/ppXX3KzTIBy4JihEEh4mqFPpa2WqZ?=
+ =?us-ascii?Q?4M4dAROucGZy8qy4coBK/ACEo1ANVZqbTKHGY/Z2csTy9ArvB6BgT8PDNWDX?=
+ =?us-ascii?Q?GcT+1K1EmzyuAj9AAKyVBmlEpAzc9dldlh4Krly/WyXfDzAHkHoKw5iXHPUr?=
+ =?us-ascii?Q?ZdtwVLnITxuDWlUqgaJKH/or0eDtJPtGVnmxSUasl76Qbu3uWcwBtzLPLLc6?=
+ =?us-ascii?Q?BnxjzdGjmp+TiV/A812i2fVCDi8N9+lbtVOAB4ubP4wXUapssI2S6s9Aa/4Z?=
+ =?us-ascii?Q?ZgkQ/GXhNjFvv+MRuuPSwW1ocMcY64nZzHUGSD6IRTBtJGbtq+ExvadBApAB?=
+ =?us-ascii?Q?Kkz7QoN7As6utJoY6EJSjpCefPiDo5frFfHaZZtDejKQS3/wQR6mfPQp46Bm?=
+ =?us-ascii?Q?1/j0cF9YgnO6Fh5zrGBVc8zuISR46mlJr03faTUJo2+dTSNsXTnmmILktYX3?=
+ =?us-ascii?Q?zaaOw0cw05o8FAucAjtaJv9SslFkQiqk8Y3pxtrRTyNj+lS7l0U4FX5bEwZs?=
+ =?us-ascii?Q?U35IUQbHvyyrWcEfcmTuuISx/KwI845l5AlfKIPFu28VDh1ayH5cGzx3Ilqm?=
+ =?us-ascii?Q?EO4EM5zhMTidFBnD0DF9db/dNORUkZo33u8mOV8PeGBZtZwlX64nkCBjSM8N?=
+ =?us-ascii?Q?xRCYsf2Zd5VICbrRVKD3mvnCkmUXBlKvmMn8F5hcfjv6ebHHbsNOqJzsPi7w?=
+ =?us-ascii?Q?iQkBNy6gOgecPMPAPcSLmN1avPYaf+JGlIMfk9yoTaS/V/YCcq0oo0i4DtWS?=
+ =?us-ascii?Q?pAAZj8vOT0927tazoxlhdgn2+f/Fk8QGMxt1/lhLqmuLZMSZjnx+oSR4jgBm?=
+ =?us-ascii?Q?Sz5dEH1i9Y2MID6zD7kl5sIM56r+KRdJCmlnI6pD75ITk/h6PN9tSZbKwZTV?=
+ =?us-ascii?Q?ldGGTCs6PgrlVahomoBZ2yN75VmVdqHUiMBhF4oMJkGnYKqUDOz8MDtZQUcO?=
+ =?us-ascii?Q?Y5i+/XgKbLH9Ly5rtOGDSS7CXeTWgzkN8Qr/7nniGyQKHBsOxkWdO7KrTJFP?=
+ =?us-ascii?Q?vqDF5vdRG32E7Xa1bqtojErjRXTyAqRqZ6c93WzYk7p72Q8he/841b8+xKUV?=
+ =?us-ascii?Q?JXts7+IXmM07JjV4B2ql6bxEHo8ia1Vb7+HdW1Sw3Zuzyf2XOWEhgyqjxyh1?=
+ =?us-ascii?Q?Pe2v4FaK3MgAN+IWlMCyonc8+6uS/HBpm8F2M0dDq5Pvw5Ki+ew/4M88pwQs?=
+ =?us-ascii?Q?e5eFYctDTS29j+leG2bW2Ws3qHUroYKduvO4xQeRnsYkAv1K3krsVWuI8fcp?=
+ =?us-ascii?Q?lAkHnXixl7B0yF7DzElL+leEXXMC3PtQnMbOs7WOnc92EbB2iwETealBih4k?=
+ =?us-ascii?Q?jZp1eaZ2k+JMcEhTEVuAaR+Q7Y+VCUSxwSi3OMxkudaMxQc3Y8/hAewvnfjs?=
+ =?us-ascii?Q?IMP0E2CO/8nGzeU1kCJHVcSev1Z9+nDIdLJLLumlvjkuan2u0czZJjpoAaSC?=
+ =?us-ascii?Q?SnJ5XtE81PGg2EtnRu7o6CUg36NH2KI2cbvJNTPIO6wSyi3cFkDV?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 89ac12d2-af64-4162-9d70-08df267a3fb0
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Oct 2026 02:57:40.8077
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: kNeab40A4Ce7AD67L52zHzUow4WN5uw7xW5iDevN5BYRb3sx7Vz80L+sLcaJq/O0U01h1oCxtelcOfVlJPfbmZJRuvoBs/F4Jm8dM/vQJNAd1NgETndDKrPUgL5qlyfi
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PR04MB12630
 
+On Fri, Oct 09, 2026 at 09:30:11AM +0530, Golla Nagendra wrote:
+> Add a pm_runtime_if_active base guard and its _try conditional variant
+> to pm_runtime.h for drivers that need to conditionally acquire a runtime
+> PM reference only when the device is already active.
+>
+> The base guard must not be used directly via guard()/scoped_guard()
+> because pm_runtime_get_if_active() only acquires a reference when it
+> returns 1; the destructor unconditionally calls pm_runtime_put(), which
+> would underflow usage_count on a suspended device. The base guard
+> exists solely to back the DEFINE_GUARD_COND _try variant.
+>
+> The _try variant (used via PM_RUNTIME_ACQUIRE_IF_ACTIVE) satisfies the
+> _try API contract that guards must not produce an error when runtime PM
+> is disabled for the device. When pm_runtime_get_if_active() returns
+> -EINVAL (runtime PM disabled),
 
+If only resolve PM disabled case, I suggest define DEFINE_GUARD as no-ops
 
-On 10/9/2026 10:52 PM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> - [Medium] dt-bindings: missing minItems/maxItems in conditionals allows incorrect array lengths
-> - [Low] dt-bindings: incomplete ethernet-ports restriction allows out-of-bounds ports
-> --
-> 
-> commit dead4fe7fe0227c2a98000bdee56dfba287669d7
-> Author: Luo Jie <jie.luo@oss.qualcomm.com>
-> 
-> dt-bindings: net: qcom,ipq9574-ppe: Add IPQ5424 PPE support
-> 
-> This commit adds the IPQ5424 compatible to the IPQ9574 PPE binding. It
-> describes the interconnect paths for each SoC and limits the Ethernet ports
-> for IPQ5424 to ports 1-3.
-> 
->> diff --git a/Documentation/devicetree/bindings/net/qcom,ipq9574-ppe.yaml b/Documentation/devicetree/bindings/net/qcom,ipq9574-ppe.yaml
->> --- a/Documentation/devicetree/bindings/net/qcom,ipq9574-ppe.yaml
->> +++ b/Documentation/devicetree/bindings/net/qcom,ipq9574-ppe.yaml
-> [ ... ]
->> @@ -236,6 +233,62 @@ required:
->>  
->>  allOf:
->>    - $ref: ethernet-switch.yaml
->> +  - if:
->> +      properties:
->> +        compatible:
->> +          contains:
->> +            const: qcom,ipq9574-ppe
->> +    then:
->> +      properties:
->> +        interconnects:
->> +          items:
->> +            - description: Bus interconnect path leading to PPE switch core function
->> +            - description: Bus interconnect path leading to PPE register access
->> +            - description: Bus interconnect path leading to QoS generation
->> +            - description: Bus interconnect path leading to timeout reference
->> +            - description: Bus interconnect path leading to NSS NOC from memory NOC
->> +            - description: Bus interconnect path leading to memory NOC from NSS NOC
->> +            - description: Bus interconnect path leading to enhanced memory NOC from NSS NOC
-> 
-> [Severity: Medium]
-> Does this array need explicit minItems and maxItems to strictly enforce the
-> length?
-> 
-> According to standard JSON Schema rules, an items array inside a conditional
-> block validates the matching indices but does not enforce the array length
-> unless minItems and maxItems are explicitly declared. 
-> 
-> Since the global schema allows minItems: 5, could an incomplete IPQ9574
-> node with only 5 interconnects falsely pass validation here?
-> 
-
-dtschema already sets minItems/maxItems to the length of an items list,
-No change needed.
-
->> +
->> +        interconnect-names:
->> +          items:
->> +            - const: ppe
->> +            - const: ppe_cfg
->> +            - const: qos_gen
->> +            - const: timeout_ref
->> +            - const: nssnoc_memnoc
->> +            - const: memnoc_nssnoc
->> +            - const: memnoc_nssnoc_1
->> +  - if:
->> +      properties:
->> +        compatible:
->> +          contains:
->> +            const: qcom,ipq5424-ppe
->> +    then:
->> +      properties:
->> +        interconnects:
->> +          items:
->> +            - description: Bus interconnect path leading to PPE switch core function
->> +            - description: Bus interconnect path leading to PPE register access
->> +            - description: Bus interconnect path leading to CE AXI
->> +            - description: Bus interconnect path leading to CE APB
->> +            - description: Bus interconnect path leading to NSS CSR access
-> 
-> [Severity: Medium]
-> Similarly, should minItems and maxItems be explicitly set to 5 here?
-> 
-> Without these limits, an IPQ5424 node could declare 7 interconnects and pass
-> because it satisfies the global maxItems: 7 constraint, leaving the trailing
-> 2 elements unchecked.
-> 
-
-No change is needed here either, for the same reason as above.
-
->> +
->> +        interconnect-names:
->> +          items:
->> +            - const: ppe
->> +            - const: ppe_cfg
->> +            - const: nssnoc_ce_axi
->> +            - const: nssnoc_ce_apb
->> +            - const: nssnoc_nss_csr
->> +
->> +        ethernet-ports:
->> +          patternProperties:
->> +            "^ethernet-port@[1-3]$":
->> +              properties:
->> +                reg:
->> +                  maximum: 3
->> +            "^ethernet-port@[4-6]$": false
-> 
-> [Severity: Low]
-> Does this workaround fully restrict the out-of-bounds ports for IPQ5424?
-> 
-> The top-level ethernet-ports container lacks an unevaluatedProperties: false
-> constraint. Because ethernet-switch.yaml (included via allOf) dynamically
-> matches any port matching ^(ethernet-)?port@[0-9a-f]+$ as a generic object,
-> out-of-bounds nodes like ethernet-port@7 would pass ethernet-switch.yaml's
-> checks.
-> 
-> Since this block explicitly sets ^ethernet-port@[4-6]$: false but does not
-> cap the container itself, will ports 7 and above silently pass schema
-> validation?
-> 
-
-I will update it in the next version by matching all ethernet-port@
-nodes and relying on the reg range limits.
+Frank
