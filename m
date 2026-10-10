@@ -1,98 +1,160 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+Received: from mail-yx1-f42.google.com (mail-yx1-f42.google.com [74.125.224.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12C12331A48
-	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 21:41:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791668506; cv=none; b=WZ1rV6XiZ1VsW9fhmgNXsM4aoltlAmepSty8T1rhFgVL/sIg1Gw3AqVXWUQe6PqkIl+EUSI1xEvF551JIlTf6WwYxPEc1GBNRH1R4PeuGUXkyIYSuc2IUjFOUtTo4WsM0/FfigAUG76J4x591zjdWilvlI9FLTyB1U/UnH9+rTg=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791668506; c=relaxed/simple;
-	bh=1aFOSVe55ArlboT4cO16oFf1FAGz9Knw0x9VyoCqGZg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nU+GIatedz217StZor02/fNXnKCq1RE6Yc41Qf0zH88lVrvneUCzRmYanYaHRnT9yy1yJzO1WRdQ2DzUfizbXQG3bsy+GEegdh9nnfEg1MAwDuMsDWxD9trM6FBKAewmeS4fK80HkCEcoTzlnlIvZJsu5ZtkasfsYeKPpzBU4+o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l0ZoR3lA; arc=none smtp.client-ip=209.85.221.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0F1E344D92
+	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 21:49:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.42
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791668969; cv=pass; b=LVU6VUqKZVHKmwn7tVki82bFfN3v4Y7SuVv76+HWwnxGc/bTlYPkcT7+zjeexcCNku3NjBGfcVFNih9rIiUHWWr/GfToQP/IA46dCn5v0f1QaWv1aztWhRkEwKiTbUYKCLcOHoI6MSUeOFXNL/uI7rNOx+PbOz48Z7ZCx9xBFOY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791668969; c=relaxed/simple;
+	bh=A0Y4JQ56hYy7CT2yG5PWBV4nnyzxHO6PK5CJvpXuWtY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=djQh9jM5vYRTj1BcibczjvT4BOgoFZIuvbc8hJnVOdnJLAzf+C/PWdb7rBd5YW4q4ZGhQoF/YIotwEe4jyqlguqcthySjIHHKX3UqS8gEb8W+/mBF03ieI1k5dutjc6Sv8wD1l9zCP5IU5wl0RRaoxQrIeex+X806dg4lV/P/B8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=Qll2pCjS; arc=pass smtp.client-ip=74.125.224.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l0ZoR3lA"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48c4207ac26so761317f8f.0
-        for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 14:41:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="Qll2pCjS"
+Received: by mail-yx1-f42.google.com with SMTP id 956f58d0204a3-676804a3a22so491918d50.1
+        for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 14:49:27 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791668967; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HiXw3F82GNc1Y0keIR7PXqBlp6fC7wHpOg2lVADcl3T/eU9llA2OQIPIMXW5nCglcO
+         wqOGPM4jufxbrFyzDc6qt2Jnlsjrvydnx61ZiuP2kaPyxJhsQlwW+lykAQyBbWfrn+gI
+         138xWupd1d5aF49vwOaJyLmfeUZxXa9cI/V8JA9rhFsvKNd9IIgnjUdnm6bSnUP7C6wb
+         OClUpzBE7YMWYM2ZGSpsGDaRRalirMws86f8y8BnXvT3EI+A0MEGb9rfkDZahg6PhTkL
+         qCQPYmXjGEN14OxWyj1bVUk4ktHNUu0KVrScotsMvwU5gxo9gKAdmB7YzdfOB8z5ejld
+         Cetg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Q6dC4+3uJJpM8gLS0TL3OI4kuVTFqrUhEB2NtLiC1S8=;
+        fh=FuPfJAw+vLSGqRHn2F+/n2lEJnWSlng+eHWphKd2pEc=;
+        b=CNZkOHJD63Bo7TCDgvUT/tXvL+ayW/Weojz2llyI7X2bRvpqYvSinIGjrYOWpvMNoT
+         yeGPQ83vdsPaVk97OczGbHp3z1OZXVOZpqHaWWHEnI327/vKPJM0O95ck4Y66rA9Le2/
+         N9idgJ6ZQnA4EerlTUrMW/Sgyc1I16P630Vi6fNQAnL0uOefdFgBXwY/TJcqklqE9BO+
+         k0HHv8227+4tEJFCD9JaVm0WPEWhqFlF34IDqV0ZHdAE+LKt7Bx9w2/sJHnjCT1PlRGi
+         IjjhBAvMrJWskLSqNeiIeCzZRCBcZevmfGpX2gGzr/aRXycIGg906lq+WbheJCOTm2bV
+         UxBg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791668503; x=1792273303; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=1aFOSVe55ArlboT4cO16oFf1FAGz9Knw0x9VyoCqGZg=;
-        b=l0ZoR3lAs9sTroAh39FTweGNBStBrBM74qELjEfizz+t2MCjZh0aqEzQtr7Lkjgu5F
-         +PeejTSFMu9AAcGTRxKJfigHhfHVw3D0ZTC7RaW+hCv4VMZvxdbV0Ntgoog1nSjkJ4x7
-         4C6shV8CjZen49CR837nKlyaLuGzcYohIH3W/KcDaKMS6e/9TRsdN8hlyRS91CXw5nrf
-         QhTv1ZFAGk8wNeacRgwq/jzlus2WEI+PrWHzJ1KQrWcLP0HzhjAywbC62yjkegzr14Ax
-         knad6X77UNr8phJ8xb9T7BPOVOShESRYwhqdOawMXYhbCK/TkSeYnsQK6sWBBkWtjEXC
-         dwpQ==
+        d=googlemail.com; s=20251104; t=1791668967; x=1792273767; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Q6dC4+3uJJpM8gLS0TL3OI4kuVTFqrUhEB2NtLiC1S8=;
+        b=Qll2pCjSkh/nhoBfKEy2eQoAyHUjplbXiYsxv/cqITFnBsPdYmDAZq8EGiLDakDD44
+         iiOmzeQaURIebYliJzKH8csF/MtC0KUrRtXy7e1Vn1fxR3Ko6dhWO9eBiL266/zmYJ1h
+         5naHAERwhOuedj2Y6QfpG6ldjG7Zf0ZT3bm8otC2ik+6tBEFvn0sMyOgkYo/I+7YugDF
+         HQgQfjY/ZNuG1TxUaJr6JBtGcSzoWf+fGG2TSpp4cznNnW+my/mLOvIiQyLnU5E+bOmx
+         AKHXANyOiv92u+M3rIKgQ1az73M4GPFiuaPpVfvUQoWGDfyBWPcM6nQr5W4j0+4b5TP2
+         cGVQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791668503; x=1792273303;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=1aFOSVe55ArlboT4cO16oFf1FAGz9Knw0x9VyoCqGZg=;
-        b=jvOOQW0Ishl3dUOz5zEoC/C7VBLdtUPQN6H0DBW/QvM/s0shh85winEA+1EQBNCEo5
-         6EDgnDQ18++k+6Up9n971e6uBo/+ODxG7H0Ktj7SFUXxLRCjtP/RPzMwhHEBijMdcbbF
-         87zPMnH1uiJZ8g3yFZK6s1pPJoZAdM4odc7O++PoAx56P6TbhRrq3TtT/KRZL02x6s6m
-         tX8j6kXzEsfDN75YDKh75ilZU/RnmQgPFqRT59rPHISGcDuaV1gSoyRYxlBtS3tU2Tpc
-         9cz1kgb3nzciJbpK6TGioWWV/x2TYBS6fGTbYWPlW8730D6snWfHjTXBuxKEy/PePwJ8
-         tBzg==
-X-Forwarded-Encrypted: i=1; AKwUvBxFNcLHdKs1ZGQzN23Ss/tJHf8U5lRmjZrrXfW7tUQP5a3yRecddcFEVQRR4GRVOOy3E4nc3jLwHMJ3@vger.kernel.org
-X-Gm-Message-State: AFq9FYJalTtm38+Lx15SKtUUfdpSnwgAmKxGAPaMuaBbA6hArgifDD8Y
-	kSodSvZ92XIdmtaawGPBdv1FQpYLDmIK6Ee19/1JkDyJ5fTgeiRguGE8
-X-Gm-Gg: AYBFou223BjA/7Z+0h7KAXD8/DWGxFkVgKfgVVEMdYNIddlO5lXjychPO8rfRwNrxBc
-	q933fVWfpQLnx/OKaVaE4T0iKprayFFmXeEasE1BbAeqH652r8gE46HVW1yiwuCZzaeRhTSZfx7
-	FnEqLrSl8Rtky5du/1m8qJnufItUSJjyPtCyET/3bsIk27ckVxShfZIIJtnA5Tsjo4V4zE9Lj0Q
-	+lEHzSSTccEszj/OslvVx2HVbcuoDxp9/dFFmDluVV//w1mi7TiuG0MjHk0jahGWSV8uaIDWmpD
-	Qu/IE67gMlbqWnCRx/oQ8ldSmi4XkA00ZFZUmLi800jQYtd5kWAslKkYkuVbWuoQiTkFg+yaX7w
-	7Jk3gTi3QOv8HxaGqHs7BgcDA1b1agL6UGpOTWpLMd2xMPFZIhZBE3Zw+3a/BSCNuSgWD7IXNB7
-	GPG/6W5towpuQcZAty/lQiAbO9jRLHLAvLcSPdaNvAi+Ggx86pTrmFa+6eXSIvTQzlOQQ95pNBv
-	p1xfVKxyIXMdYQg71I+BBNPOzv28/8jTtbRJ1Gkbzx5v9ECmsEN6ul6u/YAtfl2sYhiPqrJa8jF
-	8hnLTW58xnKa9V8eP63uxY70hSE6yIuPechAQcJfyFAiSavh710xOKRTNHCcUA==
-X-Received: by 2002:adf:e7c5:0:b0:48c:7ee3:e07d with SMTP id ffacd0b85a97d-48dbaceedd2mr7689291f8f.52.1791668503133;
-        Sat, 10 Oct 2026 14:41:43 -0700 (PDT)
-Received: from navid-pc ([2a01:4b00:a856:6220::a11])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db9adf5e6sm10627330f8f.56.2026.10.10.14.41.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 14:41:41 -0700 (PDT)
-From: Navid Ghahremani <ghahramani.navid@gmail.com>
-To: arnd@arndb.de
-Cc: linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stefandoesinger@gmail.com,
-	linux@armlinux.org.uk,
-	Navid Ghahremani <ghahramani.navid@gmail.com>
-Subject: Re: [PATCH 02/24] ARM: l2c: Serialize device reads with cache maintenance when requested
-Date: Sat, 10 Oct 2026 22:41:34 +0100
-Message-ID: <20261010214134.1706304-1-ghahramani.navid@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <5e78f63b-9479-49d9-8474-fa408135f325@app.fastmail.com>
-References: <5e78f63b-9479-49d9-8474-fa408135f325@app.fastmail.com>
+        d=1e100.net; s=20260707; t=1791668967; x=1792273767;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Q6dC4+3uJJpM8gLS0TL3OI4kuVTFqrUhEB2NtLiC1S8=;
+        b=f1lfHj62AUde4ToMXZWwO+Vv+68URVb7Eo3iopxsvsNzRko3BUKXY9ZWkmN2nZB8d5
+         lQDoVP4x88eng+lS/DOOS0pY7FzYewaV+xViQEjeiCQI+kRI8rLughJyu8iIpQt5RXpU
+         Mseic/3WOkU8Gbz1psrf8ddMMX030ooAwR0ppP8cHECf4vImTIK5B4z3UpBZc3LlzOxi
+         tNsuQYJlizmF4okX/dVdNO4vX3BRtlUYDT+JyXcbTLwCIT2Nu8pUUnnTweoZyGApusSX
+         7GidfIhNpuxsQVZikB9ZdrN5UTFoEk9O1kJ43lf2BxlTd3RZU8rc66y9JnA+i1buOA9k
+         m47Q==
+X-Forwarded-Encrypted: i=1; AKwUvByOat8gSWCAB2jXn+Jx+ep7Q8Y7sG2YMC+6zDmzlwwipkIvegIvEZTo+umNVIYdga+OCpJRNKKEKS+t@vger.kernel.org
+X-Gm-Message-State: AFq9FYJLWgrnA/f5n4RkfNTAoMbU8zp3ifNJ2PA38aHNUaFl2y8eLgpZ
+	3K/3MBs6/1SMqSa9lcXdoUeX5pceOJ7seld7LMEgkf6Z8EbbDislYlXBN1pdZFoyXZL4hr6dfic
+	tGGmpfgB/mH1KrrFfNSHYH/THeZDYgL8=
+X-Gm-Gg: AYBFou1r9JNxfSw90e75PZ3Un2murAi9H5eglsvZp+m5WXZ4977iqPj3YBvOnXMvM8C
+	p3BJqdLuXLwfCNLOQt38bFxlziWTjPQDmmAy2j5yWYmjOI0BUTCj7tGxry9DvnFLe6DVX0xu6dL
+	hsRDmmBQqehyrWsWg8oYTC3suKz7z4EZNRDSQs201ylgt+9RApcS7lnoORSFNmGo7BvYMotwYgA
+	oCZKlAHdxnKFdDTcBWxkvNBC58zPdjLWibU6g5s2+1aVsn9quJxlCXBOct0FduIi40N9xLN1bcO
+	OurDtf+xpaJOA85x3jjDzc2lNqNSf/Hy/oS8oVleFhWzRfmXPkK7cWTaaShkshR95YR6acLw6JR
+	7+bLpsEp6w8Tv
+X-Received: by 2002:a05:690e:5:b0:674:17ca:25dd with SMTP id
+ 956f58d0204a3-679362cb227mr1431918d50.78.1791668966625; Sat, 10 Oct 2026
+ 14:49:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20261010105900.247342-1-tanure@linux.com> <20261010105900.247342-5-tanure@linux.com>
+In-Reply-To: <20261010105900.247342-5-tanure@linux.com>
+From: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Date: Sat, 10 Oct 2026 23:49:15 +0200
+X-Gm-Features: AclHuK8jJjUAGUEE_RiHqUn3ZKgg7qAYmUp7tVzhoh46a9QNl3VNEK64s0Xinno
+Message-ID: <CAFBinCCpo28jZkQnup2=iofwh02GOMzxJ82hGHWctiWzcKTxUw@mail.gmail.com>
+Subject: Re: [PATCH v3 4/8] net: stmmac: dwmac-meson8b: apply the RGMII delays
+ the T7 way
+To: Lucas Tanure <tanure@linux.com>
+Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
+	Jerome Brunet <jbrunet@baylibre.com>, Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Arnd,
+Hi Lucas,
 
-Thank you very much for reviewing this and pointing out arm,outer-sync-disable.
+$subject caught my eye because I didn't understand why there's a "T7
+way" for adding RGMII delays since we should be following a standard.
+Patch 8/8 in this series documents the standard. Can you please find a
+more suitable $subject for this patch?
 
-To answer your questions honestly:
+On Sat, Oct 10, 2026 at 12:59=E2=80=AFPM Lucas Tanure <tanure@linux.com> wr=
+ote:
+[...]
+>  static int meson8b_init_rgmii_delays(struct meson8b_dwmac *dwmac)
+>  {
+>         u32 tx_dly_config, rx_adj_config, cfg_rxclk_dly, delay_config;
+> @@ -411,32 +455,34 @@ static int meson8b_dwmac_probe(struct platform_devi=
+ce *pdev)
+>         dwmac->dev =3D &pdev->dev;
+>         dwmac->phy_mode =3D plat_dat->phy_interface;
+>
+> -       /* use 2ns as fallback since this value was previously hardcoded =
+*/
+> -       if (of_property_read_u32(pdev->dev.of_node, "amlogic,tx-delay-ns"=
+,
+> -                                &dwmac->tx_delay_ns))
+> -               dwmac->tx_delay_ns =3D 2;
+The 2ns default value in case "amlogic,tx-delay-ns" is absent hasn't
+been necessary since commit 093d23db4fff ("ARM64: dts: amlogic: add
+the ethernet TX delay configuration").
+That commit is part of v4.12. So boards using RGMII and a .dtb without
+that property haven't been updated in more than 9 years.
 
-1. Origin: This was developed purely through trial and error debugging on the physical ZTE ZXHN H3600 hardware. During initial bring up with the MT7915 Wifi 6 card, heavy DMA traffic caused MCU firmware timeouts and froze the PCIe bus when register reads collided with L2 maintenance. My early tests without the lock froze every time, which led me to devise this custom locking mechanism.
-2. arm,outer-sync-disable: I was honestly not aware of this existing mechanism. This is my first upstream Linux SoC submission (and returning to C systems programming after many years), so I am still getting up to speed with modern kernel architecture conventions. Thank you for pointing me in the right direction and bearing with me!
-3. Testing: I will test arm,outer-sync-disable on the physical router shortly and verify whether disabling outer-sync avoids the interconnect deadlock under heavy WiFi traffic. If it works, I will gladly drop patches 01, 02, and 03 completely in favor of the standard DT property.
+[...]
+> -       ret =3D meson8b_init_rgmii_delays(dwmac);
+> +       if (dwmac->data->mac_applies_dt_delays)
+> +               ret =3D meson_dwmac_init_dt_delays(dwmac, plat_dat);
+> +       else
+> +               ret =3D meson8b_init_rgmii_delays(dwmac);
+From the discussion in v2 I couldn't understand the overall way forward.
+I get that new compatible strings should not rely on old, incorrect
+behavior. But what's the path forward for the other SoCs?
 
-I will report back with the hardware test results soon.
+[...]
+>  static const struct meson8b_dwmac_data meson_t7_dwmac_data =3D {
+>         .set_phy_mode =3D meson_axg_set_phy_mode,
+> -       .has_prg_eth1_rgmii_rx_delay =3D true,
+>         .has_pipeline_clk =3D true,
+> +       .mac_applies_dt_delays =3D true,
+This should be a callback function pointer (apply_delays or similar,
+to match set_phy_mode) unless there's a way to make older SoCs also
+follow the "correct" RGMII delay specification.
+
 
 Best regards,
-Navid
+Martin
