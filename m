@@ -1,113 +1,165 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EDB93B0AC3
-	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 16:21:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13CAA36B92A
+	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 16:22:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791649319; cv=none; b=j47i8A3DqZ29xzZ1bHOLMgBXEaX9scxWZVjPovFQouV+NI3kmcffdMTy7/X94jJXh0hAMVhD11XYrI696XyG88Cz/25KUKY4nTw071Te33hfGixeIafnz51LMb7f7Zn84CzEstNvIvrrnOKg5LVIxIIiqgTTxN1/KRYxW73tGzc=
+	t=1791649361; cv=none; b=iFhYPjZFqWt9BhpGDL9L8LJLE5fA3hzRetXa1IcosolvOMVkw4tWnhtitjwDOo+RUmjHAlbmVtidJfBT6Htl124720nKa6+T6zQhEE4K1lmwzyDkCevBVTfHsKimQ7bxMKUEn0LClQiSA2sPCbsbXauHq7uMsZ4aE4D7K2E/1jE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791649319; c=relaxed/simple;
-	bh=4pJUIO4P//MRzFfNZlebGIpaa+4EW6mJhKGkWdMjtbg=;
+	s=arc-20240116; t=1791649361; c=relaxed/simple;
+	bh=GSmN13+hLPlbNX4bsHI9VKhj0po1FH/EeaXTBTbp2ks=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=QcFw+jHsAa+SnJp5n+uOSWx4/1Yzg6edWuGSgfMVyo6QdcHyjvlMb2J9NyYUKJcVkkotU1TsD2YgFFYb6me1b9CAdCElKrMgxY/hpMSn1fMbxyaOIgdoI1/Wi7xsjXbfuI+TCufKq1x98Ax2gwF8cnUFwp/YgY3Ods+H3Fkx/8E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UY+W7Bxl; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=Ba34Dlv0S4yf9K8aG/B8uT4kuZa4LGJZlbt+zuEyAUwWyWwB4pM1YNvvY87ZdRpgXMxqiWOpIELGhz4OwdkWNs5mLcMq4y1fwR+x8Npq18C2nvPZpEerb6v7q63sXpK3r7XwkVlKpxgxYtxDwsmLP8TpfRfcBxziE7/Jy55i+WM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VaLep3p4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UY+W7Bxl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEF3F1F000FF;
-	Sat, 10 Oct 2026 16:21:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VaLep3p4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B65D1F000FF;
+	Sat, 10 Oct 2026 16:22:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791649318;
-	bh=SPc0/Y6iXNR/DIEa8D4WXg5MQpzuCuz1GeqRFvKKh9I=;
+	s=k20260515; t=1791649359;
+	bh=iyQMQvkgLVkrSmqrliS75QL5GDQcftYU41q5VoLCJ5c=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=UY+W7BxlfuScPOq238MIzgEyc1sk4XMFih63d7K121fcPpuvghIsRc4CqWocf2Z0c
-	 i0hLZueMIoQLPgkiaASHQlNTnr6zztf0xehdwyot7eZZwCsEaLqDT39+0HXBdrQei0
-	 JVGcMVe6PGCG+ZwUbfl6BcWWv5xzmLg0GMyDOQQXrOpf1/FACBObR0NF8GBioOm3OV
-	 6610ZHw5jyy7qv1+1iQUZypf+fTPVbnys4SJ0oM1aS2y1mZEkF57NhCnjaqEAgIXM9
-	 Cy49zA3KOe/9Hj+J/rx31imvuTj6NjDFuyd8+PWWrX0J81Hg3tcQjAk2Ja4UIdSL9d
-	 mY/6Jop8TMR/A==
-Message-ID: <sashiko-outbox-166732@kernel.org>
+	b=VaLep3p4Rs6rqyWDwPNoifjYGyUU2uBpY2vtajyL/H3uD1dp8TIDv31pb/FCwYGQa
+	 CrM0Hp9VFBl+aPFjZqgUYhyeFPaiWYYhDTeQqmx1wHb/Czb565qKbMf7GDfxXOh9uh
+	 kG0wKWd2FQpoJnh/lS88bFy0KgMOcZoThVArjBdiSd1glhYFdj+J9FKsUfC21mPyZ1
+	 LOIs9Rapv72j7+MDIs2GjmbywtkDWjYaivIaHukpq2Enm4ovZL7TTresh4lLdbGlrI
+	 2Uhci6kds+Fs8jEh4TRZHcITqHzKP/xJCgMuj18D1lIrkTtpsHD2B0n1GYUdsPRuBY
+	 o44CKRg2VffBw==
+Message-ID: <sashiko-outbox-166733@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v20 13/13] arm64: dts: qcom:
- kaanapali-mtp-camera-s5kjn5: Add DT overlay
+Subject: Re: [PATCH v20 07/13] media: qcom: camss: csid: Add support for
+ CSID 1080
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Hangxiang Ma" <hangxiang.ma@oss.qualcomm.com>
-Cc: vkoul@kernel.org, robh@kernel.org, media-ci@linuxtv.org, linux-phy@lists.infradead.org, conor+dt@kernel.org, devicetree@vger.kernel.org, olteanv@gmail.com, neil.armstrong@linaro.org
-In-Reply-To: <20261010-kaanapali-camss-v20-13-63e98ce9ac0c@oss.qualcomm.com>
+Cc: vkoul@kernel.org, conor+dt@kernel.org, neil.armstrong@linaro.org, robh@kernel.org, media-ci@linuxtv.org, linux-phy@lists.infradead.org, olteanv@gmail.com, devicetree@vger.kernel.org
+In-Reply-To: <20261010-kaanapali-camss-v20-7-63e98ce9ac0c@oss.qualcomm.com>
 References: <20261010-kaanapali-camss-v20-0-63e98ce9ac0c@oss.qualcomm.com>
- <20261010-kaanapali-camss-v20-13-63e98ce9ac0c@oss.qualcomm.com>
+ <20261010-kaanapali-camss-v20-7-63e98ce9ac0c@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 10 Oct 2026 16:21:57 +0000
+Date: Sat, 10 Oct 2026 16:22:38 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] dts: qcom: missing vddm-supply in s5kjn5 camera node
+- [High] media: camss: data race on csid aup_update and rup_update
+- [Medium] media: camss: missing initialization of CSID_CSI2_RDIN_IRQ_MASK
 --
 
-commit 0aa98e9fff565e6ca9fb3ef259881330ddffce3c
+commit 929222812c3090d4d0069fbedd13096bba380a7a
 Author: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
 
-arm64: dts: qcom: kaanapali-mtp-camera-s5kjn5: Add DT overlay
+media: qcom: camss: csid: Add support for CSID 1080
 
-This commit enables the S5KJN5 image sensor via CCI on the Kaanapali MTP bo=
-ard.
-It creates a DTBO that configures the sensor on the CCI-0 interface.
+Add support for the CSID 1080 hardware found on Kaanapali SoC.
+This introduces CSID 1080 hardware resource descriptions and implements
+hardware-specific register programming, reset sequence, and BUF_DONE
+interrupt handling.
 
-> diff --git a/arch/arm64/boot/dts/qcom/kaanapali-mtp-camera-s5kjn5.dtso b/=
-arch/arm64/boot/dts/qcom/kaanapali-mtp-camera-s5kjn5.dtso
-> new file mode 100644
-> index 0000000000000..7b574e2ed3732
+> diff --git a/drivers/media/platform/qcom/camss/camss-csid-1080.c b/driver=
+s/media/platform/qcom/camss/camss-csid-1080.c
+> index 0000000000000..46e443e05195a
 > --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/kaanapali-mtp-camera-s5kjn5.dtso
+> +++ b/drivers/media/platform/qcom/camss/camss-csid-1080.c
+
 [ ... ]
-> +&cci0_i2c1 {
-> +	camera@10 {
-> +		compatible =3D "samsung,s5kjn5";
-> +		reg =3D <0x10>;
+
+> +static void __csid_aup_rup_clear(struct csid_device *csid, int port_id)
+> +{
+> +	/* Hardware clears the registers upon consuming the settings */
+> +	csid->aup_update &=3D ~CSID_RUP_AUP_RDI(port_id);
+> +	csid->rup_update &=3D ~CSID_RUP_AUP_RDI(port_id);
+> +}
 > +
-> +		reset-gpios =3D <&tlmm 3 GPIO_ACTIVE_LOW>;
-> +		pinctrl-names =3D "default";
-> +		pinctrl-0 =3D <&cam_mclk2_default &cam_reset2_default>;
+> +static void __csid_aup_update(struct csid_device *csid, int port_id)
+> +{
+> +	csid->aup_update |=3D CSID_RUP_AUP_RDI(port_id);
+> +	writel(csid->aup_update, csid->base + CSID_AUP_CMD);
 > +
-> +		clocks =3D <&cambistmclkcc CAM_BIST_MCLK_CC_MCLK2_CLK>;
-> +		assigned-clocks =3D <&cambistmclkcc CAM_BIST_MCLK_CC_MCLK2_CLK>;
-> +		assigned-clock-rates =3D <19200000>;
+> +	__csid_aup_rup_trigger(csid);
+> +}
 > +
-> +		vddio-supply =3D <&vreg_l4n_1p8>;
-> +		vddd-supply =3D <&vreg_l1m_1p0>;
-> +		vdda-supply =3D <&vreg_l4m_2p2>;
-> +		vddio1p2-supply =3D <&vreg_l2n_1p2>;
-> +		afvdd-supply =3D <&vreg_l7m_2p8>;
+> +static void __csid_reg_update(struct csid_device *csid, int port_id)
+> +{
+> +	csid->rup_update |=3D CSID_RUP_AUP_RDI(port_id);
+
+[Severity: High]
+Could these bitwise operations lead to a data race between process and
+hardirq contexts?
+
+The __csid_aup_update() and __csid_reg_update() functions are called from
+process context via csid_configure_stream(). They perform non-atomic bitwise
+OR operations on csid->aup_update and csid->rup_update.
+
+Meanwhile, __csid_aup_rup_clear() performs non-atomic bitwise AND operations
+on these same fields from hardirq context (called from csid_isr() when an
+INFO_RUP_DONE event occurs).
+
+If a hardirq preempts the process context during its load-modify-store cycl=
+e,
+the ISR's clearing of the bits could be silently overwritten when the proce=
+ss
+context writes back its loaded value. This could cause the tracking bits to
+get stuck, potentially leading to unintended hardware updates.
+
+Should these state updates be protected by a spinlock or use atomic bitops?
+
+[ ... ]
+
+> +/* RDI IRQ Status in wrapper */
+> +#define CSID_CSI2_RDIN_IRQ_STATUS(rdi)	(0x224 + (0x10 * (rdi)))
+> +#define CSID_CSI2_RDIN_IRQ_MASK(rdi)	(0x228 + (0x10 * (rdi)))
+> +#define CSID_CSI2_RDIN_IRQ_CLEAR(rdi)	(0x22C + (0x10 * (rdi)))
+> +#define		INFO_RUP_DONE				BIT(23)
+
+[ ... ]
+
+> +static int csid_reset(struct csid_device *csid)
+> +{
+> +	unsigned long time;
+> +	u32 val;
+> +	int i;
+> +
+> +	reinit_completion(&csid->reset_complete);
+> +
+> +	val =3D INFO_RST_DONE | BUF_DONE_IRQ_STATUS;
+> +	writel(val, csid->base + CSID_TOP_IRQ_CLEAR);
+> +	writel(val, csid->base + CSID_TOP_IRQ_MASK);
+> +
+> +	val =3D 0;
+> +	for (i =3D 0; i < MSM_CSID_MAX_SRC_STREAMS_1080; i++) {
+> +		if (csid->phy.en_vc & BIT(i)) {
+> +			/*
+> +			 * Only need to clear buf done IRQ status here,
+> +			 * RUP done IRQ status will be cleared once isr
+> +			 * strobe generated by CSID_RST_CMD
+> +			 */
+> +			val |=3D BIT(BUF_DONE_IRQ_STATUS_RDI_OFFSET + i);
+> +		}
+> +	}
+> +	writel(val, csid->base + CSID_BUF_DONE_IRQ_CLEAR);
+> +	writel(val, csid->base + CSID_BUF_DONE_IRQ_MASK);
 
 [Severity: Medium]
-Is the vddm-supply property missing for the camera@10 node?
+Is the CSID_CSI2_RDIN_IRQ_MASK(i) register supposed to be initialized here =
+to
+enable the INFO_RUP_DONE interrupt?
 
-The s5kjn5 driver unconditionally requests 6 regulators, including "vddm",
-via devm_regulator_bulk_get(). Because the device tree overlay omits
-vddm-supply, the regulator core will print a warning and return a dummy
-regulator, or fail with -EPROBE_DEFER if full constraints aren't applied.
+The mask register is defined but never written to anywhere in this driver.
+In csid_isr(), the driver polls CSID_CSI2_RDIN_IRQ_STATUS(i) to check for
+INFO_RUP_DONE in order to clear the driver's software state tracking via
+csid_subdev_reg_update().
 
-If the vddm pin is not physically tied to another active supply, the sensor=
-'s
-MIPI PHY will not receive power, breaking camera streaming.
-
-> +
-> +		port {
-> +			s5kjn5_out_ep: endpoint {
-> +				data-lanes =3D <1 2 3 4>;
-> +				link-frequencies =3D /bits/ 64 <1248000000>;
-> +				remote-endpoint =3D <&csiphy2_in_ep>;
-> +			};
-> +		};
-> +	};
-> +};
+If the hardware mask defaults to 0, the INFO_RUP_DONE status bit might never
+be recorded. This would cause csid_subdev_reg_update() to be skipped,
+allowing pending RUP updates to accumulate and causing redundant updates to
+running streams.
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261010-kaanapali-=
-camss-v20-0-63e98ce9ac0c@oss.qualcomm.com?part=3D13
+camss-v20-0-63e98ce9ac0c@oss.qualcomm.com?part=3D7
