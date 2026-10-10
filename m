@@ -1,135 +1,123 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 090013803DB
-	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 08:50:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CB733CF201
+	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 08:51:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791622208; cv=none; b=ijEKXCpr6vukcCw3PIDujU5edE4f6Dkos445VDKeVRgJ8zGttljfc4P7aWITkyTJidqe8JusMeVjM3Yk3FemPVgXKEHl8OlVAIfgY6p4t4Dv2Y9aJR/QW06mFOsd709Wp3u9Lz9ImzKEueUZf0qDMxdAohl6N70OYK/nVl0lyQ8=
+	t=1791622294; cv=none; b=b0lXzcHSQlr5QU96XcbtDM7UB9/YTJ3LyBLgaKQyLXONdnEE4gPgkZBZfRnbYF+1qswEIV823F7rvplBXt1X/sDHZ80wjP/A2E4dCbAsbQjeiRkaH0xXIAMUMSTdmbh7y/S1fXruNC4eIoQEHP6AYneO1T/zxLM/PLT3QvDEeM0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791622208; c=relaxed/simple;
-	bh=xIXhTzDWaYpNpIkcNLf6/xgodtOEITZUki69NbVk/ps=;
+	s=arc-20240116; t=1791622294; c=relaxed/simple;
+	bh=+EEqVD2JSnvHMtzGQ2jrCX8AzTeZd7+UPOfvdgtOUcc=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=RAWj9RNQ2oG7tb4kqziWJCCoX/1UslqTDGNi9gfJtVZslwjd+n045PD/PLoPljwYlikUrPW097SeztT860t6UkhC4o4JVbzjF/iIeWLP1vPf69EWt0jNUSCldx5V+qPq4ZjfzmgA2pDqK6O7exm0IJE61dO4e5kL/BQTr24xr2k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YCD6ABDL; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=iqoyM8bLrtbWn8aU4MdEF7/pP045dnKF6ofF536KLLqmtcDBI2s9F5nqZQPVL/jw3GpCxIAow4GQ7LmAJqaTyC3WorWYKEEz84n9NeWlZnnrwObSuEdt3LVilPlGCMd3wyeQnNsJbIyCnxEIe/hIOFjsOQWq38nG3pH8rcJKOAA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vo4TrBGa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YCD6ABDL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 321691F000FF;
-	Sat, 10 Oct 2026 08:50:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vo4TrBGa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B1FD1F0089A;
+	Sat, 10 Oct 2026 08:51:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791622206;
-	bh=beB/iAmCogwd7Siqw5B7SGmJ+8hGriu7h8FyQgSq+Hg=;
+	s=k20260515; t=1791622292;
+	bh=K+SNFK2S/imPmuPCpYO0r7eOV7xVyVz7zCeUy7xqwm8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=YCD6ABDLmPoPwgiXBS+0XiJqBXO8v/MSE9lytL8JB05KkNnvS7j8MbsL15e25r/6q
-	 0O4ne5cXoUdcTkdT0/m/FBWaZ/yJaNEOCfj7CtbU0jEIyCeSzGFNJuFw2qlX3kwPVO
-	 gLv/Y0PfULLYZ4wB/8ozooUl+qxXvPI0o09pcgeu2VXcHkHIsOAyros4VOXEgiLr7y
-	 sWlxvePjjqjWv8KdH0yIOHFsBxnMsp/CxTY8JqyJEqyYQW1m8xI6SVcwg9kwC/HIBD
-	 SrqmIBvTsmT+jxAUsz/HEDSxvJbp7kUQh60SmpuhfUqlLadvt7/M4lLgRLzDzRTy3f
-	 sFQasSv7TLXNg==
-Message-ID: <sashiko-outbox-166376@kernel.org>
+	b=Vo4TrBGa13nUp4rPJeSVPhty4vyS01Dg+MqtcKYIOLUvoNv+Wjca9r37oY+n2V6we
+	 hR3K7KwVoDh2Gtl8NLd0HSSx2PG36QZXD/LvF3aNIlaieYzlnWMcOvXfuj3GYFNtMj
+	 /qmuZwVdk6+l3gq0VpqPIyhCJmxGatvR7h215d8Ze/Dj9yyQRu6/jV9a6g5vpfWXug
+	 d9D/mXqMkLakJqZgVfjkhNH+/XhZPjYbsNiIduSG915ot6uq140QhM/zARy8Ibnirk
+	 4XJP6d5oo6V+6qfDx4sueN1U+E2KY1URsNxAY8zKgnFlGb5gsm1loCWPnJxlIkUwGn
+	 74KvlU+q7XpfQ==
+Message-ID: <sashiko-outbox-166378@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 12/14] media: mediatek: vcodec: clean xpc status
+Subject: Re: [PATCH v8 14/14] media: mediatek: decoder: support av1 extend
+ vsi
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Kyrie Wu" <kyrie.wu@mediatek.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, media-ci@linuxtv.org, conor+dt@kernel.org
-In-Reply-To: <a0c9e3c5263d7f50d29aac7eb8c382ff89f4cb53.1791619743.git.kyrie.wu@mediatek.com>
+Cc: media-ci@linuxtv.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <1ed11835bd1833066e162035a2529eda1304edcd.1791619743.git.kyrie.wu@mediatek.com>
 References: <cover.1791619742.git.kyrie.wu@mediatek.com>
- <a0c9e3c5263d7f50d29aac7eb8c382ff89f4cb53.1791619743.git.kyrie.wu@mediatek.com>
+ <1ed11835bd1833066e162035a2529eda1304edcd.1791619743.git.kyrie.wu@mediatek.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 10 Oct 2026 08:50:05 +0000
+Date: Sat, 10 Oct 2026 08:51:31 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] media: mtk-vcodec: NULL pointer deref in mtk_vdec_hw_irq_handler()
-- [High] media: mtk-vcodec: NULL pointer dereference in mtk_vdec_hw_clean_x=
-pc() on incomplete DT
+- [Critical] media: Out-of-bounds write to VPU firmware memory due to overs=
+ized memcpy
 --
 
-commit 48b9203929193f7043af88ad2f6320fd0d5acb54
+commit 482da53176ed6a6bd943ba24dd065fc679bf7158
 Author: Kyrie Wu <kyrie.wu@mediatek.com>
 
-media: mediatek: vcodec: clean xpc status
+media: mediatek: decoder: support av1 extend vsi
 
-The driver need to clean xpc status when receive decoder hardware
-interrupt for mt8196 platform.
+The patch expands the AV1 VSI state structure to include tile group
+information to support the extended architecture. It also updates the
+initialization routine to allow smaller shared memory buffers when
+running on non-extended firmware.
 
-> diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_de=
-c_hw.c b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_hw.c
-> index 881d5de41e050..46ac3e41c401c 100644
-> --- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_hw.c
-> +++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_hw.c
-> @@ -61,6 +61,34 @@ static int mtk_vdec_hw_prob_done(struct mtk_vcodec_dec=
-_dev *vdec_dev)
->  	return 0;
->  }
-> =20
-> +static void mtk_vdec_hw_write_reg_mask(void __iomem *reg_base, u32 reg_o=
-ffset, u32 val, u32 mask)
-> +{
-> +	void __iomem *reg_addr =3D reg_base + reg_offset;
-> +	u32 reg_val;
-> +
-> +	reg_val =3D  readl(reg_addr);
-
-[Severity: High]
-Does this code dereference a NULL pointer if the parent device tree node
-provides only one reg entry?
-
-If the MT8196 parent device tree node provides only one reg entry (which is
-permitted by the DT bindings' minItems: 1), mtk_vcodec_get_reg_bases() will=
- map
-only VDEC_SYS and leave main_dev->reg_base[VDEC_MISC] as NULL.
-
-This NULL pointer is propagated to subdev_dev->reg_base[VDEC_HW_XPC] during
-mtk_vdec_hw_probe():
-
-    subdev_dev->reg_base[VDEC_HW_XPC] =3D main_dev->reg_base[VDEC_HW_MISC];
-
-When the hardware interrupt fires, mtk_vdec_hw_clean_xpc() is unconditional=
-ly
-called for MT8196 and passes this NULL base to mtk_vdec_hw_write_reg_mask(),
-which dereferences it here in readl().
-
-Would it be better to validate the register base before use, or enforce
-reg_num >=3D 2 for MT8196 during probe?
-
-> +	reg_val &=3D ~mask;
-> +	reg_val |=3D (val & mask);
-> +	writel(reg_val, reg_addr);
-> +}
+> diff --git a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av1=
+_req_lat_if.c b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av=
+1_req_lat_if.c
+> index 14639098fd463..1ef561dae18c7 100644
+> --- a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av1_req_la=
+t_if.c
+> +++ b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av1_req_la=
+t_if.c
+> @@ -665,6 +670,8 @@ struct vdec_av1_slice_vsi {
+>  	struct vdec_av1_slice_frame frame;
+>  	struct vdec_av1_slice_state state;
+>  	u32 cur_lst_tile_id;
+> +	struct vdec_av1_slice_tile_group tile_group;
+> +	unsigned int reserved[4];
+>  };
 
 [ ... ]
 
-> @@ -88,6 +116,8 @@ static irqreturn_t mtk_vdec_hw_irq_handler(int irq, vo=
-id *priv)
->  	writel(dec_done_status | VDEC_IRQ_CFG, vdec_misc_addr);
->  	writel(dec_done_status & ~VDEC_IRQ_CLR, vdec_misc_addr);
+> @@ -1942,9 +1978,18 @@ static int vdec_av1_slice_init(struct mtk_vcodec_d=
+ec_ctx *ctx)
+>  		goto error_vsi;
+>  	}
 > =20
-> +	mtk_vdec_hw_clean_xpc(dev);
+> -	if (vsi->vsi_size !=3D sizeof(struct vdec_av1_slice_vsi))
+> -		mtk_vdec_err(ctx, "remote vsi size 0x%x mismatch! expected: 0x%zx\n",
+> -			     vsi->vsi_size, sizeof(struct vdec_av1_slice_vsi));
+> +	if (IS_VDEC_SUPPORT_EXT(ctx->dev->dec_capability)) {
+> +		vsi_size =3D sizeof(struct vdec_av1_slice_vsi);
+> +		vsi->iq_table_size =3D AV1_IQ_TABLE_SIZE;
+> +		vsi->cdf_table_size =3D AV1_CDF_SIZE;
+> +	}
 > +
->  	wake_up_dec_ctx(ctx, MTK_INST_IRQ_RECEIVED, dev->hw_idx);
+> +	if (vsi->vsi_size !=3D vsi_size) {
+> +		mtk_vdec_err(ctx, "remote vsi size 0x%x mismatch! expected: 0x%x\n",
+> +			     vsi->vsi_size, vsi_size);
+> +		ret =3D -EINVAL;
+> +		goto error_vsi;
+> +	}
 
-[Severity: High]
-Can ctx be NULL here during the context teardown race window?
+[Severity: Critical]
+This correctly enforces that older firmware provides a 0xD50-byte buffer for
+the non-extended architecture.
 
-If a delayed or spurious interrupt fires during the teardown path window
-(after mtk_vcodec_set_curr_ctx(dev, NULL, MTK_VDEC_CORE) clears the current
-context, but before mtk_vcodec_dec_disable_irq() is called), or if hardware
-continues generating events before IRQs are disabled, mtk_vdec_hw_irq_handl=
-er()
-fetches a NULL ctx.
+However, since struct vdec_av1_slice_vsi was expanded with tile_group,
+does vdec_av1_slice_vsi_to_remote() now copy too much data?
 
-If the HW is inactive, the NULL ctx is unconditionally dereferenced earlier=
- by
-the mtk_v4l2_vdec_err macro to log an error. If the HW is active, it is
-unconditionally dereferenced here to wake up the context queue.
+vdec_av1_slice_vsi_to_remote() {
+	memcpy(remote_vsi, vsi, sizeof(*vsi));
+}
+
+Since sizeof(*vsi) evaluates to the new, enlarged compile-time size of the
+struct, will this unconditionally write ~7.5KB of data into the 0xD50
+(3.4KB) firmware buffer when decoding on non-extended hardware?
+
+Could this out-of-bounds write corrupt adjacent data in the VPU shared
+memory or firmware SRAM?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1791619742.gi=
-t.kyrie.wu@mediatek.com?part=3D12
+t.kyrie.wu@mediatek.com?part=3D14
