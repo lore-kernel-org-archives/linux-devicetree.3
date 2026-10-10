@@ -1,184 +1,113 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0C5B457E56
-	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 13:14:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBCA948F030
+	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 13:14:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791638059; cv=none; b=jFlRYMSIWVW1kY8AV0gv+6AxNOxKBZIzuGx9hybdQBzgD2dvCXfV3pYQDVZIFFQxdymmBJhsF3hX8nXUzRaNpzXs84yXoXYZ6b4kqb/Mja/m/AtXBwyyJ7pMPvFeC9dFO1BXCWT8ChmZLPeZjeVpGHzVOhpjgrLQfhXCqD+NTP4=
+	t=1791638064; cv=none; b=N1ReevK0Yf2JvEyVTCx29bk6JRYSgvUKXW2mgTtj5cicNVwxD+rtQvWesr+Jf3NVVTyVb1SdDdENkJy6Si1/16691ONXHPzh4rZlPJWXI+8A7LpAM3FML6qdC8iKdH/ixxPNFgNdIHD5JCGOXAmylOlw884FqHuoFjK8BdS0hs8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791638059; c=relaxed/simple;
-	bh=2rig3hjdVgarZnDPLHbnUEAdBRCjrb+XBu8dkXv6M+U=;
+	s=arc-20240116; t=1791638064; c=relaxed/simple;
+	bh=uGb7EECgc7DJV5gScQL0HJA5PLqWNFpNvYkJsd1Yghw=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=CceG94F4EtpvPaDOUVDivAaJpG38VFT+5ItjGMIVm8okXnOavbwiKIMP0F+4YXavlA3e7IScz9ExcVQ599gq/mr/5QlwpKmN5+OY11R1n+Ll2nHlZd4wTY8B5JI9Z7emUbMb1b4eFKLJy368oxlmEOGwN0GiIiYJ0u4r2tLyOR4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jY6P38Dq; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=h2NHKEytHOA5mVj9Loh8hpANwbJK+O3H77bvAvn//+8k1cvcJKcyPxFwEI7UiYw/7su8lMFpHDlAg7aJDyhve52v7f2DGzUHTKYArliDPYNDVSQQaRUBi33BI7PHu399QizbR37xHJSIVgZtYopAdPyP8En0429s8gc51nFgND0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b/N49PPX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jY6P38Dq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40B6E1F000FF;
-	Sat, 10 Oct 2026 13:14:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b/N49PPX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22F851F000FF;
+	Sat, 10 Oct 2026 13:14:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791638057;
-	bh=m03W3RGnAIaR5uUrSTvbp3OmLoH9eNmU1/nOn7/8IUU=;
+	s=k20260515; t=1791638063;
+	bh=DFHMp15EmosJTI+glRkodkhjnraHh08fID9QyvLnzFs=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jY6P38DqG2Y5/ZZcyPkGRMK2O7DL2MggYr4ml5DnpLFL+mM6RkcDfM34tqIFKXRaK
-	 D8ogXCjijdJDS/zc27zLTI8wBY+z6tjqJk80A2xTtftHzgWWwfs4CtHGtiDpp6EnLh
-	 szV9mAa7MvMV5Epu/CYu5sFXlXBR3m7XAul4G9nQ7EuqdGFSocun7+TuvxlwtQR/3Y
-	 K/75oJJrSPwLRb6e4cD1aaJaC49mydZIbaiGMsvsu9UIEkS7fVxUXORXuOxxd95xzq
-	 NQjIGgeJFb6T4T/Eo2pGesU8Hdu3aBREpgDLO0y3tWGHq2ey/Y8C6cG/PbQg0+Utrv
-	 xEb+xbaLOY7PQ==
-Message-ID: <sashiko-outbox-166576@kernel.org>
+	b=b/N49PPX9DszLtHrc3MtdFbGae9Rwbft5baCGn+iEyssD3nKrdQJQ4xy6zK8LGDJy
+	 jhVNIw7wXMEgNPJp/7lpb/81/oq38mPtoynCHYO9neO8VW7UPp1KYJ3ZT8Jx5NpxXn
+	 wKrA5LkVYB8achMibVEF7eST4NI+ew7aJs8VU2ooE9oYcLFq9Q2qp9SHeZHPeieqiw
+	 r8y7WUvklFN6F83DYud+Qy0kLjznn7T8fcQY5o/k1Wh3OYy5yCFGSzRkrK6OfydyKc
+	 x0rG6DLtx80PeFZIOQFMZxyiLNOC6RdwziqFLHm1BVI0Aig84BU3bpBGboOsGi3GAZ
+	 qZ1hTy1vYW/5Q==
+Message-ID: <sashiko-outbox-166577@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 13/24] PCI: dwc: Add ZTE ZX279128S host controller
- driver
+Subject: Re: [PATCH 09/24] gpio: Add ZTE ZX279128S GPIO driver
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Navid Ghahremani" <ghahramani.navid@gmail.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20261010130024.177503-14-ghahramani.navid@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20261010130024.177503-10-ghahramani.navid@gmail.com>
 References: <20261010130024.177503-1-ghahramani.navid@gmail.com>
- <20261010130024.177503-14-ghahramani.navid@gmail.com>
+ <20261010130024.177503-10-ghahramani.navid@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 10 Oct 2026 13:14:16 +0000
+Date: Sat, 10 Oct 2026 13:14:22 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] pci: race condition and state corruption in shared CRM2_RST regist=
-er
-- [Medium] pci: LNKCTL 32-bit read-modify-write clears LNKSTA W1C bits
-- [Medium] pci: missing hardware cleanup on probe failure leaks clocks and =
-PHY state
+- [High] gpio: mmio: 16-bit I/O access to 32-bit aligned registers may caus=
+e bus faults
 --
 
-commit 41b496fd57c1fa24884637e3c63af32d3b98ad9f
+commit 827bf2313ced7a306a6c929c27e8898eb758b78c
 Author: Navid Ghahremani <ghahramani.navid@gmail.com>
-PCI: dwc: Add ZTE ZX279128S host controller driver
 
-This commit adds a new PCIe controller driver for the ZTE ZX279128S SoC.
-It supports bringing up both controller links using a vendor sequence,
-handles shared board reset, and relies on legacy INTx interrupts.
+gpio: Add ZTE ZX279128S GPIO driver
+   =20
+Expose the six banks using the generic GPIO implementation and enable
+the register clock before accessing the bank.
 
-> diff --git a/drivers/pci/controller/dwc/pcie-zx279128s.c b/drivers/pci/co=
-ntroller/dwc/pcie-zx279128s.c
+> diff --git a/drivers/gpio/gpio-zx279128s.c b/drivers/gpio/gpio-zx279128s.c
 > new file mode 100644
-> index 0000000000000..3559beb35a142
+> index 0000000000000..8f37b908bb007
 > --- /dev/null
-> +++ b/drivers/pci/controller/dwc/pcie-zx279128s.c
+> +++ b/drivers/gpio/gpio-zx279128s.c
 [ ... ]
-> +static void zx279128s_pcie_force_gen1(struct dw_pcie *pci)
+> +/*
+> + * Each bank has 16 lines, one bit per line in each register. The regist=
+ers
+> + * at 0x04-0x10 and 0x28-0x34 control the interrupts, which are not supp=
+orted
+> + * yet.
+> + */
+> +#define ZX279128S_GPIO_DIR	0x00	/* 1: output */
+> +#define ZX279128S_GPIO_DATA	0x14	/* line level */
+> +#define ZX279128S_GPIO_SET	0x18	/* write 1: drive high */
+> +#define ZX279128S_GPIO_CLEAR	0x1c	/* write 1: drive low */
+> +
+> +static int zx279128s_gpio_probe(struct platform_device *pdev)
 > +{
-> +	u8 cap =3D dw_pcie_find_capability(pci, PCI_CAP_ID_EXP);
-> +	u32 val;
-> +
-> +	if (WARN_ON(!cap))
-> +		return;
-> +
-> +	dw_pcie_dbi_ro_wr_en(pci);
-> +
-> +	val =3D dw_pcie_readl_dbi(pci, cap + PCI_EXP_LNKCTL2);
-> +	val &=3D ~PCI_EXP_LNKCTL2_TLS;
-> +	val |=3D PCI_EXP_LNKCTL2_TLS_2_5GT;
-> +	dw_pcie_writel_dbi(pci, cap + PCI_EXP_LNKCTL2, val);
-> +
-> +	val =3D dw_pcie_readl_dbi(pci, cap + PCI_EXP_LNKCTL);
-> +	dw_pcie_writel_dbi(pci, cap + PCI_EXP_LNKCTL, val | PCI_EXP_LNKCTL_RL);
-
-[Severity: Medium]
-Does using 32-bit accessors (dw_pcie_readl_dbi and dw_pcie_writel_dbi) for
-the 16-bit PCI_EXP_LNKCTL and PCI_EXP_LNKCTL2 registers inadvertently clear
-Write-1-to-Clear (W1C) bits in the adjacent Link Status registers?
-
-Because the Link Status registers are adjacent to the Link Control register=
-s,
-a 32-bit read-modify-write includes them. If any W1C bits (like Link
-Autonomous Bandwidth Status) were read as 1, writing them back as 1 clears
-them, which can result in lost link events. Should this use 16-bit accessors
-or dw_pcie_read_dbi() with a size of 2?
-
-> +
-> +	dw_pcie_dbi_ro_wr_dis(pci);
-> +}
-> +
-> +static int zx279128s_pcie_init_crm(struct zx279128s_pcie *pcie)
-> +{
-> +	const struct zx279128s_pcie_port *port =3D pcie->port;
-> +	struct regmap *crm1 =3D pcie->crm[ZX_CRM1];
-> +	struct regmap *crm2 =3D pcie->crm[ZX_CRM2];
-> +	int ret, i;
+> +	struct gpio_generic_chip_config config =3D { };
 [ ... ]
-> +	ret =3D regmap_write_bits(crm2, CRM2_RST, port->rst, port->rst);
-> +	if (ret)
-> +		return ret;
-> +	ret =3D regmap_write_bits(crm2, CRM2_CLK, port->clk_off, 0);
-> +	if (ret)
-> +		return ret;
+> +	clk =3D devm_clk_get_enabled(dev, NULL);
+> +	if (IS_ERR(clk))
+> +		return dev_err_probe(dev, PTR_ERR(clk), "failed to get the clock\n");
 > +
-> +	return regmap_write(crm2, CRM2_RST, CRM2_RST_ALL);
+> +	config.dev =3D dev;
+> +	config.sz =3D 2;
 
 [Severity: High]
-Does an unconditional regmap_write() of CRM2_RST_ALL completely overwrite
-the shared CRM2_RST register, potentially corrupting the reset state of a
-sibling PCIe controller or other SoC peripherals?
+Does configuring the GPIO framework for 16-bit I/O access on 32-bit aligned
+hardware registers risk triggering bus faults?
 
-> +}
+The register offsets defined above (0x14, 0x18, 0x1c) are 4-byte aligned,
+which indicates they are likely 32-bit hardware registers. Setting config.sz
+to 2 causes the generic framework to use 16-bit memory accessors, and
+performing 16-bit accesses to 32-bit peripheral registers on ARM APB/AHB
+buses typically causes bus faults.
+
+Would it be safer to set config.sz =3D 4 for safe 32-bit accesses, and
+explicitly restrict the line count by setting chip->gc.ngpio =3D 16 before
+calling gpio_generic_chip_init()?
+
+> +	config.dat =3D base + ZX279128S_GPIO_DATA;
+> +	config.set =3D base + ZX279128S_GPIO_SET;
+> +	config.clr =3D base + ZX279128S_GPIO_CLEAR;
+> +	config.dirout =3D base + ZX279128S_GPIO_DIR;
 > +
-> +static int zx279128s_pcie_host_init(struct dw_pcie_rp *pp)
-> +{
-> +	struct dw_pcie *pci =3D to_dw_pcie_from_pp(pp);
-> +	struct zx279128s_pcie *pcie =3D to_zx279128s_pcie(pci);
-> +	int ret;
-> +
-> +	/*
-> +	 * The board lines reset a device that can sit behind both controllers
-> +	 * (the MT7915 of the H3600 uses both). The first controller to start
-> +	 * resets and releases it; the second must not reset it again.
-> +	 */
-> +	mutex_lock(&zx279128s_board_lock);
-> +	if (!zx279128s_board_released && (pcie->reset || pcie->enable)) {
-[ ... ]
-> +		msleep(200);
-> +		zx279128s_board_released =3D true;
-> +	}
-> +	mutex_unlock(&zx279128s_board_lock);
-> +
-> +	ret =3D zx279128s_pcie_init_crm(pcie);
-
-[Severity: High]
-Since zx279128s_board_lock is released right before calling
-zx279128s_pcie_init_crm(), can two concurrently probing controllers race
-during initialization?
-
-One controller might still be inside its 50ms fsleep() window after asserti=
-ng
-its reset bit, while the other completes its sequence and overwrites the
-entire CRM2_RST register with CRM2_RST_ALL, prematurely deasserting the fir=
-st
-controller's reset.
-
-> +	if (ret)
-> +		return dev_err_probe(pci->dev, ret, "failed to initialize CRM\n");
-> +
-> +	/* Enable the controller, which starts link training */
-[ ... ]
-> +static const struct dw_pcie_host_ops zx279128s_pcie_host_ops =3D {
-> +	.init =3D zx279128s_pcie_host_init,
-> +	.msi_init =3D zx279128s_pcie_msi_init,
-> +};
-
-[Severity: Medium]
-If the core dw_pcie_host_init() fails after successfully calling the driver=
-'s
-.init callback, does the lack of a .deinit callback here cause the driver to
-leak enabled clocks and leave PHYs powered on permanently?
-
-Also, if any register access fails mid-sequence inside
-zx279128s_pcie_init_crm(), the function returns immediately without rolling
-back the already-enabled clocks and PHYs.
+> +	ret =3D gpio_generic_chip_init(chip, &config);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261010130024.1775=
-03-1-ghahramani.navid@gmail.com?part=3D13
+03-1-ghahramani.navid@gmail.com?part=3D9
