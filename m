@@ -1,116 +1,139 @@
-Received: from ixit.cz (ixit.cz [84.42.129.46])
+Received: from mail.mindbit.ro (xs1.mindbit.ro [80.86.107.70])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B629C2EEE67;
-	Sat, 10 Oct 2026 20:06:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.42.129.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A2B82EB5A6;
+	Sat, 10 Oct 2026 20:19:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.86.107.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791662813; cv=none; b=ZYUIwNyWwkaS3p25YzqAbrsNt1DDhL2fkWK+Xh1YGtH2Gku+rpXVIIhE6wBOvMVd4Fx7I/UOQETTomvUvcyBhvgKKKykZRN8xC1qzP7lvMzairYLnFQVsaw2OOA510sA3s3X3yob6bytxhvvkIr4cihQZUJOmsn8KX1P7E6uwXA=
+	t=1791663550; cv=none; b=Kv6j0XDXGomOG6RD+42GoqBGBwrFYv+QhMpDbUTbnZGcd+G8TF+q1Byvzo5nrxPcoySVY/wWX+OU7YIRMLiX04Y3mW5Po65LgGu+xEIZqSgxiVrLmHZEw7D10PAN2XH5V6B+6vkA49Cfo8F5P4RNtFUUgV9My08AHPt6cFLcNF0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791662813; c=relaxed/simple;
-	bh=A9FBofGl37xJR8oq5OmosIEL/I/7sJ1nPNlbFn06omM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZFHwMDz35F0JoT6Pouw9bL6tFf5vlmmu/jaSC4fGvXmcS2Hdj40KHqzq+k7Zbuwl/dAd2QfgK4O0E7yyQSU2Dugn8YDz2Tx6RyWM3lJXWCM0QRn1suykLpzFEuqhD0rBRKapqRW4Sv6voWL9lOBe/PL90bxXZRIjMfYfSxolUbg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz; spf=pass smtp.mailfrom=ixit.cz; dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b=aa2kzHLT; arc=none smtp.client-ip=84.42.129.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ixit.cz
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ixit.cz
+	s=arc-20240116; t=1791663550; c=relaxed/simple;
+	bh=A3Ix6OjhsBB7Qkgl1EhbucQOjdUCResTvdiacC5VWaI=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=FTqqcZn070CewGEVIGq/JQkulz6dHM5Mprm61DNmGLbZxgTIEauAPQsAeoggktgdR3q3Xsom5CM82PmN77MLzuz+krl78oZPgNpq9FN7/SbuvyNm+VdK0kAJt1x6WNYg93eG7Hr8VBc2DTJ/wTHz/HJFYFrPUSHBBSGX0Sjlys8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net; spf=pass smtp.mailfrom=rendec.net; dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b=A81peIVH; arc=none smtp.client-ip=80.86.107.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rendec.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ixit.cz header.i=@ixit.cz header.b="aa2kzHLT"
-Received: from [IPV6:2003:100:7701:8b01::1815] (p2003010077018b010000000000001815.dip0.t-ipconnect.de [IPv6:2003:100:7701:8b01::1815])
-	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	 key-exchange x25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by ixit.cz (Postfix) with ESMTPSA id 511775340CAD;
-	Sat, 10 Oct 2026 22:06:48 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ixit.cz; s=dkim;
-	t=1791662808;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=GB5ACTloRf11HyvbWvz+MY68dePD95J5caH0jBxNFcc=;
-	b=aa2kzHLTcftUxHlhoQFtvrAL+RM2wWuV3uAazwvQQgrzsEuusZSjZ1iW0CTvr5MsP7yclp
-	87Buh4DHQaAVPp2+s5KtOz5FIyc6e4k6KbfjGfhWhksM1sl0B1jbQrtNDrCYJ1v2S/Wdks
-	NfxHYDaB8y/Y7H6yr8RUbvwpvAXpwf8=
-Message-ID: <177c2c79-dcc5-4fad-8ffd-7ed3f4d3978c@ixit.cz>
-Date: Sat, 10 Oct 2026 22:06:47 +0200
+	dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b="A81peIVH"
+Received: from dog.kanata.rendec.net (pool-174-112-193-187.cpe.net.cable.rogers.com [174.112.193.187])
+	by mail.mindbit.ro (Postfix) with ESMTPSA id AE4DBD1DC0;
+	Sat, 10 Oct 2026 23:19:04 +0300 (EEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.mindbit.ro AE4DBD1DC0
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rendec.net;
+	s=default; t=1791663546;
+	bh=A3Ix6OjhsBB7Qkgl1EhbucQOjdUCResTvdiacC5VWaI=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=A81peIVHz84752bWhKzYW2ArsKBiYynzW5iuc9CqmvzZRaz860URe0NsIuV31+HXw
+	 b9iyVLSlfV0TykXMmrzogzbQIzZFNHErL2ZM1FmPXQ6cEbV/q/xdsXLG0433W61Md9
+	 DRAoNdZOMYEEfK19h8HnH3WAe5fok9q5WylEv2DHkgl+yI5j5Gfh4QP25KlOA0QMt1
+	 xwpQNxUqkcNmv4QTrBVTI7zdgY4JGED3jKTZQq6F0faWrwhZ2MSyiS+gdYWolZ6Pf4
+	 LMsa/7tK5ncjAH+777kEPg03FLOfBQv396lRYY4j+10aQsYlqqs5dpOkFbIEA/Nidy
+	 xJyiZH0271chg==
+Message-ID: <150803f555ade32668f31d507e151558a505cfe1.camel@rendec.net>
+Subject: Re: [PATCH v2 8/8] irqchip/al-fic: add irq_set_affinity callback
+From: Radu Rendec <radu@rendec.net>
+To: "Farber, Eliav" <farbere@amazon.com>, Thomas Gleixner <tglx@kernel.org>,
+  "Shenhar, Talel"	 <talel@amazon.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>, "devicetree@vger.kernel.org"
+ <devicetree@vger.kernel.org>,  "linux-kernel@vger.kernel.org"	
+ <linux-kernel@vger.kernel.org>
+Date: Sat, 10 Oct 2026 16:19:03 -0400
+In-Reply-To: <BY3PR18MB4722F4AFC8E300C4D01BE217C6962@BY3PR18MB4722.namprd18.prod.outlook.com>
+References: <20260927080637.27285-1-farbere@amazon.com>
+		 <20260927080637.27285-9-farbere@amazon.com>
+	 <c28806ad779b972c94b9dd89fb70ee64cefb63cc.camel@rendec.net>
+	 <BY3PR18MB4722F4AFC8E300C4D01BE217C6962@BY3PR18MB4722.namprd18.prod.outlook.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/7] leds: aw2013: use dev_err_probe
-To: Paul Sajna <sajattack@postmarketos.org>, Lee Jones <lee@kernel.org>,
- Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Nikita Travkin <nikitos.tr@gmail.com>,
- Alexey Min <alexeymin@minlexx.ru>
-Cc: linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org,
- ~postmarketos/upstreaming@lists.sr.ht
-References: <20261005-aw2013-aw20xx-rename-v2-0-108ecbdf2775@postmarketos.org>
- <20261005-aw2013-aw20xx-rename-v2-4-108ecbdf2775@postmarketos.org>
-Content-Language: en-US, cs-CZ
-From: David Heidelberg <david@ixit.cz>
-Autocrypt: addr=david@ixit.cz; keydata=
- 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
-In-Reply-To: <20261005-aw2013-aw20xx-rename-v2-4-108ecbdf2775@postmarketos.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 06/10/2026 05:46, Paul Sajna wrote:
-> Failure to use dev_err_probe() for regulator requests violates
-> LED subsystem guidelines.
-> 
-> The original driver didn't use it, but it's worth cleaning up
-> while I'm here.
-> 
-> Signed-off-by: Paul Sajna <sajattack@postmarketos.org>
-> ---
->   drivers/leds/leds-aw2013.c | 28 +++++++++++++---------------
->   1 file changed, 13 insertions(+), 15 deletions(-)
-> 
-Reviewed-by: David Heidelberg <david@ixit.cz>
+On Mon, 2026-10-05 at 11:20 +0000, Farber, Eliav wrote:
+> On Sun, 2026-10-05 at 01:25 +0000, Radu Rendec wrote:
+> > This is a common problem to all multiplexing irq drivers; not because
+> > the parent interrupt is shared but because changing the affinity of one
+> > child interrupt (by changing the parent interrupt's affinity under the
+> > hood) would have the side effect of changing the affinity of all its
+> > siblings.
+> >=20
+> > I think the correct behavior is to fail with -EINVAL in this case.
+>=20
+> -EINVAL is not usable here because it restores the failure this patch
+> fixes. The consumer is arm-cmn. We have a SoC where its interrupt is
+> routed through a FIC group instead of a direct GIC SPI, and
+> drivers/perf/arm-cmn.c does
+>=20
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 err =3D irq_set_affinity(irq, =
+cpumask_of(cmn->cpu));
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (err)
+> =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0 return err;
+>=20
+> at probe, so with no .irq_set_affinity callback the PMU does not probe at
+> all.
+
+All right, now I see what the problem is. I will be fully honest and
+transparent and admit I don't know much about PMU drivers in general or
+arm-cmn in particular. But I believe that irq_set_affinity() (with a
+hard fail) is there for a reason. Of course, because we are in 2026, I
+did ask a LLM what that reason could be, but I will refrain from taking
+the answer as correct/definitive or speculating; I will just say it
+probably needs careful consideration.
+
+The requested affinity mask includes a single CPU; by contrast, unless
+explicitly configured, the FIC parent IRQ will probably be affine to
+all available CPUs, so the cpumask_equal() in your patch will likely be
+always false. The concern is not the warning itself (you're using
+pr_warn_once); it's that the arm-cmn IRQ handler will run on a
+different CPU than it expects/has requested.
+
+> > If you insist on having the ability to change the child interrupts'
+> > affinity, you may want to look at this patch and do something similar:
+> > https://lore.kernel.org/all/20251128212055.1409093-4-rrendec@redhat.com=
+/
+>=20
+> I implemented that for al-fic and tested it on hardware. It seems to
+> work: with the parent SPI pinned to one CPU and the child's affinity set
+> to another, the child dispatch is accounted on the target CPU, one
+> dispatch per parent interrupt, no re-fire storm.
+>=20
+> What stops me from just sending it is that it changes the interrupt path
+> for every child of every FIC instance, not only for a child that asks for
+> affinity. .irq_pre_redirect is called before the affinity check, so it
+> runs on every dispatch. The ack therefore has to leave the flow handler
+> and be done in the parent context always, and .irq_ack has to become a
+> noop so it is not done twice. A level configured group has to be masked
+> in .irq_pre_redirect as well, because the FIC re-asserts the cause bit
+> while the source is still asserted, so for those groups the mask moves
+> into the parent context too. Today all of this happens inside
+> handle_level_irq() and handle_edge_irq(), under desc->lock.
+
+The dw_pci driver is not the best example=C2=A0because it uses a stacked
+layout with the multiplexing irqchip at the bottom and a hierarchy
+irqchip on top (which is why the .irq_pre_redirect was necessary).
+Unfortunately it's the only example I am aware of (and also what
+prompted the redirect framework implementation). I apologize for the
+confusion it may have created.
+
+I think in the case of al-fic, it's sufficient to set
+irq_chip_redirect_set_affinity as the .irq_set_affinity handler and
+replace generic_handle_domain_irq with generic_handle_demux_domain_irq.
+That will not change the ack/mask path.
+
+> Do you still consider that justified for this driver, given that the only
+> caller needing anything here is one that just needs the call not to fail?
+
+As I explained above, I really doubt that arm-cmn just needs the call
+not to fail. I am inclined to think that it actually *needs* the IRQ to
+run on the CPU it wants, hence the hard fail.
+
+--=20
+Regards,
+Radu
