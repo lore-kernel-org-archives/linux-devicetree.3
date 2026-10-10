@@ -1,131 +1,213 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2129.outbound.protection.partner.outlook.cn [139.219.146.129])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C8EA41CB2E
-	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 10:59:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791629958; cv=none; b=Jze7wYrxZo3cAsR4ANCsMy69K8wnGPnuuKTo1r8QyHmzS+EmltOQuugZcX9OEqZrmmWpCPeDWmyMONWEW99qFy/I0X1CGieZiXuA4MY7VOz2aHqjf8ZVmtN/A4u5rgwvos4LauUQh2hhGOsyFj1+Oh1T3w2jlp6tV8mvNaG91F0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791629958; c=relaxed/simple;
-	bh=8rU4lcGem9r8npg9voyJwgRjQfcdPrmgPfj8qzzKnnc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SR8g61D5QPFvhACKlT83KA7JsfcKe6APYfEbYtnCOk0lgLthX+iXxts9Ft1g7NSlqDcdadEJuUIqDshE7NoY0HIXv5laCsjCOCa7MJR5+Ma1LnFuvSruCxYrUjfgTkCGAkes7gepHGfznaVaTYoMU88ipcTEQhsi/DcFDl4X94U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48b001cd92bso319252f8f.2
-        for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 03:59:16 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791629952; x=1792234752;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pdKVlCj4REX0NWkQYtOCVGuCUyIjtnl9DbGH17gD2u8=;
-        b=y2N46p+0+UviI6IKkbO17BLWLhufFeyMdMq7RUU+39zobBlvhNUjZTXWzVV6m7B9it
-         Q2ZtcG2w39CBIj5VyMuqkqajJ7m7dIZ7hWJzgOihv8hfWKg1XQCqk+fMGhf7axT9SUw9
-         +IvOrx9SCUj7aylF5T5loAuUXw44rD1er8cmCuWtC84ubh163va0Qodq7/GhGFMUBZCG
-         31dlFtCO3HwwYZ9bvJJG8YxUvowZwOCPMB4qJcmSwJoCoHL0XBTQbxr5ijSBZhs8Dr/H
-         9Pl5952Wd9/3ndNvX6E6o7uQ2FZptanx+3lA8tRj1wgG2EZ1z04NKcTZOaMM7aDDQPLQ
-         v39w==
-X-Forwarded-Encrypted: i=1; AKwUvBxvd8rwwQB0EgxupSLPoWfRSG1l8OWJ6iss0+ZupFb2Y/RnEjaKlVdMpIhK2ZSwrqFhIQcm1gl2X36q@vger.kernel.org
-X-Gm-Message-State: AFq9FYIyQMTF/rAqxa7twVenWBRpZiZcPWVuIGw28qAquJvljdLgXy1Y
-	ICxMM8P6BzSutSRZ/x/ye4R51traGjIjnaqDn+no/scsSTxS0W8M0nhz
-X-Gm-Gg: AYBFou1lzvjuopE7H6MkeiFFxV67y25cD6Zrh4ZS6iO6YEq5c6DbxRv8YdfwaoudcyO
-	qpy6t7zb2a0AxgOiOKDWIhMQeToOE9oTUvZO3eYmC6TqGenb6YM5zVmzGwY4OhjGg4zY0xdrviQ
-	dx4a4mDC68p5ZTHMnJTbY74/MCnCFICGI4FiXEK99QfpUmLDKzFJ+V6H+SNqNR6/N/cb33nMcqW
-	Yku4PUMEyXJen++P6b5XZoG0hWMwIf4qyLZkXmrJgzCyOUOOfrnNdwAoEPv24nxEh6OUPBHriqQ
-	hvNKV4i+wIksIBOUr2Vi7Fab6xpSROiN2VW9DXO74YS4zOyIWtDlkhybShJz63Cfv9cLiaDtVa5
-	1uY4ZbzNwNoHrlqH9KQy4T4gTol9oFZEpNWzBjqax6LZczHxN7bJk4i6bARNf5XmHTtuQkIgRRT
-	WxEKvsN3m6EiMuNgXPPFfWf+irn6sNn7k0ZKG/W5bxjWBkr+kqenr8RCtbwqbAmMWwMB6spwnYZ
-	MtfWqWW1WqO8TiaSmoy3lxYMnUfoHF/SXc=
-X-Received: by 2002:a05:6000:2dc5:b0:48b:2a1:dfe3 with SMTP id ffacd0b85a97d-48dbace3b32mr6883381f8f.41.1791629952539;
-        Sat, 10 Oct 2026 03:59:12 -0700 (PDT)
-Received: from threads.localdomain ([84.70.176.222])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db9ae17e9sm8709526f8f.57.2026.10.10.03.59.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 03:59:12 -0700 (PDT)
-From: Lucas Tanure <tanure@linux.com>
-To: xianwei.zhao@amlogic.com,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C15340B112;
+	Sat, 10 Oct 2026 10:59:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.129
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791629994; cv=fail; b=Jy6F241mfQMNp3C8/Ma+FxtNdmObafAYRX+gNZoUzAFbhhNq26VWSIeBc0xMDRuaGigKdJqVTB4StWtxJYFWV3v6CmrrNaSNkFMDI959r9ggdRqF054bglSKaq/yEfzJdR8DnJgcVhdKByvtydRNg99sPzst7N6EG7eOddy1Z/Q=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791629994; c=relaxed/simple;
+	bh=bUH+QIBSsl+/K3CUXNNEF7uShw35YSAW7SHHfkqmWH4=;
+	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=ZHcE04vMIOP9ExkRNBxA41zSvK1aM5kb71t3F+GaY3W1KO1+iKhh0rNB6AXCUbBzw0yeyqFODTYribzPjTXesQHrsPlH1HqLxi+oMC/h3HOxrp9ET7gufsR3o4p/645p+cRl+n+pgw5bqLqLQitL7P5FNmgjHnVWbpneoAzVu2k=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.129
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=m6NIFAViLVeSbnlmvJt7rlPYfFTL0V43P9Yhzssyv43u93Y8b+6myO4tHxYHZ+44cWF2X+mmJO59xGBzN93Az6KqJKosKmE4ZGbPub8on46701w2VIM7DsTb8C+9Ad+z5ILnejLP0n5UTjTfZmNhGXyVI7g4UFzA4BWWs9uqSGfIziO+Q581pJuAjng9EuCnRK6+NgrepW+7b8JgjhHgrBDBr1X3P2GgmTXa7jhWKsTrQCPLZ75NbPaU00BZaNbLtHvnWVso0sPrusuvkArqDm/W7OjOFG2CH/tJq1uVk1umcChdUtm+3izXxUYvydAdVMB4iCvf+kyo9CyKwqjFoA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=0ZvB+dBh4xswcWTzoEeHg+YsNAhhcZP6lhlvCI9ilek=;
+ b=aH7L0zrfaXe1Hvz5cOiIQIU/RTZMPGkvVmEs5P5cE2hAelidOmmcZA0AhWRXpYIy9IO7NwTNRPgNvwVrLCksSX3vrKsl4D0QsVdCPw2RgXlpHYdlieRVVo9YivTDoLuQG4kc35I2kTfmnxoCBjszZogJHyJtGRVNdWhcYgzGnhy3VYdxarCRoPucs6fYx1gGOQPUsrVCp/m89zNVTR+q9dY0Dznz4yN6L0PXmJkEvJDPf0/zK6WIwxWf0c+CM62NTaM+szNvFcM8/gyT7Zcws6lemlEPcbHtD+PGi3Zi8bgTiXFjHRxJ7VmsDBU+kbd0EBATzLe/0z9OGrBAykqawQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from NT0PR01MB1216.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510:11::9) by NT0PR01MB1005.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510:6::8) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.9; Sat, 10 Oct
+ 2026 10:59:36 +0000
+Received: from NT0PR01MB1216.CHNPR01.prod.partner.outlook.cn
+ ([fe80::1666:48e8:19e9:ad29]) by
+ NT0PR01MB1216.CHNPR01.prod.partner.outlook.cn ([fe80::1666:48e8:19e9:ad29%4])
+ with mapi id 15.21.0496.017; Sat, 10 Oct 2026 10:59:36 +0000
+From: Changhuang Liang <changhuang.liang@starfivetech.com>
+To: Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney@redhat.com>,
+	Jerome Brunet <jbrunet+clk@baylibre.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Emil Renner Berthing <kernel@esmil.dk>
+Cc: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>
-Cc: netdev@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
 	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-amlogic@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v3 8/8] dt-bindings: net: ethernet-controller: tabulate who adds the RGMII delays
-Date: Sat, 10 Oct 2026 11:59:00 +0100
-Message-ID: <20261010105900.247342-9-tanure@linux.com>
-X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261010105900.247342-1-tanure@linux.com>
-References: <20261010105900.247342-1-tanure@linux.com>
+	linux-riscv@lists.infradead.org,
+	Changhuang Liang <changhuang.liang@starfivetech.com>,
+	Hal Feng <hal.feng@starfivetech.com>
+Subject: [PATCH v6 0/5] Add StarFive JHB100 syscon modules
+Date: Sat, 10 Oct 2026 03:58:54 -0700
+Message-Id: <20261010105859.19505-1-changhuang.liang@starfivetech.com>
+X-Mailer: git-send-email 2.25.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: ZQ0PR01CA0036.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:2::20) To NT0PR01MB1216.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510:11::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: NT0PR01MB1216:EE_|NT0PR01MB1005:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3e1b08b9-814e-437f-f3e7-08df26bd92c9
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|52116014|7416014|376014|23010399003|18002099003|10067099003|3023799007|261009223027099003|38350700014|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	eTb4NDQ6rf6ZOzGqYAlFsBcIKfJt1ocAAyVGpMV5uUdTUV5xLbwAasukeWdn3Cir18g2/3EUgVexT1EHpWAx7k1YFcsGWhcpNIrWW52tXfshFKWE6CTftXQcs4kT2ULF0RN8NX7owh17aX+O8bnqG/t1eMdMhCEfwwEswMLCKezMUKiPb72jp1nSIHldH/H3fvTya6ALmGuQph/QXPd/S/owfefmLgOQx+STYBNvTUAkp5GG+fG18DcL6f22rTVUiOqemiYsoeHX5AA9nXM/N/N3q0mzIDQ0DS1xx50N7m4mAHvjYyJ+m6uui6IAAz43XDpYwHSQK9Qs0LMUB1sEiOuszI6Kj2gcsytqqtwwxRjg4+yWabmz9mNaMx1tIafGsKW1q/vV2GeB9geOZyRqvL6UmUTeTR9ARPl+Xv2o7c1nhMKvwc8Gb1BWaIo/jvgYCAM4q8CjRVyaL2t7ihIgdZVCzfAlFS6ufcMx9gMqjqNjhNV0isLWiD8EjSaETaXoGmimoXM7YOBW6tqe6B1sT0d0FFymjxBmeEIrua1oASwhCVfq++GJHwoMIMxBqlsN
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:NT0PR01MB1216.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(52116014)(7416014)(376014)(23010399003)(18002099003)(10067099003)(3023799007)(261009223027099003)(38350700014)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?DvdYbBi+olukfqm7neEYgKywhw+uKg4S+z++4vmcYrdR5kjULDpdtLnww/i0?=
+ =?us-ascii?Q?oiFq8w/tTh6t1UTzZLLPnlBmx2mxw+AYpb11+hF6Gwu5LwwXwXzmABAFIteT?=
+ =?us-ascii?Q?yqeM7PxL9W6qMbcZwut+ZYr7hzJBWXBVfg9JMRpE5fXRl85qAE3gS+xXcqY6?=
+ =?us-ascii?Q?daBtlYHte4SiFJSD/BzweVt0GUImbUYMueutcHRDtCTBdnCdZr5XC7eac/FN?=
+ =?us-ascii?Q?dCR/nVUTKcVsShPT29hW4gTTEXItCG2Dh6UPJBaQ+t6RMunhDlZv8tbVZ0Ln?=
+ =?us-ascii?Q?BL1u5WDk+m/p0bB/b1utdnAYD/kt25iJx4LjrDJpK2LH+nhWdWaWkmLGBueg?=
+ =?us-ascii?Q?r3M9wEXMOMpzUZm8rLT6fPGiHibZnMK8Lk9BAIBr3sXX/hCDnDj5Ql+M4sG8?=
+ =?us-ascii?Q?gPWVGerY5LfGq/JYPR5fllYOfx1kOIXzBurlxGGpK3zGR6/TJU9n2LCAWs7H?=
+ =?us-ascii?Q?KH8geqZ/TeEpdBoCApBcQv63udZ9Q4CMx0rv+1ZP9REglQ+tRNe6+52Lc1Xh?=
+ =?us-ascii?Q?cUaMdgEZbc6jtsFYpRln1MVVTMnUYLEEx9FLWUpFefVEmum4O9829fcnCfX8?=
+ =?us-ascii?Q?rjOXvVCyvqP6oVtWf9FXOrh/GlSk4vRUMGA9/BAsbVixq7g5R18SBjPeXPuh?=
+ =?us-ascii?Q?0UKAK5v+s/db5hhnVtxQRx5cwlFaEEK4BsrnDMvjBZHxWSOPSfoTssSpKSdI?=
+ =?us-ascii?Q?JdunG4QWsl9nCsnVjQh1jk1rSC+kHY4W/N2y3YyNOiPciQ6LAc/lUZh6fQjJ?=
+ =?us-ascii?Q?v/iamQ8ciZ3uC3y/O2+b4QWErmm3PwYeGgvMoQfpXRgCBq0RT9e3Hg43nmk3?=
+ =?us-ascii?Q?3I7+DZoZEdNGW8vHOmo5pHVDEVw8EbUFY8UMl+vPEgrAvg+QejlS/Ztxgs4t?=
+ =?us-ascii?Q?YHxu+TuSg0IUKsVs7YjgG2i4a/RtkQ5zdLrRRq4MgbicbTl3qoKshlf2P2Hd?=
+ =?us-ascii?Q?JdRYedCE/gzh9TU2Yi6EHsQmk/QNE7E00VZjumg7CxnG6+aqcAeFNSpdPMtc?=
+ =?us-ascii?Q?qwlqSbBMOiOBs+L/dDTjufixW4C+Q1lGTMcGMGgvZS9cEcFbklqL3/U+ge7j?=
+ =?us-ascii?Q?MVmdccDcv1jyklumW0QPHp1NerPNes2cOEV8YhB737++107h1ZGc5/lRE45Q?=
+ =?us-ascii?Q?EHwKvesdUDd22DPCR2zPklHMGYcH7EDCudlxNY4dUM4Zm2te30Ff5zWPR4eY?=
+ =?us-ascii?Q?PguaABg9P0NH6V5ZnaD/6NGo7YEZewFUEoVHLSSBSjtjD9opjrxCCv+9KYhe?=
+ =?us-ascii?Q?46KVsCdEkskdU2y2avY9pjzG1sG2vJ6TQGywgC4NpJjzdfj5snGvIARObrOM?=
+ =?us-ascii?Q?pqFJUjK5syzl3vwQ2ldVsUHPn3ei/pNuSzLoJo1ZYuEVNQtS3llIv+us9dgU?=
+ =?us-ascii?Q?QNXiZDWoHFoJBl1PriKzd0MTDvcUKwOjBxJ9mVdoMh85UnQbZTH5MBDubAAg?=
+ =?us-ascii?Q?xShWbIa4yrxavlubLLyoqX2xEkD8Q4F7j7UOEQfanygEupCFchTAVcljoWpd?=
+ =?us-ascii?Q?sTBxdMZy0vV7zarwq/fDGFulGBOUga6Gn8/AIZY2XjpYF+CcGMyyseRgV4Co?=
+ =?us-ascii?Q?6FtRBoonmcFAuS655DZC9B/wdnruwYPA01WdHmUMajdezQ9EMF+zqajM2IxR?=
+ =?us-ascii?Q?JXEludYvDsQi8g03kLZBK/QZLBo0eYkcWLjZ9JadEQM51Us4WYw4AliLzSC2?=
+ =?us-ascii?Q?iX5EExN3HAfWhveizSle0OXqgSXjoKRNUcauMn38RysX4aAkFhC9YIOrqOWe?=
+ =?us-ascii?Q?jK9Niiu7ve23py0SJDVbudWSI3qlO0s8l0LhNg5FE33azBww1vQl?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3e1b08b9-814e-437f-f3e7-08df26bd92c9
+X-MS-Exchange-CrossTenant-AuthSource: NT0PR01MB1216.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 10 Oct 2026 10:59:36.4684
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: C7KaG+7dUIk6dzmcNQj6K2AMLBQ1rBa8wnC+pw90EM+LGtq1sZn4eLFD+U47jY4t5TrbbVZr9vO1NO9i749UQFy65rMbsWHtXtTTmri8gSXF24A9bizh+r9r03ujPUAT
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: NT0PR01MB1005
 
-The informative section explains in prose how phy-mode, the delay
-properties in the MAC node and the mode handed to the PHY fit together,
-and says itself that developers often get this wrong. A reader has to
-work through several paragraphs before answering the one question they
-usually have: for this phy-mode and these properties, which part adds
-which delay.
+StarFive JHB100 has many syscon modules, as listed below:
+- pcieep0_ecsr_syscon	(PCIe endpoint 0 externel syscon)
+- pcieep1_ecsr_syscon
+- host0_syscon		(Host0 syscon)
+- host1_syscon
+- husb0_syscon		(Host USB 0 syscon)
+- husb1_syscon
+- husbd0_syscon		(Host USB device 0 syscon)
+- husbd1_syscon
+- husbcmn_syscon	(Host USB common syscon)
+- gpu0_syscon		(GPU0 syscon)
+- gpu1_syscon
+- b2h_syscon		(BMC to Host syscon)
+- h2b_syscon		(Host to BMC syscon)
+- vout_syscon		(Video output syscon)
+- pcierp_ecsr_syscon	(PCIe root port externel syscon)
+- pcierp_syscon		(PCIe root port syscon)
+- usb_syscon
+- npu_syscon
+- per0_syscon		(Peripheral 0 syscon)
+- per1_syscon
+- per2_syscon
+- per3_syscon
+- sys0_syscon		(System 0 syscon)
+- sys1_syscon
+- sys2_syscon
+- strap_syscon
+- sfc0_filter_syscon	(SFC0 filter syscon)
+- sfc1_filter_syscon
+- sfc2_filter_syscon
 
-Add a table that answers it at a glance, with one row for every
-combination the properties allow.
+Some syscon modules contain PLL, reset.
+This series adds related drivers for PLL and reset.
 
-Assisted-by: LLM
-Signed-off-by: Lucas Tanure <tanure@linux.com>
----
- .../bindings/net/ethernet-controller.yaml      | 18 ++++++++++++++++++
- 1 file changed, 18 insertions(+)
+This series depends on the series:
+[1]: https://lore.kernel.org/all/20261008123338.11081-1-changhuang.liang@starfivetech.com/
 
-diff --git a/Documentation/devicetree/bindings/net/ethernet-controller.yaml b/Documentation/devicetree/bindings/net/ethernet-controller.yaml
-index 1bafd687dcb1..bba27a9feb61 100644
---- a/Documentation/devicetree/bindings/net/ethernet-controller.yaml
-+++ b/Documentation/devicetree/bindings/net/ethernet-controller.yaml
-@@ -339,6 +339,24 @@ additionalProperties: true
- # has added. Failure to remove the delay will result in a
- # non-functioning link.
- #
-+# Put together, with the two properties in the MAC node, this is who
-+# adds each delay:
-+#
-+#   phy-mode    tx-internal-delay-ps  rx-internal-delay-ps  TX delay    RX delay
-+#   rgmii       -                     -                     PCB trace   PCB trace
-+#   rgmii-id    -                     -                     PHY         PHY
-+#   rgmii-id    present               -                     MAC         PHY
-+#   rgmii-id    -                     present               PHY         MAC
-+#   rgmii-id    present               present               MAC         MAC
-+#   rgmii-txid  -                     -                     PHY         PCB trace
-+#   rgmii-txid  present               -                     MAC         PCB trace
-+#   rgmii-rxid  -                     -                     PCB trace   PHY
-+#   rgmii-rxid  -                     present               PCB trace   MAC
-+#
-+# A property for a clock the PCB already delays is not in this table.
-+# It is either the fine tuning described next, or a mistake the MAC
-+# should report as a fatal error.
-+#
- # Sometimes there is a need to fine tune the delays. Often the MAC or
- # PHY can perform this fine tuning. In the MAC node, the Device Tree
- # properties 'rx-internal-delay-ps' and 'tx-internal-delay-ps' should
--- 
-2.56.0
+changes since v5:
+- Remove PATCH 1/7/8 in v5
 
+PATCH 1 (in v6):
+- Split a PLL into 3 clock modules: VCO, POSTDIV, and OUT.
+- Implement the PLL registration as a generic interface,
+  provided for specific PLLs to call.
+- Since the PLL enable/disable function is optional, the new
+  version decides to remove this implementation and keep the
+  PLL always on. (This may differ from the email reply in v5.)
+- Remove the debugfs-related implementation.
+- Add a VCO operating frequency range limit for the PLL.
+- Stop recording the PLL frequency, and instead calculate it
+  from the multiplier factor.
+
+PATCH 2&3(in v6):
+- Make corresponding adjustments due to the changes in PATCH 1.
+
+PATCH 5(in v6):
+Make minor adjustments due to the changes in series [1],
+with no functional changes:
+- select RESET_STARFIVE_COMMON ==> select RESET_STARFIVE_JH71X0
+
+v5: https://lore.kernel.org/all/20260828095608.19955-1-changhuang.liang@starfivetech.com/
+v4: https://lore.kernel.org/all/20260809015054.210577-1-changhuang.liang@starfivetech.com/
+v3: https://lore.kernel.org/all/20260521012932.24163-1-changhuang.liang@starfivetech.com/
+v2: https://lore.kernel.org/all/20260512083521.3448-1-changhuang.liang@starfivetech.com/
+V1: https://lore.kernel.org/all/20260403054945.467700-1-changhuang.liang@starfivetech.com/
+
+Changhuang Liang (5):
+  clk: starfive: Add system-0 domain PLL clock driver
+  clk: starfive: Add Peripheral-0 domain PLL clock driver
+  clk: starfive: Add Peripheral-1 domain PLL clock driver
+  reset: starfive: Introduce active_low
+  reset: starfive: Add syscon reset driver support
+
+ drivers/clk/starfive/Kconfig                  |  28 ++
+ drivers/clk/starfive/Makefile                 |   3 +
+ .../starfive/clk-starfive-jhb100-per-pll.c    |  95 ++++
+ .../clk/starfive/clk-starfive-jhb100-pll.c    | 425 ++++++++++++++++++
+ .../clk/starfive/clk-starfive-jhb100-pll.h    |  63 +++
+ .../starfive/clk-starfive-jhb100-sys0-pll.c   |  69 +++
+ drivers/reset/starfive/Kconfig                |   9 +
+ drivers/reset/starfive/Makefile               |   1 +
+ .../reset/starfive/reset-starfive-jh71x0.c    |   3 +-
+ .../reset/starfive/reset-starfive-jh71x0.h    |   6 +
+ .../starfive/reset-starfive-jhb100-syscon.c   |  61 +++
+ 11 files changed, 762 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/clk/starfive/clk-starfive-jhb100-per-pll.c
+ create mode 100644 drivers/clk/starfive/clk-starfive-jhb100-pll.c
+ create mode 100644 drivers/clk/starfive/clk-starfive-jhb100-pll.h
+ create mode 100644 drivers/clk/starfive/clk-starfive-jhb100-sys0-pll.c
+ create mode 100644 drivers/reset/starfive/reset-starfive-jhb100-syscon.c
+
+--
+2.25.1
