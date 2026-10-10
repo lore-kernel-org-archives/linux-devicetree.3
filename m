@@ -1,106 +1,171 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from chaosmail.tech (chaosmail.tech [77.81.229.115])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B88423998A6;
-	Sat, 10 Oct 2026 09:30:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F6994519A1;
+	Sat, 10 Oct 2026 09:43:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=77.81.229.115
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791624632; cv=none; b=M9onbWj6vLA4abhnheA7H3lmzsN9J5Va6vVykrODHz7LueFPqDtZlP8Ax3Q2BQoEGfsJjfEPA8HGtVvXDARRIrd5TtsxjUMjMW8zHtUC7XjqSkw6tN8D4HMM8WPirFQytExM6aFqiqfVJLmBQT/1+wVtWu2kcLyS5Q+kZVRYrbk=
+	t=1791625429; cv=none; b=lg7ms+3QROQd2T6m4Tx1/t7LFhoM9WrbO+hJfccHyAxLmCy+pJ3A5654Z0bd8/Rfl7aOh8GpkJeueHqDXppOFKVmwvgqV63WP4EQ28eHrxqljqDGqc/vgYw4bm1P4qhVBOmgZWGvIpvumyso4qZ9eN987CUarSaJzeTF/fuGJpU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791624632; c=relaxed/simple;
-	bh=FPWTtZnRa/XbFRcpNgUFJ2yRAoGZbSTq3vkG/aBIgAs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=IixlfEd6wwyUtx4EB/Bt27VFdp3w5KjiYTwNx9RlsGdbRfto3eKHQ3ce+g6+yY3J+f84Le7Rmbv3rwKM/1aKxvJfW2Z+IdnwcyzuUhRO4SBgr8DGfklO8rxXCvGTKYMMHxAjauXN5+bO95CmSSWOkleXRUHlA1mgBxS2+AGw5VE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VNEAqFUT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791625429; c=relaxed/simple;
+	bh=hSa4L+QWc2uDvx/tqmkiTHw4LQoP2Kt3Eb1meqwGiAc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=hM0nJW6MJrTd5PIyULNzmDit8C1+08ED99mJFOnGJhGC+/je5Gj9KJbJ9JG1cGR9R7suQ90sTm7RzVJ1m0IGpc2FYfGZblq7VvQjtcDf04Vhjy8oeFnfGBJi5My2P1H6gHNDy2u2tCxmhOziDYR6nTRTVFB+VaXKA8ZrjA1kVV4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech; spf=pass smtp.mailfrom=chaosmail.tech; dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b=HC+LZM4d; arc=none smtp.client-ip=77.81.229.115
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=chaosmail.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chaosmail.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VNEAqFUT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1165A1F00893;
-	Sat, 10 Oct 2026 09:30:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791624631;
-	bh=/+Vxq1o02mDWR1BNJWOLcsj18DVs283fdRVapx4nsXQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=VNEAqFUTMQek7CuGdGDawVNRARU5W+S89JEu9ORpuE2mrcglPIUbPwjcDAR7xcMHG
-	 n+BtKu1qLFE1AgHte/9/5d/dRDT/4TSgxi4my5/zXbZ+GejYYFBMGJ8uLHBEC4r718
-	 bDtGeUl9kPy4x+USV2utU2uUc6uMbLMAdYTy5W3pFJvakvlYiJHc3mcPllMm7ncRtW
-	 NlRMjpB6p08omkcpG6MKU/Ns9Z84ipc5xWrbSvWZ3VIb7JlMKYWcggXnAproFt6f/u
-	 Y/YhegpJoUKWxInNFDco0NINblZU1VA6lsEa0l5U3FerWclWJsnC4g8wSkFQPeE4y2
-	 fF+D/NDfvO0jA==
-Date: Sat, 10 Oct 2026 11:30:28 +0200
-From: Vinod Koul <vkoul@kernel.org>
-To: "Christian Marangi (Ansuel)" <ansuelsmth@gmail.com>
-Cc: Brian Masney <masneyb@kernel.org>, Brian Masney <bmasney@redhat.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Brian Masney <bmasney+clk@redhat.com>,
-	Jerome Brunet <jbrunet+clk@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Felix Fietkau <nbd@nbd.name>,
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/2] clk: en7523: Add support for selecting SCU serdes
-Message-ID: <asoFtO0sw6DnTJ6K@parshuram>
-References: <20260915125226.20579-1-ansuelsmth@gmail.com>
- <179000484817.707534.5059164498545591038.b4-ty@b4>
- <CA+_ehUzrL9qHe92tE0CeaOMAD1LXGuK79t5mZGv+bp2sCas_sA@mail.gmail.com>
- <asZD79RRF4u5OJdn@x1g10>
- <askXRONt8Si264ve@x1g10>
- <CA+_ehUw7374O63trsUORkfMbhMJqiXn_WkC_KL+hTDnLAa2=Gg@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=chaosmail.tech header.i=@chaosmail.tech header.b="HC+LZM4d"
+Received: by chaosmail.tech (Postfix) id 94BD91CC3B9;
+	Sat, 10 Oct 2026 09:38:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=chaosmail.tech;
+	s=mail; t=1791625086;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mkRk1b0acKcNtNb5LGbx/EpjtFCkjlQU51LIog+QBM0=;
+	b=HC+LZM4dYfGd8D6lih2rnmfy5ULP2O+7DJZgB4ZBrZgihlv6WLp+LWN9Eo8OZsfXpdSMsN
+	D1H8q3YSEmzS+pzJiZ+5FrqOGERGxpowIYj/5RCMVJfC1rFLmBA3MQ/xjtBiO8z1Ezv5dG
+	nh7sXDOEGzjzkihUqKDDkqEghXG9kBk=
+From: Sasha Finkelstein <k@chaosmail.tech>
+Date: Sat, 10 Oct 2026 11:37:55 +0200
+Subject: [PATCH RESEND v7 1/3] dt-bindings: usb: tps6598x: Add
+ sn201202x/ACE3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CA+_ehUw7374O63trsUORkfMbhMJqiXn_WkC_KL+hTDnLAa2=Gg@mail.gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261010-tipd-ace3-v7-1-317218a96c01@chaosmail.tech>
+References: <20261010-tipd-ace3-v7-0-317218a96c01@chaosmail.tech>
+In-Reply-To: <20261010-tipd-ace3-v7-0-317218a96c01@chaosmail.tech>
+To: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Cc: asahi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Sasha Finkelstein <k@chaosmail.tech>
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791625084; l=3481;
+ i=k@chaosmail.tech; s=20241124; h=from:subject:message-id;
+ bh=hSa4L+QWc2uDvx/tqmkiTHw4LQoP2Kt3Eb1meqwGiAc=;
+ b=3sE9VFqok7hPqDR4glc4T5rxGsoKkGlSnB9Cs6TXcXoEDRpSdUgRpNouzw7cWZWUzUeLmajyK
+ uoYJd+TUSuiBf4Fl0TE8H0nqc2aTw22Td9jmByEmm0cevMWJ34pshL2
+X-Developer-Key: i=k@chaosmail.tech; a=ed25519;
+ pk=aSkp1PdZ+eF4jpMO6oLvz/YfT5XkBUneWwyhQrOgmsU=
 
-On 09-10-26, 19:22, Christian Marangi (Ansuel) wrote:
+A variant of tps6598x that is attached to a SPMI bus and is found on
+Apple devices starting from the M3 series
 
-> > > >
-> > > > is it possible to have a stable branch/signed tag for phy subsystem?
-> > > > Commit 11952173d8a180ac05641775f80bd6946327478f is needed
-> > > > to permit correct compilation of a airoha usb phy driver.
-> > >
-> > > Yes. I'll have to rebase the clk-next tree but it's no big deal.
-> > >
-> > > I'm at Linux Plumbers right now and I'll send out an immutable tag in a
-> > > day or two.
-> >
-> > I looked into creating an immutable branch, however as I mentioned it's
-> > going to require rebasing clk-next (actually clk-pile). I'm willing to
-> > do that, however I realized after I sent my last email that the laptop
-> > I'm working on right now in Europe only has access to my kernel.org
-> > account. So I'd have to rebase all of the prior commits and add my korg
-> > Signed-off-by since it's going to change the committer on lots of
-> > commits from my Red Hat to korg account.  I don't want to do that.
-> >
-> > Given that we're this close to the merge window, I'd like to avoid any
-> > kind of risky operations on the tree this close to assembling a pull for
-> > Linus. If I can be convinced this is particularly pressing for v7.4 I'm
-> > willing to entertain the request, but I wouldn't be able to do it until
-> > Monday when I'm back in the US.
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Sasha Finkelstein <k@chaosmail.tech>
+---
+ Documentation/devicetree/bindings/usb/apple,sn201202x.yaml | 78 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ MAINTAINERS                                                |  1 +
+ 2 files changed, 79 insertions(+)
 
-I would be on same lines. Considering we are _very_ close to merge
-windows, I would be very hesitant to rebase my tree
-> >
-> 
-> Thanks a lot for the effort. No, no need to hurry on this.
-> 
-> It was ideal to have as it's currently blocking 2 other driver for
-> submission but it's not worth to cause all these rebase and resign.
-> 
-> If minimal changes are possible, it's totally ok to wait for Monday.
-> 
-> If not possible, then rc1 it is.
+diff --git a/Documentation/devicetree/bindings/usb/apple,sn201202x.yaml b/Documentation/devicetree/bindings/usb/apple,sn201202x.yaml
+new file mode 100644
+index 000000000000..133a71bbedb7
+--- /dev/null
++++ b/Documentation/devicetree/bindings/usb/apple,sn201202x.yaml
+@@ -0,0 +1,78 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/usb/apple,sn201202x.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Texas Instruments sn201202x Type-C Power Delivery controller
++
++maintainers:
++  - Sasha Finkelstein <k@chaosmail.tech>
++
++description: |
++  Texas Instruments sn201202x Type-C Power Delivery controller
++
++  A variant of tps6598x controller also known as Apple ACE3
++  present on hardware with Apple SoCs starting from the M3.
++
++properties:
++  compatible:
++    enum:
++      - apple,sn201202x
++
++  reg:
++    maxItems: 1
++
++  interrupts:
++    items:
++      - description: Primary irq used for tps6598x events
++      - description: Logical register selection completed
++      - description: Standby command completed
++      - description: Wakeup command completed
++
++  interrupt-names:
++    items:
++      - const: irq
++      - const: select
++      - const: sleep
++      - const: wake
++
++  connector:
++    $ref: /schemas/connector/usb-connector.yaml#
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - interrupt-names
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++    #include <dt-bindings/spmi/spmi.h>
++    spmi {
++        #address-cells = <2>;
++        #size-cells = <0>;
++        usb-pd@c {
++            compatible = "apple,sn201202x";
++            reg = <0xc SPMI_USID>;
++            interrupts = <11 IRQ_TYPE_EDGE_RISING>,
++                         <13 IRQ_TYPE_EDGE_RISING>,
++                         <17 IRQ_TYPE_EDGE_RISING>,
++                         <19 IRQ_TYPE_EDGE_RISING>;
++            interrupt-names = "irq", "select", "sleep", "wake";
++
++            connector {
++                compatible = "usb-c-connector";
++                label = "USB-C";
++
++                port {
++                    typec_ep: endpoint {
++                        remote-endpoint = <&otg_ep>;
++                    };
++                };
++            };
++        };
++    };
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 6215fcb07770..ba4274ed9c79 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -2659,6 +2659,7 @@ F:	Documentation/devicetree/bindings/soc/apple/apple,t6000-pmgr-misc.yaml
+ F:	Documentation/devicetree/bindings/spi/apple,spi.yaml
+ F:	Documentation/devicetree/bindings/spmi/apple,spmi.yaml
+ F:	Documentation/devicetree/bindings/usb/apple,dwc3.yaml
++F:	Documentation/devicetree/bindings/usb/apple,sn201202x.yaml
+ F:	Documentation/devicetree/bindings/watchdog/apple,wdt.yaml
+ F:	Documentation/hwmon/macsmc-hwmon.rst
+ F:	arch/arm64/boot/dts/apple/
 
-Yes lets postpone this to rc1.
-
-Also, in future it is strongly recommended that people request folks for
-immutable tags when patches are picked (ideally mention in cover) so
-that dependencies are taken care of.
-
-Thanks
 -- 
-~Vinod
+2.56.0
+
