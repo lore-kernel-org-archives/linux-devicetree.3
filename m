@@ -1,115 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 455BB363C73;
-	Sat, 10 Oct 2026 09:59:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E52F545562A;
+	Sat, 10 Oct 2026 10:00:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791626365; cv=none; b=Pqi71+0bmPMpJdHJaqZrkEFtL9SmM6iE4JYMaZcZcDFe2ZwCD7dUWnKKqPMO0V4BJM4HYedHOliPVDpwfdNnTUNdcetSuXKIYheew+0qT+puU7jOX3NiUgmrTTEiQgqX/kTFgxZKaa4FEWxncjZWdpAqoJGxYqF0EjYdCi/nO8A=
+	t=1791626417; cv=none; b=A84Ckoe7ZnRZBvxl941eGL1u6+aOOXSEC9cN9JeMF0FkBF2zPJcBzUr/56WWGvziHMjmXiJqQHl/pg6B8NrA5WKImXMPHgGpvLMj+EkvwwbaT9qj+xXirE3mVKfqA7iQ65xy8y7WY+EXu6DrbbsVNpbi6mF2waDEmTXIZ02oZAs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791626365; c=relaxed/simple;
-	bh=AjElDOUm60v1Ix01VHxWS47/dRXXxpB47ZgYBE+CEy4=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=tDsT+/hcasP3wlIvILLln9jQ0VI2vzG/Lzt5g63WrfTtJ2le0uqC8UHO5avVYsD3Qb2yFhdTRe1rLLkF0HYKkAVowrCtmstb4z8786NbTDwxijzNadO6eIOcmg9b+GRuj9Y1LoPVEEflcst5lBxhT/xkTn5KTGiRi0H+XIh5rt8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TB/BpCxP; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TB/BpCxP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F35E1F000FF;
-	Sat, 10 Oct 2026 09:59:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791626363;
-	bh=OL9qrSFNi5Uyz2iM7mk/hbZcYsSEjsXWQqERcUGbsl0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=TB/BpCxP4cfJGAAiNhi4ZMG+PP8DFAVzPbND+T677HmfriDxgftINhZK4nXdFMbol
-	 FvI87PaeK1PrkpzV0ntPI+D50dmsdbm8EtoloAb7E7ATbD3KzEfoXIx3WESfekOUXA
-	 nhEnjtkJFU+dz2YkWOgUtCHsIgAx/5ALe8T/Z3RjMjI3D7BC1Nav3p2ATBaBJgh4ak
-	 J8hiDuyXw9GWS9zAHNghNEuKrkmrRcmLKUoOVt27iA182vC3FIJI+jn6mHF8VnjHvO
-	 6TumxIzl6D0AJjBQyQKM0IIb6Mmh/+4f58G+bVdBJGKjvINzetjSRM5jeYFSvh7050
-	 zcYe6VqPYoUIA==
-Message-ID: <sashiko-outbox-166407@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RESEND v7 3/3] usb: typec: tipd: Add sn201202x support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Sasha Finkelstein" <k@chaosmail.tech>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20261010-tipd-ace3-v7-3-317218a96c01@chaosmail.tech>
-References: <20261010-tipd-ace3-v7-0-317218a96c01@chaosmail.tech>
- <20261010-tipd-ace3-v7-3-317218a96c01@chaosmail.tech>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 10 Oct 2026 09:59:22 +0000
+	s=arc-20240116; t=1791626417; c=relaxed/simple;
+	bh=ayZJau9OFqjACQBWnIZS/ybDW5M52l2tK1j010eNrTk=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=bJ0D39oAg6XftGJdTo7YT5yvDrCEBPmx/bPGMULL8+ArDnnJFe3hJnobpkX+PikLQqNif4wSndL/B/HgGIpyqaYWzfglWvbEAc40rRWspLqDiP5cwgDhcJYr1VvAIiO2KVrm6O54c1XxqL7VBr8X9Ua9rGqSWmho5+ZNQbNQ20I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jmu.edu.cn; spf=pass smtp.mailfrom=jmu.edu.cn; arc=none smtp.client-ip=45.254.49.197
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jmu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jmu.edu.cn
+Received: from Vostro-3710.. (unknown [14.220.232.127])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 508f731cf;
+	Sat, 10 Oct 2026 18:00:06 +0800 (GMT+08:00)
+From: Chukun Pan <amadeus@jmu.edu.cn>
+To: Heiko Stuebner <heiko@sntech.de>
+Cc: Rob Herring <robh@kernel.org>,
+	Chukun Pan <amadeus@jmu.edu.cn>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: [PATCH 1/1] arm64: dts: rockchip: remove FRL GPIO for 100ASK DshanPi A1
+Date: Sat, 10 Oct 2026 18:00:00 +0800
+Message-Id: <20261010100000.2236931-1-amadeus@jmu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa125416a5a03a2kunmbe14e65c40c299
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUtXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaSUMfVh5PH0pJGRhKSkpJGVYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKT1VJSUtVSUhJVUpJTFlXWRYaDxIVHRRZQVlLVUtVS1VLWQ
+	Y+
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] usb: typec: tipd: Use-after-free of update_work on probe error path
-- [Medium] usb: typec: tipd: sn201202x misses no_mode_control flag
---
+According to the schematic [1], the 100ASK DshanPi A1 board does not
+have an hdmi_tx_on_h pin, so removed the non-existent FRL GPIO.
 
-commit 40f5bd6453edf7ec57cd88e8cdccab03d3c071c0
-Author: Sasha Finkelstein <k@chaosmail.tech>
+[1] https://dl.100ask.net/Hardware/MPU/RK3576-DshanPi-A1/DshanPi-A1-RK3576-SCH_V1.1.pdf
 
-usb: typec: tipd: Add sn201202x support
+Fixes: 2cd97880fbc4 ("arm64: dts: rockchip: Add frl-enable-gpios to rk3576 boards")
+Signed-off-by: Chukun Pan <amadeus@jmu.edu.cn>
+---
+ .../arm64/boot/dts/rockchip/rk3576-100ask-dshanpi-a1.dts | 9 ---------
+ 1 file changed, 9 deletions(-)
 
-Add support for sn201202x (aka ACE3), a tipd variant that uses a very
-similar register map, that is exposed over a "logical register"
-interface on the SPMI bus.
+diff --git a/arch/arm64/boot/dts/rockchip/rk3576-100ask-dshanpi-a1.dts b/arch/arm64/boot/dts/rockchip/rk3576-100ask-dshanpi-a1.dts
+index 05fb4a7f9a16..41c90414e898 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3576-100ask-dshanpi-a1.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3576-100ask-dshanpi-a1.dts
+@@ -278,9 +278,6 @@ &gpu {
+ };
+ 
+ &hdmi {
+-	frl-enable-gpios = <&gpio2 RK_PB0 GPIO_ACTIVE_LOW>;
+-	pinctrl-0 = <&hdmi_txm0_pins &hdmi_tx_scl &hdmi_tx_sda &hdmi_tx_on_h>;
+-	pinctrl-names = "default";
+ 	status = "okay";
+ };
+ 
+@@ -741,12 +738,6 @@ hp_det: hp-det {
+ 		};
+ 	};
+ 
+-	hdmi {
+-		hdmi_tx_on_h: hdmi-tx-on-h {
+-			rockchip,pins = <2 RK_PB0 RK_FUNC_GPIO &pcfg_pull_none>;
+-		};
+-	};
+-
+ 	pcie {
+ 		pcie_reset: pcie-reset {
+ 			rockchip,pins = <1 RK_PB7 RK_FUNC_GPIO &pcfg_pull_none>;
+-- 
+2.34.1
 
-> diff --git a/drivers/usb/typec/tipd/core.c b/drivers/usb/typec/tipd/core.c
-> --- a/drivers/usb/typec/tipd/core.c
-> +++ b/drivers/usb/typec/tipd/core.c
-> @@ -1962,11 +1962,32 @@ static const struct tipd_data tipd_tps25750_data =
-=3D {
-[ ... ]
-> +static const struct tipd_data tipd_sn201202x_data =3D {
-> +	.irq_handler =3D cd321x_interrupt,
-
-[Severity: Medium]
-Should .no_mode_control =3D true be set here?
-
-The sn201202x Type-C controller autonomously manages alternate mode
-negotiation in hardware. By omitting .no_mode_control =3D true, the Type-C
-core assumes the OS can control alternate modes, incorrectly exposing the
-active and priority sysfs attributes as writable.
-
-If a userspace daemon attempts to activate a mode via sysfs, the kernel
-state will update without any hardware action, leading to a disjoint state
-between kernel and hardware.
-
-> +	.irq_mask1 =3D APPLE_CD_REG_INT_POWER_STATUS_UPDATE |
-> +		     APPLE_CD_REG_INT_DATA_STATUS_UPDATE |
-> +		     APPLE_CD_REG_INT_PLUG_EVENT,
-> +	.tps_struct_size =3D sizeof(struct sn201202x),
-> +	.remove =3D cd321x_remove,
-> +	.register_port =3D cd321x_register_port,
-> +	.unregister_port =3D cd321x_unregister_port,
-
-[Severity: High]
-Can this cause a use-after-free on the probe error path?
-
-If devm_request_threaded_irq() or any subsequent step fails in tipd_init()
-after .connect has been called (e.g., when a partner is already plugged in
-at boot), the error path jumps to err_unregister_port.
-
-This path calls tps->data->unregister_port() (which maps to
-cd321x_unregister_port here) but fails to invoke .remove or explicitly
-cancel the pending cd321x->update_work delayed work.
-
-The probe function returns an error, causing the devres framework to free
-the struct sn201202x containing the work item. When the scheduled work
-eventually executes on the system workqueue, it dereferences the freed
-memory.
-
-Is there a way to ensure cancel_delayed_work_sync(&cd321x->update_work) is
-called during this error unwind?
-
-> +	.trace_data_status =3D trace_cd321x_data_status,
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261010-tipd-ace3-=
-v7-0-317218a96c01@chaosmail.tech?part=3D3
