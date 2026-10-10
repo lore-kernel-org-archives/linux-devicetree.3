@@ -1,272 +1,310 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013036.outbound.protection.outlook.com [52.101.72.36])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 938DC40B11E
-	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 07:28:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791617322; cv=none; b=X2rBe8K6UCxqtz+b46lFFCd7oG18XayICvJI58ycMF+FwMqZ3FO70FagVGMJhXPFWuauAmx98RpLWoCQyz0hUqrrDkfZP8+Hw6uN8IGtW/W4Sf6dGz6k/uB+z9QN5QJPTzdojuwsDcPrHrNS4jGmpm0vnoEOnmmQGsCoGthVn2w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791617322; c=relaxed/simple;
-	bh=2PycBXGVgY3RND2Le7tllKHiCDXfQ6uF7dvtV7xvn3Y=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BzuQR5NZlMuA7ZiMLad1+loEdEdEMmW0zCaStq++sTNXdkKNaoS6tndMP/L8cdiv9AS3tQ201USbv5AKSsgbT9SyttgsXZ0JS/rpFcROOEgHfBTYw7Hl+b37fiH3fINsqII4vKjJHPvlwLYH6R0jjZ1qfozW4V9zDegpEZxT9hI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Eulm5Ywj; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IpcLmp2S; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18789381C4;
+	Sat, 10 Oct 2026 07:30:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.36
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791617455; cv=fail; b=otvYlCWAlugFZKpFfKSwoU7E17hfe6gPlhUX5fQjvJNoM8buWV71Yzkc9fQbd4H5B+jwXiRYd/wP0+NTGT4ELHcytiX/TdXMUvOXKwqRBssk8CaDvF0A1iTZmf8k42twW/K6iBtMwNAzsIL8LRoo8h7O7M92bwvVLIy5Ygow0qw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791617455; c=relaxed/simple;
+	bh=NQQLsshSZpTWdQ4HGFgeVNyerex0K+z+QMh4/wbX9FY=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=Aqg3gcy8qgqVSN87QLplV+0fFBMyOPPNX+2rv5D9NvtrhkGbfR/pWc9m+nG+5jmK76VCC9qupJFFxGxZdC1hLDaWjZRxauwwDyT4mktUphmnFmFvpE2gdbPCsVzleTJE+Re9TCulz0BUiooqazfe3y8JOt/wEd3gurI9uZQGxxA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=est.tech; spf=pass smtp.mailfrom=est.tech; dkim=pass (2048-bit key) header.d=est.tech header.i=@est.tech header.b=EBDbxZAD; arc=fail smtp.client-ip=52.101.72.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=est.tech
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=est.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Eulm5Ywj";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IpcLmp2S"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69A2ejks3282529
-	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 07:28:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=smQofM0ibfRg3eH0rWIrcGsuuljAa6Fkfhn
-	c4jYgCRU=; b=Eulm5Ywj/qYoRQPXprkEDtzzVbkJZODnFA6lvz1M60E+Di+Y8Yp
-	BgRYhxX+ak1g1yd9gzyWfiufV0hWOLmOX0SQtWJi0Ipuf8noNDIAat5ANY8/NTvb
-	dzhTjcfzerXiBedObCbZI/05elQc7hngwQYOK+d2UVpjQvjEq/llD3aALKIIc1zH
-	E86SFAOWWa6nZ+5ZPlE7mz8OHTMbf2X6TGq9FAGAztlnATZhA1zV4DWyV0op3Yhi
-	Lb58Vc886U1dUjLs43x2f+tQC5keHFHnPI5FPwYr0o5tdfKSOsQp7e4TMbVoyA2T
-	RLp9CExa3RMXmE9ZeFpxx026hMNW8wFGUAQ==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h7cpggjgv-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 07:28:40 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-341eff9e381so1225826eec.1
-        for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 00:28:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791617319; x=1792222119; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=smQofM0ibfRg3eH0rWIrcGsuuljAa6Fkfhnc4jYgCRU=;
-        b=IpcLmp2Sk2jUefXXRFLnANojS76FTuekJfLiTfmMyCYOkzxrxOK3W/qTh0Ig9RXwa2
-         7VDPi6LiaVU8QuPIKXXyYvY1hgmt0xtYp50vijY9AtITViQzUdadoPQ/Cpy8rMvJU62Y
-         /w5fbi6y9W2R3feS1kC/a+G2e+Hj98/nKe7QfmneGzB8bpjeF1nbi6OtnO6dBG8CNh/z
-         4x2NFwiv0meM5uMz3KYtXmqUq4IIKHfMs/N2WvWVirMZp9NUzLCTCn7Mg3TBF1Kue8OK
-         Qa71vYgxXDokyfhsHT6B0stLnVlKP5CzeTwIDr98UxZKtD0UxLY0jIhhlS/bg+YeAl6d
-         OTCw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791617319; x=1792222119;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=smQofM0ibfRg3eH0rWIrcGsuuljAa6Fkfhnc4jYgCRU=;
-        b=UXYeicZtDOrc/YjWFIQge+/AZTM7l4SGuFFvDMy3XSezMWzM7wK+xd0YR7bn7IWXBW
-         dMFtQpU432X3dlQFWz0uVkwRuMGWV5hyg8inHPop+s9oKRg127XM9W2yZunVa9eAEPns
-         R4DXTdsWYOJ43fMgSo2xLC/cKDO7BIQpYgA8roIDKtdFFJsQHlb8PDonYW9M/D3WPZcy
-         8vQPs1nhAxC8/MI5X9NTs/BYXvgiPoTlXPsivkapHwcZg/1I/dXM4MaUGot75iv1uIUR
-         mk+HUC9kOnSee8u1ZAxh3BWmn8AaaAB33oUaz8AQ5qE/nWFQuGlSvno/otgVEkx4YjyD
-         wnIA==
-X-Forwarded-Encrypted: i=1; AKwUvBwomWyBL5FLzakfYbBFWlrYmBMLutkiRBxzwspVr+zJ70PfMytdN4OpupiQE3Ut4C7HY1+Y2OEBjb3l@vger.kernel.org
-X-Gm-Message-State: AFq9FYIzMwEtaKbR9RHY07HjAXnJCTrwj76ZN38ZaifXZn0UOu1eevDi
-	OXv1CmcR1sqk8gaV6oOzu0hoLcgU9ICKYhzb5jbljUDTo1w5vvR9bV5pTue019/ckNSjkk9Tn7t
-	kDvBWrT9pUuo0t6r8yTnyDFhrbGkLKwOXh7EgWbfrCQDomfw3D7hVJ9QBUvAlRe/I
-X-Gm-Gg: AYBFou0ngsckE+ekK0tj82W/Smu5sPRywuD8BKch0BlfsuB2utKEiuU5JzluJ1NJJo5
-	tAu88GDiqPzGpRouroN4Xwu7SiLnaG3tsx/7HLElvl701vmv/ZN5odaaoWcVs9WhaKEWzUK3hs8
-	esQJQSCJrvc654kkKV4CRiEhIZor42/2DDlTFnnCZ+9P0KxjnWByIFR8Q5XUlLUkRLmsCVgtc2A
-	fDpLKX2AJp/OFU8owxu9CAUExXppe7m4WsAUoixXGcnfXUPKTEgV8DfWEcpkm65enab+sMfgubU
-	h2+kOKbkqGK+KL3c4WbHEWzMlYJFRhoSaJU7MjO6ZivOofbuVLAB8Qrar/WZGgc4yhZELcQ85Pc
-	69qU2KkbhbzmGqJRcWyrTogxZ/fdwcWdxxT6INly+H4hRYid0PZpcUtbpMwk=
-X-Received: by 2002:a05:701b:291c:b0:141:4951:f150 with SMTP id a92af1059eb24-16a5ea5d6famr4950744c88.18.1791617318775;
-        Sat, 10 Oct 2026 00:28:38 -0700 (PDT)
-X-Received: by 2002:a05:701b:291c:b0:141:4951:f150 with SMTP id a92af1059eb24-16a5ea5d6famr4950681c88.18.1791617317343;
-        Sat, 10 Oct 2026 00:28:37 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a2d2db98sm10712985c88.10.2026.10.10.00.28.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 00:28:36 -0700 (PDT)
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Akhil P Oommen <akhilpo@oss.qualcomm.com>,
-        Bartosz Golaszewski <brgl@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Subject: [PATCH v3] arm64: dts: qcom: nord: Add adreno SMMU nodes
-Date: Sat, 10 Oct 2026 15:28:22 +0800
-Message-ID: <20261010072823.3952417-1-shengchao.guo@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=est.tech header.i=@est.tech header.b="EBDbxZAD"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=YYwTjgUE2VDWYl+TZ2iN5eIlTSS5yR3tbAiwS0iJeTrdk8aHEsKP5fr7OGLiwMxiPsYpWQiZjTsBzHc9CxIfZzTVnETCcc6idDYus/+csXgq/zaA38MSxvAMgFH/mMt1p0hasAE2sope91IH62Nq6caU9tmQzU4zaKawrOECZqIPtUY/bACTdY5M0yxwQbGSDx3m4oO2PxiZ9Y4bxUHqtctSqD0lKUS1VuILRoHIMeYE88iDWIySmgOqoRSErWSWiVOUERtuMM2GRsYcARwRbRKWyZQ7sI0ZA3dJAi7v+1kM6vz9R66nDPk0wFFUdmO/bT85q1GqpxChqdPEGzA35Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1M3joYhGgHVwJcE1yo9G2E9hTLrwIsdxdrHIKwe5938=;
+ b=aUuzOitbUYvbhNrKMMcgVe1mSBr2ks6w0WhyUQm3NzEE514rT+UcXkIhCswHXs/pqtmMEODSROkJS4XiZcBm3V6BADFrWeHlJIAWWgdfWemp0FJGQ/kQe08RhXS03F89w+xEC4kiUdwlx0fFRpxd7FfSaOJObZ14t+wZZB15YqkHdnwFV/pBm3vWRAZm6Mabsmb5qWKQhtBBGSuOkH4YUFuC1SN9RlHUnDyPDVSKcMkIXIqqEVb3u7CXSQ4nqb5nX8On44p1QulwYVM8MaWDlwB05bCq2CxiWF3bN3UzurnJRnnUxDwGTRuk1kUT85ET3VL4G5aEBHBK4ARGFDn97g==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=est.tech; dmarc=pass action=none header.from=est.tech;
+ dkim=pass header.d=est.tech; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=est.tech; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1M3joYhGgHVwJcE1yo9G2E9hTLrwIsdxdrHIKwe5938=;
+ b=EBDbxZADUGe5Y17RdM9eSdS+1EZqbGikS5vhGjmGQH4Kqw0xVgAQKI7psZ/yrxNT28eyHfPWeOB6MswyUneT6heO9vCqv7TOE2L5558pB3nPP2adk/dkBhxdl08fLfUewX4M/EghZbwoFEZbC3Rw0c41VQm2+8HX0vZncef5wAqPAxgsT6cy1Gs3C/uLxYmb2LMLrAmdcyIBbEiYuggEadByWnQj/d+XTgc4CfPvpFX7Ia6NbL2f/1AIB7phZMsRRvrG9HduPs1ZmGNtMG28AWLwdcoZRa1rZN07YFBUdTkKwd8ZvZpKEkpAC6sPncE+JIQ6uV54Bf1vEoP4hOsang==
+Received: from AM7P189MB0807.EURP189.PROD.OUTLOOK.COM (2603:10a6:20b:115::19)
+ by DB8P189MB0777.EURP189.PROD.OUTLOOK.COM (2603:10a6:10:125::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.19; Sat, 10 Oct
+ 2026 07:30:50 +0000
+Received: from AM7P189MB0807.EURP189.PROD.OUTLOOK.COM
+ ([fe80::744:fbdb:56c3:26f5]) by AM7P189MB0807.EURP189.PROD.OUTLOOK.COM
+ ([fe80::744:fbdb:56c3:26f5%6]) with mapi id 15.21.0496.017; Sat, 10 Oct 2026
+ 07:30:50 +0000
+From: Kyle Swenson <kyle.swenson@est.tech>
+To: Rob Herring <robh@kernel.org>
+CC: "o.rempel@pengutronix.de" <o.rempel@pengutronix.de>,
+	"kory.maincent@bootlin.com" <kory.maincent@bootlin.com>,
+	"andrew+netdev@lunn.ch" <andrew+netdev@lunn.ch>, "davem@davemloft.net"
+	<davem@davemloft.net>, "edumazet@google.com" <edumazet@google.com>,
+	"kuba@kernel.org" <kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org"
+	<conor+dt@kernel.org>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	=?iso-8859-1?Q?Roland_Kov=E1cs?= <roland.kovacs@est.tech>,
+	=?iso-8859-1?Q?David_Nystr=F6m?= <david.nystrom@est.tech>
+Subject: Re: [PATCH net-next v3 1/2] dt-bindings: net: pse-pd: Add bindings
+ for LTC4266 PSE Controller
+Thread-Topic: [PATCH net-next v3 1/2] dt-bindings: net: pse-pd: Add bindings
+ for LTC4266 PSE Controller
+Thread-Index: AQHdTsdSZejWFg7FL0SFdqli66xuK7byoXEAgAPTeIA=
+Date: Sat, 10 Oct 2026 07:30:50 +0000
+Message-ID: <asnpHkvHsFy2dX-9@est-xps15>
+References: <20260927212929.593366-1-kyle.swenson@est.tech>
+ <20260927212929.593366-2-kyle.swenson@est.tech>
+ <20261007210454.GA281943-robh@kernel.org>
+In-Reply-To: <20261007210454.GA281943-robh@kernel.org>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=est.tech;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: AM7P189MB0807:EE_|DB8P189MB0777:EE_
+x-ms-office365-filtering-correlation-id: e12ae4a3-7c34-486c-06e1-08df26a068c5
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|7416014|261009223027099003|38070700021|56012099006|11063799006|4143699003|10067099003|22082099003|18002099003|13003099007|3023799007;
+x-microsoft-antispam-message-info:
+ 62c+P7YMj3aCLtBnJtYbeUznlEI5vFUqa7wOGlf6MndTEgKbTcTc5I8Y0Ye5OA8GgvAkRUntcs/mGrntDEg7zUkvgiqrX0cm7iQMZaFLpl/IAy5h8ZJB4PTRTSmGZh74h618Y2RNOqk/j0vSsoCxwi3NDyC09jwBj+zZd9yi5nYciOyWiNDmJZpIFWhtmybHpwAClv2zS2Yv0DbPqro2jOuhwH9FAxs9O0x2oz0TVlt5GS/vsyfFz1UP8XxuDMAFeZuwgT39xm6t+krEA7UMwRyNUQgcfcrjmJ2wO3xBfgzwHDPssK4D1I5YivPSbzKv5NpgrBpd8nDyEqvvZvL+wXZMox/Rlw69gXwCNIQBAL8h+yZvzoNKGwy7LxcCzqRYg7n+18YnpFSJaCDdtQTGiIlcxYYu7gVLLi15G0lAQcy5TqzqthN1Unixxd0uVx51EAOEnINI9Ogfm2ZWJyNa49JCSs1bF9k5zxGHUVTzfPnfYrf0T3nWPaEnaGF7h2LS2wu2COMGiVS51V5yEU8eYwmOJgcJ9nxvBEhi6cclNQmTQsv5eofRsyxz4Fruls1Me61M26JyCkmrJecW6M6hctjE7X/mFIuhLhG1L4g0SiCJw6yFsGeFzLXIBiZjWk1o3rTMkBiML6jpjI5vxDZeVY6EqgdXrMG9m2PNLaYNZx4=
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM7P189MB0807.EURP189.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(7416014)(261009223027099003)(38070700021)(56012099006)(11063799006)(4143699003)(10067099003)(22082099003)(18002099003)(13003099007)(3023799007);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?iso-8859-1?Q?MwHqN+VZmSAM0vrmLnnKJt8675vYJIakXz/kUDwSiBFkF4qgqZmVNDmPYA?=
+ =?iso-8859-1?Q?kFAjfASryMb5XPZMNCSzPmxpaA1Bbwb4uxTArhaR2sACNY1jy6n6fkhVgN?=
+ =?iso-8859-1?Q?YDe7qfcSEQaDTbPzusssu8CZvSN28Uxx71bv4ym8nTPCzMxqdt1nghba/D?=
+ =?iso-8859-1?Q?fnv06fSIRAnfLbFjUoKDVEsUFfwH8IDvEHM9Q/Nq0pDAMBH7WMargtNO9M?=
+ =?iso-8859-1?Q?Y6d+8O8nIYYnDmYcVpplN07kmAgr6HRIX+/thhodkBcaMJroCEjVYN6tSx?=
+ =?iso-8859-1?Q?lM5Xuo8wY2V9lCqLx6ORnexDTlIfeDxToPhWyPx2Z//iiStPK7RjzY7lNW?=
+ =?iso-8859-1?Q?7n4s/3DDe4b8YDBrMkv7YbrpVXjCK8aFKeF2mPUxxp1KaDndACBStOP7k3?=
+ =?iso-8859-1?Q?ioptwpr52xo2DXDEQlNjvDnCTDnB2h536aMK5g7WRpfH8BUIkL4j9sGEr2?=
+ =?iso-8859-1?Q?SYZ6v4lF8kbYjbFwXCfU24py6WKIwU6xvM7Lnvid4/KAcE5WryylOOZ2de?=
+ =?iso-8859-1?Q?bXjwjY4bm/eW0HhcWxMBjw9H6msJwTg/kOlQBoGI+7Tj2KJ5C8OxIrrW4R?=
+ =?iso-8859-1?Q?11k7Y+nYL6uqZ/1wEIwofv/goPFgkUhGXD9NF340oD2gAToRJiHnQN1FH2?=
+ =?iso-8859-1?Q?TlZmtclw3HEoUw8ID0zN223nzw552YBEMpOFW5c02oNyqhU8/kd8ui1DZX?=
+ =?iso-8859-1?Q?P9ITe0Hk+6jG+4HyFmund9Nsw5qSm0y4Cb9a6RKfu5syWAMOC9ebNbI2GG?=
+ =?iso-8859-1?Q?eDn6zl6osMY9yECOlQHmzdXXI/W90kJIEzVDAolTOzLX6ubyQl9uJn6dII?=
+ =?iso-8859-1?Q?ALo8MOxklWOrzM7TI6tBgF9+mYgpCBVUliN3V7J8i6rBfQ9vHIm2qhHXCO?=
+ =?iso-8859-1?Q?n/xiEbGiX9+rHyOy3pU+4kG4mV/BW8OjA7M4VxvdH1VHVcBexQImpf4Ad1?=
+ =?iso-8859-1?Q?9I3soF8brUf6Q5qoydgjw58kVoxMv2qQzuO+4/QM3FgoAjJAPTe0uPVx7u?=
+ =?iso-8859-1?Q?sCGYekJenjBQ35biz6e6zfyKwYhb8URwqjiDrBsVYlwayjDwWHtPiYKoej?=
+ =?iso-8859-1?Q?F5lfboJckSoWZUUsD1ZbEunq6w+dPGop8Rk5WcKXOasO7BVnsEghkNfcb1?=
+ =?iso-8859-1?Q?Nl9Y4oH8DLQvw52CVPUdSUtKK7L6JIppt2Jr+c1eHqGtTDyigyEPW+A5Br?=
+ =?iso-8859-1?Q?xC8bBBg2kBViDyzaHAQhZuS9CrQKQmeVlcunsWv2GG88QsWnp0hXi+4ts4?=
+ =?iso-8859-1?Q?oaU/E7F4dop1MRc+42dAqQ0yefsUsmSkNNVZMiYNjClWgdxCr/+lQB86vW?=
+ =?iso-8859-1?Q?iQtQGYw5WvGxe0bXlg8MlwcgU+gpJmz3ob2bhiRX8Ujet3jl9xwwf1zxo0?=
+ =?iso-8859-1?Q?Yt2O5BK1sVHl6f1FGOhdP0HQIT+KSmJba5wW/LMU6gHt4PZq5eqtUW7npc?=
+ =?iso-8859-1?Q?hRRNGUIFHcJdz9CfLInDMg2eJVy7BS0IbeLNUHLasYUOV+wa+WaP0wEqLS?=
+ =?iso-8859-1?Q?mPutQSos28xPDW9YNZzAbZGYj5ou9gAHBwy00KAhG9MTr2DvDeBPX55S5i?=
+ =?iso-8859-1?Q?QAVso/R7DdAvR0ExzUMi9FfdEkXoajWyohfMRElj2DWpZCm8/dSXEsx9L/?=
+ =?iso-8859-1?Q?eURxCEqmhvxBcnfOFA1xMME0Kz7ejwsIOmGiO38/SaLEMnA2h1YTXL2gmK?=
+ =?iso-8859-1?Q?B3NETV8ps1H1cq635MlI7liX+wo1RrFyqSJTGk+7/gsuXnpvIGK+aX12aY?=
+ =?iso-8859-1?Q?znrP3eZ8IEjcSFXvqCjQ87BsMz/kCHoEnwWBohgRGFxqyroOqpx/8o2Plt?=
+ =?iso-8859-1?Q?ogHPDwZnmw=3D=3D?=
+Content-Type: text/plain; charset="iso-8859-1"
+Content-ID: <7962ADC17FAE084DA89585FEA09B4B32@EURP189.PROD.OUTLOOK.COM>
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEwMDAyOSBTYWx0ZWRfXw+ngaqLVVQoO
- 56ls/7gldNlcG6aHShU7xg1a8SZJypJHFM7dS01FCbuxoL/SLUR9k6vkd/kPQMkJjzD4i9pf184
- GE9YVy6D8+qyUImvrBV40lhVM5N6zws=
-X-Authority-Analysis: v=2.4 cv=StoFe/O0 c=1 sm=1 tr=0 ts=6ac9e928 cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=PBtlRvXRUDiLbXfjrAwA:9 a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-ORIG-GUID: MxO-Lw6p__GNL_9MamBvFrigF-j0b28G
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEwMDAyOSBTYWx0ZWRfXzgKMNm1ZXXPx
- egbQ2hDHl09a0bqKBzoCFtu4hJ8KBbzt4spBnJ1MPOxDKNqkfBliGIyqEcS08IX2Yi8YiInzUn9
- Mdbd0tebUGEv4RMdEEqzLKFHodHsilgCQGJXAjRm4+sIh7uKhUptlsBhzduMbGI3GLiLNAJAPDP
- wdHAgkqyrucQvu4BjZY52AYP4dx6tPFtFeffnj+8zEcMqgBgPgLohTkETC2MlxskC5h+AJqhmlH
- riHlxCYbqVhG1yvFdS/hqY4cge0v6uaIi16pJ22/MnbnFk76gY4/2r/QjC3I5z78gW491iGAZXS
- mmYjS7lYylhAlEw4C7mUVtjqL+tYJS5BmbWzUVIq/7ydL1sys76tW05ExIPhpuejO0nLTohIgqN
- 3dBqTwmgAJn5bm4R9h5gfJMX5qbXt8g0kuKETNRDs6V/ximZORSmgMT5Ayonn4QOoolovI8YihU
- HCNVrcggf+qZi+d/4mA==
-X-Proofpoint-GUID: MxO-Lw6p__GNL_9MamBvFrigF-j0b28G
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-10_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 spamscore=0 lowpriorityscore=0 adultscore=0
- phishscore=0 clxscore=1015 impostorscore=0 malwarescore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610100029
+X-OriginatorOrg: est.tech
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AM7P189MB0807.EURP189.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: e12ae4a3-7c34-486c-06e1-08df26a068c5
+X-MS-Exchange-CrossTenant-originalarrivaltime: 10 Oct 2026 07:30:50.4041
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: d2585e63-66b9-44b6-a76e-4f4b217d97fd
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 7AwkyQ8JUYixgXKNpIZgEV80maNAG528jPqTNILpxDDwfERBPwLTDTi8tzhhyaKAYNU9EKxq8Am6pA4TISQAsA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8P189MB0777
 
-From: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
+Hello Rob,
 
-Add the Adreno GPU SMMMUs (MMU-500) for both GPU instances.
+On Wed, Oct 07, 2026 at 04:04:54PM -0500, Rob Herring wrote:
+> On Sun, Sep 27, 2026 at 09:29:48PM +0000, Kyle Swenson wrote:
+> > Add the LTC4266 Power Sourcing Equipment controller device tree binding=
+s
+> > documentation.
+> >=20
+> > Signed-off-by: Kyle Swenson <kyle.swenson@est.tech>
+> > ---
+> >  .../bindings/net/pse-pd/lltc,ltc4266.yaml     | 180 ++++++++++++++++++
+> >  1 file changed, 180 insertions(+)
+> >  create mode 100644 Documentation/devicetree/bindings/net/pse-pd/lltc,l=
+tc4266.yaml
+> >=20
+> > diff --git a/Documentation/devicetree/bindings/net/pse-pd/lltc,ltc4266.=
+yaml b/Documentation/devicetree/bindings/net/pse-pd/lltc,ltc4266.yaml
+> > new file mode 100644
+> > index 000000000000..e11c9d601eee
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/net/pse-pd/lltc,ltc4266.yaml
+> > @@ -0,0 +1,180 @@
+> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/net/pse-pd/lltc,ltc4266.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: Linear Technology LTC4266 Power Sourcing Equipment controller
+> > +
+> > +maintainers:
+> > +  - Kyle Swenson <kyle.swenson@est.tech>
+> > +
+> > +allOf:
+> > +  - $ref: pse-controller.yaml#
+> > +
+> > +properties:
+> > +  compatible:
+> > +    enum:
+> > +      - lltc,ltc4266
+> > +
+> > +  reg:
+> > +    maxItems: 1
+> > +
+> > +  interrupts:
+> > +    maxItems: 1
+> > +
+> > +  channels:
+> > +    type: object
+> > +    additionalProperties: false
+> > +    description:
+> > +      Defines the 4 physical delivery channels on the controller that =
+can be
+> > +      referenced by PSE PIs through their "pairsets" property. The act=
+ual port
+> > +      matrix mapping is created when PSE PIs reference these channels =
+in their
+> > +      pairsets.
+> > +
+> > +    properties:
+> > +      '#address-cells':
+> > +        const: 1
+> > +
+> > +      '#size-cells':
+> > +        const: 0
+> > +
+> > +    patternProperties:
+> > +      '^channel@[0-3]$':
+> > +        type: object
+> > +        additionalProperties: false
+> > +
+> > +        properties:
+> > +          reg:
+> > +            maxItems: 1
+> > +
+> > +          sense-resistor-micro-ohms:
+> > +            description: Sense resistor connected to the channel's MOS=
+FET, used
+> > +              for current measurement and for overcurrent detection. T=
+he I_CUT
+> > +              and I_LIM register encodings depend on which value is fi=
+tted, so
+> > +              a wrong value programs the wrong thresholds.
+> > +            enum: [250000, 500000]
+> > +
+> > +        required:
+> > +          - reg
+> > +          - sense-resistor-micro-ohms
+> > +
+> > +    required:
+> > +      - '#address-cells'
+> > +      - '#size-cells'
+> > +
+> > +  pse-pis:
+> > +    type: object
+> > +    additionalProperties: false
+> > +
+> > +    properties:
+> > +      '#address-cells':
+> > +        const: 1
+> > +
+> > +      '#size-cells':
+> > +        const: 0
+> > +
+> > +    patternProperties:
+> > +      '^pse-pi@[0-3]$':
+> > +        type: object
+> > +        additionalProperties: true
+>=20
+> This cannot be true. That allows adding any property.
+>=20
 
-Wire up the gpucc clock and power domain on both adreno SMMU nodes in
-nord-embedded.dtsi for embedded Nord variants where gpucc is available.
+So my intent with the additionalProperties: true was to avoid
+replicating the entire pse-pis node from pse-controller.yaml.
+Conceptually, my goal was to inherit everything from the
+pse-controller.yaml binding, except limit the maxItems to 1 (since the
+LTC4266 only supports power over a single PI).
 
-Signed-off-by: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
-Reviewed-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
----
-Changes for v3:
-- Wire up clocks and power-domains in nord-embedded.dtsi
-- Rebase on next-20261009 where binding dependency is cleared
-- Link to v2: https://lore.kernel.org/all/20260924084805.1021758-1-shengchao.guo@oss.qualcomm.com/
+Is there a better way to express this?
 
-Changes for v2:
-- Fix adreno_smmu_0 interrupts, 673 -> 674 (Thanks Konrad!)
-- Link to v1: https://lore.kernel.org/all/20260922111354.533902-1-shengchao.guo@oss.qualcomm.com/
+> > +        properties:
+> > +          pairsets:
+> > +            description: The LTC4266 delivers power to a PI over a sin=
+gle
+> > +              pairset, driven by one of the controller's four channels=
+. There
+> > +              is no 4-pair mode spreading a PI over two channels, so e=
+xactly
+> > +              one channel phandle is expected.
+> > +            maxItems: 1
+> > +          pairset-names:
+> > +            maxItems: 1
+>=20
+> An empty node is valid? Needs 'required'.
 
- arch/arm64/boot/dts/qcom/nord-embedded.dtsi | 13 ++++
- arch/arm64/boot/dts/qcom/nord.dtsi          | 74 +++++++++++++++++++++
- 2 files changed, 87 insertions(+)
+I thought the 'required' comes from the pse-controller.yaml binding.
+If I adjust the example dts in the binding with something like
 
-diff --git a/arch/arm64/boot/dts/qcom/nord-embedded.dtsi b/arch/arm64/boot/dts/qcom/nord-embedded.dtsi
-index 1ab7d9bc3cfe..867037e1a2b9 100644
---- a/arch/arm64/boot/dts/qcom/nord-embedded.dtsi
-+++ b/arch/arm64/boot/dts/qcom/nord-embedded.dtsi
-@@ -8,6 +8,7 @@
- #include <dt-bindings/clock/qcom,nord-dispcc.h>
- #include <dt-bindings/clock/qcom,nord-gcc.h>
- #include <dt-bindings/clock/qcom,nord-gpucc.h>
-+#include <dt-bindings/clock/qcom,nord-gpu2cc.h>
- #include <dt-bindings/clock/qcom,nord-negcc.h>
- #include <dt-bindings/clock/qcom,nord-nwgcc.h>
- #include <dt-bindings/clock/qcom,nord-segcc.h>
-@@ -34,6 +35,18 @@ mc_virt: interconnect-mc-virt {
- 	};
- };
- 
-+&adreno_smmu_0 {
-+	clocks = <&gpucc GPU_CC_GPU_SMMU_VOTE_CLK>;
-+	clock-names = "hlos";
-+	power-domains = <&gpucc GPU_CC_CX_GDSC>;
-+};
-+
-+&adreno_smmu_1 {
-+	clocks = <&gpu2cc GPU_2_CC_GPU_SMMU_VOTE_CLK>;
-+	clock-names = "hlos";
-+	power-domains = <&gpu2cc GPU_2_CC_CX_GDSC>;
-+};
-+
- &crypto {
- 	interconnects = <&aggre1_noc_tile MASTER_CRYPTO_CORE0 QCOM_ICC_TAG_ALWAYS
- 			 &mc_virt SLAVE_EBI1 QCOM_ICC_TAG_ALWAYS>;
-diff --git a/arch/arm64/boot/dts/qcom/nord.dtsi b/arch/arm64/boot/dts/qcom/nord.dtsi
-index fdbe290350dd..147d8e595a3a 100644
---- a/arch/arm64/boot/dts/qcom/nord.dtsi
-+++ b/arch/arm64/boot/dts/qcom/nord.dtsi
-@@ -1523,6 +1523,80 @@ tcsr: syscon@1f60000 {
- 			reg = <0x0 0x01f60000 0x0 0xa0000>;
- 		};
- 
-+		adreno_smmu_0: iommu@3da0000 {
-+			compatible = "qcom,nord-smmu-500",
-+				     "qcom,adreno-smmu",
-+				     "qcom,smmu-500",
-+				     "arm,mmu-500";
-+			reg = <0x0 0x03da0000 0x0 0x40000>;
-+			#iommu-cells = <2>;
-+			#global-interrupts = <1>;
-+			interrupts = <GIC_SPI 674 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 678 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 679 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 680 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 681 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 682 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 683 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 684 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 685 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 686 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 687 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 688 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 422 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 476 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 574 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 575 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 576 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 577 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 660 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 662 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 665 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 666 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 667 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 669 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 670 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 700 IRQ_TYPE_LEVEL_HIGH>;
-+			dma-coherent;
-+		};
-+
-+		adreno_smmu_1: iommu@98a0000 {
-+			compatible = "qcom,nord-smmu-500",
-+				     "qcom,adreno-smmu",
-+				     "qcom,smmu-500",
-+				     "arm,mmu-500";
-+			reg = <0x0 0x098a0000 0x0 0x40000>;
-+			#iommu-cells = <2>;
-+			#global-interrupts = <1>;
-+			interrupts = <GIC_SPI 932 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 936 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 937 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 938 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 939 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 940 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 941 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 942 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 924 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 925 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 926 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 927 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 928 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 929 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 920 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 921 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 922 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 851 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 852 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 853 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 854 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 855 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 856 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 857 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 858 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 859 IRQ_TYPE_LEVEL_HIGH>;
-+			dma-coherent;
-+		};
-+
- 		pdc: interrupt-controller@b220000 {
- 			compatible = "qcom,nord-pdc",
- 				     "qcom,pdc";
--- 
-2.43.0
+           pse_pi2: pse-pi@2 {
+-            reg =3D <2>;
+-            #pse-cells =3D <0>;
+-            pairset-names =3D "alternative-a";
+-            pairsets =3D <&phys2>;
+-            polarity-supported =3D "MDI";
+-            vpwr-supply =3D <&vreg_pse>;
+           };
 
+Then make dt_binding_check will fail with=20
+
+  DTEX    Documentation/devicetree/bindings/net/pse-pd/lltc,ltc4266.example=
+.dts
+  DTC [C] Documentation/devicetree/bindings/net/pse-pd/lltc,ltc4266.example=
+.dtb
+Documentation/devicetree/bindings/net/pse-pd/lltc,ltc4266.example.dts:83.33=
+-84.17: Warning (unit_address_vs_reg): /example-0/i2c/ethernet-pse@2f/pse-p=
+is/pse-pi@2: node has a unit name, but no reg or ranges property
+Documentation/devicetree/bindings/net/pse-pd/lltc,ltc4266.example.dtb: ethe=
+rnet-pse@2f (lltc,ltc4266): pse-pis:pse-pi@2: 'reg' is a required property
+	from schema $id: http://devicetree.org/schemas/net/pse-pd/lltc,ltc4266.yam=
+l
+Documentation/devicetree/bindings/net/pse-pd/lltc,ltc4266.example.dtb: ethe=
+rnet-pse@2f (lltc,ltc4266): pse-pis:pse-pi@2: '#pse-cells' is a required pr=
+operty
+	from schema $id:
+	http://devicetree.org/schemas/net/pse-pd/lltc,ltc4266.yaml
+
+But I'm probably missing something obvious, so please don't hesitate to
+point it out or point me to docs.
+
+>=20
+> Rob
+
+Thanks so much for the review!
+Kyle=
