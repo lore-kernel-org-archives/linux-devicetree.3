@@ -1,121 +1,117 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 183583630B0;
-	Sat, 10 Oct 2026 07:37:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C27B370AE7;
+	Sat, 10 Oct 2026 07:58:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791617876; cv=none; b=Vvc+CVxKeEVVR2QbcHqRjd/okBjFv2UjFMt1i7jhv+rFM8TmUanZxl7PRujrxoGEvdPXq70W9lv3zPFZzQ3n/cxTYKmtMsJ1SiQI8TE/ZY9sfS5w+htlH9WnA5yRMzt1JZdHyqIISIl0XvCtBe4b3+I6Nx3A0HAv5OEMjS1Ah/0=
+	t=1791619121; cv=none; b=E9FyyzeASdCdaz693bfbVC0eSjlfE+dL911hUqTh1PaeoMBkLQkpxWP8mRevuz2HF72NV1f+kTuevLHlvVRooNYSICeYW6MbsQchjfPUb5ZtSiIxG8uxpUn7pMSf1t/9jJtzWFlW6xw8Z0o/Q2Etd2TYtd6WNc9S9RizL8lYJoU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791617876; c=relaxed/simple;
-	bh=81zzneQkm9DlTp2+i9sm+Fq6tE2dxkQHQWLTPITQrYE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LCYs8lSoDBYeaDL5IYukCBORZEuK1Hmjf1O5BeOjIzig4adLwf7ifLYc0tSmDqLF8bbqcOZsK6lxlpTeJxJ9SVU7vqDTry8c8iv2YiZOEOBWevGkQfSu2DLC6Rkh+Fp3llmAbddaLr0LXTnuY8YD7Ol//ke13a1U5FrWNlU+Uew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=la0eLuY3; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791619121; c=relaxed/simple;
+	bh=0sOYYVW6e1ibf8hHtLPShzDRhUbnHP4+ZziC+5WDgoI=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=cVDIqCBkeCoULz9jMmG10/3DUI53CzJSG+g1A9+k0oWhp1I0g2e5/uLQY7LTYD0YD7lT90TBG+Oz9ENdmRBykTKT+E/ocI2NPfWWq/yXazmzltC35aewe+VNHCWaxPrisRbEa/D3h+AjvJ7LeTRLd46/CgzC7U7Qnc4re8ZM3FI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GlBWvGYH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="la0eLuY3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791617874; x=1823153874;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=81zzneQkm9DlTp2+i9sm+Fq6tE2dxkQHQWLTPITQrYE=;
-  b=la0eLuY3bHbtYD8iu+JakZJWeke36IoFb7FiusRiQYihcEXVD96YrOgz
-   rWZbOSaCBrbD8QltULiendX9bSIGxDxYyUU6+sOsLOxPEt3FHwQca31PY
-   RFIQ0zk6BHrzx7YsmZYbpLfVLoyu05kq5n3PEN6zCZjQMJZjrEq1+W8RG
-   w3N8JpaLU/V445mo5hZSAR7Mqzv7VTuutQwP5QKlQYPfX4cpYOdqK/OKJ
-   KPuPNkU8GbI115XuBe2JnsXqYc6F4Fm+x0C09BSq2OXtTf9yTQPxsxC+r
-   HJ1rpUdzC5pC43v6SGSBJdEi2Bsx5i+eJ4Xm8Su9TLOWDGO/dopflCCZU
-   g==;
-X-CSE-ConnectionGUID: /ZeYLwlxQme+IHf1EKBVAA==
-X-CSE-MsgGUID: 80aI/LisQcGYHBNHtk1I9g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11930"; a="315253"
-X-IronPort-AV: E=Sophos;i="6.27,149,1787036400"; 
-   d="scan'208";a="315253"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 10 Oct 2026 00:37:51 -0700
-X-CSE-ConnectionGUID: MVngr4iYR46NYRTVANZLzA==
-X-CSE-MsgGUID: dk+EyF3nRXm9B3HDHcseyA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,149,1787036400"; 
-   d="scan'208";a="571998"
-Received: from lkp-server01.sh.intel.com (HELO 0caa9d2d175c) ([10.239.97.150])
-  by fmviesa004.fm.intel.com with ESMTP; 10 Oct 2026 00:37:48 -0700
-Received: from kbuild by 0caa9d2d175c with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1xFReL-000000006z9-2hTs;
-	Sat, 10 Oct 2026 07:37:45 +0000
-Date: Sat, 10 Oct 2026 15:37:41 +0800
-From: kernel test robot <lkp@intel.com>
-To: Christian Marangi <ansuelsmth@gmail.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>, linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev
-Subject: Re: [PATCH v3 2/2] ASoC: airoha: Add support for AN7581 PCM driver
-Message-ID: <202610101524.PIlCqVIG-lkp@intel.com>
-References: <20261009111334.23522-3-ansuelsmth@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GlBWvGYH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC66A1F000FF;
+	Sat, 10 Oct 2026 07:58:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791619119;
+	bh=TOodvZ/Z1OL3DouPwaKF+cp7xl8SVz0utrqiuJvN8QY=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=GlBWvGYH7dcSeyv9f6bsXGy0q3XMl7SDZPBwo95JKuyJPZ3C6LBi1+QBvdrq6eNXU
+	 Brs7P9+9mw05fwGUUuuHNvTB00j23YSDrPaahtvxlMxWSq9wKGOpY9Oejx+LVqB6WX
+	 oXB3j/oyZ3BIxLzemW+jnYwCOOwhltnI0/8nYnXq/byU1gGuKztO4H9Nkbuz3XuSPM
+	 3SSltqqMvjCfIwUQqm83Aog1MeiU/3/m8ZXJuEtMYa5ajGTFkBBMHLL5kuyyuSrgcj
+	 Rje7ALGjG80BkuVGgx4/0nl0l1jQioh1OZtnRUygErE2E6LNy+5+Wcco4V8i4Gxefu
+	 5F7UGn5/8Xl3A==
+Subject: Re: [PATCH net-next v2 1/6] dt-bindings: net: ftgmac100: Add AST2700
+ compatible
+From: netdev-bot+sashiko@kernel.org
+To: jacky_chou@aspeedtech.com
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, kuba@kernel.org,
+ pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ ratbert@faraday-tech.com, edumazet@kernel.org, hkallweit1@gmail.com,
+ linux@armlinux.org.uk, netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Date: Sat, 10 Oct 2026 07:58:38 +0000
+Message-ID: <179161911824.434549.4075299707625994950@kernel.org>
+In-Reply-To: <20261006-support_ast2700-v2-1-36de51fb8066@aspeedtech.com>
+References: <20261006-support_ast2700-v2-1-36de51fb8066@aspeedtech.com>
+X-sashiko-severity: Low
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261009111334.23522-3-ansuelsmth@gmail.com>
 
-Hi Christian,
+Thank you for your contribution! Sashiko AI review found more severe
+issue(s) in other patches of this series. This mail is only an FYI, in case
+you want to address the nit picks below when you respin.
 
-kernel test robot noticed the following build errors:
+Low priority / nit picks for your consideration:
 
-[auto build test ERROR on broonie-sound/for-next]
-[also build test ERROR on next-20261009]
-[cannot apply to linus/master v7.3-rc6]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Christian-Marangi/ASoC-dt-bindings-airoha-Add-AN7581-PCM-controller/20261009-131331
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-next
-patch link:    https://lore.kernel.org/r/20261009111334.23522-3-ansuelsmth%40gmail.com
-patch subject: [PATCH v3 2/2] ASoC: airoha: Add support for AN7581 PCM driver
-config: hexagon-allmodconfig (https://download.01.org/0day-ci/archive/20261010/202610101524.PIlCqVIG-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 242243a5814307de825db3428662d67b064e2cbc)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20261010/202610101524.PIlCqVIG-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202610101524.PIlCqVIG-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> sound/soc/airoha/an7581-pcm.c:618:3: error: field designator 'pcm_construct' does not refer to any field in type 'const struct snd_soc_component_driver'
-     618 |         .pcm_construct = an7581_pcm_new,
-         |         ~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   sound/soc/airoha/an7581-pcm.c:778:14: warning: unused variable 'connection_type' [-Wunused-variable]
-     778 |         const char *connection_type;
-         |                     ^~~~~~~~~~~~~~~
-   1 warning and 1 error generated.
-
-
-vim +618 sound/soc/airoha/an7581-pcm.c
-
-   614	
-   615	static const struct snd_soc_component_driver an7581_pcm_platform = {
-   616		.name = "an7581-pcm-audio",
-   617		.pointer = an7581_pcm_pointer,
- > 618		.pcm_construct = an7581_pcm_new,
-   619	};
-   620	
+- [Low] Already fixed later in this series, so the baseline decision is
+  false.
 
 --
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+
+dt-bindings: net: ftgmac100: Add AST2700 compatible
+
+This adds aspeed,ast2700-mac to the FTGMAC100 compatible list, which
+requires the faraday,ftgmac100 fallback. It also updates the RMII RCLK
+clock description to include AST2700, and allows the resets property for
+AST2700 in the same way as for AST2600.
+
+> diff --git a/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml b/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
+> index d14410018bcf6..bee9570a6f63f 100644
+> --- a/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
+> +++ b/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
+> @@ -18,6 +18,7 @@ properties:
+>                - aspeed,ast2400-mac
+>                - aspeed,ast2500-mac
+>                - aspeed,ast2600-mac
+> +              - aspeed,ast2700-mac
+>            - const: faraday,ftgmac100
+
+[Severity: Low]
+With this patch, "aspeed,ast2700-mac", "faraday,ftgmac100" becomes a
+valid compatible pair. However, at this commit, ftgmac100_of_match[] in
+drivers/net/ethernet/faraday/ftgmac100.c has no aspeed,ast2700-mac entry.
+Such a node could only bind through the generic faraday,ftgmac100 entry
+(FTGMAC100_FARADAY).
+
+On that path, ftgmac100_probe() would do the following:
+
+  - program the ring-end bits at BIT(15) instead of the Aspeed BIT(30)
+  - leave is_aspeed false, so ftgmac100_setup_clk() never claims
+    MACCLK/RCLK
+  - register the embedded MDIO bus through ftgmac100_setup_mdio()
+  - never set a DMA mask wider than 32 bits
+
+Would an AST2700 node work correctly if it fell back to the Faraday
+match?
+
+Later patches in this series fix this. "net: ftgmac100: Add AST2700
+compatible support" adds FTGMAC100_AST2700 and an aspeed,ast2700-mac
+match entry, ahead of the faraday fallback. That entry selects the
+BIT(30) and is_aspeed path.
+
+"net: ftgmac100: Add AST2700 upper DMA address support" then adds
+dma_set_mask_and_coherent(..., DMA_BIT_MASK(35)).
+
+So the problem only shows up when bisecting to this commit, and only with
+an out-of-tree AST2700 DTS on an ARM64 build. ARM64 builds are only
+enabled by "net: ftgmac100: Allow building on ARM64". Landing the binding
+before the driver match is the usual order for dt-bindings series.
+
+[ ... ]
+
+^ annotation: none needed for the [ ... ] above; snipped hunks are the RCLK description and the resets allOf block.
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261006-support_ast2700-v2-0-36de51fb8066%40aspeedtech.com
