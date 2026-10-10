@@ -1,169 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailgw01.mediatek.com (unknown [60.244.123.138])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EF12371CF8;
-	Sat, 10 Oct 2026 07:58:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B9A0331A48;
+	Sat, 10 Oct 2026 08:07:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.244.123.138
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791619127; cv=none; b=syBeReX98wkV4dPO9HIyZUVxkgAHLm1fnJFmS1YQlP5QdrqP53mX/2WcxC0ywR1ghDkKw4mk8RscnoTPA/7DnacrA0YEmVkcjr+8KCbv5ubq90oMVr6g+pTpF/7LqWYxqpcM6whAln7YXzHzVjZzg+yi/mihXWvGNstvP5k0ftA=
+	t=1791619656; cv=none; b=bPa9KQnNlgTxaXvVomW6NLM3KAC2HPZSPn+Ej2/HIb9yEuu2WxqhoX5Fl66uvIOI6hLIsrSLDR9PYXUmJh29hz5B9amf6N6IHXz1gJHFj8356UK7jhgKBVALpfj52MhSjSfUzGPyriLeKPX6g1LFOzlFapzu8zlx9o+ifIN+X9o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791619127; c=relaxed/simple;
-	bh=cQNoY7GCF+8dP7AlXyh733Cm+Thv2UqXPBf8rQPTwx8=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=glAkBiYVeLQggk6txfVo9UiGNgQc9Hp4bS7OanEtL8mdlwLLIh8fl/sBz4X7T5oSLPGmNsz7rbcJ2nA5/wnT9KBW0uTlwu8OIPmxPgmWHgB/VL6raf4YU9LKcGa3Yj/D9JyxKL0iRo0/tOEe88H0ubdzMhXVvMjtEyU/pgzL1H8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PdXHQJ6+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791619656; c=relaxed/simple;
+	bh=vu3p4W7aAj9mh53qXhauZbdrOSKYuhqaGHIB/OebTVg=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=WhY+pq5JLrJL+uTNfQW87tHhxBaeNQ4u0GkVnBnHQzbCcvfHHO4qx6V9pTxHRdvUnQOQV7OXGnlOAj7uA12cakxA6F2o5LVU6KZyLDjWzLfQDTYQrBrj4iS5eXdMCH8snvj42r38BdvvWksCLQCo0NntDtkig2QEL08NdxPTIuo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=ZzwzWNUg; arc=none smtp.client-ip=60.244.123.138
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PdXHQJ6+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A7641F000FF;
-	Sat, 10 Oct 2026 07:58:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791619126;
-	bh=ihM+8OF/a7XmMt1k/YOV5m6YdEX835YCfzjT9xgUihI=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=PdXHQJ6+jFAi7Q0fuGEhU6RIwL2UCbG47pKaUKkTkGAVRMIZwqJKvpioOmZYl0M22
-	 wCYDOCPyK6E1UBjtZtgH1ojZG/dZwMtj3CTV9wqMxrP2rJHCtoS3S+YrYriwbF7AG8
-	 P0AfOYjdj7Sd9mv7BJBE+6PTHVHjNzPiLj9IFYslhjk7zFRjyt1pawGGJv6ZvAD0ZV
-	 YybNv6fhAlRgPdWzBXRF06aicJtdjwSkWcwc9rwVtprSqlsHNN56q+AVzWfmqbnltp
-	 P9GRJ7SrNE+IVyjF+6jgpLbsYFKOQZjOycLfhglZGCHXsGuN1L10ZEDzYvdnxUe9mh
-	 PnPIckmC8Z44w==
-Subject: Re: [PATCH net-next v2 5/6] net: ftgmac100: Add AST2700 upper DMA
- address support
-From: netdev-bot+sashiko@kernel.org
-To: jacky_chou@aspeedtech.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, kuba@kernel.org,
- pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- ratbert@faraday-tech.com, edumazet@kernel.org, hkallweit1@gmail.com,
- linux@armlinux.org.uk, netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Sat, 10 Oct 2026 07:58:44 +0000
-Message-ID: <179161912453.434549.9464928131713010335@kernel.org>
-In-Reply-To: <20261006-support_ast2700-v2-5-36de51fb8066@aspeedtech.com>
-References: <20261006-support_ast2700-v2-5-36de51fb8066@aspeedtech.com>
-X-sashiko-severity: Low
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="ZzwzWNUg"
+X-UUID: a197539ec48111f1b1788b6acf885367-20261010
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
+	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=2Q9o8X67cLcd5wpuB8jLL9VwIWbBM83PwmCeCDKeN9I=;
+	b=ZzwzWNUgFfyJdjXyqb61zo7C4mxdqvlqkKSvl4d4S9QmdzKh4+Lclud4OzBOf+AdKTlbUmdKocDGjVZ2DvMB/khFzhaDytWx2YennmohhlM4f4R97CSFTvZFKwutWfwQVnCWOY0d+cTuJkvUsISIaPIl5JY1xC6QcZIhKZqDEJo=;
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.20,REQID:b7855261-9ec1-48ea-9cf2-ff8a91140058,IP:0,U
+	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:-5
+X-CID-META: VersionHash:291e20b,CLOUDID:6c882e95-3103-4fdb-b79c-08de0e281a5d,B
+	ulkID:nil,BulkQuantity:0,SF:81|82|102|836|865|888|898,TC:-5,Content:0|15|5
+	0|99,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,COL:0,OSI:0,
+	OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: a197539ec48111f1b1788b6acf885367-20261010
+Received: from mtkmbs13n2.mediatek.inc [(172.21.101.108)] by mailgw01.mediatek.com
+	(envelope-from <kyrie.wu@mediatek.com>)
+	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
+	with ESMTP id 55151695; Sat, 10 Oct 2026 16:07:26 +0800
+Received: from mtkmbs11n1.mediatek.inc (172.21.101.185) by
+ mtkmbs10n1.mediatek.inc (172.21.101.34) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.29; Sat, 10 Oct 2026 16:07:25 +0800
+Received: from gcnsap21.gcn.mediatek.inc (10.17.81.22) by
+ mtkmbs11n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
+ 15.2.2562.29 via Frontend Transport; Sat, 10 Oct 2026 16:07:24 +0800
+From: Kyrie Wu <kyrie.wu@mediatek.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+	<angelogioacchino.delregno@collabora.com>, Bin Liu <bin.liu@mediatek.com>,
+	kyrie wu <kyrie.wu@mediatek.corp-partner.google.com>, Hans Verkuil
+	<hverkuil@kernel.org>, irui wang <irui.wang@mediatek.com>, Nicolas Dufresne
+	<nicolas.dufresne@collabora.com>, <linux-media@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-mediatek@lists.infradead.org>
+CC: Kyrie Wu <kyrie.wu@mediatek.com>
+Subject: [PATCH v18 03/13] media: mediatek: jpeg: fix buffer structure size and layout
+Date: Sat, 10 Oct 2026 16:07:07 +0800
+Message-ID: <70578cea826dc419f3d754f1288eafca2cdd331f.1791614327.git.kyrie.wu@mediatek.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1791614327.git.kyrie.wu@mediatek.com>
+References: <cover.1791614327.git.kyrie.wu@mediatek.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-MTK: N
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+Updates the `buf_struct_size` in the JPEG driver to use the correct
+structure `mtk_jpeg_src_buf` instead of `v4l2_m2m_buffer`, ensuring
+proper handling of source buffers. The previous buffer size led to
+mismatches and potential issues during video buffer handling.
 
-Low priority / nit picks for your consideration:
+Moves `frame_num` in the `mtk_jpeg_src_buf` structure to align with
+other members appropriately. The first field of the driver-specific
+buffer structure must be the subsystem-specificstruct
+(vb2_v4l2_buffer in the case of V4L2).
 
-- [Low] struct ftgmac100_txdes in
-  drivers/net/ethernet/faraday/ftgmac100.h still says `__le32 txdes2; /*…
+Fixes: 5fb1c2361e56 ("mtk-jpegenc: add jpeg encode worker interface")
+Signed-off-by: Kyrie Wu <kyrie.wu@mediatek.com>
+Reviewed-by: Nicolas Dufresne <nicolas.dufresne@collabora.com>
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+---
+ drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c | 2 +-
+ drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.h | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-Pre-existing issues:
-- [Medium] This problem wasn't introduced by this patch, but TX
-  completion has no consumer-side read barrier to pair with the…
-
---
-
-net: ftgmac100: Add AST2700 upper DMA address support
-
-This patch programs the high RX and TX descriptor ring base registers on
-AST2700. It also stores DMA address bits 34:32 in rxdes2/txdes2 and
-rebuilds the full address from both words before unmapping. A 35-bit DMA
-mask is requested, and all of this is gated by the new
-FTGMAC100_QUIRK_DMA_35BIT match-data quirk.
-
-> diff --git a/drivers/net/ethernet/faraday/ftgmac100.c b/drivers/net/ethernet/faraday/ftgmac100.c
-> index 2d029d1262e6f..af2e272f32f2d 100644
-> --- a/drivers/net/ethernet/faraday/ftgmac100.c
-> +++ b/drivers/net/ethernet/faraday/ftgmac100.c
-
-[ ... ]
-
-> @@ -672,9 +686,14 @@ static void ftgmac100_free_tx_packet(struct ftgmac100 *priv,
->  				     struct ftgmac100_txdes *txdes,
->  				     u32 ctl_stat)
->  {
-> -	dma_addr_t map = le32_to_cpu(txdes->txdes3);
-> +	dma_addr_t map;
->  	size_t len;
->  
-> +	map = le32_to_cpu(txdes->txdes3);
-> +	if (priv->quirks & FTGMAC100_QUIRK_DMA_35BIT)
-> +		map |= (u64)FIELD_GET(FTGMAC100_TXDES2_TXBUF_BADR_HI,
-> +				     le32_to_cpu(txdes->txdes2)) << 32;
-> +
-
-[Severity: Medium]
-This is a pre-existing issue and was not introduced by this patch. The new
-txdes2 read goes through the same TX completion handoff as the existing
-txdes0/txdes3 reads, and that handoff seems to have no read barrier on the
-consumer side.
-
-ftgmac100_hard_start_xmit() fills tx_skbs[] and txdes1/2/3, sets OWN in
-txdes0, and then publishes the producer index:
-
-	dma_wmb();
-	first->txdes0 = cpu_to_le32(f_ctl_stat);
-	...
-	smp_wmb();
-	...
-	priv->tx_pointer = pointer;
-
-On another CPU, ftgmac100_poll()->ftgmac100_tx_complete() runs:
-
-	while (ftgmac100_tx_buf_cleanable(priv) &&
-	       ftgmac100_tx_complete_packet(priv))
-		;
-
-ftgmac100_tx_buf_cleanable() loads priv->tx_pointer. After that,
-ftgmac100_tx_complete_packet() loads txdes0 and tx_skbs[pointer], and
-ftgmac100_free_tx_packet() loads txdes2/txdes3. Nothing like smp_rmb()
-sits between the tx_pointer load and the descriptor loads. The smp_mb()
-after the loop runs too late to help.
-
-On weakly ordered SMP CPUs such as ARM/ARM64, can the txdes0 load be
-satisfied before the tx_pointer load? If so, it could return the stale
-OWN-clear value left by the previous completion, and the slot would be
-reclaimed while the device still owns it.
-
-That could unmap a buffer the device is still reading. It could also
-dereference skb->len through a stale NULL tx_skbs[] entry.
-
-ftgmac100_poll() keeps NAPI scheduled while ftgmac100_tx_buf_cleanable()
-is true, so completion can run on one CPU while xmit runs on another.
-Would an smp_rmb() after the tx_pointer check in the completion path be
-needed here?
-
-[ ... ]
-
-> diff --git a/drivers/net/ethernet/faraday/ftgmac100.h b/drivers/net/ethernet/faraday/ftgmac100.h
-> index 8c35c895b1465..0c244b1c0a351 100644
-> --- a/drivers/net/ethernet/faraday/ftgmac100.h
-> +++ b/drivers/net/ethernet/faraday/ftgmac100.h
-
-[ ... ]
-
-> @@ -226,6 +229,7 @@ struct ftgmac100_txdes {
->  #define FTGMAC100_TXDES1_TX2FIC		(1 << 30)
->  #define FTGMAC100_TXDES1_TXIC		(1 << 31)
->  
-> +#define FTGMAC100_TXDES2_TXBUF_BADR_HI	GENMASK(18, 16)
-
-[Severity: Low]
-This isn't a bug, but struct ftgmac100_txdes still describes this word as
-reserved:
-
-	__le32	txdes2; /* Reserved */
-
-With this patch, ftgmac100_hard_start_xmit() writes the upper buffer
-address bits into txdes2 for the head descriptor and for every fragment
-descriptor. ftgmac100_free_tx_packet() reads them back to rebuild the
-address passed to dma_unmap_single()/dma_unmap_page().
-
-Could the comment be updated to describe the new field? Otherwise a later
-change might zero or reuse txdes2 based on that comment.
-
-[ ... ]
-
+diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+index 3413570..7856a55 100644
+--- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
++++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.c
+@@ -1092,7 +1092,7 @@ static int mtk_jpeg_queue_init(void *priv, struct vb2_queue *src_vq,
+ 	dst_vq->type = V4L2_BUF_TYPE_VIDEO_CAPTURE_MPLANE;
+ 	dst_vq->io_modes = VB2_DMABUF | VB2_MMAP;
+ 	dst_vq->drv_priv = ctx;
+-	dst_vq->buf_struct_size = sizeof(struct v4l2_m2m_buffer);
++	dst_vq->buf_struct_size = sizeof(struct mtk_jpeg_src_buf);
+ 	dst_vq->ops = jpeg->variant->qops;
+ 	dst_vq->mem_ops = &vb2_dma_contig_memops;
+ 	dst_vq->timestamp_flags = V4L2_BUF_FLAG_TIMESTAMP_COPY;
+diff --git a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.h b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.h
+index 6be5cf3..148fd41 100644
+--- a/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.h
++++ b/drivers/media/platform/mediatek/jpeg/mtk_jpeg_core.h
+@@ -85,10 +85,10 @@ struct mtk_jpeg_variant {
+ };
+ 
+ struct mtk_jpeg_src_buf {
+-	u32 frame_num;
+ 	struct vb2_v4l2_buffer b;
+ 	struct list_head list;
+ 	u32 bs_size;
++	u32 frame_num;
+ 	struct mtk_jpeg_dec_param dec_param;
+ 
+ 	struct mtk_jpeg_ctx *curr_ctx;
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261006-support_ast2700-v2-0-36de51fb8066%40aspeedtech.com
+2.51.0.windows.2
+
