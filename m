@@ -1,198 +1,116 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com [209.85.215.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14BFD367B70
-	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 02:05:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8DE123BD17
+	for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 02:20:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791597925; cv=none; b=JzXj2snloqlV3gWvAQs/MbcoA2agKG29Ox5/nbUnWi4dB87D2VlFHc2aYbnBOoa9qNLqt03ShsCJO6GaZoWpjdEIKO3hOxXTX1ZaPOLr97JvLoZuTlKAmyG4ZUFHTWMpTSpMhv1CZen5cMXiLVKfmvUxZeFd9ycZbSJOlC4hWhA=
+	t=1791598817; cv=none; b=Nd5hkD7jLhZnXvy49pFkZjLcVrdiyL1M7WRUQg0tQG9fA/dGxIPmp5kCAUwBvIzD8/vKhB6j8GoBSf8TvNa4WsthFVoq/Uup3/EvxtrGnkasl/MpBuemK9yKn/Zyl0CPB5mQfDd4fgeiOpJGvqLvbpNZ99TD5iP513jVDJu9iIg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791597925; c=relaxed/simple;
-	bh=RtNJ+XWJK6eSr1fba8eizstY+FWi1d6ftiywfKe/zuM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=TYqaG7H7U3xn12vBnOPa5z1CMwivjeO+PVFFbdCJgWER1bEoPtf5tLTpEB7W3o55B2BMgaQ09GcZmjID+zdCr9xvhFvU6pnp3hRnGTOjV3qhr05Grp9uais5FDK9ZW78BqaBZQm0hWlfZMAUX3zp3NTmSfrewCInmdvj3g0blF0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=hOtEhzmC; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=GlP00Rhx; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1791598817; c=relaxed/simple;
+	bh=6k3H1zrHC0y59ZJNOmBXXRBubqCqLl8VbW5eWttYaOE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=uMuxHe9RgLV8U2Oaqq9wrmHm13UPSgBw0dxwYRpspmQXGzM0M87VB86PwL94zRlKx2/bZ0kuCzM+UzxJrwzE2aXREPlzgOBRWjVxV62shvCJHHpiZyFcZzSTycb4IcWMXY50ELYVUr0mudk6XcRKGTlvVGAIIHLlEC3DnxHInoI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bedSKEcd; arc=none smtp.client-ip=209.85.215.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="hOtEhzmC";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="GlP00Rhx"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1791597922;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=w+tGYwl2znmnp8WIdQYcLZIZyvGyAsTyeavLHMYpyQU=;
-	b=hOtEhzmCY/ZKnh+rUNiNg7rcdzRwmnyoFiXw74tGLLedC9F6PwQ05K5XCB1sCaxifTtlvQ
-	ti8+EbpIMz0ElFvSQ4mDAtfL4OJVtFsOO0sjTX/3Y8TWJKp4haMRG/O/JIWV/yn3uSIs2S
-	83KvWvL69WAtJ/8b2NJDN0twwtag3Go=
-Received: from mail-yw1-f200.google.com (mail-yw1-f200.google.com
- [209.85.128.200]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-248-YPf_ZX9zOwerJxIXmOg8Jg-1; Sat, 10 Oct 2026 02:05:20 +0000
-X-MC-Unique: YPf_ZX9zOwerJxIXmOg8Jg-1
-X-Mimecast-MFC-AGG-ID: YPf_ZX9zOwerJxIXmOg8Jg_1791597920
-Received: by mail-yw1-f200.google.com with SMTP id 00721157ae682-8ab43f7f5faso3472857b3.2
-        for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 19:05:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bedSKEcd"
+Received: by mail-pg1-f174.google.com with SMTP id 41be03b00d2f7-cc50ad2d650so248819a12.1
+        for <devicetree@vger.kernel.org>; Fri, 09 Oct 2026 19:20:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1791597920; x=1792202720; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=w+tGYwl2znmnp8WIdQYcLZIZyvGyAsTyeavLHMYpyQU=;
-        b=GlP00Rhx8xPUb8ZHOxxfO0ysVhk8FSK6yqso//2FS9EoMnRl6ZbxlRNMWJn92OuCdv
-         BvqOfquCWLSLGgKTKa/CnE/m/y2f9Av2d9iij9Ak6KXl9HFZC+HDKrlBRoQCiPMWVn7D
-         hRZsm3GjhoEGL0rQm/GI9AHpXcWy9KyKx1MmlzAM6QrQ4aeodbuA2uU3QR1a+iptz7nn
-         g7OJOj+v+otCVxBRJ/BJ0vNCdK8dKNPN7TRHi2vQMb0RbdaaVH4b/G49S91AgzqPoQ/I
-         oYDw3RWLJd9d/zczUYLHfOJrI1oT+aHgaFzr8KhxNvOL47GPOe1wQzpPGxTS7ukm8PYa
-         pUMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791597920; x=1792202720;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1791598816; x=1792203616; darn=vger.kernel.org;
+        h=content-type:content-transfer-encoding:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=w+tGYwl2znmnp8WIdQYcLZIZyvGyAsTyeavLHMYpyQU=;
-        b=BPLbqtRI3Iy/chVmNiGMZNMqjdEa1A03dEb1mWDQEQtyMwtvk5V0LtnximMxNnvEdi
-         OBx7eMdXZb/E7qhP+nCbBrsmEqj5jUBQ2FWvi9+jenzPcdkIF54St3lwE56ej/e7hVJG
-         jZ7abmDnhvxBST2paVbN/tNaPD9Iq7PvMi82cuVfmuBbMBN4gS/JNZHw4oYYYxPyRA+G
-         BKhwqrKs3xyXrUNcEK8FiFlBzeA2KF6b9suESAj17GX8HtfDRZJ3upz2jy4YrZaq5++3
-         7jO9OuSGknzeGvF7KyY7M4ivpAaWE3P2ZkcRQPUl7YDv4xLVVQ+coTWpyxZc5F8flqv+
-         9FHA==
-X-Gm-Message-State: AFq9FYL6ooHASQd9gcOTlbb5A1c7catt3aio6jvJtOp+caKrvAJpqUku
-	Z+3D8n6jLYYmzSKucNtjXnPkkG86UdXHc+1RUmcii+hFCcOzibI9UYB+zmwxcsQ4Ho6olgmPiaf
-	mtTw8NJ6g4nk8/nQ6hxlUW65Tu+nCDbGSvryqkwWZaHb3tQw/UDO/KMOGEP0oRDE=
-X-Gm-Gg: AYBFou3RtYkz8o8kkEysXrYAKvzBLWmkUbWe9AN+PwdKrzQ3O3jaeEHzZesii2/1jDk
-	F9Hn3EiXezEddYRUtdM144RaepjzVQxNZu55VJDDN0DZ9GHLTc8s5grnU0LIjr1Hwz/PQBQnIhd
-	HxHl7v82P2hfnEdWNkjYeI8xaWY+Tmh0tFNePZrWe6zSS4UlIqjkWY2r8ghEZ/sAeNtCNK8ZR9Y
-	mEkKXK5hN6C880mXDCLKb5d4x92PJAwMczVw3GtbBezx9/qR6OoW5NVBRV0NFe/ZJ0ZFyyUUdr7
-	JboNlbWr/VMuArRQzi+gZMIH5YnIwD/tIlOygnB3gssnDi8l3KfI
-X-Received: by 2002:a05:690c:4d81:b0:8ae:6740:999 with SMTP id 00721157ae682-8b07ed90a18mr10609387b3.20.1791597920042;
-        Fri, 09 Oct 2026 19:05:20 -0700 (PDT)
-X-Received: by 2002:a05:690c:4d81:b0:8ae:6740:999 with SMTP id 00721157ae682-8b07ed90a18mr10609237b3.20.1791597919575;
-        Fri, 09 Oct 2026 19:05:19 -0700 (PDT)
-Received: from rhdev ([2600:1700:f361:20bf::14c1])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b07ee8c257sm14463027b3.3.2026.10.09.19.05.17
+        bh=6k3H1zrHC0y59ZJNOmBXXRBubqCqLl8VbW5eWttYaOE=;
+        b=bedSKEcdonktUwUOm6kGJgnOp1+atn9lWPkJm+9A54WEWeLJq2NfbMTh3fMmTqhWG8
+         1ATBLPRzno7UPJUAdmSOVqNTlvxwXqsRQ8NX4tLN1zO/1Sxgnf+qAlMJYFIuPSLphXbX
+         WVrNgv/hyIGWKw0KjB/Ck90NEgloNgeJNTVocHjOLCz+s7NWAVrBR36YHCVdECO2oBrs
+         7552wICnjntsQukPvk+cpGcKljXeJvIr7MflJ/uh9KamJQizF98pvdUu247rphjHMfUJ
+         +RTGwyw1P5U/GBlUqRMB9bao4YEmQaQ/07AJwDq683jWmnuuoz80faxx1uBQ2mvozT85
+         AYgQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791598816; x=1792203616;
+        h=content-type:content-transfer-encoding:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6k3H1zrHC0y59ZJNOmBXXRBubqCqLl8VbW5eWttYaOE=;
+        b=pI0EtBks8g+jwzH4uVKfX6nFTkPgU7gX1cJgPCPKdD5zrN6e5+Ibx2LwtBqXkMb6p+
+         deCb1M/sEU7RR7FZcrD3aFvsjRT7baCKspJakV5DUBuaWkokdmPez0V0F75nbgSe0Iye
+         oU1YcchdO7TL9iTLtz+bmWD1Mb+c+2aRrBMCMV/skPNTb+v5NfnSe0LCJY5QHbBfA3OW
+         vxx+63M0qr+Rb220b8Meu0Bc9KGcR7CfNR8jlUDpjbRFM7lk+5vP8Dz2mZQF3rt+xhRb
+         eA5qy+TK6tPjBUTCJrquo9t1LdGG1qOImzGCbIasvYBl5VmJo5Mr8KCKAsgbJO15JID8
+         QTkw==
+X-Forwarded-Encrypted: i=1; AKwUvBxDxEwk3OZwP4V3e1H6UsjMChAqEkGNkqyQqg2OMoOVznokacMzIb7wBXzUhOjVOJCT8gvSLcfSNNv7@vger.kernel.org
+X-Gm-Message-State: AFq9FYJE6vcpQMLgCI+R2sEqMv8ODr+uwAhFiUB4UxvQT3jlZqX37mkq
+	vWb3+jhMP1VaR+TJGBNqAZfcd9QfkNyARpSW4/WEQNuNkxkqRcRrrxE6
+X-Gm-Gg: AYBFou1Yc501OIOu0EYnu95wjCg+h8pMT3uW1q87VJ6ayBVi0VX/2/9i3NNfaISa+bf
+	1s47Ma0D8hATuKBnPnkerI2TCsr8pc/2vdBisC0VXSDlBC4z3byQkBXG5J+nglWR6VWFCdEfUsV
+	T5ZYWUiRa0Beoh4zIw6R7VRRILUU1wXUtuhnKbVlu+n+/Y/5dGX8OoTl2jOl4crQi9OFBHLNWjP
+	GooewZIFomn8qe/5PDgHPNHcaW89Otk6sEsks2JyJQ/a//jLiD0dE27YqZhAgoor8p1ddAJcrJh
+	cujhhnqVRyguT+NX7cULdQeTWzhntUDmJBo6TnIh1+WYLTVOJ8eYjgB35sMrkhN3MmpejnPLut2
+	rNzpL+9D3DL6Ke6Ip1y/oXki4qoQOpdiYwJ37ic2Swhb7gBCUdp10wae7aIRS+VzPlYN++uU2kC
+	lO9zRUwMyU4CbVT6cnnKqI4CbnCARDz4GIERGjkeiSRL1Kg2tNAQ2+aoH1UTXvPZHzeG1Xt1QJP
+	vs5OPlWfGx7eoW1JaEYDFtqq31Ust5pBX1UXrPAUtC3BhsSNaLziETfIgEaPa5bPrF4ogCWRO4d
+	Hc1AUg0HnECzCPIbuEu5PxQvJNcsGM0YAVgS0QaOBmAIzgJ0zic=
+X-Received: by 2002:a05:6a21:4eaa:b0:3da:b8b4:91d7 with SMTP id adf61e73a8af0-3e16bab5c23mr3009407637.2.1791598815958;
+        Fri, 09 Oct 2026 19:20:15 -0700 (PDT)
+Received: from setsuna.localnet ([2403:581e:d87e:0:fc2d:ed31:e80e:412d])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-896c479c2cdsm1804113b3a.55.2026.10.09.19.20.06
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 09 Oct 2026 19:05:18 -0700 (PDT)
-From: Jennifer Berringer <jberring@redhat.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Yixun Lan <dlan@kernel.org>
-Cc: devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	spacemit@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	Jennifer Berringer <jberring@redhat.com>
-Subject: [PATCH] riscv: dts: spacemit: enable USB2.0 controllers on Milk-V Jupiter
-Date: Fri,  9 Oct 2026 22:03:17 -0400
-Message-ID: <20261009-jupiter-usb2-v1-1-ab84a00d3b64@redhat.com>
-X-Mailer: git-send-email 2.55.0
+        Fri, 09 Oct 2026 19:20:14 -0700 (PDT)
+From: James Calligeros <jcalligeros99@gmail.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: David Rhodes <david.rhodes@cirrus.com>,
+ Richard Fitzgerald <rf@opensource.cirrus.com>,
+ Martin =?UTF-8?B?UG92acWhZXI=?= <povik+lin@cutebit.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>, Matthias Brugger <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+ Shenghao Ding <shenghao-ding@ti.com>, Kevin Lu <kevin-lu@ti.com>,
+ Baojun Xu <baojun.xu@ti.com>, Sen Wang <sen@ti.com>,
+ Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
+ Neal Gompa <neal@gompa.dev>, asahi@lists.linux.dev,
+ linux-sound@vger.kernel.org, patches@opensource.cirrus.com,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org
+Subject:
+ Re: [PATCH v2 02/21] ASoC: dt-bindings: cs42l42: Do not require chip power
+ supplies
+Date: Sat, 10 Oct 2026 12:20:04 +1000
+Message-ID: <WT25lTvHQhioJE_CrUW6Dw@gmail.com>
+In-Reply-To: <20261009-memorable-acoustic-dalmatian-03e22a@quoll>
+References:
+ <20261004-macaudio-v2-0-7b47ed6335a8@gmail.com>
+ <20261004-macaudio-v2-2-7b47ed6335a8@gmail.com>
+ <20261009-memorable-acoustic-dalmatian-03e22a@quoll>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
 Content-Type: text/plain; charset="utf-8"
-X-Change-ID: 20261009-jupiter-usb2-b888e544520a
-Content-Transfer-Encoding: 8bit
 
-On Milk-V Jupiter boards, usb2_0 is connected to a Type-C connector
-which cannot act as a power source. That port can act as USB host if
-connected to a self-powered hub.
+On Friday, 9 October 2026 5:10:01=E2=80=AFpm Australian Eastern Standard Ti=
+me=20
+Krzysztof Kozlowski wrote:
+> On Sun, Oct 04, 2026 at 04:03:29PM +1000, James Calligeros wrote:
+> > Some integrators do not expose the power rails connected to the codec
+> > in a way that can be expressed in the Devicetree. Do not require them
+> > to be specified on such platforms.
+>=20
+> I don't understand how these cannot be expressed in Devicetree. What are
+> we missing?
 
-usb2_1 has vbus output controlled by gpio 127 and is connected to a
-FE1.1s hub, which drives four ports: two rear Type-A receptacles and a
-9-pin header for two chassis ports.
+On Apple devices, the regulator(s) driving these pins are completely opaque.
+They are not exposed via the Apple Devicetree or any other discoverable
+interface, and they are not controllable. As far as we can tell, the pins in
+question are powered whenever the machine is powered on.
 
-Signed-off-by: Jennifer Berringer <jberring@redhat.com>
----
-This patch depends on
-https://lore.kernel.org/spacemit/20261009-b4-spacemit-k1-usb2-v4-0-2d98e5324d9a@linux.spacemit.com/
-
-This conflicts with the Jupiter M1 patch set but can be applied on top
-of it if all instances of "k1-milkv-jupiter.dts" in this diff are
-replaced with "k1-milkv-jupiter-common.dtsi"
----
- arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts | 35 +++++++++++++++++++++++
- 1 file changed, 35 insertions(+)
-
-diff --git a/arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts b/arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts
-index 635e95aad14a5..913c2170bf6a2 100644
---- a/arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts
-+++ b/arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts
-@@ -82,6 +82,16 @@ reg_vcc_5v: regulator-vcc-5v {
- 		vin-supply = <&reg_dc_in>;
- 	};
- 
-+	reg_usb2_vbus: regulator-usb2-vbus-5v {
-+		compatible = "regulator-fixed";
-+		regulator-name = "USB20_VBUS";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		vin-supply = <&reg_vcc_5v>;
-+		gpio = <&gpio K1_GPIO(127) GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+	};
-+
- 	regulator-usb3-vbus-5v {
- 		compatible = "regulator-fixed";
- 		regulator-name = "USB30_VBUS";
-@@ -443,10 +453,35 @@ &uart0 {
- 	status = "okay";
- };
- 
-+&usbphy0 {
-+	status = "okay";
-+};
-+
-+&usbphy1 {
-+	status = "okay";
-+};
-+
- &usbphy2 {
- 	status = "okay";
- };
- 
-+&usb2_0 {
-+	status = "okay";
-+};
-+
-+&usb2_1 {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+	vbus-supply = <&reg_usb2_vbus>;
-+	status = "okay";
-+
-+	hub_2_1: hub@1 {
-+		compatible = "usb1a40,0101";
-+		reg = <1>;
-+		vdd-supply = <&pcie_vcc_3v3>;
-+	};
-+};
-+
- &usb_dwc3 {
- 	dr_mode = "host";
- 	#address-cells = <1>;
-
----
-base-commit: e5e04726cdd043e309677071ab1b65a4b18f422b
-change-id: 20261009-jupiter-usb2-b888e544520a
-prerequisite-change-id: 20260812-b4-spacemit-k1-usb2-97adfc283d58:v4
-prerequisite-patch-id: ccc56cd7363a39566f74b3628fbe2ccf01c76774
-prerequisite-patch-id: ee646b8712bc41793579b8abc30d8d3f616d36e7
-prerequisite-patch-id: 793abd51f18ae96cc2cbcb447721ca9ae1e6fa49
-prerequisite-patch-id: 67bf74a44fd81390c82c07921d808a58a5211fb7
-prerequisite-patch-id: 801c65013a1e55dfdbf3d3b061752ddb972afb18
-prerequisite-patch-id: 2321f949dcfb2609932da94cabc969812f11669f
-prerequisite-patch-id: 0843cac1ae192e99f2562f5ac882dfc4f9a10637
-prerequisite-patch-id: 7ce394f4284c628b7d6187d8ee555726c94675ad
-
-Best regards,
--- 
-Jennifer Berringer <jberring@redhat.com>
 
