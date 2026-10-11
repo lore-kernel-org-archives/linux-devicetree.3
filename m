@@ -1,83 +1,84 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C050E28506C;
-	Sun, 11 Oct 2026 13:05:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 665F944A411;
+	Sun, 11 Oct 2026 13:24:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791723925; cv=none; b=b9ABYhtDfu5wDAh6OesCSdKhPULS4ED5g3dE3zP0P9zOxv+/Vnl4MnVre0WjFK/akbnZK95LAygW+kL1bgyfabfUXCsML3iZu9YIx9Np9WYIbD672ePR7x9gvwhd7YVNr7jKvr+nre0DfO/KD2TO7+q7Gj7wPoRfbjUccsvXt18=
+	t=1791725049; cv=none; b=monWazl9IJh50xoxge9xnDjweBdqRWjn93EjJdX5png1yiemqU7O9pGzrb6SbTxKCR0MfpAWbLkMcNFVtTlmFzXpbej36wp0933KqofZWIHJ5vypboWgD/VIwLR3wvxUHAz89qnP/chTNSbwc2GA4eikIgTW9/4YrR+uWwvByrI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791723925; c=relaxed/simple;
-	bh=DxOA3K04TdGKgV9RBzwq7NMB042SfZvdvrNpiga7nYU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=TulWzOgC29uhx2jg4nJMRKRJy4K4Ryz27j3NYAGC53U+pM89DR2Fvp3vYA/4xeN3hYFmPpVnxcyt1O4aR24f5mpCBVm05DtgBOsHE4OzzGHQZN6y8TsOkI70L98OyOM/FTPqbYlHYjIAAkoWliGCpX6hmGuk9wuKMHpa8Ygr/gQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LU9gHXGm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791725049; c=relaxed/simple;
+	bh=Udr7QqtGNr7OV/p4pWujoV995vDoRzBVZ7joJXRhkSU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dKWMUa9cpzu+2XiSv1MaMyT9UayX//ZWvLM8PMsf2A1/X0iDVVSPLVn3g0yzUshjWT9uldULse3FXaLKeinPMV6hyOg1SNQC+4PIAyT8+H15Erv0hN4SrOjo8jU2PLKSqIAkkeoCck4s0lxm0hupgqQoywjndb5nxa56RWEYQHY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fGbnqMIc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LU9gHXGm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3458C1F0089B;
-	Sun, 11 Oct 2026 13:05:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fGbnqMIc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19CF81F0089B;
+	Sun, 11 Oct 2026 13:24:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791723924;
-	bh=URC7r36kokGjXCV5G6Ei8oKV54JoMbconYpCKkPt2AY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LU9gHXGmAF82MewX7rDnusPgofkg7B/0cklxGVQaO56iF3GHa0He+K79HQyq43aFh
-	 dwBuN4156z+gc93R8I3+jhYzy4cikH1cTrdVwC06qAjRjiibcPWpYS++5m/GFcLB0R
-	 RigWi1wR36rfYpxqoPlvgNxljUCkTSizCFhSp7rtIV0BdhoxqmEfC6QooNFPeyIG1d
-	 PBMyky2IFVERTUWNTEtQbIb6QlZe+x8zf4UGtqx5HfVBWt/NWHTXseA3oA3D4QYs1C
-	 GmWjg0/LuWSOfwcNYMG9w2BI0I/6HMmHyo00TV7skNCRPzLKxL9QWXM4PLIdVkKWwh
-	 Wsa0QY3g+X5SQ==
-From: netdev-bot+sinfo@kernel.org
-To: Luo Jie <jie.luo@oss.qualcomm.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Lei Wei <quic_leiwei@quicinc.com>,
- Suruchi Agarwal <quic_suruchia@quicinc.com>,
- Pavithra R <quic_pavir@quicinc.com>, Simon Horman <horms@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
- Randy Dunlap <rdunlap@infradead.org>, netdev@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- quic_kkumarcs@quicinc.com, quic_linchen@quicinc.com
-Subject: Re: [PATCH net-next v2 00/11] net: ethernet: qualcomm: ppe: Add
- support for IPQ5424 SoC
-Date: Sun, 11 Oct 2026 13:05:22 +0000
-Message-ID: <179172392274.2527009.4852578355298213005@kernel.org>
-In-Reply-To: <20261011-qcom_ipq5424_ppe-v2-0-8c7b057e2c43@oss.qualcomm.com>
-References: <20261011-qcom_ipq5424_ppe-v2-0-8c7b057e2c43@oss.qualcomm.com>
-Auto-Submitted: auto-generated
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	s=k20260515; t=1791725047;
+	bh=CvrpLqfmBQ0TVBNk934KRb3Z8FCdBTWVsN4LX/lpfio=;
+	h=From:To:Cc:Subject:Date;
+	b=fGbnqMIciRU5LlmFttoL8LJ3BDkhoSLwVcEAFsnec7ifh24JnRoGZK8WF6KEWR4JS
+	 NQ5tpucFdtF8+v5YqKHD4nOn688bAW2vRXNrQ2D8YG+nxYfR/PGU3MsYU5ShTYygfX
+	 BSIIfJKi5lQHbQxh5XCF2mT0hwQKl04G3v7tQxqKramZmED03oj6dUlRrUzUZGvWbW
+	 xnxQms0jGL4HzXhtYWkbX7rvRl4bIyKm+Y8D4cd4cxOj1nAom10TJ9bMR+4sdKL8Pe
+	 mRAzbKnw+5Besr9m6sSEGkxHtEWTm36HKrsEpvmHnOkh3yeNP002Iz57lJDsbX+ayH
+	 d9eQs8djdfoDw==
+From: Thorsten Blum <blum@kernel.org>
+To: Rob Herring <robh@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Miguel Ojeda <ojeda@kernel.org>,
+	Boqun Feng <boqun@kernel.org>,
+	Gary Guo <gary@garyguo.net>,
+	=?UTF-8?q?Bj=C3=B6rn=20Roy=20Baron?= <bjorn3_gh@protonmail.com>,
+	Benno Lossin <lossin@kernel.org>,
+	Andreas Hindborg <a.hindborg@kernel.org>,
+	Alice Ryhl <aliceryhl@google.com>,
+	Trevor Gross <tmgross@umich.edu>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Daniel Almeida <daniel.almeida@collabora.com>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Alexandre Courbot <acourbot@nvidia.com>,
+	=?UTF-8?q?Onur=20=C3=96zkan?= <work@onurozkan.dev>
+Cc: Thorsten Blum <blum@kernel.org>,
+	devicetree@vger.kernel.org,
+	rust-for-linux@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH] rust: of: use safe zero initialization for struct of_device_id
+Date: Sun, 11 Oct 2026 15:23:54 +0200
+Message-ID: <20261011132353.272824-2-blum@kernel.org>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=995; i=blum@kernel.org; h=from:subject; bh=Udr7QqtGNr7OV/p4pWujoV995vDoRzBVZ7joJXRhkSU=; b=owGbwMvMwCUWt7pQ4caZUj3G02pJDFmne1+yVvlvDZbYHF+0TCR4teY603WqYS9+r7twuWfGi 9/LJB1DO0pZGMS4GGTFFFkezPoxw7e0pnKTScROmDmsTCBDGLg4BWAil/0YGZYGqvFUzfgc5bS6 9fiMvobdq34meyQrSnw833JcY+uBx9cY/hkuYGQNY7W+etzAPdP0rqSyi0pXxxkm1eD53CVuvQW JnAA=
+X-Developer-Key: i=blum@kernel.org; a=openpgp; fpr=1D60735E8AEF3BE473B69D84733678FD8DFEEAD4
+Content-Transfer-Encoding: 8bit
 
-Hi!
+Since bindings::of_device_id implements Zeroable, use pin_init::zeroed()
+instead of core::mem::zeroed().
 
-This is an automated message. This series looks like a fix, but its
-commit messages seem to be missing some information:
+Signed-off-by: Thorsten Blum <blum@kernel.org>
+---
+ rust/kernel/of.rs | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
- - How the issue was discovered, e.g. hit in production, hit during
-   development, syzbot report, manual code inspection, LLM or static
-   analysis tool scan.
-
- - Whether the issue was actually triggered, or is only theoretical
-   (e.g. found by code inspection). If it was triggered please include
-   the symptoms, like the stack trace or error messages.
-
- - What hardware the change was tested on. For driver fixes please
-   mention the device (and if relevant firmware version) used for
-   testing, or say that the change was not tested on real hardware.
-
-Please do not repost the series just to address the above. Instead,
-reply to this email with the missing information, so that reviewers
-can take it into account. If the series needs another revision for
-other reasons, please include the information in the commit messages
-then.
-
-The evaluation is done by an LLM so it may be wrong, if you think
-that is the case please reply and explain.
+diff --git a/rust/kernel/of.rs b/rust/kernel/of.rs
+index d0318f62afd7..75d5004d2221 100644
+--- a/rust/kernel/of.rs
++++ b/rust/kernel/of.rs
+@@ -31,9 +31,7 @@ impl DeviceId {
+     /// Create a new device id from an OF 'compatible' string.
+     pub const fn new(compatible: &'static CStr) -> Self {
+         let src = compatible.to_bytes_with_nul();
+-        // Replace with `bindings::of_device_id::default()` once stabilized for `const`.
+-        // SAFETY: FFI type is valid to be zero-initialized.
+-        let mut of: bindings::of_device_id = unsafe { core::mem::zeroed() };
++        let mut of: bindings::of_device_id = pin_init::zeroed();
+ 
+         // TODO: Use `copy_from_slice` once stabilized for `const`.
+         let mut i = 0;
