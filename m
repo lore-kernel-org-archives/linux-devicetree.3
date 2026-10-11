@@ -1,164 +1,104 @@
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFE18314D1F
-	for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 16:32:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADE9A2C08D0;
+	Sun, 11 Oct 2026 16:52:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791736376; cv=none; b=ucAGa0AXYGY0DfpK4BdZqY16J7OAUOXEUoDqjA3gn05n9ZJHlm/KpgUwGeB3FVkXKC8CKu8UDTRdGEn043INz5tmJejjalJVOxImCuUTCeR+fffrpgAJWluZU+i0CQnv2MxiE1vOKMUUVWPHE3wqPZXuNutp8a8uHik+9Sxrz1k=
+	t=1791737532; cv=none; b=tKCPyi00QwWCIh06G0zWhSLY2fgxpxJ1TFdWFEmSiQRV1frckFCjCki6fJVNryFCkfjf80B4He2dXr1AfgEaJWgATztoY5Uoh9uOlCfI+eleGgVK8Gc9muAPbPvZ3VF1STnph46gLu0++pExSi1ugthd+fpuLT/ir+ukV192Avo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791736376; c=relaxed/simple;
-	bh=ksiJ7Ku4UCtrC0N0jmz3YWLOf08sKJ5ATpUDWt0FsFo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=G9u6nauL5G36RCqwe3xnwDyDESCzykqBADwDBmfgMR5G1xGwkcPoCM1260ocL8cRMjTeyvQL/k+Onciu9ELLq4S4KJws1bCVll6MBEatqpctLuv8EEiiwzcxoOS5mEgKfW4GmSd25iiJeHCUGBLlh63bPQ6fKF/mtQhecZ2qYfo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oNw40hmy; arc=none smtp.client-ip=209.85.221.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791737532; c=relaxed/simple;
+	bh=Fnd+0sqejGQ0KX+O+NuogAH/m8bc5UQymiGVlXraqlI=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=HV/wYipYUoTn0QNevHP1zAqr32x3hLiLej/oDp4OVtjaUzfO4raHRAT35hJkHF6aVstuoEMrPIe7Hu3pcBufy+8U4RDe0Cz9lGOLbHaMsi8rVH8+nJwxU4vUtRtR2dY3OuHIazH6s1UWoNlylrhS+wltUXVJomIgsU2aMZQ3SAQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bd4bKnHg; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oNw40hmy"
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48c4d99c32bso1101107f8f.1
-        for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 09:32:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791736373; x=1792341173; darn=vger.kernel.org;
-        h=content-type:mime-version:references:in-reply-to:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ksiJ7Ku4UCtrC0N0jmz3YWLOf08sKJ5ATpUDWt0FsFo=;
-        b=oNw40hmynIT6k5A3rO6aAD8SUzY6NU/0EmKSd33HNs3QgTHBxh8Rl+aUmDjn/z3hFV
-         PwqUjlwP+apuVXI/YS98tou91vuosazRgR0nnXRZ8ss6RWphutN1wur/DgasXCUemSoh
-         d0iR8EuKvk6WhGXSNguiSYE/+09BvG4tqriPnn5AE+L93S13Exux5Z3uKaC/8K4dLr07
-         p6FMgcReuFydDOIqrmwEdDXtQPcQPgSWxJVHJXNhbIstNgWHF3x9kCZLNcf8L7QCe4Y/
-         VAwYEeK3c44ZowTR3iPv55XQvUbkOub1zgLSwmdEULUi3pUVbU5UVa25CeGWlcw8QRJT
-         4i/Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791736373; x=1792341173;
-        h=content-type:mime-version:references:in-reply-to:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ksiJ7Ku4UCtrC0N0jmz3YWLOf08sKJ5ATpUDWt0FsFo=;
-        b=OEieZDtEYD3TMOoXIgqqWOq2paEXUcgLoPDb9Jfhd+Q4KJmDdFVr2g+MsyMJLSzmuC
-         8DQ1uS0kWCW2oRZL+f3Dw7R9M2TtYDQG1UU7oCT7bc9WAQ7/EbMTchbVPf7e1kQ1Eeic
-         Oq4VD7ti6MC6cAO8E0fAb2R14TR38eN1Fifh1HElXtzyNoX7INxaupPI321Zy3hQNQT2
-         CwQhUaegEmZQzSLnNC/TWqH80Bm8OxId2r3d8mYheV89tXK9mp5SZysH/Xa0+Dc/DYWf
-         XjSyrxBlbpmuijJ4Buz1aW92aelvdg3Tltfpq1pFel4s+hEFQ9RZbK6DixZM0k7NHHhm
-         VtNw==
-X-Gm-Message-State: AFq9FYJWUxODH7rf0j9IkGrNDQhxNRXz7cbOe/YXDuql8Rb/1kyXobvX
-	3OaD8jBVtOB3QGQSPHEDHzy8xkWAjoNuYMeGqDNQ/HaAprGLvx24t5bm
-X-Gm-Gg: AYBFou1QD03iYB3E/yDElknOqq1wP/yjWWzR8YGQPbTvPS5CsuNjiZGB6n5GQtWnaxb
-	y/42bOgtJdneB7CMfOxJL4LDX0bFtwxcDY3zcXldsz5A0w1bEylgypXv0ubpJAcWhluwTCSlDQu
-	vD/u9266o4rU5G5O7nIU1L6/iaJ6xKUT0gJXqNLyu+0HM2QoJ7HvyPvVg4xZSaw0eIvDa7Tn2QN
-	LxpmylS8THw8294WX6TKk5hT6eE84V8RAEq0b1tsKutrlzi749Poqm65W7zDANKc+xOh9qJyAe0
-	zLeTpQSCwFbig1b8TBt2MIgL5x/HCDzjmVesXXFNhPDNQkfsGrijD3Ae6PZ2Th5dZGXp7jdlwjz
-	lWeKnVPX/PBCR/7b/btkHQAIKIYeTbt9/pb020novfBvG3vsRBmBAKiwP1FtQ6g95ogV9NneohW
-	4TU9lfEixyTWPq6cWjN8Rz4/CNBGr8AYhYESF6lPUPQteSh1ZWT9aqC6udCRDiR2HvXqg72fF15
-	t4Bqlf5agxMwTmSxWqZzd98ShZSlAYn/AhXkyyi9DaVBl/bonqtqj5Y
-X-Received: by 2002:a5d:58dc:0:b0:48c:77aa:2f78 with SMTP id ffacd0b85a97d-48dbacecfd8mr10168095f8f.56.1791736372532;
-        Sun, 11 Oct 2026 09:32:52 -0700 (PDT)
-Received: from silicon.doe.home (178.165.167.132.wireless.dyn.drei.com. [178.165.167.132])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dba1be42esm16537414f8f.5.2026.10.11.09.32.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 09:32:51 -0700 (PDT)
-From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
-To: linux-arm-kernel@lists.infradead.org,
- Navid Ghahremani <ghahramani.navid@gmail.com>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, arnd@arndb.de,
- linux@armlinux.org.uk, robh@kernel.org, krzk@kernel.org,
- Navid Ghahremani <ghahramani.navid@gmail.com>
-Subject: Re: [PATCH 20/24] spi: Add ZTE ZX279128S SPI flash controller
-Date: Sun, 11 Oct 2026 18:32:46 +0200
-Message-ID: <QRsVQG8CQny06omTkaluXQ@gmail.com>
-In-Reply-To: <20261010130024.177503-21-ghahramani.navid@gmail.com>
-References:
- <20261010130024.177503-1-ghahramani.navid@gmail.com>
- <20261010130024.177503-21-ghahramani.navid@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bd4bKnHg"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 47AEFC2BCF7;
+	Sun, 11 Oct 2026 16:52:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791737532;
+	bh=Fnd+0sqejGQ0KX+O+NuogAH/m8bc5UQymiGVlXraqlI=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=bd4bKnHg+wjZuVfwKpmiD84UKuxdOJ3sShL+ZX8nB+2ZkS8mT6f20A8IA/BKHrRg2
+	 QB1TL3b8ygtjQOfqnodO/Q321YJHCbRzB1nBq3rMQE2vdz2h3QZdVAR2BgWVJrPJaI
+	 o9jQWVbWT3P7+GWyasj5gIdfp9YU6LBzCifboHrb6aI5dxGg0X+BlNdAyNveul3VCq
+	 /cG3BEe7yjySV/wTK7cwXJduzIuE+fDJiE2PpL/dDG/pZ3+aejF5ySejr+OvRB9QOZ
+	 q7JvOLdUGLMgoseWo7iSGDII/Qdy5qSIAal/GIVEs4/FaP1g9HBaw4dTObcYhgY5+g
+	 o8+1NJBj7Pngg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 2571ACA9EBD;
+	Sun, 11 Oct 2026 16:52:12 +0000 (UTC)
+From: Muzaffer Kadir via B4 Relay <devnull+muzafferkadir.mainlining.org@kernel.org>
+Date: Sun, 11 Oct 2026 19:51:23 +0300
+Subject: [PATCH v5 1/7] dt-bindings: nvmem: Add compatible for MSM8952
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; boundary="nextPartl3bGPPFXTCGY5ZUHclgI1Q";
- micalg="pgp-sha256"; protocol="application/pgp-signature"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261011-msm8952-initial-support-v5-1-1857074992ec@mainlining.org>
+References: <20261011-msm8952-initial-support-v5-0-1857074992ec@mainlining.org>
+In-Reply-To: <20261011-msm8952-initial-support-v5-0-1857074992ec@mainlining.org>
+To: Srinivas Kandagatla <srini@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, "Joerg Roedel (AMD)" <joro@8bytes.org>, 
+ Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Amit Kucheria <amitk@kernel.org>, 
+ Thara Gopinath <thara.gopinath@gmail.com>, 
+ "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
+ Lukasz Luba <lukasz.luba@arm.com>, Bjorn Andersson <andersson@kernel.org>, 
+ Abel Vesa <abelvesa@kernel.org>, Kees Cook <kees@kernel.org>, 
+ Tony Luck <tony.luck@intel.com>, 
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>, 
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Cc: David Heidelberg <david@ixit.cz>, phone-devel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, iommu@lists.linux.dev, 
+ linux-pm@vger.kernel.org, linux-input@vger.kernel.org, 
+ Muzaffer Kadir <muzafferkadir@mainlining.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791737529; l=867;
+ i=muzafferkadir@mainlining.org; s=20260816; h=from:subject:message-id;
+ bh=6JMvRgvxX2he4PG9Fo4mqxxQVXCwNkBZtmdxWuS+a1o=;
+ b=rTH5to7L7PETOvi7zfk8qVjP+OKs2EQDB5LNVFqYdp3+qNOlp5KoTUPOPblmkyzWJN1JJcOOy
+ i3Rs2ntQoFWAV5PY4KEe515nxqt3+T/VywnON3rPX1yqvZ9OlOshiHN
+X-Developer-Key: i=muzafferkadir@mainlining.org; a=ed25519;
+ pk=4zkv4suQ3cYcO4Z7CrV8JSSjEGLBGepUtvQCFjgnYIU=
+X-Endpoint-Received: by B4 Relay for muzafferkadir@mainlining.org/20260816
+ with auth_id=954
+X-Original-From: Muzaffer Kadir <muzafferkadir@mainlining.org>
+Reply-To: muzafferkadir@mainlining.org
 
---nextPartl3bGPPFXTCGY5ZUHclgI1Q
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
-From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
-Subject: Re: [PATCH 20/24] spi: Add ZTE ZX279128S SPI flash controller
-Date: Sun, 11 Oct 2026 18:32:46 +0200
-Message-ID: <QRsVQG8CQny06omTkaluXQ@gmail.com>
-In-Reply-To: <20261010130024.177503-21-ghahramani.navid@gmail.com>
-MIME-Version: 1.0
+From: Muzaffer Kadir <muzafferkadir@mainlining.org>
 
-Hi,
+Document the QFPROM block found on MSM8952.
 
-Am Samstag, 10. Oktober 2026, 14:59:58 Mitteleurop=C3=A4ische Sommerzeit sc=
-hrieb=20
-Navid Ghahremani:
-> Execute bounded SPI-memory operations through the controller FIFO. Honor
-> device and operation clock limits through the CRPM divider and cap the
-> validated maximum at 50 MHz.
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Muzaffer Kadir <muzafferkadir@mainlining.org>
+---
+ Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml | 1 +
+ 1 file changed, 1 insertion(+)
 
-The registers look identical (though with slightly different names) than th=
-e=20
-quad SPI controller on my machines. I have a more advanced driver here:
+diff --git a/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml b/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml
+index 566304ed4c78..646f2e8dcf4d 100644
+--- a/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml
++++ b/Documentation/devicetree/bindings/nvmem/qcom,qfprom.yaml
+@@ -37,6 +37,7 @@ properties:
+           - qcom,msm8916-qfprom
+           - qcom,msm8917-qfprom
+           - qcom,msm8937-qfprom
++          - qcom,msm8952-qfprom
+           - qcom,msm8960-qfprom
+           - qcom,msm8974-qfprom
+           - qcom,msm8976-qfprom
 
-https://gitlab.com/stefandoesinger/zx297520-kernel/-/blob/dlink/drivers/spi/
-spi-zx.c?ref_type=3Dheads
-
-Please give it a try on your hardware and see if it works.
-
-My driver has optional DMA support, which does allow measurable improvement=
-s=20
-in situations where SPI access and CPU activity happen in parallel (althoug=
-h=20
-DMA operation is slightly slower than PIO with an otherwise idle CPU) and I=
-=20
-tuned PIO mode a bit (in particular avoiding redundant fifo size reads).
-
-The qspi driver is a bit down on my FIFO queue (I plan to take care of pinc=
-trl=20
-and DMA first), but I can speed it up if your board gets to a point where S=
-PI=20
-can be done reliably first.
-
-On the hardware otherwise, it can also raise IRQs when the read/write FIFOs=
-=20
-are above/below a certain threshold. That allows PIO mode without constant=
-=20
-polling. I found that it doesn't have an actual performance advantage over=
-=20
-polling PIO mode even when pushing the CPU during SPI transfers. DMA mode h=
-as=20
-clear advantages in this regard and I found no need to implement an IRQ dri=
-ven=20
-PIO mode. If the performance characteristics on your board are different we=
- can=20
-reconsider this.
---nextPartl3bGPPFXTCGY5ZUHclgI1Q
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part.
-Content-Transfer-Encoding: 7Bit
-
------BEGIN PGP SIGNATURE-----
-
-iQJPBAABCAA5FiEEQxb0tqoFWyeVMl1sPRO8yFRPGiIFAmrLui4bFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMywyAAoJED0TvMhUTxoiohIP/jltt0RdhiQcFCJFiY+i
-lBWYzFfkpW0WFbbuaPjW07QU6TdmsxABYgtMo5UywPDwJWTuxuWseKezgKcvAu93
-aBjVqfPFTTzLHuLOS9Lvw9+kLzMTTMXNUDmyJdknX6o3MATiXogR65iHx2QLKXUJ
-Y7qtesJzGYj6G5HbN0OmNJAv04MR+44AtAkwso0XQQ8okMG/yy9uebCsAGQTCQqD
-zWHgbM+m2HAo2cGDAW5VAA49G3GnVUod7kAiCYN1+qwP7/Eahft6Ahvh/30adTTJ
-I7StoebO/u6OmOpBrHLNCZRxGX/xZNNYzjhvsNz6cBPFxmcBmXYrs2nSe7daBbAj
-tT890gloLO7vRy9S24zRzks4qRP58KjAHge/p82nw4n3lw0/WLrFWlwmnW5taghI
-VfIrc51nV9hCh2QVh/duqzEMYSKw2pgf8PETjR2185t+J7ioga4wbMVsNV8FJ1cb
-YGD335pLu8UrmU/k7yH91l0NUD4A0szLWfOmZY1bhcm7XD4MG7Yy3UAp1IqbVPb4
-es5TEKmpx17UqW8PbxdRqYGSoCvm7PKVxz1W8/L8HHMPFdLh6GFVLn8t8D6ip9Zs
-z5pOSJw8bzOEb6eU9zlkJZ1hF0zEgHLd+RcIJe6yEvwcV96D8waWRc8e3FYW5jyg
-nGvefMr6NWI8W0ygaYQIDGLk
-=l+tS
------END PGP SIGNATURE-----
-
---nextPartl3bGPPFXTCGY5ZUHclgI1Q--
-
+-- 
+2.55.0
 
 
