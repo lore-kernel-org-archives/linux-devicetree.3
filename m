@@ -1,122 +1,158 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3586F293458
-	for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 13:46:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FCA23B5DE9;
+	Sun, 11 Oct 2026 13:48:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.18.0.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791726408; cv=none; b=OOtTOdQaC2qPeXP0LySMljDid+nqQVSGXNUymQqM77dytHx3gAGyfUreAvcTBN6g58WRawDkEMhtCjBrIEvDU27W5500ZE00afw+pJlaAGFsPwKCdFACKP3NDFL6aAbmdo6jQ+Dga6XTtcN+LPSxGHb9TaI5iAh1hTn5HOGrq84=
+	t=1791726497; cv=none; b=g1WX6lzguPpkCeNOdYdpwFGpMiaW3G5dYNiwXwJyxXufVdowTB7VDCyVadWzwcxutZFgxD4/vNdXiKzAUfGQNmsLv1Vjj8cuXBUCX+eU0OG0gvDWRVtoq5ahKBf3LuvVK2+HL9PErvzyLe+PRMwnVSaj74z2UYSubYCy5vSzbcY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791726408; c=relaxed/simple;
-	bh=+2wHEXv3j44Pv9WYb6jXv1cyjfD+FpFu2ZKPxU8Hw6c=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=ESks2s+tVX6D5lEOSyL0iCIasSUdqsgf/FwhAEE6HnL2T1AHbKOrK8HZwdZ6+gRK9pNJjnFJjmcGo6cnnYoL9+LQEo3RWb+dHDPeLWl5iMsbmE2/vG9bZGAndp7Lu2oeBo74sNWM9xzQ/2+GpwpKeL/67PIxfo+B8gYWnOzOB10=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l/EQVQmI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791726497; c=relaxed/simple;
+	bh=6+N7J6t2yLEWtzAtDeUfrbKdYFzLj0LDNvuZilpOE+U=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=EkfDJvZVZ4D/iMdgC6WnPmQ3q1mq0OQWbVwi8hpiV4tmS3sEBeda85gFtBkruX4iwnGrY4XHCpeYPfK38oFCZdyktfGJIrV9HeU081G0GiL6xfq5z6R42dCq9oHfZWI92hMMYNFOf3w5EeHm4V8uj95xyUJ5WqnomZJt/4K7vzQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=muenchen-mail.de; spf=pass smtp.mailfrom=muenchen-mail.de; dkim=pass (2048-bit key) header.d=muenchen-mail.de header.i=@muenchen-mail.de header.b=hxJA5Ia/; arc=none smtp.client-ip=212.18.0.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=muenchen-mail.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=muenchen-mail.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l/EQVQmI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E6301F0089B;
-	Sun, 11 Oct 2026 13:46:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791726406;
-	bh=7FhevjXoLtUPm/T/KPsXqeL39VIfXX9uCvoFlM/OFJ8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=l/EQVQmIGjI26+lb4zBrQWd1BXYihzgB0srIMrY0Dhvi5vRNzNNOwgqjexZ5xmub9
-	 /eqaTqk7cJdRjaDACFuS7/yj0iVytSi5OS2nKwXsFpq1ellmt4waLaxUrqitTIB+Dc
-	 fg7CAFDoW3+jAXZkUO4XxgJ4CbvHynF8WlnsYRq6qcj2Ing8P0QqJgf/9eq8r4n9qh
-	 l8OWwZf4gsG1JBBIkPUX62vRBpmQJKT32iahTmlo1Tao9W5pe9HJsgc08VKVkF4AgT
-	 BtuL8Dibh9C1crB/FSVL9j8kzQRyWpjNlVh5eVtyk6jRn0UvthiUfXBsQc2XehEYjb
-	 IRD7pS8VlFEsg==
-Message-ID: <sashiko-outbox-167275@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] Bluetooth: btbcm: disable read tx power for
- BeagleV-Ahead
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Thomas Gerner" <thomas.gerner@muenchen-mail.de>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <578087018e274b0dcf25a523adc0d5cc590cceee.1791720467.git.thomas.gerner@muenchen-mail.de>
+	dkim=pass (2048-bit key) header.d=muenchen-mail.de header.i=@muenchen-mail.de header.b="hxJA5Ia/"
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
+	by mail-out.m-online.net (Postfix) with ESMTP id 4j2hX94YV1z1sRL5;
+	Sun, 11 Oct 2026 15:39:05 +0200 (CEST)
+DKIM-Signature: a=rsa-sha256; bh=gctCJrJ7Kds3CcZcJwy4+R3P44nlumx62CuaYhKhBXA=;
+        c=relaxed/relaxed; d=muenchen-mail.de;
+        h=Date:From:To:Message-ID:Subject;
+        s=r1; t=1791725945; v=1;
+        b=hxJA5Ia/WCT0qT3mkgZX6yahUx1R0mBqLPfnDK7n0/SqTnX6/p4Cj4rqutOkXURC
+         c+7GbvhjmrBTa/I3XXltN42CNR1rV22LBUFn/PJ5nWLzM2n/myM79DumIS86Wtmh
+         cE6Z9AYIsiVEl3p7FT/vMg/2+tAPfMs9aMOXL2/9TyHTWj668u2Ab7iuQ3FMBEf2
+         kCvxDXHxwxCxyZFzVb8kvf0Fz2C+mLDJ8fj0VxoVrZixcOaSG0Ag31d9stLkH9Y8
+         Qu4sVStqg1Wt7sY/qjBed3H0fLmLouFweUVCxswqW7GP+Lkby1GFvsLsTJ+o4ole
+         EGguTPG5gV2AYXA3vjBAyg==
+Received: from frontend03.mail.m-online.net (unknown [192.168.6.182])
+	by mail-out.m-online.net (Postfix) with ESMTP id 4j2hX80GpLz1sR8M;
+	Sun, 11 Oct 2026 15:39:03 +0200 (CEST)
+Received: from localhost (dynscan3.mnet-online.de [192.168.6.87])
+	by mail.m-online.net (Postfix) with ESMTP id 4j2hX74SX8z1qqlR;
+	Sun, 11 Oct 2026 15:39:03 +0200 (CEST)
+X-Virus-Scanned: amavis at mnet-online.de
+Received: from mail.mnet-online.de ([192.168.6.182])
+ by localhost (dynscan3.mail.m-online.net [192.168.6.87]) (amavis, port 10024)
+ with ESMTP id aaz3n9_3Nu0C; Sun, 11 Oct 2026 15:39:01 +0200 (CEST)
+X-Auth-Info: RWtFOPa2WPAAcoNvORZRjrjvz3yyE/RdyuxRfNfJkBn6yqWRhEJ0wED3jO+mdFff
+Received: from wiesel.intern (aftr-62-216-206-149.dynamic.mnet-online.de [62.216.206.149])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.mnet-online.de (Postfix) with ESMTPSA;
+	Sun, 11 Oct 2026 15:39:01 +0200 (CEST)
+Received: from murmel.intern (unknown [IPv6:fdea:9b79:8984:1:c2df:628d:efc1:8817])
+	by wiesel.intern (Postfix) with ESMTP id BE9AB79A081C;
+	Sun, 11 Oct 2026 15:39:00 +0200 (CEST)
+From: Thomas Gerner <thomas.gerner@muenchen-mail.de>
+To: Marcel Holtmann <marcel@holtmann.org>,
+	Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+	Drew Fustini <fustini@kernel.org>,
+	Guo Ren <guoren@kernel.org>,
+	Fu Wei <wefu@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Conor Dooley <conor+dt@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	linux-bluetooth@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	Thomas Gerner <thomas.gerner@muenchen-mail.de>
+Subject: [PATCH 2/2] Bluetooth: btbcm: disable read tx power for BeagleV-Ahead
+Date: Sun, 11 Oct 2026 15:37:58 +0200
+Message-ID: <578087018e274b0dcf25a523adc0d5cc590cceee.1791720467.git.thomas.gerner@muenchen-mail.de>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <cover.1791720467.git.thomas.gerner@muenchen-mail.de>
 References: <cover.1791720467.git.thomas.gerner@muenchen-mail.de>
- <578087018e274b0dcf25a523adc0d5cc590cceee.1791720467.git.thomas.gerner@muenchen-mail.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 11 Oct 2026 13:46:46 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] bluetooth: btbcm: devm_kstrdup memory leak of board string on repea=
-ted initialization
---
+The bluetooth module of the Ampak AP6203BM is identified by the btbcm
+driver as BCM4362A2.
 
-commit d78be9f56325d78f88a3903ffe62866de6e22e52
-Author: Thomas Gerner <thomas.gerner@muenchen-mail.de>
+The firmware of the bluetooth module on the BeagleV-Ahead reports a
+capability of reading LE tx power. However reading fails. To get
+bluetooth working it is necessary to disable reading of LE tx power on
+the BeagleV-Ahead board. The disable is implemented in a similar way as
+for several Apple boards but uses the board compatible identification
+from the DTB as there is no DMI.
 
-Bluetooth: btbcm: disable read tx power for BeagleV-Ahead
+Signed-off-by: Thomas Gerner <thomas.gerner@muenchen-mail.de>
+---
+ drivers/bluetooth/btbcm.c | 19 ++++++++++++++++---
+ 1 file changed, 16 insertions(+), 3 deletions(-)
 
-The bluetooth module on the BeagleV-Ahead reports LE tx power read
-capabilities but fails when actually doing it. This patch adds a quirk to
-disable this reading based on the board's compatible string from the DTB.
+diff --git a/drivers/bluetooth/btbcm.c b/drivers/bluetooth/btbcm.c
+index 463d59890bef..2d02cc1863d0 100644
+--- a/drivers/bluetooth/btbcm.c
++++ b/drivers/bluetooth/btbcm.c
+@@ -436,6 +436,11 @@ static const struct dmi_system_id disable_broken_read_transmit_power[] = {
+ 	{ }
+ };
+ 
++static const char *board_broken_read_transmit_power[] __maybe_unused = {
++	"beagle,beaglev-ahead",
++	NULL
++};
++
+ static int btbcm_read_info(struct hci_dev *hdev)
+ {
+ 	struct sk_buff *skb;
+@@ -537,12 +542,13 @@ static const struct bcm_subver_table bcm_usb_subver_table[] = {
+  * This currently only looks up the device tree board appendix,
+  * but can be expanded to other mechanisms.
+  */
+-static const char *btbcm_get_board_name(struct device *dev)
++static const char *btbcm_get_board_name(struct hci_dev *hdev)
+ {
+ #ifdef CONFIG_OF
+ 	struct device_node *root __free(device_node) = of_find_node_by_path("/");
+ 	char *board_type;
+ 	const char *tmp;
++	const char **s;
+ 
+ 	if (!root)
+ 		return NULL;
+@@ -550,8 +556,15 @@ static const char *btbcm_get_board_name(struct device *dev)
+ 	if (of_property_read_string_index(root, "compatible", 0, &tmp))
+ 		return NULL;
+ 
++	/* disable broken Read LE Min/Max Tx Power on first board found in list */
++	for (s = board_broken_read_transmit_power; *s; s++)
++		if (!strcmp(tmp, *s)) {
++			hci_set_quirk(hdev, HCI_QUIRK_BROKEN_READ_TRANSMIT_POWER);
++			break;
++		}
++
+ 	/* get rid of any '/' in the compatible string */
+-	board_type = devm_kstrdup(dev, tmp, GFP_KERNEL);
++	board_type = devm_kstrdup(&hdev->dev, tmp, GFP_KERNEL);
+ 	if (!board_type)
+ 		return NULL;
+ 
+@@ -577,7 +590,7 @@ int btbcm_initialize(struct hci_dev *hdev, bool *fw_load_done, bool use_autobaud
+ 	const struct firmware *fw;
+ 	int i, err;
+ 
+-	board_name = btbcm_get_board_name(&hdev->dev);
++	board_name = btbcm_get_board_name(hdev);
+ 
+ 	/* Reset */
+ 	err = btbcm_reset(hdev);
+-- 
+2.53.0
 
-> diff --git a/drivers/bluetooth/btbcm.c b/drivers/bluetooth/btbcm.c
-> index 463d59890befe..2d02cc1863d0b 100644
-> --- a/drivers/bluetooth/btbcm.c
-> +++ b/drivers/bluetooth/btbcm.c
-[ ... ]
-> @@ -537,12 +542,13 @@ static const struct bcm_subver_table bcm_usb_subver=
-_table[] =3D {
->   * This currently only looks up the device tree board appendix,
->   * but can be expanded to other mechanisms.
->   */
-> -static const char *btbcm_get_board_name(struct device *dev)
-> +static const char *btbcm_get_board_name(struct hci_dev *hdev)
->  {
->  #ifdef CONFIG_OF
->  	struct device_node *root __free(device_node) =3D of_find_node_by_path("=
-/");
->  	char *board_type;
->  	const char *tmp;
-> +	const char **s;
-> =20
->  	if (!root)
->  		return NULL;
-> @@ -550,8 +556,15 @@ static const char *btbcm_get_board_name(struct devic=
-e *dev)
->  	if (of_property_read_string_index(root, "compatible", 0, &tmp))
->  		return NULL;
-> =20
-> +	/* disable broken Read LE Min/Max Tx Power on first board found in list=
- */
-> +	for (s =3D board_broken_read_transmit_power; *s; s++)
-> +		if (!strcmp(tmp, *s)) {
-> +			hci_set_quirk(hdev, HCI_QUIRK_BROKEN_READ_TRANSMIT_POWER);
-> +			break;
-> +		}
-> +
->  	/* get rid of any '/' in the compatible string */
-> -	board_type =3D devm_kstrdup(dev, tmp, GFP_KERNEL);
-> +	board_type =3D devm_kstrdup(&hdev->dev, tmp, GFP_KERNEL);
-
-[Severity: Low]
-Can this leak the board string on repeated initialization?
-
-During device setup, btbcm_setup_patchram() calls btbcm_initialize(), which
-calls btbcm_get_board_name(). The board_type string is allocated using
-devm_kstrdup() and returned, but it is only stored locally as board_name in
-btbcm_initialize() and discarded when the function returns.
-
-Since btbcm_setup_patchram() subsequently calls btbcm_finalize(), which will
-invoke btbcm_initialize() a second time if the firmware was successfully
-loaded, the devm_kstrdup() allocation happens again, adding another permane=
-nt
-entry to the devres list.
-
-Could kstrdup() be used instead so the memory can be explicitly freed when =
-it
-is no longer needed?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1791720467.gi=
-t.thomas.gerner@muenchen-mail.de?part=3D2
