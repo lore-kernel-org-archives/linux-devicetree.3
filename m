@@ -1,88 +1,88 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D76C74503FB
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 92D5444A3EF
 	for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 13:03:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791723791; cv=none; b=rB3YG2gI9lk5GT6cioxluL23KnVLKUQrVcrub36T3mENYaWXo5oz+aTlD1wBxbnu/dIzWCOpLB3Sj708P3UPSsa5vI5nxCUICTvbOPBcclLLNgHl8zyFAPzhTyj6iTEY67QzGmjXzwsZfdnzCR/f+CbrYsPnkSze0E68x5z4Nss=
+	t=1791723792; cv=none; b=lUqmeKahnjZ8ulm7CgNc/gbDvYlcjtlKQSSwmhX2FUrBgZBOYXOWFtX/Gj7CiLAbNuF6AjTcz2SftW0LLHv4v75PSY1MHh2Jr/7GclwRPp4jUEZmcnvcc/mSZT8WqyBwMYCql4Tc7gpC6PxnWBrx+MsJiGk18lHR6iUHrJyS6O0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791723791; c=relaxed/simple;
-	bh=WGkpfCN6Up9LleQnrV1JPYhqrbmq8We1WbCehLL66ko=;
+	s=arc-20240116; t=1791723792; c=relaxed/simple;
+	bh=cyX9O++D1EW+PrctAEPAFu+x0C4bmnpkICuaDGScBns=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=DKIplLpvf825fqS8wa5QzX+E0qx920E2PvG+xP7rY4nMAZofGhb+n192IwAo3Htd8xMxkWUfK3nNP1LEGZi/GhddRJXP3qCIYFeARTCSKwTI2DoTpGvikWsG1ANeRPVfb8/dDJalCOQOEOL10GiOlrDKXEgnPx9p8GCdgTIYwl0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=P7gZMsoh; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=iW2fCxZ0; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:To:Cc; b=Lrn5Kyz4L3kyGQTcqIAFHY/PGxhAE5cWhRXsUjslExNqsc4HnaWfYk+gOf989qhrMYxwZ5866QI65pdMZiLyJ6pChqU6piS/1HNn/i4K1Y7Cb96jbQjksSXfF00v5gmKSEpd+CvU5ukwAuUfuy5VBOJqp5/tmbBNVZS99C3gpMQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NArvvHeW; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OW6VDL/D; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="P7gZMsoh";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iW2fCxZ0"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69B854RN4074750
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NArvvHeW";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OW6VDL/D"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69B852ou2971339
 	for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 13:03:09 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	9rO1/Za1A0DarcuqQ6a9H3IFa91AgUYHGA+PHZR++xU=; b=P7gZMsohxi6G7yXr
-	xO9RQwTJT4+4M3oE/MJrE4TfgSW1o3Es+kUUJtKCvfPCrmbbjanW8akSkHKSgRqP
-	17PraAWhjG6/pvZpJgpGD6vwq3cA8s84/lmdsBpmAaW3ruAGHlauJamWyoRHjyD5
-	P8N4MAUmYmbxVpQDSl3AEdSM7rTwazIcH10migcuzWILfHrFtufaOTqpQLlWP84O
-	mmD7/1tPbA6zTmS/7jifDWz+J6mwFc6pJ5o+H26jI/Wt9BWQMUW7xgOTQgYn/Obh
-	jkVtwaaZQIeYWSQux3cnY7tDAR+umLhQ+bWsg+CsjEZxfy6+vHx3D04YF9FnJC6S
-	kBzUNg==
+	yv8ZETeGGwp5WARcyvfI9zIu0Wbuse6bPCkxPkgvqJU=; b=NArvvHeWhe1b9kw5
+	lqx0SDOJLmE0vfCEwDChq7AxKVk9zVPRjkM5rXpFxjSjHQhh3wxdkxyEEfrOoZyM
+	n20aWg41hBmHqB28I5+wcJGoC7hTx6HsFVaa8P/ZmQUaEXxNfpHffD7QTkJlOAHG
+	tNWpZVKvsgj/WdKa73Gr1hKP4tC/NcnMIk3WFCWLezJs+vaAQNXm61X2USTPiOjo
+	omsl8JYrO7GEELpayuYju3ZV2ZgUqZHQmrp4/rDsb95vzJjq0wPrL1HYw82oablC
+	mVGRfx3e4Rz+q6fdwTONfAXhCuHNmBguvMgpM2ap9+Mmno1gebvWsb7FbxjAPzL8
+	mXhYrQ==
 Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h7b2fbcmk-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h7dk231dr-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 13:03:09 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-359b81ad4e8so339386eec.0
-        for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 06:03:09 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 13:03:08 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-35a04491c56so293806eec.0
+        for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 06:03:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=oss.qualcomm.com; s=google; t=1791723788; x=1792328588; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=9rO1/Za1A0DarcuqQ6a9H3IFa91AgUYHGA+PHZR++xU=;
-        b=iW2fCxZ0ptlQ8qqwrfXmzDD77SNO5NNSsSknIOQBeSgZGk5BZ2w26QymQsvbTyqeKY
-         lxabZqy04ixM5IH+DxMaRRb8F7y7Mna5oWq5fc2YxFtyQjY4BFg1J5hEF8JrWa2yGdmh
-         Df658XRbcwEbWeq5rxby4ZP9afQvfb0O3cig9QfGRauiTDbsTepAu/QlUKLa5Z+yBYV8
-         Knt8ot6VSTo7B86IZvkdThwzcTAuueZeIpMjzBKlj+UIV0aRIYOPyQXCBPfoevZFOfEc
-         XE1gND7Mykzhzsk0dLSgnGxKyW+RRPVL+l8vIISUVPTBwmV4xlmjTaPAV5z0FrBI2oJ7
-         l9rw==
+        bh=yv8ZETeGGwp5WARcyvfI9zIu0Wbuse6bPCkxPkgvqJU=;
+        b=OW6VDL/DsJPyxrkNu+NLZCaALdwTBdbahxBCCComIyKtzCuv47DaTgF9ySAoUdXRXl
+         yflGQgYrg7X/6a+Np2J8dVlb2aid5JMnOnQUU8lZmD0uMWHWhoq7QUDOygzKHyi88a7x
+         evNFvXZWjtc3HpDqsnqQGhinYDabOlI9HZ0/hw0Vjf5buYTzZAT00kyxPnDIEM/tnJrN
+         jgPR60616cYuOU0+A5gtvjp3EDz3svH1ZmAfzODBOsg3ScfWVw81+KJN6G+dxt0ymIPg
+         zyFCTLYTBjpchtQHwzNH6hs24A+decavNm3I28uzwHHdJqj6OwZtd4+hiB4lybjUDwr5
+         Lb2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1791723788; x=1792328588;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=9rO1/Za1A0DarcuqQ6a9H3IFa91AgUYHGA+PHZR++xU=;
-        b=w4zmca08ZERR6LK0zPtGnRXvMtEOzMqqX+KchWMTbMIK2zaAvBRuhWqq44Ov6y26pG
-         jv/IMDLa66GeTIE4ZbMXje14wL0pXBxPctFeezn5mdFiK1Hxv8y2Rk93I2p/7JtX7PEQ
-         aIkwb96My6SV8SZBhJg2/H8Z6RVtsu8mecoi7k9wlbuWXkP+UcE9SvkPBXNiYGO55lXX
-         GjZzB9EZWp5vhTdAg3276AKlzclbtIbdL++Fp4pDmMQNyHqds9Tn4dEGEXBYp5G0ugPS
-         J5jfnTj4KjkUwzKJ1gsAufeum1ykruHmrlg78YNw1qFvddcxQb/0CwafR2tzsysFSgft
-         r+kQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzEpRnVUSdHMw84B3yPc5nxBsYAE75n9MlLHv8uuO6WEeCbJ4mO2a6wnP7tUqUnrVh1WfZR6bMqTd65@vger.kernel.org
-X-Gm-Message-State: AFq9FYJwBUEeM/h/dv8AR++HcEmil2C7U2lrA46ukuQqv7OoVN/vy4Ld
-	g+8Lx6nLL4Q6CLRb9OkNtr+En/VY3Gn5AThNChZScLG3konH/LOPTfLK//G9LFHiU/kgFbRlAXW
-	lzVvI5xz497l2yCraexfexOdlM1rkPorawtQ1rtHCb1y2Mxx2B/nRWlJM3NqoSj8Y
-X-Gm-Gg: AYBFou01tLw9/bOb9b0UciK6AgYbU7r6iHMHPOM4o3oDJmdHmWjwj+Lp5Cfg0oBNgMl
-	tGqkA768xq9sslA03dZXAZgiakOKECMJik6oC1+1LDNEXN5i5WSpqv7lDEm6nmkIMEQTKUXQV5o
-	2FuX2d9sFD34A7MMpcteyhDMra0cH2LIJvmlFpAds5b3WibQF57JRJ1IHn7tOS+2LeQcgnOSBHJ
-	pQbPHkv6HwTvlyPznBFoOiAnIiLiADMf5B/uyo7FN7cshCGfPcmtabhjb+/lGFZhkY2wd67LFLP
-	/iBHEsYRJ0uA5dmkU5goofERPUEWlqWOTJWBIDpMSBO5aZ87blcpnJgWxYEhlxdh8HzrqOkhzuf
-	XYStUU4343cuZFyi7Yn6e4cLPqM2QlSmae/nMzxDUqkc=
-X-Received: by 2002:a05:693c:88c8:20b0:358:f678:46b6 with SMTP id 5a478bee46e88-358f6786227mr4339913eec.22.1791723788240;
-        Sun, 11 Oct 2026 06:03:08 -0700 (PDT)
-X-Received: by 2002:a05:693c:88c8:20b0:358:f678:46b6 with SMTP id 5a478bee46e88-358f6786227mr4339881eec.22.1791723787572;
+        bh=yv8ZETeGGwp5WARcyvfI9zIu0Wbuse6bPCkxPkgvqJU=;
+        b=NXHje2tPilx0iD8BEMKBlOtfz0Q73VimbnQG7Zl8TnPcsmeb3I+5dQVM8Q77CD48gs
+         XNTdeGcsVnj3xcnxJtspVdr7YzHB8hC3P8Cz6aF3UiAgsoLhgr39zDOGTmb96/mR9iZ3
+         b5TksDRO+ayhZNu8WCuJik/mTfQ0pw/cNOrfAyS8SrSFP7aTHWiV2t/lJAeGox8EelAq
+         Oi4Ai/IeUP6RZb3f4yOYviIukom1GQb/4adHznNVci4Jy+r4xqpTuXTqvaw2ls/NIx0l
+         gKDwLqMZwyr57Wend0cKNfn8E2fXi/EYCKWuTyx/lT0+aS4gBpXJhW/EnSW+VrmVq4tL
+         N9JA==
+X-Forwarded-Encrypted: i=1; AKwUvBxkamtqV529n0+S4xYOZjnGQdk642m266Up+wh8JgZqJhVpu5v2wUDyYSgEs+dNE9obd3UcnGBDPS8T@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ/UJ5TjMww87KdZFsCQ4PGr30B+dt7DQ+9ZjNWafdhYC+q+dmV
+	doT7kYv4AHqub2z/aXSyCEWq0Xjsw0C9oPIeYammWzKA5lJOmOm8F6INSmqzagJhjGApCwvwcSd
+	2kTaDjhJSpnOjQAjIXmzaUlsR+mLaWjpC98jXyQyAPntoNxAc7+4SFlRCPIcETNUP
+X-Gm-Gg: AYBFou0eASjX7T02RQJLderhQditLHcoR9zDnBkGHhT88hAcTlKFZmFCIc9ds46B8P3
+	6VH3BAb8+Am/erGMk8jXI7h4nN5cPkEsdI/hZQQNP6xmmydP578+5Of88LvxCQPhctyHy1t6fn4
+	2sP46pkOnYHKnHl5GBAw8DR7M27eqGVp2lpRif3lZzTsRGO4b1MiPUBczfIpEt2drJeQO3fRfxT
+	g6XuQ1/QNAFrp+OKOpzObGI6Cfor1Qykcfv8lBZY0eQNl29hAGIDikPb0AXt3WayA9L/C2/JBc+
+	uYZ0IKezba8gYAHxbwHpnfo3mOLNLMEAzk469oUf0lL3N7gmUMe0xaIanSdwHOQuOvf344KKX3A
+	Ctgqc3orax3Lh4gJDxITflTDllwLxxNpnoxMAbaS0pgU=
+X-Received: by 2002:a05:7301:2127:b0:359:27e6:b684 with SMTP id 5a478bee46e88-35927e6b814mr3597225eec.3.1791723787496;
         Sun, 11 Oct 2026 06:03:07 -0700 (PDT)
+X-Received: by 2002:a05:7301:2127:b0:359:27e6:b684 with SMTP id 5a478bee46e88-35927e6b814mr3597158eec.3.1791723786533;
+        Sun, 11 Oct 2026 06:03:06 -0700 (PDT)
 Received: from hu-luoj-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537c841648sm27009074eec.3.2026.10.11.06.03.06
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537c841648sm27009074eec.3.2026.10.11.06.03.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 06:03:07 -0700 (PDT)
+        Sun, 11 Oct 2026 06:03:06 -0700 (PDT)
 From: Luo Jie <jie.luo@oss.qualcomm.com>
-Date: Sun, 11 Oct 2026 06:02:10 -0700
-Subject: [PATCH net-next v2 04/11] docs: networking: Document IPQ5424 as a
- supported SoC
+Date: Sun, 11 Oct 2026 06:02:09 -0700
+Subject: [PATCH net-next v2 03/11] dt-bindings: net: qcom,ipq9574-ppe: Add
+ IPQ5424 PPE support
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -91,7 +91,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261011-qcom_ipq5424_ppe-v2-4-8c7b057e2c43@oss.qualcomm.com>
+Message-Id: <20261011-qcom_ipq5424_ppe-v2-3-8c7b057e2c43@oss.qualcomm.com>
 References: <20261011-qcom_ipq5424_ppe-v2-0-8c7b057e2c43@oss.qualcomm.com>
 In-Reply-To: <20261011-qcom_ipq5424_ppe-v2-0-8c7b057e2c43@oss.qualcomm.com>
 To: Andrew Lunn <andrew+netdev@lunn.ch>,
@@ -110,73 +110,179 @@ Cc: netdev@vger.kernel.org, linux-arm-msm@vger.kernel.org,
         linux-doc@vger.kernel.org, quic_kkumarcs@quicinc.com,
         quic_linchen@quicinc.com, Luo Jie <jie.luo@oss.qualcomm.com>
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791723782; l=1613;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791723782; l=5173;
  i=jie.luo@oss.qualcomm.com; s=20251128; h=from:subject:message-id;
- bh=WGkpfCN6Up9LleQnrV1JPYhqrbmq8We1WbCehLL66ko=;
- b=AdwziqrvuaKNl3UTc9TYrxr5vR8rC3zWkZwO2PbFgtQPe+q4aZCtEsom8v0oKLdUgznRjnkoH
- upa+RaCUiLgDPXmmugBu00qYt9S20KiN4Q/hkW5q7rrpSCsG6tV/5Oo
+ bh=cyX9O++D1EW+PrctAEPAFu+x0C4bmnpkICuaDGScBns=;
+ b=q9XCCwp5weL800g9Ws0+7uUbJ0scjfKL1KATc/UNBnNr0m/H81AQX2socHZ5PdwswDiFQpny5
+ TQp2P5FTWHFAqEsc7pp0OaMs6Q5cznp1BirVW/KqCknTmJplf+xlkJH
 X-Developer-Key: i=jie.luo@oss.qualcomm.com; a=ed25519;
  pk=gSsYMDakxtd6UDFYDdA9y9yjIs5Etp5GK/3DoXWPyS0=
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDExMDA1MSBTYWx0ZWRfX+qd9/Gk41ZnQ
- oFEE2o37dsOykRxlHyGlrNN95eoXn9EJ/CgZQhhp1tPE06FejT8/mpZZnbrhhUzyzp4jPfFHL+q
- kJHiMrtQfbVlArKkAcVz2Q79Ol1bP9w=
-X-Proofpoint-GUID: 3tJHxNcgIL88z2JL7sVWrH9vM-O5QCV9
-X-Authority-Analysis: v=2.4 cv=NddzRGD4 c=1 sm=1 tr=0 ts=6acb890d cx=c_pps
+X-Proofpoint-ORIG-GUID: OyeN4f2AVo-zujxwZ_Oqo_Es0QwzQ-Lb
+X-Proofpoint-GUID: OyeN4f2AVo-zujxwZ_Oqo_Es0QwzQ-Lb
+X-Authority-Analysis: v=2.4 cv=E6hYNqdl c=1 sm=1 tr=0 ts=6acb890c cx=c_pps
  a=cFYjgdjTJScbgFmBucgdfQ==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
  a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=U071OhrquwQVcrAs3WcA:9 a=QEXdDO2ut3YA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=z2bihl_UAZW2wbEoO2AA:9 a=QEXdDO2ut3YA:10
  a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDExMDA1MSBTYWx0ZWRfXyaAFvli7Ri22
- UsG4Vn4Ov7DycVHCpe1ZqdZmg7wxkrwSycpl8qIKnn1fILwxF4wxS/a3Hs9ctD0aw2PkvM0UuVM
- /6rCDjdhTgfGw36cVfmOTlBPNuHpNw2wVfUBxCGRldAXw5YL/0QBEbcEMhvcPneQa0yplhm4ItT
- k5ITv+I36VkzTVIjEfAloA2vk0y6s0iA7SZ6xJwMlnazf4aTRk2hep+0LobJbt9jaffQaW5fXMR
- 8tb63sJEZ3+Z7wrRh7P00Lfckh0c74F4KOK7Ln3xJFFHRwB3jM1OkU89tMPWV3bjuQ/pjNKnma7
- 8uzjeHJhIHV+U9J/VkUfG0eyRvZXp2uM6qYsCVm3QtAnXoRUMAlTDiIowXhrXzSSNmgPnv3LUBa
- bpn93BeVbEcOYVrbWN74yklSbP4P66ReF8/uzvpj3xtwfE6lQ8kqD5HjT4P1nrrU6lSCwkbnTg/
- YWMJfzBN8Md9ghP++dA==
-X-Proofpoint-ORIG-GUID: 3tJHxNcgIL88z2JL7sVWrH9vM-O5QCV9
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDExMDA1MSBTYWx0ZWRfX/ANd1iVeolps
+ VpL+6qAo59/Z15N4QZ+uQSdG23T2eb/LM6A+eX7K0lkcYI0JPPeR+zuFvpNdYioloo6eN7xj0RA
+ UyPIKhjG/LIevjOJ4RXw3yakmYnqjTFinIwWmfz8jCHQk3XjdkfkMVRW4CmE8f26jBRpvxdyWih
+ NRoSawWAvpuKrQgV0fvqTSzRli4A1U/pbYAcZQTnLVV2pX4JVpwMesBNTaNBdbglyQpLofVPnzI
+ kDm9UFjYAbP6Uek2FB6xE93uC26E2+A4AfliX4snL8++InEy5wmOxf9YGPZHolqOgld6FeHIHKP
+ LeaAoTeerFjigVfMVtJXYAKUfpsaoDaWRtHtDniq1IaldR46XSmkW2BJvL5TD7gg2XyAZdhPplb
+ /IIQMv1aiRpDgQ7+RQoV+K6aEqKkORKADnysH60hQhp3/20Rnh2LZdCKD2IjBbWXf5ZxXz77aaE
+ e2KNBtWrLRtT7KQS+BQ==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDExMDA1MSBTYWx0ZWRfX3xDOyLbo3DpR
+ V6fhc5kTLPOuYb1JR+myHUR/tFSdlYgYUzUhCbvDpNtL+pdn9c+Tw6S83W/80dhxHsbDDwSO/Kd
+ 3VM4JeC7Oj68qCCASdxA708YeoCuEE4=
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-10-11_03,2026-10-09_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 phishscore=0 impostorscore=0 malwarescore=0 clxscore=1015
- priorityscore=1501 suspectscore=0 bulkscore=0 spamscore=0 lowpriorityscore=0
+ lowpriorityscore=0 malwarescore=0 suspectscore=0 impostorscore=0 phishscore=0
+ bulkscore=0 spamscore=0 adultscore=0 priorityscore=1501 clxscore=1015
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610110051
 
-Update the qualcomm PPE driver documentation to list IPQ5424 among the
-supported SoCs, and describe the per-SoC PPE hardware differences.
+IPQ5424 integrates the same PPE switch core as IPQ9574, but requires a
+different, smaller set of interconnect paths, and has only 3 front panel
+ports plus the EDMA FIFO interface, without the EIP FIFO.
 
-The IPQ5424 PPE reuses the same switch core as IPQ9574, but runs at a clock
-rate of 375 MHz and supports only 3 front panel ports along with the EDMA
-FIFO port for host CPU communication. The EIP FIFO port is not available on
-IPQ5424.
+Add the IPQ5424 compatible, describe the interconnect paths of each SoC,
+and limit the Ethernet ports of IPQ5424 to ports 1-3. Also match all
+Ethernet port nodes, so that ports out of the supported range are
+rejected by the reg limits instead of being left unchecked.
 
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 Signed-off-by: Luo Jie <jie.luo@oss.qualcomm.com>
 ---
- .../networking/device_drivers/ethernet/qualcomm/ppe/ppe.rst       | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ .../devicetree/bindings/net/qcom,ipq9574-ppe.yaml  | 86 +++++++++++++++++-----
+ 1 file changed, 69 insertions(+), 17 deletions(-)
 
-diff --git a/Documentation/networking/device_drivers/ethernet/qualcomm/ppe/ppe.rst b/Documentation/networking/device_drivers/ethernet/qualcomm/ppe/ppe.rst
-index 4ab299a28969..04c48cec66d5 100644
---- a/Documentation/networking/device_drivers/ethernet/qualcomm/ppe/ppe.rst
-+++ b/Documentation/networking/device_drivers/ethernet/qualcomm/ppe/ppe.rst
-@@ -167,6 +167,14 @@ PPE Driver Supported SoCs
- The PPE driver supports the following IPQ SoC:
+diff --git a/Documentation/devicetree/bindings/net/qcom,ipq9574-ppe.yaml b/Documentation/devicetree/bindings/net/qcom,ipq9574-ppe.yaml
+index c899f4b56945..96e9b9420892 100644
+--- a/Documentation/devicetree/bindings/net/qcom,ipq9574-ppe.yaml
++++ b/Documentation/devicetree/bindings/net/qcom,ipq9574-ppe.yaml
+@@ -74,9 +74,14 @@ description: |
+     +------->|             QCA8075 PHY             | | PHY4  | | PHY5  |
+      (clock) +-------------------------------------+ +-------+ +-------+
  
- - IPQ9574
-+    The PPE runs at a clock rate of 353 MHz. The switch core has 6 front panel
-+    ports (port1 to port6) and two FIFO interfaces: the EDMA FIFO (port0) for
-+    the host CPU communication and the EIP FIFO (port7) for the EIP engine.
-+- IPQ5424
-+    The PPE reuses the same switch core as IPQ9574 and runs at a clock rate of
-+    375 MHz. It supports 3 front panel ports (port1 to port3) with MAC0 to MAC2,
-+    and only the EDMA FIFO interface (port0) for the host CPU communication. The
-+    EIP FIFO and port4 to port6 are not available.
++  The IPQ5424 PPE reuses the same switch core, but wires up only 3
++  front panel ports (GMAC0-2) and the single EDMA FIFO interface; it
++  has no EIP FIFO and no ports 4-6.
++
+ properties:
+   compatible:
+     enum:
++      - qcom,ipq5424-ppe
+       - qcom,ipq9574-ppe
  
+   reg:
+@@ -105,24 +110,16 @@ properties:
+     description: PPE switch miscellaneous interrupt
  
- Enabling the Driver
+   interconnects:
+-    items:
+-      - description: Bus interconnect path leading to PPE switch core function
+-      - description: Bus interconnect path leading to PPE register access
+-      - description: Bus interconnect path leading to QoS generation
+-      - description: Bus interconnect path leading to timeout reference
+-      - description: Bus interconnect path leading to NSS NOC from memory NOC
+-      - description: Bus interconnect path leading to memory NOC from NSS NOC
+-      - description: Bus interconnect path leading to enhanced memory NOC from NSS NOC
++    minItems: 5
++    maxItems: 7
++    description:
++      The number of interconnect paths depends on compatible, 5 paths for
++      qcom,ipq5424-ppe and 7 paths for qcom,ipq9574-ppe, enumerated in the
++      allOf conditionals below.
+ 
+   interconnect-names:
+-    items:
+-      - const: ppe
+-      - const: ppe_cfg
+-      - const: qos_gen
+-      - const: timeout_ref
+-      - const: nssnoc_memnoc
+-      - const: memnoc_nssnoc
+-      - const: memnoc_nssnoc_1
++    minItems: 5
++    maxItems: 7
+ 
+   ethernet-dma:
+     type: object
+@@ -182,7 +179,7 @@ properties:
+ 
+   ethernet-ports:
+     patternProperties:
+-      "^ethernet-port@[1-6]+$":
++      "^ethernet-port@[0-9a-f]+$":
+         type: object
+         unevaluatedProperties: false
+         $ref: ethernet-switch-port.yaml#
+@@ -236,6 +233,61 @@ required:
+ 
+ allOf:
+   - $ref: ethernet-switch.yaml
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: qcom,ipq9574-ppe
++    then:
++      properties:
++        interconnects:
++          items:
++            - description: Bus interconnect path leading to PPE switch core function
++            - description: Bus interconnect path leading to PPE register access
++            - description: Bus interconnect path leading to QoS generation
++            - description: Bus interconnect path leading to timeout reference
++            - description: Bus interconnect path leading to NSS NOC from memory NOC
++            - description: Bus interconnect path leading to memory NOC from NSS NOC
++            - description: Bus interconnect path leading to enhanced memory NOC from NSS NOC
++
++        interconnect-names:
++          items:
++            - const: ppe
++            - const: ppe_cfg
++            - const: qos_gen
++            - const: timeout_ref
++            - const: nssnoc_memnoc
++            - const: memnoc_nssnoc
++            - const: memnoc_nssnoc_1
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: qcom,ipq5424-ppe
++    then:
++      properties:
++        interconnects:
++          items:
++            - description: Bus interconnect path leading to PPE switch core function
++            - description: Bus interconnect path leading to PPE register access
++            - description: Bus interconnect path leading to CE AXI
++            - description: Bus interconnect path leading to CE APB
++            - description: Bus interconnect path leading to NSS CSR access
++
++        interconnect-names:
++          items:
++            - const: ppe
++            - const: ppe_cfg
++            - const: nssnoc_ce_axi
++            - const: nssnoc_ce_apb
++            - const: nssnoc_nss_csr
++
++        ethernet-ports:
++          patternProperties:
++            "^ethernet-port@[0-9a-f]+$":
++              properties:
++                reg:
++                  maximum: 3
+ 
+ unevaluatedProperties: false
+ 
 
 -- 
 2.43.0
