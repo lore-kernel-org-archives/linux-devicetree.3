@@ -1,120 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from mail.nozomi.space (mail.nozomi.space [139.162.184.125])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F94235DA42;
-	Sun, 11 Oct 2026 18:31:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F35B623E334;
+	Sun, 11 Oct 2026 18:48:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=139.162.184.125
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791743501; cv=none; b=fVswOeYVnfa+3SM5ha7fvbYNdXiiLka5X7Ar+NHzuOdGJZDskse6D2MCLyNl9uH/RqaseGqYQo5ZXHtADmDbjeajyVJWaQSLPStJOANUwLWzjmvhGwCY+hT4g0536h+31iT0lUktNcFj/TVWMgBalQZnuYc+BgjH9fbDx8BdpAU=
+	t=1791744482; cv=none; b=W2b7mKQCkuf2IQRuN8iaGijLhSGMTvRspL0pRe9+OJu0+OLA1QeHnYUtP4egj2Wq3abTM0SdzvL+0bfJUA+UD6FhfJ2+3+ZY1sI1j/c7jBAWKjRR7j+gBKOD1KIroBWgT1QjXzA2Re3L9NqdWqQHBAAE5UVGUf4CU4h+qrLZdN4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791743501; c=relaxed/simple;
-	bh=b5WqWIpY8HetKJM8uxETc/QQ/y49qT8ER9ENAwKq5T0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=bcUYAZoi3x+LDCQmFr/pkuVevA059hf1RUXqHBPjdZgCf8RrVCp7tbFsHXUkdcNgIQfFJ8UNT3RN+2ne1i2HFLe8+TA4ivkCXFp//sLrko3tWpo84CazYt2q1tHMmT/u0layI2IHd6WNckilt8knzlO3CxTEPVvsH+g0f8Ub01w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=sVPv/y3I; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791744482; c=relaxed/simple;
+	bh=rTFeGKLoAJm8570beEA9BPdUtoApvrLuQNqr3X0IDzk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Io0bq88TyEw4dHS2VzRzRnbmtpQTUZ5+9MITvug7ioxK+MU7fsJj86UNg05OGYr5zL0Y+DRMMLawE3U9joHWJ0KtjCXLEEcqjC9lgxlbl+QhxX3ncAbb7wwk0sTRwg3xk+HlkE2vtd0mseRgGK7XEGZWSc+pmXtSGmUe9wV4DlU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nozomi.space; spf=pass smtp.mailfrom=nozomi.space; dkim=pass (2048-bit key) header.d=nozomi.space header.i=@nozomi.space header.b=dWwTa3BD; arc=none smtp.client-ip=139.162.184.125
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nozomi.space
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nozomi.space
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="sVPv/y3I"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 2FCBFC2BCF7;
-	Sun, 11 Oct 2026 18:31:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791743501;
-	bh=b5WqWIpY8HetKJM8uxETc/QQ/y49qT8ER9ENAwKq5T0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=sVPv/y3IyEH05ad8o2JJO9YXswmOnH3CfUMExD3nYiTtyNWyU3mP4tS8hWBGxut+A
-	 yT/cdBonvrjwsziTJEVbQ/jn2zoK+gi+T29vKBGk1omwtbMpwo4Q/4cUf2o32ScYqy
-	 hcQZu0tbEPxcOA4PmUz78MXlxpzixfTTB2HIFfhqUuPLYu1iEuQaGmN9YLjVvVapRr
-	 T8L5Lb5iPFzh/2HxfeywVUm+QKYebLKl2XUnZG45dS2aA8w2et0F0orIjBfvw45Kgz
-	 Iu0sZO9mS91b+A683nfRsZqK3IsbjcHyfaJrGGawsugJ3t0nlZ4nwzaIiGzbYNMKGa
-	 YEP3wWCfkhWXw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 0F0EBCA9EC7;
-	Sun, 11 Oct 2026 18:31:41 +0000 (UTC)
-From: Fil Dunsky via B4 Relay <devnull+filipp.dunsky.gmail.com@kernel.org>
-Date: Sun, 11 Oct 2026 21:31:40 +0300
-Subject: [PATCH v2 1/2] arm64: dts: meson-gxbb-odroidc2: read the Ethernet
- MAC address from eFuse
+	dkim=pass (2048-bit key) header.d=nozomi.space header.i=@nozomi.space header.b="dWwTa3BD"
+From: =?UTF-8?q?Micha=C5=82=20Kope=C4=87?= <michal@nozomi.space>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nozomi.space;
+	s=mail; t=1791744479;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=wY0ppPAZSs1jsS2/VNGUZBFu80zBzZfLXtPwdAUISaQ=;
+	b=dWwTa3BDqT16TIP6e83lNQFR79CtfGZmUceJZKR0SQWjIjG6rUKd+IYMERFIFB/4SSacoA
+	zWLRzGo3DJf6c+Js1NB+5Cxr7/2+z2T+RJStqaUh4JpZF1cBokyF1V0kZiddPbmJtkStF9
+	zPKTO0rxY8GxwMh14TVINAtq2a33BCI54yUY2uxOR5vZrNGWHqTTjFsR9ansP+B9P/+e2B
+	+OkUQ365IsPqX+w3OibfpFbhbSmRPtU1tDJrHAEgqdodTKFz21i+muRRwIGZqi3KRqVcd3
+	QtyJSf+JppH91Bay4YPnGQRAayW9WxS3WTuScEIhAkiVg9Jca6/oNGgYjL/uSA==
+To: ulfh@kernel.org,
+	angelogioacchino.delregno@collabora.com
+Cc: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	matthias.bgg@gmail.com,
+	linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	=?UTF-8?q?Micha=C5=82=20Kope=C4=87?= <michal@nozomi.space>
+Subject: [PATCH v2 0/4] pmdomain: mediatek: Enable the GPU timestamp counter on MT8188
+Date: Sun, 11 Oct 2026 20:47:51 +0200
+Message-ID: <20261011184755.2058017-1-michal@nozomi.space>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261011-odroidc2-dts-v2-1-a3a4a752f2ab@gmail.com>
-References: <20261011-odroidc2-dts-v2-0-a3a4a752f2ab@gmail.com>
-In-Reply-To: <20261011-odroidc2-dts-v2-0-a3a4a752f2ab@gmail.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Fil Dunsky <filipp.dunsky@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791743499; l=1642;
- i=filipp.dunsky@gmail.com; s=20260930; h=from:subject:message-id;
- bh=PsqvKgTZVmwNJ/75hqMs5lzb8aAfYpplhUuYDuvqmXQ=;
- b=gqt5Pn5RDRBctoPQT0FhhHkMrtLZS+rS8WrpKx8CGMCHl/WC44eGIvR3VU++jAeOdW0x/OiO6
- 8Ycvr/c7rGFAeDjY/tYKXbv/t7HctodE4HL9+Mtg11QzpF0JfGbz0R9
-X-Developer-Key: i=filipp.dunsky@gmail.com; a=ed25519;
- pk=JAYP8e2rJ54DHOmhNtXud8rl1igAaAXoOHxtJmVXI1g=
-X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
- auth_id=1085
-X-Original-From: Fil Dunsky <filipp.dunsky@gmail.com>
-Reply-To: filipp.dunsky@gmail.com
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-From: Fil Dunsky <filipp.dunsky@gmail.com>
+On MT8188 the GPU timestamp counter reads zero until a register in the
+MFGCFG block feeds it the SoC system timer, and MFGCFG loses that
+setting whenever the MFG1 power domain is turned off. As a result, the
+SYSTEM_TIMESTAMP query and the timestamps written by GPU jobs are always
+zero, which breaks timestamp queries in userspace drivers.
 
-The vendor programs a unique factory MAC address into the SoC eFuse at
-offset 0x34, where meson-gx.dtsi already describes the eth_mac nvmem
-cell.  Reference the cell from the Ethernet controller so the kernel
-picks up the factory address itself instead of depending on the
-bootloader to populate local-mac-address, or falling back to a random
-one when it does not.
+v1 restored the register from panfrost through a new mediatek,mfgcfg
+phandle on the GPU node. As Krzysztof pointed out, the register is lost
+by the power domain, so v2 restores it there instead: the power
+controller lists MFGCFG in access-controllers and writes the register
+every time MFG1 has been powered on.
 
-The cell is 16 bytes long in meson-gx.dtsi, while
-of_get_mac_address_nvmem() only accepts a cell of exactly ETH_ALEN
-bytes, so narrow it to the 6 bytes of the address for this board.
+Patch 4 converts mt8188.dtsi from the deprecated per-domain
+mediatek,infracfg phandles to access-controllers. A devicetree with it
+needs the driver changes of patches 2 and 3, because older kernels
+expect exactly one access controller on MT8188 and fail to probe the
+power controller otherwise. Older devicetrees keep working with the new
+driver, without the timestamp.
 
-Tested on an ODROID-C2 with the bootloader's MAC fixup out of the way
-(ethernet0 alias removed from the DTB): with the 16-byte cell the
-driver falls back to a random address, with the 6-byte cell eth0 comes
-up with the factory address from the eFuse.
+MT8370 uses the MT8188 power controller and mt8188.dtsi, so it is
+covered as well.
 
-Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
----
- arch/arm64/boot/dts/amlogic/meson-gxbb-odroidc2.dts | 7 +++++++
- 1 file changed, 7 insertions(+)
+Tested on the Lenovo Chromebook Duet (MT8188): the timestamp counts at
+13 MHz, also after suspend and resume.
 
-diff --git a/arch/arm64/boot/dts/amlogic/meson-gxbb-odroidc2.dts b/arch/arm64/boot/dts/amlogic/meson-gxbb-odroidc2.dts
-index 5943bc810..3b74528ef 100644
---- a/arch/arm64/boot/dts/amlogic/meson-gxbb-odroidc2.dts
-+++ b/arch/arm64/boot/dts/amlogic/meson-gxbb-odroidc2.dts
-@@ -223,6 +223,10 @@ &cec_AO {
- 	hdmi-phandle = <&hdmi_tx>;
- };
- 
-+&eth_mac {
-+	reg = <0x34 0x6>;
-+};
-+
- &ethmac {
- 	status = "okay";
- 	pinctrl-0 = <&eth_rgmii_pins>;
-@@ -230,6 +234,9 @@ &ethmac {
- 	phy-handle = <&eth_phy0>;
- 	phy-mode = "rgmii";
- 
-+	nvmem-cells = <&eth_mac>;
-+	nvmem-cell-names = "mac-address";
-+
- 	amlogic,tx-delay-ns = <2>;
- 
- 	mdio {
+Changes in v2:
+- Restore the register from the MFG1 power domain instead of panfrost,
+  and drop the GPU phandle (Krzysztof).
+- Drop the panfrost patch, which makes the review comments about error
+  propagation and MT8370 moot.
+
+v1: https://lore.kernel.org/all/20261003200132.866240-1-michal@nozomi.space/
+
+Michał Kopeć (4):
+  dt-bindings: power: mediatek: Add the MT8188 access controllers
+  pmdomain: mediatek: Restore a register after powering a domain on
+  pmdomain: mediatek: mt8188: Enable the GPU timestamp counter
+  arm64: dts: mediatek: mt8188: Use access-controllers in the power
+    controller
+
+ .../power/mediatek,power-controller.yaml      | 16 +++++++++++++-
+ arch/arm64/boot/dts/mediatek/mt8188.dtsi      | 22 +------------------
+ drivers/pmdomain/mediatek/mt8188-pm-domains.h | 16 +++++++++++++-
+ drivers/pmdomain/mediatek/mtk-pm-domains.c    | 19 ++++++++++++++++
+ drivers/pmdomain/mediatek/mtk-pm-domains.h    | 15 +++++++++++++
+ 5 files changed, 65 insertions(+), 23 deletions(-)
 
 -- 
-2.53.0
-
+2.56.0
 
