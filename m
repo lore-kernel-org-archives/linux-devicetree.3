@@ -1,63 +1,65 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEDB8314D34
-	for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 15:46:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B1132E7185
+	for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 15:46:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791733566; cv=none; b=N93Zjn8/9ReOHHsjyOl2nGygQxCIYk5W2Z/SW6VHBRJJYire7wPyA/M7K086IyTwKPi1PgIO2uoed8N/Wm4ac8xjrtDipcNbVoAkcxHf4PjFQMv3zpk/JYVscS8wGz2RFhYlG17GB6zdjf9Tqxv4ckOjQoFLH8nad2heNN/UMpQ=
+	t=1791733568; cv=none; b=giG9XzznTf7Wa6kGgnL/RjHd9Xi4Imzac4AHf8Gm3kBcFKU3SQSegwHt3A9zOUMF5/zu2asMLBonYu9YEJc7QVsTdDUrXcA1i96hAYvmtEtfzWKqr/gAo0UO/i77OWf8lODWJ6yFHTostcYUIjVObBYJh5muPSGz3pEaG1BGfxk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791733566; c=relaxed/simple;
-	bh=+zlMmsjRtrMhV3IVJmRTns9Jx1vdF+jgPHovcTw5gNQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Lwa6CWHYNHZGcSlv9CEKaAThCub21rYpOpmECwG3pZcroIqA+zsmaqn40IqTm4xmUMdPI9XI8wvgPj4t1c7/0H3nwZzy9lQ7JHtz4Ovb+dG1Y0WX0mnnnyU5KgvwKZn7XStzR4K7PLwx3RyW0vmlcBWx23eb0egcxbU21lxZHAU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ibPdHstR; arc=none smtp.client-ip=209.85.128.46
+	s=arc-20240116; t=1791733568; c=relaxed/simple;
+	bh=luPo1WPcGmNZq8g6KdPpWn3vJseGfAZrWxxIyeCQNsA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=SBFii0yxOGb6XVZBL0Swp6LNkB/ORE5liT2PyuFnltvYb0Wv+Mp7JvAENW5tet+TX+uHZWB3nfy8bpwDNO+VEUpCkDl2fMwUuym598Q4+bw7AUHuGrEytduqSF7TZuPkRklNvLumxvWtBuHetLLuX6ety5hoDD60W23iw0rUixQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Nd+Po8ID; arc=none smtp.client-ip=209.85.221.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ibPdHstR"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4a16aaf2067so14353865e9.0
-        for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 08:46:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Nd+Po8ID"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-48b0584ad71so534183f8f.0
+        for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 08:46:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791733562; x=1792338362; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KWtk7M4DwRl8OFBblism+Ji7aIBUvvGL32g8hLsp5pU=;
-        b=ibPdHstRUcSZtHVcALtm8tgkTzUcE4sPv8KO+okOEhbP3wG3ZML/cHNnJNlC0rgZfr
-         x3usxwzZzCW1mPjZFIc9nbDegL4iLYjgYa9fe5m2qSK+mGpW7dcyjZp1xWqHcM+Xfzpl
-         9LODqgzQjOoll5WN5tKpQMR3yj4eB+O30/yJ3HH6WimAQaPCsALdmy9FNMQ+VIdD+vIh
-         /JAmYQhIBJi1hTCEyiryHyWeuEUcMZTCVd69tYQasrFgyBBUqf0dIR+WAqvWHxsGrKRn
-         bqoi2vhYSfIiLfD81kr52vbToABXrsC6lzPMLQ341vO25jZEOtV9U3V+WE6Zqbl7hxPp
-         s1Gw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791733562; x=1792338362;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1791733564; x=1792338364; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=KWtk7M4DwRl8OFBblism+Ji7aIBUvvGL32g8hLsp5pU=;
-        b=URmsqw3gaVCFAQBd2olHNz+qJ19obpz8xzIaFMCKcHQJ3TBcDp7fu8XnJHtklrbgZD
-         h4VH9TUe5D4v/bJWnY2TxkuyDWlOIzMXJX/GDpVS5/Z4egHtD2KI0sECAA0EeKm2dTzo
-         YJ6G0K82I0znyFuk2tGNNzQaIbo8KOP1UvYKv5+esRshyOTDsgF/CmIFLrwziUfjQlwR
-         AGpQYKYaaX3MUKVXHtB/ySYtzBPUsEQY1Ynzh9K34fz7Ci5c03BOhsugLvn7ca69CQcn
-         Wt09A3fPNzJdrnWJyS1pa0bki1+j+LO1owJM5ZLj4Ee/Hnz7TBqa3Cbb4UOb2i/+72RP
-         /5CQ==
-X-Forwarded-Encrypted: i=1; AKwUvByFX5DkNteTHXqHDVFVpjoi/dT2N8aG3zFoncDw8aFoasdseRx7PQTf1h2RRMuddQVOX0FLfOH7J3pF@vger.kernel.org
-X-Gm-Message-State: AFq9FYJAjrcWj+1qbjqnGC1LdbusKpah/KT/PvbVC4HeZ9WXAyyop/mh
-	Ft2CLpPcFCnmYzzrOlLkIlpPejTq3qfd7qvbjzGPqjA+EpxENdbf6nJH
-X-Gm-Gg: AYBFou11aTG7Cveg9QTeSXHnDvyL+vtbB6VB9eqn7Is4vjuZyuDadl58d/CT2/35NOq
-	nHciav8aWDLQ5p/jQKdrMW1YHMxCAeEWRHFkM02DiUR7bRirKTvixn/qH+S41DP+KY4tbWKnxPI
-	34qTFkamhD4ODqJQi+fT/jbx6PzyDRZSHikRpOv0sp51/z4kO5gt203I6DkbB++829Sr/IDmDBX
-	OYeHIXPmlk42qHr6LZiqGLH7FAmdUBbqXayuEcUbWwBnuM9x5I3N43Kpl0XDZz/GGVGbr9s6Ubh
-	Aku6aTEhxbdplO4l1AGCR3TsjkQM53WeOZD1QpjRPdf41G296pjqQQ5wc0cyTu+6X99fUed+6EZ
-	/T2VaifvB6evQJwcABrpwCiqlnIcgK21M4md10y11HhnhqmbuNGgX2NkY+zxgNh7FkPlVzqUdfr
-	49QEmdNtgNfkAaA4Hr8xabFAbX6P1wUOq/Ckj+GeyMLwKYs1VIykE8zofMCERKwtpU+9CGwdM8D
-	qBOiCbrQQ+/cik0MVQCcNwdlEhO9aJbtuP+RbT8eXdGEG1Z+4xBOROz27wVq5nj6wtE1WTFOxhs
-	7Fdkpzs4Q2SWicxVjESIPelrEqJMopLoHu5MKFtO5VWAI+czAQ==
-X-Received: by 2002:a05:600c:19ca:b0:49d:10d6:fd55 with SMTP id 5b1f17b1804b1-4a18e4487b5mr137032985e9.1.1791733561853;
-        Sun, 11 Oct 2026 08:46:01 -0700 (PDT)
+        bh=DIetfJ/7JjHlui5/FdOLhdp/S9WpwXXJl3LTFgmkhgo=;
+        b=Nd+Po8IDMyfajs9bkkfHQSFwmLGdTssCpOfuBwbOFBVSyZ2f4vhOJKExjBd6ENPCN7
+         0URumUK0kslV+NAXGwswQ7bjI6GWFIiyWPFtOuPpZTWVfqa5cyWUQ2kJNFscDYetAlnv
+         JIf20c02q3vJIzsv1lIb3cVJ1XGNXVTGVCMvmV+Kpi7O1C3R9nd9s9M6+I583CEQjVqm
+         IlZZuEqyvBo8BjhFmYwTDq5wDPOtzlyGjioBHF7JpUpMIRzbjjVH8XYL716lvpqzR4tG
+         lwO5MyjqPX6gbJtK3pJ3iMykwZCqObVkeMdALToY9NeNne0G2nVmqhxUAeODIS/7vaXa
+         1PYQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791733564; x=1792338364;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=DIetfJ/7JjHlui5/FdOLhdp/S9WpwXXJl3LTFgmkhgo=;
+        b=EJ4Sk98HCiLInW7nNK/bfo2hVcazfEvk4oYY05B9+N4TR3QYaxvkHcubnM7S8RS1D+
+         lW5pzmS5MFjifatwa43PVAWqwYhym0ml2rdKSKLEaTfSfMFPk3FeGi13sftU+IeseKZM
+         B+cR2TvnU5O4LCNd2N33SRju6URCLyXznfEAH7xvGg6k/Tj3MPgSdACt0aFIFp9Uin+a
+         +EfGeqU6djm1N1/DwEeh1MiY0LRd3FszR/YCM1+nqcDCTewGmUbRB3InEVnMYWKGl+9E
+         0+MKA3M6HAl9ycbMYB8UDMFReKe8it3yT8FJwt7OZ8LjSA1S43uwJXEvQ4AL8Ga00bkE
+         H2jQ==
+X-Forwarded-Encrypted: i=1; AKwUvByQ4N2tfVlbHwupYkOhLmqQXb6trMl9TalePrF59etuVli8W79pnR7YRtwSiaoRgm/ZsHbXHTRxKvUL@vger.kernel.org
+X-Gm-Message-State: AFq9FYLbMr7I9+P06Um3tGJiROhrk+0EtwMobeY9fm54JdlRmfVm9Y0O
+	6VoEvsMTDfpvkTlg1qDn4I4C56uQaCTIzKceqdjZ0N/e14PAo0eLJyD5
+X-Gm-Gg: AYBFou39nI4zDXZnkxb0OwI9rP/3IIHw8qAIHnYJabum4YOOAkX6sGUY2xBxqFk9tvJ
+	pqyjZkVTKP4zhWpuOKDBJO7etrUpPM0Bs7OSIHfWU4NDAUi7gyR1XiZ/Y3bB3f0x2xSyxAHOFiQ
+	PeVlbEPkGFHgwhvvI8mzga7lHNapj2iKcLjyAU8w/QSzqpm2UyC92WPwb/6dbJuM98m07rh8+bI
+	0OwAK1h0VsC8ixGiWB796qsPIP+qOWJ93Llen+Oty/g3HSYtCc/VQXgAAQUkH6EfM/pZIL/LUsY
+	YF9D47nqKUAZji/yTQ3V7tnfNn6uBBXa7/Khw5wkshyYwKstTmbv1X31+8RNwcvh78rF8Uh58Bp
+	gpbc+WoVlPqgcSvXK8P8qLqTQSanLSDRJOpc2YoUeb2z88zzM2xw2YO5M0sSWCP352g01oLsJhf
+	u2lDLFI6EUwoyNgustMZ3CBohZRmf2/8S4cuc5o6fcOD4tWqSGugZdXukLnMGXQJ1vNCmpRQHZU
+	pP7MMAbT/hb1vRkYkNeROBnC3tMg5b7t88PHAUOUFdfJPYD8mFEXFEVUnLaldra0onPzXAayKBz
+	zjMTuCvG2XSXTVe3mGzNAdAeNRWkbslnHYx+i7A=
+X-Received: by 2002:a05:6000:491c:b0:488:844f:6034 with SMTP id ffacd0b85a97d-48dbad474bamr12837525f8f.48.1791733564150;
+        Sun, 11 Oct 2026 08:46:04 -0700 (PDT)
 Received: from localhost.localdomain ([2a0d:3341:ed52:5c10:2778:2fcf:de1f:bc08])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db93d6069sm13996176f8f.0.2026.10.11.08.45.59
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db93d6069sm13996176f8f.0.2026.10.11.08.46.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 08:46:01 -0700 (PDT)
+        Sun, 11 Oct 2026 08:46:03 -0700 (PDT)
 From: Leander Kieweg <kieweg.leander@gmail.com>
 To: dri-devel@lists.freedesktop.org,
 	devicetree@vger.kernel.org
@@ -70,11 +72,14 @@ Cc: airlied@gmail.com,
 	krzk+dt@kernel.org,
 	conor+dt@kernel.org,
 	u.kleine-koenig@baylibre.com,
-	Leander Kieweg <kieweg.leander@gmail.com>
-Subject: [PATCH v6 0/2] drm: Add DRM driver for GlandaGPU (VHDL soft-IP GPU)
-Date: Sun, 11 Oct 2026 17:45:54 +0200
-Message-ID: <20261011154556.155831-1-kieweg.leander@gmail.com>
+	Leander Kieweg <kieweg.leander@gmail.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v6 1/2] dt-bindings: display: Add GlandaGPU binding
+Date: Sun, 11 Oct 2026 17:45:55 +0200
+Message-ID: <20261011154556.155831-2-kieweg.leander@gmail.com>
 X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20261011154556.155831-1-kieweg.leander@gmail.com>
+References: <20261011154556.155831-1-kieweg.leander@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -83,48 +88,95 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This is v6 of the GlandaGPU DRM driver series [1][2][3][4][5]. It
-addresses review feedback from Thomas Zimmermann on v5.
+Add Device Tree binding documentation for GlandaGPU, a custom
+FPGA-based 2D display controller.
 
-GlandaGPU is a small VHDL soft-IP 2D display controller, currently
-targeting a Terasic DE10-Standard (Cyclone V SoC). This series has
-been tested against a QEMU digital twin and on real hardware.
+For hardware designs and RTL sources, see:
+https://github.com/stiangglanda/GlandaGPU
 
-Hardware/VHDL:   https://github.com/stiangglanda/GlandaGPU
-QEMU fork:       https://github.com/stiangglanda/qemu-glandagpu
-Userspace tests: https://github.com/stiangglanda/GlandaGPU-userspace-tests
-
-Changes since v5:
-
-driver core:
-- Replace the custom glanda_crtc_atomic_flush() with
-  drm_crtc_vblank_atomic_flush() (Thomas Zimmermann).
-
-On the QEMU device ID: it's currently a placeholder from the
-experimental range, since I haven't submitted the QEMU patch to get
-an official one yet. Is that fine to merge as is, with a follow-up
-kernel patch once the official ID is assigned?
-
-[1] v1: https://lore.kernel.org/dri-devel/20260714101146.200416-1-kieweg.leander@gmail.com/T/#t
-[2] v2: https://lore.kernel.org/dri-devel/20260730173643.256052-1-kieweg.leander@gmail.com/T/#t
-[3] v3: https://lore.kernel.org/dri-devel/20260824195418.17707-1-kieweg.leander@gmail.com/T/#t
-[4] v4: https://lore.kernel.org/dri-devel/20260913205007.118552-1-kieweg.leander@gmail.com/T/#t
-[5] v5: https://lore.kernel.org/dri-devel/20260920193944.110983-1-kieweg.leander@gmail.com/T/#t
-
-Leander Kieweg (2):
-  dt-bindings: display: Add GlandaGPU binding
-  drm/glanda: Add initial DRM driver for GlandaGPU
-
- .../bindings/display/kieweg,gpu.yaml          |  56 ++
- .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
- MAINTAINERS                                   |   6 +
- drivers/gpu/drm/tiny/Kconfig                  |  11 +
- drivers/gpu/drm/tiny/Makefile                 |   1 +
- drivers/gpu/drm/tiny/glandagpu.c              | 634 ++++++++++++++++++
- 6 files changed, 710 insertions(+)
+Signed-off-by: Leander Kieweg <kieweg.leander@gmail.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+---
+ .../bindings/display/kieweg,gpu.yaml          | 56 +++++++++++++++++++
+ .../devicetree/bindings/vendor-prefixes.yaml  |  2 +
+ 2 files changed, 58 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/display/kieweg,gpu.yaml
- create mode 100644 drivers/gpu/drm/tiny/glandagpu.c
 
+diff --git a/Documentation/devicetree/bindings/display/kieweg,gpu.yaml b/Documentation/devicetree/bindings/display/kieweg,gpu.yaml
+new file mode 100644
+index 000000000..0ffe34205
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/kieweg,gpu.yaml
+@@ -0,0 +1,56 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/kieweg,gpu.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: GlandaGPU 2D Hardware Accelerated Display Controller
++
++maintainers:
++  - Leander Kieweg <kieweg.leander@gmail.com>
++
++description: |
++  GlandaGPU is a custom FPGA soft-IP core providing a simple
++  2D hardware-accelerated drawing engine with a VGA-compatible
++  display output. The register window covers a combined VRAM + MMIO
++  region, with MMIO registers at a fixed offset within it.
++
++  For hardware designs and RTL sources, see:
++  https://github.com/stiangglanda/GlandaGPU
++
++properties:
++  compatible:
++    const: kieweg,gpu-1.0
++
++  reg:
++    maxItems: 1
++    description:
++      Combined VRAM + MMIO register window (VRAM at offset 0,
++      MMIO registers at offset 0x00200000 within this range).
++
++  interrupts:
++    maxItems: 1
++
++  clocks:
++    maxItems: 1
++    description: Bus and pixel clock provided to the FPGA IP.
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - clocks
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++
++    gpu@c0000000 {
++        compatible = "kieweg,gpu-1.0";
++        reg = <0xc0000000 0x1000000>;
++        interrupt-parent = <&intc>;
++        interrupts = <GIC_SPI 43 IRQ_TYPE_LEVEL_HIGH>;
++        clocks = <&osc1>;
++    };
+diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+index b1af9deac..3a9d15dd7 100644
+--- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
++++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
+@@ -893,6 +893,8 @@ patternProperties:
+     description: Khadas
+   "^kiebackpeter,.*":
+     description: Kieback & Peter GmbH
++  "^kieweg,.*":
++    description: Leander Kieweg
+   "^kinetic,.*":
+     description: Kinetic Technologies
+   "^kingdisplay,.*":
 -- 
 2.43.0
 
