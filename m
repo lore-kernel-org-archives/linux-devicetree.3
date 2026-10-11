@@ -1,127 +1,197 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com [209.85.210.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7A6E38C406
-	for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 23:13:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FB7A37CD21
+	for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 23:14:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791760408; cv=none; b=cqsHiWJhWxAGnfuZ/i1xKPYdijF1dHpnG/IZ0HMP+zFmyaGSUzY1gs/KaSRMUK1uPpn2nSeF+J1h5YdGLz7b1sJ+emcjnlTLtLx7d7DBAnx82lhef57MRm8D3CDoFWanulcngsCstydw/f28382Xr/1+t89rM2nuu9EyDRoHsWY=
+	t=1791760465; cv=none; b=iYQnVa8dYP65V4U+611XDqmvRZbFRmiiOTZtRxlxk2B2f58eA7rJVPGyMklMd2NdlAEs+I+GUTw1TNLR3MEscpBHbjq5IdSyshyKfii1Q01NgFdaNkR5OhrSr36mN2d7LRaj6IKQ2iw0UHjKtiESOwd0d00GQDmWa5IoGoK9JpE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791760408; c=relaxed/simple;
-	bh=oxW4Ujc2C6PLvH6PLF1Dxb2THQi6y4w5CW1TMZdBXv0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bFaHzcWiyJ/0q+vga9W7sVyw/OEP7+/2HR/L3eiXwVyrr3WF0UgYzX8LgwiHXkbpVd2ShFim1YKBCbJ8rpmMBveLzE/En4vO39QD8FEXeX9dy/3argqAatmT0DHd/khmsxOOMUy0aDe9ZBJDv44W0V2qSnMS/Jzj9ul9+8y/Wr0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=QON8AQ/y; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	s=arc-20240116; t=1791760465; c=relaxed/simple;
+	bh=fFleWHNo/y1J4A2S1T5/VI79f4PAXSoaji4SutSut/k=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OrAMkZCVIZb5I1Vi4ijN0h1aJnflAqvpVg+axEe9NHDA97XSfjwcBYfb5HfmJRqlAgc67XhI2aYVjGpt6McsBOaulfU7pFQmPuZG7vcnqe2aYeb1YM6RoTiVgZXXFuT6VBu1BJYOtjtHXYAQVcUNhbjGI4fYOLFyafbgSTmghNM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Cjz4N6J0; arc=none smtp.client-ip=209.85.210.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="QON8AQ/y"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a0e1b0681bso9224935e9.3
-        for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 16:13:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Cjz4N6J0"
+Received: by mail-pf1-f180.google.com with SMTP id d2e1a72fcca58-873a4edb243so775052b3a.0
+        for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 16:14:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1791760405; x=1792365205; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=oxW4Ujc2C6PLvH6PLF1Dxb2THQi6y4w5CW1TMZdBXv0=;
-        b=QON8AQ/y9KiDFNy+It8hlob20YtDNppEISyizRYGEuYW850wo+nChbnur+Em+jCztB
-         /cfm0szmZIEThkdWA0vzorgpsLyHphoJCOGuoxSaxkHSTuVsUvYjbHMUvcpF1GSOvHQH
-         nHqOxVlwpTfrcZWDu4MicUvoyfJIZki6P55XjhS7hl7Jl2Y8eU8NAkukEuSWMuR6J5LH
-         EEwOvkvRhxkR8rbeLvDMsm2dFOwRHKntRAgG4wAZupdVfBeK4nCTZQCp461kYasoojZm
-         fq/V4bUMgkGW5XYnKG1N/OjUd3ViOc4KA1gjEfBNP9WJjIr+e0Yah3OW9cSPWGX7OIWt
-         IqgA==
+        d=gmail.com; s=20251104; t=1791760464; x=1792365264; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Kv44X2ypV4dj/vQWfiHinCIJAZ0imVPklyHLOa+kIIY=;
+        b=Cjz4N6J0w3qwtPLIW1pDRxCJZEpY2T6c33/hqyTWr/tepaz4n8D94qW6F5GB8nBIGM
+         sJuH2vGag3AbRmIA3XKGVIJjil/qcj1HPHJdDxtR9jLwvv6AxLfxh7xp524gl4Omnjq8
+         FjdnYWd8L0aH/6QnkUidOyrbxYGxYsxEh8VpLlzGAaVddja7NApBaW1SoycawiS5GI1w
+         irDiQqBm1uu5Wol3hYZGsijJ/qtCqps/GNKhAMyT7089Qo0zpKm2sNcjPM0wj7/L9z8j
+         oBb+BOUG7vxk62AwuMqbh03teKvsJVvJVYwHo2KunSp1Mu8Zlyaqe8WGd5VpD7UjOSgn
+         hakQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791760405; x=1792365205;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oxW4Ujc2C6PLvH6PLF1Dxb2THQi6y4w5CW1TMZdBXv0=;
-        b=bdGSC7Zd2pLTGyqZHNnEg/Q4qyU6HzaA4avoq/mKv5l1tgI7Mp8OpSSxJ/k76rYMpJ
-         F1oJc3VsJ/h0A976sgr2yqKZ21PHucZvfQqAOVyrGbDsqpUfS5uqBIOev7uT5sO9NYa5
-         6cbH4tPxya68xm48GzMaay7UHn/MPGVWWwcOhjMBGXtKD34u6v8ShUc1jJbRJg0OX1vb
-         m8/cJcjFWgM+5QSaW0E9Th0h09MtyOJvMqK0GhGJ22uYsBbEug3qgYCXoGAF1HyqVnTp
-         BieuNU8V+9tnVviC7+nxOXztGEcJdlGhzWNGXSccJdR46NgSFzgPk0cIxGhWkjmmkLyK
-         pTYQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz6zpsvAxDVwPX/5R2JVwVf+vbMPk4c0m31It9CXmZBVi93ODxV9kDG+1lh24ws77pQgKZk09xwauys@vger.kernel.org
-X-Gm-Message-State: AFq9FYI3q6pxsUtzTwTgQdXUCBa4iQawAm1dE4JHTF+wekTkr3jOVjuk
-	zUJ4Lwr+QlGZmSWcerjKzhkGIly/XSum6BFEFMzvXiac2OBhxht61zi0giG1nHLUCxM=
-X-Gm-Gg: AYBFou1ncQzN/vtngQZlZNs7g+Klvkya3dB7a/ExrUPvnyf2nJZ/EcCr4zJuA4XENn2
-	4h20LMiM5SNlznFbgnoQiacbsISGFyIVXW2rkA7cFzY+Rqa15mmptCfVrxjySV/wEmjjYxVRvMA
-	Jf2S+Xbk0J1C9EuFxyI4+IlO6GnkBHCTdr5qbe6nZWkTCoIfgiG5/nyWgYl20IkLBSr1dvoPg7l
-	SGoWgFH/cwELfrFP9PapKElGwO2yMl0lf/EWQLcMyNIcYhYznY+2vpho8/0XZro9qgRsonT4pJg
-	fgMXAkOFHyy+XhnBuVSl/nOwbYoxI7Jll0o2PjUVkP+GiUYLSX80fJV1QdbSiMQ8t23uIfAeRsE
-	n9X3N8x/y0VKDszr2staZP4z1H32pIl/7K0Fa0XPqnLX0JbcIVLfI8HoqJrupYcTJRJ8z/hVZz1
-	ICPfJ5aZolcFgmeJJkBkbFCnmjKmtgS4BYoM9yY45z4HB28p10FqsZlsCvwogqSVt0xr5+NTWz0
-	gw=
-X-Received: by 2002:a05:600c:3f0c:b0:4a1:85d9:13be with SMTP id 5b1f17b1804b1-4a18e498471mr165188775e9.20.1791760404876;
-        Sun, 11 Oct 2026 16:13:24 -0700 (PDT)
-Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4a18bea1021sm222382515e9.10.2026.10.11.16.13.23
+        d=1e100.net; s=20260707; t=1791760464; x=1792365264;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Kv44X2ypV4dj/vQWfiHinCIJAZ0imVPklyHLOa+kIIY=;
+        b=ZVGTzglGyZD7EoLge9d79CfCs8CxqMhbiWSLYzMwerjrg5DNRxwkh97RXY4ZbZaOXv
+         2okCegiaxH5zjQ9zGP12KSqD6SkLCsuA0w9wT08LOml0yvcaZDX+KuG0zsBSfCgzaWBY
+         lxl2Jag1o1AXSKNGwEe5ZKQmGOLE/xYmr2IuGukER2CyvY52z+oMsE+P4uztHqtN/y+k
+         IkLxeNlUpG27kWbHIcP9ynL2zumLIIVeqQtdEAEvsMHcK08jLjUPBLbMFgUvkybu/4Hy
+         J97mliw0yAW4rzx2hn3Solegl0sRycB/5qCjIINkpx0g3UrzN7cYa5d7Nqj5lpfv8Jht
+         xBSA==
+X-Forwarded-Encrypted: i=1; AKwUvBwrvrwlh+kzvr+qoc/HUy6VfuZrNfZLOXlcAK1qi1Nkk7ZHr+XVk986758LwMkqCTGxPI6xL8hLXTyf@vger.kernel.org
+X-Gm-Message-State: AFq9FYLW6yMslbTvoxhHZgl3TUyUkeKeenlAkXy1uBMCrphah+2uL+YD
+	07Y7SPMQPgQ4Q+Brde3D5DqsSVaJ6Iqc9GQFDHDEiWTAtTON6DEXPT2F
+X-Gm-Gg: AYBFou1cmR36X+m8OE972Vz8c5N8unBiVyMLrc2M2zvA84+9ni5LrFBsLg90gcQnQ1v
+	mON0ST+C2dX/abs9U8wEiwkL8HA8n16VR7qJyuNpbG2AbhOnnC1PRvFCAUYgU53jQDWgHZW66SZ
+	ddZQNxFprOYkKqiPJ4huiCXH7vEpxifZKqSb8H8zQ+Yr445oJWylaluWy5B1GYdTTgPt6qs/VVV
+	oIoDFUKSEi+3GY7cGSpvbZlHwfEBuYscuWQgskhOIF2dSapiTzb3byav4OK+Ti3DIgXINyB0Vmb
+	dij+XunVwaPoWkQtRIpifOd/CGBohW7fuTT2xylph6FTKkmofT3OTsGcackOBRX1+6F/F/HedXM
+	MzaswgtRN4uxD0cXu1GQCgqvqdfVpvPoSMIWdvIYZXvBmQOavAr/wpSeuemECmsaWr01XaWvAFv
+	S4rWd3bBNif+o0HOKaGPKNYm+2rQ6VkHaQj5VR1hzwqdT401wcWe6XEjOC6bU5CIxcB07N6CkfZ
+	WEkPQfmtYMlx6nLxfoPrCzEQmQyXC5KpDYJmE94dRk3gUwRAyanaT+owZmeUZNS2uXC6BVE9FdA
+	Lewcegs=
+X-Received: by 2002:a05:6a21:3985:b0:3e0:c334:52a0 with SMTP id adf61e73a8af0-3e1a68ea93emr883941637.49.1791760463637;
+        Sun, 11 Oct 2026 16:14:23 -0700 (PDT)
+Received: from DESKTOP-G3E0OSP.localdomain ([58.224.60.243])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-896c48945dcsm3188917b3a.54.2026.10.11.16.14.19
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 16:13:24 -0700 (PDT)
-Date: Mon, 12 Oct 2026 01:13:23 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Nguyen Minh Tien <tien.nguyenminh@embeddedlinux.blog>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Hans Verkuil <hverkuil@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Paul Kocialkowski <paulk@sys-base.io>, 
-	Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Samuel Holland <samuel@sholland.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-sunxi@lists.linux.dev, linux-riscv@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 2/3] media: sunxi: Add support for the D1 CSIC
-Message-ID: <aswXwdgpWTVoItYy@monoceros>
-References: <20260930154835.402684-1-tien.nguyenminh@embeddedlinux.blog>
- <20260930154835.402684-3-tien.nguyenminh@embeddedlinux.blog>
+        Sun, 11 Oct 2026 16:14:22 -0700 (PDT)
+From: Jinseob Kim <kimjinseob88@gmail.com>
+To: jic23@kernel.org,
+	linux-iio@vger.kernel.org
+Cc: kimjinseob88@gmail.com,
+	dlechner@baylibre.com,
+	nuno.sa@analog.com,
+	andy@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	neil.armstrong@linaro.org,
+	andersson@kernel.org,
+	prabhakar.mahadev-lad.rj@bp.renesas.com,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	corbet@lwn.net,
+	skhan@linuxfoundation.org,
+	rdunlap@infradead.org,
+	linux-doc@vger.kernel.org
+Subject: [PATCH v11 0/8] iio: add Open Sensor Fusion UART support
+Date: Mon, 12 Oct 2026 08:13:32 +0900
+Message-ID: <20261011231340.42885-1-kimjinseob88@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="qngddyqnkwhditii"
-Content-Disposition: inline
-In-Reply-To: <20260930154835.402684-3-tien.nguyenminh@embeddedlinux.blog>
+Content-Transfer-Encoding: 8bit
+
+This series adds a UART/serdev receiver for the project's fixed OSF
+Device-to-Host 0.0 protocol. Complete capability snapshots create IIO
+accelerometer, gyroscope, magnetometer and temperature devices with RAW,
+descriptor-derived SCALE and initialized buffered scans.
+
+The receiver validates the fixed OSF0 envelope, CRC and exact known
+message lengths. Equivalent capability reports are idempotent; changes
+to a bound supported inventory fault the session until explicit rebind.
+IIO samples use host timestamps.
+
+Changes since v10:
+- Move OSF under drivers/iio/sensorhubs/osf/ following review.
+- Use the OSF GREEN compatible with the generic OSF fallback.
+- Clarify complete capability-report snapshot semantics.
+- Use designated decoded-frame initialization and drop decoded reserved
+  fields while retaining reserved wire-byte tolerance.
+- Reuse stream reset and simplify core/serdev locking and lifecycle.
+- Use IIO buffer-mode claims instead of a private buffer lock.
+- Simplify scan storage and channel declarations.
+- Fix KUnit worker/device/mutex/resource/completion lifetimes.
+  Generic IIO self-test extraction remains deferred.
+- Synchronize KUnit fault observation and configuration completion with
+  completions and thread joins instead of short polling/deadline windows.
+
+The IIO buffer teardown serialization issue found during the v10 review
+was fixed separately and is now in mainline as commit 84bb0fc46ccf
+("iio: buffer: serialize buffer teardown with mode claims").
+
+This series is based on the IIO testing snapshot fetched for this submission:
+a22dc7ebb21a6bd4c8b63bc2c1dd46a24945aae7
+Runtime validation used this testing base plus the eight OSF patches
+and the exact mainline IIO core fix 84bb0fc46ccf6a545b8fdf57cda83770186ed8dd.
+The core fix is not included in this series and must be present when
+running the series on this testing base.
+
+Fresh validation of this source:
+- GCC and Clang W=1 kernel builds; module builds.
+- osf-core (16 tests) and osf-iio (2 tests), with KASAN, lockdep,
+  DEBUG_MUTEXES, DEBUG_LOCK_ALLOC, DEBUG_OBJECTS and DEBUG_OBJECTS_FREE.
+- 200 production module load/unload cycles and 200 test-enriched module
+  load/unload cycles using identical driver/test C sources, exercising
+  20,000 IIO buffer toggles, scan subsets, timestamps and unregister.
+- DT binding/style/example/schema checks and IIO Sphinx build.
+- Clean sequential application and relevant builds of all eight patches.
+Physical board tests were not repeated for this revision.
+
+Canonical specification (fixed revision):
+https://github.com/opensensorfusion/opensensorfusion-protocol/blob/ca9cdea1ae550c2b4d6f29f87877adae99470744/spec/osf-d2h-0.0.md
+
+The fixed public specification is maintained and adopted by the OSF
+project. This does not imply Linux maintainer approval of the
+specification or driver.
+
+Jinseob Kim (8):
+  dt-bindings: iio: add Open Sensor Fusion device
+  Documentation: iio: add Open Sensor Fusion driver overview
+  iio: osf: add protocol decoding
+  iio: osf: add validated stream parser
+  iio: osf: add UART transport and core receive path
+  iio: osf: add IIO devices from capability reports
+  iio: osf: add core KUnit tests
+  iio: osf: add IIO KUnit tests
+
+ .../bindings/iio/opensensorfusion,osf.yaml    |   55 +
+ .../devicetree/bindings/vendor-prefixes.yaml  |    2 +
+ Documentation/iio/index.rst                   |    1 +
+ Documentation/iio/open-sensor-fusion.rst      |   81 ++
+ MAINTAINERS                                   |    8 +
+ drivers/iio/Kconfig                           |    1 +
+ drivers/iio/Makefile                          |    1 +
+ drivers/iio/sensorhubs/Kconfig                |    7 +
+ drivers/iio/sensorhubs/Makefile               |    3 +
+ drivers/iio/sensorhubs/osf/Kconfig            |   27 +
+ drivers/iio/sensorhubs/osf/Makefile           |    7 +
+ drivers/iio/sensorhubs/osf/osf_core.c         |  460 +++++++
+ drivers/iio/sensorhubs/osf/osf_core.h         |   75 ++
+ drivers/iio/sensorhubs/osf/osf_core_test.c    | 1056 +++++++++++++++++
+ drivers/iio/sensorhubs/osf/osf_iio.c          |  288 +++++
+ drivers/iio/sensorhubs/osf/osf_iio.h          |   22 +
+ drivers/iio/sensorhubs/osf/osf_iio_test.c     |  386 ++++++
+ drivers/iio/sensorhubs/osf/osf_protocol.c     |  215 ++++
+ drivers/iio/sensorhubs/osf/osf_protocol.h     |   99 ++
+ drivers/iio/sensorhubs/osf/osf_serdev.c       |  151 +++
+ drivers/iio/sensorhubs/osf/osf_stream.c       |  230 ++++
+ drivers/iio/sensorhubs/osf/osf_stream.h       |   53 +
+ 22 files changed, 3228 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/opensensorfusion,osf.yaml
+ create mode 100644 Documentation/iio/open-sensor-fusion.rst
+ create mode 100644 drivers/iio/sensorhubs/Kconfig
+ create mode 100644 drivers/iio/sensorhubs/Makefile
+ create mode 100644 drivers/iio/sensorhubs/osf/Kconfig
+ create mode 100644 drivers/iio/sensorhubs/osf/Makefile
+ create mode 100644 drivers/iio/sensorhubs/osf/osf_core.c
+ create mode 100644 drivers/iio/sensorhubs/osf/osf_core.h
+ create mode 100644 drivers/iio/sensorhubs/osf/osf_core_test.c
+ create mode 100644 drivers/iio/sensorhubs/osf/osf_iio.c
+ create mode 100644 drivers/iio/sensorhubs/osf/osf_iio.h
+ create mode 100644 drivers/iio/sensorhubs/osf/osf_iio_test.c
+ create mode 100644 drivers/iio/sensorhubs/osf/osf_protocol.c
+ create mode 100644 drivers/iio/sensorhubs/osf/osf_protocol.h
+ create mode 100644 drivers/iio/sensorhubs/osf/osf_serdev.c
+ create mode 100644 drivers/iio/sensorhubs/osf/osf_stream.c
+ create mode 100644 drivers/iio/sensorhubs/osf/osf_stream.h
 
 
---qngddyqnkwhditii
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH 2/3] media: sunxi: Add support for the D1 CSIC
-MIME-Version: 1.0
-
-On Wed, Sep 30, 2026 at 10:48:34PM +0700, Nguyen Minh Tien wrote:
-> +#include <linux/mod_devicetable.h>
-
-Please rely on <linux/platform_device.h> to provide of_device_id and
-drop the inclusion of <linux/mod_devicetable.h> which does more harm
-than good.
-
-If you really want an include for of_device_id, use
-<linux/device-id/of.h>
-
-Best regards
-Uwe
-
---qngddyqnkwhditii
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrMGBAACgkQj4D7WH0S
-/k5tCggArhjqsIMxWZn1mdwNpWwWCgDbuq6GCyhWvxK6/4SoEqOcbECNykQJkcqM
-gvBI7Zcz8K+t3TTUvkpf5ten3RucpB85MIpw2zPZyT7UNFTU4XpVJ9KXFNT6G57g
-GknahtuMpdBREceO6pO3vd/yn8VMXV8clPTPXpgNywW5t6z3QOzEz0IcrZMJb8V6
-cSCkPm8gLqPQcJsxc5Jwdjzt/xaeUIEVlS9TgyVY6BrcotwmfGeJsCPubGsR35Dv
-rCHn8rkKSLOaUBG2rAWF26nch4TvC8JDsPDVi5/HJBfJhBqHK5hOi/Nri4WSmi8T
-kVp10DCvNgThgd+VEI82L4IL+a9Oig==
-=gnsw
------END PGP SIGNATURE-----
-
---qngddyqnkwhditii--
+base-commit: a22dc7ebb21a6bd4c8b63bc2c1dd46a24945aae7
