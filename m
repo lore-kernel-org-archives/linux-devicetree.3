@@ -1,123 +1,120 @@
-Received: from mail-dy1-f171.google.com (mail-dy1-f171.google.com [74.125.82.171])
+Received: from mail-yx1-f44.google.com (mail-yx1-f44.google.com [74.125.224.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34C4E4570FF
-	for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 13:58:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.171
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791727120; cv=pass; b=tInLHO9a/F8roOP6mk4H2ynViaAVSBERgmDKxxG5cFqHHqMOWxlWcjMcMNCvCBG2GSxhMXlvx447A1ygSKNBvjUPr42DJX7XP6d6wVWoqfxU3gabOYeFugyftuOXVOZsO8MIAkHGOxh/68TRVKrkor4j7Zx/xKTk6TTqolIi1c4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791727120; c=relaxed/simple;
-	bh=PQqTMWasXUN28OiYIu8PyJtOpiaTPczvB6SNcoFhwqU=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40014381C4
+	for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 14:16:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.44
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791728194; cv=none; b=uUXqRvRXL4evRbRVSEiNBhbHCqN0mpmktox5l04mP3Y50XZgh3uasjRteHqDhIsYm0akYH0CyzXXVGmwwAeiubVvp2SlE+vOyRUxxUeBjJfk8702ymgKN8LA8Z3inRmNpsfrWvDzpD9/2LYoefwWM2k5Ll4yzyJJN+Kggs2BjAg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791728194; c=relaxed/simple;
+	bh=HlQy9lG4oAWvBTINQPKtqjXM14hS5iTctc/NgAcI/mk=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=YL7W3LIG0NRCiVPsZQhNdgHzG6w39vO225RJFRTLrpI1Sxc1tx5k+vv9OxFsBv/YN5b3uzutwNN++7lCj/NVahYN6PJb0gtBZR423ncc69J0NXqHow3mKrnxXBnZ+AdHcF3Z2rspUU8BBmvxFXNff9pUX4qfhWvBYuwH7NxXzn8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YbGJZtXi; arc=pass smtp.client-ip=74.125.82.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	 To:Cc:Content-Type; b=KWfKNVeXx+P6EOFjvp5RmEEDXchMwibJBja+GNGRctUZ32DnxBdphwV2fiKZaqiqWxe9DM65QNrAJkJUPmoauHA1OhZNOn83M0xZd2p9xp3TjhiTUuFDgig04pGNvQv8jJh7+80nSiaF5u+M9B0twvasq/FJf4FoafVCoGbOjuM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=74.125.224.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=linux.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YbGJZtXi"
-Received: by mail-dy1-f171.google.com with SMTP id 5a478bee46e88-35179d0747fso69650eec.1
-        for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 06:58:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791727118; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ZMGGHiEUWeOQMIP89pL57iTI9gIirQ24/ziC+ZKFS6/TV/Vf8qUFDa+cKZ+7SqMFl6
-         6Nu5+KUkrRdWhbn4fH+dL2Rq5Ip0z/+XFkqZPgFtdhrjYl1olyo4AKqmqm2OM3jN1/Af
-         wUd3/A1dGqX8cne1RBfe+fg934ncfDKJ5fX1ctzVwm8kqJSDsnbOI2BT/Sf05ddaTZGG
-         7Iq3JVJTHeBYGXGzwvwdQnhVGlUDTcrGEZ62BYY7riQzuifDT/f3eTcx6xxIwF7YOZHc
-         agBUGvwcUQ43nFM1ny8kQebpeK68UjutP1ISzjXoHIJjTgijifsTbMS54890w7fUeWig
-         TTBw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=SKxUeoIO3zwwN+w8pgZrVpsaKx7RfbD1o2NJXlZe97o=;
-        fh=180V86CB8UpkDrMsoi38Ju9vlCvKzqa5r3O0rRADdWs=;
-        b=JIsQcuZBSbfalUT0Wx8vzvoRGc2aCgx12q4rbSh4UU4pZIlJTOQZ8k8Hxz4E4u+v2j
-         H6h3mpMZJhldzeDopyvQ/33a8G28zrFZO62An9yyApcEivs1D3XM8RGWfuOCrKjekZBC
-         vFQjuQNedf3xdoeqJWT9GpgmAZL0x7F8tjexmmP9LUK5CwQ2+24wSqTgeMAihswTTTXa
-         Rd3XQmB7P+vcsnpwfsgvpd1PVmZqhYqE6haEetk2CcqpWiuCh1AqcvglJO2qjBGsGPJJ
-         QN1FJdtmZf8Wa6VVugJpsLyLsLEov6BjrLhboF1WCLEHpEFfDMrubVsoi/4mJHB6YouH
-         aDkA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791727118; x=1792331918; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=SKxUeoIO3zwwN+w8pgZrVpsaKx7RfbD1o2NJXlZe97o=;
-        b=YbGJZtXiShcJultAFQjN7MmEYC2ftBD/VF7UMrxMK2EKoN5Egcwk644i4RQ7HYdJTR
-         7aHUS8rWhKCeGxGPThOe0XElPS+0grbEtc0bV5kt3x5rCdtI0fGWJCF5mV5BKRtYCNAg
-         905T3ECtkRTCOETtMbb2JmCP9EiY8vj1rF7rNfQ5p0K30KqwrGDYQHIbK40r45hjTUR6
-         YVLIm3ecynTjdkOzsJFTBkVmiGyQBNHv6X4W/1E2DC/VkC2/iGfCfX1czJjtI0Ia0nOY
-         MpcEXN11xaE/vg20ONZ+nsdsT3eleqy8m0Dkm8y4Gn1wECK8G35GyCmxPTn6kb8O7RhT
-         m8uA==
+Received: by mail-yx1-f44.google.com with SMTP id 956f58d0204a3-677bf06de21so680259d50.3
+        for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 07:16:33 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791727118; x=1792331918;
+        d=1e100.net; s=20260707; t=1791728192; x=1792332992;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=SKxUeoIO3zwwN+w8pgZrVpsaKx7RfbD1o2NJXlZe97o=;
-        b=BuZ0jBX94KZOd3pAbCDBGUrinEdM09VquSAR2xkZaY83isBYdzabFRbqt8qWrQTm5T
-         VIm4PhBwQswzqNrLoj4GCSpn8MCw4Um+K0v1+d3hxIYlxRFY5QJTmDFTTlL4RxXzPykR
-         m51VrAfF96bbYb5lC3p4Z8EQ2KZwcitKp1iesYocERHnUmX7KFbZMDHjWxxXxhngQlyc
-         hXjAad3dbnGYjsVL9Blv7vbE4MV5olyfrsxuWA3cDg5URQDI02bFEovuuX5pgbL8DBW2
-         WRzPivCwpycctLugAY+dbbPe5mYJ06xnmMBJEcXut1PeJdBGbD9T57mWZYQv0h+gmxL3
-         sDnA==
-X-Forwarded-Encrypted: i=1; AKwUvBxDKnp9R/UrTY+ZeQgzeCzR+e/eGThgW9YQBX/37QdmSQgKubF/EaNudiQcocgsCcXlWzpWU1/+sr+K@vger.kernel.org
-X-Gm-Message-State: AFq9FYJBaDU6pmpxJ+hngmaOOugcQM82v926vedj+Ohqj02S3c3lpQlI
-	mP2qSX8tSA1mqkb0unquhYwZ064iD7klivtNHujT0ZXQEkJZaqMSeR7u4t2VhTqrkJL870G1VXR
-	vZ22TQLEmSmHc52GyZXfnJ3cG2l4AgzZC2atLJQM=
-X-Gm-Gg: AYBFou3UOQqZ39LoEcze5mRKTzAn6NvQUCGt8kaOXIEYORMcBJEN1a0Frecc3U+EnY3
-	Qb0mUsI5VbR7rChNZURpeL+Frttn5wZEj9QtWmLuIBAc23ilOHbkSzU90vQfRr7z06cHCWT3TcZ
-	khLwjB+Er30SHDLm6e6ly+TKDkcHV2dxGWz7IgPzqxZgBPHcB/nsvOwM+4BfGjTrPvGbDY6BcPo
-	N3uJwGPav6wm9ehjnG4Tvg07wW171OxoVNhWBEJ4CNNrRqblrDt6gAhe+k7ljv5k273qIjcn/ez
-	CLXG0Nq0qLXAUdiClcEMH3tr4pHf4bYLOkwKr4GqtHDEPxhO18z23IjsIHBJxEu0GkW6NH0Xib8
-	yVLkqWaTwH+xGSCVq+f9ZE94bBAuc7pbcA4tRRdTLc5grdzbdj5pDAeGlNCtek2aKs77PstiY4E
-	PildKMZix8D7qxgUkiBaGmhVQSN4GFADE+aEHPmsme7m4FF53ZBgoi
-X-Received: by 2002:a05:7301:1523:b0:357:5c8d:55ab with SMTP id
- 5a478bee46e88-3575c8d5ad7mr10718644eec.1.1791727118284; Sun, 11 Oct 2026
- 06:58:38 -0700 (PDT)
+        bh=66qeQFvPa1OLNzA9zOG/eSFE0YAdZbwXEI8cdDv4Aes=;
+        b=00TY4kRA6o/gVGPTUXvWIf+0rM2AYUpjSYDI94FLbwwoQXHwYi0GcDCaqySVX87IpS
+         5sbChKy+DIkjzbCMyQkrm1k9Y1JBlcrQifEC8OVixBBnp+Apsz45EHTCk667gEHHiLSi
+         eob4e4OepClbVj1mlZD2U1jSIe4gtuUzcTQHVuQjRNjaa+ZBv0loG9Ge7e11PYVs2SCn
+         Cdbf3c65s4gLIB8R2Fg0V5NbBJ7TJFWqd1MsUJInuumEkomIMOtekEGs6qHvkNiMKQwW
+         MoR62Cm2nYXw8fSvP8HDxzmDKfiQLyzSwAcU+euNSQvEVQ9i4ohiykbk4pH9HN27IR1Q
+         k7wg==
+X-Forwarded-Encrypted: i=1; AKwUvByjjZHKSvxoiXe6dxR5bGe2SesYIg79Xo83i5twNoKAwJZ5D8QW9FV0Ge0scZIo5mRQBaEGMrIgkrMz@vger.kernel.org
+X-Gm-Message-State: AFq9FYJucYo5whS8+Cg/HtuHDEN9onQBwouxowomrzR5xZHShP7nqbdy
+	jegbbT9A1meex/rIlPrXEISxv44UhmQSvcByoqygV4A91BTu5y+HDlfqj7rLrfLwHJA=
+X-Gm-Gg: AYBFou05F2CV+0mCbNlKKYCfsqPn2V/7T7L5HuG3DURWo2/VvgKTzniz1AB8cGoGOyW
+	gOePzNztNT+8eiPk1zDTA6sJ9uj0yiZtVYVgnV1uqy21fPd8aEOPbKTWQDFvWsz+E0q6PUh91nz
+	N72GbnR8kDf131bTYk/o1auIS4Y5/yfxORQZgsWxECPCR1plal0owBlrSBHkZKCQKhn8CFgnWLi
+	Ur9oIvAI7y81Oe8J6/pWLNP5ityigIMHt6ZSWxQngz4y0aM/caVo6fo0mP+vsAgl42gPYtwyfFk
+	6cledYdufRZ8X2nEZpis8dXZDrX+L+XxJkpqLWTd9sGxfXRGasiygSIksmYQONhkr5CSQNh1/wt
+	G8/Q6TNsYzFQi+VgKqtmgjPzs7L1xPQvuxQIkMO0MfsEtRM4jh/4pPQlWeCkkrYAIFCXLQkrH7j
+	Wgu3cOZJ8OYboo8LOdVv9ivrQZILNX0gX2kzzgGvBJyNq2b9Tka17FZSnMcX39Ppw7QKpiywL80
+	u4JWn9E3po+2ohDtaml3u9LeWFuySuH/B/m2+xStJIzzl9kABNAj4PnTx+Rdc9P3sM=
+X-Received: by 2002:a05:690c:d8f:b0:8b0:a176:fa56 with SMTP id 00721157ae682-8b0a17708c7mr2053247b3.102.1791728192166;
+        Sun, 11 Oct 2026 07:16:32 -0700 (PDT)
+Received: from mail-yw1-f180.google.com (mail-yw1-f180.google.com. [209.85.128.180])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8b07ee8c23bsm26294197b3.1.2026.10.11.07.16.30
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 11 Oct 2026 07:16:30 -0700 (PDT)
+Received: by mail-yw1-f180.google.com with SMTP id 00721157ae682-8a83d2706fdso6467067b3.0
+        for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 07:16:30 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByq5lDY+6um5gROVdXB5rB1FP+hzk2DG7Fc53Dwk7m/Vtd+l/G2R/WY7y/Jss2PRfsOQbdraA4hvVsE@vger.kernel.org
+X-Received: by 2002:a05:690c:a78a:b0:87e:2404:45fc with SMTP id
+ 00721157ae682-8b07ee0119bmr12804267b3.53.1791728189975; Sun, 11 Oct 2026
+ 07:16:29 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261011132353.272824-2-blum@kernel.org>
-In-Reply-To: <20261011132353.272824-2-blum@kernel.org>
-From: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Date: Sun, 11 Oct 2026 15:58:23 +0200
-X-Gm-Features: AclHuK_0YdNEf9Mt1KyViOklEAgHvn9iYL1y3YQP7fOfshHxLhbMetQuvRACLcc
-Message-ID: <CANiq72m9r1UToj1YV7ZwMGQEPfW10ZVSAgd29VQJg_mpmpXOug@mail.gmail.com>
-Subject: Re: [PATCH] rust: of: use safe zero initialization for struct of_device_id
-To: Thorsten Blum <blum@kernel.org>, Nils Lehnen <nils.lehnen@proton.me>
-Cc: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
-	Miguel Ojeda <ojeda@kernel.org>, Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Danilo Krummrich <dakr@kernel.org>, Daniel Almeida <daniel.almeida@collabora.com>, 
-	Tamir Duberstein <tamird@kernel.org>, Alexandre Courbot <acourbot@nvidia.com>, 
-	=?UTF-8?Q?Onur_=C3=96zkan?= <work@onurozkan.dev>, devicetree@vger.kernel.org, 
-	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261010105900.247342-1-tanure@linux.com> <20261010105900.247342-2-tanure@linux.com>
+ <CAFBinCAejxmeeHyDy+vMSg6dBm+9prhEo9qZ7FAsiWNB1W-HXw@mail.gmail.com>
+In-Reply-To: <CAFBinCAejxmeeHyDy+vMSg6dBm+9prhEo9qZ7FAsiWNB1W-HXw@mail.gmail.com>
+Reply-To: tanure@linux.com
+From: Lucas Tanure <tanure@linux.com>
+Date: Sun, 11 Oct 2026 15:16:18 +0100
+X-Gmail-Original-Message-ID: <CAJX_Q+3JLn6oTt8qTPM-muKsY9JbTEMwqRvbamZ3vqg_Yymsmg@mail.gmail.com>
+X-Gm-Features: AclHuK_1GqFe_9xMchzTuN-zUjY9-HZS8dq9HbxopbZkfG1FPjpin79NLsfNCvI
+Message-ID: <CAJX_Q+3JLn6oTt8qTPM-muKsY9JbTEMwqRvbamZ3vqg_Yymsmg@mail.gmail.com>
+Subject: Re: [PATCH v3 1/8] dt-bindings: net: amlogic,meson-dwmac: list the
+ compatible combinations
+To: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@kernel.org>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>, 
+	Jerome Brunet <jbrunet@baylibre.com>, Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sun, Oct 11, 2026 at 3:24=E2=80=AFPM Thorsten Blum <blum@kernel.org> wro=
-te:
+On Sat, Oct 10, 2026 at 11:04=E2=80=AFPM Martin Blumenstingl
+<martin.blumenstingl@googlemail.com> wrote:
 >
-> Since bindings::of_device_id implements Zeroable, use pin_init::zeroed()
-> instead of core::mem::zeroed().
+> Hi Lucas and Conor,
 >
-> Signed-off-by: Thorsten Blum <blum@kernel.org>
+> On Sat, Oct 10, 2026 at 12:59=E2=80=AFPM Lucas Tanure <tanure@linux.com> =
+wrote:
+> [...]
+> > +          - enum:
+> > +              - amlogic,meson8b-dwmac
+> > +              - amlogic,meson-gxbb-dwmac
+> > +              - amlogic,meson-axg-dwmac
+> > +              - amlogic,meson-g12a-dwmac
+> > +          - const: snps,dwmac-3.70a
+> > +          - const: snps,dwmac
+> > +      - items:
+> > +          - enum:
+> > +              - amlogic,meson6-dwmac
+> > +              - amlogic,meson8m2-dwmac
+> Meson8m2 dwmac reports: User ID: 0x10, Synopsys ID: 0x37
+> In case it helps I can submit a patch to change the Meson8m2 .dtsi to
+> use "amlogic,meson8m2-dwmac", "snps,dwmac-3.70a", "snps,dwmac" - then
+> we could move it here too.
+> That leaves only Meson6 with a single fallback compatible. I don't
+> have any Meson6 boards, so it'll have to stay that way.
+Hi,
 
-This is:
+Fine by me. But I think it is best to wait for this series to be merged.
+Lucas
 
-  https://lore.kernel.org/rust-for-linux/20260828122444.475-1-nils.lehnen@p=
-roton.me/
-
-Cc'ing Nils.
-
-Cheers,
-Miguel
+>
+>
+> Best regards,
+> Martin
