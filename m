@@ -1,128 +1,120 @@
-Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D6D5361976
-	for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 17:35:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1454A2E2286
+	for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 17:36:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791740158; cv=none; b=RJ1/OH8lB7YnzUYS2qmaahD7dx75lzrfqb90bXqdWBkPVZ/6K004GuLjd3Lqp3kuiulUX15DaZa+MY4fCd/9MCqQUDx1hrMf9Q3eER0qgMY1DRdpjzjxHw/3jCGPandC2H6yNd1qMioq5i/sj4CIvnFery0xCMmJ3b2xnntTBiM=
+	t=1791740178; cv=none; b=EWn63P5B0dX5bEnAokO55VvXmLXarK/DErIql6TzLKYOxZA5aZPU0Vopqad6dgN/EFBKsolJlqllqRjN7dK7zKnvfXY/PQ+8Wwri6B4UXp5ov90DdTap/5MPorXOd3djfFjuQHo5Fydcs0825kzfCAvxZCW+vGdDpbyR4Ab9g+I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791740158; c=relaxed/simple;
-	bh=BA6Eq7SxDm1L8zEyXbbvdU/Ub4OE26FS6uK891J21U0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=UZZOouJXblC9h7yHH0EjHKAVQOWm/c0JZwyIWuPYk0mSQMHhRMdolNAZeay+xS8BOLFP5KpXifutV7pSfEla3L2a8T0e+YzED8GtQMww2IwI2bK/l9/WQS+qUlFF7BTsSclDwiX46ow6waivJRuioZxU5lCAWdrIo/diTuZdnZs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dePmDayW; arc=none smtp.client-ip=209.85.218.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791740178; c=relaxed/simple;
+	bh=n54LriDgz000hxZWtRYayI5/jAYpVr9SwEKmP/Ki2HY=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=d3oTDM8lUPU8DZcCullQO7tSi2xzi8jUeJ17463dBbzCwaBet8kYwc4mGzV1pa+ULB6J/4Di50IjvZqV0d7j6ShvxYASNOUffxLNB27+cbis9MUSH+vgmtlxLPG8FLZQX/AUb32NSfeDkoLqPCyY4jebPVtAfgl1THf9p2Pr9hE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G1PYp7k7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dePmDayW"
-Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c3156e7705cso202630066b.1
-        for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 10:35:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791740155; x=1792344955; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=crwJpou1dc4UoRYz8bgCYYV5fnDg/uzo/t0oCNRfcv4=;
-        b=dePmDayWmv8v0mwSzR5nVk15cgoAHarFsNHNDSXgdCMv2nKjiNoagrt901O76U3ZaT
-         ViR3hutQjPwdEUfQSSU1Pa4p8HkJk/nRelBepZWCzpR4Y6ckXYDEEhrDCHxDt6lkczh2
-         y92xapLFiVA+lhq5Y4c/JNmFUfLJwIlAAHKzD3k3HBzfj48+5ZrDe1NzM4asaZikFNUy
-         D0RVQQyu/DO2c/KAIczkRwiqSmKFZqmkrww4/Tev1miwV+7C1l9b0gEWQuCs/mlcaSOs
-         HOuRtD5ud2K/Sp6iV5+hh60Xh9TMmPLOVJOU69Niu8hctfVdu3nFat0S8oG+7ixpEoDG
-         6gsA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791740155; x=1792344955;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=crwJpou1dc4UoRYz8bgCYYV5fnDg/uzo/t0oCNRfcv4=;
-        b=aS6XdQRcb3lgcEkPy1aFPqoRdmKF059ckBsuYQ0ZfPjfvw3hkI0uCWeQuYZbjvsMZj
-         7M7lzr4oiuvvbyR/9CZGbL+MA8qs6BvMbGrUHwRy6pZrO7zxZQo5JXivtWY5WguIvDd1
-         k1FKCRXFvJFQxINSafhcAT1NXikqVt3bCpX988mdxkLLzqunrOnWQgFI3DW6TEzXJOo2
-         VxtLJJ3dobXLKA3SgPIW+bo3z27SSykRQkpNyZtoQLdikl7fzIBBdZkP2TwbYcRZUM7e
-         81IdSlqZyWLus8kBMnbc4Sf1Ug+yFsjOt8aGlINr75K4s7+Dw+BeTY3BRd68MYAxx7Dq
-         QRHw==
-X-Forwarded-Encrypted: i=1; AKwUvBxNmhpohGkfLMYaCxZqrfASbK1zFkFaHt+Kut2TH5bKaH/AfMGUU0MzNecZ7XIEFWol9cDuR3epFJW0@vger.kernel.org
-X-Gm-Message-State: AFq9FYIfZYTLRAjSvrCGKUj4ONsU9WobpRnvQcQut8uVBE6tU7+p5YUG
-	dBm84vGpELhY7WXes3YCKSNOIcrkEXY1bEFu429zyl50BDvjNQIQ/JGV
-X-Gm-Gg: AYBFou0k2I7GApSbaqznNOBs/X1P7mOJbbrpOI07u+jKK2YE5KvmzbwvoIv+w4ostj9
-	vTK5xPeyA5kRcUOd1LqmrETuWMBgmw5WFSGkLry/vl4W1WCUBxCgzI7gkOxp8GpUWOdpklvR4vb
-	sPMCxJdppZu++c/uTz5vw/4+BHjazw44yLcSazUHKrpn0az+i0uxG2lrAIK1mPftg+21+9UUO7r
-	/bJSTTZiMjLLV+S6pni/n6iCz9elLABry6+Jw5CARqqeURn1HasZbX6w7OrzmR8iYtWFEQO9GpO
-	LRzcOgKKGuXfQaMYtB348rZa4otBL2AcvZJhqSlFFHyE41ld8Av7IDyGiAUEepZEhAVMl5gtCCI
-	eaKKV/1xBBqdUObUKTKYZfCIUni4jzMHpeC82ya0xp3TA3ANOYGCNk8Nkqa/VBocA2LQnACXaRO
-	+ttK6Y4VDFN8tnDGJ582cmTrSOVHxtE5I7V30aQcfzMoqwxJQ5xBMexNtK1Frdos3ea9VB36yVh
-	4zQ0M3+ncSxOXbrDpDB
-X-Received: by 2002:a17:906:c106:b0:c24:6f60:3f7e with SMTP id a640c23a62f3a-c31a9a28f90mr757418966b.2.1791740155162;
-        Sun, 11 Oct 2026 10:35:55 -0700 (PDT)
-Received: from [192.168.0.193] ([194.183.54.57])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9a3bbc9sm381019766b.20.2026.10.11.10.35.54
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 11 Oct 2026 10:35:54 -0700 (PDT)
-Message-ID: <4abc72fd-c645-4410-9387-3f03c751fd3c@gmail.com>
-Date: Sun, 11 Oct 2026 19:35:53 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G1PYp7k7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63D291F0089B;
+	Sun, 11 Oct 2026 17:36:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791740176;
+	bh=+jAI4Uwu+5jXMaXbGmLEH+L8QlCnPTSZ09nYSvJBG8s=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=G1PYp7k7zBhkYO2oXxagbv0+FMTDuMtxhe+6xrO1lqU8SuSSQAglC/DNtXFku8gme
+	 DUhUr9sGV9M2H6LDPqFL4CS7ot5D+WZZdtfRNx+mwYmrTEnEpdMym7iZZvu7ktbV1i
+	 UFZ4WCpJOnQ1lZvcqZYApE7aZLFnbBvFRr3CF5X+IBWW8uAhCpxDlacOa48R35ynkw
+	 mdoUxFT1k4w5oRgqQMFM8UHV+u0opThbXV21Rh+cS1byNQiGB5aLavr4A+nc0ubuiK
+	 aRQAw0qg93yauImPw0HiVASdN9imQ1bkZIOMBd7dfslZIJzxa9VwRdR9+9sTA+0th4
+	 MUpzz2Kvacu2g==
+Message-ID: <sashiko-outbox-167352@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 3/3] arm64: dts: qcom: x1e80100-dell-xps13-9345:
+ introduce EC
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Aleksandrs Vinarskis" <alex@vinarskis.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20261011-dell-xps-9345-ec-v5-3-2ab1258b84c1@vinarskis.com>
+References: <20261011-dell-xps-9345-ec-v5-0-2ab1258b84c1@vinarskis.com>
+ <20261011-dell-xps-9345-ec-v5-3-2ab1258b84c1@vinarskis.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 11 Oct 2026 17:36:15 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v1 2/3] dt-bindings: leds: skyworks,aat1290: Document
- FLINH pin
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-leds@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261007085457.98762-1-clamor95@gmail.com>
- <20261007085457.98762-3-clamor95@gmail.com>
- <6a69d4aa-d04c-4bb2-912f-1584abd31e0e@gmail.com>
- <CAPVz0n0FiT93626L3MnMCto1X0_FmWp_zzQpQ=yRBXn+ir6OPg@mail.gmail.com>
-Content-Language: en-US
-From: Jacek Anaszewski <jacek.anaszewski@gmail.com>
-In-Reply-To: <CAPVz0n0FiT93626L3MnMCto1X0_FmWp_zzQpQ=yRBXn+ir6OPg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
-On 10/11/26 3:55 PM, Svyatoslav Ryhel wrote:
-> нд, 11 жовт. 2026 р. о 16:28 Jacek Anaszewski <jacek.anaszewski@gmail.com> пише:
->>
->> Hi Svyatoslav,
->>
->> On 10/7/26 10:54 AM, Svyatoslav Ryhel wrote:
->>> Both the AAT1270 and AAT1290 feature a FLINH pin used for mandatory Flash
->>> inhibition.
->>>
->>> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
->>> ---
->>>    Documentation/devicetree/bindings/leds/skyworks,aat1290.yaml | 4 ++++
->>>    1 file changed, 4 insertions(+)
->>>
->>> diff --git a/Documentation/devicetree/bindings/leds/skyworks,aat1290.yaml b/Documentation/devicetree/bindings/leds/skyworks,aat1290.yaml
->>> index a65d92522c9cf..596b5e284f44a 100644
->>> --- a/Documentation/devicetree/bindings/leds/skyworks,aat1290.yaml
->>> +++ b/Documentation/devicetree/bindings/leds/skyworks,aat1290.yaml
->>> @@ -31,6 +31,10 @@ properties:
->>>        maxItems: 1
->>>        description: FL_EN pin
->>>
->>> +  flinh-gpios:
->>> +    maxItems: 1
->>> +    description: FLINH pin
->>> +
->>
->> You don't seem to make use of it in your patch.
->>
-> 
-> I don't have to use it in my patch. This change completes and improves
-> hardware description of the AAT1290/1270.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Low] dts: duplicate gpio-reserved-ranges entry for GPIO 65 in tlmm node
+- [Low] dts: subnodes of pmk8550_vadc are not sorted alphanumerically by un=
+it address
+--
 
-Still, If we don't have the use case I'd avoid adding it to not confuse
-people looking for its use in the driver.
+commit b2ae087bb3abb0aa89d56fa01c7818e7b495008d
+Author: Aleksandrs Vinarskis <alex@vinarskis.com>
 
--- 
-Best regards,
-Jacek Anaszewski
+arm64: dts: qcom: x1e80100-dell-xps13-9345: introduce EC
+
+This commit describes the embedded controller, its interrupt and required
+thermal zones. It also adds the EC's reset GPIO to the reserved range to
+prevent device operation from triggering an unrecoverable state.
+
+> diff --git a/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts b/arch=
+/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
+> index f48e6bc350063..6d99dc47eb163 100644
+> --- a/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
+> +++ b/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
+
+[ ... ]
+
+> +&pmk8550_vadc {
+> +	sys_therm0: channel@14c {
+> +		reg =3D <ADC5_GEN3_AMUX3_GPIO_100K_PU(1)>;
+> +		qcom,hw-settle-time =3D <200>;
+> +		qcom,ratiometric;
+> +		label =3D "lpddr5_therm";
+> +	};
+> +
+> +	sys_therm1: channel@14d {
+> +		reg =3D <ADC5_GEN3_AMUX4_GPIO_100K_PU(1)>;
+> +		qcom,hw-settle-time =3D <200>;
+> +		qcom,ratiometric;
+> +		label =3D "usb_charger_left_therm";
+> +	};
+> +
+> +	sys_therm2: channel@144 {
+> +		reg =3D <ADC5_GEN3_AMUX1_THM_100K_PU(1)>;
+
+[Severity: Low]
+Are these subnodes ordered correctly? The newly added channel@... subnodes
+under &pmk8550_vadc are sorted sequentially by their labels (sys_therm0,
+sys_therm1, sys_therm2, etc.) rather than by their unit addresses.
+
+As a result, the unit addresses appear out of order (@14c, @14d, @144).
+Standard Devicetree style guidelines strictly require that child nodes be
+sorted alphanumerically by their unit address.
+
+[ ... ]
+
+>  &tlmm {
+>  	gpio-reserved-ranges =3D <44 4>,  /* SPI11 (TPM) */
+> +			       <65 1>,  /* EC Reset, accessible but yields system unusable */
+>  			       <76 4>,  /* SPI19 (TZ Protected) */
+>  			       <65 1>, /* EC reset */
+>  			       <238 1>; /* UFS Reset */
+
+[Severity: Low]
+Is the duplicate <65 1> entry here intentional? The patch adds a <65 1> ent=
+ry
+for the EC Reset pin to the gpio-reserved-ranges array in the &tlmm node,
+but an identical <65 1> entry for the EC reset is already present
+immediately after the <76 4> entry.
+
+This creates a duplicate, overlapping reserved range in the Devicetree
+configuration.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261011-dell-xps-9=
+345-ec-v5-0-2ab1258b84c1@vinarskis.com?part=3D3
