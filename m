@@ -1,316 +1,116 @@
-Received: from mail-qk1-f178.google.com (mail-qk1-f178.google.com [209.85.222.178])
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28B743859DC
-	for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 20:54:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55B44361953
+	for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 20:59:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791752082; cv=none; b=TdY8xkuN1Gc2Sf60W4EDPbKE0WDLXiSMiXkwIO7SRgIgo7+nZ14FS5Nb8XIqVz1GwJ1HD8ruRIO7nFQ3HvS4atIc4Zf/anZrbL3robtL5YsspLDZdoAYnRAQ8scLkjHdvOhNe3sWnJg1rBBBtBUXDT+sGq8tRjWtyJUKI9Ioy+Q=
+	t=1791752400; cv=none; b=Kgv9+5usknLi+z13Kba7qZoGarkpG568wZgj/AU1idRFb85LRysERvbXioEZdh3cc4cBIWZ46gjraCeH2Ibin5NB3q+KkAXmi7okrgmCslFRrL3908VPagDXIq6Jor4Kh8p50h3P0KNBFoEPnYxuHxRGjffhxbyvkXalcwnc7xg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791752082; c=relaxed/simple;
-	bh=YohP8B9omEKNJal7JqSezkCGArULtPbPg4hBO+IwlSs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rMNL4FtzOhM++wq4CRheRWkvs1WkODVgyS08c3dHPg/Gci8BY6JSBqjlx84lLcZQU71X6xYkrWtTvoTyTxJT+dO9pQ+njSXcevIJW4Io6IpAstYEEAa9oQdsYwlrAuTONliGY314ile+Dl/faVmuzr+Y6m8bboO7SWwyZKkA91w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thinkoid.org; spf=none smtp.mailfrom=thinkoid.org; dkim=pass (2048-bit key) header.d=thinkoid-org.20251104.gappssmtp.com header.i=@thinkoid-org.20251104.gappssmtp.com header.b=pkX4SMZ7; arc=none smtp.client-ip=209.85.222.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thinkoid.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=thinkoid.org
+	s=arc-20240116; t=1791752400; c=relaxed/simple;
+	bh=sj+OvNlkXhrrUwea5bnSo/dmUEu7N0+X6ExgI8Kx360=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=VLoz0GR/LXwq37I1K8JLnWqoWzznwm/xnDWMjlJyAonP6EjRlynO7BB6cfgaP6yTJDzmBI7HJL3lMdKyBVZXqI4KLWLFl2FA+KqM4cadqad6RxGMMCTRwJlYevm96igkTKCFiNglgl7Pg+dmke/XEEJhv0+NNRVeigpbAGbVThA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YA8Sqvpa; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=thinkoid-org.20251104.gappssmtp.com header.i=@thinkoid-org.20251104.gappssmtp.com header.b="pkX4SMZ7"
-Received: by mail-qk1-f178.google.com with SMTP id af79cd13be357-93e6eb77f0bso136450685a.3
-        for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 13:54:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YA8Sqvpa"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a1635f7c89so12998655e9.2
+        for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 13:59:59 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=thinkoid-org.20251104.gappssmtp.com; s=20251104; t=1791752079; x=1792356879; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8ezoGfDQtxAvSalgmJqsqkDd7nhdWtwbdJ4Gv/LTkYA=;
-        b=pkX4SMZ7RfgRvlPHIwXzlFsSo/PjC1St2iL6XA6DV4b7A3JttVT2+BCDbRbLtXHE33
-         F/aslCmGxq1cWHk0i+SCuiRvmkquLOKnNVS7EQO1fqRRPudKLHxYGVOCxf1im9i7rFOf
-         47J7jyOOHq3fa8cE1WoYoMjKyOxkSFk8tL7CYQZSfZOEAawHxdMrQ0xwz88K6Ja8a9Xg
-         ylSpn8TLwSoHIVwTgaiSfsYG5wCqvf7ichR1ZtODVdfgeyEIBWwuhQ8Za1W1ijdwtos1
-         fhQX6dVUbFqqjt6ev2pDf/nKePhPzXWz7G4Qx8b0t9iQCua9lhUY4PH/Rom95CCkLO2M
-         Dp9w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791752079; x=1792356879;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1791752397; x=1792357197; darn=vger.kernel.org;
+        h=content-type:mime-version:content-transfer-encoding:message-id:date
+         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=8ezoGfDQtxAvSalgmJqsqkDd7nhdWtwbdJ4Gv/LTkYA=;
-        b=hNP66cmxmrqasLpbHFK1nE9qlxsCHTnlCE0ulESfH9zYjQs0UFC8kyuGa+MVsq/TW2
-         EqfgiPOXyKYJI23RkU+p26NRvyDacypraqyj1IuKKxRO2D3GleI7QAlGDR48A/SStkpU
-         TUSkcJpUGrT69yAGoqUmN77dnKTuxQWKAoAdAdHiFAl0ITDele8yWbqHtTcIcmWz3Qcl
-         NAjD0N7w+22qSmCfaJAc1XFsfB7o9QKUKEAXGbK7iKpOD90QighIlAfKlrPay/+xzKei
-         z8FWPT+Lv12l2xLTXEBRDJLS426NeW7CcOpUF+AvoLUH0KZmp8tANeD/BJn/2KhGF5c/
-         G0zg==
-X-Forwarded-Encrypted: i=1; AKwUvBzZbS71Q+TNyBbpGHKdo1Wi095fwhg31xkamIFFn6o3ZqPHsvh5b6NPzUbJWkVgWddIz+cKIP9aAR24@vger.kernel.org
-X-Gm-Message-State: AFq9FYLnnOm2VFYL7Od5pi4/FpxbnEwhMtLP0unEGPzVbVJU8MWzTi2y
-	PayJt118T202QwXy2uNG6jeh2QXuUztJl7s6OJ3Nl8SyPChXkFDvWoF3z2OoWb/XKxo=
-X-Gm-Gg: AYBFou0kwXTO4HJdp/1zetdhaOrsSncPvQrvpv+bCpFm1UY31Iw8OezajM5hEuYNSAL
-	5nrWIbosmeKVUyKacGnY5C0XLhhalZH4pQ+8GWLV385C4DOqJfcjFjO/8HziJKYKjyyGukQUVO4
-	u7ueVpMvKpHnYnjwsY+UTu1SNI4uTuwWdkIBX/r8a1l3Q2QGuDhafbS8znEGHOwQTc/uHlIRmah
-	3zs4E1R2giLSBHD80R3DiRDE+MAtlNe/rdxrypQOdR8urGHXFStMnf2ffChUWRdAiMVKcim3I35
-	Taq7VBQCNQKnRCECHX2VEWalRiyKVxxv+a6Hw+AKspEwJYbJM1m1dUVqDYkV1Yk/GFWETlmJqMw
-	FS5EG1MT16J+d+sSTpwes1K3tkx9GhA3jq+te+GdtyD6DtgcuM2l49YpdHeI195gkA7YM4LIHbf
-	NkNubMsYhdURkF6BI47GbFz3Ldwi6ZfOI+geljXEHaQQa3WLM=
-X-Received: by 2002:a05:620a:4692:b0:93a:2150:ec06 with SMTP id af79cd13be357-93ebd1f29d2mr1341041285a.31.1791752078869;
-        Sun, 11 Oct 2026 13:54:38 -0700 (PDT)
-Received: from armok ([2605:a601:a61d:7a00::c])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93eb986c0e9sm712617085a.20.2026.10.11.13.54.38
+        bh=GXE8pfEZXuSFtvC6/Tl1P1F3UmZY6SoQVpTiEIRx1zo=;
+        b=YA8SqvpaQXTRaix/I0+x5IEHN+JfzOdo+eQWnoso3srahpA9I2SVnsdZ+Op6W4Qwjw
+         BPR5iAJbT8tn2lcOgsQgOhcV6eWb0iYSbGBYS3uEmfQdXggpaxSiwZh8YMKElsLj6PUq
+         wdaW7IkyxApFe6+upUppBt71yvDlj4s0m9cKkxqIBSlAYclwCgaEf0HNi0vktD0LG/a/
+         eCJZuVAajm6utZYCMcA7fr4I+iZoNUB2gv90SVOD1XUmWfsmV1xVmW3VMH+SrQ9bCuGm
+         4EHt4uYS7xwyNKIFLp5PUeHl3rXE8VEjlt7fcPUHkhMLix/SAZvBte+umVh9XGGfuG8c
+         H7Xg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791752397; x=1792357197;
+        h=content-type:mime-version:content-transfer-encoding:message-id:date
+         :references:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GXE8pfEZXuSFtvC6/Tl1P1F3UmZY6SoQVpTiEIRx1zo=;
+        b=m92w1vroHXLueoe+6Xjo36vDBQVsNEf7QBZ2D5PABEugf0maQaZkDH2NfI1cJlFTZ1
+         C3AcY2Sz7fnWFPdypvDwsI6DSbHpZq5gW9qUgi84hfVWjJB1VFDvZBlJN5SV/ZqiIsND
+         D4M62e6/a9luIdBMHkij3B8JOACd3j3fdgo/YU79i/twHtSNwF48+Wh2ADSi2MBD5Wqe
+         HdV+NyO97vXUVeCTrrmFDqeSJ5PkZLwOFiUH1nzZ4v6SjpVWZ2DQ0lPq40Kr25uPv3DO
+         d7EnSDfLHvjQe5zKDftM+wV9bst05wcM3idJ7uGkDnzXMY+X+5AsaZCG6THkNArFH1uA
+         862Q==
+X-Forwarded-Encrypted: i=1; AKwUvBwnZAzZ4RJhDu6BdWA/QafgVbn37da9op/v5afynmCeVvtbH/QnNCT/rA8Uhpv5jsuC+uQDgz67Xv92@vger.kernel.org
+X-Gm-Message-State: AFq9FYJtdl+5N1NCAcom0gq17uf7JZFSC5knHE0PdRKbJqhXQZ3GZHXb
+	o7GRmPpvGDllqOFhrPKW3SLFn5Ix962qHijW52yb1AXoWzqwherZcWCH
+X-Gm-Gg: AYBFou1PHBKt1F7sGvLApajRsZzEi4In0qsMkATweD5s/E6i5pCBr8OCd+AJQp2M7Ea
+	u/AKDLLIGhLFLLBI9l2XLtkeLItlHyeTZPAAFNUTnHo7TyiJNxdbaJ1VwCNB3Sbt/TptTpCy9f9
+	xbFDyfHfeLTXvD+8C1rfxKmNdkGBrZimuMuYMZZmlZmORgFLkhH+7n7QLXg9O2wUP9yI6f/k8Uc
+	JzzVqjTmXjKxE+69vdNlbrDXSSv6O/a78gasU5GyfDGbaDmo/+cxM0PH4FoVMarRcnXNfc5cE1+
+	BzdVlCtSWn5wVvu74QhcjED26/YFnI2/ScJHJXEF6yYwU4U9lw/ABm40ltD+M6F/EWdrJUXOm1L
+	hIozhTpe5z4P99T3A+ddACLwmxJqQg74vXYHyuEcNlRMz88Lrrt34Mjxu9My47X3vbCPOxAAsZS
+	Qr1R3BUghJnO8uXqfjwvP9GCOksoxAdfsB9vsP4zKuCIKBeScKcIkB/oYbhjVTA/5hWksOAi1iE
+	Ou5x0Elcsti7k/6Z6kC7VakrtMSRX2ELa3s5+Pk7rYGmG6WT8d6BgD1+g==
+X-Received: by 2002:a05:600c:3f0f:b0:49c:ffab:551f with SMTP id 5b1f17b1804b1-4a18e4cd231mr144688665e9.22.1791752397395;
+        Sun, 11 Oct 2026 13:59:57 -0700 (PDT)
+Received: from [127.0.1.1] (ip-024-215.users.dtel.ru. [91.210.24.215])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a19c8244edsm67465395e9.2.2026.10.11.13.59.54
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 13:54:38 -0700 (PDT)
-From: Liviu Nicoara <lnicoara@thinkoid.org>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>
-Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Bryan O'Donoghue <bod@kernel.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Aleksandrs Vinarskis <alex@vinarskis.com>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>
-Subject: [PATCH v4] arm64: dts: qcom: x1e80100-dell-xps13-9345: add the front camera
-Date: Sun, 11 Oct 2026 16:41:25 -0400
-Message-ID: <20261011204125.8357-1-lnicoara@thinkoid.org>
-X-Mailer: git-send-email 2.55.0
+        Sun, 11 Oct 2026 13:59:56 -0700 (PDT)
+From: Fil Dunsky <filipp.dunsky@gmail.com>
+To: Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] arm64: dts: meson-gxbb-odroidc2: read the Ethernet
+ MAC address from eFuse
+In-Reply-To:
+ <CAFBinCAOsJG=ROP43+pj9dqYc4yWXs4RQisRZghqzbtspp=e7A@mail.gmail.com>
+References: <20261011-odroidc2-dts-v2-0-a3a4a752f2ab@gmail.com>
+ <20261011-odroidc2-dts-v2-1-a3a4a752f2ab@gmail.com>
+ <CAFBinCAOsJG=ROP43+pj9dqYc4yWXs4RQisRZghqzbtspp=e7A@mail.gmail.com>
+Date: Sun, 11 Oct 2026 23:59:39 +0300
+Message-ID: <179175237937.1513478.8957286812154054574@gmail.com>
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"; format="fixed"
 
-Describe the OV02C10 front camera on CCI1 bus 1 at 0x36, fed by MCLK4
-at 19.2 MHz into CSIPHY4 over two D-PHY lanes at 400 MHz, the only
-link frequency the ov02c10 driver offers.
+Hi Martin,
 
-The wiring comes from the Windows driver store. CAMF_RES_QRD.bin
-switches a single rail, GPIO 91, before releasing reset on GPIO 237;
-GPIOs 235 and 236 are muxed to aon_cci there, the CCI1 bus 1 pins, not
-rail enables. The sensor's avdd is PM8550 LDO7 at 2.8 V, which the
-firmware leaves on, so no resource file votes for it; the module
-regulates its own dvdd from the rails it is given, and the supply is
-named as on the Inspiron 14 Plus. The CSI PHY file votes LDO1_C at
-1.2 V and LDO2_C at 0.88 V for the PHYs, which is vdda-1p2 and
-vdda-0p9 here, as on the Inspiron 14 Plus. MCLK drive strength is
-2 mA, as CAMP_RES_QRD.bin programs GPIO 100, and tested streaming.
+On Sun, Oct 11, 2026 at 10:49 PM Martin Blumenstingl
+<martin.blumenstingl@googlemail.com> wrote:
+> Question to Neil: should the eth_mac node be moved from meson-gx.dtsi
+> to meson-gxbb-odroidc2.dts?
+> Odroid-C2 would be the only board using it and u-boot seems to derive
+> MAC from SoC chip ID/serial number instead of reading it from eFuse
+> (so I'm not sure about the status of MAC address in eFuse on most
+> boards).
 
-The module sits upside down in the lid: with both sensor flips on, the
-picture is upright and unmirrored, so rotation is 180.
+Some data points in case they help Neil decide:
 
-The white camera indicator on GPIO 110 becomes the sensor's privacy LED,
-so the V4L2 core lights it while the sensor streams and takes it away
-from sysfs; the comment waiting for a "camera on" trigger goes, and
-panic-indicator stays, as on the X13s.
+- Mainline U-Boot does read the eFuse first on the GX reference board
+  files: board/amlogic/p200 (used by odroid-c2_defconfig), p201, p212
+  and q200 all call meson_sm_read_efuse(EFUSE_MAC_OFFSET = 52, 6 bytes)
+  and only fall back to meson_generate_serial_ethaddr() when that does
+  not give a valid address.
 
-Assisted-by: LLM
-Signed-off-by: Liviu Nicoara <lnicoara@thinkoid.org>
----
-v4:
-- Add vreg_l7b_2p8 (PM8550 LDO7, 2.8 V) and put avdd and dvdd on it, as
-  the Inspiron 14 Plus does (Aleksandrs Vinarskis: the schematics show
-  the 2.8 V rail from LDO7B; the dvdd step-down is on the module).
-  Laurentiu Tudor's unposted patch for this board wires the same:
-  https://gitlab.com/Linaro/arm64-laptops/linux/-/commit/d79e44083197b263ee59dc3521a2b16ad2a12bd8
-- Drop the two comments on the rail Windows switches (Aleksandrs).
-- Message: the supplies paragraph, to match.
-Bryan's Reviewed-by and Abel's Tested-by from v3 are not carried: the
-DT gained a rail.
+- On my ODROID-C2 the eFuse at 0x34 holds 00:1e:06:37:d9:37, i.e.
+  Hardkernel's OUI, and that is what U-Boot passes on today.
 
-v3: https://lore.kernel.org/all/20260926122533.8200-1-lnicoara@thinkoid.org/
-v2: https://lore.kernel.org/all/20260926122032.4847-1-lnicoara@thinkoid.org/
-v1: https://lore.kernel.org/all/20260925181024.20352-1-lnicoara@thinkoid.org/
+I can't say how many other GX boards have the eFuse programmed, so I
+have no strong opinion on where the node should live. Happy to respin
+with the cell moved into the board file if that is preferred.
 
-Depends on the x1e80100 camera DT series, v7:
-https://lore.kernel.org/all/20260917-x1e-camss-csi2-phy-dtsi-v7-0-1a63eb35838b@linaro.org/
-and on the CAMSS PHY API series, v20 patches 5/6 and 6/6, which read the
-CAMSS endpoint's data-lanes as 1-based:
-https://lore.kernel.org/all/20260918-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v20-0-dc244e124e71@linaro.org/
+Thanks for the review,
+Fil
 
-Built and checked (dtbs_check, W=1) on next-20260925 with the DT series
-applied. Run-tested on 7.2.6 with the same board hunks, the CSI2 PHY
-driver v18, the PHY API series v20 and patches 1-4 of the DT series:
-the sensor streams, twice in a row; LDO7 is off while the camera is
-idle and on, with avdd and dvdd as its users, while it streams; the
-privacy LED lights while it streams and goes out after.
-
-Bryan, happy for you to fold this into your next version of the DT
-series if that is easier.
-
- .../dts/qcom/x1e80100-dell-xps13-9345.dts     | 120 +++++++++++++++++-
- 1 file changed, 118 insertions(+), 2 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts b/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
-index ad62350ba670..39d76b9a63f4 100644
---- a/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
-+++ b/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
-@@ -10,6 +10,8 @@
- #include <dt-bindings/input/gpio-keys.h>
- #include <dt-bindings/input/input.h>
- #include <dt-bindings/leds/common.h>
-+#include <dt-bindings/media/video-interfaces.h>
-+#include <dt-bindings/media/video-interface-devices.h>
- #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
- 
- #include "hamoa.dtsi"
-@@ -46,14 +48,13 @@ leds {
- 		pinctrl-names = "default";
- 		pinctrl-0 = <&cam_indicator_en>;
- 
--		led-camera-indicator {
-+		privacy_led: led-camera-indicator {
- 			label = "white:camera-indicator";
- 			function = LED_FUNCTION_INDICATOR;
- 			color = <LED_COLOR_ID_WHITE>;
- 			gpios = <&tlmm 110 GPIO_ACTIVE_HIGH>;
- 			linux,default-trigger = "none";
- 			default-state = "off";
--			/* Reuse as a panic indicator until we get a "camera on" trigger */
- 			panic-indicator;
- 		};
- 	};
-@@ -151,6 +152,20 @@ linux,cma {
- 		};
- 	};
- 
-+	vreg_cam_1p8: regulator-cam-1p8 {
-+		compatible = "regulator-fixed";
-+
-+		regulator-name = "VREG_CAM_1P8";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+
-+		gpio = <&tlmm 91 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+
-+		pinctrl-0 = <&cam_ldo_en>;
-+		pinctrl-names = "default";
-+	};
-+
- 	vreg_edp_3p3: regulator-edp-3p3 {
- 		compatible = "regulator-fixed";
- 
-@@ -436,6 +451,13 @@ vreg_l6b_1p8: ldo6 {
- 			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
- 		};
- 
-+		vreg_l7b_2p8: ldo7 {
-+			regulator-name = "vreg_l7b_2p8";
-+			regulator-min-microvolt = <2800000>;
-+			regulator-max-microvolt = <2800000>;
-+			regulator-initial-mode = <RPMH_REGULATOR_MODE_HPM>;
-+		};
-+
- 		vreg_l8b_3p0: ldo8 {
- 			regulator-name = "vreg_l8b_3p0";
- 			regulator-min-microvolt = <3072000>;
-@@ -674,6 +696,76 @@ vreg_l3j_0p8: ldo3 {
- 	};
- };
- 
-+&camss {
-+	status = "okay";
-+};
-+
-+&camss_csiphy4_in_port {
-+	camss_csiphy4_inep: endpoint {
-+		data-lanes = <1 2>;
-+		remote-endpoint = <&csiphy4_out_ep>;
-+	};
-+};
-+
-+&cci1 {
-+	status = "okay";
-+};
-+
-+&cci1_i2c1 {
-+	camera@36 {
-+		compatible = "ovti,ov02c10";
-+		reg = <0x36>;
-+
-+		reset-gpios = <&tlmm 237 GPIO_ACTIVE_LOW>;
-+		pinctrl-0 = <&cam_rgb_default>;
-+		pinctrl-names = "default";
-+
-+		clocks = <&camcc CAM_CC_MCLK4_CLK>;
-+		assigned-clocks = <&camcc CAM_CC_MCLK4_CLK>;
-+		assigned-clock-rates = <19200000>;
-+
-+		orientation = <MEDIA_ORIENTATION_FRONT>;
-+		/* upside down in the lid; both sensor flips give an upright, unmirrored image */
-+		rotation = <180>;
-+
-+		leds = <&privacy_led>;
-+		led-names = "privacy";
-+
-+		avdd-supply = <&vreg_l7b_2p8>;
-+		dvdd-supply = <&vreg_l7b_2p8>;
-+		dovdd-supply = <&vreg_cam_1p8>;
-+
-+		port {
-+			ov02c10_ep: endpoint {
-+				data-lanes = <1 2>;
-+				link-frequencies = /bits/ 64 <400000000>;
-+				remote-endpoint = <&csiphy4_in_ep>;
-+			};
-+		};
-+	};
-+};
-+
-+&csiphy4 {
-+	vdda-0p9-supply = <&vreg_l2c_0p8>;
-+	vdda-1p2-supply = <&vreg_l1c_1p2>;
-+
-+	status = "okay";
-+};
-+
-+&csiphy4_in_port {
-+	csiphy4_in_ep: endpoint {
-+		bus-type = <MEDIA_BUS_TYPE_CSI2_DPHY>;
-+		data-lanes = <1 2>;
-+		remote-endpoint = <&ov02c10_ep>;
-+	};
-+};
-+
-+&csiphy4_out_port {
-+	csiphy4_out_ep: endpoint {
-+		remote-endpoint = <&camss_csiphy4_inep>;
-+	};
-+};
-+
- &gpu {
- 	status = "okay";
- };
-@@ -1102,6 +1194,30 @@ cam_indicator_en: cam-indicator-en-state {
- 		bias-disable;
- 	};
- 
-+	cam_ldo_en: cam-ldo-en-state {
-+		pins = "gpio91";
-+		function = "gpio";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+
-+	cam_rgb_default: cam-rgb-default-state {
-+		/* 2 mA streams; the sibling X1E boards use 16 */
-+		mclk-pins {
-+			pins = "gpio100";
-+			function = "cam_aon";
-+			drive-strength = <2>;
-+			bias-disable;
-+		};
-+
-+		reset-n-pins {
-+			pins = "gpio237";
-+			function = "gpio";
-+			drive-strength = <2>;
-+			bias-disable;
-+		};
-+	};
-+
- 	edp_bl_en: edp-bl-en-state {
- 		pins = "gpio74";
- 		function = "gpio";
