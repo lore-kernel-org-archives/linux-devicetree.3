@@ -1,85 +1,88 @@
-Received: from mail-qk2-f10.google.com (mail-qk2-f10.google.com [74.125.230.202])
+Received: from mail-qk2-f5.google.com (mail-qk2-f5.google.com [74.125.230.197])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E948E249EB
-	for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 00:10:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.202
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9700114A60F
+	for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 00:11:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.197
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791677414; cv=none; b=kKy319HwHmI2ojIp8xGamjXLGLcrJ8Hg8RmTL9PjImeyhH4thhk7ySuC/uwn+0+gKNaga/kV6GcQ+wK1Qg1Cvq1zaSIM1Cao1EHsPgsCZzvyi7+pn3Nle3P8e6ekajctusH/9HD9+F5Po9x2Q+wa9OFaCmuiOdA50Ec4CA0jeKw=
+	t=1791677493; cv=none; b=Qbg2QrDcfI4pynuzdZqiRYcZ/Q6N/hawX+UILxevNfqXWD5BnAZj8h3bXo4TJfGFk72ixzmiRVdhkBuIBY9/JK/Y+TM8pqnP9iHCp+bBf0d+mvi9QpRfsEFPWaUDEfzh/+z3QA7ohTapt9OdR/bDAZEqEym5vL8htVB7YMBnAAA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791677414; c=relaxed/simple;
-	bh=3bLDDmxM9+7bEMwptKzPe5tuqwYOb9te2j7zoPqB9bQ=;
+	s=arc-20240116; t=1791677493; c=relaxed/simple;
+	bh=m2qc5bzaGhp+P6plEuL1iHjdBLdQ+Od5wxhJthpXIyI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ac399dLA0hvmavxWnx6AuNJIsuUfPfr7W7h1DmFlyg/JDKTDx43+0fAgKrMJOCa1LQ1PQ/5rB5B8fEF7JYVJuft0pYlWqHFPz2s/wNXJ7iwQTqq+3iUtwMRsUKTaFdn3Efz163aYBdDCXFHa/r+Kf/XiGRX8ptWT4NJPxM6BdwI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=T13vT2Hm; arc=none smtp.client-ip=74.125.230.202
+	 MIME-Version; b=A+qnrR7H8A5AVROffU+qaSsx9hfeqNKZeFalpHAAp8Qce4Uwhd4MyU9MngSWlGQ3woHWBPW4TRSPMVzhykH9bosTvtT9ZZHay/845AJ4UleGgCZFFPfRYWzSjG4J9HwO0keKi8LBEGiAz9DJiU+9DAH2AnmNNL5YozjuV7/5VMA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lo2E4Z3X; arc=none smtp.client-ip=74.125.230.197
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="T13vT2Hm"
-Received: by mail-qk2-f10.google.com with SMTP id af79cd13be357-930f59d1dc6so58750685a.1
-        for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 17:10:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lo2E4Z3X"
+Received: by mail-qk2-f5.google.com with SMTP id d75a77b69052e-5337b59ef7fso6350091cf.0
+        for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 17:11:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791677412; x=1792282212; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791677491; x=1792282291; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=BP1bz2pHwtNQXRUrZx5Fh8v5zRyVZJ76VNiARN43ayQ=;
-        b=T13vT2HmzeACAmqRS9dvSj0jsE/RJgswQ3APVLhPcQ0l8dcglJaJux7m7fcR6NtA0j
-         f/iKT/0+tz2aMef8WM8n0UFX9N//sbhxsBtZPaIUgp95FDjC7Qz29x8QhCi8ZziAepWb
-         ReXpmGTM1D3iTiJCTM+RT/S2yODZyFWFbOMkEZCEKv78cpWkAiep2PuktaotLopBf1eT
-         hqtFW+WR1dWpPu+SJoQ++0g0N1vu/Sqjk1SzzqU+iEZqvUy0sr/5biRY+auCbDqXbdif
-         2JNglB6+y069X/9q/hgJ2BMALlvw5gOFt/1hDrPdalDcxttXzeZEwbbBU1Z+yduyxEEg
-         WlGg==
+        bh=eZSFox7DYtsZr6D8rsT6OanL7ONG4L1d4OFVS1wYXN4=;
+        b=lo2E4Z3X0B74U3SFCkbqANSbBrJv7T15GOZ9F3AVAnYlKw1tHQaX3gbaqsKXma5hUG
+         ds09J5WtI54C2hIsixhH0hPBOQ6Vyz1aL1D038/Ef2W3WCj0ZyzI4b+xcyjDKQ4yBfmQ
+         7ihdkbLqmyMswolEShpLwK16zMLSobIeLrkD4I+K46XEygN35kr6oYndQMaeQX0YBokV
+         FxHDas5MvD1fZTx68S9cZXyPPuVEcxg+3hGmdXuqXjCUNLTdSPquEw8igoBvaS1V5IKH
+         hnnB0hVewYKFbf5HCjzKR1xycGlJnjnGvpnMQlm7IChMnsBTAlm7Q69EJAp8ZVZ8SZuW
+         VFgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791677412; x=1792282212;
+        d=1e100.net; s=20260707; t=1791677491; x=1792282291;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=BP1bz2pHwtNQXRUrZx5Fh8v5zRyVZJ76VNiARN43ayQ=;
-        b=Uzp1HG/OHqMKFwMenM8WxBDhoMj/VC55p0lTFzz3PCGtfEmVaIJdp/hxjGWVg7dIGc
-         Z70vNLrqveFP9STFP1MO4cdbiNM285Zq3yzmlvL0kufQc2bFu1FUyHc95Bc0Hb1kHL/f
-         rSi4qjbiAc+mOGcReUP9odGRinU87jQTJ4lzkaLa6d08/duEkRud+kDrPfCTtrAWHWIS
-         n8M60PKnA9yLqGgsVrDh8+/Or7c+L2SMc5Bvkeg9a3DU1NEO5PvyU2u2BP9xkjTiQM81
-         OtC8MeDKEaDEjCO6e1IadF3ecJIj99X3ATn37FY4T3dOX53bUpzINDB3KkYg/70WTjkx
-         cyOw==
-X-Forwarded-Encrypted: i=1; AKwUvBzoyPV4MG5uPqm5ghCta6P7AMnv1yAE/TQBK88/ocupbJzwGvJQBfLN08fi/K+UJWgvT7seNiLT4TVc@vger.kernel.org
-X-Gm-Message-State: AFq9FYIOKOYylhsDDq3ckpx2Th29mdpgOoUVxHg8DHG+nnquIri4hOH2
-	/BQ2FJsW93+0/xuycoVUPb0BZCnyLgr+F3oSy5kaLjnTRFsAcYCdaSAdxu0QdUWDsQen3A==
-X-Gm-Gg: AYBFou34BzTb4xki+5pciPjz+8r1o6SPtmYtmu4eOFxVEY3r7MlbrRs+lxiMFwQmK/T
-	/TuuxnPL8TgbmAhtRZa4w8ZNcdUqQpJQVzYDm+FP2cJAotEvWpElTknrKR1kTkHY7jksQPKrV22
-	GsXXgAO5OO1RjV5ojz8u6vX1OfICt7YpiTlXyKNXXBKmEkhP1UCSWs/o4RfT5s5CNmJuBrK7/Vg
-	AoLsSM/ED18rw8PgXHNj8RRCJrdKVomczMb30ZEevuGJDtVo5VTFGS6N2sz7jDqnRalfPkhnwz9
-	cQwQEM+qWgQIMhK6ucf74BdBk4bvbR7ZpC7U4FHdGfZ7FVXGnFrE6InEl2ht1i9fKiBcIC+0n6z
-	SFT8AQiKOy0KPl9aNB3SH6qkFh7lScFcL8G3acTZiZr/NIrtTcKUz8GwtsqzpgIfXxzWtXLsNFN
-	U4xvbhkGSVWV5WL3iDRnfuHMe09ROfnjAJ1JPOKx5djCZCsXdteL148TwOraB3+FurWzY=
-X-Received: by 2002:a05:620a:4692:b0:93e:95ce:539c with SMTP id af79cd13be357-93ebd0e4018mr1010764985a.2.1791677411682;
-        Sat, 10 Oct 2026 17:10:11 -0700 (PDT)
+        bh=eZSFox7DYtsZr6D8rsT6OanL7ONG4L1d4OFVS1wYXN4=;
+        b=OjkvRm8+DOW8coHnioJOnGnvgsyYHRli1euAhFsUZR16ajEZy6MAx2ZEYCxZdlA6Vp
+         vdTpu+bL+40VtE5zIxIeacaK2Hfj+6zrhwMaY250Sgb3H/xe9EqBbmdGKbk5CIQNodzT
+         gxOmvfJWgIkVdWKeu58E5cWhl9oFnvaqdFx4p2Ku/b/uW24NImqw1C9UKrWLfqkRmUBI
+         GGxVmJ4rmW6tiMekzSI1pgMbR/VBhB/+I79HOgBTZwtlGIOqDz0v4Ai577DEc39l3cX3
+         UsWEU1BgGufnGCjVg/O+j9ppExdAls3qGZgPtEaA/5UiN5DQOq8bJ9rP+03fOdoU2Unq
+         +wsg==
+X-Forwarded-Encrypted: i=1; AKwUvBxxWs7tazh7f+5S6+Fvezog7FD3hxOtbzNAmUj8pB7wMvrayk/NgTcynvkZfM0Vq0v9OpQ71GQeUxim@vger.kernel.org
+X-Gm-Message-State: AFq9FYLj6xI3yWdoYAKFMWVYyUmkm1wJMTi47r76BEzeItuyXCXfH0KT
+	K88j2g0Mh6m28CFh8X0NwEQv52ahRAHo8r4zLDrKNFLwB7g6HH+NuK3n
+X-Gm-Gg: AYBFou1Num1kWXOcErXkFzIekl1nA290AFimxe1RUuvFX3NOJYXRiAQRrRiXYRdkJ0E
+	VbRoMC5bu8lRinZBek74M3dZdcKHmROgEOt8kyvJQGuFmf0fgL1eB9Gv3mpYP2kIrVWL4OWU5Vn
+	APS44lyhGS3C2VNCiXzNP31YDtcvhNV8Z6+ffBcGaKVNah52vE2LfMAD4EvL17zMaOPte62f6/g
+	9FPuXlPTrY6AJsSrq6XE6uVAbgBJ3QZpTJpH20b8QqKmcc0rIBuDQxCBEEP/Q/boRhNQzZ9ZabV
+	w4tpk41LffO2ddJ4u4JdZuBYmjEv7mOOhPgFWNOAN7nVFbNdhbhjc/cTkeQYggtHxAs6gx4tPN8
+	ilQ9ZVzre2Vvkr+4H3zFNBzfTnMULkBiArbMHocyQ3Ocx6Ziya4wvmAbgNOHrPhDyplDPiuXYz5
+	uJ+S6SOnNI0OJ4iZ0CxJjkMjuFxGObjBpbk00iJPVJ2JGR9kMMCUWw6ZbuzmvNVgHrI7OYqTOM0
+	dBE/w==
+X-Received: by 2002:ac8:5a4e:0:b0:535:341c:e2c with SMTP id d75a77b69052e-5359fb8f878mr101828041cf.39.1791677491408;
+        Sat, 10 Oct 2026 17:11:31 -0700 (PDT)
 Received: from omarchy ([2601:804:8780:3df1:6ff:277e:31c7:ac13])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93eb98ff9d8sm523933585a.44.2026.10.10.17.10.10
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b54e7f6aesm57217596d6.2.2026.10.10.17.11.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 17:10:11 -0700 (PDT)
+        Sat, 10 Oct 2026 17:11:30 -0700 (PDT)
 From: zoan37 <agentzoan@gmail.com>
-To: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Jiri Slaby <jirislaby@kernel.org>,
-	Rob Herring <robh@kernel.org>,
+To: "irving . ch . lin" <irving-ch.lin@mediatek.com>
+Cc: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
+	Ulf Hansson <ulf.hansson@linaro.org>,
 	Matthias Brugger <matthias.bgg@gmail.com>,
 	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Sean Wang <sean.wang@mediatek.com>,
-	kernel@collabora.com,
-	linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org,
+	Matthias Brugger <mbrugger@suse.com>,
 	devicetree@vger.kernel.org,
+	linux-pm@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH v3 3/4] arm64: dts: mediatek: add Genio 720-EVK board
-Date: Sat, 10 Oct 2026 20:09:22 -0400
-Message-ID: <20261011000922.1089313-1-agentzoan@gmail.com>
+	linux-mediatek@lists.infradead.org,
+	Project_Global_Chrome_Upstream_Group@mediatek.com,
+	Qiqi Wang <qiqi.wang@mediatek.com>,
+	sirius.wang@mediatek.com,
+	vince-wl.liu@mediatek.com,
+	jh.hsu@mediatek.com
+Subject: Re: [PATCH 3/3] pmdomain: mediatek: Add power domain driver for MT8189 SoC
+Date: Sat, 10 Oct 2026 20:11:23 -0400
+Message-ID: <20261011001123.1092269-1-agentzoan@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260924-add-mediatek-genio-520-720-evk-v3-3-2ec5c80677d4@collabora.com>
-References: <20260924-add-mediatek-genio-520-720-evk-v3-3-2ec5c80677d4@collabora.com>
+In-Reply-To: <20260202064820.347550-4-irving-ch.lin@mediatek.com>
+References: <20260202064820.347550-4-irving-ch.lin@mediatek.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -88,43 +91,47 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Louis-Alexis,
+Hi Irving,
 
-A note from using this series' mt8189.dtsi as the base for an MT8189
-Chromebook (Lenovo IdeaPad Slim 3 Chromebook, board "quigon" of the
-skywalker family) on next-20261008.
+Some findings from running this driver on an MT8189 Chromebook (Lenovo
+IdeaPad Slim 3 Chromebook, board "quigon"), mostly around system
+suspend (s2idle through the SPM), on next-20261008.
 
-The dtsi has only the cpu_off_l/cpu_off_b idle states (PSCI
-CPU_SUSPEND 0x00010000). This firmware has no PSCI SYSTEM_SUSPEND, so
-suspend is s2idle, and with those states the SoC never really sleeps:
-the EC doesn't see the sleep signal and the RTC alarm doesn't wake it.
-ChromeOS's mt8189.dtsi adds a system-level state that only s2idle uses
-(infinite min-residency); when the last CPU enters it, TF-A and the SPM
-put the SoC to sleep:
+1. MFG1's EMI GALS sleep-protect step, BUS_PROT_WR_IGN(SMI,
+   MT8189_PROT_EN_EMICFG_GALS_SLP_MFG1, ...), targets the EMI config
+   block (emicfg_ao_mem at 0x10270000; SET/CLR/RDY at 0x84/0x88/0x8c),
+   so on MT8189 the "SMI" regmap has to be that block. Without a
+   mediatek,smi phandle in the DT, the step went to the wrong regmap and
+   wrote INFRACFG_AO+0x84/0x88 instead, which was one of the causes of
+   SErrors after resume here. Giving the MFG1 node
+   mediatek,smi = <&emicfg_ao_mem> (a syscon node for 0x10270000) fixed
+   it. It may help to document this for MT8189, and possibly to fail
+   instead of falling back when a domain uses an SMI step and no SMI
+   regmap was found. (access-controllers would be the modern way, but on
+   this board fw_devlink then delayed boot by about 10 s waiting for a
+   supplier the syscon never gets.)
 
-	cpu_s2idle: cpu-s2idle {
-		compatible = "arm,idle-state";
-		arm,psci-suspend-param = <0x020180ff>;
-		local-timer-stop;
-		entry-latency-us = <10000>;
-		exit-latency-us = <10000>;
-		min-residency-us = <0xffffffff>;
-	};
+2. DISP: at runtime it never powers off here (MMSYS, the mutex and the
+   DVOs have no runtime PM), but in system suspend genpd tries to, and
+   the power-off is rejected part way (genpd debugfs idle_states shows
+   "Rejected"). That leaves the display's memory path blocked: after
+   resume OVL stalls (no vblanks, larb0 stuck busy) or the display
+   faults with an SError shortly after the video unmutes. Marking DISP
+   MTK_SCPD_ALWAYS_ON works around it. DISP has a single bus-protect
+   step (MMSYS_STA_0) while VDE0 and VEN0 have two (MMSYS_STA_0 and
+   STA_1); I don't know whether DISP needs a second one, but something
+   in its power-off sequence doesn't complete in this state.
 
-with every CPU listing it after its cpu_off state
-(cpu-idle-states = <&cpu_off_l &cpu_s2idle>, <&cpu_off_b &cpu_s2idle>
-on the big cores). With that, suspend is real SPM sleep on this board:
-the EC sees S0->S3->S0, RTC, lid and keyboard wake work, it passes
-repeated suspend/resume cycles (20/20, then 10/10 twice), and a
-10-minute sleep used about 20 mWh of battery.
+3. PCIe: to keep the Wi-Fi (MT7922) up across s2idle, as ChromeOS does,
+   PCIE needs MTK_SCPD_ACTIVE_WAKEUP and both PCIE and PCIE_PHY stay on
+   (we use MTK_SCPD_ALWAYS_ON for both).
 
-I can only speak for the Chromebook firmware, so I don't know whether
-the Genio EVKs' TF-A implements this power level, but it may be worth
-adding to the SoC dtsi if it does.
-
-The board files are at
+With these (plus a cpu-s2idle idle state in the DT and a few driver
+changes elsewhere), suspend works: repeated suspend/resume cycles pass
+(20/20, then 10/10 twice), with RTC, lid and keyboard wake and well
+under 0.1 W asleep. The board's patches and notes are at
 https://github.com/zoan37/lenovo-slim3-chromebook-omarchy
-(port/quigon/mainline/mt8189-quigon-suspend.dtsi).
+(port/quigon/patches/mainline-mt8189-suspend.patch).
 
 This was found and tested with help from an AI assistant (Claude).
 
