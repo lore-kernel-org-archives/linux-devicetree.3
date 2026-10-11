@@ -1,112 +1,154 @@
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C9963B42D8
-	for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 12:47:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E0882D94B5;
+	Sun, 11 Oct 2026 12:47:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791722879; cv=none; b=MGJUd6CP3AmQbpkgxHeHTm/UPzPKSvmVh0PrT/6qZBHmi9ZTZWUv54G7TIYonzbXjhZGddyqOd6yt7kGWJGbhtDQM2NTahE2oTIaXLcowexDIL7g9dQvYNp86lEHqCoZHdZPDLPtHAUKxzCRLieMn6l6On1KtAxXr1mfjLYdh0k=
+	t=1791722880; cv=none; b=HKVtNoKSZab5CIrl9Is8zF8ChlllTJH8AF2Y8D18JTji1pMPPx7KUchNvGpUMIsOgCNkyyWz7MqmtLEhRkCs1RNJLq8yhHgdoTVoHevZ5ESwdD7VPP7YgfQgtEiZkZ5QqTN54nB5fsUV5jDSF2bkyBn48YNqyPQrhZ7V/nTMytc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791722879; c=relaxed/simple;
-	bh=65FsIsY2eglM8xMKgNTFAfDsHtD95MspamnEelN3fM4=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=VHCdDvuz5agLDGsp1twSJFRorPT/TvWEDHmQnwf0D7X/EsxyKuBhJwiyZBnCz+7ItQZGFiHgYspIJov7ianu23rb0hYKM494qmRzS7TB68QxyPzcuO3r/Eoe0ACkER3J/5b08KKfBNjdVBJIs3oQmAaJuUsIHU5wV9NpU0H7SO8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XPcrJjpb; arc=none smtp.client-ip=209.85.216.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791722880; c=relaxed/simple;
+	bh=TRdeWDTm1yWoJSWC2wPXsspK0A5+GjSCi2V7gRfZvKQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=QXDQ/RO6uMA23w5HdtMe4k7AkP32xGJZ1iQuUyeusHXVrYlEf4lNVVcN5Vdw0mHJi+rr2JESqS1q8IV7lE4mZWb0NvEcWDMyXWLUGvG0MdlE7/MlTt1rj67RNG8E510n6vFgla651FvILqICyCQBW/TdYaGEb8MauceS1AWHBew=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=timmermann.space; spf=pass smtp.mailfrom=timmermann.space; dkim=pass (2048-bit key) header.d=timmermann.space header.i=@timmermann.space header.b=bkQz9x/i; arc=none smtp.client-ip=80.241.56.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=timmermann.space
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=timmermann.space
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XPcrJjpb"
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3ab2bf5e75bso496204a91.3
-        for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 05:47:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791722878; x=1792327678; darn=vger.kernel.org;
-        h=mime-version:content-transfer-encoding:content-type:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=cI52cNV0SAj9KYZseqFKYYVaewclBL5lcykfpxtwH0s=;
-        b=XPcrJjpbpcD3Cm24ktG1KAWyjg8swimzqT25YFiiZ5wA+MUclu3QhiidYd5TIEoF7w
-         STIqx+3ckjFjqxZwwdeCqX3XpF0+pbMBCGiwYEdKuyL2M60qxkF1xXKul9Io5TRs0Hfd
-         Zwd8IpiHaCUnRZrrTqCfA0f9GKV1C2axryjJa1ufp3mo1/38JGupVZGtMG5DycERGbxU
-         AxhZJxIRxTph7T7Aqd6LdyKUUbdh+NmCYvhZRyHTh61FkgOSamkL56fyQ1E37dHtiRrZ
-         vTviqStm3NG8s2qmmsHMhM3wttx0IJ986xkKFDYUou5DgHmBmyVFBbv4Gh47CfaoCb+f
-         Epxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791722878; x=1792327678;
-        h=mime-version:content-transfer-encoding:content-type:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=cI52cNV0SAj9KYZseqFKYYVaewclBL5lcykfpxtwH0s=;
-        b=Ym2jDe74LBvQ7brmx0SrdqC5hS6Ma7Wz9dcXmM/gc3GQUtR9QOuvJ33rJeVm1qR4KD
-         YEpx2ojS2+QX7b1MxjIxE+IrQYjaHvBKm8WGsN3jLOzbiksFIG2QPjcvrPvn9/5rDwJt
-         SnCsd+yr0FRA3sDr3HBxfLLHtz/NX9CUwRD/tuyBYBuzyo8ZRDr6z7PXlIrrAbXrM2HR
-         c0FAo4cm1md/hHwLQujaHcaFx/p9DS7uoYN2Ys8g2A0eVb2Ou800Mk/ytlSL5bWR8e5T
-         om5Ev/qs2vJ7BPA5YC34shcGO4PI8zFAAhWXRa1D2k2kWu9edfPEVHsxTbgao4e5cMos
-         ehvg==
-X-Forwarded-Encrypted: i=1; AKwUvBy1O9Ku6lU3olNJeAaTMzAvYidoPGz1F525oQmUR8k+df00wr9dY7aMk024yqgmGEgm5noqOdRMrZfw@vger.kernel.org
-X-Gm-Message-State: AFq9FYLD+951Nt7hi+mYQjmMWpSQeF8OeQHyKnBpsXScZcSTNaz5w3Kp
-	FVKtyuToOTf285cAgYBDyCmUDB67hY9aS5VLJkHpzD6oyKgWXysP25Rr
-X-Gm-Gg: AYBFou0/iyew6yS9dtSmAWR2Ms3rvKyAEBnY5HWtLkFUqsD2wisH9pqIvnRykQgqy2c
-	837Fd3EL46LhCvVLkI0QiDMIMcqb7qHHv2l2dCIGXpwB/J8GM862zWTUA44ydmyBDZQUJIhKch2
-	n4GDBavLhjbaAlUPJ769suCL51kXXWdkCe6ry2dsnVbVyDlVSSNsYXJFdGbNBBifz/ahWnKNLra
-	r2Uocri53kivuvhJqE7djVN1yHaT1MVhW640F2ixi292SITjgYz+ibIhOtL1Mlxmg3CQFCvCSgQ
-	oiLv6ydE0D0UKz3dcIujv804mpce10V5POmHFZnN5E479YkvnrMR6srlym3/2nsI76UbevsbEzt
-	F35Oq4gQC00z7SNgrPvmAU5eVn++T+8C7s6I1i6oldqko0QBv9g40HzeGncRVeHM/lHISmzyQgc
-	5VO/jD9EVfdFo8lAIPVMYv7FYkDS9goU6xrbw3iyGLKFFX86bSwV7JYiBQIKR7cRSMKrMU4aCKf
-	U7eJz+i2TT9b3/G1oCWZghxYeI2et9uNiNWuuB7uu2wRybZbgpO54/3Qy2WJbslbj2mOvjCxA==
-X-Received: by 2002:a17:90a:51a7:b0:3ab:4262:1a3a with SMTP id 98e67ed59e1d1-3ab42621c33mr3830705a91.61.1791722877717;
-        Sun, 11 Oct 2026 05:47:57 -0700 (PDT)
-Received: from [127.0.1.1] ([121.165.170.166])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab38b9639bsm11623603a91.4.2026.10.11.05.47.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 05:47:56 -0700 (PDT)
-From: khaliforce <kforce@gmail.com>
-To: Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Samuel Holland <samuel@sholland.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
- Alexandre Ghiti <alex@ghiti.fr>, devicetree@vger.kernel.org,
- linux-riscv@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject:
- [PATCH] riscv: dts: allwinner: Keep MQ Pro Wi-Fi powered during suspend
-Date: Sun, 11 Oct 2026 21:47:02 +0900
-Message-ID:
- <179172282222.4040500.483739720170904755.mq-pro-sdio-suspend@gmail.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+	dkim=pass (2048-bit key) header.d=timmermann.space header.i=@timmermann.space header.b="bkQz9x/i"
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519MLKEM768 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4j2gP56cd8zMlNY;
+	Sun, 11 Oct 2026 14:47:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=timmermann.space;
+	s=MBO0001; t=1791722873;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eghuKpBut0MXoAv1pNveI/JSNHbMX7rDeXfcFbvW4Ls=;
+	b=bkQz9x/iQi6C4Rgf+IoSdL4wlzM937HaiN5RO2H97yy3M+wQwxSTpIc/M7bonM4R2tKtFn
+	m4Vjh1D+/crzb2pX33AeFzl5FQIffgCSM2q4LWamqiQb/jf5gcM8tNQBup/dVxOZuItAME
+	GTNZQKcim9K/wouqbjqgevzQey/3QJjzo41+MI/VmzjQbfZRgoAXyJyyvWOclYImQO13ha
+	Wgrey1ATawgeofY6dE4DXExCKLgks+KAfYR4rMr0jOcA3bGvzGJ6ttV0qHJTBsyJeXEnu4
+	rQAmsHqXczVDwF/TPyrvUMgBM/4ZwTIBPxvn+Xl4md5HqePsiIB5UcUIC22cjg==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=none;
+	spf=pass (outgoing_mbo_mout: domain of foss@timmermann.space designates 2001:67c:2050:b231:465::2 as permitted sender) smtp.mailfrom=foss@timmermann.space
+From: Lukas Timmermann <foss@timmermann.space>
+Date: Sun, 11 Oct 2026 14:44:56 +0200
+Subject: [PATCH 1/7] dt-bindings: input: touchscreen: samsung,s6sy761: Add
+ S6SY791 and reset GPIO
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261011-lat3st-google-raven-touch-upstream-v1-1-2a9f55159b9e@timmermann.space>
+References: <20261011-lat3st-google-raven-touch-upstream-v1-0-2a9f55159b9e@timmermann.space>
+In-Reply-To: <20261011-lat3st-google-raven-touch-upstream-v1-0-2a9f55159b9e@timmermann.space>
+To: Lukas Timmermann <foss@timmermann.space>, 
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
+ Peter Griffin <peter.griffin@linaro.org>, 
+ =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+ Tudor Ambarus <tudor.ambarus@linaro.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>
+Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-samsung-soc@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Rspamd-Queue-Id: 4j2gP56cd8zMlNY
 
-The RTL8723DS driver requests MMC_PM_KEEP_POWER during suspend.
-The MQ Pro SDIO host lacks this capability.
-The request returns -EINVAL and aborts suspend.
+S6SY791 is the SPI-based counterpart of S6SY761. The register map and
+commands are identical for the subset the kernel currently implements.
+Therefore add S6SY791 as a related touch controller.
 
-Add keep-power-in-suspend to the board's SDIO controller.
+Optionally, the reset line can be controlled on some boards,
+such as the Google Pixel 6 Pro (raven).
 
-Tested on MangoPi MQ Pro.
-RTC-triggered s2idle wake and Wi-Fi reconnection pass.
+Also reference spi-peripheral-props for the SPI bus properties.
 
-Signed-off-by: khaliforce <kforce@gmail.com>
+Signed-off-by: Lukas Timmermann <foss@timmermann.space>
 ---
- arch/riscv/boot/dts/allwinner/sun20i-d1-mangopi-mq-pro.dts | 1 +
- 1 file changed, 1 insertion(+)
+ .../input/touchscreen/samsung,s6sy761.yaml         | 37 +++++++++++++++++++++-
+ 1 file changed, 36 insertions(+), 1 deletion(-)
 
-diff --git a/arch/riscv/boot/dts/allwinner/sun20i-d1-mangopi-mq-pro.dts b/arch/riscv/boot/dts/allwinner/sun20i-d1-mangopi-mq-pro.dts
-index e2bb6bc16c13..b2c65560d6a8 100644
---- a/arch/riscv/boot/dts/allwinner/sun20i-d1-mangopi-mq-pro.dts
-+++ b/arch/riscv/boot/dts/allwinner/sun20i-d1-mangopi-mq-pro.dts
-@@ -87,6 +87,7 @@ &mmc0 {
+diff --git a/Documentation/devicetree/bindings/input/touchscreen/samsung,s6sy761.yaml b/Documentation/devicetree/bindings/input/touchscreen/samsung,s6sy761.yaml
+index 1ffd17af3c53..d24f35038934 100644
+--- a/Documentation/devicetree/bindings/input/touchscreen/samsung,s6sy761.yaml
++++ b/Documentation/devicetree/bindings/input/touchscreen/samsung,s6sy761.yaml
+@@ -8,13 +8,17 @@ title: Samsung S6SY761 touchscreen controller
  
- &mmc1 {
- 	bus-width = <4>;
-+	keep-power-in-suspend;
- 	mmc-pwrseq = <&wifi_pwrseq>;
- 	non-removable;
- 	vmmc-supply = <&reg_vcc_3v3>;
+ maintainers:
+   - Andi Shyti <andi.shyti@kernel.org>
++  - Lukas Timmermann <foss@timmermann.space>
+ 
+ allOf:
+   - $ref: touchscreen.yaml#
++  - $ref: /schemas/spi/spi-peripheral-props.yaml#
+ 
+ properties:
+   compatible:
+-    const: samsung,s6sy761
++    enum:
++      - samsung,s6sy761
++      - samsung,s6sy791
+ 
+   reg:
+     maxItems: 1
+@@ -22,9 +26,19 @@ properties:
+   interrupts:
+     maxItems: 1
+ 
++  reset-gpios:
++    maxItems: 1
++    description: GPIO connected to the reset pin of the controller
++
+   avdd-supply: true
+   vdd-supply: true
+ 
++  spi-max-frequency: true
++
++  spi-cpha: true
++
++  spi-cpol: true
++
+ unevaluatedProperties: false
+ 
+ required:
+@@ -52,3 +66,24 @@ examples:
+             touchscreen-size-y = <4096>;
+         };
+     };
++
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++    spi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        touchscreen@0 {
++            compatible = "samsung,s6sy791";
++            reg = <0>;
++            spi-max-frequency = <10000000>;
++            spi-cpol;
++            spi-cpha;
++            interrupt-parent = <&gpa9>;
++            interrupts = <0 IRQ_TYPE_LEVEL_LOW>;
++            reset-gpios = <&gpp26 0 GPIO_ACTIVE_LOW>;
++            avdd-supply = <&ldo26_reg>;
++            vdd-supply = <&ldo25_reg>;
++        };
++    };
+
 -- 
-2.53.0
+2.56.0
 
