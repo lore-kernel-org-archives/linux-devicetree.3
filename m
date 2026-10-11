@@ -1,207 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5216B305670
-	for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 15:56:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFE18314D1F
+	for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 16:32:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791734184; cv=none; b=ZzOcTSoDXSbG/NS3WOuDczhgArX5eENFwLghVr4pNal5cVjGGRLrlaP4rCS8H41+JpVQNYYYNCFMjlzIUNNuBlYGPgRvxMGIocQ3FSy4RjzUYcnRSDK8w5tlcK8ZnjI090RlovqFDnzVr8i3I1CUnnr2qqKCHVWcqnkx0gcFpos=
+	t=1791736376; cv=none; b=ucAGa0AXYGY0DfpK4BdZqY16J7OAUOXEUoDqjA3gn05n9ZJHlm/KpgUwGeB3FVkXKC8CKu8UDTRdGEn043INz5tmJejjalJVOxImCuUTCeR+fffrpgAJWluZU+i0CQnv2MxiE1vOKMUUVWPHE3wqPZXuNutp8a8uHik+9Sxrz1k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791734184; c=relaxed/simple;
-	bh=Xl22zzdkhxyKfz/bpZ04Cqr/cp2yRbgj+hiaxz96GiY=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=Uz97JCLTAwJw0+GwWltPoYF5vAI+1JiX15y6SUYks+XIRjSKFxVm7UqbRIqNplxUYLA9WDZNWnENLnFJbK77kb4jM1GflNVnW6VQ3lT9VO1otS/Cg3HM02oajWqPzNZkC9UxIks4JE1I4enN9i1eeU5JAbcTR6Xrsbyv5j1UnZ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CgJfdqUa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791736376; c=relaxed/simple;
+	bh=ksiJ7Ku4UCtrC0N0jmz3YWLOf08sKJ5ATpUDWt0FsFo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=G9u6nauL5G36RCqwe3xnwDyDESCzykqBADwDBmfgMR5G1xGwkcPoCM1260ocL8cRMjTeyvQL/k+Onciu9ELLq4S4KJws1bCVll6MBEatqpctLuv8EEiiwzcxoOS5mEgKfW4GmSd25iiJeHCUGBLlh63bPQ6fKF/mtQhecZ2qYfo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oNw40hmy; arc=none smtp.client-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CgJfdqUa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A1881F0089C;
-	Sun, 11 Oct 2026 15:56:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791734181;
-	bh=a9wavh1WeN1T1yu+T37W8eOS65fvMADlBtPZjWG7qXI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=CgJfdqUagkTOFGmL7a25ENyW8DLxJbTHkHjHfHjtxFPVrCJpqWB4GCcJGijIE+O3i
-	 LUP+J5AadBtK4XrGtukyqSfkxp2qQvzZz8hRG0xmBWysMkK20O3t5UPu+rH/kYcDTB
-	 nWaQZ5OTm/hjR7AehpT2cfUXJYoh1dUTiuIBZb8TQPfs05A3fLPFX5MO3s1kvjHC1w
-	 pzIPIj+eX+ijdjt940CJbJtl51y9rONH3I9XTB6hyWOjPU0PzORioQ7bBYxnR64vco
-	 PFW5cwFPRqcCUAtEd8BAkRZ+4ZlZllKnDPJHS/GX3L0iPd9nekwrNyXDLAe94JbFqf
-	 zdJZZqhtCB5NQ==
-Message-ID: <sashiko-outbox-167308@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 2/2] drm/glanda: Add initial DRM driver for GlandaGPU
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Leander Kieweg" <kieweg.leander@gmail.com>
-Cc: robh@kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20261011154556.155831-3-kieweg.leander@gmail.com>
-References: <20261011154556.155831-1-kieweg.leander@gmail.com>
- <20261011154556.155831-3-kieweg.leander@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 11 Oct 2026 15:56:20 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oNw40hmy"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48c4d99c32bso1101107f8f.1
+        for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 09:32:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791736373; x=1792341173; darn=vger.kernel.org;
+        h=content-type:mime-version:references:in-reply-to:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=ksiJ7Ku4UCtrC0N0jmz3YWLOf08sKJ5ATpUDWt0FsFo=;
+        b=oNw40hmynIT6k5A3rO6aAD8SUzY6NU/0EmKSd33HNs3QgTHBxh8Rl+aUmDjn/z3hFV
+         PwqUjlwP+apuVXI/YS98tou91vuosazRgR0nnXRZ8ss6RWphutN1wur/DgasXCUemSoh
+         d0iR8EuKvk6WhGXSNguiSYE/+09BvG4tqriPnn5AE+L93S13Exux5Z3uKaC/8K4dLr07
+         p6FMgcReuFydDOIqrmwEdDXtQPcQPgSWxJVHJXNhbIstNgWHF3x9kCZLNcf8L7QCe4Y/
+         VAwYEeK3c44ZowTR3iPv55XQvUbkOub1zgLSwmdEULUi3pUVbU5UVa25CeGWlcw8QRJT
+         4i/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791736373; x=1792341173;
+        h=content-type:mime-version:references:in-reply-to:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=ksiJ7Ku4UCtrC0N0jmz3YWLOf08sKJ5ATpUDWt0FsFo=;
+        b=OEieZDtEYD3TMOoXIgqqWOq2paEXUcgLoPDb9Jfhd+Q4KJmDdFVr2g+MsyMJLSzmuC
+         8DQ1uS0kWCW2oRZL+f3Dw7R9M2TtYDQG1UU7oCT7bc9WAQ7/EbMTchbVPf7e1kQ1Eeic
+         Oq4VD7ti6MC6cAO8E0fAb2R14TR38eN1Fifh1HElXtzyNoX7INxaupPI321Zy3hQNQT2
+         CwQhUaegEmZQzSLnNC/TWqH80Bm8OxId2r3d8mYheV89tXK9mp5SZysH/Xa0+Dc/DYWf
+         XjSyrxBlbpmuijJ4Buz1aW92aelvdg3Tltfpq1pFel4s+hEFQ9RZbK6DixZM0k7NHHhm
+         VtNw==
+X-Gm-Message-State: AFq9FYJWUxODH7rf0j9IkGrNDQhxNRXz7cbOe/YXDuql8Rb/1kyXobvX
+	3OaD8jBVtOB3QGQSPHEDHzy8xkWAjoNuYMeGqDNQ/HaAprGLvx24t5bm
+X-Gm-Gg: AYBFou1QD03iYB3E/yDElknOqq1wP/yjWWzR8YGQPbTvPS5CsuNjiZGB6n5GQtWnaxb
+	y/42bOgtJdneB7CMfOxJL4LDX0bFtwxcDY3zcXldsz5A0w1bEylgypXv0ubpJAcWhluwTCSlDQu
+	vD/u9266o4rU5G5O7nIU1L6/iaJ6xKUT0gJXqNLyu+0HM2QoJ7HvyPvVg4xZSaw0eIvDa7Tn2QN
+	LxpmylS8THw8294WX6TKk5hT6eE84V8RAEq0b1tsKutrlzi749Poqm65W7zDANKc+xOh9qJyAe0
+	zLeTpQSCwFbig1b8TBt2MIgL5x/HCDzjmVesXXFNhPDNQkfsGrijD3Ae6PZ2Th5dZGXp7jdlwjz
+	lWeKnVPX/PBCR/7b/btkHQAIKIYeTbt9/pb020novfBvG3vsRBmBAKiwP1FtQ6g95ogV9NneohW
+	4TU9lfEixyTWPq6cWjN8Rz4/CNBGr8AYhYESF6lPUPQteSh1ZWT9aqC6udCRDiR2HvXqg72fF15
+	t4Bqlf5agxMwTmSxWqZzd98ShZSlAYn/AhXkyyi9DaVBl/bonqtqj5Y
+X-Received: by 2002:a5d:58dc:0:b0:48c:77aa:2f78 with SMTP id ffacd0b85a97d-48dbacecfd8mr10168095f8f.56.1791736372532;
+        Sun, 11 Oct 2026 09:32:52 -0700 (PDT)
+Received: from silicon.doe.home (178.165.167.132.wireless.dyn.drei.com. [178.165.167.132])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48dba1be42esm16537414f8f.5.2026.10.11.09.32.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 11 Oct 2026 09:32:51 -0700 (PDT)
+From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
+To: linux-arm-kernel@lists.infradead.org,
+ Navid Ghahremani <ghahramani.navid@gmail.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, arnd@arndb.de,
+ linux@armlinux.org.uk, robh@kernel.org, krzk@kernel.org,
+ Navid Ghahremani <ghahramani.navid@gmail.com>
+Subject: Re: [PATCH 20/24] spi: Add ZTE ZX279128S SPI flash controller
+Date: Sun, 11 Oct 2026 18:32:46 +0200
+Message-ID: <QRsVQG8CQny06omTkaluXQ@gmail.com>
+In-Reply-To: <20261010130024.177503-21-ghahramani.navid@gmail.com>
+References:
+ <20261010130024.177503-1-ghahramani.navid@gmail.com>
+ <20261010130024.177503-21-ghahramani.navid@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; boundary="nextPartl3bGPPFXTCGY5ZUHclgI1Q";
+ micalg="pgp-sha256"; protocol="application/pgp-signature"
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] drm: sleeping in atomic context during plane atomic_update
-- [High] drm/glanda: incorrect teardown order in glanda_drm_fini causes IRQ=
- storm
---
+--nextPartl3bGPPFXTCGY5ZUHclgI1Q
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
+From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
+Subject: Re: [PATCH 20/24] spi: Add ZTE ZX279128S SPI flash controller
+Date: Sun, 11 Oct 2026 18:32:46 +0200
+Message-ID: <QRsVQG8CQny06omTkaluXQ@gmail.com>
+In-Reply-To: <20261010130024.177503-21-ghahramani.navid@gmail.com>
+MIME-Version: 1.0
 
-commit 282719415a14034814111dcb1dd6288f05170cc2
-Author: Leander Kieweg <kieweg.leander@gmail.com>
+Hi,
 
-drm/glanda: Add initial DRM driver for GlandaGPU
+Am Samstag, 10. Oktober 2026, 14:59:58 Mitteleurop=C3=A4ische Sommerzeit sc=
+hrieb=20
+Navid Ghahremani:
+> Execute bounded SPI-memory operations through the controller FIFO. Honor
+> device and operation clock limits through the CRPM divider and cap the
+> validated maximum at 50 MHz.
 
-Introduce the core DRM/KMS driver for GlandaGPU. This driver
-supports basic modesetting, atomic updates via shadow plane helpers,
-and optional QEMU PCI probing alongside the platform driver.
+The registers look identical (though with slightly different names) than th=
+e=20
+quad SPI controller on my machines. I have a more advanced driver here:
 
-> diff --git a/drivers/gpu/drm/tiny/glandagpu.c b/drivers/gpu/drm/tiny/glan=
-dagpu.c
-> new file mode 100644
-> index 0000000000000..d133da93999f8
-> --- /dev/null
-> +++ b/drivers/gpu/drm/tiny/glandagpu.c
-[ ... ]
-> +static void glanda_blit_rect(struct glanda_device *gdev,
-> +			     const struct drm_rect *dst_clip,
-> +			     const struct iosys_map *src,
-> +			     struct drm_framebuffer *fb,
-> +			     int dst_off_x, int dst_off_y,
-> +				 struct drm_format_conv_state *fmtcnv_state)
-> +{
-> +	unsigned int src_pitch =3D fb->pitches[0];
-> +	unsigned int width =3D drm_rect_width(dst_clip);
-> +	unsigned int height =3D drm_rect_height(dst_clip);
-> +	unsigned int x, y;
-> +	size_t len =3D width * sizeof(u32);
-> +	u32 *sbuf;
-> +
-> +	sbuf =3D drm_format_conv_state_reserve(fmtcnv_state, len, GFP_KERNEL);
+https://gitlab.com/stefandoesinger/zx297520-kernel/-/blob/dlink/drivers/spi/
+spi-zx.c?ref_type=3Dheads
 
-[Severity: High]
-Is it safe to use GFP_KERNEL in this context?
+Please give it a try on your hardware and see if it works.
 
-glanda_blit_rect() is called from glanda_plane_atomic_update(), which is
-registered as the atomic_update callback for the primary plane.
+My driver has optional DMA support, which does allow measurable improvement=
+s=20
+in situations where SPI access and CPU activity happen in parallel (althoug=
+h=20
+DMA operation is slightly slower than PIO with an otherwise idle CPU) and I=
+=20
+tuned PIO mode a bit (in particular avoiding redundant fifo size reads).
 
-As per DRM subsystem rules, plane atomic update callbacks execute in atomic
-context (e.g., inside drm_atomic_helper_commit_tail with locks held/preempt=
-ion
-disabled) where sleeping is strictly forbidden.
+The qspi driver is a bit down on my FIFO queue (I plan to take care of pinc=
+trl=20
+and DMA first), but I can speed it up if your board gets to a point where S=
+PI=20
+can be done reliably first.
 
-GFP_KERNEL allows the memory allocator to block and reclaim memory.
+On the hardware otherwise, it can also raise IRQs when the read/write FIFOs=
+=20
+are above/below a certain threshold. That allows PIO mode without constant=
+=20
+polling. I found that it doesn't have an actual performance advantage over=
+=20
+polling PIO mode even when pushing the CPU during SPI transfers. DMA mode h=
+as=20
+clear advantages in this regard and I found no need to implement an IRQ dri=
+ven=20
+PIO mode. If the performance characteristics on your board are different we=
+ can=20
+reconsider this.
+--nextPartl3bGPPFXTCGY5ZUHclgI1Q
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
 
-Could this allocation be deferred to a sleepable hook like atomic_check?
+-----BEGIN PGP SIGNATURE-----
 
-> +	if (!sbuf)
-> +		return;
-[ ... ]
-> +static void glanda_plane_atomic_update(struct drm_plane *plane,
-> +				       struct drm_atomic_commit *state)
-> +{
-> +	struct drm_plane_state *old_state =3D drm_atomic_get_old_plane_state(st=
-ate, plane);
-> +	struct drm_plane_state *new_state =3D drm_atomic_get_new_plane_state(st=
-ate, plane);
-> +	struct drm_shadow_plane_state *shadow_state =3D to_drm_shadow_plane_sta=
-te(new_state);
-> +	struct drm_rect vram_clip =3D DRM_RECT_INIT(0, 0, GLANDA_WIDTH, GLANDA_=
-HEIGHT);
-> +	struct glanda_device *gdev =3D to_glanda(plane->dev);
-> +	struct drm_framebuffer *fb =3D new_state->fb;
-> +	struct drm_atomic_helper_damage_iter iter;
-> +	struct drm_rect damage;
-> +	int dst_off_x, dst_off_y;
-> +	int ret, idx;
-> +
-> +	ret =3D drm_gem_fb_begin_cpu_access(fb, DMA_FROM_DEVICE);
+iQJPBAABCAA5FiEEQxb0tqoFWyeVMl1sPRO8yFRPGiIFAmrLui4bFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMywyAAoJED0TvMhUTxoiohIP/jltt0RdhiQcFCJFiY+i
+lBWYzFfkpW0WFbbuaPjW07QU6TdmsxABYgtMo5UywPDwJWTuxuWseKezgKcvAu93
+aBjVqfPFTTzLHuLOS9Lvw9+kLzMTTMXNUDmyJdknX6o3MATiXogR65iHx2QLKXUJ
+Y7qtesJzGYj6G5HbN0OmNJAv04MR+44AtAkwso0XQQ8okMG/yy9uebCsAGQTCQqD
+zWHgbM+m2HAo2cGDAW5VAA49G3GnVUod7kAiCYN1+qwP7/Eahft6Ahvh/30adTTJ
+I7StoebO/u6OmOpBrHLNCZRxGX/xZNNYzjhvsNz6cBPFxmcBmXYrs2nSe7daBbAj
+tT890gloLO7vRy9S24zRzks4qRP58KjAHge/p82nw4n3lw0/WLrFWlwmnW5taghI
+VfIrc51nV9hCh2QVh/duqzEMYSKw2pgf8PETjR2185t+J7ioga4wbMVsNV8FJ1cb
+YGD335pLu8UrmU/k7yH91l0NUD4A0szLWfOmZY1bhcm7XD4MG7Yy3UAp1IqbVPb4
+es5TEKmpx17UqW8PbxdRqYGSoCvm7PKVxz1W8/L8HHMPFdLh6GFVLn8t8D6ip9Zs
+z5pOSJw8bzOEb6eU9zlkJZ1hF0zEgHLd+RcIJe6yEvwcV96D8waWRc8e3FYW5jyg
+nGvefMr6NWI8W0ygaYQIDGLk
+=l+tS
+-----END PGP SIGNATURE-----
 
-[Severity: High]
-Can this call sleep while executing in an atomic context?
+--nextPartl3bGPPFXTCGY5ZUHclgI1Q--
 
-As noted above, glanda_plane_atomic_update() runs in an atomic context where
-sleeping is forbidden.
 
-drm_gem_fb_begin_cpu_access() can sleep while acquiring DMA reservation loc=
-ks
-and waiting on fences. Calling sleepable functions in the atomic display
-commit path will cause kernel warnings (scheduling while atomic BUGs),
-deadlocks, and system instability.
 
-Should CPU access preparation be deferred to the sleepable prepare_fb hook?
-
-> +	if (ret)
-> +		return;
-[ ... ]
-> +static void glanda_crtc_disable_vblank(struct drm_crtc *crtc)
-> +{
-> +	struct glanda_device *gdev =3D to_glanda(crtc->dev);
-> +	u32 ier;
-> +	int idx;
-> +
-> +	if (!drm_dev_enter(crtc->dev, &idx))
-> +		return;
-
-[Severity: High]
-Will this early return prevent the hardware VSYNC interrupt from being disa=
-bled
-when the module unloads?
-
-If drm_dev_unplug() is called before drm_atomic_helper_shutdown(),
-drm_dev_enter() will return false because the device is already marked as
-unplugged.
-
-The early return here would then cause the hardware interrupt disable logic
-(clearing INT_VSYNC in REG_IER) to be skipped.
-
-If the driver finishes removal, devres frees the IRQ handler while the hard=
-ware
-continues to fire interrupts. Because the IRQ is requested with IRQF_SHARED=
-, an
-unhandled hardware interrupt causes an IRQ storm that will force the kernel=
- to
-permanently disable the shared interrupt line, potentially causing a denial=
- of
-service for other devices sharing the line.
-
-> +
-> +	ier =3D readl(gdev->mmio_base + REG_IER);
-> +	writel(ier & ~INT_VSYNC, gdev->mmio_base + REG_IER);
-> +
-> +	drm_dev_exit(idx);
-> +}
-[ ... ]
-> +/* Shared teardown, mirrors glanda_drm_init() */
-> +static void glanda_drm_fini(struct glanda_device *gdev)
-> +{
-> +	drm_dev_unplug(&gdev->drm);
-> +	drm_atomic_helper_shutdown(&gdev->drm);
-
-[Severity: High]
-Are these teardown operations ordered correctly to prevent an IRQ storm on
-module unload?
-
-Because drm_dev_unplug() marks the device as unplugged (dev->unplugged =3D =
-true)
-before drm_atomic_helper_shutdown() is called, any drm_dev_enter() calls in=
- the
-shutdown path (like in glanda_crtc_disable_vblank() and
-glanda_plane_atomic_disable()) will immediately return false.
-
-This short-circuits the hardware disable logic, leaving the VSYNC interrupt
-enabled when the module unloads.
-
-Should drm_atomic_helper_shutdown() be called before drm_dev_unplug() to en=
-sure
-hardware teardown logic executes properly?
-
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261011154556.1558=
-31-1-kieweg.leander@gmail.com?part=3D2
