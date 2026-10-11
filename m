@@ -1,88 +1,79 @@
-Received: from mail-qk2-f5.google.com (mail-qk2-f5.google.com [74.125.230.197])
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9700114A60F
-	for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 00:11:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41A6B2BCF4C
+	for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 01:02:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791677493; cv=none; b=Qbg2QrDcfI4pynuzdZqiRYcZ/Q6N/hawX+UILxevNfqXWD5BnAZj8h3bXo4TJfGFk72ixzmiRVdhkBuIBY9/JK/Y+TM8pqnP9iHCp+bBf0d+mvi9QpRfsEFPWaUDEfzh/+z3QA7ohTapt9OdR/bDAZEqEym5vL8htVB7YMBnAAA=
+	t=1791680555; cv=none; b=UWxlwCMtK7posO6VAyyKG18ps23nQFd0akh3ndYnGWCXi/xEvNPZLYVU+h0rYdLyDpzo7VAEH3DE4o76cvTwEulRyPt4J/tZ8WpxaEpkvTj/pnj9ElfM3poU1sG2XBF777/GzDkvCyQ6q1b6VwZKiWlzGjjaqJZvt0b1XAOd0fs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791677493; c=relaxed/simple;
-	bh=m2qc5bzaGhp+P6plEuL1iHjdBLdQ+Od5wxhJthpXIyI=;
+	s=arc-20240116; t=1791680555; c=relaxed/simple;
+	bh=ULD97qusdFlornonTOyy3OhQaL5JaHBfPuOaK9jqyd4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=A+qnrR7H8A5AVROffU+qaSsx9hfeqNKZeFalpHAAp8Qce4Uwhd4MyU9MngSWlGQ3woHWBPW4TRSPMVzhykH9bosTvtT9ZZHay/845AJ4UleGgCZFFPfRYWzSjG4J9HwO0keKi8LBEGiAz9DJiU+9DAH2AnmNNL5YozjuV7/5VMA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lo2E4Z3X; arc=none smtp.client-ip=74.125.230.197
+	 MIME-Version; b=FKp4cf8/k/JAVdMQ2dVHX1HOd0OR/wUZoz9bDyLPy0ZxMROUe6I6fV5hPMs7cJE68qmaPB1UK1kI7yoQvGHce1+83gmK0X4OZZcfphQFYF44ZUcophhi3Eb5nUaGlEHPdt6ffDh+d0zbLM80mD8DfR1WCAxU/FTOwERF0hufDPs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nhz/WgWX; arc=none smtp.client-ip=209.85.128.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lo2E4Z3X"
-Received: by mail-qk2-f5.google.com with SMTP id d75a77b69052e-5337b59ef7fso6350091cf.0
-        for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 17:11:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nhz/WgWX"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-49fbb2acc90so5417365e9.2
+        for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 18:02:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791677491; x=1792282291; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791680552; x=1792285352; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=eZSFox7DYtsZr6D8rsT6OanL7ONG4L1d4OFVS1wYXN4=;
-        b=lo2E4Z3X0B74U3SFCkbqANSbBrJv7T15GOZ9F3AVAnYlKw1tHQaX3gbaqsKXma5hUG
-         ds09J5WtI54C2hIsixhH0hPBOQ6Vyz1aL1D038/Ef2W3WCj0ZyzI4b+xcyjDKQ4yBfmQ
-         7ihdkbLqmyMswolEShpLwK16zMLSobIeLrkD4I+K46XEygN35kr6oYndQMaeQX0YBokV
-         FxHDas5MvD1fZTx68S9cZXyPPuVEcxg+3hGmdXuqXjCUNLTdSPquEw8igoBvaS1V5IKH
-         hnnB0hVewYKFbf5HCjzKR1xycGlJnjnGvpnMQlm7IChMnsBTAlm7Q69EJAp8ZVZ8SZuW
-         VFgA==
+        bh=60J2VG6f80i0xtDeR4IknW0h4MKxDdpuTKlVp7+7Fow=;
+        b=nhz/WgWXg3aK6Q/YGAT/jwDFNI4wc/9C+OtgNM+3nwwem0ELEXh8r2Nu/kVx4PsZaB
+         XSiEEChFL2QX96ju09YzaNLaUFIqg/DCcu90B/ZtZm9A4znA6nu6qPdzqarQhKxTHanM
+         Z65n1OnubsZO5+R1RzYGb6PERb9a4oQQHu2lPfNz2zBXjYZaY3rtcGXkwjdFaxll4EU3
+         laef2iX42UzATB2KZtAxLGtVPezQDYMdxiN7y9+nOyXKB6Ws0bksreQ325/caDJ1qgJh
+         oPOqNgnpVUshpCfjhCDsGtOH5VyscE04/tGH4vNr05zGTUZz3bTTZzl9KsA0WqPbFTXd
+         sKSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791677491; x=1792282291;
+        d=1e100.net; s=20260707; t=1791680552; x=1792285352;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eZSFox7DYtsZr6D8rsT6OanL7ONG4L1d4OFVS1wYXN4=;
-        b=OjkvRm8+DOW8coHnioJOnGnvgsyYHRli1euAhFsUZR16ajEZy6MAx2ZEYCxZdlA6Vp
-         vdTpu+bL+40VtE5zIxIeacaK2Hfj+6zrhwMaY250Sgb3H/xe9EqBbmdGKbk5CIQNodzT
-         gxOmvfJWgIkVdWKeu58E5cWhl9oFnvaqdFx4p2Ku/b/uW24NImqw1C9UKrWLfqkRmUBI
-         GGxVmJ4rmW6tiMekzSI1pgMbR/VBhB/+I79HOgBTZwtlGIOqDz0v4Ai577DEc39l3cX3
-         UsWEU1BgGufnGCjVg/O+j9ppExdAls3qGZgPtEaA/5UiN5DQOq8bJ9rP+03fOdoU2Unq
-         +wsg==
-X-Forwarded-Encrypted: i=1; AKwUvBxxWs7tazh7f+5S6+Fvezog7FD3hxOtbzNAmUj8pB7wMvrayk/NgTcynvkZfM0Vq0v9OpQ71GQeUxim@vger.kernel.org
-X-Gm-Message-State: AFq9FYLj6xI3yWdoYAKFMWVYyUmkm1wJMTi47r76BEzeItuyXCXfH0KT
-	K88j2g0Mh6m28CFh8X0NwEQv52ahRAHo8r4zLDrKNFLwB7g6HH+NuK3n
-X-Gm-Gg: AYBFou1Num1kWXOcErXkFzIekl1nA290AFimxe1RUuvFX3NOJYXRiAQRrRiXYRdkJ0E
-	VbRoMC5bu8lRinZBek74M3dZdcKHmROgEOt8kyvJQGuFmf0fgL1eB9Gv3mpYP2kIrVWL4OWU5Vn
-	APS44lyhGS3C2VNCiXzNP31YDtcvhNV8Z6+ffBcGaKVNah52vE2LfMAD4EvL17zMaOPte62f6/g
-	9FPuXlPTrY6AJsSrq6XE6uVAbgBJ3QZpTJpH20b8QqKmcc0rIBuDQxCBEEP/Q/boRhNQzZ9ZabV
-	w4tpk41LffO2ddJ4u4JdZuBYmjEv7mOOhPgFWNOAN7nVFbNdhbhjc/cTkeQYggtHxAs6gx4tPN8
-	ilQ9ZVzre2Vvkr+4H3zFNBzfTnMULkBiArbMHocyQ3Ocx6Ziya4wvmAbgNOHrPhDyplDPiuXYz5
-	uJ+S6SOnNI0OJ4iZ0CxJjkMjuFxGObjBpbk00iJPVJ2JGR9kMMCUWw6ZbuzmvNVgHrI7OYqTOM0
-	dBE/w==
-X-Received: by 2002:ac8:5a4e:0:b0:535:341c:e2c with SMTP id d75a77b69052e-5359fb8f878mr101828041cf.39.1791677491408;
-        Sat, 10 Oct 2026 17:11:31 -0700 (PDT)
-Received: from omarchy ([2601:804:8780:3df1:6ff:277e:31c7:ac13])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b54e7f6aesm57217596d6.2.2026.10.10.17.11.29
+        bh=60J2VG6f80i0xtDeR4IknW0h4MKxDdpuTKlVp7+7Fow=;
+        b=fgsD1scr2jZXm6iJ0CzRc+s+pbnYKm46vDT99Et4E6ZyNoCpYqdcWRKpOOGhLQ1svP
+         3GaQz96xxHGQlwQlij7FXhwj+gaO+Ce+wLDsbhZFhlj/9eGhUonH1zFU1GjDy2yYvzb7
+         AvmP6XRsR/RPRQR04mrPeeUWSpvjAIopDrUJaIkTVe2xEpKTWjNEz8Fl5w4W1nQOGVzH
+         JUOySkRhl0F9w50cJL35ND7SeJbC0TGClPleXD6F5h7Gv2QmWPJxSCs6pXAIPRPWTs/n
+         TdQZ1udVdz+uIO5UDd+6W7A4jCe6joQyWoHiG3HU92lzNdy06QGSNuAH9VuI2O2sentW
+         PSkA==
+X-Forwarded-Encrypted: i=1; AKwUvBxHLUGBF5C72MSuONRSHkxOw6Y3KYl/hdYCZdTnAMZpYGmXtRaCBSRYf4ozw1Q1B2TrY+FXYbc4SoJL@vger.kernel.org
+X-Gm-Message-State: AFq9FYJwCzvmVd/SuS3sLd2aRCGdbMHB5FCx4drXv1PVCLz5j9iHt3za
+	ByhJNdBkWmjaMBVOurDYD+nzvF3iiM1mH2+aZ8fZ1Q0exIzNEUPWt6Pc
+X-Gm-Gg: AYBFou3TQeSrbSAE1wpijFKGyFhykx8pra+Om5tHrvh9SUOWr8wqdcQlDG4EIZey7iv
+	1olUyrVvJzhAcpgR1JJJWOl5HF9cQ47vXQJ/5Bo5zTVYCnTHzOd5JMdaEwn9Sru1jtrBi+J8Lca
+	Weum0kxidMd7+rRV66VGZjiJ6vL6gYWDCo+eGFMMcVzYyCU6g/MVfxDifhuBlp/V1aK88nd27X8
+	1X6ZJNJfRnXuxigD7XGt1X1hYbG8OZA2H4hOHZkWUvCiyiMeUiyE+/MZJIn3H7HDtChZH9P12j6
+	vPORcRlxMEfIeK1x7zUDsyHFFvj0VfXYmWrRmn70KPTyOzHTCY25u9OOwqiopVrwg3fPP7Mt1SU
+	kIFJONtg4oGHjJu4SpXGrSlJIzm1Iw5AzvPHezQ/83Eo+l2xwtbQUmVMDsVGkGabThIx4vHPdui
+	muRMSm8dB84PTFGOLR4gcaUEcD4+1e9peI34WV8pB1lnyaB0RvJyyBgWZ7fF3NNFD+8j+DMR/is
+	4QCVsCwa44IQ9HZhfHf9bcgbc5VZGo+6jBwGImH5iEfWCEoqlz3FfYfWjo7D9TW6YpDpP18Wzk1
+	y8jczQKhTqIVB0Z8iLFeYgVyguMqYrmSTgGSxs971uwYrHY+JFRXZgHikXTGfQ==
+X-Received: by 2002:a05:600c:8184:b0:49f:ffd0:4039 with SMTP id 5b1f17b1804b1-4a18e4f2221mr83201325e9.32.1791680552214;
+        Sat, 10 Oct 2026 18:02:32 -0700 (PDT)
+Received: from navid-pc ([2a01:4b00:a856:6220::a11])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bb6b3cbsm139970805e9.0.2026.10.10.18.02.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 17:11:30 -0700 (PDT)
-From: zoan37 <agentzoan@gmail.com>
-To: "irving . ch . lin" <irving-ch.lin@mediatek.com>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Ulf Hansson <ulf.hansson@linaro.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Matthias Brugger <mbrugger@suse.com>,
+        Sat, 10 Oct 2026 18:02:31 -0700 (PDT)
+From: Navid Ghahremani <ghahramani.navid@gmail.com>
+To: arnd@arndb.de
+Cc: linux-arm-kernel@lists.infradead.org,
 	devicetree@vger.kernel.org,
-	linux-pm@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org,
-	Project_Global_Chrome_Upstream_Group@mediatek.com,
-	Qiqi Wang <qiqi.wang@mediatek.com>,
-	sirius.wang@mediatek.com,
-	vince-wl.liu@mediatek.com,
-	jh.hsu@mediatek.com
-Subject: Re: [PATCH 3/3] pmdomain: mediatek: Add power domain driver for MT8189 SoC
-Date: Sat, 10 Oct 2026 20:11:23 -0400
-Message-ID: <20261011001123.1092269-1-agentzoan@gmail.com>
+	linux-kernel@vger.kernel.org,
+	stefandoesinger@gmail.com,
+	linux@armlinux.org.uk,
+	Navid Ghahremani <ghahramani.navid@gmail.com>
+Subject: Re: [PATCH 02/24] ARM: l2c: Serialize device reads with cache maintenance when requested
+Date: Sun, 11 Oct 2026 02:02:23 +0100
+Message-ID: <20261011010223.2379347-1-ghahramani.navid@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260202064820.347550-4-irving-ch.lin@mediatek.com>
-References: <20260202064820.347550-4-irving-ch.lin@mediatek.com>
+In-Reply-To: <5e78f63b-9479-49d9-8474-fa408135f325@app.fastmail.com>
+References: <5e78f63b-9479-49d9-8474-fa408135f325@app.fastmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -91,49 +82,35 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Irving,
+Hi Arnd,
 
-Some findings from running this driver on an MT8189 Chromebook (Lenovo
-IdeaPad Slim 3 Chromebook, board "quigon"), mostly around system
-suspend (s2idle through the SPM), on next-20261008.
+Thank you again for the suggestion to test arm,outer-sync-disable. I have now completed extensive hardware tests on the physical ZTE ZXHN H3600 across multiple bring-up orders and load scenarios, and unfortunately disabling outer-sync alone is not sufficient to prevent the interconnect deadlock.
 
-1. MFG1's EMI GALS sleep-protect step, BUS_PROT_WR_IGN(SMI,
-   MT8189_PROT_EN_EMICFG_GALS_SLP_MFG1, ...), targets the EMI config
-   block (emicfg_ao_mem at 0x10270000; SET/CLR/RDY at 0x84/0x88/0x8c),
-   so on MT8189 the "SMI" regmap has to be that block. Without a
-   mediatek,smi phandle in the DT, the step went to the wrong regmap and
-   wrote INFRACFG_AO+0x84/0x88 instead, which was one of the causes of
-   SErrors after resume here. Giving the MFG1 node
-   mediatek,smi = <&emicfg_ao_mem> (a syscon node for 0x10270000) fixed
-   it. It may help to document this for MT8189, and possibly to fail
-   instead of falling back when a domain uses an SMI step and no SMI
-   regmap was found. (access-controllers would be the modern way, but on
-   this board fw_devlink then delayed boot by about 10 s waiting for a
-   supplier the syscon never gets.)
+Here is what I tested:
+1. Added arm,outer-sync-disable to the l2cc node in the device tree (zx279128s.dtsi).
+2. Rebuilt the kernel with CONFIG_CACHE_L2X0_IO_LOCK disabled and completely removed my custom read lock from both cache-l2x0 and mt76.
+3. Netbooted the initramfs uImage over TFTP into RAM via U-Boot (zero flash modification).
 
-2. DISP: at runtime it never powers off here (MMSYS, the mutex and the
-   DVOs have no runtime PM), but in system suspend genpd tries to, and
-   the power-off is rejected part way (genpd debugfs idle_states shows
-   "Rejected"). That leaves the display's memory path blocked: after
-   resume OVL stalls (no vblanks, larb0 stuck busy) or the display
-   faults with an SError shortly after the video unmutes. Marking DISP
-   MTK_SCPD_ALWAYS_ON works around it. DISP has a single bus-protect
-   step (MMSYS_STA_0) while VDE0 and VEN0 have two (MMSYS_STA_0 and
-   STA_1); I don't know whether DISP needs a second one, but something
-   in its power-off sequence doesn't complete in this state.
+The kernel booted cleanly and confirmed the configuration:
+[    0.000000] L2C: disabling outer sync
+[    0.000000] L2C-310 cache controller enabled, 16 ways, 256 kB
 
-3. PCIe: to keep the Wi-Fi (MT7922) up across s2idle, as ChromeOS does,
-   PCIE needs MTK_SCPD_ACTIVE_WAKEUP and both PCIE and PCIE_PHY stay on
-   (we use MTK_SCPD_ALWAYS_ON for both).
+Both MT7915 cards enumerated over PCIe and initialized firmware. Here are the observed results across the different test scenarios:
 
-With these (plus a cpu-s2idle idle state in the DT and a few driver
-changes elsewhere), suspend works: repeated suspend/resume cycles pass
-(20/20, then 10/10 twice), with RTC, lid and keyboard wake and well
-under 0.1 W asleep. The board's patches and notes are at
-https://github.com/zoan37/lenovo-slim3-chromebook-omarchy
-(port/quigon/patches/mainline-mt8189-suspend.patch).
+1. Sequential Bring-Up with Long Delays:
+When bringing up one radio and waiting several seconds until it was completely idle before bringing up the second radio, the system survived temporarily. Because idle beaconing generates very few register reads, the collision window was small enough that it avoided a collision purely by timing chance.
 
-This was found and tested with help from an AI assistant (Claude).
+2. Simultaneous Bring-Up ('wifi up'):
+When enabling both radios simultaneously in UCI and triggering 'wifi up' to bring up both 2.4 GHz and 5 GHz interfaces together, the interconnect froze solid immediately. The serial console went completely silent, Ethernet ping dropped to 100% loss with zero panic or oops output from the CPU, and the router required a physical power-cycle to recover.
 
-Thanks,
-zoan37
+3. Concurrent Wi-Fi Scans and Traffic:
+Even when the radios were brought up sequentially, the moment concurrent operations were triggered across both PCIe endpoints (such as spectrum scan triggers via 'iw dev scan trigger' or active data traffic while DMA cache maintenance was running), the SoC interconnect locked up dead every time.
+
+Looking into arch/arm/mm/cache-l2x0.c, arm,outer-sync-disable only suppresses standalone outer_sync() calls by setting fns.sync to NULL. It does not touch the line-by-line cache maintenance inside l2c210_clean_range(), l2c210_inv_range(), or l2c210_flush_range(). During active dual-band Wi-Fi operation, network DMA continuously invokes these range operations, which collide with the high frequency of PCIe MMIO register reads across the internal Sanechips AXI crossbar.
+
+By contrast, my serialization lock approach (which serializes PCIe register reads with L2C maintenance operations) successfully passed 240+ continuous stress reload cycles and boots under heavy Wi-Fi traffic without a single freeze. Interestingly, examining ZTE's original stock kernel (Linux 4.1.25) reveals that ZTE's own chip engineers used this exact same solution, implementing a global spinlock around PCIe reads (fixed_pci_read_u32()) and L2C maintenance to work around this hardware erratum.
+
+Given that this is a silicon crossbar flaw that requires software serialization, what would you recommend as the cleanest, most acceptable way to structure this for upstream? Would you prefer keeping the serialization lock as an SoC-specific quirk in cache-l2x0, or is there an alternative architectural mechanism you would suggest?
+
+Best regards,
+Navid
