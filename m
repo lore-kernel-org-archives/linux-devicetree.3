@@ -1,110 +1,199 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-244108.protonmail.ch (mail-244108.protonmail.ch [109.224.244.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7086348C7B
-	for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 17:24:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D543033B6F4
+	for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 17:30:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791739475; cv=none; b=ngC8R8TnpeOMPTs/C59BRbpL83KbiPCA0Byepp4BBjaAar/Pmv00T8BWPRayNV41XdKph6mp/6ag8dYySXzH8ZZIhWd+Dg+PN2uX2arJmOynQ+RyLwspP/K7zf79uxMj88J3hQPX/xjtzh4Ko15k1hEh/rkwTc5VeQ8qUQvsay8=
+	t=1791739803; cv=none; b=PTbJAg7KYWXGtsG5JJwNXtLqAsVdD9oamNqz+vrUqzQyzUa/MAwy4WS7+yrNvz5rSKGigomcmjl5y6j8JJtem7L1CkKMnhJQNFZ/43T1x0LvaIdX+S3Apjd5XfcrR+HDSuY5FoOxeUnANHYFVD8y97b4qbAOrf6BbIHulZLUsAw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791739475; c=relaxed/simple;
-	bh=pyZ2xprVTR3qcz8HvpOB6MdoH1L+n4dxvIpCKI2a1bo=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=ijR1qlXsxJ2d5XKpDIaJqxn10lQ39y9z9er0GPL1IdHiudaZQk/bSiSr06eJnwEUQ+aldHbDHFOM8rqqSxYeVwaH5O/L2vEXWAp+iZMDqA9zVC1QWE+r7qOC7Po4HW26JbdHi7pp/XlNaJoSoBNhBBD4tK41GcakK0QAswTiRkE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dtALx2tm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791739803; c=relaxed/simple;
+	bh=ip6YK30AyGnoVEqkQGkufJxt3BIpnmO9Rlu8xdx1PAs=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=hIbU9RHoQ5pd5KbeS9W9A3PLe/5FmZWYgGKWERK8uDCz1OK+K78N4SL8MZQO017GjdFGttBMDDhD3X92xV+fZJIOfszTzLXb4IJvjwGwzwGM64QP1hFPL50xJ6TBNxb2cali4Vmp7ouNbtnKalofqHDodpbn4++nvtq4ZYdt4nI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=vinarskis.com; spf=pass smtp.mailfrom=vinarskis.com; dkim=pass (2048-bit key) header.d=vinarskis.com header.i=@vinarskis.com header.b=tdLQDQEB; arc=none smtp.client-ip=109.224.244.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=vinarskis.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vinarskis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dtALx2tm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 641081F0089B;
-	Sun, 11 Oct 2026 17:24:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791739474;
-	bh=6m9I9B6GkA5gYCKffsOlJbQ3HJdfav2jM4qozg78pUY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=dtALx2tmXquxyWmF48c6eCrAlU9lh933+8pGJQu+PLPctxqhzHhySYMJWng9oaq1M
-	 7Q6WdJ7ahOlPwOJHlpQeBfK51cgVVDMAQFWhR8wpWx2K5dli4rvV3HcxPcJ6lCS0hS
-	 BYc0zD+0qn6x6suNBJ+G08vXhhxNafYg96DjMa96fNDoMW8iKxX/FDvHB6zCouQe6e
-	 SmcWvrXSaFRk77dAjlMMyKxXivrq+wg/UVRy/WvDxEVWFxUr5jKC60bJ5HOvKsmJN0
-	 E5bvu81ViBPUE3Mnx7mY4NmK0dobwzLDLtOTCt3ynFIO8A6q3zsj89Sx0hyB3Ykfbh
-	 qnZE0+09tRVWw==
-Message-ID: <sashiko-outbox-167345@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] arm64: dts: meson-gxbb-odroidc2: read the Ethernet
- MAC address from eFuse
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Fil Dunsky" <filipp.dunsky@gmail.com>
-Cc: neil.armstrong@linaro.org, robh@kernel.org, linux-amlogic@lists.infradead.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20261011-odroidc2-dts-v1-1-f9f0e779af88@gmail.com>
-References: <20261011-odroidc2-dts-v1-0-f9f0e779af88@gmail.com>
- <20261011-odroidc2-dts-v1-1-f9f0e779af88@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 11 Oct 2026 17:24:33 +0000
+	dkim=pass (2048-bit key) header.d=vinarskis.com header.i=@vinarskis.com header.b="tdLQDQEB"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vinarskis.com;
+	s=protonmail3; t=1791739798; x=1791998998;
+	bh=9cUtiNpw0w3qfgB1GP1HhsDq2TLFEBW2lfjHlYEyc0g=;
+	h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
+	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=tdLQDQEBDY3kCQKIMEJJpbyiX3UiX0d6HvmpCgMz2P4tsokTs/mXqIUWYHQOKEmE6
+	 /ECDZOF1Q5UeQ9R1oFp8zVnv9HbkBLiBe05O984Wc+AnartfxqTrz8Xbfnl2uPTJtI
+	 6Et5LwN3UVb9KhHKAnY1RWlWfE7yn5jakW4wZWJsEa7ew+Z8ydVP2KPsqi7OvtRiU5
+	 OTYLSvw3qFRUZITa8gP51e1WOV1N6odHRNwpjdGbAr1M4u5R01fQRzYRzF7t3gH9SE
+	 RbZiKLSfq9YHayJ33XJPUVSjHVzmSpkNcHl8a2kN/kHOQ9CHhooZcLXNQu35QSib/z
+	 ucwr2Qkx9uGVA==
+X-Pm-Submission-Id: 4j2nfV0PR8z1DF4p
+From: Aleksandrs Vinarskis <alex@vinarskis.com>
+Date: Sun, 11 Oct 2026 19:29:28 +0200
+Subject: [PATCH v5 1/3] dt-bindings: platform: introduce EC for Dell XPS 13
+ 9345
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261011-dell-xps-9345-ec-v5-1-2ab1258b84c1@vinarskis.com>
+References: <20261011-dell-xps-9345-ec-v5-0-2ab1258b84c1@vinarskis.com>
+In-Reply-To: <20261011-dell-xps-9345-ec-v5-0-2ab1258b84c1@vinarskis.com>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Kees Cook <kees@kernel.org>, 
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+ Abel Vesa <abelvesa@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org, 
+ Abel Vesa <abel.vesa@oss.qualcomm.com>, 
+ Tobias Heider <tobias.heider@canonical.com>, Val Packett <val@packett.cool>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, 
+ Stephan Gerhold <stephan.gerhold@linaro.org>, 
+ linux-hardening@vger.kernel.org, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4564; i=alex@vinarskis.com;
+ h=from:subject:message-id; bh=ip6YK30AyGnoVEqkQGkufJxt3BIpnmO9Rlu8xdx1PAs=;
+ b=owGbwMvMwCX2dl3hIv4AZgHG02pJDFmnj/d+zNx8s6fi8K5+jVXa6jLT0yWEzcwjcrrfeOoV/
+ DRi2PWmo5SFQYyLQVZMkaX7z9e0rkVz1zJc1/gGM4eVCWQIAxenAExkoj4jw/8FHztbTu1ylBc6
+ Ve/7UnAqn2qIUr/6jvsrSpk/Po6KW8DIcGayTbjgiSdpu6I3pe/ozwgz9hUvF6y1TEo6W8P3OD+
+ YCwA=
+X-Developer-Key: i=alex@vinarskis.com; a=openpgp;
+ fpr=8E21FAE2D2967BB123303E8C684FD4BA28133815
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] net: of_get_mac_address_nvmem() fails due to 16-byte cell
---
+Add bindings for Embedded Controller (EC) in Dell XPS 13 9345 (platform
+codename 'tributo'). It may be partially or fully compatible with EC
+found in Snapdragon-based Dell Latitude, Inspiron ('thena').
 
-commit 33c286acfab990fb62603385b64de76b3bd20dfe
-Author: Fil Dunsky <filipp.dunsky@gmail.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Aleksandrs Vinarskis <alex@vinarskis.com>
+---
+ .../embedded-controller/dell,xps13-9345-ec.yaml    | 91 ++++++++++++++++++++++
+ MAINTAINERS                                        |  5 ++
+ 2 files changed, 96 insertions(+)
 
-arm64: dts: meson-gxbb-odroidc2: read the Ethernet MAC address from eFuse
+diff --git a/Documentation/devicetree/bindings/embedded-controller/dell,xps13-9345-ec.yaml b/Documentation/devicetree/bindings/embedded-controller/dell,xps13-9345-ec.yaml
+new file mode 100644
+index 000000000000..3485117b505c
+--- /dev/null
++++ b/Documentation/devicetree/bindings/embedded-controller/dell,xps13-9345-ec.yaml
+@@ -0,0 +1,91 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/embedded-controller/dell,xps13-9345-ec.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Dell XPS 13 9345 Embedded Controller
++
++maintainers:
++  - Aleksandrs Vinarskis <alex@vinarskis.com>
++
++description:
++  The Dell XPS 13 9345 has an Embedded Controller (EC) which handles thermal
++  and power management. It is communicating with SoC over multiple i2c busses.
++  Among other things, it handles fan speed control, thermal shutdown, peripheral
++  power supply including trackpad, touch-row, display. For these functions, it
++  requires frequently updated thermal readings from onboard thermistors.
++
++properties:
++  compatible:
++    const: dell,xps13-9345-ec
++
++  reg:
++    const: 0x3b
++
++  interrupts:
++    maxItems: 1
++
++  io-channels:
++    description:
++      ADC channels connected to the 7 onboard thermistors on PMK8550.
++      EC requires frequent thermal readings of these channels to perform
++      automated fan speed control.
++    items:
++      - description: ADC channel for sys_therm0
++      - description: ADC channel for sys_therm1
++      - description: ADC channel for sys_therm2
++      - description: ADC channel for sys_therm3
++      - description: ADC channel for sys_therm4
++      - description: ADC channel for sys_therm5
++      - description: ADC channel for sys_therm6
++
++  io-channel-names:
++    items:
++      - const: sys_therm0
++      - const: sys_therm1
++      - const: sys_therm2
++      - const: sys_therm3
++      - const: sys_therm4
++      - const: sys_therm5
++      - const: sys_therm6
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - io-channels
++  - io-channel-names
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++    #include <arm64/qcom/qcom-adc5-gen3.h>
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        embedded-controller@3b {
++            compatible = "dell,xps13-9345-ec";
++            reg = <0x3b>;
++            interrupts-extended = <&tlmm 66 IRQ_TYPE_LEVEL_LOW>;
++
++            io-channels = <&pmk8550_vadc ADC5_GEN3_AMUX3_GPIO_100K_PU(1)>,
++                          <&pmk8550_vadc ADC5_GEN3_AMUX4_GPIO_100K_PU(1)>,
++                          <&pmk8550_vadc ADC5_GEN3_AMUX1_THM_100K_PU(1)>,
++                          <&pmk8550_vadc ADC5_GEN3_AMUX2_THM_100K_PU(1)>,
++                          <&pmk8550_vadc ADC5_GEN3_AMUX3_THM_100K_PU(1)>,
++                          <&pmk8550_vadc ADC5_GEN3_AMUX4_THM_100K_PU(1)>,
++                          <&pmk8550_vadc ADC5_GEN3_AMUX5_THM_100K_PU(1)>;
++            io-channel-names = "sys_therm0",
++                               "sys_therm1",
++                               "sys_therm2",
++                               "sys_therm3",
++                               "sys_therm4",
++                               "sys_therm5",
++                               "sys_therm6";
++        };
++    };
++...
+diff --git a/MAINTAINERS b/MAINTAINERS
+index 252b6d7ee163..1aa035cc1c5b 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -7465,6 +7465,11 @@ S:	Maintained
+ F:	Documentation/ABI/testing/sysfs-class-firmware-attributes
+ F:	drivers/platform/x86/dell/dell-wmi-sysman/
+ 
++DELL XPS EMBEDDED CONTROLLER DRIVER
++M:	Aleksandrs Vinarskis <alex@vinarskis.com>
++S:	Maintained
++F:	Documentation/devicetree/bindings/embedded-controller/dell,xps13-9345-ec.yaml
++
+ DELTA AHE-50DC FAN CONTROL MODULE DRIVER
+ M:	Zev Weiss <zev@bewilderbeest.net>
+ L:	linux-hwmon@vger.kernel.org
 
-This commit updates the meson-gxbb-odroidc2 device tree to read the Ethernet
-MAC address from the eFuse nvmem cell instead of relying on the bootloader.
-It links the ethmac node to the existing eth_mac nvmem cell using standard
-properties.
+-- 
+2.54.0
 
-> diff --git a/arch/arm64/boot/dts/amlogic/meson-gxbb-odroidc2.dts b/arch/a=
-rm64/boot/dts/amlogic/meson-gxbb-odroidc2.dts
-> index 5943bc810678e..639b97ad515c0 100644
-> --- a/arch/arm64/boot/dts/amlogic/meson-gxbb-odroidc2.dts
-> +++ b/arch/arm64/boot/dts/amlogic/meson-gxbb-odroidc2.dts
-> @@ -230,6 +230,9 @@ &ethmac {
->  	phy-handle =3D <&eth_phy0>;
->  	phy-mode =3D "rgmii";
-> =20
-> +	nvmem-cells =3D <&eth_mac>;
-> +	nvmem-cell-names =3D "mac-address";
-
-[Severity: Medium]
-Will this actually read the MAC address successfully? The network core stri=
-ct
-checks nvmem cells for MAC addresses to ensure they are exactly 6 bytes.
-
-Looking at the eth_mac node defined in meson-gx.dtsi:
-
-		eth_mac: eth-mac@34 {
-			reg =3D <0x34 0x10>;
-		};
-
-This cell has a length of 16 bytes (0x10).
-
-When the stmmac driver probes, it eventually calls of_get_mac_address_nvmem=
-()
-in net/core/of_net.c, which enforces this check:
-
-	if (len !=3D ETH_ALEN || !is_valid_ether_addr(mac)) {
-		kfree(mac);
-		return -EINVAL;
-	}
-
-Because 16 does not equal ETH_ALEN, this unconditionally returns -EINVAL. It
-seems the driver will fall back to a bootloader-programmed or random MAC
-address instead, which might be why it appeared to work during testing.
-
-Could we adjust the device tree to point to a 6-byte cell instead?
-
-> +
->  	amlogic,tx-delay-ns =3D <2>;
-> =20
->  	mdio {
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261011-odroidc2-d=
-ts-v1-0-f9f0e779af88@gmail.com?part=3D1
