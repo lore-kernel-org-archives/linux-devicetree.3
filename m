@@ -1,253 +1,326 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-06.mail-europe.com (mail-06.mail-europe.com [85.9.210.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1550930E83F;
-	Sun, 11 Oct 2026 18:26:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FB333563F6
+	for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 18:28:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=85.9.210.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791743219; cv=none; b=UT++Ia2y+6XU959JljSlpZu/fm/oXF/+UAt78c8l/bCvnRX/1WpUi0t1pjW8cH0zTAIeVGdW7L2IbO1bHcxaG3Moxe//WIUL/R2phAwWizewCs9t8uoQA2GU5Kkj4vvZAWeMeJEgzEBgZY8E7YtO9Q3t6W5TDNeKS12mfA71SbM=
+	t=1791743329; cv=none; b=caB4BFTDiHI/jtZ6JfrtetU/cWd5vkuu3vCVCjWwvZn8EMznzhMh8eIPmJxocJ8Gtwk7tev/xUbS3DV3RtVn+kkgcgCnSlU8K8Ge3UwVql61ol6W5uf14RcMMHykx8XuMEmFwpoZuR8Xqa+Pc7tyAyqoZjsnhg4tbkazkHn9WHY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791743219; c=relaxed/simple;
-	bh=oSJ/ZslUiF9shLW6hEhQxk0zRYFM18ZAqTuRIY6xu54=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=ECuk6taAxA+RwjykN1joeAaogTK558M0RGTDSalCmixNOdzoAO1z+yxqyz9jGDFaJZoVJW52raZBgC39LtxRTgLa/PStEGouaekzC1ocapS7FwubGr/nqIXBtpGstQnXVPxAbCS1raRzrZCg5s/yKZdqtpbefQK2aY+IdQWOgm0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bY2X4Nq5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791743329; c=relaxed/simple;
+	bh=6KWPx72+CFDP30hTguFnf7/6ovxWOPyRdeWB57p6IOk=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=VPt2W0IYEzuXICKeNcAKwphOeNTnAPtjRdSq/tkH1Z4sp8/chxRiFhn+sKaRvlpNQlLkWeYwD/TrEGa90mJaf8J35iDXY7v2GZ7m8VH1eQgAN9E1t9r2NXJTDRjvyZvWlJoA6boId4wpXYyyLgjC/LqfEHwXTNm1t+Jvw4Bu6Do=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=vinarskis.com; spf=pass smtp.mailfrom=vinarskis.com; dkim=pass (2048-bit key) header.d=vinarskis.com header.i=@vinarskis.com header.b=PrxA09Vw; arc=none smtp.client-ip=85.9.210.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=vinarskis.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vinarskis.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bY2X4Nq5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99B1B1F0089B;
-	Sun, 11 Oct 2026 18:26:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791743218;
-	bh=rxGwIY2IEdGUVvkCUR0SvEwzfMVuxTJiVFN4fAwbAl0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bY2X4Nq5HFLVF1EeDDo5Cuko1DFRKFf1G+jhZItVDgYr2dwuUUhAXaR/aoBQ+9qP9
-	 A+vxIPKpzhK5RvErRRPwJdioSDTdoXshy3u8T8Z1oDmAgOo1Olqhhl0iuri7QUElXr
-	 nGSJePqKQ6ko03TKzNXNXooFuwWLSXf4p3/Mv08oht7R2+F40F+tW1pcufHGyzvfS1
-	 6fwZJPhl73e5ViYqlbGUd0LAwQz2/a1bL5x2VQGG2rDK2kkW0hfjjuZng7rTrY7xdq
-	 qE5A4qOwFkdC9cW3w/Ic7nU6cUz2/N1mandjFikV/mZlYGU2tE/rxs4GjeriKwKpl/
-	 LoLcfQgGchTfg==
-Message-ID: <sashiko-outbox-167377@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 2/3] HID: Add Himax HX83102J SPI touchscreen driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?TWljaGHFgiBLb3BlxIc=?= <michal@nozomi.space>
-Cc: linux-input@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, dmitry.torokhov@gmail.com, devicetree@vger.kernel.org
-In-Reply-To: <20261011181633.1778969-3-michal@nozomi.space>
-References: <20261011181633.1778969-1-michal@nozomi.space>
- <20261011181633.1778969-3-michal@nozomi.space>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 11 Oct 2026 18:26:57 +0000
+	dkim=pass (2048-bit key) header.d=vinarskis.com header.i=@vinarskis.com header.b="PrxA09Vw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vinarskis.com;
+	s=protonmail3; t=1791743315; x=1792002515;
+	bh=47Ien8+5jycXxhN8nifC6j89S5IpZIIT4rkjaYPhcwc=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=PrxA09VwuLL8ALC9yg/UD68KWzvHtT5BHFMnh1FfcIaPy1UQlZYM5c/yLND4AoHQE
+	 EvOyvo1fYELPov4SKIk1c1d7URMmpjF2Mfl1xqWUjJz4yOquA/zq2sP8fkZv0RSFyP
+	 Tdk18sJz3kgW4xThg6E/i85YsbevahwM1zvL7meW5zCTfN2Pk6Ib+7ai6qVTU4ucLH
+	 vQNZW9Ywpyi7Eq59q7clvWOSrLlau4YJDuZwvturGjzDFtiKzZ3gN9tnEW12oJ4Hsc
+	 akAGo9PM8lGvehvt47tKlXqea6rKeGp7OTXJuJDUXH2OPT/QFQv1MlPFRVDbPDC2C1
+	 v8qhy0msG9PnA==
+Date: Sun, 11 Oct 2026 18:28:30 +0000
+To: Liviu Nicoara <lnicoara@thinkoid.org>, Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>
+From: Aleksandrs Vinarskis <alex@vinarskis.com>
+Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Bryan O'Donoghue <bod@kernel.org>, Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>
+Subject: Re: [PATCH v3] arm64: dts: qcom: x1e80100-dell-xps13-9345: add the front camera
+Message-ID: <b53444dd-c273-4d92-9502-046978303d47@vinarskis.com>
+Feedback-ID: 158356072:user:proton
+X-Pm-Message-ID: e4a5dfe10b839fc8e547879355edf715897a40e1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] hid: himax_hid_raw_request() returns requested length instead of a=
-ctual bytes written, leaking uninitialized memory
-- [High] hid: hardware swallows commands after himax_pin_reset() due to mis=
-sing dummy bus read
-- [Low] hid: himax_hid_add() fails to initialize mandatory hid_device field=
-s (phys, uniq, country)
---
 
-commit 09f1c425ef5c3359e150cf5f66b3a172b5847898
-Author: Micha=C5=82 Kope=C4=87 <michal@nozomi.space>
+On 9/26/26 14:25, Liviu Nicoara wrote:
+> Describe the OV02C10 front camera on CCI1 bus 1 at 0x36, fed by MCLK4
+> at 19.2 MHz into CSIPHY4 over two D-PHY lanes at 400 MHz, the only
+> link frequency the ov02c10 driver offers.
+>
+> The wiring comes from the Windows driver store. CAMF_RES_QRD.bin
+> switches a single rail, GPIO 91, before releasing reset on GPIO 237;
+> GPIOs 235 and 236 are muxed to aon_cci there, the CCI1 bus 1 pins, not
+> rail enables. No camera resource file votes a PMIC rail for the
+> sensor, so avdd and dvdd are left out and fall to dummy regulators.
+> The CSI PHY file votes LDO1_C at 1.2 V and LDO2_C at 0.88 V for the
+> PHYs, which is vdda-1p2 and vdda-0p9 here, as on the Inspiron 14 Plus.
+> MCLK drive strength is 2 mA, as CAMP_RES_QRD.bin programs GPIO 100,
+> and tested streaming.
+>
+> The module sits upside down in the lid: with both sensor flips on, the
+> picture is upright and unmirrored, so rotation is 180.
+>
+> The white camera indicator on GPIO 110 becomes the sensor's privacy LED,
+> so the V4L2 core lights it while the sensor streams and takes it away
+> from sysfs; the comment waiting for a "camera on" trigger goes, and
+> panic-indicator stays, as on the X13s.
+>
+> Assisted-by: LLM
+> Signed-off-by: Liviu Nicoara <lnicoara@thinkoid.org>
+> ---
 
-HID: Add Himax HX83102J SPI touchscreen driver
+Great to see a follow up!
 
-This commit adds a new driver for the Himax HX83102J touch and display driv=
-er
-integrated (TDDI) controller, connecting over SPI and sending HID reports.
-The driver supports loading firmware for flashless variants and coordinates
-power management with the display panel.
+The initial patch for camera from Laurentiu Tudor that Abel was referring t=
+o
+was never submitted upstream, as it depends on CAMSS PHY and DT camera
+series which are trying to find their way upstream for over a year now.
 
-Link: https://lore.kernel.org/all/TY0PR06MB56110754EB9D827BE3304A259E0F2@TY=
-0PR06MB5611.apcprd06.prod.outlook.com/ [1]
-Link: https://chromium-review.googlesource.com/c/chromiumos/third_party/ker=
-nel/+/5326106 [2]
+For reference, it can be found here:
+https://gitlab.com/Linaro/arm64-laptops/linux/-/commit/d79e44083197b263ee59=
+dc3521a2b16ad2a12bd8
 
-> diff --git a/drivers/hid/hid-himax-spi.c b/drivers/hid/hid-himax-spi.c
-> new file mode 100644
-> index 0000000000000..98ee51658b362
-> --- /dev/null
-> +++ b/drivers/hid/hid-himax-spi.c
+Either way very nice to see someone following up to have it upstreamed.
 
-[ ... ]
 
-> +static int himax_sense_off(struct himax_ts_data *ts)
-> +{
-> +	unsigned int tries =3D 5;
-> +	u32 val;
-> +	int ret;
+> v3: add the Signed-off-by missing from v2; no other change.
+>
+> v2:
+> - Drop the dependency paragraph from the commit message (Abel).
+> - Say in the message that panic-indicator stays, as on the X13s.
+> No change to the DT.
+>
+> v2: https://lore.kernel.org/all/20260926122032.4847-1-lnicoara@thinkoid.o=
+rg/
+> v1: https://lore.kernel.org/all/20260925181024.20352-1-lnicoara@thinkoid.=
+org/
+>
+> Depends on the x1e80100 camera DT series, v7:
+> https://lore.kernel.org/all/20260917-x1e-camss-csi2-phy-dtsi-v7-0-1a63eb3=
+5838b@linaro.org/
+> and on the CAMSS PHY API series, v20 patches 5/6 and 6/6, which read the
+> CAMSS endpoint's data-lanes as 1-based:
+> https://lore.kernel.org/all/20260918-b4-linux-next-25-03-13-dtsi-x1e80100=
+-camss-v20-0-dc244e124e71@linaro.org/
+>
+> Built and checked (dtbs_check, W=3D1) on next-20260925 with the DT series
+> applied. Run-tested on 7.2.6 with the same board hunks, the CSI2 PHY
+> driver v18, the PHY API series v20 and patches 1-4 of the DT series:
+> the sensor streams at 30 fps through libcamera's software ISP, and the
+> privacy LED lights while it streams and goes out after.
+>
+> Bryan, happy for you to fold this into your next version of the DT
+> series if that is easier.
+>
+>   .../dts/qcom/x1e80100-dell-xps13-9345.dts     | 120 +++++++++++++++++-
+>   1 file changed, 118 insertions(+), 2 deletions(-)
+>
+> diff --git a/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts b/arch=
+/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
+> index ad62350ba670..73f06fdcd138 100644
+> --- a/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
+> +++ b/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
+> @@ -10,6 +10,8 @@
+>   #include <dt-bindings/input/gpio-keys.h>
+>   #include <dt-bindings/input/input.h>
+>   #include <dt-bindings/leds/common.h>
+> +#include <dt-bindings/media/video-interfaces.h>
+> +#include <dt-bindings/media/video-interface-devices.h>
+>   #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+>  =20
+>   #include "hamoa.dtsi"
+> @@ -46,14 +48,13 @@ leds {
+>   =09=09pinctrl-names =3D "default";
+>   =09=09pinctrl-0 =3D <&cam_indicator_en>;
+>  =20
+> -=09=09led-camera-indicator {
+> +=09=09privacy_led: led-camera-indicator {
+>   =09=09=09label =3D "white:camera-indicator";
+>   =09=09=09function =3D LED_FUNCTION_INDICATOR;
+>   =09=09=09color =3D <LED_COLOR_ID_WHITE>;
+>   =09=09=09gpios =3D <&tlmm 110 GPIO_ACTIVE_HIGH>;
+>   =09=09=09linux,default-trigger =3D "none";
+>   =09=09=09default-state =3D "off";
+> -=09=09=09/* Reuse as a panic indicator until we get a "camera on" trigge=
+r */
+>   =09=09=09panic-indicator;
+>   =09=09};
+>   =09};
+> @@ -151,6 +152,25 @@ linux,cma {
+>   =09=09};
+>   =09};
+>  =20
+> +=09/*
+> +=09 * The one rail Windows switches for the front camera
+> +=09 * (CAMF_RES_QRD.bin: TLMM 91 high before reset release), the 1.8 V
+> +=09 * LDO enable on the sibling thena boards.
+> +=09 */
+
+Just an FYI: CAMF_RES_QRD.bin is an AeoB file. Some time ago I made a=20
+repo to
+keep a list of already de-compiled files for other developers to use,=20
+might come
+handy. Here is one for Dell XPS 13 9345' front camera:
+
+https://github.com/alexVinarskis/qcom-aeob-dumps/blob/master/dell-xps-9345/=
+CAMF_RES_QRD.json#L245-L257
+
+IMO this comment can be dropped.
+
+> +=09vreg_cam_1p8: regulator-cam-1p8 {
+> +=09=09compatible =3D "regulator-fixed";
 > +
-> +	while (tries--) {
-> +		ret =3D himax_enter_safe_mode(ts);
-> +		if (ret)
-> +			return ret;
+> +=09=09regulator-name =3D "VREG_CAM_1P8";
+> +=09=09regulator-min-microvolt =3D <1800000>;
+> +=09=09regulator-max-microvolt =3D <1800000>;
 > +
-> +		ret =3D himax_read32(ts, HIMAX_REG_FW_STATUS, &val);
-> +		if (ret)
-> +			return ret;
+> +=09=09gpio =3D <&tlmm 91 GPIO_ACTIVE_HIGH>;
+> +=09=09enable-active-high;
 > +
-> +		if (FIELD_GET(HIMAX_FW_STATE, val) =3D=3D HIMAX_FW_STATE_SAFE_MODE) {
-> +			/* The touch MCU can't be used before the TCON is reset */
-> +			ret =3D himax_write32(ts, HX83102J_REG_TCON_RST, 0);
-> +			if (ret)
-> +				return ret;
+> +=09=09pinctrl-0 =3D <&cam_ldo_en>;
+> +=09=09pinctrl-names =3D "default";
+> +=09};
 > +
-> +			fsleep(1000);
-> +			return 0;
-> +		}
+>   =09vreg_edp_3p3: regulator-edp-3p3 {
+>   =09=09compatible =3D "regulator-fixed";
+>  =20
+> @@ -674,6 +694,78 @@ vreg_l3j_0p8: ldo3 {
+>   =09};
+>   };
+>  =20
+> +&camss {
+> +=09status =3D "okay";
+> +};
 > +
-> +		fsleep(5000);
-> +		himax_pin_reset(ts);
-> +	}
+> +&camss_csiphy4_in_port {
+> +=09camss_csiphy4_inep: endpoint {
+> +=09=09data-lanes =3D <1 2>;
+> +=09=09remote-endpoint =3D <&csiphy4_out_ep>;
+> +=09};
+> +};
 > +
-> +	return -EIO;
-> +}
-
-[Severity: High]
-Does this error recovery loop inadvertently swallow the safe mode command?
-
-The documentation in himax_interface_on() states that the hardware swallows
-the first SPI transaction after a pin reset. Here, himax_pin_reset(ts)
-is called and the loop immediately restarts with himax_enter_safe_mode(ts).
-Without a dummy read to wake the bus, the safe mode command itself might be
-swallowed, which could prevent the IC from ever entering safe mode and
-create an infinite failure loop.
-
-> +static int himax_sense_on(struct himax_ts_data *ts)
-> +{
-> +	int ret;
+> +&cci1 {
+> +=09status =3D "okay";
+> +};
 > +
-> +	ret =3D himax_interface_on(ts);
-> +	if (ret)
-> +		return ret;
+> +&cci1_i2c1 {
+> +=09camera@36 {
+> +=09=09compatible =3D "ovti,ov02c10";
+> +=09=09reg =3D <0x36>;
 > +
-> +	ret =3D himax_write32(ts, HIMAX_REG_CTRL_FW, HIMAX_FW_RE_INIT);
-> +	if (ret)
-> +		return ret;
+> +=09=09reset-gpios =3D <&tlmm 237 GPIO_ACTIVE_LOW>;
+> +=09=09pinctrl-0 =3D <&cam_rgb_default>;
+> +=09=09pinctrl-names =3D "default";
 > +
-> +	fsleep(10000);
-> +	himax_pin_reset(ts);
+> +=09=09clocks =3D <&camcc CAM_CC_MCLK4_CLK>;
+> +=09=09assigned-clocks =3D <&camcc CAM_CC_MCLK4_CLK>;
+> +=09=09assigned-clock-rates =3D <19200000>;
 > +
-> +	ret =3D himax_enable_hw_crc(ts);
-
-[Severity: High]
-Could the hardware swallow the first AHB configuration write here?
-
-Similarly to the loop in himax_sense_off(), a hardware reset from
-himax_pin_reset(ts) is immediately followed by a write function
-(himax_enable_hw_crc). This means the first AHB configuration write
-(HIMAX_BUS_AHB_CONTI inside himax_ahb_set_burst) might be swallowed
-by the sleeping bus, potentially corrupting the AHB transaction state.
-
-[ ... ]
-
-> +static int himax_hid_raw_request(struct hid_device *hid, unsigned char r=
-eportnum,
-> +				 u8 *buf, size_t len, unsigned char rtype, int reqtype)
-> +{
-> +	struct himax_ts_data *ts =3D hid->driver_data;
+> +=09=09orientation =3D <MEDIA_ORIENTATION_FRONT>;
+> +=09=09/* upside down in the lid; both sensor flips give an upright, unmi=
+rrored image */
+> +=09=09rotation =3D <180>;
 > +
-> +	/* The only feature report the driver serves is the maximum contact cou=
-nt */
-> +	if (reqtype !=3D HID_REQ_GET_REPORT || reportnum !=3D HIMAX_REPORT_ID_C=
-ONTACT_MAX ||
-> +	    len < 2)
-> +		return -EINVAL;
+> +=09=09leds =3D <&privacy_led>;
+> +=09=09led-names =3D "privacy";
 > +
-> +	buf[0] =3D reportnum;
-> +	buf[1] =3D ts->max_points;
+> +=09=09/*
+> +=09=09 * Windows switches no rail for avdd or dvdd, only GPIO 91; they
+> +=09=09 * are left to dummy regulators rather than invented.
+> +=09=09 */
+> +=09=09dovdd-supply =3D <&vreg_cam_1p8>;
+
+Windows may only be switching one rail, however there in fact a 2v8 rail=20
+provided by LDO 7B.
+You can find it in:
+* Tudor's patch linked above
+* Device's schematics
+
+I would recommend to add it.
+
+Regards,
+Alex
+
 > +
-> +	return len;
-
-[Severity: High]
-Does this code leak uninitialized kernel heap memory to userspace?
-
-The driver handles HID_REQ_GET_REPORT requests by populating exactly 2 byte=
-s.
-However, it unconditionally returns len (the size of the buffer requested
-by the caller) rather than 2.=20
-
-When userspace issues an ioctl (like HIDIOCGFEATURE) with a length larger
-than 2, the hidraw core allocates a buffer of size len using kmalloc(), whi=
-ch
-does not zero memory. Because the driver returns len, hidraw copies the full
-buffer back to userspace, leaking the remaining uninitialized bytes.
-
-[ ... ]
-
-> +static int himax_hid_add(struct himax_ts_data *ts)
-> +{
-> +	const struct himax_hid_desc *desc =3D ts->hid_desc;
-> +	struct hid_device *hid;
-> +	int ret;
+> +=09=09port {
+> +=09=09=09ov02c10_ep: endpoint {
+> +=09=09=09=09data-lanes =3D <1 2>;
+> +=09=09=09=09link-frequencies =3D /bits/ 64 <400000000>;
+> +=09=09=09=09remote-endpoint =3D <&csiphy4_in_ep>;
+> +=09=09=09};
+> +=09=09};
+> +=09};
+> +};
 > +
-> +	if (!ts->event_buf) {
-> +		ret =3D himax_read_ic_info(ts);
-> +		if (ret)
-> +			return ret;
+> +&csiphy4 {
+> +=09vdda-0p9-supply =3D <&vreg_l2c_0p8>;
+> +=09vdda-1p2-supply =3D <&vreg_l1c_1p2>;
 > +
-> +		ret =3D himax_alloc_report_bufs(ts);
-> +		if (ret)
-> +			return ret;
-> +	}
+> +=09status =3D "okay";
+> +};
 > +
-> +	hid =3D hid_allocate_device();
-> +	if (IS_ERR(hid))
-> +		return PTR_ERR(hid);
+> +&csiphy4_in_port {
+> +=09csiphy4_in_ep: endpoint {
+> +=09=09bus-type =3D <MEDIA_BUS_TYPE_CSI2_DPHY>;
+> +=09=09data-lanes =3D <1 2>;
+> +=09=09remote-endpoint =3D <&ov02c10_ep>;
+> +=09};
+> +};
 > +
-> +	hid->driver_data =3D ts;
-> +	hid->ll_driver =3D &himax_hid_ll_driver;
-> +	hid->bus =3D BUS_SPI;
-> +	hid->dev.parent =3D ts->dev;
-> +	hid->version =3D le16_to_cpu(desc->bcd_version);
-> +	hid->vendor =3D le16_to_cpu(desc->vendor_id);
-> +	hid->product =3D le16_to_cpu(desc->product_id);
-> +	snprintf(hid->name, sizeof(hid->name), "hid-hxtp %04X:%04X",
-> +		 hid->vendor, hid->product);
+> +&csiphy4_out_port {
+> +=09csiphy4_out_ep: endpoint {
+> +=09=09remote-endpoint =3D <&camss_csiphy4_inep>;
+> +=09};
+> +};
 > +
-> +	ret =3D hid_add_device(hid);
-
-[Severity: Low]
-Are there missing initializations for mandatory hid_device fields here?
-
-According to the HID Subsystem Guide, before registration, the transport
-driver must fully initialize the hid_device fields, including phys, uniq,
-and country. While hid_allocate_device() zeroes the structure, explicitly
-setting these fields is a documented subsystem requirement for all
-transport drivers before calling hid_add_device().
-
-[ ... ]
-
-> +static irqreturn_t himax_irq(int irq, void *data)
-> +{
-> +	struct himax_ts_data *ts =3D data;
-> +	size_t len =3D ts->max_input_len - HIMAX_REPORT_HDR_SIZE;
-> +	size_t pos =3D HIMAX_REPORT_HDR_SIZE;
-> +	int ret;
+>   &gpu {
+>   =09status =3D "okay";
+>   };
+> @@ -1102,6 +1194,30 @@ cam_indicator_en: cam-indicator-en-state {
+>   =09=09bias-disable;
+>   =09};
+>  =20
+> +=09cam_ldo_en: cam-ldo-en-state {
+> +=09=09pins =3D "gpio91";
+> +=09=09function =3D "gpio";
+> +=09=09drive-strength =3D <2>;
+> +=09=09bias-disable;
+> +=09};
 > +
-> +	ret =3D himax_read_events(ts);
-> +	if (ret) {
-> +		dev_warn_ratelimited(ts->dev, "failed to read events: %d\n", ret);
-> +		himax_pin_reset(ts);
-> +		himax_reload_to_active(ts);
-> +		return IRQ_HANDLED;
-> +	}
+> +=09cam_rgb_default: cam-rgb-default-state {
+> +=09=09/* 2 mA streams; the sibling X1E boards use 16 */
+> +=09=09mclk-pins {
+> +=09=09=09pins =3D "gpio100";
+> +=09=09=09function =3D "cam_aon";
+> +=09=09=09drive-strength =3D <2>;
+> +=09=09=09bias-disable;
+> +=09=09};
+> +
+> +=09=09reset-n-pins {
+> +=09=09=09pins =3D "gpio237";
+> +=09=09=09function =3D "gpio";
+> +=09=09=09drive-strength =3D <2>;
+> +=09=09=09bias-disable;
+> +=09=09};
+> +=09};
+> +
+>   =09edp_bl_en: edp-bl-en-state {
+>   =09=09pins =3D "gpio74";
+>   =09=09function =3D "gpio";
+>
+> base-commit: f5f84daefcd92d7a630066635ecea1433ed5eac7
+> prerequisite-patch-id: a7fbea14628b62a8de096dea420473b283010aba
+> prerequisite-patch-id: 270d82b4c1760f1ec0a64a1b56c68ce26e6ae3b1
+> prerequisite-patch-id: a12186bafac9b287c19fd719aeceb8ff1372dfbf
+> prerequisite-patch-id: 4bc923fa59ee4c1ff68e64497f11e937c0ab3918
+> prerequisite-patch-id: 4d000086386a3b344b1d6d345ab93d9b2b569615
+> prerequisite-patch-id: 8cde6fd860c857dd7f3efce25970c88c783193b3
+> prerequisite-patch-id: 1f22ff7fc93d0135e8759d45955bf998b037e11e
+> prerequisite-patch-id: edb32e32f2b6be0b93f66d8da460c9f9de0c52e2
+> prerequisite-patch-id: 09444936808e801a58c83356c9ae95415bacc83a
+> prerequisite-patch-id: 348caa9cd0d1d70f181a47b40e2d75e8b25b5938
+> prerequisite-patch-id: 1c4e4c457d8f95d8f5aaa2d93976c374b8282bf0
+> prerequisite-patch-id: deedbed2643ca8a0f26bd87175d787d2f0c87417
 
-[Severity: High]
-Is a dummy bus read also needed here during error recovery?
-
-The error recovery path calls himax_pin_reset(ts) and directly writes to
-HIMAX_REG_RELOAD_TO_ACTIVE. Just like the reset cases in himax_sense_off()
-and himax_sense_on(), this command might be swallowed by the sleeping bus,
-leaving the hardware in an inconsistent state.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261011181633.1778=
-969-1-michal@nozomi.space?part=3D2
