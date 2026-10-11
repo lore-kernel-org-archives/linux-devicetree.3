@@ -1,132 +1,124 @@
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18D9429AAFA
-	for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 05:13:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6E683451C6
+	for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 05:14:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791695627; cv=none; b=Yic4GQ63hOOUZOJsdf1MVv/wb/xHsfKsCTwAtwV6ZfHMcI3Yw5+ceFyx3uV0lXRT51pPn3WX39bYna14N326NmkHPb9mmdq32pbGYRbQyjyHpsUYg+MsrXBab9ri5M9cubiL+NS6IOpKoEbFx8SYExZo7gOVXVeMoFKoXpzQnTs=
+	t=1791695688; cv=none; b=X/k6YK41gRUE3KL+iiHP8wTo+Q9wYAioLnKYAnGG3KdZeVHySlGiS7Uramnye2PDvC6coLE8V4JnJSD1OYPSJ/iThvHUS52JOGhSR+PIwHEh/jnkAv2eQ0zaVG+asAsdxVBu28NdAN3xlo9hgVJmNMtvCk54qfO3POe9Go9FdQM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791695627; c=relaxed/simple;
-	bh=yjj+GEMBuBRVvavplchcH8uaXDQxZ2w7EtUDess9Elc=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type:Content-Disposition; b=LeRcz5fC/fMCqC9ZsrJjZ8Rzs4f+tOmKL49V7PHDJsFOKMrJs0Ofbma+akTmL5eEa9o8cCHfGmkDQMMDP6Bqn4ronter1am8+ck1Cn/gz0gscFAYtyM7GKoeb+TZ4WmUKaBmchGtpj8iY79fBYFrGhcnAJb/ZH9WAg+jC0rOcxQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mivFBBm9; arc=none smtp.client-ip=74.125.82.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791695688; c=relaxed/simple;
+	bh=ZpVcBm0FUYNk4H/lj/mTvkIQRaRbWe7mg0Ua+HOelaQ=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=stt69vHC2iWOM3L8Hf0yD62TB0x3bCCeVWDk0z+OzEZSk8P+3OMPlXkmSv3AK1794gsgAQAO2rsxjFz1KDXp1vZ+qsMKy0DgubY3vwqL7XVP1lx9KVBZGI6gVfSfJQ3lFejq9tZ4QdTNJhiGPl497GRWRIi/8uB67PI7S3cWSpU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ggflZrrd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mivFBBm9"
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-3535a54bed9so1224643eec.1
-        for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 22:13:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791695624; x=1792300424; darn=vger.kernel.org;
-        h=content-disposition:content-transfer-encoding:content-type
-         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jGwiSM6Jw7fQY0scgIdwmNx4g3Nb53u28uyWu2p6TTo=;
-        b=mivFBBm9fSwc0/j757Fw9E4ROGNYoaFrsrwXW1kuvn7HPvPunacD+Cv2h9uU9srizw
-         tQ2j5tZnMU7JZ5NAgarhBBfPmL06/FMMRxEILEDXFwBWV09sY/wdFZugC7X6AU2sVbvl
-         UtE5wet1Oslo3L7A6EpfgPmTn5Y2VhIHlNN+A8/EdbOodg35JIbL8JNAxPnotvxwGy+Y
-         ln5JVxChpYz9HKqK7kfF7c/o6FXN7KSscVZZpNgFR12qsKw8HFRGyo5ip0f9NL/pq3/G
-         h91SS/+lwerZawVgmkIR3bWHdq7QunmILHHi7c8BrjyZuhRF9wvcdTJziNMm8i1o5Or8
-         RnCw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791695624; x=1792300424;
-        h=content-disposition:content-transfer-encoding:content-type
-         :mime-version:references:in-reply-to:subject:cc:to:from:message-id
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=jGwiSM6Jw7fQY0scgIdwmNx4g3Nb53u28uyWu2p6TTo=;
-        b=d77iCUoeUZ6GaAPk2Nv2P/Ye0FzCsT7pKjUPGzW1Ny/6KHLZxiLez62eFicErTSBzV
-         PU28DjsjU28TVFsHJ0E5vMZCkke9c80xLPDLaZ8nx4rMEh+2xnZ4wmJq9QBg8aBTSDvF
-         LglLHHYrhveQPeqxI7MbI1kMP3hFcYCK5vhBvaeh3TKsFKB69AH+ofsz+T//YNpE70qp
-         Lz45o0ulet7PtJv3tpZNf47N7vbSIpeEt+QIEUDQxqIlPsu5ckDMzi5jz8IGowNdmEbD
-         5IvIgxgRkct1p/RKdJmldBp6aaHVrYoRMLySOqJtI/a/ESIJQgN72wdp1Jn4kzMAr0VL
-         z0nA==
-X-Forwarded-Encrypted: i=1; AKwUvBwkoKxDEPFLpReRcy6uIruNh+GflAaAw9ta8o1dtQKEYz7i99qNXGHn7bcTagveM/iI+F4m1/gvLhIq@vger.kernel.org
-X-Gm-Message-State: AFq9FYLLTiHzr/VS83H9Ppploy5Ojy5vQXcYFBtWDNKTI2OI6TrvTH58
-	2xycGwfQHt+qWXphwK4sivu5yfJQNW4ZM0jOZOmM+EYZIDEGjyBGDXEB
-X-Gm-Gg: AYBFou3W6Rq1xkbCPvyjnNt5FKkjQzEAWZyZkWKiJ2VZV1uw8tsqPqldSccHVWWt8Em
-	hkRP6UyWmsBs/Mtya7PCG03mlHn9hRHlFRm+qGiGbbgXbyPUkiv2brZD2a/hGM19xn5A1EQDvIj
-	v2zRS11ZxxcPzDYVbG0i/BCti+fa7ZvwuZRkC4LJos3dsuGBPeQV4lZYr5rBhusQIhxXxMee1mf
-	kCZslJC+2NOPUwn5ZWAVKgLHyFCDESSuqS7ZB520r7XbNV+B4HiBYo/o7PvHaGs5IY9fWZZRXQs
-	iKtNkkU2zH1NZ/B/+5qz6rxtnmS54El7LDHXbuFUlbc/6lZg6XqotMabrxAaUqzr0AB1o4yE7tI
-	DPpimqz9EPmtOwC7GOr8WT2JifQLNukhqcZbHbErtHSmWEPPqtPNB+85k11ppR6ap7z8rRXYr9P
-	T0iRQJf7RqWaxLu0826GXO+NXnhjVaNpnyV8sDWChToLAG7d269sEfw2AqjcMezRyNcC0vQlPlv
-	i6S2xMFTY/mWo4jcEjcJw1xigXX0Via9zwLxlS/T+ZGd3NGtA==
-X-Received: by 2002:a05:701b:205c:10b0:149:49c:233 with SMTP id a92af1059eb24-16a60811394mr8606020c88.27.1791695623826;
-        Sat, 10 Oct 2026 22:13:43 -0700 (PDT)
-Received: from localhost ([2a00:79e0:2ebe:8:99d7:6eb1:9874:c6be])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a1becf08sm20632400c88.5.2026.10.10.22.13.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 22:13:43 -0700 (PDT)
-Date: Sat, 10 Oct 2026 22:13:41 -0700
-Message-ID: <30c56291bac612db47c6ced73dff739f@gmail.com>
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Miotsuki Mizuno <founder@crepuse.com>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Icenowy Zheng <icenowy@aosc.io>,
-	"linux-input@vger.kernel.org" <linux-input@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 2/3] dt-bindings: input: touchscreen: add Nsiway NS2009
-In-Reply-To: <20261009144729.85832-3-founder@crepuse.com>
-References: <20261009144729.85832-1-founder@crepuse.com> <20261009144729.85832-3-founder@crepuse.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ggflZrrd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3499F1F0089C;
+	Sun, 11 Oct 2026 05:14:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791695686;
+	bh=tO+3NA441t3XPUQT47mBFgg+dlK/l06kQKo4nGbC4OE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ggflZrrd/a4+HSV4gS9hTRE/2WSMjgEbe3b7CipX5flVEMqu1HFP/PJE673Rb3CZe
+	 z4DvnoQ7lHGd8lOVU45YYt69crBMTxceGiyQy7MazU7rq1HQRZ/z+v2RVNuN470OXN
+	 0HV8HoarKt7718U1rs2S41DrJNJQtpg5q0pohjKTcMQhvINFVZgC+h/wyov2iF/NC9
+	 +ghB0GU/8KYiL3LDTw0WziUwp4vzqdQ3avlk/HmHd1pYS4cWk3mcNNHxixlQAsTE38
+	 K52lMZFEC1uaYOyhaKZp20aD3KH+basguIZLU4nH6c84MVDNjf6XN4+Om895zLZCRb
+	 IdoEcLG5e0CpA==
+Message-ID: <sashiko-outbox-167032@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 5/9] irqchip/al-fic: switch to shared parent
+ interrupt
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Eliav Farber" <farbere@amazon.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261011050449.41903-6-farbere@amazon.com>
+References: <20261011050449.41903-1-farbere@amazon.com>
+ <20261011050449.41903-6-farbere@amazon.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 11 Oct 2026 05:14:45 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
 
-Hi Miotsuki,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] irqchip/al-fic: shared parent mapping destroyed on error path via =
+irq_dispose_mapping
+--
 
-On Fri, Oct 09, 2026 at 02:47:43PM +0000, Miotsuki Mizuno wrote:
-> Describe the Nsiway NS2009 four-wire resistive touchscreen controller
-> and the properties used by its polling driver.
->
-> The controller returns 12-bit ADC coordinates. Use the common touchscreen
-> properties for coordinate ranges and orientation, and allow boards to set
-> the raw Z1 contact threshold through touchscreen-min-pressure. Limit that
-> threshold to 1..4095 because zero cannot distinguish a released contact.
->
-> Document the historical default of 80 and a board override of 150 in the
-> example. The Z1 threshold is for contact detection, not calibrated
-> pressure.
->
-> Signed-off-by: Mizuno Miotsuki <founder@crepuse.com>
-> ---
-...
-> +description: |
-> +  The NS2009 is a four-wire resistive touchscreen controller connected over
-> +  I2C. This binding describes polling operation without a pen interrupt.
-> +  Coordinates are 12-bit ADC readings, not display pixel coordinates.
+commit 2575228eb0e3f9536c071e11d0536822135b2cae
+Author: Eliav Farber <farbere@amazon.com>
 
-Devicetree bindings should describe the hardware itself rather than the
-subset of features currently used by the Linux driver. According to the
-NS2009 datasheet, the controller has several hardware signals and
-capabilities that should be covered in the binding from the start (even
-if the initial driver operates in polling mode):
+irqchip/al-fic: switch to shared parent interrupt
 
-  - interrupts (maxItems: 1) and wakeup-source: the controller provides
-    an active-low pen interrupt output, which can remain optional for
-    boards where the line is left unconnected.
-  - vdd-supply and vref-supply: main power supply and external reference
-    voltage regulators.
-  - touchscreen-x-plate-ohms (along with touchscreen-max-pressure and
-    touchscreen-fuzz-pressure): the NS2009 supports touch resistance
-    calculation from Z1/Z2 and X-plate resistance.
+This commit changes the driver from using a chained handler to a shared
+interrupt (IRQF_SHARED) for the parent interrupt line. This change allows
+multiple FIC groups to share a single output line toward the parent GIC SPI.
+It also seeds the mask cache from the hardware register before requesting
+the interrupt.
 
-Could you expand the binding description and properties (and show an
-interrupt/supply example as well) so we do not have to revisit the
-binding when IRQ or pressure support is added later?
+> diff --git a/drivers/irqchip/irq-al-fic.c b/drivers/irqchip/irq-al-fic.c
+> index 32d8098699a41..8a7eb9009515f 100644
+> --- a/drivers/irqchip/irq-al-fic.c
+> +++ b/drivers/irqchip/irq-al-fic.c
+[ ... ]
+> @@ -162,9 +165,22 @@ static int al_fic_register(struct device_node *node,
+>  	gc->chip_types->chip.flags =3D IRQCHIP_SKIP_SET_WAKE;
+>  	gc->private =3D fic;
+> =20
+> -	irq_set_chained_handler_and_data(fic->parent_irq,
+> -					 al_fic_irq_handler,
+> -					 fic);
+> +	/*
+> +	 * Seed the mask cache with the value al_fic_wire_init() programmed,
+> +	 * rather than having the generic chip read the register back on the
+> +	 * first child mapping: that is later than the parent is requested, and
+> +	 * never happens at all for a group with no consumer in the devicetree.
+> +	 */
+> +	gc->mask_cache =3D ~0U;
+> +
+> +	ret =3D request_irq(fic->parent_irq, al_fic_irq_handler,
+> +			  IRQF_NO_THREAD | IRQF_SHARED,
+> +			  of_node_full_name(fic->node), fic);
+> +	if (ret) {
+> +		pr_err("fail to request irq (%d)\n", ret);
+> +		goto err_domain_remove;
+> +	}
 
-Thanks.
+[Severity: High]
+Will this transition to a shared parent interrupt cause issues with the
+error path in al_fic_init_dt()?
 
--- 
-Dmitry
+Since multiple FIC groups can now share the same parent interrupt, if a
+subsequent group fails initialization (e.g. if this request_irq() fails),
+al_fic_init_dt() will call irq_dispose_mapping(parent_irq):
+
+drivers/irqchip/irq-al-fic.c:al_fic_init_dt() {
+    ...
+    fic =3D al_fic_wire_init(node, base, parent_irq);
+    if (IS_ERR(fic)) {
+        pr_err("%pOF: fail to initialize irqchip (%pe)\n", node, fic);
+        ret =3D PTR_ERR(fic);
+        goto err_irq_dispose;
+    }
+
+    return 0;
+
+err_irq_dispose:
+    irq_dispose_mapping(parent_irq);
+    ...
+}
+
+Because Linux IRQ mappings are not natively reference-counted at the dispose
+level, unconditionally unmapping the shared parent interrupt would sever
+interrupts for any other FIC instances that already successfully requested
+and mapped this shared parent line.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261011050449.4190=
+3-1-farbere@amazon.com?part=3D5
