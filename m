@@ -1,205 +1,128 @@
-Received: from mail-244108.protonmail.ch (mail-244108.protonmail.ch [109.224.244.108])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f43.google.com (mail-ej1-f43.google.com [209.85.218.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D6AD368D41;
-	Sun, 11 Oct 2026 17:30:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D6D5361976
+	for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 17:35:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791739809; cv=none; b=KGN7SqjeybAkrjoBKwaOcRdnHat3rxjRyw/lrWEzrSPjhwsvLwiLTA2mgpCGGJ/rAftmTypc2ZuyoPSLzG/N6tkx+Bvg8AEW0ponFaJkliiL2j7I6OmTfHNlX95oT2R8fxUwQuR1dWRcFwER+UehZR/n2sMRvSYLwJ7lWfzxJ/0=
+	t=1791740158; cv=none; b=RJ1/OH8lB7YnzUYS2qmaahD7dx75lzrfqb90bXqdWBkPVZ/6K004GuLjd3Lqp3kuiulUX15DaZa+MY4fCd/9MCqQUDx1hrMf9Q3eER0qgMY1DRdpjzjxHw/3jCGPandC2H6yNd1qMioq5i/sj4CIvnFery0xCMmJ3b2xnntTBiM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791739809; c=relaxed/simple;
-	bh=fBkCJHjuCaikQxTDY/gYrM1WpcgBFmsruQ542x7hqeA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=J4+cvcewkaMsO4Max2EKFWvEZR2dMtb1tyUW9OmLxuycY3S7UCezX+V4byurWIx4E2h8TJAOwuRgJ/hbKD48I4ufObFieS9pY+nQSrBE08awhudmT7n3ELpKqWEZ6TYTO+v1wEKaeBKezRU3SM5AnaDPQ1pmlm5Un90X7CVhAqk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=vinarskis.com; spf=pass smtp.mailfrom=vinarskis.com; dkim=pass (2048-bit key) header.d=vinarskis.com header.i=@vinarskis.com header.b=EQGaq6Sj; arc=none smtp.client-ip=109.224.244.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=vinarskis.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=vinarskis.com
+	s=arc-20240116; t=1791740158; c=relaxed/simple;
+	bh=BA6Eq7SxDm1L8zEyXbbvdU/Ub4OE26FS6uK891J21U0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=UZZOouJXblC9h7yHH0EjHKAVQOWm/c0JZwyIWuPYk0mSQMHhRMdolNAZeay+xS8BOLFP5KpXifutV7pSfEla3L2a8T0e+YzED8GtQMww2IwI2bK/l9/WQS+qUlFF7BTsSclDwiX46ow6waivJRuioZxU5lCAWdrIo/diTuZdnZs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dePmDayW; arc=none smtp.client-ip=209.85.218.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=vinarskis.com header.i=@vinarskis.com header.b="EQGaq6Sj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=vinarskis.com;
-	s=protonmail3; t=1791739801; x=1791999001;
-	bh=lR9lb9DSxQO3KqEfxw+Y1Y+hJ57hQIgBjo6heGSxEzU=;
-	h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=EQGaq6Sj1nnB6TqMEDccQrEaKLRU2UBbvGGPUbpQH2y3gzng87/vqkJ1UVwcEJis9
-	 5Dy7306o6+wZbQ1AP2cr6HEEHLxow13AEX0GC0a7G1HfyXocJVd97VtAMfrYS+8dyp
-	 eWK4LOaIhhEbbEPFqIlOvNkw0JdyrsxK6m0rchS6MMIt/3/jQjAlDw0k7DXN4MH/QE
-	 jyMy2Bq0sF3Cejv8FaSRcjhs88CRBXgzCAwsjLuW4M4LavzR2wikXPb+46uoUmgDpv
-	 ridMVInXiXimKMjXMrSnMn6nyUGpy6u2kouQ0p7EeQjrww3AHZKTLhe6ABAFvDFd8L
-	 i/aC1FhC++3/g==
-X-Pm-Submission-Id: 4j2nfb1308z1DF4p
-From: Aleksandrs Vinarskis <alex@vinarskis.com>
-Date: Sun, 11 Oct 2026 19:29:30 +0200
-Subject: [PATCH v5 3/3] arm64: dts: qcom: x1e80100-dell-xps13-9345:
- introduce EC
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dePmDayW"
+Received: by mail-ej1-f43.google.com with SMTP id a640c23a62f3a-c3156e7705cso202630066b.1
+        for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 10:35:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791740155; x=1792344955; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=crwJpou1dc4UoRYz8bgCYYV5fnDg/uzo/t0oCNRfcv4=;
+        b=dePmDayWmv8v0mwSzR5nVk15cgoAHarFsNHNDSXgdCMv2nKjiNoagrt901O76U3ZaT
+         ViR3hutQjPwdEUfQSSU1Pa4p8HkJk/nRelBepZWCzpR4Y6ckXYDEEhrDCHxDt6lkczh2
+         y92xapLFiVA+lhq5Y4c/JNmFUfLJwIlAAHKzD3k3HBzfj48+5ZrDe1NzM4asaZikFNUy
+         D0RVQQyu/DO2c/KAIczkRwiqSmKFZqmkrww4/Tev1miwV+7C1l9b0gEWQuCs/mlcaSOs
+         HOuRtD5ud2K/Sp6iV5+hh60Xh9TMmPLOVJOU69Niu8hctfVdu3nFat0S8oG+7ixpEoDG
+         6gsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791740155; x=1792344955;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=crwJpou1dc4UoRYz8bgCYYV5fnDg/uzo/t0oCNRfcv4=;
+        b=aS6XdQRcb3lgcEkPy1aFPqoRdmKF059ckBsuYQ0ZfPjfvw3hkI0uCWeQuYZbjvsMZj
+         7M7lzr4oiuvvbyR/9CZGbL+MA8qs6BvMbGrUHwRy6pZrO7zxZQo5JXivtWY5WguIvDd1
+         k1FKCRXFvJFQxINSafhcAT1NXikqVt3bCpX988mdxkLLzqunrOnWQgFI3DW6TEzXJOo2
+         VxtLJJ3dobXLKA3SgPIW+bo3z27SSykRQkpNyZtoQLdikl7fzIBBdZkP2TwbYcRZUM7e
+         81IdSlqZyWLus8kBMnbc4Sf1Ug+yFsjOt8aGlINr75K4s7+Dw+BeTY3BRd68MYAxx7Dq
+         QRHw==
+X-Forwarded-Encrypted: i=1; AKwUvBxNmhpohGkfLMYaCxZqrfASbK1zFkFaHt+Kut2TH5bKaH/AfMGUU0MzNecZ7XIEFWol9cDuR3epFJW0@vger.kernel.org
+X-Gm-Message-State: AFq9FYIfZYTLRAjSvrCGKUj4ONsU9WobpRnvQcQut8uVBE6tU7+p5YUG
+	dBm84vGpELhY7WXes3YCKSNOIcrkEXY1bEFu429zyl50BDvjNQIQ/JGV
+X-Gm-Gg: AYBFou0k2I7GApSbaqznNOBs/X1P7mOJbbrpOI07u+jKK2YE5KvmzbwvoIv+w4ostj9
+	vTK5xPeyA5kRcUOd1LqmrETuWMBgmw5WFSGkLry/vl4W1WCUBxCgzI7gkOxp8GpUWOdpklvR4vb
+	sPMCxJdppZu++c/uTz5vw/4+BHjazw44yLcSazUHKrpn0az+i0uxG2lrAIK1mPftg+21+9UUO7r
+	/bJSTTZiMjLLV+S6pni/n6iCz9elLABry6+Jw5CARqqeURn1HasZbX6w7OrzmR8iYtWFEQO9GpO
+	LRzcOgKKGuXfQaMYtB348rZa4otBL2AcvZJhqSlFFHyE41ld8Av7IDyGiAUEepZEhAVMl5gtCCI
+	eaKKV/1xBBqdUObUKTKYZfCIUni4jzMHpeC82ya0xp3TA3ANOYGCNk8Nkqa/VBocA2LQnACXaRO
+	+ttK6Y4VDFN8tnDGJ582cmTrSOVHxtE5I7V30aQcfzMoqwxJQ5xBMexNtK1Frdos3ea9VB36yVh
+	4zQ0M3+ncSxOXbrDpDB
+X-Received: by 2002:a17:906:c106:b0:c24:6f60:3f7e with SMTP id a640c23a62f3a-c31a9a28f90mr757418966b.2.1791740155162;
+        Sun, 11 Oct 2026 10:35:55 -0700 (PDT)
+Received: from [192.168.0.193] ([194.183.54.57])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9a3bbc9sm381019766b.20.2026.10.11.10.35.54
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 11 Oct 2026 10:35:54 -0700 (PDT)
+Message-ID: <4abc72fd-c645-4410-9387-3f03c751fd3c@gmail.com>
+Date: Sun, 11 Oct 2026 19:35:53 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261011-dell-xps-9345-ec-v5-3-2ab1258b84c1@vinarskis.com>
-References: <20261011-dell-xps-9345-ec-v5-0-2ab1258b84c1@vinarskis.com>
-In-Reply-To: <20261011-dell-xps-9345-ec-v5-0-2ab1258b84c1@vinarskis.com>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Kees Cook <kees@kernel.org>, 
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
- Abel Vesa <abelvesa@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, platform-driver-x86@vger.kernel.org, 
- Abel Vesa <abel.vesa@oss.qualcomm.com>, 
- Tobias Heider <tobias.heider@canonical.com>, Val Packett <val@packett.cool>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Stephan Gerhold <stephan.gerhold@linaro.org>, 
- linux-hardening@vger.kernel.org, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3728; i=alex@vinarskis.com;
- h=from:subject:message-id; bh=fBkCJHjuCaikQxTDY/gYrM1WpcgBFmsruQ542x7hqeA=;
- b=owGbwMvMwCX2dl3hIv4AZgHG02pJDFmnj/cFi167azhL8dL99TIyV+YwczjOejT//f+FwvufT
- VltIBGyuqOUhUGMi0FWTJGl+8/XtK5Fc9cyXNf4BjOHlQlkCAMXpwBMZN4hhv/V74pV+kN2TT6y
- puuM8s6lv0ym9dVe6zm55u2rSPvZnUoZDP9D7SNynvO5pB/YxuqzUP3sLHUGdbZ93vandTn0rlZ
- PC2IEAA==
-X-Developer-Key: i=alex@vinarskis.com; a=openpgp;
- fpr=8E21FAE2D2967BB123303E8C684FD4BA28133815
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v1 2/3] dt-bindings: leds: skyworks,aat1290: Document
+ FLINH pin
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, linux-leds@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261007085457.98762-1-clamor95@gmail.com>
+ <20261007085457.98762-3-clamor95@gmail.com>
+ <6a69d4aa-d04c-4bb2-912f-1584abd31e0e@gmail.com>
+ <CAPVz0n0FiT93626L3MnMCto1X0_FmWp_zzQpQ=yRBXn+ir6OPg@mail.gmail.com>
+Content-Language: en-US
+From: Jacek Anaszewski <jacek.anaszewski@gmail.com>
+In-Reply-To: <CAPVz0n0FiT93626L3MnMCto1X0_FmWp_zzQpQ=yRBXn+ir6OPg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Describe embedded controller, its interrupt and required thermal zones.
-Add EC's reset GPIO to reserved range, as triggering it during device
-operation leads to unrecoverable and unusable state.
+On 10/11/26 3:55 PM, Svyatoslav Ryhel wrote:
+> нд, 11 жовт. 2026 р. о 16:28 Jacek Anaszewski <jacek.anaszewski@gmail.com> пише:
+>>
+>> Hi Svyatoslav,
+>>
+>> On 10/7/26 10:54 AM, Svyatoslav Ryhel wrote:
+>>> Both the AAT1270 and AAT1290 feature a FLINH pin used for mandatory Flash
+>>> inhibition.
+>>>
+>>> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+>>> ---
+>>>    Documentation/devicetree/bindings/leds/skyworks,aat1290.yaml | 4 ++++
+>>>    1 file changed, 4 insertions(+)
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/leds/skyworks,aat1290.yaml b/Documentation/devicetree/bindings/leds/skyworks,aat1290.yaml
+>>> index a65d92522c9cf..596b5e284f44a 100644
+>>> --- a/Documentation/devicetree/bindings/leds/skyworks,aat1290.yaml
+>>> +++ b/Documentation/devicetree/bindings/leds/skyworks,aat1290.yaml
+>>> @@ -31,6 +31,10 @@ properties:
+>>>        maxItems: 1
+>>>        description: FL_EN pin
+>>>
+>>> +  flinh-gpios:
+>>> +    maxItems: 1
+>>> +    description: FLINH pin
+>>> +
+>>
+>> You don't seem to make use of it in your patch.
+>>
+> 
+> I don't have to use it in my patch. This change completes and improves
+> hardware description of the AAT1290/1270.
 
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Aleksandrs Vinarskis <alex@vinarskis.com>
----
- .../boot/dts/qcom/x1e80100-dell-xps13-9345.dts     | 86 +++++++++++++++++++++-
- 1 file changed, 84 insertions(+), 2 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts b/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
-index f48e6bc35006..6d99dc47eb16 100644
---- a/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
-+++ b/arch/arm64/boot/dts/qcom/x1e80100-dell-xps13-9345.dts
-@@ -759,8 +759,32 @@ retimer_ss0_con_sbu_out: endpoint {
- 
- &i2c5 {
- 	clock-frequency = <100000>;
--	status = "disabled";
--	/* EC @0x3b */
-+	status = "okay";
-+
-+	embedded-controller@3b {
-+		compatible = "dell,xps13-9345-ec";
-+		reg = <0x3b>;
-+
-+		interrupts-extended = <&tlmm 66 IRQ_TYPE_LEVEL_LOW>;
-+
-+		pinctrl-0 = <&ec_int_n_default>;
-+		pinctrl-names = "default";
-+
-+		io-channels = <&pmk8550_vadc ADC5_GEN3_AMUX3_GPIO_100K_PU(1)>,
-+			      <&pmk8550_vadc ADC5_GEN3_AMUX4_GPIO_100K_PU(1)>,
-+			      <&pmk8550_vadc ADC5_GEN3_AMUX1_THM_100K_PU(1)>,
-+			      <&pmk8550_vadc ADC5_GEN3_AMUX2_THM_100K_PU(1)>,
-+			      <&pmk8550_vadc ADC5_GEN3_AMUX3_THM_100K_PU(1)>,
-+			      <&pmk8550_vadc ADC5_GEN3_AMUX4_THM_100K_PU(1)>,
-+			      <&pmk8550_vadc ADC5_GEN3_AMUX5_THM_100K_PU(1)>;
-+		io-channel-names = "sys_therm0",
-+				   "sys_therm1",
-+				   "sys_therm2",
-+				   "sys_therm3",
-+				   "sys_therm4",
-+				   "sys_therm5",
-+				   "sys_therm6";
-+	};
- };
- 
- &i2c7 {
-@@ -1025,6 +1049,57 @@ rtmr0_1p8_reg_en: rtmr0-1p8-reg-en-state {
- 	};
- };
- 
-+&pmk8550_vadc {
-+	sys_therm0: channel@14c {
-+		reg = <ADC5_GEN3_AMUX3_GPIO_100K_PU(1)>;
-+		qcom,hw-settle-time = <200>;
-+		qcom,ratiometric;
-+		label = "lpddr5_therm";
-+	};
-+
-+	sys_therm1: channel@14d {
-+		reg = <ADC5_GEN3_AMUX4_GPIO_100K_PU(1)>;
-+		qcom,hw-settle-time = <200>;
-+		qcom,ratiometric;
-+		label = "usb_charger_left_therm";
-+	};
-+
-+	sys_therm2: channel@144 {
-+		reg = <ADC5_GEN3_AMUX1_THM_100K_PU(1)>;
-+		qcom,hw-settle-time = <200>;
-+		qcom,ratiometric;
-+		label = "vph_pwr_therm";
-+	};
-+
-+	sys_therm3: channel@145 {
-+		reg = <ADC5_GEN3_AMUX2_THM_100K_PU(1)>;
-+		qcom,hw-settle-time = <200>;
-+		qcom,ratiometric;
-+		label = "usb_charger_right_therm";
-+	};
-+
-+	sys_therm4: channel@146 {
-+		reg = <ADC5_GEN3_AMUX3_THM_100K_PU(1)>;
-+		qcom,hw-settle-time = <200>;
-+		qcom,ratiometric;
-+		label = "ssd_conn_therm";
-+	};
-+
-+	sys_therm5: channel@147 {
-+		reg = <ADC5_GEN3_AMUX4_THM_100K_PU(1)>;
-+		qcom,hw-settle-time = <200>;
-+		qcom,ratiometric;
-+		label = "sys_therm5";
-+	};
-+
-+	sys_therm6: channel@148 {
-+		reg = <ADC5_GEN3_AMUX5_THM_100K_PU(1)>;
-+		qcom,hw-settle-time = <200>;
-+		qcom,ratiometric;
-+		label = "keyboard_therm";
-+	};
-+};
-+
- &qupv3_0 {
- 	status = "okay";
- };
-@@ -1092,6 +1167,7 @@ &tcsr {
- 
- &tlmm {
- 	gpio-reserved-ranges = <44 4>,  /* SPI11 (TPM) */
-+			       <65 1>,  /* EC Reset, accessible but yields system unusable */
- 			       <76 4>,  /* SPI19 (TZ Protected) */
- 			       <65 1>, /* EC reset */
- 			       <238 1>; /* UFS Reset */
-@@ -1103,6 +1179,12 @@ cam_indicator_en: cam-indicator-en-state {
- 		bias-disable;
- 	};
- 
-+	ec_int_n_default: ec-int-n-state {
-+		pins = "gpio66";
-+		function = "gpio";
-+		bias-disable;
-+	};
-+
- 	edp_bl_en: edp-bl-en-state {
- 		pins = "gpio74";
- 		function = "gpio";
+Still, If we don't have the use case I'd avoid adding it to not confuse
+people looking for its use in the driver.
 
 -- 
-2.54.0
-
+Best regards,
+Jacek Anaszewski
