@@ -1,99 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45C1935C193;
-	Sun, 11 Oct 2026 17:17:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7086348C7B
+	for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 17:24:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791739042; cv=none; b=ahLWffdzFDgd2AhpjkYFwERKvzf4o5MvQUnuphSMUN6hXl9UEH8whLXNL7BBexBP7i2ubIiAQUVMbKebNoK0G/Kup+zXawUvGjxpupKItaLieLF83qs2ZIVt0p2LjB6JdzrSjsdNyz8kJ8HBDvlO94UpRPaonC+ivX3IHE9LUv0=
+	t=1791739475; cv=none; b=ngC8R8TnpeOMPTs/C59BRbpL83KbiPCA0Byepp4BBjaAar/Pmv00T8BWPRayNV41XdKph6mp/6ag8dYySXzH8ZZIhWd+Dg+PN2uX2arJmOynQ+RyLwspP/K7zf79uxMj88J3hQPX/xjtzh4Ko15k1hEh/rkwTc5VeQ8qUQvsay8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791739042; c=relaxed/simple;
-	bh=ae1bPrtDyGrs2a0laMfc/OYJpM4BBJvlclfzCOSwtR0=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=dN2r/U5aM5dsUvUmHizNyqxWnvXMAkpdFAtw8MMXBg3zuScNaBF0CDd9P5uAnHMPn7A2sPjOvxzd1xO6gIzRgwmpoWd/te6tKdL0HCDa12WUHBI+Li3a0/QZ+xzfr3VgdHb+WleOxG2APYY1cs/6OmrmeLrmFAWRpkaATV5xMfI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jB3hNoR7; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791739475; c=relaxed/simple;
+	bh=pyZ2xprVTR3qcz8HvpOB6MdoH1L+n4dxvIpCKI2a1bo=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=ijR1qlXsxJ2d5XKpDIaJqxn10lQ39y9z9er0GPL1IdHiudaZQk/bSiSr06eJnwEUQ+aldHbDHFOM8rqqSxYeVwaH5O/L2vEXWAp+iZMDqA9zVC1QWE+r7qOC7Po4HW26JbdHi7pp/XlNaJoSoBNhBBD4tK41GcakK0QAswTiRkE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dtALx2tm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jB3hNoR7"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id D0A67C2BCF5;
-	Sun, 11 Oct 2026 17:17:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791739041;
-	bh=ae1bPrtDyGrs2a0laMfc/OYJpM4BBJvlclfzCOSwtR0=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=jB3hNoR78WKmXQ4L9Wp5ay6zJxrncwO8yUKiLo91/ijokXW1OkCpGgJK5juaHAMfU
-	 X/iVHNW4yaVbXyDOCCPVDdHoJ3TwncOBQHFliwcxhdN4gUHG5AgLXoaCk/idXTVCOn
-	 17YTgZip5W+1hw4d8+KY2IgqkcNw9YSmuHWjSsQHgVZ9WT2gcyaHp3VcxgqRUvQ0jq
-	 s71OzZTMb+FovxXwvz5HYfuhBN7sUvQ8tD8aQRooLH/F5Yh89PqO+FNxHcihf9zFgB
-	 izTgKYJD36EV88n49Vxyk3BqhrU9d9eqb1Ais8pXgsc302ymDzn1f17Txhb5+3sPks
-	 d6sCgpdAAZ3Yg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id AC7C1CA9ECF;
-	Sun, 11 Oct 2026 17:17:21 +0000 (UTC)
-From: Fil Dunsky via B4 Relay <devnull+filipp.dunsky.gmail.com@kernel.org>
-Subject: [PATCH 0/2] arm64: dts: meson-gxbb-odroidc2: eFuse MAC address and
- LED properties
-Date: Sun, 11 Oct 2026 20:17:20 +0300
-Message-Id: <20261011-odroidc2-dts-v1-0-f9f0e779af88@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dtALx2tm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 641081F0089B;
+	Sun, 11 Oct 2026 17:24:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791739474;
+	bh=6m9I9B6GkA5gYCKffsOlJbQ3HJdfav2jM4qozg78pUY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=dtALx2tmXquxyWmF48c6eCrAlU9lh933+8pGJQu+PLPctxqhzHhySYMJWng9oaq1M
+	 7Q6WdJ7ahOlPwOJHlpQeBfK51cgVVDMAQFWhR8wpWx2K5dli4rvV3HcxPcJ6lCS0hS
+	 BYc0zD+0qn6x6suNBJ+G08vXhhxNafYg96DjMa96fNDoMW8iKxX/FDvHB6zCouQe6e
+	 SmcWvrXSaFRk77dAjlMMyKxXivrq+wg/UVRy/WvDxEVWFxUr5jKC60bJ5HOvKsmJN0
+	 E5bvu81ViBPUE3Mnx7mY4NmK0dobwzLDLtOTCt3ynFIO8A6q3zsj89Sx0hyB3Ykfbh
+	 qnZE0+09tRVWw==
+Message-ID: <sashiko-outbox-167345@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] arm64: dts: meson-gxbb-odroidc2: read the Ethernet
+ MAC address from eFuse
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Fil Dunsky" <filipp.dunsky@gmail.com>
+Cc: neil.armstrong@linaro.org, robh@kernel.org, linux-amlogic@lists.infradead.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20261011-odroidc2-dts-v1-1-f9f0e779af88@gmail.com>
+References: <20261011-odroidc2-dts-v1-0-f9f0e779af88@gmail.com>
+ <20261011-odroidc2-dts-v1-1-f9f0e779af88@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 11 Oct 2026 17:24:33 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ5AMBBA0avIrDXptFi4iljQDsZCpYNIxN0Vy
- 7f4/wKhyCRQZxdEOlg4LAmYZ+CmbhlJsU8Go02FGlEFHwN7Z5TfRJW2031lCmsdQkrWSAOf365
- pf8vez+S29wH3/QBRMK56cAAAAA==
-X-Change-ID: 20261011-odroidc2-dts-53a0b62433c1
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Fil Dunsky <filipp.dunsky@gmail.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791739040; l=1059;
- i=filipp.dunsky@gmail.com; s=20260930; h=from:subject:message-id;
- bh=ae1bPrtDyGrs2a0laMfc/OYJpM4BBJvlclfzCOSwtR0=;
- b=GVJBAWBcJccI7BftcnfSOQBKjaaNNOT8mkWe4pU5mIhBCjmUdbK1NotBESevNbZMlvCPP5WJD
- YvfS4QJfZUVAo8pp02GouscmEfXDjIGElN+Ru7FNwfYLmLpSzeqrrLF
-X-Developer-Key: i=filipp.dunsky@gmail.com; a=ed25519;
- pk=JAYP8e2rJ54DHOmhNtXud8rl1igAaAXoOHxtJmVXI1g=
-X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
- auth_id=1085
-X-Original-From: Fil Dunsky <filipp.dunsky@gmail.com>
-Reply-To: filipp.dunsky@gmail.com
 
-Two small device-tree updates for the Hardkernel ODROID-C2, found while
-adding OpenWrt support for the board.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] net: of_get_mac_address_nvmem() fails due to 16-byte cell
+--
 
-Patch 1 wires the eth_mac eFuse nvmem cell (already described in
-meson-gx.dtsi, but so far unused) to the Ethernet controller, so the
-kernel reads the factory MAC address itself instead of relying on the
-bootloader or a random fallback.
+commit 33c286acfab990fb62603385b64de76b3bd20dfe
+Author: Fil Dunsky <filipp.dunsky@gmail.com>
 
-Patch 2 converts the blue status LED to the standard color/function
+arm64: dts: meson-gxbb-odroidc2: read the Ethernet MAC address from eFuse
+
+This commit updates the meson-gxbb-odroidc2 device tree to read the Ethernet
+MAC address from the eFuse nvmem cell instead of relying on the bootloader.
+It links the ethmac node to the existing eth_mac nvmem cell using standard
 properties.
 
-Both verified on ODROID-C2 hardware and rechecked against this tree
-with CHECK_DTBS=y W=1.
+> diff --git a/arch/arm64/boot/dts/amlogic/meson-gxbb-odroidc2.dts b/arch/a=
+rm64/boot/dts/amlogic/meson-gxbb-odroidc2.dts
+> index 5943bc810678e..639b97ad515c0 100644
+> --- a/arch/arm64/boot/dts/amlogic/meson-gxbb-odroidc2.dts
+> +++ b/arch/arm64/boot/dts/amlogic/meson-gxbb-odroidc2.dts
+> @@ -230,6 +230,9 @@ &ethmac {
+>  	phy-handle =3D <&eth_phy0>;
+>  	phy-mode =3D "rgmii";
+> =20
+> +	nvmem-cells =3D <&eth_mac>;
+> +	nvmem-cell-names =3D "mac-address";
 
-Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
----
-Fil Dunsky (2):
-      arm64: dts: meson-gxbb-odroidc2: read the Ethernet MAC address from eFuse
-      arm64: dts: meson-gxbb-odroidc2: use color and function for the status LED
+[Severity: Medium]
+Will this actually read the MAC address successfully? The network core stri=
+ct
+checks nvmem cells for MAC addresses to ensure they are exactly 6 bytes.
 
- arch/arm64/boot/dts/amlogic/meson-gxbb-odroidc2.dts | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
----
-base-commit: a5ebb76233b79db01e82e061173cb73c6d2b5c6b
-change-id: 20261011-odroidc2-dts-53a0b62433c1
+Looking at the eth_mac node defined in meson-gx.dtsi:
 
-Best regards,
---  
-Fil Dunsky <filipp.dunsky@gmail.com>
+		eth_mac: eth-mac@34 {
+			reg =3D <0x34 0x10>;
+		};
 
+This cell has a length of 16 bytes (0x10).
 
+When the stmmac driver probes, it eventually calls of_get_mac_address_nvmem=
+()
+in net/core/of_net.c, which enforces this check:
+
+	if (len !=3D ETH_ALEN || !is_valid_ether_addr(mac)) {
+		kfree(mac);
+		return -EINVAL;
+	}
+
+Because 16 does not equal ETH_ALEN, this unconditionally returns -EINVAL. It
+seems the driver will fall back to a bootloader-programmed or random MAC
+address instead, which might be why it appeared to work during testing.
+
+Could we adjust the device tree to point to a 6-byte cell instead?
+
+> +
+>  	amlogic,tx-delay-ns =3D <2>;
+> =20
+>  	mdio {
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261011-odroidc2-d=
+ts-v1-0-f9f0e779af88@gmail.com?part=3D1
