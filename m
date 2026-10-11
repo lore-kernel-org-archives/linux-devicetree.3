@@ -1,193 +1,112 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 893503EA97A;
-	Sun, 11 Oct 2026 12:43:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C9963B42D8
+	for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 12:47:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791722582; cv=none; b=RrJSSGHhNCnaINcI8Bhq1ko5yJ5gW8zqkSrkHWhwJfhMVlH/Qw6pM2N5FyVAa3WQSr8Du2agcoanyqInfIfEZnV5+aGev+bFF47dHWrKqaplIYvx/Llsr+J+dYYs2HhyofAJDs4+R7YQizPPeouUC953WCsWmwuXSie2hJ7i9+8=
+	t=1791722879; cv=none; b=MGJUd6CP3AmQbpkgxHeHTm/UPzPKSvmVh0PrT/6qZBHmi9ZTZWUv54G7TIYonzbXjhZGddyqOd6yt7kGWJGbhtDQM2NTahE2oTIaXLcowexDIL7g9dQvYNp86lEHqCoZHdZPDLPtHAUKxzCRLieMn6l6On1KtAxXr1mfjLYdh0k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791722582; c=relaxed/simple;
-	bh=+TMrCZE48uV+/iDSom/yo+Isurr1VrtXfpYso39/n7E=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Sp9J+36vQwpLvcGLk1A9IvTZU4Zpz0S5IJEK1/KneBWreFOmMOsB0zjE01XGJs/xDO2P3+niaOLPNEK+u/k8EwMY1V//e+GGVXDEawB8j8LeiHSYKENXEYPWfxPCHb6l2TPTJ5BrieBfT6xUT1GM7I4z3q/H3SKLeAYqtYWHz48=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fODHIKlK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791722879; c=relaxed/simple;
+	bh=65FsIsY2eglM8xMKgNTFAfDsHtD95MspamnEelN3fM4=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=VHCdDvuz5agLDGsp1twSJFRorPT/TvWEDHmQnwf0D7X/EsxyKuBhJwiyZBnCz+7ItQZGFiHgYspIJov7ianu23rb0hYKM494qmRzS7TB68QxyPzcuO3r/Eoe0ACkER3J/5b08KKfBNjdVBJIs3oQmAaJuUsIHU5wV9NpU0H7SO8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XPcrJjpb; arc=none smtp.client-ip=209.85.216.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fODHIKlK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 421821F0089B;
-	Sun, 11 Oct 2026 12:42:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791722579;
-	bh=9EcFXwo8AKKvEcQSAeHDkJYQiJ3AS4jTyK7YrDwyvd8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=fODHIKlKmg6c6HF45tok43R+th9ONXd9wGU7O6F9j/tjrbezfr2ZnGb+moVFGqUyv
-	 kOQBp5Du12h7syCINKSenLsSEHYcUR6twQplyqxYCyk2nv1SvNu5W05jSbwvXNi0h0
-	 M+v8+KOvbFc4Afyp5f10aKQiTFDfNxXzWnV4fCTEKUJzBxBLFrIkT3gMDeZGsSD5rS
-	 KY0b3wBfW+gntba9Eomo8Ld5cdeCYtHiSx+10oiooBDm0ifmQhg3oa26g4bVHo1dPJ
-	 Oy8xUqPyizmPhVy4QrmdCTtqspk9XDkFndUsuV8C+xbAELz/JAuehNA+dCFU34UrtD
-	 pMM0LQVkxjXYg==
-Date: Sun, 11 Oct 2026 13:41:46 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Esben Haabendal <esben@geanix.com>
-Cc: "Andy Shevchenko" <andriy.shevchenko@intel.com>, "Lars-Peter Clausen"
- <lars@metafoo.de>, "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
- <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Martin
- Kepplinger" <martink@posteo.de>, "Sean Nyekjaer" <sean@geanix.com>, "David
- Lechner" <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, "Andy Shevchenko" <andy@kernel.org>, "Martin
- Kepplinger" <martin.kepplinger@theobroma-systems.com>, "Christoph Muellner"
- <christoph.muellner@theobroma-systems.com>, <linux-iio@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v10 10/10] iio: accel: mma8452: Support interrupt
- sharing
-Message-ID: <20261011134146.3ae020a1@jic23-hlaptop>
-In-Reply-To: <87mrt1vfz6.fsf@geanix.com>
-References: <20260928-mma8452-open-drain-v10-0-b906fb408386@geanix.com>
-	<20260928-mma8452-open-drain-v10-10-b906fb408386@geanix.com>
-	<CNQ6_DVFGgC82FTU2GwM8v4KY2d4DUOo_b1XhhyOnysR6eWGJEsgFHlNLylYvkM6dWR3mhcGGFNDuN7qwCO1YA==@protonmail.internalid>
-	<aroytGH8u-gGFYvq@ashevche-desk.local>
-	<87mrt1vfz6.fsf@geanix.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XPcrJjpb"
+Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-3ab2bf5e75bso496204a91.3
+        for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 05:47:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791722878; x=1792327678; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:content-type:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=cI52cNV0SAj9KYZseqFKYYVaewclBL5lcykfpxtwH0s=;
+        b=XPcrJjpbpcD3Cm24ktG1KAWyjg8swimzqT25YFiiZ5wA+MUclu3QhiidYd5TIEoF7w
+         STIqx+3ckjFjqxZwwdeCqX3XpF0+pbMBCGiwYEdKuyL2M60qxkF1xXKul9Io5TRs0Hfd
+         Zwd8IpiHaCUnRZrrTqCfA0f9GKV1C2axryjJa1ufp3mo1/38JGupVZGtMG5DycERGbxU
+         AxhZJxIRxTph7T7Aqd6LdyKUUbdh+NmCYvhZRyHTh61FkgOSamkL56fyQ1E37dHtiRrZ
+         vTviqStm3NG8s2qmmsHMhM3wttx0IJ986xkKFDYUou5DgHmBmyVFBbv4Gh47CfaoCb+f
+         Epxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791722878; x=1792327678;
+        h=mime-version:content-transfer-encoding:content-type:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=cI52cNV0SAj9KYZseqFKYYVaewclBL5lcykfpxtwH0s=;
+        b=Ym2jDe74LBvQ7brmx0SrdqC5hS6Ma7Wz9dcXmM/gc3GQUtR9QOuvJ33rJeVm1qR4KD
+         YEpx2ojS2+QX7b1MxjIxE+IrQYjaHvBKm8WGsN3jLOzbiksFIG2QPjcvrPvn9/5rDwJt
+         SnCsd+yr0FRA3sDr3HBxfLLHtz/NX9CUwRD/tuyBYBuzyo8ZRDr6z7PXlIrrAbXrM2HR
+         c0FAo4cm1md/hHwLQujaHcaFx/p9DS7uoYN2Ys8g2A0eVb2Ou800Mk/ytlSL5bWR8e5T
+         om5Ev/qs2vJ7BPA5YC34shcGO4PI8zFAAhWXRa1D2k2kWu9edfPEVHsxTbgao4e5cMos
+         ehvg==
+X-Forwarded-Encrypted: i=1; AKwUvBy1O9Ku6lU3olNJeAaTMzAvYidoPGz1F525oQmUR8k+df00wr9dY7aMk024yqgmGEgm5noqOdRMrZfw@vger.kernel.org
+X-Gm-Message-State: AFq9FYLD+951Nt7hi+mYQjmMWpSQeF8OeQHyKnBpsXScZcSTNaz5w3Kp
+	FVKtyuToOTf285cAgYBDyCmUDB67hY9aS5VLJkHpzD6oyKgWXysP25Rr
+X-Gm-Gg: AYBFou0/iyew6yS9dtSmAWR2Ms3rvKyAEBnY5HWtLkFUqsD2wisH9pqIvnRykQgqy2c
+	837Fd3EL46LhCvVLkI0QiDMIMcqb7qHHv2l2dCIGXpwB/J8GM862zWTUA44ydmyBDZQUJIhKch2
+	n4GDBavLhjbaAlUPJ769suCL51kXXWdkCe6ry2dsnVbVyDlVSSNsYXJFdGbNBBifz/ahWnKNLra
+	r2Uocri53kivuvhJqE7djVN1yHaT1MVhW640F2ixi292SITjgYz+ibIhOtL1Mlxmg3CQFCvCSgQ
+	oiLv6ydE0D0UKz3dcIujv804mpce10V5POmHFZnN5E479YkvnrMR6srlym3/2nsI76UbevsbEzt
+	F35Oq4gQC00z7SNgrPvmAU5eVn++T+8C7s6I1i6oldqko0QBv9g40HzeGncRVeHM/lHISmzyQgc
+	5VO/jD9EVfdFo8lAIPVMYv7FYkDS9goU6xrbw3iyGLKFFX86bSwV7JYiBQIKR7cRSMKrMU4aCKf
+	U7eJz+i2TT9b3/G1oCWZghxYeI2et9uNiNWuuB7uu2wRybZbgpO54/3Qy2WJbslbj2mOvjCxA==
+X-Received: by 2002:a17:90a:51a7:b0:3ab:4262:1a3a with SMTP id 98e67ed59e1d1-3ab42621c33mr3830705a91.61.1791722877717;
+        Sun, 11 Oct 2026 05:47:57 -0700 (PDT)
+Received: from [127.0.1.1] ([121.165.170.166])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab38b9639bsm11623603a91.4.2026.10.11.05.47.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 11 Oct 2026 05:47:56 -0700 (PDT)
+From: khaliforce <kforce@gmail.com>
+To: Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>,
+ Samuel Holland <samuel@sholland.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>,
+ Alexandre Ghiti <alex@ghiti.fr>, devicetree@vger.kernel.org,
+ linux-riscv@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
+ linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
+Subject:
+ [PATCH] riscv: dts: allwinner: Keep MQ Pro Wi-Fi powered during suspend
+Date: Sun, 11 Oct 2026 21:47:02 +0900
+Message-ID:
+ <179172282222.4040500.483739720170904755.mq-pro-sdio-suspend@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Mon, 28 Sep 2026 12:15:57 +0200
-Esben Haabendal <esben@geanix.com> wrote:
+The RTL8723DS driver requests MMC_PM_KEEP_POWER during suspend.
+The MQ Pro SDIO host lacks this capability.
+The request returns -EINVAL and aborts suspend.
 
-> "Andy Shevchenko" <andriy.shevchenko@intel.com> writes:
-> 
-> > On Mon, Sep 28, 2026 at 10:26:26AM +0200, Esben Haabendal wrote:  
-> >> Adding support for sharing interrupt line with other device requires the
-> >> interrupt handler to handle runtime PM suspension properly, ignoring the
-> >> irq if the device is suspended (maybe even off). And while at it, we use
-> >> the PM reference to ensure we do not get suspended while processing an irq.
-> >>
-> >> In order to prevent the chip from raising irq while suspended (that is when
-> >> using fixed regulator, where suspend just means setting the device in
-> >> STANDBY mode), we disable all interrupt sources by clearing CTRL_REG4, and
-> >> then restores the value again when resuming.
-> >>
-> >> The scoped_guard in mma8452_runtime_suspend() is changed to a plain
-> >> mutex_lock() instead, both to prevent mixing guards and goto, but also to
-> >> ensure that we stay in STANDBY mode while writing to CTRL_REG4 and all the
-> >> way up to disabling the device as much as possible.
-> >>
-> >> With that in place, it is safe to add the IRQF_SHARED flag.
-> >>
-> >> Keep in mind that the device by default is using push-pull for the irq pin,
-> >> which might require additional hardware design to allow interrupt sharing.  
-> >
-> > ...
-> >  
-> >> +	pm_status = pm_runtime_get_if_active(dev);
-> >> +	if (pm_status == 0)
-> >> +		/* device is powered down */
-> >> +		return IRQ_NONE;  
-> >  
-> >> +	if (IS_ENABLED(CONFIG_PM) && pm_status < 0)
-> >> +		/* runtime PM was disabled, possibly suspending */
-> >> +		return IRQ_HANDLED;  
-> >
-> > This is very interesting part. I bet this will be the first driver using this.
-> > A big question "why?"  
-> 
-> Because as I understood it, I needed to add this for the patch to be
-> accepted [1]. It is definitely possible that I have misunderstood that.
-> 
-> The technical reason I believe is that during system suspend,
-> pm_runtime_force_suspend() disabled runtime PM, and if a shared
-> interrupt durings this, pm_runtime_get_if_active returns -EINVAL, and we
-> could therefore end up doing I2C reads on unpowered hardware.
-> 
-> Per that reasoning, we probably should be doing this in other drivers as
-> well.
+Add keep-power-in-suspend to the board's SDIO controller.
 
-I suspect that the combination of a shared interrupt and runtime pm
-is moderately rare and even when it is there are drivers doing their
-own tracking to avoid this sort of corner case.
+Tested on MangoPi MQ Pro.
+RTC-triggered s2idle wake and Wi-Fi reconnection pass.
 
-There are a lot of these nasty corners in runtime pm :(
+Signed-off-by: khaliforce <kforce@gmail.com>
+---
+ arch/riscv/boot/dts/allwinner/sun20i-d1-mangopi-mq-pro.dts | 1 +
+ 1 file changed, 1 insertion(+)
 
-This seems like a reasonable solution to me, but given
-all the discussion on this version was around this patch I'm going
-to pick up 1-9 to but ask you to send a new version of this one to
-make sure we get maximum eyes on it.  Please include the PM maintainer
-as well in the +CC in case we have this all wrong!
-
-> 
-> >> +	/*
-> >> +	 * pm_status is now 1 or -EINVAL (with CONFIG_PM not enabled). If
-> >> +	 * pm_status==1, runtime PM is enabled and device is RPM_ACTIVE. If
-> >> +	 * pm_status==-EINVAL, runtime PM is build-time disabled (i.e. CONFIG_PM
-> >> +	 * not enabled), and we can/must assume device is active.
-> >> +	 */
-> >> +
-> >>  	src = i2c_smbus_read_byte_data(data->client, MMA8452_INT_SRC);
-> >>  	if (src < 0)
-> >> -		return IRQ_NONE;
-> >> +		goto out_runtime_put;
-> >>
-> >>  	if (!(src & (data->chip_info->enabled_events | MMA8452_INT_DRDY)))
-> >> -		return IRQ_NONE;
-> >> +		goto out_runtime_put;
-> >>
-> >>  	if (src & MMA8452_INT_DRDY) {
-> >>  		iio_trigger_poll_nested(indio_dev->trig);
-> >> @@ -1120,6 +1139,10 @@ static irqreturn_t mma8452_interrupt(int irq, void *p)
-> >>  		ret = IRQ_HANDLED;
-> >>  	}
-> >>
-> >> +out_runtime_put:
-> >> +	if (pm_status > 0)
-> >> +		pm_runtime_put_autosuspend(dev);
-> >> +
-> >>  	return ret;
-> >>  }  
-> >
-> > ...
-> >  
-> >> +	pm_runtime_enable(dev);
-> >> +	pm_runtime_set_autosuspend_delay(dev, MMA8452_AUTO_SUSPEND_DELAY_MS);
-> >> +	pm_runtime_use_autosuspend(dev);  
-> >
-> > I don't see the respective _dont_use_autosuspend() call anywhere.  
-> 
-> Ah. I was not aware it was attached to a usage counter as well. I will
-> add a pm_runtime_dont_use_autosuspend() to the runtime_suspend: error handling.
-> 
-> > ...
-> >
-> > I am wondering how many of the above possible scenarios you were able
-> > to test.  
-> 
-> Not enough. I haven't done any additional instrumentation to cause all
-> the various error conditions that is handled here in _probe().
-> 
-> > ...
-> >
-> > P.S.  I bet you can now make a presentation "PM runtime in Linux and
-> > why it is so hard."  
-> 
-> LOL. I am getting there, yes. I have definitely learned a lot about how
-> runtime PM works. Especially since I was mostly starting from scratch on
-> that.
-> 
-> But i fear it would easily end up being quite a chaotic presentation :)
-
-:)
-
-I've vaguely be wondering if we need a bunch of self test + examples
-to poke all the more crazy corners of runtime pm.  That way we can
-at least be sure that if we do finally understand it we aren't going
-to get any regressions.
-
-J
-> 
-> /Esben
+diff --git a/arch/riscv/boot/dts/allwinner/sun20i-d1-mangopi-mq-pro.dts b/arch/riscv/boot/dts/allwinner/sun20i-d1-mangopi-mq-pro.dts
+index e2bb6bc16c13..b2c65560d6a8 100644
+--- a/arch/riscv/boot/dts/allwinner/sun20i-d1-mangopi-mq-pro.dts
++++ b/arch/riscv/boot/dts/allwinner/sun20i-d1-mangopi-mq-pro.dts
+@@ -87,6 +87,7 @@ &mmc0 {
+ 
+ &mmc1 {
+ 	bus-width = <4>;
++	keep-power-in-suspend;
+ 	mmc-pwrseq = <&wifi_pwrseq>;
+ 	non-removable;
+ 	vmmc-supply = <&reg_vcc_3v3>;
+-- 
+2.53.0
 
