@@ -1,131 +1,128 @@
-Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6B143D9DB9;
-	Sun, 11 Oct 2026 06:03:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.121.34.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B77A0279DB1;
+	Sun, 11 Oct 2026 06:27:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791698612; cv=none; b=iv0gZAWVzGuJcj22dI839vLY+5LQ2rEZFKKdT8NGStsWbfNy6Su73t1U5xrlb9EcnFq0w9kWfliYMHR6ROzIHBAB5zfpHQ3Fk7cKEoda09Kj6xrZLq2VNgtiHpWz0cFotXqqO8brwsF0wd8+TWgJMKPEwoUYqO9qo5iQM8gCbZU=
+	t=1791700073; cv=none; b=tg7zJuapICnjECGVziZavgPYgOfcCY2GNye7437LKT8I4UAUSlhYLCGaiSxrplL/qdeBf+AhktZUIy+lMJKAXyp0vTz5aObzMETwWyAz8UnACdXz+spPpcyKPJTOYgUDXEf6MK598JR6Ry295Dxko+govQr0p+HI3DdH22rTjY8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791698612; c=relaxed/simple;
-	bh=bJmutYSfU12J9m42/ZAR2XzxhB6aUUDLS/p13FCHDDQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sgT9NjZsNJ7DHKn0NM2O/IKDAbhYvhp2GRprjmn/j9OAY+U86kFJqacB0irfiyRX/2KyxlM3d6twpzOJxWX64liwW/8rErlbhafurEm6LIpfADxglbiq83S0cTR8T11P1JmYB/QXZg944daODLH5PQLfmdLcGu/knGMJFk165Z4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; arc=none smtp.client-ip=92.121.34.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
-Received: from inva020.nxp.com (localhost [127.0.0.1])
-	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id D45D01A00B4;
-	Sun, 11 Oct 2026 08:03:27 +0200 (CEST)
-Received: from inva024.eu-rdc02.nxp.com (inva024.eu-rdc02.nxp.com [134.27.226.22])
-	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id B25C61A0031;
-	Sun, 11 Oct 2026 08:03:27 +0200 (CEST)
-Received: from lsv051416.swis.nl-cdc01.nxp.com (lsv051416.swis.nl-cdc01.nxp.com [10.168.48.122])
-	by inva024.eu-rdc02.nxp.com (Postfix) with ESMTP id 29BEC20301;
-	Sun, 11 Oct 2026 08:03:27 +0200 (CEST)
-Date: Sun, 11 Oct 2026 08:03:27 +0200
-From: Jan Petrous <jan.petrous@oss.nxp.com>
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>,
-	NXP S32 Linux Team <s32@nxp.com>, Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Ghennadi Procopciuc <ghennadi.procopciuc@nxp.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Bogdan Hamciuc <bogdan.hamciuc@nxp.com>,
-	Ionut Vicovan <ionut.vicovan@nxp.com>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Clark Wang <xiaoning.wang@nxp.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Chester Lin <chester62515@gmail.com>,
-	Matthias Brugger <mbrugger@suse.com>,
-	Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Richard Cochran <richardcochran@gmail.com>,
-	linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
-	imx@lists.linux.dev, linux-pci@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	Vincent Guittot <vincent.guittot@linaro.org>
-Subject: Re: [PATCH RFC v3 04/12] net: pcs: add NXP SerDes XPCS shared core
-Message-ID: <assmr2PH8064/pJn@lsv051416.swis.nl-cdc01.nxp.com>
-References: <20260919-s32g_serdes-v3-0-9d68868c1e89@oss.nxp.com>
- <20260919-s32g_serdes-v3-4-9d68868c1e89@oss.nxp.com>
- <07c5ed86-755a-4094-b45a-6316d10f4515@lunn.ch>
+	s=arc-20240116; t=1791700073; c=relaxed/simple;
+	bh=+fkuQeaiBzgWlitXbBzzW9cMa5R1QZo/J9S1LpNBoBo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=W6GlG409c+X3mZxsLIq02bch2nzdplpboeZvOoM0+oo+NSZdwl3KhYptRVdjA4yziqa9lplMigeSa63RwuDnZSA7xiDvl6v0S3oqkDNLkHy1xc6LSqi3a2KICSUiDSpXXBZ+W05N+H3LncPp7ot5x6E9+xuHMwCA7n5+vzIJHN0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ARsyvieV; arc=none smtp.client-ip=10.30.226.201
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ARsyvieV"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 29B42C2BCF5;
+	Sun, 11 Oct 2026 06:27:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791700073;
+	bh=+fkuQeaiBzgWlitXbBzzW9cMa5R1QZo/J9S1LpNBoBo=;
+	h=From:Date:Subject:To:Cc:Reply-To:From;
+	b=ARsyvieVBL8BG3I4NF1hKrKuNi/8K2gHvGaW9PpSQr+tPZ8xGO4cjzqP7SYCxN/Kl
+	 BW2E1H5k3OWNrKtILLQgPiUmGLetdoI8uDnC8Ukk6/xF7BNfvzfMfvDh1thPrK2JGL
+	 yhLLAk5UPznmosS77mo0+VopaaFQlZWNPnXDslClf7FFxVyQztaIIxN8CNQ7aQTl1M
+	 mAjrnxWhss3wBGnyHPjLBDkRDWJbcNl0DNL1tIK/GbyVxwHWpNHh+0287zb0EmME0x
+	 0J+raWsrPSz2QTk9abWNSTP3Y8KlCNAkS9kjYmglI5kYrA1UGF1NG9+M2bFjac8iWj
+	 2h1k89joxbSNw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 03168CA9EC7;
+	Sun, 11 Oct 2026 06:27:52 +0000 (UTC)
+From: Ryan Leung via B4 Relay <devnull+untilscour.protonmail.com@kernel.org>
+Date: Sun, 11 Oct 2026 06:27:42 +0000
+Subject: [PATCH] arm64: dts: rockchip: add maskrom and recovery ADC buttons
+ to NanoPi M5
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <07c5ed86-755a-4094-b45a-6316d10f4515@lunn.ch>
-X-Virus-Scanned: ClamAV using ClamSMTP
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20261011-nanopi-m5-adc-v1-1-822edeb1acf4@protonmail.com>
+X-B4-Tracking: v=1; b=H4sIAF0sy2oC/yXMTQ5AMBBA4avIrE3S+g1XEYtqByNR0iIScXfF8
+ lu8d4Enx+Shji5wdLDnxQbIOAI9KjsQsgmGRCSFFFKiVXZZGeccldFYkEhN1qVVXpYQmtVRz+f
+ 3a9rffu8m0ts7gft+ABA07nZxAAAA
+X-Change-ID: 20261011-nanopi-m5-adc-6e03d4b39577
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ Ryan Leung <untilscour@protonmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791700071; l=1728;
+ i=untilscour@protonmail.com; s=20260906; h=from:subject:message-id;
+ bh=kg6KVsnzM/S6c7CrUcQL5EMoEDLITm6RqDphdFMeMKY=;
+ b=dV8N2jv8eLKcK6TyO8zkxuVRUG+UslFvJPAxdBtKgxpIlzoMOG0owvnjync47Ne68aflqv4d+
+ 6Ya5ousvZTsB+1Kv3OOTGPcqR7+KmFswpgy9P3VtuqMtIuZfjsX4/lB
+X-Developer-Key: i=untilscour@protonmail.com; a=ed25519;
+ pk=eCaNcoQNRWYKZ9D7KbOGKvQVK2YFguJXZxglTtAR7Xk=
+X-Endpoint-Received: by B4 Relay for untilscour@protonmail.com/20260906
+ with auth_id=1011
+X-Original-From: Ryan Leung <untilscour@protonmail.com>
+Reply-To: untilscour@protonmail.com
 
-On Sun, Sep 20, 2026 at 08:39:26PM +0200, Andrew Lunn wrote:
-> On Sat, Sep 19, 2026 at 08:54:32AM +0200, Jan Petrous via B4 Relay wrote:
-> > From: Clark Wang <xiaoning.wang@nxp.com>
-> > 
-> > The SerDes subsystems found on NXP S32G and i.MX SoCs integrate a
-> > Synopsys DesignWare Ethernet XPCS and an Ethernet PHY (PMA) with an
-> > identical register layout. Only the register transport differs: indirect
-> > memory mapped access on S32G, Clause 45 MDIO on i.MX.
-> > 
-> > Add a transport agnostic phylink PCS core which operates on regmaps
-> > provided by the platform glue.
-> 
-> What is not transport agnostic with the current code.
-> 
-> Think carefully about that, before you answer.
-> 
+From: Ryan Leung <untilscour@protonmail.com>
 
-Ok, got it, pcs-xpcs only reaches the hardware through mdiodev_c45_*(), so
-whatever sits behind the mii_bus is the transport. pcs-xpcs-plat already
-puts the DW indirect MMIO viewport behind one, sja1105 and txgbe put
-their own register access behind one, and on i.MX the XPCS is on plain
-Clause 45 MDIO in the first place. The claim in the commit message was
-wrong, and with it the justification for a second core.
+The FriendlyELEC Nanopi M5 has MASKROM and RECOVERY buttons connected
+via SARADC (sheets 6 and 19 of the schematic for both the LPDDR4X [1]
+and LPDDR5 [2] versions). Add the two buttons to the device tree.
 
-For the next version I will drop this patch and move S32G onto
-pcs-xpcs. The SerDes PHY driver registers a mii_bus per XPCS instance
-over the existing indirect accessor and creates the PCS with
-xpcs_create_pcs_mdiodev(). The S32G PMA sequence becomes a
-dw_xpcs_compat .pma_config keyed on an S32G PMA ID, the same way the
-SJA1110 and TXGBE ones are.
+[1]: https://wiki.friendlyelec.com/wiki/images/1/10/NanoPi_M5_LP4X_2411_SCH.PDF
+[2]: https://wiki.friendlyelec.com/wiki/images/9/97/NanoPi_M5_LP5_2411_SCH.pdf
 
-That leaves two things S32G needs from pcs-xpcs, neither of which is
-about the transport:
+Signed-off-by: Ryan Leung <untilscour@protonmail.com>
+---
+ arch/arm64/boot/dts/rockchip/rk3576-nanopi-m5.dts | 28 +++++++++++++++++++++++
+ 1 file changed, 28 insertions(+)
 
- - skipping the generic soft reset. The vendor reset
-   (VR_MII_DIG_CTRL1.VR_RST) is part of an ordered bring-up of both
-   XPCS instances, which the SerDes PHY driver owns because the PMA is
-   shared with the PCIe lane. The PMA ID check that already clears
-   need_reset for TXGBE and FBNIC would cover it.
+diff --git a/arch/arm64/boot/dts/rockchip/rk3576-nanopi-m5.dts b/arch/arm64/boot/dts/rockchip/rk3576-nanopi-m5.dts
+index 3a305408fa16..46c88b1ccde7 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3576-nanopi-m5.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3576-nanopi-m5.dts
+@@ -41,6 +41,34 @@ hdmi_con_in: endpoint {
+ 		};
+ 	};
+ 
++	adc-keys-0 {
++		compatible = "adc-keys";
++		io-channels = <&saradc 0>;
++		io-channel-names = "buttons";
++		keyup-threshold-microvolt = <1800000>;
++		poll-interval = <100>;
++
++		button-maskrom {
++			label = "maskrom";
++			linux,code = <KEY_SETUP>;
++			press-threshold-microvolt = <0>;
++		};
++	};
++
++	adc-keys-1 {
++		compatible = "adc-keys";
++		io-channels = <&saradc 1>;
++		io-channel-names = "buttons";
++		keyup-threshold-microvolt = <1800000>;
++		poll-interval = <100>;
++
++		button-recovery {
++			label = "recovery";
++			linux,code = <KEY_VENDOR>;
++			press-threshold-microvolt = <0>;
++		};
++	};
++
+ 	keys {
+ 		compatible = "gpio-keys";
+ 
 
- - no EEE. S32G3 does not implement VR_MII_EEE_MCTRL0/1, so
-   pcs_enable_eee/pcs_disable_eee must not touch them.
+---
+base-commit: d2abcbb905b0e4b2e06b257fa1e5bcf4faa6dbda
+change-id: 20261011-nanopi-m5-adc-6e03d4b39577
 
-Both will be separate small patches against pcs-xpcs so they can be
-judged on their own.
+Best regards,
+--  
+Ryan Leung <untilscour@protonmail.com>
 
-Thanks,
-Jan
+
