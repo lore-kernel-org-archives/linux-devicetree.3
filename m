@@ -1,185 +1,234 @@
-Received: from iad-out-007.esa.us-east-1.outbound.mail-perimeter.amazon.com (iad-out-007.esa.us-east-1.outbound.mail-perimeter.amazon.com [3.221.209.22])
+Received: from pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.13.214.179])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90B19364029;
-	Sun, 11 Oct 2026 05:01:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=3.221.209.22
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791694902; cv=fail; b=sCaE/vVkKhebnrYLPY7jyO1ypy8sp5aF/r5waA3mBxmfvVl77AFqF2gWHNwze0dbrBFX9TwlvTf5cmlWLvpcJb38YcxgffeWfRaQwebpDR94GLp2gIYsJAT4qWYI5jEjnBLH8J3vPEDxE2weoADxQHdabStsmiIN2Spnf2LrTK0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791694902; c=relaxed/simple;
-	bh=EYCEsvDueaUT6ZfLfopmv76uFh01Fin+DSzyS1PJEuE=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=HY9i++uDkQ2LfBpNsEZW1pPHhv7WkelGQyAiwL8nwpgxQ/j4Jx5Rti64txyx/SajPpwzuV1us/nZUlJGSrhK1nmh3XhWcEGv/OiJmBjTgDUVg9FKYdD7QaIxFLJbgb8GrW1lPbomKld8mGZeSpOFbpc5qWxLc+90ZPRX7/bZFfg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=BmDCVO8L; arc=fail smtp.client-ip=3.221.209.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B78242050;
+	Sun, 11 Oct 2026 05:04:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.13.214.179
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791695099; cv=none; b=BvwsoKOM53sJcQYdQe0WmU6I6ZYfqM+bAL3/9mzkc+thpFqXuzT4ENsBRb08XI9IeMFaXMcZjBI+p/r7OYIv2m/5BgsJmb+ntmd2J65QIbenoFkB+BKW4uq7KpT3Cauwu1A6HjCLpkhLbD/3FK8DGUveS7kioZ5OdkF/4jLZQew=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791695099; c=relaxed/simple;
+	bh=8GsryULQW3t+UdlV78QIi5IFaLaHhI2THytNcuVSSMs=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=FDdgHW0rekf0pkIvzbYxd7LveKb1r+rSQ91wSqtpCBeH9M/G7KodCXdnweEhxXjrRbNickNgvBJA1ZZWfx9bGCtkYSv38M1NsvRSspB2nrv8iQY4kx7eUZ8aaGG0kekVH3OCJN296bkLCpZ7nPmFlHUwo0TOwC5otJU6h8pfmDA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=d9K+bKif; arc=none smtp.client-ip=52.13.214.179
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="BmDCVO8L"
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="d9K+bKif"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
   d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
-  t=1791694901; x=1823230901;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=EYCEsvDueaUT6ZfLfopmv76uFh01Fin+DSzyS1PJEuE=;
-  b=BmDCVO8LIwX0JqQM+zGJ+1pDbRdqLnaJQVHZOfKXZgIjaAHmfp9cNDID
-   tGXJaC7zpaomXp3a5WcrKNcOiLqKeYuNJDqn7RRTGDmsytThYh6f01h+L
-   5XnGeJF6SfWkGU5ExedCvu75zhCFdcW7FINWJNyfGUiAc9dc68D4ov1r7
-   GtBxup4xTibzunLZ9tgD4/5IVo1rniDNRFBYoMqhWWVrlCIEuVrHjrQzB
-   0VfqKiLhbLZvtdyFlE2A6n9kVBy0UsolgMxFM0jabpSUq/V0/A0JPNE1r
-   sU7Mtyh/9TQaY/OvxUTSqfxZEXmcBPafQ/Ld7AwUvDLRGrLIfDqY6AYtI
+  t=1791695098; x=1823231098;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=Nq1n3MCDMCrOxYmHsV/p30iqaRzrAo2x/jYJlgFyxxI=;
+  b=d9K+bKifotFesXMs7/+Qx4SvgNkDLZelNcJY0/6OfWXQhFzl97cGrqME
+   K1o86UVAVGer+dRAeRMVJWMu/KCMzYF/0XOH0LEkT8k+xDCV5TY3jrFHA
+   DDp4VYCskH1ET6VXaIRiAJ2CKMMPats3EbyxtovBm8ZO6V4noS5kQVJeO
+   v62xFT9btog8QNTpSwVPwt3zU1q6dTI5b7hDkSWeDzUfYHfRL0KVRpvUr
+   fzgVdwUIE5CO2BczpiVWmRItb8cF89HXVXAjP1Pyluev7BewpJ5YySn4u
+   q5Luh+qZ25EI264jMbU58AvHI5axQgn7gyAI//0UlgjlZngV+jKa0wBnO
    g==;
-X-CSE-ConnectionGUID: C1MbNFeTSauGQl1VSH9lsQ==
-X-CSE-MsgGUID: 0vaWUoR7S9arR18mMNY+2Q==
+X-CSE-ConnectionGUID: WcJHDpVmTO+g27jAur1qMg==
+X-CSE-MsgGUID: RdoGD4LpQJm6URf6cVagJg==
 X-IronPort-AV: E=Sophos;i="6.27,151,1787011200"; 
-   d="scan'208";a="29363499"
-Received: from ip-10-4-10-75.ec2.internal (HELO smtpout.naws.us-east-1.prod.farcaster.email.amazon.dev) ([10.4.10.75])
-  by internal-iad-out-007.esa.us-east-1.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Oct 2026 05:01:37 +0000
-Received: from EX19MTAUEC002.ant.amazon.com [52.94.133.138:20380]
- by smtpin.naws.us-east-1.prod.farcaster.email.amazon.dev [10.0.22.157:2525] with esmtp (Farcaster)
- id 5e14e02d-96c3-4b31-9e4f-f1bb675cd130; Sun, 11 Oct 2026 05:01:37 +0000 (UTC)
-X-Farcaster-Flow-ID: 5e14e02d-96c3-4b31-9e4f-f1bb675cd130
-Received: from EX19EXOUEA001.ant.amazon.com (10.252.134.47) by
- EX19MTAUEC002.ant.amazon.com (10.252.135.253) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.53;
- Sun, 11 Oct 2026 05:01:37 +0000
-Received: from EX19EXOUEA001.ant.amazon.com (10.252.134.47) by
- EX19EXOUEA001.ant.amazon.com (10.252.134.47) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.53;
- Sun, 11 Oct 2026 05:01:37 +0000
-Received: from DM2PR0701CU001.outbound.protection.outlook.com (10.252.134.239)
- by EX19EXOUEA001.ant.amazon.com (10.252.134.47) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.53
- via Frontend Transport; Sun, 11 Oct 2026 05:01:37 +0000
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=idbOrcWwHSG/6hUtPCPUzUY1TqbLzl+pLIQPhQP+3AVEeNg+qXaHcCQAzfBgSur9xmWcDaHBa0x79cO5ZxlG7t92cwaBl3LzAUd2eN3sfvWAu4xXJuAxiXGOWoHL98wUAkgZOepfKdQYljPA+o+uJckeUPoDCZPFUnfx4Tsjv96pXKsEujnMhh+v7n9Cd927L9O8GXdmqT0MiSLsY3EdciL23mAPlliUqts2GcODuTGnEVFbJc+NOdRQIO4wznedr1CnMw8mnzFJAAt1icRzV6HIT/VcEXQh0QxjZERqwSMuvZCRnRpFw1eTgkSUl2M7lrmTyo6kdEy6vPfHT2p3ew==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=EYCEsvDueaUT6ZfLfopmv76uFh01Fin+DSzyS1PJEuE=;
- b=baAOmA54aKI30b2/CjNhN7IwnatZUS6WhJgB+uZwMxA2OR0DHjgm8w4jhkikA3iqrg6YDpGO7xqmNfhZbB2W+UXrCrO+rzQBzeOpZfmW1H7+dkRidO33lnmRsVYNiSpzdx+/sQ+vWIXlySwrGA0aQ0K5mUtwzGZgMZFpMiPzI1LROxig9WORiecQXtcp3adXrtSLR6WO9NP79klem2wGbye78qNDafdYaX8ygLtTgpkqKNJqIGdns8rNE0jkuGJSpeAsLLVBCoCFVPGcpoe1Ty2vTRaLc60hqD9dX5AmSYpK5hl1vA8cHyKbfApqvTU2o7CHlmJXZ4SZRbX1PC0lMQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amazon.com; dmarc=pass action=none header.from=amazon.com;
- dkim=pass header.d=amazon.com; arc=none
-Received: from BY3PR18MB4722.namprd18.prod.outlook.com (2603:10b6:a03:3c9::19)
- by CH3PR18MB5485.namprd18.prod.outlook.com (2603:10b6:610:15d::7) with
+   d="scan'208";a="30924730"
+Received: from ip-10-5-12-219.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.12.219])
+  by internal-pdx-out-005.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Oct 2026 05:04:55 +0000
+Received: from EX19MTAUWC001.ant.amazon.com [205.251.233.53:24189]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.7.115:2525] with esmtp (Farcaster)
+ id 224c31d1-0129-4298-ba35-296a9fe4459b; Sun, 11 Oct 2026 05:04:55 +0000 (UTC)
+X-Farcaster-Flow-ID: 224c31d1-0129-4298-ba35-296a9fe4459b
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWC001.ant.amazon.com (10.250.64.174) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.49;
+ Sun, 11 Oct 2026 05:04:54 +0000
+Received: from dev-dsk-farbere-1a-46ecabed.eu-west-1.amazon.com
+ (172.19.116.181) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.16; Sun, 11 Oct
- 2026 05:01:32 +0000
-Received: from BY3PR18MB4722.namprd18.prod.outlook.com
- ([fe80::e307:5f61:2694:b219]) by BY3PR18MB4722.namprd18.prod.outlook.com
- ([fe80::e307:5f61:2694:b219%4]) with mapi id 15.21.0451.022; Sun, 11 Oct 2026
- 05:01:32 +0000
-From: "Farber, Eliav" <farbere@amazon.com>
-To: Thomas Gleixner <tglx@kernel.org>, "Shenhar, Talel" <talel@amazon.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.53; Sun, 11 Oct 2026
+ 05:04:53 +0000
+From: Eliav Farber <farbere@amazon.com>
+To: Thomas Gleixner <tglx@kernel.org>, Talel Shenhar <talel@amazon.com>
 CC: Radu Rendec <radu@rendec.net>, Rob Herring <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: RE: [PATCH v4 8/8] irqchip/al-fic: add irq_set_affinity callback
-Thread-Topic: [PATCH v4 8/8] irqchip/al-fic: add irq_set_affinity callback
-Thread-Index: AQHdWT2V0aRacIbvtEiqgO5H1Ow20g==
-Date: Sun, 11 Oct 2026 05:01:32 +0000
-Message-ID: <BY3PR18MB472230FEF12ADE458EECF2E4C6902@BY3PR18MB4722.namprd18.prod.outlook.com>
-References: <20261008090058.38591-1-farbere@amazon.com>
- <20261008090058.38591-9-farbere@amazon.com> <87jynpfi4v.ffs@fw13>
-In-Reply-To: <87jynpfi4v.ffs@fw13>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amazon.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: BY3PR18MB4722:EE_|CH3PR18MB5485:EE_
-x-ms-office365-filtering-correlation-id: 6ffd0747-b652-45c2-78d0-08df2754b7d4
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|366016|23010399003|376014|22082099003|18002099003|38070700021|56012099006|6133799003|10067099003|4143699003|11063799006|261009223027099003;
-x-microsoft-antispam-message-info: 5rIR+CWlJwz+JDqvSN211AXDSM4aiB9/5bgxHYuBUH0UsILvo0ToaNXjXbDSeAUhF2ETBL3hYFxaInczTzGVKwcYZ3x/69D2FFgzp4wqimRJJT3f5uK/gty5JgHFCABKBmARykLSb+dWimmWAa+s6iVmlLwhvnaZp3XEIAyAtDcDx01lxrtOhVNfe2hhPS7SIzyXB4puH4Ur5Oo/iurgjKrMOZwaoyhdDhvbBxudIGipl2axBY8mV6VEslUB+pnIn6ORqfjrWZWYOSyJbM+UrIP5sXnRmebYAfKFuKSqJFFpUzgPkhtxCFeA7BKHo3vrs+76iS5lPaYqwVtqK7K/raPqTlKpnEM8AmE3smVQUSSHytPx+hx6BcoacLvInkiEdMbLdoVm2i/cC2go1un5BNldlE73TjwTGFYihBnUCKZ8eAlA16VbsgfWFLbYtH/XyoXK/BkatOH4E8rFf7Bz2StkU4A5rujxrcRuIzyKiCp1CsZJLBHejFCdN5qq6hDy92Cv9pRgijyE64iz1b6xJWvCQovQA24OpfkdwJbgZj1Y6zzUzbvaLGcaOMYFwZeePWvD0oS1nsqspL4oyPgmImtF1cRzG/krCDPrLVBESGyXAfqM1MyFjxBrN2hHWiG8O6CaVVsucv8lWvcX1yz7uDsWkQIK8CG89U/y0Iv0ktNcGN/QR8Uki7drb+3l0MybLFjOF2t2O0n91+qRcK0UoUHzVoAJu7M5L1F6dMlfNuY=
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:BY3PR18MB4722.namprd18.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(23010399003)(376014)(22082099003)(18002099003)(38070700021)(56012099006)(6133799003)(10067099003)(4143699003)(11063799006)(261009223027099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?FqDTgGsPHUz4XosJA/QSuZbhB0LIH+d3cOApB2ex9nvBa1qsdT5+28qYWVhM?=
- =?us-ascii?Q?xw8euBGgY6xhn/BdoMyoSFu0aOAPY2Go5XaG7WX+DePD+KJExtYen8cM4W0p?=
- =?us-ascii?Q?0INWUv4Sb6SdhxegkB29TSSIPaSJniPRJPop6tEXkdohtuORcpd5Js6iyjV5?=
- =?us-ascii?Q?tGIG+z2HGmZ7qj1xRDL38FlqUEtpSVla7OVN4QHWe3avyg51BXjlZj7oF25O?=
- =?us-ascii?Q?bREooOQOc9ZFf7bJntjLTGyAzurc7rUmL5zT7KqKwbYSiSl5Q2SILYpDf4TK?=
- =?us-ascii?Q?onKLb4FYfkWVgznPkRFQQbPo06h7ZDGpW86iNVanwly2URB4dekVr6Sgw/Mr?=
- =?us-ascii?Q?HIgJRAf/PQ+40ACizo2qALKVp5vLILCh0VXwzOHSAJAAWwTm8BVwHfTd/bbL?=
- =?us-ascii?Q?qHfxSiYJJ7Wea/PbvTEbssBQBOHG9Hr7W8xAL29wrBDLDXkIko9XAdctym3a?=
- =?us-ascii?Q?zf6Nmo7r76HFQA/DD15Pd3XL1uceSq2239v3ktFHr+LUWroqQ3NBK9T9xhlP?=
- =?us-ascii?Q?SndgjWRqNWCP9jo/SDZbpb0bagM89D3fgIBVmjaO23sWwItr0gNayJurUruZ?=
- =?us-ascii?Q?zLP36rHary6LczGJSrPVLwSJOc+JN0hn5c9R1b7J8B2dE5btO8HaQFsoVyfO?=
- =?us-ascii?Q?DikyZRRaeGRn01XEWdRz3rX6SzPRbq/Y2hvLi89JyNTdc7knvBFM4IBQVJNP?=
- =?us-ascii?Q?fbmaZRaB8GM/BsigdnzJQAAgM5w5BMF72iuZ4FbfCBtE4TGC+UBRTt1aEEZa?=
- =?us-ascii?Q?guspvRqVt6BNfrjCXvWAXWDiMRuhvRA0OrWcv75mCZ/tQymk01CWAhLZez7W?=
- =?us-ascii?Q?70UNsdLXv7RlSmu3TnxNPI0/isRYYoocI+jkHRQFJHXguXMefNZHF1hHk1WD?=
- =?us-ascii?Q?LpQELR6gMfCMtMAPPTpyqqz/+k3fj9/fxhKXBqs295XvA/doXE5srY6AgEWI?=
- =?us-ascii?Q?8ktfWb+VxKrgyPqmYDKefXjHciOGYJduMWZ1d9VERrUE/lxQ1Il3dY2TR802?=
- =?us-ascii?Q?36peBcODr3yDiiKwD8Raf/c+UitV/dGukks0rq6Ml9Y1q5HzNg1wl85utGUm?=
- =?us-ascii?Q?Zvo57ZsBNDRvvkQ7nzcBTFAALeFpJSL0jb4VnYrPflRwxrLQ7BmnBEV5zEnW?=
- =?us-ascii?Q?lMCAnwKErG9hKFdDTrai3mr280etx2QV0X9eBL6oa9I3bMMhqkIdNgMV+idN?=
- =?us-ascii?Q?NeiBaRCeQCo6cCy55EcG6DFEacL9pQwRG/Ea36YT4J419OiJbaYxqoToFB/F?=
- =?us-ascii?Q?E1YoQCaaGX1U+FU8tOCWABhQwKY1PXV7XXKk74jKKGxdUwvYibArBtxlWjcO?=
- =?us-ascii?Q?oYoIJE8ddipzNuvv0F/khefojKPWD30d6gmiTMYbtEqK3iNb+p6I+geuOfa6?=
- =?us-ascii?Q?XHiU3r8lu75uKhyn6azvxXn9p2/MacQUeqFjPFu+4pnDXu4MxHF4WCx7ffLH?=
- =?us-ascii?Q?yPshkwDRYnZr78BLkZjM+gvB32Pg40e5X0wQF6ssIYuuMQHIYook84x1Ae1n?=
- =?us-ascii?Q?+EeYpX/zY0ylPquF6A3cN1Ktz5sqQkbmCgc0QUvlB/T4ZR+sr2HupS1ew0Kf?=
- =?us-ascii?Q?5BfSgMJyygvrQRUQQmqIF5SWj5XFHVmz9qNuM3IiIpLQX6cWk3V+ZuEF9nvM?=
- =?us-ascii?Q?olNOo48+kn6RUIVFFrnkSBin91iMCDb4ReycR8aGdDTb6EeJ7P6GyVivhJm4?=
- =?us-ascii?Q?BIbYV7MiDSQOxbOFjrl2T4O/Pd3WOiEQ+kzGSGd+0m/KWRkr?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+ Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, "Eliav
+ Farber" <farbere@amazon.com>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>
+Subject: [PATCH v5 0/9] irqchip/al-fic: shared parent IRQ, error/fatal outputs and affinity
+Date: Sun, 11 Oct 2026 05:04:39 +0000
+Message-ID: <20261011050449.41903-1-farbere@amazon.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: dBXnM5VvnBKTikIRIj8Ul1Tzgc5ATXdXzrJ2a+yj/D5gulWTbjRS++ID9k9m2/iq2Wxg/cVFO/wjqrfYwaDP2rxEM0B5Z2ioru7D0IIQXnaUaxxzc7a6gLNEYs+zvK884YoZPE0MR1sVbHYCDkY2p3FTdNvUyb30tAl28spkshT5a8FiS5Nv3N9GmHBX9EMxEVG54pxg4L9nxVPg9RcX8R0hSI0dgW+2hiwBNz7pHvOLAfaoI+OSpkW+FZR3fA9AVHuJHeWwHsqan0ByLn064XB0m3mXpBEbZNo9MumfUh7GKOqxce5cP+AkNA6i4vb7EFWQhsqUK+Zy1TNVW9KbyA==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BY3PR18MB4722.namprd18.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6ffd0747-b652-45c2-78d0-08df2754b7d4
-X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Oct 2026 05:01:32.4285
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 5280104a-472d-4538-9ccf-1e1d0efe8b1b
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: KbqWqft+Qh/IBnm9E1W8rtJsVf/S39B5QfWphrKbFMhF5IEdgODwsSXPThGUEsc5UXasu8EnQcdZAe/Y8dOoDQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR18MB5485
-X-OriginatorOrg: amazon.com
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D031UWC002.ant.amazon.com (10.13.139.212) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-On Sat, Oct 10 2026 at 21:52, Thomas Gleixner wrote:
-> On Thu, Oct 08 2026 at 09:00, Eliav Farber wrote:
->> The FIC aggregates up to 32 interrupt sources into a single parent GIC
->> SPI and has no per-child affinity control; affinity is determined by
->> the parent GIC SPI routing.
->>
->> irq_set_affinity() fails with -EINVAL when the target irqchip has no
->> irq_set_affinity callback, which prevents drivers that call it from
->> probing when their interrupt is routed through a FIC instance. Add an
->> irq_set_affinity callback that returns IRQ_SET_MASK_OK_DONE
->> unconditionally.
->>
->> Affinity requests cannot be forwarded to the parent GIC SPI, because
->> it may be shared by several FIC instances and changing its affinity
->> for one child would silently move all the others. A pr_warn_once() is
->> emitted when the requested affinity differs from the parent's current
->> affinity, giving visibility without failing the caller.
->
-> No. That's a horrible hack and just pretends to solve a problem.
->
-> We have the interrupt redirection infrastructure to handle that
-> correctly. See fcc1d0dabd and subsequent commits.
+This series extends the Amazon Annapurna Labs Fabric Interrupt Controller
+(FIC) driver to support newer hardware revisions found on later Annapurna
+Labs SoCs, plus a few smaller fixes and cleanups.
 
-Thanks, that's exactly what v5 uses. Dropped this patch and implemented
-per-child affinity with irq_chip_redirect_set_affinity() and
-generic_handle_demux_domain_irq(), with an irq_pre_redirect callback to
-move the ack (and mask, for level-triggered groups) into parent context.
-Tested on our hardware: a child pinned away from the parent SPI's CPU
-runs on its target CPU with no re-fire storm.
+The block the driver calls a FIC is the generic Annapurna Labs interrupt
+controller, built from groups of up to 32 triggers each. A device tree node
+describes one group, not a whole controller, and the groups of one
+controller share that controller's output line toward the parent GIC SPI.
+Later revisions add two interrupt outputs on top of the original "info"
+output - an "error" output and a "fatal" output - each with its own mask
+register. Which output a group drives is fixed when the SoC is wired.
 
-Will send v5 shortly.
+The series is organised as follows:
 
-Thanks,
-Eliav
+  1. Fix an argument alignment and a repeated word flagged by checkpatch.
+     No functional change.
+  2. Print the init error with %pe instead of %lu, so a failure reports a
+     legible error code.
+  3. Use %pOF in log messages and raise the successful-init message to
+     pr_info, so each FIC instance is identifiable at boot.
+  4. Keep the device_node in struct al_fic instead of a cached name string
+     that aliased node storage, and take a reference on it.
+  5. Request the parent interrupt as shared (IRQF_SHARED) instead of a
+     chained handler, so the several nodes of one controller can share one
+     GIC SPI. The handler filters the cause register through the generic
+     chip's mask cache, so the cache is seeded from the value the driver
+     programmed before the parent is requested.
+  6. Extend the binding with an optional amazon,al-fic-mask property
+     (info, error or fatal; default info) selecting which output a group
+     drives.
+  7. Add error/fatal output support and FIC v2: version detection from the
+     control register and the two extra mask registers.
+  8. Add FIC v3 support. v3 reports version id 2 and exposes the same
+     group layout as v2, which the existing handling already covers.
+  9. Use the interrupt redirection infrastructure to give each child real
+     affinity. irq_set_affinity() fails with -EINVAL on a FIC-routed
+     interrupt because the FIC has no hardware affinity control and a
+     child's handler normally runs in the parent's context; use
+     irq_chip_redirect_set_affinity() and generic_handle_demux_domain_irq()
+     so a child whose affinity excludes the parent's CPU runs on its
+     target CPU in IRQ work context instead.
+
+Changes in v5 - a maintainer rejection and a review thread settled on patch
+9, two sashiko-bot findings on the v4 posting, one review comment from
+Radu Rendec on patch 4, and two tags. The new patch 2 shifts the
+numbering of every later patch by one.
+ - patch 9 (was 8): REWRITTEN. Thomas Gleixner rejected the
+   IRQ_SET_MASK_OK_DONE approach ("a horrible hack ..."). This version
+   instead implements per-child affinity using that infrastructure, per Radu
+   Rendec's confirmation of the shape (irq_chip_redirect_set_affinity(),
+   generic_handle_demux_domain_irq(), and an irq_pre_redirect callback
+   that moves the ack/mask into parent context) and the dw_pci driver he
+   and Thomas referenced. Tested on our hardware.
+ - new patch 2: print the init error with %pe. al_fic_init_dt() logged
+   PTR_ERR(fic) with %lu, which turns a negative error code into a large
+   positive number. The bug predates this series and is only visible here
+   as context in patch 3.
+ - patch 4 (was 3): take a reference on the device_node the driver keeps.
+   of_irq_init() stopped holding one past the init callback in commit
+   30724547b221 ("of/irq: Fix remaining refcount leaks in of_irq_init()"),
+   so the commit message no longer argues from that behaviour. Radu
+   Rendec's Reviewed-by is dropped: the code changed.
+ - patch 5 (was 4): Radu Rendec's Reviewed-by added.
+ - patch 7 (was 6): Radu Rendec's Reviewed-by added.
+ - rebased onto v7.3-rc6.
+
+Changes in v4 - all from a sashiko-bot finding on the v3 posting of patch
+4. Patches 1, 2, 3, 5 and 8 are unchanged.
+ - patch 4: seed gc->mask_cache before the parent is requested and drop
+   IRQ_GC_INIT_MASK_CACHE, which only seeds on the first child mapping -
+   too late once the handler is shared, and never at all for a group with
+   no consumer in the devicetree, leaving the cache at 0 so the handler
+   claims interrupts it did not service. Radu Rendec's Reviewed-by is
+   dropped: functional change.
+ - patch 6: the gc_flags condition and the enum al_fic_version parameter
+   go, since patch 4 no longer asks for the flag.
+ - patch 7: reduced to the enum addition; the comment it reworded went
+   with patch 6's condition. Reviewed-by retained.
+
+Changes in v3 - all from Radu Rendec's review of the v2 series. Patches
+1, 2, 5 and 7 are unchanged and carry the tags he and Conor Dooley gave
+them; patches 3, 4 and 6 changed; patch 8 is unchanged and its open
+question is still being discussed on the v2 thread.
+ - patch 3: use of_node_full_name() instead of reaching into
+   node->full_name. The commit message is rewritten to say plainly that
+   this patch does not fix a lifetime bug - of_irq_init() pins the node
+   for the life of the system on a successful init, so node->name was
+   never at risk of dangling. The value is making the dependency
+   explicit.
+ - patch 4: al_fic_irq_handler() no longer derives its return value from
+   generic_handle_domain_irq(), which only reports whether the hwirq
+   mapping succeeded. It now returns IRQ_HANDLED when the masked CAUSE
+   snapshot is non-zero, which is the correct signal for a shared
+   interrupt.
+ - patch 4: set IRQ_DOMAIN_FLAG_DESTROY_GC on the domain and let
+   irq_domain_remove() free the generic chips, instead of calling
+   irq_domain_remove_generic_chips() by hand. Both error paths collapse
+   into one label. The invalid-free fix from v2 is unaffected; only the
+   teardown mechanism changed.
+ - patch 4: use of_node_full_name() in the request_irq() call.
+ - patch 6: initialise gc_flags to IRQ_GC_INIT_MASK_CACHE at its
+   declaration and only clear it on the v2 error/fatal path, dropping the
+   else branch.
+ - patch 6: use ~0U instead of 0xFFFFFFFF for the mask_cache seed and the
+   three mask register writes.
+ - patch 6: the commit message now explains the control register
+   read-modify-write. Every writable bit in that register resets to 0, so
+   preserving the other bits is equivalent to the previous plain write at
+   probe time; it is not a behaviour fix.
+
+Changes in v2 - Conor Dooley's review of the v1 binding, plus two bugs
+found while re-reading the series.
+ - patch 5 (binding): drop the two proposed per-output compatible strings
+   (amazon,al-fic-error / amazon,al-fic-fatal). A node describes one group
+   and a controller reports its revision in the group control register
+   (bits 29-28), so no per-revision or per-output compatible is needed.
+   Instead select the output with a new optional amazon,al-fic-mask
+   property (info, error, fatal; default info), which keeps existing
+   amazon,al-fic nodes behaving as before. This addresses Conor Dooley's
+   review of the v1 binding patch, and the commit message now describes
+   the hardware and the group granularity as he asked. The YAML gains an
+   example fragment.
+ - FIX (patch 4): the request_irq() error path called
+   irq_free_generic_chip(gc), which is kfree(gc) on an interior pointer
+   into a single allocation - invalid free, reachable when request_irq()
+   fails at probe. Replace it with irq_domain_remove_generic_chips()
+   before irq_domain_remove().
+ - FIX (patch 6): the v2 mask_cache workaround was dead. mask_cache is not
+   seeded until the first child mapping, so the override was overwritten
+   with 0 and the first unmask then cleared the whole mask register,
+   unmasking all 32 sources. Drop IRQ_GC_INIT_MASK_CACHE for the error and
+   fatal outputs and seed mask_cache from the value the driver programmed.
+ - New patch 1: checkpatch cleanup (alignment + repeated word), at the head
+   of the series.
+ - New patch 3: keep the device_node rather than a cached name string;
+   reorders the irqchip prep so every commit builds on its own.
+ - Reworded commit messages throughout to describe hardware rather than
+   device tree mechanics.
+
+v4: https://lore.kernel.org/all/20261008090058.38591-1-farbere@amazon.com/
+v3: https://lore.kernel.org/all/20261005112458.22291-1-farbere@amazon.com/
+v2: https://lore.kernel.org/all/20260927080637.27285-1-farbere@amazon.com/
+v1: https://lore.kernel.org/all/20260924062311.37308-1-farbere@amazon.com/
+
+Eliav Farber (9):
+  irqchip/al-fic: fix argument alignment and a repeated word
+  irqchip/al-fic: use %pe to print init error
+  irqchip/al-fic: use %pOF and raise init log level
+  irqchip/al-fic: keep the device_node instead of a cached name string
+  irqchip/al-fic: switch to shared parent interrupt
+  dt-bindings: interrupt-controller: amazon,al-fic: add mask selection
+  irqchip/al-fic: support error and fatal outputs and FIC v2
+  irqchip/al-fic: add support for FIC v3
+  irqchip/al-fic: support per-child affinity via interrupt redirection
+
+ .../interrupt-controller/amazon,al-fic.yaml   |  16 +-
+ drivers/irqchip/irq-al-fic.c                  | 229 +++++++++++++++----
+ 2 files changed, 201 insertions(+), 44 deletions(-)
+
+
+base-commit: af32da41b0327b9c6a37856ba82b6760d6c8d10e
+-- 
+2.47.3
+
