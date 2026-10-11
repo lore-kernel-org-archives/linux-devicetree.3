@@ -1,146 +1,139 @@
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com [209.85.160.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C30FA369D6A
-	for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 21:42:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49B593E5ED7
+	for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 21:48:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791754937; cv=none; b=GWsNbu/Sgz3og001TDCT5NmfsRpeQXKd5fu9tLKN8+G78A8pPrYr91f7bx+wuXDW1j7UI8PoD12F+c0T9fBS0OgCI5z9JSBrZ1OIOhb6eNprY0N0wksRD0Zekvh7jRE5NkJ87kOi9DcFcjp/BxlsCEBW9zm9svLSiQGB98rr5Es=
+	t=1791755316; cv=none; b=ckieP+dS6d50NQ48EF3FTrszLgubcTlRbPlEQGabjouZJvam8X9HtcrzZWHIr+jAJlBxZKGgrQSoNYnxpfPz0PtTRvsp+NvK991OTOpwCHOsCpbIYVu/t9SKf/gcPqJJF/5Ym9vUmKUIWcmSFaV91RVE1aLpIdhIFqK2Cc4Jw/s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791754937; c=relaxed/simple;
-	bh=k43IbaF6TdU+8O/x/tfa/3tzN+/gA6OynfUGsXVIY2E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UPN8HcnJ8evK0SZ715TaDdH8oiRdOC8tftzTqEPeKcdy1OToPjzeDq2cp0LGJ1uhsno65wwxwU1rLueysT7xew7N9/fbfd/Nm/6APr4QIDCRcuatQA2jdEuDTjfcVbgWy6XAvM0MLQgQiX66h2ay4KF2VzWoJSFLcIkR82mVW74=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SDTsRQJ1; arc=none smtp.client-ip=209.85.221.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791755316; c=relaxed/simple;
+	bh=qL56l/74i7UPnkj0GLxOV/StLiKn6Ktn+Ot7xproics=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=JzYNOA/vlPeh3w83iZB7UErv0EZNPEq8xTON+CSrzClZGLyk+vu+NOkgCuNpCaDFjzFkBOHMlmQp+z4fgOvjEonMVDEraS1KoQp6ViiUBAaU4fJLj2pFPXtEPr4Zc6Ekru+a/lCJ9mD7UBPNetuZqTLUEzGX76yYayXP069ezIw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thinkoid.org; spf=none smtp.mailfrom=thinkoid.org; dkim=pass (2048-bit key) header.d=thinkoid-org.20251104.gappssmtp.com header.i=@thinkoid-org.20251104.gappssmtp.com header.b=x5bDV2lD; arc=none smtp.client-ip=209.85.160.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thinkoid.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=thinkoid.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SDTsRQJ1"
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48b060ec084so687885f8f.0
-        for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 14:42:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=thinkoid-org.20251104.gappssmtp.com header.i=@thinkoid-org.20251104.gappssmtp.com header.b="x5bDV2lD"
+Received: by mail-qt1-f171.google.com with SMTP id d75a77b69052e-5338c1197easo10462841cf.0
+        for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 14:48:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791754933; x=1792359733; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=+5CIZCQrM8vHqdGBQkpWsSJmLyDFs444j3c0Qt3YBk8=;
-        b=SDTsRQJ1gzYJtVm0T+tbopbJ1Xn8mnat0z71N3dJnDn+SjKujqqK5G9rZ9ZSt3KZSO
-         vspPsMBH2Akrb2Dh8Ggrm4kbPGFYgOujRAvMIUatOaApJxpEGrqvYbjA3K7PrCFaoYWg
-         aMLv5giOphfRIimt5cL3/EQoSL403APGJ7IA/PPZD1vDxkcY5yFiHZFZ/iXRgLTtRJPg
-         uEe0kKo0QW3tyrGFtxvgL16eGsCpVxFkXVLEFdwJ8Qq8w2O2c1lqdeC6Ch19qI6aV8YN
-         pYi6NR5Sm+X+VL80lqQKJ0l7D9yKNVjn6HXzNqwQFd3tZts2F4gT/jzqIsn8gnc2xvfM
-         +Scg==
+        d=thinkoid-org.20251104.gappssmtp.com; s=20251104; t=1791755312; x=1792360112; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UFJLfz+4sRUNEqtKCFfthYjnWFBYCE3On80t62/yc6w=;
+        b=x5bDV2lDtBrgXaC5lmeZz/tTzTvLRxaUk9m1Qh5HPjizFera7HiyiVdhHLUcDodM/F
+         Ao8tUXFgbGUrsI1OYeKmTpr2JFFFOEz2RE7BCdEGnH11vsMc317Jy2e6iAxeHK5DKgge
+         mxmvgpLNL69TvCQ/us3UJvs48BRxuYACVQwLtNBw64o58nFZFZdqGtMB4Q357VWWLHRr
+         wgDkgAmpBtGeo4lJQsJXhVUy/R7bhkwt3Bx22evvRy+JrXf6tjjygovfs+BmI59wXvXp
+         RoshgizhcOwjBVqFlQSVsPieBLo/z4MNrWnitXu7qFURjPSclYaG1XLVInxNlOURd3Ld
+         BqgA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791754933; x=1792359733;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+5CIZCQrM8vHqdGBQkpWsSJmLyDFs444j3c0Qt3YBk8=;
-        b=P9xik4oiweGZmX3QgtVWe4d+cXrOOgCFAVQrTDmZd+2kyB+7lkzH81YFsJrmf/+8eD
-         MkgoZnU3WPw8Acc3YX6cR24gbvw2XgGe5avpRIXFwBELicHyKYx499CJEKhmS+GOcbxU
-         wk3l3QROjx5e0JCOpNgJNG7tybD7ZZKd2QCW8PkAaz3aoS+n7S4GkR03xJw049zRceYK
-         DPcxU4iCw9F6Hy6JP53ZlTs4GBlMWjhbt9cP8TZVvghpyXmlL49yHw0yS+bJr6/Ff+yA
-         4BCrsC7HTisIconohkUZ9ocMIqrnqF8X/ZVP1dmZfGnDxNpX8EgePDZQtE9m5FYTw83U
-         orGQ==
-X-Gm-Message-State: AFq9FYL3CpGHSb0Rukcbk4TRdYMIaNWGWGFjA4xYNUTs3B6KLz1KhjPn
-	Iwwqo3nf2BgzIfPX7nCPq7NxL42RktaYqbVLbBYo82chrOwruYcT7O8HqQMVfw==
-X-Gm-Gg: AYBFou0AXVtRuad0zv4YXpr8G4UavraxAPB1DvIlawBGL/h0Z3MpomoWjLkxcaLB14O
-	2x55DMARk/oMvwyms1SlWJFlGqbLI/zqbJ6108gwt5vj5mCr/RllCZ2OEqG+kuhZw+Y7RNfzF5+
-	8gUS0PwR+k1wUSUv/+kMSSXygpjcSOpTo6n/g49n7JThOdTcz1Nj9j+MDQ+paOwSIdYMtBvjhU6
-	PUs43UNO4gxzAQl8amOuWvQqAoyMRGj6VJRnTMin39ILhsJZSfFWYA9xJZiKd+w83fOe8ai4L+j
-	M/GKbAzkRcYJHhwNSFbloj7KvUN1jJw5NlTgthDxHpIw3pueaNRnmGuK0P8MBmR+9MPKnO5enWU
-	o+vvTt4daTPd9PlWsfKu2KDjz85iMk4oIBb2ucKxXcSeGerQSv1xg9zR8G50aHXDztc2Lw0lw8y
-	Bf7f3UwnicUsFgvYWTjiNb0v9X9w1E03torJVWJ4un2eZErFSMMFYSYrWTI06yNluJEoiKsTmcz
-	tEJWLdKYWbYp1OuCSPkfaTcdcRGBb5bsn7NeqC0IoYrpUR+peH/P4tbsWohI3ugDOeKjYRHbGmL
-	dD4FPm1LDxBewpZar/FRcM8pK7WN
-X-Received: by 2002:a05:600c:8184:b0:4a0:1c17:4fb2 with SMTP id 5b1f17b1804b1-4a18e4d854cmr109941355e9.31.1791754932570;
-        Sun, 11 Oct 2026 14:42:12 -0700 (PDT)
-Received: from Lord-Beerus.station ([31.27.155.43])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf2343asm451871005e9.9.2026.10.11.14.42.08
+        d=1e100.net; s=20260707; t=1791755312; x=1792360112;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UFJLfz+4sRUNEqtKCFfthYjnWFBYCE3On80t62/yc6w=;
+        b=Plzu/IoyRLvfB3Z6MeemD6+XQnxO2xc7jYLY+KRWV0g2x8tcy6gWQFSj6et5mq2yUT
+         oCvPtpWE9Ias/yKhdrZ5EPOAZOmnWNblMM1u5hZ/+YpMiJVueKxlIrqsdcTkFOowDa7Q
+         mp22UpDDBO+WwrJZwYHxB4wK948V9uq3KF9Pv6lEHaPpGVIU7BEcRXG0CXIOOe7mFcNy
+         3VDpJ0jyA20WFenwpERfBzGUQ7dSoqFmyo3swILbWTk9aqfnTNMDwhmpppRcVoncJ5mt
+         Hkp8vi/V08ck5KnT0tRy0roVDqG/cakjJpqnxBACoNLcFnxg6Vp0V4UlRk3LUd7OOHxG
+         O7fA==
+X-Forwarded-Encrypted: i=1; AKwUvBx746P7ueuiK/jatbHteLfagFHRoE48oVktkWUmGBz1o2UfXZ3TXJhrrYEEhSH6A5lXxBRJcUCq/P7X@vger.kernel.org
+X-Gm-Message-State: AFq9FYIyvVTmOMqEOyN66JBUoMGGVVunesMkSokx3I3HLCSQc3k4TLu6
+	nzcSbFrk013M3NjdbJu47jG8RANVCgNsFzKIhawCDtqwc0vttStgLvaKWZWgPqCktQI=
+X-Gm-Gg: AYBFou17YwNuHuVjPP72J7Amd/efieAukQrTFPsfVonWjnbnblvoNYVJ2A+61IsQXPw
+	PvqKFRxcTyFEHT9uzPhGnSbw+zP1K/sexE5gSNMFrtJSJo7PKekZVoReLdn+vMgTWgtq0IQoHOY
+	MkhQZk661uBM18Lzb4aCRG/XBV0x0vD4P95lJacthv2A6j2fOGCODhB23PFo4yT90zv8oWdapiL
+	d8rzZGLr/F/cZgtic2abXXNbMnyYf95IE75Gl0r83HLZK08dXhVJjWQtjDWkrhXKBl1dL5hzev1
+	tkkwIEPVeY8TvdptKNVNNyB9VNoyiCwtwzEssHu+xOu1wlvRAdiy2pz6JX+3JQYGMLf5jGqiR1Y
+	FYvRMoXtSuIVebtMHwVxW2c95br96FtJkAiZ1h5vEXH21AKK7jeNWvN2l2hTEbyhkIVy1kQGGot
+	WAT6Vcy+jNimyf1XULlyPyDWMFGrEOUwg5YJmYvXjy4iwLbYQ=
+X-Received: by 2002:a05:622a:144c:b0:533:3bf7:49f0 with SMTP id d75a77b69052e-5359fa8cf25mr138217211cf.25.1791755311784;
+        Sun, 11 Oct 2026 14:48:31 -0700 (PDT)
+Received: from armok ([2605:a601:a61d:7a00::c])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5359b7ecccdsm65857371cf.30.2026.10.11.14.48.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 14:42:09 -0700 (PDT)
-Date: Sun, 11 Oct 2026 23:42:06 +0200
-From: Stefano Radaelli <stefano.radaelli21@gmail.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, robh@kernel.org, Frank.Li@kernel.org,
-	imx@lists.linux.dev, conor+dt@kernel.org
-Subject: Re: [PATCH v5 06/13] ARM: dts: imx6ul: Extend VAR-SOM-6UL and add
- DART-6UL files
-Message-ID: <aswCrsVs4Z7n864c@Lord-Beerus.station>
-References: <cover.1791487179.git.stefano.r@variscite.com>
- <e11cdc950e41b502e5449830d5f6a82568fc043a.1791487179.git.stefano.r@variscite.com>
- <sashiko-outbox-166012@kernel.org>
+        Sun, 11 Oct 2026 14:48:31 -0700 (PDT)
+From: Liviu Nicoara <lnicoara@thinkoid.org>
+To: Aleksandrs Vinarskis <alex@vinarskis.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Kees Cook <kees@kernel.org>,
+	"Gustavo A . R . Silva" <gustavoars@kernel.org>,
+	Abel Vesa <abelvesa@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	platform-driver-x86@vger.kernel.org,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>,
+	Tobias Heider <tobias.heider@canonical.com>,
+	Val Packett <val@packett.cool>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Stephan Gerhold <stephan.gerhold@linaro.org>,
+	linux-hardening@vger.kernel.org,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Subject: Re: [PATCH v6 0/3] Introduce EC driver for Snapdragon X1E based Dell XPS 13 9345
+Date: Sun, 11 Oct 2026 17:35:28 -0400
+Message-ID: <20261011213528.13207-1-lnicoara@thinkoid.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20261011-dell-xps-9345-ec-v6-0-2a66a364fe70@vinarskis.com>
+References: <20261011-dell-xps-9345-ec-v6-0-2a66a364fe70@vinarskis.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <sashiko-outbox-166012@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 09, 2026 at 07:49:24PM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Low] dt-bindings: net: micrel: boolean property assigned integer value <1>
-> --
-> 
-> commit 7e70ac71fa47849af4ee0ecb85b6da2be68dfac5
-> Author: Stefano Radaelli <stefano.r@variscite.com>
-> 
-> ARM: dts: imx6ul: Extend VAR-SOM-6UL and add DART-6UL files
-> 
-> Add the DART-6UL module description and wrappers for i.MX6UL,
-> i.MX6ULL and i.MX6ULZ, plus an i.MX6ULZ wrapper for VAR-SOM-6UL.
-> 
-> > diff --git a/arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-dart.dtsi b/arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-dart.dtsi
-> > new file mode 100644
-> > index 0000000000000..f7190f6d50b59
-> > --- /dev/null
-> > +++ b/arch/arm/boot/dts/nxp/imx/imx6ul-imx6ull-var-dart.dtsi
-> 
-> [ ... ]
-> 
-> > +&fec1 {
-> > +	pinctrl-names = "default";
-> > +	pinctrl-0 = <&pinctrl_enet1>, <&pinctrl_enet1_gpio>, <&pinctrl_enet1_mdio>;
-> > +	phy-mode = "rmii";
-> > +	phy-handle = <&ethphy0>;
-> > +	status = "okay";
-> > +
-> > +	mdio {
-> > +		#address-cells = <1>;
-> > +		#size-cells = <0>;
-> > +
-> > +		ethphy0: ethernet-phy@1 {
-> > +			compatible = "ethernet-phy-ieee802.3-c22";
-> > +			reg = <1>;
-> > +			clocks = <&rmii_ref_clk>;
-> > +			clock-names = "rmii-ref";
-> > +			reset-gpios = <&gpio5 0 GPIO_ACTIVE_LOW>;
-> > +			reset-assert-us = <10000>;
-> > +			reset-deassert-us = <100000>;
-> > +			micrel,rmii-reference-clock-select-25-mhz = <1>;
-> 
-> [Severity: Low]
-> Does this assignment cause a dtbs_check schema violation?
-> 
-> The micrel,rmii-reference-clock-select-25-mhz property is defined as a boolean
-> in the dt-binding schema. Assigning it an integer value like <1> will trigger
-> a warning during Device Tree compile validation.
-> 
-> Could this be specified simply by its presence without an assigned value,
-> such as: micrel,rmii-reference-clock-select-25-mhz; ?
+On Sun, 11 Oct 2026 19:50:07 +0200, Aleksandrs Vinarskis wrote:
+> This series adds Embedded Controller (EC) driver for Dell XPS 13 9345.
+> While EC appears to control most of device's peripherals, particular
+> driver addresses power and thermal managment issues.
 
-This is addressed by the preceding patches in this series.
-Patch 05/13 changes this property from a boolean to enum: [1]
-to satisfy the dt-schema unit checks for the -mhz suffix.
-Patch 04/13 updates the driver to use of_property_present(),
-accepting both the existing empty form and the numeric form
-without changing the clock selection.
+Tested v6 on a second XPS 13 9345 (BIOS 2.14.0), on 7.2.6 with the
+PMIC5 Gen3 ADC and ADC_TM drivers and the board thermal zones [1]
+backported. The driver probes, gets all seven channels and reports to
+the EC without an error. Two observations from this unit:
 
-The <1> assignment here is intentional and matches the updated
-binding.
+1. The two GPIO thermistor channels. Here AMUX3_GPIO (0x14c,
+   lpddr5_therm) reads the top of the conversion table, ~130 C, from
+   boot on, and AMUX4_GPIO (0x14d, usb_charger_left_therm) does not
+   move when a charger warms the left port. AMUX2_GPIO (0x14b) does,
+   1.6 C in three minutes, and AMUX1_GPIO (0x14a) reads a plausible
+   board temperature. Windows' ADC1.bin puts SYS_THERM1/2 on
+   0x14a/0x14b, and hamoa-pmics.dtsi in next defines those two. The
+   patch configures no PMIC GPIO for AMUX3/4, where mainline sets
+   pm8550 gpio3 and gpio4 for AMUX1/2; so either the two thermistors
+   sit on 0x14a/0x14b on this board, or AMUX3/4 want the pin
+   configuration. As it stands the EC is told the memory is at 130 C.
+   The fans did not react to that here, at idle on battery.
 
-Stefano
+2. Resume. With the driver loaded, a key press wakes the machine
+   through the PMIC power key: the EC has powered the keyboard off, as
+   the comment in the driver says, and the keyboard delivers no event
+   for the key that woke the machine; instead pm8941-pwrkey reports a
+   KEY_POWER press and release at resume. With logind's default
+   HandlePowerKey=poweroff and no desktop holding the power-key
+   inhibitor, the machine shuts down right after it wakes. With the
+   inhibitor held, the resume is clean and the machine stays up, so
+   the resume command does its job. Without the driver the keyboard
+   wakes the host as an i2c-hid device and no power-key event appears.
+   Reproduced twice; GNOME and KDE take that inhibitor, so they would
+   not see it.
+
+[1] https://lore.kernel.org/all/20261006185557.23016-1-lnicoara@thinkoid.org/
+
+Liviu
