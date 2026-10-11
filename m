@@ -1,214 +1,267 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2DDC2D47F1;
-	Sun, 11 Oct 2026 09:13:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 055C22D47F1
+	for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 09:13:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791710009; cv=none; b=KJP3DOHU9boY6CaRG0A8wbwfh26cZeisYQpqMxOs09g+dmNMplE2Ib7/iO/cPt/d4Y54CwfGLc7fXblVNZ4qa8i1NE/E4sinlg6lBYdK4sjOc6Ug6pvJpXugGy/Lh6cYilkPx7AXIirvPH7WHJa74FKz4BCENZVesAbco6qz51A=
+	t=1791710024; cv=none; b=nXrx/Acrk1YT6t+oRYN1bRMDihGM2DyRRS/EYy4/ScW8475wG+VI6KFQcHNMyKs8/3Z4AOgBjYRRFVRUF8RV7gTLVJy410UheWr/zRjKhxyOD5OkOtJaYXGFu+BtgPo/HVeNcjWoe2PLZQDQYoZJmz1924YFm6xOE4zWapNhmQU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791710009; c=relaxed/simple;
-	bh=+ojKlbOI9GG42/BHXc7KqXSVpS5SQlc2JFP93M0xMYQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=rb7/CFrRslyE/iqMpTNAq9xy0n3HWcDAX0YRCo1Zewq8CobQRPk818FneLsbRyyn8eJyeyvYYrihHcl2oGxQZlh6ZkLmYminfpXT+gZFjsUvJ+o+aw9arlUW214dEPCzPYMg4ZQ9TzhjsaDrB5h9pv1ScWbcNbdpFRtP7UxsyVE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k7RJGW/P; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1791710024; c=relaxed/simple;
+	bh=QYwv8ZVGvQYe3i7iPcKGnjIbysXtDF2O7ZxyYhCoEms=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=pvlLSFcnTvtbSggIfZ275/PT+RjEI0dtfwW00ro9PBNB7viHtBlBt0R2RAhi1OFkxyVD7/DsaSY6GK6DBs/Rw1gHK7FkAnnjCstgFOuxbint+s/t3WX26eIhDXuDZ95hqWwKDUgEz5kmSAvlaPsiLfumpZKHBsNANrnw2KYUU4M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XnelEC0d; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k7RJGW/P"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 4C4FCC2BCF7;
-	Sun, 11 Oct 2026 09:13:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791710009;
-	bh=+ojKlbOI9GG42/BHXc7KqXSVpS5SQlc2JFP93M0xMYQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=k7RJGW/PLjV+S2uNcuenDqc3/YxA6hfcPb5z96ZWJbIpbjqgYVcvZuu54JFNpZTuB
-	 BUEjUvcnMXMV3QS7Hjs4R2sUfcIgq2DQ6TJ43exXz5DFyANEhBOBT+/3up9D6g20hV
-	 9fNA6qHpxKhG+8SjOOtCLtSV469Bg4/URtSBL1Knx5WfP+tOqIHMRicC9Iv5IVVgnY
-	 4se6j4lb6DTFmac/GOLAc+9PnAOSmC/gyxti37Lj/YrGWUEaDL+0RukpIe0WX94PqI
-	 7C5NifXNxIyy4Kc0IsJSzm+oBV/PXX/HZdj/rW5ahc1o79EmXee8d3MAijAaHWqXr9
-	 zCw5zU1XX2Itw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 24DD2CA9EBD;
-	Sun, 11 Oct 2026 09:13:29 +0000 (UTC)
-From: Armandas Kvietkus via B4 Relay <devnull+armandas.kvietkus.proton.me@kernel.org>
-Date: Sun, 11 Oct 2026 11:13:27 +0200
-Subject: [PATCH v4 1/2] dt-bindings: media: i2c: Add Samsung S5K3T2 image
- sensor
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XnelEC0d"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4a171b677d2so5858575e9.0
+        for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 02:13:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791710021; x=1792314821; darn=vger.kernel.org;
+        h=content-type:mime-version:references:in-reply-to:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Z49FbKKlAmO+vgO/oO+bk2H9QeNxjgWLv5uy8+cQqVU=;
+        b=XnelEC0dcyNudsIYkwDV6S/grGGqAPDUGxLxbaePZINn7tJwkB8sKZIK7ugTpLJFWS
+         ERul/DgH7qIreg4R8nvfP12HszGkWFJFvjFLvwVbe631NzIa9MEfmYK3xUekq7+eedet
+         oX9RXlE9dSq0RQoQYNnfCATzsElm/WdxpTZCfMt6UXyCBbx5GOa9HHezdkzoExa3vqZU
+         p8yWiJp4Qb2r9sazPmfcf1LkzQxlTqr1lxnPGfwjGuNjtk1GN2Anq74Eo7crv2n99qO6
+         5g/EOUcsLOfQWUbCIvDKDhThW0ub9+ltIlnfI+hrcFFTp7/JkbeY5pJayD7IPt3cDEtw
+         /Faw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791710021; x=1792314821;
+        h=content-type:mime-version:references:in-reply-to:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Z49FbKKlAmO+vgO/oO+bk2H9QeNxjgWLv5uy8+cQqVU=;
+        b=uxWvtJc9Dd0spErFNQTDvDbP4YhxFb+8+Cr+/2zyrBWu8HmEXtb2DPJk7rWnIg2/h7
+         gYqMjDuadIEgdQ+YOB3fPG3CU4J/kuqD4KsSGItVhfxsvF9Yalxy6wBVxZiObmPWfY0t
+         AayxVpCvn8oVn2aoTKwBRwL7mqItb0ciIO01Au2zhK+TTaduQZ5nSw21C9lP5hDMVQkP
+         l44X9QiGj1T1MrqUKEdDA3Qxls0pxvkfOSIOHScufX9fwYIYNk+z6OPTCbe2eo7rCz/D
+         0esP1AICZLXzsl/cA2oecYZYWQT2Phupb0WJ5hyiN5tF7y9nTaAOnGDELewIrM2unXjC
+         Z4xA==
+X-Gm-Message-State: AFq9FYJq7k4HgZvtTBF11I0/zjyLwvdjdo369++D8fKuHKGOZkZOvGQZ
+	VvwEUu41O2kp7TCs3+fAgyewy/4TW05mhTJJiGoDlW6vvii5y63jmjSCR6GlFLxB
+X-Gm-Gg: AYBFou2YBSC7Wd93+v/uteMboGzhvuzVwvFRF+1ncpldDjLeqdUj3O8taqCmPEOIpcj
+	6W3DCYJEijm1UmoJ+RFNPxhvjKfAf4sVmG4GlotRZJnVq+6m2G9t6n1kDMTmT8Fo/wnXsLN10kT
+	YFkGajVUin9By9OfZLEkUczkaQMGalVMDmkriwSXBqpcijuWpA20wwfx3muuIEnM21qdICLsSF8
+	D079tapsz8OhYr79oynVnWcI5joQoF4Uo04hdUaaTi+YoGvrzYFuDAvnfrWUKvBG464k1r7HlXI
+	IZF9zixe2XeyouTpWPiRkK4blbtulrywNy9t5cWPgO0dyEZyq5j60dILgj/aYhrSMfd768L51eg
+	Zz9PBuzczGxQMbqxjIb/G15OChfUXoikqaUE1Uofr7QFbzMbAmB5RqMI3+TV477bUl8+GoyZ0eS
+	4v5P04sQ4D7aX1z+ZAcjAhLRlyfRdby+sMEXxQwlbSG2+gkeJdLvWQb4GnEiboWMyrxVnjhnOKz
+	Z0Nx3GcSYAWQ27dSjxKCvPyhgavOBuGg/YGnRj6Uqc4burWqNrh/TjmMw==
+X-Received: by 2002:a05:600c:46c5:b0:4a1:78c5:79f5 with SMTP id 5b1f17b1804b1-4a18e4d6b28mr120874255e9.33.1791710020945;
+        Sun, 11 Oct 2026 02:13:40 -0700 (PDT)
+Received: from silicon.doe.home (178.165.167.132.wireless.dyn.drei.com. [178.165.167.132])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18e4225f4sm254023425e9.0.2026.10.11.02.13.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 11 Oct 2026 02:13:39 -0700 (PDT)
+From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
+To: linux-arm-kernel@lists.infradead.org,
+ Navid Ghahremani <ghahramani.navid@gmail.com>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, arnd@arndb.de,
+ linux@armlinux.org.uk, robh@kernel.org, krzk@kernel.org,
+ Navid Ghahremani <ghahramani.navid@gmail.com>
+Subject:
+ Re: [PATCH 06/24] dt-bindings: clock: Add ZTE ZX279128S CRM clocks and resets
+Date: Sun, 11 Oct 2026 11:13:37 +0200
+Message-ID: <7axmtiEnS5SDBrUzy6e6jw@gmail.com>
+In-Reply-To: <20261010130024.177503-7-ghahramani.navid@gmail.com>
+References:
+ <20261010130024.177503-1-ghahramani.navid@gmail.com>
+ <20261010130024.177503-7-ghahramani.navid@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261011-upstream-s5k3t2-v4-1-d33b12fb3263@proton.me>
-References: <20261011-upstream-s5k3t2-v4-0-d33b12fb3263@proton.me>
-In-Reply-To: <20261011-upstream-s5k3t2-v4-0-d33b12fb3263@proton.me>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Elgin Perumbilly <elgin.perumbilly@siliconsignals.io>, 
- Armandas Kvietkus <armandas.kvietkus@proton.me>, 
- Conor Dooley <conor.dooley@microchip.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791710007; l=4123;
- i=armandas.kvietkus@proton.me; h=from:subject:message-id;
- bh=tkShdLWwWiHuVSzgY4OOZGB7fJdUgKDkchfsedpvqsU=;
- b=qrbbDOG6udm4nN6BZ8ufOJZ2gVee0ggAPFvOpcWVk8XPKQlb4cY24z+kw1XnPUbtDDhhxxc7K
- VpenG4Fo6E1AFwWo05duA6UOqMqxMbtvZgMG4H5IZFHc09abrmztJP1
-X-Developer-Key: i=armandas.kvietkus@proton.me; a=ed25519;
- pk=wuqmImJ9sKlDVcwALOvfGhjj7G8EBjjM4TpCdmlrAf8=
-X-Endpoint-Received: by B4 Relay for armandas.kvietkus@proton.me/default
- with auth_id=974
-X-Original-From: Armandas Kvietkus <armandas.kvietkus@proton.me>
-Reply-To: armandas.kvietkus@proton.me
+Content-Type: multipart/signed; boundary="nextPartjpLtN9HcTiyHU1_e0KJPjQ";
+ micalg="pgp-sha256"; protocol="application/pgp-signature"
 
-From: Armandas Kvietkus <armandas.kvietkus@proton.me>
+--nextPartjpLtN9HcTiyHU1_e0KJPjQ
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"; protected-headers="v1"
+From: Stefan =?UTF-8?B?RMO2c2luZ2Vy?= <stefandoesinger@gmail.com>
+Date: Sun, 11 Oct 2026 11:13:37 +0200
+Message-ID: <7axmtiEnS5SDBrUzy6e6jw@gmail.com>
+In-Reply-To: <20261010130024.177503-7-ghahramani.navid@gmail.com>
+MIME-Version: 1.0
 
-The Samsung S5K3T2 is a 20 Mpixel CMOS image sensor. It has four MIPI
-D-PHY lanes and an I2C control bus.
+Hi Navid,
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-Signed-off-by: Armandas Kvietkus <armandas.kvietkus@proton.me>
----
- .../bindings/media/i2c/samsung,s5k3t2.yaml         | 105 +++++++++++++++++++++
- MAINTAINERS                                        |   7 ++
- 2 files changed, 112 insertions(+)
+I don't have enough knowledge about about PCIe and the A9 l2cache to commen=
+t=20
+on the previous patches. For the clock ones I have a few points of hardware=
+=20
+investigation and the actual implementation.
 
-diff --git a/Documentation/devicetree/bindings/media/i2c/samsung,s5k3t2.yaml b/Documentation/devicetree/bindings/media/i2c/samsung,s5k3t2.yaml
-new file mode 100644
-index 000000000000..74a1aa23249f
---- /dev/null
-+++ b/Documentation/devicetree/bindings/media/i2c/samsung,s5k3t2.yaml
-@@ -0,0 +1,105 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/media/i2c/samsung,s5k3t2.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Samsung S5K3T2 Image Sensor
-+
-+description:
-+  Samsung S5K3T2 (ISOCELL 3T2) image sensor is a 20MP image sensor.
-+  The sensor is controlled over a serial camera control bus protocol,
-+  the widest supported output image frame size is 5184x3880 at 15 frames
-+  per second, data output format is RAW10 transferred over 4-lane
-+  MIPI D-PHY interface.
-+
-+maintainers:
-+  - Armandas Kvietkus <armandas.kvietkus@proton.me>
-+
-+allOf:
-+  - $ref: /schemas/media/video-interface-devices.yaml#
-+
-+properties:
-+  compatible:
-+    const: samsung,s5k3t2
-+
-+  reg:
-+    maxItems: 1
-+
-+  clocks:
-+    description: MCLK supply clock.
-+    maxItems: 1
-+
-+  reset-gpios:
-+    description: Active low GPIO connected to RESET pad of the sensor.
-+    maxItems: 1
-+
-+  vdda-supply:
-+    description: Analogue voltage supply, 2.8 volts.
-+
-+  vddd-supply:
-+    description: Digital core voltage supply, 1.05 volts.
-+
-+  vddio-supply:
-+    description: Digital I/O voltage supply, 1.8 volts.
-+
-+  port:
-+    $ref: /schemas/graph.yaml#/$defs/port-base
-+    additionalProperties: false
-+
-+    properties:
-+      endpoint:
-+        $ref: /schemas/media/video-interfaces.yaml#
-+        unevaluatedProperties: false
-+
-+        properties:
-+          data-lanes:
-+            items:
-+              - const: 1
-+              - const: 2
-+              - const: 3
-+              - const: 4
-+
-+        required:
-+          - link-frequencies
-+
-+required:
-+  - compatible
-+  - reg
-+  - clocks
-+  - vdda-supply
-+  - vddd-supply
-+  - vddio-supply
-+  - port
-+
-+unevaluatedProperties: false
-+
-+examples:
-+  - |
-+      #include <dt-bindings/gpio/gpio.h>
-+
-+      i2c {
-+          #address-cells = <1>;
-+          #size-cells = <0>;
-+
-+          camera@10 {
-+              compatible = "samsung,s5k3t2";
-+              reg = <0x10>;
-+              clocks = <&camera_mclk 0>;
-+              assigned-clocks = <&camera_mclk 0>;
-+              assigned-clock-rates = <19200000>;
-+              reset-gpios = <&gpio1 10 GPIO_ACTIVE_LOW>;
-+              vdda-supply = <&vreg_2p8>;
-+              vddd-supply = <&vreg_1p05>;
-+              vddio-supply = <&vreg_1p8>;
-+
-+              port {
-+                  endpoint {
-+                      data-lanes = <1 2 3 4>;
-+                      link-frequencies = /bits/ 64 <448000000>;
-+                      remote-endpoint = <&mipi_csi2_ep>;
-+                  };
-+              };
-+          };
-+      };
-+...
-diff --git a/MAINTAINERS b/MAINTAINERS
-index cc3cae2e378b..1924dbd20b57 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -24380,6 +24380,13 @@ T:	git git://linuxtv.org/media_tree.git
- F:	Documentation/devicetree/bindings/media/i2c/samsung,s5k3m5.yaml
- F:	drivers/media/i2c/s5k3m5.c
- 
-+SAMSUNG S5K3T2 CAMERA DRIVER
-+M:	Armandas Kvietkus <armandas.kvietkus@proton.me>
-+L:	linux-media@vger.kernel.org
-+S:	Maintained
-+T:	git git://linuxtv.org/media_tree.git
-+F:	Documentation/devicetree/bindings/media/i2c/samsung,s5k3t2.yaml
-+
- SAMSUNG S5K5BAF CAMERA DRIVER
- M:	Sylwester Nawrocki <s.nawrocki@samsung.com>
- M:	Andrzej Hajda <andrzej.hajda@intel.com>
+Am Samstag, 10. Oktober 2026, 14:59:44 Mitteleurop=C3=A4ische Sommerzeit sc=
+hrieb=20
+Navid Ghahremani:
 
--- 
-2.56.0
+> +properties:
+> +  compatible:
+> +    oneOf:
+> +      - items:
+> +          - const: zte,zx279128s-topcrm
+> +          - const: syscon
+> +      - enum:
+> +          - zte,zx279128s-lsp0crpm
+> +          - zte,zx279128s-lsp1crpm
+
+The advice I got for my zx297520v3 bindings was to write a separate binding=
+=20
+for the clock controllers rather than try to write a one-size-fits-all one.=
+ So=20
+you'd have a zte,zx279128s-topcrm.yaml that has compatible zte,zx279128s-
+topcrm, syscon and a separate lspcrpm.yaml (or maybe even one lsp0crpm and =
+one=20
+lsp1crpm) that take the other compatible
+
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    minItems: 1
+> +    maxItems: 5
+> +
+> +  clock-names:
+> +    minItems: 1
+> +    maxItems: 5
+
+If you split the bindings the clocks becomes a fixed list in each, simplify=
+ing=20
+the if-then-that rules you have later.
+=20
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - clock-names
+> +  - '#clock-cells'
+
+Your topcrm should have the reboot node as a child. syscon-reboot's "regmap=
+"=20
+property is deprecated and shouldn't be used for new bindings.
+
+This will either mean adding the simple-mfd compatible to auto-probe the=20
+reboot child or writing a MFD driver that does that. Since you also have cl=
+ock=20
+and reset functionality in there the MFD approach seems best, and it is wha=
+t I=20
+ended up doing for my CRM controllers.
+
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: zte,zx279128s-lsp0crpm
+> +    then:
+> +      properties:
+> +        '#reset-cells': false
+
+Are you sure there are no resets in lsp0crpm? Given what I know from my zx2=
+9=20
+board, it is likely that there *are* resets, but the ZTE kernel doesn't bot=
+her=20
+asserting/deasserting them and they come deasserted by the time U-Boot take=
+s=20
+over. (So either they are deasserted after powerup or the boot rom deassert=
+s=20
+them.
+
+The way I discovered the rest controls on my board: I set all the registers=
+ in=20
+the LSP controller to 0 via a hack in arch/arm/kernel/head.S and looked at=
+=20
+what broke. It turned out that there are some bits that need to be set to 1=
+=20
+for the device to work that aren't mentioned at all in ZTE's code dump.
+
+The follow-up check was to see what the impact of those bits was: Setting a=
+=20
+pclk gate to 0 usually causes the mmio registers to read 0, 0xff, garbage o=
+r=20
+just hang (busybox's devmem is your friend). A reset bit, when asserted (se=
+t=20
+to 0) does the same. The difference is that when you re-enable a clock, the=
+=20
+registers retain their old contents, whereas after deasserting a reset, the=
+=20
+device lost previous state.
+
+Since most devices have 2 reset bits YMMV. One of them might not do anythin=
+g=20
+at all. Or one resets bus access properties while the other resets working=
+=20
+state.
+
+> +++ b/include/dt-bindings/clock/zte,zx279128s-crm.h
+> @@ -0,0 +1,55 @@
+> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
+> +/*
+> + * Copyright (C) 2026 Navid Ghahremani <ghahramani.navid@gmail.com>
+> + */
+> +
+> +#ifndef _DT_BINDINGS_CLOCK_ZTE_ZX279128S_CRM_H
+> +#define _DT_BINDINGS_CLOCK_ZTE_ZX279128S_CRM_H
+=2E..
+> + * Top CRM resets: (register offset / 4) * 32 + bit. The USB 3.0 control=
+ler
+> + * has four in register 0x4c; what each one resets isn't known.
+> + */
+> +#define ZX279128S_TOP_RST_USB_B9	617
+> +#define ZX279128S_TOP_RST_USB_B10	618
+> +#define ZX279128S_TOP_RST_USB_B11	619
+> +#define ZX279128S_TOP_RST_USB_B14	622
+
+Please put the resets in their own reset header.
+
+Using hardware locations (offset, bits) for the binding values is discourag=
+ed=20
+as far as I understand it. I saw a comment by Krzk on a different binding p=
+atch=20
+stating that. I'll try to find it.
+
+It is better to give them logical values (0, 1, 2, ...) and have the reset=
+=20
+driver map them to the actual hardware location. This also helps if you fin=
+d=20
+out that you got a reset bit wrong. Since the bindings are considered ABI,=
+=20
+changing them later is tricky - you don't want to have to do it because you=
+=20
+identified a reset incorrectly.
+
+Cheers,
+Stefan
+--nextPartjpLtN9HcTiyHU1_e0KJPjQ
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: This is a digitally signed message part.
+Content-Transfer-Encoding: 7Bit
+
+-----BEGIN PGP SIGNATURE-----
+
+iQJPBAABCAA5FiEEQxb0tqoFWyeVMl1sPRO8yFRPGiIFAmrLU0EbFIAAAAAABAAO
+bWFudTIsMi41KzEuMTIsMywyAAoJED0TvMhUTxoiy9UQAILnMit2k2tNCuGxm+W4
+RPJOXzI39DY/XBG02vuhvovf71wMXUwUmxhHJYYYlBbmQVuLfGDENx4mr991TWQ7
+uTmRIYSdQVZzHcFCbfhiyWxMmtHlt9k5TlHPvgyehjVwv94Y4WCabFGtIdu2bJ0P
+JOPn5EGwcFeeFgWl/MYCUzlkRtUGyoeXruJOc1cz6wQJFTHaMe77lgYcS/PKSWKi
+ewmmUSVV0fuq5+CBDbp+iIR1qKUIPg6V/bnOlB4LUDmIO6h+46WGgJayrCgSgmGP
+dKUH6l1rzLqhlGM9U9eLZ+gloSuRf9HGprGYoKkyrVVP9VQaUPR5369YGhsyioG0
+2FPhT41fRKqyxqPxlRX7VBhviVGKd2SgXy0A6hRbjlSrHJ//ol54tCe+BXiyeYhx
+piewX87U3IskZTfWaQpVoAKxtAao45UbbX1F2E98MApWqH9TSf9SYoK6ogKf4F1t
+u+cCbJVb0tP9IrWe7cnBHpO3FU8H7zvT8ngwDYFCgteyipMvg+gasyTdVa+5uNBF
+mdL7rF5pVtgNaEn3vvuuWiT+6Kk/JkTvgrDqF2b8wqH3uXh+WukBA5v/a2qmAtwZ
+dD3bpeoZu7+ukku5lxfKs3vzcgC5f5h7ogYxkSkASTwoptZzoJZMDWPrLc+43778
+9pYjseVNU4hoNEcRHMNh8cX9
+=zJ1i
+-----END PGP SIGNATURE-----
+
+--nextPartjpLtN9HcTiyHU1_e0KJPjQ--
+
 
 
