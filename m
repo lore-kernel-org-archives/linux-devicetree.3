@@ -1,64 +1,64 @@
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00E41381E98
-	for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 19:10:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D35CC45A2A2
+	for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 19:10:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791745849; cv=none; b=gyVb4w02kcXRXif/fplvtRpbuSNpIpq9648MjWMwP+oIrEDlhFNXeyioiRTOJzypGnpQJsWj9N87abE+qdgXvVUHNlxQ0Eg1jS4nHgsAZ20IWa73HIED6wNfo1qplghJGitYy33ewzosfBAZvUpT0Hyh9xBH9JJCUxGfkPTN+8o=
+	t=1791745851; cv=none; b=OOsGC0gWx8/tI5LY7LWA0fMyRvHRWHBcgAYgVdCPYie8dc7fSVmGkkCmv4GLZAi+Ec3gLt5GxqizHmZSmdYKD1gvuyhE7zAQPngOv11I4G2BAaWs3ByPhtCTfnNxTCGRm0uJ8OJuGnxmlFojb1wkAPjUxVYYSXusuubq9fiaCxA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791745849; c=relaxed/simple;
-	bh=wVwtf3VBmI07awCkCM8Q0hmm9lshfUUpGDDa7XJpyRE=;
+	s=arc-20240116; t=1791745851; c=relaxed/simple;
+	bh=4KJPKZfhPGaNSJ584xBrXJX++esbm9JiU+zUzWkZH34=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ldmbIuX603FdtwgRi+jNsUZZ6OomFTQ/9yxe8tJLC4fNHmERdA7aWnofldAtPrQrqM4Q6z2z5wWtIQoP0vVTyxJcpm490HM1UfQztMVCUAcPs8yV+EffHLKuUUdqaPmVBMjLtercpkHL+x33e1tJnm8f6TbEWm1UzNFRC3fnyhg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ksjhg+Bw; arc=none smtp.client-ip=209.85.221.42
+	 MIME-Version; b=Y9X4yT6xQ24MYc391eUoX8UAA0JznHdYEHxWCz+JkjrIgTAY7Cn7jscjxCR4B+Y5qRvXLmE3WO9pjVNTA2YWKwc/aelwLKlDLcJnvj9kLexhqqG3rUkTKn9HjuU1BA4EkBJiM0tZb2gFKJ2Ndp5jpvQrSTQB7NxRa+CVxIGrHms=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kTOzWNEa; arc=none smtp.client-ip=209.85.128.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ksjhg+Bw"
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48c45111bebso634090f8f.0
-        for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 12:10:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kTOzWNEa"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49d0da752ffso12144195e9.3
+        for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 12:10:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791745845; x=1792350645; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791745847; x=1792350647; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=fTeW0dCMannfUqmrWOxDyxXAwJxDr0EkxzUlrfb9Tgs=;
-        b=Ksjhg+Bw5UCnBvJbkjQBwNfm4RZXZjT26jboELZrU8NbRXzPjvHybyitKNzKdfaq9E
-         xKZ7YBiiXX4l6bm5U34dIxODeoAzcRlHuolMZaZD7vYyy3QTqSuVSY0TipV0xKtmYnE3
-         ce8Cjr+ca/gXO9v8SZFWdEEhzQ2Rm+MePZzG81WYBcWEGdFkzpmorbt8CKJ5pYTwttMr
-         WGvPLRHqr86UEvmXUHzsIEcbCu6FBZYwq85pFBWLqmpT/wqL02ExXw78BISQiDvI0THu
-         tT9kLzzqO/l4d2GRz/rHxU2YIV9NSN2DEyfB+aPtqL4d4ZPfjt6dkrzS9a+qHWmeBb3S
-         bFHg==
+        bh=nhv2CnG2FYdgl8+HPdEE4WFVSjMRZar70ioMHDUdu/s=;
+        b=kTOzWNEa1V5xk7RUnRdiHBxzo2nXrgjjXmrovfr8WBQhRjf75WJlFOpTwIHqCjNfSF
+         i/RyK1iErkincAz9cObtYkOwuadRBRVqF8IDA8vdM0RZi3aTxpS8fyAfoNy4xSdL/RCR
+         0bFA+/RXGubZfDYoLweWBcE3WQz8f2iuyYL5zPFqduNApkIRFEnmvrxZcRcjseatP72W
+         Ed/YF1zzBiErzAKq8P26Hwc89HrUxxnXE6lWwRQIoTzl2f5EUJvRzWbsn4EwVQ2apbgi
+         ih22xNnuGhxmN6/oRcCIPnGPk4nS0vy62b5uLfHqCu3LjwJbMjiY0zsey8iA/KYOt2gp
+         aR5A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791745845; x=1792350645;
+        d=1e100.net; s=20260707; t=1791745847; x=1792350647;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fTeW0dCMannfUqmrWOxDyxXAwJxDr0EkxzUlrfb9Tgs=;
-        b=U/qvAz9RmVKJJ2RFlA9YhzMEbYVnEp2b7WLRjxEY34/xl1M0KXhpmyE77dABI5hMXm
-         Z1q5ZHQCuue6PWDzyaASNtXujuEbCKxvIN9bJKBRcsSXmlEAeM0iz5RfliPI27Wp/0Tq
-         viwqHgOapwgEYBL0RP73Cm1ian+ttAQlLxOreAWWAZhubah3vev7NpXunUYM6bqOhdM0
-         CWVN7QLMp7baXgwnojjwwTC3dX/upGoPoVu9bNEnBKi7kFh/ub6E1YE+V2dtibZ6hJHE
-         uM9vopoh3Knr8U6WIpKBbc6d27tVoSMN3hIgLwGjiWQxsQpFWpEECxIEY0+TVGgsd0oH
-         RV0g==
-X-Forwarded-Encrypted: i=1; AKwUvBwZoha91tsqrDbhfhVvhG56t+HVCu0Hl0mVuMPlLn7q7wYs39zZlEatkY/trEygCc+mKDfIXnjUCCD0@vger.kernel.org
-X-Gm-Message-State: AFq9FYJLYUSogwuKnyf4hGbKueO+Nj5JQKoFlgV7emBgQWHBbXVuD0zb
-	NE3UJ9nOb38ar37uNYdnvqVYae3YQaHFDSTjDnyFyOZCn1qVvCXNQd1AD07EzqJE
-X-Gm-Gg: AYBFou1iYLwtCCmLFAV7kbVx5skE2jIy0S40NsIDuYseE5wutskIbq8iZDwtKl7h7CC
-	4Sx0cl7DWvTwEvJ47eYWE2R9RPqp5WkxXuKE1JxlRPr7sg1hY68EXMdTnbDT/fRZ9wfaoYZsElu
-	+exCsim+kh8TIr2leNE+PIqMsePaYdxo2YhX7rFTwsATw/KdsJ10cVDzbzAOsS8Nb2pcOv3oJnM
-	sw5hfcapeEG/3w1KeruMtGfQ2F7ezlGRk6zDv9v3xAxla6qtLbwCXgzjRcdN0DrWM1ANJxeZhxq
-	o738K05zwM0kQ6SCVTChviBAUVa6bV+AZgfgxwWmjj29vfXUoQ1MULSdNa8xn2tMfXc8ke2GFNz
-	R/jqkGhs9Y8hoP6rVXd6GMBMXrC4GYjLmrdGFItRA30Cbhjb8qtQ3CC5rBc2PmsDZXd2If/QA/m
-	txVUv1ZFKx7us46iID/XoaGTEXxtamlUTWtK7vA5XPV0aBE3jztK8q3f+hJ63HdKHg2fmzEzAYd
-	+WyA9KqGu621hcYSXbAkf/n0pMhrwWmUIk=
-X-Received: by 2002:a05:600c:e557:20b0:49f:dd9f:6038 with SMTP id 5b1f17b1804b1-4a18e4bff94mr88482415e9.25.1791745845163;
-        Sun, 11 Oct 2026 12:10:45 -0700 (PDT)
+        bh=nhv2CnG2FYdgl8+HPdEE4WFVSjMRZar70ioMHDUdu/s=;
+        b=iGqvZBtUbKYXiMlo1rCYU1Vx1TWXc1g36fQWvRKa2UZVvzbjE0oTlbE6tRdyiYNOB7
+         kFPHMCkAEdtQ9GiCXW9nL6a7XTwEtpW7RtgH1MMvVhlM94c4jwxhnTj84c6Rs/q0ZepY
+         YJSgqrEefm4WE2mPUrAehGVDqEnc+xPPdhYoR4DnPFily9/sOR4pDKz3uyGFPYxi+C1Q
+         mk3WLTySOC5+ohRXW5V99p2FpwYcHfHIQ82IYLxAG3zoN4skbG3mJmz7fcrJMdbYvVO1
+         wmR1o9qeXu3r+ReIlFFjBjpDk46rSbgZcuFnVEqmrNPkNSLvn9ozwdmqzdluju3IS3V7
+         PlIA==
+X-Forwarded-Encrypted: i=1; AKwUvBxtjgdkANe2B7jAh3pMkUapjpBcR68Kpc5jS7mBkFUNGXWiOZ+45/z2FooDREYOB4S1t2Lc3SIF7y9j@vger.kernel.org
+X-Gm-Message-State: AFq9FYLNCyLhbfNOD2fuHingAiZPWJw4eZIgGbKeQwGRRjOpJ3H2FDD0
+	sVMAcxJD7+Tmh4L0j8SQ++C5RY7TsWMP/PrhIbD3e0nxVnyFmJMy90Cm
+X-Gm-Gg: AYBFou3ebOIsIyOI89/pPVD+G7BeqLLordpFr3bpEELq3G1jFwFwKwz3KgCNKccwcwO
+	OM7nKxrakkUWa25lZoGqejfrPQCLtiAAiXezQz9OQamd0zgqTk1TCxrb7dZ4nmPPm4jc4TZ7dm0
+	o1FLRYTG1I8WQ1zJpACYer+TP97ND2dBkGRvCVkQlvBJqjuoryeW2sEDknNUKYLiiFxyzqYZBV1
+	+h2AJbBOJreT/IrdXpifE+wDc+Bf64ZbBENWZx0c6Gok6sF1H50sn5uyQNa3yivE9A2i7fYZBCI
+	0tp80rf99Ezy6EqOaDmXLIlFqA1lUtW00dmlhIDnlhBUlfldz2Tgcl5bj/sKqp3lkUlKDYo6eiD
+	1jPAuqCrNn/1Ohb/FTXfogBRlbMzYRxlMJbxqaZPaVF7QLx9vKIkty1QvCGECgBDx08i+IWFDXK
+	F4CeuVguIT7RwhKpIlOKfK7tMw4lQfQ5oJ0LG002eCHtZqz2kRdPHucChdFBQOhhF2SKmT5SwjA
+	/mmMLsR79a32EmftjFGDvPoHbFuJIkjezs=
+X-Received: by 2002:a05:600c:3111:b0:4a0:159b:d2a2 with SMTP id 5b1f17b1804b1-4a18e4e14e8mr133241775e9.29.1791745847068;
+        Sun, 11 Oct 2026 12:10:47 -0700 (PDT)
 Received: from rillian-arch ([90.244.147.10])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf15691sm225209795e9.6.2026.10.11.12.10.44
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf15691sm225209795e9.6.2026.10.11.12.10.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 11 Oct 2026 12:10:44 -0700 (PDT)
+        Sun, 11 Oct 2026 12:10:46 -0700 (PDT)
 From: Rillian Grant <rillian.grant@gmail.com>
 To: Lee Jones <lee@kernel.org>,
 	Pavel Machek <pavel@kernel.org>
@@ -70,9 +70,9 @@ Cc: Rob Herring <robh@kernel.org>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Rillian Grant <rillian.grant@gmail.com>
-Subject: [PATCH v3 1/4] dt-bindings: leds: Document TI LM3643 dual LED flash driver
-Date: Sun, 11 Oct 2026 20:09:43 +0100
-Message-ID: <20261011191026.149338-2-rillian.grant@gmail.com>
+Subject: [PATCH v3 3/4] leds: flash: lm3643: Describe the LED of ACPI boards without LED nodes
+Date: Sun, 11 Oct 2026 20:09:45 +0100
+Message-ID: <20261011191026.149338-4-rillian.grant@gmail.com>
 X-Mailer: git-send-email 2.56.0
 In-Reply-To: <20261011191026.149338-1-rillian.grant@gmail.com>
 References: <20261011191026.149338-1-rillian.grant@gmail.com>
@@ -84,164 +84,162 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Document Texas Instruments LM3643 dual LED flash driver devicetree
-bindings.
+From: Ruslan Koreev <koreev.r@gmail.com>
 
+Lenovo ThinkPads enumerate the LM3643 through ACPI (HID TXNW3643)
+without a _DSD, so the device has no LED child nodes and the driver
+refuses to probe. On these laptops the chip drives the Windows Hello IR
+flood illuminator, with both current sources feeding a single LED, and
+Lenovo's Windows driver applies a fixed configuration to any LM3643 it
+finds.
+
+Add a DMI table that provides that description as a software node when
+the firmware offers none: one IR flash LED on both outputs, with torch
+and flash limits well below the chip's maximums. Start with the ThinkPad
+X1 Carbon Gen 14.
+
+The description is keyed by DMI instead of being applied to every
+TXNW3643 because the wiring is a board property: which output feeds
+which LED and how much current the LED tolerates cannot be read from the
+chip, and a wrong guess overdrives an LED. The firmware cannot be fixed
+from the driver side, and a per-board table is what x86-android-tablets
+does for devices whose ACPI tables describe nothing either. Boards with
+a _DSD are not affected, the fallback only runs when the device has no
+child nodes. The limits are conservative because the LED part is not
+documented; the illuminator is bright enough for face authentication at
+a fraction of them.
+
+Tested on that laptop: torch through /sys/class/leds/ir:flash lights the
+ST VD55G1 IR camera's field of view, and the resulting frames are good
+enough for face authentication.
+
+Signed-off-by: Ruslan Koreev <koreev.r@gmail.com>
+[rillian: add reg property to match the DT binding]
+[rillian: change DMI activation log to dev_dbg()]
+[rillian: use DMI_EXACT_MATCH]
 Signed-off-by: Rillian Grant <rillian.grant@gmail.com>
 ---
- .../devicetree/bindings/leds/ti,lm3643.yaml   | 143 ++++++++++++++++++
- 1 file changed, 143 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/leds/ti,lm3643.yaml
+ drivers/leds/flash/leds-lm3643.c | 93 ++++++++++++++++++++++++++++++++
+ 1 file changed, 93 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/leds/ti,lm3643.yaml b/Documentation/devicetree/bindings/leds/ti,lm3643.yaml
-new file mode 100644
-index 000000000000..63c5f09f3bd5
---- /dev/null
-+++ b/Documentation/devicetree/bindings/leds/ti,lm3643.yaml
-@@ -0,0 +1,143 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/leds/ti,lm3643.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
+diff --git a/drivers/leds/flash/leds-lm3643.c b/drivers/leds/flash/leds-lm3643.c
+index cbe66e90d8e1..18ac75df72e2 100644
+--- a/drivers/leds/flash/leds-lm3643.c
++++ b/drivers/leds/flash/leds-lm3643.c
+@@ -9,6 +9,7 @@
+ #include <linux/bitfield.h>
+ #include <linux/bits.h>
+ #include <linux/cleanup.h>
++#include <linux/dmi.h>
+ #include <linux/gpio/consumer.h>
+ #include <linux/i2c.h>
+ #include <linux/led-class-flash.h>
+@@ -691,6 +692,92 @@ static int lm3643_register_led(struct device *dev, struct lm3643 *chip,
+ 	return lm3643_register_v4l2(dev, led, fwnode);
+ }
+ 
++/*
++ * Lenovo ThinkPads enumerate the chip through ACPI (HID TXNW3643) without a
++ * _DSD, so the LED is not described by firmware. On the boards below it drives
++ * the Windows Hello IR flood illuminator, with both current sources feeding a
++ * single LED. Describe that with a software node, with torch and flash limits
++ * (100 mA and 300 mA per output) well below the chip's maximums.
++ */
++static const u32 lm3643_ir_flood_sources[] = { 0, 1 };
 +
-+title: Texas Instruments LM3643 1500mA dual LED Flash Driver
++static const struct property_entry lm3643_ir_flood_props[] = {
++	PROPERTY_ENTRY_U32("reg", 0),
++	PROPERTY_ENTRY_U32_ARRAY("led-sources", lm3643_ir_flood_sources),
++	PROPERTY_ENTRY_STRING("function", LED_FUNCTION_FLASH),
++	PROPERTY_ENTRY_U32("color", LED_COLOR_ID_IR),
++	PROPERTY_ENTRY_U32("led-max-microamp", 200000),
++	PROPERTY_ENTRY_U32("flash-max-microamp", 600000),
++	PROPERTY_ENTRY_U32("flash-max-timeout-us", 100000),
++	{ }
++};
 +
-+maintainers:
-+  - Rillian Grant <rillian.grant@gmail.com>
++static const struct software_node lm3643_ir_flood_root = {
++	.name = "lm3643",
++};
 +
-+description: |
-+  The LM3643 is a dual LED flash driver utilizing a synchronous boost converter
-+  to provide power to two current sources.
++static const struct software_node lm3643_ir_flood_led = {
++	.name = "led-0",
++	.parent = &lm3643_ir_flood_root,
++	.properties = lm3643_ir_flood_props,
++};
 +
-+  The dual high-side current sources can be tied together to provide flash
-+  currents up to 1.5A through a single LED.
++static const struct software_node *lm3643_ir_flood_nodes[] = {
++	&lm3643_ir_flood_root,
++	&lm3643_ir_flood_led,
++	NULL
++};
 +
-+  Datasheet: https://www.ti.com/lit/ds/symlink/lm3643.pdf
++static const struct dmi_system_id lm3643_dmi_leds[] = {
++	{
++		/* Lenovo ThinkPad X1 Carbon Gen 14 */
++		.matches = {
++			DMI_EXACT_MATCH(DMI_SYS_VENDOR, "LENOVO"),
++			DMI_EXACT_MATCH(DMI_PRODUCT_VERSION, "ThinkPad X1 Carbon Gen 14"),
++		},
++		.driver_data = (void *)lm3643_ir_flood_nodes,
++	},
++	{ }
++};
 +
-+properties:
-+  compatible:
-+    enum:
-+      - ti,lm3643
++static void lm3643_remove_dmi_leds(void *data)
++{
++	struct device *dev = data;
++	const struct dmi_system_id *id = dmi_first_match(lm3643_dmi_leds);
 +
-+  reg:
-+    maxItems: 1
++	set_secondary_fwnode(dev, NULL);
++	if (id)
++		software_node_unregister_node_group(id->driver_data);
++}
 +
-+  "#address-cells":
-+    const: 1
++static int lm3643_add_dmi_leds(struct device *dev)
++{
++	const struct dmi_system_id *id;
++	const struct software_node **nodes;
++	int ret;
 +
-+  "#size-cells":
-+    const: 0
++	if (!has_acpi_companion(dev))
++		return 0;
 +
-+  enable-gpios:
-+    description: GPIO connected to the HWEN pin.
-+    maxItems: 1
++	id = dmi_first_match(lm3643_dmi_leds);
++	if (!id)
++		return 0;
 +
-+  flash-gpios:
-+    description: GPIO connected to the STROBE pin.
-+    maxItems: 1
++	nodes = id->driver_data;
++	/* The nodes are static: a second chip on the same board cannot reuse them */
++	if (software_node_fwnode(nodes[0]))
++		return dev_err_probe(dev, -EBUSY, "LED description already in use\n");
 +
-+  vin-supply:
-+    description: Supply connected to the IN line.
++	ret = software_node_register_node_group(nodes);
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to register the LED description\n");
 +
-+patternProperties:
-+  "^led@[0-1]$":
-+    type: object
-+    $ref: common.yaml#
-+    unevaluatedProperties: false
++	set_secondary_fwnode(dev, software_node_fwnode(nodes[0]));
++	dev_dbg(dev, "no LED nodes in firmware, using the DMI description\n");
 +
-+    properties:
-+      reg:
-+        description: Index of the LED.
-+        maximum: 1
++	return devm_add_action_or_reset(dev, lm3643_remove_dmi_leds, dev);
++}
 +
-+      led-sources:
-+        minItems: 1
-+        maxItems: 2
-+        items:
-+          maximum: 1
-+
-+      flash-max-microamp:
-+        description: |
-+          Maximum flash current through this LED. Each high-side current source
-+          can provide up to 1.5A. The maximum current the boost can deliver is
-+          1.5A across both sources.
-+
-+          Valid values for an LED connected to one source:
-+            10900 - 1500000, step by 11725 (rounded down)
-+          Valid values for an LED connected to both sources:
-+            21800 - 1500000, step by 23450 (rounded down)
-+        minimum: 10900
-+        maximum: 1500000
-+
-+      led-max-microamp:
-+        description: |
-+          Maximum torch current through this LED. In torch mode each high-side
-+          current source can provide up to 179mA.
-+
-+          Valid values for an LED connected to one source:
-+            977 - 179000, step by 1400 (rounded down)
-+          Valid values for an LED connected to both sources:
-+            1954 - 358000, step by 2800 (rounded down)
-+        minimum: 977
-+        maximum: 358000
-+
-+      flash-max-timeout-us:
-+        description:
-+          The chip supports timeouts from 10ms to 100ms in increments of 10ms
-+          and from 100ms to 400ms in increments of 50ms. The provided value
-+          will be rounded down to a supported value.
-+        minimum: 10000
-+        maximum: 400000
-+
-+    required:
-+      - reg
-+      - led-sources
-+      - flash-max-microamp
-+      - led-max-microamp
-+      - flash-max-timeout-us
-+
-+required:
-+  - compatible
-+  - reg
-+  - "#address-cells"
-+  - "#size-cells"
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+    #include <dt-bindings/leds/common.h>
-+
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+
-+        led-controller@63 {
-+            compatible = "ti,lm3643";
-+            reg = <0x63>;
-+
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+
-+            enable-gpios = <&gpio 42 GPIO_ACTIVE_HIGH>;
-+            flash-gpios = <&gpio 43 GPIO_ACTIVE_HIGH>;
-+            vin-supply = <&vreg_flash>;
-+
-+            led@0 {
-+                reg = <0>;
-+                led-sources = <0>, <1>;
-+
-+                function = LED_FUNCTION_FLASH;
-+                color = <LED_COLOR_ID_IR>;
-+
-+                flash-max-microamp = <750000>;
-+                led-max-microamp = <180000>;
-+                flash-max-timeout-us = <150000>;
-+            };
-+        };
-+    };
+ static int lm3643_probe(struct i2c_client *client)
+ {
+ 	struct device *dev = &client->dev;
+@@ -701,6 +788,12 @@ static int lm3643_probe(struct i2c_client *client)
+ 	int ret;
+ 
+ 	count = device_get_child_node_count(dev);
++	if (!count) {
++		ret = lm3643_add_dmi_leds(dev);
++		if (ret)
++			return ret;
++		count = device_get_child_node_count(dev);
++	}
+ 	if (!count || count > LM3643_NUM_CHANNELS)
+ 		return dev_err_probe(dev, -EINVAL, "%u LED nodes found, expected 1 to %d\n",
+ 					 count, LM3643_NUM_CHANNELS);
 -- 
 2.56.0
 
