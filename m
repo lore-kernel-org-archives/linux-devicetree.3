@@ -1,116 +1,177 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.mindbit.ro (xs1.mindbit.ro [80.86.107.70])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41A6B2BCF4C
-	for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 01:02:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C656126CE05;
+	Sun, 11 Oct 2026 03:09:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.86.107.70
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791680555; cv=none; b=UWxlwCMtK7posO6VAyyKG18ps23nQFd0akh3ndYnGWCXi/xEvNPZLYVU+h0rYdLyDpzo7VAEH3DE4o76cvTwEulRyPt4J/tZ8WpxaEpkvTj/pnj9ElfM3poU1sG2XBF777/GzDkvCyQ6q1b6VwZKiWlzGjjaqJZvt0b1XAOd0fs=
+	t=1791688196; cv=none; b=O7YhYYpmsqUVaIlHOwRrVojK4gRQpaz7I2t/I8oxtoMnxBIN9bTpPIYYiWkmK2ddyX3EZJrlLcYJwXKnl60FkDX/qLxUgIFoW6n+1BiSQ8scVOYcaE298+Rf6tUjzvtjakKrVHwLfeKIsGzbbBk5FZMxkk2zyYMm4eh/BtQ+hYg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791680555; c=relaxed/simple;
-	bh=ULD97qusdFlornonTOyy3OhQaL5JaHBfPuOaK9jqyd4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FKp4cf8/k/JAVdMQ2dVHX1HOd0OR/wUZoz9bDyLPy0ZxMROUe6I6fV5hPMs7cJE68qmaPB1UK1kI7yoQvGHce1+83gmK0X4OZZcfphQFYF44ZUcophhi3Eb5nUaGlEHPdt6ffDh+d0zbLM80mD8DfR1WCAxU/FTOwERF0hufDPs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nhz/WgWX; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791688196; c=relaxed/simple;
+	bh=4m6CiHIXLcTLZiemS0ktlfqETabZ496cjz4VuaQM6x4=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=aID6kS37Rf2ULibwfFLswmAy9sr2IOZ/t1HqapTZxr51UaexS8eo42cjXaM4f7TeUStalUSVO0l4Fw9n+N2MxTDJCYDrOQHhJgIyBbdr5PHAbfL4lsg4B3GKrxvr8vSEjCnnBE1Wdd4B/N5NKjxJxlH4uo3Sma6sSb1x5MIzrTY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net; spf=pass smtp.mailfrom=rendec.net; dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b=VH68w1l8; arc=none smtp.client-ip=80.86.107.70
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rendec.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nhz/WgWX"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-49fbb2acc90so5417365e9.2
-        for <devicetree@vger.kernel.org>; Sat, 10 Oct 2026 18:02:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791680552; x=1792285352; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=60J2VG6f80i0xtDeR4IknW0h4MKxDdpuTKlVp7+7Fow=;
-        b=nhz/WgWXg3aK6Q/YGAT/jwDFNI4wc/9C+OtgNM+3nwwem0ELEXh8r2Nu/kVx4PsZaB
-         XSiEEChFL2QX96ju09YzaNLaUFIqg/DCcu90B/ZtZm9A4znA6nu6qPdzqarQhKxTHanM
-         Z65n1OnubsZO5+R1RzYGb6PERb9a4oQQHu2lPfNz2zBXjYZaY3rtcGXkwjdFaxll4EU3
-         laef2iX42UzATB2KZtAxLGtVPezQDYMdxiN7y9+nOyXKB6Ws0bksreQ325/caDJ1qgJh
-         oPOqNgnpVUshpCfjhCDsGtOH5VyscE04/tGH4vNr05zGTUZz3bTTZzl9KsA0WqPbFTXd
-         sKSQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791680552; x=1792285352;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=60J2VG6f80i0xtDeR4IknW0h4MKxDdpuTKlVp7+7Fow=;
-        b=fgsD1scr2jZXm6iJ0CzRc+s+pbnYKm46vDT99Et4E6ZyNoCpYqdcWRKpOOGhLQ1svP
-         3GaQz96xxHGQlwQlij7FXhwj+gaO+Ce+wLDsbhZFhlj/9eGhUonH1zFU1GjDy2yYvzb7
-         AvmP6XRsR/RPRQR04mrPeeUWSpvjAIopDrUJaIkTVe2xEpKTWjNEz8Fl5w4W1nQOGVzH
-         JUOySkRhl0F9w50cJL35ND7SeJbC0TGClPleXD6F5h7Gv2QmWPJxSCs6pXAIPRPWTs/n
-         TdQZ1udVdz+uIO5UDd+6W7A4jCe6joQyWoHiG3HU92lzNdy06QGSNuAH9VuI2O2sentW
-         PSkA==
-X-Forwarded-Encrypted: i=1; AKwUvBxHLUGBF5C72MSuONRSHkxOw6Y3KYl/hdYCZdTnAMZpYGmXtRaCBSRYf4ozw1Q1B2TrY+FXYbc4SoJL@vger.kernel.org
-X-Gm-Message-State: AFq9FYJwCzvmVd/SuS3sLd2aRCGdbMHB5FCx4drXv1PVCLz5j9iHt3za
-	ByhJNdBkWmjaMBVOurDYD+nzvF3iiM1mH2+aZ8fZ1Q0exIzNEUPWt6Pc
-X-Gm-Gg: AYBFou3TQeSrbSAE1wpijFKGyFhykx8pra+Om5tHrvh9SUOWr8wqdcQlDG4EIZey7iv
-	1olUyrVvJzhAcpgR1JJJWOl5HF9cQ47vXQJ/5Bo5zTVYCnTHzOd5JMdaEwn9Sru1jtrBi+J8Lca
-	Weum0kxidMd7+rRV66VGZjiJ6vL6gYWDCo+eGFMMcVzYyCU6g/MVfxDifhuBlp/V1aK88nd27X8
-	1X6ZJNJfRnXuxigD7XGt1X1hYbG8OZA2H4hOHZkWUvCiyiMeUiyE+/MZJIn3H7HDtChZH9P12j6
-	vPORcRlxMEfIeK1x7zUDsyHFFvj0VfXYmWrRmn70KPTyOzHTCY25u9OOwqiopVrwg3fPP7Mt1SU
-	kIFJONtg4oGHjJu4SpXGrSlJIzm1Iw5AzvPHezQ/83Eo+l2xwtbQUmVMDsVGkGabThIx4vHPdui
-	muRMSm8dB84PTFGOLR4gcaUEcD4+1e9peI34WV8pB1lnyaB0RvJyyBgWZ7fF3NNFD+8j+DMR/is
-	4QCVsCwa44IQ9HZhfHf9bcgbc5VZGo+6jBwGImH5iEfWCEoqlz3FfYfWjo7D9TW6YpDpP18Wzk1
-	y8jczQKhTqIVB0Z8iLFeYgVyguMqYrmSTgGSxs971uwYrHY+JFRXZgHikXTGfQ==
-X-Received: by 2002:a05:600c:8184:b0:49f:ffd0:4039 with SMTP id 5b1f17b1804b1-4a18e4f2221mr83201325e9.32.1791680552214;
-        Sat, 10 Oct 2026 18:02:32 -0700 (PDT)
-Received: from navid-pc ([2a01:4b00:a856:6220::a11])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bb6b3cbsm139970805e9.0.2026.10.10.18.02.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 10 Oct 2026 18:02:31 -0700 (PDT)
-From: Navid Ghahremani <ghahramani.navid@gmail.com>
-To: arnd@arndb.de
-Cc: linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stefandoesinger@gmail.com,
-	linux@armlinux.org.uk,
-	Navid Ghahremani <ghahramani.navid@gmail.com>
-Subject: Re: [PATCH 02/24] ARM: l2c: Serialize device reads with cache maintenance when requested
-Date: Sun, 11 Oct 2026 02:02:23 +0100
-Message-ID: <20261011010223.2379347-1-ghahramani.navid@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <5e78f63b-9479-49d9-8474-fa408135f325@app.fastmail.com>
-References: <5e78f63b-9479-49d9-8474-fa408135f325@app.fastmail.com>
+	dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b="VH68w1l8"
+Received: from dog.kanata.rendec.net (pool-174-112-193-187.cpe.net.cable.rogers.com [174.112.193.187])
+	by mail.mindbit.ro (Postfix) with ESMTPSA id 176BAD1DCB;
+	Sun, 11 Oct 2026 06:09:50 +0300 (EEST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mail.mindbit.ro 176BAD1DCB
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rendec.net;
+	s=default; t=1791688192;
+	bh=4m6CiHIXLcTLZiemS0ktlfqETabZ496cjz4VuaQM6x4=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
+	b=VH68w1l8JDks86FV+XSXsLe5NlV66EytKLKnvJZFm3z558H4OsMBzTIq0liJY7s/C
+	 T+kjmGuPStM95e/OAqwrZRMUrt6FDte8lENRxQu4CS5X57soXpS3Oe84iO2YN7s9OB
+	 oA21gEsprUzhF/SlsEEKlCaxWpOU4t6IPc00e9lQEKQGKCq1VGJ8S6wmtIxQlRTrW9
+	 E+KW89vY3LnqI67Im7y44R5rebnutWuNW532O3QLe+WU8pN5s+AcI7TaXLmxeIratR
+	 y84ac4ZXiinPoyHGqEWfQ9TFSXm4K09vEJlTSyim0EgQEkYDmtCMVtoPKZ2XIPRL11
+	 XY4IPlevBD8FA==
+Message-ID: <13259378e2e41c61a7235c1b47eac649ab06425c.camel@rendec.net>
+Subject: Re: [PATCH v2 8/8] irqchip/al-fic: add irq_set_affinity callback
+From: Radu Rendec <radu@rendec.net>
+To: "Farber, Eliav" <farbere@amazon.com>, Thomas Gleixner <tglx@kernel.org>,
+  "Shenhar, Talel"	 <talel@amazon.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>, "devicetree@vger.kernel.org"
+ <devicetree@vger.kernel.org>,  "linux-kernel@vger.kernel.org"	
+ <linux-kernel@vger.kernel.org>
+Date: Sat, 10 Oct 2026 23:09:49 -0400
+In-Reply-To: <150803f555ade32668f31d507e151558a505cfe1.camel@rendec.net>
+References: <20260927080637.27285-1-farbere@amazon.com>
+			 <20260927080637.27285-9-farbere@amazon.com>
+		 <c28806ad779b972c94b9dd89fb70ee64cefb63cc.camel@rendec.net>
+		 <BY3PR18MB4722F4AFC8E300C4D01BE217C6962@BY3PR18MB4722.namprd18.prod.outlook.com>
+	 <150803f555ade32668f31d507e151558a505cfe1.camel@rendec.net>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Hi Arnd,
+On Sat, 2026-10-10 at 16:19 -0400, Radu Rendec wrote:
+> On Mon, 2026-10-05 at 11:20 +0000, Farber, Eliav wrote:
+> > On Sun, 2026-10-05 at 01:25 +0000, Radu Rendec wrote:
+> > > This is a common problem to all multiplexing irq drivers; not because
+> > > the parent interrupt is shared but because changing the affinity of o=
+ne
+> > > child interrupt (by changing the parent interrupt's affinity under th=
+e
+> > > hood) would have the side effect of changing the affinity of all its
+> > > siblings.
+> > >=20
+> > > I think the correct behavior is to fail with -EINVAL in this case.
+> >=20
+> > -EINVAL is not usable here because it restores the failure this patch
+> > fixes. The consumer is arm-cmn. We have a SoC where its interrupt is
+> > routed through a FIC group instead of a direct GIC SPI, and
+> > drivers/perf/arm-cmn.c does
+> >=20
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 err =3D irq_set_affinity(irq=
+, cpumask_of(cmn->cpu));
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 if (err)
+> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=
+=A0=C2=A0=C2=A0=C2=A0 return err;
+> >=20
+> > at probe, so with no .irq_set_affinity callback the PMU does not probe =
+at
+> > all.
+>=20
+> All right, now I see what the problem is. I will be fully honest and
+> transparent and admit I don't know much about PMU drivers in general or
+> arm-cmn in particular. But I believe that irq_set_affinity() (with a
+> hard fail) is there for a reason. Of course, because we are in 2026, I
+> did ask a LLM what that reason could be, but I will refrain from taking
+> the answer as correct/definitive or speculating; I will just say it
+> probably needs careful consideration.
+>=20
+> The requested affinity mask includes a single CPU; by contrast, unless
+> explicitly configured, the FIC parent IRQ will probably be affine to
+> all available CPUs, so the cpumask_equal() in your patch will likely be
+> always false. The concern is not the warning itself (you're using
+> pr_warn_once); it's that the arm-cmn IRQ handler will run on a
+> different CPU than it expects/has requested.
+>=20
+> > > If you insist on having the ability to change the child interrupts'
+> > > affinity, you may want to look at this patch and do something similar=
+:
+> > > https://lore.kernel.org/all/20251128212055.1409093-4-rrendec@redhat.c=
+om/
+> >=20
+> > I implemented that for al-fic and tested it on hardware. It seems to
+> > work: with the parent SPI pinned to one CPU and the child's affinity se=
+t
+> > to another, the child dispatch is accounted on the target CPU, one
+> > dispatch per parent interrupt, no re-fire storm.
+> >=20
+> > What stops me from just sending it is that it changes the interrupt pat=
+h
+> > for every child of every FIC instance, not only for a child that asks f=
+or
+> > affinity. .irq_pre_redirect is called before the affinity check, so it
+> > runs on every dispatch. The ack therefore has to leave the flow handler
+> > and be done in the parent context always, and .irq_ack has to become a
+> > noop so it is not done twice. A level configured group has to be masked
+> > in .irq_pre_redirect as well, because the FIC re-asserts the cause bit
+> > while the source is still asserted, so for those groups the mask moves
+> > into the parent context too. Today all of this happens inside
+> > handle_level_irq() and handle_edge_irq(), under desc->lock.
+>=20
+> The dw_pci driver is not the best example=C2=A0because it uses a stacked
+> layout with the multiplexing irqchip at the bottom and a hierarchy
+> irqchip on top (which is why the .irq_pre_redirect was necessary).
+> Unfortunately it's the only example I am aware of (and also what
+> prompted the redirect framework implementation). I apologize for the
+> confusion it may have created.
+>=20
+> I think in the case of al-fic, it's sufficient to set
+> irq_chip_redirect_set_affinity as the .irq_set_affinity handler and
+> replace generic_handle_domain_irq with generic_handle_demux_domain_irq.
+> That will not change the ack/mask path.
 
-Thank you again for the suggestion to test arm,outer-sync-disable. I have now completed extensive hardware tests on the physical ZTE ZXHN H3600 across multiple bring-up orders and load scenarios, and unfortunately disabling outer-sync alone is not sufficient to prevent the interconnect deadlock.
+Sorry! Scratch that. Human hallucination :)
 
-Here is what I tested:
-1. Added arm,outer-sync-disable to the l2cc node in the device tree (zx279128s.dtsi).
-2. Rebuilt the kernel with CONFIG_CACHE_L2X0_IO_LOCK disabled and completely removed my custom read lock from both cache-l2x0 and mt76.
-3. Netbooted the initramfs uImage over TFTP into RAM via U-Boot (zero flash modification).
+Yes, your interpretation is correct. The ack and mask need to move to
+.irq_pre_redirect because they must happen in hardware interrupt
+context; if the demultiplexed interrupt is redirected, its flow handler
+(handle_level_irq() or handle_edge_irq()) runs asynchronously in
+irq_work context, so ack/mask can't happen there.
 
-The kernel booted cleanly and confirmed the configuration:
-[    0.000000] L2C: disabling outer sync
-[    0.000000] L2C-310 cache controller enabled, 16 ways, 256 kB
+But note that even though the call path changes for any interrupt, the
+handler is still called synchronously (at the end of=20
+generic_handle_demux_domain_irq()) if the affinity hasn't been changed
+and redirection is not necessary. So there is no overhead in that case.
 
-Both MT7915 cards enumerated over PCIe and initialized firmware. Here are the observed results across the different test scenarios:
+I think all this would be less horrible for a driver that wants to
+implement redirection if we changed changed handle_level_irq() and
+handle_edge_irq() to skip the ack/mask for irqchips that implement
+redirection (e.g. based on an irqchip flag), and provided a default
+implementation of .irq_pre_redirect that called the ack/mask handlers
+instead. That way, all an irqchip driver would have to do to implement
+redirection would be:
+ * set the flag that skips ack/mask in the flow handlers;
+ * set .irq_set_affinity =3D irq_chip_redirect_set_affinity;
+ * set .irq_pre_redirect =3D default_implementation_to_be_added.
 
-1. Sequential Bring-Up with Long Delays:
-When bringing up one radio and waiting several seconds until it was completely idle before bringing up the second radio, the system survived temporarily. Because idle beaconing generates very few register reads, the collision window was small enough that it avoided a collision purely by timing chance.
+I'll try to draft something along those lines next week and send an RFC
+patch. We'll see what Thomas thinks :)
 
-2. Simultaneous Bring-Up ('wifi up'):
-When enabling both radios simultaneously in UCI and triggering 'wifi up' to bring up both 2.4 GHz and 5 GHz interfaces together, the interconnect froze solid immediately. The serial console went completely silent, Ethernet ping dropped to 100% loss with zero panic or oops output from the CPU, and the router required a physical power-cycle to recover.
+By the way, did you mention the FIC chips could be stacked or am I
+imagining things again? That could be an extra wrinkle in the context
+of redirection.
 
-3. Concurrent Wi-Fi Scans and Traffic:
-Even when the radios were brought up sequentially, the moment concurrent operations were triggered across both PCIe endpoints (such as spectrum scan triggers via 'iw dev scan trigger' or active data traffic while DMA cache maintenance was running), the SoC interconnect locked up dead every time.
-
-Looking into arch/arm/mm/cache-l2x0.c, arm,outer-sync-disable only suppresses standalone outer_sync() calls by setting fns.sync to NULL. It does not touch the line-by-line cache maintenance inside l2c210_clean_range(), l2c210_inv_range(), or l2c210_flush_range(). During active dual-band Wi-Fi operation, network DMA continuously invokes these range operations, which collide with the high frequency of PCIe MMIO register reads across the internal Sanechips AXI crossbar.
-
-By contrast, my serialization lock approach (which serializes PCIe register reads with L2C maintenance operations) successfully passed 240+ continuous stress reload cycles and boots under heavy Wi-Fi traffic without a single freeze. Interestingly, examining ZTE's original stock kernel (Linux 4.1.25) reveals that ZTE's own chip engineers used this exact same solution, implementing a global spinlock around PCIe reads (fixed_pci_read_u32()) and L2C maintenance to work around this hardware erratum.
-
-Given that this is a silicon crossbar flaw that requires software serialization, what would you recommend as the cleanest, most acceptable way to structure this for upstream? Would you prefer keeping the serialization lock as an SoC-specific quirk in cache-l2x0, or is there an alternative architectural mechanism you would suggest?
-
-Best regards,
-Navid
+> > Do you still consider that justified for this driver, given that the on=
+ly
+> > caller needing anything here is one that just needs the call not to fai=
+l?
+>=20
+> As I explained above, I really doubt that arm-cmn just needs the call
+> not to fail. I am inclined to think that it actually *needs* the IRQ to
+> run on the CPU it wants, hence the hard fail.
