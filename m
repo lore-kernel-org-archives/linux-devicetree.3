@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6E683451C6
-	for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 05:14:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E316B25F98A
+	for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 05:16:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791695688; cv=none; b=X/k6YK41gRUE3KL+iiHP8wTo+Q9wYAioLnKYAnGG3KdZeVHySlGiS7Uramnye2PDvC6coLE8V4JnJSD1OYPSJ/iThvHUS52JOGhSR+PIwHEh/jnkAv2eQ0zaVG+asAsdxVBu28NdAN3xlo9hgVJmNMtvCk54qfO3POe9Go9FdQM=
+	t=1791695793; cv=none; b=e8U4rvtTvm9tKHCV7YNmC61/pXNGg4jBLfyUrzvhu8yUiFRRpt3z/PrRT08KXakDCUB6PAvPryZWt19vXaC3NPBWiyNuPxseMxAhPFtNIHr8jLiiIL6TkFkk992DIsaEzx4nEF0bouDQ31KLlSBw08Jwd5yXtn1HdgT0WkmLZQE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791695688; c=relaxed/simple;
-	bh=ZpVcBm0FUYNk4H/lj/mTvkIQRaRbWe7mg0Ua+HOelaQ=;
+	s=arc-20240116; t=1791695793; c=relaxed/simple;
+	bh=isMy3mSNxQYuW9KTI9DRLYiUVwDH4k8vujMQdUMoUN4=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=stt69vHC2iWOM3L8Hf0yD62TB0x3bCCeVWDk0z+OzEZSk8P+3OMPlXkmSv3AK1794gsgAQAO2rsxjFz1KDXp1vZ+qsMKy0DgubY3vwqL7XVP1lx9KVBZGI6gVfSfJQ3lFejq9tZ4QdTNJhiGPl497GRWRIi/8uB67PI7S3cWSpU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ggflZrrd; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=ec10/ltviqiBzyfTItmHXBYlThlYjv8iWSJw6aJB0GzGvNMa3kT1FtHjGzFxv1MY/Ek2ZdfT+J+j03zc7GQWFtJ72L31YCiZ3QFWjh3+2vuCDTT5rhzYGKhuUqXGAObTYPPl7AckUbXmKiCkAUduL59HoL65mUZUf5DvVrO4tsc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q5Q+AnKC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ggflZrrd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3499F1F0089C;
-	Sun, 11 Oct 2026 05:14:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q5Q+AnKC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67AC41F0089B;
+	Sun, 11 Oct 2026 05:16:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791695686;
-	bh=tO+3NA441t3XPUQT47mBFgg+dlK/l06kQKo4nGbC4OE=;
+	s=k20260515; t=1791695792;
+	bh=K1C53mUXKyYluHrfibBTFKRS9ERFvW6/MyLMby51e6E=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ggflZrrd/a4+HSV4gS9hTRE/2WSMjgEbe3b7CipX5flVEMqu1HFP/PJE673Rb3CZe
-	 z4DvnoQ7lHGd8lOVU45YYt69crBMTxceGiyQy7MazU7rq1HQRZ/z+v2RVNuN470OXN
-	 0HV8HoarKt7718U1rs2S41DrJNJQtpg5q0pohjKTcMQhvINFVZgC+h/wyov2iF/NC9
-	 +ghB0GU/8KYiL3LDTw0WziUwp4vzqdQ3avlk/HmHd1pYS4cWk3mcNNHxixlQAsTE38
-	 K52lMZFEC1uaYOyhaKZp20aD3KH+basguIZLU4nH6c84MVDNjf6XN4+Om895zLZCRb
-	 IdoEcLG5e0CpA==
-Message-ID: <sashiko-outbox-167032@kernel.org>
+	b=Q5Q+AnKCr2N4c9HKjmKsF8JcR7qnUUgIngYWqiBHG+KJhNuXYY9mjInAeZDylISya
+	 3KnCAjMcQkj57TskoiZmTGzIOaBhoLXfZjXQQadICXYiUDwaoAvvOsf6lOyO2nqyny
+	 eBFovknqDVgW2nX/1D3v6FPCgyvSORorKDzUMPWwoo9CS/RzAsqJ19DDpbhaSVo3f3
+	 DqnO974JL5eqCoYxfFv/Chk1Zmzps8Dtpdd5960NzuwLUPjat5O5hKD3rahfCis0nW
+	 6+TuelVU/HscUyh3U8OJKRUvuKIvgB4sWG1cFYZotuuPcYlfYjmlls6WQMkwn/pXJt
+	 MRx6wEjJGzX1w==
+Message-ID: <sashiko-outbox-167034@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 5/9] irqchip/al-fic: switch to shared parent
- interrupt
+Subject: Re: [PATCH v5 9/9] irqchip/al-fic: support per-child affinity via
+ interrupt redirection
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Eliav Farber" <farbere@amazon.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261011050449.41903-6-farbere@amazon.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20261011050449.41903-10-farbere@amazon.com>
 References: <20261011050449.41903-1-farbere@amazon.com>
- <20261011050449.41903-6-farbere@amazon.com>
+ <20261011050449.41903-10-farbere@amazon.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sun, 11 Oct 2026 05:14:45 +0000
+Date: Sun, 11 Oct 2026 05:16:32 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,78 +47,85 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] irqchip/al-fic: shared parent mapping destroyed on error path via =
-irq_dispose_mapping
+- [High] irqchip/al-fic: unconfigured level interrupts cause interrupt stor=
+m on redirection
 --
 
-commit 2575228eb0e3f9536c071e11d0536822135b2cae
+commit a2b0d194e9e91e226ae5163eb51d0cdf61945a75
 Author: Eliav Farber <farbere@amazon.com>
 
-irqchip/al-fic: switch to shared parent interrupt
+irqchip/al-fic: support per-child affinity via interrupt redirection
 
-This commit changes the driver from using a chained handler to a shared
-interrupt (IRQF_SHARED) for the parent interrupt line. This change allows
-multiple FIC groups to share a single output line toward the parent GIC SPI.
-It also seeds the mask cache from the hardware register before requesting
-the interrupt.
+This commit wires al-fic into the interrupt redirection infrastructure to
+support per-child affinity control. It defers the handler execution to the
+target CPU via irq_work while moving the ack (and masking for level
+configured groups) into parent context using irq_pre_redirect.
 
 > diff --git a/drivers/irqchip/irq-al-fic.c b/drivers/irqchip/irq-al-fic.c
-> index 32d8098699a41..8a7eb9009515f 100644
+> index 13a945a1d312a..77cff6308eba1 100644
 > --- a/drivers/irqchip/irq-al-fic.c
 > +++ b/drivers/irqchip/irq-al-fic.c
+
 [ ... ]
-> @@ -162,9 +165,22 @@ static int al_fic_register(struct device_node *node,
->  	gc->chip_types->chip.flags =3D IRQCHIP_SKIP_SET_WAKE;
->  	gc->private =3D fic;
+
+> @@ -157,6 +163,32 @@ static int al_fic_irq_retrigger(struct irq_data *dat=
+a)
+>  	return 1;
+>  }
 > =20
-> -	irq_set_chained_handler_and_data(fic->parent_irq,
-> -					 al_fic_irq_handler,
-> -					 fic);
-> +	/*
-> +	 * Seed the mask cache with the value al_fic_wire_init() programmed,
-> +	 * rather than having the generic chip read the register back on the
-> +	 * first child mapping: that is later than the parent is requested, and
-> +	 * never happens at all for a group with no consumer in the devicetree.
-> +	 */
-> +	gc->mask_cache =3D ~0U;
+> +#ifdef CONFIG_SMP
+> +/* The ack happens in al_fic_irq_pre_redirect() on both paths instead. */
+> +static void al_fic_irq_noop(struct irq_data *data) { }
 > +
-> +	ret =3D request_irq(fic->parent_irq, al_fic_irq_handler,
-> +			  IRQF_NO_THREAD | IRQF_SHARED,
-> +			  of_node_full_name(fic->node), fic);
-> +	if (ret) {
-> +		pr_err("fail to request irq (%d)\n", ret);
-> +		goto err_domain_remove;
-> +	}
+> +/*
+> + * Runs in the parent interrupt context on every dispatch, redirected or=
+ not.
+> + * Clear the cause bit here: once the flow handler is deferred, the FIC =
+keeps
+> + * driving its output until the irq_work runs, and a level parent SPI re=
+-fires.
+> + *
+> + * A level configured group is masked too, because its cause bit re-latc=
+hes
+> + * while the input stays asserted; the deferred handle_level_irq() unmas=
+ks
+> + * when the handler is done. An edge configured group is only acked, sin=
+ce
+> + * handle_edge_irq() never unmasks unconditionally and the mask would st=
+ay.
+> + */
+> +static void al_fic_irq_pre_redirect(struct irq_data *data)
+> +{
+> +	struct irq_chip_generic *gc =3D irq_data_get_irq_chip_data(data);
+> +	struct al_fic *fic =3D gc->private;
+> +
+> +	if (fic->state =3D=3D AL_FIC_CONFIGURED_LEVEL)
+> +		irq_gc_mask_set_bit(data);
 
 [Severity: High]
-Will this transition to a shared parent interrupt cause issues with the
-error path in al_fic_init_dt()?
+Could unconfigured level interrupts cause an interrupt storm on redirection
+here?
 
-Since multiple FIC groups can now share the same parent interrupt, if a
-subsequent group fails initialization (e.g. if this request_irq() fails),
-al_fic_init_dt() will call irq_dispose_mapping(parent_irq):
+If a driver requests a child interrupt without specifying a trigger type,
+fic->state remains AL_FIC_UNCONFIGURED.
 
-drivers/irqchip/irq-al-fic.c:al_fic_init_dt() {
-    ...
-    fic =3D al_fic_wire_init(node, base, parent_irq);
-    if (IS_ERR(fic)) {
-        pr_err("%pOF: fail to initialize irqchip (%pe)\n", node, fic);
-        ret =3D PTR_ERR(fic);
-        goto err_irq_dispose;
-    }
+Since the generic chip defaults to handle_level_irq, when the interrupt
+fires and its affinity excludes the current CPU,
+generic_handle_demux_domain_irq() calls al_fic_irq_pre_redirect().
 
-    return 0;
+Because the state is unconfigured, the check for AL_FIC_CONFIGURED_LEVEL
+fails and the interrupt is not masked.
 
-err_irq_dispose:
-    irq_dispose_mapping(parent_irq);
-    ...
-}
+The handler execution is then deferred to another CPU via irq_work.
+However, because the hardware is level-triggered and was not masked, the
+FIC continues asserting the parent SPI. This immediately re-triggers the
+parent interrupt upon return, trapping the parent CPU in an infinite loop.
 
-Because Linux IRQ mappings are not natively reference-counted at the dispose
-level, unconditionally unmapping the shared parent interrupt would sever
-interrupts for any other FIC instances that already successfully requested
-and mapped this shared parent line.
+> +
+> +	irq_gc_ack_clr_bit(data);
+> +}
+> +#endif /* CONFIG_SMP */
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261011050449.4190=
-3-1-farbere@amazon.com?part=3D5
+3-1-farbere@amazon.com?part=3D9
