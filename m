@@ -1,177 +1,374 @@
-Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com [209.85.160.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE09F4BA1E7
-	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 17:01:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.181
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791824514; cv=none; b=WfLyQXjfiOeS4fyb2rI+QtcLKeo1wcUZLQB4sW9Fj1tpQtnc25AAWpQJR5avwfQlPxh/JO4b9GuCDKPgbeISK5TPbxulxXn7PfJ+Es6JrW7fZ4tuYW0gc4DUTi45Cdnl2RrDFVoylDE1Tkke1+Xz5auK4GYc57dCDW2t/ED5fag=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791824514; c=relaxed/simple;
-	bh=pc5hKW3Rl+BujC0Y21fvHrisrTvPnKUkQmx9hxWwQ3k=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=W3X5L3dgyatyfl4bjJjnBIRBoPPrJfSodVxE/NzGKcceWna1U0l4AqL8rpEdO0hhU56REsL4tfbpl8nGq3+WKRvwv1XLrosfTNFN3LzRnSdLjjPyhLKBOKpCFg/xtduTSGlm4gSOVBd/Ya21Pq2rVlkbtfv1NsZaSZb1nZNLTJA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=P3liMVcZ; arc=none smtp.client-ip=209.85.160.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C880448E0D9
+	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 17:03:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791824620; cv=pass; b=fu6V09E6SAP0ScytN1pOpFKD83A8YNV9zmXssbjQBlZUAPrfAz0z5LXHobPEuwmax8aVXNsOAOfSp52Ng1XhNxfuoeF9LMAHUSsnuvaSXIW+Ajrm9MqMPCA+3ZUCiWKjaSU1JVeYx1UMvvsrO0LvSi5qBdIU4GM/z40d6/9q6sM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791824620; c=relaxed/simple;
+	bh=dKfvJtGHZmzjUIBowW8Kzn+l9RBuWlUzTORhD2jZiOQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=LItUQwROzdFDm2e0MJX8yrXmX30AtaPzVk1XIKmCdMzbQqM6u+EGOQpROxGQ46BYBmtsB8O9cHC7RORTb44OCd9Uh4ZV1sOe63jjM4uTobruUexHTWvyxeYZoUDpjCK8/nfmj7ZWn7HKdHI2EfquBFNf+ob2R1N7WLYAdlNW9xI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=gAuM4byR; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=amcSxPlI; arc=pass smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="P3liMVcZ"
-Received: by mail-qt1-f181.google.com with SMTP id d75a77b69052e-533972e0cccso24486461cf.0
-        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 10:01:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="gAuM4byR";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="amcSxPlI"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CFexJB1290961
+	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 17:03:38 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:to; s=
+	qcppdkim1; bh=A4GClre/w4vdaRAqEfHfWYR6PD2w7avTQzzpljHZmM4=; b=gA
+	uM4byRfyRQ6OxvKWIKp3THc23mdB+NTJVIPbnaN3IWktVLDG2tOT4JlHZ8KjcYah
+	7G4bdveVl5QKTGFNGjRQUj5oj984gNtTi+tZ4RTnkm40BIf37Z/fK/JGvzureTBs
+	1/TvXAFTaKhRc/3RTa58+rcIKq99HJH7aaxcuSJI+cpKbNhHGI418Rac0AniAqMk
+	61GRMt4HsWgu2pDkvswTk4tmZn9UVLPLeeYYap7ABZSDOH+aE887WGUELNXtZJOj
+	sCL/zgQ2ZK1h4E+RSwb9uWYU7znbrq3xXKpyeLwUQHuhjvS1TsSIaq5oNqZ41s+r
+	JCok3Y1ujz6ftBYZISdw==
+Received: from mail-yw1-f197.google.com (mail-yw1-f197.google.com [209.85.128.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h8wfcsucy-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 17:03:37 +0000 (GMT)
+Received: by mail-yw1-f197.google.com with SMTP id 00721157ae682-8b0adb0b8dbso7689877b3.0
+        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 10:03:37 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791824614; cv=none;
+        d=google.com; s=arc-20260327;
+        b=oywS1W5zdMjsM/y6zqmfUlvvdAcJjfJX4PRaP7ENrWx5g6crBHbexSUfbThbjEwkVe
+         CyQUBoRzXah+jcZDUj5CNB9E8vq0q1e4FG7AT5U4P1osXyonuh7klqmFJ3Ay960wTjIC
+         J5RHFTryQ+YHOCb7EBg1JKZGWd+4d31majDFH97wgKeuVhGuEOzeJANnjew9WlAGXEun
+         JnUJ+KdQ7nJreM6jGWWEwd4HXMsgxAQeaOUH8NGPnwpiB5fHnQ8GVcezccoZs13/ZeSz
+         Sx9VrqWh1SWkOJ9CZkP0HIJO6iIdR9eutJPXMQEAPCXmHNSIJZk1mE9CMSxqGKc/Dg4a
+         SdIQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :reply-to:in-reply-to:references:mime-version:dkim-signature;
+        bh=A4GClre/w4vdaRAqEfHfWYR6PD2w7avTQzzpljHZmM4=;
+        fh=pFHQ0Yk//Akbdg1NTDRJxZ52/fh3erQ05UXqSnuHrxo=;
+        b=qoFFurPAxR+ZnoiaYUWBWipspucjt4yKM4LS+y8nlHymIgsikzpplL8ADWZpanXAmI
+         phDHsgjkcwzEcl1HRdwlg0VL6PnU3Tw/Ps0nWKzcWudmhcNbGn/AHpdU4sJtk+uDKddm
+         u4IekwapMsgADW/qDHc8/wdKbe8iydHb01G8SfWppSg27G0UEeAuzsYWUHDqh2ORvUy9
+         2YgOscZUWGo3SEFvTgNEuOqb0LzuIvG7Z+q18xScNk1/eQFHGPwHdU/kirG2xrYzV/i2
+         L/IQCHxbCjxBaZBfUadE66g+l0XlzjvNh6rJdoYfODOzkow/8JuRqHVxi4JW20+y2U8B
+         iB/Q==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1791824509; x=1792429309; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=O3wiTGTDliud7Ln/IFjDUiuTj441xbuhKgaztxNYZhg=;
-        b=P3liMVcZbHqMiYUGhaVJ5XI/uw/L++Lbt2rxMjp9y2BkHLLNpGgnH/tdgpB+I/dhez
-         jlxC6lNf/3W0MpNaGTmOl5pKQd7vHtMeMkI1iqiklc2BwyFrAUB3+Hmkd5aTFbZMXJ3K
-         aKv4vJRfonq9Hsi7Dk5XLNi+XtIjriL9htndUcXpF2l8ppoFXQ4UmIz6/D37/G8qTyn2
-         GylVY922FSwXFfjPgb+F/9Fc1glRY/0v1iN7j57MSbtLgBKtR2OUs9q4aBNKokuDxupl
-         MMz1dZJuYzdQ384317d8JslesYt+/r0HZ5vRaGgKHOk/S+6sm65+nPYtJ2fIFHvzXooZ
-         /41w==
+        d=oss.qualcomm.com; s=google; t=1791824614; x=1792429414; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:reply-to:in-reply-to:references:mime-version:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=A4GClre/w4vdaRAqEfHfWYR6PD2w7avTQzzpljHZmM4=;
+        b=amcSxPlIxztVFROzNJvir1BaZpnFHGq+AvAHzivo6RQnik/3RNZspdm0u3UvZ43vz0
+         0kT3YI+L2amr9CTKaDwhE4lyFms6HL+TdDoU6JTn2H9WA2INZTgU4AyMfujFKjUIM9M8
+         Vv/uO4xZcFxEaGeaQdE6Qz5xOLQ0gExLCX9lZAhI4O8SawOLMWAY9GmC7TljboyTAgqV
+         3qpKfRY/3N5ZvI2OoW+K+LE4KYMi1yYHnkMFehdcBLmEPGpE1f+f5/G0ITXvXVqHrQwi
+         XK8TrER+LGQ75Sf06tCZbl3rF4o8QKVHfVkEReyfcuhVFJKvAtcY+c84YaO7JYv9ZQh/
+         i48g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791824509; x=1792429309;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=O3wiTGTDliud7Ln/IFjDUiuTj441xbuhKgaztxNYZhg=;
-        b=t1bMqxRRbwkav/5XXRen8o93a/L3UuwX9xxaLn0uys91X8d7IK5QBw/DuO7PX+Ytpf
-         JyIKXztpSmSwPY9RpedM0ymRyBWsfTUdjucJSxbqSrUDwvET9KpbbUY8hh3fHtLxn8LZ
-         sB4s+KvwJrYOg1ibjuNdW4c4fAaj96Q/hLpzM+DXcuQTQDv81hA3n6Td1BQA5YuxcpCn
-         dFpwlVLou6AAq1WzSQuCoshGVuij7ZbXJsRJnxpv97q3VkW83pBMCHPiLJvPUhQM5kKD
-         SJXBobSqz5PtxTShB7ZoC/B62DWGTNvrYXaVILR5QCdGQ7SpirXLmGWG6HM+EG9+1G+R
-         hHHw==
-X-Forwarded-Encrypted: i=1; AKwUvBzPdYbtVL8PGIZ8gFl9raeMkwA+7ArImJMflzXOTlY9JnW4gVj3frhiBFtC7a6C3MKQqvBJ12md0B8G@vger.kernel.org
-X-Gm-Message-State: AFq9FYLGvr4AeV4A8vgfbaKgEzvx6LLkpQnWPnilimhz91Bwv+NHS7Nl
-	DVAXoj4KX24YUgYNua/hHMhJ57rqARsW5O9zxqZBc4dZ8dBra+AkyTHeCxcTorMLhIc=
-X-Gm-Gg: AYBFou2c0DGnm3BaDJT3HCbyRtuIlm+OQ9mi+fumbg1oER/T+vIVj6on8d9yzyoHmzm
-	T3cnmmBuXqykua2oU7ZwSYhunx6+PkiyeVz9AbYztMm1VdUadSik46M7AiM9OhiBHl5CIjDDfmd
-	VXXfeNWX87HshEjVDhQpJw2RJzblAp1YRNBpiy/gd+KfAMK+sQJjcjKiFqHZwcMJCPOeG/K/FVI
-	QaSz0WPsJvBi/4qFZxZVaXkmKnDuKvewpm/xSVClnUGZSSMKCRY0hGx85VSZFvPeqrlA0iXBgEn
-	/5/qFoGpG0w23safHslEXVcTO5OjOnGfHeAlkN4ITZCdTu7Mggi4uLjZRUfaH/nxRrxm7r5nJou
-	uRs7MmcNxfZo5UWr0NM0oiNVy1NwDvZDJ3cd1ReVzRgTIw68hDflSvklDpOTjRQVLepAjcVJ73Q
-	tyk707R2T2TK5S6t9fuD/DALKeD+VDrK3bZEnrj/ZFRsQvYnMi+TpHvPIDUcF9qebt6bhpqK6o
-X-Received: by 2002:ac8:5e4c:0:b0:535:1111:d00c with SMTP id d75a77b69052e-5359f06784bmr179957871cf.0.1791824509473;
-        Mon, 12 Oct 2026 10:01:49 -0700 (PDT)
-Received: from [172.22.22.28] ([73.62.185.64])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5359b79a2easm81681521cf.21.2026.10.12.10.01.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 12 Oct 2026 10:01:49 -0700 (PDT)
-Message-ID: <ecab492b-dfe6-4f45-8474-cc710cfe3dff@riscstar.com>
-Date: Mon, 12 Oct 2026 12:01:48 -0500
+        d=1e100.net; s=20260707; t=1791824614; x=1792429414;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:reply-to:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=A4GClre/w4vdaRAqEfHfWYR6PD2w7avTQzzpljHZmM4=;
+        b=aE9BrjnEdksxjCrkDKj3HPEBt6PIFGFO7+W/8lW4GdTE7GZcpoexrK7TC7GjLECoGf
+         JB0IfRw8iVd6zEn6gL8Fsyw2K4oG7RjKdWCjDnooXFhTvhfkH6VvThrT5vb4BUqOSk81
+         N2HI5X9CdrE+5qF6IUx+KRVmgUM3ta72K3p+qS76blTIBFC+VutAM/px17v5fADBCB7f
+         UH5cQ1VVHdqZZCjKJIRZ3sDqjnAfiEyauyza1V7ahcahb8a9uj4V+qXoMU96MjCK8Ao1
+         gBfsKOr6ermICNw3QBDkrG+wGHeY2HUo9Ps94Gi1kkSHFLoKEKuKukFVYsjroTQ/epxg
+         i44A==
+X-Forwarded-Encrypted: i=1; AKwUvBxzOjQPj8HuEn06+8cEfUfTD9QDht3sVi2A0uBPfD9sFjQKaBGvmDxcFkTep7wKLS5QKnuLKIhumSzu@vger.kernel.org
+X-Gm-Message-State: AFq9FYL5R0L3xaUP/J7n2ppG7QbID18vr9HxQ5Y7VqnXjBhdSdQSXQeR
+	4yfOPkISWudBmwl45EZL+3wDR0fUHFJYeItLbB6WrxDATu/7bg3pyjSnq2m0eQ5a8LgWUzuwyyi
+	i22yOS4P5r1AQlZzsGvMiUfgrGNYkuSPcgRjLNx/MbeET9+Wopg/m1vrmdwTa8ANd5in5/ov2Kp
+	OvmM1TYVaX8wiT1wqLU30peYVIR7Mzxjn+LVmCdRA=
+X-Gm-Gg: AYBFou0wak39gzRCSuGriYs2nP8uY9fqzUukjRwoRgXvZaTpTIlFCsxOREJieLjjBCn
+	XIhL+eniReHLqT2LWnTbEekVFh+WM+AIrPOVCPhTL6RSE6smsGKlRF6l2ePy9SYIlYQ2SLD3MjA
+	MVgJ4kChe5+n391sG9GOdqw3eip7HFDTgvl4/SNheFu/SB+6k8IbCThX5c/ss=
+X-Received: by 2002:a05:690c:e3c4:b0:8b0:aba3:a3e2 with SMTP id 00721157ae682-8b0aba3ab6dmr8912117b3.37.1791824613763;
+        Mon, 12 Oct 2026 10:03:33 -0700 (PDT)
+X-Received: by 2002:a05:690c:e3c4:b0:8b0:aba3:a3e2 with SMTP id
+ 00721157ae682-8b0aba3ab6dmr8911907b3.37.1791824612923; Mon, 12 Oct 2026
+ 10:03:32 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/2] reset: toshiba: introduce a TC9564 SoC reset driver
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-References: <20261012164354.3872326-1-elder@riscstar.com>
- <20261012164354.3872326-3-elder@riscstar.com>
- <sashiko-outbox-168439@kernel.org>
-Content-Language: en-US
-From: Alex Elder <elder@riscstar.com>
-In-Reply-To: <sashiko-outbox-168439@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20261003-dfustini-atl-sc-cbqri-dt-v9-0-52fd8be98dcf@kernel.org> <20261003-dfustini-atl-sc-cbqri-dt-v9-5-52fd8be98dcf@kernel.org>
+In-Reply-To: <20261003-dfustini-atl-sc-cbqri-dt-v9-5-52fd8be98dcf@kernel.org>
+Reply-To: sunilvl@oss.qualcomm.com
+From: Sunil V L <sunilvl@oss.qualcomm.com>
+Date: Mon, 12 Oct 2026 22:33:21 +0530
+X-Gm-Features: AclHuK_eAnoXLHNe9JW1H0XsgI027UTvmUTL3dvXmeTZJjwIqBd2LIFlaZxAhKg
+Message-ID: <CAB19ukEMKp7iFHrTPawNj2dwf1n0D9VDBC2ycBPdCRbkGYN2eg@mail.gmail.com>
+Subject: Re: [PATCH v9 5/5] riscv_cbqri: Add CBQRI capacity allocation
+ platform driver
+To: Drew Fustini <fustini@kernel.org>
+Cc: Adrien Ricciardi <aricciardi@baylibre.com>,
+        Alexandre Ghiti <alex@ghiti.fr>, Albert Ou <aou@eecs.berkeley.edu>,
+        Atish Patra <atish.patra@linux.dev>, Babu Moger <babu.moger@amd.com>,
+        Ben Horgan <ben.horgan@arm.com>, Borislav Petkov <bp@alien8.de>,
+        Chen Pei <cp0613@linux.alibaba.com>,
+        Conor Dooley <conor.dooley@microchip.com>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Dave Hansen <dave.hansen@linux.intel.com>,
+        Dave Martin <Dave.Martin@arm.com>, Fenghua Yu <fenghuay@nvidia.com>,
+        Gong Shuai <gong.shuai@sanechips.com.cn>,
+        Gong Shuai <gsh517@gmail.com>, guo.wenjia23@zte.com.cn,
+        James Morse <james.morse@arm.com>,
+        =?UTF-8?Q?Kornel_Dul=C4=99ba?= <mindal@semihalf.com>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>, liu.qingtao2@zte.com.cn,
+        Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
+        Palmer Dabbelt <palmer@dabbelt.com>, Paul Walmsley <pjw@kernel.org>,
+        Peter Newman <peternewman@google.com>,
+        =?UTF-8?B?UmFkaW0gS3LEjW3DocWZ?= <rkrcmar@ventanamicro.com>,
+        Reinette Chatre <reinette.chatre@intel.com>,
+        Rob Herring <robh@kernel.org>,
+        Samuel Holland <samuel.holland@sifive.com>,
+        Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+        Clark Williams <clrkwllms@kernel.org>,
+        Steven Rostedt <rostedt@goodmis.org>, Tony Luck <tony.luck@intel.com>,
+        Vasudevan Srinivasan <vasu@rivosinc.com>,
+        Ved Shanbhogue <ved@rivosinc.com>, Weiwei Li <liwei1518@gmail.com>,
+        yunhui cui <cuiyunhui@bytedance.com>,
+        Zhanpeng Zhang <zhangzhanpeng.jasper@bytedance.com>,
+        linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org,
+        x86@kernel.org, devicetree@vger.kernel.org,
+        linux-rt-devel@lists.linux.dev, linux-doc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-GUID: W1sG4yC27kS6rHK3NSIsFbBboJg1Bi0m
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA2NyBTYWx0ZWRfX3DPlDzlf75DG
+ x4ie/sWdO4U0+SkpNIckHE0TmPZ/nspARCytdLB54l/QZYT24t84/ylA2x/7HE7Ya0Ddn/PFZoI
+ O5FbVAxNW08KfJnTbq4omNHh6l1Dd3I=
+X-Proofpoint-ORIG-GUID: W1sG4yC27kS6rHK3NSIsFbBboJg1Bi0m
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA2NyBTYWx0ZWRfXyhRkFnG9K8G1
+ LQEEOJNsqfPNJNnsE38r80Em17SdelwTRZwhT8W8tHd1hnrHimzZTL5q9McseGeoeyr2Im0oMTt
+ A5y+KDS7fFS6hKPGmTkyZ8dS2rb0ChGKqWNK5vLgIzgbPohT0R/MERU7rrb2YS+R7Mvd8PmcMSI
+ QmSRBkbw/GN2l/gV9JnMTz2YGqdCeJifCUCEajQc3MmSZfVQudoYBxuMNsG90Sm2AijRWpBjQ0h
+ wQ24htULO+UKCfjtVJdnOCHQvk+HDcc3D9k5H0uep3PF2g7YPKKs/SWASlbDAMACE0za7n29BRV
+ 0Dbl0aYaF4uP+ksdcn6UFSHD3ePL1r27tgp+RtE7eqCE97ecYESxF1j2qs/y2sdz/yO7S+uQjWF
+ i2k+riMg+B/FDygDPpMyRlNsSurSELZuSiiJ6leJfaSyCTeGtD8ssM2uuH9N5Hk9UYzfRZfVezW
+ B8Vnh4QzjLaDjwBgl3Q==
+X-Authority-Analysis: v=2.4 cv=PbhqFShd c=1 sm=1 tr=0 ts=6acd12e9 cx=c_pps
+ a=0mLRTIufkjop4KoA/9S1MA==:117 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=DJpcGTmdVt4CTyJn9g5Z:22 a=VwQbUJbxAAAA:8 a=SRrdq9N9AAAA:8
+ a=u8ca8oee0k6j8m9lC0cA:9 a=QEXdDO2ut3YA:10 a=WgItmB6HBUc_1uVUp3mg:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_05,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 bulkscore=0 clxscore=1015 impostorscore=0 spamscore=0
+ phishscore=0 suspectscore=0 priorityscore=1501 malwarescore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120067
 
-On 10/12/26 11:54 AM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> - [High] reset: tc9564: hardware state initialized after reset controller registration
-> - [High] reset: tc9564: active consumers forcibly reset during driver removal
-> --
-> 
-> commit 504236856b96e78b9064b4d58c3ef7ba166341e3
-> Author: Alex Elder <elder@riscstar.com>
-> 
-> reset: toshiba: introduce a TC9564 SoC reset driver
-> 
-> Defines a new platform driver that manages reset signals implemented by the
-> Toshiba TC9564 SoC. The state of the resets is controlled via MMIO to a
-> region managed by a system controller.
-> 
->> diff --git a/drivers/reset/reset-tc9564.c b/drivers/reset/reset-tc9564.c
->> new file mode 100644
->> index 0000000000000..0243c2e0efd54
->> --- /dev/null
->> +++ b/drivers/reset/reset-tc9564.c
-> 
-> [ ... ]
-> 
->> +static int tc9564_reset_probe(struct platform_device *pdev)
->> +{
->> +	struct device *dev = &pdev->dev;
->> +	struct tc9564_resets *resets;
->> +
->> +	if (!dev_of_node(dev))
->> +		return dev_err_probe(dev, -EINVAL, "no devicetree node\n");
->> +
->> +	resets = tc9564_reset_init(dev);
->> +	if (IS_ERR(resets))
->> +		return dev_err_probe(dev, PTR_ERR(resets),
->> +				     "failed to initialize resets\n");
->> +
->> +	/* Force all resets to be initially asserted */
->> +	tc9564_reset_assert_all(resets);
-> 
-> [Severity: High]
-> Does this cause a race condition with consumer drivers?
+On Sat, Oct 3, 2026 at 12:45=E2=80=AFPM Drew Fustini <fustini@kernel.org> w=
+rote:
+>
+> Add a platform driver for CBQRI capacity controllers described in
+> device tree with the riscv,cbqri-capacity-controller compatible.
+>
+> The controller node points at the cache it governs with a
+> riscv,cbqri-cache phandle. The driver looks that cache up in cacheinfo
+> and uses its cache id as the resctrl domain id, so the binding does not
+> need to carry a CPU mask. The controller is then handed to the CBQRI
+> core, which probes its capabilities and decides whether to expose it
+> through resctrl.
+>
+> Nothing is vendor-specific and reg is the CBQRI register block itself,
+> so any SoC that describes a CBQRI capacity controller in device tree can
+> use the driver unchanged.
+>
+> Assisted-by: LLM
+> Tested-by: Chen Pei <cp0613@linux.alibaba.com>
+> Signed-off-by: Drew Fustini <fustini@kernel.org>
+> ---
+>  MAINTAINERS                      |   1 +
+>  drivers/resctrl/Kconfig          |  15 +++++
+>  drivers/resctrl/Makefile         |   1 +
+>  drivers/resctrl/cbqri_capacity.c | 127 +++++++++++++++++++++++++++++++++=
+++++++
+>  4 files changed, 144 insertions(+)
+>
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index c362d53ed355..00b92842ef12 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -23573,6 +23573,7 @@ F:      Documentation/devicetree/bindings/riscv/r=
+iscv,cbqri.yaml
+>  F:     arch/riscv/include/asm/qos.h
+>  F:     arch/riscv/include/asm/resctrl.h
+>  F:     arch/riscv/kernel/qos.c
+> +F:     drivers/resctrl/cbqri_capacity.c
+>  F:     drivers/resctrl/cbqri_devices.c
+>  F:     drivers/resctrl/cbqri_internal.h
+>  F:     drivers/resctrl/cbqri_resctrl.c
+> diff --git a/drivers/resctrl/Kconfig b/drivers/resctrl/Kconfig
+> index 617b813b9808..689a91873d7b 100644
+> --- a/drivers/resctrl/Kconfig
+> +++ b/drivers/resctrl/Kconfig
+> @@ -41,6 +41,21 @@ menuconfig RISCV_CBQRI
+>           allocation through the resctrl filesystem at /sys/fs/resctrl wh=
+en
+>           RESCTRL_FS is also enabled.
+>
+> +if RISCV_CBQRI
+> +
+> +config RISCV_CBQRI_CAPACITY
+> +       bool "RISC-V CBQRI cache capacity-allocation controller"
+> +       depends on OF
+> +       help
+> +         Enable driver for a RISC-V CBQRI capacity controller that
+> +         governs a CPU cache, matching the "riscv,cbqri-capacity-control=
+ler"
+> +         compatible. The controller's cache phandle gives the cache leve=
+l and
+> +         id, which the driver registers as a resctrl cache-allocation re=
+source.
+> +
+> +         Say N unless your device tree describes a CBQRI capacity contro=
+ller.
+> +
+> +endif
+> +
+>  config RISCV_CBQRI_RESCTRL_FS
+>         bool
+>         default y if RISCV_CBQRI && RESCTRL_FS
+> diff --git a/drivers/resctrl/Makefile b/drivers/resctrl/Makefile
+> index a7631712dba9..c8339113ef1f 100644
+> --- a/drivers/resctrl/Makefile
+> +++ b/drivers/resctrl/Makefile
+> @@ -7,3 +7,4 @@ ccflags-$(CONFIG_ARM64_MPAM_DRIVER_DEBUG)       +=3D -DDE=
+BUG
+>  obj-$(CONFIG_RISCV_CBQRI)                      +=3D cbqri.o
+>  cbqri-y                                                +=3D cbqri_device=
+s.o
+>  cbqri-$(CONFIG_RISCV_CBQRI_RESCTRL_FS)         +=3D cbqri_resctrl.o
+> +cbqri-$(CONFIG_RISCV_CBQRI_CAPACITY)           +=3D cbqri_capacity.o
+> diff --git a/drivers/resctrl/cbqri_capacity.c b/drivers/resctrl/cbqri_cap=
+acity.c
+> new file mode 100644
+> index 000000000000..0670a676bdb1
+> --- /dev/null
+> +++ b/drivers/resctrl/cbqri_capacity.c
+> @@ -0,0 +1,127 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Platform driver for a RISC-V CBQRI capacity controller that backs a C=
+PU
+> + * cache. The controller is described in device tree by the generic
+> + * "riscv,cbqri-capacity-controller" compatible together with a phandle =
+to the
+> + * cache node it governs. The driver hands it to the CBQRI core, which p=
+robes
+> + * the capabilities register and exposes a controller that supports allo=
+cation
+> + * as the resctrl cache allocation resource for that cache.
+> + */
+> +
+> +#define pr_fmt(fmt) "cbqri-capacity: " fmt
+> +
+> +#include <linux/cacheinfo.h>
+> +#include <linux/cpu.h>
+> +#include <linux/device-id/of.h>
+> +#include <linux/ioport.h>
+> +#include <linux/of.h>
+> +#include <linux/platform_device.h>
+> +#include <linux/printk.h>
+> +#include <linux/riscv_cbqri.h>
+> +#include <linux/types.h>
+> +
+> +static int cbqri_capacity_probe(struct platform_device *pdev)
+> +{
+> +       struct device *dev =3D &pdev->dev;
+> +       struct cbqri_controller_info info =3D {};
+> +       struct device_node *cache_np;
+> +       struct resource *res;
+> +       u32 rcid_count, cache_level;
+> +       int cache_id, cpu, ret;
+> +
+> +       res =3D platform_get_resource(pdev, IORESOURCE_MEM, 0);
+> +       if (!res)
+> +               return -EINVAL;
+> +
+Unless I am missing something, I think you can simplify the code by
+using devm_platform_ioremap_resource().
 
-I hadn't thought of that, but yes, this is a good point.
-We would like to ensure this is the initial state, but I will
-rework this so that all defined resets will be asserted
-initially by "directly" writing registers through the regmap,
-rather than doing so using the reset API.
+> +       ret =3D of_property_read_u32(dev->of_node, "riscv,cbqri-rcid", &r=
+cid_count);
+> +       if (ret) {
+> +               dev_err(dev, "missing riscv,cbqri-rcid\n");
+> +               return ret;
+> +       }
+> +
+> +       cache_np =3D of_parse_phandle(dev->of_node, "riscv,cbqri-cache", =
+0);
+> +       if (!cache_np) {
+> +               dev_err(dev, "missing riscv,cbqri-cache phandle\n");
+> +               return -EINVAL;
+> +       }
+> +
+> +       ret =3D of_property_read_u32(cache_np, "cache-level", &cache_leve=
+l);
+> +       if (ret) {
+> +               dev_err(dev, "%pOF: missing cache-level\n", cache_np);
+> +               goto out_put;
+> +       }
+> +
+> +       /*
+> +        * Associate the controller with its cache instance via cacheinfo=
+.
+> +        * The matching cache provides the cache id used as the resctrl
+> +        * domain id.
+> +        *
+> +        * Taking the first leaf at the level is sufficient, because fw_t=
+oken
+> +        * is keyed on the DT cache node, so sibling leaves of a split ca=
+che
+> +        * share it, and riscv,cbqri-cache must reference a unified share=
+d
+> +        * cache (cache-unified), not a split private L1.
+> +        */
+> +       cache_id =3D -1;
+> +       cpus_read_lock();
+> +       for_each_online_cpu(cpu) {
+> +               struct cacheinfo *ci =3D get_cpu_cacheinfo_level(cpu, cac=
+he_level);
+> +
+> +               if (ci && ci->fw_token =3D=3D cache_np) {
+> +                       cache_id =3D ci->id;
+> +                       break;
+> +               }
+> +       }
+> +       cpus_read_unlock();
+> +
+> +       if (cache_id < 0) {
+> +               dev_err(dev, "%pOF: no online hart reports an L%u cache f=
+or this node\n",
+> +                       cache_np, cache_level);
+> +               ret =3D -ENODEV;
+> +               goto out_put;
+> +       }
+> +
+> +       info.type =3D CBQRI_CONTROLLER_TYPE_CAPACITY;
+> +       info.addr =3D res->start;
+> +       info.size =3D resource_size(res);
+> +       info.rcid_count =3D rcid_count;
+> +       info.cache_id =3D cache_id;
+> +
+> +       ret =3D riscv_cbqri_register_cc_dt(&info, cache_level);
+>
+As I mentioned in the comment for another patch, this function doesn't
+need to have "_dt" in its name.
 
-> 
-> tc9564_reset_init() globally registers the reset controller via
-> devm_reset_controller_register(). Once registered, consumers can
-> immediately probe and deassert their reset lines.
-> 
-> If a consumer driver deasserts its reset right after registration,
-> will this subsequent call to tc9564_reset_assert_all() overwrite the
-> consumer's hardware state and unexpectedly yank running hardware back
-> into reset?
-> 
->> +
->> +	platform_set_drvdata(pdev, resets);
->> +
->> +	return 0;
->> +}
->> +
->> +static void tc9564_reset_remove(struct platform_device *pdev)
->> +{
->> +	struct tc9564_resets *resets = platform_get_drvdata(pdev);
->> +
->> +	/* Leave all resets asserted when done */
->> +	tc9564_reset_assert_all(resets);
-> 
-> [Severity: High]
-> Does this unexpectedly assert resets for active consumers?
-
-I suppose that's possible, and it's easy enough to simply
-omit this remove callback (and the assert-all call).
-
-I will adjust this for version 2.
-
-					-Alex
-
-> 
-> Since the reset controller is registered using devm_reset_controller_register(),
-> the devres subsystem will unregister the controller only after this remove
-> callback completes.
-> 
-> This means the controller is still active and consumers might be actively
-> using their deasserted reset lines when tc9564_reset_assert_all() is called
-> here. Should the driver coordinate with consumers or unregister itself first
-> before forcing all lines into reset?
-> 
-> [ ... ]
-> 
-
+Thanks,
+Sunil
