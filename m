@@ -1,117 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A16747CA88;
-	Mon, 12 Oct 2026 12:06:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1769A4078D5;
+	Mon, 12 Oct 2026 12:10:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791806822; cv=none; b=eeVVm9YWcShasNHW/RW1uoGitpHkV4EhIhhmWomIcYyA02Aov6bLDaCYMXylecxSbMpvAhepOjUy1AqKn9/TGTuPOy1nJ7QhU6ssPkPcGZ9113mMOpCqJcaLUFR0FWvai55A1krrDeMMX/hlgsS4UK3ibcDwgrcrhPxp20fbGjs=
+	t=1791807014; cv=none; b=QzIXDkDxRBE1UlbD+KeZQWhBX3u7g5idnD3hg57MsTWEck7VFh+aWGtILpxXnsNb88+cjo/hgzG5mAc2JL24XsDiw6fNJ8ir4RWjxbSYExI4MLdDO0uGcfHSN2gXP/Pz+8ktE31FrKBNclQZy7ZTVOwRRnYlavMA/xohXTbF+Ck=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791806822; c=relaxed/simple;
-	bh=6xcV5AmorJyeP0TtnIp/ohTMeBq3FiOCi3QVrliUakY=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=SpaPk1nU46IRhmKi/evjcLmWtzvaCOKQQuoDlur42qMxQ08091BTW6pgt34RDl6d/IbPD//c7leg2dVzRnjSrrSR/fsaEbx+OXcgtdMCuS6yMrme2pUbe/q8CVyoayxr05tSunN0k0cB1hSOZNRbJHtVk3Yq4jrNWzVcf7C4LiM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aj6IhpFe; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791807014; c=relaxed/simple;
+	bh=Uwlqf7qlPT4N2Iy3JwU3MFX1mH5LGVxwdtWw3roIl2Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=opyVHYae3Tf0o7iFNGcTC5wd5HiC14qNE0YVNNVwpuK00412vq8Vu4vrZlhwmCXowwBOnNdaHAYdYoHQMCQHV4PwaDa6+ROra3EUhzxZAXJ6VBnWd/FoUxr0IR8DZIBuvXBDgg0TlxYU7uajMInfHMVg8m+fm0tA2D/ueuNCFPk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=U28QwxE8; arc=none smtp.client-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aj6IhpFe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A9F21F0089B;
-	Mon, 12 Oct 2026 12:06:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791806817;
-	bh=PpLC6yl0M6B3rREN/r8tW5bFW8cxK8ETKA150T1yeBE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=aj6IhpFei3c8vlTe9llfGW1ncOZCbJTXr3v0p0BuBpiNYtPb/s1SnD4SuoEm2woYl
-	 7xizqkzCAzbyb94afLlFprUltah44PcYA/LkTCZGhfBQxxvfYj5JAsTUdiKICewaLC
-	 z71hP6Tqf5k7NVLC2Db3sTtLyOAfaKBxPykmyV1QcRkQcMaiC5metY6qQ1qPNZb94G
-	 N/h2PyNcRndfx4a6wIXWf3FzBWAju82Zig59ICqedi5KDFDOAfiD5pRJHrJduh71Fs
-	 p8v4ve+1T4nJC+f/1UPQ0igNWneDuGGcWxMCsz6s78iBALRvMgrk4SKDQj7sLeVT2e
-	 +6DzCaA2lOzHg==
-Message-ID: <sashiko-outbox-168066@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 1/3] dt-bindings: clock: airoha: Document support for
- AN7583 clock
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Christian Marangi" <ansuelsmth@gmail.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, linux-clk@vger.kernel.org
-In-Reply-To: <20261012115954.92718-2-ansuelsmth@gmail.com>
-References: <20261012115954.92718-1-ansuelsmth@gmail.com>
- <20261012115954.92718-2-ansuelsmth@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 12 Oct 2026 12:06:57 +0000
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="U28QwxE8"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=EG
+	jWHdD+0WJXirqwSDGo2+u4NUBE3eJztml/JqsySN0=; b=U28QwxE81Qk0EQjnOI
+	T0yvJ4DU2sgIxBOlyZ2Ggo1Q9Z7nt6c7r6fj/CKuR0L1clWR0APzbg/uNnhnIhZV
+	kGU8bWUDWbjbjZGlh9vHDCdcjkiX8rJntKzG0pZaK1FFxASQ03B+gJR6vFu31TLP
+	ZmLuzOsAGsrjCguc/B7TSoF0g=
+Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD3Nz_mzcxqHGNeDw--.1037S2;
+	Mon, 12 Oct 2026 20:09:12 +0800 (CST)
+From: Quchaosheng <quchaosheng000406@163.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
+	Tony Lindgren <tony@atomide.com>
+Cc: Aaro Koskinen <aaro.koskinen@iki.fi>,
+	Andreas Kemnade <andreas@kemnade.info>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Roger Quadros <rogerq@kernel.org>,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-omap@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Chaosheng Qu <quchaosheng000406@163.com>
+Subject: [PATCH v6 0/3] dt-bindings: display: ti,tpd12s015: convert, and fix what the conversion exposed
+Date: Mon, 12 Oct 2026 20:09:07 +0800
+Message-ID: <20261012120910.506444-1-quchaosheng000406@163.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3Nz_mzcxqHGNeDw--.1037S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxGFyrJF13JF13WFW5JFWxCrg_yoW5Gr15pa
+	9xGF4kCw1kGF13KwsrXw1jk395CaykJF4vkF17trW5Jan0kr10qryfK3WavryUG3yfCayj
+	vFnYg3srKwnFy3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pizuWJUUUUU=
+X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbDAAh78GrMzejbpwAA38
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] dt-bindings: missing #reset-cells and #phy-cells in required pro=
-perties for airoha,an7583-scu
---
+From: Chaosheng Qu <quchaosheng000406@163.com>
 
-commit 538a7c87406554f4bcd77061661b7f96dc72a786
-Author: Christian Marangi <ansuelsmth@gmail.com>
+v6 of the tpd12s015 conversion.
 
-dt-bindings: clock: airoha: Document support for AN7583 clock
+  [1/3] converts ti,tpd12s015.txt to DT schema.
 
-This commit documents support for the Airoha AN7583 clock, based on the
-EN7523 schema. It adds the airoha,chip-scu phandle to make the separation
-of SCU and chip SCU registers explicit, and introduces bindings for new
-clock and reset lines.
+  [2/3] drops two gpio entries from omap5-igep0050.dts that nothing reads:
+        the binding and both drivers describe three gpios, and the extra
+        two have no pinctrl group and no other consumer in the tree.
 
-> diff --git a/Documentation/devicetree/bindings/clock/airoha,en7523-scu.ya=
-ml b/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml
-> index fc37786ac7ed8..8b94113d00ab7 100644
-> --- a/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml
-> +++ b/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml
-[ ... ]
-> @@ -57,12 +58,34 @@ properties:
->        available serdes port.
->      const: 1
-> =20
-> +  airoha,chip-scu:
-> +    $ref: /schemas/types.yaml#/definitions/phandle
-> +    description: phandle to the Chip SCU providing the registers required
-> +      for configuring the PCIe related clocks and resets.
-> +
->  required:
->    - compatible
->    - reg
->    - '#clock-cells'
-> =20
->  allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          const: airoha,an7583-scu
-> +
-> +    then:
-> +      properties:
-> +        reg:
-> +          maxItems: 1
-> +
-> +      required:
-> +        - airoha,chip-scu
+  [3/3] drops the unit-address from the tpd12s015 endpoints on
+        am5729-beagleboneai and am57xx-idk, which carry one without a
+        matching reg property.
 
-[Severity: Medium]
-Does this list of required properties for the airoha,an7583-scu variant need
-to include '#reset-cells' and '#phy-cells'?
+Patches 2 and 3 remove warnings that the bare conversion leaves behind:
 
-Since this variant functions as a reset provider and permits PHY serdes
-selection, omitting these from the required properties in this conditional
-block could allow incomplete device tree nodes to pass schema validation.
+  am5729-beagleboneai:  241 -> 237 dtbs_check warnings
+  omap5-igep0050:       188 -> 186 dtbs_check warnings
 
-> +
-> +    else:
-> +      properties:
-> +        airoha,chip-scu: false
-> +
->    - if:
->        properties:
->          compatible:
+with no new warnings in either file.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261012115954.9271=
-8-1-ansuelsmth@gmail.com?part=3D1
+Changes in v6:
+ - Carry Conor's Acked-by on 1/3, which v5 dropped by accident.  The only
+   change 1/3 saw between his ack and v5 is the ports $ref Rob asked for,
+   and that does not change which device trees the binding accepts.
+ - Send 2/3 and 3/3 to the OMAP device tree maintainers.  They touch
+   arch/arm/boot/dts/ti/omap; v5 reached that tree through linux-omap only.
+ - Patch content is otherwise unchanged from v5.
+
+Changes in v5:
+ - ports: use "$ref: /schemas/graph.yaml#/properties/port" and drop the
+   unevaluatedProperties lines.  Neither port carries anything beyond the
+   graph properties.  Reported by Rob.
+ - description: drop the "|" block scalar.
+ - no other change from v4.
+
+The sashiko finding that gpios lacks "minItems: 3" is not valid.  Rob
+explained that dt-schema makes the two bounds equal when only one of them
+is given, so "maxItems: 3" already means exactly three.
+
+Eduard Bostina posted the same conversion on 2026-07-30,
+<20260730092245.52034-1-egbostina@gmail.com>.  If his series is the one to
+carry this, say so and I will drop mine.
+
+Chaosheng Qu (3):
+  dt-bindings: display: ti,tpd12s015: Convert to DT schema
+  ARM: dts: ti/omap: drop the two unused gpios from the igep0050 hdmi
+    encoder
+  ARM: dts: ti/omap: drop unit-address from tpd12s015 endpoints
+
+ .../bindings/display/ti/ti,tpd12s015.txt      | 44 ----------
+ .../bindings/display/ti/ti,tpd12s015.yaml     | 88 +++++++++++++++++++
+ .../boot/dts/ti/omap/am5729-beagleboneai.dts  |  4 +-
+ .../boot/dts/ti/omap/am57xx-idk-common.dtsi   |  4 +-
+ arch/arm/boot/dts/ti/omap/omap5-igep0050.dts  |  4 +-
+ 5 files changed, 93 insertions(+), 51 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
+ create mode 100644 Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
+
+-- 
+2.43.0
+
