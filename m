@@ -1,112 +1,57 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 129AC489FCB
-	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 12:30:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F194548AE35;
+	Mon, 12 Oct 2026 12:31:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791808215; cv=none; b=Iu2pIGbVEsZ7KCsDK0yqqktb5u4C9IPFJTR10XMOqMzB0ziMWIsH3ZWqRDBY/VpCw++69FEhvRSZX/3wlB7tWam314opizMQyMh4Bl3ggoI0MvGWw4iRQd5D7X5ZcAfzcqMbR3RQIz2VDioWwAg3wpjnlQ39r1SckBuWK0vwARc=
+	t=1791808269; cv=none; b=Nh4ZndcSMoZCndVDXUT2r/ftCU5cBpX8G24ljCBmojSX2k2gRt7EOwXukxctjpVFDP3bPEsI6ibCoYM1+xmEHfh2QMPYyJuP2Pe3rb+TWXIsxH99yNysLqS1WbCA3Bd1jNeiqOj7DOuC9Vw6We8Wpr6Oe87SXhMGc2zb+24eFYE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791808215; c=relaxed/simple;
-	bh=QBgS5vvmhHg6BOQCaYPvAzgfAee6J67gwubuPcqgVFA=;
+	s=arc-20240116; t=1791808269; c=relaxed/simple;
+	bh=z6a+MrQfNQ8lIOIqtckHzlwN6K5lz2LYjnCgZC42HZA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jbsfFDiwpkW1ne3jyYJL1iVve89LJ9PKdKHXW5N8myAqzgudYbVCw7nLG0anToGQ9Ye++jLiq0oGwvQnGGO5ZfEKyqOOWcbuH9VvMewyECLA7s3A4TxNLuyWe6ojgCBjVf3Bb3SG8pVbOueEUFc0awxHhuwXyQHW6dPQVptLsHg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XSCvE/gn; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VGj0fAdb; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=JLl1nvItujkiNYDyrV1wcql5mEepg4dUY4KAWRGuox658jnexuVAIP/YuF8pE+cMBpdWkS8sE6weaU9T45CK6S68d5+blNG4ve2U9UTySkFLNDSyWF8L4HXWiKsRUFQalwNlTlppVBqNAAxlLQUBP3k+n9/tztIUjOGm0WUtG84=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=cVoH3PQ3; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XSCvE/gn";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VGj0fAdb"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CC0a562679898
-	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 12:30:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=Ls8AOqBpZ2ngBQoNAA7Jpu1E
-	3UX0n2AiAP1xAS2NcXg=; b=XSCvE/gnw2FUgpCu5FLGovGPGy6CyKoI27ZHt8s6
-	DakM8ar9srcToncPCK2bQW+tZf+qZNX2wzzuHM/UBMl1KWSm3zqsxQZZOPVRbJUm
-	HIfqMJmdYY7nuOKYvogJc5DW5+lRIlAGZu8ZclzPt+nFYxGgACDNPv/aNfcdaVCU
-	K4k1hM5FJmVBjtK3FpuhJFd6W/PU/eA70y6ZaM5KacnJrW6O//niDX4mowlyywPI
-	I9qb77r13hcqAiaT/6WsWMQDHsUBK/csAwHOqliTIenpKFHVD690UylLGgpT6yJO
-	jftjx8tIIsxOydyNKbD5RAZ9vUSDekzxQgwF+5Ixh1RyJg==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h8sd1swmf-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 12:30:04 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93a3f673221so569362385a.0
-        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 05:30:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791808204; x=1792413004; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Ls8AOqBpZ2ngBQoNAA7Jpu1E3UX0n2AiAP1xAS2NcXg=;
-        b=VGj0fAdbhd2sVkWvLg93oDmK9HOr73Folr9cIBVzRjT4Z3QpuQuvYvM60j3HHT1yHf
-         C+xDUtsHXrKAZKXKyeCsZ7Sf+xTYNG5zGxSxNQ0pFnSDtPtPMl+5VWJqHUAEA/8sQBWI
-         WLDYUpDgF6Iwu9SKn3Pi0Yy5RoBV1tWCi1cjUDvKiNQ7MK9pG479hkJBBcZsVn6bU9bS
-         t2CahUTCe+zUy1h9CGp4Br9KvU2s2hmKFXiEMTPhkRNASw3LOVB0FlCUh4m4OW9S+cUo
-         UX9fvAuA7fb7gHwNcRcxLljGV863xPmDcmVmrUPOj85zOkGRMDtTaab/fu6A/Lrdjg0j
-         5v7Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791808204; x=1792413004;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ls8AOqBpZ2ngBQoNAA7Jpu1E3UX0n2AiAP1xAS2NcXg=;
-        b=2riRPWTscGH8fK5/cvGZbKAWRdR2EmtKqFM31g5fiwTwa1DdtMW4vXz9RrHlmTrCHo
-         DVqN4ZBuu8RELdRzeQG12xpZj+hYgpdVXqjWAC2x6a89gykQerd06W5+ayY8Y/6v/HP/
-         HhTB8kx6korOsjyDZ8vkM7eNk9G5uos+6dpUeiO4UuzuVuxdbALhsgBk87MyYPsRBrWN
-         AJPwXuOdOUsDVy+/s2igmvkGoctMW96hJIj6zeA+R0UmuyOEacDcmgIIZzhK82HKhzPx
-         SCbzDOh9e44mAl73fA8Q6KFsvCWtQevo2PmZ8MjqNaVoPKEy2Rdc0HYON6osw5RwoGCW
-         CLNA==
-X-Forwarded-Encrypted: i=1; AKwUvBzWMZsftQkShES1a8xS7F1JrQX34B6B8HYj+iiI3/4kIdKfsY5u7yAzFTHVfboB5o+e6LjoWzc+cjTB@vger.kernel.org
-X-Gm-Message-State: AFq9FYIiQavyIzXpHTylzDQKvK4JUOL3YPBNo5v55YIPYgN8+C8HuQzF
-	VSTRhDpbe22dbM9MBBRrbcJAooWoFk7uplAImzsx5CPFDXURWWoKx49/WKGsPRCEr+SVmY96sKp
-	G3QO1svVD9zB6ZklY208RhuwmCmBtM1qF2zDcOjVaN4bRyzCfiEr5e0m1qX8hayx7
-X-Gm-Gg: AYBFou1O7AtC5LQHziWpfi3wZhILcLCuIjOqnZAD2vhfv27NZJysIGJveLWyVHfy6X5
-	NEVBfALTtkt6g3TLQgG1TuOKapyYP+ncz7pMlrjwzovlPSTfLGIr2S64HK70oSe5U1m/ZrPT9rk
-	H0Qj+edPedxq5pqAi8mGQfXqamIDJ6jTSB53Qf5D09E5H7stExWdtGUhrMP7xB7HZpCZA8aNzgs
-	yKwtcBdixW0AZeUrqqzHbcNEyO1BfW8gx8zbcoBh1sQ4KV0rDGjD0egcPf+PQUg2z8zoh8uFAXD
-	RJ1vipt3kBOvqSAWCI3KIvPVOfQgboZH5qwf6wd1odpnZHGRp64zogWk/KB1b5XGfZhRzXVs4ID
-	L6PzPzwfhUIJsd6168H9+N6sZoBwxc0TXR5RTq9bh4WFqbygvNcrsncwvCqi0dle8HfOUHjc595
-	MvHAgu1UNYKoFM
-X-Received: by 2002:a05:620a:2259:10b0:93e:f1a7:a20 with SMTP id af79cd13be357-93ef1a754a5mr35778785a.56.1791808204169;
-        Mon, 12 Oct 2026 05:30:04 -0700 (PDT)
-X-Received: by 2002:a05:620a:2259:10b0:93e:f1a7:a20 with SMTP id af79cd13be357-93ef1a754a5mr35776485a.56.1791808203701;
-        Mon, 12 Oct 2026 05:30:03 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a9c3cca23csm29408461fa.27.2026.10.12.05.30.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 05:30:02 -0700 (PDT)
-Date: Mon, 12 Oct 2026 15:30:00 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Krishna Manikandan <quic_mkrishn@quicinc.com>,
-        Abel Vesa <abelvesa@kernel.org>,
-        Yuanjie Yang <yuanjie.yang@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] dt-bindings: display: msm: Add INT2 GDSC to
- Kaanapali DPU
-Message-ID: <aecrclsbhu447xdfddwbhosyvhyvf6dzfv2nfznupao4oh6a3j@mqc623n6fnkt>
-References: <20260915-msm_gdsc2-v2-0-9157237b8382@oss.qualcomm.com>
- <20260915-msm_gdsc2-v2-1-9157237b8382@oss.qualcomm.com>
- <f3qs4wcascfodjufisl4qtpycfb3lunff2fv4u3olybjius5kp@vahhjfjfh6wv>
- <a09f71a4-31e7-439d-b053-66b279ea27c7@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="cVoH3PQ3"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=uNBmIpHaVMdDPWDAgphNw6C+bWviKjN+J5cDaNCeyIo=; b=cVoH3PQ31cx1sQg57/ZA8m9wCK
+	PvVS1ul4HIWVPnW9Om2PVZ2B86SpoZyXddX+lTNtISRmgyR1elC3HkehvNXEEwPXdkQB0oyiGfRqA
+	szBprodQMJvDOJ6QFUYd0B3/GIhxeSf8ZSPFM3V8ViOqO+t+pg2095sMw3pKUtv4XG+M=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xGFB3-00AJyk-VM; Mon, 12 Oct 2026 14:30:49 +0200
+Date: Mon, 12 Oct 2026 14:30:49 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Lucas Tanure <tanure@linux.com>
+Cc: xianwei.zhao@amlogic.com, Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Maxime Chevallier <maxime.chevallier@bootlin.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	netdev@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 4/8] net: stmmac: dwmac-meson8b: apply the RGMII
+ delays the T7 way
+Message-ID: <a1c0b76b-7b67-43e9-af15-3139f17d7fe7@lunn.ch>
+References: <20261010105900.247342-1-tanure@linux.com>
+ <20261010105900.247342-5-tanure@linux.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -115,146 +60,97 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <a09f71a4-31e7-439d-b053-66b279ea27c7@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: uP_1yzZJN0bBINHoHHvjhxKnV0_JbUJc
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA0OSBTYWx0ZWRfX2n1UbUvZcQjL
- d1ukn8j7OgYQym5YtSuOiXJ56I8fH8zV2IWuMg4NflUXNNOVvU+UEfj1dxjIwljclX89+NREqsA
- SVStaAvln/mv/7AU+kgrC+XblNeitKU=
-X-Authority-Analysis: v=2.4 cv=QtHLTlyd c=1 sm=1 tr=0 ts=6accd2cc cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8
- a=fyugVKZb8pU3dQemVCEA:9 a=CjuIK1q_8ugA:10 a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-GUID: uP_1yzZJN0bBINHoHHvjhxKnV0_JbUJc
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA0OSBTYWx0ZWRfXy6s8qN5f/IEL
- 8EJkbkNrtJq3RS4GMAQ9M9Axs3pawiS6fKHEYtmOw2F7sFUxn02awI13zL0+byBJ2XKobq92KzI
- ZJbIjpSznUF1bkR8yEhyLUkdYRg0oUGZwow+a5aHMtK46D0Zts5a1K8qo0bkApEZPp7nDMPVso1
- PM4dZKTI8tUOBKROsfyCO3es0Qu9l5Y2mqgl/JoaxXN2y7hFhzeLpvDZpeBwV2IVOmNse51bgRk
- XUS/4vpgWn5DDXOzQwiSR7jmvhM840JBfDmcAknxZ/n1sjKc2kWcIOcS88X/soPgczoAdmtr5hw
- UBZVD6uphTYraxoUw1kh1NxED4YtD8WZ6H9u4ts3o3fFgx6+CcRAAUKMS6QhkpwcUxb6wuu5PPm
- 9O+V6Z44mEzhencGznHIdThraLudZLAUGGK4t1LbyePplZW7Gto5qqmdGyngBqB6eSsLVeXmQOO
- V3SgVGucLkceI5WWPYA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-12_04,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 malwarescore=0 bulkscore=0 clxscore=1015
- lowpriorityscore=0 suspectscore=0 impostorscore=0 phishscore=0 adultscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610120049
+In-Reply-To: <20261010105900.247342-5-tanure@linux.com>
 
-On Mon, Oct 12, 2026 at 04:41:04PM +0800, Yongxing Mou wrote:
-> 
-> 
-> On 10/5/2026 9:02 AM, Dmitry Baryshkov wrote:
-> > On Tue, Sep 15, 2026 at 05:27:48PM +0800, Yongxing Mou wrote:
-> > > Kaanapali (SM8850) has an additional INT2 GDSC that powers a subset
-> > > of the DPU source pipes (VIG2/VIG3/DMA5), on top of the CORE_GDSC
-> > > that powers the rest of the MDSS hardware.
-> > > 
-> > > Describe INT2 GDSC as an additional power domain of the DPU device
-> > > rather than of the whole MDSS, since it only supplies DPU-local
-> > > source pipes. Restrict the schema change to the Kaanapali DPU
-> > > compatible via an if/then, so other platforms sharing
-> > > qcom,sm8650-dpu.yaml (which don't have an INT2 GDSC) keep the
-> > > existing single power-domain constraint.
-> > > 
-> > > Signed-off-by: Yongxing Mou <yongxing.mou@oss.qualcomm.com>
-> > > ---
-> > >   .../bindings/display/msm/dpu-common.yaml           | 19 ++++++++++++++++--
-> > >   .../bindings/display/msm/qcom,sm8650-dpu.yaml      | 23 ++++++++++++++++++++++
-> > >   2 files changed, 40 insertions(+), 2 deletions(-)
-> > > 
-> > > diff --git a/Documentation/devicetree/bindings/display/msm/dpu-common.yaml b/Documentation/devicetree/bindings/display/msm/dpu-common.yaml
-> > > index 3f953aa5e694..19b791a857b5 100644
-> > > --- a/Documentation/devicetree/bindings/display/msm/dpu-common.yaml
-> > > +++ b/Documentation/devicetree/bindings/display/msm/dpu-common.yaml
-> > > @@ -25,8 +25,7 @@ properties:
-> > >     interrupts:
-> > >       maxItems: 1
-> > > -  power-domains:
-> > > -    maxItems: 1
-> > > +  power-domains: true
-> > >     operating-points-v2: true
-> > >     opp-table:
-> > > @@ -53,4 +52,20 @@ required:
-> > >     - operating-points-v2
-> > >     - ports
-> > > +allOf:
-> > > +  - if:
-> > > +      properties:
-> > > +        compatible:
-> > > +          contains:
-> > > +            const: qcom,kaanapali-dpu
-> > > +    then:
-> > > +      properties:
-> > > +        power-domains:
-> > > +          minItems: 2
-> > > +          maxItems: 2
-> > > +    else:
-> > > +      properties:
-> > > +        power-domains:
-> > > +          maxItems: 1
-> > > +
-> > >   additionalProperties: true
-> > > diff --git a/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml b/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml
-> > > index aa0cf0ec5b93..88aa71d2b912 100644
-> > > --- a/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml
-> > > +++ b/Documentation/devicetree/bindings/display/msm/qcom,sm8650-dpu.yaml
-> > > @@ -61,6 +61,29 @@ required:
-> > >     - clocks
-> > >     - clock-names
-> > > +allOf:
-> > > +  - if:
-> > > +      properties:
-> > > +        compatible:
-> > > +          contains:
-> > > +            const: qcom,kaanapali-dpu
-> > > +    then:
-> > > +      properties:
-> > > +        power-domains:
-> > > +          items:
-> > > +            - description: MMCX power domain
-> > > +            - description: INT2 GDSC power domain
-> > > +
-> > > +        power-domain-names:
-> > > +          minItems: 2
-> > > +          maxItems: 2
-> > > +          items:
-> > > +            - const: mmcx
-> > > +            - const: int2
-> > 
-> > Nit: I'd suggest more generic names here. If the next platform switches
-> > from "mmcx" to some other domain, while keeping the split architecture,
-> > the name becomes unapplicable (in the past we have seen platforms using
-> > CX instead of MMCX). What about using names like "core", "int2"?
-> > 
-> Agreed, using "mmcx" would be too provider-specific, as the DPU performance
-> domain can be CX on other platforms.
-> 
-> However, "core" might be confusing here because DISP_CC_MDSS_CORE_GDSC is
-> already attached to the parent MDSS device. The first domain on the DPU is
-> used for OPP performance-state voting, so would "perf" and "int2" be clearer
-> generic names?
+> --- a/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/dwmac-meson8b.c
+> @@ -82,6 +82,7 @@ struct meson8b_dwmac_data {
+>  	int (*set_phy_mode)(struct meson8b_dwmac *dwmac);
+>  	bool has_prg_eth1_rgmii_rx_delay;
+>  	bool has_pipeline_clk;
+> +	bool mac_applies_dt_delays;
 
-Responded on the other patch. I think that here we should be listing two
-dispcc domains and then "core" and "int2" would be proper names for
-them.
+Please can you invert this and call it broken delays.
 
-> > > +
-> > > +      required:
-> > > +        - power-domain-names
-> > > +
-> > >   unevaluatedProperties: false
-> > >   examples:
-> > > 
-> > > -- 
-> > > 2.43.0
-> > > 
-> > 
-> 
+We should make it clear that new devices should not set this, because
+it wrong, broken.
 
--- 
-With best wishes
-Dmitry
+> +static int meson_dwmac_init_dt_delays(struct meson8b_dwmac *dwmac,
+> +				      struct plat_stmmacenet_data *plat_dat)
+> +{
+> +	struct device_node *np = dwmac->dev->of_node;
+> +	u32 tx_delay_ps = 0, rx_delay_ps = 0;
+> +	phy_interface_t phy_mode;
+> +	bool mac_tx, mac_rx;
+> +
+> +	mac_tx = !of_property_read_u32(np, "tx-internal-delay-ps", &tx_delay_ps);
+> +	mac_rx = !of_property_read_u32(np, "rx-internal-delay-ps", &rx_delay_ps);
+> +
+> +	/* one step is a quarter of the RGMII clock period, 2ns at 1Gbit/s */
+> +	if (tx_delay_ps > 6000 || tx_delay_ps % 2000)
+> +		return dev_err_probe(dwmac->dev, -EINVAL,
+> +				     "The RGMII TX delay must be 0, 2000, 4000 or 6000ps\n");
+
+tx-internal-delay is not listed in amlogic,meson-dwmac.yaml. Please
+could you add it, and list the valid values.
+
+Do you have access to the datasheet? Could you check these numbers are
+correct, because they are larger than typical. 4ns, and 6ns makes no
+sense, the RGMII standard only calls for 2ns.
+
+> +
+> +	/* the RX delay line moves in 200ps steps and reaches 3000ps */
+> +	if (rx_delay_ps > 3000 || rx_delay_ps % 200)
+> +		return dev_err_probe(dwmac->dev, -EINVAL,
+> +				     "The RGMII RX delay range is 0..3000ps in 200ps steps\n");
+
+Please could you listing these values in the binding.
+
+Also, mark that amlogic,tx-delay-ns & amlogic,rx-delay-ns are not
+valid for this compatible.
+
+> +
+> +	phy_mode = phy_fix_phy_mode_for_mac_delays(dwmac->phy_mode, mac_tx,
+> +						   mac_rx);
+
+This is not correct. This function assumes mac_tx and mac_rx are
+Boolean values, the MAC is applying the full 2ns delay. However, if
+rx-internal-delay-ps is only providing 200ps, that is not true.
+
+I would prefer you keep to the usual way of doing things. Allow the
+MAC to apply small tuning delays, but have the PHY do the 2ns. So
+don't make any modification to phy-mode.
+
+>  static int meson8b_init_rgmii_delays(struct meson8b_dwmac *dwmac)
+>  {
+>  	u32 tx_dly_config, rx_adj_config, cfg_rxclk_dly, delay_config;
+> @@ -411,32 +455,34 @@ static int meson8b_dwmac_probe(struct platform_device *pdev)
+>  	dwmac->dev = &pdev->dev;
+>  	dwmac->phy_mode = plat_dat->phy_interface;
+>  
+> -	/* use 2ns as fallback since this value was previously hardcoded */
+> -	if (of_property_read_u32(pdev->dev.of_node, "amlogic,tx-delay-ns",
+> -				 &dwmac->tx_delay_ns))
+> -		dwmac->tx_delay_ns = 2;
+> -
+> -	/* RX delay defaults to 0ps since this is what many boards use */
+> -	if (of_property_read_u32(pdev->dev.of_node, "rx-internal-delay-ps",
+> -				 &dwmac->rx_delay_ps)) {
+> -		if (!of_property_read_u32(pdev->dev.of_node,
+> -					  "amlogic,rx-delay-ns",
+> -					  &dwmac->rx_delay_ps))
+> -			/* convert ns to ps */
+> -			dwmac->rx_delay_ps *= 1000;
+> -	}
+> -
+> -	if (dwmac->data->has_prg_eth1_rgmii_rx_delay) {
+> -		if (dwmac->rx_delay_ps > 3000 || dwmac->rx_delay_ps % 200) {
+> -			dev_err(dwmac->dev,
+> -				"The RGMII RX delay range is 0..3000ps in 200ps steps");
+> -			return -EINVAL;
+> +	if (!dwmac->data->mac_applies_dt_delays) {
+
+I suggest you do this at a higher level. Either call this function if
+_broken_delay is set, or the other one.
+
+	Andrew
