@@ -1,147 +1,150 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EDD54A4EE0
-	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 15:51:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EE434AB1A6;
+	Mon, 12 Oct 2026 15:51:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791820277; cv=none; b=E1YUllNIbYs44mX2cvstF8u3hKgECvLreWdeDj9uNQ+40qBxylLhXUZFnzJBfr/kP8sNkUZupFpObzbZwjciEMKPaphqF2L8evtIVKVkV5VT6da+KGO8Jmkg+XOBV+nJuECDLjkzVIXmo/juhCGCXip+4Heq3yyaKgg/gkSya5Q=
+	t=1791820286; cv=none; b=ugtcjA2Vo0u7Uq4eR9WI0sujP76BnvnY5vPsqrWAQyexk/VhixUvlfgKOk1wbVxfYWLPmWy7pvfhchzYQHWkmKpU4qAwTaL0hFJjK44stpYG8qxCoLvq3aZ4moB3cQbTzFrR1QO5SJxc3ult9bC47IdV7nMGEu9Ic4ilwSL6Tn0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791820277; c=relaxed/simple;
-	bh=TpFiEWahAUmXhWwUwv8m3ObKJdXib6T1GyKvu7O4dHU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Pi9bErvM2MV9HdeKVIJytbfRwVgc+GDR5aWztNovSGQoJniKSej0tbY9sOGfFCrg46X5r9AeFydSlv3sG3DjNP886h3LUIUM56DsBMNQWNGHMeM6Emc4WOLAmqL/UiIX1HoJwUDVTDdZzS/+3MKL37Db91bLMtjpDGMnK2IEa9Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=gYXFXdCL; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=DFzPkdcC; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791820286; c=relaxed/simple;
+	bh=Dc4aQNXppOOh2naGbZKstydte45eJS70tXAApukP9gc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=bJh7ikNeuj6zdNG82Aqze7LIzUYmCOuDSFaLs6eq/qu0+fJdcWTGrvrqf2bQ+l5ALe1f/G/vHw/vUDIatj+tHjvrRmnBatR6zPO87fIqUwRuJWc4TxHFX/YGi6pFTjzxRbBTjbckeX4GuoKTdxwccfb8Ix11ydE7twIBkHv6/Dk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QT7qIHNw; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="gYXFXdCL";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DFzPkdcC"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CFeviI1895534
-	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 15:51:16 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	jr24mde86SxLZlOcpFzA4cqha7URXRsTA0ve5aSUVtk=; b=gYXFXdCLmbv29x9q
-	zdqLIy2xE9NXV0yGoq2NG0jeZmpD+is7h6dSz/xYR9TlY8NQ7zkFdrsOqcnS1uBV
-	0U5Wbb4SiwhLOjasQSjVwtGZ6pYrEKAjgyX9El+Ul1OWOhuEs0zmjJSeXmukG7oq
-	tP6hnjWyM36mXfulz8InCdaaVVZkyJlbViCHvOFiRKCdwJf6vCTXDUrgV8SxQmIo
-	lFxYzM8CgyK2anCYJ//BYRmS3JuZOmm12EqNdVQ6SpNMnV5mNXbYh6QwaYjoRrGC
-	VeN5Z/i1IfWmqg4vJ3XYjaryRZMq+Q3i9pgiIQWnjIBpkOSV9XtT4P1G6m+zKtPs
-	FQzYnw==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h8v7kswgg-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 15:51:15 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93dea15d721so17328285a.1
-        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 08:51:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791820275; x=1792425075; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jr24mde86SxLZlOcpFzA4cqha7URXRsTA0ve5aSUVtk=;
-        b=DFzPkdcCjxrXxoSzCei36uk/zRK1sqcDIbSTnSLgwzc2acNljIS3BN33grA3heBE1p
-         YKWs3lhuQ7DIubOu2EnTNugDxzcFJwoBgU8SqFvczTZACD9cr/wuH0hI5g/YIu2fzxrF
-         Rf0O6a+sL/1WfEJrYh0Anwrxd3mZvi3Ozj5HbHFbCJmnP8X3rYihlQl7CmU4fP86VuCL
-         CeVMneWHJ1m2ETfBpitl2Jml1jxvJBaPPbdeP1vBqw/9oU+MCN443kkdfoFi7IimSV9E
-         WEcT5bsUFalLIq6sLIkx88o2R7qlaFFtx3lUFiRxxuM260VA62giaLtC7FJwHc/hI0Av
-         Arbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791820275; x=1792425075;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=jr24mde86SxLZlOcpFzA4cqha7URXRsTA0ve5aSUVtk=;
-        b=baLotnNUza1sEjoYqBvabBG+RdBs1LsSYAQfFh3vKznaxVvPk0n8PEb1BpikOinNzw
-         nXlqmukg5FL2gQfcbDO7M/1ja5B+xSJEgoLHkBgQsNY2ybr1j4Sb6d28Tffp/gmXpTqx
-         u/MZVPRTkcbKO4h74cKlmL3IZRmHnrdhLKSaEbEug4Q0A50Qq5UfcvGjY0dzI5jjSiXM
-         sUuAqu03SlqN+0ABIq+dNsVpXZD0n+oQM9U+QjJg5FHu/0M1sSEOZzQyQmWv82OZ1+LX
-         zexuHMN8JnDvWGPKkLMI76bcsZR5Ba29wRNc+ARnlv5ndGeQqSMFeQPaxWoSgt5sQVQJ
-         mcuQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxSYwNdzhVVGlWtARWnpH249lnpOqx2TPVN92BhXaPlTBkcVriEw7S3aO0kAzUuEPZKfUzcnFcF7nPs@vger.kernel.org
-X-Gm-Message-State: AFq9FYJp4yESq4UgWcnN5OjrsTmTgz/xH4WbxswcGH/7clNHmCyHmkUA
-	cXRUsI2XItpbFBgGxHXPzhXKShg0lr29+WgTzr/EQPtdWse5KX4jJZ9qWlR6agyPlEPYvyriZnV
-	VajYEdK4oBDe6A2m1tiyD5JN/OL9qnbInYaOwF2togqV3J8L4JJ34vFz9VjIGr14k
-X-Gm-Gg: AYBFou24WMoF1M0kOk3zE0Ee5UvgiygZ9Cb/MTzGbKk/6Ei8nkkjOJeWTOrIC14hdTh
-	CN68OUpfeSVFrZ8Y2Ae8TrL1JqBViYb6EdVqDSAmKvsblTuByKz87gyiignRQMNHY9I6laG0Wrd
-	Khk7URzZE6mxWhHsQfa6Df7bEh6HI59hS82/09VrERCQj9yOJYiAbfNaUvMnf+vod4guxK8R2dM
-	Av/4yLPmbMhKUHtr/tc6z4dMHWuTPS44at8fsgnmAq0v+jRUK22vHh50iX96cnboQfkrh505EmY
-	MVprUS7I7P3UeovlbG3sOUvGo7AGT5S7cE1uR0ntPQAt+f+NQNFebmllct0RSkqqit2WUoQF7yW
-	ZGuvqZXs5t5Cz8jmdQudM0A==
-X-Received: by 2002:a05:620a:8084:b0:93e:571e:94f0 with SMTP id af79cd13be357-93ebd1eabeamr1852565985a.3.1791820274749;
-        Mon, 12 Oct 2026 08:51:14 -0700 (PDT)
-X-Received: by 2002:a05:620a:8084:b0:93e:571e:94f0 with SMTP id af79cd13be357-93ebd1eabeamr1852562485a.3.1791820274344;
-        Mon, 12 Oct 2026 08:51:14 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b1b3387932sm2043906a12.12.2026.10.12.08.51.11
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 12 Oct 2026 08:51:12 -0700 (PDT)
-Message-ID: <efce358a-6279-4b9e-8328-6e704541095d@oss.qualcomm.com>
-Date: Mon, 12 Oct 2026 17:51:11 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QT7qIHNw"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 3E367C2BCFD;
+	Mon, 12 Oct 2026 15:51:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791820286;
+	bh=Dc4aQNXppOOh2naGbZKstydte45eJS70tXAApukP9gc=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=QT7qIHNwC8/qrbmWB4NvgdjZc4Mu1yP4ylFeZdmcushPViuq+ehgXVmqXbx69auKj
+	 iftToUWcLtlUOZcrb5wL7Vs6+kLfJq0Wbt5INUXkUq5IYlnPPwFU1S7q1bp95aZdN1
+	 QIeVOcFcvI9NUhwlFGQwpgeX8izfrAsoD1zNv1AxEwJFt/ffVGOuF6UPqeTXLRMIb9
+	 SDTjl4AnJW6gLzr1LPEADnSsxKQUj1Nv3Z3J7wB5NNlkz2b9eq/gt5LDtLNh0Bpmby
+	 lwy2mUabnvasq/YGXrnRs87DfgPKgBwQvguhdOxAkU3hCIcBOdd9qyH8MteSrWRX7Q
+	 skRzgiHLTh7Rw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1B765CA9ED1;
+	Mon, 12 Oct 2026 15:51:26 +0000 (UTC)
+From: Juerg Haefliger via B4 Relay <devnull+juerg.haefliger.canonical.com@kernel.org>
+Date: Mon, 12 Oct 2026 17:50:58 +0200
+Subject: [PATCH v2 1/2] arm64: dts: qcom: x1-hp-omnibook-x14: Consolidate
+ pmics and chassis
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 34/38] arm: dts: qcom: msm8974: Align closing brace
- properly
-To: Waqar Hameed <waqar.hameed@axis.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: kernel@axis.com, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <cover.1790892852.git.waqar.hameed@axis.com>
- <b5553955f03b7fc44d073451795b557668fe0a87.1790892852.git.waqar.hameed@axis.com>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <b5553955f03b7fc44d073451795b557668fe0a87.1790892852.git.waqar.hameed@axis.com>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA2MyBTYWx0ZWRfXy019tzuIoloG
- PsiNzrrRctfrth0bdKgMnoJBfeNBu9crFXNrR+8cSlh8gyQv7l2vXDSOtVFtWF+ux5DtSIDfmnc
- b2sEV/sKy7pDSyH4MdCMHGEZRlY90eov8Ff+0jeqsFohHqqW4T0n9FG7dv9nSWcMx0ZU7E5h6BO
- CvIGG6nLRMycpjeLa4781xTpLcA3sApDjDMm7NPfbaal8rvclVjeg1WPjtKZoCekw2f9eeP2jld
- 6l5gXf6+BiE0mdJZVbrhlTSrLb/me9BHN56TTy4BtS5q5urCFdgf9hxoNdEE5eSGpXNh3h71Wdo
- xtSHGS27TkbTTo8Ij8+KO6CJcdMvBXl5gbGI9yeMHWPcuL+iJbd27g1VGKhl8RFOVv2zSF9XIRq
- PLKeG8zbuGRwQp+2Z8gBPbTm+lMNFOBUW96Qj7CsloIhlX1ggi7IhBNUXW9hLCIO2tIWpRAvZ47
- yyEIXeFR9d3GAfuJ3zA==
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA2MyBTYWx0ZWRfX8C/uVOXeisKO
- zu5HGvAi2XvxPOHw1lG2uQ+WE8EqVF/Jvwd39tH+rtHwyQypDJwFcO+kgUU4fkBGk0RK0v5C7Iv
- 2SwIQVpSJHqSDVvqk4a4czg1h6kxouM=
-X-Authority-Analysis: v=2.4 cv=VOtIDNPX c=1 sm=1 tr=0 ts=6acd01f3 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=3-RhneuVAAAA:8 a=EUspDBNiAAAA:8 a=K5Q5qJNcHL0jdGHZGqYA:9 a=QEXdDO2ut3YA:10
- a=NFOGd7dJGGMPyQGDc5-O:22 a=VLVLkjT_5ZicWzSuYqSo:22
-X-Proofpoint-GUID: s9_QetmIG13owgvYynUt0LfR9rpPaw1q
-X-Proofpoint-ORIG-GUID: s9_QetmIG13owgvYynUt0LfR9rpPaw1q
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-12_05,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 clxscore=1015 bulkscore=0 phishscore=0
- spamscore=0 suspectscore=0 priorityscore=1501 impostorscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
- definitions=main-2610120063
+Message-Id: <20261012-dts-qcom-hp-omnibook-x14-cleanup-v2-1-c859ac395b81@canonical.com>
+References: <20261012-dts-qcom-hp-omnibook-x14-cleanup-v2-0-c859ac395b81@canonical.com>
+In-Reply-To: <20261012-dts-qcom-hp-omnibook-x14-cleanup-v2-0-c859ac395b81@canonical.com>
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Abel Vesa <abel.vesa@oss.qualcomm.com>, 
+ Juerg Haefliger <juerg.haefliger@canonical.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2295;
+ i=juerg.haefliger@canonical.com; s=F9F8B48C; h=from:subject:message-id;
+ bh=qnNk8lBIZZu+ycGCBRLG3YFrQOAuUw/bFF0S3K4QKy8=;
+ b=owEBbQKS/ZANAwAKAQ/TiwkLpkK3AcsmYgBqzQH8MBTQ+LILxL/CoDc8DblfYmhq3E24TLSGE
+ yK3ZEvJPiOJAjMEAAEKAB0WIQSFl9T3oi6mu+It14sP04sJC6ZCtwUCas0B/AAKCRAP04sJC6ZC
+ t/YTD/9YmBloQMDobaXd45qo/+AbH+33b25IDZfqrNapTsTUkhWe7Ou9xJ1NNPOF9jC6M/u3gew
+ nV2NSXCzmpe09Y0Pge2rLGVgsLvmpmFW9/pXyMFYNd2xu3d47QgF+6+fUtxLobIdJbi2G2DJH1m
+ xpNAW7JxZ7FOn0cet3vgb0K2K2DG7HMLj4AC4+nfM7GcOpyZXLBrV/6svV1gaAF2+2siilnlDvT
+ UZfGaVCpjgn3d9hhNVHpYKQayOb6XmROypAGUMYRGrbOqQi6SrFAsgK+qRuMmBIs5CXZQ61wd/d
+ 8gDB4YSiU0IvJrGAkf96Gqj2djzf1WRj1Encm1BX0KmuX7IZWM2GGgzjhXscc3bRZKdJK99IvuC
+ PNN/8XlIiK+MYJ0Jb4ilTs/wXOMkRc1vgMepzaNoTj2ddgAgQBtjMUyLvSM6AIa8HqO7kBeZcvN
+ iHYODU8IUqOrNwKCdE/dgmjnsUer4NV2sQLs/9ZY63POcpyAh+N9LaXr6XdilR9LuZXSu9KATar
+ WJNZtxmmuXnY/j/lr+bd/ehaOF9EP+f3NcSEgn9njLHQeVDnvblxygNxOs/JHoVQ8avXrsiee3L
+ 72x5g4ZLYk7IQPohJ1fMdor/pBIuj6MEe9YuAglkJEyB5gvu3WbhN789+7AK5S8KVui1ss+yK7u
+ q1/+NmNns8y6C5w==
+X-Developer-Key: i=juerg.haefliger@canonical.com; a=openpgp;
+ fpr=52B5BDD2A6EDC76A0FE0AB4A754C3A96F9F8B48C
+X-Endpoint-Received: by B4 Relay for juerg.haefliger@canonical.com/F9F8B48C
+ with auth_id=1135
+X-Original-From: Juerg Haefliger <juerg.haefliger@canonical.com>
+Reply-To: juerg.haefliger@canonical.com
 
-On 10/2/26 12:36 AM, Waqar Hameed wrote:
-> Closing brace of a node definition should be indented like subnode name.
-> Found/fixed with dtfmt (Devicetree Source formatter).
-> 
-> Signed-off-by: Waqar Hameed <waqar.hameed@axis.com>
-> ---
+From: Juerg Haefliger <juerg.haefliger@canonical.com>
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+hamoa-pmics.dtsi and chassis-type are identical across the HP Omnibook X14
+boards that include this shared dtsi, so move them there.
 
-Konrad
+Reviewed-by: Abel Vesa <abel.vesa@oss.qualcomm.com>
+Signed-off-by: Juerg Haefliger <juerg.haefliger@canonical.com>
+---
+ arch/arm64/boot/dts/qcom/x1-hp-omnibook-x14.dtsi      | 4 ++++
+ arch/arm64/boot/dts/qcom/x1e80100-hp-omnibook-x14.dts | 2 --
+ arch/arm64/boot/dts/qcom/x1p42100-hp-omnibook-x14.dts | 3 +--
+ 3 files changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/arch/arm64/boot/dts/qcom/x1-hp-omnibook-x14.dtsi b/arch/arm64/boot/dts/qcom/x1-hp-omnibook-x14.dtsi
+index 443901a09d4c..1ae68a71bb3e 100644
+--- a/arch/arm64/boot/dts/qcom/x1-hp-omnibook-x14.dtsi
++++ b/arch/arm64/boot/dts/qcom/x1-hp-omnibook-x14.dtsi
+@@ -10,7 +10,11 @@
+ #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
+ #include <dt-bindings/regulator/qcom,rpmh-regulator.h>
+ 
++#include "hamoa-pmics.dtsi"
++
+ / {
++	chassis-type = "laptop";
++
+ 	aliases {
+ 		serial0 = &uart21;
+ 		serial1 = &uart14;
+diff --git a/arch/arm64/boot/dts/qcom/x1e80100-hp-omnibook-x14.dts b/arch/arm64/boot/dts/qcom/x1e80100-hp-omnibook-x14.dts
+index b79e59e1c413..5630ed1181ca 100644
+--- a/arch/arm64/boot/dts/qcom/x1e80100-hp-omnibook-x14.dts
++++ b/arch/arm64/boot/dts/qcom/x1e80100-hp-omnibook-x14.dts
+@@ -7,13 +7,11 @@
+ /dts-v1/;
+ 
+ #include "hamoa.dtsi"
+-#include "hamoa-pmics.dtsi"
+ #include "x1-hp-omnibook-x14.dtsi"
+ 
+ / {
+ 	model = "HP Omnibook X 14-fe0";
+ 	compatible = "hp,omnibook-x14", "qcom,x1e80100";
+-	chassis-type = "laptop";
+ };
+ 
+ &gpu_zap_shader {
+diff --git a/arch/arm64/boot/dts/qcom/x1p42100-hp-omnibook-x14.dts b/arch/arm64/boot/dts/qcom/x1p42100-hp-omnibook-x14.dts
+index 0e4dfb0f0a2a..53a3ede856f0 100644
+--- a/arch/arm64/boot/dts/qcom/x1p42100-hp-omnibook-x14.dts
++++ b/arch/arm64/boot/dts/qcom/x1p42100-hp-omnibook-x14.dts
+@@ -3,8 +3,8 @@
+ /dts-v1/;
+ 
+ #include "purwa.dtsi"
+-#include "hamoa-pmics.dtsi"
+ #include "x1-hp-omnibook-x14.dtsi"
++
+ /delete-node/ &pmc8380_6;
+ /delete-node/ &pmc8380_6_thermal;
+ /delete-node/ &pmc8380_6_die_temp;
+@@ -12,7 +12,6 @@
+ / {
+ 	model = "HP Omnibook X 14-fe1";
+ 	compatible = "hp,omnibook-x14-fe1", "qcom,x1p42100";
+-	chassis-type = "laptop";
+ };
+ 
+ &gpu_zap_shader {
+
+-- 
+2.53.0
+
+
