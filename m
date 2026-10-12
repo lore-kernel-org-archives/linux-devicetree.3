@@ -1,110 +1,303 @@
-Received: from mail-ej2-f6.google.com (mail-ej2-f6.google.com [74.125.228.134])
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D42F4E5324
-	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 20:15:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.134
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DE444DAF81
+	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 20:21:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.52
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791836105; cv=pass; b=IvfQn/wH+NkEe03hgpNZN68iQeIO9ffrqt1aL2C2UTyeeT3fxLbtu/+tTkqIVPcqcoec2PzgzWcOkF1dTuiUHTPBnCPgV/5GFQJGIs+HQ6YCXd7zBOJ1dSJVd8L7Jjc85qX5Flb4mkIfn7Rx7BtIAFADBQfB7JzbcmJzWkVdUgc=
+	t=1791836495; cv=pass; b=NbZJ8Fpd2kyVaheoTOG3XB2C4vsIyWZzJk5doUCe8v61JOLWZlthFxbUpSiLax7974EqqbHXqPV9Hfgghu8qmhBtZx4FhkQSmyRPkaejvXqut++1Rzc+GJLs0uKLIfTlyFyX/OpDnF/xa+DNaHPTDSoXsyeJl+NEaOeJmwuGZI0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791836105; c=relaxed/simple;
-	bh=HS3YiJJwuBFYmXT0xY3bh6dZ6ZY38Ujwfz/IeJXETc0=;
+	s=arc-20240116; t=1791836495; c=relaxed/simple;
+	bh=RCQSpzr//uy/KVkDYVkHMEFT4GgArym2rxeSz4PmqKI=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=cJxGoX7IupH1VtCkPvJfMn5aWHUPLnxqVX+MfGohzX3L1fkie5zKrZ/ov/BegM2A2/0SxKctprhhnWV2KBcgQFPIgAaYfnDxKo+d0Fkr8LkT+4WrK+CyrY50kEh7T5+nUNa/rZtYXCeFsvLVSlck4Dwr/MbwpM56eeUDw4KRt/g=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IkVfUGNQ; arc=pass smtp.client-ip=74.125.228.134
+	 To:Cc:Content-Type; b=JzrJ44WUh5XZ44igfBygHBfgV+fTN4lN3A7qmTcjFsyk1t0MK0ahgcoHEOLgV5dkDNDbGCPkD/WJdvF4m5PgaugsxtaUpQJsSL8pBI3lS1TxAuEp7IIQpLcVE2EIDGTXaWtiZSBw0zy2lP+PkwTAM27ys7LJhtFJPAlsvzGQ4nw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QUUg6g+M; arc=pass smtp.client-ip=209.85.221.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IkVfUGNQ"
-Received: by mail-ej2-f6.google.com with SMTP id a640c23a62f3a-c2e36c7fc5dso120805566b.0
-        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 13:15:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791836102; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QUUg6g+M"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-48c4207ac26so2165428f8f.0
+        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 13:21:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791836492; cv=none;
         d=google.com; s=arc-20260327;
-        b=CCy6GTYy9oVJjjMyiTUaWfLLtvkdmPmW3mplRsmVG15cOt5mjdK0sFxhwvoFntp1CY
-         rNaOGi6VCqubxG6+30HjOJcodegdK+PpBbQhfBgU/trr5ZLgcqCJ/YmeGROEYYXvumnv
-         RYPJgyf96UskKuHWF9GpkwW1T3hQ92+c/q6kJzT3i2Xx3BKKnd0e6zfcYnGP08sjBpgQ
-         slnU5rdRzmq9nKimEPAY0p565v8Jt+GYvo59D9lcMwiAGyq8AEJHmb+xnifbW08Jwqm/
-         tLtOJT+k28r/xDjCfQHHJ6Wnmly8Y5kOrl4m/hLkCulvGYzoHKpccQ+uz1NWiAHGQ7n8
-         mABg==
+        b=bs8B5e1YLZDUOvNmOzpu73SQnCGilcIyHcByIJSl/KLO28W20lwukYmBygM4BtIfzZ
+         5FV4/i9hqIueIxzxjYrWoI4EgNybEGQnyrXrqU0QHOX9dDu33F62GzKM+tWKPI1Sfuxt
+         sdEH8sLw5MPhlNK0O06tjCGfbmnj8OXRm5Wsrg/f6dK0zNVxjnOZU/KYMs/LhUHPoa+h
+         TsZiPgpsdxB9+9hPXGOLFbcvRcKzHWnfkcY+OPQd5hTF4wRtKc/8L7Ph6f3PNRVbkdB9
+         S4KhBFPW1k7rkBaRSGNxV6Kf5HmkQ7zMOIbtHtrYCFyFRj5lahJdhuQUH2HI+zpbdTeP
+         rEfg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=HS3YiJJwuBFYmXT0xY3bh6dZ6ZY38Ujwfz/IeJXETc0=;
-        fh=oT8hsKCkyyqwwaBQ/P3eq2TnbrUwfLcLzmf8oeUG9fo=;
-        b=D7JRcRQU1VNTRkOGK2mHAq5eD8t6E57VU4yVeVeXRjQssisSJ0HhWzy2KGUXy38exY
-         OdbPDZ1an751ZdznmhGoSz5SWmNgEkRrQtU5FqzV5dgJS2e/LDWRa2MvluUks1HzlE+P
-         e2AmaKyFllskRMG/BA0oLCEXDJv/S6CSWRRadtMy3PTgiormcRq+FrVg62cVCkL0UbPR
-         bspwWvbGy8MUD+riX3BKyVztFUxjWJTzAa9R5MBSyfmF4K0ipx7dsL8Dj8SYa+isOkh2
-         YA5zh1uP2M4uBdFbjGScCL+b+PUn2Jt+iB3kxBjR2zyCN1w1MiQWIPj/DQECNyjZ4Q+g
-         1ipA==;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=oFdrxz7IDO5EI0kw4vrk/ogosg+7aqS767pWdjMdgj0=;
+        fh=jIU+Mr81uTLlKWgRscEPj0OkxtTfe7Crn9IN2QX+G/M=;
+        b=gzuqdAbwNQ/KlcJRlonZ1Gyb9XWeMgrjHefKcWBur1xOZOx5ubA9stvnWPV3g4yFy2
+         gzdeSUYGD0gt+MYX1xU2DE/EOqaTmh8FDBbSzdPuijxmZs3Fv7kXOxjQs1KYu9SWEcLC
+         Zm9Igj0kJmaDXFphGuWeIbAvdU0vouhx8X01glnkOPDoEoaxHWON51uWjQ3VV0e2TbKZ
+         Adpf5+Wnn0rrU8ahINne6thvkLaHGDMOYlDO+8GtFzd6KPQOlGhYv6WWohMi/bEhkOuk
+         SZ20za+G7+PS0W09S6OTh3t6vSX/DpAyOecVRRS45gNYdDemu2XVrEGlAcPGcCIPggQJ
+         l4bg==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791836101; x=1792440901; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HS3YiJJwuBFYmXT0xY3bh6dZ6ZY38Ujwfz/IeJXETc0=;
-        b=IkVfUGNQ1yNmn4gzvmzSsvuKHPkeLnfQKjQDS9CEK4YTguVtbIWrAxO22oCHuGOHkF
-         dRlwuvdLYjmLvKQU9IKinxTmWXZIqVUJYHv0Yf+5UiBjc3JjciinIvaEGXGiEYW98kbT
-         M+L8nJJhrj+yY5JXvbjILluoBVknhjdJjL6qP0x+CeGaDMq8DFHsvVLLmw/RgCKGCpIs
-         HTrSNC2iLRrFECAVjLPcPqKNt92+sKsaFkE04FXVE0SAO/FGZizZoF2E6CP6xAL40wI/
-         xtUfkhLd04LfFQ6/mFQvtvoD2BZoOkmLj+RgInYKvVdVHHmZW3c6KZkTA3ws7YtBGyxC
-         WIdQ==
+        d=gmail.com; s=20251104; t=1791836492; x=1792441292; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=oFdrxz7IDO5EI0kw4vrk/ogosg+7aqS767pWdjMdgj0=;
+        b=QUUg6g+MkTonjvrizNKgr6vgNwhUgts7WR9s1McXCqmcVgwdgc6sjgzWQIW0wmWIcH
+         SeThEWH4U+sirFCrJWP0UW407koSK2smZQxfHI2oNu/His2Zsat1g37mHrOUnZpw8tYm
+         bGgXU3xvw3j9S6R68kKuQUTDWV/FNbHkSTeJh+uFFGo/avE1530tr2uAD75VQzlWd/5M
+         elyOVqdQJfS2vdDiMuu4sLr+fbS3aPFtnB6V6jCtDT1raNKjcCAor79R4qg4D+Lg2X/1
+         J2FHCv1qmsvrVGEtNdXudXOmnaZajyfscWSCSUYdwais/rB+3ftwYP+FtgQuAvwJq4sD
+         6XLg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791836101; x=1792440901;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=HS3YiJJwuBFYmXT0xY3bh6dZ6ZY38Ujwfz/IeJXETc0=;
-        b=PMJzbhJ4/Fk9jCsdqofliTp1MR/WFDKPJB+M7xi2y7RoLpRHOxlg0/JsWXoSaTNgFf
-         spAgOK/JzQJPnBSW+m2uniCdjxB7nZOaFy78kdp08lt/LY9rBT/rE99buCCLdzaUSirK
-         qAG2BwmhIv6DUABck6cHOIFytCaTuO4H8ktaD7uhR6twgGi6WTzxcXlC3wJTRUOaeQGl
-         fey6uQBHsrPqp97bJV7GEPz0JhGOVYy/L4c60FD+RVdautIhxFri5MXY+r96dC6Xo97O
-         tEYgBfVBjRrS+ecpkHoBtDtTslpOFcvXttcd0rYlO3TrQmsh8FIOJPAwgwHGKkOgH06O
-         iKVA==
-X-Forwarded-Encrypted: i=1; AKwUvBxs5FZtj2mrTAK2pkfXr/oPOY+CriVBOd7hNYcBh46Gft8rmT/TydLcA9QOtoIrhNqRpdAVExS7/ir6@vger.kernel.org
-X-Gm-Message-State: AFq9FYLZXVqVczARcvK2GENAm5F1zawR7+TvxujqocseRMl4Qs/8TEGO
-	X53jQxlgAWYO35+7niLovZH9Z9POo7nMJ9hm/0RADQs5BampS5X97f/tb8fLsP3jjl6R/+5wdzP
-	XlYuzlmBVnYEsGlUkRebI9HB2e1jQX20=
-X-Gm-Gg: AYBFou1GvKZUfs1cYNNjiLa4MosMmhP6V2cgSl2h6Mvvd+vxmOlNi92J8EWy2Rl7cIM
-	8KGfQqniGMveHFay406H3jvvxnj3vZSMq4WFaEKC2Lm8HPF4iouQYGAb86tCNxd9+yAvnv9i64T
-	rC1yXL8elWI9z9VHjUWCONFG62qDL3pubOLEjNqwfU/wy5KJoHchKDpEE+IHskMQUtgL6ZSMzEi
-	oSj4tly6SULq/vn9pzFPBN33lXtmaEqw484LIWIvf63L+OPBE3RIaF2LTFebeYk7eTqqGaxCaa+
-	wab9s4Gus5TIfy6IrkWbMuLKHuGy/W7ZPSz7yD5G7rLm8UHVj2mleLyySEY=
-X-Received: by 2002:a17:907:9712:b0:c2e:808a:f781 with SMTP id
- a640c23a62f3a-c31a9f8bc7cmr977286166b.34.1791836101394; Mon, 12 Oct 2026
- 13:15:01 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791836492; x=1792441292;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oFdrxz7IDO5EI0kw4vrk/ogosg+7aqS767pWdjMdgj0=;
+        b=msAbP6XSEDSXj+e3oTJ0s78rJm8xl/uLQgVFz8kypJpIiAKqWD2l/rxTCHT9FhYrql
+         rGq81RXLD9mVVc//28HbkHXT//xnWrxiBpz7qc/6gQjFbuPxWrilC2eW3Qp45hVAKeAc
+         MA2DWIu1KNwiugQtrP2a9S+mmxtlEL7qWJgMHAYiFcyCLyeNjKmgXNAcII9yNwtt+Tzr
+         7pEDqgH4g4VCMtDa6JGqtERLchlk134/u26bmClOgqI13+bWrERMmkYq14fbDdUJ652q
+         LxZcmOd0JNJtUrlrzIYiIeCGQxQLyoJxsLEYKF5AW2ZqhiKT+G5ItJUii+YYQj3JEpEJ
+         F7KQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz2IQLf2yCvK6x12Aa5gnZJ/jIWDS3hTqcTPrAlZ9ttkPXnXGBlCMtziqqMmkYd3eqQXj7nyROcU29/@vger.kernel.org
+X-Gm-Message-State: AFq9FYKyYYaKmZzyDJHHXGJiT+yJzSY0Mf1gI9XScTQ256T7OtmdCiOp
+	VKVJTrPLhqaGjAn14f6A6TY+7z1Sv3yUFtELiS8Ysg7URbLF4RfhGwHbGJN9nixIWC6/VUq6dpT
+	4CkBx9w+k0JFDYbM4wCLQ1X5Co8tIvVY=
+X-Gm-Gg: AYBFou1AiUvM3JUvLkWK5oojuzIaP3Gyvzl/iH86MCEA4HFqQWaxcY9HGoCMG78TBYX
+	mkvyBbVPR9Me3Gspd+SbWQCJ9vYdsxrJcmFoi+w4aCie2oRXDOgELk6j2tUIO0hxyiIK2jY6tSD
+	Uvp6I9F3FFdc0jYKxUmCJvyLc8UR9sD81Cz11jgMA9U8wz7E40V70/xYqDlYVKtU7RysXmtaree
+	rFgfPnPPMo9jTSfUQe2GrL/RvsxmgwuKlbm093YcU/ultlqISwAvco8Gmi85GlLs3P8R8UwSJ1l
+	o7559SH6dKTrqPtV9sQ2FjZo4SjIJs3Io4KFTBDrgO+JQsqB/kvOCWkipRsrV8Xvweb2Y3fq2+Z
+	IFedqfKBItjAHljpxbbv1FeGsHPbK+ZU/f3LOrQTMf+U=
+X-Received: by 2002:a05:6000:3108:b0:486:f856:1975 with SMTP id
+ ffacd0b85a97d-48dbaae5c02mr18183316f8f.22.1791836491382; Mon, 12 Oct 2026
+ 13:21:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261006162807.2843858-1-coiaprant@gmail.com> <20261006162807.2843858-3-coiaprant@gmail.com>
- <ac2a4e80-6d35-457a-bdc5-ee8511198bec@rock-chips.com> <CALj3r0gQ_U2ZUJkRgF4NdB1Gd3A8ZT3T6qjLhwGZPg=VUXLsrQ@mail.gmail.com>
-In-Reply-To: <CALj3r0gQ_U2ZUJkRgF4NdB1Gd3A8ZT3T6qjLhwGZPg=VUXLsrQ@mail.gmail.com>
-From: Coia Prant <coiaprant@gmail.com>
-Date: Tue, 13 Oct 2026 04:14:52 +0800
-X-Gm-Features: AclHuK9DIbMdxghdp8dVnDg3M3UkCfAC1pjnUxZw0sP50Y9CDUKz7Qi3PzTsHZE
-Message-ID: <CALj3r0hSyVpn4Upbun4DOk5hdOH+fzEFG2E3LpfvS2YUXH8twA@mail.gmail.com>
-Subject: Re: [PATCH v13 2/2] phy: rockchip: naneng-combphy: add SGMII MAC
- selection for RK3568
-To: Vinod Koul <vkoul@kernel.org>
-Cc: Shawn Lin <shawn.lin@rock-chips.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+References: <20261012-mali-c55-renesas-dts-v4-0-c410e280bf2d@kernel.org>
+ <20261012-mali-c55-renesas-dts-v4-4-c410e280bf2d@kernel.org> <asz8oEtow_lrUU7K@zed>
+In-Reply-To: <asz8oEtow_lrUU7K@zed>
+From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
+Date: Mon, 12 Oct 2026 21:21:05 +0100
+X-Gm-Features: AclHuK-4f6aEgz84S7166QRmPA4srEwYSx_VGps7yC24cU0L6Xa5D_BUxV8o_-4
+Message-ID: <CA+V-a8tnYhY4cWjy+ddsptAwmRU0KmpuF_EJtxO2h6LmTgym5A@mail.gmail.com>
+Subject: Re: [PATCH v4 4/5] arm64: dts: renesas: r9a09g057: Add IVC and ISP nodes
+To: Jacopo Mondi <jacopo.mondi@ideasonboard.com>
+Cc: Linus Walleij <linusw@kernel.org>, Daniel Scally <dan.scally@ideasonboard.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Heiko Stuebner <heiko@sntech.de>, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Vinod,
+Hi Jacopo,
 
-Gentle ping on this series. It was sent on Oct 6 and carries Conor's
-Acked-by on the binding.
+Thank you for looking into this.
 
-Is there anything you'd like changed, or is it just queued?
+On Mon, Oct 12, 2026 at 4:47=E2=80=AFPM Jacopo Mondi
+<jacopo.mondi@ideasonboard.com> wrote:
+>
+> Hi Linus
+>
+> On Mon, Oct 12, 2026 at 01:56:26PM +0200, Linus Walleij wrote:
+> > From: Daniel Scally <dan.scally@ideasonboard.com>
+> >
+> > Add the Input Video Control Block and Arm Mali-C55 ISP to the device
+> > tree file for the RZ/V2H(P) SoC.
+> >
+> > [Rebase onto v7.3-rc1, place the nodes in address order, add the missin=
+g
+> >  interrupts in binding order and name them. - Linus Walleij]
+> >
+> > Assisted-by: LLM
+> > Signed-off-by: Daniel Scally <dan.scally@ideasonboard.com>
+> > Signed-off-by: Linus Walleij <linusw@kernel.org>
+>
+> How was this patch tested ?
+>
+> I am rebasing my rz/v2h tree on v7.2 and I've backported this patch.
+>
+> Unfortunately I don't get any frame from the camera, but rather the
+> system hangs in unrecoverable state
+>
+> > ---
+> >  arch/arm64/boot/dts/renesas/r9a09g057.dtsi | 47 ++++++++++++++++++++++=
+++++++++
+> >  1 file changed, 47 insertions(+)
+> >
+> > diff --git a/arch/arm64/boot/dts/renesas/r9a09g057.dtsi b/arch/arm64/bo=
+ot/dts/renesas/r9a09g057.dtsi
+> > index 639693d464a7..228155fa3c76 100644
+> > --- a/arch/arm64/boot/dts/renesas/r9a09g057.dtsi
+> > +++ b/arch/arm64/boot/dts/renesas/r9a09g057.dtsi
+> > @@ -1839,6 +1839,53 @@ queue3 {
+> >                       };
+> >               };
+> >
+> > +             ivc: isp-input@16040000 {
+> > +                     compatible =3D "renesas,r9a09g057-ivc";
+> > +                     reg =3D <0 0x16040000 0 0x10000>;
+> > +                     clocks =3D <&cpg CPG_MOD 0xe3>, <&cpg CPG_MOD 0xe=
+4>,
+> > +                              <&cpg CPG_MOD 0xe5>;
+>
+> Compared to Dan's original patch I was carrying my tree the first and
+> third ids of clock and reset properties in the ivc and isp nodes respecti=
+velty
+> are swapped
+>
+> This patch
+>
+> --- a/arch/arm64/boot/dts/renesas/r9a09g057.dtsi
+> +++ b/arch/arm64/boot/dts/renesas/r9a09g057.dtsi
+> @@ -1709,8 +1709,8 @@ ivc_out: endpoint {
+>                 isp: isp@16080000 {
+>                         compatible =3D "arm,mali-c55";
+>                         reg =3D <0 0x16080000 0 0x80000>;
+> -                       clocks =3D <&cpg CPG_MOD 0xe5>, <&cpg CPG_MOD 0xe=
+4>,
+> -                                <&cpg CPG_MOD 0xe2>;
+> +                       clocks =3D <&cpg CPG_MOD 0xe2>, <&cpg CPG_MOD 0xe=
+4>,
+> +                                <&cpg CPG_MOD 0xe5>;
+>                         clock-names =3D "vclk", "aclk", "hclk";
+>                         interrupts =3D <GIC_SPI 859 IRQ_TYPE_LEVEL_HIGH>,
+>                                      <GIC_SPI 865 IRQ_TYPE_EDGE_RISING>,
+> @@ -1719,7 +1719,7 @@ isp: isp@16080000 {
+>                                           "fr_dma_writer_linetick_out",
+>                                           "fr_uv_dma_writer_linetick_out"=
+;
+>                         power-domains =3D <&cpg>;
+> -                       resets =3D <&cpg 0xd3>, <&cpg 0xd1>, <&cpg 0xd2>;
+> +                       resets =3D <&cpg 0xd2>, <&cpg 0xd1>, <&cpg 0xd3>;
+>                         reset-names =3D "vresetn", "aresetn", "hresetn";
+>                         status =3D "disabled";
+>
+> Fixes the issue for me
+>
+It also fixes the issues on my side; I tested it with the RZ/V2H EVK
+using the imx708 sensor,
 
-Thanks,
-Coia
+root@192:~# cam -c2 -C10
+[0:10:13.102940291] [1010]  INFO Camera camera_manager.cpp:330
+libcamera v0.0.0+5679-0b4b0ef3
+[0:10:13.136058708] [1013]  INFO Camera camera_manager.cpp:220 Adding
+camera 'mali-c55 tpg' for pipeline handler mali-c55
+[0:10:13.143446208] [1013]  WARN CameraSensor
+camera_sensor_legacy.cpp:354 'imx708': Recommended V4L2 control
+0x009a0922 not supported
+[0:10:13.143574833] [1013]  WARN CameraSensor
+camera_sensor_legacy.cpp:426 'imx708': The sensor kernel driver needs
+to be fixed
+[0:10:13.143612416] [1013]  WARN CameraSensor
+camera_sensor_legacy.cpp:428 'imx708': See
+Documentation/sensor_driver_requirements.rst in the libcamera sources
+for more information
+[0:10:13.147022541] [1013]  WARN CameraSensor
+camera_sensor_legacy.cpp:594 'imx708': Failed to retrieve the camera
+location
+[0:10:13.147073666] [1013]  WARN CameraSensor
+camera_sensor_legacy.cpp:616 'imx708': Rotation control not available,
+default to 0 degrees
+[0:10:13.254700791] [1013]  INFO Camera camera_manager.cpp:220 Adding
+camera 'imx708' for pipeline handler mali-c55
+Using camera imx708 as cam0
+[0:10:13.258077083] [1010]  INFO Camera camera.cpp:1214 configuring
+streams: (0) 1920x1080-RGB565/Unset
+cam0: Capture 10 frames
+613.444141 (0.00 fps) cam0-stream0 seq: 000000 bytesused: 4147200
+613.459953 (63.24 fps) cam0-stream0 seq: 000001 bytesused: 4147200
+613.478004 (55.40 fps) cam0-stream0 seq: 000002 bytesused: 4147200
+613.496112 (55.22 fps) cam0-stream0 seq: 000003 bytesused: 4147200
+613.514060 (55.72 fps) cam0-stream0 seq: 000004 bytesused: 4147200
+613.532173 (55.21 fps) cam0-stream0 seq: 000005 bytesused: 4147200
+613.550287 (55.21 fps) cam0-stream0 seq: 000006 bytesused: 4147200
+613.568400 (55.21 fps) cam0-stream0 seq: 000007 bytesused: 4147200
+613.586458 (55.38 fps) cam0-stream0 seq: 000008 bytesused: 4147200
+613.604489 (55.46 fps) cam0-stream0 seq: 000009 bytesused: 4147200
+root@192:~#
+
+I was also able to test this with camshark using my older setup.
+
+> Why is this an issue it's not 100% clear to me.
+>
+> The driver handles both reset and regulators with the bulk API which
+> does not guarantee ordering (and no ordering is specified in the
+> datasheet as far as I can tell). All clocks and resets names are used,
+> so the ordering shouldn't make much difference as far as I can tell.
+>
+Indeed.
+
+> I can't access the "additional documentation" from the Renesas website
+> where the clock/reset ids are reported. Could you please check ?
+>
+I will also double check this.
+
+Cheers,
+Prabhakar
+>
+> > +                     clock-names =3D "reg", "axi", "isp";
+> > +                     interrupts =3D <GIC_SPI 861 IRQ_TYPE_EDGE_RISING>=
+,
+> > +                                  <GIC_SPI 860 IRQ_TYPE_EDGE_RISING>,
+> > +                                  <GIC_SPI 864 IRQ_TYPE_LEVEL_HIGH>;
+> > +                     interrupt-names =3D "isp_vvalid_ifp", "isp_vvalid=
+_irp",
+> > +                                       "isp_int_fstop";
+> > +                     power-domains =3D <&cpg>;
+> > +                     resets =3D <&cpg 0xd4>, <&cpg 0xd1>, <&cpg 0xd3>;
+> > +                     reset-names =3D "reg", "axi", "isp";
+> > +                     status =3D "disabled";
+> > +
+> > +                     port {
+> > +                             ivc_out: endpoint {
+> > +                                     remote-endpoint =3D <&isp_in>;
+> > +                             };
+> > +                     };
+> > +             };
+> > +
+> > +             isp: isp@16080000 {
+> > +                     compatible =3D "arm,mali-c55";
+> > +                     reg =3D <0 0x16080000 0 0x80000>;
+> > +                     clocks =3D <&cpg CPG_MOD 0xe5>, <&cpg CPG_MOD 0xe=
+4>,
+> > +                              <&cpg CPG_MOD 0xe2>;
+> > +                     clock-names =3D "vclk", "aclk", "hclk";
+> > +                     interrupts =3D <GIC_SPI 859 IRQ_TYPE_LEVEL_HIGH>,
+> > +                                  <GIC_SPI 865 IRQ_TYPE_EDGE_RISING>,
+> > +                                  <GIC_SPI 866 IRQ_TYPE_EDGE_RISING>;
+> > +                     interrupt-names =3D "combined_interrupt",
+> > +                                       "fr_dma_writer_linetick_out",
+> > +                                       "fr_uv_dma_writer_linetick_out"=
+;
+> > +                     power-domains =3D <&cpg>;
+> > +                     resets =3D <&cpg 0xd3>, <&cpg 0xd1>, <&cpg 0xd2>;
+> > +                     reset-names =3D "vresetn", "aresetn", "hresetn";
+> > +                     status =3D "disabled";
+> > +
+> > +                     port {
+> > +                             isp_in: endpoint {
+> > +                                     remote-endpoint =3D <&ivc_out>;
+> > +                             };
+> > +                     };
+> > +             };
+> > +
+> >               dsi: dsi@16430000 {
+> >                       compatible =3D "renesas,r9a09g057-mipi-dsi";
+> >                       reg =3D <0 0x16430000 0 0x20000>;
+> >
+> > --
+> > 2.56.0
+> >
+>
