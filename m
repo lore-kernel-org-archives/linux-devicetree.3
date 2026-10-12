@@ -1,47 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6E0D363086;
-	Mon, 12 Oct 2026 18:15:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9E5B4AA1EB;
+	Mon, 12 Oct 2026 18:17:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791828925; cv=none; b=KGvtqG+etpqzJqhK6o7Hymwyjg7XzWH7ngokx0x2a4xlkNVOvWUYGncrq/WLnYxfKxdMJ0q6e4XUYsYRYufzNcOQjrGaRCk/jE9xrC7YMLBh22xRA+wQfIcIokFqapL35mp8Y/7eXNDaVh+6LazcG4yVGXyGN+j9+mcplfCrh9c=
+	t=1791829077; cv=none; b=Xmk+CP1YGe62+OOL+byO/b2kIY54ZRdSPKgC1DPlx+OONDCmXFrdmkTCjZkjwmzMjuVufdqSXIK2dr9y8azteBt3yVSHQSpmN9WhxOa/IdUhx86OAfmwd5gG+BX+KhrxX07Sut9jLlDbmCZJd4WukzEy6qG3kd57T1nWroT1lcM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791828925; c=relaxed/simple;
-	bh=nUjuSbrZaN64WJgvYr2jmyN4E5eYvUamc6TkEzJhogo=;
+	s=arc-20240116; t=1791829077; c=relaxed/simple;
+	bh=2BkQe0cPMfnSaWkaR260fccQkLruK74GyLLMi/bkJVU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Jugcj0bf1mHPgXocygpZ6cCrvicgBru6b4umeJYKP1lA755HTMtp8lTeKPAAN19lXyqtW8rLNZ5jUOAMIlMq4VnviXvfsCn3/GEqgqIixw+NSjMgYfKjiHdjTbsndTb3GpUAlrh1NZ4CTCJ9DkDe5ChoIHt8XH+dxNxOvAwEqAc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kmSGLKHT; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=kOuekeBmRYxP/TiKH5/AsZi5bPzZyX9P6SfRLNh4vFajDnIdO/fVYsafWiAvixyCvWc4l1HVxkEU0v5AK7ZNIi+W9HEg2cT9YYzOvdPCdHH2HsPlKi1ThiBnujN0bjLecIyl5cs8jh7aH0UaanthbGyORcM+kaake8I3GN4NGII=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R+mieiEj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kmSGLKHT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 251301F0089B;
-	Mon, 12 Oct 2026 18:15:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R+mieiEj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C51BF1F0089B;
+	Mon, 12 Oct 2026 18:17:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791828924;
-	bh=sJ7Cz9cE5jYmh9i7+7gt+I7tJt8elW65y25IztcbqK8=;
+	s=k20260515; t=1791829076;
+	bh=CBeQqtobZlJEzGuyYJNrwxZ4pA/3QS4wDhBW1e67RRw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kmSGLKHTM0Xvrvi2qmfl59/BADJyznbG+bzb0bGwHPkZV/MCemLPQtRRvfKMc1SCK
-	 EIZRGiHj6qCGSoZR2+EP2wEkB4cYuLid2h42DFhMeCFHqR7/B8jfuFT5HGbkajB2w+
-	 AdKCsHPEOFUGlPpzZ5gJLIm0V3evijWTJIuZh9QrFmfbR888KHH0utNWOuYh3jBHdh
-	 mCLhiQaFkh+fFUnitd+g8EGWCxESqozjK312zWZ4n5xNr/Plg2su41m/T4P31o4zeo
-	 k9yjNS4IL8Z7dZnXWSji7b/T1BwxouuxWIogksUxwOhHeDaN+IZ5KIgXWR8MaRJ+ZG
-	 tx0K8SJL6aYxw==
-Date: Mon, 12 Oct 2026 19:15:19 +0100
+	b=R+mieiEj0R6HLEJ19czXCyv8eLqxr1urLGS/lBP8kgfwAWQcC3oANujjH93ykSxV4
+	 hQcCgSrQ+YUBkU09aVqAZr6qgpmET6odwK2iaMR8zZV6IS61cIEYF/u5yhMm69rAj4
+	 sp7Js44YvQlCMoo6sgEvYW9EIe21nxP88eJ3kNWn+Uoss5f/Xm2XpSad4Ow1OdgZ/w
+	 fAGqVQjdRAH6ixWNTR1qgLSWHXRfg8loeiHORzCFm6s8QCBfUUOBXHlKJRYNzPnfsr
+	 7i6rmTRXvXwSbdMkws94vb8SMEjnvycGvFoH1Waa4Va7kg8XgmWIS5+YbBi4fyzI6j
+	 TiDnizU4yeoJA==
+Date: Mon, 12 Oct 2026 19:17:51 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Jelly Jia <Jelly.Jia@cixtech.com>
-Cc: vkoul@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, robin.murphy@arm.com,
-	devicetree@vger.kernel.org, Frank.Li@kernel.org,
-	cix-kernel-upstream@cixtech.com, dmaengine@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 4/6] dt-bindings: dma: arm,dma-350: Document the CIX
- Sky1 integration
-Message-ID: <20261012-trailing-makeover-daf4d62ac2b9@spud>
-References: <20260907033404.596839-1-Jelly.Jia@cixtech.com>
- <20261009051846.1115962-1-Jelly.Jia@cixtech.com>
- <20261009051846.1115962-5-Jelly.Jia@cixtech.com>
- <20261009-e284e1844269292657604ec7@squawk>
- <asoSH0CLbi7xmjP8@ubuntu>
+To: netdev-bot+sashiko@kernel.org
+Cc: jacky_chou@aspeedtech.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+	kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, ratbert@faraday-tech.com,
+	edumazet@kernel.org, hkallweit1@gmail.com, linux@armlinux.org.uk,
+	netdev@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH net-next v2 1/6] dt-bindings: net: ftgmac100: Add AST2700
+ compatible
+Message-ID: <20261012-aide-wimp-4edf96aaca1d@spud>
+References: <20261006-support_ast2700-v2-1-36de51fb8066@aspeedtech.com>
+ <179161911824.434549.4075299707625994950@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,54 +47,101 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Vbao+CsgOn8rBfQO"
+	protocol="application/pgp-signature"; boundary="SKpaERQPP4yzf68I"
 Content-Disposition: inline
-In-Reply-To: <asoSH0CLbi7xmjP8@ubuntu>
+In-Reply-To: <179161911824.434549.4075299707625994950@kernel.org>
 
---Vbao+CsgOn8rBfQO
-Content-Type: text/plain; charset=us-ascii
+--SKpaERQPP4yzf68I
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Sat, Oct 10, 2026 at 06:23:27PM +0800, Jelly Jia wrote:
-> On Fri, Oct 09, 2026 at 04:31:26PM +0100, Conor Dooley wrote:
-> > > +  cix,irq-router:
-> > > +    $ref: /schemas/types.yaml#/definitions/phandle
-> > > +    description:
-> > > +      Syscon phandle for the CIX Sky1 subsystem register block that =
-routes
-> > > +      DMA-350 channel interrupts to the AP interrupt controller.
-> >
-> > See comments on the driver for more on this, but I'm not convinced that
-> > this should be in this node - especially if this thing controls other
-> > device's routing too.
-> >
-> > Thanks,
-> > Conor.
+On Sat, Oct 10, 2026 at 07:58:38AM +0000, netdev-bot+sashiko@kernel.org wro=
+te:
+> Thank you for your contribution! Sashiko AI review found more severe
+> issue(s) in other patches of this series. This mail is only an FYI, in ca=
+se
+> you want to address the nit picks below when you respin.
 >=20
-> Agreed - v3 drops cix,irq-router from the binding completely. We plan
-> to handle the interrupt gate as firmware/pre-Linux platform setup for
-> v3, so the DMA node should not describe it. With the property gone, the
-> CIX-specific conditional in allOf goes away as well, and the binding is
-> back to the generic controller properties plus the CIX compatible. The
-> corresponding driver changes are in my reply on the driver patch.
+> Low priority / nit picks for your consideration:
+>=20
+> - [Low] Already fixed later in this series, so the baseline decision is
+>   false.
+>=20
+> --
+>=20
+> dt-bindings: net: ftgmac100: Add AST2700 compatible
+>=20
+> This adds aspeed,ast2700-mac to the FTGMAC100 compatible list, which
+> requires the faraday,ftgmac100 fallback. It also updates the RMII RCLK
+> clock description to include AST2700, and allows the resets property for
+> AST2700 in the same way as for AST2600.
+>=20
+> > diff --git a/Documentation/devicetree/bindings/net/faraday,ftgmac100.ya=
+ml b/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
+> > index d14410018bcf6..bee9570a6f63f 100644
+> > --- a/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
+> > +++ b/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
+> > @@ -18,6 +18,7 @@ properties:
+> >                - aspeed,ast2400-mac
+> >                - aspeed,ast2500-mac
+> >                - aspeed,ast2600-mac
+> > +              - aspeed,ast2700-mac
+> >            - const: faraday,ftgmac100
+>=20
+> [Severity: Low]
+> With this patch, "aspeed,ast2700-mac", "faraday,ftgmac100" becomes a
+> valid compatible pair. However, at this commit, ftgmac100_of_match[] in
+> drivers/net/ethernet/faraday/ftgmac100.c has no aspeed,ast2700-mac entry.
+> Such a node could only bind through the generic faraday,ftgmac100 entry
+> (FTGMAC100_FARADAY).
+>=20
+> On that path, ftgmac100_probe() would do the following:
+>=20
+>   - program the ring-end bits at BIT(15) instead of the Aspeed BIT(30)
+>   - leave is_aspeed false, so ftgmac100_setup_clk() never claims
+>     MACCLK/RCLK
+>   - register the embedded MDIO bus through ftgmac100_setup_mdio()
+>   - never set a DMA mask wider than 32 bits
+>=20
+> Would an AST2700 node work correctly if it fell back to the Faraday
+> match?
 
-For correctness, I think you still need to model this by using interrupt-map
-in the syscon node, with the syscon as the interrupt parent. If firmware
-will program it, you don't need to actually implement anything in a
-linux driver (unlike the Microchip and Renesas devices that I linked),
-you just need to put the interrupt-map property in the syscon and common
-code will do the rest.
+Sounds like no, can the submitter please clarify if the fallback is
+valid?
 
---Vbao+CsgOn8rBfQO
+>=20
+> Later patches in this series fix this. "net: ftgmac100: Add AST2700
+> compatible support" adds FTGMAC100_AST2700 and an aspeed,ast2700-mac
+> match entry, ahead of the faraday fallback. That entry selects the
+> BIT(30) and is_aspeed path.
+>=20
+> "net: ftgmac100: Add AST2700 upper DMA address support" then adds
+> dma_set_mask_and_coherent(..., DMA_BIT_MASK(35)).
+>=20
+> So the problem only shows up when bisecting to this commit, and only with
+> an out-of-tree AST2700 DTS on an ARM64 build. ARM64 builds are only
+> enabled by "net: ftgmac100: Allow building on ARM64". Landing the binding
+> before the driver match is the usual order for dt-bindings series.
+>=20
+> [ ... ]
+>=20
+> ^ annotation: none needed for the [ ... ] above; snipped hunks are the RC=
+LK description and the resets allOf block.
+>=20
+> --=20
+> Sashiko AI review =B7 https://netdev-ai.bots.linux.dev/sashiko/#/patchset=
+/20261006-support_ast2700-v2-0-36de51fb8066%40aspeedtech.com
+
+--SKpaERQPP4yzf68I
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCas0jtwAKCRB4tDGHoIJi
-0rvzAP45h5Dn2C+Y02Q/vohB7N99QpMoe5knRjpH10VLH4udPwD9GSoyu1o41xQ3
-1XdkvyTiiRgLHfky9uIGfJ5uVfboRgY=
-=jyIs
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCas0kTwAKCRB4tDGHoIJi
+0kA1AP9CO8HcgI3YQSQVtiyE5eYE1WX8RXey9PsMPJ//+flR8AEA/oL5cohuyAl0
+GG/lUTcGDK6NdK6nkVGVfCV/N+mkVAo=
+=uWkZ
 -----END PGP SIGNATURE-----
 
---Vbao+CsgOn8rBfQO--
+--SKpaERQPP4yzf68I--
