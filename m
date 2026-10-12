@@ -1,132 +1,153 @@
-Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010039.outbound.protection.outlook.com [52.101.69.39])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 860C7495501;
-	Mon, 12 Oct 2026 15:12:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.39
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791817953; cv=fail; b=ZdJwzzG13NG73cHlx2PA6RQ1cMa128aIyx4siwD7MleuWS/GyHKvAzgyUFscQ1ZnwmqQ0MK764uH3n8//XVW4diaX+YkatB4wO+AIP1qadMxGP2ET1hgvAAr3hOHEqVDWzbm/3U1ri+qzWLirwIDORUJ9GuHN+jVfzrIdVwT7IA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791817953; c=relaxed/simple;
-	bh=246lUTh84wes9rVp5+feMfGNJO2SgItFiQRXinm/DoU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=BbiTxdbyAa5hdROZcwQOT9H7DWjTQb1/zQ5usyUpHz1zZluHchJuy167CZPaayftOP3PEAO3AJhjdMvBB9N2lz2IPfifUX3dCNhbddRcjAf7vWimdQnhJqc1fxOFFJz+3pxyYTWk2WBPajpICSitihdp2xfuVnd7ny8fAhD9LtE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=WtAC90JJ; arc=fail smtp.client-ip=52.101.69.39
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F6AE49B1F5
+	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 15:14:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791818053; cv=none; b=h70O8JlibvqvB/PmVzsidNuf2Bbcd1544hKmW3YNodFeCgwc9qHoFJIbjNNk8ePNlax5Z8iAr1/xyjs/hFXS6EAf7KVl73BbMCcTMFdf8wTlvnczwROmkTh6hqBa5XJ7xKL/+IGpLu/wGUul5L1/7NTvReum17Gd2ETZgvzsg+E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791818053; c=relaxed/simple;
+	bh=t6pIrTDi+3aN9kktXkuBxtkAiL1D8YwIdd2Y5FmQL9M=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=gDl3TuIAkhM2pHyRRym5r5lsSesOvMZxlA4+HH6nMHQsmAX/u/j2pefWzH4U0WzbuYou/BvWv2XjulvmRddoOU1GBMZjlBr85mpP5XctLzROOTDaKnevLGdn4AZUk87hzVB9cn7BqiZaDwY6nS35BkGrLlohnfc/EUfmC0m3sFs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=FTebznXr; arc=none smtp.client-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="WtAC90JJ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BV7Iq7fHVZbMKJ2Y9+ycCc3Ehkz60vihLoSMAZExpjIxRRUgyrkTNq1egS/9FcQsXMzXuVtcEhPpe19nQjLTuwo7+wHnm/Za2iUCy0FjhuyNGEpBqLJ/p4mOPF3lf1KVkb8e0LG6VJrHJlAJ6/3HHchA/Qyf0Kxk7NSBsgwTWNptv9pFSjRHAN/t3c1lNmMxw5tfBS1z4fj3lIqGvmEhXHyKFotXeXYW+HNLRkE0P8/UiDilp6OnrhVEqbASyma663QA9izWe8iqBBkhQ1PQ0aQeWiFghd/Ea2+AbgSeNE+iDCc3qAuaJRuv3Ky8LzX+D2NYBeamB0SS98tT+qrNZQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=246lUTh84wes9rVp5+feMfGNJO2SgItFiQRXinm/DoU=;
- b=o4gTYm1sQOnd+JbFRkTFB4dE9Uxchl9aos48rQTestVKidC4TK8WbauNmUV2iG+ASXc7TXcHmQyMhY5aTbK+3UBgSRNPvJGLDxziSztPa2/Ye04nNgWTzLG6hao4k1F2CPSR7EoadLRocblK3PgYUg3BwnqcGvNUeNkxQz2hSn8TD0oKFTfFJNez/iDxJkrL0Kw6F1eVbB0zJ5Zm4wCoRrtwJn8VexH8szerBSzfpsZKYrrldirzJdpn3T9xO7bNdECywI7peyq0alq+svsajfIyROSMTWsF2jy8kat48m77/O5DesKYyqowJU4b6WlZfJNxOxx3b8jLxfHS3EDMyA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=246lUTh84wes9rVp5+feMfGNJO2SgItFiQRXinm/DoU=;
- b=WtAC90JJRoMZasEAlz3pBKKkhCuOVbpoOjWkeBYHlryCNQYmWoljPcNwYvqS8nCHW9NR18aSUuIdhkN9EDRGQGAGNy8kDvs6iz6iFjRUC8i5zrkL63omFNiQSogAhUSOdeJFJQk2GdFS66MJkUb4HPCv4DQPhOgXYXJQofYbgwHuIDGLMU/gSyc4Wfrjo5XBXurCemhfSK6nQi4rxIUi/K8XOk5uSOoeh2uZ+lBvu7bZ2/bJdQExKKwvSB8ZgeHNjG/t9a9ASAXMtdhCZGEWo/1h6DgDiesbS9a66HJU04xZmittHIHQb59/RQsmIrDPPeZ0VPJDcxyYm62Phs9YDw==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AM8PR04MB7811.eurprd04.prod.outlook.com (2603:10a6:20b:236::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Mon, 12 Oct
- 2026 15:12:29 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0496.020; Mon, 12 Oct 2026
- 15:12:29 +0000
-Date: Mon, 12 Oct 2026 10:12:20 -0500
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Jelly Jia <Jelly.Jia@cixtech.com>
-Cc: vkoul@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, robin.murphy@arm.com,
-	devicetree@vger.kernel.org, Frank.Li@kernel.org,
-	cix-kernel-upstream@cixtech.com, dmaengine@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/6] dmaengine: arm-dma350: Add slave support and CIX
- Sky1 integration
-Message-ID: <asz41HFj_wkgooln@SMW015318>
-References: <20260907033404.596839-1-Jelly.Jia@cixtech.com>
- <20261009051846.1115962-1-Jelly.Jia@cixtech.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261009051846.1115962-1-Jelly.Jia@cixtech.com>
-X-ClientProxiedBy: PH7P222CA0014.NAMP222.PROD.OUTLOOK.COM
- (2603:10b6:510:33a::16) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="FTebznXr"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48b9d8055dfso1540697f8f.3
+        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 08:14:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1791818049; x=1792422849; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=O90jitIO3s38c8EG4VvKygaj1zarOwk0tQIHj8nVOYg=;
+        b=FTebznXrxNApop7fMm72qb7SMn+3bspirjwaJUwU/Z57Y6dFMJ5e9zfz8DKwTAwNPQ
+         dwsXD5tLXosljeDdsn1Fl7mUSCF1vdMYGE8Zn3SpefqyEssdD9T2a099qIVboz1VSVyR
+         z4zN3XD3tQRDXwOf+FstNfMXPvvBYUwqyQFlJh3wU78X84CpnMiM5sa0qlCDHbIIV5K8
+         L2mXK5CRKbh5EZrovBidzMI22mr11kVuqPVb+Wasj7ausAMa3yBrTN4MRugcj7+cqZ5w
+         K8cZHC0cUKIuWsmOXN6lJ7zriR+6DdcoW31P+lB3AeFbzxJyJv/opm11NidVnrRIMgvL
+         /25g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791818049; x=1792422849;
+        h=content-transfer-encoding:content-type:in-reply-to:from:references
+         :cc:to:content-language:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=O90jitIO3s38c8EG4VvKygaj1zarOwk0tQIHj8nVOYg=;
+        b=o0HTSeqUJTJLrv9w3nSUMUHyF+IYqmGo4lK+jn2+COuzUxdfodD83G5iTu8H/Y9bvO
+         axD2Otrxx+bP4aujO+f6yDggmkvgb8nl9F4/N4qZhjz8yzYghvvkyGvJV/YbiqyhqAHX
+         u8w/ep9vIlYEwC5Fh8Z1GtWd+AtU59dGr7ZvuVK3ZxjFgPzC49DgPrGOOXaIm8ebMxad
+         Z6P7xro43Q+Pc7s0X82RLAVYyEx03Iiyz93s0TYBLFrUUtKvqd6OK91f6tLafghO28CT
+         nDhG2xejuO1WZF992vBamYJ8afGeml2F4HQh+e/nQxFbbrMruCii6mD3F7OXD8OcRv7g
+         5NUQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzZSnbnOHqDLrUKCRuDTaobvbPrErnGDz75KzJmQXa1/GKTbbpXy8Mda5yF15Onu50OOhLR2ci4xyDn@vger.kernel.org
+X-Gm-Message-State: AFq9FYIr8fgCmGYZhQt2YpMI6o6KyTmv97Gu45v1p5reW+pPrT+XlDBO
+	gNBffXEsp11uh3GWgcSi7E2pd4BDORChTrkVHKp/a6APD7gv5Aq6HLkTl9GstV0myUQ=
+X-Gm-Gg: AYBFou1L58kUrpAYsQk+AVP7MWQHx3QWCZ4dB4kiaLgTelJrwAOZpdNctQ5LNUSg+eN
+	E/MWFJOoPTaqqmtbYDaCxA58IP8Bf/QtyMInQrLeku+KxfH0qbnDG7MBicyiHBe+I7G9AoX88gw
+	aJQ2s22q629R9pbjQXpt9u5AcZhOJbGRK1cTS8bzMS35ubKNr6snKJspCX2B95y/ymZWZ7o0i8r
+	YFBxi9akocLSaKl3ks0fRTtUiIYH9DlW7xaPWb6LBO28jrzE5nYizQpPhGSTEn47nk63YZvYBTD
+	UFAavg2975XLzmxFqDe1sO93diyqU+hxq+fRyqMBTNUmMQJQ2b5EYW1GpnPZpZZibWUOfOf1xz6
+	YmhJPxuRS06hXNRFS+9CmZkQjI/zgxxQpcaj8+NloSZ3mCuSJX5LqJ9Tz9dZd1jpVYw1uDFuuXI
+	e9mJnXqQVYmZjF7odDOf1bT5BUg9hbygb3kNVagBmyvF9bJ60drsDo5U8v55JYf9L4J/hXA6qlx
+	A==
+X-Received: by 2002:a5d:6f17:0:b0:485:a394:58ef with SMTP id ffacd0b85a97d-48dbaaed22bmr16768322f8f.30.1791818048717;
+        Mon, 12 Oct 2026 08:14:08 -0700 (PDT)
+Received: from [192.168.3.100] ([37.103.126.255])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0aaabc3sm3653f8f.16.2026.10.12.08.14.07
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 12 Oct 2026 08:14:08 -0700 (PDT)
+Message-ID: <d90324be-c43d-4d28-9f1a-e28e437031e8@baylibre.com>
+Date: Mon, 12 Oct 2026 17:14:07 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM8PR04MB7811:EE_
-X-MS-Office365-Filtering-Correlation-Id: 87a4fd7b-9f20-4718-f6d0-08df28733b86
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|19092799006|1800799024|366016|376014|7416014|6133799003|18002099003|22082099003|10067099003|11063799006|4143699003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	XQX6hpZK01Gh6FMZHLBinfH8JjiKM8hvX30gwY8UF6huU2RHJaHhgzU/NvDYnAinKqBPDbVQHScM1HNfHWg5VQ63NJ913t0nixuOCPKoO6kQUo2I/RwaeLQHsGn7f9XkhVMHppHxzHO4mZ75spLlh1hTszIbrFRZt4g+ETHA6sQ9LjfyrKPyfI/k5qj9wwwyh8/NhOBIK2/L0WQ2SS9tyzRlHvEeWCwRmgLTxejvZ4tPOEVIJ+JG10a23Op/Aw0yxX73ixoDblCafgvqN+Rx5/4oumv3E8JPV/dJEyXAuFKY7hAJMajzEj+IbfKkxugH08a/JKGcPYjl0rNo9SPM20FsFFSIQwVw1hNiOUcfaQPUPjHR0JQ+HaLebH8KwWJWuZB1OV7a5iz9+6MA+UtqMTTVZ9f3RyuqLiLRIgWqLKPPPeeTeRlFH/0f1r078rghfjVTfDLbGUMa+YEOzXft3D3R8cwnopEM+wbjI1EWvPDtrYbMC25W20KUgQQr06AJqqvDsUbhX5IRbCEM1LO6lTtkUSJxzaqRLBkYebbewyLMKF7SkI5TrmewxQdjs43RARPI/FOvK5/G7Jc2r+iOMZg8doHWskOvUve1y5X+el4lVuUJQNhxSwGBhpZXiS0AViWXtJ5SY3MvzpxfHl45iwp9pI/eqbNq6B/Q98zp65g=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(19092799006)(1800799024)(366016)(376014)(7416014)(6133799003)(18002099003)(22082099003)(10067099003)(11063799006)(4143699003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?NGndspdE6rPQDlEQxF0eC5+A5mPyxxPMVYcIVjmFpyHom8cMvfug/2ODCEm3?=
- =?us-ascii?Q?Msbtw3JcN/FBOOXaM23nKkwgm7nj0Uf2t3X5rPvoBQw+yO0mFaayFMNTFgTG?=
- =?us-ascii?Q?r8LzNR+JcZy4ibDP0NiR2gdy3q/nQyrtN2boYy6j66kPvfbjGO/uUT2Yr81s?=
- =?us-ascii?Q?N8F6trL8ugUgtH4k5R9vy8fNcxT6f1R4BzgyuocYcMkQwniI8aTMbg5lihUK?=
- =?us-ascii?Q?Fn80D3udMNi+/RtvL+mCJc4ukN6BXZiuikYwhcYR0cEBA+/tStV8LyhZbA8K?=
- =?us-ascii?Q?+IPuOsZyzakSgJ2pYjFCgKSp8LHHuJcJB8zQluFf9NTaoonGPUPR7z1WWU4X?=
- =?us-ascii?Q?951B0nvu1V0v1SvW+jgJ/DWqbYwxw9oHv1oV29FeijhP6kNOgVLe1J7gqzAe?=
- =?us-ascii?Q?UOZuIJPKvfD7FivTpj8IgS7seRkTaCcfmumsXRALyHph0NpnE8lFdIGx+WtO?=
- =?us-ascii?Q?7Or9jVoMyOYDZINUAn3LNS7KTNAMBEN+DBeSwWR1h2Ftd5gY3rAU12Xkj+CL?=
- =?us-ascii?Q?NQ8fX6aPqsyaIXZ2IJaGY+d7QfYK43ZT+JG7EoAL7zUuFivjP98FBpwHoOGW?=
- =?us-ascii?Q?DpX31BmNciNXAbVJWS6HXrkS1ZIYktkRHh8NPE2nmgjEkSTsTolzvlm2qi6q?=
- =?us-ascii?Q?6eipIt3VWlm2vhhBDdCtArSjkCI/gFWp9qkTCfnNeeVhkEhIO4IPOMzsQOmt?=
- =?us-ascii?Q?/ZtkxpIVEEvqPH45dxmWorS7i+WZR/DbxDgzgxy8eVNfrRRzFSQ8VdSUYCp8?=
- =?us-ascii?Q?sBrU7U0t9m92IJ3nykPFl+HiVQfNzPVQw/KXQ9mYZEGLzXZFJWBZh+Kfj456?=
- =?us-ascii?Q?QeplRmLeaXEznGCzRKzkX9hNsH5QaUuFDn9D7/a1qIA4DaaLcdS3QuwshR1t?=
- =?us-ascii?Q?o+4Nt9fkrxVWxPon0c7Drwdyl3tlxrKcuuiXmIk+qsJQYokE5giBraTVUWcj?=
- =?us-ascii?Q?eXu+3XUvrirnnYOV7RZzTRKqTkuUCfozt3dxja1OBbzj8S4OnICRbdEs5Uej?=
- =?us-ascii?Q?+NvXbMRAydkL/bhtQcSoPbfsHIVQqalIPKIFtj7o5cTSydcMoBfapP6Gxsbx?=
- =?us-ascii?Q?1+LWR/6mIXaEvWn2Wsm8iKBPUmK6aZQGZrwClLV42dKAxSUss04G1UAmIw2M?=
- =?us-ascii?Q?TzczNtjd+7bWaDH5PrQZFpQXu5IN68xS1bHCByCOhEdxRHVilgW+thNBhfrF?=
- =?us-ascii?Q?SOQsxnDkewfiZ7BItxhKb8Cyv0pHGZ5ZiZUqJEy0iRanyGvFpPUGBRNQVXUh?=
- =?us-ascii?Q?kb1D+aBZ19ZeM2P3eqLZwwW7hvO2wl9Mt/hXZ7mCPvRpbuc1MfmrL1DSCIWU?=
- =?us-ascii?Q?C+1f5xnZCB2bCkBQkJwk4b6A4jhkeEDFdZj4kG0fcE0/8yqbHOoF5Pq3QvK6?=
- =?us-ascii?Q?M9zunwDoYBovHEAcYIymmM59KIX3W1r3xLi+00gYlLzxMG2jWgwHu1GgumLA?=
- =?us-ascii?Q?YXBbiaq/5ZmSXyyoYAzlU6Lq7roZR43ZJuD9lkgBfq//GyycmeFjTm7UCP5u?=
- =?us-ascii?Q?/ZSnuWC+seOV/T//aG5myuwShwkyTAG6VGXTE+co2q91WLp/YIqgo5LedW0Y?=
- =?us-ascii?Q?7EfrV0MDipngyp6I6+FHYceXUwXqLDBT2M3/+Wl8+J4BZ6Jk4uvlNo/ENe39?=
- =?us-ascii?Q?An6nCikz7Hmup47zqQaPPQve0Zlv3W5IwFWjuhipb8lKsVDzSqpQDdhm8019?=
- =?us-ascii?Q?n5JAPo8CaBPCykxNGBi689A5iU505TWybGs0Uf6eNcC2PPqXCUHAbKtW5XkN?=
- =?us-ascii?Q?nMnSdp6X1uXFGQK3I89yI080UuK539GOxHKrN7Vo8QPtZblSbtQj?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 87a4fd7b-9f20-4718-f6d0-08df28733b86
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 15:12:29.7248
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: eJWrDvIG2s6zvHeDUCElWmM6WjrfS5ol3mncnXDBtB/6Ii9YIfBCC3J/sBHmxInSOeL0fwBBoBG4aJxPK35UYuakhtdvmsPqWi2q8ObcmJnhQunRQZZmGj4VrdX8ozrQ
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB7811
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 3/7] ASoC: meson: aiu-encoder-i2s: ensure clk divider
+ gets disabled in hw_free
+Content-Language: en-US
+To: Jerome Brunet <jbrunet@baylibre.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+ linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20261001-audin-v4-0-2476646118b5@baylibre.com>
+ <20261001-audin-v4-3-2476646118b5@baylibre.com>
+ <1j5wzdzyqm.fsf@starbuckisacylon.baylibre.com>
+From: Valerio Setti <vsetti@baylibre.com>
+In-Reply-To: <1j5wzdzyqm.fsf@starbuckisacylon.baylibre.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 09, 2026 at 01:18:40PM +0800, Jelly Jia wrote:
-> Hello,
->
+Hi, thanks for the feedback and sorry for the late reply.
 
-Please avoid post new version patch set to old thread, which will mess up
-patchworks and other tools.
+>> diff --git a/sound/soc/meson/aiu-encoder-i2s.c b/sound/soc/meson/aiu-encoder-i2s.c
+>> index 58dce9f08c9d..70ea39c77b32 100644
+>> --- a/sound/soc/meson/aiu-encoder-i2s.c
+>> +++ b/sound/soc/meson/aiu-encoder-i2s.c
+>> @@ -219,16 +219,14 @@ static int aiu_encoder_i2s_hw_free(struct snd_pcm_substream *substream,
+>>   				   struct snd_soc_dai *dai)
+>>   {
+>>   	struct gx_stream *ts = snd_soc_dai_get_dma_data(dai, substream);
+>> +	struct gx_stream *other = snd_soc_dai_dma_data_get(dai, !substream->stream);
+> 
+> Not sure about peeking on the other path like this :/
 
-Frank
+Yeah, I know this is perhaps not the nicest approach, but it's the same 
+one I used for the bs-quirk handling (see the "startup()" and 
+"hw_params()" callbacks). Since there can only be the playback and the 
+capture stream, checking the other stream's "clk_enabled" is equivalent 
+to a user counter in "gx_iface", without adding a second piece of state 
+that has to be kept in sync with it.
+Is that acceptable to you?
+
+>>   	struct snd_soc_component *component = dai->component;
+>>   
+>> -	/*
+>> -	 * If this is the last substream being closed then disable the i2s
+>> -	 * clock divider.
+>> -	 */
+>> -	if (snd_soc_dai_active(dai) <= 1)
+>> -		aiu_encoder_i2s_divider_enable(component, 0);
+>> -
+>>   	if (ts->clk_enabled) {
+>> +		/* Disable the clk divider only if also the other stream is not using it */
+>> +		if (!other || !other->clk_enabled)
+>> +			aiu_encoder_i2s_divider_enable(component, false);
+>> +
+> 
+> Looks like a race condition is possible here if one stream closes while
+> the other one starts.
+> 
+> I think you need a common structure between the 2 paths (with a counter
+> possibly) and it needs to be protected by a lock.
+> 
+
+I might be wrong, but I'm not sure a race condition can happen while 
+managing these 2 clocks. Here's what I found:
+- "iface->mclk" and "i2s_divider" are enabled/disabled on 
+"prepare()"/"hw_free()" respectively.
+- when "prepare()"/"hw_free()" are called the framework holds the 
+"card->pcm_mutex".
+
+So when one stream performs one operation, either "prepare()" or 
+"hw_free()", it can read and modify (if needed) "ts->clk_enabled" both 
+for itself and for the other stream safely.
+
+Am I missing something?
+
+-- 
+Valerio
+
