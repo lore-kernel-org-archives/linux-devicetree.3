@@ -1,197 +1,111 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A2794718C2;
-	Mon, 12 Oct 2026 09:02:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F090B46F4A1
+	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 09:02:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791795741; cv=none; b=Lm8wLZhNLu89Pkr7gGeKbpKCsI78OgEdWWy6Eikkv0XAH/rIgFE23ByRPau8W7CKVi7mQg6jVG/o9bD0vq29DpJxnV+45O0lOApzGMaUMAfEM2Q3qUru8019s6e8r2kCCaY5RU9V9/N7pnQWfhKQOdJJnLFZ9k7yQGSu7SWkRZk=
+	t=1791795763; cv=none; b=WDORx+pgWByy4QDpNkCuo26dkFo6XFrapF5URQvyvEPPOLJvi5MU8EtrUbDAQUtBpsYdohDJs0cgHnw10FqfJt3OthVet0ERwhN4iBG45dA+1PAxc4qcrvjGHtaYZcHx+KVJk/5vocrdnYmn8eg4nBP7uYfLSda+WUBwV8123K8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791795741; c=relaxed/simple;
-	bh=X22Ii8fVS91w5o1Tbk9+OJ4WQDn9b7L0ZSnEM9egT5s=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QdKEQsfx8VHnVsRBdoe9YlZV9sYTKJuCw/lOUi9OjxmhryEEoGCQEsFXQNpWXboSBejNG+OYesM5YwG5QKOWELF2kNoWTJqoHFtj4dhx0u3fSNrjA49L/+7EXsGH3uc4edH0ltm5u5diJmCYSE+4MbQ5+PQt3cEEAGx3SnP0JaY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ajj58E8O; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791795763; c=relaxed/simple;
+	bh=1kXY/MRthfi+95bS49A+pIkegxzd/yzRUyMa3PHyhn8=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=CZhb/OYQVQXUnSdHPzHVGne1AVEOYHsBxmorjCTO9rmb/6fvFg9h2Itn5uTtdKrZU2JnrR7yibMYKco5dPn5NAUsv/6anY2zjkE8hJq1tYrqaa2FO6SAa0kRjZaHfTBYXmxf3U6FSXNroo12WLYGv36m6SjrM+TUmE1ABXaTyQ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l3AKoAoC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ajj58E8O"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDE1E1F0089B;
-	Mon, 12 Oct 2026 09:02:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l3AKoAoC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 579961F0089B;
+	Mon, 12 Oct 2026 09:02:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791795739;
-	bh=7APZHECUIrtGta9h9OdifIfB94cMsU17ySOM5eqdn08=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ajj58E8Oz3R6V64OU5VyD3wwBTJz/+FGXTy+VqcP5xTe5X3seMurF1XpyLNJCuCGM
-	 9QqbZ6cgSWC8eHOBhZLFVvL6XzqufT4nyyipM2o6hnyRKFafXFHG2XcHNyLjkOJ2a+
-	 H7pV06QDeWaiQyBcN9m6sRMO3mq3Izjl/V+v4OGCIO6pAOq2mhwVgRHKHsxdNKIXsz
-	 LVT67HlA1UKasbmjCc6nDa3XL4vK/Wi08uuvJfyu8jCVDtPYVrE6JaMhVZE8JsTpVP
-	 iDgNA8wjJtADiRlxrZBtoy2PTrsyW0KB1qWAZ2bJxLUGAVKeU0IloeAxcTE2V0sabP
-	 TCclBJv9akXKA==
-Date: Mon, 12 Oct 2026 11:02:15 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Miotsuki Mizuno <founder@crepuse.com>
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-	"robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>, 
-	"conor+dt@kernel.org" <conor+dt@kernel.org>, "icenowy@aosc.io" <icenowy@aosc.io>, 
-	"linux-input@vger.kernel.org" <linux-input@vger.kernel.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2 2/3] dt-bindings: input: touchscreen: add Nsiway NS2009
-Message-ID: <20261012-vivacious-mackerel-from-mars-df194a@quoll>
-References: <20261009144729.85832-1-founder@crepuse.com>
- <20261011054223.93396-1-founder@crepuse.com>
- <20261011054223.93396-3-founder@crepuse.com>
+	s=k20260515; t=1791795761;
+	bh=4ygGT1q+20Db1BG+IgE8FMhqgOcpAkXpmhkCaZJrgqw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=l3AKoAoCa8Y9bbgyaIHkNnPHlTaVh72F4tloPgu/1sE2Djbtrz5Of2OXIaiQdJ+WB
+	 VWXbOz6nfBv+j6ERhlidrbMy/1M7qko+3EtW7CcZFQEaSDTQlgdHptzhm16pGTNXMB
+	 M1HoOGQ82xhoEiLvFGDfCLDK8KGbIz0wmvRuPzQv9qNTbVx+tm6LSBQIlLEoC4MnV9
+	 i5C/oHX8CPOlPMhSU2L7UA01JuiUPBk+ouoAOL2MyVwFWWXAt+5Vl6hHS5mL6BTSti
+	 7zJxXIaL0quQ/7KV/x+sU7PIhyGCA/Q2Mswoq4h7nHpoxXPBQVMNulZqWpu0nPwHt+
+	 56ShISZQv6lwg==
+Message-ID: <sashiko-outbox-167879@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 1/3] dt-bindings: display: ti,tpd12s015: Convert to
+ DT schema
+Reply-To: sashiko-reviews@lists.linux.dev
+To: Quchaosheng <quchaosheng000406@163.com>
+Cc: dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20261012085237.377612-2-quchaosheng000406@163.com>
+References: <20261012085237.377612-1-quchaosheng000406@163.com>
+ <20261012085237.377612-2-quchaosheng000406@163.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 12 Oct 2026 09:02:40 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261011054223.93396-3-founder@crepuse.com>
 
-On Sun, Oct 11, 2026 at 05:42:29AM +0000, Miotsuki Mizuno wrote:
-> Describe the Nsiway NS2009 four-wire resistive touchscreen controller,
-> including its optional active-low pen interrupt, power and external
-> reference supplies, and touch resistance measurement capabilities.
-> 
-> Allow the common X-plate resistance and pressure properties. Include
-> both an interrupt/supply example and a minimal example for a board with
-> an unconnected pen interrupt.
-> 
-> Suggested-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] dt-bindings: display: ti,tpd12s015: missing minItems and require=
+d for gpios
+--
 
-Hm? How Dmitry could suggest you to write bindings for your device?
+commit fc9c522935b9c669ac75f93cec8daaa7860a7102
+Author: Chaosheng Qu <quchaosheng000406@163.com>
 
-> Signed-off-by: Mizuno Miotsuki <founder@crepuse.com>
+dt-bindings: display: ti,tpd12s015: Convert to DT schema
+   =20
+Convert the TPD12S015 HDMI level shifter binding to DT schema.
+The TI TPD12S015 is an HDMI companion chip that combines a level shifter
+and ESD protection circuitry. Document the two ports it exposes between
+the HDMI transmitter and the connector.
 
-Same problem as v1.
-
-> ---
->  .../input/touchscreen/nsiway,ns2009.yaml      | 104 ++++++++++++++++++
->  MAINTAINERS                                   |   6 +
->  2 files changed, 110 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/input/touchscreen/nsiway,ns2009.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/input/touchscreen/nsiway,ns2009.yaml b/Documentation/devicetree/bindings/input/touchscreen/nsiway,ns2009.yaml
+> diff --git a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.ya=
+ml b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
 > new file mode 100644
-> index 000000000000..43523f40dcb8
+> index 0000000000000..5955f2e6421c6
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/input/touchscreen/nsiway,ns2009.yaml
-> @@ -0,0 +1,104 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/input/touchscreen/nsiway,ns2009.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Nsiway NS2009 resistive touchscreen controller
-> +
-> +maintainers:
-> +  - Mizuno Miotsuki <founder@crepuse.com>
-> +
-> +description: |
-
-Do not need '|' unless you need to preserve formatting.
-
-> +  The NS2009 is a four-wire resistive touchscreen controller connected over
-> +  I2C, with a 12-bit ADC, an active-low pen interrupt output, and support
-> +  for an external ADC reference voltage. Touch resistance can be calculated
-> +  from the X coordinate, Z1 and Z2 measurements, and the X-plate resistance.
-> +  Coordinates are 12-bit ADC readings, not display pixel coordinates.
-> +
-> +allOf:
-> +  - $ref: touchscreen.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: nsiway,ns2009
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
+> +++ b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
+[ ... ]
+> +  gpios:
 > +    description:
-> +      Active-low pen interrupt output. Optional when the signal is not
-> +      connected.
+> +      The CT CP HPD, LS OE and HPD GPIOs, in that order. The first contr=
+ols
+> +      the level shifter, the second enables the level shifter outputs and
+> +      the third reads the hot-plug detect line.
+> +    maxItems: 3
 > +
-> +  wakeup-source: true
-> +
-> +  vdd-supply:
-> +    description: Main power supply.
-> +
-> +  vref-supply:
-> +    description: External ADC reference voltage supply.
-> +
-> +  touchscreen-x-plate-ohms: true
-> +  touchscreen-max-pressure: true
-> +  touchscreen-fuzz-pressure: true
-> +
-> +  touchscreen-min-pressure:
-> +    minimum: 1
-> +    maximum: 4095
-> +    default: 80
-> +    description:
-> +      Minimum raw Z1 reading considered a touch. This is a contact detection
-> +      threshold, not a calibrated pressure value. Boards may require a higher
-> +      empirically determined threshold than the historical driver default.
-> +
-> +  touchscreen-min-x: true
-> +  touchscreen-min-y: true
-> +  touchscreen-size-x: true
-> +  touchscreen-size-y: true
-> +  touchscreen-fuzz-x: true
-> +  touchscreen-fuzz-y: true
-> +  touchscreen-inverted-x: true
-> +  touchscreen-inverted-y: true
-> +  touchscreen-swapped-x-y: true
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +
-> +additionalProperties: false
+> +  ports:
 
-Just make it unevaluatedProperties: false and drop all "true"
-properties.
+[Severity: Medium]
+Is it possible this schema should enforce a minimum item count and require =
+the
+gpios property?
 
-> +
-> +examples:
-> +  - |
-> +    i2c {
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +
-> +        touchscreen@48 {
-> +            compatible = "nsiway,ns2009";
-> +            reg = <0x48>;
-> +            touchscreen-min-pressure = <150>;
-> +            touchscreen-inverted-y;
-> +        };
-> +    };
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +
-> +    i2c {
-> +        #address-cells = <1>;
-> +        #size-cells = <0>;
-> +
-> +        touchscreen@48 {
-> +            compatible = "nsiway,ns2009";
-> +            reg = <0x48>;
-> +            interrupt-parent = <&gpio1>;
-> +            interrupts = <7 IRQ_TYPE_LEVEL_LOW>;
-> +            wakeup-source;
-> +            vdd-supply = <&vdd>;
-> +            vref-supply = <&vref>;
-> +            touchscreen-x-plate-ohms = <400>;
-> +            touchscreen-max-pressure = <4095>;
-> +            touchscreen-fuzz-pressure = <16>;
-> +        };
-> +    };
+If a device tree omits gpios or provides fewer than 3 items, the schema
+validation will pass because it only defines maxItems: 3 and omits gpios fr=
+om
+the required list.
 
-One complete example.
+However, the driver unequivocally requires the third GPIO item (index 2).
+If absent, the probe fails:
 
-Best regards,
-Krzysztof
+drivers/gpu/drm/bridge/ti-tpd12s015.c:tpd12s015_probe() {
+    ...
+	gpio =3D devm_gpiod_get_index(&pdev->dev, NULL, 2, GPIOD_IN);
+	if (IS_ERR(gpio))
+		return PTR_ERR(gpio);
+    ...
+}
 
+Should the schema enforce minItems: 3 and add gpios to the required list to
+match the driver's mandatory requirement?
+
+Additionally, due to a preexisting bug in the driver, if this probe aborts =
+it
+will leak the tpd->bridge.next_bridge module reference.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261012085237.3776=
+12-2-quchaosheng000406@163.com?part=3D1
