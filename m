@@ -1,158 +1,213 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E7F131354F
-	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 12:02:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31C34471249
+	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 12:02:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791806546; cv=none; b=AX8Ce2kdrjDXwsKUi4fzxf1wOIViZHaPufa2t8u9HIm2LGL0rVhfcyGG58j2hbG40bUjJEnIwewrt4VV10NY876zZdglT7VdFjMKTZU4ubjeAohNrxJjHHT6oMHcfGu9oZVhSfEfQgBl0hf3o9wor7oRhHidrIPlU+0vXX6IDio=
+	t=1791806560; cv=none; b=Dea2o4YGYM4ngaKvVzQRQYKRGFWWsR6sTt30EC91YkQGVAngbfWnkU0v0ZWmPuSYWWi5iKTfRrpEpp4vhlnnNB5unpM28wbdaJl9Sz72H6vcsOzKdcGXGSU6KV9scRi11KwaHeTE7UMt9VYSDvvaVHHvhYTXfOjZGFmWJwIdkHM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791806546; c=relaxed/simple;
-	bh=LhdrDr3n+heBp+EYcLVua5HPQEX1Sbf9QjYWaMoeB3w=;
-	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pteIYZhqkpvdNqeur9sSDN8Ug6QzW+Smu0kWat5afr57xvmUhrGmI7fo7NE9J63KVuiWvuWu9HqhCqsIoheOzJCRngPIbYEDzdJkZPFqN5gt/6j9QzTlsHkm1GlOaVi3T9oHEbbmFVfTYYJKytxM0cA2XoCNbmefveRHIi0jGjQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eJCoEXH+; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791806560; c=relaxed/simple;
+	bh=+wKxsvgeADigiqUaqwzk6mlyDg1aQ0DfKdaYG7Ith9o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ESQ8wVsTuBX48GElK71VEsV38l934aV3s1SFvIPwN+roOCnBgHyjqbyiPeY9X1uq0bI1DEPD6YOsE4Iw74Y2aQr+eQS74kdqFM254Ap5fy0fPp/qGRD8jAD7wbVS5mHGqrlHVmoneILuP5Wqv5pA7+oZ81PEOKfzyOtAxX8Lr6Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Nxv7eiDq; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VcWdW7/X; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eJCoEXH+"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4a140e7405dso21339705e9.3
-        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 05:02:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Nxv7eiDq";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VcWdW7/X"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CC08WH1686256
+	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 12:02:37 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=L+t/zZ008TD9OKrDMLJfk0QW
+	3V+cIzRcKiLejTRb2f0=; b=Nxv7eiDqbMZMOD2SF5LE44VdxaTrKVnRLw2fadSb
+	OeVuCZt8YBheye/XzHYxLPLlDwYQ8ZiMa9rXipF18H3v8SFG4NsYJwpfaQCm41Pf
+	s+/he4Az+hB/1zfbwIHh5Yjv05w/vBUdjy9vnq/UOAHIgnbFGOJI71h8L86+HdiU
+	RlfNNoTXHEW5vVmke5KCKoskwOXENMe+tAatKY3TlR3YqxAJb680qvRhAGAPY90Q
+	fWNYRxwAaKxYXHK4ONNUIyRKUZlbNhcmVCkcu5YE+L01IfuvMW4NZvdbkkWKksIu
+	UggHzC2LID4czxxjRULUvcq1PQoJ6cm9m09EoUENVQ0XZg==
+Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com [209.85.221.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h8wbc0mw5-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 12:02:37 +0000 (GMT)
+Received: by mail-vk1-f198.google.com with SMTP id 71dfb90a1353d-5d88f5414dbso585758e0c.2
+        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 05:02:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791806544; x=1792411344; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:subject:cc:to:from:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kddTvWvhF+27bMv7g9Zho7YBUmupNxBjMAfrRSgPbzw=;
-        b=eJCoEXH+zFmFT2OOETmkq2eQc8QS2483y4hPRxkS0BVwIS52+xOTfe49/SxpFMrSmD
-         k3l8ERfAkJhx0m61OPt4/VuXTUTaL6P18Wj7Fqe2BbwfV9ujTEWnJ8uc7xG35wFj7ZVa
-         44Bo2tMNuhXQAqleqdxUlwbdipqRlDvqeymCeGE8HaJ/2UHARZw9SjYfdF+OUXAtFfnc
-         CJyHf0QqHSHeq9yd4lQKdknRLvmkhoynFGiinC8fIaubghETmmFmwCCeerEcRPTUNxMh
-         MK3aCEhmIn18JD1ra2dfrGd2H3kkspRgMfXK93Wl08BJbDZ71EkKRvYZ5hkhP2NTAEiF
-         Q4/g==
+        d=oss.qualcomm.com; s=google; t=1791806556; x=1792411356; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=L+t/zZ008TD9OKrDMLJfk0QW3V+cIzRcKiLejTRb2f0=;
+        b=VcWdW7/Xt/ZV98nU+Zqg3a6ELw/E4ahigh05jrXXh+oLNEsr5vcYpj8asJSaKY6plq
+         ckQsL2laOERJAEXUKMo9sukMAUI4QizX8ooewoxdwhZJ8nqcVTGjvaxTIEDLMiSk6HfU
+         bltQchvXaRUH2hhSiNrVkDjD30tuqiMKcyNdD63bKitjaqCSYgIC58EB1ErkOGewCkqs
+         Mci9vi2QomyK+4bbhabX2q4GLPmfhNYGbUhI2KPa1PmJNhd5ysPFNiW0i0xtZRt49SZL
+         ztmf9Ggem52IxALHM4982GMXCXdVIu+WCBHR3G+5FTRhSSwbF95QBpon6gdLyMpw168J
+         74bA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791806544; x=1792411344;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:subject:cc:to:from:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kddTvWvhF+27bMv7g9Zho7YBUmupNxBjMAfrRSgPbzw=;
-        b=u1NKVIXoFTqn2DVSSFEDpLJ1x0BfIhHo2PNhglbzfDBbiIZGIPl7jTcBtotMwDZvDe
-         PJVBhY8cRU5ea6WIwamLVgFVie6qw0qS1+aMuoYYy6L1lSaXAKP9QSWDxIZvoh3JDZ/u
-         /0H6zoCNdxmqrMZgcCvvDF4v1t/q2IDUYTO1x4E6wuyfO6o5MQShMxhxjh58ingbJfL2
-         6+RrZjdObZhUMVkmiOwi34EBqYmJXS93SfFOns8f10xP85h4vqxt8edW0AZpo0fTy34T
-         ajd2UokNZxUK0mlNP4C8P/CkLCNFdxztl9LcVtGlGWvsW7BrTvSsFSYBQl2+TbbSTG6+
-         hPUQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwM8372bHVgRREA4vp/I+lSnXLbyZ4Vv13o0gvTKE0B2FIXwp4X/lgHZ/7xp9GXKVARMz+BnKOqY6Cj@vger.kernel.org
-X-Gm-Message-State: AFq9FYITVHEhbcnmKV5hbgCkNoC1gdPGEUWAACKkhgyYZVa2JInf9c8c
-	SmPLrKr0RYzsKuhO2Wf/2xTmRSq0KMHNv3nOrk26rKfqbySheN59Lpkc8RAn3Q==
-X-Gm-Gg: AYBFou2va5Ul3ICwou8liOJKOl7QlJUeZqM1dYV7DSgv7Dip6wOvTIpIUGlMSiB4KHt
-	St1vXembf3Hz0dzDXOThz00Nd1IvG1wxUq2W3/Cfbw0p2CN9YRINxpJihGhUMyGT+aDDfkHFqNW
-	oYiYhXVcDytIu1eTmELO2IGo5s1qBoJgdwaxqeRuhsmFQlbES35eXdOduZlsYXniVCLbJXhGrw6
-	MoLRcMEalquMNYaRqsLNdb6/VvzF0YbBmQmvyyNSUiqzwiaQbTpyMa6WdEzoQLlAlhouBNTOo2U
-	mHXqP+SKLc33wy5Wbb/NpnFqjIH3KNJiNNhjV4LWwY9RCInetM7Wv1ePlHGSjOf7eNlmK6gmhka
-	Gj0eEepE0K7I2PkYQJzeFfnNW/1/hAYVmkq4SsYkErFZANte5bTaadpPmmWcRaxTj3Bl7GYtqaC
-	+Zegp8wcRumSlVeBfBjRoYPGSDmMMfvhoAmWeprnLLYe3CoOuWabkxxz/ogCDh7CPCKlJLH8VVD
-	Cl8GzV8+K4IroAQa6sG1l11BjlzsHJqdGnnpMDS0mSWhSL1bwTpRX4KMC33FTPc0D7WzJiRVuuU
-	4s9SPFq09apW+6c=
-X-Received: by 2002:a05:600c:4ecb:b0:4a1:6916:798 with SMTP id 5b1f17b1804b1-4a18e4a3f69mr171571165e9.14.1791806543307;
-        Mon, 12 Oct 2026 05:02:23 -0700 (PDT)
-Received: from Ansuel-XPS. (host-95-235-252-189.retail.telecomitalia.it. [95.235.252.189])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a19ba624b3sm150533075e9.2.2026.10.12.05.02.22
+        d=1e100.net; s=20260707; t=1791806556; x=1792411356;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=L+t/zZ008TD9OKrDMLJfk0QW3V+cIzRcKiLejTRb2f0=;
+        b=MqUgVQmDNMRtRDGaLbXrCFJ9Bdf8k8/r0ATVIjv/47h5L9kaLopnImpDbpwgvSoskq
+         3IwwbDFO8V/d/VnE6yF5WGqIO0asa1KZ4CR6tbzM76Nio8XPu9+7ryQDyAEtuDEalwJx
+         YCkFYYidQ1SDVpEKVh9WfQf1CUdOjsyR9d8Osh5+SYJPV4dJJyMUr/peJ+cE74ulVHi7
+         rNvhtoaN0E13aT8W2pUvpcy0FEIg7C6i7yASW2nchFx/zXUWNHUoQyDtAtK6gnIXp7zy
+         rQavnShRs1mc3Npj591rz3FZbFbwnrc/5xcIPmETwx7nBZGvuyzKKdJW2fwoZ2i4NOuJ
+         wxQw==
+X-Forwarded-Encrypted: i=1; AKwUvBzCqhS+2be2eNsrd1oXKbcfavuYG89p8gFU8R2996xeu6ugTD/BEeAXHgr6vJFc6+Z+rgWnxcAZwO7X@vger.kernel.org
+X-Gm-Message-State: AFq9FYJZIQAKRphfQLAmUwynlhQPuj5Qq1KzxgOdEPHHkCGT7oxDsDAs
+	A3ZJhvvhHbEbHmYN728zISJqOTRzVJ9dB5MtpROpPpA23POOD13F0dJGzwZOFTKYd1Y9Is44i5S
+	9glI0lwPZoIyuSHQUflzJhaLULxweYZX7jTeQhRD7Nf2MWcFd58OtiIBBXkV2U1dF
+X-Gm-Gg: AYBFou1bIUCi/doKqq1pJFO4zPvV848s7oC1Ps6sIrii0KIjwMBeB3CuPWlZKO/JfAN
+	poMABbWZKuNzHQ+uDmhzVcOYmvpm813eNxUBvDO7Zks5lUFzRJpeLnLToMQ68pk7EhlCXhAxBt/
+	chMV1TbqDwpQc1J7N2K1DaFPgF/MvmQ8TBYcxbnsGjIxR0cVXWqhPBuPzEcDCQlp+XLep6y0L0d
+	RJT+DlrCiR0i3GubFr/OzvLpzosEdU4n5nqrFdNBQYZmruLCCRsvTB0ZaFOvEGMxYth3uDoUb6i
+	iFWvXudk+1WgVA60ni2uiWHhwZztrWLYk3UkDzI2y7oBCF5zydx83ZNR73f27nX2US2MZ22gTtR
+	F6q2YiXA0mpuOZYD/NsuyQjV2A4KhHIlbRomI7jSsOJq6c8AjcKcRNbpF7Rx2MEBr8B9jOGP5L3
+	JkuWsXO/c/nnwA
+X-Received: by 2002:a05:6122:3906:b0:5c9:c60a:e9b6 with SMTP id 71dfb90a1353d-5e91f568fe2mr2394608e0c.22.1791806556243;
+        Mon, 12 Oct 2026 05:02:36 -0700 (PDT)
+X-Received: by 2002:a05:6122:3906:b0:5c9:c60a:e9b6 with SMTP id 71dfb90a1353d-5e91f568fe2mr2394580e0c.22.1791806555793;
+        Mon, 12 Oct 2026 05:02:35 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bcdde36693sm2843699e87.3.2026.10.12.05.02.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 05:02:22 -0700 (PDT)
-Message-ID: <6acccc4e.4c22a69b.132624.271f@mx.google.com>
-X-Google-Original-Message-ID: <aszMSyMGUIPNvy1J@Ansuel-XPS.>
-Date: Mon, 12 Oct 2026 14:02:19 +0200
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: lee@kernel.org, mfd@lists.linux.dev, conor+dt@kernel.org,
-	devicetree@vger.kernel.org, robh@kernel.org
-Subject: Re: [PATCH net-next v25 04/10] mfd: an8855: Add support for Airoha
- AN8855 Switch
-References: <20261009161102.38961-1-ansuelsmth@gmail.com>
- <20261009161102.38961-5-ansuelsmth@gmail.com>
- <sashiko-outbox-166721@kernel.org>
+        Mon, 12 Oct 2026 05:02:34 -0700 (PDT)
+Date: Mon, 12 Oct 2026 15:02:32 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Ruchira Revdekar <ruchira.revdekar@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>,
+        Akash Kumar <akakum@qti.qualcomm.com>,
+        Khalid Faisal Ansari <khalid.ansari@oss.qualcomm.com>,
+        Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>,
+        Vishnu Saini <vishsain@qti.qualcomm.com>,
+        Nirmesh Kumar Singh <nirmesh.singh@oss.qualcomm.com>
+Subject: Re: [PATCH v2 3/4] arm64: dts: qcom: talos: Add Talos Lyra EVK board
+Message-ID: <k4aaqs75ks4hlnyzh2jo6tj4ada3ayuwgztxtyj2d7otu6gnqw@jnbo7xqc5o3c>
+References: <20261012-talos-lyra-evk-v2-v2-0-dcc9316ebb59@oss.qualcomm.com>
+ <20261012-talos-lyra-evk-v2-v2-3-dcc9316ebb59@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <sashiko-outbox-166721@kernel.org>
+In-Reply-To: <20261012-talos-lyra-evk-v2-v2-3-dcc9316ebb59@oss.qualcomm.com>
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA0NyBTYWx0ZWRfXzM+Aa0JVd72Z
+ ZuOtwZOJ5+6J13TQTGGnv8eM+uDMXYsJlgGndgmqz72WHQfH/7E6lOFPjLQNklOtWutc3hxtMwx
+ EcGE5qaR7efsbbTGZ0l1B/qQuzQMY1E=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA0NyBTYWx0ZWRfX3QBwJi0C2HMq
+ RxucQwrjumapb5ye/qG8PI4QhiRle5fQcV+iLcF6WQnDC3xY+mu40OgpU6CgKnY8BPvzkQ/USuy
+ Ds0bpDb2l3YJEeT3PI2vk+Wm8Bd24qOxu4z7RAgeZxh5mH4Hcky8o4roAp4aQlFuje5jToPVxCT
+ itWCcbU0Dnv5i60KOW0wKN/u0nkI+tCGntaRsOcuUffAFwdOT5+AdqxRdjQ/hoPLmjeI/rM94u/
+ rXO5BWEOq4rPqfXHEMq3LHQzQYIRD/YyiGpZQVrMY9aVMt7MrRLepiYCSEnfTl7mB5Lfd7rimSs
+ G+CU1mYWpZFMWgNgAoW7piQTcasSF/dSGkvgWstUzxWm/zlAAd+eCsTqgddQt8Rd0lsay6fKS+6
+ SZA7GpetZlCblVYWEoN9tSpWh08Uf1wbROtopGI/Zl3mDiurrotSclKwfzZL6gGRn5E5tyPq+1G
+ JLpmRwbl35XgEEGJoCw==
+X-Authority-Analysis: v=2.4 cv=C4p8WgP+ c=1 sm=1 tr=0 ts=6acccc5d cx=c_pps
+ a=1Os3MKEOqt8YzSjcPV0cFA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22 a=EUspDBNiAAAA:8
+ a=Of6yoZ__H_Ug1Y5B8SEA:9 a=CjuIK1q_8ugA:10 a=hhpmQAJR8DioWGSBphRh:22
+X-Proofpoint-ORIG-GUID: 8NKaP1v7qrywjn-Ur6WcnhUhAq7zI0iX
+X-Proofpoint-GUID: 8NKaP1v7qrywjn-Ur6WcnhUhAq7zI0iX
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_04,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 priorityscore=1501 spamscore=0 bulkscore=0 adultscore=0
+ malwarescore=0 suspectscore=0 lowpriorityscore=0 clxscore=1015 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120047
 
-On Sat, Oct 10, 2026 at 04:11:40PM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> - [Medium] mfd: overlapping regmap readable ranges for General Purpose and GPU timers
-> - [Low] mfd: structure and variable naming violates MFD API guidelines
-> --
+On Mon, Oct 12, 2026 at 11:46:28AM +0530, Ruchira Revdekar wrote:
+> From: Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>
 > 
-> commit 05d4dc95b969f0fcf66d11398aafad3e7eb7c7f1
-> Author: Christian Marangi <ansuelsmth@gmail.com>
+> Add the device tree for the Talos Lyra EVK platform which combines
+> the Talos Lyra EVK SoM and Lyra carrier board.
 > 
-> mfd: an8855: Add support for Airoha AN8855 Switch
+> This device tree adds board-specific peripheral configuration on top
+> of the SoM, including:
 > 
-> This commit adds support for the Airoha AN8855 Switch which provides
-> a DSA switch and a NVMEM provider. It utilizes the mdio-regmap driver
-> and registers a regmap for each internal PHY.
+> - Native DisplayPort output
+> - GPIO expanders on i2c5
+> - SPI-attached TPM (ST33)
+> - USB host and peripheral controllers
+> - Power and reset keys
 > 
-> > diff --git a/drivers/mfd/airoha-an8855.c b/drivers/mfd/airoha-an8855.c
-> > new file mode 100644
-> > index 0000000000000..a2778511dfefc
-> > --- /dev/null
-> > +++ b/drivers/mfd/airoha-an8855.c
-> [ ... ]
-> > +static const struct regmap_range an8855_readable_ranges[] = {
-> [ ... ]
-> > +	regmap_reg_range(0x10009000, 0x10009fff), /* PDMA */
-> > +	regmap_reg_range(0x1000a100, 0x1000a2ff), /* General Purpose Timer */
-> > +	regmap_reg_range(0x1000a200, 0x1000a2ff), /* GPU timer */
+> Co-developed-by: Akash Kumar <akakum@qti.qualcomm.com>
+> Signed-off-by: Akash Kumar <akakum@qti.qualcomm.com>
+> Co-developed-by: Khalid Faisal Ansari <khalid.ansari@oss.qualcomm.com>
+> Signed-off-by: Khalid Faisal Ansari <khalid.ansari@oss.qualcomm.com>
+> Co-developed-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+> Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
+> Co-developed-by: Vishnu Saini <vishsain@qti.qualcomm.com>
+> Signed-off-by: Vishnu Saini <vishsain@qti.qualcomm.com>
+> Tested-by: Nirmesh Kumar Singh <nirmesh.singh@oss.qualcomm.com>
+> Signed-off-by: Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>
+> Signed-off-by: Ruchira Revdekar <ruchira.revdekar@oss.qualcomm.com>
+> ---
+>  arch/arm64/boot/dts/qcom/Makefile           |   1 +
+>  arch/arm64/boot/dts/qcom/talos-lyra-evk.dts | 137 ++++++++++++++++++++++++++++
+>  2 files changed, 138 insertions(+)
 > 
-> [Severity: Medium]
-> Is this range definition correct? The General Purpose Timer range
-> (0x1000a100 to 0x1000a2ff) fully overlaps with the GPU timer range
-> (0x1000a200 to 0x1000a2ff).
-> 
-> Could this be a typo in the hardware memory map definition? It seems like
-> the General Purpose Timer range might have been intended to end at
-> 0x1000a1ff to avoid overlapping and potential register access boundary
-> issues.
->
+> +
+> +&usb_1_hsphy {
+> +	vdd-supply = <&vreg_l5a>;
+> +	vdda-pll-supply = <&vreg_l12a>;
+> +	vdda-phy-dpdm-supply = <&vreg_l13a>;
 
-I have to double check this from documentation, but if possible I would
-like to fix this with a followup patch.
- 
-> [ ... ]
-> > +static int an8855_core_probe(struct mdio_device *mdiodev)
-> > +{
-> > +	struct an8855_phy_bus phy_bus_infos[AN8855_MAX_PHY_PORT] = { };
-> > +	struct device *dev = &mdiodev->dev;
-> > +	struct an8855_core *priv;
-> > +	struct regmap *regmap;
-> > +	int num_phys;
-> > +	int i, ret;
-> > +
-> > +	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-> 
-> [Severity: Low]
-> This isn't a bug, but does this variable and structure naming align with MFD
-> subsystem conventions?
-> 
-> The MFD guidelines suggest avoiding generic variable names like priv, and
-> instead recommend using ddata for the instance variable. Also, should the
-> struct name itself avoid hardcoding implementation details like core?
-> Naming it something closer to struct an8855 might better adhere to the
-> subsystem guidelines.
-> 
+Also, forgot to ask in the first review. Are all the USB supplies routed
+on the SoM or on the carrier board?
 
-I already updated the struct, is it needed to also update the local
-variables?
+> +
+> +	status = "okay";
+> +};
+> +
 
+[...]
+
+> +
+> +&usb_2_hsphy {
+> +	vdd-supply = <&vreg_l5a>;
+> +	vdda-pll-supply = <&vreg_l12a>;
+> +	vdda-phy-dpdm-supply = <&vreg_l13a>;
+> +
+> +	status = "okay";
+> +};
+> +
+> +&usb_qmpphy {
+> +	vdda-phy-supply = <&vreg_l5a>;
+> +	vdda-pll-supply = <&vreg_l12a>;
+> +
+> +	status = "okay";
+> +};
+> +
+> +&usb_qmpphy_2 {
+> +	vdda-phy-supply = <&vreg_l5a>;
+> +	vdda-pll-supply = <&vreg_l12a>;
+> +
+> +	status = "okay";
+> +};
+> 
 > -- 
-> Sashiko AI review · https://sashiko.dev/#/patchset/20261009161102.38961-1-ansuelsmth@gmail.com?part=4
+> 2.43.0
+> 
 
 -- 
-	Ansuel
+With best wishes
+Dmitry
