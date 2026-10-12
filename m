@@ -1,109 +1,237 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CE04471269;
-	Mon, 12 Oct 2026 08:53:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4F3E449B3F;
+	Mon, 12 Oct 2026 08:55:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791795191; cv=none; b=oaxBtFFsharTkHubSbfKFsnE5r4J1U8hrQpbmg5hGeAoYT81yX1d3u7wvDQmINEMLbV1Ov/UNHmexknDm658HdQOsIP2t1lGLBlcB44/UkjpSOGkD1YYpT4yKRblOIls60YGh42X2skJ6OILIhc745/x6fC5+GdXXFfiHa6j7Go=
+	t=1791795317; cv=none; b=f4mVVgLkNtaZ06TqXhmUoxHhgyvAHVIseqfC9jCBISIdQSq2JWR4RijzH74TcMpW/QCeRMdQmPq69c9it5uivVvrniISXXRCXngET7Hr0msk9vHTjGurzs4gZG5nCTIfQZl97veteBQynApxhMARq2t37mYAgqklbB8U5XtX6HE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791795191; c=relaxed/simple;
-	bh=tBw8AnSAuUdFX0dHuetjUscoCgMSHOjX9xOFoZ1RXY0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IBO/uNhNyFg/MOa9kY19TK+jhosm3aJPxRNFSYF2qGYR5hyOM60jys8gtgFvqIXKPdhAyegg/ELzFpfbCh0liVAz6rA/Slt6NcfJ9Bs903So6eaTtE+ALMxSu1nWFwRr4FCeUAOS8TIu2DB8XLOJVAIX0K68mFen/u7ychww6/0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=HzMpL1y9; arc=none smtp.client-ip=117.135.210.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791795317; c=relaxed/simple;
+	bh=SFlT8f5O1uS5gyAPr3fI8UtmdpGQjU5Ii1ch/y5CkvE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gpIOhybDa1/tv7psgzU5QwlxEz8k9+OSZzHzvsTUokwfz9hP7yUTUM/62lHt+jIATBhekOCUVzCLCnS4R5xlJHq4qC2ua7lRO+PpVzC0AAAj6qAuE2V2WudK433hOdHiH6RIGPJnJ4bARn3opDOtBof9DR6CA2WeyaxxC5akAnc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NAqY133f; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="HzMpL1y9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=RE
-	/zNUeGEkWnIm8O95nzlupYlUidLYEUOb0tJRK/LBQ=; b=HzMpL1y9zcisNegExp
-	cZOY6biq7SrDKrz3aCTWW7scfEAsbzqyDwVW3vKkrEAHWadoXWARWaw0vMpD2XX9
-	Q4n6QFYSMSY/zUUZEF1+RlWgeb+vJstd6O3xQlge7CjtGzA0Yk4wv0raea3XH5pK
-	++4VQGH/ZKm3LpEdswwB2bDwE=
-Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wDXn6rVn8xqjDtnEA--.23112S2;
-	Mon, 12 Oct 2026 16:52:38 +0800 (CST)
-From: Quchaosheng <quchaosheng000406@163.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Cc: dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-omap@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Chaosheng Qu <quchaosheng000406@163.com>
-Subject: [PATCH v5 0/3] dt-bindings: display: ti,tpd12s015: convert, and fix what the conversion exposed
-Date: Mon, 12 Oct 2026 16:52:34 +0800
-Message-ID: <20261012085237.377612-1-quchaosheng000406@163.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NAqY133f"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 995851F0089B;
+	Mon, 12 Oct 2026 08:55:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791795315;
+	bh=6+RjzyoY+WzdecItmok1wH56kEdK4bd4YwXPaoMyTUw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NAqY133fO18gICNf4yx50YT57a3AIVU6GPi+M8pOAQYcaJq3bLsCycEamcTHUdcj9
+	 pwjdf0a92lQfWRw0JkObvZzXH/GceFK21Hq2QivgpVe7E2KbctvnAm20EpTuGhm1Ov
+	 89ueAiZcT+2YTOtVQAL1+B2IkWsGTiCXFUGUrsv03KXUUyyRG0uLu8bVHDl8HcwwRf
+	 rC4e+9gbciEzbldC/Xu+vJaUfUbATaJNGez8XhXp+Rr+Wh6Ktf3CcMRVuJmeeCgu3M
+	 spLWMPLPvsMl4+G1EVfen1Ks8gePOiORFxM0NU7tQllxvYlYZxoF+A/T4Gd8huWsKg
+	 8DMX1dhtYqOSg==
+Date: Mon, 12 Oct 2026 10:55:11 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Mathieu Poirier <mathieu.poirier@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Sibi Sankar <sibi.sankar@oss.qualcomm.com>
+Subject: Re: [PATCH 1/4] dt-bindings: remoteproc: qcom: Add Glymur OOBMSS PAS
+ binding
+Message-ID: <20261012-impossible-illustrious-dog-702afc@quoll>
+References: <20261009-oob-support-glymur-v1-0-96cc8ffcced3@oss.qualcomm.com>
+ <20261009-oob-support-glymur-v1-1-96cc8ffcced3@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDXn6rVn8xqjDtnEA--.23112S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7Zw18tF4fWryUGr48Jry5Jwb_yoW8uFy5pa
-	9xGF4kCw1vkFy7trZ7Xw1v9a93Ca97JF4kKF17JrW5Jan0k3W0vryfKw1YvryUGayfCayj
-	vrn8K3sFgwnFy3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pizBTrUUUUU=
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC4xbqYGrMn9aZrwAA3m
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261009-oob-support-glymur-v1-1-96cc8ffcced3@oss.qualcomm.com>
 
-From: Chaosheng Qu <quchaosheng000406@163.com>
+On Fri, Oct 09, 2026 at 12:47:39PM +0530, Anvesh Jain P wrote:
+> Document the Glymur OOBMSS PAS node with its secure GLink edge,
+> shared-memory signaling, firmware carveouts, and power resources.
+> 
 
-v5 of the tpd12s015 conversion.
+A nit, subject: drop second/last, redundant "binding". The
+"dt-bindings" prefix is already stating that these are bindings.
+See also:
+https://elixir.bootlin.com/linux/v7.1-rc7/source/Documentation/devicetree/bindings/submitting-patches.rst#L23
 
-  [1/3] converts ti,tpd12s015.txt to DT schema.
+> Signed-off-by: Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+> ---
+>  .../bindings/remoteproc/qcom,glymur-oob-pas.yaml   | 156 +++++++++++++++++++++
+>  1 file changed, 156 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,glymur-oob-pas.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,glymur-oob-pas.yaml
+> new file mode 100644
+> index 000000000000..bd4f397da40f
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/remoteproc/qcom,glymur-oob-pas.yaml
+> @@ -0,0 +1,156 @@
+> +# SPDX-License-Identifier: GPL-2.0 OR BSD-2-Clause
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/remoteproc/qcom,glymur-oob-pas.yaml#
 
-  [2/3] drops two gpio entries from omap5-igep0050.dts that nothing reads:
-        the binding and both drivers describe three gpios, and the extra
-        two have no pinctrl group and no other consumer in the tree.
+Filename must match the compatible.
 
-  [3/3] drops the unit-address from the tpd12s015 endpoints on
-        am5729-beagleboneai and am57xx-idk, which carry one without a
-        matching reg property.
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm Glymur Out-of-Band Management Subsystem (OOBMSS) PAS
+> +
+> +maintainers:
+> +  - Anvesh Jain P <anvesh.p@oss.qualcomm.com>
+> +
+> +description: |
+> +  Qualcomm Glymur Out-of-Band Management Subsystem (OOBMSS) contains two
+> +  processors running Zephyr, managed together as one remoteproc instance.
+> +  The Out-of-Band Trusted Execution Environment (OOB-TEE) is the primary
+> +  processor. The OOB-Non-Secure processor is an auxiliary processor that
+> +  depends on the primary processor and cannot function independently.
+> +
+> +  The primary processor runs the primary image, while the auxiliary
+> +  processor runs the secondary image. Each processor has its own DTB.
+> +  The two images and their DTBs have separate PAS identifiers for
+> +  authentication and dedicated reserved-memory carveouts.
+> +
+> +  OOBMSS is booted by earlier-stage firmware and uses an XO clock and the
+> +  CX and MX power domains. Shared Memory Point-to-Point (SMP2P) provides
+> +  boot, shutdown, handover and ping/pong signaling, as well as fatal error
+> +  notifications. The subsystem exposes a secure GLink edge to the host,
+> +  with doorbell interrupts provided by the Inter-Processor Communication
+> +  Controller (IPCC).
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - qcom,glymur-oobmss-pas
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    items:
+> +      - description: Watchdog interrupt
+> +      - description: Fatal interrupt
+> +      - description: Ready interrupt
+> +      - description: Handover interrupt
+> +      - description: Stop acknowledge interrupt
+> +      - description: Pong interrupt
+> +
+> +  interrupt-names:
+> +    items:
+> +      - const: wdog
+> +      - const: fatal
+> +      - const: ready
+> +      - const: handover
+> +      - const: stop-ack
+> +      - const: pong
+> +
+> +  clocks:
+> +    items:
+> +      - description: XO clock
+> +
+> +  clock-names:
+> +    items:
+> +      - const: xo
+> +
+> +  power-domains:
+> +    items:
+> +      - description: CX power domain
+> +      - description: MX power domain
+> +
+> +  power-domain-names:
+> +    items:
+> +      - const: cx
+> +      - const: mx
+> +
+> +  memory-region:
+> +    items:
+> +      - description: Secure firmware carveout
+> +      - description: Secure device tree carveout
+> +      - description: Non-secure firmware carveout
+> +      - description: Non-secure device tree carveout
+> +
+> +  firmware-name:
+> +    items:
+> +      - description: Secure firmware
+> +      - description: Secure device tree firmware
+> +      - description: Non-secure firmware
+> +      - description: Non-secure device tree firmware
+> +
+> +  qcom,smem-states:
+> +    minItems: 2
+> +    description: States used by the AP to signal OOBMSS
+> +
+> +  qcom,smem-state-names:
+> +    minItems: 2
+> +    description: The names of the state bits used for SMP2P output
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - power-domains
+> +  - power-domain-names
+> +  - memory-region
 
-Patches 2 and 3 remove warnings that the bare conversion leaves behind:
+firmware-name as well, I guess?
 
-  am5729-beagleboneai:  241 -> 237 dtbs_check warnings
-  omap5-igep0050:       188 -> 186 dtbs_check warnings
 
-with no new warnings in either file.
+> +
+> +allOf:
+> +  - $ref: /schemas/remoteproc/qcom,pas-common.yaml#
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/qcom,rpmh.h>
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    #include <dt-bindings/interrupt-controller/irq.h>
+> +    #include <dt-bindings/mailbox/qcom-ipcc.h>
+> +    #include <dt-bindings/power/qcom,rpmhpd.h>
+> +    #define IPCC_MPROC_OOB_S 56
+> +    #define IPCC_MPROC_OOB   55
 
-Changes in v5:
- - ports: use "$ref: /schemas/graph.yaml#/properties/port" and drop the
-   unevaluatedProperties lines.  Neither port carries anything beyond the
-   graph properties.  Reported by Rob.
- - description: drop the "|" block scalar.
- - no other change from v4.
+Drop these two
 
-The sashiko finding that gpios lacks "minItems: 3" is not valid.  Rob
-explained that dt-schema makes the two bounds equal when only one of them
-is given, so "maxItems: 3" already means exactly three.
+> +
+> +    remoteproc@1f000000 {
+> +        compatible = "qcom,glymur-oobmss-pas";
+> +        reg = <0x1f000000 0x30000>;
+> +
+> +        interrupts-extended = <&intc GIC_SPI 86 IRQ_TYPE_EDGE_RISING>,
+> +                              <&smp2p_oobmss_in 0 IRQ_TYPE_EDGE_RISING>,
+> +                              <&smp2p_oobmss_in 1 IRQ_TYPE_EDGE_RISING>,
+> +                              <&smp2p_oobmss_in 2 IRQ_TYPE_EDGE_RISING>,
+> +                              <&smp2p_oobmss_in 3 IRQ_TYPE_EDGE_RISING>,
+> +                              <&smp2p_oobmss_in 9 IRQ_TYPE_EDGE_RISING>;
+> +        interrupt-names = "wdog", "fatal", "ready", "handover", "stop-ack", "pong";
+> +
+> +        clocks = <&rpmhcc RPMH_CXO_CLK>;
+> +        clock-names = "xo";
+> +        power-domains = <&rpmhpd RPMHPD_CX>,
+> +                        <&rpmhpd RPMHPD_MX>;
+> +        power-domain-names = "cx", "mx";
+> +
+> +        memory-region = <&oob_secure_mem>, <&oobdtbqc_mem>,
+> +                        <&oob_nonsecure_mem>, <&oobdtboem_mem>;
+> +        firmware-name = "qcom/glymur/oobmss_tee.mbn",
+> +                        "qcom/glymur/oobmss_qc_dtb.mbn",
+> +                        "qcom/glymur/oobmss_ns.mbn",
+> +                        "qcom/glymur/oobmss_oem_dtb.mbn";
+> +        qcom,smem-states = <&smp2p_oobmss_out 1>,
+> +                           <&smp2p_oobmss_out 8>;
+> +        qcom,smem-state-names = "stop", "ping";
+> +
+> +        glink-edge {
+> +            interrupts-extended = <&ipcc IPCC_MPROC_OOB_S
 
-Eduard Bostina posted the same conversion on 2026-07-30,
-<20260730092245.52034-1-egbostina@gmail.com>.  If his series is the one to
-carry this, say so and I will drop mine.
+Just use numbers here
 
-Chaosheng Qu (3):
-  dt-bindings: display: ti,tpd12s015: Convert to DT schema
-  ARM: dts: ti/omap: drop the two unused gpios from the igep0050 hdmi
-    encoder
-  ARM: dts: ti/omap: drop unit-address from tpd12s015 endpoints
-
- .../bindings/display/ti/ti,tpd12s015.txt      | 44 ----------
- .../bindings/display/ti/ti,tpd12s015.yaml     | 88 +++++++++++++++++++
- .../boot/dts/ti/omap/am5729-beagleboneai.dts  |  4 +-
- .../boot/dts/ti/omap/am57xx-idk-common.dtsi   |  4 +-
- arch/arm/boot/dts/ti/omap/omap5-igep0050.dts  |  4 +-
- 5 files changed, 93 insertions(+), 51 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
- create mode 100644 Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
-
--- 
-2.43.0
+Best regards,
+Krzysztof
 
