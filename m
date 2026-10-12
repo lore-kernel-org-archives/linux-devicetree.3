@@ -1,145 +1,106 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10C1643DEDE
-	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 07:01:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BA3B43CE58;
+	Mon, 12 Oct 2026 07:01:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791788481; cv=none; b=UCnaS7FndpPUifGr41NO/O+36kZ+pL57rmr/har6oM8pmqrMvLgZLxQrpGR7DP3Q1/lhKeXhHKCuRKyG0x8OTTuKr9XEDdF3aI9BykotLeV7jwBSZuRAs/Qg1U+b256J6KYj0IvppG8X5qHq00ONkaroWAzXfRYV3ajAvsRqSdo=
+	t=1791788492; cv=none; b=ERhr007w75AdIwKEO5rf9ZBpSkrGLmRurqsIclGfmC5R3wIYJVmSmN7Wed2T6TYQWVAkptNW7pCGLUKMsJ9Mg/CfHW+rknLt4bA1Ms1XsfBdPyE9OqZTvkpDDa9enGAR2kToHTMgFSAWkPfGFIZUMJmTm/H13VGPOa8/EMHYc8c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791788481; c=relaxed/simple;
-	bh=TNb+a+SHc2V9tu2qDmHWOQIC4rHeDBdDpzIPoG4N/Qo=;
+	s=arc-20240116; t=1791788492; c=relaxed/simple;
+	bh=g4bC95k/83YDAhQySELPrFvvlVbK4HTHelRMPJQ/tss=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=hklpdz1WhCu3kWaoPTzS3gcFLfJQepE55okB1AElcmS9jIf68YU8s9ob5iJXRSjA1Djs/D1l8xeOg5ZffQiN7gIFaG1XRh++GTrBVKqT4X+CW1cXy30hq9pt0pPCehkuBuRkaE6+/+mou2pXzGv3msdUN0W5lSm0y+yBpF1B+yg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ocRAnCNs; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=ecsAVm5yBQlwEY30+1l5PXa0oherFRbu9wS/Bp3Wfwd0vaRLalawy6GzA9DozrgjnHOWhtcTAWAOYbCKvfiAwhGVM1WHSm33znoKeZA8k6cPLPFaaqlf1H1mX8MSA++nYi8VWyLXZePZhEsr0BmFFY00weJ+8NYnKQ2SRe3wALs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i2kRR14Y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ocRAnCNs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F5F81F0089C;
-	Mon, 12 Oct 2026 07:01:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i2kRR14Y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 799901F0089C;
+	Mon, 12 Oct 2026 07:01:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791788479;
-	bh=PRY+T6WtU9BxPUl0dyJCXNU0xzVlV8gm7CCcrRvJqFA=;
+	s=k20260515; t=1791788490;
+	bh=Q+rhVFXjcCRwUhLz1zsT4v7aj7XIDp3JgKgImaUAzWk=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ocRAnCNsi5VzJ/CQIvIMtUP/iDbLxTSSIKzdpvF5I9t9ulPCirOQ2LJpa+IniOnVO
-	 izO7zMG4fAuTCTqf7qpJkprhdRLd6fh0JxoK6qGK84Y3TfdFAtTmNW1CKHPf78VYRv
-	 oQnv9QKGEYZPWe2GdTIrA14Fum9Wl6+mG1TXuz6Gcn3nSG5mQ/FSdeN3VJ5eeZY6Mm
-	 BWbEcY3iCr5DeUxJQngo+/tal2/D2KMZoInztp/tHlE+SFHagcU1w+A3MB8NZJ6F6Q
-	 JUbLVWN1OKHvtrzAfCz6x15yZhqan4ZhKzx2X7QMlU05AwJ5ibFCVczkS/EUr4BZuL
-	 0VRNPnC+KaRqw==
-Message-ID: <sashiko-outbox-167769@kernel.org>
+	b=i2kRR14YMdaGSvFlZYDf9/hB9g3zynzMH1hV7uIOoUSDwYzja4+k7lGjYhMu9qW5F
+	 QUKz9dm5jW68fM/EQJAU0ecoGUZIbnp0YjCnRPScADoLizrn5QhwHG3buq0kAfakOg
+	 Tg9TWh6VvpvY93cMjcbR5HAZXEgzjyZ0i3vNHW64DPCG22ZQahUKVDuu/luJypWX6Y
+	 /OKAgGX6CZGfoahlRdiRl3GHQDaBwfVfo1Yf/n1UJccok4V42RyxkKCuvk2aEDWtpM
+	 fkJ15aSdA2sAiPHP6sFQEsfklH7eNHINk7V2KAGY/2q+a3eqeN5auitFvWgDSXvCX/
+	 rJj3A0jjHRJJA==
+Message-ID: <sashiko-outbox-167770@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v21 10/14] media: qcom: camss: tpg: Add support for
- v2.4.0 TPG
+Subject: Re: [PATCH] arm64: dts: imx95-19x19-frdm-pro: add boot phase
+ properties
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Hangxiang Ma" <hangxiang.ma@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, vkoul@kernel.org, conor+dt@kernel.org, olteanv@gmail.com, media-ci@linuxtv.org, linux-phy@lists.infradead.org, robh@kernel.org, neil.armstrong@linaro.org
-In-Reply-To: <20261011-kaanapali-camss-v21-10-04fd28d815c6@oss.qualcomm.com>
-References: <20261011-kaanapali-camss-v21-0-04fd28d815c6@oss.qualcomm.com>
- <20261011-kaanapali-camss-v21-10-04fd28d815c6@oss.qualcomm.com>
+To: =?utf-8?b?Sm9zZXBoIEd1byAoT1NTKQ==?= <qijian.guo@oss.nxp.com>
+Cc: imx@lists.linux.dev, conor+dt@kernel.org, Frank.Li@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20261012-bootph-frdm-imx95-pro-v1-1-6757c5f04a17@nxp.com>
+References: <20261012-bootph-frdm-imx95-pro-v1-1-6757c5f04a17@nxp.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 12 Oct 2026 07:01:18 +0000
+Date: Mon, 12 Oct 2026 07:01:30 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] media: qcom: camss: csid: incorrect fallback to physical PHY whe=
-n TPG disabled
-- [Medium] media: qcom: camss: uninitialized hw_version used in tpg_reset
+- [Medium] dts: Missing bootph-pre-ram for gpio3 breaks early SD card access
 --
 
-commit 83c15a87930a3b292c2eeb9b034d6436828fd5de
-Author: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+commit dc22078eb20524e315ef0d520678ff9336ed179e
+Author: Joseph Guo <qijian.guo@nxp.com>
 
-media: qcom: camss: tpg: Add support for v2.4.0 TPG
+    arm64: dts: imx95-19x19-frdm-pro: add boot phase properties
+   =20
+    Add boot phase properties to essential resources during boot phase.
+   =20
+    FRDM-IMX95-PRO need UART, SD-Card, eMMC access during boot process.
 
-Add support for the TPG found on Kaanapali. This TPG uses hardware
-version 2.4.0, which drives test-enable and reset through the
-TPG_CTRL_CMD register at offset 0x1f4 instead of the TEST_EN bit in
-TPG_CTRL and the TPG_CLEAR register. Its output is routed into the
-CSID 1080 RX through the CSI2 TPG mux, so the CSID selects the TPG as
-the data source when a test pattern is selected.
-
-> diff --git a/drivers/media/platform/qcom/camss/camss-csid-1080.c b/driver=
-s/media/platform/qcom/camss/camss-csid-1080.c
-> index 46e443e05195a..851b3cd712f52 100644
-> --- a/drivers/media/platform/qcom/camss/camss-csid-1080.c
-> +++ b/drivers/media/platform/qcom/camss/camss-csid-1080.c
-[ ... ]
-> @@ -148,8 +151,16 @@ static void __csid_configure_rx(struct csid_device *=
-csid,
-> =20
->  	val =3D (lane_cnt - 1) << CSI2_RX_CFG0_NUM_ACTIVE_LANES;
->  	val |=3D phy->lane_assign << CSI2_RX_CFG0_DL0_INPUT_SEL;
-> -	val |=3D (phy->csiphy_id + CSI2_RX_CFG0_PHY_SEL_BASE_IDX)
-> -	       << CSI2_RX_CFG0_PHY_NUM_SEL;
-> +
-> +	if (camss->tpg && csid->tpg_linked &&
-> +	    camss->tpg[phy->csiphy_id].testgen.mode !=3D TPG_PAYLOAD_MODE_DISAB=
-LED) {
-> +		val |=3D FIELD_PREP(CSI2_RX_CFG0_TPG_MUX_SEL, phy->csiphy_id + 1);
-> +		val |=3D CSI2_RX_CFG0_TPG_MUX_EN;
-> +	} else {
-> +		val |=3D (phy->csiphy_id + CSI2_RX_CFG0_PHY_SEL_BASE_IDX)
-> +			<< CSI2_RX_CFG0_PHY_NUM_SEL;
-> +	}
-> +
+> diff --git a/arch/arm64/boot/dts/freescale/imx95-19x19-frdm-pro.dts b/arc=
+h/arm64/boot/dts/freescale/imx95-19x19-frdm-pro.dts
+> index 1f62d729a5e77..8dc1134f8d24d 100644
+> --- a/arch/arm64/boot/dts/freescale/imx95-19x19-frdm-pro.dts
+> +++ b/arch/arm64/boot/dts/freescale/imx95-19x19-frdm-pro.dts
+> @@ -180,6 +180,7 @@ reg_usdhc2_vmmc: regulator-usdhc2 {
+>  		regulator-min-microvolt =3D <3300000>;
+>  		gpio =3D <&gpio3 7 GPIO_ACTIVE_HIGH>;
+>  		enable-active-high;
+> +		bootph-pre-ram;
+>  	};
 
 [Severity: Medium]
-When csid->tpg_linked is true, csid_link_setup() has already overwritten
-phy->csiphy_id with the tpg->id. If a user leaves the TPG in the default
-disabled mode (testgen.mode =3D=3D TPG_PAYLOAD_MODE_DISABLED), does this
-fallback to the else branch mistakenly use the tpg->id as a physical
-CSIPHY index?
+Will this regulator be available in the SPL phase without adding bootph-pre=
+-ram
+to the gpio3 node?
 
-This appears to misconfigure the hardware to route data from a physical
-camera sensor that happens to share the same numeric ID as the requested
-TPG, silently bypassing the TPG entirely.
+Since the fdtgrep tool extracts nodes tagged with bootph-pre-ram but does n=
+ot
+automatically trace and retain phandles for nodes lacking the tag, the
+gpio3 controller node will be entirely stripped from the SPL device tree.
 
->  	writel(val, csid->base + CSID_CSI2_RX_CFG0);
-> =20
->  	val =3D CSI2_RX_CFG1_ECC_CORRECTION_EN;
+Could the gpio3 node also be marked with bootph-pre-ram so that
+reg_usdhc2_vmmc can resolve its GPIO dependency?
 
-> diff --git a/drivers/media/platform/qcom/camss/camss-tpg-gen1.c b/drivers=
-/media/platform/qcom/camss/camss-tpg-gen1.c
-> index d29de5f93c18e..cabbb2638cf38 100644
-> --- a/drivers/media/platform/qcom/camss/camss-tpg-gen1.c
-> +++ b/drivers/media/platform/qcom/camss/camss-tpg-gen1.c
 [ ... ]
-> @@ -164,18 +167,26 @@ static int tpg_stream_on(struct tpg_device *tpg)
-[ ... ]
->  static int tpg_reset(struct tpg_device *tpg)
->  {
-> -	writel(0, tpg->base + TPG_CTRL);
-> -	writel(1, tpg->base + TPG_CLEAR);
-> +	if (tpg->hw_version < TPG_HW_VER_2_4_0)
-> +		writel(0, tpg->base + TPG_CTRL);
+
+> @@ -996,6 +1008,7 @@ &usdhc2 {
+>  	pinctrl-3 =3D <&pinctrl_usdhc2>, <&pinctrl_usdhc2_gpio>;
+>  	pinctrl-names =3D "default", "state_100mhz", "state_200mhz", "sleep";
+>  	vmmc-supply =3D <&reg_usdhc2_vmmc>;
+> +	bootph-pre-ram;
+>  	status =3D "okay";
+>  };
 
 [Severity: Medium]
-Is tpg->hw_version properly initialized when this function is called for
-the first time? Looking at tpg_set_power() in camss-tpg.c, it invokes
-the reset callback before hw_version is populated on power-on:
+Similarly to the regulator, usdhc2 relies on gpio3 for card detect during t=
+he
+boot process (cd-gpios =3D <&gpio3 00 GPIO_ACTIVE_LOW>).
 
-tpg_set_power()
-   ...
-   tpg->res->hw_ops->reset(tpg);
-   tpg->res->hw_ops->hw_version(tpg);
-
-Since the struct is dynamically allocated and zeroed, the first
-tpg_reset() will evaluate tpg->hw_version as 0. This satisfies the
-condition and incorrectly executes the legacy write to TPG_CTRL even on
-newer v2.4.0 hardware.
-
-> +
-> +	writel(TPG_CTRL_CMD_HW_RESET, tpg->base + TPG_CTRL_CMD);
-> =20
->  	return 0;
->  }
+If the gpio3 node is missing from the SPL device tree, will usdhc2 fail to
+probe during early boot because it cannot resolve the cd-gpios property?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261011-kaanapali-=
-camss-v21-0-04fd28d815c6@oss.qualcomm.com?part=3D10
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261012-bootph-frd=
+m-imx95-pro-v1-1-6757c5f04a17@nxp.com?part=3D1
