@@ -1,238 +1,141 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB8084DBD70;
-	Mon, 12 Oct 2026 19:16:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 717B13B9922
+	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 19:16:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791832581; cv=none; b=R1w3fCYyR9xjcR7S/8u+ERqCXAxh9z4zoqsv1mpj1U8Unn6HA8KfzE4newzEhvNUPCDhvY1M1fP5y3R3tgayQ/FpSgl90ELoof3+VZ82E0rwt8WDvUxDauVpcWtsPgOuZlesG2XPCtURRgPz0RCOG7HegH9hEEKnUcKzvL+sdOU=
+	t=1791832592; cv=none; b=avd7+3PLy3cy+F1Fco3m9B6ESQc00T1WnAcj7kjTnSv/AZWvROvdAABY7WH437G6zAniBpZMRy5+JgqPo1YkqvHqN1DCC1R39RHXhSIRWdrHQwdYQ3fvFJkKIuuxj4TXaES8QMrSCLHEBD8UcyTLmX+8Z6H0/wRuEK/g04aXQ8w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791832581; c=relaxed/simple;
-	bh=jfm7V/lN2juYXLscNqZLMKlFPte1DBkKgWz0rkvstq4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Aqaq45v61Y/0zvyoTR+qygJB0dTj4s2lz/lBr+G1hq/ZjI1NeinLeTIs9Xgvfd4BJNEIo425f86Htu9zKTW0y4qz5wveJLorgrVXTKREo2NU6M7Jnw9JptDDqU+//DzDRmM7V6Civ/+2dX7U0MeAjbo5OyTJ4V2MrO/yCC8rDhg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kHhqjUXk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791832592; c=relaxed/simple;
+	bh=MxQjFIb4asoEi2lmMq0X5uwou2wdvP/Owo2LYQs7EcE=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=LCSx7K9YlhA+ymX/DxoTZKxR6t/UfxGXyc2H55fA/dBomOwF5fw5XC6a0T4xWyZ0LPTmh1HRJ0195XkWk18AoDaD7q4PL/YHmWHW/vEjlmzcQLTmDAY67qsY9BgdZ3gAdMZtJyEYLN8VfIkJoSQ4EOp8XDLOf4s9MyoTdhT8Zjo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZcNlX8gq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kHhqjUXk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 283BC1F0089B;
-	Mon, 12 Oct 2026 19:16:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZcNlX8gq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAC181F0089B;
+	Mon, 12 Oct 2026 19:16:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791832575;
-	bh=nJS4Pop097HfYJvZyN52MddIk+X13UjE+RZ+4JN0C+g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kHhqjUXkPc/hchWSgCP6jgo1i6Qu4/0x7uJq6NGgJOT6xTNGCceeTR9jemUhb+Vu7
-	 NCrylSUtYMzunfLRMUHCVtrJ+BC0PHlP7TungRgwNuGHVLENOkrjYkJY9wSDP9zveX
-	 n6iOXdFaah2L1GhMMssBznT5oyUuc5zJQWeAYm/ECwWQ9oncTMw2gyYrEClZKq6pl2
-	 a4fnetCasOH01pJWm2FREAFNzmxFglybMSXB52TLnS6g1g+0V8YjN0C2M12ntRMaO7
-	 swfAa01j/Pi36ID5gTH380udtGteVprtrtcthNAtAhXP4m03aPKlMi6lnZ2j10UMJT
-	 xkvqLt4MJfTLg==
-Date: Mon, 12 Oct 2026 20:16:10 +0100
-From: Conor Dooley <conor@kernel.org>
-To: =?utf-8?B?TWljaGHFgiBLb3BlxIc=?= <michal@nozomi.space>
-Cc: linux-input@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	jikos@kernel.org, bentiss@kernel.org, dmitry.torokhov@gmail.com,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com,
-	allencl_lin@hotmail.com, tylor_yang@himax.corp-partner.google.com,
-	felix@kaechele.ca, dianders@chromium.org
-Subject: Re: [PATCH v6 1/3] dt-bindings: input: Add Himax HX83102J touchscreen
-Message-ID: <20261012-material-disclose-4f0f8af60ffe@spud>
-References: <20261011181633.1778969-1-michal@nozomi.space>
- <20261011181633.1778969-2-michal@nozomi.space>
+	s=k20260515; t=1791832591;
+	bh=EXoyDQZU/Dg291Rtk7nEzckgUzXrz9j+ldY58T6l7tM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZcNlX8gqtqefd68Tokp7tiiVX8Ovn856iSu5zvmLwFs+aE9IalkXrdDjLg5MqOCig
+	 qFyoFpY1bBN0xI2jLz2Se3eWh+M5JUvGCNd8uZEjRyvnzZD5yiDCvy6oY1OPgGpmUC
+	 nWkAtP4WysywcO84JDESclHZJT149XcMY3F4Ol7YWoHoyMriaFCEooPQi9drDZHx9K
+	 1MAiGgqgKDdYo+KRX1dmmXbc6vOmPmw7zH/CCEYjZsWU+rY6AaZML2Fjl5b6EPKjld
+	 pKi26jX/HhkQ+zbY3b9HVOaXv9O++1Z1R6jtKE+XaVdwTuVhwCXy0MSOs6dZkjZb2c
+	 dh2s3Pk4XJdYQ==
+Message-ID: <sashiko-outbox-168574@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] irqchip: introduce TC9564 SoC MSIGEN support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Alex Elder" <elder@riscstar.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20261012190245.3988619-3-elder@riscstar.com>
+References: <20261012190245.3988619-1-elder@riscstar.com>
+ <20261012190245.3988619-3-elder@riscstar.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 12 Oct 2026 19:16:30 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="/CLthKRV7cJy8A22"
-Content-Disposition: inline
-In-Reply-To: <20261011181633.1778969-2-michal@nozomi.space>
 
---/CLthKRV7cJy8A22
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] irqchip/tc9564: uninitialized stack variables info and dgc_info
+- [High] irqchip/tc9564-msigen: Use-After-Free in handler during module rem=
+oval
+- [Low] kconfig: TC9564_MSIGEN depends on hidden symbol GENERIC_IRQ_CHIP
+--
 
-On Sun, Oct 11, 2026 at 08:16:31PM +0200, Micha=C5=82 Kope=C4=87 wrote:
-> Add the binding for the touch function of the Himax HX83102J, a touch
-> and display driver integrated (TDDI) controller. The touch function is
-> connected over SPI and shares the analog supplies and the reset of the
-> display function, so it is powered and reset together with the panel
-> and has to follow it.
->=20
-> Co-developed-by: Allen Lin <allencl_lin@hotmail.com>
-> Signed-off-by: Allen Lin <allencl_lin@hotmail.com>
-> Signed-off-by: Micha=C5=82 Kope=C4=87 <michal@nozomi.space>
-> ---
->  .../input/touchscreen/himax,hx83102j.yaml     | 98 +++++++++++++++++++
->  MAINTAINERS                                   |  6 ++
->  2 files changed, 104 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/input/touchscreen/h=
-imax,hx83102j.yaml
->=20
-> diff --git a/Documentation/devicetree/bindings/input/touchscreen/himax,hx=
-83102j.yaml b/Documentation/devicetree/bindings/input/touchscreen/himax,hx8=
-3102j.yaml
+commit 3dfc2bc2208f270b240c50f9b867c34c54af58e0
+Author: Daniel Thompson <daniel@riscstar.com>
+
+irqchip: introduce TC9564 SoC MSIGEN support
+   =20
+Define a new irqchip platform driver that represents the MSIGEN
+functionality present in the TC9564 SoC.
+
+> diff --git a/drivers/irqchip/Kconfig b/drivers/irqchip/Kconfig
+> index a8f8c423b7957..205b5a167c805 100644
+> --- a/drivers/irqchip/Kconfig
+> +++ b/drivers/irqchip/Kconfig
+[ ... ]
+> +config TC9564_MSIGEN
+> +	tristate "Toshiba TC9564 MSI distributor"
+> +	depends on TC9564_PCI
+> +	depends on GENERIC_IRQ_CHIP
+
+[Severity: Low]
+Is it intentional to use "depends on" instead of "select" for this hidden
+symbol?
+
+Since GENERIC_IRQ_CHIP is a hidden boolean symbol (without a prompt), using
+"depends on" makes TC9564_MSIGEN impossible to enable on architectures or
+platforms that do not already natively select GENERIC_IRQ_CHIP.
+
+> +	default TC9564_PCI
+> +	help
+> +	  This enables support for the "MSIGEN" MSI distributor embedded
+> +	  in the Toshiba TC9564.  This device receives wired interrupts
+> +	  within the TC9564 and raises them to the host using MSI.
+> +
+>  endmenu
+> diff --git a/drivers/irqchip/irq-tc9564-msigen.c b/drivers/irqchip/irq-tc=
+9564-msigen.c
 > new file mode 100644
-> index 0000000000000..f0aca7a6662c9
+> index 0000000000000..a27edd5859e43
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/input/touchscreen/himax,hx83102j.=
-yaml
-> @@ -0,0 +1,98 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/input/touchscreen/himax,hx83102j.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +++ b/drivers/irqchip/irq-tc9564-msigen.c
+[ ... ]
+> +static void tc9564_msigen_irq_domain_exit(struct irq_domain *irq_domain)
+> +{
+> +	struct tc9564_msigen *msigen =3D irq_domain->host_data;
 > +
-> +title: Himax hx83102j touchscreen
-> +
-> +maintainers:
-> +  - Micha=C5=82 Kope=C4=87 <michal@nozomi.space>
-> +
-> +description:
-> +  The Himax HX83102J is a touch and display driver integrated (TDDI)
-> +  controller. Its touch function is connected over SPI and reports HID
-> +  packets. The display and touch functions share the analog supplies and
-> +  the display reset, so the touch function is powered and reset together
-> +  with the panel it is part of.
-> +
-> +allOf:
-> +  - $ref: /schemas/input/touchscreen/touchscreen.yaml#
-> +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: himax,hx83102j
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  reset-gpios:
-> +    maxItems: 1
-> +    description:
-> +      Reset of the touch function. Unlike display-reset-gpios, it only
-> +      resets the touch MCU and leaves the display function running, so t=
-he
-> +      touch function can be reset without disturbing the panel.
-> +
-> +  vccd-supply:
-> +    description: Digital I/O supply of the touch function.
-> +
-> +  vsn-supply:
-> +    description: Negative analog supply, shared with the display functio=
-n.
-> +
-> +  vsp-supply:
-> +    description: Positive analog supply, shared with the display functio=
-n.
-> +
-> +  display-reset-gpios:
-> +    maxItems: 1
-> +    description:
-> +      Reset of the display function, usually driven by the panel. Assert=
-ing
-> +      it also resets the touch function.
-> +
-> +  spi-cpha: true
-> +
-> +  spi-cpol: true
+> +	irq_set_chained_handler_and_data(msigen->irq, NULL, NULL);
 
-Just to be sure, these are optional on this device and it's not always
-in this mode?
+[Severity: High]
+Does this missing synchronization lead to a use-after-free?
 
-> +
-> +  firmware-name:
-> +    description: Specify the file name for firmware loading.
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - reset-gpios
-> +  - panel
-> +  - vccd-supply
-> +  - vsn-supply
-> +  - vsp-supply
-> +  - display-reset-gpios
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/gpio/gpio.h>
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +    spi {
-> +      #address-cells =3D <1>;
-> +      #size-cells =3D <0>;
-> +      ap_ts: touchscreen@0 {
+When the chained handler is set to NULL during module removal, it doesn't w=
+ait
+for currently executing handlers to finish. If tc9564_msigen_irq_handler() =
+is
+running concurrently on another CPU, it might access the irq_domain, generic
+chip, and unmapped register memory after they are freed by the removal path.
 
-Drop the label if you respin btw, since it is unused. Binding is mostly
-fine looking to me.
+Should this call synchronize_irq() to ensure the concurrent handler has
+finished?
 
-> +        compatible =3D "himax,hx83102j";
-> +        reg =3D <0>;
-> +        pinctrl-names =3D "default";
-> +        pinctrl-0 =3D <&touch_int0 &touch_reset>;
-> +        reset-gpios =3D <&gpio1 8 GPIO_ACTIVE_LOW>;
-> +        spi-cpha;
-> +        spi-cpol;
-> +        interrupt-parent =3D <&gpio1>;
-> +        interrupts =3D <7 IRQ_TYPE_LEVEL_LOW>;
-> +        panel =3D <&panel>;
-> +        vccd-supply =3D <&regulator>;
-> +        vsn-supply =3D <&regulator>;
-> +        vsp-supply =3D <&regulator>;
-> +        display-reset-gpios =3D <&gpio1 9 GPIO_ACTIVE_LOW>;
-> +      };
-> +    };
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 72294ddfa5b75..e209f0d44fa73 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -11729,6 +11729,12 @@ W:	http://www.highpoint-tech.com
->  F:	Documentation/scsi/hptiop.rst
->  F:	drivers/scsi/hptiop.c
-> =20
-> +HIMAX HID TOUCHSCREEN
+> +}
+[ ... ]
+> +static int tc9564_msigen_probe(struct platform_device *pdev)
+> +{
+> +	struct irq_domain_chip_generic_info dgc_info;
+> +	struct device *dev =3D &pdev->dev;
+> +	struct irq_domain *irq_domain;
+> +	struct tc9564_msigen *msigen;
+> +	struct irq_domain_info info;
 
-Sounds overly generic, since the hx83112B is probably also a touchscreen
-HID device?
+[Severity: High]
+Could these uninitialized stack variables cause a crash?
 
-Thanks,
-Conor.
+If info is not zero-initialized (e.g., using =3D {}), fields like info.pare=
+nt
+will contain stack garbage. When passed to devm_irq_domain_instantiate(),
+could this result in dereferencing a wild pointer in __irq_domain_instantia=
+te()
+if CONFIG_IRQ_DOMAIN_HIERARCHY is enabled?
 
-pw-bot: changes-requested
+> +	struct reset_control *reset;
+> +	struct pci_dev *pci_dev;
+> +	struct clk *clk;
+> +	int ret;
 
-> +M:	Micha=C5=82 Kope=C4=87 <michal@nozomi.space>
-> +L:	linux-input@vger.kernel.org
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/input/touchscreen/himax,hx83102j.ya=
-ml
-> +
->  HIMAX HX83112B TOUCHSCREEN SUPPORT
->  M:	Job Noorman <job@noorman.info>
->  L:	linux-input@vger.kernel.org
-> --=20
-> 2.56.0
->=20
-
---/CLthKRV7cJy8A22
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCas0x+gAKCRB4tDGHoIJi
-0ucEAQCqGmUP3Sw5IhmjbZ6Zc9QHpdIzvn83kyYwYYm5jhim1gEAnIrDddbvguy7
-da3uqtmF97eGpMyekSYrksUSQSLvSQE=
-=81pe
------END PGP SIGNATURE-----
-
---/CLthKRV7cJy8A22--
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261012190245.3988=
+619-1-elder@riscstar.com?part=3D2
