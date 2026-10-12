@@ -1,171 +1,274 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9BFC486B83;
-	Mon, 12 Oct 2026 12:29:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F8C9489874
+	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 12:29:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791808177; cv=none; b=lVOOBYciMiOxfrxKdDR9AkpQ7xJvXcPQSUJ0kgvykX608jiLF4Rot7U5WmjVI0aJljyn46afEC175cIr5ZH7hLFIfhWGJbudYHPbF/KzM7vLsyqHvHwdZ3tDhhFBS+IxR9R1SSS9SSzTFE3EaHm9H2kJeH7gwmDHZ6KfkM+yePQ=
+	t=1791808186; cv=none; b=O8kD+CbfDQKhv3Epi+VGTmWoc9M+62WB0xqnaC7zPkDBnDn1hOsbismsIgKo672B8EpRe5AWL2vnmI2e6ehUfGTkI9SZkkp2PdM6LDMY14DZMNIP02q//3zO7HQSP4igcgGfrlS8uN674eOQwwesdHlRFbRJjAfOd4xWNsquTDs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791808177; c=relaxed/simple;
-	bh=fBt20GxftHoMgiwDxG9U6Fmrwohg24c3+qHbWbijCBM=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=Uab2883KEYmBHK2twiHvhsTOU7uGRTi+UEYjTTcIby/MYD5GXEMPdb/uVCYdXY19f1Mrak+4Q7BNU897YaukKq7QeIxi5LCFGkBTXPro9xk8fVdYIfVWROkHsfrKXhVNFjr2HsevJotd5O8nm+Z+VRmeomuzu150YBvJGT3HHWA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=baAiHVed; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791808186; c=relaxed/simple;
+	bh=+hii5+Dl7zlOwgKn2KfFJIJ2jZ1j/vWBvRpoEY5SuxQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=g3PEVgWMSYyCLOiTcyLG+MhnyTJgWqU2ANoK3nmnZgWVgsawc5aR9teXWvgxL8HrkntwUlGgz/gx//jglHYvOEdh9GIIEho1Q+zCSNd6R1x2nO9MSJ1xsfTqwrL1JM90ypWSYX4SX7lNqg5xR+Ezc/VrqwhAw/5yBHeTzpv4kDg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CPFLSRYr; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=I0ambRMO; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="baAiHVed"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 584EA1F0089C;
-	Mon, 12 Oct 2026 12:29:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791808176;
-	bh=lVO+lXKFZMOGXqVwslObT8Td1UwM0bVdKSaW6hgVP9Y=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=baAiHVedWUUNXQ6zckuaPQzefZCn2zl2eZrOvOmFNawGvIG7vKawjb/ZglKpTAYEA
-	 kDfgWKOSM/LPO5zo4fh911tDGPJmknAon7ukUa+qRTD3/n2Qc/Do0fpHcmNGYMie1S
-	 t0Ym2GUfRyMdkGS4ev+32a/uMzKPNk6Z/GkqmC0RFEfG+3noQuJaAoLKbDV5IytKdS
-	 WlxZfIRq15MPlKfw3ZKf8hYIPMWwMrqC6D78q62RXUr8vZZRjw3nKNU5+YbLaC/Ql/
-	 l253b9kD+bBhhXtj9/e2clgoMC3xh/BIkNb6NnmIOC6kRyVQiu5eBPU3J0qiXsGjpB
-	 x4sidUiBRWcEQ==
-Message-ID: <sashiko-outbox-168098@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 3/3] clk: en7523: add support for Airoha AN7583 clock
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Christian Marangi" <ansuelsmth@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20261012115954.92718-4-ansuelsmth@gmail.com>
-References: <20261012115954.92718-1-ansuelsmth@gmail.com>
- <20261012115954.92718-4-ansuelsmth@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 12 Oct 2026 12:29:35 +0000
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CPFLSRYr";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="I0ambRMO"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CC08JE3292295
+	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 12:29:44 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=9pJICCJ1jf++M2QDSH+MG+d1zO5Y83scFcB
+	BZmIu3a0=; b=CPFLSRYrDRpoOhDMB2JZ9hI4UdjpLCMnmXNyEZliuZHeUR8vGun
+	H0CZjMr7M5GbBSsiWfM9T6cCJgOPY6kiw/N4HEnQ9HfT4K9SbxLsXqqqESfq09YM
+	+y6Z5/vzeFZe4Kf3FdhpHrxd5QYBv0E2r1JejzhahASv0AMRLxEeaEkaZsUPp6Di
+	xJD4Ja7gdRvKl4GxHSILMeJz8MoaGYp/OkYDPpCcS0wMF4GSXJX2kHef8yt17h/w
+	tjcSe1/l8o583jRnqb2tao3Y87nrjY1EcbSlA+dXJdYdxty+mY3CQjOQM+JWQ7af
+	TBibMaEyVV5vzt7jSw0t3034VXsfIk5yejA==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h8uh3ha05-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 12:29:44 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2e8531ab15fso3443325ad.1
+        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 05:29:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791808184; x=1792412984; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=9pJICCJ1jf++M2QDSH+MG+d1zO5Y83scFcBBZmIu3a0=;
+        b=I0ambRMOXUhUhGoYZnYkUHyE8gNJU3u7jsHsF3FGACMwozNsTzoq6+t/z0rx0Jrkdb
+         GFRNaYb0hIe+h4NONglADzhJEX5MkN7KNpkHYKmVmp348KpQqhPAaKYO6JTgM81Ccenc
+         e4CLT/V1eAyvmrdPwqFlphAZEZC29c0RKRBxWJBBpKHJWK5vrXeK6qUaQC/lgJQhqo8i
+         aMPXuk4YkGdgLVTLqGI5DKhQK/tYIPY+lXNpn5YTxvQ1NJSUzgGhCjo5NZH9833borhb
+         lan83KrOzl2f30S1Xb1JraMrgXXxLA3mWl8p146D8lf5S5ZhIUYa0UasrTcpoP1Q5W2i
+         HokA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791808184; x=1792412984;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=9pJICCJ1jf++M2QDSH+MG+d1zO5Y83scFcBBZmIu3a0=;
+        b=U1VLeypgP8T1ycK5BW/RERfV8knGuCguRn3DBnI2M2mGVZGKsL9r5HAkAmZV8QSWlP
+         MEWA7/d38543zBE0rM51K7mhOf+iqySZDlDcNoi1gltgG+GCTvCY6dn1UAitFxWfasCK
+         Pee1LaJx6jG1M/VTsogE7WxrfIKSkhyYbAfbgN8PJ/NbpTW38DqLYl2QQfHEQgQbZxnA
+         D6Rw4wn55zpaGJO5dI+dh9t3o4eoENP5fRyL6sFR4eJwEaDNa1/W+Sl6kAo6B8geauvh
+         /Lhv/PzpuMcgMibj3ItFuPkRG/gREvDJU51p/Z0yaoftxtIzhNdvuGUYvkEqO93xdCts
+         lVmw==
+X-Forwarded-Encrypted: i=1; AKwUvBzrGsF7/F3NqP4gH7hwNJY0GIeq6ve1KjyEhoo2irTva+SNMH0xMpkBDOkX3iOo4z6yqsH4fDGswDYn@vger.kernel.org
+X-Gm-Message-State: AFq9FYIGzJ/DJnfliq3bUByL46hPq+dtszLa7qqGvXiBwoBe9ZqeFWfs
+	nltUAGEw+fSGCANgKm2lsmRDOyWgyah1MGgE2j3upsehlrkoQ+vf9ZY3+6xwx5Kp7jiMM6xK6Sh
+	76ACUN3oDhJLzzkuZizCszF3+7K8pHnxAYfVGu2fTcIb6hiDtraxnXm6DuYwqDZj0
+X-Gm-Gg: AYBFou2Xs/MDH80p+4qMMbnmV4t+/SdAU+O+oBnJe1Hd0I+RqHuijmoqlSfs83jSc13
+	tiwdbH3XuiXiLnNgU9RQz2pTxSHnPDMc60Z5k+7k15TFCxh9vd1FlBfS2IN/cbflgDgNSYBWzsZ
+	l571MPPqmiecSw0A9e29n5Qg5r1cYVx1HnsNJa2owywS869UOS0zRaELhUeeZkHAhSD2Xn+rUAt
+	7rG2s3dTkPReCHDUmG5WpmmrTtgbBUUjRCWYhrMWFN782g54wzyVPoJWrM7tt0NqTN7zdYnovM4
+	woJ7LYUEkbFgI9VYBZtcrDDwIgm5RY/EAWDhIHvANV9Fczxj63r8keqAwJYKn9rwiX0m4JYjwtv
+	COISxkCDE3SHXSlOVz5NJrNU1JpqP
+X-Received: by 2002:a17:903:22ce:b0:2e5:e361:5560 with SMTP id d9443c01a7336-2e842719490mr127967625ad.0.1791808183600;
+        Mon, 12 Oct 2026 05:29:43 -0700 (PDT)
+X-Received: by 2002:a17:903:22ce:b0:2e5:e361:5560 with SMTP id d9443c01a7336-2e842719490mr127967295ad.0.1791808183110;
+        Mon, 12 Oct 2026 05:29:43 -0700 (PDT)
+Received: from sdciot-sh07-lnx.qualcomm.com ([114.94.8.21])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422e1c89sm41761785ad.75.2026.10.12.05.29.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 05:29:42 -0700 (PDT)
+From: Linghui Wu <linghui.wu@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, kernel@oss.qualcomm.com
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Miaoqing Pan <miaoqing.pan@oss.qualcomm.com>,
+        Hangtian Zhu <hangtian.zhu@oss.qualcomm.com>,
+        Wei Deng <wei.deng@oss.qualcomm.com>,
+        Linghui Wu <linghui.wu@oss.qualcomm.com>
+Subject: [PATCH] arm64: dts: qcom: shikra-iqs: add M.2 Wi-Fi and Bluetooth overlay
+Date: Mon, 12 Oct 2026 20:29:34 +0800
+Message-ID: <20261012122934.3240030-1-linghui.wu@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA0OSBTYWx0ZWRfX8iNh8EUNyCVL
+ alS/oMhO6ScynA86JVX4SJZo3E2sxwPWolF3FJCSwULlzWLkg60wPvpiU/awDzHL1Lgf8kPC+/+
+ VdpJXThX+81dRhynZ26w+Vih7tR5BVw2AEUdRQ71qD23J0AeHEcxOGCpxfEzJDjD+gE6gfYPqOB
+ ex4jMt22wsSh/0hzj28FUDLX8PwjayGcVfgEKvcFk0hH0iASMvR0lCKEcxiiTlIbV8XDOIjYYc0
+ FSeOAe0H9KZZP30eMpxZBVopQ9NmeaBX6D/watZ2bqatX3M1w3AR3TmNQ11Xl17W+BMzMXCycaz
+ z0zRiyStsp24DPaqU0FFbfmNYEGntMFPIyqrhNpTsc7kIUsD7yVefEp+pjBeD+rk0cX/+iVwUPd
+ zVgsbdzhJG7VYMqD2owAqn1+KVVMBBOKkRJKApiheinz28CVU7C6ie70T0AeIHeL3m9n15H6lux
+ /9BpgWsln3lcu4Zggkw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA0OSBTYWx0ZWRfX58n7+wUAEnbu
+ FObhHEzNt2J71/mikhUu6/VVgOQHZjVCKSCsm2UrkHIh/BItuLsPD+EMb9l+NNNUD/O4u/G7JTy
+ GPYPyRPG2s6ZthLIOdrwAcZNs16fZXU=
+X-Authority-Analysis: v=2.4 cv=QO391QLL c=1 sm=1 tr=0 ts=6accd2b8 cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=Uz3yg00KUFJ2y2WijEJ4bw==:17
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=EUspDBNiAAAA:8
+ a=HwT7i5cL4_BIIXZyjbQA:9 a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-ORIG-GUID: SuNT1J6ilNKlubCy15gCYPQeCTSdp7ea
+X-Proofpoint-GUID: SuNT1J6ilNKlubCy15gCYPQeCTSdp7ea
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_04,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 bulkscore=0 spamscore=0 malwarescore=0 suspectscore=0
+ priorityscore=1501 impostorscore=0 phishscore=0 adultscore=0 clxscore=1011
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120049
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] clk: uaf and leak on probe error path due to unmanaged clock regis=
-tration
-- [High] clk: en7523: race condition in RMW operations on shared SCU regist=
-ers
---
+Add an overlay for M.2 Key-E Wi-Fi and Bluetooth modules on Qualcomm
+Shikra IQS EVK.
 
-commit 8fb64358a2b708163ffd1fa2a6071fd191ad66a7
-Author: Christian Marangi <ansuelsmth@gmail.com>
+Describe the PCIe and UART connections through the M.2 connector, the
+3.3 V supply, the W_DISABLE signals and the PCIe reset signal. Disable
+the onboard Wi-Fi and Bluetooth nodes when the overlay is selected.
 
-clk: en7523: add support for Airoha AN7583 clock
+The Wi-Fi PCIe path was tested on a Shikra IQS EVK with a QCC2072
+module. The overlay was applied, the link trained at Gen2 x1 and the
+endpoint enumerated. Bluetooth UART and HCI runtime validation is
+pending.
 
-Add support for Airoha AN7583 clock and reset.
+Co-developed-by: Wei Deng <wei.deng@oss.qualcomm.com>
+Signed-off-by: Wei Deng <wei.deng@oss.qualcomm.com>
+Signed-off-by: Linghui Wu <linghui.wu@oss.qualcomm.com>
+---
+ arch/arm64/boot/dts/qcom/Makefile             |   1 +
+ .../dts/qcom/shikra-iqs-evk-m2-wifi-bt.dtso   | 107 ++++++++++++++++++
+ 2 files changed, 108 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/qcom/shikra-iqs-evk-m2-wifi-bt.dtso
 
-> diff --git a/drivers/clk/clk-en7523.c b/drivers/clk/clk-en7523.c
-> --- a/drivers/clk/clk-en7523.c
-> +++ b/drivers/clk/clk-en7523.c
-> @@ -1088,6 +1287,43 @@ static int en7581_clk_hw_init(struct platform_devi=
-ce *pdev,
->  	return en7581_serdes_phy_register(&pdev->dev);
->  }
-> =20
-> +static int an7583_clk_hw_init(struct platform_device *pdev,
-> +			      struct clk_hw_onecell_data *clk_data)
-> +{
-> +	struct en_clk_priv *priv =3D platform_get_drvdata(pdev);
-> +	struct device *dev =3D &pdev->dev;
-> +	struct regmap *map;
-> +	void __iomem *base;
-> +	u32 val;
-> +	int ret;
-> +
-> +	map =3D syscon_regmap_lookup_by_phandle(dev->of_node, "airoha,chip-scu"=
-);
-> +	if (IS_ERR(map))
-> +		return PTR_ERR(map);
-> +
-> +	base =3D devm_platform_ioremap_resource(pdev, 0);
-> +	if (IS_ERR(base))
-> +		return PTR_ERR(base);
-> +
-> +	priv->base =3D base;
-> +
-> +	en7581_register_clocks(dev, clk_data, map, base);
-> +
-> +	val =3D readl(base + REG_RST_CTRL1);
-> +	val |=3D REG_PCIE_HB_RST;
-> +	writel(val, base + REG_RST_CTRL1);
-> +	val &=3D ~REG_PCIE_HB_RST;
-> +	writel(val, base + REG_RST_CTRL1);
-> +
-> +	ret =3D en7581_reset_register(dev, base, an7583_rst_map,
-> +				    ARRAY_SIZE(an7583_rst_map),
-> +				    en7581_rst_ofs);
-> +	if (ret)
-> +		return ret;
+diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+index 1c86e7e98f55..799faa32e2d9 100644
+--- a/arch/arm64/boot/dts/qcom/Makefile
++++ b/arch/arm64/boot/dts/qcom/Makefile
+@@ -339,6 +339,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sdx75-idp.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= shikra-cqm-evk.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= shikra-cqs-evk.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= shikra-iqs-evk.dtb
++dtb-$(CONFIG_ARCH_QCOM)	+= shikra-iqs-evk-m2-wifi-bt.dtbo
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm4250-oneplus-billie2.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm4450-qrd.dtb
+ dtb-$(CONFIG_ARCH_QCOM)	+= sm6115-fxtec-pro1x.dtb
+diff --git a/arch/arm64/boot/dts/qcom/shikra-iqs-evk-m2-wifi-bt.dtso b/arch/arm64/boot/dts/qcom/shikra-iqs-evk-m2-wifi-bt.dtso
+new file mode 100644
+index 000000000000..3264c0add67b
+--- /dev/null
++++ b/arch/arm64/boot/dts/qcom/shikra-iqs-evk-m2-wifi-bt.dtso
+@@ -0,0 +1,107 @@
++// SPDX-License-Identifier: BSD-3-Clause
++/*
++ * Copyright (c) 2026 Qualcomm Technologies, Inc. and/or its subsidiaries.
++ */
++
++/dts-v1/;
++/plugin/;
++
++#include <dt-bindings/gpio/gpio.h>
++
++&{/} {
++	m2_keye_3p3: regulator-m2-keye-3p3 {
++		compatible = "regulator-fixed";
++		regulator-name = "VREG_3P3_KEYE";
++		regulator-min-microvolt = <3300000>;
++		regulator-max-microvolt = <3300000>;
++		gpio = <&qps_gpio_expander 6 GPIO_ACTIVE_HIGH>;
++		enable-active-high;
++		regulator-boot-on;
++		startup-delay-us = <100000>;
++	};
++
++	wifi-bt-connector {
++		compatible = "pcie-m2-e-connector";
++		vpcie3v3-supply = <&m2_keye_3p3>;
++		w-disable1-gpios = <&tlmm 61 GPIO_ACTIVE_LOW>;
++		w-disable2-gpios = <&tlmm 60 GPIO_ACTIVE_LOW>;
++
++		ports {
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			port@0 {
++				reg = <0>;
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				m2_e_pcie_ep: endpoint@0 {
++					reg = <0>;
++					remote-endpoint = <&pcie_port0_ep>;
++				};
++			};
++
++			port@3 {
++				reg = <3>;
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				m2_e_uart_ep: endpoint@0 {
++					reg = <0>;
++					remote-endpoint = <&uart8_ep>;
++				};
++			};
++		};
++	};
++};
++
++&{/wcn3988-pmu} {
++	status = "disabled";
++};
++
++&i2c3 {
++	qps_gpio_expander: gpio@3c {
++		compatible = "nxp,pca9534";
++		reg = <0x3c>;
++		gpio-controller;
++		#gpio-cells = <2>;
++	};
++};
++
++&pcie {
++	iommu-map = <0x0 &apps_smmu 0x0800 0x0 0x1>,
++		    <0x100 &apps_smmu 0x0801 0x0 0x1>;
++	vddpe-3v3-supply = <&m2_keye_3p3>;
++};
++
++&pcie_port0 {
++	compatible = "pciclass,0604";
++	reset-gpios = <&tlmm 118 GPIO_ACTIVE_LOW>;
++
++	port {
++		pcie_port0_ep: endpoint {
++			remote-endpoint = <&m2_e_pcie_ep>;
++		};
++	};
++};
++
++&tc9563 {
++	reg = <0x1ff00 0x0 0x0 0x0 0x0>;
++	status = "disabled";
++};
++
++&uart8 {
++	bluetooth {
++		status = "disabled";
++	};
++
++	port {
++		uart8_ep: endpoint {
++			remote-endpoint = <&m2_e_uart_ep>;
++		};
++	};
++};
++
++&wifi {
++	status = "disabled";
++};
+-- 
+2.43.0
 
-[Severity: High]
-Does this early return path leak the fixed-rate clocks and cause a
-use-after-free for the PCIe clock?
-
-an7583_clk_hw_init() calls en7581_register_clocks(), which registers
-fixed-rate clocks via clk_hw_register_fixed_rate() and a PCIe clock
-via en7523_register_pcie_clk().
-
-Looking at en7523_register_pcie_clk(), it allocates a struct en_clk_gate
-using devm_kzalloc(), but registers it using the unmanaged
-clk_hw_register().
-
-If en7581_reset_register() fails here and we return early, the probe fails.
-The devres framework will automatically free the devm_kzalloc'd
-en_clk_gate structure. However, because the clock was not registered
-with a managed API (like devm_clk_hw_register()), it remains linked in
-the Common Clock Framework.
-
-Can this cause a use-after-free when the framework later accesses this
-clock, as well as a memory leak for the fixed-rate clocks?
-
-[ ... ]
-
-> @@ -1241,6 +1477,18 @@ static const struct en_clk_soc_data en7581_data =
-=3D {
->  	.hw_init =3D en7581_clk_hw_init,
->  };
-> =20
-> +static const struct en_clk_soc_data an7583_data =3D {
-> +	.base_clks =3D an7583_base_clks,
-> +	/* We increment num_clocks by 1 to account for additional PCIe clock */
-> +	.num_clocks =3D ARRAY_SIZE(an7583_base_clks) + 1,
-> +	.pcie_ops =3D {
-> +		.is_enabled =3D en7581_pci_is_enabled,
-> +		.enable =3D en7581_pci_enable,
-> +		.disable =3D en7581_pci_disable,
-> +	},
-
-[Severity: High]
-Is there a race condition here between the clock and reset operations
-on shared SCU registers?
-
-This struct assigns en7581_pci_enable() to the pcie_ops.enable callback.
-Meanwhile, an7583_clk_hw_init() registers reset controls using
-an7583_rst_map.
-
-A driver invoking a clock operation could trigger en7581_pci_enable(),
-while another execution context invoking a reset operation could trigger
-en7523_reset_update().
-
-Both of these operations appear to modify the exact same physical registers
-(like REG_PCI_CONTROL/REG_NP_SCU_PCIC at 0x88 and
-REG_RESET_CONTROL1/REG_RST_CTRL1 at 0x834) using unprotected readl() and
-writel() read-modify-write sequences. Since they belong to different
-frameworks, there is no shared lock protecting the state.
-
-Could this cause data corruption of the SCU register state, leading to
-lost clock enable/disable or reset assert/deassert updates?
-
-> +	.hw_init =3D an7583_clk_hw_init,
-> +};
-> +
->  static const struct en_clk_soc_data en751221_data =3D {
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261012115954.9271=
-8-1-ansuelsmth@gmail.com?part=3D3
