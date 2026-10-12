@@ -1,115 +1,195 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A226D43CE73
-	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 07:00:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CD6E438038
+	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 07:00:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791788445; cv=none; b=npa3/1A9JyVVAybZ+mLqOujLTj1CljiKE5/WBJXpMvdLGhYvIqHsvQgTR0zOUqjeJt+LJfNcDXz6rmz2mPjMIiiHE2cSN9moS/WjxNcaX6QDq0F1VGUuthvrR6z40RzpeoYDExFa9RomvkWmM1njy5nhZ9X7GjfvcGN40iPMEqU=
+	t=1791788446; cv=none; b=Vx0hlrYQL6gsFXsg3XI2rxUgsFKQwpRL+7LO547D8drSi5EbK/bVRtNBY/v1vnAcQmh43EbH4VvulIY8RaKhH7KoKSI3WGtIQOytRXmRShV5ggVJvJ2C7QRDpsr4E2XcZeczerPO05WkuY6iJv2ENGctSwZYtldQoGwMbIiQYa4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791788445; c=relaxed/simple;
-	bh=+esHrw8A827bwmP7zAwxMk0pslZ0NIIMcR6VJkJHJvU=;
+	s=arc-20240116; t=1791788446; c=relaxed/simple;
+	bh=La6IgJpLoT43Nw3m9K0GGyfC1fNLfOF+BJJhYDuSuHE=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=Yol9n5FqPyEAVoIsVU1yIiis1BE+6ZWOgYOIRgaukGYW1wNeDYCpDdGZ4nBZ/d1yeBkR2bZynRB/0EIH0q55tt5uRwxMd802kOM+4JjYV56PQaTk4/Bnc1Cpn4/ZLwq/TmA8brG87ntrLm/Tg/bBzJuHKlFWoKIlc0EMQ6u3gT0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lwb9+lqI; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=mEtb2bleV7Wy8KHekA2t0lFmP+RZdW64TYg1OJT2b4IKDszwUGK1kc38D5eeWMDJoOoGuYVErDz5/866W0o0haQ4hO7FgS73FtlfKEcz5S5+tM5+mpTXR1xQbDaIVS4TQa0Dk5hVkEEWXTs1bCaT7BUFcxX4KQU1INVu53InjGE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=POD/7O5l; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lwb9+lqI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 257E41F0089B;
-	Mon, 12 Oct 2026 07:00:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="POD/7O5l"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C9281F0089D;
+	Mon, 12 Oct 2026 07:00:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791788444;
-	bh=r19Im8HO0VMd/LtZn9fpu+F06N9cUU5a2NFzYpKq+GA=;
+	s=k20260515; t=1791788445;
+	bh=PFIp1TdPGhi/dzhaDgsqYvqouWDSj/ttrVAY52ALsjs=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Lwb9+lqIMoBPxopNffzr76/GdktcJ6JLy55t1ss9ESuXbW4EGzexC04uYmdeaBeN/
-	 nxB/bkx9TLySzo++456GGkHNi0bzv9bJsJq5OJ/oP7qWZNp/fihuMv6UWExJ4WLq6J
-	 ikEBz0KqrltWJv8fLiCyKVFgn1mcMBknlotQWFsf2LZ0EygvR8o0mQIhj6cLz/TlGm
-	 RDobx+UcFxwFX4kErg1H2ffoQVFvN8V4RnKBBHYx/PvypvH2Ka7x+2DYmme0t9S8bs
-	 7oTKnuDJYa56eIdAiMaMbcjxzKbKpePn8UQyfvAf9/MIbyd0GxXs0VNoz8mfdcFNhZ
-	 t3owfYy6Uhf6Q==
-Message-ID: <sashiko-outbox-167764@kernel.org>
+	b=POD/7O5lkr+Y8LsbAOqrJjzw03iqpsY3M0bEzVPks1D4c3b89tqQJKSrTYITb2kpt
+	 J3wFaURcVmpwH4/gBblG7nvtN50JwwfmXK1JysGOLVQiluIr86LXbda83EZK0qPJ/2
+	 4AY4wBvlKZqsRGDZkLEfAngUP9l29hgOz4xTS54EGpMhFiOMjIQQSt3CuQYw9Wo/GP
+	 09E5BL3yFC0mYt/43OP3c8hs/OZADcMHmHYlo4Eg8SsmJ73ZL20NLIaVN5EryfV2cx
+	 1SGltg2GYdre9Ef/VwSqlN4dFWtydBluvP5d3luV+6A+koluVmVAcsguiHx7fLeB3u
+	 h7hn0cAjYo8kg==
+Message-ID: <sashiko-outbox-167765@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v21 09/14] media: qcom: camss: vfe: Add support for VFE
- 1080
+Subject: Re: [PATCH v4 2/2] drm/tiny: Add RAiO RA8875 display controller
+ driver
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Hangxiang Ma" <hangxiang.ma@oss.qualcomm.com>
-Cc: vkoul@kernel.org, olteanv@gmail.com, media-ci@linuxtv.org, linux-phy@lists.infradead.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, neil.armstrong@linaro.org
-In-Reply-To: <20261011-kaanapali-camss-v21-9-04fd28d815c6@oss.qualcomm.com>
-References: <20261011-kaanapali-camss-v21-0-04fd28d815c6@oss.qualcomm.com>
- <20261011-kaanapali-camss-v21-9-04fd28d815c6@oss.qualcomm.com>
+To: "Adam Azuddin" <azuddinadam@gmail.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, conor+dt@kernel.org
+In-Reply-To: <20261012064518.3497285-3-azuddinadam@gmail.com>
+References: <20261012064518.3497285-1-azuddinadam@gmail.com>
+ <20261012064518.3497285-3-azuddinadam@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 12 Oct 2026 07:00:43 +0000
+Date: Mon, 12 Oct 2026 07:00:44 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] media: camss: hardcoded AUP_UPDATE count violates hardware constra=
-int
-- [High] media: camss: data race on csid->aup_update and rup_update
+- [High] drm: sleeping functions called from atomic commit callbacks
+- [High] spi: DMA-mapped buffers embedded in struct ra8875_device lack cach=
+eline alignment
+- [High] drm/tiny: ra8875: heap overflow in ra8875_clear_screen() via overs=
+ized mode
 --
 
-commit bab5581422e8c33728a37abe32648420503fc60c
-Author: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+commit 7912d063f00aebeba1b3f55021d00d84d5599465
+Author: Adam Azuddin <azuddinadam@gmail.com>
 
-media: qcom: camss: vfe: Add support for VFE 1080
+drm/tiny: Add RAiO RA8875 display controller driver
 
-Add support for the VFE (Video Front End) 1080 found on Kaanapali SoC.
+Add a DRM tiny driver for the RAiO RA8875 SPI-connected TFT display
+controller. The driver supports display resolutions up to 800x480
+and uses the GEM shmem helper for buffer management.
 
-> Kaanapali requires REG_UPDATE and AUP_UPDATE to be issued only after all
-> CSID configuration has completed. In addition, the number of AUP_UPDATE
-> requests must match the number of buffers queued to the write master
-> while it is being enabled.
+> diff --git a/drivers/gpu/drm/tiny/ra8875.c b/drivers/gpu/drm/tiny/ra8875.c
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/gpu/drm/tiny/ra8875.c
+> @@ -0,0 +1,719 @@
+
+[ ... ]
+
+> +struct ra8875_device {
+> +	struct drm_device drm;
+> +	struct spi_device *spi;
+> +	struct gpio_desc *rst_gpio;
+> +	struct drm_crtc crtc;
+> +	struct drm_plane plane;
+> +	struct drm_encoder encoder;
+> +	struct drm_connector connector;
+> +	struct drm_display_mode mode;
+> +	u8 cmd_buf[RA8875_CMD_DATA_BUF_SIZE];
+> +	u8 data_buf[RA8875_CMD_DATA_BUF_SIZE];
+> +	u8 *txbuf;
+> +};
 
 [Severity: High]
-Does the current implementation actually enforce this requirement?
+Since these embedded arrays are passed to spi_write() and may be mapped
+for DMA transfers, could they cause memory corruption?
 
-If userspace queues 1 buffer via V4L2 and calls STREAMON, the vb2_queue
-lacks a min_queued_buffers limit in msm_video_register(). Consequently,
-vfe_enable_output_v2() dynamically queues only 1 buffer to the hardware,
-but csid_configure_stream() in camss-csid-1080.c unconditionally issues
-CAMSS_INIT_BUF_COUNT (2) AUP_UPDATE commands.
+During DMA mapping, the CPU performs cache invalidation and flushing
+operations that operate on full cache lines. Because these small buffers
+share cache lines with adjacent members of struct ra8875_device, this risks
+silent memory corruption of adjacent fields (such as the txbuf pointer)
+via false sharing.
 
-Can this mismatch lead to write master state corruption or IOMMU faults
-due to hardware desynchronization?
+Should these be declared with ____cacheline_aligned, or allocated
+separately?
 
-> diff --git a/drivers/media/platform/qcom/camss/camss-vfe-1080.c b/drivers=
-/media/platform/qcom/camss/camss-vfe-1080.c
-> new file mode 100644
-> index 0000000000000..016857cd10251
-> --- /dev/null
-> +++ b/drivers/media/platform/qcom/camss/camss-vfe-1080.c
 [ ... ]
-> +static void vfe_reg_update(struct vfe_device *vfe, enum vfe_line_id line=
-_id)
+
+> +static int ra8875_write_pixels(struct ra8875_device *ra8875, size_t len)
 > +{
-> +	int port_id =3D line_id;
+> +	int ret;
 > +
-> +	camss_reg_update(vfe->camss, vfe->id, port_id, false);
+> +	ra8875->cmd_buf[0] =3D RA8875_CMDWRITE;
+> +	ra8875->cmd_buf[1] =3D RA8875_MRWC;
+> +	ret =3D spi_write(ra8875->spi, ra8875->cmd_buf, 2);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return spi_write(ra8875->spi, ra8875->txbuf, len);
 > +}
 
 [Severity: High]
-Does this introduce a data race on csid->aup_update and rup_update?
+Can this blocking SPI write cause scheduling while atomic warnings?
 
-This call reaches __csid_aup_update() in process context. While local
-interrupts are disabled via vfe->output_lock, there is no cross-CPU
-synchronization.
+The DRM subsystem guidelines state that plane atomic callbacks (like
+ra8875_plane_atomic_update()) execute in an atomic context where sleeping
+is strictly forbidden.
 
-Concurrently, csid_isr() fires in hardirq context (potentially on another C=
-PU)
-and calls __csid_aup_rup_clear(), which performs a bitwise clear on the same
-state variables without holding a shared lock:
+Because ra8875_plane_atomic_update() calls ra8875_fb_dirty() which in turn
+calls ra8875_write_pixels(), this synchronously invokes spi_write(). The
+spi_write() API is blocking, takes a mutex, and sleeps during the transfer.
 
-    csid->aup_update &=3D ~CSID_RUP_AUP_RDI(port_id);
-    csid->rup_update &=3D ~CSID_RUP_AUP_RDI(port_id);
+Could this be moved to a non-atomic worker or handled differently?
 
-Can these concurrent non-atomic bitwise operations cause lost updates
-and corrupt the CSID_AUP_CMD and CSID_RUP_CMD register states, leading
-to stream stalls or hardware misconfiguration?
+> +static int ra8875_hw_init(struct ra8875_device *ra8875,
+> +			  struct drm_display_mode *mode)
+> +{
+> +	u8 hdwr, hndr, hstr, hpwr, vpwr;
+> +	u16 vdhr, vndr, vstr;
+> +	int ret;
+> +
+> +	if (ra8875->rst_gpio) {
+> +		gpiod_set_value_cansleep(ra8875->rst_gpio, 1);
+> +		usleep_range(1000, 1200);
+> +		gpiod_set_value_cansleep(ra8875->rst_gpio, 0);
+> +		msleep(RA8875_RESET_WAIT_MS);
+> +	}
+
+[Severity: High]
+Does this code call sleeping functions from an atomic commit callback?
+
+ra8875_crtc_atomic_enable() calls ra8875_hw_init(), which invokes
+gpiod_set_value_cansleep(), usleep_range(), and msleep().
+
+The DRM guidelines require that CRTC atomic enable callbacks do not sleep.
+Executing these functions within the atomic commit pipeline can cause
+priority inversion, deadlocks, and system instability.
+
+[ ... ]
+
+> +static enum drm_mode_status ra8875_mode_valid(struct drm_crtc *crtc,
+> +					      const struct drm_display_mode *mode)
+> +{
+> +	if (mode->hdisplay % 8 !=3D 0 || mode->hsync_start % 8 !=3D 0 ||
+> +	    mode->hsync_end % 8 !=3D 0 || mode->htotal % 8 !=3D 0) {
+> +		drm_dbg_kms(crtc->dev,
+> +		   "mode timings must be 8-pixel aligned (hdisplay=3D%d hsync_start=3D=
+%d hsync_end=3D%d htotal=3D%d)\n",
+> +			    mode->hdisplay, mode->hsync_start, mode->hsync_end, mode->htotal);
+> +		return MODE_H_ILLEGAL;
+> +	}
+> +	return MODE_OK;
+> +}
+
+[Severity: High]
+Could this validation allow custom modes to trigger a heap buffer overflow?
+
+In ra8875_probe(), txbuf is allocated with a fixed size based on
+RA8875_MAX_WIDTH:
+
+    buf_size =3D 1 + RA8875_TXBUF_ROWS * RA8875_MAX_WIDTH * 2;
+    ra8875->txbuf =3D devm_kzalloc(&spi->dev, buf_size, GFP_KERNEL);
+
+When userspace submits a custom display mode, the DRM core does not restrict
+mode dimensions against mode_config.max_width (which only limits framebuffer
+sizes). Since there is no explicit check here that mode->hdisplay is less
+than or equal to RA8875_MAX_WIDTH, a malicious or oversized mode can reach
+ra8875_clear_screen().
+
+This results in a heap overwrite when deriving the memset length:
+
+    int width =3D mode->hdisplay;
+    ...
+    memset(txbuf, 0, 1 + rows_per_chunk * width * 2);
+
+Should this function verify that mode->hdisplay <=3D RA8875_MAX_WIDTH and
+mode->vdisplay <=3D RA8875_MAX_HEIGHT?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261011-kaanapali-=
-camss-v21-0-04fd28d815c6@oss.qualcomm.com?part=3D9
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261012064518.3497=
+285-1-azuddinadam@gmail.com?part=3D2
