@@ -1,132 +1,104 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6890B1C84A2
-	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 20:33:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77C634BB26D;
+	Mon, 12 Oct 2026 20:36:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791837185; cv=none; b=WSj5t4PRp8mumDyXStCBkjLYN9xdQA3yDLbMMPnbnc0wHdjix7MQa5vaBT+N+ljXeo3EL9tzu81JZxtFBzFy29osHVappPHyq7K6/Cba+1OV2tAtvOXdV2bJMzOgqlKPGTeGaXJOrLB1nLmtEO3JrLqbmv4qIZKDGGfYiLduzRg=
+	t=1791837381; cv=none; b=sc/E9ZBBuQLjuXaNw5wVXiqdqKlAHhVKR/IcHE1mLx2ff4B2iEpRAMxRLvl9VRzNEHMxSYOsiAqZnlSugx+3RZYRyfXAJ9U+1imVGo7f0r69RA+xohP/kDmU2wjtmcm+5nml8GIXYLvqv49JZiWt9G1AmgEHW4a+hKwGPSNxCiQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791837185; c=relaxed/simple;
-	bh=3dDzxAe3v4K6bmvY5Sku2I2OCIIKOOmdO2oWSS/8r5Q=;
+	s=arc-20240116; t=1791837381; c=relaxed/simple;
+	bh=Za46AbOZV+xNrt9erVZQ4GAFMCLmVmdunsegG5jW5JM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tnFk8JHKcf0RUzCuE3Q/L5bOGuOZ4F2uKhuLFqrgiTLxY94uKoudvNDf/nVBmobjF8y3qn6CWwPjMvTiRGJKYHGRBBqdRjiVpoWn8vJ654ysRQZgH4IjYhA9pielz1n6bR1r/zX4E1ahsuzyf4DyKvuP3nxDl6JLzC1HoVg1H5k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=C2J23s9U; arc=none smtp.client-ip=209.85.221.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=YQq1tZcHfEEUGm8sBTnO0Li/aqQQHBW3zxtZSUCLdC7UP3dl1o9elGMe7bUnXH8ky1YFRrqFmv2iv9O0RK+Mvcq9t4GKSMhLDmI4ptfJglQgoJ0woOU7hj3HgRhcS3YM/9OB1OobTT/eq8XPCc6ebdVuR4RyKJ6B4SAt88Eps9E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=kTUTNKIo; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="C2J23s9U"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48b060ec084so1404162f8f.0
-        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 13:33:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1791837182; x=1792441982; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=3dDzxAe3v4K6bmvY5Sku2I2OCIIKOOmdO2oWSS/8r5Q=;
-        b=C2J23s9UubyCJcxmDzteye4q+6hArWUjeY0by9D4HK7rJ4tJ/yjt80Sn3eH2Y8Mugf
-         C+0VLmpl8CluoBNrRVGZgQ+9RyJ2KUX+4CzGVPjYQ64se1W7VwXcF/mA9f1TwZFIllat
-         uk2BrLSFFGedsU9cHS4U77FDx1AkQ4r1HA+wXXjWVWUHNb+kFiGaz3gsQiVCpELiipin
-         GbETdX2vsCCOn4yAfFBvh6A3V8yfWpasbWNCNTQ8uRZR1xKJQ1fsoYBoigTPR7ov1AqD
-         eZ7JIvALkWE86DjAepB7yvbJEOgRpvPFOdrpdXAMdD8BRGqKJQkQ9qYR3Bxrxnqlpt69
-         RpcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791837182; x=1792441982;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3dDzxAe3v4K6bmvY5Sku2I2OCIIKOOmdO2oWSS/8r5Q=;
-        b=yIFDYAI9bT1Ma0M0ulHOd6fifl1oYY6A+tdnQL5sTSP/JhObpCfB2gX8e7egiKV9+P
-         NhETdlW/P7TG15967dT1W7bRJKG85BBm4sYPuF3a4leqVMWrHY3mtl+iE2sMO9974005
-         H4uZN2bK8OndQl/+vwSiMqYT34SdI1ovKDJLHeV9qCyJxk9LlirDgWaXSqrEpKbD86ui
-         uc1DoRlLUc7dGmjta7fZ+OMMnKQRXqFQzokLIuxj4Z6b2diEp++wkkTveFCS9dfceF9T
-         AP5tyFNt/+wROuxvKkn0qGEfq+CDXkd+ggsY/zNcvBCJ4DyzmSRj8PKGxzsPGKjqtTTd
-         Pn3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzUBKItEEiB28EsouXfckfhQFvYPPMFCjJqz9Um3hKHsKP6f8y12xQLUpLDuPYotDW9Ue0qul5XxFDO@vger.kernel.org
-X-Gm-Message-State: AFq9FYLBSykoAl5f2MQcsA8ZFhY2TwEnekP+aGdSAAfYCwZ2RqxjCAvQ
-	xsHXMxubOwMCdOH9VnR3x3zq82Rn3Nn75eO3QJXEOETGGikH+H2IllgbUH5WYKEuA+0=
-X-Gm-Gg: AYBFou1icBymCze1NRgrfD2wz89vuvQ0ZY/61eOHyfTtKScJkzZkZ+XfSQ9J8cGpqmq
-	5zFCMcvChl41LulMWaZ9JaPFdJlSbaf5gYOuvibJeC1XbDQbIcJsQmODt7ZOawEpj/+I2T05piR
-	Pv1ITuzwTVJMYD2tAdqNkLnhsDuI9o+Ou33xH9Lg9zfBYJqf5daqBsRAlmCqVthiixE/TfnBJp2
-	7rcasFH1hfkH+43+W0lqwutzNqyuAyBkE8kfjQQunFzxnpmRbcedDMzNZHaHMjjNOEyaakrth9k
-	5GsSAV039TR+rb5kbkiIVhIy4f2Hj0wGjIanPnhqCkYcQ0YnguGowGfQ3H87+0ydTkB3DXacy6h
-	YBqGQrbyiQdnC6bCDNfQjCvUD3r1WEEtDcQXEsZwyzz/Q0GSjMH+TWna1Nx7+XYLp8koYildjIS
-	UgjKFzwHCVUG3AgfUP6+LVbJUW4HWxQJgjCp/EjbIdXpFYTSx2yGak4h0c13CHlx6YCVovt/QEd
-	WY=
-X-Received: by 2002:a05:6000:2610:b0:48b:60a:760c with SMTP id ffacd0b85a97d-48dbacdbca4mr19746116f8f.31.1791837181259;
-        Mon, 12 Oct 2026 13:33:01 -0700 (PDT)
-Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-48de0967bf5sm1211973f8f.5.2026.10.12.13.32.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 13:33:00 -0700 (PDT)
-Date: Mon, 12 Oct 2026 22:32:58 +0200
-From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: Fil Dunsky <filipp.dunsky@gmail.com>
-Cc: Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
-	Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>, 
-	Russell King <linux@armlinux.org.uk>, Arnd Bergmann <arnd@arndb.de>, 
-	Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-i2c@vger.kernel.org, linux-watchdog@vger.kernel.org
-Subject: Re: [PATCH 04/11] gpio: Add Cortina Systems CS75xx GPIO driver
-Message-ID: <as1Dl08DwxOu-boF@monoceros>
-References: <20261012-b4-cs75xx-s2-v1-0-8a7641b7b79c@gmail.com>
- <20261012-b4-cs75xx-s2-v1-4-8a7641b7b79c@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="kTUTNKIo"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791837379; x=1823373379;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=Za46AbOZV+xNrt9erVZQ4GAFMCLmVmdunsegG5jW5JM=;
+  b=kTUTNKIoRFN7v/zH+2Iy9AfTN0a/VYJp9HKGoAfppjJCLMed/ThGlsVV
+   +MSzkFtWVzyuaax4VBfckpNeWNreP2uvP/iU+07xfaQcejFU4ALs/0Sp6
+   2jYXdGxgjn1wKSwc9EL/bFinHCYzqtozmai6q8BYBdm+oEzikryfw40V4
+   q2PMHMyuduPHzqddMr4jUuOhWUGpKmIL49VYqZYp92wfiZSB+xvGFRNCI
+   /aN6jzTCY58tH+X2UO/oIyIRg28fMaDu1mcemSp4KocTR+HeN+FnuuegL
+   h7P+dJl2fdYOs29Ubs5Zjx1w2xRXXM0rrpJ/C0bcOilwdFtLwEyd6kTkL
+   Q==;
+X-CSE-ConnectionGUID: zQ2mUdSDSXqBkCBnIE9B0g==
+X-CSE-MsgGUID: 6ygZ/XidQXiXI4D+bGqmKg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="561088"
+X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
+   d="scan'208";a="561088"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 13:36:19 -0700
+X-CSE-ConnectionGUID: 9d/e+t5zT6So82zxI7yuog==
+X-CSE-MsgGUID: 4JiFh9SiQ2CP6NJ5GAT3NQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
+   d="scan'208";a="944587"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.179])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 13:36:17 -0700
+Date: Mon, 12 Oct 2026 23:36:14 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Liu Yufei <lyf98405@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] iio: proximity: Add driver for Vishay VCNL36829
+Message-ID: <as1Evs8-uQAwGfaa@ashevche-desk.local>
+References: <20261006100943.78971-1-lyf98405@gmail.com>
+ <20261006100943.78971-3-lyf98405@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="rf3tmjyx6r53tpru"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261012-b4-cs75xx-s2-v1-4-8a7641b7b79c@gmail.com>
+In-Reply-To: <20261006100943.78971-3-lyf98405@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
+
+On Tue, Oct 06, 2026 at 06:09:43PM +0800, Liu Yufei wrote:
+
+> Add an IIO driver for the Vishay VCNL36829 proximity sensor with
+> integrated VCSEL, connected over I2C.
+> 
+> At probe the driver enables the vdd and vddio supplies, waits for the
+> sensor to power up, checks the device ID, configures the VCSEL current
+> and photodiodes, and turns the proximity engine on. The sensor is put
+> back into shutdown when the device is removed.
+> 
+> The following attributes are exposed:
+>   - in_proximity0_raw
+>   - in_proximity_integration_time
+>   - in_proximity_integration_time_available
+
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+
+...
+
+> +static int vcnl36829_write_raw(struct iio_dev *indio_dev,
+> +			       struct iio_chan_spec const *chan, int val,
+> +			       int val2, long mask)
+
+Please, wrap on a logical boundary:
+
+			       struct iio_chan_spec const *chan,
+			       int val, int val2, long mask)
+
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
---rf3tmjyx6r53tpru
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Subject: Re: [PATCH 04/11] gpio: Add Cortina Systems CS75xx GPIO driver
-MIME-Version: 1.0
-
-Hello,
-
-On Mon, Oct 12, 2026 at 08:32:59PM +0300, Fil Dunsky wrote:
-> +#include <linux/mod_devicetable.h>
-
-Please don't include this file. It contains a plethora of defines for
-subsystems not in use here.
-
-> [...]
-> +#include <linux/platform_device.h>
-
-You can rely on <linux/platform_device.h> to yield definitions for
-of_device_id and so drop <linux/mod_devicetable.h> without a
-replacement.
-
-The same applies to patches 6 and 7.
-
-Best regards
-Uwe
-
---rf3tmjyx6r53tpru
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrNQ/cACgkQj4D7WH0S
-/k6KYQgAgMQZQqqATk7u8/7+zLh1eyfjz96I/KQyBnZbLC753ncNp95vppbzeXYB
-/6Xnb+1PMj4yifoVS9rR2GPW2P4F2cVCiv4ys86vtgjDRRS9qfpvIqAGD5bdkjpR
-AfIu4ZintCl+3dtuqg2yWsp/Njn0OkGzE115dAhtJMsZGrpiAbpkStIsB8lUqPSl
-H5jFp9iVNDnb+9rZe0ckSQeZwDR5JuTFUJq72G71eY2jfDyzjH02v8EejbZDDjqp
-vF/L57mOl847cYmA78hOqMnQrXpBaqqNs+uY6m8YLPt5Jgq+OkWhvGGit0ts5Mlt
-rdJZC0MMQbclAkv16e9nS/twKH5mPQ==
-=4pay
------END PGP SIGNATURE-----
-
---rf3tmjyx6r53tpru--
