@@ -1,40 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 236A34BE453;
-	Mon, 12 Oct 2026 17:47:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED9754BEE22;
+	Mon, 12 Oct 2026 17:47:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791827260; cv=none; b=hHJVtYcQ9c0vHnhMm4lEVBBKAJUQPDz+EiS/rlWHdkEw1sMG60Q/Q6AmDw5GlD52U0AxF9cEQqrDiyZem0JRDoIED8RVs92iVeTL9UB8mRFrUGakNd0infBsWiCjMf38sesN+1IrcGefxL+cwYSD9khLLc9eQtaUSDMEF4VOrSg=
+	t=1791827261; cv=none; b=El0u2uSMk6bUfhnxzsnv1Cmpirw51stSE5YLvALw8Sn+BbP+o5j72XykPM+9nsyGkptCUoUoByg3CLXH5VhWl42spOlMkuJ45ddefwRvRxlDvisCxqbbF+CR2vqMFprPhfqHJkTFoELpTfzeDazWbgsDIs6zh817VwGl4iklIYM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791827260; c=relaxed/simple;
-	bh=sZRgqXSqB2/tAIK5OKCgzPl5xC7PjZqUl/g29e6RhpQ=;
+	s=arc-20240116; t=1791827261; c=relaxed/simple;
+	bh=HRQ1O6EulqxQt/chiywfvk3Vf8YqlHGIWEKyKBBlgvI=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=M/5zZqCMoD3h+sfsrtik2iLzFxFO3v1LLjdTfO+rnshCFxrB2dCtV9w2a56y5x/kWtm8lf/QSERLKplQ+arI09DW4lKrHeesoXFV2QiHsK18Hnvgs2cVrkB79O6ke2QQ9Il3oQhWz+906l4PbJB+eCofDJNdhI6z6BxMzsca9Io=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LQu3NzXs; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=rHBdVWrMKjOkBc7ioJHENMRlRi95HKdr3y4N8cKw1ns3DQTy/huMR/lDx6OrOG+gSE+lQ3ynbbtDI2v4f0FeHyKcEPIFY3RlrQ68b3sl21fQwZfN0s2JSyXaRuz12Vmn8X9/ZQV28M0k7L+NW2vvKKIBUudquIqWsCHnZHT2bm4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hJzdsUOj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LQu3NzXs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8ACC31F0089B;
-	Mon, 12 Oct 2026 17:47:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hJzdsUOj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57B3D1F008A1;
+	Mon, 12 Oct 2026 17:47:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791827258;
-	bh=nCjjKfUdcvt4bUqXSVYXbALYjqTxIDxgMt0aT2LnB90=;
+	s=k20260515; t=1791827259;
+	bh=leu95z4p6M+Lzf/VaaXZ68TDFGBxwERu44pPSEaZqbE=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=LQu3NzXsB+/r9f1kPcKMNQ+mrLrg2OyErS9oH8kGMMov9nAonpKbMeq/jGpjKR6df
-	 fWuANamUncRFqRTtPQvl9E73fHpNAAmhCS0bSNdD+s6+DZba5DaO1HuPlQy2sQWmrJ
-	 hsyIZ7URqJ/Pfni7Gd0wzKvzAU5EmSSFmC3XutXGkIqMY3UFrXZxSfhk+UC+7kdQBC
-	 rDe1Sp6mC3A18J6HEw9h1Y7/FI/wvuO+jvK3XiJrRgxZuhyg9FCAUsp1BnHs5uDekA
-	 jySSONizAsqoMO3N+zJ/qGn4YA3aewVSC8MDDWeVV39fz4TbLfqF7b3/foiMLfH/wB
-	 NIaEX5C74EfAw==
-Message-ID: <sashiko-outbox-168490@kernel.org>
+	b=hJzdsUOjPdTlZys3SWLjCPElUc78QiYKWihNqM2uRWV/3BkR8OuaPDcJbZ4QAeJUX
+	 D342o/Rc6oXkkYyJ2jP+VLGekMbTCIXtv4NR8qFK4n/t2Bj/0WtEdoc4TXHpYOoqzn
+	 SREs1EPwlpzdeuV3i/uUkRQuk7l5lf4dfJwPyZFdOV7bU64TXxCF9eaAqjO0NWf7ws
+	 z7KRQupOzD0ucMEo5MAhzCneKuqmPY3jvjtik31P9F7pnx6rd5dXvvcGBdBJUj7RAV
+	 N8BkOA+GsCCMuonb8er9hiQo4HmZZp5oCRnZtAkkniSRUKQwkqbMtL9xES2JIyYPdV
+	 l33nZ3cJdtjXA==
+Message-ID: <sashiko-outbox-168492@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 04/11] dt-bindings: usb: Add NVIDIA LSTP USB adapter
+Subject: Re: [PATCH 04/11] gpio: Add Cortina Systems CS75xx GPIO driver
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Adrian Ambrozewicz" <aambrozewicz@nvidia.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, linux-usb@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20261012-lstp-usb-adapter-v1-4-aambrozewicz@nvidia.com>
-References: <20261012-lstp-usb-adapter-v1-0-aambrozewicz@nvidia.com>
- <20261012-lstp-usb-adapter-v1-4-aambrozewicz@nvidia.com>
+To: "Fil Dunsky" <filipp.dunsky@gmail.com>
+Cc: linux-watchdog@vger.kernel.org, conor+dt@kernel.org, linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20261012-b4-cs75xx-s2-v1-4-8a7641b7b79c@gmail.com>
+References: <20261012-b4-cs75xx-s2-v1-0-8a7641b7b79c@gmail.com>
+ <20261012-b4-cs75xx-s2-v1-4-8a7641b7b79c@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 Date: Mon, 12 Oct 2026 17:47:38 +0000
@@ -44,110 +44,135 @@ List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Low] dt-bindings: missing required interrupt-controller properties for G=
-PIO variant
+- [High] gpio: cs75xx: TOCTOU race overwrites IRQ trigger hardware state
+- [Medium] gpio: cs75xx: BOTH_EDGES state corruption on invalid IRQ type
+- [Medium] gpio: cs75xx: missing ngpios bounds check causes OOB read and sh=
+ift UB
 --
 
-commit e512df165fd25f0219b3ca663151d385bd684eb0
-Author: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
+commit a5885a6ba82fad811f622ae265473cbbb66fe3ae
+Author: Fil Dunsky <filipp.dunsky@gmail.com>
 
-dt-bindings: usb: Add NVIDIA LSTP USB adapter
+gpio: Add Cortina Systems CS75xx GPIO driver
 
-This commit adds the device tree bindings for the NVIDIA LSTP USB adapter. =
-The
-device multiplexes multiple channels over one USB interface and reports its
-channels itself. The bindings allow describing peripherals on the buses, GP=
-IO
-lines, and LEDs that cannot be reported automatically.
+This commit adds a driver for the GPIO banks of the Cortina Systems CS75xx
+SoCs, handling data and direction registers via gpio-mmio and providing an
+interrupt controller with level and edge trigger support.
 
-> diff --git a/Documentation/devicetree/bindings/usb/nvidia,lstp.yaml b/Doc=
-umentation/devicetree/bindings/usb/nvidia,lstp.yaml
-> new file mode 100644
-> index 0000000000000..62b21051ab20e
+> diff --git a/drivers/gpio/gpio-cs75xx.c b/drivers/gpio/gpio-cs75xx.c
+> index 0000000000000..168af0e37ac20
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/usb/nvidia,lstp.yaml
+> +++ b/drivers/gpio/gpio-cs75xx.c
 [ ... ]
-> +                    i2c@2 {
-> +                        compatible =3D "nvidia,lstp-i2c";
-> +                        reg =3D <2>;
-> +                        #address-cells =3D <1>;
-> +                        #size-cells =3D <0>;
+> +static int cs75xx_gpio_irq_set_type(struct irq_data *d, unsigned int typ=
+e)
+> +{
+> +	struct gpio_chip *gc =3D irq_data_get_irq_chip_data(d);
+> +	struct cs75xx_gpio *g =3D gpiochip_get_data(gc);
+> +	u32 mask =3D BIT(irqd_to_hwirq(d));
+> +	u32 lvl, edge;
 > +
-> +                        temperature-sensor@48 {
-> +                            compatible =3D "ti,tmp102";
-> +                            reg =3D <0x48>;
-> +                        };
-> +                    };
+> +	guard(gpio_generic_lock_irqsave)(&g->chip);
 > +
-> +                    gpio@3 {
-> +                        compatible =3D "nvidia,lstp-gpio";
-> +                        reg =3D <3>;
-> +                        gpio-controller;
-> +                        #gpio-cells =3D <2>;
-> +                        gpio-line-names =3D "LED", "INT";
-> +                    };
-
-[Severity: Low]
-Does this example omit the mandatory interrupt controller properties for th=
-is
-GPIO variant?
-
-The Device Tree Bindings guidelines state that when a hardware variant acts=
- as
-an interrupt controller, it must define the capabilities in the required
-properties list. It appears the schema in
-Documentation/devicetree/bindings/gpio/nvidia,lstp-gpio.yaml incorrectly
-classifies these as dependent instead of required:
-
-Documentation/devicetree/bindings/gpio/nvidia,lstp-gpio.yaml:
-dependentRequired:
-  interrupt-controller: ["#interrupt-cells"]
-  "#interrupt-cells": [interrupt-controller]
-
-required:
-  - compatible
-  - reg
-  - gpio-controller
-  - "#gpio-cells"
-
-Since the schema permits incomplete node definitions, this example can pass
-dt_binding_check validation silently despite omitting the mandatory
-interrupt-controller and #interrupt-cells properties.
-
+> +	lvl =3D readl(g->base + CS75XX_GPIO_LVL);
+> +	edge =3D readl(g->base + CS75XX_GPIO_EDGE);
+> +	g->both_edges &=3D ~mask;
 > +
-> +                    ipmi@4 {
-> +                        compatible =3D "nvidia,lstp-ipmi";
-> +                        reg =3D <4>;
-> +                    };
+> +	switch (type & IRQ_TYPE_SENSE_MASK) {
 [ ... ]
-> +            i2c@1 {
-> +                compatible =3D "nvidia,lstp-i2c";
-> +                reg =3D <1>;
-> +                #address-cells =3D <1>;
-> +                #size-cells =3D <0>;
-> +            };
+> +	default:
+> +		return -EINVAL;
+> +	}
+
+[Severity: Medium]
+Does this sequence cause a regression in the BOTH_EDGES state if an invalid
+IRQ type is requested?
+
+The both_edges bitmask is modified before validating the requested type. If
+the request falls through to the default case (e.g., IRQ_TYPE_NONE) and ret=
+urns
+-EINVAL, the state mutation is already committed.
+
+If the pin was previously operating in IRQ_TYPE_EDGE_BOTH mode, the interru=
+pt
+handler will no longer flip its polarity on subsequent interrupts, causing
+a regression in the pin's functionality.
+
+Could we defer modifying g->both_edges until after all validation succeeds?
+
+[ ... ]
+> +static int cs75xx_gpio_irq_reqres(struct irq_data *d)
+> +{
+[ ... ]
+> +	guard(gpio_generic_lock_irqsave)(&g->chip);
+> +	g->irq_used |=3D BIT(hwirq);
+
+[Severity: Medium]
+Could this result in undefined shift behavior if hwirq is 32 or greater?
+
+If a Device Tree specifies an ngpios value greater than 32, this assignment
+could invoke shift undefined behavior because BIT(hwirq) is assigned into
+32-bit state variables.
+
+While the current in-tree DT might not specify ngpios, should we clamp
+gc->ngpio to 32 during probe to protect against malformed DT inputs?
+
+[ ... ]
+> +static void cs75xx_gpio_irq_handler(struct irq_desc *desc)
+> +{
+> +	struct gpio_chip *gc =3D irq_desc_get_handler_data(desc);
+> +	struct cs75xx_gpio *g =3D gpiochip_get_data(gc);
+> +	struct irq_chip *chip =3D irq_desc_get_chip(desc);
+> +	unsigned long pending;
+> +	unsigned int offset;
 > +
-> +            gpio@2 {
-> +                compatible =3D "nvidia,lstp-gpio";
-> +                reg =3D <2>;
-> +                gpio-controller;
-> +                #gpio-cells =3D <2>;
-> +            };
+> +	chained_irq_enter(chip, desc);
+> +
+> +	pending =3D readl(g->base + CS75XX_GPIO_INT) &
+> +		  readl(g->base + CS75XX_GPIO_IE);
+> +
+> +	for_each_set_bit(offset, &pending, gc->ngpio) {
 
-[Severity: Low]
-Does this example also omit the mandatory interrupt-related properties?
+[Severity: Medium]
+Will this loop read out of bounds if gc->ngpio exceeds BITS_PER_LONG?
 
-Similar to the previous example, this node is missing the interrupt-control=
-ler
-and #interrupt-cells properties required for a hardware variant with interr=
-upt
-controller capabilities.
+If the Device Tree specifies a larger ngpios value, iterating over a single
+stack-allocated unsigned long pending with gc->ngpio could cause a stack
+out-of-bounds read on 32-bit architectures (where unsigned long is 32 bits).
 
-> +        };
-> +    };
+> +		if (g->both_edges & BIT(offset)) {
+> +			guard(gpio_generic_lock)(&g->chip);
+> +			cs75xx_gpio_set_polarity(g, BIT(offset));
+> +		}
+
+[Severity: High]
+Can this lockless condition check expose a Time-Of-Check to Time-Of-Use
+(TOCTOU) race that can overwrite the IRQ trigger hardware state?
+
+The g->both_edges bitmask is checked locklessly before acquiring g->chip.lo=
+ck.
+A concurrent call to cs75xx_gpio_irq_set_type() on another CPU could:
+
+1. Acquire the lock
+2. Reconfigure the trigger type (clearing the bit in g->both_edges)
+3. Update the hardware LVL and EDGE registers
+4. Release the lock
+
+The interrupt handler would then acquire the lock and execute
+cs75xx_gpio_set_polarity(), which blindly reads and overwrites the LVL regi=
+ster
+based on the current pin level. This would overwrite the new trigger
+configuration just established by irq_set_type(), leaving the hardware in an
+incorrect state.
+
+Should we re-evaluate the both_edges condition after the lock is acquired, =
+or
+acquire the lock before performing the check?
+
+[ ... ]
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261012-lstp-usb-a=
-dapter-v1-0-aambrozewicz@nvidia.com?part=3D4
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261012-b4-cs75xx-=
+s2-v1-0-8a7641b7b79c@gmail.com?part=3D4
