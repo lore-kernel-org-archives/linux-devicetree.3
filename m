@@ -1,111 +1,97 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 809892E717B;
-	Mon, 12 Oct 2026 16:40:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C63AB4AAC63;
+	Mon, 12 Oct 2026 16:43:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791823260; cv=none; b=uI/Xa8nigljMvMCeJCM9Ok1JGGFeMn3Z6Qd/A+0T8+EfNwW4iNlaEOQhzJlDLArqA/fNlzf1YgsJMGusyGi8rGbQLL+sVIMmxSi9ujG5uxh4nmmPx2R+JPWdMNs7Uti183JlkG6v0vF7MNHpTXLCucpVjS5iEN5y4Vm/0XaHPz8=
+	t=1791823417; cv=none; b=aWWqZaQRTEg4zYIfXPwRgkBnY93dSFssY6t3QYt0yerIt1Y7VmIymju32PrasRvsSoxW6t44zaNd4Zr9s278GKQVe+kN7g/H35e3pNXEsQ+vd8xeox0f2GgTtjkyL0u5R6Korblre9C4OOr/on6f6YdIkr0VlX3ggk/FvuzT7tU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791823260; c=relaxed/simple;
-	bh=psu8SUNxGWOkv+ylpg3Mn+GzzgQJS+IaRBtMvOCtzD0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Pi5aMlbxd2t3u3AuC4cH/j+rBa2CKhw/H1UDiDcRtKSRHOzLGmdJYFPooDR82/35DT7uKedsvbb7OMDlJHNFoCYZeHbEaYQSuWNhYvexum0GbZVn39lGl42SFUIAxb7BzP/p3QzvpkkH3LzhQf7ZAUxKs0RmormIVU6YggUoHn0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=hnc5ghg+; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1791823417; c=relaxed/simple;
+	bh=cv0YOCl67A2bSUYRl7ofUt87v7F05LKG20xnzj4vBDQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NYeqKUmCl/yyuyMTAxVYZt8S5EmYUoB/g0125uMeWdNFQH5xFutIf1VgetngAU9VlR3TlGEesCR+6jDyDIk8cmuwVjcYlWtF4PT1mKfjRUtu1GhtI5k1IqlStCXkOkGGmHTBfQKVMCxYj5LhBrAGVY2TkEPEWh/IfN3/G0ypH1U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=etABn+zr; arc=none smtp.client-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="hnc5ghg+"
-Received: from killaraus.ideasonboard.com (i68975AE2.versanet.de [104.151.90.226])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 548F322B;
-	Mon, 12 Oct 2026 18:38:54 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1791823134;
-	bh=psu8SUNxGWOkv+ylpg3Mn+GzzgQJS+IaRBtMvOCtzD0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=hnc5ghg+R78pkLio/XQ2zib4fsPKVAHorkCShNxFoD4zgwwrLD2NIcUtbT8pUvzTs
-	 Xw7bWX9M0vc7aktIrGNXxW1xwOq8V/a33mjOSm1DBMdHOXTOUhKAVVU4UyMX6bkCXr
-	 Irp4BHU/3pyjtlDvlqUucJq65YtM9uPKgarMmyk0=
-Date: Mon, 12 Oct 2026 18:40:54 +0200
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: Leonardo Costa <leoreis.costa@gmail.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="etABn+zr"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791823416; x=1823359416;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=cv0YOCl67A2bSUYRl7ofUt87v7F05LKG20xnzj4vBDQ=;
+  b=etABn+zreZG82UHdUj8viJwI/aaDxUxVPVJd+dLJ/Fr8E+g4OJwgSD5h
+   TmhICwW/DQCRrSplgmrYJ5jcJHj1gJ+9N65bzndrGS1NhAlHndYC5UQLl
+   3IalA/cPhpxum/xUwz4NNzUStVDGhlBZBaYOrWVOGBaLduqslZvvkv0x3
+   Lq/VmhPZKx+NhCjyOEBszRchxW4vVe19+Q+afDuOzriYE8L0rkSH+pn1w
+   2KaaBp3uCDSdqz1s6HHuFxIxqmk2sbq79MaOne/1nB6/jV5U5qdM8xi5D
+   Bqr26L0bvEYqLaaxFXZOF4TFF8YEqSbeypdl2UqN+FBDLIUN0UI2MF4uv
+   g==;
+X-CSE-ConnectionGUID: 2plwdumoSlqA00nrGps2Ag==
+X-CSE-MsgGUID: ydvbwMavQqyFiPotLK6xyQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="410051"
+X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
+   d="scan'208";a="410051"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 09:43:35 -0700
+X-CSE-ConnectionGUID: xpmaf2bASx++l5FWpus8sw==
+X-CSE-MsgGUID: r/lN0FUZQY2Znx5r3hSaZQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
+   d="scan'208";a="1004908"
+Received: from gklab-103a-129.igk.intel.com ([10.91.103.129])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 09:43:33 -0700
+From: Dawid Glazik <dawid.glazik@linux.intel.com>
+To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	Leonardo Costa <leonardo.costa@toradex.com>
-Subject: Re: [PATCH 0/3] Add VGA support for Apalis iMX6
-Message-ID: <20261012164054.GA56180@killaraus.ideasonboard.com>
-References: <20261012-v1-apalis-imx6-enable-vga-v1-0-8905d8746504@toradex.com>
+	Conor Dooley <conor+dt@kernel.org>,
+	Joel Stanley <joel@jms.id.au>,
+	Andrew Jeffery <andrew@codeconstruct.com.au>
+Cc: devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-aspeed@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	dawid.glazik@linux.intel.com,
+	maciej.lawniczak@intel.com
+Subject: [PATCH v2 0/3] arm: dts: aspeed: add Intel AVCRP and JNCRP BMC platforms
+Date: Mon, 12 Oct 2026 19:39:04 +0200
+Message-ID: <cover.1791825961.git.dawid.glazik@linux.intel.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20261012-v1-apalis-imx6-enable-vga-v1-0-8905d8746504@toradex.com>
+Organization: Intel Technology Poland sp. z o.o. - ul. Slowackiego 173, 80-298 Gdansk - KRS 101882 - NIP 957-07-52-316
+Content-Transfer-Encoding: 8bit
 
-On Mon, Oct 12, 2026 at 04:25:22AM -0300, Leonardo Costa wrote:
-> This series adds a device tree overlay that enables the VGA output on Apalis
-> iMX6, which is driven from a parallel RGB interface passing through a
-> non-programmable video DAC.
-> 
-> The video DAC is a simple resistor network gated by an active-low
-> data-enable signal. For the bridge to work properly, this series also
-> changes the following in the dt-bindings and simple-bridge driver:
-> 
-> - dt-bindings: Add a new compatible for the bridge in the simple-bridge
->   binding. This is necessary because the existing dumb-vga-dac compatible
->   doesn't describe a data-enable signal polarity.
-> 
-> - simple-bridge: Add the VGA bridge match-table entry and timings
->   struct, setting the DRM_BUS_FLAG_DE_LOW flag for the bridge.
+This series adds initial upstream support for the Intel AVCRP and JNCRP
+BMC platforms based on the ASPEED AST2600.
 
-Is there schematics available anywhere ? That would help reviewing the
-series ?
+The first two patches extend the ASPEED board binding to describe the new
+Intel platform compatibles. The remaining patches add the corresponding
+board DTS files and register them in the ASPEED DTB build list.
 
-> 
-> This change depends on another patch, and should be applied after it:
-> 
-> - https://lore.kernel.org/all/20261002-v1-simple-bridge-atomic-check-v1-1-ef5d8332b078@toradex.com/T/#u
-> 
->   Adds the atomic_check function to the simple-bridge driver, which
->   allows the data-enable bus flag to be propagated through the DRM
->   pipeline. This is necessary for the VGA to work correctly on the
->   Apalis iMX6.
-> 
-> Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
-> ---
-> Leonardo Costa (3):
->       dt-bindings: display: bridge: simple: Add the Toradex Apalis iMX6 VGA DAC bridge
->       drm/bridge: simple-bridge: Add Toradex RGB to VGA DAC bridge
->       ARM: dts: imx6q-apalis: Add VGA overlay
-> 
->  .../bindings/display/bridge/simple-bridge.yaml     |  1 +
->  arch/arm/boot/dts/nxp/imx/Makefile                 | 21 ++++++
->  .../boot/dts/nxp/imx/imx6q-apalis-eval-vga.dtso    | 79 ++++++++++++++++++++++
->  drivers/gpu/drm/bridge/simple-bridge.c             | 10 +++
->  4 files changed, 111 insertions(+)
-> ---
-> base-commit: f5f84daefcd92d7a630066635ecea1433ed5eac7
-> change-id: 20260928-v1-apalis-imx6-enable-vga-5c7ba6b358fe
+Dawid Glazik (3):
+  dt-bindings: arm: aspeed: Add Intel AVCRP and JNCRP boards
+  ARM: dts: aspeed: add Intel AVCRP BMC
+  ARM: dts: aspeed: add Intel JNCRP BMC
 
+ .../bindings/arm/aspeed/aspeed.yaml           |   2 +
+ arch/arm/boot/dts/aspeed/Makefile             |   2 +
+ .../dts/aspeed/aspeed-bmc-intel-avcrp.dts     | 315 ++++++++++++++++++
+ .../dts/aspeed/aspeed-bmc-intel-jncrp.dts     | 258 ++++++++++++++
+ 4 files changed, 577 insertions(+)
+ create mode 100644 arch/arm/boot/dts/aspeed/aspeed-bmc-intel-avcrp.dts
+ create mode 100644 arch/arm/boot/dts/aspeed/aspeed-bmc-intel-jncrp.dts
+
+
+base-commit: e7ae89a0c97ce2b68b0983cd01eda67cf373517d
+prerequisite-patch-id: 3af4bd880f896c97741b54ee18845b305a4bd061
+prerequisite-patch-id: 23091b539ec7723a865d82da7703bf70c6ed0222
+prerequisite-patch-id: ac42a7a373fdc407f6377d0b1c74d728af50ba42
 -- 
-Regards,
+2.43.0
 
-Laurent Pinchart
