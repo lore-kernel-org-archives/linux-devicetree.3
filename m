@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDC4E365A0B;
-	Mon, 12 Oct 2026 06:03:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AB46367B60;
+	Mon, 12 Oct 2026 06:04:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791785010; cv=none; b=eWxhWi1T3PTikxkWmVLmryNQpWlkmDMdY6qqhO+wIoA9LMZYqFcc/fUzU7yOpZu4mLby0B70FQKevjat/qSbusmSXhGmnMTuYPz11cFkeZQRo4GwwJ3Xmv/KNd9dGdQjemvkOVcasojtSXvfndqmqZuPGRJiIc6IeSgnELgdJyU=
+	t=1791785089; cv=none; b=PuzL9d18lHiBzdw6Nj5WSA57fQewxKoGcxyBTOfFdKf80OESxunWcd9EibbFqJItBV5k5XAd+cDHTX/EtH4v1RTDZR6LiPkSfL52hBsUMcKLXUZ20kTtNCP1r0/h4phs+BYr+fRkyt/jdq8yrKK/qpxdtwH7pI09tmTpEojauNA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791785010; c=relaxed/simple;
-	bh=oHXc5p0pSS/n7ZP6g/85X8idEaDmUpalhQ6+/cl7uDU=;
+	s=arc-20240116; t=1791785089; c=relaxed/simple;
+	bh=wsCaupWmTE8Xdj57F18yMHRYSHjo/aBIBZq8IeFdniE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lTPSrmr3cM5oX41iTYYCnMTHsFGDpERqEyT7xCE7h1SsmX8KLIUv+l9fmCz7kreCqU8Uv0fc/dX6SsqZbgc36NTbWlXgZGrTuHgOt8Pah433ptVHzRLcc0dPATwI+xIIoQ4iN3g2xCbn6A5pQfR+ry9aepCheabaOIOp6/R5iDE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kepFskVv; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=RNUhjgWxs0OSP4qVEGKRoa4X1iT0IQRIDqusEeqht3nbkXTq1a/ErXvB5TQBLPQ0z/d5LyA72sYXRpXhfjP3CDMS0fXpNzsQhtwqnHSRVT4+FqLkAaIJGw0Bz5sps7s14c+99PzwXsXdL9rw8sbMVk54WSO7+42Z6MquMgQuYaA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YFR5XPx7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kepFskVv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 134791F0089B;
-	Mon, 12 Oct 2026 06:03:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YFR5XPx7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 979701F0089B;
+	Mon, 12 Oct 2026 06:04:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791785007;
-	bh=7s31RLb+A+Cl+AgPE135NUAXOUdyJaO/bVhnzCsnTDE=;
+	s=k20260515; t=1791785088;
+	bh=HHfWHjWV61LYPfzfGjbSk/13e1VVPrQht3tWRrZHfYs=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=kepFskVvWslTNBq88YopkJYJsrNA/n1GG2Q++TQVgUsEAwgYPbteKuVxElJ3UvgS9
-	 sVmnDL7LMZ4wqq+mhqzWpw2B4EmGIYiamBzjwsTjZPo1gINA5LVvyvoVcugi2s8qZP
-	 ppun+Cy4m0BiH5ahaEJaCIWtlIG+uqGpmr+n7aT8QVbYDHzy6fm9yJqzdtNWxChA3w
-	 XUZZWFymgVzqpy8j4awUfR3I/GWJNy2MbnhtZKNwDGV2TLQV93lPQ8u9Wt/SQ0QniY
-	 Z4k20dqZldWPvSPm31KsVD/KXLhqebf1L1Xg4/BlIGl4L0Z8pcH0PXsn7jDppadV8I
-	 iKcEUGUVm/Byg==
-Message-ID: <2bdabb3c-5af3-4784-aa8c-8981e83a163b@kernel.org>
-Date: Mon, 12 Oct 2026 08:03:21 +0200
+	b=YFR5XPx7WfZr9lvccRlWYf6I1SRcVawgkcwMJzU4WxmC9y1f7xeaOCNCUFbJ8PSmi
+	 mFQjXj+ATpL8MRNrr+M6iYS6QqsAYb06cRTKpZRyPX7Rb2iPWqWnNrcQ0l1PLH8miB
+	 mpt9TDfTFeo+KQdzj+J2Om5JRZuH2gAG2O3CU5j5ods9oe1mlgrk/SU8pDc86lXC/k
+	 v9rrkqaRj0k1N7TPyldlbK6CZvBnME0X9nRIJe5kBYtPGlfy+PNhERcoyli4tVjs7e
+	 2nOwqFjYBh0tPbygLA9kePJmZ77e0bYUIp4iV3Ehnu/d5zrK+xCElUJoctvGuvXv7L
+	 nom+09r+d4EaA==
+Message-ID: <be3f853e-8b37-4b41-a998-94de1cb552f3@kernel.org>
+Date: Mon, 12 Oct 2026 08:04:39 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,15 +35,23 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] dt-bindings: pwm: Convert NXP PCA9685 PWM controller
- to DT schema
-To: Jeremy Dean <deaner92@yahoo.com>, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
- <ukleinek@kernel.org>, Rob Herring <robh@kernel.org>,
+Subject: Re: [PATCH v5 01/11] Documentation: Correction in HID output_report
+ callback description.
+To: Jingyuan Liang <jingyliang@chromium.org>, Jiri Kosina <jikos@kernel.org>,
+ Benjamin Tissoires <bentiss@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+ Mark Brown <broonie@kernel.org>, Steven Rostedt <rostedt@goodmis.org>,
+ Masami Hiramatsu <mhiramat@kernel.org>,
+ Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+ Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>,
  Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20261009211523.56122-1-deaner92.ref@yahoo.com>
- <20261009211523.56122-1-deaner92@yahoo.com>
+Cc: linux-input@vger.kernel.org, linux-doc@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org,
+ linux-trace-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ hbarnor@chromium.org, tfiga@chromium.org, fqwqf@fqwqf.xyz, daleyo@gmail.com,
+ Jarrett Schultz <jaschultz@microsoft.com>,
+ Dmitry Antipov <dmanti@microsoft.com>
+References: <20261009-send-upstream-v5-0-384af01da3ee@chromium.org>
+ <20261009-send-upstream-v5-1-384af01da3ee@chromium.org>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -89,31 +97,25 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261009211523.56122-1-deaner92@yahoo.com>
+In-Reply-To: <20261009-send-upstream-v5-1-384af01da3ee@chromium.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 09/10/2026 23:15, Jeremy Dean wrote:
-> Convert the NXP PCA9685 PWM controller binding to DT schema format.
+On 10/10/2026 00:25, Jingyuan Liang wrote:
+> From: Jarrett Schultz <jaschultz@microsoft.com>
 > 
-> Changes from the text binding:
+> Originally output_report callback was described as must-be asynchronous,
+> but that is not the case in some implementations, namely i2c-hid.
+> Correct the documentation to say that it may be asynchronous.
 > 
-> Document the 'reg' property and make it required. It was missing
-> from the text binding, although the example used it and the device
-> cannot work without the I2C address.
-> 
-> Rename the example node to the generic 'pwm', as required by
-> pwm.yaml.
-> 
-> Describe both cells of the PWM specifier, and state that 'invert'
-> and 'open-drain' apply to all outputs, as per the datasheet (INVRT
-> and OUTDRV bits in MODE2).
-> 
-> Assisted-by: LLM
-> Signed-off-by: Jeremy Dean <deaner92@yahoo.com>
+> Signed-off-by: Dmitry Antipov <dmanti@microsoft.com>
+> Reviewed-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+> Tested-by: Dale Whinham <daleyo@gmail.com>
 
-As explained already - this is not correct. Read submitting patches -
-you need to use full name, not first given names.
+No, you cannot test documentation. Do not add fake tags when they simply
+do not apply.
+
+
 
 Best regards,
 Krzysztof
