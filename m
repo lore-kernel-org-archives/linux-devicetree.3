@@ -1,101 +1,360 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f177.google.com (mail-vk1-f177.google.com [209.85.221.177])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28F95399CF5
-	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 16:48:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D61D39EF14
+	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 16:50:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.177
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791823718; cv=none; b=E6K2fnCLYsnZLNcxe0L3ExQW9AjIM6XyVHy+Ll4ggDkcwPUT4lhsZvu3iRg/I+wB2zz4mz8UZPRJ6MfwQRYlcDLjN/Jig7xs9jGlkXphMRqRf7peWy5XDKnH938VCod2vqqu6RNwPZFb0Kc0d2/1Z3KSduoK6DVs1q1QelobbuU=
+	t=1791823807; cv=none; b=nH61IsQzLkfT01/11xeaydSPECSmsvwdVMmAdLC+RmT1Lf3Mh7kJQeeW4WHSWi70uZUKbio2JGoqylEhajtQdwoBzkBTKJ2362tMH44Ehsz1qcV5PnOho5mmrRc7bbU7IMsqaFyyaq7WnWYJiiICv9YqhlHvRRWsI/yxIVdCwSQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791823718; c=relaxed/simple;
-	bh=0mcho/0NHv4AZRaC2wCxa3vJoP7I6swT/Ctuq1MnCLA=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=Koeg0HU2tB6sPABOpqEzIneCJUKgg/HHlfRwS5JjxbmJDWZ9vhAuXtjQxVlEq3EbYsy5zxLHw0iKeaRIDH0jsJVGHNWtzPEOs0LUJlFfuFSw4OWnkhvcXxI7MaUd1ZXQyKDe6V9KYH+d2/Wrzb5P/qc4HhngIlF7ftojwfYhFmI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JYzaSAMw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791823807; c=relaxed/simple;
+	bh=quQwnIj6OIrZnBodtas8IUiIPPeHDprJ/iM/6DxR2UY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=p1npvkDCzz+28lHhuPH1THIv3d3czPp9NRR5RgcDuQy18iq5AAXPRluMLKvL7bqpJ18Ku6nPGazkav2t/0otPCL2+iqfd2zf6rLHNJeJdUfmgsVh4+Sm4kPKiDlib3Gf+SOuWJoFv7+kH+bE7LZ8ShGiMEBFGCquwFCOPKyGHSE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=K5WtBdZg; arc=none smtp.client-ip=209.85.221.177
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JYzaSAMw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 982931F0089B;
-	Mon, 12 Oct 2026 16:48:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791823716;
-	bh=AJqjCy7uhcThfOODZM+MrXLrVwfWe+HQdgrcyhjtrKM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=JYzaSAMwb6M26vTh2YIkePm9YyeUsR+up8FdtfysGJHAV+krEe4zUTUYQIj15yFM9
-	 prmC/taV2heklhhoT+sgvO2BlP0z15kUcLVqM1aSMBVkvNiAstw7cremU0/rVGycjj
-	 hiShOqGXjygOxsVdFoxjdu76Ab21fFpQAbnVPnV95Y1ck7h1Rg99AJmMVMNQtYaP8Q
-	 gEsLMuGzYok6OQGlVb0wU+qOa0uGRB1EEgDLuPOlRAb/HZ8TPOtnvXaMv8p4o3Mg/X
-	 MhKAW5LWavUEUSYlOB3y8m0iQg2fFvp3tnIOSPI7y2Vw7IggyFil99x/VOv0JoZB/S
-	 fADivaYXuJ95Q==
-Message-ID: <sashiko-outbox-168431@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: reset: introduce
- toshiba,tc9564-reset.yaml
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alex Elder" <elder@riscstar.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20261012164354.3872326-2-elder@riscstar.com>
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="K5WtBdZg"
+Received: by mail-vk1-f177.google.com with SMTP id 71dfb90a1353d-5e78346891fso1809995e0c.1
+        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 09:50:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1791823805; x=1792428605; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8gdCTGKWsCIcwZXjnFbmDDgPCpqAVnX/FbE20RWWDCc=;
+        b=K5WtBdZgSfaoGvsePZksQs5Qvaqk4YjUc1EzqLQAxYXUTbY42JWpuWZk8381fOTcGd
+         DPLNSyysvE/irF6jpIt6bpenh5qo/MCG8fJsvdgVT156uIHnDiopGY5RyE48t5QYlJni
+         EMXrTbrOGRTtTckvmFCm6LZ5qQuVxcH8iEztKUtB73qB+2asjsXXSpSGqYQDFipRhUba
+         /khF05Rs4/g8gVjulUe8ZlpTBljoXCGiHxdtGLnLUtnSrtXGRKj6NHPFeZhbYwH7KP8i
+         z4ky34dU6oCphoTxBrnIaP1/ElgI/FfKgGg64fWLnQdag9bt32+GiOV3EMxxsNxNeFVf
+         +ohQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791823805; x=1792428605;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8gdCTGKWsCIcwZXjnFbmDDgPCpqAVnX/FbE20RWWDCc=;
+        b=xxdm4WbbsPPeCAOy2ihcr4ChKYxY2aYbyJQ5K4qVILXgqRYWpiKJJvej34xPnP8nNQ
+         2cboKRXzN48XgDRjVG1tgX1DSOfBbiGGz12D8ANJ/FDiIy87mc2Gb1Kpmk2AEbxBsRrh
+         ydGX4JLMMVSnAqppxGi5myBLpDpUqkOg+Z9AFHaHHErfj4jeEmvP2YZmnGAiqlhXf1vJ
+         ePBN7ltYRPDYOcrstTeaGbUM21r9nqCp5YEihefaQ8Cxe/Ev1AVi8RlJss6YRq2PR+8L
+         VyI8KFHod26zMmVz82yy3IHmXHVBRs+qODOcvo/k6fnqX7fLu1NAyQmxIV8zmX6tFlp6
+         GAbw==
+X-Forwarded-Encrypted: i=1; AKwUvBz8wzF5tAte0PtxDZRwdPY40aUKFjE/ragQ85F0mxxCZypLsmZ0lwSQDsExkM0ov8kbnAtB+fXJF7E4@vger.kernel.org
+X-Gm-Message-State: AFq9FYL2zciUgH/SdNVvqDKNaj4DhSMbvur3hOA1XTOkLeHo0z4eJ/Kr
+	5U07/UNFPzmaQo9b7YX3OMm8qiG7rkPedyQ4KMDayWtyL9f4Z145XNZ7a7rSOMQJJGYulQGHVC4
+	G2JaEWoY=
+X-Gm-Gg: AYBFou1uZihfORxlRM/rNl22GZ7DyX/gjifQAd/l3lw1IyqENYc31gcxyQZ5cvz1AbJ
+	SJ2lgunxOMhAQ4nmNfsLEQ/7K/Uf2qQuDT4jcS9T7AYf7ed4I3xxFTPnFUv1++MDgpQjRF/dC8u
+	QzJxV/JaFKqZx5gd+dc79egCv7WyQgzWsrB1hJq83ENOuAEXogbbdqyIAisR/7tvOO09mFMp5Ul
+	a7dhfmJ0paxh1wzvAw6ABmtAm3yAzvXzi0KtmhiwHTVn6uorCYpt9cQ0jFYtg2HDZRKMNB7X64s
+	Tyq/tqL8/4LJlqbxYRaGog4BQdNBhrRFMCyZE+FxJT6VBQ5ywNdYhBj1Q8Wh4D9IGPMSy69bsEE
+	/tPK/crdhZDvK6HwfncPPJHDEpUvtai7yi/J+0DrGCSm/zgK6hbnYMRgAteIx09J7g49I/jfDod
+	48mf/QCcI+i383ApweCD0KuI/eoOZ/KSkrTqCwHNtqaTe4Xh9zgM4qSd6XrQkc1XTRCSsMQtqa5
+	U4=
+X-Received: by 2002:a05:620a:3720:b0:93e:5dcb:eb9b with SMTP id af79cd13be357-93ebd24ecabmr1839177685a.42.1791823439341;
+        Mon, 12 Oct 2026 09:43:59 -0700 (PDT)
+Received: from zippy.localdomain ([73.62.185.64])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93ef5090050sm24998885a.40.2026.10.12.09.43.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 09:43:59 -0700 (PDT)
+From: Alex Elder <elder@riscstar.com>
+To: p.zabel@pengutronix.de,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: mohd.anwar@oss.qualcomm.com,
+	lorenzo.bianconi@oss.qualcomm.com,
+	danielt@kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Daniel Thompson <daniel@riscstar.com>
+Subject: [PATCH 2/2] reset: toshiba: introduce a TC9564 SoC reset driver
+Date: Mon, 12 Oct 2026 11:43:53 -0500
+Message-ID: <20261012164354.3872326-3-elder@riscstar.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20261012164354.3872326-1-elder@riscstar.com>
 References: <20261012164354.3872326-1-elder@riscstar.com>
- <20261012164354.3872326-2-elder@riscstar.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 12 Oct 2026 16:48:36 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Low] dt-bindings: syscon missing hardware-specific compatible in example
-- [Low] dt-bindings: incorrect node name 'reset' instead of 'reset-controll=
-er'
---
+Define a new platform driver that manages reset signals implemented by
+the Toshiba TC9564 SoC.  There are 13 reset signals available, although
+only 11 can be controlled.
 
-commit 86eb967be387fadac7b22aba279d8ed01983af26
-Author: Alex Elder <elder@riscstar.com>
+Two registers manage the state of the resets.  The registers are
+accessed via a regmap supplied by a system controller, because the
+region of memory accessed is shared with other drivers.
 
-dt-bindings: reset: introduce toshiba,tc9564-reset.yaml
+Access to the memory region is provided via a BAR on a PCIe endpoint
+function embedded in the TC9564 SoC.  For that reason the PCIe reset
+cannot be manipulated by this driver (it is assumed to be deasserted).
+Similarly, control is not available for the I2C reset, because the
+PCIe subsystem on the TC9564 relies on I2C.
 
-This commit defines the binding for the reset controller functionality pres=
-ent
-in the Toshiba TC9564 SoC. It includes a new YAML schema, a header file for
-the reset IDs, and updates the MAINTAINERS file.
+Co-developed-by: Daniel Thompson <daniel@riscstar.com>
+Signed-off-by: Daniel Thompson <daniel@riscstar.com>
+Signed-off-by: Alex Elder <elder@riscstar.com>
+---
+ MAINTAINERS                  |   1 +
+ drivers/reset/Kconfig        |  12 +++
+ drivers/reset/Makefile       |   1 +
+ drivers/reset/reset-tc9564.c | 192 +++++++++++++++++++++++++++++++++++
+ 4 files changed, 206 insertions(+)
+ create mode 100644 drivers/reset/reset-tc9564.c
 
-> diff --git a/Documentation/devicetree/bindings/reset/toshiba,tc9564-reset=
-.yaml b/Documentation/devicetree/bindings/reset/toshiba,tc9564-reset.yaml
-> new file mode 100644
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/reset/toshiba,tc9564-reset.yaml
+diff --git a/MAINTAINERS b/MAINTAINERS
+index d0eb44079fe17..a8f4982ed1a43 100644
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -28185,6 +28185,7 @@ M:	Alex Elder <elder@kernel.org>
+ M:	Daniel Thompson <danielt@kernel.org>
+ S:	Maintained
+ F:	Documentation/devicetree/bindings/reset/toshiba,tc9564-reset.yaml
++F:	drivers/reset/reset-tc9564.c
+ F:	include/dt-bindings/reset/toshiba,tc9564.h
+ 
+ TOSHIBA WMI HOTKEYS DRIVER
+diff --git a/drivers/reset/Kconfig b/drivers/reset/Kconfig
+index eda9c698a95f3..b40736368894c 100644
+--- a/drivers/reset/Kconfig
++++ b/drivers/reset/Kconfig
+@@ -358,6 +358,18 @@ config RESET_SUNXI
+ 	help
+ 	  This enables the reset driver for Allwinner SoCs.
+ 
++config RESET_TC9564
++	tristate "Toshiba TC9564 reset support"
++	depends on TC9564_PCI
++	select MFD_SYSCON
++	default TC9564_PCI
++	help
++	  This enables support for the reset controller embedded in the
++	  Toshiba TC9564 SoC.  The state of reset lines is controlled
++	  via MMIO to a region managed by a system controller; this
++	  ensures access to the region is coordinated between this and
++	  the clock and XGMAC (stmmac) drivers.
++
+ config RESET_TENSTORRENT_ATLANTIS
+ 	tristate "Tenstorrent atlantis reset driver"
+ 	depends on ARCH_TENSTORRENT || COMPILE_TEST
+diff --git a/drivers/reset/Makefile b/drivers/reset/Makefile
+index 489fafd6bbe3f..6ddded26309ef 100644
+--- a/drivers/reset/Makefile
++++ b/drivers/reset/Makefile
+@@ -45,6 +45,7 @@ obj-$(CONFIG_RESET_SKY1_AUDSS) += reset-sky1-audss.o
+ obj-$(CONFIG_RESET_SOCFPGA) += reset-socfpga.o
+ obj-$(CONFIG_RESET_SUNPLUS) += reset-sunplus.o
+ obj-$(CONFIG_RESET_SUNXI) += reset-sunxi.o
++obj-$(CONFIG_RESET_TC9564) += reset-tc9564.o
+ obj-$(CONFIG_RESET_TENSTORRENT_ATLANTIS) += reset-tenstorrent-atlantis.o
+ obj-$(CONFIG_RESET_TH1520) += reset-th1520.o
+ obj-$(CONFIG_RESET_TI_SCI) += reset-ti-sci.o
+diff --git a/drivers/reset/reset-tc9564.c b/drivers/reset/reset-tc9564.c
+new file mode 100644
+index 0000000000000..0243c2e0efd54
+--- /dev/null
++++ b/drivers/reset/reset-tc9564.c
+@@ -0,0 +1,192 @@
++// SPDX-License-Identifier: GPL-2.0-only
++
++/*
++ * Copyright (C) 2026 by RISCstar Solutions Corporation.  All rights reserved.
++ */
++
++#include <linux/bits.h>
++#include <linux/device-id/of.h>
++#include <linux/mfd/syscon.h>
++#include <linux/module.h>
++#include <linux/platform_device.h>
++#include <linux/regmap.h>
++#include <linux/reset-controller.h>
++
++#include <dt-bindings/reset/toshiba,tc9564.h>
++
++#define RST_CTRL0_OFFSET	0x1008
++#define RST_CTRL1_OFFSET	0x1010
++
++struct tc9564_reset {
++	u32 offset;		/* RST_CTRL0_OFFSET or RST_CTRL1_OFFSET */
++	u32 mask;		/* Zero means undefined reset */
++};
++
++struct tc9564_resets {
++	struct regmap *regmap;
++	struct reset_controller_dev rcdev;
++};
++
++#define TC9564_RESET_INIT0(_name, _bit)	__TC9564_RESET_INIT(_name, 0, _bit)
++#define TC9564_RESET_INIT1(_name, _bit)	__TC9564_RESET_INIT(_name, 1, _bit)
++
++#define __TC9564_RESET_INIT(_name, _reg, _bit)		\
++	[RESET_##_name] = {				\
++		.offset	= RST_CTRL ## _reg ## _OFFSET,	\
++		.mask = BIT(_bit),			\
++	}
++
++/*
++ * The PCIe and I2C resets are controllable, but we depend on PCIe
++ * and that relies on I2C, so we don't allow them to be asserted.
++ */
++static const struct tc9564_reset tc9564_reset[] = {
++	TC9564_RESET_INIT0(MCU, 0),
++	TC9564_RESET_INIT0(MCU1, 1),
++	TC9564_RESET_INIT0(INTC, 4),
++	/* TC9564_RESET_INIT0(PCIE, 9), */
++	/* TC9564_RESET_INIT0(I2C, 12), */
++	TC9564_RESET_INIT0(UART, 16),
++	TC9564_RESET_INIT0(MSIGEN, 18),
++
++	TC9564_RESET_INIT0(MAC0_MAC, 7),
++	TC9564_RESET_INIT0(MAC0_PMA, 30),
++	TC9564_RESET_INIT0(MAC0_XPCS, 31),
++
++	TC9564_RESET_INIT1(MAC1_MAC, 7),
++	TC9564_RESET_INIT1(MAC1_PMA, 30),
++	TC9564_RESET_INIT1(MAC1_XPCS, 31),
++};
++#define TC9564_RESET_COUNT	ARRAY_SIZE(tc9564_reset)
++
++static const struct tc9564_resets *
++rcdev_to_tc9564_resets(struct reset_controller_dev *rcdev)
++{
++	return container_of_const(rcdev, struct tc9564_resets, rcdev);
++}
++
++static int tc9564_reset_manage(struct reset_controller_dev *rcdev,
++			       unsigned long id, bool assert)
++{
++	const struct tc9564_resets *resets = rcdev_to_tc9564_resets(rcdev);
++
++	if (id < rcdev->nr_resets) {
++		const struct tc9564_reset *reset = &tc9564_reset[id];
++		u32 mask = reset->mask;
++
++		if (mask)
++			return regmap_update_bits(resets->regmap,
++						  reset->offset, mask,
++						  assert ? mask : 0);
++	}
++
++	dev_err(rcdev->dev, "invalid reset (%s id %lu)\n",
++		assert ? "assert" : "deassert", id);
++
++	return -ENXIO;
++}
++
++static int tc9564_reset_assert(struct reset_controller_dev *rcdev,
++			       unsigned long id)
++{
++	return tc9564_reset_manage(rcdev, id, true);
++}
++
++static int tc9564_reset_deassert(struct reset_controller_dev *rcdev,
++				 unsigned long id)
++{
++	return tc9564_reset_manage(rcdev, id, false);
++}
++
++static const struct reset_control_ops tc9564_reset_control_ops = {
++	.assert = tc9564_reset_assert,
++	.deassert = tc9564_reset_deassert,
++};
++
++static void tc9564_reset_assert_all(struct tc9564_resets *resets)
++{
++	for (u32 id = 0; id < TC9564_RESET_COUNT; id++)
++		if (tc9564_reset[id].mask)
++			tc9564_reset_manage(&resets->rcdev, id, true);
++}
++
++static struct tc9564_resets *tc9564_reset_init(struct device *dev)
++{
++	struct reset_controller_dev *rcdev;
++	struct tc9564_resets *resets;
++	struct regmap *regmap;
++	int ret;
++
++	regmap = syscon_node_to_regmap(dev_of_node(dev->parent));
++	if (IS_ERR(regmap)) {
++		dev_err(dev, "failed to get config regmap\n");
++		return ERR_CAST(regmap);
++	}
++
++	resets = devm_kzalloc(dev, sizeof(*resets), GFP_KERNEL);
++	if (!resets)
++		return ERR_PTR(-ENOMEM);
++	resets->regmap = regmap;
++
++	rcdev = &resets->rcdev;
++	rcdev->ops = &tc9564_reset_control_ops;
++	rcdev->owner = THIS_MODULE;
++	rcdev->dev = dev;
++	rcdev->of_node = dev_of_node(dev);
++	rcdev->nr_resets = TC9564_RESET_COUNT;
++
++	ret = devm_reset_controller_register(dev, rcdev);
++	if (ret)
++		return ERR_PTR(ret);
++
++	return resets;
++}
++
++static int tc9564_reset_probe(struct platform_device *pdev)
++{
++	struct device *dev = &pdev->dev;
++	struct tc9564_resets *resets;
++
++	if (!dev_of_node(dev))
++		return dev_err_probe(dev, -EINVAL, "no devicetree node\n");
++
++	resets = tc9564_reset_init(dev);
++	if (IS_ERR(resets))
++		return dev_err_probe(dev, PTR_ERR(resets),
++				     "failed to initialize resets\n");
++
++	/* Force all resets to be initially asserted */
++	tc9564_reset_assert_all(resets);
++
++	platform_set_drvdata(pdev, resets);
++
++	return 0;
++}
++
++static void tc9564_reset_remove(struct platform_device *pdev)
++{
++	struct tc9564_resets *resets = platform_get_drvdata(pdev);
++
++	/* Leave all resets asserted when done */
++	tc9564_reset_assert_all(resets);
++}
++
++static const struct of_device_id tc9564_reset_ids[] = {
++	{ .compatible = "toshiba,tc9564-reset" },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, tc9564_reset_ids);
++
++static struct platform_driver tc9564_reset_driver = {
++	.probe = tc9564_reset_probe,
++	.remove = tc9564_reset_remove,
++	.driver = {
++		.name = KBUILD_MODNAME,
++		.of_match_table = tc9564_reset_ids,
++		.probe_type = PROBE_PREFER_ASYNCHRONOUS,
++	},
++};
++module_platform_driver(tc9564_reset_driver);
++
++MODULE_DESCRIPTION("Toshiba TC9564 Reset Driver");
++MODULE_LICENSE("GPL");
+-- 
+2.53.0
 
-[ ... ]
-
-> +examples:
-> +  - |
-> +    #include <dt-bindings/reset/toshiba,tc9564.h>
-> +
-> +    syscon@0 {
-> +        compatible =3D "syscon", "simple-mfd";
-
-[Severity: Low]
-Does this example fail dt_binding_check validation? The core syscon.yaml
-schema typically requires a hardware-specific compatible string to precede
-generic fallbacks like "syscon" and "simple-mfd".
-
-> +        reg =3D <0x0 0x2000>;
-> +
-> +        reset {
-
-[Severity: Low]
-Should this node be named "reset-controller" instead of "reset"? The core
-reset.yaml schema enforces the ^reset-controller(@.*)?$ naming convention
-for nodes providing resets (identified by the #reset-cells property).
-
-> +            compatible =3D "toshiba,tc9564-reset";
-> +            #reset-cells =3D <1>;
-> +        };
-> +    };
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261012164354.3872=
-326-1-elder@riscstar.com?part=3D1
