@@ -1,76 +1,78 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DE7F1DF261
-	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 11:10:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1D7141F37D
+	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 11:12:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791803406; cv=none; b=ETlyMUDvfaMjur2tVSdKUMlnPENhgSE/XW2C8NVF3OW6FWvreZp6Sqi+AeVo5hIuCzNlhuJ6QlHMhunhd6gU1PCWPG76iiX5+fgEa4JjEThrcbzEod+/UIEDdyG3YQIQ/bYzS4uX0MuJmimofbwt2TlRonWMuLwKvgQt7meNiTc=
+	t=1791803535; cv=none; b=OKM2fvNVuXrJnDYrwkRCLk+klrxVAfYJ0WKag8vyyCKQoS5U5FpHPT7GHASqD5N/o156UwFkySWENOsnWDnV1zXJS4Qth9nio7/4SJIFVa+2ncDjt8SgluaDClffUCx/EL/1C+E4RlnmjSiTK9c8ZMqTAA/vx0XYwrZxN0W+egE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791803406; c=relaxed/simple;
-	bh=g71acWOwhbzJ290pVkw5jld4zbq8QvuQo9b7GDaGEC4=;
+	s=arc-20240116; t=1791803535; c=relaxed/simple;
+	bh=9tKgi4nob0gWR6jL8cW6sSvoweRp2FvqFVGmLEAabvk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GcC5sltfSpla3W4FHoUPJ6ZPg5eDNqyRDK2UAv2w8b8wIVD7kSxZMMYJPdvbW0g6cUMVM3G6DbJfoiWQIKPZeeB+QXMsGO6wTHyyYl+plKvQJ6R/eC6O1/8cVNKCKxTg3Lobi2BIcyOkFG4Z3eUSljTQfOGMWRqD3+OZcnXgOV4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=DIa0nqN9; arc=none smtp.client-ip=209.85.128.47
+	 Content-Type:Content-Disposition:In-Reply-To; b=LhbwaFzoLTV+/PDl9fFk5A/UGNkHx0JH2VuMSRglsqAoDOENT3mchcKIGc1XXlzqwBdY3vGSf1ZLluJGJ2q1nILFgAhBmJFyDMKz73ySTTK+k/z2CAVi4AeRVbh9opZhkpvFtFOKR5PTvrn+JBo9ibl7hF8vnVQgdlKd0tqmSNk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=eJLxshFX; arc=none smtp.client-ip=209.85.128.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="DIa0nqN9"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a19cba5c14so10657505e9.3
-        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 04:10:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="eJLxshFX"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a172eb31f0so12377995e9.1
+        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 04:12:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1791803403; x=1792408203; darn=vger.kernel.org;
+        d=baylibre.com; s=google; t=1791803532; x=1792408332; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=7k45PANz4WRUzNBot8+/uXuq6lmVd6FWyB01BZ/WnJA=;
-        b=DIa0nqN9nf36m4RlBfpYZQPI+f77gxrbxyJZ5sFUjCiDMmdEV14tLg47Gg8uoPiSUz
-         duuXgpN/x7YOic1NvA8op4VfHCz3uZ/YDnDyUk0hwG9HeL5W2wL8lBxcUri6+lXczb9r
-         e1tSBWEunHButNmitmEhiwJYhuZTFaZknzw8GBt2qAWQdyUQE3v5u4Q9bDIp7D+RTEEr
-         Dx0HVMQudXFU7nuRqtb1VIjSE3vnHsCC/71yOYfkBES52qUYCYqq2BgBfjzHV6xaf4uB
-         iHYHILux3NIDZ0viCPAFwzbogmh8xECq/p4/OmuATwiEFpxVfRfiXtxnLu0Z//8m6KiF
-         /T7A==
+        bh=F75F9HJtYHpGQDNYPN6c7t7CsTnjwZyQElA+GAGdfiI=;
+        b=eJLxshFXW66ujj/jUXKO15xOdtOFscSAK+pmJ2/+1NXsGcHUBQR29/z3ASxDTsccvO
+         mY7d2/ZnwtDkYW12WxhQHq65i53s7v4TnjwFmYz+PAa7Djc0epEJV3Brj3UnW5r1v4LA
+         hzZyVjyaO0aMEXQfdtTOsHAJSqRat0Om3IfRn6yIWy8doINC+cTJ38Rhh7nLVwM8HmIG
+         CLfbIA92w+QDrS3TNTnaGKDZqMZOOavlf5Bx2mBEc/qgtWwQD/ORXoTq9MAu3953eXAk
+         3LQRkmwvtK2Op6NJP95x1UtoJSc4arU+RKW43jrpEYaJlYgoMBi6f98AtldAVcWwrgvM
+         uHZQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791803403; x=1792408203;
+        d=1e100.net; s=20260707; t=1791803532; x=1792408332;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=7k45PANz4WRUzNBot8+/uXuq6lmVd6FWyB01BZ/WnJA=;
-        b=ULFXUptpA9x20QjdLklsSDERQhgXpQqyQ764UOwNkxrWyAmOzqsuUiwvullDcOAeum
-         koaNtQF3nHgB4CZiSkMYB6HfTdlqmDf9su9ek59OlHXAAFAkuQaAxDSHOXsXl1G38knb
-         TYviduxxoKwBM/vQvBK/43RSS+Opn3M6AzD/CL1Cy2GtawrsABFcH2O/TuRgfQOoe8CN
-         lqfqbywg9y//+Ds6uP1TmlL0oj6vwx6FWh669Z1EKLp2Ot6BB3xB6VlYii4E6+cmw10r
-         qdZVrtZ/9H+cUAcpPBwDeMmye+Wd/BWBdHXfFRnNk1CcH4W4SuzKY1mi/gxbZWFLIsZI
-         DzRw==
-X-Forwarded-Encrypted: i=1; AKwUvBw8r2mT/Cz5gyv8jrkZwQrd4xG9/sxrxi/olE48nVUSU5WiRo5WwAK7cbck3f3ClAqSe0w95laEcySu@vger.kernel.org
-X-Gm-Message-State: AFq9FYJVuoxLlWmg/JZVV7hges9GoEC2oP+JCVD/nF44q+XZC+yYYSDw
-	dTkA35/fqNIFbr27oPrjl/xFQKoYHv+FYQgEZ3+hXowEsgvOo/dLSU0cLUNqhQF8ypg=
-X-Gm-Gg: AYBFou1483j/8QqQvPo74uHe8CBSZh27Bt/6bSJeOqISQZcP+TaMKArjL/g7vtqMFV0
-	QJu0BpU3O9ac7fEVnV1DicY43p6UlAcN/WIELvu/ZbMARporpkL2HwgcHMso4YZD4ibJhegRqK2
-	h8aEPmL+O+ZEIZcZHpWQYsY0IMHQZux+fSk+eFPCcH3MuwQxoG75ZwJrEghBD6A8kuydYg4dEtS
-	GUwyI0F/v84UQMn24R1VMFObNTkBNqTKdbjIrdbavtDYqf46fdDhGwbNZbfzflxgrZCsHv24nsP
-	CjS7mYGsLpZSD3eLr9KniLBhXWAK5FB2+lPbrKByoGILh0ON8PumFoSPRNkq7J059T35EjiW4v8
-	XmTSZDCocletDVglj4pZ6n6n23BD/2lwT698cp2J47fQ4A+8PxpZZ5lmQF+1b8c17NdsWauD40W
-	YIfNvxfNb0krKTsubbPYaM0z0thP4fajFCaI3HGyl7QSPyQ74ci21bwK9HRZzK03fiAI2OT+x3Q
-	m3e0x1ZeY5v24cXygkM0JAgvk6i7ZAWSG+FtKVTEdG6WT6Gf9yVAoTb4PSGKdiu7G6JN+ZX
-X-Received: by 2002:a05:600c:4ecd:b0:4a1:96cd:2f60 with SMTP id 5b1f17b1804b1-4a19ecf4c20mr49066785e9.3.1791803402684;
-        Mon, 12 Oct 2026 04:10:02 -0700 (PDT)
+        bh=F75F9HJtYHpGQDNYPN6c7t7CsTnjwZyQElA+GAGdfiI=;
+        b=0XlJgLZxTB3fmG+4M1BCzb8As9id42Xfbk8M5VTYxqYiKTh+BfNcLJ+HvmPkzpgyA8
+         HV3w5x/zkH6S4CD8BBn/B/8W8rdb+odcURO9z0S4fbs+40wKKYh8lHVVbyZMkkr7bU/i
+         uu+40X5ANQkAF3+8zfN5AmdlDK2RusrCUFZSMI1RAatWHk5kiOQyEVKJ7e6gAqgwP4jV
+         0YsCcyKB+QHgGZlvvlCpSI4cyghYr0jG0yCcSY0wZLswPALWe+dygRc5PAOOMEzqVWnb
+         qB1W9yW9BI+DLmzOMUnftFVPyS4wpIV/5P286AThlut4qQRz5ITKHG6LO8af6+R2JcPv
+         vziA==
+X-Forwarded-Encrypted: i=1; AKwUvBxEOPnveQdzw7p7O3qwGxOczgrb0UeA8tcSgKehpsPe4o7Uh9WrlEnhu+4PRwdHBcD3wmbSMVeTXVfN@vger.kernel.org
+X-Gm-Message-State: AFq9FYIF2oHxK8BjRi6dAFxbL12yjgqYrUz/qeNMrf6wjr3n4zwowrPC
+	rvUfZwh5ixrtBVxuFBvyII882rh3UYGsxXm9PkZEqdQkr4pjV59diA9RvtXmtUE8uKg=
+X-Gm-Gg: AYBFou1O3V72g0IBtVKmjdaDIlY4VqZeS1Ei9EHWsHFCCX58kWoYJxwL62FUVPjoNJX
+	QX3+LhEuRvGH53bfSdgtvfsc4hZ1gFETMuxRPb/bpSiFoiosssX9OKzfHf55kLT3kr6w7OYIhrL
+	PdzbZArVNSAkkwqPifHVskqKIpv0vropNdxauy4YQpYU5tCwltqIRlrK3j0Lg/cPYYRgTOWdjbf
+	X+vKJrvHAYWKGOOOjHyVLKNcqzzIXRBIYrNGmWevA6YMfW6pwthKJE53gv8iLJgXEu9PInX1jp0
+	euaTGMWUvuyBWOJVzw+KlwvcxsssvJQr+ict/hI5S0ZrcsSealJyL5sJG09AfGMa/pR/WtcOesC
+	ybUb/cC2QG8vJxfjayTptsSA/STZhiM4paBcCwJ5ZbrEMk6XsAe7w1wOKsM6rEV1nXFlk523s5C
+	NyxFHNRbRZK0LzUKq+9yRwbUdyedh+QtCEIH2L7QK5A3VNtyywNrwsIa5APCVje5L/fp6Iroktf
+	Tacl5wwac8tUh4kOLAvY1LrICK0vHc3LzOW9g3vAg4DQCRFLX1reuqg+k8JKfM=
+X-Received: by 2002:a05:600c:3e0a:b0:4a0:1c10:1419 with SMTP id 5b1f17b1804b1-4a18e4cd667mr168009045e9.26.1791803531853;
+        Mon, 12 Oct 2026 04:12:11 -0700 (PDT)
 Received: from localhost (p200300f65f19a904ade4f69ba751c34c.dip0.t-ipconnect.de. [2003:f6:5f19:a904:ade4:f69b:a751:c34c])
-        by smtp.gmail.com with UTF8SMTPSA id 5b1f17b1804b1-4a18be96549sm391352405e9.6.2026.10.12.04.10.01
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-48db94e33c7sm20513096f8f.10.2026.10.12.04.12.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 04:10:01 -0700 (PDT)
-Date: Mon, 12 Oct 2026 13:10:00 +0200
+        Mon, 12 Oct 2026 04:12:10 -0700 (PDT)
+Date: Mon, 12 Oct 2026 13:12:09 +0200
 From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-To: armandas.kvietkus@proton.me
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Griffin Kroah-Hartman <griffin.kroah@fairphone.com>, 
-	linux-input@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/2] Input: aw8697 - Add Awinic AW8697 haptics driver
-Message-ID: <asy_k9PGKJF9sEXZ@monoceros>
-References: <20260930-mainlining-v2-0-40bb1b3943db@proton.me>
- <20260930-mainlining-v2-2-40bb1b3943db@proton.me>
+To: radu.sabau@analog.com
+Cc: Lars-Peter Clausen <lars@metafoo.de>, 
+	Michael Hennerich <Michael.Hennerich@analog.com>, Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Nuno =?utf-8?B?U8Oh?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-iio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/2] iio: imu: Add driver for the ADI ADIS16607
+Message-ID: <aszAHLVf7MEqvht7@monoceros>
+References: <20261001-adis16607-v1-0-9c89cee35d56@analog.com>
+ <20261001-adis16607-v1-2-9c89cee35d56@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -78,50 +80,79 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="pmteufvncpnmcdgk"
+	protocol="application/pgp-signature"; boundary="ztwc4ffmxytpfg57"
 Content-Disposition: inline
-In-Reply-To: <20260930-mainlining-v2-2-40bb1b3943db@proton.me>
+In-Reply-To: <20261001-adis16607-v1-2-9c89cee35d56@analog.com>
 
 
---pmteufvncpnmcdgk
+--ztwc4ffmxytpfg57
 Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
-Subject: Re: [PATCH v2 2/2] Input: aw8697 - Add Awinic AW8697 haptics driver
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 2/2] iio: imu: Add driver for the ADI ADIS16607
 MIME-Version: 1.0
 
-On Wed, Sep 30, 2026 at 07:18:51PM +0200, Armandas Kvietkus via B4 Relay wrote:
+On Thu, Oct 01, 2026 at 12:11:50PM +0300, Radu Sabau via B4 Relay wrote:
 > +#include <linux/mod_devicetable.h>
+> [...]
+> +#include <linux/spi/spi.h>
 
-You can (and should) rely on <linux/i2c.h> to provide i2c_device_id and
-of_device_id. Please don't use <linux/mod_devicetable.h> which mostly
-only adds unneeded build dependencies.
+Please don't use <linux/mod_devicetable.h>. <linux/spi/spi.h> is good
+enough to provide spi_device_id and of_device_id already.
 
-> +static const struct i2c_device_id aw8697_id[] = {
-> +	{ "aw8697" },
+> +static const struct spi_device_id adis16607_id[] =3D {
+> +	{ "adis16607-2", (kernel_ulong_t)&adis16607_2_chip_info },
+> +	{ "adis16607-3", (kernel_ulong_t)&adis16607_3_chip_info },
+> +	{ }
 
-Please use a named initializer, i.e.:
+Please use named initializers, i.e.
 
-	{ .name = "aw8697" },
+	{ .name =3D "adis16607-2", .driver_data =3D (kernel_ulong_t)&adis16607_2_c=
+hip_info },
 
+> +};
+> +MODULE_DEVICE_TABLE(spi, adis16607_id);
+> +
+> +static const struct of_device_id adis16607_of_match[] =3D {
+> +	{ .compatible =3D "adi,adis16607-2", .data =3D &adis16607_2_chip_info },
+> +	{ .compatible =3D "adi,adis16607-3", .data =3D &adis16607_3_chip_info },
 > +	{ }
 > +};
+> +MODULE_DEVICE_TABLE(of, adis16607_of_match);
+> +
+> +static struct spi_driver adis16607_driver =3D {
+> +	.driver =3D {
+> +		.name =3D "adis16607",
+> +		.of_match_table =3D adis16607_of_match,
+> +	},
+> +	.probe =3D adis16607_probe,
+> +	.id_table =3D adis16607_id,
+> +};
+> +module_spi_driver(adis16607_driver);
+> +
+> +MODULE_AUTHOR("Radu Sabau <radu.sabau@analog.com>");
+> +MODULE_DESCRIPTION("Analog Devices ADIS16607 IMU driver");
+> +MODULE_IMPORT_NS("IIO_ADISLIB");
+> +MODULE_LICENSE("GPL");
+>=20
+> --=20
+> 2.43.0
+>=20
+>=20
 
-Best regards
-Uwe
-
---pmteufvncpnmcdgk
+--ztwc4ffmxytpfg57
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrMwAYACgkQj4D7WH0S
-/k4Tywf/fsRyjXKEjyrY/wgZZmTIpTg9zksElEO7EU+qTlrbPAraaPtoO7qA60bT
-SPtHBKx/ahmkQ0Zu99dq4o25nV72w1qkroIbtp3o8iAR+Y7gH2vg/agfPaJURTuI
-19SncK1Yn1oLj/g9OJhGP/UWN2EthaJ/UPg+GO44EbIg2FjN3izEgioRiCTCGhKi
-E07DcJ7khc4dDEbZ/uGFhiUPCgRzUH3ZVOIOFwNlhyJCmd7xzdE7vq/ib1pq2UFb
-LGwY26i+PCc8mqIRerCHzRFvdEVuWvKuWSIRzKq0leaaw+hK4ZXAvLiHx1dVJn8K
-4wNGyZXFuPwY58DwWlOml2H9vh+NOg==
-=yCu8
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrMwIcACgkQj4D7WH0S
+/k7IjAf/aT3gFonGq9cs0V+D6m1lYBsVjBu3cKVYbQMkl+/IULwA3CPqPV1apAio
+0KeyWJep0LQ92IHMvA+lIto+uTLywmqhWQSmMwaTnu3cbVr8xJa+upbV+hiJMOTm
+6Q0DAv+UvHZ2D8WSGHh3LprDnR+kKGSoyJfsBnx3DSU2cW7zYf18Oq8kuCD9TBDo
+U/fNRDEQeQTJSErdE+CLoGpd3cachuTxyw+slgvbjcARYreo51weR/XnnNbeORZa
+tWWr3bv7LKZdpC8TS6lQrqB6AO8WTzc0fzhRSOt7BD3zs09sZPBILr2yqD52vFlF
+Mo+3i15UQUp4Z8KamAPH3ZIaN+oJow==
+=QDxW
 -----END PGP SIGNATURE-----
 
---pmteufvncpnmcdgk--
+--ztwc4ffmxytpfg57--
