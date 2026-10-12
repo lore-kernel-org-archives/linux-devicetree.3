@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB3FC3B6C18;
-	Mon, 12 Oct 2026 18:51:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AA63393DF3;
+	Mon, 12 Oct 2026 18:52:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791831084; cv=none; b=eI3CPr37V8H/IU2eIQqt4I+0YCrDGOwGTuZnySL0MjiuC+28Aad+R7H2J+S9L6dI3Iqhqt6KFCVmrnVnB9etM5fOnBurXoWo7NypODOzUna6kwaQx6IEYUcJNS9CsOuoAIyln40eNh/6OdaKWtJviVDb7QjgYuiT0YTpj7Vy5F8=
+	t=1791831156; cv=none; b=RrrPZAhLkuCxuIh4mEsV3b6NL1TE9WZZ3xAxVaVd2hhidJBJvajF5N3GCpJhADeSl1mDtSzOtoIs26ijWSzeDr9DiPhsyUeoHT/wxHYsYxLheIoQVyFvf/5L+BFSnB/OxYinYcLI8flk1RShsewb6Gr6KbNc5cN/xWfs3RdibEs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791831084; c=relaxed/simple;
-	bh=tfy65yP12CcWTjn1RnefFR1V3iYUiXSFUr0itScFnjo=;
+	s=arc-20240116; t=1791831156; c=relaxed/simple;
+	bh=gt3uJ3YuXn28QZjxt2Sqm4hSyGZLxXJ4bQEbkqgUWGU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=U3A2ytcUgFdYiH4RN5eooGsgreEskDyg0f3TAycUObcHvJP9IG1SO3+fqclXQWS6E/5YwNiye/CcrWFHdVm2Air4WBUWroKi5KAPZy+4HgFvIvM8QK/6qRhzSEFDNzcW/S5g7DmEuzXq8j9jcEjd0TzkdyWSUQhdohFrPIlhcPQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a4v22Wme; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=ggtICI+8PMhmG6UgZpVBlD2sYn/MHT8sEQi9hvRHn9Jr9KJncRc8JQL1pQbp2kZdth1RbWYxya5pZQ+43+TGNgDtAgRZgm4zxooK8Dh6Nku0I2dUYUiRbB0KCrQ4Egu08azCV+Sb/oT+aVZ+CybqilMEySqlJ3KAUiTzk+CV20s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MyUvcpjh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a4v22Wme"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4AD1B1F008A1;
-	Mon, 12 Oct 2026 18:51:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MyUvcpjh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 60E521F008A1;
+	Mon, 12 Oct 2026 18:52:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791831082;
-	bh=mtwNcRmsXn/xuMBw14syHv+FkpWcbZDNksry092ds7w=;
+	s=k20260515; t=1791831155;
+	bh=tLvlPgvOhsRVVO/DOcJ3Uqcc8XTeKhlR+W1CLquVN+4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=a4v22WmeYCzxHSaE0NqmdnqB4AdrnQ6Sqp6YQpyRSYVY+05Rhw101353K1WwyOM89
-	 MnFeGMGyl4i35nBiKC6GzuJH7UpI6JoMB55tloiTsR0XPYJ2VGQ77+gHBqhTkeslPR
-	 8RPztJAq/0n4jCAhB4DKqmdWlZ1tB77cS5Dd5kOxpz7e/5Htmui8H84MOF1neAXh7E
-	 LF1eQUUfHI0+8ZOUndULcI4IWbUl4NhaeCjAcXc1UbeYr3JbisOxQ7QvO/WRgYe5Zl
-	 U/Hd+aFcqr3yHfoQnKeiZAF1lQMk7IApY9Y6gIhs/esdrSHv6bHIov4d7gzva3PMN8
-	 pKNWCNxJrUFjg==
-Date: Mon, 12 Oct 2026 19:51:18 +0100
+	b=MyUvcpjhII6yXZy6U+JEa1eJXWzFaPl8KMVZ8RxkNdMnLMVF9kWyt8SMQSXvqRS8d
+	 nd+gQSvDU7wRRsICe+SfuQpHcVrNA/sA9zw0VB/7S7t1sbx7e0YPS9rDigVDhHMM78
+	 xGrYmHzilkKeq4GGqyEw2sd4mbJWhkZz62R8hVAXEgPeVYK91xBDNm/jCrSrBVjPet
+	 SpSQmp6bX1Ik6u5wglIVb7eKCVg/mHeyMy4iIk13iTVJBSKc9k5c1M0l1fitKme9G6
+	 oi236mqzhmKFabr69baRpSwIjnNBorUCNrRRRI7cWUMKuNkNc3Cz3Qf5l3J8j8Jgof
+	 Nl0l5jnFIGDoQ==
+Date: Mon, 12 Oct 2026 19:52:31 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Alex Elder <elder@riscstar.com>
-Cc: p.zabel@pengutronix.de, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, mohd.anwar@oss.qualcomm.com,
-	lorenzo.bianconi@oss.qualcomm.com, danielt@kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Daniel Thompson <daniel@riscstar.com>
-Subject: Re: [PATCH 1/2] dt-bindings: reset: introduce
- toshiba,tc9564-reset.yaml
-Message-ID: <20261012-shale-rosy-805c49f6c404@spud>
-References: <20261012164354.3872326-1-elder@riscstar.com>
- <20261012164354.3872326-2-elder@riscstar.com>
+To: Mingxuan Guo <gmx472@qq.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: media: i2c: dongwoon,dw9768: add
+ Giantec GT9764
+Message-ID: <20261012-carton-balancing-37436ad99656@spud>
+References: <tencent_7C5DF9D5552EB31E8CFE415048CE592A9A06@qq.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,171 +46,58 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="kzOJFdMHckNIu+r4"
+	protocol="application/pgp-signature"; boundary="pP3j3AkvI9Av4hLY"
 Content-Disposition: inline
-In-Reply-To: <20261012164354.3872326-2-elder@riscstar.com>
+In-Reply-To: <tencent_7C5DF9D5552EB31E8CFE415048CE592A9A06@qq.com>
 
---kzOJFdMHckNIu+r4
+--pP3j3AkvI9Av4hLY
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 12, 2026 at 11:43:52AM -0500, Alex Elder wrote:
-> Define the binding for the reset controller functionality present in
-> the Toshiba TC9564 SoC.
->=20
-> Co-developed-by: Daniel Thompson <daniel@riscstar.com>
-> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
-> Signed-off-by: Alex Elder <elder@riscstar.com>
-> ---
->  .../bindings/reset/toshiba,tc9564-reset.yaml  | 56 +++++++++++++++++++
->  MAINTAINERS                                   |  7 +++
->  include/dt-bindings/reset/toshiba,tc9564.h    | 26 +++++++++
->  3 files changed, 89 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/reset/toshiba,tc956=
-4-reset.yaml
->  create mode 100644 include/dt-bindings/reset/toshiba,tc9564.h
->=20
-> diff --git a/Documentation/devicetree/bindings/reset/toshiba,tc9564-reset=
-=2Eyaml b/Documentation/devicetree/bindings/reset/toshiba,tc9564-reset.yaml
-> new file mode 100644
-> index 0000000000000..1908e9539abac
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/reset/toshiba,tc9564-reset.yaml
-> @@ -0,0 +1,56 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/reset/toshiba,tc9564-reset.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Toshiba TC9564 Reset Controller
-> +
-> +maintainers:
-> +  - Alex Elder <elder@riscstar.com>
-> +  - Daniel Thompson <daniel@riscstar.com>
-> +
-> +description:
-> +  The Toshiba TC9564 is an SoC accessed by a host system through the
-> +  upstream PCIe port on the PCIe switch it implements.  The switch
-> +  includes an embedded PCIe endpoint that provides access to various
-> +  SoC peripherals (including a reset controller) via its BARs.
-> +
-> +  A total of 13 resets are implemented, though two of these are not
-> +  controllable.  Access to the reset controller relies on PCIe being
-> +  functional, so the PCIe reset is assumed to be deasserted.  Similarly,
-> +  the PCIe controller relies on I2C, so the I2C reset is also assumed
-> +  to be deasserted.
-> +
-> +  Reset ids are defined in <dt-bindings/reset/toshiba,tc9564.h>.
-> +
-> +  The reset controller uses registers within the same page as a
-> +  clock controller, so both devices are defined as children of a
-> +  "config" syscon.
-> +
-> +properties:
-> +  compatible:
-> +    const: toshiba,tc9564-reset
+On Mon, Oct 12, 2026 at 11:36:49PM +0800, Mingxuan Guo wrote:
+> The GT9764 is one of Giantec's VCM driver parts: the vendor's VCM driver
+> application note (AN971) covers GT9764, GT9767, GT9768, GT9769, GT9772 and
+> GT9778, describing the same 10-bit DAC with the AAC actuator-control
+> extensions.  The existing driver drives it through the same register set,
+> so it is documented as one more compatible of this binding.
 
-Why does this need to exist as a standalone device, rather than be
-rolled up into the parent syscon node? It doesn't have any resources, so
-it should be doable.
+Sounds like a fallback comptible to gt9769 should be doable here?
 
-This kind of thing for a syscon is always difficult to review when only
-one element is present - where is the rest of the syscon's
-functionality?
+pw-bot: changes-requested
 
 Thanks,
-Conor.
+Conor
 
-> +
-> +  "#reset-cells":
-> +    const: 1
-> +
-> +required:
-> +  - compatible
-> +  - "#reset-cells"
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/reset/toshiba,tc9564.h>
-> +
-> +    syscon@0 {
-> +        compatible =3D "syscon", "simple-mfd";
-> +        reg =3D <0x0 0x2000>;
-> +
-> +        reset {
-> +            compatible =3D "toshiba,tc9564-reset";
-> +            #reset-cells =3D <1>;
-> +        };
-> +    };
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 252b6d7ee1638..d0eb44079fe17 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -28180,6 +28180,13 @@ S:	Maintained
->  F:	Documentation/devicetree/bindings/misc/pci1179,0220.yaml
->  F:	drivers/misc/tc9564-pci.c
+>=20
+> Signed-off-by: Mingxuan Guo <gmx472@qq.com>
+> ---
+>  Documentation/devicetree/bindings/media/i2c/dongwoon,dw9768.yaml | 1 +
+>  1 file changed, 1 insertion(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9768.=
+yaml b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9768.yaml
+> --- a/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9768.yaml
+> +++ b/Documentation/devicetree/bindings/media/i2c/dongwoon,dw9768.yaml
+> @@ -22,6 +22,7 @@ properties:
+>    compatible:
+>      enum:
+>        - dongwoon,dw9768 # for DW9768 VCM
+> +      - giantec,gt9764  # for GT9764 VCM
+>        - giantec,gt9769  # for GT9769 VCM
 > =20
-> +TOSHIBA TC9564 RESET DRIVER
-> +M:	Alex Elder <elder@kernel.org>
-> +M:	Daniel Thompson <danielt@kernel.org>
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/reset/toshiba,tc9564-reset.yaml
-> +F:	include/dt-bindings/reset/toshiba,tc9564.h
-> +
->  TOSHIBA WMI HOTKEYS DRIVER
->  M:	Azael Avalos <coproscefalo@gmail.com>
->  L:	platform-driver-x86@vger.kernel.org
-> diff --git a/include/dt-bindings/reset/toshiba,tc9564.h b/include/dt-bind=
-ings/reset/toshiba,tc9564.h
-> new file mode 100644
-> index 0000000000000..5fcc9a06d4ff6
-> --- /dev/null
-> +++ b/include/dt-bindings/reset/toshiba,tc9564.h
-> @@ -0,0 +1,26 @@
-> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-> +
-> +/*
-> + * Copyright (C) 2026 by RISCstar Solutions Corporation.  All rights res=
-erved.
-> + */
-> +
-> +#ifndef __RESET_TOSHIBA_TC9564_H__
-> +#define __RESET_TOSHIBA_TC9564_H__
-> +
-> +/* Reset IDs */
-> +
-> +#define RESET_MCU		0
-> +#define RESET_MCU1		1
-> +#define RESET_MSIGEN		2
-> +#define RESET_INTC		3
-> +#define RESET_UART		4
-> +
-> +#define RESET_MAC0_MAC		5
-> +#define RESET_MAC0_PMA		6
-> +#define RESET_MAC0_XPCS		7
-> +
-> +#define RESET_MAC1_MAC		8
-> +#define RESET_MAC1_PMA		9
-> +#define RESET_MAC1_XPCS		10
-> +
-> +#endif /* __RESET_TOSHIBA_TC9564_H__*/
-> --=20
-> 2.53.0
+>    reg:
 >=20
 
---kzOJFdMHckNIu+r4
+--pP3j3AkvI9Av4hLY
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCas0sJgAKCRB4tDGHoIJi
-0oqSAPwNxBIvjhaBhF7CJTcI0meS3jCsI9l2BBRqwKlPkloAywEAvSvMRRPPRUKQ
-BuRZ9h/UYo88OYteapf9SFkhBOjY2A8=
-=qWp5
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCas0sbwAKCRB4tDGHoIJi
+0vD3AQCAGNwsI3Np6Irk8nPj9fq4Z7h2xJbL0F470VFfde2bvwD+PiB984+n2mvx
+T8CQekEFQUvlqTHr+Dw5m8HruC1x6QU=
+=ojjB
 -----END PGP SIGNATURE-----
 
---kzOJFdMHckNIu+r4--
+--pP3j3AkvI9Av4hLY--
