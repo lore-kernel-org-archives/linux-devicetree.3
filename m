@@ -1,110 +1,102 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53B1D37AA96
-	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 13:45:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC5163A7F62
+	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 13:46:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791812718; cv=none; b=dJd7cZ1JPJwdTEdLoKrhGZuedU1QUpoHmo2qWrfaZCCWjb2k5Dh+zBkRWyXDfEIzKznJr/y6RrakVdDJVEj277/PiWC0kqk9BIAxI9buJnPdIBV/pvWhBZCdYu+EIRAZ4a3rt3GPxgoSnIGhHn1zNbTe07hwZ5RXa3+p3i1jFMA=
+	t=1791812770; cv=none; b=W8zcZwN6aNkTsBKU4UiFitdNx1fExtdrW7NdR/HNojobxYeNfUXEVksduk7CV1Yk4H0RGQkrituooNtgaD59r3EpUeRVMq1QEK5tu9Y8CqujbKkXVSRuqt+p9h89P8+BAR2Rolz/EXRuk4pTN2udB254LzWbi1oFqI/Ks41BoVg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791812718; c=relaxed/simple;
-	bh=3jPhPaYc3xYAL4E53MVdFb0ww4yf3INTh0Vyg1GpTCY=;
+	s=arc-20240116; t=1791812770; c=relaxed/simple;
+	bh=WqnH04463bxIyTNn0tL8MWM1QTSzepEK6XHFK6rDp+M=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=F/ZwiQcGH4fK03hEOcq+mhivWBBkf8wRRfTAqhlKJ9EjaYKoxqZe1bnJ07e8bwSnThtMzQiB4Zka0ym5kOxFYkiWQRQubcTyhgDih2OeZWLnLTbVmFpY9adBdeRIlUrEjmWqbQtiF0yZgWAGzXHvnPnkfTiM08pFfeGZGFi9MTY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V4STVeJI; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=Xlr5a1JnLrxFeIkMwOoMDkMavZSkSlV3IRnsYJDZy7N5WgPgoTQVh5LK1tQJpR8iklUTrOzwSomCH1YYDj1tsHKEoL1KlW2af1jow2zWXhaZsQ++pVg+7LBSznTUn+TBMjjUnTkG5eaiDtlx+Cu7rlPanLw4Czp5s3/RJpvgkZM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dwX5VupG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V4STVeJI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 820A21F0089B;
-	Mon, 12 Oct 2026 13:45:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dwX5VupG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAEE91F0089B;
+	Mon, 12 Oct 2026 13:46:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791812716;
-	bh=zFahgcdTQO6vKQ8Rz11lc8v3voIpYK0X5AAFMfjO7d8=;
+	s=k20260515; t=1791812765;
+	bh=Wv6ang5TgCLCkNPmUiBl924LanCQv29by1MibJLgtNU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=V4STVeJImHOmnwSI7XYm8VV2IyJnc+WjbRZ+RDN/xR5rrEG52837wiqjN/jmKtbAj
-	 Q7lTOOkhm6PdF9z/UVAw44LbAc6MoM/0Esp0RxiKDCl9nh7BnWtLEmdmIz3g1DUJ2F
-	 1Wf8K0TjhCMMsyH0b+ZqxGV1F/ttz7Q+eUVkdgR1TZPjpBrWsiLzqFPtJBpOR2cQPD
-	 tj/yP0TlfWyOAdiicW6nDXG1+MaY+cVI0mtjxpnbEV5PsjQ0VDhUYLGie22s7ihuPD
-	 n5mXZMPUkB79OYjsJ4Q3fqyugetEbf7sUHZq96Gd4ZcISt7/1trmRjcyQ/uMpKusuY
-	 aYGuB1yRvgmtw==
-Message-ID: <sashiko-outbox-168208@kernel.org>
+	b=dwX5VupGiRRxLWPtn46fHua62Nqv57fcXAtJwdjebzz4MX4AZRKq0qs/Y2XBwaGl+
+	 sGfCyNLt3PBu4A2NrmLRapjZtxwMvZGt7FViJrDOxRud3pH579H8oaIORsAGdYZ9gw
+	 DK1k1lQ7I5Y91Q8DSmX04x+0zRiUfh8NIx0wFF4w5sghp5V0lm08cc1iCUZeGLsDgP
+	 NopR/x9XISmmqUzTLK7H9WKYwP03qncxKvOa6yqcV6k5IHSaG4d9q0PDtOkkiBwOua
+	 AgpNysw1YeXGyvSQRlvPexamgd7aa/e6aue1qu6Dl2/5HWKMJJDCCBlmrv7dTZdEmB
+	 UasMLMVTfmY2A==
+Message-ID: <sashiko-outbox-168210@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 03/13] dt-bindings: display/msm: Document Nord MDSS
+Subject: Re: [PATCH v2 08/13] phy: qcom: edp: Generalize power-on path for
+ per-SoC overrides
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Nabige Aala" <nabige.aala@oss.qualcomm.com>
-Cc: robh@kernel.org, dri-devel@lists.freedesktop.org, neil.armstrong@linaro.org, vkoul@kernel.org, linux-phy@lists.infradead.org, conor+dt@kernel.org, olteanv@gmail.com, devicetree@vger.kernel.org
-In-Reply-To: <20261012-nord-drv-dt-v2-3-a2ab9af954d2@oss.qualcomm.com>
+Cc: linux-phy@lists.infradead.org, neil.armstrong@linaro.org, devicetree@vger.kernel.org, vkoul@kernel.org, robh@kernel.org, conor+dt@kernel.org, olteanv@gmail.com, dri-devel@lists.freedesktop.org
+In-Reply-To: <20261012-nord-drv-dt-v2-8-a2ab9af954d2@oss.qualcomm.com>
 References: <20261012-nord-drv-dt-v2-0-a2ab9af954d2@oss.qualcomm.com>
- <20261012-nord-drv-dt-v2-3-a2ab9af954d2@oss.qualcomm.com>
+ <20261012-nord-drv-dt-v2-8-a2ab9af954d2@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 12 Oct 2026 13:45:16 +0000
+Date: Mon, 12 Oct 2026 13:46:04 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] dt-bindings: missing #interrupt-cells in qcom,nord-mdss required=
- list
-- [Medium] dt-bindings: display/msm: missing schema for qcom,nord-dpu bypas=
-ses validation
+- [High] phy: qcom: edp: resource leak on error paths in qcom_edp_phy_init
 --
 
-commit a8ede601ef532b71d1dd3db5e26ddef317404570
-Author: Mahadevan P <mahadevan.p@oss.qualcomm.com>
+commit 21c4ca6694dd5d440a6b00869831eb17626e0879
+Author: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
 
-dt-bindings: display/msm: Document Nord MDSS
+phy: qcom: edp: Generalize power-on path for per-SoC overrides
 
-Nord has a new MDSS 12.1 revision with DPU 1499A and two independent,
-DP-only display interface controllers (no DSI), which no existing
-schema describes. Add a dedicated qcom,nord-mdss binding to document.
+This patch generalizes the power-on path by introducing a data-driven loop
+for TX resistor writes and adding several SoC-specific registers to the
+configuration structure. It also makes the com_clk_fwd_cfg callback optiona=
+l.
 
-> diff --git a/Documentation/devicetree/bindings/display/msm/qcom,nord-mdss=
-.yaml b/Documentation/devicetree/bindings/display/msm/qcom,nord-mdss.yaml
-> new file mode 100644
-> index 0000000000000..abd80dae4e7f5
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/msm/qcom,nord-mdss.yaml
-
-[ ... ]
-
-> +patternProperties:
-> +  "^display-controller@[0-9a-f]+$":
-> +    type: object
-> +    additionalProperties: true
-> +    properties:
-> +      compatible:
-> +        const: qcom,nord-dpu
-
-[Severity: Medium]
-Since additionalProperties is set to true and there is no $ref to a common
-DPU schema, won't this allow any arbitrary properties, typos, or invalid
-data types in the qcom,nord-dpu child node to silently pass validation?
-
-Is there an external schema for qcom,nord-dpu, or should this node
-reference an existing DPU schema to ensure proper dt_binding_check
-enforcement?
+> diff --git a/drivers/phy/qualcomm/phy-qcom-edp.c b/drivers/phy/qualcomm/p=
+hy-qcom-edp.c
+> index d5c6835b6c704..c5df1086607f0 100644
+> --- a/drivers/phy/qualcomm/phy-qcom-edp.c
+> +++ b/drivers/phy/qualcomm/phy-qcom-edp.c
 
 [ ... ]
 
-> +required:
-> +  - compatible
+> @@ -313,9 +328,11 @@ static int qcom_edp_phy_init(struct phy *phy)
+> =20
+>  	memcpy(aux_cfg, edp->cfg->aux_cfg, sizeof(aux_cfg));
+> =20
+> -	ret =3D edp->cfg->ver_ops->com_clk_fwd_cfg(edp);
+> -	if (ret)
+> -		return ret;
+> +	if (edp->cfg->ver_ops->com_clk_fwd_cfg) {
+> +		ret =3D edp->cfg->ver_ops->com_clk_fwd_cfg(edp);
+> +		if (ret)
+> +			return ret;
 
-[Severity: Medium]
-Since the hardware acts as an interrupt controller (as demonstrated in the
-example block with interrupt-controller and #interrupt-cells =3D <1>), does
-#interrupt-cells need to be added to this required list?
+[Severity: High]
+Does this error path leak the regulators and clocks?
 
-According to the subsystem guidelines, when a variant adds provider
-capabilities like an interrupt controller, the corresponding properties
-must appear in the required list with appropriate constraints to prevent
-incomplete device tree nodes from bypassing schema validation.
+Earlier in qcom_edp_phy_init(), regulators and clocks are successfully
+enabled via regulator_bulk_enable() and clk_bulk_prepare_enable(). If the
+newly wrapped optional com_clk_fwd_cfg() callback returns an error, the
+function returns directly. This entirely bypasses the out_disable_supplies
+cleanup label, resulting in a permanent leak of the regulator references.
 
-> +
-> +unevaluatedProperties: false
+Furthermore, there is no corresponding clk_bulk_disable_unprepare() call at
+all, meaning the clocks will permanently leak as well.
+
+> +	}
+> =20
+>  	writel(DP_PHY_PD_CTL_PWRDN | DP_PHY_PD_CTL_AUX_PWRDN |
+>  	       DP_PHY_PD_CTL_PLL_PWRDN | DP_PHY_PD_CTL_DP_CLAMP_EN,
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261012-nord-drv-d=
-t-v2-0-a2ab9af954d2@oss.qualcomm.com?part=3D3
+t-v2-0-a2ab9af954d2@oss.qualcomm.com?part=3D8
