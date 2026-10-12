@@ -1,186 +1,125 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F26B48EC67
-	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 14:14:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4574F48EBEE
+	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 14:18:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791814486; cv=none; b=JQY4GeVxtn6NSkVMrHGlRH1biTgiDIRyU/S7PsU1VV2p/LwJ7x197Jjx2RoKp1u/TiiNCtLLhYJPiOg7fsl8gsu1lRDe2pZELYoIsDey0oKdALnuPuS4EizunG1wLA5GscrlPF5M0XCJiaRHzvoHTMS6UCUb2i7enfxvUpB7DS0=
+	t=1791814700; cv=none; b=vDaNXhx4JWxg7HCNAjBUVmehodp8AGiqQ+E9oHW0wraJImOOd/94VfTpdoHQf4KG7X484si1V7DKtY0wD78PmaCeZC7ze0YTwlTMpR0lEdyTbn1TYpKWS+VR9Wd4fpz8doV6v8QCO3aDIn4IXlNRfk6MrzVCk0wczx3gSCSYnkc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791814486; c=relaxed/simple;
-	bh=c+V2rvnHGka/QwjolRZdd7ZWn8ElPcoAgnHHSSkfYo8=;
+	s=arc-20240116; t=1791814700; c=relaxed/simple;
+	bh=xsipEPEhRlPufE3owq6BYPDTNCupZs7aJocTjmILrD0=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rmuoPXRE3Dt6Xz9yYzvV4lJfrCgVep8P7K6ChgbHNS4ZTU0c92UqeXm5zJT+W+8ohWRJ5aXt/J+AZP915YFqKn4q2+nr2HjAMDXPi/U1VqOvHmn7i7r/oZCq3+rXat79rD0U2bYf7Y7M4yAYAeBmuYsBBRxGhwJwSQ3L+OzmAcM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=jiycZsQI; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IQOhOfnO; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=qsYs1rHt9GSYURZo9V1SW0KfQBgi5jx07V6BueQMjVWl1++JtogaHMy7KTheIT+WQd9SHt5adT3+icF17+c80GDZNro2mgg8laSHTFO0Vk40CglBJGMbuwq7Z/KF7L0LzGaPvITjoRHL6R2+5b09QBYuBgnjwu9vZPoyMWeQIro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sifeVwhn; arc=none smtp.client-ip=74.125.82.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="jiycZsQI";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IQOhOfnO"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CC08jD1933224
-	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 14:14:44 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	kU1BXbG5eAVNm1ed662mBFUuYr7gu2449G9dvtQFfP8=; b=jiycZsQIxw4+afhP
-	MI5cOIgXQPbq7i4K7nFFsPn2QSP/y9Sg1uVBprUVEML+Q/CrlMq6NEWntcGsP8Sh
-	8/jFOw31UGPI492ovcLhUiXbxXDRjWf4flAUg1bnfHhCyVgkQl6u8lPGSLYj8oBn
-	v6PHGNIOK/6B+73ptPlUGDMpi8SIg1sZ2YlY4x2yB7jtYa4a4QxVhkCuouM15cm8
-	vaOpZPEIvVhiJr1IBBEtZJ26SOnEDryi6xYg8KVOLRy22kS8y1DyKEuo4QOCr3jZ
-	PYAqT6aJPIKUfpdygzvCNCZnK5UcvK46SzmTtTUQy9LN6WqbzcOuo0mirgXYnoC6
-	ZhwDJA==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h8qtkjjma-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 14:14:44 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93ea8a9cfe6so18928185a.2
-        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 07:14:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sifeVwhn"
+Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-15dd124bbe7so3757643c88.1
+        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 07:18:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791814484; x=1792419284; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791814698; x=1792419498; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kU1BXbG5eAVNm1ed662mBFUuYr7gu2449G9dvtQFfP8=;
-        b=IQOhOfnOGPufQMmqzBsgvMRLpWlVYE/qbgOrkLDZxMNJbEE3gNbN/POmuRRPIBSFmj
-         +hk53PM67E7V+INEOmzMN1kHokbd85OcRK3x/c/QadnJWgcfNwmmK3mi0B0zCtM7iJKc
-         OeGCDeDeyFKVtBATgKsNY5vuJOtCy/uhxJLGWZHxBXJfz/3MYw2THdVloUwepQ5CFPqe
-         sG0LrB6RkyTfXME35vrEIGG1LLF2OjbgK3nvP3lYYDTEe3UW4Vh3fyPYPURcEy+DYhnO
-         aZJ9P48KOE7BvgzvWqG9ezswH8QFuqu6Cdk3jdMfhXwQgrZwCjEMVJs7oZUmCRxdfbos
-         Hqnw==
+         :content-language:references:cc:to:subject:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ERwSK8KKE1W5zoZLZRnHG0stGyfGnvHWTKq0AM5CtPQ=;
+        b=sifeVwhnawn4SdKKrVhr3YxJ1+x2AXwGkkVn8O9CaQ/qYt2yr0iOZLM9TKYGl+DCQO
+         Qr+7Mw6On0oATRgqZrSKw0lim9gGcVHo+ciCULtzuNz7BFreRG8+9w4uWGkxjiOuS52M
+         Jo1vodb1RDGC4+nzKlHcyUqjwjb3gF9Wd+y8VnOZYMcclPdmodG/ok1/4XFFtATvaHV+
+         i54OfOE5IhQXyYJgckMVBbl+4pcXj5I/2XvU+l3LHYCizS0BqC/MBhFe9YKYJvjK4R17
+         fvi1BnzrYIdQhlqFRoDPHnFh/2qTxVKxm8QMJ5rayYTRK/q55b7KYmT3G+0G6snldXP2
+         Qwxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791814484; x=1792419284;
+        d=1e100.net; s=20260707; t=1791814698; x=1792419498;
         h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :content-language:references:cc:to:subject:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=kU1BXbG5eAVNm1ed662mBFUuYr7gu2449G9dvtQFfP8=;
-        b=MPVRoKvqHs3XV3gix0yTp2Ib6gaWqOwHZtTePpZuS7FzVw2KBI+ZBaBFS0tDILYeXt
-         yoEn0InG6Djv2uijj7Z9KUEAXO5mDjoIpEn/fDT8Erg6d7LbVIKHaOSh/Cch6yZXgDB5
-         vyR403FLV5f9cW/GNjrxs69aI4iIxtf9u2I0T9VCSpqx9wg/2SZFEs0+k9y1+d3QjA3C
-         N1TzfY1U6S0Qun4R8dHas0/C4WmrHFNA12Kg6CNs2UblkS3RNsYMsFa2D7xOQoHBzndS
-         Ih02TyY9WU5ihUt0Pjyqg+tQQcq70J08n70jp6g0d9R0VuN/IIthbCy7M2N/QvU9kP6K
-         a58w==
-X-Forwarded-Encrypted: i=1; AKwUvBz2nYv6iUprIUHHJP0wQ7rbEkszVhah2ezDGzvBSwYkEl/Qc9/AXRJan/zpcdEI7K5a6ia4pyELln2Z@vger.kernel.org
-X-Gm-Message-State: AFq9FYLcaLU5UqZJPmcQgVhCn40wm4nv5udrBS93rwVk8xZg18HsKumD
-	NS5NQujRJ1KIz2MVEQ1uq2eZ2+gKVoaW5lpOBQJaiRELDiFaP/vaeeJ8hNQldkwRLDi7ybTJ0PR
-	W28pxkNK480sVOTp1zURDPTv7V7HXUtMEIgl7d5JEhU5BjdHBAkD1kc0+hz9ev8MOzQ6IpxRn
-X-Gm-Gg: AYBFou1s/PLBXeg9hGvQviMVmbN4iOFZPfXzqF0K+TH1MoDfnC2E5YFapfHoUZ0sCiD
-	KkJhn4d438K5dWg4nLzcDxF6cQVPVXtvP7KaWRcly19YOQ37tkSjk5gr/6zJqPBwZ9r5t1eK2iX
-	tL7HsPWcsidLHzp2kh5ZIBvqmT8gLI2k4n5I4BjAkdh0SJXYaTcoDHouUXolOsTdcBKdZa+gV+U
-	8/+lmFuVAnsmo4u3iI91NPKq3SpMXpvTxd4PERhVkb+4bCWKYK8xLqXWGGRTX6nQDn+nN49QdKa
-	z8T1StvVO6WAGk6ifUqVYys8OUvlVO2rHqGwTyK3n6Zw3mHd9Q/jfevuBwyvwsT5IpGpMcLq6Na
-	R7ZgWIsCO7mjiYAjqccCEvQ==
-X-Received: by 2002:a05:620a:439e:b0:93e:54fc:2c79 with SMTP id af79cd13be357-93ebd264008mr1645071685a.5.1791814483619;
-        Mon, 12 Oct 2026 07:14:43 -0700 (PDT)
-X-Received: by 2002:a05:620a:439e:b0:93e:54fc:2c79 with SMTP id af79cd13be357-93ebd264008mr1645063685a.5.1791814482879;
-        Mon, 12 Oct 2026 07:14:42 -0700 (PDT)
-Received: from [192.168.226.26] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3626dd09d2sm39916266b.18.2026.10.12.07.14.40
+        bh=ERwSK8KKE1W5zoZLZRnHG0stGyfGnvHWTKq0AM5CtPQ=;
+        b=dxNxfvmysnmlxBKW1uSchmeTyaLpunlVQVDxmh+xEZD7fOd4O6Aw4kpULw7CYXuN77
+         Gahi+2Xtkd+BU+DZ3OL1JV8Fe7HxWv180droyaqXNlzdWSmPR+JSrDJpXA8SwsHgR16h
+         fOFHcPxcPpxE0ZTHcehwi1AoPqnSIUm3rUxOrxKYwWDLxkYePrLveyM/4gMS+T7qG/BG
+         74QZFmx6PbuIUr1LuIgIA0QXdQPgCq/kk8ggRMvJLuUBTC8GSh57L581m3fOJXrY/90f
+         hxvJ1H9mgov0z/npqnk2sGoet2rR6Ci8S4sOPPLWiImVWHGW/3o0SA42bGzwZQ9GcIAK
+         ePNw==
+X-Forwarded-Encrypted: i=1; AKwUvByV6Yl9czFtNCZqPnOeQqq4hrzU0P6UE9/H7ai3ZWN3JdG6r1GvHAzzWV4bDRQF6PNxxDxtkKTq0lDt@vger.kernel.org
+X-Gm-Message-State: AFq9FYILp6ejRu/2CyxClitx0rkyoJB55a0oIeMUsuFw6tmb4n5zPCgF
+	qzJu6vHEm69porZciIWTOo7z1/2KRpLn1+kEm3xg7yiA2AaLAZxLJu6W
+X-Gm-Gg: AYBFou2eLT3wtKbKDPzlZ6HemLSr2FRUMipGKo8TtRxSzR7b/W73P4plp8wL/dWJQ7i
+	xB6JI4TIoixCp54otCXgzUYj3sQI7nj7Csp2w5WRcYb/veFFiYD2foh84x2mlku0sCYIL7qa3V+
+	JXmyg/Tm17ovxniyiA3m2KMKndA3Wq35a+rHMpXeeg5veit3Gc5aP8NuCCyGgZ7FrrOGnB3ky3U
+	NsH8JIsogf2rBNVg0Ca7gPV+MvUtLdXJWBYjU/gQ+xTt7UcO+UBs1bNyrXkI4ySmRz9WmFYGg0w
+	kmPLBezKUhSbEihO2TkVY/RQfUCHU6Og6bdpfujhfFWCWccyGC/ZlJRy3HJb7ZOg6vZuiFWEoch
+	B4y+6+cKgJtXAULN01wqxpiaRPnndfQAwQfdEMAjKZ4ME6D1KlJ2hkcPB/eA2lZOegMm4i/7KUn
+	iR/YnhCTuh/RhhfE0ev8MYy3MeAlsaOjUrkldDK2hAH4mHWuxemgUn1pNImWUNT0NPKrrypLqKM
+	YtbP0kLvPJ/JM2CeDyG8EEOIY+xARHEHxk4utWJSepSVU25F6B4TEHzvPMofxqQWgtZprn++rI0
+	gr8ahY4KIXRwZAC2fpq8YuZIPNxhxGVHiafQWlHvuGydcQy3EDhqhouUcBYf7sltKv7cnIdffKG
+	Ok6KTVTI7w3vF98K26w==
+X-Received: by 2002:a05:701a:c90a:b0:147:9ad0:cf10 with SMTP id a92af1059eb24-16a610ca3d6mr13377655c88.47.1791814698097;
+        Mon, 12 Oct 2026 07:18:18 -0700 (PDT)
+Received: from mail.codeweavers.com ([69.63.209.59])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a1becb11sm28442350c88.4.2026.10.12.07.18.15
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 12 Oct 2026 07:14:42 -0700 (PDT)
-Message-ID: <2e3c1082-e5d0-4a33-ad3f-272dd74aa54c@oss.qualcomm.com>
-Date: Mon, 12 Oct 2026 16:14:39 +0200
+        Mon, 12 Oct 2026 07:18:17 -0700 (PDT)
+Message-ID: <13181dfa-b92c-43b5-ae12-912abaf79c41@gmail.com>
+Date: Mon, 12 Oct 2026 22:18:13 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: sm8550: Add support for Samsung
- Galaxy Tab S9 Wi-Fi
-To: nacht@dxdmail.cc, Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: Abel Vesa <abelvesa@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261005-gts9wifi-dts-v2-0-c3ac9b0f9ceb@dxdmail.cc>
- <20261005-gts9wifi-dts-v2-2-c3ac9b0f9ceb@dxdmail.cc>
+Subject: Re: [PATCH v4 0/2] Add device tree for Acer Swift Go Pro AI
+ (SFA14-11)
+To: Jianfeng Liu <liujianfeng1994@gmail.com>, kaipeng94@gmail.com
+Cc: andersson@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
+ konradybcio@kernel.org, krzk+dt@kernel.org, linux-arm-msm@vger.kernel.org,
+ robh@kernel.org
+References: <CAHk8ZdsVK-n6u+KO5W0=7c_4_eQ2Aj0aqTg_tqU_x_58t0L6dQ@mail.gmail.com>
+ <20261012100325.38128-1-liujianfeng1994@gmail.com>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20261005-gts9wifi-dts-v2-2-c3ac9b0f9ceb@dxdmail.cc>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA1NiBTYWx0ZWRfX3gS15vCiXhpp
- aNuLhqeFx24n6n+hb0l8To1/RBGf6diNLKzC1RZuyFZs4Z0mT1PW1r+xHsKpppI97OUZXYS/oyL
- bxMdUhy8aUynEgizbldjUtu6w5sbf2FlEYuWyfjxp92rgLmyOgdVKVeW3Xvg2F9MWJvkEDpLCh/
- uiui9Nvc3qrhtntDs3m69uYfQhENTWuj7CEH9l6vyef2YEk9zbNtDz6byRQjvwuaqSTnKM0un4N
- ETj/ygaPv88W6lwEnRdT4x7WO2PH4JxZwdVHPRXy7XT/Hci+TbKg4SPnlcwMx3y/weH1bkAea/3
- Gd036RmzNN57MgmI/o1unIhVHppOFX5unrHAvD8Mb7ps5HwsBWrKVHEpwL2hGjmEThdeU8xP+j5
- DG3H8pdYefzBJOdOYwc5TsNgk3054xuJxm7trFmG160Xi4xuvvGfedixzs1iCEnaeUZ5gO9vSnF
- ZXqAheMoUBId5bFLLDA==
-X-Authority-Analysis: v=2.4 cv=c8U+0h9l c=1 sm=1 tr=0 ts=6acceb54 cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=AqZmfHzJsoaMp3Ki:21 a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=zDk8rvenn9N7faQbNqAA:9 a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA1NiBTYWx0ZWRfXwBMUvyuIN+kA
- wc3mv5boRPt79AiJbJG/kns44OPE2TXv7TdM/3xjDDNoVueZDZm2RS+/mUOTstdvJWfkGfBcBBN
- 3IwMYjN95/Kx4M42MRDpG37s1LiQ85I=
-X-Proofpoint-ORIG-GUID: iJjwgglopA4wHKOAA3SVUeqtsYJ4-QkH
-X-Proofpoint-GUID: iJjwgglopA4wHKOAA3SVUeqtsYJ4-QkH
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-12_04,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 adultscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0
- priorityscore=1501 spamscore=0 impostorscore=0 clxscore=1015 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120056
+From: Jactry Zeng <jactry92@gmail.com>
+In-Reply-To: <20261012100325.38128-1-liujianfeng1994@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 10/5/26 9:47 PM, Nizat Mikayilli via B4 Relay wrote:
-> From: Nizat Mikayilli <nacht@dxdmail.cc>
-> 
-> Add support for the Samsung Galaxy Tab S9 Wi-Fi (SM-X710, codename
-> gts9wifi) tablet, based on the SM8550 SoC. This is the Wi-Fi SKU, so the
-> modem memory regions are removed and no modem firmware is referenced.
-> 
-> Described hardware: UFS storage, the microSD slot, USB 2.0 peripheral
-> mode over the eUSB2 PHY with an NXP PTN3222 repeater, the
-> bootloader-provided framebuffer console, power and volume keys, the
-> book-cover switch, GPU, video decoder, ADSP with the internal audio path
-> (four CS35L45 speaker amplifiers and the VA-macro digital microphones).
-> 
-> Tested on hardware: booted via U-Boot on top of linux-next
-> next-20261002, with the default kernel command line (no
-> clk_ignore_unused, pd_ignore_unused or regulator_ignore_unused).
-> Verified: UFS storage enumeration, USB 2.0 gadget, framebuffer console,
-> power and volume keys, the book-cover switch, CPU frequency scaling, GPU
-> (firmware loads, render node present), video decoder (device opens),
-> ADSP booting at startup with the sound card registered and all four
-> amplifiers and the VA macro probing. The microSD slot is described but
-> not yet tested; audio playback and capture were not exercised.
+Hi,
 
-Please test them!
+On 10/12/26 18:03, Jianfeng Liu wrote:
+> On Mon, 12 Oct 2026 16:15:19 +0800,Kaipeng Zeng wrote:
+>> Acer had a page about "Acer Swift Go Pro AI" but it was deleted,
+>> fortunately here is
+>> a snapshot:
+>> https://web.archive.org/web/20260314171131/https://www.acer.com.cn/ 
+>> product_list.html?parentid=323
+>> It's sold in China using the name "Acer 非凡 Go Pro AI".
+>> There is some discussion in the thread of my previous version:
+>> https://lore.kernel.org/linux-devicetree/20260729064538.19564-3- 
+>> kaipeng94@gmail.com/
+>> I have no idea if your "swift SFA14-11" is the same as my "Acer swift
+>> Go Pro AI".
+> On the naming: you're right, and thanks for the pointer — the SFA14-11
+> series was indeed marketed in China as 宏碁非凡 Go Pro AI (my unit is
+> an SFA14-11-QWU1; the retail listings I found, e.g. on Suning, are other
+> SKUs like the SFA14-11-QGU1). One thing I noticed though: that retail page
+>   has since been taken down, and Acer's support sites — global and China
+> alike [2] — identify the machine as plain "SFA14-11" within the Swift/非凡
+> series, matching the DMI and the model string shown in Windows. So it
+> looks like "Swift SFA14-11" is the stable, support-level identity, while
+> "Go Pro AI" was the transient retail name.
 
-> The display panel, touch, pen digitizer, cameras, battery/charging and
-> the wireless module are not described here; the latter needs additional
-> power sequencing and follows as a separate series.
+I think we are about confusing the product name and the model name here?
+It is clear that the product name is Acer Swift (aka '非凡' in Chinese) Go 
+Pro AI; the link to Ubuntu stubble you provided also reveals this somehow.
 
-Wi-Fi/BT should be a low-hanging fruit, see e.g. sm8550-qrd.dts
+Also, IMHO, I think we can't use 'stable' to describe this situation. As 
+soon as the product is produced, it was given a product/model name; 
+unless Acer renames it, this is it. The vendor can also remove the 
+support page that you referred to sometime in the future, just like they 
+removed the product page; this isn't rare; I think we always shouldn't 
+depend on it.
 
-[...]
-
-> +&i2c6 {
-> +	clock-frequency = <400000>;
-> +	status = "okay";
-
-nit: let's keep a \n before 'status', file-wide
-
-[...]
-
-> +&tlmm {
-> +	/* GPIO36..39 are owned by TrustZone. */
-
-Do we have an idea as to what they're connected to?
-
-[...]
-
-> +/* Without a Type-C controller driver, keep the DWC3 in peripheral mode. */
-
-Is there no pmic-glink in the firmware?
-
-Konrad
+As Kaipeng mentioned, there were more discussions about naming in the 
+threads of his v1 and v2 to this mailing list in July, if you are 
+interested.
