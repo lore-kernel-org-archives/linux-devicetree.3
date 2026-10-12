@@ -1,123 +1,130 @@
-Received: from mail-vk1-f173.google.com (mail-vk1-f173.google.com [209.85.221.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0F9346EC86
-	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 08:48:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.173
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0855283FE5;
+	Mon, 12 Oct 2026 08:48:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791794884; cv=none; b=biFNx7I/X/OYekEcETm0YyeOsjKgoCGyUf7bmUROhmYbMNc31VJ/GfbLbrM4zb6mUSrYLMePNGAZulI6tl2i0OxaixKfqwsAGQaj5UGXx+B/RPDQHypiaB2VPDGYrVIEsDa5603+zhERlem3vTHSNylDjn4jE8a4ZvpqBYX/pB4=
+	t=1791794908; cv=none; b=i+ELZlUvTwOGp14wpHjKeGqqlKjMaBecvaEtxrq1GUiDFHOYPvP7fJbfKnKcF0bD85anteAypW5mzPYe8zJi/mzdq/IGhaCiVSDlvaNIKQJO6RTgLcS2RVjCsIkFeFZSzfzt8fElzNRf9R4dNwPMVM8el/8Sucv45Hz82uphRtU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791794884; c=relaxed/simple;
-	bh=aBKCXRC1k4NcfO23sprYjoI6K6Bpz0LlCdKLEKHyjAA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Nm7SPMZ7mKQJQeFzyEdgVlEWqVp2Z2pdva7Xe2MNE/n5wqqCIcablfOEPliozFWvLVrEt27jjQDdr/HKOJj2mxMfoFnsnnIZtzBirNWFDJCGiEKegjd7fv+lyGA2KJGZycbUZdJhFvq5L4ImRPmuQ9aQRI/99GfmwIm6mrH/Zto=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f173.google.com with SMTP id 71dfb90a1353d-5e935294673so1448880e0c.0
-        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 01:48:01 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791794880; x=1792399680;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=II14nzlPS87+eKDd3Q5pRhl10wTigOj5K9H4e1LTQ1I=;
-        b=gjw5Jym04DptFGJhpmPn5wfTc7tusDz/r7V2noDpH+cr20mYp6jwNp9owcRb0zGoVL
-         aduWLrc/A7ebqlo3eDs110o6rp/cnGpZxPQbhvKARJoIjathuqXL4aDw3RMagzos+8AY
-         cWrwKnpsaotW6JKjSEDKU4guAsxEAlUbo18gtad6oLQHkLqDsw3r5HH2DWkav0nLlbQd
-         IiaNxpsJ33KAvALBe7hAhK2gi/Hihl7ddQUc9kNLOBTyxFnEg+d6z39VGa47wiI/bXLP
-         ihVLeKVpDFScwe3nJKxBrd6o+3rLO7mSv65KK0x9+GARfRX5qlM5PsIcw06JzBGBylsH
-         GLoQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxtbSlJ53NNK7lQ8Z5DKCv/8/MaT4xDr3fE/EXpCu1aAuRjHlQDwnrI19BTQ5LGAuuzWpWC6HQfm+uL@vger.kernel.org
-X-Gm-Message-State: AFq9FYINoo3frlBG2Gi/ahF0Hzt3vw7gzyelLeuw8YM3/pbv2KYLg9eN
-	rEF4p4sxyTy3+nvlDOp8fCpqR5jiNpgu2k8I2uYyw9c60MRKkWUGU362wj7PI/X+
-X-Gm-Gg: AYBFou2O8099ejp+MULJQurON1uuI3fyDM+z0MTpmkey20QqtMbm2qcczJLKgzshhCf
-	5Nh7xvWhbtZNlMPOZWttg8nnMzsNzcAe+6xSp0ZjtA04ohfXmVf5SjpyHtHfD1HQ8wq0VSJygO1
-	ImYt1ddW3pehfdUwNd5C1UBOfAvbvxLmwOuqFnhqtOWC7ApiigsdBRLbocoTGF5lsmB/mT2IENb
-	egGGR1oVDpIowz1A49l/xkzo9iSg+BxpvvM+lRpBXNub4sN/HRaJL+Fg0gzgYb+iMevCGBVXYA0
-	Mrd37nW2ZBtG9PGXcS6xta05taHPl+7O4EPN7Em+nxhlS+5f34e1wK1VAHkyX2BoURQ07+1lAVP
-	xEHzpSTU1U8Fxt9g2gPJ3vv6L5zUVNScuK+tIuRG3SchEySI1AllBCL4YNWXusG37DVqM7Z+cXJ
-	7qzxoBXAEyZc2vqwDRNYu260ZQACXazYJyX8Vz0rZ/0K2aLWeU0qLEHyjNOZosT81ZmewLSpY/g
-	R4DqEhyafwCkKUInJ6HoqoDlHe1ivWkGpEHv0Ynan1LgGbMusw=
-X-Received: by 2002:a05:6102:839b:10b0:7ca:9176:ae11 with SMTP id ada2fe7eead31-7cb39f909b2mr1503338137.9.1791794880665;
-        Mon, 12 Oct 2026 01:48:00 -0700 (PDT)
-Received: from mail-vk1-f172.google.com (mail-vk1-f172.google.com. [209.85.221.172])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-99003ae1577sm6102606241.0.2026.10.12.01.47.57
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 12 Oct 2026 01:47:58 -0700 (PDT)
-Received: by mail-vk1-f172.google.com with SMTP id 71dfb90a1353d-5e37ce204cfso2012664e0c.0
-        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 01:47:57 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxnbgZyNg8daM4LTFemtNMp8trtEtZiy8iyxdSqkgVI4gbEcQx5viQBLRa4GNVqcp04RRMA9mZmx6xH@vger.kernel.org
-X-Received: by 2002:a05:6122:3c4d:b0:5e6:cac7:9ff7 with SMTP id
- 71dfb90a1353d-5e91e7ad625mr2370389e0c.21.1791794877726; Mon, 12 Oct 2026
- 01:47:57 -0700 (PDT)
+	s=arc-20240116; t=1791794908; c=relaxed/simple;
+	bh=TYFiB0tNnd/72B3ne3cOgEkkNoHhoEfvK6O7CnYI99c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OIJPNjSMyZlW34MgupfcP+rkNtIvkCJi//r5GpNkI2dr/WGK6nrEextvPkJI/L7RwGemf9noJlxWZiMK2cTefVKI8d7DBhuJysqsh7r1gGQNEutoXVfAz32mBAEcdQusTVLg3WNJ76PuywSP3jRuMcfHvZphKuyUr5gaYhEgPG4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NYEqFSLz; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NYEqFSLz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08C6C1F0089B;
+	Mon, 12 Oct 2026 08:48:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791794906;
+	bh=iQ8Aespnn0g3VnguJP6XSqwJAP+gOegBjYI/7U1C5BQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NYEqFSLzIXtJ426tZLZHou1wUySfopity/7cEarAufcL+tOCHtsDiUvHwCTGsBJP0
+	 Mr1T9BDwDGUbEwxNOaSRWp6p7uF0hCnFaAXm8SSKkjVX9uKWpq1uu9IT0bwjV86OK0
+	 7THla2Zz+WQif8deOkP5NfdJMNHiBIK5lblJZ7veSy8l7Ffx4GbFN7iZ09yElWNcQa
+	 KoPPbtg/u4EeGr64NkyT9FoKZcpPQ6EknXoeu73jHJkbGlafEKQ4Mok7N0X3xk/ygJ
+	 T1su92E3ds2+aeId4zSG6ja8RwGBZ7Z3LaRRiThhwJl6Q/O1LVusaEPXWsAbMECrw8
+	 VrAU6fqDU1K/Q==
+Date: Mon, 12 Oct 2026 10:48:23 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: tze.yee.ng@altera.com
+Cc: Tanmay Kathpalia <tanmay.kathpalia@altera.com>, 
+	Adrian Hunter <adrian.hunter@intel.com>, linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 3/4] dt-bindings: mmc: cdns,sd6hc: add SD6HC DDR50
+ read-path tuning
+Message-ID: <20261012-futuristic-worm-of-camouflage-cc2e3e@quoll>
+References: <cover.1791459448.git.tze.yee.ng@altera.com>
+ <5ea5d406b527cb9b7015693191c9bdeb9202a1bc.1791459448.git.tze.yee.ng@altera.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260928-mali-c55-renesas-dts-v3-0-2cf7eb746ebb@kernel.org>
- <20260928-mali-c55-renesas-dts-v3-2-2cf7eb746ebb@kernel.org>
- <5bc1553b-465b-42d1-a4b0-66a514b897d3@ideasonboard.com> <CAD++jLmBbMUjO-tbiQ=+G8tf=4RyKQ+=h2y=o2C+g+NY7HsqQQ@mail.gmail.com>
-In-Reply-To: <CAD++jLmBbMUjO-tbiQ=+G8tf=4RyKQ+=h2y=o2C+g+NY7HsqQQ@mail.gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Mon, 12 Oct 2026 10:47:46 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXO+pZbrgG52zxOZ2W1aVcC9OT4v0Sd9C-HTHQXixksUQ@mail.gmail.com>
-X-Gm-Features: AclHuK_P9aWhNfgjy-bm9dcFKp2tM6k860xhbXHPLm1PhxRGU9PV-PZpA0ja_mE
-Message-ID: <CAMuHMdXO+pZbrgG52zxOZ2W1aVcC9OT4v0Sd9C-HTHQXixksUQ@mail.gmail.com>
-Subject: Re: [PATCH v3 2/5] dt-bindings: media: arm,mali-c55: Describe DMA
- line-tick interrupts
-To: Linus Walleij <linusw@kernel.org>
-Cc: Dan Scally <dan.scally@ideasonboard.com>, 
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <5ea5d406b527cb9b7015693191c9bdeb9202a1bc.1791459448.git.tze.yee.ng@altera.com>
 
-Hi Linus,
+On Fri, Oct 09, 2026 at 10:14:50AM +0800, tze.yee.ng@altera.com wrote:
+> From: Tze Yee Ng <tze.yee.ng@altera.com>
+> 
+> DDR50 has no CMD19 tuning, so the SD6HC read path must be centred by
+> static, board/SoC-characterised PHY settings. Add three optional SD6HC
+> properties for the extended-read DDR modes (SD DDR50 and eMMC DDR52):
+> 
+>   - cdns,ddr-read-dqs-delay-ps: read-DQS delay in picoseconds that centres
+>     the read eye (default 0).
+>   - cdns,ddr-no-lpbk-dqs:       disable the loopback DQS read strobe and
+>     use the fabricated phony DQS instead. Loopback DQS is the recommended
+>     default; set this only on boards that need the phony DQS read path.
+>   - cdns,ddr-phony-dqs-timing:  PHY_CTRL[9:4] phony DQS assertion timing.
+>     The driver derives this from the RE# pulse width; this property
+>     overrides the computed value for boards whose flight time shifts the
+>     DDR data return.
+> 
+> Signed-off-by: Tze Yee Ng <tze.yee.ng@altera.com>
+> ---
+> Changes in v2:
+> - Retitled to "dt-bindings: mmc: cdns,sd6hc:". (Tanmay Kathpalia)
+> - Renamed cdns,ddr50-* -> cdns,ddr-*. (Tanmay Kathpalia)
+> - cdns,ddr-read-dqs-delay-ps is now in picoseconds. (Krzysztof Kozlowski)
+> - Replaced the read-DQS source selector with a cdns,ddr-no-lpbk-dqs
+>   boolean. (Krzysztof Kozlowski)
+> - Reworded the phony-dqs-timing text. (Krzysztof Kozlowski, 
+>   Tanmay Kathpalia)
+> - Dropped the SD4HC note. (Tanmay Kathpalia)
+> - Scope the new properties to the extended-read DDR modes (DDR50 and
+>   DDR52). (Tanmay Kathpalia)
 
-On Thu, 8 Oct 2026 at 15:26, Linus Walleij <linusw@kernel.org> wrote:
-> On Wed, Oct 7, 2026 at 12:49=E2=80=AFPM Dan Scally <dan.scally@ideasonboa=
-rd.com> wrote:
-> > >     interrupts:
-> > > -    maxItems: 1
-> > > +    minItems: 1
-> > > +    items:
-> > > +      - description: Combined ISP core interrupt
-> > > +      - description: Full-resolution DMA writer line-tick interrupt
-> > > +      - description: Full-resolution UV DMA writer line-tick interru=
-pt
-> >
-> > As with the IVC, perhaps an interrupt-names entry would also be useful?
->
-> I think interrupt-names are only used if you have say 100
-> possible interrupts and only want to specify 2. So you can
-> look up the 2 you need by name.
->
-> I don't see any situation where sparse interrupt supply
-> would be applicable for this IP? It's just 3 of them.
+There are no lore links in the cover letter to previous versions and b4
+diff fails.
 
-How come we suddenly have three? There's still only a single
-possible compatible value
-Perhaps tomorrow there will be a different set of three?
-So that's why you should add interrupt-names...
+b4 diff 'cover.1791459448.git.tze.yee.ng@altera.com'
+Looking up cover.1791459448.git.tze.yee.ng@altera.com
+Checking for older revisions
+Grabbing search results from lore.kernel.org
+---
+Analyzing 5 messages in the thread
+Could not find lower series to compare against.
 
-Gr{oetje,eeting}s,
+Why aren't you using b4 to send patches? Why making it difficult for us?
 
-                        Geert
+> ---
+>  .../devicetree/bindings/mmc/cdns,sd6hc.yaml   | 30 +++++++++++++++++++
+>  1 file changed, 30 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/mmc/cdns,sd6hc.yaml b/Documentation/devicetree/bindings/mmc/cdns,sd6hc.yaml
+> index d5ea2717904b..911ce58f8dab 100644
+> --- a/Documentation/devicetree/bindings/mmc/cdns,sd6hc.yaml
+> +++ b/Documentation/devicetree/bindings/mmc/cdns,sd6hc.yaml
+> @@ -74,6 +74,36 @@ properties:
+>      maximum: 1000
+>      default: 24
+>  
+> +  cdns,ddr-read-dqs-delay-ps:
+> +    description: >
+> +      Read-DQS delay (DLL_SLAVE[7:0]) in picoseconds that centres the read
+> +      eye in the extended-read DDR modes (SD DDR50, eMMC DDR52), which have
+> +      no CMD19 tuning. The PHY runs the DLL bypassed in these modes, so the
+> +      driver converts this to delay elements (divided by
+> +      cdns,delay-element-ps). The 8-bit field holds at most 255 elements;
+> +      larger values are clamped to that limit.
+> +    minimum: 0
 
---=20
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
-.org
+Drop, 0 is the default.
 
-In personal conversations with technical people, I call myself a hacker. Bu=
-t
-when I'm talking to journalists I just say "programmer" or something like t=
-hat.
-                                -- Linus Torvalds
+Where is the maximum value?
+
+> +    default: 0
+> +
+> +  cdns,ddr-no-lpbk-dqs:
+> +    description: >
+
+Drop > everywhere
+
+Best regards,
+Krzysztof
+
