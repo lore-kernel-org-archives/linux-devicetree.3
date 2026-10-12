@@ -1,119 +1,107 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D77F844A3FF
-	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 08:46:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71E95316199;
+	Mon, 12 Oct 2026 08:47:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791794816; cv=none; b=M+9R8b1KaOKywOUNQRSPMEg+qZoim+R1H/PlJbRGAuNvRyDEQe5hN8W3N9hiyY3gft+/IotfIfbhbfcypTrLZ5lpCY38DS5vmsGga97gNpSqXL+KUSM66cWKntfTHRd5hz4eANzbGGnZI7w+0SsUbS2KjaQ4RRXkEcedNHaUEo8=
+	t=1791794878; cv=none; b=IW9aWnWBmjgU/LqHkLFvxIzPyayXJ0k0WWek5tw2W8M6DZhdmemVFFU1nbt/39pNbQjj5TTpIQqHaGgPYhL2FSm+85AEAFbl7GZNHWZ7s8uzlJqVu1V/pbnvwKkI4At9BFFfruhyYRzyTbF2RDmRRDPhl2sF4E0T9qww6CTRerk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791794816; c=relaxed/simple;
-	bh=yUhk/j4KTwWyLi/Fngk1kQazSSBv9FHxwyYO/4CI21k=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=hokJXDQB5dI3unQ/EzA/GBxqKyNpwBjuxoAsPGTyXPdKEejXU++XiUGbi6QFz7LvnU3ETH/2d0E3X4eObKijVCGVLo4hXJpUo3rrql62D94mRwbJN0efiguJ5358/Cxq1RqknHbYYDbmal/Abya1LxrKjPjmDEfZgqQnXu+vLVg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T4HHV0sZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791794878; c=relaxed/simple;
+	bh=mRB61DVyw+6l1YCLi7gajc8GDTZlCa37b8N06fNjsZo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Xm0+kzDgGo47f+u5TJsTHLx38cTIgxPBgcJLX5W1mEvFYzk5m5thLXZaeQKAb+wM8Obks4cIlgdzTCQT31aSW9uiW5YRAGedpunVZ7vOWqxzjzFadmKvF8ZEUVCI2pES9ZuG25231uFfp5ColzEKUgxDw6ZsnV8QLXSW/+I6DMc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KTFuMnT3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T4HHV0sZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A6E11F0089B;
-	Mon, 12 Oct 2026 08:46:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KTFuMnT3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DC281F0089E;
+	Mon, 12 Oct 2026 08:47:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791794815;
-	bh=XKFKxOMJxzI6zO2d9AfBFPyAMU7L6mSEO7V2gRNVE+Y=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=T4HHV0sZ8UtfQM79F1TohlKTuXTDz2lctgxn9FeY2fVGzi9YRmcHllVkpuoAwgr0q
-	 jZVUaKaziUzEcCruPW+TNmkRG9fmbOWK1c0XX7JsDa40nZdFWcQ37v1YSqHHkgqlLF
-	 evYFSLWsmiYZPda02qAVrVxHWjulWfWthcyoHieXnM5I8CQuADGvu2XTTJeKS7ijiH
-	 GQfpfEQDjVPhkjuuenJgbv5kCGmepiuyHnJQbGGGC32/l7VLIWt2a2TIlnRhD/PZ8c
-	 lQ4Sc38aM3QeLr9PGW4v2XSeMSfKvcXol6rpZkIGTX6FNEg1Ag8XgHKCBdRFD6cc3B
-	 764+Dq/9Kl7/A==
-Message-ID: <sashiko-outbox-167864@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/5] arm64: dts: qcom: Introduce Maili SoC
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jingyi Wang" <jingyi.wang@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261012-maili-dts-v3-3-8b499e7b9a52@oss.qualcomm.com>
-References: <20261012-maili-dts-v3-0-8b499e7b9a52@oss.qualcomm.com>
- <20261012-maili-dts-v3-3-8b499e7b9a52@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 12 Oct 2026 08:46:55 +0000
+	s=k20260515; t=1791794877;
+	bh=zIaovKbpORetJFMV2g32jUqq0XNo4TNii9P+2eJRh9A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KTFuMnT3Km982dOJoJpLE0aOF8IO2hCdp+tHoH1o9jUMWN+3J5nwqs8RgjapMhKAH
+	 +kGFwU/wOTUngnha0SCSVetVj5mc5E4Z1bnNEl/Yv50XbXeEbqNKYPiS96tqfGpgsK
+	 Mb/9sj0Nbl6E7F3Rnejogj7kMVlDXL/aSmq4KevRlCsXfVjyZZXjr4h3fFuLR5SIgI
+	 G4N8QD6UHgWhcYA/+ZerDOmDtjUWe1dBygcF0AgHYBVlYr9KczhqGv3g39Z8JuC9+1
+	 dfVaMwSmcrugzZL5qlVzStPfJz2ejU/prqunnozY8fACRn2mtX9h7j07tRYUTtG3sL
+	 Ywr3gbA3ks96g==
+Date: Mon, 12 Oct 2026 14:17:44 +0530
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Xu Yang <xu.yang_2@nxp.com>, Peng Fan <peng.fan@nxp.com>, 
+	Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Peter Chen <peter.chen@kernel.org>, Pavankumar Kondeti <quic_pkondeti@quicinc.com>, 
+	Stephen Boyd <stephen.boyd@linaro.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-msm@vger.kernel.org, linux-gpio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
+	linux-phy@lists.infradead.org, Greg Kroah-Hartman <gregkh@suse.de>, 
+	Peter Chen <peter.chen@nxp.com>
+Subject: Re: [PATCH 08/10] usb: chipidea: host: calibrate the PHY after
+ starting the host
+Message-ID: <asyeTY7H9lCzA4m-@debian>
+References: <20260810-msm8974-usb-hsic-v1-0-e5f93ea76ffa@oss.qualcomm.com>
+ <20260810-msm8974-usb-hsic-v1-8-e5f93ea76ffa@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260810-msm8974-usb-hsic-v1-8-e5f93ea76ffa@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] dt-bindings: pcie: misplaced phys and missing phy-names in pcie no=
-des
---
-
-commit 25d4f4b51a97698c80eebd846bb1cbf9ae8ec02d
-Author: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
-arm64: dts: qcom: Introduce Maili SoC
-
-This commit adds the device tree for the Qualcomm Maili SoC. It includes
-support for CPUs, interconnects, interrupts, timers, various controllers,
-and peripheral devices such as PCIe and USB.
-
-> diff --git a/arch/arm64/boot/dts/qcom/maili.dtsi b/arch/arm64/boot/dts/qc=
-om/maili.dtsi
-> new file mode 100644
-> index 0000000000000..0aa5bd4ea21c3
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/maili.dtsi
-> @@ -0,0 +1,6930 @@
-[ ... ]
-> +			pcie_port0: pcie@0 {
-> +				device_type =3D "pci";
-> +				reg =3D <0x0 0x0 0x0 0x0 0x0>;
-> +				bus-range =3D <0x01 0xff>;
+On Mon, Aug 10, 2026 at 06:42:12PM +0300, Dmitry Baryshkov wrote:
+> Some PHYs need a final programming step after the host controller is
+> up: the Qualcomm HSIC PHY latches the device connect at the moment
+> HSIC mode is engaged, so that write must happen with the root port
+> already running, or an already-connected HSIC device (the strobe/data
+> lines have no hotplug) is never seen. The generic PHY framework
+> provides phy_calibrate() for exactly this kind of post-init fixup and
+> dwc3 already calls it; the chipidea host does not, leaving no place
+> for such PHY work.
+> 
+> Call phy_calibrate() once the HCD has been added, next to the existing
+> i.MX HSIC active-event hook which serves the same purpose. PHYs
+> without a calibrate op are unaffected.
+> 
+> Assisted-by: Claude:claude-fable-5
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+> ---
+>  drivers/usb/chipidea/host.c | 4 ++++
+>  1 file changed, 4 insertions(+)
+> 
+> diff --git a/drivers/usb/chipidea/host.c b/drivers/usb/chipidea/host.c
+> index ced6076a8248..62bb2999edb6 100644
+> --- a/drivers/usb/chipidea/host.c
+> +++ b/drivers/usb/chipidea/host.c
+> @@ -15,6 +15,7 @@
+>  #include <linux/regulator/consumer.h>
+>  #include <linux/string_choices.h>
+>  #include <linux/pinctrl/consumer.h>
+> +#include <linux/phy/phy.h>
+>  
+>  #include "../host/ehci.h"
+>  
+> @@ -192,6 +193,9 @@ static int host_start(struct ci_hdrc *ci)
+>  			(ci->platdata->flags & CI_HDRC_IMX_IS_HSIC))
+>  			ci->platdata->notify_event
+>  				(ci, CI_HDRC_IMX_HSIC_ACTIVE_EVENT);
 > +
-> +				#address-cells =3D <3>;
-> +				#size-cells =3D <2>;
-> +				ranges;
-> +				phys =3D <&pcie0_phy>;
+> +		if (ci->phy)
+> +			phy_calibrate(ci->phy);
 
-[Severity: High]
-Is the phys property misplaced in the pcie_port0 child node instead of
-the parent pcie0 node?
+As Konrad noted, phy_calibrate() handles NULL pointer. So you don't need the
+check. With it removed,
 
-The Qualcomm PCIe host controller driver (pcie-qcom.c) expects to acquire
-the PHY from the main controller node via devm_phy_get(dev, "pciephy").
-Without it, PHY initialization and PCIe link training will fail.
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-Could phys be moved to the pcie0 node and the missing phy-names =3D "pcieph=
-y"
-property be added?
+- Mani
 
-> +			};
-> +		};
-[ ... ]
-> +			pcie_port1: pcie@0 {
-> +				device_type =3D "pci";
-> +				reg =3D <0x0 0x0 0x0 0x0 0x0>;
-> +				bus-range =3D <0x01 0xff>;
-> +
-> +				#address-cells =3D <3>;
-> +				#size-cells =3D <2>;
-> +				ranges;
-> +				phys =3D <&pcie1_phy>;
-
-[Severity: High]
-Does this node incorrectly define the phys property for the pcie_port1
-child node rather than the parent pcie1 host bridge node?
-
-Similar to the pcie_port0 node, the host controller driver expects to
-acquire the PHY from the main controller node.
-
-Should the phys property be moved to the pcie1 parent node and a
-phy-names =3D "pciephy" property be included?
-
-> +			};
-> +		};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261012-maili-dts-=
-v3-0-8b499e7b9a52@oss.qualcomm.com?part=3D3
+-- 
+மணிவண்ணன் சதாசிவம்
