@@ -1,133 +1,339 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C580549362B;
-	Mon, 12 Oct 2026 13:03:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5F06357D0D
+	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 13:15:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791810223; cv=none; b=eu6VY17B5dF/Kov1cCvEundNSQiUoawRqXDr4dO/1bXVNtwqXSTQnuV55Z6FQpHpsdz4iWe1twWUpz/dUXPmtbjpq0MYNkHM1tRhnq0/mpdYttKRuTpYfb9IepBQ1zjNY/3KKGqZfFRDa5HZ+dyM6lhtymc+tnVZVX86Y3LU+6w=
+	t=1791810928; cv=none; b=RIip1xcNRGnCff2lGgVMD8m1cfhjTEgPJ2i1wm+14zgSfvBSBLld6makYU9EY9G+gqkWTyNup5O093YitnbWJa2iEX+yZZbe6qS9vqYUAvh/YQGC+D18BRpCeioZ77t/u9UV0keM8vW4sJ81IbkJRQwO0xazEQidNa6QAGcO9cE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791810223; c=relaxed/simple;
-	bh=Fy6EQ1hvo1qkHMUSGHPTavf8NwgB9mnbk+GClbMxdOI=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=fGbOQYTSUE/N2nWMFofieOruuQbLcIy7LIye+b8Q71R2yn77wzjWSQVpe83xagTWT6h7qQcRu6MGHryTdUkfCVomB5JgnSSL9bv3+V2/tRUO5D2gkrxkVRjBD1IfT4XAs6OyHoehmm8gJZmefbls2/ZMQYGlshoP2yPngGFx1Ss=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fvKAgha3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791810928; c=relaxed/simple;
+	bh=su74ccP+uXxdAjl3dhGSD9/wQo+gkwv7Rh3GXHEmMXg=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=LM18oeNisGzxaW40qRUc71tcH1MviLabR3RKFSoIZj8EE5Zlb4Z0nB/qLEtZuPPz5erhD5J+qmvFueHloUsGTZ84wodM+q8AL2AySJs+kmV3C8eoghB/sP3S9XfDF2XCj9Ujc4zCa8EcBlBPSsV5nAJTaZoRJGggGF8Qfceu9a4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hmYB1NDb; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=eTnN4Ble; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fvKAgha3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 340E11F0089C;
-	Mon, 12 Oct 2026 13:03:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791810222;
-	bh=f6inhc7CPFDGcYJa2C4KqUDQQZ32edNwZz4wJcTeMkk=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=fvKAgha3DHVf7LA0KXBT0gQiYllV4XVt/Uhpp3Zd/ONdvDoz1TFS/EOAXzFBRA0rg
-	 nvYbaDDxqWOAnwibrmUycs3RiLg0doG9PpWyVrsDbWeWQLmT8/eFY2fTOKp+5lPyjc
-	 JIKnsR0Yx+KAr5XGx2ZeTjBgxpiWaMJzmRI71IffeZvUtYAiBqCv/+kBIQpMaA4Sd1
-	 K0QdrGtcKNkqn3Pv5drF18ZTLzmpsvQBIgwvo3UsbE1hXcJScX9IrohnzXB7ngkoWk
-	 ZqVQGOPrjSrj9vFrEPR7qJjh3P8jsaFv2zVF6CagIq3Rh8waX0G4pOSw8Ha5oo5SB7
-	 tTk1L71rj/aQw==
-Subject: Re: [PATCH net-next v2 10/11] net: ethernet: qualcomm: ppe: Add
- IPQ5424 service code configuration
-From: netdev-bot+sashiko@kernel.org
-To: jie.luo@oss.qualcomm.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@kernel.org,
- kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, quic_leiwei@quicinc.com, quic_suruchia@quicinc.com,
- quic_pavir@quicinc.com, horms@kernel.org, corbet@lwn.net,
- skhan@linuxfoundation.org, rdunlap@infradead.org, netdev@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
- quic_kkumarcs@quicinc.com, quic_linchen@quicinc.com
-Date: Mon, 12 Oct 2026 13:03:40 +0000
-Message-ID: <179181022076.434549.16206547099593179570@kernel.org>
-In-Reply-To: <20261011-qcom_ipq5424_ppe-v2-10-8c7b057e2c43@oss.qualcomm.com>
-References: <20261011-qcom_ipq5424_ppe-v2-10-8c7b057e2c43@oss.qualcomm.com>
-X-sashiko-severity: Low
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hmYB1NDb";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="eTnN4Ble"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CBxuNV3364306
+	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 13:15:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=QRAYqG0i66uB7ffqoKD10fYJ6TRuxmjLOOA
+	z85hufJo=; b=hmYB1NDbTgBs7lfeyxvzeQE1WC+2AeMurFQ/O4CZZ9acByW3aa6
+	9ieuQyIySJqsokDaZoTte/oYcoHRjIjnDknWjWP4jZRpq6S07dpygJ8NxHdz7TrL
+	awwGi37lEh/GGK8BqP7iGMI1T9Kys305jpz9QL66ZxeokT00rzBwYqf5MVx6YjpM
+	imZz/YX8TR9yTyzufzVd5lYF/Ck//6jHcd74g3j+2DUkAwv+m+fFecVJ1YmqzfWv
+	t036rg/lSM26lvquoCcWsgcLFfBPYhR0rWcu2hcxdcU5IJtB8QRqqY862QcS88Tb
+	CeE+kJ/jP8/WrZYxX/Et21Xmu5ekC3YIN6w==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h8wdr8v9a-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 13:15:25 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-3510d0baf63so5337611eec.1
+        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 06:15:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791810925; x=1792415725; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=QRAYqG0i66uB7ffqoKD10fYJ6TRuxmjLOOAz85hufJo=;
+        b=eTnN4BlekqTgShemX7C7g3ws32I4/TQX6WZZiaZEm5MzFyaBGXQPef6GE69RBmQAYV
+         NDT+S8Y02ec6lkj/Yex1861DHO+WznyIj64rpAYsZeOp0k7dLOnBmQsLZKTL02EAndCJ
+         DnU+gkKjtLB1wsohrwsbV2a9zWpVilfCtzmjvNHdeeGnTvwbvvBk3U7Il974iDRkzqq3
+         7We6iRR6/TUhKJgsU6c2Gwbmy2rShN2s9B85HY/uHSrkkzo22jKcwOisw1FzrJ938c/F
+         vZRDDM+H61piPBX1MXGINYYgQEjSzDAsou5Cdg+HCaWVYKj2ii+SHPp6bTzXMLCP/cCL
+         DyZg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791810925; x=1792415725;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=QRAYqG0i66uB7ffqoKD10fYJ6TRuxmjLOOAz85hufJo=;
+        b=o4bxUyEVEwnd/NoXDJJs8hvvJmoJl3X27I8kothZ8+53yK2vsAAxnh+iQf32MIaeAD
+         M/SrUZVfaSc37FlM+gW8hnG7ZcsBOF350zzcU2FMT8sQave3f0EMgl5OLOA+CRyBEHoq
+         KzzLT73/b7uNIDsRUJylyCHuHZ9WR3K9V8vkkf9SckNJYqgStlhvdVx6QcNZvaL2LkDT
+         X3Y3/zhisBzI5D2dekv6XB8qW5+MMlyiSZIym7yg3vgJ2oVvR/dbYXJFLvWm5cMU7W1s
+         4ZDxCFMbarDLNUcctOM+HhxzYAPX982uM+RYaQsuypnQtaQJeu1wMd7qeFmKMokA/8Bp
+         Dtlg==
+X-Forwarded-Encrypted: i=1; AKwUvBy+M0zzxE58WEFyilu3ox/86lZkcTQTzIGu8K5wP+mzbHKM8VUQO6IQlZsNKzxGB3y9+hMZw49nNvEC@vger.kernel.org
+X-Gm-Message-State: AFq9FYLCD7nnwk0o3SIDaD7ZxgJ/MAbZWoCT5QZIBNgUX8MPrphpF8Xf
+	qI8Ugs694+nACupjss2fzFNCv+AmaY8oNqMZvhwdipu3kzchBTCAVPzzHlNgFVwnrqwGxgsom6h
+	X7Bg6u5QcWt0Hj+u1Dcxu/dWwqmk0H3b2m01iZ7yHt4x7cymBIg9uIWupZS60/3mX
+X-Gm-Gg: AYBFou3Zuz9Gx8ekHCpCxi4oYZU12sQyesA3IR3kjozwH+fBOFl8C5XPrZzLD+wGAkL
+	8u1nteQJAljh3QzNFBREk2nH42XEosxKcTdSG3jaI4pZGPWPhFCI2CUNk3CbAeNKHC6j/XJqdC1
+	eqB0AFqAmWDeRduncY6GdFGVzpgkqsNKvoIZ7vrrnCkJ4oRY04q4W+mS4aum3HwnX9LQbhPbxHQ
+	ouQm0EIe2uCZn3CPqMquH6aFauzJNH7oAfCvL4csYHIWaokI0NWp31ebwbQu+s+KgyS0L17lB+a
+	JHWoN4Aed0NAbMTiee59ad667AZBLp6vUrpMnm4V5y8c08+pfjAlFzHUDO0VrWSlNgD7z89/a42
+	QhmYIB9Snzk6EWDzMAnQlM7iRPZWB
+X-Received: by 2002:a05:693c:88c2:20b0:359:818a:df2d with SMTP id 5a478bee46e88-359818ae28amr6364728eec.31.1791810924933;
+        Mon, 12 Oct 2026 06:15:24 -0700 (PDT)
+X-Received: by 2002:a05:693c:88c2:20b0:359:818a:df2d with SMTP id 5a478bee46e88-359818ae28amr6364686eec.31.1791810924195;
+        Mon, 12 Oct 2026 06:15:24 -0700 (PDT)
+Received: from hu-akakum-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cb1e05esm34718753eec.25.2026.10.12.06.15.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 06:15:23 -0700 (PDT)
+From: Akash Kumar <akash.kumar@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org
+Subject: [PATCH] arm64: dts: qcom: talos-lyra-evk: Add CYPD6129 Type-C support
+Date: Mon, 12 Oct 2026 18:41:13 +0530
+Message-ID: <20261012131518.858396-1-akash.kumar@oss.qualcomm.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA1MiBTYWx0ZWRfXyLCF0G8+MHFi
+ lU7TudDRktO1/T5lFEAPRXo5E6vWbHS0tOOwNGkuBYP7rRrIrs2ABiXblcN9B7BYqG23WzdpGey
+ CvRze7H4whhDq+OyRHPoodIzpI8zoK+tS1GwrVjWS16Zy3jV34yr2+gOKv5gla5+A4vRH8/9YT7
+ tWwjuHmdNZDKRfA8FkmHcklp03NcOdtDkNl+92gyuElLu0WiITQFk4wBW1KHWSNdAd/RKyZWfYd
+ 7PgMNnZ+CkExqdpw7alNELXYgozIkb9b2r/OCBcIpTIgEtJVoJNKSJzh+I1NMm431us/bdPvLwK
+ wfFP1b8GLkBzCGcgKAYJCVHzOMJjVvvy8htElgeLFUQi3IOlWm71kknc7cHF1REoWFe6K4K7RGW
+ 2kcc7m+E6ViRx5SzD3nt5lctb+IUy+7ci8IibA+2TobrYtZ0BjEoxariS5AvUJdKEVD9se3I59J
+ IlFAEomtObtjdHsqx4g==
+X-Authority-Analysis: v=2.4 cv=SvAFe/O0 c=1 sm=1 tr=0 ts=6accdd6d cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=t8wMJAQEvqTMzIF6IPMA:9 a=bBxd6f-gb0O0v-kibOvt:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA1MiBTYWx0ZWRfXzSF1+rgrYVL4
+ Qw5zvEi8FFXbPzMuwIroJ+0vPQSgk8UUDaMDeYu9s4D4NVY7crm3+CF9J94gSX4hewTFnY8s55C
+ orNt9BO6NM9RiWMC28Ge4EhuIuJrY7g=
+X-Proofpoint-ORIG-GUID: 4cEj_M_j4sb44l_9qAsSF049y8BVFnZS
+X-Proofpoint-GUID: 4cEj_M_j4sb44l_9qAsSF049y8BVFnZS
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_04,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 malwarescore=0 clxscore=1015 phishscore=0 bulkscore=0
+ priorityscore=1501 adultscore=0 spamscore=0 lowpriorityscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120052
 
-Thank you for your contribution! Sashiko AI review found more severe
-issue(s) in other patches of this series. This mail is only an FYI, in case
-you want to address the nit picks below when you respin.
+Add support for the Cypress CYPD6129 dual Type-C PD controller on the
+Talos Lyra EVK.
 
-Low priority / nit picks for your consideration:
+Enable the controller on I2C5 at address 0x40, configure its GPIO86
+interrupt and wakeup support, and describe both USB Type-C connectors.
+Connect the connectors to USB1 and USB2 through USB role-switch
+remote-endpoint links.
 
-- [Low] The patch adds PPE_SC_BYPASS_EGRESS_SMAC_MC_DROP (24),
-  PPE_SC_BYPASS_EGRESS_L2_FLOODING (25) and…
+Configure both USB controllers in OTG mode with usb-role-switch support
+so that the CYPD6129 controller can manage their USB data roles.
 
---
+USB1 is routed to the daughter-card board-to-board connector. Add a
+fixed USB1 VBUS regulator controlled by PM8150 GPIO10 to provide and
+control VBUS for the USB port on the daughter card. Configure the
+corresponding PM8150 GPIO pinctrl state and keep the regulator enabled
+for the board configuration.
 
-net: ethernet: qualcomm: ppe: Add IPQ5424 service code configuration
+Add the TLMM GPIO64 VBUS boost enable as a GPIO hog. This enables the
+5 V boost converter required to generate the VBUS supply for the USB
+daughter-card connector. The boost converter output is set to 5 V by
+the feedback network consisting of R2403 and R2401:
 
-This patch makes the stride of the L2 service code table depend on the
-SoC: 0x20 on IPQ5424 and 0x10 on IPQ9574. On IPQ5424 it also writes a
-second word per entry with the extended egress bypass bitmap. Three new
-egress bypass bits (24-26) are added for source MAC multicast drop, L2
-flooding and tunnel exception counter control.
+    VOUT = 0.6 * (1 + R2403 / R2401)
+         = 0.6 * (1 + 75K / 10K)
+         = 5 V
 
-> diff --git a/drivers/net/ethernet/qualcomm/ppe/ppe_config.c b/drivers/net/ethernet/qualcomm/ppe/ppe_config.c
-> index 017d2e8342511..3dc1bcc8949eb 100644
-> --- a/drivers/net/ethernet/qualcomm/ppe/ppe_config.c
-> +++ b/drivers/net/ethernet/qualcomm/ppe/ppe_config.c
+The changes also add the I2C5 alias, CYPD6129 pinctrl configuration,
+wakeup-source properties, USB endpoint connections, and the required
+VBUS power-control GPIO descriptions.
 
-[ ... ]
+Signed-off-by: Akash Kumar <akakum@qti.qualcomm.com>
+---
+ arch/arm64/boot/dts/qcom/talos-lyra-evk.dts | 119 +++++++++++++++++++-
+ 1 file changed, 117 insertions(+), 2 deletions(-)
+---
+base-commit: b7e62b4d28bc0d2f16f03904616da78e4478aa88
+change-id: 20261012-talos-lyra-evk-v2-v2-0-dcc9316ebb59
+base commit link: https://lore.kernel.org/all/20261012-talos-lyra-evk-v2-v2-0-dcc9316ebb59@oss.qualcomm.com/
 
-> @@ -1490,9 +1490,16 @@ int ppe_sc_config_set(struct ppe_device *ppe_dev, int sc, struct ppe_sc_cfg cfg)
->  			  test_bit(PPE_SC_BYPASS_COUNTER_RX, cfg.bitmaps.counter));
->  	val |= FIELD_PREP(PPE_IN_L2_SERVICE_TBL_TX_CNT_EN,
->  			  test_bit(PPE_SC_BYPASS_COUNTER_TX, cfg.bitmaps.counter));
-> -	reg = PPE_IN_L2_SERVICE_TBL_ADDR + PPE_IN_L2_SERVICE_TBL_INC * sc;
-> +	reg = PPE_IN_L2_SERVICE_TBL_ADDR + PPE_IN_L2_SERVICE_TBL_INC(ppe_dev) * sc;
->
-> -	ret = regmap_write(ppe_dev->regmap, reg, val);
-> +	in_l2_val[0] = val;
-> +
-> +	bitmap_value = bitmap_read(cfg.bitmaps.egress, PPE_SC_BYPASS_EGRESS_SMAC_MC_DROP,
-> +				   PPE_SC_BYPASS_EGRESS_SIZE - PPE_SC_BYPASS_EGRESS_SMAC_MC_DROP);
-> +	in_l2_val[1] = FIELD_PREP(PPE_IN_L2_SERVICE_TBL_W1_BYPASS_BITMAP_EXT, bitmap_value);
+Link to Driver and DT-Binding change: https://lore.kernel.org/all/20261012091658.635441-1-akash.kumar@oss.qualcomm.com/
+---
 
-[Severity: Low]
-Is the CPU service code meant to bypass all three new checks on IPQ5424?
-
-The new enum values raise PPE_SC_BYPASS_EGRESS_SIZE from 24 to 27.
-ppe_servcode_init() is unchanged, and it still fills the whole egress
-bitmap and clears only one bit:
-
-drivers/net/ethernet/qualcomm/ppe/ppe_config.c:ppe_servcode_init() {
-    ...
-	bitmap_fill(sc_cfg.bitmaps.egress, PPE_SC_BYPASS_EGRESS_SIZE);
-	clear_bit(PPE_SC_BYPASS_EGRESS_ACL_POST_ROUTING_CHECK, sc_cfg.bitmaps.egress);
-
-	return ppe_sc_config_set(ppe_dev, PPE_EDMA_SC_BYPASS_ID, sc_cfg);
-}
-
-Because of this, bitmap_read() here returns 0x7, and that value goes
-into word 1 of the entry for PPE_EDMA_SC_BYPASS_ID on IPQ5424. Service
-code 1 then bypasses source MAC multicast drop, L2 flooding and tunnel
-exception counter control.
-
-This matches the existing policy of bypassing every egress feature
-except the ACL post-routing check, and IPQ9574 is unaffected. However,
-neither the commit message nor a code comment says that the default CPU
-service code now enables these bypasses.
-
-Could the commit message, or a comment in ppe_servcode_init(), say
-whether this is intended?
-
-> +
-> +	ret = regmap_bulk_write(ppe_dev->regmap, reg, in_l2_val,
-> +				PPE_IN_L2_SERVICE_TBL_WORDS(ppe_dev));
->  	if (ret)
->  		return ret;
->
-
-[ ... ]
-
+diff --git a/arch/arm64/boot/dts/qcom/talos-lyra-evk.dts b/arch/arm64/boot/dts/qcom/talos-lyra-evk.dts
+index cfb563658fe0..2cd5a2562f3e 100644
+--- a/arch/arm64/boot/dts/qcom/talos-lyra-evk.dts
++++ b/arch/arm64/boot/dts/qcom/talos-lyra-evk.dts
+@@ -11,6 +11,10 @@ / {
+ 	compatible = "qcom,talos-lyra-evk", "qcom,qcs615", "qcom,sm6150";
+ 	chassis-type = "embedded";
+ 
++	aliases {
++		i2c5 = &i2c5;
++	};
++
+ 	dp0-connector {
+ 		compatible = "dp-connector";
+ 		label = "DP0";
+@@ -25,6 +29,16 @@ dp0_connector_in: endpoint {
+ 		};
+ 	};
+ 
++	regulator-usb1-vbus {
++		compatible = "regulator-fixed";
++		regulator-name = "USB1_VBUS";
++		gpio = <&pm8150_gpios 10 GPIO_ACTIVE_HIGH>;
++		pinctrl-0 = <&usb1_en>;
++		pinctrl-names = "default";
++		enable-active-high;
++		regulator-always-on;
++	};
++
+ };
+ 
+ &i2c5 {
+@@ -59,6 +73,68 @@ expander3: gpio@3c {
+ 		#gpio-cells = <2>;
+ 		gpio-controller;
+ 	};
++
++	typec@40 {
++		compatible = "cypress,cypd6129";
++		reg = <0x40>;
++		interrupt-parent = <&tlmm>;
++		interrupts = <86 IRQ_TYPE_LEVEL_LOW>;
++		pinctrl-0 = <&usb0_intr_state>;
++		pinctrl-names = "default";
++		wakeup-source;
++
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		status = "okay";
++
++		/*
++		 * connector@0 is the USB0 Type-C port with SuperSpeed support,
++		 * routed to usb_1. connector@1 is the USB1 Type-C port with
++		 * USB 2.0 HS-only support, routed to usb_2.
++		 */
++		ccg_typec_con0: connector@0 {
++			compatible = "usb-c-connector";
++			reg = <0>;
++			label = "USB-C";
++			data-role = "dual";
++			power-role = "dual";
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				port@0 {
++					reg = <0>;
++
++					ucsi_ccg_port_0_hs: endpoint {
++						remote-endpoint = <&usb_1_dwc3_hs>;
++					};
++				};
++			};
++		};
++
++		ccg_typec_con1: connector@1 {
++			compatible = "usb-c-connector";
++			reg = <1>;
++			label = "USB-C";
++			data-role = "dual";
++			power-role = "dual";
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				port@0 {
++					reg = <0>;
++
++					ucsi_ccg_port_1_hs: endpoint {
++						remote-endpoint = <&usb_2_dwc3_hs>;
++					};
++				};
++			};
++		};
++	};
+ };
+ 
+ &mdss {
+@@ -74,6 +150,15 @@ &mdss_dp0_out {
+ 	remote-endpoint = <&dp0_connector_in>;
+ };
+ 
++&pm8150_gpios {
++	usb1_en: usb1-en-state {
++		pins = "gpio10";
++		function = "normal";
++		output-enable;
++		power-source = <0>;
++	};
++};
++
+ &pon_pwrkey {
+ 	status = "okay";
+ };
+@@ -94,10 +179,33 @@ tpm@0 {
+ 	};
+ };
+ 
++&tlmm {
++	usb0_intr_state: usb0-intr-state {
++		pins = "gpio86";
++		function = "gpio";
++		drive-strength = <2>;
++		bias-pull-up;
++	};
++
++	vbus_boost_5v: vbus-boost-5v-hog {
++		gpio-hog;
++		gpios = <64 GPIO_ACTIVE_HIGH>;
++		output-high;
++		line-name = "vbus-boost-5v";
++	};
++};
++
+ &usb_1 {
+-	dr_mode = "peripheral";
++	dr_mode = "otg";
++	usb-role-switch;
+ 
+ 	status = "okay";
++
++	port {
++		usb_1_dwc3_hs: endpoint {
++			remote-endpoint = <&ucsi_ccg_port_0_hs>;
++		};
++	};
+ };
+ 
+ &usb_1_hsphy {
+@@ -109,9 +217,16 @@ &usb_1_hsphy {
+ };
+ 
+ &usb_2 {
+-	dr_mode = "host";
++	dr_mode = "otg";
++	usb-role-switch;
+ 
+ 	status = "okay";
++
++	port {
++		usb_2_dwc3_hs: endpoint {
++			remote-endpoint = <&ucsi_ccg_port_1_hs>;
++		};
++	};
+ };
+ 
+ &usb_2_hsphy {
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20261011-qcom_ipq5424_ppe-v2-0-8c7b057e2c43%40oss.qualcomm.com
+2.43.0
+
