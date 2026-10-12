@@ -1,292 +1,139 @@
-Received: from mail-oa1-f49.google.com (mail-oa1-f49.google.com [209.85.160.49])
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1251F6FC5
-	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 01:34:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F23C19D07E
+	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 01:35:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.54
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791768891; cv=pass; b=PHxDWONYEL471JDzSIekbLe1Tji/HCePb/9fd4fKbVKbKcGGtlznOLEzmqeRCviRRlwMuvkntodYE++pl9HgZUpGHG+HFqtJpI/lzGeNyvCdKVheonT+aeKLOwgjPv9hoQME07eErbWMjiaM5z48OhJx9xTfM6YlRMDSuaqud1g=
+	t=1791768914; cv=pass; b=NbyQTSUt5Ug7vrun7pqz1m276RTYRljBWjaMq0woA4EX00WrJd16zu4Y5JTBxTcv0Q7lX5Vyi0lFA7msuKWVF3JiprzP7ELKitZiUpXe/O0naCtNHjYLxgzlkYFQrPcknBG17BAKWUh09TT1y4EtDq1vVSJMmhASK6bRvshYWCc=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791768891; c=relaxed/simple;
-	bh=qyHBCINY8BuIFSHWxGWlHH3StMfbaDeRJF3+IuIneyo=;
+	s=arc-20240116; t=1791768914; c=relaxed/simple;
+	bh=PMRcSohxNKAPko8/kVl+2WR9uXa15ypsNsERd33VxbM=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=m88G3VKEgMIP1gCT+Bo0rlCoZR9eOcjIRkzAGBNijCsH9PhuPqmyrxTHIdDc2u4e1z8pkpUoZgGyz/EfKiQQpSPoLk5tAG0RXn2sVS8zl4l5auSxKwc8+MfvqUpTYWi5vBSgIfVEJbeIj+5Xo2Vgad4pjAJQ6JycNwqxxtBQRrA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iSkxkcN4; arc=pass smtp.client-ip=209.85.160.49
+	 To:Cc:Content-Type; b=K+3WZ2j1ZTeT0Vy1rXD1RXmhb6nfFsgBKehSFCrGNCCDdA//2Z9wccsickr16JW3nMqvry9heY4ZgBXtZa0jVzj+SKIr95BZPkr23pjq7x/WTjaQznt4EFJxBrHZwJmI1ciPyaFybIsrbBRQuffGt227HrWZptNFaxRtiqfyrgA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S7XNSEHi; arc=pass smtp.client-ip=209.85.208.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iSkxkcN4"
-Received: by mail-oa1-f49.google.com with SMTP id 586e51a60fabf-483d290f398so886232fac.2
-        for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 18:34:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791768889; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S7XNSEHi"
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-6afafc89b48so1905907a12.2
+        for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 18:35:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791768912; cv=none;
         d=google.com; s=arc-20260327;
-        b=gUmwNTYslCheG/1lOZpGR4/T4oGIW2MTdNm0kygK1MgLOYjRt0yV7+8nphvf8RDAbI
-         T6+LOsvK5GHJIlvawKLvpeVaEeZaJaIvlH825pP1O4Zst43fQIltLtzy087iArQv07om
-         r1W2KDh0olMSImEoY6PxSLJ6aPUxebo5zHbpj/oNMkqmxTy6jN3ykERs4sm3m0d3PdfU
-         sfB0642UOkUkDHUAliWlkud5VEF1eYNmSgQ7pJGSU8KO05afoxdNZsoIpL8JlqrzednI
-         j/E+e2USVLckFJ1fURYT36G+wZ5XGMzhQmE91Zanl0G2nejvcSwMTJggROaOtmLYpMBp
-         lWFA==
+        b=FgQuGMKNpeXkhg0OnceUG7/9iZO71gHyy0laZacVDnuhEgk5eApn3HuW+kVj5K/I8b
+         GwMZMpFmLwF+MZBMBeGvMbTb1atUWinXUsIn1Z3ZHqm03jX6ElvNRXk+Br+elFUmO/RO
+         92CubrTjoDZB8fmHAq4zsGGw+GGu2zjP/RaCjnFkMfa/dSNe2D09XpbqttEU2fTKJK0Y
+         ynDlxgSm+sUV76CyIWknPS1hmoZSo3SYEQKiS5NyO1UhPoFwKP/ztakoL8mFOIGb/ozm
+         ooNa+0OXT3cyvlbv5ocd5p4pXfvxCwOi38PQytkVJSeaFtYtYKeThufmS+VbNBLluyJ7
+         6xIw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=Yd+VV6HCPCXSlFSdL5xbsRPgSPrExlGh9Pya53tbL44=;
-        fh=7J7+4GZqY5rsSWSVG/N19pKM7t3TF4mxMkR6s6LjICI=;
-        b=M3kvMmpCa5hzeB1dPpd8FyO78Xgo5xERvP67iVDjPxj5wbrq5mUsF4sMsMBWqN/rqm
-         QKIrF2eny/+prF9jblTYv3y+mksUXIJj1zMmxIQ26g3iICkYiiVddqv1MwcvpFBgbBRR
-         UQMviSS+UP3uVE6/toKe5PnAocN7UdgMt82Yl0MT8OUMhGiPKh4FIdlEHHqOnxrh291I
-         NuQSQ7bB9+Rno1uLp1vX5P877qQKDE/utm8trPjAMGnyordVvdxPwQSTQ1b3/hUzGmWd
-         JH6JyCXbo/Zj+8vrywk5CqeEiU2PRqzUmhiyuPenIw89fpK55mnfZF8wzKRTEOP4xop0
-         rJIA==;
+        bh=p/kXiBrFeOBrXAt12DfB2NBIwep7UPRa6DIr90jxU4c=;
+        fh=EE86CN5o10qKCEImnMQTQhtADzTpOvu7sYBBQwSTzXk=;
+        b=bOduBJeTVRh89KqE8FKoVbX6MQhIUJAg2IRJWguBxMybbI3nQcgy91seGRBQM7okyx
+         0W5WvMkaDD4ZFnU91EHbnlTRpJrOSaC6hjITvKpPIny1mhHAnk4Fr3GHkfWnlx1eGh9I
+         j7W8AmcudqplN6M4HLx429SVB8P+xA6fZSWT0vSbl/lIyxFdoi0hFEes741AQgtPrbTr
+         GEowzvalFwjkDaxU7xPuz1W6E+eV9ly1YyXMB/5I8Y3g8JJIwcLg4XTo0zkgKlV8JMl+
+         I1CNV18E95QJSWs3h5xM2i07tq3hp/B0cVZ09JbX5iFxphq21hP4yh6hf/lN0pki75kO
+         CitA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791768889; x=1792373689; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791768912; x=1792373712; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=Yd+VV6HCPCXSlFSdL5xbsRPgSPrExlGh9Pya53tbL44=;
-        b=iSkxkcN40y7VOeR4M4t3qOgjIZtp3pA4Qm4B/tT5KUP8gRDo4OF1NcdUvPV9WRBX2c
-         Uux1biAMKEk9rgONYwVIxcF9efz8rfGZUHqCWZlnyRoKFfTy081bjeH8cqQelHGBMFwJ
-         pMUDBhnHOtZYX5f8YIdUM+zrwJryV8purt5qMIGJLK0YtzUMKVbkd58vE65lFeowPHVK
-         jGuyM/BdPaORk3JoeT2niOoZk5sJW5PaTnqCM1GMwbwUyF2BzHPApm+7qNpYfGOSyaro
-         lg5IFt2ODRYPbn+nxNoscF06SYssKH3ssLEJSZilNJcaIwiC4Hhlat9Wgm8deW5h9qBt
-         kBVw==
+        bh=p/kXiBrFeOBrXAt12DfB2NBIwep7UPRa6DIr90jxU4c=;
+        b=S7XNSEHiTZ4xhvGn4cxN96dhCK81xL0SCoBh/5tXeDQlyMUZ6Oh4prqhgjzOiYCcaZ
+         oOtdK5icpo+ECMt1lCdi2veP7MxUMZo52aQZHxvT/95DJB6s5GW+cqkc2E6pKquj3Vd+
+         pILdjbP4Mi4SqTnplQy3uapeQ0Llv2kXLNQH55vM3Y9W40KvkQC0GwKHKdjzESaMU5lh
+         HzgZy8j38kXdZbo4vMTh/eLA/f13QaQjTE+zx4/r4+xTkaECSkVLN+E3S3Y4D3FKVy1N
+         9wOOemiGoprhiMS7VRbg88oeLTUEkxMjBow5ve+AZ6iuN3fqxh8bT/Dsyq6NqNtn5fea
+         1iCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791768889; x=1792373689;
+        d=1e100.net; s=20260707; t=1791768912; x=1792373712;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Yd+VV6HCPCXSlFSdL5xbsRPgSPrExlGh9Pya53tbL44=;
-        b=RYmnqHdvFTrpK/tWlmu9yCjfliCqV5Iv00Qupr0/JUrrwB+J6Ys2qEA7rGtT6+uvFH
-         JyhRIfLmYtndA4n6w0TFI2WfUUQQuF9962y/gw9KtLqdtK5NwB34iC7P3Nv5A/HA8Z91
-         U2R/Njpsyg2W8JJ8fhOfwWmN9vOT591CzUVJrYuMWuEymqgrHuCwMztNpAuB3HPQpy5l
-         XxrCSG9aHHz0SyIaAnEq7bZvOK5hz5Dsi0zFewd6BXGeTj7Eh+cqXUWVY5id2OJwpyKs
-         RjbdSdi9BodIckjICql9idDwn0PPstSfij3VqC0DeqaIySycioqtGECyW5+f7zRurOer
-         wgKQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxzNzm0Iw8DUuYakvlUDOylpTwafuhL5zVBph8izcUMNh9fLY0alpshHwPW6iYBhDp1epsxRv1FjB4t@vger.kernel.org
-X-Gm-Message-State: AFq9FYKdHeQd9JWGpMVpSktMh0xtH+MjbOj4c2407LsvPnILOjCHpXrO
-	7lKxZ2zp+LySN6g5qhWR4HJgJpN17vrtkd/+Eap8F13eqhJVW/0wAUn7xgK58ALyJVPYeuHcexg
-	8NMZxhFpM1t1uJKFVeaHaTJTLh1BamVzPD6ObJ2g=
-X-Gm-Gg: AYBFou3qAZ0wCtSPtKxyyWOt3r3zbfxxtv7CP8Ne7zNTWSHjANbE6JHxdDq5BPBpaCk
-	lOdUwpKWjgSh23yxWmX9yk3ca+53ytwHuL70cHxhnzv8OaxVCouwBD4NEVDpf2XSLjddo6taxUP
-	fZkARr9dbh+8I90abHhMjk7h5Ml5TQZ0sRDVATAFLuKJ0UShxum25A5Klnxe/x5dg/GAIJdzEyO
-	y+/F3gLyT+68hWKkcR4RXEdYOPlpwvpLSoV8pKLc9nsr53+dTGP2UtXEvkxwSWP0+ReDwwPyuzO
-	CStr6KbQbUALhlWdIHe5fNw+2TORdvdVAXmZmr5r/pO8Vnw11E5uejg=
-X-Received: by 2002:a05:6808:1a02:b0:4f3:f7da:3e55 with SMTP id
- 5614622812f47-50c56afda4cmr7587631b6e.62.1791768889038; Sun, 11 Oct 2026
- 18:34:49 -0700 (PDT)
+        bh=p/kXiBrFeOBrXAt12DfB2NBIwep7UPRa6DIr90jxU4c=;
+        b=YrveZ28xgDOzYYnBDqF/EHXKzQzR+kFlmx+pQCeS/+faQwGwT9JCy7q4wSorfx10wB
+         rd4fHyCKATzIOaeqw33NylN81w1gS3fR7qZ2yS5Oz3SmxZmDtqP+hoh69ITw1NTCXK5G
+         QCERO/RcOU8wrJF6u7+jlLMkQSm1eqTIS1mi6IHCMo61gYDP/NQW0rd6Ho4yGxwKUrIW
+         kqiAVzYW1pDxe8PcgGQ2wHJtm5abBjqhciQTBKEeIOClvLiwcdCTwzx4CPcNFIfuICRT
+         i5HOs4bvzwvICUXF07AlU7e4xaxoVXTTALu0iaXqTEJu7sqU/v5BN1PSDw2HYDFin2hC
+         r+DQ==
+X-Forwarded-Encrypted: i=1; AKwUvByVykc6vYo0NR+6fNCyWhnPaJ1CMkYhPHYP//2PTF9b6jiUDHJIgfxyvKxfUOqFOEsSQSwN1WAirLmV@vger.kernel.org
+X-Gm-Message-State: AFq9FYJxQy1bYrqpPQbxaLqXERbClA8FFuBJX7xXNdvycjbqzCkNBbA5
+	QTPaXSR5voUT8ix0Qzn+1RSiSQ/0V2cwQIRprkDXnNsThActkrSRutfY2MrtxGccYZ/lKxD2LNo
+	gkAE46L6g+BxG5Dj7YntlIkSP/wskKl8bSUGGsME=
+X-Gm-Gg: AYBFou0uJ+kPVwU9Zco1s/S4nHMjva36fk+osEgDtc6k6c7X3GuurUwKEoiwnDU/rz6
+	OM+t5pgbqjjzaaO2fvu5nAsj7eFVCt487th5HhenVamYcWdB5AdvKeFpvRgQJRvg0J4kVlCLatJ
+	KwxQrf37kERh3KL6C6eByuWfOGTovAaiKvbvMSarjq5Cic8m8Y4pJ0j0G2FKQbD/OQ9o3C190wM
+	vAinNjkNTUD01jwn7K57890VAKvKY3Dd9vw7TxLwZoc5y8rbfoaGQSHq11FGET9c2DqvL8tMGpB
+	BkMKOj28/Oa2OpdbMIENmxF2gHdGOfscTQ5LNIyl1spr6DqLlKBOzJM=
+X-Received: by 2002:a05:6402:a0ce:b0:6b1:bb19:deb3 with SMTP id
+ 4fb4d7f45d1cf-6b1bb19e48dmr1653193a12.25.1791768911701; Sun, 11 Oct 2026
+ 18:35:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261001230547.2752114-1-robh@kernel.org>
-In-Reply-To: <20261001230547.2752114-1-robh@kernel.org>
+References: <20260827-apcs-v1-1-33087bf44620@oss.qualcomm.com>
+In-Reply-To: <20260827-apcs-v1-1-33087bf44620@oss.qualcomm.com>
 From: Jassi Brar <jassisinghbrar@gmail.com>
-Date: Sun, 11 Oct 2026 20:34:37 -0500
-X-Gm-Features: AclHuK_cf01zBbe15tZZMxEgmQJZJDXkL40OgLYY1zsEOSoV-94elMUOv7zsFl0
-Message-ID: <CABb+yY0OjXwfv2+S1zxqYKEtZean-=SNLjfUF_yS3cV6E9BfYg@mail.gmail.com>
-Subject: Re: [PATCH] dt-bindings: mailbox: Convert hisilicon,hi6220-mbox to DT schema
-To: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Wei Xu <xuwei5@hisilicon.com>, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org
+Date: Sun, 11 Oct 2026 20:34:58 -0500
+X-Gm-Features: AclHuK-wSHQEHwchdDebJ1vxNqwtw8jXYVnXM3lFwyE-VJGEOVOwBXaUkTBV1ZA
+Message-ID: <CABb+yY2XUPngcEVBoT_pQGgGjYtjD5iWJDMDXJKCtq0Sg+fBVA@mail.gmail.com>
+Subject: Re: [PATCH] dt-bindings: mailbox: qcom: Add IPQ9650 APCS compatible
+To: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, Oct 1, 2026 at 6:05=E2=80=AFPM Rob Herring (Arm) <robh@kernel.org> =
-wrote:
+On Wed, Aug 26, 2026 at 11:18=E2=80=AFPM Varadarajan Narayanan
+<varadarajan.narayanan@oss.qualcomm.com> wrote:
 >
-> Convert the hisilicon,hi6220-mbox binding to DT schema format. It's a
-> straight forward conversion.
+> Document the APCS mailbox compatible for the IPQ9650 SoC. IPQ9650 uses
+> qcom,msm8994-apcs-kpss-global as a fallback, so add the valid compatible
+> string combination to the binding.
 >
-> Assisted-by: LLM
-> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+> Signed-off-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.=
+com>
 > ---
->  .../mailbox/hisilicon,hi6220-mailbox.txt      | 74 -------------------
->  .../mailbox/hisilicon,hi6220-mbox.yaml        | 63 ++++++++++++++++
->  2 files changed, 63 insertions(+), 74 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/mailbox/hisilicon,h=
-i6220-mailbox.txt
->  create mode 100644 Documentation/devicetree/bindings/mailbox/hisilicon,h=
-i6220-mbox.yaml
+>  Documentation/devicetree/bindings/mailbox/qcom,apcs-kpss-global.yaml | 1=
+ +
+>  1 file changed, 1 insertion(+)
 >
-> diff --git a/Documentation/devicetree/bindings/mailbox/hisilicon,hi6220-m=
-ailbox.txt b/Documentation/devicetree/bindings/mailbox/hisilicon,hi6220-mai=
-lbox.txt
-> deleted file mode 100644
-> index de9fbf722bee..000000000000
-> --- a/Documentation/devicetree/bindings/mailbox/hisilicon,hi6220-mailbox.=
-txt
-> +++ /dev/null
-> @@ -1,74 +0,0 @@
-> -Hisilicon Hi6220 Mailbox Driver
-> -=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D
-> -
-> -Hisilicon Hi6220 mailbox supports up to 32 channels. Each channel
-> -is unidirectional with a maximum message size of 8 words. I/O is
-> -performed using register access (there is no DMA) and the cell
-> -raises an interrupt when messages are received.
-> -
-> -Mailbox Device Node:
-> -=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> -
-> -Required properties:
-> ---------------------
-> -- compatible:          Shall be "hisilicon,hi6220-mbox"
-> -- reg:                 Contains the mailbox register address range (base
-> -                       address and length); the first item is for IPC
-> -                       registers, the second item is shared buffer for
-> -                       slots.
-> -- #mbox-cells:         Common mailbox binding property to identify the n=
-umber
-> -                       of cells required for the mailbox specifier. Must=
- be 3.
-> -                       <&phandle slot_id dst_irq ack_irq>
-> -                         phandle: Label name of mailbox controller
-> -                         slot_id: Slot id used either for TX or RX
-> -                         dst_irq: IRQ identifier index number which used=
- by MCU
-> -                         ack_irq: IRQ identifier index number with gener=
-ating a
-> -                                  TX/RX interrupt to application process=
-or,
-> -                                  mailbox driver uses it to acknowledge =
-interrupt
-> -- interrupts:          Contains the interrupt information for the mailbo=
-x
-> -                       device. The format is dependent on which interrup=
-t
-> -                       controller the SoCs use.
-> -
-> -Optional Properties:
-> ---------------------
-> -- hi6220,mbox-tx-noirq: Property of MCU firmware's feature, so mailbox d=
-river
-> -                       use this flag to ask MCU to enable "automatic idl=
-e
-> -                       flag" mode or IRQ generated mode to acknowledge a=
- TX
-> -                       completion.
-> -
-> -Example:
-> ---------
-> -
-> -       mailbox: mailbox@f7510000 {
-> -               compatible =3D "hisilicon,hi6220-mbox";
-> -               reg =3D <0x0 0xf7510000 0x0 0x1000>, /* IPC_S */
-> -                     <0x0 0x06dff800 0x0 0x0800>; /* Mailbox */
-> -               interrupt-parent =3D <&gic>;
-> -               interrupts =3D <GIC_SPI 94 IRQ_TYPE_LEVEL_HIGH>;
-> -               #mbox-cells =3D <3>;
-> -       };
-> -
-> -
-> -Mailbox client
-> -=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D
-> -
-> -Required properties:
-> ---------------------
-> -- compatible:          Many (See the client docs).
-> -- mboxes:              Standard property to specify a Mailbox
-> -                       Cells must match 'mbox-cells' (See Mailbox Device=
- Node above).
-> -
-> -Optional Properties:
-> ---------------------
-> -- mbox-names:          Name given to channels seen in the 'mboxes' prope=
-rty.
-> -
-> -Example:
-> ---------
-> -
-> -       stub_clock: stub_clock {
-> -               compatible =3D "hisilicon,hi6220-stub-clk";
-> -               hisilicon,hi6220-clk-sram =3D <&sram>;
-> -               #clock-cells =3D <1>;
-> -               mbox-names =3D "mbox-tx", "mbox-rx";
-> -               mboxes =3D <&mailbox 1 0 11>, <&mailbox 0 1 10>;
-> -       };
-> diff --git a/Documentation/devicetree/bindings/mailbox/hisilicon,hi6220-m=
-box.yaml b/Documentation/devicetree/bindings/mailbox/hisilicon,hi6220-mbox.=
+> diff --git a/Documentation/devicetree/bindings/mailbox/qcom,apcs-kpss-glo=
+bal.yaml b/Documentation/devicetree/bindings/mailbox/qcom,apcs-kpss-global.=
 yaml
-> new file mode 100644
-> index 000000000000..f4c8f1f29baa
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/mailbox/hisilicon,hi6220-mbox.yam=
+> index 39bc374300c3..11f4aaf256a7 100644
+> --- a/Documentation/devicetree/bindings/mailbox/qcom,apcs-kpss-global.yam=
 l
-> @@ -0,0 +1,63 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/mailbox/hisilicon,hi6220-mbox.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Hisilicon Hi6220 Mailbox Controller
-> +
-> +maintainers:
-> +  - Wei Xu <xuwei5@hisilicon.com>
-> +
-> +description:
-> +  Hisilicon Hi6220 mailbox supports up to 32 channels. Each channel is
-> +  unidirectional with a maximum message size of 8 words. I/O is performe=
-d using
-> +  register access (there is no DMA) and the cell raises an interrupt whe=
-n
-> +  messages are received.
-> +
-> +properties:
-> +  compatible:
-> +    const: hisilicon,hi6220-mbox
-> +
-> +  reg:
-> +    items:
-> +      - description: IPC registers
-> +      - description: Shared buffer for mailbox slots
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  "#mbox-cells":
-> +    const: 3
-> +    description: >
-> +      The cells content are as follows:
-> +        - Slot number
-> +        - Remote destination interrupt vector
-> +        - Local ack interrupt vector
-> +
-> +  hi6220,mbox-tx-noirq:
-> +    description:
-> +      Flag to request MCU to enable automatic idle flag mode instead of =
-IRQ for
-> +      TX completion.
-> +    type: boolean
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - "#mbox-cells"
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +
-> +    mailbox@f7510000 {
-> +        compatible =3D "hisilicon,hi6220-mbox";
-> +        reg =3D <0xf7510000 0x1000>,
-> +              <0x06dff800 0x0800>;
-> +        interrupts =3D <GIC_SPI 94 IRQ_TYPE_LEVEL_HIGH>;
-> +        #mbox-cells =3D <3>;
-> +    };
+> +++ b/Documentation/devicetree/bindings/mailbox/qcom,apcs-kpss-global.yam=
+l
+> @@ -39,6 +39,7 @@ properties:
+>            - const: syscon
+>        - items:
+>            - enum:
+> +              - qcom,ipq9650-apcs-apps-global
+>                - qcom,msm8998-apcs-hmss-global
+>                - qcom,sdm660-apcs-hmss-global
+>                - qcom,sm4250-apcs-hmss-global
+>
+> ---
+> base-commit: 41243c778cfc83f8d70600be6dcd0c7924603aa8
+> change-id: 20260826-apcs-43612991b1f3
+>
+> Best regards,
 > --
-> 2.53.0
+> Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
 >
 Applied to mailbox/for-next
 
