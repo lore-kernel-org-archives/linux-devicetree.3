@@ -1,139 +1,135 @@
-Received: from mail-oa1-f49.google.com (mail-oa1-f49.google.com [209.85.160.49])
+Received: from mail-oa1-f50.google.com (mail-oa1-f50.google.com [209.85.160.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4F1E38CFFA
-	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 01:30:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0A31377EBA
+	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 01:32:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.50
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791768644; cv=pass; b=BY+MiTgSkK1a+ziN49wXKQiau7fwRkcNDLo/Le0sCNDkgTQIlnAlfl3xisWyxxtcW1YQJ90zDEY7J7ntMAjmkLxlGOcvR8e8TfD5Z5EILpYWN3rXPdPAbuMBtrsPY5j13sQWqzg51lORjglq6UUg2c6alvBU9aEuOfVRe9T/F18=
+	t=1791768723; cv=pass; b=H2WFzbxAxom5lUrhcfDtXO9mYfl83++4o3ur9hvBmd4p1EUl4aMP3HVXItMZSYHnoiEgCfg5rM+y8xTklpT6TzX0beOAkn0yz/45jOKsMpecAwhk8FGMD042/Eouq6ip8Ho4mgfC2UmWki5zmaGNdfn6ZWwuCWSeMQyfPl6jsPQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791768644; c=relaxed/simple;
-	bh=d1fEXq1Mkk4vkb58a3C48SM4t/4EvTl4q1MeMOc9GIs=;
+	s=arc-20240116; t=1791768723; c=relaxed/simple;
+	bh=vhUDDHake6PjVodeFYRTd89BpqCVb70Env0+ub9W+Ck=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=u5kpCJmJ0j/0JyC4GOWq/tWdQEt9BW4NnoE3ZMLaO6w6fito7vGllNlQTkthxNprko5arQ/ybChZYAHpudUzIi1jExHz89PV1s/bhAV0soh4kpKx6NRkl+Q22rUxolb3JzYn/SpgSmvNpD1NqdwTcsXUHS9da8ysBKVymhiWV+k=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QWbKhR8F; arc=pass smtp.client-ip=209.85.160.49
+	 To:Cc:Content-Type; b=auU3MJAJY5+hiD42IvTv/bgjuKx4xJdJtnw+iwq32CedWDucx2tTjX0/QujpWfMJiDzzswhEo4wgEMZNzn5RecwvT4NS/ZD6EjX5JtTNAOiHO+bJSNaqo7ntsOGA3lLP5kEdOJDzThed9WCdDwlo6f34MRWU+FNWcKexyCddAIE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GCGQwL4a; arc=pass smtp.client-ip=209.85.160.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QWbKhR8F"
-Received: by mail-oa1-f49.google.com with SMTP id 586e51a60fabf-49dd13a91d0so516884fac.0
-        for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 18:30:40 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791768639; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GCGQwL4a"
+Received: by mail-oa1-f50.google.com with SMTP id 586e51a60fabf-49e08af5fd4so639868fac.1
+        for <devicetree@vger.kernel.org>; Sun, 11 Oct 2026 18:32:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791768720; cv=none;
         d=google.com; s=arc-20260327;
-        b=J7CITCJlzxYDvsJ9oq+nitseeWVUlwphRTyoLFxCXjODcAQaRaGsJPkt7y35jz0wZ+
-         dRic2i2n35fDnL0IyeWMAJPJfBuQ33GrEvedgt1FaJ1SRXuJYW1ZjnN9F26I9yu0crSd
-         iiYmWx1XAt5qR2yyDdRmNWob/TMx4+V+OLZpqXSotxg8CA4tgEsE1L0af4ZzgCxwmX/f
-         20gm/bpcNxafSAk16U2mBHWuxl+m2Zu/MyHwbPXcz2I9Qg+YOHETKcchU8RGamKXkNqL
-         oschs21D+a7ntaDgTf9DpvACcPxznj8sPc6HHXGspYVyyx/W3jnq4+10ihfmeFL657sS
-         3o6A==
+        b=VWLKvNKNEJ1PnDkpsJukcX+nFNNLSmTdpJXm0ILQ5rPdlDzc1FOFfpnSxAGg950/b6
+         9ULfeZu75D5WF8Jz7SBi9gs6B0aOCFpglsrCJaCbjSBH2NOSuQp+mkSTUrxAM41GmSKP
+         10l7ImkScoV8QaDhJlodMotF0aQ2XlzAxM4Sz07XwtJsjTLJlDrf5AJHn9ECrU9FonVn
+         usR6ehHSvBwHVqgAtNdzPK3VUn1CihZNcRzeh3sswTSfn6vzWeEV1pKon5KAzqOqmU5k
+         8QVeBxKx2F0KRXZX/LIEP7s6QFhbL1soNK4ryVAG0t+ofEvZ35lnw+06zrgaUzfJtaLG
+         K6dA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=L4eXsmhlclpfowQz5aqJOp7PZGMOX+eSHE8u7F7KW9Y=;
-        fh=gamKYKmSCePGgIV/+mlwXqfXHpmIOwpnrBXPd2SuZZo=;
-        b=ATHDuhglACfH+TZsV7P70arNJoEDEo41f71PJcE04PF3cDnrGpUpvENObSmY8MaehE
-         KborO+CghUMdK8jG+1VPo+pbyQydeexmxeZ3a6pzsCnRO6w8C/8ls2Lb00csY6ndJYiA
-         HJoFtfJCmf9ezWVDZaokTA+g4OE4Li/3NEG7PfSwcMY0Nw1zt7m0kuWtv6R0brXt+4xK
-         n9784bWfd6LYgFsO0dXMxOR1ER6LMct9LjF9WJJaZ3lOZ9Zfjs8YeJjFeUtPUEmGa4Lr
-         0wyp8ekUnK5YabVJD8B+zwlQFT7KxrCvHUrWideNMNdNDlBRtwdkC8jsq9t656NtBADE
-         bF1g==;
+        bh=NDQUO9E3aLbOqLlDqGwF/awXVPyTQZEvQb89vn5yfsI=;
+        fh=eIeeCS+RIQaYh0/0hIE/Mn4JZL4mrr5pIHLu6YK0668=;
+        b=hmiWuUd4wu5FRuK32RI6pw8Kb4eflohu7aIC8mxZO9qyUu/MQQ8b64N1S76O3Ofruu
+         VCajXJZN6uLUMfvA8qDf8cHi/ByrhBLCdQO6PizsQkYRYkPS+RLOf1ZxJVQb13dMlt8C
+         WvLPRCuAlA2/Rbb7N1D6k0VBvdjMTghDikrp3yh1f8RytwTToHC4QWAtrBuLc8saffj5
+         tqZ5dUCoI1c8tdleFm1rjdaXeve4RYtvMCvBT1yEAUyFUB7uFwnpR55Z98DURpVClgqW
+         CReeihkYXFUv4oWSMjNandhkalHCtfnD9d0DHpiaveESF7xQqGFuXGeyO48ueMrVSRzW
+         0TMQ==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791768639; x=1792373439; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791768720; x=1792373520; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=L4eXsmhlclpfowQz5aqJOp7PZGMOX+eSHE8u7F7KW9Y=;
-        b=QWbKhR8FC+ZA8ab/OyiZ3QAmVkJMbIp9ruiItLr0mmxhz8ZPZS1kktkeSM/iHwVFUH
-         WPw7OQgUthwV6PTibwNzbvn+7WeI+soz9GIO+LQyIjlVCyR4lUL55KZOzOZtdeQXHNSM
-         Q/fvnoRxJEdZ0tQyo3djUw2SWDxi0GajwLcBTsbWktFF5O7MambHhTsJTGhxNJli2Rjh
-         5/TUsDU5l4kuRKTwwM6Ei1tzorYXmdACj5EJaNqC1TMqJwfUOsYBmmZIgKtMGsTqbCoe
-         SIwqIAV+hK6W2wSrd6CdyCNKOLXYLDm5+tWexbzX4jFVmGOPiglwmWJRJMYMNVNXkqWA
-         tULw==
+        bh=NDQUO9E3aLbOqLlDqGwF/awXVPyTQZEvQb89vn5yfsI=;
+        b=GCGQwL4ab1od3moolhk3hHqGU4woVDxfP/nPc5Z2Ra061NJhVqGDZqpfeQ+MpOV/Sa
+         PFhkCfhjfe4kgJ4XxoXFqs4HYwiUWlu51BB2NILtfl+uixL0rcCcILPI7bIYFMzgGOpS
+         TUs6/NKEcMmCBIMeAbF6iF/RKinW4f2yt7qd1q0uGZCC93M8jrpkPL9/XZ93bpK2Ela4
+         c2uEUbLAo1BGHNDs6oeKp+txknqWavUpSPWc020TmDblTzMIRdYLUa1viSmRxdtqV+wS
+         PI5HO3HsF7mLbB1Uv1XHuhywQJ9OPQkAk07guSXjoGi+v5UU8uI1nzPqC0Ev1izC91Cs
+         AIMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791768639; x=1792373439;
+        d=1e100.net; s=20260707; t=1791768720; x=1792373520;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=L4eXsmhlclpfowQz5aqJOp7PZGMOX+eSHE8u7F7KW9Y=;
-        b=NJRKHDAMzVAatdo8bcI9GCAI7ZKfiRR/j5P2UkRn6ekeKYwZapO74RYVvv97/qpNI5
-         g4fbAG0cPTNUwUe/Qx33tdFY2qRAgePGRGLOmH6fQSM5JmDZnAzDGyvj9MtlMsAmNmTo
-         rOGH6q/3aG6hEye+P4+bRzokCo6pyKjzModk6p3sjlrJCYh4dK5diLc8cK7mraNfd7EB
-         qJj8/N0/2VZKVoeLDLzWontldpRKk/PnYHgxm7Rm49NJX+6hpfC5REc+pZHXDq+RBNkr
-         iqxVFdGHbdpU7WOYaODp1kVKEYGqaOd2oHI5mBw9wE2n3E89Kb/TRTZKm0502PRm++MY
-         1t4w==
-X-Forwarded-Encrypted: i=1; AKwUvBx+/227r90z4YskUGHxouuOeoSyNJXbqMbAS7YPtBUOar6JZb0Fm/oV03PQbQHtllgzSP8YgGa+/hsn@vger.kernel.org
-X-Gm-Message-State: AFq9FYKoG+gFQBX82EtqEq29i9iIaO++knR2v/WyiwjCkc4eA4Qa2ilz
-	Dbswhe3ER3srmuDxZ+IiC/3zQiHSTgBK+vjPu1yy6cPGh6QplaxMZ9umrw6kOWmIImQ/z08Yra5
-	5NN0ca6muR/OceZSTnI6xZ2YsWef1a+A=
-X-Gm-Gg: AYBFou3DFCzz1nvbWldihHeSJnpttn+kBDq2YfVVXx1xI3+NzRobCrqEwbdJ/mZV8hH
-	YjSkhh1ySCJA33zUXcyqujS1qi1bquTtPvxeb9JZfii5Hn46nSoYSGltwGzZS05zqPURa3myW5J
-	c5zccmzs5Qu+Ad1/3gsSLDM3TyhNEqSz9ZBBU39I6ZkaxyAamQsEB6BIN6QcyvVSBX3Je/z0MTN
-	zVAKiMfWwqvkjm0j7VfpQoF86K1nFSkzX8MdeWuyrT/KyuM4DRbtB1VRZltQSgJD9wMcAwg+Jsk
-	6EeY0Thjik/LA4pZMCqQ/UWlnKoSG5uwx7ZInyr4yd4yir0rdBvah/4=
-X-Received: by 2002:a05:6870:e2ce:b0:494:a2cf:8dce with SMTP id
- 586e51a60fabf-4a2a870834cmr6526407fac.4.1791768639415; Sun, 11 Oct 2026
- 18:30:39 -0700 (PDT)
+        bh=NDQUO9E3aLbOqLlDqGwF/awXVPyTQZEvQb89vn5yfsI=;
+        b=21o8hWb9nIRb+B5wUzFrvJxDY168UQ+EXK5KNt5OYi82rienyphWLVzqfkTY7yo4lp
+         f1hmlhoS77tMVcF+2uECmpTNzGqFYopBiOGYf/DwYwX+fGTed3W+yFvwWdqi0u/G2nEh
+         D+wqqB1gSszure81j+kq6l4f2earU4PVfPODWQwGRSeC6cMK2X7hh5sBHoJboj+vuK5U
+         pjYhRpk4oRseX+ZZfIi1GMEYnaUB2/mWH+qZhJopT+qw7u40YVng5Iy2a8pPJR4TxIrV
+         lCpZmHVtf0ljgzygR1CqJf58+qHaB6nIAS91eujabloVWIfbqstUUsmZffz0j9hgSHsY
+         kBFw==
+X-Forwarded-Encrypted: i=1; AKwUvBxkoELE/sYtVOH2Sb8uo+NSBCLOOL/2qPxXXh+ox7xpMbJPecFX/pyIHbaVwlO6cuF5KyHCjVh/KPJq@vger.kernel.org
+X-Gm-Message-State: AFq9FYKv32fqpu0qSCuM26vTomztLERuxidryXhjIybslWQ2m4n5nSxo
+	dW/9DMFjzKySfbdlM0ghaz0q8KycgJVT/ZklmCM3hV2tdUyqkULfsn16WELU6k6yrfFERxKcJjP
+	B6gNR8qKR8YzmfBOhguGkh067HymOD0Q=
+X-Gm-Gg: AYBFou2CDdtmZd9vTDLaz9gEtlvvHML9YTzoR9k+FOeclp7uOPKfU9cL4ygeTWy9tnz
+	t7Mv5qFRJ+sXhZCvihuQjmzhGmIOINxuZzJdAbJuL4AL9vO30QSJ3/5GO+q78olkE+CqQVQ8dUl
+	nrjOuaecCTFYaLmWchdLumz+KKFbOGHF4XpA7n5XDpxqNPJgTzkdSqYAsCgg70iec5RklWwVe8b
+	JqAuUZacDAQ54/ycmuqf4/DQLCfg5ebnUpoZGDGgbkBHv5r8+DYKoIrnc3oBYiKZzF2nzz6+MU9
+	HWdIVxZckM29FoNMtH/YHCo1BvxDhyMarO0UKcrKvDjSfKZF8o9TSAA=
+X-Received: by 2002:a05:6870:b523:b0:451:22e0:9604 with SMTP id
+ 586e51a60fabf-4a2a86aca5cmr6021572fac.7.1791768720455; Sun, 11 Oct 2026
+ 18:32:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260930172948.2901336-1-b-padhi@ti.com>
-In-Reply-To: <20260930172948.2901336-1-b-padhi@ti.com>
+References: <20261003175659.23536-1-mailingradian@gmail.com> <20261003175659.23536-3-mailingradian@gmail.com>
+In-Reply-To: <20261003175659.23536-3-mailingradian@gmail.com>
 From: Jassi Brar <jassisinghbrar@gmail.com>
-Date: Sun, 11 Oct 2026 20:30:26 -0500
-X-Gm-Features: AclHuK-lzcBr52y20tr2XLLyOQm2hH8-_1PyChxO-WGTtfJpSF8tAo9K4q3D4EQ
-Message-ID: <CABb+yY1nPr0qBngbnmReKPbziNa6be7i4OJDdNut9V9eQTiAJA@mail.gmail.com>
-Subject: Re: [PATCH 0/2] Add support for TDA54 variant secproxy controllers
-To: Beleswar Padhi <b-padhi@ti.com>
-Cc: nm@ti.com, afd@ti.com, u-kumar1@ti.com, linux-kernel@vger.kernel.org, 
-	vigneshr@ti.com, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
+Date: Sun, 11 Oct 2026 20:31:49 -0500
+X-Gm-Features: AclHuK8whbaG7v0eCCsuN4wni82p4hRfYmu-N78P0lmjY_ExUyztPMiJe-8P32A
+Message-ID: <CABb+yY3gCzgVL1qZ7XCapkUBr4MGfUO8NG3kXY_3QL9_pkHo2w@mail.gmail.com>
+Subject: Re: [PATCH v2 02/11] dt-bindings: mailbox: qcom: Add SDM670 APCS compatible
+To: Richard Acayan <mailingradian@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+	Mathieu Poirier <mathieu.poirier@linaro.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	Abel Vesa <abelvesa@kernel.org>, Srinivas Kandagatla <srini@kernel.org>, 
+	Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Andy Gross <agross@kernel.org>, linux-arm-msm@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-remoteproc@vger.kernel.org, 
+	linux-sound@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 30, 2026 at 12:30=E2=80=AFPM Beleswar Padhi <b-padhi@ti.com> wr=
-ote:
+On Sat, Oct 3, 2026 at 12:57=E2=80=AFPM Richard Acayan <mailingradian@gmail=
+.com> wrote:
 >
-> Add support for the secure proxy mailbox controller integrated in the
-> MAIN voltage domain of the TI TDA54 SoC, which features up to 444
-> threads with 60-byte messages per thread.
+> Add the compatible for the APCS in the SDM670 SoC.
 >
-> Add a new compatible in dt-bindings and add the device data in the
-> ti-msgmgr mbox driver for the same.
+> Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> ---
+>  .../devicetree/bindings/mailbox/qcom,apcs-kpss-global.yaml       | 1 +
+>  1 file changed, 1 insertion(+)
 >
-> Testing done:
->  - Build and Boot tested on TI K2 and K3 platforms.
->  - Tested that these patches do not generate new warnings or errors.
->
-> Test logs:
-> https://gist.github.com/3V3RYONE/8cb2e49ddd902180a920730b7a5c8016
->
-> Cc: Jassi Brar <jassisinghbrar@gmail.com>
-> Cc: Rob Herring <robh@kernel.org>
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Conor Dooley <conor+dt@kernel.org>
-> Cc: Nishanth Menon <nm@ti.com>
-> Cc: linux-kernel@vger.kernel.org
-> Cc: devicetree@vger.kernel.org
->
-> Thanks,
-> Beleswar
->
-> Beleswar Padhi (2):
->   dt-bindings: mailbox: ti,secure-proxy: Add TDA54 variant compatible
->   mailbox: ti-msgmgr: Add ti,tda54-main-secure-proxy support
->
->  .../bindings/mailbox/ti,secure-proxy.yaml     |  4 ++-
->  drivers/mailbox/ti-msgmgr.c                   | 33 +++++++++++++++----
->  2 files changed, 29 insertions(+), 8 deletions(-)
->
+> diff --git a/Documentation/devicetree/bindings/mailbox/qcom,apcs-kpss-glo=
+bal.yaml b/Documentation/devicetree/bindings/mailbox/qcom,apcs-kpss-global.=
+yaml
+> index 39bc374300c3..74f24e07abc3 100644
+> --- a/Documentation/devicetree/bindings/mailbox/qcom,apcs-kpss-global.yam=
+l
+> +++ b/Documentation/devicetree/bindings/mailbox/qcom,apcs-kpss-global.yam=
+l
+> @@ -50,6 +50,7 @@ properties:
+>                - qcom,qcs615-apss-shared
+>                - qcom,sc7180-apss-shared
+>                - qcom,sc8180x-apss-shared
+> +              - qcom,sdm670-apss-shared
+>                - qcom,shikra-apss-shared
+>                - qcom,sm7150-apss-shared
+>                - qcom,sm8150-apss-shared
 > --
-> 2.34.1
+> 2.56.0
 >
 Applied to mailbox/for-next
 
