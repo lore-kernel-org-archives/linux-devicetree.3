@@ -1,112 +1,123 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FE9133EB1A;
-	Mon, 12 Oct 2026 07:13:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A60E344DB5
+	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 07:13:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791789187; cv=none; b=WUX68y0JM0kSyI0YK+ZwJHoD2BcRsQRpEbvAyemTxxFNKkc3nAmzSTwRekFaWtWjIBfSQsywnWnIy1wwlp3CxAOQ2X3K9RJ3QbQfY83aip911a6xi9lgM9g6mMSspvFM+7QpeQhluJUoDIqn/sF75SYQ4jyD2Wek4fD6gN5XKd0=
+	t=1791789212; cv=none; b=YlwuQXmN0qEkurehEZfReeSkBQCdSSBaAezR8Law9uWYVPH9as8YAMqSA90nx79sICpkZJz6XIAYk0rIeX5Gq8HIaJqfxpidF0Wl9/TNmfFY9ZGBn8LlIzgGJLXPqktcEo/1T1d/YCXzFmdxvRNbYL+sTIxgvioGAlTcnordgjk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791789187; c=relaxed/simple;
-	bh=Fs0kvdWDU3W8mYHEPO/FQh5D7VyutRtD62nvkLQ5hyw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=pTfTrTRI9MfTbf4vi8lSSkcRXrQmNsqIDInpoF4UxKBTL8nAAGXZm0fXq+vPGP1c94iCFW3CMEChN9pCW+5rT3d9/+HQ24/d6rFgw6vflVVWGzWB/f39HhRO3SwYtkisRH3ms6vGOZVS1uI7sfp/L0JQz3jVmgSsnD2oZ18VncA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d8LF/P53; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791789212; c=relaxed/simple;
+	bh=DGvkmq4+EjnMEWjQSxuCoRxOcpwv8WQRcJXTyLtuE+0=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=ilbgghexHd91TCMxoD/I539MQghlS54HJev10wNHenz9/iLUVw3JqJFgV2Rfh9oZbl2hayFSCTGXMrsCABcW2owS0tKPOh26f+SLI4WW4ftOAt44K23yad7EmQdn4R832lgZUib6UTu930XxojyzFEZOowHaAGoB33wLDMYrmh4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZM13eROd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d8LF/P53"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAA231F0089B;
-	Mon, 12 Oct 2026 07:13:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZM13eROd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42DAE1F0089B;
+	Mon, 12 Oct 2026 07:13:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791789186;
-	bh=j9P9Thm7k1bsTkDg7xE+z5+IM8J6E4SnMRqSInghayM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=d8LF/P53oD5NARKfglhUkJANYrDk1HBbEfsaLzQQ1xFbwIdvZ5x1y1w0LzUTXez/S
-	 ciBH0mByAXMShPi76rcrybdFYwS3ubzuZMnZCHHea7kqWP3ByOL79DT20dRoqzLDBQ
-	 GnP2sF3UrE6Xnr/hA8E2zfZqwRuyDMkm+JChun/AVd3A/MCVYyqcXFSArRAyfF7DMI
-	 9wW5GB6L4YCkWYxHNB0NwKmUmDikntXacn9wVPWYvXtif+6u/oBu2IKNQjrs/vLDvP
-	 b0SnIMsGDOpb29uKFLBeR3vM1UA2pr6liOO8Dp/qXupcODOHDtVjGX9rodPpvuHovq
-	 /MKF6ye97QKhA==
-Message-ID: <b48bdddf-2218-4164-8a76-e9cfa2802111@kernel.org>
-Date: Mon, 12 Oct 2026 09:13:02 +0200
+	s=k20260515; t=1791789210;
+	bh=Wk1YgX+JwCRBoXgwopV5P61jFYBRUySBF7WBFxlgVew=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZM13eROdScVRAzK9s0LSvEzS8nRPGqWXeWc8V9GqGDPhz7ABL02viU1joahrwLBkq
+	 Jrdg3Hoi13q3GiYGmorTpiGgXB7fj07MGqTArICuYc6DxvmLFua0j/jhrFVTeqg/jO
+	 V8ZBF769k3rq160QKg3ZVqtgfxmvCWfRMVmIi0M8dzv9OkmwKS23b3yjsq9SRA8CY9
+	 IzkdFafUDCmNOUSFWnhRd61eYhafkkiI4rlhf2uwGwebEMH4j6iLQS1gexkjyP8yI9
+	 HcDwt3lqB4sXmZ/rBlinm755/Y3KdBnmVhvSZqn3ugj654CQDFb2gLHko+okoUzGqe
+	 5+2EOjlg0FAwQ==
+Message-ID: <sashiko-outbox-167782@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v11 3/6] media: dt-bindings: Add Amlogic V4L2 video
+ decoder
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Zhentao Guo" <zhentao.guo@amlogic.com>
+Cc: linux-amlogic@lists.infradead.org, neil.armstrong@linaro.org, conor+dt@kernel.org, media-ci@linuxtv.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20261012-b4-s4-vdec-upstream-v11-3-25939f85ada5@amlogic.com>
+References: <20261012-b4-s4-vdec-upstream-v11-0-25939f85ada5@amlogic.com>
+ <20261012-b4-s4-vdec-upstream-v11-3-25939f85ada5@amlogic.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 12 Oct 2026 07:13:29 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC v3 07/10] tty: serial: Add Cortina UART driver
-To: sashiko-reviews@lists.linux.dev, Fil Dunsky <filipp.dunsky@gmail.com>
-Cc: linux-serial@vger.kernel.org, robh@kernel.org,
- devicetree@vger.kernel.org, conor+dt@kernel.org
-References: <20261012-b4-cs75xx-v3-0-0e0d17a098cf@gmail.com>
- <20261012-b4-cs75xx-v3-7-0e0d17a098cf@gmail.com>
- <sashiko-outbox-167778@kernel.org>
-Content-Language: en-US
-From: Jiri Slaby <jirislaby@kernel.org>
-Autocrypt: addr=jirislaby@kernel.org; keydata=
- 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
-In-Reply-To: <sashiko-outbox-167778@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 12. 10. 26, 9:10, sashiko-bot@kernel.org wrote:
->> +static void cortina_uart_set_termios(struct uart_port *port,
->> +				     struct ktermios *termios,
->> +				     const struct ktermios *old)
->> +{
-> [ ... ]
->> +	uart_port_lock_irqsave(port, &flags);
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] dt-bindings: media: amlogic,s4-vdec: incomplete validation for inte=
+rrupts array and names
+--
 
-Seeing this, why not to use guard()?
+commit 0c8109e65ab164df82b0c800ca621bbe98ed15f7
+Author: Zhentao Guo <zhentao.guo@amlogic.com>
 
->> +
->> +	port->ignore_status_mask = 0;
->> +	if (!(termios->c_cflag & CREAD))
->> +		port->ignore_status_mask |= CORTINA_UART_RXDAT_VALID;
->> +
->> +	uart_update_timeout(port, termios->c_cflag, baud);
+media: dt-bindings: Add Amlogic V4L2 video decoder
 
--- 
-js
-suse labs
+This patch adds the device tree binding schema for the Amlogic hardware
+decoder accelerator. The device supports stateless H.264 decoding on
+Amlogic SoCs.
+
+> diff --git a/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml=
+ b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
+> new file mode 100644
+> index 0000000000000..75b9ba3cb08d2
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/media/amlogic,s4-vdec.yaml
+> @@ -0,0 +1,114 @@
+[ ... ]
+> +  interrupts:
+> +    maxItems: 2
+> +
+> +  interrupt-names:
+> +    items:
+> +      - const: hvdec
+> +      - const: vdec
+
+[Severity: Low]
+Does the schema need minItems: 2 here for the interrupts array? Without it,
+an incomplete node with only 1 interrupt will pass schema checks while still
+failing at the driver level when index 1 is requested.
+
+[ ... ]
+> +required:
+> +  - compatible
+> +  - reg
+> +  - reg-names
+> +  - interrupts
+> +  - clocks
+> +  - clock-names
+> +  - power-domains
+> +  - power-domain-names
+> +  - resets
+> +  - amlogic,canvas
+> +  - amlogic,secure-monitor
+
+[Severity: Low]
+Is interrupt-names missing from this required list?
+
+Leaving it out permits incomplete configurations to silently pass schema
+validation (dt_binding_check). If the driver fetches the interrupt purely
+by index (e.g. platform_get_irq(pdev, IRQ_VDEC) where IRQ_VDEC is enum 1),
+omitting interrupt-names from the requirements allows device tree authors
+to easily miss the correct ordering or provide only one interrupt, leading
+directly to driver probe failures or incorrect interrupt routing at runtime.
+
+[ ... ]
+> +      reg-names =3D "dos",
+> +                  "dmc";
+> +      interrupts =3D <GIC_SPI 91 IRQ_TYPE_EDGE_RISING>,
+> +                   <GIC_SPI 92 IRQ_TYPE_EDGE_RISING>;
+> +      clocks =3D <&clkc_periphs CLKID_DOS>,
+
+[Severity: Low]
+Should interrupt-names be included in this example?
+
+The example currently omits interrupt-names completely, demonstrating how a
+functionally incomplete node is permitted by the schema.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261012-b4-s4-vdec=
+-upstream-v11-0-25939f85ada5@amlogic.com?part=3D3
