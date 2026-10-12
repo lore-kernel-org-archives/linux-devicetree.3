@@ -1,146 +1,112 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEF74399375;
-	Mon, 12 Oct 2026 20:49:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22B9B4A64C9
+	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 20:53:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791838144; cv=none; b=DL0+BD7W0OELWgmYIc8DK+pRLguOuSSHDHnReU/LlBhnoYvEeGqBXWqVRKeFe4mamik+xNLIKG2C36CJA3BfyxvUEZ2Bd6svMmEgZjrCbx7szyR1S5k9dOx0KFBonoE9I4dW6jwSIcCLBg+mftn6Hd24YIZsARl+sX57B4AX5Dk=
+	t=1791838419; cv=none; b=ix6U4rzA5nOnCPLGZIo3oBPcxd2psiM31MBvChPGYm/GvaJoo/eUdAFeaQxwzmFlNWI+m+wpfAuo8EyYzPqtHRg91vqMvtpBTYuXNUym5OdZzl2yawVmTp4r1XNG28KaQ14/JzpLlciADCGlRJuuAhGkVzCQB0VdsPvYwGZouTE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791838144; c=relaxed/simple;
-	bh=eVKms1OwY/OjrTvipCfGH7Enfw3b8ytga0cdN8fMY3I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=emrfU4ZMDYTOQZkI/Ec3QRz2z5Rv9Y4Mio0XiZBYwWXRzquqrU6F39jtxc/t36IozcpNA08SEAp+dBjddVi0aWjI+X1SXs/ii8dyn5Bnlls7+id1f8q7FR4C2dOg4LjU5ZsilVq2UkIOFldb0BF6DO+8Marq2ndpFSbDeWG00Qs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=eJr+Uf7j; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1791838419; c=relaxed/simple;
+	bh=UtrlsS8phsymac42K0cda/Va1ulluctSzlmp79L9vqE=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=evAjfN7+1fUKFnvH8N9RZhMOC8GBe2aegXvMNLD4wyMG6H5ZGrTOVCNMGsFPN6zIVYVI1Fs0gq7j7cidN8UxkSF2N/76FJNaoWCWlbhNLuaZHN4A7kBCfaMi38GUbZvPSJyDTD2c8Dx+fyhKb6X5331IwZKnZAMCpS5LamGfl3M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=TnqxEC8o; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="eJr+Uf7j"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791838143; x=1823374143;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=eVKms1OwY/OjrTvipCfGH7Enfw3b8ytga0cdN8fMY3I=;
-  b=eJr+Uf7jzXb0yLcKwGFA4vZ+WSL/PtOb6yoyCHeuafzyACtqMio1dIRu
-   5KO87ygN3mpESZCPywpdYvEaBBWnSpgcoDz5Zi0JosH6lQkp1592rWZZs
-   6XoES/J9HHjuru3ujPRMyneys9Wy9tGv9h7P/6BsbpqWINE+8mdUQAoAT
-   j6HXg/j4RBgR7ysiUvvqNeWj6oUnqkQ8W9y7I6yul8gYvlFt/9Udb1Zkv
-   azky93xVDNQauX73O5F/FrywhrF9Ts7uYXKuMq5iSiZeid4yZTg3VMnph
-   yHw5BdaPO62HKQurJZsyKqqWpKD+Re1Bj55cUV3V8zYdd9VfmAYKRJGQE
-   A==;
-X-CSE-ConnectionGUID: YhRXArF5Qx2+djAfFfGQWA==
-X-CSE-MsgGUID: dX8bORaKRWOm7bErqfPFCw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="457027"
-X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
-   d="scan'208";a="457027"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 13:49:02 -0700
-X-CSE-ConnectionGUID: fUhGqPK4TC2wyjaUcQU3uw==
-X-CSE-MsgGUID: niL0/AvPTeCJN+2SpktBfA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,154,1787036400"; 
-   d="scan'208";a="1045622"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.179])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 12 Oct 2026 13:48:59 -0700
-Date: Mon, 12 Oct 2026 23:48:56 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Paulius Zaleckas <paulius.zaleckas@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, linux-iio@vger.kernel.org,
-	Eddie James <eajames@linux.ibm.com>, Joel Stanley <joel@jms.id.au>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Rupesh Majhi <zoone.rupert@gmail.com>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 4/4] iio: pressure: dps310: add Zilltek ZTS8032 support
-Message-ID: <as1HuFxMET0hnhuL@ashevche-desk.local>
-References: <20261012114550.1680054-1-paulius.zaleckas@ui.com>
- <20261012114550.1680054-5-paulius.zaleckas@ui.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="TnqxEC8o"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 5749D4E411FE;
+	Mon, 12 Oct 2026 20:53:35 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 20E96601A6;
+	Mon, 12 Oct 2026 20:53:35 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8162311D70BEA;
+	Mon, 12 Oct 2026 22:53:23 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791838409; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=Yzsm7UcLWz95w7mf2csUHMiUJrt8gEY4jLejuhdiuAM=;
+	b=TnqxEC8om1vFtcEub3V/hkQWm1SBJYORapt54lhZfyc8VpvxaKlWoT/AP5A82neKZGZrzA
+	P/1iSrfE1Yf+O8OJOQUbtHcvABWj2WNUpKdVe3pBwUL1aP1XcFZlef17BmegzDl1yKfuvV
+	yUKT+fDCcr1RV4nxqc6OzVFANsub2kAmba3+Av/8HezTYdNhjhnLGbCoc2KK1Fg35ywZZf
+	wtpstfHAPYAtF4uYod7oKQIfRYfGP5eozhv1hQfSr0Pou/wWHDSvgMWqZ9d+/zSSwacz9S
+	hrNaBr2GD2Wt4uc2m5jA+sndXOso0K0gEf7Ec+SNaYaOnJUli/zxWNHVjzfZIg==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Richard Weinberger <richard@nod.at>,  Vignesh Raghavendra
+ <vigneshr@ti.com>,  Rob Herring <robh@kernel.org>,  Krzysztof Kozlowski
+ <krzk+dt@kernel.org>,  Conor Dooley <conor+dt@kernel.org>,  Chen-Yu Tsai
+ <wens@kernel.org>,  Jernej Skrabec <jernej.skrabec@gmail.com>,  Samuel
+ Holland <samuel@sholland.org>,  Maxime Ripard <mripard@kernel.org>,
+  Richard Genoud <richard.genoud@bootlin.com>,  Masahiro Yamada
+ <yamada.masahiro@socionext.com>,  Boris Brezillon <bbrezillon@kernel.org>,
+  Brian Norris <computersforpeace@gmail.com>,
+  linux-mtd@lists.infradead.org,  devicetree@vger.kernel.org,
+  linux-arm-kernel@lists.infradead.org,  linux-sunxi@lists.linux.dev,
+  linux-kernel@vger.kernel.org,  stable@vger.kernel.org
+Subject: Re: [PATCH v6 01/18] mtd: rawnand: sunxi: drain interrupts before
+ reusing the completion
+In-Reply-To: <CADvTj4ppQannShF+dkLreST94g_vSAg4QdMqxhNORzkvci3O1A@mail.gmail.com>
+	(James Hilliard's message of "Mon, 12 Oct 2026 13:17:23 -0600")
+References: <20260914-submit-sunxi-nand-vendor-oob-layout-v1-v6-0-2fb084fe0751@gmail.com>
+	<20260914-submit-sunxi-nand-vendor-oob-layout-v1-v6-1-2fb084fe0751@gmail.com>
+	<8733ua23xs.fsf@bootlin.com>
+	<CADvTj4pmtGZ4c04q+5AE3trrfshToD7BPtF-8kPxPRZ25hOTRw@mail.gmail.com>
+	<877bjmzqkr.fsf@bootlin.com>
+	<CADvTj4ppQannShF+dkLreST94g_vSAg4QdMqxhNORzkvci3O1A@mail.gmail.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Mon, 12 Oct 2026 22:53:22 +0200
+Message-ID: <87pkxey725.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261012114550.1680054-5-paulius.zaleckas@ui.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
-
-On Mon, Oct 12, 2026 at 02:45:50PM +0300, Paulius Zaleckas wrote:
-
-> The Zilltek ZTS8032 has the DPS310 register map, scale factors and
-> compensation, with these differences:
-> 
-> - two more pressure coefficients, c31 and c40 at 0x22-0x25, adding
->   c40 * Praw_sc^4 + c31 * Traw_sc * Praw_sc^3 to the polynomial
-> - TMP_EXT is MEAS_CFG bit 3, and the temperature coefficients are for
->   the internal sensor (COEF_SRCE reads 0x06). TMP_CFG bit 7 is the top
->   bit of a 4-bit TMP_RATE, so the DPS310 TMP_EXT write would select a
->   25/16 Hz background rate instead of the external sensor.
-> - product ID 0x11 instead of 0x10, the driver does not check it
-> 
-> Add a per-chip table holding the coefficient count and the TMP_CFG
-> startup value, and an OF match table to select it.
-> 
-> Tested on a ZTS8032 at 0x76 over I2C: in_pressure_input is within 1 Pa
-> of the datasheet formula evaluated from the raw and coefficient
-> registers at every oversampling rate from 1 to 128, and TMP_CFG reads
-> 0x00 after probe.
-
-...
-
->  #include <linux/math64.h>
-
-> +#include <linux/mod_devicetable.h>
-
-No. This should be guaranteed by the respective bus header.
-
->  #include <linux/module.h>
->  #include <linux/regmap.h>
->  #include <linux/unaligned.h>
-
-...
-
-> +	data->info = i2c_get_match_data(client);
-> +	if (!data->info)
-> +		return -ENODEV;
-
--ENODATA
-
-...
-
->  static const struct i2c_device_id dps310_id[] = {
-> -	{ .name = DPS310_DEV_NAME },
-> +	{ .name = "dps310", .driver_data = (kernel_ulong_t)&dps310_chip_info },
-> +	{ .name = "zts8032", .driver_data = (kernel_ulong_t)&zts8032_chip_info },
-
-Using driver_data should be in a separate change.
-
->  	{ }
->  };
->  MODULE_DEVICE_TABLE(i2c, dps310_id);
->  
-> +static const struct of_device_id dps310_of_match[] = {
-> +	{ .compatible = "infineon,dps310", .data = &dps310_chip_info },
-> +	{ .compatible = "zilltek,zts8032", .data = &zts8032_chip_info },
-> +	{ }
-> +};
-> +MODULE_DEVICE_TABLE(of, dps310_of_match);
-
-Adding OF table should be in a separate change.
-
-...
-
-Hence this patch should be split to three (or more if there are more logical
-changes).
-
--- 
-With Best Regards,
-Andy Shevchenko
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
 
+>> >> commit log, I now disagree with the first part of:
+>> >>
+>> >> >The old handler can also complete the new wait or restore an obsolet=
+e interrupt mask.
+>> >>
+>> >> "complete the new wait"? I don't see how a stale handler completes the
+>> >> next wait given the handler is a hard IRQ and the interrupt enable
+>> >> register is cleared on timeout.
+>> >
+>> > The case I had in mind is an already-running handler on another CPU:
+>> >
+>> > CPU 0: Read st and ien for operation A.
+>> > CPU 1: Time out operation A, mask/acknowledge its interrupts,
+>> >        then eventually reinitialize the completion for operation B.
+>> > CPU 0: Call complete() based on the saved st and ien from operation A.
+>>
+>> For this to fire, the hard IRQ handler on CPU0 would have to be stopped
+>> between reading st/ien and calling complete() long enough to span:
+>> - A's timeout
+>> - A's cleanup
+>> - B's wait being rearmed
+>> On this hardware, how is this reachable?
+>
+> CONFIG_PREEMPT_RT provides a concrete mechanism. The driver requests this
+> IRQ with flags =3D 0, without IRQF_NO_THREAD, so the handler is
+> forced-threaded. A higher-priority task can preempt that IRQ thread
+> after it reads st/ien:
+
+That argument only appears in this reply. It is not in the commit log
+nor in the diff, both of which reason about a hard IRQ, no? I'll happily
+take the PREEMPT_RT case into account: in that configuration the case is
+reachable, but it reads as a justification added after the fact.
+
+Then, I'm curious to know how the AI justifies the use of disable_irq()
+as the RT-appropriate choice: doesn't it block without a timeout on the
+very IRQ thread the scenario relies on being starved (and gives no
+priority inheritance)?
+
+Thanks,
+Miqu=C3=A8l
