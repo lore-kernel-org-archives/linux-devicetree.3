@@ -1,125 +1,222 @@
-Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
+Received: from sonic305-2.consmr.mail.bf2.yahoo.com (sonic305-2.consmr.mail.bf2.yahoo.com [74.6.133.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4574F48EBEE
-	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 14:18:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0846748EC71
+	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 14:24:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.6.133.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791814700; cv=none; b=vDaNXhx4JWxg7HCNAjBUVmehodp8AGiqQ+E9oHW0wraJImOOd/94VfTpdoHQf4KG7X484si1V7DKtY0wD78PmaCeZC7ze0YTwlTMpR0lEdyTbn1TYpKWS+VR9Wd4fpz8doV6v8QCO3aDIn4IXlNRfk6MrzVCk0wczx3gSCSYnkc=
+	t=1791815081; cv=none; b=W8MAtV9Ejr49d1AbBxqWWZc59YaNVtOeOeOVUUkeCF2ma7mXxYoTfbJkMj6T1pcXqzI9Rl0URrwvtNO8J269VulxCqJ6LQAXENmjcfcs52WXWIGcxa5Jlo7Lf+WvVU3QFR90PJXUJRZROgE0shu+4d+5a0y+U5P/GC4FAqwxGxk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791814700; c=relaxed/simple;
-	bh=xsipEPEhRlPufE3owq6BYPDTNCupZs7aJocTjmILrD0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qsYs1rHt9GSYURZo9V1SW0KfQBgi5jx07V6BueQMjVWl1++JtogaHMy7KTheIT+WQd9SHt5adT3+icF17+c80GDZNro2mgg8laSHTFO0Vk40CglBJGMbuwq7Z/KF7L0LzGaPvITjoRHL6R2+5b09QBYuBgnjwu9vZPoyMWeQIro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sifeVwhn; arc=none smtp.client-ip=74.125.82.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791815081; c=relaxed/simple;
+	bh=HT0TXwWMj17JblcErkt+7GOKgaMKNsDosmRrGsBJ9wE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:References; b=cjl1sSAFyg3ppJNARpmp0ixA5wpJeh2UzpYuW4F9xm4lBo+t+4OwLVHgydGSUNP8XXG6oMyRgRdvO301LWYN+Fxb5JIhfU81RYR0/9mPABWUJzLwnqNqHBwNbzKTFlIEiQnTXj2i/QYMjMfjdsXy90PZpOeyUIfACtlp2X90fGY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com; spf=pass smtp.mailfrom=yahoo.com; dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b=bzcuiYbX; arc=none smtp.client-ip=74.6.133.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=yahoo.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=yahoo.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sifeVwhn"
-Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-15dd124bbe7so3757643c88.1
-        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 07:18:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791814698; x=1792419498; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:mime-version:date
-         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ERwSK8KKE1W5zoZLZRnHG0stGyfGnvHWTKq0AM5CtPQ=;
-        b=sifeVwhnawn4SdKKrVhr3YxJ1+x2AXwGkkVn8O9CaQ/qYt2yr0iOZLM9TKYGl+DCQO
-         Qr+7Mw6On0oATRgqZrSKw0lim9gGcVHo+ciCULtzuNz7BFreRG8+9w4uWGkxjiOuS52M
-         Jo1vodb1RDGC4+nzKlHcyUqjwjb3gF9Wd+y8VnOZYMcclPdmodG/ok1/4XFFtATvaHV+
-         i54OfOE5IhQXyYJgckMVBbl+4pcXj5I/2XvU+l3LHYCizS0BqC/MBhFe9YKYJvjK4R17
-         fvi1BnzrYIdQhlqFRoDPHnFh/2qTxVKxm8QMJ5rayYTRK/q55b7KYmT3G+0G6snldXP2
-         Qwxg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791814698; x=1792419498;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:mime-version:date
-         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ERwSK8KKE1W5zoZLZRnHG0stGyfGnvHWTKq0AM5CtPQ=;
-        b=dxNxfvmysnmlxBKW1uSchmeTyaLpunlVQVDxmh+xEZD7fOd4O6Aw4kpULw7CYXuN77
-         Gahi+2Xtkd+BU+DZ3OL1JV8Fe7HxWv180droyaqXNlzdWSmPR+JSrDJpXA8SwsHgR16h
-         fOFHcPxcPpxE0ZTHcehwi1AoPqnSIUm3rUxOrxKYwWDLxkYePrLveyM/4gMS+T7qG/BG
-         74QZFmx6PbuIUr1LuIgIA0QXdQPgCq/kk8ggRMvJLuUBTC8GSh57L581m3fOJXrY/90f
-         hxvJ1H9mgov0z/npqnk2sGoet2rR6Ci8S4sOPPLWiImVWHGW/3o0SA42bGzwZQ9GcIAK
-         ePNw==
-X-Forwarded-Encrypted: i=1; AKwUvByV6Yl9czFtNCZqPnOeQqq4hrzU0P6UE9/H7ai3ZWN3JdG6r1GvHAzzWV4bDRQF6PNxxDxtkKTq0lDt@vger.kernel.org
-X-Gm-Message-State: AFq9FYILp6ejRu/2CyxClitx0rkyoJB55a0oIeMUsuFw6tmb4n5zPCgF
-	qzJu6vHEm69porZciIWTOo7z1/2KRpLn1+kEm3xg7yiA2AaLAZxLJu6W
-X-Gm-Gg: AYBFou2eLT3wtKbKDPzlZ6HemLSr2FRUMipGKo8TtRxSzR7b/W73P4plp8wL/dWJQ7i
-	xB6JI4TIoixCp54otCXgzUYj3sQI7nj7Csp2w5WRcYb/veFFiYD2foh84x2mlku0sCYIL7qa3V+
-	JXmyg/Tm17ovxniyiA3m2KMKndA3Wq35a+rHMpXeeg5veit3Gc5aP8NuCCyGgZ7FrrOGnB3ky3U
-	NsH8JIsogf2rBNVg0Ca7gPV+MvUtLdXJWBYjU/gQ+xTt7UcO+UBs1bNyrXkI4ySmRz9WmFYGg0w
-	kmPLBezKUhSbEihO2TkVY/RQfUCHU6Og6bdpfujhfFWCWccyGC/ZlJRy3HJb7ZOg6vZuiFWEoch
-	B4y+6+cKgJtXAULN01wqxpiaRPnndfQAwQfdEMAjKZ4ME6D1KlJ2hkcPB/eA2lZOegMm4i/7KUn
-	iR/YnhCTuh/RhhfE0ev8MYy3MeAlsaOjUrkldDK2hAH4mHWuxemgUn1pNImWUNT0NPKrrypLqKM
-	YtbP0kLvPJ/JM2CeDyG8EEOIY+xARHEHxk4utWJSepSVU25F6B4TEHzvPMofxqQWgtZprn++rI0
-	gr8ahY4KIXRwZAC2fpq8YuZIPNxhxGVHiafQWlHvuGydcQy3EDhqhouUcBYf7sltKv7cnIdffKG
-	Ok6KTVTI7w3vF98K26w==
-X-Received: by 2002:a05:701a:c90a:b0:147:9ad0:cf10 with SMTP id a92af1059eb24-16a610ca3d6mr13377655c88.47.1791814698097;
-        Mon, 12 Oct 2026 07:18:18 -0700 (PDT)
-Received: from mail.codeweavers.com ([69.63.209.59])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a1becb11sm28442350c88.4.2026.10.12.07.18.15
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 12 Oct 2026 07:18:17 -0700 (PDT)
-Message-ID: <13181dfa-b92c-43b5-ae12-912abaf79c41@gmail.com>
-Date: Mon, 12 Oct 2026 22:18:13 +0800
+	dkim=pass (2048-bit key) header.d=yahoo.com header.i=@yahoo.com header.b="bzcuiYbX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791815079; bh=gCX/LDnnjg5pxVmTukcGyCAsVe2HawPgkJZ36yq3vhg=; h=From:To:Cc:Subject:Date:References:From:Subject:Reply-To; b=bzcuiYbXgseJmIMAbb0eS33ByuOuttAisd7idPCrIFR6eQspnoUZLvuoSGzcwgop9Q54cE5iQZEnWqEEy1pYdjAV3ROQE6vN3fojSqLs+si762xtOvfddCsQKbLxQYqRkmX9xG/tpnB82NzXm4zLGbhjANnfk+3SDQpyVF8kePwbWwqzZkXZO4/BuMiNle7C02YHOJ1XwnIArz7EsrFKCr0wCQLGe3aSbiQ4A9YSbFVmIDQdtIpvIaktZvtrIzzujAjytlXyyU/vif7btvJTCl+mmII81xSCFYabHbfi46AUN3/n6v5w+Qqceux3eVs/VrH3Mrv42iPb3fT+PnGnhg==
+X-SONIC-DKIM-SIGN: v=1; a=rsa-sha256; c=relaxed/relaxed; d=yahoo.com; s=s2048; t=1791815079; bh=SydfnfZfbmi1IWYqbmXd3y5j00t6AxpGtTYmbV2KCOX=; h=X-Sonic-MF:From:To:Subject:Date:From:Subject; b=j5ePsAjhHtx/HY/8ZQfkAdXHef1AU/78bNXNMNKSyV0MP3H82p4yJrNXPmt+kai0hySqQlWyS8CXJlodYi8G+9c+1zQw3+NE3+890prYYvHWwIlErUGOkhRnsQtp0q5wydEQD7beLM5yTi70QLdirOfsA9xnO3z2b/uZTUKXS0NbK4E9gCZ4r/GcFY4iY+OfYanWhH55VK5vg777QE6gxG3K+xO9/FPlpzRX96R0DAFleB2hwrUq584zzoVtNPvnp3zy4+jg1mrN/jIe3sB5A5/TChpnXEI2Hzxz/LxiUyR5oRdtRfmfmVyHnJnSRZGfiM3CGb/H78Kg2rmg/sM99Q==
+X-YMail-OSG: NxPO.JEVM1nxbMNGZsNTEOTe_tePn1QUt9gZWGGt.H16ot3ff0hIVTQzeYDCDX6
+ G98firEUddHRSRBc1lr4dBxXHg49_n1M9y5ZkmKQ7ocWwn1J4tZLJaeS.57YOKwIZ1bhD71CPTiz
+ OgPp.qwFPBeJG7hYRdVxO53RdcxpOTDUehzjYrpeybRCVMV.kU7plH7PkpuiwaxSC9BRT_wjzBzH
+ LL.uHQdaYHaPtylnX1gHlcu0TFoMF3cyVFiR40jb6FuP8060Pey0hFvwzVoFT3K8OElAeW_DX5u3
+ rwegjz1F.hGCMHs05NsZpDFgcJPYcXTCaAMBmNghaVstBjDtt2XZ2RB73c2Tle0ldp_VxeHcYb76
+ yka2.BmeRCmj0jXpHbkVT_sWWf..wnga4gQoZLLPMs6P2afiCgtoK2.sSu2CqNE76p5hLxNtks8e
+ _nLrqftROY3_TNGqGG64lzvxFoyXIDr0Y_4VLF0q3RLoUx01ztMpklAWARxPkgIUrVcT6ATGK.hg
+ Iv_19XLieWUl72WhKERTWCwzPkPzDyyH2kJNJgjg0jl.SyfZeuOx79TAVWCWrvYOoz1Lb2uHKGsU
+ TR4_8n4Dt70xVpbwMx7X9POITMbz6H5WjacYprahm5mPk0mF28dSZqeH2DEuZP8LDbH13SPOp78h
+ iS3FsCBNp5Q82WRcQ1NTqrh1QJAp7RWQZfXL4sJpb3UzCS3IMmz0Vml3stB8aE640OwYU3zQfilW
+ 9EOjDrCvFDXaxtuNvn8QlHkmJ6szVjjkX535xaE77mzarovUky8XNf1TJ1dSHuK36QMfkvrJL1Yc
+ jieSg4LVrWmhtd.1tR833xI1C1VIRUQUWeeuB9N8IvCvxjHlcEqcsO2XNqV9n_QmC68zVDBcbGwQ
+ qokb0dylHM5ViIz3bOY1thAWedHsf.iFDTcVdHUCceKZ8pFejAMwaIGm3bhFyi7JaS2j2sZXQHvY
+ 5VW2pBbqkj5jFpNa.yZdpq1uuSdH9MUJ0zgckpAvkSZgO93mzkCFM0LMuSIaRGM_iRKhhohfN6AW
+ NZoDTDLwWndkf_JhHCQItTEU7JPvbpcs3fPzMh.gM_dWMrkaEoErwV41EGZaOv84jtlHM2aP5tzq
+ fzSAdIXgHMVFuAMtJ61SUNYm6UWOHx0sGNev7bEHGEjxoyFU2Wxe1._v8G_gfTh.tIlaYN2IHvXe
+ YPo.V8U61KPnsMuVL.Lygbxk_Ql.D4hahZ16A0TEZV1rxhcC2bDC0XhDMQzufgyysjQauPuFLEM0
+ N3BUBggDANrugJKHF50rttMmzZ8AfcyqY_rERJn_lNmdD9QQrWvFrqdlCeoRur1kX_zJmckDHaVJ
+ kN3DsAfbroHvp18MDaEiW4ZyxoyPwPaxQLmZUC7t4RMdpJgMN156brbm0Gdgfv0p3RClX2QPHx1.
+ llEdTfNVVZO_tobLUsY_iUma.x6hy.mg0dJVd__XW._5AZBzxdvrP8gmbDf6p_g7vVpsVve1.tXz
+ fQbnbmLG8qZ6yJEsdlbHbwobRAobeY.oMFtpPu69AVi_cpZTUK4B1mHznoACEjE2e5ST1hqpFLP3
+ ByuUxi3i8sdZQBXLQ9n0ypNrQCavlltg.h2ogfFITZPfC3AoQVUFBPcVxaGcWYAKwNCJZtWAd0CQ
+ EpYFkuaEidxCYCzMRXlI_p3_EhUAPu7RlEJpLh1zVzst_k7VM7bY6DCSuuz4Zd47Rg4TVWmBD5Lk
+ lDsw3z0O.xEp3JadhWRtywguHIdeiunys_vmHEZIXZzF2O5oixXQ3hj_wXpRQeoikABRtNgO8GNv
+ BDsnn9kochW_C9vg0iHcfQ2tuDD.a83G7SqzqvMEW3g96kPqx42P1JCQ0cbTHTptmFHFWLfWzki7
+ QId2t1ZA8UDF3vDN5DV3EbqPA6bzWlcMLYtYk1.t1LvnWREEjhWIl5bfqwUS6OfG86y1sLO6Chdn
+ S99FWag_lYdvkuKEoEQd9HhsPmrYMBuR4BXNbq5NOeY_CDFbe0csDv900G.6FDLBwwys1GfyEIju
+ wbHNuTpKaqMMKsmJqJXQ7RXkbf7eZ_7K03WX5Aeh.XF9xtTYABJMfPVstknSlpK6iOpobdyqPpGj
+ t_pmXOyyQpuDvQex8w13HY8Li.IcCtt2VDSAp45agmbYGM6Mh0oGPMq.9GK61v1CKfPei8X2y1PG
+ kBUOK1.XVnKTW4FkT.0ESkNn7tWXXMjQjMS2N14_Ka0G3eXSnbSE3jWIx4DixYaezI6TN0fZJKmE
+ .AgeZ5jwv_6mfyRry6Q9NKJ6l8KtaGtKiCs81M1_29ic-
+X-Sonic-MF: <deaner92@yahoo.com>
+X-Sonic-ID: 305669ed-14c4-4448-b4ec-cdc985f800df
+Received: from sonic.gate.mail.ne1.yahoo.com by sonic305.consmr.mail.bf2.yahoo.com with HTTP; Mon, 12 Oct 2026 14:24:39 +0000
+Received: by hermes--production-bf1-6d6877594b-clgz5 (Yahoo Inc. Hermes SMTP Server) with ESMTPA ID e251438cb2097fb36b325920ed61dcc7;
+          Mon, 12 Oct 2026 14:03:59 +0000 (UTC)
+From: Jeremy Dean Clifton <deaner92@yahoo.com>
+To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: linux-pwm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jeremy Dean Clifton <deaner92@yahoo.com>
+Subject: [PATCH v3] dt-bindings: pwm: Convert NXP PCA9685 PWM controller to DT schema
+Date: Mon, 12 Oct 2026 14:03:46 +0000
+Message-ID: <20261012140346.3065-1-deaner92@yahoo.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH v4 0/2] Add device tree for Acer Swift Go Pro AI
- (SFA14-11)
-To: Jianfeng Liu <liujianfeng1994@gmail.com>, kaipeng94@gmail.com
-Cc: andersson@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org,
- konradybcio@kernel.org, krzk+dt@kernel.org, linux-arm-msm@vger.kernel.org,
- robh@kernel.org
-References: <CAHk8ZdsVK-n6u+KO5W0=7c_4_eQ2Aj0aqTg_tqU_x_58t0L6dQ@mail.gmail.com>
- <20261012100325.38128-1-liujianfeng1994@gmail.com>
-Content-Language: en-US
-From: Jactry Zeng <jactry92@gmail.com>
-In-Reply-To: <20261012100325.38128-1-liujianfeng1994@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+References: <20261012140346.3065-1-deaner92.ref@yahoo.com>
 
-Hi,
+Convert the NXP PCA9685 PWM controller binding to DT schema format.
 
-On 10/12/26 18:03, Jianfeng Liu wrote:
-> On Mon, 12 Oct 2026 16:15:19 +0800,Kaipeng Zeng wrote:
->> Acer had a page about "Acer Swift Go Pro AI" but it was deleted,
->> fortunately here is
->> a snapshot:
->> https://web.archive.org/web/20260314171131/https://www.acer.com.cn/ 
->> product_list.html?parentid=323
->> It's sold in China using the name "Acer 非凡 Go Pro AI".
->> There is some discussion in the thread of my previous version:
->> https://lore.kernel.org/linux-devicetree/20260729064538.19564-3- 
->> kaipeng94@gmail.com/
->> I have no idea if your "swift SFA14-11" is the same as my "Acer swift
->> Go Pro AI".
-> On the naming: you're right, and thanks for the pointer — the SFA14-11
-> series was indeed marketed in China as 宏碁非凡 Go Pro AI (my unit is
-> an SFA14-11-QWU1; the retail listings I found, e.g. on Suning, are other
-> SKUs like the SFA14-11-QGU1). One thing I noticed though: that retail page
->   has since been taken down, and Acer's support sites — global and China
-> alike [2] — identify the machine as plain "SFA14-11" within the Swift/非凡
-> series, matching the DMI and the model string shown in Windows. So it
-> looks like "Swift SFA14-11" is the stable, support-level identity, while
-> "Go Pro AI" was the transient retail name.
+Changes from the text binding:
 
-I think we are about confusing the product name and the model name here?
-It is clear that the product name is Acer Swift (aka '非凡' in Chinese) Go 
-Pro AI; the link to Ubuntu stubble you provided also reveals this somehow.
+Document the 'reg' property and make it required. It was missing
+from the text binding, although the example used it and the device
+cannot work without the I2C address.
 
-Also, IMHO, I think we can't use 'stable' to describe this situation. As 
-soon as the product is produced, it was given a product/model name; 
-unless Acer renames it, this is it. The vendor can also remove the 
-support page that you referred to sometime in the future, just like they 
-removed the product page; this isn't rare; I think we always shouldn't 
-depend on it.
+Rename the example node to the generic 'pwm', as required by
+pwm.yaml.
 
-As Kaipeng mentioned, there were more discussions about naming in the 
-threads of his v1 and v2 to this mailing list in July, if you are 
-interested.
+Describe both cells of the PWM specifier, and state that 'invert'
+and 'open-drain' apply to all outputs, as per the datasheet (INVRT
+and OUTDRV bits in MODE2).
+
+Assisted-by: LLM
+Signed-off-by: Jeremy Dean Clifton <deaner92@yahoo.com>
+---
+Changes in v3:
+- Full name in From, Signed-off-by and maintainers. (Jeremy Dean 
+  Clifton)
+v2:
+https://lore.kernel.org/all/0aabb9f2-a144-4267-b67e-a0972d228f2a@yahoo.com/
+though the storage width was widened.
+- Use the same name in 'maintainers' as in the Signed-off-by. 
+
+v1:
+https://lore.kernel.org/all/20261006033518.34332-1-deaner92@yahoo.com/
+
+The schema and commit message were drafted with AI assistant.
+I verified each property against the driver source, the
+PCA9685 datasheet and the binding. Passes make dt_binding_check.
+
+ .../bindings/pwm/nxp,pca9685-pwm.txt          | 27 --------
+ .../bindings/pwm/nxp,pca9685-pwm.yaml         | 62 +++++++++++++++++++
+ 2 files changed, 62 insertions(+), 27 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.txt
+ create mode 100644 Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.yaml
+
+diff --git a/Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.txt b/Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.txt
+deleted file mode 100644
+index f21b55c95738..000000000000
+--- a/Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.txt
++++ /dev/null
+@@ -1,27 +0,0 @@
+-NXP PCA9685 16-channel 12-bit PWM LED controller
+-================================================
+-
+-Required properties:
+-  - compatible: "nxp,pca9685-pwm"
+-  - #pwm-cells: Should be 2. See pwm.yaml in this directory for a description of
+-    the cells format.
+-    The index 16 is the ALLCALL channel, that sets all PWM channels at the same
+-    time.
+-
+-Optional properties:
+-  - invert (bool): boolean to enable inverted logic
+-  - open-drain (bool): boolean to configure outputs with open-drain structure;
+-		       if omitted use totem-pole structure
+-
+-Example:
+-
+-For LEDs that are directly connected to the PCA, the following setting is
+-applicable:
+-
+-pca: pca@41 {
+-	compatible = "nxp,pca9685-pwm";
+-	#pwm-cells = <2>;
+-	reg = <0x41>;
+-	invert;
+-	open-drain;
+-};
+diff --git a/Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.yaml b/Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.yaml
+new file mode 100644
+index 000000000000..04d2ddd8f108
+--- /dev/null
++++ b/Documentation/devicetree/bindings/pwm/nxp,pca9685-pwm.yaml
+@@ -0,0 +1,62 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/pwm/nxp,pca9685-pwm.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: NXP PCA9685 16-channel 12-bit PWM LED controller
++
++maintainers:
++  - Jeremy Dean Clifton <deaner92@yahoo.com>
++
++allOf:
++  - $ref: pwm.yaml#
++
++properties:
++  compatible:
++    const: nxp,pca9685-pwm
++
++  reg:
++    maxItems: 1
++
++  "#pwm-cells":
++    const: 2
++    description:
++      The first cell is the PWM channel index, from 0 to 15, or 16 for the
++      ALLCALL channel, which sets all PWM channels at the same time. The
++      second cell is the PWM period in nanoseconds.
++
++  invert:
++    type: boolean
++    description:
++      Invert the logic state of all outputs (INVRT bit in the MODE2
++      register). The setting applies to the whole chip, not to individual
++      channels, and is typically used when the outputs drive an external
++      driver stage.
++
++  open-drain:
++    type: boolean
++    description:
++      Configure all outputs with an open-drain structure (OUTDRV bit in the
++      MODE2 register). If omitted, the outputs use a totem-pole structure.
++
++required:
++  - compatible
++  - reg
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        pwm@41 {
++            compatible = "nxp,pca9685-pwm";
++            reg = <0x41>;
++            #pwm-cells = <2>;
++            invert;
++            open-drain;
++        };
++    };
+
+base-commit: aac26bee2287c88af5be5a5ff96d783b19a28790
+-- 
+2.43.0
+
