@@ -1,86 +1,253 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv1-f46.google.com (mail-qv1-f46.google.com [209.85.219.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C03EB39061C;
-	Mon, 12 Oct 2026 19:08:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B93453FC5CD
+	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 19:10:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791832135; cv=none; b=gbTZx7hUHO5bnLg4DocEnwbpAOI58pwQd5ZCtxl6liaEgyTo2wZxvN3CMe0/hfus16gFcCmLnKutso+hGMmLxrYwoSLQ6wKC48fLHX2uZ8cAIVnqzMaBD46JRfolBcRnqTujkCVvcTK9/SiCSEaRoQYLe0NO05/5Z3GmT/aDDkM=
+	t=1791832207; cv=none; b=Pbb6Rh+ZvUX6DlJetEusnKhNandtdCGMguEpMQS2url1SNHGtuGm3wKzn5T4QiREckSYVtEWr4+CpA4uOcg1AL1c2XZ9Wy0wawwjS8zX9VV43tmWqllbKJAKtWoL1s0YadDV/4mugr00XpstHYV8vXN36yLbstfT/23jKn21VCA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791832135; c=relaxed/simple;
-	bh=AH2UirJCWDjtQ8R32qv313a+sS+NLZo8fy7CiVjRpSU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Yr3tuMn07YTmwkp1rZJ2gohWYLp9Yq3GJXgzyYQqJX1ch9qw0dYsg+1GAQ7lEe+KllwNjwUmcXwPOBxSftcQQIcxLWBjMJUOceKFyA/1dQYRbPktdsuH/AT/X6idesYZ9LBNT1RT8K4r7+24ZvyUQX7N4CZ5ayVmpqhCrdpumwc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kQ+QH3ab; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791832207; c=relaxed/simple;
+	bh=Xc+nIPxCNGK3pm2Emrcwtq0lB7OBwQuSRMVBRuBakmk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=M64ssHPeCCNU/GkyhUfNd7SkxLXDafhhSPikdy7COLvbgvfFBOwaBntQQvre/V2fxHQTM4RIsF9KQ4PV4pMK5jS/ACTC5LMZgY523+OF1qiOZelrJ5NFL4O2cstmw2YKmuRzLllZ/YJdN3IU5wdev/LhBWJ2tsOi2JDbuu016ew=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=Of694zjg; arc=none smtp.client-ip=209.85.219.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kQ+QH3ab"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C40A31F0089B;
-	Mon, 12 Oct 2026 19:08:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791832134;
-	bh=AH2UirJCWDjtQ8R32qv313a+sS+NLZo8fy7CiVjRpSU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kQ+QH3abMyKT2hbftVxX9XFZgH/GiMSWph9bG9HxraLBUjQ0N+StNB9KsQYvvkwiV
-	 Pg5zYOmXvvYa3Pav0CLHRkwPPtTepSUXakhiy+ISkksn3WlIRe6epE3tuPBsZD9E4+
-	 T4UVCCqYso81hQAHLKcsK2wPvigYccynGcCJo7c/Uqw0lyw2X0CPRH3fr4jJgQtmjQ
-	 OUL4qwzUOKo3LY1N/bmEAKbXPpAD99z/H59Ll/FIYaLMbHm8xTH515OFgUxmPdgPPr
-	 lhv91rM7LpVaGtuyhW96p//w/btde2nlH81Bun4BOAP31gSqHn8Q52bsNA6PamT9c3
-	 scX6AQLgNr2wQ==
-Date: Mon, 12 Oct 2026 20:08:47 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Leonardo Costa <leoreis.costa@gmail.com>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Robert Foss <rfoss@kernel.org>,
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
-	Jonas Karlman <jonas@kwiboo.se>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	Leonardo Costa <leonardo.costa@toradex.com>
-Subject: Re: [PATCH 1/3] dt-bindings: display: bridge: simple: Add the
- Toradex Apalis iMX6 VGA DAC bridge
-Message-ID: <20261012-overtly-powdered-c8c2869e4319@spud>
-References: <20261012-v1-apalis-imx6-enable-vga-v1-0-8905d8746504@toradex.com>
- <20261012-v1-apalis-imx6-enable-vga-v1-1-8905d8746504@toradex.com>
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="Of694zjg"
+Received: by mail-qv1-f46.google.com with SMTP id 6a1803df08f44-918f75a68f0so39369586d6.1
+        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 12:10:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1791832205; x=1792437005; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=bgbVKyxAX/dGkX0f0v/RFrRMhus+JeswTL51hzIEKPs=;
+        b=Of694zjgKj2WzzOUYBE65xI7DuXqu12Qtsr+Qwq5a89HnhMY7UbCtUGEJDWV4BD1wi
+         vSV1ivigXwBH2p3wm2NnAvmLOsvHSyZcLMmG4Cy6SHoe9nxDOEOtzMiv8mIhL7nBKZOX
+         O+ZuiofQuDg5ctl7wWw1XbZXkpnvu7l7s1YRH7A2cxX7O5TuyfSe3Udw4T90QHE8R3Bg
+         6TYXgXo3UeRAR6sEGrBvsBUS2UOurt7XIZKWjpjW4AsADa4RbJ4UX3omuX0r6uf5C30+
+         /Gt07HgXspBqBV5juL1s65l560CAXrRycDNHD8M1b01ShnEG02JQVrCxqYP1rBuerYth
+         AeGg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791832205; x=1792437005;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bgbVKyxAX/dGkX0f0v/RFrRMhus+JeswTL51hzIEKPs=;
+        b=k4tGEwruWOFu/k/9iawPWEYpFQPOSYjERwDO7BDaTusBMWjCX7CeGWCI8gM3d9Pb1O
+         Z6v8v5by3+KoXVECBFWiqUmuqsgFn/c0whP2Gpl3YZYHHHd2M1b/RNJhbi7Wwglkmj02
+         vryzci6EEvpq435YRnf+ogVzKgodzicvCzYNr3YKY6Xgl00XeucD0PCZkqxgj2SemjCk
+         YUZ6H8tfVg6xZTwYQ7rYQlZ/uX1jc2XLFe4TF1eA9NDgOu2DQSXirGy96nQ/hWiBcuJL
+         joKkahF9ClQfD3s9fNz0qq0sZujSddgN5ZoeDs8Dx8hjgE60M/h8Yhl8Ze7PhINkdvWo
+         8kYQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw+VKKjXL2xjKUUfNoZUQVlFWcrmwxUZL4rvlZYWr8hQrW51U51buQnXoHMyIUgIE9BB/vhDtglOpu+@vger.kernel.org
+X-Gm-Message-State: AFq9FYKVQU6GP5tyxH89uW3BSsLJ29kvQNDjUd0uY+gBH+LKlJQPq5nk
+	hlUa11cBNE2OuboLhVygqwEt/YSh0F++qnZ6hKMmg/NAv7zi7NGdfa+5d+sLoteB/lE=
+X-Gm-Gg: AYBFou0f03Bx2mX0MvcfOswb3wTzb57sEY8HazX5X3iUjMldrthZTxb+O1+mRj9m6nO
+	Ia3+dvN+iaxuZrNaR3T9dF6fCegU4bATbCWaDvIDPU2563mb5YvauUTmINkPju97RmG+a7qOdlb
+	f1JJuuVSkFf1yoRUdu/zJdrqIBrhrOVTDvKu3oCngl794dCJJwgq6DV7S8al7RySEnCB32vHiu8
+	qf5DrD0ZwoSkib4B/xns0lt0hiOeqJh2Y9s0eKdTwRX/ttJrgNcgArk5Hc5R+sw5quJH5Q/iKJO
+	bDfYgP8SnTtXwW6C4YE06EEL97WBVmiegIYCoqwFC1gVD5DdaytB/TXGUzurkHRq7mZoDAQC+pj
+	nphsK8UiZZfF18VErkHQvL/ZjtCDVMWuLWNByXn1gJSWk/JwVBw21gh/N9TYjV+v40SjqsqyxsZ
+	ZgbVtQyRntF4wQFhkOssCnpIwkKpx5AAD29qZUcERZAhFzGyi3JrhiKXMKjjRDL24L2z+dbas=
+X-Received: by 2002:a05:6214:2b8b:b0:917:924a:d4eb with SMTP id 6a1803df08f44-91b55575e40mr180379896d6.36.1791832204691;
+        Mon, 12 Oct 2026 12:10:04 -0700 (PDT)
+Received: from [172.22.22.28] ([73.62.185.64])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b97bce2b8sm5092196d6.37.2026.10.12.12.10.02
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 12 Oct 2026 12:10:03 -0700 (PDT)
+Message-ID: <492396bc-a0f4-4274-9a7c-21fd5fd886b5@riscstar.com>
+Date: Mon, 12 Oct 2026 14:10:01 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="cfz7Ef1U0dsCKRCm"
-Content-Disposition: inline
-In-Reply-To: <20261012-v1-apalis-imx6-enable-vga-v1-1-8905d8746504@toradex.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: reset: introduce
+ toshiba,tc9564-reset.yaml
+To: Conor Dooley <conor@kernel.org>
+Cc: p.zabel@pengutronix.de, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, mohd.anwar@oss.qualcomm.com,
+ lorenzo.bianconi@oss.qualcomm.com, danielt@kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Daniel Thompson <daniel@riscstar.com>
+References: <20261012164354.3872326-1-elder@riscstar.com>
+ <20261012164354.3872326-2-elder@riscstar.com>
+ <20261012-shale-rosy-805c49f6c404@spud>
+Content-Language: en-US
+From: Alex Elder <elder@riscstar.com>
+In-Reply-To: <20261012-shale-rosy-805c49f6c404@spud>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
---cfz7Ef1U0dsCKRCm
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+On 10/12/26 1:51 PM, Conor Dooley wrote:
+> On Mon, Oct 12, 2026 at 11:43:52AM -0500, Alex Elder wrote:
+>> Define the binding for the reset controller functionality present in
+>> the Toshiba TC9564 SoC.
+>>
+>> Co-developed-by: Daniel Thompson <daniel@riscstar.com>
+>> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
+>> Signed-off-by: Alex Elder <elder@riscstar.com>
+>> ---
+>>   .../bindings/reset/toshiba,tc9564-reset.yaml  | 56 +++++++++++++++++++
+>>   MAINTAINERS                                   |  7 +++
+>>   include/dt-bindings/reset/toshiba,tc9564.h    | 26 +++++++++
+>>   3 files changed, 89 insertions(+)
+>>   create mode 100644 Documentation/devicetree/bindings/reset/toshiba,tc9564-reset.yaml
+>>   create mode 100644 include/dt-bindings/reset/toshiba,tc9564.h
+>>
+>> diff --git a/Documentation/devicetree/bindings/reset/toshiba,tc9564-reset.yaml b/Documentation/devicetree/bindings/reset/toshiba,tc9564-reset.yaml
+>> new file mode 100644
+>> index 0000000000000..1908e9539abac
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/reset/toshiba,tc9564-reset.yaml
+>> @@ -0,0 +1,56 @@
+>> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/reset/toshiba,tc9564-reset.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: Toshiba TC9564 Reset Controller
+>> +
+>> +maintainers:
+>> +  - Alex Elder <elder@riscstar.com>
+>> +  - Daniel Thompson <daniel@riscstar.com>
+>> +
+>> +description:
+>> +  The Toshiba TC9564 is an SoC accessed by a host system through the
+>> +  upstream PCIe port on the PCIe switch it implements.  The switch
+>> +  includes an embedded PCIe endpoint that provides access to various
+>> +  SoC peripherals (including a reset controller) via its BARs.
+>> +
+>> +  A total of 13 resets are implemented, though two of these are not
+>> +  controllable.  Access to the reset controller relies on PCIe being
+>> +  functional, so the PCIe reset is assumed to be deasserted.  Similarly,
+>> +  the PCIe controller relies on I2C, so the I2C reset is also assumed
+>> +  to be deasserted.
+>> +
+>> +  Reset ids are defined in <dt-bindings/reset/toshiba,tc9564.h>.
+>> +
+>> +  The reset controller uses registers within the same page as a
+>> +  clock controller, so both devices are defined as children of a
+>> +  "config" syscon.
+>> +
+>> +properties:
+>> +  compatible:
+>> +    const: toshiba,tc9564-reset
+> 
+> Why does this need to exist as a standalone device, rather than be
+> rolled up into the parent syscon node? It doesn't have any resources, so
+> it should be doable.
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+This is along the lines of what Krzysztof has mentioned, and it
+seems clear I must be missing something.
 
---cfz7Ef1U0dsCKRCm
-Content-Type: application/pgp-signature; name=signature.asc
+> This kind of thing for a syscon is always difficult to review when only
+> one element is present - where is the rest of the syscon's
+> functionality?
 
------BEGIN PGP SIGNATURE-----
+The reason a syscon was used was simply for the benefit of
+having a shared regmap that the reset, clock, and DWMAC drivers
+can use.  All three of those drivers use registers that reside
+within a single page of addressible MMIO space.  And I don't
+know that I can guarantee their probe order.
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCas0wPwAKCRB4tDGHoIJi
-0jlnAP4yIPeZyDrdvqTGaV/8ySZ5uj9SUbamP+03AnBdo4AXpQEAzZ00qNI8KiIV
-oDO4vZxCIctnH5UQGVexvOnOtgOWYA0=
-=W8Vk
------END PGP SIGNATURE-----
+There is otherwise no "system controller" that is treated as
+a logical entity within the SoC.
 
---cfz7Ef1U0dsCKRCm--
+What is the proper way for me to represent this?  It's fairly
+simple; and I mainly want to ensure all three of those drivers
+can safely access their addresses.
+
+Thanks.
+
+					-Alex
+
+
+> Thanks,
+> Conor.
+> 
+>> +
+>> +  "#reset-cells":
+>> +    const: 1
+>> +
+>> +required:
+>> +  - compatible
+>> +  - "#reset-cells"
+>> +
+>> +unevaluatedProperties: false
+>> +
+>> +examples:
+>> +  - |
+>> +    #include <dt-bindings/reset/toshiba,tc9564.h>
+>> +
+>> +    syscon@0 {
+>> +        compatible = "syscon", "simple-mfd";
+>> +        reg = <0x0 0x2000>;
+>> +
+>> +        reset {
+>> +            compatible = "toshiba,tc9564-reset";
+>> +            #reset-cells = <1>;
+>> +        };
+>> +    };
+>> diff --git a/MAINTAINERS b/MAINTAINERS
+>> index 252b6d7ee1638..d0eb44079fe17 100644
+>> --- a/MAINTAINERS
+>> +++ b/MAINTAINERS
+>> @@ -28180,6 +28180,13 @@ S:	Maintained
+>>   F:	Documentation/devicetree/bindings/misc/pci1179,0220.yaml
+>>   F:	drivers/misc/tc9564-pci.c
+>>   
+>> +TOSHIBA TC9564 RESET DRIVER
+>> +M:	Alex Elder <elder@kernel.org>
+>> +M:	Daniel Thompson <danielt@kernel.org>
+>> +S:	Maintained
+>> +F:	Documentation/devicetree/bindings/reset/toshiba,tc9564-reset.yaml
+>> +F:	include/dt-bindings/reset/toshiba,tc9564.h
+>> +
+>>   TOSHIBA WMI HOTKEYS DRIVER
+>>   M:	Azael Avalos <coproscefalo@gmail.com>
+>>   L:	platform-driver-x86@vger.kernel.org
+>> diff --git a/include/dt-bindings/reset/toshiba,tc9564.h b/include/dt-bindings/reset/toshiba,tc9564.h
+>> new file mode 100644
+>> index 0000000000000..5fcc9a06d4ff6
+>> --- /dev/null
+>> +++ b/include/dt-bindings/reset/toshiba,tc9564.h
+>> @@ -0,0 +1,26 @@
+>> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
+>> +
+>> +/*
+>> + * Copyright (C) 2026 by RISCstar Solutions Corporation.  All rights reserved.
+>> + */
+>> +
+>> +#ifndef __RESET_TOSHIBA_TC9564_H__
+>> +#define __RESET_TOSHIBA_TC9564_H__
+>> +
+>> +/* Reset IDs */
+>> +
+>> +#define RESET_MCU		0
+>> +#define RESET_MCU1		1
+>> +#define RESET_MSIGEN		2
+>> +#define RESET_INTC		3
+>> +#define RESET_UART		4
+>> +
+>> +#define RESET_MAC0_MAC		5
+>> +#define RESET_MAC0_PMA		6
+>> +#define RESET_MAC0_XPCS		7
+>> +
+>> +#define RESET_MAC1_MAC		8
+>> +#define RESET_MAC1_PMA		9
+>> +#define RESET_MAC1_XPCS		10
+>> +
+>> +#endif /* __RESET_TOSHIBA_TC9564_H__*/
+>> -- 
+>> 2.53.0
+>>
+
