@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A2082F5324;
-	Mon, 12 Oct 2026 02:03:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86C1D3019BA;
+	Mon, 12 Oct 2026 02:18:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791770583; cv=none; b=tnx48yfyYZLepjD84zj8dtdPPeM5/m3SjFCcGxVhlj1NbBLfwub6H3tnsSGKRLNUzmk9pFb+FTtuGJ8K0aYUkU5wgHDblSzxIHw/5QUkh68FkFn50sL7JiPHiU5NDdZq4FMwAmsu5mJjYBkl+O5wv3ly+e1bGA2E3a0Ugmr8BdU=
+	t=1791771488; cv=none; b=Atz0cc/Xa8GqZgoxaSj9uLSS7G+bbwzRXN4l88KGjxxTCb2BtZuEswvkO33Sz2tZE38xndRHbEB7ZiF/jlCRm25kGQb5A8fpQbE604HZhvZc42e6vxirxV3a1VJzRduIu7v89MvHFEQLgIokYMRrD5DbzXtRHtgYCsgRfVaUTcE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791770583; c=relaxed/simple;
-	bh=j7G+Yjj/NtWByECic8e61S0QvcYNk0zX7apU8jeT5KQ=;
+	s=arc-20240116; t=1791771488; c=relaxed/simple;
+	bh=wqZgFcQv79nCxhdK/QeqPWm6bn1L/7fctlQZfxmiUdg=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Lg6Iuw0tKqQjGxcgNgHi986MLoyuSnZGYNiXkERivyfC1Gxm26xuFCtWMQFF0jthzuHRJtBZQ6anw4HHqwcOghXXg4YcVREcpxrzClR+Y5K1w0NPWoLqdTFAcmVecGfuvwKko4Qg8iHhsL+z+1qPMMGZc7lv7rEob8iju4/ni9k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gaXHEep9; arc=none smtp.client-ip=10.30.226.201
+	 In-Reply-To:To:Cc; b=ctxP0Iyfj4iDRy1xWxUcTTJJMLzYv3Kukxb7ax1InDctk/ed1rJaGZVhEWjTVGNfphY6LDa/BrVe/1U2f2T2HX1cwHgPq+dDx4i/k3h2q+twL37mnis6ZDIqFBdOII1w/oVx6tiLPnyoHUGfEKvR+bE3zVi/4uu2i47xs5ygZug=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FNWJzD3s; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gaXHEep9"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id CD969C2BCFF;
-	Mon, 12 Oct 2026 02:03:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FNWJzD3s"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 33C75C2BCF7;
+	Mon, 12 Oct 2026 02:18:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791770582;
-	bh=j7G+Yjj/NtWByECic8e61S0QvcYNk0zX7apU8jeT5KQ=;
+	s=k20201202; t=1791771488;
+	bh=wqZgFcQv79nCxhdK/QeqPWm6bn1L/7fctlQZfxmiUdg=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=gaXHEep9QQTH/mAnHq5NB1pcd2WKTaruoJ3ypA3/YtPSXm2KjV4aQyOvShISk5Mv0
-	 FPN3xKBZVGnXDHzpS1HNyzEcyP5q6sZdqdwROYdzizE0TDAuF2reNCsTxArw3E5pKR
-	 X9VmWaQbf5AnbD/Aw06jwu0GtVw1p8yvO7bqcZsm1FM7SuBVeBCexxxMF2hhcDtm47
-	 aQn9URk0KRxTfkYC44OSfhALR42eyHsSRvvHbipLkl9vBGafyj7MPx6SQCM71pYh7c
-	 Z5C0PCSnmE6cCTEn9JpueehDv4SYEMSlRclCZlIRksg8jJLvBFc2dwJ706LlFq63u1
-	 DDEbPEeqy5ScQ==
+	b=FNWJzD3syijxx/nawoyQYIN8WdGj0mycfm/Tje159OLnGiRmv/ltA0Io5pHIkmNiM
+	 oW4QPpR98SabhbSlXjoB/37bnIW7EBBkCIYOfFJhCYjlA2pUrpZCjlfNlXCY5HxqCg
+	 NUKE4YCX739e0Bu86hv//C3vjQgCR3ewemCo1QTE3/OjrgKwGXZdKKuPmoGsmEj6N6
+	 Rv8lnZRFbKUx3coM4nG0tACkfqEhzZNWv65bN7Sq9gFvnyPqDLxCWnWyOuSp1/qPzw
+	 WsjzsJ2YpFrukPO6eW48n7wR1+XMgZpZg9fRTfQ1M/2Ok312zCoM7EgqMqEENV/oSJ
+	 jgr8lV6OI/bzg==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id ADA8ACA9ECF;
-	Mon, 12 Oct 2026 02:03:02 +0000 (UTC)
-From: fromdisposition via B4 Relay <devnull+me.fromdisposition.org@kernel.org>
-Date: Mon, 12 Oct 2026 02:02:44 +0000
-Subject: [PATCH 2/2] arm64: dts: qcom: sm8350: Add CPU dynamic power
- coefficients
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 15438CA9ED3;
+	Mon, 12 Oct 2026 02:18:08 +0000 (UTC)
+From: Fabricio Akio via B4 Relay <devnull+fabricioakio.gmail.com@kernel.org>
+Date: Sun, 11 Oct 2026 23:18:08 -0300
+Subject: [PATCH 2/2] arm64: dts: qcom: sdm630: Fix the CPU retention idle
+ state parameter
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,113 +41,73 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261012-sm8350-cpu-capacity-v1-2-3d141e0099d5@fromdisposition.org>
-References: <20261012-sm8350-cpu-capacity-v1-0-3d141e0099d5@fromdisposition.org>
-In-Reply-To: <20261012-sm8350-cpu-capacity-v1-0-3d141e0099d5@fromdisposition.org>
+Message-Id: <20261011-sdm630-idle-states-v1-2-3181d488dc0f@gmail.com>
+References: <20261011-sdm630-idle-states-v1-0-3181d488dc0f@gmail.com>
+In-Reply-To: <20261011-sdm630-idle-states-v1-0-3181d488dc0f@gmail.com>
 To: Bjorn Andersson <andersson@kernel.org>, 
  Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, fromdisposition <me@fromdisposition.org>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791770585; l=2954;
- i=me@fromdisposition.org; s=20261012; h=from:subject:message-id;
- bh=9YQsAJJ10PCMm3NOvwDq8LDOChng3jMGGzkFZbGKX94=;
- b=jTMFiRafgePd8fwXWjQRx2dh96IVRXVW8Aj+VEPFWMg5pvMxvhPIvBwCfKSD9tSqLn9dxO0GB
- rlzyNnSEA0BAzE3x1ioWADeTW1eoN3zGxKmHdO2g3hRNjZ14MNmIqAo
-X-Developer-Key: i=me@fromdisposition.org; a=ed25519;
- pk=S0QFlGq1BQEaAtPPdAH8YKEOXMeRuSkTgctXuvtU+1Y=
-X-Endpoint-Received: by B4 Relay for me@fromdisposition.org/20261012 with
- auth_id=1163
-X-Original-From: fromdisposition <me@fromdisposition.org>
-Reply-To: me@fromdisposition.org
+Cc: Abel Vesa <abelvesa@kernel.org>, 
+ Alexey Minnekhanov <alexeymin@postmarketos.org>, 
+ Dmitry Baryshkov <lumag@kernel.org>, 
+ Martin Botka <martin.botka@somainline.org>, linux-arm-msm@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Fabricio Akio <fabricioakio@gmail.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791771486; l=1587;
+ i=fabricioakio@gmail.com; s=20260928; h=from:subject:message-id;
+ bh=JPfucNV2H7AMDe9ybxbNQCBK1Hyzzm9nRs65fQ2KOPs=;
+ b=oQp29R2EyUSznPiQGQnc1SYh2rurX09E6rz6/LF2N6c5QUF5eqrvTIMJEs5rI4W5EAZUvXEFG
+ D3oqHL25NynAR61z3Hk/8dKEyVGFtGfa+2+Yi2vE6+i4m00sRXxQyNL
+X-Developer-Key: i=fabricioakio@gmail.com; a=ed25519;
+ pk=TlMUT8bPI/ZQzp2q24BIQTb2qSx/jdUTBlGEXIRCm54=
+X-Endpoint-Received: by B4 Relay for fabricioakio@gmail.com/20260928 with
+ auth_id=1076
+X-Original-From: Fabricio Akio <fabricioakio@gmail.com>
+Reply-To: fabricioakio@gmail.com
 
-From: fromdisposition <me@fromdisposition.org>
+From: Fabricio Akio <fabricioakio@gmail.com>
 
-Without dynamic-power-coefficient no energy model is registered for
-these CPUs, so energy aware scheduling stays off.
+The CPU retention states set bit 30 of their PSCI power_state, which
+marks a state that loses context. Retention keeps it, and the vendor
+kernel requests it as 0x00000002.
 
-Take the values from Qualcomm's downstream overlay for v2 silicon
-(lahaina-v2.dtsi in msm-5.4): 100, 499 and 760 for the A55, A78 and X1.
-For the A78 and the X1 it replaces the 515 and 845 of lahaina.dtsi.
+With bit 30 set, no entry into these states succeeds on a Motorola Moto
+X4 (SDM630). With it clear they are entered about 50 times per second
+across the CPUs, and the failed idle entries across all states drop
+from about 30 to about 9 per second.
 
-Assisted-by: LLM
-Signed-off-by: fromdisposition <me@fromdisposition.org>
+Fixes: b190fb010664 ("arm64: dts: qcom: sdm630: Add sdm630 dts file")
+Signed-off-by: Fabricio Akio <fabricioakio@gmail.com>
 ---
- arch/arm64/boot/dts/qcom/sm8350.dtsi | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ arch/arm64/boot/dts/qcom/sdm630.dtsi | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8350.dtsi b/arch/arm64/boot/dts/qcom/sm8350.dtsi
-index df6e9d1fa..dcd1fc9c1 100644
---- a/arch/arm64/boot/dts/qcom/sm8350.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8350.dtsi
-@@ -61,6 +61,7 @@ cpu0: cpu@0 {
- 			clocks = <&cpufreq_hw 0>;
- 			enable-method = "psci";
- 			capacity-dmips-mhz = <512>;
-+			dynamic-power-coefficient = <100>;
- 			next-level-cache = <&l2_0>;
- 			qcom,freq-domain = <&cpufreq_hw 0>;
- 			power-domains = <&cpu_pd0>;
-@@ -86,6 +87,7 @@ cpu1: cpu@100 {
- 			clocks = <&cpufreq_hw 0>;
- 			enable-method = "psci";
- 			capacity-dmips-mhz = <512>;
-+			dynamic-power-coefficient = <100>;
- 			next-level-cache = <&l2_100>;
- 			qcom,freq-domain = <&cpufreq_hw 0>;
- 			power-domains = <&cpu_pd1>;
-@@ -106,6 +108,7 @@ cpu2: cpu@200 {
- 			clocks = <&cpufreq_hw 0>;
- 			enable-method = "psci";
- 			capacity-dmips-mhz = <512>;
-+			dynamic-power-coefficient = <100>;
- 			next-level-cache = <&l2_200>;
- 			qcom,freq-domain = <&cpufreq_hw 0>;
- 			power-domains = <&cpu_pd2>;
-@@ -126,6 +129,7 @@ cpu3: cpu@300 {
- 			clocks = <&cpufreq_hw 0>;
- 			enable-method = "psci";
- 			capacity-dmips-mhz = <512>;
-+			dynamic-power-coefficient = <100>;
- 			next-level-cache = <&l2_300>;
- 			qcom,freq-domain = <&cpufreq_hw 0>;
- 			power-domains = <&cpu_pd3>;
-@@ -146,6 +150,7 @@ cpu4: cpu@400 {
- 			clocks = <&cpufreq_hw 1>;
- 			enable-method = "psci";
- 			capacity-dmips-mhz = <973>;
-+			dynamic-power-coefficient = <499>;
- 			next-level-cache = <&l2_400>;
- 			qcom,freq-domain = <&cpufreq_hw 1>;
- 			power-domains = <&cpu_pd4>;
-@@ -166,6 +171,7 @@ cpu5: cpu@500 {
- 			clocks = <&cpufreq_hw 1>;
- 			enable-method = "psci";
- 			capacity-dmips-mhz = <973>;
-+			dynamic-power-coefficient = <499>;
- 			next-level-cache = <&l2_500>;
- 			qcom,freq-domain = <&cpufreq_hw 1>;
- 			power-domains = <&cpu_pd5>;
-@@ -186,6 +192,7 @@ cpu6: cpu@600 {
- 			clocks = <&cpufreq_hw 1>;
- 			enable-method = "psci";
- 			capacity-dmips-mhz = <973>;
-+			dynamic-power-coefficient = <499>;
- 			next-level-cache = <&l2_600>;
- 			qcom,freq-domain = <&cpufreq_hw 1>;
- 			power-domains = <&cpu_pd6>;
-@@ -206,6 +213,7 @@ cpu7: cpu@700 {
- 			clocks = <&cpufreq_hw 2>;
- 			enable-method = "psci";
- 			capacity-dmips-mhz = <1024>;
-+			dynamic-power-coefficient = <760>;
- 			next-level-cache = <&l2_700>;
- 			qcom,freq-domain = <&cpufreq_hw 2>;
- 			power-domains = <&cpu_pd7>;
+diff --git a/arch/arm64/boot/dts/qcom/sdm630.dtsi b/arch/arm64/boot/dts/qcom/sdm630.dtsi
+index 222ec5886818..a58bad0fb638 100644
+--- a/arch/arm64/boot/dts/qcom/sdm630.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm630.dtsi
+@@ -192,7 +192,7 @@ idle-states {
+ 			pwr_cpu_sleep_0: cpu-sleep-0-0 {
+ 				compatible = "arm,idle-state";
+ 				idle-state-name = "pwr-retention";
+-				arm,psci-suspend-param = <0x40000002>;
++				arm,psci-suspend-param = <0x00000002>;
+ 				entry-latency-us = <338>;
+ 				exit-latency-us = <423>;
+ 				min-residency-us = <200>;
+@@ -211,7 +211,7 @@ pwr_cpu_sleep_1: cpu-sleep-0-1 {
+ 			perf_cpu_sleep_0: cpu-sleep-1-0 {
+ 				compatible = "arm,idle-state";
+ 				idle-state-name = "perf-retention";
+-				arm,psci-suspend-param = <0x40000002>;
++				arm,psci-suspend-param = <0x00000002>;
+ 				entry-latency-us = <154>;
+ 				exit-latency-us = <87>;
+ 				min-residency-us = <200>;
 
 -- 
-2.53.0
+2.56.0
 
 
