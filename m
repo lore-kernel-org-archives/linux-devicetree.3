@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07B4438C2C3;
-	Mon, 12 Oct 2026 05:56:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDC4E365A0B;
+	Mon, 12 Oct 2026 06:03:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791784608; cv=none; b=YME3mALjTxKIfYEMNSQU3upYgB6VaLcn6GJIkLQLUaOcEdBCsGWBfmKD0rXKEbHAwbMlh3aByHVZUpTRGgykNrXSm4/5FGNsq474rptLTWeFu8uCLaFcCwT6o+zcBIy8iA3AcaNv566KV8znLE/FbNCLr36sgAvSjU3/pcIqleM=
+	t=1791785010; cv=none; b=eWxhWi1T3PTikxkWmVLmryNQpWlkmDMdY6qqhO+wIoA9LMZYqFcc/fUzU7yOpZu4mLby0B70FQKevjat/qSbusmSXhGmnMTuYPz11cFkeZQRo4GwwJ3Xmv/KNd9dGdQjemvkOVcasojtSXvfndqmqZuPGRJiIc6IeSgnELgdJyU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791784608; c=relaxed/simple;
-	bh=TyY4dkRgKhpFKIa7QXEINrPzAsLWjszLoWujFO+HX/c=;
+	s=arc-20240116; t=1791785010; c=relaxed/simple;
+	bh=oHXc5p0pSS/n7ZP6g/85X8idEaDmUpalhQ6+/cl7uDU=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=cSJ/Y2AdIyuekuMWECH3fgVUB2PPg0XYfiPo/wlL9fRsepYq6dNQBp0Krjd30GARMVOCgjjdAsgNiXgxL+rlxqLZmkaHPXY3RqVRZwXDutXYt7pxi+o1pIO/7CChCepDLSm5A0ToBnujWN9GKJFGGkGqYvuhwf0bBsS9/qa8Elg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fJ8EEgoo; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=lTPSrmr3cM5oX41iTYYCnMTHsFGDpERqEyT7xCE7h1SsmX8KLIUv+l9fmCz7kreCqU8Uv0fc/dX6SsqZbgc36NTbWlXgZGrTuHgOt8Pah433ptVHzRLcc0dPATwI+xIIoQ4iN3g2xCbn6A5pQfR+ry9aepCheabaOIOp6/R5iDE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kepFskVv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fJ8EEgoo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80F2D1F0089B;
-	Mon, 12 Oct 2026 05:56:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kepFskVv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 134791F0089B;
+	Mon, 12 Oct 2026 06:03:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791784607;
-	bh=wX+hQIpvy4fBfrAJ7puHVJ0AjgD4CrfUpUZu2lnU6+w=;
+	s=k20260515; t=1791785007;
+	bh=7s31RLb+A+Cl+AgPE135NUAXOUdyJaO/bVhnzCsnTDE=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=fJ8EEgoomI4ugOW9IPy9xdskNbrv4qliV4WwtVaGLORZt2c4SVqLCe5a8vraEbl6R
-	 6S+BGRP3lIVd4fzbosj0WU2CFFsz0gwQlrw2GRBlEX9TYZ19j+RPMkm6kdmx6u/EYA
-	 QhTLnvwfAL6X+SMqMerkltR8gGB6DtOz0T7SOH7VX/W2I/s9fJSVsgF7tk+sqBLWAq
-	 oe068rZp69FCQCualCBTmfhgvX6SC+pzuPsR1iAkB0JwceG5HYSoqmBygU0e5XgT6m
-	 jg190fJjnVFrlDWEYkZceux832GGermnO9QQ5ashvBXjkxmhTJW7OgEI0SFKzwW6lH
-	 SULuW9tTRwzEA==
-Message-ID: <8befec82-035d-40b6-a3b0-f1ff2ec9e53e@kernel.org>
-Date: Mon, 12 Oct 2026 07:56:41 +0200
+	b=kepFskVvWslTNBq88YopkJYJsrNA/n1GG2Q++TQVgUsEAwgYPbteKuVxElJ3UvgS9
+	 sVmnDL7LMZ4wqq+mhqzWpw2B4EmGIYiamBzjwsTjZPo1gINA5LVvyvoVcugi2s8qZP
+	 ppun+Cy4m0BiH5ahaEJaCIWtlIG+uqGpmr+n7aT8QVbYDHzy6fm9yJqzdtNWxChA3w
+	 XUZZWFymgVzqpy8j4awUfR3I/GWJNy2MbnhtZKNwDGV2TLQV93lPQ8u9Wt/SQ0QniY
+	 Z4k20dqZldWPvSPm31KsVD/KXLhqebf1L1Xg4/BlIGl4L0Z8pcH0PXsn7jDppadV8I
+	 iKcEUGUVm/Byg==
+Message-ID: <2bdabb3c-5af3-4784-aa8c-8981e83a163b@kernel.org>
+Date: Mon, 12 Oct 2026 08:03:21 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,18 +35,15 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH ath-next 01/17] dt-bindings: net: wireless: Add QCN6432
- device tree binding documentation
-To: Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>
-Cc: Johannes Berg <johannes@sipsolutions.net>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Jeff Johnson <jjohnson@kernel.org>,
- linux-wireless@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, ath12k@lists.infradead.org
-References: <20261008-mpp_bringup-v1-0-2c5797b5e4ac@oss.qualcomm.com>
- <20261008-mpp_bringup-v1-1-2c5797b5e4ac@oss.qualcomm.com>
- <20261009-brainy-alpaca-of-focus-31fbbd@quoll>
- <fb81a042-82b5-4565-9a5c-1a3c038a0d14@oss.qualcomm.com>
+Subject: Re: [PATCH v2] dt-bindings: pwm: Convert NXP PCA9685 PWM controller
+ to DT schema
+To: Jeremy Dean <deaner92@yahoo.com>, =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig?=
+ <ukleinek@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-pwm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261009211523.56122-1-deaner92.ref@yahoo.com>
+ <20261009211523.56122-1-deaner92@yahoo.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -92,34 +89,31 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <fb81a042-82b5-4565-9a5c-1a3c038a0d14@oss.qualcomm.com>
+In-Reply-To: <20261009211523.56122-1-deaner92@yahoo.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 12/10/2026 07:29, Aaradhana Sahu wrote:
->>> +  Qualcomm Technologies QCN6432 is an IEEE 802.11be Wi-Fi device
->>> +  associated with the WCSS Q6 subsystem. The device is represented
->>> +  as a platform device and uses MSI interrupts for its Copy Engine
->>> +  (CE) and Data Path (DP) rings.
->>> +
->>> +properties:
->>> +  compatible:
->>> +    enum:
->>> +      - qcom,qcn6432-wifi
->>
->> Is there qcn6432-something-else as well? Neither commit msg nor
->> description explain that.
->>
->> Best regards,
->> Krzysztof
->>
+On 09/10/2026 23:15, Jeremy Dean wrote:
+> Convert the NXP PCA9685 PWM controller binding to DT schema format.
 > 
-> QCN6432 is a Wi-Fi device supported by the ath12k driver, and there are no
-> other variants requiring a separate compatible string.
-> Hence, qcom,qcn6432-wifi is used to identify this device.
+> Changes from the text binding:
+> 
+> Document the 'reg' property and make it required. It was missing
+> from the text binding, although the example used it and the device
+> cannot work without the I2C address.
+> 
+> Rename the example node to the generic 'pwm', as required by
+> pwm.yaml.
+> 
+> Describe both cells of the PWM specifier, and state that 'invert'
+> and 'open-drain' apply to all outputs, as per the datasheet (INVRT
+> and OUTDRV bits in MODE2).
+> 
+> Assisted-by: LLM
+> Signed-off-by: Jeremy Dean <deaner92@yahoo.com>
 
-Then it is qcom,qcn6432.
-
+As explained already - this is not correct. Read submitting patches -
+you need to use full name, not first given names.
 
 Best regards,
 Krzysztof
