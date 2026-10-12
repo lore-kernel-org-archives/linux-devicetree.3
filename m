@@ -1,59 +1,47 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C52284477F7
-	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 08:07:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AC6D431A56;
+	Mon, 12 Oct 2026 08:10:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791792425; cv=none; b=XOy/My9NMXejg55QfL3p3f9eklZlEJNPm0WBgBKdWjkn0P5WABDonF+mUG/qYIqObaknYSJKAsLBqo2ppG+SdEFKM0hJot0QuoQwKsWIIGmxsRvqJ5Nd0qtrB5kVDMjXKFPBWVpa2poyzDkOKUlud/VShcWgjGucgFYzkYzOHzk=
+	t=1791792625; cv=none; b=eW+4ngdsKqvkTcYp3Ur9adJg7oLq/XasquH+o5zjQjD5eueEB/Yey/uHGME3JyJ/qAB150JF3tnM/RB94xvJjo3Jdd7wdMm7J2u7D7bJg6Mtx15DtGKXMu8gsowtl2WMzdvBjD5t0I8CYzkMiy1h1+laQbuxvsH26AEGBsFA27A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791792425; c=relaxed/simple;
-	bh=iquteC2WLun4rL54eIEjgx3C2ts8WjjltRIkjPLgyLc=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=kOmfWkGIdby3N1N0Dj6FItbnJ6uKmKI9jh9F+BgNzcAsrkfw7lNGmmIBZSkO3sWM/k1pq6WIFYtIlQrSuCk1cv4AjCLazhRH2CR3TfcZ1xP9+YUYh4KwAKckwf9A3Ucr0rzyPdzXiwFIgZmocrcgdfxRyAtZOVvDGKDZRvXDQFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=HxAJMdCQ; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1791792625; c=relaxed/simple;
+	bh=+VVo/JGBJ90aJN5ZdrAr9+J3UW3a8r4MnFeZa9+hYts=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=BJzUltFAUCfuaJTLsvcDys9tZwke/qdRnNWIExLWt5IpdIkBatcJbmGmwv53xBUyJgvDjUsn3vxRm+pEYdzb4OdJjXhVNBc+C0P2KEAzNTU6KOPgUIFVuOWWbAb5rfu6unRqXxncgce36j7cRxE7VjtCMfsbAP/AYUts3/gRIRg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dh36JnY3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="HxAJMdCQ"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id DC9301A11EE;
-	Mon, 12 Oct 2026 08:06:58 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id AE3C4601A6;
-	Mon, 12 Oct 2026 08:06:58 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 50C8611D70DE3;
-	Mon, 12 Oct 2026 10:06:51 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1791792417; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=iquteC2WLun4rL54eIEjgx3C2ts8WjjltRIkjPLgyLc=;
-	b=HxAJMdCQ7TvqdwVB+WwkdeOLAK7zA8dG3xUnrrujt5ECeJr3AhWj/JIlbFaobdbjP9oIom
-	+ozF38V0nmmWmml6IJmutV3GR15zKWtsa9YOsXK5GghlWT9NJW2w7biTZc1QUMIdvJybHR
-	0176O28kqTF1QxV/mlawvUd4wJ88s7xeyQZBclivy5B++8kNZKA18ihzJK5zJdH/sho023
-	9f0jz12HKeVwjfGkzU9u0fTM3vix7dAvR+SmWQn8Tp4rgzSJW6PDsAPlzB8jpO/Swe3RKl
-	TVxOYiII+OBLOKR3vYR0VWQ5Y8+UdDCLoJ1q0A2bWs1wCHxAKs+jl7CS0LkzGg==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: James Hilliard <james.hilliard1@gmail.com>
-Cc: Richard Weinberger <richard@nod.at>,  Vignesh Raghavendra
- <vigneshr@ti.com>,  Rob Herring <robh@kernel.org>,  Krzysztof Kozlowski
- <krzk+dt@kernel.org>,  Conor Dooley <conor+dt@kernel.org>,  Chen-Yu Tsai
- <wens@kernel.org>,  Jernej Skrabec <jernej.skrabec@gmail.com>,  Samuel
- Holland <samuel@sholland.org>,  Maxime Ripard <mripard@kernel.org>,
-  Richard Genoud <richard.genoud@bootlin.com>,  Masahiro Yamada
- <yamada.masahiro@socionext.com>,  Boris Brezillon <bbrezillon@kernel.org>,
-  Brian Norris <computersforpeace@gmail.com>,
-  linux-mtd@lists.infradead.org,  devicetree@vger.kernel.org,
-  linux-arm-kernel@lists.infradead.org,  linux-sunxi@lists.linux.dev,
-  linux-kernel@vger.kernel.org,  stable@vger.kernel.org
-Subject: Re: [PATCH v6 00/18] mtd: rawnand: sunxi: support the Allwinner
- randomized OOB format
-In-Reply-To: <20260914-submit-sunxi-nand-vendor-oob-layout-v1-v6-0-2fb084fe0751@gmail.com>
-	(James Hilliard's message of "Mon, 14 Sep 2026 15:09:46 -0600")
-References: <20260914-submit-sunxi-nand-vendor-oob-layout-v1-v6-0-2fb084fe0751@gmail.com>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Mon, 12 Oct 2026 10:06:50 +0200
-Message-ID: <871p9v4a1x.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dh36JnY3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16ADF1F0089B;
+	Mon, 12 Oct 2026 08:10:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791792624;
+	bh=QevQ6Tupp6Y5Q71lWFERf3zC8gS1eFojsFS0KOuxiFs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dh36JnY3MrEljugYPHQ4jd4BIPja9n9k7ZVGK3AWn07KWrVB8fQM8wuvZWx32u3wE
+	 +8goqAUnr/WuEsLk03lJ/U+/ip7dx2lKlGAMGapQ6c6wvIFu8/Kgg9dBqE3Q1JWujE
+	 ZhSRokkDQ88G2LYd9tynhE8kPeexazdpEdpaxq+6Kci36AIOHLhwlDLLBz3qONQg7s
+	 Gtyzct177n25BDDyCKYWsRR1hfW8bfZHTMHQ/vjFFr7c/u0UeiFCTVIx0bYMDrjhAZ
+	 YjYKiaNqECpTwJR8Pgy3X/J5Xh5JvNqYyZX/+56C6Qmj1erbDlZuQQ9UPacl//Bnfr
+	 Yfnyq0TB+Tzyw==
+Date: Mon, 12 Oct 2026 13:40:13 +0530
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Wesley Cheng <quic_wcheng@quicinc.com>, 
+	Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Christian Marangi <ansuelsmth@gmail.com>, Andy Gross <agross@codeaurora.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org
+Subject: Re: [PATCH 05/10] phy: qcom-ipq806x-usb: fix the SS PHY
+ TEST_POWERDOWN bit
+Message-ID: <asyVtSA2MRJkwxXC@debian>
+References: <20260810-msm8974-usb3-v1-0-1a47e1185524@oss.qualcomm.com>
+ <20260810-msm8974-usb3-v1-5-1a47e1185524@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -61,45 +49,24 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260810-msm8974-usb3-v1-5-1a47e1185524@oss.qualcomm.com>
 
-Hi James,
+On Mon, Aug 10, 2026 at 02:42:35PM +0300, Dmitry Baryshkov wrote:
+> The SS PHY exit sequence tries to put the PHY into retention via the
+> TEST_POWERDOWN bit of SS_PHY_CTRL, but defines that bit as BIT(27). In
+> the DWC3 QSCRATCH SS_PHY_CTRL register TEST_POWERDOWN is bit 26 (see
+> the downstream phy-msm-ssusb driver for the same IP generation), so the
+> sequence pokes an unrelated bit and the PHY is never powered down.
+> 
+> Fixes: ef19b117b834 ("phy: qualcomm: add qcom ipq806x dwc usb phy driver")
+> Assisted-by: Claude:claude-fable-5
+> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-On 14/09/2026 at 15:09:46 -06, James Hilliard <james.hilliard1@gmail.com> w=
-rote:
+Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 
-> Allwinner NAND firmware leaves the bad-block marker in the randomizer
-> data stream. On H6/H616 it also places all protected user data before the
-> first ECC step. These choices differ from the mainline format, which
-> keeps the physical marker plain and maximizes the H6/H616 user-data area.
+- Mani
 
-[...]
-
-> Assisted-by: Codex:gpt-6-astra
-> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
-> ---
-
-I am sorry but I do not want to proceed further with this series.
-
-Even though I am not capable of finger pointing what is wrong in the
-diffs nor in the commit logs, I do not understand most of it. I cannot
-clearly explain why, but I have had a hard time trying to understand
-what the commits were doing. The risk is that nobody would then be able
-to further maintain this driver and I am not willing to take that
-option. The kernel policy so far has been to ensure readability and
-maintainability, and my gut feeling is that this series is going
-sideways wrt this major constraint.
-
-Also, from a Linux kernel point of view, we generally just do not
-support vendor specific layouts. I already told so Richard Genoud back
-when he was working on H616.
-
-With this added to the pile, I prefer not to merge the entire series. I
-can still take some of the fixes if you feel like they would be relevant
-anyway. In which case I invite you to send a v7 with just the few fixes
-you think are actually relevant outside of the randomized layout
-support.
-
-Thank you for your understanding,
-Miqu=C3=A8l
+-- 
+மணிவண்ணன் சதாசிவம்
