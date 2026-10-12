@@ -1,78 +1,78 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A94C2446074
-	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 12:03:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07A923E9C1E
+	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 12:04:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791806617; cv=none; b=Piy2DaRMVR3mXtcgQYGR7DB8rv2B5+ybouz+4/+bqiYMfX4wjA7KbbmNmwPdzfaParM8z3tGu+iztFmQ7pdNR0ua0MJojMqF1ht7wIYnLWy42KaCOdFz4GjcO35l8+73HfQJ6HV1GNCtqVd4XTnN0vlp6mVNfleQkyGcD7IWJxc=
+	t=1791806659; cv=none; b=UuE9szYlmekAD5xpOHyvHwnpilmru84h4QmTMcYjIsT/3vENzawxyKmuErUVaFBXkPgX1By0ZRc9XEz15c+y1Tk/cua78c+vcTVoeQdLdyMdghVShWnhFyUIuIdA5LfM81UzDVTGmRSrNurbJ3yeo+NN7+hrTG5c6QvuIcJu9ew=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791806617; c=relaxed/simple;
-	bh=c2WauqA1rN3CFp8HwFYIcwS8fSlQMcIi3l9nCjLJYwg=;
+	s=arc-20240116; t=1791806659; c=relaxed/simple;
+	bh=Agg4QPystQPs2JjR4AaaDRI7V4S04XaGdJsO2+SBdZk=;
 	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jzjEqliK4kURPbLBfe/+O3myMpHDa4fXJnWGS9NT1RjBY9ELzqDtwq6L7wxnlWTVSeIGrXwLv4jDYXhnoWi+tYc8QI28enQMXdD2G9vyfAAkowCmnNx5mooHL84yNZp/OD5SUKUn/XrQllh6jg5iEU9UH1QOflFoUlG9pNNZadA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jdnxUcEh; arc=none smtp.client-ip=209.85.128.45
+	 Content-Type:Content-Disposition:In-Reply-To; b=E1hOEK7TD74L9M3JkfCWSpfnhIdYvnj9vKHo9EKso0YkLmaIkhs3wbujOWqpHTFE5W2mWllB18EZhg0DP3GPsQQdrJmbddiObyIB0DcVA3GhddtuMDbfdN+Cf1P8zSq1mEobR3T3E0E8BxwFj+KqXBmIdA8q+ZaqDTPrQ0FJLSQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=m9Tx+Hd2; arc=none smtp.client-ip=209.85.221.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jdnxUcEh"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49fbb2acc90so13799875e9.2
-        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 05:03:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="m9Tx+Hd2"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48c45111bebso994072f8f.0
+        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 05:04:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791806613; x=1792411413; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791806656; x=1792411456; darn=vger.kernel.org;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :content-type:mime-version:references:subject:cc:to:from:date
          :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=POtm/b4o0WrfuoXD0v62t4luuE1aVmfrnI+9DSSx1WM=;
-        b=jdnxUcEhwgWL5MG7NLlx9st23P0+0KMP6HAEi1TPly4rqitplJIXDbxBPnpy52qAmE
-         MVeLLSGP5qGDglZFhMwAZGs4yaP/MJZvXVvZPka2r7XtE+KHTKJVi+cvKTCp/Z3B6jRo
-         4ngSNltyAzk0eNT7rIsbMcT57lRx32HNGTE1fDZ+InsPQw42OJVvg6fHJB/Dsgf1tweb
-         9+Id2k4rooCrzxrVgZbEpvEF6n9UFt6mGDizmLL/e152Vp50zPN6PVm8NOUX5XrO5Bx4
-         JuJAmHo6ZLE1aXGQJA6C5LLCgtWpehq+AX49/SlWvFcyZPe/Mlm87PTWKAEWTcUeTf3S
-         xXeA==
+        bh=XyTvhmMauWVTWc68u+mhiwkWRE9BPuGcFcjBW1ldEgg=;
+        b=m9Tx+Hd2NSrzwwvu8JKY67DiA//bWxyNTz6uMhysDF7N0aA7i9zaoyyyvVXqnvwyW2
+         lhWI7QVMxDNBKVTaGMcp8qcRTNKKX30FPjOuQCgMfKMLRv7+jW5gVoST6n/Zdr3HvcWT
+         gbC2tCxPENuZWGEO+JWT8CNiPuBt7JbLLf1tqHqshoX9Di2o/ayGqOTd2YcEflH4VKvN
+         hxJleFaZtyE+G3kw+Obkr9KmJc6msrR7CoSfUpm0LETT/knODOnsEO27UnXgwOJVD9Ak
+         MqgLjdACS+Hk3HyH85/Gb0hGWIaGkcASsONUCyMV3ehRhkFeVBYIz9fGGERZ+oFi+aKV
+         usQw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791806613; x=1792411413;
+        d=1e100.net; s=20260707; t=1791806656; x=1792411456;
         h=in-reply-to:content-transfer-encoding:content-disposition
          :content-type:mime-version:references:subject:cc:to:from:date
          :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=POtm/b4o0WrfuoXD0v62t4luuE1aVmfrnI+9DSSx1WM=;
-        b=Bo6LVlJ2bKPaePzYu8Adb+J2BQzE77lvf4sj5gL+a+jx8cXzPYLLOKExkMtr+cMMZ4
-         bHwWqhxfTqHkcrihBx1TsXnpmG78McF1gxXM9tl/S+NNlpCtSsXQ3dx865cHoH74uKO0
-         V7U1uwbVe+bwsz5L4yy0bBXjZBal03QCtq2plC+7yvqYT4A77xdqICLS5vQkD2kuyFgr
-         kKsJYFxVpARP62WqYodtGgSAVHcA/aZ9OCAMVWLl5p39JofeeQkiv67vmhOs4bkrAQnc
-         spjPiAxbC4cZ/11sEPkob1OQOqQMtjNExTJkUofzYwVrv36dV4KiYh63MY5Hm2opuakG
-         Hi3Q==
-X-Forwarded-Encrypted: i=1; AKwUvBy3UA5ONwUvhgn9ZO/yaE2Bhckq+GkCVHHqbzVWzGtg0QaitpsrfQn8KP0rkGJkfaLPQHBfcyjDUfx1@vger.kernel.org
-X-Gm-Message-State: AFq9FYIZjqwqnyktAAuqLB41Xjb3bPuNn4deV/juKcwjkeSwKSpdtdp+
-	VliX4FjcAdzh2tXcRhCghhAW+jTKax8JXD9aITQhLOPQ7fNqVAt2PJ077WwxIw==
-X-Gm-Gg: AYBFou0Rkj3TSo6Bi98I54eFyOnao4Y3D1of2gEbejs+LMI8wz878EcEs2lsL1MBjhB
-	3rG2S82KDFKC3P5ySBuBEo8tQD/65l3tqO3cHH5zhQSWQhOwqJ6sVnsr2JlzjRpBAFTjsM2q2q5
-	GtanvSDyZ1UAOkamR9aV0gEKgJM0pUncbas11lIqtjPlL4L2UdG1xT6Fe2EJ2yd/nznlgxElyLF
-	ipskEhEcsdxJ6e+Y5ClDOXXKK75GD9GOfM0vOhihXYFaTcLOodIxociu7NNVEE2FYyNPTXohuIr
-	UNlP9TlJcfdTZOH1obSRb7aNoCd3sQA/2LdsTVVNmrwz8SNfcRuwKd6gON64ZrPX8zggVg+sBn0
-	j0HUc1md5A1lJgGhPjtGNvi3jdzM/Nj33tm3Gfg9qo55d27VTMeZLxqVxGMkp9jSK+PUbYlQ/YM
-	wCVlNFXJFEtoO/yRgaZPSZQQZCKo8WxGeUXTrKraEQSpT4Nt7hZMlIJESDouZb/Gi/ixg+xXGlF
-	zR2xwDskS9xK+oYj6DnxDX30fS24JJ+mSFdd4Ldh4F0Ko+LiA22UY46vLdLiKxtwaLVryNEss6M
-	/RAObw==
-X-Received: by 2002:a05:600c:3e8d:b0:4a1:7701:f863 with SMTP id 5b1f17b1804b1-4a18e4aeae4mr164627205e9.15.1791806612385;
-        Mon, 12 Oct 2026 05:03:32 -0700 (PDT)
+        bh=XyTvhmMauWVTWc68u+mhiwkWRE9BPuGcFcjBW1ldEgg=;
+        b=Tamx2+81zhbCFD8f62SFbGY3RhROFjaudTEnq8pwdIx/m9G1QnILzVSVq9yFnBEpU7
+         5O0ERcM2mERwUhqfB3gn2mhL0BZzYp0joROFujaWg0NpjRdNWLfNG1MpZRK6Dmfgwb5S
+         PG0E2CZaey+kETA3rkG8NivsrnkbRm3XywnMS5qeqjiF9xoYD6Ygh4jEhlLWQ62Rk05g
+         +PKQg3a5yMjFWY58TZJ1JZnWawksVtTxVIvqzxId6s1IMSbOB2bXNpDZJfmFCx+Cy8F1
+         FBe42stDJBpcRGa5ta0N2ce8zyI7s/no0NhE8228lQAL8uqLc7J8KKt65WVyr+FQpEhn
+         yOfA==
+X-Forwarded-Encrypted: i=1; AKwUvBwedYwuLVzfsKnlsiLcRP8SAShMOUJT36sSdog5E9UVTbNevZkwzreeT/qTrZN0s5BtnbyWjBh3QFHQ@vger.kernel.org
+X-Gm-Message-State: AFq9FYJNyUP6vcdcqzVrpUvk1XkSpYDSDWAZdKLz5JYVdiE2KhM2THA/
+	iA0RlsPGY9xNU7FnzQKkAYnBZAsIWjF/d7hhcicXJINMD8G2QkM2xeVt
+X-Gm-Gg: AYBFou11bxDyM3NfmUUzaxKTmITYB5NrByhasMK/56fVo3adP9yrp6K4s2f7J+ll1ZI
+	Hpoj8sgOQHrw2nlqAV6t/S8FEozhuiF4kXCdBkmHTaFAZAwoZmJfYltU1dEZPacxp5J0GWmQPSt
+	+SHBw+08OLrd1mdLTWdfYqCVS0e8hhtgTw6abX83CWWUdIVa2cjCZIkF/PpOIyyt+Fqt2+2pdJL
+	nho5FimcfnWJZ4lVYIZxt6s4erzUEkTY3YP/oBAh9LQ0oxhvFNo77UZs0aoBLnSNEoPSGf2wvoV
+	vSBfRZ80OUX3Vx0vWqj+wOGUvrb9NnIfLqPVhe1isbOz/RvCVkt6jVxxM7YGIk0GOlfaeWZXi1K
+	HWl81Bw2rw6yk7sxQmv4hyBXJ3/SNNuUMdAgCksnoCorGJeSAAnTsT6BNQEwMEkQUkYT7k2/zzQ
+	1AzOFwy5TImCH37rRal9Ap3Ra8D4tdt27+K17RSKxxVRqGPomP8EiNYNgaCL9Iw4AyvNgVJlpcL
+	zMC8QCM4/cooK+J12SgHQwFSNe+4yd0aPGqyg3m3F9WVXQKDvi3ybiWILFgpesuVj7uv6H5Ougk
+	tI3246UBhSz2Y8w=
+X-Received: by 2002:a05:600c:3146:b0:49d:1fd8:b874 with SMTP id 5b1f17b1804b1-4a18e4af3a8mr186999115e9.19.1791806655972;
+        Mon, 12 Oct 2026 05:04:15 -0700 (PDT)
 Received: from Ansuel-XPS. (host-95-235-252-189.retail.telecomitalia.it. [95.235.252.189])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a198c80cb3sm116458295e9.3.2026.10.12.05.03.31
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db9abd574sm19738733f8f.34.2026.10.12.05.04.14
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 05:03:31 -0700 (PDT)
-Message-ID: <6acccc93.5808c898.2889ef.c057@mx.google.com>
-X-Google-Original-Message-ID: <aszMkVq-GgiR1qMD@Ansuel-XPS.>
-Date: Mon, 12 Oct 2026 14:03:29 +0200
+        Mon, 12 Oct 2026 05:04:15 -0700 (PDT)
+Message-ID: <6accccbf.a6a2e554.42efe.05b4@mx.google.com>
+X-Google-Original-Message-ID: <aszMvJmPGCC5LVLW@Ansuel-XPS.>
+Date: Mon, 12 Oct 2026 14:04:12 +0200
 From: Christian Marangi <ansuelsmth@gmail.com>
 To: sashiko-reviews@lists.linux.dev
-Cc: mfd@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org,
-	devicetree@vger.kernel.org, lee@kernel.org
-Subject: Re: [PATCH net-next v25 05/10] net: phy: Add Airoha AN8855 Internal
- Switch Gigabit PHY
+Cc: mfd@lists.linux.dev, conor+dt@kernel.org, devicetree@vger.kernel.org,
+	robh@kernel.org, lee@kernel.org
+Subject: Re: [PATCH net-next v25 06/10] net: dsa: tag_mtk: add Airoha variant
+ usage of this TAG
 References: <20261009161102.38961-1-ansuelsmth@gmail.com>
- <20261009161102.38961-6-ansuelsmth@gmail.com>
- <sashiko-outbox-166720@kernel.org>
+ <20261009161102.38961-7-ansuelsmth@gmail.com>
+ <sashiko-outbox-166718@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -82,136 +82,60 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <sashiko-outbox-166720@kernel.org>
+In-Reply-To: <sashiko-outbox-166718@kernel.org>
 
-On Sat, Oct 10, 2026 at 04:11:39PM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> - [Medium] net: phy: air_an8855: phy_write_mmd clobbers adjacent reserved fields
-> - [Medium] net: phy: air_an8855: Array linear search underflow causes valid high efuse values to fall back to default
+On Sat, Oct 10, 2026 at 04:11:37PM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [High] net: dsa: airoha/mtk eth: hardware offload broken for AIROHA tag protocol
 > --
 > 
-> commit e8cc9bb475e2accd40605a3774a8e659a3156338
+> commit feed6f0245d293aabba2178225f4097258a1d66c
 > Author: Christian Marangi <ansuelsmth@gmail.com>
 > 
-> net: phy: Add Airoha AN8855 Internal Switch Gigabit PHY
+> net: dsa: tag_mtk: add Airoha variant usage of this TAG
 > 
-> Add support for Airoha AN8855 Internal Switch Gigabit PHY. This is a
-> simple PHY driver to configure and calibrate the PHY for the AN8855
-> Switch with the use of NVMEM cells.
+> This commit adds a new DSA tag protocol variant for Airoha switches,
+> updating the Mediatek tag driver, Kconfig, and Makefile. It also adds
+> comments explaining the differences between Airoha AN8855 and the Mediatek
+> tag bitmap.
 > 
-> > diff --git a/drivers/net/phy/air_an8855.c b/drivers/net/phy/air_an8855.c
-> > new file mode 100644
-> > index 0000000000000..bc22256fd5f95
-> > --- /dev/null
-> > +++ b/drivers/net/phy/air_an8855.c
-> > @@ -0,0 +1,275 @@
-> 
+> > diff --git a/include/net/dsa.h b/include/net/dsa.h
+> > index 5d12191b6f6f5..9824c63ad50b3 100644
+> > --- a/include/net/dsa.h
+> > +++ b/include/net/dsa.h
 > [ ... ]
+> > @@ -76,6 +77,7 @@ enum dsa_tag_protocol {
+> >  	DSA_TAG_PROTO_KSZ9893		= DSA_TAG_PROTO_KSZ9893_VALUE,
+> >  	DSA_TAG_PROTO_LAN9303		= DSA_TAG_PROTO_LAN9303_VALUE,
+> >  	DSA_TAG_PROTO_MTK		= DSA_TAG_PROTO_MTK_VALUE,
+> > +	DSA_TAG_PROTO_AIROHA		= DSA_TAG_PROTO_AIROHA_VALUE,
 > 
-> > +static const u8 dsa_r50ohm_table[] = {
-> > +	127, 127, 127, 127, 127, 127, 127, 127, 127, 127,
-> > +	127, 127, 127, 127, 127, 127, 127, 126, 122, 117,
-> > +	112, 109, 104, 101,  97,  94,  90,  88,  84,  80,
-> > +	78,  74,  72,  68,  66,  64,  61,  58,  56,  53,
-> > +	51,  48,  47,  44,  42,  40,  38,  36,  34,  32,
-> > +	31,  28,  27,  24,  24,  22,  20,  18,  16,  16,
-> > +	14,  12,  11,   9
-> > +};
-> > +
-> > +static int an8855_get_r50ohm_val(struct device *dev, const char *calib_name,
-> > +				 u8 *dest)
-> > +{
-> > +	u32 shift_sel, val;
-> > +	int ret;
-> > +	int i;
-> > +
-> > +	ret = nvmem_cell_read_u32(dev, calib_name, &val);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	shift_sel = FIELD_GET(AN8855_SWITCH_EFUSE_R50O, val);
-> > +	for (i = 0; i < ARRAY_SIZE(dsa_r50ohm_table); i++)
-> > +		if (dsa_r50ohm_table[i] == shift_sel)
-> > +			break;
-> > +
-> > +	if (i < 8 || i >= ARRAY_SIZE(dsa_r50ohm_table))
-> > +		*dest = dsa_r50ohm_table[25];
-> > +	else
-> > +		*dest = dsa_r50ohm_table[i - 8];
+> [Severity: High]
+> Does adding this new protocol ID require updating the ethernet MAC and PPE
+> drivers to recognize it as well?
 > 
-> [Severity: Medium]
-> Can a valid high efuse value cause an array search underflow here?
+> For example, looking at airoha_get_dsa_tag() in
+> drivers/net/ethernet/airoha/airoha_eth.c:
 > 
-> Since dsa_r50ohm_table contains 17 occurrences of 127 at the beginning of the
-> array, a forward linear search for 127 breaks at i = 0.
+> 	if (dev->dsa_ptr->tag_ops->proto != DSA_TAG_PROTO_MTK)
+> 		return 0;
 > 
-> The subsequent logic if (i < 8) intercepts i = 0 as an error. Consequently, an
-> input of 127 falls back to index 25 (94), whereas an input of 126 correctly
-> matches at index 17 and maps to table[17-8] (127). The forward search breaks
-> the - 8 shift algorithm for saturated values.
+> And mtk_uses_dsa() in drivers/net/ethernet/mediatek/mtk_eth_soc.c:
+> 
+> 	return netdev_uses_dsa(dev) &&
+> 	       dev->dsa_ptr->tag_ops->proto == DSA_TAG_PROTO_MTK;
+> 
+> If these are not updated to also accept DSA_TAG_PROTO_AIROHA, will hardware
+> tag extraction and PPE hardware flow offloading (like in __mtk_ppe_check_skb()
+> and mtk_flow_get_dsa_port()) fail because the strict protocol checks against
+> DSA_TAG_PROTO_MTK no longer match?
 >
 
-This is exaclty the logic used by the original driver and how EFUSE are
-fused on the PHY.
+This is irrelevant for this series and can be handled later. I'm not sure
+offload can work with the AN8855 external switch.
  
-> > +
-> > +	return 0;
-> > +}
-> 
-> [ ... ]
-> 
-> > +static int an8855_config_init(struct phy_device *phydev)
-> > +{
-> 
-> [ ... ]
-> 
-> > +	/* Apply values to reduce signal noise */
-> > +	ret = phy_modify_mmd(phydev, MDIO_MMD_VEND1, AN8855_PHY_TX_PAIR_DLY_SEL_GBE,
-> > +			     AN8855_PHY_CR_DA_TX_PAIR_DELAY_SEL_A_GBE |
-> > +			     AN8855_PHY_CR_DA_TX_PAIR_DELAY_SEL_C_GBE,
-> > +			     FIELD_PREP(AN8855_PHY_CR_DA_TX_PAIR_DELAY_SEL_A_GBE, 0x4) |
-> > +			     FIELD_PREP(AN8855_PHY_CR_DA_TX_PAIR_DELAY_SEL_C_GBE, 0x4));
-> > +	if (ret)
-> > +		return ret;
-> > +	ret = phy_set_bits_mmd(phydev, MDIO_MMD_VEND1, AN8855_PHY_RXADC_CTRL,
-> > +			       AN8855_PHY_RG_AD_SAMPLE_PHSEL_A |
-> > +			       AN8855_PHY_RG_AD_SAMPLE_PHSEL_C);
-> > +	if (ret)
-> > +		return ret;
-> > +	ret = phy_write_mmd(phydev, MDIO_MMD_VEND1, AN8855_PHY_RXADC_REV_0,
-> > +			    FIELD_PREP(AN8855_PHY_RG_AD_RESERVE0_A, 0x1));
-> 
-> [Severity: Medium]
-> Does this inadvertently clear the adjacent reserved fields for pair B?
-> 
-> phy_write_mmd() unconditionally overwrites the entire 16-bit register. By
-> writing FIELD_PREP(AN8855_PHY_RG_AD_RESERVE0_A, 0x1), this inadvertently zeroes
-> out the adjacent 8-bit field AN8855_PHY_RG_AD_RESERVE0_B (bits 7:0). Should
-> phy_modify_mmd() be used here instead?
-> 
-
-No this is intended.
-
-> > +	if (ret)
-> > +		return ret;
-> > +	ret = phy_write_mmd(phydev, MDIO_MMD_VEND1, AN8855_PHY_RXADC_REV_1,
-> > +			    FIELD_PREP(AN8855_PHY_RG_AD_RESERVE0_C, 0x1));
-> 
-> [Severity: Medium]
-> Similarly, does this inadvertently clear the adjacent reserved fields for
-> pair D (AN8855_PHY_RG_AD_RESERVE0_D)?
-> 
-
-Intended.
-
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	return 0;
-> > +}
-> 
 > -- 
-> Sashiko AI review · https://sashiko.dev/#/patchset/20261009161102.38961-1-ansuelsmth@gmail.com?part=5
+> Sashiko AI review · https://sashiko.dev/#/patchset/20261009161102.38961-1-ansuelsmth@gmail.com?part=6
 
 -- 
 	Ansuel
