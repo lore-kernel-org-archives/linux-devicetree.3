@@ -1,162 +1,136 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-164.mta0.migadu.com [91.218.175.164])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 358A83A7582
-	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 18:46:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57C9F383C83
+	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 18:47:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.164
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791830774; cv=none; b=HA9gmjt3TVfHU7B8J/zYBvBeSJ9Z2TKYbwZvXb0CRD5NtN0+dFk/KdZryKthCIUDhykfS2L59tlVKIbpQeSb1/bIeJLEDx4IJ7XTKnmKvJRx+65mBvI1ydSMJUEli6TJ2uVqBi645I/SC5ODKGxj10gvlbbllJMg7upB/wkR40k=
+	t=1791830859; cv=none; b=PynceTPOnEyg5kTzSX5IcCpz91fk0H/peM05xFcCdtZx42EhH28w7nnwMzHNBZLqKjjWevXvB0yH9V79ajCY8oE7rNgKQ6dZO/5OThmteUClEPZxk/spXFFW2oDBSGAO1cgLWqYmuoazp3M52WdcZ/zHePtdqoQtDvBSgKhCxSI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791830774; c=relaxed/simple;
-	bh=wJbzi3CjEWYRW6F8QGjB5MCTpn7eSajB29LpxYDyDmo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=VpJKiQpFhqNClmn3htGaILFFXc/9y1ouC7rOaL9UD244LnIi0RHA4GYjf0IO9rQa1jDPOTlmfPeyJ4Jgzkb4L+nsniMoa5PyoTErRJHDvJAKW5lRHH8X8mMoRAr2Fo1HsDSmnyBv2bb/vNPv8xLCtqCFsujyf66AK51mdGdW7xI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fhNT1XW5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791830859; c=relaxed/simple;
+	bh=ijNlhyv4xCTmTbbejLtSuQAfF6caH2RK4q9or0ieFkM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZBHfn6mi9VXUoGddQs7T9AOQjpAuxYQrKW0j9193dDAWsZlKamJY+Jqlv2YL8qvPIiRGTXzbMxtmpngu+hqHTP0xm8qPqRAJTUr6GbRHUYgaM5XLIcCoR8xSsp5PGDo/0cnp6oaoqtNxOUmNkzghrXIGxV/y2TDe5ixoXEgnzYk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool; spf=pass smtp.mailfrom=packett.cool; dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b=ZhGqK3aC; arc=none smtp.client-ip=91.218.175.164
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fhNT1XW5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88BB21F008A1
-	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 18:46:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791830765;
-	bh=/MEr9TnYRLEADPm5dzJuPJHXku6tQFEe33VUaq9byuA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=fhNT1XW5NUlRnPw2Fivx9Ih549qwrcSW7eJTooUp25OG4U85bx6y89U9yu2QZezoY
-	 VYoo4RGdZ6fSJH/oRLNPTdWosFIZecXQLfy/s3P+kr0gaMAqFeFRxOoYDDZSWPIo8r
-	 PMoE4XuJwzcX0Jip3GzH1i69yARx2MqavXPoGexxo6Uffc9PqLsd4/JVyJOx/1BqTH
-	 fxi5he5vJ0kwD+zUpA8Qwdh1Ydjtz0rPtA4GQEUQx2yljoU19u8sKkcNSiWzb42gJL
-	 mpWT8s5HfHE0EKb/II9Ec0U82pY4wU0wLeCLlEZpHuPn47kcbwAb24z9OEwjntz2wU
-	 O6jKN4SiBHveg==
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5bc18f54abbso507788e87.1
-        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 11:46:05 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzpUiA5717WG5eWucau6ojg5Ejk/UQFp8VceHKOz7LfMj18QUOe8Fpucv2Q1WMGl4H7q9bNZbOwSw9G@vger.kernel.org
-X-Gm-Message-State: AFq9FYLscl7Jghp5zrcNiUWC6fg2ILGKW1K5rBfVwvgGoSET6AVyT3kp
-	F/yiLcE/54YeozjkuiZBEr27h7LUsO23jJ5pJyHREcI0z5oF2kwaNHaGFC9IrvvtySaY4/EUxti
-	MZtFXN2xAJksjLvRsSwMo4ZoCsAEJAH8=
-X-Received: by 2002:a05:6512:3a92:b0:5b8:eb3a:759b with SMTP id
- 2adb3069b0e04-5bcde8bdabdmr3719119e87.42.1791830763879; Mon, 12 Oct 2026
- 11:46:03 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b="ZhGqK3aC"
+X-Envelope-To: devicetree@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=ijNlhyv4xCTmTbbejLtSuQAfF6caH2RK4q9or0ieFkM=;
+ c=simple/simple; d=packett.cool;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1791830854; v=1; x=1792435654;
+ b=ZhGqK3aC1dEA6AFriFzlD2Uk6O50NhTH/2K58qAsaTd7mFMFOlu5POxCR+JigEyzvGCWQiDS
+ vk5o4HHjFh6qaPdGJL47AyXYO3LgvtuNa4GytcrJULEY/pSR3fMSfhv2og6HKefhVqemO9FJvPB
+ Vol8ZNoKL/vfXpXMn+34E/KmdzI4X+XcTh+vqMZyax0+RDMOB5GavCFS7kY4slu4IZ5wYH7LBBK
+ 6B2EHq0HW5u8aGqg/2o9clsVjr+iUc0kRf3W1547SmPnjYAY0OKplQZ1oqhg2aA92ezHr4bp27P
+ k1AOIMo9B1efaHZeVNX677Asu7Vitt1ClXYKYLRopboCw==
+X-Envelope-To: devicetree@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id f67ebc8caef7985e;
+	Mon, 12 Oct 2026 18:47:34 +0000
+X-Mizu-Trace-ID: f67ebc8caef7985e
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <a3464be4-bd4d-4590-9804-147e16016a07@packett.cool>
+Date: Mon, 12 Oct 2026 15:47:24 -0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261009-adma-pm-fix-and-per-channel-reset-v4-0-55f5fe409c55@amd.com>
- <20261009-adma-pm-fix-and-per-channel-reset-v4-2-55f5fe409c55@amd.com>
-In-Reply-To: <20261009-adma-pm-fix-and-per-channel-reset-v4-2-55f5fe409c55@amd.com>
-From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
-Date: Mon, 12 Oct 2026 20:44:00 +0200
-X-Gmail-Original-Message-ID: <CAJZ5v0iLOJ49Zn_vPbpbqhPQ_F3W5PCpFN1VnxOzoxL7Y4PN+A@mail.gmail.com>
-X-Gm-Features: AclHuK_xrLBr4L5nslTfPR7n5tDlLGvjFUHFyA86wwCkbsTjUQQ1gKk2AD2PTHM
-Message-ID: <CAJZ5v0iLOJ49Zn_vPbpbqhPQ_F3W5PCpFN1VnxOzoxL7Y4PN+A@mail.gmail.com>
-Subject: Re: [PATCH v4 2/6] PM: runtime: Add pm_runtime_if_active guard and
- conditional variant
-To: Golla Nagendra <nagendra.golla@amd.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
-	Michal Simek <michal.simek@amd.com>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Kedareswara rao Appana <appana.durga.rao@xilinx.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Michael Tretter <m.tretter@pengutronix.de>, Harini Katakam <harini.katakam@amd.com>, 
-	Shyam Pandey <radhey.shyam.pandey@amd.com>, dmaengine@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-pm@vger.kernel.org, devicetree@vger.kernel.org, git@amd.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 0/4] nfc: st-nci: Fairphone 5 NFC bring-up (ST21NFCD)
+To: Kristian Brox <isyourbrainfoss@proton.me>,
+ David Heidelberg <david@ixit.cz>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Luca Weiss <luca.weiss@fairphone.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ oe-linux-nfc@lists.linux.dev, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Tim auf der Landwehr <tadl-git@taufderl.de>,
+ Abel Vesa <abel.vesa@oss.qualcomm.com>
+References: <20261005-fp5-st21nfcd-v5-v5-0-7be15a86c61c@proton.me>
+Content-Language: en-US
+From: Val Packett <val@packett.cool>
+In-Reply-To: <20261005-fp5-st21nfcd-v5-v5-0-7be15a86c61c@proton.me>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Fri, Oct 9, 2026 at 6:00=E2=80=AFAM Golla Nagendra <nagendra.golla@amd.c=
-om> wrote:
+
+On 10/5/26 5:51 PM, Kristian Brox wrote:
+> This adds NFC on the Fairphone 5 (qcm6490). The board uses an ST21NFCD
+> on I2C. That part speaks raw NCI; the current st-nci driver always
+> wraps NDLC, so using st,st21nfcb-i2c leaves the adapter unusable.
 >
-> Add a pm_runtime_if_active base guard and its _try conditional variant
-> to pm_runtime.h for drivers that need to conditionally acquire a runtime
-> PM reference only when the device is already active.
+> The series adds a st,st21nfcd compatible for the raw-NCI path and the
+> Fairphone 5 DT node. Boards that already use st21nfcb / st21nfcc keep
+> the NDLC path.
 >
-> The base guard must not be used directly via guard()/scoped_guard()
-> because pm_runtime_get_if_active() only acquires a reference when it
-> returns 1; the destructor unconditionally calls pm_runtime_put(), which
-> would underflow usage_count on a suspended device. The base guard
-> exists solely to back the DEFINE_GUARD_COND _try variant.
+> A later poll start that times out in "failed to set local general bytes"
+> is still unreproduced on this phone.
 >
-> The _try variant (used via PM_RUNTIME_ACQUIRE_IF_ACTIVE) satisfies the
-> _try API contract that guards must not produce an error when runtime PM
-> is disabled for the device. When pm_runtime_get_if_active() returns
-> -EINVAL (runtime PM disabled), the expression calls
-> pm_runtime_get_noresume() to pre-balance the destructor's unconditional
-> pm_runtime_put(), then returns 1 so the guard condition succeeds
-> (bypass). This mirrors the behaviour of pm_runtime_active_try which
-> uses RPM_TRANSPARENT for the same purpose. When the device is genuinely
-> runtime-suspended (return value 0), the guard condition fails and
-> ACQUIRE_ERR returns true, allowing callers such as interrupt handlers to
-> skip MMIO accesses.
->
-> Signed-off-by: Golla Nagendra <nagendra.golla@amd.com>
+> Signed-off-by: Kristian Brox <isyourbrainfoss@proton.me>
 > ---
->  include/linux/pm_runtime.h | 27 +++++++++++++++++++++++++++
->  1 file changed, 27 insertions(+)
+> Link to v4:
+> https://lore.kernel.org/oe-linux-nfc/20260902-fp5-st21nfcd-v4-v4-0-ded2f1c501be@proton.me/
 >
-> diff --git a/include/linux/pm_runtime.h b/include/linux/pm_runtime.h
-> index 64921b10ac74..ae2a8740ffb3 100644
-> --- a/include/linux/pm_runtime.h
-> +++ b/include/linux/pm_runtime.h
-> @@ -609,6 +609,13 @@ DEFINE_GUARD(pm_runtime_active, struct device *,
->              pm_runtime_get_sync(_T), pm_runtime_put(_T));
->  DEFINE_GUARD(pm_runtime_active_auto, struct device *,
->              pm_runtime_get_sync(_T), pm_runtime_put_autosuspend(_T));
-> +/*
-> + * Do not use directly -- the destructor calls pm_runtime_put()
-> + * unconditionally, which underflows if no reference was acquired.
-> + * Use only via the _try variant below.
-> + */
-> +DEFINE_GUARD(pm_runtime_if_active, struct device *,
-> +            pm_runtime_get_if_active(_T), pm_runtime_put(_T));
->  /*
->   * Use the following guards with ACQUIRE()/ACQUIRE_ERR().
->   *
-> @@ -624,6 +631,23 @@ DEFINE_GUARD_COND(pm_runtime_active_auto, _try,
->                   pm_runtime_get_active(_T, RPM_TRANSPARENT), _RET =3D=3D=
- 0)
->  DEFINE_GUARD_COND(pm_runtime_active_auto, _try_enabled,
->                   pm_runtime_resume_and_get(_T), _RET =3D=3D 0)
-> +/*
-> + * The _try contract is that no error is produced when runtime PM is dis=
-abled,
-> + * so bypass the guard when pm_runtime_get_if_active() returns -EINVAL: =
-take a
-> + * reference with pm_runtime_get_noresume() to pre-balance the destructo=
-r's
-> + * pm_runtime_put() and return 1 so the guard condition succeeds. Interr=
-upt
-> + * handlers then keep servicing interrupts when runtime PM is disabled f=
-or the
-> + * device or CONFIG_PM is not enabled.
-> + */
-> +DEFINE_GUARD_COND(pm_runtime_if_active, _try,
-> +                 ({
-> +                       int _r =3D pm_runtime_get_if_active(_T);
-> +
-> +                       if (_r =3D=3D -EINVAL)
-> +                               pm_runtime_get_noresume(_T);
-> +                       _r =3D=3D -EINVAL ? 1 : (_r ?: -EAGAIN);
-> +                 }),
-> +                 _RET =3D=3D 1)
->
->  /* ACQUIRE() wrapper macros for the guards defined above. */
->
-> @@ -639,6 +663,9 @@ DEFINE_GUARD_COND(pm_runtime_active_auto, _try_enable=
-d,
->  #define PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(_dev, _var)  \
->         ACQUIRE(pm_runtime_active_auto_try_enabled, _var)(_dev)
->
-> +#define PM_RUNTIME_ACQUIRE_IF_ACTIVE(_dev, _var)       \
-> +       ACQUIRE(pm_runtime_if_active_try, _var)(_dev)
-> +
->  /*
->   * ACQUIRE_ERR() wrapper macro for guard pm_runtime_active.
->   *
->
-> --
+> Changes in v5:
+> - Map proprietary RF protocol 0x90 to MIFARE (Tim). On this phone a
+>    Classic 1K was accepted as 0x90 and was not dropped.
+> - Binding carries Reviewed-by from Krzysztof Kozlowski. DTS carries
+>    Reviewed-by from Konrad Dybcio and Abel Vesa. The patch bodies are
+>    the v4 patches. The raw-NCI driver change is unchanged.
+> - Tim's reference-clock restart and leading-0x7e check were tried on
+>    this phone and left out.
 
-For the record, I'm still unconvinced about the guard definitions above.
+Hi, I've been trying to enable the st21nfcj on the Motorola Edge 30, 
+which uses the same protocol.
 
-Please try to reimplement the series without them for the time being.
+These mentioned left-out patches seemed like they would help, but they 
+didn't really. The leading-0x7e check does skip over the "7e 60 00" but 
+is not enough to untangle the desynced mess that starts with "79 3e 59 c0"..
 
-Thanks!
+sendQlen=1 unackQlen=0
+ndlc frame written:
+ndlc: 00000000: 20 00 01 01
+incoming frame:
+ndlc: 00000000: 7e 60 00
+incoming frame:
+ndlc: 00000000: 1f 01 01 20
+rcvQlen=1
+incoming frame:
+ndlc: 00000000: 02 1a 04 04 01 20 92
+rcvQlen=1
+incoming frame:
+ndlc: 00000000: 80 02 03 01 59 c0
+rcvQlen=1
+nci: nci_rx_work: unknown MT 0x4
+incoming frame:
+ndlc: 00000000: 79 3e 59 c0 47 75 00 00 00 01 00 00 61 66 02 7e
+ndlc: 00000010: 7e 7e 7e 7e 7e 7e 7e 7e 7e 7e 7e 7e 7e 7e 7e 40
+ndlc: 00000020: 00 01 00 7e 7e 7e 7e 7e 7e 7e 7e 7e 7e 7e 7e 7e
+ndlc: 00000030: 60 00 1f 02 01 20 02 1a 04 04 01 20 92 80 02 03
+ndlc: 00000040: 01 59 c0 79 3e 59 c0 47 75 00 00 00 01 00 00 61
+ndlc: 00000050: 66 02 7e 7e 7e 7e 7e 7e 7e 7e 7e 7e
+rcvQlen=1
+nci: nci_ntf_packet: unknown ntf opcode 0x93e
+nci: __nci_request: wait_for_completion_interruptible_timeout failed 0
+
+I've tried changing things like interrupt trigger (with rising edge 
+only 1f 01 01 20 arrives, with falling edge nothing) but nothing seems 
+to help. I wonder if anyone has any idea of what might be the actual 
+cause of those strange frames. It's interesting that these two 
+workaround patches were found necessary on one phone but not on another..
+
+Thanks,
+~val
+
