@@ -1,145 +1,201 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CD8E2DC76A
-	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 13:44:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AD713750D5
+	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 13:44:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791812645; cv=none; b=ZIWHx7yAY28zlhbFD2FdYWwJgHCUI+ALnk6F+q9PPiJkittTiGAlzGnULbL1AhraJWZXtlYX6ayjjm3EQRSK4XcbTxqg6h9E4RURUariXkkVy1/TaJpNxEJ3lXUbagoT3m0hBzC8ZLvQToqu8Dfj9+w8xQKmk1Aj2XfZeYdsrh0=
+	t=1791812649; cv=none; b=OHqQ9ZnMxIQlHskABmkGX3JGIwxZwy8TjQ+fYAT9JUJtkZ/yIw5CN82AauVTezwOqGoHGgz3vFHfrpoxAMnUM19i/pIJvEuFQgmQLFUkJxIm70EKD4CRucJcVGeKlnVDWvuZZmwGyFYOfLaxuwjoXs0kkcrur4r6OtXHQNVTHm8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791812645; c=relaxed/simple;
-	bh=a6cdKUCh+3606ZAGcTf/vNEx2PEvl2G4K4e5l2vQTF8=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=kpRwbafiDHDuoIIJhgBKB343JpUHE2H9PUzMxbTM065dqUj3XskgMkCFnWHRrkpvr3hBWPT6DFOgzLhFQRVEJDJN3CHWFcUf3NUcB+XkDjkJV5o5vJJG1OV3cjEcR687aBtlIXMbUHPa9oTxvgPqw2LicBeCoBOEmOVtgQ0v0GA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UYxcdu5A; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791812649; c=relaxed/simple;
+	bh=qHnjHk5ujIR9xyBxf0VSVQPElSSwV/cboQAyFOMBTUU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=trb9BrcHOxFeHz+E+rC2E2kg9YJEVBN0sH0c1D2o1R621nqwAnPYuMMBhvE5z5af7LYg0UcSDJQTeY9fDLBh0AjVOvYLB7OBXMJm8GCJM9apcNrinn0ePlGyU6kndLR8/oJm0x+mTa8i4zlt7q24Pk2CGtW0W9VokwJQ9mipQfg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QQYfz9qm; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=De6jbM3Z; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UYxcdu5A"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 875A01F0089B;
-	Mon, 12 Oct 2026 13:44:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791812644;
-	bh=9wQoPvhNfBCFt5eMYidhxwpZ5tIuDmEhDCV+FxI69zM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=UYxcdu5A2QHfrps407/SvwJZ6ISMO+lWX5js/3trBOkQG6OFbIQMAy7BSMb8LZ86v
-	 0J8PAVwRBD6LdZIirGjMxKRWcewuank+DqVaiBjWr+bhxPswUt5e3dH2UtE6iJw008
-	 IcMw7P+qQuoTx5J1ZvG4d364NLLmVv4TgsDMgo1iuVXKnXbQXVhdtkb4ZAtqpeRnl1
-	 wlI6PFZkjrM5ICzIxV/AYi49/JR4viepg3eua2AhXqZTxWplpddDKYYnMBJyhEnkEe
-	 i8uXbKXMRMA8Ai4gSDttJn4U2u5uozqz1gqxxv7diGHIKQcTKwcjx6i81vJiSn1ttO
-	 qmvd4X4jnIFtw==
-Message-ID: <sashiko-outbox-168204@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 13/13] phy: qcom: edp: Add Nord phy_cfg, ops and OF
- compatible
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Nabige Aala" <nabige.aala@oss.qualcomm.com>
-Cc: olteanv@gmail.com, robh@kernel.org, linux-phy@lists.infradead.org, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
-In-Reply-To: <20261012-nord-drv-dt-v2-13-a2ab9af954d2@oss.qualcomm.com>
-References: <20261012-nord-drv-dt-v2-0-a2ab9af954d2@oss.qualcomm.com>
- <20261012-nord-drv-dt-v2-13-a2ab9af954d2@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 12 Oct 2026 13:44:03 +0000
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QQYfz9qm";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="De6jbM3Z"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69CC008A800949
+	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 13:44:07 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	UrJ5o/8tqhbtrfkw4GbBGglVzHr2+lr+Pga8Ra4lpB4=; b=QQYfz9qmqRuEHOTF
+	hHgLWSVt/mJ2qx6z5Zuor5oKTjphtj6ORKylzDIeyIRYXe4tWaH5jLhT9WW90VH1
+	vws9zZI5kuW7z+mOsJ4qNRPpWvoY36m0NTvXkxaiK2l5JYvL24S7n2a4Zb/XwFpy
+	tjpanKaKR8X+pRtmesE42GlZeWlHFvtiRry/VLZ7w+p7YhR0yTj4O347h/d3bTOr
+	43iM7bOXZfSdt7NJ4iWyKCBZjdnOcMD4i35Q12grLqnOTFD4mYR5NspCtMp6GP9W
+	0yidWB57BLhSrynbKIRCEt/BcU+Fk/Nzwf0gxQJsYk6vhyFQoGj3S9yxUYudgVkv
+	cbABuQ==
+Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h8wfcrxkt-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 13:44:07 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-3548cdfd2fbso3106382eec.1
+        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 06:44:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791812646; x=1792417446; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UrJ5o/8tqhbtrfkw4GbBGglVzHr2+lr+Pga8Ra4lpB4=;
+        b=De6jbM3Z57PQ3IFPnxPbhMD7sY8a4vlC+/Du7q7vNbwBFHf//DwVoiH+Q9o+HdOaus
+         u1N1i5ayFzseyxLq8F8CtWDzigI3oV3ns+kNRfowXIfxrL5bQd9um3h01nakuRCWMIJn
+         88b/3p8sbTPDZe6yNlF/XrN1jdUbjshidYgfCPf4WpjVPuzYOmvpgxE1cTPOg8PcCvQW
+         Z6f6N/rJgrf3Fvv6rmsHXdQJLhCtDQ0GL3vCYivSpaRJNTtRx21BGpI7vwfYm/0LF32/
+         q1LEco+D5oOu2iDCnCEny3UG+bHa8Eck7T1qpwS4BQmOUWfXJ1J/hy9m8DFHrw9UGczs
+         u+vA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791812646; x=1792417446;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UrJ5o/8tqhbtrfkw4GbBGglVzHr2+lr+Pga8Ra4lpB4=;
+        b=zO90Trre7uH+/YnFvpGfRkhPoQKLCUYUlUQ4p/nSXbkW4q1KtNwbsCtohc/Bam8tDk
+         D+hlpfJa+5GGxI79+6gQLnDhFElA5hOjUaRlxGeY4Qv5oYBEmKg8xyRhrRpwO1LVRDNY
+         I3uVjP9tW1GEt+dTSYQvwcyF8jtu2IfxuhhYzWuoIh/cyurWmm+8DSuWkQ+yyMYhM/G9
+         O+szUBWzQpsOvH7DvHMrwGxCdmiQhbIbSXFASxFxGSTwVM1+2t/E63kOFWo0GPM3gI7L
+         o9InvxTudlaAdW5gnVt+n4gzONAchLnIqorKEPoLMqW9cXWyDii5xqIwSivVnah0vlJ3
+         Q9wA==
+X-Forwarded-Encrypted: i=1; AKwUvBxh2ndtGGWHkncvhLPH6mDzUGWgpTaC+AhJKuR/3MrB30Eyag4+Wv3dEiH1upiqtM97/9mzdkltYt22@vger.kernel.org
+X-Gm-Message-State: AFq9FYJ7ETIk1nvETZcVa34ZoK7e7dUN6DD58zU4C3yM4ekRp0IMKBmg
+	hvDz377PUD5JIq6SGbH66jXbyqnlVr57Sk+zT1/xmomofOx06gtcjjgH/QwNPdFPHUetDahRZuo
+	sVFCOppVDTY+eCET8oorUKY2BGKRFrnCvCZ5hZV30vvIov8OXsvOjf/XOONrf0EAd
+X-Gm-Gg: AYBFou35bfhs1Tf3nOmY8jax0gVjfwNFfLhkWzWJvNqkI861Y2EshRMyc3jXo2OT0zY
+	YhxzmcOwcycpXdFi3lzzVlt3Hd/CpTZiT4Z1SHuNpk9Zd+SnZyrMRFYfTuHzDL13XltTmrq/XD/
+	6M+l1vLSQkxOFAJm/2+YTN0YAJruiLA4PXqwcP8EMtKIArZSulKugYQc4qzRRO2YKggj6U+freE
+	upVrq562kxWTXrlY/QwpBEnQFqxiotI9JuxDaoGVim4vCQa7KsW6xd3NwoWbx7P8eQIXSjNaGuw
+	zizN9XtHbtvYh8CNFJ7L15kvSji5Vk9glzDZxhoHIP94MhYrriKNAVdGcRf26G0b0i9rm7xucHm
+	IIzLABefIis9C2nZi5dt3Z0wFCGAEHUC/4g==
+X-Received: by 2002:a05:7300:ac81:b0:34b:f456:25ce with SMTP id 5a478bee46e88-3537ddd6fb4mr19975531eec.3.1791812646337;
+        Mon, 12 Oct 2026 06:44:06 -0700 (PDT)
+X-Received: by 2002:a05:7300:ac81:b0:34b:f456:25ce with SMTP id 5a478bee46e88-3537ddd6fb4mr19975450eec.3.1791812645696;
+        Mon, 12 Oct 2026 06:44:05 -0700 (PDT)
+Received: from [10.92.194.162] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3537cb6a279sm33512555eec.30.2026.10.12.06.43.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 12 Oct 2026 06:44:05 -0700 (PDT)
+Message-ID: <c5bd025c-d32e-4681-9644-11c4350caf99@oss.qualcomm.com>
+Date: Mon, 12 Oct 2026 19:13:51 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v26 00/10] Implement PSCI reboot mode driver for PSCI
+ resets
+To: Lorenzo Pieralisi <lpieralisi@kernel.org>, Arnd Bergmann <arnd@arndb.de>
+Cc: Florian Fainelli <florian.fainelli@broadcom.com>,
+        Krzysztof Kozlowski <krzk@kernel.org>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>,
+        Andre Draszik <andre.draszik@linaro.org>,
+        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+        Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
+        linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, Srinivas Kandagatla <srini@kernel.org>,
+        Ulf Hansson <ulf.hansson@oss.qualcomm.com>,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Song Xue <quic_songxue@quicinc.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Sebastian Reichel <sre@kernel.org>, Rob Herring <robh@kernel.org>,
+        Souvik Chakravarty <Souvik.Chakravarty@arm.com>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Matthias Brugger <matthias.bgg@gmail.com>,
+        Mark Rutland <mark.rutland@arm.com>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        John Stultz
+ <john.stultz@linaro.org>,
+        Moritz Fischer <moritz.fischer@ettus.com>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Christian Loehle <christian.loehle@arm.com>,
+        Lee Jones <lee@kernel.org>, Ulf Hansson <ulfh@kernel.org>,
+        Pavan Kondeti
+ <pavan.kondeti@oss.qualcomm.com>,
+        Abel Vesa <abelvesa@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>,
+        Sudeep Holla
+ <sudeep.holla@kernel.org>, Andy Yan <andyshrk@163.com>
+References: <20260928-arm-psci-system_reset2-vendor-reboots-v26-0-b24e2348e8e1@oss.qualcomm.com>
+Content-Language: en-US
+From: Shivendra Pratap <shivendra.pratap@oss.qualcomm.com>
+In-Reply-To: <20260928-arm-psci-system_reset2-vendor-reboots-v26-0-b24e2348e8e1@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: KL_wD5lB-3Xkw3ETvDkZVq16cLGObwHN
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDA1NCBTYWx0ZWRfX2bhwhHd+d/tN
+ TcEUWDLaXs2bI/TgOy+tKPodrGxA/M9hvuesCnYHCjbKda7nSvcHiVCCebouSkEVipjqSm0ttdM
+ utGugtaM7WzCQg82R2mx3M5DBfCm83E=
+X-Proofpoint-ORIG-GUID: KL_wD5lB-3Xkw3ETvDkZVq16cLGObwHN
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDA1NCBTYWx0ZWRfXzkbDE8DMaxoA
+ k5fYm43b8JMkqI+fsIe3BXGYNr5tVsPdQDnDFJLaEkEpRMZkY67l8PFn1VdX9lTksIR6rzBgT2X
+ BrLsRPc9xPs8EtZpr/9abQGINZVcSxnSYXaGGDgvA4JAggkyceJ01N9KN9dJZWU2WBEloLt7UPL
+ 4hMKldqeVXpWkTEEKjW+lTh08PkbFp04SR8ogHBT0mRPfYTlU9Fij+rWhomq2MBxRTG3RANCSZf
+ GiyYqXoGfGoozdvkqFrnn6uh5ExFoI7dU0y8F4ijyW6wo4o3m/wkbr16bCS1/4UlOwiJ71Q92Vo
+ FibYk4oLeqq0+f6icmp7RhO2PiYDm06jq6eCEmtk4E4+nmL6wpXyWakQyLvmjYVBAvomfiCX2+g
+ pAARYsX6624Vrdg9WzhOsTOHwYmA5J1i5J50Z76NbsWKEVOM2U3eaHyHhjqFZu8FLBKullxY/9f
+ b9Ze9wOovueODKxKFNg==
+X-Authority-Analysis: v=2.4 cv=PbhqFShd c=1 sm=1 tr=0 ts=6acce427 cx=c_pps
+ a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8 a=06DCG69OefxHWCB5cYgA:9 a=QEXdDO2ut3YA:10
+ a=6Ab_bkdmUrQuMsNx7PHu:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_04,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 bulkscore=0 clxscore=1015 impostorscore=0 spamscore=0
+ phishscore=0 suspectscore=0 priorityscore=1501 malwarescore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120054
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] phy: qcom-edp: legacy TXn_TX_BAND writes corrupt Nord hardware sta=
-te
-- [High] phy: qcom-edp: hardcoded TXn_TX_DRV_LVL writes break voltage updat=
-es on Nord PHY
---
 
-commit 1393c79f29bd788a83ce23c45373ba39e69132d0
-Author: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
 
-phy: qcom: edp: Add Nord phy_cfg, ops and OF compatible
+On 9/28/2026 11:39 AM, Shivendra Pratap wrote:
+> Userspace should be able to initiate device reboots using the various
+> PSCI SYSTEM_RESET and SYSTEM_RESET2 types defined by PSCI spec. This
+> patch series introduces psci-reboot-mode driver that will induce
+> command-based resets to psci driver for executing the device reset.
+> 
+> The PSCI system reset calls takes two arguments: reset_type and cookie.
+> It defines predefined reset types, such as warm and cold reset, and
+> vendor-specific reset types which are SoC vendor specific. To support
+> these requirements, the reboot-mode framework is enhanced in two key
+> ways:
+> 1. Support upto three 32 bit magic values as arguments. This enables to
+> support for a 32 bit reset_type and a 64 bit cookie).
+> 2. Predefined modes: Add support for predefined reboot modes in the
+> framework.
+> 
+> With these enhancements, the patch series enables:
+>   - Arch Warm reset and system reset cold as predefined reboot modes.
+>   - Vendor-specific resets, configurable via the SoC-specific device tree.
+> 
+> Together, these changes allow userspace to trigger all above PSCI resets
+> from userspace.
+> 
+> Note on introducing psci aux devices:
+> Based on feedback from Bart, Lee and Ufee, PSCI child functionality now
+> uses aux devices instead of an MFD driver, with psci-cpuidle-domain and
+> psci-reboot-mode probed through a common PSCI aux device enumerator.
+> Reference discussions on this:
+> https://lore.kernel.org/all/CAPx+jO9Hi2R_UnCEhsXLwf74c3RTb+RodaJ6SOVXbQX_eHt++A@mail.gmail.com/
 
-This commit adds the configuration structures, operations, and device tree
-matching for the Nord DP PHY. It defines the Nord-specific tables for AUX,
-VCO, swing, and pre-emphasis, along with updated status register offsets.
+Hi Lorenzo,
 
-> diff --git a/drivers/phy/qualcomm/phy-qcom-edp.c b/drivers/phy/qualcomm/p=
-hy-qcom-edp.c
-> index cb5f6e0ae607b..87400d61323a6 100644
-> --- a/drivers/phy/qualcomm/phy-qcom-edp.c
-> +++ b/drivers/phy/qualcomm/phy-qcom-edp.c
+I am planning to send a minor update to remove some unnecessary headers 
+from psci-reboot-mode.c. Could you please take a look and share any 
+review comments so I can address them in the next version?
 
-[ ... ]
-
-> @@ -1774,6 +1774,30 @@ static const struct qcom_edp_tx_res_entry tx_res_c=
-fg_nord[] =3D {
->  	QCOM_EDP_TX_RES_ENTRY_END,
->  };
-> =20
-> +static const struct phy_ver_ops qcom_edp_phy_ops_nord =3D {
-> +	.com_power_on		=3D qcom_edp_phy_power_on_v8,
-> +	.com_resetsm_cntrl	=3D qcom_edp_phy_com_resetsm_cntrl_v8,
-> +	.com_bias_en_clkbuflr	=3D qcom_edp_com_bias_en_clkbuflr_v8,
-> +	.com_configure_pll	=3D qcom_edp_com_configure_pll_nord,
-> +	.com_configure_ssc	=3D qcom_edp_com_configure_ssc_nord,
-> +	.com_ldo_config		=3D qcom_edp_ldo_config_nord,
-> +};
-> +
-> +static const struct qcom_edp_phy_cfg nord_edp_phy_cfg =3D {
-> +	.is_edp			=3D false,
-> +	.aux_cfg		=3D edp_phy_aux_cfg_nord,
-> +	.vco_div_cfg		=3D edp_phy_vco_div_cfg_nord,
-> +	.dp_swing_pre_emph_cfg	=3D &nord_dp_swing_pre_emph_cfg,
-> +	.edp_swing_pre_emph_cfg	=3D &nord_edp_swing_pre_emph_cfg,
-> +	.ver_ops		=3D &qcom_edp_phy_ops_nord,
-> +	.phy_status_reg		=3D DP_PHY_STATUS_NORD,
-> +	.bias1_en_2lane		=3D 0x03,
-> +	.tx2_tx3_lane_ctl	=3D DP_PHY_TX2_TX3_LANE_CTL_NORD,
-> +	.tx_res_cfg		=3D tx_res_cfg_nord,
-
-[Severity: High]
-The tx_res_cfg_nord table correctly configures the relocated offset for
-TX_BAND (0x0024). However, does qcom_edp_phy_power_on() still unconditional=
-ly
-write to the legacy TX_BAND offset (0x0028) before applying the tx_res_cfg
-table?
-
-qcom_edp_phy_power_on() {
-    ...
-    writel(0x04, edp->tx0 + TXn_TX_BAND);
-    ...
-    writel(0x04, edp->tx1 + TXn_TX_BAND);
-    ...
-}
-
-Could this cause a write to the wrong offset on Nord hardware, potentially
-corrupting whatever unrelated register now exists at 0x0028?
-
-Should this register offset be parameterized or moved entirely to tx_res_cf=
-g?
-
-[Severity: High]
-Similarly, tx_res_cfg_nord initializes DP_PHY_TX_LN0_DRV_LVL_NORD (offset
-0x00e4), indicating the drive level registers were also relocated.
-
-However, doesn't qcom_edp_set_voltages() still dynamically write the voltage
-swing values to the legacy TXn_TX_DRV_LVL offset (0x0014) during DP link
-training?
-
-qcom_edp_set_voltages() {
-    ...
-    writel(swing, edp->tx0 + TXn_TX_DRV_LVL);
-    ...
-    writel(swing, edp->tx1 + TXn_TX_DRV_LVL);
-    ...
-}
-
-Will DP link training fail on Nord PHYs because the actual drive level
-register at 0x00e4 is never updated with the dynamic voltage levels?
-
-> +	.cmn_status_reg		=3D DP_QSERDES_V8_COM_CMN_STATUS_NORD,
-> +	.c_ready_status_reg	=3D DP_QSERDES_V8_COM_C_READY_STATUS_NORD,
-> +};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261012-nord-drv-d=
-t-v2-0-a2ab9af954d2@oss.qualcomm.com?part=3D13
+thanks,
+Shivendra
