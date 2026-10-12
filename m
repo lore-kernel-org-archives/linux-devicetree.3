@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A2AC413D99;
-	Mon, 12 Oct 2026 11:25:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5594439349;
+	Mon, 12 Oct 2026 11:26:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791804359; cv=none; b=fAFHpOEq0bx9fh47IEvGo7yEYl1bV1N1l0RGgTfXuHfWtIdXd8F95CjNRN/zNMUPA8V3S0WIFHbS5hjdfFOLvIYdIH2XHcDwsBmlkSSL6TtS+s6TbT8YtSiWFbQ5pGFWB5IEi1jjA1FwHXu/fpP3g5ckLKJTxs33iFgUfj7WnRY=
+	t=1791804392; cv=none; b=I/BQ2/BlIoEiYTg8fvoaGE5Nbmnw+vXjrXTObA82Av6nd/4KSlDQ7A2eRZ/ryYTN5rL//UW9qows3rpWKqi1/PBVVqwmh7QYoz403EesrI5p8jixFSw0VNkmG1vaVQTQI/dyKntC9gH8MaSirrUi7AmKeI77apgZO0c4Pgret0E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791804359; c=relaxed/simple;
-	bh=WFdon6r+LKUHpfT1vAowXRppWhWpDj4o1nWxX8ed/vM=;
+	s=arc-20240116; t=1791804392; c=relaxed/simple;
+	bh=+hcz+S4nRA6vr7TWGm7qwqTpEnRBgOztQWqhh7P/4UM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eXYdXMtukasimXn3BJepu4+hM3sSeQH/tSDN2NYkpTqrX7nY1scG2/x9hQ6EW2STITTEGXWHRmx917xOW52oUMr/Sq2cFZ3aiwLnv7RpNDjJnZCydueTUsCWE4DnQ0h6rZsa0oNYewbdI9oUTjYsFQJOT2a+DNATtNuF50ki/Hk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K6XJA2hS; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=LrzRnAzrQhD31VZp9OARiO4UoMH4EFmJSGbMn5hgJoN1N6FuxNKipWG+HbeBGVD1u/AsQhz3wNL1tEYiJUDBSVe244bEdTK2BKCOkCyni+k7dbhCfw5bKflP1bkF0CF56uc7XbDSyARrelGHONoyycSLuuNbUHx28RNOc3yklxU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QpaWT5oA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K6XJA2hS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 21EF61F0089B;
-	Mon, 12 Oct 2026 11:25:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QpaWT5oA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B722E1F0089C;
+	Mon, 12 Oct 2026 11:26:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791804358;
-	bh=OYud2pwVRp0z9zd+38ShiaAlBdyzIF9h4UWE8HoHZGc=;
+	s=k20260515; t=1791804391;
+	bh=1lItnyH4SK8Ddn7aEUJiWjepalXE/ok80qO0IvTSv1Y=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=K6XJA2hSH7O/anOUuvkol+Vd+qFNSdlSQZ8i34RjDAdX5/IkFFV+rp0/3vW0RjeVS
-	 ZyXBsrHphbFJJUKdJCXQVd3AuljO0LM7sU51PG8dY4oEIlhQcbZXNI3Lz9dUT9f5tc
-	 xqyemcgb+eMxKfwplEieOAcE929793+SNp5n2smdfKXEbV9K9ehoomgwegcdGIq4SP
-	 gCSD035SFB3imZbMYlNHpyMyIs6sNG7CnGLXZRbN/POlxjxVNgABoSNLBwTM1cuH6m
-	 2TDXK9bohOn2gXfuafehcd5GuyRLg9eX/6qd6MK1W2VxvEqZC8eoqDgWCBzgzAm89i
-	 DP3C6Yb3VYgqA==
-Message-ID: <298d2903-c8b1-4aa8-801f-82fe0a650252@kernel.org>
-Date: Mon, 12 Oct 2026 13:25:50 +0200
+	b=QpaWT5oAwrDaiAVTZ8oZiPE3d+WsE/OkZBoIKNdr9UGhHI7kod1PCwx9FkqG71M5x
+	 vZgkbNH3cVImexEHXIhezwRl8Kdv1/6e3OIB91HWYnav0QzmUScE2TG9q0WMywMjyi
+	 JPeTIc/DN61qt9vDcMRPj/lT4fYP1PA0XchAG95Gng3b4ANZF+/UwE3JIxmnBHGQEX
+	 Kh7NFP7fjfxiKkrHZLefSA0e8Mh5FG0iLpi2ayXqk7jOMo0cdGHJii2tdXOyiwrXpM
+	 bl8V2US0bQ5bFTVh3R6+igeT9kJRn4S9QRfv42RMwQQR8ZvhqRAZGWIUe7tANoon99
+	 XMFZU1udjb3+A==
+Message-ID: <9fa51ba2-5707-4d39-9038-c0983d138893@kernel.org>
+Date: Mon, 12 Oct 2026 13:26:25 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,22 +35,17 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/4] arm64: dts: qcom: talos: Add Talos Lyra EVK SoM
- platform
+Subject: Re: [PATCH v2 4/4] arm64: dts: qcom: talos: Add EL2 overlay for
+ talos-lyra-evk
 To: Ruchira Revdekar <ruchira.revdekar@oss.qualcomm.com>,
  Bjorn Andersson <andersson@kernel.org>,
  Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>
 Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>,
- Monish Chunara <quic_mchunara@quicinc.com>,
- Rakesh Kota <rakesh.kota@oss.qualcomm.com>,
- Sayali Lokhande <sayalil@qti.qualcomm.com>,
- Nirmesh Kumar Singh <nirmesh.singh@oss.qualcomm.com>
+ linux-kernel@vger.kernel.org
 References: <20261012-talos-lyra-evk-v2-v2-0-dcc9316ebb59@oss.qualcomm.com>
- <20261012-talos-lyra-evk-v2-v2-2-dcc9316ebb59@oss.qualcomm.com>
+ <20261012-talos-lyra-evk-v2-v2-4-dcc9316ebb59@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -96,38 +91,40 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261012-talos-lyra-evk-v2-v2-2-dcc9316ebb59@oss.qualcomm.com>
+In-Reply-To: <20261012-talos-lyra-evk-v2-v2-4-dcc9316ebb59@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 12/10/2026 08:16, Ruchira Revdekar wrote:
-> From: Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>
+> Add support for building an EL2 combined DTB for the talos-lyra-evk
+> in the Qualcomm DTS Makefile.
 > 
-> Introduce the device tree for the QCS615-based Talos Lyra EVK SoM.
-> Lyra EVK SoM is a compact compute module integrating the QCS615 SoC,
-> PMIC, and essential connectivity, designed to mount on carrier boards.
+> The new talos-lyra-evk-el2.dtb is generated by combining the base
+> talos-lyra-evk.dtb with the talos-el2.dtbo overlay, enabling EL2-specific
+> configurations required by the platform.
 > 
-> The initial SoM device tree includes basic support for:
+> Signed-off-by: Ruchira Revdekar <ruchira.revdekar@oss.qualcomm.com>
+> ---
+>  arch/arm64/boot/dts/qcom/Makefile | 4 ++++
+>  1 file changed, 4 insertions(+)
 > 
-> - CPU and memory
-> - PMIC and board-level regulators
-> - UFS and SD card storage
-> - QUPv3 (I2C/SPI/UART) instances
-> - ADSP/CDSP remoteprocs
-> - GPU
-> 
-> Co-developed-by: Monish Chunara <quic_mchunara@quicinc.com>
-> Signed-off-by: Monish Chunara <quic_mchunara@quicinc.com>
-> Co-developed-by: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-> Signed-off-by: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-> Co-developed-by: Sayali Lokhande <sayalil@qti.qualcomm.com>
-> Signed-off-by: Sayali Lokhande <sayalil@qti.qualcomm.com>
-> Tested-by: Nirmesh Kumar Singh <nirmesh.singh@oss.qualcomm.com>
+> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
+> index 2f25575e6efe..4f8ca3112fed 100644
+> --- a/arch/arm64/boot/dts/qcom/Makefile
+> +++ b/arch/arm64/boot/dts/qcom/Makefile
+> @@ -458,6 +458,10 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sm8750-qrd.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)	+= talos-evk.dtb
+>  dtb-$(CONFIG_ARCH_QCOM)	+= talos-lyra-evk.dtb
+>  
+> +talos-lyra-evk-el2-dtbs	:= talos-lyra-evk.dtb talos-el2.dtbo
+> +
+> +dtb-$(CONFIG_ARCH_QCOM)	+= talos-lyra-evk-el2.dtb
+> +
+>  talos-evk-el2-dtbs	:= talos-evk.dtb talos-el2.dtbo
+>  
 
-There is no trace of this tag, look:
-https://lore.kernel.org/all/20260901-lyra_upstreaming-v1-1-e3a76dc9e21c@oss.qualcomm.com/
-
-Where was it given?
+Makefile changes belong to the pathc introducing the DTS, so squash this
+and previous.
 
 Best regards,
 Krzysztof
