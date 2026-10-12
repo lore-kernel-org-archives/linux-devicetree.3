@@ -1,1176 +1,284 @@
-Received: from SEYPR02CU001.outbound.protection.outlook.com (mail-koreacentralazon11023089.outbound.protection.outlook.com [40.107.44.89])
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011043.outbound.protection.outlook.com [40.93.194.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59D1348BD54;
-	Mon, 12 Oct 2026 12:36:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.44.89
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC7DC34E75D;
+	Mon, 12 Oct 2026 12:37:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.43
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791808589; cv=fail; b=A6AxH1iynKoXym9RYY5MjC3BCsVu+fJKgL683niH+zJcMpKVzDsI3M3o90ejDoxkGiPW9ouq4ARuXJa+/ci7Ty3Zv3K6QjptClyBracSPIAGrWa8TrwipI3T991ykdb2KlBJw8OOEYSvnnNWvZw5/yWUdXSXxE7SH5/wwrqpZWU=
+	t=1791808658; cv=fail; b=s/FVASRzr8IfGgYf0dHzNeVPTD4xxzSuxTSa3Ths/YnnfYtNQkBPgeyOj5fehTUtnJfiHt1gmF105Egg7XTLdbcLgTLX/jo0MSXjUvjO+1w5XK6sL0ADBOoE+VlNftrQXcPQP2D2IvocTjmRdecWZlb6i1D/GTwLJ1OuqLM7xBk=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791808589; c=relaxed/simple;
-	bh=C3/mAmOPfjajiytdlCtX7oHZO94Q40B/FPtsNBO7s1M=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ea4RrOWJVm861YYBC2eiB4vP8RYlbOmmYFT6q/9qXf+ki8bcTGt/2BQ7gU02yRilngEvaHWBbDFXbp3RlrILFZXNDTxfObMYPyofHPOdn/C546ZgMPP7c9Gr7/FD8d2io13dQ6UQMpxl3LtLv9w7xiUYw0Cw2jAxRqQddRH3srg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com; spf=pass smtp.mailfrom=cixtech.com; arc=fail smtp.client-ip=40.107.44.89
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=cixtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cixtech.com
+	s=arc-20240116; t=1791808658; c=relaxed/simple;
+	bh=PXeDR8rlGZb+Uc0qQpr0W/uEhrwzPd9DeUAWeQncjhA=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=HjRfDvV3CcryLS9NOF2RJrSDv4RtisMfWN8+JKlSAyj2xThU+vJwRCMEGybvzS2zuRH+SC6vh9K0/s3yFWVqz98okqy6kcEA2+HVl6XCFrhR3R66RjEpZ4xDPvVEYKGh6+jogZ8hkFJvj4UM9WprJ7O49qTUTohopri0Ak91dAg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=4o9D5XGs; arc=fail smtp.client-ip=40.93.194.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="4o9D5XGs"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pAxyVfLtzm2Gn5WjieY2cU9CQp1WSqiSy7GEXDN8rti1KC7mu07Q42YjqvL5G0nBs8BcSV+MOJOxPF8dXRDHCTWqET9LT2gUP7g/6AWSd61M1VLzxXxSNfgbXSHeue3CnHQGkxhMCvJ7aC8AzvU2oowtAaysN5Sugl9or39OPmmdVvL+RLxggnUSkicJIhfXWPXKyrQDQq2aCF4pfkZBbWMEcsKj9Y/EmaWBPXW8Ubx97/1wMPHEgw3Rq1FAz+ZrMH4AE2n3ALK/l+ns5kqbAHMl+Xx5hwt5rTHpjW/XkFZn1pzgLE3ktljmfeSnxbNOpgwteFzmMaIQqu1rMVKVFA==
+ b=Spub8oafw3u8BHceAN+hQT1+n7w58uFlUqAUkMZz6gjuImBmTLtIrrtJ5ijnlf6PJ015I9t9HwKBahCU1SWwwioQJxzl73Nv+Y51WHya5D7kA7C46jtt+uFbG6V864iuteUnMSwHWFTOC/qri/9DYE2t5HiW8keTr8iJFUOWiisc6ThxP8RKtwhGIlAKKeHC7F1Ia7TlZsY9icIBsaGC1pJhgkJpgrb6bmu4GxNHUutXQsfYzELnjf0PiA0YEkS0/94QTUn7PvpKL2OlYYIs2aCh8L9vTYb1lLl7tmy37n2Hwt18CNqON4kXmaaSdypyVgTpRjJa9X5oLZ9hGE/1Zg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YinwHvGN7UYBIz+EUMhL6FSoB5SNtWeHwdwCyLfRwlc=;
- b=lXEsEgMrkpb3K/CbPNWhuFQcGqdCg7qNf5rj9UqrsG7Nx8+Cg9latZpR85PI9m7ZlPz3YtG3ZX6BIXH4ui/VRtT2IX46gGT5jEtL9hnCellVL0EZrY5SRyP16JE/LdX5DrLd+DbJXcyEPu1ml2NAfFDSRwTwB0CKd2ldSudpr+MXuNn5JCcynnLVkFl6/J4vbvBKQ3wNXLVxw00Fevir5btcLoNBOGbZsShJcvnhUkCpVoI6HofxaSyrjXYEhaD8goh58clzo8Pp2tUAd9HTc7jovUBlXC/1N2vvlofYPofo2EGpDN0KRCJqq2Tmrf3yRMcvJzMbcprFAhVj23FWOA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 222.71.101.198) smtp.rcpttodomain=cixtech.com smtp.mailfrom=cixtech.com;
- dmarc=bestguesspass action=none header.from=cixtech.com; dkim=none (message
- not signed); arc=none (0)
-Received: from JH0PR04CA0004.apcprd04.prod.outlook.com (2603:1096:990:4::20)
- by OS8PR06MB7321.apcprd06.prod.outlook.com (2603:1096:604:289::10) with
+ bh=tRGhAe8pUFvvzJPKPKTxCC4bXu6S1byGnjB87m/nNHs=;
+ b=QjTEuuiOb4OhLq6HB6r+CCCjMDKc1j6EhY7P6WaEl1c4vCfgIyDsMoIBSSzNEB84X1rE+3qRU2UfloleLtCdJEcPCmvX4dgtrHDXeLlM8pWPArUG/KPBo0bPnxwlBUpFyRqCO+C2DP/UtUpWRTigHBi01AJNDeNdNRGZL2QIfA77m5eBIwIiv71qsspYBwlipfWLIkgyQADZmI6U0foo0SJX+rp8OQSRaiBz6b/VbkvkD9BAhgaWwUfw1zJISY56rFEhb/SIoDPTS4C3sx77hIfUVF58DKX4ryp/mSYe5M2SLOwW6tZLnbJZEUJgKFZmvwjxEuZpWZFFIzTCgCOoQA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tRGhAe8pUFvvzJPKPKTxCC4bXu6S1byGnjB87m/nNHs=;
+ b=4o9D5XGs1rkdZGP5eC2lreYWupqFVUOh+AExbWPndxfqKsEVDCbE9JCYbcH0QV6eZ/7F5dr/QXRfu8//+g6r4qws1v0H5gcOYW3JRHRT2NNm+H4yblBzdfyFHTIf5UNAmImCF3RGxLiFzMpucVTzWhzbXr+XICYbboDRCGyQpNQ=
+Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from LV5PR12MB9779.namprd12.prod.outlook.com (2603:10b6:408:301::14)
+ by PH0PR12MB7095.namprd12.prod.outlook.com (2603:10b6:510:21d::9) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Mon, 12 Oct
- 2026 12:36:21 +0000
-Received: from SG2PEPF000B66CC.apcprd03.prod.outlook.com
- (2603:1096:990:4:cafe::4c) by JH0PR04CA0004.outlook.office365.com
- (2603:1096:990:4::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.472.20 via Frontend Transport; Mon,
- 12 Oct 2026 12:36:20 +0000
-X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
- is 222.71.101.198) smtp.mailfrom=cixtech.com; dkim=none (message not signed)
- header.d=none;dmarc=bestguesspass action=none header.from=cixtech.com;
-Received-SPF: Pass (protection.outlook.com: domain of cixtech.com designates
- 222.71.101.198 as permitted sender) receiver=protection.outlook.com;
- client-ip=222.71.101.198; helo=smtprelay.cixcomputing.com; pr=C
-Received: from smtprelay.cixcomputing.com (222.71.101.198) by
- SG2PEPF000B66CC.mail.protection.outlook.com (10.167.240.25) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.522.6 via Frontend Transport; Mon, 12 Oct 2026 12:36:20 +0000
-Received: from localhost.localdomain (unknown [172.16.64.56])
-	by smtprelay.cixcomputing.com (Postfix) with ESMTPSA id 901A840920F3;
-	Mon, 12 Oct 2026 20:36:18 +0800 (CST)
-From: Luo Liu <Luo.Liu@cixtech.com>
-To: vkoul@kernel.org,
-	neil.armstrong@linaro.org,
-	mani@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	gary.yang@cixtech.com,
-	fugang.duan@cixtech.com,
-	linux-phy@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Cc: cix-kernel-upstream@cixtech.com,
-	p.zabel@pengutronix.de,
-	linux-kernel@vger.kernel.org,
-	Luo.Liu@cixtech.com,
-	Wuyi.Shen@cixtech.com,
-	EastLake.Yang@cixtech.com
-Subject: [PATCH v2 2/3] phy: cix: Add Sky1 DP PHY driver
-Date: Mon, 12 Oct 2026 20:36:17 +0800
-Message-Id: <20261012123618.648930-3-Luo.Liu@cixtech.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20261012123618.648930-1-Luo.Liu@cixtech.com>
-References: <20261012123618.648930-1-Luo.Liu@cixtech.com>
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.472.15; Mon, 12 Oct
+ 2026 12:37:32 +0000
+Received: from LV5PR12MB9779.namprd12.prod.outlook.com
+ ([fe80::8ac8:e862:8ae9:9287]) by LV5PR12MB9779.namprd12.prod.outlook.com
+ ([fe80::8ac8:e862:8ae9:9287%5]) with mapi id 15.21.0496.020; Mon, 12 Oct 2026
+ 12:37:32 +0000
+Message-ID: <917db1e3-1bfa-453b-b993-55ae20fa3055@amd.com>
+Date: Mon, 12 Oct 2026 14:37:25 +0200
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/5] ARM: dts: zynq: Use dynamic CoreSight funnel and trim
+ clocks
+To: Leo Yan <leo.yan@arm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>,
+ Mike Leach <mike.leach@arm.com>, James Clark <james.clark@linaro.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>, Wei Xu <xuwei5@hisilicon.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org
+References: <20261002-arm_coresight_hi3660_remove_dynamic_funnel_clocks-v1-0-c3edca1c480b@arm.com>
+ <20261002-arm_coresight_hi3660_remove_dynamic_funnel_clocks-v1-4-c3edca1c480b@arm.com>
+Content-Language: en-US
+From: Michal Simek <michal.simek@amd.com>
+Autocrypt: addr=michal.simek@amd.com; keydata=
+ xsFNBFFuvDEBEAC9Amu3nk79+J+4xBOuM5XmDmljuukOc6mKB5bBYOa4SrWJZTjeGRf52VMc
+ howHe8Y9nSbG92obZMqsdt+d/hmRu3fgwRYiiU97YJjUkCN5paHXyBb+3IdrLNGt8I7C9RMy
+ svSoH4WcApYNqvB3rcMtJIna+HUhx8xOk+XCfyKJDnrSuKgx0Svj446qgM5fe7RyFOlGX/wF
+ Ae63Hs0RkFo3I/+hLLJP6kwPnOEo3lkvzm3FMMy0D9VxT9e6Y3afe1UTQuhkg8PbABxhowzj
+ SEnl0ICoqpBqqROV/w1fOlPrm4WSNlZJunYV4gTEustZf8j9FWncn3QzRhnQOSuzTPFbsbH5
+ WVxwDvgHLRTmBuMw1sqvCc7CofjsD1XM9bP3HOBwCxKaTyOxbPJh3D4AdD1u+cF/lj9Fj255
+ Es9aATHPvoDQmOzyyRNTQzupN8UtZ+/tB4mhgxWzorpbdItaSXWgdDPDtssJIC+d5+hskys8
+ B3jbv86lyM+4jh2URpnL1gqOPwnaf1zm/7sqoN3r64cml94q68jfY4lNTwjA/SnaS1DE9XXa
+ XQlkhHgjSLyRjjsMsz+2A4otRLrBbumEUtSMlPfhTi8xUsj9ZfPIUz3fji8vmxZG/Da6jx/c
+ a0UQdFFCL4Ay/EMSoGbQouzhC69OQLWNH3rMQbBvrRbiMJbEZwARAQABzSlNaWNoYWwgU2lt
+ ZWsgKEFNRCkgPG1pY2hhbC5zaW1la0BhbWQuY29tPsLBlAQTAQgAPgIbAwULCQgHAgYVCgkI
+ CwIEFgIDAQIeAQIXgBYhBGc1DJv1zO6bU2Q1ajd8fyH+PR+RBQJn8lwDBQkaRgbLAAoJEDd8
+ fyH+PR+RCNAP/iHkKbpP0XXfgfWqf8yyrFHjGPJSknERzxw0glxPztfC3UqeusQ0CPnbI85n
+ uQdm5/zRgWr7wi8H2UMqFlfMW8/NH5Da7GOPc26NMTPA2ZG5S2SG2SGZj1Smq8mL4iueePiN
+ x1qfWhVm7TfkDHUEmMAYq70sjFcvygyqHUCumpw36CMQSMyrxyEkbYm1NKORlnySAFHy2pOx
+ nmXKSaL1yfof3JJLwNwtaBj76GKQILnlYx9QNnt6adCtrZLIhB3HGh4IRJyuiiM0aZi1G8ei
+ 2ILx2n2LxUw7X6aAD0sYHtNKUCQMCBGQHzJLDYjEyy0kfYoLXV2P6K+7WYnRP+uV8g77Gl9a
+ IuGvxgEUITjMakX3e8RjyZ5jmc5ZAsegfJ669oZJOzQouw/W9Qneb820rhA2CKK8BnmlkHP+
+ WB5yDks3gSHE/GlOWqRkVZ05sUjVmq/tZ1JEdOapWQovRQsueDjxXcMjgNo5e8ttCyMo44u1
+ pKXRJpR5l7/hBYWeMlcKvLwByep+FOGtKsv0xadMKr1M6wPZXkV83jMKxxRE9HlqWJLLUE1Q
+ 0pDvn1EvlpDj9eED73iMBsrHu9cIk8aweTEbQ4bcKRGfGkXrCwle6xRiKSjXCdzWpOglNhjq
+ 1g8Ak+G+ZR6r7QarL01BkdE2/WUOLHdGHB1hJxARbP2E3l46zsFNBFFuvDEBEACXqiX5h4IA
+ 03fJOwh+82aQWeHVAEDpjDzK5hSSJZDE55KP8br1FZrgrjvQ9Ma7thSu1mbr+ydeIqoO1/iM
+ fZA+DDPpvo6kscjep11bNhVa0JpHhwnMfHNTSHDMq9OXL9ZZpku/+OXtapISzIH336p4ZUUB
+ 5asad8Ux70g4gmI92eLWBzFFdlyR4g1Vis511Nn481lsDO9LZhKyWelbif7FKKv4p3FRPSbB
+ vEgh71V3NDCPlJJoiHiYaS8IN3uasV/S1+cxVbwz2WcUEZCpeHcY2qsQAEqp4GM7PF2G6gtz
+ IOBUMk7fjku1mzlx4zP7uj87LGJTOAxQUJ1HHlx3Li+xu2oF9Vv101/fsCmptAAUMo7KiJgP
+ Lu8TsP1migoOoSbGUMR0jQpUcKF2L2jaNVS6updvNjbRmFojK2y6A/Bc6WAKhtdv8/e0/Zby
+ iVA7/EN5phZ1GugMJxOLHJ1eqw7DQ5CHcSQ5bOx0Yjmhg4PT6pbW3mB1w+ClAnxhAbyMsfBn
+ XxvvcjWIPnBVlB2Z0YH/gizMDdM0Sa/HIz+q7JR7XkGL4MYeAM15m6O7hkCJcoFV7LMzkNKk
+ OiCZ3E0JYDsMXvmh3S4EVWAG+buA+9beElCmXDcXPI4PinMPqpwmLNcEhPVMQfvAYRqQp2fg
+ 1vTEyK58Ms+0a9L1k5MvvbFg9QARAQABwsF8BBgBCAAmAhsMFiEEZzUMm/XM7ptTZDVqN3x/
+ If49H5EFAmfyXCkFCRpGBvgACgkQN3x/If49H5GY5xAAoKWHRO/OlI7eMA8VaUgFInmphBAj
+ fAgQbW6Zxl9ULaCcNSoJc2D0zYWXftDOJeXyVk5Gb8cMbLA1tIMSM/BgSAnT7As2KfcZDTXQ
+ DJSZYWgYKc/YywLgUlpv4slFv5tjmoUvHK9w2DuFLW254pnUuhrdyTEaknEM+qOmPscWOs0R
+ dR6mMTN0vBjnLUeYdy0xbaoefjT+tWBybXkVwLDd3d/+mOa9ZiAB7ynuVWu2ow/uGJx0hnRI
+ LGfLsiPu47YQrQXu79r7RtVeAYwRh3ul7wx5LABWI6n31oEHxDH+1czVjKsiozRstEaUxuDZ
+ jWRHq+AEIq79BTTopj2dnW+sZAsnVpQmc+nod6xR907pzt/HZL0WoWwRVkbg7hqtzKOBoju3
+ hftqVr0nx77oBZD6mSJsxM/QuJoaXaTX/a/QiB4Nwrja2jlM0lMUA/bGeM1tQwS7rJLaT3cT
+ RBGSlJgyWtR8IQvX3rqHd6QrFi1poQ1/wpLummWO0adWes2U6I3GtD9vxO/cazWrWBDoQ8Da
+ otYa9+7v0j0WOBTJaj16LFxdSRq/jZ1y/EIHs3Ysd85mUWXOB8xZ6h+WEMzqAvOt02oWJVbr
+ ZLqxG/3ScDXZEUJ6EDJVoLAK50zMk87ece2+4GWGOKfFsiDfh7fnEMXQcykxuowBYUD0tMd2
+ mpwx1d8=
+In-Reply-To: <20261002-arm_coresight_hi3660_remove_dynamic_funnel_clocks-v1-4-c3edca1c480b@arm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: SJ0PR05CA0185.namprd05.prod.outlook.com
+ (2603:10b6:a03:330::10) To LV5PR12MB9779.namprd12.prod.outlook.com
+ (2603:10b6:408:301::14)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SG2PEPF000B66CC:EE_|OS8PR06MB7321:EE_
-Content-Type: text/plain
-X-MS-Office365-Filtering-Correlation-Id: c04b84ea-938a-45f8-190b-08df285d6b3a
+X-MS-TrafficTypeDiagnostic: LV5PR12MB9779:EE_|PH0PR12MB7095:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2d4cdb0c-c3fd-4e56-2c5b-08df285d963a
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|1800799024|7416014|23010399003|42112799006|82310400026|36860700016|921020|56012099006|261009223027099003|10067099003|22082099003|18002099003|6133799003|3023799007;
+	BCL:0;ARA:13230040|1800799024|376014|7416014|366016|23010399003|261009220027099003|261009223027099003|56012099006|11063799006|4143699003|921020|22082099003|18002099003|10067099003|261009223327099003|3023799007|261009221727099003|261009221227099003;
 X-Microsoft-Antispam-Message-Info:
-	OO6UBGa+ZptcOe1Bl9wnH7wToVNsdfPcVjHqctmhh2ggI3tB8ucnKM1vtjpH9ehVQeAwdbQibYOBa/+9OAun6ocl8fN7H79ZGd5QULtKR8FKD9k26gE4gYRIPBAwAjW0u91cbvZahy+crogAI7WCV6yqDSRBH5Ne6jXlYQPIpYXXfiJaRCNVwl/FlXcms3jAbH8h0mix2GFA8Y75TwsWgZsdfoHHHYGQiJZd82Tcxsbf3V1bGAN0H8DSuSv7eJ7r6vKqLgysnk7syoYF36VblOL1PQJ8oUrujsBEoe1nXiM7cIyY3poD/0OzXnUvdyDfvcBcdptWhtJCWEtB8SxbSQD5FVm7lAiF6EKmKJ+jkog/Qzr8P7vZ4FCPzRel05XobQOuDDiCGLdA4oV8oteI5y96d20p/VT5iFZPxKW9RlAymPGsgUZ/5IY3+deqD2TqnESxlFVP9lgLrt0f2tIS76VwQXOON4dGX/Nfuj15yyNldbRrsDXysRj1gYGtpj/xFMNDgEBqsCnGx6KwnAk1Zzg9L1ZVSQ1ef8F46ECEpDPOGvMtIRt8zianMPR5RB+Hv+Unep3cd9f0qISfmS4TJN5hyGa6r+i/l3ulrNU2/oy9L79cYjLWTGzgv8g2WXlscekc4ehi2pOqoR6J1nPSobkVqWyKhhUoliknNle+6RUCNuuSg4sP+2jSkdV2Uzwkalb3M0VK4H/Ej7rERjj3Pkhw93bh0VhJvTzNC6ORUcWoUAVIFmeWfebUXBCO8QDL
+	Qt512JjgdViuR+lNFhh3glEUTh5Fnx2JK5VX9TDoekB0R53WL4ZUelryZlPQzvykfHg0JRBFp2g0USKcJ6hkOnwHv81rMrIodASxxF26N4c30zTfdKEiFqRRkxV7fakexl7hqmDtU4dsSnhiz+wkyFcNgRW/MYlhKGC//jT4HwwkZ+DaGYVyK3eN1CWjR/hE5ARfMb8c5IBiSvGsw/6VumSd414gw080OSvq/GHY4cgUKcv+H3DcniKtBR4OFZ9kAvlpnRBkPqkvz2Re3xj4o1TTgOcCuXEK8OC36t/ggsAESgwEKCMKAl8+wdHOp9KhWJe69Ra2KVx3+nMf+yPvAOEr4LnN2ErMxO05yZi/jAmOCGpDeB6d1dM3x9xJOjFLnQT2bydnuWqkZibktm64vbdf01TJUbvBAgCt0iba6OAE9QLb+ARsqSLUkgq29j9KY7pcfm2FuXLmvdtbEOWk2T3giiAdyGf4ZLZXJKiX4OZFjUJGgS5muIN1BDfJM3cz/KdCcyt9C0QzylgP8YAKSZvVXoZia25HWZvl8MtM+mdbl9h1HBCNha5AgkZ/ZcP3nF6bM3bHKpMklIheyryho1/xk1XvdN6BCEaPKUIBmNccp0ILv7Tasumqeku2zJ0vLNYh37NnW5mcOpzkJbzNXLIdEWxxANIw2C99POsSjhrtbNCoiH9Vm+6Je9xiWmkxmgRFOLrG0lxUnQdMWmfdlQ==
 X-Forefront-Antispam-Report:
-	CIP:222.71.101.198;CTRY:CN;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:smtprelay.cixcomputing.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(7416014)(23010399003)(42112799006)(82310400026)(36860700016)(921020)(56012099006)(261009223027099003)(10067099003)(22082099003)(18002099003)(6133799003)(3023799007);DIR:OUT;SFP:1102;
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV5PR12MB9779.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(366016)(23010399003)(261009220027099003)(261009223027099003)(56012099006)(11063799006)(4143699003)(921020)(22082099003)(18002099003)(10067099003)(261009223327099003)(3023799007)(261009221727099003)(261009221227099003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	ITKBkWZvP2FIUTfmUgxUgG5M3Ii93Suu5wCKYCo5tyJITVblhcrli/n32jkizzkvYjhPGAx33a8C2elzHIVtEUwv/nfWPbUyp7UgBgU09eMoYfYgUydjCWa054rZdbRexCXrh6ZuUUB9pXGZ/SZz0ydiqc91a4n5l6+vvBTORWzsUTjRb2at4r2th6R0Z3bkj7hCd7TcoHYdR102F/xce+YddRwCnu4sKanTDZSrc79kc30RpLYHuE6wuXbl1RbLEKhBr9RKvJM3nC4BcEUix0DRY+gOuHq9zL1kN08oIc+noIAUa2NdAf3in38rQLgRIMetHfISg98MAlco8oRNDh0jjk19pjBEts/QDDUZxCe2NCAjf8EX3mbpuxLW37TBJ8ShXWXTNkFo6YEq/XUa+V6lUMAV04j89XtNGWsPazm88jyMjdLHNvKJW389k+Bk
-X-OriginatorOrg: cixtech.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 12:36:20.3321
+	=?utf-8?B?RVZKb3k2U1RlWDRNRTdYVDd0VWlpZ2Z6K1FPekp3c0FYdFExRk43YVpOaWxT?=
+ =?utf-8?B?SWtsR29FdXJId0pxV204RVNuaUV0RlNxUWlUY2JKUVlDUnUxQ09LY0RodUE5?=
+ =?utf-8?B?V3M1VlZoZUR4UmpmTkx5dzRBRXlaSVVKVzdha3ZhY1REMTlTV3hYSnhsdkdp?=
+ =?utf-8?B?WmRsdXZubytYQzRJVDkrbDFaYXBTczRrOE9BOVVsakJJVnZkNUxiMmd0Q0dG?=
+ =?utf-8?B?aVZCMUozQS9XL1Q5TE1BSHJmWUJOZ0xkVXBKTmJuSXdaZjNUKzZRN1p1VVVi?=
+ =?utf-8?B?NUdyYll3Q1ZjVzIyRzlRYXdUd1FLYzBzMG5RSDdQakl0THVmL1FSZ0xiY3VG?=
+ =?utf-8?B?dUp5NzNtZCtxUmpTS2hqOXRCMTNPbFlsUlQ5Qm5EUjhVMisxc2cwbjY0cjdE?=
+ =?utf-8?B?TXF3VU5Wb0Q0TjJSS01wVWFXOXJab1BuNGNYZDFZZWh0RkIwVll4T0s0Q0lL?=
+ =?utf-8?B?bURBNWI2RzRxak5WcDFOYm9la244dC9kVCtmTFNoK0MwYUlyR01jQ2VlNlNE?=
+ =?utf-8?B?ZktiSG1TT2ExZVFhTXN1SEc2dVFtYklQUmMwQ2FBMEQ4TU9DcjNQUzQ1eXA4?=
+ =?utf-8?B?Q01kUWk4S2FueTlTODViVmtsQmsxR0plU2d3MEY3VWRNc3ZkTXBXaFBJdzB6?=
+ =?utf-8?B?K3JleTZRSzBvOUNMTTY1Q3A3TXUxSTd5VGduV1FyK2VFOSsvS2ZNS3dSdHA1?=
+ =?utf-8?B?UXpXN09YdmZVZzlVWUI2bjhVL0t4a1lQVkJTR3pWVEMrWUYySVFIZkRnclo4?=
+ =?utf-8?B?aTUvK1FhWnA3ZmRJWm5EbUFFamg5MWxXZ3d4SG5WQWRxcVFOTThwVnhQYW9I?=
+ =?utf-8?B?dWRMYzdwSEdvdkxMbjRYWFNrcEpVZEpzaEJESE10bDZJalFhS2xrWkJtWDlu?=
+ =?utf-8?B?bWVQYWJIakFNNDBsQWxwRS9yUVJLV1JhaHhCdVVXQ2p2RStTRXFWZmFXOTRw?=
+ =?utf-8?B?VXd5WUpIM1hoREtoS3k1L2xuTUN4VVhkVjUyMmcrODJGL1U4R0cyak5YRnB0?=
+ =?utf-8?B?OG5mc1hXZThHMjV2SHlNTEM0Rm5rdnJSTUkrVGNEUm5QSnhIeWpXMURxci9T?=
+ =?utf-8?B?c1pjcC9JWHdHODY3Y1RKeGgyeHo1Q1NEYW8reW1iOVpiL283YTRNRXBsTlhw?=
+ =?utf-8?B?bVdmZUJUZGl1WGkrbitwYXVLZ2V4WGlUTDdWaWI5blA0cXltVmJsYmxmSlZG?=
+ =?utf-8?B?dWVRbE5SZkJrTHQvL2VNM0Zrd0NRUEtNVTVrYWlPbTQraGtndm1VMlFWOE9O?=
+ =?utf-8?B?bnBsWDQxVlNHMzZ6SmFkR2FBS2J6cDFNOUFXalFGNk96QTQ0a3UwekpRc2pU?=
+ =?utf-8?B?N1o0cytoL1Y2MUNqaWFLcGtBbHg2ZXc2aG1pOXZ6RGEwYkdVTEE2aEV3S3Q2?=
+ =?utf-8?B?dEx6WUwxZmR1ZmdhU0d6WTczdmdxaTFhQjZQKzFKbXUwclU4d3ExbVZXeE9j?=
+ =?utf-8?B?UXF2WjQya3NMSi8vc1MzNHE4OVQ2R3hMTzBmU0p1NjZRSEZBeTVoY29ML3pM?=
+ =?utf-8?B?R2ZsOVBoNjcrc0JPaXBCWGJaZzI2b2J5YVA0Y3VrOUtDd1VhVWlDbmJta05B?=
+ =?utf-8?B?VkUwemxBTHBBUmNRc3ZoQXduQXhqbmdHWkFvODlMTEx2dUlsSWVIKyt5UHpz?=
+ =?utf-8?B?aWh3ZkJGL3l6YSswYytJaklkUG4ySStaZGlPR1dGT1YwOGU5ZzF0Y21LS0pG?=
+ =?utf-8?B?Zlo0a01OMGViK2IxVUdzWFkrUWNjL2h1cGt4Tk9COEQrc0ttTnNyOWtJS3BK?=
+ =?utf-8?B?N203dlgyMDI3anVXblY0dDVYUWhFRjc2S2RCVEh4cWJ1Q2pQNlJDQTBWNXRV?=
+ =?utf-8?B?UDhRak5BTDBlQ09hMzhUaEFqN2hnWVNzNENVZHh1dTZ4S21EaXUwODF1VGFJ?=
+ =?utf-8?B?WHhGd082OTNkQXhVYlp0L1NtN0tMbkFaUTdIaHJocHRXNy9XUjJCaHM5cmxN?=
+ =?utf-8?B?emUyV1NjSzdCaEZLVkF3Nm5xRnB0dFRhTW9qNDVoV0xNVnV2bml3TVBZbk1R?=
+ =?utf-8?B?V2FjeXdtNlB1N2pUWUgyNlZQaDNRN3NLcW9hekZOTWE3OFFJT0JUS2NqVGRz?=
+ =?utf-8?B?ek0rWSswclJSYTZFRExVUm5EZ25KN3k5WlVRaUtZQkEydjhoL014YTd1K2xV?=
+ =?utf-8?B?QktsSU9naEJoaTNTNURLSndMbHRjNmxNcUlwQTA4RWw3WnRRYXVrcjEwVFFE?=
+ =?utf-8?B?NlJBaVpyRU5PY2NvTWo0SWlXU04zYjVIVEhHdFBPZm5mNHhWVWlHSXpkNHo1?=
+ =?utf-8?B?aTYxRlJZWTFUdHVYbXcwUHdFRVVyaFJzRm9SalRRd1ZHWmIrWU9oUlFCY2ZG?=
+ =?utf-8?B?bGZDMjVvNVR3dnUyR2ZhdTNpbldaazFpOEN1R3hIM1Nkck5ZVXlHZz09?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2d4cdb0c-c3fd-4e56-2c5b-08df285d963a
+X-MS-Exchange-CrossTenant-AuthSource: LV5PR12MB9779.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2026 12:37:32.8054
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: c04b84ea-938a-45f8-190b-08df285d6b3a
-X-MS-Exchange-CrossTenant-Id: 0409f77a-e53d-4d23-943e-ccade7cb4811
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=0409f77a-e53d-4d23-943e-ccade7cb4811;Ip=[222.71.101.198];Helo=[smtprelay.cixcomputing.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SG2PEPF000B66CC.apcprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS8PR06MB7321
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: pHNL57/tloIvsPdOqOSOr78b9/5yTDXnSd5w1ov7mx1n/I929Q0X2tUXfK+phlVR
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR12MB7095
 
-Add a PHY driver for the CIX Sky1 dedicated DisplayPort PMA. Support
-link rate, lane count, SSC and voltage swing via the generic PHY DP
-ops. Load PMA tables in phy_init and enable the analog path in
-phy_power_on so configure can run before power-on.
 
-Signed-off-by: Luo Liu <Luo.Liu@cixtech.com>
----
- drivers/phy/Kconfig          |   1 +
- drivers/phy/Makefile         |   1 +
- drivers/phy/cix/Kconfig      |  18 +
- drivers/phy/cix/Makefile     |   2 +
- drivers/phy/cix/phy-cix-dp.c | 985 +++++++++++++++++++++++++++++++++++
- 5 files changed, 1007 insertions(+)
- create mode 100644 drivers/phy/cix/Kconfig
- create mode 100644 drivers/phy/cix/Makefile
- create mode 100644 drivers/phy/cix/phy-cix-dp.c
 
-diff --git a/drivers/phy/Kconfig b/drivers/phy/Kconfig
-index 19f3b7d12b7d..cb0d4be47628 100644
---- a/drivers/phy/Kconfig
-+++ b/drivers/phy/Kconfig
-@@ -175,6 +175,7 @@ source "drivers/phy/axiado/Kconfig"
- source "drivers/phy/broadcom/Kconfig"
- source "drivers/phy/cadence/Kconfig"
- source "drivers/phy/canaan/Kconfig"
-+source "drivers/phy/cix/Kconfig"
- source "drivers/phy/eswin/Kconfig"
- source "drivers/phy/freescale/Kconfig"
- source "drivers/phy/hisilicon/Kconfig"
-diff --git a/drivers/phy/Makefile b/drivers/phy/Makefile
-index d7aa516bcc49..6fd0f3910018 100644
---- a/drivers/phy/Makefile
-+++ b/drivers/phy/Makefile
-@@ -27,6 +27,7 @@ obj-$(CONFIG_GENERIC_PHY)		+= allwinner/	\
- 					   broadcom/	\
- 					   cadence/	\
- 					   canaan/	\
-+					   cix/		\
- 					   eswin/	\
- 					   freescale/	\
- 					   hisilicon/	\
-diff --git a/drivers/phy/cix/Kconfig b/drivers/phy/cix/Kconfig
-new file mode 100644
-index 000000000000..0e429e2790bf
---- /dev/null
-+++ b/drivers/phy/cix/Kconfig
-@@ -0,0 +1,18 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+#
-+# Phy drivers for CIX PHYs
-+#
-+
-+config PHY_CIX_DP
-+	tristate "CIX Sky1 DP PHY driver"
-+	depends on OF && HAS_IOMEM
-+	depends on ARCH_CIX || COMPILE_TEST
-+	select GENERIC_PHY
-+	help
-+	  Say Y here to enable the dedicated DisplayPort PHY used by the CIX
-+	  Sky1 DisplayPort controller. The PHY provides the physical layer
-+	  used by the dedicated DisplayPort output and supports link rates
-+	  up to HBR3.
-+
-+	  To compile this driver as a module, choose M here. The module will
-+	  be called phy-cix-dp.
-diff --git a/drivers/phy/cix/Makefile b/drivers/phy/cix/Makefile
-new file mode 100644
-index 000000000000..cc56c7586ec5
---- /dev/null
-+++ b/drivers/phy/cix/Makefile
-@@ -0,0 +1,2 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+obj-$(CONFIG_PHY_CIX_DP) += phy-cix-dp.o
-diff --git a/drivers/phy/cix/phy-cix-dp.c b/drivers/phy/cix/phy-cix-dp.c
-new file mode 100644
-index 000000000000..00c9d1ad6a5b
---- /dev/null
-+++ b/drivers/phy/cix/phy-cix-dp.c
-@@ -0,0 +1,985 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * CIX DP PHY driver
-+ *
-+ * Copyright (C) 2023 Trilinear Technologies
-+ * Copyright 2024 Cix Technology Group Co., Ltd.
-+ */
-+
-+#include <linux/bits.h>
-+#include <linux/iopoll.h>
-+#include <linux/module.h>
-+#include <linux/phy/phy.h>
-+#include <linux/platform_device.h>
-+#include <linux/property.h>
-+#include <linux/reset.h>
-+
-+#define CIX_DP_PHY_ID_REV_REG			0xfc
-+#define CIX_DP_PHY_ID				0x4d
-+#define CIX_DP_PHY_PWR_STATE_IDLE		0x0000
-+#define CIX_DP_PHY_PWR_STATE_A0_TXRX_ACTIVE	0x0001
-+#define CIX_DP_PHY_PWR_STATE_A2_POWERDOWN2	0x0004
-+#define CIX_DP_PHY_PWR_STATE_A3_POWERDOWN3	0x0008
-+
-+#define CIX_DP_CDB_ADDR				0x0000
-+#define CIX_DP_CDB_WDATA			0x0004
-+#define CIX_DP_CDB_SEL_WR			0x0008
-+#define CIX_DP_CDB_READY			0x000c
-+#define CIX_DP_CDB_RDATA			0x0010
-+#define CIX_DP_CDB_RSTN				0x0014
-+#define CIX_DP_CDB_ENABLE			0x0018
-+#define CIX_DP_CDB_SEL_READ			0x2
-+#define CIX_DP_CDB_SEL_WRITE			0x3
-+
-+#define CIX_DP_NUM_LANES			4
-+#define CIX_DP_POLL_SLEEP_US			10
-+#define CIX_DP_POLL_TIMEOUT_US			100000
-+#define CIX_DP_PWR_TIMEOUT_US			10000
-+#define CIX_DP_PHY_CONFIG_RSTN			0x0040
-+#define CIX_DP_PHY_CMN_READY			0x0044
-+#define CIX_DP_PHY_LANE_EN_BITS			0x0048
-+#define CIX_DP_PHY_LANE_RSTN_BITS		0x004c
-+#define CIX_DP_PHY_DATA_ENABLE			0x0050
-+#define CIX_DP_AUXHPD_ENABLE_BITS		0x0054
-+#define CIX_DP_TX_ELEC_IDLE_BITS		0x0058
-+#define CIX_DP_PHY_LANE_PWR_STATE_REQ		0x0060
-+#define CIX_DP_PHY_LANE_PWR_STATE_ACK		0x0064
-+#define CIX_DP_PHY_LANE_PLLCLK_ENABLE		0x0068
-+#define CIX_DP_PHY_LANE_PLLCLK_EN_ACK		0x006c
-+
-+#define CIX_DP_PHY_PLL_CFG			0xc00e
-+#define CIX_DP_PHY_PMA_CMN_CTRL2		0xe001
-+#define CIX_DP_PHY_PMA_PLL_RAW_CTRL		0xe003
-+
-+/* Common (CMN) registers */
-+#define CIX_DP_CMN_SSM_BIAS_TMR			0x0022
-+#define CIX_DP_CMN_PLLSM0_PLLPRE_TMR		0x002a
-+#define CIX_DP_CMN_PLLSM0_PLLLOCK_TMR		0x002c
-+#define CIX_DP_CMN_PLLSM1_PLLPRE_TMR		0x0032
-+#define CIX_DP_CMN_PLLSM1_PLLLOCK_TMR		0x0034
-+#define CIX_DP_CMN_BGCAL_INIT_TMR		0x0064
-+#define CIX_DP_CMN_BGCAL_ITER_TMR		0x0065
-+#define CIX_DP_CMN_IBCAL_INIT_TMR		0x0074
-+#define CIX_DP_CMN_PLL0_VCOCAL_TCTRL		0x0082
-+#define CIX_DP_CMN_PLL0_VCOCAL_INIT_TMR		0x0084
-+#define CIX_DP_CMN_PLL0_VCOCAL_ITER_TMR		0x0085
-+#define CIX_DP_CMN_PLL0_VCOCAL_REFTIM_START	0x0086
-+#define CIX_DP_CMN_PLL0_VCOCAL_PLLCNT_START	0x0088
-+#define CIX_DP_CMN_PLL0_LOCK_REFCNT_START	0x009c
-+#define CIX_DP_CMN_PLL0_LOCK_PLLCNT_START	0x009e
-+#define CIX_DP_CMN_PLL0_LOCK_PLLCNT_THR		0x009f
-+#define CIX_DP_CMN_PLL0_INTDIV_M0		0x0090
-+#define CIX_DP_CMN_PLL0_FRACDIVL_M0		0x0091
-+#define CIX_DP_CMN_PLL0_FRACDIVH_M0		0x0092
-+#define CIX_DP_CMN_PLL0_HIGH_THR_M0		0x0093
-+#define CIX_DP_CMN_PLL0_DSM_DIAG_M0		0x0094
-+#define CIX_DP_CMN_PLL0_SS_CTRL1_M0		0x0098
-+#define CIX_DP_CMN_PLL0_SS_CTRL2_M0		0x0099
-+#define CIX_DP_CMN_PLL0_SS_CTRL3_M0		0x009a
-+#define CIX_DP_CMN_PLL0_SS_CTRL4_M0		0x009b
-+#define CIX_DP_CMN_PLL1_VCOCAL_TCTRL		0x00c2
-+#define CIX_DP_CMN_PLL1_VCOCAL_INIT_TMR		0x00c4
-+#define CIX_DP_CMN_PLL1_VCOCAL_ITER_TMR		0x00c5
-+#define CIX_DP_CMN_PLL1_VCOCAL_REFTIM_START	0x00c6
-+#define CIX_DP_CMN_PLL1_VCOCAL_PLLCNT_START	0x00c8
-+#define CIX_DP_CMN_PLL1_LOCK_REFCNT_START	0x00dc
-+#define CIX_DP_CMN_PLL1_LOCK_PLLCNT_START	0x00de
-+#define CIX_DP_CMN_PLL1_LOCK_PLLCNT_THR		0x00df
-+#define CIX_DP_CMN_PLL1_INTDIV_M0		0x00d0
-+#define CIX_DP_CMN_PLL1_FRACDIVL_M0		0x00d1
-+#define CIX_DP_CMN_PLL1_FRACDIVH_M0		0x00d2
-+#define CIX_DP_CMN_PLL1_HIGH_THR_M0		0x00d3
-+#define CIX_DP_CMN_PLL1_DSM_DIAG_M0		0x00d4
-+#define CIX_DP_CMN_PLL1_SS_CTRL1_M0		0x00d8
-+#define CIX_DP_CMN_PLL1_SS_CTRL2_M0		0x00d9
-+#define CIX_DP_CMN_PLL1_SS_CTRL3_M0		0x00da
-+#define CIX_DP_CMN_PLL1_SS_CTRL4_M0		0x00db
-+#define CIX_DP_CMN_TXPUCAL_INIT_TMR		0x0104
-+#define CIX_DP_CMN_TXPDCAL_INIT_TMR		0x010c
-+#define CIX_DP_CMN_RXCAL_INIT_TMR		0x0114
-+#define CIX_DP_CMN_SD_CAL_PLLCNT_START		0x0128
-+#define CIX_DP_CMN_PDIAG_PLL0_CTRL_M0		0x01a0
-+#define CIX_DP_CMN_PDIAG_PLL0_CLK_SEL_M0	0x01a1
-+#define CIX_DP_CMN_PDIAG_PLL0_CP_PADJ_M0	0x01a4
-+#define CIX_DP_CMN_PDIAG_PLL0_CP_IADJ_M0	0x01a5
-+#define CIX_DP_CMN_PDIAG_PLL0_FILT_PADJ_M0	0x01a6
-+#define CIX_DP_CMN_PDIAG_PLL1_CTRL_M0		0x01c0
-+#define CIX_DP_CMN_PDIAG_PLL1_CP_PADJ_M0	0x01c4
-+#define CIX_DP_CMN_PDIAG_PLL1_CP_IADJ_M0	0x01c5
-+#define CIX_DP_CMN_PDIAG_PLL1_FILT_PADJ_M0	0x01c6
-+
-+/* Lane / TX / RX / XCVR registers */
-+#define CIX_DP_TX_TXCC_CTRL			0x4040
-+#define CIX_DP_TX_TXCC_CPOST_MULT_00		0x404c
-+#define CIX_DP_TX_TXCC_MGNFS_MULT_000		0x4050
-+#define CIX_DP_XCVR_DIAG_PLLDRC_CTRL		0x40e5
-+#define CIX_DP_XCVR_DIAG_HSCLK_DIV		0x40e7
-+#define CIX_DP_XCVR_DIAG_BIDI_CTRL		0x40ea
-+#define CIX_DP_DRV_DIAG_TX_DRV			0x40c6
-+#define CIX_DP_TX_PSC_A0			0x4100
-+#define CIX_DP_TX_PSC_A2			0x4102
-+#define CIX_DP_TX_PSC_A3			0x4103
-+#define CIX_DP_RX_ST_TMR			0x4123
-+#define CIX_DP_TX_DIAG_ACYA			0x41e7
-+#define CIX_DP_RX_PSC_A0			0x8000
-+#define CIX_DP_RX_PSC_A2			0x8002
-+#define CIX_DP_RX_PSC_A3			0x8003
-+#define CIX_DP_RX_PSC_CAL			0x8006
-+#define CIX_DP_RX_SDCAL0_INIT_TMR		0x8044
-+#define CIX_DP_RX_SDCAL0_ITER_TMR		0x8045
-+#define CIX_DP_RX_SDCAL1_INIT_TMR		0x804c
-+#define CIX_DP_RX_SDCAL1_ITER_TMR		0x804d
-+#define CIX_DP_RX_REE_GCSM1_CTRL		0x8108
-+#define CIX_DP_RX_REE_GCSM2_CTRL		0x8110
-+#define CIX_DP_RX_REE_PERGCSM_CTRL		0x8118
-+
-+/* PMA bit defines */
-+#define CIX_DP_PMA_CMN_CTRL2_PLL0_READY_BIT	BIT(0)
-+#define CIX_DP_PMA_CMN_CTRL2_PLL0_DISABLED_BIT	BIT(2)
-+#define CIX_DP_PMA_PLL_RAW_CTRL_PLL0_FORCE_RSTN	BIT(0)
-+
-+#define CIX_DP_LANE_OFFSET(x) \
-+	((x) * 0x0200)
-+#define CIX_DP_XCVR_DIAG_HSCLK_DIV_LANE(x) \
-+	(CIX_DP_XCVR_DIAG_HSCLK_DIV + CIX_DP_LANE_OFFSET(x))
-+#define CIX_DP_TX_DIAG_ACYA_LANE(x) \
-+	(CIX_DP_TX_DIAG_ACYA + CIX_DP_LANE_OFFSET(x))
-+#define CIX_DP_TX_TXCC_CTRL_LANE(x) \
-+	(CIX_DP_TX_TXCC_CTRL + CIX_DP_LANE_OFFSET(x))
-+#define CIX_DP_DRV_DIAG_TX_DRV_LANE(x) \
-+	(CIX_DP_DRV_DIAG_TX_DRV + CIX_DP_LANE_OFFSET(x))
-+#define CIX_DP_TX_TXCC_MGNFS_MULT_000_LANE(x) \
-+	(CIX_DP_TX_TXCC_MGNFS_MULT_000 + CIX_DP_LANE_OFFSET(x))
-+#define CIX_DP_TX_TXCC_CPOST_MULT_00_LANE(x) \
-+	(CIX_DP_TX_TXCC_CPOST_MULT_00 + CIX_DP_LANE_OFFSET(x))
-+
-+enum cix_dp_pwr {
-+	CIX_DP_PWR_A0,
-+	CIX_DP_PWR_A2,
-+	CIX_DP_PWR_A3,
-+};
-+
-+struct cix_dp {
-+	struct phy *phy;
-+	struct reset_control *reset;
-+	void __iomem *base;
-+	bool use_low_volt;
-+	bool powered;
-+	unsigned int num_lanes;
-+};
-+
-+struct cix_dp_link_cfg {
-+	u32 link_rate;
-+	u32 hsclk_div;
-+	u32 clk_sel;
-+	u32 pll_intdiv;
-+	u32 pll_fracdivl;
-+	u32 pll_high_thr;
-+};
-+
-+struct cix_dp_reg {
-+	u32 reg;
-+	u32 val;
-+	bool per_lane;
-+};
-+
-+struct cix_dp_voltage_conf {
-+	u32 tx_txcc_ctrl;
-+	u32 drv_diag_tx_drv;
-+	u32 tx_txcc_mgnfs_mult_000;
-+	u32 tx_txcc_cpost_mult_00;
-+};
-+
-+static const struct cix_dp_voltage_conf cix_dp_volt_cfg[] = {
-+	{ 0x08a4, 0x0003, 0x002a, 0x0000 }, /* swing level == 0 */
-+	{ 0x08a4, 0x0003, 0x001f, 0x0014 },
-+	{ 0x08a4, 0x0003, 0x0013, 0x0020 },
-+	{ 0x08a4, 0x0003, 0x000a, 0x002a },
-+	{ 0x08a4, 0x0003, 0x001f, 0x0000 }, /* swing level == 1 */
-+	{ 0x08a4, 0x0003, 0x0013, 0x0012 },
-+	{ 0x08a4, 0x0003, 0x0000, 0x001f },
-+	{ 0x08a4, 0x0003, 0x0000, 0x001f },
-+	{ 0x08a4, 0x0003, 0x0013, 0x0000 }, /* swing level == 2 */
-+	{ 0x08a4, 0x0003, 0x0000, 0x0013 },
-+	{ 0x08a4, 0x0003, 0x0000, 0x0013 },
-+	{ 0x08a4, 0x0003, 0x0000, 0x0013 },
-+	{ 0x08a4, 0x0003, 0x0000, 0x0000 }, /* swing level == 3 */
-+	{ 0x08a4, 0x0003, 0x0000, 0x0000 },
-+	{ 0x08a4, 0x0003, 0x0000, 0x0000 },
-+	{ 0x08a4, 0x0003, 0x0000, 0x0000 },
-+};
-+
-+static const struct cix_dp_voltage_conf cix_dp_volt_low_cfg[] = {
-+	{ 0x08a4, 0x0003, 0x002f, 0x0000 }, /* swing level == 0 */
-+	{ 0x08a4, 0x0003, 0x002a, 0x000d },
-+	{ 0x08a4, 0x0003, 0x0026, 0x0015 },
-+	{ 0x08a4, 0x0003, 0x0022, 0x001b },
-+	{ 0x08a4, 0x0003, 0x002b, 0x0000 }, /* swing level == 1 */
-+	{ 0x08a4, 0x0003, 0x0027, 0x000b },
-+	{ 0x08a4, 0x0003, 0x0023, 0x0012 },
-+	{ 0x08a4, 0x0003, 0x0000, 0x0000 },
-+	{ 0x08a4, 0x0003, 0x0027, 0x0000 }, /* swing level == 2 */
-+	{ 0x08a4, 0x0003, 0x0023, 0x0009 },
-+	{ 0x08a4, 0x0003, 0x0000, 0x0000 },
-+	{ 0x08a4, 0x0003, 0x0000, 0x0000 },
-+	{ 0x08a4, 0x0003, 0x0023, 0x0000 }, /* swing level == 3 */
-+	{ 0x08a4, 0x0003, 0x0000, 0x0000 },
-+	{ 0x08a4, 0x0003, 0x0000, 0x0000 },
-+	{ 0x08a4, 0x0003, 0x0000, 0x0000 },
-+};
-+
-+/* Default PHY programming, including SSC enabled (SS_CTRL1 = 0x1). */
-+static const struct cix_dp_reg cix_dp_reg_conf[] = {
-+	{ CIX_DP_CMN_SSM_BIAS_TMR, 0x0018 },
-+	{ CIX_DP_CMN_PLLSM0_PLLPRE_TMR, 0x0030 },
-+	{ CIX_DP_CMN_PLLSM0_PLLLOCK_TMR, 0x00f0 },
-+	{ CIX_DP_CMN_PLLSM1_PLLPRE_TMR, 0x0030 },
-+	{ CIX_DP_CMN_PLLSM1_PLLLOCK_TMR, 0x00f0 },
-+	{ CIX_DP_CMN_BGCAL_INIT_TMR, 0x0078 },
-+	{ CIX_DP_CMN_BGCAL_ITER_TMR, 0x0078 },
-+	{ CIX_DP_CMN_IBCAL_INIT_TMR, 0x0018 },
-+	{ CIX_DP_CMN_TXPUCAL_INIT_TMR, 0x001d },
-+	{ CIX_DP_CMN_TXPDCAL_INIT_TMR, 0x001d },
-+	{ CIX_DP_CMN_RXCAL_INIT_TMR, 0x02d0 },
-+	{ CIX_DP_CMN_SD_CAL_PLLCNT_START, 0x0137 },
-+	{ CIX_DP_RX_SDCAL0_INIT_TMR, 0x0018, true },
-+	{ CIX_DP_RX_SDCAL0_ITER_TMR, 0x0078, true },
-+	{ CIX_DP_RX_SDCAL1_INIT_TMR, 0x0018, true },
-+	{ CIX_DP_RX_SDCAL1_ITER_TMR, 0x0078, true },
-+	{ CIX_DP_RX_ST_TMR, 0x0960, true },
-+	{ CIX_DP_PHY_PLL_CFG, 0x0000 },
-+	{ CIX_DP_XCVR_DIAG_HSCLK_DIV, 0x0000, true },
-+	{ CIX_DP_XCVR_DIAG_PLLDRC_CTRL, 0x0011, true },
-+	{ CIX_DP_CMN_PLL0_DSM_DIAG_M0, 0x8004 },
-+	{ CIX_DP_CMN_PLL1_DSM_DIAG_M0, 0x0004 },
-+	{ CIX_DP_CMN_PDIAG_PLL0_CP_PADJ_M0, 0x0b17 },
-+	{ CIX_DP_CMN_PDIAG_PLL1_CP_PADJ_M0, 0x0b17 },
-+	{ CIX_DP_CMN_PDIAG_PLL0_CP_IADJ_M0, 0x0e01 },
-+	{ CIX_DP_CMN_PDIAG_PLL1_CP_IADJ_M0, 0x0e01 },
-+	{ CIX_DP_CMN_PDIAG_PLL0_FILT_PADJ_M0, 0x0d05 },
-+	{ CIX_DP_CMN_PDIAG_PLL1_FILT_PADJ_M0, 0x0d05 },
-+	{ CIX_DP_CMN_PLL0_INTDIV_M0, 0x01c2 },
-+	{ CIX_DP_CMN_PLL1_INTDIV_M0, 0x014d },
-+	{ CIX_DP_CMN_PLL1_FRACDIVL_M0, 0x5555 },
-+	{ CIX_DP_CMN_PLL0_FRACDIVH_M0, 0x0002 },
-+	{ CIX_DP_CMN_PLL1_FRACDIVH_M0, 0x0002 },
-+	{ CIX_DP_CMN_PLL0_HIGH_THR_M0, 0x012c },
-+	{ CIX_DP_CMN_PLL1_HIGH_THR_M0, 0x00e0 },
-+	{ CIX_DP_CMN_PDIAG_PLL0_CTRL_M0, 0x1002 },
-+	{ CIX_DP_CMN_PDIAG_PLL1_CTRL_M0, 0x1002 },
-+	{ CIX_DP_CMN_PLL0_SS_CTRL1_M0, 0x0001 },
-+	{ CIX_DP_CMN_PLL1_SS_CTRL1_M0, 0x0001 },
-+	{ CIX_DP_CMN_PLL0_SS_CTRL2_M0, 0x044f },
-+	{ CIX_DP_CMN_PLL1_SS_CTRL2_M0, 0x03c7 },
-+	{ CIX_DP_CMN_PLL0_SS_CTRL3_M0, 0x007f },
-+	{ CIX_DP_CMN_PLL1_SS_CTRL3_M0, 0x007f },
-+	{ CIX_DP_CMN_PLL0_SS_CTRL4_M0, 0x0003 },
-+	{ CIX_DP_CMN_PLL1_SS_CTRL4_M0, 0x0003 },
-+	{ CIX_DP_CMN_PLL0_VCOCAL_INIT_TMR, 0x00f0 },
-+	{ CIX_DP_CMN_PLL1_VCOCAL_INIT_TMR, 0x00f0 },
-+	{ CIX_DP_CMN_PLL0_VCOCAL_ITER_TMR, 0x0004 },
-+	{ CIX_DP_CMN_PLL1_VCOCAL_ITER_TMR, 0x0004 },
-+	{ CIX_DP_CMN_PLL0_VCOCAL_REFTIM_START, 0x02f8 },
-+	{ CIX_DP_CMN_PLL1_VCOCAL_REFTIM_START, 0x02f8 },
-+	{ CIX_DP_CMN_PLL0_VCOCAL_PLLCNT_START, 0x02f6 },
-+	{ CIX_DP_CMN_PLL1_VCOCAL_PLLCNT_START, 0x02f6 },
-+	{ CIX_DP_CMN_PLL0_VCOCAL_TCTRL, 0x0003 },
-+	{ CIX_DP_CMN_PLL1_VCOCAL_TCTRL, 0x0003 },
-+	{ CIX_DP_CMN_PLL0_LOCK_REFCNT_START, 0x00bf },
-+	{ CIX_DP_CMN_PLL1_LOCK_REFCNT_START, 0x00bf },
-+	{ CIX_DP_CMN_PLL0_LOCK_PLLCNT_START, 0x00bf },
-+	{ CIX_DP_CMN_PLL1_LOCK_PLLCNT_START, 0x00bf },
-+	{ CIX_DP_CMN_PLL0_LOCK_PLLCNT_THR, 0x0005 },
-+	{ CIX_DP_CMN_PLL1_LOCK_PLLCNT_THR, 0x0005 },
-+	{ CIX_DP_TX_PSC_A0, 0x00fb, true },
-+	{ CIX_DP_TX_PSC_A2, 0x04aa, true },
-+	{ CIX_DP_TX_PSC_A3, 0x04aa, true },
-+	{ CIX_DP_RX_PSC_A0, 0x0000, true },
-+	{ CIX_DP_RX_PSC_A2, 0x0000, true },
-+	{ CIX_DP_RX_PSC_A3, 0x0000, true },
-+	{ CIX_DP_RX_PSC_CAL, 0x0000, true },
-+	{ CIX_DP_XCVR_DIAG_BIDI_CTRL, 0x000f, true },
-+	{ CIX_DP_RX_REE_GCSM1_CTRL, 0x0000, true },
-+	{ CIX_DP_RX_REE_GCSM2_CTRL, 0x0000, true },
-+	{ CIX_DP_RX_REE_PERGCSM_CTRL, 0x0000, true },
-+};
-+
-+/*
-+ * Supported DisplayPort link rates in Mb/s. 2160 and 4320 listed by
-+ * phy-dp.h are not implemented on this PHY.
-+ */
-+static const struct cix_dp_link_cfg cix_dp_link_cfg[] = {
-+	{ 1620, 0x0002, 0x0f01, 0x0195, 0x0000, 0x010e },
-+	{ 2430, 0x0001, 0x0701, 0x0195, 0x0000, 0x010e },
-+	{ 2700, 0x0001, 0x0701, 0x01c2, 0x0000, 0x012c },
-+	{ 3240, 0x0002, 0x0b00, 0x0195, 0x0000, 0x010e },
-+	{ 5400, 0x0000, 0x0301, 0x01c2, 0x0000, 0x012c },
-+	{ 8100, 0x0000, 0x0200, 0x0151, 0x8000, 0x00e2 },
-+};
-+
-+/*
-+ * Sky1 routes 1- and 2-lane DP through physical lanes 2/3, not 0/1.
-+ * phy-dp.h describes logical lanes starting from lane 0; map them with
-+ * +2 so enable/reset masks and voltage programming hit the wired pads.
-+ */
-+static u32 cix_dp_phy_lane_bits(unsigned int lanes)
-+{
-+	switch (lanes) {
-+	case 1:
-+		return BIT(2);
-+	case 2:
-+		return BIT(2) | BIT(3);
-+	case 4:
-+		return GENMASK(3, 0);
-+	default:
-+		return 0;
-+	}
-+}
-+
-+static void cix_dp_phy_write(struct cix_dp *dp, u32 offset, u32 value)
-+{
-+	writel(value, dp->base + offset);
-+}
-+
-+static int cix_dp_phy_cdb_ready(struct cix_dp *dp)
-+{
-+	u32 value;
-+
-+	return readl_poll_timeout(dp->base + CIX_DP_CDB_READY, value,
-+				  value & BIT(0), CIX_DP_POLL_SLEEP_US,
-+				  CIX_DP_POLL_TIMEOUT_US);
-+}
-+
-+/*
-+ * After kicking CDB_ENABLE, READY may stay high for a few clocks before the
-+ * IP drops it. Poll tightly for busy so a stale READY=1 is not taken as
-+ * completion. The busy pulse can be shorter than a sleeping poll, so ignore
-+ * a missed busy and still wait for idle.
-+ */
-+static int cix_dp_phy_cdb_complete(struct cix_dp *dp)
-+{
-+	u32 value;
-+
-+	readl_poll_timeout_atomic(dp->base + CIX_DP_CDB_READY, value,
-+				  !(value & BIT(0)), 0, 1);
-+
-+	return cix_dp_phy_cdb_ready(dp);
-+}
-+
-+static int cix_dp_phy_cdb_write(struct cix_dp *dp, u32 offset, u32 data)
-+{
-+	int ret;
-+
-+	ret = cix_dp_phy_cdb_ready(dp);
-+	if (ret)
-+		return ret;
-+
-+	writel(offset, dp->base + CIX_DP_CDB_ADDR);
-+	writel(data, dp->base + CIX_DP_CDB_WDATA);
-+	writel(CIX_DP_CDB_SEL_WRITE, dp->base + CIX_DP_CDB_SEL_WR);
-+	writel(1, dp->base + CIX_DP_CDB_ENABLE);
-+
-+	return cix_dp_phy_cdb_complete(dp);
-+}
-+
-+static int cix_dp_phy_cdb_read(struct cix_dp *dp, u32 offset)
-+{
-+	int ret;
-+
-+	ret = cix_dp_phy_cdb_ready(dp);
-+	if (ret)
-+		return ret;
-+
-+	writel(offset, dp->base + CIX_DP_CDB_ADDR);
-+	writel(CIX_DP_CDB_SEL_READ, dp->base + CIX_DP_CDB_SEL_WR);
-+	writel(1, dp->base + CIX_DP_CDB_ENABLE);
-+
-+	ret = cix_dp_phy_cdb_complete(dp);
-+	if (ret)
-+		return ret;
-+
-+	return readl(dp->base + CIX_DP_CDB_RDATA) & GENMASK(15, 0);
-+}
-+
-+static int cix_dp_phy_apply_reg(struct cix_dp *dp, const struct cix_dp_reg *r)
-+{
-+	unsigned int i;
-+	int ret;
-+
-+	if (!r->per_lane)
-+		return cix_dp_phy_cdb_write(dp, r->reg, r->val);
-+
-+	for (i = 0; i < CIX_DP_NUM_LANES; i++) {
-+		ret = cix_dp_phy_cdb_write(dp, r->reg + CIX_DP_LANE_OFFSET(i),
-+					   r->val);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int cix_dp_common_ready_ack(struct cix_dp *dp)
-+{
-+	u32 value;
-+
-+	return readl_poll_timeout(dp->base + CIX_DP_PHY_CMN_READY, value,
-+				  value & BIT(0), CIX_DP_POLL_SLEEP_US,
-+				  CIX_DP_POLL_TIMEOUT_US);
-+}
-+
-+static int cix_dp_pll_raw_ctrl_ack(struct cix_dp *dp, u32 mask)
-+{
-+	int value;
-+	int ret;
-+
-+	ret = read_poll_timeout(cix_dp_phy_cdb_read, value,
-+				value < 0 || value & mask,
-+				CIX_DP_POLL_SLEEP_US, CIX_DP_POLL_TIMEOUT_US,
-+				false, dp, CIX_DP_PHY_PMA_CMN_CTRL2);
-+	if (ret)
-+		return ret;
-+
-+	return value < 0 ? value : 0;
-+}
-+
-+static int cix_dp_lane_pll_ack(struct cix_dp *dp, bool enabled)
-+{
-+	u32 value;
-+
-+	return readl_poll_timeout(dp->base + CIX_DP_PHY_LANE_PLLCLK_EN_ACK,
-+				  value, !!(value & BIT(0)) == enabled,
-+				  CIX_DP_POLL_SLEEP_US, CIX_DP_POLL_TIMEOUT_US);
-+}
-+
-+static int cix_dp_pwr_state_ack(struct cix_dp *dp, u32 pwr_state)
-+{
-+	u32 value;
-+
-+	return readl_poll_timeout(dp->base + CIX_DP_PHY_LANE_PWR_STATE_ACK,
-+				  value, (value & GENMASK(4, 0)) == pwr_state,
-+				  CIX_DP_POLL_SLEEP_US, CIX_DP_PWR_TIMEOUT_US);
-+}
-+
-+static int cix_dp_phy_pwr_req(struct cix_dp *dp, u32 pwr_state)
-+{
-+	int ret;
-+
-+	cix_dp_phy_write(dp, CIX_DP_PHY_LANE_PWR_STATE_REQ, pwr_state);
-+	ret = cix_dp_pwr_state_ack(dp, pwr_state);
-+	cix_dp_phy_write(dp, CIX_DP_PHY_LANE_PWR_STATE_REQ,
-+			 CIX_DP_PHY_PWR_STATE_IDLE);
-+
-+	return ret;
-+}
-+
-+static int cix_dp_hw_power(struct cix_dp *dp, enum cix_dp_pwr pwr_state)
-+{
-+	switch (pwr_state) {
-+	case CIX_DP_PWR_A0:
-+		return cix_dp_phy_pwr_req(dp,
-+					  CIX_DP_PHY_PWR_STATE_A0_TXRX_ACTIVE);
-+	case CIX_DP_PWR_A2:
-+		return cix_dp_phy_pwr_req(dp,
-+					  CIX_DP_PHY_PWR_STATE_A2_POWERDOWN2);
-+	case CIX_DP_PWR_A3:
-+		return cix_dp_phy_pwr_req(dp,
-+					  CIX_DP_PHY_PWR_STATE_A3_POWERDOWN3);
-+	default:
-+		return -EINVAL;
-+	}
-+}
-+
-+static int cix_dp_pll_disable(struct cix_dp *dp)
-+{
-+	u32 mask = CIX_DP_PMA_CMN_CTRL2_PLL0_DISABLED_BIT;
-+	int ret;
-+
-+	cix_dp_phy_write(dp, CIX_DP_PHY_DATA_ENABLE, 0);
-+	ret = cix_dp_hw_power(dp, CIX_DP_PWR_A3);
-+	if (ret)
-+		return ret;
-+
-+	cix_dp_phy_write(dp, CIX_DP_PHY_LANE_PLLCLK_ENABLE, 0);
-+	ret = cix_dp_lane_pll_ack(dp, false);
-+	if (ret)
-+		return ret;
-+
-+	ret = cix_dp_phy_cdb_write(dp, CIX_DP_PHY_PMA_PLL_RAW_CTRL, 0);
-+	if (ret)
-+		return ret;
-+
-+	return cix_dp_pll_raw_ctrl_ack(dp, mask);
-+}
-+
-+static int cix_dp_pll_enable(struct cix_dp *dp)
-+{
-+	u32 mask = CIX_DP_PMA_CMN_CTRL2_PLL0_READY_BIT;
-+	int ret;
-+
-+	ret = cix_dp_phy_cdb_write(dp, CIX_DP_PHY_PMA_PLL_RAW_CTRL, 1);
-+	if (ret)
-+		return ret;
-+
-+	ret = cix_dp_pll_raw_ctrl_ack(dp, mask);
-+	if (ret)
-+		return ret;
-+
-+	cix_dp_phy_write(dp, CIX_DP_PHY_LANE_PLLCLK_ENABLE, 1);
-+	ret = cix_dp_lane_pll_ack(dp, true);
-+	if (ret)
-+		return ret;
-+
-+	ret = cix_dp_hw_power(dp, CIX_DP_PWR_A2);
-+	if (ret)
-+		return ret;
-+
-+	ret = cix_dp_hw_power(dp, CIX_DP_PWR_A0);
-+	if (ret)
-+		return ret;
-+
-+	cix_dp_phy_write(dp, CIX_DP_PHY_DATA_ENABLE, 1);
-+
-+	return 0;
-+}
-+
-+static int cix_dp_phy_set_ssc(struct cix_dp *dp, bool enable)
-+{
-+	u32 val = enable ? 0x0001 : 0x0000;
-+	int ret;
-+
-+	ret = cix_dp_phy_cdb_write(dp, CIX_DP_CMN_PLL0_SS_CTRL1_M0, val);
-+	if (ret)
-+		return ret;
-+
-+	return cix_dp_phy_cdb_write(dp, CIX_DP_CMN_PLL1_SS_CTRL1_M0, val);
-+}
-+
-+static int cix_dp_phy_set_lanes(struct cix_dp *dp, unsigned int lanes)
-+{
-+	u32 mask;
-+
-+	mask = cix_dp_phy_lane_bits(lanes);
-+	if (!mask)
-+		return -EINVAL;
-+
-+	dp->num_lanes = lanes;
-+	cix_dp_phy_write(dp, CIX_DP_PHY_LANE_RSTN_BITS, mask);
-+	cix_dp_phy_write(dp, CIX_DP_PHY_LANE_EN_BITS, mask);
-+	cix_dp_phy_write(dp, CIX_DP_TX_ELEC_IDLE_BITS,
-+			 (~mask) & GENMASK(CIX_DP_NUM_LANES - 1, 0));
-+
-+	return 0;
-+}
-+
-+static int cix_dp_phy_set_link_rate(struct cix_dp *dp,
-+				    const struct phy_configure_opts_dp *opts)
-+{
-+	const struct cix_dp_link_cfg *cfg = NULL;
-+	unsigned int i;
-+	u32 reg;
-+	int ret;
-+
-+	for (i = 0; i < ARRAY_SIZE(cix_dp_link_cfg); i++) {
-+		if (cix_dp_link_cfg[i].link_rate == opts->link_rate) {
-+			cfg = &cix_dp_link_cfg[i];
-+			break;
-+		}
-+	}
-+
-+	if (!cfg)
-+		return -EINVAL;
-+
-+	if (dp->powered) {
-+		ret = cix_dp_pll_disable(dp);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	for (i = 0; i < CIX_DP_NUM_LANES; i++) {
-+		reg = CIX_DP_XCVR_DIAG_HSCLK_DIV_LANE(i);
-+		ret = cix_dp_phy_cdb_write(dp, reg, cfg->hsclk_div);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	ret = cix_dp_phy_cdb_write(dp, CIX_DP_CMN_PLL0_INTDIV_M0,
-+				   cfg->pll_intdiv);
-+	if (ret)
-+		return ret;
-+
-+	ret = cix_dp_phy_cdb_write(dp, CIX_DP_CMN_PLL0_FRACDIVL_M0,
-+				   cfg->pll_fracdivl);
-+	if (ret)
-+		return ret;
-+
-+	ret = cix_dp_phy_cdb_write(dp, CIX_DP_CMN_PLL0_HIGH_THR_M0,
-+				   cfg->pll_high_thr);
-+	if (ret)
-+		return ret;
-+
-+	ret = cix_dp_phy_cdb_write(dp, CIX_DP_CMN_PDIAG_PLL0_CLK_SEL_M0,
-+				   cfg->clk_sel);
-+	if (ret)
-+		return ret;
-+
-+	ret = cix_dp_phy_set_ssc(dp, opts->ssc);
-+	if (ret)
-+		return ret;
-+
-+	if (dp->powered)
-+		return cix_dp_pll_enable(dp);
-+
-+	return 0;
-+}
-+
-+static int cix_dp_phy_set_lane_voltage(struct cix_dp *dp, u32 lane,
-+				       const struct cix_dp_voltage_conf *cfg)
-+{
-+	int value;
-+	int ret;
-+
-+	value = cix_dp_phy_cdb_read(dp, CIX_DP_TX_DIAG_ACYA_LANE(lane));
-+	if (value < 0)
-+		return value;
-+
-+	ret = cix_dp_phy_cdb_write(dp, CIX_DP_TX_DIAG_ACYA_LANE(lane),
-+				   value | BIT(0));
-+	if (ret)
-+		return ret;
-+
-+	ret = cix_dp_phy_cdb_write(dp, CIX_DP_TX_TXCC_CTRL_LANE(lane),
-+				   cfg->tx_txcc_ctrl);
-+	if (ret)
-+		return ret;
-+
-+	ret = cix_dp_phy_cdb_write(dp, CIX_DP_DRV_DIAG_TX_DRV_LANE(lane),
-+				   cfg->drv_diag_tx_drv);
-+	if (ret)
-+		return ret;
-+
-+	ret = cix_dp_phy_cdb_write(dp,
-+				   CIX_DP_TX_TXCC_MGNFS_MULT_000_LANE(lane),
-+				   cfg->tx_txcc_mgnfs_mult_000);
-+	if (ret)
-+		return ret;
-+
-+	ret = cix_dp_phy_cdb_write(dp,
-+				   CIX_DP_TX_TXCC_CPOST_MULT_00_LANE(lane),
-+				   cfg->tx_txcc_cpost_mult_00);
-+	if (ret)
-+		return ret;
-+
-+	return cix_dp_phy_cdb_write(dp, CIX_DP_TX_DIAG_ACYA_LANE(lane),
-+				    value & ~BIT(0));
-+}
-+
-+static int cix_dp_phy_set_voltages(struct cix_dp *dp,
-+				   const struct phy_configure_opts_dp *opts)
-+{
-+	const struct cix_dp_voltage_conf *table;
-+	const struct cix_dp_voltage_conf *cfg;
-+	unsigned int lane;
-+	unsigned int phy_lane;
-+	unsigned int index;
-+	int ret;
-+
-+	if (opts->lanes != 1 && opts->lanes != 2 && opts->lanes != 4)
-+		return -EINVAL;
-+
-+	table = dp->use_low_volt ? cix_dp_volt_low_cfg : cix_dp_volt_cfg;
-+
-+	for (lane = 0; lane < opts->lanes; lane++) {
-+		if (opts->voltage[lane] > 3 || opts->pre[lane] > 3 ||
-+		    opts->voltage[lane] + opts->pre[lane] > 3)
-+			return -EINVAL;
-+
-+		index = opts->voltage[lane] * 4 + opts->pre[lane];
-+		cfg = &table[index];
-+
-+		/* One- and two-lane modes use the upper physical lanes. */
-+		phy_lane = opts->lanes == 4 ? lane : lane + 2;
-+		ret = cix_dp_phy_set_lane_voltage(dp, phy_lane, cfg);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int cix_dp_toggle_reset(struct cix_dp *dp)
-+{
-+	int ret;
-+
-+	ret = reset_control_assert(dp->reset);
-+	if (ret)
-+		return ret;
-+	usleep_range(10, 20);
-+
-+	ret = reset_control_deassert(dp->reset);
-+	if (ret)
-+		return ret;
-+	usleep_range(10, 20);
-+
-+	return 0;
-+}
-+
-+static int cix_dp_hw_prepare(struct cix_dp *dp)
-+{
-+	struct device *dev = &dp->phy->dev;
-+	u32 id;
-+	int ret;
-+
-+	ret = cix_dp_toggle_reset(dp);
-+	if (ret)
-+		return ret;
-+
-+	id = readl(dp->base + CIX_DP_PHY_ID_REV_REG) >> 16;
-+	if (id != CIX_DP_PHY_ID) {
-+		dev_err(dev, "unsupported PHY id 0x%x\n", id);
-+		return -ENODEV;
-+	}
-+
-+	/* enable PHY's local configuration bus */
-+	cix_dp_phy_write(dp, CIX_DP_CDB_RSTN, 1);
-+
-+	/* reset AUXHPD block */
-+	cix_dp_phy_write(dp, CIX_DP_AUXHPD_ENABLE_BITS, 0);
-+	cix_dp_phy_write(dp, CIX_DP_TX_ELEC_IDLE_BITS, 0xf);
-+
-+	/* reset PHY */
-+	cix_dp_phy_write(dp, CIX_DP_PHY_DATA_ENABLE, 0);
-+	cix_dp_phy_write(dp, CIX_DP_PHY_LANE_RSTN_BITS, 0);
-+	cix_dp_phy_write(dp, CIX_DP_PHY_LANE_EN_BITS, 0);
-+
-+	cix_dp_phy_write(dp, CIX_DP_PHY_CONFIG_RSTN, 0);
-+	udelay(1);
-+
-+	/* enable Cadence AUXHPD block */
-+	cix_dp_phy_write(dp, CIX_DP_AUXHPD_ENABLE_BITS, 1);
-+	udelay(1);
-+	cix_dp_phy_write(dp, CIX_DP_AUXHPD_ENABLE_BITS, 3);
-+	udelay(1);
-+	cix_dp_phy_write(dp, CIX_DP_AUXHPD_ENABLE_BITS, 7);
-+	udelay(5);
-+
-+	/* aux lines enabled for TX and RX */
-+	cix_dp_phy_write(dp, CIX_DP_AUXHPD_ENABLE_BITS, 0xf);
-+
-+	return 0;
-+}
-+
-+static int cix_dp_hw_load_regs(struct cix_dp *dp)
-+{
-+	unsigned int i;
-+	int ret;
-+
-+	for (i = 0; i < ARRAY_SIZE(cix_dp_reg_conf); i++) {
-+		ret = cix_dp_phy_apply_reg(dp, &cix_dp_reg_conf[i]);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return cix_dp_phy_cdb_write(dp, CIX_DP_PHY_PMA_PLL_RAW_CTRL,
-+				    CIX_DP_PMA_PLL_RAW_CTRL_PLL0_FORCE_RSTN);
-+}
-+
-+static int cix_dp_hw_power_on(struct cix_dp *dp)
-+{
-+	int ret;
-+
-+	if (dp->powered)
-+		return 0;
-+
-+	ret = cix_dp_phy_set_lanes(dp, dp->num_lanes);
-+	if (ret)
-+		return ret;
-+
-+	cix_dp_phy_write(dp, CIX_DP_PHY_CONFIG_RSTN, 0x0001);
-+	ret = cix_dp_common_ready_ack(dp);
-+	if (ret)
-+		return ret;
-+
-+	ret = cix_dp_pll_enable(dp);
-+	if (ret)
-+		return ret;
-+
-+	dp->powered = true;
-+
-+	return 0;
-+}
-+
-+static int cix_dp_hw_power_off(struct cix_dp *dp)
-+{
-+	int ret;
-+
-+	if (!dp->powered)
-+		return 0;
-+
-+	ret = cix_dp_pll_disable(dp);
-+	if (ret)
-+		return ret;
-+
-+	dp->powered = false;
-+
-+	return 0;
-+}
-+
-+static int cix_dp_hw_reset(struct cix_dp *dp)
-+{
-+	int ret;
-+
-+	ret = cix_dp_toggle_reset(dp);
-+	if (ret)
-+		return ret;
-+
-+	cix_dp_phy_write(dp, CIX_DP_PHY_DATA_ENABLE, 0);
-+	cix_dp_phy_write(dp, CIX_DP_PHY_LANE_RSTN_BITS, 0);
-+	cix_dp_phy_write(dp, CIX_DP_PHY_LANE_EN_BITS, 0);
-+	cix_dp_phy_write(dp, CIX_DP_PHY_CONFIG_RSTN, 0);
-+	dp->powered = false;
-+
-+	return 0;
-+}
-+
-+static int cix_dp_hw_configure(struct cix_dp *dp,
-+			       union phy_configure_opts *opts)
-+{
-+	struct phy_configure_opts_dp *dp_opts = &opts->dp;
-+	int ret;
-+
-+	if (dp_opts->set_lanes) {
-+		ret = cix_dp_phy_set_lanes(dp, dp_opts->lanes);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	if (dp_opts->set_rate) {
-+		ret = cix_dp_phy_set_link_rate(dp, dp_opts);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	if (dp_opts->set_voltages)
-+		return cix_dp_phy_set_voltages(dp, dp_opts);
-+
-+	return 0;
-+}
-+
-+static int cix_dp_init(struct phy *phy)
-+{
-+	struct cix_dp *dp = phy_get_drvdata(phy);
-+	int ret;
-+
-+	ret = cix_dp_hw_prepare(dp);
-+	if (ret)
-+		return ret;
-+
-+	return cix_dp_hw_load_regs(dp);
-+}
-+
-+static int cix_dp_exit(struct phy *phy)
-+{
-+	struct cix_dp *dp = phy_get_drvdata(phy);
-+
-+	return cix_dp_hw_reset(dp);
-+}
-+
-+static int cix_dp_power_on(struct phy *phy)
-+{
-+	struct cix_dp *dp = phy_get_drvdata(phy);
-+
-+	return cix_dp_hw_power_on(dp);
-+}
-+
-+static int cix_dp_power_off(struct phy *phy)
-+{
-+	struct cix_dp *dp = phy_get_drvdata(phy);
-+
-+	return cix_dp_hw_power_off(dp);
-+}
-+
-+static int cix_dp_reset(struct phy *phy)
-+{
-+	struct cix_dp *dp = phy_get_drvdata(phy);
-+
-+	return cix_dp_hw_reset(dp);
-+}
-+
-+static int cix_dp_configure(struct phy *phy,
-+			    union phy_configure_opts *opts)
-+{
-+	struct cix_dp *dp = phy_get_drvdata(phy);
-+
-+	return cix_dp_hw_configure(dp, opts);
-+}
-+
-+static const struct phy_ops cix_dp_ops = {
-+	.init		= cix_dp_init,
-+	.exit		= cix_dp_exit,
-+	.power_on	= cix_dp_power_on,
-+	.power_off	= cix_dp_power_off,
-+	.configure	= cix_dp_configure,
-+	.reset		= cix_dp_reset,
-+	.owner		= THIS_MODULE,
-+};
-+
-+static int cix_dp_probe(struct platform_device *pdev)
-+{
-+	struct phy_provider *phy_provider;
-+	struct device *dev = &pdev->dev;
-+	struct cix_dp *dp;
-+
-+	dp = devm_kzalloc(dev, sizeof(*dp), GFP_KERNEL);
-+	if (!dp)
-+		return -ENOMEM;
-+
-+	dp->num_lanes = CIX_DP_NUM_LANES;
-+	dp->use_low_volt =
-+		!device_property_read_bool(dev, "cix,external-dp");
-+
-+	dp->base = devm_platform_ioremap_resource(pdev, 0);
-+	if (IS_ERR(dp->base))
-+		return PTR_ERR(dp->base);
-+
-+	dp->reset = devm_reset_control_get_exclusive(dev, NULL);
-+	if (IS_ERR(dp->reset))
-+		return dev_err_probe(dev, PTR_ERR(dp->reset),
-+				     "failed to get reset\n");
-+
-+	dp->phy = devm_phy_create(dev, dev->of_node, &cix_dp_ops);
-+	if (IS_ERR(dp->phy))
-+		return dev_err_probe(dev, PTR_ERR(dp->phy),
-+				     "failed to create PHY\n");
-+
-+	phy_set_drvdata(dp->phy, dp);
-+	phy_set_bus_width(dp->phy, CIX_DP_NUM_LANES);
-+	platform_set_drvdata(pdev, dp);
-+
-+	phy_provider = devm_of_phy_provider_register(dev, of_phy_simple_xlate);
-+	if (IS_ERR(phy_provider))
-+		return dev_err_probe(dev, PTR_ERR(phy_provider),
-+				     "failed to register PHY provider\n");
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id cix_dp_of_match[] = {
-+	{ .compatible = "cix,sky1-dp-phy" },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, cix_dp_of_match);
-+
-+static struct platform_driver cix_dp_driver = {
-+	.probe	= cix_dp_probe,
-+	.driver	= {
-+		.name = "cix-dp-phy",
-+		.of_match_table = cix_dp_of_match,
-+	},
-+};
-+module_platform_driver(cix_dp_driver);
-+
-+MODULE_AUTHOR("Luo Liu <Luo.Liu@cixtech.com>");
-+MODULE_AUTHOR("Eastlake Yang <Eastlake.Yang@cixtech.com>");
-+MODULE_DESCRIPTION("CIX DP PHY driver");
-+MODULE_LICENSE("GPL");
--- 
-2.25.1
+On 10/2/26 17:07, Leo Yan wrote:
+> The Zynq-7000 funnel at 0xf8804000 has input-enable registers.
+> Describe it as a dynamic funnel so the CoreSight driver programs
+> them. Keep the existing apb_pclk reference required by AMBA probing.
+> 
+> The static replicator has no programming registers, so remove its
+> clock references. CoreSight drivers do not request dbg_trc or dbg_apb
+> for the funnel, ETB, TPIU or PTMs. Drop those references while keeping
+> apb_pclk for the programmable AMBA devices.
+> 
+> The Zynq clock controller registers dbg_trc and dbg_apb and calls
+> clk_prepare_enable() for each gate the bootloader left on (see
+> zynq_clk_setup()). This does not depend on the CoreSight nodes' clock
+> references, so removing the unused consumer entries leaves this
+> protection intact.
+> 
+> Assisted-by: Codex:gpt-6
+> Signed-off-by: Leo Yan <leo.yan@arm.com>
+> ---
+>   arch/arm/boot/dts/xilinx/zynq-7000.dtsi | 24 +++++++++++-------------
+>   1 file changed, 11 insertions(+), 13 deletions(-)
+> 
+> diff --git a/arch/arm/boot/dts/xilinx/zynq-7000.dtsi b/arch/arm/boot/dts/xilinx/zynq-7000.dtsi
+> index 153b8d93cbee2c30b399c0770f2022b307fe0808..4280fe6da379064b6ac5bf9e9a5b891830a094b2 100644
+> --- a/arch/arm/boot/dts/xilinx/zynq-7000.dtsi
+> +++ b/arch/arm/boot/dts/xilinx/zynq-7000.dtsi
+> @@ -68,8 +68,6 @@ regulator_vccpint: fixedregulator {
+>   
+>   	replicator {
+>   		compatible = "arm,coresight-static-replicator";
+> -		clocks = <&clkc 27>, <&clkc 46>, <&clkc 47>;
+> -		clock-names = "apb_pclk", "dbg_trc", "dbg_apb";
+>   
+>   		out-ports {
+>   			#address-cells = <1>;
+> @@ -464,8 +462,8 @@ watchdog0: watchdog@f8005000 {
+>   		etb@f8801000 {
+>   			compatible = "arm,coresight-etb10", "arm,primecell";
+>   			reg = <0xf8801000 0x1000>;
+> -			clocks = <&clkc 27>, <&clkc 46>, <&clkc 47>;
+> -			clock-names = "apb_pclk", "dbg_trc", "dbg_apb";
+> +			clocks = <&clkc 27>;
+> +			clock-names = "apb_pclk";
+>   			in-ports {
+>   				port {
+>   					etb_in_port: endpoint {
+> @@ -478,8 +476,8 @@ etb_in_port: endpoint {
+>   		tpiu@f8803000 {
+>   			compatible = "arm,coresight-tpiu", "arm,primecell";
+>   			reg = <0xf8803000 0x1000>;
+> -			clocks = <&clkc 27>, <&clkc 46>, <&clkc 47>;
+> -			clock-names = "apb_pclk", "dbg_trc", "dbg_apb";
+> +			clocks = <&clkc 27>;
+> +			clock-names = "apb_pclk";
+>   			in-ports {
+>   				port {
+>   					tpiu_in_port: endpoint {
+> @@ -490,10 +488,10 @@ tpiu_in_port: endpoint {
+>   		};
+>   
+>   		funnel@f8804000 {
+> -			compatible = "arm,coresight-static-funnel", "arm,primecell";
+> +			compatible = "arm,coresight-dynamic-funnel", "arm,primecell";
+>   			reg = <0xf8804000 0x1000>;
+> -			clocks = <&clkc 27>, <&clkc 46>, <&clkc 47>;
+> -			clock-names = "apb_pclk", "dbg_trc", "dbg_apb";
+> +			clocks = <&clkc 27>;
+> +			clock-names = "apb_pclk";
+>   
+>   			/* funnel output ports */
+>   			out-ports {
+> @@ -536,8 +534,8 @@ funnel0_in_port2: endpoint {
+>   		ptm@f889c000 {
+>   			compatible = "arm,coresight-etm3x", "arm,primecell";
+>   			reg = <0xf889c000 0x1000>;
+> -			clocks = <&clkc 27>, <&clkc 46>, <&clkc 47>;
+> -			clock-names = "apb_pclk", "dbg_trc", "dbg_apb";
+> +			clocks = <&clkc 27>;
+> +			clock-names = "apb_pclk";
+>   			cpu = <&cpu0>;
+>   			out-ports {
+>   				port {
+> @@ -551,8 +549,8 @@ ptm0_out_port: endpoint {
+>   		ptm@f889d000 {
+>   			compatible = "arm,coresight-etm3x", "arm,primecell";
+>   			reg = <0xf889d000 0x1000>;
+> -			clocks = <&clkc 27>, <&clkc 46>, <&clkc 47>;
+> -			clock-names = "apb_pclk", "dbg_trc", "dbg_apb";
+> +			clocks = <&clkc 27>;
+> +			clock-names = "apb_pclk";
+>   			cpu = <&cpu1>;
+>   			out-ports {
+>   				port {
+> 
 
+Look at my reply in 1/5 and NACK for this. Clock 46/47 needs to be handled and 
+described in DT. It means removing them make no sense.
+
+Thanks,
+Michal
