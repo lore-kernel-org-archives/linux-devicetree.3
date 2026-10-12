@@ -1,111 +1,72 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F090B46F4A1
-	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 09:02:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 948C744A416;
+	Mon, 12 Oct 2026 09:08:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791795763; cv=none; b=WDORx+pgWByy4QDpNkCuo26dkFo6XFrapF5URQvyvEPPOLJvi5MU8EtrUbDAQUtBpsYdohDJs0cgHnw10FqfJt3OthVet0ERwhN4iBG45dA+1PAxc4qcrvjGHtaYZcHx+KVJk/5vocrdnYmn8eg4nBP7uYfLSda+WUBwV8123K8=
+	t=1791796082; cv=none; b=lpQk7U1EgY3bC3syP772KZ/XVCYncfPwlp4MDAPt0kUy+k7olzrbYfz2H9cU/xDw+H7tZu10s2SCyMGk9wkw/wafPvNcYQM8NrhjEhWsrzIWk6WOUh9T8vw4HhDIaHh1sDsLAtcjetgf/5IyW/+HVEHS0mKrlCHJYGgbG1NXnJ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791795763; c=relaxed/simple;
-	bh=1kXY/MRthfi+95bS49A+pIkegxzd/yzRUyMa3PHyhn8=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=CZhb/OYQVQXUnSdHPzHVGne1AVEOYHsBxmorjCTO9rmb/6fvFg9h2Itn5uTtdKrZU2JnrR7yibMYKco5dPn5NAUsv/6anY2zjkE8hJq1tYrqaa2FO6SAa0kRjZaHfTBYXmxf3U6FSXNroo12WLYGv36m6SjrM+TUmE1ABXaTyQ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l3AKoAoC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791796082; c=relaxed/simple;
+	bh=goq+JeHIaRhlCLADmOhVfg9jBpIH59a4o5nfeW4t5k0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=VptVpPjd+C0axpT4dyz52d2LKCE4XYNGmlO2ggxraHeQhEuXi9fYntaOTJ3KeDb5JGYKXt6nft/I2ERA3l6rGzL3Qdfy9swGTJCHctwytOpRwRioOzdY6uVj21hYPti4Rc6IfJn1gOYQWjjx/G1E9u8onbBHqgee1cbhmwmTxlU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cFJcVMsW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l3AKoAoC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 579961F0089B;
-	Mon, 12 Oct 2026 09:02:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cFJcVMsW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB5A91F0089B;
+	Mon, 12 Oct 2026 09:07:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791795761;
-	bh=4ygGT1q+20Db1BG+IgE8FMhqgOcpAkXpmhkCaZJrgqw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=l3AKoAoCa8Y9bbgyaIHkNnPHlTaVh72F4tloPgu/1sE2Djbtrz5Of2OXIaiQdJ+WB
-	 VWXbOz6nfBv+j6ERhlidrbMy/1M7qko+3EtW7CcZFQEaSDTQlgdHptzhm16pGTNXMB
-	 M1HoOGQ82xhoEiLvFGDfCLDK8KGbIz0wmvRuPzQv9qNTbVx+tm6LSBQIlLEoC4MnV9
-	 i5C/oHX8CPOlPMhSU2L7UA01JuiUPBk+ouoAOL2MyVwFWWXAt+5Vl6hHS5mL6BTSti
-	 7zJxXIaL0quQ/7KV/x+sU7PIhyGCA/Q2Mswoq4h7nHpoxXPBQVMNulZqWpu0nPwHt+
-	 56ShISZQv6lwg==
-Message-ID: <sashiko-outbox-167879@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 1/3] dt-bindings: display: ti,tpd12s015: Convert to
- DT schema
-Reply-To: sashiko-reviews@lists.linux.dev
-To: Quchaosheng <quchaosheng000406@163.com>
-Cc: dri-devel@lists.freedesktop.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20261012085237.377612-2-quchaosheng000406@163.com>
-References: <20261012085237.377612-1-quchaosheng000406@163.com>
- <20261012085237.377612-2-quchaosheng000406@163.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 12 Oct 2026 09:02:40 +0000
+	s=k20260515; t=1791796081;
+	bh=goq+JeHIaRhlCLADmOhVfg9jBpIH59a4o5nfeW4t5k0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cFJcVMsWKwWrwG2WSeEddAr+C5puvHsl0QWEUiGCwGtadC23C7OeusX33uBRdc/Tp
+	 fzIHdehL/zlfEvtyrVpFSTGkxz5VyM7Txn6jgTXIICH8d0EtxDoLnCfEpYNbbObgdt
+	 UzyRMlWZeVegRPRS6LpEjua4yb9nqFnDJt7tb07eGGK2Y269QqMf7GHzZPm1cpeUw1
+	 q/JYvNIr5kAbeSwmPO9L3VHa9wkuLtCyT2HxejVLvynm15H7dexZhkJgxl0vYaT9Sg
+	 iBMZDlZkAJFA6IFKEpepWY0xRnr5YOfhMsPlzrkMTUolP2bZZtYbaK+Yx4+ui6tjpR
+	 P9XPCbFMMdCGA==
+Date: Mon, 12 Oct 2026 11:07:56 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Igor Velkov <iav@iav.lv>
+Cc: Linus Walleij <linusw@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Heiko Stuebner <heiko@sntech.de>, Rosen Penev <rosenp@gmail.com>, 
+	Gregory Clement <gregory.clement@bootlin.com>, Andrew Lunn <andrew@lunn.ch>, 
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: gpio: pca95xx: add onnn,pca9655 with
+ nxp,pca9555 fallback
+Message-ID: <20261012-cuddly-pastel-stork-1d11e5@quoll>
+References: <20261009-helios64-pca9655-v1-0-673ee4432650@iav.lv>
+ <20261009-helios64-pca9655-v1-1-673ee4432650@iav.lv>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20261009-helios64-pca9655-v1-1-673ee4432650@iav.lv>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] dt-bindings: display: ti,tpd12s015: missing minItems and require=
-d for gpios
---
+On Fri, Oct 09, 2026 at 08:45:36PM +0000, Igor Velkov wrote:
+> The ON Semiconductor PCA9655E is a 16-bit I2C GPIO expander that the
+> pca953x driver handles as a PCA9555: both entries of its OF match
+> table carry OF_953X(16, PCA_INT), and onnn,pca9655 has been there since
+> commit 6d49b3a0f351 ("gpio: pca953x: Add support for the On Semi
+> pca9655"). Document it with nxp,pca9555 as the fallback, the form the
+> comments in armada-388-clearfog.dtsi and armada-388-helios4.dts ask
+> for. The I2C core tries OF matching first, so the fallback form
+> probes; tested on Helios64, the first user.
 
-commit fc9c522935b9c669ac75f93cec8daaa7860a7102
-Author: Chaosheng Qu <quchaosheng000406@163.com>
+Last sentence is redundant. Patches should not explain standard Linux
+mechanics.
 
-dt-bindings: display: ti,tpd12s015: Convert to DT schema
-   =20
-Convert the TPD12S015 HDMI level shifter binding to DT schema.
-The TI TPD12S015 is an HDMI companion chip that combines a level shifter
-and ESD protection circuitry. Document the two ports it exposes between
-the HDMI transmitter and the connector.
 
-> diff --git a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.ya=
-ml b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
-> new file mode 100644
-> index 0000000000000..5955f2e6421c6
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
-[ ... ]
-> +  gpios:
-> +    description:
-> +      The CT CP HPD, LS OE and HPD GPIOs, in that order. The first contr=
-ols
-> +      the level shifter, the second enables the level shifter outputs and
-> +      the third reads the hot-plug detect line.
-> +    maxItems: 3
-> +
-> +  ports:
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-[Severity: Medium]
-Is it possible this schema should enforce a minimum item count and require =
-the
-gpios property?
+Best regards,
+Krzysztof
 
-If a device tree omits gpios or provides fewer than 3 items, the schema
-validation will pass because it only defines maxItems: 3 and omits gpios fr=
-om
-the required list.
-
-However, the driver unequivocally requires the third GPIO item (index 2).
-If absent, the probe fails:
-
-drivers/gpu/drm/bridge/ti-tpd12s015.c:tpd12s015_probe() {
-    ...
-	gpio =3D devm_gpiod_get_index(&pdev->dev, NULL, 2, GPIOD_IN);
-	if (IS_ERR(gpio))
-		return PTR_ERR(gpio);
-    ...
-}
-
-Should the schema enforce minItems: 3 and add gpios to the required list to
-match the driver's mandatory requirement?
-
-Additionally, due to a preexisting bug in the driver, if this probe aborts =
-it
-will leak the tpd->bridge.next_bridge module reference.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261012085237.3776=
-12-2-quchaosheng000406@163.com?part=3D1
