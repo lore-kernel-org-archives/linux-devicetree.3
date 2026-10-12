@@ -1,151 +1,144 @@
-Received: from mail-yx1-f52.google.com (mail-yx1-f52.google.com [74.125.224.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender6-op-o19.zoho.com (sender6-op-o19.zoho.com [165.173.180.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C0E230D407
-	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 14:41:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93FC648FF92;
+	Mon, 12 Oct 2026 14:50:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.19
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791816069; cv=pass; b=DJyuR/nJH4lUx1TVrUe8Rem/8tS3vXks0qwpHMGa2sfcVPrqir7HSIlSn9I53kF8lBndXhZKN3gWH4qzwiqiCs4BNUkEx3P8QH+tVrEqfvCltxFcCs3BkXb8Mg0KYleYY+vGUEVRsxTEFVbLgCjop2uso730LmHNuXxUTruCUq8=
+	t=1791816622; cv=pass; b=bayJZJpjtzq/LGdLpKLw6bQpPHRtcIIhCa8U0uKKXkiDShxLAch7cpW24GMBf+oXo+IpBt6E/zcF518eZt8OaCuL+yKpPe4wIBgINjpxd9S50qZfDGvM3Hkslr8Ze73jGqWfQZpr8m11VsCnE9nudFHiKEw0qJIMuGcUzwnRj8Y=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791816069; c=relaxed/simple;
-	bh=hVt+2VZkW4XSaJKirxsUTpM7f+JQAOjlXtbg/RMP49g=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=uEP4xgr8kLlGI8zF4w8OE4O6QPelkzUKE6tXuABuFOzTgE0oOtPs6qUdUl9YWB/Ykhj3mLUX/SG9YSVAcvrqsxnbYRWIcXPQssHn0kcFqsXXmfs37AG0EbiAb6sUCiaTKOUW0fhtlNPn7UZ1YvU+PcPOvyXedO/wWyXf7JdXMwU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=s5y9rFtV; arc=pass smtp.client-ip=74.125.224.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1791816622; c=relaxed/simple;
+	bh=ARDFzRcSX9tlNYnz3QhLpND0+k4nm4lAwCr2NId5MtI=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=uAZoRseQ19USEKMs97Jlf7k95qheQYOCq6gey2UusXLrAfmd+6coC5aTQelgC/v3gUG9JHxE70MKK+o341ZfzSV2+ZUTF513Vd43Rc+lUv55WaKkL+JPY2QLMZ1sU+Hnr0dKpReyECh3VMFVYzC3NE634RVGyCGfHgCmMwWA48Y=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me; spf=pass smtp.mailfrom=icenowy.me; dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b=T7Vc/dRG; arc=pass smtp.client-ip=165.173.180.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icenowy.me
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="s5y9rFtV"
-Received: by mail-yx1-f52.google.com with SMTP id 956f58d0204a3-6768403e9bbso1480859d50.1
-        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 07:41:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791816067; cv=none;
-        d=google.com; s=arc-20260327;
-        b=cOwuuihf7Lu/Atdm4isX9ag6PBUd7vKJLkbJvBGzVg35XZLmK2/ERJH/CCaGLkzJL7
-         j0RxhynrVYxz6RzSo6sBPElz7tIXeRj2hM6O/t25ZmSGeihmM02Dfhi8H2B7UuwOOcul
-         WTtsKFMA7PjPdmqd45acqeHLTexOVtYF8uCEvfLp5rLgyFQDBtMH95UfSQOvKQPHJ6yD
-         qE0J83t1ocFOmGe5ALQnqUaCWk9drXuMFyGoLcibIcYz6Wq+c5Kn/ziFs2sUHEjak2/+
-         NAP5UaJzmspnP8lq6oqTjW3C/u7+BswNym/5UFfptHXuMZwbZE2wD6fcUJCQau0ObWwO
-         kLgA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=hVt+2VZkW4XSaJKirxsUTpM7f+JQAOjlXtbg/RMP49g=;
-        fh=nmhG3x1MJdFUVpa8iulZJRAB83te6V6vXuUGeU5nlCs=;
-        b=N+VC9Kcq0fq+v7QnccQgGQvA9/wziINrH3LckIUnzMV1IPiuMSi1pjai25GgsJjgcp
-         Iom3NEfhSRoDv+wdeDH2gY3DrTI27AT9xnSg61ob6DvuiTCfjLZydiakvkIruFd3CA3G
-         ZGzEio/0Rni34TDWiwmdYZVNQkHSde7I/ZgqPaOADyVh8EwFDiSq5CYP9LfWk4rLteWD
-         N6QV+cVbq5kVuz2kV7+D2okCOrknjadHW5PVZ6Xmlv1+evd7frCAUq6uPvNc/Xbgr4C8
-         kHK0QEs9SimjX110ixpt5gcpzBGh9+iUH/amDoT39eH9MpyvWEABBT7dUVAn0txmNYvw
-         tdKg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791816067; x=1792420867; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hVt+2VZkW4XSaJKirxsUTpM7f+JQAOjlXtbg/RMP49g=;
-        b=s5y9rFtVdUlUZVe2QFe7PNntJ4VD+CW25EMC4qcnLN3inOHGr44O1ZM3rup8DuohC2
-         ys+6NgGIt+zSsWvhLJbMZmDdciyf2J8OsowHjubJTW2XQafjM2Xo2W75kDBf+I/qTBvk
-         JLui7OW/dRXXM+ZSqj4R5zSmhjnvcwpqdQAU+8A5p55t+hClAv/uUySF2B56xJe/lr8a
-         2JjrRTobJXDkDMYpBXKe3H2rK47bqm/XI97PH0rnIdxeVkxS6VyLdmpoMjat+2UT1W/N
-         oKG0JF+VK4eTgckE+EDcica+UlHKGOZTe4kHsNa8CSGk8bICgMnq8kEvw/AC/nKMI5hA
-         poog==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791816067; x=1792420867;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hVt+2VZkW4XSaJKirxsUTpM7f+JQAOjlXtbg/RMP49g=;
-        b=VpzS9XYosvoU6m+za/DlRIS5V4hMEYvttQpyGdojV85zAnYBmycpERPLfvlZJXJYRT
-         TakIJitZb8Swo4BbfgGYQB4XCMGPJh3ZPk/h6Ae8ea6tINtr1iLXadAPFPA3UMkaUY/P
-         ahaWBaYpyNF7Xp2KS4kTMOP4xEusOQ3ULgiC5AYDO9i6E79bwzNhdJitdUSPWxMEvLWB
-         xJnuSKhef9VgH6F9ajWWenNh0aNm6mi2sF9PyfDfKQ1PxgizTujTTZq5wR3Wk7CIQ3TM
-         o3lxfSCLPp7MtsubOBdKnEY04tmfo6NDR8ElGuoXJC55Bb7mKBAGUtoRCKYRxZFu5Yyf
-         QNZw==
-X-Forwarded-Encrypted: i=1; AKwUvBybqcx4/rULLCv28LtArOPcX+vh3yz/K+jqOZ6hM+pdL5HSaJEWkMmQXggfs9LpmaXHMxmyu6sIPopg@vger.kernel.org
-X-Gm-Message-State: AFq9FYJIrFPFWB2ZjUbXBf1LG+WbN3z/R3DB4OldszaMbbS3YpY0J+1x
-	QlTzpvKsljmnUZvxM1YRTLBx/r9OQWElYLH/aZ5bSteE2wxF/Gp8/0VcUW072tL8kT3W24jd9Bd
-	mZ1RWVFNM+7Xgatx6OnFK1PRADnKn1rkuASoZ/BdJCFQuVJpfI+pBcVk=
-X-Gm-Gg: AYBFou0PN4M6BWSnN40x9jViaHxieAC6WVe1+1j5tw99wqLU8TyJqBoHODLRDvYVfwU
-	J57Ly3ROuLJDogjWJGhByBpVspuCMXDmOcHgZRp89sj7ttHUm6NKaiyaJL1rF2hlGlU7G4JbS8A
-	cmguwnHo82R1vRSQUJghP7s3Dva0RSPTBuWIRdEKU/RXKwAfkgmBulT+xnjVadpP34YtAFhrelA
-	10NOfE9bci6jVwSfpU7eeottv2H5SEDM0SYq4uCi8k/JMZVD8rJ/D72UlgHbUGbhHkv+Kag59oe
-	gQNyTdHYJnWZIBBB10UA/W/6ynxeic/akqkwrtHSizj72HkJUsvd3G2tHOtvniNf
-X-Received: by 2002:a05:690e:1907:b0:66f:b528:cc51 with SMTP id
- 956f58d0204a3-6793698594fmr4322156d50.21.1791816067411; Mon, 12 Oct 2026
- 07:41:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b="T7Vc/dRG"
+ARC-Seal: i=1; a=rsa-sha256; t=1791816584; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=dgXdmKngHhM318qjfVMYC74gMXGc+fVdLti7iaDwNAcMcB3a5zwQJOik7Wp4aFMi4tacvl3UURXkM4e7Oc26MTPZ+Z00w4QDK3KjHrV+wqi7dHrh/s8S/W27DQsrM+TIiWwaGxOcf66YwJl+ToXBCOGPIBvxUzzeez/ktRUtpbc=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1791816584; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=ARDFzRcSX9tlNYnz3QhLpND0+k4nm4lAwCr2NId5MtI=; 
+	b=b9u5Bca9K9oBoLiH5naAS8C3AXYHMV1+15EqYHygDl1zAOhsDmtwBUSG59FApnANcBkioBS7/4QZGZj519i5BBInp+Eh4NcRC0bV0IcIMNzgN8xOMNihrnH2t18yvvuMUJUyAYLaWrc5cNFsFiJ7bfa8+7ANkfSPPyi1uL8qe/U=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=icenowy.me;
+	spf=pass  smtp.mailfrom=uwu@icenowy.me;
+	dmarc=pass header.from=<uwu@icenowy.me>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791816584;
+	s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
+	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
+	bh=ARDFzRcSX9tlNYnz3QhLpND0+k4nm4lAwCr2NId5MtI=;
+	b=T7Vc/dRGYaDXRQGVuvc+Y/eeiZjc1MZXWW4dkOriDDZ02Sw7GyWfNjW35slqbLh/
+	A2JtRd4QzJhJVsPNv/CtTeV+L1EOzG/LoB9KlqZedk5xmEmidSfR+MaHT1lEV3xNliY
+	31rcXmI4FFYUwcYwPrGTEHMMFQQMwFOmx6rrmjcOPS3NnJ55PnfuFXRVIMbUzkFtjYi
+	LSq1TNSKSgtAZpTEk4d2+eFP0QLrwJuMY+SX4C8467MmHI0tkCaZmIug/eqp2uHm4oU
+	karVUVAD+hUcefpumZT43yTtV8myiwOCm7nkvTHPzlI0fp8DijqnI5F5MrFUS56oKj+
+	WiFC5qA8xA==
+Received: by smtp.zohomail.com with SMTPS id 1791816582175167.0189182002764;
+	Mon, 12 Oct 2026 07:49:42 -0700 (PDT)
+Message-ID: <6b6b99fcd1c5f032a0b20d928bf7fa2e59ac5c87.camel@icenowy.me>
+Subject: Re: [PATCH 0/2] Add SPI display support for UNIHIKER M10 V1.2
+From: Icenowy Zheng <uwu@icenowy.me>
+To: Miotsuki Mizuno <founder@crepuse.com>, "heiko@sntech.de"
+ <heiko@sntech.de>,  "neil.armstrong@linaro.org"	 <neil.armstrong@linaro.org>
+Cc: "airlied@gmail.com" <airlied@gmail.com>, "conor+dt@kernel.org"	
+ <conor+dt@kernel.org>, "devicetree@vger.kernel.org"
+ <devicetree@vger.kernel.org>,  "dri-devel@lists.freedesktop.org"	
+ <dri-devel@lists.freedesktop.org>, "jesszhan0024@gmail.com"	
+ <jesszhan0024@gmail.com>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>, 
+ "linux-arm-kernel@lists.infradead.org"	
+ <linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"	
+ <linux-kernel@vger.kernel.org>, "linux-rockchip@lists.infradead.org"	
+ <linux-rockchip@lists.infradead.org>, "maarten.lankhorst@linux.intel.com"	
+ <maarten.lankhorst@linux.intel.com>, "mripard@kernel.org"
+ <mripard@kernel.org>,  "noralf@tronnes.org"	 <noralf@tronnes.org>,
+ "robh@kernel.org" <robh@kernel.org>, "simona@ffwll.ch"	 <simona@ffwll.ch>,
+ "tzimmermann@suse.de" <tzimmermann@suse.de>
+Date: Mon, 12 Oct 2026 22:49:34 +0800
+In-Reply-To: <20261010232857.26950-1-founder@crepuse.com>
+References: <20261010232857.26950-1-founder@crepuse.com>
+Organization: Anthon Open-Source Community
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260727-sm8650-7-1-bonded-dsi-v5-0-c042266b9eeb@linaro.org>
- <20260727-sm8650-7-1-bonded-dsi-v5-6-c042266b9eeb@linaro.org>
- <CAD++jLm2dVVKM075MDoStTudO+2hdECS-XucFiMGnM1H-Xk=TA@mail.gmail.com>
- <CABymUCN1oxuqPi=s1cpBHvMJorHN62uieD8Pf=Y--WBPp-=NHA@mail.gmail.com> <CAD++jLnkr+M9Tn_zAL8+owO7H706XYSMosSz-1D20rwbUukQ3A@mail.gmail.com>
-In-Reply-To: <CAD++jLnkr+M9Tn_zAL8+owO7H706XYSMosSz-1D20rwbUukQ3A@mail.gmail.com>
-From: Jun Nie <jun.nie@linaro.org>
-Date: Mon, 12 Oct 2026 22:40:56 +0800
-X-Gm-Features: AclHuK8DXIfIQSpEn-02OXtKO750H1QIkJhmjnTnvXTflrGk6XkO0SctyamV-mw
-Message-ID: <CABymUCNzxWhud1qtv3os=f2txZ=nrTdMrQ6BOYkbfK87D=AnHQ@mail.gmail.com>
-Subject: Re: [PATCH v5 6/6] drm/panel: Add driver for Synaptics R63455 DSI panel
-To: Linus Walleij <linusw@kernel.org>
-Cc: Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Abhinav Kumar <abhinav.kumar@linux.dev>, 
-	Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, 
-	Marijn Suijten <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, 
-	Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-ZohoMailClient: External
 
-Linus Walleij <linusw@kernel.org> =E4=BA=8E2026=E5=B9=B410=E6=9C=881=E6=97=
-=A5=E5=91=A8=E5=9B=9B 03:49=E5=86=99=E9=81=93=EF=BC=9A
->
-> On Wed, Sep 30, 2026 at 6:31=E2=80=AFPM Jun Nie <jun.nie@linaro.org> wrot=
-e:
-> > > On Mon, Jul 27, 2026 at 10:09=E2=80=AFAM Jun Nie <jun.nie@linaro.org>=
- wrote:
->
-> > > If you have a datasheet for this display controller, then please add =
-some
-> > > one-line comments before each command to explain what is being set
-> > > up.
-> >
-> > I hope I had datasheet, but the answer is no. All I have is an init seq=
-uence
-> > with the information in the above macro definition. Let just live with =
-it @_@
->
-> I would send the message "upward" that you need a proper datasheet
-> for this, from whoever wants this to happen.
->
-> I have seen from the presentation that you will be working on
-> compensation for chromatic aberration for this device, and that is only
-> going to have a point if the color representation on the display can be
-> trusted to begin with. Which means
-> gamma correction. (Which we don't yet support in the panels,
-> but hey, another opportunity to be first!)
->
-> Gamma is invariably going to be one of these
-> "magic commands", at that point of depth you really need the manual
-> to see what is going on.
->
-> Yours,
-> Linus Walleij
+=E5=9C=A8 2026-10-10=E5=85=AD=E7=9A=84 23:28 +0000=EF=BC=8CMiotsuki Mizuno=
+=E5=86=99=E9=81=93=EF=BC=9A
+> Describe the onboard 240x320 RGB565 display with panel-mipi-dbi.
+> The series adds the panel compatible and enables SPI2, GPIO reset/D-C
+> and the PWM1 backlight. It uses the existing DRM and SPI drivers.
+>=20
+> This series is based on the separate board I2C2 preparation commit.
+> The prerequisite board patch was submitted separately:
+> https://lore.kernel.org/r/20261010232831.26908-1-founder@crepuse.com
+> It does not depend on the pending NS2009 driver or binding.
 
-Compensation for chromatic aberration can be done either on the GPU,
-or display controller, or by panel. As long as the R/G/B channel
-can be processed individually, that's enough for the aberration. I will
-work on the solution with processing inside the display controller. So ther=
-e
-is no dependency on this specific panel.
+I just came across here via mailing list.
 
-Jun
+It seems that NS2009 is designed to be mostly compatible with TI
+TSC2007, and the TSC2007 driver should be able to made work with
+minimal effort.
+
+Thanks,
+Icenowy
+
+>=20
+> The 132-byte initialization firmware is available from:
+> https://github.com/mio-tsuki/panel-mipi-dbi-firmware/releases/tag/v1.0.0
+> Required filename: dfrobot,unihiker-m10-display.bin
+> SHA256:
+> 50412ae6d29c5bbfb7fac585528a761fb249d7944011a1b19c5e0f80a0418e5f
+> The test kernel embeds it with CONFIG_EXTRA_FIRMWARE. Public release
+> does not imply linux-firmware acceptance.
+>=20
+> The nominal active area is 43.2 x 57.6 mm, represented as 43 x 58 mm.
+> The published V1.3 schematic is not used as evidence for V1.2 supply
+> connections; optional power/io supply properties are omitted.
+>=20
+> SPI2 input is assigned 100 MHz. Active transfer register readback
+> showed BAUDR=3D2, corresponding to 50 MHz. No oscilloscope measurement
+> is claimed. GPIO_ACTIVE_HIGH reset matches the existing DRM helper
+> and leaves the physical reset pin HIGH after initialization.
+>=20
+> Built against Rockchip v7.4-armsoc/dts64, commit
+> ae965b9856f033145e292b0c29082a26bcc45efd. Target DTS/schema, binding
+> examples and strict checkpatch checks passed.=20
+> The exact display DTS booted through normal U-Boot three times in
+> this
+> retest with the original test kernel, without pstore instrumentation,
+> clk_ignore_unused or regulator_ignore_unused. Physical corner
+> patterns
+> were confirmed; full and partial updates and five DRM disable/enable
+> cycles completed. The exact display/touch combination also booted and
+> its physical output was confirmed.
+>=20
+> Earlier boots reset during early userspace; one partial USB log
+> recorded
+> an instruction abort. This was not reproduced in the latest retest.
+> The resets may have resulted from accidental contact with a loose
+> jumper wire during reboot. The cause has not been established, and no
+> software fix is claimed.
+> Exact-DTS cold boot and deep suspend/resume have not been tested.
+>=20
+> Mizuno Miotsuki (2):
+> =C2=A0 dt-bindings: display: panel-mipi-dbi-spi: Add UNIHIKER M10 display
+> =C2=A0 arm64: dts: rockchip: Enable display on UNIHIKER M10 V1.2
+>=20
+> =C2=A0.../display/panel/panel-mipi-dbi-spi.yaml=C2=A0=C2=A0=C2=A0=C2=A0 |=
+=C2=A0 1 +
+> =C2=A0.../dts/rockchip/rk3308-unihiker-m10-v1.2.dts | 53
+> +++++++++++++++++++
+> =C2=A02 files changed, 54 insertions(+)
+>=20
+>=20
+> base-commit: f4f7ecd2e0e8debcbab4789717cc79d570d665e3
