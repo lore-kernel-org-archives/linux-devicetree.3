@@ -1,113 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com [209.85.218.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28092367B8E
-	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 13:43:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17860376BEA
+	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 13:43:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791812589; cv=none; b=s9xwwChy2yQCemUUf7FMoYckT7NP267F4FVoe8yeb/ux+jlk/yOg5WEWDs/YSXJ9/b2RSj0Iz8FBigr6DQflscma4uPLxvEijOCXeuAF+tmG8YzP4pVKtaFq9JNpB+qD7r2gxx4sj0mt3t82CsXABh3a2ntE7aejZ6PgeSLx9f8=
+	t=1791812630; cv=none; b=StwVGGaBp5bflwOJHCHlF6xOPsjWLk4bYiOjJVFkeGbPJVP4xNpBxX0CYtJpJmLtc96MYNyRCYFfHf+cW+Z5HpUZaMo6e0pRIV75GD3IILy1OBTcw/LfZHk6Ps5klOmIfT6u66rwDNWih80Bci/A5jsKf9f1maPd/5BOWFGeRFI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791812589; c=relaxed/simple;
-	bh=0A/4IuTBKUPfmXHYgVTCwq+ba99vzgmoCHdKwoP8JG8=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=XOWCVmpSL57XHNECkE2RCYmnQH4LXtP2mzXtkarB5bjvq/Lu1u//HOxT5viC7TlVNsBlUT7R2fTlxW5x3elWwVKPUtNrcsgpxVmgWMph3JUT4/2Ee9Tr7erWpyEyWKYn2VZuqBADevAe67ssHNs+evpZsFoB6RnQ1kfV8xQTaos=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XdBhCkqt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791812630; c=relaxed/simple;
+	bh=klYpvtSOAIez44kpWs1v0eOeO3eNpRfwfPOMbeNagbw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=rPO/cyu7IcHWZ+eGjxM5y6YYQjJsRWmEYGWX5WjoByNt9Kgv+GgN85PVtcL7tvWJjZJLzMJ7aKHthEuOcA0Ypo3by4ugMna72gPq+HNQPdTLu+pc/41Uq5GvK2yuvoSOQrDZ1k4QDoDGOE0hSqHXgA9nbHWz0CkinIXzB7inpMk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=svmyrrrU; arc=none smtp.client-ip=209.85.218.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XdBhCkqt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 571BC1F0089B;
-	Mon, 12 Oct 2026 13:43:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791812587;
-	bh=HU8W7WyvQhr6+WPeL0/gx4fQymldhTyReuYTGv/aPN4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=XdBhCkqtSGb0JMR0LcYhaWbbRIwpLceLXs+GpbyJhFZflUgf2/lFwshzZsHeFlgJA
-	 3nQuAKSmOt+F6NJaSTVFnwdML2KTYo4g2f8etbqB3Vpa2FBE1suWJaAXgasuR4qQ1f
-	 c1GWQ24uo+qrWYa++bkmdi31OcgpDnzG8HnwuVAOsVs6Ov3/1RwfE/ktkyNkZsUqxt
-	 9fWirxuQym+a4PZzyUdEGPD1gBDQkJrEBnIM5sUifbdBP4oBzA4gUbx8OqNFldlh5C
-	 4rGLXnZDHxjRm1Pjsafp/bAPbeflk1rh0fROezPZ7pbBoA29iTRaeXo7J/pxnGg/dH
-	 mVcY6PrMm7H6Q==
-Message-ID: <sashiko-outbox-168203@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 12/13] phy: qcom: edp: Add Nord PHY configuration
- data tables
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Nabige Aala" <nabige.aala@oss.qualcomm.com>
-Cc: linux-phy@lists.infradead.org, olteanv@gmail.com, devicetree@vger.kernel.org, vkoul@kernel.org, conor+dt@kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org, neil.armstrong@linaro.org
-In-Reply-To: <20261012-nord-drv-dt-v2-12-a2ab9af954d2@oss.qualcomm.com>
-References: <20261012-nord-drv-dt-v2-0-a2ab9af954d2@oss.qualcomm.com>
- <20261012-nord-drv-dt-v2-12-a2ab9af954d2@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 12 Oct 2026 13:43:06 +0000
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="svmyrrrU"
+Received: by mail-ej1-f42.google.com with SMTP id a640c23a62f3a-c2e36c3478aso244262866b.0
+        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 06:43:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1791812627; x=1792417427; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oGwPh++pWh8JXmtP/Z4yTF2OlJIVwWazwmaj6HsGs3U=;
+        b=svmyrrrUo3IBwVUrHUz5XOIRL6IR4SKFPpuJiXCQocCfRp2ykDDOQxpdLn/6csAZs8
+         3snMICySepg7Usag21gkcq/lEWG8CPCQlQKbk5r/PrfRCCsMSTSsiSGolqAVdL5fw94b
+         eG3p8KkwqSZ8eEVJ6epsxq/tKief/HN6hotKiG7uZxZTnNtzDC6VVK3NCl0VOe5CqwnC
+         ZdQlUDrkS4T2A9sCLQzuQ4qWKGEBMUER16VTe5AzukvKY1579jmyIzZCzbHKWCof+6gF
+         xodnr6RguTZtOfamTlgIjp/Aiy641NmtRcW5rm+TKnXFYGQ74sVJBVFPXfSrCwz3zjIq
+         T6LQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791812627; x=1792417427;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :from:references:cc:to:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oGwPh++pWh8JXmtP/Z4yTF2OlJIVwWazwmaj6HsGs3U=;
+        b=nZ2qlX51kLNQUus7pVKMOtSdWksUUjg8vUppiXXR+OJaoNJeZt+fSCtmwU1GHePPgS
+         c7tfC4pvk4KKKv3xvuhXwcpzyjZtyeH8CdEIsfxlUi+BqSIbKiCfqNL1PIF33Nzpz358
+         bOw1jrNW26DJvk53gzpacDJRGsQ7ZJXjRyGdvJvkQ2PGEbvs8cOBZDpoFGTDhGRYmedf
+         J9FmwcrubJ7gCEvtHoTjQnaTbF204liukt08hFV81KLe/xwBgK/3Le8gymtXmhzOV9vO
+         y3AXGl7s69yar7LaNi8g/IkJvW5i1KwiZJvcFwpnxEaaXtF+EypGkQ77y60Oe9lV3PHk
+         jEWg==
+X-Forwarded-Encrypted: i=1; AKwUvBwObUiMb/K0QzjIrb/mnLGrbMnfKOe6oX5B+P7PnpMfk6M5wv1I5R4+kwfa8OidgElF5CKS3GCDQVp6@vger.kernel.org
+X-Gm-Message-State: AFq9FYLhA1+65iwbTI8drG7YC9yxbD/XSBJRI+2jerbKb3GkY/m75JfD
+	yfvJ5Ezc72IKxL7GJCGZyEoCpMlXz+VIE+oaXlecG0sZRDw1GaT5hpLiYy3qmfoprNI=
+X-Gm-Gg: AYBFou1xGzBP+rOuzK99i+aGdmRzuCB8FrAUS9OHs3S92HKV3dO1dda4tfzjJOP3Fl/
+	lgyqr64nFUhs82lgym5RAjzsFdeXZLtxImuMT80u3znH7MCM+a+peJQJ1B4CeXvySlBhhPRXlYB
+	HoqGNDRk6dxI13w1qA13zXIkaHmTADAfLV1Xzn5pyUS5I7qQx2OJEXc1Xqh5LlxJ1rkvppYjWqq
+	nS/HnStmYrPvVOh55CSEVzgxazyYSML+8hNzP5AsffFVeDRP3FSm9NAk2wIbT+XPmMTxPFrvZqv
+	Oa0asizQE/y+7Kv7KW5gzInBHLMDRExoQYataRV1JeKflv2c7yxXn0zVA3Vsev5/JTwglDVNi4D
+	QgMJEb9U+Q7Ut8enAdNU1ZnQFsprvT26t6ePJy4HA1CfT6+ldr+7cQLOG5kl2ZLDqnmzDLi7bXS
+	Rf4yWbRu8YVY24e/LpVdnhtUJK6ITysSlYLL2u677oD3+rJC6QVPVdVQZF/0p0YTpabdT4Mz5x4
+	dOnVH+lsCZK0f6PjrDMLdk=
+X-Received: by 2002:a17:907:8687:b0:c16:4e5:944a with SMTP id a640c23a62f3a-c31aa02a1ebmr897992966b.21.1791812627292;
+        Mon, 12 Oct 2026 06:43:47 -0700 (PDT)
+Received: from [192.168.0.167] ([109.77.202.22])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c3456933dd1sm168189366b.50.2026.10.12.06.43.45
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 12 Oct 2026 06:43:45 -0700 (PDT)
+Message-ID: <4ba1f9b2-c300-4942-b686-4bd690c57418@linaro.org>
+Date: Mon, 12 Oct 2026 14:43:44 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] dt-bindings: media: qcom,sm8550-camss: Add the CSI
+ TPG regions
+To: William Bright <william.bright@imd-tec.com>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Depeng Shao <quic_depengs@quicinc.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261012-sm8550-camss-tpg-v1-0-620ab6f151dd@imd-tec.com>
+ <20261012-sm8550-camss-tpg-v1-1-620ab6f151dd@imd-tec.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-GB
+In-Reply-To: <20261012-sm8550-camss-tpg-v1-1-620ab6f151dd@imd-tec.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] build: unused static symbols break compilation under Werror
---
-
-commit bc3d5c7d159a12dc8bac2f06bcc9089584cfa877
-Author: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
-
-phy: qcom: edp: Add Nord PHY configuration data tables
-
-This commit adds Nord-specific AUX channel, VCO divider, LDO and TX
-resistor calibration data. These tables are sourced from HPG Tables
-2-1-a, 2-1-b and 2-1-d.
-
-> diff --git a/drivers/phy/qualcomm/phy-qcom-edp.c b/drivers/phy/qualcomm/p=
-hy-qcom-edp.c
-> index 3e857d1056680..cb5f6e0ae607b 100644
-> --- a/drivers/phy/qualcomm/phy-qcom-edp.c
-> +++ b/drivers/phy/qualcomm/phy-qcom-edp.c
-> @@ -1741,6 +1741,39 @@ static int qcom_edp_com_configure_pll_nord(const s=
-truct qcom_edp *edp)
->  	return 0;
->  }
-> =20
-> +static const u8 edp_phy_aux_cfg_nord[DP_AUX_CFG_SIZE] =3D {
-> +	0x00, 0x13, 0xa4, 0x00, 0x0a, 0x26, 0x0a, 0x03, 0x37, 0x03, 0x02, 0x02,=
- 0x04,
-> +};
-> +
-> +static const u8 edp_phy_vco_div_cfg_nord[4] =3D {
-> +	0x00, 0x00, 0x02, 0x01,
-> +};
-
-[Severity: Low]
-Does this code introduce unused static variables?
-
-These arrays, as well as tx_res_cfg_nord below, are defined as static but a=
-re
-not referenced anywhere in this commit. Defining unreferenced static arrays
-triggers a -Wunused-const-variable compiler warning.
-
-If the kernel is built with CONFIG_WERROR=3Dy, this warning is promoted to =
-an
-error and breaks the build. While a later patch in this series (commit
-1393c79f29bd788a83ce23c45373ba39e69132d0) references these tables,
-intermediate patches must compile cleanly to maintain git bisectability.
-
-> +
-> +static int qcom_edp_ldo_config_nord(const struct qcom_edp *edp)
-> +{
-> +	const struct phy_configure_opts_dp *dp_opts =3D &edp->dp_opts;
-> +
-> +	writel(0xd0, edp->tx0 + TXn_LDO_CONFIG);
-
-[Severity: Low]
-Does this code introduce an unused static function?
-
-Similar to the static arrays above, qcom_edp_ldo_config_nord is defined as
-static but never called in this commit. This triggers a -Wunused-function
-warning, which will also break the build under CONFIG_WERROR=3Dy.
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261012-nord-drv-d=
-t-v2-0-a2ab9af954d2@oss.qualcomm.com?part=3D12
+On 12/10/2026 14:03, William Bright wrote:
+> SM8550 has three CSI test pattern generators next to the CSIPHYs.
+> Allow their register regions as optional trailing entries.
+> 
+> Assisted-by: Claude:claude-opus-5-5
+> Signed-off-by: William Bright <william.bright@imd-tec.com>
+> ---
+>   Documentation/devicetree/bindings/media/qcom,sm8550-camss.yaml | 7 ++++++-
+>   1 file changed, 6 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/media/qcom,sm8550-camss.yaml b/Documentation/devicetree/bindings/media/qcom,sm8550-camss.yaml
+> index 4b9ab1352e91..05101dc97711 100644
+> --- a/Documentation/devicetree/bindings/media/qcom,sm8550-camss.yaml
+> +++ b/Documentation/devicetree/bindings/media/qcom,sm8550-camss.yaml
+> @@ -17,7 +17,8 @@ properties:
+>       const: qcom,sm8550-camss
+>   
+>     reg:
+> -    maxItems: 19
+> +    minItems: 19
+> +    maxItems: 22
+>   
+>     reg-names:
+>       items:
+> @@ -40,6 +41,10 @@ properties:
+>         - const: vfe2
+>         - const: vfe_lite0
+>         - const: vfe_lite1
+> +      - const: csitpg0
+> +      - const: csitpg1
+> +      - const: csitpg2
+> +    minItems: 19
+>   
+>     clocks:
+>       maxItems: 36
+> 
+Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
