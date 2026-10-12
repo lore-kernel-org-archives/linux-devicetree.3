@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86B7A279DAD;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86CA53019D9;
 	Mon, 12 Oct 2026 02:18:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791771488; cv=none; b=giT4cqpiPoC7q1BoUybbPs4o0US/KEuTz0aVFImn4o7W6mRSG4Cx2eOFwoFUNN0cZw2Ud5LFUYrFnYh+XhRfqe7rSlse3RAq/ee2Qc4Xu8ZSIcvlLFjsNja2RL7joooET0mIPpU7klmJZnH4OOyRDYYdSIS4CjP60Ake/QG/ZNU=
+	t=1791771488; cv=none; b=kiLa7N3P08fRAf7DTjJYZuQDVENL1f0JnMWvfeLIzrh6DrCI3TuerloIWY1zcbuzabUvnnbv2CYv+o/fKORgbchpGWimAR922mpkxix0d43Xg706IL+Wr5T1Ol4eI92GQrRijuYR2BwhwqSmhEPLV05burVZeIaPiHzW+sqjkTU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791771488; c=relaxed/simple;
-	bh=g0VdQP7HRsR4RU6yEKHihUboTFdIoVo2rb6TslB9as0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=u5QkbdK1jF6E+RfqodQZdLF8iwkJaDrGBeZz+i9X61UEVAm0FR1T71sqaJFUUImAM8Ma/JaikrorB0baC4UQxzoPvHgd7JR/kv5pGL5lnZ+EqHmd0fm9bbwOHsRe6EqH+TcQI1x8FhAaFbPEJhX+Q82PvNDZuoiEM6HnwsJbKXQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jRd3sJ3v; arc=none smtp.client-ip=10.30.226.201
+	bh=7MGFQOvs/uHXmXb1V4YxkRGBMRJ2mPeougEEkwVrI9E=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=rN9HsFFU9eWUNOUeyWf+NruC1l+ASkk40hizTbhielnaGypQHyDUkBfHRytfwKYnQRSXTlJCYBw1BUIKXlz2Aqio04btXmZelZ0Q4HoQHL7OMh3kR8nHS0U8EeqIXx+paRpa7akO8vdYvSA4PSxrCvpyN93wP6o5adb5/Rd0WUI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Id/eo9jB; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jRd3sJ3v"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 2376AC2BCFB;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Id/eo9jB"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 13657C2BCF5;
 	Mon, 12 Oct 2026 02:18:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1791771488;
-	bh=g0VdQP7HRsR4RU6yEKHihUboTFdIoVo2rb6TslB9as0=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=jRd3sJ3vZQbuugLmCfWntxVFSa4BL+QC9vu/HJhTK7tk8sKVwIhZ+rTHe1mMXyffW
-	 JuQihdS2Iecvwn9tdxlCL2AJVateJNEIcfZhyXN6kakddHQGM2oA5rdPuW7xJOyk9/
-	 YBdwxiUMkLk+2rBk8CfDm03FoJnGtXofLRx4VIK4nSSG/kS7xATQR5YCvx1ANwwQAG
-	 4fgH/CRWP98g0kNn1Yqs8yD1c4TTHcQR/qfpnX5PhaYEzs2tDko5SNmEoDSUcYcruD
-	 F/HejwQUuzx3oA7S59fd1QWxlxr2kQvJ9hDMQ6ifnBLucB/vlVePyba68gDcax3gpr
-	 0Q579zMjZzjqQ==
+	bh=7MGFQOvs/uHXmXb1V4YxkRGBMRJ2mPeougEEkwVrI9E=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=Id/eo9jB7G6rclOGgx8vSfJskV7V0EORpZI6qvirpbwRhDUhF6H6XSws9tpEqhA9B
+	 QNHVvowSFCfh0G3eTLm9ve15cAvOw+mb+ehn1ybupPkaWc3rBuCY4akOcM9IVypVPx
+	 NzJBP2jdOu4dpcRkbZK92/ruz7IVgAMJeYpnZnzjkC2yRIKaJjnwRm3WKqF7XOD0Ht
+	 ++ip/7T2yODZslKMM9yMuiUnLs8I/j+ei6CY6U2jz2RP0rOG23aunaeSmsUhyQjrFP
+	 UjtkpGETlAjuGOtsCY65W1l2gyRRbeZfV0HyaNd4MOSDmb+mlXM9hjTv/tFlio5w9l
+	 Du1QcDeS/NXyQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 02D20CA9EBD;
-	Mon, 12 Oct 2026 02:18:08 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E3789CA9ED5;
+	Mon, 12 Oct 2026 02:18:07 +0000 (UTC)
 From: Fabricio Akio via B4 Relay <devnull+fabricioakio.gmail.com@kernel.org>
-Date: Sun, 11 Oct 2026 23:18:07 -0300
-Subject: [PATCH 1/2] arm64: dts: qcom: sdm630: Drop the cluster idle states
+Subject: [PATCH 0/2] arm64: dts: qcom: sdm630: Fix the CPU idle states
+Date: Sun, 11 Oct 2026 23:18:06 -0300
+Message-Id: <20261011-sdm630-idle-states-v1-0-3181d488dc0f@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,9 +40,10 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261011-sdm630-idle-states-v1-1-3181d488dc0f@gmail.com>
-References: <20261011-sdm630-idle-states-v1-0-3181d488dc0f@gmail.com>
-In-Reply-To: <20261011-sdm630-idle-states-v1-0-3181d488dc0f@gmail.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMywrCMBCF4VcpszaQG0H6KuIiTSY6YtOSSUUIe
+ XejLr8D52/AWAgZ5qlBwRcxbXlAnSYId59vKCgOg5baKamU4Lg6I8f6RMHVV2Rxtsn4YJxddIB
+ x3Asmev+il+vffCwPDPVbgt4/p6mbAnYAAAA=
+X-Change-ID: 20261011-sdm630-idle-states-84f3ac364b2c
 To: Bjorn Andersson <andersson@kernel.org>, 
  Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -54,11 +55,11 @@ Cc: Abel Vesa <abelvesa@kernel.org>,
  devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Fabricio Akio <fabricioakio@gmail.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791771486; l=6930;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791771486; l=1578;
  i=fabricioakio@gmail.com; s=20260928; h=from:subject:message-id;
- bh=23wncA73vW8glTOQmjH0aK0yqRBNCdDuOK1PAtCF2Rk=;
- b=8ezxlID7sWRSwVFzsKCD/cZgl+WwuBlr58tiE5bbRuBoKrIUqqoidIeoHbAyBYFBCXt2b7ToW
- MY0thRkuZWnCxEkTnQy3HU9PepsYQq21i+N+tehu8bUjBkLHvGDyR0Z
+ bh=7MGFQOvs/uHXmXb1V4YxkRGBMRJ2mPeougEEkwVrI9E=;
+ b=K54XIqDzise9CWqfWlth2suD/uFf9KjU3X0TOiVVZkVXubVu+GxcxuDA+tqX/J2uozOrKJXeQ
+ 9pEKNsZoEiJB1zry3Q3gd0W+mqWh98Kc39rdPQgOYsruGY/IaCtrp8D
 X-Developer-Key: i=fabricioakio@gmail.com; a=ed25519;
  pk=TlMUT8bPI/ZQzp2q24BIQTb2qSx/jdUTBlGEXIRCm54=
 X-Endpoint-Received: by B4 Relay for fabricioakio@gmail.com/20260928 with
@@ -66,207 +67,39 @@ X-Endpoint-Received: by B4 Relay for fabricioakio@gmail.com/20260928 with
 X-Original-From: Fabricio Akio <fabricioakio@gmail.com>
 Reply-To: fabricioakio@gmail.com
 
-From: Fabricio Akio <fabricioakio@gmail.com>
+Of the five idle states sdm630.dtsi gives each CPU, four are never
+entered. The three cluster states use PSCI parameters that are not in
+the encoding the vendor kernel uses, and cpuidle records no successful
+entry into them. Because they are the deepest states, an idle CPU
+keeps choosing one, each attempt returns at once, and the CPU spends
+its idle time retrying instead of sleeping. CPU retention sets the bit
+that marks a state as losing context. The first patch drops the cluster
+states, the second fixes the retention parameter.
 
-The cluster idle states use PSCI parameters 0x400000f2-0x400000f4. The
-vendor kernel encodes a cluster state differently: it puts the cluster
-mode in StateID bits 7:4 and sets an affinity-level field, bits 25:24,
-to 1, so cluster power collapse is 0x41000043, and only the last
-running CPU of a cluster requests one. A flat cpu-idle-states list
-cannot express that condition.
+Tested on a Motorola Moto X4 (SDM630), whose board file is not in
+mainline yet, on sdm660-mainline's 7.2 kernel, whose idle states are
+these: with the screen off and the charger input suspended, the
+battery current drops from 277 mA to 117 mA.
 
-cpuidle records no successful entry into any of these states, and every
-request for one fails. Because they are the deepest, an idle CPU keeps
-choosing one, each attempt returns at once, and the CPU spends its idle
-time retrying instead of sleeping. On a Motorola Moto X4 (SDM630) with
-the screen off, the CPUs made about 133,000 failed idle entries per
-second and spent about 10% of the time in an idle state, and the
-battery supplied 277 mA. Without these states they spend nearly all of
-it in one, and the battery supplies 115 mA.
+This firmware denies platform-coordinated mode at boot ("psci:
+[Firmware Bug]: failed to set PC mode: -3"), and the vendor kernel
+requests a cluster state only from the last CPU of a cluster.
+Restoring cluster idle that way, with the CPUs described as PSCI
+power domains, is left for a later series.
 
-Fixes: b190fb010664 ("arm64: dts: qcom: sdm630: Add sdm630 dts file")
-Signed-off-by: Fabricio Akio <fabricioakio@gmail.com>
 ---
- arch/arm64/boot/dts/qcom/sdm630.dtsi | 108 +++--------------------------------
- 1 file changed, 8 insertions(+), 100 deletions(-)
+Fabricio Akio (2):
+      arm64: dts: qcom: sdm630: Drop the cluster idle states
+      arm64: dts: qcom: sdm630: Fix the CPU retention idle state parameter
 
-diff --git a/arch/arm64/boot/dts/qcom/sdm630.dtsi b/arch/arm64/boot/dts/qcom/sdm630.dtsi
-index 3a1014804fb0..222ec5886818 100644
---- a/arch/arm64/boot/dts/qcom/sdm630.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sdm630.dtsi
-@@ -55,11 +55,7 @@ cpu0: cpu@100 {
- 			compatible = "arm,cortex-a53";
- 			reg = <0x0 0x100>;
- 			enable-method = "psci";
--			cpu-idle-states = <&perf_cpu_sleep_0
--						&perf_cpu_sleep_1
--						&perf_cluster_sleep_0
--						&perf_cluster_sleep_1
--						&perf_cluster_sleep_2>;
-+			cpu-idle-states = <&perf_cpu_sleep_0 &perf_cpu_sleep_1>;
- 			capacity-dmips-mhz = <1126>;
- 			#cooling-cells = <2>;
- 			next-level-cache = <&l2_1>;
-@@ -75,11 +71,7 @@ cpu1: cpu@101 {
- 			compatible = "arm,cortex-a53";
- 			reg = <0x0 0x101>;
- 			enable-method = "psci";
--			cpu-idle-states = <&perf_cpu_sleep_0
--						&perf_cpu_sleep_1
--						&perf_cluster_sleep_0
--						&perf_cluster_sleep_1
--						&perf_cluster_sleep_2>;
-+			cpu-idle-states = <&perf_cpu_sleep_0 &perf_cpu_sleep_1>;
- 			capacity-dmips-mhz = <1126>;
- 			#cooling-cells = <2>;
- 			next-level-cache = <&l2_1>;
-@@ -90,11 +82,7 @@ cpu2: cpu@102 {
- 			compatible = "arm,cortex-a53";
- 			reg = <0x0 0x102>;
- 			enable-method = "psci";
--			cpu-idle-states = <&perf_cpu_sleep_0
--						&perf_cpu_sleep_1
--						&perf_cluster_sleep_0
--						&perf_cluster_sleep_1
--						&perf_cluster_sleep_2>;
-+			cpu-idle-states = <&perf_cpu_sleep_0 &perf_cpu_sleep_1>;
- 			capacity-dmips-mhz = <1126>;
- 			#cooling-cells = <2>;
- 			next-level-cache = <&l2_1>;
-@@ -105,11 +93,7 @@ cpu3: cpu@103 {
- 			compatible = "arm,cortex-a53";
- 			reg = <0x0 0x103>;
- 			enable-method = "psci";
--			cpu-idle-states = <&perf_cpu_sleep_0
--						&perf_cpu_sleep_1
--						&perf_cluster_sleep_0
--						&perf_cluster_sleep_1
--						&perf_cluster_sleep_2>;
-+			cpu-idle-states = <&perf_cpu_sleep_0 &perf_cpu_sleep_1>;
- 			capacity-dmips-mhz = <1126>;
- 			#cooling-cells = <2>;
- 			next-level-cache = <&l2_1>;
-@@ -120,11 +104,7 @@ cpu4: cpu@0 {
- 			compatible = "arm,cortex-a53";
- 			reg = <0x0 0x0>;
- 			enable-method = "psci";
--			cpu-idle-states = <&pwr_cpu_sleep_0
--						&pwr_cpu_sleep_1
--						&pwr_cluster_sleep_0
--						&pwr_cluster_sleep_1
--						&pwr_cluster_sleep_2>;
-+			cpu-idle-states = <&pwr_cpu_sleep_0 &pwr_cpu_sleep_1>;
- 			capacity-dmips-mhz = <1024>;
- 			#cooling-cells = <2>;
- 			next-level-cache = <&l2_0>;
-@@ -140,11 +120,7 @@ cpu5: cpu@1 {
- 			compatible = "arm,cortex-a53";
- 			reg = <0x0 0x1>;
- 			enable-method = "psci";
--			cpu-idle-states = <&pwr_cpu_sleep_0
--						&pwr_cpu_sleep_1
--						&pwr_cluster_sleep_0
--						&pwr_cluster_sleep_1
--						&pwr_cluster_sleep_2>;
-+			cpu-idle-states = <&pwr_cpu_sleep_0 &pwr_cpu_sleep_1>;
- 			capacity-dmips-mhz = <1024>;
- 			#cooling-cells = <2>;
- 			next-level-cache = <&l2_0>;
-@@ -155,11 +131,7 @@ cpu6: cpu@2 {
- 			compatible = "arm,cortex-a53";
- 			reg = <0x0 0x2>;
- 			enable-method = "psci";
--			cpu-idle-states = <&pwr_cpu_sleep_0
--						&pwr_cpu_sleep_1
--						&pwr_cluster_sleep_0
--						&pwr_cluster_sleep_1
--						&pwr_cluster_sleep_2>;
-+			cpu-idle-states = <&pwr_cpu_sleep_0 &pwr_cpu_sleep_1>;
- 			capacity-dmips-mhz = <1024>;
- 			#cooling-cells = <2>;
- 			next-level-cache = <&l2_0>;
-@@ -170,11 +142,7 @@ cpu7: cpu@3 {
- 			compatible = "arm,cortex-a53";
- 			reg = <0x0 0x3>;
- 			enable-method = "psci";
--			cpu-idle-states = <&pwr_cpu_sleep_0
--						&pwr_cpu_sleep_1
--						&pwr_cluster_sleep_0
--						&pwr_cluster_sleep_1
--						&pwr_cluster_sleep_2>;
-+			cpu-idle-states = <&pwr_cpu_sleep_0 &pwr_cpu_sleep_1>;
- 			capacity-dmips-mhz = <1024>;
- 			#cooling-cells = <2>;
- 			next-level-cache = <&l2_0>;
-@@ -258,66 +226,6 @@ perf_cpu_sleep_1: cpu-sleep-1-1 {
- 				min-residency-us = <1000>;
- 				local-timer-stop;
- 			};
--
--			pwr_cluster_sleep_0: cluster-sleep-0-0 {
--				compatible = "arm,idle-state";
--				idle-state-name = "pwr-cluster-dynamic-retention";
--				arm,psci-suspend-param = <0x400000f2>;
--				entry-latency-us = <284>;
--				exit-latency-us = <384>;
--				min-residency-us = <9987>;
--				local-timer-stop;
--			};
--
--			pwr_cluster_sleep_1: cluster-sleep-0-1 {
--				compatible = "arm,idle-state";
--				idle-state-name = "pwr-cluster-retention";
--				arm,psci-suspend-param = <0x400000f3>;
--				entry-latency-us = <338>;
--				exit-latency-us = <423>;
--				min-residency-us = <9987>;
--				local-timer-stop;
--			};
--
--			pwr_cluster_sleep_2: cluster-sleep-0-2 {
--				compatible = "arm,idle-state";
--				idle-state-name = "pwr-cluster-retention";
--				arm,psci-suspend-param = <0x400000f4>;
--				entry-latency-us = <515>;
--				exit-latency-us = <1821>;
--				min-residency-us = <9987>;
--				local-timer-stop;
--			};
--
--			perf_cluster_sleep_0: cluster-sleep-1-0 {
--				compatible = "arm,idle-state";
--				idle-state-name = "perf-cluster-dynamic-retention";
--				arm,psci-suspend-param = <0x400000f2>;
--				entry-latency-us = <272>;
--				exit-latency-us = <329>;
--				min-residency-us = <9987>;
--				local-timer-stop;
--			};
--
--			perf_cluster_sleep_1: cluster-sleep-1-1 {
--				compatible = "arm,idle-state";
--				idle-state-name = "perf-cluster-retention";
--				arm,psci-suspend-param = <0x400000f3>;
--				entry-latency-us = <332>;
--				exit-latency-us = <368>;
--				min-residency-us = <9987>;
--				local-timer-stop;
--			};
--
--			perf_cluster_sleep_2: cluster-sleep-1-2 {
--				compatible = "arm,idle-state";
--				idle-state-name = "perf-cluster-retention";
--				arm,psci-suspend-param = <0x400000f4>;
--				entry-latency-us = <545>;
--				exit-latency-us = <1609>;
--				min-residency-us = <9987>;
--				local-timer-stop;
--			};
- 		};
- 	};
- 
+ arch/arm64/boot/dts/qcom/sdm630.dtsi | 112 ++++-------------------------------
+ 1 file changed, 10 insertions(+), 102 deletions(-)
+---
+base-commit: becb95e45ef0dda9ffb35156d909d3da7a2789c3
+change-id: 20261011-sdm630-idle-states-84f3ac364b2c
 
--- 
-2.56.0
+Best regards,
+--  
+Fabricio Akio <fabricioakio@gmail.com>
 
 
