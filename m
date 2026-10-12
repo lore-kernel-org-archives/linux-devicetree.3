@@ -1,67 +1,87 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BB8E44A3FF
-	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 09:26:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A79C47207B
+	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 09:30:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791797164; cv=none; b=eOReZe5UeFE5aZiEQjYvXgPedaw0JcK8U2+q5Czh242FzHO0plMaQ9+xMO5hCmr/OQd8Z//LcQCyn/4uAk5De50EnQ4TDREnncunatD5l/YGUiL+yxJ66FGzsCTXipx75tee7eM+J6iGHqJke4IRSLdX7r0XTCsdn97KR2ataHk=
+	t=1791797415; cv=none; b=A1ZWDzWu1R8DZvv6WonYjrjR6LBftlYblDX681UzO7KLNrlxtelO0MfHOLWq9IxahVj8toSAws2vQ8hY5p9YbRtXkKdmVH4GMheDbZwc6HZOnWqzfPerUqpcSd+bhMt/T1kj9Taa9nVNOo4ftYcSqLUFfkZUyjkOMjirVZK8gKE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791797164; c=relaxed/simple;
-	bh=wIo0/c7IRe3Ts5XyPas26K04sTrkN5tIqRH6aK/PMjw=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=VHJZmOzwp9YwkAm77Co+gN6HIQAwt/hbfr6d7480fW6j2NSDzAbP/rSxalrsKVo9ZJ/9kzZY8KeWlDpvZeZfDFs/1MNUcmhdpubRdzP46z1gglJBmj4KPVkJZpAdc2pYs4RyN4WfbaxJMiWvIMirKs84Eg8zURLHsEI2KGvCpvc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=s8kqKxVe; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1791797415; c=relaxed/simple;
+	bh=nSEDDkMvf0CoQFcM6UdUDxw2hKwIxxKtenAQDFeWcfM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=f3HFuuHBFh3C+ikjDK1c18qAMqzUXmIrUGcqQO+hD69uAu+tvfAvcV1NKhrUYsvbAKy+17kqEghuthYCS8DwSYd5TDgb/ZZazdKVZ5kLzk/X1hodxHNwLvwHKpL55tpFU827zYoY55qu9+tYgevm222tdyGmLY/er4qSbBMRAq0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KrLvWbo7; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=G46lUg8B; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="s8kqKxVe"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a180fbeef5so15115675e9.1
-        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 02:26:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KrLvWbo7";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="G46lUg8B"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69C8Kmce2181481
+	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 09:30:12 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Ct9Vpo8ZetqKaTi6+3Fm1GsfolL1MvhsjrlhMMlUG7I=; b=KrLvWbo7X5W+Zize
+	9wroe5MhzcgpwBGp9+O5CvvuWGnfSXpCBggd/q1zX/j5QxvXUHKXwVUC9ncuedvy
+	Z6r4xoxGBwKJfk0hINtl9JZg+J+3J1GgRMaDr4XuI4lM7wxWHUkL3/xXdU0wJ3ll
+	Sq7FeUS8TuSBGsQ6IWITrDRwJN5LN1JNZZdNPFxSUEE7Q1SgD0OeocfuA/SSVptC
+	4+MMF9sYcdILxyj0zvg9QfpwgBBZaFtwbP7RyTmcBOtm6Fec/Iw+U3lfgMZmiznV
+	q4mQ9CIcIDGvmvX6AJNlll/yGah7vGWlO7MgfSByeBSSCUJEbN7hb2cEaOCKxL1W
+	KqbqXQ==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h8sd1s1q4-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 09:30:12 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2e897d06ac2so9929805ad.1
+        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 02:30:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791797161; x=1792401961; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Gk95jI3lhRqF+q2Y0sX+t13akZvJa78d7yUGx/ACAu4=;
-        b=s8kqKxVedozSXDPeRENYMMQcfiev1+AkX1MVhEt+KgIjDyin/CNPjG262sxY7Bexcn
-         zpJsNghsFVebahdHRaw7AKi/hPDbJdaiMcPNkvIMukZIxCpgij05PvXAhPFAniyGXn3r
-         3bEL9Yyvv1BNqxjP6zeVALppbuERSqjcvTCOPuQ56L7iwee8OYR7GTJ72tNpw4aBsPse
-         JTbaVMfOceALb2tmeh2DDG8eT67bYifznG6lWvBZ2T517C5fPYcaDV3ogdrSaXKvVlAl
-         A2j+iIrqY9SEfxHopYmg5VZW9kOGIguh5HzOnabnpe5M484sq5PaC20cX2UQWxz55kH0
-         cZ9g==
+        d=oss.qualcomm.com; s=google; t=1791797411; x=1792402211; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Ct9Vpo8ZetqKaTi6+3Fm1GsfolL1MvhsjrlhMMlUG7I=;
+        b=G46lUg8B0OsMif/TW50LnbCu/r61VINHGrUloElXcrxTNtNKdoNovurlwPRb5L+TFt
+         VG95Bi5DRJ5NR6AuGoimoVBLs8RFKwEArIqWF7pw4JfNYAIz/nRyeFl8k93iSzekErFM
+         WZ//AfEl6CZ+L3CyVXFwHZ9lVKEsZlzC8E55NbNhYS3nibehb7IwURh602DAaWm+YWvZ
+         KqntSPLLC0pYE4kRCbCo/4uCZeKotG9yv67VREJX38WkVisZOw+dO1Hk+vWmn7J0jXDx
+         TIqOFd1AHA3QF9vvbhhYkLTO+S/oibbUbHugXM612aOVtEyOjcdAd9J1DS/ROSwZMYaf
+         CMyA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791797161; x=1792401961;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Gk95jI3lhRqF+q2Y0sX+t13akZvJa78d7yUGx/ACAu4=;
-        b=E9IDObYuSZPpiE6pkmywnMo8CijF4axK9+nmgbPVsGJUxd8CVO68/aLI5hWQnBZmf2
-         2fi8QG1JLHsy5EAMMdFr5quDCElmOl9opngt1c76eH9CjJ/bqwPd14gOZae1zrTNWYi1
-         Cqtv8dJch/8ZhPa3Z+I4a/GKLqYlSmln6zAZHFrtuMq5L/Z21hvwNB+qzV6lxPq92nCg
-         suk/8bZ4zTE+BGWjD6T2uNj1lywnLl0tz51H9etZXe2TxD9rEmPk4lCk7/n69lQmnAeT
-         dESwPU5lK69sM7jJKRptCmlS9XmVmch1ZtPBoJKjivcGjqygydOtTZ2j9VYoGUv0HIZd
-         bAWQ==
-X-Gm-Message-State: AFq9FYJx4MZBQdYQvMYT/8greY3yyda5rEJu1dCaXmpZizDc5h7vBzZ5
-	Z21AWNsSqJrIQnIYZM49r+cV7EK9i6EADkKAGJGABjPim9jwkvj65vwj1B9a+4QLebA=
-X-Gm-Gg: AYBFou1jW0aM9DBe/yRP5lXdrnDXI4PdJB93uOZK7Wjww/fwFDoTrCj0d9nqXZuhcBR
-	2UzHfxSLsDdUx0nQ+xVmvSRANYw8OXCNlxnp9PzMWwG08YnWgycVTxqW98QUXwiRAGMU56NxRiI
-	FM4jDIOXUga78m4/1ldgwocxcrPBmSITCB+59SusO94uI9VSpE/alKBP6t7lZ7zp8tYIgdJlF7k
-	W0A3f+cVPRIK2FiR96zYZlXrpPU8ZLLBIDTLo7W3grKkwsFx2LpaOd4OTPc3HCpx+lWH9OZ4ej6
-	cPRXoyrOqgavcCPTYQhvBMtSIGdqddMsryCYa8ln4axyvQJJZ7CjXytxd1o7rnak6xb0KIL7Fbm
-	YZj/D7CNel8gfr6LsJlSw4mcEcM4EuiP+rJjZb/bXEbh3XRAWj2vfVSB/oQW26xWq36V4NJ2wx5
-	XLYrGz6BpBFA+q3Y4nyLlvRR88OonmbwdlwkyqRs2kC8VUKxJPf2CdKXi9AIVGl/jBw++x1I5jw
-	TVcGjtLoSwIhJOIQ1L40SQYiwv3X3ELaIsKBWDnxcp6RRkTNRY=
-X-Received: by 2002:a05:600c:8b28:b0:49f:bd3c:bc1b with SMTP id 5b1f17b1804b1-4a18e499da4mr171146595e9.22.1791797160966;
-        Mon, 12 Oct 2026 02:26:00 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:417e:f4c4:5b8:8c48? ([2a01:e0a:106d:1080:417e:f4c4:5b8:8c48])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db9ac6a91sm16729294f8f.41.2026.10.12.02.26.00
+        d=1e100.net; s=20260707; t=1791797411; x=1792402211;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Ct9Vpo8ZetqKaTi6+3Fm1GsfolL1MvhsjrlhMMlUG7I=;
+        b=tMG5k90ilk0bTxePtc2sCXZGf6136WLSKeW5K2iu4G7IGnVWku2F8uubc3/AmbGevE
+         J+bzZZ/2FDhbxO0rVnv8/gwZS8qnhbklRnExEd7q47cCCrOGVKWFq/aBQCKFXXGMZKHV
+         /tiP4WeNOdwdTnogcu4Q+QhEeeRrqIVsBoR7XQPq+DbOwGRXjPkgLS+u4sNAYamuqRTE
+         VCxFznjvV45r3pE+tITZFej5sGj0S5t+DEaJqAS7d8OSxzt7MvSHchC5xqDgoUKppQGh
+         WX+RoQKevyDufFWLqgOash0MGbI52MJ8n8usjnhWBJT8l3PT67c7r35pPT1IjjCAfjuz
+         5BFQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxtyQrRj4Coey6TMJKAa1AFz65ECZZQ65S5hIY8s750nrOPwpuTOb/sroCBFQtZpPJFMlnWubiW+dwh@vger.kernel.org
+X-Gm-Message-State: AFq9FYIWep3sRbZjvkHgS/oZ3/zQoHSYzQJllaB/YoygQt0jGZWXKXYk
+	IMLcxRgrwGzs1CZs8WRli9dy17CcClx65lIT9TVY2ohRptWxDblHUzp41XIVaZUSfC90lToSn2l
+	ohRDcXT10FuCZ58+5gDiiLohAxmIDjRle7A9SEVEoCzfeVhn3I4W1arVOLY6u1OHr
+X-Gm-Gg: AYBFou0O0y3hpx1kACJAnQBZYkRxhUAopeHBujnNang6RU6bbruzcZF5XINO5GA+SrD
+	PqnMOnVgcsY5U9EYZ0UMyggh9tP5PTUYF4HAyPEz1tEQXrpgOmb30oVPZEtXRVVUxdl84EFphRZ
+	rFWNg4b8LfSfX7+/cD3YvcWkAY8mGcHEXdlJ7FnRGW062KD1XzpSwFEkPM2YOkWUVFyvzdoBREM
+	Bm/8qKybTeZ4k+jY9e2x95A1Gm5QFJZ33fNd27KPw1xDa6fEna59GEhHqee9m0zyERoPL/qrBqQ
+	W78y5zqIuD9LWs1cCFXsdvv4214b71nZB8VJolOIB+eSXKuGJaHYZ3Y4DPCgJ48FfcxlXk5MYw1
+	vFNuTi3Xk6bRU6SuF5t4ETHGKI7ODDN5aNA==
+X-Received: by 2002:a17:903:240c:b0:2e8:1ec2:a8c4 with SMTP id d9443c01a7336-2e8428a2092mr67121845ad.14.1791797411293;
+        Mon, 12 Oct 2026 02:30:11 -0700 (PDT)
+X-Received: by 2002:a17:903:240c:b0:2e8:1ec2:a8c4 with SMTP id d9443c01a7336-2e8428a2092mr67121645ad.14.1791797410751;
+        Mon, 12 Oct 2026 02:30:10 -0700 (PDT)
+Received: from [10.152.193.243] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2e8422b8c6esm39087925ad.61.2026.10.12.02.30.08
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 12 Oct 2026 02:26:00 -0700 (PDT)
-Message-ID: <1a940a0c-0a90-4b8d-831f-300c2cf02ae0@linaro.org>
-Date: Mon, 12 Oct 2026 11:25:59 +0200
+        Mon, 12 Oct 2026 02:30:10 -0700 (PDT)
+Message-ID: <954f820f-63f1-4148-a22e-bd85961c88fe@oss.qualcomm.com>
+Date: Mon, 12 Oct 2026 15:00:06 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,101 +89,103 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v2 1/2] arm64: dts: meson-gxbb-odroidc2: read the Ethernet
- MAC address from eFuse
-To: filipp.dunsky@gmail.com, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Kevin Hilman <khilman@baylibre.com>,
- Jerome Brunet <jbrunet@baylibre.com>,
- Martin Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-amlogic@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261011-odroidc2-dts-v2-0-a3a4a752f2ab@gmail.com>
- <20261011-odroidc2-dts-v2-1-a3a4a752f2ab@gmail.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20261011-odroidc2-dts-v2-1-a3a4a752f2ab@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Subject: Re: [PATCH ath-next 16/17] wifi: ath12k: Resolve userPD ID per device
+To: sashiko-reviews@lists.linux.dev
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+References: <20261008-mpp_bringup-v1-0-2c5797b5e4ac@oss.qualcomm.com>
+ <20261008-mpp_bringup-v1-16-2c5797b5e4ac@oss.qualcomm.com>
+ <sashiko-outbox-164038@kernel.org>
+Content-Language: en-US
+From: Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>
+In-Reply-To: <sashiko-outbox-164038@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: KCmHYEM9JYSpWBXRhntgoGK_QpC6spbr
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDAzNyBTYWx0ZWRfX5t3mnzxzHB6M
+ L5Fyz53hnvBw/bjB70E+bkh+66RouHSMSEKBNyJZ9HgR39vTbos4EhAnRS7eXiDJHAU/w8Il75Z
+ 6uhaonHhp/fpfsY3O86ZkRr2lnriKo0=
+X-Authority-Analysis: v=2.4 cv=QtHLTlyd c=1 sm=1 tr=0 ts=6acca8a4 cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=QAkOWx1MTCGqTjxtplQA:9 a=QEXdDO2ut3YA:10
+ a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-GUID: KCmHYEM9JYSpWBXRhntgoGK_QpC6spbr
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDAzNyBTYWx0ZWRfX5MpLJSaiqV3c
+ qahfJXZ/ffi2vcCQH8nfCBcQuqOxfLUp+9elNU3HUBZSaOgzrJAkaU9seIGqFJ3mjHewwcj5WVN
+ 2S5Lu1HzqHZpGoCnudEj9qu3J9oK7L1M224jwFxeI6c33Guut4RtxxRXgck0tl0jt/J6ynaHMQp
+ CvXZZNtFJgUD2UIMCVA3FyI+BpI+U7q3Tb+J04ZmhY7SYegOEbakoO6qZTym82XThmyAWSZXjYV
+ EhyGTUzfItvMo+K4RYsdgsC0vL8oDsYM3NJqkeHna2XwK/Gl+dvoqO1ImKRjYvzVgxwthvPqaLG
+ 5ei3Bkei/6NKz7uOIx4SGYOjClq50dza9enoRFDuZlS8DU6Lro+dCpLxkFvs2lkKnvVOCbeAgaR
+ w1ysWimLO7qgHZhlAohaN6SgzBibq1zabz4bjM3xJoVXSrQ6RHECghm82tyPSuT/Mil2CWXjYT1
+ 2iPZ5wAb6zPmLHEx3Yw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-12_03,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 malwarescore=0 bulkscore=0 clxscore=1015
+ lowpriorityscore=0 suspectscore=0 impostorscore=0 phishscore=0 adultscore=0
+ spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610120037
 
-On 10/11/26 20:31, Fil Dunsky via B4 Relay wrote:
-> From: Fil Dunsky <filipp.dunsky@gmail.com>
+
+
+On 10/8/2026 4:13 PM, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Low] style: inefficient NULL check inside resource loop
+> --
 > 
-> The vendor programs a unique factory MAC address into the SoC eFuse at
-> offset 0x34, where meson-gx.dtsi already describes the eth_mac nvmem
-> cell.  Reference the cell from the Ethernet controller so the kernel
-> picks up the factory address itself instead of depending on the
-> bootloader to populate local-mac-address, or falling back to a random
-> one when it does not.
+> commit 1ba3501c64845782d9fd054ea266b2485861b530
+> Author: Aaradhana Sahu <aaradhana.sahu@oss.qualcomm.com>
 > 
-> The cell is 16 bytes long in meson-gx.dtsi, while
-> of_get_mac_address_nvmem() only accepts a cell of exactly ETH_ALEN
-> bytes, so narrow it to the 6 bytes of the address for this board.
+> wifi: ath12k: Resolve userPD ID per device
 > 
-> Tested on an ODROID-C2 with the bootloader's MAC fixup out of the way
-> (ethernet0 alias removed from the DTB): with the 16-byte cell the
-> driver falls back to a random address, with the 6-byte cell eth0 comes
-> up with the factory address from the eFuse.
+> This commit resolves the userPD ID based on the device address rather than
+> hardcoding it during AHB probe, which is necessary for multi-PD platforms.
+> It also sets multi-PD support based on the AHB device descriptor.
 > 
-> Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
-> ---
->   arch/arm64/boot/dts/amlogic/meson-gxbb-odroidc2.dts | 7 +++++++
->   1 file changed, 7 insertions(+)
+>> diff --git a/drivers/net/wireless/ath/ath12k/wifi7/ahb.c b/drivers/net/wireless/ath/ath12k/wifi7/ahb.c
+>> index bff48b2fe124d..86359ed1eeb2b 100644
+>> --- a/drivers/net/wireless/ath/ath12k/wifi7/ahb.c
+>> +++ b/drivers/net/wireless/ath/ath12k/wifi7/ahb.c
 > 
-> diff --git a/arch/arm64/boot/dts/amlogic/meson-gxbb-odroidc2.dts b/arch/arm64/boot/dts/amlogic/meson-gxbb-odroidc2.dts
-> index 5943bc810..3b74528ef 100644
-> --- a/arch/arm64/boot/dts/amlogic/meson-gxbb-odroidc2.dts
-> +++ b/arch/arm64/boot/dts/amlogic/meson-gxbb-odroidc2.dts
-> @@ -223,6 +223,10 @@ &cec_AO {
->   	hdmi-phandle = <&hdmi_tx>;
->   };
->   
-> +&eth_mac {
-> +	reg = <0x34 0x6>;
-> +};
-> +
->   &ethmac {
->   	status = "okay";
->   	pinctrl-0 = <&eth_rgmii_pins>;
-> @@ -230,6 +234,9 @@ &ethmac {
->   	phy-handle = <&eth_phy0>;
->   	phy-mode = "rgmii";
->   
-> +	nvmem-cells = <&eth_mac>;
-> +	nvmem-cell-names = "mac-address";
-> +
->   	amlogic,tx-delay-ns = <2>;
->   
->   	mdio {
+> [ ... ]
+> 
+>> @@ -43,6 +47,26 @@ static const struct of_device_id ath12k_wifi7_ahb_of_match[] = {
+>>  
+>>  MODULE_DEVICE_TABLE(of, ath12k_wifi7_ahb_of_match);
+>>  
+>> +static u32 ath12k_wifi7_ahb_get_userpd_id(struct ath12k_base *ab)
+>> +{
+>> +	const struct ath12k_ahb_userpd_map *map;
+>> +	struct resource *res;
+>> +	size_t i;
+>> +
+>> +	res = platform_get_resource(ab->pdev, IORESOURCE_MEM, 0);
+>> +
+>> +	for (i = 0; i < ARRAY_SIZE(ath12k_wifi7_ahb_userpd_map); i++) {
+>> +		map = &ath12k_wifi7_ahb_userpd_map[i];
+>> +
+>> +		if (res) {
+> 
+> [Severity: Low]
+> This isn't a bug, but could the NULL check for res be moved outside the loop?
+> 
+> Since res is retrieved before the loop and does not change during the iteration
+> in ath12k_wifi7_ahb_get_userpd_id(), checking it on every pass is redundant.
+> Returning early if res is NULL might make this slightly cleaner.
 > 
 
-Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
+Thanks for the suggestion. I'll move the NULL check outside the loop and return
+early if the resource is unavailable.
 
-Thanks,
-Neil
+>> +			if (map->io_start == res->start)
+>> +				return map->upd_id;
+>> +		}
+>> +	}
+>> +
+>> +	return 0;
+>> +}
+> 
+
