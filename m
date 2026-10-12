@@ -1,237 +1,312 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B6DF4734FA;
-	Mon, 12 Oct 2026 12:10:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 953BB438466
+	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 12:11:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791807031; cv=none; b=fRBYYPjAdpQ7vRyr6su8Tjc2LT3lTBrG9XwFtK0Ynjee10wyGBhN9L/Kah614BY35SAruGKPMDDc+e80cUS1GcOXhogKQYlc4Mfheb1aJpgZ1P2VqS/No/n8HRqhtc/dMmblY2e7KQBxc+sWDXkfCkVbD/9fDvbPfGqBFDqpEww=
+	t=1791807097; cv=none; b=VgUl63BdVhrvKnav+PN1c1iALikuVHJtYb6wmouuuikWWbrYjL0cBhz0OdAJFDuzeXFcWudC56vPpProtDUennNOyy5/4l3tDty/OuA7nkXKBolANTEcC+MpqxCGmkfiNPiVDTFJBGQanG6BfQSb4iSdN0Iv+H5Z3v5pe3wEdnc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791807031; c=relaxed/simple;
-	bh=fliI41BsBmNuMXFhfbOxcIqf+EdBbQmcQaJNX3hKCh0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=V9+Mny3tgjWhuhZ5lz6yngv5EQxjbLf51NUKeA1kiA7kMeb/68VtcOkkTJrLCioZXohEbj7+i/sw5HDNBaumHiLw3h+VUHssu0CnyGE39djvfRTfrkM74+Ua8eylKOUp723KpYZYzmhedID3bp3Aar21vlWaeExEs5qbMSDD/RQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=lgrDR/ML; arc=none smtp.client-ip=117.135.210.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791807097; c=relaxed/simple;
+	bh=oJKYKPvIWR1flQf3+9jxsrU2r2Nj7GtoPNUrw1rnnQg=;
+	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Sm1CDZiz+1LObaFP8UKrv0qQpOlQj3vhpyNghFny0+aRAqv1T7qorqrWo5Gb9X3W/MRm7Bhv+ViAYwXq5/S8YOgdZgJ/Gh1hDUQzONJeyuQkUsERJlYNZTc3EdrdxtfdpOFgAdxOMyNgPt6CcQ9MKrxAdZ66kq8xXyy4pNo6Zk4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=n0HZ1Ei0; arc=none smtp.client-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="lgrDR/ML"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=x9
-	J19izjyZc6NXDk+H4B76aDk4tOsSFHWGczroPIdDs=; b=lgrDR/MLe3kMc2pOIQ
-	d/WF75wZpc33QhmI0SHHRqfRA/DXgskdW8kVu20AVhoa8BBVHKIYbKqK7ILMuPsN
-	GS2O0RAMHi0n6Mcb40Fgy2swlEUc8Tgx1nx62/JsZQr/2VhKD/g4SpVozYhP2zNM
-	i8zXiGZ9s/++ekg7KE/zIflXc=
-Received: from chaosheng-ASUS-TUF-Gaming-F16-FX607JV-FX607JV.lan (unknown [])
-	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD3Nz_mzcxqHGNeDw--.1037S3;
-	Mon, 12 Oct 2026 20:09:13 +0800 (CST)
-From: Quchaosheng <quchaosheng000406@163.com>
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>,
-	Tony Lindgren <tony@atomide.com>
-Cc: Aaro Koskinen <aaro.koskinen@iki.fi>,
-	Andreas Kemnade <andreas@kemnade.info>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Roger Quadros <rogerq@kernel.org>,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-omap@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Chaosheng Qu <quchaosheng000406@163.com>,
-	Conor Dooley <conor.dooley@microchip.com>
-Subject: [PATCH v6 1/3] dt-bindings: display: ti,tpd12s015: Convert to DT schema
-Date: Mon, 12 Oct 2026 20:09:08 +0800
-Message-ID: <20261012120910.506444-2-quchaosheng000406@163.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20261012120910.506444-1-quchaosheng000406@163.com>
-References: <20261012120910.506444-1-quchaosheng000406@163.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="n0HZ1Ei0"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-48b02a2359aso1691190f8f.0
+        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 05:11:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791807094; x=1792411894; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:subject:cc:to:from:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Sc49qqhhEyUJuK0EGs99OT0N3reB0T/TTspKz6pJo38=;
+        b=n0HZ1Ei0MDIJ3ua3raDj1N1EBKGnK/JbSP3W//W4rMARAxSOE0Mmlogl0nrIvVLML9
+         tAis/InQzGK0TB6RWu2D84ASBycHnzUqP7DskWxJJ665UGB8pdmKdVfB8qE8idTpXFi/
+         3B8jIQF5jDBkRRmiBv+kOwF2pzB6aV+MFLAtw+NsC+hqV03JnrM+eGPIzJi1ockzsxUS
+         noZbL+2soHa8oaTnV9ukB/Zfxw0kQ/Fvc3q0PQSJ2IRzz+AzwE9YGF92VgPVw4geUaf0
+         Z3Mkv3p+UiHwvFOiiNiqQuUMxrb+At9LmabJS7jaY19/cwMGeImWz/fmcWpqAHRFvCar
+         rNpg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791807094; x=1792411894;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:subject:cc:to:from:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Sc49qqhhEyUJuK0EGs99OT0N3reB0T/TTspKz6pJo38=;
+        b=kB5g1dSlnVr0R5mJPZrxWi4UxqLp2ttrzJiNiQQlibDDyWMrIWN+lWlASX01HEBhLa
+         7yFbyfeLL5Jh0fyAHueDHonKmoDIUH6B9RL4dKC6s5/r9w0kX+fihHGWher861EUbPxR
+         2yZMSh0SobYMFrUWDNNRxz1TJG0M9SeZsXRZVOt5JpVLliBeJJcW1rdSp5ZwumAzuz00
+         VxoffAaGTULH0rbyCDFd+8DtuXM5qJP7TazL1W5vPOPwAfD2ZPC+zkbozKS310YDP3b4
+         j5u3EXqZCNrlEbuA9fDl+GmENaax69b6DSry0NzQxDeMrYczT2N/5GBXYHKrapvrsd5w
+         8cQw==
+X-Forwarded-Encrypted: i=1; AKwUvBxFkuHNMfHqMWTdcIoeJDVb4qogD3UxndTSduDZ0XZbgQOTW7o2/tWablLl+sY7MVcBVNQUwQL5TTZi@vger.kernel.org
+X-Gm-Message-State: AFq9FYJTRxw2OX1seOjt9PHxc+Cyy0Gysji8f+Q0azTZNkQtXvOVAwg5
+	V9MF8vjeL2PV8XdzW9u71tx5Je7uT8DIvSGf+ovdHJGuheOkOQpffFyB
+X-Gm-Gg: AYBFou2wyi45twEiX/Ch6ikoi7KaBYUfjN0UtzBjU7hsDWhc9QTs/FDZUyHKVwkN8Pm
+	Ma3OXvjnTND5oGPD1rwp2XL5tfwE6J3IE25LSiWWpFNB4hP5InqPRFQfue1+Y7htZNZZaGYDOG5
+	F4r0QpNa4irdaVEj2u+o9KWMIYqAEXPLeky4pu5zGVfxCfXiwlh+NZCdJiuoCi7ghSZzEb5mwLJ
+	E+RhI8vLzLaD0gb4w6FHtSNNVQ6OOZDTHCPoIKH9A3cd2VzH4DAgrQJcTm4/2byKpxIOd9rXZQ2
+	du7wRTMTGKNgaMFd3cDvEyw7ru4O3YjNVp0QSchP2G1pVfghwvounQ1M4F31JMepHsTnGaOW6yx
+	ce6yyO/tvDAyBP9oflSqesdAW0v6qyL9SJL/omLsYbP17LZ3xuS266PXR5dQjOFBoE90ARhiRgR
+	9DrLBTZ2BPW3klY4gJfqY1y4xt62CwixJ95X0D5sV/q5pixAD3T1jdEuvMEPFZSRx++nyHpqmpl
+	RELKA2LXdZifUBHFPkSxyKOhd6Iw58m+tMUF1J7e1rvclKBpiZspXc+JJgYzeamX8jmVfldvY36
+	nqtSmw==
+X-Received: by 2002:a05:6000:4287:b0:48c:77ae:c39a with SMTP id ffacd0b85a97d-48db9475d10mr24395994f8f.15.1791807093405;
+        Mon, 12 Oct 2026 05:11:33 -0700 (PDT)
+Received: from Ansuel-XPS. (host-95-235-252-189.retail.telecomitalia.it. [95.235.252.189])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db9ab981asm19703461f8f.30.2026.10.12.05.11.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 05:11:32 -0700 (PDT)
+Message-ID: <6accce74.66e4af69.1a0022.3cf3@mx.google.com>
+X-Google-Original-Message-ID: <aszOcm9IwHY0KKpc@Ansuel-XPS.>
+Date: Mon, 12 Oct 2026 14:11:30 +0200
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, lee@kernel.org, conor+dt@kernel.org,
+	devicetree@vger.kernel.org, mfd@lists.linux.dev
+Subject: Re: [PATCH net-next v25 10/10] net: dsa: Add Airoha AN8855 5-Port
+ Gigabit DSA Switch driver
+References: <20261009161102.38961-1-ansuelsmth@gmail.com>
+ <20261009161102.38961-11-ansuelsmth@gmail.com>
+ <sashiko-outbox-166723@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3Nz_mzcxqHGNeDw--.1037S3
-X-Coremail-Antispam: 1Uf129KBjvJXoWxCFyDtr1xCr1UZF1rCr45Wrg_yoWrtr1UpF
-	n5Gas7Ca48WFyaqw4xAr1kCa1rAFykAF40kF1xJFy5ta10qF4ktF13Krn8XFy5Ga4xZayY
-	qF47Ww17Kwn7C3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0pRmXdbUUUUU=
-X-CM-SenderInfo: xtxfxtprvkv0bjqqikiqw6il2tof0z/xtbC-wl78GrMzenFOQAA3D
+In-Reply-To: <sashiko-outbox-166723@kernel.org>
 
-From: Chaosheng Qu <quchaosheng000406@163.com>
+On Sat, Oct 10, 2026 at 04:11:42PM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 7 potential issue(s) to consider:
+> - [High] net: dsa: an8855: Port matrix is unconditionally zeroed out during port_enable
+> - [Medium] net: dsa: an8855: Unchecked regmap_read in an8855_phylink_mac_link_up causes silent register corruption
+> - [Medium] net: dsa: an8855: Uninitialized stack variable read in an8855_port_fdb_dump()
+> - [Medium] net: dsa: an8855: an8855_phylink_mac_enable_tx_lpi() leaves stale timer values on immediate LPI
+> - [Medium] net: dsa: an8855: missing mtu_enforcement_ingress flag allows MTU violation
+> - [Low] net: dsa: an8855: Driver duplicates standard UAPI statistics as private ethtool strings
+> - [Low] net: dsa: an8855: an8855_port_enable() leaves priv->ports[port].enable true on error
+> --
+> 
+> commit d3cae945049e5b42ed716ab1ac6797e64ffa036c
+> Author: Christian Marangi <ansuelsmth@gmail.com>
+> 
+> net: dsa: Add Airoha AN8855 5-Port Gigabit DSA Switch driver
+> 
+> This patch adds support for the Airoha AN8855 5-Port Gigabit DSA switch,
+> including phylink MAC operations and standard switch functions. It supports
+> multiple port speeds, though 5G speed is currently disabled pending PCS
+> configuration support.
+> 
+> > diff --git a/drivers/net/dsa/mediatek/an8855.c b/drivers/net/dsa/mediatek/an8855.c
+> > --- /dev/null
+> > +++ b/drivers/net/dsa/mediatek/an8855.c
+> > @@ -0,0 +1,1765 @@
+> [ ... ]
+> > +static const struct mt7530_mib_desc an8855_mib[] = {
+> > +	MIB_DESC(MT7530_MIB_TX_DROP, -1, "TxDrop"),
+> > +	MIB_DESC(MT7530_MIB_TX_CRC_ERR, -1, "TxCrcErr"),
+> > +	MIB_DESC(MT7530_MIB_TX_COLLISION, -1, "TxCollision"),
+> > +	MIB_DESC(AN8855_MIB_TX_OVERSIZE_DROP, -1, "TxOversizeDrop"),
+> 
+> [Severity: Low]
+> Is it necessary to expose these standard hardware counters through
+> driver-private ethtool strings? The driver already implements the standard
+> .get_eth_mac_stats interface. Exposing values like TxDrop and TxCrcErr
+> via ethtool -S duplicates standard UAPI statistics, which goes against the
+> Networking Drivers guidelines for standard statistics.
+>
 
-Convert the TPD12S015 HDMI level shifter binding to DT schema.
+Same tretement of MT7530, these MIB doesn't reflect the standard linux
+values.
+ 
+> [ ... ]
+> > +static int an8855_port_fdb_dump(struct dsa_switch *ds, int port,
+> > +				dsa_fdb_dump_cb_t *cb, void *data)
+> > +{
+> > +	struct an8855_priv *priv = ds->priv;
+> > +	int banks, count = 0;
+> > +	u32 rsp;
+> > +	int ret;
+> > +	int i;
+> > +
+> > +	mutex_lock(&priv->reg_mutex);
+> > +
+> > +	/* Load search port */
+> > +	ret = regmap_write(priv->regmap, AN8855_ATWD2,
+> > +			   FIELD_PREP(AN8855_ATWD2_PORT, BIT(port)));
+> > +	if (ret)
+> > +		goto exit;
+> > +	ret = mt7530_lib_fdb_cmd(&priv->lib_priv, MT7530_FDB_START,
+> > +				 AN8855_FDB_MAT_MAC_PORT, &rsp);
+> > +	if (ret < 0)
+> > +		goto exit;
+> > +
+> > +	do {
+> > +		/* From response get the number of banks to read, exit if 0 */
+> > +		banks = FIELD_GET(AN8855_ATC_HIT, rsp);
+> 
+> [Severity: Medium]
+> Could this read an uninitialized stack value? If mt7530_lib_fdb_cmd()
+> succeeds but the final regmap_field_read(..., rsp) inside it fails, the
+> function returns 0 without populating rsp. This would leave rsp
+> uninitialized here, leading to unpredictable loop behavior when parsing FDB
+> entries.
+> 
 
-The TI TPD12S015 is an HDMI companion chip that combines a level shifter
-and ESD protection circuitry. Document the two ports it exposes between
-the HDMI transmitter and the connector.
+This is an almost impossible scenario. If ok I can address this with a
+followup.
 
-The tpd12s016 is software compatible with the tpd12s015 and is listed as
-a fallback compatible by am57xx-idk-common.dtsi, so accept it as a
-fallback of "ti,tpd12s015". The driver matches on "ti,tpd12s015" only, so
-a board using the tpd12s016 must list both compatibles.
+> [ ... ]
+> > +static void an8855_phylink_mac_link_up(struct phylink_config *config,
+> > +				       struct phy_device *phydev, unsigned int mode,
+> > +				       phy_interface_t interface, int speed,
+> > +				       int duplex, bool tx_pause, bool rx_pause)
+> > +{
+> > +	struct dsa_port *dp = dsa_phylink_to_port(config);
+> > +	struct an8855_priv *priv = dp->ds->priv;
+> > +	int port = dp->index;
+> > +	u32 reg = 0;
+> > +
+> > +	mutex_lock(&priv->reg_mutex);
+> > +
+> > +	regmap_read(priv->regmap, AN8855_PMCR_P(port), &reg);
+> 
+> [Severity: Medium]
+> What happens if this regmap_read() fails? The return value is not checked,
+> so reg would remain 0. The function then sets specific bits (speed, duplex,
+> TX_EN, RX_EN) and writes it back, which could silently overwrite and
+> corrupt other configuration bits (like MAC mode or backoff settings) that
+> were configured in an8855_phylink_mac_config().
+> 
 
-The ports carry no properties beyond the graph ones, so each port takes
-the plain graph port schema.
+Similar to above, very unlikely scenario.
 
-Assisted-by: LLM
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-Signed-off-by: Chaosheng Qu <quchaosheng000406@163.com>
----
- .../bindings/display/ti/ti,tpd12s015.txt      | 44 ----------
- .../bindings/display/ti/ti,tpd12s015.yaml     | 88 +++++++++++++++++++
- 2 files changed, 88 insertions(+), 44 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
- create mode 100644 Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
+> [ ... ]
+> > +static int an8855_port_enable(struct dsa_switch *ds, int port,
+> > +			      struct phy_device *phy)
+> > +{
+> > +	struct dsa_port *dp = dsa_to_port(ds, port);
+> > +	struct an8855_priv *priv = ds->priv;
+> > +	int ret;
+> > +
+> > +	mutex_lock(&priv->reg_mutex);
+> > +
+> > +	/* Allow the user port gets connected to the cpu port and also
+> > +	 * restore the port matrix if the port is the member of a certain
+> > +	 * bridge.
+> > +	 */
+> > +	if (dsa_port_is_user(dp)) {
+> > +		struct dsa_port *cpu_dp = dp->cpu_dp;
+> > +
+> > +		priv->ports[port].pm |= BIT(cpu_dp->index);
+> > +	}
+> > +	priv->ports[port].enable = true;
+> > +	ret = regmap_fields_write(priv->lib_priv.fields[MT7530_PCR_MATRIX],
+> > +				  port, 0);
+> 
+> [Severity: High]
+> Should this be passing priv->ports[port].pm instead of 0? Writing the
+> literal 0 disables the port's forwarding matrix in hardware, effectively
+> isolating the port and dropping all forwarded traffic, rather than
+> applying the port matrix computed just above.
+> 
 
-diff --git a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
-deleted file mode 100644
-index 26e6d32e3f20..000000000000
---- a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.txt
-+++ /dev/null
-@@ -1,44 +0,0 @@
--TPD12S015 HDMI level shifter and ESD protection chip
--====================================================
--
--Required properties:
--- compatible: "ti,tpd12s015"
--
--Optional properties:
--- gpios: CT CP HPD, LS OE and HPD gpios
--
--Required nodes:
--- Video port 0 for HDMI input
--- Video port 1 for HDMI output
--
--Example
---------
--
--tpd12s015: encoder@1 {
--	compatible = "ti,tpd12s015";
--
--	gpios = <&gpio2 28 GPIO_ACTIVE_HIGH>,	/* 60, CT CP HPD */
--		<&gpio2 9 GPIO_ACTIVE_HIGH>,	/* 41, LS OE */
--		<&gpio2 31 GPIO_ACTIVE_HIGH>;	/* 63, HPD */
--
--	ports {
--		#address-cells = <1>;
--		#size-cells = <0>;
--
--		port@0 {
--			reg = <0>;
--
--			tpd12s015_in: endpoint@0 {
--				remote-endpoint = <&hdmi_out>;
--			};
--		};
--
--		port@1 {
--			reg = <1>;
--
--			tpd12s015_out: endpoint@0 {
--				remote-endpoint = <&hdmi_connector_in>;
--			};
--		};
--	};
--};
-diff --git a/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
-new file mode 100644
-index 000000000000..5955f2e6421c
---- /dev/null
-+++ b/Documentation/devicetree/bindings/display/ti/ti,tpd12s015.yaml
-@@ -0,0 +1,88 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/ti/ti,tpd12s015.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: TI TPD12S015 HDMI level shifter and ESD protection chip
-+
-+maintainers:
-+  - Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-+
-+description:
-+  The TPD12S015 is an HDMI companion chip that combines a level shifter and
-+  ESD protection circuitry. It sits between an HDMI transmitter and the HDMI
-+  connector, and provides control over the level shifter enable and the
-+  hot-plug detect signals.
-+
-+properties:
-+  compatible:
-+    oneOf:
-+      - const: ti,tpd12s015
-+      - items:
-+          - const: ti,tpd12s016
-+          - const: ti,tpd12s015
-+
-+  gpios:
-+    description:
-+      The CT CP HPD, LS OE and HPD GPIOs, in that order. The first controls
-+      the level shifter, the second enables the level shifter outputs and
-+      the third reads the hot-plug detect line.
-+    maxItems: 3
-+
-+  ports:
-+    $ref: /schemas/graph.yaml#/properties/ports
-+
-+    properties:
-+      port@0:
-+        $ref: /schemas/graph.yaml#/properties/port
-+        description: HDMI input from the transmitter.
-+
-+      port@1:
-+        $ref: /schemas/graph.yaml#/properties/port
-+        description: HDMI output to the connector.
-+
-+    required:
-+      - port@0
-+      - port@1
-+
-+required:
-+  - compatible
-+  - ports
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+
-+    encoder1 {
-+        compatible = "ti,tpd12s015";
-+
-+        gpios = <&gpio2 28 GPIO_ACTIVE_HIGH>,    /* 60, CT CP HPD */
-+                <&gpio2 9 GPIO_ACTIVE_HIGH>,    /* 41, LS OE */
-+                <&gpio2 31 GPIO_ACTIVE_HIGH>;    /* 63, HPD */
-+
-+        ports {
-+            #address-cells = <1>;
-+            #size-cells = <0>;
-+
-+            port@0 {
-+                reg = <0>;
-+
-+                tpd12s015_in: endpoint {
-+                    remote-endpoint = <&hdmi_out>;
-+                };
-+            };
-+
-+            port@1 {
-+                reg = <1>;
-+
-+                tpd12s015_out: endpoint {
-+                    remote-endpoint = <&hdmi_connector_in>;
-+                };
-+            };
-+        };
-+    };
-+
-+...
+I can address this in follow-up patch if possible.
+
+> [Severity: Low]
+> Also, if this regmap_fields_write() fails, the function jumps to the exit
+> label and returns an error without reverting priv->ports[port].enable back
+> to false. Can this desynchronize the software state from the hardware state
+> and cause issues in loops that check priv->ports[i].enable (such as the LPI
+> timer calculation)?
+> 
+
+
+
+> > +	if (ret)
+> > +		goto exit;
+> > +
+> > +	ret = regmap_set_bits(priv->regmap, AN8855_PMCR_P(port),
+> > +			      AN8855_PMCR_TX_EN | AN8855_PMCR_RX_EN);
+> > +
+> > +exit:
+> > +	mutex_unlock(&priv->reg_mutex);
+> > +
+> > +	return ret;
+> > +}
+> [ ... ]
+> > +static int an8855_setup(struct dsa_switch *ds)
+> > +{
+> [ ... ]
+> > +	/* Set min a max ageing value supported */
+> > +	ds->ageing_time_min = AN8855_L2_AGING_MS_CONSTANT;
+> > +	ds->ageing_time_max = FIELD_MAX(AN8855_AGE_CNT) *
+> > +			      FIELD_MAX(AN8855_AGE_UNIT) *
+> > +			      AN8855_L2_AGING_MS_CONSTANT;
+> > +
+> > +	/* User reported problem with WiFi roaming and
+> > +	 * ethernet port. Enabling assisted learning fix
+> > +	 * the issue.
+> > +	 */
+> > +	ds->assisted_learning_on_cpu_port = true;
+> > +
+> > +	return 0;
+> > +}
+> 
+> [Severity: Medium]
+> Does this switch require the mtu_enforcement_ingress flag to be set here?
+> Because mt7530_lib_port_change_mtu() configures the MTU limit globally
+> based on the CPU port's requested MTU, user ports configured with smaller
+> MTUs might accept oversized frames. Setting ds->mtu_enforcement_ingress =
+> true would let the DSA core normalize bridged port MTUs.
+> 
+
+I will double check this.
+
+> [ ... ]
+> > +static int an8855_phylink_mac_enable_tx_lpi(struct phylink_config *config,
+> > +					    u32 timer, bool tx_clock_stop)
+> > +{
+> [ ... ]
+> > +		ret = regmap_update_bits(priv->regmap, AN8855_CKGCR,
+> > +					 AN8855_LPI_TXIDLE_THD_MASK, val);
+> > +		mutex_unlock(&priv->reg_mutex);
+> > +		if (ret) {
+> > +			dev_err(dp->ds->dev, "failed to set global LPI timer\n");
+> > +			return ret;
+> > +		}
+> > +	} else {
+> > +		ret = regmap_set_bits(priv->regmap, AN8855_PMEEECR_P(port),
+> > +				      AN8855_LPI_MODE_EN);
+> 
+> [Severity: Medium]
+> If timer == 0 is requested to enter LPI immediately, the software array
+> priv->tx_lpi_timer_ports[port] is not updated to 0. If the port previously
+> had a non-zero timer, won't this leave a stale value in the array? Because
+> the global LPI timer is derived from the maximum of all enabled ports, a
+> stale non-zero value here could artificially inflate the global threshold.
+> 
+
+I can address in follow-up patch.
+
+> > +		if (ret) {
+> > +			dev_err(dp->ds->dev, "failed to enable LPI for port %d\n",
+> > +				port);
+> > +			return ret;
+> > +		}
+> > +	}
+> [ ... ]
+> 
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/20261009161102.38961-1-ansuelsmth@gmail.com?part=10
+
 -- 
-2.43.0
-
+	Ansuel
