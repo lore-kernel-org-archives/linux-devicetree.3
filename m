@@ -1,209 +1,176 @@
-Received: from mail.mindbit.ro (xs1.mindbit.ro [80.86.107.70])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6FE9399375;
-	Mon, 12 Oct 2026 18:53:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.86.107.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58FE53B5307;
+	Mon, 12 Oct 2026 18:54:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791831239; cv=none; b=oDhpIRLJtj8nmsWjrazDvEFEA1iHtOZ59lgNKAOqhy3xMAsN2wwuICIARtRP/LAths/0ru3vKvUbK3fuR5qMWz+KAV7h9fRFQ7ptPuAGB6tf8DGpX0z3I620nf2OGv5DSo2x6mBp2cSuGoZD7dJR+wD4yUD8/wUmU7/dnIB9ZEQ=
+	t=1791831281; cv=none; b=tUI7sDysZx3NnbS1h30+SXhhbEF0xDtmwq6x2njc536D+gX+PFDgF6iDZRypCDCCtt42GBcy0kYeAYJD7EZESpEJJdUX4vtPvXOLdX3M1Apws6DY9MW6FsOoM8866sGlqMd8Cgvp5R19igTmbjrn0nVqyU2BjxvnSAc+/flnk5U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791831239; c=relaxed/simple;
-	bh=kcjtZCcWSE9BqxihuctKPfeAc7Wg8PGV2T3IOXaxQgU=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=UR4XobyBWsnYQB2WK1D5fMAsgIlMl7CrYshaBwSTwv6KdQ4+vaHmZh44HTz2OpU3iMsM+sazWYmh3yqr8ziEDM6Qnf9XcVrjm/I71rsUsgl/lTmi09VLQ37U6704XbA01THi8z2XmKN/4T3bMJSfEyaPP0EUjJ7c4TyIddSxm7g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net; spf=pass smtp.mailfrom=rendec.net; dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b=Nsdspg1o; arc=none smtp.client-ip=80.86.107.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=rendec.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rendec.net
+	s=arc-20240116; t=1791831281; c=relaxed/simple;
+	bh=kt3AHKJo+4iQtGNqhPlcFd5XbJ7Ia6xc5/XlTPmLaK4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eE9oUe8rocyP87/o+ygsARpJyup4C84apzQeMAHhXs9PqjDWibHPxBRkOS5GziUjPTvX4hKaABpZDiNdb0FI7f54zrrfGlLeAoJABmHJ93r5AVnIzsOX9sPxv27WLVq4YbBPWtXtJ20UtmRD36kAUCEfIYEHJWy1+myphfWTQQs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QvEE5ZPE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rendec.net header.i=@rendec.net header.b="Nsdspg1o"
-Received: from dog.kanata.rendec.net (pool-174-112-193-187.cpe.net.cable.rogers.com [174.112.193.187])
-	by mail.mindbit.ro (Postfix) with ESMTPSA id 36904D1DF5;
-	Mon, 12 Oct 2026 21:53:51 +0300 (EEST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mail.mindbit.ro 36904D1DF5
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=rendec.net;
-	s=default; t=1791831232;
-	bh=EGsr8JXK0AWygCjGQFvkFgJKYcyFG2i+Yihz7XwH6nE=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References:From;
-	b=Nsdspg1o5Q+Cu7ODNRcYU43+YokeJhCu5q87Yd7tehWnJc068mdNWpScqFDCudhfg
-	 k+DvW53pCBl2+zL8v2o67YHnkiivMyiK2yzfyp0zWl0ryiNST4uMnVQeLhdCE7hfQM
-	 Gdn1VnGorN3ai282RPX4auHbeC778kNLljq8pFZIxfWWB6jR0vgILhgg4pIV5mm3BX
-	 meSH3GZ/Ngv5eWnopO5LIRryY6fZ4iwJIt+xokz9JD0vvaNHZPCKAtzh24eYlCTULC
-	 QfEVgIZNg1ZQgtVw2Yb91cXNxnJDfYpVDnIFO11npo2tizLdA2u37aCLocxrc8UfBM
-	 KP4pOHkYwa/pg==
-Message-ID: <cc0d2ddc716ca1a5fbcf9a8952f255a4100b3366.camel@rendec.net>
-Subject: Re: [PATCH v5 4/9] irqchip/al-fic: keep the device_node instead of
- a cached name string
-From: Radu Rendec <radu@rendec.net>
-To: Eliav Farber <farbere@amazon.com>, Thomas Gleixner <tglx@kernel.org>, 
- Talel Shenhar <talel@amazon.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-  Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Date: Mon, 12 Oct 2026 14:53:49 -0400
-In-Reply-To: <20261011050449.41903-5-farbere@amazon.com>
-References: <20261011050449.41903-1-farbere@amazon.com>
-	 <20261011050449.41903-5-farbere@amazon.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-2.fc43) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QvEE5ZPE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D18F1F0089B;
+	Mon, 12 Oct 2026 18:54:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791831277;
+	bh=l2zp4t4NyTHWHTKgbsdObniAY39EXm7EQZMRjqNl5/Y=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=QvEE5ZPENu7PNxG06VtqOrBJ9I+4/4AvOSce4C6PgW1JhTezsdxcBc5OFRgf7tKXe
+	 uNaVspMFklqOciONRUFo9ovRO0fX8FHiWTlXEgnaJpSSQV7nBUmajlK678Jczj+ZLy
+	 CU+1EMdvfFcAStiHOslndLlC8/KnyFMixWDmR4D4gudeBQY4eBCFQinb14X3x2CCxp
+	 8udDd04Q8OMo8sF6mH4hp87AnNiRX2BkSoHP+EAD3oDz6flQ4fdOSvhnnETifVCwUa
+	 1U6L5HRjHs1VXwQP+zioa0qRD15ccFovMB3KraCwUkWvyvxnhzS/AgVqWGSrESsIyN
+	 VF/wIIpWxWLGA==
+Date: Mon, 12 Oct 2026 19:54:32 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Luo Liu <Luo.Liu@cixtech.com>
+Cc: vkoul@kernel.org, neil.armstrong@linaro.org, mani@kernel.org,
+	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	gary.yang@cixtech.com, fugang.duan@cixtech.com,
+	linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	cix-kernel-upstream@cixtech.com, p.zabel@pengutronix.de,
+	linux-kernel@vger.kernel.org, Wuyi.Shen@cixtech.com,
+	EastLake.Yang@cixtech.com
+Subject: Re: [PATCH v2 1/3] dt-bindings: phy: Add CIX Sky1 DP PHY
+Message-ID: <20261012-founding-stench-55cff46fe1a3@spud>
+References: <20261012123618.648930-1-Luo.Liu@cixtech.com>
+ <20261012123618.648930-2-Luo.Liu@cixtech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="q6HPCk6NTpYhk7J2"
+Content-Disposition: inline
+In-Reply-To: <20261012123618.648930-2-Luo.Liu@cixtech.com>
 
-On Sun, 2026-10-11 at 05:04 +0000, Eliav Farber wrote:
-> struct al_fic cached a const char *name that al_fic_wire_init() set
-> from node->name. That string pointed into the device_node, so the
-> driver already depended on the node outliving init, but nothing in the
-> struct said so.
+--q6HPCk6NTpYhk7J2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Mon, Oct 12, 2026 at 08:36:16PM +0800, Luo Liu wrote:
+> Document the dedicated DisplayPort PHY on CIX Sky1, including the
+> optional cix,external-dp board property for external connector swing.
+> Add a MAINTAINERS entry for the binding and driver.
 >=20
-> Keep the device_node itself and derive the name where it is needed. The
-> dependency does not go away: of_node_full_name() also returns a pointer
-> into the node, and irq_alloc_domain_generic_chips() keeps the string it
-> is given.
->=20
-> The driver therefore needs its own reference. of_irq_init() holds one
-> across the init callback, but since commit 30724547b221 ("of/irq: Fix
-> remaining refcount leaks in of_irq_init()") it drops that reference
-> again when it drains its parent list. Take a reference where the
-> pointer is stored and drop it on the error path. The driver is
-> __init-only with no teardown, so on success it is held for the life of
-> the system.
->=20
-> Deriving the name this way also changes the generic chip name from the
-> bare node name (e.g. "interrupt-controller") to the full name including
-> the unit address (e.g. "interrupt-controller@fd8a8500"), which keeps
-> instances that share a bare name distinguishable.
->=20
-> Signed-off-by: Eliav Farber <farbere@amazon.com>
+> Signed-off-by: Luo Liu <Luo.Liu@cixtech.com>
 > ---
-> v5:
-> =C2=A0- Take a reference on the device_node where the driver stores it, a=
-nd
-> =C2=A0=C2=A0 drop it on the error path. of_irq_init() no longer holds one=
- past the
-> =C2=A0=C2=A0 init callback: commit 30724547b221 ("of/irq: Fix remaining r=
-efcount
-> =C2=A0=C2=A0 leaks in of_irq_init()") drops it when the parent list is dr=
-ained.
-> =C2=A0- Rewrite the commit message accordingly. It previously argued that
-> =C2=A0=C2=A0 of_irq_init() never drops the reference on a successful init=
-, which is
-> =C2=A0=C2=A0 no longer true, and that this patch therefore fixed no lifet=
-ime bug.
+>  .../bindings/phy/cix,sky1-dp-phy.yaml         | 53 +++++++++++++++++++
+>  MAINTAINERS                                   |  8 +++
+>  2 files changed, 61 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/phy/cix,sky1-dp-phy=
+=2Eyaml
 >=20
-> v4: no change.
->=20
-> v3:
-> =C2=A0- Use of_node_full_name() instead of reaching into node->full_name
-> =C2=A0=C2=A0 directly, as Radu Rendec suggested.
-> =C2=A0- Rewrite the commit message to say plainly that this patch does no=
-t fix
-> =C2=A0=C2=A0 a lifetime bug. of_irq_init() takes a reference on the node =
-before
-> =C2=A0=C2=A0 calling the driver's init callback and does not drop it on a
-> =C2=A0=C2=A0 successful init, so the node, and the storage node->name poi=
-nts into,
-> =C2=A0=C2=A0 is pinned for the life of the system either way. The value o=
-f keeping
-> =C2=A0=C2=A0 the device_node is making that dependency explicit, not clos=
-ing a
-> =C2=A0=C2=A0 real one.
->=20
-> v2: new patch. Keep the device_node in struct al_fic instead of a cached
-> =C2=A0=C2=A0=C2=A0 name string that aliased node storage. Introduced here=
- so the struct
-> =C2=A0=C2=A0=C2=A0 holds the node before the next patch requests the pare=
-nt interrupt by
-> =C2=A0=C2=A0=C2=A0 node->full_name, keeping every commit buildable on its=
- own.
->=20
-> =C2=A0drivers/irqchip/irq-al-fic.c | 14 ++++++--------
-> =C2=A01 file changed, 6 insertions(+), 8 deletions(-)
->=20
-> diff --git a/drivers/irqchip/irq-al-fic.c b/drivers/irqchip/irq-al-fic.c
-> index 1a7f851731b2..32d8098699a4 100644
-> --- a/drivers/irqchip/irq-al-fic.c
-> +++ b/drivers/irqchip/irq-al-fic.c
-> @@ -36,7 +36,7 @@ enum al_fic_state {
-> =C2=A0struct al_fic {
-> =C2=A0	void __iomem *base;
-> =C2=A0	struct irq_domain *domain;
-> -	const char *name;
-> +	struct device_node *node;
-> =C2=A0	unsigned int parent_irq;
-> =C2=A0	enum al_fic_state state;
-> =C2=A0};
-> @@ -89,7 +89,7 @@ static int al_fic_irq_set_type(struct irq_data *data, u=
-nsigned int flow_type)
-> =C2=A0	if (fic->state =3D=3D AL_FIC_UNCONFIGURED) {
-> =C2=A0		al_fic_set_trigger(fic, gc, new_state);
-> =C2=A0	} else if (fic->state !=3D new_state) {
-> -		pr_debug("fic %s state already configured to %d\n", fic->name, fic->st=
-ate);
-> +		pr_debug("fic %pOF state already configured to %d\n", fic->node, fic->=
-state);
-> =C2=A0		return -EINVAL;
-> =C2=A0	}
-> =C2=A0	return 0;
-> @@ -142,7 +142,7 @@ static int al_fic_register(struct device_node *node,
-> =C2=A0
-> =C2=A0	ret =3D irq_alloc_domain_generic_chips(fic->domain,
-> =C2=A0					=C2=A0=C2=A0=C2=A0=C2=A0 NR_FIC_IRQS,
-> -					=C2=A0=C2=A0=C2=A0=C2=A0 1, fic->name,
-> +					=C2=A0=C2=A0=C2=A0=C2=A0 1, of_node_full_name(fic->node),
-> =C2=A0					=C2=A0=C2=A0=C2=A0=C2=A0 handle_level_irq,
-> =C2=A0					=C2=A0=C2=A0=C2=A0=C2=A0 0, 0, IRQ_GC_INIT_MASK_CACHE);
-> =C2=A0	if (ret) {
-> @@ -175,9 +175,8 @@ static int al_fic_register(struct device_node *node,
-> =C2=A0
-> =C2=A0/*
-> =C2=A0 * al_fic_wire_init() - initialize and configure fic in wire mode
-> - * @of_node: optional pointer to interrupt controller's device tree node=
-.
-> + * @node: pointer to the interrupt controller's device tree node
-> =C2=A0 * @base: mmio to fic register
-> - * @name: name of the fic
-> =C2=A0 * @parent_irq: interrupt of parent
-> =C2=A0 *
-> =C2=A0 * This API will configure the fic hardware to work in wire mode.
-> @@ -187,7 +186,6 @@ static int al_fic_register(struct device_node *node,
-> =C2=A0 */
-> =C2=A0static struct al_fic *al_fic_wire_init(struct device_node *node,
-> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 void __iomem *base,
-> -				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 const char *name,
-> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 unsigned int parent_irq)
-> =C2=A0{
-> =C2=A0	struct al_fic *fic;
-> @@ -200,7 +198,7 @@ static struct al_fic *al_fic_wire_init(struct device_=
-node *node,
-> =C2=A0
-> =C2=A0	fic->base =3D base;
-> =C2=A0	fic->parent_irq =3D parent_irq;
-> -	fic->name =3D name;
-> +	fic->node =3D of_node_get(node);
-> =C2=A0
-> =C2=A0	/* mask out all interrupts */
-> =C2=A0	writel_relaxed(0xFFFFFFFF, fic->base + AL_FIC_MASK);
-> @@ -222,6 +220,7 @@ static struct al_fic *al_fic_wire_init(struct device_=
-node *node,
-> =C2=A0	return fic;
-> =C2=A0
-> =C2=A0err_free:
-> +	of_node_put(fic->node);
-> =C2=A0	kfree(fic);
-> =C2=A0	return ERR_PTR(ret);
-> =C2=A0}
-> @@ -254,7 +253,6 @@ static int __init al_fic_init_dt(struct device_node *=
-node,
-> =C2=A0
-> =C2=A0	fic =3D al_fic_wire_init(node,
-> =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 base,
-> -			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 node->name,
-> =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 parent_irq);
-> =C2=A0	if (IS_ERR(fic)) {
-> =C2=A0		pr_err("%pOF: fail to initialize irqchip (%pe)\n",
+> diff --git a/Documentation/devicetree/bindings/phy/cix,sky1-dp-phy.yaml b=
+/Documentation/devicetree/bindings/phy/cix,sky1-dp-phy.yaml
+> new file mode 100644
+> index 000000000000..c6914cab74e0
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/phy/cix,sky1-dp-phy.yaml
+> @@ -0,0 +1,53 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/phy/cix,sky1-dp-phy.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: CIX Sky1 DisplayPort PHY
+> +
+> +maintainers:
+> +  - Luo Liu <Luo.Liu@cixtech.com>
+> +
+> +description:
+> +  The CIX Sky1 DP PHY provides the PMA/CDB register interface for the
+> +  dedicated DisplayPort instance on CIX Sky1.
+> +
+> +properties:
+> +  compatible:
+> +    const: cix,sky1-dp-phy
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  "#phy-cells":
+> +    const: 0
+> +
+> +  resets:
+> +    maxItems: 1
+> +    description: PHY hardware reset
+> +
+> +  cix,external-dp:
+> +    type: boolean
+> +    description:
+> +      Use voltage swing values suitable for an external DisplayPort
+> +      connector instead of the default low-voltage values.
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - "#phy-cells"
+> +  - resets
 
-Reviewed-by: Radu Rendec <radu@rendec.net>
+A reset but no clocks? That's a bit hard to believe.
+
+Seems fine otherwise, unless I am missing some sort of common property
+for the voltage swing stuff.
+
+Thanks,
+Conor.
+
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/reset/cix,sky1-s5-system-control.h>
+> +
+> +    phy@1414c000 {
+> +        compatible =3D "cix,sky1-dp-phy";
+> +        reg =3D <0x1414c000 0x4000>;
+> +        resets =3D <&s5_syscon SKY1_DP_PHY_RST_N>;
+> +        #phy-cells =3D <0>;
+> +    };
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 3a19da74d00c..b46d0f4220a9 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -6360,6 +6360,14 @@ M:	Satish Kharat <satishkh@cisco.com>
+>  S:	Supported
+>  F:	drivers/infiniband/hw/usnic/
+> =20
+> +CIX SKY1 DISPLAYPORT PHY DRIVER
+> +M:	Luo Liu <Luo.Liu@cixtech.com>
+> +R:	CIX Linux Kernel Upstream Group <cix-kernel-upstream@cixtech.com>
+> +L:	linux-phy@lists.infradead.org
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/phy/cix,sky1-dp-phy.yaml
+> +F:	drivers/phy/cix/
+> +
+>  CLANG CONTEXT ANALYSIS
+>  M:	Marco Elver <elver@google.com>
+>  R:	Bart Van Assche <bvanassche@acm.org>
+> --=20
+> 2.25.1
+>=20
+
+--q6HPCk6NTpYhk7J2
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCas0s6AAKCRB4tDGHoIJi
+0iXrAQDtZlLwnBeXrt0sJP/AohrnXaoa1UW1wN5d8Yjkimco7AEA1Aly54IhsVhf
+2zcuFqWPKZ7+HlGCLNIbW0h8KFKPPQA=
+=oFLx
+-----END PGP SIGNATURE-----
+
+--q6HPCk6NTpYhk7J2--
