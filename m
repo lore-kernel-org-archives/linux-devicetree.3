@@ -1,162 +1,145 @@
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80F8B437463
-	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 07:25:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.169
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791789940; cv=pass; b=tXycVNyUXB04vwkYl5c+vIY6GdI2f+FqYg4v4Dp142Jog6FB5iq6txZPnY5RfpEQu/wjX3AFDzVYRZvcvCkbdJ8mFC5Osf7uGg2GDsKT9D7UxXMvU7qN85c0WUbupMWRe0wCpqrdQRsVSqO/fj7+2yR1/ksQ87rWuyP8JHSJjfE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791789940; c=relaxed/simple;
-	bh=bdf5ltVaII23b5cF27Fg81xlP8Z8tnf+GfwZrnYaosg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=K5TPkFJziYGJ1i6t1fp/LoaWLRiGD67nGpugs3por9wWkuyyOJOImGqoobXGA+tvagd7rB2pBRaCfilwwggkdfZKE5xEJtwqZJCBAZ0jJDGceoHYlihPh0qaBW9BCnHNZwpULNiqfUUz/DmC8KcFQW48LQsondEyiCveUXMBsGA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HJrPfd79; arc=pass smtp.client-ip=74.125.82.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE00B368D52
+	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 07:25:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791789945; cv=none; b=KIwQc3Qsmom6lQmFvzXRviXD6CBObF2cbnDf5NZF5itKgLhWFQA0T7HhUtFRk78cmdQbozRW2+Y9AnVDplCs4O64Y6Ym2e3mmdDAovPyJqisBqAGUdBIZw6RLgXMcBTN0A7j9MIO96UScSpuhdPgd1MC3vmdXPUN8xsp0RHLyHE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791789945; c=relaxed/simple;
+	bh=oIehZcPpAbqiwfIqG1W31kjdUe0imO5csyH1FVDoC4g=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=t0B05nt0ug6iXMUPMtUsfLcKYNkG9NXSzCNYrxZBWjMfS5422Xte58nNGJ0KhfUD6uVMEtrOWbvPlRv1TLsTgTCY9Fy6LyyK2R8qAPauvrQIrYFgf9IuyqaFEFNe9CJDg0sj6Emb0k8y7fl4GZDK2jpRLx02Iwq/IwYhx84STDw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ElobqAhm; arc=none smtp.client-ip=209.85.128.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HJrPfd79"
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-3115c4451c8so1686687eec.1
-        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 00:25:38 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791789937; cv=none;
-        d=google.com; s=arc-20260327;
-        b=EsenknZq5voy1z4XoC9YtTtFEYHwzt+MyznIhojHv/XPIn1xGApgAlM+Tp1CcgBrll
-         deuQdoRjIj2qufkMFWHNpSXvmmPXXvzx3ToJlktIwJhdeziClPoKPjvw2vQwcvwO+KD+
-         BQJAxPVYlMuRymncaB0EkMr8/SlqMtD5TA4w8+9SV/fC73MIFo7pyNJWJyoHhTrkzWo4
-         pK15Fw7sp0X6IrJUgJbLt8Gi6uBqGGLuMHbgNAxilLl2Q3dKshPpRv9lBkLDiZXBR+LA
-         1clnOoizLZWu+NEMoCDUIO4QhzLdkpgtLcJ6xvEw5t/iWcgBZ1LE7+CnUUTwe9QD7kzc
-         ts1A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=zYhdStcwqvgKHiecdfXgk5mDD0YpzyVU/qE0vTW0sUE=;
-        fh=VdYhC49Nke3yQXRkyR6Sd2c3AbED5JEOe5Mah4/Xct0=;
-        b=R6HwUD/+EveQ2BjiqvHH3MaMUQf77URd1YUwfnDA5J4Dmdn2iBtABLVdWDCpei7wkD
-         3QHNvTdQtTLfyOt2D3jPv2CSpmmJPy/zVu+dO192jlRjwO9Swyo1kjQcr50uvQ86PLg5
-         PzSLDePq+WcYCMATCM3475RFsoumajL2i5OlL2T8ib8/qxOHQ561+GyZJjfyjgffHbPo
-         bdkwY2aEnNjdFM9pLZajzKyDUvta0uY6VEOjhMQ3nzptQUpLyJ/gNvbhd/TnthzU6V6O
-         w4+q99iJtVp72sSsVsDDkuibIHnLmhrqz4zyuovLdT/TsJY66DrW/acfLrJi1Lxzr+6A
-         Xpdg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ElobqAhm"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a16bc2278aso10169045e9.1
+        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 00:25:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791789937; x=1792394737; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=zYhdStcwqvgKHiecdfXgk5mDD0YpzyVU/qE0vTW0sUE=;
-        b=HJrPfd79YiVZCU995r/rMn4cN6KQ/WHxEzu94leeDkodSEFd8Hgu4Zc+DL9FIENtv8
-         telOCTzKdo9zjyYzjK9XSSaB+RgCkhYgNUwy3jM7RIOn2bJydCEkM0unBChBvTgrsoLj
-         5NYpjki9scQXnk4CFHp+QySvcjMlmTGJiBgLqQjocCXx8XYeoo4sBKvV81Qkni0cT9GF
-         XBlRtRWJU6tQMEN7AnB6zXItkh3cO7g/e1oJcMiUqZd8u+ln9dx1OG0pEHjqnrXruO1Q
-         Qc+FfXHq1iW3DaXriQcFzNLmXLzmSc8kcAChPbDPkYZYJ9GY+VgsruSfC3OjZDSN89lI
-         Zjng==
+        d=gmail.com; s=20251104; t=1791789942; x=1792394742; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=d1QWTDb/oOVddYpnAN188VwUYCPxgfGwS1G3xLd3LyU=;
+        b=ElobqAhm/Ku/mIUc0obARxzK/Cp86S4UzicGfxSurKj1nDtKJMB2bAsApPszueXA0O
+         xOF47FRn1v6iBqOYbpQBz7EnQmvZlOmy0KKgOdZtPH9CYsUtF4A/ckCsJ/3ZbouA/812
+         VjNyxvG86VScZ1dZ0kntjSY7ab9hfSJwloBXJwXX2IurY0+VUtCCM6V5oM/cEnMbrh2D
+         STbSVUG7TrECyYsA3WdblqB5JNUW8hzpcjRZugxVcusw2npOJTti13GYTM0a6y5/gtHd
+         qiDW49T1JnLIt6RZH+NaOclFEk2HBsdXV9kITdJXUMMUe1xFLw56ktKYZ5+Ut1mwawu0
+         X48Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791789937; x=1792394737;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=zYhdStcwqvgKHiecdfXgk5mDD0YpzyVU/qE0vTW0sUE=;
-        b=GOSR3mHfAMeEheKUWEdbpUGBf1TY0LX3g0bf5CPsNWJsk3iK5hpoJsbaTu22BTJzL9
-         73UkwFJnRUnr5ji8S7suxm22HMzL4vGOwS2o/FqSYKdBXIQlboAyDTw0hGqyPWN3BoZe
-         Zcc5vgjPAvpIAexp/L+hrJ+lpsUNzVpcYw3tprZbbvh3QE/doWMgpqJ48U2Qq7XMFSMX
-         LmchqIuYEawmuXdHe+kBNamE8hX/jPBL+31pHM2HnktR68AJ6ZiE48V587qkUeSSJ73n
-         n39x6AaVLKQWlHUtCDm/4cl+MHwp0t9k5Fry0/y8hS1iucaafKRW1NspKBTmRONg09nO
-         00Rg==
-X-Forwarded-Encrypted: i=1; AKwUvBxglj1vWqUZi/DpPE0JPcrzlF/ZcTrj8RPAhQoi/JigMRvO8krYtBLJ/dJjP83o/5zxotiiz/c3NnB9@vger.kernel.org
-X-Gm-Message-State: AFq9FYLbB8Ahij7g1J1y1M00vPYB1RKUzM/HruRq/Mh6Chx8dcQjeAjR
-	jIHlF+NL2sT0Eo2D6JVGJ4KdS+VgOgo1ikYLzU//v2EX/WRoOwH2quy9l8/ZCexrG9ipl3yX8sL
-	iujqta1N9NKDUp7W21jz/NgI1b71Slls=
-X-Gm-Gg: AYBFou0ASqZt80EwPFHFQWabGXADvalkM5DS8t69Rr4/aUqH0izkYtEHXKLPCtxjrZx
-	z4TbRlFBjkssVSdOvoRBXpJLC+E4WiwAuk+1a3rDnmMxJWK8rWgbHByhSEYZDApS70b953/WsrT
-	R412+1NjqNkB3lNv3NYIcCpGzQEVpK3Tq7D0TSl/7gHiI6V2H9LuHkIOB21Y116/Bge+A9LndAf
-	xfYx5MTBv5RVSMcO9DS64UpqM3z5bGyXZDiYhF8XwmImxmluWjoDZzmSH8w+Px9cTPSt4UXQ7bS
-	c9LODhBLWWiu8QFCDwiZqrbOF42pBHPvDJ3ENF6AOmkhENZ2lfF0oPpO0KlgR40wWRO2gIaDC+g
-	Rds+1hPsdde+0pbQam2iQspc=
-X-Received: by 2002:a05:693c:87cd:20b0:353:5d7a:cabe with SMTP id
- 5a478bee46e88-3536c53930dmr14060639eec.13.1791789937444; Mon, 12 Oct 2026
- 00:25:37 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791789942; x=1792394742;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=d1QWTDb/oOVddYpnAN188VwUYCPxgfGwS1G3xLd3LyU=;
+        b=QZ0d6UNlz02dMZHNaPkFRqJ+Yr7UDAckTVJIiVXsz+VtVEUPGGcMeYniDhD3Hskz7e
+         mTA13MdVHSZ6A4DWWCmiaZZhQtas5mZ3GxPkrPVMx8IG/SH394rAMGhzgEQ8LKokmNEq
+         aKhIocs1/61KZ42YjoMcAo19uv+W17yEK7GSBGOEGpn1M0Nu9AboIY/iU+803cS1zhE3
+         /XYz0TXRpMBM76T9Fxs+HBM2Onw3Lr0k7y9bPrmlOcJGvnX1Cv2wweKWQ13i15xuGGhE
+         CC+MRQ/kSse33UVLBwE8v3TcNE57J1wLB/f/g+pU1kBd0PgAHFJ5Emj6kZBpakdYyEHM
+         a69w==
+X-Forwarded-Encrypted: i=1; AKwUvBzApbzZZy1BU5dXNvV7g1mnafJAxdCPe82a620w85xydCLbdOcZsG5//1/neQT8HJM3X4DPFar3WujB@vger.kernel.org
+X-Gm-Message-State: AFq9FYJklxN18/isdFRUlhrJPdsdjuACKv0JAb5awOanKcxsQiXrY8Ep
+	O9pglk7jN6ZIBEz1mxYAQJUtb1ON6PW4fm1fOHVmwymAtJ3DFOB895w9PcrEwTqSKTw=
+X-Gm-Gg: AYBFou3j3Qu55SJkjUpXiwoz5Ro5aAs949V0XhA7IHYwL5dBiBtNkTkHYVovFTFhn4A
+	VopPewitgmTgOUbiQr55K6TW6LoMkgtHAjcrPr1Gm5d9L87ePmv9iTu/kJr8A8kgNjAjKfokeB8
+	384OwpR+kYdoXhj3GHSzhqwfENHrMz5EWaE8k+MGi4MsfcIdImJ3QGeCLc6uFOLCU1vqm3e200U
+	9rQosHTukeOX6TxT2Ay6yS9eMfBIRK26Kd/QsqofVKjh/hzAhrh1JTJ6Sj8kOoR8D554gQESHN0
+	N7k7qmUAOIbKM61uElzK8moHsf8iKypYa7lPlrVQ+gBa8BhLIi+j0k1zCi5YpBn+1HbGlPPh5N/
+	TOxyWASHCDooW4L0tvso458NSULW1mkh2+XkqkVr4uEOxRl8xA6zYlI6maUbWfKREJMWOnEBQKW
+	oeTtyKR87gxfQhqlxYOdNSsWwcVfe05M/11x/BPbjry08b0Y7bWrPiuqAFZTY7HhvDEZVBRYbvh
+	9BP709F+G551TGAWUMSjH0120N96SPC8vJomTDHeX4/JoB2SVzzyC5kSwqddsos
+X-Received: by 2002:a05:600c:19ca:b0:4a1:7e76:d02f with SMTP id 5b1f17b1804b1-4a18e4ac650mr158677175e9.14.1791789941611;
+        Mon, 12 Oct 2026 00:25:41 -0700 (PDT)
+Received: from [127.0.1.1] (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48db9aadf9bsm17523377f8f.29.2026.10.12.00.25.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 00:25:41 -0700 (PDT)
+From: Leonardo Costa <leoreis.costa@gmail.com>
+Subject: [PATCH 0/3] Add VGA support for Apalis iMX6
+Date: Mon, 12 Oct 2026 04:25:22 -0300
+Message-Id: <20261012-v1-apalis-imx6-enable-vga-v1-0-8905d8746504@toradex.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261007085457.98762-1-clamor95@gmail.com> <20261007085457.98762-3-clamor95@gmail.com>
- <6a69d4aa-d04c-4bb2-912f-1584abd31e0e@gmail.com> <CAPVz0n0FiT93626L3MnMCto1X0_FmWp_zzQpQ=yRBXn+ir6OPg@mail.gmail.com>
- <4abc72fd-c645-4410-9387-3f03c751fd3c@gmail.com>
-In-Reply-To: <4abc72fd-c645-4410-9387-3f03c751fd3c@gmail.com>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Mon, 12 Oct 2026 10:25:25 +0300
-X-Gm-Features: AclHuK-1jO_BaUkdoWPA5vu4sBjFNbD6AjUBsHVIwaLC2Wj8tW6qxhiDAHWP-Uc
-Message-ID: <CAPVz0n1YKV84J6eG9juM_V5kLCy63WY0hmicUmyEXZp2eEHKyw@mail.gmail.com>
-Subject: Re: [PATCH v1 2/3] dt-bindings: leds: skyworks,aat1290: Document
- FLINH pin
-To: Jacek Anaszewski <jacek.anaszewski@gmail.com>
-Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-leds@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAGKLzGoC/x3MTQqAIBBA4avErBtII/u5SrQYa6oBs1CQILp70
+ vJbvPdA5CAcYSgeCJwkyukzVFnAvJPfGGXJBl1pU/W6w6SQLnISUY7bIHuyjjFthM3cWjK2brq
+ VIfdX4FXu/z1O7/sBKq18SGsAAAA=
+To: Andrzej Hajda <andrzej.hajda@intel.com>, 
+ Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+ Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+ Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+ Luca Ceresoli <luca.ceresoli@bootlin.com>, 
+ Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, imx@lists.linux.dev, 
+ linux-arm-kernel@lists.infradead.org, 
+ Leonardo Costa <leonardo.costa@toradex.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791789940; l=1908;
+ i=leonardo.costa@toradex.com; s=20261001; h=from:subject:message-id;
+ bh=oIehZcPpAbqiwfIqG1W31kjdUe0imO5csyH1FVDoC4g=;
+ b=6Na6Gpe9E1PvitnwV+dpCDK0x8whlxg3tt6LUG+45ePWH6KHyR7uTPCZpXJvoHbTKeZQq5b6z
+ YhrD1XfpN2gDC54bNXQKOrMjPmqjFju0acH+K48bnab3b0Eu3MBtE5u
+X-Developer-Key: i=leonardo.costa@toradex.com; a=ed25519;
+ pk=4xvoVLDt+NxIz9D8BJHhT0fD43Ig6XgSDw4jRN/gHzk=
 
-=D0=BD=D0=B4, 11 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 20:3=
-5 Jacek Anaszewski <jacek.anaszewski@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On 10/11/26 3:55 PM, Svyatoslav Ryhel wrote:
-> > =D0=BD=D0=B4, 11 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE =
-16:28 Jacek Anaszewski <jacek.anaszewski@gmail.com> =D0=BF=D0=B8=D1=88=D0=
-=B5:
-> >>
-> >> Hi Svyatoslav,
-> >>
-> >> On 10/7/26 10:54 AM, Svyatoslav Ryhel wrote:
-> >>> Both the AAT1270 and AAT1290 feature a FLINH pin used for mandatory F=
-lash
-> >>> inhibition.
-> >>>
-> >>> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> >>> ---
-> >>>    Documentation/devicetree/bindings/leds/skyworks,aat1290.yaml | 4 +=
-+++
-> >>>    1 file changed, 4 insertions(+)
-> >>>
-> >>> diff --git a/Documentation/devicetree/bindings/leds/skyworks,aat1290.=
-yaml b/Documentation/devicetree/bindings/leds/skyworks,aat1290.yaml
-> >>> index a65d92522c9cf..596b5e284f44a 100644
-> >>> --- a/Documentation/devicetree/bindings/leds/skyworks,aat1290.yaml
-> >>> +++ b/Documentation/devicetree/bindings/leds/skyworks,aat1290.yaml
-> >>> @@ -31,6 +31,10 @@ properties:
-> >>>        maxItems: 1
-> >>>        description: FL_EN pin
-> >>>
-> >>> +  flinh-gpios:
-> >>> +    maxItems: 1
-> >>> +    description: FLINH pin
-> >>> +
-> >>
-> >> You don't seem to make use of it in your patch.
-> >>
-> >
-> > I don't have to use it in my patch. This change completes and improves
-> > hardware description of the AAT1290/1270.
->
-> Still, If we don't have the use case I'd avoid adding it to not confuse
-> people looking for its use in the driver.
->
+This series adds a device tree overlay that enables the VGA output on Apalis
+iMX6, which is driven from a parallel RGB interface passing through a
+non-programmable video DAC.
 
-https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/tree/Do=
-cumentation/devicetree/bindings/writing-bindings.rst?h=3Dnext-20261009#n17
+The video DAC is a simple resistor network gated by an active-low
+data-enable signal. For the bridge to work properly, this series also
+changes the following in the dt-bindings and simple-bridge driver:
 
-- DO attempt to make bindings complete even if a driver doesn't
-support some features. For example, if a device has an interrupt, then
-include the 'interrupts' property even if the driver is only polled
-mode.
+- dt-bindings: Add a new compatible for the bridge in the simple-bridge
+  binding. This is necessary because the existing dumb-vga-dac compatible
+  doesn't describe a data-enable signal polarity.
 
-- DON'T refer to Linux or "device driver" in bindings. Bindings should
-be based on what the hardware has, not what an OS and driver currently
-support.
+- simple-bridge: Add the VGA bridge match-table entry and timings
+  struct, setting the DRM_BUS_FLAG_DE_LOW flag for the bridge.
 
-> --
-> Best regards,
-> Jacek Anaszewski
+This change depends on another patch, and should be applied after it:
+
+- https://lore.kernel.org/all/20261002-v1-simple-bridge-atomic-check-v1-1-ef5d8332b078@toradex.com/T/#u
+
+  Adds the atomic_check function to the simple-bridge driver, which
+  allows the data-enable bus flag to be propagated through the DRM
+  pipeline. This is necessary for the VGA to work correctly on the
+  Apalis iMX6.
+
+Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
+---
+Leonardo Costa (3):
+      dt-bindings: display: bridge: simple: Add the Toradex Apalis iMX6 VGA DAC bridge
+      drm/bridge: simple-bridge: Add Toradex RGB to VGA DAC bridge
+      ARM: dts: imx6q-apalis: Add VGA overlay
+
+ .../bindings/display/bridge/simple-bridge.yaml     |  1 +
+ arch/arm/boot/dts/nxp/imx/Makefile                 | 21 ++++++
+ .../boot/dts/nxp/imx/imx6q-apalis-eval-vga.dtso    | 79 ++++++++++++++++++++++
+ drivers/gpu/drm/bridge/simple-bridge.c             | 10 +++
+ 4 files changed, 111 insertions(+)
+---
+base-commit: f5f84daefcd92d7a630066635ecea1433ed5eac7
+change-id: 20260928-v1-apalis-imx6-enable-vga-5c7ba6b358fe
+
+Best regards,
+-- 
+Leonardo Costa <leonardo.costa@toradex.com>
+
