@@ -1,103 +1,283 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64687469821;
-	Mon, 12 Oct 2026 17:11:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 170C648987F
+	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 17:19:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791825068; cv=none; b=qCGgY4nX2mfvXmYWeWxiVtFXepQRjcP6UhoKGdMHt57MzarHbWZkdOTb6nesV7j9E3oRg8ONqicwZ2Urd0bc6I4CbSLTb766byyfiBXB7yV77QFSUUNFmgBioZCqgRPZIwQCRf4WRXC4VUn/2+z4ysppYA/E3KefNCcpup6yfyc=
+	t=1791825562; cv=none; b=UoG18pjKhs6t0iHJUlzYEgjReBZkFrGXfNfyHjogWL6qx96k8f6PUEUuPhFNiMlKWkjxZJLgNG+sKbnV5/VDBU9wp/KJdRge7L4cz+mTodf/bgCe8+WE9rnUvDJKinnacoO+/dKUKmw3NyKDzu2cAGRZuDp1qIXHEaIsCUJMaa0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791825068; c=relaxed/simple;
-	bh=kMeWUKAHOvbp2Y5OMBRA/Xyoibtw8gkX5ll2fWrH2A0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tOiLbu7lPswRpkUevaiFfQ0rKHnha2AwPZjYed5T7HOdqV9qwYPeBIRuv1dn7IeiMQmzhfTxJdIXlnIEUUl19+C5lZogs0B5g5dPBaPmtd44qfTcILzw2Sh93KcFw5qdqaU6IS77NwVlrnXjswO5p1RX0c85hPmU6uPbxN8y1o8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pzi4+a3v; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791825562; c=relaxed/simple;
+	bh=xuHYOzqVDPF+T7DHJcXAkuDGTk5erdnYgh1uJDWbuqk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=EmdpT9JXs1ovVsMujwzIYlFrVhM0UhZ9Wt4wAV2FJMH7ZWZhns2ok6SHg8D3o6KWYxSzhT+j4kvludxlniemehb6PoQeGEse26TirYS8rtZ6ob8ihHONR+dGxoWKSI0zvQ9FyopsikJjKVNW2/5V4hRiIxuvbfvExIah93c7jNY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com; spf=pass smtp.mailfrom=9elements.com; dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b=LdK4pH6I; arc=none smtp.client-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=9elements.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pzi4+a3v"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76B971F0089B;
-	Mon, 12 Oct 2026 17:11:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791825067;
-	bh=G2ShRVCJl4ADNMgICYYHDFwKwRhCkwXLZDOE5Y9VotM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Pzi4+a3vCIXcG1SI7NRiYdRM3vutIrVXhdQhb3D2AEOFECW4TxmmnG0G9LAwgfd/5
-	 9ZJi6xap7j6TTC2NIh95epvsLO3v4UeHkVwPI8rovJ/TqM7/kUVNG2s4pSFqyEoE+6
-	 7xUQQ1VY/ee78uSgiO0jizULRnDVczoq30977+vlyMC+f+ZzOZDnjwdh82kgatVhYl
-	 y4eACzJjV48FKgbOW2cAN4oO4u+BpgfQucOZFkP/7VUpmVta5IBaboljXH0f/5fLDE
-	 1KjiF9DGXa1GJevaZW3hxQT6PZqdCsKK6DwNN1E5mkcUUP2EnMn///E8t9CCTwGbaJ
-	 bj5Di5NtSFr6g==
-Date: Mon, 12 Oct 2026 18:10:59 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Aniket Limaye <a-limaye@ti.com>
-Cc: Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Nirujogi Pratap <pratap.nirujogi@amd.com>, Bin Du <bin.du@amd.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	Matthew Brost <matthew.brost@intel.com>,
-	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-	linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, vigneshr@ti.com, nm@ti.com,
-	u-kumar1@ti.com, lianfeng.ouyang@starfivetech.com,
-	Ritwick.Sharma@arm.com, intel-xe@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org, Breno Leitao <leitao@debian.org>
-Subject: Re: [PATCH v3 0/3] i2c: designware: Add TI TDA54 I2C support
-Message-ID: <0bf04f71-cec7-453f-af5a-d121277eb51e@sirena.org.uk>
-References: <20260925-tda54-upstream-i2c-v3-0-544d74e992ff@ti.com>
+	dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b="LdK4pH6I"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48afe75f055so1977037f8f.2
+        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 10:19:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=9elements.com; s=google; t=1791825557; x=1792430357; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=fmWhe9edetnI1XYoSUk/a0gFm8QWgHCjQdahFD9uVho=;
+        b=LdK4pH6I7Yzumf0mZ0A5q3/1aTQbSY3iQrtBa8521viG++vQ/VWcqERrE+sONb43VD
+         u6kCbJNWDq0xyqEzcW0r2mXCiPK6v7XEzWHwWULHKhr//sIc/42pN6YaTCkMrUCUwpqa
+         h0BVBRkjmtls3MnGTX9Qz08ohbt6iHZLFnqw59MRS22ZP6T3AMkAU8wVG6jbJSEjkxlP
+         KF3rhp+hpbzU2kICW6lYD11H07IbVdQ0rkpnKv3P9+KIs1z8JU1/Bpg3D1ctSIciLG9h
+         xwsk8PIUForfICivt1utvl9/M3acpwm5C0CgtIxWai9eTuKRVWSFBh1bur+XJGFUoPZL
+         tWDw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791825557; x=1792430357;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fmWhe9edetnI1XYoSUk/a0gFm8QWgHCjQdahFD9uVho=;
+        b=0DbA9Qg0Zq4iy5kNz1hIZaPDb1MLZ37+4YuLSnCHnpshNekK5r/8leCgDtstskPvT7
+         NK9GSxPZ59FtLdkCu/xTJey0tFhb0fDwZ1XYwsFEgub9X9EbpwllAyhd9KwYQ4+4JBuD
+         uD6RbyAb6UOlaSM697b62cCHNvuPcCVWoyh0irKUqF+jhQ2W9v5EY8rxxyO2trYRd6Wg
+         vTBWjRQFZVtwNApMGz/72iJ+sMIgmKsx70Vxuo8L9WlvLdC8ezU20VuuvYFTyJZbH1vL
+         bGe7yYFwouhR7oCDBUqYS9q/MpAZQ6D5WXvr51GDmmBfb36cWP9Xa1vtwjJMIhlcmZBh
+         96ow==
+X-Gm-Message-State: AFq9FYLj5BvNm78v04mufgNd0jUD0WkXmmpRB43i4oKZfvxJuM8pQoGe
+	F04j1fmseX0ALMNm1US4o71vAEOibQKZRQ8d4/xQ8/A1+KQEkS88GHcvTSm3SPzvMSFXjW+CIfM
+	hLBzJ
+X-Gm-Gg: AYBFou0q/CsyUs1MikvavoArUdoZi93C2F86Q7qOUEMD6/lACzJMMQ1z0mx0MolUOVw
+	/l90GRF3I96Ky9cwXQlZc0POEqQ8CF4CiMgcr2Kv8Fr3/sS/4GEsJEPOQLnCcJYAT95hcnO2PaX
+	8yT8AGKBvJTuQMTlpE0BaCieMvs50+DesYirW/F+Qgja/B8qn/CoaYuBv8kMYW1OAfXZjHqSl84
+	7ydmbsW3hHPrBPj3m0Eaz+sH9EMTNAI1+rIJBy/Xhpbuy9kOqj4yyVRE4LRKrKkFOZQAZMOPyf4
+	kANeW31rbpc7RERKCSD/SjG7Ji+sh3qEH2Lo8USNsfC+IIjNIMcXa+lxz/WoP+8QU/VFf6QbmZs
+	QwMcPpdAtACA0yakXBGL7UMbPG0hHOGQyHYPkRHiQWvYbjmRWPbLvSZJh+vWC80iCeMWBvrA+Nq
+	9NOiwWKhgdTeAt41locm+/fmw8UXYEjLW2I2fKR/wU4nXKV+EfIpfnVXusLC4zB/swSiLbfKiYq
+	SMG/0rTXPeNmjJ94/Hvtr6BUmdU/isyvJ1M/vVAOE6O8+6CQt5b5j8aDcjXI3E=
+X-Received: by 2002:a5d:5291:0:b0:486:f3db:e0f2 with SMTP id ffacd0b85a97d-48dbaade0b3mr13920551f8f.14.1791825555359;
+        Mon, 12 Oct 2026 10:19:15 -0700 (PDT)
+Received: from ?IPV6:2a01:599:840:e202:6f88:7a35:3ae9:6d10? ([2a01:599:840:e202:6f88:7a35:3ae9:6d10])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0bc4ec6sm437267f8f.48.2026.10.12.10.19.14
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 12 Oct 2026 10:19:15 -0700 (PDT)
+Message-ID: <7d703c43-e462-41d6-a488-87342fd139a2@9elements.com>
+Date: Mon, 12 Oct 2026 19:19:13 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="bvUae1am23g2EFEG"
-Content-Disposition: inline
-In-Reply-To: <20260925-tda54-upstream-i2c-v3-0-544d74e992ff@ti.com>
-X-Cookie: Academicians care, that's who.
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/3] ARM: dts: aspeed: add Intel AVCRP BMC
+To: Dawid Glazik <dawid.glazik@linux.intel.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org,
+ maciej.lawniczak@intel.com
+References: <cover.1791825961.git.dawid.glazik@linux.intel.com>
+ <12f8124fea31a6c6b1401d6aee640842c8d896a7.1791825961.git.dawid.glazik@linux.intel.com>
+Content-Language: en-US
+From: Tan Siewert <tan.siewert@9elements.com>
+In-Reply-To: <12f8124fea31a6c6b1401d6aee640842c8d896a7.1791825961.git.dawid.glazik@linux.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
+On 10/12/26 7:39 PM, Dawid Glazik wrote:
+> Add the initial AST2600 device tree for the Intel AVCRP BMC platform.
+> 
+> Signed-off-by: Dawid Glazik <dawid.glazik@linux.intel.com>
 
---bvUae1am23g2EFEG
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+You got Review trailers from Andrew Lunn in v1. Unless you think Andrew 
+has to re-review it (which should be then reasoned), please keep them in 
+new revisions.
 
-On Fri, Sep 25, 2026 at 12:26:27PM +0530, Aniket Limaye wrote:
+ From the kernel docs [0]:
 
-> Add new compatible and update driver to support Synopsys Advanced I2C
-> Controller (DWC_i2c [0]) present on TI TDA54 SoC. This is needed since
-> this controller differs from the existing designware i2c (DW_apb_i2c
-> [1]) in its register offsets and some register definitions.
+"Both Tested-by and Reviewed-by tags, once received on mailing list from 
+tester or reviewer, should be added by author to the applicable patches 
+when sending next versions. However if the patch has changed 
+substantially in following version, these tags might not be applicable 
+anymore and thus should be removed. Usually removal of someone’s 
+Acked-by, Tested-by or Reviewed-by tags should be mentioned in the patch 
+changelog with an explanation (after the ‘---’ separator)."
 
-> The new compatible updates driver logic due to changes in register
-> definitions:
+> ---
+> v2:
+>   - Replace bootargs console=ttyS4,115200n8 with stdout-path = &uart5
+>   - Remove the unreferenced video_memory reserved-memory node
+> ---
+>   arch/arm/boot/dts/aspeed/Makefile             |   1 +
+>   .../dts/aspeed/aspeed-bmc-intel-avcrp.dts     | 315 ++++++++++++++++++
+>   2 files changed, 316 insertions(+)
+>   create mode 100644 arch/arm/boot/dts/aspeed/aspeed-bmc-intel-avcrp.dts
+> 
+> diff --git a/arch/arm/boot/dts/aspeed/Makefile b/arch/arm/boot/dts/aspeed/Makefile
+> index 767f7c7652d5..ea4645ef9872 100644
+> --- a/arch/arm/boot/dts/aspeed/Makefile
+> +++ b/arch/arm/boot/dts/aspeed/Makefile
+> @@ -54,6 +54,7 @@ dtb-$(CONFIG_ARCH_ASPEED) += \
+>   	aspeed-bmc-ibm-rainier-4u.dtb \
+>   	aspeed-bmc-ibm-sbp1.dtb \
+>   	aspeed-bmc-ibm-system1.dtb \
+> +	aspeed-bmc-intel-avcrp.dtb \
+>   	aspeed-bmc-intel-s2600wf.dtb \
+>   	aspeed-bmc-inspur-fp5280g2.dtb \
+>   	aspeed-bmc-inspur-nf5280m6.dtb \
+> diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-intel-avcrp.dts b/arch/arm/boot/dts/aspeed/aspeed-bmc-intel-avcrp.dts
+> new file mode 100644
+> index 000000000000..7c088c89d417
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-intel-avcrp.dts
+> @@ -0,0 +1,315 @@
+> +// SPDX-License-Identifier: GPL-2.0-or-later
+> +// Copyright 2026 Intel Corporation
+> +
+> +/dts-v1/;
+> +
+> +#include "aspeed-g6.dtsi"
+> +#include <dt-bindings/gpio/aspeed-gpio.h>
+> +
+> +/ {
+> +	model = "Intel AVCRP BMC";
+> +	compatible = "intel,avcrp-bmc", "aspeed,ast2600";
+> +
+> +	aliases {
+> +		serial4 = &uart5;
+> +	};
+> +
+> +	chosen {
+> +		stdout-path = &uart5;
+> +		bootargs = "earlycon";
+> +	};
+> +
+> +	memory@80000000 {
+> +		device_type = "memory";
+> +		reg = <0x80000000 0x40000000>;
+> +	};
+> +
+> +	reserved-memory {
+> +		#address-cells = <1>;
+> +		#size-cells = <1>;
+> +		ranges;
+> +
+> +		video_engine_memory: jpegbuffer {
+> +			size = <0x02000000>; /* 32M */
+> +			alignment = <0x01000000>;
+> +			compatible = "shared-dma-pool";
+> +			reusable;
+> +		};
+> +	};
+> +
+> +};
+> +
+> +&rtc {
+> +	status = "okay";
+> +};
 
-I'm working with a SoC with what looks to be another instance of this
-new version of the DesignWare I2C controller - I saw your discussion
-with Andy and the conclusion that a separate driver would be good.  I'm
-really keen to help out with getting the support for these IPs upstream
-however I can, not sure what your plans/thoughts are there?
+Please sort your nodes, as described in the device tree design guideline 
+[1]. There's also a tool called `scripts/dtc/dt-check-style` that can 
+help with this.
+Note on that: we usually run `--mode strict` but it is known to report 
+false-positives, so please check any reported errors twice ^^
 
-The I2C needs of the systems I'm using are fairly basic so I should only
-need a small subset of the capabilities that'll be visible in your
-systems, the only thing I can think might not come up for you is that my
-systems are servers so will be using ACPI rather than DT.
+> +
+> +&fmc {
+> +	status = "okay";
+> +	flash@0 {
+> +		status = "okay";
+> +		m25p,fast-read;
+> +		label = "bmc";
+> +		spi-rx-bus-width = <4>;
+> +		spi-max-frequency = <50000000>;
+> +#include "openbmc-flash-layout-64.dtsi"
+> +	};
+> +};
+> +
+> +&uart1 {
+> +	status = "okay";
+> +};
+> +
+> +&uart3 {
+> +	status = "okay";
+> +};
+> +
+> +&uart4 {
+> +	status = "okay";
+> +};
+> +
+> +&uart5 {
+> +	status = "okay";
+> +};
+> +
+> +&uart_routing {
+> +	status = "okay";
+> +};
+> +
+> +&mdio1 {
+> +	status = "okay";
+> +
+> +	ethphy1: ethernet-phy@0 {
+> +		compatible = "ethernet-phy-id001c.c916";
+> +		reg = <0>;
+> +		reset-gpios = <&gpio0 ASPEED_GPIO(C, 1) GPIO_ACTIVE_LOW>;
+> +		reset-assert-us = <10000>;
+> +		reset-deassert-us = <50000>;
+> +	};
+> +};
+> +
+> +&mac1 {
+> +	status = "okay";
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&pinctrl_rgmii2_default>;
+> +	clocks = <&syscon ASPEED_CLK_GATE_MAC2CLK>,
+> +		 <&syscon ASPEED_CLK_MAC2RCLK>;
+> +	clock-names = "MACCLK", "RCLK";
+> +	phy-mode = "rgmii-id";
+> +	phy-handle = <&ethphy1>;
+> +};
+> +
+> +&lpc {
+> +	lpc_snoop: lpc-snoop@80 {
+> +		snoop-ports = <0x80>;
+> +		status = "okay";
+> +	};
 
---bvUae1am23g2EFEG
-Content-Type: application/pgp-signature; name="signature.asc"
+Why's this named if you don't use it as reference anywhere.
 
------BEGIN PGP SIGNATURE-----
+> +};
+> +
+> +&i3c_global {
+> +	status = "okay";
+> +};
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrNFKMACgkQJNaLcl1U
-h9DYAAf/bjE9rg7RrRaVEqhn3SMg3esM5MwEfWXwbKi+xD8v7jgxIhi2DVw9EzkT
-5b0p7aNEqVx+NbnLx3rADjd6lGH7tdQr9uvNsPO8qFY1ZaCj8q0dsaEsTHyqAt4m
-9JLZe66Syw8s0mgVB1xrGCGSpdXGSvYQ3qydoIJBjfHp8gpZ70SjCarOEXSPwLcx
-Nkig2YO42HRwDlbhLWuGB7HXIklGkJzaTzolbo9wY2qwjHoZG4MUGzMw9mGoe8CX
-EtrupLW7XYS6AXna9vABDD2Rhm2WESywWDxDWPOwHQaDPiqY21H5S9StzikgyTJo
-Nd3hLF/M+dphTjKwIRllDjwMuk7Xcg==
-=W3xf
------END PGP SIGNATURE-----
+That's enabled by default.
 
---bvUae1am23g2EFEG--
+> +
+> +&vhub {
+> +	status = "okay";
+> +};
+> +
+> +&video {
+> +	status = "okay";
+> +	memory-region = <&video_engine_memory>;
+> +};
+> +
+> +&gpio0 {
+> +	gpio-line-names =
+> +		/*A0-A7*/ "", "", "", "", "SMB_CPU_PIROM_SCL", "SMB_CPU_PIROM_SDA",
+> +				"SMB_IPMB_STBY_LVC3_SCL", "SMB_IPMB_STBY_LVC3_SDA",
+> +		/*B0-B7*/ "", "", "", "FM_CPU1_ERR2_LVT3_N",
+> +				"RGMII_BMC_RMM4_LVC3_R_MDC", "RGMII_BMC_RMM4_LVC3_R_MDIO",
+
+Why do you name reserved GPIO lines (in this case the RGMII lines)? 
+They're used by the kernel anyways.
+
+Tan
+
+[0] 
+https://docs.kernel.org/process/submitting-patches.html#using-reported-by-tested-by-reviewed-by-suggested-by-and-fixes
+[1] https://docs.kernel.org/devicetree/bindings/dts-coding-style.html
