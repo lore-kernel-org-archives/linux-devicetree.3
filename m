@@ -1,162 +1,165 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D413F36D9FE
-	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 07:23:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D2CC443AA7
+	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 07:24:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791789835; cv=none; b=ETeQ2p//w5dQitYt9GpLN2z5EGESd9KMa87Nmq/7IS47y3psDUbXRNz8g3DFQH5adhARsHRIyLy1cY6MP1vXqoyf6skaOZsMm00M53K7kuZTtkkbVCGMZn81Mu3/Z4OX1ncqXZWX2Rua5lu4SNGq8Sj2HnIjn1CCa5zLgCn6Fco=
+	t=1791789887; cv=none; b=k2UyhBz3lv1DQ0vgqVwrq95LUJK33InbW7RCrAUOtVHLpKuQfKFM8owuTSX4WtTswSKFrcUu/D5/1vuWORsdLtClJMBHvZbGyvBYnOlDIhvuw8MYjyDjIviaQVqZDo+cof5QQP3B+efXNdmhYS0J3T6HU9Oqs9TtnIDSs5dfgdg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791789835; c=relaxed/simple;
-	bh=Y5l4gNnj5IFnWaA//fHQGkfX55rsZQiy8kt/OiiN394=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=O2IBkkmfN8UAh0x7QOUzPIsNbMJ6kHK8WxhXi/vbenv7SHz5DEKkzXo/chAkFsba4KFQ3gg53tG67YugbipATolDXPA61AsPGLoXWGeyKSE05tD5L7tKhph9dPYvYiCR5AlTmsgnDpiSo9MDu0PxaePR+ApVbSDyNlDvble0rR8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=n6WVHPwy; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=h4BEhK+0; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791789887; c=relaxed/simple;
+	bh=Kal4GGsGp43KyV9T4Fa3GcTWeYGfB37h6t0z25f6Ul8=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=DUFwmd6CBX1+OKtLVDf8f5rAtKCDWCfAJmG4Dsfl0ljJH1UUtmaOkhxzpmWvrhxNTxPuUSfRikkxgAAEo+iPrCOXeINz0rm2iBbgG6Y18yNXfnaE5hkTJJVInvOCFEqGsat4fujWkaSp7uLxHMMwPNUIYQyLQmIxSOxbE2ZI/NE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dATnZllv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="n6WVHPwy";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="h4BEhK+0"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69C55or9751193
-	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 07:23:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	fR0CWoW9AzruZkAqd74db3UE8VAkryaD0PNTDW7tTeA=; b=n6WVHPwyA+ZLy1AI
-	j+WbIzgwiQiCbyL2UaZBXY9hzp2of0UD2n5l3k/mh0UJcGlI4B8OQl7FCiv8VflX
-	D3eSCPSmuo+3jpv0YmOjvxS1MDPLpaSM74J/6+I7Xq+vcXIYOunIHtD/eA/tP63e
-	2jbGJnS9V/WpxS53pm0j4sweBpGvjCpxFMfvfCw8JUn3/Ns/YbPjhfitTVr0FprV
-	eUABaXbNNdGLbrSey0LW1JHBnxZAMYceFaO5ebSMgNORG/BtWdFRpIrkGewTVraJ
-	iDKWga0dU2cSvwXZ7e/OYvmqVM9jA/4LDNOzkDI4NCw6h9d0CnU/b682Zf1zMO5P
-	zoTNcA==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h7e4ed7pf-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 07:23:54 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-33713e5e6daso2786131eec.0
-        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 00:23:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791789833; x=1792394633; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fR0CWoW9AzruZkAqd74db3UE8VAkryaD0PNTDW7tTeA=;
-        b=h4BEhK+0xE4+oUV83mVCaTA+JDUoYelGvyEelukVAQunozdEkXdNmbnwMxqNoKuGYK
-         +weMUEmcfX0WOowV8iE3+EEhOTOgaSM1LAFp7A3b1I4F/thsTcEQj3nxCwXwW0xnZt75
-         e9LIWtlhEDWDoH907Fn5NqqfMQ5lRUm6stmNO1+WqH+uWK/1EQhuCTIG8QqOMU0GNW8r
-         LxMxgMmy+ZiqEFuj8HtvSLzVw+MOKXaQDaH71MQ7NxkBJw3uDm1nSdduQNV3LcCMzjqG
-         Nq0vOeBtvVgN7zPpRbIDHTjckWKxj1d0jA4Qn/S3PPoymUfmsAJ8aj4G9IHKzqOTTbwf
-         UaoA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791789833; x=1792394633;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :content-type:mime-version:subject:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fR0CWoW9AzruZkAqd74db3UE8VAkryaD0PNTDW7tTeA=;
-        b=np220fKFnGfTjR16s78M/OKAd7ScrjGE9fjGb4iBf2RPLqZ0Znh0UC4/6QBtLbWLFN
-         tdvEvxTVBLcA36gKthsIumCvXiCZInxjwWc/4oR9Eel8mgFeTV0AteeUJOfm/akXo5NS
-         d1YSWtlLfTo7isqFm72Gbx5+gwmzjTzcy5pG1AEfjqAq0FLY5f/0Md8yKOoCPrkPPPGO
-         3jvng9T0cGZYwpUtkHo/fNaFhEZxj9/tP8QD9+ng137tYaG/uOrHFZKPT3PTws7IHkfe
-         EIr3c/mGt6qrvCIC4sQ7WuYtyKuwi2eb5FGO9GU2pxtutCxaCYX40fYaTd6y6SkdMDHK
-         sg/g==
-X-Forwarded-Encrypted: i=1; AKwUvByOKHCoaN4JjWvehmbxtTYyD06flbnFgJw3CZLMZREKNr377wu0zyUU4+Ib7ImOaIRiIQpJq5vEUeTp@vger.kernel.org
-X-Gm-Message-State: AFq9FYKONUbxcxLLQyu9guv3+kMDFd5Qc9mVY24F70kqs9S3jNBf7mEs
-	qeFPJ0+CWi/2U6wGgu5jTvSVD8nqKl2OsyCcaJpJskKgWB00pzrdN9+o730INODMumg3ikMr2W6
-	hhs6ZgqRToYdYe0X1+yoQtm2FBJBxYgvy8BV2hFIGV69yJyFbLJ1NIPKoJZwLfZAZ
-X-Gm-Gg: AYBFou2773PL57El0KBu6jDhqAhgQnkZyTt7IysIhrO2uGF7CjcZ1nvuKBbkPiySJ3p
-	umPjWyoJuCnsKxhcXv7hc3uKasDBz5NAZwzoOglkYq1BLu0t4ZrmDoMPYNCSEJgj2fUnRUwR+Uk
-	+Ey1tGECJp5I5gXAvuuEpa11N22pOOJR77H2PWxoyLJMW6juHFHYwvce+oMfDzq39LsOHQQIrAF
-	5RElMcx49TCf4+wS311x8/vuxFM1BuGwuoWKb9pw9IqFt8ozV8q3NgZ5KdZUQTC5jaYAMQVhp0a
-	j8ja1FqdXVo4E/bAJjqHeoGwGIKjIIUCSTxQcQ5WaYfCD3E+wyA9RpQFnF1pH5+CMBLWb3FwHfJ
-	d46zig9q8/tf+0ByL+zDez+k6+ltJ9PVg6D6IuwHR97Wa9wiDrVsNv7gPgqXKl7d4/MZHZ3JdDy
-	XanjxjwF9mKlfadRlQtNHeBY9R9ebH
-X-Received: by 2002:a05:701b:42c5:20b0:151:2e62:fe4b with SMTP id a92af1059eb24-16a5c8d48ecmr12034640c88.23.1791789833405;
-        Mon, 12 Oct 2026 00:23:53 -0700 (PDT)
-X-Received: by 2002:a05:701b:42c5:20b0:151:2e62:fe4b with SMTP id a92af1059eb24-16a5c8d48ecmr12034611c88.23.1791789832813;
-        Mon, 12 Oct 2026 00:23:52 -0700 (PDT)
-Received: from hu-varada-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-169a1becf08sm29748733c88.5.2026.10.12.00.23.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 00:23:52 -0700 (PDT)
-From: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-Date: Mon, 12 Oct 2026 12:53:11 +0530
-Subject: [PATCH v7 11/11] arm64: dts: qcom: ipq5210: Add random number
- generator node
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dATnZllv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A8041F0089B;
+	Mon, 12 Oct 2026 07:24:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791789886;
+	bh=1/KzxEJ9e8eiHinxkGhmCVdKgubpOAl+ivWXII3PIr0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=dATnZllvMV3qTGgdd+/0F9MxOA/f7XbG3bqsd8sxe1zRPVKOwGhoDc4ponOyh09kF
+	 HINUx8Qu3+Mi2PL9JXBmE65rYd05oiHQ1QxSStlZMFG0lZPUAl7qO55z1wURz/SR2X
+	 6xbNdTuSP9IzO77vrKRjZt5aTQtAuYP49ugFLviZrQuIKCFW5wfvYEPCGe+TgWbrhn
+	 xkmid2CtzCok6n8yThDmgUs/8KIKwfIRzXXuMivOLJmRNoRMJMTfq3OxTMHsCB4YFf
+	 kx43kHFTz6MRVVAN87BPaCNl2mp8HTiaRbKLpIjxgYDE8SrQ/m5u6iARwCa7qu27JP
+	 l8Dmnp5zicy2Q==
+Message-ID: <sashiko-outbox-167786@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v11 5/6] arm64: dts: amlogic: Add video decoder driver
+ support for S4 SOCs
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Zhentao Guo" <zhentao.guo@amlogic.com>
+Cc: robh@kernel.org, media-ci@linuxtv.org, conor+dt@kernel.org, devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org, neil.armstrong@linaro.org
+In-Reply-To: <20261012-b4-s4-vdec-upstream-v11-5-25939f85ada5@amlogic.com>
+References: <20261012-b4-s4-vdec-upstream-v11-0-25939f85ada5@amlogic.com>
+ <20261012-b4-s4-vdec-upstream-v11-5-25939f85ada5@amlogic.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 12 Oct 2026 07:24:45 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261012-08-dts-v7-11-77bd3d68d850@oss.qualcomm.com>
-References: <20261012-08-dts-v7-0-77bd3d68d850@oss.qualcomm.com>
-In-Reply-To: <20261012-08-dts-v7-0-77bd3d68d850@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEyMDAyOSBTYWx0ZWRfXzKiVr2AoLXOH
- eSro7fapyUsiARl5nKVnGPRcTVNKN0TqkTkXKNjoUescJfU/cT4+WQAcavBMuOYpCSv60xvwyiY
- OhG1ZwHMYLSRv8dRrvNVmzGZ9dGcXv7HyONlKmUaWTAs6yfhH8JXZkti0A1kvhp6wwkkDnfvM0p
- 9wYm/00SRthzoLl1KfCM2RsCqar6IFcuPVBG6aPhR+k9dg9og9y0iE66J+iTNV23pEGPP3++I9b
- WzsANw1fLSCRNK+JC7QKzIQeXY72jDuKPfYn5waPfZ1pZXHWGHZ2lODoesD8XOvyxut1pTK393M
- h1fpPe4yAJH5MPN+tNPzaX3DzRUGnEFHeyc//R4XnU6xuwgutIdSKR7nANj6FbduBGbrxuZABDP
- U0fT3Y/S8A4Av/SPW4rF41wt4dYxG2pe1DOD1HDv4T7RjsJ/+GvVD3SljPdrYF4p2x5Tk1Gslwv
- OC+z0AdYmFoiAxEpyxw==
-X-Proofpoint-ORIG-GUID: ZOTzHncYNFR1z73b8vWlQKI_Ht8e6VXS
-X-Proofpoint-GUID: ZOTzHncYNFR1z73b8vWlQKI_Ht8e6VXS
-X-Authority-Analysis: v=2.4 cv=W5utxhWk c=1 sm=1 tr=0 ts=6acc8b0a cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=fxknKD5f1rE6hJysUL8A:9 a=QEXdDO2ut3YA:10
- a=scEy_gLbYbu1JhEsrz4S:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEyMDAyOSBTYWx0ZWRfX9qSYeHpTb2rO
- Z3z3J0n6qJmwQvDakmMxvR6WSbjXqXWmlDkpvEYGEC25YywAYccBWRonZmWFZa0G0O/ckY1XG81
- y/2IJj+AKwYWjqGuZMELBuBNVsuxhlA=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-12_02,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 adultscore=0 phishscore=0 malwarescore=0 impostorscore=0
- bulkscore=0 suspectscore=0 spamscore=0 lowpriorityscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610120029
 
-Add random generator node for the RNG block present in IPQ5210.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] media: amlogic: vdec: Missing locking in the timeout/error path of=
+ aml_h264_dec_run()
+- [High] media: amlogic: vdec: Infinite loop in threaded IRQ handler due to=
+ 0 timeout in read_poll_timeout()
+--
 
-Signed-off-by: Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/ipq5210.dtsi | 7 +++++++
- 1 file changed, 7 insertions(+)
+commit caf90beec035f24ac592fd4c243200813bb1fcc4
+Author: Zhentao Guo <zhentao.guo@amlogic.com>
 
-diff --git a/arch/arm64/boot/dts/qcom/ipq5210.dtsi b/arch/arm64/boot/dts/qcom/ipq5210.dtsi
-index cf1c9898ddb8..7bd0c4476076 100644
---- a/arch/arm64/boot/dts/qcom/ipq5210.dtsi
-+++ b/arch/arm64/boot/dts/qcom/ipq5210.dtsi
-@@ -362,6 +362,13 @@ tsens: thermal-sensor@4a9000 {
- 			#qcom,sensors = <5>;
- 		};
- 
-+		rng: rng@4c3000 {
-+			compatible = "qcom,ipq5210-trng", "qcom,trng";
-+			reg = <0x0 0x004c3000 0x0 0x1000>;
-+			clocks = <&gcc GCC_QRNG_AHB_CLK>;
-+			clock-names = "core";
-+		};
-+
- 		tlmm: pinctrl@1000000 {
- 			compatible = "qcom,ipq5210-tlmm";
- 			reg = <0x0 0x01000000 0x0 0x300000>;
+arm64: dts: amlogic: Add video decoder driver support for S4 SOCs
 
--- 
-2.34.1
+This commit adds the vdec node to enable the Amlogic V4L2 stateless video=20
+decoder for S4 SOCs. It also enables the optee node to support loading the
+video firmware via TEE helpers.
 
+> diff --git a/arch/arm64/boot/dts/amlogic/meson-s4.dtsi b/arch/arm64/boot/=
+dts/amlogic/meson-s4.dtsi
+> index 2a6fbd5308362..7a1dcb3951c82 100644
+> --- a/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
+> +++ b/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
+
+[ ... ]
+
+> @@ -907,5 +912,33 @@ emmc: mmc@fe08c000 {
+
+[ ... ]
+
+> +		video-codec@fe320000 {
+> +			compatible =3D "amlogic,s4-vdec";
+> +			reg =3D <0x0 0xfe320000 0x0 0x10000>,
+> +			      <0x0 0xfe036000 0x0 0x20>;
+> +			reg-names =3D "dos",
+> +				    "dmc";
+> +			interrupts =3D <GIC_SPI 91 IRQ_TYPE_EDGE_RISING>,
+> +				     <GIC_SPI 92 IRQ_TYPE_EDGE_RISING>;
+> +			clocks =3D <&clkc_periphs CLKID_DOS>,
+> +				 <&clkc_periphs CLKID_VDEC_SEL>,
+> +				 <&clkc_periphs CLKID_HEVCF_SEL>;
+> +			clock-names =3D "dos",
+> +				      "vdec",
+> +				      "hvdec";
+> +			power-domains =3D <&pwrc PWRC_S4_DOS_VDEC_ID>,
+> +					<&pwrc PWRC_S4_DOS_HEVC_ID>;
+> +			power-domain-names =3D "vdec",
+> +					     "hvdec";
+> +			resets =3D <&reset RESET_DOS>;
+> +			amlogic,canvas =3D <&canvas>;
+> +			amlogic,secure-monitor =3D <&sm>;
+> +		};
+
+[Severity: High]
+Enabling this device exposes a locking regression in the driver. In the
+timeout/error path of aml_h264_dec_run(), aml_stop_vdec_hw() is called with=
+out
+holding dec_hw->ctx_mutex:
+
+drivers/media/platform/amlogic/vdec/h264.c:aml_h264_dec_run() {
+...
+		/*
+		 * Halt the hardware and wait out any in-flight threaded IRQ
+		 * handler before cleaning up, otherwise both contexts may run
+		 * h264_release_decode_spec() concurrently.
+		 */
+		aml_stop_vdec_hw(dec_hw);
+		synchronize_irq(dec_hw->dec_irq);
+		h264_release_decode_spec(dec_hw, ctx);
+	} else if (-ERESTARTSYS =3D=3D ret) {
+		ret =3D -1;
+		aml_stop_vdec_hw(dec_hw);
+		synchronize_irq(dec_hw->dec_irq);
+		h264_release_decode_spec(dec_hw, ctx);
+...
+}
+
+If wait_event_interruptible_timeout() times out or is interrupted, the
+threaded IRQ handler vdec_threaded_isr_handler() may execute concurrently on
+another CPU while holding ctx_mutex.
+
+Because aml_stop_vdec_hw() is unprotected, can it reset the hardware
+concurrently while the ISR is still interacting with it?=20
+
+If the ISR writes to DPB_STATUS_REG after the reset, it could inadvertently
+restart the hardware decoding process. This means a restarted hardware block
+could fire a new interrupt after synchronize_irq() returns, allowing a new
+ISR to run concurrently with h264_release_decode_spec().
+
+Will this lead to concurrent double-freeing of canvas indices?
+
+[Severity: High]
+Enabling this device also exposes an infinite loop risk in the threaded IRQ
+handler. In h264_config_decode_buf(), read_poll_timeout() is called with a
+timeout of 0:
+
+drivers/media/platform/amlogic/vdec/h264.c:h264_config_decode_buf() {
+...
+	read_poll_timeout(read_dos_reg, reg_val,
+			  !(reg_val & 0x800),
+			  10, 0, true, hw, H264_CO_MB_RW_CTL);
+...
+}
+
+The read_poll_timeout() macro treats a timeout of 0 as an infinite wait.
+
+Since this executes inside the threaded interrupt handler on every H264 fra=
+me
+decode, if the hardware hangs or the register condition is never met,
+would the thread spin indefinitely and hang the system or consume 100% CPU =
+on
+the IRQ thread?
+
+>  	};
+>  };
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261012-b4-s4-vdec=
+-upstream-v11-0-25939f85ada5@amlogic.com?part=3D5
