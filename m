@@ -1,155 +1,165 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF0414C224E
-	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 18:00:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FF6E4BD352
+	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 18:02:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791828003; cv=none; b=Y/wjVGHCDQGSsj2RG5WwWoZr7BtdHsCc1VIKlO1wBXn8NYalVKwaMyy+90bhA6KRzx6ZKJrCWXU5NXlvyQDC3mRpJv6zrPrrClaeerjf8yZc3Ut2A2+TI7zwz7xfxe8+xfYHT6EX+kRsQVYdvQb6ckStINwS3MiJomklpOhd9is=
+	t=1791828129; cv=none; b=evrb/Il8rDyS8JjUgBS0h0HgQr2xjYYr4MdkuNw8AaEtCx7Ga79O8+SWdUIvzGCrL8iDKMmOoGA050LEitdkAlDD1CxjLQM54wx+vT146oSn4pntrSXAeOY4h5dtfS+FwdgVR7zJta0o2bJqDpZeWnXs6jknbrs6TFrGB/gCg94=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791828003; c=relaxed/simple;
-	bh=S2dBBIifzufeG7jvev3/uimqR0jcFF4c6YAp5n2nvcM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QnyZEbDSSrPaxcoPMW1Eo5oS5M05meA31t07XD/OS4wAKFPS1SY5lSLrZPvC2Q/CAGwrbB1THuzXHI8/wXowxXLuYqz1asGZITNk9nk5ydp+yhYo9AFNG58wScqZKkeWw43lanK6IyyzDLFAENVYypLDBfPUH4NKTcgdv00JfnQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jxeyOr4B; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791828129; c=relaxed/simple;
+	bh=Z6sQzfOjJE3zZ6rA3iiYJzCKffn9Za8LnqtjvIZELqs=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=RTGFqgRt8dJmfzKBTNJrV9UMhGhSoIkSZnqPp++jNk6SJnxp13994RoOzgcn0C0fP3FdIh/Ce8c/RT5ZWJnQO59b/YhXmcNCFG+XYN4n8F6+i8cR0sZF75NKR2XsxtIyoQY7hoYFHycPMSjtSW+Q3pP+nbExyEjieIMTpHK8RLw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=tAcam95N; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jxeyOr4B"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a02667ccebso15005605e9.0
-        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 11:00:01 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791828000; x=1792432800; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=7efvOtPkVQs2r0jJvys2pZpGeATiCwhTrDVdy86Rwg8=;
-        b=jxeyOr4BFFEELmQ+tvRVzwrDsmUpRxhhDyTy8yqdrbtpRLM/83D442fu4eMDb5jmuf
-         0dwnvtGGHEdnX47WpYBkt7IdNADB7K63Sck3C5uHV+/FrrAU+p4/JCLfCVS7dsqKVGqm
-         aPIZroXhm6WNemdKjIflRgSXstZaDGRKvZVTr5jiJooAiiY9fbo5qgc2r2QbtOCf5Oei
-         rHxDtBkpufpW0qt7E3xgd5P9ZOwJXwnbWFoQwQzpww6DAHABClK8Z2Iv2eYdPjJZrexg
-         Ndc4JlaABhnwJggOImOKBYt6e4NzzUFRx1siFtG2lSi02exIyz7C2onR67iAqshMY6nZ
-         IOfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791828000; x=1792432800;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=7efvOtPkVQs2r0jJvys2pZpGeATiCwhTrDVdy86Rwg8=;
-        b=t9njFShYc0wNhqEnv+O1fKSggO/AOlLwY+jd9yIgoseikdezWO2xwouERs0oXU3Umz
-         kyVaYHDpPAmUU3Gu4Nt8pSRmYSJcZ4ia+Xb86xjMGq00ZghLH7Ag6/KB5RBCwqLcxFqM
-         Ajn/FejSEgBsbYzje9Y1nCk0Qwi23T1NcWQNFLTrV0eSRqvBDweU0DCcP2Fo95LMjjLB
-         elGj+4IqQCK0aOuiEfdiJ0g3J2cWuV3UNwAg8YVKXWHpBRsIIhYCUPpL+QhQ2yTZawyb
-         rtxQ/uzh3ThweQYZtemTzD/Pn9KBdKbRZmMEnqW2TMtPKnrHmreGwZz+gV074FKqThZX
-         XizQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzyLCwdL1PqHFzIVz1D+cTavhHV3uCjoKNfEhp3UeJZjxYgPEbDWuHzrD2mOLOmXRyC1zqs6x12omgI@vger.kernel.org
-X-Gm-Message-State: AFq9FYJMwJgmomgGHHeIB5eaNwmRyXz0AXpF+DI7cWGe0JKzwWaXbfAD
-	J/ntInHzl5QmssE03pCZoatPbVJIvKOP+wI/drqwR4uyDNXtRY2JA1hd
-X-Gm-Gg: AYBFou38d2Hh8kiiZaDFk7fzVPTJ/HpdvEnb6YvIxw5mjpNH3jnSVjTj8asiduV4Nm3
-	RU4xzagdwRFcaD5qP9PNMy0Lg7vcY1mzyNB9fSz0/qyBO7YvuFmpr5y2wtQ6oFOt17/oMZY3xJO
-	l4JAe6IQHnA2OWntY1hNOGz6fqDff3b/Wilom1bm0CaMDbViV1mvbJ4jqxjlwBR3IkmM1Rup5H8
-	ewsDTpVc+oLPW0c+lJDnsyN15ArUMAaxZF3ZbUX4MwuML8apPleVternpPdrAI76NN9pOba8VUX
-	Ono3sTchlj+jTdS6wYL7Z6Wbs992vYUVftQp0C8U0ZUi1zY0VCLQr7VJD5y/1+s56ME1qRsrEeH
-	cZlcTzW4RwapogNnD9VS4aTaKQCMiGSH1UpO751GRBhCgxPKm3GFBS7aZoIqLxg6h7ABrMxVJuI
-	I+p0oqdsddO6duKF3rP4yHbZLWRZJOrnuFG8Jtvcuz8Khze8yeRkkxcM/qnp9lc0CpBusH89Z4c
-	ZdRixBNgOqb4DaW
-X-Received: by 2002:a05:600c:83c9:b0:4a1:70f0:ac2 with SMTP id 5b1f17b1804b1-4a18e4ce9cfmr193832545e9.24.1791827999830;
-        Mon, 12 Oct 2026 10:59:59 -0700 (PDT)
-Received: from hp-z640.fritz.box ([109.76.80.100])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18bf2343asm561705395e9.9.2026.10.12.10.59.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 10:59:59 -0700 (PDT)
-From: OOHehir <oo.hehir@gmail.com>
-X-Google-Original-From: OOHehir <electronicconsult1@gmail.com>
-To: m.wilczynski@samsung.com
-Cc: Laurent.pinchart@ideasonboard.com,
-	alex@ghiti.fr,
-	andrzej.hajda@intel.com,
-	andy.yan@rock-chips.com,
-	aou@eecs.berkeley.edu,
-	bmasney+clk@redhat.com,
-	chaoyi.chen@rock-chips.com,
-	conor+dt@kernel.org,
-	db@domibel.de,
-	devicetree@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	gandalf@winds.org,
-	hal.feng@starfivetech.com,
-	heiko@sntech.de,
-	hello@big-grey.co.uk,
-	jbrunet+clk@baylibre.com,
-	jernej.skrabec@gmail.com,
-	jonas@kwiboo.se,
-	jpeisach@ubuntu.com,
-	kernel@esmil.dk,
-	krzk+dt@kernel.org,
-	krzysztof.kozlowski@oss.qualcomm.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-phy@lists.infradead.org,
-	linux-riscv@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	luca.ceresoli@bootlin.com,
-	m.szyprowski@samsung.com,
-	maarten.lankhorst@linux.intel.com,
-	mani@kernel.org,
-	maud_spierings@murena.io,
-	mripard@kernel.org,
-	mturquette@baylibre.com,
-	neil.armstrong@linaro.org,
-	p.zabel@pengutronix.de,
-	palmer@dabbelt.com,
-	pjw@kernel.org,
-	rfoss@kernel.org,
-	robh@kernel.org,
-	sboyd@kernel.org,
-	tzimmermann@suse.de,
-	u.kleine-koenig@baylibre.com,
-	vkoul@kernel.org,
-	zhengxingda@iscas.ac.cn
-Subject: Re: [PATCH v5 00/21] drm: starfive: jh7110: Enable display subsystem
-Date: Mon, 12 Oct 2026 18:59:41 +0100
-Message-ID: <20261012175941.258219-1-electronicconsult1@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260929-jh7110-clean-send-v5-0-82b4d8e3c6c7@samsung.com>
-References: <20260929-jh7110-clean-send-v5-0-82b4d8e3c6c7@samsung.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="tAcam95N"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 801BA1A11E9;
+	Mon, 12 Oct 2026 18:02:04 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 4FE39601A6;
+	Mon, 12 Oct 2026 18:02:04 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 6B4CC11D709B8;
+	Mon, 12 Oct 2026 20:01:52 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791828119; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=eN09B8iBlF64T0aTmOSgm5Y2C78SY2TacmK0ll+reUk=;
+	b=tAcam95NZ1BivOLoK77OxsuB56U3i0Qppo9vGls9cATCKGIw5agJkxwfoWDG/OthDNehCN
+	a78TLjuOsJBlAb9c9IbeUtFCXWg+wRRZUZST+frVgrNrwFyHR9/S1ky2uGhvcLosGJq9A3
+	reiFa2cJApB3cf3l+Hou1A6jAIM47qX3oh6EpXUPzIlSg7zerEABZa+iQUXPtWBoCgP2w2
+	xMAzUAHMsNZVbdUPaDt4CKC2Dtc6NGpogZ9SIu+0Ir/lObyEebBL0verhlnaylrZfdc3hN
+	aX6MJq9RcvIOfQOFogsYem2rkhG6H2k3+A65BQJ60k0NftyLS3qCnM4730lBbA==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: James Hilliard <james.hilliard1@gmail.com>
+Cc: Richard Weinberger <richard@nod.at>,  Vignesh Raghavendra
+ <vigneshr@ti.com>,  Rob Herring <robh@kernel.org>,  Krzysztof Kozlowski
+ <krzk+dt@kernel.org>,  Conor Dooley <conor+dt@kernel.org>,  Chen-Yu Tsai
+ <wens@kernel.org>,  Jernej Skrabec <jernej.skrabec@gmail.com>,  Samuel
+ Holland <samuel@sholland.org>,  Maxime Ripard <mripard@kernel.org>,
+  Richard Genoud <richard.genoud@bootlin.com>,  Masahiro Yamada
+ <yamada.masahiro@socionext.com>,  Boris Brezillon <bbrezillon@kernel.org>,
+  Brian Norris <computersforpeace@gmail.com>,
+  linux-mtd@lists.infradead.org,  devicetree@vger.kernel.org,
+  linux-arm-kernel@lists.infradead.org,  linux-sunxi@lists.linux.dev,
+  linux-kernel@vger.kernel.org,  stable@vger.kernel.org
+Subject: Re: [PATCH v6 01/18] mtd: rawnand: sunxi: drain interrupts before
+ reusing the completion
+In-Reply-To: <20260914-submit-sunxi-nand-vendor-oob-layout-v1-v6-1-2fb084fe0751@gmail.com>
+	(James Hilliard's message of "Mon, 14 Sep 2026 15:09:47 -0600")
+References: <20260914-submit-sunxi-nand-vendor-oob-layout-v1-v6-0-2fb084fe0751@gmail.com>
+	<20260914-submit-sunxi-nand-vendor-oob-layout-v1-v6-1-2fb084fe0751@gmail.com>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Mon, 12 Oct 2026 20:01:51 +0200
+Message-ID: <8733ua23xs.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-Tested on a VisionFive 2 v1.3B with patches 1-17 & 19-21 of v5 on
-Linux 7.2.8, plus the clk patch that was 14/20 in v4. Patch 18 was not
-applied: it conflicts on 7.2 & there is no Rockchip hardware here. The
-same kernel also carries the out-of-tree PowerVR BXE-4-32 enablement &
-the SiFive XPbmtUC errata patches, so the GPU could render to the
-display.
+Hi James,
 
-- The dc8200, the HDMI controller & PHY & the vout clock controller
-  all probe, with nothing left in deferred probe; HDMI-A-1 reports
-  connected.
-- kmscube (GLES via zink on the PowerVR Vulkan driver) runs at the
-  monitor's preferred mode: 1683 frames in 28.1 s, 59.93 fps with
-  vsync, picture confirmed on the monitor, no GPU firmware resets.
+On 14/09/2026 at 15:09:47 -06, James Hilliard <james.hilliard1@gmail.com> w=
+rote:
 
-Only that one mode was tested; the modetest sweep in the cover letter
-was not repeated.
+> A timed-out wait can return while the interrupt handler is still using
+> the previous operation's interrupt status and enable mask. Starting the
+> next wait calls init_completion() on the same object, which can reset its
+> waitqueue lock while the old handler calls complete(). The old handler
+> can also complete the new wait or restore an obsolete interrupt mask.
+>
+> Initialize the completion once in probe and use reinit_completion() for
+> each interrupt-driven wait. On timeout, disable and synchronize the IRQ
+> before masking controller interrupts and acknowledging the waited-for
+> events. Draining the handler first also prevents a partial-event handler
+> from rewriting the enable mask after it has been cleared. Flush these
+> register writes before re-enabling the IRQ line, leaving the controller's
+> interrupt sources masked.
+>
+> For successful waits, move complete() after the handler's register updates
+> so that the next operation cannot race with those updates. Keep polling
+> unchanged and leave controller and DMA abort handling to the existing
+> callers.
+>
+> Fixes: 1fef62c1423b ("mtd: nand: add sunxi NAND flash controller support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+> ---
 
-One error at boot:
+So from the commit log I understand that you are fixing a race. The
+problem seems legitimate.
 
-  i2c i2c-7: of_i2c: modalias failure on /soc/display-subsystem@29400000/hdmi@29590000/controller/ports
-  i2c i2c-7: Failed to create I2C device for /soc/display-subsystem@29400000/hdmi@29590000/controller/ports
+>  drivers/mtd/nand/raw/sunxi_nand.c | 26 ++++++++++++++++++++------
+>  1 file changed, 20 insertions(+), 6 deletions(-)
+>
 
-inno_hdmi_i2c_adapter() sets adap->dev.of_node to the controller's
-node, so the I2C core registers the controller's children as I2C
-clients, & on the JH7110 that node has a 'ports' child. The display
-still comes up. Should the adapter get no of_node, or a dedicated
-child node?
+...
 
-For patches 1-17 & 19-21:
+> @@ -414,12 +416,13 @@ static irqreturn_t sunxi_nfc_interrupt(int irq, voi=
+d *dev_id)
+>  	if (!(ien & st))
+>  		return IRQ_NONE;
+>=20=20
+> -	if ((ien & st) =3D=3D ien)
+> -		complete(&nfc->complete);
+> -
+> +	/* Finish updating the interrupt state before waking the next operation=
+. */
+>  	writel(st & NFC_INT_MASK, nfc->regs + NFC_REG_ST);
+>  	writel(~st & ien & NFC_INT_MASK, nfc->regs + NFC_REG_INT);
+>=20=20
+> +	if ((ien & st) =3D=3D ien)
+> +		complete(&nfc->complete);
+> +
+>  	return IRQ_HANDLED;
+>  }
+>=20=20
+> @@ -435,16 +438,19 @@ static int sunxi_nfc_wait_events(struct sunxi_nfc *=
+nfc, u32 events,
+>  		timeout_ms =3D NFC_DEFAULT_TIMEOUT_MS;
+>=20=20
+>  	if (!use_polling) {
+> -		init_completion(&nfc->complete);
+> +		reinit_completion(&nfc->complete);
 
-Tested-by: OOHehir <oo.hehir@gmail.com>
+The whole change around (re)init_completion looks relevant (here and in the=
+ handler).
+
+>=20=20
+>  		writel(events, nfc->regs + NFC_REG_INT);
+>  		ret =3D wait_for_completion_timeout(&nfc->complete,
+>  						msecs_to_jiffies(timeout_ms));
+> -		if (!ret)
+> +		if (!ret) {
+> +			/* Drain the handler before it can restore an old IRQ mask. */
+> +			disable_irq(nfc->irq);
+
+disable_irq() for serializing accesses to a single register? It
+certainly works but I don't think it is so common to use it like that,
+for such simple cases. Typically in this case I would have used a
+spinlock maybe? Or even better, why not just avoid the race entirely
+and handle the register in the waiter? You certainly don't need to write
+it in the IRQ handler. You can handle the IRQ configuration at the
+device level, which will also prevent the need for your extra
+readl "barrier" before enabling the IRQ.
+
+Furthermore, now that I have a better understanding, re-reading the
+commit log, I now disagree with the first part of:
+
+>The old handler can also complete the new wait or restore an obsolete inte=
+rrupt mask.
+
+"complete the new wait"? I don't see how a stale handler completes the
+next wait given the handler is a hard IRQ and the interrupt enable
+register is cleared on timeout.
+
+Thanks,
+Miqu=C3=A8l
