@@ -1,207 +1,108 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52F8935AC1C;
-	Mon, 12 Oct 2026 23:26:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59C863CF21A;
+	Mon, 12 Oct 2026 23:32:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791847594; cv=none; b=bEwz3yhg5KcZ40WbMP7lq0zwObrZIpTWe4Hz/T5Gn8I46SGKPXOEo6tcaStk6JF0P5rimq0T82uheT0gR4OKHU0yqnIPtnvP1SxMxrYV3Njd0E7tomWR21ksCUEyNpManYn8VhdY2//d6m9d2FD/LHR3VEV4lPlVG9P8hOlE91E=
+	t=1791847923; cv=none; b=jtvmXaosCr9S3KzLCf72z/jWcZYyMeqEtNs0WkJEFQDXsT/BBDCRoIIigBeDrRbOQWckhDP6rEnuYEVvJ4CO0yL3CWnq0cVWvIjzCfNhQrAsPykE41oMY0o3A5H3coQYDh2N97Y4XU1CpdeWa6JAs+BhUtuWF5LtT36UVdyDMC8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791847594; c=relaxed/simple;
-	bh=CFP4aMNI2bgpYnMs8TabKyKWiaNn/Tmv6D9ZgpJC2Io=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=Zt0gTPcWLhv43S91kV6ZoJV1Nh/RKKLs7OF7T8lMf5l1YIk818fh21itLdqEElRshlKCTSLGqHBQgAQB/KOK9arm0YfDGXHc7yWxDxSSzIBYhRzgL0rIPfTZFlQ4M9GwvhOlO+nunPiTuqg/T3xVvuTld14IUdTjV2Gar0t9jvI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JAxh+F2A; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791847923; c=relaxed/simple;
+	bh=/Kig9USumlg6SA3i+8l/TVdQF4zTKKXFxQT5yEd4WV4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JzneD97nhTQMFLkP/hWT2hUW/YKdv6uCcnS80WZS/hAFKR1wkc8BtJtsTtU1rrVcbBuovJgvOblxSmp/kw2HYxrfN2VJBx1rbzV0tj7/08IDnqmKhTX7GoZbeRGTuSkLyb+bFndsXcP5SMKWbVDffB7kTas78IDvgv6v6tcjPIk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EeSBCjv7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JAxh+F2A"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9ABD1F0089B;
-	Mon, 12 Oct 2026 23:26:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EeSBCjv7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 955531F0089B;
+	Mon, 12 Oct 2026 23:32:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791847592;
-	bh=Z2oSTbM4zUcpYMcqO/5/tHZYwS6dFdbbOC1MdPLdirg=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=JAxh+F2AukERQbbncuqU+qjuDmbdx7O/LNm+WzxrSs8NojOIMnh2LTxdt/eIjj7AU
-	 JFoQujP/NR9y9ENDlL0jR3DF03W2sGnTPVu1og3htry3TGoBKQa+xtJuq/NltWXT7U
-	 QiJWpcLuPjWwB2J0r8TgyI2y8m0SH4TgGAx1v9HK/yOwWmWU4N2YLUMr8iSiFTUNo4
-	 Q3oG0ZVTExQ5k/1WrzOAlrQLoVfQfNcN/8uwYHdTUCw07/Z9hZ6wxZyxKowdvOu5/K
-	 GbRlnCWCX6A7C/qq7Nh64or4CwUuHapOKdop35XGCwhUtp9l+5TJZDAXt7ZVRifVoS
-	 S2n9NASxwaVtQ==
+	s=k20260515; t=1791847921;
+	bh=et+fSNpAgASLBKfNUi/A2UyBeZSgDNV1kqK5yCpP8hg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=EeSBCjv75gbokJ2stAxf5eiUhk30zOW3R4JE+07vST5nJjF8txuMIxjam3c5Dh6TK
+	 TZIn2byMOf8JGCcqB0q+jI5YmEQ6xjPntEmApdR3C1VklhKd5M3DPD4GGSZkpK3BV+
+	 vhPulGmkDJKuZBk8jhuk6OcEmwcaAPrNIdMkWKDh9knd8kTq94VGgS1cclH2Zcp88T
+	 DM/m10rQRJ+1CHfGNKdmdSkpAL8qIpyEuuIKTjgMC8m18qNOstncoGGmUtSoEW6RsW
+	 /DGDetbXVrMJm2zJ27EDaBjAyHuujIoDEBj6VPdLpqCj2iPMtCwEmcLYzu3ksVLAIj
+	 34JXPGbeKcpgA==
+Date: Mon, 12 Oct 2026 16:32:00 -0700
+From: Drew Fustini <fustini@kernel.org>
+To: Han Gao <gaohan@iscas.ac.cn>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Jisheng Zhang <jszhang@kernel.org>, Guo Ren <guoren@kernel.org>,
+	Fu Wei <wefu@redhat.com>, Han Gao <rabenda.cn@gmail.com>,
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/4] riscv: dts: thead: Add Milk-V Meles support
+Message-ID: <as1t8Ln4isRWfgO9@thelio>
+References: <20261001-rv-meles-v2-0-c61052262f84@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH v2 2/3] media: i2c: dw9719: Update DW9800K driver
-From: bod@kernel.org
-To: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- =?utf-8?q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>, 
- Luca Weiss <luca.weiss@fairphone.com>, 
- Daniel Scally <dan.scally@ideasonboard.com>, 
- Sakari Ailus <sakari.ailus@linux.intel.com>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, linux-media@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org
-In-Reply-To: <20260914-b4-dw9800k_cleanup-v2-2-6553273aaa33@fairphone.com>
-References: <20260914-b4-dw9800k_cleanup-v2-0-6553273aaa33@fairphone.com>
- <20260914-b4-dw9800k_cleanup-v2-2-6553273aaa33@fairphone.com>
-Date: Tue, 13 Oct 2026 00:26:27 +0100
-Message-Id: <179184758746.1635143.1022569720918218811.b4-reply@b4>
-X-Mailer: b4 0.17-dev-e5aa4
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4370; i=bod@kernel.org;
- h=from:subject:message-id; bh=CFP4aMNI2bgpYnMs8TabKyKWiaNn/Tmv6D9ZgpJC2Io=;
- b=owEBbAKT/ZANAwAKASJxO7Ohjcg6AcsmYgBqzWyjdwwWy+9VQceeQqJ3cMcWaUfh3Tk5B4O/e
- p1sLFsHhPGJAjIEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCas1sowAKCRAicTuzoY3I
- OsGiD/ioa1OoVrs66OIRi+B/GV887AKeug8FyrMyxBrbn3GmS1yUeJNPUQzhJLCVquaeRuS1zxo
- dMT4X9l7booBjvui0sc4ZJmYbsOyOITkI6RRK0hUqRZQfRz5r1DPMdzv3BNkdw//1OtlrUcVXF1
- AUXYPTBlooIfpkp8ExYXmDPStqJdP8nEwP+/VAjZEfhvWmfwpOfPy56RsnLEQ9pR5l6nPBc0ykF
- cKsn6JhwJA3zJGGNrWqtgF6k74zopXAwWIUKGvYHrYJnqGCp+lDHFl3lEZWf0MSWCKyCOfPVlUS
- +pwoH/CY4MB99AiZP33xbc0NZo6Wke8UztBavqT7BuCBOPjuoNnrq6/HvyjXON2UoLvsLtDNVgE
- bdbSAeRDtsqdKpsT2h/b9bnxud/ywdmLNtKTQ7NkFmlPcJZ2TinylzON7MYK/E4p77iRq/AXEoi
- 7rtB+GAYbcA3wtQz2ag63TLuDD2RC0qePwQyO9+shZrejKR3+F4uFRYhN80kqgWJ1cBiNJDaRWB
- cd692hoKsH2w2zIC9hRV+D/+wvmrlOJ09eC38FKguhxm9TvHjLyu5nPiTg5xsQW6MiOT5qR6jFi
- HkZPUbu9AmRAMMppf8Uf7k5fEusJRVQaFZ9+M0xQbs0gOObBlkLlzUActiU7BDn0DUfzL6d9uGl
- 3kEMfxc90e3iN
-X-Developer-Key: i=bod@kernel.org; a=openpgp;
- fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261001-rv-meles-v2-0-c61052262f84@iscas.ac.cn>
 
-On 2026-09-14 12:25 +0200, Griffin Kroah-Hartman wrote:
-> The previous DW9800K driver code was created without access to a
-> datasheet for the part, now that we have one we can clean up some
-> misunderstandings and add some features for further expandability.
+On Thu, Oct 01, 2026 at 03:44:09PM +0800, Han Gao wrote:
+> Milk-V Meles is a single-board computer powered by T-HEAD's TH1520
+> SoC with four C910 RISC-V cores. Add the board compatible and device
+> tree for the Milk-V Meles.
 > 
-> Signed-off-by: Griffin Kroah-Hartman <griffin.kroah@fairphone.com>
-
-1. Be more explicit about which misunderstandings and features you mean.
-2. Generally speaking for each thing you might write in the commit log
-   a) Misunderstanding X
-   b) Thing fixed y
-
-   I'd recommend making those standalone patches.
-3. Since you appear to be describing Fixes: here you should
-   c) Have a Fixes: tag
-   d) Cc: stable@vger.kernel.org
-
->  drivers/media/i2c/dw9719.c | 71 ++++++++++++++++++++++++++++++++++++++++------
->  1 file changed, 62 insertions(+), 9 deletions(-)
+> Enable UART0, eMMC, microSD, Gigabit Ethernet and the PWM fan, and
+> name the GPIO lines exposed on the 40-pin header. Add AP6256 Wi-Fi
+> support over SDIO and enable HDMI output through the DC8200 display
+> controller and DW-HDMI transmitter.
 > 
-> diff --git a/drivers/media/i2c/dw9719.c b/drivers/media/i2c/dw9719.c
-> index 3b7ba88fd67c044ef9005a0aac6a5d26ab939a90..982be59b9ee17a12e8c25ab790ccb8351454c91c 100644
-> --- a/drivers/media/i2c/dw9719.c
-> +++ b/drivers/media/i2c/dw9719.c
-> @@ -68,9 +68,18 @@
->  #define DW9761_VCM_PRELOAD		CCI_REG8(8)
->  #define DW9761_DEFAULT_VCM_PRELOAD	0x73
->  
-> -#define DW9800K_DEFAULT_SAC		1
-> +#define DW9800K_ID			0xEB
-> +#define DW9800K_DEFAULT_SAC		3
->  #define DW9800K_MODE_SAC_SHIFT		6
-> -#define DW9800K_DEFAULT_VCM_FREQ		0x10
-> +
-> +#define DW9800K_RESONANCE		CCI_REG8(7)
-> +
-> +#define DW9800K_DEFAULT_DIV		0x01
-> +#define DW9800K_DIV_SHIFT		6
-> +#define DW9800K_DIV_LOW_SHIFT		2
-> +
-> +#define DW9800K_DEFAULT_SACT		0x20
-> +
->  
->  #define to_dw9719_device(x) container_of(x, struct dw9719_device, sd)
->  
-> @@ -90,6 +99,8 @@ struct dw9719_device {
->  	u32 mode_low_bits;
->  	u32 sac_mode;
->  	u32 vcm_freq;
-> +	u32 div;
-> +	u32 sac_time;
->  
->  	struct dw9719_v4l2_ctrls {
->  		struct v4l2_ctrl_handler handler;
-> @@ -140,10 +151,6 @@ static int dw9719_power_up(struct dw9719_device *dw9719, bool detect)
->  			dw9719->sac_mode = DW9718S_DEFAULT_SAC;
->  			dw9719->vcm_freq = DW9718S_DEFAULT_VCM_FREQ;
->  			goto props;
-> -		case DW9800K:
-> -			dw9719->sac_mode = DW9800K_DEFAULT_SAC;
-> -			dw9719->vcm_freq = DW9800K_DEFAULT_VCM_FREQ;
-> -			goto props;
+> Board details:
+> https://milkv.io/docs/meles/overview
+> 
+> Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
+> ---
+> Changes in v2:
+> - Group BeagleV Ahead and Milk-V Meles compatibles in a common TH1520
+>   enum, as requested by Krzysztof Kozlowski.
+> - Explicitly select the GPIO function for the Wi-Fi host-wake pin,
+>   as reported by Sashiko and confirmed by Drew Fustini.
+> - Add Drew Fustini's Reviewed-by tags to patches 2-4.
+> - Link to v1: https://lore.kernel.org/r/20260929-rv-meles-v1-0-effdd14a76e8@iscas.ac.cn
+> 
+> ---
+> Han Gao (4):
+>       dt-bindings: riscv: thead: add Milk-V Meles
+>       riscv: dts: thead: add Milk-V Meles
+>       riscv: dts: thead: enable AP6256 Wi-Fi on Milk-V Meles
+>       riscv: dts: thead: enable HDMI on Milk-V Meles
+> 
+>  Documentation/devicetree/bindings/riscv/thead.yaml |   6 +-
+>  arch/riscv/boot/dts/thead/Makefile                 |   1 +
+>  arch/riscv/boot/dts/thead/th1520-milkv-meles.dts   | 346 +++++++++++++++++++++
+>  3 files changed, 351 insertions(+), 2 deletions(-)
+> ---
+> base-commit: 72d3fcf802c45d00b300f25b848a93c3a2bd7c7e
+> change-id: 20260929-rv-meles-25d10148dc0c
+> 
+> Best regards,
+> -- 
+> Han Gao <gaohan@iscas.ac.cn>
 
-As an example this change should be argued on its merits - you need to lead
-your reviewers to water and then see how they'd like to drink.
+Sorry, I forgot to reply to this thread that I did apply all 4 patches
+to thead-dt-for-next.
 
->  		default:
->  			break;
->  		}
-> @@ -165,6 +172,12 @@ static int dw9719_power_up(struct dw9719_device *dw9719, bool detect)
->  			dw9719->sac_mode = DW9761_DEFAULT_SAC;
->  			dw9719->vcm_freq = DW9761_DEFAULT_VCM_FREQ;
->  			break;
-> +		case DW9800K_ID:
-> +			dw9719->sac_mode = DW9800K_DEFAULT_SAC;
-> +			dw9719->vcm_freq = DW9719_DEFAULT_VCM_FREQ;
-> +			dw9719->div = DW9800K_DEFAULT_DIV;
-> +			dw9719->sac_time = DW9800K_DEFAULT_SACT;
-> +			break;
->  		default:
->  			dev_err(dw9719->dev,
->  				"Error unknown device id 0x%02llx\n", val);
-> @@ -185,14 +198,54 @@ static int dw9719_power_up(struct dw9719_device *dw9719, bool detect)
->  		/* Optional indication of VCM prescale */
->  		device_property_read_u32(dw9719->dev, "dongwoon,vcm-prescale",
->  					 &dw9719->vcm_freq);
-> +
-> +		/* Optional indication of clock pre-scale select */
-> +		device_property_read_u32(dw9719->dev, "dongwoon,clock-presc",
-> +					 &dw9719->div);
-> +
-> +		/* Optional indication of SAC timing */
-> +		device_property_read_u32(dw9719->dev, "dongwoon,timing-control",
-> +					 &dw9719->sac_time);
->  	}
->  
->  	switch (dw9719->model) {
->  	case DW9800K:
-> -		cci_write(dw9719->regmap, DW9719_CONTROL, DW9719_ENABLE_RINGING, &ret);
-> +		int ring, sac;
-> +
-> +		/*
-> +		 * Enable ringing for SAC3-SAC5
-> +		 *
-> +		 * sac_mode	reg	Mode
-> +		 * ===========================
-> +		 *	0	0X	Direct
-> +		 *	1	1X	LSC
-> +		 *	2	00	SAC2
-> +		 *	3	01	SAC3
-> +		 *	4	10	SAC4
-> +		 *	5	11	SAC5
-> +		 */
-> +		switch (dw9719->sac_mode) {
-> +		case 0:
-> +			ring = 0;
-> +			sac = 0;
-> +			break;
-> +		case 1:
-> +			ring = 0;
-> +			sac = 2;
-> +			break;
-> +		default:
-> +			ring = DW9719_ENABLE_RINGING;
-> +			sac = dw9719->sac_mode - 2;
-> +			break;
-> +		}
+  [1/4] dt-bindings: riscv: thead: add Milk-V Meles
+        https://git.kernel.org/fustini/c/2c8613ec65f4
+  [2/4] riscv: dts: thead: add Milk-V Meles
+        https://git.kernel.org/fustini/c/8360e1bcc246
+  [3/4] riscv: dts: thead: enable AP6256 Wi-Fi on Milk-V Meles
+        https://git.kernel.org/fustini/c/a7f2539005c4
+  [4/4] riscv: dts: thead: enable HDMI on Milk-V Meles
+        https://git.kernel.org/fustini/c/d43b33e0253c
 
-For example what is ringing - a patch should cover "enable ringing it does
-thing X" and then the code should be a straight-forward reading of thing X,
-matching the commit log.
----
-bod
-
+Thanks,
+Drew
