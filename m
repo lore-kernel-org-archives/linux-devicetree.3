@@ -1,82 +1,80 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EB1D4746AA
-	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 10:09:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84325479874
+	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 10:09:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791799804; cv=none; b=F36kuBHQnhgAb5qywMIk8UCydazYtyCcJDpFqtrbNvCBKW9lAQ2qnfv3kunyrV2DDgjLBYy8k9SY1uJ7fxGWNvHSlZOq5mgw4LGh9aCTP3nodxViN4+IjbRrWNV0ofTrJ9RsfsgQgMuzENnla5tTxcKln1pmCgH32Obj8g5nMh0=
+	t=1791799805; cv=none; b=oz3LGs1iKQpjuQbyqtOkkSkWpyuKXZ9KYIvgmj/0g6MQNoImKMC91PDsKRktx1Q0GSxc0U4tTQZfMUHidCVis5hZuouUHdO6i1/Dk9WwE87anvwOFEPxugz7nj3ne8PXFy6W1nMZge9vceQaowMpmh8rSluHnJ2ZnyAmAbHDc6k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791799804; c=relaxed/simple;
-	bh=nSeIB9SqI3YR3qh8EwI2spWM6L+JrfQJZacP9d3kjTw=;
+	s=arc-20240116; t=1791799805; c=relaxed/simple;
+	bh=+KCwV0o5lNkzqEwrrDSMWVVyqagSWS+U7oeGm/DX+mY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GcoXuGOFnrNWv33m5BBRSyitukmKXKGF16qwXBGpvpkWbUSM2kTKF8eFImp9p4zj7gScrqLNVV21y6wqShcy0+wQbVmH86w4EUWbRPbAbiLK0Xd/rsSnI3oOAIVMa5URZ1YKjn+GXe4+PgkmouBFPZE+6KUj3L/Z1jOHm2x5RNI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZkRyoNHg; arc=none smtp.client-ip=209.85.128.45
+	 MIME-Version; b=XPTG7mxWaWuU4jMt6fxcpo+j/T4/c8kTMKReUifK1dQoNdnDLfi11bYhsVx40Gnt0M+jjWpeJJaldGT29llBaRqDSoSv0nR41hKU8FY1slqkAB+U2g6sblKbENxfJxG2frkuMvYRF/q3xpIOCa/uLM3iyo/Fb2jsQXGkycTbm/8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p1jrn4gl; arc=none smtp.client-ip=209.85.128.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZkRyoNHg"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-4a16bc2278aso11360215e9.1
-        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 03:09:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p1jrn4gl"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a171b677d2so9767605e9.0
+        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 03:09:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791799785; x=1792404585; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791799787; x=1792404587; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=J3Qc6M2FWp5fQpmardGXk9w7HUQgqdCLyizNZPwG574=;
-        b=ZkRyoNHgNyyo0IlpmZuLBpR63GTqRGSzrr0RDJTEf2Fjs6PH/8BeRRW1fW1HWjUxZi
-         gl3hhLU5wDKKwVQsAaHBNFfUDwFyxl/vSzHSfQPIT/X76Olk3pX1bpX5HVKXf1OB+EvH
-         nHXvWemUtxLcGAmQuOhrlped4Wupm5qYgJgos/ZhOjSA5+fkXKxcaDoYwQDPxF7/9b/N
-         C0zO2nmM5f2eRbELhUPxKWUG7hqBq+wUsC4CxB4zCqfDjWCTVmK4ylX11JUwH98rl37V
-         ++sB9f5JIpfHtIHFA/TFRKSS4kHfZiLL+EnUg2wjNNyhIDqj1c0DL8ypPwvVe74upqeT
-         8mAg==
+        bh=SvxAI9ArFF8nFcCP24+p8MMt9b8rRfzDsupP1bqY8MQ=;
+        b=p1jrn4glbgk1+ZZcKpQRtNdCEpTIemH9bUw0+2wA9OlrEgx2UPxxXfW5PriyxASa4A
+         778BSiZaJmInOG/j/dXP1QwS1liSC33ESfmBgj86wqmp5tYJx1TYvLQXv4E4kWJrnaoO
+         V6GXKdz+KsaRjGFQriqU8f9Hmio5iRkatXJvyCzg5I/qVD7Ql6cC7OEzUG8SqFdRc2np
+         BJmNRQtuLv/lnFvssysd1QB4Iptd3H8+FSzWs7AqXJEICF8DiqBL9y+fo8PqsVmwwN9K
+         SbTclpR7qKVUx3HqDzEVMB8DQdqiJu4XzsXEE76gdKpHUIOscGe9JLSWiOvYGZ3eO2qw
+         H7xQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791799785; x=1792404585;
+        d=1e100.net; s=20260707; t=1791799787; x=1792404587;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=J3Qc6M2FWp5fQpmardGXk9w7HUQgqdCLyizNZPwG574=;
-        b=K8rS3yL8idEBTK9xxe+uGXjqDqejLs/zfpskZ5ijbDgiHXcyaCwTT+MeVLHTE3LaS0
-         7cU3Rq92W+KupQ9+PH6O6mtX36OtUuTWZfx+5O4g4E39w3DJYxx8bmfK2o1Gz1xqpjPe
-         tXPYJB6MN4Tz637VkuPnNaVBWxCZ+Hx0iVN7Xx3qek9uR6IPagX3olHnJDXxYstkBAxd
-         Ec6sB2h0GXWSxdrF2BZa3z6Klkuuwf9cFDZVwvz7w2NWoWp1FlMuSxnfDx9+o3obYxd0
-         mqpAzB3EJB6uiXogtTnPtZm2GT/e+eDiMl+jCYGAEyeXqW2efA9b8WCu/uUmQvJ3FKxx
-         wpjA==
-X-Forwarded-Encrypted: i=1; AKwUvBzl94XCh8Jmn+b8SAA87U3rsUXMLQfWcssbiEpNzL3Uto/hanXaF8JRpBhgbg23IW08Fyfr2OdTPUSj@vger.kernel.org
-X-Gm-Message-State: AFq9FYKDvDao55q3hp+W4JDcoD3htTDLGY5kZ8gVC6HCWGM05ZBx0ffy
-	W8sqd8UobBb8Eradn1mXRGFdZaYyR72Py4wfisOM1+2lvBo9k1CqyTi4
-X-Gm-Gg: AYBFou06kDbaX9/nH8TH9iqn1yZ8V6OA5fZpm7ZX6KcctpRnqbYQfae4Hy8zuYrzyGC
-	R3UI/mCuoAS4l+x19qLmYIyJPFB2/Tt7YtHpcdbGeiuLHfhBIX7D4E9vptB5jFhGJY3ZFmzop1k
-	kWVXGABqxOSJuVn9/FEdbniIZwiPR+BBsFaWQ4yz3bAJfJMmvpD0rg6U5V7CE1Y0EOPDkBqtdUl
-	yms22QUFaq2Qe0QHDYYXG3GUHt18+0oHb+pgiK15rPlTYxEusx1Ct5WuRUIEjd+CebkOEoPudfq
-	1kwMZ66gBDq4rMNrQBZYzg6S4vkyQodRuWNGdJBtHV7z4sfr5G7wsEXpaL9wwtRYqj0DeyEOcra
-	0U2Avxcuhvszt3qQ04uezsXYZn36DsrLa1qJz67i8OZVzZOjqBXaZ7aP27YNG2Usqd7SZGma25S
-	9w/O1A5cEHTKeFyDrrLCqv+QwPD2ZcHvAAUIDPssHH5762RfWq3U+W+z1m0fBFpzsIduyB167qm
-	dW+NqUSQAc5kagvzlr6j3RKJjKXTJIm
-X-Received: by 2002:a05:600c:4fc1:b0:49d:2536:402e with SMTP id 5b1f17b1804b1-4a19a9cf1e6mr56555745e9.30.1791799785371;
-        Mon, 12 Oct 2026 03:09:45 -0700 (PDT)
+        bh=SvxAI9ArFF8nFcCP24+p8MMt9b8rRfzDsupP1bqY8MQ=;
+        b=1d7E6UjrtJWenXIEITBAuJhtfMYGRhrxheJHFnd10HhRkIXvdt7E30xYEWRzlU+txz
+         +Nt9KxnLEZVTOD4yLtqu9lfKZjvIYCbx+jAyhwO0RJUBknINbpJvrFem3LYz7WNsg6vT
+         yTG/tPBsCgQ4rQwTWLTaya1EQy53oGotLHv/nyD1jhQfzk7KttckNlJ+i/gJy0NM01r8
+         8VWV2WSLZQTOvXaB+1ya9JOnOyWA+ztXJ7TBlwZ+6J7H9ApKMh6uradbCYRWRoJLJ/UC
+         NMLZVb1yNBIrdADELEj09EEsvggvnfWfAlsGbsDx7fCwcx9BBd6CZU/0x9F394pYaBau
+         XD2A==
+X-Forwarded-Encrypted: i=1; AKwUvByFt6fSe04N8Xsu2KE3YKLcKONa3jFkkX17ysaQLlUzmzbVEdDObEA7vTS3xRFdJiIsxSt5SDzKCE2s@vger.kernel.org
+X-Gm-Message-State: AFq9FYK5awmpurTU0INNcOj693lP/ezWibTbagO0LfAwnsa6+9fMIU0v
+	2kGbMr6SL8vVkPkPG3B81OJ0UhZ/9KULMU1lWsNwrMFpC2qIAITJm4PG
+X-Gm-Gg: AYBFou3RkIoe2CK/yBVrnwiDU3ga/e4Znp08xHMH/lcEUA9w/aH1cHvb6xTbzYlLnP4
+	9tTlMKQLMYrhqx03Lr2TrwmQ4/UacnOinlWCJjhelCqx55I6BtrxViFWyNnsLrY4rt7LGLc2nsj
+	2SztdO4UAib8j8OyXwmTv6tBbZ60pSafjd6EqVqPnWaDwDiOTr5NFVK3rWUJFYm2cUK7lH3Pg3U
+	em9weQVXv/Nrbcwuycgp6c9A0tq3GUHD/TbXTyJwk+UTGSL2QAUtmBcEOvNO+uE25HFPYLjaDPl
+	GM2+iKOnil2jIb57xZ3k7d2Bjp0q/MjopdWhEs9H3iBwLXwwk8PNBUp6H/RyvAIlw3n074wOjjJ
+	OPGm3Aj1LRzLL+xUf6IxvY/eeFYbm9oH3eA2KJP2Jt8fDsTZDtE01Ctb8f3Mrni9iInwfKg54yu
+	K54l5+OEPPb162DjRohTzeAgcz1LXBwpKWYAI9NT5lqgkbINGAFHwPAvwIem2VltjLwKWYMbC+N
+	hkOkTh3LXB1KuhLa7zpGI1X5pFtMM6+
+X-Received: by 2002:a05:600c:1909:b0:4a0:159b:d283 with SMTP id 5b1f17b1804b1-4a18e4d5412mr187666615e9.30.1791799787360;
+        Mon, 12 Oct 2026 03:09:47 -0700 (PDT)
 Received: from debian (ip-78-137-176-146.broadband.digiweb.ie. [78.137.176.146])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a192d3efb6sm166229885e9.1.2026.10.12.03.09.44
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a192d3efb6sm166229885e9.1.2026.10.12.03.09.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 03:09:44 -0700 (PDT)
+        Mon, 12 Oct 2026 03:09:46 -0700 (PDT)
 From: Pablo Mazzini <pmazzini@gmail.com>
 To: Chen-Yu Tsai <wens@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
 	Jernej Skrabec <jernej.skrabec@gmail.com>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Maxime Ripard <mripard@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Samuel Holland <samuel@sholland.org>
 Cc: Pablo Mazzini <pmazzini@gmail.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
 	Andre Przywara <andre.przywara@arm.com>,
 	devicetree@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	linux-sunxi@lists.linux.dev
-Subject: [PATCH v4 10/11] dt-bindings: arm: sunxi: add PocketBook Verse
-Date: Mon, 12 Oct 2026 11:08:15 +0100
-Message-ID: <20261012100816.331033-11-pmazzini@gmail.com>
+Subject: [PATCH v4 11/11] ARM: dts: allwinner: add B288 and the PocketBook Verse
+Date: Mon, 12 Oct 2026 11:08:16 +0100
+Message-ID: <20261012100816.331033-12-pmazzini@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261012100816.331033-1-pmazzini@gmail.com>
 References: <20261012100816.331033-1-pmazzini@gmail.com>
@@ -88,30 +86,447 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-A 6" e-book reader built around the Allwinner B288.
+Add the B288 SoC .dtsi and the PocketBook Verse (PB629) board.
 
 Signed-off-by: Pablo Mazzini <pmazzini@gmail.com>
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
- Documentation/devicetree/bindings/arm/sunxi.yaml | 5 +++++
- 1 file changed, 5 insertions(+)
+ arch/arm/boot/dts/allwinner/Makefile          |   1 +
+ .../allwinner/sun8i-b288-pocketbook-verse.dts | 114 +++++++
+ arch/arm/boot/dts/allwinner/sun8i-b288.dtsi   | 292 ++++++++++++++++++
+ 3 files changed, 407 insertions(+)
+ create mode 100644 arch/arm/boot/dts/allwinner/sun8i-b288-pocketbook-verse.dts
+ create mode 100644 arch/arm/boot/dts/allwinner/sun8i-b288.dtsi
 
-diff --git a/Documentation/devicetree/bindings/arm/sunxi.yaml b/Documentation/devicetree/bindings/arm/sunxi.yaml
-index 28437c47ac01..fa34786f0652 100644
---- a/Documentation/devicetree/bindings/arm/sunxi.yaml
-+++ b/Documentation/devicetree/bindings/arm/sunxi.yaml
-@@ -811,6 +811,11 @@ properties:
-           - const: pocketbook,614-plus
-           - const: allwinner,sun5i-a13
- 
-+      - description: PocketBook Verse (PB629)
-+        items:
-+          - const: pocketbook,verse
-+          - const: allwinner,sun8i-b288
+diff --git a/arch/arm/boot/dts/allwinner/Makefile b/arch/arm/boot/dts/allwinner/Makefile
+index 75b2b6a2f7a6..2dfdc01e4825 100644
+--- a/arch/arm/boot/dts/allwinner/Makefile
++++ b/arch/arm/boot/dts/allwinner/Makefile
+@@ -227,6 +227,7 @@ dtb-$(CONFIG_MACH_SUN8I) += \
+ 	sun8i-a83t-bananapi-m3.dtb \
+ 	sun8i-a83t-cubietruck-plus.dtb \
+ 	sun8i-a83t-tbs-a711.dtb \
++	sun8i-b288-pocketbook-verse.dtb \
+ 	sun8i-h2-plus-bananapi-m2-zero.dtb \
+ 	sun8i-h2-plus-libretech-all-h3-cc.dtb \
+ 	sun8i-h2-plus-orangepi-r1.dtb \
+diff --git a/arch/arm/boot/dts/allwinner/sun8i-b288-pocketbook-verse.dts b/arch/arm/boot/dts/allwinner/sun8i-b288-pocketbook-verse.dts
+new file mode 100644
+index 000000000000..a60cbb638019
+--- /dev/null
++++ b/arch/arm/boot/dts/allwinner/sun8i-b288-pocketbook-verse.dts
+@@ -0,0 +1,114 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * PocketBook Verse (PB629), an Allwinner B288 based e-reader.
++ */
 +
-       - description: Point of View Protab2-IPS9
-         items:
-           - const: pov,protab2-ips9
++/dts-v1/;
++#include "sun8i-b288.dtsi"
++
++#include <dt-bindings/gpio/gpio.h>
++
++/ {
++	model = "PocketBook Verse";
++	compatible = "pocketbook,verse", "allwinner,sun8i-b288";
++
++	aliases {
++		serial0 = &uart0;
++	};
++
++	chosen {
++		stdout-path = "serial0:115200n8";
++	};
++};
++
++&uart0 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&uart0_pb_pins>;
++	status = "okay";
++};
++
++&mmc0 {
++	vmmc-supply = <&reg_dldo2>;
++	bus-width = <4>;
++	cd-gpios = <&pio 5 6 GPIO_ACTIVE_LOW>;	/* PF6 */
++	disable-wp;
++	status = "okay";
++};
++
++&mmc3 {
++	vmmc-supply = <&reg_dcdc1>;
++	vqmmc-supply = <&reg_dldo1>;
++	bus-width = <8>;
++	non-removable;
++	cap-mmc-hw-reset;
++	mmc-ddr-1_8v;
++	mmc-hs200-1_8v;
++	status = "okay";
++};
++
++&pio {
++	vcc-pc-supply = <&reg_dldo1>;
++	vcc-pd-supply = <&reg_dldo1>;
++};
++
++&i2c0 {
++	status = "okay";
++
++	axp22x: pmic@34 {
++		/* labelled AXP227 */
++		compatible = "x-powers,axp221";
++		reg = <0x34>;
++		interrupt-parent = <&nmi_intc>;
++		interrupts = <0 IRQ_TYPE_LEVEL_LOW>;
++	};
++};
++
++#include "axp22x.dtsi"
++
++&reg_dcdc1 {
++	regulator-always-on;
++	regulator-min-microvolt = <3000000>;
++	regulator-max-microvolt = <3000000>;
++	regulator-name = "vcc-io";
++};
++
++&reg_dcdc2 {
++	regulator-always-on;
++	regulator-min-microvolt = <1260000>;
++	regulator-max-microvolt = <1260000>;
++	regulator-name = "vdd-cpu";
++};
++
++&reg_dcdc4 {
++	regulator-always-on;
++	regulator-min-microvolt = <1100000>;
++	regulator-max-microvolt = <1100000>;
++	regulator-name = "vdd-sys";
++};
++
++&reg_dcdc5 {
++	regulator-always-on;
++	regulator-min-microvolt = <1350000>;
++	regulator-max-microvolt = <1350000>;
++	regulator-name = "vcc-dram";
++};
++
++&reg_aldo3 {
++	regulator-always-on;
++	regulator-min-microvolt = <3000000>;
++	regulator-max-microvolt = <3000000>;
++	regulator-name = "avcc";
++};
++
++&reg_dldo1 {
++	regulator-min-microvolt = <1800000>;
++	regulator-max-microvolt = <1800000>;
++	regulator-name = "vcc-pc";
++};
++
++&reg_dldo2 {
++	/* microSD slot */
++	regulator-min-microvolt = <3300000>;
++	regulator-max-microvolt = <3300000>;
++	regulator-name = "vcc-sdcv";
++};
+diff --git a/arch/arm/boot/dts/allwinner/sun8i-b288.dtsi b/arch/arm/boot/dts/allwinner/sun8i-b288.dtsi
+new file mode 100644
+index 000000000000..53832ea9dc01
+--- /dev/null
++++ b/arch/arm/boot/dts/allwinner/sun8i-b288.dtsi
+@@ -0,0 +1,292 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Allwinner B288 (sun8iw10p1) SoC
++ */
++
++#include <dt-bindings/interrupt-controller/arm-gic.h>
++#include <dt-bindings/clock/sun6i-rtc.h>
++#include <dt-bindings/clock/sun8i-b288-ccu.h>
++#include <dt-bindings/reset/sun8i-b288-ccu.h>
++
++/ {
++	#address-cells = <1>;
++	#size-cells = <1>;
++	interrupt-parent = <&gic>;
++
++	osc24M: osc24M-clk {
++		#clock-cells = <0>;
++		compatible = "fixed-clock";
++		clock-frequency = <24000000>;
++		clock-output-names = "osc24M";
++	};
++
++	osc32k: osc32k-clk {
++		#clock-cells = <0>;
++		compatible = "fixed-clock";
++		clock-frequency = <32768>;
++		clock-output-names = "ext-osc32k";
++	};
++
++	cpus {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		cpu0: cpu@0 {
++			compatible = "arm,cortex-a7";
++			device_type = "cpu";
++			reg = <0>;
++			clocks = <&ccu CLK_CPUX>;
++			clock-names = "cpu";
++		};
++
++		cpu1: cpu@1 {
++			compatible = "arm,cortex-a7";
++			device_type = "cpu";
++			reg = <1>;
++			clocks = <&ccu CLK_CPUX>;
++			clock-names = "cpu";
++		};
++	};
++
++	timer {
++		compatible = "arm,armv7-timer";
++		interrupts = <GIC_PPI 13 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>,
++			     <GIC_PPI 14 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>,
++			     <GIC_PPI 11 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>,
++			     <GIC_PPI 10 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_LOW)>;
++	};
++
++	soc {
++		compatible = "simple-bus";
++		#address-cells = <1>;
++		#size-cells = <1>;
++		ranges;
++
++		nmi_intc: interrupt-controller@1c000d0 {
++			compatible = "allwinner,sun8i-b288-nmi",
++				     "allwinner,sun9i-a80-nmi";
++			interrupt-controller;
++			#interrupt-cells = <2>;
++			reg = <0x01c000d0 0x0c>;
++			interrupts = <GIC_SPI 32 IRQ_TYPE_LEVEL_HIGH>;
++		};
++
++		/*
++		 * mmc0 is a v4p1x controller, so it runs in the old timing
++		 * mode and needs the sample and output phase clocks.
++		 */
++		mmc0: mmc@1c0f000 {
++			compatible = "allwinner,sun8i-b288-mmc",
++				     "allwinner,sun7i-a20-mmc";
++			reg = <0x01c0f000 0x1000>;
++			clocks = <&ccu CLK_BUS_SDMMC0_BUS>,
++				 <&ccu CLK_MMC0>,
++				 <&ccu CLK_MMC0_OUTPUT>,
++				 <&ccu CLK_MMC0_SAMPLE>;
++			clock-names = "ahb", "mmc", "output", "sample";
++			resets = <&ccu RST_BUS_MMC0>;
++			reset-names = "ahb";
++			interrupts = <GIC_SPI 60 IRQ_TYPE_LEVEL_HIGH>;
++			pinctrl-names = "default";
++			pinctrl-0 = <&mmc0_pins>;
++			status = "disabled";
++			#address-cells = <1>;
++			#size-cells = <0>;
++		};
++
++		mmc3: mmc@1c12000 {
++			compatible = "allwinner,sun8i-b288-emmc",
++				     "allwinner,sun50i-a64-emmc";
++			reg = <0x01c12000 0x1000>;
++			clocks = <&ccu CLK_BUS_SDMMC3_BUS>, <&ccu CLK_MMC3>;
++			clock-names = "ahb", "mmc";
++			resets = <&ccu RST_BUS_MMC3>;
++			reset-names = "ahb";
++			interrupts = <GIC_SPI 63 IRQ_TYPE_LEVEL_HIGH>;
++			pinctrl-names = "default";
++			pinctrl-0 = <&mmc3_pins>;
++			max-frequency = <150000000>;
++			status = "disabled";
++			#address-cells = <1>;
++			#size-cells = <0>;
++		};
++
++		/* mmc2 @0x01c11000 is an unsupported SDHCI-style controller. */
++
++		ccu: clock-controller@1c20000 {
++			compatible = "allwinner,sun8i-b288-ccu";
++			reg = <0x01c20000 0x400>;
++			clocks = <&osc24M>, <&rtc CLK_OSC32K>;
++			clock-names = "hosc", "losc";
++			#clock-cells = <1>;
++			#reset-cells = <1>;
++		};
++
++		rtc: rtc@1c20400 {
++			compatible = "allwinner,sun8i-b288-rtc";
++			reg = <0x01c20400 0x400>;
++			interrupts = <GIC_SPI 40 IRQ_TYPE_LEVEL_HIGH>;
++			clock-output-names = "osc32k", "osc32k-out";
++			clocks = <&osc32k>;
++			#clock-cells = <1>;
++		};
++
++		pio: pinctrl@1c20800 {
++			compatible = "allwinner,sun8i-b288-pinctrl";
++			reg = <0x01c20800 0x400>;
++			interrupts = <GIC_SPI 15 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 16 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 21 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 17 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&ccu CLK_BUS_PIO>, <&osc24M>, <&rtc CLK_OSC32K>;
++			clock-names = "apb", "hosc", "losc";
++			gpio-controller;
++			#gpio-cells = <3>;
++			interrupt-controller;
++			#interrupt-cells = <3>;
++
++			mmc0_pins: mmc0-pins {
++				pins = "PF0", "PF1", "PF2",
++				       "PF3", "PF4", "PF5";
++				function = "mmc0";
++				allwinner,pinmux = <2>;
++				drive-strength = <30>;
++				bias-pull-up;
++			};
++
++			i2c0_pins: i2c0-pins {
++				pins = "PB6", "PB7";
++				function = "i2c0";
++				allwinner,pinmux = <2>;
++			};
++
++			mmc3_pins: mmc3-pins {
++				pins = "PC1", "PC4", "PC5", "PC6",
++				       "PC7", "PC8", "PC9", "PC10",
++				       "PC11", "PC12", "PC13", "PC14";
++				function = "mmc3";
++				allwinner,pinmux = <5>;
++				drive-strength = <40>;
++				bias-pull-up;
++			};
++
++			uart0_pb_pins: uart0-pb-pins {
++				pins = "PB4", "PB5";
++				function = "uart0";
++				allwinner,pinmux = <2>;
++			};
++		};
++
++		wdt: watchdog@1c20ca0 {
++			compatible = "allwinner,sun8i-b288-wdt",
++				     "allwinner,sun6i-a31-wdt";
++			reg = <0x01c20ca0 0x20>;
++			interrupts = <GIC_SPI 25 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&osc24M>;
++		};
++
++		uart0: serial@1c28000 {
++			compatible = "snps,dw-apb-uart";
++			reg = <0x01c28000 0x400>;
++			interrupts = <GIC_SPI 0 IRQ_TYPE_LEVEL_HIGH>;
++			reg-shift = <2>;
++			reg-io-width = <4>;
++			clocks = <&ccu CLK_BUS_UART0>;
++			resets = <&ccu RST_BUS_UART0>;
++			status = "disabled";
++		};
++
++		uart1: serial@1c28400 {
++			compatible = "snps,dw-apb-uart";
++			reg = <0x01c28400 0x400>;
++			interrupts = <GIC_SPI 1 IRQ_TYPE_LEVEL_HIGH>;
++			reg-shift = <2>;
++			reg-io-width = <4>;
++			clocks = <&ccu CLK_BUS_UART1>;
++			resets = <&ccu RST_BUS_UART1>;
++			status = "disabled";
++		};
++
++		uart2: serial@1c28800 {
++			compatible = "snps,dw-apb-uart";
++			reg = <0x01c28800 0x400>;
++			interrupts = <GIC_SPI 2 IRQ_TYPE_LEVEL_HIGH>;
++			reg-shift = <2>;
++			reg-io-width = <4>;
++			clocks = <&ccu CLK_BUS_UART2>;
++			resets = <&ccu RST_BUS_UART2>;
++			status = "disabled";
++		};
++
++		uart3: serial@1c28c00 {
++			compatible = "snps,dw-apb-uart";
++			reg = <0x01c28c00 0x400>;
++			interrupts = <GIC_SPI 3 IRQ_TYPE_LEVEL_HIGH>;
++			reg-shift = <2>;
++			reg-io-width = <4>;
++			clocks = <&ccu CLK_BUS_UART3>;
++			resets = <&ccu RST_BUS_UART3>;
++			status = "disabled";
++		};
++
++		uart4: serial@1c29000 {
++			compatible = "snps,dw-apb-uart";
++			reg = <0x01c29000 0x400>;
++			interrupts = <GIC_SPI 4 IRQ_TYPE_LEVEL_HIGH>;
++			reg-shift = <2>;
++			reg-io-width = <4>;
++			clocks = <&ccu CLK_BUS_UART4>;
++			resets = <&ccu RST_BUS_UART4>;
++			status = "disabled";
++		};
++
++		i2c0: i2c@1c2ac00 {
++			compatible = "allwinner,sun8i-b288-i2c",
++				     "allwinner,sun6i-a31-i2c";
++			reg = <0x01c2ac00 0x400>;
++			interrupts = <GIC_SPI 6 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&ccu CLK_BUS_TWI0>;
++			resets = <&ccu RST_BUS_I2C0>;
++			pinctrl-names = "default";
++			pinctrl-0 = <&i2c0_pins>;
++			status = "disabled";
++			#address-cells = <1>;
++			#size-cells = <0>;
++		};
++
++		i2c1: i2c@1c2b000 {
++			compatible = "allwinner,sun8i-b288-i2c",
++				     "allwinner,sun6i-a31-i2c";
++			reg = <0x01c2b000 0x400>;
++			interrupts = <GIC_SPI 7 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&ccu CLK_BUS_TWI1>;
++			resets = <&ccu RST_BUS_I2C1>;
++			status = "disabled";
++			#address-cells = <1>;
++			#size-cells = <0>;
++		};
++
++		i2c2: i2c@1c2b400 {
++			compatible = "allwinner,sun8i-b288-i2c",
++				     "allwinner,sun6i-a31-i2c";
++			reg = <0x01c2b400 0x400>;
++			interrupts = <GIC_SPI 8 IRQ_TYPE_LEVEL_HIGH>;
++			clocks = <&ccu CLK_BUS_TWI2>;
++			resets = <&ccu RST_BUS_I2C2>;
++			status = "disabled";
++			#address-cells = <1>;
++			#size-cells = <0>;
++		};
++
++		gic: interrupt-controller@1c81000 {
++			compatible = "arm,gic-400";
++			reg = <0x01c81000 0x1000>,
++			      <0x01c82000 0x2000>,
++			      <0x01c84000 0x2000>,
++			      <0x01c86000 0x2000>;
++			interrupts = <GIC_PPI 9 (GIC_CPU_MASK_SIMPLE(2) | IRQ_TYPE_LEVEL_HIGH)>;
++			interrupt-controller;
++			#interrupt-cells = <3>;
++		};
++	};
++};
 -- 
 2.52.0
 
