@@ -1,147 +1,77 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9E5B4AA1EB;
-	Mon, 12 Oct 2026 18:17:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73302372691;
+	Mon, 12 Oct 2026 18:20:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791829077; cv=none; b=Xmk+CP1YGe62+OOL+byO/b2kIY54ZRdSPKgC1DPlx+OONDCmXFrdmkTCjZkjwmzMjuVufdqSXIK2dr9y8azteBt3yVSHQSpmN9WhxOa/IdUhx86OAfmwd5gG+BX+KhrxX07Sut9jLlDbmCZJd4WukzEy6qG3kd57T1nWroT1lcM=
+	t=1791829249; cv=none; b=gagz2GaOAIZPgqmXcRiL9SDupELPgEas5aFjmMpCeAVNBZmj+k4oI8CxzsLNSWR7ZzD3+REsdDENM3J2uQIC0P74Dv/EYDZHtEvOWFyyGkANPvkJuOA9w9XOJNZB2EV0bpy628FdtXwvsu+mAyN+UFqnl3F4SOAHVhCCjPzEA8c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791829077; c=relaxed/simple;
-	bh=2BkQe0cPMfnSaWkaR260fccQkLruK74GyLLMi/bkJVU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kOuekeBmRYxP/TiKH5/AsZi5bPzZyX9P6SfRLNh4vFajDnIdO/fVYsafWiAvixyCvWc4l1HVxkEU0v5AK7ZNIi+W9HEg2cT9YYzOvdPCdHH2HsPlKi1ThiBnujN0bjLecIyl5cs8jh7aH0UaanthbGyORcM+kaake8I3GN4NGII=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R+mieiEj; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791829249; c=relaxed/simple;
+	bh=ZCSA7FP5X4lYXssWjzxfjBiKlylaiIQbja0D9gW4gDQ=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=TgsECR6+o6fT9zYDuWdEJWIBZFQhegdGqexMw3F+8rUyCP9l+VyLh3TJ8JBaD1qvxoa01+9FXeZTFnhK0gzyUr88T58IBw1AknvRQa7Kv860eS5Nj57rb0xifv3hB7vqU6sE4p1YCtV+2bQjOmVkN9YzZUQ5NmU1c4xHvD6MMgQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=uZXAgcdp; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R+mieiEj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C51BF1F0089B;
-	Mon, 12 Oct 2026 18:17:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791829076;
-	bh=CBeQqtobZlJEzGuyYJNrwxZ4pA/3QS4wDhBW1e67RRw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=R+mieiEj0R6HLEJ19czXCyv8eLqxr1urLGS/lBP8kgfwAWQcC3oANujjH93ykSxV4
-	 hQcCgSrQ+YUBkU09aVqAZr6qgpmET6odwK2iaMR8zZV6IS61cIEYF/u5yhMm69rAj4
-	 sp7Js44YvQlCMoo6sgEvYW9EIe21nxP88eJ3kNWn+Uoss5f/Xm2XpSad4Ow1OdgZ/w
-	 fAGqVQjdRAH6ixWNTR1qgLSWHXRfg8loeiHORzCFm6s8QCBfUUOBXHlKJRYNzPnfsr
-	 7i6rmTRXvXwSbdMkws94vb8SMEjnvycGvFoH1Waa4Va7kg8XgmWIS5+YbBi4fyzI6j
-	 TiDnizU4yeoJA==
-Date: Mon, 12 Oct 2026 19:17:51 +0100
-From: Conor Dooley <conor@kernel.org>
-To: netdev-bot+sashiko@kernel.org
-Cc: jacky_chou@aspeedtech.com, andrew+netdev@lunn.ch, davem@davemloft.net,
-	kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, ratbert@faraday-tech.com,
-	edumazet@kernel.org, hkallweit1@gmail.com, linux@armlinux.org.uk,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next v2 1/6] dt-bindings: net: ftgmac100: Add AST2700
- compatible
-Message-ID: <20261012-aide-wimp-4edf96aaca1d@spud>
-References: <20261006-support_ast2700-v2-1-36de51fb8066@aspeedtech.com>
- <179161911824.434549.4075299707625994950@kernel.org>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="uZXAgcdp"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id B18514E411FE;
+	Mon, 12 Oct 2026 18:20:44 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 127A8601A6;
+	Mon, 12 Oct 2026 18:20:44 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B248311D70C57;
+	Mon, 12 Oct 2026 20:20:36 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791829239; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=9Z5DuxO6Z8vvHDjdd8tEVoNo+qa86SWpq1PAL6xxnfQ=;
+	b=uZXAgcdpzrR93SwNFj2cnbE4HQMrhsn0ImHwCFCSE6RSLC7UxEYNrIbOOyZumMAUFd3r9g
+	7TqSyU/BzViNZqOxPuc71e5ngpR+LF4CtfELUztKC/8VwHB3hNcfNSCKfKWomhjoXw7ud9
+	XGDAgzFRo+6quQg+ybdXrF74aMkvT+OX3zTkb45fsKZOkud+SdM1Y7WeayIjr6Vr5XYh8Y
+	k/1gCwQMptpKqm9UJgN7f3T0s4JsTkQTqJS5rvv12K2uTOfffMR/hv+wFP3DN8YSzKS9CH
+	UK3KIHK8GnkuZ5hts6Y3vIh8mrJxHMtVqDTUpXsGfhm/PNaS3y6NIC7DEr0uhA==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Michal Simek <michal.simek@amd.com>, 
+ Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, "Rob Herring (Arm)" <robh@kernel.org>
+Cc: linux-mtd@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260925163045.1920345-1-robh@kernel.org>
+References: <20260925163045.1920345-1-robh@kernel.org>
+Subject: Re: [PATCH v2] dt-bindings: mtd: arasan: Add "power-domains" for
+ ZynqMP
+Message-Id: <179182923638.590599.15684130186236498870.b4-ty@bootlin.com>
+Date: Mon, 12 Oct 2026 20:20:36 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="SKpaERQPP4yzf68I"
-Content-Disposition: inline
-In-Reply-To: <179161911824.434549.4075299707625994950@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 
---SKpaERQPP4yzf68I
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On Fri, 25 Sep 2026 11:30:44 -0500, Rob Herring (Arm) wrote:
+> ZynqMP NAND controller nodes use "power-domains" property already, so add
+> it to the schema. As ZynqMP is the only supported platform currently, no
+> need for a conditional schema.
+> 
+> 
 
-On Sat, Oct 10, 2026 at 07:58:38AM +0000, netdev-bot+sashiko@kernel.org wro=
-te:
-> Thank you for your contribution! Sashiko AI review found more severe
-> issue(s) in other patches of this series. This mail is only an FYI, in ca=
-se
-> you want to address the nit picks below when you respin.
->=20
-> Low priority / nit picks for your consideration:
->=20
-> - [Low] Already fixed later in this series, so the baseline decision is
->   false.
->=20
-> --
->=20
-> dt-bindings: net: ftgmac100: Add AST2700 compatible
->=20
-> This adds aspeed,ast2700-mac to the FTGMAC100 compatible list, which
-> requires the faraday,ftgmac100 fallback. It also updates the RMII RCLK
-> clock description to include AST2700, and allows the resets property for
-> AST2700 in the same way as for AST2600.
->=20
-> > diff --git a/Documentation/devicetree/bindings/net/faraday,ftgmac100.ya=
-ml b/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
-> > index d14410018bcf6..bee9570a6f63f 100644
-> > --- a/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
-> > +++ b/Documentation/devicetree/bindings/net/faraday,ftgmac100.yaml
-> > @@ -18,6 +18,7 @@ properties:
-> >                - aspeed,ast2400-mac
-> >                - aspeed,ast2500-mac
-> >                - aspeed,ast2600-mac
-> > +              - aspeed,ast2700-mac
-> >            - const: faraday,ftgmac100
->=20
-> [Severity: Low]
-> With this patch, "aspeed,ast2700-mac", "faraday,ftgmac100" becomes a
-> valid compatible pair. However, at this commit, ftgmac100_of_match[] in
-> drivers/net/ethernet/faraday/ftgmac100.c has no aspeed,ast2700-mac entry.
-> Such a node could only bind through the generic faraday,ftgmac100 entry
-> (FTGMAC100_FARADAY).
->=20
-> On that path, ftgmac100_probe() would do the following:
->=20
->   - program the ring-end bits at BIT(15) instead of the Aspeed BIT(30)
->   - leave is_aspeed false, so ftgmac100_setup_clk() never claims
->     MACCLK/RCLK
->   - register the embedded MDIO bus through ftgmac100_setup_mdio()
->   - never set a DMA mask wider than 32 bits
->=20
-> Would an AST2700 node work correctly if it fell back to the Faraday
-> match?
+Applied to nand/next, thanks!
 
-Sounds like no, can the submitter please clarify if the fallback is
-valid?
+[1/1] dt-bindings: mtd: arasan: Add "power-domains" for ZynqMP
+      commit: 8e301fd598806b9480b00a2c16314140de7c4db6
 
->=20
-> Later patches in this series fix this. "net: ftgmac100: Add AST2700
-> compatible support" adds FTGMAC100_AST2700 and an aspeed,ast2700-mac
-> match entry, ahead of the faraday fallback. That entry selects the
-> BIT(30) and is_aspeed path.
->=20
-> "net: ftgmac100: Add AST2700 upper DMA address support" then adds
-> dma_set_mask_and_coherent(..., DMA_BIT_MASK(35)).
->=20
-> So the problem only shows up when bisecting to this commit, and only with
-> an out-of-tree AST2700 DTS on an ARM64 build. ARM64 builds are only
-> enabled by "net: ftgmac100: Allow building on ARM64". Landing the binding
-> before the driver match is the usual order for dt-bindings series.
->=20
-> [ ... ]
->=20
-> ^ annotation: none needed for the [ ... ] above; snipped hunks are the RC=
-LK description and the resets allOf block.
->=20
-> --=20
-> Sashiko AI review =B7 https://netdev-ai.bots.linux.dev/sashiko/#/patchset=
-/20261006-support_ast2700-v2-0-36de51fb8066%40aspeedtech.com
+Patche(s) should be available on mtd/linux.git and will be
+part of the next PR (provided that no robot complains by then).
 
---SKpaERQPP4yzf68I
-Content-Type: application/pgp-signature; name=signature.asc
+Kind regards,
+Miquèl
 
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCas0kTwAKCRB4tDGHoIJi
-0kA1AP9CO8HcgI3YQSQVtiyE5eYE1WX8RXey9PsMPJ//+flR8AEA/oL5cohuyAl0
-GG/lUTcGDK6NdK6nkVGVfCV/N+mkVAo=
-=uWkZ
------END PGP SIGNATURE-----
-
---SKpaERQPP4yzf68I--
