@@ -1,269 +1,196 @@
-Received: from mail-ej2-f11.google.com (mail-ej2-f11.google.com [74.125.228.139])
+Received: from mail-ej2-f2.google.com (mail-ej2-f2.google.com [74.125.228.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DCFE33D6D6
-	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 19:25:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.139
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C95604D4879
+	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 19:48:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.130
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791833110; cv=pass; b=UumNnaMNBBAGzGOpemXtEC7BEyclOuUkqEcFbzZXIBLiRHY85GZ871UrZxCGt8cNNNhN5F8Qt0MMz7O3yLyIpv+H0XukeZNezNS6cNZtp55lo+0qMBEcPy5Ivqa5rjwOnjMZyvD0LZUQve+NQlG79mQeeR8u4eBfjHlvHVyviVU=
+	t=1791834489; cv=pass; b=izhaGT6GmcBVgT/zTSTgV61k0I/cVprng8Q4/j6YXkV8/yF52xZFi7y86L3VpCLbAefzyDPzh52dsMUw5n8ZROXyW2aOvjMVc5+kEMNDZCSnka0edq8nAgDYl7QyP1ltIOa5GMA5Np7CM88gxR61vM/rAAXGfzQfN7h8dV7WAK0=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791833110; c=relaxed/simple;
-	bh=tgIZVnCf3XGFRPbT2LLSKxTT3U2rAEpxKOb6eHJqbdc=;
+	s=arc-20240116; t=1791834489; c=relaxed/simple;
+	bh=UUoBuGmd8fFx8whvNQfzDXZoaxMzirKFYCsoIfjrUgE=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qcWL+HIp6nkgB6R1rrSrGz8X2bSYa7iyxd9d6EBvVZWwmitypOu9K6xyquCHi+pKtf7S8e3E+sPCaDCfmHL9gSNa9gGuEdQ2RFped++ZtXIvdXb/6IBU8H/AEi5dh5YounBNG6mhh7D/C5xLPAZ8DttsiDKROE+woBDtZKcMBhw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZDQoBfQ+; arc=pass smtp.client-ip=74.125.228.139
+	 To:Cc:Content-Type; b=abN+IP2AXh/bPGfswgEzrvZOIBbi8hHCmqiGrHeb2LCqLSv7BwtcgTwqzfLVbfb/8Is0pua9xUU4BnSlOl93D0oH1QLWEj0LCg7ss6OInXk8ilv3FL/v8ohMO5n8ro4vAc9nEYBiUNof1MNPi3F3ylsOsNHye2x9CvoN5mtZWPg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PbfXMxYo; arc=pass smtp.client-ip=74.125.228.130
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZDQoBfQ+"
-Received: by mail-ej2-f11.google.com with SMTP id a640c23a62f3a-c3184a307cbso105041866b.0
-        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 12:25:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791833107; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PbfXMxYo"
+Received: by mail-ej2-f2.google.com with SMTP id a640c23a62f3a-c34dd106402so85905066b.0
+        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 12:48:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791834486; cv=none;
         d=google.com; s=arc-20260327;
-        b=r7oR/09nLmlgQqhH7DZE1RViyCgjdlqgv6pTzUJfH7dqcYpCqgDn40Eur3kKUayKzd
-         DK59lYHEkLZFPA5Lh6vzZfu56Y05pxBMcgtaoNRg4/9voOOXGdQCEh0Co6Jh7mo0BGf8
-         BRRYoIWRqNmICBZJi4YaZJqFYDUGvcMzS1eFtSjCzfrWYp77FmDcgeG1CtOZ6BjBeRA9
-         LKDeZxAbu83X1jLiDH1t9cDO2xUnIrEjXHRNVRbNvd50GjRVPOf1N9488cs5V2NM1/2+
-         +2e+LMVrGZPKDVmqvLtrMIBitcHxbgzr5yeZpryCfQRpbdmLNP7PdKxPyy5mMGoN7DpM
-         wTPQ==
+        b=MeLb2EzNJ/wP0kwOnZlGhXJiogzb4VIKm7GMeQHO79lcY0hn1OhevIZMd2GBe8o5cA
+         RhJdDgHX5mVoUjCYYPXivjBhSdoV6GSZtteQxOmIcNK2+S+rYj71J9ZpLIylBVNaO9nC
+         9xgWiE7YtxV6ew3Ueh87cX3ij2/4sgEBtSOqtBSqbsGMRuheqxRRHB9y5T762zGas66h
+         AMlPeZsfWws+vsl8PQ0kyhkQZvek01U0asjeoFbR9QV8Mssh/8jQ+ckAjg700duV2zoK
+         Lf/Wd/2E1vYkT/+Mq2DvWUgLqgGWZ4h/55ymCixG8RL0P9hKqWmNeiQ8KBEfJpXKddn0
+         DiTg==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=L70Ii9x5C+z302d/Psn2CqblJNvQ2CMmeLwkxN/XibM=;
-        fh=wSnAEdjPD0nYAWPpV0b0QPiU5LThEBkvvHpfLAz9My8=;
-        b=l/sln0d2nfpZEOqQYn2AEPW7yU6zBo9NgVfoObuvK3+kn9IgjjtyDnLaUGbLfWqFnY
-         Vj3U7LCReVWujktxssaK+KS3DpcFt5XT9+wSPGh+I4ELm0ANyl7HuwdHQq923Kaf+Rdt
-         mvJmqKtUWyrh4OurBOH41qn8gGxIpwIy3/GEcecfsDZH8cg/3NgSATqEuSAHaEHVguAc
-         E9PHWdvx0sbuzXiNkvZ8AoBDcQDAhFtjB4xT5lb8A3m1pIJ+j+ibYjY0YU3pucEcvUpW
-         5Twx0jAMwvHgSw1X6oDQ+JDrbxcp4qNdh2qBMxJmcmlmSG2MsNyd3pPAkdXndKEzz7xc
-         JK/Q==;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=hePjOQgDk2oAPjPtpp2sw4T2GMv65ZXd7JkCbKndfRI=;
+        fh=wLjhMvJmjnjLaTfz6iK3knyYRBlcz92C1u1QEkUoOTI=;
+        b=CAOqsAvO7w0RvZUVq2SfoNhtSmwnAP7hrDXGDlr5E8bkb20a5ovadEMWNB5h0gYOfg
+         od8SwdaMoTPXqeli63QtOfa26vi4hOAvooNFkhv7cCOBqfGVsuTbuzoxX2iaXjYDDhHT
+         qlsUgH5U97W9oGCc5dW1wJiDAsXwaoQQyCLKgRQaw2JUi7BYivU6ey5t8SRKWvbUZZsM
+         iYOT/KMnCxOTjAP/PQVevAlnKPPkxg/akq10VwY7ocC4hG5hWxLCMnDg2jwipczAE3Ey
+         LjIodDVwIHHi6CgOIYtMnd9aOTnKM9VMNC9RhK8FL6tVSeCjsfEgY7wg7H69gS6E3Gy2
+         J9ZA==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791833107; x=1792437907; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=L70Ii9x5C+z302d/Psn2CqblJNvQ2CMmeLwkxN/XibM=;
-        b=ZDQoBfQ+rT9HTYW4+uiEMdJEdlujo8CsZRIsDKUY5oArj8I85efzyKg+TEET5Dvmo5
-         pX8kHWIcYG1g60TGWnazVOVQ4QDtCjaxBu8HnGfktOxCQ4Lt+XbbZ52YeuPnkIv3t7R2
-         uwFmKMTOtJCGqfeHNT+II5rlsIL3roBWl7q/O8wE/TE74OO0CEO5KB9D2iSPJSgArjF2
-         2HhXwy+Fh8gTtW2W1qVRQSrC4nSwdodECNgkqlAXpOFy7Xhe7mc8Jj9gZG3HSkyU5HGz
-         r7VfljbgJDMs7uZbf12lF8rEBMPBN/p2Ry/OWRliy2Kt/rDNM5NXAQl9D0YmoNndxrLb
-         FW+Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791833107; x=1792437907;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1791834486; x=1792439286; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=L70Ii9x5C+z302d/Psn2CqblJNvQ2CMmeLwkxN/XibM=;
-        b=o58b+mz18tRSs0EJFWG5KueNWKn4MyHXqMbZXJsBKZxv68GjnMg9tRNbC8QPNcZeMW
-         lRjS30L+MULOC7cKt1dyBK2FMiCEXCn/Q3RPHi3sKoKW/Wm6ABSiWyOZ2kme/vBbdFEq
-         phmMubIV5UkkMxkk/vExidcWrAzdQMJ+/ut0oYbckAREc5E2ZivpIztQRnlPFlUMAgYy
-         wb7etuB6LR0JzxbLiMv8T0VY3dPcVgXzIh4cbh9b7hoh52yudBkDi6Qlerju8+kHyttN
-         Sv0t0W1AOSJGrkB+c4G8j9B+DMYKtTd8iB4BCpOwzYG6NdeFaHepCq8WzdvgljL7ybO6
-         jNyg==
-X-Forwarded-Encrypted: i=1; AKwUvByCnSltsRUEgz1FRalDXhbUrZtEwQbgOFw4nbAZcIfdx7mGH/+8dn5/szrmsWo6FBCnOhjpQbK9dpyy@vger.kernel.org
-X-Gm-Message-State: AFq9FYI9mkFzewg9DIfNGS3Nze5Z01TE/KzV9GEns+Q3W4DujD8bzcA5
-	JId9yRLJ6Ji6HumWgNnVDQsGuQTH6WK+/WovxWC3gwCU3E4VTvdD2Y4Lqp3Ho1SVJBzFYcarAa9
-	NoGMJw44tT07p6RfC88Hz3RU6YsK7SAg=
-X-Gm-Gg: AYBFou3807tDAQcvvPIeUhuz6NhDyJ8BtXjrFOX34u2q26ojGU9de3IezrQY1WPCSh+
-	aobI27QqsK8/g5MccoEgtZmmWK90G/um84bKLoXF6SGv7jB9b2yIDv9TKcEhZO/GaJn1DWspsol
-	YMDrlopMBBXi+wjw/s0pU42FtBJmTCiXDaBEldUj9BrwbVjCaYXX/dOzLUrWIExVVcBqghq0zBM
-	1ipHD41xJ9Q7TKyZPERIbliQ2l9SLHetEFe/kqOSVLBieCW2L/uzW/kThjEKRAQ4VQ3rkl9mAAm
-	7TlnSLnLDj6wT0dA8xA97l544oaMa/WAN2emgTuw8Ay1nTz3gxb6cPrBdw==
-X-Received: by 2002:a17:906:7948:b0:c29:60b7:3f14 with SMTP id
- a640c23a62f3a-c31aa02b449mr966426866b.46.1791833106527; Mon, 12 Oct 2026
- 12:25:06 -0700 (PDT)
+        bh=hePjOQgDk2oAPjPtpp2sw4T2GMv65ZXd7JkCbKndfRI=;
+        b=PbfXMxYoV+IJF6WFfYZACO/m2TGUiukl+htKnJ3c3arVPN7w8DiFr79bHOG2XR6U5y
+         x30gxpDgXdwMQlMTN76JFPdGylJo3bQmBSZjoYxk/EyhfoTiId7bXMELzH197SEtpH9/
+         KEBbiwL/x+v15i2bgvu2kuEtKZn60JcpMiUu9xXXwAvMeJW5OWK2WfocRE7n+Rxz5n7k
+         X43nul5EkCvnxhnxYNLlSGeOaQOM1H0IIYrRIXBCZi+1jXvIlor3kDEoN54vhQtt6B40
+         zz1GKPGRvTAX3HDqSHkt1A7549o3VA7x228AZOAxtswbuY87vHALOakHDwRbJcOtLRrW
+         TfiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791834486; x=1792439286;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=hePjOQgDk2oAPjPtpp2sw4T2GMv65ZXd7JkCbKndfRI=;
+        b=mjdfxRpneJgrRRxpiQssKPRYYiHGLIzzyvCTopDuwBq+BVnV4kpaSRb6gUJ5Jr+e+r
+         JV6nj6iULLMEWaOB2C/S8MFKnq2xbIORFQCPQJQ4BpdqwefgUe0iTW9g9s7vL8xpNnLi
+         KiDg2P8Th5ONAEePr38HppvewS7WD7RYGAujAV4Tl9fsOee/Vb62AxdM+CTsnfrD0sl4
+         SB8Fy87DKDoxyVvrHgOs+bHblhiZZjH5bE4B3RS8FTP/r1fSx4ylXfQcATm0vi1r+SwU
+         tK5zXuFQwSOTH19EbSZnhizpTP6y8YdfA2RjHcUlNWeERRr5wBuF5I781f/SusjzqyvZ
+         95Nw==
+X-Forwarded-Encrypted: i=1; AKwUvBykIZ8+IfcrCnX9Ou+U2fm9FV+XAV0zqgJFAqknK9OKfXqlqAWAzEjs6XE9hC6ae6tnRnx/OFSHix98@vger.kernel.org
+X-Gm-Message-State: AFq9FYKqHPfYHuf5rzKkox9IhBE0pqihnK+P3ZRfGmFsOw0IS9iRbndL
+	j7jbdyxIHEoxuTRe5HlR1y7hVzVn9sDC8XdeML+KHaK2xgEa4rNmIXV0iHR9rI702NBgh2R4rvH
+	3WJWlWjFFVUKqk58cSg9lbUtJB7mtd8g=
+X-Gm-Gg: AYBFou3POWyhSm0dNrK6rJZ+hqS3YRFofcLU1EOSJI7VtyIg/uR3ajaccUdh6KirHID
+	Tfu3BbbcP+6K57K2ghqJkXKor7wz30+aOXqGjVY/9I0M6Ti+ivo6XxJeeyVg98j7wzu2PeI9Tk3
+	0zn/twlPZzvUckkieBFr1aB3ASTKFydPff43XIaGU27FdbKO6mMHAQyxxSxIhRULw89uUnluZXx
+	U84WLMuB508OWwNDgK5VOLFxH1yPpdEl2THAglaHhv1idKz8p5cIUEl2pDcuo4InLieuZSvJI1b
+	Fkhbq9XGvB6mL+TlXCyhkT4Dii1V8G5ZkHMIx/Q8GzlHHZmZqPYk8dbuhQ==
+X-Received: by 2002:a17:907:7b8d:b0:c2d:d9f4:2c85 with SMTP id
+ a640c23a62f3a-c31aa0c129fmr992438966b.41.1791834485955; Mon, 12 Oct 2026
+ 12:48:05 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261008175225.3375274-2-coiaprant@gmail.com> <179183168522.434549.14619345397319265452@kernel.org>
-In-Reply-To: <179183168522.434549.14619345397319265452@kernel.org>
+References: <20260919-s32g_serdes-v3-0-9d68868c1e89@oss.nxp.com>
+ <20260919-s32g_serdes-v3-4-9d68868c1e89@oss.nxp.com> <6aabb56e-406f-4d13-9fd8-54822202039f@bootlin.com>
+ <assmUIvWMuZsp8OO@lsv051416.swis.nl-cdc01.nxp.com>
+In-Reply-To: <assmUIvWMuZsp8OO@lsv051416.swis.nl-cdc01.nxp.com>
 From: Coia Prant <coiaprant@gmail.com>
-Date: Tue, 13 Oct 2026 03:24:59 +0800
-X-Gm-Features: AclHuK_IK-J3xdjBLHul-e3CTuwWO6mo07_5PjrwMDoCpvY_M9ekvq5ssPY4yMg
-Message-ID: <CALj3r0jTq+wztO=-TMDkNTM7OFkB4UHMpugTnQ+YPiuWYD9MFA@mail.gmail.com>
-Subject: Re: [PATCH net-next v11 1/6] net: pcs: xpcs: add ANRESTART support
- for SGMII link recovery
-To: netdev-bot+sashiko@kernel.org
-Cc: kuba@kernel.org, netdev@vger.kernel.org, andrew+netdev@lunn.ch, 
-	davem@davemloft.net, edumazet@kernel.org, pabeni@redhat.com, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, heiko@sntech.de, 
-	maxime.chevallier@bootlin.com, mcoquelin.stm32@gmail.com, 
-	alexandre.torgue@foss.st.com, hkallweit1@gmail.com, linux@armlinux.org.uk, 
-	david.wu@rock-chips.com, linux-rockchip@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
+Date: Tue, 13 Oct 2026 03:47:58 +0800
+X-Gm-Features: AclHuK-mWeAUUjbT2q4HaMO7I1jbUFx_FPbAu9P_i7ekNoCvSs5mbKy3dUi7DkU
+Message-ID: <CALj3r0gQkUARS1e+2CGB3JsrGJ2XrzuoChfz0cWYRpK4kq1Uxg@mail.gmail.com>
+Subject: Re: [PATCH RFC v3 04/12] net: pcs: add NXP SerDes XPCS shared core
+To: Jan Petrous <jan.petrous@oss.nxp.com>
+Cc: Maxime Chevallier <maxime.chevallier@bootlin.com>, 
+	Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>, NXP S32 Linux Team <s32@nxp.com>, 
+	Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Ghennadi Procopciuc <ghennadi.procopciuc@nxp.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Bjorn Helgaas <bhelgaas@google.com>, Bogdan Hamciuc <bogdan.hamciuc@nxp.com>, 
+	Ionut Vicovan <ionut.vicovan@nxp.com>, Andrew Lunn <andrew@lunn.ch>, 
+	Heiner Kallweit <hkallweit1@gmail.com>, Russell King <linux@armlinux.org.uk>, 
+	Clark Wang <xiaoning.wang@nxp.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>, Alexandre Torgue <alexandre.torgue@foss.st.com>, 
+	Chester Lin <chester62515@gmail.com>, Matthias Brugger <mbrugger@suse.com>, 
+	Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Richard Cochran <richardcochran@gmail.com>, 
+	linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org, 
+	netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+	imx@lists.linux.dev, linux-pci@vger.kernel.org, 
+	linux-stm32@st-md-mailman.stormreply.com, 
+	Vincent Guittot <vincent.guittot@linaro.org>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Thanks. Both points were raised in earlier versions and are intentional
-for this hardware.
+Hi Jan,
 
-<netdev-bot+sashiko@kernel.org> =E4=BA=8E2026=E5=B9=B410=E6=9C=8813=E6=97=
-=A5=E5=91=A8=E4=BA=8C 03:01=E5=86=99=E9=81=93=EF=BC=9A
->
-> Thank you for your contribution! Sashiko AI review found 2 potential
-> issue(s) to consider.
->
-> Critical: 0 =C2=B7 High: 0 =C2=B7 Medium: 1 =C2=B7 Low: 1
->
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwor=
-k
-> know by including "pw-bot: cr" as a separate line at the end of your repl=
-y
-> (one such reply per series is enough).
->
-> - [Medium] xpcs_get_state_c37_sgmii() now does a non-atomic read -> act
->   sequence.
-> - [Low] Concern: in xpcs_get_state_c37_sgmii() the ANCMPLT latch is
->   cleared (pcs-xpcs.c:1112) before BMCR_ANRESTART is issued (pcs-=E2=80=
-=A6
->
-> --
->
-> net: pcs: xpcs: add ANRESTART support for SGMII link recovery
->
-> This patch sets BMCR_ANRESTART alongside BMCR_ANENABLE when configuring
-> C37 SGMII AN. It also clears DW_VR_MII_AN_INTR_STS before AN starts. In
-> xpcs_get_state_c37_sgmii(), when AN completion is seen with the link down=
-,
-> it clears the ANCMPLT latch and restarts AN, so that parts such as RK3568
-> can recover the link.
->
-> > diff --git a/drivers/net/pcs/pcs-xpcs.c b/drivers/net/pcs/pcs-xpcs.c
-> > index b415b93d77c15..6466e0ff2a98b 100644
-> > --- a/drivers/net/pcs/pcs-xpcs.c
-> > +++ b/drivers/net/pcs/pcs-xpcs.c
->
-> [ ... ]
->
-> > @@ -1093,9 +1107,18 @@ static int xpcs_get_state_c37_sgmii(struct dw_xp=
-cs *xpcs,
-> >               return 0;
-> >       }
-> >
-> > -     /* Clear AN complete status or interrupt */
-> > -     if (state->an_complete)
-> > -             xpcs_write(xpcs, MDIO_MMD_VEND2, DW_VR_MII_AN_INTR_STS, 0=
-);
-> > +     if (state->an_complete) {
-> > +             /* Clear AN complete status or interrupt */
-> > +             ret =3D xpcs_write(xpcs, MDIO_MMD_VEND2, DW_VR_MII_AN_INT=
-R_STS, 0);
-> > +             if (ret < 0)
-> > +                     return ret;
-> > +
-> > +             /* Initiate the next round of AN */
-> > +             ret =3D xpcs_modify(xpcs, MDIO_MMD_VEND2, MII_BMCR, BMCR_=
-ANRESTART,
-> > +                               BMCR_ANRESTART);
-> > +             if (ret < 0)
-> > +                     return ret;
->
-> [Severity: Medium]
-> Can two callers of .pcs_get_state() race here and restart a negotiation
-> that has just finished with the link up?
->
-> The read of DW_VR_MII_AN_INTR_STS at the top of the function and the
-> clear and restart here are not atomic. phylink calls .pcs_get_state()
-> from contexts that do not share a lock:
->
->   phylink_resolve()                   holds pl->state_mutex, not RTNL
->   phylink_ethtool_ksettings_get()     holds RTNL only (MLO_AN_INBAND,
->                                       no phydev)
->   phylink_mii_ioctl()->phylink_mii_read()   holds RTNL only
->
-> struct dw_xpcs has no lock of its own, and the MDIO bus lock only covers
-> each single access.
->
-> A possible interleaving:
->
-> CPU1 (ethtool get)                  CPU0 (phylink_resolve)
-> xpcs_read(INTR_STS)
->   link=3D0, ANCMPLT=3D1
->                                     xpcs_read(INTR_STS)
->                                       link=3D0, ANCMPLT=3D1
->                                     xpcs_write(INTR_STS, 0)
->                                     xpcs_modify(BMCR, ANRESTART)
->                                     ... AN completes, link up ...
-> xpcs_write(INTR_STS, 0)
-> xpcs_modify(BMCR, ANRESTART)
->
-> CPU1 acts on its stale sample. It clears the newly latched ANCMPLT and
-> restarts AN on a link that has just come up.
->
-> Before this patch, a concurrent caller could only clear the latch. The
-> extra restart is new. Unprivileged users can issue ethtool get link
-> settings.
->
-> The commit message's reason for clearing the latch before the restart
-> assumes that get_state calls are serialized. Does phylink actually
-> guarantee that for these callers?
+Thanks for the pointers. A few thoughts.
 
-The C37 SGMII path needs to restart AN from xpcs_get_state() because
-phylink does not call .pcs_an_restart for SGMII. On RK3568 the PCS does
-not restart AN by itself, so a link that goes down would stay down
-without this. The same pattern is already used by xpcs_get_state_c73(),
-which calls xpcs_soft_reset() and xpcs_do_config() from the same
-callback.
+> Yes. The S32G accessor is the same DW indirect scheme pcs-xpcs-plat
+> implements (page into the viewport at 0xff, then the low address byte
+> at a 4-byte stride), so there is no reason for S32G to carry its own
+> copy of the XPCS code. The next version drops the shared core, exposes
+> each XPCS instance as a mii_bus from the SerDes PHY driver and creates
+> the PCS with xpcs_create_pcs_mdiodev(), much like the RK3568 glue.
+> Details in my reply to Andrew.
+>
+> The part that does not fit pcs-xpcs-plat as-is is ownership, not
+> access: the XPCS windows sit inside the SerDes subsystem register
+> space, and their bring-up is ordered against the PCIe lane and the
+> other XPCS instance, so the bus is registered by the SerDes PHY driver
+> rather than by a standalone snps,dw-xpcs device. The accessor itself
+> is a few lines; if Alex's pcs-xpcs-regmap is merged first I will use
+> it rather than open-code another bus.
 
-On the non-atomic read-act sequence: the concurrent caller can only
-come from ethtool or mii_read, which do not hold pl->state_mutex. So
-yes, the sequence is not strictly serialized against the normal poll
-path.
+On the transport split: I think the cleanest path is to split the MMIO
+accessor out into its own module, say pcs-xpcs-mmio, exporting the
+read/write helpers. Then pcs-xpcs-plat can call into those exported
+symbols instead of open-coding the page/stride scheme, and S32G can do
+the same for its indirect window. That way nobody carries a private
+copy of the accessor. If that turns out to be too invasive for plat,
+keeping a separate pcs-xpcs-plat copy is workable too, but I'd rather
+avoid it.
 
-The consequence is a possible extra AN restart on a link that just
-came up. On this hardware an AN restart is idempotent and safe: if the
-link is already up, the PCS re-negotiates and comes back up. There is
-no state corruption, no register left in a bad state, and no way for
-the concurrent caller to observe a torn value, since each MDIO access
-is individually locked.
+If Alex's pcs-xpcs-regmap lands first, that's the natural place for
+the S32G accessor; pcs-xpcs-mmio would only be needed if the regmap
+approach doesn't fit.
 
-Before this patch a concurrent caller could clear the latch; the extra
-restart is new, but its only effect is to shorten the window in which
-a stale sample can be acted upon.
+> S32G needs the same kind of thing: skip the generic soft reset, and no
+> EEE registers. I will start with the existing PMA-ID mechanism, since
+> that is what TXGBE and FBNIC use today, and switch to a callback if one
+> is agreed in the Rockchip thread. I'll Cc you on those patches.
 
-> [Severity: Low]
-> What retries the restart if the xpcs_write() of DW_VR_MII_AN_INTR_STS
-> succeeds and then this xpcs_modify() of MII_BMCR fails?
->
-> The latched ANCMPLT that triggers this path has already been cleared. No
-> restart is pending, and xpcs_get_state() only logs the error:
->
-> phylink_resolve()
->   xpcs_get_state()
->     xpcs_get_state_c37_sgmii()
->       xpcs_write(DW_VR_MII_AN_INTR_STS, 0)    succeeds
->       xpcs_modify(MII_BMCR, BMCR_ANRESTART)   fails
->     dev_err(..., "xpcs_get_state_c37_sgmii", ...)
->
-> On parts that do not restart AN by themselves, the link would then stay
-> down until the interface is reconfigured.
->
-> The commit message covers this case:
->
->   "If an MDIO access fails at this point, it indicates an unrecoverable
->   hardware condition until reset."
->
-> On RK3568, the MMIO-based MDIO back end added later in the series seems
-> to fail only through pm_runtime_resume_and_get(). That failure is not
-> transient. On other XPCS platforms the databook says AN restarts on its
-> own. So the documented behaviour may be fine as it is.
->
-> > +     }
-> >
-> >       return 0;
-> >  }
+On the shared-core duplication: rather than copying the whole XPCS
+core, I'd look at how the existing users express their quirks.
 
-The latch ordering is deliberate: clearing it after the restart would
-discard a freshly latched ANCMPLT from the new negotiation. An MDIO
-failure at that point means the transport is gone, so there is nothing
-to retry.
+Wangxun has a genuinely different PMA ID, so it can branch on the
+ID before the reset path and keep the generic core untouched.
+
+The older NXP devices do the opposite: they fake the PCS ID at the MDIO
+layer so the core sees a magic value it then interprets. That leaves
+the magic in the core and a fake ID in the glue, and it doesn't scale
+to a third user.
+
+For S32G, I'd prefer one of these two approaches:
+
+- A flag in struct dw_xpcs, e.g. DW_XPCS_NO_RESET, that the glue sets
+  and the core checks before the soft reset and EEE paths. Works when
+  the quirk applies to a whole instance regardless of the PMA ID.
+- A platform callback, e.g. plat->pma_config(), where the glue can
+  return early to skip the parts it doesn't need. More flexible, but
+  also more surface area; I'd only go there if flags aren't enough.
+
+Either is better than another fake ID, because the quirk stays visible
+at the point where it matters instead of being hidden behind a made-up
+value in the transport layer.
+
+One question: how does S32G relate to the earlier NXP devices already
+in pcs-xpcs.c? Same IP, same PCS ID, same quirks, or something else?
+If they're the same family, it would be good to clean all of them up
+in one go rather than adding a third mechanism on top of the old
+fake-ID one.
+
+Separately, I have a plan to propose platform callbacks for the XPCS core
+at some point, regardless of whether S32G ends up needing them. The
+core currently has no way for a platform glue or PMA to limit or override
+parts of the generic behaviour, and I think that gap needs closing.
+The exact shape can be discussed once RK3568 lands. Happy to Cc you on
+the related thread when that happens.
+
+- Coia
