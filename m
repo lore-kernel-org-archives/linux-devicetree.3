@@ -1,144 +1,159 @@
-Received: from sender6-op-o19.zoho.com (sender6-op-o19.zoho.com [165.173.180.19])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93FC648FF92;
-	Mon, 12 Oct 2026 14:50:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.19
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791816622; cv=pass; b=bayJZJpjtzq/LGdLpKLw6bQpPHRtcIIhCa8U0uKKXkiDShxLAch7cpW24GMBf+oXo+IpBt6E/zcF518eZt8OaCuL+yKpPe4wIBgINjpxd9S50qZfDGvM3Hkslr8Ze73jGqWfQZpr8m11VsCnE9nudFHiKEw0qJIMuGcUzwnRj8Y=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791816622; c=relaxed/simple;
-	bh=ARDFzRcSX9tlNYnz3QhLpND0+k4nm4lAwCr2NId5MtI=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=uAZoRseQ19USEKMs97Jlf7k95qheQYOCq6gey2UusXLrAfmd+6coC5aTQelgC/v3gUG9JHxE70MKK+o341ZfzSV2+ZUTF513Vd43Rc+lUv55WaKkL+JPY2QLMZ1sU+Hnr0dKpReyECh3VMFVYzC3NE634RVGyCGfHgCmMwWA48Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me; spf=pass smtp.mailfrom=icenowy.me; dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b=T7Vc/dRG; arc=pass smtp.client-ip=165.173.180.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=icenowy.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=icenowy.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27F63499F10
+	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 15:09:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.182
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791817769; cv=none; b=JHgsnNiwog9P5P3INJc4j8o1lmslHhQAHKB7lEMPlRNvNOaNCTfTshWTSJclCwfQDPfevPaRxi/dn5Jm09YIc3wCTZfzf+rUrWIGOZI0c2L6A5kYsskf0sdmzfPWsuI50Y8Z/mW96VT+Lz++qtwG1RaXjuqEimFgWlozjXmsFrY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791817769; c=relaxed/simple;
+	bh=6ZzGWj2KyFb3x1LVvqRQFc3xOZD6b8MHnWTNwekNgUo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ep+0UDTORsNACbqMUF32WmdqxK6kYw9Up2aOLPvS5NoFpsbYRXK0PbrscTGVbPjinXTHZnPGYSjymHKW8aCdZPr41qWA7sR1JDP57PFvpbpBBMR0kd/iGVG6CHE6qQt5p98PlIC59he0EDKBjmA0onU6QLVw2OihIglj2f0cXro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dBnKknMS; arc=none smtp.client-ip=74.125.82.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=icenowy.me header.i=uwu@icenowy.me header.b="T7Vc/dRG"
-ARC-Seal: i=1; a=rsa-sha256; t=1791816584; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=dgXdmKngHhM318qjfVMYC74gMXGc+fVdLti7iaDwNAcMcB3a5zwQJOik7Wp4aFMi4tacvl3UURXkM4e7Oc26MTPZ+Z00w4QDK3KjHrV+wqi7dHrh/s8S/W27DQsrM+TIiWwaGxOcf66YwJl+ToXBCOGPIBvxUzzeez/ktRUtpbc=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1791816584; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=ARDFzRcSX9tlNYnz3QhLpND0+k4nm4lAwCr2NId5MtI=; 
-	b=b9u5Bca9K9oBoLiH5naAS8C3AXYHMV1+15EqYHygDl1zAOhsDmtwBUSG59FApnANcBkioBS7/4QZGZj519i5BBInp+Eh4NcRC0bV0IcIMNzgN8xOMNihrnH2t18yvvuMUJUyAYLaWrc5cNFsFiJ7bfa8+7ANkfSPPyi1uL8qe/U=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=icenowy.me;
-	spf=pass  smtp.mailfrom=uwu@icenowy.me;
-	dmarc=pass header.from=<uwu@icenowy.me>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1791816584;
-	s=zmail2; d=icenowy.me; i=uwu@icenowy.me;
-	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:Date:Date:In-Reply-To:Content-Type:Content-Transfer-Encoding:MIME-Version:Message-Id:Reply-To;
-	bh=ARDFzRcSX9tlNYnz3QhLpND0+k4nm4lAwCr2NId5MtI=;
-	b=T7Vc/dRGYaDXRQGVuvc+Y/eeiZjc1MZXWW4dkOriDDZ02Sw7GyWfNjW35slqbLh/
-	A2JtRd4QzJhJVsPNv/CtTeV+L1EOzG/LoB9KlqZedk5xmEmidSfR+MaHT1lEV3xNliY
-	31rcXmI4FFYUwcYwPrGTEHMMFQQMwFOmx6rrmjcOPS3NnJ55PnfuFXRVIMbUzkFtjYi
-	LSq1TNSKSgtAZpTEk4d2+eFP0QLrwJuMY+SX4C8467MmHI0tkCaZmIug/eqp2uHm4oU
-	karVUVAD+hUcefpumZT43yTtV8myiwOCm7nkvTHPzlI0fp8DijqnI5F5MrFUS56oKj+
-	WiFC5qA8xA==
-Received: by smtp.zohomail.com with SMTPS id 1791816582175167.0189182002764;
-	Mon, 12 Oct 2026 07:49:42 -0700 (PDT)
-Message-ID: <6b6b99fcd1c5f032a0b20d928bf7fa2e59ac5c87.camel@icenowy.me>
-Subject: Re: [PATCH 0/2] Add SPI display support for UNIHIKER M10 V1.2
-From: Icenowy Zheng <uwu@icenowy.me>
-To: Miotsuki Mizuno <founder@crepuse.com>, "heiko@sntech.de"
- <heiko@sntech.de>,  "neil.armstrong@linaro.org"	 <neil.armstrong@linaro.org>
-Cc: "airlied@gmail.com" <airlied@gmail.com>, "conor+dt@kernel.org"	
- <conor+dt@kernel.org>, "devicetree@vger.kernel.org"
- <devicetree@vger.kernel.org>,  "dri-devel@lists.freedesktop.org"	
- <dri-devel@lists.freedesktop.org>, "jesszhan0024@gmail.com"	
- <jesszhan0024@gmail.com>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>, 
- "linux-arm-kernel@lists.infradead.org"	
- <linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"	
- <linux-kernel@vger.kernel.org>, "linux-rockchip@lists.infradead.org"	
- <linux-rockchip@lists.infradead.org>, "maarten.lankhorst@linux.intel.com"	
- <maarten.lankhorst@linux.intel.com>, "mripard@kernel.org"
- <mripard@kernel.org>,  "noralf@tronnes.org"	 <noralf@tronnes.org>,
- "robh@kernel.org" <robh@kernel.org>, "simona@ffwll.ch"	 <simona@ffwll.ch>,
- "tzimmermann@suse.de" <tzimmermann@suse.de>
-Date: Mon, 12 Oct 2026 22:49:34 +0800
-In-Reply-To: <20261010232857.26950-1-founder@crepuse.com>
-References: <20261010232857.26950-1-founder@crepuse.com>
-Organization: Anthon Open-Source Community
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dBnKknMS"
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-3514b90bb89so3758742eec.1
+        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 08:09:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791817767; x=1792422567; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=G+8cKI+uUXNgJDViP9p4hXOsSaebL/Io/WyETAiUv4E=;
+        b=dBnKknMSGi2LmRV3Uwl//b96Lql/VsYWIWDhkaG9POGsmoQvXdP/plAgVQw2xQubcl
+         ZpjDjnKeBTbcSLCRhBAtKCsDXPBQ9JzorekQUKbu4WHbw2fKL2hzcqWrBUKXf+bEa72P
+         O7gyJRGGTO1nPwEzLq7VeWDRoyVdEI3krI2cRVmr2djoRzHjNcqirFNLgrsAMYsK3aQR
+         mHvui5iUUzmNrby7Rfra3L5tB7axcsRHBYSkqIwmToLm06r+zHRihRRaG6sbFHu6Kr4K
+         CLAO3bLLbm4ks2jzgzQ64J0EMJBa9IFeW8CiZIz+KU0Bd6Ah9/fGepUz2/yBhGI9EOmS
+         hzBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791817767; x=1792422567;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=G+8cKI+uUXNgJDViP9p4hXOsSaebL/Io/WyETAiUv4E=;
+        b=L/f4ClliD5QqRznqHjG/SySh9G6XXPcG9wJ71wmtVoYyhSzGYJ04ejSPESL0pLdddZ
+         wLdwjG3kgeVfqeOE8kXoZCDaIoqUUsYNuTfboJIPuRhILKr/wY025JFKK/A0iESAZ+gb
+         bOXkL295BIHghIjWtkQ5cJMCqWiWPUKWs+GKS8a76YRe2LcbTpmu27fSfDhV/1FoX9D8
+         7s6XPPxTdZSs6q/VjztRnL9LxYdAc8ITaAUbFbyLTRfrJQDEV6t/4t4tdOqKaxY39VfN
+         KHY0b6Z9Gqsvg8viJwqp17oiNgo7pGHLNrT/SenVQf/cESPIn8/LobYHuFLhLZwqws7l
+         Nplw==
+X-Forwarded-Encrypted: i=1; AKwUvBwafqJP/LhAk0N74dKwyASht91GVn//xzm2d2QVFh725lTBNa3Kid4rTdXOUlWeXU5XWsQQOsXANHvE@vger.kernel.org
+X-Gm-Message-State: AFq9FYLhgLPcOSVW4E37OMcDGc6xeJZ2TXxBbOEtNGbBsO7whdPNfJwO
+	Q+isY1NMXOF8GUNLh+e3418Yxx+M5IOIp8fYrWkFqfEDQip1Sp1qzt5/
+X-Gm-Gg: AYBFou2IF1kQhGLcMMoChBQJRnvJHjx36QWYphhVMXM8O8D244dabkomzQU0ldl46CR
+	uS2enlbALCO0Jj6gpXGRwLZhsIkvor0FdfFfOAZaWN91MiBi2I4ZU5JF1VF2OdwI9foxwycnAFK
+	Y40S2H4Nrwq4dq07K6d5BPY02gWt+i0NF/38XPXsK6bfu1JsW82f7j/XKDNrZyM5Ti5NTC5CPFS
+	xErN5A+VN07zGp+I+3zDsSwJVMsUILS1O8qljWdy7tfsJRTpD7L3adETkXjL+1XQ4Zqn13WJr03
+	YSTSw2p9CZmuiWi4/rFGF+zE4xxwCrODS+dglzxKni5BvOJHtzYu/hJaqOPXHy00nVaVIpoe4NE
+	cNuRS4Bi3rvN+wS+RLMckZzeW8h7y0s52kRsYEwTq8JoMELezxOiAgIerfBmboqYUhV5mf6qnWF
+	L6RpjUtzbaPi61U3sHgkvBEG96mqD/kOw6mb5dnNzXILTEcHYzHLvqFd+dnWrXYCKMt9DXEC7QK
+	z4P
+X-Received: by 2002:a05:7301:4e88:b0:35a:efce:6190 with SMTP id 5a478bee46e88-35aefce65c3mr4495527eec.28.1791817766765;
+        Mon, 12 Oct 2026 08:09:26 -0700 (PDT)
+Received: from localhost ([2804:30c:96c:bf00:7844:c38c:894:4054])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-358ee8a3387sm23709722eec.15.2026.10.12.08.09.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 08:09:25 -0700 (PDT)
+Date: Mon, 12 Oct 2026 12:09:47 -0300
+From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
+To: Muhammad Abu Bakar <m.abubakar365@yahoo.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, dlechner@baylibre.com,
+	nuno.sa@analog.com, andy@kernel.org, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Andy Shevchenko <andriy.shevchenko@intel.com>
+Subject: Re: [PATCH v6 2/2] iio: pressure: add Sensirion SDP31 driver
+Message-ID: <asz4O0zceqa5lz8m@debian-BULLSEYE-live-builder-AMD64>
+References: <20261007205104.4694-1-m.abubakar365@yahoo.com>
+ <20261007205104.4694-3-m.abubakar365@yahoo.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ZohoMailClient: External
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261007205104.4694-3-m.abubakar365@yahoo.com>
 
-=E5=9C=A8 2026-10-10=E5=85=AD=E7=9A=84 23:28 +0000=EF=BC=8CMiotsuki Mizuno=
-=E5=86=99=E9=81=93=EF=BC=9A
-> Describe the onboard 240x320 RGB565 display with panel-mipi-dbi.
-> The series adds the panel compatible and enables SPI2, GPIO reset/D-C
-> and the PWM1 backlight. It uses the existing DRM and SPI drivers.
->=20
-> This series is based on the separate board I2C2 preparation commit.
-> The prerequisite board patch was submitted separately:
-> https://lore.kernel.org/r/20261010232831.26908-1-founder@crepuse.com
-> It does not depend on the pending NS2009 driver or binding.
+On 10/08, Muhammad Abu Bakar wrote:
+> Add an IIO driver for the Sensirion SDP3x family of differential pressure
+> sensors (SDP31, SDP32 and SDP33). The devices are accessed over I2C and
+> report differential pressure and temperature. Each measurement is
+> validated using the sensor's CRC-8 checksum. The scale factor is read
+> from the sensor at runtime, so all three parts are supported.
+> 
+> Tested on an SDP31 connected to a Raspberry Pi 4 I2C bus.
+> 
+> Assisted-by: LLM
+> Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+> Signed-off-by: Muhammad Abu Bakar <m.abubakar365@yahoo.com>
+> ---
+...
+> +static int sdp31_probe(struct i2c_client *client)
+> +{
+> +	struct device *dev = &client->dev;
+> +	struct iio_dev *indio_dev;
+> +	struct sdp31_data *data;
+> +	int ret;
+> +
+> +	ret = devm_regulator_get_enable(dev, "vdd");
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to enable regulator\n");
+> +
+> +	msleep(SDP31_POWERUP_TIME_MS);
+> +
+> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*data));
+> +	if (!indio_dev)
+> +		return -ENOMEM;
+> +
+> +	data = iio_priv(indio_dev);
+> +	data->client = client;
+> +
+> +	ret = devm_mutex_init(dev, &data->lock);
+> +	if (ret)
+> +		return ret;
+> +
+> +	DO_ONCE(crc8_populate_msb, sdp31_crc8_table, SDP31_CRC8_POLY);
+> +
+> +	ret = sdp31_read_scale(data, &data->dp_scale);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to read from sensor\n");
+> +	if (!data->dp_scale)
+> +		return dev_err_probe(dev, -EINVAL, "invalid scale factor\n");
+> +
+> +	indio_dev->name = "sdp31";
+Hmm, I'm not sure whether it is a big deal or not but, the hardcoded name might
+cause confusion if the part connected is sdp32 or sdp33. That's because the
+device name will be sdp31, but the scale will be SDP32 scale for differential
+pressure (or SDP33 scale if one of those would be connected). The full
+disambiguation solution would probably be to read the product identifier bits
+and match those against a table of supported devices. It could have some sort of
+chip_info struct to hold the device name and maybe the pressure scale as well.
+That will probably require some boilerplate code that might not have been
+necessary otherwise.
 
-I just came across here via mailing list.
+The other parts of the device driver look good to me. So, if the naming thing is
+not needed,
 
-It seems that NS2009 is designed to be mostly compatible with TI
-TSC2007, and the TSC2007 driver should be able to made work with
-minimal effort.
+Reviewed-by: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
 
-Thanks,
-Icenowy
-
->=20
-> The 132-byte initialization firmware is available from:
-> https://github.com/mio-tsuki/panel-mipi-dbi-firmware/releases/tag/v1.0.0
-> Required filename: dfrobot,unihiker-m10-display.bin
-> SHA256:
-> 50412ae6d29c5bbfb7fac585528a761fb249d7944011a1b19c5e0f80a0418e5f
-> The test kernel embeds it with CONFIG_EXTRA_FIRMWARE. Public release
-> does not imply linux-firmware acceptance.
->=20
-> The nominal active area is 43.2 x 57.6 mm, represented as 43 x 58 mm.
-> The published V1.3 schematic is not used as evidence for V1.2 supply
-> connections; optional power/io supply properties are omitted.
->=20
-> SPI2 input is assigned 100 MHz. Active transfer register readback
-> showed BAUDR=3D2, corresponding to 50 MHz. No oscilloscope measurement
-> is claimed. GPIO_ACTIVE_HIGH reset matches the existing DRM helper
-> and leaves the physical reset pin HIGH after initialization.
->=20
-> Built against Rockchip v7.4-armsoc/dts64, commit
-> ae965b9856f033145e292b0c29082a26bcc45efd. Target DTS/schema, binding
-> examples and strict checkpatch checks passed.=20
-> The exact display DTS booted through normal U-Boot three times in
-> this
-> retest with the original test kernel, without pstore instrumentation,
-> clk_ignore_unused or regulator_ignore_unused. Physical corner
-> patterns
-> were confirmed; full and partial updates and five DRM disable/enable
-> cycles completed. The exact display/touch combination also booted and
-> its physical output was confirmed.
->=20
-> Earlier boots reset during early userspace; one partial USB log
-> recorded
-> an instruction abort. This was not reproduced in the latest retest.
-> The resets may have resulted from accidental contact with a loose
-> jumper wire during reboot. The cause has not been established, and no
-> software fix is claimed.
-> Exact-DTS cold boot and deep suspend/resume have not been tested.
->=20
-> Mizuno Miotsuki (2):
-> =C2=A0 dt-bindings: display: panel-mipi-dbi-spi: Add UNIHIKER M10 display
-> =C2=A0 arm64: dts: rockchip: Enable display on UNIHIKER M10 V1.2
->=20
-> =C2=A0.../display/panel/panel-mipi-dbi-spi.yaml=C2=A0=C2=A0=C2=A0=C2=A0 |=
-=C2=A0 1 +
-> =C2=A0.../dts/rockchip/rk3308-unihiker-m10-v1.2.dts | 53
-> +++++++++++++++++++
-> =C2=A02 files changed, 54 insertions(+)
->=20
->=20
-> base-commit: f4f7ecd2e0e8debcbab4789717cc79d570d665e3
+> +	indio_dev->info = &sdp31_info;
+> +	indio_dev->modes = INDIO_DIRECT_MODE;
+> +	indio_dev->channels = sdp31_channels;
+> +	indio_dev->num_channels = ARRAY_SIZE(sdp31_channels);
+> +
+> +	return devm_iio_device_register(dev, indio_dev);
+> +}
+> +
+> +static const struct i2c_device_id sdp31_id[] = {
+> +	{ .name = "sdp31" },
+> +	{ }
+> +};
