@@ -1,113 +1,267 @@
-Received: from mail-lf1-f54.google.com (mail-lf1-f54.google.com [209.85.167.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 288DF4E0B73
-	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 21:08:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88B322E717B;
+	Mon, 12 Oct 2026 21:22:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791839301; cv=none; b=d+b/kcxAG7wwkc9MjBW1sEUwhxetN4pRiCyo+S3tIp8mO2RDvBGozZHYOUL95ZUpZ3pVyyhQ3tTRjdYypAc5ecaTNSyjFq0UbFteaMl4QwZdOx/DZhyqTX7Mipo7LPJtmmWBYUU0DqrVUb8BOBUgYQC4kte5bH1Ghs62kRWN0mM=
+	t=1791840180; cv=none; b=TZNc7eDSTJ9x6YArCiFWJb/QqFuFkoONAqrfardwiCpPGHcsgLfsrTvnhMy2kHJW51YwgTU+Peii6do7kJsq5iTDK2WlhFTp10bX1DhpBvCODNzZo2yB4Ocz5NbrOyU+g2IeGBOUyuQTm8gj5TLQsexI4sHnNVTH/fqEnwT0Vhw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791839301; c=relaxed/simple;
-	bh=BODH/PDG1/mEjAzfIXwGyZaoRCgBSiqwtAvUwN/rUG4=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=Uug+y5wLAfE8ebzAgoBxu/DTtSVrR6xUni9t6x1HU3ar7FIOck7UfBfIBxz7xUK8MMEf7x559aTy0z/apxERTwwSt37vUK9zCteu1u3XW9UCjdyI+oO2Mb3m3/JLEPWVGYYWjiKZg0QYZSC9E1KVvMRoaMG2qd7VDyf5N5FwI88=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O/jFpb3h; arc=none smtp.client-ip=209.85.167.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791840180; c=relaxed/simple;
+	bh=LruxmSQJUGFYTdivKkQuQz+FLzNvia4QT4NeFePgYTY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oKQS//Px+fZBwOlvXRdnnK+w/vlAjjReZotZNX+mHvhAp08VsLxTOroahrOzHiPvF9lrKOE/XMIPEkSzgolX/s8QdQR6XFNIKOPHd7n2Sckfb6TJwGboxCG1n/jmDqS3DyCOeOclx9orUNbMkYE+IdKOWoPXfUCgCtF2XHwj2Rc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PNGCNIWI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O/jFpb3h"
-Received: by mail-lf1-f54.google.com with SMTP id 2adb3069b0e04-5bc18f54abbso602447e87.1
-        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 14:08:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791839298; x=1792444098; darn=vger.kernel.org;
-        h=content-type:mime-version:content-transfer-encoding:message-id:date
-         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=BODH/PDG1/mEjAzfIXwGyZaoRCgBSiqwtAvUwN/rUG4=;
-        b=O/jFpb3hEmI7g6+aWcDqLODjJ7Uq+dg6o1uB9dW/FalkBqXvQAEyb+pYrIiA4thBIV
-         qgFRduez5CeXwhz0mCKb9NHORTWyCoF8xnM8UbG9hdaOdN+DgBAukNasTPs+PixDvv+X
-         8UEszMsbNhvpFFtssYJIFQTIDwFyE6x8z0saEuDRgFP7pQ/rFdVyVqfnqap/tRD+pFNf
-         2FNwKshkB1aex1FWLykegfvigibAZlnXe+ZkmeU9D3J7PVIycRBnhqmfQxCj59ARk3mi
-         fM6LJvBDY9mbQ5gUtgt1GzUa8NGD56xvcTVkd5dcyt2CptDsIMESdOOU+UKlfOJCtavs
-         2BCQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791839298; x=1792444098;
-        h=content-type:mime-version:content-transfer-encoding:message-id:date
-         :references:in-reply-to:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=BODH/PDG1/mEjAzfIXwGyZaoRCgBSiqwtAvUwN/rUG4=;
-        b=FFMyGUa4kW1PbeJq0my1zKKXC0tsxkvajz3qk3YgIAMhtKU57TOkzHBOQPiSy7emL6
-         PxcTJ26UOVV3jU6elnT3wYg3r66Jhv3tXY7DGM8OLg+MowbHDtGMP+20BsKRq0Wy3j/R
-         jLuoLbZ+ewvP8JbwihWTvJSJbz4PhngZOnLTZnyc9bSteflwxv1EX8pgaP9q4koyPUmS
-         zqYcOcjfHmCuU7bV2y7fbiJ+C29F0jJXlFfMUiW2EEkJU4xCRYszqkzJWzM0Pd3Jj0vZ
-         YvAE7bJSWg4d2y6HH0lvm/U8KKvvdWiPAVSmQnfjEB1Jyt9h34w1LO3yZw+3u1oHmur5
-         +gmg==
-X-Forwarded-Encrypted: i=1; AKwUvBzL86vjGDxSKZKBhMnI2aRKjhy+xvAUOqSUzgYXIgKxH3mXgJwWf4vxVLOIkHoziow49ccjjSlHCN7a@vger.kernel.org
-X-Gm-Message-State: AFq9FYKSRutjJM8Uop3KWH6XWGcDhCIxe7EMh3+zFs9CcHWDb1ZOae9d
-	qDOuh17uJCI209ZLMEvXpB+6QO97zoCnCe5TOqXgRHUay8a04NnQw467rH7Kc9DOdA5xUQ==
-X-Gm-Gg: AYBFou0BAgFmSlsRmHWtLaDQTNxgTxRmoViFC4AMzS9FHxYu9BDmWa3+S9C4yAgeEVN
-	EvNrAtQTMAxmlFfWr09g9aC87g29D1jHQMgB6Cg/Qfw2O/avz0alH71+kemYF/j07HpFnUG5YXd
-	Z+tlpndnWLB0mM30yNhuqP2NNpp+Neaw3BQyF+QjEGDH/MfRuHqeGl5abiOIb5nl9qie2swAcYW
-	30tFn7vFgM48TPGOttelT8LmZe+KZ+76bxA/C9A3fDN3ahQTKM4Ydmoloi/u+r/75dpZKaOTAWN
-	kVMhRi01a/KqhXsDs8IfsVLufEt19P6xFVXw12N7191dbYCYwWjP1OdqdU3mrRwVrLUBBCrvvMq
-	eRYmGZijWC+O8GyVDQeUwDWNobDgCh6uVQG5g3EWq5OirhBZyUCr9H3J4huVSb3T+K6gkInw2wp
-	I3PHmihqdk/UL3rPFE9IM2HZkjPKj2iyOoy/CGtUVecQ63k83kf3cK4XsRWgp9RBH082hnOOMOX
-	beDNVRTa49fBbaE0M9ewvxHq2/LnyumeRxUOxEsLcVYiigC/p7tZAc8
-X-Received: by 2002:a05:6512:3e20:b0:5bc:ddab:b793 with SMTP id 2adb3069b0e04-5bcde8cb6d0mr3744622e87.53.1791839297959;
-        Mon, 12 Oct 2026 14:08:17 -0700 (PDT)
-Received: from [127.0.1.1] (ip-024-215.users.dtel.ru. [91.210.24.215])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bcddecc3d7sm3083561e87.81.2026.10.12.14.08.15
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 12 Oct 2026 14:08:17 -0700 (PDT)
-From: Fil Dunsky <filipp.dunsky@gmail.com>
-To: Uwe =?utf-8?q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
-Cc: Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>,
- Bartosz Golaszewski <brgl@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
- Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck <linux@roeck-us.net>,
- Russell King <linux@armlinux.org.uk>, Arnd Bergmann <arnd@arndb.de>,
- Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
- linux-gpio@vger.kernel.org, linux-i2c@vger.kernel.org,
- linux-watchdog@vger.kernel.org
-Subject: Re: [PATCH 04/11] gpio: Add Cortina Systems CS75xx GPIO driver
-In-Reply-To: <as1Dl08DwxOu-boF@monoceros>
-References: <20261012-b4-cs75xx-s2-v1-0-8a7641b7b79c@gmail.com>
- <20261012-b4-cs75xx-s2-v1-4-8a7641b7b79c@gmail.com>
- <as1Dl08DwxOu-boF@monoceros>
-Date: Mon, 12 Oct 2026 23:57:33 +0300
-Message-ID: <179183865387.2445720.12278001692808149938@gmail.com>
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PNGCNIWI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAC311F0089B;
+	Mon, 12 Oct 2026 21:22:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791840179;
+	bh=ShWHhliPjutXJgrYxpO8QRYrSkXotLzharw91oNUC/U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=PNGCNIWIH6Y9jMC+ofSZmj5f8+8hcJlpbeeYe1zJ1vFnelYe5mBgdZkWDWVJVAFX3
+	 AhjnmJl/H0xG56wXLZWNIEYZ2NXJw1Zhc9GQmKHc6SMexG3IDiNbPh6wah9RQW5/CL
+	 OQ7gxI17Fn3wm0IGd6nZ/KPpBpDp+IGr8iFr+zSfQBgSHmNyQ5C7EiA2Yv3UqMC43f
+	 3JZllwlfakULHV70KDT3YOvYC2J2p3KB/Ipdu8MRBD+FPmaeUc6YHHs6D9gU9hoqSh
+	 HKmDRdIghUISQ7gsZPGVKKkXu240reONLk+QCgXIJZiVuHmwKxMellg6zlAdh+PdqJ
+	 Bv5jSP7zlfupw==
+Date: Mon, 12 Oct 2026 22:22:54 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Alex Elder <elder@riscstar.com>
+Cc: p.zabel@pengutronix.de, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, mohd.anwar@oss.qualcomm.com,
+	lorenzo.bianconi@oss.qualcomm.com, danielt@kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Daniel Thompson <daniel@riscstar.com>
+Subject: Re: [PATCH 1/2] dt-bindings: reset: introduce
+ toshiba,tc9564-reset.yaml
+Message-ID: <20261012-numerous-flatworm-9e4cfa659541@spud>
+References: <20261012164354.3872326-1-elder@riscstar.com>
+ <20261012164354.3872326-2-elder@riscstar.com>
+ <20261012-shale-rosy-805c49f6c404@spud>
+ <492396bc-a0f4-4274-9a7c-21fd5fd886b5@riscstar.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"; format="fixed"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="YzVxPACpizJDAvzU"
+Content-Disposition: inline
+In-Reply-To: <492396bc-a0f4-4274-9a7c-21fd5fd886b5@riscstar.com>
 
-Hello Uwe,
+--YzVxPACpizJDAvzU
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Mon, Oct 12, 2026 at 10:32:58PM +0200, Uwe Kleine-König wrote:
-> On Mon, Oct 12, 2026 at 08:32:59PM +0300, Fil Dunsky wrote:
-> > +#include <linux/mod_devicetable.h>
->
-> Please don't include this file. It contains a plethora of defines for
-> subsystems not in use here.
->
-> > [...]
-> > +#include <linux/platform_device.h>
->
-> You can rely on <linux/platform_device.h> to yield definitions for
-> of_device_id and so drop <linux/mod_devicetable.h> without a
-> replacement.
->
-> The same applies to patches 6 and 7.
+On Mon, Oct 12, 2026 at 02:10:01PM -0500, Alex Elder wrote:
+> On 10/12/26 1:51 PM, Conor Dooley wrote:
+> > On Mon, Oct 12, 2026 at 11:43:52AM -0500, Alex Elder wrote:
+> > > Define the binding for the reset controller functionality present in
+> > > the Toshiba TC9564 SoC.
+> > >=20
+> > > Co-developed-by: Daniel Thompson <daniel@riscstar.com>
+> > > Signed-off-by: Daniel Thompson <daniel@riscstar.com>
+> > > Signed-off-by: Alex Elder <elder@riscstar.com>
+> > > ---
+> > >   .../bindings/reset/toshiba,tc9564-reset.yaml  | 56 ++++++++++++++++=
++++
+> > >   MAINTAINERS                                   |  7 +++
+> > >   include/dt-bindings/reset/toshiba,tc9564.h    | 26 +++++++++
+> > >   3 files changed, 89 insertions(+)
+> > >   create mode 100644 Documentation/devicetree/bindings/reset/toshiba,=
+tc9564-reset.yaml
+> > >   create mode 100644 include/dt-bindings/reset/toshiba,tc9564.h
+> > >=20
+> > > diff --git a/Documentation/devicetree/bindings/reset/toshiba,tc9564-r=
+eset.yaml b/Documentation/devicetree/bindings/reset/toshiba,tc9564-reset.ya=
+ml
+> > > new file mode 100644
+> > > index 0000000000000..1908e9539abac
+> > > --- /dev/null
+> > > +++ b/Documentation/devicetree/bindings/reset/toshiba,tc9564-reset.ya=
+ml
+> > > @@ -0,0 +1,56 @@
+> > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> > > +%YAML 1.2
+> > > +---
+> > > +$id: http://devicetree.org/schemas/reset/toshiba,tc9564-reset.yaml#
+> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > +
+> > > +title: Toshiba TC9564 Reset Controller
+> > > +
+> > > +maintainers:
+> > > +  - Alex Elder <elder@riscstar.com>
+> > > +  - Daniel Thompson <daniel@riscstar.com>
+> > > +
+> > > +description:
+> > > +  The Toshiba TC9564 is an SoC accessed by a host system through the
+> > > +  upstream PCIe port on the PCIe switch it implements.  The switch
+> > > +  includes an embedded PCIe endpoint that provides access to various
+> > > +  SoC peripherals (including a reset controller) via its BARs.
+> > > +
+> > > +  A total of 13 resets are implemented, though two of these are not
+> > > +  controllable.  Access to the reset controller relies on PCIe being
+> > > +  functional, so the PCIe reset is assumed to be deasserted.  Simila=
+rly,
+> > > +  the PCIe controller relies on I2C, so the I2C reset is also assumed
+> > > +  to be deasserted.
+> > > +
+> > > +  Reset ids are defined in <dt-bindings/reset/toshiba,tc9564.h>.
+> > > +
+> > > +  The reset controller uses registers within the same page as a
+> > > +  clock controller, so both devices are defined as children of a
+> > > +  "config" syscon.
+> > > +
+> > > +properties:
+> > > +  compatible:
+> > > +    const: toshiba,tc9564-reset
+> >=20
+> > Why does this need to exist as a standalone device, rather than be
+> > rolled up into the parent syscon node? It doesn't have any resources, so
+> > it should be doable.
+>=20
+> This is along the lines of what Krzysztof has mentioned, and it
+> seems clear I must be missing something.
+>=20
+> > This kind of thing for a syscon is always difficult to review when only
+> > one element is present - where is the rest of the syscon's
+> > functionality?
+>=20
+> The reason a syscon was used was simply for the benefit of
+> having a shared regmap that the reset, clock, and DWMAC drivers
+> can use.  All three of those drivers use registers that reside
+> within a single page of addressible MMIO space.
 
-Thanks, dropped from the GPIO, I2C and watchdog drivers for v2.
+What does the dwmac use the region for? I assume it's for some misc
+register and you don't mean that the dwmac lies within the region?
 
-Best regards,
-Fil
+There's nothing inherently wrong with the act of using of a syscon here,
+what I am actually complaining about is how you are using it.
+In cases where a syscon region contains clock and reset, the typical way
+we want people to do this is via something like
 
+syscon@f00 {
+	compatible =3D "toshiba,tc9564-bla-syscon", "syscon", "simple-mfd";
+	reg =3D <0x0 0x2000>;
+	#reset-cells =3D <1>;
+	#clock-cells =3D <1>;
+};
+
+because the child node exists for no other reason than to access linux
+driver probing in the most trivial way. If there's some features that
+actually need a child node, that's fine, but those will end up being
+things with significantly more properties or things with competing
+property use (e.g. if there were devices with buses that need
+address/size cells).
+
+> And I don't know that I can guarantee their probe order.
+
+I am assuming this is moot, since I am not objecting to using a syscon?
+
+> There is otherwise no "system controller" that is treated as
+> a logical entity within the SoC.
+>=20
+> What is the proper way for me to represent this?  It's fairly
+> simple; and I mainly want to ensure all three of those drivers
+> can safely access their addresses.
+
+What else does this region actually contain?
+
+Cheers,
+Conor.
+
+> > > +
+> > > +  "#reset-cells":
+> > > +    const: 1
+> > > +
+> > > +required:
+> > > +  - compatible
+> > > +  - "#reset-cells"
+> > > +
+> > > +unevaluatedProperties: false
+> > > +
+> > > +examples:
+> > > +  - |
+> > > +    #include <dt-bindings/reset/toshiba,tc9564.h>
+> > > +
+> > > +    syscon@0 {
+> > > +        compatible =3D "syscon", "simple-mfd";
+> > > +        reg =3D <0x0 0x2000>;
+> > > +
+> > > +        reset {
+> > > +            compatible =3D "toshiba,tc9564-reset";
+> > > +            #reset-cells =3D <1>;
+> > > +        };
+> > > +    };
+> > > diff --git a/MAINTAINERS b/MAINTAINERS
+> > > index 252b6d7ee1638..d0eb44079fe17 100644
+> > > --- a/MAINTAINERS
+> > > +++ b/MAINTAINERS
+> > > @@ -28180,6 +28180,13 @@ S:	Maintained
+> > >   F:	Documentation/devicetree/bindings/misc/pci1179,0220.yaml
+> > >   F:	drivers/misc/tc9564-pci.c
+> > > +TOSHIBA TC9564 RESET DRIVER
+> > > +M:	Alex Elder <elder@kernel.org>
+> > > +M:	Daniel Thompson <danielt@kernel.org>
+> > > +S:	Maintained
+> > > +F:	Documentation/devicetree/bindings/reset/toshiba,tc9564-reset.yaml
+> > > +F:	include/dt-bindings/reset/toshiba,tc9564.h
+> > > +
+> > >   TOSHIBA WMI HOTKEYS DRIVER
+> > >   M:	Azael Avalos <coproscefalo@gmail.com>
+> > >   L:	platform-driver-x86@vger.kernel.org
+> > > diff --git a/include/dt-bindings/reset/toshiba,tc9564.h b/include/dt-=
+bindings/reset/toshiba,tc9564.h
+> > > new file mode 100644
+> > > index 0000000000000..5fcc9a06d4ff6
+> > > --- /dev/null
+> > > +++ b/include/dt-bindings/reset/toshiba,tc9564.h
+> > > @@ -0,0 +1,26 @@
+> > > +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
+> > > +
+> > > +/*
+> > > + * Copyright (C) 2026 by RISCstar Solutions Corporation.  All rights=
+ reserved.
+> > > + */
+> > > +
+> > > +#ifndef __RESET_TOSHIBA_TC9564_H__
+> > > +#define __RESET_TOSHIBA_TC9564_H__
+> > > +
+> > > +/* Reset IDs */
+> > > +
+> > > +#define RESET_MCU		0
+> > > +#define RESET_MCU1		1
+> > > +#define RESET_MSIGEN		2
+> > > +#define RESET_INTC		3
+> > > +#define RESET_UART		4
+> > > +
+> > > +#define RESET_MAC0_MAC		5
+> > > +#define RESET_MAC0_PMA		6
+> > > +#define RESET_MAC0_XPCS		7
+> > > +
+> > > +#define RESET_MAC1_MAC		8
+> > > +#define RESET_MAC1_PMA		9
+> > > +#define RESET_MAC1_XPCS		10
+> > > +
+> > > +#endif /* __RESET_TOSHIBA_TC9564_H__*/
+> > > --=20
+> > > 2.53.0
+> > >=20
+>=20
+
+--YzVxPACpizJDAvzU
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCas1PrgAKCRB4tDGHoIJi
+0nkmAP9v7bODUF8P29/idYnXULHr6aVTWyMvFD54nMkNK7JYIwEA5+CJlGeKRvUf
+gMRQzc2F+Ml8zzzEL60Hg+3+RslDVgo=
+=HQ4f
+-----END PGP SIGNATURE-----
+
+--YzVxPACpizJDAvzU--
