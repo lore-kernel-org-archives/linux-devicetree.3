@@ -1,256 +1,187 @@
-Received: from mail-vs1-f41.google.com (mail-vs1-f41.google.com [209.85.217.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB3DE45FFD7
-	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 18:26:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.217.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791829575; cv=pass; b=mbFJ5gbrl5rc9tTF3LrXwu8ohvR4CJmv8xQbqyyaRYMjAwdUhaMWD1Tx4Qrlm3RrZBouPHpNtwGP31sKEL5sUqhuQJvIZy7cU44KdF0RkmxwROSzUYiz9ubQBxkP00jQxE2Vj915Oe5ORRBHU3p60j3TlTdjpqTUZ0iav3yKSuQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791829575; c=relaxed/simple;
-	bh=i4NUyyNT6Z+Ov6SBreB/v9GEhH7h3KQp3Gl3VKlI4o0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Tduy4ej2a8ixvgBIdRk8hMhWhmgkJCBTsxgT5CA9iBYeKd4mWMpiffO9pOJn1H1Guy6Wz2ZOz6YghVfa9uQjJukb1poaD0I1Sxzy0leL8235PTEN/Bk8oAGSzpvEPHV3lO1VlBuuZyJAVqDjEq7hA0GAZffrO8UHTXk2gvw6hqs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=E/CJ+866; arc=pass smtp.client-ip=209.85.217.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C8B34D37D1
+	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 18:32:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791829933; cv=none; b=s/5fYiLjH13fn+Npuqpb70blWy96dcVDCZoAK5owL3UNubBLevjcnpOv4nH4yLNrqdwQZcPDDo+RxvndrIyeyIrdMe8JSE9lDjq7yvq/0p3jqEnAQAAiLRIuMRY3+KfBdLhPlSCvPx/wOjWh0N4E9dbJZWuGsgRteTCheZbHkFo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791829933; c=relaxed/simple;
+	bh=H3ajQd7wm1bFogX14K0eYfOdNs6MQ8yHjBdXJ/cawUA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PocpXowU5GRj8mu0VWisoIJdpLGq1GsA/bpLR4/JuwNlxe6FDPnWafhx7QJh1cITWywzEt4jAyU9/kwr4LKiO9PWqaw2A8u3uyUnH0Ma7q0WEPTag/5HxD92um4sHNBZDmNJWiQq2SylN73BhkCXMMQ1XZoBbQEKt5pMvrsL0Dc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=JE+2/AG6; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=tyuuXAp3; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="E/CJ+866"
-Received: by mail-vs1-f41.google.com with SMTP id ada2fe7eead31-7c33cc572e6so1598117137.1
-        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 11:26:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791829572; cv=none;
-        d=google.com; s=arc-20260327;
-        b=hmAn6oToTJIiuBR8qedC+k2RTUscXz4fy45YyMQmw3gCcLJ9YKZAQhd6wPWAGEvMkl
-         5F3HFhJY7qhMrkZSFsCKtXj1YBCk1aYDHybe38MSQyFgxmIf0u6zWKKS+owbKGV+UbEV
-         hLRptxkene3lqTNijffGIaqdIJf4/rvWpMYQSc7RceBe52assM2/FsFhTO/wlNZH65wn
-         D3F7qKycx+kPUbmCvB/fvxbqJG8ujrIMgFltTINpqsDotkDPD4hj0W1kNlr4hS1QWEct
-         C01mlZTiWBtIEgVe7H3aacVOAq3DhUn40+PI6hPC0AymrpuiIiaWfKwCJEs+ZoQke/PU
-         QEdw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=uS0kC1tZmKLnFAc3gpM2J8lvwjycam1N7G0nExBvzCY=;
-        fh=tMthydMAzLFGIJ1LtqCfVK0Sjl4fxZ336GQEmHyOF+s=;
-        b=B+ZztOZDsatsCeIaJRKi07Mq7hDWnzGKGfsEcCPPUhJJVtMHvslcj8BdROIlidWZYQ
-         7Z9jeUdA2hYPBfA3+iyQ18JYn9ZBmPaYNxFL36uUg1Gqqf+qQf01HUPcemMjwHluENIw
-         sWF7H4y34gxRAEV1TvRZrebIgdN/hzCqboNvJIie6Q7g8eLo7GN6N3ot/OcR/xUazZzt
-         A8HSX3QtUurb3EaeyIIU8afiiqG4jz6/CThSFKkjm8NWcHkJb+7EfjwZmomTiQbAIsDR
-         g3TRRQhdF1RH1S7qE9IqifV6i8py42J8WYJNWSUE94JOVLRHrdNFN/aCI69j03rcR+jc
-         ZVOA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="JE+2/AG6";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="tyuuXAp3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791829929;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Mp4Az4pn5hEgJeWah5nozn6weJjpUXzUrROIxr1Rl0E=;
+	b=JE+2/AG62Et8L3adqhzPTC1t2kgBumeG1nRQSnFujMHs4kPdpiQyA+6wg1FppvGT+4vkBI
+	JyB4/YjoRfIlK5kGVJpCdUVe0K+tFmLiRoFQB82OcZB1Mhh9yNNK8WZS1yv9esN2zcSR0C
+	VuxriuUa8e0HjUnb4YLb4b85kbOKSQc=
+Received: from mail-vk1-f198.google.com (mail-vk1-f198.google.com
+ [209.85.221.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-450-XXZmuWyMMCWJrDp8RWbmeg-1; Mon, 12 Oct 2026 18:32:07 +0000
+X-MC-Unique: XXZmuWyMMCWJrDp8RWbmeg-1
+X-Mimecast-MFC-AGG-ID: XXZmuWyMMCWJrDp8RWbmeg_1791829927
+Received: by mail-vk1-f198.google.com with SMTP id 71dfb90a1353d-5df1badcee9so1853183e0c.0
+        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 11:32:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791829572; x=1792434372; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=uS0kC1tZmKLnFAc3gpM2J8lvwjycam1N7G0nExBvzCY=;
-        b=E/CJ+866mDD9tPBP5rjqFjDvRDpM3D+vLunz9Xw5ApPH0nmIfO8Uy+qfdxfbTFGT/P
-         JRbHjRrqXLoHiuLU3mbwqcicRl+t9AwJ3hSPydpLu02luNc14zkyK2pb4NHa0H0GUqYG
-         R05RzOOZw/DAuOLo9QtQdjSP+H8deyC0lueJBnoXDkbJECkgkfrZfxc0aH32iHMs4Evk
-         Qjg7iHQ3lSH0SjNttIlrV3dMX05xgbKDxbR2x3uQ4IQfziHwApHdjnDEfcehkknC8YhQ
-         mZ3DtAZvnGniWoShUqf0wTSDxdc9L1OAHVBOpcDOkWdlAGuEVsqF0ZT+rae/GfRDxpz1
-         V+sQ==
+        d=redhat.com; s=google; t=1791829927; x=1792434727; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Mp4Az4pn5hEgJeWah5nozn6weJjpUXzUrROIxr1Rl0E=;
+        b=tyuuXAp3++BO+OR/9lmPG20dkIDHAKpkHjqUmTGQjQ/yJ1utAfrq44gpJ+DnX6KciA
+         9+8HQDHGsfZ9AsWxcyLhqIdhiWwzDHVOZ0f53eLtxd0ocOOO6rCNj3U1PEWshpNzuWS+
+         Ltn3hctxizrJFWqclESWkWpIIwk6B+qliut67IJb0FESyRGiUiVzgQDiZYpFgFM6YV81
+         mg6WGFWoFVLpA3R4psbcgmvcQAckIaDZDjFSZseE05eemY14XkC2EoF4k/x3LUoU5iaj
+         vYqNGfcINJnziCXcwsllXxcFUkfCCpVORsQ/HBwA5ncQkgqnvMun42d1h9IcaEA/uPJw
+         +vig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791829572; x=1792434372;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uS0kC1tZmKLnFAc3gpM2J8lvwjycam1N7G0nExBvzCY=;
-        b=iaGG6wzKcecHQ+Aj23LsCtgogJWBUj2y3NcZU91eSOOZoEmJgsIVqZD9Ih+mQmJzeb
-         LAbNXtox6WT4PCOUxBbZn0wK7ycprvU/HLa0bj05vvZjbymBwIa1qup2zaCQ8I9yBaUz
-         2R01FWW+xXjmRGHXfq0WoUsqaZr3tPJ7r22U5I/GSdGlHhBDpWHbAyTC3fw5IV+8nX2h
-         e5Hi/XF9Z6hXkPL/RgE967QEnTL9m09iv0bjeR5uewJHw4J8u8uC83EV+LcP1t6ILI9r
-         IEPiYlHdJ3JevlpZQgGmGwpyV8gIBcrFc70pCndsq0/LlSnoipzkjPxzqruyFVLKPa1u
-         mfmg==
-X-Forwarded-Encrypted: i=1; AKwUvBzbBU5cMje2tvODic7M7A1mMH/U8KfNT3K5CcBC57QjilQP0UNAxDHyt0TW8RwX90sM2G+OuEAvngDN@vger.kernel.org
-X-Gm-Message-State: AFq9FYJ7+NAJE2fOYGUjXjAl9/bmU/uRmjd1duYZ63oUCbX3GNN3h/wl
-	tnvvHtKNfWoxJIpWEZdrT/qFlCCsrRBr1JYAb/uzkD0P68IlMyC1XfKEG2UEWK9Z2fQmkA739eQ
-	qQbzcIeJKy6Eh9OSKVTn0d84sl2qgWSU=
-X-Gm-Gg: AYBFou2BY2tP6IbcscWq4VFdoZttwS016NVV8Xlxmz90q2fxT52A3GylEwo6B4UsYE9
-	2BWjZaRF8doOQTdPZBBbo9e2fvqqd0usux41kPN5ZY1De+gHCAfT9a+waxiRZ06YnFC7Iw1J6WT
-	1rX7iQB0FQMM6pfky3gtIClORffuiclwXdv1dMZlNpg9T210EHiaNZrU8MXjuzvpV+Ds4rlUd84
-	dBYhu3zNpPMQmRd8zjAy355giDHb3IBl3mVZ4U8Oc1bBXm2Yq1Wb/Objrjse2PVLLBPzjMq5soO
-	d73fW/fD2B6vZXTlmqnQvtJQOF2hfm4WYeHcszcnEbivxiHQfT5INES5/TX2lubwoDmXpkKv068
-	VZSyiAn1COsl8wxQFWM9CUxjMgecELxmQxV8O+mj8yH8YmiV7+/Z/I6hSF/62jOKigP/tPJNX2F
-	UrqcUEcrYPP+aCEU1tlU6UfWADHzZmx4YamsPF5s+bkiLG
-X-Received: by 2002:a05:6102:370f:b0:798:24e8:23f4 with SMTP id
- ada2fe7eead31-7cb42a03e2dmr2294757137.7.1791829571647; Mon, 12 Oct 2026
- 11:26:11 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791829927; x=1792434727;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Mp4Az4pn5hEgJeWah5nozn6weJjpUXzUrROIxr1Rl0E=;
+        b=OTJpn3ncHx7YUgUJHPMnoQv6nJf/8BObUjlKkOsm8Sr8MdRnK7ud6Kt6oW6eJ68SIu
+         UKQ6rFJJui62yXPoPMZiOytu4vj2rwBMBA3uxdsimK5nBogOJJsmKZVTVwb3f+7du5KV
+         6UIaxcbKOkNOrvTHgWFtOfkQAEqaFeTCRso46jm4DqKZeHVsU7OO9h1n1svzpvnFfJWB
+         WLhkClFvZsEaNUpdrGWZZyscxRegPOzoy455fF5pyxsfSDj9PrzvCtmAOmp8v5XiRjwP
+         vQGRJdJt3WxOgtyTTCNQPyZxGZL8Xd9u4jYw2a0W4Dx7QZLFxtfJ/kAZ8zQPdoJhVOnt
+         Ji2Q==
+X-Forwarded-Encrypted: i=1; AKwUvBx9I6scB60tRne9KzqWOsuFYBwkuQ1LtAxbNqlpTAWDk72QGwHFG8guIrputgE9NYpXzhZ/UqiAaqXj@vger.kernel.org
+X-Gm-Message-State: AFq9FYKkU7Jih/zQNRrGZZjC8C3EyLHI8SptvvzkCZmDIfLX8kLKk8+/
+	x5h39qk/ogYbHHt/LseZbhvRM4zLi1sKEgGTfJvBolPzCDLJVBSoJqM6ylfXnMs0B/RQqlQ462Z
+	dcFm6VghT/Ih10HrsN9N/ieHU52PXyQsi/wj1V9CG8QN+VMTAVCMsPDuujq4dTAE=
+X-Gm-Gg: AYBFou0y+PkovwqVPR8yeleKXXp4owZ3fFgEQNbJF9D3guamemvU/8ivPBpEAoC1hl7
+	+DsgNVRL9/h62clf0SxKpbYfbGma+v8nFReFkxyzyfa5ytJVe9/95PMTN80tkyrSV8HnywXzWt7
+	AWQ8TM41q9lebfBUtT+pz/PmPihzwgcpANYoYHuVvoHt/itMdNsgRE/OivmVv3SbcdMWKz1yta7
+	xMhhl9uEbloLWw55Kh/iZvff86AqyyZwwB06k0/EnbEWqhzoPiATrppvpof9S4e2BVIv8DsdI5R
+	0lc6ry0QySxgqcPR/4DRro3D2TCVnuksJCSqQ/OZ0YyYTy+QQc9Qtg==
+X-Received: by 2002:a05:6123:550:20b0:5c9:a60c:273d with SMTP id 71dfb90a1353d-5e91f4fc783mr2548300e0c.21.1791829927175;
+        Mon, 12 Oct 2026 11:32:07 -0700 (PDT)
+X-Received: by 2002:a05:6123:550:20b0:5c9:a60c:273d with SMTP id 71dfb90a1353d-5e91f4fc783mr2548281e0c.21.1791829926536;
+        Mon, 12 Oct 2026 11:32:06 -0700 (PDT)
+Received: from rhdev ([2600:1700:f361:20bf::14c1])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5e92f300f42sm5764908e0c.0.2026.10.12.11.32.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 11:32:06 -0700 (PDT)
+Date: Mon, 12 Oct 2026 14:32:04 -0400
+From: Jennifer Berringer <jberring@redhat.com>
+To: Shengyu Qu <wiagn233@outlook.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>,
+	Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org,
+	spacemit@lists.linux.dev, linux-kernel@vger.kernel.org,
+	James Morris <jmorris@namei.org>
+Subject: Re: [PATCH 4/4] riscv: dts: spacemit: k3-com260-ifx: Add rfkill nodes
+Message-ID: <20261012183204.c845fc69@redhat.com>
+References: <20260928231807.1757995-1-jberring@redhat.com>
+ <20260928231807.1757995-5-jberring@redhat.com>
+ <TYWPR01MB10887E1A3744FD44000F89E8F98922@TYWPR01MB10887.jpnprd01.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260914-submit-sunxi-nand-vendor-oob-layout-v1-v6-0-2fb084fe0751@gmail.com>
- <20260914-submit-sunxi-nand-vendor-oob-layout-v1-v6-1-2fb084fe0751@gmail.com> <8733ua23xs.fsf@bootlin.com>
-In-Reply-To: <8733ua23xs.fsf@bootlin.com>
-From: James Hilliard <james.hilliard1@gmail.com>
-Date: Mon, 12 Oct 2026 12:26:00 -0600
-X-Gm-Features: AclHuK-YE9EZvdISkdO2ItcawmmP4G9wFY0yyJFRi71wZBtPLVkiWianJdKsR5A
-Message-ID: <CADvTj4pmtGZ4c04q+5AE3trrfshToD7BPtF-8kPxPRZ25hOTRw@mail.gmail.com>
-Subject: Re: [PATCH v6 01/18] mtd: rawnand: sunxi: drain interrupts before
- reusing the completion
-To: Miquel Raynal <miquel.raynal@bootlin.com>
-Cc: Richard Weinberger <richard@nod.at>, Vignesh Raghavendra <vigneshr@ti.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, 
-	Maxime Ripard <mripard@kernel.org>, Richard Genoud <richard.genoud@bootlin.com>, 
-	Masahiro Yamada <yamada.masahiro@socionext.com>, Boris Brezillon <bbrezillon@kernel.org>, 
-	Brian Norris <computersforpeace@gmail.com>, linux-mtd@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <TYWPR01MB10887E1A3744FD44000F89E8F98922@TYWPR01MB10887.jpnprd01.prod.outlook.com>
 
-On Mon, Oct 12, 2026 at 12:02=E2=80=AFPM Miquel Raynal
-<miquel.raynal@bootlin.com> wrote:
->
-> Hi James,
->
-> On 14/09/2026 at 15:09:47 -06, James Hilliard <james.hilliard1@gmail.com>=
- wrote:
->
-> > A timed-out wait can return while the interrupt handler is still using
-> > the previous operation's interrupt status and enable mask. Starting the
-> > next wait calls init_completion() on the same object, which can reset i=
-ts
-> > waitqueue lock while the old handler calls complete(). The old handler
-> > can also complete the new wait or restore an obsolete interrupt mask.
-> >
-> > Initialize the completion once in probe and use reinit_completion() for
-> > each interrupt-driven wait. On timeout, disable and synchronize the IRQ
-> > before masking controller interrupts and acknowledging the waited-for
-> > events. Draining the handler first also prevents a partial-event handle=
-r
-> > from rewriting the enable mask after it has been cleared. Flush these
-> > register writes before re-enabling the IRQ line, leaving the controller=
-'s
-> > interrupt sources masked.
-> >
-> > For successful waits, move complete() after the handler's register upda=
-tes
-> > so that the next operation cannot race with those updates. Keep polling
-> > unchanged and leave controller and DMA abort handling to the existing
-> > callers.
-> >
-> > Fixes: 1fef62c1423b ("mtd: nand: add sunxi NAND flash controller suppor=
-t")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
+Hi,
+
+On Sat, Oct 10, 2026 at 03:08:35AM +0800, Shengyu Qu wrote:
+> Hi,
+> 
+> I don't think doing like this is correct.. We have a dedicated M.2 Ekey
+> binding and should use that:
+> 
+> https://github.com/torvalds/linux/blob/master/Documentation/devicetree/bindings/connector/pcie-m2-e-connector.yaml
+> 
+> Best regards,
+> Shengyu
+
+To my understanding, the pwrseq-pcie-m2 driver that uses this binding
+currently only supports systems that use UART for Bluetooth, and is
+needed for them because UART is a non-discoverable bus. Quoting the
+cover letter of the series that introduced this binding:
+
+"This series adds support for connectors that expose PCIe interface for
+WiFi and UART interface for BT. Other interfaces are left for future
+improvements." [1]
+
+K3 CoM260 Dev Kit ships with its E-key slot populated with an RTL8852BE
+module, which uses PCIe for WiFi and USB2 for BT. I verified that my
+patch series does make the rfkill command be able to disconnect and
+reconnect the WiFi and BT devices with this module. I also tested this
+patch set with an Intel AX210.
+
+In addition to PCIe and USB2, this board also has its M.2 E-key slot
+connected to sdio, uart6, and i2s3, but none of those are currently
+enabled in this dts and the RTL8852BE module does not use them.
+
+Several other existing device trees seem to use rfkill-gpio nodes to
+control W_DISABLE pins on M.2 E-key slots. Looking at rk3588 boards for
+example: OrangePi 5 Plus, ArmSoM W3, and Rock 5B all do so in the
+current tree.
+
+Unlike those, the rfkill nodes in my patch aren't actually necessary for
+usable WiFi and BT on this board. The shutdown-gpios here are
+GPIO_ACTIVE_LOW and this merely allows using rfkill to block both radios
+via the W_DISABLE pins, so I'm not opposed to dropping this patch if
+anyone believes it should be dropped.
+
+[1] https://lore.kernel.org/lkml/20260326-pci-m2-e-v7-0-43324a7866e6@oss.qualcomm.com/
+
+> 
+> 在 2026/9/29 07:18, Jennifer Berringer 写道:
+> > K3 CoM260 IFX has an M.2 E-key slot for wireless. Add rfkill nodes for
+> > the GPIOs that control the slot's W_DISABLE1# and W_DISABLE2# pins for
+> > WLAN and Bluetooth.
+> > 
+> > Signed-off-by: Jennifer Berringer <jberring@redhat.com>
 > > ---
->
-> So from the commit log I understand that you are fixing a race. The
-> problem seems legitimate.
->
-> >  drivers/mtd/nand/raw/sunxi_nand.c | 26 ++++++++++++++++++++------
-> >  1 file changed, 20 insertions(+), 6 deletions(-)
-> >
->
-> ...
->
-> > @@ -414,12 +416,13 @@ static irqreturn_t sunxi_nfc_interrupt(int irq, v=
-oid *dev_id)
-> >       if (!(ien & st))
-> >               return IRQ_NONE;
-> >
-> > -     if ((ien & st) =3D=3D ien)
-> > -             complete(&nfc->complete);
-> > -
-> > +     /* Finish updating the interrupt state before waking the next ope=
-ration. */
-> >       writel(st & NFC_INT_MASK, nfc->regs + NFC_REG_ST);
-> >       writel(~st & ien & NFC_INT_MASK, nfc->regs + NFC_REG_INT);
-> >
-> > +     if ((ien & st) =3D=3D ien)
-> > +             complete(&nfc->complete);
+> >   arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts | 14 ++++++++++++++
+> >   1 file changed, 14 insertions(+)
+> > 
+> > diff --git a/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts b/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts
+> > index 01e286cb05797..cd878340e5add 100644
+> > --- a/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts
+> > +++ b/arch/riscv/boot/dts/spacemit/k3-com260-ifx.dts
+> > @@ -47,6 +47,20 @@ reg_aux_vcc3v3: regulator-aux-vcc3v3 {
+> >   		regulator-max-microvolt = <3300000>;
+> >   		regulator-always-on;
+> >   	};
 > > +
-> >       return IRQ_HANDLED;
-> >  }
-> >
-> > @@ -435,16 +438,19 @@ static int sunxi_nfc_wait_events(struct sunxi_nfc=
- *nfc, u32 events,
-> >               timeout_ms =3D NFC_DEFAULT_TIMEOUT_MS;
-> >
-> >       if (!use_polling) {
-> > -             init_completion(&nfc->complete);
-> > +             reinit_completion(&nfc->complete);
->
-> The whole change around (re)init_completion looks relevant (here and in t=
-he handler).
->
-> >
-> >               writel(events, nfc->regs + NFC_REG_INT);
-> >               ret =3D wait_for_completion_timeout(&nfc->complete,
-> >                                               msecs_to_jiffies(timeout_=
-ms));
-> > -             if (!ret)
-> > +             if (!ret) {
-> > +                     /* Drain the handler before it can restore an old=
- IRQ mask. */
-> > +                     disable_irq(nfc->irq);
->
-> disable_irq() for serializing accesses to a single register?
+> > +	rfkill-pcie-wlan {
+> > +		compatible = "rfkill-gpio";
+> > +		label = "rfkill-pcie-wlan";
+> > +		radio-type = "wlan";
+> > +		shutdown-gpios = <&gpio K3_GPIO(73) GPIO_ACTIVE_LOW>;
+> > +	};
+> > +
+> > +	rfkill-usb-bt {
+> > +		compatible = "rfkill-gpio";
+> > +		label = "rfkill-usb-bt";
+> > +		radio-type = "bluetooth";
+> > +		shutdown-gpios = <&gpio K3_GPIO(57) GPIO_ACTIVE_LOW>;
+> > +	};
+> >   };
+> >   &combophy {
+> 
 
-The intention was to drain an in-flight handler before cleaning up the
-timed-out wait, rather than just serialize the register write.
-disable_irq() provides that synchronization as well as masking the line.
-It is only used on timeout, and this IRQ is requested without IRQF_SHARED.
-
-A spinlock could also address this, provided it covers the handler's
-status/enable reads through complete(), together with the waiter's
-cleanup and rearming. Protecting only the register writes would leave
-the handler able to act on an old snapshot.
-
-> It
-> certainly works but I don't think it is so common to use it like that,
-> for such simple cases. Typically in this case I would have used a
-> spinlock maybe? Or even better, why not just avoid the race entirely
-> and handle the register in the waiter?
-
-One detail to account for is that the MBUS DMA path waits for both
-NFC_CMD_INT_FLAG and NFC_DMA_INT_FLAG. The handler currently acknowledges
-and masks each event as it arrives, leaving the remaining event enabled
-until both have completed.
-
-Moving the register handling to the waiter would therefore need to
-preserve partial-event tracking and avoid leaving an asserted interrupt
-source enabled while waiting for the task to run.
-
-> You certainly don't need to write
-> it in the IRQ handler. You can handle the IRQ configuration at the
-> device level, which will also prevent the need for your extra
-> readl "barrier" before enabling the IRQ.
->
-> Furthermore, now that I have a better understanding, re-reading the
-> commit log, I now disagree with the first part of:
->
-> >The old handler can also complete the new wait or restore an obsolete in=
-terrupt mask.
->
-> "complete the new wait"? I don't see how a stale handler completes the
-> next wait given the handler is a hard IRQ and the interrupt enable
-> register is cleared on timeout.
-
-The case I had in mind is an already-running handler on another CPU:
-
-CPU 0: Read st and ien for operation A.
-CPU 1: Time out operation A, mask/acknowledge its interrupts,
-       then eventually reinitialize the completion for operation B.
-CPU 0: Call complete() based on the saved st and ien from operation A.
-
-Clearing the device's enable register does not invalidate those local
-values or wait for the running handler to finish. Hard-IRQ context
-prevents this overlap on the same CPU, but not across CPUs.
-
-That distinction was not explicit enough in the commit message. I'm
-open to a different implementation; the requirement I wanted to preserve
-is that the old handler cannot update the mask or signal the completion
-after the waiter has cleaned up and reused it.
-
->
-> Thanks,
-> Miqu=C3=A8l
