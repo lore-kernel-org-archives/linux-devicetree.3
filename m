@@ -1,126 +1,218 @@
-Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com [209.85.208.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69CFD4BA1CE
-	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 17:43:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791827037; cv=pass; b=AQkzbehsT2VWzin8NQ7r3oyvpKDNw7HvQ1yLKPP4iMBpjXko8LAXrHxdydHg/vfqdth5vSuOI2AJqDcT+r6IemehsZzVQyDsPxQxdBZZV9/qzYmSZ+BmP/uYTj4+91TG10KPeeL+/LSXyi4xI6XrBd2tyzErgebQdUw133dkp3M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791827037; c=relaxed/simple;
-	bh=aQmNTGROGdvgxfWPGJ1OogqSDxU0dKMs1Ijyj+pgCT8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=WdTFgUtBzNlpvuA6KhsK9vbFuTDyu4VD7EGXer85AoX+ribOBnoFO/EMAD4VCV+8vX+1iGKYjgwHIvnoY23TOMYW0mcyH5hJVfuCB1O9w6lTjs0XIhJupxmTe7Vv3j5F81soJZrrY4ZoCH2SV/PIrWCyW/Wyu2sjJZ9Cg0HbW7o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LcUJw6yw; arc=pass smtp.client-ip=209.85.208.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 700A034388F;
+	Mon, 12 Oct 2026 17:46:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791827187; cv=none; b=qdUIuwcYcNDIbDmbTaWr+lIC84eOopr7DH21KjTFNKOsH0w5d9HnZhk+HFW6KU+KcCFaTwMdlVhOrOBO5LkNakyFzb4HsAqTdpZXUzZGwzp1aimLXd9LFGEZLo849fTptRgadxdwAIzpSMc319KrymbXuZhAcRR8sPtWP6/t+d8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791827187; c=relaxed/simple;
+	bh=jrN1RemX+8+uqo2me2BEKWlDYuExUjFkMNEklYa5e40=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=hQWPaWqEdtDFGm6S0qfjP6ulNU8C34v+F+oytjXmVN2FFWYMFnqtwzQ3KdVUpVq0R+hIdl4Fl+4CoZfhfNEcl6Djh5lpQVjhQm4CmpXy2w8MmzP2iE7l2lu9S6jc9mv8jD8MhR6IBlvtSw29o4O4+rTby+uzMp9cwx/UBXgQikg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HKENnRa8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LcUJw6yw"
-Received: by mail-ed1-f47.google.com with SMTP id 4fb4d7f45d1cf-6ab006eb282so2670413a12.0
-        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 10:43:56 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791827035; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Td3pKJpdbc2ePtrIBvGM1zCQGSboqdPNu8kRgdEcsHoHA9ibFBvaG/hl2WkIgAaV2t
-         1Dieyif6pq9jWuLRrZeY59Xzs++CBVZslynW8PmgzMDvqwHihIWCexqgFEtolgQQ4S4S
-         U/3LlBbma5yDk9RuJ9VsDGqVHhb9HLPoWJ9kYiUkkz54YQN8lz1J4gqgXIC1etWI9MLL
-         iANTXwRBEDo7QGVQZv+i7wc/q6gHMaT0X/1z1onnokPVqKbXZkh88oYKoqTE43bHeLq0
-         5YdGZxD3wl9xu/RwrkRcv2MP7ocXQBWI1g2lzTCy7DdBqMPZptqISFOgxyal/B1bi2gb
-         zdpg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=aQmNTGROGdvgxfWPGJ1OogqSDxU0dKMs1Ijyj+pgCT8=;
-        fh=rEUvdBppOKK5QMseA8k9+t5Zj20Jh+Yd8JTuiryLq/U=;
-        b=MFX+pc9+3KJNi3e4qcviHPpx3SE0DOwolXA7a/Tb8m62R0YtZ0m+Y0UavFRyqwOtlE
-         kwnWdhQl/2Hb46xXj8VSJ+ShVPbXbvn03fw/2tFPmAjSL9AjMOeOiZ4gTf54ec+OC4Kv
-         ffLuIpP85CxROf3HQkfWTKFKI6kNag++krzOI2KWkSGBG+rMm43bulQsuK7py9iS3wVd
-         1fULZdGiMiTT0QsDw6cSaOeQrCRjF9mxW4npIkTGw0FsdEAQsRMtMAlKd5390f4Fw+wX
-         u58Aw/tyA0CHSS/YjydRrqox80BKxKHa3Hnkz6i/i2pPTv3nQZVB173RzhZS+2inRW6l
-         aPrg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791827035; x=1792431835; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=aQmNTGROGdvgxfWPGJ1OogqSDxU0dKMs1Ijyj+pgCT8=;
-        b=LcUJw6ywaXUWSFgVNr+iY2X2x4fSEganZoXN8lnsLbPnDIfcrnq8RssjOOLYNl6inQ
-         NL8TQ8trVRYn16xSZxIdiMBSmsVF1jLCYujuN50LBbYbr8JYBEBai2WC/RbrFE9f8kid
-         Q24bNAXe83QZExOOpuBgJh4U0TKqWLYZ2tUB0ccJ26yU9h37dzut/Nk631b0lK/a4gNf
-         Y/5E6O6/zBFvtgUN2n/cqFXpgAe4cGvox4MrCuHKQK+lgnajjRzuiBpaL5M2A2GAYJZg
-         hgW8kzSkBS805Ns/b8YBJLLllzKzUSvOdsmmyoGHyjZSgAteDy3TwCM8Sb+EDJ1YUwea
-         arlg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791827035; x=1792431835;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=aQmNTGROGdvgxfWPGJ1OogqSDxU0dKMs1Ijyj+pgCT8=;
-        b=Id71bsAfkd4SXlmiZL/Z0qljxIFCezUXBuE82bUDEemIcEz5uuvDwfO79OL2AqXfhJ
-         sECab9+Nc9cRTr33utf5wMvFjqnCM9LzHy6O/nni51/paTTp2zSmq7vLO7JT00sfj2rK
-         aRYfzQvLW0fWDuFGc5BvB+rOveddJOvYn9Hm/a3POBff7mOB2SVt6jsY/MnzfZnbw4Dd
-         073h+pY/Q+2RGXuIT5md/qeQvmrY0y/9JuKapo4W8z3wXouQdFOJXEByAMF1QhRkoT0H
-         kBu5OIShVJelRk+uF0hVRmvrv/Yalzqq5nU9LgVj5tFOfFef/BCiCISSabfQ7LmEI26S
-         rAkg==
-X-Forwarded-Encrypted: i=1; AKwUvByCQI8OblRRaq0bZvo23zkIdrl37Kf75v5/KCJ+N8tzauK5LBJ2KJbljY41c549exTZs+ifd0CR1HEC@vger.kernel.org
-X-Gm-Message-State: AFq9FYLr4YMDOTkMIF1DD/pBAeoAVZQhWgaNHh6KyTTPf137dWl9e6Ke
-	lEWhUPO19uxZsPMt/9bVasB4Rm0HYNK44e0WSFUdE1Umi5ZCwEN0M98Qol1srmYEsDWEz5PqE6k
-	vLUh8dhSFKHqryFjVmi7DPe6c+TZ00B4=
-X-Gm-Gg: AYBFou3+lC6xkNnfUproUXKXpd0eYMwDKv/NG8th7lxVYu9teLRKYoX1RGHN/QAUh20
-	8w4HHmWxtgSruHQPwqCMARBCdeDpBXYbdkyKRIJBhxnJl0X94boNcVAXzsHMB8AVozvK0cRt4Lq
-	REEjYdPdGsT0P9bBHauDb0mcJqz8jvQACuynhProQipzqjZTs5oCVhz5FlHgp2oyls1gD4U4kTU
-	nqCMcnyRCzCeYtuSQrshSkfaZFAaE+fxsTNi9OdQuRtGejpsaiijyws1JVKuNdXH2GrKz0GIJ/i
-	WkdLbqVRdf9mG/D25TYQwDblywXq8FtLYUXwh6zQJKX5m51XAe3kXw==
-X-Received: by 2002:a05:6402:4341:b0:6ac:8761:17a1 with SMTP id
- 4fb4d7f45d1cf-6b17c27a7famr8072014a12.36.1791827034421; Mon, 12 Oct 2026
- 10:43:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HKENnRa8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC6671F008A1;
+	Mon, 12 Oct 2026 17:46:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791827186;
+	bh=IRuRmJvzKxIb799RocDcW4Ik8w8yn37nxCQpCnAJshg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=HKENnRa8yxWRcfONi/JF/ZZuXV8tGguuzrb3poOLgxgb1Hz7G2GWGFKv7JmsJqSEv
+	 yF8hPaxHLXQ4UZiBYQYyBGYkvUPjgSAKGHmCfMiw92o2K3IlsdbjRpDlMvlEl/LYUH
+	 GU9OZXu6doTSPkPThlhXesQuAoRaqsba1NCwEprIdpzgMeFZeNIK8SUdW/tgp1lOsz
+	 /llvoe8/e56RxoyMb7YYZSSx6/1S0K/6SdlRaP4nJL7RtPZI/myfTCkImTrg9l9/xU
+	 Z6weoY5Bfh/CCoUtFUAOgS62zUZwKlVY7RcwFb747uxz6hjRPEb1rOvppj2FyLA2pQ
+	 HonYeJR2zU5bQ==
+Message-ID: <sashiko-outbox-168487@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 06/11] i2c: Add Cortina Systems CS75xx I2C controller
+ driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Fil Dunsky" <filipp.dunsky@gmail.com>
+Cc: robh@kernel.org, linux-watchdog@vger.kernel.org, devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261012-b4-cs75xx-s2-v1-6-8a7641b7b79c@gmail.com>
+References: <20261012-b4-cs75xx-s2-v1-0-8a7641b7b79c@gmail.com>
+ <20261012-b4-cs75xx-s2-v1-6-8a7641b7b79c@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 12 Oct 2026 17:46:25 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20261010115539.9237-1-l.scorcia@gmail.com> <20261010115539.9237-2-l.scorcia@gmail.com>
- <20261012-quirky-emu-of-renovation-c217dc@quoll>
-In-Reply-To: <20261012-quirky-emu-of-renovation-c217dc@quoll>
-From: Luca Leonardo Scorcia <l.scorcia@gmail.com>
-Date: Mon, 12 Oct 2026 19:43:42 +0200
-X-Gm-Features: AclHuK-aSGZTx-4HZF0vtpTq6BBo_BN-ay9Tv6iz0b611lBgirjVShAwSUrYMCA
-Message-ID: <CAORyz2KgX-7=gfax06+Pb5SFq4dVTtcTY2pbH+FDCRNZ+AVXOA@mail.gmail.com>
-Subject: Re: [PATCH 1/7] dt-bindings: mediatek: hdmi-phy: Add compatible for mt8167
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: linux-mediatek@lists.infradead.org, 
-	Chunfeng Yun <chunfeng.yun@mediatek.com>, Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Manivannan Sadhasivam <mani@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney+clk@redhat.com>, Jerome Brunet <jbrunet+clk@baylibre.com>, 
-	Chun-Kuang Hu <chunkuang.hu@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Nicolas Frattaroli <nicolas.frattaroli@collabora.com>, Chen-Yu Tsai <wenst@chromium.org>, 
-	Fabien Parent <fparent@baylibre.com>, CK Hu <ck.hu@mediatek.com>, 
-	chunhui dai <chunhui.dai@mediatek.com>, linux-arm-kernel@lists.infradead.org, 
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org
-Content-Type: text/plain; charset="UTF-8"
 
-> Why do you have flexible clocks?
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
+- [High] i2c: ignored NACK on final byte of write transfer
+- [High] i2c: hardware busy timeout ignored
+- [High] i2c: cs75xx: race between STOP completion IRQ and next transfer
+- [High] i2c: cs75xx: ignore NACK on the last byte of a write message
+- [Medium] i2c: interrupts permanently disabled after timeout reset
+- [Medium] i2c: cs75xx: ignore NACK on the last byte of a write message
+--
 
-Hi, I'm sorry but I need a little help in understanding your comment.
-If you meant "Why isn't there a constraint on the clocks' names", it
-is already provided by the existing conditional block [1].
+commit 4bef5e4f9afb2c145bb402508760c2866f3f5a51
+Author: Fil Dunsky <filipp.dunsky@gmail.com>
 
-If you meant "Why does clock-output-names have only the maxItems
-number and does not specify the clock name", it was there before [2].
-It could probably be added back with another conditional expression.
-If you meant something else entirely I apologize and would appreciate
-some additional guidance.
+i2c: Add Cortina Systems CS75xx I2C controller driver
 
-Thank you,
-Luca
+The I2C ("Bi-Wire") controller of the Cortina Systems CS75xx SoCs transfers
+one byte per command, and raises an interrupt when a command has completed.
+Messages are sent with a repeated start between them and a stop after the
+last one. Arbitration loss is reported as -EAGAIN and retried by the core.
 
-[1] https://github.com/torvalds/linux/blob/master/Documentation/devicetree/bindings/phy/mediatek%2Chdmi-phy.yaml#L90-L102
-[2] https://lore.kernel.org/all/20251217-mtk-genio-evk-hdmi-support-v2-1-a994976bb39a@collabora.com/
+> diff --git a/drivers/i2c/busses/i2c-cs75xx.c b/drivers/i2c/busses/i2c-cs7=
+5xx.c
+> index 0000000000000..2d40f099d6715
+> --- /dev/null
+> +++ b/drivers/i2c/busses/i2c-cs75xx.c
+[ ... ]
+> +static void cs75xx_i2c_process(struct cs75xx_i2c *i2c, u32 ack)
+> +{
+> +	struct i2c_msg *msg =3D i2c->msg;
+> +
+> +	if (ack & CS75XX_I2C_ACK_AL) {
+> +		writel(CS75XX_I2C_CTRL_STOP, i2c->base + CS75XX_I2C_CTRL);
+> +		cs75xx_i2c_finish(i2c, -EAGAIN);
+> +		return;
+> +	}
+> +
+> +	switch (i2c->state) {
+> +	case CS75XX_I2C_ADDR:
+[ ... ]
+> +	case CS75XX_I2C_WRITE:
+> +		if (i2c->pos =3D=3D msg->len) {
+> +			cs75xx_i2c_finish(i2c, 0);
+> +			return;
+> +		}
+> +		if (ack & CS75XX_I2C_ACK_NACK) {
+
+[Severity: High]
+Does this early return ignore the NACK check for the last byte?
+
+Since i2c->pos is incremented immediately after writing a byte to the TX
+register, it equals msg->len during the interrupt that signals completion of
+the final byte. If the target device NACKs the last byte, will the driver
+falsely report a successful transfer instead of an error?
+
+> +			writel(CS75XX_I2C_CTRL_STOP, i2c->base + CS75XX_I2C_CTRL);
+> +			cs75xx_i2c_finish(i2c, -EIO);
+> +			return;
+> +		}
+> +		cs75xx_i2c_next_byte(i2c);
+> +		break;
+[ ... ]
+> +static irqreturn_t cs75xx_i2c_isr(int irq, void *dev_id)
+> +{
+> +	struct cs75xx_i2c *i2c =3D dev_id;
+> +	u32 ctrl, ack;
+> +
+> +	if (!(readl(i2c->base + CS75XX_I2C_INT) & CS75XX_I2C_INT_DONE))
+> +		return IRQ_NONE;
+> +
+> +	writel(CS75XX_I2C_INT_DONE, i2c->base + CS75XX_I2C_INT);
+> +
+> +	/* The done flag is cleared by writing it back */
+> +	ctrl =3D readl(i2c->base + CS75XX_I2C_CTRL);
+> +	writel(ctrl, i2c->base + CS75XX_I2C_CTRL);
+> +
+> +	ack =3D readl(i2c->base + CS75XX_I2C_ACK);
+> +
+> +	spin_lock(&i2c->lock);
+
+[Severity: High]
+Can the STOP completion interrupt from an error in the previous transfer
+race with the next transfer?
+
+If a transfer fails (e.g. arbitration loss) and the ISR commands a STOP, the
+waiting thread wakes up and the I2C core immediately retries. The thread
+polls for !BUSY in cs75xx_i2c_xfer(), which becomes true exactly when the
+STOP completes. The STOP completion simultaneously raises INT_DONE.
+
+The thread proceeds, sets the state to ADDR, starts the new transfer, and
+unlocks. Concurrently, the STOP completion ISR executes on another CPU,
+reads the stale ACK locklessly, and spins on the lock. When the thread
+unlocks, the ISR processes the stale ACK by incorrectly calling
+cs75xx_i2c_next_byte(), which overrides the ADDR phase with a WRITE.
+
+Does reading the ACK register locklessly before spin_lock() allow this stale
+state to corrupt the newly started transfer?
+
+> +	cs75xx_i2c_process(i2c, ack);
+> +	spin_unlock(&i2c->lock);
+> +
+> +	return IRQ_HANDLED;
+> +}
+> +
+> +static int cs75xx_i2c_xfer_msg(struct cs75xx_i2c *i2c, struct i2c_msg *m=
+sg,
+> +			       bool last)
+> +{
+[ ... ]
+> +	time_left =3D wait_for_completion_timeout(&i2c->done, i2c->adap.timeout=
+);
+> +	if (!time_left) {
+> +		spin_lock_irq(&i2c->lock);
+> +		i2c->state =3D CS75XX_I2C_IDLE;
+> +		spin_unlock_irq(&i2c->lock);
+> +		dev_err(i2c->dev, "transfer timed out, resetting the controller\n");
+> +		cs75xx_i2c_hw_init(i2c);
+
+[Severity: Medium]
+Will this hardware reset leave interrupts permanently disabled?
+
+In cs75xx_i2c_hw_init(), the enable bit is cleared which performs a hardware
+reset:
+
+	if (readl(i2c->base + CS75XX_I2C_CFG) & CS75XX_I2C_CFG_EN) {
+		writel(0, i2c->base + CS75XX_I2C_CFG);
+		usleep_range(5000, 10000);
+	}
+
+Since cs75xx_i2c_xfer_msg() calls cs75xx_i2c_hw_init() on a timeout but does
+not explicitly restore the interrupt enable (IE) register, will all
+subsequent transfers time out as well?
+
+> +		return -ETIMEDOUT;
+> +	}
+> +
+> +	return i2c->err;
+> +}
+> +
+> +static int cs75xx_i2c_xfer(struct i2c_adapter *adap, struct i2c_msg *msg=
+s,
+> +			   int num)
+> +{
+> +	struct cs75xx_i2c *i2c =3D i2c_get_adapdata(adap);
+> +	u32 val;
+> +	int i, ret;
+> +
+> +	/*
+> +	 * Let the stop condition of the previous transfer complete and drop
+> +	 * its interrupt, so that it is not taken for the next address phase.
+> +	 */
+> +	if (readl_poll_timeout(i2c->base + CS75XX_I2C_ACK, val,
+> +			       !(val & CS75XX_I2C_ACK_BUSY), 10, 1000))
+> +		dev_dbg(i2c->dev, "bus still busy\n");
+
+[Severity: High]
+If the controller remains busy after the timeout, should the error code be
+returned instead of proceeding?
+
+By ignoring the return value of readl_poll_timeout(), the execution
+continues and writes a START command to the controller while it is still
+actively asserting BUSY. Can this violate the I2C protocol and cause
+undefined hardware behavior?
+
+> +	writel(CS75XX_I2C_INT_DONE, i2c->base + CS75XX_I2C_INT);
+> +
+> +	for (i =3D 0; i < num; i++) {
+> +		ret =3D cs75xx_i2c_xfer_msg(i2c, &msgs[i], i =3D=3D num - 1);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261012-b4-cs75xx-=
+s2-v1-0-8a7641b7b79c@gmail.com?part=3D6
