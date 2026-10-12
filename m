@@ -1,106 +1,163 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1D1A4734FA;
-	Mon, 12 Oct 2026 12:48:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93268470E89
+	for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 12:49:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791809294; cv=none; b=dIvw+mXrfGv8D8GbJ5HtyvVauczxW7IXEWC6cu0S1Vwzg4Cr/hcEPrlf4C1lAVrFUb5sDTruaWwkHp/PTRRcZ9w4xTMoDkzpZiJfnZV9TjuF5hOUNDer2B+hifFmM4iu1uxKMteF+o4Ij11NtU4jhcTjnnmOHsMTyXbk9IeFFFA=
+	t=1791809352; cv=none; b=sfXXG/fk7iwMiPWZ6IzM9ivlxv2FuE+keYsZ9uiy3dt1p4fqSstBzPHo08UyIc7OlKXLWrRAwPDqsrV972lZTlpYJK741SqYpKK/TLatFKsb+SYwnP0FNtB6bVDhX6i6qBod8j+2I7GMlokZEIRdGMNZIPtQ9B5Mu+YUMEvag7Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791809294; c=relaxed/simple;
-	bh=VYTTUHSrCPwHTtNF8z4kqeX3YgU9zzF/qavLyFzhOAM=;
+	s=arc-20240116; t=1791809352; c=relaxed/simple;
+	bh=14phVvYRrJPhd267XL2Fy1Y5N819k4Yyec3jG7Q2YLY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Gz2rQ4e0peyRxLbWvXYQu01L2i/ChyXiSAHmqbKJa9JZ9J3rOoEUW0OzgpyfSmpzOwDvdfQeb8lh6HhrL70kkU2izf9P/uoWHzk2D4tjGaMBMKxKn5t+jHJftscKiNjlW6EcTgKipEYusaTBqmeEppV+s2C1K+WoKx4zq1ndyRk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IhtpWfCa; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=GKkmO1MBKSkNWGi2Jt71jvByAdVWm4P/T17YIhr1sfB15Diel79t3E2bKYk5dOsoJJ57TRul4r52kHF1myxaT2vFIgr8+MR1jFJW7oTn1YufDOOeUnNvSpnVkf2ImncjVp3c+CGrR9SeUF9Ec1QEoCVdlHqV4cDfz6T/TtxKPvE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Ra/N470Z; arc=none smtp.client-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IhtpWfCa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CF8E1F0089B;
-	Mon, 12 Oct 2026 12:48:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791809293;
-	bh=vTV/O8cQCIdqTWk1rejODfRz9VObDHG+pxwgvTRExLM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IhtpWfCaNrwNreL5w8MpcWCPQgGQmZVP2UGp3dAalVRV7iQfLqI2vsMjlxu0LRiyT
-	 M7WWZTh/5cpmUnIJhnH6Ztx8xsdHys7Y7InwmAErIkdNuuT4ePBqReBY8bMgu9k1LM
-	 BUJ6aR8CgvHbHOpV4wGso08iNvx/JLUoqkpWEiBoTKqx6VlYcW5+0FISd1zArRYp6q
-	 nf52Lvgj8Xxsc43nL7Pt2CmOTL59i0CIj6MLA1jrn/v1UDaE3HT4la7pG+vhv65+Wq
-	 hLkrLVOUuSftrtju38PX2+CMQ+/rLHrdnm7N90vUPJbCMgyx2PmPW47qqawMVKvRf+
-	 9B0v70z6DjWWQ==
-Date: Mon, 12 Oct 2026 18:18:01 +0530
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: george.moussalem@outlook.com
-Cc: Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Praveenkumar I <praveenkumar.i@oss.qualcomm.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>, 
-	Nitheesh Sekar <quic_nsekar@quicinc.com>, Wesley Cheng <quic_wcheng@quicinc.com>, 
-	Varadarajan Narayanan <quic_varada@quicinc.com>, linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org, 
-	Stanislaw Pal <kuncy7@gmail.com>
-Subject: Re: [PATCH v4 08/13] phy: qualcomm: qcom-uniphy-pcie-usb3-28lp: Add
- support for USB3 PHY on IPQ5018
-Message-ID: <aszVkqtadyCIjU_7@debian>
-References: <20260908-ipq5018-usb3-v4-0-b789702f0695@outlook.com>
- <20260908-ipq5018-usb3-v4-8-b789702f0695@outlook.com>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Ra/N470Z"
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48af27fe287so1588754f8f.0
+        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 05:49:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1791809349; x=1792414149; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=aJj4Wm615H/imfpMwNI2qT79o5fgFKI50ixCq2u6D9Q=;
+        b=Ra/N470Z1rsPNexi1MkPGilCztbpAqLRTW6jMpuEWn2YIib0mG1MiGaIyDZLnH/+3g
+         hMm1y+CAYDcisPYApU+3yeRA0fM6aI56iIZgsun/ZLG4FEsBP1rlcS5xfSmI63tgncBK
+         jobB9tZ6hGPmY/Yt3AMPy6WqFbU397+4GRtz8S+UskPjLIUThPWE2cleFWRO70ASbBSY
+         s/QkZz1dxNGwo1hm8ZWq2gizqCmkd/iVz5jpt9KCN6Jkuvmx87Kc5Uj9ZD1Rd0eIsucM
+         5rpJDfH9QXlnw8QnI30qPobTJGBY+6OKlH2VOYhXvtoW/mhWmocaOTZut4onJ3T5DqcX
+         BHog==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791809349; x=1792414149;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=aJj4Wm615H/imfpMwNI2qT79o5fgFKI50ixCq2u6D9Q=;
+        b=vHI9WBTewFX/rukLMHi/SZLp8fb3fZcbFQ1JGP8bQ1/BB7USrmqgfLNSfBDSkHKivF
+         zlD528tijT+BIJGUHKdX/Qx/6tDdIizd5b1zcQ8QsZJcqOhi7dsuJWzGlWxT5YahDfdB
+         MEpzUDulLo14WmkRWeYHt5erdQCQSJ5b8KYfIL80nCgmV5G4eu93tZhykanLWevNGRf0
+         mWfRpkRQGeiK2K8k8Vw1i8hlU3NWCwYLERxFz9D6IeMeEYeyWZQhlpU1P0ZVzg5/UnTu
+         /JwasFB66TjSrbv9MclHFcCCA9bpMmL879VBzq2J8BD8jV5aoF6AvOxNXA2pgDNZiWMb
+         GrkA==
+X-Forwarded-Encrypted: i=1; AKwUvBxDBE+YAUxtcfACRGuG4tNeatrxzSEY0ZJQzHKYnVUbShNUnzBnLrBgSOVqXOcgsY3LubVHdVWEYqty@vger.kernel.org
+X-Gm-Message-State: AFq9FYIVvNc93IQVwANYVR/2vyhn9LRhVtxsMmsLrFOVVdCxA4KOgpRl
+	iiY2v1cSKkCEgW8cJIeMlMdeMH/p8HbDVcoWv6X9mmK5W3DT0BDQVtVPUIrOTCc3/f0=
+X-Gm-Gg: AYBFou1tFWVChzkXApOmJQdyvipMjnTwU176FZaUp3FBVjgOCOsVT5/D1YBFpL9tRJt
+	LNrUbcKjQShvjCjhejfO+U8h7KKF64s12/0MHwdwuxfZxjELEf/oNcWZ3VVnyLEksSXXSUG1wUR
+	z1YjIbr1Ohn3QqWqvO57XLSQ1T5EsoCjgnfetex58Yr8xnP6Q6mB7TTAnYYzas7OmIHzOqrBEP3
+	3vjVk4wm6r9ucVQIY8wMq/nUFQ4/Ae4t80TtWMyeBGSJocCMSXRccBNzOJPclTPxZej4WrB6oy8
+	1WDXmbxkW7AgQek3FQ6lzkPWOotPvq1o8mtq5EU5InKVjYdN989OeFZGTIJ1e2sbzSJppp4HGmz
+	yTqEchUmkQ8qMKfLk/hfIltdoft1gbf9bOva5b/nBmLXMiYJ8VgR2gUuC2UdczkK3fdX7097jtj
+	FBZw7tDJmz6/6kdZ9dURXRO0SeZdr3zusOSJbN3HqcSR8+fbvvzBwGmt0KejSB
+X-Received: by 2002:a5d:43c4:0:b0:48d:ba3b:af36 with SMTP id ffacd0b85a97d-48dbaae8e33mr13956577f8f.37.1791809348520;
+        Mon, 12 Oct 2026 05:49:08 -0700 (PDT)
+Received: from localhost ([2a02:8071:56d1:2de0:1d24:d58d:2b65:c291])
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-48db97ce3aasm19818827f8f.21.2026.10.12.05.49.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 05:49:07 -0700 (PDT)
+Date: Mon, 12 Oct 2026 14:49:06 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@baylibre.com>
+To: Jingyuan Liang <jingyliang@chromium.org>
+Cc: Jiri Kosina <jikos@kernel.org>, 
+	Benjamin Tissoires <bentiss@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	Mark Brown <broonie@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
+	Masami Hiramatsu <mhiramat@kernel.org>, Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-input@vger.kernel.org, 
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, linux-spi@vger.kernel.org, 
+	linux-trace-kernel@vger.kernel.org, devicetree@vger.kernel.org, hbarnor@chromium.org, 
+	tfiga@chromium.org, fqwqf@fqwqf.xyz, daleyo@gmail.com, 
+	Jarrett Schultz <jaschultz@microsoft.com>, Dmitry Antipov <dmanti@microsoft.com>
+Subject: Re: [PATCH v5 08/11] HID: spi-hid: add device tree support for HID
+ over SPI
+Message-ID: <aszWnnc6RR9d5SYw@monoceros>
+References: <20261009-send-upstream-v5-0-384af01da3ee@chromium.org>
+ <20261009-send-upstream-v5-8-384af01da3ee@chromium.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ey244vnbkokc4rpq"
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260908-ipq5018-usb3-v4-8-b789702f0695@outlook.com>
+In-Reply-To: <20261009-send-upstream-v5-8-384af01da3ee@chromium.org>
 
-On Tue, Sep 08, 2026 at 01:41:01PM +0400, George Moussalem via B4 Relay wrote:
-> From: George Moussalem <george.moussalem@outlook.com>
-> 
-> Add support for the USB3 PHY on IPQ5018 chipsets.
-> 
-> The PHY outputs a 250MHz PIPE clock routed to and gated by the GCC, so
-> register a fixed rate clock. In addition, add the register/value pairs
-> for the PHY initialization sequence.
-> 
-> The code to acquire clocks and resets is the same as for PCIe so no
-> changes are needed. Add a USB3-specific helper function to acquire the
-> required regulator and TCSR syscon for USB mux selection. The PCIe and
-> USB3 pads are muxed so select USB3 mode in TCSR which needs to occur
-> before the DWC3 USB3 controller resets. Otherwise, the SS link doesn't
-> train and remains stuck in RX.Detect.
-> 
-> Add PHY ops for USB3 power on/off sequences to account for USB3-specific
-> delay timings and enabling/disabling the PHY supply.
-> 
-> Rename the existing reset delay timings to describe they are for PCIe.
-> Lastly, add the USB3 PHY type to the UNIPHY PHY type enum and remove the
-> GEN2 and GEN3 PCIe types as the driver makes no distinction between the
-> two which also makes it easier to distinguish between the PCIe and USB3
-> PHYs.
-> 
-> Tested-by: Stanislaw Pal <kuncy7@gmail.com>
-> Signed-off-by: George Moussalem <george.moussalem@outlook.com>
 
-LGTM! Just one minor nit below. With that fixed,
+--ey244vnbkokc4rpq
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH v5 08/11] HID: spi-hid: add device tree support for HID
+ over SPI
+MIME-Version: 1.0
 
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Hello,
 
-> ---
->  .../phy/qualcomm/phy-qcom-uniphy-pcie-usb3-28lp.c  | 178 ++++++++++++++++++---
->  1 file changed, 159 insertions(+), 19 deletions(-)
-> 
+On Fri, Oct 09, 2026 at 10:25:33PM +0000, Jingyuan Liang wrote:
+> +#include <linux/mod_devicetable.h>
+> [...]
+> +#include <linux/spi/spi.h>
 
-[...]
+Drop <linux/mod_devicetable.h>, the spi header already provides the
+needed *_device_id with less dependencies.
 
-> +static inline int qcom_uniphy_usb3_get_resources(struct platform_device *pdev,
-> +						 struct qcom_uniphy *phy)
+> +static const struct of_device_id spi_hid_of_match[] = {
+> +	{ .compatible = "hid-over-spi", .data = &timing_data },
+> +	{}
 
-Drop the 'inline' keyword please. Modern compilers will inline functions on
-their own irrespective of this keyword.
+{ } please
 
-- Mani
+> +};
+> +MODULE_DEVICE_TABLE(of, spi_hid_of_match);
+> +
+> +static const struct spi_device_id spi_hid_of_id_table[] = {
+> +	{ "hid", 0 },
+> +	{ "hid-over-spi", 0 },
+> +	{ }
+> +};
 
--- 
-மணிவண்ணன் சதாசிவம்
+Please use named initializers and drop the unused zeros.
+
+> +MODULE_DEVICE_TABLE(spi, spi_hid_of_id_table);
+> +
+> +static struct spi_driver spi_hid_of_driver = {
+> +	.driver = {
+> +		.name	= "spi_hid_of",
+> +		.owner	= THIS_MODULE,
+> +		.of_match_table = spi_hid_of_match,
+> +		.probe_type = PROBE_PREFER_ASYNCHRONOUS,
+> +		.dev_groups = spi_hid_groups,
+> +	},
+> +	.probe		= spi_hid_of_probe,
+> +	.remove		= spi_hid_core_remove,
+> +	.id_table	= spi_hid_of_id_table,
+
+Very inconsistent alignment of =, if you ask me, just use a single space
+before a =.
+
+> +};
+
+Best regards
+Uwe
+
+--ey244vnbkokc4rpq
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmrM1z8ACgkQj4D7WH0S
+/k5u4wf8DQCuk6roFME/n1pKDY6+qOflxre3Nf6NmaZ05olJWzf7xMLHiGj0xlvH
+rCXdQWSaJaWnBK8rKxyK28S+MmDDqDnW+WAK6FXQVv8Srv4/7Uiy7+5hoTWAw9CP
+Vxuzr9RagEgpRyi0DyMZlaoFh3bqtZmx/IDNDD22FCwEJcVhvEpBv4TVYHn9L/wj
+XXmPB4PiOuJszPGD+WIhrsdC1Zz17JoO0v9K42vVKKAkYir7a9ABA4fxMMjVxgqf
+ixRyg7HTQo8ggOzmpFjoj/atoZ3XOBVYSQ7RLbU8ZgRcEu4xgL4yKP96cUXwQ334
+ebpZbkR6VGklGZOq1SeOk7zN55irKQ==
+=nzgN
+-----END PGP SIGNATURE-----
+
+--ey244vnbkokc4rpq--
