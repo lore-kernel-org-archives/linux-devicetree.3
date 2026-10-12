@@ -1,62 +1,80 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m49217.qiye.163.com (mail-m49217.qiye.163.com [45.254.49.217])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AE493B7B9D;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7DC5438038;
 	Mon, 12 Oct 2026 07:00:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.217
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791788424; cv=none; b=TTqL0ePTwRBLinzp39uBMhfVOW3jNc7U/R1Vt+UmXqBFW7lxwbrHuzuPzloyRcrQTW5HSs1ZkaBq/5wawXoGcMf+eSfK+uwuXLQ1YLid08Q1PTIGIJJd3Ke8eUiRiSySoTpg8ckzakaOBQg7GXMT0EpvvEnICTBx/aFepk/gKXM=
+	t=1791788427; cv=none; b=ILkNF92Bwv6s9oq2KkoVGGp26Yn1J3qAw0jUK3iS7aNgSeJ0rlqk9G2LgkllTxeSJ0pbxmPJZY70HOF5PKB6FNwsxQ4/tkGwOv5YQWRlaz2JsgsaIWjvqVvdBG/J9hME0pu0/D6eRrT4PTqV26ANHBR/8Hjvtztb7lRtUq3Mg8g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791788424; c=relaxed/simple;
-	bh=USiXHekjYM40stkYIKfJqmpKRR///MSzARJueAoHoUg=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=geYCKjVxtcg6uh3vNlFvrAj2PK5d0Ap1ByOfOMFpA+2WvBrd8GszKWFAzyhZnfy6swcTh85zL3zQV/lWw6aesuJPz/iSpqzBSvKSc1YRiO8PI/cWCnYwwMIerFo08NnLo2VHT2tMJmnS3VJQWAIuCX5+zp5NojiZdiENNN88p+U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZlC5RhGQ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791788427; c=relaxed/simple;
+	bh=yte1LFU6QRbZw+AlAuNBiwPEpuNE4gOaEBRka16fryA=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=UZDB1W3RZLifU/UbyJJ6qn+PhGnPO1HM7llT5SHVbY1LcOee+ItVE5PaAy4Dg+h/6zOb+GHbAsnBlT3j47WjySC1wXO+W2kmx+en/TAl8+P44cI98AAuDzpF1t6INGkttu0s+u6NvJOf0Qy60UMd6z5CeJwMQAxMXOQd1LYqIqE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=dcu/8Cbe; arc=none smtp.client-ip=45.254.49.217
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZlC5RhGQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80E871F0089B;
-	Mon, 12 Oct 2026 07:00:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791788422;
-	bh=USiXHekjYM40stkYIKfJqmpKRR///MSzARJueAoHoUg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ZlC5RhGQm1wnJIBS8CdCgWyqlm/eu2r2LFXm7ZfZT0iJFBjvQ0idkvmICXsQfIBRA
-	 tJ7AjDXCao/99gScgwXdBAXGz9T4OA/zIzcz/wgfIHWFTL5AP66V/xtqk7y8TLZ30U
-	 hAKPBZL1eFe3qfOa8Sv1jweZgYisJ8ASTGbgXvBawwAlNGOGiwurhWNmK0Am9zyI5c
-	 1uSJZ+Np2jvn4DGZinR0Rru1AXoG/RUeoQifooohzAoc9661PLGDIRmH70+b8YOpz5
-	 kX/xY1opKLqivq41W99C3lMB8SDh2yElZpvAW/qXnMUuG0PrWGInxyj+UOPU++IfbZ
-	 utwAZEQIjt4GA==
-Message-ID: <sashiko-outbox-167762@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC v3 02/10] dt-bindings: arm: Add Cortina Systems
- CS7542 and Securifi Almond+
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Fil Dunsky" <filipp.dunsky@gmail.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, linux-serial@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20261012-b4-cs75xx-v3-2-0e0d17a098cf@gmail.com>
-References: <20261012-b4-cs75xx-v3-0-0e0d17a098cf@gmail.com>
- <20261012-b4-cs75xx-v3-2-0e0d17a098cf@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 12 Oct 2026 07:00:22 +0000
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="dcu/8Cbe"
+Received: from [172.16.12.48] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 50b00267e;
+	Mon, 12 Oct 2026 14:55:04 +0800 (GMT+08:00)
+Message-ID: <5c8a2985-e1aa-4062-bca8-fb05809b0d3c@rock-chips.com>
+Date: Mon, 12 Oct 2026 14:55:03 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Cc: shawn.lin@rock-chips.com, conor+dt@kernel.org,
+ devicetree@vger.kernel.org, heiko@sntech.de, krzk+dt@kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-rockchip@lists.infradead.org, robh@kernel.org
+Subject: Re: [PATCH v2 2/2] arm64: dts: rockchip: Add Radxa E54C
+To: Chukun Pan <amadeus@jmu.edu.cn>
+References: <4903cefa-4926-4bae-93e9-1165bb9ae646@rock-chips.com>
+ <20261012064010.1837103-1-amadeus@jmu.edu.cn>
+From: Shawn Lin <shawn.lin@rock-chips.com>
+In-Reply-To: <20261012064010.1837103-1-amadeus@jmu.edu.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa12ee4bb9903a4kunm5e92b5b71addac
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCTxlOVh8aTk1JT0IaGUsaSlYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSU
+	9PT0hVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=dcu/8CbeQxrj27k75dgmHMQK6ZG4pjwsRnfgVTy3VCZnsY8P+MDVlGNRuoNvTij7L2dO5fIOYhNEptPmKWbplAQGYt3St/9nEpH4XpkDG9TgqtyYd0ditS0+jwqoM4+h2f2afFrULgkuZqTjvgtqXrQko6tLcWoL8JYuUpGgOaU=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=d8fEydYQ9ABesQI0CRxDNvPg0eyljVYmUDFMToCw+i0=;
+	h=date:mime-version:subject:message-id:from;
 
-> From: Fil Dunsky <filipp.dunsky@gmail.com>
->=20
-> Add the top-level binding for boards built around the Cortina Systems
-> CS7542 ("Goldengate G2") network processor, a dual Cortex-A9 SoC, and
-> the first such board, the Securifi Almond+ touchscreen router.
->=20
-> Reviewed-by: Linus Walleij <linusw@kernel.org>
-> Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
+Hi Chukun
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+在 2026/10/12 星期一 14:40, Chukun Pan 写道:
+> Hi,
+> 
+>> I was checking all PCIe part of rockchip dts files and wondered why it's
+>> marked as an always-on regulator. But if it's actually not, it'd be
+>> better to improve it later. That would make reset rootport mechanism
+>> work better.
+> 
+> Please refer to page 21 of the schematic[1]. The 3V3_PCIE regulator
+> is enabled by the PMIC and cannot be controlled by the kernel. So I
+> think it's correct to mark it as always-on.
+> 
+> [1] https://dl.radxa.com/e/e54c/hw/radxa_e54c_v1.2_schematic.pdf
+> 
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261012-b4-cs75xx-=
-v3-0-0e0d17a098cf@gmail.com?part=3D2
+Thank you for providing the schematic. It does appear to be in an
+uncontrolled state. Theoretically, PCIe control timing requires a
+controllable power supply. The current design may cause trouble
+enumerating certain devices due to always-on power. Unfortunately, this
+board already has always-on power, so let's just leave it as is.
+
+> Thanks,
+> Chukun
+> 
 
