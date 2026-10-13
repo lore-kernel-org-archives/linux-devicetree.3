@@ -1,129 +1,210 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FF9B3B993B
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 08:44:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E91C38E8D3
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 08:47:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791881086; cv=none; b=CD8LkTxk9MbRmQZJyCUHZlseRpRb9wOjJnMbEJ+/++jnK5awadgMikcMmQOTUlNgTU64TH6jOy2w8cOQgjIv2rbOvNuTR3oD1G2lcHJFas6HLjX0lIpRDg/v9aOTmxGOY8O3J82tM8PjecGk706M/BVSgMz/wrGZRQt2SJ58OKg=
+	t=1791881235; cv=none; b=Us93LO5kTJza11anO363eMQgi/rLdSN6DLNKLipbhViD26MilUKlvyndUj3qZbaG7Wlxq4xi1e2c+G7/zfIsuj1h53RxiRPVShZRcpDjfF5p2+W1lX8Vu5SOjD2vhnja8n77u2TFvm8YmRrk1H7zvgeoUvk5WFZR0f2Jb+AMSXQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791881086; c=relaxed/simple;
-	bh=vxqqcKeLdquDIj2KN23L6bIhx0QnUrefdPPqJUxyJLc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ahNQmTNqMI3MfyxEL2sSw01/Pxv1jfQo1JSg96dyfuWAUocTnUjZZLiP4hONdQAnzQPc1L/86zI6on3SqsEqtWdtPmyHPDuFjheIaVT2NSURkKak4CDO1M9biOsh2Ws+AbYfUVZ5GF0gmW04ENePW8jECLB84JFKy9DgbCHO8GU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I49h76bx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791881235; c=relaxed/simple;
+	bh=CJxZASRkUQZemieJkJUX8KSkCOwxi/weR1JFMTPaUoI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Zy4L1c3j7GGCAWKAfbKIhyYJgQOLRsrYtRxMdlxrECpnA/IQJ4mZppSZefVxDUi5mGFbf+3gskIn5FJzaAq3op9M20520crTsmFPKsXZhif89JsOUl8TK+UdeYpeYElNV8W73QlOq+vsI4HLYwhu4HUXlhpPmDIWnZEqW/SfhKg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KEkVwhbk; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jEQrtoTY; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I49h76bx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E51071F008BF
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 08:44:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791881084;
-	bh=vxqqcKeLdquDIj2KN23L6bIhx0QnUrefdPPqJUxyJLc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=I49h76bxM/lZR8p2VMAgIv/gvVy6UbprkYg7xesOZ4S5gyWBPpG6u4HTxJMv57uGJ
-	 k8g6aFgvpTUE6kXpWN0vNFPeWi1Syq+lecQZKak3qkJCnIXXyqoamOjLnEHPwLMHE8
-	 xRaGKUaKo88JjDzDOLsrHdNww6yj9eMszUmR3izWt1n/Q4XFa08DWFjFSyXIZAOkAn
-	 fl3NfTB7if7RgS09qggiygd6M8OfYRYUY2lMeA187+oooKVA3dfNMynbTTj/sJEi4H
-	 vgKV/6wHBpGJm81bfFvM+JhuwCKfPGkgm/d5mFGf5ZeZU9yPB3Pa1a/WxtCLvCRx/i
-	 GxyAqgQ70H5ag==
-Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-3a1f628b1d1so19656081fa.0
-        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 01:44:44 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBySjFBVchDI6JQ4DlqZYuvQxv4QyyA5dGDqJVlN46wZAzKXKdFOrJpaNr5PFNelWXtTD3QX1Mo1hTJa@vger.kernel.org
-X-Gm-Message-State: AFq9FYL2G56ajxD1zfaftjaGlypTRhxo5dN0wdGrf3Z4iilQFjbC8yuW
-	RNlvhCKabPMP6naVz23oj+Zwx805jQb7jf9YnosKeZfZtBoGsX0jIKj3IGWtaEpvfwdMzFMiiXC
-	fvuwbDuHr4OIG8Z1Wm5nNO08NlZReh+U=
-X-Received: by 2002:a2e:be0b:0:b0:3a9:abd6:1ab9 with SMTP id
- 38308e7fff4ca-3a9c514fd25mr26402801fa.8.1791881083577; Tue, 13 Oct 2026
- 01:44:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KEkVwhbk";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jEQrtoTY"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D3xOv63476214
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 08:47:13 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=IxEa8Pb0nd9li3Y0xVvL05fY
+	BOkeTK7g0eV66MENLQI=; b=KEkVwhbk0wuOcnJ1TkMKcfb2hCTRrP5E8RJDZFHh
+	/bMRgihMcV7Q/HmXwIGZTJRsAQP1C+HWCs57+KLsjhrk/TEAVZjgnPowKqkictTV
+	kT2c/HHbe1z5X6G7jNaFLEHSsFzniX65KDDkZzaPmcSfFSkBK9WZTZfS4kDs1Lh4
+	kOqQi2ptLoa9s2Yvm8i4D9IHuDILe+nhmqXwkVo4nrIEDUwNdIIGzY6dcl95j14U
+	9xd9G0Tt3R/lF+02bVJ+SqVeimUFBqCnZqrE1PtM5ps58F9ErlCrgYTH2z8HwY8t
+	p71DX1IR8z56Y5vAOG06LAhcq7niRCW3dX1jVoZjg9i7qA==
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9d7j92xh-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 08:47:13 +0000 (GMT)
+Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-934963b2bc0so535079785a.3
+        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 01:47:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791881232; x=1792486032; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=IxEa8Pb0nd9li3Y0xVvL05fYBOkeTK7g0eV66MENLQI=;
+        b=jEQrtoTYdPO+XR6Ec32FnJ140QBMM1ciJETxcQ7G99tqtmetKUTgWbDuJTc0tU+pVu
+         fPSOsM2eRp9J9+/namHHrAHACYvO/39o00ZRtXZp3UCewLGLPfSie9NCPOrasDFiOgdK
+         /IYs4zWBc8msLE9RJ/C0SAIAI5J3BKZOgLbWYAZ4YHLR+HjB2aiDdM7d1HSwi+NxZL4B
+         nu0H2Zt9KeWeXE5bYyJRAoYgcsfQvXh+uH07n3VJupLcY6S0hbkCiLnx20Ww9HLLyUsA
+         kidAARhqpYSbWI9hxvFvOmZuDYPS9Mrtvu9LOFca94XexsQWjPQDMYMHvH3dbU9edHc1
+         sHAA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791881232; x=1792486032;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=IxEa8Pb0nd9li3Y0xVvL05fYBOkeTK7g0eV66MENLQI=;
+        b=RBKKT9gPJGW6Td9YxtOC2jsuZpg6y/GGWiXptEHhr9w+6L+aMi68i4647BsZVU94oE
+         RGueBff2x99gSPCZQ8AC44pOLkK0Fwr/gZ+GYWyqANQg2LMBkXnkdbLHQe0uNP54qBEF
+         5BUVMga2bFseZJ6YVOx6AK43xHR0jNzVhkpy64xOgiHGY93+NqeJljgeUMdbw+iaH7gI
+         1acdt10o6qzIhgtzLgD5HF5FmQ+jQXrDFRV9zy9Jt0f8CuvhO1cmnTfJdPu8NNYhOvu6
+         ikRY/5xTvXamWcd1J7CSQR4DeZFIdRvDYnQFTL1VgEJTljETHSeTBiWmfi5oH56Ua/10
+         CViw==
+X-Forwarded-Encrypted: i=1; AKwUvByzDjCYYujtGHdbXFitucIdmwikpC4o8ckhi4Am3sdIrvZ5OC548fE7lmsUwoGcBlYUOiyyn1gJ3krT@vger.kernel.org
+X-Gm-Message-State: AFq9FYJxZDNh4lhtXdV+DYc/ITry1PF/pjxnSF0RBeeTePZ5YuR3NY4J
+	EhTrDI2G5n70eMwa+ZnTiVea100zUU5vPYFpeiLyTfG0TqarcJQhf+YhR86RCWMMxVeTS6G3VVF
+	nGTCjCprLJZhJfrNDNtj96w6TiVuDJINGq10lUsUcMsVSYPVEXlVd1ew/3ipzj/ix
+X-Gm-Gg: AYBFou3KQrhR4eK/PJxZrTUYNLnOUgDipyuC/R6cjyj+L0TmpckHc0e58RkeHLaxo+k
+	cx0VhW4R7C0WDSNgXDsBC/Me6+dlrhutbixWbe97uzN2v9O5RXPe9vH8PazGeI703g8NLX0RQUQ
+	CHcD032RmiTVeXER8Fd0vcHNDcVBr3w8hYgiKE9XxkUf+SJP6oZTkFd4QNdi9pPaCDXl8/ap7K7
+	6r7W2/VZzkQgepCfjSq794eVXriHJ2jTLY7HcWXLL3x8Z1bpgBGq3yRG3RG8iDhIl7ncQbtRPhI
+	8Cn/vWuiopXlaBdq5Twwe+cQ2NE6GLSTvFIa7WfbHb83GSGPSEI7XBOI+N7RXnvxWr1DZe9Q2Gc
+	02uYt99HH09S0tZI=
+X-Received: by 2002:a05:620a:4689:b0:93c:70da:e45e with SMTP id af79cd13be357-93ebd223c74mr2039228085a.36.1791881232211;
+        Tue, 13 Oct 2026 01:47:12 -0700 (PDT)
+X-Received: by 2002:a05:620a:4689:b0:93c:70da:e45e with SMTP id af79cd13be357-93ebd223c74mr2039224385a.36.1791881231577;
+        Tue, 13 Oct 2026 01:47:11 -0700 (PDT)
+Received: from oss.qualcomm.com ([86.121.170.215])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a18d12fe04sm215536315e9.4.2026.10.13.01.47.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 01:47:10 -0700 (PDT)
+Date: Tue, 13 Oct 2026 11:47:08 +0300
+From: Abel Vesa <abel.vesa@oss.qualcomm.com>
+To: Nabige Aala <nabige.aala@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Kuogee Hsieh <quic_khsieh@quicinc.com>,
+        Shawn Guo <shengchao.guo@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+        Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>,
+        Mahadevan P <mahadevan.p@oss.qualcomm.com>
+Subject: Re: [PATCH v2 10/13] phy: qcom: edp: Add Nord spread-spectrum
+ clocking configuration callback
+Message-ID: <7cojksxbq3mznhkn7g6rxxxl2kmgd4hpkup35oj4qdbcqnqjsi@c63o5bgxps3y>
+References: <20261012-nord-drv-dt-v2-0-a2ab9af954d2@oss.qualcomm.com>
+ <20261012-nord-drv-dt-v2-10-a2ab9af954d2@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921-cv75-v5-v8-0-282ff5d98dda@ambarella.com>
- <20260921-cv75-v5-v8-4-282ff5d98dda@ambarella.com> <CAD++jLmKF5XxHsJX29sdXC_6JHKn-7HkE=N+TKtk5xODtQj3_w@mail.gmail.com>
- <b2256847-3ec1-47e8-ac79-ceca86eb09e7@kernel.org> <CAD++jLkrXXg9xrhAZ8HETc5Qcv5BbkY-ibjvzBmE5WZVqDEGWQ@mail.gmail.com>
- <a0eca34d-5eb2-4730-b8c7-0f2302bcf265@kernel.org>
-In-Reply-To: <a0eca34d-5eb2-4730-b8c7-0f2302bcf265@kernel.org>
-From: Linus Walleij <linusw@kernel.org>
-Date: Tue, 13 Oct 2026 10:44:31 +0200
-X-Gmail-Original-Message-ID: <CAD++jLm=T-U07vAVCogMnfOfkDf=i9QhGGc8ok2N-ZUh50WLNA@mail.gmail.com>
-X-Gm-Features: AclHuK8uOkUyYpjHvZrw-87c6Tq4ZbkYSTxyMDm1V9n2PMOjyOCFsNCXto0ZE_s
-Message-ID: <CAD++jLm=T-U07vAVCogMnfOfkDf=i9QhGGc8ok2N-ZUh50WLNA@mail.gmail.com>
-Subject: Re: [PATCH v8 04/18] dt-bindings: pinctrl: add Ambarella CV75 pinctrl
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: longzhao@ambarella.com, Arnd Bergmann <arnd@arndb.de>, 
-	Alexandre Belloni <alexandre.belloni@bootlin.com>, soc@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Jerome Brunet <jbrunet@baylibre.com>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
-	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Long Zhao <zl020895@163.com>, 
-	Lee Jones <lee@kernel.org>, mfd@lists.linux.dev, devicetree@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261012-nord-drv-dt-v2-10-a2ab9af954d2@oss.qualcomm.com>
+X-Proofpoint-GUID: lP8dbD_ntjGUkNQ5m40Z97U8UH2hJR4n
+X-Proofpoint-ORIG-GUID: lP8dbD_ntjGUkNQ5m40Z97U8UH2hJR4n
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDAzNCBTYWx0ZWRfXwOqmgD6s9S8N
+ 9t8MoKHoff8lLQ1HuBEfIV7FhNQ+JGzXwAxI00iW+kNikaIvSvMpRJSF7RZuc9ZIgPfCfg2h0tH
+ e5YeJUEtZHIJQTfG1XzBjuMFKClkbKM=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDAzNCBTYWx0ZWRfX4Q2TKfdy8kFf
+ bnvvq9EBwMdLSASVs9J0F57t73vSfxVkK1M3Sb4w4piM8moLYHtmxVJa19DnNHq1p1PCRU2lzol
+ 596L8sA2yodJb4l5OnSvpiC0jVV/wqwqCwHSi6qSh/xs3UlHM3voGT2E8rSi8OHYjlmObOSe6+w
+ 2qJN1QTtxX644J1emefgrUf/OowzfAVjvkDo6XyWWE+bwws6qUEEWZ4uvaZJjcu4jBkjYVVq23a
+ bITk+MCxP8b+ZDEGFp3iajyGf9fpu2VWOUXU/bdYoIVsmMzO+2x7M8f0e51zBezSX0mmeKFKm7P
+ LEezqQnWBCWwTiASq+7pwfzWJVpeqtXtypuALG2LIcTlq6qgns1OFCKnWGVx37KiQzlvjbvS8U8
+ oVFtd08wZyTLmTpucp7P8v0BatI26NoeGVlvtBoanL6DVlBGcuV0CA8uDqXvrcIm2K5SYxH3gEv
+ TDEyKvZWL8g5FeRcufQ==
+X-Authority-Analysis: v=2.4 cv=PMGaavqC c=1 sm=1 tr=0 ts=6acdf011 cx=c_pps
+ a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=Rt3kCFFBWhWisHNmluDamg==:17
+ a=kj9zAlcOel0A:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=EUspDBNiAAAA:8 a=2vP-gcZVKESdWMdgu4kA:9 a=CjuIK1q_8ugA:10
+ a=PEH46H7Ffwr30OY-TuGO:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 bulkscore=0 impostorscore=0 malwarescore=0
+ lowpriorityscore=0 clxscore=1015 adultscore=0 spamscore=0 phishscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610130034
 
-On Mon, Oct 12, 2026 at 9:08=E2=80=AFAM Krzysztof Kozlowski <krzk@kernel.or=
-g> wrote:
-> On 12/10/2026 09:06, Linus Walleij wrote:
-> > On Fri, Oct 9, 2026 at 8:17=E2=80=AFAM Krzysztof Kozlowski <krzk@kernel=
-.org> wrote:
-> >> On 01/10/2026 09:03, Linus Walleij wrote:
-> >
-> >>> On Mon, Sep 21, 2026 at 6:23=E2=80=AFAM Long Zhao via B4 Relay
-> >>> <devnull+longzhao.ambarella.com@kernel.org> wrote:
-> >>>
-> >>>> From: Long Zhao <longzhao@ambarella.com>
-> >>>>
-> >>>> Document the CV75 pin controller binding using generic function and
-> >>>> groups properties for pinmux configuration.
-> >>>>
-> >>>> Reviewed-by: Linus Walleij <linusw@kernel.org>
-> >>>> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.c=
-om>
-> >>>> Signed-off-by: Long Zhao <longzhao@ambarella.com>
-> >>>
-> >>> This patch 4/18 applied to the pinctrl tree.
-> >>
-> >> There is a dependency, you cannot take this patch alone.
-> >
-> > Oops, but is it a DTS dependency so if none of the other patches go in =
-through
->
-> No, it is a bindings dependency, introducing new DT bindings warning for
-> both your tree and next.
+On 26-10-12 19:02:20, Nabige Aala wrote:
+> From: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
+> 
+> Nord requires different SSC register values compared to existing SoCs.
+> Add qcom_edp_com_configure_ssc_nord() which programs SSC_PER1/2 with
+> fixed values and link-rate-dependent SSC_STEP_SIZE1/2 for RBR, HBR,
+> HBR2 and HBR3, per HPG Table 2-9.
+> 
+> Assisted-by: LLM
+> Signed-off-by: Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>
+> Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
+> ---
+>  drivers/phy/qualcomm/phy-qcom-edp.c | 36 ++++++++++++++++++++++++++++++++++++
+>  1 file changed, 36 insertions(+)
+> 
+> diff --git a/drivers/phy/qualcomm/phy-qcom-edp.c b/drivers/phy/qualcomm/phy-qcom-edp.c
+> index c63f721702b1..66c31684c48e 100644
+> --- a/drivers/phy/qualcomm/phy-qcom-edp.c
+> +++ b/drivers/phy/qualcomm/phy-qcom-edp.c
+> @@ -1601,6 +1601,42 @@ static const struct qcom_edp_swing_pre_emph_cfg nord_dp_swing_pre_emph_cfg = {
+>  	.pre_emphasis_hbr3_hbr2	= &nord_dp_pre_emp_hbr2_hbr3,
+>  };
+>  
+> +static int qcom_edp_com_configure_ssc_nord(const struct qcom_edp *edp)
+> +{
+> +	const struct phy_configure_opts_dp *dp_opts = &edp->dp_opts;
+> +	u32 step1;
+> +	u32 step2;
+> +
+> +	switch (dp_opts->link_rate) {
+> +	case 1620:
+> +		step1 = 0x83;
+> +		step2 = 0x02;
+> +		break;
+> +
+> +	case 2700:
+> +	case 5400:
+> +		step1 = 0x18;
+> +		step2 = 0x02;
+> +		break;
+> +
+> +	case 8100:
+> +		step1 = 0x5b;
+> +		step2 = 0x02;
+> +		break;
+> +
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +
+> +	writel(0x01, edp->pll + DP_QSERDES_V8_COM_SSC_EN_CENTER);
+> +	writel(0x00, edp->pll + DP_QSERDES_V8_COM_SSC_ADJ_PER1);
+> +	writel(0x6b, edp->pll + DP_QSERDES_V8_COM_SSC_PER1);
+> +	writel(0x02, edp->pll + DP_QSERDES_V8_COM_SSC_PER2);
+> +	writel(step1, edp->pll + DP_QSERDES_V8_COM_SSC_STEP_SIZE1_MODE0);
+> +	writel(step2, edp->pll + DP_QSERDES_V8_COM_SSC_STEP_SIZE2_MODE0);
+> +
+> +	return 0;
+> +}
 
-Is there a problem with the bindings patch itself?
+Why is this a separate patch?
 
-In that case Long can just send an incremental patch to
-fix it right?
-
-> Your tree is fine in this case as long as next
-> is also fine... but next is not, because that patch did not make it there=
-.
-
-But the patch is in -next?
-
-~/linux-next$ ls
-Documentation/devicetree/bindings/pinctrl/ambarella,cv75-pinctrl.yaml
-Documentation/devicetree/bindings/pinctrl/ambarella,cv75-pinctrl.yaml
-
-> We cannot have any new DT bindings warnings in next.
-
-I guess I just don't get it :D
-
-To me it seems like a fairly normal situation: ACKed bindings merged
-together with the driver, no dependence on anything.
-
-But if you tell me "revert the patch" I will simply revert the patch
-because I trust you, it doesn't really matter why.
-
-Yours,
-Linus Walleij
+I think you can squash patches 10 to 13 in a single patch.
