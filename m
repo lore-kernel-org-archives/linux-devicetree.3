@@ -1,103 +1,135 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 509C951588E;
-	Tue, 13 Oct 2026 16:52:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D381051CF74;
+	Tue, 13 Oct 2026 16:52:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791910342; cv=none; b=h2YR+daxmhZY8BswcNsmoRjUzlCka6HWNLgAdORn5gkS/9Ri3XcuzkeAE4tPTjizT/YmD/OBw0IHo02Ht0GOkIRHRYRg+HQPrZ9BLm/eKA0U9IVqKcqaFa8+TVXhPaEw+XNPVOSQWWWE+YnhobQIAdrSHxTp4BGTK3LlUgxkffM=
+	t=1791910364; cv=none; b=EcXOSB92cctJcY+d+uiqfCHNa7UwK5wMa43/SDfPyHa06iIJ4nsbJyOH1o0iYeuhZMIZfbR4VsQJAUK7t8O/AVmYBT46OIM61UzxDjWwE5il23j87Y5zCNFBWMfx4z+303Mq44S8SRiLWsmrkF8kD2EJeZMB9SfEgYO66YHpWVw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791910342; c=relaxed/simple;
-	bh=0+KEzP3gRwlpVR9PpFO3iMp5jt5Jx0M0g1qKovCh0mA=;
+	s=arc-20240116; t=1791910364; c=relaxed/simple;
+	bh=EjjAyjBU3ZHFg4z47azZ/Od4tQNOANc9AyJ546IQj+E=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EIomRcBxC2n0noSCuBo4OL5CmnAM2hjkJxEkgVOBeDg4DZA2Kn6bk/UotyMzaLQDcNiicUd73+xfvqa4Z//JYaV6rVPjg080vmbQP2wkFbbrUusZjx/Y4giyvMR1pt83Rx3i5EzOl6iu1IJ3UONvhjM70flyP+BWJtp95mfnsaE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=TWNwJAZM; arc=none smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ie/gYNHLjuYs1P+HC0fPYLliHFBEBlUnx+iKJ0TednAVyjvq23pTPB+qmtupHyYmexWh4kg7DeipOqXYnM2JE/nxzbo6JcBaPt9vBhIbU+qR8DC3nqchxipj7QosTDTY+aI4edDPhFIqLFIo1Dm/6aVeDv/nuJTzKfT1TX+U758=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MRPfkvSg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="TWNwJAZM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791910341; x=1823446341;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=0+KEzP3gRwlpVR9PpFO3iMp5jt5Jx0M0g1qKovCh0mA=;
-  b=TWNwJAZM7J5nw6hiYS1B/sI/5FgNrr3EF8GwX3/c/6rBZ9KX0Yv322J1
-   ihJL+j693Mwj9wS5mafaHlgWAmsQ0cPSGLiMZqga13pkuuavhVj7By83+
-   UfxjNkeky2Wma2c8koexA0AVkNuGUw75LVanK4gOM2guPArPg02FHbYAu
-   6YSLXJhvY7/Tw7HkXt9OB+mLEuLcJ4Z2tvg2VAVo1UODCj/9jL/3+wfHy
-   9BwKs3q9kvjdteHADfUuQY8RD6a8zKgvup6sC78CY+uFUPU57RbxOIqFx
-   sTY+DwiYbIWcvqSRTUV5K92jJo16GYS5c3w8ss2TVUJCnYbLzTbecmMV1
-   A==;
-X-CSE-ConnectionGUID: DLeVa55VRGKBUHHgloKIpg==
-X-CSE-MsgGUID: D9229FAESRuNkg2ssouXSQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11934"; a="533631"
-X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
-   d="scan'208";a="533631"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 09:52:21 -0700
-X-CSE-ConnectionGUID: 8tHZjU/9SNuZzYhz48+WxA==
-X-CSE-MsgGUID: ykBJIzv6SF6meCTI58Solw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,156,1787036400"; 
-   d="scan'208";a="1129718"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.48])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 09:52:17 -0700
-Date: Tue, 13 Oct 2026 19:52:14 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Paulius Zaleckas <paulius.zaleckas@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, linux-iio@vger.kernel.org,
-	Eddie James <eajames@linux.ibm.com>, Joel Stanley <joel@jms.id.au>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MRPfkvSg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 146A91F000FF;
+	Tue, 13 Oct 2026 16:52:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791910362;
+	bh=EjjAyjBU3ZHFg4z47azZ/Od4tQNOANc9AyJ546IQj+E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MRPfkvSgsYreau+FlHK4l6TZdXeSqfxnlgeH9mTyZ9Tdhh/jUk7nIuHdL5nWMD6dL
+	 xIKpbWEVPRTEGIOLFJDOlY13m9j7GcE4j74wOihgmaYupV5Bf4NgDk+6185bis5igm
+	 ddUoR6y297V6TZBDvPVXDjCSrdyKGjpPDMXjeMTzmKcMEHSQJZQXG8TMV0VL98K3cL
+	 iRzm+WGF1GOuTevubpBPove9gRDCwSDOXlgCCX9vHR8m6RBQZICTlmgTMVKlHk5dsW
+	 mdrSrGflAyn1USuBrRaCGDmxPgvwe/wZX6mew2neQm9cIuAD+cEprS4j4kLiykr3iN
+	 6FQLVdx7Jrx6w==
+Date: Tue, 13 Oct 2026 17:52:36 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Fil Dunsky <filipp.dunsky@gmail.com>
+Cc: Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Rupesh Majhi <zoone.rupert@gmail.com>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 4/6] iio: pressure: dps310: add per-chip data
-Message-ID: <as5hvvfHPIO5uIuj@ashevche-desk.local>
-References: <20261013112124.1878296-1-paulius.zaleckas@gmail.com>
- <20261013112124.1878296-5-paulius.zaleckas@gmail.com>
+	Linus Walleij <linusw@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Russell King <linux@armlinux.org.uk>, Arnd Bergmann <arnd@arndb.de>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
+	linux-i2c@vger.kernel.org, linux-watchdog@vger.kernel.org
+Subject: Re: [PATCH 00/11] Cortina Systems CS75xx: interrupt controller,
+ GPIO, I2C and TWD watchdog
+Message-ID: <20261013-plastic-dragging-8232efb058ef@spud>
+References: <20261012-b4-cs75xx-s2-v1-0-8a7641b7b79c@gmail.com>
+ <20261012-dreamlike-hazily-19bb60326f0a@spud>
+ <179187542217.3247897.4323160442877168450@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="9WsB/PUlVzPaxjR8"
+Content-Disposition: inline
+In-Reply-To: <179187542217.3247897.4323160442877168450@gmail.com>
+
+--9WsB/PUlVzPaxjR8
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261013112124.1878296-5-paulius.zaleckas@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 13, 2026 at 02:21:22PM +0300, Paulius Zaleckas wrote:
-> Move the coefficient count, the TMP_CFG startup value and the IIO device
-> name into a per-chip structure, passed through the I2C and ACPI match
-> data. This prepares for the Zilltek ZTS8032, which has two more
-> coefficients and a different TMP_CFG layout.
+On Tue, Oct 13, 2026 at 10:10:22AM +0300, Fil Dunsky wrote:
+> Hi Conor,
+>=20
+> Sorry for the late reply, and for sending v2 and v3 without addressing
+> this - I missed your mail.
+>=20
+> On Mon, Oct 12, 2026 at 07:48:00PM +0100, Conor Dooley wrote:
+> > I think what's here looks really suspect - regions of two registers
+> > wide, interlaced between devices etc.
+> > You mention syscons here, and really that's where I think that this
+> > should go. The region at 0xf007_0000 looks exactly like a syscon to me
+> > and should be modelled as one.
+>=20
+> Understood. The block at 0xf007_0000 is the "peripheral" register block
+> of the vendor kernel: the interrupt status/enable pairs, the UARTs, GPIO
+> banks, the I2C (BIW), SPI, MDIO and timer registers are all packed into
+> it. Would you be fine with a "cortina,cs7542-peripheral", "syscon",
+> "simple-mfd" node covering it, with the interrupt controller as a child
+> node without its own reg that gets a regmap from the parent? The UART,
+> GPIO and I2C nodes would stay separate devices with their own reg, as
+> you suggest below.
 
-...
+If things are just tightly packed, that's fine and you don't need to
+make it a syscon. Just because something looks suspect doesn't mean that
+it is actually wrong.
 
->  static const struct i2c_device_id dps310_id[] = {
-> -	{ .name = DPS310_DEV_NAME },
-> +	{ .name = "dps310", .driver_data = (kernel_ulong_t)&dps310_chip_info },
->  	{ }
->  };
->  MODULE_DEVICE_TABLE(i2c, dps310_id);
->  
->  static const struct acpi_device_id dps310_acpi_match[] = {
-> -	{ "IFX3100" },
-> +	{ "IFX3100", (kernel_ulong_t)&dps310_chip_info },
+In your shoes, I think what I would do is leave i2c/interrupt
+controller/gpios etc all as independent nodes.
 
-Use C99 initialisers while at it.
+I would however model the pinctrl as a single node, with
+reg =3D <0xf000001c 0x14>
+I think, rather than 5 instances 0x4 wide.
 
->  	{ }
->  };
->  MODULE_DEVICE_TABLE(acpi, dps310_acpi_match);
+>=20
+> > I think it's fine to make a GPIO controller at this point, and leave
+> > pinctrl to later, but I don't think that it is acceptable to pretend
+> > that the mux registers are part of the GPIO controller. The pinctrl-less
+> > GPIO controller would have to either rely on something else (e.g.
+> > firmware) setting the mux registers or be not entirely functional until
+> > the pinctrl arrives
+>=20
+> Agreed. The next version drops the mux register from the GPIO binding
+> and driver and relies on the boot loader's pin mux. A line that the
+> boot loader leaves muxed to a peripheral then stays unusable as a GPIO
+> until the pin controller exists; I will check which of the Almond+
+> lines (reset button, touchscreen interrupt) that affects before
+> sending, and leave those out of the dts if needed.
+>=20
+> I will not send it before the interrupt controller question is settled,
+> and not before 48 hours have passed in any case.
 
--- 
-With Best Regards,
-Andy Shevchenko
+My take would probably be not sending new versions until at least 48h
+has passed since the last reply on the current version, rather than 48h
+or w/e from time of posting. Of course, exceptions apply, and you can
+use common sense to guide you.
 
+--9WsB/PUlVzPaxjR8
+Content-Type: application/pgp-signature; name=signature.asc
 
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCas5h1AAKCRB4tDGHoIJi
+0udqAP0WM0sBTq4yEA+F6vKgUmE8ocwVivM3NUIF83HuZso3pgEAivB/61eJBing
+IjaFuZ7tEIoxs6shBuwSTj5im/+qbQk=
+=Hfgz
+-----END PGP SIGNATURE-----
+
+--9WsB/PUlVzPaxjR8--
