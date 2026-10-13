@@ -1,152 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com [209.85.214.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B81D3890F3;
-	Tue, 13 Oct 2026 04:10:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A6BD37F314
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 04:22:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791864639; cv=none; b=mBHZ6U2iz+Qo9UV1yqHoatxBLqOoyX5oYQwwqjoBsoTbc5KC+J5wVhlYeliu3sGpQDtAtISCN7F5OPupHHqr3CZpUsrtTHMCzAwGq8J3w6F8yTq+RAAfLhRYVWYyDVx+IsDVyXLlTJWevYUyMpjNcBzoG3OuciXPXPYuQoiqqRs=
+	t=1791865350; cv=none; b=tldwwRjPnKVdjHv03Rhid3T3eIyfVDB6m2VXibjepKSBgmT3DlaXdl9NEdtosLRXrH5s5E7/h5uGvPW0D9cNKtfplfNq6WJNTm4lxdfwSV0X+IRU4wWPz8uZI1Z4PF6rz1yDtqvckRTKMc8yJ3taOVBByXSpYCFoJ1iGZ2F2wvs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791864639; c=relaxed/simple;
-	bh=GYnHNUML77GQrGggzEp4DnJQEI752t2ZYn/aV6IL3KM=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=fDqgfiEBSfYWaeUNlctmbHj6H/3s0t34X/3IBaIzYhS8qgs6F+VGKEeF8i65YTzwoNyHKP/kMtiZwJ2f8W2+7imNgPPJFLhmodYy2nV/J//qmQwbhloMv9aN/iuATE/C+Hn8pq7p0cwkFDxpSimZaP+k5sVkQKb7yDNADwNS4WU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DZ0ZS3Wt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791865350; c=relaxed/simple;
+	bh=+K4HZZsUyx+BZ/jVUFt5QSnww12hfGtHUXInz1C3T8Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=A2oLDMq94VlEJKBt52m5uSu5PbUMsWeKWO6hizRQvcBJWitine4M3lUHwKNZS0m9SA7tyn82ZdZPAPD06yAHb1JB8dJyktKX0OxSZz0u8XCYNvJ0YLH1pn0jSW79l0RatHGnecruON5VlHyUnKvVvnrz0PPUoK2lsj6xB8m4vUM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=AeKdo/IK; arc=none smtp.client-ip=209.85.214.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DZ0ZS3Wt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 732D81F000FF;
-	Tue, 13 Oct 2026 04:10:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791864637;
-	bh=luoTZ3x8DadDP4999uBCvznMeLY4XRsJT+8N1/TuOaE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=DZ0ZS3WtZVfMsm2iLhejUXvAR8V5h4exYiX4klPaIX3RQK9jO6RjL041D5AXtX2on
-	 9zxnxYACZ9vBSaPfd/KLJYIwTn6HT6cF0rlY3ML6LnotCCZPQeUCOauwEVuoBP7AJ3
-	 DkqS3YWRODFPzLnNQVBfc8W4yDdvNmTFMhN6eJSxy+xuFcaSy4WpN+VsgCG36eoSLE
-	 uYlEyuVal2coyW1m53hv8nt6nr2cw6ir7vP0bjGn0EXYeaCCZCaiH0tgbS0QD/j6lq
-	 EPF2NeL0FLWMLYDOCwNX8sSAtB+rle3y62LBPNIDnkoh3DmBrijy3Vy4v7Hade4ac2
-	 XG7lxZd2M4yBQ==
-Message-ID: <sashiko-outbox-168963@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 07/11] watchdog: Add ARM TWD (MPCore private)
- watchdog driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Fil Dunsky" <filipp.dunsky@gmail.com>
-Cc: devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, linux-watchdog@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261013-b4-cs75xx-s2-v2-7-94f8c0a90cda@gmail.com>
-References: <20261013-b4-cs75xx-s2-v2-0-94f8c0a90cda@gmail.com>
- <20261013-b4-cs75xx-s2-v2-7-94f8c0a90cda@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 13 Oct 2026 04:10:37 +0000
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="AeKdo/IK"
+Received: by mail-pl1-f171.google.com with SMTP id d9443c01a7336-2e6038cebefso19092115ad.0
+        for <devicetree@vger.kernel.org>; Mon, 12 Oct 2026 21:22:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1791865349; x=1792470149; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=moe1szgBS8qfOMQ+dx39iq+IYSEcWmwG3cQfQWaqcvA=;
+        b=AeKdo/IKd/Md+Sf/OL2oNjaEijynaXekhX+r/J0FGKDhOIss/7IUw9XynWO2CyD1HT
+         LOfyggL9vIlq7KMg7afdFFs5moLsw6ukA/ts2aiY6j769/VGYVSS135VnVpA+MxGLYwL
+         x9UxDKfwpyV4nCUTTaJzsNQeFeR+fgi130aiI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791865349; x=1792470149;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=moe1szgBS8qfOMQ+dx39iq+IYSEcWmwG3cQfQWaqcvA=;
+        b=XkqZ2uPYG93RSXZ5UjuHAq61eBviuj97ekkX9L58/Z+WYwZ/NnLo86SoUZ0mAWj/gi
+         DPYdoKF1epfucm8FLAbKBKfQTBRaeUXK22to6RLb+HpIYgo39nbYsuHLJ5VwwjR4ZUxf
+         o0OkYEAaKqwvI7BBveSMoBEsWycTKtqHF24o8WZWeI3LfhRS6wgNrNRsZpixVTioyjox
+         ZEQFTR6+yh0JO2XJooPLT2PcInofZa+6OfO79ZdL6JdknwBorBq3YzrjqUcSU3jHi5QF
+         awRG2x3t14e3LUCM5WjSQCVzU974QJ47OFwpbrIX8vQmZBtksaIMkyIIdGmwjWXLADBo
+         E2rw==
+X-Forwarded-Encrypted: i=1; AKwUvBzusZlek28psA3TLYCmJnAg/6KUd3z9weKG30ErhnShB8XV7If7a/M2nJTowVnlJFOeJbZPyUYVQN7R@vger.kernel.org
+X-Gm-Message-State: AFq9FYLeDQXI5D9b/43MR6qp8mFPrp9zX/oMHdbJcuE4oxjizLqjyq/g
+	QFDiMw2YXnAND8SxdPzGgzW5ofQ1Uyxy8gSUucVAPwKv/awQmfy0kLM+XdHtxpO/Eg==
+X-Gm-Gg: AYBFou0XeVH8aapH8Chzr9MryBZioAMl1gV28tghjs/VNPQWquJN3V7kc20wi7+rG+H
+	M5raytkYHgw4dPiEkKFU/YW8GjKwJzcI+gR/rs4qegJuWZeC1QJqRcHE24FPR9bEois2MfEb+67
+	aR8sHZhoaxZlOegrasuOGopOlkTGqc/WLEDLJDaE2nhMmTr5p4Not0sH6n1r+FbBEs86i0EqOrk
+	pRL3HUGYjMdKpGuTF1/cUkQedSpqd8LjI5rsxKbOkVvO/igqRnasUbm7CTFDfUSKXTGdzJVemAN
+	HARCuNS7ukWFm774LVgjRkxIrkWGnofrn7WvZEXWpiYpJFWDj18qaKjLz0qmhGgIeZ8pZFj02FX
+	cjGQXrZGcK8NP/N6KPOWn+ZmCj4aPRNJLVE//dWInOvu0obvrnNADP5zBpACLNHa4/rDsZ5QDgU
+	H/JfKLv74XoF6VpV10gEPHBoAxngeCBzHp4L19jdmBcfucocgfXmkdysO6B2bZrMyp8I+JmgvAz
+	dW6LvVn+pQ/hNam8ZlxLd5w3DIBlkFd+aAq5g==
+X-Received: by 2002:a17:90a:b90:b0:3ab:be66:ddb7 with SMTP id 98e67ed59e1d1-3abbe66df61mr3465361a91.47.1791865348806;
+        Mon, 12 Oct 2026 21:22:28 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2031:6:476:d384:7c2e:1579])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3ab39533ee7sm11566916a91.4.2026.10.12.21.22.24
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 12 Oct 2026 21:22:28 -0700 (PDT)
+Date: Tue, 13 Oct 2026 13:22:22 +0900
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: Georgi Djakov <georgi.djakov@oss.qualcomm.com>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, andersson@kernel.org, konradybcio@kernel.org, 
+	abelvesa@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	minchan@kernel.org, axboe@kernel.dk, rostedt@goodmis.org, mhiramat@kernel.org, 
+	mathieu.desnoyers@efficios.com, linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-block@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
+	djakov@kernel.org
+Subject: Re: [PATCH 4/6] zram: Add QPaCE zcomp backend
+Message-ID: <as2xrbm55Sjq3T1M@google.com>
+References: <20260930145215.3380977-1-georgi.djakov@oss.qualcomm.com>
+ <20260930145215.3380977-5-georgi.djakov@oss.qualcomm.com>
+ <20261001-dramatic-hasty-pug-68ebfd@quoll>
+ <ar4070oH8lRCJMRw@google.com>
+ <6713512a-d879-4fdb-9138-12e125c21ed6@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6713512a-d879-4fdb-9138-12e125c21ed6@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] watchdog: arm_twd_wdt: stale clock rate causes spurious reboots
-- [Medium] watchdog: arm_twd_wdt: boot CPU watchdog fails to restart after =
-resume
---
+On (26/10/10 02:54), Georgi Djakov wrote:
+> >> So entire qpace should go here, no? Why did you create this entire layer
+> >> of indirection, singleton management under drivers/soc?
+> > 
+> > qpace seems to be standalone/independent arch/soc specific, and can gain
+> > users outside of zram (fs compression, zswap, etc.).  zram's backends
+> > potentially can disappear all together, if we switch to acomp crypto API.
+> 
+> Are there any plans for switching back to the acomp crypto API? We moved away
+> from it some time ago and dropped all the crypto dependency in favor of the
+> custom comp backends, right?
 
-commit 6655d83c448f4cf87494cf40f7b8891a218a895c
-Author: Fil Dunsky <filipp.dunsky@gmail.com>
-
-watchdog: Add ARM TWD (MPCore private) watchdog driver
-
-ARM11 MPCore, Cortex-A5 and Cortex-A9 MPCore systems have a watchdog next to
-the local timer of every CPU. This commit adds a driver to program, ping,
-and stop the watchdogs of all online CPUs together.
-
-> diff --git a/drivers/watchdog/arm_twd_wdt.c b/drivers/watchdog/arm_twd_wd=
-t.c
-> new file mode 100644
-> index 0000000000000..a582234e3d953
-> --- /dev/null
-> +++ b/drivers/watchdog/arm_twd_wdt.c
-> @@ -0,0 +1,395 @@
-
-[ ... ]
-
-> +static u32 twd_wdt_ticks(struct twd_wdt *wdt, unsigned int secs)
-> +{
-> +	u64 ticks =3D div_u64((u64)wdt->rate * secs, TWD_WDT_PRESCALE + 1);
-> +
-> +	return min_t(u64, ticks, U32_MAX);
-> +}
-
-[Severity: High]
-Does this calculation use a stale clock rate if the CPU frequency scales up?
-
-The ARM TWD clock is tied to the CPU frequency on many MPCore systems. If
-the CPU scales up its frequency via cpufreq, the actual clock rate will be
-higher than the cached wdt->rate.
-
-Could this result in computing too few ticks for the requested timeout,
-leading to a premature expiration and spurious system reboots?
-
-[ ... ]
-
-> +static void twd_wdt_cpu_ping(void *data)
-> +{
-> +	struct twd_wdt *wdt =3D data;
-> +
-> +	/* In watchdog mode a write to the load register reloads the counter */
-> +	writel(twd_wdt_ticks(wdt, wdt->wdd.timeout), wdt->base + TWD_WDT_LOAD);
-> +}
-
-[Severity: Medium]
-The ping function only writes to the LOAD register. If the system resumes
-from suspend-to-RAM, the watchdog core's ping worker will invoke this
-method. Since it does not restore the CONTROL register, will the boot
-CPU's watchdog silently remain disabled after power loss?
-
-[ ... ]
-
-> +static int twd_wdt_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev =3D &pdev->dev;
-> +	struct twd_wdt *wdt;
-> +	struct clk *clk;
-
-[ ... ]
-
-> +	clk =3D devm_clk_get_enabled(dev, NULL);
-> +	if (IS_ERR(clk))
-> +		return dev_err_probe(dev, PTR_ERR(clk), "failed to get clock\n");
-> +
-> +	wdt->rate =3D clk_get_rate(clk);
-
-[Severity: High]
-The clock rate is cached statically during probe. Since the clk pointer is
-not saved, does this prevent dynamic rate updates if the CPU frequency
-changes via cpufreq without modifying the driver?
-
-> +	if (!wdt->rate)
-> +		return dev_err_probe(dev, -EINVAL, "clock rate is zero\n");
-
-[ ... ]
-
-> +static struct platform_driver twd_wdt_driver =3D {
-> +	.probe =3D twd_wdt_probe,
-> +	.driver =3D {
-> +		.name =3D "arm-twd-wdt",
-> +		.of_match_table =3D twd_wdt_of_match,
-> +	},
-> +};
-
-[Severity: Medium]
-This platform driver appears to lack a .pm field or syscore_ops.=20
-
-During system suspend, the TWD block loses power and its CONTROL register
-is cleared. While non-boot CPUs are hotplugged and restart their watchdogs
-via the online hook, the boot CPU is not hotplugged.=20
-
-Does this mean the boot CPU's watchdog state is never restored after resume?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261013-b4-cs75xx-=
-s2-v2-0-94f8c0a90cda@gmail.com?part=3D7
+We moved from deprecated scomp API and switched to our own comp API.
+There is a possibility of switching to acomp API in the future.
