@@ -1,629 +1,502 @@
-Received: from mout02.posteo.de (mout02.posteo.de [185.67.36.66])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6F2551DDEF
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 16:56:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.67.36.66
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5421051EDF8
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 16:59:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791910614; cv=none; b=PM1gp7fn27qGWMTI+ThnpTAHxU2qEFF31v5U8wauRjZcU69zZ4yqLpU7lCJBDizjBb/7QtfsKgMvlf/huPRO8pqs+bkimyALF9Mb2chWouLQEXNrh6zPhUTSGrIHF01Ba1yfHvvvcT0NTRZvYdVNlCDcnfWlETaScJBBupfDN8k=
+	t=1791910745; cv=none; b=HvDwRwLDmYhg1YBBCy32zpanUdp5hENJvJ5mnszpENEjlfOtLDe1bgo1Mh0RD+b7XJOrQjozKw7sbK12kXPgI0XDYj/66bcKfKg8PyQ49g2AttPXdKhI4haSGwNJNV3T5wlVGK33Aaw7r7rWM/wsmMz/xJEl3eY3z3ErHto6Je8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791910614; c=relaxed/simple;
-	bh=mJHqwcgSVpk5DTKtY14oLAv+WKBo5mqYQNIS5dMW+c4=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=F/IC7WKNOfefbvM74JSIrMW4xCBPUTrVSg45mP2L+36p9qANv/VvE7CMnYTkNKFFMaPd36WV2R/hkA7jaM84dedMXW841eGXMNrqpdJzsND5Z/5QiwUXD0axSdEzVGSfqRX7aSNzMYPjASuR/GniTXrVxpcTTYhr8/SP7LmdFfU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de; spf=pass smtp.mailfrom=posteo.de; dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b=AiySCumv; arc=none smtp.client-ip=185.67.36.66
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=posteo.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=posteo.de
+	s=arc-20240116; t=1791910745; c=relaxed/simple;
+	bh=PRdqOBPs8s38CvZA6uPoAM8POtGRnQklVHbIdOOz5So=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=ra5AylDSycHU5NmvIhG0lin5gHkH1ObJEwPCb9tPaTJ6t2vK1YHmtEJpJ9g3jHNR/o5xTUC5LN4cttbJPG5tqpEgkttHdr8b4z2AWFyQWIbnolhCqJoiQ2zrOIpYHRfQQev2oI90DgKUi7uleNn0+Kp280/xCdGtbP3ZVwQFvNM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ta9YNUXH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=posteo.de header.i=@posteo.de header.b="AiySCumv"
-Received: from submission (posteo.de [185.67.36.169]) 
-	by mout02.posteo.de (Postfix) with ESMTPS id EBA51240101
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 18:56:48 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=posteo.de;
-	s=1984.8680eb; t=1791910608;
-	bh=84UAUybAcmHwu6PdtmUeT5FxMfPcwDy64JHXJjt4vm4=;
-	h=Message-ID:Subject:From:To:Cc:Date:Autocrypt:Content-Type:
-	 MIME-Version:OpenPGP:From;
-	b=AiySCumviBBB4xUI07vqGiy/J33ellpRSq3NUY84OC/2J84fZT7zMrQLXnKcM3hWm
-	 9lPWQLDu7yvW6NgbuOOrFeObXT+1A80kfkIO2b30Jd9YR/dsinXUshIaIFxho384Nq
-	 5DcYo5l8OJPnNA7GFAk0GlIIpg/fPk286eMCuNdvuxXoz9qgfkDmQkIRjw5Iyou+xM
-	 HjvGPN15uA5xvMbF5tvcsux+WcatHXyG4toZlruENGWJaz6guBZJoSaVy3U/sk2AGV
-	 7kO2yE+i7M9IoKPx8/FUSct13G8BYE3dWUOlOK3M5xrYPcf+/CGTnq2KNq9uHvuS11
-	 RjrdmC0agM1fw==
-Received: from customer (localhost [127.0.0.1])
-	by submission (posteo.de) with ESMTPSA id 4j40qK2nhHz6ty0;
-	Tue, 13 Oct 2026 18:56:45 +0200 (CEST)
-Message-ID: <7c5619f34cdf696a8be2215ee8a4120e3f0ff1a9.camel@posteo.de>
-Subject: Re: [PATCH v3 7/7] greybus: Add Rust UART node driver
-From: Markus Probst <markus.probst@posteo.de>
-To: Ayush Singh <ayush@beagleboard.org>
-Cc: Jason Kridner <jkridner@beagleboard.org>, robertcnelson@gmail.com, Johan
- Hovold <johan@kernel.org>, Alex Elder <elder@kernel.org>, Greg
- Kroah-Hartman	 <gregkh@linuxfoundation.org>, Miguel Ojeda
- <ojeda@kernel.org>, Boqun Feng	 <boqun@kernel.org>, Gary Guo
- <gary@garyguo.net>, =?ISO-8859-1?Q?Bj=F6rn?= Roy Baron
- <bjorn3_gh@protonmail.com>, Benno Lossin <lossin@kernel.org>, Andreas
- Hindborg	 <a.hindborg@kernel.org>, Alice Ryhl <aliceryhl@google.com>,
- Trevor Gross	 <tmgross@umich.edu>, Danilo Krummrich <dakr@kernel.org>,
- Daniel Almeida	 <daniel.almeida@collabora.com>, Tamir Duberstein
- <tamird@kernel.org>,  Alexandre Courbot <acourbot@nvidia.com>, Onur
- =?ISO-8859-1?Q?=D6zkan?= <work@onurozkan.dev>, Eric Biggers	
- <ebiggers@kernel.org>, Ard Biesheuvel <ardb@kernel.org>, Ayush Singh	
- <ayush@beagleboard.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Lorenzo Stoakes	
- <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, "Liam R. Howlett"	
- <liam@infradead.org>, Uladzislau Rezki <urezki@gmail.com>, 
-	greybus-dev@lists.linaro.org, linux-kernel@vger.kernel.org, 
-	rust-for-linux@vger.kernel.org, linux-crypto@vger.kernel.org, 
-	devicetree@vger.kernel.org
-Date: Tue, 13 Oct 2026 16:56:47 +0000
-In-Reply-To: <87y0c14l8b.fsf@beagleboard.org>
-References: <20261013-gb-uart-transport-v3-0-81d0a8a1acf7@beagleboard.org>
-		<20261013-gb-uart-transport-v3-7-81d0a8a1acf7@beagleboard.org>
-		<037d7460eae92dd00f9283dd5595a3257212f0b9.camel@posteo.de>
-	 <87y0c14l8b.fsf@beagleboard.org>
-Autocrypt: addr=markus.probst@posteo.de; prefer-encrypt=mutual;
- keydata=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
- jfGillcaQOqFZ3WwVqyzG1BUfTow==
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-UqXBVxT8d+O+osTm5faS"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ta9YNUXH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B538B1F000FF;
+	Tue, 13 Oct 2026 16:59:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791910743;
+	bh=7rf9l6tketF+QBP9xkJNJiWtgEUDnWbhBZg1Kurq7l0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Ta9YNUXHRryiuVISf8kN2q/EautspJSqJKrEyA8gI9WDOgftG2jq/QICDZusfem2C
+	 07wl+OlE294SUTuDy16R5+PCT9cojgwes5WHGzAKHuXstaLg+LYVPGdWS0//nMEgG8
+	 QAw/7ybnfYwC8WsvrItvyEXJ70+fKy0otY4s3NZ72jYF+xO5DttS4CbQZyCzoJOsPw
+	 1OKqNbgEGkQjwLn8WRpkb7ltJhcCmeU6wuHxTU+qWgpiSPyPVnuV9Xdh8GlqY1fMM2
+	 Rc8TEng3zbn6bo6U1NDKgGmhJY4wRX1EH7DhuZ+CRYtw6lDKXwQUHljgkIN/7TCzMl
+	 ZzbwfnPuUXawQ==
+Message-ID: <sashiko-outbox-170178@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v11 2/5] drm/microchip: add a driver for the Microchip
+ GFX2D GPU
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Cyrille Pitchen" <cyrille.pitchen@microchip.com>
+Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261013-cpitchen-mainline_gfx2d-v11-2-7527f2efab0a@microchip.com>
+References: <20261013-cpitchen-mainline_gfx2d-v11-0-7527f2efab0a@microchip.com>
+ <20261013-cpitchen-mainline_gfx2d-v11-2-7527f2efab0a@microchip.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 13 Oct 2026 16:59:03 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-OpenPGP: url=https://posteo.de/keys/markus.probst@posteo.de.asc; preference=encrypt
 
+Thank you for your contribution! Sashiko AI review found 9 potential issue(=
+s) to consider:
+- [High] build: Undefined macro kzalloc_obj causes compilation failure
+- [High] drm: Use-after-free in driver remove due to synchronous teardown
+- [High] drm: Use-after-free of gfx2d_obj in mchp_gfx2d_thread
+- [High] drm: Use-after-free of gfx2d_obj in drm_dbg following unref
+- [High] pm: AB-BA deadlock between pm_runtime suspend and IRQ thread
+- [High] drm/microchip: VIVT cache coherency bug in multi-process dmabuf sh=
+aring
+- [High] drm/microchip: mchp_gfx2d_wait sleeps with mutex held, breaking ti=
+meouts
+- [Medium] locking: Acquiring spinlock_t in hardirq context triggers PREEMP=
+T_RT BUG
+- [Medium] pm: System suspend fails with -EBUSY due to PM resume failure in=
+ IRQ thread
+--
 
---=-UqXBVxT8d+O+osTm5faS
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+commit 008c58aa5740c6e3849d9b3c0fa7843a52355ee3
+Author: Cyrille Pitchen <cyrille.pitchen@microchip.com>
+Subject: drm/microchip: add a driver for the Microchip GFX2D GPU
 
-On Tue, 2026-10-13 at 21:59 +0530, Ayush Singh wrote:
-> Markus Probst <markus.probst@posteo.de> writes:
->=20
-> > On Tue, 2026-10-13 at 17:30 +0530, Ayush Singh wrote:
-> > > Add a driver for Greybus nodes attached over a plain serial port. The
-> > > node is registered with the software SVC (gb-softsvc), which handles =
-the
-> > > SVC protocol on behalf of the AP, so no dedicated coprocessor running
-> > > SVC firmware is needed.
-> > >=20
-> > > Greybus messages are carried over HDLC framing on the wire. Each fram=
-e
-> > > carries a one-byte address (0x01 for Greybus) and control byte, follo=
-wed
-> > > by the 16-bit CPort ID and the Greybus message itself.
-> > >=20
-> > > Port parameters are taken from the firmware node: "baudrate" if
-> > > present, otherwise 115200, with flow control and parity disabled.
-> > >=20
-> > > Since gb-uart-node imports types from gb-softsvc, Rust to Rust callin=
-g
-> > > setup from nova-core [0] is being used.
-> > >=20
-> > > [0]: https://lore.kernel.org/all/20260622-nova-exports-v5-0-6191773fc=
-977@nvidia.com/
-> > >=20
-> > > Signed-off-by: Ayush Singh <ayush@beagleboard.org>
-> > > ---
-> > >  MAINTAINERS                     |   1 +
-> > >  drivers/greybus/.gitignore      |   1 +
-> > >  drivers/greybus/Kconfig         |  15 +++
-> > >  drivers/greybus/Makefile        |  48 ++++++++
-> > >  drivers/greybus/gb_uart_node.rs | 253 ++++++++++++++++++++++++++++++=
-++++++++++
-> > >  5 files changed, 318 insertions(+)
-> > >=20
-> > > diff --git a/MAINTAINERS b/MAINTAINERS
-> > > index 521bc6c67979..5bdd500ef63e 100644
-> > > --- a/MAINTAINERS
-> > > +++ b/MAINTAINERS
-> > > @@ -11527,6 +11527,7 @@ M:	Ayush Singh <ayush@beagleboard.org>
-> > >  L:	greybus-dev@lists.linaro.org (moderated for non-subscribers)
-> > >  S:	Maintained
-> > >  F:	Documentation/devicetree/bindings/beagle/beagle,beagleconnect-fre=
-edom.yaml
-> > > +F:	drivers/greybus/gb_uart_node.rs
-> > > =20
-> > >  GREYBUS SUBSYSTEM
-> > >  M:	Johan Hovold <johan@kernel.org>
-> > > diff --git a/drivers/greybus/.gitignore b/drivers/greybus/.gitignore
-> > > new file mode 100644
-> > > index 000000000000..ff9c4a3539b4
-> > > --- /dev/null
-> > > +++ b/drivers/greybus/.gitignore
-> > > @@ -0,0 +1 @@
-> > > +exports_gb_softsvc_generated.h
-> > > diff --git a/drivers/greybus/Kconfig b/drivers/greybus/Kconfig
-> > > index 709563f8c0ad..ce2030161f30 100644
-> > > --- a/drivers/greybus/Kconfig
-> > > +++ b/drivers/greybus/Kconfig
-> > > @@ -61,5 +61,20 @@ config GREYBUS_SOFTSVC
-> > >  	  To compile this code as a module, choose M here: the module
-> > >  	  will be called gb-softsvc.ko
-> > > =20
-> > > +config GREYBUS_UART_NODE
-> > > +	tristate "Greybus UART node transport"
-> > > +	depends on GREYBUS_SOFTSVC
-> > > +	depends on RUST_SERIAL_DEV_BUS_ABSTRACTIONS
-> > > +	depends on RUST_GREYBUS_ABSTRACTIONS
-> > > +	select RUST_CRC_CCITT_ABSTRACTIONS
-> > > +	help
-> > > +	  Select this option if you have a Greybus node connected over a
-> > > +	  serial port. The node is registered with the software SVC, which
-> > > +	  handles the SVC protocol on behalf of the AP, so no dedicated
-> > > +	  coprocessor running SVC firmware is required.
-> > > +
-> > > +	  To compile this code as a module, choose M here: the module
-> > > +	  will be called gb-uart-node.ko
-> > > +
-> > >  endif	# GREYBUS
-> > > =20
-> > > diff --git a/drivers/greybus/Makefile b/drivers/greybus/Makefile
-> > > index e6f594128802..bf4d08f728fe 100644
-> > > --- a/drivers/greybus/Makefile
-> > > +++ b/drivers/greybus/Makefile
-> > > @@ -28,3 +28,51 @@ obj-$(CONFIG_GREYBUS_ES2)	+=3D gb-es2.o
-> > >  obj-$(CONFIG_GREYBUS_SOFTSVC)	+=3D gb-softsvc.o
-> > >  gb-softsvc-y			+=3D gb_softsvc.o gb_softsvc_exports.o
-> > > =20
-> > > +obj-$(CONFIG_GREYBUS_UART_NODE)	+=3D gb-uart-node.o
-> > > +gb-uart-node-y			+=3D gb_uart_node.o
-> > > +
-> > > +# Export Rust symbols from gb-softsvc only if gb-uart-node actually =
-references them.
-> > > +gb-softsvc-export-deps :=3D $(if $(CONFIG_GREYBUS_UART_NODE),$(obj)/=
-gb_uart_node.o)
-> > > +
-> > > +rust_needed_exports =3D \
-> > > +	{ $(if $(strip $(2)),$(NM) -u $(2);,) echo "__DEFINED_RUST_SYMBOLS_=
-_"; \
-> > > +	  $(NM) -p --defined-only $(1); } | \
-> > > +	awk -v fmt=3D'$(3)' ' \
-> > > +		/^__DEFINED_RUST_SYMBOLS__$$/ { defs =3D 1; next } \
-> > > +		!defs { if ($$NF ~ /^_R/) needed[$$NF] =3D 1; next } \
-> > > +		defs && $$2 ~ /(T|R|D|B)/ && $$3 ~ /^_R/ && \
-> > > +			$$3 !~ /_(init|cleanup)_module$$/ && \
-> > > +			$$3 !~ /__(pfx|cfi|odr_asan)/ && \
-> > > +			$$3 in needed { printf fmt, $$3 } \
-> > > +	'
-> > > +
-> > > +quiet_cmd_exports =3D EXPORTS $@
-> > > +      cmd_exports =3D \
-> > > +	$(call rust_needed_exports,$<,$(gb-softsvc-export-deps),EXPORT_SYMB=
-OL_RUST_GPL(%s);\n) > $@
-> > > +
-> > > +$(obj)/exports_gb_softsvc_generated.h: $(obj)/gb_softsvc.o $(gb-soft=
-svc-export-deps) FORCE
-> > > +	$(call if_changed,exports)
-> > > +
-> > > +targets +=3D exports_gb_softsvc_generated.h
-> > > +
-> > > +$(obj)/gb_softsvc_exports.o: $(obj)/exports_gb_softsvc_generated.h
-> > > +CFLAGS_gb_softsvc_exports.o :=3D -I $(objtree)/$(obj)
-> > > +
-> > > +ifdef CONFIG_MODVERSIONS
-> > > +# The C export shim declares Rust symbols as `extern int`, so reuse =
-its export
-> > > +# list but generate symbol CRCs from the Rust object instead of the =
-shim's DWARF.
-> > > +$(obj)/gb_softsvc_exports.o: private cmd_gensymtypes_c =3D \
-> > > +	$(call getexportsymbols,\1) | \
-> > > +	$(objtree)/scripts/gendwarfksyms/gendwarfksyms \
-> > > +		$(if $(KBUILD_GENDWARFKSYMS_STABLE), --stable) \
-> > > +		$(if $(KBUILD_SYMTYPES), --symtypes $(@:.o=3D.symtypes),) \
-> > > +		$(obj)/gb_softsvc.o
-> > > +endif
-> > > +
-> > > +# Output gb_softsvc's crate metadata for use by gb_uart_node at comp=
-ile time.
-> > > +RUSTFLAGS_gb_softsvc.o +=3D \
-> > > +	--emit=3Dmetadata=3D$(objtree)/$(obj)/libgb_softsvc.rmeta
-> > > +
-> > > +# Allow nova-drm to import nova-core's types.
-> > > +$(obj)/gb_uart_node.o: $(obj)/gb_softsvc.o
-> > > +RUSTFLAGS_gb_uart_node.o :=3D -L $(objtree)/$(obj) --extern gb_softs=
-vc
-> > > diff --git a/drivers/greybus/gb_uart_node.rs b/drivers/greybus/gb_uar=
-t_node.rs
-> > > new file mode 100644
-> > > index 000000000000..f719ee35e8f3
-> > > --- /dev/null
-> > > +++ b/drivers/greybus/gb_uart_node.rs
-> > > @@ -0,0 +1,253 @@
-> > > +// SPDX-License-Identifier: GPL-2.0
-> > > +
-> > > +//! Greybus UART Node driver
-> > > +
-> > > +use kernel::{
-> > > +    alloc::Flags,
-> > > +    crc_ccitt::crc_ccitt,
-> > > +    device::{
-> > > +        AsBusDevice,
-> > > +        Bound,
-> > > +        Core, //
-> > > +    },
-> > > +    error::code,
-> > > +    new_spinlock,
-> > > +    of, //
-> > > +    prelude::*,
-> > > +    serdev,
-> > > +    sync::{
-> > > +        aref::ARef,
-> > > +        Arc,
-> > > +        SpinLock, //
-> > > +    },
-> > > +};
-> > > +
-> > > +use zerocopy::little_endian;
-> > > +use zerocopy_derive::{FromBytes, Immutable, KnownLayout};
-> > > +
-> > > +const HDLC_MAX_FRAME_LEN: usize =3D 256;
-> > > +
-> > > +const HDLC_FRAME: u8 =3D 0x7E;
-> > > +const HDLC_ESC: u8 =3D 0x7D;
-> > > +const HDLC_XOR: u8 =3D 0x20;
-> > > +const HDLC_EXPECTED_CRC: u16 =3D 0xf0b8;
-> > > +
-> > > +const ADDRESS_GREYBUS: u8 =3D 0x01;
-> > > +
-> > > +#[repr(C, packed)]
-> > > +#[derive(FromBytes, Immutable, KnownLayout)]
-> > > +struct GreybusFrame {
-> > > +    cport: little_endian::U16,
-> > > +    msg: [u8],
-> > > +}
-> > > +
-> > > +struct HdlcRx {
-> > > +    rx_buf: KVec<u8>,
-> > > +    rx_in_esc: bool,
-> > > +    rx_overflow: bool,
-> > > +    sdev: ARef<serdev::Device>,
-> > > +    node: gb_softsvc::Module,
-> > > +}
-> > > +
-> > > +impl HdlcRx {
-> > > +    fn new(sdev: ARef<serdev::Device>, node: gb_softsvc::Module) -> =
-Result<Self> {
-> > > +        Ok(Self {
-> > > +            node,
-> > > +            sdev,
-> > > +            rx_buf: KVec::with_capacity(HDLC_MAX_FRAME_LEN, GFP_KERN=
-EL)?,
-> > > +            rx_in_esc: false,
-> > > +            rx_overflow: false,
-> > > +        })
-> > > +    }
-> > > +
-> > > +    fn frame_finish(&self) -> Result<()> {
-> > > +        if self.rx_buf.len() < 4 {
-> > > +            return Err(code::EFAULT);
-> > > +        }
-> > > +
-> > > +        let crc =3D crc_ccitt(0xffff, &self.rx_buf);
-> > > +        if crc !=3D HDLC_EXPECTED_CRC {
-> > > +            dev_warn!(self.sdev.as_ref(), "CRC failed {}", crc);
-> > > +            return Ok(());
-> > > +        }
-> > > +
-> > > +        let addr =3D self.rx_buf[0];
-> > > +        let _ctrl =3D self.rx_buf[1];
-> > > +        let payload =3D &self.rx_buf[2..self.rx_buf.len() - size_of:=
-:<u16>()];
-> > > +
-> > > +        match addr {
-> > > +            ADDRESS_GREYBUS =3D> {
-> > > +                let frame =3D GreybusFrame::ref_from_bytes(payload).=
-map_err(|_| code::EINVAL)?;
-> > > +                self.node.submit_message(0, frame.cport.into(), &fra=
-me.msg)
-> > > +            }
-> > > +            _ =3D> Err(code::EINVAL),
-> > > +        }
-> > > +    }
-> > > +
-> > > +    fn rx(&mut self, data: &[u8]) -> usize {
-> > > +        for i in data.iter() {
-> > > +            match *i {
-> > > +                HDLC_FRAME =3D> {
-> > > +                    if !self.rx_buf.is_empty() {
-> > > +                        if let Err(e) =3D self.frame_finish() {
-> > > +                            dev_warn!(self.sdev.as_ref(), "bad frame=
-: {e:?}\n");
-> > > +                        }
-> > > +                    }
-> > > +
-> > > +                    self.rx_buf.clear();
-> > > +                    self.rx_in_esc =3D false;
-> > > +                    self.rx_overflow =3D false;
-> > > +                }
-> > > +                HDLC_ESC =3D> self.rx_in_esc =3D true,
-> > > +                // Skip data if buffer has overflown.
-> > > +                _ if self.rx_overflow =3D> {}
-> > > +                _ =3D> {
-> > > +                    let c =3D if self.rx_in_esc { *i ^ HDLC_XOR } el=
-se { *i };
-> > > +                    self.rx_in_esc =3D false;
-> > > +
-> > > +                    if self.rx_buf.push_within_capacity(c).is_err() =
-{
-> > > +                        dev_warn!(self.sdev.as_ref(), "buffer overfl=
-ow. Dropping frame");
-> > > +
-> > > +                        self.rx_overflow =3D true;
-> > > +                        self.rx_buf.clear();
-> > > +                    }
-> > > +                }
-> > > +            }
-> > > +        }
-> > > +
-> > > +        data.len()
-> > > +    }
-> > > +}
-> > > +
-> > > +struct GbNode {
-> > > +    sdev: ARef<serdev::Device>,
-> > > +}
-> > > +
-> > > +impl GbNode {
-> > > +    const fn new(sdev: ARef<serdev::Device>) -> Self {
-> > > +        Self { sdev }
-> > > +    }
-> > > +
-> > > +    fn fill_buf(mut crc: u16, data: &[u8], buf: &mut KVec<u8>) -> Re=
-sult<u16> {
-> > > +        for i in data {
-> > > +            crc =3D crc_ccitt(crc, &[*i]);
-> > > +            if *i =3D=3D HDLC_ESC || *i =3D=3D HDLC_FRAME {
-> > > +                buf.push_within_capacity(HDLC_ESC)?;
-> > > +                buf.push_within_capacity(i ^ HDLC_XOR)?;
-> > > +            } else {
-> > > +                buf.push_within_capacity(*i)?;
-> > > +            }
-> > > +        }
-> > > +
-> > > +        Ok(crc)
-> > > +    }
-> > > +}
-> > > +
-> > > +impl gb_softsvc::InterfaceOps for GbNode {
-> > > +    fn write(&self, data: &[u8], cport: u16, gfp_mask: Flags) -> Res=
-ult<()> {
-> > > +        // SAFETY: `GbNode` only exists while its serdev driver is b=
-ound, so the device is in the
-> > > +        // `Bound` state for the duration of this call.
-> > > +        let bound: &serdev::Device<Bound> =3D
-> > > +            unsafe { serdev::Device::from_device(self.sdev.as_ref().=
-as_bound()) };
-> > > +
-> > > +        let mut buf =3D KVec::with_capacity(HDLC_MAX_FRAME_LEN, gfp_=
-mask)?;
-> > > +
-> > > +        let mut crc =3D 0xffff;
-> > > +
-> > > +        buf.push_within_capacity(HDLC_FRAME)?;
-> > > +
-> > > +        crc =3D Self::fill_buf(crc, &[ADDRESS_GREYBUS, 0x03], &mut b=
-uf)?;
-> > > +        crc =3D Self::fill_buf(crc, &cport.to_le_bytes(), &mut buf)?=
-;
-> > > +        crc =3D Self::fill_buf(crc, data, &mut buf)?;
-> > > +
-> > > +        crc ^=3D 0xffff;
-> > > +        Self::fill_buf(crc, &crc.to_le_bytes(), &mut buf)?;
-> > > +
-> > > +        buf.push_within_capacity(HDLC_FRAME)?;
-> > > +
-> > > +        bound.write_all(&buf, 0)?;
-> > > +
-> > > +        Ok(())
-> > > +    }
-> > > +}
-> > > +
-> > > +#[pin_data]
-> > > +struct GbUartNode {
-> > > +    #[pin]
-> > > +    rx: SpinLock<Option<HdlcRx>>,
-> > > +}
-> > > +
-> > > +impl GbUartNode {
-> > > +    fn init(sdev: &serdev::Device<Core<'_>>) -> Result<HdlcRx> {
-> > > +        if sdev
-> > > +            .set_baudrate(
-> > > +                sdev.as_ref()
-> > > +                    .fwnode()
-> > > +                    .and_then(|fwnode| fwnode.property_read(c"baudra=
-te").optional())
-> > > +                    .unwrap_or(115200),
-> > > +            )
-> > > +            .is_err()
-> > > +        {
-> > > +            return Err(EINVAL);
-> > > +        }
-> > > +        sdev.set_flow_control(false);
-> > > +        sdev.set_parity(serdev::Parity::None)?;
-> > > +
-> > > +        let node =3D gb_softsvc::Module::new(&[Arc::new(GbNode::new(=
-sdev.into()), GFP_KERNEL)?])?;
-> > > +
-> > > +        HdlcRx::new(sdev.into(), node)
-> > > +    }
-> > > +}
-> > > +
-> > > +kernel::of_device_table!(
-> > > +    OF_TABLE,
-> > > +    <GbUartNode as serdev::Driver>::IdInfo,
-> > > +    [(of::DeviceId::new(c"beagle,beagleconnect-freedom"), ())]
-> > > +);
-> > > +
-> > > +#[vtable]
-> > > +impl serdev::Driver for GbUartNode {
-> > > +    type IdInfo =3D ();
-> > > +    type Data<'bound> =3D Self;
-> > > +    const OF_ID_TABLE: Option<of::IdTable<Self::IdInfo>> =3D Some(&O=
-F_TABLE);
-> > > +
-> > > +    fn probe<'bound>(
-> > > +        sdev: &'bound serdev::Device<Core<'_>>,
-> > > +        _info: Option<&'bound Self::IdInfo>,
-> > > +    ) -> impl PinInit<Self, Error> + 'bound {
-> > > +        dev_dbg!(sdev.as_ref(), "Probe gb_uart_node.\n");
-> > > +
-> > > +        try_pin_init!(Self {
-> > > +            rx <- new_spinlock!(Some(Self::init(sdev)?), "gb_uart_no=
-de::rx"),
-> > > +        }? Error)
-> > > +    }
-> > > +
-> > > +    fn receive<'bound>(
-> > > +        _sdev: &'bound serdev::Device<Bound>,
-> > > +        this: Pin<&Self>,
-> > > +        data: &[u8],
-> > > +    ) -> usize {
-> > > +        if let Some(mut guard) =3D this.rx.try_lock() {
-> > > +            if let Some(ref mut hdlc_rx) =3D *guard {
-> > > +                return hdlc_rx.rx(data);
-> > > +            }
-> > > +        }
-> > > +
-> > > +        0
-> > > +    }
-> > > +
-> > > +    fn unbind<'bound>(_: &'bound serdev::Device<Core<'_>>, this: Pin=
-<&Self::Data<'bound>>) {
-> > > +        // Getting a bound device is not possible after this point. =
-So drop HdlcRx.
-> > > +        // This also drops HdlcRx::node, which should ensure that Gb=
-Node::write will not be called
-> > > +        // after this point.
-> > > +        let _ =3D this.rx.lock().take();
-> > Not exactly.
-> >=20
-> > e.g.
-> > ```
-> > struct SerdevDriver<'bound> {
-> >   dev: &'bound serdev::Device<Bound>,
-> > }
-> >=20
-> > impl<'bound> Drop for SerdevDriver<'bound> {
-> >=20
-> >   fn drop(&mut self) {
-> >     // Access to a bound device should still be possible here.
-> >   }
-> >=20
-> > }
-> > ```
-> >=20
-> > So afaik there should be no advantage of manually dropping it here.
-> > Drop of `GbUartNode` should automatically drop the spinlock and the
-> > data contained. The bound serial device is still valid at this point.
-> >=20
-> > This would likely make the usage of Option<> obsolete too.
-> >=20
-> > Thanks
-> > - Markus Probst
->=20
-> My understanding was that the state of serdev device is unknown between
-> unbind and Drop calls. That would make the unsafe Bound device conversion
-> in GbNode::write unsound.
->=20
-> If I don't need to do the early drop, yes, that would remove the Option
-> which would be great.
+This commit introduces a DRM driver for the Microchip GFX2D GPU, supporting
+basic 2D operations like FILL, COPY, BLEND, and ROP. The driver communicates
+with the GPU via a ring buffer and tracks command completion using a mailbox
+mechanism with LDR/STR instructions.
 
-.write is still valid inside Drop.
+> diff --git a/drivers/gpu/drm/microchip/mchp_gfx2d_cmd.c b/drivers/gpu/drm=
+/microchip/mchp_gfx2d_cmd.c
+> index e462d9bca3170..7a5e8452e690a 100644
+> --- a/drivers/gpu/drm/microchip/mchp_gfx2d_cmd.c
+> +++ b/drivers/gpu/drm/microchip/mchp_gfx2d_cmd.c
+> @@ -207,6 +207,41 @@ static void mchp_gfx2d_release_command(struct mchp_g=
+fx2d_device *priv,
+>  				       struct mchp_gfx2d_command *cmd,
+>  				       bool recycle)
+>  {
+>  	struct mchp_gfx2d_gem_object *gfx2d_obj;
+>  	int i;
+> =20
+>  	drm_dbg(&priv->drm, "cmd %u: release command\n", cmd->id);
+> =20
+>  	gfx2d_obj =3D cmd->target;
+>  	if (gfx2d_obj) {
+>  		mchp_gfx2d_gem_unref(gfx2d_obj);
+>  		drm_dbg(&priv->drm,
+>  			"cmd %u: unref object %u (%d) as target\n",
+>  			cmd->id,
+>  			gfx2d_obj->id, atomic_read(&gfx2d_obj->gpu_active));
 
-Currently there is a small difference between unbind and Drop though
-(that shouldn't matter here):
+[Severity: High]
+Is it safe to access gfx2d_obj after calling mchp_gfx2d_gem_unref()?
 
-while unbind, data can still be received.
-while Drop, data can only be sent. No data will be received (Drop and
-receive never runs concurrently).
+If this was the last reference, the object could be freed immediately by
+drm_gem_object_put(). The very next line logs gfx2d_obj->id and
+gfx2d_obj->gpu_active, which would result in a use-after-free.
 
-Thanks
-- Markus Probst
+>  	}
+> =20
+>  	for (i =3D 0; i < ARRAY_SIZE(cmd->sources); i++) {
+>  		struct mchp_gfx2d_source *src =3D &cmd->sources[i];
+> =20
+>  		gfx2d_obj =3D src->gfx2d_obj;
+> =20
+>  		if (!gfx2d_obj)
+>  			continue;
+> =20
+>  		mchp_gfx2d_gem_unref(gfx2d_obj);
+>  		drm_dbg(&priv->drm,
+>  			"cmd %u: unref object %u (%d) as source %d at (%d,%d)\n",
+>  			cmd->id,
+>  			gfx2d_obj->id, atomic_read(&gfx2d_obj->gpu_active),
+>  			i, src->x, src->y);
 
+[Severity: High]
+Can this similarly cause a use-after-free on the source object?
 
->=20
-> >=20
-> > > +    }
-> > > +}
-> > > +
-> > > +kernel::module_serdev_device_driver! {
-> > > +    type: GbUartNode,
-> > > +    name: "gb_uart_node",
-> > > +    authors: ["Ayush Singh <ayush@beagleboard.org>"],
-> > > +    description: "Greybus node connected over UART",
-> > > +    license: "GPL v2",
-> > > +}
-> >=20
->=20
->=20
-> Best Regards,
-> Ayush Singh
+>  	}
+> =20
+>  	mchp_gfx2d_free_rectangles(cmd);
+> =20
+>  	if (recycle) {
+>  		mutex_lock(&priv->free_cmdlist_mutex);
 
---=-UqXBVxT8d+O+osTm5faS
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
+[ ... ]
 
------BEGIN PGP SIGNATURE-----
+> @@ -1726,6 +1726,38 @@ int mchp_gfx2d_wait(struct mchp_gfx2d_device *priv,
+>  		    struct mchp_gfx2d_gem_object *gfx2d_obj,
+>  		    const struct drm_mchp_timespec *timeout)
+>  {
+>  	struct device *dev =3D priv->drm.dev;
+>  	int ret;
+> =20
+>  	ret =3D pm_runtime_resume_and_get(dev);
+>  	if (ret)
+>  		return ret;
+> =20
+>  	(void)mchp_gfx2d_progress(priv);
+> =20
+>  	drm_dbg(&priv->drm, "obj %u: poll object\n", gfx2d_obj->id);
+> =20
+>  	ret =3D mchp_gfx2d_gem_wait(gfx2d_obj, NULL);
+>  	if (!ret || !timeout)
+>  		goto put_autosuspend;
+> =20
+>  	mutex_lock(&gfx2d_obj->mutex);
+> =20
+>  	drm_dbg(&priv->drm, "obj %u: wait for object\n", gfx2d_obj->id);
+> =20
+>  	mutex_lock(&priv->wlist_mutex);
+>  	list_add_tail(&gfx2d_obj->w_node, &priv->wlist);
+>  	mutex_unlock(&priv->wlist_mutex);
+> =20
+>  	mchp_gfx2d_enable_exend(priv);
+> =20
+>  	ret =3D mchp_gfx2d_gem_wait(gfx2d_obj, timeout);
 
-iQJPBAABCAA5FiEEgnQYxPSsWOdyMMRzNHYf+OetQ9IFAmrOYr0bFIAAAAAABAAO
-bWFudTIsMi41KzEuMTIsMiwyAAoJEDR2H/jnrUPSI+cP/RuVl+xdxJtdCnt/p3NA
-DLBfxnTSo79NYIOowgE/fES/7vwnt3sWWJ5csSUGuPuIdu6eOvl8+WIOiEDHruJM
-UpV1hoBlBgqHAVwYs+aMJRmJ1ZIYTVskWEyqG5EW2/PjrqQ1DAO7z3950LUNEnQd
-x2yFKskDvvfeU4Jfrtcqv8nYD48APJtvaSK0Q0nuFl8c/4zMJpUXpvSoeRSqxFO9
-27ZP2UzgJPbRAvvgF3mcmhYJs7TJO29PXJDQIZdO2dRR+qkJ9T/afA0cBEMbnYQo
-B+Vw9I8JKD75CICJeK5h5Y4akCauBFPjKZDPJIhwOo+7jZy9qqT4FuUnTZBxaXGn
-ijZo4nP1EmQ623cygDqXZubtjsm5P1prBFqF7pz0oW4iTit/wPJO9CNvPO1Uw54o
-GepcRaTdIaK9yTTei3yH5GAoGFOqQ/GPoanfN78itXMalAv4n3+cKb+u6NgY4RDE
-N7oo6dpeDm5lOsO/33nvoVOF856cZeP+bvE/C7H2T05M5unPNaDzX2KOvd5lS9nu
-UnO+RihOqLI9B3GoQ4p7FqnAyytsz3vqWGtlpnq7uSBS2hXJA8b+yF1E/I9oM19S
-wSeVv/FTX1dWs4E91h7m/idZG/DAjb/G4mHC88XQSBmnjGqFA2gdmz8gZZzai+6S
-WSMuFxoSHmTdBoes/NeojKFp
-=N4cC
------END PGP SIGNATURE-----
+[Severity: High]
+Does holding gfx2d_obj->mutex across the sleeping mchp_gfx2d_gem_wait() call
+break timeout expectations for concurrent waiters?
 
---=-UqXBVxT8d+O+osTm5faS--
+If a second thread attempts to wait on the same GEM object with a short
+timeout, it will block uninterruptibly on this mutex rather than observing
+its own specified timeout. This could trigger a hung task warning if the
+first thread specified a long timeout and the GPU hangs.
+
+> =20
+>  	mutex_lock(&priv->wlist_mutex);
+>  	list_del(&gfx2d_obj->w_node);
+>  	mutex_unlock(&priv->wlist_mutex);
+> =20
+>  	drm_dbg(&priv->drm, "obj %u: %s for object\n",
+>  		gfx2d_obj->id,
+>  		ret ? "failed to wait" : "successfully waited");
+> =20
+>  	mutex_unlock(&gfx2d_obj->mutex);
+> =20
+>  put_autosuspend:
+>  	pm_runtime_put_autosuspend(dev);
+> =20
+>  	return ret;
+>  }
+
+> diff --git a/drivers/gpu/drm/microchip/mchp_gfx2d_drv.c b/drivers/gpu/drm=
+/microchip/mchp_gfx2d_drv.c
+> index 81b807ad4bad1..0f34a17387cc3 100644
+> --- a/drivers/gpu/drm/microchip/mchp_gfx2d_drv.c
+> +++ b/drivers/gpu/drm/microchip/mchp_gfx2d_drv.c
+> @@ -31,6 +31,19 @@
+>  static int mchp_gfx2d_open(struct drm_device *dev, struct drm_file *file=
+_priv)
+>  {
+>  	struct mchp_gfx2d_file *ctx;
+> =20
+>  	ctx =3D kzalloc_obj(*ctx);
+
+[Severity: High]
+Is kzalloc_obj defined somewhere in the kernel? It appears to be an
+undefined macro and will cause a compilation failure. Should this be
+kzalloc(sizeof(*ctx), GFP_KERNEL) instead?
+
+>  	if (!ctx)
+>  		return -ENOMEM;
+> =20
+>  	mutex_init(&ctx->rectangles_mutex);
+> =20
+>  	file_priv->driver_priv =3D ctx;
+> =20
+>  	return 0;
+>  }
+
+[ ... ]
+
+> @@ -84,6 +84,8 @@ static void mchp_gfx2d_disable_irq(struct mchp_gfx2d_de=
+vice *priv)
+>  {
+>  	scoped_guard(mutex, &priv->irq_mutex) {
+>  		scoped_guard(spinlock_irqsave, &priv->irq_lock) {
+>  			priv->irq_active =3D false;
+>  		}
+>  	}
+>  }
+> =20
+>  static irqreturn_t mchp_gfx2d_interrupt(int irq, void *dev_id)
+>  {
+>  	struct mchp_gfx2d_device *priv =3D dev_id;
+>  	u32 status, mask, pending;
+> =20
+>  	/*
+>  	 * We can't call pm_runtime_get_if_active() from here to verify that
+>  	 * the peripheral clock is actually enabled before accessing the
+>  	 * hardware registers because pm_runtime_get_if_active() returns
+>  	 * an error if `dev->power.disable_depth > 0`, which would be true if
+>  	 * mchp_gfx2d_runtime_suspend() had been called from pm_runtime_force_s=
+uspend(),
+>  	 * which calls pm_runtime_disable() first.
+>  	 * Indeed, mchp_gfx2d_runtime_suspend() may need the IRQ handler and
+>  	 * thread to be executed so the `priv->running_cmdlist_empty` event is
+>  	 * notified.
+>  	 *
+>  	 * Instead, we first hold the `priv->irq_lock' lock to prevent races
+>  	 * with the mchp_gfx2d_runtime_{suspend,resume}() and mchp_gfx2d_remove=
+()
+>  	 * functions, then we test the `priv->irq_active` boolean, which can be
+>  	 * true only if the peripheral clock is enabled.
+>  	 */
+>  	guard(spinlock)(&priv->irq_lock);
+
+[Severity: Medium]
+Is it safe to acquire priv->irq_lock here since it is defined as a
+spinlock_t?
+
+On PREEMPT_RT kernels, spinlock_t becomes a sleepable rt_mutex. Acquiring it
+in a hardirq context will trigger a lockdep BUG. Does this lock need to be
+converted to a raw_spinlock_t?
+
+> =20
+>  	if (unlikely(!priv->irq_active))
+>  		return IRQ_HANDLED;
+> =20
+>  	status =3D readl(priv->regs + GFX2D_IS);
+>  	mask =3D readl(priv->regs + GFX2D_IM);
+>  	pending =3D status & mask;
+> =20
+>  	if (pending & GFX2D_IRQ_EXEND)
+>  		return IRQ_WAKE_THREAD;
+> =20
+>  	return IRQ_HANDLED;
+>  }
+> =20
+>  static irqreturn_t mchp_gfx2d_thread(int irq, void *dev_id)
+>  {
+>  	struct mchp_gfx2d_device *priv =3D dev_id;
+>  	struct mchp_gfx2d_gem_object *gfx2d_obj;
+>  	struct device *dev =3D priv->drm.dev;
+>  	bool is_suspended =3D false;
+>  	bool enable_exend =3D false;
+>  	int ret;
+> =20
+>  	/*
+>  	 * See comment in mchp_gfx2d_interrupt() about `priv->irq_active`.
+>  	 * Here, we just hold `priv->irq_mutex` instead of `priv->irq_lock` but
+>  	 * the rationale behind is the same.
+>  	 */
+>  	guard(mutex)(&priv->irq_mutex);
+> =20
+>  	if (unlikely(!priv->irq_active))
+>  		return IRQ_HANDLED;
+> =20
+>  	drm_dbg(&priv->drm, "enter IRQ thread\n");
+> =20
+>  	ret =3D pm_runtime_resume_and_get(dev);
+
+[Severity: High]
+Could this lock ordering lead to an AB-BA deadlock between the PM core lock
+and priv->irq_mutex?
+
+When the PM core auto-suspends the device, it holds the device's PM lock and
+invokes mchp_gfx2d_runtime_suspend(), which eventually calls
+mchp_gfx2d_disable_irq(). This function blocks trying to acquire
+priv->irq_mutex.
+
+Concurrently, if an interrupt fires, the IRQ thread acquires
+priv->irq_mutex and then calls pm_runtime_resume_and_get(dev), which
+blocks waiting for the PM core lock.
+
+[Severity: Medium]
+Will this cause system suspend to fail with -EBUSY?
+
+During system suspend, pm_runtime_force_suspend() disables runtime PM
+before calling the suspend callback. When mchp_gfx2d_stop() waits for
+pending commands, this IRQ thread wakes up but will fail here with -EACCES
+because runtime PM is disabled.
+
+It will exit without processing the commands, causing mchp_gfx2d_stop() to
+time out and return -EBUSY, which ultimately aborts the system suspend.
+
+>  	if (ret)
+>  		goto exit;
+> =20
+>  	writel(GFX2D_IRQ_EXEND, priv->regs + GFX2D_ID);
+> =20
+>  	do {} while (mchp_gfx2d_progress(priv));
+> =20
+>  	mutex_lock(&priv->cmdlist_mutex);
+>  	is_suspended =3D priv->is_suspended;
+>  	mutex_unlock(&priv->cmdlist_mutex);
+> =20
+>  	/*
+>  	 * When suspended, the EXEND interrupt is already enabled from
+>  	 * mchp_gfx2d_progress() if needed.
+>  	 */
+>  	if (is_suspended)
+>  		goto put_autosuspend;
+> =20
+>  	mutex_lock(&priv->wlist_mutex);
+>  	list_for_each_entry(gfx2d_obj, &priv->wlist, w_node) {
+>  		if (is_active(gfx2d_obj)) {
+>  			enable_exend =3D true;
+>  			break;
+>  		}
+>  	}
+>  	mutex_unlock(&priv->wlist_mutex);
+> =20
+>  	if (enable_exend) {
+>  		drm_dbg(&priv->drm,
+>  			"enable EXEND interrupt: still waiting for object %u (%d)\n",
+>  			gfx2d_obj->id, atomic_read(&gfx2d_obj->gpu_active));
+
+[Severity: High]
+Can this drm_dbg() dereference a freed object?
+
+The IRQ thread releases priv->wlist_mutex before accessing gfx2d_obj.
+If the thread sleeping on this object wakes up, removes it from the wait
+list, and drops the final GEM reference, the object can be freed before this
+debug print executes.
+
+Should a GEM reference be taken while the lock is held to prevent this
+use-after-free?
+
+>  	} else {
+>  		enable_exend =3D mchp_gfx2d_has_pending_commands(priv);
+>  		if (enable_exend)
+>  			drm_dbg(&priv->drm,
+>  				"enable EXEND interrupt: some commands are pending\n");
+>  	}
+
+[ ... ]
+
+> @@ -326,6 +326,17 @@ static void mchp_gfx2d_remove(struct platform_device=
+ *pdev)
+>  {
+>  	struct mchp_gfx2d_device *priv =3D platform_get_drvdata(pdev);
+>  	struct device *dev =3D &pdev->dev;
+>  	int ret;
+> =20
+>  	drm_dev_unplug(&priv->drm);
+> =20
+>  	ret =3D pm_runtime_get_sync(dev);
+>  	if (ret < 0)
+>  		dev_warn(dev, "Failed to resume device on remove\n");
+>  	else
+>  		(void)mchp_gfx2d_stop(priv, true);
+> =20
+>  	mchp_gfx2d_disable_irq(priv);
+>  	pm_runtime_put_noidle(dev);
+>  	pm_runtime_dont_use_autosuspend(dev);
+>  	pm_runtime_disable(dev);
+>  	pm_runtime_set_suspended(dev);
+>  	mchp_gfx2d_cleanup_command_queue(priv);
+
+[Severity: High]
+Does mchp_gfx2d_cleanup_command_queue() free resources too early?
+
+drm_dev_unplug() prevents new ioctls but does not block waiting for
+existing drm_dev_enter() sections to exit. If an in-flight ioctl (such as
+MCHP_GFX2D_SUBMIT) continues executing and calls mchp_gfx2d_alloc_command(),
+it will attempt to allocate from the destroyed priv->cmd_cache.
+
+This causes an immediate use-after-free on unbind. Should these resources be
+managed via drmm_ helpers or freed in the DRM release callback?
+
+>  }
+
+> diff --git a/drivers/gpu/drm/microchip/mchp_gfx2d_ioctl.c b/drivers/gpu/d=
+rm/microchip/mchp_gfx2d_ioctl.c
+> index 5ee060cdf7b51..12fa4e87a2a09 100644
+> --- a/drivers/gpu/drm/microchip/mchp_gfx2d_ioctl.c
+> +++ b/drivers/gpu/drm/microchip/mchp_gfx2d_ioctl.c
+> @@ -305,6 +305,14 @@ static void mchp_gfx2d_flush_user_alias(struct drm_g=
+em_object *obj)
+>  {
+>  	struct mm_struct *mm =3D current->mm;
+>  	struct vm_area_struct *vma;
+> =20
+>  	VMA_ITERATOR(vmi, mm, 0);
+> =20
+>  	if (!mm)
+>  		return;
+> =20
+>  	mmap_read_lock(mm);
+>  	for_each_vma(vmi, vma)
+>  		if (vma->vm_private_data =3D=3D obj)
+>  			/* clean+invalidate D by user VA */
+>  			__cpuc_flush_user_range(vma->vm_start, vma->vm_end,
+>  						vma->vm_flags);
+
+[Severity: High]
+Is it reliable to flush the cache by walking only current->mm?
+
+If this buffer is shared via DMA-BUF between multiple processes (such as a
+Wayland compositor and a client), the client's writes might reside in its
+own process's VIVT cache. When the compositor calls
+DRM_IOCTL_MCHP_GFX2D_SYNC_FOR_GPU, it only flushes its own mm, leaving the
+client's dirty cache lines unflushed. This could cause the GPU to read stale
+data.
+
+Additionally, using the internal __cpuc_flush_user_range() macro bypasses
+architecture API boundaries. Should this be handled using standard cache
+management APIs that ensure all VIVT aliases are flushed?
+
+>  	mmap_read_unlock(mm);
+>  }
+> =20
+>  static int mchp_gfx2d_ioctl_sync_for_gpu(struct drm_device *dev, void *d=
+ata,
+>  					 struct drm_file *file_priv)
+>  {
+>  	struct mchp_gfx2d_device *priv =3D drm_to_dev(dev);
+>  	struct drm_mchp_gfx2d_sync_for_gpu *args =3D data;
+>  	struct mchp_gfx2d_gem_object *gfx2d_obj;
+>  	enum dma_data_direction dir;
+>  	struct drm_gem_object *obj;
+>  	int ret =3D 0;
+>  	int idx;
+> =20
+>  	if (!drm_dev_enter(dev, &idx))
+>  		return -ENODEV;
+> =20
+>  	obj =3D drm_gem_object_lookup(file_priv, args->handle);
+>  	if (!obj) {
+>  		ret =3D -ENOENT;
+>  		goto exit;
+>  	}
+> =20
+>  	gfx2d_obj =3D to_mchp_gfx2d_bo(obj);
+> =20
+>  	dir =3D gfx2d_obj->direction;
+>  	if (valid_dma_direction(dir)) {
+>  		dma_sync_single_for_device(dev->dev, gfx2d_obj->base.dma_addr,
+>  					   obj->size, dir);
+> =20
+>  		/*
+>  		 * On SAM9X60 and SAM9X75 SoCs (ARM926), dma_sync_single_for_device()
+>  		 * flushes the data cache based on the kernel virtual address of
+>  		 * the DRM GEM object.
+>  		 * However, the user-space virtual address created by mmap is
+>  		 * different from the kernel one. Since, ARM926 has a VIVT data cache,
+>  		 * there are cache aliasing issues resulting in graphical glitches
+>  		 * if the data cache is not flushed properly.
+>  		 * So, one work-around is to call mchp_gfx2d_flush_user_alias() here.
+>  		 */
+>  		if (priv->caps->has_cache_aliasing)
+>  			mchp_gfx2d_flush_user_alias(obj);
+>  	}
+> =20
+>  	drm_gem_object_put(obj);
+>  exit:
+>  	drm_dev_exit(idx);
+> =20
+>  	return ret;
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261013-cpitchen-m=
+ainline_gfx2d-v11-0-7527f2efab0a@microchip.com?part=3D2
