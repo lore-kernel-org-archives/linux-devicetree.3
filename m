@@ -1,420 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua1-f42.google.com (mail-ua1-f42.google.com [209.85.222.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D7943F1050;
-	Tue, 13 Oct 2026 10:21:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 204A444C518
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 10:24:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791886890; cv=none; b=nU8e8FyodnGcDOjtGB9nGGr5r8r3ou6QDOxH+LUtaH86dqL/nwxjUBONgviGYOS1jMKaEAUkCisJIQzCIcs+sd8simDMbZrYOYpAb+Joc9DLWewrb+Xus+M5xJuITwDaPOPvZrKLeqUa9KHEb0Licj8/aCEqcUU2vT+eMbu4l+w=
+	t=1791887069; cv=none; b=mdNMVG1AA2k5UwPVXROIpYdmsz6sCHJi0QFkY//nv32jvQJTbCQcH50wdarRIpINr6CC5m0AyNRj4po2HeqERZ7zF8qk0I7d8oOfEJI3welP0QcHbW2lfbPn/QjBgfC7YKd2Dla32UW7m11nYjVM+7BWJYhV7Vh/gQ2RcU+lb9s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791886890; c=relaxed/simple;
-	bh=stFWnGr8qituroDzzylkIvteQb6/v1UMCo2xAmzSvDs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=r7DyQjjq/Rb4ViXWjU7GeVgGdZQQ4ilUdeMJxxX7wlLF6kBSqvwCi2Pl1+rdkAYp6oFBFviKvHRBuaUQ/OAI/rBRnjxm48J58ARcCbl2LHwce3k35ls0nAHoYnm8sqQ8a0ATC3Y1JKPsnw8X04gplLuo05srJyEVV44SvRXsmvc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nFCbWyx0; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nFCbWyx0"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id ECF9EC32782;
-	Tue, 13 Oct 2026 10:21:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1791886890;
-	bh=stFWnGr8qituroDzzylkIvteQb6/v1UMCo2xAmzSvDs=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=nFCbWyx0+pURp+cRCJShD8DMD0tBzbl7Qq5CbOIhul5tLduAmaSOzO0zn9mKMwGlO
-	 oHbIwXxVPGBGBg+sJUAyf62BFlVrGVSzJE1cX3+e4p6DNnhke9HiGDPW+OLCp0j51Y
-	 XT25y62gsUUlw1byMSZqEYj1L0Q0cSPIjI0KszoZ8zF19/KrHlJuFWpuN1vDR4yKJY
-	 SF7WU91jrEFAezLenF2hcE756nv8byuKB1r30NSkrF+rtEhmaiiYVMAzg6+oYJgk0V
-	 5XkX/vqoDe24GvSbC4XHPza+fjFqtkptypVAeimCo4I5KcmDZWKnX5KhaPufX3yVZH
-	 5U5GsNdHrhcyg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D789BCA9ED2;
-	Tue, 13 Oct 2026 10:21:29 +0000 (UTC)
-From: Xincheng Ji via B4 Relay <devnull+jixincheng.ultrarisc.com@kernel.org>
-Date: Tue, 13 Oct 2026 18:21:31 +0800
-Subject: [PATCH v3 7/7] riscv: dts: ultrarisc: Add Milk-V Titan board
- device tree
+	s=arc-20240116; t=1791887069; c=relaxed/simple;
+	bh=km1G/HHhK4mc4byWSgOHYVTFBTlTfLPGrUqU5+gvS1U=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=tUpxm1oJ05eb2b60VmxsOj2+Wh4vR6XKenx3FpMKyZM8jQivRHwzfaJR4TPfsHsAW6++Zn4PDQTHGFdslxuPB2u8VrXt9qRZAVnmw/BRuXoXHRHASOKY9kdtYLG7rj4qHSzsGWqLIqXmgTzxRLB2irrlnC11aimR4lH93ZdLpo0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ua1-f42.google.com with SMTP id a1e0cc1a2514c-988bb309c2bso1380255241.1
+        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 03:24:27 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791887067; x=1792491867;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=mGQ/GpRO6vnxq7fb84hh6aj2KXsZIXY1TgeovdND5Hc=;
+        b=DT9mwWilgjQNwFDsV/3C4inzEG9eir6mG2qyCyKm85VE1YNxKCEnSw2QXR5Tz+YAP+
+         OsmOoNQdEbHvcQLv768DfTCcBLs1FUx0PBOyIbhoUlA5EFK+XLqqR9Kn2mwUQ9mvbqY/
+         fiR78PugaurfQRYSqu6Y5ABhU/LhP0jjqPzafDYiAL74LdAeaxdocvZ2wqZ/lzxYXaPD
+         BSRhMEYP0aa+McagVS/jCmoTjRhzKYqPLNiFVdb1mF0ORnXKF2Yyq2RxKK+KeJyFuP9W
+         RKYML3V/TJYri9+B5vSA74y8YF2FFp0hVBZnqDep3JgyhGAVwpmeAzLVws8iFyVXOHDw
+         3nfQ==
+X-Forwarded-Encrypted: i=1; AKwUvByM8UB9+eKGEVtYYLxMbNaPp587gJjk8p8iNdqjocYfFecYtEOEcBjBFby6gH1h8XIb+fsVI1gnIq71@vger.kernel.org
+X-Gm-Message-State: AFq9FYJRNSPexDk1zjLbHLs5q5b8CdmZOLkgjQCYVNN2VRvr7aI1DzEu
+	FGylDWL++3aDJaqK0xqhAXPQtUizN6jm7wdZDolBHJagvTd6gC14/RF6yj+0/8vN
+X-Gm-Gg: AYBFou0aGWZbKD5E8qf+MMAE5/unLJVgC4ayBwzoqz5eR8JDMJ1fv2PuSyNIYPdNatf
+	lX2w35+hncqf+gYDWZjagJzEzZ+zQc45HTTeLRaGabyirHSzwicLzxKuH1WnrmcWo92J6ZeNRTu
+	KZx4UoUdb7vLUPAjpqCGfV+kEJgu1tdgXIcPnnAkN4iUHvTVeqfY6kegCT9XZRexGMcQQKvsRNH
+	L6wDgaFgyD81SATJjDDGUG64tiKh+3MOudAkU6UnqDV6EXOq7xnJjFLdHeov8TA+xcnqQrqOXlF
+	Odhkwt4+jaBp8Q9mBcpM2Rznfj/kBuR2WXk5a5KOMDD7tF4gM6JnpXxxvyeK1ERGQsEJe34/zGm
+	YStwTsl5NRMiJwbUGnDcZ7IPq2RMH8mqdsDCEA/3tNwKrVNeiNzkIMW3TpKba7Dd0Fh1D2lsL4X
+	OfJho1n/E0YyYybOr08R8GMXpqL/5DdGbpbw4fBZu/FLlyuK+NZUfQkkvrQPhOITZm0V1cBs/D/
+	prnGemyVZMWpNGUjjc4IIABqtsGcq2rNwjG
+X-Received: by 2002:a05:6102:579a:b0:7c3:440e:6240 with SMTP id ada2fe7eead31-7cb3730b013mr3470611137.18.1791887067030;
+        Tue, 13 Oct 2026 03:24:27 -0700 (PDT)
+Received: from mail-ua1-f50.google.com (mail-ua1-f50.google.com. [209.85.222.50])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7cb35471536sm8264178137.11.2026.10.13.03.24.25
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 13 Oct 2026 03:24:26 -0700 (PDT)
+Received: by mail-ua1-f50.google.com with SMTP id a1e0cc1a2514c-980c4258105so1250578241.2
+        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 03:24:25 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwm8f9o5eeafjh169oV8gWz7/Z6vijPHUgxu94N0bQHMfdcv6q1PeHGu2f7JAd0xUZD2NvuRLAIGRl6@vger.kernel.org
+X-Received: by 2002:a05:6102:149d:b0:7a7:ad9f:53e2 with SMTP id
+ ada2fe7eead31-7cb36987a53mr4125862137.1.1791887065725; Tue, 13 Oct 2026
+ 03:24:25 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20261013-ultrarisc-dts-v3-7-5ff3ebb2a90d@ultrarisc.com>
-References: <20261013-ultrarisc-dts-v3-0-5ff3ebb2a90d@ultrarisc.com>
-In-Reply-To: <20261013-ultrarisc-dts-v3-0-5ff3ebb2a90d@ultrarisc.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, Jia Wang <wangjia@ultrarisc.com>, 
- Xincheng Ji <jixincheng@ultrarisc.com>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, 
- Thomas Gleixner <tglx@kernel.org>, 
- Samuel Holland <samuel.holland@sifive.com>, 
- Anup Patel <anup@brainfault.org>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Paul Walmsley <paul.walmsley@sifive.com>, 
- Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>, 
- linux-riscv@lists.infradead.org
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1791886887; l=7334;
- i=jixincheng@ultrarisc.com; s=20260922; h=from:subject:message-id;
- bh=dAtkSFZr6AV1hMUKbe3Hu73EzYFoZ2u8+96QxJOEsCA=;
- b=72SwzpA8D3S38FBHDHVeGL6mLxkfQNpWE1jWyvm8+ZSqoWe9++3ZpAkplMu5QtKf/GSR2x7pR
- FrRPOMPWFwkCyW23GfLSh0o7oRS/oCjZcSWOQS2OZlCHM6a7w1peuxS
-X-Developer-Key: i=jixincheng@ultrarisc.com; a=ed25519;
- pk=n848dcS5D6g0vLad/rjp4Gf/1eedTe1a3pYUrkt2260=
-X-Endpoint-Received: by B4 Relay for jixincheng@ultrarisc.com/20260922 with
- auth_id=1046
-X-Original-From: Xincheng Ji <jixincheng@ultrarisc.com>
-Reply-To: jixincheng@ultrarisc.com
+References: <20250718152500.2656391-1-demonsingur@gmail.com> <20250718152500.2656391-22-demonsingur@gmail.com>
+In-Reply-To: <20250718152500.2656391-22-demonsingur@gmail.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 13 Oct 2026 12:24:13 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXA83Dm=Mf9MFdGNH+-J6dPrZJGS0R_6hPNgC0x1suBHw@mail.gmail.com>
+X-Gm-Features: AclHuK9EzHrMNGZ9VqEt7mZlsF4wljWQ4a5mjitwSzx9DSYBvOK99D8Xhx8xmLo
+Message-ID: <CAMuHMdXA83Dm=Mf9MFdGNH+-J6dPrZJGS0R_6hPNgC0x1suBHw@mail.gmail.com>
+Subject: Re: [PATCH v7 21/24] arm64: defconfig: disable deprecated MAX96712 driver
+To: Cosmin Tanislav <demonsingur@gmail.com>
+Cc: Cosmin Tanislav <cosmin.tanislav@analog.com>, 
+	Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+	=?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund@ragnatech.se>, 
+	Julien Massot <julien.massot@collabora.com>, Sakari Ailus <sakari.ailus@linux.intel.com>, 
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Linus Walleij <linus.walleij@linaro.org>, 
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-staging@lists.linux.dev, linux-gpio@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-From: Jia Wang <wangjia@ultrarisc.com>
+Hi Cosmin,
 
-Milk-V Titan is an ITX motherboard based on the UltraRISC DP1000 SoC.
+On Fri, 18 Jul 2025 at 17:33, Cosmin Tanislav <demonsingur@gmail.com> wrote:
+> The staging MAX96712 driver will be removed as its functionality has
+> been moved to the MAX96724 driver which makes use of the Maxim
+> GMSL2/3 deserializer framework.
+>
+> Signed-off-by: Cosmin Tanislav <demonsingur@gmail.com>
 
-Link: https://milkv.io/docs/titan/overview
-Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
----
- arch/riscv/boot/dts/ultrarisc/Makefile             |   1 +
- .../dts/ultrarisc/dp1000-milkv-titan-pinctrl.dtsi  | 108 +++++++++++
- .../boot/dts/ultrarisc/dp1000-milkv-titan.dts      | 203 +++++++++++++++++++++
- 3 files changed, 312 insertions(+)
+Thanks for your patch, which is now commit e8d5a57e6d0ce827 ("arm64:
+defconfig: disable deprecated MAX96712 driver") in media/master.
 
-diff --git a/arch/riscv/boot/dts/ultrarisc/Makefile b/arch/riscv/boot/dts/ultrarisc/Makefile
-index 454d849a6ce4..dfd15c064d07 100644
---- a/arch/riscv/boot/dts/ultrarisc/Makefile
-+++ b/arch/riscv/boot/dts/ultrarisc/Makefile
-@@ -1,2 +1,3 @@
- # SPDX-License-Identifier: GPL-2.0
-+dtb-$(CONFIG_ARCH_ULTRARISC) += dp1000-milkv-titan.dtb
- dtb-$(CONFIG_ARCH_ULTRARISC) += dp1000-shenrongda-m0.dtb
-diff --git a/arch/riscv/boot/dts/ultrarisc/dp1000-milkv-titan-pinctrl.dtsi b/arch/riscv/boot/dts/ultrarisc/dp1000-milkv-titan-pinctrl.dtsi
-new file mode 100644
-index 000000000000..7a812e40a249
---- /dev/null
-+++ b/arch/riscv/boot/dts/ultrarisc/dp1000-milkv-titan-pinctrl.dtsi
-@@ -0,0 +1,108 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright(C) 2026 UltraRISC Technology (Shanghai) Co., Ltd.
-+ */
-+
-+#include "dp1000.dtsi"
-+#include "dp1000-pinctrl.h"
-+
-+&pinctrl {
-+	i2c0_pins: i2c0-pins {
-+		pins = <PA12 PA13>;
-+		function = "i2c";
-+		bias-pull-up;
-+		drive-strength = <33>;
-+	};
-+
-+	i2c1_pins: i2c1-pins {
-+		pins = <PB6 PB7>;
-+		function = "i2c";
-+		bias-pull-up;
-+		drive-strength = <33>;
-+	};
-+
-+	i2c2_pins: i2c2-pins {
-+		pins = <PC0 PC1>;
-+		function = "i2c";
-+		bias-pull-up;
-+		drive-strength = <33>;
-+	};
-+
-+	i2c3_pins: i2c3-pins {
-+		pins = <PC2 PC3>;
-+		function = "i2c";
-+		bias-pull-up;
-+		drive-strength = <33>;
-+	};
-+
-+	io_pins: io-pins {
-+		pins = <PA10 PA15 PB0 PB1 PB2 PD6 PD7>;
-+		function = "gpio";
-+		bias-pull-up;
-+		drive-strength = <33>;
-+	};
-+
-+	gpio_keys_pins: gpio-keys-pins {
-+		pins = <PA4 PA11 PA14>;
-+		function = "gpio";
-+		bias-pull-up;
-+		drive-strength = <33>;
-+	};
-+
-+	mux_dcdc_i2c_pins: mux-dcdc-i2c-pins {
-+		pins = <PA5>;
-+		function = "gpio";
-+	};
-+
-+	mux_i2c3_pins: mux-i2c3-pins {
-+		pins = <PA6>;
-+		function = "gpio";
-+	};
-+
-+	mux_uart0_pins: mux-uart0-pins {
-+		pins = <PA7>;
-+		function = "gpio";
-+	};
-+
-+	spi0_pins: spi0-pins {
-+		pins = <PD0 PD1 PD2 PD3 PD4 PD5>;
-+		function = "spi";
-+		bias-pull-up;
-+		drive-strength = <33>;
-+	};
-+
-+	spi1_pins: spi1-pins {
-+		pins = <PA0 PA1 PA2 PA3>;
-+		function = "spi";
-+		bias-pull-up;
-+		drive-strength = <33>;
-+	};
-+
-+	uart0_pins: uart0-pins {
-+		pins = <PA8 PA9>;
-+		function = "uart";
-+		bias-pull-up;
-+		drive-strength = <33>;
-+	};
-+
-+	uart1_pins: uart1-pins {
-+		pins = <PB4 PB5>;
-+		function = "uart";
-+		bias-pull-up;
-+		drive-strength = <33>;
-+	};
-+
-+	uart2_pins: uart2-pins {
-+		pins = <PC4 PC5>;
-+		function = "uart";
-+		bias-pull-up;
-+		drive-strength = <33>;
-+	};
-+
-+	uart3_pins: uart3-pins {
-+		pins = <PC6 PC7>;
-+		function = "uart";
-+		bias-pull-up;
-+		drive-strength = <33>;
-+	};
-+};
-diff --git a/arch/riscv/boot/dts/ultrarisc/dp1000-milkv-titan.dts b/arch/riscv/boot/dts/ultrarisc/dp1000-milkv-titan.dts
-new file mode 100644
-index 000000000000..59edd8157221
---- /dev/null
-+++ b/arch/riscv/boot/dts/ultrarisc/dp1000-milkv-titan.dts
-@@ -0,0 +1,203 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright(C) 2026 UltraRISC Technology (Shanghai) Co., Ltd.
-+ */
-+
-+#include "dp1000-milkv-titan-pinctrl.dtsi"
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/input/input.h>
-+#include <dt-bindings/input/gpio-keys.h>
-+#include <dt-bindings/interrupt-controller/irq.h>
-+#include <dt-bindings/leds/common.h>
-+
-+/ {
-+	model = "Milk-V Titan";
-+	compatible = "milkv,titan", "ultrarisc,dp1000";
-+
-+	aliases {
-+		serial0 = &uart0;
-+		serial1 = &uart1;
-+		serial2 = &uart2;
-+		serial3 = &uart3;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	gpio-keys {
-+		compatible = "gpio-keys";
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&gpio_keys_pins>;
-+
-+		key-wakeup-0 {
-+			label = "Wake-Up";
-+			gpios = <&gpio_a 14 GPIO_ACTIVE_LOW>;
-+			linux,code = <KEY_WAKEUP>;
-+			linux,input-type = <EV_KEY>;
-+			debounce-interval = <10>;
-+			wakeup-source;
-+			wakeup-event-action = <EV_ACT_ASSERTED>;
-+		};
-+
-+		key-wakeup-1 {
-+			label = "Power";
-+			gpios = <&gpio_a 11 GPIO_ACTIVE_LOW>;
-+			linux,code = <KEY_POWER>;
-+			linux,input-type = <EV_KEY>;
-+			debounce-interval = <10>;
-+			wakeup-source;
-+			wakeup-event-action = <EV_ACT_ASSERTED>;
-+		};
-+
-+		key-wakeup-2 {
-+			label = "Wake-Up-by-USB";
-+			interrupts-extended = <&gpio_a 4 IRQ_TYPE_EDGE_FALLING>;
-+			linux,code = <KEY_WAKEUP>;
-+			linux,input-type = <EV_KEY>;
-+			debounce-interval = <10>;
-+			wakeup-source;
-+		};
-+	};
-+};
-+
-+&i2c0 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c0_pins>;
-+};
-+
-+&i2c1 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c1_pins>;
-+};
-+
-+&i2c2 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c2_pins>;
-+
-+	rtc@68 {
-+		compatible = "st,m41t11";
-+		reg = <0x68>;
-+	};
-+};
-+
-+&i2c3 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&i2c3_pins>;
-+};
-+
-+&spi0 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&spi0_pins>;
-+};
-+
-+&spi1 {
-+	num-cs = <1>;
-+
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&spi1_pins>;
-+};
-+
-+&uart0 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&uart0_pins>;
-+};
-+
-+&uart1 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&uart1_pins>;
-+};
-+
-+&uart2 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&uart2_pins>;
-+};
-+
-+&uart3 {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&uart3_pins>;
-+};
-+
-+&pcie_x16 {
-+	status = "okay";
-+};
-+
-+&pcie_x4a {
-+	status = "okay";
-+};
-+
-+&pcie_x4b {
-+	status = "okay";
-+};
-+
-+&gpio {
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&io_pins &mux_dcdc_i2c_pins &mux_i2c3_pins &mux_uart0_pins>;
-+};
-+
-+&gpio_a {
-+	dcdc-i2c-mux-hog {
-+		gpio-hog;
-+		gpios = <5 GPIO_ACTIVE_HIGH>;
-+		output-low;
-+		line-name = "dcdc-i2c-mux";
-+	};
-+
-+	i2c3-mux-hog {
-+		gpio-hog;
-+		gpios = <6 GPIO_ACTIVE_HIGH>;
-+		output-low;
-+		line-name = "i2c3-mux";
-+	};
-+
-+	uart0-mux-hog {
-+		gpio-hog;
-+		gpios = <7 GPIO_ACTIVE_HIGH>;
-+		output-high;
-+		line-name = "uart0-mux";
-+	};
-+};
-+
-+&ethernet {
-+	phy-handle = <&phy0>;
-+	/*
-+	 * The PCB does not add RGMII TX or RX clock delays. The DP1000
-+	 * integration adds fixed delays in both directions.
-+	 */
-+	phy-mode = "rgmii-id";
-+
-+	status = "okay";
-+
-+	mdio {
-+		compatible = "snps,dwmac-mdio";
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		phy0: phy@0 {
-+			reg = <0>;
-+
-+			leds {
-+				#address-cells = <1>;
-+				#size-cells = <0>;
-+
-+				led@1 {
-+					label = "eth-link";
-+					reg = <1>;
-+					color = <LED_COLOR_ID_YELLOW>;
-+					function = LED_FUNCTION_INDICATOR;
-+					default-state = "keep";
-+					linux,default-trigger = "netdev";
-+				};
-+
-+				led@2 {
-+					label = "eth-activity";
-+					reg = <2>;
-+					color = <LED_COLOR_ID_GREEN>;
-+					function = LED_FUNCTION_ACTIVITY;
-+					default-state = "keep";
-+					linux,default-trigger = "netdev";
-+				};
-+			};
-+		};
-+	};
-+};
+> --- a/arch/arm64/configs/defconfig
+> +++ b/arch/arm64/configs/defconfig
+> @@ -1300,7 +1300,6 @@ CONFIG_GREYBUS=m
+>  CONFIG_GREYBUS_BEAGLEPLAY=m
+>  CONFIG_STAGING=y
+>  CONFIG_STAGING_MEDIA=y
+> -CONFIG_VIDEO_MAX96712=m
 
--- 
-2.34.1
+As Niklas has already pointed out in a reply to v5, you forgot to enable
+the replacement CONFIG_VIDEO_MAX96724, thus breaking operation.
+
+>  CONFIG_VIDEO_MESON_VDEC=m
+>  CONFIG_SND_BCM2835=m
+>  CONFIG_CHROME_PLATFORMS=y
+
+Gr{oetje,eeting}s,
+
+                        Geert
 
 
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
