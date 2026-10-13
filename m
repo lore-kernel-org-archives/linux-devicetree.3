@@ -1,159 +1,114 @@
-Received: from TYDPR03CU002.outbound.protection.outlook.com (mail-japaneastazon11023081.outbound.protection.outlook.com [52.101.127.81])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0675A48641C;
-	Tue, 13 Oct 2026 05:46:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.127.81
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791870406; cv=fail; b=nJNagJQ+6AQSpoLxmBFjeEmcPPf+jWB2yxr8pmvT2w82f+zoxcIXDhBCOZDJ3WscMActHzk9eSv8V+6l//m2GBxm+2oXMVHln4SSGyuIVTryyXFN4YM3ZqBCtbMmOzgt9WqTLB8CbBI07x91hSz+2EO1k2oNyql1udBRtRDXBTo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791870406; c=relaxed/simple;
-	bh=cst2eBIhdCMkloKJXh9zjv04CSd2w73zJ/tEv2xtZvo=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=g1tH7lLdfHr9ndarjOd85vitbvBQ/mKdsOnSXF3QamVa80+y9vaMBnx/zw5zfrkFF9tfvYdnwX69Zgk2D6Zqw3bY5jA7n4urFY+Pc36KTxlSzXkqhhT6NXZzFjL6cuDWWmaS0+wJHEjATIJTWCjdOJnenFsdJwj8adOhkbiioEA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com; spf=pass smtp.mailfrom=aspeedtech.com; dkim=pass (2048-bit key) header.d=aspeedtech.com header.i=@aspeedtech.com header.b=l/jRQKhJ; arc=fail smtp.client-ip=52.101.127.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=aspeedtech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=aspeedtech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B697448F03D;
+	Tue, 13 Oct 2026 05:46:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791870423; cv=none; b=vE078mi0a0hNgfu9+HHW9oNsCKL3qZWhR0wCGwbalnt3nDm9R9R6RRnUvU/k/jWaK9PCqw6uIKdCNRNSQSWVHFYJb+iPvbKWqxOA78ux2G2VrSr7xEAWi3hvC9JKtnKV4mGodjJQ5ysPf1zdHMzB6+z/PfDAewVNSsGf1OrVtWM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791870423; c=relaxed/simple;
+	bh=CBPCuL8U0TsGb4GEszzoU0ytkaR9kaOQhhtNWG1SSBw=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=hcmDE88mUlEapUuiOCeZ3R8d9foBlQuD/lAApVMI3kuGhvRlXOsIn0FVHrFXLqnVSGH8l6MVFCMVyWlK4R1azpc5E1JH3AlEs0EEExHvPJvwF0ZpVgqQyQhxT3ZMwqRZ91Bdf5G8FRJPyB0+mZYSnr/6TkA9KxK6jRHLraj0QCI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a2Poz1gs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=aspeedtech.com header.i=@aspeedtech.com header.b="l/jRQKhJ"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=AJONilKyHuMj3X/8dgK9rTcnBxT28cWtf5HQ80AMCeNocCMXrHWDXU2ObSVDPaZuuB4ViKkvNcX/Mq3voJIVo8118L9zorqAEqV6UHg09rdURG37gSFXGfHssLJ0Mv2Gksww7/K3KzyXt99yaJVZsbYMMtxxhIUJK7X8elxwbQljM5tAcfHWFj/djKn0mifMpLyr1uAulLSPt6pyrOJBTQepghIHJ9zmeKsFzm6Cwd6l5gwF3MkLU7bfty4aQ05BWT96uTCS8tMhltNGWc3UlN4GQYEXabzqnr6JOB9psyiAyYLHCaDhAHcAuMHbvd9Xzsm/cyRHHiiMJ5BlpzR7WQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cst2eBIhdCMkloKJXh9zjv04CSd2w73zJ/tEv2xtZvo=;
- b=kD75IEcwiM2QoeJDflWVnUOPofQPwxZAICJYRE9KbDY9YDANQRn/TrmKJvQ8enbIdVndjOOH2s5+GBZJEQ8oFpC6zPo8jCwsWhLDwoQrtetTnTJsXJkQI0cXm6uj6Khck4soZB7ZG3dxUG0tjoYCIPHwtRhvpAyGj8/4e4GuTXnTJ75e9BRC3WMriNacS6KVBNVWJ5xSjtpw8WmEC/binH45GJ3MARLg8AwTVpDJWuBvFEAOBFGBBZSchc+AAYtGLDIWSzU/Gn1CJPajNtXkspKICuB/FX+jdgUgepGjxzK2hrQV8GqOpeASP37hV4qn7sp7UGdtxFNOqo2WgpEwgA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=aspeedtech.com; dmarc=pass action=none
- header.from=aspeedtech.com; dkim=pass header.d=aspeedtech.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=aspeedtech.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cst2eBIhdCMkloKJXh9zjv04CSd2w73zJ/tEv2xtZvo=;
- b=l/jRQKhJNbqfC72MQzda7btH3Twv5BC9Pyl5A2U1Wj/BXwfqJ+Y4yJqjF5IHaZn3FIQu3wXpaLNdI12O0qaVIR7tHe3OvTvB3UrJlOt/mr/glcwrv0XWg2doZcBGtkr/6NnZ+o2IYO6RL3gQKuQjPr9k6EjcIOELe/lMXf9/r6djfNnEHQNBMPQhkTAbsCseZ+jlXigYX7l3Xd9sb0Ri/0o7upY0BJLBirq+UBCAp8Zx1i08jJvyM4osveIhtfMRXgtZHy7M37/1ab/lYYOno7FH96pcJuHWk7sLRdFJNpze48wgV1sefkXSfJ47gCTujpEGdlWQ7/AlANSdoOIahw==
-Received: from SEYPR06MB5134.apcprd06.prod.outlook.com (2603:1096:101:5a::12)
- by SEYPR06MB7000.apcprd06.prod.outlook.com (2603:1096:101:1e3::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.21; Tue, 13 Oct
- 2026 05:46:39 +0000
-Received: from SEYPR06MB5134.apcprd06.prod.outlook.com
- ([fe80::f53d:547a:8c11:fc6c]) by SEYPR06MB5134.apcprd06.prod.outlook.com
- ([fe80::f53d:547a:8c11:fc6c%3]) with mapi id 15.21.0496.021; Tue, 13 Oct 2026
- 05:46:39 +0000
-From: Jacky Chou <jacky_chou@aspeedtech.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-CC: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>, Andrew
- Jeffery <andrew@codeconstruct.com.au>, Manivannan Sadhasivam
-	<mani@kernel.org>, Ryan Chen <ryan_chen@aspeedtech.com>, Billy Tsai
-	<billy_tsai@aspeedtech.com>, "linux-aspeed@lists.ozlabs.org"
-	<linux-aspeed@lists.ozlabs.org>, "linux-phy@lists.infradead.org"
-	<linux-phy@lists.infradead.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject:
- =?utf-8?B?5Zue6KaGOiBbUEFUQ0ggMi8zXSBwaHk6IGFzcGVlZDogQWRkIEFTUEVFRCBQ?=
- =?utf-8?Q?CIe_PHY_driver?=
-Thread-Topic: [PATCH 2/3] phy: aspeed: Add ASPEED PCIe PHY driver
-Thread-Index: AQHdVxgnBL20YPLWJky4Vc5bhAVwAbb1BQWAgAX33OA=
-Date: Tue, 13 Oct 2026 05:46:39 +0000
-Message-ID:
- <SEYPR06MB5134569F41D37B0CD4D201569D9E2@SEYPR06MB5134.apcprd06.prod.outlook.com>
-References: <20261008-aspeed_pcie_phy-v1-0-96764937aef0@aspeedtech.com>
- <20261008-aspeed_pcie_phy-v1-2-96764937aef0@aspeedtech.com>
- <20261009-cherry-caribou-of-glamour-adaba4@quoll>
-In-Reply-To: <20261009-cherry-caribou-of-glamour-adaba4@quoll>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=aspeedtech.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SEYPR06MB5134:EE_|SEYPR06MB7000:EE_
-x-ms-office365-filtering-correlation-id: ab070e7e-7ada-4cd4-a26a-08df28ed5a4d
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|376014|7416014|366016|1800799024|23010399003|38070700021|56012099006|4143699003|261009223027099003|10067099003|18002099003|22082099003;
-x-microsoft-antispam-message-info:
- IYv718EY0lkwv6LDEjj4wxuxxFykSoGVJx2ZaRr1ZlbGVs4FkzKqS7WMn1LdK/yfyoLqFTq73waIrOHIIoVFYqpl4lUfzFLWPNV3XzT4oOuEvm6OSy6ZpB6bZnDxzQYUfN+7MMn/M8ktSmOIQR+rTNAexKLdiXzyvteoHJUthCVLmuRVXHAZ9IOACzmka0xk+0wF3HbrUaxDh5FNs17gZgmAKh88ld2+E4xFj6PexwnE5Ma7tV+YdoNOeLvJq9UuXO5KiBafWeufJ7SiNh0EoKvqzq2MHqtM4YqOUHXut/1uqQXTO03+NriM3LFOnxIjyhxNhMfrYRNTClbFEuvsYnJthI6EcrkNkXAu2zdwp1nDGj8gvRxw9A5JCANJmYqumkSB7gtZ5loVop2Kn73v4nPHP3QbqPyEOsBBz/YoAYiazXTmEVoe6oRaxn0K21WUwsItNbXJI3bcgK5GAQkDyQIJ2JITiFZ+HCrkkblFoUGGO3HV2T8c1I2+s+VYUhMEBLVmasJvvGp9qe4UIqsWw9fa5sU11JiYH/O9ZCPQFWC/bqrKxXjsK1EQthP03ztdhkKpVuQjDzZ0Evzbt9vOAW6EO0gwAIEfZaqzyAgeB6iJcOGOH0f1SBXIrM7g99zafdVsVRM/jgqTDGfcrDEHmufkP/o2Gz6NC2/gW/obNBydcZS+YOkKBDfWcpLKlG4XQGPs4imbOVYJ8seH/GoCbvM6FkMVbtt4U2mVYkQiD/U=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:zh-tw;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SEYPR06MB5134.apcprd06.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(366016)(1800799024)(23010399003)(38070700021)(56012099006)(4143699003)(261009223027099003)(10067099003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?THpxK0NYWG5UQTlMNUFmWkU0QXllWEFVOUQ4VTk3bDBPTnc5RWgyeHBpdXlO?=
- =?utf-8?B?VHE2Q3VxTTRBbXF2emhGc3IrakN4aDREQVI3VFZQbWhUdTM4UlF0VjNSTlVt?=
- =?utf-8?B?Mkhab0xadjlkUFpjclFST0xWaUNydTQvWHVPQmZNRGFza1R5S25hQllaZllI?=
- =?utf-8?B?WXJnNittSS9laTVRQ2lIRTdVQVR0dGl0OEVJNE00MkZLMUlwKzU4SWMzd3lv?=
- =?utf-8?B?b0txeFFlZ0ZkRE16OFJ5KzM3MUR3K3Z2cUpwNm1PbDJmdjdwdktMNVFRNGhL?=
- =?utf-8?B?R3ZvUE1IWlhtaE9FVlo1L2RYNGQ1a2VabVBESFdvN25Ca1o1MHcyRyt1L3Bx?=
- =?utf-8?B?MDNxV0IxWXBRR1NWWnBWSTBDZnhJdElMeldjamtiZkNtTW5SRjdiMEo3WURY?=
- =?utf-8?B?b1k1QzZNNW9vdWdwdG5PTkt4VlF6YmJIMUJ0dS9lOWRuQWdUcE9ONDg0cWVy?=
- =?utf-8?B?NWdQdlc0djFTdkNvdEJ3enlQaFhFSmsrSW9DKzlXUlBvSlZFNGpnbnRsOHcv?=
- =?utf-8?B?eGtiZ1VMZ1Y4bmV0TXF6TkwwOWxGSTNhTUYwdkdmR2ZlYmRPdjNabWQrVmNj?=
- =?utf-8?B?RXdzZzROVCtzMEhPbWtyaThtdGRQOC9lVHlqR29SZEJlamZHMnhYN1BIWEJu?=
- =?utf-8?B?R0N2dzUvQ0ZtMUxFLzFhU2h4SXdEVmFhVGFEVExnd2dJekZxYTFzQnloMExG?=
- =?utf-8?B?ZWdSaTRicCt0QmZhMnFMSjg4VnBMQ3EwcVJBSXJpczVDQkowZllldVVhSjJj?=
- =?utf-8?B?amlIbHdvbFk5YkN5bk1TSHVGbU12Nm03SldPTURLR0hrbmNtRE9uOFlGWVFw?=
- =?utf-8?B?U3VtVjE2MC9YWU8vZDJIYlgwZ1RBNEpDNGxQMUdpSmJzR0x0NzZlUm1ZS3Uw?=
- =?utf-8?B?VEVsT2dwWW5BSkRGZ2ZpWWNkamNGQmNhM1VoT0RiNjlKQ3EvSmJBV3pXSDZZ?=
- =?utf-8?B?dk5IK1piRmxPMGFOY205UFJmUGNlNmNuZW54eWFXWkdhcTRtU1RUaGxSaUlu?=
- =?utf-8?B?NnV0YnFPQ1Rzc09pcUMzbnFGeDErNlBqLzJWcFVlUlc5Y2RMY1FWUXAzOW5Z?=
- =?utf-8?B?S1o4YXpSRzNoZ3FobmpON0taSlpIUDFySFVobysyQURQYTlzUklwVWlZNGRL?=
- =?utf-8?B?d0pCb0o0a3ZXQ0p1UVBVaFFlb0JnYUVlNkxyRGp3Vkc0ZHZuWncwdW5HQTZ3?=
- =?utf-8?B?ckk2WEMyOVV4Q2laMVRsS0l5SHc3ZWc3RVVHOWlqL3FVZFJrQkVYdXpVV1Fp?=
- =?utf-8?B?MFJDZklvTkwwalQ1SVNnTlJtVTZ5R1dhUlhzd09JMzdzVWd2TmlLRWhPTkxh?=
- =?utf-8?B?aEhLY3pHKzVnaHVkcC9LZGdmSE1xcSs4ZlY0WW1FK1loSnpISGZOYjdGaWVS?=
- =?utf-8?B?YmtKQWVzZ1VBOVEwSzV6bUJMT3J5MkYxcUtrVHZma0p2c0JUVGxNZ3Ivampi?=
- =?utf-8?B?L1lnN3BjMkNjTjU3TFI5Ri81aWUrVTZRRlp0RyszSWRZV2FFVnVMZzEzQTg4?=
- =?utf-8?B?QnorZDlXelFJSm1heTRwVnZ4Q0VBczE4V1FQNTJWdDZ4NmFuKzlLTVRHL0xL?=
- =?utf-8?B?T3ZRREY4aGcxNG9Gdm9uSXpDaDRQcHpWZTA4Uk9qZmNZV2FWOUJld1J5cFox?=
- =?utf-8?B?SnJxZXVxdmtnQ0dmMkRDbDdDZUI1bmZuTmRMbDhEQlFFbnlDQ2tNVkNSbUZC?=
- =?utf-8?B?WUZzRG0zb0NxSmdpc2tiVEZLWTZPdjdmbUllYmlsWU9sOWpNaEhUTmxkZ1Z0?=
- =?utf-8?B?OFhJTWtsSXhuOU8vZmhkaVFmWU0remwzQW96NmdPcFRrcWYwaXFkU21aZ2Rz?=
- =?utf-8?B?TnZ0TUw2S2svNGEwK2ozNFBDZHNvbmg2MkJiVWs1SjkrRlMwL0FUNmI4VUVX?=
- =?utf-8?B?U3l0eXZ1S20rbGs3cGIvbHFRcUxKQnBSZ0pjQWhHT0ZBY2pJM3U4bFVNMmxo?=
- =?utf-8?B?VngvcVFHdGxFOVcyVVYzKzAvS0RRTFYwSmxsUlZOSUtsSW5DcXJjNk9NWXEv?=
- =?utf-8?B?R0E2K1BabFBxbXRhaENIWFl1clBkdk9oWjZ1UXY1TzQ3WkhnQzRTOVZteGY0?=
- =?utf-8?B?azNBVkh1MnludVltdnBQdWtTdk9NeUJxb3IxRjdrZ2xlZ1dUZGEwSU9aZ1BT?=
- =?utf-8?B?b3NERmxwWDJoR0NKVGJyekJtWFlrUFhKYU9TT3NsKzFmbEt2QUxlZjJrYU54?=
- =?utf-8?B?VU9lWGpoMkNxZDB5cVNUQldkaXFCZTAzK2l5ZW9zMmR2RzZzNHFIZEthZW5j?=
- =?utf-8?B?bUtybUFlKzY0WnNXcm1EL0U3MkxmVGx4U1lxeEhKa3lNZWo4dDFLQjlDQks3?=
- =?utf-8?B?TVE2bW1JZ3pSZEZnYlVrT1lkNnZzVW5BRkN6eDV5WE5hQS9Cd2l0QT09?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a2Poz1gs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2A0C1F000FF;
+	Tue, 13 Oct 2026 05:46:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791870414;
+	bh=hfoty2myeeNDg4UHIGPtwOev+qiCrpet+Uf8g0/6qTM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=a2Poz1gssLYrcKpG5LdLQA/8u4KwTJlSepawFf0pcWUvL3uTDmbhbBjCVkbOYxydW
+	 L5WecK5eD6yJ2y60M3kYwFMxWfzUDhn2VJJ9fPk9YAAOK+FSY15EbpU0J7TtzrfY/5
+	 XGGwGWvd/MEfkmVVgjdflg0kqjy4JVD7vICXdUqfDPrztB6dYD6z8q0cfkmU8uJ4+s
+	 guQiLhX+2PbwyfXrruVvuUahzrik9pq8GceqE5QZoeDVNW2aju8kSj5Bdg4UGRf3Li
+	 P6+y0wQVOK1I27Ex3u04dXH3P7Jdf+gQQ+GWAyXW0vFZvau1e4o3zLrd318ePmCAee
+	 JV21IxUsnGiCA==
+Message-ID: <sashiko-outbox-169010@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 6/6] leds: aw2013: Move reset register write
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Paul Sajna" <sajattack@postmarketos.org>
+Cc: linux-leds@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, lee@kernel.org
+In-Reply-To: <20261012-aw2013-aw20xx-rename-v3-6-cab1fdd050b6@postmarketos.org>
+References: <20261012-aw2013-aw20xx-rename-v3-0-cab1fdd050b6@postmarketos.org>
+ <20261012-aw2013-aw20xx-rename-v3-6-cab1fdd050b6@postmarketos.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 13 Oct 2026 05:46:53 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-OriginatorOrg: aspeedtech.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SEYPR06MB5134.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ab070e7e-7ada-4cd4-a26a-08df28ed5a4d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Oct 2026 05:46:39.6327
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43d4aa98-e35b-4575-8939-080e90d5a249
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 4LSuV4iFbQDRQGAUOJwOZ/dpCVz2BYdNWc/XSz6HKfiTHUuYyrdzl/+XJRSrqI+Bbvm+WeBo5ib66tLDJWzqxk2d2MWjH6sybVU1Rxb2IXw=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SEYPR06MB7000
 
-SGkgS3J6eXN6dG9mLA0KDQpUaGFuayB5b3UgZm9yIHlvdXIgcmVwbHkuDQoNCj4gPiBJbnRyb2R1
-Y2Ugc3VwcG9ydCBmb3IgQXNwZWVkIFBDSWUgUEhZIGNvbnRyb2xsZXIgYXZhaWxhYmxlIGluDQo+
-ID4gQVNUMjYwMC8yNzAwLg0KPiA+DQo+ID4gU2lnbmVkLW9mZi1ieTogSmFja3kgQ2hvdSA8amFj
-a3lfY2hvdUBhc3BlZWR0ZWNoLmNvbT4NCj4gPiAtLS0NCj4gPiAgZHJpdmVycy9waHkvYXNwZWVk
-L0tjb25maWcgICAgICAgICAgIHwgIDEyICstDQo+ID4gIGRyaXZlcnMvcGh5L2FzcGVlZC9NYWtl
-ZmlsZSAgICAgICAgICB8ICAgMSArDQo+ID4gIGRyaXZlcnMvcGh5L2FzcGVlZC9waHktYXNwZWVk
-LXBjaWUuYyB8IDIzNw0KPiA+ICsrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrDQo+
-IA0KPiBBbmQgdW5saWtlIDEwIHByZXZpb3VzIHZlcnNpb25zLCB0aGlzIHdhc24ndCBldmVuIGJ1
-aWx0IQ0KPiANCg0KSSBidWlsdCB0aGlzIHZlcnNpb24gd2l0aCBhbiBBUk02NCBjb21waWxlciBh
-bmQgZW5jb3VudGVyZWQgbm8gZXJyb3JzLiANCkFmdGVyIHNlZWluZyB0aGF0IHRoZSByZXBvcnRl
-ZCBmYWlsdXJlIG9jY3VycmVkIGluIGFuIHg4Nl82NCBidWlsZCwgDQpJIGFsc28gdGVzdGVkIGFu
-IHg4Nl82NCBidWlsZCBhbmQgcmVwcm9kdWNlZCB0aGUgZXJyb3JzLg0KSSdsbCBjaGVjayBidWls
-ZHMgZm9yIGJvdGggYXJjaGl0ZWN0dXJlcyBpbiBmdXR1cmUgc3VibWlzc2lvbnMuDQoNClRoYW5r
-cywNCkphY2t5DQo=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] leds: aw2013: Double mutex unlock on error paths in aw2013_probe()
+- [Low] leds: aw2013: Use of dev_err() instead of dev_err_probe() for probe=
+ failures
+--
+
+commit 96e8f9d5ce7deeb0752d6125191c77378696f3e4
+Author: Paul Sajna <sajattack@postmarketos.org>
+
+leds: aw2013: Move reset register write
+
+This patch moves the chip reset register write from aw2013_probe_dt() to
+aw2013_probe(), and unlocks the mutex before calling aw2013_probe_dt() to
+avoid a deadlock. The deadlock would otherwise occur when LED classdev
+registration triggers a brightness set callback.
+
+> diff --git a/drivers/leds/leds-aw2013.c b/drivers/leds/leds-aw2013.c
+> index 6e661afd77755..8d1d649064c71 100644
+> --- a/drivers/leds/leds-aw2013.c
+> +++ b/drivers/leds/leds-aw2013.c
+[ ... ]
+> @@ -504,6 +502,14 @@ static int aw2013_probe(struct i2c_client *client)
+>  	if (ret)
+>  		goto error_reg;
+> =20
+> +	ret =3D regmap_write(chip->regmap, AW2013_RSTR, AW2013_RSTR_RESET);
+> +	if (ret) {
+> +		dev_err(&chip->client->dev, "Failed to reset the chip: %d\n", ret);
+
+[Severity: Low]
+Is dev_err() the right function to use here for reporting a probe failure?
+The subsystem guidelines recommend using dev_err_probe() in probe paths
+to ensure proper handling of -EPROBE_DEFER and correct kernel log formattin=
+g.
+
+> +		goto error_reg;
+> +	}
+> +
+> +	mutex_unlock(&chip->mutex);
+> +
+>  	ret =3D aw2013_probe_dt(chip);
+>  	if (ret < 0)
+>  		goto error_reg;
+
+[Severity: High]
+Can jumping to error_reg here cause a double unlock of chip->mutex?
+
+By moving mutex_unlock(&chip->mutex) to execute before aw2013_probe_dt(),
+the mutex is now unlocked on this error path. However, jumping to error_reg
+causes it to fall through to the error label, which unconditionally unlocks
+the mutex again:
+
+error_reg:
+	regulator_bulk_disable(ARRAY_SIZE(chip->regulators),
+			       chip->regulators);
+
+error:
+	mutex_unlock(&chip->mutex);
+	return ret;
+
+Additionally, if aw2013_probe_dt() succeeds but the subsequent
+regulator_bulk_disable() fails, it also jumps to the error label and unlocks
+the already-unlocked mutex.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261012-aw2013-aw2=
+0xx-rename-v3-0-cab1fdd050b6@postmarketos.org?part=3D6
