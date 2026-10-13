@@ -1,93 +1,200 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CF4552CCEB;
-	Tue, 13 Oct 2026 17:54:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB27952F299;
+	Tue, 13 Oct 2026 17:54:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791914045; cv=none; b=lD4yUvEDM9AIdjm3Mqs78hK9eIEYGmQ2vVTyYddY2+yPwgRXYJmNsEIQztshUIOL5A0Zd5KT0mx8JjO6dD4k2CdtT40CMjr399KuuwZV0Ikik9m6R/nr+kLPM2Y9cybsPE+kL5cXg/cgzfPYYQ16F85SktGlSlRELSeQlMw5/04=
+	t=1791914059; cv=none; b=IukolzEjay5gXtduEqEX/ETExqO/KHJNSVuFaiwhfSdkuGctjquDHDzUABu16ApwCUqM39BmiZYPyBq/+0z1jsnxsbPXip7iQlv+erVdY87BIdyA37kOYJlF+2c6zvIGgfDIEd8aDFtWmx1euJrikdZT2Cm0aXa/OZ2Gf6AhYBg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791914045; c=relaxed/simple;
-	bh=hp1dTw3hRxiZBvSzxIR3eaRSSMR6S7lRt7/KxcL7YmU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=UMQJkSxW7BYTfdk6GaaiDxU9w1vnnTdK3PtPQvySHxXgdK3z2WgIAf5CtgwwYCyOQOOBPJBPCFwDQaIQ3RDorzm8z3nMEilx78MFyW0I7COm8Z8iMdN7jADl4QwP+/k53RiikeoTmwfvPWJHaPOighGYfzUul/7SarsktK8isKU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=OWFaVuM9; arc=none smtp.client-ip=220.197.31.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791914059; c=relaxed/simple;
+	bh=eQOYa2blZFrbzsNIyojkc8nBl/4ke45XHniunalu22Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iH5xN/F0SUJBS6SB3HutGghNk6hLnKQ3VUD0OToCDghj9e5vJIgwdRlFuO/9E+v3T3jxDguIKZUpu59O+2Zm6CeQ1ge/DO54GHeOuSW3DV81IwP8YO2OQKHVfn3tPFuFlINTE5JhR4R/Z8vPPA6UUE7ZlUr8RHWeA0zeXz0JUGk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mSkCYiIY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="OWFaVuM9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=hp1dTw3hRxiZBvSzxIR3eaRSSMR6S7lRt7/KxcL7YmU=; b=O
-	WFaVuM93IWPWVHz1DROYW7egfZ3MO/d1MdS/gA7+Jxi5NWJd4PoZrmiHx15AKVZ2
-	4UM4Cwvntj02QhgfOh2yUzLuhNFwL2fTm+PsC0+Y4zrcQoHKQKUn5ibm288MEAes
-	5R0lW7gOOP+J72R9BCZBMfN7yGrWIPetla+gvN6Ux0=
-Date: Wed, 14 Oct 2026 01:51:46 +0800 (CST)
-From: zl020895  <zl020895@163.com>
-To: "Linus Walleij" <linusw@kernel.org>
-Cc: "Krzysztof Kozlowski" <krzk@kernel.org>, longzhao@ambarella.com,
-	"Arnd Bergmann" <arnd@arndb.de>,
-	"Alexandre Belloni" <alexandre.belloni@bootlin.com>,
-	soc@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	"Rob Herring" <robh@kernel.org>,
-	"Krzysztof Kozlowski" <krzk+dt@kernel.org>,
-	"Conor Dooley" <conor+dt@kernel.org>,
-	"Michael Turquette" <mturquette@baylibre.com>,
-	"Stephen Boyd" <sboyd@kernel.org>,
-	"Jerome Brunet" <jbrunet@baylibre.com>,
-	"Bartosz Golaszewski" <brgl@kernel.org>,
-	"Greg Kroah-Hartman" <gregkh@linuxfoundation.org>,
-	"Jiri Slaby" <jirislaby@kernel.org>,
-	"Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
-	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	"Catalin Marinas" <catalin.marinas@arm.com>,
-	"Will Deacon" <will@kernel.org>, "Lee Jones" <lee@kernel.org>,
-	mfd@lists.linux.dev, devicetree@vger.kernel.org,
-	linux-clk@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-serial@vger.kernel.org, linux-kernel@vger.kernel.org,
-	"Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re:Re: Re: [PATCH v8 04/18] dt-bindings: pinctrl: add Ambarella
- CV75 pinctrl
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <CAD++jLmrQwAT1Sb8HGgoM8x48rN9-pPT2RB1GE18h5YA7c4CwQ@mail.gmail.com>
-References: <20260921-cv75-v5-v8-0-282ff5d98dda@ambarella.com>
- <20260921-cv75-v5-v8-4-282ff5d98dda@ambarella.com>
- <CAD++jLmKF5XxHsJX29sdXC_6JHKn-7HkE=N+TKtk5xODtQj3_w@mail.gmail.com>
- <b2256847-3ec1-47e8-ac79-ceca86eb09e7@kernel.org>
- <CAD++jLkrXXg9xrhAZ8HETc5Qcv5BbkY-ibjvzBmE5WZVqDEGWQ@mail.gmail.com>
- <a0eca34d-5eb2-4730-b8c7-0f2302bcf265@kernel.org>
- <CAD++jLm=T-U07vAVCogMnfOfkDf=i9QhGGc8ok2N-ZUh50WLNA@mail.gmail.com>
- <56dc6c05-7fd6-43de-bc62-c353ae1dbcc3@kernel.org>
- <54b55ad7.9d3a.1a135b09587.Coremail.zl020895@163.com>
- <CAD++jLmrQwAT1Sb8HGgoM8x48rN9-pPT2RB1GE18h5YA7c4CwQ@mail.gmail.com>
-X-NTES-SC: AL_Qu2SA/WavEEr4CaeZekdnUoTj+Y/XMK0uvwk1YdVc8gEnjjMwxonRUZAE2Xr9+a2LgydoDuVWhh8yd55fo9x/FIZB3Lpfw2lhbgiuZUShQ==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mSkCYiIY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 959C31F00899;
+	Tue, 13 Oct 2026 17:54:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791914056;
+	bh=d46hvuLrcz2FQgTWFsuvIjC/NxsYRt1osxT9oAcU9KU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mSkCYiIY9tz6TwwFwpbZPMeTAe8446xrrZ1rh3HiOeXxMErz7adyXM3ZYhAxoMDyT
+	 sxtl5LzDzM4bczO/Bqp0vTP7rJ/iMhx1kDLfRlQye3a3hUl/+sSR3mvkgsBVgIXCsy
+	 QeoB4w6tAjlokKo5IUu6HtkK9E3Nw+POgc5iao3mFascQitajwZnqSIuCe6On1lMxk
+	 vGOe6Suy1v+RJ0X08yMirbpHBlEofk88VA+fFgFEDsvd+2B5XYMx1WgafkkXaZ3S+Y
+	 GfhlII0ye+bDY20nRjwkjD/4H56WazIBljI7AKPXbaV5Wmtb95fRQOBQRw0CgvE48H
+	 mVrjEPsQjdEIg==
+Date: Tue, 13 Oct 2026 18:54:11 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Alex Elder <elder@riscstar.com>
+Cc: tglx@kernel.org, radu@rendec.net, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, p.zabel@pengutronix.de,
+	mohd.anwar@oss.qualcomm.com, lorenzo.bianconi@oss.qualcomm.com,
+	danielt@kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Daniel Thompson <daniel@riscstar.com>
+Subject: Re: [PATCH 1/2] dt-bindings: interrupt-controller: introduce
+ toshiba,tc9564-msigen.yaml
+Message-ID: <20261013-coexist-sixtyfold-cc6614086d3a@spud>
+References: <20261012190245.3988619-1-elder@riscstar.com>
+ <20261012190245.3988619-2-elder@riscstar.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <69bf6d9d.a86d.1a1366451f1.Coremail.zl020895@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:eygvCgD3NyGyb85qV71XAA--.16978W
-X-CM-SenderInfo: d2oqjiqyzvqiywtou0bp/xtbC7hJWx2rOb7KL3QAA3C
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="3I3Rp++l/jcJ+LVC"
+Content-Disposition: inline
+In-Reply-To: <20261012190245.3988619-2-elder@riscstar.com>
 
-CkF0IDIwMjYtMTAtMTQgMDA6Mzg6NDAsICJMaW51cyBXYWxsZWlqIiA8bGludXN3QGtlcm5lbC5v
-cmc+IHdyb3RlOgo+T24gVHVlLCBPY3QgMTMsIDIwMjYgYXQgNDozNuKAr1BNIHpsMDIwODk1IDx6
-bDAyMDg5NUAxNjMuY29tPiB3cm90ZToKPgo+PiBXb3VsZCB0aGlzIHdvcms/OiBJIHNlbmQgYSBz
-dGFuZGFsb25lCj4+ICJkdC1iaW5kaW5nczogdmVuZG9yLXByZWZpeGVzOiBhZGQgQW1iYXJlbGxh
-IiBwYXRjaCB0byBSb2Igd2l0aCBvbmx5Cj4+IHRoZSB0d28gbGluZXMgaW4gdmVuZG9yLXByZWZp
-eGVzLnlhbWwsIGFuZCBkcm9wIHRoYXQgaHVuayBmcm9tIHRoZQo+PiBTb0Mgc2VyaWVzLiBPbmNl
-IHRoZSBwcmVmaXggaXMgaW4gbGludXgtbmV4dCwgdGhlIHZlbmRvci1wcmVmaXgKPj4gd2Fybmlu
-Z3Mgc2hvdWxkIGJlIGZpeGVkLiBUaGUgcmVtYWluaW5nIGV4YW1wbGUgbWF0Y2hlcywgc3VjaCBh
-cwo+PiBhbWJhcmVsbGEsZHJpdmUtc3RyZW5ndGgtc3lzY29uLCBzdGlsbCBuZWVkIHRoZSBzZXBh
-cmF0ZQo+PiBHUElPL1VBUlQvcGluY3RybCBiaW5kaW5ncy4KPgo+VGhhdCB3b3JrcyBmb3IgbWUg
-YW5kIHNvbHZlcyBteSBwcm9ibGVtIHNvIGdvIGFoZWFkLgo+Cj5Zb3VycywKPkxpbnVzIFdhbGxl
-aWoKClNlbnQ6Cmh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2FsbC8yMDI2MTAxNC1jdjc1LXByZWZp
-eC12MS0xLWZlOTVlZDU2Nzg4MEBhbWJhcmVsbGEuY29tCgpCZXN0IHJlZ2FyZHMsCkxvbmcgWmhh
-bwo=
+--3I3Rp++l/jcJ+LVC
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Mon, Oct 12, 2026 at 02:02:43PM -0500, Alex Elder wrote:
+> Define the binding for the MSIGEN interrupt controller present in the
+> Toshiba TC9564 SoC.
+>=20
+> Co-developed-by: Daniel Thompson <daniel@riscstar.com>
+> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
+> Signed-off-by: Alex Elder <elder@riscstar.com>
+> ---
+>  .../toshiba,tc9564-msigen.yaml                | 70 +++++++++++++++++++
+>  MAINTAINERS                                   |  6 ++
+>  2 files changed, 76 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/interrupt-controlle=
+r/toshiba,tc9564-msigen.yaml
+>=20
+> diff --git a/Documentation/devicetree/bindings/interrupt-controller/toshi=
+ba,tc9564-msigen.yaml b/Documentation/devicetree/bindings/interrupt-control=
+ler/toshiba,tc9564-msigen.yaml
+> new file mode 100644
+> index 0000000000000..39dc63964bd52
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/interrupt-controller/toshiba,tc95=
+64-msigen.yaml
+> @@ -0,0 +1,70 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/interrupt-controller/toshiba,tc9564-m=
+sigen.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Toshiba TC9564 MSIGEN Interrupt Controller
+> +
+> +maintainers:
+> +  - Daniel Thompson <daniel@riscstar.com>
+> +  - Alex Elder <elder@riscstar.com>
+> +
+> +description: |
+> +  The Toshiba TC9564 is an SoC accessed by a host system through the
+> +  upstream PCIe port on the PCIe switch it implements.  The switch
+> +  includes an embedded PCIe endpoint that provides access to various
+> +  SoC peripherals (including an interrupt controller) via its BARs.
+> +
+> +  The TC9564 MSIGEN (MSI Generator) provides an interrupt controller
+> +  with 25 hardware interrupt lines.  It aggregates internal interrupts
+> +  and generates a single PCIe MSI to the host.  Each PCIe function
+> +  implements an MSIGEN instance.
+> +
+> +  Each MSIGEN uses a gated clock and reset line.  These are provided
+> +  by the clock and reset controllers internal to the TC9564.
+> +
+> +allOf:
+> +  - $ref: /schemas/interrupt-controller.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    const: toshiba,tc9564-msigen
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupt-controller: true
+> +
+> +  '#interrupt-cells':
+> +    const: 1
+> +
+> +  clocks:
+> +    maxItems: 1
+> +    description: Gate clock from the TC9564 clock controller
+
+I'm surprised that the clock is not mandatory.. Realistically the reset
+is also mandatory, there's probably one instance of this on the device,
+where both clock and reset are connected. I'd add both to the required
+list.
+
+Otherwise this looks
+fine to me. I know you mentioned this device in the other series that
+we were discussing but I don't see how it is related and is perfectly
+fine to implement as a standalone device as you have done here.
+
+Thanks,
+Conor.
+
+> +
+> +  resets:
+> +    maxItems: 1
+> +    description: Reset signal from the TC9564 reset controller
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupt-controller
+> +  - '#interrupt-cells'
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/toshiba,tc9564.h>
+> +    #include <dt-bindings/reset/toshiba,tc9564.h>
+> +
+> +    interrupt-controller@f000 {
+> +        compatible =3D "toshiba,tc9564-msigen";
+> +        reg =3D <0xf000 0x100>;
+> +        interrupt-controller;
+> +        #interrupt-cells =3D <1>;
+> +        clocks =3D <&tc9564_clock0 CLOCK_MSIGEN>;
+> +        resets =3D <&tc9564_reset0 RESET_MSIGEN>;
+> +    };
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 252b6d7ee1638..9e73a912f0c0f 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -28173,6 +28173,12 @@ F:	Documentation/devicetree/bindings/media/i2c/t=
+oshiba,tc358743.yaml
+>  F:	drivers/media/i2c/tc358743*
+>  F:	include/media/i2c/tc358743.h
+> =20
+> +TOSHIBA TC9564 MSIGEN DRIVER
+> +M:	Alex Elder <elder@kernel.org>
+> +M:	Daniel Thompson <danielt@kernel.org>
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/interrupt-controller/toshiba,tc9564=
+-msigen.yaml
+> +
+>  TOSHIBA TC9564 PCI DRIVER
+>  M:	Alex Elder <elder@kernel.org>
+>  M:	Daniel Thompson <danielt@kernel.org>
+> --=20
+> 2.53.0
+>=20
+
+--3I3Rp++l/jcJ+LVC
+Content-Type: application/pgp-signature; name=signature.asc
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCas5wQwAKCRB4tDGHoIJi
+0kRRAP404z1GNo0XPhYPUyViwUnod8PExp3H0HJAWQkizBM7XgEAu0iS7xXASJBZ
+6VUrR1k2qJngl370Dm7O7fVDLnO63wY=
+=6DQv
+-----END PGP SIGNATURE-----
+
+--3I3Rp++l/jcJ+LVC--
