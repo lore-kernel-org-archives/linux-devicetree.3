@@ -1,93 +1,193 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED381310779;
-	Tue, 13 Oct 2026 07:17:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 797403164D6;
+	Tue, 13 Oct 2026 07:20:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791875831; cv=none; b=BW4P7XdJGg7KKU+AXOEfBoOwz204OFpooAdglSa9MRFppYv8mPH8MzQQT9e6Ufs/SYH0Qpu8/KCGUuqGEROHqzHvuZ/P7PsTXH7dnpH5GRD02JHxJ+C/1xyZyd7Xk98bjIXapbakaxKTZ+ineoZzYUj/Yq2JgqMFS7xu+aeoidc=
+	t=1791876009; cv=none; b=D0rjm0QoqwPA0I7kql/rYbqzWrYlao+xbumPUFjJjzv/1ul6ulRrTSF0UyxETwWEuBWRHyrc46z9r1HP2uS0EGC9sdKf3YsyOP6BeqVdlcAhEH6lXFCZs1AMBaFqT4T8TeaTv/W91//pEJw3rDzyFDqqxWiNNSTzgt4Rqmep2Zo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791875831; c=relaxed/simple;
-	bh=0vkrL/1hodeZwPoJVglGufgHkUiIIXcVT1wpQSz8cwM=;
+	s=arc-20240116; t=1791876009; c=relaxed/simple;
+	bh=3EIMklRsm+lKbHY3s2vmOySVyFXwXiQ9bpxf5C526jk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qtwyoq9jgqLcggQYQxk5hdJYcAQ3/2emQhdAst7FloZxlhxh+a8d02SOYnwnL7fkazZEmXV4oT/qp7dhaYKU8HerW76tmfFmLYAdm69Zqu8QwH2gJ5ath0iVZGCk3GZ5wFyRqy8CiXR/k4mKFT/h5jhrYKznAi47qh6mZBzBABI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=KUz0SbmP; arc=none smtp.client-ip=198.175.65.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=CHs7GH6Cynsa94IseCqEcRrAa036+bMIMiPUkUWa2GWVcrE8cQ4oEwkl/hfPUksEaxGArcjb170DwuqY0lVMsF8vJfXqLY4QbOcgBD1auQjPSfvJxxH2EjyrprjwJCv2sKPuOOUfsKYp5J2+6BOz+0MRc7M4rrHjPnyw/qtocyk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lCwszX6V; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="KUz0SbmP"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791875830; x=1823411830;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=0vkrL/1hodeZwPoJVglGufgHkUiIIXcVT1wpQSz8cwM=;
-  b=KUz0SbmPiC9kgd/a2fQt8nobI0HOHBBJJWFYZ5sPbxN2JKJurNqpjqGd
-   toNnRWsUQPHrSjj4VgcNmxWY7GpVV34v5tV8LxwQDHEvw3x/gV0GDBM/1
-   hwXwFrGOBtpZM8DRb4bG2rB3FjC9IF8ASeD+3SahuUClMBBFr331z+ZEK
-   13UBO83ZnblIH5hLgdKDc5NAi6NP4nnKpSs62FHRmpLkCBfxj0IYdDtnU
-   Lnwjds0yqs9kCYbBsm+s34BMU9sr8vsmoZwFz3I7JSBDgQJZY2N7V3uxf
-   0gdRNs+500jes9ai9ZoTuR5IFBHNLGMV8E7OWOj2YZIi+nLPLYvSfweZE
-   Q==;
-X-CSE-ConnectionGUID: Di91+rPXRbClVKu7o9Ks3Q==
-X-CSE-MsgGUID: nWQCDW8LTcO7cUi0Qlbv6g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="478296"
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="478296"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by orvoesa103.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 00:17:08 -0700
-X-CSE-ConnectionGUID: GdnATPY8TAuo1jz6gqmAeQ==
-X-CSE-MsgGUID: HOh7xbxPQ2aoeqKyANHw9A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="1143052"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.48])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 00:17:04 -0700
-Date: Tue, 13 Oct 2026 10:17:01 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: longzhao@ambarella.com
-Cc: Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org,
-	Linus Walleij <linusw@kernel.org>,
-	Michael Walle <mwalle@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	Long Zhao <zl020895@163.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 7/7] gpio: pl061: add Ambarella register-layout variant
-Message-ID: <as3a7UTe9YEyBAY3@ashevche-desk.local>
-References: <20261009-cv75-gpio-v1-0-5836bd438423@ambarella.com>
- <20261009-cv75-gpio-v1-7-5836bd438423@ambarella.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lCwszX6V"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8937A1F000FF;
+	Tue, 13 Oct 2026 07:20:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791876008;
+	bh=8pf0Ph7c3/u3audy18tF0yiCmBWPU7a6hHO+L6l5Qus=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lCwszX6VZ+gYWYSA27kg9BmzRmjTXOSnvK5PEI5ipX+Eytj5EPZIkxfmSTXV6qlUr
+	 dPTrUYAUtHUaXTPBNgjqsZ3X/Qvxc3jUGRhPOBg+T6KB5FiTrkeSc4V9VaOxVXsPm9
+	 iebqrjsY+PPlLmTj5HEVN2vYqPT/htJf95jkSIWBR+SAnntAXTLACFWh9go5Hm7JrW
+	 vQ/Rza5zfv1TNo0ty1zSMFfhZTLyuQp3OCzAZHhsZ7OZYCushwXLoyhKxDASZu4hfd
+	 /+pResJ4PAFnJqv65XTgpPWciVmM34AO8svzEDEMheFmXNC2MZ9qPFQq/rjYzj9OtD
+	 0suqQJ8lcrLJQ==
+Date: Tue, 13 Oct 2026 09:20:04 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Faisal Hassan <faisal.hassan@oss.qualcomm.com>
+Cc: Thinh.Nguyen@synopsys.com, gregkh@linuxfoundation.org, 
+	mathias.nyman@intel.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	p.zabel@pengutronix.de, wesley.cheng@oss.qualcomm.com, sriram.dash@oss.qualcomm.com, 
+	jack.pham@oss.qualcomm.com, krishna.kurapati@oss.qualcomm.com, 
+	shazad.hussain@oss.qualcomm.com, linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 3/7] dt-bindings: usb: Add qcom,sa8255p-dwc3 for
+ firmware-managed resources
+Message-ID: <20261013-light-significant-markhor-c30eea@quoll>
+References: <20261010053246.2991984-1-faisal.hassan@oss.qualcomm.com>
+ <20261010053246.2991984-4-faisal.hassan@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20261009-cv75-gpio-v1-7-5836bd438423@ambarella.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20261010053246.2991984-4-faisal.hassan@oss.qualcomm.com>
 
-On Fri, Oct 09, 2026 at 06:58:00PM +0800, Long Zhao via B4 Relay wrote:
-
-> Add a 32-bit, 32-line layout with DAT/DIR/IS/IBE/IEV/IE/MIS/IC plus
-> MASK and ENABLE. Probe unmasks the bank and enables the controller.
-> IRQ type changes also clear the pending bit. This derivative does not
-> need write-after-direction or system suspend save/restore.
+On Sat, Oct 10, 2026 at 11:02:42AM +0530, Faisal Hassan wrote:
+> On Qualcomm automotive SoC sa8255p, platform resources like clocks,
+> interconnects, resets, regulators and GDSC are abstracted and managed
+> collectively by firmware.
 > 
-> Cache DAT (REGCACHE_FLAT_S, not volatile) so gpio_set() updates one
-> bit from the output shadow instead of read-modify-writing the pin
-> level across the bank.
+> Add a new binding file for firmware-managed USB controllers where
+> access to these resources is exposed as two power domains:
+> - Power domain: Controls power supply (GDSC) to the USB controller
+> - Bus domain: Controls clocks and interconnects for data transfer
 > 
-> Match the part with designer AMBA_VENDOR_AMBARELLA (JEP106 identity
-> 0x68, bit 7 set) and part number 0x061.
+> The binding makes power-domains and power-domain-names properties mandatory
+> for firmware-managed platforms, while excluding the clocks property since
+> clocks are managed through the power domains.
+> 
+> Co-developed-by: Sriram Dash <sriram.dash@oss.qualcomm.com>
+> Signed-off-by: Sriram Dash <sriram.dash@oss.qualcomm.com>
+> Signed-off-by: Faisal Hassan <faisal.hassan@oss.qualcomm.com>
+> ---
+>  .../bindings/usb/qcom,sa8255p-dwc3.yaml       | 119 ++++++++++++++++++
+>  1 file changed, 119 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/usb/qcom,sa8255p-dwc3.yaml
+> 
+> diff --git a/Documentation/devicetree/bindings/usb/qcom,sa8255p-dwc3.yaml b/Documentation/devicetree/bindings/usb/qcom,sa8255p-dwc3.yaml
+> new file mode 100644
+> index 000000000000..87f426fdbd70
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/usb/qcom,sa8255p-dwc3.yaml
+> @@ -0,0 +1,119 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/usb/qcom,sa8255p-dwc3.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm SA8255P USB3 Controller with Firmware-Managed Resources
+> +
+> +maintainers:
+> +  - Wesley Cheng <wesley.cheng@oss.qualcomm.com>
+> +  - Faisal Hassan <faisal.hassan@oss.qualcomm.com>
+> +
+> +description:
+> +  USB controller on Qualcomm SA8255P automotive SoC where platform resources
+> +  such as clocks, interconnects, resets, regulators and the GDSC are
+> +  abstracted and managed collectively by firmware through SCMI (System
+> +  Control and Management Interface).
+> +
+> +  Access to these firmware-managed resources is exposed as two power
+> +  domains, one gating the power supply (GDSC) to the controller, and one
+> +  gating the clocks and interconnects used for data transfer.
+> +
+> +properties:
+> +  compatible:
+> +    const: qcom,sa8255p-dwc3
+> +
+> +  reg:
+> +    maxItems: 1
+> +
+> +  interrupts:
+> +    minItems: 5
+> +    maxItems: 6
+> +
+> +  interrupt-names:
+> +    minItems: 5
+> +    items:
+> +      - const: dwc_usb3
+> +      - const: pwr_event
+> +      - const: hs_phy_irq
+> +      - const: dp_hs_phy_irq
+> +      - const: dm_hs_phy_irq
+> +      - const: ss_phy_irq
 
-Ick?! I thought I gave a tag for this. What's going on?
+That's still unexpectedly flexible.
 
--- 
-With Best Regards,
-Andy Shevchenko
+> +
+> +  power-domains:
+> +    minItems: 2
 
+Drop
+
+> +    maxItems: 2
+> +
+> +  power-domain-names:
+> +    items:
+> +      - const: power
+> +      - const: bus
+
+I don't see how did this improve. I asked to use existing bindings as
+reference, so why aren't these power and perf? You wrote that bus
+controls clocks and interconnect, so is this something different than
+perf domain is doing for sa8255?
+
+> +
+> +  resets:
+> +    maxItems: 1
+> +
+> +  iommus:
+> +    maxItems: 1
+> +
+> +  phys:
+> +    minItems: 1
+> +    maxItems: 2
+
+phys should be afixed, constrained.
+
+> +
+> +  phy-names:
+> +    minItems: 1
+> +    maxItems: 2
+
+This as well.
+
+> +
+> +  dma-coherent: true
+> +
+> +  # Firmware-managed platforms do not use direct clock/interconnect control
+> +  clocks: false
+> +  clock-names: false
+> +  interconnects: false
+> +  interconnect-names: false
+
+Drop all four above. Not sure why do you need them.
+
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - interrupts
+> +  - interrupt-names
+> +  - power-domains
+> +  - power-domain-names
+> +  - resets
+
+I guess phys and phy-names as well.
+
+> +
+> +allOf:
+> +  - $ref: snps,dwc3-common.yaml#
+
+Best regards,
+Krzysztof
 
