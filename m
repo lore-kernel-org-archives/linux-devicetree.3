@@ -1,122 +1,289 @@
-Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DB073E639D
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 11:41:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AAFC4E4C5A
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 11:49:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791891720; cv=none; b=kXTPwZRRiNuo1fDN4L5nwcpaoBwRXcxEpTlzuZ0v6YehK/cr9kwY/8+fZptjhqO7k0kWeVuXmXAAfYCWIRilQ1G2FbedLUPJmvLttmJG0tcx3rLleSTKaetEShsJ0Y3FqDv0x9e6ahQAbuAak7eQhdYaRcaPbzJnf29IjfzrNW0=
+	t=1791892176; cv=none; b=pPBJrOUIheHn1YqUcecslfb38zmqX8gqFCD7Cx06oucM+d+El0V0F38+rFzxaHi47dVmCblVP9uaELyCw0j9zfNR5i9xrbQR9yyX6aMS4K0L9KzLatJxnkPeS3MblrJYD/3lO93zEYAUdNd0KaM82fKs2kXdHRYqEH4oGajgtZ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791891720; c=relaxed/simple;
-	bh=k5veFeTTHtqbcVUOmk8kP3kRfVRBO7Pptciq5IbVpOA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=CzJ5qGhMSwzps3b2AUbBovR8TfDN/uhZzrJjlQZLaQENGpod/Nf5xqM/ZR/E1Tb/98FjPJ1Xb5iz9EYFUvItzLrTMCNW6gYRbUjQkVPpPG46zBOZM02xVAyaibEbdxb7DYFs3876J8cm/pRULfAsRdY4p1o66X1AOto4YzjKNCg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.208.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6a374bea882so4106612a12.1
-        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 04:41:58 -0700 (PDT)
+	s=arc-20240116; t=1791892176; c=relaxed/simple;
+	bh=uPem++P5ND2UdG5Rfp/39oIo1piUSvZOSUqNOqUrr6I=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=oUqHxleduz0Blhm7tOmnfHdLcE1TAFhvfNAQsaMnWxqCDuEw2L45eywisw7GGGqQrBPFn9f+XpmrmoAJv9cA6onj0BetxU5WtUjJsb6lJpp9lsWTkFM2YKES5ShaCeFc4RT1xAaYyfVrksuYF6q67V4IDGSt25KTzsBtaZ04e1w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=P5e642az; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=b2LCLKsO; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="P5e642az";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="b2LCLKsO"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D8xwxx790999
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 11:49:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	BzlXRUn6u2bY0KUvJNLoRH9T0Jg5xwYBbgQJM3XPKPg=; b=P5e642azLWVj3iu+
+	iN+i8gF8R1uBaMGN8uFWFOa4m46cKuRBLzV/ZmzD6VQNGadMLEY2VlGtYVPeTrbT
+	Zd9epKhfcnHDA+xF5dAscAkqNO34USt3cAaeNt87PYFpXXDPmlzQULZGpxLCBCn7
+	J13LPjtwi5eTQxXise18XcxRjjtz+weAMN4myDN+io4++8khkk9Mp8cUoFph3kMR
+	7CcOjuhLyuOPrDa0lsRzElMlcbXP8Dx3p7YXhOK8/wVd8ztZ9DarKtEmEnWFpmMo
+	e65c0GcURel6JZU3dcV1EB/CUj0gZa7GOaZFN55ZVkZlX1/OlNcpBZc0NWGlF04T
+	T2RrrA==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9hmjrpjn-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 11:49:33 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-887c99013edso1834203b3a.3
+        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 04:49:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1791892173; x=1792496973; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=BzlXRUn6u2bY0KUvJNLoRH9T0Jg5xwYBbgQJM3XPKPg=;
+        b=b2LCLKsOIaQmJU/WSHI9bK2AJWoYmQOwaS8FSNXBDguTMyLnSBpWbnFGwm/gWbR0dY
+         LXZELn8AkjlpDW2YasZ3byMuoG1Ssd47GblbypbOVpTJOFJ2q4lvAqbpWvTfjjHrx42f
+         H3jRbwMFvdc9zbp9zMFlyWVBKdN8Bt2TuMOyDf/WYe+e4YlsMgTUoY8pqm/Hbt10r7Qm
+         pcqVwRztGDVMaSL2rhkAO72yIRD3YNM4fQj0BTuPgRM7fueAFZcfNZqDoC2o1JVia2Oy
+         wEEDBiYK+BQYw373dloEM0yIeO9Vutr41r/gFMrlgsFZ9rMkLLTGaqjEBmB8dtRTr6/V
+         /D3A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791891717; x=1792496517;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=WEZ3XROOQ5wml3OCk98kzhYlw6diUWNF5eLEQIKJbBE=;
-        b=Jp5ZSmAz2zBG9hvNF1q+3MTBI82xlfHgufI0NYm8ZKFe3Mk/DquscCnx8fRsfNvn3Z
-         rZqEq2+1ENNE68qtDJmnSo3yMX2A0+aFaZbgsHpCuhqi+L1z7yyhbxBxSM5PFzIUEF71
-         dOof+HECrQmpS5mKKoKPaP1xvL7D4KxgpdPHOXxKy7o5XnjyZ5UGMaX56t5V6JKXZ0Ci
-         tKIcrQp2PIvFO+dHJXx9Qhrjr4U7X/bBhuqThLpignjtG78jV21RBSFXLHz8raunm7a0
-         mwmE2pPYGT17qE4aZt6R1y6CInvgG5g0bKAb6oUN8t+H0KVIfq+xsJk9/vkkqXVT1zES
-         NDWg==
-X-Forwarded-Encrypted: i=1; AKwUvBySDc2++Dm761JLRX1Tg3BFCSkKWHfc5/sOOiqc3mlxC8hyZ4kVyOtgaRnXWy1k6+1jojP6kyYGoO68@vger.kernel.org
-X-Gm-Message-State: AFq9FYIhj1+leuF1Syfu7jQYhOlMHyrmjcrktDlXrER3OOksXn4PgSCV
-	Mjq29LBMwSu4aW2iU3iCmrunipLDzXS5Ws+3M9AYxAyGAzmAlPUA0XssCKWpyPKqmZo=
-X-Gm-Gg: AYBFou0nqP1fIru9apJYiB7sqGhuXDXTeA0SagJGdv3yJK/hgUaRdp6xanYAOJwHD9s
-	2f2euqYG7rc4A5jOPXM3SMJSfkUhxiejFzdun22ZLAOyWKRfLDtNxLiz+H2MAT+LrWZ0GA0FI1a
-	RPDRsIrJ4b0i6aoY3Hj4seb9QJrJJwrURYlyAz2zWdYH+m3cJHXjb2Jqte4Sh0mGOd1d4tJfJUQ
-	uXh19Hr2MmPhCFdsPxOQY25QQm58kct5d11BR3wQEONxXxxNKRGYoT4ssQEcgOAl9pToG8GDDLl
-	/bP9BegjnLkfV/0PA3ZcDmkSHAATpoLgWBJY7WN0BFsFqRReP+sdR8/ezokW0C/UAWUya822QZD
-	7Ry9CLaWcjzj6+oDKUfFfgOVVRh6+YvzL+sOmZC2qguAuboq5tlFXphI3+yoKDaF93iRCw15EHn
-	savUsPsKF448m6jEO/9c2orOR/jVsbHU/u6lJot80nKX8oKStgs04sMG1Tcbkx5EOdrbs36L5BK
-	tSu0E2LuASUL0d9uQydrNh/puw5EsNY5RRwFw==
-X-Received: by 2002:a05:6402:11d3:b0:6af:dd04:bb21 with SMTP id 4fb4d7f45d1cf-6b17c23e8a9mr10322810a12.15.1791891716728;
-        Tue, 13 Oct 2026 04:41:56 -0700 (PDT)
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com. [209.85.218.50])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b178d166b9sm6341007a12.1.2026.10.13.04.41.56
-        for <devicetree@vger.kernel.org>
+        d=1e100.net; s=20260707; t=1791892173; x=1792496973;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BzlXRUn6u2bY0KUvJNLoRH9T0Jg5xwYBbgQJM3XPKPg=;
+        b=tj4TUxMlZKjOyZMsxsbVQ2789Dl7eSBbh7F2mcAiGse7qsrqFusIAENOgnrlZelS9i
+         HIYJqxVnEllEEWqyjm2kUA5YHN3dZc503G8lAKySOsL0vNxdrL1w8pTeuFUPZJQTE3jB
+         0vEkEORmgf/+pMMgbiSZ4Lkq+8EvNmsYMomt6MUrac4Gnbm68GaPo3gaIUr6AlkGrb6l
+         wzp877Jm9UJhtJylQofBGttuU1ppcKN2Mc0qrUjD2TKvwjy4hALN6glCwcFFRbAy0CYc
+         hvolLSD6prFiLOJGuz1OJ7V/WXnJW+boI92xGvSW4ZNpmIn5h8yhG6ye1zqSdjmkhw6k
+         2e5g==
+X-Forwarded-Encrypted: i=1; AKwUvBxYvijaIdI4AubZOE6gFkBkNp//bY1bPF5ehsTyiLVRcubr4hnXioMmLPdxOXdMVdUkNKGkI9tSvpob@vger.kernel.org
+X-Gm-Message-State: AFq9FYISbTYjeg9l1qDF6tR4XpQmxa5s+2t05M8Au1yrGkAgJg4QqMT1
+	ZiLUH3+ProsjmaOrIA4hGsZa9rSVX7H9b7XtTxHrzrLaKiBjp3i9g37khZO3wU94Dta1qyK7yL0
+	e9M/TVUx0PGbNT9z+J7jKfXnnb/3OQkte3wE6IbPUJz1PWYfaxKBxNOh9tRDqWCyb
+X-Gm-Gg: AYBFou3vmNztu1YapJCT8zW3/sDui/fcwfaTnQlMvjx1y6SV045Qnl6+AHHDhAVNfSA
+	mUoN19wesHVkgdpMt5vgJa6O2nn/sPpS1MAxm9tfFoqKyVqyNKAl64ogP+g7t4+rBRLcjh1nJ81
+	8cu00nTQOHnOFPAcS1KySI8Fu0Xve+vYY7YLxOzKpOpxL1gQRVOUMWWBUMTIHKrTx/HOU0MhdOj
+	qSibqd3bE6zaH8TEbNl9EZBGcX4ZWnG0Cmh0N9/pygBYN5mibLEyrj3tZQ4RFpPMbhebb4+A0h4
+	oQWyJPoAW+WtY8BTvwa7roZzMcKYezjfbOpeZZUl/9LF3RijJO4RtQyTMVftLqgMQ2KwG52CBMU
+	bhhn4zjEwb0NxuCnMJxl1NBqSt1gh
+X-Received: by 2002:a05:6a00:7615:b0:897:dda6:ad35 with SMTP id d2e1a72fcca58-897dda6b684mr8132090b3a.41.1791892172929;
+        Tue, 13 Oct 2026 04:49:32 -0700 (PDT)
+X-Received: by 2002:a05:6a00:7615:b0:897:dda6:ad35 with SMTP id d2e1a72fcca58-897dda6b684mr8132066b3a.41.1791892172464;
+        Tue, 13 Oct 2026 04:49:32 -0700 (PDT)
+Received: from [10.217.216.70] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-896c3106de6sm4969602b3a.14.2026.10.13.04.49.26
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 13 Oct 2026 04:41:56 -0700 (PDT)
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c2acc1e170cso461010366b.1
-        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 04:41:56 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBz2jws++fz8O3sPEabbSF2uffAMaW2mgaBIvaI2bnIBlKRPoddH/7llfPlNw4Mj1/aiVPKh7niEfLhd@vger.kernel.org
-X-Received: by 2002:a17:907:e158:b0:c34:e9fe:82ed with SMTP id
- a640c23a62f3a-c34e9fe8db4mr355591866b.28.1791891716374; Tue, 13 Oct 2026
- 04:41:56 -0700 (PDT)
+        Tue, 13 Oct 2026 04:49:32 -0700 (PDT)
+Message-ID: <7f6839fb-59b0-4f6d-a3f8-7579f6d40857@oss.qualcomm.com>
+Date: Tue, 13 Oct 2026 17:19:15 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261013-paul-v7-3-rc1-edac-v6-0-2f1d6f2f74db@bootlin.com> <20261013-paul-v7-3-rc1-edac-v6-3-2f1d6f2f74db@bootlin.com>
-In-Reply-To: <20261013-paul-v7-3-rc1-edac-v6-3-2f1d6f2f74db@bootlin.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Tue, 13 Oct 2026 13:41:43 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdV1nuiSAKbCrD0mWJX7rC4T=fxO5LC5ksRD440YSL_3cw@mail.gmail.com>
-X-Gm-Features: AclHuK9GyhuxP1j4sSDne1XJEsD6-l0raq_tLn-7rYWcCt7pn2fMfEYbVEbwDsM
-Message-ID: <CAMuHMdV1nuiSAKbCrD0mWJX7rC4T=fxO5LC5ksRD440YSL_3cw@mail.gmail.com>
-Subject: Re: [PATCH v6 3/3] ARM: dts: renesas: r9a06g032: add EDAC node
-To: Paul Louvel <paul.louvel@bootlin.com>
-Cc: Borislav Petkov <bp@alien8.de>, Tony Luck <tony.luck@intel.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
-	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
-	linux-edac@vger.kernel.org, devicetree@vger.kernel.org, 
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Miquel Raynal <miquel.raynal@bootlin.com>, 
-	Herve Codina <herve.codina@bootlin.com>, Wolfram Sang <wsa+renesas@sang-engineering.com>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/6] dt-bindings: ptp: Document the TSCSS on Qualcomm
+ Lemans and Monaco SoCs
+To: Krzysztof Kozlowski <krzk@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Richard Cochran <richardcochran@gmail.com>,
+        Andrew Lunn <andrew+netdev@lunn.ch>,
+        "David S. Miller"
+ <davem@davemloft.net>,
+        Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+        Paolo Abeni <pabeni@redhat.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, netdev@vger.kernel.org
+References: <20260727-tscss-v1-0-beed14e72510@oss.qualcomm.com>
+ <20260727-tscss-v1-1-beed14e72510@oss.qualcomm.com>
+ <02792987-7ad8-4a6b-81ad-559c63174bb0@kernel.org>
+ <640acacb-1704-4ee6-aa34-d6be3b30b44b@oss.qualcomm.com>
+ <f5aa313d-0e23-41fa-b59b-9388839b2525@kernel.org>
+Content-Language: en-US
+From: Imran Shaik <imran.shaik@oss.qualcomm.com>
+In-Reply-To: <f5aa313d-0e23-41fa-b59b-9388839b2525@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA0NiBTYWx0ZWRfX/AxjHwJnKGnP
+ BtZT/jq8Tu7asv40/sBbyTGvcobypO/CshsbmKyA5GcVqolfreMC7HaRcIq2ilvzL+sYgsyUvkV
+ 93hhe2dF4+fdelCE+4I6ZQhg4ceGg/A=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA0NiBTYWx0ZWRfX1OV0t1JEyJFI
+ qXzlXmoWOZcvD1w8BIcjndmOVKfSputdvXDOoDm9ApPfooldc3ugaErJYT9EHC/8GaalpEo2vnM
+ AOKJMNAfF2MwmCUa4MsDDWA1vVhJKeubOPvUeFVzJV8ctrZiISlYCXFrcYmqQYSx8JgP0Wkzz30
+ OipVldtI9QUhYTiPWnNiTRGGyFsSTSd7vbcNIgpHZqyPZ0P/V5oHvqyHJImT3cetCdjmpC1P1ux
+ 5HjeucNyIZiJoVIihq5qilN18MEINCKuepEcRnpKdPwzJBu5V/Y4DecfXQN7E8BFmFFFA2rqC7K
+ KFReNBOu2ijhV/mMv/0eMStPJRHGUHd805jjMIoMbHO2twFRtdfWRYjAxxYfmAhR9eN2mJ/O1/o
+ 76Q5w1+GDp+r1XCQnzm2xvrfZWl7AHi+f8+Sj7nHY5YtqMxW1hdML0yKbuqqAMw+niS6bpAXroq
+ DS3lchVsPP3ZJnUc8fg==
+X-Proofpoint-ORIG-GUID: pBXRGhI2fGO3WQLvs5ZB8pIRG_nsTqAM
+X-Authority-Analysis: v=2.4 cv=O5+sLx9W c=1 sm=1 tr=0 ts=6ace1acd cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
+ a=L7LEkksTssx7nc12Xf0A:9 a=QEXdDO2ut3YA:10 a=zc0IvFSfCIW2DFIPzwfm:22
+X-Proofpoint-GUID: pBXRGhI2fGO3WQLvs5ZB8pIRG_nsTqAM
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 impostorscore=0 adultscore=0 spamscore=0 priorityscore=1501
+ bulkscore=0 malwarescore=0 lowpriorityscore=0 phishscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610130046
 
-Hi Paul,
-
-On Tue, 13 Oct 2026 at 12:45, Paul Louvel <paul.louvel@bootlin.com> wrote:
-> Add EDAC node to the SoC base device tree file.
->
-> Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-> Signed-off-by: Paul Louvel (Schneider Electric) <paul.louvel@bootlin.com>
-
-Thanks for your patch!
-
-> --- a/arch/arm/boot/dts/renesas/r9a06g032.dtsi
-> +++ b/arch/arm/boot/dts/renesas/r9a06g032.dtsi
-> @@ -164,6 +164,15 @@ dmamux: dma-router@a0 {
->                         };
->                 };
->
-> +               edac: memory-controller@4000d000 {
-> +                       compatible = "renesas,r9a06g032-ddr-edac", "cdns,ddr-edac";
-> +                       reg = <0x4000d000 0x1000>;
-> +                       interrupts = <GIC_SPI 76 IRQ_TYPE_LEVEL_HIGH>;
-> +                       clocks = <&sysctrl R9A06G032_CLK_DDRC>, <&sysctrl R9A06G032_HCLK_DDRC>;
-> +                       clock-names = "ddrc", "pclk";
-> +                       status = "disabled";
-
-Should this node be enabled by default, or am I too naive?
-
-> +               };
-> +
->                 udc: usb@4001e000 {
->                         compatible = "renesas,r9a06g032-usbf", "renesas,rzn1-usbf";
->                         reg = <0x4001e000 0x2000>;
->
-
-Gr{oetje,eeting}s,
-
-                        Geert
 
 
---
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+On 01-09-2026 12:10 pm, Krzysztof Kozlowski wrote:
+> On 01/09/2026 08:31, Imran Shaik wrote:
+>>>
+>>>> +  clocks:
+>>>> +    minItems: 2
+>>>> +    items:
+>>>> +      - description: TSC AHB configuration clock.
+>>>> +      - description: TSC global counter clock.
+>>>> +      - description: TSC ETU clock.
+>>>> +
+>>>> +  clock-names:
+>>>> +    minItems: 2
+>>>
+>>> Why is this flexible?
+>>>
+>>
+>> Actually, the TSC block can standalone work without the ETU support as
+>> well. This ETU clock is require only when we add the ETU slice sub
+>> nodes. Hence, keeping the minItems to 2, excluding the ETU clock.
+> 
+> Hardware either has them or not. Whether they are necessary to
+> prepared/enabled is independent thing and job for the driver.
+> 
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Sure, will drop that flexible logic.
+
+> 
+>>
+>>>> +    items:
+>>>> +      - const: ahb
+>>>> +      - const: cntr
+>>>> +      - const: etu
+>>>> +
+>>>> +  interrupts:
+>>>> +    description: Summary interrupt raised based on external event for any of the ETU slices.
+>>>
+>>> Please follow Linux coding style.
+>>>
+>>
+>> Sure, will update.
+>>
+>>>> +    maxItems: 1
+>>>> +
+>>>> +  interrupt-names:
+>>>> +    items:
+>>>> +      - const: etu_summary
+>>>> +
+>>>> +  assigned-clocks: true
+>>>> +  assigned-clock-rates: true
+>>>
+>>> Drop. From where did you take it?
+>>>
+>>
+>> Actually, we need these properties to be present in the DTS to take care
+>> of the clock rate requirements.
+>>
+>> Please suggest on how to handle such requirements.
+> 
+> Why does this binding has to be different than ALL other bindings in the
+> kernel? I am not talking about DTS now.
+> 
+
+Sure, will check and drop.
+
+>>
+>>>> +
+>>>> +  "#address-cells":
+>>>> +    const: 2
+>>>> +
+>>>> +  "#size-cells":
+>>>> +    const: 2
+>>>> +
+>>>> +  ranges: true
+>>>> +
+>>>> +patternProperties:
+>>>> +  "^etu-slice@[0-9a-f]+$":
+>>>> +    type: object
+>>>> +    description: ETU slice configuration
+>>>> +    properties:
+>>>> +      reg:
+>>>> +        maxItems: 1
+>>>> +
+>>>> +      pinctrl-0: true
+>>>> +
+>>>> +      pinctrl-names:
+>>>> +        items:
+>>>> +          - const: default
+>>>
+>>> Heh? Which code do you copy?
+>>>
+>>
+>> Each ETU slice has its own external event pin config, so kept pinctrl-0
+>> and pinctrl-names on the slice subnode. Please suggest if you prefer
+>> otherwise.
+> 
+> No, from where did you get this code? Why are you sending bindings which
+> are different then all other bindings?
+> 
+
+I was referring to the example in [1] when adding the pinctrl properties
+under the etu-slice sub node.
+
+[1] - 
+Documentation/devicetree/bindings/media/samsung,exynos4212-fimc-is.yaml
+
+On checking further, I found that our etu-slice sub node deviates from
+that example, since we don't have a compatible string for the sub node.
+
+Please let me know if we should move the pinctrl properties under the
+tscss node with per-slice names, or instead keep them under the
+etu-slice sub node and add a compatible there.
+
+> 
+>>
+>>>> +
+>>>> +      qcom,etu-event-sel:
+>>>> +        description: Event selection value for this slice.
+>>>> +        $ref: /schemas/types.yaml#/definitions/uint32
+>>>> +
+>>>> +      qcom,etu-slice:
+>>>> +        description: ETU slice identifier.
+>>>
+>>> You do not get identifiers. Please read writing bindings.
+>>>
+>>
+>> In general, any ETU slice can function with any ETU event sel, and this
+>> might not be 1-1 always. Also, these ETU slices can be configured by the
+>> vendors based on the requirements of the GPIOs on the board. Hence, this
+>> etu-slice identifier will provide the flexibility to configure
+>> accordingly.
+> 
+> 'reg' defines which ETU slice is this, no?
+> 
+
+Yes, will drop qcom,etu-slice property.
+
+> 
+> Best regards,
+> Krzysztof
+
