@@ -1,87 +1,91 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 643227E792;
-	Tue, 13 Oct 2026 06:24:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E87FD3B6360;
+	Tue, 13 Oct 2026 06:29:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791872680; cv=none; b=PPtG02onOwTp61wYsH6SOufrC3aKzbVpze3kiTWYVoRlkjN57f7pXjiBqfaBIXK6qgd1/Qwj2+9By5m6+Zxqk+WL1MBoKiMc2ib5YA1pT63HrH6p3sQl9wNMVJPcXi/3E2L61waWNBfGpzIBvOx4ujONsaPgljcXvZ32ZUMk/tQ=
+	t=1791872964; cv=none; b=n40yFQV4iuHkZJSlmTH2EW9N4EwqWRpP6i1S2BaNeILZ7v5sJySdw+Wu+s5HYp/tGGuRrFJdj/dI/R6qx9CNTqL6g75uVUUCLAGZjp1UcaFC0JOi8LvVL9sY0W21Kx4ZjgpZkdGzsdjJe5NbBGY6Q4kZyJjJEQcCoowvUbQ+kq0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791872680; c=relaxed/simple;
-	bh=QojYWdLEDLPb/17elYAw4JCexvhyxM5gu1w0BtA7PSQ=;
+	s=arc-20240116; t=1791872964; c=relaxed/simple;
+	bh=pSklaDpuPyvg7r7DuDox4q6/NqbyS3V9BDvwqb03vl8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=f3WoYNo9I8MI1fF1IHqU1J6tcNpbBxINtJNpBg6KgW/v2cDHkAEJISHcC4eJ9BDGdRwQ2B8LVZMv/FkxJ1vQgMLwzXfw4LnCR4CKgzyhbNXAEDFp8UPi4Ml9EfeBvCe2q/5fSUXl+lw57j0j8FsTAO8e2AeckoFAM+IIfm3eETg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ax4eisFP; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=M91Qfma+9EcrhQ1KkHW8ae191X+9nybW/uCyOE73zDaLN/YMuMtq/MH533wS5dWPWTZ5bgoNFF6ew+FbUMJy9PV9uB6zVT0dlnbhY1XJPZkhqjZskMvkzlO7yfHgRAWssagkTgxqe7Vc/Ir1WUf0IPX4IVFqA6nQXWets490Om8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=bksPQPnC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ax4eisFP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 491F91F000FF;
-	Tue, 13 Oct 2026 06:24:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791872679;
-	bh=j/L7A3Rfpyj3M+jKYuxrkHjlngaKIfVbDpPiwUAGjik=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="bksPQPnC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F23931F000FF;
+	Tue, 13 Oct 2026 06:29:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1791872962;
+	bh=g7n2HMC09iJPFYJPuys2gP09JJ8k40tak6JFw4u/lQ0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Ax4eisFP4lNC6uGMenPGerBbSEDUwCMRezB9RLt32p2PvskQxB8kwSkNsDR00J3mw
-	 AyYc2gYvsPnj7/LQdY9A9xa3ZOmUuF7Wk9q0xFMUSvsXqJn4T7tPPdp5HBkofZCMCr
-	 tKyjnsGwM6pBkMiS4ubTaeEnt0EDoBDcPJlNheN8+HBrZa1czy9XLUwbLTeeXiIZ9t
-	 iRlBA5QdCpr4OEuPaBgqe9PL/dt4lZgF+TRO/6AcXpUTlNDJsEfyDr6ql8lJU+yAWu
-	 ZppYUluPZ3DaE/4jxiJgHX+OO1wLvCCbb7wIj809qKASKRfZmwPCkOk8VQEYHmFT+w
-	 6grYfs48HBoCg==
-Date: Tue, 13 Oct 2026 08:24:35 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
-	Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>, 
-	Randy Dunlap <rdunlap@infradead.org>, Amit Kucheria <amitk@kernel.org>, 
-	Thara Gopinath <thara.gopinath@gmail.com>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>, linux-pm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, Amit Kucheria <amit.kucheria@oss.qualcomm.com>
-Subject: Re: [PATCH 1/6] dt-bindings: thermal: thermal-zones: add
- hardware-binning trip properties
-Message-ID: <20261013-jolly-abiding-wolf-bab43e@quoll>
-References: <20261002-thermal_bin-v1-0-5a29be7e8ec5@oss.qualcomm.com>
- <20261002-thermal_bin-v1-1-5a29be7e8ec5@oss.qualcomm.com>
+	b=bksPQPnCqM1mp1Hz13PezHpcDTCIVLTjIswmiUXgE7z90t7bUN4ddT6Ql+xzl0y+U
+	 cgNRm1MfYjZ4bw6xKUntcbdm4T1XV1N9UbDkdgyI9gEWA7NP+hiYgGOGzY/+zIxI4Y
+	 Yw8ULgrkb/Om/b7uQhIsiXMiGqDFPtVgOKsT6TTE=
+Date: Tue, 13 Oct 2026 08:29:27 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: "NG, ADRIAN HO YIN" <adrian.ho.yin.ng@altera.com>
+Cc: Thinh Nguyen <Thinh.Nguyen@synopsys.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v7 0/2] usb: dwc3: add Altera Agilex5 DWC3 support
+Message-ID: <2026101347-sway-occupancy-52e0@gregkh>
+References: <cover.1788886615.git.adrian.ho.yin.ng@altera.com>
+ <cover.1789114385.git.adrian.ho.yin.ng@altera.com>
+ <6d259ee3-a737-4074-9066-3b01e3673e1c@altera.com>
+ <aq2x-bwWluxr8oMh@vbox>
+ <97d2287d-17ea-42f0-aa62-69473431fea7@altera.com>
+ <2026101350-tipped-connector-6c05@gregkh>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261002-thermal_bin-v1-1-5a29be7e8ec5@oss.qualcomm.com>
+In-Reply-To: <2026101350-tipped-connector-6c05@gregkh>
 
-On Fri, Oct 02, 2026 at 04:16:56PM +0530, Gaurav Kohli wrote:
-> From: Amit Kucheria <amit.kucheria@oss.qualcomm.com>
+On Tue, Oct 13, 2026 at 08:12:23AM +0200, Greg Kroah-Hartman wrote:
+> On Tue, Oct 13, 2026 at 01:53:55PM +0800, NG, ADRIAN HO YIN wrote:
+> > 
+> > On 9/19/2026 6:03 AM, Thinh Nguyen wrote:
+> > > On Sat, Sep 19, 2026, Ng, Adrian Ho Yin wrote:
+> > > > On 9/11/2026 5:04 PM, adrian.ho.yin.ng@altera.com wrote:
+> > > > > From: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
+> > > > > 
+> > > > > Agilex5 integrates a Synopsys DesignWare USB3 controller that is probed
+> > > > > through dwc3-generic-plat. This series adds:
+> > > > > 
+> > > > > 1. dt-bindings for compatible "altr,agilex5-dwc3"
+> > > > > 2. matching entry in dwc3-generic-plat
+> > > > > 
+> > > > > arm64 DTS enablement is posted separately.
+> > > > > 
+> > > > Hi All,
+> > > > 
+> > > > Gentle reminder for this patchset.
+> > > > The device tree patch has been applied by the DT maintainer.
+> > > > https://urldefense.com/v3/__https://lore.kernel.org/all/02d94760-6e5e-40cf-9354-63b9bca5d682@kernel.org/__;!!A4F2R9G_pg!fOoRba7F0n_QcIeLW1hJWdqm-cZ-1LeU5F9IMVQONnR-eK5J5_SUcboibLdpMDbyKiobonza5DWeJd63mx8kk5_kzayZsEM$
+> > > > 
+> > > This series has already been reviewed and approved, and the
+> > > corresponding Acked-by and Reviewed-by tags are included.
+> > > 
+> > > It's just waiting for Greg to pick it up.
+> > 
+> > Hi Greg,
+> > 
+> > Gentle ping for this patchset.
 > 
-> Differences in SoC packaging can be used to provide multiple SoC SKUs at
-> different thermal and performance characteristics. The underlying SoC
-> remains the same except for how much heat the packaging can dissipate,
-> thereby influencing the critical trip point at which an SoC SKU needs to
-> be throttled. This SKU-specific data is typically burned into fuses
-> during manufacturing and can be read back at runtime.
-> 
-> Add two optional trip-point properties to describe this:
-> 
->   - 'temperature-bin': an array of per-bin trip temperatures, used
->     instead of 'temperature' when the trip depends on the hardware
->     revision encoded in fuses.
-> 
->   - 'thermal-hw-bin': one or more bitmask groups describing the hardware
->     revisions for which a trip point is valid, modeled on the
->     'opp-supported-hw' property of the OPP framework.
-> 
-> Signed-off-by: Amit Kucheria <amit.kucheria@oss.qualcomm.com>
-> Signed-off-by: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
-> ---
->  .../devicetree/bindings/thermal/thermal-zones.yaml | 53 +++++++++++++++++++++-
->  1 file changed, 52 insertions(+), 1 deletion(-)
+> My queue is huge right now for usb, 1829 patches/messages to
+> review/process to be exact.  To make things go faster, please provide
+> reviews of other patches so that it's not just me doing all the work
+> here.
 
-10 days was enough for replies to feedback, so dropping from patchwork.
-
-Best regards,
-Krzysztof
+And after processing my morning emails, it's 1897 messages to review.  I
+think I need more coffee...
 
