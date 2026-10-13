@@ -1,107 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C59043BDD0;
-	Tue, 13 Oct 2026 18:04:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32B1E515970;
+	Tue, 13 Oct 2026 18:08:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791914672; cv=none; b=pTXtxORzDz4/Q1fjj3LmXiFwc17fFYTUZA+r6LPROi54Q2XN6AjGirxsM9ZIcymevKC8omDwDPTpJ6oG41nfvCBlcqdCyW92T3he7T7FEFsLVOohLO28rpg/LU8n1gtd/6+xyzBs4WoIlokasNRKWexXGH8B5g07klTd+vaGjtQ=
+	t=1791914938; cv=none; b=qXgP6bbnHCQEh5h18JxgMrCrsL6BnmL1n3aKdyofdFDYTAVQApiE+QcPmqCd4IZkQMQZ8wrZRb38+z0kDSi4EPTzeD4ItT0gUcxSNcmASHEqhRojKc+uSdwhuAfar89RHCi5e1eKlA8guYRT/EzvEpgK56cWgDxUOKMgRu3WREs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791914672; c=relaxed/simple;
-	bh=L6JEv9qfHtvpZmPdt8beaHCj8CvQMXxeYuG9Mo656Gs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YRkg6iPkuVuJPvBXdSsYsUxwgBspm5ElMc2VJ6/PZf98wT09zgIdzgzCoGazSN6tAtyRgTr+HisVHBtRzjFT2CfheVFyCRXGeUw8FpUiK3MIX+wuTuKh5ZPZweCI8gYcVv2trX4s+5IdgN0N0fPqph3JzmRA3puV3Kq8RPFnL4U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e8HVMEQS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791914938; c=relaxed/simple;
+	bh=ajqVS35To9kSmN1YMYuT3ceYlljDNzroG3lNSh4VqlY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=smrZ5BOMQB7azPX4+dSF7JNbMbkr+5ZF54eBCeavWf2fHHJbfOuDs5bfTJYeO5xjXoAobkZ5RTlIYXGNZnA+oE7cEuNs+qXYcqVv2aq1bRZ1bf0EBSQJjlOOQGNqstFSxABocgcIwl3yHsrSoQM3sWaMgXdNjcZ+g/zNZwsgX3s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=aaMgl3Ax; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e8HVMEQS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A58C1F00893;
-	Tue, 13 Oct 2026 18:04:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791914670;
-	bh=SVZW1RNrpJG6XhKrA3+1X7TURtsoXoyl9erFH/YE3/Q=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=e8HVMEQScf+8hESZ4Ftgq8ihr/nrxw2ZXCcr0pOF2bU+SfCdnfI2fjK5cTUcepIlH
-	 vp55mLEQjW0pTnOqxyWIPig+qdO+Q1YhybEaQfYcUHXrQazNcbsRVvQ99B2W1wYB6b
-	 NabjgxKw0ZCKsTWP1tFagoUVwGt5nNgco2+wC5Jiy9vUlM1JSK3QAjz/G+8PhufhUS
-	 ceSv/n9v6HVaeqFPG3Vx4wDzib5d+9UMl7XCocuRujAzldJ2AuiLZr6Yw9iMh4gf2h
-	 TRKY9020mx0j09LwtAZslU1M+wYc7//qInIMUNMjmrlL/93c434gOKZbuEQDHJlFBP
-	 1pRvmygpGrbgg==
-Message-ID: <cb094baa-a39a-4a38-94c1-e4a8f03750f6@kernel.org>
-Date: Tue, 13 Oct 2026 20:04:25 +0200
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="aaMgl3Ax"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=IU1T78eCbWyZUQW7m8vr5TOKdpnyuWUre19SSGbiODo=; b=aaMgl3Ax+rJVPTzlpCS+CX2ZDN
+	GECWVBcD57zs+f25xxpXb7DmLVeG/J3xp1CoHpTrrWeKqUikMrZoK2T2BOGfpLloCbuItwLU44Q97
+	JMtvzW0mjiGTJ2uUa7PUpZ+5OEocnbBu8tfPSPk/qHsTmIuuBG+xEw0fj5jsH10XM6qw=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1xGgvl-00AZbL-BR; Tue, 13 Oct 2026 20:08:53 +0200
+Date: Tue, 13 Oct 2026 20:08:53 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Conor Dooley <conor@kernel.org>
+Cc: sashiko-reviews@lists.linux.dev, Xincheng Ji <jixincheng@ultrarisc.com>,
+	devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+Subject: Re: [PATCH v3 7/7] riscv: dts: ultrarisc: Add Milk-V Titan board
+ device tree
+Message-ID: <d184f986-7bdd-465b-9ec6-31fe1975aec1@lunn.ch>
+References: <20261013-ultrarisc-dts-v3-0-5ff3ebb2a90d@ultrarisc.com>
+ <20261013-ultrarisc-dts-v3-7-5ff3ebb2a90d@ultrarisc.com>
+ <sashiko-outbox-169511@kernel.org>
+ <20261013-siesta-starship-f078a51d2389@spud>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: vendor-prefixes: add Ambarella
-To: longzhao@ambarella.com, Conor Dooley <conor+dt@kernel.org>
-Cc: linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- Linus Walleij <linusw@kernel.org>, devicetree@vger.kernel.org,
- Long Zhao <zl020895@163.com>
-References: <20261014-cv75-prefix-v1-1-fe95ed567880@ambarella.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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
-In-Reply-To: <20261014-cv75-prefix-v1-1-fe95ed567880@ambarella.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20261013-siesta-starship-f078a51d2389@spud>
 
-On 13/10/2026 19:46, Long Zhao via B4 Relay wrote:
-> From: Long Zhao <longzhao@ambarella.com>
+On Tue, Oct 13, 2026 at 06:34:28PM +0100, Conor Dooley wrote:
+> +CC Andrew Lunn <andrew@lunn.ch>
 > 
-> Document the Ambarella, Inc. vendor prefix so Ambarella DT bindings
-> can be applied without waiting for the SoC series.
-> 
-> Signed-off-by: Long Zhao <longzhao@ambarella.com>
+> On Tue, Oct 13, 2026 at 10:31:35AM +0000, sashiko-bot@kernel.org wrote:
+> > Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> > - [Medium] dts: incorrect RGMII phy-mode causes double clock delay
+> > --
+> > 
+> > commit 471320732fb47362c8b5d5e16472052117a95204
+> > Author: Jia Wang <wangjia@ultrarisc.com>
+> > 
+> > riscv: dts: ultrarisc: Add Milk-V Titan board device tree
+> > 
+> > This commit introduces the device tree for the Milk-V Titan board, an ITX
+> > motherboard based on the UltraRISC DP1000 SoC.
+> > 
+> > Link: https://milkv.io/docs/titan/overview
+> > 
+> > > diff --git a/arch/riscv/boot/dts/ultrarisc/dp1000-milkv-titan.dts b/arch/riscv/boot/dts/ultrarisc/dp1000-milkv-titan.dts
+> > > new file mode 100644
+> > > index 0000000000000..59edd8157221a
+> > > --- /dev/null
+> > > +++ b/arch/riscv/boot/dts/ultrarisc/dp1000-milkv-titan.dts
+> > 
+> > [ ... ]
+> > 
+> > > +&ethernet {
+> > > +	phy-handle = <&phy0>;
+> > > +	/*
+> > > +	 * The PCB does not add RGMII TX or RX clock delays. The DP1000
+> > > +	 * integration adds fixed delays in both directions.
+> > > +	 */
+> > > +	phy-mode = "rgmii-id";
 
+If the PCB does not add delays, rgmii-id is correct. What is important
+is how the MAC driver handles this, it needs to mask the value passed
+to the PHY. Assuming this has been tested on real hardware, it
+probably does.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-
-Best regards,
-Krzysztof
+	 Andrew
