@@ -1,188 +1,160 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EE464F5E0A
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 12:36:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8916135E955
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 12:38:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791895006; cv=none; b=lCOHenUi3kHmybfar2iuZ/ZisqTapes4rcYnGM6DB1rqe53I+E33Zu8PtTHOOjMUsfr3S/SSxFqQ2YqZr5oN1JQQiK77y2UeamUSZ4HoLrhe0mJwVSj4f6Jw5eb08WkQHdKlTeG6j1Q2Ec1jsHSgO2MbadXsS2Hue1qZPIAoS0I=
+	t=1791895100; cv=none; b=bCxEfI+MBOQqbCZ9Y2LWFXU2hVxM7axT7tye6KLgMhxRd/yB76ym6i3ok25NSwhUZAK6Ms1TKjtITLrZqag3evb7YAnSD8eQqS6zD7+0eiuwPfwuGKIdFzYKxOxhfopvVu3F9xMtXOKgXOSknyiGGybWoNZYXKqehtYhr0IHNhg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791895006; c=relaxed/simple;
-	bh=iTqegItL46VZzOOmaKOWbD4dw0HLPDGa1sgVVAbiO/s=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ZWv/P7NzLf6gHgA3dHiX1HiQWhin/tooGvNur7ELf9Dr7W2Kas2DikiF9DwFUkYDDOlExxPWvl1KXM+2YSZeov2usqzf3zCT9KcH9jbZEe5ou6ufxRxHMEWrfcR/1Jpk3ESFV+EPwzNJWjObJ3+oIv9OyuxxploFTnytvCYpoZs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=G0828nRS; arc=none smtp.client-ip=209.85.221.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791895100; c=relaxed/simple;
+	bh=DAg+etHvRhqzCdq/zCTA1F7q5/9fBGcDHX4JsZ3w5EA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=TzUklZW+IAQNxB3vPgOtWPILCCNb6cwHY4nnswuTwR/amHLd1uN/N09KfvXUX3Jix0RmEn4Hrawvy47Ab+UhLIN/9cihM4qkUWZwRqJ++fUdWM1YWFIKEyo3zdYJ7S6u+ToHu4iQ+q/UkfIWj64uP7u54b6FM7lLHep2jE3vf5Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=KVj0y7az; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IZpQjBEc; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="G0828nRS"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48b02a2359aso2735117f8f.0
-        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 05:36:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="KVj0y7az";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IZpQjBEc"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D8Wlkk3055608
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 12:38:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	DYqehMi9aFc5e4W+K86VDqLPCbTQmJlPOTtFydQpCzk=; b=KVj0y7az3Ftf4ifn
+	w5xrFUJXdUF1tpqZo/iBU27JUAUUmSM7HO/PztECbu4Fgie2THqA7S3kylwoElfb
+	ZApd/57EIakNBS2OMY9iBIyzbRgwZDJ5kOS4mXbD1wBDQsskq6eSHCOOvtnAAIhQ
+	cM34AA1hcI6lCLewl/RK1MbSatY+Rs15nTNUVv1RW9L40krxiKccrWfv+fW+z+ss
+	I+Ro2QuAx/2d54FGPTw16sE/zRnwZ/6pUP3pOC01qISdeImn6C55KprES7PC66Qa
+	kxhxmHUQkAt/AEyzqDWrcZIjN2hskItH/TCYtgjhvzthHDnfoifdTTnp08OzeBhV
+	lQcM3g==
+Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com [209.85.160.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h93aeva98-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 12:38:18 +0000 (GMT)
+Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-53389750985so5754801cf.3
+        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 05:38:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791895002; x=1792499802; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=uTSmNl5owwJ6C1JNsqWpAVpytnSmw48VMmiRayPCI+k=;
-        b=G0828nRSEeUlnOyc4KHeUotlZjd8svAZhfESRR7oZREuxfvP3crvhTlfdzXopE9Si0
-         AURyO+ReoLFDJ0kLsCSVQfxn+Uar3eQcSmRz0FbRrB2BLa7ahyQJlLMwULYDn5ckhPZ5
-         MLzNh6+HwPfXj7dAhYUeVRJTAWR2C2MnTmJyMs1Q9vhjpSIfalHCtfjPW7X+udZlY4tr
-         4awrG9gSK2MCC93pXYb5ZFvHrFa/FDLbxsNHdYe1ppBvACpORqtBA81eHgRjGOZaeM9M
-         OZhhmx/DLxC20rqz/02ywAoRNbSPGSdBbS/x69OX6QSOQJZBB6bdIu9bE34Ml5vmr087
-         hBWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791895002; x=1792499802;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=oss.qualcomm.com; s=google; t=1791895098; x=1792499898; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=uTSmNl5owwJ6C1JNsqWpAVpytnSmw48VMmiRayPCI+k=;
-        b=ALfqMkcKQr8cWhc3hhLJDWOmmF22eu2YoeyqBBtHgi6ycH/G7+jCgCdPXbWoh+KAJR
-         doohOp2f8Yr+LN0AmV3IOXoBk15ubpmOlduUP8UkxZTps7IvDonl14iPrhbefCEAedm7
-         rB9dVIuoGIcp5xo1F2lqBA0WWfLUb5gULg8dmYUMV6NHRiyL2LTw8i0vr6+5r4n2MpJJ
-         d4RexbWVVQu8jho2eSRtYaw2yoCeDbqA3Mnb/0NOGV5JaJ/9sjQZj+2o2GWTdD3CkVwi
-         QkGlPCaTZV/CAvUTI1SxhIzK/CKDVpVQ+/Vvo82D7ahN8jKPlpQ5gR750RvZaVxAq0xc
-         Ub7Q==
-X-Forwarded-Encrypted: i=1; AKwUvBz7CYCSvTAYQSWnNc7k8qZb4oxLzG8+IDAvTZEpvWaPwYIV34KEkiJ2NglORq9Ez5CRRAGt8l+dc8iE@vger.kernel.org
-X-Gm-Message-State: AFq9FYI76xu3ZTna0NrRIoepuztqwRL7OIMeYEUMz1oKH1s4V0S8HRhq
-	u02aPSacKRz8pHe6skotWToktssovY1nCySauUmVHYAI9XXZbCAqPEfv
-X-Gm-Gg: AYBFou3QUJmV10N2HmgJDx2ZzkIe+wjV6pEqvdhosBm6JU7iPgb+115P2bXqCpz6cNs
-	3WikSM1MMcqs7zJNi7B1UkZgUSC/cdEKz6aWk3cSqrCozGVdb+etnU7LyiehZ/HQxJP9/dh/L32
-	hVU3u3Sd8DUjQkn4c8YhRVRExDO8EEufvKg04GjdM+AIXmi02+NUwnw9lvz3nO5ebTL80QEiEQC
-	9L/6lFREmxIPCTwM1YB0KwLYeWBq0uKw87bPHa1aRbG+OCaPyluN9XF3+lgP0FPA2FJ3R6fEBi0
-	IyrtXPvfvlVwsezrsBYzmm7H1AIU1MrpLpQ/IBUr1eFjfy+ejCeSqr5nVjOvo47fFhW3fvfSVUJ
-	vnUCqcfBiZJ0L95it/brmLrUyKtBeE+DrhlEOLyLbBB4MCO33BtSU2m6ZqEaaOdkFhkAOW13c68
-	CBUh6yJFTQ4SMn9nAEtAOBx5gRlOe4rdjd7AZLZFC4xbYa1pdUTBRjkRHKWNa5KwfGqREvOKUPL
-	HAnd27PFyGhz2mWYPiEwLdTv3qil7w/fpuvsNllo/DdSXpDcr0cJ6Xbr2qQFOctve2IguEUZ3uG
-	6iWOILoYcZABmPjUdDUHwM2LAvKfmFgNKyUJazG1IGzxfuBaPKa9QzFYqjfRR7QbLM4A2ZmcJa4
-	dy1fZd3mbpanzQUIhGw8yBo4ETtfxSswcru38rjIQ8hQfU3bVQXQtkW+a1Jh+AKh30JAMVPPhQq
-	GAmz57
-X-Received: by 2002:a05:6000:186d:b0:488:8913:e64c with SMTP id ffacd0b85a97d-48dca34320amr17714316f8f.18.1791895000936;
-        Tue, 13 Oct 2026 05:36:40 -0700 (PDT)
-Received: from localhost (90-182-112-124.rcp.o2.cz. [90.182.112.124])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de7003982sm31222f8f.8.2026.10.13.05.36.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 05:36:40 -0700 (PDT)
-Date: Tue, 13 Oct 2026 14:36:39 +0200
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-To: Chang Yu <marcus.yu.56@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Shi Hao
- <i.shihao.999@gmail.com>, "Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 1/2] dt-bindings: iio: light: add as7343
-Message-ID: <20261013143639.000017b9@gmail.com>
-In-Reply-To: <20261013115639.167433-2-marcus.yu.56@gmail.com>
-References: <20261013115639.167433-1-marcus.yu.56@gmail.com>
-	<20261013115639.167433-2-marcus.yu.56@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.51; x86_64-w64-mingw32)
+        bh=DYqehMi9aFc5e4W+K86VDqLPCbTQmJlPOTtFydQpCzk=;
+        b=IZpQjBEcWIBuJubIEo7Jmp9N2y362bbf6hQqHWIYNfNy8LKV962mKcVM0Ea0jkM0+t
+         GMs0XX8coGKVGVah5StaTQTMpOs/ocQ/GzUvCh4hBuX2vJ21phc7/aURU4gH9J3RzpFf
+         5zMTeUNZpUwcxX2oQJnqAdgF0QC5On7c4eFOIR3iuPc2i7AL/xfX3oEL5YB40mFiCVZh
+         MVtupm7p1n4YgRiqvaXLvox61GnjUeeKVMPh9xzy+z3oAIGSAEGnDM3MaBU6YjE7GvOU
+         tlqVzukXrKbvL6qDw6IFdud9UL7RGiMANt7Bn8VFdCZLwLH7W2Sdw9QF2boNWFwr/7VE
+         UDIQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791895098; x=1792499898;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DYqehMi9aFc5e4W+K86VDqLPCbTQmJlPOTtFydQpCzk=;
+        b=AKrzgXruDMBe266bpGa+BurWt30GSIhrU1fmYl4sv2iA7pij2HXmW+7l/P7/QfxSNV
+         usq/sVIdMeKxwabwdQGM8jMktCIsw3o9ReHIlzmyBCCb9NVtOHO9RZJvuJShZpKIROkr
+         giCJyJxJwIAliVTL0bAhG/v917ieckenaaB6JEQPTLUUurGSxgH1f0eZY7pvGqb2xS0g
+         Ic9gaJnebCgg78r9CBRpwqemwxfKk5BSF0HrBCWJY1tllSYKXo29pCfvDqEpAUByajxV
+         k76HhVlzT1b7ubWhe3vUwjFMeuOrSNiw5RjEOWMgm1ov+aQ/WZWmgbw+LHWuGhUA+v8E
+         TvVQ==
+X-Forwarded-Encrypted: i=1; AKwUvBysXzo3uPpZfFfn+R8OAakBZb17z1Rebzzrj2tZTN9QocFfOdpNL/ZdNjzRs+m5VEi+m4HgKtvJRKrv@vger.kernel.org
+X-Gm-Message-State: AFq9FYIMvN5qpJLsizoyIT+YLORNKD9e5Z2/naiQGRWs1zyujDcYxWJz
+	vpQgyHzFJow4ikcsV+jJkKIhjSJULcFbo2Dbae9BkR5KJxi8wmyK1JKV03CNJtGrcf78enmlj/k
+	PI2SsXoRGnFxqAvxBf3ytB0fxFYQV02wMJHrUVbXeWjxZLnEWbj71JH+F/Z6+K5Jn
+X-Gm-Gg: AYBFou3Ez4yqkPBPRTngZjMj3dD/hU7Z//j96hsFN+Jh60jl6tVUyArsnonB4JUtPTd
+	jEiiHPBwh/1TOE2YJJ3bYnYBwd84NzmCNopwbUFyvdZgaJs/bMLHxVT26bhNMQRRvk5q6Xc3MgA
+	bzc5jDF/eP/cisGMH8O+X9fz6iihNVtlPuyGPWbO3MMB50JsEulbO8Ghkeuy4MBKFHBhHmKwLuW
+	htnnXgrzD92f42WTzfbG0Y/DaBLbL5WotwmUHgvHoWxkILywxbvynUPSk+A9YpZFzMZ0vK/o1Ak
+	3SI6e+oo/qsawaF+U7uSVdz8kHGgHbQ/b043PysGVXfCZ5e+UZxp6NLL+bQBtlRpqmrfWYFX5F3
+	/kqwFbfmtVaSeZYOb82ewKQ==
+X-Received: by 2002:a05:620a:458f:b0:93c:61e0:81ff with SMTP id af79cd13be357-93ebd0a3722mr2473818885a.1.1791895097681;
+        Tue, 13 Oct 2026 05:38:17 -0700 (PDT)
+X-Received: by 2002:a05:620a:458f:b0:93c:61e0:81ff with SMTP id af79cd13be357-93ebd0a3722mr2473814985a.1.1791895097107;
+        Tue, 13 Oct 2026 05:38:17 -0700 (PDT)
+Received: from [192.168.226.26] ([178.235.128.140])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bcdde913d0sm3662494e87.26.2026.10.13.05.38.14
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 13 Oct 2026 05:38:16 -0700 (PDT)
+Message-ID: <3fe1ac52-f69a-4288-88b6-edb5717dd315@oss.qualcomm.com>
+Date: Tue, 13 Oct 2026 14:38:13 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] arm64: dts: qcom: shikra: Switch CPU ETMs to MMIO-based
+ probing
+To: Jie Gan <jie.gan@oss.qualcomm.com>,
+        Bjorn Andersson
+ <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Abel Vesa <abelvesa@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, Jie Gan <jiegan@qti.qualcomm.com>
+References: <20260922-fix-etm-probe-issue-on-shikra-v1-1-56d25e9bbe17@oss.qualcomm.com>
+Content-Language: en-US
+From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+In-Reply-To: <20260922-fix-etm-probe-issue-on-shikra-v1-1-56d25e9bbe17@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: hz0YjxLQzFbIEXAx4MdwHx6JVKo4yt_u
+X-Authority-Analysis: v=2.4 cv=JJuuIMKb c=1 sm=1 tr=0 ts=6ace263a cx=c_pps
+ a=EVbN6Ke/fEF3bsl7X48z0g==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=l4fDSgpoRc1iC7w1fSEA:9 a=QEXdDO2ut3YA:10 a=zZCYzV9kfG8A:10
+ a=a_PwQJl-kcHnX1M80qC6:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA1MCBTYWx0ZWRfX5jM5+0EA/A3A
+ fdTt0U7TvA2jma2DhVgzUrvuGuYgvnZaaLtwWtgeog0RIPzBC9mFN258cURGhW2KEBW+2SjOKEq
+ GNc/iT1FZtDNeedhfOjNImPowos19I8=
+X-Proofpoint-ORIG-GUID: hz0YjxLQzFbIEXAx4MdwHx6JVKo4yt_u
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA1MCBTYWx0ZWRfX+j9FsMPbu5C/
+ f3yPCmKHu8TTJGZtAbA343f3HprTMy57/LuHbD3Vv5cG8JhjLinFUKMFmM4CmtSpXrhvE/Sgi20
+ LrRRfS75RSd+b4FXkhforLle3iDOouAKsgTw1gd3E7CZCbkPuIHDhMj6zTtHhfKalKWe+YYtWzu
+ UTKuf2bZ5Ra6Lucen4NYyCxZnbfrPyh5lKx4PaSVyaoF0EhtlBiRJOwj97DH4pVDTYpSaWo4h4b
+ vxLGFEXnlcR4DPYfMm1Lniw1MPjL43JqDkehYYpUhyDlVVcnVkjEOtjjV4oAluT74f4/xYBG3fc
+ M7r/9MKSzbhb9AM8h4NRA2B8mbFIPtr7eaE+m4eAZ3AWGD57LHShIQ6UDt25n4ts7UZevDnTwp5
+ zDUdCFir5mKYQlZhQHj8NMaXfMW4hW+6MZ6M52aTlmAmCRd9pkpibBuzdt5sKI2WnAUfV7UeXK3
+ njrC24FmS8MtISyI/ew==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 clxscore=1015 malwarescore=0 lowpriorityscore=0
+ impostorscore=0 adultscore=0 phishscore=0 priorityscore=1501 spamscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610130050
 
-On Tue, 13 Oct 2026 19:56:38 +0800
-Chang Yu <marcus.yu.56@gmail.com> wrote:
-
-> Add binding for AMS AS7343 which is a 14-channel multi-spectral sensor
-> with i2c address of 0x39.
+On 9/22/26 5:09 AM, Jie Gan wrote:
+> The etm0-etm3 nodes are declared with "arm,coresight-etm4x-sysreg"
+> but do not implement self-hosted system-register trace access on
+> this SoC: ID_AA64DFR0_EL1.TraceVer reads as 0 on the affected CPUs,
+> so etm4_init_sysreg_access() correctly reports the access mechanism
+> as unavailable and the ETMv4 driver fails to probe with -EINVAL.
 > 
-> The GPIO pin is not described because the datasheet does not document
-> how to use it for hardware synchronization at all. The GPIO register
-> also has no mode-select bit to isolate the pin from the chip's
-> internal control logic. Exposing it as a generic GPIO could result
-> in kernel writes being overwritten by internal logic.
+> The CPU ETMs have a memory-mapped aperture, so switch each node to
+> the standard "arm,coresight-etm4x", "arm,primecell" compatible with
+> its MMIO reg range.
 > 
-> Datasheet: https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Channel-Multi-Spectral-Sensor.pdf
-> Signed-off-by: Chang Yu <marcus.yu.56@gmail.com>
+> Fixes: eed738c6dd0c ("arm64: dts: qcom: shikra: Add coresight nodes")
+> Signed-off-by: Jie Gan <jie.gan@oss.qualcomm.com>
 > ---
-> Changes in v6:
->  - Add a ref to leds/common.yaml for the LDR pin.
-> 
-> Changes in v5:
->  - Remove the GPIO pin.
-> 
-> Changes in v4:
->  - Fix led-max-microamp property name.
-> 
-> Changes in v3:
->  - Add missing include for gpio.
->  - Expand GPIO descrption to include hardware synchronization.
->  - Use led-max-microamp instead of led-current-microamp for the LDR pin.
-> 
-> Changes in v2:
->  - Add the LDR, the interrupt pin, and the GPIO pin to the bindings.
->  - Fix node name and unit address mismatch.
->  - Include MAINTAINERS changes.
-> 
->  .../bindings/iio/light/ams,as7343.yaml        | 66 +++++++++++++++++++
->  MAINTAINERS                                   |  6 ++
->  2 files changed, 72 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/iio/light/ams,as7343.yaml b/Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
-> new file mode 100644
-> index 000000000000..7fb10b0d4843
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
-> @@ -0,0 +1,66 @@
-> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iio/light/ams,as7343.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: AMS AS7343 14-Channel Multi-Spectral Sensor
-> +
-> +maintainers:
-> +  - Chang Yu <marcus.yu.56@gmail.com>
-> +
-> +description: |
-> +  The AMS AS7343 is a 14-channel multi-spectral sensor with i2c address of 0x39.
-> +  https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Channel-Multi-Spectral-Sensor.pdf
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - ams,as7343
-> +
-> +  reg:
-> +    description:
-> +      I2C address of the device (0x39).
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    description:
-> +      Open drain output active low interrupt pin.
-> +    maxItems: 1
-> +
-> +  vdd-supply: true
-> +
-> +  led-max-microamp:
-> +    description:
-> +      The driver current for the external LED connected to the LDR pin.
-> +    minimum: 4000
-> +    maximum: 258000
-> +    multipleOf: 2000
-> +    default: 12000
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - vdd-supply
-> +
-> +additionalProperties: false
 
-Should be unevaluatedProperties as you're using $refs in the binding,
-but Jonathan could tweak that when applying.
+Do we still need qcom,skip-power-up on new SoCs *with* MMIO access?
 
--- 
-Kind regards,
-Joshua Crofts
+GPT has concerns regarding whether we need to add
+arm,coresight-loses-context-with-cpu
+
+otherwise lgtm
+
+Konrad
