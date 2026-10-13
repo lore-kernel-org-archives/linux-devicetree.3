@@ -1,65 +1,63 @@
-Received: from mail-ej1-f48.google.com (mail-ej1-f48.google.com [209.85.218.48])
+Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 195894E2F2A
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 12:57:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C0FB4D37B6
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 12:57:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791896272; cv=none; b=VCgSjU78X/J5wEF6xxeHZCB0O+QiUaIWW5Fw6O312ylfwHLXP9ZYCThzHnKt/miUZmGEZa/m9sRMKBOMpVfBWRWt3XWL+LL7/0+fEZUODvLbdRi4BxzWJEP+qkL5K8Tg1EcmBtExIDg/bwebl3+I101b9+q+lGH+7FlouC+P8do=
+	t=1791896273; cv=none; b=uuSLKFe7yx6+ZtIZq6+qywxVp24PAaHUZ6jA1nMguAWkHHsrOGoOP+xrpO93EIgQyVSpwTJHzuVDOuysBEETtZVN8qciKuSYoAvicVw+IT8IuvcMLCcuLaOnTj/hYv5uio8KQkg9fBAoo/4Z71GJ5oTrkGn5Z0O4p5emacnJUfE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791896272; c=relaxed/simple;
-	bh=3GF8ccrJ2E7j4uN5tjI8S9AApC9/OI47ZxEUXhdNQ5w=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=te2HKpsXy3XyCKEGwKB3OynIVabPTIpOEx6Nc0Y8AbuTyp15Hqi/uX8KTs7PmmKzWJmTiBmEyml89/75hZnWcCrxg6xcutIC2HOOxtaeZz6J7giP1AkkEiq1StfPwjTujCKbCWn5CrBH2QSor9Cx4BiHO4a5wKHYRLb1QCilrVQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr; spf=pass smtp.mailfrom=sartura.hr; dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b=xiVmiPVw; arc=none smtp.client-ip=209.85.218.48
+	s=arc-20240116; t=1791896273; c=relaxed/simple;
+	bh=lkbzM8u6Ksurvv8STfByGe12+IIc/BqAKbB9v2Dn01E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=q7V1aHFHiqihlO5dOUwVCXNYIZ7+w3bMvT/A77K9U2vKu/f7Uq9IPASFwwNPE/buV/kH70URk1Y2KFZ93ySRtQLXx/h9k5PvhHGN0FZJuN7iqoS+HPOgsamhDtui3K7BBdvNCmiH0hwo+z6YqcX1PMVJqafvg5tEY/JN2gXGS7w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr; spf=pass smtp.mailfrom=sartura.hr; dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b=MF4F6pUA; arc=none smtp.client-ip=209.85.218.51
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=sartura.hr
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sartura.hr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b="xiVmiPVw"
-Received: by mail-ej1-f48.google.com with SMTP id a640c23a62f3a-c2e8c710847so359835566b.0
+	dkim=pass (2048-bit key) header.d=sartura.hr header.i=@sartura.hr header.b="MF4F6pUA"
+Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-c2e6df2742cso445109766b.2
         for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 05:57:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=sartura.hr; s=sartura; t=1791896269; x=1792501069; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nunSQ8CQNv0JezPiian0cV99V25mrgz6BvoT7slRlb0=;
-        b=xiVmiPVwxUa1zJvo/e0Q7CS+8X4bwk599NOa4fh6Ug/D522+oHPeIOA2tYA6QgMgrg
-         oPG/e+hyosFyi3cYXrrruQZ0WloNrWmQOMjXbw4qf+L2gwk9hTwBOHL2tm8kVdawYq9Z
-         MCwmYyv4plNMmZyOGRFrQOq74q6FcJs4hEAz2JmwKYAl8YhO9yYyPRw2hm+C0qIXkWo/
-         rKtM5JH2bgWEmnYjtTMnw7MVmlfTaj6HQKdZl0LfEDSgJMGrrDDenZtKaw0BjT3KcMJ1
-         L/F+WhaH85g1/GWTXwxZjCRD/UGp8WmvucjpL1y/s1JQNqD3JjdiI3fbX8jXmpo6Dgs9
-         9EUA==
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uhznKuYnN5ZlVlaqPy/qLcJWMqnPhwIquwlakdmcYyI=;
+        b=MF4F6pUAh5yxJ75huVJMGcH3egOyyWRSCRJfGvDJ0VZjey8lwSxKZ5CzjgEIEXIy4s
+         WDM7V/g6QYEwfrYNZP+IxRQ2y92pz0QMOvqoKoPlN6u5tfelWOeFs1dPv6WGToPp5lJ7
+         Z/r3Vte1xV6eW6Z4HPGjzTXoEIOB3qPvxPQQPDiMTxL6j6ltuRmL8FWssyPRLUx8H2JV
+         pWyxNzkwwnFpZLjvNLxaFu09W8F+F+JMQWz/U62ZeHuJzsgP5VCgoNHqDSWW4KOcC4Tg
+         C5sNK2jjFmQ8n87QAV1jtnVOXNG4cGMb0UvKLN/7Rj6k/lHE9WQmCaUZA8ztMZOUtuAb
+         IcMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20260707; t=1791896269; x=1792501069;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nunSQ8CQNv0JezPiian0cV99V25mrgz6BvoT7slRlb0=;
-        b=Fy2neKcWPkl+0IfwMLgJEqx7nLeP5+Zd1eb8J//8U4lFmNP6Bxzq9eyhvYkXz7ivES
-         ej+0p9eSxuE1dkhaq4yIjf+3bBHq0adXAefgWqi82ufEh+Tru9TfuPGZiXzqygcXAtbI
-         to2p8WZ9oKPUZSEx022rR/1QzYt2xkzDAS4pjziywVp0KAT1U63z5+YZWxyEalMxr9v6
-         ehmduqI00WMzfhiTi0lvhJ9NwbGwSoBFcI146AOA8UfnD7x1NHmDTVs2tHPzuX9wDmL2
-         oW53ZhvWEYxivTtCOWJcmP4/zZO+P/X9ToQaWQdcnHqAWOfaxcZcBNsgnLNxrLLZXWLe
-         aKZg==
-X-Forwarded-Encrypted: i=1; AKwUvBx8TEmUzm5ppmz5fyDMoC0XQCfIdZeWjjPdtgZ21xlQpSqbDMkxLu2O+D64mCA5iFsrQXfrj5+0w1g1@vger.kernel.org
-X-Gm-Message-State: AFq9FYJEKUtMgY587lFmiVjehUhcF3BlyALEJMIHfPNM1A/tN30e6kzc
-	YcyYqqJia3REAWcXa/DeEFo1CrmRWlIHweNpb32oQEM6MBiE5NlPwnEtGJTy1KNuYWk=
-X-Gm-Gg: AYBFou1/TO+T6pVingIv5v6o4mRgZekGEnt7uoN+KuLJyC/Y6VlLS5uNPnA47kLPYCe
-	JQZvdMCJjYr7875TnPX7K7wKbaiAPIEV/Gpv8/iQPpuxxzmMdqp9EaivO3WCaL4YgjCnJl/M7Ie
-	ZV57LF2yVZAf+e0QYiSh+SQcPCC54o/2oRCdz708nPQdoRzRrn1warr+fdIYgTvjtERCsd7Jl95
-	9CHsDpM5SEhbC9T/SxBPwK708msb+DNpYrI88BURs3WDI1e0YvLvlrUdvdtXQ7+3GksakHdi7o6
-	aQIffOj8RGVZNTWOMhhO+fhdH24qGvxXjb0HeJax4PuCI6WnFpkolsVSTgLOGEQ87Xzp+GIzt8o
-	xLXznP8dvwju5eLNAV8N1EgCa6WMU+QX+L3T2S5Whsf7seaqRjYKmLCH+sYEZ9WScoBbQkEdq8E
-	GKDzIHQgwzwGs8TlaZbqIAEtovA+NpL4x0CFzstsGznhShr6iBFXo6Go1NilU75Tx8sBVWNqHxR
-	Z0C2C9Hdle8lYrIgjxmGgCDW12cFiGXvzQnzqXi2aE3ukaFUWWuCTagGjenpYmwQUr8pm0Sq7JA
-	AXWp2NPdW4BHHDGjrpNpZg1WSxQZAp4=
-X-Received: by 2002:a17:907:c317:b0:c2e:62af:b6f3 with SMTP id a640c23a62f3a-c31a9afb29amr1158692166b.15.1791896269434;
-        Tue, 13 Oct 2026 05:57:49 -0700 (PDT)
-Received: from threadripper-fedora-workstation (d-zg2-045.globalnet.hr. [213.149.37.45])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9ac9ecfsm605985766b.74.2026.10.13.05.57.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uhznKuYnN5ZlVlaqPy/qLcJWMqnPhwIquwlakdmcYyI=;
+        b=RpdjHpnwjBp3/tg06VigWDGLNBcVFdSBSGgYvAlfX+SIAgJawO6wliZIqfr9LLsPNY
+         ucBZy/mFSZ/xZf3yXkDIEGSeeDVKL5+9cSuPWdaQ6HZzelmVl+LxSU2DtIWE5t/nnysG
+         qOao2iv61BEf4p6Osv9G78KcR338NfnmD1ySPn/k7mRDIM5TCnXBm6Q863WOjEvBJV37
+         sVIII5sq94J6acbCIw4dgb7vNVG0v5LbRsHYGHJVGv1BjZYIFGP6jrICmECqgq+ff72h
+         SRWy5gV3zHXACk0nHX9z0FAseRS9giiXMhGkWsowGWIEs5acFGZMah7zGiUaUub/Sh0n
+         56ow==
+X-Forwarded-Encrypted: i=1; AKwUvBxomIpImNxwDzOj0AU6Oy5Fmqz5Cg+oZM5myekKELp8cYmJWriHZB+Ng1BEKtx5g0Pb5X3b/uEOWWwR@vger.kernel.org
+X-Gm-Message-State: AFq9FYJHc4ASBilMrqZjvDvT7jIvYCawqFWllGgIu1jLDmtXw8MehbgR
+	wrchBc4mHeDhPsbuWqaLGIZ893WwF96sfeEw+2Hnvt+x5T8YJkBDwaAOyDGWHsS2U0o=
+X-Gm-Gg: AYBFou09rGUG73VMIks09W/UTrDbkA+s8e9afv3NI+mUyeUWqIrpNDhZmpRmKifaWda
+	FvIEGYjpYYRSDVNKL6Sr7g3UVhWLPdRl3jI8GnJEGAqz4VGK7f5Y/kTGH1S8bwVD1fbyFz/pjGh
+	ZLyqS6jbI5JGZZ1wCZIqSYLEJUzlstjuC/wBpFyChtzSXqNjwmoB54GjMryfnSkK4FZhIRMld7m
+	+uStM0In9SoUIYf5ENSb7P/UymDwE5ILznnbyYtPCyDq9KezZkxlmdAiiWuWa1bWkp+/wuHN14g
+	FVoDlYWc7d+2qDD9OqoM7j6zssNTap2eg6dkOZRucly8dah6BRKGA/gIE9WOtlhnMrj6VrjUZC0
+	kAPEWmE+QATK8qiaELO1ojAzf5hzVuSM0EM0fBw2o9uaaHfTK2KCKY2qeaIOFfvXsux//U6JHrI
+	LFAQoAlc+Qy6mW6AFSh7WKwvtV+yiBB6VTBV46VZ1oQ07dSO47UuYm6hzGppeEWB2c8TpNpHKQr
+	KJ7vM+30TWItqTuTPkqyhblTtcwSybx61mnhqiJWnkI8s1FQDK5U7LfiDQpWD9AiEhKdcJ50Wyy
+	fr2sTNh8d7d1wvRrR7RKyz4dv18xp2U=
+X-Received: by 2002:a17:906:e114:20b0:c33:62c0:d8cf with SMTP id a640c23a62f3a-c3362c15642mr504101666b.13.1791896268023;
         Tue, 13 Oct 2026 05:57:48 -0700 (PDT)
+Received: from threadripper-fedora-workstation (d-zg2-045.globalnet.hr. [213.149.37.45])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c31a9ac9ecfsm605985766b.74.2026.10.13.05.57.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 05:57:46 -0700 (PDT)
 From: Robert Marko <robert.marko@sartura.hr>
 To: linux@roeck-us.net,
 	robh@kernel.org,
@@ -77,12 +75,10 @@ To: linux@roeck-us.net,
 	linux-kernel@vger.kernel.org
 Cc: luka.perkov@sartura.hr,
 	Robert Marko <robert.marko@sartura.hr>
-Subject: [PATCH 2/6] hwmon: sparx5: separate temperature reading from sensor dispatch
-Date: Tue, 13 Oct 2026 14:56:26 +0200
-Message-ID: <20261013125735.1542349-2-robert.marko@sartura.hr>
+Subject: [PATCH 1/6] dt-bindings: hwmon: sparx5: add LAN969x fan controller
+Date: Tue, 13 Oct 2026 14:56:25 +0200
+Message-ID: <20261013125735.1542349-1-robert.marko@sartura.hr>
 X-Mailer: git-send-email 2.56.0
-In-Reply-To: <20261013125735.1542349-1-robert.marko@sartura.hr>
-References: <20261013125735.1542349-1-robert.marko@sartura.hr>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -91,89 +87,155 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Move temperature conversion into a helper and dispatch reads by sensor
-type. Preserve the existing temperature calculation and error handling
-in preparation for adding fan monitoring.
+LAN969x integrates a PWM fan controller with a tachometer input in
+addition to the Sparx5-compatible temperature sensor. Add a LAN969x
+hardware-monitor compatible and describe the second register region.
+
+Describe the fan as a child node using a two-cell PWM specifier for the
+period and standard polarity flags. The child also carries the optional
+tachometer pulses-per-revolution and thermal cooling properties.
+
+Keep the existing microchip,lan9691-temp compatible for device tree ABI
+compatibility.
 
 Signed-off-by: Robert Marko <robert.marko@sartura.hr>
 ---
- drivers/hwmon/sparx5-temp.c | 54 +++++++++++++++++++++----------------
- 1 file changed, 31 insertions(+), 23 deletions(-)
+ .../bindings/hwmon/microchip,sparx5-temp.yaml | 90 ++++++++++++++++++-
+ 1 file changed, 87 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/hwmon/sparx5-temp.c b/drivers/hwmon/sparx5-temp.c
-index aa91780737446..0fd5c147f8167 100644
---- a/drivers/hwmon/sparx5-temp.c
-+++ b/drivers/hwmon/sparx5-temp.c
-@@ -37,38 +37,46 @@ static void s5_temp_enable(struct s5_hwmon *hwmon)
- 	writel(val, hwmon->base + TEMP_CFG);
- }
+diff --git a/Documentation/devicetree/bindings/hwmon/microchip,sparx5-temp.yaml b/Documentation/devicetree/bindings/hwmon/microchip,sparx5-temp.yaml
+index 611fcadb1e771..e91c2a3ccd3c9 100644
+--- a/Documentation/devicetree/bindings/hwmon/microchip,sparx5-temp.yaml
++++ b/Documentation/devicetree/bindings/hwmon/microchip,sparx5-temp.yaml
+@@ -4,13 +4,15 @@
+ $id: http://devicetree.org/schemas/hwmon/microchip,sparx5-temp.yaml#
+ $schema: http://devicetree.org/meta-schemas/core.yaml#
  
-+static int s5_read_temp(struct s5_hwmon *hwmon, long *temp)
-+{
-+	int value;
-+	u32 stat;
+-title: Microchip Sparx5 Temperature Monitor
++title: Microchip Sparx5 Hardware Monitor
+ 
+ maintainers:
+   - Lars Povlsen <lars.povlsen@microchip.com>
+ 
+ description: |
+-  Microchip Sparx5 embedded temperature monitor
++  Microchip Sparx5 temperature monitor with a fan controller on LAN969x.
++  The fan child's pwms property references this node to specify the
++  PWM period and polarity.
+ 
+ properties:
+   compatible:
+@@ -18,11 +20,19 @@ properties:
+       - const: microchip,sparx5-temp
+       - items:
+           - enum:
++              - microchip,lan9691-hwmon
+               - microchip,lan9691-temp
+           - const: microchip,sparx5-temp
+ 
+   reg:
+-    maxItems: 1
++    minItems: 1
++    maxItems: 2
 +
-+	stat = readl_relaxed(hwmon->base + TEMP_STAT);
-+	if (!(stat & TEMP_STAT_VALID))
-+		return -EAGAIN;
-+	value = stat & TEMP_STAT_TEMP;
-+	/*
-+	 * From register documentation:
-+	 * Temp(C) = TEMP_SENSOR_STAT.TEMP / 4096 * 352.2 - 109.4
-+	 */
-+	value = DIV_ROUND_CLOSEST(value * 3522, 4096) - 1094;
-+	/*
-+	 * Scale down by 10 from above and multiply by 1000 to
-+	 * have millidegrees as specified by the hwmon sysfs
-+	 * interface.
-+	 */
-+	value *= 100;
-+	*temp = value;
++  reg-names:
++    minItems: 1
++    items:
++      - const: temp
++      - const: fan
+ 
+   clocks:
+     items:
+@@ -31,11 +41,67 @@ properties:
+   '#thermal-sensor-cells':
+     const: 0
+ 
++  '#pwm-cells':
++    const: 2
++    description: |
++      Number of cells in a PWM specifier.
++      - cell 0: PWM period in nanoseconds
++      - cell 1: PWM polarity: 0 or PWM_POLARITY_INVERTED
 +
-+	return 0;
-+}
++  fan:
++    $ref: fan-common.yaml#
++    unevaluatedProperties: false
 +
- static int s5_read(struct device *dev, enum hwmon_sensor_types type,
--		   u32 attr, int channel, long *temp)
-+		   u32 attr, int channel, long *val)
- {
- 	struct s5_hwmon *hwmon = dev_get_drvdata(dev);
--	int rc = 0, value;
--	u32 stat;
++    properties:
++      cooling-levels:
++        description:
++          PWM duty-cycle values corresponding to thermal cooling states.
++        items:
++          maximum: 255
++
++      pulses-per-revolution:
++        minimum: 1
++        maximum: 4
++        default: 2
++
++    required:
++      - pwms
++
++    dependencies:
++      '#cooling-cells':
++        - cooling-levels
++      cooling-levels:
++        - '#cooling-cells'
++
+ required:
+   - compatible
+   - reg
+   - clocks
  
--	switch (attr) {
--	case hwmon_temp_input:
--		stat = readl_relaxed(hwmon->base + TEMP_STAT);
--		if (!(stat & TEMP_STAT_VALID))
--			return -EAGAIN;
--		value = stat & TEMP_STAT_TEMP;
--		/*
--		 * From register documentation:
--		 * Temp(C) = TEMP_SENSOR_STAT.TEMP / 4096 * 352.2 - 109.4
--		 */
--		value = DIV_ROUND_CLOSEST(value * 3522, 4096) - 1094;
--		/*
--		 * Scale down by 10 from above and multiply by 1000 to
--		 * have millidegrees as specified by the hwmon sysfs
--		 * interface.
--		 */
--		value *= 100;
--		*temp = value;
-+	switch (type) {
-+	case hwmon_temp:
-+		if (attr == hwmon_temp_input)
-+			return s5_read_temp(hwmon, val);
- 		break;
- 	default:
--		rc = -EOPNOTSUPP;
- 		break;
- 	}
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: microchip,lan9691-hwmon
++    then:
++      properties:
++        reg:
++          minItems: 2
++        reg-names:
++          minItems: 2
++      required:
++        - '#pwm-cells'
++        - reg-names
++    else:
++      properties:
++        '#pwm-cells': false
++        fan: false
++        reg:
++          maxItems: 1
++        reg-names:
++          maxItems: 1
++
+ additionalProperties: false
  
--	return rc;
-+	return -EOPNOTSUPP;
- }
- 
- static umode_t s5_is_visible(const void *_data, enum hwmon_sensor_types type,
+ examples:
+@@ -46,3 +112,21 @@ examples:
+         #thermal-sensor-cells = <0>;
+         clocks = <&sys_clk>;
+     };
++
++  - |
++    #include <dt-bindings/pwm/pwm.h>
++
++    hwmon: hwmon@e2020100 {
++        compatible = "microchip,lan9691-hwmon", "microchip,sparx5-temp";
++        reg = <0xe2020100 0xc>, <0xe2010348 0xc>;
++        reg-names = "temp", "fan";
++        #pwm-cells = <2>;
++        #thermal-sensor-cells = <0>;
++        clocks = <&sys_clk>;
++
++        fan {
++            pwms = <&hwmon 40000 PWM_POLARITY_INVERTED>;
++            cooling-levels = <0 128 192 255>;
++            #cooling-cells = <2>;
++        };
++    };
 -- 
 2.56.0
 
