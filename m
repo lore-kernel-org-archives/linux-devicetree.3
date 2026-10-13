@@ -1,67 +1,87 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 040663EF649
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 14:23:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8EBD3F23D0
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 14:24:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791901434; cv=none; b=DX4HjENrNGkJsce7UpSqi6kv9vkMxXOXyjpDjaTQEzR6SgdRiYcdIkwPjYjTMEoMPaYIV0Uh84bmjPAY3g4KabDeoFupUJR3dwpcQ2lUQlw3KZxvCrzQzMTdUYNf5pDD/+I+IrRviVf0t6ybLGBMxuAc/32fPzcptZVC4Gy+vQM=
+	t=1791901442; cv=none; b=C3kaR2AKuCkJ6gVzWt75UrPFmPb3vFTzoaso/xfqCXjPVpm6QR7++PTIEmx6SXGWc09fYckOKMddlLfU9zk/o6gg1eMyqPCFNCU9B/gLdZJEisZBkn+5qxQGkhdcXr2QOgAtapIeBI8ZnbbHV4+e83HC6nFEor8I2NYaRhJOiVo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791901434; c=relaxed/simple;
-	bh=F6xdNylOra+d6nScPWTOEdS7UIVxYDy2KpsyhXvVqUY=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=j+vb2ZciQovGqA0B80CwueUjowZQF7j1sYO8NHmtFvqoVGqcUFvLJmpjdJ4zKeGqLPZr3Qrq1cx5wwC/d6+UMYODjn/ly11ZEBOW/+s7sE1SiVCvKphoynV78VBWsugyQCm1HcznbjmZU61bR0K82fnyNhOrdEJiOQ+iZNpz7Vw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=k0IbU070; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1791901442; c=relaxed/simple;
+	bh=SyE2Z25hzP8HKj4fDJ94fsBx77haZvgbrgT6zrnosF4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ppAWEJssxB5HbW9Ao9kx/sc2I2rOlo+XCNRFOtzElTYu+UjjAyLhrpqsIja8Vyacka2zP8hU/XFauLeU6D7Ii/CTfOLMBnW19nM+asAPqrWXjLO+BR9lDknfnxD7P8X1PYX8nXvvwoD+J6AiP4WqgB0VPC4v5slclNzDUVV8f+o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WbCqkCaV; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VP31E+RW; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="k0IbU070"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4a02667ccebso21816545e9.0
-        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 07:23:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WbCqkCaV";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VP31E+RW"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69DE3wRI1492074
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 14:24:01 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	0nM8qXXdR5YbmFnkFs1b3gqnhsYEi9FrdxzOiNS83ok=; b=WbCqkCaVPtk9UIzR
+	KDKCSMaLmcYdP1tdpf5tOpRaO0mn3OH1PnNolvBIODrRshpHOQfeyiC+HAXuuXSb
+	NMa9FhyDweL/7ImGGK8oKAqobGVozeO6L87r76PpKW+7iisKT0zS206/mAvQ7DOy
+	kyQZdimk5uqwwh/51UT868ZFKMrZOTn4+EN5b/SxxASJqRgF7BfceQ9oa5t9/VIo
+	K6LiMfrkkofmAUwth/Rp08/e82hXilLVyHidvYkaRGkAA1aVu9T1JaO9O+qDHZ4F
+	XUPdAnjZ67Sz2kIDDaDH8cdmpxJclU/KNn0vRPg4NpQRLKwZ1pGsHfr8ygRY8WOI
+	bvlirw==
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9daqtf6e-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 14:24:00 +0000 (GMT)
+Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93e46c120dfso325477385a.1
+        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 07:24:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791901431; x=1792506231; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ab10SuSZKniPFCPp3hIt28gYpjjC/wvqCg5uxaP7xbQ=;
-        b=k0IbU070ZVB+i6N0ptron3p4her+E1u+kSDWlpRnSZfmM6YqDAZtn6mVzniL1mJUZV
-         k7fPqUSjeD6cJL7yKgq3hSLVZGvKIXgKxUsl9JJkrot6kWFVIjao/1LcbhnJnoGjbGqF
-         Q75c7Z/6rmA2ZFL8XmlntYF/Eq1PzrMOqulRFyJrva2Bajj6db01km6okW+mffGm4xBK
-         F+p5O7LcbzvtUfMFLGq7HRyG/4HYYkD6e7gEn1AJo7ilW3eU8xM7lGbWcwc26/GmRlBC
-         YaM/2NaR7O8I4LjKNITtGApSqp0rUTNBGDOivvoks9zb1cELo2BCbknKN/BKSFuAtt5I
-         r8KA==
+        d=oss.qualcomm.com; s=google; t=1791901440; x=1792506240; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=0nM8qXXdR5YbmFnkFs1b3gqnhsYEi9FrdxzOiNS83ok=;
+        b=VP31E+RWjjXDpdmtRhXqyS5lIdoqFwygLrAkqc/e+meRskF3iEk3EiCtdksVwRKL6b
+         SVFt9JIzmZNR7qWljPagdJZlwaW3HlqWIXGGf5xxk8PW09+oEYBhK+Rvd+GVYkoZLywt
+         VJ9KYshbdJhejyfCw/wnIUWZTRdITRVWLaxzAfWP5WAdg2ooqR12BBtxwqyVud8o1O29
+         4gyb4dsGS6qaibD/MflADrcMF8VV3ey7Ics79DA1+p0EtJK8g1ogp6WJknuQ71Tvzs1S
+         vRKQ3jjpOIWt0xVIs0Dmt/neiRmf026SWrLovOFWyX9tTLwnUOx8TEbOMt/8l9lUAt26
+         WXhA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791901431; x=1792506231;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ab10SuSZKniPFCPp3hIt28gYpjjC/wvqCg5uxaP7xbQ=;
-        b=d7B/x2l01b75P8TnbU0JrpOeA1Ki9M90VWlF8LCco4IBSQnJHlynfZAjwBx8lbY7rt
-         nNkEYjS9XKaf2CWwps+n632aMAdyd/JadNoY97Q6zLcG103uTqv8lbLAjcnJZKKRXbiQ
-         8u/KFVMDWGeFfaz755QP3/YZAONYhISOczAYszH3zJHY2db95WX5HQLHIdL26ckmc65x
-         XOOAFlwwjp76dMhkQmJfYBekH57CPa3ZIw9D8RQ2JOVVY362nns+WCyWK0biGyWnW/Ci
-         O5i+EW3oLohbuUxWrKYbqxDnxSEg1J+v4BwLby0TP8ce81YDsmS2JJxllUH57xEigRMZ
-         v9TA==
-X-Gm-Message-State: AFq9FYIiTPGDq5JGWUhEosjUQavHTPe5p4m0D7Tar8Yke1+DwDHqxkfv
-	bsbdSzo9pE37wji8S+swF/Rt0wHLchNFQ4SXPhHnDCrH4aHm/thuVwE0NDrDXYzLLM4=
-X-Gm-Gg: AYBFou3PfCtFff+j5Ybyqxwe/6WNl4aGPGXjNCDc4PsBy89BGiO4TDbvC+85gnlyxU8
-	lN7knAZchmFQXMFFY95QyOK2pAVTApB3sj56FRP8qCmA4Gv835jJmCZWXEKz4kk5Jrz9Yx2DVgq
-	3JW2bV1LKdtFVx6YFxvsZVQhvPaUz3H0rxhTEdlXkAmfwC7RD6iNodd4I9RMy2pyQFRGaSh9ZOQ
-	SY17ZggbDKEdbroCu0PRATThJgCbxJB5OnQojhulKLkqO5vEJ53xi+WGI71N3ipoZNLXvcLm9Sf
-	fGXHZqieCwHKdBGFYfu7bw/jz+Fbcb4K+BOy8bjlIHm4guulpk41DpmZds3Dd34mV7JAtCuCIRK
-	G9fth/pi+9Q544wnlNw7OJJL0uENrdT1hq3p0J5P9dx5p+qZ9hD2bpiBcArcNjHMy5SU94MSxsc
-	VxV3QUd2xdvKkwJpAXHhAw7zk4DuFFBEcRNy2a/FzS3UnjaIuU6zT/teuq4muk9KG8TyjtjyOOT
-	BEsGS6FNCon9UQQ0Hy3/fhk8DkoRZk75m72c8ChcFHRvs3BcH/1Zw==
-X-Received: by 2002:a05:600c:83c9:b0:4a1:70f0:ac2 with SMTP id 5b1f17b1804b1-4a18e4ce9cfmr247499385e9.24.1791901430730;
-        Tue, 13 Oct 2026 07:23:50 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:ef1f:5ab3:36fa:3ccb? ([2a01:e0a:106d:1080:ef1f:5ab3:36fa:3ccb])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1ae508ef8sm26764285e9.3.2026.10.13.07.23.50
+        d=1e100.net; s=20260707; t=1791901440; x=1792506240;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=0nM8qXXdR5YbmFnkFs1b3gqnhsYEi9FrdxzOiNS83ok=;
+        b=O6COs6QqH5bct0l/+BfUtNC/8S189jwlPacoO1a931CYVF5Tw77nsf8offQaMI7A/u
+         wtmusk+cFw4ZpLTu12Kty+zFAtTaFp9FXiioSOzIN5lx58FdYl0v8BQhlKE8lklbwLgn
+         3xaLLAM9WXpdFo2U6wzZwIlEVZwnPPskzB7Ee5AvvSjxalEKAeYPdaoDncRvOSbe/Ln+
+         IkQriYwuYYwfGRC847/ZHBIrBgCqAWvrMURgye83EPSPsZDnSac/y9DZ/QBOvot/pnGE
+         PENP853mrv8xPhWytDubfu+XoVkZGHMzW7xlJzOMzDoSPZaRcn1ZhrWzdEScF4LxQ2NS
+         +6Zg==
+X-Forwarded-Encrypted: i=1; AKwUvBzgduQUzsx+ujL7R23sZNvDuoSC3Gd+xgGfryBygvfekdGFRq5+y4T5OH0gBlRGi8gpbsBgLBo4ymPw@vger.kernel.org
+X-Gm-Message-State: AFq9FYLCRgsiawPFxRJXMbcM8igKjBTHzhuGWcC9SL/uOab/51InyuvT
+	F0KxRW9gwnLVFgH5ndWzXmXWZOGREpW7yTZNd0sh0CPw5jjV47qvi85BNZAXNlePU9khy5v45zX
+	CaD5AKkHRh9Zo5oH9xScgLNqvVOxKFzBRaA0wI8Soky9MSunDJxTq8rFtW5DPdZGq
+X-Gm-Gg: AYBFou0Qd2rO6UT2vd54bh9Ur/YuKfNmCcqRVRT+7gKhKBuoxvuonaz7ZfcoRiZ6vW0
+	YDa+6CBuRFYkor5yikezQoidESmFEE6dKMOL4k7yek2AtIFU03cDxJ5LeGyztIbA99NEkB2TLw6
+	cQ72rT1wzRfKIM9GpaW2xVj3KdHVNercVt9J9ijxyzaejXU/5f/Mmk+uUAzN70IfROusZ7b4jMb
+	Xb05Dspz5PRjni4kHOgj1EtjVhVm+EylIGK4f3CFIWkuR5ptFIDNI4FmW4jFLCKShqG1U7ON2we
+	57wOWta0aleh6vbsQvKP/acz+f4ymsJWJFYtwEcOXTPQro3Iek0ueyqm5q4eV5m6iNLMrlFyrt7
+	Dz5z6rvyfhY+JjUPX
+X-Received: by 2002:a05:620a:6081:b0:93a:1fa7:1afb with SMTP id af79cd13be357-93ebd24d180mr2046718385a.42.1791901439864;
+        Tue, 13 Oct 2026 07:23:59 -0700 (PDT)
+X-Received: by 2002:a05:620a:6081:b0:93a:1fa7:1afb with SMTP id af79cd13be357-93ebd24d180mr2046711485a.42.1791901438883;
+        Tue, 13 Oct 2026 07:23:58 -0700 (PDT)
+Received: from [192.168.10.46] ([37.167.4.94])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0ab48a7sm5417001f8f.24.2026.10.13.07.23.56
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 13 Oct 2026 07:23:50 -0700 (PDT)
-Message-ID: <d716146b-6d84-48fe-b6f4-18fce93cfc4a@linaro.org>
-Date: Tue, 13 Oct 2026 16:23:49 +0200
+        Tue, 13 Oct 2026 07:23:57 -0700 (PDT)
+Message-ID: <5cf4bf60-00c1-4aa3-b264-aafba8af19bf@oss.qualcomm.com>
+Date: Tue, 13 Oct 2026 16:23:55 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,302 +89,75 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v3 3/3] iio: adc: add driver for the MAX34417 Four-Channel
- High Dynamic Range Power Accumulator
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org, robh@kernel.org,
- conor+dt@kernel.org
-References: <20261013-topic-sm8x50-iio-max34417-adc-v3-0-d3604ae4a229@linaro.org>
- <20261013-topic-sm8x50-iio-max34417-adc-v3-3-d3604ae4a229@linaro.org>
- <sashiko-outbox-169896@kernel.org>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <sashiko-outbox-169896@kernel.org>
+Subject: Re: [PATCH v8 0/5] thermal: samsung: Add support for Google GS101 TMU
+To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Tudor Ambarus <tudor.ambarus@linaro.org>,
+        "Rafael J. Wysocki" <rafael@kernel.org>,
+        Daniel Lezcano <daniel.lezcano@kernel.org>,
+        Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bartlomiej Zolnierkiewicz <bzolnier@gmail.com>,
+        Krzysztof Kozlowski <krzk@kernel.org>, Kees Cook <kees@kernel.org>,
+        "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+        Peter Griffin <peter.griffin@linaro.org>,
+        =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
+        Alim Akhtar <alim.akhtar@samsung.com>
+Cc: jyescas@google.com, linux-kernel@vger.kernel.org,
+        linux-samsung-soc@vger.kernel.org, linux-pm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-hardening@vger.kernel.org,
+        linux-arm-kernel@lists.infradead.org
+References: <20260603-acpm-tmu-v8-0-0f1810a356e6@linaro.org>
+ <8142519a-0062-4f0f-b978-980e049f99c1@oss.qualcomm.com>
+ <8796cfa1-5ae0-41fd-b3f2-c6b588157b12@oss.qualcomm.com>
+Content-Language: en-US
+From: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+In-Reply-To: <8796cfa1-5ae0-41fd-b3f2-c6b588157b12@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: 8OMe2a5Sa8ae7a8QRA53sPfHRc5FgjgK
+X-Authority-Analysis: v=2.4 cv=FZuiV5+6 c=1 sm=1 tr=0 ts=6ace3f00 cx=c_pps
+ a=50t2pK5VMbmlHzFWWp8p/g==:117 a=Pwpi88Ktxb2v7RWwfB9ReQ==:17
+ a=IkcTkHD0fZMA:10 a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=4bmiNBAiDDOXaXc57RkA:9 a=QEXdDO2ut3YA:10 a=IoWCM6iH3mJn3m4BftBB:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDA1NyBTYWx0ZWRfXzB6r2TSs0fHP
+ Oyy5w0xhFWZoBnRe5RHfnungNxAIJoATz0GFk5k5hUFiWEqUCI0iL98u3XuPzR7uEZPJoSWyXK7
+ yyw6puUCzEsKM32aSlH4Eth2FCUM3R8=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDA1NyBTYWx0ZWRfX9x3/4VhF6snl
+ M/reS7If5imWBJrXNI+edCha/RucWJlDGMZd6UPKDegasAXTVhNcnoRWIO/4aj/AHgKf60Vab1m
+ avpasnrEdYAfk8vheRloaDatuEaP6I0MX/l9U7R4VQCkGo88D1iEX3ygI14C+ONTiRupa6Ss3Ro
+ LWfLoMerPxPFZy2ML9c92Tz6B/v3iie9Km7JRh7dWGJnbP7EvLmVIDwJTYhDV9Ztpg5WFdrjvKo
+ hd+AeKB/EMEQ6pTCqnHDao71AEZPwIF3MeyAxu0pYFQgYwj8WWYnCOizfXbKr6hSJXVsXlDz8BC
+ J3wfsOCZoJdmYv2YiWX/QWcX/OGAHeEBuBbayEUxvN8hILz/ODhDYqWESyJu3D8CAftUgeac7iZ
+ G74hgNQ3OzgZ58S19UaZ41kyMbz5rAHTzd2pu5ojCw4f43FI3WX9wa2IykavniYv6p1bVkWfzO0
+ +E3BbuPQOyyyr8bNCyA==
+X-Proofpoint-ORIG-GUID: 8OMe2a5Sa8ae7a8QRA53sPfHRc5FgjgK
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 lowpriorityscore=0 clxscore=1015 impostorscore=0
+ adultscore=0 bulkscore=0 spamscore=0 malwarescore=0 phishscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2610080000
+ definitions=main-2610130057
 
-On 10/13/26 16:19, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 6 potential issue(s) to consider:
-> - [High] iio: max34417: silent truncation of 64-bit software accumulator
-> - [High] iio: max34417: sysfs reads violate 1ms hardware UPDATE delay constraint
-> - [Medium] iio: max34417: u32 acc_count overflows causing corrupted power calculations
-> - [Medium] iio: max34417: device registered before hardware initialization completes
-> - [Medium] iio: max34417: unprivileged log-spam DoS via non-rate-limited dev_warn
-> - [Medium] iio: adc: max34417: data race and TOCTOU on cam_mode causes incorrect statistics
-> --
+On 10/13/26 16:01, Krzysztof Kozlowski wrote:
+> On 13/10/2026 15:33, Daniel Lezcano wrote:
+>> Hi Tudor,
+>>
+>> I noticed I picked up your series without notifying you
+>>
+>> However, I did not pay attention but picked also the dts files.
+>>
+>> Shall I drop them ? (AFAICS there is one comment) and let you handle
+>> them separately ?
 > 
-> commit ebd13d02bb2cfb7ea4951f2b1c27883dde2b138e
-> Author: Neil Armstrong <neil.armstrong@linaro.org>
-> 
-> iio: adc: add driver for the MAX34417 Four-Channel High Dynamic Range Power Accumulator
-> 
-> The MAX34417 is a specialized current and voltage monitor used to determine
-> power consumption of portable systems. The driver supports getting the channels
-> voltage, average power and accumulated average power and energy over an
-> I2C/SMBUS serial interface.
-> 
->> diff --git a/drivers/iio/adc/max34417.c b/drivers/iio/adc/max34417.c
->> new file mode 100644
->> index 0000000000000..00d7f20cd9531
->> --- /dev/null
->> +++ b/drivers/iio/adc/max34417.c
->> @@ -0,0 +1,777 @@
-> 
-> [ ... ]
-> 
->> +struct max34417_data {
->> +	struct iio_dev *indio_dev;
->> +	struct regmap *regmap;
->> +	struct device *dev;
->> +	struct mutex lock;
->> +	u32 input_correction[MAX34417_CHANNEL_COUNT];
->> +	const char *input_label[MAX34417_CHANNEL_COUNT];
->> +	bool cam_mode;
->> +	u64 acc_power[MAX34417_CHANNEL_COUNT];
->> +	u32 acc_count[MAX34417_CHANNEL_COUNT];
->> +};
-> 
-> [Severity: Medium]
-> Will this 32-bit counter overflow during continuous long-term accumulation?
-> 
-> In Continuous Accumulation Mode (CAM), the hardware sample counter is repeatedly
-> added to this variable across sysfs reads. At the maximum sample rate of 1024
-> SPS, a 32-bit counter will overflow in approximately 48 days. When this
-> wrap-around occurs, the subsequent average power calculation
-> (div_u64(acc_power, acc_count)) will divide the large 64-bit acc_power by a
-> small or zero acc_count, resulting in a corrupted power reading or a division
-> by zero panic. Should acc_count be promoted to u64?
+> Were they reviewed? I think no, so that's another reason not to take
+> DTS. Anyway, it must not go via driver subsystem, so please drop.
+Yep, I agree, I'll drop them and keep the driver specific changes
 
-Eventually yes
-
-> 
-> [ ... ]
-> 
->> +static int max34417_read_voltage(struct max34417_data *max34417,
->> +				 const struct iio_chan_spec *chan, int *val)
->> +{
->> +	u8 buf[MAX34417_VOLTAGE_READ_LENGTH];
->> +	u16 voltage;
->> +	int rc;
->> +
->> +	guard(mutex)(&max34417->lock);
->> +
->> +	/* In SMM mode, trigger a measurement cycle manually */
->> +	if (!max34417->cam_mode) {
->> +		rc = max34417_trigger_smm(max34417);
->> +		if (rc)
->> +			return rc;
->> +	}
->> +
->> +	/* Move the new UPDATE data into the SMBus read registers */
->> +	rc = regmap_write(max34417->regmap, MAX34417_UPDATE_REG, 1);
-> 
-> [Severity: High]
-> Does this bypass the hardware's 1ms UPDATE delay constraint?
-> 
-> The driver notes that "UPDATE commands should be no less than 1msec apart for
-> reliable measurements." While max34417_trigger_smm() properly enforces this
-> delay, the sysfs read handlers for CAM mode unconditionally write to
-> MAX34417_UPDATE_REG. If an unprivileged userspace process polls the sysfs
-> attributes faster than 1ms, it might violate this constraint, potentially
-> leading to unreliable measurements, missing samples, or bus lockups.
-
-The 1ms update delay is only for the Single Shot Mode, not for the Continuous Update Mode.
-
-> 
-> [ ... ]
-> 
->> +static int max34417_read_power(struct max34417_data *max34417,
->> +			       const struct iio_chan_spec *chan,
->> +			       int *val, int *val2)
->> +{
-> 
-> [ ... ]
-> 
->> +	if (max34417->cam_mode) {
->> +		u32 acc_count;
->> +		u64 acc_power;
->> +
->> +		/* Retrieve all channels to avoid missing data for other channels */
->> +		rc = max34417_save_accumulators(max34417);
->> +		if (rc)
->> +			return rc;
->> +
->> +		/* Get current channel power, counter and reset them */
->> +		acc_power = max34417->acc_power[chan->channel];
->> +		acc_count = max34417->acc_count[chan->channel];
->> +		max34417->acc_power[chan->channel] = 0;
->> +		max34417->acc_count[chan->channel] = 0;
->> +
->> +		if (unlikely(acc_count == 0)) {
->> +			dev_warn(max34417->dev, "unexpected zero accumulator count\n");
-> 
-> [Severity: Medium]
-> Could this non-rate-limited warning lead to a log-spam denial of service?
-> 
-> If an unprivileged userspace process repeatedly reads the attribute in a tight
-> loop, it will extract data faster than the hardware's sample rate, causing the
-> counter to evaluate to 0. This blindly prints a warning using dev_warn()
-> without any rate limiting, which could flood the kernel log buffer and mask
-> legitimate kernel messages. Should dev_warn_ratelimited() be used instead?
-
-Perhaps yes
-
-> 
->> +			*val = 0;
->> +			*val2 = 0;
->> +
->> +			return IIO_VAL_INT_64;
->> +		}
->> +
->> +		power = div_u64(acc_power, acc_count);
->> +	} else {
->> +		rc = max34417_read_acc_power(max34417, chan->address, &power);
->> +		if (rc)
->> +			return rc;
->> +
->> +		rc = max34417_reset_smm(max34417);
->> +		if (rc)
->> +			return rc;
->> +	}
->> +
->> +	*val = FIELD_GET(GENMASK_ULL(31, 0), power);
->> +	*val2 = FIELD_GET(GENMASK_ULL(55, 32), power);
-> 
-> [Severity: High]
-> Does this silently truncate the upper 8 bits of the 64-bit software
-> accumulator?
-> 
-> GENMASK_ULL(55, 32) explicitly masks off bits 56-63, meaning any accumulated
-> value exceeding 56 bits is silently truncated and dropped before being
-> exported to IIO userspace. Since CAM mode continuously accumulates readings,
-> the u64 can easily exceed 56 bits in sustained operation, causing the
-> userspace reading to wrap around prematurely. Should this use
-> GENMASK_ULL(63, 32) or upper_32_bits(power)?
-
-Value from register is 56bit, there's no truncation.
-
-> 
->> +
->> +	return IIO_VAL_INT_64;
->> +}
->> +
->> +static int max34417_read_energy(struct max34417_data *max34417,
->> +			       const struct iio_chan_spec *chan,
->> +			       int *val, int *val2)
->> +{
-> 
-> [ ... ]
-> 
->> +	/* Get current channel power and reset them */
->> +	acc_power = max34417->acc_power[chan->channel];
->> +	max34417->acc_power[chan->channel] = 0;
->> +	max34417->acc_count[chan->channel] = 0;
->> +
->> +	*val = FIELD_GET(GENMASK_ULL(31, 0), acc_power);
->> +	*val2 = FIELD_GET(GENMASK_ULL(55, 32), acc_power);
-> 
-> [Severity: High]
-> Does this also silently truncate the upper 8 bits of the 64-bit accumulator?
-> 
-> Just as in max34417_read_power(), this GENMASK_ULL(55, 32) truncates bits
-> 56-63 of acc_power.
-
-Value from register is 56bit, there's no truncation.
-
-> 
-> [ ... ]
-> 
->> +static int max34417_read_raw(struct iio_dev *indio_dev,
->> +			     struct iio_chan_spec const *chan,
->> +			     int *val, int *val2, long mask)
->> +{
->> +	struct max34417_data *max34417 = iio_priv(indio_dev);
->> +
->> +	switch (mask) {
->> +	case IIO_CHAN_INFO_RAW:
->> +		switch (chan->type) {
->> +		case IIO_VOLTAGE:
->> +			return max34417_read_voltage(max34417, chan, val);
->> +		case IIO_POWER:
->> +			/* In default mode, we return a single measurement */
->> +			if (max34417->cam_mode)
->> +				return -EINVAL;
->> +
->> +			return max34417_read_power(max34417, chan, val, val2);
-> 
-> [Severity: Medium]
-> Could this lockless check of cam_mode lead to a TOCTOU race and return
-> incorrect statistics?
-> 
-> Here, cam_mode is evaluated without holding the mutex. Concurrently, a sysfs
-> write to in_energy_enable could call max34417_setup_cam_mode(), taking the
-> mutex and setting cam_mode to true. When max34417_read_power() is then
-> called, it acquires the mutex, sees cam_mode is true, and executes the CAM
-> mode logic. This would unexpectedly return an averaged measurement instead of
-> a single-shot reading, violating the expected IIO channel behavior.
-
-Good catch
-
-> 
-> [ ... ]
-> 
->> +static int max34417_probe(struct i2c_client *client)
->> +{
-> 
-> [ ... ]
-> 
->> +	indio_dev->channels = max34417_channels;
->> +	indio_dev->num_channels = ARRAY_SIZE(max34417_channels);
->> +	indio_dev->name = "max34417";
->> +	indio_dev->info = &max34417_info;
->> +	indio_dev->modes = INDIO_DIRECT_MODE;
->> +
->> +	rc = devm_iio_device_register(dev, indio_dev);
->> +	if (rc)
->> +		return rc;
->> +
->> +	/* Reset mode and set accumulator width to Wide */
->> +	rc = regmap_write(max34417->regmap, MAX34417_CONTROL_REG, MAX34417_CONTROL_MODE);
-> 
-> [Severity: Medium]
-> Is it safe to register the IIO device before the hardware initialization
-> completes?
-> 
-> devm_iio_device_register() exposes the device and its sysfs attributes to
-> userspace immediately. A userspace process or udev rule could open the device
-> and trigger read_raw or write_raw callbacks before the hardware is placed
-> into the correct mode (MAX34417_CONTROL_MODE) or its internal accumulators
-> are reset. Should the hardware configuration happen prior to registration?
-> 
-
-Good catch
-
-Neil
-
+Thanks
