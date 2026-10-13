@@ -1,134 +1,141 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC7AA531609
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 15:32:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D2904EFFA3
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 15:33:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791905524; cv=none; b=JjP5OpBRC1+8lbifkxVqpUZty4oW+Doeo7eM933g5WbFsqqdJ4Qk4g/ViVOEZa/e0PSVRZCNfbVZzqjHBw7BI1ih0pwu9bRPWnZXF36lpXGZNGvXdnusLfAI7XNXII27Fmt5Xx9MOKqZvcCYdcZ2jwKExp5MZxfCsWnGbpwOZ+c=
+	t=1791905597; cv=none; b=s5SGwXAygZCB9PZZLwqltxhA2fzOtEA+TUDX5wodYRuHnzFmvpt+1zYszml5zY9slFjl7aeOpvny57mNo8O2W7ZkLv1wUDgpz1syZzJ/WrQ04hb9W7UrcXLMZWZGwqJU4gMMmyFBV3o2yOU772BVnfzRHvk28pvPOar+y4CQ6jg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791905524; c=relaxed/simple;
-	bh=bha2perpetRr6MLSfFt05uCGksEfikTJmxeEmhCJyRs=;
+	s=arc-20240116; t=1791905597; c=relaxed/simple;
+	bh=k8JlBUJOL0Ieqt0O9pac/XLcoVSq/CM8L/fE/A9rEjw=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=ZBDa0Bq2BhjaJ44nf+/sHWVnIfeKqimclMgQ2J24GsPZOmrPn4+pPac2sFACu3bVUR8jcowpiHaiBZ4nWIYSH6hctMgTFx90FAPRD+4RkXCTj5PljMsrQY62dQuzHXdQCt301WFZ+kB5hRkRue3oDakt3Eau3NU2zp+kl91XbjQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g3k39YrU; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=a16V4U0OorSibK7J000L2PJaM3mB/ieQK6hfkaAPJTda37BBsRU5ZZ6j51EO/lxFYcXHEVzvn8pf0eezic08pjnw7MhlJL+CocckkDg9HTvBEIYHAZhM7OuHPCV9viQ+pEcQWWFgtZCWc4xogbruyJP9WBQoaE0bDYwAJWphl8k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gqes+tkp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g3k39YrU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 532261F000FF;
-	Tue, 13 Oct 2026 15:32:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gqes+tkp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7D2351F000FF;
+	Tue, 13 Oct 2026 15:33:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791905523;
-	bh=XUDNfB/qok6miFp6RZ6aTf6lGaeJulaj7UKStNxBR44=;
+	s=k20260515; t=1791905594;
+	bh=gPlC2Rn3gNzRd5irz9/c1Zk5H69nXVfhQWF47HgG568=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=g3k39YrUpK2zbfActu4XgMaBMiSmLYkm0yHvqSl6yqVAInjduVJY20mmyh+Oodd/x
-	 XZ0rUaMH85cJZoBvkg4yUsXOLM2RaCarfG5H3vODoNVV/Y7bToWVW11aKzHuO9/Au/
-	 olFAEwHecHgx/wtdOSpcc78WkrOU51BDkYZRUkgUz/RrNZObI1B0hKf0NSShYh0oZa
-	 hzlnOnEI/xhgoNosZ6CATGAXfhNa3lgaP662nFY2fg0KVkaoGLdMmGFHZj6wS5Bqan
-	 dZ8SiUrQURqRK02ONHej8+HI92ozGNT2XYU2FbkCAiRqlv6a5RwBiXiTvvP4GUdePw
-	 7tyw3KuBSbgbw==
-Message-ID: <sashiko-outbox-170015@kernel.org>
+	b=Gqes+tkpr1vol1w+o93lyiTrXxDuFpbQ+BosMlOY0rYCHKQLbIuJ+Fc9HvAZ2aHyF
+	 XZWZLUrwE2dG1J3bxBzy/3bZ2JfZ7s7ph8qEDnU0rdaDr5LSDUANGFzJ9NIjNFgoOq
+	 BLI7ykKWI5YsiOKpoxUyZYTN3zH9ic0XqRHgXQiULzH35Mzt/ED03G8lezF9BuIapT
+	 ggL/ROrMDf1ca25Zt5eYFl7JZl0zoQf5UylLrwrw+yWkkeKW/QX4qZ2Ex1t+HdoSeJ
+	 n0Um5cA/OJ3IVFj2ec1zJzhzn6J/WiDZgfjcrWN/+yJQd2YmURDr4kGyUoC9UhtN0q
+	 aztikYJtUVbKA==
+Message-ID: <sashiko-outbox-170016@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 01/13] media: imx678: Rework into generic Starvis 2
- sensor driver.
+Subject: Re: [PATCH v2 06/13] media: sony-starvis2: Allow runtime control of
+ link frequency
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Dave Stevenson" <dave.stevenson@raspberrypi.com>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org
-In-Reply-To: <20261013-media-starvis2-v2-1-3670722d250a@raspberrypi.com>
+In-Reply-To: <20261013-media-starvis2-v2-6-3670722d250a@raspberrypi.com>
 References: <20261013-media-starvis2-v2-0-3670722d250a@raspberrypi.com>
- <20261013-media-starvis2-v2-1-3670722d250a@raspberrypi.com>
+ <20261013-media-starvis2-v2-6-3670722d250a@raspberrypi.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 13 Oct 2026 15:32:02 +0000
+Date: Tue, 13 Oct 2026 15:33:14 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] kconfig: VIDEO_IMX678 selects VIDEO_SONY_STARVIS2 without inheriti=
-ng GPIOLIB dependency
-- [High] build: missing removal of imx678.o from Makefile causes build fail=
-ure
+- [High] media: sony-starvis2: missing lock and NULL check for link_freq in=
+it
 --
 
-commit 1c5c35700f9fe2a06860a9b3d153305723dc7e5f
+commit 54243fb94593be25be7c3f168bb8161959b863e5
 Author: Dave Stevenson <dave.stevenson@raspberrypi.com>
 
-media: imx678: Rework into generic Starvis 2 sensor driver.
+media: sony-starvis2: Allow runtime control of link frequency
 
-The register layout and programming model for multiple of the
-Sony Starvis2 sensors is identical, so prepare for supporting
-those by renaming all common parts of the driver to a starvis2_
-prefix, and renaming the driver.
+This commit connects V4L2_CID_LINK_FREQ to allow runtime configuration
+of the link frequency when the sensor is not streaming.
 
-> diff --git a/drivers/media/i2c/Kconfig b/drivers/media/i2c/Kconfig
-> --- a/drivers/media/i2c/Kconfig
-> +++ b/drivers/media/i2c/Kconfig
-> @@ -323,14 +323,11 @@ config VIDEO_IMX576
-> =20
->  config VIDEO_IMX678
->  	tristate "Sony IMX678 sensor support"
-> -	depends on GPIOLIB
-> -	select V4L2_CCI_I2C
-> +	select VIDEO_SONY_STARVIS2
-
-[Severity: High]
-Does selecting VIDEO_SONY_STARVIS2 without inheriting its GPIOLIB dependency
-cause Kconfig warnings or build failures? The VIDEO_SONY_STARVIS2 symbol ad=
-ded
-below explicitly depends on GPIOLIB, so enabling VIDEO_IMX678 on a platform
-without GPIOLIB would forcefully enable the target driver and could lead to
-unmet direct dependencies.
-
->  	help
->  	  This is a Video4Linux2 sensor driver for the Sony
-> -	  IMX678 camera.
-> -
-> -	  To compile this driver as a module, choose M here: the
-> -	  module will be called imx678.
-> +	  IMX678 camera. This sensor is now supported by the common
-> +	  Sony Starvis 2 sensor driver.
+> diff --git a/drivers/media/i2c/sony-starvis2.c b/drivers/media/i2c/sony-s=
+tarvis2.c
+> index 66c77c5957e32..2bb438d22ada0 100644
+> --- a/drivers/media/i2c/sony-starvis2.c
+> +++ b/drivers/media/i2c/sony-starvis2.c
 
 [ ... ]
 
-> @@ -879,6 +876,17 @@ config VIDEO_S5KJN5
->  	  To compile this driver as a module, choose M here: the
->  	  module will be called s5kjn5.
+> @@ -1210,25 +1236,23 @@ static int starvis2_init_controls(struct starvis2=
+ *starvis2)
 > =20
-> +config VIDEO_SONY_STARVIS2
-> +	tristate "Sony Starvis 2 sensor support"
-> +	depends on GPIOLIB
-> +	select V4L2_CCI_I2C
-> +	help
-> +	  This is a Video4Linux2 sensor driver for the Sony Starvis
-> +	  2 image sensors.
-> +
-> +	  To compile this driver as a module, choose M here: the
-> +	  module will be called sony-starvis2.
-> +
-
-> diff --git a/drivers/media/i2c/Makefile b/drivers/media/i2c/Makefile
-> --- a/drivers/media/i2c/Makefile
-> +++ b/drivers/media/i2c/Makefile
-> @@ -146,6 +146,7 @@ obj-$(CONFIG_VIDEO_SAA7127) +=3D saa7127.o
->  obj-$(CONFIG_VIDEO_SAA717X) +=3D saa717x.o
->  obj-$(CONFIG_VIDEO_SAA7185) +=3D saa7185.o
->  obj-$(CONFIG_VIDEO_SONY_BTF_MPX) +=3D sony-btf-mpx.o
-> +obj-$(CONFIG_VIDEO_SONY_STARVIS2) +=3D sony-starvis2.o
+>  	starvis2->vmax =3D starvis2->variant->vmax_default;
+> =20
+> -	hmax =3D variant->hmax_min_link_freq[__fls(starvis2->link_freq_bitmap)];
+> -	if (starvis2->lane_mode =3D=3D STARVIS2_LANEMODE_4L)
+> -		hmax =3D max(hmax >> 1, variant->hmax_min_pixel_array);
+> -
+>  	/* PIXEL_RATE is fixed and read-only */
+>  	v4l2_ctrl_new_std(ctrl_hdlr, &starvis2_ctrl_ops, V4L2_CID_PIXEL_RATE,
+>  			  starvis2->variant->pixel_rate,
+>  			  starvis2->variant->pixel_rate, 1,
+>  			  starvis2->variant->pixel_rate);
+> =20
+> -	/* LINK_FREQ is also read only */
+> -	link_freq =3D v4l2_ctrl_new_int_menu(ctrl_hdlr, &starvis2_ctrl_ops,
+> -					   V4L2_CID_LINK_FREQ,
+> -					   ARRAY_SIZE(link_freqs) - 1,
+> -					   __ffs(starvis2->link_freq_bitmap),
+> -					   link_freqs);
+> -
+> -	if (link_freq)
+> -		link_freq->flags |=3D V4L2_CTRL_FLAG_READ_ONLY;
+> +	starvis2->link_freq =3D
+> +		v4l2_ctrl_new_int_menu(ctrl_hdlr, &starvis2_ctrl_ops,
+> +				       V4L2_CID_LINK_FREQ,
+> +				       __fls(starvis2->link_freq_bitmap),
+> +				       __ffs(starvis2->link_freq_bitmap),
+> +				       link_freqs);
+> +	__v4l2_ctrl_modify_range(starvis2->link_freq,
+> +				 __ffs(starvis2->link_freq_bitmap),
+> +				 __fls(starvis2->link_freq_bitmap),
+> +				 ~(starvis2->link_freq_bitmap),
+> +				 __ffs(starvis2->link_freq_bitmap));
 
 [Severity: High]
-Does omitting the removal of the obj-$(CONFIG_VIDEO_IMX678) rule cause a
-build failure? Since the source file imx678.c was renamed to sony-starvis2.c
-and CONFIG_VIDEO_IMX678 remains in Kconfig for backwards compatibility, Kbu=
-ild
-will attempt to build the non-existent imx678.o target.
+Does this code pass starvis2->link_freq to __v4l2_ctrl_modify_range() witho=
+ut
+checking if it is NULL? If v4l2_ctrl_new_int_menu() fails to allocate memor=
+y,
+it returns NULL, which would cause a NULL pointer dereference when
+__v4l2_ctrl_modify_range() accesses ctrl->handler.
 
->  obj-$(CONFIG_VIDEO_ST_MIPID02) +=3D st-mipid02.o
->  obj-$(CONFIG_VIDEO_T4KA3) +=3D t4ka3.o
->  obj-$(CONFIG_VIDEO_TC358743) +=3D tc358743.o
+Also, is it safe to call __v4l2_ctrl_modify_range() in starvis2_init_contro=
+ls()
+without holding the control handler lock? This unlocked variant expects the
+handler lock to be held, which will trigger a lockdep assertion failure. Sh=
+ould
+this code use the locked variant v4l2_ctrl_modify_range() instead?
+
+>  	vblank =3D starvis2->vmax - starvis2->variant->active_area.height;
+>  	max_vblank =3D STARVIS2_VMAX_MAX - starvis2->variant->active_area.heigh=
+t;
+> @@ -1236,6 +1260,10 @@ static int starvis2_init_controls(struct starvis2 =
+*starvis2)
+>  					     V4L2_CID_VBLANK, vblank, max_vblank,
+>  					     2, vblank);
+> =20
+> +	hmax =3D variant->hmax_min_link_freq[starvis2->link_freq->val];
+
+[Severity: High]
+Can this cause a NULL pointer dereference if starvis2->link_freq is NULL?
+It appears this accesses the val field without a prior check.
+
+> +	if (starvis2->lane_mode =3D=3D STARVIS2_LANEMODE_4L)
+> +		hmax =3D max(hmax >> 1, variant->hmax_min_pixel_array);
+> +
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261013-media-star=
-vis2-v2-0-3670722d250a@raspberrypi.com?part=3D1
+vis2-v2-0-3670722d250a@raspberrypi.com?part=3D6
