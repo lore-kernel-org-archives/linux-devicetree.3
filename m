@@ -1,41 +1,42 @@
 Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDF5F563FAB;
-	Tue, 13 Oct 2026 22:52:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE35B565113;
+	Tue, 13 Oct 2026 22:52:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791931938; cv=none; b=LGxauu11QL1Ox4419hdc94cPiVHEKC9rSOOzpLX0jon/W9HFsooYWtlyOwBPvdhMzclpKckCrdJv3ypeWxk9KxFaUcoJzbRXLRjfdaZ/2yiySpiTZS4EKJlibCi/VSstVT7nhCcwxBEvvwjAb17DHJf/DEGAmyQgBy9EPx9ix+g=
+	t=1791931938; cv=none; b=ojTlbvx5l/UFkfZUKUW69P7uR0Xp+013PHEQ3d9AUg/QHynRBjxAntbhx7PYJLBYgF6vSNvAE1qORgk1GCBrDld3+pBDCN2lECoQF2gt1W+7Lqoaxq1Jaj8PPx+uFW38OX6ydeWBPOamI6BvUkJ6XFWv14Zy5f5PCE+aUWHlfWA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1791931938; c=relaxed/simple;
-	bh=KiRqqrlaf8HazlzQcUHaYydMUHKelMqz701+av4CyKA=;
+	bh=o75JY06VhuM7Teqr20IQpqo67gBo5M66FC5oasjs3To=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=uR7N5EZlTIvmp/lDjrexfz7msx/FnhlZHLGLLl69tqk58bhuoDOu76qWtROBu25Zg6P4Z+FFBxAmXBoLp1YSY0HS044QfMFUi/eUZj+Deui33Z8vzK+3DEBSVeWnLg1DP7+mvEa4wTABhjZek+4NoTmhhrkGegGXEN/gk9hWUkE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=fMZN61Cs; arc=none smtp.client-ip=148.251.105.195
+	 In-Reply-To:To:Cc; b=D/0S6dFtLt3R67jcsvJKunORj6hP7GcwPVciP4kN+siQ2MYe+oIY+cQkyIpOomiEGXc9HIbW+dQ+vN6tnLcXkx29IYpMr6SMe56j+EZzSb2t38jRpnghiK3OB2CAVbGgkzNVQM/rrF8cvPOsHQVb/Idr0tnZZud1BaWDyA6IpVA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=UKCzFCeE; arc=none smtp.client-ip=148.251.105.195
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="fMZN61Cs"
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="UKCzFCeE"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1791931917;
-	bh=KiRqqrlaf8HazlzQcUHaYydMUHKelMqz701+av4CyKA=;
+	s=mail; t=1791931916;
+	bh=o75JY06VhuM7Teqr20IQpqo67gBo5M66FC5oasjs3To=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=fMZN61CsPtxfilKjKFZHI1ApDChIuDnDGWKYRnFxrf/2r/O4toGECNBnKzAMoNJt0
-	 S/4nxzwjhldCg6CyED18/0YZRIY1h7XqZThvzGrPSNNrM6Iwf9l4AxVT4uQ+9gHUoU
-	 ergJqUBoNf7VdtaCp8mm0bG/yE+RdyI5LvNbW5EbCX54uSXJvQLrUDrNyn8tb0nIbe
-	 FQZIILAqdaHVnoigxm4qweXdNQYKyPziZOZDrDId2yg1EgprIMyQxoVluWUgE05W0G
-	 xwZGIUvJ2ATI+Abrf2Ak/PjA0JXFIKLG8H8kRLiP63WFHVXRzuPljBZQ9wZew0AvDY
-	 gtnszGRmGyEIQ==
+	b=UKCzFCeEG+x9oAEIigNBGKZ5nNJ4PsSpFUwB/YTONdDt61+5vFJi4dAjfAnZoHoPu
+	 r0uqzjwK3pLVCcYuQW2vWxlliSoa/uQ0QGhbiuk2b9HQE+T74umgJ6wNyH+fZCF6nL
+	 0egKs56nnc0InYjHEqu9qFndAYE1wDRoURQ1wdimPbY8LsYWizGokcaiQfumO1CX+G
+	 WlySI7q4hJn4+JWi6fawvZdxbJJTzkE/MhAlIyisXrIWfs+7gn+/jFOL0e7Tndvi9a
+	 Uk7NaJD8RJ4BFBE8JOg3f2GmO+6xHBmFuXZR4c597lGtguyDTkxsEmcQk/grYlLOPO
+	 ekqTRRMp/jkNQ==
 Received: from localhost (unknown [100.64.0.241])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange secp256r1 server-signature RSA-PSS (4096 bits) server-digest SHA256)
 	(No client certificate requested)
 	(Authenticated sender: cristicc)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id A999F17E12B9;
-	Wed, 14 Oct 2026 00:51:57 +0200 (CEST)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id 48ECF17E0FB1;
+	Wed, 14 Oct 2026 00:51:56 +0200 (CEST)
 From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-Date: Wed, 14 Oct 2026 01:51:27 +0300
-Subject: [PATCH v5 10/15] drm/rockchip: vop2: Switch to enum vop_csc_format
+Date: Wed, 14 Oct 2026 01:51:25 +0300
+Subject: [PATCH v5 08/15] drm/rockchip: vop2: Avoid DCLK source switch for
+ 10-bit YUV422 output
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -44,7 +45,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20261014-dw-hdmi-qp-yuv-v5-10-6fab0fe43a9b@collabora.com>
+Message-Id: <20261014-dw-hdmi-qp-yuv-v5-8-6fab0fe43a9b@collabora.com>
 References: <20261014-dw-hdmi-qp-yuv-v5-0-6fab0fe43a9b@collabora.com>
 In-Reply-To: <20261014-dw-hdmi-qp-yuv-v5-0-6fab0fe43a9b@collabora.com>
 To: Sandy Huang <hjc@rock-chips.com>, 
@@ -70,52 +71,64 @@ Cc: kernel@collabora.com, Andy Yan <andyshrk@163.com>,
  linux-kernel@vger.kernel.org, Igor Paunovic <royalnet026@gmail.com>
 X-Mailer: b4 0.15.2
 
-Improve code readability in vop2_setup_csc_mode() by using enum
-vop_csc_format for the csc_mode variable, as well as for the return type
-of the vop2_convert_csc_mode() helper, which already returns CSC_*
-enumerators.
+Currently the color depth is always factored into the DCLK source
+decision for HDMI output, which can break certain modes when operating
+with depths greater than 8 bpc.
 
-While at it, replace the nonsensical 'csc_mode = false' assignment in
-the no-conversion branch with the equivalent CSC_BT601L, which carries
-the same value (0) but is type-correct.
+When the required transmission rate exceeds the 600 MHz limit of the
+HDMI PHY PLL, e.g. for 4K@60Hz 10-bit RGB output, VOP2 will normally
+fall back to using the less accurate system CRU as a DCLK source,
+assuming HDMI 2.1 FRL is supported by the pipeline, otherwise the mode
+will be rejected.  For YUV420 output format this never happens, as it
+uses half of the RGB bandwidth, hence the rate remains within the PHY
+PLL limits.
+
+On the other hand, YUV422 always transmits two 12-bit components per
+clock cycle, regardless of the color depth, which from a clock-rate
+perspective is equivalent to three 8-bit RGB components.  For example,
+4K@60Hz 10-bit YUV422 requires the same bandwidth as 4K@60Hz 8-bit RGB,
+typically 594 MHz.  However, VOP2 wrongly assumes it needs 742.5 MHz
+(594 * 10 / 8) and ends up switching the DCLK source.
+
+As a consequence, the modes requiring uncommon pixel clocks, such as
+those corresponding to fractional refresh rates, will fail.  An example
+is 3840x2160@59.94Hz, which would likely rely on the 593.407 MHz clock
+rate unsupported by the system CRU.
+
+Note this only affects YUV422 with color depths greater than 8 bpc; for
+8-bit YUV422 the 8/bpc factor is unity and the bandwidth check is
+already correct.
+
+Prevent the incorrect switches of DCLK source to system CRU for YUV422
+output format by forcing 8 bpc when checking the bandwidth.
 
 Tested-by: Igor Paunovic <royalnet026@gmail.com>
 Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
 ---
- drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/rockchip/rockchip_drm_vop2.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-index 45f3acbfa634..1b0f72958763 100644
+index afa4bc6cbcc4..2fa27028892c 100644
 --- a/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
 +++ b/drivers/gpu/drm/rockchip/rockchip_drm_vop2.c
-@@ -648,7 +648,7 @@ static void vop2_setup_scale(struct vop2 *vop2, const struct vop2_win *win,
- 	}
- }
+@@ -1954,7 +1954,15 @@ static void vop2_crtc_atomic_enable(struct drm_crtc *crtc,
+ 	 * to 4K@60Hz, if available, otherwise keep using the system CRU.
+ 	 */
+ 	if (vop2->pll_hdmiphy0 || vop2->pll_hdmiphy1) {
+-		unsigned int bpc = vcstate->output_bpc ?: 8;
++		/*
++		 * YUV422 always transmits two 12-bit components per clock
++		 * cycle, regardless of the color depth, which from a rate
++		 * perspective is equivalent to three 8-bit RGB components.
++		 * Force 8 bpc here so the bandwidth check reflects the actual
++		 * TMDS rate and avoids an unnecessary DCLK source switch.
++		 */
++		unsigned int bpc = vcstate->output_mode == ROCKCHIP_OUT_MODE_YUV422 ?
++					8 : (vcstate->output_bpc ?: 8);
+ 		unsigned long max_dclk = DIV_ROUND_CLOSEST_ULL(VOP2_MAX_DCLK_RATE * 8, bpc);
  
--static int vop2_convert_csc_mode(int csc_mode)
-+static enum vop_csc_format vop2_convert_csc_mode(int csc_mode)
- {
- 	switch (csc_mode) {
- 	case V4L2_COLORSPACE_SMPTE170M:
-@@ -711,7 +711,7 @@ static void vop2_setup_csc_mode(struct vop2_video_port *vp,
- 	int input_csc = V4L2_COLORSPACE_DEFAULT;
- 	int output_csc = vcstate->color_space;
- 	bool r2y_en, y2r_en;
--	int csc_mode;
-+	enum vop_csc_format csc_mode;
- 
- 	if (is_input_yuv && !is_output_yuv) {
- 		y2r_en = true;
-@@ -724,7 +724,7 @@ static void vop2_setup_csc_mode(struct vop2_video_port *vp,
- 	} else {
- 		y2r_en = false;
- 		r2y_en = false;
--		csc_mode = false;
-+		csc_mode = CSC_BT601L;
- 	}
- 
- 	vop2_win_write(win, VOP2_WIN_Y2R_EN, y2r_en);
+ 		if (clock <= max_dclk) {
 
 -- 
 2.55.0
