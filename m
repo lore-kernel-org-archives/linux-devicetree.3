@@ -1,149 +1,225 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 196D94E80A5
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 11:02:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E24E04E433E;
+	Tue, 13 Oct 2026 11:02:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791889372; cv=none; b=LpUMq/SF30/xetKthqxEBY5OnvDnMwg17HU2pBQXTmqP52kOHnMBpljI16PL8D8TlTeZNzKV3329q5Cd6di2NJVscq8ZWW8pYLtdFsHnLqBDMFMvRNQMOBCRZ/isqnwbsPotwK2LNS6o5QzHQbugDQ3i9noj/wQkRvO0cVZwigs=
+	t=1791889379; cv=none; b=Sqjz2B+iKqUe/c0AtPfeEdbsXaqia0CekIkLGgiyyKTxJXcijooKZRGPm2wYzZr7djd00gZK8zlYq6uJn1fxfyKo43SBa2XSLUjbdO2yVgykVvXfkaqPY1+IKcYkj8MEu7YFkcYG7zIAoPeDvomjuLlVs65tFLkvE/ukYwcaIKw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791889372; c=relaxed/simple;
-	bh=SYntcINLRJF10ZMeKD5TVZJzT0zCGPMAL4QVU/TpIb0=;
+	s=arc-20240116; t=1791889379; c=relaxed/simple;
+	bh=khZy8G+ddVaAT3HvhrjDcU+keeqnhSYGZ9XC9Lp0t9U=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=tq+MMg5zdNhnhg8Rcf1feBZOJMi4PYwBKIK2TSIOBlbS0bR4ZzDZC/5WXMTLfkpnPLznqcaxU5yJ1TBj2zm+cep7oFr19L5Q0jWcwafZuXRnJqbUGK5Luoi7n6akox83jJcWguj4Twa6iFH9A6VwkvH3Stk6H08IGSVjeO7kCkg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jzGjGAc2; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=eXC4cqXTgkl2vPRp2c8w2OCUPgwVNweEcTHsDCYwlSO1c3udIVOVGqkLc8VA5CvG8fr4c6a2RLY4DkDhGR7rAmPTDGxzeYx4mGc2emriKfSDXicY+ksKHvhcWb4Bole1qdpcNRKDySeBFUOj19lSfrgagG6lp+AoH4WjkaDpyHE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WG+enJqi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jzGjGAc2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D3A21F000FF;
-	Tue, 13 Oct 2026 11:02:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WG+enJqi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 420DC1F000FF;
+	Tue, 13 Oct 2026 11:02:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791889370;
-	bh=DMbk3FrXQ+vJhhLhv9gVCXwZFApAsJasdS/r5++7FtA=;
+	s=k20260515; t=1791889376;
+	bh=idGREc6NDyEeeJGqLze0dq+b6mawm4228d+0QxdBOf8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jzGjGAc22GfGnDsEVE7HR4mEMtvc8s7LBNl3TEw/BCBP6HMTb5VGLALIVETLXq6D9
-	 Uy2WcPdAqXNbNeYkivLvMrbkNciD6M99mSWY0K8vmxkQ2nVUKgtjaJbw+30skzPgg3
-	 2QbptjIgi5os0/m2qyHGfCFgnW6QOuElPi0Si/KfszxdsbGjSsh1aCrZG9Zh45pYLH
-	 ig+qZMX7zVEHDuVmiThJ3geX/v6EffcimloCcbUNM3fiMyeuYFtb11xBf1zYB+3cAX
-	 cer+CdWDKOHKPAEeSX8Cntcj/6cYI0sBPudimvgO+Py3XZGr/fwCzpU2MtNG0WoA3g
-	 YptUJeJOOFfyw==
-Message-ID: <sashiko-outbox-169576@kernel.org>
+	b=WG+enJqiyobqPxyYJnuqgByU/T+/5k7QwwtBWEOl/GuMxpnyWHJoKgSQ0EJVsncV9
+	 pJannoJlLrpGtslmB8aPg8WzTBnMsnkl63uaLQLzJf1xOtqS2awJRF0SxAbrmXaR9g
+	 srmPyLJo48mf9lJrzzSgv4tlV6ZDNDFDdrM7hk0e7WOSadUT4W1iL9NLLFrEQQ0v9d
+	 uyfGLLBuB2FO6RRmVDVkWvBpUX2BGATd4VNOytjs2HTrn03fJMbcS1QuCZR7bOFS2n
+	 FLPYXgJQWJcTnlbg0Ux6rWcG0S8C5mDZz3R7ZwnPT9xkKEJqHrjtsq8H+Aq37Cn482
+	 2i9Hne4jmXqjg==
+Message-ID: <sashiko-outbox-169577@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 03/10] ASoC: qcom: Add QAIF hardware register map
+Subject: Re: [PATCH 3/3] usb: dwc3: support two connectors sharing one HS
+ data bus
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Harendra Gautam" <harendra.gautam@oss.qualcomm.com>
+To: "Qianhui Xu" <xiaqinghuan@mail.ustc.edu.cn>, linux-usb@vger.kernel.org
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261013-b4-qaif-shikra-audio-v9-3-f3022e28f2fd@oss.qualcomm.com>
-References: <20261013-b4-qaif-shikra-audio-v9-0-f3022e28f2fd@oss.qualcomm.com>
- <20261013-b4-qaif-shikra-audio-v9-3-f3022e28f2fd@oss.qualcomm.com>
+In-Reply-To: <20261013102927.1141696-4-xiaqinghuan@mail.ustc.edu.cn>
+References: <20261013102927.1141696-1-xiaqinghuan@mail.ustc.edu.cn>
+ <20261013102927.1141696-4-xiaqinghuan@mail.ustc.edu.cn>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 13 Oct 2026 11:02:49 +0000
+Date: Tue, 13 Oct 2026 11:02:55 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [High] QAIF_EE_MAP_REG offsets miss a '9', causing incorrect MMIO writes
-- [Low] qaif: inconsistent naming for ERR_RSP_IRQ_RAW_STAT macros missing _=
-REG suffix
+- [High] pm: Unbalanced pm_runtime_put_autosuspend on error path in __dwc3_=
+set_mode
+- [High] usb: dwc3: Double-free/UAF of gadget/host resources on GPIO failur=
+e in __dwc3_set_mode
+- [High] usb: dwc3: deadlock during suspend due to flush_work() on freezabl=
+e wq
+- [Medium] usb: dwc3: Role selection logic implements static priority, cont=
+radicting "oldest wins" design
 --
 
-commit d13e9cc33d346cda85ac92c58c1d5ee57c9e9d82
-Author: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
+commit e9f771770a6e130d4f1859d1ec3e53526b8f1f97
+Author: Xu Qianhui <xiaqinghuan@mail.ustc.edu.cn>
+Subject: usb: dwc3: support two connectors sharing one HS data bus
 
-ASoC: qcom: Add QAIF hardware register map
+This commit introduces support for a single DWC3 controller to drive two
+receptacles by muxing the High Speed data lines. It registers one USB role
+switch per connector and serializes requests using a mutex, intending to
+grant the role to the oldest connector.
 
-This commit adds qaif-reg.h to define the MMIO register offsets for the
-Qualcomm Audio Interface (QAIF) hardware block. It provides a common
-register map and accessor helpers so the driver can select the proper
-AIF or CIF DMA register set based on the DAI ID.
-
-> diff --git a/sound/soc/qcom/qaif-reg.h b/sound/soc/qcom/qaif-reg.h
-> new file mode 100644
-> index 0000000000000..2ae26cf24c591
-> --- /dev/null
-> +++ b/sound/soc/qcom/qaif-reg.h
-
-[ ... ]
-
-> +/*
-> + * EE (Execution Engine) assignment and map registers.
-> + *
-> + * The EE offset (v->ee) is an address/index offset relative to the
-> + * platform-defined QAIF/EE base and lets the hardware route the AIF
-> + * operation to the correct EE context. It is hardware/platform-specific=
- and
-> + * must match the mapping defined for the selected QAIF AIF/lane in the
-> + * hardware programming guide. It is not a runtime data offset and must =
-not
-> + * be changed based on the stream configuration.
-> + */
-> +#define QAIF_EE_RDDMA_ASSIGNMENT_REG(v)			(0x19148 + (0x1000 * ((v)->ee)=
-))
-> +#define QAIF_EE_WRDMA_ASSIGNMENT_REG(v)			(0x19150 + (0x1000 * ((v)->ee)=
-))
-> +#define QAIF_EE_INTF_ASSIGNMENT_REG(v)			(0x19158 + (0x1000 * ((v)->ee)))
-> +#define QAIF_EE_CODEC_RDDMA_ASSIGN_REG(v)		(0x19308 + (0x1000 * ((v)->ee=
-)))
-> +#define QAIF_EE_CODEC_WRDMA_ASSIGN_REG(v)		(0x19318 + (0x1000 * ((v)->ee=
-)))
-> +#define QAIF_EE_RDDMA_MAP_REG(v)			(0x1920 + (0x1000 * ((v)->ee)))
-> +#define QAIF_EE_WRDMA_MAP_REG(v)			(0x1940 + (0x1000 * ((v)->ee)))
-> +#define QAIF_EE_INTF_MAP_REG(v)				(0x1960 + (0x1000 * ((v)->ee)))
-> +#define QAIF_EE_CODEC_RDDMA_MAP_REG(v)			(0x1980 + (0x1000 * ((v)->ee)))
-> +#define QAIF_EE_CODEC_WRDMA_MAP_REG(v)			(0x1A00 + (0x1000 * ((v)->ee)))
+> diff --git a/drivers/usb/dwc3/core.c b/drivers/usb/dwc3/core.c
+> index fd5c2cd36c595..76e9e5d1808f0 100644
+> --- a/drivers/usb/dwc3/core.c
+> +++ b/drivers/usb/dwc3/core.c
+> @@ -174,8 +178,15 @@ static void __dwc3_set_mode(struct work_struct *work)
+>  	mutex_lock(&dwc->mutex);
+>  	spin_lock_irqsave(&dwc->lock, flags);
+>  	desired_dr_role =3D dwc->desired_dr_role;
+> +	if (mux) {
+> +		mux_port =3D mux->desired_port;
+> +		mux_role =3D mux->desired_role;
+> +	}
+>  	spin_unlock_irqrestore(&dwc->lock, flags);
+> =20
+> +	if (mux && READ_ONCE(mux->error))
+> +		goto out;
 
 [Severity: High]
-Does this code contain a typo in the hex offsets? The sequence of intended
-offsets appears to be 0x19920, 0x19940, 0x19960, 0x19980, and 0x19A00, but
-the '9' digit seems to be missing here.
+If this early error check evaluates to true, it jumps to the out label
+before pm_runtime_get_sync() is called. The out label then unconditionally
+calls pm_runtime_put_autosuspend().=20
 
-This missing digit causes the calculated offset to alias directly into the
-QAIF_AUD_INTF register block (which starts at 0x4000) for variants where
-v->ee >=3D 3, which could silently corrupt audio interface configurations.
+Does this drop a Runtime PM reference that was never acquired, potentially
+underflowing the usage count and powering down hardware that is still
+actively in use?
 
-[ ... ]
-
-> +/* RDDMA Error Response Interrupts */
-> +#define QAIF_EE_RDDMA_ERR_RSP_IRQ_EN_REG(v, i)		qaif_rddma_irq_reg_addr(=
-v, i, 0x50)
-> +#define QAIF_EE_RDDMA_ERR_RSP_IRQ_STAT_REG(v, i)	qaif_rddma_irq_reg_addr=
-(v, i, 0x58)
-> +#define QAIF_EE_RDDMA_ERR_RSP_IRQ_RAW_STAT(v, i)	qaif_rddma_irq_reg_addr=
-(v, i, 0x60)
-
-[Severity: Low]
-This isn't a bug, but should this macro be named
-QAIF_EE_RDDMA_ERR_RSP_IRQ_RAW_STAT_REG to maintain a consistent _REG suffix
-with the other macros in this block?
-
-> +#define QAIF_EE_RDDMA_ERR_RSP_IRQ_CLR_REG(v, i)		qaif_rddma_irq_reg_addr=
-(v, i, 0x68)
-> +#define QAIF_EE_RDDMA_ERR_RSP_IRQ_FORCE_REG(v, i)	qaif_rddma_irq_reg_add=
-r(v, i, 0x70)
+> +
+>  	pm_runtime_get_sync(dwc->dev);
+> =20
+>  	if (dwc->current_dr_role =3D=3D DWC3_GCTL_PRTCAP_OTG)
 
 [ ... ]
 
-> +/* WRDMA Error Response Interrupts */
-> +#define QAIF_EE_WRDMA_ERR_RSP_IRQ_EN_REG(v, i)		qaif_wrdma_irq_reg_addr(=
-v, i, 0x50)
-> +#define QAIF_EE_WRDMA_ERR_RSP_IRQ_STAT_REG(v, i)	qaif_wrdma_irq_reg_addr=
-(v, i, 0x58)
-> +#define QAIF_EE_WRDMA_ERR_RSP_IRQ_RAW_STAT(v, i)	qaif_wrdma_irq_reg_addr=
-(v, i, 0x60)
+> @@ -233,6 +245,22 @@ static void __dwc3_set_mode(struct work_struct *work)
+>  		dwc3_writel(dwc, DWC3_GCTL, reg);
+>  	}
+> =20
+> +	/*
+> +	 * The previous host/gadget has been torn down above, so it is safe to
+> +	 * move the shared HS data path to the requesting connector.
+> +	 */
+> +	if (mux && mux_port !=3D mux->active_port) {
+> +		ret =3D gpiod_direction_output(mux->select, mux_port);
+> +		if (ret) {
+> +			WRITE_ONCE(mux->error, ret);
+> +			goto out;
 
-[Severity: Low]
-This isn't a bug, but similar to the RDDMA macro above, should this one also
-include the _REG suffix?
+[Severity: High]
+When gpiod_direction_output() fails, this jumps to the out label after
+tearing down the current role, but before dwc3_set_prtcap() is called to
+update dwc->current_dr_role.
 
-> +#define QAIF_EE_WRDMA_ERR_RSP_IRQ_CLR_REG(v, i)		qaif_wrdma_irq_reg_addr=
-(v, i, 0x68)
-> +#define QAIF_EE_WRDMA_ERR_RSP_IRQ_FORCE_REG(v, i)	qaif_wrdma_irq_reg_add=
-r(v, i, 0x70)
+During subsequent role switches or driver removal, will dwc->current_dr_role
+still evaluate to the old role? If so, this could cause dwc3_gadget_exit()
+or dwc3_host_exit() to execute a second time, resulting in a double-free of
+setup buffers or a use-after-free on device structures.
+
+> +		}
+> +
+> +		spin_lock_irqsave(&dwc->lock, flags);
+
+[ ... ]
+
+> diff --git a/drivers/usb/dwc3/drd.c b/drivers/usb/dwc3/drd.c
+> index f3e37d383627a..4bf0497e902a7 100644
+> --- a/drivers/usb/dwc3/drd.c
+> +++ b/drivers/usb/dwc3/drd.c
+> @@ -501,10 +502,178 @@ static enum usb_role dwc3_usb_role_switch_get(stru=
+ct usb_role_switch *sw)
+>  	return role;
+>  }
+> =20
+> +static int dwc3_mux_role_set(struct usb_role_switch *sw, enum usb_role r=
+ole)
+> +{
+> +	struct dwc3_role_port *port =3D usb_role_switch_get_drvdata(sw);
+> +	struct dwc3 *dwc =3D port->dwc;
+> +	struct dwc3_role_mux *mux =3D dwc->role_mux;
+> +	enum usb_role selected_role;
+> +	unsigned long flags;
+> +	int selected, ret;
+> +	u32 mode;
+> +
+> +	if (role < USB_ROLE_NONE || role > USB_ROLE_DEVICE)
+> +		return -EINVAL;
+> +
+> +	mutex_lock(&mux->lock);
+> +	if (mux->stopping) {
+> +		ret =3D -ESHUTDOWN;
+> +		goto out;
+> +	}
+> +	if (READ_ONCE(mux->error)) {
+> +		ret =3D READ_ONCE(mux->error);
+> +		goto out;
+> +	}
+> +
+> +	port->role =3D role;
+> +	if (mux->ports[0].role !=3D USB_ROLE_NONE)
+> +		selected =3D 0;
+> +	else if (mux->ports[1].role !=3D USB_ROLE_NONE)
+> +		selected =3D 1;
+
+[Severity: Medium]
+The commit message states that "requests from the two switches are
+serialised by a mutex, the oldest connector holding a role wins".
+
+However, this static conditional structure seems to prioritize port 0.
+If port 1 is the oldest connector actively holding a role, and port 0
+subsequently requests a role, won't this check evaluate port 0 first?
+Setting selected =3D 0 here appears to abruptly preempt port 1 and give
+the role to the newer connector, breaking the intended arbitration logic.
+
+> +	else
+> +		selected =3D mux->desired_port;
+> +	selected_role =3D mux->ports[selected].role;
+> +	if (selected =3D=3D mux->desired_port && selected_role =3D=3D mux->desi=
+red_role) {
+> +		ret =3D 0;
+> +		goto out;
+> +	}
+> +
+> +	if (selected_role =3D=3D USB_ROLE_HOST ||
+> +	    (selected_role =3D=3D USB_ROLE_NONE &&
+> +	     dwc->role_switch_default_mode =3D=3D USB_DR_MODE_HOST))
+> +		mode =3D DWC3_GCTL_PRTCAP_HOST;
+> +	else
+> +		mode =3D DWC3_GCTL_PRTCAP_DEVICE;
+> +
+> +	spin_lock_irqsave(&dwc->lock, flags);
+> +	mux->desired_port =3D selected;
+> +	mux->desired_role =3D selected_role;
+> +	dwc->desired_dr_role =3D mode;
+> +	spin_unlock_irqrestore(&dwc->lock, flags);
+> +	queue_work(system_freezable_wq, &dwc->drd_work);
+> +	flush_work(&dwc->drd_work);
+
+[Severity: High]
+This code queues drd_work on system_freezable_wq and synchronously blocks
+on it using flush_work().
+
+Since role switch events can be triggered from non-freezable contexts
+(such as ucsi_handle_connector_change running on a non-freezable workqueue),
+what happens if a role switch occurs during system suspend after freezable
+workqueues have been frozen?
+
+Could flush_work() block indefinitely since drd_work cannot run, leading to
+a complete system suspend deadlock?
+
+> +	ret =3D READ_ONCE(mux->error);
+> +out:
+> +	mutex_unlock(&mux->lock);
+> +	return ret;
+> +}
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261013-b4-qaif-sh=
-ikra-audio-v9-0-f3022e28f2fd@oss.qualcomm.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261013102927.1141=
+696-1-xiaqinghuan@mail.ustc.edu.cn?part=3D3
