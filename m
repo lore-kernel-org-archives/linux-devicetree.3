@@ -1,329 +1,193 @@
-Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A683B51AFCC;
-	Tue, 13 Oct 2026 13:29:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.203.200.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791898145; cv=pass; b=mE/7Zsd3A8culobR7cawg6QpV965rGufhHS10ry5X9l1smRceZdx4xTwJ+2bvPTB6U2adEJp/6AysaTxH1SVzKhKwpIBZUaLQW1MwKTEuNbRt+b66D2oNaywGjh7RugO/bEeDG742zBsqfKRSCUl5MkaHn1pQlA2wA1BUlfj65E=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791898145; c=relaxed/simple;
-	bh=HgeWzOuzFXqzUPRdgwH5eq3Hxzu84lTghOHMqvbrW04=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ei2L6JPFyBxNwLE5aH+iKAEQSTZuvF2my069oO+wjAEqaLQEY70z1+7RzlGbXUqf09rSrkvyw4yI19p+ABYQgG8hgZsgvS8pLl635o2OgMLeHpnue+gJTXtZmlqYf23yO6n57PlTLPWMyMNxBXZahQFHh4kCJe0K9ZCR51wTBJc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b=EUC6AymI; arc=pass smtp.client-ip=185.203.200.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 199915038E6
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 13:32:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791898377; cv=none; b=fySQTYtCGw5UB32z8Hxn24WosxRpehG4x+VoEUk3kE2mjgUgS6VQc07umeV7pECjJJRLc65mtMB4xhkBpiPWJQGFHS2iqV/XDZtHXHQZRt8tiNCKvqL8FpqXTqffioLf7AV+VbaKD8txO3kRgdMBMb17/1d3R1c1FJ3xgaqIgos=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791898377; c=relaxed/simple;
+	bh=gjALEt35CI0MbKrSEdcvoDMlawVfX84fnI1h282cLEE=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=KJXLDBCGobL0VqyfN1fQ9N2vRzk4hGw9sP7NmJh39MF0t9cghspTI4pklYaPx2X0QpX+Sc51+ubDmLHP+3NniJjrLaT5ZFHe204N4iaJgP7yZy5vkcZhIA5Q5dpezZRxwYaVcEIMTQu1xxqaeqLZw2PnIV4FY3k1t6S8Vb2OJZ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l94NxA1k; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pengutronix.de header.i=@pengutronix.de header.b="EUC6AymI"
-Received: from [IPv6:2a0a:edc0:0:900:1d::4e] (lupine.office.stw.pengutronix.de [IPv6:2a0a:edc0:0:900:1d::4e])
-	(Authenticated sender: pza@pengutronix.de)
-	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id D8CDF200467;
-	Tue, 13 Oct 2026 15:28:59 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1791898139;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ydj8XrkV8pn3E6IDDtcYNd5WmTRr7010/GQYvG2rFVE=;
-	b=EUC6AymI9WAdqt5yKmUYSB4BVMQp4+kXGrBBSi4Ib65DlPGcc0okC5yxqFmBxrJlqxzSVM
-	1eAdix9bSApV9k9iNZjC53utDdzHV3r0LfCOAjIJR2rKK9qFZmU9D+ToJzHVGLfXsF0x3t
-	XB4//H+GJURsRDUPwP7etE9ZT83N5vCAa53lhT72VNSYFOsMB8ZvEHwUK2yoQbVGhQGLBB
-	9Wm1FzLIXmmEv8TNp94XrZzPBdXhGyIDrkbI8yjd479JU2nuSg4RNtnmvYqp+CWmPID+7E
-	DGaURgjiIUbgAKvH/azeJ7P7r8Vdg87rfQj9CC5qDGGninuNMGUBvgsPUHbi+g==
-ARC-Seal: i=1; s=20260414; d=pengutronix.de; t=1791898139; a=rsa-sha256;
-	cv=none;
-	b=R1/SkAWFPUt5MGpbuTkbYOTVGxB9czq1tvpG5fTDU9UyPOtWr9AtOnVgffp/DbJq3pVHX3
-	TbqRHD6IW+yn1UeE4zIQ7pm/qE8cSF8DoeHSVkcRg7FxaXM9X1t6+bndmlNEfdVc+WJD1M
-	975xGG9VV+WA2L0SeFm7Yspyol3DpYCnx5gXgThsh7bMaaaEl4DkahmCrjD5/Zmi/eYP/0
-	scBAIuw4KHIYwtnSlf2VOYXsl4F2b7ZBMnNRq0w2Vq3MgfoP37/ABtYl8/BRfSN6qasVpc
-	hHFcXXT2vxZ/CU5FpaYveuJj3By+BRUm7a1pQFqlD1Pfu3eylHSz1I842ofSWQ==
-ARC-Authentication-Results: i=1;
-	ORIGINATING;
-	auth=pass smtp.auth=pza@pengutronix.de smtp.mailfrom=p.zabel@pengutronix.de
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=pengutronix.de;
-	s=20260414; t=1791898139;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Ydj8XrkV8pn3E6IDDtcYNd5WmTRr7010/GQYvG2rFVE=;
-	b=I/Wnu0VgI0ocU7f/iY7Oj1VhpaAIWACG+KkicBxINMgPfTZ0YhwewmsWpyeP0Yov/5M+0E
-	3CaOs/cYoJuLwrqqAVoXIyvhVQc5UqQGNESpcbedDZYHvmHantUjIWdD4W9gSSbf/hWexP
-	LtU+A3eZe/f84HxrClYzyYmHdBkKGxGCZ/YL3EafKZhLG8eeYWoO5cx6oe8FtgotecG7FD
-	oVflauArdWKJy8DUn+RIoyxkFYmElUavTqlqa+/BUZHQsPb11iCOp+NkRgK6+2RpTf4PLr
-	EQM/NSLD7wsjp6737NRv8Zpq07512qnx76CYtse/qe0DxGaCD3Kuvt71Yi5WIQ==
-Message-ID: <c57e9716fb11e57beb95e81c6a896f6b63970fe4.camel@pengutronix.de>
-Subject: Re: [PATCH 2/2] reset: toshiba: introduce a TC9564 SoC reset driver
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Alex Elder <elder@riscstar.com>, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org
-Cc: mohd.anwar@oss.qualcomm.com, lorenzo.bianconi@oss.qualcomm.com, 
-	danielt@kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,  Daniel Thompson <daniel@riscstar.com>
-Date: Tue, 13 Oct 2026 15:28:59 +0200
-In-Reply-To: <20261012164354.3872326-3-elder@riscstar.com>
-References: <20261012164354.3872326-1-elder@riscstar.com>
-	 <20261012164354.3872326-3-elder@riscstar.com>
-Content-Type: text/plain; charset="UTF-8"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l94NxA1k"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 626AD1F000FF;
+	Tue, 13 Oct 2026 13:32:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791898375;
+	bh=J2wdwm9/NLoUYcDu1mQQpCRYzDeQ/VqG34+SbdqGvS4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=l94NxA1k3y6Q5E9O31DCMbxeJ7F6iUSrU5uciT2NnHkN6DUVIV2mFLzvBtL3QxQ1v
+	 Al+wC6C1ISH9g4DjZ0g31POnh2dyFzgeTViuXWpwlLKxtujVewxbahfB06HO9qTFfE
+	 nfrp6mTA+wUVhTKLibf4+kgxMqxIBHs7VikJMHDUM1VS9wI/9wuybQ/w5Ni9PX4yY8
+	 LrIGqqiufdN9ZrMuUye/tv/rKg4u/p3y2sCOxiHUo75GXGXD8PLtWLviyclJoeYOei
+	 6XInPjPTMrub+o4ApNKwgHc4guTby1JNjLbjQJqfhhJNSOrReoTKn79vaBoXvIoX5P
+	 yR7R8/fpLvvag==
+Message-ID: <sashiko-outbox-169822@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 7/7] greybus: Add Rust UART node driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Ayush Singh" <ayush@beagleboard.org>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, ojeda@kernel.org, gary@garyguo.net
+In-Reply-To: <20261013-gb-uart-transport-v3-7-81d0a8a1acf7@beagleboard.org>
+References: <20261013-gb-uart-transport-v3-0-81d0a8a1acf7@beagleboard.org>
+ <20261013-gb-uart-transport-v3-7-81d0a8a1acf7@beagleboard.org>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+Date: Tue, 13 Oct 2026 13:32:54 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
 
-On Mo, 2026-10-12 at 11:43 -0500, Alex Elder wrote:
-> Define a new platform driver that manages reset signals implemented by
-> the Toshiba TC9564 SoC.  There are 13 reset signals available, although
-> only 11 can be controlled.
->=20
-> Two registers manage the state of the resets.  The registers are
-> accessed via a regmap supplied by a system controller, because the
-> region of memory accessed is shared with other drivers.
->=20
-> Access to the memory region is provided via a BAR on a PCIe endpoint
-> function embedded in the TC9564 SoC.  For that reason the PCIe reset
-> cannot be manipulated by this driver (it is assumed to be deasserted).
-> Similarly, control is not available for the I2C reset, because the
-> PCIe subsystem on the TC9564 relies on I2C.
->=20
-> Co-developed-by: Daniel Thompson <daniel@riscstar.com>
-> Signed-off-by: Daniel Thompson <daniel@riscstar.com>
-> Signed-off-by: Alex Elder <elder@riscstar.com>
-> ---
->  MAINTAINERS                  |   1 +
->  drivers/reset/Kconfig        |  12 +++
->  drivers/reset/Makefile       |   1 +
->  drivers/reset/reset-tc9564.c | 192 +++++++++++++++++++++++++++++++++++
->  4 files changed, 206 insertions(+)
->  create mode 100644 drivers/reset/reset-tc9564.c
->=20
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index d0eb44079fe17..a8f4982ed1a43 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -28185,6 +28185,7 @@ M:	Alex Elder <elder@kernel.org>
->  M:	Daniel Thompson <danielt@kernel.org>
->  S:	Maintained
->  F:	Documentation/devicetree/bindings/reset/toshiba,tc9564-reset.yaml
-> +F:	drivers/reset/reset-tc9564.c
->  F:	include/dt-bindings/reset/toshiba,tc9564.h
-> =20
->  TOSHIBA WMI HOTKEYS DRIVER
-> diff --git a/drivers/reset/Kconfig b/drivers/reset/Kconfig
-> index eda9c698a95f3..b40736368894c 100644
-> --- a/drivers/reset/Kconfig
-> +++ b/drivers/reset/Kconfig
-> @@ -358,6 +358,18 @@ config RESET_SUNXI
->  	help
->  	  This enables the reset driver for Allwinner SoCs.
-> =20
-> +config RESET_TC9564
-> +	tristate "Toshiba TC9564 reset support"
-> +	depends on TC9564_PCI
-> +	select MFD_SYSCON
-> +	default TC9564_PCI
-> +	help
-> +	  This enables support for the reset controller embedded in the
-> +	  Toshiba TC9564 SoC.  The state of reset lines is controlled
-> +	  via MMIO to a region managed by a system controller; this
-> +	  ensures access to the region is coordinated between this and
-> +	  the clock and XGMAC (stmmac) drivers.
-> +
->  config RESET_TENSTORRENT_ATLANTIS
->  	tristate "Tenstorrent atlantis reset driver"
->  	depends on ARCH_TENSTORRENT || COMPILE_TEST
-> diff --git a/drivers/reset/Makefile b/drivers/reset/Makefile
-> index 489fafd6bbe3f..6ddded26309ef 100644
-> --- a/drivers/reset/Makefile
-> +++ b/drivers/reset/Makefile
-> @@ -45,6 +45,7 @@ obj-$(CONFIG_RESET_SKY1_AUDSS) +=3D reset-sky1-audss.o
->  obj-$(CONFIG_RESET_SOCFPGA) +=3D reset-socfpga.o
->  obj-$(CONFIG_RESET_SUNPLUS) +=3D reset-sunplus.o
->  obj-$(CONFIG_RESET_SUNXI) +=3D reset-sunxi.o
-> +obj-$(CONFIG_RESET_TC9564) +=3D reset-tc9564.o
->  obj-$(CONFIG_RESET_TENSTORRENT_ATLANTIS) +=3D reset-tenstorrent-atlantis=
-.o
->  obj-$(CONFIG_RESET_TH1520) +=3D reset-th1520.o
->  obj-$(CONFIG_RESET_TI_SCI) +=3D reset-ti-sci.o
-> diff --git a/drivers/reset/reset-tc9564.c b/drivers/reset/reset-tc9564.c
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] greybus: UAF in GbNode::write due to concurrent serdev unbind
+- [High] gb_uart_node: hardcoded 256-byte HDLC limit drops Greybus messages
+--
+
+commit 3275429a0af2d87e184830cd9fec54db8ff56af7
+Author: Ayush Singh <ayush@beagleboard.org>
+
+    greybus: Add Rust UART node driver
+   =20
+    Add a driver for Greybus nodes attached over a plain serial port. The
+    node is registered with the software SVC (gb-softsvc), which handles the
+    SVC protocol on behalf of the AP, so no dedicated coprocessor running
+    SVC firmware is needed.
+
+    [0]: https://lore.kernel.org/all/20260622-nova-exports-v5-0-6191773fc97=
+7@nvidia.com/
+
+> diff --git a/drivers/greybus/gb_uart_node.rs b/drivers/greybus/gb_uart_no=
+de.rs
 > new file mode 100644
-> index 0000000000000..0243c2e0efd54
+> index 0000000000000..f719ee35e8f38
 > --- /dev/null
-> +++ b/drivers/reset/reset-tc9564.c
-> @@ -0,0 +1,192 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +
-> +/*
-> + * Copyright (C) 2026 by RISCstar Solutions Corporation.  All rights res=
-erved.
-> + */
-> +
-> +#include <linux/bits.h>
-> +#include <linux/device-id/of.h>
-> +#include <linux/mfd/syscon.h>
-> +#include <linux/module.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/regmap.h>
-> +#include <linux/reset-controller.h>
-> +
-> +#include <dt-bindings/reset/toshiba,tc9564.h>
-> +
-> +#define RST_CTRL0_OFFSET	0x1008
-> +#define RST_CTRL1_OFFSET	0x1010
-> +
-> +struct tc9564_reset {
-> +	u32 offset;		/* RST_CTRL0_OFFSET or RST_CTRL1_OFFSET */
-> +	u32 mask;		/* Zero means undefined reset */
-> +};
-> +
-> +struct tc9564_resets {
-> +	struct regmap *regmap;
-> +	struct reset_controller_dev rcdev;
-> +};
-> +
-> +#define TC9564_RESET_INIT0(_name, _bit)	__TC9564_RESET_INIT(_name, 0, _b=
-it)
-> +#define TC9564_RESET_INIT1(_name, _bit)	__TC9564_RESET_INIT(_name, 1, _b=
-it)
-> +
-> +#define __TC9564_RESET_INIT(_name, _reg, _bit)		\
-> +	[RESET_##_name] =3D {				\
-> +		.offset	=3D RST_CTRL ## _reg ## _OFFSET,	\
-> +		.mask =3D BIT(_bit),			\
-> +	}
-> +
-> +/*
-> + * The PCIe and I2C resets are controllable, but we depend on PCIe
-> + * and that relies on I2C, so we don't allow them to be asserted.
-> + */
-> +static const struct tc9564_reset tc9564_reset[] =3D {
-> +	TC9564_RESET_INIT0(MCU, 0),
-> +	TC9564_RESET_INIT0(MCU1, 1),
-> +	TC9564_RESET_INIT0(INTC, 4),
-> +	/* TC9564_RESET_INIT0(PCIE, 9), */
-> +	/* TC9564_RESET_INIT0(I2C, 12), */
-> +	TC9564_RESET_INIT0(UART, 16),
-> +	TC9564_RESET_INIT0(MSIGEN, 18),
-> +
-> +	TC9564_RESET_INIT0(MAC0_MAC, 7),
-> +	TC9564_RESET_INIT0(MAC0_PMA, 30),
-> +	TC9564_RESET_INIT0(MAC0_XPCS, 31),
-> +
-> +	TC9564_RESET_INIT1(MAC1_MAC, 7),
-> +	TC9564_RESET_INIT1(MAC1_PMA, 30),
-> +	TC9564_RESET_INIT1(MAC1_XPCS, 31),
-> +};
-> +#define TC9564_RESET_COUNT	ARRAY_SIZE(tc9564_reset)
-> +
-> +static const struct tc9564_resets *
-> +rcdev_to_tc9564_resets(struct reset_controller_dev *rcdev)
-> +{
-> +	return container_of_const(rcdev, struct tc9564_resets, rcdev);
+> +++ b/drivers/greybus/gb_uart_node.rs
+> @@ -0,0 +1,253 @@
+
+[ ... ]
+> +struct HdlcRx {
+> +    rx_buf: KVec<u8>,
+> +    rx_in_esc: bool,
+> +    rx_overflow: bool,
+> +    sdev: ARef<serdev::Device>,
+> +    node: gb_softsvc::Module,
 > +}
 > +
-> +static int tc9564_reset_manage(struct reset_controller_dev *rcdev,
-> +			       unsigned long id, bool assert)
-> +{
-> +	const struct tc9564_resets *resets =3D rcdev_to_tc9564_resets(rcdev);
+> +impl HdlcRx {
+> +    fn new(sdev: ARef<serdev::Device>, node: gb_softsvc::Module) -> Resu=
+lt<Self> {
+> +        Ok(Self {
+> +            node,
+> +            sdev,
+> +            rx_buf: KVec::with_capacity(HDLC_MAX_FRAME_LEN, GFP_KERNEL)?,
+
+[Severity: High]
+Does limiting the HDLC buffer to 256 bytes cause Greybus messages to be
+dropped?
+
+Looking at HdlcRx::rx(), if the buffer exceeds HDLC_MAX_FRAME_LEN, it clears
+the buffer and drops the frame. Greybus payloads (plus headers and CRC) can
+easily exceed 256 bytes, especially after HDLC byte escaping which can
+increase the size of the payload.
+
+> +            rx_in_esc: false,
+> +            rx_overflow: false,
+> +        })
+> +    }
+
+[ ... ]
+> +    fn rx(&mut self, data: &[u8]) -> usize {
+> +        for i in data.iter() {
+> +            match *i {
+
+[ ... ]
+> +                _ =3D> {
+> +                    let c =3D if self.rx_in_esc { *i ^ HDLC_XOR } else {=
+ *i };
+> +                    self.rx_in_esc =3D false;
 > +
-> +	if (id < rcdev->nr_resets) {
-
-This check is superfluous.
-
-fwnode_reset_simple_xlate() already checked this before a reset control
-was even created.
-
-> +		const struct tc9564_reset *reset =3D &tc9564_reset[id];
-> +		u32 mask =3D reset->mask;
+> +                    if self.rx_buf.push_within_capacity(c).is_err() {
+> +                        dev_warn!(self.sdev.as_ref(), "buffer overflow. =
+Dropping frame");
 > +
-> +		if (mask)
+> +                        self.rx_overflow =3D true;
+> +                        self.rx_buf.clear();
+> +                    }
+> +                }
+> +            }
+> +        }
 
-This check is superfluous, as every element in the tc9564_reset array
-has mask set.
+[ ... ]
+> +impl gb_softsvc::InterfaceOps for GbNode {
+> +    fn write(&self, data: &[u8], cport: u16, gfp_mask: Flags) -> Result<=
+()> {
+> +        // SAFETY: `GbNode` only exists while its serdev driver is bound=
+, so the device is in the
+> +        // `Bound` state for the duration of this call.
+> +        let bound: &serdev::Device<Bound> =3D
+> +            unsafe { serdev::Device::from_device(self.sdev.as_ref().as_b=
+ound()) };
 
-> +			return regmap_update_bits(resets->regmap,
-> +						  reset->offset, mask,
-> +						  assert ? mask : 0);
-> +	}
+[Severity: High]
+Is it possible for GbNode::write() to race with GbUartNode::unbind() and
+cause a use-after-free?
+
+Looking at GbUartNode::unbind(), it drops HdlcRx and its gb_softsvc::Module.
+However, if another thread is currently holding an Arc<GbNode> (for example,
+in GbHdDriver::message_send() via intf_by_id()) and is preempted before
+calling intf.write():
+
+Thread 1                                Thread 2
+GbHdDriver::message_send()
+  intf =3D intf_by_id(...)
+  // Preempted
+                                        GbUartNode::unbind()
+                                          this.rx.lock().take()
+                                          // Device is no longer Bound
+
+  intf.write()
+
+When the preempted thread resumes and calls GbNode::write(), it will execute
+the unsafe cast to serdev::Device<Bound>. At this point, the device might no
+longer be in the Bound state, leading to undefined behavior or a
+use-after-free.=20
+
+Does GbUartNode::unbind() need to synchronize and wait for all active
+Arc<GbNode> references to be dropped before returning?
+
 > +
-> +	dev_err(rcdev->dev, "invalid reset (%s id %lu)\n",
-> +		assert ? "assert" : "deassert", id);
+> +        let mut buf =3D KVec::with_capacity(HDLC_MAX_FRAME_LEN, gfp_mask=
+)?;
+
+[Severity: High]
+Can this fixed-capacity allocation fail for valid Greybus messages?=20
+
+Since HDLC escaping can potentially double the size of the payload, should
+this dynamically allocate the TX buffer based on the actual size of the data
+to accommodate the worst-case HDLC escaped size?
+
 > +
-> +	return -ENXIO;
+> +        let mut crc =3D 0xffff;
 
-This branch is never taken.
-
+[ ... ]
+> +    fn unbind<'bound>(_: &'bound serdev::Device<Core<'_>>, this: Pin<&Se=
+lf::Data<'bound>>) {
+> +        // Getting a bound device is not possible after this point. So d=
+rop HdlcRx.
+> +        // This also drops HdlcRx::node, which should ensure that GbNode=
+::write will not be called
+> +        // after this point.
+> +        let _ =3D this.rx.lock().take();
+> +    }
 > +}
-> +
-[...]
-> +static struct tc9564_resets *tc9564_reset_init(struct device *dev)
-> +{
-> +	struct reset_controller_dev *rcdev;
-> +	struct tc9564_resets *resets;
-> +	struct regmap *regmap;
-> +	int ret;
-> +
-> +	regmap =3D syscon_node_to_regmap(dev_of_node(dev->parent));
-> +	if (IS_ERR(regmap)) {
-> +		dev_err(dev, "failed to get config regmap\n");
-> +		return ERR_CAST(regmap);
-> +	}
-> +
-> +	resets =3D devm_kzalloc(dev, sizeof(*resets), GFP_KERNEL);
-> +	if (!resets)
-> +		return ERR_PTR(-ENOMEM);
-> +	resets->regmap =3D regmap;
-> +
-> +	rcdev =3D &resets->rcdev;
-> +	rcdev->ops =3D &tc9564_reset_control_ops;
-> +	rcdev->owner =3D THIS_MODULE;
-> +	rcdev->dev =3D dev;
-> +	rcdev->of_node =3D dev_of_node(dev);
-> +	rcdev->nr_resets =3D TC9564_RESET_COUNT;
-> +
-> +	ret =3D devm_reset_controller_register(dev, rcdev);
-> +	if (ret)
-> +		return ERR_PTR(ret);
-> +
-> +	return resets;
-> +}
-> +
-> +static int tc9564_reset_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev =3D &pdev->dev;
-> +	struct tc9564_resets *resets;
-> +
-> +	if (!dev_of_node(dev))
-> +		return dev_err_probe(dev, -EINVAL, "no devicetree node\n");
-> +
-> +	resets =3D tc9564_reset_init(dev);
-> +	if (IS_ERR(resets))
-> +		return dev_err_probe(dev, PTR_ERR(resets),
-> +				     "failed to initialize resets\n");
-> +
-> +	/* Force all resets to be initially asserted */
-> +	tc9564_reset_assert_all(resets);
-> +
-> +	platform_set_drvdata(pdev, resets);
-> +
-> +	return 0;
-> +}
-> +
-> +static void tc9564_reset_remove(struct platform_device *pdev)
-> +{
-> +	struct tc9564_resets *resets =3D platform_get_drvdata(pdev);
-> +
-> +	/* Leave all resets asserted when done */
-> +	tc9564_reset_assert_all(resets);
 
-Should this be done by the individual drivers?
-What happens if the reset controller driver is unbound while e.g. one
-of the MACs is active?
-
-regards
-Philipp
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261013-gb-uart-tr=
+ansport-v3-0-81d0a8a1acf7@beagleboard.org?part=3D7
