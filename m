@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BD8B368D76;
-	Tue, 13 Oct 2026 06:17:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B72DA4AD4AF;
+	Tue, 13 Oct 2026 06:18:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791872245; cv=none; b=jTKatukTFb+7e/3UkMc7Cy/s72BwtjHcCuG2d17BXnlW/+7R/uVdNRhsCp38m+blVoygjVPChMvpFtMMTsNb9mDGrf8xlwlgWQ2UNiGCae1+ZbpjyAbxRScj8tkwek7CoH2V+5Y4JPpHa2tnq9Ra4LRp8uyeC3KLufke6KdVaH8=
+	t=1791872298; cv=none; b=ZpY4BhfTdO8vDahJKlcEGxT+kaCgZ/4qoXBheLboRIneDq/lWO6qfpAy5UazLbUCtDGKlZT9TGa8LjNt1QyJmAwSaRGyrF88zvk0LS6GVri846q89vpwfrIpyBXwzwQ7UZsJ6ISw9rsPaeYAjei+nbuBrthQPtrCZ9uLNegaxk8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791872245; c=relaxed/simple;
-	bh=Vf3FU73MDeXyxLR/ik4FOhtPsFq37Vh5wTW91uS0KX4=;
+	s=arc-20240116; t=1791872298; c=relaxed/simple;
+	bh=a6IdMJ4Ehai4AzAzwmTbXCyofjxWQVEE1jiwx+HKFqY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=q00fKtoilfWgRG2UAYmJQPf58zIpyvYvUkc5TlIimrh9jUEeL9s3aZFBCSh1s2m/evk27oYUTiZ9UMOEV3to9tHRF8bQmNRXFpS6QQtKwHdOJUp3RtRjyOnYyfpn25icCN1X6fSWZdUyNUWGOKfExronoR1DDjjrA9MJb8VSq4A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iwLCp0CE; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=XT8HL6BiSFGGpPLHKxKgw8JUs2rlzK3WLDzD5T1cddHcI5wrBPkBiMVdwGwyNB212jM7jV0d4ZkrB5wqU46xf7bYfSmsp3uBYKJB84ElfBhh9TnltpnTpAeUfDXDCotvm+mSUAfNbyx0l9MVukVRn+SJbVs8wZVKOwKH07ACsbQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MjfJ0rkX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iwLCp0CE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 050AC1F000FF;
-	Tue, 13 Oct 2026 06:17:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MjfJ0rkX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C19271F000FF;
+	Tue, 13 Oct 2026 06:18:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791872243;
-	bh=QJthSZiY5C3cktIPbjSXYbkS4fAkuoxetUfS+Wnqjxg=;
+	s=k20260515; t=1791872297;
+	bh=s0Owovj5yCN/YII+i8I65SUoJkW/splLTgjlRzLW90g=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=iwLCp0CEI2oytxC5qi+gCKTF6GGl2uJ2mqVG36rnFAWQkZE731FMmFmSVuhiTubZZ
-	 PveLLQ6bjMUyM8DeDTFs1080UqNKv8V+7BFz2jc5bJ6Z1yXTz7pTD1H5zYoFdhE2iE
-	 SWGWwHP4hph9EyUaFUyjl0Dtkj1f0NCCTMSx3aOSp1DhH3V6c8JnRVnZpdWIp3h4Kl
-	 MyViIcg2+PlQkYB1ctCwjEzQml2n35zQi0o6nTsvTWnJTHzM920u5wg35DLgbeieMz
-	 j85lkuWjchmD8BrEU+m/qhm3Kz+sEGoTHn21A2Nrymo5gHkuZk6bRNKSRQnhO8/TY9
-	 NBg2NDw5rXwjg==
-Message-ID: <9b0436bf-3430-460c-b03b-f943eaca9685@kernel.org>
-Date: Tue, 13 Oct 2026 08:17:18 +0200
+	b=MjfJ0rkXJ2DyoAcWmEtDVDVvUKbYdcZ1Vcerv5B3uXjESwdAbG8iBg7y2LS2MeyTW
+	 4fhCrHGYMaDTgQiiRkQBAZyTlt5KyKDsBfG0db/ywbnxyQaO949953DNJUa8X9yfSZ
+	 OvhspphTmsyF68ALJrx+RMHJ1SFPC9Kf7Kd/z2Dzts0/Lh6SjPP9RWlMiIvAWW27E7
+	 R7APQlWX8TT7Z8WdBGWaUjfDr7SLWW38d2WZOpTkNt+l1z5WYImuYUHxJKCCs4oz8w
+	 bSpLfHRzzHfoZQHKRQ/gp3CO7sx+TsQqbN1Ts+4FFaSWlkbFCi9J3n1GItPchZBaqz
+	 iO8QfBEJdkYiw==
+Message-ID: <ad388a91-404f-40cd-8153-3a0df3411c16@kernel.org>
+Date: Tue, 13 Oct 2026 08:18:08 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,15 +35,20 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 04/11] dt-bindings: usb: Add NVIDIA LSTP USB adapter
-To: Adrian Ambrozewicz <aambrozewicz@nvidia.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>
-Cc: Donald Shannon <donalds@nvidia.com>, linux-usb@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261012-lstp-usb-adapter-v1-0-aambrozewicz@nvidia.com>
- <20261012-lstp-usb-adapter-v1-4-aambrozewicz@nvidia.com>
+Subject: Re: [PATCH v3 00/11] Cortina Systems CS75xx: interrupt controller,
+ GPIO, I2C and TWD watchdog
+To: filipp.dunsky@gmail.com, Thomas Gleixner <tglx@kernel.org>,
+ Radu Rendec <radu@rendec.net>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ Bartosz Golaszewski <brgl@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+ Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck
+ <linux@roeck-us.net>, Russell King <linux@armlinux.org.uk>,
+ Arnd Bergmann <arnd@arndb.de>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
+ linux-i2c@vger.kernel.org, linux-watchdog@vger.kernel.org
+References: <20261013-b4-cs75xx-s2-v3-0-181bb0d23f4c@gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -89,56 +94,30 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261012-lstp-usb-adapter-v1-4-aambrozewicz@nvidia.com>
+In-Reply-To: <20261013-b4-cs75xx-s2-v3-0-181bb0d23f4c@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 12/10/2026 19:36, Adrian Ambrozewicz wrote:
-> +  - $ref: /schemas/usb/usb-device.yaml#
-> +  - $ref: "#/$defs/channels"
-> +  - if:
-> +      properties:
-> +        "#address-cells":
-> +          const: 1
-> +    then:
-> +      patternProperties:
-> +        "^interface@": false
-> +    else:
-> +      patternProperties:
-> +        "^(spi|i2c|gpio|serial|ipmi)@": false
+On 13/10/2026 08:07, Fil Dunsky via B4 Relay wrote:
+> This is the second step of the Cortina Systems CS75xx ("Goldengate G2")
+> / Securifi Almond+ support. It applies on top of the platform series
+> "ARM: Add support for Cortina Systems CS75xx and Securifi Almond+"
+> v6 [1] and adds:
+> 
+>   - a driver for the per-CPU private watchdog of the ARM11 MPCore,
+>     Cortex-A5 and Cortex-A9 ("arm,cortex-a9-twd-wdt"),
+>   - the peripheral interrupt controller that combines the interrupts of
+>     the low speed peripherals into one GIC interrupt,
+>   - the GPIO banks,
+>   - the I2C controller,
+>   - the device tree nodes, including the reset button of the Almond+,
+>     and the multi_v7_defconfig and MAINTAINERS updates.
+> 
 
-No, compatible, not presence of properties defines whether device has
-SPI or not.
+Slow down. One small patchset per 24h. If you send some big work, then
+once per 48h.
 
-Also, allOf is placed after required, see other schemas or example-schema.
-
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - usb955,cf11
-> +      - usb424,4940
-> +      - usb174c,2214
-> +
-> +  reg:
-> +    description: Port number on the parent hub or host controller.
-> +    maxItems: 1
-> +
-> +  "#address-cells":
-> +    enum: [1, 2]
-> +
-> +  "#size-cells":
-> +    const: 0
-> +
-> +patternProperties:
-> +  "^interface@[0-9a-f]{1,2}(,[0-9a-f]{1,2})?$":
-> +    type: object
-
-Your example is either incomplete or this is unnecessary. Assuming your
-example is complete, then you have one interface, thus this node is
-pointless. What's more, your top level compatible EXACTLY defines all
-this, thus none of your properties are needed as they are implied by the
-top-level compatible.
+Implement previous review.
 
 Best regards,
 Krzysztof
