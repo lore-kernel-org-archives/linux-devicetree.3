@@ -1,193 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 797403164D6;
-	Tue, 13 Oct 2026 07:20:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2132037AA94;
+	Tue, 13 Oct 2026 07:20:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791876009; cv=none; b=D0rjm0QoqwPA0I7kql/rYbqzWrYlao+xbumPUFjJjzv/1ul6ulRrTSF0UyxETwWEuBWRHyrc46z9r1HP2uS0EGC9sdKf3YsyOP6BeqVdlcAhEH6lXFCZs1AMBaFqT4T8TeaTv/W91//pEJw3rDzyFDqqxWiNNSTzgt4Rqmep2Zo=
+	t=1791876035; cv=none; b=GXZepAEq1q5BIqTv2/V9G7quMztNIQzcRX/lj2lSHzPzjSj8DTv3iEXZEI4NGGdc8u+oQOeZLZVczKDVJGnzy967K+dV5Ns6eAum9vUYWuuYuJQBzSnePkQjzr2CSOF+8qvUGsY2cnqxEQShSnQi2DK2q62BInP+6xp3Q79B04k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791876009; c=relaxed/simple;
-	bh=3EIMklRsm+lKbHY3s2vmOySVyFXwXiQ9bpxf5C526jk=;
+	s=arc-20240116; t=1791876035; c=relaxed/simple;
+	bh=lhtNOvnGjrJ0YJ4RZuJIlnz6dosHMOa7q4UAX6irEKE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CHs7GH6Cynsa94IseCqEcRrAa036+bMIMiPUkUWa2GWVcrE8cQ4oEwkl/hfPUksEaxGArcjb170DwuqY0lVMsF8vJfXqLY4QbOcgBD1auQjPSfvJxxH2EjyrprjwJCv2sKPuOOUfsKYp5J2+6BOz+0MRc7M4rrHjPnyw/qtocyk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lCwszX6V; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=KzyXuMMjkZHHVJRO7ndkWoSRELQGwMJBIlBlu3hdwKRhSd1OHyURznZtl2JnCyqJg6naty27s8A/efsKQ2v3yywSdPzkwZDd7LYQdCEZ7PD7kudy1Ujm9MSfAaHFZI4GGdzHS9j3IoMnc9NytsT0hr1PCnnEyjBOrYIIXd6/nZc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=AuoizujY; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lCwszX6V"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8937A1F000FF;
-	Tue, 13 Oct 2026 07:20:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791876008;
-	bh=8pf0Ph7c3/u3audy18tF0yiCmBWPU7a6hHO+L6l5Qus=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lCwszX6VZ+gYWYSA27kg9BmzRmjTXOSnvK5PEI5ipX+Eytj5EPZIkxfmSTXV6qlUr
-	 dPTrUYAUtHUaXTPBNgjqsZ3X/Qvxc3jUGRhPOBg+T6KB5FiTrkeSc4V9VaOxVXsPm9
-	 iebqrjsY+PPlLmTj5HEVN2vYqPT/htJf95jkSIWBR+SAnntAXTLACFWh9go5Hm7JrW
-	 vQ/Rza5zfv1TNo0ty1zSMFfhZTLyuQp3OCzAZHhsZ7OZYCushwXLoyhKxDASZu4hfd
-	 /+pResJ4PAFnJqv65XTgpPWciVmM34AO8svzEDEMheFmXNC2MZ9qPFQq/rjYzj9OtD
-	 0suqQJ8lcrLJQ==
-Date: Tue, 13 Oct 2026 09:20:04 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Faisal Hassan <faisal.hassan@oss.qualcomm.com>
-Cc: Thinh.Nguyen@synopsys.com, gregkh@linuxfoundation.org, 
-	mathias.nyman@intel.com, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	p.zabel@pengutronix.de, wesley.cheng@oss.qualcomm.com, sriram.dash@oss.qualcomm.com, 
-	jack.pham@oss.qualcomm.com, krishna.kurapati@oss.qualcomm.com, 
-	shazad.hussain@oss.qualcomm.com, linux-arm-msm@vger.kernel.org, linux-usb@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 3/7] dt-bindings: usb: Add qcom,sa8255p-dwc3 for
- firmware-managed resources
-Message-ID: <20261013-light-significant-markhor-c30eea@quoll>
-References: <20261010053246.2991984-1-faisal.hassan@oss.qualcomm.com>
- <20261010053246.2991984-4-faisal.hassan@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="AuoizujY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1791876035; x=1823412035;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=lhtNOvnGjrJ0YJ4RZuJIlnz6dosHMOa7q4UAX6irEKE=;
+  b=AuoizujYw0EOPW2VlQxRyGHfp5EPCbMKte/l0WyxVJz3HBjQtvxlAC+Y
+   Qi2WOHDeaRKuMF2Bl1TKrrITTE9wSQ/LU5tuzV6Lt5X75c7ZxdB65h56D
+   PildgI0KYJlu55dolS7tmZ+l+HRL2Eq2lw8Sw3KQgl3i1ufp3g/59MQy3
+   ORU6EhkVAqb4K+TraaITeH4gBFoJ+OrctLHPt8/cHKfe3Ra2m/SD3Bb4m
+   nmYdbBQvbCLGsWk1KUqjWaWg4pt/UM15mFDbpJZIe+X8kilCl3mlh+7gZ
+   x46+FH9I/SggjqW7xl3xjBbQ1mXasn4K/usPxR3yrkAzEEFTTe277wP0W
+   Q==;
+X-CSE-ConnectionGUID: Amy6rrU3RBeAuTMT+srRdw==
+X-CSE-MsgGUID: bYhhAcITTb6M0CJ5G/+Ixw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="493141"
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="493141"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 00:20:34 -0700
+X-CSE-ConnectionGUID: /GKU5FLRRDqryMAPqrZGoQ==
+X-CSE-MsgGUID: HAM54pmgTfOkzHUQTBPriw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
+   d="scan'208";a="1052200"
+Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.48])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 00:20:30 -0700
+Date: Tue, 13 Oct 2026 10:20:27 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Marcelo Schmitt <marcelo.schmitt@analog.com>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux@analog.com, jic23@kernel.org,
+	nuno.sa@analog.com, dlechner@baylibre.com, andy@kernel.org,
+	Michael.Hennerich@analog.com, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, corbet@lwn.net, skhan@linuxfoundation.org,
+	marcelo.schmitt1@gmail.com
+Subject: Re: [PATCH v4 07/13] iio: adc: ad4134: Support buffered data read
+Message-ID: <as3bu1imLnoBE1lb@ashevche-desk.local>
+References: <cover.1791309733.git.marcelo.schmitt@analog.com>
+ <5d31212a27c2099c226cce189aa96677e75ca529.1791309733.git.marcelo.schmitt@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20261010053246.2991984-4-faisal.hassan@oss.qualcomm.com>
+In-Reply-To: <5d31212a27c2099c226cce189aa96677e75ca529.1791309733.git.marcelo.schmitt@analog.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Sat, Oct 10, 2026 at 11:02:42AM +0530, Faisal Hassan wrote:
-> On Qualcomm automotive SoC sa8255p, platform resources like clocks,
-> interconnects, resets, regulators and GDSC are abstracted and managed
-> collectively by firmware.
-> 
-> Add a new binding file for firmware-managed USB controllers where
-> access to these resources is exposed as two power domains:
-> - Power domain: Controls power supply (GDSC) to the USB controller
-> - Bus domain: Controls clocks and interconnects for data transfer
-> 
-> The binding makes power-domains and power-domain-names properties mandatory
-> for firmware-managed platforms, while excluding the clocks property since
-> clocks are managed through the power domains.
-> 
-> Co-developed-by: Sriram Dash <sriram.dash@oss.qualcomm.com>
-> Signed-off-by: Sriram Dash <sriram.dash@oss.qualcomm.com>
-> Signed-off-by: Faisal Hassan <faisal.hassan@oss.qualcomm.com>
-> ---
->  .../bindings/usb/qcom,sa8255p-dwc3.yaml       | 119 ++++++++++++++++++
->  1 file changed, 119 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/usb/qcom,sa8255p-dwc3.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/usb/qcom,sa8255p-dwc3.yaml b/Documentation/devicetree/bindings/usb/qcom,sa8255p-dwc3.yaml
-> new file mode 100644
-> index 000000000000..87f426fdbd70
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/usb/qcom,sa8255p-dwc3.yaml
-> @@ -0,0 +1,119 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/usb/qcom,sa8255p-dwc3.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Qualcomm SA8255P USB3 Controller with Firmware-Managed Resources
-> +
-> +maintainers:
-> +  - Wesley Cheng <wesley.cheng@oss.qualcomm.com>
-> +  - Faisal Hassan <faisal.hassan@oss.qualcomm.com>
-> +
-> +description:
-> +  USB controller on Qualcomm SA8255P automotive SoC where platform resources
-> +  such as clocks, interconnects, resets, regulators and the GDSC are
-> +  abstracted and managed collectively by firmware through SCMI (System
-> +  Control and Management Interface).
-> +
-> +  Access to these firmware-managed resources is exposed as two power
-> +  domains, one gating the power supply (GDSC) to the controller, and one
-> +  gating the clocks and interconnects used for data transfer.
-> +
-> +properties:
-> +  compatible:
-> +    const: qcom,sa8255p-dwc3
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    minItems: 5
-> +    maxItems: 6
-> +
-> +  interrupt-names:
-> +    minItems: 5
-> +    items:
-> +      - const: dwc_usb3
-> +      - const: pwr_event
-> +      - const: hs_phy_irq
-> +      - const: dp_hs_phy_irq
-> +      - const: dm_hs_phy_irq
-> +      - const: ss_phy_irq
+On Tue, Oct 06, 2026 at 03:17:56PM -0300, Marcelo Schmitt wrote:
+> Enable users to run buffered data captures triggered by IIO trigger device.
+> Add an IIO timestamp channel so each data scan is provided with measurement
+> time information. Require single-read operations to be in IIO device direct
+> access mode to prevent buffered and single-shot data captures to disrupt
+> each other.
 
-That's still unexpectedly flexible.
+...
 
+> +static irqreturn_t ad4134_trigger_handler(int irq, void *p)
+> +{
+> +	IIO_DECLARE_BUFFER_WITH_TS(u32, channels, AD4134_NUM_CHANNELS) = { };
+> +	unsigned int chan_bytes = BITS_TO_BYTES(AD4134_CHAN_PRECISION_BITS);
+> +	struct iio_poll_func *pf = p;
+> +	struct iio_dev *indio_dev = pf->indio_dev;
+> +	struct ad4134_state *st = iio_priv(indio_dev);
+> +	struct spi_transfer xfer = {
+> +		.rx_buf = st->rx_buf,
+> +		.cs_off = true,
+> +		.len = chan_bytes * AD4134_NUM_CHANNELS,
+> +	};
+> +	int ret;
 > +
-> +  power-domains:
-> +    minItems: 2
-
-Drop
-
-> +    maxItems: 2
+> +	gpiod_set_value_cansleep(st->odr_gpio, 1);
+> +	fsleep(1);
+> +	gpiod_set_value_cansleep(st->odr_gpio, 0);
 > +
-> +  power-domain-names:
-> +    items:
-> +      - const: power
-> +      - const: bus
+> +	/* Run enough DCLK cycles to match the data frame length. */
+> +	ret = spi_sync_transfer(st->spi, &xfer, 1);
+> +	if (ret)
+> +		goto out;
 
-I don't see how did this improve. I asked to use existing bindings as
-reference, so why aren't these power and perf? You wrote that bus
-controls clocks and interconnect, so is this something different than
-perf domain is doing for sa8255?
+> +	for (int ch = 0, i = 0; ch < AD4134_NUM_CHANNELS; ch++) {
+> +		if (!test_bit(ch, indio_dev->active_scan_mask))
+> +			continue;
 
+for_each_set_bit() ?
+
+> +		channels[i++] = get_unaligned_be24(&st->rx_buf[ch * chan_bytes]);
+> +	}
 > +
-> +  resets:
-> +    maxItems: 1
+> +	iio_push_to_buffers_with_ts(indio_dev, channels, sizeof(channels),
+> +				    pf->timestamp);
 > +
-> +  iommus:
-> +    maxItems: 1
-> +
-> +  phys:
-> +    minItems: 1
-> +    maxItems: 2
+> +out:
+> +	iio_trigger_notify_done(indio_dev->trig);
+> +	return IRQ_HANDLED;
+> +}
 
-phys should be afixed, constrained.
+-- 
+With Best Regards,
+Andy Shevchenko
 
-> +
-> +  phy-names:
-> +    minItems: 1
-> +    maxItems: 2
-
-This as well.
-
-> +
-> +  dma-coherent: true
-> +
-> +  # Firmware-managed platforms do not use direct clock/interconnect control
-> +  clocks: false
-> +  clock-names: false
-> +  interconnects: false
-> +  interconnect-names: false
-
-Drop all four above. Not sure why do you need them.
-
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - interrupt-names
-> +  - power-domains
-> +  - power-domain-names
-> +  - resets
-
-I guess phys and phy-names as well.
-
-> +
-> +allOf:
-> +  - $ref: snps,dwc3-common.yaml#
-
-Best regards,
-Krzysztof
 
