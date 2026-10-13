@@ -1,214 +1,161 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F7F2511E67;
-	Tue, 13 Oct 2026 16:26:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791908793; cv=none; b=QFF6dyR+alGJVHdif5SPTYolhVzcsFufBnPjvtsOtUu6zumrm07VsPPT26KDHmHBNBtMm3dr2hNocxreoLMpusF0RESpzpTVq/1jDYaFnW7Pv0pHr0GPYe1Qo4XjYodHk7obNlK0KlmGza17td22u+Um6aBwp3XcEoquOOYBf1s=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791908793; c=relaxed/simple;
-	bh=3qyTP8+WZ6AyOs7nJ6TTAsG5HdMwZF+kpLSnqe1i/cw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eHmmeo3JTXvRxqdWpsfrWnI3QFRksYbfJtN85pfWCEFtga+BMYYNVL8xTi+FcEKposnM3Q97he0MiH0MIQ3S5Z24B1+3AI020yvW0zUY0CaHAaddy/IknO1XtMC4yZ2yuoKO+IDFYkzUzwKLjWyhStvrX93DuCoGX/0fu6sh8uw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IbiwJMfs; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6163D51DB1D
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 16:27:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.182
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791908842; cv=pass; b=b2WXLiHSm6G18NmrwyYduUrrGwqGhH0xbn9QDD/gMMLwrM5dKrxdBFEldzKcBFhxP7RT6s9JQD5kWGCrcwX1nZdUfkFVX3+IYA0SjgzrdOGpST8xzXsnBqCp/I002nvsjCcB6PLhFGffwLJ0bZZJGYZj8qPzPNNJt+6AOjvh6aI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791908842; c=relaxed/simple;
+	bh=w0IXztAu98K98cCd8kCaVJg3QAtMwDa5REUQqF4U6dg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=bw8vGwGGfmBkG4uZPsmt/vDxKWA7E4rM8ZKko6/LRNVU2N/Jl2mr0BFHxabsXSoHBWjP0xBDHy67zg7nG9m5NB1IAoLnA6LmDNvK64BMmJFvNajdb+z0MWcmRhBOhxRgPcAtz0rFL2h6ggfCrYXGHW3lcTSswdIciNfArjKumO4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kAwz60jT; arc=pass smtp.client-ip=74.125.82.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IbiwJMfs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4896A1F000FF;
-	Tue, 13 Oct 2026 16:26:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791908792;
-	bh=fcUaSh6THj74YfYrkHmr8E7G02HrqAcNir1RnFpgXlM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IbiwJMfsruKB75RUAAUvY6QcrxK5Lf6MTy5vu1W/MaVbIVT7eXAgd/6Fk94knQ++h
-	 98pfuWPtOO2UIoOmWHD7hNnvp1ysjtqxZaefjai3EhnGBx5albxjX5hpB21CQqUfod
-	 61/ZTGZWBhbqpfTy2skVhasm/pfsLbdIfrbC3htuLJhWRi6ZeI+bXzhBOVtxQhbbXp
-	 CVNw0MeV3Vn4KHPuXzpjSAIBMyP6IsEw6z9pHOYiXrtivaRGTknhYU8mCb8dwiwxbC
-	 ZGNhAvLoy+7Xf0UWlpYV6gus8IWQYSw+WSOPCtnlTsIgvzol+eLLNVsAnrk7jWTZH8
-	 f/HP50zgodNVQ==
-Date: Tue, 13 Oct 2026 17:26:28 +0100
-From: Conor Dooley <conor@kernel.org>
-To: founder@crepuse.com
-Cc: dmitry.torokhov@gmail.com, linux-input@vger.kernel.org, icenowy@aosc.io,
-	linux-kernel@vger.kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v4 2/3] dt-bindings: input: touchscreen: add Nsiway NS2009
-Message-ID: <20261013-spider-sporty-1a41a930d375@spud>
-References: <20261013-review-self-ns2009-v4-20261013-v4-0-98bb21712282@crepuse.com>
- <20261013-review-self-ns2009-v4-20261013-v4-2-98bb21712282@crepuse.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kAwz60jT"
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-3282db206d3so117682eec.0
+        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 09:27:20 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1791908839; cv=none;
+        d=google.com; s=arc-20260327;
+        b=T2ic+rMhwpZmRWsGwRBs9nu5JAb3t0TIQc8jveQ1Ur1lbYKOn+3ggFqYtSbVPT0zmm
+         P4xcF2pWovEqj00fKq1sOgp8DCo4KanQ96Fa/xlrcUGgRMU9UfKIvz+o7S1KvLDZrJ9n
+         nDnAlwjIkZE+Ec0u63yOuhSdMCBfneJNhuvczK5NYPEqlE07zCYFL/K2Q9QvYlJKpdX7
+         eLBUdyocx39N2zj4wD0pbDsft4czQJw+zKqpzFC1v/nN3DvsSUIxMP124WacK98Y2lC2
+         p194LU/lAaSatv09L7ZcRUnPwFWFH1hd+hQlgNDSWqeoh11XCvc3x11sMdPVorwouWlK
+         yA5g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=XFVRy1ENi3+Slhs3K96teAausjQ0Dg9HVOBBYOnCZ+4=;
+        fh=7xxxUZjt4grF9P7LFh0SHXzjwXXpL/RcbbI0IRbwmF0=;
+        b=c1+GnZiCuQ9XHMqU0Zn87bU7gwRhiRBmnE4V7tAdoQCCkHvJsdrd+Fne/TLMW+Lp3f
+         yD/F/GUupcDYcO5AMaf7JZ48vS09hg+FpU+Bp9x56wq+YB2RoE7J78Of+Y7lFJy32i5j
+         w+dGgc0jTHOpUyQtDlgiDLP9tgr97VB8K5uoYUQW8VPqVYD+AeR02AA1pqkXtL1xYxL/
+         kuQuwrF20R2Tk4AELb32lsEPUJfw3SeGvm9msJwSfiAR171iim4ZWtxfEd+wZDPFVn+O
+         UN16x/NxsWB8rhNMXZENVOUZJawt/AOYYiW5HX/3owGL7snJksFRhpMqQMCjdHyhwcXQ
+         DZ4w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791908839; x=1792513639; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=XFVRy1ENi3+Slhs3K96teAausjQ0Dg9HVOBBYOnCZ+4=;
+        b=kAwz60jTjbXZ1371SUWeIG50qMgcdtsu5vM68Do4i7fJ9AvXrLYXxi9ATctv5C4yfu
+         iKRFsv0E+0bVccekECc7CRwDvTecF/0JE3S2LAHroLpe712G+NNAZKESuMmUoSHLjYfV
+         h8rpk5auJVECMX+ymh3Yp3z9dK+JvPvT0mjjf+i77PwAB5KG7sl53zFvVFwtsZBTYl5e
+         wgES8+x8HofSP+HdUOmGgjJaDgxtqUqjfH9aw0FzADG4EOZUqi4MEAMnoAsMS3enx59F
+         P/52p8VFiL50edSVcTU+xfNQUFwJO8xk+bHdZK4/CouCoF5NTSi6OgwQHLGtmBKVJdII
+         P2LA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791908839; x=1792513639;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XFVRy1ENi3+Slhs3K96teAausjQ0Dg9HVOBBYOnCZ+4=;
+        b=ccTW1cGn8cCGLIZqFnNWii74bPC4quvprKUq3XUKGku7nz0ZO48IEa7NtPpr2Enq0o
+         1MyW4fyOK4swA2ujeWsi2PXy5ab4sERkCirYMZIy9Ra59UKuXUAkF/f0858nehFIiE1R
+         O5O243mNQ/HEeIxrdniIxGX1dfnBwTM6xljSLhq3VvBtvydjKdY32K0/CGTfF1HuksVF
+         G/WA0PRM+dYnm8KOkIHsRQNEkstp0D6KJfOMYBIPrgsFS6ulLLxSB4YACJp6nPp4zTZH
+         ZZe0bc0YAlSg3IKbmNumBJVYnED4abfq1OaNewLbMfLroSq6DsfBHw/nFVweNs73CUR3
+         1MRg==
+X-Gm-Message-State: AFq9FYKsEKo+gtr24myKCazeULVJA2xFJ3Mp8+haV5+DOb7JG2XYXGgN
+	mqB511BlZB0XUUQS/oJON1B/vwcWOXcduuOofqXm8VHfupvQEPgMtaXUoMVNZ5bGsHJZVHpeu5O
+	FYcsfXl1do8GTIHg3MjrKxwfQqdAABm8=
+X-Gm-Gg: AYBFou3ipNMEZCXbU+zVfVNYzx4dR6kSu7nsOwfWSTOHpLzWFV3ZDTD31BDkKI1S5ot
+	O7V+dKnvxSWbBTFcJOi633kjcOoi8UoEr/o+QzZeMEfcAFIzX8exiZw02b3Uw3wI43oV1UKYWVN
+	C2Lfd8ZL01z1DIjc18KFxq+YRoEpp1Omg5lSP4ClxogVlOckReeaEC/9rs/tlY3Rm5Fgd8pBm8J
+	cRqKwulQCM2UD5cPhhe5GFJ80tSeUsxitL1MU9xH9C495AyhmgFG3d74KgmavUHpLgcjS44v2vE
+	i7XStUHc752WMNXIGHPigspIgXuW7QepjDf5OAARKXNb/iSXMuqAonRXe4Z/tRDDUpdCeAnxsfQ
+	qfGORSVm7gJxs0BwVfrnp4/k=
+X-Received: by 2002:a05:7300:e002:b0:35d:5a2c:2321 with SMTP id
+ 5a478bee46e88-35d5a2c2980mr575512eec.20.1791908839126; Tue, 13 Oct 2026
+ 09:27:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="9tz+fWFhurRDfH+v"
-Content-Disposition: inline
-In-Reply-To: <20261013-review-self-ns2009-v4-20261013-v4-2-98bb21712282@crepuse.com>
-
---9tz+fWFhurRDfH+v
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <20261004154456.145362-1-clamor95@gmail.com> <CAPVz0n1HOWAXMwfeCBV76Z+N+6mgynXW5GeMebnqYQubNDqpOw@mail.gmail.com>
+ <CAPVz0n2SmOY3Cw2HpnpYd8eFXw7B=2mjP6LMhKCu5niN=KnOQg@mail.gmail.com> <as5XpdpNm4cRGNcj@orome>
+In-Reply-To: <as5XpdpNm4cRGNcj@orome>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Tue, 13 Oct 2026 19:27:07 +0300
+X-Gm-Features: AclHuK_-dlj4_NR-HXsrfbWG6hEOQBskE9gcB79-TNecmzBROYTdvzz-we1jX0Q
+Message-ID: <CAPVz0n3ki1MdkUnK=znzt=uSrwRMbyXfdvGzNrxuB7_mCK9F8w@mail.gmail.com>
+Subject: Re: [PATCH v2 0/9] ARM: tegra: lg-x3: Add newly supported devices and fixes
+To: Thierry Reding <thierry.reding@kernel.org>
+Cc: devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Ion Agorria <ion@agorria.com>, 
+	Jon Hunter <jonathanh@nvidia.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 13, 2026 at 11:04:21PM +0800, Mizuno Miotsuki via B4 Relay wrot=
-e:
-> From: Mizuno Miotsuki <founder@crepuse.com>
->=20
-> Describe the Nsiway NS2009 four-wire resistive touchscreen controller,
-> including its pen interrupt, main supply and external reference supply.
+=D0=B2=D1=82, 13 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE 19:1=
+6 Thierry Reding <thierry.reding@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Mon, Oct 12, 2026 at 01:56:48PM +0300, Svyatoslav Ryhel wrote:
+> > =D0=BF=D0=BD, 12 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE =
+13:55 Svyatoslav Ryhel <clamor95@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
+> > >
+> > > =D0=BD=D0=B4, 4 =D0=B6=D0=BE=D0=B2=D1=82. 2026=E2=80=AF=D1=80. =D0=BE=
+ 18:45 Svyatoslav Ryhel <clamor95@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
+> > > >
+> > > > Add nodes for recently supported device (ALS, LED controllers, hapt=
+ics)
+> > > > along with minor tweaks and fixups.
+> > > >
+> > > > ---
+> > > > Changes in v2:
+> > > > - added USB configuration update commit
+> > > > - added p895 power LED trigger update commit
+> > > > ---
+> > > >
+> > > > Svyatoslav Ryhel (9):
+> > > >   ARM: tegra: lg-x3: Adjust WiFi node
+> > > >   ARM: tegra: lg-x3: Remove pinctrl-* properties duplication
+> > > >   ARM: tegra: lg-x3: Lower supported suspend mode
+> > > >   ARM: tegra: lg-x3: Add light sensor node
+> > > >   ARM: tegra: lg-x3: Add flash LEDs controller node
+> > > >   ARM: tegra: lg-x3: Add haptic engine node
+> > > >   ARM: tegra: lg-x3: Add backlight LED controller node
+> > > >   ARM: tegra: lg-x3: Update USB configuration
+> > > >   ARM: tegra: p895: Update power LED trigger
+> > > >
+> > > >  arch/arm/boot/dts/nvidia/tegra30-lg-p880.dts |   5 +-
+> > > >  arch/arm/boot/dts/nvidia/tegra30-lg-p895.dts |   7 +-
+> > > >  arch/arm/boot/dts/nvidia/tegra30-lg-x3.dtsi  | 125 +++++++++++++++=
++++-
+> > > >  3 files changed, 127 insertions(+), 10 deletions(-)
+> > > >
+> > > > --
+> > > > 2.53.0
+> > > >
+> > >
+> > > Hello Thierry!
+> > > May you please pick this patch set if you are ok with it?
+> > > Thank you!
+> >
+> > Oh, you already did. Apologies!
+>
+> I picked up version 1. This v2 came in too late. Pull requests go out
+> before -rc6, which in this case was v7.3-rc6, released on October 4.
+>
+> Looks like only the last two patches were added in v2, with no other
+> changes to the other patches, so I can pick up the last two after the
+> merge window closes. If you don't hear from me after the first week
+> after v7.4-rc1, you may want to resend the last two patches again.
+>
 
-> Require vdd-supply as requested by Conor Dooley. Keep vref-supply optiona=
-l:
-> differential touch measurements reference the driven panel terminals, and
-> the 10-pin package does not expose a separate VREF pin.
+That is correct, v2 has only those 2 patches added. If you don't mind,
+I will include those 2 patches in a different patch set, you don't
+have to worry about them in this patch sequence.
 
-Drop the sentence referring to my review feedback please.
-The second sentence about why the vref supply is optional is good and
-should stay.
-
-Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: changes-requested
-
-Thanks,
-Conor.
-
->=20
-> Allow the common coordinate and touch resistance properties, and describe
-> the raw Z1 contact threshold separately from calibrated pressure.
->=20
-> Signed-off-by: Mizuno Miotsuki <founder@crepuse.com>
-> ---
->  .../bindings/input/touchscreen/nsiway,ns2009.yaml  | 79 ++++++++++++++++=
-++++++
->  MAINTAINERS                                        |  6 ++
->  2 files changed, 85 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/input/touchscreen/nsiway,n=
-s2009.yaml b/Documentation/devicetree/bindings/input/touchscreen/nsiway,ns2=
-009.yaml
-> new file mode 100644
-> index 000000000000..8ee7ff7156ca
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/input/touchscreen/nsiway,ns2009.y=
-aml
-> @@ -0,0 +1,79 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/input/touchscreen/nsiway,ns2009.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Nsiway NS2009 resistive touchscreen controller
-> +
-> +maintainers:
-> +  - Mizuno Miotsuki <founder@crepuse.com>
-> +
-> +description:
-> +  Nsiway NS2009 is an I2C four-wire resistive touchscreen controller with
-> +  a 12-bit ADC, an active-low pen interrupt and touch resistance measure=
-ment.
-> +
-> +allOf:
-> +  - $ref: touchscreen.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: nsiway,ns2009
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +    description:
-> +      Active-low pen interrupt output. Optional when the signal is not
-> +      connected.
-> +
-> +  wakeup-source:
-> +    type: boolean
-> +
-> +  vdd-supply:
-> +    description: Main power supply.
-> +
-> +  vref-supply:
-> +    description: External ADC reference voltage supply.
-> +
-> +  touchscreen-min-pressure:
-> +    minimum: 1
-> +    maximum: 4095
-> +    default: 80
-> +    description:
-> +      Minimum raw Z1 reading considered a touch. This is a contact detec=
-tion
-> +      threshold, not a calibrated pressure value. Boards may require a h=
-igher
-> +      empirically determined threshold than the historical driver defaul=
-t.
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - vdd-supply
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/irq.h>
-> +
-> +    i2c {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        touchscreen@48 {
-> +            compatible =3D "nsiway,ns2009";
-> +            reg =3D <0x48>;
-> +            interrupt-parent =3D <&gpio1>;
-> +            interrupts =3D <7 IRQ_TYPE_LEVEL_LOW>;
-> +            wakeup-source;
-> +            vdd-supply =3D <&vdd>;
-> +            vref-supply =3D <&vref>;
-> +            touchscreen-x-plate-ohms =3D <400>;
-> +            touchscreen-min-pressure =3D <150>;
-> +            touchscreen-max-pressure =3D <4095>;
-> +            touchscreen-fuzz-pressure =3D <16>;
-> +            touchscreen-inverted-y;
-> +        };
-> +    };
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index f53047aa8d3c..696f2badc49c 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -19467,6 +19467,12 @@ S:	Maintained
->  F:	Documentation/core-api/symbol-namespaces.rst
->  F:	scripts/nsdeps
-> =20
-> +NSIWAY NS2009 TOUCHSCREEN CONTROLLER
-> +M:	Mizuno Miotsuki <founder@crepuse.com>
-> +L:	linux-input@vger.kernel.org
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/input/touchscreen/nsiway,ns2009.yaml
-> +
->  NTB AMD DRIVER
->  M:	Basavaraj Natikar <Basavaraj.Natikar@amd.com>
->  M:	Shyam Sundar S K <Shyam-sundar.S-k@amd.com>
->=20
-> --=20
-> 2.56.0
->=20
->=20
-
---9tz+fWFhurRDfH+v
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCas5btAAKCRB4tDGHoIJi
-0um7AQCCsOMtZKFETGmKe1GrJ0lIhQ3bRGIsvHRoHCmkppJhywD9EV9Glg8k+vcA
-pgzKMFKuLL79jYJo4FXygLepgAfeFAA=
-=fgjo
------END PGP SIGNATURE-----
-
---9tz+fWFhurRDfH+v--
+> Thierry
