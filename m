@@ -1,126 +1,179 @@
-Received: from mail-dy1-f174.google.com (mail-dy1-f174.google.com [74.125.82.174])
+Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com [209.85.222.182])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B57F5372E2
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 21:10:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8721A5581FB
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 21:10:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791925840; cv=none; b=ppGFA9yd4uet71Bt4schspw5m8tJo4RWIJVt5SnrKl5Nk6/hI8fay8XrkV957uyiIUmlN91x0JUR95MA7pe4iBvNTBZWBTIwZKAj7Q9BR7F6mDIlejvRneGAjgwZmh+9KjfJqKs9/XP9yvfMiGs2Zuv50vHKJOUROw6Nxvb6E9g=
+	t=1791925846; cv=none; b=ntaUdblML5GlQo0qlJztqmMsiTHfS5+57IJjUUhuId67Rtr2/YQMXeqEP8zGlDq+vzHjzPWCIzVqIj966ym+Nqg7r1epITPUlZ5ieROIxZPK93ncuS3fXDxt9Vt7B9ljt42MYa54comEv8eQ20ukvMBRa8Z4CD2i1nKC0D1UkFI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791925840; c=relaxed/simple;
-	bh=bJUyc/ME9HJkZnPKYFx7u8d/FjI0Wfq8OzDLfsBL6oA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ebZ+yyMzIvszTFW/0RrFo2TrRPJDLnJ7RBGSPr7KQirbD26JXDnf/yquzKoSdsAlvOq8sGjW2OjfaNF7a8pn8EaFmibAeckHVQDbLWs37B5G+Vou15PRCRl23gT96HCFAdwKWqSPf/7TJvQIUnpR6OU3uFUX5rCutgfM6CKystA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZqRxON9x; arc=none smtp.client-ip=74.125.82.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791925846; c=relaxed/simple;
+	bh=JJ5ihVHUtrCqBcNZBqCy5OUsOcOFmIhQd6E5sFhpWaY=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=sB7Q1BKJtQZpfqzrxTRXFOu2FDPLeCh4kWcnl9yeatykHb/EZ3SsTKBfa4fcz5U0RTPhYkBw6PE199LkFQ4fi6lF14RXqV0fNrNgdjrrdRlQfAbQwmtZrdtCZfC3SLyXlxfOUb6d7rQHM5CmIIe7hj//TxgZ6wRrCCRNLXf1I2Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=mTGn9LfQ; arc=none smtp.client-ip=209.85.222.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZqRxON9x"
-Received: by mail-dy1-f174.google.com with SMTP id 5a478bee46e88-33bf40b0c8bso1816410eec.0
-        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 14:10:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="mTGn9LfQ"
+Received: by mail-qk1-f182.google.com with SMTP id af79cd13be357-93e4f0d7d77so22343585a.0
+        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 14:10:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791925836; x=1792530636; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=VPF69Vgyq+EWaxSZa/m0vRYIReMQelGNV5KVrMj2Qbg=;
-        b=ZqRxON9xj2AzbKSQ90P7zE2huf4VXuY8aW5i9pqpb0q2cpVda1LeALcjhO2keRrN1f
-         g5A029vYUFBfcSLIV5pHUvN8rrudySHbRyg581vQ6fdFKTucgiTyC1ooTkbZHD/rGu7c
-         8j9twWkJRizdsnPApQPyr+KQVKnp2XlGzA8aMeDIHU+G5S99eVtm+6eQ7gCBLYZFMcie
-         QwuMBm1bvGb4H+RfEx0jRdHfMNtScCAIse0OUmRcvUmqUdE685MMfQcZSyj+GsmNUWsO
-         ZZJQbTslOvNr8hhA+T17XiquiBfwm/Z6ACv2Y3rumXyBjteZ7vHgVWMMfM4/wRtVW3Wq
-         NJxQ==
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1791925839; x=1792530639; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=lySPw8KqCGspyEFq5ePApVpNMTq8o1+rvzVI9wozpvM=;
+        b=mTGn9LfQEOfL+sAUFv0CDljnnjczWmYpLpglLBZx6OoaUZ2VTkwJyLZN5E9L9LhmAK
+         I/nB+9aEKPLd0erhP1ha/hggez8PMUZF0TXd244sBbnmajZ2J3Cmg83ZhSBjp6jWJsSt
+         nKgE5ywx8IoTlLg7gAK2zyrR2Zn9c9I8YmV+m68pnCy6pjoDTwTU624FT/LSiCYIYKjB
+         +8GFO1S+8EYaHdwAGtKyV/5HALb/QmkfdglY/kXPUoB7b7ZGhxsYOO3VPKuFSWQ6XQ2e
+         jGD/QSmTWI9roqS60YZxyUAEaScZHIYLWVJgvIyZOYHNBlMGG9Cj6hS3fBIoSKfdEYCo
+         r5Sw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791925836; x=1792530636;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=VPF69Vgyq+EWaxSZa/m0vRYIReMQelGNV5KVrMj2Qbg=;
-        b=k31vDj2f5YZ038ybRsd199TvxrDfaibR548gcmByMfodl1/sFdERMiAKGiRgak3Y77
-         vDSE0FEFowc8KwSBAjDqI0QoHdiYred9qj1O6xN9RWrtPynItxvy4X9v+ZJt5necFfDA
-         PbYOPfQWculfLwxdvV3OGTw2LHp+8/xgtJKuNFAw+Ro/+d5mFt9VYwnkrSd51Fyw7WXI
-         LKbDF2qJdvWqwkf8pPY2MCJooR5VgejH2id+POxq2zpIcs5G80HQPP16f4AIUCbzxxd3
-         A58mcxk5C1iaehwQAJfBKBz8fCc0ZSbWMbWYVcuGYCuckeV+chcam9Ay8Jm1ATBCsV2Y
-         eP7Q==
-X-Forwarded-Encrypted: i=1; AKwUvBy5ANMDEf40UZeVgE+yQIjefDDG6HiKafGCz1k40bexlcqzrKNSDMWJyBiKlDexsOgK3kWnF9etvsDw@vger.kernel.org
-X-Gm-Message-State: AFq9FYLaQPTo6l2MY0Sc8p+VHd21qvYil9GQRklflt0OyIsqK71C9Dqy
-	+rGI6xNsI/bNDleZPnZzoOOcrwshc8iBHF1Kkfle9Puxz7I8T3XVWFsF
-X-Gm-Gg: AYBFou1zZOkfSerZDw9moOEuigYRJ07yN5b9l4BSjM/cQDlaNZbe4h/K/t7FfTd9x69
-	047KkW+vvxUoksvZJJzCfYgdKK2S0V1v+tCWThw1mUyREuOgaOo4rvIL+Z9mwSUU5XCUzygrtUP
-	YaETQ2DAv6zlKp92ClIk9A9mvRs9Ng37nMUMdYvRGTqgbWebWDCarZoZE7s8UG3rjkqaDZBnXD6
-	Z10L2BZPo2KDw2CLYg4TuG1Y4zkaCve7E+TdRjtNG6XEPnpIsIGq2gik/sOM5MpUewChn75687r
-	X8NQin9LK7RPPjTgXDssQRuWgj598fsFwJA+jZPMNeqYNb+0NM8fsU8lD2+fyvLbdMe/ACpCVr8
-	jdGLamaEHaT6E1GVad4NyOK4NI1u6wMc5UsnbQ4HzNe0ihPpGcvrj6KjiGaVRP9BtIAOHvynHBN
-	T+guxB5MFLlUtEFLv1x0kkTCRg+INg2dynagaAt9pzlTmyMvSyqGG3DSuOLsqnqIfIudX49I5he
-	Ght
-X-Received: by 2002:a05:7301:2003:b0:35d:9516:eb26 with SMTP id 5a478bee46e88-35d95266129mr657089eec.13.1791925836118;
-        Tue, 13 Oct 2026 14:10:36 -0700 (PDT)
-Received: from localhost ([2804:30c:96c:bf00:7844:c38c:894:4054])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-35977229a6esm30689648eec.8.2026.10.13.14.10.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 14:10:35 -0700 (PDT)
-Date: Tue, 13 Oct 2026 18:10:57 -0300
-From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-To: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, marcelo.schmitt1@gmail.com
-Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>,
-	devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-Subject: Re: [PATCH v4 10/13] iio: adc: ad4134: Support SPI 4-wire mode
-Message-ID: <as6eYQaso8KQPn5T@debian-BULLSEYE-live-builder-AMD64>
-References: <cover.1791309733.git.marcelo.schmitt@analog.com>
- <ec26e0e1cbb6572c8eee391951c084a7c264887c.1791309733.git.marcelo.schmitt@analog.com>
- <sashiko-outbox-162354@kernel.org>
+        d=1e100.net; s=20260707; t=1791925839; x=1792530639;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=lySPw8KqCGspyEFq5ePApVpNMTq8o1+rvzVI9wozpvM=;
+        b=QRl32sBHst0S8DF4WGmKX8uh6l56LrXlRFp9MOs3d8iHf0hjGnHRfX/IuSh1WkQLz7
+         QwW+qwCWQ12JTv/Ee4Wf7KIDEDcQvABpzKCPNDN/JKotIbk0D8Tr5wEQr/D+sGyMVFeh
+         kHg+tGtE1n5IxPdM2Maa50IT+c0teOp3TXZdg0t2wQeDnsyAguwUYcUCGXpAMAVlwrhr
+         A3UySf8XnYawOOVjWjSnk7PFPZvJvaHDHFdJgzjWb4RXSsOOHRmebp3MXvCp56GrJRZS
+         NdklSgByRaykQcJR6hjW9uV140NCI+KUfBNzoVoH4eOv/fo3cnBv0/xUbiUiO9o3R9Sm
+         2ngA==
+X-Forwarded-Encrypted: i=1; AKwUvByGB76QOjJlrB/GM09O78RB6n9KxMB2mCu1BSwdM4XJG1w52pB2OcAjsstkmyR27JTHrfXzKVCyaZ6p@vger.kernel.org
+X-Gm-Message-State: AFq9FYLKzS6IxEdDOeuBGjQGMWknRuzv8Va0qYH8ej4i0zv9OsphaPVd
+	MPvOBVtuRgXADhdxktZmowIjIF/2Z10k/vmeb0pubUJXk580qZD/oyS8ESOW3okNzoc=
+X-Gm-Gg: AYBFou3ltQdxWF/qT9BRlpeLgAePLW5zp+jkv6uwj5lSblo16vkqIC+7435fWlbw3Dg
+	WFmUKs08vAG3/U/abgmSgkULVtNa/qvV9+6syGBSB+xDwwQ7NS4KAIhWHq9GKo12/0zrgtnC6To
+	LQPH3riXSMruFXqir4b6fPU4xBRjBNbmZBlduDt7QYQPLc2X4OsaLz6IGK6JKQ2eNy1dM8jnZ6D
+	TmoVKrbQrg+nsJIwtLYE8V7/Wza0js/xvhbdH1jxAVEva/O5FQ3MrhIwTUTbUHHe21s8oAK/8rj
+	9DkfIQ7e5wdDzebbA/Sp/0I5qqHpTo9Bzv0oIAk3WEL1s0WbXIcW7BnffGwwd6eFpluHaerLpC1
+	y76qtf2DozrCNaHMNphYNtoXzqA2OdlNR/yteaLVT8afU+7e7yeoWBGexbXabEBTiFOn4g7Ih9s
+	e+5z6W8XNuHJGABeHI97Sp7NSkaGW50byG6V2HMbNT2gtsAUlCmqdQWWIfZ3yqc9LjcdobVhE=
+X-Received: by 2002:a05:620a:40d2:b0:93c:7861:675 with SMTP id af79cd13be357-93eb93ef2cdmr2175949885a.1.1791925839141;
+        Tue, 13 Oct 2026 14:10:39 -0700 (PDT)
+Received: from [172.22.22.28] ([73.62.185.64])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91b97c4c2fasm34853766d6.49.2026.10.13.14.10.38
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 13 Oct 2026 14:10:38 -0700 (PDT)
+Message-ID: <61de51e5-4d8c-499b-89d3-37a7014a443f@riscstar.com>
+Date: Tue, 13 Oct 2026 16:10:37 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <sashiko-outbox-162354@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 0/4] PCI: of: warn on bogus device_type property
+From: Alex Elder <elder@riscstar.com>
+To: bhelgaas@google.com, robh@kernel.org, saravanak@kernel.org
+Cc: herve.codina@bootlin.com, daniel@riscstar.com,
+ mohd.anwar@oss.qualcomm.com, lorenzo.bianconi@oss.qualcomm.com,
+ linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260924150222.1179235-1-elder@riscstar.com>
+Content-Language: en-US
+In-Reply-To: <20260924150222.1179235-1-elder@riscstar.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On 10/06, sashiko-bot@kernel.org wrote:
-...
-> [Severity: Medium]
-> If spi_setup() fails here, we return the error but st->spi->mode remains
-> modified. On subsequent calls, cur_mode != SPI_MODE_0 will evaluate to false
-> because the cached mode reflects the requested state.
+On 9/24/26 10:02 AM, Alex Elder wrote:
+> Add a check when adding a PCI device to ensure the device_type
+> property is (or is not) correctly defined when the device has
+> a non-null devicetree node pointer.
 > 
-> Can this cause the driver to bypass spi_setup() on subsequent calls and
-> attempt to communicate with the device while the SPI hardware remains
-> incorrectly configured?
+> While working on a Qualcomm platform, I learned that some PCI
+> endpoint nodes were defined with device_type = "pci" properties.
+> Herve Codina pointed out that this was not correct.  Rob Herring
+> indicated that people seem to have trouble getting the PCI
+> devicetree nodes right, and asked whether we could warn if this
+> particular problem occurred.  During review, Herve Codina also
+> suggested that bridge nodes be checked to ensure they *do*
+> have the proper device_type property, and later, Sashiko suggested
+> that "pciex" (and "cardbus") also be accepted as valid bridge
+> device_type property values.
+> 
+> The first patch prevents a possible null pointer dereference that
+> Sashiko pointed out some time back.  This is the only patch that
+> has changed in this version.  (Last time I neglected to enable the
+> Kconfig option that ensured this go compiled, and it contained
+> two obvious compile errors.)
+> 
+> The second and third patches are simple cleanups.  The last adds
+> the new PCI devicetree node checks and warnings.
+> 
+> At this point we are waiting for (and requesting) an ack from
+> Rob Herring on the last patch.
 
-Seems to make sense. Will double check and fix if needed.
+Rob, do you have any input on this series?  I created it
+initially based on a suggestion from you.  It simply
+warns in the PCI code if someone provides a device_type
+property somewhere other than a bridge, as well as when
+a bridge is defined *without* a device_type property.
 
-...
-> [Severity: High]
-> Does this cause a deadlock during device probe in NO_CS mode?
-> 
-> Here the driver acquires and permanently selects the SDO multiplexer via
-> devm_mux_state_get_optional_selected(), which acquires the multiplexer's
-> non-recursive semaphore.
-> 
-> Immediately after, probe calls ad4134_min_io_mode_setup(), which writes to
-> device registers via regmap_update_bits(). This triggers the following call
-> chain:
-> 
-> ad4134_min_io_mode_setup()
->   regmap_update_bits()
->     ad4134_reg_write()
->       ad4134_claim_reg_access()
-> 
-> ad4134_claim_reg_access() unconditionally calls mux_state_select(), which
-> will attempt to acquire the exact same semaphore already held by the current
-> task, causing a deadlock.
-> 
-> Furthermore, ad4134_release_reg_access() then unconditionally calls
-> mux_state_deselect(), which would prematurely release the probe-acquired
-> lock.
+Thanks.
 
-Seems plausible. Will double check and fix if needed.
+					-Alex
 
+> 
+> 					-Alex
+> 
+> Between version 5 and version 6:
+> - Simplified the patch header on the last patch, as suggested by
+>    Bjorn
+> - Rebased on v7.3-rc4; otherwise no code changes
+> 
+> Version 5 is available here:
+>    https://lore.kernel.org/lkml/20260908213459.2519059-1-elder@riscstar.com/
+> 
+> Between version 4 and version 5:
+> - Made a local variable (bufp) a pointer type in the first patch
+> - Eliminated an unused local variable (i) in the first patch
+> 
+> Version 4 is available here:
+>    https://lore.kernel.org/lkml/20260904134607.1856121-1-elder@riscstar.com/
+> 
+> Between version 3 and version 4:
+> - Insert a first patch that fixes a Sashiko-reported issue
+> - Drop the final "duplicate warning" patch from v3
+> - Include "pciex" as a valid PCI bridge device_type property value
+> - Add Herve's Reviewed-by tag on the last patch
+> 
+> Version 3 is available here:
+>    https://lore.kernel.org/lkml/20260901011338.1323243-1-elder@riscstar.com/
+> 
+> Between version 2 and version 3:
+> - Drop a patch that made a change only needed by a different series
+> - Switch a function header to use kernel-doc format
+> - Add a warning if a PCI bridge node has no device_type property
+> - Added a patch to remove a duplicate warning in the devicetree code
+> 
+> Version 2 is available here:
+>    https://lore.kernel.org/lkml/20260812172247.276554-1-elder@riscstar.com/
+> 
+> Between version 1 and version 2:
+> - Check the PCI devicetree node even when PCI_DYNAMIC_OF_NODES is
+>    not enabled
+> 
+> Version 1 is available here:
+>    https://lore.kernel.org/lkml/20260807194100.455599-1-elder@riscstar.com/
+> 
+> Alex Elder (4):
+>    PCI: of: avoid allocations in of_pci_prop_compatible()
+>    PCI: of: drop the reg_num argument to of_pci_set_address()
+>    PCI: of: don't zero flags in of_pci_get_addr_flags()
+>    PCI: of: introduce of_pci_verify_node()
+> 
+>   drivers/pci/bus.c         |  1 +
+>   drivers/pci/of.c          | 32 ++++++++++++++++++++++++++
+>   drivers/pci/of_property.c | 47 ++++++++++++++++++++++-----------------
+>   drivers/pci/pci.h         |  3 +++
+>   4 files changed, 63 insertions(+), 20 deletions(-)
+> 
+> 
+> base-commit: 93f51579e7df248780214094418f205253383cc5
 
-Other LLM comments don't seem to apply either because they are related to debug
-interface usage or marginal issues.
