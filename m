@@ -1,84 +1,62 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDC354D7D4D
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 12:49:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C7C539061C;
+	Tue, 13 Oct 2026 12:50:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791895759; cv=none; b=OjkGAO3EZjEUPYpEVwKgeGFZ/yQU5Ycwp3pmRNngzjSO5Yos1Tayf8r6/Qe6dgupg0O+J0JBTISBDoQoiRL4OoQw4mpBKo/SXh7qgYC5DztL4HDgSuGcQH9CTZIFyYAzm9rxOmCF0jUTxADsqBdsOYChDT3mT94Hx21V9CTkROM=
+	t=1791895819; cv=none; b=PXbKR/EX91Bkq5lPYU1KNheUJXLum7N4GJzv3UXPvSi0uQS1WWdz1cL6Ag9UPotVFcHm9KI8gJbl6Nm92ZsTbIIOX9x/ual0bNBaabm/4/9oZ5y0CCHEp+gtZ3z1ttulAA8iXyFMNclczEDhmuMAWWRz/fgMPP1AWEKtVL8gTR0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791895759; c=relaxed/simple;
-	bh=hy3ocuhI/6vDP5S05nfHI6W3yZv4jEsBq9cAYewde9w=;
+	s=arc-20240116; t=1791895819; c=relaxed/simple;
+	bh=depoyDI+kx+4ryylKY71m6Q7qJvtM7ohRhEWVjSSpgY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OYN7YfVO+zMRC+GeQz7amnlKVC7nmz8LkCXf4PKyyzXoD3s3CBYk2qOq93/7JWsj/Xldml7bg+tY0yBqC4YYR4V66AvuT/6DvYXfv4qC0SmpDluupYUTxkpp11DGZJ9w/NSANhtyu8DQVTnrahYqhFjo9uJfeIwcrATeRpioI9I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SVCTX84K; arc=none smtp.client-ip=209.85.221.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=kQ4FA1vi5ClYemBFZzCeQxETSdYrDtOi8uPsMr741zKVDNBddLFpDRR7honiI2/s4p+4Pg9+VTmxaY6rNUzxL4gEGgcJm785p/JRtoVzOQZXe6GTRngq629ppZfs+5glmiCk3e/vEXif5VAuU8at4Ar09Ut/XqYGmjuD/mjaLUU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=nmFIZ9/y; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SVCTX84K"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48c4be28b82so2859509f8f.2
-        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 05:49:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791895756; x=1792500556; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=WOn8xr8BpKgnJ6Gee1th0C/2r3v4X6hPgJGRiiP13Cg=;
-        b=SVCTX84KQfto6of6LOHGl3AqeZAJ+IvR7PH8JEDFO4Pu8f5ibtZGa52ECm+9eZ5q2G
-         G9i6uFz6yxKB88p3Ik0eEnZMTiaKmfe2FsP9cnmz3Vm/YLt1AhLv37zDXLBNsKMXmHK1
-         OZAH1PUxY1RPUo8d7lLFDJ53rhPQJgHJz4i5InK+TxG+cqK7E60amYjxXbqsbxOFcp1+
-         II1+oRL3mRc6cA4czMw/Z+tqS04ofJn1xiJfzP4F4Arqbzv5np3dtY4rsCRn7Mf2kaAl
-         w9kOFpvu3VW6Q5hXd/tB+ldamMByklC8+nBXyG53wt4L3Y8EnDvQ+5Th3Bs8DbLnz+Sw
-         QlrQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791895756; x=1792500556;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WOn8xr8BpKgnJ6Gee1th0C/2r3v4X6hPgJGRiiP13Cg=;
-        b=CfceFn80Wj58jppls+l5r7zu5mxDkuT07nMQVtJ5xWzMZti9SypuXcYPITty9sLUY8
-         eaZLK7D2nCWoMzUpBz52EjGFwzJCU5Nb7fokEF+8G5IOwfF+aWvhhHYAoifym06jLnw0
-         lAFZeFXgiLYgqYze/gjH9bF0jnyHUafg+rPyBtyYwsb148H0yV8NZ2Ic6qTI3GJtA+0s
-         a72c9CrSndcR4PPD6laFn2LPPrer2R4xjuY8WYsOLAPFQF08OswldQaXQCMAMKT31pND
-         xQctJ6HC4AGjNRZyICebuBb1/SFVj7cN/zmchsPErDFTalxI72vOxxKxnXutYBxkbX+k
-         gzhQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw/YOOnzAhR+srByDrnaAdxzJcfh5Eavjqq7gYqN99/hApagPctFb6UcA9UilAFZ0SNmMYo9ZxHXf4Q@vger.kernel.org
-X-Gm-Message-State: AFq9FYKzJklnOUIDIZM7PlhoqVDB9noKCUMlRGresMflAhpUgcXfvWIH
-	6IKYHjs2XKjY/fVfrVZu5pAxTliJuEfMWZCMcjKCx8gwh2n+CYq4jl6+
-X-Gm-Gg: AYBFou3/uyePqDWzTRJ4mcNDrWuk2pjGLiHIFxL72O34YM7uY6m8ec5p3OaabnF3YJX
-	vPoiAJnV4bv+DwzDEJzsSFndK+jnqwvXBUI+gWfD16DHRh4BqygYCVTRETpJKfef/sRINPHyvKA
-	3udwyEF1t5/fcQyMz+7W1hX9HSaJGZtcRZJ05oAZB5ZQTBkpeY08EX22gTnGMvTEQirq825RE65
-	SYSJTqGapfgJMa+mzdC8jDw+6NVfOVQ3C6oyFp2mliHaBLFSuYK69m0OiDhiK+sqOYgLDb4VCeF
-	q/OMk2R8nLoxcsDw8IM6PSU3BfkER6yNZmhsf+MLWtZzF1zGercPC4JGFdxlbK5Pw4RRvgxwwfG
-	z2Torn+p5b50m8W7i3B/xWqYw2tqQ/MyMoV/SrI8fQDlc/KvXAiVNVSPmv+LS0CMOuiwjLg3fSc
-	Btg9URJVDaGReg2JCfQPBfxLICyT0OmTSDTP1f7BuRfDn0rbO+5aYi2O8SpvY47DQd75LnrPi0U
-	rrns0wOPE1DAIJTMgb0xSXmUCEOYjGNfRH/FMauAy04ACaZCXxslGgbWIN2CnVTwlJGu2k3ISNg
-	clGxlYnr
-X-Received: by 2002:a05:6000:454c:b0:487:c3e:8df8 with SMTP id ffacd0b85a97d-48dba77cf87mr16911311f8f.5.1791895755870;
-        Tue, 13 Oct 2026 05:49:15 -0700 (PDT)
-Received: from ernest.hoecke-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch. [83.173.201.248])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0aaaa05sm4447635f8f.13.2026.10.13.05.49.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 05:49:15 -0700 (PDT)
-Date: Tue, 13 Oct 2026 14:49:13 +0200
-From: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-To: Frieder Schrempf <frieder.schrempf@kontron.de>
-Cc: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
-	"Miquel Raynal (Schneider Electric)" <miquel.raynal@bootlin.com>, Frank Li <Frank.li@oss.nxp.com>, 
-	Kieran Bingham <kieran.bingham@ideasonboard.com>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>, 
-	Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, Herve Codina <herve.codina@bootlin.com>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Geert Uytterhoeven <geert@linux-m68k.org>, 
-	Leonardo Costa <leonardo.costa@toradex.com>, devicetree@vger.kernel.org, linux-clk@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>, stable@vger.kernel.org
-Subject: Re: [PATCH v2 0/7] of: property: Make fw_devlink follow GPIO, PWM
- and clock nexus maps
-Message-ID: <xipbz3gva66o56fjszlhioxgprcspwae7dwcqe7snub7wblts3@qqryckq5fau7>
-References: <20260910-fw-devlink-nexus-ready-v2-0-17ac82dbe226@toradex.com>
- <a754faba-f904-458c-8ddb-7502e684c868@kontron.de>
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="nmFIZ9/y"
+Received: from francesco-nb (248.201.173.83.static.wline.lns.sme.cust.swisscom.ch [83.173.201.248])
+	by mail11.truemail.it (Postfix) with ESMTPA id 30FC31FA7B;
+	Tue, 13 Oct 2026 14:50:14 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1791895815;
+	bh=gIIe7Oi+djZ9XgtHUXw31H42TUuD0xP0hAFUDgxj2bU=; h=From:To:Subject;
+	b=nmFIZ9/ygIVjsJ+MFJOliYWK15FxmtiHwLb1yir2UWXDHQzZe/lNhR6cCWLXfERX+
+	 U/CU5C9Rb2PzY7pmzWpQrE1ub+62YmLDTzrO2r8tfszo/jPxbVgrfmWphOgxTp5ZMa
+	 GhRh5Pq8he1TT12R4H40qzivyWsNTks5OKRZPiApYbXMNJGWQxg9Y56nX3Eo4kshJm
+	 Mfvg4ANNyC8BVdagjE3Epp20tpDj33S2saBFU8AZ7n9OQlCSUhTcsvy39iR2U5QWMG
+	 k+gyFjAMMA1+TXVvSJXU6wa6NwQ00y6uwcJPHNT7u78y2qAo+PdGoe9uc8DuDngorT
+	 NXedGwmBcUUnw==
+Date: Tue, 13 Oct 2026 14:50:12 +0200
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Francesco Dolcini <francesco@dolcini.it>,
+	Leonardo Costa <leoreis.costa@gmail.com>,
+	Andrzej Hajda <andrzej.hajda@intel.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Robert Foss <rfoss@kernel.org>, Jonas Karlman <jonas@kwiboo.se>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Luca Ceresoli <luca.ceresoli@bootlin.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	Leonardo Costa <leonardo.costa@toradex.com>
+Subject: Re: [PATCH 0/3] Add VGA support for Apalis iMX6
+Message-ID: <20261013125012.GB73534@francesco-nb>
+References: <20261012-v1-apalis-imx6-enable-vga-v1-0-8905d8746504@toradex.com>
+ <20261012164054.GA56180@killaraus.ideasonboard.com>
+ <20261013090631.GA33628@francesco-nb>
+ <20261013111158.GG56180@killaraus.ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -87,28 +65,45 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <a754faba-f904-458c-8ddb-7502e684c868@kontron.de>
+In-Reply-To: <20261013111158.GG56180@killaraus.ideasonboard.com>
 
-On Tue, Oct 13, 2026 at 02:09:37PM +0200, Frieder Schrempf wrote:
-> Hi Ernest,
+On Tue, Oct 13, 2026 at 01:11:58PM +0200, Laurent Pinchart wrote:
+> On Tue, Oct 13, 2026 at 11:06:31AM +0200, Francesco Dolcini wrote:
+> > On Mon, Oct 12, 2026 at 06:40:54PM +0200, Laurent Pinchart wrote:
+> > > On Mon, Oct 12, 2026 at 04:25:22AM -0300, Leonardo Costa wrote:
+> > > > This series adds a device tree overlay that enables the VGA output on Apalis
+> > > > iMX6, which is driven from a parallel RGB interface passing through a
+> > > > non-programmable video DAC.
+> > > > 
+> > > > The video DAC is a simple resistor network gated by an active-low
+> > > > data-enable signal. For the bridge to work properly, this series also
+> > > > changes the following in the dt-bindings and simple-bridge driver:
+> > > > 
+> > > > - dt-bindings: Add a new compatible for the bridge in the simple-bridge
+> > > >   binding. This is necessary because the existing dumb-vga-dac compatible
+> > > >   doesn't describe a data-enable signal polarity.
+> > > > 
+> > > > - simple-bridge: Add the VGA bridge match-table entry and timings
+> > > >   struct, setting the DRM_BUS_FLAG_DE_LOW flag for the bridge.
+> > > 
+> > > Is there schematics available anywhere ? That would help reviewing the
+> > > series ?
+> > 
+> > This circuit is on the SoM, and the SoM schematics are
+> > confidential and not generally available.
+> > 
+> > I tried to extract as ascii art the relevant circuit, hope it helps
 > 
-> On 10.09.26 16:16, Ernest Van Hoecke wrote:
-> > [...]
-> What is the status of this? Can you send a follow-up?
+> Thank you, it makes things clearer.
 > 
-> Frank is asking me to use nexus connector nodes and it looks like I will
-> run into this issue.
-> 
-> Thanks
-> Frieder
+> The circuit seems fairly generic. Wouldn't it be better to add an
+> optional property ot the dumb-vga-dac instead of a new compatible string
+> specific to Apalis ?
 
-Hi Frieder,
+We discussed this internally and we were not 100% sure, so we decided to
+go with this proposal that seemed easier and less controversial.
 
-I'll be sending a follow up very soon and address all the valuable
-feedback I got here. Thanks for your interest!
+With that wrote, I let Leonardo comment on the pro/cons of the two
+approaches.
 
-Apologies for the delay, it's been quite busy here, but I also had some
-nice chats about the topic at ELC 2026 last week so I'll follow up soon.
-
-Kind regards,
-Ernest
+Francesco
