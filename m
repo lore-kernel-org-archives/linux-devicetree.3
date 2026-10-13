@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C80723E5598;
-	Tue, 13 Oct 2026 10:35:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3160B3FF1C0
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 10:36:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791887717; cv=none; b=kb9WBkLWu8KEzKMX1h4g/UxbMPy4ST93TR+xFQBWaCvZ/5lm3+phkSh3d1i/J5jXsJ8OB7VKNrunnElSOS7UhD3Jzx/JYIZqz0G5xABpkV0YP5Q1/HP1SLNOQdAqGekwbLKrmgq10hDwsLKnjm7oXqhsGO1z7gLWRo/bZffEGlY=
+	t=1791887780; cv=none; b=rql6eSfF+POB+bYapypip6M8S/dM88sEX8wLRjRJZO2lJGCRFT/4RfDk/+hWjr2PcMkPn+rzDdZ9At8R8yaQ8XgIvvDAGK1EX357X1M3osEne/qoNnqDR/Shb6esELn2FDtVyR2eLioBoiiX5FLiZduqhboP0hwS1zzByThlYuE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791887717; c=relaxed/simple;
-	bh=WJw1l5C7dWOsl3t3BSS+VSSSIGILXuXga4yd98q6jkE=;
+	s=arc-20240116; t=1791887780; c=relaxed/simple;
+	bh=KSrqgKYHNu7H1TZ937u52A31q7NH56ftxDn0RHEZWEk=;
 	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=SNczge3NXXNs8jivbjDjW+2AYebpciINFXNE4a35/KJgGjDl7jW45WhkGYX96+tewdtQLISeO2UPCVpbOR36Nnd+dHYSzxp910KgtwyI30VGFkmtTRI89N9X7uIL7Ht1acqsH14QxNfkjp3uUJklDk9or7iZ70YblVolHl+ZxF0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=crh3mbX6; arc=none smtp.client-ip=100.103.45.18
+	 Date; b=MA4kEvJawjboD74P8Z2L3WGocrMuFOaIi7hsUpBXOj9NI1PBjx1Hxd6Ioj8LJk6x8t4Uhpco20WcC6ezxfRfqMkTvomSYjead9kQumK8HSp9nldlSxM4efhuY5bteCooHK1pLpUZEeUqdSPRm9BYwPFk8dOIsUZQN3FUpa1E+p4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WFs8NPN1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="crh3mbX6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E2921F000FF;
-	Tue, 13 Oct 2026 10:35:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WFs8NPN1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7FDE1F000FF;
+	Tue, 13 Oct 2026 10:36:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791887716;
-	bh=acFml3hEL8YkzifhRvpBu0Q25U1QuvZ8zu9cqe3oLYc=;
+	s=k20260515; t=1791887779;
+	bh=cF/h+BXNqz8LaSRb+B28fmkYWniKV9I9FFQuq1bV3xQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=crh3mbX6IlPd4+y6x3S9mLk2Wgl2WZL3ekdnILtnW4IW2HDmIxJXNrjM2Sjc3/LN0
-	 xE5F1aBRqz/+RWjMrBTdJa1ARXmtplSfxYTkNY2xL/3DI4IqaZ/aLQlYX/9eecTFWL
-	 2ptDRut8XSceqF7ml/jnQnRTsf0KdtlGnOftAcZsyWwveE8JA3wdYaxBemyOOMNfbs
-	 UcoQ5EI/NOb4NyEhvWI7G6qtNmgraP4sMAiRd010kEBBjarUQ5lIaRIM912oQaOnuR
-	 irP4yKVliJM1/S9c5WPiPauDJlN/SuhOWQLsPMvmy1qai3avATurh+wq1+CoY78+M0
-	 Xg9iV1W4U24mQ==
-Message-ID: <sashiko-outbox-169518@kernel.org>
+	b=WFs8NPN1hh5okT+qysuhS0CGHqw3m3QbSSRrlKEQEk5IASrnNLVVjT/x49aMqhOd8
+	 JqatT86Z4BeDcLl5jLgbqtkBaSoDiIzxyfnyDuHWLmqltV+RrBcldVmwYDI1tPh90Q
+	 CGrcNhZ8lkNWKW2PRPqvCXQa/+ZCxZEt21XG7CqxvU/QUSnVxuf6fJAtGZEGdQtIwV
+	 nb3F2cWCMkDtqBwp1ZKTzYMrxjfu2rjK6eCjkpNSzuFKZBzYFIkEEbdL9fw3+RSP71
+	 86oSKl6UzNFrCjwGw1E3WZESU/mKg7L4lu1ouEZi8RcGi1wh6S+pSvjvBsOMq0ImbK
+	 LiSdqoHeAIzOA==
+Message-ID: <sashiko-outbox-169523@kernel.org>
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: usb: snps,dwc3: document usb-psy-name
+Subject: Re: [PATCH v3 5/7] riscv: dts: ultrarisc: Add initial device tree
+ for UltraRISC DP1000
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Qianhui Xu" <xiaqinghuan@mail.ustc.edu.cn>, linux-usb@vger.kernel.org
+To: "Xincheng Ji" <jixincheng@ultrarisc.com>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261013102927.1141696-2-xiaqinghuan@mail.ustc.edu.cn>
-References: <20261013102927.1141696-1-xiaqinghuan@mail.ustc.edu.cn>
- <20261013102927.1141696-2-xiaqinghuan@mail.ustc.edu.cn>
+In-Reply-To: <20261013-ultrarisc-dts-v3-5-5ff3ebb2a90d@ultrarisc.com>
+References: <20261013-ultrarisc-dts-v3-0-5ff3ebb2a90d@ultrarisc.com>
+ <20261013-ultrarisc-dts-v3-5-5ff3ebb2a90d@ultrarisc.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 13 Oct 2026 10:35:15 +0000
+Date: Tue, 13 Oct 2026 10:36:18 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,54 +47,91 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] dt-bindings: formalizing OS-specific string property instead of =
-hardware phandle
+- [Medium] dts: L2 cache nodes are incorrectly nested as children of cpu no=
+des
 --
 
-commit 9d9ee3558a17b54512300202ecbcaedb7bd4d866
-Author: Xu Qianhui <xiaqinghuan@mail.ustc.edu.cn>
+commit 72d6d58d85f9aab9e46d9c7167175451c2551346
+Author: Jia Wang <wangjia@ultrarisc.com>
 
-dt-bindings: usb: snps,dwc3: document usb-psy-name
+riscv: dts: ultrarisc: Add initial device tree for UltraRISC DP1000
 
-This commit adds the usb-psy-name property to the snps,dwc3-common.yaml
-binding schema. It aims to resolve dtbs_check failures by documenting a
-property currently read by the driver to find the power supply.
+Add the base device tree for the UltraRISC DP1000 SoC. It describes
+eight CP100 CPU cores, their cache topology, and essential peripherals.
 
-> diff --git a/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml =
-b/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
-> index 6c0b8b6538246..6609a709c1d7b 100644
-> --- a/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
-> +++ b/Documentation/devicetree/bindings/usb/snps,dwc3-common.yaml
+> diff --git a/arch/riscv/boot/dts/ultrarisc/dp1000.dtsi b/arch/riscv/boot/=
+dts/ultrarisc/dp1000.dtsi
+> new file mode 100644
+> index 0000000000000..86d7f5533aa84
+> --- /dev/null
+> +++ b/arch/riscv/boot/dts/ultrarisc/dp1000.dtsi
+> @@ -0,0 +1,899 @@
 [ ... ]
-> @@ -51,6 +51,13 @@ properties:
->        - items:
->            pattern: "^usb(2-([0-9]|1[0-4])|3-[0-3])$"
-> =20
-> +  usb-psy-name:
-> +    description:
-> +      Name of the USB power supply accepting the input current limit
-> +      requested by the gadget after USB configuration, and during bus
-> +      suspend and resume.
-> +    $ref: /schemas/types.yaml#/definitions/string
+> +	cpus {
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <0>;
+> +		timebase-frequency =3D <10000000>;
+> +
+> +		cpu0: cpu@0 {
+> +			compatible =3D "ultrarisc,cp100", "riscv";
+[ ... ]
+> +			cpu0_intc: interrupt-controller {
+> +				compatible =3D "riscv,cpu-intc";
+> +				interrupt-controller;
+> +				#interrupt-cells =3D <1>;
+> +			};
+> +
+> +			l2_cache0: l2-cache {
 
 [Severity: Medium]
-Does formalizing this OS-specific string property instead of using a
-hardware phandle violate Device Tree UABI guidelines?
+Does this incorrectly nest the L2 cache nodes as children of the cpu nodes?
 
-Adding usb-psy-name to the official schema codifies an OS-specific internal
-identifier into the Device Tree UABI. Hardware relationships are typically
-expected to be described using standard phandle references, such as:
-power-supplies =3D <&phandle>;
+Standard Devicetree topologies for CPU schemas require cache nodes to be
+defined as siblings under the /cpus node or globally, rather than as direct
+children of the cpu nodes. Instantiating l2-cache here can cause
+dt_binding_check validation failures and break generic kernel cache topology
+parsers that expect the cache nodes at the root of /cpus and referenced via
+the next-level-cache phandle.
 
-Could the driver be updated to support standard phandle properties and
-treat the string-based lookup as a deprecated legacy fallback, rather than
-promoting it to the official UABI schema?
+Should these cache nodes be moved outside of the cpu@0 node?
 
+> +				/*
+> +				 * L2 cache:
+> +				 * cache-unified, block-size 64B
+> +				 * 8-way set associative, size 512KB
+> +				 * per-core.
+> +				 */
+> +				compatible =3D "cache";
+> +				cache-block-size =3D <64>;
+> +				cache-level =3D <2>;
+> +				cache-size =3D <0x80000>;
+> +				cache-sets =3D <1024>;
+> +				cache-unified;
+> +				next-level-cache =3D <&cluster0_l3>;
+> +			};
+> +		};
+[ ... ]
+> +		cpu4: cpu@10 {
+> +			compatible =3D "ultrarisc,cp100", "riscv";
+[ ... ]
+> +			cpu4_intc: interrupt-controller {
+> +				compatible =3D "riscv,cpu-intc";
+> +				interrupt-controller;
+> +				#interrupt-cells =3D <1>;
+> +			};
 > +
->    snps,usb2-lpm-disable:
->      description: Indicate if we don't want to enable USB2 HW LPM for host
->        mode.
+> +			l2_cache4: l2-cache {
+
+[Severity: Medium]
+The same structural error appears to be repeated across all CPU nodes in the
+cluster. Could these cache nodes be moved outside their respective cpu nodes
+as well?
+
+> +				/*
+> +				 * L2 cache:
+> +				 * cache-unified, block-size 64B
+> +				 * 8-way set associative, size 512KB
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261013102927.1141=
-696-1-xiaqinghuan@mail.ustc.edu.cn?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261013-ultrarisc-=
+dts-v3-0-5ff3ebb2a90d@ultrarisc.com?part=3D5
