@@ -1,64 +1,64 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8542349E5F7
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 18:18:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0953A470421
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 18:18:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791915503; cv=none; b=b4RRjbR6w0p8YiilmZpVo7swJoXEnvfwVkjkhBDPzLoGar/FWPkFIzpL9lzefVf6oMrVl4YvcSjBk3Shh3ipo8ORTosNF/Dwpn51DzB3QeTPwyNpuHev1gHBw2N8vY/6B8MJXM4xPn/t1pr2Xycu84hANGrXL6jGlhEeWUzv6DM=
+	t=1791915505; cv=none; b=Q42l1kdJGUCDfHnEbog2AFLYEyHGfSykapMZ82eHR5a3w0SaUKfRBrK07S1EZ5neHl7onSZFtas16QRsDKmfV0QBaK+n4uYkZn64707nG5TA+Eg1lr+VbOy6BIGGH5JjX/ddbqDIp7oA0xYzOiBpvNp0XRIFifRjb1OYvCCnD3g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791915503; c=relaxed/simple;
-	bh=8P8wMFD51eL/Z26XPFzVuRJ6ptZ4ugBGIA3pAZ7sK/I=;
+	s=arc-20240116; t=1791915505; c=relaxed/simple;
+	bh=lU65QQOg/GcibNh5g7Zm+usPEygQ/b2DT9OWNFxlqSk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=H3hKAVKSNeQL5CzMK99KvkQSmzmlLFQsZCSIAOREn7Xrn9tk1DqmM0wb2Nid3IEhzjobGgtC/h+P4riAGhk1qgj8u0NaALSfKY8JMedi5N2J4uxuuYetVnuTGIf5eTtQvA2za8phmYp+NCrurgZGyHIZvJCgWVuhfn7kNnZtdl0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SsXi40xH; arc=none smtp.client-ip=209.85.221.48
+	 MIME-Version; b=E8jvABV749xtoofxctEn+7pOqtDmst4eSYtw7fA/IRkRBsQAs6GDhnJRBN0NA5hHAY7y0flzTtJlq86zlKW5G9RWUEY8InpGWt6QwAJ5tFoateDWuFup8P0zk4vsqnF2qqGS3d7sF/GbF8m4L0cIoO7W0298J6iqtEB9Cgz74rQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SCECqCcM; arc=none smtp.client-ip=209.85.128.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SsXi40xH"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-48b02a2359aso3090947f8f.0
-        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 11:18:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SCECqCcM"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4a01933b584so29275935e9.0
+        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 11:18:20 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791915497; x=1792520297; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791915499; x=1792520299; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=xPweYRO+AA51z02Botwdqdgd38/WeFQ6rWWhfhO+GPc=;
-        b=SsXi40xHvzG8/XruY/yhZP51+L4CumK6Ohsc10c1BLaywh9/CmgDUNfehe5U4brPXe
-         E8naqRZQ1O2qaFG8wtra3VlBaVmrbzeuB2RQfJRB8broMdNl+2/lgjyv4YhCd58kP1Az
-         YNSQvNamn+fv4t60rVpEOav/jkpv/uC55VWay/8JN59cI5/VHr3XrHUiZeGDnIPMcSZV
-         mPgExRIVAu1XOLWGmV+lRBn/uljcWLGLRiRQBaQdAT6+Y1xI3hX744nhhE4D+CGXCg5a
-         N7NjR++FKoGbooLCyrzkdNtxlW4jyVOlC+QfN1eptmHkw5U78M/KD/qTZcKLFG1oEJTH
-         U69A==
+        bh=1Bk4II3Yi7edkXaVIjuxBcIHECnvxgrsvWyjVkvqUUw=;
+        b=SCECqCcMswpP1Jqe/3SKc4yBh8DNfsTlhoUk6WxJNygxwBO6vCwn4v3T0A08M5/HR6
+         3u2JLAllLO+YhIUFR6/0ZMqITR7j4FajTS3EJDxUSMt7J4T8HfJPW0w39OyY25VvsEUa
+         FFmZb44fcIuNgN1hJFvLc8Gw+93W1Qgb0gM10vGkEH45ReAdfyhOTPaTEBE5cyirikMh
+         KwlBOKYwhP6XlDtaJdX066xnvYytbAJaTYRZz9mYE11H1YztPyYFftrKmSU8t9q43daJ
+         jrrBuEECvy3umyrGGAG2VMR+pIagIbsNoFn3p89Lp1vTbHobKP6DVV5/bOsk3qFlv+11
+         E8lw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791915497; x=1792520297;
+        d=1e100.net; s=20260707; t=1791915499; x=1792520299;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xPweYRO+AA51z02Botwdqdgd38/WeFQ6rWWhfhO+GPc=;
-        b=wpCvGI/z7pFibeR5RT8QEl9BBc/QwmaWdSiCJRA/ncuKJGQ4WOrsC2oZ/Cd3vkPPw4
-         VtOquoY7nVJ6NERh7IKxekM96e4rtz/KAe/r3ARjQ5PocdWfiT+5wjjfgKWZbmOk8rqO
-         hxdjChJkpa0jCh8krp+FDXMb515DtfWJ5Tt/wOn3Cio9m9W2QBc4LfJdZoTiyuLvBcFE
-         Ga4uHgX9LLA7Y8UmuKwYnx4AqIRtjp3AFbVCLD2e33hAQtJQIE2eRTGWGojc3QqAIdH6
-         VshYZYPu8iwFocFtgg+CfL+ORqW2ikRojFrbw7aKoabKT+4uMFE6OeGCyA2nGz4kMkCM
-         MqGA==
-X-Forwarded-Encrypted: i=1; AKwUvBwWP1JqOh4YSBrNLv4/jjSmKoSsFlhHXTEDnpISKS2WHUUvclZRrg0m+IxSg77sMSheOp4FWXOBqWzR@vger.kernel.org
-X-Gm-Message-State: AFq9FYLlwrLlfmTPqgJdJ82d+zdMNozvSCVUEZjpAS1uCYaR4jsq2Tk0
-	Yh6bOyJiSunfdzS+psQ5oFd6cUk+c2TqRkvjvPZjtGOLsXspKXzfTamI
-X-Gm-Gg: AYBFou0WaaLoaV81rgBS5I5nb5qPklLnjNVOSbbTsAMQh5JhcvlHLwLJEgHnKBjwOa7
-	fbkyHIqrms309kG9e52mPLNoYbnnlU4vWFP/oW7UVsgoUg1JVSnk7qA8gxiGBzY4BaAUvlZ0Dvu
-	HVrLIZo4Ug6fMxTpvpCCsz/JXTF0fWtxQtloL1D1izjFXRAp1OulULtQGpvquwGD5n35tVSFxSL
-	b9XYAlyvn1fL+nDL3frwf1mAFV3P3mMGIJq7FgZCOD50Sly9XuERrK1zEKIuswkmQnRkRpQOs+l
-	draErjDEtZgagJhzvctqPxkz2itICQyeDdbep19FxvgwCNeimENTkrnx5Ak4kWC1xV7ufKkPdW4
-	HoHNxKaOXBs6Wt5fzU1OihbbVGdlcqsMyMw7krkh6Kornim5Z/wdCos8CBJUrXeeJcN7j2h3JNr
-	0msaai9NynDak2RF99JJROKGGLLvpnaCRSegSSoa4U/TfPgnN74zSUQ/MtZXXB21WvQwVff5sbu
-	HqKxIyJ9jZNZNbi0es=
-X-Received: by 2002:a05:6000:4553:b0:48a:fad8:52a2 with SMTP id ffacd0b85a97d-48dbacf732cmr18793821f8f.23.1791915497390;
-        Tue, 13 Oct 2026 11:18:17 -0700 (PDT)
+        bh=1Bk4II3Yi7edkXaVIjuxBcIHECnvxgrsvWyjVkvqUUw=;
+        b=WbDJvjNwHxemrhTnaIJRfNXrcN+qZKh/3mkT0+mhLYUSTHS9Sy2hMi6UOxsiM1Jsyv
+         rgL0vxYDnbG4TWZ303iuNCIwzvB54lbL3QcvnWo5jox3Flv2+8828BRKWfK6Co5LHb1s
+         QjhTyYtWlIwl9wpHI3yl7RnsYRnVCa9uv5/tUvd64j5YAv0PpVDSwknGZ52sKUHbVHSC
+         N4NPE8aa49GuulzCE87AAGbQxzt94vQDsr8Q7l9629qWpLK4H9B5bEMG2VMb37Xp18sj
+         M4Nv4T6t/tRaJ2q35tzg7mGrcWIkBoTKP3f2PPoVw96Gxa8uT1g9h9paBDndMMGHShZj
+         Vy/A==
+X-Forwarded-Encrypted: i=1; AKwUvBycE5ZjLz3WKLyvfGMlhLLF6rzfZdiMA89D+lbo++cUlLTUibAqgkwbD8eI0kDgJhIZqz4OYo8rbojh@vger.kernel.org
+X-Gm-Message-State: AFq9FYI+e6Ifdacu3zz/3+8X9/Rg9wBGtuYbsZLCdhE49WuY09eWtIiW
+	8BzLrazDvfmgAYdFbZDtTXxL3JiRJbhQEbFO+ElNMc5UaYSvdZHU7WZc
+X-Gm-Gg: AYBFou0Qk17iDB4R5NHOIQOKe8UlwClOVrqBYKJkXnPvlaqo66paq5beNTUEc2GPrmQ
+	ZJygn4s78rHjlpkxR4mJezEqEBWgohYvfoGvlmIIgCoEXMND9UrlB+P60UxJYk5wEFOlaA1efLC
+	KdXwSICyP42gK6ZF9zC4Ui7nqKRGwwjaou5iTupWNdwRTCeR1gR+TEhGeXXSq+Hb/1pBRFPJ0kQ
+	Dk60ABNjHJUzSo8/Xrsj29sf+PiUK/ELVfB+tvddJXrFRvE5x1seCG6f7twKPp+T/pmT81ljQgr
+	O1LQahtviAozqJDow28OpcP+YYbmSkt98WSKOo+DULJipSweF8j5LtK9V/YQJtgRgKBBpDT/PGN
+	P5iiGYnf4+sQgwUNNMcOtcKa88VUy/AfNj8vJKCyKkOJ/hUp0fQhis0Ar2wgyP1xEFddURzeLEY
+	epUHe7TT+FQ5spLsvVemSwEVFrpwuTLrozCFzWtkEO1bgUxZ8n1z4oUi3v+a2hmO1t77lOiPcMg
+	WuJiBBhD4tVevj9zZE=
+X-Received: by 2002:a05:600c:630f:b0:4a1:9f59:ee7 with SMTP id 5b1f17b1804b1-4a19f5911f4mr137303645e9.0.1791915498902;
+        Tue, 13 Oct 2026 11:18:18 -0700 (PDT)
 Received: from xeon ([188.163.112.62])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0ac36f9sm6379903f8f.36.2026.10.13.11.18.15
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0ac36f9sm6379903f8f.36.2026.10.13.11.18.17
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 11:18:16 -0700 (PDT)
+        Tue, 13 Oct 2026 11:18:18 -0700 (PDT)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Lee Jones <lee@kernel.org>,
 	Pavel Machek <pavel@kernel.org>,
@@ -71,9 +71,9 @@ To: Lee Jones <lee@kernel.org>,
 Cc: linux-leds@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/3] dt-bindings: leds: skyworks,aat1290: Document AAT1270 Current Regulator for Flash LEDs
-Date: Tue, 13 Oct 2026 21:18:01 +0300
-Message-ID: <20261013181803.496627-2-clamor95@gmail.com>
+Subject: [PATCH v2 2/3] dt-bindings: leds: skyworks,aat1290: Document FLINH pin
+Date: Tue, 13 Oct 2026 21:18:02 +0300
+Message-ID: <20261013181803.496627-3-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20261013181803.496627-1-clamor95@gmail.com>
 References: <20261013181803.496627-1-clamor95@gmail.com>
@@ -85,46 +85,29 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The AAT1270 Current Regulator for Flash LEDs has a similar configuration
-to the AAT1290, but it uses a different programming model and requires a
-separate compatible.
+Both the AAT1270 and AAT1290 feature a FLINH pin used for mandatory Flash
+inhibition.
 
 Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
- .../devicetree/bindings/leds/skyworks,aat1290.yaml       | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ Documentation/devicetree/bindings/leds/skyworks,aat1290.yaml | 4 ++++
+ 1 file changed, 4 insertions(+)
 
 diff --git a/Documentation/devicetree/bindings/leds/skyworks,aat1290.yaml b/Documentation/devicetree/bindings/leds/skyworks,aat1290.yaml
-index 65576dfdca110..7c26bb135c0a7 100644
+index 7c26bb135c0a7..a5f3eba7d6480 100644
 --- a/Documentation/devicetree/bindings/leds/skyworks,aat1290.yaml
 +++ b/Documentation/devicetree/bindings/leds/skyworks,aat1290.yaml
-@@ -19,7 +19,9 @@ description: |
- 
- properties:
-   compatible:
--    const: skyworks,aat1290
-+    enum:
-+      - skyworks,aat1290
-+      - skyworks,aat1270
- 
-   enset-gpios:
+@@ -31,6 +31,10 @@ properties:
      maxItems: 1
-@@ -39,12 +41,13 @@ properties:
-       flash-max-microamp:
-         description: |
-           Maximum flash LED supply current can be calculated using following
--          formula: I = 1A * 162 kOhm / Rset.
-+          formula: I = 1A * 162 kOhm / Rset (for AAT1290) and
-+          I = 1A * 81 kOhm / Rset (for AAT1270).
+     description: FL_EN pin
  
-       flash-max-timeout-us:
-         description: |
-           Maximum flash timeout can be calculated using following formula:
--            T = 8.82 * 10^9 * Ct.
-+          T = 8.82 * 10^9 * Ct (for AAT1290) and T = 21.5 * 10^9 * Ct (for AAT1270).
- 
-     required:
-       - flash-max-microamp
++  flinh-gpios:
++    maxItems: 1
++    description: FLINH pin
++
+   led:
+     $ref: common.yaml#
+     unevaluatedProperties: false
 -- 
 2.53.0
 
