@@ -1,393 +1,147 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+Received: from mail-dl1-f42.google.com (mail-dl1-f42.google.com [74.125.82.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD8594EF146
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 11:54:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791892445; cv=pass; b=TNLCn6i6A7tlVJK45N0+jCO6OrIVMpq36lRLV+u3L16deV89IRgE0FOmdm/qTSXM1sW4SmwbdfGhOPHMsIJ+9xPkBkEGCWg/VDzw/m8all2ZQsAMPsU1cUaYFpmgaR6xmfhRZOrIPvlwfHYbOJ/h1d/5cTsLog3kcsjZgDqFDhQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791892445; c=relaxed/simple;
-	bh=8oEKiTeBHaTRi3F7yMJ7yENZE8ADE+WNsHJTSee7X4s=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=cGRqROFl3CAiEZHx6hMapz31CJ8BOZx03+C9OSOX36FUQvIF5swf41Qy6GcWPrhqNK0UD8O6OoJH3zJhKgeMBSRSk1f4T83+4fOwA4XYt72OVYzv8zAkj+pXP2vtXsnSCliXt0WQISD9c2a1lcO7/h/jQbfDu5rSunHI+ybBsCc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VwmVGgkK; arc=pass smtp.client-ip=209.85.221.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 064CC4F3937
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 11:56:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.42
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791892618; cv=none; b=Cbj0ssNKTtYT/9hkkTjjGt5UF70oiucdj5NM9Co0a5SDxBU7hm12GiztovtQv/YDKlKp/XtC0D+FO3867Gszr4IXIU1wX9nhuq99jhmiu6kMZ/yWKah2HZH2lgD8V1FPkZwzT2JxPGz/9fR0UfcyR6rRc+XCItjr5rntYX4yi5U=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791892618; c=relaxed/simple;
+	bh=B0xB5Wj2A0Iqf6C3s/PSU4/SthSDFPeFKdDmMAXGNOY=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=n5lEeCM9qf+11cbB6OPtDIZh5XXbAqmzQCIL2hDlRsEm8B5FjQ89GNxfYI8SQVunW8PpzG1vpKqbM0HEqlBKSV4lwfoq7h+ZX2+uVGhuZA77G88kKG2gKxwYYJ8cQmUhe+nyE37Hvia+E3ygKCdwyq114kFRxpVnJuGKAFsTOP8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PzRVhwUG; arc=none smtp.client-ip=74.125.82.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VwmVGgkK"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-48c4be28b82so2790085f8f.2
-        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 04:54:03 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791892442; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ra/CaFs3ST3kiCUyh+6PyfLNr9SggfQlCAYMblFTfAiGJ1nP+RUxSfp+RcyWKci/p2
-         Y2roe+wb3PZhuklfoMsKwKkauHFN+SZ/YDTuUX/XhAWy/q+W7srCdc7fdy2bcGI/vVwo
-         pKm5LDc3z2ZQ62FiFGfWwUFHHVfK3hlZpwBD7dEi2lafSXTCK8X53gPJSlqqTBkzELYF
-         YcsewKtYv91+haBWhN3by12O7OJfL4ig1XVwYdf9JN25cp0dHddMquDCOVXNiXkog00W
-         nRgSFA/5m9rX1gSZQ34OystcuaasvVPNNuiZMn1fQBJyedkewER059jj5510Vt8swuAI
-         uyvg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=vlBithpxv3+SM0u2mf9npK5R1KY9qWHzphcmNHpcqZE=;
-        fh=LujM5mRTvFCwAf3tWNidrf7JJLGBU8U3v+4LBTw/4l8=;
-        b=GNVUDLFbS7zCt/gPraR9kQ+Kp+N+GyYMlzZ95gsxwBsrxlYQSdZ7rxARj37Fi/iKX+
-         OBHiZGne8mS5OrAV6dAwVZ99jI90jXS03ziL/W32IZspEhUUNU+R4AIycc+ac3v//M66
-         YamYGbmfAPoUNBADnBZ32w/aQeHkHlqRVRrirZ/9xhVaINx5ApM2fbZ3ulGOg7bj5pEO
-         H5YyBvYh+ziveyoYWwjPX/W4+eeY7NpuVhXEaIr5AxTdwYr9fRs34GYtDwxSLYiMM/Ky
-         Wwlr15TmsKARhI31C7y4owOS5ImiG1uzLfgR4pMS9cnceYmxXZJxRbqYK7cOCq68e16f
-         8iAw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PzRVhwUG"
+Received: by mail-dl1-f42.google.com with SMTP id a92af1059eb24-15354aa70e8so342346c88.1
+        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 04:56:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791892442; x=1792497242; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vlBithpxv3+SM0u2mf9npK5R1KY9qWHzphcmNHpcqZE=;
-        b=VwmVGgkKNUYfDldqs0SnHXUuV7IzYAeh0sLoG7CfA2q9OPbQK5+864mBxcSc8Tb8qG
-         6KZIzxANjNYChwwP7jjyUPfcOICl7ZCWW/ZhSIBGp1PUMw0kKgSB5BY8AVnMXnwoV3MX
-         6x909Hx69RdQJsvhWllG9qPJdRWXfF1h2pIkS8ujteNAdN2p5/lAFxASS/8UPNMVv6/2
-         tE8U9FmEcXLrOpBnFbnAeQcKStQKhPGNEEZBBq9QbK5MlZQ0vRRqkU1D3jgj1bmjTrRp
-         xk9t5xS2e/sdh2jIn+ueYW2kK8I5xhsOqHuNyiYI8vRMFCt7syf/NXaPqfM+clXKYEwI
-         6uaw==
+        d=gmail.com; s=20251104; t=1791892616; x=1792497416; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=rUjsoBRlToylDAgZob373tu+/iyx0SwuuffxUT/RyX4=;
+        b=PzRVhwUGi8yu3YNJed6Zc9JhUHFkPB82oiwLbi9XwNHBNbtX54nPBpyyGVnO7XpiYR
+         Amr6RN8FLLBBn1JGA6Z/w5kAZQAvLyLApQ8wXUT6iIP3sliiaHGSMrgdHNtaMKa7QrYH
+         bSb81ViAD0X73iT3O+0erpDNijsjxZpbBgC6B0SeNGPmXEOYXcDfzmdKJdd2zewEZD+E
+         7kEaqYqGs1oS7yBNt2IvX/G3ITn4w1XJzkV3TowaplDc51CuTkszm3Rv/FMPh5YgT3xn
+         cqzvIU/FQGdKFMdTWMe+OEaa+Y/2G7/Ez4rz3qCjm7/MFdNY9c0rAD3HCkWI4T/YJ2cN
+         aKow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791892442; x=1792497242;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vlBithpxv3+SM0u2mf9npK5R1KY9qWHzphcmNHpcqZE=;
-        b=Yog9d6TNOgRt/hD5IE67BnHDwxDYDSfEaqY/pYwn+cJXFbrQkDYOMDBZzBSvvyO4s2
-         tSvar6qW7c17SLWYfeCJ6G2aTLtWy7PQLcdNi/spQ80eYsgwrbbnLbQCak/guWuSvdRa
-         Lfglpihtl/nDUXpm7SUG7eHqyOZ+sVcpuRvYiR4vahcrr0940AKcY7obMf2yrshRVPsM
-         IgUiI63U+Z/aRlofYBmyqBUC6hve/qIQ6i5G7BBkVnuUB9ykjxfaLI5cHDq6MU4gmm/4
-         /tN6Tp7KNZmAWIMGZnHSNi/4DSi0F314gfrX06Z7pma/iErlpu+9QyEceg3e6QeKTj+2
-         tzFQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzkveWkW+S4yYb/5z0jV/ALHb45hFhcUiH3GxvU+NQOd0tWlhqL+TtC5vYmtowTAhNqXXVBn47wttxj@vger.kernel.org
-X-Gm-Message-State: AFq9FYKttAZjJGxeKKxZ0a2HscXFsgaeN1Adchth+p/Dbdtk6QDikr4W
-	m2/27TgiDUxEYKftwey3+tfnWq8Mb4OuLT0yEiSPSveBCGtPlCGjG0Ru1ML7lMeNVAAmfRzRXMA
-	wbxAETLQ2ddKDebClE5gTh2hdQwAlI2Y=
-X-Gm-Gg: AYBFou2j9xVLpiWZxce8Z06k8zGNq6VO0tQyfL6V4/utHOV/Y8suP1Md7q4WGE09O8G
-	Fm5yspkRoGwrdtkYk1VJ5zEMXDkQj4aoooLSdXUKMlJPILWkQI8pEt8NL+85YRFBoPZsAr1mPvK
-	HqC0JbiPu7AqgPlGyo5zvkebJ2IySlPaCS83c8UiTKmovYAw0sV/ptJ5sEuLy5Led65/Qxu2nxq
-	zZHIL+dyoGum6E25ULzZCYrSax2Q09kM8882oF2epaIb80itUd/jV5R0NvcLJeDMGk7ZL/y1Cht
-	yZaw9qbxaR7VyYW8zfZ3lAz00xx9C7P0vRUXh/Y81MXJahAnXafIIollYXv5mdyS7sLfz+YL9IG
-	a6Nwwaq/ruZHDlcY6HuB+0jlmJbgpoZoIC3Zodmzy+ZYOvWl7GKslGVndYzK6rDG2ejsO7PobEQ
-	==
-X-Received: by 2002:a05:6000:186f:b0:488:89ad:56b8 with SMTP id
- ffacd0b85a97d-48de2ba2231mr3749233f8f.0.1791892441488; Tue, 13 Oct 2026
- 04:54:01 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1791892616; x=1792497416;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=rUjsoBRlToylDAgZob373tu+/iyx0SwuuffxUT/RyX4=;
+        b=nFtyteboIolKa4xiaEf5ntzMFtVr/L3IX8DrKF1FTW/T5M6ulm+6afEmbJKCohjPvN
+         r48Zcj4NSyPcrwS6a79RdDXp44mlYbg2kJq5OloOmMhaj20fCwLe1MfjEZv70kzu/eIu
+         aJWG0SA9FpbkbJaf/cvLNtkqAiX+B92LQ1SH6SitR5TvzUKFdoj7FtKz5DvY/ysxN2rz
+         vljb1hrvGbzZ/HoQCgz2WC0MPXYNScmzChT7kia9hVtd20fr3wEWSLGP/Tx1p0UBdSBe
+         IixhbRXqgKYTK/mCj6DU0tEj385cTpzbvns1FxOBoK9ikDrzO5JpUUsJey2SizjC87HM
+         hl8A==
+X-Forwarded-Encrypted: i=1; AKwUvBxqO7HrB8rvzbKhBBUw3P+s4yUkwLsz3LhJsM0ervniWjN/RjJn1c4LSBOqBK4hbbwfS3WX4tPQanFw@vger.kernel.org
+X-Gm-Message-State: AFq9FYJGNOrFViEpKVPsV8BpM88SUmGNGTlfCFsxTt2OSM7BQF5SXeg4
+	/gZyiTx5cqfEe4U5kkm0pyR73xA56g4Lnw321TisZzTOK1u9OjIm4CNI
+X-Gm-Gg: AYBFou3iNIhAES010x3G+hRBjUj7tGMh04k+flvMrKRZbaGImWrIVopH7MnVCsXaOBH
+	rtgjzYTPytTx35fPYquoVykNef5d/L0/xVmbsYv5A4wUnu38WAWavhwTVdpFKc8tVuaMQYrHaPa
+	8d4XwA6eJn+MRAGJvNA+sUOt/Gqnc3gUuYm00w/IvlX7XSJwJHAtO/v7ug6qDmukjLksVu54Ab+
+	WlOs2gC1lF43ynNf52DTOl4lQyLbxonX0z+nZf+N7BjPjSYuLsjXeG6K1NVBh1PgB7n28+OsSDk
+	YsxntIjG0gApoYp4ww+xWJSpGZ2Ripkr86t9qts4t8EaOeIK5q8Hg1KVVxR5JjEDC1t1zpEiTN7
+	kIUUB2PhF+Pmh3XMkBJqSsQPot5Z8nxGpLHQpWmsqm7fSQSKW/CaajLXB62nou/Fo+FLGtT6ITS
+	vU9Teq6+rzOZ0UD/7MR5ivV1EFw1n2ky3YYbsGyncdT4tyai0/xxmRS5sQxvPc2Is1myHOUd9j
+X-Received: by 2002:a05:701b:4583:20b0:151:9af3:1beb with SMTP id a92af1059eb24-16a5dee12e2mr17214338c88.10.1791892615861;
+        Tue, 13 Oct 2026 04:56:55 -0700 (PDT)
+Received: from localhost ([104.156.230.40])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-1746482c978sm18467858c88.13.2026.10.13.04.56.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 04:56:55 -0700 (PDT)
+From: Chang Yu <marcus.yu.56@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Chang Yu <marcus.yu.56@gmail.com>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Joshua Crofts <joshua.crofts1@gmail.com>,
+	Shi Hao <i.shihao.999@gmail.com>,
+	"Jose A. Perez de Azpillaga" <azpijr@gmail.com>,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v6 0/2] Add support for AS7343 multi-spectral sensor
+Date: Tue, 13 Oct 2026 19:56:37 +0800
+Message-ID: <20261013115639.167433-1-marcus.yu.56@gmail.com>
+X-Mailer: git-send-email 2.56.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261009184122.1378797-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
- <20261009184122.1378797-9-prabhakar.mahadev-lad.rj@bp.renesas.com> <TY3PR01MB1134605F95A87C6335DA319C4869F2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-In-Reply-To: <TY3PR01MB1134605F95A87C6335DA319C4869F2@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-From: "Lad, Prabhakar" <prabhakar.csengg@gmail.com>
-Date: Tue, 13 Oct 2026 12:53:33 +0100
-X-Gm-Features: AclHuK_vgE7RX-bhU5EsKuw0wEUNHv3FisPOnuwxTo3XomXHMF6LXgDT8XOl2lo
-Message-ID: <CA+V-a8u7ScDHzSmGG-7ObW4HaCRomkLGdvuy2hd5obEBvjF9LA@mail.gmail.com>
-Subject: Re: [PATCH v2 8/8] iio: adc: rzt2h: Add support for RZ/V2H(P) SoC
-To: Biju Das <biju.das.jz@bp.renesas.com>
-Cc: Cosmin-Gabriel Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>, 
-	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Geert Uytterhoeven <geert+renesas@glider.be>, 
-	"magnus.damm" <magnus.damm@gmail.com>, 
-	"linux-iio@vger.kernel.org" <linux-iio@vger.kernel.org>, 
-	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>, 
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
-	Prabhakar <prabhakar.csengg+renesas@gmail.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Biju,
+This series adds initial support for the AMS AS7343 14-channel
+multi-spectral sensor.
 
-On Mon, Oct 12, 2026 at 7:36=E2=80=AFAM Biju Das <biju.das.jz@bp.renesas.co=
-m> wrote:
->
-> Hi Prabhakar,
->
-> > -----Original Message-----
-> > From: Prabhakar <prabhakar.csengg@gmail.com>
-> > Sent: 09 October 2026 19:41
-> > Subject: [PATCH v2 8/8] iio: adc: rzt2h: Add support for RZ/V2H(P) SoC
-> >
-> > From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> >
-> > Add support for the ADC found on the Renesas RZ/V2H(P) SoC, which share=
-s the RZ/T2H ADC IP but differs in
-> > channel count, sampling, calibration and resolution support.
-> >
-> > The RZ/V2H(P) ADC provides 8 channels, has a fixed conversion time of
-> > 20 ADCLK cycles, does not support calibration, and supports selectable =
-12-bit and 8-bit conversion
-> > resolution.
-> >
-> > Expose the fixed sampling frequency as a read-only attribute and allow =
-the conversion resolution to be
-> > changed through the scale attribute.
-> > Use extended scan types so the reported scan type follows the selected =
-resolution, and prevent resolution
-> > changes while buffered capture is active.
-> >
-> > Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> > ---
-> > v1->v2:
-> > - Updated Kconfig description
-> > - Included array_size.h
-> > - Dropped unnecessary extra line in rzt2h_adc_write_scale
-> > ---
-> >  drivers/iio/adc/Kconfig     |  10 +-
-> >  drivers/iio/adc/rzt2h_adc.c | 201 +++++++++++++++++++++++++++++++++++-
-> >  2 files changed, 205 insertions(+), 6 deletions(-)
-> >
-> > diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig index a8=
-02d8ee4dd9..9a58f8b5868b 100644
-> > --- a/drivers/iio/adc/Kconfig
-> > +++ b/drivers/iio/adc/Kconfig
-> > @@ -1587,14 +1587,18 @@ config RZN1_ADC
-> >         module will be called rzn1-adc.
-> >
-> >  config RZT2H_ADC
-> > -     tristate "Renesas RZ/T2H / RZ/N2H ADC driver"
-> > +     tristate "Renesas RZ/T2H / RZ/N2H (and similar SoCs) ADC driver"
-> >       depends on ARCH_RENESAS || COMPILE_TEST
-> >       select IIO_ADC_HELPER
-> >       select IIO_BUFFER
-> >       select IIO_KFIFO_BUF
-> > +     select POWER_SEQUENCING
-> >       help
-> > -       Say yes here to build support for the ADC found in Renesas
-> > -       RZ/T2H / RZ/N2H SoCs.
-> > +       Say yes here to build support for the ADC found in Renesas SoCs=
-:
-> > +       - RZ/N2H
-> > +       - RZ/T2H
-> > +       - RZ/V2H(P)
-> > +       - RZ/V2N
-> >
-> >         To compile this driver as a module, choose M here: the
-> >         module will be called rzt2h_adc.
-> > diff --git a/drivers/iio/adc/rzt2h_adc.c b/drivers/iio/adc/rzt2h_adc.c =
-index 0703c2025e3f..be8273f3b61d
-> > 100644
-<snip>
-> >  static const struct rzt2h_adc_chip_info rzt2h_adc_info =3D {
-> >       .chan_template =3D &rzt2h_adc_chan_template,
-> >       .sst_to_freq =3D rzt2h_adc_sst_to_freq,
-> > @@ -796,6 +973,7 @@ static const struct rzt2h_adc_chip_info rzt2h_adc_i=
-nfo =3D {  };
-> >
-> >  static const struct of_device_id rzt2h_adc_match[] =3D {
-> > +     { .compatible =3D "renesas,r9a09g057-adc", .data =3D &rzv2h_adc_i=
-nfo },
-> >       { .compatible =3D "renesas,r9a09g077-adc", .data =3D &rzt2h_adc_i=
-nfo },
-> >       { }
-> >  };
-> > @@ -804,8 +982,17 @@ MODULE_DEVICE_TABLE(of, rzt2h_adc_match);  static =
-int
-> > rzt2h_adc_pm_runtime_suspend(struct device *dev)  {
-> >       struct rzt2h_adc *adc =3D dev_get_drvdata(dev);
-> > +     int ret;
-> > +
-> > +     ret =3D pwrseq_disable(adc->pwrseq);
-> > +     if (ret)
-> > +             return ret;
-> > +
-> > +     ret =3D reset_control_assert(adc->rstc);
->
-> I guess to apply assert reset, IP needs power.
-> So, you need to asset first and then power off.
->
-The HW manual doesn't mention any ordering of power and reset,
-although it does mention the ordering of power and clock which the
-current code adheres to. For example see the below logs where register
-RZT2H_ADANSA0_REG is written a value of 0x56 at the begining of the
-suspend call and the same register is read back in the suspend call
-after turning off the power and in the resume path the same register
-is read back at the very end and we can see the value of this register
-is reported as 0x0 which is expected to reset to its initial value
-(full log can be seen here
-https://gist.github.com/prabhakarlad/def672bbca9cc51d0398a6549bcf1b80).
-Please let me know if I have misunderstood something here.
+The sensor has 14 optical channels (11 visible + NIR + clear +
+flicker) in total. This initial driver supports reading raw counts
+from all 12 spectral channels (11 visible + NIR) via sysfs and basic
+power management.
 
-Logs:
-<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<=
-<<<<<<<<<<<<<<<
-rzv2h-evk login: root
+Not yet supported:
+- Configurable integration time and gain
+- Interrupt support
+- Clear (VIS) channel and flicker detection
 
-WARNING: Poky is a reference Yocto Project distribution that should be used=
- for
-testing and development purposes only. It is recommended that you create yo=
-ur
-own distribution for production use.
+Patch 1 adds device tree bindings.
+Patch 2 adds the driver.
 
-root@rzv2h-evk:~# >>>>>>>>> First Cycle <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-root@rzv2h-evk:~# cat /sys/bus/iio/devices/iio\:device0/in_voltage0_raw
-[   46.125340] rzv2h-cpg 10420000.clock-controller: CLK_ON 0x640/adc_0_adcl=
-k on
-[   46.132399] rzv2h-cpg 10420000.clock-controller: CLK_ON 0x640/adc_0_pclk=
- on
-[   46.139386] Resuming ADC
-[   46.141915] rzv2h-cpg 10420000.clock-controller: deassert id:110 offset:=
-0x93c
-[   46.149054] Enabling ADC pwrseq
-[   46.152245] ADANSA0_REG: 0x0 in resume
-216
-root@rzv2h-evk:~# [   46.531171] Suspending ADC
-[   46.533951] ADANSA0_REG: 0x56 before power down
-[   46.538732] Disabling ADC pwrseq
-[   46.542095] ADANSA0_REG: 0x56 after power down
-[   46.546681] rzv2h-cpg 10420000.clock-controller: assert id:110 offset:0x=
-93c
-[   46.553829] rzv2h-cpg 10420000.clock-controller: CLK_ON 0x640/adc_0_pclk=
- off
-[   46.560951] rzv2h-cpg 10420000.clock-controller: CLK_ON 0x640/adc_0_adcl=
-k off
+Testing was performed on a Raspberry Pi 4.
 
-root@rzv2h-evk:~# ->>>>>>>>> Second Cycle <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-root@rzv2h-evk:~# cat /sys/bus/iio/devices/iio\:device0/in_voltage0_raw
-[   50.491213] rzv2h-cpg 10420000.clock-controller: CLK_ON 0x640/adc_0_adcl=
-k on
-[   50.498271] rzv2h-cpg 10420000.clock-controller: CLK_ON 0x640/adc_0_pclk=
- on
-[   50.505242] Resuming ADC
-[   50.507785] rzv2h-cpg 10420000.clock-controller: deassert id:110 offset:=
-0x93c
-[   50.514923] Enabling ADC pwrseq
-[   50.518111] ADANSA0_REG: 0x0 in resume
-126
-root@rzv2h-evk:~# [   50.896990] Suspending ADC
-[   50.899881] ADANSA0_REG: 0x56 before power down
-[   50.904545] Disabling ADC pwrseq
-[   50.907914] ADANSA0_REG: 0x56 after power down
-[   50.912504] rzv2h-cpg 10420000.clock-controller: assert id:110 offset:0x=
-93c
-[   50.919642] rzv2h-cpg 10420000.clock-controller: CLK_ON 0x640/adc_0_pclk=
- off
-[   50.926761] rzv2h-cpg 10420000.clock-controller: CLK_ON 0x640/adc_0_adcl=
-k off
+Datasheet: https://look.ams-osram.com/m/5f2d27fff9a874d2/original/AS7343-14-Channel-Multi-Spectral-Sensor.pdf
 
-root@rzv2h-evk:~#
-<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<=
-<<<<<<<<<<<<<<<
+Changes in v6:
+  - Add a ref to leds/common.yaml for the LDR pin in dt bindings.
+  - Convert ATIME and ASTEP range checks to runtime checks.
 
-Changes made to generate the above logs:
---------------------------------------------------
-diff --git a/drivers/clk/renesas/rzv2h-cpg.c b/drivers/clk/renesas/rzv2h-cp=
-g.c
-index 7ce94680c79a..eab6237dca4c 100644
---- a/drivers/clk/renesas/rzv2h-cpg.c
-+++ b/drivers/clk/renesas/rzv2h-cpg.c
-@@ -1169,7 +1169,7 @@ static int rzv2h_mod_clock_endisable(struct
-clk_hw *hw, bool enable)
-        u32 value;
-        int error;
+Changes in v5:
+  - Remove the GPIO pin from dt bindings.
+  - Add autosuspend.
+  - Start measurements before setting up runtime PM.
 
--       dev_dbg(dev, "CLK_ON 0x%x/%pC %s\n", reg, hw->clk,
-+       dev_err(dev, "CLK_ON 0x%x/%pC %s\n", reg, hw->clk,
-                str_on_off(enable));
+Changes in v4:
+  - Fix led-max-microamp property in dt bindings.
+  - Use REGCACHE_MAPLE and add volatile table.
+  - Use PM_RUNTIME_ACQUIRE* when resuming.
 
-        if (enabled =3D=3D enable)
-@@ -1324,7 +1324,7 @@ static int __rzv2h_cpg_assert(struct
-reset_controller_dev *rcdev,
-        u32 mon;
-        int ret;
+Changes in v3:
+  - Fix gpio description and example in dt.
+  - Only start measurements after suspend action has been registered.
+  - Add a mutex and pm_runtime_resume_and_get before reading measurements.
 
--       dev_dbg(rcdev->dev, "%s id:%ld offset:0x%x\n",
-+       dev_err(rcdev->dev, "%s id:%ld offset:0x%x\n",
-                assert ? "assert" : "deassert", id, reg);
+Changes in v2:
+  - Add the LDR, the interrupt pin, and the GPIO pin to the dt bindings.
+  - Adjust the default gain to x256 and integration time to 50.1ms as
+  recommended by the datasheet.
+  - Use read_label instead of .extend
+  - Remove all unused scan_index related constants.
 
-        if (!assert)
-diff --git a/drivers/iio/adc/rzt2h_adc.c b/drivers/iio/adc/rzt2h_adc.c
-index be8273f3b61d..36ff6da87138 100644
---- a/drivers/iio/adc/rzt2h_adc.c
-+++ b/drivers/iio/adc/rzt2h_adc.c
-@@ -984,9 +984,14 @@ static int rzt2h_adc_pm_runtime_suspend(struct device =
-*dev)
-        struct rzt2h_adc *adc =3D dev_get_drvdata(dev);
-        int ret;
+Chang Yu (2):
+  dt-bindings: iio: light: add as7343
+  iio: light: add AS7343 multi-spectral sensor driver
 
-+       pr_err("Suspending ADC\n");
-+
-+       writew(0x56, adc->base + RZT2H_ADANSA0_REG);
-+       pr_err("ADANSA0_REG: 0x%x before power down\n",
-readw(adc->base + RZT2H_ADANSA0_REG));
-        ret =3D pwrseq_disable(adc->pwrseq);
-        if (ret)
-                return ret;
-+       pr_err("ADANSA0_REG: 0x%x after power down\n", readw(adc->base
-+ RZT2H_ADANSA0_REG));
+ .../bindings/iio/light/ams,as7343.yaml        |  66 +++
+ MAINTAINERS                                   |   7 +
+ drivers/iio/light/Kconfig                     |  11 +
+ drivers/iio/light/Makefile                    |   1 +
+ drivers/iio/light/as7343.c                    | 464 ++++++++++++++++++
+ 5 files changed, 549 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/light/ams,as7343.yaml
+ create mode 100644 drivers/iio/light/as7343.c
 
-        ret =3D reset_control_assert(adc->rstc);
-        if (ret)
-@@ -1001,6 +1006,8 @@ static int rzt2h_adc_pm_runtime_resume(struct device =
-*dev)
-        const struct rzt2h_adc_chip_info *chip_info =3D adc->chip_info;
-        int ret;
+-- 
+2.56.0
 
-+       pr_err("Resuming ADC\n");
-+
-        ret =3D reset_control_deassert(adc->rstc);
-        if (ret)
-                return ret;
-@@ -1011,6 +1018,8 @@ static int rzt2h_adc_pm_runtime_resume(struct device =
-*dev)
-                return ret;
-        }
-
-+       pr_err("ADANSA0_REG: 0x%x in resume\n", readw(adc->base +
-RZT2H_ADANSA0_REG));
-+
-        if (!(chip_info->features & RZT2H_ADC_FEATURE_CALIBRATION))
-                return 0;
-
-diff --git a/drivers/power/sequencing/pwrseq-renesas-pwrrdy.c
-b/drivers/power/sequencing/pwrseq-renesas-pwrrdy.c
-index 40760977f7de..b6886dba92a9 100644
---- a/drivers/power/sequencing/pwrseq-renesas-pwrrdy.c
-+++ b/drivers/power/sequencing/pwrseq-renesas-pwrrdy.c
-@@ -8,6 +8,7 @@
- #include <linux/delay.h>
- #include <linux/module.h>
- #include <linux/of.h>
-+#include <linux/pwrseq/consumer.h>
- #include <linux/pwrseq/provider.h>
- #include <linux/regmap.h>
-
-@@ -31,6 +32,7 @@ static int pwrseq_rzv2h_adc_enable(struct
-pwrseq_device *pwrseq)
-        struct regmap *regmap =3D pwrseq_device_get_drvdata(pwrseq);
-        int ret;
-
-+       pr_err("Enabling ADC pwrseq\n");
-        ret =3D regmap_clear_bits(regmap, RZV2H_SYS_ADC_CFG,
-                                RZV2H_SYS_ADC_CFG_SY_MSTP_ADA);
-        if (ret)
-@@ -45,6 +47,7 @@ static int pwrseq_rzv2h_adc_disable(struct
-pwrseq_device *pwrseq)
- {
-        struct regmap *regmap =3D pwrseq_device_get_drvdata(pwrseq);
-
-+       pr_err("Disabling ADC pwrseq\n");
-        return regmap_set_bits(regmap, RZV2H_SYS_ADC_CFG,
-                               RZV2H_SYS_ADC_CFG_SY_MSTP_ADA);
- }
----------------------------------------------------------------------------=
----------------------------------------------------------------------------=
---------------------------
-
-
-Cheers,
-Prabhakar
