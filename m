@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1A0A49B5AB;
-	Tue, 13 Oct 2026 06:14:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BD8B368D76;
+	Tue, 13 Oct 2026 06:17:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791872049; cv=none; b=WWPsrvlBDHytbTAVdPtD0Gt4V2EXPmSNNP+qkTRMZwrcGtymBNco5am51L0X1PQLZsBlrcasgH8h85OLZL4b4esq4sTna2Gi2DNlsbhhrrIky3JMLIt+cp/edHATRpVUR6/kSnKoV7vrN3fTpiWDwvrV1ya4PaoKi3vGGiEjKo8=
+	t=1791872245; cv=none; b=jTKatukTFb+7e/3UkMc7Cy/s72BwtjHcCuG2d17BXnlW/+7R/uVdNRhsCp38m+blVoygjVPChMvpFtMMTsNb9mDGrf8xlwlgWQ2UNiGCae1+ZbpjyAbxRScj8tkwek7CoH2V+5Y4JPpHa2tnq9Ra4LRp8uyeC3KLufke6KdVaH8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791872049; c=relaxed/simple;
-	bh=D+XjgK9TSECFVWpYMAABiQWEZXi+AJq4rnbSwTRUiaQ=;
+	s=arc-20240116; t=1791872245; c=relaxed/simple;
+	bh=Vf3FU73MDeXyxLR/ik4FOhtPsFq37Vh5wTW91uS0KX4=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=H8mERwPzC+fWlXDrH5XPuo0gEIibfHXkWRUGw9h71Ek49NFAkIq8ICXLoPbxvL0rTjIMcZJ/pCEjMtPhq9thjsz1gbo579weOWLCxuMwT+DL3YPdeKJOANGlyS85LSCP7E4g7/IWJRQANiq/ctymVoxm0GhceG1MKSi5rQHYlo0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i9ArvrCk; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=q00fKtoilfWgRG2UAYmJQPf58zIpyvYvUkc5TlIimrh9jUEeL9s3aZFBCSh1s2m/evk27oYUTiZ9UMOEV3to9tHRF8bQmNRXFpS6QQtKwHdOJUp3RtRjyOnYyfpn25icCN1X6fSWZdUyNUWGOKfExronoR1DDjjrA9MJb8VSq4A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iwLCp0CE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i9ArvrCk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E4431F000FF;
-	Tue, 13 Oct 2026 06:13:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iwLCp0CE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 050AC1F000FF;
+	Tue, 13 Oct 2026 06:17:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791872045;
-	bh=YzIyLaCQVYyFvJr0HYNnDsB1AeI73g+HQRH1Lm1z4vA=;
+	s=k20260515; t=1791872243;
+	bh=QJthSZiY5C3cktIPbjSXYbkS4fAkuoxetUfS+Wnqjxg=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=i9ArvrCk6y2JT7SFZ8TC2coKR32sMlGjZNT2ur0EQXl++EKq7u+/Sq96LZ2zVz1u8
-	 PF/7z53jLdSTrOz9I2Xv+chK02rzYTfeM9/umtsloeAwPepL6SykLGlIv7RQaeR4xO
-	 8bC2k3MewAzDx5grtHAaxR6tNcYW7r1Db0TaMaw6iieqw/iq8B5em+MbePXPNgn4OY
-	 E4f2WCFhwoNchILXcy/n80hUlZeVIbebxXKSr7gdLKoj5UIYaMj4EPQaZLBZlrVh5P
-	 0Y9IgnPVoVJiDRtqbgyIdjBi8O6exHxB9FlUyhtXCdlFOYPoFekfrpOHC9Gpptpz8U
-	 SNS76fV1/hSvQ==
-Message-ID: <abe6e89f-2379-4928-a77e-0baee12b23e4@kernel.org>
-Date: Tue, 13 Oct 2026 08:13:57 +0200
+	b=iwLCp0CEI2oytxC5qi+gCKTF6GGl2uJ2mqVG36rnFAWQkZE731FMmFmSVuhiTubZZ
+	 PveLLQ6bjMUyM8DeDTFs1080UqNKv8V+7BFz2jc5bJ6Z1yXTz7pTD1H5zYoFdhE2iE
+	 SWGWwHP4hph9EyUaFUyjl0Dtkj1f0NCCTMSx3aOSp1DhH3V6c8JnRVnZpdWIp3h4Kl
+	 MyViIcg2+PlQkYB1ctCwjEzQml2n35zQi0o6nTsvTWnJTHzM920u5wg35DLgbeieMz
+	 j85lkuWjchmD8BrEU+m/qhm3Kz+sEGoTHn21A2Nrymo5gHkuZk6bRNKSRQnhO8/TY9
+	 NBg2NDw5rXwjg==
+Message-ID: <9b0436bf-3430-460c-b03b-f943eaca9685@kernel.org>
+Date: Tue, 13 Oct 2026 08:17:18 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,21 +35,15 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 10/11] ARM: multi_v7_defconfig: Enable Cortina Systems
- CS75xx GPIO, I2C and TWD watchdog
-To: filipp.dunsky@gmail.com, Thomas Gleixner <tglx@kernel.org>,
- Radu Rendec <radu@rendec.net>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>,
- Bartosz Golaszewski <brgl@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
- Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck
- <linux@roeck-us.net>, Russell King <linux@armlinux.org.uk>,
- Arnd Bergmann <arnd@arndb.de>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-i2c@vger.kernel.org, linux-watchdog@vger.kernel.org
-References: <20261013-b4-cs75xx-s2-v2-0-94f8c0a90cda@gmail.com>
- <20261013-b4-cs75xx-s2-v2-10-94f8c0a90cda@gmail.com>
+Subject: Re: [PATCH 04/11] dt-bindings: usb: Add NVIDIA LSTP USB adapter
+To: Adrian Ambrozewicz <aambrozewicz@nvidia.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Donald Shannon <donalds@nvidia.com>, linux-usb@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20261012-lstp-usb-adapter-v1-0-aambrozewicz@nvidia.com>
+ <20261012-lstp-usb-adapter-v1-4-aambrozewicz@nvidia.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -95,44 +89,56 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20261013-b4-cs75xx-s2-v2-10-94f8c0a90cda@gmail.com>
+In-Reply-To: <20261012-lstp-usb-adapter-v1-4-aambrozewicz@nvidia.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 13/10/2026 05:47, Fil Dunsky via B4 Relay wrote:
-> From: Fil Dunsky <filipp.dunsky@gmail.com>
-> 
-> Enable the GPIO and I2C drivers of the Cortina Systems CS75xx SoCs and
-> the ARM TWD watchdog driver, which is needed on the Securifi Almond+
-> because its bootloader starts the watchdog.
-> 
-> Signed-off-by: Fil Dunsky <filipp.dunsky@gmail.com>
-> ---
->  arch/arm/configs/multi_v7_defconfig | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/arch/arm/configs/multi_v7_defconfig b/arch/arm/configs/multi_v7_defconfig
-> index 23f144359..9a161f8bd 100644
-> --- a/arch/arm/configs/multi_v7_defconfig
-> +++ b/arch/arm/configs/multi_v7_defconfig
-> @@ -423,6 +423,7 @@ CONFIG_I2C_ASPEED=m
->  CONFIG_I2C_AT91=m
->  CONFIG_I2C_BCM2835=y
->  CONFIG_I2C_CADENCE=y
-> +CONFIG_I2C_CS75XX=y
+On 12/10/2026 19:36, Adrian Ambrozewicz wrote:
+> +  - $ref: /schemas/usb/usb-device.yaml#
+> +  - $ref: "#/$defs/channels"
+> +  - if:
+> +      properties:
+> +        "#address-cells":
+> +          const: 1
+> +    then:
+> +      patternProperties:
+> +        "^interface@": false
+> +    else:
+> +      patternProperties:
+> +        "^(spi|i2c|gpio|serial|ipmi)@": false
 
-This should be module.
+No, compatible, not presence of properties defines whether device has
+SPI or not.
 
->  CONFIG_I2C_DAVINCI=y
->  CONFIG_I2C_DESIGNWARE_CORE=y
->  CONFIG_I2C_DIGICOLOR=m
-> @@ -492,6 +493,7 @@ CONFIG_PINCTRL_QCOM_SSBI_PMIC=y
->  CONFIG_PINCTRL_RZA2=y
->  CONFIG_PINCTRL_RZN1=y
->  CONFIG_GPIO_ASPEED_SGPIO=y
-> +CONFIG_GPIO_CS75XX=y
+Also, allOf is placed after required, see other schemas or example-schema.
 
-This as well.
+> +
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - usb955,cf11
+> +      - usb424,4940
+> +      - usb174c,2214
+> +
+> +  reg:
+> +    description: Port number on the parent hub or host controller.
+> +    maxItems: 1
+> +
+> +  "#address-cells":
+> +    enum: [1, 2]
+> +
+> +  "#size-cells":
+> +    const: 0
+> +
+> +patternProperties:
+> +  "^interface@[0-9a-f]{1,2}(,[0-9a-f]{1,2})?$":
+> +    type: object
+
+Your example is either incomplete or this is unnecessary. Assuming your
+example is complete, then you have one interface, thus this node is
+pointless. What's more, your top level compatible EXACTLY defines all
+this, thus none of your properties are needed as they are implied by the
+top-level compatible.
 
 Best regards,
 Krzysztof
