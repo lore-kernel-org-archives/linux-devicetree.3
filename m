@@ -1,183 +1,169 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A423E3DCD8D
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 09:37:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80EE23E024B
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 09:37:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791884275; cv=none; b=ltdpsOMX9IO3V3TSMzTMWgsm9drR67Rqrol04WJ1Z3G+R4tk3t3P9dneQHD/YIX6KTqKyaU7hdHzNpqUAuy2+NNhMPpydRw+w63740xwhl6FOalEyYwtCzfPaCtYdsFAVM602NzhYJZFtPKKubpg5eczzCx9hsMKaoQ6FP0hm1Y=
+	t=1791884278; cv=none; b=PU8Ur3o+LiwvPNkZ905NDCBSuacBk7mXRTEL7U/iyPVPnkcCXb0Luy1op0TdFUHJiOzDDyZ+UcyUz71waG5pNe2u/4GYDXVOGh40Sjjx0BuxB32CigssrgRHpQ6yoVEyqLn8zyEKihkKa7lSSg9Qh7g1YRdFTaidpvBQAquWVHk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791884275; c=relaxed/simple;
-	bh=2ayAFFb+DUz96xoDh3MBAGQTWLWO2Yi4jW89/kvabEc=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=pPgMbZDD4tOdfHzJxv0yrX/Tcl0HC6eBopxdt+rffO109foJNdtKxnp9xHOfohOrBB/Idwro/CNWCAbHk/3jRwSYwJUSfqoTqj2TQTGyg5jzaapXv6Uk7vOmhiTeodOYY9t2cRVnSQZcLsJK46SwaL9SYV2Ni4k6gXucePSY/fY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=skhEaINj; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1791884278; c=relaxed/simple;
+	bh=C9H9s7mvg2GyIEaSju90hsOvalVLyiGORrpF1j1XkLU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=RncOJZVirVb0R1pdYyOwiAklkRC3kWqr6rhaGU+u+kqQorb1UHWmicx2Xdkvz06l93DOttWa5JvLwgm6N76a582ZTzR2n0jAE0seOOjKzeLIc72omBS/h/WqKHw8dqWpy8Dv+nnKhVBNFAndWqMyHbuE66BsdNibg3d2FYJQxFA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=dIyoUvAM; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="skhEaINj"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 650AAC653E5;
-	Tue, 13 Oct 2026 09:38:45 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id DC11560362;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="dIyoUvAM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1791884275;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=QAXrXREiprfLoEX/e6C9z8QGRXjzRieF3sKdnNbTNyU=;
+	b=dIyoUvAMAOwf06gEh6lUDeIwRV5twFRO8AsIxFyLx+gZi7GqmY4FgN8bBs3dyiDh3nO4Ou
+	+XpUI7ae/COxOlZKF7XkJ8z3MoVvTVULwUNu6ZyO1az9PeXm/sk4OnkXPZMxV7DQOzMe6b
+	uVZHRKjT3dTmT9mwckoGQSkVvlPC/Lk=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-160-_2TsnjqXNyun_4muTycS5A-1; Tue,
+ 13 Oct 2026 09:37:51 +0000
+X-MC-Unique: _2TsnjqXNyun_4muTycS5A-1
+X-Mimecast-MFC-AGG-ID: _2TsnjqXNyun_4muTycS5A_1791884269
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 5CF5A1956096;
 	Tue, 13 Oct 2026 09:37:49 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D19F811D703F1;
-	Tue, 13 Oct 2026 11:37:43 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1791884265; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references:autocrypt;
-	bh=u2mEZ3XIqrqWo6anRB/8NKALcH+wjEUwjzjiCXOic6I=;
-	b=skhEaINji+2Nx23tj0+vlVC+INBRqHuBEvOpI2GawllaxCVDWyN+Qywh+0RB9mojqG1a4p
-	zNXxzbsrL5xabJySIFeqzN9/VYmZrQIncPaHdPqHeBIPjgEUDvglc8xgQEnIk/LHGs3gyh
-	PagqOsWmOQoAjtaciZ2Ct33NgxOXoiYalRiffBBZPlKY3ruud10NKqXDXzxpV3W//2vFjd
-	z65cSTnHGG98vfUKkzOrnK/3oEGSY7lK2BJ9aMsHjClFBTbzYM/JjHeKGzO+S7O+gvLOXi
-	M6IWttiBNTMYM+GuJgJFRVmNPTRgqHqUvtb06dlM/qxlNehu6ouh4Y+MnX4pNA==
-Message-ID: <7d6b1e81114dd98b5ff5f2c71f577c951af14250.camel@bootlin.com>
-Subject: Re: [PATCH v8 5/5] watchdog: aaeon: Add watchdog driver for
- SRG-IMX8P MCU
-From: Thomas Perrot <thomas.perrot@bootlin.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: thomas.perrot@bootlin.com, conor+dt@kernel.org, 
-	linux-watchdog@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, 
-	devicetree@vger.kernel.org, Frank.Li@kernel.org
-Date: Tue, 13 Oct 2026 11:37:42 +0200
-In-Reply-To: <20260731100434.195B51F000E9@smtp.kernel.org>
-References: <20260731-dev-b4-aaeon-mcu-driver-v8-0-9ab00e80df2a@bootlin.com>
-	 <20260731-dev-b4-aaeon-mcu-driver-v8-5-9ab00e80df2a@bootlin.com>
-	 <20260731100434.195B51F000E9@smtp.kernel.org>
-Autocrypt: addr=thomas.perrot@bootlin.com; prefer-encrypt=mutual;
- keydata=mQGNBF+/ZOUBDAC2DghCjZvmgYcve02OG7dGZ7Iy58uEwne3LB7w7nRwdAxKw7ZaiVqwY
- O+yNGVi+GVx7oA6Wn4pv46z+QDRLQiq6OseuXhkSGCg7U/yBCUq12B/GRGO1Qt2Qi1mJJT1s+1qZ5
- Gxv6Nypz9qKVn94GM2bR1hXBga0t87vBpebThOHmX5d/0dqIcVxRCM7onNb0dDyRoVgLS5rBhQzrL
- CMrJaCy39xZUy0J1SOlH4Mgk6EhJIPYY4wlzikGX6urg+Tc9EjGd78ry0e0p5U5qgjFR5QGJDy1Gn
- U3CfwbT9sowdCASDbQDUoltlv2iWJCLa0xl97KVchCa0pr7HKbFA3J5SLKqFYUBCkFL+5WudYlz2n
- XxiUgyviMQxyK+ij66kEi6/2zFDAecd43pHV7790ptqZBC3Jc67Emj7Vo3ShX6RXPPxxbeCTOF2uk
- I45aJ9XcVFH/MFE96NjXj8uahnIsiTPyuCUoJu8tj7TSQyue874qJqVQvqlFyt2aZYJZ8ruq8AEQE
- AAbQpVGhvbWFzIFBlcnJvdCA8dGhvbWFzLnBlcnJvdEBib290bGluLmNvbT6JAc4EEwEIADgCGwMF
- CwkIBwIGFQoJCAsCBBYCAwECHgECF4AWIQSHQHfGpqMKIwOoEiGfwAsFcf4K7QUCX79mdwAKCRCfw
- AsFcf4K7fhbC/wP0kSl6id2E/K3+UdXk6CLMVRbCFLCREzQs5WFpQ6l/I0WGOamhrOgegdszheiVF
- orlUP8d37XSpFAqydhKGaN78V5Dps0Wmwm4lIlS4MtQXJtSLUHXDJLIZLW0pw8tiPLKsd1o/yDkXE
- dnpsjJTRG6SdDSHnyOB2/gh4p+yTaLytFdARk/r4/P26+L+FiH0fFl+RnBt19LPklfKgeDc7GwIif
- ja+nIWpp3W23DAUuI6xduEut25Q89yu7Ci8CliLfAiLy9bIGjBQWU2Y+1/j/7KuPj6VbBsZWLTZY0
- hUmpJSTnWAqc9SMsNxo7NSQuddgviz5e2tqucaRqxP02FGzNa8U4NAKdWaXrlHG5Dglj9XH0DK+SH
- +c96qqFewYD8VPQ6XAGxQcXbrtJmiMor1R2DfziispLRvJcfYs8xqabbCtoS3ouXB9XRi8hn7A2kh
- ME1ryS+Oh63JshXHnw6bmjCpVd/p+fGLIGU6A47pJOpviKR4jEO84pl2ejtDZ3Tc=
-Content-Type: multipart/signed; micalg="pgp-sha256";
-	protocol="application/pgp-signature"; boundary="=-Kr1WNLVwttji5ffo0/h/"
-User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
+Received: from [10.43.2.199] (unknown [10.43.2.199])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 31B831956041;
+	Tue, 13 Oct 2026 09:37:45 +0000 (UTC)
+Message-ID: <37e2a938-9ab1-4fa3-b67d-6286ae8cc2ec@redhat.com>
+Date: Tue, 13 Oct 2026 11:37:45 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Last-TLS-Session-Version: TLSv1.3
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v12 06/12] dpll: sit9531x: implement input pin
+ state on a DPLL
+To: Ali Rouhi <arouhi@sitime.com>, Jiri Pirko <jiri@resnulli.us>
+Cc: Vadim Fedorenko <vadim.fedorenko@linux.dev>,
+ Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Carolina Jubran <cjubran@nvidia.com>,
+ Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <20261009183151.78497-1-arouhi@sitime.com>
+ <20261009183151.78497-7-arouhi@sitime.com>
+Content-Language: en-US
+From: Ivan Vecera <ivecera@redhat.com>
+In-Reply-To: <20261009183151.78497-7-arouhi@sitime.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
+On 10/9/26 20:31, Ali Rouhi wrote:
+> From: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>
+> 
+> Report and set whether an input takes part in a PLL's reference
+> selection.  The device selects its reference itself from a priority
+> table, so membership of that table is what the state means here: an input
+> in the table is selectable, one absent from it is disconnected.  Setting
+> the state adds the input to the table or removes it, and membership is
+> read back from the device rather than remembered.  CONNECTED would ask
+> for this input and no other, which the device cannot be told to do, so it
+> is refused.  A physical input's receiver is shared by the four PLLs and is
+> powered down only when the last of them lets go of it.
+> 
+> What the device does with an input is its operational state.  The pin
+> reported active is the one the device says it feeds the PLL, read from
+> the PLL's debug status bus, while the PLL is locked to it -- outer loop
+> running, not frozen -- and its lane has signal.  It is not the active
+> selection: that names the source the driver asked for, and when that
+> source loses its signal the device falls back to another listed source
+> on its own and leaves the selection naming the dead one, so after such a
+> failover the pin the PLL moved to reports active and the one it left
+> does not.  The status bus names what is fed to the PLL, not what the PLL
+> is locked to, so the lane's monitor has to agree.  It is read only while
+> the PLL tracks a reference, six transfers per such PLL per tick; in
+> free-run the PLL is fed nothing.  The poll reads every lane's clock
+> monitor: an input whose monitor reports loss of signal is no-signal, one
+> that reports a frequency drift is qual-failed, any other is standby.
+> 
+> The table is built from a priority the driver keeps per source and PLL,
+> seeded from the table the device loaded: members in priority order, the
+> slots past the last one naming no source.  The four-bit slot encoding
+> has two codes for a fifth input pair this part does not have, and one of
+> them serves as that.  A disconnected input keeps its priority for when it
+> comes back, and a table that would come out as the device already holds
+> it is not written.
+> 
+> The last register of the table also carries the device's active
+> selection.  After a table write the PLL goes to the source it names, and
+> leaves it on its own only when that source loses its signal, so every
+> write names a source the PLL can use.  When the priorities put a
+> different source with signal first, the selection goes to it -- the
+> highest-priority valid input, which is how the DPLL interface defines
+> automatic mode.  A write that only changes the table below that source
+> leaves the selection where it is while it is still listed and has
+> signal, so an edit there does not pull a PLL off a healthy reference;
+> failing that, it goes to the first listed source that has signal.
+> 
+> Removing the last input is allowed.  The selection then has nothing to
+> name, and left as it is it would keep the PLL following its old source
+> for as long as that has signal, so the PLL stays in the forced holdover
+> the write sequence uses -- the one state in which it follows no input.
+> The next write that lists a source releases it.  A holdover the driver
+> did not force -- set by the loaded configuration or by a tool -- is left
+> in place by such a write; only the hold the driver itself set for an
+> empty table is released.
+> 
+> The pins fall into three roles and only the first answers this question,
+> so the contract for all of them is written above the operations rather
+> than left to be inferred: inputs and the inter-PLL sync destination take
+> part in selection; an output and the sync source are driven by the PLL and
+> report whether they carry a signal; the crystal is fixed and always
+> connected, since a PLL cannot be told to stop using it.
+> 
+> Probe also warns about a firmware pin node whose reg names no pin the
+> device can have -- a lane or an output the variant lacks, or the N lane
+> of a pair the configuration runs differential -- since nodes are looked
+> up from the pins and such a node would otherwise be dropped silently.
+> 
+> Rewriting the table means forcing the PLL into holdover, waiting for it to
+> take, writing every slot and releasing holdover again, all under the
+> device lock -- ten to twenty milliseconds.  The device has no way to
+> change one slot in isolation, and holdover is what keeps the loop from
+> chasing a table that is momentarily inconsistent, so the sequence is the
+> cost of doing it correctly.  Its error paths leave the device where the
+> request found it: a failed write is rolled back through the register
+> that failed, a force that failed is released all the same since the
+> write may have landed, the hold stays when the table the device holds
+> afterwards lists no source, and the selection is never picked from a
+> monitor read that failed.  A release that fails after the table was
+> written and latched is owed, and the poll retries it until it lands.
+> A hold with no source listed and no valid holdover memory reports the
+> PLL unlocked, as the interface asks, rather than in holdover.
+> 
+> Signed-off-by: Oleg Zadorozhnyi <Oleg.Zadorozhnyi@devoxsoftware.com>
+> Assisted-by: LLM
+> Signed-off-by: Ali Rouhi <arouhi@sitime.com>
+> ---
+>   drivers/dpll/sit9531x/core.c | 1145 ++++++++++++++++++++++++++++++++--
+>   drivers/dpll/sit9531x/core.h |   42 +-
+>   drivers/dpll/sit9531x/dpll.c |  320 +++++++++-
+>   drivers/dpll/sit9531x/regs.h |   41 ++
+>   4 files changed, 1483 insertions(+), 65 deletions(-)
+> 
+Reviewed-by: Ivan Vecera <ivecera@redhat.com>
 
---=-Kr1WNLVwttji5ffo0/h/
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-Hello,
-
-On Fri, 2026-07-31 at 10:04 +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider:
-> - [Medium] Contradiction between driver code and DT binding regarding
-> timeout-sec property
-> --
->=20
-
-I=E2=80=99ll add "timeout-sec: true" to the binding and reword the descript=
-ion
-in v9.
-
-Kind regards,
-Thomas Perrot
-
-> --- Patch [5]: [PATCH v8 5/5] watchdog: aaeon: Add watchdog driver
-> for SRG-IMX8P MCU ---
-> commit fca789df9bd6f6279b387ae274aa7dc26fa4cecd
-> Author: Thomas Perrot (Schneider Electric)
-> <thomas.perrot@bootlin.com>
->=20
-> watchdog: aaeon: Add watchdog driver for SRG-IMX8P MCU
->=20
-> Add watchdog driver for the Aaeon SRG-IMX8P embedded controller.
-> This driver provides system monitoring and recovery capabilities
-> through the MCU's watchdog timer.
->=20
-> > diff --git a/drivers/watchdog/aaeon_mcu_wdt.c
-> > b/drivers/watchdog/aaeon_mcu_wdt.c
-> > new file mode 100644
-> > index 0000000000000..661d14393c6ec
-> > --- /dev/null
-> > +++ b/drivers/watchdog/aaeon_mcu_wdt.c
-> [ ... ]
-> > +static int aaeon_mcu_wdt_probe(struct platform_device *pdev)
-> > +{
-> [ ... ]
-> > +	/*
-> > +	 * The MCU firmware has a fixed hardware timeout of 25
-> > seconds that
-> > +	 * cannot be changed. The watchdog core handles automatic
-> > pinging to
-> > +	 * support software timeouts longer than the hardware
-> > limit. The default
-> > +	 * software timeout of 240 seconds can be overridden via
-> > the DT
-> > +	 * timeout-sec property or the watchdog_timeout kernel
-> > boot parameter.
-> > +	 */
-> > +	wdt->timeout =3D AAEON_MCU_WDT_TIMEOUT;
-> > +	wdt->min_timeout =3D AAEON_MCU_WDT_MIN_TIMEOUT;
-> > +	wdt->max_hw_heartbeat_ms =3D AAEON_MCU_WDT_HEARTBEAT_MS;
-> > +	watchdog_init_timeout(wdt, timeout, dev->parent);
->=20
-> [Severity: Medium]
-> Will this cause device tree validation failures when users specify
-> the
-> timeout-sec property?
->=20
-> The driver code and comment indicate that the timeout can be
-> overridden via
-> the DT timeout-sec property on the parent node. However, the DT
-> schema for
-> the parent MFD (Documentation/devicetree/bindings/mfd/aaeon,srg-
-> imx8p-mcu.yaml)
-> enforces additionalProperties: false and does not define the timeout-
-> sec
-> property.
->=20
-> If a user follows the driver's instructions and adds the timeout-sec
-> property
-> to the MFD parent node, dtbs_check will fail. Should the timeout-sec
-> property
-> be added to the DT binding?
-
---=20
-Thomas Perrot, Bootlin
-Embedded Linux and kernel engineering
-https://bootlin.com
-
---=-Kr1WNLVwttji5ffo0/h/
-Content-Type: application/pgp-signature; name="signature.asc"
-Content-Description: This is a digitally signed message part
-
------BEGIN PGP SIGNATURE-----
-
-iQGzBAABCAAdFiEEh0B3xqajCiMDqBIhn8ALBXH+Cu0FAmrN++YACgkQn8ALBXH+
-Cu25yAv+K91gmW41FZGVkEKepYv1T/G7POoLs3EWiP9U5GngGOC8QKvVjPc4Fupu
-CjOOnlXxz8oVUDziimHtPtFs36753Gd5ansCDLbnsTc22vsN7qm7cx9gU22nNiQd
-+a8kt0HpMpj2nl2N1ki6AKHuLoYXM0ThY1HAgchZKt2Vfk0BtJH/EWGUBklATw5d
-wEqbgjstnPL48WozVUsgo8C4kz/6Rf+t5eAOZTB6oXe+2BH4YUmUOODrL4Ylz3Kn
-DinT+rxVaFRNncFoe5A7UvJjIauN5LxKjHT6yU65NRozt0Z46bevv4Sn8Xlt6AjP
-Art5kFD2BWHDbvUnzpG4/9mFC1TtrgF28CftD9mTXqxWDu1peCZcZy1A8ewXm5/B
-EaRUEuv/GaAucE0P0hPj33icKSsAE8S7iYgHFs6GJmaI2MbpQAE/tzQ8kxTSEJ6x
-4l02V1cLmYjfYkR72mHS0VsbEpWOrjA7pfpq4ZffFOA8o01n7mUQWCbRCk3OX6uX
-XD3Xxyod
-=Jyec
------END PGP SIGNATURE-----
-
---=-Kr1WNLVwttji5ffo0/h/--
