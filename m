@@ -1,221 +1,121 @@
-Received: from mail-yx1-f46.google.com (mail-yx1-f46.google.com [74.125.224.46])
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C52A7559CB4
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 21:22:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791926534; cv=pass; b=jytMEXRuA+vp/ifpX//uw6ZaS3f+HLcVoOQ/VLLaEQTrNzYFwOnCTM1r8xYWoiQtdoIbofHamMAlKbUrTshaYhODu/Rr8HPqbdEMoXmaAGF0YHHnPJB8GckwvwjKJ5EkGiQ9Bt/WwqMqDg95BmfKdixUIDkD8KDbnd73yBoXzEk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791926534; c=relaxed/simple;
-	bh=sf30vAcaJ++DLttGm/TNinMSo0jN9WDVolmb3olSr0M=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=RYi0zz1JIypMR3Uf6wZG9rBhPqT57P3IkO0uiDzP+2FbbNBcZZ7Ilgg6pKDy4d74T6vPxUQw+XcqRHVL1x044xrIBbzG0sxochBocUrdpkOpuyJ/syU3Q/VF1s//HIaXW7JgiUF/FBG6RAKY0PfFjnR/KHo//xzYCGtsDJCb6+U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Sc7Gh42h; arc=pass smtp.client-ip=74.125.224.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 386FE4FC8F7
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 21:24:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791926645; cv=none; b=eIhRn1jbH0w3vcBvOrNO9oa0PPW/DpHy/Gy9HmvD1kxalucIU9drTFoa5ClywxYLann5Wy8DIzaY1de4ueEUUnyOLxjrCtxAZB+0gYqEi8g9P1QxZ7ztAQhrThbnJialJIB/uNuTEBGhyQB9WynnQa7bkDiniuZzxy3U2yh++z0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791926645; c=relaxed/simple;
+	bh=kOzzU32X9/PNXvPM6fEKQC0SzZXvwYsoB1WTyLjbZto=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dok5+H4lmqcyEeSBI0BfAKRs99I+/iC8iH9Jb5qft2PKRN2thYENIdiHcuZ/dqKcciMK8doMcWSbNv6nfK8sYRiu9kJOS0TiP/4rC1s3AUvGXC8K0aV5kGEos0Omk+En1wfyMaND95FX4O8fCdgolz31BQQLdovTmVK4e051dxE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=r7KGAINz; arc=none smtp.client-ip=209.85.221.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Sc7Gh42h"
-Received: by mail-yx1-f46.google.com with SMTP id 956f58d0204a3-6767d92cde6so3203637d50.0
-        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 14:22:09 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791926528; cv=none;
-        d=google.com; s=arc-20260327;
-        b=VFMc5he3ke0imePhWub4eumIYw5S6c6RjCKPRObSt9P9nlxlOBO9cU4wtK9mP/iNQS
-         VrY/TAQ+9qluCYdOuR4f66Zy4dXUd/qbMMzUt3XKfx2G/SPWYeSaD151pn86+rOm7nQJ
-         +bwSk2gyQbhF9sQynrXXlFDAMHOKffM6gA6CjW7AeBXdx8py08ESUKoYtqH/wrvYe813
-         3S+pb4TUtfGvnGsEScVSKL6n4qigSzlPih3nIdflMe8R3AMcHxj60w7628l49Z+DtoMa
-         trOLRuh3gad7Ju5s9wp/u3C92P9FEYd23lZOfCBkXo7pNhVFCSPyd0Cu9TCpe07zmlkR
-         kLyg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=tW1MH59A22+8G0RbZ3B3dj8ln/Mz2H51o5N7Shhczv4=;
-        fh=ozE+N9mJ0gLTxMxk+7Z7QlnOYwY28zNL12TaFG5tDL4=;
-        b=AqFufEo/ttXHZTYAx1zxxuYLldGsjelLRXdo7KO5Ce8tYCogjpRO6MLItCf897kGUX
-         9o7l1NicrF/wQDLq+Ijy3MvYMH4G8fcCZfhuf3/gH6b3Ejr+1G06UTATocKt/cdFBq22
-         ANRB7I0q/FalqY7Xk+to3SRtdsjieZqlGbzu95TeSK8lXCbJm0B1DysnOW2KvjsSkeAL
-         i9ljLl0O54qKaLiK7v7pH84uKITHtqdofF9Tb/JwrzcnyyXfDTPM6b4mjNoTZRQkjiFv
-         STv16z3Oenq6nvCnSBKPTDriA04+v6OfUtu0pHc9hLNF01Jq9hCZ0ezxMTyn7zGVWM4i
-         3p0g==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="r7KGAINz"
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-48bbb06e746so2039270f8f.3
+        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 14:24:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1791926528; x=1792531328; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=tW1MH59A22+8G0RbZ3B3dj8ln/Mz2H51o5N7Shhczv4=;
-        b=Sc7Gh42h6n0xBIW4jv8fFKe2zdPNW4uXbZLoU5mw34wx0S3tlmBSafIcAzh8tu4VIY
-         pxY4mnOzgzmsLdfbyD+0t+6K2HKAO+hmJo//Gbu3+q5hLA8dVMikUJXaPWatgWbxA8eT
-         M2J/XqcIQK3Fs3L+autqFqU2gzYUQXCbygCic=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791926528; x=1792531328;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1791926641; x=1792531441; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=tW1MH59A22+8G0RbZ3B3dj8ln/Mz2H51o5N7Shhczv4=;
-        b=q3c0x14R3kBnqXtxmzcHbPSAccdebI5dIPDAEJ4rN8I99RJckusIa3NKiEfvu0PCNa
-         BTDYAY6KISMd1sqaBlyt/mCaWfxzpI2FBQx5p8AacJreHSQoIhlBNnKNyD9z5agjTQ9L
-         JyNHLPXoxjl22NeWlC8KhukpNJZs8q8kcu7Hdll3B6B5hcqB+lmm3l0y2Qijyer6rAbz
-         oh1tWXbsnC80pJ6f4OQCfwX2ZczAjtV9+C4wopg8KoaJM5eHGcps4tB3jBOR3neSbwim
-         AyH5rOQgNftW4DM69x9sU0ZsM42ils9s4yxf5VlKD/fq6F+TXAk+CVUIY5WkcCsFgI/F
-         gxVw==
-X-Forwarded-Encrypted: i=1; AKwUvBxpkbeYmyiYNNj39gU1Sn6fLAuNF7fcTXk6pCoWDfTKgF9PBfcvQExyImQ/RS4fZh+WHYvMDlQCm0A3@vger.kernel.org
-X-Gm-Message-State: AFq9FYJpfGNNJq0hWzOmFh4xl6xrKxmaSCgJiUUOoSC5mbEl6c0+2X0v
-	jSQG7ZTltHLsaKTO+sFu1Ygv0YD1tv8CbsWysWu6GVv1WFvItbiYsTXAyQwPaQoyZ1ej1EgPYQI
-	apauyNoXo05Gq/2Wsq9oicV2yHQiaXdn3cVTYl3UJ
-X-Gm-Gg: AYBFou0Fpqvcgnz/52V9v09afSZ/oF5UtEUlWyZrjTzTULolm/q8pJCq+Al472OVCEh
-	rftXTfR95eqSbbbNffogVzQt0TIgHG4UQC3zW0dlQNgnhlwAQeBJ2NXDS4YICT1Yz+a5K45DNWx
-	mrvDsJnwAdXb7gxLclsyhXXaD66Sx3G0RlH4SRTzc/gRlTyGlO7Ec+5lo0Ofc+YMlsSx7JR+TSv
-	1HSBhkTkY+SLt2XHgzGJsgsZnwb+piU4yjg6Jy+aZSR7Zvy6v45MKdJRDZF3VWYMrqbn2zcehns
-	FtLPrUAu3WciCYaoOPrpKuP0ntsBZs3SdpmpQGy3nO3fBZA1xX2rT9vxu4JjqzVMjDcWcomFsBZ
-	9gk/nlRL5BA==
-X-Received: by 2002:a05:690c:4d4a:b0:887:f4fc:ee35 with SMTP id
- 00721157ae682-8b07ed1fb6cmr47618147b3.19.1791926528330; Tue, 13 Oct 2026
- 14:22:08 -0700 (PDT)
+        bh=bxJ53/ktAmv+NVuDjuFLPoxmZqnRHE1xVlMVYxWYBVY=;
+        b=r7KGAINz3nUrm3c42AY/Kivfs5lpiBoNsnXPNykr9L0Xl6V0VloyL3yC4DrdKhgQfM
+         c+45CMN4Kl5E0OEEBSfWfxzDwySbD8y7QAEaCLtZI3AUxyNCYdU7j0xWlKJxqvhK97nt
+         tYbRzSdIET5h3MTfFg5ePu/zHLPTQeF9vMHZGtv9k/FfpchNRBb2mcf0WCUhTxtX2HcZ
+         ACeRcNz3QxuGVuH0lCnnfag8uuof4jSrYsak7LU9s3IPvpxUh6PDCpQjdWHqdaUB15/u
+         rLpwjVqdrL7DlRRDfW3UmUlmXo9rXBj3CMmlXnTKFwCaypfYu4xXt8mmeXWaLP+AguZ7
+         /jLA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791926641; x=1792531441;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bxJ53/ktAmv+NVuDjuFLPoxmZqnRHE1xVlMVYxWYBVY=;
+        b=k1iLKLaUKmb6z7crN1iLtTyAzZcsvnO2+BN0pzlM/dICjLH8r8YIu/iGWxJQRcykKA
+         OfyicRQass1TIGK3RwzCDDPmIokDntlH+uYTxCO+gggz2Gef00SKElXbUucttuNaFlbE
+         R1EfyYx2+sOd8IZGN3zr57MwnF/RFj0t81//EjxlvZpRZlFpFidAqJ+2NGZiY0keWAdp
+         9lA2Dfxz1ZscyhwC+Lw2gfXEZpfNZWvsQXCTCO8S5/K+9S9hs2nmFoQRsS743JoiGgfD
+         fld12WOnvFDB7sVBS5Bjz/pozANMgl+IBrfC7SMxSFuhP3g0Hbz1xm0LLHE25xfkazIA
+         2YiQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzfDct6iZ8qfkSS+xDtVwW1os/GSGV/weeI+F/iylaHlDTjzrNgucs2OxtD2fpLq8OuLd8Bs2y6s59I@vger.kernel.org
+X-Gm-Message-State: AFq9FYJjUc5brN2PcF/k87dvyK3HiB2emZUs4KynwQ/wnLt6kglWqi1f
+	RqCm372K6Jvrd+gSwJ1i2wtoIw/8uhJTh1vdX76n/pgcoVmmWAPGt7lQ
+X-Gm-Gg: AYBFou1i3gVv1domp+Dtayg4Y46U763IvGhVRqct5+RTHK19oiBUqXyDc6uysEhcExi
+	44IZW9GPDUksP7iDxjcph8pvZobQ/XEv/1mgeLtJ5zL69/iZ6fjZe+7VyZGF58iuNji7s9FRy4Y
+	z1FDVI25Rf1jY2D1c84N/zGGbK7cM80vw/FThDT1b3+BpvkTsjQtGkBRm9KIohHrEud+VxNBlwX
+	QE9Kqc/IwyPFU4RyIXhcgb921aDSy2EneWUlnEPeZe3dsKymDXudvj3pzef264hW0OSXhXhkdhL
+	u8OWAxMWMXUxztxWjG5Cb5Ze/baJJQyEkg6yrZh9gz9RT1zLUNMmrzSuqJOTWFbcE73+FL8b4yR
+	sF9dHXlKC82ZJqAvF6qIeq+NEwKYj/F7c2/5w5g3Ycm2SUmvWm8Ct4fSx9lol3Hy/ENbVmIcu9J
+	Cm1Q4k5ii4OLvngyGLQR3J6Ur4BdhbzoXA3jkrkvSzq6MXTQPujpJyc2XgsvOdctG/Ow==
+X-Received: by 2002:a05:6000:2905:b0:48c:6d9d:9f90 with SMTP id ffacd0b85a97d-48dba9d0b47mr28843597f8f.26.1791926641185;
+        Tue, 13 Oct 2026 14:24:01 -0700 (PDT)
+Received: from [192.168.1.18] ([83.231.69.9])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0ac5265sm7840541f8f.41.2026.10.13.14.23.59
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 13 Oct 2026 14:23:59 -0700 (PDT)
+Message-ID: <11150412-3b60-4eef-90a1-ebbb1b6098fc@gmail.com>
+Date: Tue, 13 Oct 2026 23:23:58 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261009-send-upstream-v5-0-384af01da3ee@chromium.org>
- <20261009-send-upstream-v5-4-384af01da3ee@chromium.org> <sashiko-outbox-166154@kernel.org>
-In-Reply-To: <sashiko-outbox-166154@kernel.org>
-From: Jingyuan Liang <jingyliang@chromium.org>
-Date: Tue, 13 Oct 2026 14:21:57 -0700
-X-Gm-Features: AclHuK8vj_2CnW3lS7fdTlkJRR8RuhSwUE7H_CFag_-G2v-URCUG4IFSzD-lQgw
-Message-ID: <CAEe3GZH-QD4vj71c2AR6Y0VFhchBARBctYtfmur07nrgK5xBWQ@mail.gmail.com>
-Subject: Re: [PATCH v5 04/11] HID: spi-hid: add spi-hid driver HID layer
-To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, 
-	dmitry.torokhov@gmail.com, linux-input@vger.kernel.org, 
-	linux-trace-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 1/2] dt-bindings: iio: light: add as7343
+To: Chang Yu <marcus.yu.56@gmail.com>, Jonathan Cameron <jic23@kernel.org>
+Cc: David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Joshua Crofts
+ <joshua.crofts1@gmail.com>, Shi Hao <i.shihao.999@gmail.com>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20261013115639.167433-1-marcus.yu.56@gmail.com>
+ <20261013115639.167433-2-marcus.yu.56@gmail.com>
+Content-Language: en-US
+From: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
+In-Reply-To: <20261013115639.167433-2-marcus.yu.56@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 9, 2026 at 3:42=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
->
-> Thank you for your contribution! Sashiko AI review found 1 potential issu=
-e(s) to consider:
-> - [High] hid: output_report callback sleeps in atomic context
-> --
->
-> commit 954a3684cea1bad33a85c00ff6725f7553c75027
-> Author: Jingyuan Liang <jingyliang@chromium.org>
->
->     HID: spi-hid: add spi-hid driver HID layer
->
->     Add HID low level driver callbacks to register SPI as a HID driver, a=
-nd
->     an external touch device as a HID device.
->
-> > diff --git a/drivers/hid/spi-hid/spi-hid-core.c b/drivers/hid/spi-hid/s=
-pi-hid-core.c
-> > index 02a7608c4b882..fca7a44eeb9f9 100644
-> > --- a/drivers/hid/spi-hid/spi-hid-core.c
-> > +++ b/drivers/hid/spi-hid/spi-hid-core.c
-> [ ... ]
-> > +static int spi_hid_send_output_report(struct spi_hid *shid,
-> > +                                   struct spi_hid_output_report *repor=
-t)
-> > +{
-> > +     guard(mutex)(&shid->output_lock);
-> > +     return __spi_hid_send_output_report(shid, report);
-> > +}
-> > +
-> > +static int __spi_hid_sync_request(struct spi_hid *shid,
-> > +                               struct spi_hid_output_report *report)
-> > +{
-> > +     struct device *dev =3D &shid->spi->dev;
-> > +     int error;
-> > +
-> > +     reinit_completion(&shid->output_done);
-> > +
-> > +     error =3D __spi_hid_send_output_report(shid, report);
-> > +     if (error)
-> > +             return error;
-> > +
-> > +     error =3D wait_for_completion_interruptible_timeout(&shid->output=
-_done,
-> > +                                                       msecs_to_jiffie=
-s(SPI_HID_RESP_TIMEOUT));
-> > +     if (error =3D=3D 0) {
-> > +             dev_err(dev, "Response timed out\n");
-> > +             return -ETIMEDOUT;
-> > +     }
-> > +     if (error < 0)
-> > +             return error;
-> > +
-> > +     return 0;
-> > +}
-> > +
-> > +static int spi_hid_sync_request(struct spi_hid *shid,
-> > +                             struct spi_hid_output_report *report)
-> > +{
-> > +     guard(mutex)(&shid->output_lock);
-> > +     return __spi_hid_sync_request(shid, report);
-> > +}
-> [ ... ]
-> > +static int spi_hid_ll_output_report(struct hid_device *hid, __u8 *buf,
-> > +                                 size_t len)
-> > +{
-> > +     struct spi_device *spi =3D hid->driver_data;
-> > +     struct spi_hid *shid =3D spi_get_drvdata(spi);
-> > +     struct device *dev =3D &spi->dev;
-> > +     struct spi_hid_output_report report =3D {
-> > +             .report_type =3D OUTPUT_REPORT,
-> > +             .content_length =3D len - 1,
-> > +             .content_id =3D buf[0],
-> > +             .content =3D &buf[1],
-> > +     };
-> > +     int error;
-> > +
-> > +     if (!test_bit(SPI_HID_READY, &shid->flags)) {
-> > +             dev_err(dev, "%s called in unready state\n", __func__);
-> > +             return -ENODEV;
-> > +     }
-> > +
-> > +     if (shid->desc.no_output_report_ack)
-> > +             error =3D spi_hid_send_output_report(shid, &report);
-> > +     else
-> > +             error =3D spi_hid_sync_request(shid, &report);
->
-> [Severity: High]
-> Can this code sleep in an atomic context?
->
-> The HID subsystem requires the output_report callback to be asynchronous =
-because
-> it can be invoked from atomic contexts, such as softirqs for LED triggers=
- or
-> force feedback.
->
-> Both spi_hid_send_output_report() and spi_hid_sync_request() acquire a mu=
-tex,
-> which will sleep. Furthermore, spi_hid_sync_request() blocks by calling
-> wait_for_completion_interruptible_timeout() in __spi_hid_sync_request() w=
-hile
-> waiting for the response.
->
-> Will calling these synchronous primitives from the output_report callback=
- lead
-> to a scheduling while atomic BUG and cause a kernel panic?
->
-> > +
-> > +     if (error) {
-> > +             dev_err(dev, "failed to send output report\n");
-> > +             return error;
-> > +     }
-> > +
-> > +     return len;
-> > +}
->
-> --
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261009-send-ups=
-tream-v5-0-384af01da3ee@chromium.org?part=3D4
+On 10/13/26 1:56 PM, Chang Yu wrote:
+[snip]
+> +
+> +  reg:
+> +    description:
+> +      I2C address of the device (0x39).
+> +    maxItems: 1
 
-Not really. HID core doesn't call ->output_report() from atomic context
-(LED updates are sent from a workqueue), and as noted in my reply
-on the documentation patch, USB-HID and I2C-HID already sleep in
-this callback too.
+on v4 Jonathan said "Might as well specify it as const given it can only
+take that value. They you can drop the description as it won't add
+anything." v6 still has the old form, looks like that got lost.
+
+[snip]> +
+> +  interrupts:
+> +    description:
+> +      Open drain output active low interrupt pin.
+> +    maxItems: 1
+> +
+> +  vdd-supply: true
+> +
+> +  led-max-microamp:
+> +    description:
+> +      The driver current for the external LED connected to the LDR pin.
+
+this wording dates from when it was ams,led-current-microamp.
+leds/common.yaml defines led-max-microamp as a maximum ("risk of
+hardware damage in case an excessive current is set"), i.e. the board
+limit for LED_DRIVE, not the current program. please describe it as a
+maximum.
+
+-- 
+cheers,
+jose a. p-a
