@@ -1,161 +1,84 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE0175326A5
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 18:49:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8F115349DD;
+	Tue, 13 Oct 2026 18:49:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791917376; cv=none; b=BIVmLu/gvwSFqQQS3tPzQhdTwjHvoKOoL2ROFzf2+m3qXqv8vDKFXAKZ41ou9UBsMfqnRu+aEjAEEblHbuZpB2vZhSkK3qEWm1OKp+mzw5BfUvzbeso/5eEBFOLFDSX1awWSFiEK7dQsGFaVzQZvVfyE1XuHdbtUnWpSfpGOoAo=
+	t=1791917388; cv=none; b=UfvVLJzVfJHj5hNH1q/WF2ow47ARxfap6fMi8ghBorKiQiJKA1GdQwSyK/HRYIRTggKxc+A8MNFeWQXdM+plYgpfYw1WNF5mzrzJNhIkr+8zUIrpeaXpMhX1Ze8EZ/vgeK1iX0ZaHgw3iXSGs7E5ExczgQkOXW9nCU0438+JBMU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791917376; c=relaxed/simple;
-	bh=Pptj/rXkpJa87AslCVOhrdIqZnwbr5Eu29Vsxoebp8w=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=W1VZJbNVmaDo0Ui4e1u0y16MifzgeY6VSl7aGSU85DRYJJSlAItOJKCM0gcN0/c7M+VJXf2sFVjA8tBEsUiwBYeJOX4b2wQEQF5SlpXNNDUqpuqs1FtWDwgKox6zvO4Q23cr4VzabPYelpWR4W+jCr2/CFtziU+5xrosq+GidpA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c7Lw59jC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791917388; c=relaxed/simple;
+	bh=2hgOvZw3kNSqCxlZci2oAYXD7N2Bd+0CQorMdKpwmYU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=e/HCdKfoG2LYL5YgVBbAqGLFASf1yCDlM6veCph3bFOy3vamLvAF5LfcUlHwKM+YAcuzA3wkOCdu94uWCoabNP0tAt1ko4B6l5oeRmFHh5bq4hxw6Mw88UWNmPY6WttCNa5ZnC9vXAFeZ2R/hE+LkVwdlYBO8sFllWC0BOkPM0g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XkqyyUkM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c7Lw59jC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 278051F00893;
-	Tue, 13 Oct 2026 18:49:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XkqyyUkM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 517921F000FF;
+	Tue, 13 Oct 2026 18:49:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791917374;
-	bh=XfBTK7P9/FDAuQ3rDeZaxUdXh565Il7AimoMVLumg6w=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=c7Lw59jCMdlmt+X1THy//8lR0pPLrKXxiz5wkxTmEmV1VoMehL6b9aUeJxbc3gn/J
-	 44CEHFG4iEEUlESgQzlQEmbKY0AzpzzjsQsDSkjMNGN6HP+xEMvxkmNBzuQs0iFpgD
-	 0dMuTT/rLu2a67xQVx/4kOTVNwXRPVxsL/tl1DrijGIvdGA/wqNYVNZv3ZCIPPXNsn
-	 KUOqtRNDZDGmkntpX44sdukrTLI5uB6uCd0f0riUIDXtQTO+q1CTlx86ErgljgFAkz
-	 wSOTeE/O+hZXPahuQcurHkFKteYVg8RdziRBliWuti8BJxVJSodItlbQECm255CPmc
-	 nZPTuPVMTh92Q==
-Message-ID: <sashiko-outbox-170354@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 2/2] ASoC: tegra: Support WM8994 by machine driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261013183226.513658-3-clamor95@gmail.com>
-References: <20261013183226.513658-1-clamor95@gmail.com>
- <20261013183226.513658-3-clamor95@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 13 Oct 2026 18:49:33 +0000
+	s=k20260515; t=1791917387;
+	bh=2hgOvZw3kNSqCxlZci2oAYXD7N2Bd+0CQorMdKpwmYU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XkqyyUkMMfO6XOG4t0n8VrIRXLBViT54XTKerD04IYrix2p4+uSgR8/t5Y3bdU46A
+	 bLgCLdKhZBZt/1CAJyfVFbXi1MZFFXuJBSlrY2vIXNqd3Ha7CEY7NB7auJ5myCWaU8
+	 Lw9hjAnXLnD48s0iW2vSRbDfg0kCCgSvJNp84hfH5fcV9tWTEPCfBFWUBp6oKZkIr1
+	 LimJ8JX8qtK8dFfezPQxZiqIdmMCFNkMQC2vA2xrqz8ALaevOoGqtrmrlpy4szHT1R
+	 QPkEMHZwrMTs9CvydZf2IkNscF0GZdlfmR3TIrFhmLmjE8O6WGoqnHLnPnl2tX4Wcm
+	 rOWtpLmZgsBdA==
+Date: Tue, 13 Oct 2026 19:49:42 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 0/2 RESEND] ASoC: codecs: Add support for Fortemedia
+ FM34NE DSP
+Message-ID: <ebfcdeef-d0dd-4c4a-87bf-4ef3fd505b5f@sirena.org.uk>
+References: <20261013184755.530392-1-clamor95@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="EpxNXgxlQQ8aoE/S"
+Content-Disposition: inline
+In-Reply-To: <20261013184755.530392-1-clamor95@gmail.com>
+X-Cookie: Some equipment shown is optional.
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] asoc: tegra: UAF and state unbalance due to invalid micbias in wm8=
-994_mic_detect() teardown
-- [High] asoc: tegra: missing .owner =3D THIS_MODULE leads to module unload=
- crash
-- [Low] asoc: tegra: DAPM pin switches reference non-existent widgets
---
 
-commit f9aa3ff5a04d8149180c0f26beabf248ebcd5577
-Author: Svyatoslav Ryhel <clamor95@gmail.com>
+--EpxNXgxlQQ8aoE/S
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-ASoC: tegra: Support WM8994 by machine driver
-   =20
-Add Wolfson Microelectronics WM8994 codec support to the Tegra ASoC
-machine driver. The WM8994 codec is found on devices like LG Optimus 2X
-(P990/star) and Samsung Captivate Glide (SGH-i927).
+On Tue, Oct 13, 2026 at 09:47:51PM +0300, Svyatoslav Ryhel wrote:
+> The Fortemedia FM34NE is digital sound processing chip used for
+> active noise suppression mainly on ASUS Transformers.
+>=20
+> Resending since previous attempt seems to be malformed.
 
-> diff --git a/sound/soc/tegra/tegra_wm8994.c b/sound/soc/tegra/tegra_wm899=
-4.c
-> new file mode 100644
-> index 0000000000000..950fa6ad388f9
-> --- /dev/null
-> +++ b/sound/soc/tegra/tegra_wm8994.c
-[ ... ]
-> +static const struct snd_kcontrol_new tegra_wm8994_controls[] =3D {
-> +	SOC_DAPM_PIN_SWITCH("Int Spk"),
-> +	SOC_DAPM_PIN_SWITCH("Internal Mic 1"),
-> +	SOC_DAPM_PIN_SWITCH("Internal Mic 2"),
-> +	SOC_DAPM_PIN_SWITCH("Mic Jack"),
-> +	SOC_DAPM_PIN_SWITCH("Line Out"),
-> +	SOC_DAPM_PIN_SWITCH("FM Radio"),
-> +};
+Please send a new version if you have rebased, tooling gets very
+confused about which v1 it's talking about.
 
-[Severity: Low]
-Are there matching DAPM widgets defined for the "Line Out" and "FM Radio"
-pin switches?
+--EpxNXgxlQQ8aoE/S
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Neither tegra_asoc_machine.c nor the WM8994 codec driver appears to define
-DAPM widgets with these exact names. Referencing non-existent widgets
-creates unattached controls that fail to operate correctly when toggled
-from userspace.
+-----BEGIN PGP SIGNATURE-----
 
-[ ... ]
-> +static int tegra_wm8994_remove(struct snd_soc_card *card)
-> +{
-> +	struct snd_soc_dai_link *link =3D &card->dai_link[0];
-> +	struct snd_soc_pcm_runtime *rtd =3D snd_soc_get_pcm_runtime(card, link);
-> +	struct snd_soc_dai *codec_dai =3D snd_soc_rtd_to_codec(rtd, 0);
-> +	struct snd_soc_component *component =3D codec_dai->component;
-> +
-> +	wm8994_mic_detect(component, NULL, 0);
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmrOfUYACgkQJNaLcl1U
+h9Cf2Qf/ab2mIIZbOJnQzp6aTP+sgDe5dnkhSCQjRG2SX8vFG64LvhoVOQ7F47NM
+Os74DVb+v4fH0QOI1nxdC3hUZoh7PUjoxErBaahpjW0hW+3Jvkb3+yQ8dz6MpJno
+Mm5ZLqvTF+9UJRX4NFazvptGch153CRnWjcgEzsYo/ExJ2sj/Ljtj7yd/AbbTyw/
+u2YWAkp2+0MVo5FyOjjnyCmQP4fKQG4BszU8qqQHhiFx/CZcHgjebQzWbpZ9EbcY
+MdC2ckdfbyMr1U5lYYMPFPLzsio29cqjufP+bMaaE5478WTNuJD9CqIOORfUQ0JH
+qEUFF80AjouxfrD6UM8t5qzXvjM7Uw==
+=EPkF
+-----END PGP SIGNATURE-----
 
-[Severity: High]
-Does calling wm8994_mic_detect() with 0 for the micbias argument skip
-cleanup and return an error?
-
-In sound/soc/codecs/wm8994.c:wm8994_mic_detect(), when micbias is 0,
-it falls into the default switch case, logs a warning, and returns -EINVAL:
-
-	default:
-		dev_warn(component->dev, "Invalid MICBIAS %d\n", micbias);
-		pm_runtime_put(component->dev);
-		return -EINVAL;
-
-Because it returns early, the teardown logic is never executed, and
-wm8994->micdet[0].jack is not set to NULL.
-
-When the machine driver is unbound, the snd_jack is freed. However, the
-codec still holds the dangling pointer. Can a subsequent microphone IRQ fir=
-e,
-causing wm8994_mic_irq() to call snd_soc_jack_report() on the freed jack
-and leading to a use-after-free crash?
-
-Additionally, is it intentional to call this unconditionally, even if it
-was never enabled (for example, when machine->gpiod_mic_det is present)?
-This might lead to unbalanced teardown.
-
-> +
-> +	return 0;
-> +}
-[ ... ]
-> +static struct snd_soc_card snd_soc_tegra_wm8994 =3D {
-> +	.components =3D "codec:wm8994",
-> +	.dai_link =3D &tegra_wm8994_dai,
-> +	.num_links =3D 1,
-> +	.controls =3D tegra_wm8994_controls,
-> +	.num_controls =3D ARRAY_SIZE(tegra_wm8994_controls),
-> +	.remove =3D tegra_wm8994_remove,
-> +	.fully_routed =3D true,
-> +};
-
-[Severity: High]
-Is the .owner field intentionally omitted from this structure?
-
-The driver uses a shared probe function, tegra_asoc_machine_probe(),
-from tegra_asoc_machine.c, which contains the fallback:
-
-	if (!card->owner)
-		card->owner =3D THIS_MODULE;
-
-Because THIS_MODULE in the fallback resolves to the snd-soc-tegra-machine
-module, the snd-soc-tegra-wm8994 module's reference count is never
-incremented when a PCM stream is opened.
-
-Could this allow the snd-soc-tegra-wm8994 module to be unloaded via rmmod
-while audio is actively playing, causing any subsequent ALSA core access to
-callbacks or data structures in the unloaded module to trigger a kernel oop=
-s?
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261013183226.5136=
-58-1-clamor95@gmail.com?part=3D2
+--EpxNXgxlQQ8aoE/S--
