@@ -1,184 +1,120 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C367F3AFCE4
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 09:28:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F5083DA7C5
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 09:31:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791883716; cv=none; b=b+Y+TGi/LvAMyROmZelx06qg5fnOH7kPJ9hTbtVjaC9W0S3zUnkCErMaqjFnmVA3dlYIxRhJxnYLnccuHVWgyqx9s0ncnzU1hr3Rlkvor+GPJtoFMImFE3lg5p875wHvXuIykeEmq3VtI7fhJKI+UrQtuDhWJnQ+Mm/tYbst2Cs=
+	t=1791883875; cv=none; b=fZ2Im0PwBkU7G7SklAyX45A3Sk1I2JOPGgYyij26buCiZkN56fLyeiUUhNeCn8R1GK2pv+Y6RwI9fb+vrwmtyIXoy0CRarYbTBEuS7X290huIuqSA/4CZxS5SAgAleTr9fcmT4A00g4dS6iKn2Zql3rQA85raaUAn//JX6/MvSo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791883716; c=relaxed/simple;
-	bh=07XgK+pJXJS+SdUsmiDqD7OgbmqdQmDHY1L0Nzo3UWo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ktzW2iuAAnZsuac5+Lmd/D1ozEizhxVQygR1vojhsRAhY+RxuLeqBo1FN+NSmArPw96SRH1y0aHXJWww0FyGWZkn947UssjIa1LNgbI6U6cOywhC7O0JWDmR1ACo4aoI5n4RGtEaF+DgFHp39G+RLNStKWbYyUquEj3Z1AK8iCE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Ckxqoo6E; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YHgytn10; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1791883875; c=relaxed/simple;
+	bh=XVFaXEYG2jOij3HyMr7u9yLLDZy3V4Xivvx6eVWoUcY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=hNUUaEYKiZXMjr/wWTwaLI9U/A2I5fq9QcYMz0n7gvAdBPCh+u6BeWYIniJwzQRmQvSb1zXvTGky9qJAPSg2M7qM5Eu9JOZmOpIRYO4ZrFuD9cBu0qFs5Uzd/7ZouvM+FTvu2ElxY77/z/4gUyF1/ozkgBvY5MCSkGh9VImB8iE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hjQ4WzFM; arc=none smtp.client-ip=209.85.218.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ckxqoo6E";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YHgytn10"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 69D6Ys9g3208375
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 09:28:34 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=AwVrOQAST10OpocMcgq2xe5E
-	4xD7N2fSB7icU0QeQ7s=; b=Ckxqoo6EAZlcrDMj0F4eefX6HbXJeXaByFh5SkDp
-	Nvw/8uL2qUT6+EahYM4zs3007fQ+2db1+kOKUcHnhfJpQbX9VbFIblyNof8FRAcy
-	R0wnsVVa2iFeACk68sPtCc988ESMyeC5a+SMZyE+NZjE+1fEtlpVZsinRZJ3NizK
-	1i/dfxZHL3Sv4Lnbu2TNPaVVrCc/o8WipvshYcS6fYK8q5IEuPD6IYcgJ6B7P8Zu
-	PmV04zNc5K/JZu2eYh68WBtiFNPxKjqJnwtCuornHyTCsIJnbz0J3W0Fg0L7QtZu
-	6LTlv9V4do9Q6ItmYqOnzUyncCqtOSYT/grYLZwiWI80IQ==
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com [209.85.222.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4h9fgjgq3v-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 09:28:34 +0000 (GMT)
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-939c30aa9a0so253988185a.0
-        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 02:28:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hjQ4WzFM"
+Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-c2533d83e3bso432718666b.2
+        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 02:31:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1791883713; x=1792488513; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1791883872; x=1792488672; darn=vger.kernel.org;
+        h=content-type:content-transfer-encoding:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=AwVrOQAST10OpocMcgq2xe5E4xD7N2fSB7icU0QeQ7s=;
-        b=YHgytn10KwRtXCgXyIRAIWDVu7SFN8rmQ/0q5FjAxIqy1G/lT9akoCRrqtrkonpTm5
-         WcCaPxaoI60LjJzsDgokC196eL41WA9U2dJPi7b7vF/UJ9ad1tq7vO7UqBvejBeYxLyB
-         vK5uRlieSl/pyy4uhIodCqaM/7yWBtYIVkiTuacMLE4VSeYOV6OzlqALTWhfz97MuyFZ
-         na8oljJKTmKnr+sDoE9cp0KJ8KzaII7ky0avDWZkLX3wUSJdHIHXHt79K+CtjLdxAD5m
-         gPgSwR3VC5VqhqkLeyMLSe7N55iX/oeDl32O6CBAW/Q7AD+BIGz3FvUxY7PorwLAFsSH
-         gEYQ==
+        bh=+NB6q1K55xrXTqewDbSwetE1j/mAPNyb/yxnJTgeOys=;
+        b=hjQ4WzFMmAF+BTTFBWaPHmNTmT7t4JVL9XfcTBk1GPItkoyMHhNLM9Xt/rJov0k8ZR
+         Ii+6lhUwIIN6FILMdsxGClz0OOMBbouOfNaSnw+1JFT5AO6B0XD8KQ1XQyVGXbJSCGrm
+         npqiXa5LfkTOkL4JLo3rY9UkfoyS5Krt4jbmk38dZ9r0NjlbIxEtzgj2asowAra+CFA2
+         IA+I4henvLe7xk3mViB8IhIqJOTVkxGzDRzIPEYz/SgSHjqvl1IO3EJ0dP2M30vLJQam
+         eGBpgGN4yP57HLRtdaNj4RRg8aPicBTbz4qXZoySHsAud0ODuJt6ytAStknUL2aMLOLY
+         PV+w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791883713; x=1792488513;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
+        d=1e100.net; s=20260707; t=1791883872; x=1792488672;
+        h=content-type:content-transfer-encoding:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=AwVrOQAST10OpocMcgq2xe5E4xD7N2fSB7icU0QeQ7s=;
-        b=rHkwShwh/lp8uZu2f8G1psK2DcHgp7TurkRxxm//uO6I++R01mEgTKiK1qz5NAIja2
-         FzI8RhO2AD3uPruz/Ju0BF+vm4+OyEVYIikenOOQ7Y2R4BR7MahKTTtZfDz2qfBKdR5k
-         5tQbVKMX0/RjXqMz1PwbbZmZFSEcCQOfmL0b5HzhbrXGKZEyh25T5uoVdm2/mbYxYsvi
-         7JdC2UoAtBADluWgG9sxk61VrVt6LB+wBve8WDM9Mn23VhIelTE1oSjslAw0WC0n/7DV
-         vcuOZ9h4qIXXLBwSH00RvEWVox0rPVqXTmCbv+ChuapNj2HSpNuKuuGCzzMFkqxxB3nz
-         PPcQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwECjshMEfdKzPuPb3fwfXsCFezBOIjqW3bSr8AWiHDajGMruZ6Q+wmDXzOEoufk5Zy0Q5EofRbbPdu@vger.kernel.org
-X-Gm-Message-State: AFq9FYK5HV8w4cFHr+JCUYgDCr1xeXQNTRWq9NdKuXe0NWV3wsLXNh4a
-	hqSKAwpYccIpf6pGOIk/IIwSfHM3q042MnAYzUhkwTaFzXsignWAweFkHkMce7eWnv8uD6HUPge
-	e9Ngjhfzl3JwjgnGNXz5oqiqOs0L77sAw5/h66SaC8oegiPW907K6l1XgNne6gKAU
-X-Gm-Gg: AYBFou1xJjE1EI3fBWIeAwWw0hPOv+B9CRQfRKEoqRBO49jSxWKgBbXzPlUsqa+sRZv
-	lqFFJIa5yBaT0k+3zYoWe8YlubUvvHaggXPeOSymSqqVxSSI1Fc8MsvqQlp4ptzYYtH6NdQLV9u
-	lYbZX4bOGk1k1J2B8wXIgBdi451SOy0rz8WOmcQTj41HGfbxsXLQlm0qtvZWRuCUdNJ76Tt2SEf
-	dQ7tTWZvqKJjIOXIkMXLXcWQUYzXMCce6UFZ3xgi8hdowc0g9X/teT1XwW4BS2oAvCBbj9rlkSl
-	NkBCtA/RLPD0vCXT0i+HNb24bovmoe2aCTjNUgliFZr2EOjaKpdiHCUt+pBgb17/LNVq3sAwcrj
-	Di5TDa0gnq0uedvhu8i7/6MeCPB+bAEVur48bxcq/7phneeDl8eUYG+HOcGjeQrdbgwzAn8ZPi3
-	Xf2pne120ZAtUC
-X-Received: by 2002:a05:620a:199a:b0:93c:746d:7c72 with SMTP id af79cd13be357-93ebd29a3b1mr1894161985a.64.1791883712942;
-        Tue, 13 Oct 2026 02:28:32 -0700 (PDT)
-X-Received: by 2002:a05:620a:199a:b0:93c:746d:7c72 with SMTP id af79cd13be357-93ebd29a3b1mr1894157385a.64.1791883712361;
-        Tue, 13 Oct 2026 02:28:32 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a9c3cd5adbsm32808981fa.29.2026.10.13.02.28.30
+        bh=+NB6q1K55xrXTqewDbSwetE1j/mAPNyb/yxnJTgeOys=;
+        b=KJbSPo7aZ+L0+NY4AerxJGlvzWg59su/q0IEPOAkYbde3CyW9FafTZJHWp9gfUJPiA
+         cR5tr4Ydb1yEQDQ8Znbo0RUOdTMfYrWFBztiznCnGWVwHMi5O41xXxvCm7OqN9x0iXQO
+         jyJ1qoUK0nzh+xotq80cXvT8s64FaT81kLV8j1sTezwXxccc7tr+a8BJM7pBUuVFs9IM
+         f3nLP/SNK+JjTQIT8PKkgvgJUjYqO9PAYuxZUomuKtc2w4FHU0Btw7zi/kkPOf0wUlVr
+         jWvLY8PZHSGvBEpDVX+TxB//V+HhzDaiACRxO3uq+ygEBUMNrpHyrISbWj/VTosjwpQD
+         ez/A==
+X-Forwarded-Encrypted: i=1; AKwUvBzaEvdO5JjhYAdzAQKomqoOiCdC4vJ4kwWYNW5m6CPXZFIJOvTn/lbsEcmTHklr9r7ypKXdcfsDP+LF@vger.kernel.org
+X-Gm-Message-State: AFq9FYIdw0r8oY+SgimxjhgmayfVDtszMe3juSOf3G+meRPO8T2fc2ZD
+	iNOdoYrApDHrXfBv3/2EuI7cv9ybXIo+Pi8JuhaTue1Oudc1T8qz0T8h
+X-Gm-Gg: AYBFou2AZ4c6WGja8XG5TLHjO31bLrfT3o4CJruYLy0enp3UGCA9BSbW6oY9+Pj7grM
+	6witDFz83No0OEQT5uBsDwh+/NkjzDuqV950uIRmi07gJeomectQzZeqH0d4WSSk+Z/ZsUgNcab
+	IuZgrSjxxfUHj2UOdXnHSOZELQkg/VuoBZHCEzl7IUcLBkCK/Lz3SObIU7X/Zb+o7VUYX6bMofj
+	doY5A5A64MN0/g1oEK/2aj7sc7d+R895N0wzAoJYUfq1z7FgzdICd+GyL6vQWHXG7KqldnaQyZW
+	8LcDAUlBGV+ynA05YmH4KNINNswphddkDZnP1RwK67MWObCxavKXpNhCDZiXmhdRjp/ytXNOKBD
+	q2sst6YkpQiPZsmJcrAd7rJcGJ9MfULqwbXvAwNvC0Yk0LBekJuvpcDP2InUoXljtI/aQ+AWRXS
+	UCCtOAyf1/BhEYPKWWIUgwBU6SK/DpXYNiiWHtXgEoFd+o6NAy8ICJ3I59NlJG77yYLhdTv7BqJ
+	j3c5V/AQFcH33VfWHJqGNkPoohRT7qGEOpKOfFhs0878HLJI4L9+8r/85iM
+X-Received: by 2002:a17:906:f5aa:b0:c2e:3abd:aadd with SMTP id a640c23a62f3a-c31aa093e85mr1058348666b.37.1791883872324;
+        Tue, 13 Oct 2026 02:31:12 -0700 (PDT)
+Received: from rillian-arch.localnet ([2a00:23a8:8f4:6a01:5ffc:da36:c891:cd3c])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c366ed191basm105213166b.15.2026.10.13.02.31.11
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 02:28:31 -0700 (PDT)
-Date: Tue, 13 Oct 2026 12:28:29 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Nabige Aala <nabige.aala@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
-        Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Rob Clark <robin.clark@oss.qualcomm.com>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
-        Marijn Suijten <marijn.suijten@somainline.org>,
-        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
-        Kuogee Hsieh <quic_khsieh@quicinc.com>,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
-        Ritesh Kumar <ritesh.kumar@oss.qualcomm.com>,
-        Mahadevan P <mahadevan.p@oss.qualcomm.com>
-Subject: Re: [PATCH v2 04/13] drm/msm/dpu: Add support for DPU 12.1 on Nord
-Message-ID: <vn75stw4ni6y7gk4reo4z25leimkahfocqrsvhw3pmappzwfvy@2pzxjkwbd7pk>
-References: <20261012-nord-drv-dt-v2-0-a2ab9af954d2@oss.qualcomm.com>
- <20261012-nord-drv-dt-v2-4-a2ab9af954d2@oss.qualcomm.com>
+        Tue, 13 Oct 2026 02:31:11 -0700 (PDT)
+From: Rillian Grant <rillian.grant@gmail.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, conor+dt@kernel.org, linux-leds@vger.kernel.org,
+ devicetree@vger.kernel.org, lee@kernel.org
+Subject:
+ Re: [PATCH v3 2/4] leds: flash: Add support for the TI LM3643 dual LED flash
+ driver
+Date: Tue, 13 Oct 2026 10:31:11 +0100
+Message-ID: <LwK5_fJASKu0tC1wo7o7Uw@gmail.com>
+In-Reply-To: <sashiko-outbox-167401@kernel.org>
+References:
+ <20261011191026.149338-1-rillian.grant@gmail.com>
+ <20261011191026.149338-3-rillian.grant@gmail.com>
+ <sashiko-outbox-167401@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261012-nord-drv-dt-v2-4-a2ab9af954d2@oss.qualcomm.com>
-X-Proofpoint-GUID: CgVkfEQwjImwgekAO1ATX9-_pyFwAyg_
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYxMDEzMDAzNyBTYWx0ZWRfX9ZsdfSvikdoX
- Zg1SsTFqp528nYdRrVH60lE2qrOB8Dqo4LfDYa+mhdfEldcIYEaE89dgY7qGrl27XDdpT2cG3L1
- MKhQDQcITTy8r9r3CWmUyPYHzZfkV/Wctl0YqPP4VdzfFwe11dCq7qYBHB46wBsdVRzZl7sYckV
- hImwGglb7j6RIFgMRngudLU/UiscEk0Rcfm7+K99a/K97Dkxbebj8p6gi6d6iGLM99Nv1Iojniy
- Sf3LJcRmM6aCTcXSFAfdqnuPYoqQsU4/rM+73AT3Y53i+mX3yl6TSyWWe1kkFir8s1ujqIApx/B
- baNKvu8/BFyMUkpq8lC/UA2bwFWmI99qqlGiNyhFWlsLDxRz8Ibk6vpFwOuCEPbGl8o/as4Nolm
- QAr9WCcOA1ha7LDMgLyRZTfWM6B9/YLtCOZUlRXARq4hLEJsf010FHBznIyfqmUsDfOub1mEc+U
- BEon1oND+m03EkjnATg==
-X-Proofpoint-ORIG-GUID: CgVkfEQwjImwgekAO1ATX9-_pyFwAyg_
-X-Authority-Analysis: v=2.4 cv=PedqFShd c=1 sm=1 tr=0 ts=6acdf9c2 cx=c_pps
- a=50t2pK5VMbmlHzFWWp8p/g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=660iZSQnnn4A:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
- a=VbBZhAhFZuLLlrQ6NhAA:9 a=CjuIK1q_8ugA:10 a=IoWCM6iH3mJn3m4BftBB:22
-X-Proofpoint-Spam-Info: AW1haW4tMjYxMDEzMDAzNyBTYWx0ZWRfXwDWtrWv98fHa
- M36zdGq3dxyl02RVuf7s7F4M3iZ+F7yE8ifLdgh/dNu7Y47UJJkonz+w6HfwXQVNiLnhlwnTdIg
- Q2Pn11v2S1FaFOWYaHrVRHSTYLfTuXw=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-10-13_01,2026-10-09_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 suspectscore=0 spamscore=0 priorityscore=1501 clxscore=1015
- adultscore=0 phishscore=0 lowpriorityscore=0 impostorscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2610080000 definitions=main-2610130037
+Content-Transfer-Encoding: 7Bit
+Content-Type: text/plain; charset="utf-8"
 
-On Mon, Oct 12, 2026 at 07:02:14PM +0530, Nabige Aala wrote:
-> From: Mahadevan P <mahadevan.p@oss.qualcomm.com>
+> [Severity: Low]
+> This isn't a bug, but does this commit subject violate the subsystem naming
+> conventions?
 > 
-> Add the DPU catalog entry for the Qualcomm Nord SoC (MDSS 12.1, DPU
-> 1499A). Nord is DP-only with no DSI, and provides 8 DSPP blocks, 2
-> writeback blocks, 8 interfaces and 2 DP controllers.
+> According to the LED subsystem guidelines, embedding subsystem subdirectory
+> names like flash into the prefix hinders Git history categorization.
+> Embedding implementation details can also create rigid and non-reusable
+> drivers.
 > 
-> Extend enum dpu_intf with INTF_9 and INTF_10, which Nord is the first
-> platform to use. The new entries are inserted before MDP_INTF1_TEAR_INTR
-> and MDP_INTF2_TEAR_INTR in enum dpu_hw_intr_reg, preserving the
-> contiguous MDP_INTF0_INTR..MDP_INTF10_INTR block that the
-> MDP_INTFn_INTR() macro relies on for correct index arithmetic.
-> 
-> Corresponding register entries are added to dpu_intr_set_7xxx (required
-> for Nord, which has core_major_ver = 12) and dpu_intr_set_13xx (for
-> consistency and to avoid a latent bug on future 13xx-family SoCs that
-> use INTF 9 or 10).
+> Could the driver name lm3643 be used in the prefix instead, such as
+> "leds: lm3643: "?
 
-Which latent bug? Please split INTF_9 / INTF_10 handling to a separate
-patch.
+Happy to switch to "leds: flash: lm3643:" across the series if there is
+another revision, or for the maintainer to adjust when applying.
 
+> [Severity: Medium]
+> Does this sequence require a hardware startup delay after asserting the
+> enable GPIO?
 > 
-> Assisted-by: LLM
-> Signed-off-by: Mahadevan P <mahadevan.p@oss.qualcomm.com>
-> Signed-off-by: Nabige Aala <nabige.aala@oss.qualcomm.com>
-> ---
->  .../gpu/drm/msm/disp/dpu1/catalog/dpu_12_1_nord.h  | 544 +++++++++++++++++++++
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.c     |   1 +
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_catalog.h     |   1 +
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.c  |  20 +
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_interrupts.h  |   2 +
->  drivers/gpu/drm/msm/disp/dpu1/dpu_hw_mdss.h        |   2 +
->  drivers/gpu/drm/msm/disp/dpu1/dpu_kms.c            |   1 +
->  7 files changed, 571 insertions(+)
+> The lm3643_probe() function drives the HWEN GPIO high and then shortly after
+> initiates an I2C regmap_read() to fetch the device ID. Failing to provide a
+> programmatic delay (e.g., via usleep_range) might cause the I2C transfer to
+> fail on platforms where the CPU executes the bus transaction before the
+> hardware state machine and internal oscillator are fully initialized.
 > 
+> Could a small delay be added here to ensure the chip is ready for I2C
+> traffic before the register read is attempted?
+
+The LM3643 datasheet specifies no delay between HWEN high and I2C ready,
+so I'd rather not add an arbitrary sleep.
 
 -- 
-With best wishes
-Dmitry
+Rillian Grant
+
+
