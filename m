@@ -1,135 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D381051CF74;
-	Tue, 13 Oct 2026 16:52:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 419993C4B60;
+	Tue, 13 Oct 2026 16:53:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791910364; cv=none; b=EcXOSB92cctJcY+d+uiqfCHNa7UwK5wMa43/SDfPyHa06iIJ4nsbJyOH1o0iYeuhZMIZfbR4VsQJAUK7t8O/AVmYBT46OIM61UzxDjWwE5il23j87Y5zCNFBWMfx4z+303Mq44S8SRiLWsmrkF8kD2EJeZMB9SfEgYO66YHpWVw=
+	t=1791910411; cv=none; b=AsxiR//+1izOLxD6os3Gyq8/UoSGso7b9MolR7F9/8p/i5JylBugW5AaQH1auRuV29Ygkhkcmt9gfbluuoTpcXhVtegmlUkO1WgV2sD4+FTzxMOeKckoOcCEtOtQ5cyFKmVKrALOPUKmeZq+qIB6E4RgmgjtC413nC0koYbVlCY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791910364; c=relaxed/simple;
-	bh=EjjAyjBU3ZHFg4z47azZ/Od4tQNOANc9AyJ546IQj+E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Ie/gYNHLjuYs1P+HC0fPYLliHFBEBlUnx+iKJ0TednAVyjvq23pTPB+qmtupHyYmexWh4kg7DeipOqXYnM2JE/nxzbo6JcBaPt9vBhIbU+qR8DC3nqchxipj7QosTDTY+aI4edDPhFIqLFIo1Dm/6aVeDv/nuJTzKfT1TX+U758=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MRPfkvSg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791910411; c=relaxed/simple;
+	bh=Bf1+cUNbE5qkVcTONyft5tgSlgcrjgq5df40Ua6ahf0=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=sbVu8HMFI11XKzF+CvMW4tJk+J24veOiDMtHfSXM7X2sk8xB0rF52P1jCuogyfvD4Na8Vl+csEzPHIPQYJ+4aT5E9sQ7QR/qVzs7uU2yelLaNSFzfo8vbiMqsUKwpULSrnVekNMc1Vt/AUgCSz17tK0+ZiURB7CoDiM+6Mccyl4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=GWxRcSJq; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MRPfkvSg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 146A91F000FF;
-	Tue, 13 Oct 2026 16:52:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791910362;
-	bh=EjjAyjBU3ZHFg4z47azZ/Od4tQNOANc9AyJ546IQj+E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MRPfkvSgsYreau+FlHK4l6TZdXeSqfxnlgeH9mTyZ9Tdhh/jUk7nIuHdL5nWMD6dL
-	 xIKpbWEVPRTEGIOLFJDOlY13m9j7GcE4j74wOihgmaYupV5Bf4NgDk+6185bis5igm
-	 ddUoR6y297V6TZBDvPVXDjCSrdyKGjpPDMXjeMTzmKcMEHSQJZQXG8TMV0VL98K3cL
-	 iRzm+WGF1GOuTevubpBPove9gRDCwSDOXlgCCX9vHR8m6RBQZICTlmgTMVKlHk5dsW
-	 mdrSrGflAyn1USuBrRaCGDmxPgvwe/wZX6mew2neQm9cIuAD+cEprS4j4kLiykr3iN
-	 6FQLVdx7Jrx6w==
-Date: Tue, 13 Oct 2026 17:52:36 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Fil Dunsky <filipp.dunsky@gmail.com>
-Cc: Thomas Gleixner <tglx@kernel.org>, Radu Rendec <radu@rendec.net>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Wim Van Sebroeck <wim@linux-watchdog.org>,
-	Guenter Roeck <linux@roeck-us.net>,
-	Russell King <linux@armlinux.org.uk>, Arnd Bergmann <arnd@arndb.de>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org,
-	linux-i2c@vger.kernel.org, linux-watchdog@vger.kernel.org
-Subject: Re: [PATCH 00/11] Cortina Systems CS75xx: interrupt controller,
- GPIO, I2C and TWD watchdog
-Message-ID: <20261013-plastic-dragging-8232efb058ef@spud>
-References: <20261012-b4-cs75xx-s2-v1-0-8a7641b7b79c@gmail.com>
- <20261012-dreamlike-hazily-19bb60326f0a@spud>
- <179187542217.3247897.4323160442877168450@gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="GWxRcSJq"
+Received: from smtpout-01.galae.net (unknown [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 83A62C653F4;
+	Tue, 13 Oct 2026 16:54:19 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id C8E0C60362;
+	Tue, 13 Oct 2026 16:53:13 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2DEFC11D714FD;
+	Tue, 13 Oct 2026 18:53:10 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1791910393; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=iHPYa0/Oq6Fpvpu0NFhqnH64bHq9AyO4cfaAIVmzVx8=;
+	b=GWxRcSJqpJ5YCykL6qTYMGDEn0XCoERbh0ikqwcc6yyyRszBgdjVQGKdChUUcGFShmyabe
+	DSqTyY0aYRmeU1Zpk4lft2mzq1TuNaQ8rsthI1FjPFy1zDjmtcIz/iPUEwdpumRh9mrUO4
+	GDNdgoEA2snHF6tq5huO0590iJ5XfWhPHl8MNNomdBUqRM/W6MbqjQJystixnI2CI1J+Qi
+	m2A1LAVky0xJF7LSAwFqMAtlKjZrkGvR8sqFTiFevttr/weqyI22xM9cQRDTSPmThlXuTv
+	SoDuur1irMzuW5DAghll4CuZBFc1HJoFscp9xmOcbNZzyyS1sMQGBlyC+1xpvw==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Jerome Brunet <jbrunet@baylibre.com>
+Cc: sashiko-bot@kernel.org,  sashiko-reviews@lists.linux.dev,
+  conor+dt@kernel.org,  linux-clk@vger.kernel.org,  robh@kernel.org,
+  devicetree@vger.kernel.org
+Subject: Re: [PATCH v8 5/7] clk: nuvoton: ma35d1: Reparent SYSPLL correctly
+In-Reply-To: <179181904945.33566.17882786294681341398.b4-reply@b4> (Jerome
+	Brunet's message of "Mon, 12 Oct 2026 17:30:49 +0200")
+References: <20261004-perso-ma35d1-upstream-clk-v8-0-e1a106a128c0@bootlin.com>
+	<20261004-perso-ma35d1-upstream-clk-v8-5-e1a106a128c0@bootlin.com>
+	<20261004205551.6279C1F000FF@smtp.kernel.org>
+	<87zewti2pf.fsf@bootlin.com>
+	<1jjynw7bp8.fsf@starbuckisacylon.baylibre.com>
+	<87cxtni7m6.fsf@bootlin.com>
+	<179181904945.33566.17882786294681341398.b4-reply@b4>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Tue, 13 Oct 2026 18:53:10 +0200
+Message-ID: <87ld81v8y1.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="9WsB/PUlVzPaxjR8"
-Content-Disposition: inline
-In-Reply-To: <179187542217.3247897.4323160442877168450@gmail.com>
-
---9WsB/PUlVzPaxjR8
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, Oct 13, 2026 at 10:10:22AM +0300, Fil Dunsky wrote:
-> Hi Conor,
->=20
-> Sorry for the late reply, and for sending v2 and v3 without addressing
-> this - I missed your mail.
->=20
-> On Mon, Oct 12, 2026 at 07:48:00PM +0100, Conor Dooley wrote:
-> > I think what's here looks really suspect - regions of two registers
-> > wide, interlaced between devices etc.
-> > You mention syscons here, and really that's where I think that this
-> > should go. The region at 0xf007_0000 looks exactly like a syscon to me
-> > and should be modelled as one.
->=20
-> Understood. The block at 0xf007_0000 is the "peripheral" register block
-> of the vendor kernel: the interrupt status/enable pairs, the UARTs, GPIO
-> banks, the I2C (BIW), SPI, MDIO and timer registers are all packed into
-> it. Would you be fine with a "cortina,cs7542-peripheral", "syscon",
-> "simple-mfd" node covering it, with the interrupt controller as a child
-> node without its own reg that gets a regmap from the parent? The UART,
-> GPIO and I2C nodes would stay separate devices with their own reg, as
-> you suggest below.
+On 12/10/2026 at 17:30:49 +02, Jerome Brunet <jbrunet@baylibre.com> wrote:
 
-If things are just tightly packed, that's fine and you don't need to
-make it a syscon. Just because something looks suspect doesn't mean that
-it is actually wrong.
+> On 2026-10-06 09:57 +0200, Miquel Raynal wrote:
+>> On 05/10/2026 at 11:12:35 +02, Jerome Brunet <jbrunet@baylibre.com> wrot=
+e:
+>>=20
+>> > On Sun 04 Oct 2026 at 23:19, Miquel Raynal <miquel.raynal@bootlin.com>=
+ wrote:
+>> >
+>> >> On 04/10/2026 at 20:55:50 GMT, sashiko-bot@kernel.org wrote:
+>> >>
+>> >>> Thank you for your contribution! Sashiko AI review found 1 potential=
+ issue(s) to consider:
+>> >>> - [Low] clk: nuvoton: ma35d1: Modification of global static state
+>> >>> during probe
+>> >>
+>> >> There is a single clock controller. Should never be a problem. I can
+>> >> certainly move it in to more local scope if someone asks, but it's not
+>> >> practically needed.
+>> >
+>> > I may be missing something key here but why is not in your defined
+>> > indexes like the rest of the clocks ?
+>>=20
+>> SYSPLL and its parent (HXT_GATE) are in the hws[] array. Are you
+>> suggesting to use the hw_clk pointer directly there instead of using the
+>> parent data structure as an envelope? Because the issue raised is the
+>> global definition of the struct clk_parent_data and then its
+>> modification (since I need to reference the hws[SYSPLL] pointer inside).
+>
+> The problem sashiko is pointing at is that you are creating a global and =
+then use
+> it as a local variable, just assigning the the .hw
+>
+> So 2 possibilities:
+> * You just need the .hw then I don't really get why you are doing it diff=
+erently
+>   for this clock ?
 
-In your shoes, I think what I would do is leave i2c/interrupt
-controller/gpios etc all as independent nodes.
+True.
 
-I would however model the pinctrl as a single node, with
-reg =3D <0xf000001c 0x14>
-I think, rather than 5 instances 0x4 wide.
+> * OR, this is one of the those clock where you want to check DT first then
 
->=20
-> > I think it's fine to make a GPIO controller at this point, and leave
-> > pinctrl to later, but I don't think that it is acceptable to pretend
-> > that the mux registers are part of the GPIO controller. The pinctrl-less
-> > GPIO controller would have to either rely on something else (e.g.
-> > firmware) setting the mux registers or be not entirely functional until
-> > the pinctrl arrives
->=20
-> Agreed. The next version drops the mux register from the GPIO binding
-> and driver and relies on the boot loader's pin mux. A line that the
-> boot loader leaves muxed to a peripheral then stays unusable as a GPIO
-> until the pin controller exists; I will check which of the Almond+
-> lines (reset button, touchscreen interrupt) that affects before
-> sending, and leave those out of the dts if needed.
->=20
-> I will not send it before the interrupt controller question is settled,
-> and not before 48 hours have passed in any case.
+It is not.
 
-My take would probably be not sending new versions until at least 48h
-has passed since the last reply on the current version, rather than 48h
-or w/e from time of posting. Of course, exceptions apply, and you can
-use common sense to guide you.
+>   fallback to a fixed clock, then yes you need parent_data. don't forget
+>   the fw_name (which I did not see here) and use a local variable for tha=
+t,
+>   not a global
+>
+> Did I miss something ?
 
---9WsB/PUlVzPaxjR8
-Content-Type: application/pgp-signature; name=signature.asc
+You got it absolutely right, and while implementing the change I
+remember why I used the name instead of the hw pointer:
 
------BEGIN PGP SIGNATURE-----
+     clk_hw_register_fixed_rate_parent_hw() exists, but
+devm_clk_hw_register_fixed_rate_parent_hw() did not.
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCas5h1AAKCRB4tDGHoIJi
-0udqAP0WM0sBTq4yEA+F6vKgUmE8ocwVivM3NUIF83HuZso3pgEAivB/61eJBing
-IjaFuZ7tEIoxs6shBuwSTj5im/+qbQk=
-=Hfgz
------END PGP SIGNATURE-----
+So since it looks like most of these helpers have their devm_
+counterpart, I will add this new helper in clk-provider.h. I plan on
+doing that addition in this commit because I think that is what Boyd
+used to prefer, but I can add it in a preparation patch that is your own
+preference, I don't mind.
 
---9WsB/PUlVzPaxjR8--
+Thanks for all the guidance!
+Miqu=C3=A8l
