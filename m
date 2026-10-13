@@ -1,243 +1,87 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2432651C04B;
-	Tue, 13 Oct 2026 16:38:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5043E51B192
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 16:38:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791909495; cv=none; b=KliJknG3CH53vIYmNWz/j+h9bxuztEqJ54qXuCjkMMexeSe2wLyGrPMhJuoCPBgBnVJUk9G99+xNsZz+JQ4pJvg/hdTh6/diCC3MNLgWb/eunTewE42GRJQ9p8y4RqScVY7EEWD7G49OrxLxwLGPuN5/DU9hJo4w0ctPje0UffI=
+	t=1791909538; cv=none; b=sP35ZU+Gd6CiHaMavIJLDPauTHkJ+g2AqPvvYzdQMcDO/cJqbQ4B+/zbjPcYp7Xb+9/G8X+BNcKQtxOHKQZnB4EnczswW1/cbyc8tLnhXDh38ksbbv9g9zyMTGGlZkw6sB5TWZBLPtwX72qOVWf4AiS4nBMDTfzuQj9OUN1Y1Xo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791909495; c=relaxed/simple;
-	bh=T6HbvwJs0WFdfIMH7iGZvbiuF8hxNT5sxvPhXCviOuo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HYFKZz194xiy3sVoscQCLM4IrqaH5f2htYB1XVzgr49RbU7jU4HweDnP34RRCwmMxcwb2gCTxoxzkX2wn0HK9bHiul+wKKPtC0OSNujWw9AtmA+6Nza9Z8cukIIvAHH+SZH4ScA7iBy70d4N/k4dbfCufkQ+JHG2Z++X0ure424=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XOPc8K41; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791909538; c=relaxed/simple;
+	bh=aoc8nug3Q5d4idvy+yC0Mx43dQ2bXsa5/t1xC0cav2Y=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=gMnYHnIHoKX5H06AyYS2nBX4iSxoAhd9q69dflVPHzUNEbYokgrfEt//9tdTDe6jgCG88rQ+TlF95kWNsRV9eYB9ZK+M+DXqpy9pq+pciq8/0cxiT17ymxU9cIuO2Q+ILtxjKOFFcy5wxSGtxOQmi2PX2YFn8GebTTLKPt42aLk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EIXr0/Nq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XOPc8K41"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE3461F008A1;
-	Tue, 13 Oct 2026 16:38:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EIXr0/Nq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A55B1F008A0
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 16:38:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791909493;
-	bh=5JjUhGeNIiMMANRRaRsl1pjhnEELfb6stTWkWEvlDGk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XOPc8K41ZtPawQbQY0ycbHdlD1r+q7i2YNb8nWdP3Nki8QCWNHVDWn8Rv9Boj0vA1
-	 h54iiFOgIU5hKxvZ/JnFd2AhxdpFHcPWCFLtawSfiqMR/HqRZyrbHdoKZqK3wdzXZl
-	 4VCOS5dlwpn6j+8pzRpE4DfksdNVr844PnTv91tpdRjL4uEdKPdJk1hxBHX/+c6+Iq
-	 9ugkEdgrOvjXJgUCrboKSoR+vQ4PKlN83dql9jOUE2hy25vcyc8irPF6Z0RKRT+nQ7
-	 ZcFkkgfbUMKLCYRQ3lPWWUXcf9p5bUXrkDwqNEsAtrHvCLY/oin8rUAodncurSG0Xm
-	 l697HdRha7amg==
-Date: Tue, 13 Oct 2026 17:38:08 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Robert Marko <robert.marko@sartura.hr>
-Cc: linux@roeck-us.net, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, Steen.Hegelund@microchip.com,
-	daniel.machon@microchip.com, UNGLinuxDriver@microchip.com,
-	nicolas.ferre@microchip.com, claudiu.beznea@tuxon.dev,
-	lars.povlsen@microchip.com, linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, luka.perkov@sartura.hr
-Subject: Re: [PATCH 1/6] dt-bindings: hwmon: sparx5: add LAN969x fan
- controller
-Message-ID: <20261013-unnoticed-deviator-fa9263334ad5@spud>
-References: <20261013125735.1542349-1-robert.marko@sartura.hr>
- <20261013-stylized-plethora-2a9e27545adb@spud>
+	s=k20260515; t=1791909536;
+	bh=aoc8nug3Q5d4idvy+yC0Mx43dQ2bXsa5/t1xC0cav2Y=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=EIXr0/NqPFBPFbx1LaDsMXlKsGpxcyH5MhiMvJJEZ0hq0e0/HC3jK3AP1NrWRjgJ0
+	 9d+nW7mdbCZJFLBgvbC5gEY/xtmIeMTs8CfOlk1pibY1P/VXzO6VDvkSex+a/sQXwN
+	 JnsYAeNzc+oKZ6PMto84QQDBwMXAHAxm5+0qr302BxdESzqlPu72UGNyXChQ4ZYlW7
+	 TBEzkfcGSCutzCxu3ePjH/mnwPyN0Z2BazHlesETGhJDeapcn82BQpOxKPnbkJzAYZ
+	 54GU+w60CWQYtSjOWvzvxPPDu7y+qTe8EdOGslq1DfkZhUdWbgDnzizxDKE5xj+M/q
+	 q9MeRX/XD/Ewg==
+Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5bc18f54abbso1489728e87.1
+        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 09:38:56 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBznPaqRWnxCpflf3C8oftov/A2lrb8dDsJZ8OomGX/arSm8AenbJs9D3tx4jLvtm9ZySU6+FUACdR5v@vger.kernel.org
+X-Gm-Message-State: AFq9FYLa5TPCyjhF6VK0v3ezE40jYydvCYQsZFgeIdnKHXnsxTAttmMC
+	G1WOdM4yPMPZVZF+8eZklDtICg3A3Mgrh6iLHGwi26ZfpBNjwnp7CV6EAfjYp0KlaS0Vcstb+FU
+	1rNY3Ff5M1y0VmmRlA3YyVvHp9gTPgYs=
+X-Received: by 2002:ac2:4e0c:0:b0:5ba:3b49:1ed4 with SMTP id
+ 2adb3069b0e04-5bcde8be31dmr4294291e87.44.1791909534950; Tue, 13 Oct 2026
+ 09:38:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="dNzm2dIscauwjnQ7"
-Content-Disposition: inline
-In-Reply-To: <20261013-stylized-plethora-2a9e27545adb@spud>
-
---dNzm2dIscauwjnQ7
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+References: <20260921-cv75-v5-v8-0-282ff5d98dda@ambarella.com>
+ <20260921-cv75-v5-v8-4-282ff5d98dda@ambarella.com> <CAD++jLmKF5XxHsJX29sdXC_6JHKn-7HkE=N+TKtk5xODtQj3_w@mail.gmail.com>
+ <b2256847-3ec1-47e8-ac79-ceca86eb09e7@kernel.org> <CAD++jLkrXXg9xrhAZ8HETc5Qcv5BbkY-ibjvzBmE5WZVqDEGWQ@mail.gmail.com>
+ <a0eca34d-5eb2-4730-b8c7-0f2302bcf265@kernel.org> <CAD++jLm=T-U07vAVCogMnfOfkDf=i9QhGGc8ok2N-ZUh50WLNA@mail.gmail.com>
+ <56dc6c05-7fd6-43de-bc62-c353ae1dbcc3@kernel.org> <54b55ad7.9d3a.1a135b09587.Coremail.zl020895@163.com>
+In-Reply-To: <54b55ad7.9d3a.1a135b09587.Coremail.zl020895@163.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Tue, 13 Oct 2026 18:38:40 +0200
+X-Gmail-Original-Message-ID: <CAD++jLmrQwAT1Sb8HGgoM8x48rN9-pPT2RB1GE18h5YA7c4CwQ@mail.gmail.com>
+X-Gm-Features: AclHuK-C40htUqR0sQkUyvXzKiDDbUaAdB38TRfKZGEWECC-r-8bfyITN0j8-AE
+Message-ID: <CAD++jLmrQwAT1Sb8HGgoM8x48rN9-pPT2RB1GE18h5YA7c4CwQ@mail.gmail.com>
+Subject: Re: Re: [PATCH v8 04/18] dt-bindings: pinctrl: add Ambarella CV75 pinctrl
+To: zl020895 <zl020895@163.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, longzhao@ambarella.com, Arnd Bergmann <arnd@arndb.de>, 
+	Alexandre Belloni <alexandre.belloni@bootlin.com>, soc@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Jerome Brunet <jbrunet@baylibre.com>, Bartosz Golaszewski <brgl@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Jiri Slaby <jirislaby@kernel.org>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	=?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+	Catalin Marinas <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, Lee Jones <lee@kernel.org>, 
+	mfd@lists.linux.dev, devicetree@vger.kernel.org, linux-clk@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, linux-serial@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, 
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, Oct 13, 2026 at 05:30:29PM +0100, Conor Dooley wrote:
-> On Tue, Oct 13, 2026 at 02:56:25PM +0200, Robert Marko wrote:
-> > LAN969x integrates a PWM fan controller with a tachometer input in
-> > addition to the Sparx5-compatible temperature sensor. Add a LAN969x
-> > hardware-monitor compatible and describe the second register region.
-> >=20
-> > Describe the fan as a child node using a two-cell PWM specifier for the
-> > period and standard polarity flags. The child also carries the optional
-> > tachometer pulses-per-revolution and thermal cooling properties.
-> >=20
-> > Keep the existing microchip,lan9691-temp compatible for device tree ABI
-> > compatibility.
-> >=20
-> > Signed-off-by: Robert Marko <robert.marko@sartura.hr>
-> > ---
-> >  .../bindings/hwmon/microchip,sparx5-temp.yaml | 90 ++++++++++++++++++-
-> >  1 file changed, 87 insertions(+), 3 deletions(-)
-> >=20
-> > diff --git a/Documentation/devicetree/bindings/hwmon/microchip,sparx5-t=
-emp.yaml b/Documentation/devicetree/bindings/hwmon/microchip,sparx5-temp.ya=
-ml
-> > index 611fcadb1e771..e91c2a3ccd3c9 100644
-> > --- a/Documentation/devicetree/bindings/hwmon/microchip,sparx5-temp.yaml
-> > +++ b/Documentation/devicetree/bindings/hwmon/microchip,sparx5-temp.yaml
-> > @@ -4,13 +4,15 @@
-> >  $id: http://devicetree.org/schemas/hwmon/microchip,sparx5-temp.yaml#
-> >  $schema: http://devicetree.org/meta-schemas/core.yaml#
-> > =20
-> > -title: Microchip Sparx5 Temperature Monitor
-> > +title: Microchip Sparx5 Hardware Monitor
-> > =20
-> >  maintainers:
-> >    - Lars Povlsen <lars.povlsen@microchip.com>
-> > =20
-> >  description: |
-> > -  Microchip Sparx5 embedded temperature monitor
-> > +  Microchip Sparx5 temperature monitor with a fan controller on LAN969=
-x.
-> > +  The fan child's pwms property references this node to specify the
-> > +  PWM period and polarity.
-> > =20
-> >  properties:
-> >    compatible:
-> > @@ -18,11 +20,19 @@ properties:
-> >        - const: microchip,sparx5-temp
-> >        - items:
-> >            - enum:
-> > +              - microchip,lan9691-hwmon
-> >                - microchip,lan9691-temp
-> >            - const: microchip,sparx5-temp
-> > =20
-> >    reg:
-> > -    maxItems: 1
-> > +    minItems: 1
-> > +    maxItems: 2
-> > +
-> > +  reg-names:
-> > +    minItems: 1
-> > +    items:
-> > +      - const: temp
-> > +      - const: fan
-> > =20
-> >    clocks:
-> >      items:
-> > @@ -31,11 +41,67 @@ properties:
-> >    '#thermal-sensor-cells':
-> >      const: 0
-> > =20
-> > +  '#pwm-cells':
-> > +    const: 2
-> > +    description: |
-> > +      Number of cells in a PWM specifier.
-> > +      - cell 0: PWM period in nanoseconds
-> > +      - cell 1: PWM polarity: 0 or PWM_POLARITY_INVERTED
-> > +
-> > +  fan:
-> > +    $ref: fan-common.yaml#
-> > +    unevaluatedProperties: false
-> > +
-> > +    properties:
-> > +      cooling-levels:
-> > +        description:
-> > +          PWM duty-cycle values corresponding to thermal cooling state=
-s.
-> > +        items:
-> > +          maximum: 255
-> > +
-> > +      pulses-per-revolution:
-> > +        minimum: 1
-> > +        maximum: 4
-> > +        default: 2
-> > +
-> > +    required:
-> > +      - pwms
-> > +
-> > +    dependencies:
-> > +      '#cooling-cells':
-> > +        - cooling-levels
-> > +      cooling-levels:
-> > +        - '#cooling-cells'
-> > +
-> >  required:
-> >    - compatible
-> >    - reg
-> >    - clocks
-> > =20
-> > +allOf:
-> > +  - if:
-> > +      properties:
-> > +        compatible:
-> > +          contains:
-> > +            const: microchip,lan9691-hwmon
-> > +    then:
-> > +      properties:
-> > +        reg:
-> > +          minItems: 2
-> > +        reg-names:
-> > +          minItems: 2
-> > +      required:
-> > +        - '#pwm-cells'
-> > +        - reg-names
-> > +    else:
-> > +      properties:
-> > +        '#pwm-cells': false
-> > +        fan: false
-> > +        reg:
-> > +          maxItems: 1
-> > +        reg-names:
-> > +          maxItems: 1
-> > +
-> >  additionalProperties: false
-> > =20
-> >  examples:
-> > @@ -46,3 +112,21 @@ examples:
-> >          #thermal-sensor-cells =3D <0>;
-> >          clocks =3D <&sys_clk>;
-> >      };
-> > +
-> > +  - |
-> > +    #include <dt-bindings/pwm/pwm.h>
-> > +
-> > +    hwmon: hwmon@e2020100 {
-> > +        compatible =3D "microchip,lan9691-hwmon", "microchip,sparx5-te=
-mp";
-> > +        reg =3D <0xe2020100 0xc>, <0xe2010348 0xc>;
->=20
-> Are these actually the same device? These are somewhat disparate
-> register regions - and the second is at a very odd offset.
->=20
+On Tue, Oct 13, 2026 at 4:36=E2=80=AFPM zl020895 <zl020895@163.com> wrote:
 
-Hmm, doubly suspect since there's already a lan9691-temp compatible...
+> Would this work?: I send a standalone
+> "dt-bindings: vendor-prefixes: add Ambarella" patch to Rob with only
+> the two lines in vendor-prefixes.yaml, and drop that hunk from the
+> SoC series. Once the prefix is in linux-next, the vendor-prefix
+> warnings should be fixed. The remaining example matches, such as
+> ambarella,drive-strength-syscon, still need the separate
+> GPIO/UART/pinctrl bindings.
 
-> Thanks,
-> Conor.
->=20
-> > +        reg-names =3D "temp", "fan";
-> > +        #pwm-cells =3D <2>;
-> > +        #thermal-sensor-cells =3D <0>;
-> > +        clocks =3D <&sys_clk>;
-> > +
-> > +        fan {
-> > +            pwms =3D <&hwmon 40000 PWM_POLARITY_INVERTED>;
-> > +            cooling-levels =3D <0 128 192 255>;
-> > +            #cooling-cells =3D <2>;
-> > +        };
-> > +    };
-> > --=20
-> > 2.56.0
-> >=20
+That works for me and solves my problem so go ahead.
 
-
-
---dNzm2dIscauwjnQ7
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCas5ecAAKCRB4tDGHoIJi
-0miiAQDcoS6pSOZe09nTKWW5+iqnZh40Ene/HF8ywjE+shE02AD+L+ZLOFQc9oo7
-WY2OttGlEwnYUHuXtVrbQDVuvlVSAAs=
-=YRrz
------END PGP SIGNATURE-----
-
---dNzm2dIscauwjnQ7--
+Yours,
+Linus Walleij
