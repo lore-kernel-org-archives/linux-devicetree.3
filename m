@@ -1,106 +1,149 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com [209.85.208.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 635D04EB844
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 11:19:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 211A84E9C01
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 11:21:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791890376; cv=none; b=IlyskvFy0+3Mow269iQkl4pE3/H53BBdQFNnqi8viMmCoBXcjElczBUxs5GtLwKv6GPgHFaYgCoxUhh8nP3KW9t7AMkSR7jzEpjdlrcYgVGvj6Ii8AqgLQLocCyPB5qIE/zdTWHKVclFOLvJSFtj+7PzGFAZ8gc21n55In3/55c=
+	t=1791890508; cv=none; b=CPAW4oTNMzdArfuuBLMwYNB680RJdB0RhMAxljSm6aJBlM5pALxpIdmtbPR+ADWHWuYbsb4jGoFtJ3ODUKS4rjuMXt3brTWCSoZRYejn357IiSbuSGY+MNlKcpsaWVtte88uUz6qaSNccMPISRlFSQSNfXYDigV3yhV3Yr/WsXo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791890376; c=relaxed/simple;
-	bh=96sNeMI4SP31iYT5iolmBq7vtM9iKYSKcQ6yUNtNKOA=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=EZbBr8484xQfnDGUeq+N2Tz/kWUJKrR24gBgwLQ/Parp1KIy0SgWLoVHBaDhlxYnN461oYgJ2dH+rJjfbvMh7bdY9ZytRm6LXojL/h+in7j9/ZWzwO/BcQPm3ouZ+Nu20vTdK4mD3JUlyPzmidu0+3AwF7xg+ieQP7kyteRw9V4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aMkgdSqi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791890508; c=relaxed/simple;
+	bh=1b2YdOinPgswRzD0U/ah6zIq9R/wJFvfLi8bFpVXbWE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cwsh3FGTp0ug/cIMKbaliKq7W7amxfE6SMGR+xLZQa+C8l8XhMl9XDipJHzO6FrVV+eOXwnpsc16rLPZiZms/C5JjcgYTQBLTAEYT7f1sl3pVyG2D7+jJK8fwlyMIdfIwsSs8mn1jM03Q2vbgXf7dwN1KnJbL5J+mJ4Iln7eM4Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XBTgvb3G; arc=none smtp.client-ip=209.85.208.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aMkgdSqi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74F071F000FF;
-	Tue, 13 Oct 2026 11:19:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791890375;
-	bh=wlSQFeKqqorcKsXMeHTMB202B8crFkNp892yruGdboY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=aMkgdSqiDjj1e51hUTNpUuvoge3LVlxWCm0/YTCXw46OlLRkx5AcEil8X0ifoZmFC
-	 riHpF0sakboMAud9BsHSag/rot7lBWdyxynVjDoyar21d3LOqscAB5OQQ3aVi0RnCK
-	 tnz0cisDf+DPdGISp28WOQA2XLFvqjWASSjoeux2Z1G9m6GbBWjo754S9sUlHl3pEB
-	 tDPtbhY3n3lIQXtvLcfcfcFskG47Apvqf6kPuuS7bmxDoZ4+jdVBoDZwg/oj+whrse
-	 RCWv/QlUtj7qcrLidSHRgmAqVF9ebSa1p5aR0OtCNy7ilYMGqL9j8e6PjOFkU72XHY
-	 BPr9G+sV3dD1w==
-Message-ID: <sashiko-outbox-169606@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/8] dt-bindings: media: Add CAMSS device for Hawi
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Nihal Kumar Gupta" <nihal.gupta@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, linux-phy@lists.infradead.org, robh@kernel.org, conor+dt@kernel.org, media-ci@linuxtv.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
-In-Reply-To: <20261013-hawi-maili-camss-v2-3-fc93222da89c@oss.qualcomm.com>
-References: <20261013-hawi-maili-camss-v2-0-fc93222da89c@oss.qualcomm.com>
- <20261013-hawi-maili-camss-v2-3-fc93222da89c@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 13 Oct 2026 11:19:33 +0000
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XBTgvb3G"
+Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-3a65ed9c7cfso21177431fa.3
+        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 04:21:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1791890505; x=1792495305; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=KkAADBUNoE9vkJ6CKgpfe3PgX88GbGiCjcr9TkKhtAA=;
+        b=XBTgvb3GK2k2spGG1AW1sw2g3iNC67XaLOnouOHiMHVjGJgGKzOLA0UXkLC+PTWcpV
+         8RsPdkpeb0AA74ZzI+LyZ6pk8hfsbNbxZq6n2LcArb0Schi6OQaXKG7RJbBIGglzpUQ4
+         bOyQ9Ukwx5eE8UydtRzXjyrBCjdBny4GegdXbrVX4xgFpkc460X+Pgf/Vs13o5yBUL7U
+         lNQB/bOr6VkZdki7duiAKxNNJJpQsldnOEVCdpU/2r7nm73Xa5iMg8Uc3Pe425AOlNWP
+         S49NtBZvYJ3xkAqsW32w58d5icSCoNj0TJascgxgWhsSynvuxFzg2YAW2iSQuX3NvoSm
+         9z+A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791890505; x=1792495305;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=KkAADBUNoE9vkJ6CKgpfe3PgX88GbGiCjcr9TkKhtAA=;
+        b=gh23L/d2WiKOoeWOR/IfFiXXRoCRbTmlJrXKOvkAveCmRQ4K47LrPUNUe3NMZEJvdy
+         21FFppzDlpmoYat2YcJP5XT6Y/J+jb+PFLSAxm7/RpIOtzGlNVxSVBqMBLLSaCT8AxCH
+         lN7Ssth/+n9qY9ftxSjm6SUMt7e+fwp9tW0uSSMJLmMFvEhagmKWjHphTdf+JjD9k5GA
+         AHZH4tWpQdJxdZ79wQeLGCOqmPb0yeHYludjvuNOhMQO8xlpGjeOnBtMK6KinAP/Vdmb
+         bNZ6Qn5vLE9u5BPVabCwgxLskGURXjLKwKEAxc+n0Xeui1pzd5r5yEvA6VEaEDVI+amW
+         3xwA==
+X-Forwarded-Encrypted: i=1; AKwUvBw7KgXAbNX00TJS4f239mDGPi+2OhwtNhu4sCNawxNHsLupy6CR2Hy0jj/NxP1R0yJFsdE6AXCsuHKg@vger.kernel.org
+X-Gm-Message-State: AFq9FYImRbbUSDbZY3E9MjefRtBQTGWdbjZjlvE1YaTYIFDI4KyZw9Z8
+	CAbU6BZUq3nlIGi9YAa6bmPHzjpy0Kf56iFMrFkgFOn7lel/ttLCBpWq
+X-Gm-Gg: AYBFou2BZAZ+dCywjUORu4anGPBl/lCa4MkzCIyzvUEzk4uGCiOzGkZDElr9dN+A1IL
+	NmDX4G+0VPWH5KbOdhObVSITDTIIv8MUX5+/0fZP+xooXc9a7RbSgEZJ3Fcok+jRWGcd1ZfDdzU
+	f+PNngh1rA6TqNMy+LtLfNE1+LI8lv2uqOmKUdDhjZrWUyZH48OPvwG7lOUBKIpF9QsBJVzBoAY
+	uonFK8QceesEVgO9KIvfk7RoFA6FMZg5rbFGlbW0Yj49OuaJQwOO1iY404tONLTJ5oTqOAD/IQu
+	h9mIgwVRsok389DlvBBVbHx4hPPy9W0R9MmD+WFH8wa3Yus8ZylrXzp1VN0SAJjO3qv6+9rhu2e
+	KwbkryYsJaKILQnwCPj2gwVenWzy0L2kWtChaJ2zNkBA04gy6pRzhxc4sOjs7XfYfyezkYS1JcH
+	W9lTLSctQMJfPjf2bHacp52rGShzdxlHGWOUyxtdtJjdpPwG9Ytc7b3sZn0l+a0HwlqeCQXsGFe
+	a62e2LsvuschU3+xvQstNuOuZn3XJuKJ30OVSWx+Z/1NlMDtA2Tu1E72lq3y6v5+2kXmm0eBeTZ
+	Epi1M3ier3W3HAmM4jWKr/EXec4=
+X-Received: by 2002:a05:651c:1542:b0:3a6:3c86:df91 with SMTP id 38308e7fff4ca-3a9c538ca71mr36501091fa.23.1791890504793;
+        Tue, 13 Oct 2026 04:21:44 -0700 (PDT)
+Received: from M-K2012N0113010.localdomain ([88.119.128.229])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bcf8a3970asm1116148e87.79.2026.10.13.04.21.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 04:21:44 -0700 (PDT)
+From: Paulius Zaleckas <paulius.zaleckas@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+	linux-iio@vger.kernel.org
+Cc: Eddie James <eajames@linux.ibm.com>,
+	Joel Stanley <joel@jms.id.au>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@intel.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Rupesh Majhi <zoone.rupert@gmail.com>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Paulius Zaleckas <paulius.zaleckas@gmail.com>
+Subject: [PATCH v2 0/6] iio: pressure: dps310: fix pressure overflow, add Zilltek ZTS8032
+Date: Tue, 13 Oct 2026 14:21:18 +0300
+Message-ID: <20261013112124.1878296-1-paulius.zaleckas@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] dt-bindings: media: missing data-lanes required property in CAMS=
-S endpoint schema
---
+The Zilltek ZTS8032 is a register compatible DPS310 with two more
+pressure calibration coefficients. Bringing it up showed that the DPS310
+pressure compensation overflows s64 at most oversampling rates, so patch
+1 fixes that first (Fixes: + stable); the rest adds the ZTS8032.
 
-commit 18094c7169d82b9037445f511f9e26e4a55cc448
-Author: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+1: Evaluate the compensation polynomial in Q20 fixed point. The current
+   p^3 * c30 / kP^3 sum overflows, losing the c30 term: about 20 Pa low
+   near sea level at oversampling 2, 4, 8, 64 and 128.
+2-3: Vendor prefix and the zilltek,zts8032 compatible.
+4: Per-chip data in the I2C and ACPI match data, no functional change.
+5: OF match table.
+6: ZTS8032 chip data: the coefficient count (c31, c40) and the TMP_CFG
+   startup value, since TMP_CFG bit 7 is a rate bit on the ZTS8032.
 
-dt-bindings: media: Add CAMSS device for Hawi
+Based on iio/togreg, on top of 4334dc4092c2 ("iio: pressure: dps310: fix
+CFG_REG bit definitions"), without which oversampling 16 and above
+returns -ERANGE.
 
-This patch adds bindings for the Camera Subsystem (CAMSS) on the Qualcomm H=
-awi
-platform. The CAMSS IP includes various components like CSIPHY, TPG, CSID,
-and VFE.
+Testing: ZTS8032 on an arm64 (MT7987) board, the series backported to
+6.12. in_pressure_input matches the datasheet formula evaluated from the
+raw and coefficient registers to within 1 Pa at every oversampling rate
+from 1 to 128; the fixed point math was also checked against a floating
+point model over 300-1200 hPa for all rates. Every patch builds without
+warnings with W=1 on x86_64 and i386, dt_binding_check passes. I have no
+DPS310, so patches 1 and 4-5 are untested on one.
 
-> diff --git a/Documentation/devicetree/bindings/media/qcom,hawi-camss.yaml=
- b/Documentation/devicetree/bindings/media/qcom,hawi-camss.yaml
-> new file mode 100644
-> index 0000000000000..5bf0dca3d2462
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/qcom,hawi-camss.yaml
-[ ... ]
-> +    patternProperties:
-> +      "^port@[0-5]$":
-> +        $ref: /schemas/graph.yaml#/$defs/port-base
-> +        unevaluatedProperties: false
-> +        description:
-> +          Input ports for receiving CSI data on CSIPHY 0-5.
-> +
-> +        properties:
-> +          endpoint:
-> +            $ref: video-interfaces.yaml#
-> +            unevaluatedProperties: false
-> +
-> +            properties:
-> +              data-lanes:
-> +                minItems: 1
-> +                maxItems: 4
-> +
-> +              bus-type:
-> +                enum:
-> +                  - 1 # MEDIA_BUS_TYPE_CSI2_CPHY
-> +                  - 4 # MEDIA_BUS_TYPE_CSI2_DPHY
+checkpatch --strict suggests BIT_ULL() for DPS310_Q_ONE; it stays a
+signed 1LL << 20 because it multiplies signed raw values.
 
-[Severity: Medium]
-Should data-lanes be added to a required array for this endpoint?
+An LLM coding assistant (Claude Code) was used for this series: it
+found the overflow while porting the ZTS8032 vendor driver, wrote the
+code and changelogs, the floating point model and the hardware test
+scripts, under my direction. I reviewed and tested the result.
 
-Device tree configurations missing the data-lanes property will silently pa=
-ss
-schema validation but fail at runtime. The V4L2 CAMSS driver relies on the
-data-lanes property to properly program the CSID hardware for lane extracti=
-on.
+Changes in v2:
+- Split the driver patch into per-chip data (4), OF match table (5) and
+  ZTS8032 support (6) (Andy)
+- Drop the linux/mod_devicetable.h include (Andy)
+- Return -ENODATA when there is no match data (Andy)
+- Add Conor's Acked-by to 2-3
+- Link to v1: https://lore.kernel.org/r/20261012114550.1680054-1-paulius.zaleckas@ui.com
 
-Omitting it from a required array defeats the purpose of the YAML schema
-constraints.
+Paulius Zaleckas (6):
+  iio: pressure: dps310: fix overflow in the pressure compensation
+  dt-bindings: vendor-prefixes: Add ZillTek Technology
+  dt-bindings: iio: pressure: infineon,dps310: Add Zilltek ZTS8032
+  iio: pressure: dps310: add per-chip data
+  iio: pressure: dps310: add an OF match table
+  iio: pressure: dps310: add Zilltek ZTS8032 support
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261013-hawi-maili=
--camss-v2-0-fc93222da89c@oss.qualcomm.com?part=3D3
+ .../iio/pressure/infineon,dps310.yaml         |   4 +-
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ drivers/iio/pressure/Kconfig                  |   4 +-
+ drivers/iio/pressure/dps310.c                 | 148 +++++++++++-------
+ 4 files changed, 98 insertions(+), 60 deletions(-)
+
+
+base-commit: a3b3580713f3ac5a32dc2874ee546828977a1d68
+-- 
+2.55.0
+
