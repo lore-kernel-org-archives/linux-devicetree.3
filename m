@@ -1,312 +1,270 @@
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011008.outbound.protection.outlook.com [40.107.208.8])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B60CD48F03F;
-	Tue, 13 Oct 2026 06:04:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.8
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791871467; cv=fail; b=VNb0vHQFjSr2B5TRSOqZaT4fT+jvJR54E/+PL2KUrdFtGWDRgpWsyfQqPDupjEZ8btOKnyZ9Izu95D7kQZpihQ/ksj0+RKqtcXSoX6FEjOWP8rPNfQqlNedSLnJd1bydlc++3F1b0kaHXmbO27hr9nOZquWEorPj9EUC0R3ZNIg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791871467; c=relaxed/simple;
-	bh=Zj3Lx34SFmPJXkyQzk0Hyqubv0DaakibaUMvY16WEww=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=eeJk3sn+F5AZ1tkY7AlzAAlwp455UPKkFa65QZJB3PObr6dyLg/j/m0hmzk9ef+2QnHgO9tPQUoBpCT8UWs/hZEdkplONVk5NYdELOq0SfV2S5T5fmYvhfyUgsQXmwJhBxN5SQMFh/kZbIaXsk/w8A5WWh1QSiRJNScTTFF04vc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=iMkxOpu4; arc=fail smtp.client-ip=40.107.208.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 447D7439340;
+	Tue, 13 Oct 2026 06:06:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791871564; cv=none; b=uSqQZ7aaQi6OEH/iXrQcnPps/KGFmKFKW5GIDLA9WIjhJLcsEHdjq5GZqjHphSt78o2yHBDLq0PJW1OTrca5p1phhhR8Zu0pFqEWRCOnwzvnDw+KvQHonH4Q/owmaqntqSoQMsY8Dsr0zWMiABZS6tgsnZ1dUFbfUym5DvEOLr0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791871564; c=relaxed/simple;
+	bh=smb9PV/G3a8tOQlb9nB96l7JVNEAZ8xzpVzZb+MZpx4=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=K+VA82edE4TraSgSvlOyMuCRFd6+IASUqe7a+Jf04J5CgTYyNHX15m56PRSp6/4CmqtBB6yddlICkFKjRRQVBcYmQ5VNnhwFSc9d2JgTzrz+Le7RAd6i4S/S+X326xRaLul/+5LLD+HFH4hNP+gzHKQR/8leAT+Y/TzEEU0plXM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a/yIdCoJ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="iMkxOpu4"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nmzc1ZhBmy+sKZ19UEGY/8Kthoh9xd3UtnDpZMZDQBHzoA8x3AajTgy26RSv1n4TmQF8nTE02xVNEZBOIKoc52oboivtglHlatuPAU7TBS0+qJT68eU7FOiuLyv//0r1iVft7BbKLNG+thh/3Lzg0o/MhqPOBKHzGVtbeKSV3KVP5f9TaxOVWazgzzo1Y4o8T8a14ybEz43bazJ4lyjXc+RY/teaw6ZL9nwpsGGmCWnLReH8ie/4d0NKmQvO1BBoG8uHQY/Hp/qaBoM9DaFX4a+m+snzqq+Sjh8ZzfH7erVuvq62KUObi9nGow4TPqpQLyMcH5zDzTnNBTpifwvT5Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=89Lh5xWWd8/BsPzN3WIOfc6+rC2H0Quu6iPV35kIXT8=;
- b=AegRAE9N2UvrCKo/nvXby1zFmnh/w7vr2DX8dV0mvpNNrw6G15XaIc7YGzF1xDWtnTMk5GIkZwtAhGcb7cpNPntMsr3Kt3JGDMCYATi5IfHtydFm+XMTvA7eqcOao22EZ2GjnpeNFmqIYqNNyFm22ZwAjky7gjVZ/KgkZWjyMeg8vgGI8eLrtVqwxrmp/yykHUpVYhpEU8KoxOKV7dL7X4lw7Vs4RiUiNZbU3CQ+mnq9hWXnp1pmOLePcp1TJcHGJg5yl80T6zsiPmDhKc+mlp4KfD2gTiBd9IfJMiCF6NxrInrniVmppQY8oayWJ3/bzev/DEaROADIYbTUkVqHLg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=89Lh5xWWd8/BsPzN3WIOfc6+rC2H0Quu6iPV35kIXT8=;
- b=iMkxOpu4pYkmZIuYNTPhSqRAJmTUIy2NYi4+AyHRlae/UQMKbu0P52g6rqXgGBe2patAF49knEvqHpdDU6kVD2K1YASkdiJAM48VihLIj3SZDX5sA6xWH3t24lZSugPAUwpk1ZD3Zz8DUHoW2SUZIsCQfRldGPB0DFx1clICFxI=
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from SA1PR12MB6798.namprd12.prod.outlook.com (2603:10b6:806:25a::22)
- by DS0PR12MB6463.namprd12.prod.outlook.com (2603:10b6:8:c5::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.496.23; Tue, 13 Oct
- 2026 06:04:21 +0000
-Received: from SA1PR12MB6798.namprd12.prod.outlook.com
- ([fe80::e317:e4a3:6ae9:8c54]) by SA1PR12MB6798.namprd12.prod.outlook.com
- ([fe80::e317:e4a3:6ae9:8c54%5]) with mapi id 15.21.0496.021; Tue, 13 Oct 2026
- 06:04:21 +0000
-Message-ID: <770cd345-98f1-4068-a706-c4e7e8b10ccd@amd.com>
-Date: Tue, 13 Oct 2026 11:34:06 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v4 2/6] dt-bindings: net: xlnx,xxv-ethernet: Add
- Xilinx XXV 10G/25G Ethernet
-To: netdev-bot+sashiko@kernel.org
-Cc: radhey.shyam.pandey@amd.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@kernel.org, kuba@kernel.org, pabeni@redhat.com, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, michal.simek@amd.com,
- linux@armlinux.org.uk, netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20261006110550.1990213-3-suraj.gupta2@amd.com>
- <179163334293.434549.14718764476813490489@kernel.org>
-Content-Language: en-US
-From: "Gupta, Suraj" <suraj.gupta2@amd.com>
-In-Reply-To: <179163334293.434549.14718764476813490489@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: PN4P287CA0121.INDP287.PROD.OUTLOOK.COM
- (2603:1096:c01:2b2::8) To SA1PR12MB6798.namprd12.prod.outlook.com
- (2603:10b6:806:25a::22)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a/yIdCoJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id D3D81C2BCF7;
+	Tue, 13 Oct 2026 06:06:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791871564;
+	bh=smb9PV/G3a8tOQlb9nB96l7JVNEAZ8xzpVzZb+MZpx4=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=a/yIdCoJIA1HFBoMWTUAW5nAlAq0SNn0i5kNUUrzH2rsr+YNm1CE8ewQdsDKEK86L
+	 YAw1cgprcj4wiHLiHAXi3mgq9vhd5P1qa8QSMKtCBWGP4u841PfhAvwmdDgaSc8NR9
+	 Ppq5WwK5lXeCd/IXvTAMvvI+4arEKe2Yl/jHQOP7xZJ4lNgRakyslFfMHjuqHjp10R
+	 nTtRhLrhYCDZFbi9dP3Ncob0MvyXyy/f62TfTLYqc+kCtkQET6eQhHZatXEHIr+Zi+
+	 2RiEwMdqY9yrb0skub7xZQE30dPrc7R7R+WOjM6dC60hf4uNG4TLRwnzR+5dqWa9ap
+	 TFqnxAkkerwNA==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id A6EDBCC6B03;
+	Tue, 13 Oct 2026 06:06:03 +0000 (UTC)
+From: Fil Dunsky via B4 Relay <devnull+filipp.dunsky.gmail.com@kernel.org>
+Subject: [PATCH v6 00/10] ARM: Add support for Cortina Systems CS75xx and
+ Securifi Almond+
+Date: Tue, 13 Oct 2026 09:06:01 +0300
+Message-Id: <20261013-b4-cs75xx-v6-0-37e8f3969b7c@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SA1PR12MB6798:EE_|DS0PR12MB6463:EE_
-X-MS-Office365-Filtering-Correlation-Id: e1cf08dd-a01b-4bc0-68b9-08df28efd2e6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|7416014|376014|23010399003|6133799003|10067099003|18002099003|22082099003|3023799007|11063799006|5023799004|4143699003|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	ngRN3gn+f294NTEoacAvCqIk1sKp75D6Sxngcid+E6xPTkGduc8imQNnsHAW9VgwR8lTmC/kekYuGvGX9wSkyWvnohVMdRpuHEjFYM0Htg/JGy8ASl93CsuvY/5xqq42BZ5q4RXGrqtOmo1cUWQxEsZ6PDTgmZVUpJSHMdS14OhmSyh/tjyIqEhCCK2cLF7FUD9EjjAjrxdwoS+jM4Spi8/2bwHFIwX7QYf2lGHnYSyTPJiKjBS+zq10VI4hutsJVnuXqgCA2S/JoHr1k5UyTPEqs+Y7LacKsBzOxslVba8fArYVbXL8rbp7l3tew5n7KiROsZtyGHR00ILOW86Rj3hXoS/ePwh2nbFnV5como32N/QmvcTHnh7lqeUavNPV1BHuh54qIkxrEeMYb6mMdqC6YUiKeAAu764+Brg2RI0/teGRiY6g1dAgu1kVha7vHauNMNEzQlLFNLdtjSUUo6Q9n+6h4EU1EJywbD/r5+O5RzRnFdC6yy4YFVegi3TdXrwWc70gcnUooCBWp1r/do9npGbn4/AJtPBPEcBTIL8OcaXRAKib2JBt2KfNtOmZxfx0O02QkdZsKPyyS1lX3VaqyDe3Zut3c3Bf/Y4FktpP+buvmIUAXVoapgRORmlvu+r0GeMX8WWBdbrMpwu7tZ45jrdktO0syFm+ueTYbxA=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SA1PR12MB6798.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(23010399003)(6133799003)(10067099003)(18002099003)(22082099003)(3023799007)(11063799006)(5023799004)(4143699003)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Tm1JOElzQ0pGWlNnNHVxSEwzcFVHQUljVmxOa2NQWHlJaFhHbDZ5aGI0T2hr?=
- =?utf-8?B?dlc5Q1VoTUlVK1NmK2psMVNUSmtTUkZWOWVqWEhWYlRkSCtHYzcwOXUybEZG?=
- =?utf-8?B?MWVITEo2VVBrakdPMjFVNHlYMVRDbkUxRG5pN3pPbm5vTG9rVXp4RmZUTytW?=
- =?utf-8?B?NDZHb0FrLy9talFRbUM0RzI0ZFlMdDcyUGlxbHRkbGJTRFlreG41WTR3RDNN?=
- =?utf-8?B?Q01URE1nK2laMkZOd1dRb25KT0g4bTZmeDNlR1ZiSXhMZXJxMjdjN1VoYW5V?=
- =?utf-8?B?M3dENG5SZHQvU1ZOSnlGOXhHb0pacDArSFI2VE5MaW9raVljZ2Z0bEs0SCtM?=
- =?utf-8?B?T2dTcTQ5ZGNvN2FLTnhnTWwyTXN5OFFMUzlGUlNweXNQUi9oMjBJUGM2Mk5I?=
- =?utf-8?B?dXlvdGdLQ0trcWVzQUFPcFVtcGJXOWhjZHF0OXlNc0JZS1JndkN4d3ZFTTRB?=
- =?utf-8?B?UlFpZ1hjMUZKVHh3TTNJL3IwR0ZQR083VWlSbFUyTG5JT1krZkhYYURtQnFm?=
- =?utf-8?B?ME9tUjRWNjA5MEYvUjczVnMwRjA3ZUdCc0oxbXE1MlRuaVF1MUtsMFcrRGNp?=
- =?utf-8?B?cVBOWFZQT1VTc3JWOS9rN3FqbHlvQTdFdkpZbVlIbFFwSnhLdDVWVDRyaG05?=
- =?utf-8?B?VThUOTZWWGF2aDArcUsrQmR3NHpDWWhNQkNCWXVBMk91Q2QvNVhvNERXOTg3?=
- =?utf-8?B?RVlmSVRwaStHSmJVKzlMYjdyQ0xnNmg4MWJDcWx3S3UvOGJzMWllaFVtNWoz?=
- =?utf-8?B?Q3E0R2g1WFo3c1lFUkNhbE5mVmkrQ01wcTlMLzZQYXVRcCtQL0xsSEFIZUVW?=
- =?utf-8?B?VHo4b3BNeG5XTFZxWjhXZUE2YVdjWi9laXpPSlVQZTRBUTlJZyt6eDF2Nlda?=
- =?utf-8?B?WWFYbWtGNlUySWtjYk01a1VDR0RoS1lZejZaeG43ZlZYUnRHd2FxQnR0Vk02?=
- =?utf-8?B?VzVrZ0YxYXd4MXZSSi9ZQnNBMGVNbFJNUkxhN3lFWlJESEl2VWpMaWJoSmJx?=
- =?utf-8?B?WVlSSEdmdmRLb2NqdWRMR2ZoSDJvcjRSS0xjYWg0Y1pYdDJ5TUw3ZUFNR2h3?=
- =?utf-8?B?Mm1jcGlzdTNtZFFEU084bkMveDRlWFg0Q1V0d2ZyY0RPeDA5NzNoYlQ0SXpT?=
- =?utf-8?B?OTRDR09IK1JQUVdRQVBlYzhWUjVvaWlBMjJjaCtiakUvZkhTV3pwVC8wVDRj?=
- =?utf-8?B?OTRvZWs4WURIam8rMjl0bjBiaE42MjJZeEdVK2lUczdTSGxld3V2anM5Qkxy?=
- =?utf-8?B?UTJJL3FLbVRONmhIYjBoZS96NjJGRVVYQm5RZWFPVGMrekRYVWpZOXp2cUdq?=
- =?utf-8?B?eFAvY1lIcDA3VkxNUjAycUhMWEJKMlVVVWI1dWhWdy9IRnErVTBwN3FuYXRH?=
- =?utf-8?B?VnpEK05qOFJIQjBlSHZJSDBnYlZ0aFgzb0dYK0pKc1NzSXVKRFFraTFHN3Zv?=
- =?utf-8?B?L0dVYmFjMlJIemZxd0hoRC84NVROeVBuYnBoa1JJaEtKSXZBckFLbjVZVUxB?=
- =?utf-8?B?R3BNZFpVanEzYUZjTjdlVSswMWRIcEFxTDdlajZwaUNOTEdwb2YwVmJVUVk1?=
- =?utf-8?B?QUhhTXozWW9tTE83Q0tWYlZ0cW9XRVR3d0Zkeld3S2RLdkdlTzFpMldQOTlS?=
- =?utf-8?B?TGZXNDh5U0pBeWl4U3dncHpLQmNGQTdhZUpDTTUxWE0yaGQ4M0EzVnpJN0J2?=
- =?utf-8?B?OG1md1dHaisxZU83Z29VSkxTOXFKL3pPcityREg0ZndiVllHVjlFaCtNMDBx?=
- =?utf-8?B?b09GK2IxZkFZK0tlVWluV3JtaVNaVW1qMEc0RmNiaFcxWkllTWoxSHVKSHRz?=
- =?utf-8?B?NGJIaXBhaS9ERVN4WkNESk9TZmVYRmZwZVdkTkF6NnpzZE12amJMRkhCajIz?=
- =?utf-8?B?NGJYSDg3N21YV21LV1J6NkVhcGhEa3ZDWnEvbldpdlQ0T1JPSFMwelJvUUdE?=
- =?utf-8?B?RG9wamo1dG4yeWFWdkxFRXdoVnorcVlZZWdCVDg3WTlLRzdvSXBwcVZVK1Zl?=
- =?utf-8?B?L0ZTL2ZtNFZmOTM3S29QZll6RFg1SVVaK3ZwSHJqb2MrSy9oZEJlZ2dmQ1pM?=
- =?utf-8?B?RGZLQXc5eU1ZSkJsSk1DeGVka1Jsell5VVB2RE83NnZORi9VOUtoSHNqUkl6?=
- =?utf-8?B?aHZTWXhRa3M5aGdFckxtckVyMUpQV2RleUhqVmx3MXlJeFhLSEVxTEVFT1RQ?=
- =?utf-8?B?cjUwZVFDTG1oa0h2cHBpbXFna2NMaXRtQWpkVGhwVWwzTUFyTzBPK0Q4OUkv?=
- =?utf-8?B?YWVhWjkxNHQ4cmtBcFZwYVJRSFp3N2UwanY1Q2VqTlFNeVgwMXJ2MDJsdHVM?=
- =?utf-8?B?QlZ1WmJUT1hlOEFQNW1BTDVKQUNVWW5TSUtPQmR4aDVLVG9JcHRRZz09?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: e1cf08dd-a01b-4bc0-68b9-08df28efd2e6
-X-MS-Exchange-CrossTenant-AuthSource: SA1PR12MB6798.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 06:04:21.1746
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: wJ0IG5tedOGdosrN5COTOEjgDMhXW3rXmcxqw9+n6fgO2aH9kiAuWsGom1zt7UlWkB1RsKj8JzTsva1CS0jVnw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS0PR12MB6463
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XOTQrCMBAF4KtI1kYmmfy0rryHuEiTVCPaSqOlI
+ r27SQWpossH73szDxJ9F3wk68WDdL4PMbRNCmq5IPZgmr2nwaVMOHAFJQKtBLVRy2GggGi4BaE
+ lFCT1L52vwzBtbXevHG/V0dtrHsiNQ4jXtrtPx3qWe792e0aBCsW0FUKh5OVmfzbhtLLtmeTdH
+ t+SAeNziUmCB8e0gbKw9bcUf6VI0tVcgisBVcG/pZxLnEuZv/WaG4MFOvz4dhzHJ9BoUI1iAQA
+ A
+X-Change-ID: 20260930-b4-cs75xx-033a2c047508
+To: Arnd Bergmann <arnd@arndb.de>, Linus Walleij <linusw@kernel.org>, 
+ Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Jiri Slaby <jirislaby@kernel.org>, Russell King <linux@armlinux.org.uk>, 
+ Alexandre Belloni <alexandre.belloni@bootlin.com>, 
+ Drew Fustini <fustini@kernel.org>, 
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-serial@vger.kernel.org, 
+ Jason Li <jason.li@cortina-access.com>, 
+ Conor Dooley <conor.dooley@microchip.com>, 
+ Fil Dunsky <filipp.dunsky@gmail.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791871561; l=10272;
+ i=filipp.dunsky@gmail.com; s=20260930; h=from:subject:message-id;
+ bh=smb9PV/G3a8tOQlb9nB96l7JVNEAZ8xzpVzZb+MZpx4=;
+ b=6TAut7Llye7Tp3LtqlvuyfK+xSTMducMzjgBTcDejBRIhUtJpqqRmdYwb8GB9OcVdljnxsdfL
+ oGgCI3Z/h49B4P7kbSm9uzZ/3HcvQABx8vPNXzcM5TcmdQSNLdJSoJ7
+X-Developer-Key: i=filipp.dunsky@gmail.com; a=ed25519;
+ pk=JAYP8e2rJ54DHOmhNtXud8rl1igAaAXoOHxtJmVXI1g=
+X-Endpoint-Received: by B4 Relay for filipp.dunsky@gmail.com/20260930 with
+ auth_id=1085
+X-Original-From: Fil Dunsky <filipp.dunsky@gmail.com>
+Reply-To: filipp.dunsky@gmail.com
 
+This series adds initial support for the Cortina Systems CS75xx
+("Goldengate G2") network processors and the first board using one, the
+Securifi Almond+ touchscreen Wi-Fi router (CS7542, 2x Cortex-A9 r2p1,
+PL310 r3p1, 512 MiB DDR3, 512 MiB NAND).
 
+There is no public documentation for the SoC. The register information
+comes from the GPL vendor kernels (Linux 2.6.36 for the Almond+, Linux
+4.9 for the Verizon FiOS G1100 which uses the same SoC) and from
+disassembly of the stock U-Boot 2009.11. A full out-of-tree port
+(clock, irqchip, GPIO, I2C, RTC, NAND, PCIe, MDIO and the packet engine)
+runs on Linux 6.18 in OpenWrt; this series is the first, minimal step to
+get the platform into mainline:
 
-On 10/10/2026 5:25 PM, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential
-> issue(s) to consider.
-> 
-> Critical: 0 · High: 1 · Medium: 1 · Low: 1
-> 
-> If you believe none of the issues are legitimate, please reply to each
-> issue of Medium severity or higher and explain why the AI is wrong.
-> If any of them are legitimate and you plan to respin, please let patchwork
-> know by including "pw-bot: cr" as a separate line at the end of your reply
-> (one such reply per series is enough).
-> 
-> - [High] The XXV binding never says how link management works, so a node
->    that passes the schema, including both examples in the binding, cannot…
-> - [Medium] The binding has no way to describe the XXV transceiver (GT)
->    reference clock.
-> - [Low] The new XXV binding's `dma-names` schema only checks a per-item
->    pattern (`^[tr]x_chan([0-9]|1[0-5])$`) and a count of 2 to 32.
-> 
-> --
-> 
-> dt-bindings: net: xlnx,xxv-ethernet: Add Xilinx XXV 10G/25G Ethernet
-> 
-> This adds a new DT binding schema for the Xilinx XXV 10G/25G Ethernet IP.
-> The IP has an in-core PCS/PMA and uses an external AXI DMA or MCDMA. The
-> binding covers the 10gbase-r/25gbase-r phy-modes, the rx_core/drp/s_axi
-> clocks and the dmas/dma-names properties.
-> 
->> diff --git a/Documentation/devicetree/bindings/net/xlnx,xxv-ethernet.yaml b/Documentation/devicetree/bindings/net/xlnx,xxv-ethernet.yaml
->> new file mode 100644
->> index 0000000000000..cf31ab677a4bc
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/net/xlnx,xxv-ethernet.yaml
->> @@ -0,0 +1,110 @@
-> 
-> [ ... ]
-> 
->> +description:
->> +  The Xilinx XXV Ethernet Subsystem implements a 10G/25G Ethernet MAC with an
->> +  in-core PCS/PMA driving a high-speed serial transceiver. It supports the
->> +  10GBASE-R and 25GBASE-R line rates, with 25G operation following the 25G
->> +  Ethernet Consortium specification. Because the PCS/PMA is integrated into
->> +  the IP, the subsystem has no MDIO bus master and is not managed through an
->> +  external MDIO PHY; link state is read from the MAC's own status registers.
-> 
-> [Severity: High]
-> The binding says there is no external MDIO PHY. It does not require or
-> show managed = "in-band-status" or a fixed-link node, though. Neither
-> example has phy-handle, fixed-link or managed.
-> 
-> The XXV support added later in this series sets only mac_capabilities and
-> supported_interfaces in axienet_xxv_phylink_set_capabilities(). It does
-> not set phylink_config.default_an_inband, so cfg_link_an_mode stays at
-> MLO_AN_PHY.
-> 
-> On open this gives:
-> 
-> axienet_open()
->    phylink_fwnode_phy_connect(lp->phylink, dev_fwnode(lp->dev), 0)
->      fwnode_get_phy_node() fails, since there is no phy-handle
->      if (pl->cfg_link_an_mode == MLO_AN_PHY)
->          return -ENODEV;
-> 
-> A node that matches this binding, including either example, would then
-> fail ndo_open with "phylink_of_phy_connect() failed". Is that expected?
-> 
-> Also, phylink_pcs_poll_start() only polls the internal PCS when
-> cfg_link_an_mode == MLO_AN_INBAND.
-> 
-> Should the binding require managed: const: in-band-status? The other
-> option is for the XXV phylink_set_caps to set default_an_inband = true.
+  - bindings: vendor prefix, SoC/board compatibles, an SMP enable method
+    and the UART,
+  - the platform Kconfig and SMP bring-up (the generic DT machine is
+    used, there is no DT_MACHINE_START),
+  - DEBUG_LL for UART0,
+  - a UART driver with console and earlycon support,
+  - SoC dtsi and board dts describing the CPUs, GIC, SCU, timers, L2,
+    UARTs and memory,
+  - multi_v7_defconfig and MAINTAINERS updates.
 
-Correct. The XXV subsystem has an integrated PCS/PMA and no external 
-PHY, so link is managed in-band from the MAC status registers. The 
-driver should therefore default to in-band mode.
+Patches 6-7 (serial binding and driver) do not depend on the rest and
+can go through the tty tree.
 
-> Either way, could the binding document the chosen mode?
-> 
->> +  Any SFP module management (e.g. I2C) is handled by separate IP outside this
->> +  binding. Its payload is moved by an external AXI DMA (or multichannel DMA)
->> +  controller referenced through the "dmas" property.
-> 
-> [ ... ]
-> 
->> +  clocks:
->> +    items:
->> +      - description: RX AXI4-Stream clock.
->> +      - description: GT DRP clock.
->> +      - description: AXI4-Lite register clock.
->> +
->> +  clock-names:
->> +    items:
->> +      - const: rx_core
->> +      - const: drp
->> +      - const: s_axi
-> 
-> [Severity: Medium]
-> How would a DT describe the transceiver (GT) reference clock here? The
-> description says the in-core PCS/PMA drives a high-speed serial
-> transceiver, and that transceiver has its own reference clock input.
-> 
-> The clocks/clock-names list is fixed at three entries, and
-> unevaluatedProperties is false. A DT that also lists the GT refclk would
-> fail validation. xlnx,axi-ethernet.yaml already documents mgt_clk for its
-> optional internal PCS/PMA PHY.
-> 
-> Later in the series, axienet_10g25g_clk_init() claims only s_axi, rx_core
-> and drp. axienet_xxv_poll_link_ready() then fails open when GT reset-done
-> times out:
-> 
->      netdev_err(ndev, "XXV MAC GT reset not complete! Cross-check the MAC ref clock configuration\n");
-> 
-> On boards where a Linux-managed, gateable clock provider supplies the GT
-> refclk, nothing claims that clock. Unused clock cleanup could then gate
-> it. This depends on the board.
-> 
-> Could an optional trailing clock (minItems: 3) be added now?
-> writing-bindings.rst asks for complete bindings even when the driver does
-> not use every feature.
-> 
-Agreed. The three current clocks (rx_core -> rx_core_clk, drp -> dclk, 
-s_axi -> s_axi_aclk) are correct, but per PG210 the GT has a dedicated 
-differential reference clock (refclk_p0/refclk_n0 -> tx_serdes_refclk) 
-that the list cannot express today.
-I'll add an optional trailing clock, mirroring mgt_clk in 
-xlnx,axi-ethernet.yaml
+Testing: build tested with multi_v7_defconfig (GCC 14 and Clang 21,
+W=1) and checked with dt_binding_check/dtbs_check. On a Securifi
+Almond+ this series boots next-20260929 to an initramfs shell with
+both CPUs online ("smp: Brought up 1 node, 2 CPUs"; IPIs and the TWD
+timer tick on both cores); the L2C-310, the global and TWD timers and
+the UART driver (ttyCS0) come up. The kernel was started from a
+running OpenWrt system with a small kexec-style loader rather than
+from the stock U-Boot, because U-Boot enters the kernel with the MMU
+on (see 2 below). The same patches on Linux 6.18 in OpenWrt, with the
+head.S workaround from 2, also boot from NAND through the stock U-Boot;
+that is how the secondary CPU wake-up fix in v4 was found.
 
-> [ ... ]
-> 
->> +  dma-names:
->> +    items:
->> +      pattern: "^[tr]x_chan([0-9]|1[0-5])$"
->> +    description:
->> +      Should be "tx_chan0", "tx_chan1" ... "tx_chan15" for DMA Tx channel and
->> +      "rx_chan0", "rx_chan1" ... "rx_chan15" for DMA Rx channel.
->> +    minItems: 2
->> +    maxItems: 32
-> 
-> [Severity: Low]
-> This checks the name pattern and the count. It does not require
-> "tx_chan0" and "rx_chan0", or even one TX and one RX entry. Both of these
-> pass dt_binding_check:
-> 
->      dma-names = "tx_chan1", "rx_chan1";
->      dma-names = "tx_chan0", "tx_chan1";
-> 
-> The driver requests fixed names, though:
-> 
-> axienet_probe()
->      tx_chan = dma_request_chan(lp->dev, "tx_chan0");
->      if (IS_ERR(tx_chan))
->          return dev_err_probe(lp->dev, PTR_ERR(tx_chan), "No Ethernet DMA (TX) channel found\n");
-> 
-> axienet_init_dmaengine()
->      lp->tx_chan = dma_request_chan(lp->dev, "tx_chan0");
->      ...
->      lp->rx_chan = dma_request_chan(lp->dev, "rx_chan0");
-> 
-> Since dmas is required, XXV always takes this path. Could contains
-> constraints for "tx_chan0" and "rx_chan0" be added? Another option is to
-> fix the leading entries with items/additionalItems.
-> 
-> The pattern came from xlnx,axi-ethernet.yaml, but this patch creates a
-> new binding with it.
-> 
+Open questions:
 
-Agreed, the driver hard-requests "tx_chan0"/"rx_chan0". For v5 I'll add 
-contains constraints so at least one tx_chan0 and one rx_chan0 are 
-required, while still allowing the additional MCDMA channels.
+1. The stock U-Boot arms the CPU0 private (TWD) watchdog before
+   starting the kernel; without a driver the board resets after ~300
+   seconds. The OpenWrt port disarms it in init_early, which I did not
+   want to propose here. Instead, a driver for "arm,cortex-a9-twd-wdt"
+   (the binding exists, but there is currently no driver for it) that
+   takes over the running watchdog on all CPUs is written and tested
+   on this board and posted as a separate series right after this
+   one, together with a restart handler (this series has no way to
+   restart the SoC). Until then, this series on its own boots but
+   resets after ~5 minutes.
+   Is a TWD watchdog driver the preferred way to deal with this?
 
-Thanks,
-Suraj
+2. The same U-Boot enters the kernel with the MMU and data cache
+   enabled (identity map with XN set, dirty lines left in the D-cache),
+   which breaks the decompressor. The OpenWrt port carries a small
+   workaround at the start of arch/arm/boot/compressed/head.S that
+   cleans the cache and turns the MMU off. It is not part of this series.
+   Replacing the bootloader is possible but risky for users of this
+   (discontinued) device. Would a quirk of that kind be acceptable in
+   head.S at all, or should this be solved outside the kernel (e.g. a
+   chain-loaded bootloader)? For the tests below the kernel was started
+   from a running Linux with the MMU off, so this was not an issue.
 
-> [ ... ]
-> 
+3. The APB clock is 100, 150 or 170 MHz depending on the boot strap pins.
+   It is modelled as a fixed-clock with the rate set in the board dts.
+   A clock driver for the global control block, which also contains the
+   strap, pinmux and reset registers, will follow and replace it.
+
+4. The Cortex-A9 r2p1 is also affected by errata 742230, 742231, 743622
+   and 751472, whose workarounds are not available on multiplatform
+   kernels because they are expected to be applied by the bootloader.
+   The stock U-Boot does not apply them. Is there a preferred way to
+   deal with this?
+
+5. The UART ports are named ttyCS to avoid clashing with the 8250 driver
+   in multi_v7_defconfig, and PORT_GENERIC is used instead of a new port
+   type. The FIFO depth is not documented; the driver assumes 16.
+
+6. The top 64 MiB of RAM are reserved: the vendor firmware gives them to
+   the packet engine queue manager and the stock kernel is booted with
+   mem=448M. The reservation will be referenced by the network driver
+   later; I kept it now so that the memory is not handed out and later
+   claimed.
+
+Planned follow-ups, as separate series: the regbus interrupt
+controller, GPIO, I2C and TWD watchdog (posted separately),
+then the global control block/clock, RTC, NAND,
+PCIe (DesignWare glue), MDIO, the Ethernet/packet engine and a fix for
+the SX8650 touchscreen.
+
+---
+Changes in v6:
+- serial: also ignore overruns when CREAD is cleared, everything received
+  is dropped then (sashiko-bot)
+- Link to v5: https://patch.msgid.link/20261013-b4-cs75xx-v5-0-4e72aa383d39@gmail.com
+
+Changes in v5:
+- goldengate: select PL310_ERRATA_769419, the PL310 is r3p1-50rel0
+  (CACHE_ID 0x410000c7), not r3p2 as v4 said; fix the revision in the
+  commit message and here
+- serial: scale the TX FIFO wait in putchar with the frame time, 10 ms is
+  shorter than one character below 1200 baud (sashiko-bot)
+- serial: no change for the other two sashiko-bot points on v4:
+  uart_port_tx() checks tx_ready before it sends x_char, and SysRq is
+  reachable through MAGIC_SYSRQ_SERIAL_SEQUENCE; the UART has no break
+  indication that the driver could use
+- Link to v4: https://patch.msgid.link/20261012-b4-cs75xx-v4-0-df250d903682@gmail.com
+
+Changes in v4:
+- serial: use guard()/scoped_guard() for the port lock and the port
+  table mutex (Jiri Slaby)
+- serial: honour INPCK/IGNPAR: report parity and framing errors with
+  TTY_PARITY/TTY_FRAME and insert the overrun marker after the characters
+  still in the FIFO (sashiko-bot)
+- goldengate: also send a wakeup IPI to the secondary core: the stock
+  U-Boot parks it in WFI, SEV alone only worked when it was parked by
+  another kernel (found booting from NAND instead of from RAM); the
+  change is small, I kept Linus' Reviewed-by
+- drop the RFC prefix
+- Link to v3: https://patch.msgid.link/20261012-b4-cs75xx-v3-0-0e0d17a098cf@gmail.com
+
+Changes in v3:
+- serial: do not put the console setup callback in .init.text, it is
+  called from a probe that may be deferred past boot (sashiko-bot)
+- collect Reviewed-by tags
+- Link to v2: https://patch.msgid.link/20261006-b4-cs75xx-v2-0-b7d6e1e24d44@gmail.com
+
+Changes in v2:
+- serial: drop the empty break_ctl, request_port and release_port
+  callbacks, comment why set_mctrl stays, add a copyright line (Greg)
+- serial: take the port lock around all IE accesses in startup, flush
+  stale RX data on startup and disable the receiver on shutdown
+- serial: bound the RX loop per interrupt, check RXDAT_VALID in
+  poll_get_char, scale the console TX drain timeout with the frame time
+- serial: serialise port index allocation, reject too low clock rates
+- serial: name the driver after the vendor (cortina-uart.c,
+  SERIAL_CORTINA), as the same block is used in the Cortina Access SoCs
+  (Linus Walleij, Arnd Bergmann); the binding and the help text name
+  the Cortina Systems CS75xx and Cortina Access parts (Jason Li)
+- serial binding: describe the CS7542 only; other SoCs get their own
+  compatible with "cortina,cs7542-uart" as fallback (Conor Dooley)
+- debug: keep the character register intact on BE8 in senduart
+- platform: move arch/arm/mach-cortina to arch/arm/mach-goldengate, as
+  mach-gemini is a Cortina SoC too, and use one ARCH_CORTINA_ACCESS
+  symbol for the whole family, as for the 64-bit Cortina Access parts,
+  with the rationale in the commit message (Linus Walleij, Krzysztof
+  Kozlowski, Arnd Bergmann); mach-goldengate vs. mach-cortina is still
+  open, I am happy to rename the directory if mach-cortina is preferred
+- collect Reviewed-by and Acked-by tags
+- Link to v1: https://patch.msgid.link/20260930-b4-cs75xx-v1-0-4617c4463529@gmail.com
+
+---
+Fil Dunsky (10):
+      dt-bindings: vendor-prefixes: Add Securifi
+      dt-bindings: arm: Add Cortina Systems CS7542 and Securifi Almond+
+      dt-bindings: arm: cpus: Add Cortina Systems CS7542 enable method
+      ARM: goldengate: Add support for the CS75xx SoC family
+      ARM: debug: Add Cortina Systems CS75xx UART0 support
+      dt-bindings: serial: Add Cortina Systems CS7542 UART
+      tty: serial: Add Cortina UART driver
+      ARM: dts: cortina: Add CS7542 SoC and Securifi Almond+ board
+      ARM: multi_v7_defconfig: Enable Cortina Systems CS75xx support
+      MAINTAINERS: Add entry for Cortina Systems CS75xx
+
+ Documentation/devicetree/bindings/arm/cortina.yaml |  31 ++
+ Documentation/devicetree/bindings/arm/cpus.yaml    |   2 +
+ .../bindings/serial/cortina,cs7542-uart.yaml       |  52 ++
+ .../devicetree/bindings/vendor-prefixes.yaml       |   2 +
+ MAINTAINERS                                        |  11 +
+ arch/arm/Kconfig                                   |   2 +
+ arch/arm/Kconfig.debug                             |  16 +-
+ arch/arm/Makefile                                  |   1 +
+ arch/arm/boot/dts/Makefile                         |   1 +
+ arch/arm/boot/dts/cortina/Makefile                 |   3 +
+ .../dts/cortina/cs7542-securifi-almondplus.dts     |  55 ++
+ arch/arm/boot/dts/cortina/cs7542.dtsi              | 127 +++++
+ arch/arm/configs/multi_v7_defconfig                |   3 +
+ arch/arm/include/debug/cs75xx.S                    |  37 ++
+ arch/arm/mach-goldengate/Kconfig                   |  19 +
+ arch/arm/mach-goldengate/Makefile                  |   2 +
+ arch/arm/mach-goldengate/platsmp.c                 |  72 +++
+ drivers/tty/serial/Kconfig                         |  24 +
+ drivers/tty/serial/Makefile                        |   1 +
+ drivers/tty/serial/cortina-uart.c                  | 601 +++++++++++++++++++++
+ 20 files changed, 1060 insertions(+), 2 deletions(-)
+---
+base-commit: 6474fa070f2b8013b4b87350b775b8c3be6e8aac
+change-id: 20260930-b4-cs75xx-033a2c047508
+
+Best regards,
+--  
+Fil Dunsky <filipp.dunsky@gmail.com>
+
 
