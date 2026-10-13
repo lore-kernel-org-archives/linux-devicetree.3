@@ -1,65 +1,65 @@
 Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com [209.85.167.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA19E4EB879
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 11:21:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDA914ED180
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 11:21:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791890509; cv=none; b=VGiEa1IhoJPf8Jl19aCvI3ALJqINckvYP3ubt+UxX3mAntypyVWR/wYuIzB2JVZPom4KvwFaUwHOu1D6orFgQ7I15yTSgHG5ddPpETmND6zW+BGcnreqjPM9nfQND9YpK84ERMyBxoyKFPCQfXRRTbWYKlZtTGVZ1FB/ZlQWDbw=
+	t=1791890512; cv=none; b=YdCepA6vAl7rOBeO5Hxk/5e1OhmRfZX+TgHJ1n0rC1EVamFsq/YekNB/3VbSrD4r0GkZ99vxmDUhWgz7JJItax81Jwju6gzEK957pFE+iIhSfzvd/5m6u01n7Ad4Lg5ypI8KAVn2hxsv+o9F1w/iBD5xd9lXivau6Us5uRhM/9I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791890509; c=relaxed/simple;
-	bh=tuLZHNjquzONR2MTJc7uIKwUlOA8ZRiHQQb9yafJyPA=;
+	s=arc-20240116; t=1791890512; c=relaxed/simple;
+	bh=MdVnzxM/WL1xMOmZ5fkiZNZC+hOYTLuP3CwOMPlKirY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kN78+VRjjZW4UBp8/7hH/a/bg3/LIgKh6feZwgLMc0bx1uSKZLMz6/Z2kU1nxVM1ESkGBnl2JLCz2awUWx8evCZZ8clxx6sFhUgUmISU/9/xrhc2xClaq8AtpexcQarIcMnSQC/b5v+g4OlSfEJf7Bkhvue9T1ZvNIUvMtQiO5U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Btbrvur9; arc=none smtp.client-ip=209.85.167.44
+	 MIME-Version; b=pEhudQki3S4pxZ2/uYweGvddYaQNgPqI7gcCzBRcw+zK/Qp7Y8nYoBOw8fDBdLf2BE2bZY5gepsWOopeYJxYdCqsiFi+UubGqNta4c5W7kiGB0/wxfmLewirjAbs84mzBuJs8dzjfxSxBBLYcQtd6R7cgn5vGhaCLbtDIkHOHSc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A6922hBF; arc=none smtp.client-ip=209.85.167.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Btbrvur9"
-Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5bad794b197so2966413e87.1
-        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 04:21:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A6922hBF"
+Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5bc18f54abbso1122715e87.1
+        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 04:21:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791890506; x=1792495306; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1791890508; x=1792495308; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=55EMxPk7jy7Kh1gVtgXbU/Huv6cJaqD8bSuR0ttRdCw=;
-        b=Btbrvur9Y/KcHmUlOzgTpMYxTmlV51IqDQFvbKO9eC/nqBeU0i7aExqd8T6uiKzNFS
-         JgeyoQ/Dznu09Nj0AnhS53/LHsCuCD6Rjuokkbwdiyz9KUJzXGwNdqxT4wfqJDRDFc6r
-         Fn2aiwr/D2WOFmNupytrp2FJqFwrAqqohrpIcKRnNAMkAQEtRXl20NCrbMJmGEaVB6wt
-         QQqtPpVsvWsFcLTiYJIXl8zTfcPtq9L3hwlszwJtUE4aK7cV9lgulOsdFEu+LDcDKFy0
-         fZtWKM0WSmBX8ZzRmPSXionfwYu+5wHI0t4yWyzczoap6bbk759qGOiw584UBBmW3SCZ
-         0ngw==
+        bh=jKvVNAZIKBPJrUX9wm9cpi3TihxLC/jhSA17k/UyT1Y=;
+        b=A6922hBF9R0rdvq4517CBv/6E8XSkml729Pt6EtbPziI/yhXCPzSVz3TWvA+re27KJ
+         vBsfRrqTwTZJTUJqJaUTbU4dNoziPOLcc+DX703jqCVmOUi1ZkLX2oGxcHeQQAnXK92B
+         Uq4EPsnYd8wnxDbRrQGHJ8wUZv5V7S1Lv4k2U9DgmUUhl4fLYmmNE93Ii+5Dc7WizBIg
+         IYxYsY9uz0W/48XzCELKXzi2k5VXQiWUKXygix2B5JGushmcWTms3qNBRnN+V8hYdabi
+         Eb1/5yNhZQPEwMz6gF3b6goDxgno27/25wy9mJZ3o0AGfbq7eex719CGxvw1KRvzMvkL
+         QrTA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791890506; x=1792495306;
+        d=1e100.net; s=20260707; t=1791890508; x=1792495308;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=55EMxPk7jy7Kh1gVtgXbU/Huv6cJaqD8bSuR0ttRdCw=;
-        b=Apb7tJAAztMOKXMg8EwXK0DvqMPjb7teQniVjhGpOpgH4iUvkLaR9hEgMOUGJiBuXE
-         EDKNLr2axrSwZg1mcWV1r6wLCTxy+rLITaOHOZATbVdycSen0GY4c+/wYVrmxR7QV3IF
-         XqZQx24/WYOvJGyY+Ne1AGF/qqNSyh+MTTZSxxY95DsrRqNSbWuftaeh0UvnqJpz2HlW
-         BG1nQSF/nPYmWJjwle1Rkt+Wr5Nh1ptEgy3C+4Rk/NR/tmTLa8LM0IPG+jWDN3VB5JQa
-         OHvc6mZvX4ErNwsTtLXYnQzWtF6LkUXX6+O62z+KGksGSh2UJsXD2qxdnjhSDMsdxBlJ
-         9pgw==
-X-Forwarded-Encrypted: i=1; AKwUvBwh0nATOOeBXb8q0Ja5k3X7QStEiHXHqKym3YIG0DQDr0ZnnTx46EAYmHWnXuZG0ohNr/1+jNd0JoPJ@vger.kernel.org
-X-Gm-Message-State: AFq9FYJqbQob9Hux47f0T/u+R+YvW5GE3lW2Lh+Ms8lsWARlFIn98yl8
-	C4DGvzGgt6NnM6k6XHjGs1eSt02CVlvXQI98DqvF1V89VH7yu6m96fze
-X-Gm-Gg: AYBFou3M+XsRmGoP5ceEVMzTnVNAJrZVBACCzAwaWwjUk6dW/1Hy+xw1/+g+SX24jVZ
-	eiNVKWfA3u0SDuOD83ERN+ltNN3RJOnn/8kjxByPjxz/yh4uHJnn9R6XV0UvgD29i4i87culFkc
-	bPLLrP5ZiQA0jFW7FU/Vi+e7VLYjH5kmFeD4SGnaApYrk30FG8Cv7KmJCdmSc3OghuIknQbZ3Jr
-	44Yuh2zZDJgAgm6aaPDVIVWjPGjWr0WDq8nbobImX5Csxyu1WnGCBxdR3XAhj2FlI8NCDUOnwpR
-	0ZWy0qVw2TlrJCcOoYemKaXeJSw7OOVn2vuaxWAXIit0i2IuC6Ze8EHWyLaYNlWO1V0zsqQnOQn
-	AWs46LndiTY7nmbyLGDbLr226TGTRRzHzKGsi+ED24MU7lJGQ+XW22dWMltHrHbC7C9tZ6u6jMH
-	85VJpOSGH7AsGu8PfFS+9uGsovEv7Zc93i/QhEOJ3bhaLXsw0caRJxVTIkd34sUqKZJ1XM0Z5nZ
-	rJNuBgmgbiDeP0uWTMNkgXRjMv40hp8nZturNjqUjnl3pF2s038OSAzJ65rnGD6rv2sRQXzzSxX
-	vYQ5HzMq436xqCkxttPIqvpMhDI=
-X-Received: by 2002:a05:6512:3d14:b0:5bc:c7cf:61b4 with SMTP id 2adb3069b0e04-5bcde6c7386mr4196485e87.27.1791890505804;
-        Tue, 13 Oct 2026 04:21:45 -0700 (PDT)
+        bh=jKvVNAZIKBPJrUX9wm9cpi3TihxLC/jhSA17k/UyT1Y=;
+        b=zr+3JWMqPA0Mw5hCZhyt5fb6T4DR23FkFFMofz8MNILDPaz+GF1vHDqG3izK7uRRuh
+         Jda2nhzRsEh6ymh9X+6ahDL5S0JtalMp9vhB7loJ9ysgoJk+k/LlnZzK7DMSdhxNJFUE
+         frg07NGV0IRVaQfCLP2Zs8V5M44fyPqDvbF6TsFacDY8sZjFbVj7dO8XJtduoDHAF3FA
+         7cRgNErF/DdO+NHFT+ZKqHENwIN0ffMzjvhTt9HQ3QjKyurYUoqetjHIGX1CJ2qTxy9H
+         ygH6wAnXYhVlQyEWk8QsOYB424yFi/8DlM8zTGGUrVjo8HVfJ1MafdMqQiJpJvxE+BqA
+         L19w==
+X-Forwarded-Encrypted: i=1; AKwUvBwq2H3HZw/MWiXr9neLgOdbTPxMkHNEczh2GA9rJ2XXGwTQ750M9zsuO9ptna6mnrvOyl8Y3YLYCv4L@vger.kernel.org
+X-Gm-Message-State: AFq9FYII/I7nyjlbkYLi62Atmfk06SoxYBKLBbWNcc1LDu8j5TrHlohk
+	rITHFIgY7wfyQ7arCNo/VFvDRqw6y1rW+bBB5UypMlnnlaUS7aCxB5VJ
+X-Gm-Gg: AYBFou08+FFTUH0rG1zjE0s4TCwMkYn29XffpHjFwB474CA9nd9H/8zMTwWJx1ZllWv
+	CDWuTXJqMjrGSKAinRndo5sdk0o0g62QQRZD8D92jwOyHT3ck1lKJhK3yWgDj0SVnoMe33NymVN
+	fZMBSpogZEyiYMUNwtdJlpXlakX2oXe/2574dJhPomIWcxeigOF71D7dKXKo/u3tllax75AikcZ
+	mdg+nmSrxWyOmOyrQ7jkiWRBa2C8gMYLeHqL4ST5oWm+y4XEPHvv+SPUsHt3S4PY4WmI1XwID0h
+	0Dnvp3UfSPST98eCLqC71t6Gw2rEAsXhmvh0W+stXH7/DIExwFJqztW6DHrmSegai0rZ21Ub+4H
+	sBLnfFcEk0ojyA+u5mAdnlkgwkpZ8k9v9v7rRxHkc8Cbf2sq1oQCy34KKJ2xxV1WjsWe2Eu5EdJ
+	Brf2BT/xQf00uS8CZPUceqtOy7dCOWqFzpGutt2mBRK/LjpUj6U1s+rxrE/TIukuArZvGGbKJV8
+	L3XmWhyGyaGI8I/5xXGVRZi92j8k5hawo2z7TjsqrjyFD6KbWS3gC/djp7mPYiiM/PNb7fHadD4
+	2wcGE2Ol4xSjgjO2h8YUk2oNKG2wKltAY3Y9gA==
+X-Received: by 2002:a05:6512:3d24:b0:5b6:1a7c:59cb with SMTP id 2adb3069b0e04-5bcde6d3d68mr4216008e87.37.1791890507765;
+        Tue, 13 Oct 2026 04:21:47 -0700 (PDT)
 Received: from M-K2012N0113010.localdomain ([88.119.128.229])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bcf8a3970asm1116148e87.79.2026.10.13.04.21.44
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5bcf8a3970asm1116148e87.79.2026.10.13.04.21.46
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 04:21:45 -0700 (PDT)
+        Tue, 13 Oct 2026 04:21:47 -0700 (PDT)
 From: Paulius Zaleckas <paulius.zaleckas@gmail.com>
 To: Jonathan Cameron <jic23@kernel.org>,
 	linux-iio@vger.kernel.org
@@ -76,10 +76,10 @@ Cc: Eddie James <eajames@linux.ibm.com>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Paulius Zaleckas <paulius.zaleckas@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2 1/6] iio: pressure: dps310: fix overflow in the pressure compensation
-Date: Tue, 13 Oct 2026 14:21:19 +0300
-Message-ID: <20261013112124.1878296-2-paulius.zaleckas@gmail.com>
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: [PATCH v2 3/6] dt-bindings: iio: pressure: infineon,dps310: Add Zilltek ZTS8032
+Date: Tue, 13 Oct 2026 14:21:21 +0300
+Message-ID: <20261013112124.1878296-4-paulius.zaleckas@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20261013112124.1878296-1-paulius.zaleckas@gmail.com>
 References: <20261013112124.1878296-1-paulius.zaleckas@gmail.com>
@@ -91,144 +91,38 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-dps310_calculate_pressure() sums the compensation polynomial as
-p^n * c / kP^n fractions in s64. The raw pressure scales with kP, which
-goes up to 7864320, so p^3 * c30 overflows at most oversampling rates
-near sea level, kP^3 wraps negative at 4x and 8x, and the remainders
-overflow when scaled by 10^9. The c30 term is then lost: at about
-1006 hPa the pressure reads about 20 Pa low at oversampling 2, 4, 8, 64
-and 128, and hundreds of Pa off towards the ends of the 300-1200 hPa
-range.
+The Zilltek ZTS8032 is register compatible with the DPS310, but has two
+more pressure calibration coefficients and takes its temperature from a
+different sensor by default, so it cannot use the DPS310 compatible as a
+fallback.
 
-Evaluate the polynomial in Q20 fixed point instead. The linear c10 and
-c01 terms are still divided exactly, the higher order terms use the
-scaled raw values. Over 300-1200 hPa and every oversampling rate the
-result is within 1 Pa of the floating point formula.
-
-Tested on a register compatible Zilltek ZTS8032 (support added later in
-this series) at about 1007 hPa, against the datasheet formula evaluated
-from the raw and coefficient registers. A vendor driver with the same
-algebra read 13-20 Pa low at oversampling 2, 4, 8, 64 and 128; with this
-series every rate is within 1 Pa. Not tested on a DPS310.
-
-Fixes: d711a3c7dc82 ("iio: dps310: Add pressure sensing capability")
-Cc: stable@vger.kernel.org
 Assisted-by: LLM
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 Signed-off-by: Paulius Zaleckas <paulius.zaleckas@gmail.com>
 ---
- drivers/iio/pressure/dps310.c | 83 ++++++++++++++---------------------
- 1 file changed, 34 insertions(+), 49 deletions(-)
+ .../devicetree/bindings/iio/pressure/infineon,dps310.yaml     | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/iio/pressure/dps310.c b/drivers/iio/pressure/dps310.c
-index 85df58ac1809..3bc690cc8609 100644
---- a/drivers/iio/pressure/dps310.c
-+++ b/drivers/iio/pressure/dps310.c
-@@ -660,71 +660,56 @@ static int dps310_write_raw(struct iio_dev *iio,
- 	}
- }
+diff --git a/Documentation/devicetree/bindings/iio/pressure/infineon,dps310.yaml b/Documentation/devicetree/bindings/iio/pressure/infineon,dps310.yaml
+index 1912a1b0b4ba..416117dfd927 100644
+--- a/Documentation/devicetree/bindings/iio/pressure/infineon,dps310.yaml
++++ b/Documentation/devicetree/bindings/iio/pressure/infineon,dps310.yaml
+@@ -11,12 +11,14 @@ maintainers:
  
-+/* Fraction bits of the fixed point pressure compensation */
-+#define DPS310_Q	20
-+#define DPS310_Q_ONE	(1LL << DPS310_Q)
-+
-+static s64 dps310_mul_q(s64 a, s64 b)
-+{
-+	return (a * b) >> DPS310_Q;
-+}
-+
- static int dps310_calculate_pressure(struct dps310_data *data, int *val)
- 	__must_hold(&data->lock)
- {
--	int i;
- 	int rc;
--	int kpi;
--	int kti;
--	s64 rem = 0ULL;
--	s64 pressure = 0ULL;
-+	int kp;
-+	int kt;
-+	s64 pressure;
- 	s64 p;
- 	s64 t;
--	s64 denoms[7];
--	s64 nums[7];
--	s64 rems[7];
--	s64 kp;
--	s64 kt;
-+	s64 ps;
-+	s64 ts;
-+	s64 x2;
-+	s64 x3;
+ description:
+   The DPS310 is a barometric pressure and temperature sensor with an I2C
+-  interface.
++  interface. The Zilltek ZTS8032 is register compatible with it, but has
++  additional calibration coefficients.
  
--	rc = dps310_get_pres_k(data, &kpi);
-+	rc = dps310_get_pres_k(data, &kp);
- 	if (rc)
- 		return rc;
+ properties:
+   compatible:
+     enum:
+       - infineon,dps310
++      - zilltek,zts8032
  
--	rc = dps310_get_temp_k(data, &kti);
-+	rc = dps310_get_temp_k(data, &kt);
- 	if (rc)
- 		return rc;
- 
--	kp = (s64)kpi;
--	kt = (s64)kti;
--
- 	p = (s64)data->pressure_raw;
- 	t = (s64)data->temp_raw;
- 
--	/* Section 4.9.1 of the DPS310 spec; algebra'd to avoid underflow */
--	nums[0] = (s64)data->c00;
--	denoms[0] = 1LL;
--	nums[1] = p * (s64)data->c10;
--	denoms[1] = kp;
--	nums[2] = p * p * (s64)data->c20;
--	denoms[2] = kp * kp;
--	nums[3] = p * p * p * (s64)data->c30;
--	denoms[3] = kp * kp * kp;
--	nums[4] = t * (s64)data->c01;
--	denoms[4] = kt;
--	nums[5] = t * p * (s64)data->c11;
--	denoms[5] = kp * kt;
--	nums[6] = t * p * p * (s64)data->c21;
--	denoms[6] = kp * kp * kt;
--
--	/* Kernel lacks a div64_s64_rem function; denoms are all positive */
--	for (i = 0; i < 7; ++i) {
--		u64 irem;
--
--		if (nums[i] < 0LL) {
--			pressure -= div64_u64_rem(-nums[i], denoms[i], &irem);
--			rems[i] = -irem;
--		} else {
--			pressure += div64_u64_rem(nums[i], denoms[i], &irem);
--			rems[i] = (s64)irem;
--		}
--	}
--
--	/* Increase precision and calculate the remainder sum */
--	for (i = 0; i < 7; ++i)
--		rem += div64_s64((s64)rems[i] * 1000000000LL, denoms[i]);
--
--	pressure += div_s64(rem, 1000000000LL);
-+	/*
-+	 * Section 4.9.1 of the DPS310 spec in fixed point. Dividing p^3 * c30
-+	 * by kP^3 directly overflows s64 at most oversampling rates.
-+	 */
-+	ps = div_s64(p * DPS310_Q_ONE, kp);
-+	ts = div_s64(t * DPS310_Q_ONE, kt);
-+	x2 = dps310_mul_q(ps, ps);
-+	x3 = dps310_mul_q(x2, ps);
-+
-+	pressure = data->c00 * DPS310_Q_ONE;
-+	pressure += div_s64(p * data->c10 * DPS310_Q_ONE, kp);
-+	pressure += div_s64(t * data->c01 * DPS310_Q_ONE, kt);
-+	pressure += dps310_mul_q(data->c11 * ps, ts);
-+	pressure += data->c20 * x2 + data->c30 * x3;
-+	pressure += dps310_mul_q(data->c21 * x2, ts);
-+	pressure >>= DPS310_Q;
- 	if (pressure < 0LL)
- 		return -ERANGE;
- 
+   reg:
+     maxItems: 1
 -- 
 2.55.0
 
