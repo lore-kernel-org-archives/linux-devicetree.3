@@ -1,117 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f44.google.com (mail-ed1-f44.google.com [209.85.208.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 241C53B42C7
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 11:41:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DB073E639D
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 11:41:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791891687; cv=none; b=ew6yBnTmNs0Xil8xasbQQdmYkgo09Y1P978Oa+dcuB4g5UXSKphf8Aoy6JzBDKUvMljvmOKRjAPGd2GvuE287RMk8MKlaIlp6wlhrspYEmWuKiGw2X+0m16t5EBjgciPCj4pP/3TA0YSLjNUDpLZL2+HLsmFy3r+Of2lkD4pTDQ=
+	t=1791891720; cv=none; b=kXTPwZRRiNuo1fDN4L5nwcpaoBwRXcxEpTlzuZ0v6YehK/cr9kwY/8+fZptjhqO7k0kWeVuXmXAAfYCWIRilQ1G2FbedLUPJmvLttmJG0tcx3rLleSTKaetEShsJ0Y3FqDv0x9e6ahQAbuAak7eQhdYaRcaPbzJnf29IjfzrNW0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791891687; c=relaxed/simple;
-	bh=L7J8d9uq/fkQ4MQ1trGMq4R5FPsVdm9PYjHBf2Kz5A8=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=n2JQdijfdnl64I2mLNjcwcCGNT26ZQrOXo2tuksrSSBjBSIvBFaQ4ywQyT1CoisVf68jMaQ9bqN/FrbANsYfrTsZOfu20ykvM9Lva1JaAEAN3Wvj5lWJR5wvwr7L/CBx4F+z+j3tFDXRUXVT3yfR5vP6Nv6ONa4v5Wt+tCT7+Gs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Htf5h44+; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Htf5h44+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 843B71F000FF;
-	Tue, 13 Oct 2026 11:41:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791891685;
-	bh=Zx0GLTMWNZien83+ub1QpbD3fJiNlXxLImYEq2CavYc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Htf5h44+zCtrm80oshj+o+jqwNSYdEJWmstEvoEZXX9QWpEuByemekBbCxTjy5fhM
-	 BrWykGlhoFJjX2gWW9DXpQ0sICIWg6fEo656BQKzGcAkhSmoQtkmIbo7Q4oGdQROnT
-	 5FXRFFGyRefsaYQJWHh0luQlw5D9B/KNJGea6lFfYYtNK59Dij8UMfc+j0//LrZ/9u
-	 XvZZVujwGiD4vf1oupd8x4qvg9W2AHe3IEgJSAXn3LdJZqtLGb2olPwMS/GVZqf+UY
-	 nZrQQfhUU+GPxoqarpaFvJ3Qt6QFiRPcIJBOpvdDEaR/vRxXC9ODQy4yjOsW9cuT+S
-	 RCg6CfyJfAP2w==
-Message-ID: <sashiko-outbox-169638@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 09/10] ASoC: qcom: Add Shikra QAIF support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Harendra Gautam" <harendra.gautam@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261013-b4-qaif-shikra-audio-v9-9-f3022e28f2fd@oss.qualcomm.com>
-References: <20261013-b4-qaif-shikra-audio-v9-0-f3022e28f2fd@oss.qualcomm.com>
- <20261013-b4-qaif-shikra-audio-v9-9-f3022e28f2fd@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 13 Oct 2026 11:41:25 +0000
+	s=arc-20240116; t=1791891720; c=relaxed/simple;
+	bh=k5veFeTTHtqbcVUOmk8kP3kRfVRBO7Pptciq5IbVpOA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=CzJ5qGhMSwzps3b2AUbBovR8TfDN/uhZzrJjlQZLaQENGpod/Nf5xqM/ZR/E1Tb/98FjPJ1Xb5iz9EYFUvItzLrTMCNW6gYRbUjQkVPpPG46zBOZM02xVAyaibEbdxb7DYFs3876J8cm/pRULfAsRdY4p1o66X1AOto4YzjKNCg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.208.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ed1-f44.google.com with SMTP id 4fb4d7f45d1cf-6a374bea882so4106612a12.1
+        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 04:41:58 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791891717; x=1792496517;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=WEZ3XROOQ5wml3OCk98kzhYlw6diUWNF5eLEQIKJbBE=;
+        b=Jp5ZSmAz2zBG9hvNF1q+3MTBI82xlfHgufI0NYm8ZKFe3Mk/DquscCnx8fRsfNvn3Z
+         rZqEq2+1ENNE68qtDJmnSo3yMX2A0+aFaZbgsHpCuhqi+L1z7yyhbxBxSM5PFzIUEF71
+         dOof+HECrQmpS5mKKoKPaP1xvL7D4KxgpdPHOXxKy7o5XnjyZ5UGMaX56t5V6JKXZ0Ci
+         tKIcrQp2PIvFO+dHJXx9Qhrjr4U7X/bBhuqThLpignjtG78jV21RBSFXLHz8raunm7a0
+         mwmE2pPYGT17qE4aZt6R1y6CInvgG5g0bKAb6oUN8t+H0KVIfq+xsJk9/vkkqXVT1zES
+         NDWg==
+X-Forwarded-Encrypted: i=1; AKwUvBySDc2++Dm761JLRX1Tg3BFCSkKWHfc5/sOOiqc3mlxC8hyZ4kVyOtgaRnXWy1k6+1jojP6kyYGoO68@vger.kernel.org
+X-Gm-Message-State: AFq9FYIhj1+leuF1Syfu7jQYhOlMHyrmjcrktDlXrER3OOksXn4PgSCV
+	Mjq29LBMwSu4aW2iU3iCmrunipLDzXS5Ws+3M9AYxAyGAzmAlPUA0XssCKWpyPKqmZo=
+X-Gm-Gg: AYBFou0nqP1fIru9apJYiB7sqGhuXDXTeA0SagJGdv3yJK/hgUaRdp6xanYAOJwHD9s
+	2f2euqYG7rc4A5jOPXM3SMJSfkUhxiejFzdun22ZLAOyWKRfLDtNxLiz+H2MAT+LrWZ0GA0FI1a
+	RPDRsIrJ4b0i6aoY3Hj4seb9QJrJJwrURYlyAz2zWdYH+m3cJHXjb2Jqte4Sh0mGOd1d4tJfJUQ
+	uXh19Hr2MmPhCFdsPxOQY25QQm58kct5d11BR3wQEONxXxxNKRGYoT4ssQEcgOAl9pToG8GDDLl
+	/bP9BegjnLkfV/0PA3ZcDmkSHAATpoLgWBJY7WN0BFsFqRReP+sdR8/ezokW0C/UAWUya822QZD
+	7Ry9CLaWcjzj6+oDKUfFfgOVVRh6+YvzL+sOmZC2qguAuboq5tlFXphI3+yoKDaF93iRCw15EHn
+	savUsPsKF448m6jEO/9c2orOR/jVsbHU/u6lJot80nKX8oKStgs04sMG1Tcbkx5EOdrbs36L5BK
+	tSu0E2LuASUL0d9uQydrNh/puw5EsNY5RRwFw==
+X-Received: by 2002:a05:6402:11d3:b0:6af:dd04:bb21 with SMTP id 4fb4d7f45d1cf-6b17c23e8a9mr10322810a12.15.1791891716728;
+        Tue, 13 Oct 2026 04:41:56 -0700 (PDT)
+Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com. [209.85.218.50])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6b178d166b9sm6341007a12.1.2026.10.13.04.41.56
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 13 Oct 2026 04:41:56 -0700 (PDT)
+Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-c2acc1e170cso461010366b.1
+        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 04:41:56 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBz2jws++fz8O3sPEabbSF2uffAMaW2mgaBIvaI2bnIBlKRPoddH/7llfPlNw4Mj1/aiVPKh7niEfLhd@vger.kernel.org
+X-Received: by 2002:a17:907:e158:b0:c34:e9fe:82ed with SMTP id
+ a640c23a62f3a-c34e9fe8db4mr355591866b.28.1791891716374; Tue, 13 Oct 2026
+ 04:41:56 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20261013-paul-v7-3-rc1-edac-v6-0-2f1d6f2f74db@bootlin.com> <20261013-paul-v7-3-rc1-edac-v6-3-2f1d6f2f74db@bootlin.com>
+In-Reply-To: <20261013-paul-v7-3-rc1-edac-v6-3-2f1d6f2f74db@bootlin.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 13 Oct 2026 13:41:43 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdV1nuiSAKbCrD0mWJX7rC4T=fxO5LC5ksRD440YSL_3cw@mail.gmail.com>
+X-Gm-Features: AclHuK9GyhuxP1j4sSDne1XJEsD6-l0raq_tLn-7rYWcCt7pn2fMfEYbVEbwDsM
+Message-ID: <CAMuHMdV1nuiSAKbCrD0mWJX7rC4T=fxO5LC5ksRD440YSL_3cw@mail.gmail.com>
+Subject: Re: [PATCH v6 3/3] ARM: dts: renesas: r9a06g032: add EDAC node
+To: Paul Louvel <paul.louvel@bootlin.com>
+Cc: Borislav Petkov <bp@alien8.de>, Tony Luck <tony.luck@intel.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+	linux-edac@vger.kernel.org, devicetree@vger.kernel.org, 
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Miquel Raynal <miquel.raynal@bootlin.com>, 
+	Herve Codina <herve.codina@bootlin.com>, Wolfram Sang <wsa+renesas@sang-engineering.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] asoc: qcom: qaif: uninitialized stack read on zero iommu-cells
+Hi Paul,
+
+On Tue, 13 Oct 2026 at 12:45, Paul Louvel <paul.louvel@bootlin.com> wrote:
+> Add EDAC node to the SoC base device tree file.
+>
+> Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+> Signed-off-by: Paul Louvel (Schneider Electric) <paul.louvel@bootlin.com>
+
+Thanks for your patch!
+
+> --- a/arch/arm/boot/dts/renesas/r9a06g032.dtsi
+> +++ b/arch/arm/boot/dts/renesas/r9a06g032.dtsi
+> @@ -164,6 +164,15 @@ dmamux: dma-router@a0 {
+>                         };
+>                 };
+>
+> +               edac: memory-controller@4000d000 {
+> +                       compatible = "renesas,r9a06g032-ddr-edac", "cdns,ddr-edac";
+> +                       reg = <0x4000d000 0x1000>;
+> +                       interrupts = <GIC_SPI 76 IRQ_TYPE_LEVEL_HIGH>;
+> +                       clocks = <&sysctrl R9A06G032_CLK_DDRC>, <&sysctrl R9A06G032_HCLK_DDRC>;
+> +                       clock-names = "ddrc", "pclk";
+> +                       status = "disabled";
+
+Should this node be enabled by default, or am I too naive?
+
+> +               };
+> +
+>                 udc: usb@4001e000 {
+>                         compatible = "renesas,r9a06g032-usbf", "renesas,rzn1-usbf";
+>                         reg = <0x4001e000 0x2000>;
+>
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+
 --
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-commit 205b884308f0fc7a573192d7a53b7c016d2a1163
-Author: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
-
-ASoC: qcom: Add Shikra QAIF support
-
-Add the Shikra variant data for the Qualcomm Audio Interface driver so
-the common QAIF code can bind to the Shikra QAIF device and expose the
-SoC-specific DAIs.
-
-> diff --git a/sound/soc/qcom/qaif-shikra.c b/sound/soc/qcom/qaif-shikra.c
-> new file mode 100644
-> index 0000000000000..2db3995a2de04
-> --- /dev/null
-> +++ b/sound/soc/qcom/qaif-shikra.c
-[ ... ]
-> +static const struct of_device_id shikra_qaif_cpu_device_id[] =3D {
-> +	{ .compatible =3D "qcom,shikra-qaif-cpu", .data =3D &shikra_qaif_data },
-> +	{}
-> +};
-> +MODULE_DEVICE_TABLE(of, shikra_qaif_cpu_device_id);
-> +
-> +static struct platform_driver shikra_qaif_cpu_platform_driver =3D {
-> +	.driver =3D {
-> +		.name =3D "shikra-qaif-cpu",
-> +		.of_match_table =3D shikra_qaif_cpu_device_id,
-> +		.pm =3D pm_ptr(&asoc_qcom_qaif_pm_ops),
-> +	},
-> +	.probe =3D asoc_qcom_qaif_cpu_platform_probe,
-
-[Severity: Medium]
-When probing this new device, could this lead to an uninitialized kernel st=
-ack
-memory read?
-
-If a device tree is provided where the target iommus node has
-"#iommu-cells =3D <0>", of_parse_phandle_with_args() returns successfully
-with args_count =3D 0 without zeroing out the args array.
-
-In sound/soc/qcom/qaif-platform.c:asoc_qcom_qaif_platform_register(),
-which is reachable from this probe path:
-
-	ret =3D of_parse_phandle_with_args(pdev->dev.of_node,
-					 "iommus", "#iommu-cells", 0,
-					 &iommu_spec);
-	if (ret)
-		return dev_err_probe(&pdev->dev, ret,
-				     "failed to parse iommus property\n");
-	sid =3D iommu_spec.args[0];
-
-Because the iommu_spec structure is allocated on the stack, reading
-iommu_spec.args[0] here fetches uninitialized kernel stack data without
-checking if args_count > 0. This stack data is then masked with
-QAIF_CSID_MASK and programmed into a hardware register, causing a minor
-information leak and potential IOMMU configuration failure.
-
-> +};
-> +module_platform_driver(shikra_qaif_cpu_platform_driver);
-> +
-> +MODULE_DESCRIPTION("Qualcomm Audio Interface (QAIF) Shikra variant drive=
-r");
-> +MODULE_AUTHOR("Harendra Gautam <harendra.gautam@oss.qualcomm.com>");
-> +MODULE_LICENSE("GPL");
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261013-b4-qaif-sh=
-ikra-audio-v9-0-f3022e28f2fd@oss.qualcomm.com?part=3D9
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
