@@ -1,130 +1,139 @@
-Received: from mail-yx1-f54.google.com (mail-yx1-f54.google.com [74.125.224.54])
+Received: from mail-ua1-f46.google.com (mail-ua1-f46.google.com [209.85.222.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4C95551985
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 20:49:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.54
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791924564; cv=pass; b=YX2vIpwYx20xrlOoUkIaaWZwdr4oHTkhdDVOgwQUg59ZFBPsOm/GUt1BVS0P4/1f/QWfeTpwksdVDJLGqyTrYMbc4MZhk9ienRzQzQqo82Rg3SCN0p9I6VxPwBVZNP7de5XSd3+0dSaR0niovHIX29o7+bsISQigfOTiz2K0Fvs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791924564; c=relaxed/simple;
-	bh=VCb03VA6LjpMHOfUp8pvf/EGXGe3r0X2vnJKPUWICB0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=eVOPgPlKofGes9MCFnfsAl9PcfLRZ1M9BVocBcZkY5B5iCukkCVh3dFmRZIojEgFFZnVCKzsHuIRMemq9TvkjFSJwDOk7lJf2hALuofxQo2pAeYIbNklFKIhGnYLmilPNi9d+33E5MZXDCRWoY/r1/Qq5AeuMfPFSKWzoY9BLgI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=hq0WLQJE; arc=pass smtp.client-ip=74.125.224.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8408851C349
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 20:52:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.46
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791924741; cv=none; b=mN3dQwuIRhQJaBENNQJ5YwUyzPuYwfmLBtrGPBOBDl6yQZE9R+ftPOwQQMCSAjZhx/CynwmlX6ScgvO/IkQZk/GPL0wyL4+R3EPogHkP4mznMqlA//uZnY/KbCL8C/cE62uB+OUQ+WxBBxvr5URynmavH9ncJ4/qcXNP5F99f+o=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791924741; c=relaxed/simple;
+	bh=9JEk6M/t3MY9SSuk+PIRB8RNo2kp9MkFOx2KwMdtO+g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Y2JriqjLpk91t7+8PL1kZzxqpqouNg4HNrA3dNTA5kBLpj79Y9JavElTwtiMZFj3mUv3Fh2lYkY6wZI0ojPNHFoicPphWmFpm2YXOCkk9RwFn1PInCi5gEmXo9xDXdCFsQNyRFjsg0l6P7qhfzRKSjDd+H8+6Lv5c6qCiq7i8X8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kYAjcVek; arc=none smtp.client-ip=209.85.222.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="hq0WLQJE"
-Received: by mail-yx1-f54.google.com with SMTP id 956f58d0204a3-6768a9fc0e8so3182688d50.2
-        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 13:49:22 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1791924562; cv=none;
-        d=google.com; s=arc-20260327;
-        b=fZTxKBHGmFxERqxrYud4s86RWrqDiaMPshsgQ0j5OqX36s7II5gWKi5ZUALhY+SMl0
-         js0iuDiHD3K+FcvKEnuVVYcB/uranXZuEz971C+fBWRVG3HXmvI3MTia89U4N3xsZgAO
-         p4Mnxri6eBpRbKyz+IQnV9uIoOFdOqMU+taUBtUwgvPCHawwg9wwqFtx4b2BuR0PhGFR
-         XtRD8Sl4t9jJRN/hd2Shzj9EVKe6NKL1kZ1QImg8qvzU2QIfmKwKlchFYyzjyeLP3cTI
-         gcA04mLvAjJGxjtaccCJcuf9sUxFdxcf1clCTLo4u5Ay7ydzN90trx+aDa3PRIAMK+Bk
-         XdFQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=VCb03VA6LjpMHOfUp8pvf/EGXGe3r0X2vnJKPUWICB0=;
-        fh=vS9/6tOtIVoIMiMMAHC7Uk+k9ZdxIn5M0FKa9zdyjFs=;
-        b=im40t78ZioEhV7Yfx5AJV+wj0o/ZN5c/Z+2lKepZkZZILNZOx8isjVCeaW/mHF+haA
-         Eh77mpzU/KnUvwIF3OF0Q7l265xjpLP8OrXMGzKMDf69sBCPphbOSW2WztBoKihDBF6o
-         ViZ4L243+Jagg8DHtSefYnPBl5+p9KdrAdTzIPxcFg0063Yon6OdUO3BLFOPZMvNw6on
-         xr7LbEuZ4pVT5lfD10rTs2bI6e1BsxGP82/P066DmjBai8xobyS8WnPMpzVK1dEeDQB6
-         CTOcaPeCFr2tRdz4TbIiPE8X3vA3jANuwTm+qlduPrRtkBKkkZrwoLTOUQRLqQLImr0a
-         dRyQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kYAjcVek"
+Received: by mail-ua1-f46.google.com with SMTP id a1e0cc1a2514c-98301b325c4so965982241.1
+        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 13:52:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1791924562; x=1792529362; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1791924738; x=1792529538; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=VCb03VA6LjpMHOfUp8pvf/EGXGe3r0X2vnJKPUWICB0=;
-        b=hq0WLQJEF6QP73pmJ6c8FJeMVwrlj6kQptWIXaj1nw7k4uKBOCtdqhFa4ZEx1U9iI5
-         2noQBoKQenrv5zmZJK06HyjM7oJBoTx6T6GOFZDkIBKYzCTH4eq2ThweRjcfkv9OdK9g
-         gmGNRBbxuOwIzL99EqhlmFKi50HlDL2A7kFw0=
+        bh=X5tey+LJTJY08HDXCS/BJlW6ZqEg1h3t9x/9CrciE/I=;
+        b=kYAjcVekvYIoZb40tM2amCYBneoyhhCIBYCkGZ4S5isMv2GP8/pWnNSL4lGhcfQVGb
+         bTrFbeUqPFpm0EMSu0qnd7brQYGjQATnAskIK8D2mbu40SP7CDcpfStI93qyd33Mx6I2
+         g7QWPLJi2Er8xGfkERYWT3g55G8aTYnCvLJH/JfuuxtBacbDlrL4nKNFyNfurDnjKfoF
+         9HQnABhV2MfOkDIRDXtHVmGuenPeERcT8GcT0hkCaPTRfqZDg0IMPugiU9HGKKEtFQZz
+         Iw4wIjEVYJHUlcjjystkaqX/7UNcb8WYqHSfQXDMns1G37Mrm7zpqp8rK66SAEu98lge
+         PWoA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791924562; x=1792529362;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1791924738; x=1792529538;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=VCb03VA6LjpMHOfUp8pvf/EGXGe3r0X2vnJKPUWICB0=;
-        b=0OWMnRI/zY7hABRyYrAN63kjcIfEubbxGl9KTgDBf6yxLsgdiDgMi+z0F/JUVV4Jew
-         1aUk36kj3KoUMKckWIpenhtuQ1TZLXVPIhr987WIAEQiApMNdHYPUaGVbfNd1I3WOG+j
-         hmUGe96kYERvkY60IXOdCynCwHhtI5v6LYcBnZvv1z4gJ6h6MYSZBIXSaP+CqC29bQnB
-         BDLUCFKH5P96JcR+VRe6dw6vO/JjkWz5TEO9bCbggdcuqgfoSqv1OXHcnOBchzUD0FNY
-         J2xrdkuFMuRIeMvWusVrxtU0mTOZ+I50ZwoR14z0bqhXBmKY8uuLUR2lNW4Zr4VgHEpz
-         RKEg==
-X-Forwarded-Encrypted: i=1; AKwUvBw4SP7f4BiaWv5uXAIFoibzBzVRHhrs6JtdN2IgnXWpRUIbM6O0FIP8D78QCOUHl/RVGG1BHwb/1WTR@vger.kernel.org
-X-Gm-Message-State: AFq9FYKzHbznCUBgrcNpWzFy14Df9ERyV94N/1wtgnIdHs6+lFQ+YKsa
-	ohtVJW24PbwB13Mxm763zXz4DNvUGb53RwkQh7xvKa/rnNrDgisqt5b11P941tKgS0Qp9HOGdBV
-	/jiIW1rx8XpOI3lAfL9xLaN1BwPQZg/4nLYEB+PKO
-X-Gm-Gg: AYBFou2fEseoxFr5bgZlG8PEOP8If6J96aPna5BPq5NwAcCDHXTCS8rEc0kKSgwPWED
-	KPAM/iWGlKPd8Fv8RtUe0KnX5AaygIXi/qjQM4ipor33Wsx7rz0WU+oo94EUzUyYChuhHC2w5JK
-	LmukfWn9VCUYcI6CQpNHgbHf7rgDris3toyYQX+Zclv5WqYlG9rmLM4LU71dHBV72ukmY2EVo9e
-	Z5oEPzLbCaGMD6J4HcxZw8GV0Xk73ctmYjSn3mGMvjB75WWycR4pYJC+rZLZ+0Xe42SvxV/7Srt
-	y1YCUHyI6E8ZnGkMO3TEel5e4SdBGLL3+NJ7wWjHSJzZK8S2od4TsmS8WjgxIWJjpDUI0mnWKUL
-	P0zd1GlzgQw==
-X-Received: by 2002:a05:690c:3346:b0:89a:63da:fab2 with SMTP id
- 00721157ae682-8b07ee2c80emr43041947b3.109.1791924561531; Tue, 13 Oct 2026
- 13:49:21 -0700 (PDT)
+        bh=X5tey+LJTJY08HDXCS/BJlW6ZqEg1h3t9x/9CrciE/I=;
+        b=odfbZlRIFMPZLgCj808gplsj+fXH4boGlNi676ihbANTGqht0VRN+A02NyU4uUIXZm
+         IFgeRRMTRZ7LsBELcXEulioATF2ZTQDU/Z5GnOfMepz7PkCo/eAabACdf+0aGjF1bnKC
+         dHSY+HIne3xTb0t9X9m1NtJxJk0BZYR1Tv7uc0DVv9fPdsG05IoC1H0CCvDrNWQpo3JO
+         B1xUFwtR2EBieK4pfinsACPFUq9Hs8ZPmcTAzCktFRjjlzAAt9MEaR+P2aQdzRcdI2Cy
+         aIiGHHwouipWfj3Gip+j2tYVYMp9Bq/aof6G7GAMkUdSoydkAARAnWL90vM1s+uk3+cD
+         8buQ==
+X-Forwarded-Encrypted: i=1; AKwUvByPTlc7IHtsPsOmnIFHn4iEw+wqW+MChmZ0PEqL7tEsjpIUiu7p+LJ6gVNJvUKhMfImBbqkqvha84XT@vger.kernel.org
+X-Gm-Message-State: AFq9FYJjDJcOy4vp9OGJBqW0rzC0Fc+Ya8cnbMrZabnaHiPMyAGLE7B1
+	O/1tu/1mJdyjkrXC+7i2z8RJEa7Dzu5lbyEhAeQ5KdJBTKp9w8Wm7siB
+X-Gm-Gg: AYBFou1AF0T9W6Ur5EYph5t+V30KdVseIgH+azxHE8KlCjYjWaOCbppT+euAlrcPtTh
+	GNJp1a5FmDFzDniI+bP17mtXqMAnUnd/iBrh0iV1da/V+m397+i0Ed+jlxWuWLbLHp4ruQQaZ9x
+	XUxLGn5Pp2kWT6xroEvAV27X2MyPx9Ym2oyAu5V3SdIOB3lpCds9uR6NXwZRzEh7ZZtYc35MGDS
+	4mYuOTc87ZxRB3lP68sGHMydsBGpyC0pc2XMRH+Zp4JK8KreRXUaiwsEgbhjovic2FMdkq9Xmst
+	DTcG4zfFoXauRQ8IuzbJWK+h3c2dwGM4MZvlVwcOrxY5nRsoABNKQ80mLw5xEZQ3bk32sibbLU8
+	7iQRNloRfSUAk5ANECtb/E63LzxnqBySdbeqOn9C17+HlUuRZ+EszFnU7SKWPcLqLo7f1M2ZeDC
+	r0vJnMdccUfWNPMTPt/YhX/f8/PVgAWqbks9mnT/1I1DCmve6IE76R0o/0f1mwPgDOcd7Scox36
+	gDC
+X-Received: by 2002:a67:e713:0:b0:7b4:bdf5:9307 with SMTP id ada2fe7eead31-7cb3a17c668mr3406598137.30.1791924738306;
+        Tue, 13 Oct 2026 13:52:18 -0700 (PDT)
+Received: from localhost ([2804:30c:96c:bf00:7844:c38c:894:4054])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7cb39d6396asm9396454137.1.2026.10.13.13.52.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 13:52:17 -0700 (PDT)
+Date: Tue, 13 Oct 2026 17:52:39 -0300
+From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
+To: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, marcelo.schmitt1@gmail.com
+Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>,
+	devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+Subject: Re: [PATCH v4 02/13] iio: adc: ad4134: Sign extend sample data
+Message-ID: <as6aF-dBevp4bF2Q@debian-BULLSEYE-live-builder-AMD64>
+References: <cover.1791309733.git.marcelo.schmitt@analog.com>
+ <8f22f48cd830338d801342a52fb454607e8b06c0.1791309733.git.marcelo.schmitt@analog.com>
+ <sashiko-outbox-162349@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20261009-send-upstream-v5-0-384af01da3ee@chromium.org>
- <20261009-send-upstream-v5-1-384af01da3ee@chromium.org> <be3f853e-8b37-4b41-a998-94de1cb552f3@kernel.org>
-In-Reply-To: <be3f853e-8b37-4b41-a998-94de1cb552f3@kernel.org>
-From: Jingyuan Liang <jingyliang@chromium.org>
-Date: Tue, 13 Oct 2026 13:49:10 -0700
-X-Gm-Features: AclHuK9ox7K2COGXrl-FRR9cM2pKj2PME_s-ad7oALLfV1KkNB6t3-cZk6Vgeos
-Message-ID: <CAEe3GZE-3rCTw-2L-dzXqim5qHxLs1BKjpbmo9aT85ZBLWm5_A@mail.gmail.com>
-Subject: Re: [PATCH v5 01/11] Documentation: Correction in HID output_report
- callback description.
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Jiri Kosina <jikos@kernel.org>, Benjamin Tissoires <bentiss@kernel.org>, 
-	Jonathan Corbet <corbet@lwn.net>, Mark Brown <broonie@kernel.org>, 
-	Steven Rostedt <rostedt@goodmis.org>, Masami Hiramatsu <mhiramat@kernel.org>, 
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>, 
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-input@vger.kernel.org, 
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-spi@vger.kernel.org, linux-trace-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, hbarnor@chromium.org, tfiga@chromium.org, 
-	fqwqf@fqwqf.xyz, daleyo@gmail.com, Jarrett Schultz <jaschultz@microsoft.com>, 
-	Dmitry Antipov <dmanti@microsoft.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <sashiko-outbox-162349@kernel.org>
 
-On Sun, Oct 11, 2026 at 11:04=E2=80=AFPM Krzysztof Kozlowski <krzk@kernel.o=
-rg> wrote:
->
-> On 10/10/2026 00:25, Jingyuan Liang wrote:
-> > From: Jarrett Schultz <jaschultz@microsoft.com>
-> >
-> > Originally output_report callback was described as must-be asynchronous=
-,
-> > but that is not the case in some implementations, namely i2c-hid.
-> > Correct the documentation to say that it may be asynchronous.
-> >
-> > Signed-off-by: Dmitry Antipov <dmanti@microsoft.com>
-> > Reviewed-by: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-> > Tested-by: Dale Whinham <daleyo@gmail.com>
->
-> No, you cannot test documentation. Do not add fake tags when they simply
-> do not apply.
->
->
->
-> Best regards,
-> Krzysztof
+On 10/06, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Low] build: -Wmaybe-uninitialized warning for conditionally assigned 'sample'
+> --
+> 
+> commit 6ed41c1a7f4a36c8c7537ebc2c932623b78e2afa
+> Author: Marcelo Schmitt <marcelo.schmitt@analog.com>
+> 
+> iio: adc: ad4134: Sign extend sample data
+> 
+> Sign extend ADC sample data for correct delivery of negative ADC input
+> difference.
+> 
+> > diff --git a/drivers/iio/adc/ad4134.c b/drivers/iio/adc/ad4134.c
+> > index e53c10b9a44a9..6fdeb27d7a42b 100644
+> > --- a/drivers/iio/adc/ad4134.c
+> > +++ b/drivers/iio/adc/ad4134.c
+> > @@ -172,6 +172,7 @@ static int ad4134_data_read(struct ad4134_state *st, unsigned int reg,
+> >  			    unsigned int *val)
+> >  {
+> >  	unsigned int i;
+> > +	u32 sample;
+> >  	int ret;
+> >  
+> >  	/*
+> > @@ -196,8 +197,9 @@ static int ad4134_data_read(struct ad4134_state *st, unsigned int reg,
+> >  		 * Clock out data from all channels to avoid that.
+> >  		 */
+> >  		if (i == AD4134_VREG_CH(reg))
+> > -			*val = get_unaligned_be24(st->rx_buf);
+> > +			sample = get_unaligned_be24(st->rx_buf);
+> >  	}
+> > +	*val = sign_extend32(sample, AD4134_CHAN_PRECISION_BITS - 1);
+>                              ^^^^^^
+> 
+> [Severity: Low]
+> Does this code trigger a -Wmaybe-uninitialized compiler warning?
+> 
+> The local variable sample is declared without initialization and is only
+> assigned conditionally if i == AD4134_VREG_CH(reg). While the regmap core
+> strictly validates reg before invoking the read callback, the compiler analyzes
+> ad4134_data_read() locally and cannot statically deduce this external bounds
+> guarantee.
+> 
+> Consequently, the compiler evaluates a theoretical path where the condition is
+> never met, leaving sample unassigned before it is passed to sign_extend32().
+> 
+> This can cause build failures in kernel configurations with CONFIG_WERROR
+> enabled. Explicitly initializing u32 sample = 0; or unconditionally performing
+> the sign extension inside the if block would resolve this.
 
-Thank you. I will drop the tested-by tag in v6.
+Okay, u32 sample = 0 is what I've chosen for v5.
+> 
+> >  
+> >  	return 0;
+> >  }
