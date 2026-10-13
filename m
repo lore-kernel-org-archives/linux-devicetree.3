@@ -1,163 +1,102 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B4E43F871B
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 14:09:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90EFE30C606;
+	Tue, 13 Oct 2026 14:12:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791900596; cv=none; b=Xc9WmCBzc1qWZhqjfQQ2ExLUa307MnKgDIgJAA6W898C0yTSyh/ail3gplbAWiv4V4cEAI9Q6q5++Almj5D0WGtGnSCkG3WyXnBZ/VkLPXAiZ+GVFGaC55jmCIHFzykGZjbal63jPBe9VSeTSAIYIOwQWduhYBI0VYqQly1fRwI=
+	t=1791900742; cv=none; b=i8GuOBXbXsekufnD1s8KMTZBAHzFzP16liFcvzKFs0SI+peSo2txNPrEsvqkBkAaxCwKO5t1IZ+i9JmwXX85Lt+HFvyL0Biau/LkPvTqOVmX1kx/x8QqXAocoVwOtQX8nZjnTOKA+xx/RLsrjBY8EcuyWlbizWIA3NAdVuZpSn0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791900596; c=relaxed/simple;
-	bh=p0X5uA3DQy8yO93GvvIIoj0wSifsuyv4UXPNTkOA8Ds=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=r/DMPIgobiengV5ogOKjUWs1SeZLxJupCeNc3g2na/gl8/rJYM3GjWHs/pzLvyzhoW50twvpb0m6YAgldWm+Hxd1QLIkuQ0byJKcds26KtCSo9NC8KZF5DqtLeEOAwernGR09x48wDCzH6T0jVmpZy+ioCShsteQTGwfYpet0NY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ky7xlKfp; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1791900742; c=relaxed/simple;
+	bh=9hCI+KLlF44LjYuZ2V43HBQqMnF64LjM3PfDokYjQ0U=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=iBHLqsVb24jJkzpw7EycDMpsMGdwSJGSIKffFR0qQXJAXIzqVhWRIIk7ngLd+368KFvZyKhJRy8F5WejPdNDIFRl31Zh84SbJrNTGdaYJM0uNA+9UX575O3gZ2m9WIg43qiBCfUOP6ga0Gx3WU1C5sTdKfoL30uuLL1WEg9UzlQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=NxFy8Uyl; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ky7xlKfp"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4a1688d7769so25916425e9.0
-        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 07:09:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1791900593; x=1792505393; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=gz7YvLuD+BSS9eEd2mSMPhx0X6MoL8V0Pfz5H669ykM=;
-        b=ky7xlKfpdY+ZAIByV2sKs3Eh+O9fb/ZDvwe62bs53STFiwNoXyNP3OYv5cIhSW4/9Q
-         Njk9aELTpKugAA6sp5zrQSHQMBb8+3wrl4+xBC3ED2NqAoyxsKh4DFzDp+FlWSwRhtAZ
-         gJJI4h6kpP1wXIM8AdEc8Eiul9CbQbbj4Mhsq+ywjcy62JTs0h2jSG5fGRo+gHKnMqAN
-         5Eqgp5eAMmvkpjd7FGS4hYEv11ebmllc4yoj8xMxc1ZsPQMFzzvm2UeshZtGVdDV1tlI
-         BvqVEBd8usjXco3rbWoNWLFb2XsT9fWtz/fPXkxwxeltsGUqpQKDJhOdIV5nu24eLX7U
-         GQTA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791900593; x=1792505393;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:content-language:references:cc:to:subject:reply-to:from
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gz7YvLuD+BSS9eEd2mSMPhx0X6MoL8V0Pfz5H669ykM=;
-        b=XP9nqAFxO6h2Q4Q7BKZ9zhDr3Thb+yd2+jL8oSj8/s6hkDryC64sqA/cSq+o9API16
-         M0Unrz2G4FKcb0RB1I/7AcenzakEWBaBxNK1OUG9Ro/jBVvWAOZpMK07tT2yyjtSLiWZ
-         2msQV4lDcbrzrNMIe/cf4ZYD3s+/7bcD/CodHUc+9SQJoWQGxjwUXa8ITDMvko/FxeVL
-         8qHu7TJHC4gek2k6WUuiL6Loxu8GhjQ83bMaZT9bve3GJnY1STKd2F5qo7B+bxPYSVu2
-         5vWD+kqXLQ5GoNozdM67EHqhO0otOp4NfXaw+xZPLVDx5HEf+uTACR4zz4PF1KTLOZiz
-         qzqA==
-X-Forwarded-Encrypted: i=1; AKwUvBzPhpCeqbWFxEfASSNZPlSD6s43ZQ6u1olcQ9PzpDGwXa6IV9EMbQHp9Tr7naeJQOzhuVrKzR4+j37d@vger.kernel.org
-X-Gm-Message-State: AFq9FYL/D87wL48yXIEBfLO66scFMoZACwUhy1qCz/thmkjHIf3XDcju
-	CyGQqkzBmZx2k7qb/2Gu11hmQLgKO1S3N8ZdUmPsr4C3Q9o+3BYF67oRLRsOCzV1VL0=
-X-Gm-Gg: AYBFou3AvniRy8bqtXkBM6qdZgG+UZXTLIAm0b05UH0w9oAmmV9TkWfRF4mJw54h8IE
-	pHsIHQ81RbhjywRrqfLYL0wsiIc37V+VpcVr/ShKAgbV9PR1q9yMPShFAXyOwwgxsPDQ6G4dn1U
-	WR1b66nq+rwvUN9IjHhgwP4FJHfnSOrsrXMXansJGXmuj5uW+GCb5v5Osw3xEXmrxp/QdsKuQJr
-	6DShtFMVvRU9CVoe0kUGQKMYDdrvYcnWJzvSLVRcH4rSddQMztIBXE7bTkfR9jDE+MOje61Ba9b
-	U0oMp3pn39bEvZxML35AqRHswLyLQFLaKzncKigGE1eNfiOy+mnGYTNg7Pio/e5dD2l1F3Pcruk
-	8pOD9g0C5oI5iax5T/0rbo49CV+jQeardtLyvOUeLg/nZwjRUCeII5W81FJqi0DwTTslaErEH+o
-	ye15uwYzocyBU10B48l7Ok6rY0rUzI6Picga8uM6aNoDEWKtlP4pd2mQAz/jdADWc1algVjgyic
-	w1spCDbahyJxnOZPpuxS1fCbNuFOnUh++PelEQYBbL/ivRnejuCnw==
-X-Received: by 2002:a05:600c:46cc:b0:4a1:688d:a41c with SMTP id 5b1f17b1804b1-4a18e4c06a8mr234176075e9.25.1791900592528;
-        Tue, 13 Oct 2026 07:09:52 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:ef1f:5ab3:36fa:3ccb? ([2a01:e0a:106d:1080:ef1f:5ab3:36fa:3ccb])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a1972eaed8sm253144205e9.1.2026.10.13.07.09.51
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 13 Oct 2026 07:09:52 -0700 (PDT)
-Message-ID: <8b331c92-ce18-4886-ba87-77b6156cc9a1@linaro.org>
-Date: Tue, 13 Oct 2026 16:09:51 +0200
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="NxFy8Uyl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=9hCI+KLlF44LjYuZ2V43HBQqMnF64LjM3PfDokYjQ0U=; b=N
+	xFy8UylF7Z9Eh+XhQPDIDNqOP9M2CP8vbAIYSs+teya2vK/Tk7boOafHkRC4Zzow
+	QOFFPvFHhzQtJI1b07yhfki8bM5VRUBNhl3LbUT9Z/nbdyogVabgth9C5K5NwCbA
+	m/RWbf+cKJT/WKJmrEW6hB6Sz5ar4WDPGAWODdrgwg=
+Date: Tue, 13 Oct 2026 22:10:41 +0800 (CST)
+From: zl020895  <zl020895@163.com>
+To: "Bartosz Golaszewski" <brgl@kernel.org>
+Cc: longzhao@ambarella.com,
+	"Long Zhao via B4 Relay" <devnull+longzhao.ambarella.com@kernel.org>,
+	"Linus Walleij" <linusw@kernel.org>,
+	"Michael Walle" <mwalle@kernel.org>,
+	"Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
+	"Rob Herring" <robh@kernel.org>,
+	"Krzysztof Kozlowski" <krzk@kernel.org>,
+	"Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+	"Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>,
+	"Conor Dooley" <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	"Conor Dooley" <conor.dooley@microchip.com>,
+	"Chanho Min" <chanho.min@lge.com>, linux-gpio@vger.kernel.org
+Subject: Re:Re: [PATCH 0/7] gpio: add Ambarella CV75 PL061 support
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <CAMRc=MezU71ByUoO-GMxSwsFsGZTUmQisYYrYEwtdbwyFiEqsw@mail.gmail.com>
+References: <20261009-cv75-gpio-v1-0-5836bd438423@ambarella.com>
+ <CAMRc=MezU71ByUoO-GMxSwsFsGZTUmQisYYrYEwtdbwyFiEqsw@mail.gmail.com>
+X-NTES-SC: AL_Qu2SA/Wbv04v5ySfZekdnUoTj+Y/XMK0uvwk1YdVc84FkSfp3wMjT35qOEXs9/qoFCWqvTu+SwFvxuB9c7JXbkDZ1ziFg3nW8RhAFZ01ug==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=GBK
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH 2/3] arm64: dts: qcom: sm8650: Add watchdog node
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Wim Van Sebroeck <wim@linux-watchdog.org>, Guenter Roeck
- <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Rajendra Nayak <quic_rjendra@quicinc.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-watchdog@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20261002-topic-sm8650-deckard-watchdog-v1-0-7d7f7d71d88a@linaro.org>
- <20261002-topic-sm8650-deckard-watchdog-v1-2-7d7f7d71d88a@linaro.org>
- <f6febe84-c7c2-4aa8-bb02-5b56c63abc6c@oss.qualcomm.com>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <f6febe84-c7c2-4aa8-bb02-5b56c63abc6c@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Message-ID: <73c4ceaf.9c2f.1a13599e8ca.Coremail.zl020895@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:gygvCgD3fzvhO85qYSchAA--.60W
+X-CM-SenderInfo: d2oqjiqyzvqiywtou0bp/xtbC7gFVxmrOO+FTVgAA3H
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-On 10/13/26 11:21, Konrad Dybcio wrote:
-> On 10/2/26 11:45 AM, Neil Armstrong wrote:
->> Add a node for the watchdog on the SM8650 SoC, the node
->> is marked as reserved since on most platforms the Watchdog
->> is owned by the Gunyah Hypervisor.
->>
->> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
->> ---
-> 
-> Do you have a HDK or something with gunyah at hand? A couple months
-> ago qcom_scm_gunyah_wdt_init() was introduced to handle this -
-> could you enable the node and give it a shot if you have one?
-
-Why enabling the node ? the qcom_scm_gunyah_wdt_init() will bail out
-if the node is enabled. Here we only want the node to be enabled when
-we are in EL1 without Gunyah.
-
-Neil
-
-> 
-> Konrad
-> 
->>   arch/arm64/boot/dts/qcom/sm8650.dtsi | 8 ++++++++
->>   1 file changed, 8 insertions(+)
->>
->> diff --git a/arch/arm64/boot/dts/qcom/sm8650.dtsi b/arch/arm64/boot/dts/qcom/sm8650.dtsi
->> index 86fbb0fd6472..f33ed7909a8e 100644
->> --- a/arch/arm64/boot/dts/qcom/sm8650.dtsi
->> +++ b/arch/arm64/boot/dts/qcom/sm8650.dtsi
->> @@ -7311,6 +7311,14 @@ gic_its: msi-controller@17140000 {
->>   			};
->>   		};
->>   
->> +		watchdog: watchdog@17411000 {
->> +			compatible = "qcom,apss-wdt-sm8650", "qcom,kpss-wdt";
->> +			reg = <0 0x17411000 0 0x1000>;
->> +			clocks = <&sleep_clk>;
->> +			interrupts = <GIC_SPI 0 IRQ_TYPE_EDGE_RISING 0>;
->> +			status = "reserved"; /* Owned by hypervisor */
->> +		};
->> +
->>   		timer@17420000 {
->>   			compatible = "arm,armv7-timer-mem";
->>   			reg = <0 0x17420000 0 0x1000>;
->>
-
+SGkgQmFydCwKClllcy4gVGhpcyBpcyBlZmZlY3RpdmVseSBhIHYxMCBvZiB0aGUgR1BJTyBwYXRj
+aGVzIGZyb20gdGhlIGNvbWJpbmVkIENWNzUgc2VyaWVzLiBJIHNwbGl0IHRoZW0gb3V0IGFuZCBy
+ZXN0YXJ0ZWQgdGhlIG51bWJlcmluZyBhdCB2MSBiZWNhdXNlIHNvbWUgbWFpbnRhaW5lcnMgcHJl
+ZmVycmVkIHNlcGFyYXRlIHNlcmllcywgc28gSSBhbSB0cnlpbmcgdGhhdC4KCkJlc3QgcmVnYXJk
+cywKTG9uZyBaaGFvCgpBdCAyMDI2LTEwLTEzIDIwOjU4OjA4LCAiQmFydG9zeiBHb2xhc3pld3Nr
+aSIgPGJyZ2xAa2VybmVsLm9yZz4gd3JvdGU6Cj5PbiBGcmksIDkgT2N0IDIwMjYgMTI6NTc6NTMg
+KzAyMDAsIExvbmcgWmhhbyB2aWEgQjQgUmVsYXkKPjxkZXZudWxsK2xvbmd6aGFvLmFtYmFyZWxs
+YS5jb21Aa2VybmVsLm9yZz4gc2FpZDoKPj4gU3BsaXQgZnJvbSB0aGUgY29tYmluZWQgQ1Y3NSBi
+cmluZy11cCBzZXJpZXMuIFRoZXNlIHBhdGNoZXMgY29udmVydAo+PiB0aGUgQVJNIFBMMDYxIGRh
+dGEgcGF0aCB0byByZWdtYXAsIHRoZW4gYWRkIHRoZSBDVjc1IGxheW91dC4KPj4KPj4gUGxlYXNl
+IHRha2UgdGhpcyBzZXJpZXMgdGhyb3VnaCB0aGUgR1BJTyB0cmVlLiBUaGUgcXVpcmssIHRoZSBQ
+TDA2MQo+PiBjb252ZXJzaW9uIGFuZCB0aGUgQW1iYXJlbGxhIGxheW91dCBiZWxvbmcgdG9nZXRo
+ZXIuCj4+Cj4+IFRoZSBHUElPIGRyaXZlciBkb2VzIG5vdCBkZXBlbmQgb24gQVJDSF9BTUJBUkVM
+TEEuIFRoZSBiaW5kaW5nIHVzZXMKPj4gdGhlIGFtYmFyZWxsYSB2ZW5kb3IgcHJlZml4LCB3aGlj
+aCBpcyBhZGRlZCBieSB0aGUgU29DIHNlcmllcyBhbmQgaXMKPj4gbm90IGluIG1haW5saW5lIHll
+dDsgZHRfYmluZGluZ19jaGVjayBuZWVkcyB0aGF0IHByZWZpeC4KPj4KPj4gR1BJTyBkYXRhIHBh
+dGggdXNlcyBncGlvLXJlZ21hcCB3aXRoIHR3byBsYXlvdXRzIChBUk0gUHJpbWVDZWxsIGFuZAo+
+PiBBbWJhcmVsbGEpLiBBUk0gUEwwNjEgc2V0cyBHUElPX1JFR01BUF9RVUlSS19TRVRfQUZURVJf
+RElSLiBJUlEgc3RheXMKPj4gYSBjdXN0b20gUEwwNjEgaXJxY2hpcC4gVGhlIGxpbmVhciBkb21h
+aW4gaXMgY3JlYXRlZCB3aXRoIHRoZSBQTDA2MQo+PiBwcml2YXRlIGRhdGEgYW5kIGF0dGFjaGVk
+IGJ5IGdwaW8tcmVnbWFwLiByZWdtYXAtaXJxIGlzIG5vdCB1c2VkLgo+Pgo+PiBUZXN0ZWQgb24g
+dGhlIENWNzUgRVZLLiBUaGUgYm9hcmQgYm9vdHMuIGdwaW8taGFtbWVyIHRvZ2dsZXMgZ3Bpb2No
+aXAwIGxpbmUgMjYgdGVuIHRpbWVzLCBhbmQgZ3Bpby1ldmVudC1tb24gb24gbGluZSAyNyByZWNv
+cmRzIHRlbiBhbHRlcm5hdGluZyByaXNpbmcgYW5kIGZhbGxpbmcgZWRnZXMuCj4+Cj4+IENoYW5n
+ZXMgc2luY2UgdGhlIHBhdGNoZXMgaW4gdGhlIGNvbWJpbmVkIHY5Ogo+PiAtIGR0LWJpbmRpbmdz
+OiBleHBsYWluIHRoYXQgQ1Y3NSBpcyBhIG1vZGlmaWVkIFBMMDYxIChDb25vcikKPj4gLSBncGlv
+LXJlZ21hcDogbW92ZSBxdWlya3MgYWZ0ZXIgZml4ZWRfZGlyZWN0aW9uX291dHB1dCAoQW5keSkK
+Pj4gLSBncGlvOiBwbDA2MTogdXNlIHJlZ21hcF90ZXN0X2JpdHMoKSwgcmVnbWFwX2NsZWFyX2Jp
+dHMoKSBhbmQKPj4gICByZWdtYXBfc2V0X2JpdHMoKSBmb3IgZGlyZWN0aW9uIGFuZCBpbnRlcnJ1
+cHQgZW5hYmxlIChBbmR5KS4KPj4gICBUaGUgZGF0YSByZWdpc3RlciBzdGF5cyByZWdtYXBfd3Jp
+dGUoKTogcmVnbWFwX3NldF9iaXRzKCkgY2FuCj4+ICAgb25seSBzZXQgYml0cyB0byAxLCBzbyBp
+dCBjYW5ub3QgZHJpdmUgYSBwaW4gbG93Lgo+PiAtIGdwaW86IHBsMDYxOiBhZGQgQW1iYXJlbGxh
+IHJlZ2lzdGVyLWxheW91dCB2YXJpYW50OiBjYWNoZSBEQVQKPj4gICAoUkVHQ0FDSEVfRkxBVF9T
+LCBub3Qgdm9sYXRpbGUpIHNvIGdwaW9fc2V0KCkgZG9lcyBub3QKPj4gICByZWFkLW1vZGlmeS13
+cml0ZSB0aGUgcGluIGxldmVsIChTYXNoaWtvKS4gRHJvcCB0aGUgUmV2aWV3ZWQtYnkKPj4gICBm
+cm9tIEFuZHkgYW5kIExpbnVzIG9uIHRoaXMgY29tbWl0OyB0aGUgY29kZSBjaGFuZ2VkIGFmdGVy
+Cj4+ICAgdGhvc2UgdGFncy4KPj4KPj4gTGluazogaHR0cHM6Ly9wYXRjaC5tc2dpZC5saW5rLzIw
+MjYxMDAxLWN2NzUtdjUtdjktMC00ODZjYzI4OWE0YjhAYW1iYXJlbGxhLmNvbQo+Pgo+Cj5JcyB0
+aGlzIGVmZmVjdGl2ZWx5IGEgdjEwIG9mIHRoaXMgc2VyaWVzIG9yIHNvbWV0aGluZyBlbnRpcmVs
+eSBuZXc/Cj4KPkJhcnQK
