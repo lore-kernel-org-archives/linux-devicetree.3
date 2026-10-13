@@ -1,92 +1,117 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F007F3F8ED8;
-	Tue, 13 Oct 2026 11:38:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 241C53B42C7
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 11:41:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791891541; cv=none; b=fpVcLmiTL2LiutLdmPeeVkmnSFL/UukYc8X2CuWT31U6jXHCBYAhl8K9g7LW9ha5FCUX29DXdpT8rqqLoEQoFPJvBxozqkOVW/i95IBOPjLAtJVWdNmbjsfT2y/iQQtkgKqzNI3BqcFBtt0M6OdRhF0wtp0OqHIkIV6HulscF4w=
+	t=1791891687; cv=none; b=ew6yBnTmNs0Xil8xasbQQdmYkgo09Y1P978Oa+dcuB4g5UXSKphf8Aoy6JzBDKUvMljvmOKRjAPGd2GvuE287RMk8MKlaIlp6wlhrspYEmWuKiGw2X+0m16t5EBjgciPCj4pP/3TA0YSLjNUDpLZL2+HLsmFy3r+Of2lkD4pTDQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791891541; c=relaxed/simple;
-	bh=YFsUef0f38ac/+8b1qLSfSN9685amM3deilBErx/gTM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=e8Gk+Et0Xg451K+CJfr5jqJ42nrnDpiE/fA+2bqrC7eaRCIGHydeXGpKW3mXqLBeUoATa61GLwB4jK8orFeIpzCRnrRJxXBq3grkSsy7oriNXjiw6pdcR7GCZGVWdFQWGUtkjiDaYK39If2X72iUiPZI8HwVvLqlno5xiNqGpzs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ZkfFpE8K; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791891687; c=relaxed/simple;
+	bh=L7J8d9uq/fkQ4MQ1trGMq4R5FPsVdm9PYjHBf2Kz5A8=;
+	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
+	 Date; b=n2JQdijfdnl64I2mLNjcwcCGNT26ZQrOXo2tuksrSSBjBSIvBFaQ4ywQyT1CoisVf68jMaQ9bqN/FrbANsYfrTsZOfu20ykvM9Lva1JaAEAN3Wvj5lWJR5wvwr7L/CBx4F+z+j3tFDXRUXVT3yfR5vP6Nv6ONa4v5Wt+tCT7+Gs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Htf5h44+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ZkfFpE8K"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F02111F00893;
-	Tue, 13 Oct 2026 11:38:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1791891539;
-	bh=P5s1qW3zZcChHW3VhOHAkmvlfucncjuOWhArdg/PEzw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZkfFpE8KdXIvNqzBbwSpfzKEh9DQtukW1FykWQ77AlxRz5p5KOoVi7dAMNfyLVH9F
-	 6z1uURP6uN/LCFu00SoJnh2nfNC+3BTELjZt8zfya4kplgHxHRPMbxzkAK5lFxyfxT
-	 gIU1FJhYQtqASy/bF3mQRuo15QWaHztjjFdQBhCo=
-Date: Tue, 13 Oct 2026 13:39:04 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Adrian Ambrozewicz <aambrozewicz@nvidia.com>
-Cc: Donald Shannon <donalds@nvidia.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Linus Walleij <linusw@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>, Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
-	Mark Brown <broonie@kernel.org>, Jiri Slaby <jirislaby@kernel.org>,
-	Corey Minyard <corey@minyard.net>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Hans de Goede <hansg@kernel.org>, Lixu Zhang <lixu.zhang@intel.com>,
-	Danilo Krummrich <dakr@kernel.org>, Johan Hovold <johan@kernel.org>,
-	Oliver Neukum <oneukum@suse.com>,
-	Quan Nguyen <quan@os.amperecomputing.com>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-gpio@vger.kernel.org, linux-leds@vger.kernel.org,
-	linux-i2c@vger.kernel.org, linux-spi@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	openipmi-developer@lists.sourceforge.net,
-	linux-acpi@vger.kernel.org, linux-doc@vger.kernel.org,
-	driver-core@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 00/11] Add NVIDIA LSTP USB adapter drivers
-Message-ID: <2026101310-scuttle-unison-d4c3@gregkh>
-References: <20261012-lstp-usb-adapter-v1-0-aambrozewicz@nvidia.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Htf5h44+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 843B71F000FF;
+	Tue, 13 Oct 2026 11:41:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791891685;
+	bh=Zx0GLTMWNZien83+ub1QpbD3fJiNlXxLImYEq2CavYc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Htf5h44+zCtrm80oshj+o+jqwNSYdEJWmstEvoEZXX9QWpEuByemekBbCxTjy5fhM
+	 BrWykGlhoFJjX2gWW9DXpQ0sICIWg6fEo656BQKzGcAkhSmoQtkmIbo7Q4oGdQROnT
+	 5FXRFFGyRefsaYQJWHh0luQlw5D9B/KNJGea6lFfYYtNK59Dij8UMfc+j0//LrZ/9u
+	 XvZZVujwGiD4vf1oupd8x4qvg9W2AHe3IEgJSAXn3LdJZqtLGb2olPwMS/GVZqf+UY
+	 nZrQQfhUU+GPxoqarpaFvJ3Qt6QFiRPcIJBOpvdDEaR/vRxXC9ODQy4yjOsW9cuT+S
+	 RCg6CfyJfAP2w==
+Message-ID: <sashiko-outbox-169638@kernel.org>
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 09/10] ASoC: qcom: Add Shikra QAIF support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Harendra Gautam" <harendra.gautam@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20261013-b4-qaif-shikra-audio-v9-9-f3022e28f2fd@oss.qualcomm.com>
+References: <20261013-b4-qaif-shikra-audio-v9-0-f3022e28f2fd@oss.qualcomm.com>
+ <20261013-b4-qaif-shikra-audio-v9-9-f3022e28f2fd@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 13 Oct 2026 11:41:25 +0000
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261012-lstp-usb-adapter-v1-0-aambrozewicz@nvidia.com>
 
-On Mon, Oct 12, 2026 at 08:35:58PM +0300, Adrian Ambrozewicz wrote:
-> This series adds drivers for the NVIDIA LSTP USB adapter: a USB core
-> driver and GPIO, LED, I2C, SPI, UART and BMC-side IPMI function drivers,
-> with their device tree bindings, an ACPI description document and the
-> sysfs ABI.
-> 
-> What LSTP is
-> ------------
-> 
-> LSTP (Low-Speed Transport Protocol or Low-Speed Tunnelling Protocol) is
-> a vendor-specific USB interface (class 0xff, subclass 0x3f) that
-> multiplexes several low-speed "channels" over one pair of bulk
-> endpoints. It is implemented by NVIDIA's SMA, an MCU (0955:cf11), and
-> by other vendors' parts: two hub/bridge chips have it built in
-> (0424:4940, 174c:2214). Boards use it to
-> reach SPI flash, I2C sensors, GPIOs and LEDs, a UART and a host-to-BMC
-> IPMI path, on both BMCs and host systems.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] asoc: qcom: qaif: uninitialized stack read on zero iommu-cells
+--
 
-Also, if you really want to do this in a dynamic way, use greybus, as
-that is EXPLICITLY what it was designed for, and is patent-free (i.e.
-unencumbered, and we already support it in the kernel.)  Please don't
-reinvent the wheel/spec just because no one did any prior-art
-research...
+commit 205b884308f0fc7a573192d7a53b7c016d2a1163
+Author: Harendra Gautam <harendra.gautam@oss.qualcomm.com>
 
-thanks,
+ASoC: qcom: Add Shikra QAIF support
 
-greg k-h
+Add the Shikra variant data for the Qualcomm Audio Interface driver so
+the common QAIF code can bind to the Shikra QAIF device and expose the
+SoC-specific DAIs.
+
+> diff --git a/sound/soc/qcom/qaif-shikra.c b/sound/soc/qcom/qaif-shikra.c
+> new file mode 100644
+> index 0000000000000..2db3995a2de04
+> --- /dev/null
+> +++ b/sound/soc/qcom/qaif-shikra.c
+[ ... ]
+> +static const struct of_device_id shikra_qaif_cpu_device_id[] =3D {
+> +	{ .compatible =3D "qcom,shikra-qaif-cpu", .data =3D &shikra_qaif_data },
+> +	{}
+> +};
+> +MODULE_DEVICE_TABLE(of, shikra_qaif_cpu_device_id);
+> +
+> +static struct platform_driver shikra_qaif_cpu_platform_driver =3D {
+> +	.driver =3D {
+> +		.name =3D "shikra-qaif-cpu",
+> +		.of_match_table =3D shikra_qaif_cpu_device_id,
+> +		.pm =3D pm_ptr(&asoc_qcom_qaif_pm_ops),
+> +	},
+> +	.probe =3D asoc_qcom_qaif_cpu_platform_probe,
+
+[Severity: Medium]
+When probing this new device, could this lead to an uninitialized kernel st=
+ack
+memory read?
+
+If a device tree is provided where the target iommus node has
+"#iommu-cells =3D <0>", of_parse_phandle_with_args() returns successfully
+with args_count =3D 0 without zeroing out the args array.
+
+In sound/soc/qcom/qaif-platform.c:asoc_qcom_qaif_platform_register(),
+which is reachable from this probe path:
+
+	ret =3D of_parse_phandle_with_args(pdev->dev.of_node,
+					 "iommus", "#iommu-cells", 0,
+					 &iommu_spec);
+	if (ret)
+		return dev_err_probe(&pdev->dev, ret,
+				     "failed to parse iommus property\n");
+	sid =3D iommu_spec.args[0];
+
+Because the iommu_spec structure is allocated on the stack, reading
+iommu_spec.args[0] here fetches uninitialized kernel stack data without
+checking if args_count > 0. This stack data is then masked with
+QAIF_CSID_MASK and programmed into a hardware register, causing a minor
+information leak and potential IOMMU configuration failure.
+
+> +};
+> +module_platform_driver(shikra_qaif_cpu_platform_driver);
+> +
+> +MODULE_DESCRIPTION("Qualcomm Audio Interface (QAIF) Shikra variant drive=
+r");
+> +MODULE_AUTHOR("Harendra Gautam <harendra.gautam@oss.qualcomm.com>");
+> +MODULE_LICENSE("GPL");
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261013-b4-qaif-sh=
+ikra-audio-v9-0-f3022e28f2fd@oss.qualcomm.com?part=3D9
