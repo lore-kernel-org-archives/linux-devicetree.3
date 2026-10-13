@@ -1,194 +1,211 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013019.outbound.protection.outlook.com [40.107.159.19])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 683733EB108;
-	Tue, 13 Oct 2026 10:19:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.19
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791886763; cv=fail; b=uKvlJB1Gyn2GIpwJNhrevB4E4Nx/KZaw+KGfOUXMFaOJDrholWfHfAAyQ02t0j1g92bHtYELq3wfjOODgSyUiFQNkc2hf5kHxiiKtWDRKADF3Yktfif3SS3UtsCRq3O+W/cKc41yPpwYq1+YnXdCHm/+MJmPIXruYTMvF0B61N4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791886763; c=relaxed/simple;
-	bh=3O1g81HN1X2tvobqJeBM+IsKIdbSO/qeSNUigkTW588=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=szvbgNsgc4/cX44DxwdCTQ8Eq7Rn5SStBYX44kXZ0rHlPGYyqzkIECwZc35/ZjFstTJGl631gEf7qVcY8e/qCUg0OQ24OFFqfZQJvx/xafPS4p4zLWGUEXrkECUbcZG7Q6eKhD3C7p8koWKX1sNUq876DDEc5PMA8j4r29IX3GI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=YwsN9pIc; arc=fail smtp.client-ip=40.107.159.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B00523F485E;
+	Tue, 13 Oct 2026 10:21:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1791886889; cv=none; b=neCZ7B5WAqsCRh9PvX02JtVmm1E3p2RsaOnvejKUDH5uPuZ7SDWWD9bYQWRv2pZwtg02R9fxA/ddJ67XvxcOjEhRAKJfQQFyAjBrfMgoxggJ5qzl7wZ2UeuoN8FrorvqUeK9MUQgMk4z0R0aMtGjc1k2e/xPEA9N3muhtoLH+bM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1791886889; c=relaxed/simple;
+	bh=dFFoT0sSzbe9riLAKq84I+CKVyv+cf0b8B6dj4urwW0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=kZWLeyy6kjMF73OYsP4U+XjUkYKVcaqmrC05YjMgkHQMHvpABpOTA/y3zEQv5UTosIKh18GDRX8KnHIYlmtWrfWEkWGjuzWMl3IvuCgvDUKJNCfCla8oCQaGDA5mSa2rSUdhzcjgWeIBnnQHmMXyUPL6dt1pmLfJcN7GS3DojQQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BZ2AXqb6; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="YwsN9pIc"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Srtu/i2KMVIVb1JAsSIyCvIEMGlabxa4Ly+eUbeGF5/bz8lp243hEYvcmNxJaXOL4E7+r68kVDUe5e38A4fl5LDJBBLD8ILGI9EsOnIRAFQb+csmZDOIDfA1prgd6u5zDlusq3G387EHbVoi+JXvGfZUJh/jgTkMrJaqS+Gsv0p0f8QfYK2DA/Pb3zaiuWTXfWRcIyWIscJ0Rx3qjOKQ9aQUnF3B1pNVOmKeoaIljY+gHiG4xMMal32Vod47wjC+5D+waDS632tGPokdYTnNE960UK6hC7SphEXYLfr/97DlgUF/xGAjpIW/y1nek5MOcdVYIEN8YW8zaf45j+DXDQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lj6wyNb9UyuzaRcMjTIkR/mmS+z89kLpD6QcDiZRy98=;
- b=NNNNb55ljKBAZ7DSwHf+Q/TCPv9qZAGjcExT7KYUWdlAq0Kan87v3mqm1Conr1t84Ic+Bk1b55zHY1RB6wPLTfRBu/qyINsojFmUTBezwst9K6gBhXD13Y/LRwavcNvZCTRkHvkELws7RDNFwrlSEQh1U6PXNYzcg9++BlI4aTOmaxFCEHG7JBwjyDpwSj5DagckXHflolbGUhg0GSjgik12cLde6UvnqdpMmTxiOUH+subY6/KYVpbfS3BDA4tezlQd/uRjSnr3M/T7PgYKXb5+OgWn8Tf7RYiQQASmNuVE0Ma31u0EM3UiUw5pJ/nrd/mc62bDvmTM+TOexTRLUw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lj6wyNb9UyuzaRcMjTIkR/mmS+z89kLpD6QcDiZRy98=;
- b=YwsN9pIcvVLf5AP28y+c/AWfqxu8y3ekwhudY4OsIy9+INhuZLPQEfTZuFCaH5vH6FGRnQYpov5tyEP+787EONnINE5UsWwN8voJofUznWPW8hODcdj2QAhts6NtAHbyrGP/MAISIxz7YFsZsluTx6lDcxv1/CjG/Sx9rL39SgB45u9AothrW7XAxuZVttPHenSKM0PlNWdZY4H2Vw8olmIgJKU+vqANDEZxf+GW+Na1w45xMj8Ec3k1Bj2jP436R1lLL97CuLHj8XYafgjneNBx79eogQpgIS0RzoOgITVa+SjO+zYgVzo2c0kVqf50LrOynaMZGsBF0Vc3gd6IhA==
-Authentication-Results: mx.microsoft.com 1; dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB12558.eurprd04.prod.outlook.com
- (2603:10a6:150:368::10) by AM9PR04MB8438.eurprd04.prod.outlook.com
- (2603:10a6:20b:411::17) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.522.12; Tue, 13 Oct
- 2026 10:19:16 +0000
-Received: from GV2PR04MB12558.eurprd04.prod.outlook.com
- ([fe80::cd9f:102:ea58:4c49]) by GV2PR04MB12558.eurprd04.prod.outlook.com
- ([fe80::cd9f:102:ea58:4c49%6]) with mapi id 15.21.0496.021; Tue, 13 Oct 2026
- 10:19:16 +0000
-Message-ID: <9aa3d6f2-ee0a-4403-874e-8b47f4f8c425@oss.nxp.com>
-Date: Tue, 13 Oct 2026 13:19:13 +0300
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 09/12] scsi: ufs: Add NXP S32N79 UFS host controller
- driver
-To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, linux-scsi@vger.kernel.org, Frank.Li@kernel.org,
- robh@kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev
-References: <20260929100946.693962-1-larisa.grigore@oss.nxp.com>
- <20260929100946.693962-10-larisa.grigore@oss.nxp.com>
- <20260929102142.A35F71F00893@smtp.kernel.org>
-Content-Language: en-US
-From: Larisa Ileana Grigore <larisa.grigore@oss.nxp.com>
-In-Reply-To: <20260929102142.A35F71F00893@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: FR0P281CA0004.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:15::9) To GV2PR04MB12558.eurprd04.prod.outlook.com
- (2603:10a6:150:368::10)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BZ2AXqb6"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 62A37C2BCF4;
+	Tue, 13 Oct 2026 10:21:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1791886889;
+	bh=dFFoT0sSzbe9riLAKq84I+CKVyv+cf0b8B6dj4urwW0=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=BZ2AXqb6NCo6Sa7bgsTzVP6B7IkVvpbJ52Q6jHxPO3mh5yrJ4gG7N9inszvQ8PlR6
+	 oxmyLFvYWJP/uIl7eNluAQ+mOVMU6SjLFbfJyMq0EHc2Epng1wEZe0eZg3RJWCixlH
+	 u5ANMGqhXDWV8P9zLx03pq8cIhQ7n8nFH4ge1uMoDVBvjVujMApQ0bR9CrpVTFjQ0u
+	 qYQY93qmpf7fsJ1z052AxH2IoDrvyM+AgY/63f7to/rwN5+TeG82brkvNgrsgEdQxM
+	 60+Jz0vgalbZHykI19k5ybpDzmUMEUZjsDeuwozGkO6/ountqHrTBGA5X7HT1sS3YV
+	 O2n8rLF6jzfBg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 4AB47CA9ED2;
+	Tue, 13 Oct 2026 10:21:29 +0000 (UTC)
+From: Xincheng Ji via B4 Relay <devnull+jixincheng.ultrarisc.com@kernel.org>
+Subject: [PATCH v3 0/7] riscv: Add device tree support for UltraRISC DP1000
+Date: Tue, 13 Oct 2026 18:21:24 +0800
+Message-Id: <20261013-ultrarisc-dts-v3-0-5ff3ebb2a90d@ultrarisc.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB12558:EE_|AM9PR04MB8438:EE_
-X-MS-Office365-Filtering-Correlation-Id: 977f885b-b8fe-4fed-b048-08df29136f5f
-X-MS-Exchange-SharedMailbox-RoutingAgent-Processed: True
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|23010399003|1800799024|376014|366016|6133799003|10067099003|22082099003|18002099003|260925021311599003|260925021911599003|260925022911599003|11063799006|4143699003|261009223027099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	KYitB6K1PzTKCG7mbjkdni+f1jD3QB1gvHTA8Kbi76nJWPek3V+F8m3/pzBFgURhY5qleBQO6hGTAR+dTsTwAO4sUMy10NcKIyqT3CzuJGufZSO/ceoU8sigVj261+EhfuKeFUtdy+vso/oCQ98SyhppHdjXzU8YQpL0UaNesGhYwVOd21eRROUTgfeeBvGq9xtT6ebn4MeLDS8U6srxLCh64lwf4F1GLByBRXx7Yb3FcxQK4iaJbFZS4MkmPdbpBScE1MsayiLsPzqZGTApiBIrnxydd7wfN7uVobgs4iJB5MY8odU0QBBoYjI81706jkLKI4P72odQSmaqAH14nYheJOwFVSOkf9mdWYt12xz703HMVUe1LdP/4KiT77E0oSf1DcRZcM7QbntXkNQ70yUe0OoQLsE8v5BAiTghqWKzczJLPG3/eJnEQy57YaDvKs+gsP/Ot3v0pkeKBXo7EoliiM2Icagkl1gILaUsjZRivmReRwvG0Ml2rb2kIAsE+v07xUBrN71Nu58A/RLO7wON8irdgVAA2Ru8SDDaEQvtUrCJ+gtarfs8yKkZdvDDyJc/McmGUw+aWE61RpsY9LWZ1+Xx32/KXzI70X3iBJP1xiSWvk6d4d1CiQFI+rK5VvK+w9kVg7Fh2lthXB7ssKn6nbkVyD5+gmQSN7NQYh0=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB12558.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(23010399003)(1800799024)(376014)(366016)(6133799003)(10067099003)(22082099003)(18002099003)(260925021311599003)(260925021911599003)(260925022911599003)(11063799006)(4143699003)(261009223027099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WFlJaGM4TGxwcktqd2U5MUVIVkp6aGtRZzJiTExHTVVqc1Vob3VadHpyOG0x?=
- =?utf-8?B?T0lXVXFTUGZycWJYTEk4dHRkWCtmMG84UStucTRBRDJUcHBUUDE3OWRnbzQx?=
- =?utf-8?B?Q25hR28zWDJYei8rUDBzRm55cFlyZ3ZTUkZSTGFweWptZVJhRHA5UzQxWWZh?=
- =?utf-8?B?YWlHdVFWTG9rQ3V5Q3hSUmFZRldINERzSHR6OHBoYURWb29VdUxSQUI1ek5k?=
- =?utf-8?B?c3d0L3ZtdTNrZFVQeU96RUxGd2NZOEV5Nzg0ZDk3aHY5WEhXUXFGQ1FPOFUw?=
- =?utf-8?B?dEIxL2pBaFQxTGJCZ3VKRlFKUjEweEZ0WEV0NEx2K2tMWCs0QzJWVUtIZDVD?=
- =?utf-8?B?d1g3bTFJancyaE5yV2VObklpYlVPWWFSNUpmeWxzS2hBTkxHbWNsZkZkNDh1?=
- =?utf-8?B?TENpblVDYzg3LzRPcnBhWGt6QmpoVk5SQkFxTE16aU9xMEpadE51SERYYTU1?=
- =?utf-8?B?aDFLbGorK2ZiKytsbTN3QmVzRTBzaEtra2lvMHlUNWV4M2ZZY0NiRmNHSTJl?=
- =?utf-8?B?RExUYmJtbDVsdFZZZ0VuZEpudDV6cEJrS011RDdJNjBQTWd2QnVOSXN4bk9i?=
- =?utf-8?B?eTV5M1EzdUR4OFRFeHV2RmFnWGNFN1Nhc3N0c1YrVHNmY3lEWkl6LzNVeTcw?=
- =?utf-8?B?d0psMnp6TTVYNjhMYzI3cXYvV3Myay92NjJaWmRhOFFQLy9Oc0x2UTB2eE9p?=
- =?utf-8?B?aHpDKzN6dTBBdEs4NHdlMDZwREc1MHcySVlKaTJGQ0FyT3A2OTJkbVVaMDgr?=
- =?utf-8?B?eFphb3NOU1NPbTNRak5KeVc0bjdsZjlUV1dIL2tRbWZuWHNCSmtudEdXc3Bw?=
- =?utf-8?B?eFZCU2JpUFJPbldlcHZIWlB2bFpRSWh1UllaMlppTUZRZCtITStFeFNsakFi?=
- =?utf-8?B?azk0emFXejIvSG53bEdhdnRIT3oySEFKUzNLSU5SczdNL25ZT2xMb0o3L1I0?=
- =?utf-8?B?SlFXaEJQN0lrV09TWm9VOGJjekk0eXNZN1N0WVQwQklsclBtYk5rYUlndDJE?=
- =?utf-8?B?N2tCOWp5Ni8vcnRRYXVONDZ0bEpxRTFKZ0VjaSs3M2tyVG9La0M0U1Z4dGNW?=
- =?utf-8?B?eE0zd1R2WWlwQWlRNHl3TlAyMHk5UHFBY0JTTlZiUkR2U2RmZVAwaVgwbnBs?=
- =?utf-8?B?WnpncXl5YXQzd010OU50OUhnekgvUTQ3SDM5RXoxVlN0YVlLRjRDRkNtTGcw?=
- =?utf-8?B?Nk5Dc3NOcVFpUHRwbnFXTmxwMkpTTHdqdE5xTlE3dkZxOVhVY3Y2LzZ5cWdS?=
- =?utf-8?B?QWl5N1B3azRURmZLM0JmK1NlU0p3ZXVaYWdzREt0aDM2dXVpc0RUYldxazhV?=
- =?utf-8?B?dFZ6TVpSamVGZkdTUDRWZUlpNWhoc0FJTlFTbkVzTUJrWFFrS0dTVk1KdVFN?=
- =?utf-8?B?Qmd4UGVXK1FZUmxxSnREbjZoNEdnVm5tMUVqRjM4bnBSc29NeE1RSkhpRjZB?=
- =?utf-8?B?MlpSaXlMaDhLS3ZCUU5COWZiOU1ieExxRXdZeHRVUkhxeEJUS3pFMVN6S1pE?=
- =?utf-8?B?R203RytpK3lmWGJMSGRoTDkxVkovOWJwSTdHT1pLK0F3WTVqWEhLTU5nZll3?=
- =?utf-8?B?bk1GUE4wc0txUWw3WVFUQzVCdmdXTElQbHlNRXBmd2ZzYXVhcFprZ1pQQi9i?=
- =?utf-8?B?ZU1CQ21vekt4WHJFcTA2cy9RVGx0Y2J3SGI1cVRQaSs2ZExVSUlzaVJtbWJw?=
- =?utf-8?B?R0EwdXRFVWJwTW91a21xUTg5Y2xLeHFDckwrV2c5anVDM0tGTzBzZzFQNHpY?=
- =?utf-8?B?bThwUkUrRUNkVTNxekFuajNVZmNxWVR3ekxIVGt6dVgvOEUwczJFd2VvQ0lZ?=
- =?utf-8?B?QjBTa2VPV0lZS0Q3ZU9pbTZSSDVZL25ndHVESjFQVzJISDlVZXUwSURoSmFG?=
- =?utf-8?B?cGFBazB4TFVadk1aaUljdXZieGFxNjc4TGt2eDlZdWZHajF1SGh4TDd2WUVC?=
- =?utf-8?B?c0lHQXNtUkNVU295Z0pyOHhzQlRJMzQvVC9NLzVOWDFBdDdZUDhrWit6Wmpo?=
- =?utf-8?B?V01aejcyY2tSU3l3cnBybVh1dTBPV0JOZWdjYjFOZGJKQlJWRFdvTHRmVGdB?=
- =?utf-8?B?eStmMU1IVHNlK25ZbVVXZ2s5cTI5T25BcGlHMytnWWJiOWxDY2tpRXhUWkhy?=
- =?utf-8?B?UHNHNDFKeUd6Vko3VWRCcFdrL1JHK0wrMjR4M2I3bFd5WUVwZVQvazVFcGg4?=
- =?utf-8?B?V3dtMlk3Y3pqV0ttS2x6dlg4MnRmVm94a29ENE9JQzM4VjY0amptTzJsN3ZE?=
- =?utf-8?B?bFJTa2xlaWgxanE0YmxQZUwyVHZjajMxQTJMUisxWk1wOSt6cldXcENVcXJp?=
- =?utf-8?B?enpTMUJVNFV1b2p3RHZjeXpBMjgwZUVKcXp1dWlkS1d6TCtYM05ldz09?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 977f885b-b8fe-4fed-b048-08df29136f5f
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB12558.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 13 Oct 2026 10:19:16.1722
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: qs+Q1SCIp0dkdlLGoTKMK/WqJLi0ivB8IKqYrYDqXcRXe4ozwdwdGb1CabruxX+qpGPANCqNGW9v8Th9MqqITw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8438
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIACUGzmoC/2WQ3U4DIRCFX6XhWgwMf0tjjO9hvBhgsBjb6rJdN
+ U3fXZYatXp5MnO+k3OOrNJYqLL16shGmkst+10T6mrF4gZ3j8RLapqBACsMAD88TyOOpUaepsp
+ 9wqAQlLTBsuZ5GSmX9867fzjreghPFKcF8vUx0uuhBU3nN7alWrEHrVc3PccLx9PbFuOvtBm44
+ B6VD3lIQUl19327jvvtbWfjFDedkw3YpCxJ1JiCNR4HCTlpqU2KCGR9kF4bdelyyZAEMRhtWwY
+ qvVC80C5aCMq4PDidvaTFFbASb8HbMjWj0EqLLGMSKVIewFOwkE3QA5I3CJGkCymzZZNNqdN+/
+ OiTz7JP0FsPoP+sO8vW2UoMDimQJ3PZudNm+CEsu/0hLKsZCjp6p52L/win0+kT3TrtogQCAAA
+ =
+X-Change-ID: 20260522-ultrarisc-dts-9dab3a2316b6
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Jia Wang <wangjia@ultrarisc.com>, 
+ Xincheng Ji <jixincheng@ultrarisc.com>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, 
+ Thomas Gleixner <tglx@kernel.org>, 
+ Samuel Holland <samuel.holland@sifive.com>, 
+ Anup Patel <anup@brainfault.org>
+Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Paul Walmsley <paul.walmsley@sifive.com>, 
+ Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>, 
+ linux-riscv@lists.infradead.org, Conor Dooley <conor.dooley@microchip.com>
+X-Mailer: b4 0.17-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1791886887; l=6630;
+ i=jixincheng@ultrarisc.com; s=20260922; h=from:subject:message-id;
+ bh=dFFoT0sSzbe9riLAKq84I+CKVyv+cf0b8B6dj4urwW0=;
+ b=o9apMkQKLGfqaUJ5/zRMiDeMERvxlGehBrgWtfjtqQsGAukbDYOeGpo1ObLeN8dhWI00NBrIm
+ q7m47tevAoeBE8nKq/3LyK0zgPfnOulU013ktiSjIK5HumSrtmrGIu7
+X-Developer-Key: i=jixincheng@ultrarisc.com; a=ed25519;
+ pk=n848dcS5D6g0vLad/rjp4Gf/1eedTe1a3pYUrkt2260=
+X-Endpoint-Received: by B4 Relay for jixincheng@ultrarisc.com/20260922 with
+ auth_id=1046
+X-Original-From: Xincheng Ji <jixincheng@ultrarisc.com>
+Reply-To: jixincheng@ultrarisc.com
 
-On 9/29/2026 1:21 PM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] ufs: core_clk remains permanently enabled during PM suspend states
-> --
-> 
-> commit aea859e7e22ef8d785ddf1572d56548e903ae544
-> Author: Larisa Grigore <larisa.grigore@oss.nxp.com>
-> scsi: ufs: Add NXP S32N79 UFS host controller driver
-> 
-> This commit adds support for the UFS host controller on the NXP S32N79 SoC,
-> built on the Synopsys DesignWare architecture. It introduces platform glue
-> and specific initialization routines for clock scaling, M-PHY calibration,
-> and device hibernation transitions.
-> 
->> diff --git a/drivers/ufs/host/ufs-nxp-s32n7.c b/drivers/ufs/host/ufs-nxp-s32n7.c
->> new file mode 100644
->> index 0000000000000..5374662763b6e
->> --- /dev/null
->> +++ b/drivers/ufs/host/ufs-nxp-s32n7.c
-> [ ... ]
->> +static int ufs_s32n7_init(struct ufs_hba *hba)
->> +{
-> [ ... ]
->> +	/*
->> +	 * The core reference clock is not managed by the UFS core (the DT node
->> +	 * has no clock-names/freq-table-hz, so it is never added to
->> +	 * hba->clk_list_head).
->> +	 */
->> +	ufs->core_clk = devm_clk_get_enabled(dev, NULL);
->> +	if (IS_ERR(ufs->core_clk))
->> +		return dev_err_probe(dev, PTR_ERR(ufs->core_clk),
->> +				     "Failed to get and enable core clock.\n");
->> +
->> +	ufshcd_set_variant(hba, ufs);
->> +
->> +	return 0;
->> +}
-> [ ... ]
->> +static const struct dev_pm_ops ufs_s32n7_pm_ops = {
->> +	SYSTEM_SLEEP_PM_OPS(ufshcd_system_suspend, ufshcd_system_resume)
->> +	RUNTIME_PM_OPS(ufshcd_runtime_suspend, ufshcd_runtime_resume, NULL)
->> +	.prepare	= pm_sleep_ptr(ufshcd_suspend_prepare),
->> +	.complete	= pm_sleep_ptr(ufshcd_resume_complete),
->> +};
-> 
-> [Severity: Medium]
-> Because the core clock is unconditionally enabled via devm_clk_get_enabled()
-> in ufs_s32n7_init() and is explicitly excluded from the UFS core's PM logic,
-> will this clock remain permanently enabled across all low-power states?
-> 
-> Since these power management ops map directly to the generic UFS core hooks
-> and the UFS variant ops don't implement suspend or resume callbacks, there
-> does not appear to be a mechanism to disable ufs->core_clk during system
-> suspend or runtime idle. Could this lead to unnecessary power consumption?
-> 
-This is correct. I will add operating-points-v2 to address this issue.
+Add Devicetree support for the UltraRISC DP1000 RISC-V SoC and two
+DP1000-based motherboards: Shenzhen Rongda M0 and Milk-V Titan.
 
-Regards,
-Larisa
+DP1000 integrates eight UltraRISC CP100 CPU cores.  The SoC description
+includes the CPU and cache topology, CLINT, PLIC, clock controller,
+pinctrl, GPIO, four UARTs, two SPI controllers, four I2C controllers,
+three PCIe root complexes, GMAC, and the DMA controller.
+
+The Shenzhen Rongda M0 and Milk-V Titan device trees add their
+board-specific pin multiplexing, RTC devices, and Ethernet PHY
+configuration.  Both boards enable the three PCIe root complexes and
+the GMAC described as disabled by default in the SoC DTS.  The Titan
+description also provides its GPIO wakeup keys.
+
+The binding patches add the vendor, CPU, board, and peripheral compatible
+strings consumed by the new device trees.  The SPI, I2C, and AXI DMA nodes
+use their respective generic DesignWare compatible strings as fallbacks.
+
+An earlier version of the DP1000 SoC and board Devicetree support was
+posted as part of a combined Devicetree and pinctrl series. The pinctrl
+binding and driver were subsequently split out and merged separately.
+This series carries the updated Devicetree portion.
+
+Link: https://lore.kernel.org/all/20260515-ultrarisc-pinctrl-v1-0-bf559589ea8a@ultrarisc.com/
+
+The following prerequisites have been applied to their respective
+subsystem trees but are not yet included in the base:
+
+- net: stmmac: Add common internal RGMII delay handling and DP1000 support
+  https://lore.kernel.org/netdev/20260907-dwmac-ultrarisc-v2-0-9a39bf8db313@ultrarisc.com/
+
+- dt-bindings: i2c: dw: Add compatible for UltraRISC DP1000 SoC
+  https://patch.msgid.link/20260907-ultrarisc-dts-v2-6-5eb4c97477c5@ultrarisc.com
+
+- dt-bindings: dma: snps,dw-axi-dmac: Add UltraRISC DP1000 compatible
+  https://patch.msgid.link/20260907-ultrarisc-dts-v2-7-5eb4c97477c5@ultrarisc.com
+
+Testing:
+- Built dp1000-shenrongda-m0.dtb and dp1000-milkv-titan.dtb with
+  ARCH=riscv and W=1.
+- Ran dt_binding_check for the modified and prerequisite bindings.
+- Validated both DTBs against the relevant Devicetree schemas with
+  CHECK_DTBS=y and all prerequisite changes applied.
+- Boot-tested both DTBs on Shenzhen Rongda M0 and Milk-V Titan. Verified
+  the CPU topology and CBO selftests, UART, SPI, I2C/RTC, system memory,
+  and all three PCIe root complexes. The expected PCIe endpoints were
+  enumerated on both boards.
+- With the prerequisite GMAC series applied, ultrarisc-dwmac established
+  1000 Mb/s full-duplex links with the YT8531S PHY on M0 and the RTL8211F
+  PHY on Titan.
+
+Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+Signed-off-by: Xincheng Ji <jixincheng@ultrarisc.com>
+---
+Changes in v3:
+- Drop the DP1000 SPI binding patch, which has been merged, and the I2C
+  and DMA binding patches, which have been applied.
+- Correct the reg property address ranges and sizes for DMA and I2C nodes in the DP1000 base device tree.
+- Link to v2: https://patch.msgid.link/20260907-ultrarisc-dts-v2-0-5eb4c97477c5@ultrarisc.com
+
+Changes in v2:
+- Remove the dependency on the DP1000 clock series, which has since
+  been merged.
+- Drop the generic DWMAC compatible patch; DP1000 GMAC support is handled
+  by a separate prerequisite series.
+- Drop the RISC-V CPU binding yamllint fix, which has been applied.
+- Add DP1000-specific resource constraints and hardware descriptions to
+  the SPI, I2C and DMA bindings.
+- Correct the native chip-select count of SPI1 from three to four.
+- Describe all eight per-channel DMA interrupts.
+- Update the DP1000 GMAC nodes for the separate GMAC support series:
+  remove the generic DWMAC fallback, use "rgmii-id" for both boards, and
+  clarify the fixed MAC-side RGMII delays.
+- Link to v1: https://patch.msgid.link/20260824-ultrarisc-dts-v1-0-61ab7aebe9e5@ultrarisc.com
+
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+To: Paul Walmsley <pjw@kernel.org>
+To: Palmer Dabbelt <palmer@dabbelt.com>
+To: Albert Ou <aou@eecs.berkeley.edu>
+To: Alexandre Ghiti <alex@ghiti.fr>
+To: Jia Wang <wangjia@ultrarisc.com>
+To: Daniel Lezcano <daniel.lezcano@kernel.org>
+To: Thomas Gleixner <tglx@kernel.org>
+To: Samuel Holland <samuel.holland@sifive.com>
+To: Anup Patel <anup@brainfault.org>
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: Paul Walmsley <paul.walmsley@sifive.com>
+Cc: Palmer Dabbelt <palmer@sifive.com>
+Cc: Conor Dooley <conor@kernel.org>
+Cc: linux-riscv@lists.infradead.org
+
+---
+Jia Wang (7):
+      dt-bindings: vendor-prefixes: Add shenrongda
+      dt-bindings: riscv: cpus: Add UltraRISC CP100 compatible
+      dt-bindings: riscv: Add UltraRISC DP1000 board compatibles
+      dt-bindings: timer: Add UltraRISC DP1000 CLINT
+      riscv: dts: ultrarisc: Add initial device tree for UltraRISC DP1000
+      riscv: dts: ultrarisc: Add Shenzhen Rongda M0 board device tree
+      riscv: dts: ultrarisc: Add Milk-V Titan board device tree
+
+ Documentation/devicetree/bindings/riscv/cpus.yaml  |   1 +
+ .../devicetree/bindings/riscv/ultrarisc.yaml       |  27 +
+ .../devicetree/bindings/timer/sifive,clint.yaml    |   1 +
+ .../devicetree/bindings/vendor-prefixes.yaml       |   2 +
+ MAINTAINERS                                        |   8 +
+ arch/riscv/boot/dts/Makefile                       |   1 +
+ arch/riscv/boot/dts/ultrarisc/Makefile             |   3 +
+ .../dts/ultrarisc/dp1000-milkv-titan-pinctrl.dtsi  | 108 +++
+ .../boot/dts/ultrarisc/dp1000-milkv-titan.dts      | 203 +++++
+ arch/riscv/boot/dts/ultrarisc/dp1000-pinctrl.h     |  63 ++
+ .../ultrarisc/dp1000-shenrongda-m0-pinctrl.dtsi    |  79 ++
+ .../boot/dts/ultrarisc/dp1000-shenrongda-m0.dts    | 113 +++
+ arch/riscv/boot/dts/ultrarisc/dp1000.dtsi          | 899 +++++++++++++++++++++
+ 13 files changed, 1508 insertions(+)
+---
+base-commit: 704340f1cd0dcef829eb62f5b48ae95a2ce17bdf
+change-id: 20260522-ultrarisc-dts-9dab3a2316b6
+prerequisite-message-id: <20260907-dwmac-ultrarisc-v2-0-9a39bf8db313@ultrarisc.com>
+prerequisite-patch-id: 92e6cf1352d54e283d7721dc1542b580b8a41be1
+prerequisite-patch-id: 875c2058e9d8a983d785d7447374758f994dc847
+prerequisite-patch-id: 060a9b129c32c623a52ab1ba66f7a357e54575ff
+prerequisite-patch-id: 9aafbac6d2531a378b2057bf57787c814523f9d3
+prerequisite-patch-id: d75120a112276bd966d37441bd4d631e1539d0e8
+prerequisite-patch-id: f526d36e1a4adb659a812fd4145dca2e69b19453
+prerequisite-patch-id: 7d5e12085468dba34526d9047c62b357f874f91e
+
+Best regards,
+--  
+Xincheng Ji <jixincheng@ultrarisc.com>
+
+
