@@ -1,190 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 389271F4176
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 13:02:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55CF83E1203;
+	Tue, 13 Oct 2026 13:03:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791896553; cv=none; b=pDhAcht0S61NbL3XD2mJoA7IK8HYcjXQipi7Nbz1vsfU2xfWqQFSeuccJkfyP7dgKlH4zi+eAubiJldfrxoCAxvzzs+V3kQb9+07VGvQjxbkoOpk6RalZKjbzhR0GP3u7y5AWY2OaVqbLAxIt6KnbOPiS8mAvugVe1Tpgm9aCMo=
+	t=1791896617; cv=none; b=eYe1rz4kxKvxPmBVBAiLvQQfZtGqAucVW7qnYAbz/dWdqglOVrBPn+61GBwEU2xck/Ixs6It8FdsumQI6Xpxnc7uqG07t0TP2+AsndMalPXrPBKewJtMDjEivn/Y9y8wPIeC2wlx/CaYDJ79GhfW6NCIIL7IydpBsq1OYEaZlzc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791896553; c=relaxed/simple;
-	bh=cBlSrIRZnw0gBSNqSTKF/G+rbI+ucL8okpkrxiJmWfM=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=lD0lHhQjEHHObfJXt+/E9dTjIXE65GDfsGz0K/pG+1war+LHUmD27i/i+eWOLiGmTKwKRZPDXUyVMoPLit4rMBXrSqdsEr6C6PCQ4wD6z+IzOY56kjF3xr0FrEhlM9gIFxRqVBXD2Sc0oIu5mJlT9kmXWDSCetHZwhBf2YN3PT4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dNyZjoAD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791896617; c=relaxed/simple;
+	bh=egmBtondgyOXHx5RLyTTc2jqoZj6T+91zbuQyedbmiE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=MXKCg6hR3UjnsmesamBWmwEUU2LLm0Uz5nGOGZs6H96ytogzPKzWHmeziuPbiQjhCG36HQHY0nwfSjAA52DYBn7VpBwppyQ7HRsFmd6BL/u8Xc1PbohW3Orz18UYMXVv4qYH+3QLbNXlcS4vTpCmCn+eEAQs0Wgq7IQZIU7zbnc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=NHz8tD9O; arc=none smtp.client-ip=188.40.3.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dNyZjoAD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7144B1F000FF;
-	Tue, 13 Oct 2026 13:02:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791896551;
-	bh=XJ2kkZ+RvTB0VG/+3wOa1NDgrg0e/cxGLS6EIfDrKl0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=dNyZjoAD/in71vjBe7A66me2pfaxbPkqCz5x3+X2HGyV/XzafFOe/4clLZSg5Ymz6
-	 GVu3mMl6ddDBDSgBfK7Fr1fG3ug982XyaVHF9h7UBBSZDmO0OgVonYUdltBZYDDGfw
-	 Fmu2/icpsh/7Sxb/SD4DAPwqs5d3UIFHascDPI1/yBIp/VT8cV9o+L7BEhKjeO57ye
-	 4BoUwM47Ftwhla/CKI5zG/VaKwDVvr4jHZc79M6C7zBUayWmjIrmaXMve/5QPre5HN
-	 rfQpjsKoHelP6prnA4Owk4xpErMWpQP9z1qavOW7NKYCii/zk1JMY0RrFjPqry2aYN
-	 +/qBBcPNDObGQ==
-Message-ID: <sashiko-outbox-169767@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 4/6] phy: rockchip: Add support for Naneng eDP phy
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Damon Ding" <damon.ding@rock-chips.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, linux-phy@lists.infradead.org, robh@kernel.org, conor+dt@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, olteanv@gmail.com
-In-Reply-To: <20261013124946.1807886-5-damon.ding@rock-chips.com>
-References: <20261013124946.1807886-1-damon.ding@rock-chips.com>
- <20261013124946.1807886-5-damon.ding@rock-chips.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 13 Oct 2026 13:02:31 +0000
+	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="NHz8tD9O"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=ew.tq-group.com; s=default2602; h=Content-Type:Content-Transfer-Encoding:
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=TIHcLfREShiK1c2i9NlsVC922V9xk09myq8IMmakA5k=; b=NHz8tD9O5+lLMvWRRVIuyb/ffs
+	oQlD8v1zY4aVLgkRGo2l7QfPvge2/tDH7tmb8SQEBW0TbC5fzHA3ao847WSYUuIDkEDR+nSncP/KG
+	jRSv0I2XXaNvnO87UZon+sOi+eL4+s/07iKwRl3rANL/viPNA9BwWIvYLpK+07oFguGFLgkJ6W4fj
+	apz4ffO7gVOPeiOh1b1fNPJM1VbaZNdUXANi4cMdUmBRxPhSSm6O/YyaxOLwLk4G5o7y+8pza4tFb
+	roUxnmShOFci6SLpVkzDVGQyjCIlQF59KQJBCAHFZ6k1pce+2z203Tnc7bhXDCifAtrRrkC5JiKtF
+	JCljZXlw==;
+Received: from sslproxy06.your-server.de ([78.46.172.3])
+	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96.2)
+	(envelope-from <alexander.stein@ew.tq-group.com>)
+	id 1xGcAG-0003cr-18;
+	Tue, 13 Oct 2026 15:03:32 +0200
+Received: from localhost ([127.0.0.1])
+	by sslproxy06.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <alexander.stein@ew.tq-group.com>)
+	id 1xGcAF-0000yV-36;
+	Tue, 13 Oct 2026 15:03:31 +0200
+From: Alexander Stein <alexander.stein@ew.tq-group.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: imx@lists.linux.dev, devicetree@vger.kernel.org, robh@kernel.org,
+ conor+dt@kernel.org, Frank.Li@kernel.org
+Subject: Re: [PATCH 4/5] arm64: dts: freescale: Add LVDS overlays for TQMa8Xx
+Date: Tue, 13 Oct 2026 15:03:31 +0200
+Message-ID: <14085313.O9o76ZdvQC@steina-w>
+Organization: TQ-Systems GmbH
+In-Reply-To: <sashiko-outbox-169626@kernel.org>
+References:
+ <20261013111737.998282-1-alexander.stein@ew.tq-group.com>
+ <20261013111737.998282-5-alexander.stein@ew.tq-group.com>
+ <sashiko-outbox-169626@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+X-Virus-Scanned: Clear (ClamAV 1.4.3/28152/Tue Oct 13 08:26:14 2026)
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] phy: rockchip: Missing set_lanes configuration and UB on unverifie=
-d dp->lanes
-- [Medium] Uninitialized variable val used if regmap_read fails
---
+Am Dienstag, 13. Oktober 2026, 13:28:27 Mitteleurop=C3=A4ische Sommerzeit s=
+chrieb sashiko-bot@kernel.org:
+> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+e(s) to consider:
+> - [High] dts: unit address mismatch in dc0_pc channel@1 breaks LVDS1 hard=
+ware mapping
+> --
+>=20
+> commit 9e71d1e0ae4bcdbdae19947de71699d2eb47af70
+> Author: Alexander Stein <alexander.stein@ew.tq-group.com>
+>=20
+> arm64: dts: freescale: Add LVDS overlays for TQMa8Xx
+>=20
+> Add overlays for the supported LVDS display tianma tm070jvhg33 on both
+> LVDS0 and LVDS1 channels on connector X14 (+ control on X22).
+> The corresponding display controller PLL is configured with 10x the
+> pixelclock.
+>=20
+> > diff --git a/arch/arm64/boot/dts/freescale/mba8xx-lvds1-tm070jvhg33.dts=
+o b/arch/arm64/boot/dts/freescale/mba8xx-lvds1-tm070jvhg33.dtso
+> > new file mode 100644
+> > index 0000000000000..4a8ba61962725
+> > --- /dev/null
+> > +++ b/arch/arm64/boot/dts/freescale/mba8xx-lvds1-tm070jvhg33.dtso
+>=20
+> [ ... ]
+>=20
+> > +&dc0_pc {
+> > +	#address-cells =3D <1>;
+> > +	#size-cells =3D <0>;
+> > +	status =3D "okay";
+> > +
+> > +	channel@1 {
+> > +		reg =3D <0>;
+>=20
+> [Severity: High]
+> Does this reg value incorrectly map channel@1 to hardware index 0 instead=
+ of 1?
+>=20
+> It appears this overrides the channel@1 child node of &dc0_pc but explici=
+tly
+> sets reg =3D <0>. This will incorrectly update hardware channel 0, overri=
+ding the
+> base device tree which expects channel 1, and will also trigger a DTC unit
+> address mismatch warning.
+>=20
+> This can cause the LVDS1 display output to not function correctly because=
+ its
+> pixel combiner channel configuration is applied to channel 0 instead of
+> channel 1.
 
-commit be568cbd60b1a73a69ea7b9233f6bd9cf9a8b067
-Author: Damon Ding <damon.ding@rock-chips.com>
+Ah, that's true. Will fix in v2.
+Actually I would like to skip those "overwrites" as the value are already s=
+et
+in base .dtsi. But then dtbs_check complains like this:
+> /fragment@3/__overlay__/channel@1: node has a unit name, but no reg or ra=
+nges property
 
-    phy: rockchip: Add support for Naneng eDP phy
-   =20
-    Add a driver for the Rockchip eDP transmitter PHY with NaNeng IP
-    block, as found on the RK3568 SoC.
+Best regards,
+Alexander
 
-> diff --git a/drivers/phy/rockchip/phy-rockchip-naneng-edp.c b/drivers/phy=
-/rockchip/phy-rockchip-naneng-edp.c
-> new file mode 100644
-> index 0000000000000..a407714f639a7
-> --- /dev/null
-> +++ b/drivers/phy/rockchip/phy-rockchip-naneng-edp.c
-[ ... ]
-> +static int rockchip_edp_phy_set_rate(struct rockchip_edp_phy *edpphy,
-> +				     struct phy_configure_opts_dp *dp)
-> +{
-[ ... ]
-> +	regmap_write(edpphy->grf, EDP_PHY_GRF_CON0, FIELD_PREP_WM16(EDP_PHY_PD_=
-PLL_MASK, 0));
-> +	regmap_write(edpphy->grf, EDP_PHY_GRF_CON0,
-> +		     FIELD_PREP_WM16(EDP_PHY_TX_PD_MASK, ~GENMASK(dp->lanes - 1, 0)));
+> > +		status =3D "okay";
+> > +	};
+> > +};
+>=20
+>=20
 
-[Severity: High]
-If a caller passes a struct where dp->lanes is 0, will this trigger undefin=
-ed
-behavior?
 
-If dp->lanes is 0, ~GENMASK(dp->lanes - 1, 0) evaluates to
-GENMASK(UINT_MAX, 0), triggering a negative right-shift count in C. This can
-occur if a caller invokes phy_configure() with opts->dp.set_rate =3D 1 with=
-out
-having first configured the lane count.
+=2D-=20
+TQ-Systems GmbH | M=C3=BChlstra=C3=9Fe 2, Gut Delling | 82229 Seefeld, Germ=
+any
+Amtsgericht M=C3=BCnchen, HRB 105018
+Gesch=C3=A4ftsf=C3=BChrer: Detlef Schneider, R=C3=BCdiger Stahl, Stefan Sch=
+neider
+http://www.tq-group.com/
 
-[ ... ]
-> +static int rockchip_edp_phy_verify_config(struct rockchip_edp_phy *edpph=
-y,
-> +					  struct phy_configure_opts_dp *dp)
-> +{
-[ ... ]
-> +	if (dp->set_lanes) {
-> +		/* Verify lane count. */
-> +		switch (dp->lanes) {
-> +		case 1:
-> +		case 2:
-> +		case 4:
-> +			/* valid lane count. */
-> +			break;
-> +		default:
-> +			return -EINVAL;
-> +		}
-> +	}
-> +
-> +	/*
-> +	 * If changing voltages is required, check swing and pre-emphasis
-> +	 * levels, per-lane.
-> +	 */
-> +	if (dp->set_voltages) {
-> +		/* Lane count verified previously. */
-> +		for (i =3D 0; i < dp->lanes; i++) {
-> +			if (dp->voltage[i] > 3 || dp->pre[i] > 3)
-> +				return -EINVAL;
 
-[Severity: High]
-Is it possible for dp->lanes to be used unvalidated here?
-
-The comment says "Lane count verified previously", but the validation of
-dp->lanes is bypassed if dp->set_lanes is false. If a driver calls
-phy_configure() with opts->dp.set_voltages =3D 1 and opts->dp.set_lanes =3D=
- 0,
-an uninitialized or invalid dp->lanes value could lead to out-of-bounds arr=
-ay
-reads.
-
-[ ... ]
-> +static int rockchip_edp_phy_configure(struct phy *phy, union phy_configu=
-re_opts *opts)
-> +{
-> +	struct rockchip_edp_phy *edpphy =3D phy_get_drvdata(phy);
-> +	int ret;
-> +
-> +	ret =3D rockchip_edp_phy_verify_config(edpphy, &opts->dp);
-> +	if (ret) {
-> +		dev_err(edpphy->dev, "Invalid params for phy configure\n");
-> +		return ret;
-> +	}
-> +
-> +	if (opts->dp.set_rate) {
-> +		ret =3D rockchip_edp_phy_set_rate(edpphy, &opts->dp);
-> +		if (ret) {
-> +			dev_err(edpphy->dev, "Failed to set rate\n");
-> +			return ret;
-> +		}
-> +	}
-> +
-> +	if (opts->dp.set_voltages) {
-> +		ret =3D rockchip_edp_phy_set_voltages(edpphy, &opts->dp);
-> +		if (ret) {
-> +			dev_err(edpphy->dev, "Failed to set voltages\n");
-> +			return ret;
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-
-[Severity: High]
-Is opts->dp.set_lanes intentionally ignored when configuring the PHY?
-
-The opts->dp.set_lanes flag isn't handled here, meaning the hardware lane
-count is never configured. This missing state also causes the uninitialized
-dp->lanes issues in rockchip_edp_phy_set_rate() and
-rockchip_edp_phy_set_voltages().
-
-[ ... ]
-> +static bool rockchip_edp_phy_enabled(struct rockchip_edp_phy *edpphy)
-> +{
-> +	u32 val;
-> +
-> +	regmap_read(edpphy->grf, EDP_PHY_GRF_STATUS0, &val);
-> +
-> +	return FIELD_GET(PLL_RDY, val);
-
-[Severity: Medium]
-If regmap_read() fails, does this return stack garbage?
-
-A failure in regmap_read() leaves val uninitialized. Using the uninitialized
-stack variable could cause the driver to incorrectly assume the PHY is alre=
-ady
-enabled.
-
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261013124946.1807=
-886-1-damon.ding@rock-chips.com?part=3D4
