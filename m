@@ -1,129 +1,154 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com [209.85.221.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB8A13CE4B5;
-	Tue, 13 Oct 2026 07:12:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 236B73CF699
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 07:14:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791875538; cv=none; b=sCCkAA6FPDs+7BuBUgq2dRVSdID+/2YE0YgncaqQ2/HMR5FMOOvvYTfThxzPC0KEGew3OCOw6IDnx45rdvl8Px0h4fJJftWZqadnzdtYejuXe8maZWB5h73uDJnuHxIk6/OpUqlgrxqwDNN8yIo2SafSPUAWA+qwVW0rWyPVzGs=
+	t=1791875683; cv=none; b=LAG3ly0fIW06FVdymE9xU6xdrIV4PqQDa07WXQcgYi1dJ1VzMOAT1fyHcnZf6X3GHm5ckln0muQaXlJXXiG8YkhlzYgpTDS+iT19HZI7C5r/+dFceMWRoKqIj+7eO2G+pZBGoh5KMybchzZ/zFSoYMXBKYorX2Dgu4VknZ/sZ4g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791875538; c=relaxed/simple;
-	bh=gEX9eV3PZvzWxENLWmjUyzQEL5HEfUKrLDmucElwGQI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VH5yCypyp/vt9Sm+fyDo4ldvMQOGaytqopnBeqCqIs75r8hByvZimPZDrezap7LPzoPUtrkAvg1YyJRsnUlngA7DJy4Tv7LGlR5okSbdDu1ZIP8JqPpoWsD/N8s/PnB1xZyMGwOXW7ayKG0xCOOzJNd80MqZFW1WYJ0b8wrjak4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ILK85kwJ; arc=none smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1791875683; c=relaxed/simple;
+	bh=cXTuVa3KGjH8lyOe0ao4EW5q0wlCixpiZlI7i4j48U4=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=EtZtlcmiXkdc6PX66Ix9Xktjfq6U7HJy0kBORrVYGxHfPANzBEb1ieQ1GLFx7SzKhq7k6TjtscXhCKwj/149wiIjIK25uC/yDLGbQnHU8ekHT6VrJrcgzBe1fXRAPnMmK3mZlehO65hHs6hNN6antdil6MKp8SFPaT5e9frPwxc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=Bk8fI6Nn; arc=none smtp.client-ip=209.85.221.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ILK85kwJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1791875536; x=1823411536;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=gEX9eV3PZvzWxENLWmjUyzQEL5HEfUKrLDmucElwGQI=;
-  b=ILK85kwJzfZ64fC1HkS8aKrD9m9tehlibIUK03Uxez99ZWoONPYgbvuq
-   RIMGOQLJagQWXybEFLpMMu8XR0QwLFwVdxmsv3pWQeivrf7+70gfduuO9
-   RB1+1P0P8sabamAjMwcSUualEjgM+miUnqlWp9Pq6IIJUj950cBLFXvfO
-   wZ0NyDlUO73LN1IjS47+XAAXyUQfNOEBKzxQLerv8ZyfYZ+oT9c99/btc
-   jMdA3qxoqSNyUoZrGl08Jc1LLntQM1Sh1M7YfVrWPgG7xM5A5pExfdZkn
-   Brlj7D5PKUHdAwJIF9Y3IO+8jl12de+8E5bOMBRaQXri4GANB9Yin3fSn
-   Q==;
-X-CSE-ConnectionGUID: Z8JB3NcXRKmgIDGv88J2vw==
-X-CSE-MsgGUID: NsLbQ1QVS4ukl95Tp1zDlA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11933"; a="491855"
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="491855"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 00:12:16 -0700
-X-CSE-ConnectionGUID: EUJowzJ1T7S9XSX4CPgtXg==
-X-CSE-MsgGUID: rBuxNhFbTVSOhcp7M4IQHA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,155,1787036400"; 
-   d="scan'208";a="1410068"
-Received: from ncintean-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.48])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 13 Oct 2026 00:12:13 -0700
-Date: Tue, 13 Oct 2026 10:12:10 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: longzhao@ambarella.com
-Cc: Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org,
-	Linus Walleij <linusw@kernel.org>,
-	Michael Walle <mwalle@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	Long Zhao <zl020895@163.com>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 5/7] gpio: pl061: use cleanup helpers for locks
-Message-ID: <as3ZyjCdMRYpTbPP@ashevche-desk.local>
-References: <20261009-cv75-gpio-v1-0-5836bd438423@ambarella.com>
- <20261009-cv75-gpio-v1-5-5836bd438423@ambarella.com>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="Bk8fI6Nn"
+Received: by mail-wr1-f45.google.com with SMTP id ffacd0b85a97d-48b001cd92bso1483314f8f.2
+        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 00:14:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1791875679; x=1792480479; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=N/3uZKTyrNaRvsXwszDYWZ0D2uuc7O2dM/xJ/2Buikg=;
+        b=Bk8fI6NncvVLBjXXXxFmxyBnmtq+i7ERE6tKWEMKRR0oGSc+H7TrU9BxN/qzyRrDm3
+         hqTpFiqdTqnrzn+T/4L0zfkzFFOSgSltMbQkRk19KWrq78v/X6RqlUHYXIJia5BnpsP9
+         njM9nEWdPQXoyymKcXuXeaALmaubAr9X79CofOrkrXOTEMIxWATxozSsa3hfQz82vFCD
+         VRrI+Waayr7TAngKYOnORh2HQB4oqzbqGwlBugpkm4atJEZMsxm8iThfpbwXaC3YI5oW
+         N9u8CFhOOTlwWLHz3XKUObSQN+mGM+yNRnaJihZWd5mApwcHwDOlgnJAENgdu0/lMT8p
+         vt7Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791875679; x=1792480479;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=N/3uZKTyrNaRvsXwszDYWZ0D2uuc7O2dM/xJ/2Buikg=;
+        b=JH0VEJ8uaBQ8OSoaWdzG9nOmEmDAWlAxniB7958FHCaRl+yKnuWy3ERLjRvZ42nmv+
+         4R9tNWxEPxrFXCDdHOQqnToBxlgXNTuNjym+4D9dQxcJD6XrZIup4tyUr9fFjVrZT98+
+         xFKwm2upNdStYso/6z0UppS9jV7aij7e0j9zUVihPiT7HFsrUsqlGtNw8OUSjaYonDq2
+         /8N51doFvg0kqg1yq22WT3XKNUxWHY0u7jo78a0U1uQdygC3KNnifviij6ZpGBGRk08W
+         /JZIzo62d4pDWC1RjR43Zz6fd9JEu2wmXkjMmn2HmH9WcGDkJ777abkdPQLMtBgZwguX
+         b26Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzdJC4nLoSaD2y2Ur+YbPlCQLyOeBgWpYAqfvwuCo3s9KVOmTut5K0GueyQhjDiFYHFZDLkQIxBqAWu@vger.kernel.org
+X-Gm-Message-State: AFq9FYJJEVHq0x0X1sCSdge8iuAtj4LTSten1EenkBRe9b3OHyYtDlht
+	eopIy81SzygbF1eV+1iE+cZM9OxvgTAc8SVeRv4q/ER+gAkMyJTECb44i6CsPRQn2Ig=
+X-Gm-Gg: AYBFou2lK+EGZu+9b0mPVLYg7zIMx4WgLsEwENvk3yafK0xTCu4nsB2b4CgfUDnEjph
+	znZNM2sPrjDMJNejdKSMc+CaSbLHGy8dvWEIbFdy1QQ/BZhNl900j9YuDcI/RgCxW1acCkkjy7d
+	xskgZquXzrK2sJ3fDent0Iqu+N8k0hjsKtT/IOCt0PzCyXVq3EYS9KeXMRnHb6EdH4YI3vGcQUE
+	A7Vm8Jc49O59vuFwVuYufzeUBc14EB5oZDHtGGNkWYGUip7KX27uhOvSbHHOTo4ytmA0eEc765c
+	Kd8XTvtsaZepoW4YZ2FNz+jdYCcgPr39bLYNd7zHkYqvEMzsXapANKS7nvT7+7h2ohwsqs4XwDj
+	9AJ2AvUIndGIsOXOPYY6HHsvNeT1efX9Ara26TnYFo7I9b31LpliBACPsVdJXQG8rPJiXzOjY+P
+	XlsuBltp8HZ/JAiE+n5TDq1MZ53uQnbJ6BPy3MXBswcH1CJrqZo3s1imCULnuvsIQtaF9W3rrsb
+	o72nwovo/yE49njEA==
+X-Received: by 2002:a5d:5846:0:b0:48b:180:b900 with SMTP id ffacd0b85a97d-48dbaadb302mr21043691f8f.16.1791875679329;
+        Tue, 13 Oct 2026 00:14:39 -0700 (PDT)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0ab5b03sm3925157f8f.30.2026.10.13.00.14.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 00:14:38 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Lucas Tanure <tanure@linux.com>, xianwei.zhao@amlogic.com, Andrew Lunn
+ <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@kernel.org>, Jakub Kicinski <kuba@kernel.org>, Paolo
+ Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Neil
+ Armstrong <neil.armstrong@linaro.org>, Kevin Hilman
+ <khilman@baylibre.com>, Martin Blumenstingl
+ <martin.blumenstingl@googlemail.com>, Maxime Chevallier
+ <maxime.chevallier@bootlin.com>, Maxime Coquelin
+ <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+ <alexandre.torgue@foss.st.com>, Andrew Lunn <andrew+netdev@lunn.ch>
+Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 8/8] dt-bindings: net: ethernet-controller: tabulate
+ who adds the RGMII delays
+In-Reply-To: <20261010105900.247342-9-tanure@linux.com>
+References: <20261010105900.247342-1-tanure@linux.com>
+ <20261010105900.247342-9-tanure@linux.com>
+Date: Tue, 13 Oct 2026 09:14:38 +0200
+Message-ID: <1jqzhu9in5.fsf@starbuckisacylon.baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20261009-cv75-gpio-v1-5-5836bd438423@ambarella.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain
 
-On Fri, Oct 09, 2026 at 06:57:58PM +0800, Long Zhao via B4 Relay wrote:
+On sam. 10 oct. 2026 at 11:59, Lucas Tanure <tanure@linux.com> wrote:
 
-> Convert raw_spinlock critical sections to guard() from cleanup.h.
+> The informative section explains in prose how phy-mode, the delay
+> properties in the MAC node and the mode handed to the PHY fit together,
+> and says itself that developers often get this wrong. A reader has to
+> work through several paragraphs before answering the one question they
+> usually have: for this phy-mode and these properties, which part adds
+> which delay.
+>
+> Add a table that answers it at a glance, with one row for every
+> combination the properties allow.
+>
+> Assisted-by: LLM
+> Signed-off-by: Lucas Tanure <tanure@linux.com>
+> ---
+>  .../bindings/net/ethernet-controller.yaml      | 18 ++++++++++++++++++
+>  1 file changed, 18 insertions(+)
+>
+> diff --git a/Documentation/devicetree/bindings/net/ethernet-controller.yaml b/Documentation/devicetree/bindings/net/ethernet-controller.yaml
+> index 1bafd687dcb1..bba27a9feb61 100644
+> --- a/Documentation/devicetree/bindings/net/ethernet-controller.yaml
+> +++ b/Documentation/devicetree/bindings/net/ethernet-controller.yaml
+> @@ -339,6 +339,24 @@ additionalProperties: true
+>  # has added. Failure to remove the delay will result in a
+>  # non-functioning link.
+>  #
+> +# Put together, with the two properties in the MAC node, this is who
+> +# adds each delay:
+> +#
+> +#   phy-mode    tx-internal-delay-ps  rx-internal-delay-ps  TX delay    RX delay
+> +#   rgmii       -                     -                     PCB trace   PCB trace
+> +#   rgmii-id    -                     -                     PHY         PHY
+> +#   rgmii-id    present               -                     MAC         PHY
+> +#   rgmii-id    -                     present               PHY         MAC
+> +#   rgmii-id    present               present               MAC         MAC
+> +#   rgmii-txid  -                     -                     PHY         PCB trace
+> +#   rgmii-txid  present               -                     MAC         PCB trace
+> +#   rgmii-rxid  -                     -                     PCB trace   PHY
+> +#   rgmii-rxid  -                     present               PCB trace   MAC
+> +#
 
-...
+That would match how the HW is working on the A733 Allwinner too but I'm
+not entirely sure this is what Andrew had in mind from our previous
+discussion [1]. Adding him to the thread
 
->  {
->  	struct pl061 *pl061 = gpiochip_get_data(gc);
-> -	unsigned long flags;
->  
-> -	raw_spin_lock_irqsave(&pl061->lock, flags);
-> +	guard(raw_spinlock_irqsave)(&pl061->lock);
+[1]: https://lore.kernel.org/linux-sunxi/491f043e-6dc6-4936-a490-31a3362c5b6e@lunn.ch/
 
-+ blank line. I guess I already pointed out to this.
+> +# A property for a clock the PCB already delays is not in this table.
+> +# It is either the fine tuning described next, or a mistake the MAC
+> +# should report as a fatal error.
+> +#
+>  # Sometimes there is a need to fine tune the delays. Often the MAC or
+>  # PHY can perform this fine tuning. In the MAC node, the Device Tree
+>  # properties 'rx-internal-delay-ps' and 'tx-internal-delay-ps' should
 
->  	regmap_clear_bits(pl061->regmap, GPIODIR, BIT(offset));
-> -	raw_spin_unlock_irqrestore(&pl061->lock, flags);
->  
->  	return 0;
->  }
+Acked-by: Jerome Brunet <jbrunet@baylibre.com>
 
-...
-
->  		int value)
->  {
->  	struct pl061 *pl061 = gpiochip_get_data(gc);
-> -	unsigned long flags;
->  	unsigned int mask = BIT(offset);
->  
-> -	raw_spin_lock_irqsave(&pl061->lock, flags);
-> +	guard(raw_spinlock_irqsave)(&pl061->lock);
-
-Ditto and so on...
-
->  	regmap_write(pl061->regmap, BIT(offset + PL061_DATA_OFFSET),
->  		     !!value << offset);
-
-...
-
-> static int pl061_irq_type(struct irq_data *d, unsigned trigger)
->  	}
->  
->  
-
-While at it, drop the redundant blank line here.
-
-> -	raw_spin_lock_irqsave(&pl061->lock, flags);
-> +	guard(raw_spinlock_irqsave)(&pl061->lock);
->  
->  	regmap_read(pl061->regmap, GPIOIEV, &gpioiev);
->  	regmap_read(pl061->regmap, GPIOIS, &gpiois);
+> -- 
+> 2.56.0
+>
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+Jerome
