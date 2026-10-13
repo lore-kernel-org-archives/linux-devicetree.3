@@ -1,80 +1,100 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 252505221D3;
-	Tue, 13 Oct 2026 15:37:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A9B251FCAC;
+	Tue, 13 Oct 2026 15:37:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791905836; cv=none; b=amPxFAp/rb9r0EfdOlCo6nA7N/3e3BUwOpaqyWpL/REcJCitQXl40WV5X0suv62O08s9BJhvXqY66rzyfW9iL183XhccZPFiMDUJuRsS3KTmD7H9P/fT/eO2NIYoVLtlz5Aw+vKhPJXNxc5tAsB1UM+wTkhAh+wX9jNNL+HO9ws=
+	t=1791905864; cv=none; b=udMZceOfGYeKz3xHrpJGuLZfjhmxOQsBEtSjeUJZ/g7milqdvbin3tF8Af+S8SUd2XKmwi3fl5ymzy/iX12hQGlly8TWFyG8RmaFE5BJCF0+WZjp8DInBCRXrfQsOijPXYr08YVRcnOMyHLS/KK/3TOWZQI2XKYr0kTwqL8Ap0Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791905836; c=relaxed/simple;
-	bh=Qkbn0WuH2H9J22IDpkqhPIsmmDiKKL7qr4cIGjwzim0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=qSUYARNdvy8Ow3488maC64jslJZXlfd6GunNAOkrU4y7Vpxcu5zqGPwjhS5fRTkP3qHtaozWB0jWMneGuVYZwLKPMU95YEhb60WOVUM9Xl5EvqPELGAf3rhcNAc1+5Wcq4UAdJXK+9TjFQQ6CAHkIMiZ8EoeERgd7G58LUkQnoo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Eat++qsN; arc=none smtp.client-ip=117.135.210.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1791905864; c=relaxed/simple;
+	bh=s2Da4iTD1ly0nZXSDUZrt1T6ZdRWfAW3P8ALaKGjJKE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XYOSNGkWVBbjEM/pULD7KyKVzP15etU44fgDoaffAZ7VJHBi5oUQTY6NbYcS1UOwNAdMOSO4/JeAH+3nGsf1feUlOhlnwfwpmTRPS3YXySxNnAaXkUhUEWF2ofhaViAE07cTfI5UiqcjX8OTS59SBcYZ+wm8EGfXWpMko18Y5nM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ibMAGARp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Eat++qsN"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=Qkbn0WuH2H9J22IDpkqhPIsmmDiKKL7qr4cIGjwzim0=; b=E
-	at++qsNsOrRp9wxPXUR2fEsuVrAjdzoyKw/xspfwfQHzDv8ATwc8d7y8dHvSe+bb
-	7EgG/0BpYjyg1Ni90pn6stLxP5GOTfcwvGnuF6eujF2c4GNz8K5ozL+pCqVddifO
-	jVYU5MWe5HDkwYMcMS+BO96WCFPSZTbFptmRv9QFDA=
-Date: Tue, 13 Oct 2026 23:36:20 +0800 (CST)
-From: zl020895  <zl020895@163.com>
-To: "Bartosz Golaszewski" <brgl@kernel.org>
-Cc: longzhao@ambarella.com,
-	"Long Zhao via B4 Relay" <devnull+longzhao.ambarella.com@kernel.org>,
-	"Linus Walleij" <linusw@kernel.org>,
-	"Michael Walle" <mwalle@kernel.org>,
-	"Andy Shevchenko" <andriy.shevchenko@linux.intel.com>,
-	"Rob Herring" <robh@kernel.org>,
-	"Krzysztof Kozlowski" <krzk@kernel.org>,
-	"Krzysztof Kozlowski" <krzk+dt@kernel.org>,
-	"Krzysztof Kozlowski" <krzysztof.kozlowski@oss.qualcomm.com>,
-	"Conor Dooley" <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	"Conor Dooley" <conor.dooley@microchip.com>,
-	"Chanho Min" <chanho.min@lge.com>, linux-gpio@vger.kernel.org
-Subject: Re:Re: Re:Re: [PATCH 0/7] gpio: add Ambarella CV75 PL061 support
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
-In-Reply-To: <CAMRc=MeDEfaqciXt+u6a7riof=KObrWB2qJ96LjFEzoGwi=eSQ@mail.gmail.com>
-References: <20261009-cv75-gpio-v1-0-5836bd438423@ambarella.com>
- <CAMRc=MezU71ByUoO-GMxSwsFsGZTUmQisYYrYEwtdbwyFiEqsw@mail.gmail.com>
- <73c4ceaf.9c2f.1a13599e8ca.Coremail.zl020895@163.com>
- <CAMRc=MeDEfaqciXt+u6a7riof=KObrWB2qJ96LjFEzoGwi=eSQ@mail.gmail.com>
-X-NTES-SC: AL_Qu2SA/Wbuk8j5iCebekdnUoTj+Y/XMK0uvwk1YdVc+MEpS7JyCwnWU9tAFfdweisFT6RohuNQSVQzMdUe413VehHBbQVcItEaM2+sBTpGQ==
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=GBK
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ibMAGARp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DFA71F000FF;
+	Tue, 13 Oct 2026 15:37:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791905863;
+	bh=g0v0j3GPIoV5WBVJgFz4OFgpQ37qSKo1OS4tG1mcDzU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ibMAGARpuyRzxeZsfJ1ZxatPqrJ3ScinioYonSVO9G5Y+ttiP1lSQUS8Coty6Tyd5
+	 eJp5DjdFsuoH1CXveQT4IrIh0t7I5bl/cPngZlGH/t54AIs+g2l1WwHG4ogDOACwL9
+	 qFRoS6CizbEWrMgHp6cTJxLN2dEjLFdT9WlSKO6ma8ihv7gQX4t2TfvG88A5PXX5u7
+	 UqozSzgAu1Svpn0Eo3v2QDv3uia6CvR2umW5sl7jnJIm3ufv4F1U+2IBc5NcIjkBXR
+	 weGjUF++il9ye/LPhsfISms3ysDQkvRqh7c48xaTMjImIZ9z/PXo/WL2dVOkPrQjar
+	 7EUE45XGUsP/Q==
+Date: Tue, 13 Oct 2026 17:37:40 +0200
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Sasha Levin <sashal@kernel.org>
+Cc: Jonathan Hunter <jonathanh@nvidia.com>, Lyude Paul <lyude@redhat.com>, 
+	Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Alexandre Courbot <acourbot@nvidia.com>, Mikko Perttunen <mperttunen@nvidia.com>, 
+	Aaron Kling <webgeek1234@gmail.com>, Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 2/3] arm64: tegra: Add the fuse clock to the Tegra210 GPU
+Message-ID: <as5QBASu4BxhZfdK@orome>
+References: <20261013145210.103565-1-sashal@kernel.org>
+ <20261013145210.103565-2-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <1e8db23.a299.1a135e85172.Coremail.zl020895@163.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:bCgvCgBn9_z0T85qiRhYAA--.381W
-X-CM-SenderInfo: d2oqjiqyzvqiywtou0bp/xtbC7hRf0GrOT-SNyAAA3v
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="rpi2rmgxu3mrx2a6"
+Content-Disposition: inline
+In-Reply-To: <20261013145210.103565-2-sashal@kernel.org>
 
-QXQgMjAyNi0xMC0xMyAyMzowOToyNSwgIkJhcnRvc3ogR29sYXN6ZXdza2kiIDxicmdsQGtlcm5l
-bC5vcmc+IHdyb3RlOgo+T24gVHVlLCAxMyBPY3QgMjAyNiAxNjoxMDo0MSArMDIwMCwgemwwMjA4
-OTUgPHpsMDIwODk1QDE2My5jb20+IHNhaWQ6Cj4+IEhpIEJhcnQsCj4+Cj4+IFllcy4gVGhpcyBp
-cyBlZmZlY3RpdmVseSBhIHYxMCBvZiB0aGUgR1BJTyBwYXRjaGVzIGZyb20gdGhlIGNvbWJpbmVk
-IENWNzUgc2VyaWVzLiBJIHNwbGl0IHRoZW0gb3V0IGFuZCByZXN0YXJ0ZWQgdGhlIG51bWJlcmlu
-ZyBhdCB2MSBiZWNhdXNlIHNvbWUgbWFpbnRhaW5lcnMgcHJlZmVycmVkIHNlcGFyYXRlIHNlcmll
-cywgc28gSSBhbSB0cnlpbmcgdGhhdC4KPj4KPgo+UGxlYXNlIGRvbid0IHRvcCBwb3N0IG9uIG1h
-aWxpbmcgbGlzdHMgYW5kIHdyYXAgeW91ciBtZXNzYWdlcyBhcm91bmQgODAgbGluZXMuCj4KPk1h
-eSBJIGFzayB3aGljaCBtYWludGFpbmVyIGFza2VkIHlvdSB0byByZXNldCB0aGUgbnVtYmVyaW5n
-PyBUaGlzIGRvZXNuJ3QgbWFrZQo+YW55IHNlbnNlLCB0aGlzIGlzIGEgY29udGludWF0aW9uIG9m
-IHRoZSBvdGhlciBzZXJpZXMgYW5kIHNob3VsZCBiZSBudW1iZXJlZCBhcwo+djEwIGFuZCBpbmNs
-dWRlIHRoZSBjaGFuZ2Vsb2cuCj4KPkJhcnQKSGkgQmFydCwKCk5vYm9keSBhc2tlZCBtZSB0byBy
-ZXNldCB0aGUgbnVtYmVyaW5nLiBJIHRob3VnaHQgdGhhdCBvbmNlIHRoZSAKcGF0Y2hlcyB3ZXJl
-IHNwbGl0IG91dCB0aGV5IGNvdW50ZWQgYXMgYSBuZXcgc2VyaWVzLCBzbyBJIHN0YXJ0ZWQKYWdh
-aW4gYXQgdjEuIEkgd2lsbCBzZW5kIHRoZSBuZXh0IHBhdGNoIHZlcnNpb24gYXMgdjEwLgoKQmVz
-dCByZWdhcmRzLApMb25nIFpoYW8=
+
+--rpi2rmgxu3mrx2a6
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 2/3] arm64: tegra: Add the fuse clock to the Tegra210 GPU
+MIME-Version: 1.0
+
+On Tue, Oct 13, 2026 at 10:52:09AM -0400, Sasha Levin wrote:
+> The GM20B GPU on Tegra210 needs the fuse clock running while it is
+> powered. Describe it so that the GPU driver can keep it enabled.
+>=20
+> Assisted-by: LLM
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
+>  arch/arm64/boot/dts/nvidia/tegra210.dtsi | 5 +++--
+>  1 file changed, 3 insertions(+), 2 deletions(-)
+
+We already have that FUSE clock in Tegra194, but since this is now
+needed on older models as well, I think we need to add this as far back
+as Tegra124, since it likely has the exact same requirements.
+
+Thierry
+
+--rpi2rmgxu3mrx2a6
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmrOUEQACgkQ3SOs138+
+s6FLiQ//UlzHqdcmdtoM754i3mPSyncNcmwBSxfIHSasCUhBfrQLOYpvkc/c9CWX
+RkWIx6MjZCZ2ryapXPPcMUQbt0C2fp8y+CClREKndIsiUadLSxSctfW/oDlmp8Iq
+mozxwUjxr8LIHbRfhrgrL+MFQ7BPr2CQkj3hAJR6SsW6G4GycHp31Ctxsyl6BeRb
+lUKjXI7zM/mvJJ/GLiMvWWct2195NueigYugWT+U4/co7CuekhyxltODj3zQ3DnC
+UaFmi48VYOSTdXvcJH1AeSG4d56JUK22NkUmI06/d8N78B7bdAF/xJcW9Lb0G69k
+536QVNX+vb4M36sxRKU1A36/Z1aIdDz0uvtTuU/AxqOzp95fPw7SHC2VaoHhGD/S
+OaxXKVxvAwFH0kZ5E/6hZ9H8SPfVTxeBmlF5xivct+X1xm+3Mt0c0NYGYOpEiEv4
+v20HR+wxs3JFpSIRhg3HoUgPkeJ8F42XTcrmYxUNee7gfYpjoMn6b2mLNtbPf93R
+NifsPLgSAfwigv8UgGQGVWbEbwKr7D8vmG7tNWiGxlz1VGhEMQxOYEB4W1ORyaEI
+Sn/nyHHRWVoMCLVVLADlOYHBy+1RLu3lye517qiozoDiF5cMUSSQrk0cTEXDG8nV
+rHKdk2aVlW757CtgPzhTGuDoWr38eAix5qFBOpK8NKpR7XTtz5A=
+=mQbV
+-----END PGP SIGNATURE-----
+
+--rpi2rmgxu3mrx2a6--
