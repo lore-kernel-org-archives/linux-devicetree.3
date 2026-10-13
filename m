@@ -1,149 +1,138 @@
-Received: from inva020.nxp.com (inva020.nxp.com [92.121.34.13])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C51B50129F;
-	Tue, 13 Oct 2026 14:37:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.121.34.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 002955038F5
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 14:38:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791902251; cv=none; b=NjMrzsouwy2wZKnqq+d5WlGniUxYNKg/9FhxG++YXUXJs8Gm46W+DcMcbzhYMa2lnrdi+6Ui1KPC1haP72j0oD8wWb2I1RnmqXwYeJPLbWBKEBSN8Buk/G+IFHtMMrlODvSdhcr1xEfy8tkOYcChozH4+cZSTubqABGUwC9Nw58=
+	t=1791902293; cv=none; b=SKXpHg/qAIz4VSe1fKj/lpQ6whzDDnC2as3i0mWk4Xst50bM4oyHeZigdaGlc5hBbwBfQp2/R6t1RCSvGyF+0yGwXL59FZVGUPrP3nkZ4ng1bDZxNBw4so+2FtjxpJy/6it14Ja+/BkWRh+plRq2PNug9xOmJC8XbT/k0UxsNHw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791902251; c=relaxed/simple;
-	bh=5jKPCpzP3ydgQqLnqgc6m8dhumkZpBBD4O7fxHqz170=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=c+2yvPjwrrOJGDeOy5+7E6AcAqQEfDOPojfllLvOGxnYXgZYhSZSy1UPXFMWYtAtK2JqP1ul6JisMb9QbNDrfqG80rkbIAaWeb87GgK6oFlJFWd0fRN/ZPr3ugXSDKwAVWmn/Ke0AOtv9JGwBXKV3lcVMjFZ8vL45bKq6KVUQCo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; arc=none smtp.client-ip=92.121.34.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
-Received: from inva020.nxp.com (localhost [127.0.0.1])
-	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id EC50A1A01A5;
-	Tue, 13 Oct 2026 16:37:21 +0200 (CEST)
-Received: from inva024.eu-rdc02.nxp.com (inva024.eu-rdc02.nxp.com [134.27.226.22])
-	by inva020.eu-rdc02.nxp.com (Postfix) with ESMTP id C89A01A00E9;
-	Tue, 13 Oct 2026 16:37:21 +0200 (CEST)
-Received: from lsv051416.swis.nl-cdc01.nxp.com (lsv051416.swis.nl-cdc01.nxp.com [10.168.48.122])
-	by inva024.eu-rdc02.nxp.com (Postfix) with ESMTP id 516EE202DA;
-	Tue, 13 Oct 2026 16:37:21 +0200 (CEST)
-Date: Tue, 13 Oct 2026 16:37:21 +0200
-From: Jan Petrous <jan.petrous@oss.nxp.com>
-To: Frank Li <Frank.li@oss.nxp.com>
-Cc: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>,
-	NXP S32 Linux Team <s32@nxp.com>, Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Ghennadi Procopciuc <ghennadi.procopciuc@nxp.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
-	Bogdan Hamciuc <bogdan.hamciuc@nxp.com>,
-	Ionut Vicovan <ionut.vicovan@nxp.com>, Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Clark Wang <xiaoning.wang@nxp.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Maxime Chevallier <maxime.chevallier@bootlin.com>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Chester Lin <chester62515@gmail.com>,
-	Matthias Brugger <mbrugger@suse.com>,
-	Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Richard Cochran <richardcochran@gmail.com>,
-	linux-arm-kernel@lists.infradead.org, linux-phy@lists.infradead.org,
-	netdev@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
-	imx@lists.linux.dev, linux-pci@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	Vincent Guittot <vincent.guittot@linaro.org>
-Subject: Re: [PATCH RFC v3 03/12] dt-bindings: PCI: nxp,s32g-pcie: Fix SerDes
- PHY phandle in example
-Message-ID: <as5CIYxKJTra4hqM@lsv051416.swis.nl-cdc01.nxp.com>
-References: <20260919-s32g_serdes-v3-0-9d68868c1e89@oss.nxp.com>
- <20260919-s32g_serdes-v3-3-9d68868c1e89@oss.nxp.com>
- <as0qORxP0Roh9ktO@SMW015318>
+	s=arc-20240116; t=1791902293; c=relaxed/simple;
+	bh=Fy4hww/bwmxQbL1BwdmGfWhDcfwRm+UBIieq6CF5cl4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=EkkmKpU86vJQ04w2V/YpNl8rNnQFETCxu+S1UcDn0tkqbcK3nnvAUZQaMAF5kPvHfBXoMm+mTb3X0q8zu9KoZ6SPNGrwHgZzGxBP0wMi8vsOyt3CwXbS9RwxbtHRsQvpe5KSl+bjcXtbXDWp9cRQmWpYUvm1/JsQd2/0PlymBc8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=b1pbe1si; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="b1pbe1si"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-4a018792ab3so25776955e9.0
+        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 07:38:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1791902290; x=1792507090; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Fy4hww/bwmxQbL1BwdmGfWhDcfwRm+UBIieq6CF5cl4=;
+        b=b1pbe1si2E3iCvTwpnUvD68ItEgscrvhe6z0QxoCT4Lk9Q+AaVPC8gosjyH+hNVD5Q
+         n6H3H6tqols9NIuIA8vK8bzggzNpPcL+1V0bGEPaLuHRCWItBkIAQ9vzqCMfqmI9duvB
+         W4nkhH6e2QrqNSUtASVrG5tSq1C/73+cYsWeXh21p6wpAk4IaeWDR2AYzCBBlFq2Mfm5
+         WqidzRV1LIfUgOjXwc/3uwZ6i0LFczf5l83yd8xX2eh0DMtOI7f9qpSpgmEdMI2xcC6k
+         1sQSRAWM9D/zdnr6eMD9aGPQINnLnByV1S5sQnfxZV16fDr/YLuB9ZZqSkP3XJTSPcm/
+         VGDA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791902290; x=1792507090;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Fy4hww/bwmxQbL1BwdmGfWhDcfwRm+UBIieq6CF5cl4=;
+        b=RsiEYLQyuxVzivvkw3L8vjvHLqT295EZ6Jv1N3YAOmBT8QCLZH0NHsYnN/ZvyuyuSb
+         IOnPRpztDxe/8yyJHPxhJF5xVXFuL+nG73bVyUWj7/CV6QyxMeNWhNzcV4XLU0Yz7UAY
+         i/EcNkbr0g6WnkFkf8MjGlMmWdxnacEkfDmQQbTrCwb6ACCKcqs+BCjPXlYTgMYQ+cH/
+         rR4ZQ0+aCj3TzhGrgEXatJlmkf8MDJV5G2/l2ZgR2mKlLsdNtOc6n+DcUUqgaZ5HRdAb
+         foUtfRQ6SqWWajCk4ofguf/AXv7FRgfW6rbnyqkwJkKej6UtYyVtQKELCIdsGZnN1L63
+         JmUw==
+X-Forwarded-Encrypted: i=1; AKwUvByo051mPk9Fmc2+wUJ3bZCI3YiVGdKT+zUq2qTFCqQkN5WtkPEf67efmUuWr6d6iE86mo1qITYmW+eu@vger.kernel.org
+X-Gm-Message-State: AFq9FYKUQuie8vEetGFzCHQrgCXTREjGXbLLDjo4LrUyN5tMi+VMaA2I
+	3hv7BFL+7ooiDBcH1ZCqPtoJuioSNYqA9cxSJYQ0tg3wYu0VpcEOqFNlxU0Yed9yKDU=
+X-Gm-Gg: AYBFou1RlFghismaC+yye+/Ed0syTSqGeERtN8QGUj7EXqlH1OutSTz+h7UFMpyNsLB
+	6XLN81Z73wQqXYIGyiuRRmsYAjDTNRhaoXrYBHniPmUP59aC+Qi/7aexQBaBXBWPDl4JmF9rBp3
+	ZX4+PQDo4bWVjI2WCxJHXYtesy7sBNU+idvtlP3BzrTNvbpt3a5jO2N6e2CPYIzATH/Kttnt1Mg
+	VaVWKXJx7biffWP+4PJYoWT85+AroKINSkvrdPSilNyhWgkfq6k4ZBFJmErXtqwfEeCKxS0bTSX
+	kG9X0ECmsOEVPfigaCfni4HJ22D1kEzlfwERPAqPJqKGE0hNoqqTTIQ2+LAzf3DM2z3ppnRzCxP
+	aQvYKTlJHF7+lXLY09AxLsmS0MAE4W+EezFhgMfwIQJ0tyaZrXIto8C+neAjykPO9jH1L58QkLr
+	UoUDqCEHzAkAIP+cdudgX5FcpMQukGypqNFtyGAG0dxNNySqbrkLpfIAl6e7k7E9NdiEiVULquT
+	C+wJRbN
+X-Received: by 2002:a05:600c:310b:b0:4a1:813f:2a5b with SMTP id 5b1f17b1804b1-4a18e4a9da8mr235341925e9.14.1791902290063;
+        Tue, 13 Oct 2026 07:38:10 -0700 (PDT)
+Received: from [10.11.12.111] ([79.115.63.240])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a19c8244edsm198277585e9.2.2026.10.13.07.38.08
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 13 Oct 2026 07:38:09 -0700 (PDT)
+Message-ID: <4576292d-2c3c-47db-8422-9f9e730cfecc@linaro.org>
+Date: Tue, 13 Oct 2026 17:38:06 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <as0qORxP0Roh9ktO@SMW015318>
-X-Virus-Scanned: ClamAV using ClamSMTP
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 0/5] thermal: samsung: Add support for Google GS101 TMU
+To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
+ Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bartlomiej Zolnierkiewicz <bzolnier@gmail.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Kees Cook <kees@kernel.org>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>
+Cc: jyescas@google.com, linux-kernel@vger.kernel.org,
+ linux-samsung-soc@vger.kernel.org, linux-pm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-hardening@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260603-acpm-tmu-v8-0-0f1810a356e6@linaro.org>
+ <8142519a-0062-4f0f-b978-980e049f99c1@oss.qualcomm.com>
+ <fe159792-c58a-46a9-950b-6c21d2172601@linaro.org>
+ <04a1331f-1375-471e-a674-87039aeb0328@oss.qualcomm.com>
+Content-Language: en-US
+From: Tudor Ambarus <tudor.ambarus@linaro.org>
+In-Reply-To: <04a1331f-1375-471e-a674-87039aeb0328@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 12, 2026 at 01:43:05PM -0500, Frank Li wrote:
-> On Sat, Sep 19, 2026 at 08:54:31AM +0200, Jan Petrous via B4 Relay wrote:
-> > [You don't often get email from devnull+jan.petrous.oss.nxp.com@kernel.org. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
-> >
-> > From: "Jan Petrous (OSS)" <jan.petrous@oss.nxp.com>
-> >
-> > The example references the SerDes PHY as
-> >
-> >   phys = <&serdes0 PHY_TYPE_PCIE 0 0>;
-> >
-> > i.e. the SerDes node itself with three PHY cells. That does not match
-> > the SerDes binding: the per-lane child node is the generic PHY
-> > provider and carries '#phy-cells = <0>', while the SerDes node itself
-> > has no '#phy-cells' at all.
-> >
-> > Point the example at the PCIe lane child instead, which is also what
-> > the S32G3 board device trees use. The dt-bindings/phy/phy.h include is
-> > dropped along with the now-unused PHY_TYPE_PCIE constant.
-> >
-> > The schema itself is unchanged; 'phys: maxItems: 1' already describes
-> > the corrected form.
-> >
-> > Signed-off-by: Jan Petrous (OSS) <jan.petrous@oss.nxp.com>
-> > ---
-> >  Documentation/devicetree/bindings/pci/nxp,s32g-pcie.yaml | 3 +--
-> >  1 file changed, 1 insertion(+), 2 deletions(-)
-> >
-> > diff --git a/Documentation/devicetree/bindings/pci/nxp,s32g-pcie.yaml b/Documentation/devicetree/bindings/pci/nxp,s32g-pcie.yaml
-> > index 66a050028278..29323e50bd8b 100644
-> > --- a/Documentation/devicetree/bindings/pci/nxp,s32g-pcie.yaml
-> > +++ b/Documentation/devicetree/bindings/pci/nxp,s32g-pcie.yaml
-> > @@ -82,7 +82,6 @@ unevaluatedProperties: false
-> >  examples:
-> >    - |
-> >      #include <dt-bindings/interrupt-controller/arm-gic.h>
-> > -    #include <dt-bindings/phy/phy.h>
-> >
-> >      bus {
-> >          #address-cells = <2>;
-> > @@ -124,7 +123,7 @@ examples:
-> >                  ranges;
-> >
-> >                  device_type = "pci";
-> > -                phys = <&serdes0 PHY_TYPE_PCIE 0 0>;
-> > +                phys = <&serdes0_pcie0>;
-> 
-> I don't think it fix somethings. The "serdes0" just a label, point to
-> provider, which is not neccsary that "#phy-cells" is 0.
-> 
-> Examples just show need how many phys and don't care about phy provider's
-> arguments
-> 
 
-The example validates either way, agreed. The three cells are the
-'#phy-cells = <3>' of the downstream nxp,s32cc-serdes binding, which
-was never posted upstream; patch 1 is the only SerDes binding for S32G
-and has no three-cell provider. I would rather have the example match
-it.
 
-The form depends on the outcome of your patch 1 comment, so I will
-keep this patch in sync with that. If you prefer the phys line
-untouched, I can drop it and keep only the ranges fix v4 adds here.
+On 10/13/26 5:31 PM, Daniel Lezcano wrote:
+> On 10/13/26 16:26, Tudor Ambarus wrote:
+>>
+>>
+>> On 10/13/26 4:33 PM, Daniel Lezcano wrote:
+>>> Hi Tudor,
+>>
+>> Hi!
+>>
+>>>
+>>> I noticed I picked up your series without notifying you
+>>>
+>>> However, I did not pay attention but picked also the dts files.
+>>>
+>>> Shall I drop them ? (AFAICS there is one comment) and let you handle them separately ?
+>>>
+>>
+>> Yes, please. dts and defconfig patches shall go via the Samsung SoC tree.
+>>
+>> About the driver itself, I was about to send a v9, where I addressed
+>> some issues sashiko spotted. Do you prefer to drop everything and wait
+>> for my v9? Otherwise I can do incremental patches.
+> Well the v8 is in my tree since a while now and I'm about to send a PR. The patches can be dropped but the v9 will have to wait for the next release. If you want this v8 in, it depends on the sashiko report. Is it minor or major ?
 
-BR.
-/Jan
+They are minor corner-case races (an interrupt firing midway through
+system suspend after runtime PM is force-suspended, and module unload
+racing with a concurrent sysfs temperature read), plus a few small
+cleanups (adding `select REGMAP_MMIO`, implementing `.change_mode()`,
+and renaming the driver from "gs-tmu" to "exynos-acpm-tmu").
+
+None of them affect normal operation, so please keep patches 1-3
+(dt-bindings, driver, MAINTAINERS) for your PR and just drop patches 4
+and 5 (dts and defconfig). I will send incremental patches on top to
+address those items.
+
+Thanks!
+ta
