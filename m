@@ -1,104 +1,221 @@
-Received: from 14.mo584.mail-out.ovh.net (14.mo584.mail-out.ovh.net [46.105.40.29])
+Received: from smtpcmd11117.aruba.it (smtpcmd11117.aruba.it [62.149.156.117])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D71B051616A
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 16:07:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.105.40.29
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AC695187FF
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 16:09:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.149.156.117
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791907671; cv=none; b=sUnpneq1UtZ1+eLflaaIHzefxuFLvHh+se0485zNRZrV0Hf3fnOIMW2mHfDmd45+wgzJxJVrzLcuFVDuSh71QBAY3CxWui8E8LnzKQJ2ih8CgNOhlEr/de0KtWjgL8V6oDdFX5d1RlfxMDUK/tlDBfd0Z6aHbcVu8kEfFE8vi80=
+	t=1791907774; cv=none; b=eYLMcXFUAj1Dg8GfFADguLxYJmFdd6CcBV7YGmBR0HUvgtM7YTnJipnz6G7x0VEY94yVa5CBDwSXSM3qhkVPh0beH01dEp/TeQ32Fc3Yi6781UJx1+fNETaWtxt7wmA0zYmPu3FidMRhnCQmnwqvv2h+iNcyBNVcV0U8AtkVGFc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791907671; c=relaxed/simple;
-	bh=kfP8OPsPqO/oUZC3gPAT+oD2S4HQ3xDeqjik6j/TtY4=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=DSlsrFY7jaa0H3y8PLYM8VP86KXB3mcpt40N6Iv8LlxDsDOsZyjeMr5MFV1y9hIgYUy+4iursDhfxRIJNSlzpK4LS1EyHDlUXIpw4wEr0K0yAOs0ibuC9DYOn/G/tR315c340MVh+zncferDTR7rN7ZiRdvG42LXTSvjlMDWIRo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=armadeus.com; spf=pass smtp.mailfrom=armadeus.com; dkim=pass (2048-bit key) header.d=armadeus.com header.i=@armadeus.com header.b=htzndDN0; arc=none smtp.client-ip=46.105.40.29
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=armadeus.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=armadeus.com
+	s=arc-20240116; t=1791907774; c=relaxed/simple;
+	bh=Qfh5QWCjb4o37+8Uqlgy4Xz2ZTocmWaQo5YDRfozQks=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=DTCwtCVo9BYF6kwdl0CPgpnpzCyorgsocoA1hiURhXsGZmfG2m8d3XTeXU3FkYpMYNL+GokDVQ2dLs8JEEQoVnR7N0Ejsar5p6PZLvaTPAn0w9WbzbrWlTp5nd8qUjFjWX5CCKMIV3X7vaumP9Z/1Uf1SVfeGePcvGvYoHrMd5Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mythread.it; spf=pass smtp.mailfrom=mythread.it; dkim=pass (2048-bit key) header.d=mythread.it header.i=@mythread.it header.b=kAaSHeWq; arc=none smtp.client-ip=62.149.156.117
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mythread.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mythread.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=armadeus.com header.i=@armadeus.com header.b="htzndDN0"
-Received: from director1.ghost.mail-out.ovh.net (unknown [10.109.231.181])
-	by mo584.mail-out.ovh.net (Postfix) with ESMTP id 4j3zkg4491z88Sd
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 16:07:39 +0000 (UTC)
-Received: from ghost-submission-c7b579475-655hp (unknown [10.110.164.42])
-	by director1.ghost.mail-out.ovh.net (Postfix) with ESMTPS id 10B87C12C2;
-	Tue, 13 Oct 2026 16:07:38 +0000 (UTC)
-Received: from armadeus.com ([37.59.142.104])
-	by ghost-submission-c7b579475-655hp with ESMTPSA
-	id J4tGM0lXzmr7Qy8AW2yxgA
-	(envelope-from <sebastien.szymanski@armadeus.com>); Tue, 13 Oct 2026 16:07:38 +0000
-Authentication-Results:garm.ovh; auth=pass (GARM-104R005ed722c48-267d-45b9-9d0f-38bc83d56095,
-                    E71387541862F9B32BD99FE93336DDEC16E392F6) smtp.auth=sebastien.szymanski@armadeus.com
-X-OVh-ClientIp:92.148.202.169
-From: =?utf-8?q?S=C3=A9bastien_Szymanski?= <sebastien.szymanski@armadeus.com>
-Date: Tue, 13 Oct 2026 18:07:24 +0200
-Subject: [PATCH] ARM: dts: apf6: fix Ethernet support
+	dkim=pass (2048-bit key) header.d=mythread.it header.i=@mythread.it header.b="kAaSHeWq"
+Received: from DELL-MOBILE03.ad.smart.it ([77.89.54.34])
+	by Aruba SMTP with ESMTPSA
+	id Gf4BxHTh8XXg5Gf4Bxkq6f; Tue, 13 Oct 2026 18:09:27 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mythread.it; s=a1;
+	t=1791907767; bh=Qfh5QWCjb4o37+8Uqlgy4Xz2ZTocmWaQo5YDRfozQks=;
+	h=Date:From:To:Subject:MIME-Version:Content-Type;
+	b=kAaSHeWqKM/+iyRc6vrbC1vXQ+gaThr7R+mrKW9H3C+YJ2ep4XLbwmePTaQyyJv29
+	 PNjXCR0bv+05uud9+TR+sYEIN2dr0vPJqNFvMBfhnNgN3EnONDARbakPEwWf+cn2sA
+	 oh8vu8yM4xmMrYz1OyTL7AcZhMcLCHDxvg6O+ZCGbF335hIUrh/lNKN9N66Jb6ccGu
+	 YgF9MxsEleFH5akj05NtZJqT5ceUsbnft+IoNCibXpuwoGOR1zh6c7BmvgOo+YcC7y
+	 bw4wdlt/XFQhD6vYY7b0HeTAdmAqa5jUKWWnFSWS1hdRC42pV7EQqdc1gTchkOKzMo
+	 2pthwA1y3g1IA==
+Date: Tue, 13 Oct 2026 18:09:25 +0200
+From: Alessio Ferri <alessio.ferri@mythread.it>
+To: Conor Dooley <conor@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?=
+ <zajec5@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>, Florian
+ Fainelli <florian.fainelli@broadcom.com>, Broadcom internal kernel review
+ list <bcm-kernel-feedback-list@broadcom.com>, Thomas Bogendoerfer
+ <tsbogend@alpha.franken.de>, linux-wireless@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-mips@vger.kernel.org
+Subject: Re: [PATCH v2 1/5] dt-bindings: bus: add Broadcom BCM6362 WLAN AXI
+ backplane
+Message-ID: <20261013180925.2c93e460@DELL-MOBILE03.ad.smart.it>
+In-Reply-To: <20261012-shaping-runway-7e6065b8d730@spud>
+References: <20261012-bcm6362-wlan-v2-0-4752da7e0982@mythread.it>
+	<20261012-bcm6362-wlan-v2-1-4752da7e0982@mythread.it>
+	<20261012-shaping-runway-7e6065b8d730@spud>
+X-Mailer: Claws Mail 4.2.0 (GTK 3.24.41; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20261013-apf6-fix-ethernet-v1-1-9530efe1d23e@armadeus.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMwQ5FMBSE4VeRs3aSloS4ryIW1JRj0SttiUS8u
- 2L5ZTL/SQFeEOiXneSxS5C/S9B5Rmbu3QSWMZkKVVRa6ZL71VZs5WDEGd4hsqlrUzYKVmGg9Fs
- 90v422+5z2IYFJj4huq4bM+Rl6HUAAAA=
-X-Change-ID: 20261013-apf6-fix-ethernet-c77c390ef0eb
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Andrew Lunn <andrew@lunn.ch>, 
- Shawn Guo <shawnguo@kernel.org>, Oleksij Rempel <o.rempel@pengutronix.de>
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- =?utf-8?q?S=C3=A9bastien_Royen?= <sebastien.royen@armadeus.com>, 
- Julien Boibessot <julien.boibessot@armadeus.com>, stable@vger.kernel.org, 
- =?utf-8?q?S=C3=A9bastien_Szymanski?= <sebastien.szymanski@armadeus.com>
-X-Mailer: b4 0.16.0
-x-ovh-tracer-id: 6290121306616026755
-X-VR-SPAMSTATE: OK
-X-VR-SPAMSCORE: -100
-X-VR-SPAMCAUSE: dmFkZTFwwrfl1iPxPmWO6o6uy7jINWKAyMh0x8QwmnQbFs9EgGBBoRnjM3BUaJEZr2O/b+jim7kDcbnaQ7gbObCvdaGwmrI7ygNuePUx2XfOlPU+ynH2L/Y3qjv+8V1sNGQDoWzTS4dPbg8+1q+A4z3650pMSEERHWOc6c7wHIzQ/cd0AAinuhk1ciGuYw2D4AM54rlUTc3EI7eSXJzVYl3OyTQSK/C+/uQKTz4zratc5VMMn5UDog0h/EUCyQxoTf55Y9AhqDDFZ6zvIsDrjC6HgMcTURajxU4gpbIZHaHPJuId6YRUZECM9rjL8rwWeXi3BZLeaf9O0cp/v2LK91+ydBE1ZyTRVq65fsxMo2hDJXVRkmArWT+9XXJeB9FFWzThSW9VhC0yYCL1gs1ikofdo6Cr0ap+uFGGel4YVX24W7thk2JnzW8gOLUcTrTOTCs7N1GSOTQxZonyWrUaDT/kKA2UNbUqDEU8kpJPyR0ASyIOuX3fQT6L8daKsj78aLxYqx8WzP2NF1g/t36l84OCsxlYmZSV09YJ+1w0dTvCplyg/LNy3ofJfZZE4CmKdrGRR5odYWLP7vcRghEMUSfQecIpxB8YZjVm90cSaht8sJDGkVArBR7q7sxoSNBP9qFU57wgl2Tq0uoD0bnYjZtiaSWkqH5onY8kJMbx8q7ZslhJaw
-DKIM-Signature: a=rsa-sha256; bh=3JJebDaF8d0BDkPiP93+YZIa8Qgu2HPfzUYjFA6D8SE=;
- c=relaxed/relaxed; d=armadeus.com; h=From; s=ovhmo103079-selector1;
- t=1791907659; v=1;
- b=htzndDN0tLZisLCb4+yCj80PN7xv9g7YXxQHdVwxNFA1I1KYQbyiZdbAzxypK7zIFvtWUdlA
- r+p/WVV+ppUAzuY9Cza1y/KRrwjnBRzj7oRtHamoL4OZoIQbEG3XxkBEHIrdeIpf1KXsfSXMgrq
- 2/UbPM+mFpBi2IH1HsQ5viSypY+iiIFKg1drKuXZkQavLVjJhuqIRQm3zouS2VZrbD1Xz6WIxod
- yySiVzNtMLCjy/x0YLJTaXg29Aks8YfKXhaRmr6Nr6MiJWt0mlCrXkCR4PjW8lgmCZKsqFPEfV1
- 4XJdz2LUx6I4EgcjawOWbX78kUilhY/TtDYORO48qvGqw==
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
+X-CMAE-Envelope: MS4xfGQX3VdRN1HOHP/JcptkJy03D++bct1R0AeS9Utgrcmk7XP11EilVRO6ecTm5pn/q/QaTP6CLWvBmTPSVN0VcwMxTzSELqvhhqJS/87ll+VSqZdCvqyv
+ dNZRmpA/PGQzsZhOXcV7/bgFTpy9S0TXRw9fhisHGDlwAgTkh18kgCv09oRfeX8YgtmIXhi+UkTZHagCKFaVr+82EVu0EFzIFoikZMysQROgoKqyJ9vkjIk8
+ J9QFeLCD0RO7n/FSVVZNcqIy5ixFbPW+9e5NsD1KrBWHrTfWZ8mxM7CVDvGXBcOCI0jQlXQJGdHBjklaQvmRsQ9ynkOJESgFvwPiDPwavJm202m/xHzQrSpX
+ 6SVyblNeMt2/FaEpN7qCXK1HQkF34xhIpdr95knq4GxzPLVEZq5JiiVSj24MaK1jj9uk3y6s7oBlKcwqvbArTqeWm4i3qmwffZz1eaPmDcc6b30gTMqpCYMv
+ 3zo+GH+2NiM8TKqfQxNoSNtwxp7VTd61yT5ALmE5k4VUdoeIYXuGMgQkpTUU+Um5gN8dYcHQCtJAO7hQfMPLCZOE9d0k1XSovVNNeYKbD3I7dPA3Jp/GUlQg
+ uN6k0Hfmxi9mxHBnzMD7T3RHNU4XY5bg5FvJGbAbdx2XEl2fQV/w0Z0HUQfx6z+2+zE=
 
-Commit f5d9aa79dfdf ("ARM: imx6q: remove clk-out fixup for the Atheros
-AR8031 and AR8035 PHYs") removed a PHY fixup that setted the clock.
-Make the Ethernet interface work again by doing as advised in the
-commit's log, set the clock in the device tree.
+On Mon, 12 Oct 2026 20:13:46 +0100
+Conor Dooley <conor@kernel.org> wrote:
 
-Fixes: f5d9aa79dfdf ("ARM: imx6q: remove clk-out fixup for the Atheros AR8031 and AR8035 PHYs")
-Cc: stable@vger.kernel.org
-Signed-off-by: Sébastien Szymanski <sebastien.szymanski@armadeus.com>
----
- arch/arm/boot/dts/nxp/imx/imx6qdl-apf6.dtsi | 1 +
- 1 file changed, 1 insertion(+)
+> On Mon, Oct 12, 2026 at 12:45:25AM +0200, Alessio Ferri wrote:
+> > The BCM6362 integrates a WLAN macro on its own AXI backplane.
+> > Unlike the backplanes covered by brcm,bus-axi, its cores have no
+> > wrappers: clock gating and reset are driven through a separate
+> > WLAN control register block, and the macro needs a clock, two
+> > resets and the WLAN pads power domain before the backplane can be
+> > accessed. The backplane registers are big-endian.
+> > 
+> > Add a binding describing the ChipCommon and WLAN control register
+> > blocks, the clock, resets and power domain, and the interrupt-map
+> > used to route core interrupts, following the brcm,bus-axi
+> > convention.
+> > 
+> > Assisted-by: LLM
+> > Signed-off-by: Alessio Ferri <alessio.ferri@mythread.it>
+> > ---
+> >  .../bindings/bus/brcm,bcm6362-wlan-bus-axi.yaml    | 100
+> > +++++++++++++++++++++ 1 file changed, 100 insertions(+)
+> > 
+> > diff --git
+> > a/Documentation/devicetree/bindings/bus/brcm,bcm6362-wlan-bus-axi.yaml
+> > b/Documentation/devicetree/bindings/bus/brcm,bcm6362-wlan-bus-axi.yaml
+> > new file mode 100644 index 000000000000..183de28fd032 --- /dev/null
+> > +++
+> > b/Documentation/devicetree/bindings/bus/brcm,bcm6362-wlan-bus-axi.yaml
+> > @@ -0,0 +1,100 @@ +# SPDX-License-Identifier: (GPL-2.0-only OR
+> > BSD-2-Clause) +%YAML 1.2
+> > +---
+> > +$id:
+> > http://devicetree.org/schemas/bus/brcm,bcm6362-wlan-bus-axi.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml# +
+> > +title: Broadcom BCM6362 integrated WLAN AXI backplane
+> > +
+> > +maintainers:
+> > +  - Alessio Ferri <alessio.ferri@mythread.it>
+> > +
+> > +description: |
+> > +  The BCM6362 integrates a WLAN macro on a dedicated AXI backplane
+> > +  (bcma), whose cores are discovered at runtime from the backplane
+> > +  EROM.
+> > +
+> > +  The cores have no DMP wrappers: clock gating and reset of the
+> > +  ChipCommon and 802.11 cores are controlled through a separate
+> > WLAN
+> > +  control register block. The backplane registers are big-endian.
+> > +
+> > +  Interrupts of the cores are described with an interrupt-map,
+> > keyed
+> > +  by the core base address and the core interrupt index, as for
+> > +  brcm,bus-axi.
+> > +
+> > +properties:
+> > +  compatible:
+> > +    const: brcm,bcm6362-wlan-bus-axi
+> > +
+> > +  reg:
+> > +    items:
+> > +      - description: ChipCommon core registers
+> > +      - description: WLAN control registers
+> > +
+> > +  reg-names:
+> > +    items:
+> > +      - const: chipcommon
+> > +      - const: wlan-ctrl
+> > +
+> > +  clocks:
+> > +    maxItems: 1
+> > +
+> > +  resets:
+> > +    items:
+> > +      - description: WLAN macro reset
+> > +      - description: WLAN UBUS interface reset
+> > +
+> > +  reset-names:
+> > +    items:
+> > +      - const: wlan
+> > +      - const: wlan-ubus
+> > +
+> > +  power-domains:
+> > +    maxItems: 1
+> > +
+> > +  "#address-cells":
+> > +    const: 1
+> > +
+> > +  "#interrupt-cells":
+> > +    const: 1
+> > +
+> > +  interrupt-map-mask: true
+> > +
+> > +  interrupt-map: true  
+> 
+> I'd like to see some constraints on these, particularly since there's
+> a very high chance the mask is fixed and the map has a fixed number of
+> elements.
 
-diff --git a/arch/arm/boot/dts/nxp/imx/imx6qdl-apf6.dtsi b/arch/arm/boot/dts/nxp/imx/imx6qdl-apf6.dtsi
-index b78ed7974ea9..b55a3539fbe8 100644
---- a/arch/arm/boot/dts/nxp/imx/imx6qdl-apf6.dtsi
-+++ b/arch/arm/boot/dts/nxp/imx/imx6qdl-apf6.dtsi
-@@ -41,6 +41,7 @@ ethphy1: ethernet-phy@1 {
- 			reg = <1>;
- 			interrupt-parent = <&gpio1>;
- 			interrupts = <28 IRQ_TYPE_LEVEL_LOW>;
-+			qca,clk-out-frequency = <125000000>;
- 			status = "okay";
- 		};
- 	};
+Yes, you're right, i'll add them in the next batch. 
 
----
-base-commit: 24a19b953e2a3d0ea5a8c4951a0ab8f32720c907
-change-id: 20261013-apf6-fix-ethernet-c77c390ef0eb
+> 
+> I'd also like to see what the child nodes on this bus look like. Do
+> you have some dts examples?
+> 
 
-Best regards,
---  
-Sébastien Szymanski <sebastien.szymanski@armadeus.com>
+the children are enumerated dynamically by bcma itself, so i don't
+expect any. I know that a childless bus is suspect, but bcma seems to
+work this way.
 
+> Thanks,
+> Conor.
+> 
+> > +
+> > +required:
+> > +  - compatible
+> > +  - reg
+> > +  - reg-names
+> > +  - clocks
+> > +  - resets
+> > +  - reset-names
+> > +  - power-domains
+> > +  - "#address-cells"
+> > +  - "#interrupt-cells"
+> > +  - interrupt-map-mask
+> > +  - interrupt-map
+> > +
+> > +additionalProperties: false
+> > +
+> > +examples:
+> > +  - |
+> > +    #include <dt-bindings/clock/bcm6362-clock.h>
+> > +    #include <dt-bindings/reset/bcm6362-reset.h>
+> > +    #include <dt-bindings/soc/bcm6362-pm.h>
+> > +
+> > +    bus@10004000 {
+> > +        compatible = "brcm,bcm6362-wlan-bus-axi";
+> > +        reg = <0x10004000 0x1000>, <0x10007000 0x100>;
+> > +        reg-names = "chipcommon", "wlan-ctrl";
+> > +
+> > +        #address-cells = <1>;
+> > +        clocks = <&periph_clk BCM6362_CLK_WLAN_OCP>;
+> > +        #interrupt-cells = <1>;
+> > +        interrupt-map = <0x00005000 0 &periph_intc 7>;
+> > +        interrupt-map-mask = <0x000fffff 0xffff>;
+> > +        power-domains = <&periph_pwr
+> > BCM6362_POWER_DOMAIN_WLAN_PADS>;
+> > +        resets = <&periph_rst BCM6362_RST_WLAN_SHIM>,
+> > +                 <&periph_rst BCM6362_RST_WLAN_UBUS>;
+> > +        reset-names = "wlan", "wlan-ubus";
+> > +    };
+> > 
+> > -- 
+> > 2.56.0
+> >   
+
+Thanks for the inputs,
+Alessio
