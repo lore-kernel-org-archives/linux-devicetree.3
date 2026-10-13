@@ -1,233 +1,136 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2806477E52
-	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 09:33:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEC1E3D667D;
+	Tue, 13 Oct 2026 09:34:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791884004; cv=none; b=tGLaDXx7ozJeRBjJV4A7v5P6JHT1YjpY26wUZgW63toyz3O0mE4474W7L67vAg76dMhFoA1z8pc7ZNDKLchXBiKfW+8pFyFcGAV1K6lu09ck8uRIeo3mOgjDQo1kSOhuRcJtoyuAUy03HIpydG3pYmnkVCgr45JaPzWr3XdjZvg=
+	t=1791884051; cv=none; b=logkZZEwuFzYmy772RN0JnJUrisQyuGlxBDIQrP9maY27R0HOdZfYVOTE7D6jMjXYrUBPJClnCGXq9o87ykR64Kr548636U4/Vg/6U8xpyx3+vhQB56dQyQ8f/YkhStTSJw/fKzvughRmXkY2U7RX9XjnsMEJreVOStOAkUR/S8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791884004; c=relaxed/simple;
-	bh=ah3Hl4CLaFFRwsWYNPSUD9XYKYZhrftaIXEF/bCYOss=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=UPhH+IKhHkH69hW1F1K9WL9X1AnxjIfPk+FpCp2WSjbDKxnUQQqnpuiwqqRTJMB7jwE5mpEeb32vWcKB9LPqP37FMicjU5LA4uJi+PyJd4K3U7DiWD2J3Pb2/zS6I8vj/otGxk6pTDI1Ri7YtnR8IIDLGlmEQwXeGEY44ci51uw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Zhsf5JBJ; arc=none smtp.client-ip=209.85.128.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1791884051; c=relaxed/simple;
+	bh=cp7N8ckHf6XYI46zPE7vhku4Cmn3iyfpZZa1m4ykJqo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ioBHxX6VDrlBbvScYNP8yzXHM/Kv+kbcvbHMePja0JZ3+KLKmfCWzZXGT2WfGfOYbINBSKcf/+8CqyxYxt5eSB/dZwQDKXJGFGVnw9SPDtExJmsL+HIm0wTbWTQ3VnEmDVfuPvend81fBac+zhFCDDXyisLNjKU9jYHF6OlXIfc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hhHvIb82; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Zhsf5JBJ"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4a022fee0caso24751025e9.1
-        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 02:33:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1791883999; x=1792488799; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=SMrszHPts9jJFmkFoLQcKwLTspqwv7GzQwp5uF+Uup0=;
-        b=Zhsf5JBJcXkkuS2zAI4DQhkZqRN4YP45brLE4ZYBI2zu8gX+w8O8Hs5yeUfivdfPM0
-         JCjAgRX6CfxfkvQsNs1NvNDjjAUgqM682Ed4DEZ41wsXYBXbAN+74yAdUil2KcYFrOqa
-         caAGgcPUyDcbiwtW0rfwQ2WsQsGSbCeco4GG/dbrgh9/rVxhAZiQXFyimQmBGlz92hZt
-         g20E9u9BxNKPkfBQLL62UWA9SBX4QcoxWG1bMV9s1lva/mZibaY2oVNNihgMGbwHYahi
-         BtBzNJcdkVXjcA+AalQ+WhPNkRuSQV+dIe4TbiclzEsJDQbZMtr0uQ1gDnKOr3cJUFGn
-         ugiA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1791883999; x=1792488799;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=SMrszHPts9jJFmkFoLQcKwLTspqwv7GzQwp5uF+Uup0=;
-        b=OtfqUvDr75Ou5HhJwdWUE1oPd+kUgh9m36fQttG8GhgdB91LfgKMS44JZ41zNbSBTi
-         K72aenZL8WsB2+uyqQq8Nl7nVTbWTak0qgTTVJokyhbGDJ1qBZWmyLo2ejVyxfsUNlNy
-         hkBidVj7S8FswauuP+VcjUENlbCO4xIsixkSNKwvNynMFWfTFWPQj5k80HoFJgJbmQ+D
-         /rNWyszDozsMD/xhRl+BSEOty3FFmi0yG+eRsiIsljiz4X4LpPSVYOrDeefzgzQyRdmW
-         F4kz9daA7yozmvWz8NhR90+mdlgyAnfiRHPFk4HbMpZDtivKFk+ZsULbZkpMAodmGzPM
-         htNA==
-X-Forwarded-Encrypted: i=1; AKwUvBw96SvjgqGkk+DOBZceontz5WAlVG2MMoYUt4dv6dui0UjR2q16m9KwYk0nV+QP1/Xvl18jKvcIfcCq@vger.kernel.org
-X-Gm-Message-State: AFq9FYIbsI588R3JriT3tLlBi6dqOK5XGoWQoBeXgtTB7r15fPQLMZRQ
-	FGzugAILFYRE1SlD5kWDtqdcvTC9Km1c6JV6ZI/gkCdhIispKPAgh5qs
-X-Gm-Gg: AYBFou2oQLZaT/1Bp/GCkElR0pVslyvJTA0xJwuHpvYzlbSqCE+gMpL5PJ1cKAOqz2S
-	yraWXlGkBIkuuKjv2WXFO1UFCMdyIejMYhD9IDm0138Kmg0Kdr2kqZj0/zcpodQxc2pOKtmWncu
-	3+Ua34DqpRuqIWdbVr0kaF5EvHbWs0r3GrOjWboy54e65QrYA8NyMvTQ+YXrSb7LcgE2QK1nfAS
-	P6oqWE1xVenyxQom7CcG2akUQlSxbSV6iY4Qy+c7BFNlX984wZEg+dfh/egyjFtFhb8DC8Untcs
-	RwynT3uVwR6lZnZ0WhQYeVX7UFrJ+E35nJw0RRrS0ASxsNQajFgm1h2dQnQevpX2ra4GQFnRUFe
-	Bb3xIJJdfo6B7Yc8b1HHwaZCGDbSAFik6e8JakSb+4i8/DpELkajX1FywdrTXL/UZEaRZXANRbz
-	Lk4l16lQk8YpRFt/pxthAqZOft9FXdYl37/A1LlPmMbixJj9aUgR9s6I/d4DT/YMbl8CaCwxH9A
-	y2+tibbXYKSUfx0lhKidk4e
-X-Received: by 2002:a05:600c:609b:b0:4a1:83f0:7c91 with SMTP id 5b1f17b1804b1-4a18e4ca1dcmr219812565e9.18.1791883998571;
-        Tue, 13 Oct 2026 02:33:18 -0700 (PDT)
-Received: from ingenieria31.oficinasStQ.local ([79.112.15.218])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48de0bc4ec6sm3986774f8f.48.2026.10.13.02.33.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 13 Oct 2026 02:33:18 -0700 (PDT)
-From: =?UTF-8?q?M=C3=A0xim=20Pedraza=20Padilla?= <maximpedraza@gmail.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Ard Biesheuvel <ardb@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>
-Cc: Francesco Valla <francesco@valla.it>,
-	Jani Nikula <jani.nikula@linux.intel.com>,
-	Mario Limonciello <mario.limonciello@amd.com>,
-	Javier Martinez Canillas <javierm@redhat.com>,
-	Jocelyn Falempe <jfalempe@redhat.com>,
-	Sam Ravnborg <sam@ravnborg.org>,
-	Ilias Apalodimas <ilias.apalodimas@linaro.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Randy Dunlap <rdunlap@infradead.org>,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-efi@vger.kernel.org,
-	linux-doc@vger.kernel.org,
-	linux-embedded@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v5 13/13] drm/client: splash: document the image sources and parameters
-Date: Tue, 13 Oct 2026 11:32:43 +0200
-Message-Id: <20261013093243.505776-14-maximpedraza@gmail.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20261013093243.505776-1-maximpedraza@gmail.com>
-References: <20261013093243.505776-1-maximpedraza@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hhHvIb82"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CAF031F00893;
+	Tue, 13 Oct 2026 09:34:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1791884050;
+	bh=S2rMpVXuXZB3WRdRKxL7b0OEx8ULZVVDKPPaqYnOA/c=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=hhHvIb82W7LfGfsoDenctHqkuLvnaJL/alRRu5j/a23ESLOmyj7dImjA4fz/d5WQS
+	 jny06343Gc/HXeIbln7wwwdUWAcVJVFFQafgLXa7r1LpBhXDxHud6E4o+Vgiz/U+Hj
+	 /Pg+QF0A4fHM/LXvBLGMU+FeqG8gwSnHIXpYDLguLByFejXr+Qg09gQvctR/Rt04k4
+	 EbZtsgVI1+sjUD8KGJFstUxt0rXWcvMviR26BkpMDS2ORyUDxJBwKE+3Yyzgf4uB84
+	 SegR1+bnzGngyNToiY1JpKhx58r43cUqpNHyt0y/uzkXverON0V38jaogAG4J7IN+o
+	 Gmnb2wge2jFhQ==
+Message-ID: <ca132d7b-a0d5-44f2-8b98-24570a88c9ce@kernel.org>
+Date: Tue, 13 Oct 2026 11:34:03 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/4] dt-bindings: arm: qcom: Add Talos Lyra EVK board
+To: Ruchira Revdekar <ruchira.revdekar@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Abel Vesa <abelvesa@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>,
+ Nirmesh Kumar Singh <nirmesh.singh@oss.qualcomm.com>
+References: <20261012-talos-lyra-evk-v2-v2-0-dcc9316ebb59@oss.qualcomm.com>
+ <20261012-talos-lyra-evk-v2-v2-1-dcc9316ebb59@oss.qualcomm.com>
+ <1cb252eb-a7d9-4eac-8d28-8d7781ea430d@kernel.org>
+ <2c93f85d-a6f0-420a-9b7d-cd72a7963ab8@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <2c93f85d-a6f0-420a-9b7d-cd72a7963ab8@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-The overview only said that the client draws a colour or an image. By
-now the image can come from four places in a set order, be placed and
-turned, and every part of that can be overridden from the command line,
-each parameter for its own part only. Write it down: the sources and
-their order, the image format, placement and rotation, the background,
-every parameter with its format, and what a parameter given alone
-keeps from the image source.
+On 13/10/2026 11:32, Ruchira Revdekar wrote:
+> Hi Krzysztof,
+> 
+> On 12-10-2026 16:54, Krzysztof Kozlowski wrote:
+>> On 12/10/2026 08:16, Ruchira Revdekar wrote:
+>>> From: Avaneesh Kumar Dwivedi <avaneesh.dwivedi@oss.qualcomm.com>
+>>>
+>>> Add the qcom,talos-lyra-evk compatible string for the Talos Lyra EVK
+>>> board, which pairs the Talos Lyra EVK SoM with a common carrier board.
+>>>
+>>> Tested-by: Nirmesh Kumar Singh <nirmesh.singh@oss.qualcomm.com>
+>>
+>> No, this did not happen.
+>>
+>> Please do not add inapplicable/fake tags.
+>>
+>>
+>> Best regards,
+>> Krzysztof
+> 
+> Apologies. The tag was added based on internal validation but Nirmesh
+> had not yet formally posted it to the mailing list at the time of
+> submission. That was a mistake on our part.
+> 
+> Nirmesh has since replied to this thread with his formal Tested-by:
+> 
+> Tested-by: Nirmesh Kumar Singh <nirmesh.singh@oss.qualcomm.com>
+> 
+> will include it correctly in v3. The same applies to the identical
+> tag in patch 2.
 
-Also note that the splash rules out fbdev emulation on the same device,
-and that a bootloader that loads no image into a reserved region has to
-disable or remove the node, since the region can keep the previous
-image across a reset and even a short power cycle.
+Again, this did not happen, otherwise explain me how did you execute
+this code on the device during your "formal validation".
 
-Pull the overview into Documentation/gpu/drm-client.rst, which covers
-the in-kernel clients, so that it is published.
-
-Assisted-by: Claude:claude-opus-5-5
-Signed-off-by: Màxim Pedraza Padilla <maximpedraza@gmail.com>
----
- Documentation/gpu/drm-client.rst     |  6 +++
- drivers/gpu/drm/clients/drm_splash.c | 79 +++++++++++++++++++++++++++-
- 2 files changed, 84 insertions(+), 1 deletion(-)
-
-diff --git a/Documentation/gpu/drm-client.rst b/Documentation/gpu/drm-client.rst
-index cbcfe30de777..a58d6440d9f2 100644
---- a/Documentation/gpu/drm-client.rst
-+++ b/Documentation/gpu/drm-client.rst
-@@ -16,3 +16,9 @@ Kernel clients
- 
- .. kernel-doc:: drivers/gpu/drm/drm_client_event.c
-    :export:
-+
-+Splash client
-+=============
-+
-+.. kernel-doc:: drivers/gpu/drm/clients/drm_splash.c
-+   :doc: overview
-diff --git a/drivers/gpu/drm/clients/drm_splash.c b/drivers/gpu/drm/clients/drm_splash.c
-index 46faae025ec2..1092143df1f0 100644
---- a/drivers/gpu/drm/clients/drm_splash.c
-+++ b/drivers/gpu/drm/clients/drm_splash.c
-@@ -37,7 +37,84 @@
-  * DOC: overview
-  *
-  * This is a simple graphic bootsplash, able to display either a plain color or
-- * a static image.
-+ * a static image. It draws once the display driver has registered, and stays
-+ * until userspace takes the display over.
-+ *
-+ * It is selected with ``drm_client_lib.active=splash`` or
-+ * CONFIG_DRM_CLIENT_DEFAULT_SPLASH. A device has a single in-kernel client, so
-+ * with the splash there is no fbdev emulation: no ``/dev/fb0`` and no
-+ * framebuffer console.
-+ *
-+ * Image sources
-+ * -------------
-+ *
-+ * The image is a BMP with a 40 byte BITMAPINFOHEADER, 24 bits per pixel and no
-+ * compression. It comes from the first of these that provides one:
-+ *
-+ * 1. a BMP loaded as firmware and named on the command line with
-+ *    ``drm_client_lib.splash_bmp=``; ``splash_bmp=none`` asks for no image at
-+ *    all, and a named file that is missing gives no image rather than falling
-+ *    back to the sources below;
-+ * 2. a "boot-logo" node under ``/chosen`` in the device tree, carrying the BMP
-+ *    itself or pointing at a reserved memory region the bootloader loaded it
-+ *    into (see Documentation/devicetree/bindings/display/boot-logo.yaml);
-+ * 3. the EFI BGRT, the image the firmware showed;
-+ * 4. ``drm_splash.bmp`` loaded as firmware, for instance built into the kernel
-+ *    with CONFIG_EXTRA_FIRMWARE.
-+ *
-+ * With none of them, only the background is drawn.
-+ *
-+ * A reserved memory region keeps its contents across a reset, and may even
-+ * across a short power cycle, and the kernel cannot tell a stale image from a
-+ * fresh one: a bootloader that loads no image there disables the node, or
-+ * removes it.
-+ *
-+ * Placement
-+ * ---------
-+ *
-+ * The image is placed at a position in screen pixels, where -1 centres it on
-+ * that axis, and an offset is added afterwards; the result is clamped so that
-+ * the whole image stays on screen. A rotation of 90, 180 or 270 degrees
-+ * counter clockwise turns the image and not the screen: position and offset
-+ * stay in screen pixels, and a quarter turn only swaps how much room the image
-+ * takes up.
-+ *
-+ * A device tree image is placed and turned as its node says. A BGRT image is
-+ * placed at the table offsets and turned as its orientation bits say, the
-+ * offsets then being given on the upright screen. Any other image is centred
-+ * and upright.
-+ *
-+ * Background
-+ * ----------
-+ *
-+ * The rest of the screen is filled with the node's "background-color" for a
-+ * device tree image, and with CONFIG_DRM_CLIENT_SPLASH_BACKGROUND_COLOR
-+ * otherwise.
-+ *
-+ * Command line
-+ * ------------
-+ *
-+ * What the command line gives wins over every source, each parameter only for
-+ * what it says, and only when it is given:
-+ *
-+ * ``drm_client_lib.splash_bmp=NAME``
-+ *   BMP to load as firmware, or ``none`` for no image.
-+ * ``drm_client_lib.splash_color=0xRRGGBB``
-+ *   background color, whatever the image.
-+ * ``drm_client_lib.splash_pos=X,Y``
-+ *   position; ``-1,-1`` centres, ``-1,183`` centres horizontally only.
-+ * ``drm_client_lib.splash_offset=DX,DY``
-+ *   offset added to the position, for instance ``0,80``.
-+ * ``drm_client_lib.splash_rotation=DEGREES``
-+ *   0, 90, 180 or 270, counter clockwise.
-+ *
-+ * Positions take both values, or are ignored with a warning. Since each
-+ * parameter only replaces its own part, the rest keeps coming from the image
-+ * source: ``splash_offset=`` alone moves the image from where the source puts
-+ * it, centred for a BMP loaded as firmware, and ``splash_pos=`` alone keeps a
-+ * device tree node's "logo-offset". Give both to place the image exactly. A
-+ * BGRT image placed from the command line is placed in screen pixels like any
-+ * other: the table offsets are then not used.
-  */
- 
- /*
--- 
-2.39.5
-
+Best regards,
+Krzysztof
