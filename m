@@ -1,169 +1,175 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD46F3CE4B5;
-	Tue, 13 Oct 2026 07:03:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8E743EB11C
+	for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 07:03:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1791875017; cv=none; b=Sg/F6RxB44Q8jOsyMBQ4UgIjTzdkUWqvqo8KxCdGRZMo8P1oYniqGlcms6j4pum97RMp1AwpAHJAUFtRp3WacxxNb640V/3k6eo74vecesNxZpaK0p2JZVcmW5YAphs7jQaFG1Xw3VtvCzxNs5FtNnlvB+DiSaORkALfMFqN+0s=
+	t=1791875019; cv=none; b=EVZ+nlA6KJdntx5z+fqOTnPPQhKEQuhwU9DUF641ynQsU89RMijVoxqf+sF2DzEY4c48smNfw217QmYovFPuGrSIutWL0fl5f5WD5YR82VrKeGM03T9/B8Mp/n3mCxkoKpri/y7KnwGQi49WB/79jX05ANVlxeA5c2soWJ1HBnk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1791875017; c=relaxed/simple;
-	bh=+GkHhUFoHl24xkNvl//jHs5d+SUTjNgLF4a17pSlxD0=;
-	h=Message-ID:From:Subject:To:Cc:In-Reply-To:References:Content-Type:
-	 Date; b=JhTGBiMRE8P7wuo65317kr4fapVgDRiUVusGwU8OikeWxCo1dEQyMt0+tj91CVtmZWUa/fZVWRABqN9YsomZa8tG/LOtfIVoHzBgJdtFn32Ge8ykapKS8Ce9xR44t/p4bMofnRMKvy1VgiO7jcJGqyTOJHl1zPgbec1OWXLaB6A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n5xzRJtE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1791875019; c=relaxed/simple;
+	bh=bpVKy2BhDr0Xypr7ffunLET37+ynqUZSFqpwnsDkUiI=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=V6N2c3683v0R1ItLl7Rlf2g7Lue6IgHonY4OUlKxyqNOZEDBFv2JFN7zOicejXJRrFu+Hk2Xk7FsOUONwMrnnj3EH4oB3pyVlicst6iyvNUCwxlQdJrmLsgpISdV3u5T+mQ1Inzy0KPynn/KEKUwZG7VTlGffNVUYJ5MQTrdrJ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=aL738snE; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n5xzRJtE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 469EB1F000FF;
-	Tue, 13 Oct 2026 07:03:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1791875016;
-	bh=4lqjhpdu+A5kK9msUbydoo48CEzbPiUZcGuZ/DLuQ18=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=n5xzRJtExvmuFIOJ7z/tXRIO84Y5bhw6RyPOLIc9O3RTLXv5DOee7xWa2+mwsTU+N
-	 KYyb6YtbpZkA9i5GIJNtwa+svUk1ZixDSXNdLPHd/RibVd5ajSeIKhkPn+NxifhnJx
-	 QYkFSEiQiZ3m43J5b+uAozln1RMWARTJKNVIl6vfG1hlJPjB0j3TigBGdefESQTtk3
-	 YXYcZ9/mZBXmItqqZrWrvKBT0oTafWJ9ZqC24yXFsTdSavsaNhSCDV2x9K4HwTRkxQ
-	 K0xBkeMUTnprtMzXW/JLm8aqd9q5+LNuUJbbt6FaG9Elvvtjd2AP8o/ajdwu+XIgLq
-	 UiiSCfscFq1YQ==
-Message-ID: <sashiko-outbox-169158@kernel.org>
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 07/11] watchdog: Add ARM TWD (MPCore private)
- watchdog driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Fil Dunsky" <filipp.dunsky@gmail.com>
-Cc: devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, linux-watchdog@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20261013-b4-cs75xx-s2-v3-7-181bb0d23f4c@gmail.com>
-References: <20261013-b4-cs75xx-s2-v3-0-181bb0d23f4c@gmail.com>
- <20261013-b4-cs75xx-s2-v3-7-181bb0d23f4c@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 13 Oct 2026 07:03:35 +0000
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="aL738snE"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49e73611928so28740555e9.1
+        for <devicetree@vger.kernel.org>; Tue, 13 Oct 2026 00:03:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1791875016; x=1792479816; darn=vger.kernel.org;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gfEF2n+OMurtKnv7qxvMH9ExfmZTYZWpuDvpjIsu/+o=;
+        b=aL738snE2xmARTbvpsgE+9sM2qigUWJOQIS9SCYHWFaPSKoL7mBiPlAdKHM8a1pV8y
+         k5vskTYfBH/6I+4lFdlgE8RMcI8Sdw27xhpPAGzGfNTRERMW3MvCTgw2BSomh+fhQIwR
+         kUHXoQgtupczQGIEs7u8lOXb0XNFrf1/9QAWXVXvRhExs7IScF4XoT4dmrZGC/OzVs/u
+         yC6FLv8H82sdph6TD+P851kdbQRLxYYnLdCqrVjmm/JuoeKksQkc+J19dRL7JgAej3N7
+         +zszAaWpL0Jv3JxJALsqxRsQheDL+4ip4LUfIgVqQv3o1T5Wgn04CBXiBnc+vP+oVHR+
+         7TGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1791875016; x=1792479816;
+        h=content-type:mime-version:message-id:date:references:in-reply-to
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=gfEF2n+OMurtKnv7qxvMH9ExfmZTYZWpuDvpjIsu/+o=;
+        b=yaKlksrrSWcnAEb8hrc7+TilwGmc5fLnVkaVy93kA4A9/+AQ+Tb0T5quCEHJfLEtEf
+         lEEkFfF/LLMP77be02OWtGi5gUg0A1PvhtUgJ8CIV47gwJbIp2FBy6nKGOLzWLym5rBX
+         w6lVEHcDR1Hsec33itpGOUmgHQEqkGox9znP1IBlw7xQy+ohY5k2b8juM2uVqMALabWx
+         RoJgjTPCqX/dm+Ad1sWDl1cC1Z8dNL4tgey84l9Nnm1HgoQBILrxzEhM++07O6CHS5Wt
+         gMmUA532CEDMFTtVgMAErLDcvCAYp+ofjLXcxBHSAx9tLgL2FJGdZ5rPFuFiqp0LazE7
+         9THQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzXcEC/EkAj2GDgytGtzU8aunFbfVMTeADnWOeAtfBOAjqgv2Q3oKD5aEXi2OBOgBnaUqAWyD5fSalV@vger.kernel.org
+X-Gm-Message-State: AFq9FYKHrUTukHotJ05yNreFcDkTvN6AZpNDUXPzUGgrH4pW+Az2Vqhx
+	nBgLyQJZLvrXyZLkJ3RIR+zHzldgtDuGiXkY5CfhUOi/WjzReHiPj53GemiDeCTgaLc=
+X-Gm-Gg: AYBFou1GL5xV7Fvto+9NyQyDqnBdXsCTFb995gveKKQ5JdUUJV/oV5Oqe2h9d2NNKgW
+	aOYvep05hKBgVGqt1DLE/lXwPbddtEa25uo6sACeHcgoND00hDqzow8LTDqMTCv+N+/z1YJwGuj
+	m8DZicizld9ixj1LF3Cid2vAioxM+aNamrlAPJivsUZEQhX1yZ/DB/lAT3BMQ1QCU44iGG+84ik
+	NVCWyQv94UKHrUzqfFBR2jo5YLHbGBGr/X3rzkwCG/0+/8E4K5PXJrihp4PVQmwVAYBGXr0i5Xr
+	tf8c7YlfmGpk+Sq9BYUwIKck20NSv9SSgxpf3LG/1KabF4xwQk57VMYTX4K50lB2ChrhYbYvfcE
+	Kw26LGH5tZt+kA8XB6rIniEFVgwndaj7QuqAx3WaUIHcBMJg3ZlfcpQEcGLr/+yLT8w5dBsYccw
+	lSIE8pwBKkNkcgTw53Ps8uQEIduydHft17yz7LwqStl+CVJ83NRr66kRm/HadYdoGhGQ1WM6Z+0
+	sg6fpYP2BTOmRbZKfRAqeyyTIB2
+X-Received: by 2002:a05:600c:3146:b0:4a0:34a:588c with SMTP id 5b1f17b1804b1-4a18e4a7cb9mr228807105e9.14.1791875016083;
+        Tue, 13 Oct 2026 00:03:36 -0700 (PDT)
+Received: from localhost (82-67-6-57.subs.proxad.net. [82.67.6.57])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4a19c8244edsm174001365e9.2.2026.10.13.00.03.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 13 Oct 2026 00:03:35 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Alex Elder <elder@riscstar.com>
+Cc: sboyd@kernel.org, bmasney+clk@redhat.com, jbrunet+clk@baylibre.com,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ andersson@kernel.org, konradybcio@kernel.org, abelvesa@kernel.org,
+ kees@kernel.org, gustavoars@kernel.org, mohd.anwar@oss.qualcomm.com,
+ lorenzo.bianconi@oss.qualcomm.com, danielt@kernel.org,
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-hardening@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Brian Masney <masneyb@kernel.org>, Daniel
+ Thompson <daniel@riscstar.com>
+Subject: Re: [PATCH v3 2/4] clk: toshiba: introduce a TC9564 SoC clock driver
+In-Reply-To: <10007ecc-3604-4c58-9da7-f056dd4355a1@riscstar.com>
+References: <20261012152408.3729237-1-elder@riscstar.com>
+ <20261012152408.3729237-3-elder@riscstar.com>
+ <179183220207.266355.11690534397452731561.b4-review@b4>
+ <10007ecc-3604-4c58-9da7-f056dd4355a1@riscstar.com>
+Date: Tue, 13 Oct 2026 09:03:34 +0200
+Message-ID: <1jtsmq9j5l.fsf@starbuckisacylon.baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] watchdog: acquiring cpus_read_lock() in clock notifier causes dead=
-lock
-- [High] watchdog: arm_twd_wdt: watchdog silently disabled across cpuidle d=
-eep sleep
-- [High] watchdog: arm_twd_wdt: missed ping on concurrent clock rate change
---
+On lun. 12 oct. 2026 at 14:59, Alex Elder <elder@riscstar.com> wrote:
 
-commit 3df85baea3ae83b30f30fe157567af6f425f2a20
-Author: Fil Dunsky <filipp.dunsky@gmail.com>
+>>> +	TC9564_CLOCK_INIT0(MAC0_TX, 7),
+>>> +	TC9564_CLOCK_INIT0(MAC0_RX, 14),
+>>> +	TC9564_CLOCK_INIT0(MAC0_125M, 29),
+>>> +	TC9564_CLOCK_INIT0(MAC0_312_5M, 30),
+>> 
+>> Are those really just providing the oscillator parent ?
+>> That is what they will appear to do without a proper recalc_rate()
+>
+> They are fixed clocks that can be gated, but their
+> rate cannot be changed.
 
-watchdog: Add ARM TWD (MPCore private) watchdog driver
+It is not a problem if the rate cannot be changed but still
+a consumer could call clk_get_rate() and change its behavior
+based on the result, so it is better if it does reflect the
+reality to some extent.
 
-This patch adds a watchdog driver for the ARM Cortex-A9/A5 and ARM11
-MPCore private watchdog. It programs, pings and stops the watchdog on
-all online CPUs and registers a hotplug state to handle CPUs coming
-online and going offline.
+Just add fixed_factor clock elements on the path of clocks
+where do know the output does not match the input osc
 
-> diff --git a/drivers/watchdog/arm_twd_wdt.c b/drivers/watchdog/arm_twd_wd=
-t.c
-> new file mode 100644
-> index 0000000000000..18875ae24a243
-> --- /dev/null
-> +++ b/drivers/watchdog/arm_twd_wdt.c
-[ ... ]
-> +static void twd_wdt_cpu_ping(void *data)
-> +{
-> +	struct twd_wdt *wdt =3D data;
-> +
-> +	/* In watchdog mode a write to the load register reloads the counter */
-> +	writel(twd_wdt_ticks(wdt, wdt->wdd.timeout), wdt->base + TWD_WDT_LOAD);
-> +}
+>
+> Looking at __clk_core_init(), should I define a
+> recalc_rate() callback that just returns the
+> equivalent of get_rate()?
+>
+>> Their names suggest that maybe, it is not the osc coming out
+>> of them ...
+>
+> We have requested a clock tree that explains exactly
+> how these clock rates are derived from the 25 MHz
+> oscillator.  They're all fixed rates, and although
+> we could easily speculate how they're derived, we
+> don't have the documentation.
 
-[Severity: High]
-Does this ping routine silently fail to re-enable the watchdog if the CPU
-previously entered a deep cpuidle sleep state?
+If you know the input and output, you have enough to figure
+out a fixed factor. If later on someone gets more information
+than you, they'll just modify the clock tree.
 
-If cpuidle cuts power to the CPU's power domain, TWD_WDT_CONTROL might be
-lost. Writing to TWD_WDT_LOAD alone without restoring TWD_WDT_CONTROL could
-leave the watchdog permanently disabled upon wakeup.
+If you no idea what the ouput rate is, at least clearly say
+so in the comment so a future user or contributor can easily
+understand the situation.
 
-[ ... ]
-> +static int twd_wdt_start(struct watchdog_device *wdd)
-> +{
-> +	struct twd_wdt *wdt =3D watchdog_get_drvdata(wdd);
-> +
-> +	cpus_read_lock();
-> +	on_each_cpu(twd_wdt_cpu_start, wdt, 1);
-> +	wdt->armed =3D true;
-> +	cpus_read_unlock();
-> +
-> +	return 0;
-> +}
+>>> +	TC9564_CLOCK_INIT0(MAC0_ALL, 31),
 
-[Severity: High]
-Could setting wdt->armed =3D true after calling on_each_cpu() cause a race
-condition with a concurrent clock rate change?
+[...]
 
-Because this function uses a shared reader lock (cpus_read_lock()), it can
-run concurrently with twd_wdt_clk_notify(). If the clock rate increases just
-as the watchdog is started, twd_wdt_clk_notify() might see wdt->armed =3D=
-=3D false
-and skip resynchronizing the ping, resulting in the hardware running with a
-timeout calculated for the old, slower clock rate.
+>>> +
+>>> +	clk = devm_clk_get(dev, NULL);
+>>> +	if (IS_ERR(clk))
+>>> +		return dev_err_probe(dev, PTR_ERR(clk),
+>>> +				     "failed to get input clock\n");
+>> 
+>> Nothing is using this. This is not how you set the parent. See above
+>
+> It will once I have the clocks get properly parented.
 
-[ ... ]
-> +static int twd_wdt_clk_notify(struct notifier_block *nb, unsigned long e=
-vent,
-> +			      void *data)
-> +{
-> +	struct twd_wdt *wdt =3D container_of(nb, struct twd_wdt, clk_nb);
-> +	struct clk_notifier_data *cnd =3D data;
-> +	unsigned long rate;
-[ ... ]
-> +	cpus_read_lock();
-> +	wdt->rate =3D rate;
-> +	if (wdt->armed)
-> +		on_each_cpu(twd_wdt_cpu_ping, wdt, 1);
-> +	cpus_read_unlock();
-> +
-> +	return NOTIFY_OK;
-> +}
+No it won't. You don't need a consumer clock reference. just drop it.
 
-[Severity: High]
-Can acquiring cpus_read_lock() here cause an AB-BA deadlock with CPU
-hotplug?
+>
+>>> +
+>>> +	clocks = tc9564_clk_init(dev);
+>>> +	if (IS_ERR(clocks))
+>>> +		return dev_err_probe(dev, PTR_ERR(clocks),
+>>> +				     "failed to initialize clocks\n");
+>>> +
+>>> +	/* Force all clocks to be initially disabled */
+>>> +	tc9564_clock_disable_all(clocks);
+>> 
+>> Why is this needed ? In general a provider should never act the provided
+>> clock on its own. Let the framework deal with the used clocks
+>
+> The intent was to start with everything disabled--a known
+> state.  Sashiko pointed out this races with a user that
+> could get the clock right away, so I intend to do this
+> by initially disabling all the clocks before they're
+> all registered.
 
-The clock framework's prepare_lock is already held when this notifier is
-called. The CPU hotplug path acquires the global hotplug lock for writing
-via cpus_write_lock() and invokes callbacks, including cpuhp_cpufreq_online=
-().
+We do not do that because (in general) there maybe devices already using
+a clock provided by your device and setup at a prior stage (like the
+bootloader). Doing so would break them.
 
-Cpufreq drivers update CPU frequencies during hotplug by calling
-clk_set_rate(), which acquires the clock framework's prepare_lock mutex,
-establishing a locking order of cpu_hotplug_lock -> prepare_lock.
+Leave this alone, the framework will disable the unused clock for you
+once the init is done and most devices have probed.
 
-Acquiring cpus_read_lock() here creates an inverted lock order of
-prepare_lock -> cpu_hotplug_lock.
-
-[ ... ]
-> +static int twd_wdt_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev =3D &pdev->dev;
-> +	struct twd_wdt *wdt;
-> +	struct clk *clk;
-> +	int ret;
-[ ... ]
-> +	ret =3D cpuhp_state_add_instance(twd_wdt_hp_state, &wdt->node);
-> +	if (ret)
-> +		return ret;
-
-[Severity: High]
-Is a call to cpu_pm_register_notifier() missing here to ensure the watchdog
-context is saved and restored across deep CPU idle states?
-
-Without this, the watchdog could remain disabled if TWD hardware loses its
-state during deep sleep.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20261013-b4-cs75xx-=
-s2-v3-0-181bb0d23f4c@gmail.com?part=3D7
+-- 
+Jerome
